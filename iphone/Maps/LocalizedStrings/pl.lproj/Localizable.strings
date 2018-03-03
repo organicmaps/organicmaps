@@ -2173,10 +2173,6 @@
 
 "price_per_hour" = "%s/godzina";
 
-"luggage_storage" = "Luggage storage";
-
-"discovery_button_subtitle_book_hotels" = "Book hotels";
-
 "bookmarks_backup" = "Włącz kopie zapasowe";
 
 "authorization_button_sign_in" = "Zaloguj się";
@@ -2219,12 +2215,16 @@
 
 "whats_new_message_ugc_travel" = "Oceniaj i recenzuj odwiedzane miejsca!";
 
-"dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
+"dialog_pedestrian_route_is_long" = "Trasa piesza jest zbyt długa";
 
-"dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
+"dialog_message_transit_not_found_connection" = "Zaplanuj trasę w ramach jednej sieci transportowej";
 
-"bookmarks_error_message_share_general" = "Unable to share due to an application error.";
+"bookmarks_error_message_share_general" = "Nie można udostępnić z powodu błędu aplikacji";
 
-"bookmarks_error_title_share_empty" = "Sharing error";
+"bookmarks_error_title_share_empty" = "Błąd udostępniania";
 
-"bookmarks_error_message_share_empty" = "Cannot share an empty list.";
+"bookmarks_error_message_share_empty" = "Nie można udostępnić pustej listy";
+
+"discovery_button_subtitle_book_hotels" = "Rezerwuj hotele";
+
+"luggage_storage" = "Luggage storage";

@@ -1246,4 +1246,10 @@
 	<string name="whats_new_message_hotel_filter">İstediğiniz tarihte otel rezervasyonu yapın! Check-in ve check-out filtrelerini kullanın</string>
 	<string name="whats_new_title_ugc_travel">Deneyimlerinizi diğer gezginlerle paylaşın!</string>
 	<string name="whats_new_message_ugc_travel">Son ziyaret ettiğiniz yerleri değerlendirin ve görüşlerinizi paylaşın!</string>
+	<string name="dialog_pedestrian_route_is_long">Yaya rotası çok uzun</string>
+	<string name="dialog_message_transit_not_found_connection">Tek transit bir ağda bir rota planla</string>
+	<string name="bookmarks_error_message_share_general">Bir uygulama hatasından dolayı paylaşılamıyor</string>
+	<string name="bookmarks_error_title_share_empty">Paylaşma hatası</string>
+	<string name="bookmarks_error_message_share_empty">Boş bir liste paylaşılamaz</string>
+	<string name="discovery_button_subtitle_book_hotels">Otellerde rezervasyon yap</string>
 </resources>

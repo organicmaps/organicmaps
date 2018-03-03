@@ -1233,4 +1233,10 @@
 	<string name="whats_new_message_hotel_filter">¡Hay hoteles disponibles para las fechas especificadas! Utilice los filtros de Entrada y Salida</string>
 	<string name="whats_new_title_ugc_travel">¡Comparta su experiencia con otros viajeros!</string>
 	<string name="whats_new_message_ugc_travel">¡Puntúe y opine sobre los lugares visitados!</string>
+	<string name="dialog_pedestrian_route_is_long">La ruta peatonal es demasiado larga</string>
+	<string name="dialog_message_transit_not_found_connection">Planea una ruta en una red de tránsito</string>
+	<string name="bookmarks_error_message_share_general">No se puede compartir debido a un error de la aplicación</string>
+	<string name="bookmarks_error_title_share_empty">Error al compartir</string>
+	<string name="bookmarks_error_message_share_empty">No se puede compartir una lista vacía</string>
+	<string name="discovery_button_subtitle_book_hotels">Reservar hoteles</string>
 </resources>

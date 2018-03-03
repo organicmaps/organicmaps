@@ -1247,4 +1247,10 @@
 	<string name="whats_new_message_hotel_filter">Rezervujte si hotely, které jsou k dispozici k vámi požadovaném datu! Použít filtry pro přihlášení a odhlášení v hotelu</string>
 	<string name="whats_new_title_ugc_travel">Podělte se o své zkušenosti s dalšími cestovateli!</string>
 	<string name="whats_new_message_ugc_travel">Ohodnoťte a napište recenzi míst, které jste navštívili!</string>
+	<string name="dialog_pedestrian_route_is_long">Trasa pro chodce je příliš dlouhá</string>
+	<string name="dialog_message_transit_not_found_connection">Naplánovat trasu s jednou tranzitní sítí</string>
+	<string name="bookmarks_error_message_share_general">Nelze sdílet kvůli chybě aplikace</string>
+	<string name="bookmarks_error_title_share_empty">Chyba sdílení</string>
+	<string name="bookmarks_error_message_share_empty">Nelze sdílet s prázdným seznamem</string>
+	<string name="discovery_button_subtitle_book_hotels">Zarezervovat hotely</string>
 </resources>

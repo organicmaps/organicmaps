@@ -2173,10 +2173,6 @@
 
 "price_per_hour" = "%s/giờ";
 
-"luggage_storage" = "Luggage storage";
-
-"discovery_button_subtitle_book_hotels" = "Book hotels";
-
 "bookmarks_backup" = "Bật sao lưu";
 
 "authorization_button_sign_in" = "Đăng nhập";
@@ -2219,12 +2215,16 @@
 
 "whats_new_message_ugc_travel" = "Cho điểm và đánh giá những nơi bạn đã ghé thăm!";
 
-"dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
+"dialog_pedestrian_route_is_long" = "Tuyến đường dành cho người đi bộ quá dài";
 
-"dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
+"dialog_message_transit_not_found_connection" = "Xây dựng lộ trình trong một mạng chuyển tiếp";
 
-"bookmarks_error_message_share_general" = "Unable to share due to an application error.";
+"bookmarks_error_message_share_general" = "Không thể chia sẻ do lỗi ứng dụng";
 
-"bookmarks_error_title_share_empty" = "Sharing error";
+"bookmarks_error_title_share_empty" = "Lỗi chia sẻ";
 
-"bookmarks_error_message_share_empty" = "Cannot share an empty list.";
+"bookmarks_error_message_share_empty" = "Không thể chia sẻ một danh sách trống";
+
+"discovery_button_subtitle_book_hotels" = "Đặt phòng khách sạn";
+
+"luggage_storage" = "Luggage storage";

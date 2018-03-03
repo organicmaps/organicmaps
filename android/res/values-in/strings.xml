@@ -1239,4 +1239,10 @@
 	<string name="whats_new_message_hotel_filter">Pesan hotel yang tersedia untuk tanggal perjalanan Anda! Gunakan filter check-in dan check-out</string>
 	<string name="whats_new_title_ugc_travel">Bagikan pengalaman Anda dengan musafir lain!</string>
 	<string name="whats_new_message_ugc_travel">Berikan peringkat dan ulasan untuk tempat yang telah Anda kunjungi!</string>
+	<string name="dialog_pedestrian_route_is_long">Rute pejalan kaki terlalu panjang</string>
+	<string name="dialog_message_transit_not_found_connection">Rencanakan rute dalam satu jaringan transit</string>
+	<string name="bookmarks_error_message_share_general">Tidak dapat berbagi karena kesalahan aplikasi</string>
+	<string name="bookmarks_error_title_share_empty">Kesalahan dalam membagikan</string>
+	<string name="bookmarks_error_message_share_empty">Tidak dapat membagikan daftar kosong</string>
+	<string name="discovery_button_subtitle_book_hotels">Pesan hotel</string>
 </resources>

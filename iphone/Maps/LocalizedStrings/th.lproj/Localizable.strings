@@ -2173,10 +2173,6 @@
 
 "price_per_hour" = "%s/ชั่วโมง";
 
-"luggage_storage" = "Luggage storage";
-
-"discovery_button_subtitle_book_hotels" = "Book hotels";
-
 "bookmarks_backup" = "เปิดใช้งานการสำรองข้อมูล";
 
 "authorization_button_sign_in" = "ลงชื่อเข้าใช้";
@@ -2219,12 +2215,16 @@
 
 "whats_new_message_ugc_travel" = "ให้คะแนนแล้วรีวิวสถานที่ที่คุณเคยไป!";
 
-"dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
+"dialog_pedestrian_route_is_long" = "เส้นทางเดินเท้าไกลเกินไป";
 
-"dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
+"dialog_message_transit_not_found_connection" = "วางแผนเส้นทางภายในเครือข่ายการเดินทางเดียว";
 
-"bookmarks_error_message_share_general" = "Unable to share due to an application error.";
+"bookmarks_error_message_share_general" = "ไม่สามารถแชร์ได้เนื่องจากเกิดข้อผิดพลาดในแอปพลิเคชัน";
 
-"bookmarks_error_title_share_empty" = "Sharing error";
+"bookmarks_error_title_share_empty" = "ข้อผิดพลาดในการแชร์";
 
-"bookmarks_error_message_share_empty" = "Cannot share an empty list.";
+"bookmarks_error_message_share_empty" = "ไม่สามารถแชร์รายการที่ว่างเปล่าได้";
+
+"discovery_button_subtitle_book_hotels" = "จองโรงแรม";
+
+"luggage_storage" = "Luggage storage";

@@ -1240,4 +1240,10 @@
 	<string name="whats_new_message_hotel_filter">Foglaljon elérhető szobát az Ön dátumain! Használja a be- ás kijelentkezési szűrőket</string>
 	<string name="whats_new_title_ugc_travel">Ossza meg tapasztalatait más utasokkal!</string>
 	<string name="whats_new_message_ugc_travel">Értékelje és ismertesse a meglátogatott helyeket!</string>
+	<string name="dialog_pedestrian_route_is_long">A gyalogos útvonal túl hosszú</string>
+	<string name="dialog_message_transit_not_found_connection">Útvonaltervezés egy összekötő hálózaton belül</string>
+	<string name="bookmarks_error_message_share_general">Nem lehet megosztani alkalmazáshiba miatt</string>
+	<string name="bookmarks_error_title_share_empty">Megosztási hiba</string>
+	<string name="bookmarks_error_message_share_empty">Üres lista nem osztható meg</string>
+	<string name="discovery_button_subtitle_book_hotels">Szállodák foglalása</string>
 </resources>

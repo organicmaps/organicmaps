@@ -1244,4 +1244,10 @@
 	<string name="whats_new_message_hotel_filter">Бронюйте готелі, що доступні за вашими датами! Використовуйте фільтри в\'їзду та виїзду</string>
 	<string name="whats_new_title_ugc_travel">Поділіться вашими враженнями з іншими мандрівниками!</string>
 	<string name="whats_new_message_ugc_travel">Поставте оцінку та напишіть відгук про місця, які ви відвідали!</string>
+	<string name="dialog_pedestrian_route_is_long">Пішохідний маршрут занадто довгий</string>
+	<string name="dialog_message_transit_not_found_connection">Плануйте маршрут в межах однієї транзитної мережі</string>
+	<string name="bookmarks_error_message_share_general">Неможливо поділитися через помилку програми</string>
+	<string name="bookmarks_error_title_share_empty">Помилка обміну</string>
+	<string name="bookmarks_error_message_share_empty">Неможливо поділитися пустим списком</string>
+	<string name="discovery_button_subtitle_book_hotels">Забронювати готелі</string>
 </resources>

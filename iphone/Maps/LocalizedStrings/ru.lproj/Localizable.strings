@@ -2173,10 +2173,6 @@
 
 "price_per_hour" = "%s/час";
 
-"luggage_storage" = "Хранение багажа";
-
-"discovery_button_subtitle_book_hotels" = "Бронирование отелей";
-
 "bookmarks_backup" = "Разрешить резервное копирование";
 
 "authorization_button_sign_in" = "Войти";
@@ -2223,8 +2219,12 @@
 
 "dialog_message_transit_not_found_connection" = "Постройте маршрут в пределах одной транспортной сети";
 
-"bookmarks_error_message_share_general" = "Не удалось поделиться из-за ошибки приложения.";
+"bookmarks_error_message_share_general" = "Не удалось поделиться из-за ошибки приложения";
 
 "bookmarks_error_title_share_empty" = "Ошибка при попытке поделиться";
 
-"bookmarks_error_message_share_empty" = "Нельзя делиться пустыми списками.";
+"bookmarks_error_message_share_empty" = "Нельзя делиться пустыми списками";
+
+"discovery_button_subtitle_book_hotels" = "Бронирование отелей";
+
+"luggage_storage" = "Хранение багажа";

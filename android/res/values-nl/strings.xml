@@ -1240,4 +1240,10 @@
 	<string name="whats_new_message_hotel_filter">Boek beschikbare hotels voor uw data! Gebruik de filters inchecken en uitchecken</string>
 	<string name="whats_new_title_ugc_travel">Deel uw ervaring met andere reizigers!</string>
 	<string name="whats_new_message_ugc_travel">Rate en beoordeel bezochte plaatsen!</string>
+	<string name="dialog_pedestrian_route_is_long">De voetgangersroute is te lang</string>
+	<string name="dialog_message_transit_not_found_connection">Plan een route binnen één vervoersnetwerk</string>
+	<string name="bookmarks_error_message_share_general">Delen is onmogelijk wegens een toepassingsfout</string>
+	<string name="bookmarks_error_title_share_empty">Deelfout</string>
+	<string name="bookmarks_error_message_share_empty">Een lege lijst kan niet gedeeld worden</string>
+	<string name="discovery_button_subtitle_book_hotels">Boek hotels</string>
 </resources>

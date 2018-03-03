@@ -1236,4 +1236,10 @@
 	<string name="whats_new_message_hotel_filter">Rezervați camere la hoteluri disponibile la datele dorite de dvs.! Utilizați filtrele de cazare și plecare</string>
 	<string name="whats_new_title_ugc_travel">Comunicați-vă experiențele altor călători!</string>
 	<string name="whats_new_message_ugc_travel">Evaluați și recenzați locurile pe care le-ați vizitat!</string>
+	<string name="dialog_pedestrian_route_is_long">Ruta pietonală este prea lungă</string>
+	<string name="dialog_message_transit_not_found_connection">Planifică o rută într-o singură rețea de tranzit</string>
+	<string name="bookmarks_error_message_share_general">Imposibil de distribuit din cauza unei erori a aplicației</string>
+	<string name="bookmarks_error_title_share_empty">Eroare la distribuire</string>
+	<string name="bookmarks_error_message_share_empty">Nu se poate distribui o listă goală</string>
+	<string name="discovery_button_subtitle_book_hotels">Rezervă hoteluri</string>
 </resources>

@@ -1240,4 +1240,10 @@
 	<string name="whats_new_message_hotel_filter">Đặt các khách sạn còn phòng cho ngày của bạn! Sử dụng các bộ lọc nhận phòng và trả phòng</string>
 	<string name="whats_new_title_ugc_travel">Chia sẻ trải nghiệm của bạn với những du khách khác!</string>
 	<string name="whats_new_message_ugc_travel">Cho điểm và đánh giá những nơi bạn đã ghé thăm!</string>
+	<string name="dialog_pedestrian_route_is_long">Tuyến đường dành cho người đi bộ quá dài</string>
+	<string name="dialog_message_transit_not_found_connection">Xây dựng lộ trình trong một mạng chuyển tiếp</string>
+	<string name="bookmarks_error_message_share_general">Không thể chia sẻ do lỗi ứng dụng</string>
+	<string name="bookmarks_error_title_share_empty">Lỗi chia sẻ</string>
+	<string name="bookmarks_error_message_share_empty">Không thể chia sẻ một danh sách trống</string>
+	<string name="discovery_button_subtitle_book_hotels">Đặt phòng khách sạn</string>
 </resources>

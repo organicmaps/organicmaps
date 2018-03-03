@@ -1243,4 +1243,10 @@
 	<string name="whats_new_message_hotel_filter">Zarezerwuj hotele dla wybranych dat! Użyj filtrów przyjazdu i wyjazdu</string>
 	<string name="whats_new_title_ugc_travel">Podziel się swoimi wrażeniami z innymi podróżnymi!</string>
 	<string name="whats_new_message_ugc_travel">Oceniaj i recenzuj odwiedzane miejsca!</string>
+	<string name="dialog_pedestrian_route_is_long">Trasa piesza jest zbyt długa</string>
+	<string name="dialog_message_transit_not_found_connection">Zaplanuj trasę w ramach jednej sieci transportowej</string>
+	<string name="bookmarks_error_message_share_general">Nie można udostępnić z powodu błędu aplikacji</string>
+	<string name="bookmarks_error_title_share_empty">Błąd udostępniania</string>
+	<string name="bookmarks_error_message_share_empty">Nie można udostępnić pustej listy</string>
+	<string name="discovery_button_subtitle_book_hotels">Rezerwuj hotele</string>
 </resources>

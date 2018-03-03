@@ -1249,8 +1249,6 @@
 	<string name="whats_new_discovery_title">Кнопка «Чем заняться»</string>
 	<string name="whats_new_discovery_message">Ищите в один клик, чем заняться в городе!</string>
 	<string name="price_per_hour">%s/час</string>
-	<string name="luggage_storage">Хранение багажа</string>
-	<string name="discovery_button_subtitle_book_hotels">Бронирование отелей</string>
 	<string name="bookmarks_backup">Разрешить резервное копирование</string>
 	<string name="authorization_button_sign_in">Войти</string>
 	<string name="bookmarks_message_authorized_user">Резервная копия ваших меток автоматически создается в безопасном облачном хранилище. Включить резервное копирование?</string>
@@ -1274,7 +1272,9 @@
 	<string name="whats_new_message_ugc_travel">Оценивайте и пишите отзывы о посещенных местах!</string>
 	<string name="dialog_pedestrian_route_is_long">Пешеходный маршрут слишком длинный</string>
 	<string name="dialog_message_transit_not_found_connection">Постройте маршрут в пределах одной транспортной сети</string>
-	<string name="bookmarks_error_message_share_general">Не удалось поделиться из-за ошибки приложения.</string>
+	<string name="bookmarks_error_message_share_general">Не удалось поделиться из-за ошибки приложения</string>
 	<string name="bookmarks_error_title_share_empty">Ошибка при попытке поделиться</string>
-	<string name="bookmarks_error_message_share_empty">Нельзя делиться пустыми списками.</string>
+	<string name="bookmarks_error_message_share_empty">Нельзя делиться пустыми списками</string>
+	<string name="discovery_button_subtitle_book_hotels">Бронирование отелей</string>
+	<string name="luggage_storage">Хранение багажа</string>
 </resources>

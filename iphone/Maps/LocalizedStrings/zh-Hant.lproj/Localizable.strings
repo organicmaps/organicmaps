@@ -2173,58 +2173,58 @@
 
 "price_per_hour" = "%s/小時";
 
+"bookmarks_backup" = "入口";
+
+"authorization_button_sign_in" = "登錄";
+
+"bookmarks_message_authorized_user" = "您的書籤自動備份在安全的云儲存中。您想要啟用備份嗎？";
+
+"bookmarks_message_unauthorized_user" = "您的書籤自動備份在安全的云儲存中。登錄以啟用備份。";
+
+"bookmarks_message_unbackuped_user" = "您的書籤自動備份在安全的云儲存中。";
+
+"bookmarks_message_backuped_user" = "每週您的書籤都自動備份在安全的云儲存中。上次備份是%s";
+
+"settings_backup_bookmarks" = "備份書籤";
+
+"bookmarks_groups" = "列表";
+
+"bookmarks_groups_hide_all" = "隱藏全部";
+
+"bookmarks_groups_show_all" = "顯示全部";
+
+"bookmarks_places" = "%s個書籤";
+
+"bookmarks_create_new_group" = "創建新列表";
+
+"downloader_hide_screen" = "隱藏屏幕";
+
+"downloader_percent" = "%s (%s，共%s)";
+
+"downloader_process" = "下載 %s 中……";
+
+"downloader_applying" = "應用 %s 中……";
+
+"transit_not_found" = "本區域還沒有交通導航";
+
+"whats_new_title_hotel_filter" = "有新的賓館篩選！";
+
+"whats_new_message_hotel_filter" = "預訂在您所選日期有空的賓館！用入住和離店篩選";
+
+"whats_new_title_ugc_travel" = "和其他旅客分享您的體驗！";
+
+"whats_new_message_ugc_travel" = "給您訪問過的地方打分和評價！";
+
+"dialog_pedestrian_route_is_long" = "步行路線太長";
+
+"dialog_message_transit_not_found_connection" = "規劃一個交通網絡內的路線";
+
+"bookmarks_error_message_share_general" = "由於應用程序出錯而無法分享";
+
+"bookmarks_error_title_share_empty" = "分享錯誤";
+
+"bookmarks_error_message_share_empty" = "無法分享空列表";
+
+"discovery_button_subtitle_book_hotels" = "訂賓館";
+
 "luggage_storage" = "Luggage storage";
-
-"discovery_button_subtitle_book_hotels" = "Book hotels";
-
-"bookmarks_backup" = "Enable backup";
-
-"authorization_button_sign_in" = "Sign in";
-
-"bookmarks_message_authorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Do you want enable backup?";
-
-"bookmarks_message_unauthorized_user" = "Your bookmarks backup automaticaly in a secure cloud storage. Sign in to enable backup.";
-
-"bookmarks_message_unbackuped_user" = "Your bookmarks backup automaticaly in a secure cloud storage.";
-
-"bookmarks_message_backuped_user" = "Your bookmarks backup automaticaly every week in a secure storage. Last backup was %s";
-
-"settings_backup_bookmarks" = "Backup Bookmarks";
-
-"bookmarks_groups" = "Lists";
-
-"bookmarks_groups_hide_all" = "Hide all";
-
-"bookmarks_groups_show_all" = "Show all";
-
-"bookmarks_places" = "%s bookmarks";
-
-"bookmarks_create_new_group" = "Create new list";
-
-"downloader_hide_screen" = "Hide Screen";
-
-"downloader_percent" = "%s (%s of %s)";
-
-"downloader_process" = "Downloading %s...";
-
-"downloader_applying" = "Applying %s...";
-
-"transit_not_found" = "Transit navigation in this region is not yet available";
-
-"whats_new_title_hotel_filter" = "New hotel filters available!";
-
-"whats_new_message_hotel_filter" = "Book hotels available for your dates! Use check in and check out filters";
-
-"whats_new_title_ugc_travel" = "Share your experience with other travellers!";
-
-"whats_new_message_ugc_travel" = "Rate and review places you visited!";
-
-"dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
-
-"dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
-
-"bookmarks_error_message_share_general" = "Unable to share due to an application error.";
-
-"bookmarks_error_title_share_empty" = "Sharing error";
-
-"bookmarks_error_message_share_empty" = "Cannot share an empty list.";

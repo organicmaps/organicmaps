@@ -1246,4 +1246,10 @@
 	<string name="whats_new_message_hotel_filter">จองโรงแรมที่มีสำหรับช่วงวันที่ของคุณ! ใช้ตัวกรองเช็คอินและเช็คเอาท์</string>
 	<string name="whats_new_title_ugc_travel">แบ่งปันประสบการณ์ของคุณกับนักท่องเที่ยวคนอื่น ๆ!</string>
 	<string name="whats_new_message_ugc_travel">ให้คะแนนแล้วรีวิวสถานที่ที่คุณเคยไป!</string>
+	<string name="dialog_pedestrian_route_is_long">เส้นทางเดินเท้าไกลเกินไป</string>
+	<string name="dialog_message_transit_not_found_connection">วางแผนเส้นทางภายในเครือข่ายการเดินทางเดียว</string>
+	<string name="bookmarks_error_message_share_general">ไม่สามารถแชร์ได้เนื่องจากเกิดข้อผิดพลาดในแอปพลิเคชัน</string>
+	<string name="bookmarks_error_title_share_empty">ข้อผิดพลาดในการแชร์</string>
+	<string name="bookmarks_error_message_share_empty">ไม่สามารถแชร์รายการที่ว่างเปล่าได้</string>
+	<string name="discovery_button_subtitle_book_hotels">จองโรงแรม</string>
 </resources>

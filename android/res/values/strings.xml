@@ -1261,8 +1261,6 @@
 	<string name="whats_new_discovery_title">Discovery button</string>
 	<string name="whats_new_discovery_message">Discover things around in one click!</string>
 	<string name="price_per_hour">%s/hour</string>
-	<string name="luggage_storage">Luggage storage</string>
-	<string name="discovery_button_subtitle_book_hotels">Book hotels</string>
 	<string name="bookmarks_backup">Enable backup</string>
 	<string name="authorization_button_sign_in">Sign in</string>
 	<string name="bookmarks_message_authorized_user">Your bookmarks backup automaticaly in a secure cloud storage. Do you want enable backup?</string>
@@ -1286,7 +1284,9 @@
 	<string name="whats_new_message_ugc_travel">Rate and review places you visited!</string>
 	<string name="dialog_pedestrian_route_is_long">The pedestrian route is too long</string>
 	<string name="dialog_message_transit_not_found_connection">Plan a route within one transit network</string>
-	<string name="bookmarks_error_message_share_general">Unable to share due to an application error.</string>
+	<string name="bookmarks_error_message_share_general">Unable to share due to an application error</string>
 	<string name="bookmarks_error_title_share_empty">Sharing error</string>
-	<string name="bookmarks_error_message_share_empty">Cannot share an empty list.</string>
+	<string name="bookmarks_error_message_share_empty">Cannot share an empty list</string>
+	<string name="discovery_button_subtitle_book_hotels">Book hotels</string>
+	<string name="luggage_storage">Luggage storage</string>
 </resources>

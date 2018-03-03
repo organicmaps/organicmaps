@@ -1004,4 +1004,10 @@
 	<string name="whats_new_message_hotel_filter">Κάντε κράτησ σε ξενοδοχεία που είναι διαθέσιμα τις ημερομηνίες σας! Χρησιμοποιήστε τα φίλτρα άφιξης και αναχώρισης</string>
 	<string name="whats_new_title_ugc_travel">Μοιραστείτε την εμπειρία σας με άλλους ταξιδιώτες!</string>
 	<string name="whats_new_message_ugc_travel">Βαθμολογήστε και αξιολογήστε τα μέρη που έχετε επισκεφτεί!</string>
+	<string name="dialog_pedestrian_route_is_long">Η διαδρομή πεζών είναι υπερβολικά μεγάλη</string>
+	<string name="dialog_message_transit_not_found_connection">Σχεδιάστε μια διαδρομή εντός δικτύου μεταφοράς</string>
+	<string name="bookmarks_error_message_share_general">Αδυναμία κοινής χρήσης λόγω σφάλματος εφαρμογής</string>
+	<string name="bookmarks_error_title_share_empty">Σφάλμα κοινής χρήσης</string>
+	<string name="bookmarks_error_message_share_empty">Αδύνατη η κοινή χρήση κενής λίστας</string>
+	<string name="discovery_button_subtitle_book_hotels">Κάντε κράτηση σε ξενοδοχεία</string>
 </resources>

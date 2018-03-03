@@ -2173,10 +2173,6 @@
 
 "price_per_hour" = "%s/tunti";
 
-"luggage_storage" = "Luggage storage";
-
-"discovery_button_subtitle_book_hotels" = "Book hotels";
-
 "bookmarks_backup" = "Ota varmuuskopiointi käyttöön";
 
 "authorization_button_sign_in" = "Kirjaudu sisään";
@@ -2223,8 +2219,12 @@
 
 "dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
 
-"bookmarks_error_message_share_general" = "Unable to share due to an application error.";
+"bookmarks_error_message_share_general" = "Unable to share due to an application error";
 
 "bookmarks_error_title_share_empty" = "Sharing error";
 
-"bookmarks_error_message_share_empty" = "Cannot share an empty list.";
+"bookmarks_error_message_share_empty" = "Cannot share an empty list";
+
+"discovery_button_subtitle_book_hotels" = "Book hotels";
+
+"luggage_storage" = "Luggage storage";

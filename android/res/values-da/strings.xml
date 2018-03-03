@@ -1244,4 +1244,10 @@
 	<string name="whats_new_message_hotel_filter">Book hoteller på dine datoer! Brug filtre for check-in og check-out</string>
 	<string name="whats_new_title_ugc_travel">Del dine erfaringer med andre rejsende!</string>
 	<string name="whats_new_message_ugc_travel">Vurder og anmeld de steder, du har besøgt!</string>
+	<string name="dialog_pedestrian_route_is_long">Gangstien er for lang</string>
+	<string name="dialog_message_transit_not_found_connection">Planlæg en rute inden for et transitnetværk</string>
+	<string name="bookmarks_error_message_share_general">Ikke i stand til at dele på grund af en programfejl</string>
+	<string name="bookmarks_error_title_share_empty">Delingsfejl</string>
+	<string name="bookmarks_error_message_share_empty">Kan ikke dele en tom liste</string>
+	<string name="discovery_button_subtitle_book_hotels">Reserver hoteller</string>
 </resources>

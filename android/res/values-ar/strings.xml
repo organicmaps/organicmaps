@@ -1246,4 +1246,10 @@
 	<string name="whats_new_message_hotel_filter">احجز الفنادق المتاحة في المواعيد الخاصة بك! استخدم عوامل تصفية تسجيل الوصول والمغادرة</string>
 	<string name="whats_new_title_ugc_travel">شارك تجربتك مع المسافرين الآخرين!</string>
 	<string name="whats_new_message_ugc_travel">احرص على تقييم ومراجعة الأماكن التي زرتها!</string>
+	<string name="dialog_pedestrian_route_is_long">مسار المشاة طويل جداً</string>
+	<string name="dialog_message_transit_not_found_connection">خطط المسار داخل شبكة عبور واحدة</string>
+	<string name="bookmarks_error_message_share_general">تعذرت المشاركة بسبب خطأ في التطبيق</string>
+	<string name="bookmarks_error_title_share_empty">خطأ في المشاركة</string>
+	<string name="bookmarks_error_message_share_empty">لا يمكن مشاركة قائمة فارغة</string>
+	<string name="discovery_button_subtitle_book_hotels">حجز فنادق</string>
 </resources>

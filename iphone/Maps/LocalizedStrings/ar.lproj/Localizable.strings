@@ -2173,10 +2173,6 @@
 
 "price_per_hour" = "%s/ساعة";
 
-"luggage_storage" = "Luggage storage";
-
-"discovery_button_subtitle_book_hotels" = "Book hotels";
-
 "bookmarks_backup" = "تمكين النسخ الاحتياطي";
 
 "authorization_button_sign_in" = "تسجيل الدخول";
@@ -2219,12 +2215,16 @@
 
 "whats_new_message_ugc_travel" = "احرص على تقييم ومراجعة الأماكن التي زرتها!";
 
-"dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
+"dialog_pedestrian_route_is_long" = "مسار المشاة طويل جداً";
 
-"dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
+"dialog_message_transit_not_found_connection" = "خطط المسار داخل شبكة عبور واحدة";
 
-"bookmarks_error_message_share_general" = "Unable to share due to an application error.";
+"bookmarks_error_message_share_general" = "تعذرت المشاركة بسبب خطأ في التطبيق";
 
-"bookmarks_error_title_share_empty" = "Sharing error";
+"bookmarks_error_title_share_empty" = "خطأ في المشاركة";
 
-"bookmarks_error_message_share_empty" = "Cannot share an empty list.";
+"bookmarks_error_message_share_empty" = "لا يمكن مشاركة قائمة فارغة";
+
+"discovery_button_subtitle_book_hotels" = "حجز فنادق";
+
+"luggage_storage" = "Luggage storage";

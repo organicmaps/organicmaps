@@ -2173,10 +2173,6 @@
 
 "price_per_hour" = "%s/óra";
 
-"luggage_storage" = "Luggage storage";
-
-"discovery_button_subtitle_book_hotels" = "Book hotels";
-
 "bookmarks_backup" = "Engedélyezi a biztonsági mentést";
 
 "authorization_button_sign_in" = "Bejelentkezés";
@@ -2219,12 +2215,16 @@
 
 "whats_new_message_ugc_travel" = "Értékelje és ismertesse a meglátogatott helyeket!";
 
-"dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
+"dialog_pedestrian_route_is_long" = "A gyalogos útvonal túl hosszú";
 
-"dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
+"dialog_message_transit_not_found_connection" = "Útvonaltervezés egy összekötő hálózaton belül";
 
-"bookmarks_error_message_share_general" = "Unable to share due to an application error.";
+"bookmarks_error_message_share_general" = "Nem lehet megosztani alkalmazáshiba miatt";
 
-"bookmarks_error_title_share_empty" = "Sharing error";
+"bookmarks_error_title_share_empty" = "Megosztási hiba";
 
-"bookmarks_error_message_share_empty" = "Cannot share an empty list.";
+"bookmarks_error_message_share_empty" = "Üres lista nem osztható meg";
+
+"discovery_button_subtitle_book_hotels" = "Szállodák foglalása";
+
+"luggage_storage" = "Luggage storage";

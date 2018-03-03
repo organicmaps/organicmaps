@@ -2173,10 +2173,6 @@
 
 "price_per_hour" = "%s/hodina";
 
-"luggage_storage" = "Luggage storage";
-
-"discovery_button_subtitle_book_hotels" = "Book hotels";
-
 "bookmarks_backup" = "Povolit zálohování";
 
 "authorization_button_sign_in" = "Přihlásit se";
@@ -2219,12 +2215,16 @@
 
 "whats_new_message_ugc_travel" = "Ohodnoťte a napište recenzi míst, které jste navštívili!";
 
-"dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
+"dialog_pedestrian_route_is_long" = "Trasa pro chodce je příliš dlouhá";
 
-"dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
+"dialog_message_transit_not_found_connection" = "Naplánovat trasu s jednou tranzitní sítí";
 
-"bookmarks_error_message_share_general" = "Unable to share due to an application error.";
+"bookmarks_error_message_share_general" = "Nelze sdílet kvůli chybě aplikace";
 
-"bookmarks_error_title_share_empty" = "Sharing error";
+"bookmarks_error_title_share_empty" = "Chyba sdílení";
 
-"bookmarks_error_message_share_empty" = "Cannot share an empty list.";
+"bookmarks_error_message_share_empty" = "Nelze sdílet s prázdným seznamem";
+
+"discovery_button_subtitle_book_hotels" = "Zarezervovat hotely";
+
+"luggage_storage" = "Luggage storage";
