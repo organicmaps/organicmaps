@@ -6,6 +6,7 @@
 #include "coding/internal/file_data.hpp"
 #include "coding/zip_creator.hpp"
 
+#include "platform/network_policy.hpp"
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
@@ -130,6 +131,19 @@ bool IsSuccessfulResultCode(int resultCode)
 std::string GetDeviceName()
 {
   return GetPlatform().DeviceName() + " (" + GetPlatform().DeviceModel() + ")";
+}
+
+bool CanUpload(uint64_t totalUploadingSize)
+{
+  auto const status = GetPlatform().ConnectionStatus();
+  switch (status)
+  {
+  case Platform::EConnectionType::CONNECTION_NONE: return false;
+  case Platform::EConnectionType::CONNECTION_WIFI: return true;
+  case Platform::EConnectionType::CONNECTION_WWAN:
+    return platform::GetCurrentNetworkPolicy().CanUse() &&
+           totalUploadingSize <= kMaxWwanUploadingSizeInBytes;
+  }
 }
 }  // namespace
 
@@ -405,14 +419,8 @@ void Cloud::ScheduleUploading()
       return;
     }
 
-    auto const status = GetPlatform().ConnectionStatus();
-    auto const totalUploadingSize = CalculateUploadingSizeImpl();
-    if (status == Platform::EConnectionType::CONNECTION_NONE ||
-        (status == Platform::EConnectionType::CONNECTION_WWAN &&
-         totalUploadingSize > kMaxWwanUploadingSizeInBytes))
-    {
+    if (!CanUpload(CalculateUploadingSizeImpl()))
       return;
-    }
 
     SortEntriesBeforeUploadingImpl();
 

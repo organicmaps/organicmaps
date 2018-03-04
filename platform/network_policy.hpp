@@ -28,6 +28,8 @@ class NetworkPolicy
 
   // iOS
   friend void network_policy::CallPartnersApi(platform::PartnersApiFn fn, bool force);
+  
+  friend NetworkPolicy GetCurrentNetworkPolicy();
 
 public:
   bool CanUse() const { return m_canUse; }
@@ -37,4 +39,6 @@ private:
 
   bool m_canUse = false;
 };
+  
+extern NetworkPolicy GetCurrentNetworkPolicy();
 }  // namespace platform

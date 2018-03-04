@@ -42,7 +42,6 @@ public final class NetworkPolicy
       return;
     }
 
-
     boolean nowInRoaming = ConnectionState.isInRoaming();
     boolean acceptedInRoaming = Config.getMobileDataRoaming();
     int type = Config.getUseMobileDataSettings();
@@ -73,13 +72,34 @@ public final class NetworkPolicy
     }
   }
 
+  public static boolean getCurrentNetworkUsageStatus()
+  {
+    if (ConnectionState.isWifiConnected())
+      return true;
+
+    if (!ConnectionState.isMobileConnected())
+      return false;
+
+    boolean nowInRoaming = ConnectionState.isInRoaming();
+    boolean acceptedInRoaming = Config.getMobileDataRoaming();
+    if (nowInRoaming && !acceptedInRoaming)
+      return false;
+
+    int type = Config.getUseMobileDataSettings();
+    return type == ALWAYS || (type == TODAY && isToday());
+  }
+
+  private static boolean isToday()
+  {
+    long timestamp = Config.getMobileDataTimeStamp();
+    return TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - timestamp) < 1;
+  }
+
   private static void showDialogIfNeeded(@NonNull FragmentManager fragmentManager,
                                          @NonNull NetworkPolicyListener listener,
                                          @NonNull NetworkPolicy policy)
   {
-    long timestamp = Config.getMobileDataTimeStamp();
-    boolean showDialog = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - timestamp) >= 1;
-    if (!showDialog)
+    if (isToday())
     {
       listener.onResult(policy);
       return;

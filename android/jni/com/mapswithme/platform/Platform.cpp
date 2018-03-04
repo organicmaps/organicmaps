@@ -3,6 +3,9 @@
 
 #include "com/mapswithme/core/jni_helper.hpp"
 
+#include "com/mapswithme/util/NetworkPolicy.hpp"
+
+#include "platform/network_policy.hpp"
 #include "platform/settings.hpp"
 
 #include "base/logging.hpp"
@@ -103,6 +106,15 @@ Platform::ChargingStatus Platform::GetChargingStatus()
 void Platform::SetGuiThread(unique_ptr<base::TaskLoop> guiThread)
 {
   android::Platform::Instance().SetGuiThread(move(guiThread));
+}
+
+namespace platform
+{
+platform::NetworkPolicy GetCurrentNetworkPolicy()
+{
+  JNIEnv *env = jni::GetEnv();
+  return platform::NetworkPolicy(network_policy::GetCurrentNetworkUsageStatus(env));
+}
 }
 
 namespace android

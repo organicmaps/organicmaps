@@ -3,6 +3,7 @@
 #include "local_ads/file_helpers.hpp"
 
 #include "platform/http_client.hpp"
+#include "platform/network_policy.hpp"
 #include "platform/platform.hpp"
 
 #include "coding/file_name_utils.hpp"
@@ -220,6 +221,16 @@ std::vector<uint8_t> SerializeForServer(std::list<local_ads::Event> const & even
   deflate(buffer.get(), strlen(buffer.get()), std::back_inserter(result));
   return result;
 }
+  
+bool CanUpload()
+{
+  auto const connectionStatus = GetPlatform().ConnectionStatus();
+  if (connectionStatus == Platform::EConnectionType::CONNECTION_WIFI)
+    return true;
+  
+  return connectionStatus == Platform::EConnectionType::CONNECTION_WWAN &&
+         platform::GetCurrentNetworkPolicy().CanUse();
+}
 }  // namespace
 
 namespace local_ads
@@ -364,8 +375,7 @@ void Statistics::ProcessEvents(std::list<Event> & events)
 
 void Statistics::SendToServer()
 {
-  auto const connectionStatus = GetPlatform().ConnectionStatus();
-  if (connectionStatus == Platform::EConnectionType::CONNECTION_WIFI)
+  if (CanUpload())
   {
     for (auto it = m_metadataCache.begin(); it != m_metadataCache.end(); ++it)
     {

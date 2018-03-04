@@ -60,6 +60,8 @@ if(${PLATFORM_IPHONE})
     http_client_apple.mm
     http_uploader_apple.mm
     marketing_service_ios.mm
+    network_policy_ios.h
+    network_policy_ios.mm
     platform_ios.mm
     platform_unix_impl.cpp
     platform_unix_impl.hpp
@@ -79,6 +81,7 @@ else() # neither iPhone nor Android
     location_service.cpp
     location_service.hpp
     marketing_service_dummy.cpp
+    network_policy_dummy.cpp
     platform_qt.cpp
     wifi_info.hpp
     wifi_location_service.cpp

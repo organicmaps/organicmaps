@@ -106,6 +106,8 @@
 		67AB92DD1B7B3D7300AB5194 /* mwm_version.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67AB92DB1B7B3D7300AB5194 /* mwm_version.hpp */; };
 		67AB92EA1B7B3E9100AB5194 /* get_text_by_id.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67AB92E81B7B3E9100AB5194 /* get_text_by_id.cpp */; };
 		67AB92EB1B7B3E9100AB5194 /* get_text_by_id.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67AB92E91B7B3E9100AB5194 /* get_text_by_id.hpp */; };
+		EB60B4DC204C130300E4953B /* network_policy_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = EB60B4DB204C130300E4953B /* network_policy_ios.mm */; };
+		EB60B4DE204C175700E4953B /* network_policy_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = EB60B4DD204C175700E4953B /* network_policy_ios.h */; };
 		F6DF73581EC9EAE700D8BA0B /* string_storage_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6DF73561EC9EAE700D8BA0B /* string_storage_base.cpp */; };
 		F6DF73591EC9EAE700D8BA0B /* string_storage_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6DF73561EC9EAE700D8BA0B /* string_storage_base.cpp */; };
 		F6DF735A1EC9EAE700D8BA0B /* string_storage_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6DF73561EC9EAE700D8BA0B /* string_storage_base.cpp */; };
@@ -221,6 +223,8 @@
 		67AB92DB1B7B3D7300AB5194 /* mwm_version.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mwm_version.hpp; sourceTree = "<group>"; };
 		67AB92E81B7B3E9100AB5194 /* get_text_by_id.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = get_text_by_id.cpp; sourceTree = "<group>"; };
 		67AB92E91B7B3E9100AB5194 /* get_text_by_id.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = get_text_by_id.hpp; sourceTree = "<group>"; };
+		EB60B4DB204C130300E4953B /* network_policy_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = network_policy_ios.mm; sourceTree = "<group>"; };
+		EB60B4DD204C175700E4953B /* network_policy_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = network_policy_ios.h; sourceTree = "<group>"; };
 		F6DF73561EC9EAE700D8BA0B /* string_storage_base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = string_storage_base.cpp; sourceTree = "<group>"; };
 		F6DF73571EC9EAE700D8BA0B /* string_storage_base.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = string_storage_base.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -388,6 +392,8 @@
 				56EB1EDB1C6B6E6C0022D831 /* mwm_traits.hpp */,
 				67AB92DA1B7B3D7300AB5194 /* mwm_version.cpp */,
 				67AB92DB1B7B3D7300AB5194 /* mwm_version.hpp */,
+				EB60B4DD204C175700E4953B /* network_policy_ios.h */,
+				EB60B4DB204C130300E4953B /* network_policy_ios.mm */,
 				3DE8B98E1DEC3115000E6083 /* network_policy.hpp */,
 				675343981A3F5D5A00A0A8C3 /* platform_android.cpp */,
 				344D8A2E204945D000CF532F /* platform_ios.h */,
@@ -463,6 +469,7 @@
 				675343B71A3F5D5A00A0A8C3 /* http_request.hpp in Headers */,
 				6741250B1B4C00CC00A3E828 /* country_file.hpp in Headers */,
 				675343B81A3F5D5A00A0A8C3 /* http_thread_apple.h in Headers */,
+				EB60B4DE204C175700E4953B /* network_policy_ios.h in Headers */,
 				56EB1EDF1C6B6E6C0022D831 /* mwm_traits.hpp in Headers */,
 				675343C21A3F5D5A00A0A8C3 /* location.hpp in Headers */,
 				67AB92EB1B7B3E9100AB5194 /* get_text_by_id.hpp in Headers */,
@@ -629,6 +636,7 @@
 				67A2526B1BB40E520063F8A8 /* platform_mac.mm in Sources */,
 				6741250A1B4C00CC00A3E828 /* country_file.cpp in Sources */,
 				674125081B4C00CC00A3E828 /* country_defines.cpp in Sources */,
+				EB60B4DC204C130300E4953B /* network_policy_ios.mm in Sources */,
 				6741250E1B4C00CC00A3E828 /* local_country_file.cpp in Sources */,
 				670E8C761BB318AB00094197 /* platform_ios.mm in Sources */,
 				675E88A01DB7B0F200F8EBDA /* test_socket.cpp in Sources */,
