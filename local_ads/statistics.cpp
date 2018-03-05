@@ -367,7 +367,7 @@ void Statistics::SendToServer()
   auto const connectionStatus = GetPlatform().ConnectionStatus();
   if (connectionStatus == Platform::EConnectionType::CONNECTION_WIFI)
   {
-    for (auto it = m_metadataCache.begin(); it != m_metadataCache.end();)
+    for (auto it = m_metadataCache.begin(); it != m_metadataCache.end(); ++it)
     {
       auto metadataKey = it->first;
       auto metadata = it->second;

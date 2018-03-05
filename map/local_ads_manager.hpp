@@ -113,15 +113,19 @@ private:
     BackoffStats() = default;
     BackoffStats(std::chrono::steady_clock::time_point lastDownloading,
                  std::chrono::seconds currentTimeout,
-                 uint8_t attemptsCount)
+                 uint8_t attemptsCount, bool fileIsAbsent)
       : m_lastDownloading(lastDownloading)
       , m_currentTimeout(currentTimeout)
       , m_attemptsCount(attemptsCount)
+      , m_fileIsAbsent(fileIsAbsent)
     {}
 
     std::chrono::steady_clock::time_point m_lastDownloading = {};
     std::chrono::seconds m_currentTimeout = std::chrono::seconds(0);
     uint8_t m_attemptsCount = 0;
+    bool m_fileIsAbsent = false;
+
+    bool CanRetry() const;
   };
   std::map<MwmSet::MwmId, BackoffStats> m_failedDownloads;
 

@@ -279,13 +279,8 @@ std::vector<std::string> LocalAdsManager::GetRequestedCampaigns(std::vector<MwmS
     // Skip downloading request if maximum attempts count has reached or
     // we are waiting for new attempt.
     auto const failedDownloadsIt = m_failedDownloads.find(mwm);
-    if (failedDownloadsIt != m_failedDownloads.cend() &&
-        (failedDownloadsIt->second.m_attemptsCount >= kMaxDownloadingAttempts ||
-         std::chrono::steady_clock::now() <= failedDownloadsIt->second.m_lastDownloading +
-         failedDownloadsIt->second.m_currentTimeout))
-    {
+    if (failedDownloadsIt != m_failedDownloads.cend() && !failedDownloadsIt->second.CanRetry())
       continue;
-    }
     
     std::string const & mwmName = info->GetCountryName();
     auto campaignIt = m_campaigns.find(mwmName);
@@ -332,18 +327,20 @@ bool LocalAdsManager::DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<
   std::lock_guard<std::mutex> lock(m_campaignsMutex);
   if (!success)
   {
+    bool const isAbsent = request.ErrorCode() == 404;
     auto const it = m_failedDownloads.find(mwmId);
     if (it == m_failedDownloads.cend())
     {
       m_failedDownloads.insert(std::make_pair(mwmId, BackoffStats(std::chrono::steady_clock::now(),
                                                                   kFailedDownloadingTimeout,
-                                                                  1 /* m_attemptsCount */)));
+                                                                  1 /* m_attemptsCount */, isAbsent)));
     }
     else
     {
       // Here we increase timeout multiplying by 2.
       it->second.m_currentTimeout = std::chrono::seconds(it->second.m_currentTimeout.count() * 2);
       it->second.m_attemptsCount++;
+      it->second.m_fileIsAbsent = isAbsent;
     }
     return false;
   }
@@ -367,7 +364,7 @@ void LocalAdsManager::ProcessRequests(std::set<Request> && requests)
       if (!mwm.IsAlive())
         continue;
       
-      std::string const countryName = mwm.GetInfo()->GetCountryName();
+      std::string const & countryName = mwm.GetInfo()->GetCountryName();
       if (type == RequestType::Download)
       {
         // Download campaign data from server.
@@ -539,4 +536,10 @@ bool LocalAdsManager::IsSupportedType(feature::TypesHolder const & types) const
 std::string LocalAdsManager::GetCompanyUrl(FeatureID const & featureId) const
 {
   return MakeCampaignPageURL(featureId);
+}
+
+bool LocalAdsManager::BackoffStats::CanRetry() const
+{
+  return !m_fileIsAbsent && m_attemptsCount < kMaxDownloadingAttempts &&
+         std::chrono::steady_clock::now() > (m_lastDownloading + m_currentTimeout);
 }
