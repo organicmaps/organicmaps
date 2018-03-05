@@ -11,9 +11,12 @@
 
 #include "base/cache.hpp"
 
-#include "std/mutex.hpp"
-#include "std/unordered_map.hpp"
-#include "std/type_traits.hpp"
+#include <map>
+#include <mutex>
+#include <string>
+#include <type_traits>
+#include <unordered_map>
+#include <vector>
 
 namespace storage
 {
@@ -26,7 +29,7 @@ class CountryInfoGetter
 public:
   // Identifier of a region (index in m_countries array).
   using TRegionId = size_t;
-  using TRegionIdSet = vector<TRegionId>;
+  using TRegionIdSet = std::vector<TRegionId>;
 
   CountryInfoGetter(bool isSingleMwm) : m_isSingleMwm(isSingleMwm) {}
   virtual ~CountryInfoGetter() = default;
@@ -39,7 +42,7 @@ public:
   // Returns vector of countries file names without an extension for
   // countries belong to |rect|. |rough| provides fast rough result
   // or a slower but more precise one.
-  vector<TCountryId> GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const;
+  std::vector<TCountryId> GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const;
 
   // Returns a list of country ids by a |pt| in mercator.
   // |closestCoutryIds| is filled with country ids of mwm which covers |pt| or close to it.
@@ -110,14 +113,14 @@ protected:
   // @TODO(bykoianko): consider to get rid of m_countryIndex.
   // The possibility should be considered.
   // List of all known countries.
-  vector<CountryDef> m_countries;
+  std::vector<CountryDef> m_countries;
   // Maps all leaf country id (file names) to their indices in m_countries.
-  unordered_map<TCountryId, TRegionId> m_countryIndex;
+  std::unordered_map<TCountryId, TRegionId> m_countryIndex;
 
   TMappingAffiliations const * m_affiliations = nullptr;
 
   // Maps country file name without an extension to a country info.
-  map<string, CountryInfo> m_id2info;
+  std::map<std::string, CountryInfo> m_id2info;
 
   // m_isSingleMwm == true if the system is currently working with single (small) mwms
   // and false otherwise.
@@ -149,11 +152,11 @@ protected:
   bool IsCloseEnough(size_t id, m2::PointD const & pt, double distance) override;
 
   template <typename TFn>
-  typename result_of<TFn(vector<m2::RegionD>)>::type WithRegion(size_t id, TFn && fn) const;
+  std::result_of_t<TFn(vector<m2::RegionD>)> WithRegion(size_t id, TFn && fn) const;
 
   FilesContainerR m_reader;
-  mutable my::Cache<uint32_t, vector<m2::RegionD>> m_cache;
-  mutable mutex m_cacheMutex;
+  mutable my::Cache<uint32_t, std::vector<m2::RegionD>> m_cache;
+  mutable std::mutex m_cacheMutex;
 };
 
 // This class allows users to get info about very simply rectangular
@@ -163,7 +166,7 @@ class CountryInfoGetterForTesting : public CountryInfoGetter
 {
 public:
   CountryInfoGetterForTesting() = default;
-  CountryInfoGetterForTesting(vector<CountryDef> const & countries);
+  CountryInfoGetterForTesting(std::vector<CountryDef> const & countries);
 
   void AddCountry(CountryDef const & country);
 

@@ -95,15 +95,14 @@ public:
   }
 
   template <typename D>
-  typename std::enable_if<std::is_integral<D>::value>::type operator()(
-      D d, char const * /* name */ = nullptr)
+  std::enable_if_t<std::is_integral<D>::value> operator()(D d, char const * /* name */ = nullptr)
   {
     WriteToSink(m_sink, d);
   }
 
   template <typename R>
-  typename std::enable_if<!std::is_integral<R>::value>::type operator()(
-      R const & r, char const * /* name */ = nullptr)
+  std::enable_if_t<!std::is_integral<R>::value> operator()(R const & r,
+                                                           char const * /* name */ = nullptr)
   {
     r.Visit(*this);
   }
@@ -194,15 +193,13 @@ public:
   }
 
   template <typename D>
-  typename std::enable_if<std::is_integral<D>::value>::type operator()(
-      D & d, char const * /* name */ = nullptr)
+  std::enable_if_t<std::is_integral<D>::value> operator()(D & d, char const * /* name */ = nullptr)
   {
     ReadPrimitiveFromSource(m_source, d);
   }
 
   template <typename R>
-  typename std::enable_if<!std::is_integral<R>::value>::type operator()(
-      R & r, char const * /* name */ = nullptr)
+  std::enable_if_t<!std::is_integral<R>::value> operator()(R & r, char const * /* name */ = nullptr)
   {
     r.Visit(*this);
   }

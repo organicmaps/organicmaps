@@ -1,6 +1,8 @@
 // See O5M Format definition at http://wiki.openstreetmap.org/wiki/O5m
 #pragma once
 
+#include "base/stl_helpers.hpp"
+
 #include <algorithm>
 #include <cstring>
 #include <exception>
@@ -142,8 +144,7 @@ public:
       case EntityType::Sync:      s << "O5M_CMD_SYNC";
       case EntityType::Jump:      s << "O5M_CMD_JUMP";
       case EntityType::Reset:     s << "O5M_CMD_RESET";
-      default:
-        return s << "Unknown command: " << std::hex << static_cast<typename std::underlying_type<EntityType>::type>(type);
+      default: return s << "Unknown command: " << std::hex << my::Key(type);
     }
     return s;
   }

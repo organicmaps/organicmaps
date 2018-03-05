@@ -36,9 +36,8 @@ public:
 
     // Calls |fn| on the original token and on synonyms.
     template <typename Fn>
-    typename std::enable_if<
-        std::is_same<typename std::result_of<Fn(String)>::type, void>::value>::type
-    ForEach(Fn && fn) const
+    std::enable_if_t<std::is_same<std::result_of_t<Fn(String)>, void>::value> ForEach(
+        Fn && fn) const
     {
       fn(m_original);
       std::for_each(m_synonyms.begin(), m_synonyms.end(), std::forward<Fn>(fn));
@@ -46,9 +45,8 @@ public:
 
     // Calls |fn| on the original token and on synonyms until |fn| return false.
     template <typename Fn>
-    typename std::enable_if<
-        std::is_same<typename std::result_of<Fn(String)>::type, bool>::value>::type
-    ForEach(Fn && fn) const
+    std::enable_if_t<std::is_same<std::result_of_t<Fn(String)>, bool>::value> ForEach(
+        Fn && fn) const
     {
       if (!fn(m_original))
         return;

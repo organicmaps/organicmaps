@@ -28,6 +28,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <limits>
+#include <type_traits>
 #include <vector>
 
 namespace indexer
@@ -333,14 +334,14 @@ struct CitiesBoundariesSerDes
     WriteToSinkVisitor(Sink & sink) : m_sink(sink) {}
 
     template <typename T>
-    typename enable_if<is_integral<T>::value || is_enum<T>::value, void>::type operator()(
+    std::enable_if_t<std::is_integral<T>::value || std::is_enum<T>::value, void> operator()(
         T const & t, char const * /* name */ = nullptr)
     {
       WriteToSink(m_sink, t);
     }
 
     template <typename T>
-    typename enable_if<!is_integral<T>::value && !is_enum<T>::value, void>::type operator()(
+    std::enable_if_t<!std::is_integral<T>::value && !std::is_enum<T>::value, void> operator()(
         T const & t, char const * /* name */ = nullptr)
     {
       t.Visit(*this);
@@ -355,14 +356,14 @@ struct CitiesBoundariesSerDes
     ReadFromSourceVisitor(Source & source) : m_source(source) {}
 
     template <typename T>
-    typename enable_if<is_integral<T>::value || is_enum<T>::value, void>::type operator()(
+    std::enable_if_t<std::is_integral<T>::value || std::is_enum<T>::value, void> operator()(
         T & t, char const * /* name */ = nullptr)
     {
       t = ReadPrimitiveFromSource<T>(m_source);
     }
 
     template <typename T>
-    typename enable_if<!is_integral<T>::value && !is_enum<T>::value, void>::type operator()(
+    std::enable_if_t<!std::is_integral<T>::value && !std::is_enum<T>::value, void> operator()(
         T & t, char const * /* name */ = nullptr)
     {
       t.Visit(*this);

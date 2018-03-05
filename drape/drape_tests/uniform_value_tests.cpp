@@ -9,6 +9,7 @@
 
 #include <cstring>
 #include <string>
+#include <utility>
 
 #include <gmock/gmock.h>
 #include <drape/drape_global.hpp>
@@ -20,6 +21,7 @@ using ::testing::IgnoreResult;
 using ::testing::Invoke;
 using ::testing::InSequence;
 using namespace dp;
+using namespace std;
 
 namespace
 {

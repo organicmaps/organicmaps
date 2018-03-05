@@ -1,7 +1,8 @@
 #pragma once
 
 #include "drape/pointers.hpp"
-#include "std/map.hpp"
+
+#include <map>
 
 namespace df
 {
@@ -23,7 +24,7 @@ public:
   void PostMessage(ThreadName name, drape_ptr<Message> && message, MessagePriority priority);
 
 private:
-  using TAcceptorsMap = map<ThreadName, BaseRenderer *>;
+  using TAcceptorsMap = std::map<ThreadName, BaseRenderer *>;
   TAcceptorsMap m_acceptors;
 };
 

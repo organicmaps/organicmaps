@@ -61,7 +61,7 @@ void HuffmanCoder::DeleteHuffmanTree(Node * root)
 
 void HuffmanCoder::BuildHuffmanTree(Freqs const & freqs)
 {
-  priority_queue<Node *, vector<Node *>, NodeComparator> pq;
+  std::priority_queue<Node *, std::vector<Node *>, NodeComparator> pq;
   for (auto const & e : freqs.GetTable())
     pq.push(new Node(e.first, e.second, true /* isLeaf */));
 

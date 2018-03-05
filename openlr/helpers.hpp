@@ -21,10 +21,9 @@ bool EdgesAreAlmostEqual(Graph::Edge const & e1, Graph::Edge const & e2);
 std::string LogAs2GisPath(Graph::EdgeVector const & path);
 std::string LogAs2GisPath(Graph::Edge const & e);
 
-template <
-    typename T, typename U,
-    typename std::enable_if<!(std::is_signed<T>::value ^ std::is_signed<U>::value), int>::type = 0>
-typename std::common_type<T, U>::type AbsDifference(T const a, U const b)
+template <typename T, typename U,
+          std::enable_if_t<!(std::is_signed<T>::value ^ std::is_signed<U>::value), int> = 0>
+std::common_type_t<T, U> AbsDifference(T const a, U const b)
 {
   return a >= b ? a - b : b - a;
 }

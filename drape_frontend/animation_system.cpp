@@ -2,9 +2,9 @@
 
 #include "base/logging.hpp"
 
-#include "std/bind.hpp"
-#include "std/vector.hpp"
-#include "std/weak_ptr.hpp"
+#include <vector>
+
+using namespace std::placeholders;
 
 namespace df
 {
@@ -75,12 +75,14 @@ void AnimationSystem::UpdateLastScreen(ScreenBase const & currentScreen)
 
 bool AnimationSystem::GetScreen(ScreenBase const & currentScreen, ScreenBase & screen)
 {
-  return GetScreen(currentScreen, bind(&AnimationSystem::GetProperty, this, _1, _2, _3), screen);
+  return GetScreen(currentScreen, std::bind(&AnimationSystem::GetProperty, this, _1, _2, _3),
+                   screen);
 }
 
 void AnimationSystem::GetTargetScreen(ScreenBase const & currentScreen, ScreenBase & screen)
 {
-  GetScreen(currentScreen, bind(&AnimationSystem::GetTargetProperty, this, _1, _2, _3), screen);
+  GetScreen(currentScreen, std::bind(&AnimationSystem::GetTargetProperty, this, _1, _2, _3),
+            screen);
 }
 
 bool AnimationSystem::GetScreen(ScreenBase const & currentScreen, TGetPropertyFn const & getPropertyFn,  ScreenBase & screen)
@@ -240,7 +242,7 @@ void AnimationSystem::PushAnimation(drape_ptr<Animation> && animation)
   LOG(LINFO, ("Push animation", animation->GetType()));
 #endif
 
-  shared_ptr<TAnimationList> pList(new TAnimationList());
+  auto pList = std::make_shared<TAnimationList>();
   pList->emplace_back(move(animation));
 
   bool startImmediately = m_animationChain.empty();
@@ -253,7 +255,7 @@ void AnimationSystem::PushAnimation(drape_ptr<Animation> && animation)
 #endif
 }
 
-void AnimationSystem::FinishAnimations(function<bool(shared_ptr<Animation> const &)> const & predicate,
+void AnimationSystem::FinishAnimations(std::function<bool(std::shared_ptr<Animation> const &)> const & predicate,
                                        bool rewind, bool finishAll)
 {
   if (m_animationChain.empty())
@@ -325,13 +327,14 @@ void AnimationSystem::FinishAnimations(function<bool(shared_ptr<Animation> const
 
 void AnimationSystem::FinishAnimations(Animation::Type type, bool rewind, bool finishAll)
 {
-  FinishAnimations([&type](shared_ptr<Animation> const & anim) { return anim->GetType() == type; },
+  FinishAnimations([&type](std::shared_ptr<Animation> const & anim) { return anim->GetType() == type; },
                    rewind, finishAll);
 }
 
-void AnimationSystem::FinishAnimations(Animation::Type type, string const & customType, bool rewind, bool finishAll)
+void AnimationSystem::FinishAnimations(Animation::Type type, std::string const & customType,
+                                       bool rewind, bool finishAll)
 {
-  FinishAnimations([&type, &customType](shared_ptr<Animation> const & anim)
+  FinishAnimations([&type, &customType](std::shared_ptr<Animation> const & anim)
   {
     return anim->GetType() == type && anim->GetCustomType() == customType;
   }, rewind, finishAll);
@@ -339,7 +342,7 @@ void AnimationSystem::FinishAnimations(Animation::Type type, string const & cust
 
 void AnimationSystem::FinishObjectAnimations(Animation::Object object, bool rewind, bool finishAll)
 {
-  FinishAnimations([&object](shared_ptr<Animation> const & anim) { return anim->HasObject(object); },
+  FinishAnimations([&object](std::shared_ptr<Animation> const & anim) { return anim->HasObject(object); },
                    rewind, finishAll);
 }
 
@@ -414,7 +417,7 @@ bool AnimationSystem::GetProperty(Animation::Object object, Animation::ObjectPro
     }
   }
 
-  auto it = m_propertyCache.find(make_pair(object, property));
+  auto it = m_propertyCache.find(std::make_pair(object, property));
   if (it != m_propertyCache.end())
   {
     value = it->second;
@@ -446,7 +449,7 @@ bool AnimationSystem::GetTargetProperty(Animation::Object object, Animation::Obj
     }
   }
 
-  auto it = m_propertyCache.find(make_pair(object, property));
+  auto it = m_propertyCache.find(std::make_pair(object, property));
   if (it != m_propertyCache.end())
   {
     value = it->second;
@@ -463,7 +466,7 @@ void AnimationSystem::SaveAnimationResult(Animation const & animation)
     {
       Animation::PropertyValue value;
       if (animation.GetProperty(object, property, value))
-        m_propertyCache[make_pair(object, property)] = value;
+        m_propertyCache[std::make_pair(object, property)] = value;
     }
   }
 }
@@ -476,14 +479,14 @@ void AnimationSystem::StartNextAnimations()
   m_animationChain.pop_front();
   if (!m_animationChain.empty())
   {
-    vector<weak_ptr<Animation>> startedAnimations;
+    std::vector<std::weak_ptr<Animation>> startedAnimations;
     startedAnimations.reserve(m_animationChain.front()->size());
     for (auto & anim : *(m_animationChain.front()))
       startedAnimations.push_back(anim);
 
     for (auto & weak_anim : startedAnimations)
     {
-      shared_ptr<Animation> anim = weak_anim.lock();
+      std::shared_ptr<Animation> anim = weak_anim.lock();
       if (anim != nullptr)
       {
         anim->Init(m_lastScreen, m_propertyCache);

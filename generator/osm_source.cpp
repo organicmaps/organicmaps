@@ -70,7 +70,7 @@ class IntermediateData
 {
   using TReader = cache::OSMElementCache<TMode>;
 
-  using TFile = typename conditional<TMode == cache::EMode::Write, FileWriter, FileReader>::type;
+  using TFile = conditional_t<TMode == cache::EMode::Write, FileWriter, FileReader>;
 
   using TKey = uint64_t;
   static_assert(is_integral<TKey>::value, "TKey is not integral type");

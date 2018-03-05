@@ -5,7 +5,7 @@
 #include "base/assert.hpp"
 #include "base/macros.hpp"
 
-#include "std/type_traits.hpp"
+#include <type_traits>
 
 #if defined(__clang__)
 #pragma clang diagnostic push
@@ -50,16 +50,15 @@ public:
   explicit MapVisitor(uint8_t const * base) : m_base(base), m_cur(m_base) {}
 
   template <typename T>
-  typename enable_if<!is_pod<T>::value, MapVisitor &>::type operator()(T & val,
-                                                                       char const * /* name */)
+  std::enable_if_t<!std::is_pod<T>::value, MapVisitor &> operator()(T & val,
+                                                                    char const * /* name */)
   {
     val.map(*this);
     return *this;
   }
 
   template <typename T>
-  typename enable_if<is_pod<T>::value, MapVisitor &>::type operator()(T & val,
-                                                                      char const * /* name */)
+  std::enable_if_t<std::is_pod<T>::value, MapVisitor &> operator()(T & val, char const * /* name */)
   {
     T const * valPtr = reinterpret_cast<T const *>(m_cur);
     val = *valPtr;
@@ -94,16 +93,16 @@ public:
   explicit ReverseMapVisitor(uint8_t * base) : m_base(base), m_cur(m_base) {}
 
   template <typename T>
-  typename enable_if<!is_pod<T>::value, ReverseMapVisitor &>::type operator()(
-      T & val, char const * /* name */)
+  std::enable_if_t<!std::is_pod<T>::value, ReverseMapVisitor &> operator()(T & val,
+                                                                           char const * /* name */)
   {
     val.map(*this);
     return *this;
   }
 
   template <typename T>
-  typename enable_if<is_pod<T>::value, ReverseMapVisitor &>::type operator()(
-      T & val, char const * /* name */)
+  std::enable_if_t<std::is_pod<T>::value, ReverseMapVisitor &> operator()(T & val,
+                                                                          char const * /* name */)
   {
     T * valPtr = reinterpret_cast<T *>(m_cur);
     *valPtr = ReverseByteOrder(*valPtr);
@@ -145,8 +144,8 @@ public:
   explicit FreezeVisitor(TWriter & writer) : m_writer(writer), m_bytesWritten(0) {}
 
   template <typename T>
-  typename enable_if<!is_pod<T>::value, FreezeVisitor &>::type operator()(T & val,
-                                                                          char const * /* name */)
+  std::enable_if_t<!std::is_pod<T>::value, FreezeVisitor &> operator()(T & val,
+                                                                       char const * /* name */)
   {
     ASSERT(IsAlign8(m_writer.Pos()), ());
     val.map(*this);
@@ -154,8 +153,8 @@ public:
   }
 
   template <typename T>
-  typename enable_if<is_pod<T>::value, FreezeVisitor &>::type operator()(T & val,
-                                                                         char const * /* name */)
+  std::enable_if_t<std::is_pod<T>::value, FreezeVisitor &> operator()(T & val,
+                                                                      char const * /* name */)
   {
     ASSERT(IsAlign8(m_writer.Pos()), ());
     m_writer.Write(&val, sizeof(T));
@@ -193,7 +192,7 @@ public:
   explicit ReverseFreezeVisitor(TWriter & writer) : m_writer(writer), m_bytesWritten(0) {}
 
   template <typename T>
-  typename enable_if<!is_pod<T>::value, ReverseFreezeVisitor &>::type operator()(
+  std::enable_if_t<!std::is_pod<T>::value, ReverseFreezeVisitor &> operator()(
       T & val, char const * /* name */)
   {
     ASSERT(IsAlign8(m_writer.Pos()), ());
@@ -202,7 +201,7 @@ public:
   }
 
   template <typename T>
-  typename enable_if<is_pod<T>::value, ReverseFreezeVisitor &>::type operator()(
+  std::enable_if_t<std::is_pod<T>::value, ReverseFreezeVisitor &> operator()(
       T & val, char const * /* name */)
   {
     ASSERT(IsAlign8(m_writer.Pos()), ());

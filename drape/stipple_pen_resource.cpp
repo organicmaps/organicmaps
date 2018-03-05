@@ -4,10 +4,10 @@
 
 #include "base/shared_buffer_manager.hpp"
 
-#include "std/numeric.hpp"
-#include "std/iomanip.hpp"
-#include "std/sstream.hpp"
-#include "std/cstring.hpp"
+#include <cstring>
+#include <iomanip>
+#include <numeric>
+#include <sstream>
 
 namespace dp
 {
@@ -78,7 +78,7 @@ void StipplePenHandle::Init(buffer_vector<uint8_t, 8> const & pattern)
 StipplePenRasterizator::StipplePenRasterizator(StipplePenKey const & key)
   : m_key(key)
 {
-  m_patternLength = accumulate(m_key.m_pattern.begin(), m_key.m_pattern.end(), 0);
+  m_patternLength = std::accumulate(m_key.m_pattern.begin(), m_key.m_pattern.end(), 0);
   uint32_t const availableSize = kMaxStipplePenLength - 2; // the first and the last pixel reserved
   ASSERT_LESS(m_patternLength, availableSize, ());
   uint32_t const count = floor(availableSize / m_patternLength);
@@ -126,7 +126,7 @@ void StipplePenRasterizator::Rasterize(void * buffer)
 ref_ptr<Texture::ResourceInfo> StipplePenIndex::ReserveResource(bool predefined, StipplePenKey const & key,
                                                                 bool & newResource)
 {
-  lock_guard<mutex> g(m_mappingLock);
+  std::lock_guard<std::mutex> g(m_mappingLock);
 
   newResource = false;
   StipplePenHandle handle(key);
@@ -140,8 +140,8 @@ ref_ptr<Texture::ResourceInfo> StipplePenIndex::ReserveResource(bool predefined,
   StipplePenRasterizator resource(key);
   m2::RectU pixelRect = m_packer.PackResource(resource.GetSize());
   {
-    lock_guard<mutex> g(m_lock);
-    m_pendingNodes.push_back(make_pair(pixelRect, resource));
+    std::lock_guard<std::mutex> g(m_lock);
+    m_pendingNodes.push_back(std::make_pair(pixelRect, resource));
   }
 
   auto res = resourceMapping.emplace(handle, StipplePenResourceInfo(m_packer.MapTextureCoords(pixelRect),
@@ -169,7 +169,7 @@ void StipplePenIndex::UploadResources(ref_ptr<Texture> texture)
   ASSERT(texture->GetFormat() == dp::ALPHA, ());
   TPendingNodes pendingNodes;
   {
-    lock_guard<mutex> g(m_lock);
+    std::lock_guard<std::mutex> g(m_lock);
     if (m_pendingNodes.empty())
       return;
     m_pendingNodes.swap(pendingNodes);
@@ -196,10 +196,10 @@ void StipplePenTexture::ReservePattern(buffer_vector<uint8_t, 8> const & pattern
   m_indexer->ReserveResource(true /* predefined */, StipplePenKey(pattern), newResource);
 }
 
-string DebugPrint(StipplePenHandle const & key)
+std::string DebugPrint(StipplePenHandle const & key)
 {
-  ostringstream out;
-  out << "0x" << hex << key.m_keyValue;
+  std::ostringstream out;
+  out << "0x" << std::hex << key.m_keyValue;
   return out.str();
 }
 }  // namespace dp

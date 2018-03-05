@@ -3,8 +3,7 @@
 #include "base/shared_buffer_manager.hpp"
 #include "base/stl_add.hpp"
 
-#include "std/cstring.hpp"
-
+#include <cstring>
 
 namespace  dp
 {
@@ -22,7 +21,7 @@ ColorPalette::ColorPalette(m2::PointU const & canvasSize)
 
 ref_ptr<Texture::ResourceInfo> ColorPalette::ReserveResource(bool predefined, ColorKey const & key, bool & newResource)
 {
-  lock_guard<mutex> lock(m_mappingLock);
+  std::lock_guard<std::mutex> lock(m_mappingLock);
 
   TPalette & palette = predefined ? m_predefinedPalette : m_palette;
   TPalette::iterator itm = palette.find(key.m_color);
@@ -34,7 +33,7 @@ ref_ptr<Texture::ResourceInfo> ColorPalette::ReserveResource(bool predefined, Co
     pendingColor.m_rect = m2::RectU(m_cursor.x, m_cursor.y,
                                     m_cursor.x + kResourceSize, m_cursor.y + kResourceSize);
     {
-      lock_guard<mutex> g(m_lock);
+      std::lock_guard<std::mutex> g(m_lock);
       m_pendingNodes.push_back(pendingColor);
     }
 
@@ -76,7 +75,7 @@ void ColorPalette::UploadResources(ref_ptr<Texture> texture)
   ASSERT(texture->GetFormat() == dp::RGBA8, ());
   buffer_vector<PendingColor, 16> pendingNodes;
   {
-    lock_guard<mutex> g(m_lock);
+    std::lock_guard<std::mutex> g(m_lock);
     if (m_pendingNodes.empty())
       return;
     m_pendingNodes.swap(pendingNodes);

@@ -14,6 +14,7 @@
 #include <exception>
 #include <fstream>
 #include <limits>
+#include <type_traits>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -135,8 +136,8 @@ class OSMElementCache
 {
 public:
   using TKey = uint64_t;
-  using TStorage = typename conditional<TMode == EMode::Write, FileWriter, FileReader>::type;
-  using TOffsetFile = typename conditional<TMode == EMode::Write, FileWriter, FileReader>::type;
+  using TStorage = std::conditional_t<TMode == EMode::Write, FileWriter, FileReader>;
+  using TOffsetFile = std::conditional_t<TMode == EMode::Write, FileWriter, FileReader>;
 
 protected:
   using TBuffer = std::vector<uint8_t>;
@@ -157,10 +158,12 @@ public:
   }
 
   template <EMode T>
-  typename enable_if<T == EMode::Write, void>::type InitStorage() {}
+  std::enable_if_t<T == EMode::Write, void> InitStorage()
+  {
+  }
 
   template <EMode T>
-  typename enable_if<T == EMode::Read, void>::type InitStorage()
+  std::enable_if_t<T == EMode::Read, void> InitStorage()
   {
     if (!m_preload)
       return;
@@ -170,7 +173,7 @@ public:
   }
 
   template <class TValue, EMode T = TMode>
-  typename enable_if<T == EMode::Write, void>::type Write(TKey id, TValue const & value)
+  std::enable_if_t<T == EMode::Write, void> Write(TKey id, TValue const & value)
   {
     m_offsets.Add(id, m_storage.Pos());
     m_data.clear();
@@ -186,7 +189,7 @@ public:
   }
 
   template <class TValue, EMode T = TMode>
-  typename enable_if<T == EMode::Read, bool>::type Read(TKey id, TValue & value)
+  std::enable_if_t<T == EMode::Read, bool> Read(TKey id, TValue & value)
   {
     uint64_t pos = 0;
     if (!m_offsets.GetValueByKey(id, pos))
@@ -252,7 +255,7 @@ class RawFilePointStorage : public PointStorage
   using TFileReader = MmapReader;
 #endif
 
-  typename conditional<TMode == EMode::Write, FileWriter, TFileReader>::type m_file;
+  std::conditional_t<TMode == EMode::Write, FileWriter, TFileReader> m_file;
 
   constexpr static double const kValueOrder = 1E+7;
 
@@ -260,7 +263,7 @@ public:
   explicit RawFilePointStorage(std::string const & name) : m_file(name) {}
 
   template <EMode T = TMode>
-  typename enable_if<T == EMode::Write, void>::type AddPoint(uint64_t id, double lat, double lng)
+  std::enable_if_t<T == EMode::Write, void> AddPoint(uint64_t id, double lat, double lng)
   {
     int64_t const lat64 = lat * kValueOrder;
     int64_t const lng64 = lng * kValueOrder;
@@ -278,8 +281,7 @@ public:
   }
 
   template <EMode T = TMode>
-  typename enable_if<T == EMode::Read, bool>::type GetPoint(uint64_t id, double & lat,
-                                                            double & lng) const
+  std::enable_if_t<T == EMode::Read, bool> GetPoint(uint64_t id, double & lat, double & lng) const
   {
     LatLon ll;
     m_file.Read(id * sizeof(ll), &ll, sizeof(ll));
@@ -299,7 +301,7 @@ public:
 template <EMode TMode>
 class RawMemPointStorage : public PointStorage
 {
-  typename conditional<TMode == EMode::Write, FileWriter, FileReader>::type m_file;
+  std::conditional_t<TMode == EMode::Write, FileWriter, FileReader> m_file;
 
   constexpr static double const kValueOrder = 1E+7;
 
@@ -314,25 +316,29 @@ public:
   ~RawMemPointStorage() { DoneStorage<TMode>(); }
 
   template <EMode T>
-  typename enable_if<T == EMode::Write, void>::type InitStorage() {}
+  std::enable_if_t<T == EMode::Write, void> InitStorage()
+  {
+  }
 
   template <EMode T>
-  typename enable_if<T == EMode::Read, void>::type InitStorage()
+  std::enable_if_t<T == EMode::Read, void> InitStorage()
   {
     m_file.Read(0, m_data.data(), m_data.size() * sizeof(LatLon));
   }
 
   template <EMode T>
-  typename enable_if<T == EMode::Write, void>::type DoneStorage()
+  std::enable_if_t<T == EMode::Write, void> DoneStorage()
   {
     m_file.Write(m_data.data(), m_data.size() * sizeof(LatLon));
   }
 
   template <EMode T>
-  typename enable_if<T == EMode::Read, void>::type DoneStorage() {}
+  std::enable_if_t<T == EMode::Read, void> DoneStorage()
+  {
+  }
 
   template <EMode T = TMode>
-  typename enable_if<T == EMode::Write, void>::type AddPoint(uint64_t id, double lat, double lng)
+  std::enable_if_t<T == EMode::Write, void> AddPoint(uint64_t id, double lat, double lng)
   {
     int64_t const lat64 = lat * kValueOrder;
     int64_t const lng64 = lng * kValueOrder;
@@ -348,8 +354,7 @@ public:
   }
 
   template <EMode T = TMode>
-  typename enable_if<T == EMode::Read, bool>::type GetPoint(uint64_t id, double & lat,
-                                                            double & lng) const
+  std::enable_if_t<T == EMode::Read, bool> GetPoint(uint64_t id, double & lat, double & lng) const
   {
     LatLon const & ll = m_data[id];
     // assume that valid coordinate is not (0, 0)
@@ -367,7 +372,7 @@ public:
 template <EMode TMode>
 class MapFilePointStorage : public PointStorage
 {
-  typename conditional<TMode == EMode::Write, FileWriter, FileReader>::type m_file;
+  std::conditional_t<TMode == EMode::Write, FileWriter, FileReader> m_file;
   std::unordered_map<uint64_t, std::pair<int32_t, int32_t>> m_map;
 
   constexpr static double const kValueOrder = 1E+7;
@@ -376,10 +381,12 @@ public:
   explicit MapFilePointStorage(std::string const & name) : m_file(name + ".short") { InitStorage<TMode>(); }
 
   template <EMode T>
-  typename enable_if<T == EMode::Write, void>::type InitStorage() {}
+  std::enable_if_t<T == EMode::Write, void> InitStorage()
+  {
+  }
 
   template <EMode T>
-  typename enable_if<T == EMode::Read, void>::type InitStorage()
+  std::enable_if_t<T == EMode::Read, void> InitStorage()
   {
     LOG(LINFO, ("Nodes reading is started"));
 

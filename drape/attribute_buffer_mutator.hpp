@@ -5,9 +5,10 @@
 
 #include "base/shared_buffer_manager.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/map.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <map>
+#include <utility>
+#include <vector>
 
 namespace dp
 {
@@ -29,10 +30,11 @@ struct MutateNode
 
 class AttributeBufferMutator
 {
-  typedef pair<SharedBufferManager::shared_buffer_ptr_t, size_t> TBufferNode;
-  typedef vector<TBufferNode> TBufferArray;
-  typedef vector<MutateNode> TMutateNodes;
-  typedef map<BindingInfo, TMutateNodes> TMutateData;
+  typedef std::pair<SharedBufferManager::shared_buffer_ptr_t, size_t> TBufferNode;
+  typedef std::vector<TBufferNode> TBufferArray;
+  typedef std::vector<MutateNode> TMutateNodes;
+  typedef std::map<BindingInfo, TMutateNodes> TMutateData;
+
 public:
   ~AttributeBufferMutator();
   void AddMutation(BindingInfo const & info, MutateNode const & node);

@@ -12,9 +12,9 @@ DpPointerTracker::~DpPointerTracker()
   ASSERT(m_alivePointers.empty(), ());
 }
 
-void DpPointerTracker::RefPtrNamed(void * refPtr, string const & name)
+void DpPointerTracker::RefPtrNamed(void * refPtr, std::string const & name)
 {
-  lock_guard<mutex> lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
   if (refPtr != nullptr)
   {
     auto it = m_alivePointers.find(refPtr);
@@ -27,7 +27,7 @@ void DpPointerTracker::RefPtrNamed(void * refPtr, string const & name)
 
 void DpPointerTracker::DestroyPtr(void * p)
 {
-  lock_guard<mutex> lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
   ASSERT(p != nullptr, ());
   auto it = m_alivePointers.find(p);
   if (it != m_alivePointers.end())
@@ -41,7 +41,7 @@ void DpPointerTracker::DestroyPtr(void * p)
 
 void DpPointerTracker::DerefPtr(void * p)
 {
-  lock_guard<mutex> lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
   if (p != nullptr)
   {
     auto it = m_alivePointers.find(p);

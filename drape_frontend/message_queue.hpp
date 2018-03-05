@@ -6,10 +6,10 @@
 
 #include "base/condition.hpp"
 
-#include "std/condition_variable.hpp"
-#include "std/deque.hpp"
-#include "std/functional.hpp"
-#include "std/mutex.hpp"
+#include <condition_variable>
+#include <deque>
+#include <functional>
+#include <mutex>
 
 namespace df
 {
@@ -28,7 +28,7 @@ public:
   void CancelWait();
   void ClearQuery();
 
-  using TFilterMessageFn = function<bool(ref_ptr<Message>)>;
+  using TFilterMessageFn = std::function<bool(ref_ptr<Message>)>;
   void FilterMessages(TFilterMessageFn needFilterMessageFn);
 
 #ifdef DEBUG_MESSAGE_QUEUE
@@ -39,12 +39,12 @@ public:
 private:
   void CancelWaitImpl();
 
-  mutable mutex m_mutex;
-  condition_variable m_condition;
+  mutable std::mutex m_mutex;
+  std::condition_variable m_condition;
   bool m_isWaiting;
-  using TMessageNode = pair<drape_ptr<Message>, MessagePriority>;
-  deque<TMessageNode> m_messages;
-  deque<drape_ptr<Message>> m_lowPriorityMessages;
+  using TMessageNode = std::pair<drape_ptr<Message>, MessagePriority>;
+  std::deque<TMessageNode> m_messages;
+  std::deque<drape_ptr<Message>> m_lowPriorityMessages;
 };
 
 } // namespace df

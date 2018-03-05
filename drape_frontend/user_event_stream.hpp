@@ -11,11 +11,12 @@
 
 #include "base/timer.hpp"
 
-#include "std/array.hpp"
-#include "std/bitset.hpp"
-#include "std/function.hpp"
-#include "std/mutex.hpp"
-#include "std/list.hpp"
+#include <array>
+#include <bitset>
+#include <functional>
+#include <list>
+#include <memory>
+#include <mutex>
 
 namespace df
 {
@@ -23,7 +24,7 @@ namespace df
 int const kDoNotChangeZoom = -1;
 double const kDoNotAutoZoom = -1.0;
 
-using TAnimationCreator = function<drape_ptr<Animation>(ref_ptr<Animation>)>;
+using TAnimationCreator = std::function<drape_ptr<Animation>(ref_ptr<Animation>)>;
 
 class UserEvent
 {
@@ -81,7 +82,7 @@ public:
   double GetTimeStamp() const { return m_timeStamp; }
   void SetTimeStamp(double timeStamp) { m_timeStamp = timeStamp; }
 
-  array<Touch, 2> const & GetTouches() const { return m_touches; }
+  std::array<Touch, 2> const & GetTouches() const { return m_touches; }
 
   Touch const & GetFirstTouch() const { return m_touches[0]; }
   Touch const & GetSecondTouch() const { return m_touches[1]; }
@@ -89,7 +90,7 @@ public:
   void SetFirstTouch(Touch const & touch);
   void SetSecondTouch(Touch const & touch);
 
-  void PrepareTouches(array<Touch, 2> const & previousToches);
+  void PrepareTouches(std::array<Touch, 2> const & previousToches);
 
   /// Methods for work with current touches
   /// For example : user put down one finger. We will have one touch in m_touches
@@ -108,7 +109,7 @@ private:
   void Swap();
 
   ETouchType m_type;
-  array<Touch, 2> m_touches; // array of all touches
+  std::array<Touch, 2> m_touches;  // array of all touches
   double m_timeStamp; // seconds
   uint16_t m_pointersMask;
 };
@@ -427,11 +428,11 @@ private:
 
   bool ProcessTouch(TouchEvent const & touch);
 
-  bool TouchDown(array<Touch, 2> const & touches);
-  bool TouchMove(array<Touch, 2> const & touches);
-  bool TouchCancel(array<Touch, 2> const & touches);
-  bool TouchUp(array<Touch, 2> const & touches);
-  void UpdateTouches(array<Touch, 2> const & touches);
+  bool TouchDown(std::array<Touch, 2> const & touches);
+  bool TouchMove(std::array<Touch, 2> const & touches);
+  bool TouchCancel(std::array<Touch, 2> const & touches);
+  bool TouchUp(std::array<Touch, 2> const & touches);
+  void UpdateTouches(std::array<Touch, 2> const & touches);
 
   void BeginDrag(Touch const & t);
   void Drag(Touch const & t);
@@ -468,11 +469,11 @@ private:
   void ResetMapPlaneAnimations();
   bool InterruptFollowAnimations(bool force);
 
-  bool CheckDrag(array<Touch, 2> const & touches, double threshold) const;
+  bool CheckDrag(std::array<Touch, 2> const & touches, double threshold) const;
 
-  using TEventsList = list<drape_ptr<UserEvent>>;
+  using TEventsList = std::list<drape_ptr<UserEvent>>;
   TEventsList m_events;
-  mutable mutex m_lock;
+  mutable std::mutex m_lock;
 
   m2::RectD m_visibleViewport;
   m2::PointD m_trackedCenter;
@@ -493,13 +494,13 @@ private:
     STATE_SCALE
   } m_state;
 
-  array<Touch, 2> m_touches;
+  std::array<Touch, 2> m_touches;
 
   AnimationSystem & m_animationSystem;
 
   bool m_modelViewChanged = false;
 
-  unique_ptr<UserEvent> m_pendingEvent;
+  std::unique_ptr<UserEvent> m_pendingEvent;
 
   ref_ptr<Listener> m_listener;
 
@@ -507,7 +508,7 @@ private:
   TTestBridge m_testFn;
 #endif
   m2::PointD m_startDragOrg;
-  array<m2::PointF, 2> m_twoFingersTouches;
+  std::array<m2::PointF, 2> m_twoFingersTouches;
   m2::PointD m_startDoubleTapAndHold;
 
   KineticScroller m_scroller;

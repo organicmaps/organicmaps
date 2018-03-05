@@ -23,7 +23,7 @@ public:
   ref_ptr<GpuProgram> GetProgram(int index);
 
 private:
-  ref_ptr<Shader> GetShader(int index, string const & source, Shader::Type t);
+  ref_ptr<Shader> GetShader(int index, std::string const & source, Shader::Type t);
 
   using ProgramMap = std::map<int, drape_ptr<GpuProgram>>;
   using ShaderMap = std::map<int, drape_ptr<Shader>>;

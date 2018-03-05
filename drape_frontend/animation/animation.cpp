@@ -6,7 +6,7 @@ namespace df
 // static
 bool Animation::GetCachedProperty(TPropertyCache const & properties, Object object, ObjectProperty property, PropertyValue & value)
 {
-  auto const it = properties.find(make_pair(object, property));
+  auto const it = properties.find(std::make_pair(object, property));
   if (it != properties.end())
   {
     value = it->second;

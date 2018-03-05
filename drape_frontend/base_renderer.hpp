@@ -9,10 +9,11 @@
 
 #include "base/thread.hpp"
 
-#include "std/atomic.hpp"
-#include "std/condition_variable.hpp"
-#include "std/function.hpp"
-#include "std/mutex.hpp"
+#include <atomic>
+#include <condition_variable>
+#include <functional>
+#include <memory>
+#include <mutex>
 
 namespace df
 {
@@ -59,24 +60,24 @@ protected:
 
   void CheckRenderingEnabled();
 
-  virtual unique_ptr<threads::IRoutine> CreateRoutine() = 0;
+  virtual std::unique_ptr<threads::IRoutine> CreateRoutine() = 0;
 
   virtual void OnContextCreate() = 0;
   virtual void OnContextDestroy() = 0;
 
 private:
-  using TCompletionHandler = function<void()>;
+  using TCompletionHandler = std::function<void()>;
 
   threads::Thread m_selfThread;
   ThreadsCommutator::ThreadName m_threadName;
 
-  mutex m_renderingEnablingMutex;
-  condition_variable m_renderingEnablingCondition;
-  atomic<bool> m_isEnabled;
+  std::mutex m_renderingEnablingMutex;
+  std::condition_variable m_renderingEnablingCondition;
+  std::atomic<bool> m_isEnabled;
   TCompletionHandler m_renderingEnablingCompletionHandler;
-  mutex m_completionHandlerMutex;
+  std::mutex m_completionHandlerMutex;
   bool m_wasNotified;
-  atomic<bool> m_wasContextReset;
+  std::atomic<bool> m_wasContextReset;
 
   bool FilterGLContextDependentMessage(ref_ptr<Message> msg);
   void SetRenderingEnabled(bool const isEnabled);

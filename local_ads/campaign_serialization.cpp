@@ -29,7 +29,7 @@ auto const kMaxZoomLevel = 17;
 auto const kMaxPriority = 7;
 
 template <typename Integral, typename Source,
-          typename std::enable_if<std::is_integral<Integral>::value, void *>::type = nullptr>
+          std::enable_if_t<std::is_integral<Integral>::value, void *> = nullptr>
 std::vector<Integral> ReadVarUintArray(Source & s, size_t chunksNumber)
 {
   std::vector<Integral> result;

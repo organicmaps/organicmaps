@@ -134,9 +134,9 @@ impl::Equals<false, T, C> EqualsBy(T (C::*p)() const)
 }
 
 template <typename T>
-typename std::underlying_type<T>::type Key(T value)
+std::underlying_type_t<T> Key(T value)
 {
-  return static_cast<typename std::underlying_type<T>::type>(value);
+  return static_cast<std::underlying_type_t<T>>(value);
 }
 
 // Use this if you want to make a functor whose first
@@ -149,7 +149,7 @@ public:
   IgnoreFirstArgument(Gn && gn) : m_fn(std::forward<Gn>(gn)) {}
 
   template <typename Arg, typename... Args>
-  typename std::result_of<Fn(Args &&...)>::type operator()(Arg && arg, Args &&... args)
+  std::result_of_t<Fn(Args &&...)> operator()(Arg && arg, Args &&... args)
   {
     return m_fn(std::forward<Args>(args)...);
   }

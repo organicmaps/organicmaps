@@ -3,10 +3,10 @@
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
-#include "std/array.hpp"
-#include "std/type_traits.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <array>
+#include <type_traits>
+#include <utility>
+#include <vector>
 
 namespace m2
 {
@@ -30,7 +30,7 @@ private:
     double m_len;
   };
 
-  vector<Value> m_poly;
+  std::vector<Value> m_poly;
   double m_length;
 };
 
@@ -65,7 +65,7 @@ namespace impl
 template <typename TCalculator, typename TIterator>
 m2::PointD ApplyPointOnSurfaceCalculator(TIterator begin, TIterator end, TCalculator && calc)
 {
-  array<m2::PointD, 3> triangle;
+  std::array<m2::PointD, 3> triangle;
   while (begin != end)
   {
     for (auto i = 0; i < 3; ++i)
@@ -89,17 +89,17 @@ auto ApplyCalculator(TIterator begin, TIterator end, TCalculator && calc)
 }
 
 template <typename TCalculator, typename TIterator>
-auto SelectImplementation(TIterator begin, TIterator end, TCalculator && calc, true_type const &)
-    -> decltype(calc.GetResult())
+auto SelectImplementation(TIterator begin, TIterator end, TCalculator && calc,
+                          std::true_type const &) -> decltype(calc.GetResult())
 {
-  return impl::ApplyPointOnSurfaceCalculator(begin, end, forward<TCalculator>(calc));
+  return impl::ApplyPointOnSurfaceCalculator(begin, end, std::forward<TCalculator>(calc));
 }
 
 template <typename TCalculator, typename TIterator>
-auto SelectImplementation(TIterator begin, TIterator end, TCalculator && calc, false_type const &)
-    -> decltype(calc.GetResult())
+auto SelectImplementation(TIterator begin, TIterator end, TCalculator && calc,
+                          std::false_type const &) -> decltype(calc.GetResult())
 {
-  return impl::ApplyCalculator(begin, end, forward<TCalculator>(calc));
+  return impl::ApplyCalculator(begin, end, std::forward<TCalculator>(calc));
 }
 }  // namespace impl
 
@@ -107,15 +107,16 @@ template <typename TCalculator, typename TIterator>
 auto ApplyCalculator(TIterator begin, TIterator end, TCalculator && calc)
     -> decltype(calc.GetResult())
 {
-  return impl::SelectImplementation(begin, end, forward<TCalculator>(calc),
-                                    is_same<CalculatePointOnSurface,
-                                            typename remove_reference<TCalculator>::type>());
+  return impl::SelectImplementation(
+      begin, end, std::forward<TCalculator>(calc),
+      std::is_same<CalculatePointOnSurface, std::remove_reference_t<TCalculator>>());
 }
 
 template <typename TCalculator, typename TCollection>
 auto ApplyCalculator(TCollection && collection, TCalculator && calc)
     -> decltype(calc.GetResult())
 {
-  return ApplyCalculator(begin(collection), end(collection), forward<TCalculator>(calc));
+  return ApplyCalculator(std::begin(collection), std::end(collection),
+                         std::forward<TCalculator>(calc));
 }
 }  // namespace m2

@@ -7,13 +7,13 @@
 #include "base/checked_cast.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/iterator.hpp"
-#include "std/map.hpp"
-#include "std/queue.hpp"
-#include "std/type_traits.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <iterator>
+#include <map>
+#include <memory>
+#include <queue>
+#include <type_traits>
+#include <vector>
 
 namespace coding
 {
@@ -23,7 +23,7 @@ public:
   class Freqs
   {
   public:
-    using Table = map<uint32_t, uint32_t>;
+    using Table = std::map<uint32_t, uint32_t>;
 
     Freqs() = default;
 
@@ -35,7 +35,7 @@ public:
 
     void Add(strings::UniString const & s) { Add(s.begin(), s.end()); }
 
-    void Add(string const & s) { Add(s.begin(), s.end()); }
+    void Add(std::string const & s) { Add(s.begin(), s.end()); }
 
     template <typename T>
     void Add(T const * begin, T const * const end)
@@ -47,15 +47,15 @@ public:
     template <typename It>
     void Add(It begin, It const end)
     {
-      static_assert(is_integral<typename It::value_type>::value, "");
+      static_assert(std::is_integral<typename It::value_type>::value, "");
       AddImpl(begin, end);
     }
 
     template <typename T>
-    void Add(vector<T> const & v)
+    void Add(std::vector<T> const & v)
     {
       for (auto const & e : v)
-        Add(begin(e), end(e));
+        Add(std::begin(e), std::end(e));
     }
 
     Table const & GetTable() const { return m_table; }
@@ -182,7 +182,7 @@ public:
   }
 
   template <typename TWriter>
-  uint32_t EncodeAndWrite(TWriter & writer, string const & s) const
+  uint32_t EncodeAndWrite(TWriter & writer, std::string const & s) const
   {
     return EncodeAndWrite(writer, s.begin(), s.end());
   }
@@ -200,7 +200,7 @@ public:
   {
     BitReader<TSource> bitReader(src);
     size_t sz = static_cast<size_t>(ReadVarUint<uint32_t, TSource>(src));
-    vector<strings::UniChar> v(sz);
+    std::vector<strings::UniChar> v(sz);
     for (size_t i = 0; i < sz; ++i)
       *out++ = ReadAndDecode(bitReader);
     return out;
@@ -302,7 +302,7 @@ private:
   void SetDepths(Node * root, uint32_t depth);
 
   Node * m_root;
-  map<Code, uint32_t> m_decoderTable;
-  map<uint32_t, Code> m_encoderTable;
+  std::map<Code, uint32_t> m_decoderTable;
+  std::map<uint32_t, Code> m_encoderTable;
 };
 }  // namespace coding

@@ -110,16 +110,18 @@ namespace bits
     return (x << 1) | (x >> (sizeof(T) * 8 - 1));
   }
 
-  template <typename T> inline typename std::make_unsigned<T>::type ZigZagEncode(T x)
+  template <typename T>
+  inline std::make_unsigned_t<T> ZigZagEncode(T x)
   {
     static_assert(std::is_signed<T>::value, "Type should be signed");
     return (x << 1) ^ (x >> (sizeof(x) * 8 - 1));
   }
 
-  template <typename T> inline typename std::make_signed<T>::type ZigZagDecode(T x)
+  template <typename T>
+  inline std::make_signed_t<T> ZigZagDecode(T x)
   {
     static_assert(std::is_unsigned<T>::value, "Type should be unsigned.");
-    return (x >> 1) ^ -static_cast<typename std::make_signed<T>::type>(x & 1);
+    return (x >> 1) ^ -static_cast<std::make_signed_t<T>>(x & 1);
   }
 
   inline uint32_t PerfectShuffle(uint32_t x)

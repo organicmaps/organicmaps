@@ -4,7 +4,7 @@
 
 #include "drape/color.hpp"
 
-#include "std/type_traits.hpp"
+#include <type_traits>
 
 #include <glm_config.hpp>
 #include <glm/vec2.hpp>
@@ -71,7 +71,8 @@ inline vec4 ToVec4(dp::Color const & color)
                     double(color.GetAlpha()) / 255);
 }
 
-template<typename T, class = typename enable_if<is_integral<T>::value || is_floating_point<T>::value>::type>
+template <typename T, typename = std::enable_if_t<std::is_integral<T>::value ||
+                                                  std::is_floating_point<T>::value>>
 inline uint8_t GetArithmeticComponentCount()
 {
   return 1;

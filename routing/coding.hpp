@@ -72,7 +72,7 @@ void WriteGamma(BitWriter<Sink> & writer, T value)
 // ModularCast makes unambiguous conversion from unsigned value to signed.
 // The resulting value is the least signed integer congruent to the source integer
 // (modulo 2^n where n is the number of bits used to represent the unsigned type)
-template <typename Unsigned, typename Signed = typename std::make_signed<Unsigned>::type>
+template <typename Unsigned, typename Signed = std::make_signed_t<Unsigned>>
 Signed ModularCast(Unsigned value)
 {
   static_assert(std::is_unsigned<Unsigned>::value, "T should be an unsigned type");
@@ -85,16 +85,15 @@ Signed ModularCast(Unsigned value)
 }
 
 // Encodes current as delta compared with prev.
-template <typename T, typename UnsignedT = typename std::make_unsigned<T>::type>
+template <typename T, typename UnsignedT = std::make_unsigned_t<T>>
 UnsignedT EncodeZigZagDelta(T prev, T current)
 {
   static_assert(std::is_integral<T>::value, "T should be an integral type");
-  using SignedT = typename std::make_signed<T>::type;
 
   auto const unsignedPrev = static_cast<UnsignedT>(prev);
   auto const unsignedCurrent = static_cast<UnsignedT>(current);
   auto originalDelta = ModularCast(static_cast<UnsignedT>(unsignedCurrent - unsignedPrev));
-  static_assert(std::is_same<decltype(originalDelta), SignedT>::value,
+  static_assert(std::is_same<decltype(originalDelta), std::make_signed_t<T>>::value,
                 "It's expected that ModuleCast returns SignedT");
 
   auto encodedDelta = bits::ZigZagEncode(originalDelta);
@@ -104,14 +103,13 @@ UnsignedT EncodeZigZagDelta(T prev, T current)
 }
 
 // Reverse function for EncodeZigZagDelta.
-template <typename T, typename UnsignedT = typename std::make_unsigned<T>::type>
+template <typename T, typename UnsignedT = std::make_unsigned_t<T>>
 T DecodeZigZagDelta(T prev, UnsignedT delta)
 {
   static_assert(std::is_integral<T>::value, "T should be an integral type");
-  using SignedT = typename std::make_signed<T>::type;
 
   auto decoded = bits::ZigZagDecode(delta);
-  static_assert(std::is_same<decltype(decoded), SignedT>::value,
+  static_assert(std::is_same<decltype(decoded), std::make_signed_t<T>>::value,
                 "It's expected that bits::ZigZagDecode returns SignedT");
   return prev + static_cast<T>(decoded);
 }

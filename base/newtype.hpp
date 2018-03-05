@@ -9,7 +9,7 @@ namespace my
 namespace impl
 {
 template <typename From, typename To>
-using IsConvertibleGuard = typename std::enable_if<std::is_convertible<From, To>::value>::type *;
+using IsConvertibleGuard = std::enable_if_t<std::is_convertible<From, To>::value> *;
 }  // namespace impl
 
 /// Creates a typesafe alias to a given numeric Type.

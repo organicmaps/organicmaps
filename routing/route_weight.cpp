@@ -8,8 +8,7 @@ using namespace std;
 
 namespace
 {
-template <typename Number,
-          typename EnableIf = typename enable_if<is_integral<Number>::value, void>::type>
+template <typename Number, typename EnableIf = enable_if_t<is_integral<Number>::value, void>>
 bool SumWillOverflow(Number lhs, Number rhs)
 {
   if (lhs > 0)

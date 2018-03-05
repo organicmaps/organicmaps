@@ -25,17 +25,15 @@ public:
   }
 
   template <typename... Args>
-  typename std::enable_if<
-      std::is_same<typename std::result_of<Fn(Args...)>::type, base::ControlFlow>::value,
-      base::ControlFlow>::type
+  std::enable_if_t<std::is_same<std::result_of_t<Fn(Args...)>, base::ControlFlow>::value,
+                   base::ControlFlow>
   operator()(Args &&... args)
   {
     return m_fn(std::forward<Args>(args)...);
   }
 
   template <typename... Args>
-  typename std::enable_if<std::is_same<typename std::result_of<Fn(Args...)>::type, void>::value,
-                          base::ControlFlow>::type
+  std::enable_if_t<std::is_same<std::result_of_t<Fn(Args...)>, void>::value, base::ControlFlow>
   operator()(Args &&... args)
   {
     m_fn(std::forward<Args>(args)...);

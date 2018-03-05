@@ -33,14 +33,12 @@ public:
   }
 
   template <typename R>
-  typename enable_if<is_fundamental<R>::value>::type operator()(R const & r,
-                                                                char const * /* name */ = nullptr)
+  enable_if_t<is_fundamental<R>::value> operator()(R const & r, char const * /* name */ = nullptr)
   {
   }
 
   template <typename R>
-  typename enable_if<!is_fundamental<R>::value>::type operator()(R const & r,
-                                                                 char const * /* name */ = nullptr)
+  enable_if_t<!is_fundamental<R>::value> operator()(R const & r, char const * /* name */ = nullptr)
   {
     r.Visit(*this);
   }

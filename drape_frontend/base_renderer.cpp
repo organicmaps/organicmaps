@@ -1,9 +1,7 @@
 #include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/message_subclasses.hpp"
 
-#include "std/utility.hpp"
-
-#include <functional>
+#include <utility>
 
 namespace df
 {
@@ -67,19 +65,19 @@ void BaseRenderer::SetRenderingEnabled(bool const isEnabled)
     return;
 
   // here we have to wait for completion of internal SetRenderingEnabled
-  mutex completionMutex;
-  condition_variable completionCondition;
+  std::mutex completionMutex;
+  std::condition_variable completionCondition;
   bool notified = false;
   auto handler = [&]()
   {
-    lock_guard<mutex> lock(completionMutex);
+    std::lock_guard<std::mutex> lock(completionMutex);
     notified = true;
     completionCondition.notify_one();
   };
-  
+
   {
     lock_guard<mutex> lock(m_completionHandlerMutex);
-    m_renderingEnablingCompletionHandler = move(handler);
+    m_renderingEnablingCompletionHandler = std::move(handler);
   }
 
   if (isEnabled)
@@ -96,7 +94,7 @@ void BaseRenderer::SetRenderingEnabled(bool const isEnabled)
     CancelMessageWaiting();
   }
 
-  unique_lock<mutex> lock(completionMutex);
+  std::unique_lock<std::mutex> lock(completionMutex);
   completionCondition.wait(lock, [&notified] { return notified; });
 }
 
@@ -129,7 +127,7 @@ void BaseRenderer::CheckRenderingEnabled()
     Notify();
 
     // wait for signal
-    unique_lock<mutex> lock(m_renderingEnablingMutex);
+    std::unique_lock<std::mutex> lock(m_renderingEnablingMutex);
     m_renderingEnablingCondition.wait(lock, [this] { return m_wasNotified; });
 
     m_wasNotified = false;
@@ -158,10 +156,10 @@ void BaseRenderer::CheckRenderingEnabled()
 
 void BaseRenderer::Notify()
 {
-  function<void()> handler;
+  std::function<void()> handler;
   {
-    lock_guard<mutex> lock(m_completionHandlerMutex);
-    handler = move(m_renderingEnablingCompletionHandler);
+    std::lock_guard<std::mutex> lock(m_completionHandlerMutex);
+    handler = std::move(m_renderingEnablingCompletionHandler);
     m_renderingEnablingCompletionHandler = nullptr;
   }
 
@@ -171,7 +169,7 @@ void BaseRenderer::Notify()
 
 void BaseRenderer::WakeUp()
 {
-  lock_guard<mutex> lock(m_renderingEnablingMutex);
+  std::lock_guard<std::mutex> lock(m_renderingEnablingMutex);
   m_wasNotified = true;
   m_renderingEnablingCondition.notify_one();
 }

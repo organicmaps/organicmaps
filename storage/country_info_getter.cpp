@@ -17,19 +17,18 @@
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
-#include "std/bind.hpp"
-#include "std/function.hpp"
-#include "std/limits.hpp"
+#include <functional>
+#include <limits>
 
 namespace storage
 {
 namespace
 {
-size_t const kInvalidId = numeric_limits<size_t>::max();
+size_t const kInvalidId = std::numeric_limits<size_t>::max();
 
 struct DoFreeCacheMemory
 {
-  void operator()(vector<m2::RegionD> & v) const { vector<m2::RegionD>().swap(v); }
+  void operator()(std::vector<m2::RegionD> & v) const { std::vector<m2::RegionD>().swap(v); }
 };
 
 class DoCalcUSA
@@ -63,7 +62,7 @@ vector<TCountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD const 
 {
   size_t constexpr kAverageSize = 10;
 
-  vector<TCountryId> result;
+  std::vector<TCountryId> result;
   result.reserve(kAverageSize);
   for (size_t id = 0; id < m_countries.size(); ++id)
   {
@@ -260,19 +259,19 @@ CountryInfoReader::CountryInfoReader(ModelReaderPtr polyR, ModelReaderPtr countr
 
 void CountryInfoReader::ClearCachesImpl() const
 {
-  lock_guard<mutex> lock(m_cacheMutex);
+  std::lock_guard<std::mutex> lock(m_cacheMutex);
 
   m_cache.ForEachValue(DoFreeCacheMemory());
   m_cache.Reset();
 }
 
 template <typename TFn>
-typename result_of<TFn(vector<m2::RegionD>)>::type CountryInfoReader::WithRegion(size_t id, TFn && fn) const
+std::result_of_t<TFn(vector<m2::RegionD>)> CountryInfoReader::WithRegion(size_t id, TFn && fn) const
 {
-  lock_guard<mutex> lock(m_cacheMutex);
+  std::lock_guard<std::mutex> lock(m_cacheMutex);
 
   bool isFound = false;
-  vector<m2::RegionD> & rgns = m_cache.Find(static_cast<uint32_t>(id), isFound);
+  std::vector<m2::RegionD> & rgns = m_cache.Find(static_cast<uint32_t>(id), isFound);
 
   if (!isFound)
   {
@@ -283,7 +282,7 @@ typename result_of<TFn(vector<m2::RegionD>)>::type CountryInfoReader::WithRegion
     uint32_t const count = ReadVarUint<uint32_t>(src);
     for (size_t i = 0; i < count; ++i)
     {
-      vector<m2::PointD> points;
+      std::vector<m2::PointD> points;
       serial::LoadOuterPath(src, serial::CodingParams(), points);
       rgns.emplace_back(move(points));
     }
@@ -295,8 +294,7 @@ typename result_of<TFn(vector<m2::RegionD>)>::type CountryInfoReader::WithRegion
 
 bool CountryInfoReader::IsBelongToRegionImpl(size_t id, m2::PointD const & pt) const
 {
-  auto contains = [&pt](vector<m2::RegionD> const & regions)
-  {
+  auto contains = [&pt](std::vector<m2::RegionD> const & regions) {
     for (auto const & region : regions)
     {
       if (region.Contains(pt))
@@ -310,15 +308,11 @@ bool CountryInfoReader::IsBelongToRegionImpl(size_t id, m2::PointD const & pt) c
 
 bool CountryInfoReader::IsIntersectedByRegionImpl(size_t id, m2::RectD const & rect) const
 {
-  vector<pair<m2::PointD, m2::PointD>> edges =
-  {
-    {rect.LeftTop(), rect.RightTop()},
-    {rect.RightTop(), rect.RightBottom()},
-    {rect.RightBottom(), rect.LeftBottom()},
-    {rect.LeftBottom(), rect.LeftTop()}
-  };
-  auto contains = [&edges](vector<m2::RegionD> const & regions)
-  {
+  std::vector<pair<m2::PointD, m2::PointD>> edges = {{rect.LeftTop(), rect.RightTop()},
+                                                     {rect.RightTop(), rect.RightBottom()},
+                                                     {rect.RightBottom(), rect.LeftBottom()},
+                                                     {rect.LeftBottom(), rect.LeftTop()}};
+  auto contains = [&edges](std::vector<m2::RegionD> const & regions) {
     for (auto const & region : regions)
     {
       for (auto const & edge : edges)
@@ -340,8 +334,7 @@ bool CountryInfoReader::IsIntersectedByRegionImpl(size_t id, m2::RectD const & r
 bool CountryInfoReader::IsCloseEnough(size_t id, m2::PointD const & pt, double distance)
 {
   m2::RectD const lookupRect = MercatorBounds::RectByCenterXYAndSizeInMeters(pt, distance);
-  auto isCloseEnough = [&](vector<m2::RegionD> const & regions)
-  {
+  auto isCloseEnough = [&](std::vector<m2::RegionD> const & regions) {
     for (auto const & region : regions)
     {
       if (region.Contains(pt) || region.AtBorder(pt, lookupRect.SizeX() / 2))
@@ -354,7 +347,7 @@ bool CountryInfoReader::IsCloseEnough(size_t id, m2::PointD const & pt, double d
 }
 
 // CountryInfoGetterForTesting ---------------------------------------------------------------------
-CountryInfoGetterForTesting::CountryInfoGetterForTesting(vector<CountryDef> const & countries)
+CountryInfoGetterForTesting::CountryInfoGetterForTesting(std::vector<CountryDef> const & countries)
   : CountryInfoGetter(true)
 {
   for (auto const & country : countries)
