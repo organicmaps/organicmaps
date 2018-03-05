@@ -72,7 +72,8 @@ extern NSString * const kLuggageCategory = @"luggagehero";
   [delegate dismissKeyboard];
   if ([string isEqualToString:kLuggageCategory])
   {
-    delegate.state = MWMSearchManagerStateMapSearch;
+    if (!IPAD)
+      delegate.state = MWMSearchManagerStateMapSearch;
     [MRMyTracker trackEventWithName:@"Search_SponsoredCategory_selected_LuggageHero"];
     [Statistics logEvent:kStatSearchSponsoredSelect withParameters:@{kStatProvider : kStatLuggageHero}];
   }
