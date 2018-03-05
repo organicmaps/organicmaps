@@ -89,6 +89,7 @@ public:
       { "internet_access" },
       { "wheelchair" },
       { "sponsored" },
+      { "entrance" },
     };
 
     AddTypes(arr1);
