@@ -247,11 +247,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       super.bind(result, order);
       boolean isHotelAvailable = mResult.isHotel &&
                                  mAvailableHotelIds.contains(mResult.description.featureId);
-      Context context = mSearchFragment.getActivity();
-      @AttrRes
-      int itemBg = ThemeUtils.getResource(context, R.attr.clickableBackground);
-      mFrame.setBackgroundResource(isHotelAvailable ? R.color.bg_search_available_hotel : itemBg);
-
+      setBackground(isHotelAvailable);
       // TODO: Support also "Open Now" mark.
       UiUtils.showIf(mResult.description.openNow == SearchResult.OPEN_NOW_NO, mClosedMarker);
       UiUtils.setTextAndHideIfEmpty(mDescription, formatDescription(mResult, isHotelAvailable));
@@ -259,6 +255,21 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       UiUtils.setTextAndHideIfEmpty(mDistance, mResult.description.distance);
       UiUtils.setTextAndHideIfEmpty(mPriceCategory, mResult.description.pricing);
 
+    }
+
+    private void setBackground(boolean isHotelAvailable)
+    {
+      Context context = mSearchFragment.getActivity();
+      @AttrRes
+      int itemBg = ThemeUtils.getResource(context, R.attr.clickableBackground);
+      int bottomPad = mFrame.getPaddingBottom();
+      int topPad = mFrame.getPaddingTop();
+      int rightPad = mFrame.getPaddingRight();
+      int leftPad = mFrame.getPaddingLeft();
+      mFrame.setBackgroundResource(isHotelAvailable ? R.color.bg_search_available_hotel : itemBg);
+      // On old Android (4.1) after setting the view background the previous paddings
+      // are discarded for unknown reasons, that's why restoring the previous paddings is needed.
+      mFrame.setPadding(leftPad, topPad, rightPad, bottomPad);
     }
 
     @Override
