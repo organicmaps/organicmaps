@@ -81,8 +81,7 @@ class ResultCodesHelper
       messages.add(resources.getString(R.string.transit_not_found));
       break;
     case TRANSIT_ROUTE_NOT_FOUND_TOO_LONG_PEDESTRIAN:
-      titleRes = R.string.dialog_pedestrian_route_is_long;
-      messages.add(resources.getString(R.string.dialog_message_transit_not_found_connection));
+      messages.add(resources.getString(R.string.dialog_pedestrian_route_is_long));
       break;
     case ROUTE_NOT_FOUND:
     case ROUTE_NOT_FOUND_REDRESS_ROUTE_ERROR:
