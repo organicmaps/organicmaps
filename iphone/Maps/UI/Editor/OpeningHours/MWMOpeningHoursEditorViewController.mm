@@ -128,6 +128,8 @@ extern NSDictionary * const kMWMOpeningHoursEditorTableCells = @{
 - (void)fillCell:(MWMOpeningHoursTableViewCell * _Nonnull)cell
      atIndexPath:(NSIndexPath * _Nonnull)indexPath
 {
+  if (!self.parentViewController)
+    return;
   if (indexPath.section < self.model.count)
     [self.model fillCell:cell atIndexPath:indexPath];
   else if ([cell isKindOfClass:[MWMOpeningHoursAddScheduleTableViewCell class]])
