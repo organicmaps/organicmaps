@@ -55,8 +55,10 @@ public final class CountryItem implements Comparable<CountryItem>
   public int errorCode;
   public boolean present;
 
-  // Percent
+  // Progress
   public int progress;
+  public long downloadedBytes;
+  public long bytesToDownload;
 
   // Internal ID for grouping under headers in the list
   int headerId;

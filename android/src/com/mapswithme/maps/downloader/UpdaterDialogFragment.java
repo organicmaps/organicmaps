@@ -480,8 +480,11 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
         return;
 
       int progress = MapManager.nativeGetOverallProgress(mOutdatedMaps);
-      mFragment.setProgress(progress, localSizeBytes / Constants.MB,
-                            remoteSizeBytes / Constants.MB);
+      CountryItem root = new CountryItem(CountryItem.getRootId());
+      MapManager.nativeGetAttributes(root);
+
+      mFragment.setProgress(progress, root.downloadedBytes / Constants.MB,
+                            root.bytesToDownload / Constants.MB);
     }
 
     void attach(@NonNull UpdaterDialogFragment fragment)

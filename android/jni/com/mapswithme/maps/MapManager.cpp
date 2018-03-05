@@ -278,6 +278,8 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
   static jfieldID const countryItemFieldTotalChildCount = env->GetFieldID(g_countryItemClass, "totalChildCount", "I");
   static jfieldID const countryItemFieldPresent = env->GetFieldID(g_countryItemClass, "present", "Z");
   static jfieldID const countryItemFieldProgress = env->GetFieldID(g_countryItemClass, "progress", "I");
+  static jfieldID const countryItemFieldDownloadedBytes = env->GetFieldID(g_countryItemClass, "downloadedBytes", "J");
+  static jfieldID const countryItemFieldBytesToDownload = env->GetFieldID(g_countryItemClass, "bytesToDownload", "J");
 
   // Localized name
   jni::TScopedLocalRef const name(env, jni::ToJavaString(env, attrs.m_nodeLocalName));
@@ -337,10 +339,12 @@ static void UpdateItem(JNIEnv * env, jobject item, NodeAttrs const & attrs)
 
   // Progress
   int progress = 0;
-  if (attrs.m_downloadingProgress.second)
+  if (attrs.m_downloadingProgress.second != 0)
     progress = (int)(attrs.m_downloadingProgress.first * kMaxProgress / attrs.m_downloadingProgress.second);
 
   env->SetIntField(item, countryItemFieldProgress, progress);
+  env->SetLongField(item, countryItemFieldDownloadedBytes, attrs.m_downloadingProgress.first);
+  env->SetLongField(item, countryItemFieldBytesToDownload, attrs.m_downloadingProgress.second);
 }
 
 static void PutItemsToList(JNIEnv * env, jobject const list, TCountriesVec const & children, int category,
