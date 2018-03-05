@@ -16,6 +16,8 @@
 
 #include "coding/file_name_utils.hpp"
 
+#include "base/checked_cast.hpp"
+
 #include <algorithm>
 #include <iomanip>
 #include <sstream>
@@ -103,7 +105,8 @@ openlr::Path MakePath(FeatureType const & road, bool const forward)
     auto const from = road.GetPoint(current);
     auto const to = road.GetPoint(next);
     path.push_back(routing::Edge::MakeReal(
-        road.GetID(), forward, current - static_cast<size_t>(!forward) /* segId */,
+        road.GetID(), forward,
+        base::checked_cast<uint32_t>(current - static_cast<size_t>(!forward)) /* segId */,
         routing::Junction(from, 0 /* altitude */), routing::Junction(to, 0 /* altitude */)));
   }
 

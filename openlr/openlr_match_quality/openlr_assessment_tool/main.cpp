@@ -14,15 +14,6 @@ namespace
 {
 DEFINE_string(resources_path, "", "Path to resources directory");
 DEFINE_string(data_path, "", "Path to data directory");
-
-bool ValidateStringFlag(char const * flagName, std::string const & val)
-{
-  if (!val.empty())
-    return true;
-
-  fprintf(stderr, "%1$s cannot be empty. Please specify a proper %1$s\n", flagName);
-  return false;
-}
 }  // namespace
 
 int main(int argc, char * argv[])

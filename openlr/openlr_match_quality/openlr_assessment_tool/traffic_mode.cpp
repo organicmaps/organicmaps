@@ -350,7 +350,8 @@ void TrafficMode::CommitPath()
     std::tie(prevFid, prevSegId) = prevPoint.GetPoint();
     std::tie(fid, segId) = point.GetPoint();
 
-    path.push_back(Edge::MakeReal(fid, prevSegId < segId /* forward */, prevSegId,
+    path.push_back(Edge::MakeReal(fid, prevSegId < segId /* forward */,
+                                  base::checked_cast<uint32_t>(prevSegId),
                                   routing::Junction(prevPoint.GetCoordinate(), 0 /* altitude */),
                                   routing::Junction(point.GetCoordinate(), 0 /* altitude */)));
   }

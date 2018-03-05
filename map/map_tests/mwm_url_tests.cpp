@@ -415,7 +415,7 @@ void generateRandomTest(uint32_t numberOfPoints, size_t stringLength)
 
   ApiTest api(result);
   TEST_EQUAL(api.GetPointCount(), vect.size(), ());
-  for (size_t i = 0; i < vect.size();++i)
+  for (size_t i = 0; i < vect.size(); ++i)
   {
     /// Mercator defined not on all range of lat\lon values.
     /// Some part of lat\lon is clamp on convertation
@@ -424,7 +424,7 @@ void generateRandomTest(uint32_t numberOfPoints, size_t stringLength)
     double lat = vect[i].m_lat;
     double lon = vect[i].m_lon;
     ToMercatoToLatLon(lat, lon);
-    int const ix = vect.size() - i - 1;
+    int const ix = static_cast<int>(vect.size() - i) - 1;
     TEST(api.TestLatLon(ix, lat, lon), ());
     TEST(api.TestName(ix, vect[i].m_name), ());
     TEST(api.TestID(ix, vect[i].m_id), ());
