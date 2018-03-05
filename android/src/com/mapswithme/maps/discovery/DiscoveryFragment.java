@@ -220,7 +220,8 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     else
     {
       params = new DiscoveryParams(Utils.getCurrencyCode(), Language.getDefaultLocale(),
-                                   ITEMS_COUNT, DiscoveryParams.ITEM_TYPE_ATTRACTIONS,
+                                   ITEMS_COUNT, DiscoveryParams.ITEM_TYPE_HOTELS,
+                                   DiscoveryParams.ITEM_TYPE_ATTRACTIONS,
                                    DiscoveryParams.ITEM_TYPE_CAFES);
     }
     DiscoveryManager.INSTANCE.discover(params);
