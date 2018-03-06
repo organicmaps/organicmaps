@@ -44,12 +44,12 @@ private:
   }
 #else
   template <class U = T>
-  std::enable_if<std::is_pod<U>::value, void> MoveStatic(buffer_vector<T, N> & rhs)
+  std::enable_if_t<std::is_pod<U>::value, void> MoveStatic(buffer_vector<T, N> & rhs)
   {
     memcpy(m_static, rhs.m_static, rhs.m_size*sizeof(T));
   }
   template <class U = T>
-  std::enable_if<!std::is_pod<U>::value, void> j MoveStatic(buffer_vector<T, N> & rhs)
+  std::enable_if_t<!std::is_pod<U>::value, void> MoveStatic(buffer_vector<T, N> & rhs)
   {
     for (size_t i = 0; i < rhs.m_size; ++i)
       Swap(m_static[i], rhs.m_static[i]);
