@@ -1393,19 +1393,18 @@ public class PlacePageView extends RelativeLayout
         UiUtils.hide(mWebsite);
         UiUtils.show(mHotelMore);
       }
-      else
-      {
-        String website = mapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
-        String url = mapObject.getMetadata(Metadata.MetadataType.FMD_URL);
-        refreshMetadataOrHide(TextUtils.isEmpty(website) ? url : website, mWebsite, mTvWebsite);
-      }
-
       if (mSponsored.getType() != Sponsored.TYPE_BOOKING)
         hideHotelViews();
       if (mSponsored.getType() != Sponsored.TYPE_VIATOR)
         hideSponsoredGalleryViews();
     }
 
+    if (mSponsored == null || mSponsored.getType() != Sponsored.TYPE_BOOKING)
+    {
+      String website = mapObject.getMetadata(Metadata.MetadataType.FMD_WEBSITE);
+      String url = mapObject.getMetadata(Metadata.MetadataType.FMD_URL);
+      refreshMetadataOrHide(TextUtils.isEmpty(website) ? url : website, mWebsite, mTvWebsite);
+    }
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_PHONE_NUMBER), mPhone, mTvPhone);
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_EMAIL), mEmail, mTvEmail);
     refreshMetadataOrHide(mapObject.getMetadata(Metadata.MetadataType.FMD_OPERATOR), mOperator, mTvOperator);
