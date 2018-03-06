@@ -66,14 +66,18 @@ final class AuthorizationViewController: MWMViewController {
       googleButton.setTitle("Google", for: .normal)
       googleButton.setTitleColor(UIColor.blackPrimaryText(), for: .normal)
       googleButton.titleLabel?.font = UIFont.bold14()
-      let gid = GIDSignIn.sharedInstance()!
-      gid.delegate = self
-      gid.uiDelegate = self
     }
   }
 
   @IBAction func googleSignIn() {
-    GIDSignIn.sharedInstance().signIn()
+    let gid = GIDSignIn.sharedInstance()!
+    if var scopes = gid.scopes {
+      scopes.append("https://www.googleapis.com/auth/plus.login")
+      gid.scopes = scopes
+    }
+    gid.delegate = self
+    gid.uiDelegate = self
+    gid.signIn()
   }
 
   private lazy var facebookButton: FBSDKLoginButton = {
