@@ -1148,6 +1148,7 @@
 		34D3B04D1E38A20C004100F9 /* Bundle+Init.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Init.swift"; sourceTree = "<group>"; };
 		34D4FA611E26572D003F53EF /* FirstLaunchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstLaunchController.swift; sourceTree = "<group>"; };
 		34D4FA651E265749003F53EF /* WhatsNewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhatsNewController.swift; sourceTree = "<group>"; };
+		34D7DB77204ED3DD0041D015 /* maps.me dbg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "maps.me dbg.entitlements"; sourceTree = "<group>"; };
 		34D8087A1E793606002F0584 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		34D8087C1E79360D002F0584 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
 		34D808851E793F91002F0584 /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pushwoosh.framework; path = Carthage/Build/iOS/Pushwoosh.framework; sourceTree = "<group>"; };
@@ -1877,6 +1878,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				34D7DB77204ED3DD0041D015 /* maps.me dbg.entitlements */,
 				345E8F4D1F83976800A826CC /* GoogleService-Info.plist */,
 				34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */,
 				6B653B931C7F2DE4007BEFC5 /* cuisine-strings */,
@@ -4781,6 +4783,7 @@
 		6741AA571BF340DE002C974C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
 				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4795,6 +4798,7 @@
 		6741AA5A1BF340DE002C974C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
 				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4809,6 +4813,7 @@
 		6741AA5C1BF340DE002C974C /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "maps.me dbg.entitlements";
 				DEVELOPMENT_TEAM = 3T6FSDE8C7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
