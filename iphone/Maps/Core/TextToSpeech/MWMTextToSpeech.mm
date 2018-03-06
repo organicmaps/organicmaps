@@ -191,7 +191,7 @@ using Observers = NSHashTable<Observer>;
   for (NSString * loc in candidateLocales)
   {
     if ([loc isEqualToString:@"en-US"])
-      voice = [AVSpeechSynthesisVoice voiceWithLanguage:AVSpeechSynthesisVoiceIdentifierAlex];
+      voice = [AVSpeechSynthesisVoice voiceWithIdentifier:AVSpeechSynthesisVoiceIdentifierAlex];
     if (voice)
       break;
     for (AVSpeechSynthesisVoice * ttsVoice in availTTSVoices)
