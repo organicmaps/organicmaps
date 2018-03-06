@@ -1242,4 +1242,5 @@
 	<string name="bookmarks_error_title_share_empty">Eroare la distribuire</string>
 	<string name="bookmarks_error_message_share_empty">Nu se poate distribui o listă goală</string>
 	<string name="discovery_button_subtitle_book_hotels">Rezervă hoteluri</string>
+	<string name="luggage_storage">Depozitare bagaje</string>
 </resources>

@@ -1250,4 +1250,5 @@
 	<string name="bookmarks_error_title_share_empty">Delingsfejl</string>
 	<string name="bookmarks_error_message_share_empty">Kan ikke dele en tom liste</string>
 	<string name="discovery_button_subtitle_book_hotels">Reserver hoteller</string>
+	<string name="luggage_storage">Bagageopbevaring</string>
 </resources>

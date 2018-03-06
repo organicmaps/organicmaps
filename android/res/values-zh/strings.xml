@@ -1252,4 +1252,5 @@
 	<string name="bookmarks_error_title_share_empty">分享错误</string>
 	<string name="bookmarks_error_message_share_empty">无法分享空列表</string>
 	<string name="discovery_button_subtitle_book_hotels">订宾馆</string>
+	<string name="luggage_storage">行李寄存</string>
 </resources>

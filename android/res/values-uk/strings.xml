@@ -1250,4 +1250,5 @@
 	<string name="bookmarks_error_title_share_empty">Помилка обміну</string>
 	<string name="bookmarks_error_message_share_empty">Неможливо поділитися пустим списком</string>
 	<string name="discovery_button_subtitle_book_hotels">Забронювати готелі</string>
+	<string name="luggage_storage">Камера схову багажу</string>
 </resources>

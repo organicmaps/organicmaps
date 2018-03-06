@@ -2215,16 +2215,16 @@
 
 "whats_new_message_ugc_travel" = "Vota e recensisci i luoghi che hai visitato!";
 
-"dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
+"dialog_pedestrian_route_is_long" = "La strada pedonale è troppo lunga";
 
-"dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
+"dialog_message_transit_not_found_connection" = "Pianifica un percorso all'interno di una rete di transito";
 
-"bookmarks_error_message_share_general" = "Unable to share due to an application error";
+"bookmarks_error_message_share_general" = "Impossibile condividere a causa di un errore dell'applicazione";
 
-"bookmarks_error_title_share_empty" = "Sharing error";
+"bookmarks_error_title_share_empty" = "Errore di condivisione";
 
-"bookmarks_error_message_share_empty" = "Cannot share an empty list";
+"bookmarks_error_message_share_empty" = "Impossibile condividere una lista vuota";
 
-"discovery_button_subtitle_book_hotels" = "Book hotels";
+"discovery_button_subtitle_book_hotels" = "Prenota hotel";
 
-"luggage_storage" = "Luggage storage";
+"luggage_storage" = "Deposito bagagli";

@@ -1252,4 +1252,5 @@
 	<string name="bookmarks_error_title_share_empty">خطأ في المشاركة</string>
 	<string name="bookmarks_error_message_share_empty">لا يمكن مشاركة قائمة فارغة</string>
 	<string name="discovery_button_subtitle_book_hotels">حجز فنادق</string>
+	<string name="luggage_storage">مخزن الحقائب</string>
 </resources>

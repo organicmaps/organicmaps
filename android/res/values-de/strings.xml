@@ -1254,4 +1254,11 @@
 	<string name="whats_new_message_hotel_filter">Buchen Sie Hotels, die für Ihre Termine verfügbar sind! Nutzen Sie Anreise- und Abreise-Filter</string>
 	<string name="whats_new_title_ugc_travel">Teilen Sie anderen Reisenden Ihre Erfahrungen mit!</string>
 	<string name="whats_new_message_ugc_travel">Bewerten Sie Orte, die Sie besucht haben!</string>
+	<string name="dialog_pedestrian_route_is_long">Die Fußgängerroute ist zu lang</string>
+	<string name="dialog_message_transit_not_found_connection">Eine Route innerhalb eines Transitnetzes planen</string>
+	<string name="bookmarks_error_message_share_general">Freigabe wegen eines Anwendungsfehlers nicht möglich</string>
+	<string name="bookmarks_error_title_share_empty">Fehler bei der Freigabe</string>
+	<string name="bookmarks_error_message_share_empty">Es kann keine leere Liste freigegeben werden</string>
+	<string name="discovery_button_subtitle_book_hotels">Hotels buchen</string>
+	<string name="luggage_storage">Gepäckaufbewahrung</string>
 </resources>

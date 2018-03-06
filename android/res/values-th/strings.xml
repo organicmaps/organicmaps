@@ -1252,4 +1252,5 @@
 	<string name="bookmarks_error_title_share_empty">ข้อผิดพลาดในการแชร์</string>
 	<string name="bookmarks_error_message_share_empty">ไม่สามารถแชร์รายการที่ว่างเปล่าได้</string>
 	<string name="discovery_button_subtitle_book_hotels">จองโรงแรม</string>
+	<string name="luggage_storage">พื้นที่จัดเก็บกระเป๋าเดินทาง</string>
 </resources>

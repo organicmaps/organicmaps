@@ -1253,4 +1253,11 @@
 	<string name="whats_new_message_hotel_filter">Réservez des hôtels disponibles à vos dates ! Utilisez les filtres de check-in et check-out</string>
 	<string name="whats_new_title_ugc_travel">Partagez votre expérience avec d’autres voyageurs !</string>
 	<string name="whats_new_message_ugc_travel">Notez et donnez votre avis sur les lieux que vous avez visités !</string>
+	<string name="dialog_pedestrian_route_is_long">La route piétonne est trop longue</string>
+	<string name="dialog_message_transit_not_found_connection">Planifier un itinéraire dans un réseau de transport en commun</string>
+	<string name="bookmarks_error_message_share_general">Impossible de partager en raison d\'une erreur d\'application</string>
+	<string name="bookmarks_error_title_share_empty">Erreur de partage</string>
+	<string name="bookmarks_error_message_share_empty">Impossible de partager une liste vide</string>
+	<string name="discovery_button_subtitle_book_hotels">Réserver des hôtels</string>
+	<string name="luggage_storage">Compartiment de bagage</string>
 </resources>

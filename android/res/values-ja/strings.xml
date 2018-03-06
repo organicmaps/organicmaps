@@ -1239,4 +1239,11 @@
 	<string name="whats_new_message_hotel_filter">あなたの日程で空室のあるホテルを予約できます！チェックインおよびチェックアウトフィルターをご利用ください。</string>
 	<string name="whats_new_title_ugc_travel">あなたの体験を他の旅行者に共有してください！</string>
 	<string name="whats_new_message_ugc_travel">訪れた場所の評価やレビューを行ってください！</string>
+	<string name="dialog_pedestrian_route_is_long">歩行ルートが長すぎます</string>
+	<string name="dialog_message_transit_not_found_connection">1 つの交通ネットワーク内でルートを作成</string>
+	<string name="bookmarks_error_message_share_general">アプリケーションエラーのため共有できません</string>
+	<string name="bookmarks_error_title_share_empty">共有エラー</string>
+	<string name="bookmarks_error_message_share_empty">空のリストは教諭できません</string>
+	<string name="discovery_button_subtitle_book_hotels">ホテルを予約</string>
+	<string name="luggage_storage">荷物スペース</string>
 </resources>

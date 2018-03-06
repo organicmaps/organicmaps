@@ -1253,4 +1253,5 @@
 	<string name="bookmarks_error_title_share_empty">Chyba sdílení</string>
 	<string name="bookmarks_error_message_share_empty">Nelze sdílet s prázdným seznamem</string>
 	<string name="discovery_button_subtitle_book_hotels">Zarezervovat hotely</string>
+	<string name="luggage_storage">Úschovna zavazadel</string>
 </resources>

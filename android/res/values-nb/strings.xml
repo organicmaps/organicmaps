@@ -1238,4 +1238,11 @@
 	<string name="whats_new_message_hotel_filter">Bestill hotell på datoene dine! Bruk filtre for inn- og utsjekking</string>
 	<string name="whats_new_title_ugc_travel">Del dine opplevelser med andre reisende!</string>
 	<string name="whats_new_message_ugc_travel">Gi din vurdering og anmeldelse av steder du har reist til!</string>
+	<string name="dialog_pedestrian_route_is_long">Gangruten er for lang</string>
+	<string name="dialog_message_transit_not_found_connection">Planlegg en rute innenfor transittnettverket</string>
+	<string name="bookmarks_error_message_share_general">Kan ikke dele på grunn av en programfeil</string>
+	<string name="bookmarks_error_title_share_empty">Delingsfeil</string>
+	<string name="bookmarks_error_message_share_empty">Kan ikke dele en tom liste</string>
+	<string name="discovery_button_subtitle_book_hotels">Bestill hotell</string>
+	<string name="luggage_storage">Bagasjerom</string>
 </resources>

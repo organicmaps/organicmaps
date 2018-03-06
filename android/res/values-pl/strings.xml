@@ -1249,4 +1249,5 @@
 	<string name="bookmarks_error_title_share_empty">Błąd udostępniania</string>
 	<string name="bookmarks_error_message_share_empty">Nie można udostępnić pustej listy</string>
 	<string name="discovery_button_subtitle_book_hotels">Rezerwuj hotele</string>
+	<string name="luggage_storage">Przechowalnia bagażu</string>
 </resources>

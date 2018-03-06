@@ -1252,4 +1252,5 @@
 	<string name="bookmarks_error_title_share_empty">Paylaşma hatası</string>
 	<string name="bookmarks_error_message_share_empty">Boş bir liste paylaşılamaz</string>
 	<string name="discovery_button_subtitle_book_hotels">Otellerde rezervasyon yap</string>
+	<string name="luggage_storage">Bagaj saklama</string>
 </resources>

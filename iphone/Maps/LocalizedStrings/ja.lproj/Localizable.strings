@@ -2215,16 +2215,16 @@
 
 "whats_new_message_ugc_travel" = "訪れた場所の評価やレビューを行ってください！";
 
-"dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
+"dialog_pedestrian_route_is_long" = "歩行ルートが長すぎます";
 
-"dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
+"dialog_message_transit_not_found_connection" = "1 つの交通ネットワーク内でルートを作成";
 
-"bookmarks_error_message_share_general" = "Unable to share due to an application error";
+"bookmarks_error_message_share_general" = "アプリケーションエラーのため共有できません";
 
-"bookmarks_error_title_share_empty" = "Sharing error";
+"bookmarks_error_title_share_empty" = "共有エラー";
 
-"bookmarks_error_message_share_empty" = "Cannot share an empty list";
+"bookmarks_error_message_share_empty" = "空のリストは教諭できません";
 
-"discovery_button_subtitle_book_hotels" = "Book hotels";
+"discovery_button_subtitle_book_hotels" = "ホテルを予約";
 
-"luggage_storage" = "Luggage storage";
+"luggage_storage" = "荷物スペース";

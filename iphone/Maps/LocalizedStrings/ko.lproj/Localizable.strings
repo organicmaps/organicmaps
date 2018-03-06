@@ -2215,16 +2215,16 @@
 
 "whats_new_message_ugc_travel" = "방문한 장소를 평가하고 리뷰를 남기세요!";
 
-"dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
+"dialog_pedestrian_route_is_long" = "보행자 루트가 너무 깁니다";
 
-"dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
+"dialog_message_transit_not_found_connection" = "대중 교통망 내에서 하나의 경로를 계획하세요";
 
-"bookmarks_error_message_share_general" = "Unable to share due to an application error";
+"bookmarks_error_message_share_general" = "애플리케이션 오류로 인해 공유할 수 없습니다";
 
-"bookmarks_error_title_share_empty" = "Sharing error";
+"bookmarks_error_title_share_empty" = "공유 오류";
 
-"bookmarks_error_message_share_empty" = "Cannot share an empty list";
+"bookmarks_error_message_share_empty" = "빈 목록을 공유 할 수 없습니다";
 
-"discovery_button_subtitle_book_hotels" = "Book hotels";
+"discovery_button_subtitle_book_hotels" = "호텔 예약";
 
-"luggage_storage" = "Luggage storage";
+"luggage_storage" = "수하물 보관소";

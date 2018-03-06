@@ -1246,4 +1246,5 @@
 	<string name="bookmarks_error_title_share_empty">Megosztási hiba</string>
 	<string name="bookmarks_error_message_share_empty">Üres lista nem osztható meg</string>
 	<string name="discovery_button_subtitle_book_hotels">Szállodák foglalása</string>
+	<string name="luggage_storage">Csomagmegőrzés</string>
 </resources>

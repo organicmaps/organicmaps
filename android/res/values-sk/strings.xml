@@ -1243,4 +1243,11 @@
 	<string name="whats_new_message_hotel_filter">Rezervujte si hotely, ktoré sú k dispozícii vo vami požadovanom dátume! Použiť filtre pre prihlásenie a odhlásenie v hoteli</string>
 	<string name="whats_new_title_ugc_travel">Podeľte sa o svoje skúsenosti s ďalšími cestovateľmi!</string>
 	<string name="whats_new_message_ugc_travel">Ohodnoťte a napíšte recenziu miest, ktoré ste navštívili!</string>
+	<string name="dialog_pedestrian_route_is_long">Trasa pre chodca je príliš dlhá</string>
+	<string name="dialog_message_transit_not_found_connection">Naplánujte si trasu v jednej sieti verejnej dopravy</string>
+	<string name="bookmarks_error_message_share_general">Pre chybu aplikácie nie je zdieľanie možné</string>
+	<string name="bookmarks_error_title_share_empty">Chyba zdieľania</string>
+	<string name="bookmarks_error_message_share_empty">Prázdny zoznam nie je možné zdieľať</string>
+	<string name="discovery_button_subtitle_book_hotels">Rezervovať hotely</string>
+	<string name="luggage_storage">Odkladací priestor pre batožinu</string>
 </resources>

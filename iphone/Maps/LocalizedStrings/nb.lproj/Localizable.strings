@@ -2215,16 +2215,16 @@
 
 "whats_new_message_ugc_travel" = "Gi din vurdering og anmeldelse av steder du har reist til!";
 
-"dialog_pedestrian_route_is_long" = "The pedestrian route is too long";
+"dialog_pedestrian_route_is_long" = "Gangruten er for lang";
 
-"dialog_message_transit_not_found_connection" = "Plan a route within one transit network";
+"dialog_message_transit_not_found_connection" = "Planlegg en rute innenfor transittnettverket";
 
-"bookmarks_error_message_share_general" = "Unable to share due to an application error";
+"bookmarks_error_message_share_general" = "Kan ikke dele på grunn av en programfeil";
 
-"bookmarks_error_title_share_empty" = "Sharing error";
+"bookmarks_error_title_share_empty" = "Delingsfeil";
 
-"bookmarks_error_message_share_empty" = "Cannot share an empty list";
+"bookmarks_error_message_share_empty" = "Kan ikke dele en tom liste";
 
-"discovery_button_subtitle_book_hotels" = "Book hotels";
+"discovery_button_subtitle_book_hotels" = "Bestill hotell";
 
-"luggage_storage" = "Luggage storage";
+"luggage_storage" = "Bagasjerom";

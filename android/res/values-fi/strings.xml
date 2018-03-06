@@ -1240,4 +1240,11 @@
 	<string name="whats_new_message_hotel_filter">Varaa hotelleja, joissa on tilaa valitseminasi päivinä! Käytä sisäänkirjautumis- ja uloskirjautumissuodattimia</string>
 	<string name="whats_new_title_ugc_travel">Jaa kokemuksesi muille matkailijoille!</string>
 	<string name="whats_new_message_ugc_travel">Arvioi ja kirjoita arvosteluja vierailemistasi paikoista!</string>
+	<string name="dialog_pedestrian_route_is_long">Jalankulkureitti on liian pitkä</string>
+	<string name="dialog_message_transit_not_found_connection">Suunnittele reitti yhdellä läpikulkuverkolla</string>
+	<string name="bookmarks_error_message_share_general">Ei voitu jakaa sovellusvirheen vuoksi</string>
+	<string name="bookmarks_error_title_share_empty">Jakamisvirhe</string>
+	<string name="bookmarks_error_message_share_empty">Tyhjää listaa ei voi jakaa</string>
+	<string name="discovery_button_subtitle_book_hotels">Varaa hotelleja</string>
+	<string name="luggage_storage">Matkatavaroiden säilytys</string>
 </resources>
