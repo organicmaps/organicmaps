@@ -337,7 +337,7 @@ void BookmarkManager::NotifyChanges()
   {
     if (IsBookmarkCategory(groupId))
     {
-      if (GetBmCategory(groupId)->IsAutoSave())
+      if (GetBmCategory(groupId)->IsAutoSaveEnabled())
         SaveToKMLFile(groupId);
       isBookmarks = true;
     }
@@ -913,6 +913,7 @@ UserMarkLayer * BookmarkManager::GetGroup(df::MarkGroupID groupId)
 void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool autoSave)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  df::GroupIDSet loadedGroups;
   for (auto & data : dataCollection)
   {
     df::MarkGroupID groupId;
@@ -931,7 +932,9 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     }
     else
     {
-      groupId = CreateBookmarkCategory(data->m_name, autoSave);
+      groupId = CreateBookmarkCategory(data->m_name, false /* autoSave */);
+      loadedGroups.insert(groupId);
+
       group = GetBmCategory(groupId);
       group->SetFileName(data->m_file);
       group->SetIsVisible(data->m_visible);
@@ -957,6 +960,12 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
   }
 
   NotifyChanges();
+
+  for (auto const & groupId : loadedGroups)
+  {
+    auto * group = GetBmCategory(groupId);
+    group->EnableAutoSave(autoSave);
+  }
 }
 
 namespace

@@ -128,7 +128,8 @@ public:
   std::string const & GetName() const { return m_name; }
   std::string const & GetFileName() const { return m_file; }
 
-  bool IsAutoSave() const { return m_autoSave; }
+  void EnableAutoSave(bool enable) { m_autoSave = enable; }
+  bool IsAutoSaveEnabled() const { return m_autoSave; }
 
 private:
   df::MarkGroupID const m_groupId;
