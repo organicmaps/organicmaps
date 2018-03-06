@@ -265,7 +265,7 @@
       if (![catName length])
         catName = @"MapsMe";
 
-      NSString * filePath = @(bmManager.GetCategoryFileName(m_categoryId).c_str());
+      NSString * filePath = self.categoryFileName;
       NSMutableString * kmzFile = [NSMutableString stringWithString:filePath];
       [kmzFile replaceCharactersInRange:NSMakeRange([filePath length] - 1, 1) withString:@"z"];
 
@@ -454,6 +454,11 @@
   [self presentViewController:mailVC animated:YES completion:nil];
 }
 
+- (NSString *)categoryFileName
+{
+  return @(GetFramework().GetBookmarkManager().GetCategoryFileName(m_categoryId).c_str());
+}
+
 - (void)calculateSections
 {
   int index = 1;
@@ -466,7 +471,7 @@
     m_bookmarkSection = index++;
   else
     m_bookmarkSection = EMPTY_SECTION;
-  if ([MWMMailViewController canSendMail])
+  if ([MWMMailViewController canSendMail] && self.categoryFileName.length > 0)
     m_shareSection = index++;
   else
     m_shareSection = EMPTY_SECTION;
