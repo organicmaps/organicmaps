@@ -17,6 +17,7 @@ omim_link_libraries(
   coding
   geometry
   base
+  jansson
   stats_client
   ${LIBZ}
 )
