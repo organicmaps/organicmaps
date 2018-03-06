@@ -52,4 +52,18 @@
  */
 + (NSString *)URLEncode:(NSString *)value;
 
+/**
+  Creates a timer using Grand Central Dispatch.
+ - Parameter interval: The interval to fire the timer, in seconds.
+ - Parameter block: The code block to execute when timer is fired.
+ - Returns: The dispatch handle.
+ */
++ (dispatch_source_t)startGCDTimerWithInterval:(double)interval block:(dispatch_block_t)block;
+
+/**
+ Stop a timer that was started by startGCDTimerWithInterval.
+ - Parameter timer: The dispatch handle received from startGCDTimerWithInterval.
+ */
++ (void)stopGCDTimer:(dispatch_source_t)timer;
+
 @end
