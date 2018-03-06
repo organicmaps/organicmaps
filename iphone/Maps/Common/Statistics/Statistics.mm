@@ -143,10 +143,6 @@ void checkFlurryLogStatus(FlurryEventRecordStatus status)
   [[self instance] logEvent:eventName withParameters:parameters atLocation:location];
 }
 
-@end
-
-@implementation Statistics (ConnectionTypeLogging)
-
 + (NSString *)connectionTypeString
 {
   switch (Platform::ConnectionStatus())

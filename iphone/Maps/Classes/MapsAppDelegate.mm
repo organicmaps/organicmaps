@@ -495,7 +495,6 @@ using namespace osm_auth_ios;
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
   LOG(LINFO, ("applicationDidBecomeActive - begin"));
-  NSLog(@"Pushwoosh token: %@", [MWMPushNotifications pushToken]);
   
   TrackMarketingAppLaunch();
   

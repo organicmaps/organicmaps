@@ -41,6 +41,7 @@ NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
 {
   PushNotificationManager * pushManager = [PushNotificationManager pushManager];
   [pushManager handlePushRegistration:deviceToken];
+  NSLog(@"Pushwoosh token: %@", [pushManager getPushToken]);
   [Alohalytics logEvent:kPushDeviceTokenLogEvent withValue:pushManager.getHWID];
 }
 
@@ -48,6 +49,7 @@ NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
     didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
   [[PushNotificationManager pushManager] handlePushRegistrationFailure:error];
+  [[Crashlytics sharedInstance] recordError:error];
 }
 
 + (void)application:(UIApplication *)application
@@ -76,5 +78,4 @@ NSString * const kPushDeviceTokenLogEvent = @"iOSPushDeviceToken";
   return YES;
 }
 
-+ (NSString *)pushToken { return [[PushNotificationManager pushManager] getPushToken]; }
 @end
