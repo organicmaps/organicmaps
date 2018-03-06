@@ -286,10 +286,8 @@ void ReadManager::CheckFinishedTiles(TTileInfoCollection const & requestedTiles,
 
 void ReadManager::CancelTileInfo(std::shared_ptr<TileInfo> const & tileToCancel)
 {
-  {
-    std::lock_guard<std::mutex> lock(m_finishedTilesMutex);
-    m_activeTiles.erase(tileToCancel->GetTileKey());
-  }
+  std::lock_guard<std::mutex> lock(m_finishedTilesMutex);
+  m_activeTiles.erase(tileToCancel->GetTileKey());
   tileToCancel->Cancel();
 }
 
