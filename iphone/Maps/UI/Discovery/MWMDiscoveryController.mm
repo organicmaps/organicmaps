@@ -179,13 +179,30 @@ struct Callback
 
 - (void)routeToItem:(ItemType const)type atIndex:(size_t const)index
 {
-  CHECK(type == ItemType::Attractions || type == ItemType::Cafes || type == ItemType::Hotels,
-        ("Attempt to route to item with type:", static_cast<int>(type)));
-  auto const & item =
-      type == ItemType::Attractions ? m_model.GetAttractionAt(index) : m_model.GetCafeAt(index);
-  MWMRoutePoint * pt = [[MWMRoutePoint alloc] initWithPoint:item.GetFeatureCenter()
-                                                      title:@(item.GetString().c_str())
-                                                   subtitle:@(item.GetFeatureTypeName().c_str())
+  __block m2::PointD point;
+  __block NSString * title;
+  __block NSString * subtitle;
+
+  auto getRoutePointInfo = ^(search::Result const & item) {
+    point = item.GetFeatureCenter();
+    title = @(item.GetString().c_str());
+    subtitle = @(item.GetFeatureTypeName().c_str());
+  };
+
+  switch (type)
+  {
+  case ItemType::Attractions: getRoutePointInfo(m_model.GetAttractionAt(index)); break;
+  case ItemType::Cafes: getRoutePointInfo(m_model.GetCafeAt(index)); break;
+  case ItemType::Hotels: getRoutePointInfo(m_model.GetHotelAt(index)); break;
+  case ItemType::Viator:
+  case ItemType::LocalExperts:
+    CHECK(false, ("Attempt to route to item with type:", static_cast<int>(type)));
+    break;
+  }
+
+  MWMRoutePoint * pt = [[MWMRoutePoint alloc] initWithPoint:point
+                                                      title:title
+                                                   subtitle:subtitle
                                                        type:MWMRoutePointTypeFinish
                                           intermediateIndex:0];
   [MWMRouter setType:MWMRouterTypePedestrian];
