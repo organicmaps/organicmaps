@@ -76,7 +76,8 @@ iphone/**/*.perspectivev3
 
 # Carthage
 iphone/Maps/3party/Carthage/Checkouts
-iphone/Maps/3party/Carthage/Build/Mac
+iphone/Maps/3party/Carthage/Build/Mac/*.bcsymbolmap
+iphone/Maps/3party/Carthage/Build/Mac/*.dSYM
 iphone/Maps/3party/Carthage/Build/tvOS
 iphone/Maps/3party/Carthage/Build/watchOS
 iphone/Maps/3party/Carthage/Build/iOS/*.bcsymbolmap
