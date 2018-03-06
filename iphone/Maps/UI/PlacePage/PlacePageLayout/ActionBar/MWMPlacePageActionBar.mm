@@ -254,6 +254,9 @@
       [UIAlertController alertControllerWithTitle:title
                                           message:subtitle
                                    preferredStyle:UIAlertControllerStyleActionSheet];
+  alertController.popoverPresentationController.sourceView = self.shareAnchor;
+  alertController.popoverPresentationController.sourceRect = self.shareAnchor.bounds;
+
   UIAlertAction * cancelAction =
       [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil];
 
@@ -269,13 +272,6 @@
   }
   [alertController addAction:cancelAction];
 
-  if (IPAD)
-  {
-    UIPopoverPresentationController * popPresenter =
-        [alertController popoverPresentationController];
-    popPresenter.sourceView = self.shareAnchor;
-    popPresenter.sourceRect = self.shareAnchor.bounds;
-  }
   [vc presentViewController:alertController animated:YES completion:nil];
 }
 

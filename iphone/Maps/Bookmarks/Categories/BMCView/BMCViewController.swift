@@ -107,6 +107,10 @@ final class BMCViewController: MWMViewController {
 
   private func editCategory(category: BMCCategory, anchor: UIView) {
     let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    if let ppc = actionSheet.popoverPresentationController {
+      ppc.sourceView = anchor
+      ppc.sourceRect = anchor.bounds
+    }
 
     let rename = L("rename").capitalized
     actionSheet.addAction(UIAlertAction(title: rename, style: .default, handler: { _ in

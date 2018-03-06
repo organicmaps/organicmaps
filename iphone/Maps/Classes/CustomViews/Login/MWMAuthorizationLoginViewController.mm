@@ -210,6 +210,8 @@ using namespace osm_auth_ios;
       [UIAlertController alertControllerWithTitle:nil
                                           message:nil
                                    preferredStyle:UIAlertControllerStyleActionSheet];
+  alertController.popoverPresentationController.barButtonItem =
+      self.navigationItem.rightBarButtonItem;
   [alertController addAction:[UIAlertAction actionWithTitle:kRefresh
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * action) {
@@ -223,12 +225,6 @@ using namespace osm_auth_ios;
   [alertController
       addAction:[UIAlertAction actionWithTitle:kCancel style:UIAlertActionStyleCancel handler:nil]];
 
-  if (IPAD)
-  {
-    UIPopoverPresentationController * popPresenter =
-        [alertController popoverPresentationController];
-    popPresenter.barButtonItem = self.navigationItem.rightBarButtonItem;
-  }
   [self presentViewController:alertController animated:YES completion:nil];
 }
 
