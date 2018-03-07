@@ -71,10 +71,10 @@
   case routing::IRouter::StartPointNotFound: return [MWMDefaultAlert startPointNotFoundAlert];
   case routing::IRouter::EndPointNotFound: return [MWMDefaultAlert endPointNotFoundAlert];
   case routing::IRouter::PointsInDifferentMWM: return [MWMDefaultAlert pointsInDifferentMWMAlert];
-  case routing::IRouter::RouteNotFound:
   case routing::IRouter::TransitRouteNotFoundNoNetwork: return [MWMDefaultAlert routeNotFoundNoPublicTransportAlert];
   case routing::IRouter::TransitRouteNotFoundTooLongPedestrian: return [MWMDefaultAlert routeNotFoundTooLongPedestrianAlert];
   case routing::IRouter::RouteNotFoundRedressRouteError:
+  case routing::IRouter::RouteNotFound:
   case routing::IRouter::InconsistentMWMandRoute: return [MWMDefaultAlert routeNotFoundAlert];
   case routing::IRouter::RouteFileNotExist:
   case routing::IRouter::FileTooOld: return [MWMDefaultAlert routeFileNotExistAlert];
