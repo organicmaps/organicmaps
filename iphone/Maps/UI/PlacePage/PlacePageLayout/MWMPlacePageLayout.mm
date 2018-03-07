@@ -141,18 +141,20 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
   if (_buttonsSectionEnabled == buttonsSectionEnabled)
     return;
   _buttonsSectionEnabled = buttonsSectionEnabled;
-  auto data = self.data;
-  auto tv = self.placePageView.tableView;
-  if (!data || !tv)
-    return;
+  dispatch_async(dispatch_get_main_queue(), ^{
+    auto data = self.data;
+    auto tv = self.placePageView.tableView;
+    if (!data || !tv)
+      return;
 
-  auto const & sections = data.sections;
-  auto const it = find(sections.begin(), sections.end(), place_page::Sections::Buttons);
-  if (it == sections.end())
-    return;
-  NSInteger const sectionNumber = distance(sections.begin(), it);
-  [tv reloadSections:[NSIndexSet indexSetWithIndex:sectionNumber]
-      withRowAnimation:UITableViewRowAnimationNone];
+    auto const & sections = data.sections;
+    auto const it = find(sections.begin(), sections.end(), place_page::Sections::Buttons);
+    if (it == sections.end())
+      return;
+    NSInteger const sectionNumber = distance(sections.begin(), it);
+    [tv reloadSections:[NSIndexSet indexSetWithIndex:sectionNumber]
+        withRowAnimation:UITableViewRowAnimationNone];
+  });
 }
 
 - (MWMPlacePageActionBar *)actionBar

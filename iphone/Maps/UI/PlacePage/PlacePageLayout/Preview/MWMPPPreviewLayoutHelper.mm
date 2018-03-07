@@ -357,17 +357,18 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class],
 {
   if (IPAD)
     return;
+  dispatch_async(dispatch_get_main_queue(), ^{
+    auto data = self.data;
+    if (!data)
+      return;
 
-  auto data = self.data;
-  if (!data)
-    return;
+    CLS_LOG(@"layoutInOpenState\tisOpen:%@\tLatitude:%@\tLongitude:%@", @(isOpen),
+            @(data.latLon.lat), @(data.latLon.lon));
 
-  CLS_LOG(@"layoutInOpenState\tisOpen:%@\tLatitude:%@\tLongitude:%@", @(isOpen), @(data.latLon.lat),
-          @(data.latLon.lon));
-
-  [self.tableView update:^{
-    self.cachedBannerCell.state = isOpen ? MWMAdBannerStateDetailed : MWMAdBannerStateCompact;
-  }];
+    [self.tableView update:^{
+      self.cachedBannerCell.state = isOpen ? MWMAdBannerStateDetailed : MWMAdBannerStateCompact;
+    }];
+  });
 }
 
 - (MWMDirectionView *)directionView
