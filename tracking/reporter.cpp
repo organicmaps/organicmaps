@@ -1,4 +1,4 @@
-#include "reporter.hpp"
+#include "tracking/reporter.hpp"
 
 #include "platform/location.hpp"
 #include "platform/platform.hpp"
@@ -11,13 +11,14 @@
 
 #include "std/target_os.hpp"
 
+#include <cmath>
+
 namespace
 {
 double constexpr kRequiredHorizontalAccuracy = 10.0;
 double constexpr kMinDelaySeconds = 1.0;
-double constexpr kReconnectDelaySeconds = 60.0;
+double constexpr kReconnectDelaySeconds = 40.0;
 double constexpr kNotChargingEventPeriod = 5 * 60.0;
-size_t constexpr kRealTimeBufferSize = 60;
 } // namespace
 
 namespace tracking
@@ -32,9 +33,13 @@ Reporter::Reporter(unique_ptr<platform::Socket> socket, string const & host, uin
   : m_allowSendingPoints(true)
   , m_realtimeSender(move(socket), host, port, false)
   , m_pushDelay(pushDelay)
-  , m_points(kRealTimeBufferSize)
   , m_thread([this] { Run(); })
 {
+  CHECK_NOT_EQUAL(kMinDelaySeconds, 0.0, ());
+  // Set buffer size to be enough to keep all points even if one reconnect attempt failed.
+  auto const realTimeBufferSize =
+      (duration_cast<seconds>(m_pushDelay).count() + kReconnectDelaySeconds) / kMinDelaySeconds;
+  m_points.resize(ceil(realTimeBufferSize));
 }
 
 Reporter::~Reporter()
