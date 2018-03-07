@@ -147,6 +147,7 @@
 		F6C269F91F16174E00EB6519 /* libugc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6C269F81F16174E00EB6519 /* libugc.a */; };
 		F6D2CE7E1EDEB7F500636DFD /* routing_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6D2CE7C1EDEB7F500636DFD /* routing_manager.cpp */; };
 		F6D2CE7F1EDEB7F500636DFD /* routing_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6D2CE7D1EDEB7F500636DFD /* routing_manager.hpp */; };
+		F6D67CE32063F4980032FD38 /* framework_light.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6D67CE22063F4980032FD38 /* framework_light.hpp */; };
 		F6FC3CB51FC323430001D929 /* discovery_client_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6FC3CB21FC323420001D929 /* discovery_client_params.hpp */; };
 		F6FC3CB61FC323430001D929 /* discovery_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6FC3CB31FC323420001D929 /* discovery_manager.cpp */; };
 		F6FC3CB71FC323430001D929 /* discovery_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F6FC3CB41FC323420001D929 /* discovery_manager.hpp */; };
@@ -315,6 +316,7 @@
 		F6C269F81F16174E00EB6519 /* libugc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libugc.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-fbvotunmmtqmjnezabjibwxwryev/Build/Products/Debug/libugc.a"; sourceTree = "<group>"; };
 		F6D2CE7C1EDEB7F500636DFD /* routing_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_manager.cpp; sourceTree = "<group>"; };
 		F6D2CE7D1EDEB7F500636DFD /* routing_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_manager.hpp; sourceTree = "<group>"; };
+		F6D67CE22063F4980032FD38 /* framework_light.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = framework_light.hpp; sourceTree = "<group>"; };
 		F6DA2A961CCE24DB00F087B5 /* libdrape_frontend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdrape_frontend.a; path = "../../../omim-xcode-build/Debug/libdrape_frontend.a"; sourceTree = "<group>"; };
 		F6DA2A981CCE252600F087B5 /* libeditor.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libeditor.a; path = "../../../omim-xcode-build/Debug/libeditor.a"; sourceTree = "<group>"; };
 		F6DA2A991CCE252600F087B5 /* liboauthcpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboauthcpp.a; path = "../../../omim-xcode-build/Debug/liboauthcpp.a"; sourceTree = "<group>"; };
@@ -508,6 +510,7 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				F6D67CE22063F4980032FD38 /* framework_light.hpp */,
 				BBFC7E38202D29BF00531BE7 /* user_mark_layer.cpp */,
 				BBFC7E39202D29BF00531BE7 /* user_mark_layer.hpp */,
 				675345CB1A4054E800A0A8C3 /* address_finder.cpp */,
@@ -648,6 +651,7 @@
 				675346491A4054E800A0A8C3 /* bookmark_manager.hpp in Headers */,
 				F6B2830A1C1B03320081957A /* gps_track.hpp in Headers */,
 				3D4E99A21FB4A6410025B48C /* booking_filter_cache.hpp in Headers */,
+				F6D67CE32063F4980032FD38 /* framework_light.hpp in Headers */,
 				45F6EE9D1FB1C77600019892 /* search_api.hpp in Headers */,
 				F6FC3CB51FC323430001D929 /* discovery_client_params.hpp in Headers */,
 				0831F23C200E53600034C365 /* bookmarks_search_params.hpp in Headers */,

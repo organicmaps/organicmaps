@@ -405,3 +405,34 @@ UNIT_CLASS_TEST(StorageTest, NumberOfUnsynchronized)
 
   TEST(DeleteIndexFile(), ());
 }
+
+UNIT_CLASS_TEST(StorageTest, GetNumberOfUnsentSeparately)
+{
+  TEST_EQUAL(lightweight::GetNumberOfUnsentUGC(), 0, ());
+  auto & builder = MwmBuilder::Builder();
+  m2::PointD const cafePoint(1.0, 1.0);
+  builder.Build({TestCafe(cafePoint)});
+  auto const cafeId = builder.FeatureIdForCafeAtPoint(cafePoint);
+  auto const cafeUGC = MakeTestUGCUpdate(Time(chrono::hours(24 * 10)));
+
+  {
+    Storage storage(builder.GetIndex());
+    storage.Load();
+    TEST_EQUAL(storage.SetUGCUpdate(cafeId, cafeUGC), Storage::SettingResult::Success, ());
+    storage.SaveIndex();
+    TEST_EQUAL(storage.GetNumberOfUnsynchronized(), 1, ());
+  }
+
+  TEST_EQUAL(lightweight::GetNumberOfUnsentUGC(), 1, ());
+
+  {
+    Storage storage(builder.GetIndex());
+    storage.Load();
+    storage.MarkAllAsSynchronized();
+    TEST_EQUAL(storage.GetNumberOfUnsynchronized(), 0, ());
+    storage.SaveIndex();
+  }
+
+  TEST_EQUAL(lightweight::GetNumberOfUnsentUGC(), 0, ());
+  TEST(DeleteIndexFile(), ());
+}

@@ -422,3 +422,15 @@ void User::RequestImpl(std::string const & url, BuildRequestHandler const & onBu
     });
   }
 }
+
+namespace lightweight
+{
+bool IsUserAuthenticated()
+{
+  std::string token;
+  if (GetPlatform().GetSecureStorage().Load(kMapsMeTokenKey, token))
+    return !token.empty();
+
+  return false;
+}
+}  // namespace lightweight

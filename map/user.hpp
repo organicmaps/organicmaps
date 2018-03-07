@@ -86,3 +86,8 @@ private:
   Details m_details;
   std::vector<std::unique_ptr<Subscriber>> m_subscribers;
 };
+
+namespace lightweight
+{
+bool IsUserAuthenticated();
+}  //namespace lightweight

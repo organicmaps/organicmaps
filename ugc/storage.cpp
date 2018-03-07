@@ -411,5 +411,37 @@ Storage::SettingResult Storage::SetUGCUpdateForTesting(FeatureID const & id,
   return SetGenericUGCUpdate(m_UGCIndexes, m_numberOfDeleted, id, ugc,
                              *feature, Version::V0);
 }
-
 }  // namespace ugc
+
+namespace lightweight
+{
+size_t GetNumberOfUnsentUGC()
+{
+  auto const indexFilePath = ugc::GetIndexFilePath();
+  if (!Platform::IsFileExistsByFullPath(indexFilePath))
+    return 0;
+
+  string data;
+  try
+  {
+    FileReader r(indexFilePath);
+    r.ReadAsString(data);
+  }
+  catch (FileReader::Exception const & exception)
+  {
+    LOG(LWARNING, ("Exception while reading file:", indexFilePath, "reason:", exception.what()));
+    return 0;
+  }
+
+  vector<ugc::Storage::UGCIndex> index;
+  ugc::DeserializeUGCIndex(data, index);
+  size_t number = 0;
+  for (auto const & i : index)
+  {
+    if (!i.m_deleted && !i.m_synchronized)
+      ++number;
+  }
+
+  return number;
+}
+}  // namespace lightweight

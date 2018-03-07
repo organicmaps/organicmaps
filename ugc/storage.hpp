@@ -82,3 +82,8 @@ inline std::string DebugPrint(Storage::SettingResult const & result)
   }
 }
 }  // namespace ugc
+
+namespace lightweight
+{
+size_t GetNumberOfUnsentUGC();
+}  //namespace lightweight
