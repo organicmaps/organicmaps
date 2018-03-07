@@ -57,10 +57,8 @@ public class RoutingInfo
     START_AT_THE_END_OF_STREET(0, 0),
     REACHED_YOUR_DESTINATION(R.drawable.ic_turn_finish, R.drawable.ic_then_finish),
 
-    // @TODO(alexzatsepin) It's necessary to insert apropriate constants instead of zeros
-    // for EXIT_HIGHWAY_TO_LEFT() and EXIT_HIGHWAY_TO_RIGHT().
-    EXIT_HIGHWAY_TO_LEFT(R.drawable.ic_turn_left_slight, R.drawable.ic_then_left_slight),
-    EXIT_HIGHWAY_TO_RIGHT(R.drawable.ic_turn_right_slight, R.drawable.ic_then_right_slight);
+    EXIT_HIGHWAY_TO_LEFT(R.drawable.ic_exit_highway_to_left, R.drawable.ic_then_exit_highway_to_left),
+    EXIT_HIGHWAY_TO_RIGHT(R.drawable.ic_exit_highway_to_right, R.drawable.ic_then_exit_highway_to_right);
 
     private final int mTurnRes;
     private final int mNextTurnRes;
