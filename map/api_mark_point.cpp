@@ -19,9 +19,6 @@ string GetSupportedStyle(string const & s, string const & context, string const 
     if (s == kSupportedColors[i])
       return s;
   }
-
-  // Not recognized symbols are replaced with default one
-  LOG(LWARNING, ("Icon", s, "for point", context, "is not supported"));
   return fallback;
 }
 

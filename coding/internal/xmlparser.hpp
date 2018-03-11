@@ -79,9 +79,11 @@ public:
   void PrintError()
   {
     if (BaseT::GetErrorCode() != XML_ERROR_NONE)
-      LOG(LWARNING, ("XML parse error at line",
-                     BaseT::GetCurrentLineNumber(),
-                     "and byte", BaseT::GetCurrentByteIndex()));
+    {
+      LOG(LDEBUG, ("XML parse error at line",
+                   BaseT::GetCurrentLineNumber(),
+                   "and byte", BaseT::GetCurrentByteIndex()));
+    }
   }
 
 private:

@@ -255,8 +255,6 @@ class KMLParser
           pt = MercatorBounds::FromLatLon(lat, lon);
           return true;
         }
-        else
-          LOG(LWARNING, ("Invalid coordinates", s, "while loading", m_name));
       }
     }
     
@@ -499,11 +497,7 @@ public:
         else if (prevTag == "TimeStamp")
         {
           if (currTag == "when")
-          {
             m_timeStamp = my::StringToTimestamp(value);
-            if (m_timeStamp == my::INVALID_TIME_STAMP)
-              LOG(LWARNING, ("Invalid timestamp in Placemark:", value));
-          }
         }
         else if (currTag == kStyleUrl)
         {
@@ -556,7 +550,7 @@ std::unique_ptr<KMLData> LoadKMLFile(std::string const & file)
   }
   catch (std::exception const & e)
   {
-    LOG(LWARNING, ("Error while loading bookmarks from", file, e.what()));
+    LOG(LDEBUG, ("Error while loading bookmarks from", file, e.what()));
   }
   return nullptr;
 }
@@ -568,7 +562,7 @@ std::unique_ptr<KMLData> LoadKMLData(ReaderPtr<Reader> const & reader)
   KMLParser parser(*data);
   if (!ParseXML(src, parser, true))
   {
-    LOG(LWARNING, ("XML read error. Probably, incorrect file encoding."));
+    LOG(LDEBUG, ("XML read error. Probably, incorrect file encoding."));
     data.reset();
   }
   return data;
