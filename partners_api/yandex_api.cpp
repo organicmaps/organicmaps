@@ -120,10 +120,12 @@ RideRequestLinks Api::GetRideRequestLinks(std::string const & productId, ms::Lat
 #if defined(OMIM_OS_IPHONE)
   deepLink << "https://3.redirect.appmetrica.yandex.com/route?start-lat=" << from.lat
            << "&start-lon=" << from.lon << "&end-lat=" << to.lat << "&end-lon=" << to.lon
-           << "&utm_source=mapsme&appmetrica_tracking_id=" << YANDEX_TRACKING_ID;
+           << "&utm_source=mapsme&appmetrica_tracking_id=" << YANDEX_TRACKING_ID
+           << "&ref=8d20bf0f9e4749c48822358cdaf6a6c7";
 #elif defined(OMIM_OS_ANDROID)
   deepLink << "https://redirect.appmetrica.yandex.com/serve/" << YANDEX_TRACKING_ID << "?startlat="
-           << from.lat << "&startlon=" << from.lon << "&endlat=" << to.lat << "&endlon=" << to.lon;
+           << from.lat << "&startlon=" << from.lon << "&endlat=" << to.lat << "&endlon=" << to.lon
+           << "&ref=8d20bf0f9e4749c48822358cdaf6a6c7";
 #endif
 
   return {deepLink.str(), deepLink.str()};
