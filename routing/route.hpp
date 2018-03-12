@@ -267,7 +267,7 @@ public:
   void GetCurrentDirectionPoint(m2::PointD & pt) const;
 
   /// @return true  If position was updated successfully (projection within gps error radius).
-  bool MoveIterator(location::GpsInfo const & info) const;
+  bool MoveIterator(location::GpsInfo const & info);
 
   void MatchLocationToRoute(location::GpsInfo & location, location::RouteMatchingInfo & routeMatchingInfo) const;
 

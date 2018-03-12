@@ -47,7 +47,6 @@ public:
   double GetDistanceToEndMeters() const;
   double GetDistFromCurPointToRoutePointMerc() const;
   double GetDistFromCurPointToRoutePointMeters() const;
-  double GetMercatorDistanceFromBegin() const;
 
   /*! \brief Return next navigation point for direction widgets.
    *  Returns first geometry point from the polyline after your location if it is farther then
@@ -71,8 +70,8 @@ public:
 
   double GetDistanceM(Iter const & it1, Iter const & it2) const;
 
-  Iter UpdateProjectionByPrediction(m2::RectD const & posRect, double predictDistance) const;
-  Iter UpdateProjection(m2::RectD const & posRect) const;
+  Iter UpdateProjectionByPrediction(m2::RectD const & posRect, double predictDistance);
+  Iter UpdateProjection(m2::RectD const & posRect);
 
   Iter Begin() const;
   Iter End() const;
@@ -95,7 +94,7 @@ private:
   m2::PolylineD m_poly;
 
   /// Iterator with the current position. Position sets with UpdateProjection methods.
-  mutable Iter m_current;
+  Iter m_current;
   size_t m_nextCheckpointIndex;
   /// Precalculated info for fast projection finding.
   std::vector<m2::ProjectionToSection<m2::PointD>> m_segProj;

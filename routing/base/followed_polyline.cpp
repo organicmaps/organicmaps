@@ -157,7 +157,7 @@ Iter FollowedPolyline::GetBestProjection(m2::RectD const & posRect,
 }
 
 Iter FollowedPolyline::UpdateProjectionByPrediction(m2::RectD const & posRect,
-                                                    double predictDistance) const
+                                                    double predictDistance)
 {
   ASSERT(m_current.IsValid(), ());
   ASSERT_LESS(m_current.m_ind, m_poly.GetSize() - 1, ());
@@ -176,7 +176,7 @@ Iter FollowedPolyline::UpdateProjectionByPrediction(m2::RectD const & posRect,
   return res;
 }
 
-Iter FollowedPolyline::UpdateProjection(m2::RectD const & posRect) const
+Iter FollowedPolyline::UpdateProjection(m2::RectD const & posRect)
 {
   ASSERT(m_current.IsValid(), ());
   ASSERT_LESS(m_current.m_ind, m_poly.GetSize() - 1, ());
