@@ -34278,53 +34278,7 @@ cont {
 cont {
   name: "leisure-marina"
   element {
-    scale: 11
-    area {
-      color: 6425
-      priority: -15918
-    }
-  }
-  element {
-    scale: 12
-    area {
-      color: 6425
-      priority: -15918
-    }
-  }
-  element {
-    scale: 13
-    area {
-      color: 6425
-      priority: -15918
-    }
-  }
-  element {
-    scale: 14
-    area {
-      color: 6425
-      priority: -15918
-    }
-  }
-  element {
-    scale: 15
-    area {
-      color: 6425
-      priority: -15918
-    }
-  }
-  element {
-    scale: 16
-    area {
-      color: 6425
-      priority: -15918
-    }
-  }
-  element {
     scale: 17
-    area {
-      color: 6425
-      priority: -15963
-    }
     caption {
       primary {
         height: 10
@@ -34336,10 +34290,6 @@ cont {
   }
   element {
     scale: 18
-    area {
-      color: 6425
-      priority: -15963
-    }
     caption {
       primary {
         height: 10
@@ -34351,10 +34301,6 @@ cont {
   }
   element {
     scale: 19
-    area {
-      color: 6425
-      priority: -15963
-    }
     caption {
       primary {
         height: 10
