@@ -500,36 +500,6 @@ public final class UiUtils
     });
   }
 
-  public static void showTaxiIcon(@NonNull ImageView logo, @TaxiManager.TaxiType int type)
-  {
-    switch (type)
-    {
-      case TaxiManager.PROVIDER_UBER:
-        logo.setImageResource(R.drawable.ic_logo_uber);
-        break;
-      case TaxiManager.PROVIDER_YANDEX:
-        logo.setImageResource(R.drawable.ic_logo_yandex_taxi);
-        break;
-      default:
-        throw new AssertionError("Unsupported taxi type: " + type);
-    }
-  }
-
-  public static void showTaxiTitle(@NonNull TextView title, @TaxiManager.TaxiType int type)
-  {
-    switch (type)
-    {
-      case TaxiManager.PROVIDER_UBER:
-        title.setText(R.string.uber);
-        break;
-      case TaxiManager.PROVIDER_YANDEX:
-        title.setText(R.string.yandex_taxi_title);
-        break;
-      default:
-        throw new AssertionError("Unsupported taxi type: " + type);
-    }
-  }
-
   // utility class
   private UiUtils() {}
 }

@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -167,7 +166,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
   void showTaxiInfo(@NonNull TaxiInfo info)
   {
     UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame, mTransitFrame);
-    UiUtils.showTaxiIcon((ImageView) mTaxiFrame.findViewById(R.id.iv__logo), info.getType());
+    TaxiManager.setTaxiIcon(mTaxiFrame.findViewById(R.id.iv__logo), info.getType());
     final List<TaxiInfo.Product> products = info.getProducts();
     mTaxiInfo = info;
     mTaxiProduct = products.get(0);

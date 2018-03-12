@@ -1450,8 +1450,8 @@ public class PlacePageView extends RelativeLayout
     // At this moment we display only a one taxi provider at the same time.
     @TaxiManager.TaxiType
     int type = taxiTypes.get(0);
-    UiUtils.showTaxiIcon((ImageView) mTaxi.findViewById(R.id.iv__place_page_taxi), type);
-    UiUtils.showTaxiTitle((TextView) mTaxi.findViewById(R.id.tv__place_page_taxi), type);
+    TaxiManager.setTaxiIcon(mTaxi.findViewById(R.id.iv__place_page_taxi), type);
+    TaxiManager.setTaxiTitle(mTaxi.findViewById(R.id.tv__place_page_taxi), type);
     Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_SHOW_IN_PP, type);
   }
 

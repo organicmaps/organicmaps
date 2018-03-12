@@ -6,7 +6,10 @@ import android.support.annotation.IntDef;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
@@ -27,11 +30,12 @@ public class TaxiManager
 {
   public static final int PROVIDER_UBER = 0;
   public static final int PROVIDER_YANDEX = 1;
+  public static final int PROVIDER_MAXIM = 2;
 
   public static final TaxiManager INSTANCE = new TaxiManager();
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ PROVIDER_UBER, PROVIDER_YANDEX })
+  @IntDef({ PROVIDER_UBER, PROVIDER_YANDEX, PROVIDER_MAXIM })
   public @interface TaxiType {}
 
   @NonNull
@@ -103,6 +107,42 @@ public class TaxiManager
                                                    endPoint.getLon());
   }
 
+  public static void setTaxiIcon(@NonNull ImageView logo, @TaxiManager.TaxiType int type)
+  {
+    switch (type)
+    {
+      case TaxiManager.PROVIDER_UBER:
+        logo.setImageResource(R.drawable.ic_logo_uber);
+        break;
+      case TaxiManager.PROVIDER_YANDEX:
+        logo.setImageResource(R.drawable.ic_logo_yandex_taxi);
+        break;
+      case TaxiManager.PROVIDER_MAXIM:
+        logo.setImageResource(R.drawable.ic_taxi_logo_maksim);
+        break;
+      default:
+        throw new AssertionError("Unsupported taxi type: " + type);
+    }
+  }
+
+  public static void setTaxiTitle(@NonNull TextView title, @TaxiManager.TaxiType int type)
+  {
+    switch (type)
+    {
+      case TaxiManager.PROVIDER_UBER:
+        title.setText(R.string.uber);
+        break;
+      case TaxiManager.PROVIDER_YANDEX:
+        title.setText(R.string.yandex_taxi_title);
+        break;
+      case TaxiManager.PROVIDER_MAXIM:
+        title.setText(R.string.maxim_taxi_title);
+        break;
+      default:
+        throw new AssertionError("Unsupported taxi type: " + type);
+    }
+  }
+
   @NonNull
   public static String getTaxiPackageName(@TaxiManager.TaxiType int type)
   {
@@ -112,6 +152,24 @@ public class TaxiManager
         return "com.ubercab";
       case TaxiManager.PROVIDER_YANDEX:
         return "ru.yandex.taxi";
+      case TaxiManager.PROVIDER_MAXIM:
+        return "maximzakaz";
+      default:
+        throw new AssertionError("Unsupported taxi type: " + type);
+    }
+  }
+
+  @NonNull
+  public static String getTaxiStatisticsName(@TaxiManager.TaxiType int type)
+  {
+    switch (type)
+    {
+      case TaxiManager.PROVIDER_UBER:
+        return "Uber";
+      case TaxiManager.PROVIDER_YANDEX:
+        return "Yandex";
+      case TaxiManager.PROVIDER_MAXIM:
+        return "Maxim";
       default:
         throw new AssertionError("Unsupported taxi type: " + type);
     }
@@ -131,6 +189,9 @@ public class TaxiManager
         break;
       case TaxiManager.PROVIDER_YANDEX:
         openMode = Utils.PartnerAppOpenMode.Indirect;
+        break;
+      case TaxiManager.PROVIDER_MAXIM:
+        openMode = Utils.PartnerAppOpenMode.Direct;
         break;
       default:
         throw new AssertionError("Unsupported taxi type: " + type);
