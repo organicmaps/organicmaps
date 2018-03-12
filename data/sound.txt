@@ -330,6 +330,39 @@
     vi = Đi thẳng.
     uk = Їдьте прямо.
 
+  [exit]
+    en = Exit.
+    ru = Съезд.
+    ar = Exit.
+    cs = Exit.
+    da = Exit.
+    nl = Exit.
+    fi = Exit.
+    fr = Exit.
+    de = Exit.
+    hu = Exit.
+    id = Exit.
+    it = Exit.
+    ja = Exit.
+    ko = Exit.
+    pl = Exit.
+    pt = Exit.
+    ro = Exit.
+    es = Exit.
+    sv = Exit.
+    th = Exit.
+    tr = Exit.
+    zh-Hans = Exit.
+    zh-Hant = Exit.
+    el = Exit.
+    hi = Exit.
+    hr = Exit.
+    sk = Exit.
+    sw = Exit.
+    fa = Exit.
+    vi = Exit.
+    uk = Exit.
+
   [destination]
     en = You’ll arrive.
     ru = Вы прибудете в пункт назначения.
