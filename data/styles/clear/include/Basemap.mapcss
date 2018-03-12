@@ -376,8 +376,7 @@ area|z13-[leisure=swimming_pool],
 area|z16-[amenity=fountain],
 {fill-color: @water;}
 
-area|z11-[natural=wetland],
-area|z11-[leisure=marina],
+area|z11-[natural=wetland]
 {fill-color: @wetland;}
 
 /* 6.2 Line water(river,canal etc.) */
