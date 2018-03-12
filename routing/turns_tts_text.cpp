@@ -141,14 +141,12 @@ string GetDirectionTextId(Notification const & notification)
     case CarDirection::TurnSharpRight:
       return "make_a_sharp_right_turn";
     case CarDirection::TurnSlightRight:
-    case CarDirection::ExitHighwayToRight:
       return "make_a_slight_right_turn";
     case CarDirection::TurnLeft:
       return "make_a_left_turn";
     case CarDirection::TurnSharpLeft:
       return "make_a_sharp_left_turn";
     case CarDirection::TurnSlightLeft:
-    case CarDirection::ExitHighwayToLeft:
       return "make_a_slight_left_turn";
     case CarDirection::UTurnLeft:
     case CarDirection::UTurnRight:
@@ -159,6 +157,9 @@ string GetDirectionTextId(Notification const & notification)
       return GetRoundaboutTextId(notification);
     case CarDirection::ReachedYourDestination:
       return GetYouArriveTextId(notification);
+    case CarDirection::ExitHighwayToLeft:
+    case CarDirection::ExitHighwayToRight:
+      return "exit";
     case CarDirection::StayOnRoundAbout:
     case CarDirection::StartAtEndOfStreet:
     case CarDirection::None:
