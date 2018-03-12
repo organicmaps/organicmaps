@@ -26,6 +26,7 @@ extern jclass g_loggerFactoryClazz;
 extern jclass g_keyValueClazz;
 extern jclass g_httpUploaderClazz;
 extern jclass g_httpUploaderResultClazz;
+extern jclass g_networkPolicyClazz;
 
 namespace jni
 {

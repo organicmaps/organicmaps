@@ -11,5 +11,6 @@ com/mapswithme/util/HttpClient$HttpHeader.class
 com/mapswithme/util/HttpUploader.class
 com/mapswithme/util/HttpUploader$Result.class
 com/mapswithme/util/KeyValue.class
+com/mapswithme/util/NetworkPolicy.class
 com/mapswithme/util/Utils.class
 com/my/tracker/MyTracker.class
