@@ -102,12 +102,7 @@ UNIT_TEST(TestRouteBuilding)
   unique_ptr<DummyRouter> router = make_unique<DummyRouter>(masterRoute, DummyRouter::NoError, counter);
   session.SetRouter(move(router), nullptr);
   session.SetReadyCallbacks(
-        [&timedSignal](Route const &, IRouter::ResultCode)
-        {
-          timedSignal.Signal();
-        },
-  nullptr
-        );
+      [&timedSignal](Route const &, IRouter::ResultCode) { timedSignal.Signal(); }, nullptr);
   session.BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
   // Manual check of the routeBuilded mutex to avoid spurious results.
   auto const time = steady_clock::now() + kRouteBuildingMaxDuration;

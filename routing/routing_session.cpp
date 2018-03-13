@@ -528,7 +528,8 @@ void RoutingSession::SetRoutingSettings(RoutingSettings const & routingSettings)
   m_routingSettings = routingSettings;
 }
 
-void RoutingSession::SetReadyCallbacks(TReadyCallback const & buildReadyCallback, TReadyCallback const & rebuildReadyCallback)
+void RoutingSession::SetReadyCallbacks(TReadyCallback const & buildReadyCallback,
+                                       TReadyCallback const & rebuildReadyCallback)
 {
   m_buildReadyCallback = buildReadyCallback;
   // m_rebuildReadyCallback used from multiple threads but it's the only place we write m_rebuildReadyCallback
@@ -619,6 +620,13 @@ double RoutingSession::GetDistanceToCurrentCamM(SpeedCameraRestriction & camera,
   return kInvalidSpeedCameraDistance;
 }
 
+void RoutingSession::ProtectedCall(RouteCallback const & callback) const
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  CHECK(m_route, ());
+  callback(*m_route);
+}
+
 void RoutingSession::EmitCloseRoutingEvent() const
 {
   threads::MutexGuard guard(m_routingSessionMutex);
@@ -661,13 +669,6 @@ bool RoutingSession::GetRouteAltitudesAndDistancesM(vector<double> & routeSegDis
   feature::TAltitudes altitudes;
   m_route->GetAltitudes(routeAltitudesM);
   return true;
-}
-
-shared_ptr<Route> const RoutingSession::GetRoute() const
-{
-  threads::MutexGuard guard(m_routingSessionMutex);
-  ASSERT(m_route, ());
-  return m_route;
 }
 
 void RoutingSession::OnTrafficInfoClear()

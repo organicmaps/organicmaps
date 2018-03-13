@@ -80,6 +80,7 @@ public:
   typedef function<void(Route const &, IRouter::ResultCode)> TReadyCallback;
   typedef function<void(float)> TProgressCallback;
   typedef function<void(size_t passedCheckpointIdx)> CheckpointCallback;
+  using RouteCallback = function<void(Route const &)>;
 
   RoutingSession();
 
@@ -114,7 +115,6 @@ public:
 
   inline void SetState(State state) { m_state = state; }
 
-  shared_ptr<Route> const GetRoute() const;
   /// \returns true if altitude information along |m_route| is available and
   /// false otherwise.
   bool HasRouteAltitude() const;
@@ -162,6 +162,8 @@ public:
   void GenerateTurnNotifications(vector<string> & turnNotifications);
 
   void EmitCloseRoutingEvent() const;
+
+  void ProtectedCall(RouteCallback const & callback) const;
 
   // RoutingObserver overrides:
   void OnTrafficInfoClear() override;
@@ -220,6 +222,7 @@ private:
   /// about camera will be sent at most once.
   mutable bool m_speedWarningSignal;
 
+  /// |m_routingSessionMutex| should be used for access to |m_route| member.
   mutable threads::Mutex m_routingSessionMutex;
 
   /// Current position metrics to check for RouteNeedRebuild state.
