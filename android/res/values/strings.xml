@@ -1289,4 +1289,5 @@
 	<string name="bookmarks_error_message_share_empty">Cannot share an empty list</string>
 	<string name="discovery_button_subtitle_book_hotels">Book hotels</string>
 	<string name="luggage_storage">Luggage storage</string>
+	<string name="maxim_taxi_title">maxim</string>
 </resources>

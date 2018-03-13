@@ -1277,4 +1277,5 @@
 	<string name="bookmarks_error_message_share_empty">Нельзя делиться пустыми списками</string>
 	<string name="discovery_button_subtitle_book_hotels">Бронирование отелей</string>
 	<string name="luggage_storage">Хранение багажа</string>
+	<string name="maxim_taxi_title">Максим</string>
 </resources>
