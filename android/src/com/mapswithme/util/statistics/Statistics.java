@@ -606,10 +606,11 @@ public enum Statistics
   }
 
   public void trackTaxiInRoutePlanning(@Nullable MapObject from, @Nullable MapObject to,
-                                       @Nullable Location location, @TaxiManager.TaxiType int type, boolean isAppInstalled)
+                                       @Nullable Location location, @NonNull String providerName,
+                                       boolean isAppInstalled)
   {
     Statistics.ParameterBuilder params = Statistics.params();
-    params.add(Statistics.EventParam.PROVIDER, TaxiManager.getTaxiStatisticsName(type));
+    params.add(Statistics.EventParam.PROVIDER, providerName);
 
     params.add(Statistics.EventParam.FROM_LAT, from != null ? String.valueOf(from.getLat()) : "N/A")
           .add(Statistics.EventParam.FROM_LON, from != null ? String.valueOf(from.getLon()) : "N/A");
@@ -622,17 +623,17 @@ public enum Statistics
     trackEvent(event, location, params.get());
   }
 
-  public void trackTaxiEvent(@NonNull String eventName, @TaxiManager.TaxiType int type)
+  public void trackTaxiEvent(@NonNull String eventName, @NonNull String providerName)
   {
     Statistics.ParameterBuilder params = Statistics.params();
-    params.add(Statistics.EventParam.PROVIDER, TaxiManager.getTaxiStatisticsName(type));
+    params.add(Statistics.EventParam.PROVIDER, providerName);
     trackEvent(eventName, params);
   }
 
   public void trackTaxiError(@NonNull TaxiInfoError error)
   {
     Statistics.ParameterBuilder params = Statistics.params();
-    params.add(Statistics.EventParam.PROVIDER, TaxiManager.getTaxiStatisticsName(error.getType()));
+    params.add(Statistics.EventParam.PROVIDER, error.getProviderName());
     params.add(ERROR_CODE, error.getCode().name());
     trackEvent(EventName.ROUTING_TAXI_ROUTE_BUILT, params);
   }

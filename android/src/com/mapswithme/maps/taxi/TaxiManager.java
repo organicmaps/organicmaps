@@ -2,14 +2,10 @@ package com.mapswithme.maps.taxi;
 
 import android.content.Context;
 import android.location.Location;
-import android.support.annotation.IntDef;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.RoutingController;
@@ -19,8 +15,6 @@ import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,15 +22,7 @@ import java.util.List;
 @MainThread
 public class TaxiManager
 {
-  public static final int PROVIDER_UBER = 0;
-  public static final int PROVIDER_YANDEX = 1;
-  public static final int PROVIDER_MAXIM = 2;
-
   public static final TaxiManager INSTANCE = new TaxiManager();
-
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ PROVIDER_UBER, PROVIDER_YANDEX, PROVIDER_MAXIM })
-  public @interface TaxiType {}
 
   @NonNull
   private final List<TaxiInfo> mProviders = new ArrayList<>();
@@ -47,7 +33,6 @@ public class TaxiManager
 
   private TaxiManager()
   {
-
   }
 
   // Called from JNI.
@@ -95,119 +80,33 @@ public class TaxiManager
   }
 
   @Nullable
-  public static SponsoredLinks getTaxiLink(@NonNull String productId, @TaxiType int type,
+  public static SponsoredLinks getTaxiLink(@NonNull String productId, @NonNull TaxiType type,
                                            @Nullable MapObject startPoint, @Nullable MapObject endPoint)
   {
     if (startPoint == null || endPoint == null)
       return null;
 
     return TaxiManager.INSTANCE.nativeGetTaxiLinks(NetworkPolicy.newInstance(true /* canUse */),
-                                                   type, productId, startPoint.getLat(),
+                                                   type.ordinal(), productId, startPoint.getLat(),
                                                    startPoint.getLon(), endPoint.getLat(),
                                                    endPoint.getLon());
   }
 
-  public static void setTaxiIcon(@NonNull ImageView logo, @TaxiManager.TaxiType int type)
-  {
-    switch (type)
-    {
-      case TaxiManager.PROVIDER_UBER:
-        logo.setImageResource(R.drawable.ic_logo_uber);
-        break;
-      case TaxiManager.PROVIDER_YANDEX:
-        logo.setImageResource(R.drawable.ic_logo_yandex_taxi);
-        break;
-      case TaxiManager.PROVIDER_MAXIM:
-        logo.setImageResource(R.drawable.ic_taxi_logo_maksim);
-        break;
-      default:
-        throw new AssertionError("Unsupported taxi type: " + type);
-    }
-  }
-
-  public static void setTaxiTitle(@NonNull TextView title, @TaxiManager.TaxiType int type)
-  {
-    switch (type)
-    {
-      case TaxiManager.PROVIDER_UBER:
-        title.setText(R.string.uber);
-        break;
-      case TaxiManager.PROVIDER_YANDEX:
-        title.setText(R.string.yandex_taxi_title);
-        break;
-      case TaxiManager.PROVIDER_MAXIM:
-        title.setText(R.string.maxim_taxi_title);
-        break;
-      default:
-        throw new AssertionError("Unsupported taxi type: " + type);
-    }
-  }
-
-  @NonNull
-  public static String getTaxiPackageName(@TaxiManager.TaxiType int type)
-  {
-    switch (type)
-    {
-      case TaxiManager.PROVIDER_UBER:
-        return "com.ubercab";
-      case TaxiManager.PROVIDER_YANDEX:
-        return "ru.yandex.taxi";
-      case TaxiManager.PROVIDER_MAXIM:
-        return "maximzakaz";
-      default:
-        throw new AssertionError("Unsupported taxi type: " + type);
-    }
-  }
-
-  @NonNull
-  public static String getTaxiStatisticsName(@TaxiManager.TaxiType int type)
-  {
-    switch (type)
-    {
-      case TaxiManager.PROVIDER_UBER:
-        return "Uber";
-      case TaxiManager.PROVIDER_YANDEX:
-        return "Yandex";
-      case TaxiManager.PROVIDER_MAXIM:
-        return "Maxim";
-      default:
-        throw new AssertionError("Unsupported taxi type: " + type);
-    }
-  }
-
   public static void launchTaxiApp(@NonNull Context context, @NonNull SponsoredLinks links,
-                                   @TaxiManager.TaxiType int type)
+                                   @NonNull TaxiType type)
   {
-    String packageName = TaxiManager.getTaxiPackageName(type);
-    boolean isTaxiInstalled = Utils.isAppInstalled(context, packageName);
-    Utils.PartnerAppOpenMode openMode;
+    Utils.openPartner(context, links, type.getPackageName(), type.getOpenMode());
 
-    switch (type)
-    {
-      case TaxiManager.PROVIDER_UBER:
-        openMode = Utils.PartnerAppOpenMode.Direct;
-        break;
-      case TaxiManager.PROVIDER_YANDEX:
-        openMode = Utils.PartnerAppOpenMode.Indirect;
-        break;
-      case TaxiManager.PROVIDER_MAXIM:
-        openMode = Utils.PartnerAppOpenMode.Direct;
-        break;
-      default:
-        throw new AssertionError("Unsupported taxi type: " + type);
-    }
-
-    Utils.openPartner(context, links, packageName, openMode);
-
-    trackTaxiStatistics(type, isTaxiInstalled);
+    boolean isTaxiInstalled = Utils.isAppInstalled(context, type.getPackageName());
+    trackTaxiStatistics(type.getProviderName(), isTaxiInstalled);
   }
 
-  private static void trackTaxiStatistics(@TaxiManager.TaxiType int type, boolean isTaxiAppInstalled)
+  private static void trackTaxiStatistics(@NonNull String taxiName, boolean isTaxiAppInstalled)
   {
     MapObject from = RoutingController.get().getStartPoint();
     MapObject to = RoutingController.get().getEndPoint();
     Location location = LocationHelper.INSTANCE.getLastKnownLocation();
-    Statistics.INSTANCE.trackTaxiInRoutePlanning(from, to, location, type, isTaxiAppInstalled);
+    Statistics.INSTANCE.trackTaxiInRoutePlanning(from, to, location, taxiName, isTaxiAppInstalled);
   }
   public void setTaxiListener(@Nullable TaxiListener listener)
   {
@@ -218,7 +117,7 @@ public class TaxiManager
                                                       double srcLon, double dstLat, double dstLon);
 
   @NonNull
-  public native SponsoredLinks nativeGetTaxiLinks(@NonNull NetworkPolicy policy, @TaxiType int type,
+  public native SponsoredLinks nativeGetTaxiLinks(@NonNull NetworkPolicy policy, int type,
                                                   @NonNull String productId, double srcLon,
                                                   double srcLat, double dstLat, double dstLon);
 

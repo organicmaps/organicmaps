@@ -11,6 +11,7 @@ import com.mapswithme.maps.ads.Banner;
 import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.taxi.TaxiManager;
+import com.mapswithme.maps.taxi.TaxiType;
 import com.mapswithme.maps.ugc.UGC;
 
 import java.lang.annotation.Retention;
@@ -24,8 +25,10 @@ import java.util.List;
 public class MapObject implements Parcelable
 {
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({POI, API_POINT, BOOKMARK, MY_POSITION, SEARCH})
-  public @interface MapObjectType {}
+  @IntDef({ POI, API_POINT, BOOKMARK, MY_POSITION, SEARCH })
+  public @interface MapObjectType
+  {
+  }
 
   public static final int POI = 0;
   public static final int API_POINT = 1;
@@ -50,7 +53,7 @@ public class MapObject implements Parcelable
   @Nullable
   private List<Banner> mBanners;
   @Nullable
-  private List<Integer> mReachableByTaxiTypes;
+  private List<TaxiType> mReachableByTaxiTypes;
   @Nullable
   private String mBookingSearchUrl;
   @Nullable
@@ -66,12 +69,11 @@ public class MapObject implements Parcelable
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
                    @Nullable String secondaryTitle, String subtitle, String address,
-                   double lat, double lon, String apiId,
-                   @Nullable Banner[] banners, @Nullable @TaxiManager.TaxiType int[] types,
-                   @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
-                   @Nullable RoutePointInfo routePointInfo, boolean isExtendedView,
-                   boolean shouldShowUGC, boolean canBeRated, boolean canBeReviewed,
-                   @Nullable UGC.Rating[] ratings)
+                   double lat, double lon, String apiId, @Nullable Banner[] banners,
+                   @Nullable int[] types, @Nullable String bookingSearchUrl,
+                   @Nullable LocalAdInfo localAdInfo, @Nullable RoutePointInfo routePointInfo,
+                   boolean isExtendedView, boolean shouldShowUGC, boolean canBeRated,
+                   boolean canBeReviewed, @Nullable UGC.Rating[] ratings)
   {
     this(featureId, mapObjectType, title, secondaryTitle,
          subtitle, address, lat, lon, new Metadata(), apiId, banners,
@@ -80,9 +82,9 @@ public class MapObject implements Parcelable
   }
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType,
-                   String title, @Nullable String secondaryTitle,
-                   String subtitle, String address, double lat, double lon, Metadata metadata,
-                   String apiId, @Nullable Banner[] banners, @Nullable @TaxiManager.TaxiType int[] taxiTypes,
+                   String title, @Nullable String secondaryTitle, String subtitle, String address,
+                   double lat, double lon, Metadata metadata, String apiId,
+                   @Nullable Banner[] banners, @Nullable int[] taxiTypes,
                    @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
                    @Nullable RoutePointInfo routePointInfo, boolean isExtendedView,
                    boolean shouldShowUGC, boolean canBeRated, boolean canBeReviewed,
@@ -111,7 +113,7 @@ public class MapObject implements Parcelable
     {
       mReachableByTaxiTypes = new ArrayList<>();
       for (int type : taxiTypes)
-        mReachableByTaxiTypes.add(type);
+        mReachableByTaxiTypes.add(TaxiType.values()[type]);
     }
     if (ratings != null)
       mRatings = new ArrayList<>(Arrays.asList(ratings));
@@ -148,7 +150,7 @@ public class MapObject implements Parcelable
 
   @NonNull
   public static MapObject createMapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType,
-                                   @NonNull String title, @NonNull String subtitle, double lat, double lon)
+                                          @NonNull String title, @NonNull String subtitle, double lat, double lon)
   {
     return new MapObject(featureId, mapObjectType, title,
                          "", subtitle, "", lat, lon, "", null,
@@ -169,15 +171,16 @@ public class MapObject implements Parcelable
   private ArrayList<UGC.Rating> readRatings(@NonNull Parcel source)
   {
     ArrayList<UGC.Rating> ratings = new ArrayList<>();
-    source.readTypedList(ratings, UGC.Rating.CREATOR);;
+    source.readTypedList(ratings, UGC.Rating.CREATOR);
+    ;
     return ratings.isEmpty() ? null : ratings;
   }
 
   @NonNull
-  private List<Integer> readTaxiTypes(@NonNull Parcel source)
+  private List<TaxiType> readTaxiTypes(@NonNull Parcel source)
   {
-    List<Integer> types = new ArrayList<>();
-    source.readList(types, Integer.class.getClassLoader());
+    List<TaxiType> types = new ArrayList<>();
+    source.readList(types, TaxiType.class.getClassLoader());
     return types;
   }
 
@@ -213,20 +216,41 @@ public class MapObject implements Parcelable
     return (one != null && one.sameAs(another));
   }
 
-  public double getScale() { return 0; }
+  public double getScale()
+  {
+    return 0;
+  }
 
-  public String getTitle() { return mTitle; }
+  public String getTitle()
+  {
+    return mTitle;
+  }
 
   @Nullable
-  public String getSecondaryTitle() { return mSecondaryTitle; }
+  public String getSecondaryTitle()
+  {
+    return mSecondaryTitle;
+  }
 
-  public String getSubtitle() { return mSubtitle; }
+  public String getSubtitle()
+  {
+    return mSubtitle;
+  }
 
-  public double getLat() { return mLat; }
+  public double getLat()
+  {
+    return mLat;
+  }
 
-  public double getLon() { return mLon; }
+  public double getLon()
+  {
+    return mLon;
+  }
 
-  public String getAddress() { return mAddress; }
+  public String getAddress()
+  {
+    return mAddress;
+  }
 
   @NonNull
   public String getMetadata(Metadata.MetadataType type)
@@ -259,7 +283,7 @@ public class MapObject implements Parcelable
   }
 
   @Nullable
-  public List<Integer> getReachableByTaxiTypes()
+  public List<TaxiType> getReachableByTaxiTypes()
   {
     return mReachableByTaxiTypes;
   }
@@ -349,7 +373,7 @@ public class MapObject implements Parcelable
     return mFeatureId;
   }
 
-  private  static MapObject readFromParcel(Parcel source)
+  private static MapObject readFromParcel(Parcel source)
   {
     @MapObjectType int type = source.readInt();
     if (type == BOOKMARK)

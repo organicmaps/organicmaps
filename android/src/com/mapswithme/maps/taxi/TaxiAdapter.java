@@ -20,10 +20,10 @@ public class TaxiAdapter extends PagerAdapter
   private final Context mContext;
   @NonNull
   private final List<TaxiInfo.Product> mProducts;
-  @TaxiManager.TaxiType
-  private final int mType;
+  @NonNull
+  private final TaxiType mType;
 
-  public TaxiAdapter(@NonNull Context context, @TaxiManager.TaxiType int type,
+  public TaxiAdapter(@NonNull Context context, @NonNull TaxiType type,
                      @NonNull List<TaxiInfo.Product> products)
   {
     mContext = context;
@@ -53,9 +53,9 @@ public class TaxiAdapter extends PagerAdapter
     String separator;
     // We ignore all Yandex.Taxi product names until they do support of passing product parameters
     // to their app via deeplink.
-    if (mType == TaxiManager.PROVIDER_YANDEX || mType == TaxiManager.PROVIDER_MAXIM)
+    if (mType == TaxiType.PROVIDER_YANDEX || mType == TaxiType.PROVIDER_MAXIM)
     {
-      TaxiManager.setTaxiTitle(name, mType);
+      name.setText(mType.getTitle());
       separator = " • ~";
     }
     else
@@ -76,7 +76,7 @@ public class TaxiAdapter extends PagerAdapter
   @NonNull
   private String formatPrice(@NonNull TaxiInfo.Product product)
   {
-    if (mType == TaxiManager.PROVIDER_YANDEX)
+    if (mType == TaxiType.PROVIDER_YANDEX)
       return Utils.formatCurrencyString(product.getPrice(), product.getCurrency());
     // For Uber and Maxim we don't do formatting, because Uber and Maxim does it on its side.
     return product.getPrice();

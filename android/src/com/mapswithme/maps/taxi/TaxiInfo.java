@@ -25,28 +25,28 @@ public class TaxiInfo implements Parcelable
     }
   };
 
-  @TaxiManager.TaxiType
-  private final int mType;
+  @NonNull
+  private final TaxiType mType;
   @NonNull
   private final List<Product> mProducts;
 
-  private TaxiInfo(@TaxiManager.TaxiType int type, @NonNull Product[] products)
+  private TaxiInfo(int type, @NonNull Product[] products)
   {
-    mType = type;
+    mType = TaxiType.values()[type];
     mProducts = new ArrayList<>(Arrays.asList(products));
   }
 
   private TaxiInfo(@NonNull Parcel parcel)
   {
     //noinspection WrongConstant
-    mType = parcel.readInt();
+    mType = TaxiType.values()[parcel.readInt()];
     List<Product> products = new ArrayList<>();
     parcel.readTypedList(products, Product.CREATOR);
     mProducts = products;
   }
 
-  @TaxiManager.TaxiType
-  public int getType()
+  @NonNull
+  public final TaxiType getType()
   {
     return mType;
   }
@@ -75,7 +75,7 @@ public class TaxiInfo implements Parcelable
   @Override
   public void writeToParcel(Parcel dest, int flags)
   {
-    dest.writeInt(mType);
+    dest.writeInt(mType.ordinal());
     dest.writeTypedList(mProducts);
   }
 

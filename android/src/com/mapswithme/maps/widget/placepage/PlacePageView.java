@@ -69,6 +69,7 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.review.Review;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.taxi.TaxiManager;
+import com.mapswithme.maps.taxi.TaxiType;
 import com.mapswithme.maps.ugc.Impress;
 import com.mapswithme.maps.ugc.UGCController;
 import com.mapswithme.maps.viator.Viator;
@@ -1437,7 +1438,7 @@ public class PlacePageView extends RelativeLayout
 
   private void showTaxiOffer(@NonNull MapObject mapObject)
   {
-    List<Integer> taxiTypes = mapObject.getReachableByTaxiTypes();
+    List<TaxiType> taxiTypes = mapObject.getReachableByTaxiTypes();
 
     boolean showTaxiOffer = taxiTypes != null && !taxiTypes.isEmpty() &&
                             LocationHelper.INSTANCE.getMyPosition() != null &&
@@ -1448,11 +1449,12 @@ public class PlacePageView extends RelativeLayout
       return;
 
     // At this moment we display only a one taxi provider at the same time.
-    @TaxiManager.TaxiType
-    int type = taxiTypes.get(0);
-    TaxiManager.setTaxiIcon(mTaxi.findViewById(R.id.iv__place_page_taxi), type);
-    TaxiManager.setTaxiTitle(mTaxi.findViewById(R.id.tv__place_page_taxi), type);
-    Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_SHOW_IN_PP, type);
+    TaxiType type = taxiTypes.get(0);
+    ImageView logo = mTaxi.findViewById(R.id.iv__place_page_taxi);
+    logo.setImageResource(type.getIcon());
+    TextView title = mTaxi.findViewById(R.id.tv__place_page_taxi);
+    title.setText(type.getTitle());
+    Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_SHOW_IN_PP, type.getProviderName());
   }
 
   private void hideHotelViews()
@@ -1865,12 +1867,12 @@ public class PlacePageView extends RelativeLayout
         Framework.nativeDeactivatePopup();
         if (mMapObject != null)
         {
-          List<Integer> types = mMapObject.getReachableByTaxiTypes();
+          List<TaxiType> types = mMapObject.getReachableByTaxiTypes();
           if (types != null && !types.isEmpty())
           {
-            @TaxiManager.TaxiType
-            int type = types.get(0);
-            Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_CLICK_IN_PP, type);
+            String providerName = types.get(0).getProviderName();
+            Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_CLICK_IN_PP,
+                                               providerName);
           }
         }
         break;

@@ -27,11 +27,10 @@ public class Bookmark extends MapObject
   public Bookmark(@NonNull FeatureId featureId, @IntRange(from = 0) long categoryId,
                   @IntRange(from = 0) long bookmarkId, String title, @Nullable String secondaryTitle,
                   @Nullable String subtitle, @Nullable String address, @Nullable Banner[] banners,
-                  @TaxiManager.TaxiType int[] reachableByTaxiTypes,
-                  @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
-                  @Nullable RoutePointInfo routePointInfo, boolean isExtendedView,
-                  boolean shouldShowUGC, boolean canBeRated, boolean canBeReviewed,
-                  @Nullable UGC.Rating[] ratings)
+                  @Nullable int[] reachableByTaxiTypes, @Nullable String bookingSearchUrl,
+                  @Nullable LocalAdInfo localAdInfo, @Nullable RoutePointInfo routePointInfo,
+                  boolean isExtendedView, boolean shouldShowUGC, boolean canBeRated,
+                  boolean canBeReviewed, @Nullable UGC.Rating[] ratings)
   {
     super(featureId, BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "",
           banners, reachableByTaxiTypes, bookingSearchUrl, localAdInfo, routePointInfo,

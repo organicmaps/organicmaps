@@ -4,14 +4,14 @@ import android.support.annotation.NonNull;
 
 public class TaxiInfoError
 {
-  @TaxiManager.TaxiType
-  private final int mType;
+  @NonNull
+  private final TaxiType mType;
   @NonNull
   private final TaxiManager.ErrorCode mCode;
 
   public TaxiInfoError(int type, @NonNull String errorCode)
   {
-    mType = type;
+    mType = TaxiType.values()[type];
     mCode = TaxiManager.ErrorCode.valueOf(errorCode);
   }
 
@@ -21,10 +21,10 @@ public class TaxiInfoError
     return mCode;
   }
 
-  @TaxiManager.TaxiType
-  public int getType()
+  @NonNull
+  public String getProviderName()
   {
-    return mType;
+    return mType.getProviderName();
   }
 
   @Override

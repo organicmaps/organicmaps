@@ -56,7 +56,7 @@ jobject CreateMapObject(JNIEnv * env, string const & mwmName, int64_t mwmVersion
   //                  @MapObjectType int mapObjectType, String title, @Nullable String
   //                  secondaryTitle,
   //                  String subtitle, String address, double lat, double lon, String apiId,
-  //                  @Nullable Banner[] banners, @TaxiType int[] reachableByTaxiTypes,
+  //                  @Nullable Banner[] banners, int[] reachableByTaxiTypes,
   //                  @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
   //                  @Nullable RoutePointInfo routePointInfo)
   static jmethodID const ctorId = jni::GetConstructorID(

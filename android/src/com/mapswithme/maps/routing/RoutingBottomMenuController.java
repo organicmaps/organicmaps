@@ -166,7 +166,8 @@ final class RoutingBottomMenuController implements View.OnClickListener
   void showTaxiInfo(@NonNull TaxiInfo info)
   {
     UiUtils.hide(mError, mAltitudeChartFrame, mActionFrame, mTransitFrame);
-    TaxiManager.setTaxiIcon(mTaxiFrame.findViewById(R.id.iv__logo), info.getType());
+    ImageView logo = mTaxiFrame.findViewById(R.id.iv__logo);
+    logo.setImageResource(info.getType().getIcon());
     final List<TaxiInfo.Product> products = info.getProducts();
     mTaxiInfo = info;
     mTaxiProduct = products.get(0);
@@ -251,8 +252,7 @@ final class RoutingBottomMenuController implements View.OnClickListener
   {
     if (RoutingController.get().isTaxiRouterType() && mTaxiInfo != null)
     {
-      String packageName = TaxiManager.getTaxiPackageName(mTaxiInfo.getType());
-      mStart.setText(Utils.isAppInstalled(mContext, packageName)
+      mStart.setText(Utils.isAppInstalled(mContext, mTaxiInfo.getType().getPackageName())
                      ? R.string.taxi_order : R.string.install_app);
       mStart.setOnClickListener(new View.OnClickListener()
       {

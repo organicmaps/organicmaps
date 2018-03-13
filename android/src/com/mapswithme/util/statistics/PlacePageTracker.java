@@ -8,6 +8,7 @@ import android.view.View;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.taxi.TaxiManager;
+import com.mapswithme.maps.taxi.TaxiType;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.UiUtils;
@@ -63,12 +64,12 @@ public class PlacePageTracker
   {
     if (!mTaxiTracked && isViewOnScreen(mTaxi, VISIBILITY_RATIO_TAXI) && mMapObject != null)
     {
-      List<Integer> taxiTypes = mMapObject.getReachableByTaxiTypes();
+      List<TaxiType> taxiTypes = mMapObject.getReachableByTaxiTypes();
       if (taxiTypes != null && !taxiTypes.isEmpty())
       {
-        @TaxiManager.TaxiType
-        int type = taxiTypes.get(0);
-        Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_REAL_SHOW_IN_PP, type);
+        String providerName = taxiTypes.get(0).getProviderName();
+        Statistics.INSTANCE.trackTaxiEvent(Statistics.EventName.ROUTING_TAXI_REAL_SHOW_IN_PP,
+                                           providerName);
         mTaxiTracked = true;
       }
     }
