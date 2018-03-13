@@ -30095,3 +30095,7 @@ fa = دوباره نپرس
     sw = Uhifadhi wa mizigo
     zh-Hans = 行李寄存
     zh-Hant = 行李寄存
+
+  [maxim_taxi_title]
+    en = maxim
+    ru = Максим
