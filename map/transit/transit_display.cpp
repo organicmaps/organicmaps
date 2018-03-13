@@ -201,8 +201,6 @@ void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
   if (!m_transitReadManager.GetTransitDisplayInfo(transitDisplayInfos))
     return;
 
-  std::vector<TransitMarkInfo> transitMarks;
-
   subroute.m_maxPixelWidth = m_maxSubrouteWidth;
   subroute.m_styleType = df::SubrouteStyleType::Multiple;
   subroute.m_style.clear();
@@ -327,7 +325,7 @@ void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
       subroute.m_markers.push_back(marker);
       marker = df::SubrouteMarker();
 
-      transitMarks.push_back(transitMarkInfo);
+      m_transitMarks.push_back(transitMarkInfo);
       transitMarkInfo = TransitMarkInfo();
 
       lastDir = currentDir;
@@ -371,7 +369,7 @@ void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
         transitMarkInfo.m_type = TransitMarkInfo::Type::KeyStop;
         transitMarkInfo.m_symbolName = kTransitSymbols.at(transitType);
         transitMarkInfo.m_color = lastColor;
-        transitMarks.push_back(transitMarkInfo);
+        m_transitMarks.push_back(transitMarkInfo);
         transitMarkInfo = TransitMarkInfo();
       }
       else
@@ -400,17 +398,12 @@ void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
         gateMarkInfo.m_titles.push_back(TransitTitle(title, df::GetTransitTextColorName("default")));
       }
 
-      transitMarks.push_back(gateMarkInfo);
+      m_transitMarks.push_back(gateMarkInfo);
     }
   }
 
   m_routeInfo.m_totalDistInMeters = prevDistance;
   m_routeInfo.m_totalTimeInSec = static_cast<int>(ceil(prevTime));
-
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, transitMarks]()
-  {
-    CreateTransitMarks(transitMarks);
-  });
 }
 
 void TransitRouteDisplay::CollectTransitDisplayInfo(vector<RouteSegment> const & segments,
@@ -475,8 +468,11 @@ TransitMark * TransitRouteDisplay::CreateMark(m2::PointD const & pt, FeatureID c
   return transitMark;
 }
 
-void TransitRouteDisplay::CreateTransitMarks(std::vector<TransitMarkInfo> const & transitMarks)
+void TransitRouteDisplay::CreateTransitMarks()
 {
+  if (m_transitMarks.empty())
+    return;
+
   std::vector<m2::PointF> const transferMarkerSizes = GetTransitMarkerSizes(kTransferMarkerScale, m_maxSubrouteWidth);
   std::vector<m2::PointF> const stopMarkerSizes = GetTransitMarkerSizes(kStopMarkerScale, m_maxSubrouteWidth);
 
@@ -487,9 +483,8 @@ void TransitRouteDisplay::CreateTransitMarks(std::vector<TransitMarkInfo> const 
   auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
   
   auto editSession = m_bmManager->GetEditSession();
-  for (size_t i = 0; i < transitMarks.size(); ++i)
+  for (auto const & mark : m_transitMarks)
   {
-    auto const & mark = transitMarks[i];
     auto transitMark = CreateMark(mark.m_point, mark.m_featureId);
 
     dp::TitleDecl titleDecl;

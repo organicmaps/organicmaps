@@ -447,16 +447,16 @@ void RoutingManager::InsertRoute(Route const & route)
   // TODO: Now we always update whole route, so we need to remove previous one.
   RemoveRoute(false /* deactivateFollowing */);
 
-  std::unique_ptr<TransitRouteDisplay> transitRouteDisplay;
+  std::shared_ptr<TransitRouteDisplay> transitRouteDisplay;
   auto numMwmIds = make_shared<NumMwmIds>();
   if (m_currentRouterType == RouterType::Transit)
   {
     m_delegate.RegisterCountryFilesOnRoute(numMwmIds);
-    auto getMwmId = [this, &numMwmIds](routing::NumMwmId numMwmId)
+    auto getMwmId = [this, numMwmIds](routing::NumMwmId numMwmId)
     {
       return m_callbacks.m_indexGetter().GetMwmIdByCountryFile(numMwmIds->GetFile(numMwmId));
     };
-    transitRouteDisplay = make_unique<TransitRouteDisplay>(m_transitReadManager, getMwmId,
+    transitRouteDisplay = make_shared<TransitRouteDisplay>(m_transitReadManager, getMwmId,
                                                            m_callbacks.m_stringsBundleGetter,
                                                            m_bmManager, m_transitSymbolSizes);
   }
@@ -547,9 +547,19 @@ void RoutingManager::InsertRoute(Route const & route)
     m_drapeSubroutes.push_back(subrouteId);
   }
 
-  lock_guard<mutex> lock(m_drapeSubroutesMutex);
-  m_transitRouteInfo = m_currentRouterType == RouterType::Transit ? transitRouteDisplay->GetRouteInfo()
-                                                                  : TransitRouteInfo();
+  {
+    lock_guard<mutex> lock(m_drapeSubroutesMutex);
+    m_transitRouteInfo = m_currentRouterType == RouterType::Transit ? transitRouteDisplay->GetRouteInfo()
+                                                                    : TransitRouteInfo();
+  }
+
+  if (m_currentRouterType == RouterType::Transit)
+  {
+    GetPlatform().RunTask(Platform::Thread::Gui, [transitRouteDisplay = std::move(transitRouteDisplay)]()
+    {
+      transitRouteDisplay->CreateTransitMarks();
+    });
+  }
 }
 
 void RoutingManager::FollowRoute()
