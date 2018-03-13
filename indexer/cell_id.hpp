@@ -24,33 +24,33 @@ struct Bounds
 
 //typedef Bounds<-180, -90, 180, 90> OrthoBounds;
 
-template <typename BoundsT, typename CellIdT>
+template <typename Bounds, typename CellId>
 class CellIdConverter
 {
 public:
   static double XToCellIdX(double x)
   {
-    return (x - BoundsT::minX) / StepX();
+    return (x - Bounds::minX) / StepX();
   }
   static double YToCellIdY(double y)
   {
-    return (y - BoundsT::minY) / StepY();
+    return (y - Bounds::minY) / StepY();
   }
 
   static double CellIdXToX(double  x)
   {
-    return (x*StepX() + BoundsT::minX);
+    return (x*StepX() + Bounds::minX);
   }
   static double CellIdYToY(double y)
   {
-    return (y*StepY() + BoundsT::minY);
+    return (y*StepY() + Bounds::minY);
   }
 
-  static CellIdT ToCellId(double x, double y)
+  static CellId ToCellId(double x, double y)
   {
     uint32_t const ix = static_cast<uint32_t>(XToCellIdX(x));
     uint32_t const iy = static_cast<uint32_t>(YToCellIdY(y));
-    CellIdT id = CellIdT::FromXY(ix, iy, CellIdT::DEPTH_LEVELS - 1);
+    CellId id = CellId::FromXY(ix, iy, CellId::DEPTH_LEVELS - 1);
 #if 0 // DEBUG
     pair<uint32_t, uint32_t> ixy = id.XY();
     ASSERT(Abs(ixy.first  - ix) <= 1, (x, y, id, ixy));
@@ -63,10 +63,10 @@ public:
     return id;
   }
 
-  static CellIdT Cover2PointsWithCell(double x1, double y1, double x2, double y2)
+  static CellId Cover2PointsWithCell(double x1, double y1, double x2, double y2)
   {
-    CellIdT id1 = ToCellId(x1, y1);
-    CellIdT id2 = ToCellId(x2, y2);
+    CellId id1 = ToCellId(x1, y1);
+    CellId id2 = ToCellId(x2, y2);
     while (id1 != id2)
     {
       id1 = id1.Parent();
@@ -83,30 +83,30 @@ public:
     return id1;
   }
 
-  static m2::PointD FromCellId(CellIdT id)
+  static m2::PointD FromCellId(CellId id)
   {
     pair<uint32_t, uint32_t> const xy = id.XY();
     return m2::PointD(CellIdXToX(xy.first), CellIdYToY(xy.second));
   }
 
-  static void GetCellBounds(CellIdT id,
+  static void GetCellBounds(CellId id,
                             double & minX, double & minY, double & maxX, double & maxY)
   {
     pair<uint32_t, uint32_t> const xy = id.XY();
     uint32_t const r = id.Radius();
-    minX = (xy.first - r) * StepX() + BoundsT::minX;
-    maxX = (xy.first + r) * StepX() + BoundsT::minX;
-    minY = (xy.second - r) * StepY() + BoundsT::minY;
-    maxY = (xy.second + r) * StepY() + BoundsT::minY;
+    minX = (xy.first - r) * StepX() + Bounds::minX;
+    maxX = (xy.first + r) * StepX() + Bounds::minX;
+    minY = (xy.second - r) * StepY() + Bounds::minY;
+    maxY = (xy.second + r) * StepY() + Bounds::minY;
   }
 
 private:
   inline static double StepX()
   {
-    return double(BoundsT::maxX - BoundsT::minX) / CellIdT::MAX_COORD;
+    return double(Bounds::maxX - Bounds::minX) / CellId::MAX_COORD;
   }
   inline static double StepY()
   {
-    return double(BoundsT::maxY - BoundsT::minY) / CellIdT::MAX_COORD;
+    return double(Bounds::maxY - Bounds::minY) / CellId::MAX_COORD;
   }
 };
