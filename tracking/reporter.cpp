@@ -39,7 +39,7 @@ Reporter::Reporter(unique_ptr<platform::Socket> socket, string const & host, uin
   // Set buffer size to be enough to keep all points even if one reconnect attempt failed.
   auto const realTimeBufferSize =
       (duration_cast<seconds>(m_pushDelay).count() + kReconnectDelaySeconds) / kMinDelaySeconds;
-  m_points.resize(ceil(realTimeBufferSize));
+  m_points.set_capacity(ceil(realTimeBufferSize));
 }
 
 Reporter::~Reporter()
