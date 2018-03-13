@@ -210,6 +210,7 @@ void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
 
   df::ColorConstant lastColor;
   m2::PointD lastDir;
+  auto lastLineId = transit::kInvalidLineId;
 
   df::SubrouteMarker marker;
   TransitMarkInfo transitMarkInfo;
@@ -233,6 +234,7 @@ void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
 
       AddTransitPedestrianSegment(s.GetJunction().GetPoint(), subroute);
       lastColor = "";
+      lastLineId = transit::kInvalidLineId;
       transitType = TransitType::Pedestrian;
       continue;
     }
@@ -246,7 +248,9 @@ void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
     {
       auto const & edge = transitInfo.GetEdge();
 
-      auto const & line = displayInfo.m_lines.at(edge.m_lineId);
+      auto const currentLineId = edge.m_lineId;
+
+      auto const & line = displayInfo.m_lines.at(currentLineId);
       auto const currentColor = df::GetTransitColorName(line.GetColor());
       transitType = GetTransitType(line.GetType());
 
@@ -292,9 +296,9 @@ void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
       auto const & p2 = *(subroute.m_polyline.End() - 1);
       m2::PointD currentDir = (p2 - p1).Normalize();
 
-      if (lastColor != currentColor)
+      if (lastLineId != currentLineId)
       {
-        if (!lastColor.empty())
+        if (lastLineId != transit::kInvalidLineId)
         {
           marker.m_scale = kTransferMarkerScale;
           transitMarkInfo.m_type = TransitMarkInfo::Type::Transfer;
@@ -310,6 +314,7 @@ void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
         }
       }
       lastColor = currentColor;
+      lastLineId = currentLineId;
 
       if (marker.m_colors.size() > 1)
       {
@@ -354,7 +359,7 @@ void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
     else if (transitInfo.GetType() == TransitInfo::Type::Gate)
     {
       auto const & gate = transitInfo.GetGate();
-      if (!lastColor.empty())
+      if (lastLineId != transit::kInvalidLineId)
       {
         m_routeInfo.AddStep(TransitStepInfo(TransitType::Pedestrian, distance, time));
 
