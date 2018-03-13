@@ -201,7 +201,7 @@ void MainModel::OnNonFoundResultSelected(int index)
 void MainModel::OnShowViewportClicked()
 {
   CHECK(m_selectedSample != kInvalidIndex, ());
-  CHECK(m_selectedSample < m_contexts.Size(), ());
+  CHECK_LESS(m_selectedSample, m_contexts.Size(), ());
 
   auto const & context = m_contexts[m_selectedSample];
   m_view->MoveViewportToRect(context.m_sample.m_viewport);
@@ -210,7 +210,7 @@ void MainModel::OnShowViewportClicked()
 void MainModel::OnShowPositionClicked()
 {
   CHECK(m_selectedSample != kInvalidIndex, ());
-  CHECK(m_selectedSample < m_contexts.Size(), ());
+  CHECK_LESS(m_selectedSample, m_contexts.Size(), ());
 
   static int constexpr kViewportAroundTopResultsSizeM = 100;
   static double constexpr kViewportAroundTopResultsScale = 1.2;
@@ -242,6 +242,16 @@ void MainModel::OnShowPositionClicked()
   auto const minRect = MercatorBounds::RectByCenterXYAndSizeInMeters(
       boundingBox.Center(), kViewportAroundTopResultsSizeM);
   m_view->MoveViewportToRect(m2::Add(boundingBox, minRect));
+}
+
+void MainModel::OnMarkAllAsRelevantClicked()
+{
+  OnChangeAllRelevancesClicked(Edits::Relevance::Relevant);
+}
+
+void MainModel::OnMarkAllAsIrrelevantClicked()
+{
+  OnChangeAllRelevancesClicked(Edits::Relevance::Irrelevant);
 }
 
 bool MainModel::HasChanges() { return m_contexts.HasChanges(); }
@@ -381,6 +391,21 @@ void MainModel::ShowMarks(Context const & context)
   m_view->ShowFoundResultsMarks(context.m_foundResults.begin(), context.m_foundResults.end());
   m_view->ShowNonFoundResultsMarks(context.m_nonFoundResults,
                                    context.m_nonFoundResultsEdits.GetEntries());
+}
+
+void MainModel::OnChangeAllRelevancesClicked(Edits::Relevance relevance)
+{
+  CHECK_GREATER_OR_EQUAL(m_selectedSample, 0, ());
+  CHECK_LESS(m_selectedSample, m_contexts.Size(), ());
+  auto & context = m_contexts[m_selectedSample];
+
+  context.m_foundResultsEdits.SetAllRelevances(relevance);
+  context.m_nonFoundResultsEdits.SetAllRelevances(relevance);
+
+  m_view->OnResultChanged(m_selectedSample, View::ResultType::Found, Edits::Update::MakeAll());
+  m_view->OnResultChanged(m_selectedSample, View::ResultType::NonFound, Edits::Update::MakeAll());
+  m_view->OnSampleChanged(m_selectedSample, context.HasChanges());
+  m_view->OnSamplesChanged(m_contexts.HasChanges());
 }
 
 template <typename Fn>

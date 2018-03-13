@@ -51,6 +51,8 @@ public:
 signals:
   void OnShowViewportClicked();
   void OnShowPositionClicked();
+  void OnMarkAllAsRelevantClicked();
+  void OnMarkAllAsIrrelevantClicked();
 
 private:
   void ClearAllResults();
@@ -72,6 +74,9 @@ private:
 
   QPushButton * m_showViewport = nullptr;
   QPushButton * m_showPosition = nullptr;
+
+  QPushButton * m_markAllAsRelevant = nullptr;
+  QPushButton * m_markAllAsIrrelevant = nullptr;
 
   ResultsView * m_foundResults = nullptr;
   QWidget * m_foundResultsBox = nullptr;

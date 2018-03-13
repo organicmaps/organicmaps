@@ -119,6 +119,9 @@ public:
   // |relevance| differs from the original one.
   bool SetRelevance(size_t index, Relevance relevance);
 
+  // Sets relevances of all entries to |relevance|.
+  void SetAllRelevances(Relevance relevance);
+
   // Adds a new entry.
   void Add(Relevance relevance);
 
@@ -145,7 +148,7 @@ private:
   template <typename Fn>
   std::result_of_t<Fn()> WithObserver(Update const & update, Fn && fn)
   {
-    MY_SCOPE_GUARD(cleanup, ([this, &update]() {
+    MY_SCOPE_GUARD(obsCall, ([this, &update]() {
                      if (m_onUpdate)
                        m_onUpdate(update);
                    }));

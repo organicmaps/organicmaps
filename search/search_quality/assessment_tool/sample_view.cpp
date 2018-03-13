@@ -105,6 +105,20 @@ SampleView::SampleView(QWidget * parent, Framework & framework)
   }
 
   {
+    auto * layout = BuildSubLayout<QHBoxLayout>(*mainLayout, *this /* parent */);
+
+    m_markAllAsRelevant = new QPushButton(tr("Mark all as Relevant"), this /* parent */);
+    connect(m_markAllAsRelevant, &QPushButton::clicked,
+            [this]() { emit OnMarkAllAsRelevantClicked(); });
+    layout->addWidget(m_markAllAsRelevant);
+
+    m_markAllAsIrrelevant = new QPushButton(tr("Mark all as Irrelevant"), this /* parent */);
+    connect(m_markAllAsIrrelevant, &QPushButton::clicked,
+            [this]() { emit OnMarkAllAsIrrelevantClicked(); });
+    layout->addWidget(m_markAllAsIrrelevant);
+  }
+
+  {
     auto * layout =
         BuildSubLayout<QVBoxLayout>(*mainLayout, *this /* parent */, &m_foundResultsBox);
     SetVerticalStretch(*m_foundResultsBox, 4 /* stretch */);
@@ -186,6 +200,9 @@ void SampleView::OnSearchStarted()
 {
   m_spinner->Show();
   m_showPosition->setEnabled(false);
+
+  m_markAllAsRelevant->setEnabled(false);
+  m_markAllAsIrrelevant->setEnabled(false);
 }
 
 void SampleView::OnSearchCompleted()
@@ -209,6 +226,9 @@ void SampleView::OnSearchCompleted()
   {
     m_showPosition->setEnabled(false);
   }
+
+  m_markAllAsRelevant->setEnabled(resultsAvailable);
+  m_markAllAsIrrelevant->setEnabled(resultsAvailable);
 }
 
 void SampleView::AddFoundResults(search::Results::ConstIter begin, search::Results::ConstIter end)
@@ -290,6 +310,9 @@ void SampleView::Clear()
 
   m_showViewport->setEnabled(false);
   m_showPosition->setEnabled(false);
+
+  m_markAllAsRelevant->setEnabled(false);
+  m_markAllAsIrrelevant->setEnabled(false);
 
   m_relatedQueriesBox->hide();
 

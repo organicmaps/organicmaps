@@ -67,39 +67,33 @@ void ResultView::SetEditor(Edits::Editor && editor)
 {
   m_editor = my::make_unique<Edits::Editor>(std::move(editor));
 
-  m_irrelevant->setChecked(false);
-  m_relevant->setChecked(false);
-  m_vital->setChecked(false);
-
-  auto const & r = m_editor->Get();
-  if (!r.m_unknown)
-  {
-    switch (r.m_relevance)
-    {
-      case Relevance::Irrelevant: m_irrelevant->setChecked(true); break;
-      case Relevance::Relevant: m_relevant->setChecked(true); break;
-      case Relevance::Vital: m_vital->setChecked(true); break;
-    }
-  }
+  UpdateRelevanceRadioButtons();
 
   setEnabled(true);
 }
 
 void ResultView::Update()
 {
-  if (m_editor)
+  if (!m_editor)
   {
-    if (m_editor->GetType() == Edits::Entry::Type::Created)
-      setStyleSheet("#result {background: rgba(173, 223, 173, 50%)}");
-    else if (m_editor->HasChanges())
-      setStyleSheet("#result {background: rgba(255, 255, 200, 50%)}");
-    else
-      setStyleSheet("");
+    setStyleSheet("");
+    return;
+  }
+
+  if (m_editor->GetType() == Edits::Entry::Type::Created)
+  {
+    setStyleSheet("#result {background: rgba(173, 223, 173, 50%)}");
+  }
+  else if (m_editor->HasChanges())
+  {
+    setStyleSheet("#result {background: rgba(255, 255, 200, 50%)}");
   }
   else
   {
     setStyleSheet("");
   }
+
+  UpdateRelevanceRadioButtons();
 }
 
 void ResultView::Init()
@@ -166,4 +160,25 @@ void ResultView::OnRelevanceChanged()
     relevance = Relevance::Vital;
 
   m_editor->Set(relevance);
+}
+
+void ResultView::UpdateRelevanceRadioButtons()
+{
+  if (!m_editor)
+    return;
+
+  m_irrelevant->setChecked(false);
+  m_relevant->setChecked(false);
+  m_vital->setChecked(false);
+
+  auto const & r = m_editor->Get();
+  if (!r.m_unknown)
+  {
+    switch (r.m_relevance)
+    {
+    case Relevance::Irrelevant: m_irrelevant->setChecked(true); break;
+    case Relevance::Relevant: m_relevant->setChecked(true); break;
+    case Relevance::Vital: m_vital->setChecked(true); break;
+    }
+  }
 }

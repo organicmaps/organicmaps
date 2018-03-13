@@ -37,6 +37,8 @@ public:
   void OnNonFoundResultSelected(int index) override;
   void OnShowViewportClicked() override;
   void OnShowPositionClicked() override;
+  void OnMarkAllAsRelevantClicked() override;
+  void OnMarkAllAsIrrelevantClicked() override;
   bool HasChanges() override;
   bool AlreadyInSamples(FeatureID const & id) override;
   void AddNonFoundResult(FeatureID const & id) override;
@@ -53,6 +55,8 @@ private:
 
   void ResetSearch();
   void ShowMarks(Context const & context);
+
+  void OnChangeAllRelevancesClicked(Edits::Relevance relevance);
 
   template <typename Fn>
   void ForAnyMatchingEntry(Context & context, FeatureID const & id, Fn && fn);

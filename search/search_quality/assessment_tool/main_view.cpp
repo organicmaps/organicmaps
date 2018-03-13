@@ -341,6 +341,11 @@ void MainView::InitDocks()
   connect(m_sampleView, &SampleView::OnShowPositionClicked,
           [this]() { m_model->OnShowPositionClicked(); });
 
+  connect(m_sampleView, &SampleView::OnMarkAllAsRelevantClicked,
+          [this]() { m_model->OnMarkAllAsRelevantClicked(); });
+  connect(m_sampleView, &SampleView::OnMarkAllAsIrrelevantClicked,
+          [this]() { m_model->OnMarkAllAsIrrelevantClicked(); });
+
   {
     auto const & view = m_sampleView->GetFoundResultsView();
     connect(&view, &ResultsView::OnResultSelected,

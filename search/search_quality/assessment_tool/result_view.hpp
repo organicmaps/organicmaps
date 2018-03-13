@@ -38,6 +38,7 @@ private:
 
   QRadioButton * CreateRatioButton(string const & label, QLayout & layout);
   void OnRelevanceChanged();
+  void UpdateRelevanceRadioButtons();
 
   QLabel * m_name = nullptr;
   QLabel * m_type = nullptr;

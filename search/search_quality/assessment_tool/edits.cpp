@@ -2,6 +2,17 @@
 
 #include "base/assert.hpp"
 
+namespace
+{
+void UpdateNumEdits(Edits::Entry const & entry, Edits::MaybeRelevance const & r, size_t & numEdits)
+{
+  if (entry.m_curr != entry.m_orig && r == entry.m_orig)
+    --numEdits;
+  if (entry.m_curr == entry.m_orig && r != entry.m_orig)
+    ++numEdits;
+}
+}  // namespace
+
 // Edits::Editor -----------------------------------------------------------------------------------
 Edits::Editor::Editor(Edits & parent, size_t index)
   : m_parent(parent), m_index(index)
@@ -63,13 +74,24 @@ bool Edits::SetRelevance(size_t index, Relevance relevance)
 
     MaybeRelevance const r(relevance);
 
-    if (entry.m_curr != entry.m_orig && r == entry.m_orig)
-      --m_numEdits;
-    else if (entry.m_curr == entry.m_orig && r != entry.m_orig)
-      ++m_numEdits;
+    UpdateNumEdits(entry, r, m_numEdits);
 
     entry.m_curr = r;
     return entry.m_curr != entry.m_orig;
+  });
+}
+
+void Edits::SetAllRelevances(Relevance relevance)
+{
+  WithObserver(Update::MakeAll(), [this, relevance]() {
+    for (auto & entry : m_entries)
+    {
+      MaybeRelevance const r(relevance);
+
+      UpdateNumEdits(entry, r, m_numEdits);
+
+      entry.m_curr = r;
+    }
   });
 }
 

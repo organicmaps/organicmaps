@@ -7,13 +7,17 @@
 
 #include <QtWidgets/QListWidgetItem>
 
-ResultsView::ResultsView(QWidget & parent) : QListWidget(&parent) { setAlternatingRowColors(true);
+ResultsView::ResultsView(QWidget & parent) : QListWidget(&parent)
+{
+  setAlternatingRowColors(true);
+
   connect(selectionModel(), &QItemSelectionModel::selectionChanged,
           [&](QItemSelection const & current) {
             auto const indexes = current.indexes();
             for (auto const & index : indexes)
               emit OnResultSelected(index.row());
           });
+
   connect(this, &ResultsView::itemClicked, [&](QListWidgetItem * item) {
       auto const index = indexFromItem(item);
       emit OnResultSelected(index.row());
