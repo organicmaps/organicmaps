@@ -45,6 +45,7 @@ omim_link_libraries(
   indexer
   partners_api
   local_ads
+  kml
   platform
   editor
   mwm_diff

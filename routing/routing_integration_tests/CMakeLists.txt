@@ -36,6 +36,7 @@ omim_link_libraries(
   traffic
   routing_common
   transit
+  kml
   platform
   oauthcpp
   geometry

@@ -15,6 +15,7 @@ omim_link_libraries(
   storage
   ugc
   indexer
+  kml
   platform
   editor
   mwm_diff

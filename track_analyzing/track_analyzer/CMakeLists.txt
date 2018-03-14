@@ -25,6 +25,7 @@ omim_link_libraries(
   storage
   indexer
   editor
+  kml
   platform
   mwm_diff
   bsdiff

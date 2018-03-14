@@ -27,6 +27,7 @@ omim_link_libraries(
   opening_hours
   editor
   oauthcpp
+  kml
   platform
   jansson
   geometry

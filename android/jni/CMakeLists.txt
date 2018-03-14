@@ -111,6 +111,7 @@ target_link_libraries(
   ugc
   indexer
   drape
+  kml
   platform
   editor
   partners_api

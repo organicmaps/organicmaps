@@ -6,19 +6,19 @@
 
 #include <cstdint>
 
-namespace ugc
+namespace kml
 {
 namespace binary
 {
-struct HeaderV0
+struct Header
 {
   template <typename Visitor>
   void Visit(Visitor & visitor)
   {
-    visitor(m_keysOffset, "keysOffset");
-    visitor(m_ugcsOffset, "ugcsOffset");
-    visitor(m_indexOffset, "indexOffset");
-    visitor(m_textsOffset, "textsOffset");
+    visitor(m_categoryOffset, "categoryOffset");
+    visitor(m_bookmarksOffset, "bookmarksOffset");
+    visitor(m_tracksOffset, "tracksOffset");
+    visitor(m_stringsOffset, "stringsOffset");
     visitor(m_eosOffset, "eosOffset");
   }
 
@@ -44,11 +44,11 @@ struct HeaderV0
     return visitor.m_size;
   }
 
-  uint64_t m_keysOffset = 0;
-  uint64_t m_ugcsOffset = 0;
-  uint64_t m_indexOffset = 0;
-  uint64_t m_textsOffset = 0;
+  uint64_t m_categoryOffset = 0;
+  uint64_t m_bookmarksOffset = 0;
+  uint64_t m_tracksOffset = 0;
+  uint64_t m_stringsOffset = 0;
   uint64_t m_eosOffset = 0;
 };
 }  // namespace binary
-}  // namespace ugc
+}  // namespace kml

@@ -323,6 +323,9 @@
       location = "container:software_renderer/software_renderer.xcodeproj">
    </FileRef>
    <FileRef
+      location = "container:kml/kml.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "container:../iphone/Maps/Maps.xcodeproj">
    </FileRef>
 </Workspace>

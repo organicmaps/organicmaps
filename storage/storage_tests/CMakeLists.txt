@@ -38,6 +38,7 @@ omim_link_libraries(
   platform_tests_support
   editor
   oauthcpp
+  kml
   platform
   opening_hours
   mwm_diff

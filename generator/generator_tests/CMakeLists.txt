@@ -45,6 +45,7 @@ omim_link_libraries(
   routing_common
   transit
   editor
+  kml
   platform
   geometry
   coding

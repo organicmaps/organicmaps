@@ -347,6 +347,7 @@
 		4554B6EE1E55F0F30084017F /* drules_proto_vehicle_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */; };
 		4586D0C41F48121A00DF9CE5 /* libbsdiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4586D0C31F48121A00DF9CE5 /* libbsdiff.a */; };
 		4586D0E71F4813AB00DF9CE5 /* libmwm_diff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4586D0E61F4813AB00DF9CE5 /* libmwm_diff.a */; };
+		45CBCCBA20590AAB006B55C2 /* libkml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CBCCBB20590AAB006B55C2 /* libkml.a */; };
 		45FFD65D1E965EBE00DB854E /* liblocal_ads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FFD65C1E965EBE00DB854E /* liblocal_ads.a */; };
 		4A300ED51C6DCFD400140018 /* countries-strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A300ED31C6DCFD400140018 /* countries-strings */; };
 		56C74C391C74A3BC00B71B9F /* MWMInputEmailValidator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA62F1C2D58F300FE1BEC /* MWMInputEmailValidator.mm */; };
@@ -1266,6 +1267,7 @@
 		458287C21AD3BE2000BA8940 /* DownloadIndicatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadIndicatorProtocol.h; sourceTree = "<group>"; };
 		4586D0C31F48121A00DF9CE5 /* libbsdiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libbsdiff.a; path = ../../xcode/bsdiff/build/Debug/libbsdiff.a; sourceTree = "<group>"; };
 		4586D0E61F4813AB00DF9CE5 /* libmwm_diff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmwm_diff.a; path = ../../xcode/mwm_diff/build/Debug/libmwm_diff.a; sourceTree = "<group>"; };
+		45CBCCBB20590AAB006B55C2 /* libkml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libkml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		45FFD65C1E965EBE00DB854E /* liblocal_ads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblocal_ads.a; path = "/Users/r.kuznetsov/Dev/Projects/omim/xcode/local_ads/../../../omim-build/xcode/Debug/liblocal_ads.a"; sourceTree = "<absolute>"; };
 		46F26CD610F623BA00ECCA39 /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EAGLView.h; sourceTree = "<group>"; };
 		46F26CD710F623BA00ECCA39 /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = EAGLView.mm; sourceTree = "<group>"; };
@@ -1728,6 +1730,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45CBCCBA20590AAB006B55C2 /* libkml.a in Frameworks */,
 				349CFD0720456FEB00569949 /* GoogleMobileAds.framework in Frameworks */,
 				56EE14D11FE804550036F20C /* libtransit.a in Frameworks */,
 				345E8F4E1F83984500A826CC /* GoogleSignIn.framework in Frameworks */,
@@ -1891,6 +1894,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45CBCCBB20590AAB006B55C2 /* libkml.a */,
 				349CFD0620456FEB00569949 /* GoogleMobileAds.framework */,
 				56EE14D21FE804550036F20C /* libtransit.a */,
 				4586D0E61F4813AB00DF9CE5 /* libmwm_diff.a */,

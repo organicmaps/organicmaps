@@ -21,6 +21,7 @@ omim_link_libraries(
   traffic
   indexer
   editor
+  kml
   platform
   geometry
   coding

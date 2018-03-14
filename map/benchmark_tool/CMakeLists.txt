@@ -22,6 +22,7 @@ omim_link_libraries(
   indexer
   editor
   geometry
+  kml
   platform
   coding
   base

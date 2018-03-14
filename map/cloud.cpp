@@ -4,6 +4,7 @@
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
+#include "coding/sha1.hpp"
 #include "coding/zip_creator.hpp"
 
 #include "platform/network_policy.hpp"
@@ -19,9 +20,6 @@
 #include <algorithm>
 #include <chrono>
 #include <sstream>
-
-#include "3party/liboauthcpp/src/SHA1.h"
-#include "3party/liboauthcpp/src/base64.h"
 
 //#define STAGE_CLOUD_SERVER
 #include "private.h"
@@ -75,34 +73,6 @@ std::string ExtractFileNameWithoutExtension(std::string const & filePath)
   my::GetNameFromFullPath(path);
   my::GetNameWithoutExt(path);
   return path;
-}
-
-std::string CalculateSHA1(std::string const & filePath)
-{
-  uint32_t constexpr kFileBufferSize = 8192;
-  try
-  {
-    my::FileData file(filePath, my::FileData::OP_READ);
-    uint64_t const fileSize = file.Size();
-
-    CSHA1 sha1;
-    uint64_t currSize = 0;
-    unsigned char buffer[kFileBufferSize];
-    while (currSize < fileSize)
-    {
-      auto const toRead = std::min(kFileBufferSize, static_cast<uint32_t>(fileSize - currSize));
-      file.Read(currSize, buffer, toRead);
-      sha1.Update(buffer, toRead);
-      currSize += toRead;
-    }
-    sha1.Final();
-    return base64_encode(sha1.m_digest, ARRAY_SIZE(sha1.m_digest));
-  }
-  catch (Reader::Exception const & ex)
-  {
-    LOG(LERROR, ("Error reading file:", filePath, ex.Msg()));
-  }
-  return {};
 }
 
 template<typename DataType>
@@ -483,7 +453,7 @@ void Cloud::ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout,
     }
 
     // Upload only if SHA1 is not equal to previous one.
-    auto const sha1 = CalculateSHA1(uploadedName);
+    auto const sha1 = coding::SHA1::CalculateBase64(uploadedName);
     if (sha1.empty())
     {
       FinishUploading(SynchronizationResult::DiskError, "SHA1 calculation error");
@@ -620,7 +590,7 @@ std::string Cloud::PrepareFileToUploading(std::string const & fileName)
   }
 
   // 2. Calculate SHA1 of the original uploading file.
-  auto const originalSha1 = CalculateSHA1(filePath);
+  auto const originalSha1 = coding::SHA1::CalculateBase64(filePath);
   if (originalSha1.empty())
     return {};
 
@@ -635,7 +605,7 @@ std::string Cloud::PrepareFileToUploading(std::string const & fileName)
   // 4. Calculate SHA1 of the temporary file and compare with original one.
   // Original file can be modified during copying process, so we have to
   // compare original file with the temporary file after copying.
-  auto const tmpSha1 = CalculateSHA1(tmpPath);
+  auto const tmpSha1 = coding::SHA1::CalculateBase64(tmpPath);
   if (originalSha1 != tmpSha1)
     return {};
 

@@ -24,6 +24,7 @@ omim_link_libraries(
   mwm_diff
   indexer
   traffic
+  kml
   platform
   editor
   oauthcpp

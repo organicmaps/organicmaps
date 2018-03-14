@@ -33,6 +33,9 @@
 		3D74EF211F8F55740081202C /* csv_reader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D74EF1F1F8F55740081202C /* csv_reader.hpp */; };
 		3D74EF221F8F55740081202C /* csv_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74EF201F8F55740081202C /* csv_reader.cpp */; };
 		454523B4202AEB21009275C1 /* serdes_json.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 454523B3202AEB21009275C1 /* serdes_json.hpp */; };
+		4563B061205909290057556D /* serdes_binary_header.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4563B05E205909280057556D /* serdes_binary_header.hpp */; };
+		4563B062205909290057556D /* sha1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4563B05F205909280057556D /* sha1.cpp */; };
+		4563B063205909290057556D /* sha1.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4563B060205909280057556D /* sha1.hpp */; };
 		45C108B41E9CFE69000FE1F6 /* point_to_integer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45C108B21E9CFE69000FE1F6 /* point_to_integer.cpp */; };
 		45C108B51E9CFE69000FE1F6 /* point_to_integer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45C108B31E9CFE69000FE1F6 /* point_to_integer.hpp */; };
 		45C108B81E9CFE7B000FE1F6 /* point_to_integer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45C108B61E9CFE78000FE1F6 /* point_to_integer_test.cpp */; };
@@ -185,6 +188,9 @@
 		3D74EF1F1F8F55740081202C /* csv_reader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = csv_reader.hpp; sourceTree = "<group>"; };
 		3D74EF201F8F55740081202C /* csv_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = csv_reader.cpp; sourceTree = "<group>"; };
 		454523B3202AEB21009275C1 /* serdes_json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serdes_json.hpp; sourceTree = "<group>"; };
+		4563B05E205909280057556D /* serdes_binary_header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serdes_binary_header.hpp; sourceTree = "<group>"; };
+		4563B05F205909280057556D /* sha1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sha1.cpp; sourceTree = "<group>"; };
+		4563B060205909280057556D /* sha1.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sha1.hpp; sourceTree = "<group>"; };
 		45C108B21E9CFE69000FE1F6 /* point_to_integer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point_to_integer.cpp; sourceTree = "<group>"; };
 		45C108B31E9CFE69000FE1F6 /* point_to_integer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = point_to_integer.hpp; sourceTree = "<group>"; };
 		45C108B61E9CFE78000FE1F6 /* point_to_integer_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point_to_integer_test.cpp; sourceTree = "<group>"; };
@@ -470,7 +476,10 @@
 				675342641A3F588B00A0A8C3 /* reader_writer_ops.hpp */,
 				675342651A3F588B00A0A8C3 /* reader.cpp */,
 				675342661A3F588B00A0A8C3 /* reader.hpp */,
+				4563B05E205909280057556D /* serdes_binary_header.hpp */,
 				454523B3202AEB21009275C1 /* serdes_json.hpp */,
+				4563B05F205909280057556D /* sha1.cpp */,
+				4563B060205909280057556D /* sha1.hpp */,
 				347F33341C4540F0009758CC /* simple_dense_coding.cpp */,
 				347F33351C4540F0009758CC /* simple_dense_coding.hpp */,
 				675342691A3F588B00A0A8C3 /* streams_common.hpp */,
@@ -540,6 +549,7 @@
 				675342B21A3F588C00A0A8C3 /* parse_xml.hpp in Headers */,
 				675342AF1A3F588C00A0A8C3 /* mmap_reader.hpp in Headers */,
 				675342901A3F588C00A0A8C3 /* coder.hpp in Headers */,
+				4563B061205909290057556D /* serdes_binary_header.hpp in Headers */,
 				675342B81A3F588C00A0A8C3 /* reader_wrapper.hpp in Headers */,
 				675342AD1A3F588C00A0A8C3 /* matrix_traversal.hpp in Headers */,
 				675342CB1A3F588C00A0A8C3 /* varint_misc.hpp in Headers */,
@@ -556,6 +566,7 @@
 				675342B41A3F588C00A0A8C3 /* read_write_utils.hpp in Headers */,
 				675342981A3F588C00A0A8C3 /* diff.hpp in Headers */,
 				670D04C01B0BA92D0013A7AC /* file_data.hpp in Headers */,
+				4563B063205909290057556D /* sha1.hpp in Headers */,
 				6753428B1A3F588C00A0A8C3 /* buffer_reader.hpp in Headers */,
 				675342831A3F588C00A0A8C3 /* base64.hpp in Headers */,
 				675342BA1A3F588C00A0A8C3 /* reader_writer_ops.hpp in Headers */,
@@ -715,6 +726,7 @@
 				675342B01A3F588C00A0A8C3 /* multilang_utf8_string.cpp in Sources */,
 				675342821A3F588C00A0A8C3 /* base64.cpp in Sources */,
 				675342D31A3F588C00A0A8C3 /* zip_reader.cpp in Sources */,
+				4563B062205909290057556D /* sha1.cpp in Sources */,
 				347F33371C4540F0009758CC /* compressed_bit_vector.cpp in Sources */,
 				3D74EF221F8F55740081202C /* csv_reader.cpp in Sources */,
 				6753429F1A3F588C00A0A8C3 /* file_reader.cpp in Sources */,

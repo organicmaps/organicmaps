@@ -73,6 +73,7 @@ omim_link_libraries(
   drape
   partners_api
   local_ads
+  kml
   platform
   editor
   geometry
