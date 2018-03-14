@@ -73,7 +73,7 @@ RoutingSession::RoutingSession()
 {
 }
 
-void RoutingSession::Init(TRoutingStatisticsCallback const & routingStatisticsFn,
+void RoutingSession::Init(RoutingStatisticsCallback const & routingStatisticsFn,
                           RouterDelegate::TPointCheckCallback const & pointCheckCallback)
 {
   threads::MutexGuard guard(m_routingSessionMutex);
@@ -98,7 +98,7 @@ void RoutingSession::BuildRoute(Checkpoints const & checkpoints,
 }
 
 void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
-                                  TReadyCallback const & readyCallback, uint32_t timeoutSec,
+                                  ReadyCallback const & readyCallback, uint32_t timeoutSec,
                                   State routeRebuildingState, bool adjustToPrevRoute)
 {
   {
@@ -196,6 +196,72 @@ void RoutingSession::RebuildRouteOnTrafficUpdate()
                routing::RoutingSession::State::RouteRebuilding, false /* adjustToPrevRoute */);
 }
 
+bool RoutingSession::IsActive() const
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  return (m_state != RoutingNotActive);
+}
+
+bool RoutingSession::IsNavigable() const
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  return IsNavigableImpl();
+}
+
+bool RoutingSession::IsBuilt() const
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  return (IsNavigableImpl() || m_state == RouteNeedRebuild);
+}
+
+bool RoutingSession::IsBuilding() const
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  return (m_state == RouteBuilding || m_state == RouteRebuilding);
+}
+
+bool RoutingSession::IsBuildingOnly() const
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  return m_state == RouteBuilding;
+}
+
+bool RoutingSession::IsRebuildingOnly() const
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  return m_state == RouteRebuilding;
+}
+
+bool RoutingSession::IsNotReady() const
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  return m_state == RouteNotReady;
+}
+
+bool RoutingSession::IsFinished() const
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  return m_state == RouteFinished;
+}
+
+bool RoutingSession::IsNoFollowing() const
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  return m_state == RouteNoFollowing;
+}
+
+bool RoutingSession::IsOnRoute() const
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  return (m_state == OnRoute);
+}
+
+bool RoutingSession::IsFollowing() const
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  return m_isFollowing;
+}
+
 void RoutingSession::Reset()
 {
   threads::MutexGuard guard(m_routingSessionMutex);
@@ -220,6 +286,7 @@ void RoutingSession::ResetImpl()
 
 RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & info, Index const & index)
  {
+  threads::MutexGuard guard(m_routingSessionMutex);
   ASSERT(m_state != RoutingNotActive, ());
   ASSERT(m_router != nullptr, ());
 
@@ -228,7 +295,6 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
       || m_state == RouteNotReady || m_state == RouteNoFollowing)
     return m_state;
 
-  threads::MutexGuard guard(m_routingSessionMutex);
   ASSERT(m_route, ());
   ASSERT(m_route->IsValid(), ());
 
@@ -326,7 +392,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     return;
   }
 
-  if (!IsNavigable())
+  if (!IsNavigableImpl())
   {
     info = FollowingInfo();
     FormatDistance(m_route->GetTotalDistanceMeters(), info.m_distToTarget, info.m_targetUnitsSuffix);
@@ -431,7 +497,7 @@ void RoutingSession::GenerateTurnNotifications(vector<string> & turnNotification
   if (!m_routingSettings.m_soundDirection)
     return;
 
-  if (!m_route->IsValid() || !IsNavigable())
+  if (!m_route->IsValid() || !IsNavigableImpl())
     return;
 
   vector<turns::TurnItemDist> turns;
@@ -502,6 +568,7 @@ traffic::SpeedGroup RoutingSession::MatchTraffic(
 bool RoutingSession::DisableFollowMode()
 {
   LOG(LINFO, ("Routing disables a following mode. State: ", m_state.load()));
+  threads::MutexGuard guard(m_routingSessionMutex);
   if (m_state == RouteNotStarted || m_state == OnRoute)
   {
     SetState(RouteNoFollowing);
@@ -514,6 +581,7 @@ bool RoutingSession::DisableFollowMode()
 bool RoutingSession::EnableFollowMode()
 {
   LOG(LINFO, ("Routing enables a following mode. State: ", m_state.load()));
+  threads::MutexGuard guard(m_routingSessionMutex);
   if (m_state == RouteNotStarted || m_state == OnRoute)
   {
     SetState(OnRoute);
@@ -528,8 +596,8 @@ void RoutingSession::SetRoutingSettings(RoutingSettings const & routingSettings)
   m_routingSettings = routingSettings;
 }
 
-void RoutingSession::SetReadyCallbacks(TReadyCallback const & buildReadyCallback,
-                                       TReadyCallback const & rebuildReadyCallback)
+void RoutingSession::SetReadyCallbacks(ReadyCallback const & buildReadyCallback,
+                                       ReadyCallback const & rebuildReadyCallback)
 {
   m_buildReadyCallback = buildReadyCallback;
   // m_rebuildReadyCallback used from multiple threads but it's the only place we write m_rebuildReadyCallback
@@ -542,7 +610,7 @@ void RoutingSession::SetReadyCallbacks(TReadyCallback const & buildReadyCallback
   m_rebuildReadyCallback = rebuildReadyCallback;
 }
 
-void RoutingSession::SetProgressCallback(TProgressCallback const & progressCallback)
+void RoutingSession::SetProgressCallback(ProgressCallback const & progressCallback)
 {
   m_progressCallback = progressCallback;
 }
@@ -554,6 +622,7 @@ void RoutingSession::SetCheckpointCallback(CheckpointCallback const & checkpoint
 
 void RoutingSession::SetUserCurrentPosition(m2::PointD const & position)
 {
+  threads::MutexGuard guard(m_routingSessionMutex);
   // All methods which read/write m_userCurrentPosition*, m_userFormerPosition*  work in RoutingManager thread
   m_userFormerPosition = m_userCurrentPosition;
   m_userFormerPositionValid = m_userCurrentPositionValid;
