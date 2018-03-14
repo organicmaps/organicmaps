@@ -20,7 +20,6 @@
 
 #include "base/mutex.hpp"
 
-#include "std/atomic.hpp"
 #include "std/functional.hpp"
 #include "std/limits.hpp"
 #include "std/map.hpp"
@@ -215,8 +214,8 @@ private:
 private:
   unique_ptr<AsyncRouter> m_router;
   shared_ptr<Route> m_route;
-  atomic<State> m_state;
-  atomic<bool> m_isFollowing;
+  State m_state;
+  bool m_isFollowing;
   Checkpoints m_checkpoints;
   size_t m_lastWarnedSpeedCameraIndex;
   SpeedCameraRestriction m_lastFoundCamera;
@@ -228,7 +227,7 @@ private:
   /// about camera will be sent at most once.
   mutable bool m_speedWarningSignal;
 
-  /// |m_routingSessionMutex| should be used for access to |m_route| member.
+  /// |m_routingSessionMutex| should be used for access to all members of RoutingSession class.
   mutable threads::Mutex m_routingSessionMutex;
 
   /// Current position metrics to check for RouteNeedRebuild state.

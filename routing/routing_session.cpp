@@ -173,7 +173,7 @@ void RoutingSession::RebuildRouteOnTrafficUpdate()
     threads::MutexGuard guard(m_routingSessionMutex);
     startPoint = m_lastGoodPosition;
 
-    switch (m_state.load())
+    switch (m_state)
     {
     case RoutingNotActive:
     case RouteNotReady:
@@ -567,7 +567,7 @@ traffic::SpeedGroup RoutingSession::MatchTraffic(
 
 bool RoutingSession::DisableFollowMode()
 {
-  LOG(LINFO, ("Routing disables a following mode. State: ", m_state.load()));
+  LOG(LINFO, ("Routing disables a following mode. State: ", m_state));
   threads::MutexGuard guard(m_routingSessionMutex);
   if (m_state == RouteNotStarted || m_state == OnRoute)
   {
@@ -580,7 +580,7 @@ bool RoutingSession::DisableFollowMode()
 
 bool RoutingSession::EnableFollowMode()
 {
-  LOG(LINFO, ("Routing enables a following mode. State: ", m_state.load()));
+  LOG(LINFO, ("Routing enables a following mode. State: ", m_state));
   threads::MutexGuard guard(m_routingSessionMutex);
   if (m_state == RouteNotStarted || m_state == OnRoute)
   {
