@@ -242,7 +242,7 @@ public:
       }
     }
     string const & phone = f.GetMetadata().Get(feature::Metadata::FMD_PHONE_NUMBER);
-    string const & website = f.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
+    string const & website = f.GetMetadata().GetWikiURL();
     string cuisine = f.GetMetadata().Get(feature::Metadata::FMD_CUISINE);
     replace(cuisine.begin(), cuisine.end(), ';', ',');
     string const & stars = f.GetMetadata().Get(feature::Metadata::FMD_STARS);
@@ -311,7 +311,7 @@ int main(int argc, char ** argv)
   if (argc > 2)
   {
     pl.SetResourceDir(argv[2]);
-    countriesFile = my::JoinFoldersToPath(argv[2], COUNTRIES_FILE);
+    countriesFile = my::JoinPath(argv[2], COUNTRIES_FILE);
   }
 
   storage::Storage storage(countriesFile, argv[1]);
@@ -347,7 +347,7 @@ int main(int argc, char ** argv)
     if (argc > 3 && !strings::StartsWith(mwmInfo->GetCountryName() + DATA_FILE_EXTENSION, argv[3]))
       continue;
     LOG(LINFO, ("Processing", mwmInfo->GetCountryName()));
-    string osmToFeatureFile = my::JoinFoldersToPath(
+    string osmToFeatureFile = my::JoinPath(
         argv[1], mwmInfo->GetCountryName() + DATA_FILE_EXTENSION + OSM2FEATURE_FILE_EXTENSION);
     map<uint32_t, osm::Id> featureIdToOsmId;
     ParseFeatureIdToOsmIdMapping(osmToFeatureFile, featureIdToOsmId);
