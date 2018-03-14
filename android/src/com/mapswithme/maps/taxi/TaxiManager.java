@@ -108,13 +108,14 @@ public class TaxiManager
     Location location = LocationHelper.INSTANCE.getLastKnownLocation();
     Statistics.INSTANCE.trackTaxiInRoutePlanning(from, to, location, taxiName, isTaxiAppInstalled);
   }
+
   public void setTaxiListener(@Nullable TaxiListener listener)
   {
     mListener = listener;
   }
 
   public native void nativeRequestTaxiProducts(@NonNull NetworkPolicy policy, double srcLat,
-                                                      double srcLon, double dstLat, double dstLon);
+                                               double srcLon, double dstLat, double dstLon);
 
   @NonNull
   public native SponsoredLinks nativeGetTaxiLinks(@NonNull NetworkPolicy policy, int type,
@@ -129,7 +130,9 @@ public class TaxiManager
   public interface TaxiListener
   {
     void onTaxiProviderReceived(@NonNull TaxiInfo provider);
+
     void onTaxiErrorReceived(@NonNull TaxiInfoError error);
+
     void onNoTaxiProviders();
   }
 }

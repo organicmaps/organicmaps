@@ -172,7 +172,6 @@ public class MapObject implements Parcelable
   {
     ArrayList<UGC.Rating> ratings = new ArrayList<>();
     source.readTypedList(ratings, UGC.Rating.CREATOR);
-    ;
     return ratings.isEmpty() ? null : ratings;
   }
 
