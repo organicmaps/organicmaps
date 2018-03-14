@@ -892,8 +892,9 @@ UNIT_TEST(RussiaMoscowTTKToNMaslovkaTest)
   IRouter::ResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, IRouter::NoError, ());
-  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::ExitHighwayToRight);
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::GoStraight);
 }
 
 UNIT_TEST(RussiaMoscowComplicatedTurnTest)
