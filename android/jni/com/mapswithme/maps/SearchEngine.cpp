@@ -3,6 +3,7 @@
 #include "com/mapswithme/maps/UserMarkHelper.hpp"
 #include "com/mapswithme/platform/Platform.hpp"
 
+#include "map/bookmarks_search_params.hpp"
 #include "map/everywhere_search_params.hpp"
 #include "map/place_page_info.hpp"
 #include "map/viewport_search_params.hpp"
@@ -335,6 +336,9 @@ jmethodID g_mapResultsMethod;
 jclass g_mapResultClass;
 jmethodID g_mapResultCtor;
 
+jmethodID g_updateBookmarksResultsId;
+jmethodID g_endBookmarksResultsId;
+
 booking::AvailabilityParams g_lastBookingFilterParams;
 
 jobject ToJavaResult(Result & result, search::ProductInfo const & productInfo, bool hasPosition,
@@ -461,6 +465,30 @@ void OnMapSearchResults(storage::DownloaderSearchResults const & results, long l
                       static_cast<jlong>(timestamp), results.m_endMarker);
 }
 
+void OnBookmarksSearchStarted()
+{
+  // Dummy.
+}
+
+void OnBookmarksSearchResults(search::BookmarksSearchParams::Results const & results,
+                              search::BookmarksSearchParams::Status status, long long timestamp)
+{
+  // Ignore results from obsolete searches.
+  if (g_queryTimestamp > timestamp)
+    return;
+
+  JNIEnv * env = jni::GetEnv();
+
+  jni::ScopedLocalRef<jlongArray> jResults(env, env->NewLongArray(results.size()));
+  vector<jlong> const tmp(results.cbegin(), results.cend());
+  env->SetLongArrayRegion(jResults.get(), 0, tmp.size(), tmp.data());
+
+  auto const method = (status == search::BookmarksSearchParams::Status::InProgress) ?
+                      g_updateBookmarksResultsId : g_endBookmarksResultsId;
+
+  env->CallVoidMethod(g_javaListener, method, jResults.get(), static_cast<jlong>(timestamp));
+}
+
 void OnBookingFilterResults(booking::AvailabilityParams const & params,
                             vector<FeatureID> const & featuresSorted)
 {
@@ -519,6 +547,11 @@ extern "C"
                                           "([Lcom/mapswithme/maps/search/NativeMapSearchListener$Result;JZ)V");
     g_mapResultClass = jni::GetGlobalClassRef(env, "com/mapswithme/maps/search/NativeMapSearchListener$Result");
     g_mapResultCtor = jni::GetConstructorID(env, g_mapResultClass, "(Ljava/lang/String;Ljava/lang/String;)V");
+
+    g_updateBookmarksResultsId =
+      jni::GetMethodID(env, g_javaListener, "onBookmarksResultsUpdate", "([JJ)V");
+    g_endBookmarksResultsId =
+      jni::GetMethodID(env, g_javaListener, "onBookmarksResultsEnd", "([JJ)V");
 
     g_onFilterAvailableHotelsId = jni::GetMethodID(env, g_javaListener, "onFilterAvailableHotels",
                                                    "([Lcom/mapswithme/maps/bookmarks/data/FeatureId;)V");
@@ -589,6 +622,18 @@ extern "C"
     params.m_onResults = bind(&OnMapSearchResults, _1, timestamp);
 
     if (g_framework->NativeFramework()->SearchInDownloader(params))
+      g_queryTimestamp = timestamp;
+  }
+
+  JNIEXPORT void JNICALL Java_com_mapswithme_maps_search_SearchEngine_nativeRunSearchInBookmarks(
+      JNIEnv * env, jclass clazz, jbyteArray query, jlong timestamp)
+  {
+    search::BookmarksSearchParams params;
+    params.m_query = jni::ToNativeString(env, query);
+    params.m_onStarted = bind(&OnBookmarksSearchStarted);
+    params.m_onResults = bind(&OnBookmarksSearchResults, _1, _2, timestamp);
+
+    if (g_framework->NativeFramework()->SearchInBookmarks(params))
       g_queryTimestamp = timestamp;
   }
 

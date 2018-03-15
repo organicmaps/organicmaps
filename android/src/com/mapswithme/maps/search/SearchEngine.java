@@ -59,6 +59,16 @@ public enum SearchEngine implements NativeSearchListener,
         });
   }
 
+  public void onBookmarksResultsUpdate(@Nullable long[] bookmarkIds, long timestamp)
+  {
+    // Dummy. Will be implemented soon.
+  }
+
+  public void onBookmarksResultsEnd(@Nullable long[] bookmarkIds, long timestamp)
+  {
+    // Dummy. Will be implemented soon.
+  }
+
   public void onFilterAvailableHotels(@Nullable FeatureId[] availableHotels)
   {
     UiThread.run(

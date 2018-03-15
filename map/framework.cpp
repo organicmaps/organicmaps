@@ -1243,6 +1243,11 @@ bool Framework::SearchInDownloader(DownloaderSearchParams const & params)
   return GetSearchAPI().SearchInDownloader(params);
 }
 
+bool Framework::SearchInBookmarks(search::BookmarksSearchParams const & params)
+{
+  return GetSearchAPI().SearchInBookmarks(params);
+}
+
 void Framework::CancelSearch(search::Mode mode)
 {
   return GetSearchAPI().CancelSearch(mode);
