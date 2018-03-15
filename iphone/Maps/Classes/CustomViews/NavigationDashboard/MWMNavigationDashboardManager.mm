@@ -1,10 +1,12 @@
-#import "MWMNavigationDashboardManager.h"
-#import <AudioToolbox/AudioServices.h>
-#import <Crashlytics/Crashlytics.h>
 #import "MWMMapViewControlsManager.h"
+#import "MWMNavigationDashboardManager.h"
 #import "MWMNavigationInfoView.h"
 #import "MWMRoutePreview.h"
+#import "MWMSearch.h"
 #import "MapViewController.h"
+
+#import <AudioToolbox/AudioServices.h>
+#import <Crashlytics/Crashlytics.h>
 #import "SwiftBridge.h"
 
 #include "platform/platform.hpp"
@@ -291,7 +293,12 @@ using Observers = NSHashTable<Observer>;
   [[MapViewController controller] performSegueWithIdentifier:@"Map2Settings" sender:nil];
 }
 
-- (IBAction)stopRoutingButtonAction { [MWMRouter stopRouting]; }
+- (IBAction)stopRoutingButtonAction
+{
+  [MWMSearch clear];
+  [MWMRouter stopRouting];
+}
+
 #pragma mark - Add/Remove Observers
 
 + (void)addObserver:(id<MWMNavigationDashboardObserver>)observer
