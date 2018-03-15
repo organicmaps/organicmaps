@@ -1,4 +1,4 @@
-final class BMCActionsCreateCell: UITableViewCell {
+final class BMCActionsCreateCell: MWMTableViewCell {
   @IBOutlet private weak var actionImage: UIImageView! {
     didSet {
       actionImage.tintColor = .linkBlue()

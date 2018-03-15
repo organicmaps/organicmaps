@@ -1,4 +1,4 @@
-final class BMCNotificationsCell: UITableViewCell {
+final class BMCNotificationsCell: MWMTableViewCell {
   @IBOutlet private weak var spinner: UIView! {
     didSet {
       circularProgress = MWMCircularProgress(parentView: spinner)

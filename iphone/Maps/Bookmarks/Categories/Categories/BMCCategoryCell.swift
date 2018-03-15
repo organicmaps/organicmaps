@@ -3,7 +3,7 @@ protocol BMCCategoryCellDelegate {
   func moreAction(category: BMCCategory, anchor: UIView)
 }
 
-final class BMCCategoryCell: UITableViewCell {
+final class BMCCategoryCell: MWMTableViewCell {
   @IBOutlet private weak var visibility: UIButton!
   @IBOutlet private weak var title: UILabel! {
     didSet {
