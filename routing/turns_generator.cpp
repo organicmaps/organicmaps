@@ -150,9 +150,14 @@ bool KeepTurnByHighwayClass(CarDirection turn, TurnCandidates const & possibleTu
   if (minClassForTheRoute == ftypes::HighwayClass::Undefined)
     return false; // Fake edges have HighwayClass::Undefined.
 
-  int const kMaxHighwayClassDiffToKeepTheTurn = 2;
-  if (static_cast<int>(maxClassForPossibleTurns) - static_cast<int>(minClassForTheRoute) >=
-      kMaxHighwayClassDiffToKeepTheTurn)
+  // Maximum difference between HighwayClasses of route segments and possible way segments
+  // to keep the bifurcation point as a turn.
+  int constexpr kMaxHighwayClassDiff = 2;
+  int constexpr kMaxHighwayClassDiffForService = 1;
+  int const diff =
+      static_cast<int>(maxClassForPossibleTurns) - static_cast<int>(minClassForTheRoute);
+  if (diff >= kMaxHighwayClassDiff ||
+      (maxClassForPossibleTurns == ftypes::HighwayClass::Service && diff >= kMaxHighwayClassDiffForService))
   {
     // The turn shall be removed if the route goes near small roads without changing the direction.
     return false;
