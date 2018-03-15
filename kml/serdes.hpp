@@ -78,7 +78,7 @@ private:
     GEOMETRY_TYPE_LINE
   };
 
-  void Reset();
+  void ResetPoint();
   bool ParsePoint(std::string const & s, char const * delim, m2::PointD & pt);
   void SetOrigin(std::string const & s);
   void ParseLineCoordinates(std::string const & s, char const * blockSeparator,
@@ -100,12 +100,21 @@ private:
   std::map<std::string, uint32_t> m_styleUrl2Color;
   std::map<std::string, std::string> m_mapStyle2Style;
 
-  std::string m_name;
-  std::string m_description;
+  int8_t m_attrCode;
+  std::string m_attrId;
+
+  LocalizableString m_name;
+  LocalizableString m_description;
   PredefinedColor m_predefinedColor;
   Timestamp m_timestamp;
   m2::PointD m_org;
   uint8_t m_viewportScale;
+  std::vector<uint32_t> m_types;
+  std::vector<LocalId> m_boundTracks;
+  LocalId m_localId;
+  BookmarkIcon m_icon;
+  std::vector<TrackLayer> m_trackLayers;
+  double m_trackWidth;
 };
 
 class DeserializerKml
