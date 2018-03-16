@@ -13,12 +13,11 @@
 
 #include "base/timer.hpp"
 
-#include "std/function.hpp"
+#include <functional>
 
 namespace df
 {
-
-using TAnimationCreator = function<drape_ptr<Animation>(ref_ptr<Animation>)>;
+using TAnimationCreator = std::function<drape_ptr<Animation>(ref_ptr<Animation>)>;
 
 class MyPositionController
 {
@@ -26,20 +25,21 @@ public:
   class Listener
   {
   public:
-    virtual ~Listener() {}
+    virtual ~Listener() = default;
     virtual void PositionChanged(m2::PointD const & position, bool hasPosition) = 0;
-    /// Show map with center in "center" point and current zoom
-    virtual void ChangeModelView(m2::PointD const & center, int zoomLevel, TAnimationCreator const & parallelAnimCreator) = 0;
-    /// Change azimuth of current ModelView
+    // Show map with center in "center" point and current zoom.
+    virtual void ChangeModelView(m2::PointD const & center, int zoomLevel,
+                                 TAnimationCreator const & parallelAnimCreator) = 0;
+    // Change azimuth of current ModelView.
     virtual void ChangeModelView(double azimuth, TAnimationCreator const & parallelAnimCreator) = 0;
-    /// Somehow show map that "rect" will see
+    // Somehow show map that "rect" will see.
     virtual void ChangeModelView(m2::RectD const & rect, TAnimationCreator const & parallelAnimCreator) = 0;
-    /// Show map where "usePos" (mercator) placed in "pxZero" on screen and map rotated around "userPos"
+    // Show map where "usePos" (mercator) placed in "pxZero" on screen and map rotated around "userPos".
     virtual void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
                                  int zoomLevel, Animation::TAction const & onFinishAction,
                                  TAnimationCreator const & parallelAnimCreator) = 0;
-    virtual void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
-                                 TAnimationCreator const & parallelAnimCreator) = 0;
+    virtual void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth,
+                                 m2::PointD const & pxZero, TAnimationCreator const & parallelAnimCreator) = 0;
   };
 
   struct Params
@@ -55,7 +55,7 @@ public:
       , m_hints(hints)
       , m_isRoutingActive(isRoutingActive)
       , m_isAutozoomEnabled(isAutozoomEnabled)
-      , m_myPositionModeCallback(move(fn))
+      , m_myPositionModeCallback(std::move(fn))
     {}
 
     location::EMyPositionMode m_initMode;
@@ -66,8 +66,7 @@ public:
     location::TMyPositionModeChanged m_myPositionModeCallback;
   };
 
-  MyPositionController(Params && params);
-  ~MyPositionController();
+  explicit MyPositionController(Params && params);
 
   void UpdatePosition();
   void OnUpdateScreen(ScreenBase const & screen);
@@ -169,11 +168,11 @@ private:
   drape_ptr<MyPosition> m_shape;
   ref_ptr<Listener> m_listener;
 
-  double m_errorRadius;  // error radius in mercator
+  double m_errorRadius;  // error radius in mercator.
   double m_horizontalAccuracy;
-  m2::PointD m_position; // position in mercator
+  m2::PointD m_position; // position in mercator.
   double m_drawDirection;
-  m2::PointD m_oldPosition; // position in mercator
+  m2::PointD m_oldPosition; // position in mercator.
   double m_oldDrawDirection;
 
   bool m_enablePerspectiveInRouting;
@@ -208,5 +207,4 @@ private:
 
   bool m_notFollowAfterPending;
 };
-
-}
+}  // namespace df

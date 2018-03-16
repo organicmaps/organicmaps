@@ -20,7 +20,6 @@
 
 namespace df
 {
-
 int const kDoNotChangeZoom = -1;
 double const kDoNotAutoZoom = -1.0;
 
@@ -43,7 +42,7 @@ public:
     VisibleViewport
   };
 
-  virtual ~UserEvent() {}
+  virtual ~UserEvent() = default;
   virtual EventType GetType() const = 0;
 };
 
@@ -61,8 +60,7 @@ public:
     : m_type(TOUCH_CANCEL)
     , m_timeStamp(my::Timer::LocalTime())
     , m_pointersMask(0xFFFF)
-  {
-  }
+  {}
 
   enum ETouchType
   {
@@ -121,8 +119,7 @@ public:
     : m_factor(factor)
     , m_pxPoint(pxPoint)
     , m_isAnim(isAnim)
-  {
-  }
+  {}
 
   EventType GetType() const override { return UserEvent::EventType::Scale; }
 
@@ -147,8 +144,7 @@ public:
     , m_isAnim(isAnim)
     , m_trackVisibleViewport(trackVisibleViewport)
     , m_parallelAnimCreator(parallelAnimCreator)
-  {
-  }
+  {}
 
   EventType GetType() const override { return UserEvent::EventType::SetCenter; }
 
@@ -176,8 +172,7 @@ public:
     , m_zoom(zoom)
     , m_isAnim(isAnim)
     , m_parallelAnimCreator(parallelAnimCreator)
-  {
-  }
+  {}
 
   EventType GetType() const override { return UserEvent::EventType::SetRect; }
 
@@ -228,8 +223,7 @@ public:
     , m_isAnim(true)
     , m_onFinishAction(nullptr)
     , m_parallelAnimCreator(parallelAnimCreator)
-  {
-  }
+  {}
 
   FollowAndRotateEvent(m2::PointD const & userPos, m2::PointD const & pixelZero,
                        double azimuth, int preferredZoomLevel,
@@ -273,7 +267,7 @@ private:
 class SetAutoPerspectiveEvent : public UserEvent
 {
 public:
-  SetAutoPerspectiveEvent(bool isAutoPerspective)
+  explicit SetAutoPerspectiveEvent(bool isAutoPerspective)
     : m_isAutoPerspective(isAutoPerspective)
   {}
 
@@ -288,7 +282,7 @@ private:
 class RotateEvent : public UserEvent
 {
 public:
-  RotateEvent(double targetAzimut, TAnimationCreator const & parallelAnimCreator = nullptr)
+  explicit RotateEvent(double targetAzimut, TAnimationCreator const & parallelAnimCreator = nullptr)
     : m_targetAzimut(targetAzimut)
     , m_parallelAnimCreator(parallelAnimCreator)
   {}
@@ -321,7 +315,7 @@ private:
 class SetVisibleViewportEvent : public UserEvent
 {
 public:
-  SetVisibleViewportEvent(m2::RectD const & rect)
+  explicit SetVisibleViewportEvent(m2::RectD const & rect)
     : m_rect(rect)
   {}
 
@@ -339,7 +333,7 @@ public:
   class Listener
   {
   public:
-    virtual ~Listener() {}
+    virtual ~Listener() = default;
 
     virtual void OnTap(m2::PointD const & pt, bool isLong) = 0;
     virtual void OnForceTap(m2::PointD const & pt) = 0;
@@ -359,7 +353,8 @@ public:
 
     virtual void OnTouchMapAction() = 0;
 
-    virtual bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport, m2::PointD & gOffset) = 0;
+    virtual bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport,
+                                      m2::PointD & gOffset) = 0;
   };
 
   UserEventStream();
@@ -465,7 +460,8 @@ private:
 
   void ApplyAnimations();
   void ResetAnimations(Animation::Type animType, bool rewind = true, bool finishAll = false);
-  void ResetAnimations(Animation::Type animType, string const & customType, bool rewind = true, bool finishAll = false);
+  void ResetAnimations(Animation::Type animType, string const & customType,
+                       bool rewind = true, bool finishAll = false);
   void ResetMapPlaneAnimations();
   bool InterruptFollowAnimations(bool force);
 
@@ -500,8 +496,6 @@ private:
 
   bool m_modelViewChanged = false;
 
-  std::unique_ptr<UserEvent> m_pendingEvent;
-
   ref_ptr<Listener> m_listener;
 
 #ifdef DEBUG
@@ -515,5 +509,4 @@ private:
   my::Timer m_kineticTimer;
   bool m_kineticScrollEnabled = true;
 };
-
-}
+}  // namespace df

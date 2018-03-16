@@ -11,16 +11,17 @@
 
 #include "base/math.hpp"
 
-#include "std/vector.hpp"
-
 #include "3party/Alohalytics/src/alohalytics.h"
+
+#include <algorithm>
+#include <string>
+#include <vector>
+#include <utility>
 
 namespace df
 {
-
 namespace
 {
-
 int const kPositionOffsetY = 104;
 int const kPositionOffsetYIn3D = 104;
 double const kGpsBearingLifetimeSec = 5.0;
@@ -37,7 +38,7 @@ int const kMaxScaleZoomLevel = 16;
 int const kDefaultAutoZoom = 16;
 double const kUnknownAutoZoom = -1.0;
 
-string LocationModeStatisticsName(location::EMyPositionMode mode)
+std::string LocationModeStatisticsName(location::EMyPositionMode mode)
 {
   switch (mode)
   {
@@ -57,7 +58,7 @@ string LocationModeStatisticsName(location::EMyPositionMode mode)
 
 int GetZoomLevel(ScreenBase const & screen)
 {
-  return df::GetZoomLevel(screen.GetScale());
+  return static_cast<int>(df::GetZoomLevel(screen.GetScale()));
 }
 
 int GetZoomLevel(ScreenBase const & screen, m2::PointD const & position, double errorRadius)
@@ -71,32 +72,32 @@ int GetZoomLevel(ScreenBase const & screen, m2::PointD const & position, double 
 // Calculate zoom value in meters per pixel
 double CalculateZoomBySpeed(double speed, bool isPerspectiveAllowed)
 {
-  using TSpeedScale = pair<double, double>;
-  static vector<TSpeedScale> const scales3d = {
-    make_pair(20.0, 0.25),
-    make_pair(40.0, 0.75),
-    make_pair(60.0, 1.5),
-    make_pair(75.0, 2.5),
-    make_pair(85.0, 3.75),
-    make_pair(95.0, 6.0),
+  using TSpeedScale = std::pair<double, double>;
+  static std::vector<TSpeedScale> const scales3d = {
+    std::make_pair(20.0, 0.25),
+    std::make_pair(40.0, 0.75),
+    std::make_pair(60.0, 1.5),
+    std::make_pair(75.0, 2.5),
+    std::make_pair(85.0, 3.75),
+    std::make_pair(95.0, 6.0),
   };
 
-  static vector<TSpeedScale> const scales2d = {
-    make_pair(20.0, 0.7),
-    make_pair(40.0, 1.25),
-    make_pair(60.0, 2.25),
-    make_pair(75.0, 3.0),
-    make_pair(85.0, 3.75),
-    make_pair(95.0, 6.0),
+  static std::vector<TSpeedScale> const scales2d = {
+    std::make_pair(20.0, 0.7),
+    std::make_pair(40.0, 1.25),
+    std::make_pair(60.0, 2.25),
+    std::make_pair(75.0, 3.0),
+    std::make_pair(85.0, 3.75),
+    std::make_pair(95.0, 6.0),
   };
 
-  vector<TSpeedScale> const & scales = isPerspectiveAllowed ? scales3d : scales2d;
+  std::vector<TSpeedScale> const & scales = isPerspectiveAllowed ? scales3d : scales2d;
 
   double const kDefaultSpeed = 80.0;
   if (speed < 0.0)
     speed = kDefaultSpeed;
   else
-    speed *= 3.6; // convert speed from m/s to km/h
+    speed *= 3.6; // convert speed from m/s to km/h.
 
   size_t i = 0;
   for (size_t sz = scales.size(); i < sz; ++i)
@@ -120,13 +121,12 @@ double CalculateZoomBySpeed(double speed, bool isPerspectiveAllowed)
 
   return zoom / vs;
 }
-
-} // namespace
+}  // namespace
 
 MyPositionController::MyPositionController(Params && params)
   : m_mode(location::PendingPosition)
   , m_desiredInitMode(params.m_initMode)
-  , m_modeChangeCallback(move(params.m_myPositionModeCallback))
+  , m_modeChangeCallback(std::move(params.m_myPositionModeCallback))
   , m_hints(params.m_hints)
   , m_isInRouting(params.m_isRoutingActive)
   , m_needBlockAnimation(false)
@@ -171,10 +171,6 @@ MyPositionController::MyPositionController(Params && params)
 
   if (m_modeChangeCallback != nullptr)
     m_modeChangeCallback(m_mode, m_isInRouting);
-}
-
-MyPositionController::~MyPositionController()
-{
 }
 
 void MyPositionController::UpdatePosition()
@@ -232,9 +228,9 @@ void MyPositionController::DragStarted()
 
 void MyPositionController::DragEnded(m2::PointD const & distance)
 {
-  float const kBindingDistance = 0.1;
+  float const kBindingDistance = 0.1f;
   m_needBlockAnimation = false;
-  if (distance.Length() > kBindingDistance * min(m_pixelRect.SizeX(), m_pixelRect.SizeY()))
+  if (distance.Length() > kBindingDistance * std::min(m_pixelRect.SizeX(), m_pixelRect.SizeY()))
     StopLocationFollow();
 
   UpdateViewport(kDoNotChangeZoom);
@@ -304,7 +300,7 @@ void MyPositionController::CorrectGlobalScalePoint(m2::PointD & pt) const
 
 void MyPositionController::SetRenderShape(drape_ptr<MyPosition> && shape)
 {
-  m_shape = move(shape);
+  m_shape = std::move(shape);
 }
 
 void MyPositionController::ResetRenderShape()
@@ -314,7 +310,7 @@ void MyPositionController::ResetRenderShape()
 
 void MyPositionController::NextMode(ScreenBase const & screen)
 {
-  string const kAlohalyticsClickEvent = "$onClick";
+  std::string const kAlohalyticsClickEvent = "$onClick";
 
   // Skip switching to next mode while we are waiting for position.
   if (IsWaitingForLocation())
@@ -338,7 +334,7 @@ void MyPositionController::NextMode(ScreenBase const & screen)
   int const currentZoom = GetZoomLevel(screen);
   int preferredZoomLevel = kDoNotChangeZoom;
   if (currentZoom < kZoomThreshold)
-    preferredZoomLevel = min(GetZoomLevel(screen, m_position, m_errorRadius), kMaxScaleZoomLevel);
+    preferredZoomLevel = std::min(GetZoomLevel(screen, m_position, m_errorRadius), kMaxScaleZoomLevel);
 
   // In routing not-follow -> follow-and-rotate, otherwise not-follow -> follow.
   if (m_mode == location::NotFollow)
@@ -364,7 +360,7 @@ void MyPositionController::NextMode(ScreenBase const & screen)
   if (m_mode == location::FollowAndRotate)
   {
     if (m_isInRouting && screen.isPerspective())
-      preferredZoomLevel = GetZoomLevel(ScreenBase::GetStartPerspectiveScale() * 1.1);
+      preferredZoomLevel = static_cast<int>(GetZoomLevel(ScreenBase::GetStartPerspectiveScale() * 1.1));
     ChangeMode(location::Follow);
     ChangeModelView(m_position, 0.0, m_visiblePixelRect.Center(), preferredZoomLevel);
   }
@@ -571,9 +567,9 @@ void MyPositionController::Render(ScreenBase const & screen, int zoomLevel,
 
     m_shape->SetPositionObsolete(m_positionIsObsolete);
     m_shape->SetPosition(GetDrawablePosition());
-    m_shape->SetAzimuth(GetDrawableAzimut());
+    m_shape->SetAzimuth(static_cast<float>(GetDrawableAzimut()));
     m_shape->SetIsValidAzimuth(IsRotationAvailable());
-    m_shape->SetAccuracy(m_errorRadius);
+    m_shape->SetAccuracy(static_cast<float>(m_errorRadius));
     m_shape->SetRoutingMode(IsInRouting());
 
     m_shape->RenderAccuracy(screen, zoomLevel, mng, commonUniforms);
@@ -711,10 +707,15 @@ void MyPositionController::UpdateViewport(int zoomLevel)
     return;
   
   if (m_mode == location::Follow)
+  {
     ChangeModelView(m_position, zoomLevel);
+  }
   else if (m_mode == location::FollowAndRotate)
+  {
     ChangeModelView(m_position, m_drawDirection,
-                    m_isInRouting ? GetRoutingRotationPixelCenter() : m_visiblePixelRect.Center(), zoomLevel);
+                    m_isInRouting ? GetRoutingRotationPixelCenter() : m_visiblePixelRect.Center(),
+                    zoomLevel);
+  }
 }
 
 m2::PointD MyPositionController::GetRotationPixelCenter() const
@@ -730,8 +731,8 @@ m2::PointD MyPositionController::GetRotationPixelCenter() const
 
 m2::PointD MyPositionController::GetRoutingRotationPixelCenter() const
 {
-  return m2::PointD(m_visiblePixelRect.Center().x,
-                    m_visiblePixelRect.maxY() - m_positionYOffset * VisualParams::Instance().GetVisualScale());
+  return {m_visiblePixelRect.Center().x,
+          m_visiblePixelRect.maxY() - m_positionYOffset * VisualParams::Instance().GetVisualScale()};
 }
 
 m2::PointD MyPositionController::GetDrawablePosition()
@@ -768,7 +769,7 @@ void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimu
 {
   double const moveDuration = PositionInterpolator::GetMoveDuration(oldPos, m_position, screen);
   double const rotateDuration = AngleInterpolator::GetRotateDuration(oldAzimut, m_drawDirection);
-  if (df::IsAnimationAllowed(max(moveDuration, rotateDuration), screen))
+  if (df::IsAnimationAllowed(std::max(moveDuration, rotateDuration), screen))
   {
     if (IsModeChangeViewport())
     {
@@ -790,8 +791,8 @@ void MyPositionController::CreateAnim(m2::PointD const & oldPos, double oldAzimu
     }
     else
     {
-      AnimationSystem::Instance().CombineAnimation(make_unique_dp<ArrowAnimation>(oldPos, m_position, moveDuration,
-                                                                                  oldAzimut, m_drawDirection));
+      AnimationSystem::Instance().CombineAnimation(make_unique_dp<ArrowAnimation>(
+          oldPos, m_position, moveDuration, oldAzimut, m_drawDirection));
     }
   }
 }
@@ -841,5 +842,4 @@ void MyPositionController::DeactivateRouting()
     ChangeModelView(m_position, 0.0, m_visiblePixelRect.Center(), kDoNotChangeZoom);
   }
 }
-
-}
+}  // namespace df
