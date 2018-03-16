@@ -73,7 +73,7 @@ public:
     // Sets relevance to |relevance|. Returns true iff |relevance|
     // differs from the original one.
     bool Set(Relevance relevance);
-    boost::optional<Relevance> Get() const;
+    boost::optional<Relevance> const & Get() const;
     bool HasChanges() const;
     Entry::Type GetType() const;
 

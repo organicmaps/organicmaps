@@ -2,6 +2,8 @@
 
 #include "base/assert.hpp"
 
+using namespace std;
+
 namespace
 {
 void UpdateNumEdits(Edits::Entry const & entry, Edits::Relevance const & r, size_t & numEdits)
@@ -27,7 +29,7 @@ bool Edits::Editor::Set(Relevance relevance)
   return m_parent.SetRelevance(m_index, relevance);
 }
 
-boost::optional<Edits::Relevance> Edits::Editor::Get() const
+boost::optional<Edits::Relevance> const & Edits::Editor::Get() const
 {
   return m_parent.Get(m_index).m_curr;
 }
@@ -52,7 +54,7 @@ void Edits::Apply()
   });
 }
 
-void Edits::Reset(std::vector<boost::optional<Edits::Relevance>> const & relevances)
+void Edits::Reset(vector<boost::optional<Edits::Relevance>> const & relevances)
 {
   WithObserver(Update::MakeAll(), [this, &relevances]() {
     m_entries.resize(relevances.size());
@@ -147,9 +149,9 @@ Edits::Entry const & Edits::GetEntry(size_t index) const
   return m_entries[index];
 }
 
-std::vector<boost::optional<Edits::Relevance>> Edits::GetRelevances() const
+vector<boost::optional<Edits::Relevance>> Edits::GetRelevances() const
 {
-  std::vector<boost::optional<Edits::Relevance>> relevances(m_entries.size());
+  vector<boost::optional<Edits::Relevance>> relevances(m_entries.size());
   for (size_t i = 0; i < m_entries.size(); ++i)
     relevances[i] = m_entries[i].m_curr;
   return relevances;
