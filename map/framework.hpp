@@ -529,6 +529,7 @@ public:
   // Search for maps by countries or cities.
   bool SearchInDownloader(storage::DownloaderSearchParams const & params);
 
+  // Search for bookmarks by query string.
   bool SearchInBookmarks(search::BookmarksSearchParams const & params);
 
   void CancelSearch(search::Mode mode);
