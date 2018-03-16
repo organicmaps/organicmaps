@@ -7,7 +7,10 @@ namespace
 void UpdateNumEdits(Edits::Entry const & entry, Edits::MaybeRelevance const & r, size_t & numEdits)
 {
   if (entry.m_curr != entry.m_orig && r == entry.m_orig)
+  {
+    CHECK_GREATER(numEdits, 0, ());
     --numEdits;
+  }
   if (entry.m_curr == entry.m_orig && r != entry.m_orig)
     ++numEdits;
 }
