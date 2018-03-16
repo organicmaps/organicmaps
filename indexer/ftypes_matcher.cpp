@@ -49,6 +49,7 @@ public:
 
     m_map[c.GetTypeByPath({"highway", "service"})] = ftypes::HighwayClass::Service;
     m_map[c.GetTypeByPath({"highway", "track"})] = ftypes::HighwayClass::Service;
+    m_map[c.GetTypeByPath({"man_made", "pier"})] = ftypes::HighwayClass::Service;
 
     m_map[c.GetTypeByPath({"highway", "pedestrian"})] = ftypes::HighwayClass::Pedestrian;
     m_map[c.GetTypeByPath({"highway", "footway"})] = ftypes::HighwayClass::Pedestrian;
