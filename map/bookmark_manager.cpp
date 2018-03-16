@@ -48,14 +48,14 @@ char const * KMZ_EXTENSION = ".kmz";
 char const * kBookmarksExt = ".kmb";
 
 // Returns extension with a dot in a lower case.
-std::string const GetFileExt(std::string const & filePath)
+std::string GetFileExt(std::string const & filePath)
 {
   std::string ext = my::GetFileExtension(filePath);
   std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
   return ext;
 }
 
-std::string const GetFileName(std::string const & filePath)
+std::string GetFileName(std::string const & filePath)
 {
   std::string ret = filePath;
   my::GetNameFromFullPath(ret);
@@ -141,6 +141,53 @@ BookmarkManager::SharingResult GetFileForSharing(df::MarkGroupID categoryId, std
   }
 
   return BookmarkManager::SharingResult(categoryId, tmpFilePath);
+}
+
+bool ConvertBeforeUploading(std::string const & filePath, std::string const & convertedFilePath)
+{
+  //TODO: convert from kmb to kmz.
+  return CreateZipFromPathDeflatedAndDefaultCompression(filePath, convertedFilePath);
+}
+
+bool ConvertAfterDownloading(std::string const & filePath, std::string const & convertedFilePath)
+{
+  ZipFileReader::FileListT files;
+  ZipFileReader::FilesList(filePath, files);
+  if (files.empty())
+    return false;
+
+  std::string const unarchievedPath = filePath + ".raw";
+  MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, unarchievedPath));
+  ZipFileReader::UnzipFile(filePath, files.front().first, unarchievedPath);
+  if (!GetPlatform().IsFileExistsByFullPath(unarchievedPath))
+    return false;
+
+  kml::FileData kmlData;
+  try
+  {
+    kml::DeserializerKml des(kmlData);
+    FileReader reader(unarchievedPath);
+    des.Deserialize(reader);
+  }
+  catch (FileReader::Exception const & exc)
+  {
+    LOG(LWARNING, ("KML text deserialization failure: ", exc.what(), "file:", unarchievedPath));
+    return false;
+  }
+
+  try
+  {
+    kml::binary::SerializerKml ser(kmlData);
+    FileWriter writer(convertedFilePath);
+    ser.Serialize(writer);
+  }
+  catch (FileWriter::Exception const & exc)
+  {
+    LOG(LWARNING, ("KML binary serialization failure: ", exc.what(), "file:", convertedFilePath));
+    return false;
+  }
+
+  return true;
 }
 }  // namespace
 
@@ -349,13 +396,17 @@ void MigrateIfNeeded()
 }
 }  // namespace migration
 
+using namespace std::placeholders;
+
 BookmarkManager::BookmarkManager(Callbacks && callbacks)
   : m_callbacks(std::move(callbacks))
   , m_changesTracker(*this)
   , m_needTeardown(false)
   , m_nextGroupID(UserMark::BOOKMARK)
   , m_bookmarkCloud(Cloud::CloudParams("bmc.json", "bookmarks", "BookmarkCloudParam",
-                                       std::string(KMZ_EXTENSION)))
+                                       GetBookmarksDirectory(), std::string(kBookmarksExt),
+                                       std::bind(&ConvertBeforeUploading, _1, _2),
+                                       std::bind(&ConvertAfterDownloading, _1, _2)))
 {
   ASSERT(m_callbacks.m_getStringsBundle != nullptr, ());
   m_userMarkLayers.reserve(UserMark::BOOKMARK);
@@ -365,27 +416,12 @@ BookmarkManager::BookmarkManager(Callbacks && callbacks)
   m_selectionMark = CreateUserMark<StaticMarkPoint>(m2::PointD{});
   m_myPositionMark = CreateUserMark<MyPositionMarkPoint>(m2::PointD{});
 
-  m_bookmarkCloud.SetSynchronizationHandlers([]()
-  {
-    alohalytics::Stats::Instance().LogEvent("Bookmarks_sync_started");
-  }, [](Cloud::SynchronizationResult result, std::string const & errorStr)
-  {
-    if (result == Cloud::SynchronizationResult::Success)
-    {
-      alohalytics::Stats::Instance().LogEvent("Bookmarks_sync_success");
-    }
-    else
-    {
-      std::string const typeStr = (result == Cloud::SynchronizationResult::DiskError) ? "disk" : "network";
-      alohalytics::TStringMap details {{"type", typeStr}, {"error", errorStr}};
-      alohalytics::Stats::Instance().LogEvent("Bookmarks_sync_error", details);
-    }
-  });
-}
-
-BookmarkManager::~BookmarkManager()
-{
-  ClearCategories();
+  using namespace std::placeholders;
+  m_bookmarkCloud.SetSynchronizationHandlers(
+      std::bind(&BookmarkManager::OnSynchronizationStarted, this, _1),
+      std::bind(&BookmarkManager::OnSynchronizationFinished, this, _1, _2, _3),
+      std::bind(&BookmarkManager::OnRestoreRequested, this, _1, _2),
+      std::bind(&BookmarkManager::OnRestoredFilesPrepared, this));
 }
 
 BookmarkManager::EditSession BookmarkManager::GetEditSession()
@@ -764,8 +800,16 @@ void BookmarkManager::LoadState()
 void BookmarkManager::ClearCategories()
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  for (auto groupId : m_bmGroupsIdList)
+  {
+    ClearGroup(groupId);
+    m_changesTracker.OnDeleteGroup(groupId);
+  }
+
   m_categories.clear();
   m_bmGroupsIdList.clear();
+  m_bookmarks.clear();
+  m_tracks.clear();
 }
 
 void BookmarkManager::LoadBookmarks()
@@ -1635,6 +1679,74 @@ void BookmarkManager::ConvertAllKmlFiles(ConversionHandler && handler) const
 
     handler(true /* success */);
   });
+}
+
+void BookmarkManager::SetCloudHandlers(
+    Cloud::SynchronizationStartedHandler && onSynchronizationStarted,
+    Cloud::SynchronizationFinishedHandler && onSynchronizationFinished,
+    Cloud::RestoreRequestedHandler && onRestoreRequested,
+    Cloud::RestoredFilesPreparedHandler && onRestoredFilesPrepared)
+{
+  m_onSynchronizationStarted = std::move(onSynchronizationStarted);
+  m_onSynchronizationFinished = std::move(onSynchronizationFinished);
+  m_onRestoreRequested = std::move(onRestoreRequested);
+  m_onRestoredFilesPrepared = std::move(onRestoredFilesPrepared);
+}
+
+void BookmarkManager::OnSynchronizationStarted(Cloud::SynchronizationType type)
+{
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, type]()
+  {
+    if (m_onSynchronizationStarted)
+      m_onSynchronizationStarted(type);
+  });
+
+  LOG(LINFO, ("Cloud Synchronization Started:", type));
+}
+
+void BookmarkManager::OnSynchronizationFinished(Cloud::SynchronizationType type,
+                                                Cloud::SynchronizationResult result,
+                                                std::string const & errorStr)
+{
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, type, result, errorStr]()
+  {
+    if (m_onSynchronizationFinished)
+      m_onSynchronizationFinished(type, result, errorStr);
+
+    if (type == Cloud::SynchronizationType::Restore &&
+        result == Cloud::SynchronizationResult::Success)
+    {
+      // Reload bookmarks after restoring.
+      LoadBookmarks();
+    }
+  });
+
+  LOG(LINFO, ("Cloud Synchronization Finished:", type, result, errorStr));
+}
+
+void BookmarkManager::OnRestoreRequested(Cloud::RestoringRequestResult result,
+                                         uint64_t backupTimestampInMs)
+{
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, result, backupTimestampInMs]()
+  {
+    if (m_onRestoreRequested)
+      m_onRestoreRequested(result, backupTimestampInMs);
+  });
+
+  using namespace std::chrono;
+  LOG(LINFO, ("Cloud Restore Requested:", result,
+              time_point<system_clock>(milliseconds(backupTimestampInMs))));
+}
+
+void BookmarkManager::OnRestoredFilesPrepared()
+{
+  // This method is always called from UI-thread.
+  ClearCategories();
+
+  if (m_onRestoredFilesPrepared)
+    m_onRestoredFilesPrepared();
+
+  LOG(LINFO, ("Cloud Restore Files: Prepared"));
 }
 
 df::GroupIDSet BookmarkManager::MarksChangesTracker::GetAllGroupIds() const

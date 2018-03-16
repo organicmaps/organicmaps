@@ -19,6 +19,7 @@ public:
   void SetMethod(std::string const & method) { m_method = method; }
   void SetUrl(std::string const & url) { m_url = url; }
   void SetParams(std::map<std::string, std::string> const & params) { m_params = params; }
+  void SetParam(std::string const & key, std::string const & value) { m_params[key] = value; }
   void SetHeaders(std::map<std::string, std::string> const & headers) { m_headers = headers; }
   void SetFileKey(std::string const & fileKey) { m_fileKey = fileKey; }
   void SetFilePath(std::string const & filePath) { m_filePath = filePath; }

@@ -128,7 +128,6 @@ public:
   };
 
   explicit BookmarkManager(Callbacks && callbacks);
-  ~BookmarkManager();
 
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
 
@@ -243,6 +242,12 @@ public:
   // Convert all found kml files to the binary format.
   using ConversionHandler = platform::SafeCallback<void(bool success)>;
   void ConvertAllKmlFiles(ConversionHandler && handler) const;
+
+  // These handlers are always called from UI-thread.
+  void SetCloudHandlers(Cloud::SynchronizationStartedHandler && onSynchronizationStarted,
+                        Cloud::SynchronizationFinishedHandler && onSynchronizationFinished,
+                        Cloud::RestoreRequestedHandler && onRestoreRequested,
+                        Cloud::RestoredFilesPreparedHandler && onRestoredFilesPrepared);
 
   /// These functions are public for unit tests only. You shouldn't call them from client code.
   void SaveToKML(df::MarkGroupID groupId, std::ostream & s);
@@ -397,6 +402,12 @@ private:
 
   void SaveToKML(BookmarkCategory * group, std::ostream & s);
 
+  void OnSynchronizationStarted(Cloud::SynchronizationType type);
+  void OnSynchronizationFinished(Cloud::SynchronizationType type, Cloud::SynchronizationResult result,
+                                 std::string const & errorStr);
+  void OnRestoreRequested(Cloud::RestoringRequestResult result, uint64_t backupTimestampInMs);
+  void OnRestoredFilesPrepared();
+
   ThreadChecker m_threadChecker;
 
   Callbacks m_callbacks;
@@ -438,6 +449,10 @@ private:
   std::list<BookmarkLoaderInfo> m_bookmarkLoadingQueue;
 
   Cloud m_bookmarkCloud;
+  Cloud::SynchronizationStartedHandler m_onSynchronizationStarted;
+  Cloud::SynchronizationFinishedHandler m_onSynchronizationFinished;
+  Cloud::RestoreRequestedHandler m_onRestoreRequested;
+  Cloud::RestoredFilesPreparedHandler m_onRestoredFilesPrepared;
 
   DISALLOW_COPY_AND_MOVE(BookmarkManager);
 };

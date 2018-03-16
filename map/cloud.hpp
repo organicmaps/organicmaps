@@ -8,6 +8,7 @@
 #include "base/visitor.hpp"
 
 #include <functional>
+#include <list>
 #include <map>
 #include <memory>
 #include <mutex>
@@ -20,10 +21,13 @@ public:
   struct Entry
   {
     Entry() = default;
+
     Entry(std::string const & name, uint64_t sizeInBytes, bool isOutdated)
-      : m_name(name)
-      , m_sizeInBytes(sizeInBytes)
-      , m_isOutdated(isOutdated)
+      : m_name(name), m_sizeInBytes(sizeInBytes), m_isOutdated(isOutdated)
+    {}
+
+    Entry(std::string const & name, uint64_t sizeInBytes, bool isOutdated, std::string const & hash)
+      : m_name(name), m_sizeInBytes(sizeInBytes), m_hash(hash), m_isOutdated(isOutdated)
     {}
 
     bool operator==(Entry const & entry) const
@@ -57,57 +61,59 @@ public:
     bool m_isOutdated = false;
     uint64_t m_lastSyncTimestamp = 0; // in seconds.
 
+    bool CanBeUploaded() const { return m_isOutdated && !m_entries.empty(); }
+
     DECLARE_VISITOR_AND_DEBUG_PRINT(Index, visitor(m_entries, "entries"),
                                     visitor(m_lastUpdateInHours, "lastUpdateInHours"),
                                     visitor(m_isOutdated, "isOutdated"),
                                     visitor(m_lastSyncTimestamp, "lastSyncTimestamp"))
   };
 
-  struct SnapshotRequestData
-  {
-    std::string m_deviceId;
-    std::string m_deviceName;
-    std::vector<std::string> m_fileNames;
-
-    explicit SnapshotRequestData(std::vector<std::string> const & files = {});
-
-    DECLARE_VISITOR_AND_DEBUG_PRINT(SnapshotRequestData, visitor(m_deviceId, "device_id"),
-                                    visitor(m_deviceName, "device_name"),
-                                    visitor(m_fileNames, "file_names"))
-  };
-
-  struct UploadingRequestData
-  {
-    std::string m_deviceId;
-    std::string m_fileName;
-
-    explicit UploadingRequestData(std::string const & filePath = {});
-
-    DECLARE_VISITOR_AND_DEBUG_PRINT(UploadingRequestData, visitor(m_deviceId, "device_id"),
-                                    visitor(m_fileName, "file_name"))
-  };
-
   struct UploadingResponseData
   {
     std::string m_url;
+    std::string m_fallbackUrl;
     std::vector<std::vector<std::string>> m_fields;
     std::string m_method;
 
     DECLARE_VISITOR_AND_DEBUG_PRINT(UploadingResponseData, visitor(m_url, "url"),
+                                    visitor(m_fallbackUrl, "fallback_url"),
                                     visitor(m_fields, "fields"),
                                     visitor(m_method, "method"))
   };
 
-  struct NotifyRequestData : public UploadingRequestData
+  struct SnapshotFileData
   {
+    std::string m_fileName;
     uint64_t m_fileSize = 0;
+    uint64_t m_datetime = 0;
 
-    NotifyRequestData() = default;
-    NotifyRequestData(std::string const & filePath, uint64_t fileSize);
-
-    DECLARE_VISITOR_AND_DEBUG_PRINT(NotifyRequestData, visitor(m_deviceId, "device_id"),
+    DECLARE_VISITOR_AND_DEBUG_PRINT(SnapshotFileData,
                                     visitor(m_fileName, "file_name"),
-                                    visitor(m_fileSize, "file_size"))
+                                    visitor(m_fileSize, "file_size"),
+                                    visitor(m_datetime, "datetime"))
+  };
+
+  struct SnapshotResponseData
+  {
+    std::string m_deviceId;
+    std::string m_deviceName;
+    uint64_t m_datetime = 0;
+    std::vector<SnapshotFileData> m_files;
+
+    uint64_t GetTotalSizeOfFiles() const
+    {
+      uint64_t sz = 0;
+      for (auto const & f : m_files)
+        sz += f.m_fileSize;
+      return sz;
+    }
+
+    DECLARE_VISITOR_AND_DEBUG_PRINT(SnapshotResponseData,
+                                    visitor(m_deviceId, "device_id"),
+                                    visitor(m_deviceName, "device_name"),
+                                    visitor(m_datetime, "datetime"),
+                                    visitor(m_files, "files"))
   };
 
   enum class RequestStatus
@@ -132,7 +138,15 @@ public:
   struct UploadingResult
   {
     RequestResult m_requestResult;
+    bool m_isMalformed = false;
     UploadingResponseData m_response;
+  };
+
+  struct SnapshotResult
+  {
+    RequestResult m_requestResult;
+    bool m_isMalformed = false;
+    SnapshotResponseData m_response;
   };
 
   enum class State
@@ -145,6 +159,12 @@ public:
     Enabled = 2
   };
 
+  enum class SynchronizationType
+  {
+    Backup = 0,
+    Restore = 1
+  };
+
   enum class SynchronizationResult
   {
     // Synchronization was finished successfully.
@@ -154,24 +174,48 @@ public:
     // Synchronization was interrupted by a network error.
     NetworkError = 2,
     // Synchronization was interrupted by a disk error.
-    DiskError = 3
+    DiskError = 3,
+    // Synchronization was interrupted by the user.
+    UserInterrupted = 4
+  };
+
+  enum class RestoringRequestResult
+  {
+    // There is a backup on the server.
+    BackupExists = 0,
+    // There is no backup on the server.
+    NoBackup = 1,
+    // Not enough space on the disk for the restoring.
+    NotEnoughDiskSpace = 2
   };
 
   using InvalidTokenHandler = std::function<void()>;
-  using SynchronizationStartedHandler = std::function<void()>;
-  using SynchronizationFinishedHandler = std::function<void(SynchronizationResult,
+  using FileConverter = std::function<bool(std::string const & filePath,
+                                           std::string const & convertedFilePath)>;
+  using SynchronizationStartedHandler = std::function<void(SynchronizationType)>;
+  using SynchronizationFinishedHandler = std::function<void(SynchronizationType,
+                                                            SynchronizationResult,
                                                             std::string const & error)>;
+  using RestoreRequestedHandler = std::function<void(RestoringRequestResult,
+                                                     uint64_t backupTimestampInMs)>;
+  using RestoredFilesPreparedHandler = std::function<void()>;
   using SnapshotCompletionHandler = std::function<void()>;
 
   struct CloudParams
   {
     CloudParams() = default;
     CloudParams(std::string && indexName, std::string && serverPathName,
-                std::string && settingsParamName, std::string && zipExtension)
+                std::string && settingsParamName, std::string && restoringFolder,
+                std::string && restoredFileExtension,
+                FileConverter && backupConverter,
+                FileConverter && restoreConverter)
       : m_indexName(std::move(indexName))
       , m_serverPathName(std::move(serverPathName))
       , m_settingsParamName(std::move(settingsParamName))
-      , m_zipExtension(std::move(zipExtension))
+      , m_restoredFileExtension(std::move(restoredFileExtension))
+      , m_restoringFolder(std::move(restoringFolder))
+      , m_backupConverter(std::move(backupConverter))
+      , m_restoreConverter(std::move(restoreConverter))
     {}
 
     // Name of file in which cloud stores metadata.
@@ -180,8 +224,14 @@ public:
     std::string m_serverPathName;
     // Name of parameter to store cloud's state in settings.
     std::string m_settingsParamName;
-    // Extension of zipped file. The first character must be '.'
-    std::string m_zipExtension;
+    // The extension of restored files.
+    std::string m_restoredFileExtension;
+    // The folder in which files will be restored.
+    std::string m_restoringFolder;
+    // This file converter is executed before uploading to the cloud.
+    FileConverter m_backupConverter;
+    // This file converter is executed after downloading from the cloud.
+    FileConverter m_restoreConverter;
   };
 
   explicit Cloud(CloudParams && params);
@@ -189,9 +239,12 @@ public:
 
   // Handler can be called from non-UI thread.
   void SetInvalidTokenHandler(InvalidTokenHandler && onInvalidToken);
-  // Handlers can be called from non-UI thread.
+  // Handlers can be called from non-UI thread except of ApplyRestoredFilesHandler.
+  // ApplyRestoredFilesHandler is always called from UI-thread.
   void SetSynchronizationHandlers(SynchronizationStartedHandler && onSynchronizationStarted,
-                                  SynchronizationFinishedHandler && onSynchronizationFinished);
+                                  SynchronizationFinishedHandler && onSynchronizationFinished,
+                                  RestoreRequestedHandler && onRestoreRequested,
+                                  RestoredFilesPreparedHandler && onRestoredFilesPrepared);
 
   void SetState(State state);
   State GetState() const;
@@ -202,16 +255,35 @@ public:
 
   std::unique_ptr<User::Subscriber> GetUserSubscriber();
 
+  void RequestRestoring();
+  void ApplyRestoring();
+  void CancelRestoring();
+
 private:
+  struct RestoredFile
+  {
+    std::string m_filename;
+    std::string m_hash;
+
+    RestoredFile() = default;
+    RestoredFile(std::string const & filename, std::string const & hash)
+      : m_filename(filename), m_hash(hash)
+    {}
+  };
+  using RestoredFilesCollection = std::vector<RestoredFile>;
+
   void LoadIndex();
   bool ReadIndex();
   void UpdateIndex(bool indexExists);
   void SaveIndexImpl() const;
 
   EntryPtr GetEntryImpl(std::string const & fileName) const;
-  void MarkModifiedImpl(std::string const & filePath);
+  void MarkModifiedImpl(std::string const & filePath, bool isOutdated);
+  void UpdateIndexByRestoredFilesImpl(RestoredFilesCollection const & files,
+                                      uint64_t lastSyncTimestampInSec);
 
   uint64_t CalculateUploadingSizeImpl() const;
+  bool CanUploadImpl() const;
   void SortEntriesBeforeUploadingImpl();
   void ScheduleUploading();
   void ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout,
@@ -219,19 +291,33 @@ private:
   void CreateSnapshotTask(uint32_t timeout, uint32_t attemptIndex,
                           std::vector<std::string> && files,
                           SnapshotCompletionHandler && handler);
+  void FinishSnapshotTask(uint32_t timeout, uint32_t attemptIndex);
   EntryPtr FindOutdatedEntry() const;
   void FinishUploading(SynchronizationResult result, std::string const & errorStr);
   void SetAccessToken(std::string const & token);
+  std::string GetAccessToken() const;
 
   // This function always returns path to a temporary file or the empty string
   // in case of a disk error.
   std::string PrepareFileToUploading(std::string const & fileName);
 
   RequestResult CreateSnapshot(std::vector<std::string> const & files) const;
+  RequestResult FinishSnapshot() const;
+  SnapshotResult GetBestSnapshot() const;
+  void ProcessSuccessfulSnapshot(SnapshotResult const & result);
   UploadingResult RequestUploading(std::string const & filePath) const;
   RequestResult ExecuteUploading(UploadingResponseData const & responseData,
                                  std::string const & filePath);
   RequestResult NotifyAboutUploading(std::string const & filePath, uint64_t fileSize) const;
+
+  void GetBestSnapshotTask(uint32_t timeout, uint32_t attemptIndex);
+  void FinishRestoring(SynchronizationResult result, std::string const & errorStr);
+  std::list<SnapshotFileData> GetDownloadingList(std::string const & restoringDirPath);
+  void DownloadingTask(std::string const & dirPath, bool useFallbackUrl,
+                       std::list<SnapshotFileData> && files);
+  void CompleteRestoring(std::string const & dirPath);
+
+  void ApplyRestoredFiles(std::string const & dirPath, RestoredFilesCollection && files);
 
   template <typename HandlerType, typename HandlerGetterType, typename... HandlerArgs>
   void ThreadSafeCallback(HandlerGetterType && handlerGetter, HandlerArgs... handlerArgs)
@@ -249,11 +335,54 @@ private:
   InvalidTokenHandler m_onInvalidToken;
   SynchronizationStartedHandler m_onSynchronizationStarted;
   SynchronizationFinishedHandler m_onSynchronizationFinished;
+  RestoreRequestedHandler m_onRestoreRequested;
+  RestoredFilesPreparedHandler m_onRestoredFilesPrepared;
   State m_state;
   Index m_index;
   std::string m_accessToken;
   std::map<std::string, std::string> m_files;
   bool m_uploadingStarted = false;
+
+  enum RestoringState
+  {
+    None,
+    Requested,
+    Applying,
+    Finalizing
+  };
+  RestoringState m_restoringState = RestoringState::None;
   bool m_indexUpdated = false;
+  SnapshotResponseData m_bestSnapshotData;
   mutable std::mutex m_mutex;
 };
+
+inline std::string DebugPrint(Cloud::SynchronizationType type)
+{
+  switch (type)
+  {
+  case Cloud::SynchronizationType::Backup: return "Backup";
+  case Cloud::SynchronizationType::Restore: return "Restore";
+  }
+}
+
+inline std::string DebugPrint(Cloud::SynchronizationResult result)
+{
+  switch (result)
+  {
+  case Cloud::SynchronizationResult::Success: return "Success";
+  case Cloud::SynchronizationResult::AuthError: return "AuthError";
+  case Cloud::SynchronizationResult::NetworkError: return "NetworkError";
+  case Cloud::SynchronizationResult::DiskError: return "DiskError";
+  case Cloud::SynchronizationResult::UserInterrupted: return "UserInterrupted";
+  }
+}
+
+inline std::string DebugPrint(Cloud::RestoringRequestResult result)
+{
+  switch (result)
+  {
+  case Cloud::RestoringRequestResult::BackupExists: return "BackupExists";
+  case Cloud::RestoringRequestResult::NoBackup: return "NoBackup";
+  case Cloud::RestoringRequestResult::NotEnoughDiskSpace: return "NotEnoughDiskSpace";
+  }
+}

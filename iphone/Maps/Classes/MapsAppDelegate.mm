@@ -595,7 +595,9 @@ using namespace osm_auth_ios;
   --m_activeDownloadsCounter;
   if (m_activeDownloadsCounter <= 0)
   {
-    UIApplication.sharedApplication.networkActivityIndicatorVisible = NO;
+    dispatch_async(dispatch_get_main_queue(), ^{
+      UIApplication.sharedApplication.networkActivityIndicatorVisible = NO;
+    });
     m_activeDownloadsCounter = 0;
     if (UIApplication.sharedApplication.applicationState == UIApplicationStateBackground)
     {
@@ -608,7 +610,9 @@ using namespace osm_auth_ios;
 - (void)enableDownloadIndicator
 {
   ++m_activeDownloadsCounter;
-  UIApplication.sharedApplication.networkActivityIndicatorVisible = YES;
+  dispatch_async(dispatch_get_main_queue(), ^{
+    UIApplication.sharedApplication.networkActivityIndicatorVisible = YES;
+  });
 }
 
 + (NSDictionary *)navigationBarTextAttributes
