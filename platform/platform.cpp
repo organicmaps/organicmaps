@@ -1,4 +1,5 @@
 #include "platform/platform.hpp"
+
 #include "platform/local_country_file.hpp"
 
 #include "coding/base64.hpp"
@@ -9,12 +10,15 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include <thread>
+
 #include "std/target_os.hpp"
-#include "std/thread.hpp"
 
 #include "private.h"
 
 #include <errno.h>
+
+using namespace std;
 
 namespace
 {
