@@ -27,7 +27,6 @@
       android:gravity="start|center_vertical"
       android:text="@string/settings_backup_bookmarks"/>
   </LinearLayout>
-  <include layout="@layout/divider_horizontal"/>
   <LinearLayout
     android:id="@+id/content"
     android:layout_width="match_parent"

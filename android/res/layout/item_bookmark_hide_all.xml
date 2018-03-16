@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="horizontal"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="?windowBackgroundForced">
+  <TextView
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:text="@string/bookmarks_groups"/>
+  <TextView
+    android:id="@+id/hide_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingStart="@dimen/margin_base"
+    android:paddingEnd="@dimen/margin_base"
+    android:paddingRight="@dimen/margin_base"
+    android:paddingTop="@dimen/bookmark_hide_btn_padding_top"
+    android:paddingBottom="@dimen/margin_half_double_plus"
+    android:textColor="?colorAccent"
+    android:textAllCaps="true"
+    android:background="?selectableItemBackground"
+    android:text="@string/bookmarks_groups_hide_all"/>
+</LinearLayout>

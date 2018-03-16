@@ -73,7 +73,7 @@ public class ChooseBookmarkCategoryAdapter extends BaseBookmarkCategoryAdapter<C
   {
     if (holder.getItemViewType() == VIEW_TYPE_CATEGORY)
     {
-      holder.name.setText(BookmarkManager.INSTANCE.getCategoryName(getItem(position)));
+      holder.name.setText(BookmarkManager.INSTANCE.getCategoryName(getCategoryIdByPosition(position)));
       holder.checked.setChecked(mCheckedPosition == position);
     }
   }

@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.Authorizer;
@@ -28,7 +29,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
                MenuItem.OnMenuItemClickListener,
                RecyclerClickListener,
                RecyclerLongClickListener,
-               BookmarkManager.BookmarksLoadingListener
+               BookmarkManager.BookmarksLoadingListener,
+               BookmarkCategoriesAdapter.OnAddCategoryListener
 {
   private long mSelectedCatId;
   @Nullable
@@ -70,6 +72,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     {
       getAdapter().setOnClickListener(this);
       getAdapter().setOnLongClickListener(this);
+      getAdapter().setOnAddCategoryListener(this);
       getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
       {
         @Override
@@ -79,6 +82,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
         }
       });
     }
+
+    getRecyclerView().setNestedScrollingEnabled(false);
   }
 
   private void updateResultsPlaceholder()
@@ -232,6 +237,12 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   public void onBookmarksFileLoaded(boolean success)
   {
     // Do nothing here.
+  }
+
+  @Override
+  public void onAddCategory()
+  {
+    Toast.makeText(getContext(), "Coming soon", Toast.LENGTH_LONG).show();
   }
 
   @Override

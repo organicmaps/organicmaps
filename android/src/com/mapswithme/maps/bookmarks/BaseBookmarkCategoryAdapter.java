@@ -28,7 +28,7 @@ public abstract class BaseBookmarkCategoryAdapter<V extends RecyclerView.ViewHol
     return BookmarkManager.INSTANCE.getCategoriesCount();
   }
 
-  public long getItem(int position)
+  public long getCategoryIdByPosition(int position)
   {
     return BookmarkManager.INSTANCE.getCategoryIdByPosition(position);
   }

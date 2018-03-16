@@ -32,6 +32,14 @@
     <item name="android:windowBackground">@color/bg_cards_night</item>
   </style>
 
+  <style name="MwmTheme.WindowBg">
+    <item name="android:windowBackground">@color/bg_window</item>
+  </style>
+
+  <style name="MwmTheme.Night.WindowBg">
+    <item name="android:windowBackground">@color/bg_window_night</item>
+  </style>
+
   <style name="MwmTheme.DialogFragment" parent="android:Theme.Holo.Light.Dialog.NoActionBar">
     <item name="android:windowIsFloating">true</item>
     <item name="clickableBackground">?attr/selectableItemBackground</item>

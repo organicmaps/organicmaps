@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="horizontal"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="?selectableItemBackground"
+  android:paddingStart="@dimen/margin_base"
+  android:paddingLeft="@dimen/margin_base"
+  android:paddingEnd="@dimen/margin_base"
+  android:paddingRight="@dimen/margin_base"
+  android:paddingBottom="@dimen/margin_half_plus"
+  android:paddingTop="@dimen/margin_half_plus">
+  <ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/ic_checkbox_add"
+    android:tint="?colorAccent"/>
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/margin_half"
+    android:layout_marginStart="@dimen/margin_half"
+    android:layout_gravity="center_vertical"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:textAllCaps="true"
+    android:text="@string/bookmarks_create_new_group"
+    android:textColor="?colorAccent"/>
+</LinearLayout>

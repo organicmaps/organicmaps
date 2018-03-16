@@ -1,53 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<android.support.v4.widget.NestedScrollView
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  style="@style/MwmWidget.FrameLayout"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
-  <LinearLayout
+  <FrameLayout
+    style="@style/MwmWidget.FrameLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-    <com.mapswithme.maps.widget.BookmarkBackupView
-      android:id="@+id/backup"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true">
+    <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
-    <include layout="@layout/recycler_default"/>
-  </LinearLayout>
-
-  <com.mapswithme.maps.widget.PlaceholderView
-    android:id="@+id/placeholder"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/margin_double_and_half"
-    android:paddingRight="@dimen/margin_double_and_half"
-    android:paddingTop="@dimen/placeholder_margin_top"
-    android:visibility="gone"
-    tools:visibility="visible"/>
-
-  <LinearLayout
-    android:id="@+id/placeholder_loading"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/margin_double_and_half"
-    android:paddingRight="@dimen/margin_double_and_half"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:visibility="gone"
-    tools:visibility="visible">
-    <ProgressBar
-      style="@style/Widget.AppCompat.ProgressBar"
-      android:background="@null"
-      android:layout_gravity="center"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
-    <TextView
-      android:gravity="center"
-      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:paddingTop="@dimen/margin_half"
-      android:textAppearance="@style/MwmTextAppearance.Body3"
-      android:text="@string/load_kmz_title"/>
-  </LinearLayout>
-</FrameLayout>
+      android:orientation="vertical">
+      <com.mapswithme.maps.widget.BookmarkBackupView
+        android:id="@+id/backup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?cardBackground"/>
+      <include
+        layout="@layout/recycler_default"
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/bookmark_recycler_view_bottom_margin"/>
+    </LinearLayout>
+    <com.mapswithme.maps.widget.PlaceholderView
+      android:id="@+id/placeholder"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:paddingLeft="@dimen/margin_double_and_half"
+      android:paddingRight="@dimen/margin_double_and_half"
+      android:paddingTop="@dimen/placeholder_margin_top"
+      android:visibility="gone"
+      tools:visibility="visible"/>
+    <LinearLayout
+      android:id="@+id/placeholder_loading"
+      android:orientation="vertical"
+      android:paddingLeft="@dimen/margin_double_and_half"
+      android:paddingRight="@dimen/margin_double_and_half"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center"
+      android:visibility="gone"
+      tools:visibility="visible">
+      <ProgressBar
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:background="@null"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+      <TextView
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/margin_half"
+        android:textAppearance="@style/MwmTextAppearance.Body3"
+        android:text="@string/load_kmz_title"/>
+    </LinearLayout>
+  </FrameLayout>
+</android.support.v4.widget.NestedScrollView>

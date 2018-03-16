@@ -104,4 +104,16 @@ public final class ThemeUtils
 
     throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
   }
+
+  @StyleRes
+  public static int getWindowBgThemeResourceId(@NonNull String theme)
+  {
+    if (isDefaultTheme(theme))
+      return R.style.MwmTheme_WindowBg;
+
+    if (isNightTheme(theme))
+      return R.style.MwmTheme_Night_WindowBg;
+
+    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
+  }
 }
