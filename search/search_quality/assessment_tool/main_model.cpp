@@ -23,7 +23,6 @@
 #include <functional>
 #include <iterator>
 
-using Relevance = search::Sample::Result::Relevance;
 using namespace std;
 
 // MainModel::SampleContext ------------------------------------------------------------------------
@@ -141,7 +140,7 @@ void MainModel::OnSampleSelected(int index)
     search::SearchParams params;
     sample.FillSearchParams(params);
     params.m_onResults = [this, index, sample, timestamp](search::Results const & results) {
-      vector<Edits::MaybeRelevance> relevances;
+      vector<boost::optional<Edits::Relevance>> relevances;
       vector<size_t> goldenMatching;
       vector<size_t> actualMatching;
 
@@ -160,7 +159,7 @@ void MainModel::OnSampleSelected(int index)
           if (j != search::Matcher::kInvalidId)
           {
             CHECK_LESS(j, relevances.size(), ());
-            relevances[j] = Edits::MaybeRelevance(sample.m_results[i].m_relevance);
+            relevances[j] = sample.m_results[i].m_relevance;
           }
         }
       }
@@ -322,7 +321,7 @@ void MainModel::OnUpdate(View::ResultType type, size_t sampleIndex, Edits::Updat
 }
 
 void MainModel::OnResults(uint64_t timestamp, size_t sampleIndex, search::Results const & results,
-                          vector<Edits::MaybeRelevance> const & relevances,
+                          vector<boost::optional<Edits::Relevance>> const & relevances,
                           vector<size_t> const & goldenMatching,
                           vector<size_t> const & actualMatching)
 {
@@ -348,7 +347,7 @@ void MainModel::OnResults(uint64_t timestamp, size_t sampleIndex, search::Result
     context.m_actualMatching = actualMatching;
 
     {
-      vector<Edits::MaybeRelevance> relevances;
+      vector<boost::optional<Edits::Relevance>> relevances;
 
       auto & nonFound = context.m_nonFoundResults;
       CHECK(nonFound.empty(), ());

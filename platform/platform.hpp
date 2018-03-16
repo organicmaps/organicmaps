@@ -283,13 +283,13 @@ public:
     switch (thread)
     {
     case Thread::File:
-      m_fileThread->Push(forward<Task>(task));
+      m_fileThread->Push(std::forward<Task>(task));
       break;
     case Thread::Network:
-      m_networkThread->Push(forward<Task>(task));
+      m_networkThread->Push(std::forward<Task>(task));
       break;
     case Thread::Gui:
-      RunOnGuiThread(forward<Task>(task));
+      RunOnGuiThread(std::forward<Task>(task));
       break;
     }
   }
@@ -301,10 +301,10 @@ public:
     switch (thread)
     {
     case Thread::File:
-      m_fileThread->PushDelayed(delay, forward<Task>(task));
+      m_fileThread->PushDelayed(delay, std::forward<Task>(task));
       break;
     case Thread::Network:
-      m_networkThread->PushDelayed(delay, forward<Task>(task));
+      m_networkThread->PushDelayed(delay, std::forward<Task>(task));
       break;
     case Thread::Gui:
       CHECK(false, ("Delayed tasks for gui thread are not supported yet"));

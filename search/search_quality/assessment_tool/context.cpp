@@ -54,20 +54,20 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
       auto const & entry = nonFoundEntries[k++];
       auto const deleted = entry.m_deleted;
       auto const & curr = entry.m_curr;
-      if (!deleted && !curr.m_unknown)
+      if (!deleted && curr)
       {
         auto result = m_sample.m_results[i];
-        result.m_relevance = curr.m_relevance;
+        result.m_relevance = *curr;
         outResults.push_back(result);
       }
       continue;
     }
 
-    if (foundEntries[j].m_curr.m_unknown)
+    if (!foundEntries[j].m_curr)
       continue;
 
     auto result = m_sample.m_results[i];
-    result.m_relevance = foundEntries[j].m_curr.m_relevance;
+    result.m_relevance = *foundEntries[j].m_curr;
     outResults.push_back(move(result));
   }
 
@@ -81,7 +81,7 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
       continue;
     }
 
-    if (foundEntries[i].m_curr.m_unknown)
+    if (!foundEntries[i].m_curr)
       continue;
 
     auto const & result = m_foundResults[i];
@@ -91,7 +91,7 @@ search::Sample Context::MakeSample(search::FeatureLoader & loader) const
 
     FeatureType ft;
     CHECK(loader.Load(result.GetFeatureID(), ft), ());
-    outResults.push_back(search::Sample::Result::Build(ft, foundEntries[i].m_curr.m_relevance));
+    outResults.push_back(search::Sample::Result::Build(ft, *foundEntries[i].m_curr));
   }
 
   return outSample;

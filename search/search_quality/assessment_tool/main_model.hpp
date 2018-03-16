@@ -14,6 +14,8 @@
 #include <vector>
 #include <memory>
 
+#include <boost/optional.hpp>
+
 class Framework;
 class Index;
 
@@ -49,7 +51,7 @@ private:
   void OnUpdate(View::ResultType type, size_t sampleIndex, Edits::Update const & update);
 
   void OnResults(uint64_t timestamp, size_t sampleIndex, search::Results const & results,
-                 std::vector<Edits::MaybeRelevance> const & relevances,
+                 std::vector<boost::optional<Edits::Relevance>> const & relevances,
                  std::vector<size_t> const & goldenMatching,
                  std::vector<size_t> const & actualMatching);
 

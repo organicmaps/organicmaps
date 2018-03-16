@@ -172,13 +172,13 @@ void ResultView::UpdateRelevanceRadioButtons()
   m_vital->setChecked(false);
 
   auto const & r = m_editor->Get();
-  if (!r.m_unknown)
+  if (!r)
+    return;
+
+  switch (*r)
   {
-    switch (r.m_relevance)
-    {
-    case Relevance::Irrelevant: m_irrelevant->setChecked(true); break;
-    case Relevance::Relevant: m_relevant->setChecked(true); break;
-    case Relevance::Vital: m_vital->setChecked(true); break;
-    }
+  case Relevance::Irrelevant: m_irrelevant->setChecked(true); break;
+  case Relevance::Relevant: m_relevant->setChecked(true); break;
+  case Relevance::Vital: m_vital->setChecked(true); break;
   }
 }

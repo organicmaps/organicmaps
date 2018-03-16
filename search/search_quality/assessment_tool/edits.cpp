@@ -4,7 +4,7 @@
 
 namespace
 {
-void UpdateNumEdits(Edits::Entry const & entry, Edits::MaybeRelevance const & r, size_t & numEdits)
+void UpdateNumEdits(Edits::Entry const & entry, Edits::Relevance const & r, size_t & numEdits)
 {
   if (entry.m_curr != entry.m_orig && r == entry.m_orig)
   {
@@ -27,7 +27,7 @@ bool Edits::Editor::Set(Relevance relevance)
   return m_parent.SetRelevance(m_index, relevance);
 }
 
-Edits::MaybeRelevance Edits::Editor::Get() const
+boost::optional<Edits::Relevance> Edits::Editor::Get() const
 {
   return m_parent.Get(m_index).m_curr;
 }
@@ -52,7 +52,7 @@ void Edits::Apply()
   });
 }
 
-void Edits::Reset(std::vector<MaybeRelevance> const & relevances)
+void Edits::Reset(std::vector<boost::optional<Edits::Relevance>> const & relevances)
 {
   WithObserver(Update::MakeAll(), [this, &relevances]() {
     m_entries.resize(relevances.size());
@@ -75,11 +75,9 @@ bool Edits::SetRelevance(size_t index, Relevance relevance)
 
     auto & entry = m_entries[index];
 
-    MaybeRelevance const r(relevance);
+    UpdateNumEdits(entry, relevance, m_numEdits);
 
-    UpdateNumEdits(entry, r, m_numEdits);
-
-    entry.m_curr = r;
+    entry.m_curr = relevance;
     return entry.m_curr != entry.m_orig;
   });
 }
@@ -89,11 +87,8 @@ void Edits::SetAllRelevances(Relevance relevance)
   WithObserver(Update::MakeAll(), [this, relevance]() {
     for (auto & entry : m_entries)
     {
-      MaybeRelevance const r(relevance);
-
-      UpdateNumEdits(entry, r, m_numEdits);
-
-      entry.m_curr = r;
+      UpdateNumEdits(entry, relevance, m_numEdits);
+      entry.m_curr = relevance;
     }
   });
 }
@@ -152,9 +147,9 @@ Edits::Entry const & Edits::GetEntry(size_t index) const
   return m_entries[index];
 }
 
-std::vector<Edits::MaybeRelevance> Edits::GetRelevances() const
+std::vector<boost::optional<Edits::Relevance>> Edits::GetRelevances() const
 {
-  std::vector<MaybeRelevance> relevances(m_entries.size());
+  std::vector<boost::optional<Edits::Relevance>> relevances(m_entries.size());
   for (size_t i = 0; i < m_entries.size(); ++i)
     relevances[i] = m_entries[i].m_curr;
   return relevances;
