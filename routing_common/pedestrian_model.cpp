@@ -13,13 +13,13 @@ namespace
 {
 
 // See model specifics in different countries here:
-//   http://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
+//   https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
 // Document contains proposals for some countries, but we assume that some kinds of roads are ready for pedestrian routing,
 // but not listed in tables in the document. For example, steps are not listed, paths, roads and services features also
 // can be treated as ready for pedestrian routing. These road types were added to lists below.
 
 // See road types here:
-//   http://wiki.openstreetmap.org/wiki/Key:highway
+//   https://wiki.openstreetmap.org/wiki/Key:highway
 
 // Heuristics:
 // For less pedestrian roads we add fine by setting smaller value of speed, and for more pedestrian roads we

@@ -22,7 +22,7 @@ using namespace integration;
 
 // The test on combinatorial explosion of number of fake edges at FeaturesRoadGraph.
 // It might happen when a lot of roads intersect at one point. For example,
-// http://www.openstreetmap.org/#map=19/50.73197/-1.21295
+// https://www.openstreetmap.org/#map=19/50.73197/-1.21295
 UNIT_TEST(FakeEdgesCombinatorialExplosion)
 {
   classificator::Load();

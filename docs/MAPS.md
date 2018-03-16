@@ -27,7 +27,7 @@ with `mktemp` and then removed.
 
 The resulting file won't have any coastlines, though MAPS.ME will overlay zoomed-in map with a low-quality
 generalized coastline. To add a detailed coastline, you would need a `WorldCoasts.geom` file and
-a [border polygon](http://wiki.openstreetmap.org/wiki/Osmosis/Polygon_Filter_File_Format) for a source
+a [border polygon](https://wiki.openstreetmap.org/wiki/Osmosis/Polygon_Filter_File_Format) for a source
 file area. Having that, run (and prepare to wait a bit longer):
 
     COASTS=WorldCoasts.geom BORDER=source.poly omim/tools/unix/generate_mwm.sh source.pbf

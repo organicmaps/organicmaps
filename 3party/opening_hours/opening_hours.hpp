@@ -31,7 +31,7 @@
 #include <vector>
 
 // Implemented in accordance with the specification
-// http://wiki.openstreetmap.org/wiki/Key:opening_hours/specification
+// https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification
 
 namespace osmoh
 {

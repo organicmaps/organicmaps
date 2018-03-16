@@ -12,10 +12,10 @@ using namespace routing;
 namespace
 {
 // See model specifics in different countries here:
-//   http://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
+//   https://wiki.openstreetmap.org/wiki/OSM_tags_for_routing/Access-Restrictions
 
 // See road types here:
-//   http://wiki.openstreetmap.org/wiki/Key:highway
+//   https://wiki.openstreetmap.org/wiki/Key:highway
 
 double constexpr kSpeedMotorwayKMpH = 115.37;
 double constexpr kSpeedMotorwayLinkKMpH = 75.0;

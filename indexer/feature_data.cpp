@@ -226,7 +226,7 @@ namespace
 {
 
 // Most used dummy values are taken from
-// http://taginfo.openstreetmap.org/keys/addr%3Ahousename#values
+// https://taginfo.openstreetmap.org/keys/addr%3Ahousename#values
 bool IsDummyName(string const & s)
 {
   return (s.empty() ||

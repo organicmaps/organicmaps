@@ -38,7 +38,7 @@ in [MAPS.md](https://github.com/mapsme/omim/tree/master/docs/MAPS.md).
 ## Map styles
 
 MAPS.ME uses its own binary format for map styles, `drules_proto.bin`, which is compiled from
-[MapCSS](http://wiki.openstreetmap.org/wiki/MapCSS) using modified Kothic library.
+[MapCSS](https://wiki.openstreetmap.org/wiki/MapCSS) using modified Kothic library.
 Feature set in MWM files depends on a compiled style, so make sure to rebuild maps after
 releasing a style.
 

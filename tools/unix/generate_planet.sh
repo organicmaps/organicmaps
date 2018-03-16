@@ -344,7 +344,7 @@ if [ "$MODE" == "coast" ]; then
     # Planet download is requested
     log "STATUS" "Step 0: Downloading and converting the planet"
     PLANET_PBF="$(dirname "$PLANET")/planet-latest.osm.pbf"
-    curl -s -o "$PLANET_PBF" http://planet.openstreetmap.org/pbf/planet-latest.osm.pbf
+    curl -s -o "$PLANET_PBF" https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf
     "$OSMCTOOLS/osmconvert" "$PLANET_PBF" --drop-author --drop-version --out-o5m "-o=$PLANET"
     rm "$PLANET_PBF"
   fi

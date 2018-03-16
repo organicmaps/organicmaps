@@ -1,4 +1,4 @@
-// See O5M Format definition at http://wiki.openstreetmap.org/wiki/O5m
+// See O5M Format definition at https://wiki.openstreetmap.org/wiki/O5m
 #pragma once
 
 #include "base/stl_helpers.hpp"
@@ -154,7 +154,7 @@ protected:
   struct StringTableRecord
   {
     // This important value got from
-    // documentation ( http://wiki.openstreetmap.org/wiki/O5m#Strings ) on O5M format.
+    // documentation ( https://wiki.openstreetmap.org/wiki/O5m#Strings ) on O5M format.
     // If change it all will be broken.
     enum { MaxEntrySize = 252 };
 

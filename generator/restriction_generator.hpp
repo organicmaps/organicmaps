@@ -5,7 +5,7 @@
 namespace routing
 {
 // This function is the generator tool's interface to building the mwm
-// section which contains road restrictions. (See http://wiki.openstreetmap.org/wiki/Restriction)
+// section which contains road restrictions. (See https://wiki.openstreetmap.org/wiki/Restriction)
 // As long as the restrictions are built later than the road features themselves
 // during the generation process, we have to store a mapping between osm ids and feature ids:
 // the restrictions are written in OSM terms while for the road features only their feature ids
