@@ -371,4 +371,15 @@ namespace
     Route const & route = *routeResult.first;
     TEST_LESS(route.GetTotalTimeSec(), numeric_limits<double >::max() / 2.0, ());
   }
+
+  // Test on routing along features with tag man_made:pier.
+  UNIT_TEST(CanadaVictoriaVancouverTest)
+  {
+    TRouteResult const routeResult =
+        integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                    MercatorBounds::FromLatLon(48.47831, -123.32749), {0.0, 0.0},
+                                    MercatorBounds::FromLatLon(49.26242, -123.11553));
+    IRouter::ResultCode const result = routeResult.second;
+    TEST_EQUAL(result, IRouter::NoError, ());
+  }
 }  // namespace
