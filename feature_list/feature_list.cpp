@@ -242,7 +242,7 @@ public:
       }
     }
     string const & phone = f.GetMetadata().Get(feature::Metadata::FMD_PHONE_NUMBER);
-    string const & website = f.GetMetadata().GetWikiURL();
+    string const & website = f.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
     string cuisine = f.GetMetadata().Get(feature::Metadata::FMD_CUISINE);
     replace(cuisine.begin(), cuisine.end(), ';', ',');
     string const & stars = f.GetMetadata().Get(feature::Metadata::FMD_STARS);
@@ -250,7 +250,7 @@ public:
     string const & denomination = f.GetMetadata().Get(feature::Metadata::FMD_DENOMINATION);
     string const & wheelchair = GetWheelchairType(f);
     string const & opening_hours = f.GetMetadata().Get(feature::Metadata::FMD_OPEN_HOURS);
-    string const & wikipedia = f.GetMetadata().Get(feature::Metadata::FMD_WIKIPEDIA);
+    string const & wikipedia = f.GetMetadata().GetWikiURL();
     string const & floor = f.GetMetadata().Get(feature::Metadata::FMD_LEVEL);
     string const & fee = strings::EndsWith(category, "-fee") ? "yes" : "";
     string const & atm = HasAtm(f) ? "yes" : "";
