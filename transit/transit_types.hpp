@@ -473,7 +473,7 @@ void CheckValid(std::vector<Item> const & items, std::string const & name)
 template <class Item>
 void CheckSorted(std::vector<Item> const & items, std::string const & name)
 {
-  CHECK(std::is_sorted(items.cend(), items.cend()), ("Table is not sorted. Table name:", name));
+  CHECK(std::is_sorted(items.cbegin(), items.cend()), ("Table is not sorted. Table name:", name));
 }
 
 template <class Item>

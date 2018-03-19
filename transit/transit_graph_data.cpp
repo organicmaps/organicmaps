@@ -325,7 +325,7 @@ void GraphData::Clear()
   Visit(v);
 }
 
-void GraphData::CheckValid() const
+void GraphData::CheckValidSortedUnique() const
 {
   {
     CheckSortedVisitor v;
@@ -359,7 +359,7 @@ void GraphData::Sort()
 void GraphData::ClipGraph(vector<m2::RegionD> const & borders)
 {
   Sort();
-  CheckValid();
+  CheckValidSortedUnique();
   ClipLines(borders);
   ClipStops();
   ClipNetworks();
@@ -367,7 +367,7 @@ void GraphData::ClipGraph(vector<m2::RegionD> const & borders)
   ClipTransfer();
   ClipEdges();
   ClipShapes();
-  CheckValid();
+  CheckValidSortedUnique();
 }
 
 void GraphData::SetGateBestPedestrianSegment(size_t gateIdx, SingleMwmSegment const & s)

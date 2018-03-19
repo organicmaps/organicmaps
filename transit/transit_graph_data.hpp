@@ -134,7 +134,7 @@ public:
   void DeserializeForCrossMwm(Reader & reader);
   void AppendTo(GraphData const & rhs);
   void Clear();
-  void CheckValid() const;
+  void CheckValidSortedUnique() const;
   bool IsEmpty() const;
 
   /// \brief Sorts all class fields by their ids.

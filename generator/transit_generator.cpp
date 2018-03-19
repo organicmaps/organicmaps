@@ -176,7 +176,7 @@ void ProcessGraph(string const & mwmPath, TCountryId const & countryId,
 {
   CalculateBestPedestrianSegments(mwmPath, countryId, data);
   data.Sort();
-  data.CheckValid();
+  data.CheckValidSortedUnique();
 }
 
 void BuildTransit(string const & mwmDir, TCountryId const & countryId,
@@ -207,7 +207,7 @@ void BuildTransit(string const & mwmDir, TCountryId const & countryId,
     return; // Empty transit section.
 
   ProcessGraph(mwmPath, countryId, mapping, jointData);
-  jointData.CheckValid();
+  jointData.CheckValidSortedUnique();
 
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
   FileWriter writer = cont.GetWriter(TRANSIT_FILE_TAG);
