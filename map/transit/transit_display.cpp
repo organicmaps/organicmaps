@@ -285,9 +285,12 @@ void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
 
       auto const id1 = isTransfer1 ? stop1.GetTransferId() : stop1.GetId();
       auto const id2 = isTransfer2 ? stop2.GetTransferId() : stop2.GetId();
-      bool const isInverted = id1 > id2;
 
-      AddTransitShapes(edge.m_shapeIds, displayInfo.m_shapes, currentColor, isInverted, subroute);
+      if (id1 != id2)
+      {
+        bool const isInverted = id1 > id2;
+        AddTransitShapes(edge.m_shapeIds, displayInfo.m_shapes, currentColor, isInverted, subroute);
+      }
 
       ASSERT_GREATER(subroute.m_polyline.GetSize(), 1, ());
       auto const & p1 = *(subroute.m_polyline.End() - 2);

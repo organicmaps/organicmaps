@@ -261,6 +261,8 @@ class TransitGraphBuilder:
                 node2 = self.stops[line['stop_ids'][i + 1]]
                 id1 = node1.get('transfer_id', node1['id'])
                 id2 = node2.get('transfer_id', node2['id'])
+                if id1 == id2:
+                    continue
                 seg = tuple(sorted([id1, id2]))
                 if seg not in self.segments:
                     self.segments[seg] = {'guide_points': {id1: set(), id2: set()}}
