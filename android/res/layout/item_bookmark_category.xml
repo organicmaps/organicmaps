@@ -1,47 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="?clickableBackground"
-  android:gravity="center_vertical"
-  android:minHeight="@dimen/height_item_oneline"
-  android:layout_marginTop="@dimen/margin_half"
-  android:paddingEnd="@dimen/margin_base"
-  android:paddingLeft="0dp"
-  android:paddingRight="@dimen/margin_base"
-  android:paddingStart="0dp">
-
-  <ImageView
-    android:id="@+id/iv__set_visible"
+  android:gravity="center_vertical">
+  <CheckBox
+    android:id="@+id/checkbox"
+    android:layout_centerVertical="true"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/margin_half"
-    android:layout_marginStart="@dimen/margin_half"
-    android:layout_weight="0"
-    android:background="?clickableBackground"
-    android:scaleType="center"
-    tools:src="@drawable/ic_bookmark_show"/>
-
+    android:minHeight="@dimen/height_item_edit_bookmark"
+    android:layout_marginLeft="@dimen/margin_half_plus"
+    android:layout_marginStart="@dimen/margin_half_plus"
+    android:layout_marginRight="@dimen/margin_base_plus"
+    android:layout_marginEnd="@dimen/margin_base_plus"/>
   <TextView
-    android:id="@+id/tv__set_name"
-    android:layout_width="match_parent"
+    android:id="@+id/name"
+    android:layout_toEndOf="@id/checkbox"
+    android:layout_toRightOf="@id/checkbox"
+    android:layout_toStartOf="@+id/more"
+    android:layout_toLeftOf="@id/more"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/margin_base"
-    android:layout_marginStart="@dimen/margin_base"
-    android:layout_weight="1"
-    android:ellipsize="marquee"
+    android:layout_marginTop="@dimen/margin_base"
+    android:ellipsize="end"
     android:singleLine="true"
     android:textAppearance="@style/MwmTextAppearance.Body1"
     tools:text="Bookmark name looooooooooooooooooongasdasdasd"/>
-
   <TextView
-    android:id="@+id/tv__set_size"
+    android:id="@+id/size"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_weight="0"
-    android:textAppearance="@style/MwmTextAppearance.Body2"
+    android:layout_below="@id/name"
+    android:layout_alignLeft="@id/name"
+    android:layout_alignStart="@id/name"
+    android:layout_alignEnd="@id/name"
+    android:layout_alignRight="@id/name"
+    android:layout_toStartOf="@+id/more"
+    android:layout_toLeftOf="@id/more"
+    android:layout_marginBottom="@dimen/margin_half_plus"
+    android:ellipsize="end"
+    android:singleLine="true"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
     tools:text="42000000"/>
-
-</LinearLayout>
+  <ImageView
+    android:id="@id/more"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:minHeight="@dimen/height_item_edit_bookmark"
+    android:paddingRight="@dimen/margin_base"
+    android:paddingEnd="@dimen/margin_base"
+    android:paddingLeft="@dimen/margin_double"
+    android:paddingStart="@dimen/margin_double"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    android:src="@drawable/ic_more"
+    android:background="?selectableItemBackgroundBorderless"
+    android:tint="?secondary"/>
+</RelativeLayout>

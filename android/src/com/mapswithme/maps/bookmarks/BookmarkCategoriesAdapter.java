@@ -115,6 +115,9 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
           BookmarkManager.INSTANCE.toggleCategoryVisibility(catId);
           categoryHolder.setVisibilityState(bmManager.isVisible(catId));
         });
+    categoryHolder.setMoreListener(v -> {
+      Toast.makeText(getContext(), "Coming soon", Toast.LENGTH_SHORT).show();
+    });
   }
 
   @Override

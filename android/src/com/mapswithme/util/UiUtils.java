@@ -484,20 +484,32 @@ public final class UiUtils
   public static void expandTouchAreaForView(@NonNull final View view, final int extraArea)
   {
     final View parent = (View) view.getParent();
-    parent.post(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        Rect rect = new Rect();
-        view.getHitRect(rect);
-        rect.top -= extraArea;
-        rect.left -= extraArea;
-        rect.right += extraArea;
-        rect.bottom += extraArea;
-        parent.setTouchDelegate(new TouchDelegate(rect, view));
-      }
-    });
+    parent.post(() ->
+                {
+                  Rect rect = new Rect();
+                  view.getHitRect(rect);
+                  rect.top -= extraArea;
+                  rect.left -= extraArea;
+                  rect.right += extraArea;
+                  rect.bottom += extraArea;
+                  parent.setTouchDelegate(new TouchDelegate(rect, view));
+                });
+  }
+
+  public static void expandTouchAreaForView(@NonNull final View view, final int top, final int left,
+                                            final int bottom, final int right)
+  {
+    final View parent = (View) view.getParent();
+    parent.post(() ->
+                {
+                  Rect rect = new Rect();
+                  view.getHitRect(rect);
+                  rect.top -= top;
+                  rect.left -= left;
+                  rect.right += right;
+                  rect.bottom += bottom;
+                  parent.setTouchDelegate(new TouchDelegate(rect, view));
+                });
   }
 
   // utility class
