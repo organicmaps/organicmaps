@@ -396,7 +396,7 @@
 	<!-- Email body -->
 	<string name="subscribe_me_body">最新ニュース、アップデートとプロモーションにすいてまず知りたいです。いつでも購読をキャンセル出来ます。</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.MEは世界の全ての国、全ての都市が載っている最速のオフラインマップ。どこにいてもMAPS.MEの地図上でユーザーの現在地が分かり、付近のレストラン、ホテル、銀行、ガソリンスタンドなどが見つけられるので、自信を持って旅行ができます。インターネット接続は必要ありません。\n\n弊社では常に新機能の開発に取り組んでいるので、MAPS.MEの改善についてユーザーの皆様からのご意見やご感想をお待ちしています。アプリで問題点が見つかった際は、お気軽にsupport\@maps.meまでご連絡ください。どのようなリクエストにでも対応いたします!\n\nMAPS.MEが好きでサポートしていただけますか。シンプルで完全無料の方法がいくつかあります。\n\n- お使いのアプリマーケットでレビューを投稿\n- 弊社のFacebookページで「いいね!」をクリック：http://www.facebook.com/mapswithme\n- MAPS.MEのことをお母様、お友達、同僚の皆様に話す (^_^)\n\n弊社アプリをご利用いただきありがとうございます。皆様からのサポートに大変感謝しております!\n\n追伸：ウィキペディアのようにユーザーによる作成や編集が可能なマッピングプロジェクトOpenStreetMapの地図データを使用しています。地図上で欠けているものや誤りを見つけた場合、http://openstreetmap.orgでユーザーが直接修正ができます。このような変更はMAPS.MEのその後のバージョンリリースの際に反映されます。</string>
+	<string name="about_text">MAPS.MEは世界の全ての国、全ての都市が載っている最速のオフラインマップ。どこにいてもMAPS.MEの地図上でユーザーの現在地が分かり、付近のレストラン、ホテル、銀行、ガソリンスタンドなどが見つけられるので、自信を持って旅行ができます。インターネット接続は必要ありません。\n\n弊社では常に新機能の開発に取り組んでいるので、MAPS.MEの改善についてユーザーの皆様からのご意見やご感想をお待ちしています。アプリで問題点が見つかった際は、お気軽にsupport\@maps.meまでご連絡ください。どのようなリクエストにでも対応いたします!\n\nMAPS.MEが好きでサポートしていただけますか。シンプルで完全無料の方法がいくつかあります。\n\n- お使いのアプリマーケットでレビューを投稿\n- 弊社のFacebookページで「いいね!」をクリック：http://www.facebook.com/mapswithme\n- MAPS.MEのことをお母様、お友達、同僚の皆様に話す (^_^)\n\n弊社アプリをご利用いただきありがとうございます。皆様からのサポートに大変感謝しております!\n\n追伸：ウィキペディアのようにユーザーによる作成や編集が可能なマッピングプロジェクトOpenStreetMapの地図データを使用しています。地図上で欠けているものや誤りを見つけた場合、https://www.openstreetmap.orgでユーザーが直接修正ができます。このような変更はMAPS.MEのその後のバージョンリリースの際に反映されます。</string>
 	<!-- Alert text -->
 	<string name="email_error_body">このメールクライアントはセットアップされていません。設定するか、他の方法で%sにご連絡ください。</string>
 	<!-- Alert title -->
@@ -663,7 +663,7 @@
 	<string name="editor_done_dialog_3">地図を改善したので、友達に教えて一緒に編集しましょう。</string>
 	<string name="share_with_friends">友達にシェア</string>
 	<string name="editor_report_problem_desription_1">OpenStreeMapコミュニティがエラーを修正できるよう、問題の詳細を説明してください。</string>
-	<string name="editor_report_problem_desription_2">または、このURLでご自身で修正してください http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_desription_2">または、このURLでご自身で修正してください https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">送信</string>
 	<string name="editor_report_problem_title">問題</string>
 	<string name="editor_report_problem_no_place_title">この場所は存在しません</string>
@@ -1231,7 +1231,7 @@
 	<string name="bookmarks_places">%s のブックマーク</string>
 	<string name="bookmarks_create_new_group">新しいリストを作成する</string>
 	<string name="downloader_hide_screen">画面を非表示</string>
-	<string name="downloader_percent">%1$s (%2$s / s%%)</string>
+	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>
 	<string name="downloader_process">%s をダウンロードしています...</string>
 	<string name="downloader_applying">%s を適用中です...</string>
 	<string name="transit_not_found">この地域での乗り換え案内はまだご利用いただけません</string>

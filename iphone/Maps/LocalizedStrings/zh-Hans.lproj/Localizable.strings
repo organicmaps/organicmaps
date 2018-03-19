@@ -648,7 +648,7 @@
 "subscribe_me_body" = "我想率先了解最新新闻、更新及促销活动。订阅可随时取消。";
 
 /* About text */
-"about_text" = "MAPS.ME 提供全球所有国家和所有城市的最快速的离线地图。充满自信地出行：无论您在哪，MAPS.ME都能够帮助您在地图上找到您自己的位置，找到最近的餐馆、酒店、银行、加油站，等等。无需网络连接。\n\n我们始终在为添加新功能而努力，并希望能够听到您对我们应如何改进MAPS.ME的想法。若您在使用本应用时遇到任何问题，请随时联系我们：support@maps.me。我们会回复每一条请求！\n\n您喜欢MAPS.ME并希望支持我们吗？以下为一些简单且完全免费的方法：\n\n- 在您的App Market发表评论\n- 在我们的Facebook页面http://www.facebook.com/mapswithme赞我们\n- 或者向您的母亲、朋友，以及同事介绍MAPS.ME :)\n\n感谢您与我们在一起。非常感谢您的支持。\n\n附言：我们从OpenStreetMap获取地图信息，这是一个类似于Wikipedia的地图绘制项目，能够让用户创建并编辑地图。若您看到地图上缺少了什么或者有什么错误，可以直接在http://openstreetmap.org上进行纠正。在下一个版本发布时，您做出的更改便会出现在MAPS.ME应用中。";
+"about_text" = "MAPS.ME 提供全球所有国家和所有城市的最快速的离线地图。充满自信地出行：无论您在哪，MAPS.ME都能够帮助您在地图上找到您自己的位置，找到最近的餐馆、酒店、银行、加油站，等等。无需网络连接。\n\n我们始终在为添加新功能而努力，并希望能够听到您对我们应如何改进MAPS.ME的想法。若您在使用本应用时遇到任何问题，请随时联系我们：support@maps.me。我们会回复每一条请求！\n\n您喜欢MAPS.ME并希望支持我们吗？以下为一些简单且完全免费的方法：\n\n- 在您的App Market发表评论\n- 在我们的Facebook页面http://www.facebook.com/mapswithme赞我们\n- 或者向您的母亲、朋友，以及同事介绍MAPS.ME :)\n\n感谢您与我们在一起。非常感谢您的支持。\n\n附言：我们从OpenStreetMap获取地图信息，这是一个类似于Wikipedia的地图绘制项目，能够让用户创建并编辑地图。若您看到地图上缺少了什么或者有什么错误，可以直接在https://www.openstreetmap.org上进行纠正。在下一个版本发布时，您做出的更改便会出现在MAPS.ME应用中。";
 
 /* Alert text */
 "email_error_body" = "电子邮件客户端尚未建立。请配置或使用任何其他方式与我们联系%@";
@@ -1100,7 +1100,7 @@
 
 "editor_report_problem_desription_1" = "请详细描述此问题以便OpenStreeMap社区能够修复此错误。";
 
-"editor_report_problem_desription_2" = "或者在http://www.openstreetmap.org/上亲自修复此错误。";
+"editor_report_problem_desription_2" = "或者在https://www.openstreetmap.org/上亲自修复此错误。";
 
 "editor_report_problem_send_button" = "发送";
 
@@ -2199,7 +2199,7 @@
 
 "downloader_hide_screen" = "隱藏畫面";
 
-"downloader_percent" = "%s (%s / s%)";
+"downloader_percent" = "%s (%s / %s)";
 
 "downloader_process" = "正在下載 %s...";
 

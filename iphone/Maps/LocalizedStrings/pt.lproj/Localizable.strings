@@ -648,7 +648,7 @@
 "subscribe_me_body" = "Quero ser o(a) primeiro(a) a saber sobre as últimas notícias, actualizações e promoções. Posso cancelar a minha subscrição a qualquer altura.";
 
 /* About text */
-"about_text" = "A MAPS.ME oferece os mapas offline mais rápidos de todas as cidades, de todos os países do mundo. Viaje com plena confiança: onde estiver, a MAPS.ME ajuda a localizar-se no mapa, a encontrar o restaurante, hotel, banco, posto de gasolina, etc. mais próximos. Não requer ligação à Internet.\n\nEstamos sempre a trabalhar em novas funcionalidades e gostaríamos de saber a sua opinião sobre como poderíamos melhorar a MAPS.ME. Se tiver algum problema com a app, não hesite em contactar-nos em support@maps.me. Respondemos a cada pedido!\n\nGosta da MAPS.ME e quer apoiar-nos? Há algumas maneiras simples e absolutamente gratuitas:\n\n- publique um comentário no seu App Market\n- faça \"gosto\" na nossa página do Facebook http://www.facebook.com/mapswithme\n- ou fale da MAPS.ME à sua mãe, amigos e colegas :)\n\nObrigado por estar connosco. Agradecemos imenso o seu apoio!\n\nP. S. Tiramos os dados do OpenStreetMap, um projeto de mapeamento semelhante à Wikipedia, que permite aos utilizadores criarem e editarem mapas. Se vir que algo está em falta ou errado no mapa, pode corrigir diretamente os mapas em http://openstreetmap.org e as suas alterações irão aparecer na app MAPS.ME com o lançamento da próxima versão.";
+"about_text" = "A MAPS.ME oferece os mapas offline mais rápidos de todas as cidades, de todos os países do mundo. Viaje com plena confiança: onde estiver, a MAPS.ME ajuda a localizar-se no mapa, a encontrar o restaurante, hotel, banco, posto de gasolina, etc. mais próximos. Não requer ligação à Internet.\n\nEstamos sempre a trabalhar em novas funcionalidades e gostaríamos de saber a sua opinião sobre como poderíamos melhorar a MAPS.ME. Se tiver algum problema com a app, não hesite em contactar-nos em support@maps.me. Respondemos a cada pedido!\n\nGosta da MAPS.ME e quer apoiar-nos? Há algumas maneiras simples e absolutamente gratuitas:\n\n- publique um comentário no seu App Market\n- faça \"gosto\" na nossa página do Facebook http://www.facebook.com/mapswithme\n- ou fale da MAPS.ME à sua mãe, amigos e colegas :)\n\nObrigado por estar connosco. Agradecemos imenso o seu apoio!\n\nP. S. Tiramos os dados do OpenStreetMap, um projeto de mapeamento semelhante à Wikipedia, que permite aos utilizadores criarem e editarem mapas. Se vir que algo está em falta ou errado no mapa, pode corrigir diretamente os mapas em https://www.openstreetmap.org e as suas alterações irão aparecer na app MAPS.ME com o lançamento da próxima versão.";
 
 /* Alert text */
 "email_error_body" = "O cliente de email não está configurado. Por favor, configure-o ou utilize qualquer outro modo para nos contactar através de %@";
@@ -1100,7 +1100,7 @@
 
 "editor_report_problem_desription_1" = "Por favor, descreva o problema ao pormenor para que a comunidade OpenStreeMap possa corrigir o erro.";
 
-"editor_report_problem_desription_2" = "Ou faça-o sozinho em http://www.openstreetmap.org/";
+"editor_report_problem_desription_2" = "Ou faça-o sozinho em https://www.openstreetmap.org/";
 
 "editor_report_problem_send_button" = "Enviar";
 
@@ -2199,7 +2199,7 @@
 
 "downloader_hide_screen" = "Ocultar ecrã";
 
-"downloader_percent" = "%s (%s de s%)";
+"downloader_percent" = "%s (%s de %s)";
 
 "downloader_process" = "A transferir %s...";
 

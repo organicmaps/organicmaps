@@ -663,7 +663,7 @@
 	<string name="editor_done_dialog_3">Anda telah meningkatkan peta, katakan kepada teman-teman Anda tentang hal ini, dan edit peta bersama.</string>
 	<string name="share_with_friends">Bagikan dengan teman-teman</string>
 	<string name="editor_report_problem_desription_1">Harap menggambarkan masalah secara rinci sehingga komunitas OpenStreeMap dapat memperbaiki kesalahan.</string>
-	<string name="editor_report_problem_desription_2">Atau Anda bisa melakukan sendiri di http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_desription_2">Atau Anda bisa melakukan sendiri di https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Kirim</string>
 	<string name="editor_report_problem_title">Masalah</string>
 	<string name="editor_report_problem_no_place_title">Tempat tidak ada</string>
@@ -1231,7 +1231,7 @@
 	<string name="bookmarks_places">%s markah</string>
 	<string name="bookmarks_create_new_group">Buat daftar baru</string>
 	<string name="downloader_hide_screen">Sembunyikan Layar</string>
-	<string name="downloader_percent">%1$s (%2$s dari s%%)</string>
+	<string name="downloader_percent">%1$s (%2$s dari %3$s)</string>
 	<string name="downloader_process">Mengunduh %s...</string>
 	<string name="downloader_applying">Menerapkan %s...</string>
 	<string name="transit_not_found">Navigasi transit di daerah ini masih belum tersedia</string>

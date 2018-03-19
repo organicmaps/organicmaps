@@ -401,7 +401,7 @@
 	<!-- Email body -->
 	<string name="subscribe_me_body">Jeg vil være den første til at høre om de seneste nyheder opdateringer og tilbud. Jeg kan opsige abonnementet når som helst.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper MAPS.ME med at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre MAPS.ME. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support\@maps.me. Vi besvarer alle henvendelser!\n\nSynes du om MAPS.ME, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/mapswithme\n-neller fortæl din mor, venner og kollegaer om MAPS.ME :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på http://openstreetmap.org, og dine ændringer vil figurere på MAPS.ME-appen i forbindelse med frigivelsen af den næste version.</string>
+	<string name="about_text">MAPS.ME tilbyder de hurtigste offline-kort over alle byer og alle lande i verden. Rejs med tillid: Hvor end du befinder dig, hjælper MAPS.ME med at lokalisere din placering på kortet, finde den nærmeste restaurant, hotel, bank, benzintank og så videre. Det er ikke nødvendigt at have forbindelse til internettet.\n\nVi arbejder altid på nye funktioner, og vi vil meget gerne høre fra dig, hvis du har forslag til, hvordan vi kan forbedre MAPS.ME. Hvis du oplever problemer med appen, er du meget velkommen til at kontakte os på support\@maps.me. Vi besvarer alle henvendelser!\n\nSynes du om MAPS.ME, og har du lyst til at støtte os? Her er nogle simple og helt gratis metoder:\n\n-post en anmeldelse i din App Store\n-like vores facebook-side http://www.facebook.com/mapswithme\n-neller fortæl din mor, venner og kollegaer om MAPS.ME :)\n\nTak fordi du støtter os. Vi sætter stor pris på din støtte!\n\nPS: Vi får vores kortdata fra OpenStreetMap, som er et kortprojekt, der minder om Wikipedia, og som gør brugere i stand til at oprette og rette kort. Hvis du oplever, at noget mangler eller er forkert på kortet, kan du rette kortene direkte på https://www.openstreetmap.org, og dine ændringer vil figurere på MAPS.ME-appen i forbindelse med frigivelsen af den næste version.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Emailklienten er ikke blevet sat op. Venligst konfigurér den eller brug en anden måde til at kontakte os på %s</string>
 	<!-- Alert title -->
@@ -668,7 +668,7 @@
 	<string name="editor_done_dialog_3">Du har forbedret kortet, fortæl dine venner om det og redigér kortet sammen.</string>
 	<string name="share_with_friends">Del med venner</string>
 	<string name="editor_report_problem_desription_1">Beskriv problemet i detaljer, så OpenStreetMap-fællesskabet kan løse fejlen.</string>
-	<string name="editor_report_problem_desription_2">Eller gør det selv på http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_desription_2">Eller gør det selv på https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Send</string>
 	<string name="editor_report_problem_title">Problem</string>
 	<string name="editor_report_problem_no_place_title">Stedet findes ikke</string>
@@ -1236,7 +1236,7 @@
 	<string name="bookmarks_places">%s bogmærker</string>
 	<string name="bookmarks_create_new_group">Opret ny liste</string>
 	<string name="downloader_hide_screen">Skjul skærm</string>
-	<string name="downloader_percent">%1$s (%2$s af s %%)</string>
+	<string name="downloader_percent">%1$s (%2$s af %3$s)</string>
 	<string name="downloader_process">Downloader %s...</string>
 	<string name="downloader_applying">Anvender %s...</string>
 	<string name="transit_not_found">Transitnavigation i denne region er endnu ikke tilgængelig</string>

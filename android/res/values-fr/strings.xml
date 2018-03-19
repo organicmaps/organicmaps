@@ -408,7 +408,7 @@
 	<!-- Email body -->
 	<string name="subscribe_me_body">Informez-moi en priorité des dernières nouvelles, des mises à jour et des promotions. Je peux annuler mon abonnement à tout moment.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME offre les cartes hors ligne les plus rapides de toutes les villes, de tous les pays du monde. Voyagez en toute confiance : où que vous soyez, MAPS.ME permet de vous situer sur la carte, de trouver le restaurant, l\'hôtel, la banque, la station d\'essence, etc. les plus proches. Ceci sans aucune connexion Internet.\n\nNous travaillons toujours sur de nouvelles fonctionnalités et nous aimerions avoir votre avis sur la manière d\'améliorer MAPS.ME. Si vous avez quelque problème avec l\'appli, n\'hésitez pas à nous contacter à support\@maps.me. Nous répondons à toutes les demandes !\n\nVous aimez-vous MAPS.ME et souhaitez nous soutenir ? Il existe des moyens simples et tout à fait gratuits :\n\n- Publier une critique sur votre boutique d\'applis\n- aimez notre page Facebook http://www.facebook.com/mapswithme\n- ou parlez simplement de MAPS.ME à votre maman, à vos amis et à vos collègues :)\n\nNous vous remercions de votre fidélité. Nous apprécions beaucoup votre soutien !\n\nP.S. : nous prenons les données cartographiques d\'OpenStreetMap, un projet de cartographie similaire à Wikipédia, qui permet aux utilisateurs de créer et de modifier des cartes. Si vous voyez une omission ou une erreur sur la carte, vous pouvez corriger les cartes directement sur http://openstreetmap.org, et vos modifications apparaîtront dans l\'appli MAPS.ME lors la prochaine version.</string>
+	<string name="about_text">MAPS.ME offre les cartes hors ligne les plus rapides de toutes les villes, de tous les pays du monde. Voyagez en toute confiance : où que vous soyez, MAPS.ME permet de vous situer sur la carte, de trouver le restaurant, l\'hôtel, la banque, la station d\'essence, etc. les plus proches. Ceci sans aucune connexion Internet.\n\nNous travaillons toujours sur de nouvelles fonctionnalités et nous aimerions avoir votre avis sur la manière d\'améliorer MAPS.ME. Si vous avez quelque problème avec l\'appli, n\'hésitez pas à nous contacter à support\@maps.me. Nous répondons à toutes les demandes !\n\nVous aimez-vous MAPS.ME et souhaitez nous soutenir ? Il existe des moyens simples et tout à fait gratuits :\n\n- Publier une critique sur votre boutique d\'applis\n- aimez notre page Facebook http://www.facebook.com/mapswithme\n- ou parlez simplement de MAPS.ME à votre maman, à vos amis et à vos collègues :)\n\nNous vous remercions de votre fidélité. Nous apprécions beaucoup votre soutien !\n\nP.S. : nous prenons les données cartographiques d\'OpenStreetMap, un projet de cartographie similaire à Wikipédia, qui permet aux utilisateurs de créer et de modifier des cartes. Si vous voyez une omission ou une erreur sur la carte, vous pouvez corriger les cartes directement sur https://www.openstreetmap.org, et vos modifications apparaîtront dans l\'appli MAPS.ME lors la prochaine version.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Le client de courriel n\'a pas été configuré. Veuillez le faire ou employer tout autre moyen pour nous contacter à %s</string>
 	<!-- Alert title -->
@@ -677,7 +677,7 @@
 	<string name="editor_done_dialog_3">Vous avez amélioré la carte, dites-le à vos amis et modifiez la carte ensemble.</string>
 	<string name="share_with_friends">Partagez avec vos amis</string>
 	<string name="editor_report_problem_desription_1">Veuillez décrire le problème en détail pour permettre à la communauté OpenStreeMap de réparer l\'erreur.</string>
-	<string name="editor_report_problem_desription_2">Ou faites-le vous-même à http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_desription_2">Ou faites-le vous-même à https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Envoyer</string>
 	<string name="editor_report_problem_title">Problème</string>
 	<string name="editor_report_problem_no_place_title">Le lieu n\'existe pas</string>
@@ -1245,7 +1245,7 @@
 	<string name="bookmarks_places">%s signets</string>
 	<string name="bookmarks_create_new_group">Créer une nouvelle liste</string>
 	<string name="downloader_hide_screen">Masquer l’écran</string>
-	<string name="downloader_percent">%1$s (%2$s de s%%)</string>
+	<string name="downloader_percent">%1$s (%2$s de %3$s)</string>
 	<string name="downloader_process">Téléchargement de %s...</string>
 	<string name="downloader_applying">Application de %s...</string>
 	<string name="transit_not_found">La navigation en transit dans cette région n’est pas encore disponible</string>

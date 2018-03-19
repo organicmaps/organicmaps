@@ -507,7 +507,7 @@
 	<string name="editor_done_dialog_2">Αυτή είναι η δεύτερη φορά που επεξεργαστήκατε το χάρτη. Είστε πλέον %d στην κατάταξη των επεξεργαστών του χάρτη. Πείτε το στους φίλους σας.</string>
 	<string name="share_with_friends">Μοιραστείτε με φίλους</string>
 	<string name="editor_report_problem_desription_1">Περιγράψτε το πρόβλημα αναλυτικά ώστε η Κοινότητα OpenStreeMap να διορθώσει το σφάλμα.</string>
-	<string name="editor_report_problem_desription_2">Ή κάντε το μόνοι σας στη διεύθυνση http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_desription_2">Ή κάντε το μόνοι σας στη διεύθυνση https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Αποστολή</string>
 	<string name="editor_report_problem_title">Πρόβλημα</string>
 	<string name="editor_report_problem_no_place_title">Η τοποθεσία δεν υπάρχει</string>
@@ -996,7 +996,7 @@
 	<string name="bookmarks_places">%s αγαπημένα</string>
 	<string name="bookmarks_create_new_group">Δημιουργία νέας λίστας</string>
 	<string name="downloader_hide_screen">Απόκρυψη οθόνης</string>
-	<string name="downloader_percent">%1$s (%2$s από s%%)</string>
+	<string name="downloader_percent">%1$s (%2$s από %3$s)</string>
 	<string name="downloader_process">Λήψη %s...</string>
 	<string name="downloader_applying">Εφαρμογή %s...</string>
 	<string name="transit_not_found">Η πλοήγηση διαμετακόμισης στην περιοχή αυτή δεν είναι ακόμα διαθέσιμη</string>

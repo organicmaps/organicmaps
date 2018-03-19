@@ -407,7 +407,7 @@
 	<!-- Email body -->
 	<string name="subscribe_me_body">我想搶先了解最新新聞、更新和促銷活動。我可以隨時取消我的訂閱。</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME 提供全球所有國家和所有城市的最快速的離線地圖。充滿自信地出行：無論您在哪，MAPS.ME都能夠幫助您在地圖上找到您自己的位置，找到最近的餐館、酒店、銀行、加油站，等等。無需網路連接。 我們始終在為增加新功能而努力，並希望能夠聽到您對我們應如何改進 MAPS.ME 的想法。若您在使用本應用程式時遇到任何問題，請隨時聯繫我們：support\@maps.me。我們會回覆每一條請求！\n\n您喜歡 MAPS.ME 並想支持我們嗎？以下為一些簡單且完全免費的方法：\n- 在您的應用程式商店上發表評論\n- 在我們的 Facebook 頁面 http://www.facebook.com/mapswithme 上按讚\n- 或者向您的母親、朋友，以及同事介紹 MAPS.ME :)\n\n感謝您與我們在一起。非常感謝您的支持。\n\nP.S.：我們從 OpenStreetMap 獲得地圖資訊，這是一個類似維基百科的地圖繪製專案，能夠讓使用者建立並編輯編輯地圖。若您看到地圖上缺少了什麽或者有什麽錯誤，可以直接在 http://openstreetmap.org 上進行糾正。在下一個版本發佈時，您做出的更改便會出現在 MAPS.ME 應用程式中。</string>
+	<string name="about_text">MAPS.ME 提供全球所有國家和所有城市的最快速的離線地圖。充滿自信地出行：無論您在哪，MAPS.ME都能夠幫助您在地圖上找到您自己的位置，找到最近的餐館、酒店、銀行、加油站，等等。無需網路連接。 我們始終在為增加新功能而努力，並希望能夠聽到您對我們應如何改進 MAPS.ME 的想法。若您在使用本應用程式時遇到任何問題，請隨時聯繫我們：support\@maps.me。我們會回覆每一條請求！\n\n您喜歡 MAPS.ME 並想支持我們嗎？以下為一些簡單且完全免費的方法：\n- 在您的應用程式商店上發表評論\n- 在我們的 Facebook 頁面 http://www.facebook.com/mapswithme 上按讚\n- 或者向您的母親、朋友，以及同事介紹 MAPS.ME :)\n\n感謝您與我們在一起。非常感謝您的支持。\n\nP.S.：我們從 OpenStreetMap 獲得地圖資訊，這是一個類似維基百科的地圖繪製專案，能夠讓使用者建立並編輯編輯地圖。若您看到地圖上缺少了什麽或者有什麽錯誤，可以直接在 https://www.openstreetmap.org 上進行糾正。在下一個版本發佈時，您做出的更改便會出現在 MAPS.ME 應用程式中。</string>
 	<!-- Alert text -->
 	<string name="email_error_body">電子郵件客戶端尚未建立。請設定或使用任何其他方式與我們聯絡%s</string>
 	<!-- Alert title -->
@@ -674,7 +674,7 @@
 	<string name="editor_done_dialog_3">您已改進此地圖，請把它告訴您的朋友們，並一起編輯此地圖。</string>
 	<string name="share_with_friends">和朋友分享</string>
 	<string name="editor_report_problem_desription_1">請詳細描述此問題以便 OpenStreeMap 社群修復此錯誤。</string>
-	<string name="editor_report_problem_desription_2">或者在http://www.openstreetmap.org/上親自修復此錯誤</string>
+	<string name="editor_report_problem_desription_2">或者在https://www.openstreetmap.org/上親自修復此錯誤</string>
 	<string name="editor_report_problem_send_button">發送</string>
 	<string name="editor_report_problem_title">問題</string>
 	<string name="editor_report_problem_no_place_title">該地點不存在</string>

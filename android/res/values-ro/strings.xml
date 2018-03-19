@@ -395,7 +395,7 @@
 	<!-- Email body -->
 	<string name="subscribe_me_body">Vreau să fiu primul care află despre cele mai recente actualizări și promoții. Îmi pot anula abonamentul în orice moment.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME oferă cele mai rapide hărți offline ale tuturor orașelor, tuturor țărilor din lume. Călătoriți cu încredere deplină: oriunde v-ați afla, MAPS.ME vă ajută să vă reperați poziția pe hartă, să găsiți cel mai apropiat restaurant sau hotel, cea mai apropiată bancă sau benzinărie etc. Nu necesită conexiune la internet.\n\nLucrăm încontinuu să introducem funcții noi și ne-ar face mare plăcere să ne comunicați cum credeți dvs. că am putea îmbunătăți MAPS.ME. Dacă aveți probleme cu aplicația, nu ezitați să ne contactați la adresa support\@maps.me. Răspundem la fiecare solicitare!\n\nVă place MAPS.ME și doriți să ne susțineți? Iată câteva moduri simple și complet gratuite:\n- publicați o recenzie în magazinul de aplicații\n- apreciați-ne pagina de Facebook: http://www.facebook.com/mapswithme\n- sau spuneți și mamei, prietenilor și colegilor despre MAPS.ME. :)\n\nVă mulțumim că ne sunteți alături. Vă apreciem foarte mult susținerea!\n\nP.S. Noi preluăm datele din OpenStreetMap, un proiect de cartografiere similar Wikipediei, ce permite utilizatorilor să creeze și să editeze hărți. Dacă vedeți că ceva lipsește sau este greșit pe hartă, puteți corecta hărțile direct la adresa: http://openstreetmap.org, iar modificările dvs. vor apărea în aplicația MAPS.ME atunci când va fi lansată versiunea următoare.</string>
+	<string name="about_text">MAPS.ME oferă cele mai rapide hărți offline ale tuturor orașelor, tuturor țărilor din lume. Călătoriți cu încredere deplină: oriunde v-ați afla, MAPS.ME vă ajută să vă reperați poziția pe hartă, să găsiți cel mai apropiat restaurant sau hotel, cea mai apropiată bancă sau benzinărie etc. Nu necesită conexiune la internet.\n\nLucrăm încontinuu să introducem funcții noi și ne-ar face mare plăcere să ne comunicați cum credeți dvs. că am putea îmbunătăți MAPS.ME. Dacă aveți probleme cu aplicația, nu ezitați să ne contactați la adresa support\@maps.me. Răspundem la fiecare solicitare!\n\nVă place MAPS.ME și doriți să ne susțineți? Iată câteva moduri simple și complet gratuite:\n- publicați o recenzie în magazinul de aplicații\n- apreciați-ne pagina de Facebook: http://www.facebook.com/mapswithme\n- sau spuneți și mamei, prietenilor și colegilor despre MAPS.ME. :)\n\nVă mulțumim că ne sunteți alături. Vă apreciem foarte mult susținerea!\n\nP.S. Noi preluăm datele din OpenStreetMap, un proiect de cartografiere similar Wikipediei, ce permite utilizatorilor să creeze și să editeze hărți. Dacă vedeți că ceva lipsește sau este greșit pe hartă, puteți corecta hărțile direct la adresa: https://www.openstreetmap.org, iar modificările dvs. vor apărea în aplicația MAPS.ME atunci când va fi lansată versiunea următoare.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Nu a fost setat clientul de email. Vă rugăm să o configurați sau să utilizați un alt mod de a ne contacta la %s.</string>
 	<!-- Alert title -->
@@ -661,7 +661,7 @@
 	<string name="editor_done_dialog_3">Ați modificat harta, spuneți prietenilor dvs. despre aceasta și modificați-o împreună.</string>
 	<string name="share_with_friends">Partajează cu prietenii</string>
 	<string name="editor_report_problem_desription_1">Vă rugăm să descrieți problema în detaliu, astfel încât comunitatea OpenStreeMap să poată remedia eroarea.</string>
-	<string name="editor_report_problem_desription_2">Sau faceți-o pe http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_desription_2">Sau faceți-o pe https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Trimiteți</string>
 	<string name="editor_report_problem_title">Problemă</string>
 	<string name="editor_report_problem_no_place_title">Această locație nu există</string>
@@ -1228,7 +1228,7 @@
 	<string name="bookmarks_places">%s semne de carte</string>
 	<string name="bookmarks_create_new_group">Creați o listă nouă</string>
 	<string name="downloader_hide_screen">Ascundere ecran</string>
-	<string name="downloader_percent">%1$s (%2$s din s%%)</string>
+	<string name="downloader_percent">%1$s (%2$s din %3$s)</string>
 	<string name="downloader_process">Descărcare %s...</string>
 	<string name="downloader_applying">Aplicare %s...</string>
 	<string name="transit_not_found">Navigarea în tranzit prin această regiune nu este disponibilă încă</string>

@@ -397,7 +397,7 @@
 	<!-- Email body -->
 	<string name="subscribe_me_body">Liittäkää minut MAPS.ME -uutiskirjeen tilaajaksi saadakseni ensimmäisenä tietoa uusista päivityksistä ja TARJOUKSISTA. Voin peruuttaa tilaukseni koska tahansa.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME tarjoaa nopeimmat offline-kartat kaikista kaupungeista, kaikissa maissa ympäri maailman. Matkusta luottavaisin mielin - missä ikinä oletkin, MAPS.ME auttaa sinua löytämään itsesi kartalta, ohjaamaan sinut lähimpään ravintolaan, hotelliin, pankkiin, huoltoasemalle jne. Internet-yhteyttä ei tarvita.\n\nTyöskentelemme jatkuvasti uusien ominaisuuksien parissa, ja haluammekin kuulla sinulta kuinka voimme parantaa MAPS.me -sovellusta entisestään. Mikäli sinulla on ongelmia sovelluksen kanssa, älä epäröi ottaa yhteyttä asiakaspalveluumme osoitteessa support\@maps.me. Vastaamme jokaiseen yhteydenottoon!\n\nTykkäätkö MAPS.ME -sovelluksesta ja haluat tukea meitä? Siihen on muutamia helppoja ja täysin ilmaisia tapoja:\n\n- lisää sovellusarviosi käyttämääsi sovelluskauppaan\n - tykkää Facebook-sivustamme osoitteessa http://www.facebook.com/mapswithme\n- kerro MAPS.me:stä äidillesi, ystävillesi ja kollegoillesi :)\n\nKiitos sovelluksen käytöstä. Arvostamme tukeasi todella paljon!\n\nP.S. Kaikki tiedot noudetaan OpenStreetMap-palvelusta, joka on Wikipedian kaltainen karttaprojekti, jossa kuka tahansa voi lisätä ja muokata karttoja. Mikäli havaitset kartoissa virheitä ja puutteita, voit korjata ne osoitteessa http://openstreetmap.org, ja muutokset näkyvät sovelluksessa seuraavan MAPS.ME -päivityksen jälkeen.</string>
+	<string name="about_text">MAPS.ME tarjoaa nopeimmat offline-kartat kaikista kaupungeista, kaikissa maissa ympäri maailman. Matkusta luottavaisin mielin - missä ikinä oletkin, MAPS.ME auttaa sinua löytämään itsesi kartalta, ohjaamaan sinut lähimpään ravintolaan, hotelliin, pankkiin, huoltoasemalle jne. Internet-yhteyttä ei tarvita.\n\nTyöskentelemme jatkuvasti uusien ominaisuuksien parissa, ja haluammekin kuulla sinulta kuinka voimme parantaa MAPS.me -sovellusta entisestään. Mikäli sinulla on ongelmia sovelluksen kanssa, älä epäröi ottaa yhteyttä asiakaspalveluumme osoitteessa support\@maps.me. Vastaamme jokaiseen yhteydenottoon!\n\nTykkäätkö MAPS.ME -sovelluksesta ja haluat tukea meitä? Siihen on muutamia helppoja ja täysin ilmaisia tapoja:\n\n- lisää sovellusarviosi käyttämääsi sovelluskauppaan\n - tykkää Facebook-sivustamme osoitteessa http://www.facebook.com/mapswithme\n- kerro MAPS.me:stä äidillesi, ystävillesi ja kollegoillesi :)\n\nKiitos sovelluksen käytöstä. Arvostamme tukeasi todella paljon!\n\nP.S. Kaikki tiedot noudetaan OpenStreetMap-palvelusta, joka on Wikipedian kaltainen karttaprojekti, jossa kuka tahansa voi lisätä ja muokata karttoja. Mikäli havaitset kartoissa virheitä ja puutteita, voit korjata ne osoitteessa https://www.openstreetmap.org, ja muutokset näkyvät sovelluksessa seuraavan MAPS.ME -päivityksen jälkeen.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Sähköpostisovellusta ei ole asetettu. Ole hyvä ja määritä sähköpostiasetukset tai ota meihin yhteyttä toista kautta osoitteessa %s</string>
 	<!-- Alert title -->
@@ -664,7 +664,7 @@
 	<string name="editor_done_dialog_3">Olet parantanut karttaa, kerro siitä ystävillesi ja muokatkaa karttaa yhdessä.</string>
 	<string name="share_with_friends">Jaa kavereille</string>
 	<string name="editor_report_problem_desription_1">Kuvaile ongelmaa yksityiskohtaisesti, jotta OpenStreetMap-yhteisö voi korjata vian.</string>
-	<string name="editor_report_problem_desription_2">Tai tee se itse osoitteessa http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_desription_2">Tai tee se itse osoitteessa https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Lähetä</string>
 	<string name="editor_report_problem_title">Ongelma</string>
 	<string name="editor_report_problem_no_place_title">Paikkaa ei ole olemassa</string>
@@ -1232,7 +1232,7 @@
 	<string name="bookmarks_places">%s kirjanmerkkiä</string>
 	<string name="bookmarks_create_new_group">Luo uusi luettelo</string>
 	<string name="downloader_hide_screen">Piilota näyttö</string>
-	<string name="downloader_percent">%1$s (s%% / %2$s)</string>
+	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>
 	<string name="downloader_process">Ladataan %s...</string>
 	<string name="downloader_applying">%s otetaan käyttöön...</string>
 	<string name="transit_not_found">Navigointi kohteiden välillä ei ole vielä käytettävissä tällä alueella</string>

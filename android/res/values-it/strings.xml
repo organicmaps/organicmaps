@@ -396,7 +396,7 @@
 	<!-- Email body -->
 	<string name="subscribe_me_body">Voglio essere tra i primi a sapere delle ultime novità aggiornamenti e promozioni. Potrò annullare l\'iscrizione in ogni momento.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME offre le più veloci mappe offline di tutte le città, di tutti i paesi del mondo. Viaggia con piena fiducia: ovunque ti trovi, MAPS.ME ti aiuta a localizzarti sulla mappa, trovare ristoranti, hotel, banche, distributori di benzina ecc.., e non richiede la connessione a internet.\n\nLavoriamo sempre su nuove funzionalità e ci piacerebbe sapere da te in cosa potremmo migliorare MAPS.ME. Se avessi problemi con l\'app, non esitare a contattarci a support\@maps.me. Rispondiamo ad ogni richiesta!\n\nTi piace MAPS.ME e vuoi sostenerci? Ci sono alcuni modi semplici e assolutamente gratuiti:\n\n- Invia una recensione al tuo App Market\n- Metti mi piace sulla nostra pagina di Facebook http://www.facebook.com/mapswithme\n- O semplicemente fai pubblicità a MAPS.ME con la tua mamma, i tuoi amici e colleghi :)\n\nGrazie per essere stato con noi. Apprezziamo molto il tuo supporto!\n\nP.S. Prendiamo i dati delle mappe da OpenStreetMap, un progetto di mappatura simile a Wikipedia, che permette agli utenti di creare e modificare le mappe. Se vedi che manca qualcosa o se c\'è qualcosa di sbagliato sulla mappa, puoi correggere le mappe direttamente su http://openstreetmap.org, e le modifiche appariranno nella prossima versione dell\'app MAPS.ME.</string>
+	<string name="about_text">MAPS.ME offre le più veloci mappe offline di tutte le città, di tutti i paesi del mondo. Viaggia con piena fiducia: ovunque ti trovi, MAPS.ME ti aiuta a localizzarti sulla mappa, trovare ristoranti, hotel, banche, distributori di benzina ecc.., e non richiede la connessione a internet.\n\nLavoriamo sempre su nuove funzionalità e ci piacerebbe sapere da te in cosa potremmo migliorare MAPS.ME. Se avessi problemi con l\'app, non esitare a contattarci a support\@maps.me. Rispondiamo ad ogni richiesta!\n\nTi piace MAPS.ME e vuoi sostenerci? Ci sono alcuni modi semplici e assolutamente gratuiti:\n\n- Invia una recensione al tuo App Market\n- Metti mi piace sulla nostra pagina di Facebook http://www.facebook.com/mapswithme\n- O semplicemente fai pubblicità a MAPS.ME con la tua mamma, i tuoi amici e colleghi :)\n\nGrazie per essere stato con noi. Apprezziamo molto il tuo supporto!\n\nP.S. Prendiamo i dati delle mappe da OpenStreetMap, un progetto di mappatura simile a Wikipedia, che permette agli utenti di creare e modificare le mappe. Se vedi che manca qualcosa o se c\'è qualcosa di sbagliato sulla mappa, puoi correggere le mappe direttamente su https://www.openstreetmap.org, e le modifiche appariranno nella prossima versione dell\'app MAPS.ME.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Il client email non è stato configurato. Si prega di configurarlo o di usare qualsiasi altro metodo per contattarci all\'indirizzo %s</string>
 	<!-- Alert title -->
@@ -663,7 +663,7 @@
 	<string name="editor_done_dialog_3">Hai migliorato la mappa. Dillo ai tuoi amici e modificate la mappa insieme.</string>
 	<string name="share_with_friends">Condividi con gli amici</string>
 	<string name="editor_report_problem_desription_1">Si prega di descrivere il problema in dettaglio in modo che la community OpenStreeMap possa riparare l’errore.</string>
-	<string name="editor_report_problem_desription_2">O fallo tu stesso su http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_desription_2">O fallo tu stesso su https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Invia</string>
 	<string name="editor_report_problem_title">Problema</string>
 	<string name="editor_report_problem_no_place_title">Questo luogo non esiste</string>
@@ -1231,7 +1231,7 @@
 	<string name="bookmarks_places">%s preferiti</string>
 	<string name="bookmarks_create_new_group">Crea una nuova lista</string>
 	<string name="downloader_hide_screen">Nascondi schermata</string>
-	<string name="downloader_percent">%1$s (%2$s di s%%)</string>
+	<string name="downloader_percent">%1$s (%2$s di %3$s)</string>
 	<string name="downloader_process">Download di %s...</string>
 	<string name="downloader_applying">Applicazione di %s...</string>
 	<string name="transit_not_found">La navigazione in transito in questa regione non è ancora disponibile</string>

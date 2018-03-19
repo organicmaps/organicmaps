@@ -403,7 +403,7 @@
 	<!-- Email body -->
 	<string name="subscribe_me_body">Jag vill bli först att veta om de senaste uppdateringarna och erbjudandena. Jag kan avbryta min prenumeration när som helst.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME erbjuder de snabbaste offline-kartorna över alla städer och länder i hela världen. Res med förtroende: oavsett var du är hjälper MAPS.ME dig att placera dig på kartan, hitta den närmaste restaurangen, hotellet, banken, bensinstationen m.m. Den kräver inte internetanslutning.\n\nVi arbetar ständigt med nya funktioner och vill gärna veta hur du tycker att vi kan förbättra MAPS.ME. Ifall du har problem med appen, tveka inte att kontakta oss på support\@maps.me. Vi svarar på alla mail!\n\nGillar du MAPS.ME och vill hjälpa oss? Det finns några enkla och kostnadsfria sätt:\n\n- posta en recension på din Appmarknad\n- gilla vår Facebooksida http://www.facebook.com/mapswithme\n- eller berätta bara om MAPS.ME för din mamma, vänner eller kollegor :)\n\nTack för att du är med oss. Vi uppskattar ditt stöd väldigt mycket!\n\nP.S. Vi använder oss av kartdata från OpenStreetMap, ett kartprojket som liknar Wikipedia och som tillåter användare att skapa och redigera kartor. Ifall du ser något som saknas eller är fel på kartan så kan du korrigera kartan direkt på http://openstreetmap.org och dina ändringar kommer att finns i MAPS.ME appen när nästa version släpps.</string>
+	<string name="about_text">MAPS.ME erbjuder de snabbaste offline-kartorna över alla städer och länder i hela världen. Res med förtroende: oavsett var du är hjälper MAPS.ME dig att placera dig på kartan, hitta den närmaste restaurangen, hotellet, banken, bensinstationen m.m. Den kräver inte internetanslutning.\n\nVi arbetar ständigt med nya funktioner och vill gärna veta hur du tycker att vi kan förbättra MAPS.ME. Ifall du har problem med appen, tveka inte att kontakta oss på support\@maps.me. Vi svarar på alla mail!\n\nGillar du MAPS.ME och vill hjälpa oss? Det finns några enkla och kostnadsfria sätt:\n\n- posta en recension på din Appmarknad\n- gilla vår Facebooksida http://www.facebook.com/mapswithme\n- eller berätta bara om MAPS.ME för din mamma, vänner eller kollegor :)\n\nTack för att du är med oss. Vi uppskattar ditt stöd väldigt mycket!\n\nP.S. Vi använder oss av kartdata från OpenStreetMap, ett kartprojket som liknar Wikipedia och som tillåter användare att skapa och redigera kartor. Ifall du ser något som saknas eller är fel på kartan så kan du korrigera kartan direkt på https://www.openstreetmap.org och dina ändringar kommer att finns i MAPS.ME appen när nästa version släpps.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Emailklienten har inte konfigurerats. Konfigurera den eller använd ett annat sätt att kontakta oss på %s</string>
 	<!-- Alert title -->
@@ -668,7 +668,7 @@
 	<string name="editor_done_dialog_3">Du har förbättrat kartan, berätta för dina vänner om det och redigera kartan tillsammans.</string>
 	<string name="share_with_friends">Dela med vänner</string>
 	<string name="editor_report_problem_desription_1">Beskriv problemet i detalj så att OpenStreeMaps community kan lösa felet.</string>
-	<string name="editor_report_problem_desription_2">Eller gör det själv på http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_desription_2">Eller gör det själv på https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Skicka</string>
 	<string name="editor_report_problem_title">Problem</string>
 	<string name="editor_report_problem_no_place_title">Platsen existerar inte</string>
@@ -1236,7 +1236,7 @@
 	<string name="bookmarks_places">%s bokmärken</string>
 	<string name="bookmarks_create_new_group">Skapa ny lista</string>
 	<string name="downloader_hide_screen">Dölj skärm</string>
-	<string name="downloader_percent">%1$s (%2$s av s%%)</string>
+	<string name="downloader_percent">%1$s (%2$s av %3$s)</string>
 	<string name="downloader_process">Ladda ned %s...</string>
 	<string name="downloader_applying">Tillämpar %s...</string>
 	<string name="transit_not_found">Transitnavigering är inte tillgängligt i den här regionen ännu</string>

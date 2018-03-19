@@ -390,7 +390,7 @@
 	<!-- Email body -->
 	<string name="subscribe_me_body">Quiero ser el primero en conocer las últimas noticias actualizaciones y promociones. Puedo cancelar mi suscripción en cualquier momento.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME ofrece los mapas sin conexión más rápidos de todas las ciudades y todos los países del mundo. Viaja con plena confianza: estés donde estés, MAPS.ME te ayuda a ubicarte en el mapa, encontrar el restaurante, hotel, banco o gasolinera más próximo, etc. No requiere conexión a Internet.\n\nTrabajamos continuamente en el desarrollo de nuevas funcionalidades y nos encantaría conocer tu opinión sobre cómo podríamos mejorar MAPS.ME. Si tienes cualquier problema con la aplicación, no dudes en contactar con nosotros en support\@maps.me. ¡Respondemos a todas las solicitudes!\n\n¿Te gusta MAPS.ME y quieres apoyarnos? Estas son algunas formas simples y totalmente gratis:\n\n- Publica una opinión en tu App Market\n- Dale a me gusta a nuestra página de Facebook http://www.facebook.com/mapswithme\n- O simplemente habla sobre MAPS.ME a tu madre, amigos y colegas :)\n\nGracias por estar a nuestro lado. ¡Agradecemos mucho tu apoyo!\n\nPD: obtenemos datos de los mapas de OpenStreetMap, un proyecto de mapeo similar a Wikipedia, que permite a los usuarios crear y editar mapas. Si crees que falta algo o hay cualquier error en el mapa, puedes corregir los mapas directamente en http://openstreetmap.org y los cambios aparecerán en la aplicación MAPS.ME en el próximo lanzamiento de la versión.</string>
+	<string name="about_text">MAPS.ME ofrece los mapas sin conexión más rápidos de todas las ciudades y todos los países del mundo. Viaja con plena confianza: estés donde estés, MAPS.ME te ayuda a ubicarte en el mapa, encontrar el restaurante, hotel, banco o gasolinera más próximo, etc. No requiere conexión a Internet.\n\nTrabajamos continuamente en el desarrollo de nuevas funcionalidades y nos encantaría conocer tu opinión sobre cómo podríamos mejorar MAPS.ME. Si tienes cualquier problema con la aplicación, no dudes en contactar con nosotros en support\@maps.me. ¡Respondemos a todas las solicitudes!\n\n¿Te gusta MAPS.ME y quieres apoyarnos? Estas son algunas formas simples y totalmente gratis:\n\n- Publica una opinión en tu App Market\n- Dale a me gusta a nuestra página de Facebook http://www.facebook.com/mapswithme\n- O simplemente habla sobre MAPS.ME a tu madre, amigos y colegas :)\n\nGracias por estar a nuestro lado. ¡Agradecemos mucho tu apoyo!\n\nPD: obtenemos datos de los mapas de OpenStreetMap, un proyecto de mapeo similar a Wikipedia, que permite a los usuarios crear y editar mapas. Si crees que falta algo o hay cualquier error en el mapa, puedes corregir los mapas directamente en https://www.openstreetmap.org y los cambios aparecerán en la aplicación MAPS.ME en el próximo lanzamiento de la versión.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">No se ha configurado el cliente de correo electrónico. Por favor, configúralo o utiliza alguna otra forma de ponerte en contacto con nosotros en %s</string>
 	<!-- Alert title -->
@@ -657,7 +657,7 @@
 	<string name="editor_done_dialog_3">Has mejorado el mapa: cuéntaselo a tus amigos y editadlo juntos.</string>
 	<string name="share_with_friends">Compartir con amigos</string>
 	<string name="editor_report_problem_desription_1">Por favor, describe el problema en detalle para que la comunidad de OpenStreeMap pueda corregir el error.</string>
-	<string name="editor_report_problem_desription_2">O hazlo tú mismo en http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_desription_2">O hazlo tú mismo en https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Enviar</string>
 	<string name="editor_report_problem_title">Problema</string>
 	<string name="editor_report_problem_no_place_title">El lugar no existe</string>
@@ -1225,7 +1225,7 @@
 	<string name="bookmarks_places">%s marcadores</string>
 	<string name="bookmarks_create_new_group">Crear nueva lista</string>
 	<string name="downloader_hide_screen">Ocultar pantalla</string>
-	<string name="downloader_percent">%1$s (%2$s de s%%)</string>
+	<string name="downloader_percent">%1$s (%2$s de %3$s)</string>
 	<string name="downloader_process">Descargando %s...</string>
 	<string name="downloader_applying">Aplicando %s...</string>
 	<string name="transit_not_found">La navegación de tránsito aún no está disponible en esta región</string>

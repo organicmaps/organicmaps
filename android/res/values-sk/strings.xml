@@ -402,7 +402,7 @@
 	<!-- Email body -->
 	<string name="subscribe_me_body">Chcem sa vždy ako prvý dozvedať o najnovších správach, aktualizáciách a akčných ponukách. Svoje prihlásenie k odberu môžem kedykoľvek zrušiť.</string>
 	<!-- About text -->
-	<string name="about_text">MAPS.ME ponúka najrýchlejšie offline mapy všetkých miest a krajín po celom svete. Cestujte s úplnou dôverou: kdekoľvek ste, MAPS.ME vám pomôže sa nájsť na mape, nájsť najbližšiu reštauráciu, hotel, banku, benzínovú pumpu atď. Nevyžaduje pripojenie k internetu.\n\nNeustále pracujeme na nových funkciách a radi by sme počuli váš názor, ako môžeme vylepšiť MAPS.ME. Pokiaľ máte s touto aplikáciou akékoľvek problémy, tak nás neváhajte kontaktovať na support\@maps.me. Odpovedáme na každú požiadavku!\n\nPáči sa vám MAPS.ME a chceli by ste nás podporiť? Existuje niekoľko ľahkých spôsobov celkom zadarmo:\n\n-napíšte recenziu vo svojom obchode s aplikáciami\n-označte našu stránku http://www.facebook.com/mapswithme pomocou Páči sa mi to\n- alebo len povedzte o MAPS.ME svojej mame, priateľom a kolegom :)\n\nĎakujeme, že ste s nami. Veľmi oceňujeme vašu podporu!\n\nP.S. Mapové dáta získavame z OpenStreetMaps, čo je mapový projekt podobný Wikipédii, ktorý umožňuje užívateľom vytvárať a upravovať mapy. Pokiaľ zistíte, že na mape niečo chýba alebo je nesprávné, môžete to opraviť priamo na http://openstreetmap.org, a vaše zmeny sa objavia v budúcej verzii MAPS.ME.</string>
+	<string name="about_text">MAPS.ME ponúka najrýchlejšie offline mapy všetkých miest a krajín po celom svete. Cestujte s úplnou dôverou: kdekoľvek ste, MAPS.ME vám pomôže sa nájsť na mape, nájsť najbližšiu reštauráciu, hotel, banku, benzínovú pumpu atď. Nevyžaduje pripojenie k internetu.\n\nNeustále pracujeme na nových funkciách a radi by sme počuli váš názor, ako môžeme vylepšiť MAPS.ME. Pokiaľ máte s touto aplikáciou akékoľvek problémy, tak nás neváhajte kontaktovať na support\@maps.me. Odpovedáme na každú požiadavku!\n\nPáči sa vám MAPS.ME a chceli by ste nás podporiť? Existuje niekoľko ľahkých spôsobov celkom zadarmo:\n\n-napíšte recenziu vo svojom obchode s aplikáciami\n-označte našu stránku http://www.facebook.com/mapswithme pomocou Páči sa mi to\n- alebo len povedzte o MAPS.ME svojej mame, priateľom a kolegom :)\n\nĎakujeme, že ste s nami. Veľmi oceňujeme vašu podporu!\n\nP.S. Mapové dáta získavame z OpenStreetMaps, čo je mapový projekt podobný Wikipédii, ktorý umožňuje užívateľom vytvárať a upravovať mapy. Pokiaľ zistíte, že na mape niečo chýba alebo je nesprávné, môžete to opraviť priamo na https://www.openstreetmap.org, a vaše zmeny sa objavia v budúcej verzii MAPS.ME.</string>
 	<!-- Alert text -->
 	<string name="email_error_body">Emailový klient nebol nastavený. Nakonfigurujte ho prosím alebo použite iný spôsob k tomu, abyste nás kontaktovali na %s</string>
 	<!-- Alert title -->
@@ -667,7 +667,7 @@
 	<string name="editor_done_dialog_3">Práve ste vylepšili mapu. Povedzte o tom svojim priateľom a môžete mapu upraviť aj spolu.</string>
 	<string name="share_with_friends">Zdieľaj s priateľmi</string>
 	<string name="editor_report_problem_desription_1">Prosím, pridajte detailný popis problému, aby mohla komunita OpenStreetMap opraviť danú chybu.</string>
-	<string name="editor_report_problem_desription_2">K oprave môžete prispieť aj vy na stránke http://www.openstreetmap.org/</string>
+	<string name="editor_report_problem_desription_2">K oprave môžete prispieť aj vy na stránke https://www.openstreetmap.org/</string>
 	<string name="editor_report_problem_send_button">Odoslať</string>
 	<string name="editor_report_problem_title">Problém</string>
 	<string name="editor_report_problem_no_place_title">Dané miesto neexistuje</string>
@@ -1235,7 +1235,7 @@
 	<string name="bookmarks_places">%s záložiek</string>
 	<string name="bookmarks_create_new_group">Vytvoriť nový zoznam</string>
 	<string name="downloader_hide_screen">Skryť obrazovku</string>
-	<string name="downloader_percent">%1$s (%2$s s %%)</string>
+	<string name="downloader_percent">%1$s (%2$s z %3$s)</string>
 	<string name="downloader_process">Sťahovanie %s...</string>
 	<string name="downloader_applying">Použitie %s...</string>
 	<string name="transit_not_found">Tranzitná navigácia v tomto regióne zatiaľ nie je k dispozícii</string>

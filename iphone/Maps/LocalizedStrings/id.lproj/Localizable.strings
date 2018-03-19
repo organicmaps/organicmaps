@@ -1100,7 +1100,7 @@
 
 "editor_report_problem_desription_1" = "Harap menggambarkan masalah secara rinci sehingga komunitas OpenStreeMap dapat memperbaiki kesalahan.";
 
-"editor_report_problem_desription_2" = "Atau Anda bisa melakukan sendiri di http://www.openstreetmap.org/";
+"editor_report_problem_desription_2" = "Atau Anda bisa melakukan sendiri di https://www.openstreetmap.org/";
 
 "editor_report_problem_send_button" = "Kirim";
 
@@ -2199,7 +2199,7 @@
 
 "downloader_hide_screen" = "Sembunyikan Layar";
 
-"downloader_percent" = "%s (%s dari s%)";
+"downloader_percent" = "%s (%s dari %s)";
 
 "downloader_process" = "Mengunduh %s...";
 
