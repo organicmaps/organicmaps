@@ -60,6 +60,20 @@ UNIT_TEST(EditorConfig_TypeDescription)
     my::SortUnique(fields);
     TEST_EQUAL(desc.GetEditableFields(), fields, ());
   }
+  {
+    // Testing type inheritance
+    editor::TypeAggregatedDescription desc;
+    TEST(config.GetTypeDescription({"amenity-place_of_worship-christian"}, desc), ());
+    TEST(desc.IsNameEditable(), ());
+    TEST_EQUAL(desc.GetEditableFields(), poi, ());
+  }
+  {
+    // Testing long type inheritance on a fake object
+    editor::TypeAggregatedDescription desc;
+    TEST(config.GetTypeDescription({"tourism-artwork-impresionism-monet"}, desc), ());
+    TEST(desc.IsNameEditable(), ());
+    TEST_EQUAL(desc.GetEditableFields(), TFields {}, ());
+  }
   // TODO(mgsergio): Test case with priority="high" when there is one on editor.config.
 }
 

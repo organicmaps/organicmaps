@@ -119,6 +119,7 @@ bool EditorConfig::GetTypeDescription(vector<string> classificatorTypes,
                                       TypeAggregatedDescription & outDesc) const
 {
   bool isBuilding = false;
+  vector<string> addTypes;
   for (auto it = classificatorTypes.begin(); it != classificatorTypes.end(); ++it)
   {
     if (*it == "building")
@@ -129,7 +130,14 @@ bool EditorConfig::GetTypeDescription(vector<string> classificatorTypes,
       classificatorTypes.erase(it);
       break;
     }
+    // Adding partial types for 2..N-1 parts of a N-part type.
+    auto hyphenPos = it->find('-');
+    while ((hyphenPos = it->find('-', hyphenPos+1)) != string::npos)
+    {
+      addTypes.push_back(it->substr(0, hyphenPos));
+    }
   }
+  classificatorTypes.insert(classificatorTypes.end(), addTypes.begin(), addTypes.end());
 
   auto const typeNodes = GetPrioritizedTypes(m_document);
   auto const it = find_if(begin(typeNodes), end(typeNodes),
