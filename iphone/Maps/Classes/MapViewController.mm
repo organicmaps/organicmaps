@@ -23,6 +23,8 @@
 
 #include "drape_frontend/user_event_stream.hpp"
 
+#import <Crashlytics/Crashlytics.h>
+
 // If you have a "missing header error" here, then please run configure.sh script in the root repo
 // folder.
 #import "../../../private.h"
@@ -445,6 +447,16 @@ BOOL gIsFirstMyPositionMode = YES;
 
 - (void)processCountryEvent:(TCountryId const &)countryId
 {
+  if (countryId.empty())
+  {
+#ifdef OMIM_PRODUCTION
+    auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain code:1
+                      userInfo:@{@"Description" : @"attempt to get info from empty countryId"}];
+    [[Crashlytics sharedInstance] recordError:err];
+#endif
+    return;
+  }
+
   NodeStatuses nodeStatuses{};
   GetFramework().GetStorage().GetNodeStatuses(countryId, nodeStatuses);
   if (nodeStatuses.m_status != NodeStatus::Error)
