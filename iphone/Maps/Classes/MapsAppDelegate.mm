@@ -381,9 +381,7 @@ using namespace osm_auth_ios;
 - (void)runBackgroundTasks:(NSArray<BackgroundFetchTask *> * _Nonnull)tasks
          completionHandler:(void (^_Nullable)(UIBackgroundFetchResult))completionHandler
 {
-  __weak auto wSelf = self;
   auto completion = ^(UIBackgroundFetchResult result) {
-    wSelf.backgroundFetchScheduler = nil;
     if (completionHandler)
       completionHandler(result);
   };
