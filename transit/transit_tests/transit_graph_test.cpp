@@ -515,7 +515,7 @@ void SerializeAndDeserializeGraph(GraphData & src, GraphData & dst)
 
   MemReader reader(buffer.data(), buffer.size());
   dst.DeserializeAll(reader);
-  TEST(dst.IsValid(), ());
+  dst.CheckValid();
 }
 
 //                       ^

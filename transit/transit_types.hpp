@@ -5,7 +5,6 @@
 #include "geometry/point2d.hpp"
 
 #include "base/newtype.hpp"
-#include "base/stl_add.hpp"
 #include "base/visitor.hpp"
 
 #include <algorithm>
@@ -465,15 +464,31 @@ private:
 };
 
 template <class Item>
-bool IsValid(std::vector<Item> const & items)
+void CheckValid(std::vector<Item> const & items, std::string const & name)
 {
-  return std::all_of(items.cbegin(), items.cend(), [](Item const & item) { return item.IsValid(); });
+  for (auto const & i :items)
+    CHECK(i.IsValid(), (i, "is not valid. Table name:", name));
 }
 
 template <class Item>
-bool IsValidSortedUnique(std::vector<Item> const & items)
+void CheckSorted(std::vector<Item> const & items, std::string const & name)
 {
-  return IsValid(items) && IsSortedAndUnique(items.cbegin(), items.cend());
+  CHECK(std::is_sorted(items.cend(), items.cend()), ("Table is not sorted. Table name:", name));
+}
+
+template <class Item>
+void CheckUnique(std::vector<Item> const & items, std::string const & name)
+{
+  auto const it = std::adjacent_find(items.cbegin(), items.cend());
+  CHECK(it == items.cend(), (*it, "is not unique. Table name:", name));
+}
+
+template <class Item>
+void CheckValidSortedUnique(std::vector<Item> const & items, std::string const & name)
+{
+  CheckValid(items, name);
+  CheckSorted(items, name);
+  CheckUnique(items, name);
 }
 
 EdgeFlags GetEdgeFlags(bool transfer, StopId stopId1, StopId stopId2,

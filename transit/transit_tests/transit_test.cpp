@@ -86,16 +86,13 @@ UNIT_TEST(Transit_HeaderRewriting)
 
 namespace
 {
-UNIT_TEST(Transit_IsValidSortedUnique)
+UNIT_TEST(Transit_CheckValidSortedUnique)
 {
   vector<Network> const networks = {Network(1 /* id */, "Title 1"), Network(2 /* id */, "Title 2")};
-  TEST(IsValidSortedUnique(networks), ());
+  CheckValidSortedUnique(networks, "networks");
 
-  vector<Stop> const stops(5);
-  TEST(!IsValidSortedUnique(stops), ());
-
-  vector<ShapeId> const shapeIds = {ShapeId(1, 2), ShapeId(1, 2)};
-  TEST(!IsValidSortedUnique(shapeIds), ());
+  vector<ShapeId> const shapeIds = {ShapeId(1, 2), ShapeId(1, 3)};
+  CheckValidSortedUnique(shapeIds, "shapeIds");
 }
 
 UNIT_TEST(Transit_HeaderSerialization)

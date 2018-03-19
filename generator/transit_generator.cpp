@@ -176,13 +176,13 @@ void ProcessGraph(string const & mwmPath, TCountryId const & countryId,
 {
   CalculateBestPedestrianSegments(mwmPath, countryId, data);
   data.Sort();
-  CHECK(data.IsValid(), (mwmPath));
+  data.CheckValid();
 }
 
 void BuildTransit(string const & mwmDir, TCountryId const & countryId,
                   string const & osmIdToFeatureIdsPath, string const & transitDir)
 {
-  LOG(LINFO, ("Building transit section for", countryId));
+  LOG(LINFO, ("Building transit section for", countryId, "mwmDir:", mwmDir));
   Platform::FilesList graphFiles;
   Platform::GetFilesByExt(my::AddSlashIfNeeded(transitDir), TRANSIT_FILE_EXTENSION, graphFiles);
 
@@ -207,7 +207,7 @@ void BuildTransit(string const & mwmDir, TCountryId const & countryId,
     return; // Empty transit section.
 
   ProcessGraph(mwmPath, countryId, mapping, jointData);
-  CHECK(jointData.IsValid(), (mwmPath, countryId));
+  jointData.CheckValid();
 
   FilesContainerW cont(mwmPath, FileWriter::OP_WRITE_EXISTING);
   FileWriter writer = cont.GetWriter(TRANSIT_FILE_TAG);

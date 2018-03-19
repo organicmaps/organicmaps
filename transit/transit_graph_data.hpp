@@ -134,7 +134,7 @@ public:
   void DeserializeForCrossMwm(Reader & reader);
   void AppendTo(GraphData const & rhs);
   void Clear();
-  bool IsValid() const;
+  void CheckValid() const;
   bool IsEmpty() const;
 
   /// \brief Sorts all class fields by their ids.
@@ -159,9 +159,6 @@ private:
                                   visitor(m_edges, "edges"), visitor(m_transfers, "transfers"),
                                   visitor(m_lines, "lines"), visitor(m_shapes, "shapes"),
                                   visitor(m_networks, "networks"))
-
-  bool IsUnique() const;
-  bool IsSorted() const;
 
   /// \brief Clipping |m_lines| with |borders|.
   /// \details After a call of the method the following stop ids in |m_lines| are left:
