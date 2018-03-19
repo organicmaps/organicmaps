@@ -4,7 +4,6 @@
 
 #include <cstdint>
 #include <chrono>
-#include <ctime>
 #include <map>
 #include <sstream>
 #include <vector>
@@ -70,34 +69,4 @@ double constexpr kMaxLineWidth = 100.0;
 #define VISITOR_COLLECTABLE visitor(m_collectionIndex, "collectionIndex")
 
 #define SKIP_VISITING(Type) void operator()(Type, char const * = nullptr) {}
-
-inline std::string DebugPrint(LocalizableString const & str)
-{
-  std::ostringstream os;
-  os << "[";
-  for (auto it = str.cbegin(); it != str.end();)
-  {
-    os << static_cast<uint32_t>(it->first) << ": " << it->second;
-    ++it;
-    if (it != str.end())
-      os << ", ";
-  }
-  os << "]";
-  return os.str();
-}
-
-inline std::string DebugPrint(Timestamp const & ts)
-{
-  auto t = std::chrono::system_clock::to_time_t(ts);
-  return std::ctime(&t);
-}
-
-inline std::string DebugPrint(m2::PointD const & pt)
-{
-  std::ostringstream os;
-  os << "[" << pt.x << ", " << pt.y << "]";
-  return os.str();
-}
 }  // namespace kml
-
-using kml::DebugPrint;

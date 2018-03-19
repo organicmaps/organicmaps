@@ -13,6 +13,9 @@
 
 #include "indexer/scales.hpp"
 
+#include "kml/serdes.hpp"
+#include "kml/serdes_binary.hpp"
+
 #include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/hex.hpp"
@@ -30,7 +33,10 @@
 #include "3party/Alohalytics/src/alohalytics.h"
 
 #include <algorithm>
+#include <ctime>
 #include <fstream>
+#include <iomanip>
+#include <sstream>
 
 using namespace std::placeholders;
 
@@ -39,6 +45,7 @@ namespace
 char const * BOOKMARK_CATEGORY = "LastBookmarkCategory";
 char const * BOOKMARK_TYPE = "LastBookmarkType";
 char const * KMZ_EXTENSION = ".kmz";
+char const * kBookmarksExt = ".kmb";
 
 // Returns extension with a dot in a lower case.
 std::string const GetFileExt(std::string const & filePath)
@@ -53,6 +60,11 @@ std::string const GetFileName(std::string const & filePath)
   std::string ret = filePath;
   my::GetNameFromFullPath(ret);
   return ret;
+}
+
+std::string GetBookmarksDirectory()
+{
+  return my::JoinPath(GetPlatform().SettingsDir(), "bookmarks");
 }
 
 bool IsBadCharForPath(strings::UniChar const & c)
@@ -99,6 +111,203 @@ public:
   m2::PointD m_globalCenter;
 };
 }  // namespace
+
+namespace migration
+{
+std::string const kSettingsParam = "BookmarksMigrationCompleted";
+
+std::string GetBackupFolderName()
+{
+  return my::JoinPath(GetPlatform().SettingsDir(), "bookmarks_backup");
+}
+
+std::string CheckAndCreateBackupFolder()
+{
+  auto const commonBackupFolder = GetBackupFolderName();
+  using Clock = std::chrono::system_clock;
+  auto const ts = Clock::to_time_t(Clock::now());
+  tm * t = gmtime(&ts);
+  std::ostringstream ss;
+  ss << std::setfill('0') << std::setw(4) << t->tm_year + 1900
+     << std::setw(2) << t->tm_mon + 1 << std::setw(2) << t->tm_mday;
+  auto const backupFolder = my::JoinPath(commonBackupFolder, ss.str());
+
+  // In the case if the folder exists, try to resume.
+  if (GetPlatform().IsFileExistsByFullPath(backupFolder))
+    return backupFolder;
+
+  // The backup will be in new folder.
+  GetPlatform().RmDirRecursively(commonBackupFolder);
+  if (!GetPlatform().MkDirChecked(commonBackupFolder))
+    return {};
+  if (!GetPlatform().MkDirChecked(backupFolder))
+    return {};
+
+  return backupFolder;
+}
+
+bool BackupBookmarks(std::string const & backupDir,
+                     std::vector<std::string> const & files)
+{
+  for (auto const & f : files)
+  {
+    std::string fileName = f;
+    my::GetNameFromFullPath(fileName);
+    my::GetNameWithoutExt(fileName);
+    auto const kmzPath = my::JoinPath(backupDir, fileName + KMZ_EXTENSION);
+    if (GetPlatform().IsFileExistsByFullPath(kmzPath))
+      continue;
+
+    if (!CreateZipFromPathDeflatedAndDefaultCompression(f, kmzPath))
+      return false;
+  }
+  return true;
+}
+
+bool ConvertBookmarks(std::vector<std::string> const & files,
+                      size_t & convertedCount)
+{
+  convertedCount = 0;
+
+  auto const conversionFolder = my::JoinPath(GetBackupFolderName(),
+                                             "conversion");
+  if (!GetPlatform().IsFileExistsByFullPath(conversionFolder) &&
+      !GetPlatform().MkDirChecked(conversionFolder))
+  {
+    return false;
+  }
+
+  // Convert all files to kmb.
+  std::vector<std::string> convertedFiles;
+  convertedFiles.reserve(files.size());
+  for (auto const & f : files)
+  {
+    std::string fileName = f;
+    my::GetNameFromFullPath(fileName);
+    my::GetNameWithoutExt(fileName);
+    auto const kmbPath = my::JoinPath(conversionFolder, fileName + kBookmarksExt);
+    if (!GetPlatform().IsFileExistsByFullPath(kmbPath))
+    {
+      kml::CategoryData kmlData;
+      try
+      {
+        kml::DeserializerKml des(kmlData);
+        FileReader reader(f);
+        des.Deserialize(reader);
+      }
+      catch (FileReader::Exception const &exc)
+      {
+        LOG(LDEBUG, ("KML text deserialization failure: ", exc.what(), "file", f));
+        continue;
+      }
+
+      try
+      {
+        kml::binary::SerializerKml ser(kmlData);
+        FileWriter writer(kmbPath);
+        ser.Serialize(writer);
+      }
+      catch (FileWriter::Exception const &exc)
+      {
+        my::DeleteFileX(kmbPath);
+        LOG(LDEBUG, ("KML binary serialization failure: ", exc.what(), "file", f));
+        continue;
+      }
+    }
+    convertedFiles.push_back(kmbPath);
+  }
+  convertedCount = convertedFiles.size();
+
+  auto const newBookmarksDir = GetBookmarksDirectory();
+  if (!GetPlatform().IsFileExistsByFullPath(newBookmarksDir) &&
+      !GetPlatform().MkDirChecked(newBookmarksDir))
+  {
+    return false;
+  }
+
+  // Move converted bookmark-files with respect of existing files.
+  for (auto const & f : convertedFiles)
+  {
+    std::string fileName = f;
+    my::GetNameFromFullPath(fileName);
+    my::GetNameWithoutExt(fileName);
+    auto kmbPath = my::JoinPath(newBookmarksDir, fileName + kBookmarksExt);
+    size_t counter = 1;
+    while (Platform::IsFileExistsByFullPath(kmbPath))
+    {
+      kmbPath = my::JoinPath(newBookmarksDir,
+        fileName + strings::to_string(counter++) + kBookmarksExt);
+    }
+
+    if (!my::RenameFileX(f, kmbPath))
+      return false;
+  }
+  GetPlatform().RmDirRecursively(conversionFolder);
+
+  return true;
+}
+
+void OnMigrationSuccess(size_t originalCount, size_t convertedCount)
+{
+  settings::Set(kSettingsParam, true /* is completed */);
+  alohalytics::TStringMap details{
+    {"original_count", strings::to_string(originalCount)},
+    {"converted_count", strings::to_string(convertedCount)}};
+  alohalytics::Stats::Instance().LogEvent("Bookmarks_migration_success", details);
+}
+
+void OnMigrationFailure(std::string && failedStage)
+{
+  alohalytics::TStringMap details{
+    {"stage", std::move(failedStage)},
+    {"free_space", strings::to_string(GetPlatform().GetWritableStorageSpace())}};
+  alohalytics::Stats::Instance().LogEvent("Bookmarks_migration_failure", details);
+}
+
+void MigrateIfNeeded()
+{
+  bool isCompleted;
+  if (!settings::Get(kSettingsParam, isCompleted))
+    isCompleted = false;
+  if (isCompleted)
+    return;
+
+  GetPlatform().RunTask(Platform::Thread::File, []()
+  {
+    std::string const dir = GetPlatform().SettingsDir();
+    Platform::FilesList files;
+    Platform::GetFilesByExt(dir, BOOKMARKS_FILE_EXTENSION, files);
+    if (files.empty())
+    {
+      auto const newBookmarksDir = GetBookmarksDirectory();
+      if (!GetPlatform().IsFileExistsByFullPath(newBookmarksDir))
+        UNUSED_VALUE(GetPlatform().MkDirChecked(newBookmarksDir));
+      OnMigrationSuccess(0 /* originalCount */, 0 /* convertedCount */);
+      return;
+    }
+
+    std::string failedStage;
+    auto const backupDir = CheckAndCreateBackupFolder();
+    if (backupDir.empty() || !BackupBookmarks(backupDir, files))
+    {
+      OnMigrationFailure("backup");
+      return;
+    }
+
+    size_t convertedCount;
+    if (!ConvertBookmarks(files, convertedCount))
+    {
+      OnMigrationFailure("conversion");
+      return;
+    }
+
+    //TODO(@darina): Uncomment after KMB integration.
+    //for (auto const & f : files)
+    //  my::DeleteFileX(f);
+    OnMigrationSuccess(files.size(), convertedCount);
+  });
+}
+}  // namespace migration
 
 BookmarkManager::BookmarkManager(Callbacks && callbacks)
   : m_callbacks(std::move(callbacks))
@@ -526,6 +735,7 @@ void BookmarkManager::LoadBookmarks()
   m_loadBookmarksFinished = false;
 
   NotifyAboutStartAsyncLoading();
+  migration::MigrateIfNeeded();
   GetPlatform().RunTask(Platform::Thread::File, [this]()
   {
     std::string const dir = GetPlatform().SettingsDir();

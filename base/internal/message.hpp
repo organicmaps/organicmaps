@@ -1,6 +1,8 @@
 #pragma once
 
 #include <array>
+#include <chrono>
+#include <ctime>
 #include <deque>
 #include <functional>
 #include <initializer_list>
@@ -62,6 +64,12 @@ inline std::string DebugPrint(signed char t)
 inline std::string DebugPrint(unsigned char t)
 {
   return DebugPrint(static_cast<unsigned int>(t));
+}
+
+inline std::string DebugPrint(std::chrono::time_point<std::chrono::system_clock> const & ts)
+{
+  auto t = std::chrono::system_clock::to_time_t(ts);
+  return std::ctime(&t);
 }
 
 template <typename U, typename V> inline std::string DebugPrint(std::pair<U,V> const & p)
