@@ -26,7 +26,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   @Nullable
   private RecyclerClickListener mClickListener;
   @Nullable
-  private OnAddCategoryListener mOnAddCategoryListener;
+  private CategoryListInterface mCategoryListInterface;
 
   BookmarkCategoriesAdapter(@NonNull Context context)
   {
@@ -43,9 +43,9 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     mLongClickListener = listener;
   }
 
-  void setOnAddCategoryListener(@Nullable OnAddCategoryListener listener)
+  void setCategoryListInterface(@Nullable CategoryListInterface listener)
   {
-    mOnAddCategoryListener = listener;
+    mCategoryListInterface = listener;
   }
 
   @Override
@@ -69,8 +69,8 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
       createListView.setOnClickListener
           (v ->
            {
-             if (mOnAddCategoryListener != null)
-               mOnAddCategoryListener.onAddCategory();
+             if (mCategoryListInterface != null)
+               mCategoryListInterface.onAddCategory();
            });
       return new Holders.GeneralViewHolder(createListView);
     }
@@ -105,7 +105,9 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
 
     CategoryViewHolder categoryHolder = (CategoryViewHolder) holder;
     final BookmarkManager bmManager = BookmarkManager.INSTANCE;
-    final long catId = getCategoryIdByPosition(position - 1);
+    // The header "Hide All" is located at first index, so subsctraction is needed.
+    final int categoryPosition = position - 1;
+    final long catId = getCategoryIdByPosition(categoryPosition);
     categoryHolder.setName(bmManager.getCategoryName(catId));
     categoryHolder.setSize(bmManager.getCategorySize(catId));
     categoryHolder.setVisibilityState(bmManager.isVisible(catId));
@@ -116,7 +118,8 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
           categoryHolder.setVisibilityState(bmManager.isVisible(catId));
         });
     categoryHolder.setMoreListener(v -> {
-      Toast.makeText(getContext(), "Coming soon", Toast.LENGTH_SHORT).show();
+      if (mCategoryListInterface != null)
+        mCategoryListInterface.onMoreOperationClick(categoryPosition);
     });
   }
 
@@ -141,8 +144,9 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     return count > 0 ? count + 2 /* header + add category btn */ : 0;
   }
 
-  interface OnAddCategoryListener
+  interface CategoryListInterface
   {
     void onAddCategory();
+    void onMoreOperationClick(int position);
   }
 }

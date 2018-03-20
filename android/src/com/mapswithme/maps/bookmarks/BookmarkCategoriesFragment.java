@@ -31,7 +31,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
                RecyclerClickListener,
                RecyclerLongClickListener,
                BookmarkManager.BookmarksLoadingListener,
-               BookmarkCategoriesAdapter.OnAddCategoryListener
+               BookmarkCategoriesAdapter.CategoryListInterface
 {
   private long mSelectedCatId;
   @Nullable
@@ -73,7 +73,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     {
       getAdapter().setOnClickListener(this);
       getAdapter().setOnLongClickListener(this);
-      getAdapter().setOnAddCategoryListener(this);
+      getAdapter().setCategoryListInterface(this);
       getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
       {
         @Override
@@ -189,6 +189,11 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   @Override
   public void onLongItemClick(View v, int position)
   {
+    showBottomMenu(position);
+  }
+
+  private void showBottomMenu(int position)
+  {
     final BookmarkManager bmManager = BookmarkManager.INSTANCE;
     mSelectedCatId = bmManager.getCategoryIdByPosition(position);
 
@@ -203,6 +208,12 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     show.setTitle(isVisible ? R.string.hide
                             : R.string.show);
     bs.tint().show();
+  }
+
+  @Override
+  public void onMoreOperationClick(int position)
+  {
+    showBottomMenu(position);
   }
 
   @Override
