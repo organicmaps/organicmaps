@@ -30,7 +30,6 @@ import com.mapswithme.util.statistics.Statistics;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_CANCEL;
@@ -50,7 +49,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
   private static final String ARG_UPDATE_IMMEDIATELY = "arg_update_immediately";
   private static final String ARG_TOTAL_SIZE = "arg_total_size";
-  private static final String ARG_TOTAL_SIZE_MB = "arg_total_size_mb";
+  private static final String ARG_TOTAL_SIZE_BYTES = "arg_total_size_bytes";
   private static final String ARG_OUTDATED_MAPS = "arg_outdated_maps";
 
   private TextView mTitle;
@@ -63,10 +62,9 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   private View mFrameBtn;
   private TextView mHideBtn;
 
-  private int mListenerSlot = 0;
   @Nullable
   private String mTotalSize;
-  private long mTotalSizeMb;
+  private long mTotalSizeBytes;
   private boolean mAutoUpdate;
   @Nullable
   private String[] mOutdatedMaps;
@@ -105,10 +103,29 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   @NonNull
   private final View.OnClickListener mCancelClickListener = (View v) ->
   {
-    Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_CANCEL, mTotalSizeMb);
+    Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_CANCEL,
+                                                   mTotalSizeBytes / Constants.MB);
 
     MapManager.nativeCancel(CountryItem.getRootId());
-    finish();
+    final UpdateInfo info = MapManager.nativeGetUpdateInfo(CountryItem.getRootId());
+    if (info == null)
+    {
+      finish();
+      return;
+    }
+
+    mAutoUpdate = false;
+    mTotalSize = StringUtils.getFileSizeString(info.totalSize);
+    mTotalSizeBytes = info.totalSize;
+    mOutdatedMaps = Framework.nativeGetOutdatedCountries();
+
+    if (mStorageCallback != null)
+      mStorageCallback.detach();
+
+    mStorageCallback = new DetachableStorageCallback(this, mLeftoverMaps, mOutdatedMaps);
+    mStorageCallback.attach(this);
+
+    initViews();
   };
 
   @NonNull
@@ -121,15 +138,16 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
         @Override
         public void run()
         {
+          mAutoUpdate = true;
           mTitle.setText(getString(R.string.whats_new_auto_update_updating_maps));
-          mCommonStatus.setText("");
-          setProgress(0, 0, mTotalSizeMb);
+          setProgress(0, 0, mTotalSizeBytes);
+          setCommonStatus(mProcessedMapId, mCommonStatusResId);
           MapManager.nativeUpdate(CountryItem.getRootId());
           UiUtils.show(mProgressBar, mInfo, mFrameBtn, mHideBtn);
           UiUtils.hide(mUpdateBtn, mLaterBtn);
 
           Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_MANUAL_DOWNLOAD,
-                                                         mTotalSizeMb);
+                                                         mTotalSizeBytes / Constants.MB);
         }
       });
 
@@ -140,13 +158,12 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     if (fm.isDestroyed())
       return false;
 
-    final UpdateInfo info = MapManager.nativeGetUpdateInfo(null);
+    final UpdateInfo info = MapManager.nativeGetUpdateInfo(CountryItem.getRootId());
     if (info == null)
       return false;
 
     @Framework.DoAfterUpdate final int result;
 
-    final long size = info.totalSize / Constants.MB;
     Fragment f = fm.findFragmentByTag(UpdaterDialogFragment.class.getName());
     if (f != null)
     {
@@ -159,13 +176,14 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
       if (result == Framework.DO_AFTER_UPDATE_MIGRATE || result == Framework.DO_AFTER_UPDATE_NOTHING)
         return false;
 
-      Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_SHOW, size);
+      Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_SHOW,
+                                                     info.totalSize / Constants.MB);
     }
 
     final Bundle args = new Bundle();
     args.putBoolean(ARG_UPDATE_IMMEDIATELY, result == Framework.DO_AFTER_UPDATE_AUTO_UPDATE);
     args.putString(ARG_TOTAL_SIZE, StringUtils.getFileSizeString(info.totalSize));
-    args.putLong(ARG_TOTAL_SIZE_MB, size);
+    args.putLong(ARG_TOTAL_SIZE_BYTES, info.totalSize);
     args.putStringArray(ARG_OUTDATED_MAPS, Framework.nativeGetOutdatedCountries());
 
     final UpdaterDialogFragment fragment = new UpdaterDialogFragment();
@@ -194,8 +212,15 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
       mLeftoverMaps = (HashSet<String>) savedInstanceState.getSerializable(EXTRA_LEFTOVER_MAPS);
       mProcessedMapId = savedInstanceState.getString(EXTRA_PROCESSED_MAP_ID);
       mCommonStatusResId = savedInstanceState.getInt(EXTRA_COMMON_STATUS_RES_ID);
+      mAutoUpdate = savedInstanceState.getBoolean(ARG_UPDATE_IMMEDIATELY);
+      mTotalSize = savedInstanceState.getString(ARG_TOTAL_SIZE);
+      mTotalSizeBytes = savedInstanceState.getLong(ARG_TOTAL_SIZE_BYTES, 0L);
+      mOutdatedMaps = savedInstanceState.getStringArray(ARG_OUTDATED_MAPS);
     }
-    readArguments();
+    else
+    {
+      readArguments();
+    }
     mStorageCallback = new DetachableStorageCallback(this, mLeftoverMaps, mOutdatedMaps);
   }
 
@@ -206,6 +231,10 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     outState.putSerializable(EXTRA_LEFTOVER_MAPS, mLeftoverMaps);
     outState.putString(EXTRA_PROCESSED_MAP_ID, mProcessedMapId);
     outState.putInt(EXTRA_COMMON_STATUS_RES_ID, mCommonStatusResId);
+    outState.putBoolean(ARG_UPDATE_IMMEDIATELY, mAutoUpdate);
+    outState.putString(ARG_TOTAL_SIZE, mTotalSize);
+    outState.putLong(ARG_TOTAL_SIZE_BYTES, mTotalSizeBytes);
+    outState.putStringArray(ARG_OUTDATED_MAPS, mOutdatedMaps);
   }
 
   @NonNull
@@ -247,7 +276,6 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     // The storage callback must be non-null at this point.
     //noinspection ConstantConditions
     mStorageCallback.attach(this);
-    mListenerSlot = MapManager.nativeSubscribe(mStorageCallback);
 
     if (mAutoUpdate && !MapManager.nativeIsDownloading())
     {
@@ -258,7 +286,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
         {
           MapManager.nativeUpdate(CountryItem.getRootId());
           Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_DOWNLOAD,
-                                                         mTotalSizeMb);
+                                                         mTotalSizeBytes / Constants.MB);
         }
       });
     }
@@ -276,11 +304,6 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   @Override
   public void onDestroy()
   {
-    if (mListenerSlot != 0)
-    {
-      MapManager.nativeUnsubscribe(mListenerSlot);
-      mListenerSlot = 0;
-    }
     super.onDestroy();
   }
 
@@ -307,7 +330,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
       mAutoUpdate = true;
 
     mTotalSize = args.getString(ARG_TOTAL_SIZE);
-    mTotalSizeMb = args.getLong(ARG_TOTAL_SIZE_MB, 0L);
+    mTotalSizeBytes = args.getLong(ARG_TOTAL_SIZE_BYTES, 0L);
     mOutdatedMaps = args.getStringArray(ARG_OUTDATED_MAPS);
     if (mLeftoverMaps == null && mOutdatedMaps != null && mOutdatedMaps.length > 0)
     {
@@ -332,10 +355,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     if (mAutoUpdate)
     {
       int progress = MapManager.nativeGetOverallProgress(mOutdatedMaps);
-      setProgress(progress, mTotalSizeMb * progress / 100, mTotalSizeMb);
-
-      if (mProcessedMapId != null)
-        setCommonStatus(mProcessedMapId, mCommonStatusResId);
+      setProgress(progress, mTotalSizeBytes * progress / 100, mTotalSizeBytes);
+      setCommonStatus(mProcessedMapId, mCommonStatusResId);
     }
   }
 
@@ -348,7 +369,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   String getRelativeStatusFormatted(int progress, long localSize, long remoteSize)
   {
     return getString(R.string.downloader_percent, progress + "%",
-                     localSize + getString(R.string.mb), remoteSize + getString(R.string.mb));
+                     localSize / Constants.MB + getString(R.string.mb),
+                     StringUtils.getFileSizeString(remoteSize));
   }
 
   void setProgress(int progress, long localSize, long remoteSize)
@@ -357,8 +379,11 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     mRelativeStatus.setText(getRelativeStatusFormatted(progress, localSize, remoteSize));
   }
 
-  void setCommonStatus(@NonNull String mwmId, @StringRes int mwmStatusResId)
+  void setCommonStatus(@Nullable String mwmId, @StringRes int mwmStatusResId)
   {
+    if (mwmId == null || mwmStatusResId == 0)
+      return;
+
     mProcessedMapId = mwmId;
     mCommonStatusResId = mwmStatusResId;
 
@@ -373,6 +398,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     private final Set<String> mLeftoverMaps;
     @Nullable
     private final String[] mOutdatedMaps;
+    private int mListenerSlot = 0;
 
     DetachableStorageCallback(@Nullable UpdaterDialogFragment fragment,
                               @Nullable Set<String> leftoverMaps,
@@ -419,10 +445,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
         }
       }
 
-      if (mwmId != null && mwmStatusResId != 0 && mFragment != null)
-      {
+      if (mFragment != null)
         mFragment.setCommonStatus(mwmId, mwmStatusResId);
-      }
 
       if (mFragment != null && mFragment.isAdded() && mFragment.isAllUpdated())
         mFragment.finish();
@@ -447,7 +471,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
         default:
           text = String.valueOf(item.errorCode);
       }
-      Statistics.INSTANCE.trackDownloaderDialogError(mFragment.mTotalSizeMb, text);
+      Statistics.INSTANCE.trackDownloaderDialogError(mFragment.mTotalSizeBytes / Constants.MB,
+                                                     text);
       MapManager.showErrorDialog(mFragment.getActivity(), item, new Utils.Proc<Boolean>()
       {
         @Override
@@ -483,18 +508,22 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
       CountryItem root = new CountryItem(CountryItem.getRootId());
       MapManager.nativeGetAttributes(root);
 
-      mFragment.setProgress(progress, root.downloadedBytes / Constants.MB,
-                            root.bytesToDownload / Constants.MB);
+      mFragment.setProgress(progress, root.downloadedBytes, root.bytesToDownload);
     }
 
     void attach(@NonNull UpdaterDialogFragment fragment)
     {
       mFragment = fragment;
+      mListenerSlot = MapManager.nativeSubscribe(this);
     }
 
     void detach()
     {
+      if (mFragment == null)
+        throw new AssertionError("detach() should be called after attach() and only once");
+
       mFragment = null;
+      MapManager.nativeUnsubscribe(mListenerSlot);
     }
   }
 }

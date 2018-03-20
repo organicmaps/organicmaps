@@ -107,7 +107,7 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
-            android:text="@string/downloader_percent"/>
+            tools:text="@string/downloader_percent"/>
           <TextView
             android:id="@+id/common_status"
             android:layout_width="match_parent"
@@ -117,7 +117,7 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
-            android:text="@string/downloader_process"/>
+            tools:text="@string/downloader_process"/>
         </LinearLayout>
       </FrameLayout>
     </LinearLayout>
