@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -27,16 +28,17 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
   public static final String EXTRA_HINT = "Hint";
 
   private String mTitle;
+  @Nullable
   private String mInitialText;
   private String mHint;
   private EditText mEtInput;
 
   public interface OnTextSaveListener
   {
-    void onSaveText(String text);
+    void onSaveText(@Nullable String initialText, @Nullable String text);
   }
 
-  public static void show(String title, String initialText, String positiveBtn, String negativeBtn, Fragment parent)
+  public static void show(String title, @Nullable String initialText, String positiveBtn, String negativeBtn, Fragment parent)
   {
     show(title, initialText, "", positiveBtn, negativeBtn, parent);
   }
@@ -84,13 +86,13 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
                               if (parentFragment instanceof OnTextSaveListener)
                               {
                                 dismiss();
-                                ((OnTextSaveListener) parentFragment).onSaveText(result);
+                                ((OnTextSaveListener) parentFragment).onSaveText(mInitialText, result);
                                 return;
                               }
 
                               final Activity activity = getActivity();
                               if (activity instanceof OnTextSaveListener)
-                                ((OnTextSaveListener) activity).onSaveText(result);
+                                ((OnTextSaveListener) activity).onSaveText(mInitialText, result);
                             }
                           }).create();
   }

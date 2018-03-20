@@ -75,7 +75,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
   }
 
   @Override
-  public void onSaveText(String text)
+  public void onSaveText(@Nullable String initialText, @Nullable String text)
   {
     createCategory(text);
   }

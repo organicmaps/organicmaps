@@ -7,6 +7,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -148,9 +149,20 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  public void onSaveText(String text)
+  public void onSaveText(@Nullable String initialText, @Nullable String text)
   {
-    BookmarkManager.INSTANCE.setCategoryName(mSelectedCatId, text);
+    if (TextUtils.isEmpty(text))
+    {
+      // TODO: translation is needed.
+      Toast.makeText(getContext(), "A list name couldn't be empty.", Toast.LENGTH_SHORT).show();
+      return;
+    }
+
+    if (TextUtils.isEmpty(initialText))
+      BookmarkManager.INSTANCE.createCategory(text);
+    else
+      BookmarkManager.INSTANCE.setCategoryName(mSelectedCatId, text);
+
     if (getAdapter() != null)
       getAdapter().notifyDataSetChanged();
   }
@@ -255,7 +267,9 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   @Override
   public void onAddCategory()
   {
-    Toast.makeText(getContext(), "Coming soon", Toast.LENGTH_LONG).show();
+    EditTextDialogFragment.show(getString(R.string.bookmark_set_name),null,
+                                getString(R.string.bookmarks_create_new_group),
+                                getString(R.string.cancel), this);
   }
 
   @Override
