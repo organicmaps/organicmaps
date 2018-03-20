@@ -479,7 +479,7 @@ node|z17-[vending=parking_tickets],
 area|z17-[vending=parking_tickets],
 node|z17-[amenity=vending_machine],
 area|z17-[amenity=vending_machine],
-{text: name;text-color: @poi_label;text-offset: 1;font-size: 11;text-min-distance: 14}
+{text: name;text-color: @poi_label;text-offset: 1;font-size: 11;text-min-distance: 14;}
 
 /* POI */
 
@@ -585,10 +585,10 @@ area|z18-[amenity=place_of_worship][religion=hindu]
 
 node|z17[amenity=bank],
 area|z17[amenity=bank]
-{icon-image: bank-l.svg;font-size: 13.75; icon-min-distance: 15}
+{icon-image: bank-l.svg;font-size: 13.75; icon-min-distance: 15;}
 node|z18-[amenity=bank],
 area|z18-[amenity=bank]
-{icon-image: bank-xl.svg;font-size: 14.5; icon-min-distance: 10}
+{icon-image: bank-xl.svg;font-size: 14.5; icon-min-distance: 10;}
 
 
 node|z12-14[barrier=toll_booth],
@@ -678,7 +678,7 @@ area|z15[shop=car_repair][service=tyres]
 {icon-image: car-repair-m.svg;text-offset: 1;-x-me-text-priority:15500;icon-min-distance: 20;font-size:12.5;}
 node|z16[shop=car_repair][service=tyres],
 area|z16[shop=car_repair][service=tyres]
-{icon-image: car-repair-l.svg;;-x-me-text-priority:15500;font-size: 12.75;}
+{icon-image: car-repair-l.svg;-x-me-text-priority:15500;font-size: 12.75;}
 node|z17[shop=car_repair][service=tyres],
 area|z17[shop=car_repair][service=tyres]
 {icon-image: car-repair-l.svg;font-size: 13.75;}
@@ -750,7 +750,7 @@ area|z17[amenity=fuel]
 {icon-image: fuel-l.svg;font-size: 13.75;}
 node|z18-[amenity=fuel],
 area|z18-[amenity=fuel]
-{icon-image: fuel-xl.svg;font-size: 14.5;text:}
+{icon-image: fuel-xl.svg;font-size: 14.5;}
 
 node|z14[amenity=charging_station],
 area|z14[amenity=charging_station]
@@ -812,7 +812,7 @@ node|z17[amenity=parking][access=permissive],
 node|z17[amenity=parking][access=private]
 {icon-image: zero-icon.svg;z-index: 6;icon-min-distance: 7;}
 
-node|z18[amenity=parking] area|z18[amenity=parking]
+node|z18[amenity=parking], area|z18[amenity=parking]
 {icon-image: parking-xl.svg;icon-min-distance: 10;}
 node|z18[amenity=parking][access=permissive],
 node|z18[amenity=parking][access=private]

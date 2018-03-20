@@ -59,7 +59,7 @@ area::* {
 *[craft],
 *[internet_access],
 {
-  text-position: center
+  text-position: center;
 }
 area[aeroway],
 area[tourism]

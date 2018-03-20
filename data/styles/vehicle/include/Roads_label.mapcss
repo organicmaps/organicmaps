@@ -59,7 +59,7 @@ line[railway=abandoned]
 line[highway=bridleway]
 {z-index: 590;}
 
-line[highway=track]
+line[highway=track],
 line[highway=raceway],
 line[leisure=track],
 line[highway=path],
