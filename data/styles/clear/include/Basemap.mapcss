@@ -181,8 +181,8 @@ area|z10-[place=islet]
 area|z0-[natural=coastline]
 {fill-color: @water;}
 
-area|z0-[natural=land]
-area|z10-[place=islet],
+area|z0-[natural=land],
+area|z10-[place=islet]
 {fill-color: @background;}
 
 /* 3.BOUNDARIES */
@@ -457,7 +457,7 @@ area|z15-[landuse=railway],
 area|z15-[landuse=quarry],
 area|z15-[leisure=pitch],
 area|z15-[leisure=stadium],
-area|z15-[amenity=parking]
+area|z15-[amenity=parking],
 area|z16-[public_transport=platform],
 area|z16-[amenity=place_of_worship],
 area|z16-[railway=platform],
@@ -602,7 +602,7 @@ area|z17[landuse=garages],
 area|z17[building=train_station],
 {fill-color: @building_dark;opacity: 0.9;casing-width: 1;casing-color: @building_dark_border;}
 
-area|z17-[aeroway=terminal]
+area|z17-[aeroway=terminal],
 area|z18-[building],
 area|z18-[building:part],
 area|z18-[landuse=garages],

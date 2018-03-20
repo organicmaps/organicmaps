@@ -109,11 +109,11 @@ line[waterway],
 *[place]
 {text-position: center;fill-position: background;}
 
-node|z1-2[place=continent]
+node|z1-2[place=continent],
 node|z10-[place=archipelago],
 node|z10-[place=island],
 area|z10-[place=archipelago],
-area|z10-[place=island]
+area|z10-[place=island],
 node|z14-[natural=cape],
 area|z14-[natural=cape]
 {text: name;}
@@ -209,7 +209,7 @@ node|z8-10[place=state]::int_name
 node|z4[place=city][capital!=2][population>=1000000],
 node|z5[place=city][capital!=2][population>=150000],
 node|z6[place=city][capital!=2][population>=50000],
-node|z7-8[place=city][capital!=2][population>=40000]
+node|z7-8[place=city][capital!=2][population>=40000],
 node|z4-[place=city][capital=2],
 node|z9-[place=city]
 {text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
@@ -323,7 +323,7 @@ node|z9[place=town][population>=20000]::int_name
 node|z10-[place=town],
 {text: name;text-color: @label_medium;text-halo-radius: 1;text-halo-opacity: 0.8;text-halo-color: @label_halo_light;}
 node|z10-[place=town]::int_name
-{text:int_name;text-color: @label_medium;;text-halo-radius: 1;text-halo-opacity: 0.8;text-halo-color: @label_halo_light;}
+{text:int_name;text-color: @label_medium;text-halo-radius: 1;text-halo-opacity: 0.8;text-halo-color: @label_halo_light;}
 
 node|z8[place=town][population>=40000]
 {font-size: 10;}
