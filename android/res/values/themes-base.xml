@@ -229,6 +229,8 @@
 
     <item name="ratingButtonBackground">@drawable/bg_rating_button_night</item>
 
+    <item name="android:listDivider">@drawable/list_divider_night</item>
+
     <!-- if don't override this attribute the app will be crashed on start on Android 4.xx,
       because on old prelolipop devices vector drawables don't work correctly -->
     <item name="homeAsUpIndicator">@drawable/abc_ic_ab_back_mtrl_am_alpha</item>

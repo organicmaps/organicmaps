@@ -18,6 +18,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkBackupController;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.maps.widget.PlaceholderView;
+import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 import com.mapswithme.util.BottomSheetHelper;
@@ -84,6 +85,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     }
 
     getRecyclerView().setNestedScrollingEnabled(false);
+    getRecyclerView().addItemDecoration(ItemDecoratorFactory.createVerticalDefaultDecorator(getContext()));
   }
 
   private void updateResultsPlaceholder()

@@ -231,6 +231,7 @@
   <dimen name="auth_dialog_facebook_btn_height">40dp</dimen>
 
   <dimen name="divider_height">1dp</dimen>
+  <dimen name="divider_width">1dp</dimen>
 
   <!-- Discovery-->
   <dimen name="discovery_button_min_height">40dp</dimen>

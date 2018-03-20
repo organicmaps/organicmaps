@@ -43,4 +43,10 @@ public class ItemDecoratorFactory
   {
     return new DividerItemDecoration(context, orientation);
   }
+
+  @NonNull
+  public static RecyclerView.ItemDecoration createVerticalDefaultDecorator(@NonNull Context context)
+  {
+    return new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
+  }
 }
