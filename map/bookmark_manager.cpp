@@ -1127,21 +1127,24 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
   df::GroupIDSet loadedGroups;
+
+  std::vector<std::pair<df::MarkGroupID, BookmarkCategory *>> categoriesForMerge;
+  categoriesForMerge.reserve(m_categories.size());
+  for (auto const & c : m_categories)
+    categoriesForMerge.emplace_back(c.first, c.second.get());
+
   for (auto & data : dataCollection)
   {
     df::MarkGroupID groupId;
     BookmarkCategory * group = nullptr;
 
-    auto const it = std::find_if(m_categories.begin(), m_categories.end(),
-      [&data](CategoriesCollection::value_type const & v)
-    {
-      return v.second->GetName() == data->m_name;
-    });
-    bool merge = it != m_categories.end();
+    auto const it = std::find_if(categoriesForMerge.cbegin(), categoriesForMerge.cend(),
+      [&data](auto const & v) { return v.second->GetName() == data->m_name; });
+    bool const merge = it != categoriesForMerge.cend();
     if (merge)
     {
       groupId = it->first;
-      group = it->second.get();
+      group = it->second;
     }
     else
     {
