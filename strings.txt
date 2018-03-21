@@ -30107,4 +30107,7 @@ fa = دوباره نپرس
   [bookmarks_error_message_empty_list_name]
     en = Please enter the list name
     ru = Введите имя списка, пожалуйста
- 
+
+  [bookmarks_new_list_hint]
+    en = New list
+    ru = Новый список
