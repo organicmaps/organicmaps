@@ -30100,11 +30100,11 @@ fa = دوباره نپرس
     en = maxim
     ru = Максим
 
-  [bookmarks_eror_title_empty_list_name]
+  [bookmarks_error_title_empty_list_name]
     en = The name couldn't be empty
     ru = Имя списка не может быть пустым
   
-  [bookmarks_error_message_empty_list]
+  [bookmarks_error_message_empty_list_name]
     en = Please enter the list name
     ru = Введите имя списка, пожалуйста
  
