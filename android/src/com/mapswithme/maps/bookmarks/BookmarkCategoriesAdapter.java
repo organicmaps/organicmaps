@@ -18,7 +18,7 @@ import static com.mapswithme.maps.bookmarks.Holders.CategoryViewHolder;
 
 public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<RecyclerView.ViewHolder>
 {
-  private final static int TYPE_ITEM = 0;
+  private final static int TYPE_CATEGORY_ITEM = 0;
   private final static int TYPE_ACTION_CREATE_GROUP = 1;
   private final static int TYPE_ACTION_HIDE_ALL = 2;
   @Nullable
@@ -82,14 +82,13 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
         v ->
         {
           if (mClickListener != null)
-            mClickListener.onItemClick(v, holder.getAdapterPosition() - 1);
+            mClickListener.onItemClick(v, toCategoryPosition(holder.getAdapterPosition()));
         });
     view.setOnLongClickListener(
         v ->
         {
           if (mLongClickListener != null)
-            mLongClickListener.onLongItemClick(v, holder
-                .getAdapterPosition() - 1);
+            mLongClickListener.onLongItemClick(v, toCategoryPosition(holder.getAdapterPosition()));
           return true;
         });
 
@@ -105,9 +104,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
 
     CategoryViewHolder categoryHolder = (CategoryViewHolder) holder;
     final BookmarkManager bmManager = BookmarkManager.INSTANCE;
-    // The header "Hide All" is located at first index, so subsctraction is needed.
-    final int categoryPosition = position - 1;
-    final long catId = getCategoryIdByPosition(categoryPosition);
+    final long catId = getCategoryIdByPosition(toCategoryPosition(position));
     categoryHolder.setName(bmManager.getCategoryName(catId));
     categoryHolder.setSize(bmManager.getCategorySize(catId));
     categoryHolder.setVisibilityState(bmManager.isVisible(catId));
@@ -119,7 +116,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
         });
     categoryHolder.setMoreListener(v -> {
       if (mCategoryListInterface != null)
-        mCategoryListInterface.onMoreOperationClick(categoryPosition);
+        mCategoryListInterface.onMoreOperationClick(toCategoryPosition(position));
     });
   }
 
@@ -128,13 +125,18 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   {
     if (position == 0)
       return TYPE_ACTION_HIDE_ALL;
-    return (position == getItemCount() - 1) ? TYPE_ACTION_CREATE_GROUP : TYPE_ITEM;
+    return (position == getItemCount() - 1) ? TYPE_ACTION_CREATE_GROUP : TYPE_CATEGORY_ITEM;
   }
 
-  @Override
-  public long getCategoryIdByPosition(int position)
+  private int toCategoryPosition(int adapterPosition)
   {
-    return super.getCategoryIdByPosition(position);
+
+    int type = getItemViewType(adapterPosition);
+    if (type != TYPE_CATEGORY_ITEM)
+      throw new AssertionError("An element at specified position is not category!");
+
+    // The header "Hide All" is located at first index, so subtraction is needed.
+    return adapterPosition - 1;
   }
 
   @Override
