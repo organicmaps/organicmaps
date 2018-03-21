@@ -163,6 +163,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
       return;
     }
 
+    //TODO: Check that name is not already taken here when the core is ready.
+
     if (TextUtils.isEmpty(initialText))
       BookmarkManager.INSTANCE.createCategory(text);
     else
@@ -273,9 +275,10 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   @Override
   public void onAddCategory()
   {
-    EditTextDialogFragment.show(getString(R.string.bookmark_set_name), null,
-                                getString(R.string.bookmarks_create_new_group),
-                                getString(R.string.cancel), MAX_CATEGORY_NAME_LENGTH, this);
+    EditTextDialogFragment.show(getString(R.string.bookmarks_create_new_group),
+                                "New List", getString(R.string.bookmark_set_name),
+                                getString(R.string.create), getString(R.string.cancel),
+                                MAX_CATEGORY_NAME_LENGTH, this);
   }
 
   @Override

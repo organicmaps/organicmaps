@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   android:orientation="horizontal"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -25,5 +26,7 @@
     android:textAppearance="@style/MwmTextAppearance.Body3"
     android:textAllCaps="true"
     android:text="@string/bookmarks_create_new_group"
-    android:textColor="?colorAccent"/>
+    android:textColor="?colorAccent"
+    android:fontFamily="@string/robotoMedium"
+    tools:targetApi="jelly_bean"/>
 </LinearLayout>

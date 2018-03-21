@@ -25,7 +25,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_base"
-    android:ellipsize="end"
+    android:ellipsize="middle"
     android:singleLine="true"
     android:textAppearance="@style/MwmTextAppearance.Body1"
     tools:text="Bookmark name looooooooooooooooooongasdasdasd"/>

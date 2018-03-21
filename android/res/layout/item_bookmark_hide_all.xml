@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   android:orientation="horizontal"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -12,7 +13,9 @@
     android:layout_marginLeft="@dimen/margin_base"
     android:layout_marginStart="@dimen/margin_base"
     android:textAppearance="@style/MwmTextAppearance.Body3"
-    android:text="@string/bookmarks_groups"/>
+    android:text="@string/bookmarks_groups"
+    android:fontFamily="@string/robotoMedium"
+    tools:targetApi="jelly_bean"/>
   <TextView
     android:id="@+id/hide_btn"
     android:layout_width="wrap_content"
@@ -27,5 +30,7 @@
     android:textColor="?colorAccent"
     android:textAllCaps="true"
     android:background="?selectableItemBackground"
-    android:text="@string/bookmarks_groups_hide_all"/>
+    android:text="@string/bookmarks_groups_hide_all"
+    android:fontFamily="@string/robotoMedium"
+    tools:targetApi="jelly_bean"/>
 </LinearLayout>

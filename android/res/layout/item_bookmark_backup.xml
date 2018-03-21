@@ -22,17 +22,22 @@
       android:layout_width="0dp"
       android:layout_weight="1"
       android:layout_height="wrap_content"
-      android:textAppearance="@style/MwmTextAppearance.Body3"
-      android:textAllCaps="true"
+      android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
       android:gravity="start|center_vertical"
-      android:text="@string/settings_backup_bookmarks"/>
+      android:text="@string/settings_backup_bookmarks"
+      android:fontFamily="@string/robotoMedium"
+      tools:targetApi="jelly_bean"/>
   </LinearLayout>
   <LinearLayout
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="@dimen/margin_base">
+    android:paddingStart="@dimen/margin_base"
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingEnd="@dimen/margin_base"
+    android:paddingRight="@dimen/margin_base"
+    android:paddingBottom="@dimen/margin_base">
     <TextView
       android:id="@+id/message"
       android:layout_width="match_parent"
