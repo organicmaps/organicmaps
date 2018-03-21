@@ -2231,6 +2231,6 @@
 
 "maxim_taxi_title" = "Максим";
 
-"bookmarks_eror_title_empty_list_name" = "Имя списка не может быть пустым";
+"bookmarks_error_title_empty_list_name" = "Имя списка не может быть пустым";
 
-"bookmarks_error_message_empty_list" = "Введите имя списка, пожалуйста";
+"bookmarks_error_message_empty_list_name" = "Введите имя списка, пожалуйста";
