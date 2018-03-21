@@ -1292,4 +1292,5 @@
 	<string name="maxim_taxi_title">maxim</string>
 	<string name="bookmarks_error_title_empty_list_name">The name couldn\'t be empty</string>
 	<string name="bookmarks_error_message_empty_list_name">Please enter the list name</string>
+	<string name="bookmarks_new_list_hint">New list</string>
 </resources>
