@@ -121,8 +121,13 @@ extension BMCDefaultViewModel: BMCViewModel {
   }
 
   func addCategory(name: String) {
+    guard let section = sections.index(of: .categories) else {
+      assertionFailure()
+      return
+    }
+    
     categories.append(BMCCategory(identifier: BM.createCategory(withName: name), title: name))
-    view.update(sections: [.categories])
+    view.insert(at: IndexPath(row: categories.count - 1, section: section))
   }
 
   func renameCategory(category: BMCCategory, name: String) {
@@ -131,9 +136,15 @@ extension BMCDefaultViewModel: BMCViewModel {
   }
 
   func deleteCategory(category: BMCCategory) {
-    categories.remove(at: categories.index(of: category)!)
+    guard let row = categories.index(of: category), let section = sections.index(of: .categories)
+    else {
+      assertionFailure()
+      return
+    }
+
+    categories.remove(at: row)
     BM.deleteCategory(category.identifier)
-    view.update(sections: [.categories])
+    view.delete(at: IndexPath(row: row, section: section))
   }
 
   func beginShareCategory(category: BMCCategory) -> BMCShareCategoryStatus {

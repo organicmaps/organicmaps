@@ -1,5 +1,7 @@
 protocol BMCView: AnyObject {
   func update(sections: [BMCSection])
+  func delete(at indexPath: IndexPath)
+  func insert(at indexPath: IndexPath)
 }
 
 enum BMCShareCategoryStatus {

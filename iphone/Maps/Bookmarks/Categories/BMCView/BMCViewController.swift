@@ -146,6 +146,14 @@ extension BMCViewController: BMCView {
       tableView.update { tableView.reloadSections(indexes, with: .automatic) }
     }
   }
+
+  func insert(at indexPath: IndexPath) {
+    tableView.insertRows(at: [indexPath], with: .automatic)
+  }
+
+  func delete(at indexPath: IndexPath) {
+    tableView.deleteRows(at: [indexPath], with: .automatic)
+  }
 }
 
 extension BMCViewController: UITableViewDataSource {
@@ -188,6 +196,26 @@ extension BMCViewController: UITableViewDataSource {
 }
 
 extension BMCViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    if viewModel.sectionType(section: indexPath.section) != .categories {
+      return false
+    }
+
+    return viewModel.numberOfRows(section: .categories) > 1
+  }
+
+  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    guard let item = viewModel.item(indexPath: indexPath) as? BMCCategory,
+    editingStyle == .delete,
+    viewModel.sectionType(section: indexPath.section) == .categories
+    else {
+      assertionFailure()
+      return
+    }
+
+    viewModel.deleteCategory(category: item)
+  }
+
   func tableView(_: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     switch viewModel.sectionType(section: section) {
     case .permissions: fallthrough
