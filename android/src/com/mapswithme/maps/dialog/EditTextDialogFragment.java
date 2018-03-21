@@ -38,7 +38,7 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
 
   public interface OnTextSaveListener
   {
-    void onSaveText(@Nullable String initialText, @Nullable String text);
+    void onSaveText(@Nullable String text);
   }
 
   public static void show(@Nullable String title, @Nullable String initialText,
@@ -108,13 +108,13 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
                               if (parentFragment instanceof OnTextSaveListener)
                               {
                                 dismiss();
-                                ((OnTextSaveListener) parentFragment).onSaveText(mInitialText, result);
+                                ((OnTextSaveListener) parentFragment).onSaveText(result);
                                 return;
                               }
 
                               final Activity activity = getActivity();
                               if (activity instanceof OnTextSaveListener)
-                                ((OnTextSaveListener) activity).onSaveText(mInitialText, result);
+                                ((OnTextSaveListener) activity).onSaveText(result);
                             }
                           }).create();
   }
@@ -128,8 +128,7 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     int maxLength = getArguments().getInt(ARG_TEXT_LENGTH_LIMIT);
     if (maxLength != NO_LIMITED_TEXT_LENGTH)
     {
-      InputFilter[] f = new InputFilter[1];
-      f[0] = new InputFilter.LengthFilter(maxLength);
+      InputFilter[] f = {new InputFilter.LengthFilter(maxLength)};
       mEtInput.setFilters(f);
     }
 

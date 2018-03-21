@@ -51,7 +51,7 @@ public class StreetFragment extends BaseMwmRecyclerFragment implements EditTextD
   }
 
   @Override
-  public void onSaveText(@Nullable String initialText, @Nullable String text)
+  public void onSaveText(@Nullable String text)
   {
     saveStreet(new LocalizedStreet(text, ""));
   }

@@ -38,6 +38,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   private long mSelectedCatId;
   @Nullable
   private View mLoadingPlaceholder;
+  @Nullable
+  private CategoryEditor mCategoryEditor;
 
   @Nullable
   private BookmarkBackupController mBackupController;
@@ -150,7 +152,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  public void onSaveText(@Nullable String initialText, @Nullable String text)
+  public void onSaveText(@Nullable String text)
   {
     if (TextUtils.isEmpty(text))
     {
@@ -165,10 +167,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
 
     //TODO: Check that name is not already taken here when the core is ready.
 
-    if (TextUtils.isEmpty(initialText))
-      BookmarkManager.INSTANCE.createCategory(text);
-    else
-      BookmarkManager.INSTANCE.setCategoryName(mSelectedCatId, text);
+    if (mCategoryEditor != null)
+      mCategoryEditor.commit(text);
 
     if (getAdapter() != null)
       getAdapter().notifyDataSetChanged();
@@ -196,6 +196,10 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
       break;
 
     case R.id.set_edit:
+      mCategoryEditor = newName ->
+      {
+        BookmarkManager.INSTANCE.setCategoryName(mSelectedCatId, newName);
+      };
       EditTextDialogFragment.show(getString(R.string.bookmark_set_name),
                                   BookmarkManager.INSTANCE.getCategoryName(mSelectedCatId),
                                   getString(R.string.rename), getString(R.string.cancel),
@@ -275,8 +279,11 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   @Override
   public void onAddCategory()
   {
+    mCategoryEditor = BookmarkManager.INSTANCE::createCategory;
+
     EditTextDialogFragment.show(getString(R.string.bookmarks_create_new_group),
-                                "New List", getString(R.string.bookmark_set_name),
+                                getString(R.string.bookmarks_new_list_hint),
+                                getString(R.string.bookmark_set_name),
                                 getString(R.string.create), getString(R.string.cancel),
                                 MAX_CATEGORY_NAME_LENGTH, this);
   }
@@ -287,5 +294,10 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     super.onActivityResult(requestCode, resultCode, data);
     if (mBackupController != null)
       mBackupController.onActivityResult(requestCode, resultCode, data);
+  }
+
+  interface CategoryEditor
+  {
+    void commit(@Nullable String newName);
   }
 }
