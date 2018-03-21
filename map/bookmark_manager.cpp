@@ -286,6 +286,9 @@ void MigrateIfNeeded()
       return;
     }
 
+    for (auto & f : files)
+      f = my::JoinFoldersToPath(dir, f);
+
     std::string failedStage;
     auto const backupDir = CheckAndCreateBackupFolder();
     if (backupDir.empty() || !BackupBookmarks(backupDir, files))
