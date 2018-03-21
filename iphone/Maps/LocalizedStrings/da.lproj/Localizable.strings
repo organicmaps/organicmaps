@@ -2230,3 +2230,7 @@
 "luggage_storage" = "Bagageopbevaring";
 
 "maxim_taxi_title" = "maxim";
+
+"bookmarks_eror_title_empty_list_name" = "The name couldn't be empty";
+
+"bookmarks_error_message_empty_list" = "Please enter the list name";

@@ -1290,4 +1290,6 @@
 	<string name="discovery_button_subtitle_book_hotels">Book hotels</string>
 	<string name="luggage_storage">Luggage storage</string>
 	<string name="maxim_taxi_title">maxim</string>
+	<string name="bookmarks_eror_title_empty_list_name">The name couldn\'t be empty</string>
+	<string name="bookmarks_error_message_empty_list">Please enter the list name</string>
 </resources>
