@@ -17,6 +17,7 @@
   <dimen name="text_size_caption">14sp</dimen>
   <dimen name="text_size_icon_title">10sp</dimen>
   <dimen name="text_size_button">16sp</dimen>
+  <dimen name="text_size_alert_dialog_title">20sp</dimen>
 
   <!-- BASE TEXT SIZES -->
 

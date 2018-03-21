@@ -16,7 +16,7 @@
     <item name="android:windowActionBarOverlay">true</item>
     <item name="clickableBackground">?selectableItemBackground</item>
     <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
-    <item name="alertDialogTheme">@style/MwmTheme.DialogFragment</item>
+    <item name="alertDialogTheme">@style/MwmTheme.AlertDialog</item>
     <item name="windowBackgroundForced">@color/bg_window</item>
     <item name="cardFrame">@drawable/card_frame</item>
     <item name="cardBackground">@color/bg_cards</item>
@@ -137,7 +137,7 @@
     <item name="clickableBackground">?selectableItemBackground</item>
     <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
 
-    <item name="alertDialogTheme">@style/MwmTheme.Night.DialogFragment</item>
+    <item name="alertDialogTheme">@style/MwmTheme.Night.AlertDialog</item>
     <item name="windowBackgroundForced">@color/bg_window_night</item>
     <item name="cardFrame">@drawable/card_frame_night</item>
     <item name="cardBackground">@color/bg_cards_night</item>

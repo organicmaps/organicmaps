@@ -6,11 +6,11 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.Authorizer;
@@ -34,6 +34,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
                BookmarkManager.BookmarksLoadingListener,
                BookmarkCategoriesAdapter.CategoryListInterface
 {
+  private static final int MAX_CATEGORY_NAME_LENGTH = 60;
   private long mSelectedCatId;
   @Nullable
   private View mLoadingPlaceholder;
@@ -153,8 +154,12 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   {
     if (TextUtils.isEmpty(text))
     {
-      // TODO: translation is needed.
-      Toast.makeText(getContext(), "A list name couldn't be empty.", Toast.LENGTH_SHORT).show();
+      new AlertDialog.Builder(getActivity())
+          .setCancelable(true)
+          .setPositiveButton(R.string.ok, null)
+          .setTitle(R.string.bookmarks_error_title_empty_list_name)
+          .setMessage(R.string.bookmarks_error_message_empty_list_name)
+          .show();
       return;
     }
 
@@ -191,7 +196,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     case R.id.set_edit:
       EditTextDialogFragment.show(getString(R.string.bookmark_set_name),
                                   BookmarkManager.INSTANCE.getCategoryName(mSelectedCatId),
-                                  getString(R.string.rename), getString(R.string.cancel), this);
+                                  getString(R.string.rename), getString(R.string.cancel),
+                                  MAX_CATEGORY_NAME_LENGTH, this);
       break;
     }
 
@@ -267,9 +273,9 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   @Override
   public void onAddCategory()
   {
-    EditTextDialogFragment.show(getString(R.string.bookmark_set_name),null,
+    EditTextDialogFragment.show(getString(R.string.bookmark_set_name), null,
                                 getString(R.string.bookmarks_create_new_group),
-                                getString(R.string.cancel), this);
+                                getString(R.string.cancel), MAX_CATEGORY_NAME_LENGTH, this);
   }
 
   @Override
