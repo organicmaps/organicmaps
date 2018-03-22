@@ -22,11 +22,9 @@
       android:layout_width="0dp"
       android:layout_weight="1"
       android:layout_height="wrap_content"
-      android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
+      android:textAppearance="@style/MwmTextAppearance.Body1"
       android:gravity="start|center_vertical"
-      android:text="@string/settings_backup_bookmarks"
-      android:fontFamily="@string/robotoMedium"
-      tools:targetApi="jelly_bean"/>
+      android:text="@string/settings_backup_bookmarks"/>
   </LinearLayout>
   <LinearLayout
     android:id="@+id/content"
