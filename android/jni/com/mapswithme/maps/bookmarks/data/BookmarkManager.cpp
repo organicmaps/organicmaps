@@ -356,4 +356,33 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetLastSynchroniza
 {
   return static_cast<jlong>(frm()->GetBookmarkManager().GetLastSynchronizationTimestampInMs());
 }
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsUsedCategoryName(
+        JNIEnv * env, jobject thiz, jstring name)
+{
+  return static_cast<jboolean>(frm()->GetBookmarkManager().IsUsedCategoryName(
+                               ToNativeString(env, name)));
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAreAllCategoriesVisible(
+        JNIEnv * env, jobject thiz)
+{
+  return static_cast<jboolean>(frm()->GetBookmarkManager().AreAllCategoriesVisible());
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAreAllCategoriesInvisible(
+        JNIEnv * env, jobject thiz)
+{
+  return static_cast<jboolean>(frm()->GetBookmarkManager().AreAllCategoriesInvisible());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetAllCategoriesVisibility(
+        JNIEnv * env, jobject thiz, jboolean visible)
+{
+  frm()->GetBookmarkManager().SetAllCategoriesVisibility(static_cast<bool>(visible));
+}
 }  // extern "C"

@@ -1491,6 +1491,46 @@ bool BookmarkManager::IsCategoryEmpty(df::MarkGroupID categoryId) const
   return GetBmCategory(categoryId)->IsEmpty();
 }
 
+bool BookmarkManager::IsUsedCategoryName(std::string const & name) const
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  for (auto const & c : m_categories)
+  {
+    if (c.second->GetName() == name)
+      return true;
+  }
+  return false;
+}
+
+bool BookmarkManager::AreAllCategoriesVisible() const
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  for (auto const & c : m_categories)
+  {
+    if (!c.second->IsVisible())
+      return false;
+  }
+  return true;
+}
+
+bool BookmarkManager::AreAllCategoriesInvisible() const
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  for (auto const & c : m_categories)
+  {
+    if (c.second->IsVisible())
+      return false;
+  }
+  return true;
+}
+
+void BookmarkManager::SetAllCategoriesVisibility(bool visible)
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  for (auto & c : m_categories)
+    c.second->SetIsVisible(visible);
+}
+
 BookmarkManager::SharingResult BookmarkManager::GetFileForSharing(df::MarkGroupID categoryId)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());

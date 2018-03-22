@@ -317,4 +317,9 @@ public enum BookmarkManager
     void onBookmarksLoadingFinished();
     void onBookmarksFileLoaded(boolean success);
   }
+
+  private static native boolean nativeIsUsedCategoryName(@NonNull String name);
+  private static native boolean nativeAreAllCategoriesVisible();
+  private static native boolean nativeAreAllCategoriesInvisible();
+  private static native void nativeSetAllCategoriesVisibility(boolean visible);
 }

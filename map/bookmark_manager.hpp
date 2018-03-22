@@ -226,6 +226,11 @@ public:
 
   bool IsCategoryEmpty(df::MarkGroupID categoryId) const;
 
+  bool IsUsedCategoryName(std::string const & name) const;
+  bool AreAllCategoriesVisible() const;
+  bool AreAllCategoriesInvisible() const;
+  void SetAllCategoriesVisibility(bool visible);
+
   /// These functions are public for unit tests only. You shouldn't call them from client code.
   void SaveToKML(df::MarkGroupID groupId, std::ostream & s);
   void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = true);
