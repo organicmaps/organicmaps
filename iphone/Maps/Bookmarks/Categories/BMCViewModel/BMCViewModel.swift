@@ -12,6 +12,8 @@ enum BMCShareCategoryStatus {
 protocol BMCViewModel: AnyObject {
   var view: BMCView! { get set }
   var isPendingPermission: Bool { get }
+  var minCategoryNameLength: UInt { get }
+  var maxCategoryNameLength: UInt { get }
 
   func numberOfSections() -> Int
   func sectionType(section: Int) -> BMCSection
@@ -28,6 +30,7 @@ protocol BMCViewModel: AnyObject {
   func addCategory(name: String)
   func renameCategory(category: BMCCategory, name: String)
   func deleteCategory(category: BMCCategory)
+  func checkCategory(name: String) -> Bool
 
   func beginShareCategory(category: BMCCategory) -> BMCShareCategoryStatus
   func endShareCategory(category: BMCCategory)

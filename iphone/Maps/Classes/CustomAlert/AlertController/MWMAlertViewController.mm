@@ -215,6 +215,23 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)presentEditorViralAlert { [self displayAlert:[MWMAlert editorViralAlert]]; }
 - (void)presentOsmAuthAlert { [self displayAlert:[MWMAlert osmAuthAlert]]; }
+
+- (void)presentCreateBookmarkCategoryAlertWithMaxCharacterNum:(NSUInteger)max
+                                              minCharacterNum:(NSUInteger)min
+                                                        isNewCategory:(BOOL)isNewCategory
+                                                     callback:(nonnull MWMCheckStringBlock)callback
+{
+  auto alert = static_cast<MWMBCCreateCategoryAlert *>([MWMAlert
+                  createBookmarkCategoryAlertWithMaxCharacterNum:max
+                                                 minCharacterNum:min
+                                                   isNewCategory:isNewCategory
+                                                        callback:callback]);
+  [self displayAlert:alert];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [alert.textField becomeFirstResponder];
+  });
+}
+
 - (void)displayAlert:(MWMAlert *)alert
 {
   // TODO(igrechuhin): Remove this check on location manager refactoring.

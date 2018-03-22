@@ -1,5 +1,10 @@
 final class BMCDefaultViewModel: NSObject {
   var view: BMCView!
+  private enum Const
+  {
+    static let minCategoryNameLength: UInt = 0
+    static let maxCategoryNameLength: UInt = 60
+  }
 
   private var sections: [BMCSection] = []
   private var permissions: [BMCPermission] = []
@@ -9,6 +14,9 @@ final class BMCDefaultViewModel: NSObject {
 
   private(set) var isPendingPermission = false
   private var isAuthenticated = false
+
+  var minCategoryNameLength: UInt = Const.minCategoryNameLength
+  var maxCategoryNameLength: UInt = Const.maxCategoryNameLength
 
   typealias BM = MWMBookmarksManager
 
@@ -145,6 +153,10 @@ extension BMCDefaultViewModel: BMCViewModel {
     categories.remove(at: row)
     BM.deleteCategory(category.identifier)
     view.delete(at: IndexPath(row: row, section: section))
+  }
+
+  func checkCategory(name: String) -> Bool {
+    return BM.checkCategoryName(name)
   }
 
   func beginShareCategory(category: BMCCategory) -> BMCShareCategoryStatus {

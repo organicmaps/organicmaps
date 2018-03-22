@@ -22,6 +22,7 @@
 + (void)deleteCategory:(MWMMarkGroupID)groupId;
 
 + (void)deleteBookmark:(MWMMarkID)bookmarkId;
++ (BOOL)checkCategoryName:(NSString *)name;
 
 + (MWMBookmarksShareStatus)beginShareCategory:(MWMMarkGroupID)groupId;
 + (NSURL *)shareCategoryURL;

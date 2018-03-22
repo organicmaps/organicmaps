@@ -42,27 +42,23 @@ final class BMCViewController: MWMViewController {
 
   private func updateCategoryName(category: BMCCategory?) {
     let isNewCategory = (category == nil)
-    let alert = UIAlertController(title: L(isNewCategory ? "bookmarks_create_new_group" : "rename"), message: nil, preferredStyle: .alert)
+    alertController.presentCreateBookmarkCategoryAlert(withMaxCharacterNum: viewModel.maxCategoryNameLength,
+                                                       minCharacterNum: viewModel.minCategoryNameLength,
+                                                       isNewCategory: isNewCategory)
+    { [weak viewModel] (name: String!) -> Bool in
+      guard let model = viewModel else { return false }
+      if model.checkCategory(name: name) {
+        if isNewCategory {
+          model.addCategory(name: name)
+        } else {
+          model.renameCategory(category: category!, name: name)
+        }
 
-    alert.addTextField { textField in
-      textField.placeholder = L("bookmark_set_name")
-      if let category = category {
-        textField.text = category.title
+        return true
       }
+
+      return false
     }
-
-    alert.addAction(UIAlertAction(title: L("cancel").capitalized, style: .cancel, handler: nil))
-    alert.addAction(UIAlertAction(title: L(isNewCategory ? "create" : "ok").capitalized, style: .default) { [weak alert, viewModel] _ in
-      guard let categoryName = alert?.textFields?.first?.text, !categoryName.isEmpty,
-        let viewModel = viewModel else { return }
-      if let category = category {
-        viewModel.renameCategory(category: category, name: categoryName)
-      } else {
-        viewModel.addCategory(name: categoryName)
-      }
-    })
-
-    present(alert, animated: true, completion: nil)
   }
 
   private func shareCategory(category: BMCCategory, anchor: UIView) {

@@ -183,6 +183,11 @@ using TLoopBlock = void (^)(Observer observer);
   }];
 }
 
++ (BOOL)checkCategoryName:(NSString *)name
+{
+  return !GetFramework().GetBookmarkManager().IsUsedCategoryName(name.UTF8String);
+}
+
 + (MWMBookmarksShareStatus)beginShareCategory:(MWMMarkGroupID)groupId
 {
   auto const sharingResult = GetFramework().GetBookmarkManager().BeginSharing(groupId);

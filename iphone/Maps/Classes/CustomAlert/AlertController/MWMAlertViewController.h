@@ -44,6 +44,11 @@
 - (void)presentSearchNoResultsAlert;
 - (void)presentMobileInternetAlertWithBlock:(nonnull MWMVoidBlock)block;
 - (void)presentInfoAlert:(nonnull NSString *)title text:(nonnull NSString *)text;
+- (void)presentCreateBookmarkCategoryAlertWithMaxCharacterNum:(NSUInteger)max
+                                              minCharacterNum:(NSUInteger)min
+                                                isNewCategory:(BOOL)isNewCategory
+                                                     callback:(nonnull MWMCheckStringBlock)callback;
+
 - (void)closeAlert:(nullable MWMVoidBlock)completion;
 
 - (nonnull instancetype)init __attribute__((unavailable("call -initWithViewController: instead!")));

@@ -11,6 +11,8 @@
 #import "MWMRateAlert.h"
 #import "MWMRoutingDisclaimerAlert.h"
 
+#import "SwiftBridge.h"
+
 @implementation MWMAlert
 
 + (MWMAlert *)rateAlert { return [MWMRateAlert alert]; }
@@ -155,6 +157,17 @@
 + (MWMAlert *)infoAlert:(NSString *)title text:(NSString *)text
 {
   return [MWMDefaultAlert infoAlert:title text:text];
+}
+
++ (MWMAlert *)createBookmarkCategoryAlertWithMaxCharacterNum:(NSUInteger)max
+                                             minCharacterNum:(NSUInteger)min
+                                                       isNewCategory:(BOOL)isNewCategory
+                                                    callback:(MWMCheckStringBlock)callback
+{
+  return [MWMBCCreateCategoryAlert alertWithMaxCharachersNum:max
+                                            minCharactersNum:min
+                                               isNewCategory:isNewCategory
+                                                    callback:callback];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation

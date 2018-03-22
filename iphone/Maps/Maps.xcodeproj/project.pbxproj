@@ -512,6 +512,8 @@
 		F6BD1D211CA412920047B8E8 /* MWMOsmAuthAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6BD1D1F1CA412920047B8E8 /* MWMOsmAuthAlert.mm */; };
 		F6BD1D241CA412E40047B8E8 /* MWMOsmAuthAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6BD1D221CA412E30047B8E8 /* MWMOsmAuthAlert.xib */; };
 		F6C16A671F9626B2000FE296 /* ReviewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3430291B1F87BC3000D0A07C /* ReviewsViewController.xib */; };
+		F6D67CDC2062B9C00032FD38 /* BCCreateCategoryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D67CDB2062B9C00032FD38 /* BCCreateCategoryAlert.swift */; };
+		F6D67CDE2062BBA60032FD38 /* MWMBCCreateCategoryAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6D67CDD2062BBA60032FD38 /* MWMBCCreateCategoryAlert.xib */; };
 		F6E2FD501E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FBFF1E097B9F0083EBEC /* MWMMapDownloaderAdsTableViewCell.mm */; };
 		F6E2FD531E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FC001E097B9F0083EBEC /* MWMMapDownloaderAdsTableViewCell.xib */; };
 		F6E2FD561E097BA00083EBEC /* MWMMapDownloaderButtonTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FC021E097B9F0083EBEC /* MWMMapDownloaderButtonTableViewCell.mm */; };
@@ -1433,6 +1435,8 @@
 		F6BD1D1E1CA412920047B8E8 /* MWMOsmAuthAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMOsmAuthAlert.h; sourceTree = "<group>"; };
 		F6BD1D1F1CA412920047B8E8 /* MWMOsmAuthAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMOsmAuthAlert.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		F6BD1D221CA412E30047B8E8 /* MWMOsmAuthAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMOsmAuthAlert.xib; sourceTree = "<group>"; };
+		F6D67CDB2062B9C00032FD38 /* BCCreateCategoryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCCreateCategoryAlert.swift; sourceTree = "<group>"; };
+		F6D67CDD2062BBA60032FD38 /* MWMBCCreateCategoryAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMBCCreateCategoryAlert.xib; sourceTree = "<group>"; };
 		F6DF5F321CD1136800A87154 /* LocaleTranslator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocaleTranslator.h; sourceTree = "<group>"; };
 		F6E2FBFE1E097B9F0083EBEC /* MWMMapDownloaderAdsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderAdsTableViewCell.h; sourceTree = "<group>"; };
 		F6E2FBFF1E097B9F0083EBEC /* MWMMapDownloaderAdsTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapDownloaderAdsTableViewCell.mm; sourceTree = "<group>"; };
@@ -3054,6 +3058,7 @@
 		F64F195F1AB8125C006EAF7E /* CustomAlert */ = {
 			isa = PBXGroup;
 			children = (
+				F6D67CDA2062B9810032FD38 /* CreateBookmarkCategory */,
 				349B92691DF0516C007779DD /* Toast */,
 				349A137E1DEC138C00C7DB60 /* MobileInternetAlert */,
 				3462258B1DDC5D76001E8752 /* SearchAlert */,
@@ -3239,6 +3244,15 @@
 				F6BD1D221CA412E30047B8E8 /* MWMOsmAuthAlert.xib */,
 			);
 			name = AuthAlert;
+			sourceTree = "<group>";
+		};
+		F6D67CDA2062B9810032FD38 /* CreateBookmarkCategory */ = {
+			isa = PBXGroup;
+			children = (
+				F6D67CDB2062B9C00032FD38 /* BCCreateCategoryAlert.swift */,
+				F6D67CDD2062BBA60032FD38 /* MWMBCCreateCategoryAlert.xib */,
+			);
+			path = CreateBookmarkCategory;
 			sourceTree = "<group>";
 		};
 		F6E2FBFB1E097B9F0083EBEC /* UI */ = {
@@ -4190,6 +4204,7 @@
 				F6E2FF421E097BA00083EBEC /* MWMSearchTableViewController.xib in Resources */,
 				34AB66681FC5AA330078E451 /* TransportTransitPedestrian.xib in Resources */,
 				F6E2FEEE1E097BA00083EBEC /* MWMSearchView.xib in Resources */,
+				F6D67CDE2062BBA60032FD38 /* MWMBCCreateCategoryAlert.xib in Resources */,
 				344532511F714FD70059FBCC /* UGCAddReviewController.xib in Resources */,
 				3490D2E31CE9DD2500D0B838 /* MWMSideButtonsView.xib in Resources */,
 				346DB82B1E5C4F6700E3123E /* GalleryCell.xib in Resources */,
@@ -4634,6 +4649,7 @@
 				3430291D1F87BF4400D0A07C /* ReviewsViewController.swift in Sources */,
 				F6E2FE731E097BA00083EBEC /* MWMOpeningHours.mm in Sources */,
 				3404F4842028908C0090E401 /* AddSetTableViewCell.mm in Sources */,
+				F6D67CDC2062B9C00032FD38 /* BCCreateCategoryAlert.swift in Sources */,
 				F6E2FF601E097BA00083EBEC /* MWMSettingsViewController.mm in Sources */,
 				F6E2FE2B1E097BA00083EBEC /* MWMStreetEditorEditTableViewCell.mm in Sources */,
 				34AB66891FC5AA330078E451 /* NavigationControlView.swift in Sources */,
