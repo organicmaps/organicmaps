@@ -21,6 +21,9 @@ public enum BookmarkManager
   @NonNull
   private List<BookmarksLoadingListener> mListeners = new ArrayList<>();
 
+  @NonNull
+  private List<KmlConversionListener> mConversionListeners = new ArrayList<>();
+
   static
   {
     ICONS.add(new Icon("placemark-red", "placemark-red", R.drawable.ic_bookmark_marker_red_off, R.drawable.ic_bookmark_marker_red_on));
@@ -68,6 +71,16 @@ public enum BookmarkManager
     mListeners.remove(listener);
   }
 
+  public void addListener(@NonNull KmlConversionListener listener)
+  {
+    mConversionListeners.add(listener);
+  }
+
+  public void removeListener(@NonNull KmlConversionListener listener)
+  {
+    mConversionListeners.remove(listener);
+  }
+
   // Called from JNI.
   @MainThread
   public void onBookmarksLoadingStarted()
@@ -99,6 +112,14 @@ public enum BookmarkManager
 
     for (BookmarksLoadingListener listener : mListeners)
       listener.onBookmarksFileLoaded(success);
+  }
+
+  // Called from JNI.
+  @MainThread
+  public void onFinishKmlConversion(boolean success)
+  {
+    for (KmlConversionListener listener : mConversionListeners)
+      listener.onFinishKmlConversion(success);
   }
 
   public boolean isVisible(long catId)
@@ -339,10 +360,19 @@ public enum BookmarkManager
 
   private static native void nativeSetAllCategoriesVisibility(boolean visible);
 
+  private static native int nativeGetKmlFilesCountForConversion();
+
+  private static native void nativeConvertAllKmlFiles();
+
   public interface BookmarksLoadingListener
   {
     void onBookmarksLoadingStarted();
     void onBookmarksLoadingFinished();
     void onBookmarksFileLoaded(boolean success);
+  }
+
+  public interface KmlConversionListener
+  {
+    void onFinishKmlConversion(boolean success);
   }
 }

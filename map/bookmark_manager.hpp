@@ -9,6 +9,8 @@
 #include "geometry/any_rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
+#include "platform/safe_callback.hpp"
+
 #include "base/macros.hpp"
 #include "base/strings_bundle.hpp"
 #include "base/thread_checker.hpp"
@@ -230,6 +232,13 @@ public:
   bool AreAllCategoriesVisible() const;
   bool AreAllCategoriesInvisible() const;
   void SetAllCategoriesVisibility(bool visible);
+
+  // Return number of files for the conversion to the binary format.
+  size_t GetKmlFilesCountForConversion() const;
+
+  // Convert all found kml files to the binary format.
+  using ConversionHandler = platform::SafeCallback<void(bool success)>;
+  void ConvertAllKmlFiles(ConversionHandler && handler) const;
 
   /// These functions are public for unit tests only. You shouldn't call them from client code.
   void SaveToKML(df::MarkGroupID groupId, std::ostream & s);

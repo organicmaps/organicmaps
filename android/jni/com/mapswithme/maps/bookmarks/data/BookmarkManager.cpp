@@ -18,6 +18,7 @@ jfieldID g_bookmarkManagerInstanceField;
 jmethodID g_onBookmarksLoadingStartedMethod;
 jmethodID g_onBookmarksLoadingFinishedMethod;
 jmethodID g_onBookmarksFileLoadedMethod;
+jmethodID g_onFinishKmlConversionMethod;
 
 void PrepareClassRefs(JNIEnv * env)
 {
@@ -38,6 +39,8 @@ void PrepareClassRefs(JNIEnv * env)
   g_onBookmarksFileLoadedMethod =
     jni::GetMethodID(env, bookmarkManagerInstance, "onBookmarksFileLoaded",
                      "(ZLjava/lang/String;Z)V");
+  g_onFinishKmlConversionMethod =
+    jni::GetMethodID(env, bookmarkManagerInstance, "onFinishKmlConversion", "(Z)V");
 }
 
 void OnAsyncLoadingStarted(JNIEnv * env)
@@ -77,6 +80,15 @@ void OnAsyncLoadingFileError(JNIEnv * env, std::string const & fileName, bool is
   jni::TScopedLocalRef jFileName(env, jni::ToJavaString(env, fileName));
   env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksFileLoadedMethod,
                       false /* success */, jFileName.get(), isTemporaryFile);
+  jni::HandleJavaException(env);
+}
+
+void OnFinishKmlConversion(JNIEnv * env, bool success)
+{
+  ASSERT(g_bookmarkManagerClass != nullptr, ());
+  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
+                                                              g_bookmarkManagerInstanceField);
+  env->CallVoidMethod(bookmarkManagerInstance, g_onFinishKmlConversionMethod, success);
   jni::HandleJavaException(env);
 }
 }  // namespace
@@ -384,5 +396,22 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetAllCategoriesVi
         JNIEnv * env, jobject thiz, jboolean visible)
 {
   frm()->GetBookmarkManager().SetAllCategoriesVisibility(static_cast<bool>(visible));
+}
+
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetKmlFilesCountForConversion(
+        JNIEnv * env, jobject thiz)
+{
+  return static_cast<jint>(frm()->GetBookmarkManager().GetKmlFilesCountForConversion());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeConvertAllKmlFiles(
+        JNIEnv * env, jobject thiz)
+{
+  frm()->GetBookmarkManager().ConvertAllKmlFiles([env](bool success)
+  {
+    OnFinishKmlConversion(env, success);
+  });
 }
 }  // extern "C"

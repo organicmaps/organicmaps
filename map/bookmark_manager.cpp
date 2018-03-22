@@ -264,12 +264,17 @@ void OnMigrationFailure(std::string && failedStage)
   alohalytics::Stats::Instance().LogEvent("Bookmarks_migration_failure", details);
 }
 
-void MigrateIfNeeded()
+bool IsMigrationCompleted()
 {
   bool isCompleted;
   if (!settings::Get(kSettingsParam, isCompleted))
-    isCompleted = false;
-  if (isCompleted)
+    return false;
+  return isCompleted;
+}
+
+void MigrateIfNeeded()
+{
+  if (IsMigrationCompleted())
     return;
 
   GetPlatform().RunTask(Platform::Thread::File, []()
@@ -1559,6 +1564,91 @@ BookmarkManager::SharingResult BookmarkManager::GetFileForSharing(df::MarkGroupI
     return SharingResult(SharingResult::Code::ArchiveError, "Could not create archive.");
 
   return SharingResult(tmpFilePath);
+}
+
+size_t BookmarkManager::GetKmlFilesCountForConversion() const
+{
+  // The conversion available only after successful migration.
+  if (!migration::IsMigrationCompleted())
+    return 0;
+
+  Platform::FilesList files;
+  Platform::GetFilesByExt(GetPlatform().SettingsDir(),
+                          BOOKMARKS_FILE_EXTENSION, files);
+  return files.size();
+}
+
+void BookmarkManager::ConvertAllKmlFiles(ConversionHandler && handler) const
+{
+  // The conversion available only after successful migration.
+  if (!migration::IsMigrationCompleted())
+    return;
+
+  GetPlatform().RunTask(Platform::Thread::File, [handler = std::move(handler)]()
+  {
+    auto const oldDir = GetPlatform().SettingsDir();
+    Platform::FilesList files;
+    Platform::GetFilesByExt(oldDir, BOOKMARKS_FILE_EXTENSION, files);
+    for (auto & f : files)
+      f = my::JoinFoldersToPath(oldDir, f);
+
+    auto const newDir = GetBookmarksDirectory();
+    if (!GetPlatform().IsFileExistsByFullPath(newDir) && !GetPlatform().MkDirChecked(newDir))
+    {
+      handler(false /* success */);
+      return;
+    }
+
+    std::vector<std::pair<std::string, kml::FileData>> fileData;
+    fileData.reserve(files.size());
+    for (auto const & f : files)
+    {
+      std::string fileName = f;
+      my::GetNameFromFullPath(fileName);
+      my::GetNameWithoutExt(fileName);
+      auto kmbPath = my::JoinPath(newDir, fileName + kBookmarksExt);
+      size_t counter = 1;
+      while (Platform::IsFileExistsByFullPath(kmbPath))
+        kmbPath = my::JoinPath(newDir, fileName + strings::to_string(counter++) + kBookmarksExt);
+
+      kml::FileData kmlData;
+      try
+      {
+        kml::DeserializerKml des(kmlData);
+        FileReader reader(f);
+        des.Deserialize(reader);
+      }
+      catch (FileReader::Exception const & exc)
+      {
+        LOG(LDEBUG, ("KML text deserialization failure: ", exc.what(), "file", f));
+        handler(false /* success */);
+        return;
+      }
+
+      try
+      {
+        kml::binary::SerializerKml ser(kmlData);
+        FileWriter writer(kmbPath);
+        ser.Serialize(writer);
+      }
+      catch (FileWriter::Exception const & exc)
+      {
+        my::DeleteFileX(kmbPath);
+        LOG(LDEBUG, ("KML binary serialization failure: ", exc.what(), "file", f));
+        handler(false /* success */);
+        return;
+      }
+
+      fileData.emplace_back(kmbPath, std::move(kmlData));
+    }
+
+    for (auto const & f : files)
+      my::DeleteFileX(f);
+
+    //TODO(@darina): add fileData to m_categories.
+
+    handler(true /* success */);
+  });
 }
 
 df::GroupIDSet BookmarkManager::MarksChangesTracker::GetAllGroupIds() const
