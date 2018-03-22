@@ -176,21 +176,22 @@ std::string FormatBytesFromBuffer(std::vector<uint8_t> const & buffer)
 auto const kDefaultLang = StringUtf8Multilang::kDefaultCode;
 auto const kRuLang = static_cast<int8_t>(8);
 
-kml::CategoryData GenerateCategoryData()
+kml::FileData GenerateKmlFileData()
 {
-  kml::CategoryData categoryData;
-  categoryData.m_name[kDefaultLang] = "Test category";
-  categoryData.m_name[kRuLang] = "Тестовая категория";
-  categoryData.m_description[kDefaultLang] = "Test description";
-  categoryData.m_description[kRuLang] = "Тестовое описание";
-  categoryData.m_visible = true;
-  categoryData.m_authorName = "Maps.Me";
-  categoryData.m_authorId = "12345";
-  categoryData.m_lastModified = std::chrono::system_clock::from_time_t(1000);
-  categoryData.m_accessRules = kml::AccessRules::Public;
-  categoryData.m_tags = {"mountains", "ski", "snowboard"};
-  categoryData.m_toponyms = {"Georgia", "Gudauri"};
-  categoryData.m_languageCodes = {1, 2, 8};
+  kml::FileData result;
+
+  result.m_categoryData.m_name[kDefaultLang] = "Test category";
+  result.m_categoryData.m_name[kRuLang] = "Тестовая категория";
+  result.m_categoryData.m_description[kDefaultLang] = "Test description";
+  result.m_categoryData.m_description[kRuLang] = "Тестовое описание";
+  result.m_categoryData.m_visible = true;
+  result.m_categoryData.m_authorName = "Maps.Me";
+  result.m_categoryData.m_authorId = "12345";
+  result.m_categoryData.m_lastModified = std::chrono::system_clock::from_time_t(1000);
+  result.m_categoryData.m_accessRules = kml::AccessRules::Public;
+  result.m_categoryData.m_tags = {"mountains", "ski", "snowboard"};
+  result.m_categoryData.m_toponyms = {"Georgia", "Gudauri"};
+  result.m_categoryData.m_languageCodes = {1, 2, 8};
 
   kml::BookmarkData bookmarkData;
   bookmarkData.m_id = 10;
@@ -205,7 +206,7 @@ kml::CategoryData GenerateCategoryData()
   bookmarkData.m_timestamp = std::chrono::system_clock::from_time_t(800);
   bookmarkData.m_point = m2::PointD(45.9242, 56.8679);
   bookmarkData.m_boundTracks = {0};
-  categoryData.m_bookmarksData.emplace_back(std::move(bookmarkData));
+  result.m_bookmarksData.emplace_back(std::move(bookmarkData));
 
   kml::TrackData trackData;
   trackData.m_id = 121;
@@ -219,9 +220,9 @@ kml::CategoryData GenerateCategoryData()
   trackData.m_timestamp = std::chrono::system_clock::from_time_t(900);
   trackData.m_points = {m2::PointD(45.9242, 56.8679), m2::PointD(45.2244, 56.2786),
                         m2::PointD(45.1964, 56.9832)};
-  categoryData.m_tracksData.emplace_back(std::move(trackData));
+  result.m_tracksData.emplace_back(std::move(trackData));
 
-  return categoryData;
+  return result;
 }
 
 char const * kGeneratedKml =
@@ -371,7 +372,7 @@ UNIT_TEST(Kml_Deserialization_Text_Bin_Memory)
 {
   UNUSED_VALUE(FormatBytesFromBuffer({}));
 
-  kml::CategoryData dataFromText;
+  kml::FileData dataFromText;
   try
   {
     kml::DeserializerKml des(dataFromText);
@@ -392,7 +393,7 @@ UNIT_TEST(Kml_Deserialization_Text_Bin_Memory)
 //  }
 //  LOG(LINFO, (FormatBytesFromBuffer(buffer)));
 
-  kml::CategoryData dataFromBin;
+  kml::FileData dataFromBin;
   try
   {
     MemReader reader(kBinKml.data(), kBinKml.size());
@@ -410,7 +411,7 @@ UNIT_TEST(Kml_Deserialization_Text_Bin_Memory)
 // 2. Check text serialization to the memory blob and compare with prepared data.
 UNIT_TEST(Kml_Serialization_Text_Memory)
 {
-  kml::CategoryData data;
+  kml::FileData data;
   {
     kml::DeserializerKml des(data);
     MemReader reader(kTextKml, strlen(kTextKml));
@@ -424,7 +425,7 @@ UNIT_TEST(Kml_Serialization_Text_Memory)
     ser.Serialize(sink);
   }
 
-  kml::CategoryData data2;
+  kml::FileData data2;
   {
     kml::DeserializerKml des(data2);
     MemReader reader(resultBuffer.c_str(), resultBuffer.length());
@@ -437,7 +438,7 @@ UNIT_TEST(Kml_Serialization_Text_Memory)
 // 3. Check binary serialization to the memory blob and compare with prepared data.
 UNIT_TEST(Kml_Serialization_Bin_Memory)
 {
-  kml::CategoryData data;
+  kml::FileData data;
   {
     kml::binary::DeserializerKml des(data);
     MemReader reader(kBinKml.data(), kBinKml.size());
@@ -453,7 +454,7 @@ UNIT_TEST(Kml_Serialization_Bin_Memory)
 
   TEST_EQUAL(kBinKml, buffer, ());
 
-  kml::CategoryData data2;
+  kml::FileData data2;
   {
     kml::binary::DeserializerKml des(data2);
     MemReader reader(buffer.data(), buffer.size());
@@ -478,7 +479,7 @@ UNIT_TEST(Kml_Deserialization_Text_File)
     TEST(false, ("Exception raised", exc.what()));
   }
 
-  kml::CategoryData dataFromFile;
+  kml::FileData dataFromFile;
   try
   {
     kml::DeserializerKml des(dataFromFile);
@@ -490,7 +491,7 @@ UNIT_TEST(Kml_Deserialization_Text_File)
     TEST(false, ("Exception raised", exc.what()));
   }
 
-  kml::CategoryData dataFromText;
+  kml::FileData dataFromText;
   {
     kml::DeserializerKml des(dataFromText);
     MemReader reader(kTextKml, strlen(kTextKml));
@@ -515,7 +516,7 @@ UNIT_TEST(Kml_Deserialization_Bin_File)
     TEST(false, ("Exception raised", exc.what()));
   }
 
-  kml::CategoryData dataFromFile;
+  kml::FileData dataFromFile;
   try
   {
     kml::binary::DeserializerKml des(dataFromFile);
@@ -527,7 +528,7 @@ UNIT_TEST(Kml_Deserialization_Bin_File)
     TEST(false, ("Exception raised", exc.what()));
   }
 
-  kml::CategoryData dataFromBin;
+  kml::FileData dataFromBin;
   {
     kml::binary::DeserializerKml des(dataFromBin);
     MemReader reader(kBinKml.data(), kBinKml.size());
@@ -541,7 +542,7 @@ UNIT_TEST(Kml_Deserialization_Bin_File)
 // The data in RAM must be completely equal to the data in binary file.
 UNIT_TEST(Kml_Serialization_Bin_File)
 {
-  auto data = GenerateCategoryData();
+  auto data = GenerateKmlFileData();
 
   string const kmbFile = my::JoinFoldersToPath(GetPlatform().TmpDir(), "tmp.kmb");
   MY_SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmbFile));
@@ -556,7 +557,7 @@ UNIT_TEST(Kml_Serialization_Bin_File)
     TEST(false, ("Exception raised", exc.what()));
   }
 
-  kml::CategoryData dataFromFile;
+  kml::FileData dataFromFile;
   try
   {
     kml::binary::DeserializerKml des(dataFromFile);
@@ -577,7 +578,7 @@ UNIT_TEST(Kml_Serialization_Bin_File)
 // bookmarks and tracks.
 UNIT_TEST(Kml_Serialization_Text_File)
 {
-  auto data = GenerateCategoryData();
+  auto data = GenerateKmlFileData();
 
   string const kmlFile = my::JoinFoldersToPath(GetPlatform().TmpDir(), "tmp.kml");
   MY_SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, kmlFile));
@@ -592,7 +593,7 @@ UNIT_TEST(Kml_Serialization_Text_File)
     TEST(false, ("Exception raised", exc.what()));
   }
 
-  kml::CategoryData dataFromFile;
+  kml::FileData dataFromFile;
   try
   {
     kml::DeserializerKml des(dataFromFile);
@@ -604,7 +605,7 @@ UNIT_TEST(Kml_Serialization_Text_File)
     TEST(false, ("Exception raised", exc.what()));
   }
 
-  kml::CategoryData dataFromMemory;
+  kml::FileData dataFromMemory;
   {
     kml::DeserializerKml des(dataFromMemory);
     MemReader reader(kGeneratedKml, strlen(kGeneratedKml));

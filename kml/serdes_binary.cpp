@@ -4,7 +4,7 @@ namespace kml
 {
 namespace binary
 {
-SerializerKml::SerializerKml(CategoryData & data)
+SerializerKml::SerializerKml(FileData & data)
   : m_data(data)
 {
   ClearCollectionIndex();
@@ -13,7 +13,7 @@ SerializerKml::SerializerKml(CategoryData & data)
   auto const avgSz = data.m_bookmarksData.size() * 2 + data.m_tracksData.size() * 2 + 10;
   LocalizableStringCollector collector(avgSz);
   CollectorVisitor<decltype(collector)> visitor(collector);
-  visitor(m_data);
+  m_data.Visit(visitor);
   m_strings = collector.StealCollection();
 }
 
@@ -26,10 +26,10 @@ void SerializerKml::ClearCollectionIndex()
 {
   LocalizableStringCollector collector(0);
   CollectorVisitor<decltype(collector)> clearVisitor(collector, true /* clear index */);
-  clearVisitor(m_data);
+  m_data.Visit(clearVisitor);
 }
 
-DeserializerKml::DeserializerKml(CategoryData & data)
+DeserializerKml::DeserializerKml(FileData & data)
   : m_data(data)
 {
   m_data = {};

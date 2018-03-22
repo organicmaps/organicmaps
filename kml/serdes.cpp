@@ -403,25 +403,25 @@ KmlWriter::WriterWrapper & KmlWriter::WriterWrapper::operator<<(std::string cons
   return *this;
 }
 
-void KmlWriter::Write(CategoryData const & categoryData)
+void KmlWriter::Write(FileData const & fileData)
 {
   m_writer << kKmlHeader;
 
   // Save category.
-  SaveCategoryData(m_writer, categoryData);
+  SaveCategoryData(m_writer, fileData.m_categoryData);
 
   // Save bookmarks.
-  for (auto const & bookmarkData : categoryData.m_bookmarksData)
+  for (auto const & bookmarkData : fileData.m_bookmarksData)
     SaveBookmarkData(m_writer, bookmarkData);
 
   // Saving tracks.
-  for (auto const & trackData : categoryData.m_tracksData)
+  for (auto const & trackData : fileData.m_tracksData)
     SaveTrackData(m_writer, trackData);
 
   m_writer << kKmlFooter;
 }
 
-KmlParser::KmlParser(CategoryData & data)
+KmlParser::KmlParser(FileData & data)
   : m_data(data)
   , m_attrCode(StringUtf8Multilang::kUnsupportedLanguageCode)
 {
@@ -663,55 +663,55 @@ void KmlParser::CharData(std::string value)
     if (prevTag == kDocument)
     {
       if (currTag == "name")
-        m_data.m_name[kDefaultLang] = value;
+        m_data.m_categoryData.m_name[kDefaultLang] = value;
       else if (currTag == "description")
-        m_data.m_description[kDefaultLang] = value;
+        m_data.m_categoryData.m_description[kDefaultLang] = value;
       else if (currTag == "visibility")
-        m_data.m_visible = value != "0";
+        m_data.m_categoryData.m_visible = value != "0";
     }
     else if (prevTag == kExtendedData && ppTag == kDocument)
     {
       if (currTag == "mwm:author")
       {
-        m_data.m_authorName = value;
-        m_data.m_authorId = m_attrId;
+        m_data.m_categoryData.m_authorName = value;
+        m_data.m_categoryData.m_authorId = m_attrId;
         m_attrId.clear();
       }
       else if (currTag == "mwm:lastModified")
       {
         auto const ts = my::StringToTimestamp(value);
         if (ts != my::INVALID_TIME_STAMP)
-          m_data.m_lastModified = std::chrono::system_clock::from_time_t(ts);
+          m_data.m_categoryData.m_lastModified = std::chrono::system_clock::from_time_t(ts);
       }
       else if (currTag == "mwm:accessRules")
       {
         if (value == "Public")
-          m_data.m_accessRules = AccessRules::Public;
+          m_data.m_categoryData.m_accessRules = AccessRules::Public;
       }
     }
     else if (pppTag == kDocument && ppTag == kExtendedData && currTag == "mwm:lang")
     {
       if (prevTag == "mwm:name" && m_attrCode > 0)
-        m_data.m_name[m_attrCode] = value;
+        m_data.m_categoryData.m_name[m_attrCode] = value;
       else if (prevTag == "mwm:description" && m_attrCode > 0)
-        m_data.m_description[m_attrCode] = value;
+        m_data.m_categoryData.m_description[m_attrCode] = value;
       m_attrCode = StringUtf8Multilang::kUnsupportedLanguageCode;
     }
     else if (pppTag == kDocument && ppTag == kExtendedData && currTag == "mwm:value")
     {
       if (prevTag == "mwm:tags")
       {
-        m_data.m_tags.push_back(value);
+        m_data.m_categoryData.m_tags.push_back(value);
       }
       else if (prevTag == "mwm:toponyms")
       {
-        m_data.m_toponyms.push_back(value);
+        m_data.m_categoryData.m_toponyms.push_back(value);
       }
       else if (prevTag == "mwm:languageCodes")
       {
         auto const lang = StringUtf8Multilang::GetLangIndex(value);
         if (lang != StringUtf8Multilang::kUnsupportedLanguageCode)
-          m_data.m_languageCodes.push_back(lang);
+          m_data.m_categoryData.m_languageCodes.push_back(lang);
       }
     }
     else if (prevTag == kPlacemark)
@@ -863,9 +863,9 @@ void KmlParser::CharData(std::string value)
   }
 }
 
-DeserializerKml::DeserializerKml(CategoryData & categoryData)
-  : m_categoryData(categoryData)
+DeserializerKml::DeserializerKml(FileData & fileData)
+  : m_fileData(fileData)
 {
-  m_categoryData = {};
+  m_fileData = {};
 }
 }  // namespace kml

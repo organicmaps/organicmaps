@@ -9,6 +9,7 @@
 #include "base/bits.hpp"
 
 #include <algorithm>
+#include <type_traits>
 #include <vector>
 
 namespace kml
@@ -16,6 +17,27 @@ namespace kml
 template <typename Collector>
 class CollectorVisitor
 {
+  // The class checks for the existence of collection methods.
+  template <typename T>
+  class HasCollectionMethods
+  {
+    template <typename C> static char Test(decltype(&C::ClearCollectionIndex));
+    template <typename C> static int Test(...);
+  public:
+    enum {value = sizeof(Test<T>(0)) == sizeof(char)};
+  };
+
+  // All types which will be visited to collect.
+  template <typename T>
+  class VisitedTypes
+  {
+  public:
+    enum {value = std::is_same<T, FileData>::value ||
+                  std::is_same<T, CategoryData>::value ||
+                  std::is_same<T, BookmarkData>::value ||
+                  std::is_same<T, TrackData>::value};
+  };
+
 public:
   explicit CollectorVisitor(Collector & collector, bool clearIndex = false)
     : m_collector(collector)
@@ -23,7 +45,8 @@ public:
   {}
 
   template <typename T>
-  void PerformAction(T & t)
+  std::enable_if_t<HasCollectionMethods<T>::value>
+  PerformActionIfPossible(T & t)
   {
     if (m_clearIndex)
       t.ClearCollectionIndex();
@@ -31,26 +54,25 @@ public:
       t.Collect(m_collector);
   }
 
-  void operator()(CategoryData & t, char const * /* name */ = nullptr)
-  {
-    PerformAction(t);
-    t.Visit(*this);
-  }
+  template <typename T>
+  std::enable_if_t<!HasCollectionMethods<T>::value> PerformActionIfPossible(T & t) {}
 
-  void operator()(BookmarkData & t, char const * /* name */ = nullptr)
+  template <typename T>
+  std::enable_if_t<VisitedTypes<T>::value>
+  VisitIfPossible(T & t)
   {
-    PerformAction(t);
-    t.Visit(*this);
-  }
-
-  void operator()(TrackData & t, char const * /* name */ = nullptr)
-  {
-    PerformAction(t);
     t.Visit(*this);
   }
 
   template <typename T>
-  void operator()(T & t, char const * /* name */ = nullptr) {}
+  std::enable_if_t<!VisitedTypes<T>::value> VisitIfPossible(T & t) {}
+
+  template <typename T>
+  void operator()(T & t, char const * /* name */ = nullptr)
+  {
+    PerformActionIfPossible(t);
+    VisitIfPossible(t);
+  }
 
   template <typename T>
   void operator()(std::vector<T> & vs, char const * /* name */ = nullptr)

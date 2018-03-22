@@ -188,7 +188,7 @@ bool ConvertBookmarks(std::vector<std::string> const & files,
     auto const kmbPath = my::JoinPath(conversionFolder, fileName + kBookmarksExt);
     if (!GetPlatform().IsFileExistsByFullPath(kmbPath))
     {
-      kml::CategoryData kmlData;
+      kml::FileData kmlData;
       try
       {
         kml::DeserializerKml des(kmlData);

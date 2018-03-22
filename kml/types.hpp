@@ -89,10 +89,7 @@ struct ColorData
     return m_predefinedColor == data.m_predefinedColor && m_rgba == data.m_rgba;
   }
 
-  bool operator!=(ColorData const & data) const
-  {
-    return !operator==(data);
-  }
+  bool operator!=(ColorData const & data) const { return !operator==(data); }
 
   // Predefined color.
   PredefinedColor m_predefinedColor = PredefinedColor::None;
@@ -128,10 +125,7 @@ struct BookmarkData
            m_boundTracks == data.m_boundTracks;
   }
 
-  bool operator!=(BookmarkData const & data) const
-  {
-    return !operator==(data);
-  }
+  bool operator!=(BookmarkData const & data) const { return !operator==(data); }
 
   // Unique id.
   Id m_id = 0;
@@ -166,10 +160,7 @@ struct TrackLayer
     return m_color == layer.m_color && fabs(m_lineWidth - layer.m_lineWidth) < kEps;
   }
 
-  bool operator!=(TrackLayer const & layer) const
-  {
-    return !operator==(layer);
-  }
+  bool operator!=(TrackLayer const & layer) const { return !operator==(layer); }
 
   // Line width in pixels. Valid range is [kMinLineWidth; kMaxLineWidth].
   double m_lineWidth = 5.0;
@@ -197,10 +188,7 @@ struct TrackData
            IsEqual(m_timestamp, data.m_timestamp) && IsEqual(m_points, data.m_points);
   }
 
-  bool operator!=(TrackData const & data) const
-  {
-    return !operator==(data);
-  }
+  bool operator!=(TrackData const & data) const { return !operator==(data); }
 
   // Unique id.
   Id m_id = 0;
@@ -222,8 +210,6 @@ struct CategoryData
 {
   DECLARE_VISITOR_AND_DEBUG_PRINT(CategoryData, visitor(m_name, "name"),
                                   visitor(m_description, "description"),
-                                  visitor(m_bookmarksData, "bookmarks"),
-                                  visitor(m_tracksData, "tracks"),
                                   visitor(m_visible, "visible"),
                                   visitor(m_authorName, "authorName"),
                                   visitor(m_authorId, "authorId"),
@@ -243,23 +229,15 @@ struct CategoryData
            m_visible == data.m_visible && m_accessRules == data.m_accessRules &&
            m_authorName == data.m_authorName && m_authorId == data.m_authorId &&
            IsEqual(m_lastModified, data.m_lastModified) && m_tags == data.m_tags &&
-           m_toponyms == data.m_toponyms && m_languageCodes == data.m_languageCodes &&
-           m_bookmarksData == data.m_bookmarksData && m_tracksData == data.m_tracksData;
+           m_toponyms == data.m_toponyms && m_languageCodes == data.m_languageCodes;
   }
 
-  bool operator!=(CategoryData const & data) const
-  {
-    return !operator==(data);
-  }
+  bool operator!=(CategoryData const & data) const { return !operator==(data); }
 
   // Category's name.
   LocalizableString m_name;
   // Category's description.
   LocalizableString m_description;
-  // Bookmarks collection.
-  std::vector<BookmarkData> m_bookmarksData;
-  // Tracks collection.
-  std::vector<TrackData> m_tracksData;
   // Collection visibility.
   bool m_visible = true;
   // Author's name.
@@ -276,5 +254,27 @@ struct CategoryData
   std::vector<std::string> m_toponyms;
   // Language codes.
   std::vector<int8_t> m_languageCodes;
+};
+
+struct FileData
+{
+  DECLARE_VISITOR_AND_DEBUG_PRINT(FileData, visitor(m_categoryData, "category"),
+                                  visitor(m_bookmarksData, "bookmarks"),
+                                  visitor(m_tracksData, "tracks"))
+
+  bool operator==(FileData const & data) const
+  {
+    return m_categoryData == data.m_categoryData && m_bookmarksData == data.m_bookmarksData &&
+           m_tracksData == data.m_tracksData;
+  }
+
+  bool operator!=(FileData const & data) const { return !operator==(data); }
+
+  // Category's data.
+  CategoryData m_categoryData;
+  // Bookmarks collection.
+  std::vector<BookmarkData> m_bookmarksData;
+  // Tracks collection.
+  std::vector<TrackData> m_tracksData;
 };
 }  // namespace kml

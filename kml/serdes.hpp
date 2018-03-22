@@ -34,7 +34,7 @@ public:
     : m_writer(writer)
   {}
 
-  void Write(CategoryData const & categoryData);
+  void Write(FileData const & fileData);
 
 private:
   WriterWrapper m_writer;
@@ -43,25 +43,25 @@ private:
 class SerializerKml
 {
 public:
-  explicit SerializerKml(CategoryData const & categoryData)
-    : m_categoryData(categoryData)
+  explicit SerializerKml(FileData const & fileData)
+    : m_fileData(fileData)
   {}
 
   template <typename Sink>
   void Serialize(Sink & sink)
   {
     KmlWriter kmlWriter(sink);
-    kmlWriter.Write(m_categoryData);
+    kmlWriter.Write(m_fileData);
   }
 
 private:
-  CategoryData const & m_categoryData;
+  FileData const & m_fileData;
 };
 
 class KmlParser
 {
 public:
-  explicit KmlParser(CategoryData & data);
+  explicit KmlParser(FileData & data);
   bool Push(std::string const & name);
   void AddAttr(std::string const & attr, std::string const & value);
   bool IsValidAttribute(std::string const & type, std::string const & value,
@@ -87,7 +87,7 @@ private:
   void ParseColor(std::string const &value);
   bool GetColorForStyle(std::string const & styleUrl, uint32_t & color);
 
-  CategoryData & m_data;
+  FileData & m_data;
 
   std::vector<std::string> m_tags;
   GeometryType m_geometryType;
@@ -122,18 +122,18 @@ class DeserializerKml
 public:
   DECLARE_EXCEPTION(DeserializeException, RootException);
 
-  explicit DeserializerKml(CategoryData & categoryData);
+  explicit DeserializerKml(FileData & fileData);
 
   template <typename ReaderType>
   void Deserialize(ReaderType const & reader)
   {
     NonOwningReaderSource src(reader);
-    KmlParser parser(m_categoryData);
+    KmlParser parser(m_fileData);
     if (!ParseXML(src, parser, true))
       MYTHROW(DeserializeException, ("Could not parse KML."));
   }
 
 private:
-  CategoryData & m_categoryData;
+  FileData & m_fileData;
 };
 }  // namespace kml

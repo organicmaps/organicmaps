@@ -26,7 +26,7 @@ enum class Version : uint8_t
 class SerializerKml
 {
 public:
-  explicit SerializerKml(CategoryData & data);
+  explicit SerializerKml(FileData & data);
   ~SerializerKml();
 
   void ClearCollectionIndex();
@@ -70,7 +70,7 @@ public:
   void SerializeCategory(Sink & sink)
   {
     CategorySerializerVisitor<Sink> visitor(sink);
-    visitor(m_data);
+    visitor(m_data.m_categoryData);
   }
 
   template <typename Sink>
@@ -97,7 +97,7 @@ public:
   }
 
 private:
-  CategoryData & m_data;
+  FileData & m_data;
   std::vector<std::string> m_strings;
 };
 
@@ -106,7 +106,7 @@ class DeserializerKml
 public:
   DECLARE_EXCEPTION(DeserializeException, RootException);
 
-  explicit DeserializerKml(CategoryData & data);
+  explicit DeserializerKml(FileData & data);
 
   template <typename ReaderType>
   void Deserialize(ReaderType const & reader)
@@ -125,7 +125,7 @@ public:
       auto categorySubReader = CreateCategorySubReader(*subReader);
       NonOwningReaderSource src(*categorySubReader);
       CategoryDeserializerVisitor<decltype(src)> visitor(src);
-      visitor(m_data);
+      visitor(m_data.m_categoryData);
     }
 
     // Deserialize bookmarks.
@@ -150,10 +150,10 @@ public:
       coding::BlockedTextStorage<Reader> strings(*textsSubReader);
       DeserializedStringCollector<Reader> collector(strings);
       CollectorVisitor<decltype(collector)> visitor(collector);
-      visitor(m_data);
+      m_data.Visit(visitor);
       CollectorVisitor<decltype(collector)> clearVisitor(collector,
                                                          true /* clear index */);
-      clearVisitor(m_data);
+      m_data.Visit(clearVisitor);
     }
   }
 
@@ -203,7 +203,7 @@ private:
     return CreateSubReader(reader, m_header.m_stringsOffset, m_header.m_eosOffset);
   }
 
-  CategoryData & m_data;
+  FileData & m_data;
   Header m_header;
   bool m_initialized = false;
 };
