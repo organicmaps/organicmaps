@@ -1293,4 +1293,8 @@
 	<string name="bookmarks_error_title_empty_list_name">The name couldn\'t be empty</string>
 	<string name="bookmarks_error_message_empty_list_name">Please enter the list name</string>
 	<string name="bookmarks_new_list_hint">New list</string>
+	<string name="bookmarks_error_title_list_name_already_taken">This name is already taken</string>
+	<string name="bookmarks_error_message_list_name_already_taken">Please choose another name</string>
+	<string name="bookmarks_error_title_list_name_too_long">This name is too long</string>
+	<string name="bookmarks_error_message_list_name_too_long">Please choose another name</string>
 </resources>

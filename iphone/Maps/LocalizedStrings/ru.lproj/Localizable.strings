@@ -2236,3 +2236,11 @@
 "bookmarks_error_message_empty_list_name" = "Введите имя списка, пожалуйста";
 
 "bookmarks_new_list_hint" = "Новый список";
+
+"bookmarks_error_title_list_name_already_taken" = "Такое имя уже занято";
+
+"bookmarks_error_message_list_name_already_taken" = "Выберите, пожалуйста, другое имя";
+
+"bookmarks_error_title_list_name_too_long" = "Слишком длинное название";
+
+"bookmarks_error_message_list_name_too_long" = "Выберите, пожалуйста, другое имя";
