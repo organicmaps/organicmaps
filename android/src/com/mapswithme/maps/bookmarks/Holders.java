@@ -1,5 +1,6 @@
 package com.mapswithme.maps.bookmarks;
 
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,46 @@ public class Holders
     GeneralViewHolder(@NonNull View itemView)
     {
       super(itemView);
+    }
+  }
+
+  static class HeaderViewHolder extends RecyclerView.ViewHolder
+  {
+    @NonNull
+    private TextView mButton;
+
+    public HeaderViewHolder(@NonNull View itemView)
+    {
+      super(itemView);
+      mButton = itemView.findViewById(R.id.button);
+    }
+
+    void setActionText(boolean showAll)
+    {
+      mButton.setText(showAll ? R.string.bookmarks_groups_show_all :
+                      R.string.bookmarks_groups_hide_all);
+    }
+
+    void setAction(@Nullable HeaderAction action)
+    {
+      mButton.setOnClickListener
+          (v ->
+           {
+             if (action == null)
+               return;
+
+             Resources res = mButton.getResources();
+             if (mButton.getText().equals(res.getString(R.string.bookmarks_groups_show_all)))
+               action.onShowAll();
+             else
+               action.onHideAll();
+           });
+    }
+
+    public interface HeaderAction
+    {
+      void onHideAll();
+      void onShowAll();
     }
   }
 

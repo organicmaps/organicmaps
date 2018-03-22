@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -15,12 +14,14 @@ import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 
 import static com.mapswithme.maps.bookmarks.Holders.CategoryViewHolder;
+import static com.mapswithme.maps.bookmarks.Holders.HeaderViewHolder;
 
 public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<RecyclerView.ViewHolder>
 {
   private final static int TYPE_CATEGORY_ITEM = 0;
   private final static int TYPE_ACTION_CREATE_GROUP = 1;
-  private final static int TYPE_ACTION_HIDE_ALL = 2;
+  private final static int TYPE_ACTION_HEADER = 2;
+  private final static int HEADER_POSITION = 0;
   @Nullable
   private RecyclerLongClickListener mLongClickListener;
   @Nullable
@@ -52,15 +53,10 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
     LayoutInflater inflater = LayoutInflater.from(getContext());
-    if (viewType == TYPE_ACTION_HIDE_ALL)
+    if (viewType == TYPE_ACTION_HEADER)
     {
-      View hideAllView = inflater.inflate(R.layout.item_bookmark_hide_all, parent, false);
-      hideAllView.findViewById(R.id.hide_btn).setOnClickListener
-          (v ->
-           {
-             Toast.makeText(getContext(), "Coming soon", Toast.LENGTH_SHORT).show();
-           });
-      return new Holders.GeneralViewHolder(hideAllView);
+      View header = inflater.inflate(R.layout.item_bookmark_group_list_header, parent, false);
+      return new Holders.HeaderViewHolder(header);
     }
 
     if (viewType == TYPE_ACTION_CREATE_GROUP)
@@ -99,8 +95,31 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position)
   {
     int type = getItemViewType(position);
-    if (type == TYPE_ACTION_CREATE_GROUP || type == TYPE_ACTION_HIDE_ALL)
+    if (type == TYPE_ACTION_CREATE_GROUP)
       return;
+
+    if (type == TYPE_ACTION_HEADER)
+    {
+      HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
+      headerHolder.setActionText(BookmarkManager.INSTANCE.areAllCategoriesInvisible());
+      headerHolder.setAction(new HeaderViewHolder.HeaderAction()
+      {
+        @Override
+        public void onHideAll()
+        {
+          BookmarkManager.INSTANCE.setAllCategoriesVisibility(false);
+          notifyDataSetChanged();
+        }
+
+        @Override
+        public void onShowAll()
+        {
+          BookmarkManager.INSTANCE.setAllCategoriesVisibility(true);
+          notifyDataSetChanged();
+        }
+      });
+      return;
+    }
 
     CategoryViewHolder categoryHolder = (CategoryViewHolder) holder;
     final BookmarkManager bmManager = BookmarkManager.INSTANCE;
@@ -113,6 +132,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
         {
           BookmarkManager.INSTANCE.toggleCategoryVisibility(catId);
           categoryHolder.setVisibilityState(bmManager.isVisible(catId));
+          notifyItemChanged(HEADER_POSITION);
         });
     categoryHolder.setMoreListener(v -> {
       if (mCategoryListInterface != null)
@@ -124,7 +144,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   public int getItemViewType(int position)
   {
     if (position == 0)
-      return TYPE_ACTION_HIDE_ALL;
+      return TYPE_ACTION_HEADER;
     return (position == getItemCount() - 1) ? TYPE_ACTION_CREATE_GROUP : TYPE_CATEGORY_ITEM;
   }
 

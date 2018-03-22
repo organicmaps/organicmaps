@@ -240,6 +240,26 @@ public enum BookmarkManager
     return nativeIsAsyncBookmarksLoadingInProgress();
   }
 
+  public boolean isUsedCategoryName(@NonNull String name)
+  {
+    return nativeIsUsedCategoryName(name);
+  }
+
+  public boolean areAllCategoriesVisible()
+  {
+    return nativeAreAllCategoriesVisible();
+  }
+
+  public boolean areAllCategoriesInvisible()
+  {
+    return nativeAreAllCategoriesInvisible();
+  }
+
+  public void setAllCategoriesVisibility(boolean visible)
+  {
+    nativeSetAllCategoriesVisibility(visible);
+  }
+
   private native int nativeGetCategoriesCount();
 
   private native int nativeGetCategoryPositionById(long catId);
@@ -311,15 +331,18 @@ public enum BookmarkManager
 
   private static native boolean nativeIsAsyncBookmarksLoadingInProgress();
 
+  private static native boolean nativeIsUsedCategoryName(@NonNull String name);
+
+  private static native boolean nativeAreAllCategoriesVisible();
+
+  private static native boolean nativeAreAllCategoriesInvisible();
+
+  private static native void nativeSetAllCategoriesVisibility(boolean visible);
+
   public interface BookmarksLoadingListener
   {
     void onBookmarksLoadingStarted();
     void onBookmarksLoadingFinished();
     void onBookmarksFileLoaded(boolean success);
   }
-
-  private static native boolean nativeIsUsedCategoryName(@NonNull String name);
-  private static native boolean nativeAreAllCategoriesVisible();
-  private static native boolean nativeAreAllCategoriesInvisible();
-  private static native void nativeSetAllCategoriesVisibility(boolean visible);
 }

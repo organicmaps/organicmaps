@@ -17,7 +17,7 @@
     android:fontFamily="@string/robotoMedium"
     tools:targetApi="jelly_bean"/>
   <TextView
-    android:id="@+id/hide_btn"
+    android:id="@+id/button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textAppearance="@style/MwmTextAppearance.Body3"
