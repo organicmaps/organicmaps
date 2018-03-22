@@ -165,7 +165,16 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
       return;
     }
 
-    //TODO: Check that name is not already taken here when the core is ready.
+    if (BookmarkManager.INSTANCE.isUsedCategoryName(text))
+    {
+      new AlertDialog.Builder(getActivity())
+          .setCancelable(true)
+          .setPositiveButton(R.string.ok, null)
+          .setTitle(R.string.bookmarks_error_title_list_name_already_taken)
+          .setMessage(R.string.bookmarks_error_message_list_name_already_taken)
+          .show();
+      return;
+    }
 
     if (mCategoryEditor != null)
       mCategoryEditor.commit(text);
