@@ -30111,3 +30111,19 @@ fa = دوباره نپرس
   [bookmarks_new_list_hint]
     en = New list
     ru = Новый список
+
+  [bookmarks_error_title_list_name_already_taken]
+    en = This name is already taken
+    ru = Такое имя уже занято
+
+  [bookmarks_error_message_list_name_already_taken]
+    en = Please choose another name
+    ru = Выберите, пожалуйста, другое имя
+
+  [bookmarks_error_title_list_name_too_long]
+    en = This name is too long
+    ru = Слишком длинное название
+
+  [bookmarks_error_message_list_name_too_long]
+    en = Please choose another name
+    ru = Выберите, пожалуйста, другое имя    
