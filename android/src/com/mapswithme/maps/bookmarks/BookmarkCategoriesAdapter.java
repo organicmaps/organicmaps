@@ -101,7 +101,6 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     if (type == TYPE_ACTION_HEADER)
     {
       HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
-      headerHolder.setActionText(BookmarkManager.INSTANCE.areAllCategoriesInvisible());
       headerHolder.setAction(new HeaderViewHolder.HeaderAction()
       {
         @Override
@@ -117,7 +116,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
           BookmarkManager.INSTANCE.setAllCategoriesVisibility(true);
           notifyDataSetChanged();
         }
-      });
+      }, BookmarkManager.INSTANCE.areAllCategoriesInvisible());
       return;
     }
 

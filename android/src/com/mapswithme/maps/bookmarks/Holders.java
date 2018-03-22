@@ -1,6 +1,5 @@
 package com.mapswithme.maps.bookmarks;
 
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -27,28 +26,23 @@ public class Holders
     @NonNull
     private TextView mButton;
 
-    public HeaderViewHolder(@NonNull View itemView)
+    HeaderViewHolder(@NonNull View itemView)
     {
       super(itemView);
       mButton = itemView.findViewById(R.id.button);
     }
 
-    void setActionText(boolean showAll)
+    void setAction(@Nullable HeaderAction action, final boolean showAll)
     {
       mButton.setText(showAll ? R.string.bookmarks_groups_show_all :
                       R.string.bookmarks_groups_hide_all);
-    }
-
-    void setAction(@Nullable HeaderAction action)
-    {
       mButton.setOnClickListener
           (v ->
            {
              if (action == null)
                return;
 
-             Resources res = mButton.getResources();
-             if (mButton.getText().equals(res.getString(R.string.bookmarks_groups_show_all)))
+             if (showAll)
                action.onShowAll();
              else
                action.onHideAll();
