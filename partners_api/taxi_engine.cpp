@@ -1,6 +1,6 @@
 #include "partners_api/taxi_engine.hpp"
 #include "partners_api/maxim_api.hpp"
-#include "partners_api/taxi_places.hpp"
+#include "partners_api/taxi_places_constants.hpp"
 #include "partners_api/uber_api.hpp"
 #include "partners_api/yandex_api.hpp"
 
@@ -189,17 +189,20 @@ std::vector<Provider::Type> Engine::GetProvidersAtPos(ms::LatLon const & pos) co
 
 bool Engine::IsAvailableAtPos(Provider::Type type, ms::LatLon const & pos) const
 {
-  if (AreAllCountriesDisabled(type, pos))
+  if (IsDisabledAtPos(type, pos))
     return false;
 
-  return IsAnyCountryEnabled(type, pos);
+  return IsEnabledAtPos(type, pos);
 }
 
-bool Engine::AreAllCountriesDisabled(Provider::Type type, ms::LatLon const & latlon) const
+bool Engine::IsDisabledAtPos(Provider::Type type, ms::LatLon const & latlon) const
 {
   auto const it = FindByProviderType(type, m_apis.cbegin(), m_apis.cend());
 
   CHECK(it != m_apis.cend(), ());
+
+  if (it->IsMwmDisabled(m_delegate->GetMwmId(latlon)))
+    return true;
 
   auto const countryIds = m_delegate->GetCountryIds(latlon);
   auto const city = m_delegate->GetCityName(latlon);
@@ -207,11 +210,14 @@ bool Engine::AreAllCountriesDisabled(Provider::Type type, ms::LatLon const & lat
   return it->AreAllCountriesDisabled(countryIds, city);
 }
 
-bool Engine::IsAnyCountryEnabled(Provider::Type type, ms::LatLon const & latlon) const
+bool Engine::IsEnabledAtPos(Provider::Type type, ms::LatLon const & latlon) const
 {
   auto const it = FindByProviderType(type, m_apis.cbegin(), m_apis.cend());
 
   CHECK(it != m_apis.cend(), ());
+
+  if (it->IsMwmEnabled(m_delegate->GetMwmId(latlon)))
+    return true;
 
   auto const countryIds = m_delegate->GetCountryIds(latlon);
   auto const city = m_delegate->GetCityName(latlon);
@@ -221,7 +227,7 @@ bool Engine::IsAnyCountryEnabled(Provider::Type type, ms::LatLon const & latlon)
 
 template <typename ApiType>
 void Engine::AddApi(std::vector<ProviderUrl> const & urls, Provider::Type type,
-                    Countries const & enabled, Countries const & disabled)
+                    Places const & enabled, Places const & disabled)
 {
   auto const it = std::find_if(urls.cbegin(), urls.cend(), [type](ProviderUrl const & item)
   {

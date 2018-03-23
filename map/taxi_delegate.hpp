@@ -20,6 +20,7 @@ public:
 
   storage::TCountriesVec GetCountryIds(ms::LatLon const & latlon) override;
   std::string GetCityName(ms::LatLon const & latlon) override;
+  storage::TCountryId GetMwmId(ms::LatLon const & latlon) override;
 
 private:
   storage::Storage const & m_storage;

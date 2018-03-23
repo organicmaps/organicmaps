@@ -6,6 +6,17 @@ namespace
 {
 // The maximum supported distance in meters by default.
 double const kMaxSupportedDistance = 100000;
+
+bool HasMwmId(taxi::Places const & places, storage::TCountryId const & mwmId)
+{
+  if (mwmId.empty())
+    return false;
+
+  if (places.IsMwmsEmpty())
+    return true;
+
+  return places.Has(mwmId);
+}
 }  // namespace
 
 namespace taxi
@@ -21,12 +32,12 @@ bool ApiItem::AreAllCountriesDisabled(storage::TCountriesVec const & countryIds,
   if (countryIds.empty())
     return true;
 
-  if (m_disabledCountries.IsEmpty())
+  if (m_disabledPlaces.IsCountriesEmpty())
     return false;
 
   bool isCountryDisabled = true;
   for (auto const & countryId : countryIds)
-    isCountryDisabled = isCountryDisabled && m_disabledCountries.Has(countryId, city);
+    isCountryDisabled = isCountryDisabled && m_disabledPlaces.Has(countryId, city);
 
   return isCountryDisabled;
 }
@@ -37,15 +48,25 @@ bool ApiItem::IsAnyCountryEnabled(storage::TCountriesVec const & countryIds,
   if (countryIds.empty())
     return false;
 
-  if (m_enabledCountries.IsEmpty())
+  if (m_enabledPlaces.IsCountriesEmpty())
     return true;
 
   for (auto const & countryId : countryIds)
   {
-    if (m_enabledCountries.Has(countryId, city))
+    if (m_enabledPlaces.Has(countryId, city))
       return true;
   }
 
   return false;
+}
+
+bool ApiItem::IsMwmDisabled(storage::TCountryId const & mwmId) const
+{
+  return HasMwmId(m_disabledPlaces, mwmId);
+}
+
+bool ApiItem::IsMwmEnabled(storage::TCountryId const & mwmId) const
+{
+  return HasMwmId(m_enabledPlaces, mwmId);
 }
 }  // namespace taxi

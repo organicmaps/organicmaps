@@ -24,6 +24,7 @@ public:
 
   virtual storage::TCountriesVec GetCountryIds(ms::LatLon const & latlon) = 0;
   virtual std::string GetCityName(ms::LatLon const & latlon) = 0;
+  virtual storage::TCountryId GetMwmId(ms::LatLon const & latlon) = 0;
 };
 
 /// This class is used to collect replies from all taxi apis and to call callback when all replies
@@ -84,12 +85,12 @@ public:
 
 private:
   bool IsAvailableAtPos(Provider::Type type, ms::LatLon const & pos) const;
-  bool AreAllCountriesDisabled(Provider::Type type, ms::LatLon const & latlon) const;
-  bool IsAnyCountryEnabled(Provider::Type type, ms::LatLon const & latlon) const;
+  bool IsDisabledAtPos(Provider::Type type, ms::LatLon const & latlon) const;
+  bool IsEnabledAtPos(Provider::Type type, ms::LatLon const & latlon) const;
 
   template <typename ApiType>
-  void AddApi(std::vector<ProviderUrl> const & urls, Provider::Type type, Countries const & enabled,
-              Countries const & disabled);
+  void AddApi(std::vector<ProviderUrl> const & urls, Provider::Type type, Places const & enabled,
+              Places const & disabled);
 
   std::vector<ApiItem> m_apis;
 

@@ -1,14 +1,20 @@
-#include "partners_api/taxi_countries.hpp"
+#include "partners_api/taxi_places.hpp"
 
 #include <algorithm>
 
 namespace taxi
 {
-Countries::Countries(std::vector<Country> const & countries) : m_countries(countries) {}
+Places::Places(std::vector<Country> const & countries,
+               std::unordered_set<storage::TCountryId> const & mwmIds)
+  : m_countries(countries)
+  , m_mwmIds(mwmIds)
+{
+}
 
-bool Countries::IsEmpty() const { return m_countries.empty(); }
+bool Places::IsCountriesEmpty() const { return m_countries.empty(); }
+bool Places::IsMwmsEmpty() const { return m_mwmIds.empty(); }
 
-bool Countries::Has(storage::TCountryId const & id, std::string const & city) const
+bool Places::Has(storage::TCountryId const & id, std::string const & city) const
 {
   auto const countryIt =
       std::find_if(m_countries.cbegin(), m_countries.cend(),
@@ -26,5 +32,10 @@ bool Countries::Has(storage::TCountryId const & id, std::string const & city) co
                                    [&city](std::string const & c) { return c == city; });
 
   return cityIt != cities.cend();
+}
+
+bool Places::Has(storage::TCountryId const & mwmId) const
+{
+  return m_mwmIds.find(mwmId) != m_mwmIds.cend();
 }
 }  // namespace taxi

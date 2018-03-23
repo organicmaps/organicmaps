@@ -30,3 +30,9 @@ std::string TaxiDelegate::GetCityName(ms::LatLon const & latlon)
   m2::PointD const point = MercatorBounds::FromLatLon(latlon);
   return m_cityFinder.GetCityName(point, StringUtf8Multilang::kEnglishCode);
 }
+
+storage::TCountryId TaxiDelegate::GetMwmId(ms::LatLon const & latlon)
+{
+  m2::PointD const point = MercatorBounds::FromLatLon(latlon);
+  return m_infoGetter.GetRegionCountryId(point);
+}
