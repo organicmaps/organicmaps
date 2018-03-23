@@ -2999,7 +2999,3 @@ area|z14-[sponsored=partner2]
 node|z18-[sponsored=partner2],
 area|z18-[sponsored=partner2]
 {font-size: 11;}
-
-node|z16-[sponsored=holiday],
-area|z16-[sponsored=holiday]
-{icon-image: christmastree.svg;}
