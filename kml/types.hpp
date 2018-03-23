@@ -128,7 +128,7 @@ struct BookmarkData
   bool operator!=(BookmarkData const & data) const { return !operator==(data); }
 
   // Unique id.
-  Id m_id = 0;
+  BookmarkId m_id = kInvalidBookmarkId;
   // Bookmark's name.
   LocalizableString m_name;
   // Bookmark's description.
@@ -189,9 +189,9 @@ struct TrackData
   }
 
   bool operator!=(TrackData const & data) const { return !operator==(data); }
-
+  
   // Unique id.
-  Id m_id = 0;
+  TrackId m_id = kInvalidTrackId;
   // Local track id.
   LocalId m_localId = 0;
   // Track's name.
@@ -208,7 +208,8 @@ struct TrackData
 
 struct CategoryData
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(CategoryData, visitor(m_name, "name"),
+  DECLARE_VISITOR_AND_DEBUG_PRINT(CategoryData, visitor(m_id, "id"),
+                                  visitor(m_name, "name"),
                                   visitor(m_description, "description"),
                                   visitor(m_visible, "visible"),
                                   visitor(m_authorName, "authorName"),
@@ -225,7 +226,7 @@ struct CategoryData
 
   bool operator==(CategoryData const & data) const
   {
-    return m_name == data.m_name && m_description == data.m_description &&
+    return m_id == data.m_id && m_name == data.m_name && m_description == data.m_description &&
            m_visible == data.m_visible && m_accessRules == data.m_accessRules &&
            m_authorName == data.m_authorName && m_authorId == data.m_authorId &&
            IsEqual(m_lastModified, data.m_lastModified) && m_tags == data.m_tags &&
@@ -234,6 +235,8 @@ struct CategoryData
 
   bool operator!=(CategoryData const & data) const { return !operator==(data); }
 
+  // Unique id.
+  CategoryId m_id = kInvalidCategoryId;
   // Category's name.
   LocalizableString m_name;
   // Category's description.

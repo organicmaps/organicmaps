@@ -4,6 +4,7 @@
 
 #include <cstdint>
 #include <chrono>
+#include <limits>
 #include <map>
 #include <sstream>
 #include <vector>
@@ -15,8 +16,14 @@ using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 using LocalizableString = std::unordered_map<int8_t, std::string>;
 using LocalizableStringSubIndex = std::map<int8_t, uint32_t>;
 using LocalizableStringIndex = std::vector<LocalizableStringSubIndex>;
-using Id = uint64_t;
+using CategoryId = uint64_t;
+using BookmarkId = uint64_t;
+using TrackId = uint64_t;
 using LocalId = uint8_t;
+
+CategoryId constexpr kInvalidCategoryId = std::numeric_limits<CategoryId>::max();
+BookmarkId constexpr kInvalidBookmarkId = std::numeric_limits<BookmarkId>::max();
+TrackId constexpr kInvalidTrackId = std::numeric_limits<TrackId>::max();
 
 inline uint64_t ToSecondsSinceEpoch(Timestamp const & time)
 {
