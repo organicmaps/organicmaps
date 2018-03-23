@@ -18,9 +18,9 @@ class TaxiDelegate : public taxi::Delegate
 public:
   TaxiDelegate(storage::Storage const & st, storage::CountryInfoGetter const & ig, search::CityFinder & cf);
 
-  storage::TCountriesVec GetCountryIds(ms::LatLon const & latlon) override;
-  std::string GetCityName(ms::LatLon const & latlon) override;
-  storage::TCountryId GetMwmId(ms::LatLon const & latlon) override;
+  storage::TCountriesVec GetCountryIds(m2::PointD const & point) override;
+  std::string GetCityName(m2::PointD const & point) override;
+  storage::TCountryId GetMwmId(m2::PointD const & point) override;
 
 private:
   storage::Storage const & m_storage;

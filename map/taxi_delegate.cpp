@@ -8,31 +8,26 @@
 
 #include "coding/multilang_utf8_string.hpp"
 
-#include "geometry/mercator.hpp"
-
 TaxiDelegate::TaxiDelegate(storage::Storage const & st, storage::CountryInfoGetter const & ig,
                            search::CityFinder & cf)
   : m_storage(st), m_infoGetter(ig), m_cityFinder(cf)
 {
 }
 
-storage::TCountriesVec TaxiDelegate::GetCountryIds(ms::LatLon const & latlon)
+storage::TCountriesVec TaxiDelegate::GetCountryIds(m2::PointD const & point)
 {
-  m2::PointD const point = MercatorBounds::FromLatLon(latlon);
   auto const countryId = m_infoGetter.GetRegionCountryId(point);
   storage::TCountriesVec topmostCountryIds;
   m_storage.GetTopmostNodesFor(countryId, topmostCountryIds);
   return topmostCountryIds;
 }
 
-std::string TaxiDelegate::GetCityName(ms::LatLon const & latlon)
+std::string TaxiDelegate::GetCityName(m2::PointD const & point)
 {
-  m2::PointD const point = MercatorBounds::FromLatLon(latlon);
   return m_cityFinder.GetCityName(point, StringUtf8Multilang::kEnglishCode);
 }
 
-storage::TCountryId TaxiDelegate::GetMwmId(ms::LatLon const & latlon)
+storage::TCountryId TaxiDelegate::GetMwmId(m2::PointD const & point)
 {
-  m2::PointD const point = MercatorBounds::FromLatLon(latlon);
   return m_infoGetter.GetRegionCountryId(point);
 }

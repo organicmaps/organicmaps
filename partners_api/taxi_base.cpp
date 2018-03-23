@@ -6,17 +6,6 @@ namespace
 {
 // The maximum supported distance in meters by default.
 double const kMaxSupportedDistance = 100000;
-
-bool HasMwmId(taxi::Places const & places, storage::TCountryId const & mwmId)
-{
-  if (mwmId.empty())
-    return false;
-
-  if (places.IsMwmsEmpty())
-    return true;
-
-  return places.Has(mwmId);
-}
 }  // namespace
 
 namespace taxi
@@ -62,11 +51,23 @@ bool ApiItem::IsAnyCountryEnabled(storage::TCountriesVec const & countryIds,
 
 bool ApiItem::IsMwmDisabled(storage::TCountryId const & mwmId) const
 {
-  return HasMwmId(m_disabledPlaces, mwmId);
+  if (mwmId.empty())
+    return false;
+
+  if (m_disabledPlaces.IsMwmsEmpty())
+    return false;
+
+  return m_disabledPlaces.Has(mwmId);
 }
 
 bool ApiItem::IsMwmEnabled(storage::TCountryId const & mwmId) const
 {
-  return HasMwmId(m_enabledPlaces, mwmId);
+  if (mwmId.empty())
+    return false;
+
+  if (m_enabledPlaces.IsMwmsEmpty())
+    return true;
+
+  return m_enabledPlaces.Has(mwmId);
 }
 }  // namespace taxi

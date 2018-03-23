@@ -4,6 +4,8 @@
 
 #include "platform/safe_callback.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include <cstdint>
 #include <memory>
 #include <mutex>
@@ -22,9 +24,9 @@ class Delegate
 public:
   virtual ~Delegate() = default;
 
-  virtual storage::TCountriesVec GetCountryIds(ms::LatLon const & latlon) = 0;
-  virtual std::string GetCityName(ms::LatLon const & latlon) = 0;
-  virtual storage::TCountryId GetMwmId(ms::LatLon const & latlon) = 0;
+  virtual storage::TCountriesVec GetCountryIds(m2::PointD const & point) = 0;
+  virtual std::string GetCityName(m2::PointD const & point) = 0;
+  virtual storage::TCountryId GetMwmId(m2::PointD const & point) = 0;
 };
 
 /// This class is used to collect replies from all taxi apis and to call callback when all replies
@@ -84,9 +86,9 @@ public:
   std::vector<Provider::Type> GetProvidersAtPos(ms::LatLon const & pos) const;
 
 private:
-  bool IsAvailableAtPos(Provider::Type type, ms::LatLon const & pos) const;
-  bool IsDisabledAtPos(Provider::Type type, ms::LatLon const & latlon) const;
-  bool IsEnabledAtPos(Provider::Type type, ms::LatLon const & latlon) const;
+  bool IsAvailableAtPos(Provider::Type type, m2::PointD const & point) const;
+  bool IsDisabledAtPos(Provider::Type type, m2::PointD const & point) const;
+  bool IsEnabledAtPos(Provider::Type type, m2::PointD const & point) const;
 
   template <typename ApiType>
   void AddApi(std::vector<ProviderUrl> const & urls, Provider::Type type, Places const & enabled,

@@ -5,6 +5,7 @@
 #include "partners_api/yandex_api.hpp"
 
 #include "geometry/latlon.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/macros.hpp"
 #include "base/stl_add.hpp"
@@ -132,13 +133,14 @@ uint64_t Engine::GetAvailableProducts(ms::LatLon const & from, ms::LatLon const 
 
   auto const reqId = ++m_requestId;
   auto const maker = m_maker;
+  auto const pointFrom = MercatorBounds::FromLatLon(from);
 
   maker->Reset(reqId, m_apis.size(), successFn, errorFn);
   for (auto const & api : m_apis)
   {
     auto type = api.m_type;
 
-    if (!IsAvailableAtPos(type, from))
+    if (!IsAvailableAtPos(type, pointFrom))
     {
       maker->DecrementRequestCount(reqId);
       maker->MakeResult(reqId);
@@ -177,50 +179,51 @@ RideRequestLinks Engine::GetRideRequestLinks(Provider::Type type, std::string co
 std::vector<Provider::Type> Engine::GetProvidersAtPos(ms::LatLon const & pos) const
 {
   std::vector<Provider::Type> result;
+  auto const point = MercatorBounds::FromLatLon(pos);
 
   for (auto const & api : m_apis)
   {
-    if (IsAvailableAtPos(api.m_type, pos))
+    if (IsAvailableAtPos(api.m_type, point))
       result.push_back(api.m_type);
   }
 
   return result;
 }
 
-bool Engine::IsAvailableAtPos(Provider::Type type, ms::LatLon const & pos) const
+bool Engine::IsAvailableAtPos(Provider::Type type, m2::PointD const & point) const
 {
-  if (IsDisabledAtPos(type, pos))
+  if (IsDisabledAtPos(type, point))
     return false;
 
-  return IsEnabledAtPos(type, pos);
+  return IsEnabledAtPos(type, point);
 }
 
-bool Engine::IsDisabledAtPos(Provider::Type type, ms::LatLon const & latlon) const
+bool Engine::IsDisabledAtPos(Provider::Type type, m2::PointD const & point) const
 {
   auto const it = FindByProviderType(type, m_apis.cbegin(), m_apis.cend());
 
   CHECK(it != m_apis.cend(), ());
 
-  if (it->IsMwmDisabled(m_delegate->GetMwmId(latlon)))
+  if (it->IsMwmDisabled(m_delegate->GetMwmId(point)))
     return true;
 
-  auto const countryIds = m_delegate->GetCountryIds(latlon);
-  auto const city = m_delegate->GetCityName(latlon);
+  auto const countryIds = m_delegate->GetCountryIds(point);
+  auto const city = m_delegate->GetCityName(point);
 
   return it->AreAllCountriesDisabled(countryIds, city);
 }
 
-bool Engine::IsEnabledAtPos(Provider::Type type, ms::LatLon const & latlon) const
+bool Engine::IsEnabledAtPos(Provider::Type type, m2::PointD const & point) const
 {
   auto const it = FindByProviderType(type, m_apis.cbegin(), m_apis.cend());
 
   CHECK(it != m_apis.cend(), ());
 
-  if (it->IsMwmEnabled(m_delegate->GetMwmId(latlon)))
+  if (it->IsMwmEnabled(m_delegate->GetMwmId(point)))
     return true;
 
-  auto const countryIds = m_delegate->GetCountryIds(latlon);
-  auto const city = m_delegate->GetCityName(latlon);
+  auto const countryIds = m_delegate->GetCountryIds(point);
+  auto const city = m_delegate->GetCityName(point);
 
   return it->IsAnyCountryEnabled(countryIds, city);
 }

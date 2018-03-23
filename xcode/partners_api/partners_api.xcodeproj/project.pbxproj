@@ -34,9 +34,6 @@
 		3D452AF31EE6D20D009EAB9B /* google_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D452AF11EE6D20D009EAB9B /* google_ads.cpp */; };
 		3D452AF41EE6D20D009EAB9B /* google_ads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D452AF21EE6D20D009EAB9B /* google_ads.hpp */; };
 		3D47B29A1F054C89000828D2 /* taxi_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D47B2961F054C89000828D2 /* taxi_base.cpp */; };
-		3D47B29B1F054C89000828D2 /* taxi_countries.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D47B2971F054C89000828D2 /* taxi_countries.cpp */; };
-		3D47B29C1F054C89000828D2 /* taxi_countries.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D47B2981F054C89000828D2 /* taxi_countries.hpp */; };
-		3D47B29D1F054C89000828D2 /* taxi_places.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D47B2991F054C89000828D2 /* taxi_places.hpp */; };
 		3D47B2B11F14FA14000828D2 /* utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D47B2B01F14FA14000828D2 /* utils.hpp */; };
 		3D4E997C1FB439260025B48C /* booking_availability_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D4E997A1FB439260025B48C /* booking_availability_params.hpp */; };
 		3D4E997D1FB439260025B48C /* booking_availability_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E997B1FB439260025B48C /* booking_availability_params.cpp */; };
@@ -44,6 +41,9 @@
 		3D7815761F3A14910068B6AC /* async_gui_thread.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D7815751F3A14910068B6AC /* async_gui_thread.hpp */; };
 		3DBC1C541E4B14920016897F /* facebook_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC1C521E4B14920016897F /* facebook_ads.cpp */; };
 		3DBC1C551E4B14920016897F /* facebook_ads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBC1C531E4B14920016897F /* facebook_ads.hpp */; };
+		3DF01C2D20652463005DDF8C /* taxi_places.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DF01C2A20652462005DDF8C /* taxi_places.cpp */; };
+		3DF01C2E20652463005DDF8C /* taxi_places.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DF01C2B20652463005DDF8C /* taxi_places.hpp */; };
+		3DF01C2F20652463005DDF8C /* taxi_places_constants.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DF01C2C20652463005DDF8C /* taxi_places_constants.hpp */; };
 		3DFEBF851EF82BEA00317D5C /* viator_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFEBF831EF82BEA00317D5C /* viator_api.cpp */; };
 		3DFEBF861EF82BEA00317D5C /* viator_api.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DFEBF841EF82BEA00317D5C /* viator_api.hpp */; };
 		3DFEBF891EF82C1300317D5C /* viator_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DFEBF871EF82C1300317D5C /* viator_tests.cpp */; };
@@ -106,9 +106,6 @@
 		3D452AF21EE6D20D009EAB9B /* google_ads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = google_ads.hpp; sourceTree = "<group>"; };
 		3D47B2801F00F94D000828D2 /* mopub_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mopub_tests.cpp; sourceTree = "<group>"; };
 		3D47B2961F054C89000828D2 /* taxi_base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = taxi_base.cpp; sourceTree = "<group>"; };
-		3D47B2971F054C89000828D2 /* taxi_countries.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = taxi_countries.cpp; sourceTree = "<group>"; };
-		3D47B2981F054C89000828D2 /* taxi_countries.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = taxi_countries.hpp; sourceTree = "<group>"; };
-		3D47B2991F054C89000828D2 /* taxi_places.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = taxi_places.hpp; sourceTree = "<group>"; };
 		3D47B2B01F14FA14000828D2 /* utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = utils.hpp; sourceTree = "<group>"; };
 		3D4E997A1FB439260025B48C /* booking_availability_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_availability_params.hpp; sourceTree = "<group>"; };
 		3D4E997B1FB439260025B48C /* booking_availability_params.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_availability_params.cpp; sourceTree = "<group>"; };
@@ -117,6 +114,9 @@
 		3DBC1C501E4B14810016897F /* facebook_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = facebook_tests.cpp; sourceTree = "<group>"; };
 		3DBC1C521E4B14920016897F /* facebook_ads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = facebook_ads.cpp; sourceTree = "<group>"; };
 		3DBC1C531E4B14920016897F /* facebook_ads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = facebook_ads.hpp; sourceTree = "<group>"; };
+		3DF01C2A20652462005DDF8C /* taxi_places.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = taxi_places.cpp; sourceTree = "<group>"; };
+		3DF01C2B20652463005DDF8C /* taxi_places.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = taxi_places.hpp; sourceTree = "<group>"; };
+		3DF01C2C20652463005DDF8C /* taxi_places_constants.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = taxi_places_constants.hpp; sourceTree = "<group>"; };
 		3DFEBF831EF82BEA00317D5C /* viator_api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = viator_api.cpp; sourceTree = "<group>"; };
 		3DFEBF841EF82BEA00317D5C /* viator_api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = viator_api.hpp; sourceTree = "<group>"; };
 		3DFEBF871EF82C1300317D5C /* viator_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = viator_tests.cpp; sourceTree = "<group>"; };
@@ -208,6 +208,9 @@
 		F6B5363B1DA520B20067EEA5 /* partners_api */ = {
 			isa = PBXGroup;
 			children = (
+				3DF01C2C20652463005DDF8C /* taxi_places_constants.hpp */,
+				3DF01C2A20652462005DDF8C /* taxi_places.cpp */,
+				3DF01C2B20652463005DDF8C /* taxi_places.hpp */,
 				346E888F1E9D087400D4CE9B /* ads_base.cpp */,
 				346E88901E9D087400D4CE9B /* ads_base.hpp */,
 				346E88911E9D087400D4CE9B /* ads_engine.cpp */,
@@ -233,11 +236,8 @@
 				346E88951E9D087400D4CE9B /* rb_ads.hpp */,
 				3D47B2961F054C89000828D2 /* taxi_base.cpp */,
 				3DFEBF941EFBFC1500317D5C /* taxi_base.hpp */,
-				3D47B2971F054C89000828D2 /* taxi_countries.cpp */,
-				3D47B2981F054C89000828D2 /* taxi_countries.hpp */,
 				3DFEBF951EFBFC1500317D5C /* taxi_engine.cpp */,
 				3DFEBF961EFBFC1500317D5C /* taxi_engine.hpp */,
-				3D47B2991F054C89000828D2 /* taxi_places.hpp */,
 				3DFEBF971EFBFC1500317D5C /* taxi_provider.hpp */,
 				F6B5363E1DA520E40067EEA5 /* uber_api.cpp */,
 				F6B5363F1DA520E40067EEA5 /* uber_api.hpp */,
@@ -310,9 +310,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D47B29C1F054C89000828D2 /* taxi_countries.hpp in Headers */,
 				346E88971E9D087400D4CE9B /* ads_base.hpp in Headers */,
-				3D47B29D1F054C89000828D2 /* taxi_places.hpp in Headers */,
 				3D7815761F3A14910068B6AC /* async_gui_thread.hpp in Headers */,
 				F67E75261DB8F06F00D6741F /* opentable_api.hpp in Headers */,
 				3D452AF41EE6D20D009EAB9B /* google_ads.hpp in Headers */,
@@ -330,7 +328,9 @@
 				3D4E997C1FB439260025B48C /* booking_availability_params.hpp in Headers */,
 				3DFEBF9C1EFBFC1500317D5C /* taxi_engine.hpp in Headers */,
 				F6B536431DA520E40067EEA5 /* uber_api.hpp in Headers */,
+				3DF01C2F20652463005DDF8C /* taxi_places_constants.hpp in Headers */,
 				3DBC1C551E4B14920016897F /* facebook_ads.hpp in Headers */,
+				3DF01C2E20652463005DDF8C /* taxi_places.hpp in Headers */,
 				BB1956E71F543D7C003ECE6C /* locals_api.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -438,10 +438,10 @@
 				F6B536421DA520E40067EEA5 /* uber_api.cpp in Sources */,
 				3DFEBF9B1EFBFC1500317D5C /* taxi_engine.cpp in Sources */,
 				346E889B1E9D087400D4CE9B /* rb_ads.cpp in Sources */,
+				3DF01C2D20652463005DDF8C /* taxi_places.cpp in Sources */,
 				3DBC1C541E4B14920016897F /* facebook_ads.cpp in Sources */,
 				3D452AF31EE6D20D009EAB9B /* google_ads.cpp in Sources */,
 				346E88981E9D087400D4CE9B /* ads_engine.cpp in Sources */,
-				3D47B29B1F054C89000828D2 /* taxi_countries.cpp in Sources */,
 				F67E75251DB8F06F00D6741F /* opentable_api.cpp in Sources */,
 				BB1956E61F543D7C003ECE6C /* locals_api.cpp in Sources */,
 				3DFEBFA31EFBFC2300317D5C /* taxi_engine_tests.cpp in Sources */,
