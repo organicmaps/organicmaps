@@ -4,6 +4,8 @@
 #include "map/user_mark.hpp"
 #include "map/user_mark_layer.hpp"
 
+#include "kml/types.hpp"
+
 #include "coding/reader.hpp"
 
 #include "geometry/point2d.hpp"
@@ -25,6 +27,7 @@ namespace anim
 
 class BookmarkManager;
 
+/*
 class BookmarkData
 {
 public:
@@ -69,6 +72,7 @@ private:
   double m_scale; ///< Viewport scale. -1.0 - is a default value (no scale set).
   time_t m_timeStamp;
 };
+*/
 
 class Bookmark : public UserMark
 {
@@ -76,39 +80,38 @@ class Bookmark : public UserMark
 public:
   Bookmark(m2::PointD const & ptOrg);
 
-  Bookmark(BookmarkData const & data, m2::PointD const & ptOrg);
+  Bookmark(kml::BookmarkData const & data);
 
-  void SetData(BookmarkData const & data);
-  BookmarkData const & GetData() const;
+  void SetData(kml::BookmarkData const & data);
+  kml::BookmarkData const & GetData() const;
 
   dp::Anchor GetAnchor() const override;
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
   df::ColorConstant GetColor() const override;
+  // TODO(darina): Remove this method after UI refactoring.
+  std::string GetIcon() const;
   bool HasCreationAnimation() const override;
 
-  std::string const & GetName() const;
+  std::string GetName() const;
   void SetName(std::string const & name);
-  /// @return Now its a bookmark color - name of icon file
-  std::string const & GetType() const;
-  void SetType(std::string const & type);
   m2::RectD GetViewport() const;
 
-  std::string const & GetDescription() const;
+  std::string GetDescription() const;
   void SetDescription(std::string const & description);
 
   /// @return my::INVALID_TIME_STAMP if bookmark has no timestamp
-  time_t GetTimeStamp() const;
-  void SetTimeStamp(time_t timeStamp);
+  kml::Timestamp GetTimeStamp() const;
+  void SetTimeStamp(kml::Timestamp timeStamp);
 
-  double GetScale() const;
-  void SetScale(double scale);
+  uint8_t GetScale() const;
+  void SetScale(uint8_t scale);
 
   df::MarkGroupID GetGroupId() const override;
   void Attach(df::MarkGroupID groupId);
   void Detach();
 
 private:
-  BookmarkData m_data;
+  kml::BookmarkData m_data;
   df::MarkGroupID m_groupId;
 };
 
@@ -118,36 +121,37 @@ class BookmarkCategory : public UserMarkLayer
 
 public:
   BookmarkCategory(std::string const & name, df::MarkGroupID groupId, bool autoSave);
+  BookmarkCategory(kml::CategoryData const & data, df::MarkGroupID groupId, bool autoSave);
   ~BookmarkCategory() override;
 
   static std::string GetDefaultType();
 
   df::MarkGroupID GetID() const { return m_groupId; }
 
+  void SetIsVisible(bool isVisible) override;
   void SetName(std::string const & name);
   void SetFileName(std::string const & fileName) { m_file = fileName; }
-  std::string const & GetName() const { return m_name; }
+  std::string GetName() const;
   std::string const & GetFileName() const { return m_file; }
 
   void EnableAutoSave(bool enable) { m_autoSave = enable; }
   bool IsAutoSaveEnabled() const { return m_autoSave; }
 
+  kml::CategoryData const & GetCategoryData() const { return m_data; }
+
 private:
   df::MarkGroupID const m_groupId;
-  std::string m_name;
   // Stores file name from which bookmarks were loaded.
   std::string m_file;
   bool m_autoSave = true;
+  kml::CategoryData m_data;
 };
 
-struct KMLData
+struct CategoryFileInfo
 {
-  std::string m_name;
-  std::string m_file;
-  std::vector<std::unique_ptr<Bookmark>> m_bookmarks;
-  std::vector<std::unique_ptr<Track>> m_tracks;
-  bool m_visible = true;
+  std::string m_filePath;
+  std::unique_ptr<kml::FileData> m_data;
 };
 
-std::unique_ptr<KMLData> LoadKMLFile(std::string const & file);
-std::unique_ptr<KMLData> LoadKMLData(ReaderPtr<Reader> const & reader);
+std::unique_ptr<kml::FileData> LoadKMLFile(std::string const & file, bool useBinary);
+std::unique_ptr<kml::FileData> LoadKMLData(Reader const & reader, bool useBinary);

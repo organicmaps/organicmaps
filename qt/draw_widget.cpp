@@ -372,8 +372,10 @@ void DrawWidget::SubmitBookmark(m2::PointD const & pt)
 {
   if (!m_framework.GetBookmarkManager().HasBmCategory(m_bookmarksCategoryId))
     m_bookmarksCategoryId = m_framework.GetBookmarkManager().CreateBookmarkCategory("Desktop_bookmarks");
-  BookmarkData data("", "placemark-red");
-  m_framework.GetBookmarkManager().GetEditSession().CreateBookmark(m_framework.P3dtoG(pt), data, m_bookmarksCategoryId);
+  kml::BookmarkData data;
+  data.m_color.m_predefinedColor = kml::PredefinedColor::Red;
+  data.m_point = m_framework.P3dtoG(pt);
+  m_framework.GetBookmarkManager().GetEditSession().CreateBookmark(data, m_bookmarksCategoryId);
 }
 
 void DrawWidget::FollowRoute()

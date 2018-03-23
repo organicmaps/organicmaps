@@ -13,38 +13,41 @@ df::LineID GetNextUserLineId()
   static std::atomic<uint32_t> nextLineId(0);
   return static_cast<df::LineID>(++nextLineId);
 }
+
 }  // namespace
 
-Track::Track(Track::PolylineD const & polyline, Track::Params const & p)
+Track::Track(kml::TrackData const & data)
   : df::UserLineMark(GetNextUserLineId())
-  , m_polyline(polyline)
-  , m_params(p)
+  , m_data(data)
   , m_groupID(0)
 {
-  ASSERT_GREATER(m_polyline.GetSize(), 1, ());
+  ASSERT_GREATER(m_data.m_points.size(), 1, ());
 }
 
 string const & Track::GetName() const
 {
-  return m_params.m_name;
+  return kml::GetDefaultStr(m_data.m_name);
 }
 
 m2::RectD Track::GetLimitRect() const
 {
-  return m_polyline.GetLimitRect();
+  m2::RectD rect;
+  for (auto const & point : m_data.m_points)
+    rect.Add(point);
+  return rect;
 }
 
 double Track::GetLengthMeters() const
 {
   double res = 0.0;
 
-  auto i = m_polyline.Begin();
-  double lat1 = MercatorBounds::YToLat(i->y);
-  double lon1 = MercatorBounds::XToLon(i->x);
-  for (++i; i != m_polyline.End(); ++i)
+  auto it = m_data.m_points.begin();
+  double lat1 = MercatorBounds::YToLat(it->y);
+  double lon1 = MercatorBounds::XToLon(it->x);
+  for (++it; it != m_data.m_points.end(); ++it)
   {
-    double const lat2 = MercatorBounds::YToLat(i->y);
-    double const lon2 = MercatorBounds::XToLon(i->x);
+    double const lat2 = MercatorBounds::YToLat(it->y);
+    double const lon2 = MercatorBounds::XToLon(it->x);
     res += ms::DistanceOnEarth(lat1, lon1, lat2, lon2);
     lat1 = lat2;
     lon1 = lon2;
@@ -60,17 +63,17 @@ df::RenderState::DepthLayer Track::GetDepthLayer() const
 
 size_t Track::GetLayerCount() const
 {
-  return m_params.m_colors.size();
+  return m_data.m_layers.size();
 }
 
-dp::Color const & Track::GetColor(size_t layerIndex) const
+dp::Color Track::GetColor(size_t layerIndex) const
 {
-  return m_params.m_colors[layerIndex].m_color;
+  return dp::Color(m_data.m_layers[layerIndex].m_color.m_rgba);
 }
 
 float Track::GetWidth(size_t layerIndex) const
 {
-  return m_params.m_colors[layerIndex].m_lineWidth;
+  return static_cast<float>(m_data.m_layers[layerIndex].m_lineWidth);
 }
 
 float Track::GetDepth(size_t layerIndex) const
@@ -80,7 +83,7 @@ float Track::GetDepth(size_t layerIndex) const
 
 std::vector<m2::PointD> const & Track::GetPoints() const
 {
-  return m_polyline.GetPoints();
+  return m_data.m_points;
 }
 
 void Track::Attach(df::MarkGroupID groupId)

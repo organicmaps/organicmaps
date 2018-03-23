@@ -66,6 +66,18 @@ double constexpr kMinRating = 0.0;
 double constexpr kMaxRating = 10.0;
 uint32_t constexpr kRatingBits = 30;
 
+int8_t constexpr kDefaultLangCode = 0;
+
+inline std::string GetDefaultStr(LocalizableString const & str)
+{
+  return (str.empty() || str.find(kDefaultLangCode) == str.end()) ? "" : str.at(kDefaultLangCode);
+}
+
+inline void SetDefaultStr(LocalizableString & localizableStr, std::string const & str)
+{
+  localizableStr[kDefaultLangCode] = str;
+}
+
 #define DECLARE_COLLECTABLE(IndexType, ...)            \
   IndexType m_collectionIndex;                         \
   template <typename Collector>                        \

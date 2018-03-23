@@ -52,7 +52,7 @@ void Info::SetFromFeatureType(FeatureType const & ft)
   m_sortedTypes.SortBySpec();
   if (IsBookmark())
   {
-    m_uiTitle = m_bookmarkData.GetName();
+    m_uiTitle = kml::GetDefaultStr(m_bookmarkData.m_name);
 
     std::string secondary;
     if (m_customName.empty())
@@ -152,7 +152,7 @@ void Info::SetCustomName(std::string const & name)
 {
   if (IsBookmark())
   {
-    m_uiTitle = GetBookmarkData().GetName();
+    m_uiTitle = kml::GetDefaultStr(GetBookmarkData().m_name);
     m_uiSubtitle = m_bookmarkCategoryName;
   }
   else
@@ -167,7 +167,7 @@ void Info::SetCustomNameWithCoordinates(m2::PointD const & mercator, std::string
 {
   if (IsBookmark())
   {
-    m_uiTitle = GetBookmarkData().GetName();
+    m_uiTitle = kml::GetDefaultStr(GetBookmarkData().m_name);
     m_uiSubtitle = m_bookmarkCategoryName;
   }
   else

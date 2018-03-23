@@ -64,12 +64,12 @@ protected:
 UNIT_CLASS_TEST(BookmarksProcessorTest, Smoke)
 {
   Add(10, {"Double R Diner" /* name */,
-           "They've got a cherry pie there that'll kill ya!" /* description */, "Food" /* type */});
+           "They've got a cherry pie there that'll kill ya!" /* description */});
 
   Add(18, {"Silver Mustang Casino" /* name */,
-           "Joyful place, owners Bradley and Rodney are very friendly!", "Entertainment"});
+           "Joyful place, owners Bradley and Rodney are very friendly!"});
   Add(20, {"Great Northern Hotel" /* name */,
-           "Clean place with a reasonable price" /* description */, "Hotel" /* type */});
+           "Clean place with a reasonable price" /* description */});
 
   TEST_EQUAL(Search("R&R food"), Ids({10}), ());
   TEST_EQUAL(Search("cherry pie"), Ids({10}), ());

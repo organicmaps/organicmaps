@@ -90,7 +90,7 @@ public:
   virtual int GetMinZoom() const = 0;
   virtual RenderState::DepthLayer GetDepthLayer() const = 0;
   virtual size_t GetLayerCount() const = 0;
-  virtual dp::Color const & GetColor(size_t layerIndex) const = 0;
+  virtual dp::Color GetColor(size_t layerIndex) const = 0;
   virtual float GetWidth(size_t layerIndex) const = 0;
   virtual float GetDepth(size_t layerIndex) const = 0;
   virtual std::vector<m2::PointD> const & GetPoints() const = 0;

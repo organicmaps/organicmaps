@@ -126,8 +126,8 @@ public:
   df::MarkGroupID GetBookmarkCategoryId() const { return m_markGroupId; }
   std::string const & GetBookmarkCategoryName() const { return m_bookmarkCategoryName; }
   void SetBookmarkCategoryName(std::string const & name) { m_bookmarkCategoryName = name; }
-  void SetBookmarkData(BookmarkData const & data) { m_bookmarkData = data; }
-  BookmarkData const & GetBookmarkData() const { return m_bookmarkData; }
+  void SetBookmarkData(kml::BookmarkData const & data) { m_bookmarkData = data; }
+  kml::BookmarkData const & GetBookmarkData() const { return m_bookmarkData; }
 
   /// Api
   void SetApiId(std::string const & apiId) { m_apiId = apiId; }
@@ -247,7 +247,7 @@ private:
   df::MarkGroupID m_markGroupId = df::kInvalidMarkGroupId;;
   /// Bookmark category name. Empty, if it's not bookmark;
   std::string m_bookmarkCategoryName;
-  BookmarkData m_bookmarkData;
+  kml::BookmarkData m_bookmarkData;
 
   /// Api ID passed for the selected object. It's automatically included in api url below.
   std::string m_apiId;

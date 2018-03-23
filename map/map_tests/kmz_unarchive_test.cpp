@@ -35,27 +35,27 @@ UNIT_TEST(KMZ_UnzipTest)
   MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, kmlFile));
   ZipFileReader::UnzipFile(kmzFile, "doc.kml", kmlFile);
 
-  auto kmlData = LoadKMLData(make_unique<FileReader>(kmlFile));
+  auto kmlData = LoadKMLData(FileReader(kmlFile), false /* useBinary */);
   TEST(kmlData != nullptr, ());
 
   TEST_EQUAL(files.size(), 6, ("KMZ file wrong number of files"));
 
-  TEST_EQUAL(kmlData->m_bookmarks.size(), 6, ("Category wrong number of bookmarks"));
+  TEST_EQUAL(kmlData->m_bookmarksData.size(), 6, ("Category wrong number of bookmarks"));
 
   {
-    Bookmark const * bm = kmlData->m_bookmarks[0].get();
-    TEST_EQUAL(bm->GetName(), ("Lahaina Breakwall"), ("KML wrong name!"));
-    TEST_EQUAL(bm->GetType(), "placemark-red", ("KML wrong type!"));
-    TEST_ALMOST_EQUAL_ULPS(bm->GetPivot().x, -156.6777046791284, ("KML wrong org x!"));
-    TEST_ALMOST_EQUAL_ULPS(bm->GetPivot().y, 21.34256685860084, ("KML wrong org y!"));
-    TEST_EQUAL(bm->GetScale(), -1, ("KML wrong scale!"));
+    Bookmark const bm(kmlData->m_bookmarksData[0]);
+    TEST_EQUAL(bm.GetName(), ("Lahaina Breakwall"), ("KML wrong name!"));
+    TEST_EQUAL(bm.GetIcon(), "placemark-red", ("KML wrong type!"));
+    TEST_ALMOST_EQUAL_ULPS(bm.GetPivot().x, -156.6777046791284, ("KML wrong org x!"));
+    TEST_ALMOST_EQUAL_ULPS(bm.GetPivot().y, 21.34256685860084, ("KML wrong org y!"));
+    TEST_EQUAL(bm.GetScale(), 0, ("KML wrong scale!"));
   }
   {
-    Bookmark const * bm = kmlData->m_bookmarks[1].get();
-    TEST_EQUAL(bm->GetName(), ("Seven Sacred Pools, Kipahulu"), ("KML wrong name!"));
-    TEST_EQUAL(bm->GetType(), "placemark-red", ("KML wrong type!"));
-    TEST_ALMOST_EQUAL_ULPS(bm->GetPivot().x, -156.0405130750025, ("KML wrong org x!"));
-    TEST_ALMOST_EQUAL_ULPS(bm->GetPivot().y, 21.12480639056074, ("KML wrong org y!"));
-    TEST_EQUAL(bm->GetScale(), -1, ("KML wrong scale!"));
+    Bookmark const bm(kmlData->m_bookmarksData[1]);
+    TEST_EQUAL(bm.GetName(), ("Seven Sacred Pools, Kipahulu"), ("KML wrong name!"));
+    TEST_EQUAL(bm.GetIcon(), "placemark-red", ("KML wrong type!"));
+    TEST_ALMOST_EQUAL_ULPS(bm.GetPivot().x, -156.0405130750025, ("KML wrong org x!"));
+    TEST_ALMOST_EQUAL_ULPS(bm.GetPivot().y, 21.12480639056074, ("KML wrong org y!"));
+    TEST_EQUAL(bm.GetScale(), 0, ("KML wrong scale!"));
   }
 }

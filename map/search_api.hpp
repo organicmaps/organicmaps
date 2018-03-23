@@ -141,8 +141,8 @@ public:
                                  search::Results::ConstIter end) override;
   search::ProductInfo GetProductInfo(search::Result const & result) const override;
 
-  void OnBookmarksCreated(std::vector<std::pair<df::MarkID, BookmarkData>> const & marks);
-  void OnBookmarksUpdated(std::vector<std::pair<df::MarkID, BookmarkData>> const & marks);
+  void OnBookmarksCreated(std::vector<std::pair<df::MarkID, kml::BookmarkData>> const & marks);
+  void OnBookmarksUpdated(std::vector<std::pair<df::MarkID, kml::BookmarkData>> const & marks);
   void OnBookmarksDeleted(std::vector<df::MarkID> const & marks);
 
 private:

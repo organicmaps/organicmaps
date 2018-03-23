@@ -39,7 +39,7 @@ public:
   void Clear();
   bool IsEmpty() const;
 
-  void SetIsVisible(bool isVisible);
+  virtual void SetIsVisible(bool isVisible);
 
 protected:
   void SetDirty() { m_isDirty = true; }

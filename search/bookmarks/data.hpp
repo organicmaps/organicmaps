@@ -2,6 +2,8 @@
 
 #include "indexer/search_string_utils.hpp"
 
+#include "kml/types.hpp"
+
 #include "coding/multilang_utf8_string.hpp"
 
 #include "base/string_utils.hpp"
@@ -17,8 +19,14 @@ struct Data
 {
   Data() = default;
 
-  Data(std::string const & name, std::string const & description, std::string const & type)
-    : m_name(name), m_description(description), m_type(type)
+  Data(std::string const & name, std::string const & description)
+    : m_name(name), m_description(description)
+  {
+  }
+
+  Data(kml::BookmarkData const & bookmarkData)
+    : m_name(kml::GetDefaultStr(bookmarkData.m_name))
+    , m_description(kml::GetDefaultStr(bookmarkData.m_description))
   {
   }
 
@@ -31,12 +39,10 @@ struct Data
 
     ForEachNormalizedToken(m_name, withDefaultLang);
     ForEachNormalizedToken(m_description, withDefaultLang);
-    ForEachNormalizedToken(m_type, withDefaultLang);
   }
 
   std::string m_name;
   std::string m_description;
-  std::string m_type;
 };
 
 std::string DebugPrint(Data const & data);

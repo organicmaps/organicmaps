@@ -55,7 +55,7 @@ bookmarks::Id MarkIDToBookmarkId(df::MarkID id)
 
 df::MarkID BookmarkIdToMarkID(bookmarks::Id id) { return static_cast<df::MarkID>(id); }
 
-void AppendBookmarkIdDocs(vector<pair<df::MarkID, BookmarkData>> const & marks,
+void AppendBookmarkIdDocs(vector<pair<df::MarkID, kml::BookmarkData>> const & marks,
                           vector<BookmarkIdDoc> & result)
 {
   result.reserve(result.size() + marks.size());
@@ -64,8 +64,7 @@ void AppendBookmarkIdDocs(vector<pair<df::MarkID, BookmarkData>> const & marks,
   {
     auto const & id = mark.first;
     auto const & data = mark.second;
-    result.emplace_back(MarkIDToBookmarkId(id),
-                        bookmarks::Doc(data.GetName(), data.GetDescription(), data.GetType()));
+    result.emplace_back(MarkIDToBookmarkId(id), bookmarks::Doc(data));
   }
 }
 
@@ -369,14 +368,14 @@ ProductInfo SearchAPI::GetProductInfo(Result const & result) const
   return m_delegate.GetProductInfo(result);
 }
 
-void SearchAPI::OnBookmarksCreated(vector<pair<df::MarkID, BookmarkData>> const & marks)
+void SearchAPI::OnBookmarksCreated(vector<pair<df::MarkID, kml::BookmarkData>> const & marks)
 {
   vector<BookmarkIdDoc> data;
   AppendBookmarkIdDocs(marks, data);
   m_engine.OnBookmarksCreated(data);
 }
 
-void SearchAPI::OnBookmarksUpdated(vector<pair<df::MarkID, BookmarkData>> const & marks)
+void SearchAPI::OnBookmarksUpdated(vector<pair<df::MarkID, kml::BookmarkData>> const & marks)
 {
   vector<BookmarkIdDoc> data;
   AppendBookmarkIdDocs(marks, data);

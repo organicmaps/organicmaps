@@ -418,10 +418,10 @@ Framework::Framework(FrameworkParams const & params)
 
   m_bmManager = make_unique<BookmarkManager>(BookmarkManager::Callbacks(
       [this]() -> StringsBundle const & { return m_stringsBundle; },
-      [this](vector<pair<df::MarkID, BookmarkData>> const & marks) {
+      [this](vector<pair<df::MarkID, kml::BookmarkData>> const & marks) {
         GetSearchAPI().OnBookmarksCreated(marks);
       },
-      [this](vector<pair<df::MarkID, BookmarkData>> const & marks) {
+      [this](vector<pair<df::MarkID, kml::BookmarkData>> const & marks) {
         GetSearchAPI().OnBookmarksUpdated(marks);
       },
       [this](vector<df::MarkID> const & marks) { GetSearchAPI().OnBookmarksDeleted(marks); }));

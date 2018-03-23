@@ -133,15 +133,18 @@ UNIT_CLASS_TEST(SearchAPITest, MultipleViewportsRequests)
 
 UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
 {
-  vector<pair<df::MarkID, BookmarkData>> marks;
+  vector<pair<df::MarkID, kml::BookmarkData>> marks;
 
-  marks.emplace_back(
-      0, BookmarkData("R&R dinner" /* name */, "cafe" /* type */,
-                      "They've got a cherry pie there that'll kill ya!" /* description */));
-  marks.emplace_back(1, BookmarkData("Silver Mustang Casino" /* name */, "casino" /* type */,
-                                     "Joyful place, owners Bradley and Rodney are very friendly!"));
-  marks.emplace_back(2, BookmarkData("Great Northern Hotel" /* name */, "hotel" /* type */,
-                                     "Clean place with a reasonable price" /* description */));
+  kml::BookmarkData data;
+  kml::SetDefaultStr(data.m_name, "R&R dinner");
+  kml::SetDefaultStr(data.m_description, "They've got a cherry pie there that'll kill ya!");
+  marks.emplace_back(0, data);
+  kml::SetDefaultStr(data.m_name, "Silver Mustang Casino");
+  kml::SetDefaultStr(data.m_description, "Joyful place, owners Bradley and Rodney are very friendly!");
+  marks.emplace_back(1, data);
+  kml::SetDefaultStr(data.m_name, "Great Northern Hotel");
+  kml::SetDefaultStr(data.m_description, "Clean place with a reasonable price");
+  marks.emplace_back(2, data);
   m_api.OnBookmarksCreated(marks);
 
   promise<vector<df::MarkID>> promise;
