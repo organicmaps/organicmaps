@@ -18,20 +18,22 @@ inline size_t AbsDiff(size_t a, size_t b) { return a > b ? a - b : b - a; }
 class TransitionTable
 {
 public:
-  TransitionTable(UniString const & s) : m_s(s), m_size(s.size()) {}
+  TransitionTable(UniString const & s, std::vector<UniString> const & prefixMisprints,
+                  size_t prefixSize)
+    : m_s(s), m_size(s.size()), m_prefixMisprints(prefixMisprints), m_prefixSize(prefixSize)
+  {
+  }
 
-  void Move(LevenshteinDFA::State const & s, size_t prefixCharsToKeep, UniChar c,
-            LevenshteinDFA::State & t)
+  void Move(LevenshteinDFA::State const & s, UniChar c, LevenshteinDFA::State & t)
   {
     t.Clear();
     for (auto const & p : s.m_positions)
-      GetMoves(p, prefixCharsToKeep, c, t);
+      GetMoves(p, c, t);
     t.Normalize();
   }
 
 private:
-  void GetMoves(LevenshteinDFA::Position const & p, size_t prefixCharsToKeep, UniChar c,
-                LevenshteinDFA::State & t)
+  void GetMoves(LevenshteinDFA::Position const & p, UniChar c, LevenshteinDFA::State & t)
   {
     auto & ps = t.m_positions;
 
@@ -53,10 +55,15 @@ private:
     if (p.m_errorsLeft == 0)
       return;
 
-    if (p.m_offset < prefixCharsToKeep)
-      return;
-
     ps.emplace_back(p.m_offset, p.m_errorsLeft - 1, false /* transposed */);
+
+    if (p.m_offset < m_prefixSize)
+    {
+      // Allow only prefixMisprints for prefix.
+      if (IsAllowedPrefixMisprint(c, p.m_offset))
+        ps.emplace_back(p.m_offset + 1, p.m_errorsLeft - 1, false /* transposed */);
+      return;
+    }
 
     if (p.m_offset == m_size)
       return;
@@ -87,8 +94,25 @@ private:
     return false;
   }
 
+  bool IsAllowedPrefixMisprint(UniChar c, size_t position) const
+  {
+    CHECK_LESS(position, m_prefixSize, ());
+
+    for (auto const & misprints : m_prefixMisprints)
+    {
+      if (std::find(misprints.begin(), misprints.end(), c) != misprints.end() &&
+          std::find(misprints.begin(), misprints.end(), m_s[position]) != misprints.end())
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
   UniString const & m_s;
   size_t const m_size;
+  std::vector<UniString> const m_prefixMisprints;
+  size_t const m_prefixSize;
 };
 }  // namespace
 
@@ -169,10 +193,21 @@ void LevenshteinDFA::State::Normalize()
 
 // LevenshteinDFA ----------------------------------------------------------------------------------
 // static
-LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixCharsToKeep, size_t maxErrors)
+LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixSize,
+                               std::vector<UniString> const & prefixMisprints, size_t maxErrors)
   : m_size(s.size()), m_maxErrors(maxErrors)
 {
   m_alphabet.assign(s.begin(), s.end());
+  CHECK_LESS_OR_EQUAL(prefixSize, s.size(), ());
+
+  for (auto it = s.begin(); std::distance(it, s.begin()) < prefixSize; ++it)
+  {
+    for (auto const & misprints : prefixMisprints)
+    {
+      if (std::find(misprints.begin(), misprints.end(), *it) != misprints.end())
+        m_alphabet.insert(m_alphabet.end(), misprints.begin(), misprints.end());
+    }
+  }
   my::SortUnique(m_alphabet);
 
   UniChar missed = 0;
@@ -204,7 +239,7 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixCharsToKeep, si
   pushState(MakeStart(), kStartingState);
   pushState(MakeRejecting(), kRejectingState);
 
-  TransitionTable table(s);
+  TransitionTable table(s, prefixMisprints, prefixSize);
 
   while (!states.empty())
   {
@@ -222,7 +257,7 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixCharsToKeep, si
     for (size_t i = 0; i < m_alphabet.size(); ++i)
     {
       State next;
-      table.Move(curr, prefixCharsToKeep, m_alphabet[i], next);
+      table.Move(curr, m_alphabet[i], next);
 
       size_t nid;
 
@@ -242,18 +277,18 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixCharsToKeep, si
   }
 }
 
-LevenshteinDFA::LevenshteinDFA(std::string const & s, size_t prefixCharsToKeep, size_t maxErrors)
-  : LevenshteinDFA(MakeUniString(s), prefixCharsToKeep, maxErrors)
+LevenshteinDFA::LevenshteinDFA(std::string const & s, size_t prefixSize, size_t maxErrors)
+  : LevenshteinDFA(MakeUniString(s), prefixSize, {} /* prefixMisprints */, maxErrors)
 {
 }
 
 LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t maxErrors)
-  : LevenshteinDFA(s, 0 /* prefixCharsToKeep */, maxErrors)
+  : LevenshteinDFA(s, 0 /* prefixSize */, {} /* prefixMisprints */, maxErrors)
 {
 }
 
 LevenshteinDFA::LevenshteinDFA(std::string const & s, size_t maxErrors)
-  : LevenshteinDFA(s, 0 /* prefixCharsToKeep */, maxErrors)
+  : LevenshteinDFA(MakeUniString(s), 0 /* prefixSize */, {} /* prefixMisprints */, maxErrors)
 {
 }
 

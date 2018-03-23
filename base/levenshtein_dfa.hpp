@@ -3,6 +3,7 @@
 #include "base/string_utils.hpp"
 
 #include <cstddef>
+#include <string>
 #include <vector>
 
 namespace strings
@@ -94,8 +95,9 @@ public:
   LevenshteinDFA(LevenshteinDFA const &) = default;
   LevenshteinDFA(LevenshteinDFA &&) = default;
 
-  LevenshteinDFA(UniString const & s, size_t prefixCharsToKeep, size_t maxErrors);
-  LevenshteinDFA(std::string const & s, size_t prefixCharsToKeep, size_t maxErrors);
+  LevenshteinDFA(UniString const & s, size_t prefixSize,
+                 std::vector<UniString> const & prefixMisprints, size_t maxErrors);
+  LevenshteinDFA(std::string const & s, size_t prefixSize, size_t maxErrors);
   LevenshteinDFA(UniString const & s, size_t maxErrors);
   LevenshteinDFA(std::string const & s, size_t maxErrors);
 

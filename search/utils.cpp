@@ -6,6 +6,20 @@
 
 using namespace std;
 
+namespace
+{
+vector<strings::UniString> const kAllowedMisprints = {
+    strings::MakeUniString("ckq"),
+    strings::MakeUniString("eyjiu"),
+    strings::MakeUniString("gh"),
+    strings::MakeUniString("pf"),
+    strings::MakeUniString("vw"),
+    strings::MakeUniString("ао"),
+    strings::MakeUniString("еиэ"),
+    strings::MakeUniString("шщ"),
+};
+}  // namespace
+
 namespace search
 {
 size_t GetMaxErrorsForToken(strings::UniString const & token)
@@ -23,9 +37,9 @@ size_t GetMaxErrorsForToken(strings::UniString const & token)
 strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s)
 {
   // In search we use LevenshteinDFAs for fuzzy matching. But due to
-  // performance reasons, we assume that the first letter is always
-  // correct.
-  return strings::LevenshteinDFA(s, 1 /* prefixCharsToKeep */, GetMaxErrorsForToken(s));
+  // performance reasons, we limit prefix misprints to fixed set of substitutions defined in
+  // kAllowedMisprints and skipped letters.
+  return strings::LevenshteinDFA(s, 1 /* prefixSize */, kAllowedMisprints, GetMaxErrorsForToken(s));
 }
 
 MwmSet::MwmHandle FindWorld(Index const & index, vector<shared_ptr<MwmInfo>> const & infos)

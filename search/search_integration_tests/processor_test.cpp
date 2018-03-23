@@ -432,16 +432,27 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_ErrorsMade)
 
   TestCity chekhov(m2::PointD(0, 0), "Чеховъ Антонъ Павловичъ", "ru", 100 /* rank */);
 
+  TestStreet yesenina(
+      vector<m2::PointD>{m2::PointD(0.5, -0.5), m2::PointD(0, 0), m2::PointD(-0.5, 0.5)},
+      "Yesenina street", "en");
+
   TestStreet pushkinskaya(
       vector<m2::PointD>{m2::PointD(-0.5, -0.5), m2::PointD(0, 0), m2::PointD(0.5, 0.5)},
       "Улица Пушкинская", "ru");
+
+  TestStreet ostrovskogo(
+      vector<m2::PointD>{m2::PointD(-0.5, 0.0), m2::PointD(0, 0), m2::PointD(0.5, 0.0)},
+      "улица Островского", "ru");
+
   TestPOI lermontov(m2::PointD(0, 0), "Трактиръ Лермонтовъ", "ru");
   lermontov.SetTypes({{"amenity", "cafe"}});
 
   auto worldId = BuildWorld([&](TestMwmBuilder & builder) { builder.Add(chekhov); });
 
   auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(yesenina);
     builder.Add(pushkinskaya);
+    builder.Add(ostrovskogo);
     builder.Add(lermontov);
   });
 
@@ -460,6 +471,14 @@ UNIT_CLASS_TEST(ProcessorTest, TestRankingInfo_ErrorsMade)
   checkErrors("кафе лермонтов", ErrorsMade(1));
   checkErrors("трактир лермонтов", ErrorsMade(2));
   checkErrors("кафе", ErrorsMade());
+
+  checkErrors("Yesenina cafe", ErrorsMade(0));
+  checkErrors("Esenina cafe", ErrorsMade(1));
+  checkErrors("Jesenina cafe", ErrorsMade(1));
+
+  checkErrors("Островского кафе", ErrorsMade(0));
+  checkErrors("Астровского кафе", ErrorsMade(1));
+
   checkErrors("пушкенская трактир лермонтов", ErrorsMade(3));
   checkErrors("пушкенская кафе", ErrorsMade(1));
   checkErrors("пушкинская трактиръ лермонтовъ", ErrorsMade(0));

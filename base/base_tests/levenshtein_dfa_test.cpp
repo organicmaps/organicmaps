@@ -5,6 +5,7 @@
 
 #include <sstream>
 #include <string>
+#include <vector>
 
 using namespace std;
 using namespace strings;
@@ -21,11 +22,12 @@ enum class Status
 struct Result
 {
   Result() = default;
-  Result(Status status, size_t errorsMade) : m_status(status), m_errorsMade(errorsMade) {}
+  Result(Status status, size_t errorsMade = 0) : m_status(status), m_errorsMade(errorsMade) {}
 
   bool operator==(Result const & rhs) const
   {
-    return m_status == rhs.m_status && m_errorsMade == rhs.m_errorsMade;
+    return m_status == rhs.m_status &&
+           (m_errorsMade == rhs.m_errorsMade || m_status == Status::Rejects);
   }
 
   Status m_status = Status::Accepts;
@@ -132,14 +134,14 @@ UNIT_TEST(LevenshteinDFA_Smoke)
 UNIT_TEST(LevenshteinDFA_Prefix)
 {
   {
-    LevenshteinDFA dfa("москва", 1 /* prefixCharsToKeep */, 1 /* maxErrors */);
+    LevenshteinDFA dfa("москва", 1 /* prefixSize */, 1 /* maxErrors */);
     TEST(Accepts(dfa, "москва"), ());
     TEST(Accepts(dfa, "масква"), ());
     TEST(Accepts(dfa, "моска"), ());
     TEST(Rejects(dfa, "иосква"), ());
   }
   {
-    LevenshteinDFA dfa("москва", 0 /* prefixCharsToKeep */, 1 /* maxErrors */);
+    LevenshteinDFA dfa("москва", 0 /* prefixSize */, 1 /* maxErrors */);
     TEST(Accepts(dfa, "москва"), ());
     TEST(Accepts(dfa, "иосква"), ());
     TEST(Accepts(dfa, "моксва"), ());
@@ -149,7 +151,7 @@ UNIT_TEST(LevenshteinDFA_Prefix)
 UNIT_TEST(LevenshteinDFA_ErrorsMade)
 {
   {
-    LevenshteinDFA dfa("москва", 1 /* prefixCharsToKeep */, 2 /* maxErrors */);
+    LevenshteinDFA dfa("москва", 1 /* prefixSize */, 2 /* maxErrors */);
 
     TEST_EQUAL(GetResult(dfa, "москва"), Result(Status::Accepts, 0 /* errorsMade */), ());
     TEST_EQUAL(GetResult(dfa, "москв"), Result(Status::Accepts, 1 /* errorsMade */), ());
@@ -165,19 +167,37 @@ UNIT_TEST(LevenshteinDFA_ErrorsMade)
   }
 
   {
-    LevenshteinDFA dfa("aa", 0 /* prefixCharsToKeep */, 2 /* maxErrors */);
+    LevenshteinDFA dfa("aa", 0 /* prefixSize */, 2 /* maxErrors */);
     TEST_EQUAL(GetResult(dfa, "abab"), Result(Status::Accepts, 2 /* errorsMade */), ());
   }
 
   {
-    LevenshteinDFA dfa("mississippi", 0 /* prefixCharsToKeep */, 0 /* maxErrors */);
+    LevenshteinDFA dfa("mississippi", 0 /* prefixSize */, 0 /* maxErrors */);
     TEST_EQUAL(GetResult(dfa, "misisipi").m_status, Status::Rejects, ());
     TEST_EQUAL(GetResult(dfa, "mississipp").m_status, Status::Intermediate, ());
     TEST_EQUAL(GetResult(dfa, "mississippi"), Result(Status::Accepts, 0 /* errorsMade */), ());
   }
 
   {
-    LevenshteinDFA dfa("кафе", 1 /* prefixCharsToKeep */, 1 /* maxErrors */);
+    vector<UniString> const allowedMisprints = {MakeUniString("yj")};
+    size_t const prefixSize = 1;
+    size_t const maxErrors = 1;
+    string const str = "yekaterinburg";
+    vector<pair<string, Result>> const queries = {
+        {"yekaterinburg", Result(Status::Accepts, 0 /* errorsMade */)},
+        {"ekaterinburg", Result(Status::Accepts, 1 /* errorsMade */)},
+        {"jekaterinburg", Result(Status::Accepts, 1 /* errorsMade */)},
+        {"iekaterinburg", Result(Status::Rejects)}};
+
+    for (auto const & q : queries)
+    {
+      LevenshteinDFA dfa(MakeUniString(q.first), prefixSize, allowedMisprints, maxErrors);
+      TEST_EQUAL(GetResult(dfa, str), q.second, ("Query:", q.first, "string:", str));
+    }
+  }
+
+  {
+    LevenshteinDFA dfa("кафе", 1 /* prefixSize */, 1 /* maxErrors */);
     TEST_EQUAL(GetResult(dfa, "кафе"), Result(Status::Accepts, 0 /* errorsMade */), ());
     TEST_EQUAL(GetResult(dfa, "кафер"), Result(Status::Accepts, 1 /* errorsMade */), ());
   }
