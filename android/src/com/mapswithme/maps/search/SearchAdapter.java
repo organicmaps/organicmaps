@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
@@ -245,11 +246,11 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     void bind(@NonNull SearchData result, int order)
     {
       super.bind(result, order);
-      boolean isHotelAvailable = mResult.isHotel &&
-                                 mAvailableHotelIds.contains(mResult.description.featureId);
-      setBackground(isHotelAvailable);
+      setBackground();
       // TODO: Support also "Open Now" mark.
       UiUtils.showIf(mResult.description.openNow == SearchResult.OPEN_NOW_NO, mClosedMarker);
+      boolean isHotelAvailable = mResult.isHotel &&
+                                 mAvailableHotelIds.contains(mResult.description.featureId);
       UiUtils.setTextAndHideIfEmpty(mDescription, formatDescription(mResult, isHotelAvailable));
       UiUtils.setTextAndHideIfEmpty(mRegion, mResult.description.region);
       UiUtils.setTextAndHideIfEmpty(mDistance, mResult.description.distance);
@@ -257,7 +258,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
 
     }
 
-    private void setBackground(boolean isHotelAvailable)
+    private void setBackground()
     {
       Context context = mSearchFragment.getActivity();
       @AttrRes
@@ -266,10 +267,22 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       int topPad = mFrame.getPaddingTop();
       int rightPad = mFrame.getPaddingRight();
       int leftPad = mFrame.getPaddingLeft();
-      mFrame.setBackgroundResource(isHotelAvailable ? R.color.bg_search_available_hotel : itemBg);
+      mFrame.setBackgroundResource(needSpecificBackground() ? getSpecificBackground() : itemBg);
       // On old Android (4.1) after setting the view background the previous paddings
       // are discarded for unknown reasons, that's why restoring the previous paddings is needed.
       mFrame.setPadding(leftPad, topPad, rightPad, bottomPad);
+    }
+
+    @DrawableRes
+    int getSpecificBackground()
+    {
+      return R.color.bg_search_available_hotel;
+    }
+
+    boolean needSpecificBackground()
+    {
+      return mResult.isHotel &&
+             mAvailableHotelIds.contains(mResult.description.featureId);
     }
 
     @Override
@@ -284,11 +297,22 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     LocalAdsCustomerViewHolder(View view)
     {
       super(view);
+    }
 
+    @Override
+    boolean needSpecificBackground()
+    {
+      return true;
+    }
+
+    @Override
+    @DrawableRes
+    int getSpecificBackground()
+    {
+      @DrawableRes
       int resId = ThemeUtils.isNightTheme() ? R.drawable.search_la_customer_result_night
                                             : R.drawable.search_la_customer_result;
-
-      view.setBackgroundDrawable(mSearchFragment.getResources().getDrawable(resId));
+      return resId;
     }
   }
 
