@@ -100,7 +100,7 @@ void FillSegmentInfo(vector<Segment> const & segments, vector<Junction> const & 
 
 void ReconstructRoute(IDirectionsEngine & engine, IndexRoadGraph const & graph,
                       shared_ptr<TrafficStash> const & trafficStash,
-                      my::Cancellable const & cancellable, vector<Junction> const & path,
+                      base::Cancellable const & cancellable, vector<Junction> const & path,
                       Route::TTimes && times, Route & route)
 {
   if (path.empty())

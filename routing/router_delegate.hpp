@@ -10,7 +10,7 @@
 
 namespace routing
 {
-class TimeoutCancellable : public my::Cancellable
+class TimeoutCancellable : public base::Cancellable
 {
 public:
   TimeoutCancellable();

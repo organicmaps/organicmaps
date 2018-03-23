@@ -56,7 +56,7 @@ public:
   struct Params
   {
     Params(Graph & graph, Vertex const & startVertex, Vertex const & finalVertex,
-           std::vector<Edge> const * prevRoute, my::Cancellable const & cancellable,
+           std::vector<Edge> const * prevRoute, base::Cancellable const & cancellable,
            OnVisitedVertexCallback const & onVisitedVertexCallback,
            CheckLengthCallback const & checkLengthCallback)
       : m_graph(graph)
@@ -78,7 +78,7 @@ public:
     Vertex const m_finalVertex;
     // Used for AdjustRoute.
     std::vector<Edge> const * const m_prevRoute;
-    my::Cancellable const & m_cancellable;
+    base::Cancellable const & m_cancellable;
     OnVisitedVertexCallback const m_onVisitedVertexCallback;
     CheckLengthCallback const m_checkLengthCallback;
   };
@@ -105,7 +105,7 @@ public:
     Vertex const m_finalVertex;
     // Used for AdjustRoute.
     std::vector<Edge> const * const m_prevRoute;
-    my::Cancellable const m_cancellable;
+    base::Cancellable const m_cancellable;
     OnVisitedVertexCallback const m_onVisitedVertexCallback;
     CheckLengthCallback const m_checkLengthCallback;
   };
@@ -181,7 +181,7 @@ private:
   class PeriodicPollCancellable final
   {
   public:
-    PeriodicPollCancellable(my::Cancellable const & cancellable) : m_cancellable(cancellable) {}
+    PeriodicPollCancellable(base::Cancellable const & cancellable) : m_cancellable(cancellable) {}
 
     bool IsCancelled()
     {
@@ -191,7 +191,7 @@ private:
     }
 
   private:
-    my::Cancellable const & m_cancellable;
+    base::Cancellable const & m_cancellable;
     uint32_t count = 0;
   };
 

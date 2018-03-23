@@ -26,7 +26,7 @@ public:
   FeatureID GetCityFeatureID(m2::PointD const & p);
 
 private:
-  my::Cancellable m_cancellable;
+  ::base::Cancellable m_cancellable;
   search::CitiesBoundariesTable m_unusedBoundaries;
   search::VillagesCache m_unusedCache;
   search::LocalityFinder m_finder;

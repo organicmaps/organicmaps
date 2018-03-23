@@ -72,7 +72,7 @@ void FillRankingInfo(QueryVec & qv, IdfMap & idfs, DocVec const & dv, RankingInf
 }
 }  // namespace
 
-Processor::Processor(Emitter & emitter, my::Cancellable const & cancellable)
+Processor::Processor(Emitter & emitter, ::base::Cancellable const & cancellable)
   : m_emitter(emitter), m_cancellable(cancellable)
 {
 }

@@ -166,7 +166,7 @@ BicycleDirectionsEngine::BicycleDirectionsEngine(Index const & index, shared_ptr
 }
 
 bool BicycleDirectionsEngine::Generate(IndexRoadGraph const & graph, vector<Junction> const & path,
-                                       my::Cancellable const & cancellable, Route::TTurns & turns,
+                                       base::Cancellable const & cancellable, Route::TTurns & turns,
                                        Route::TStreets & streetNames,
                                        vector<Junction> & routeGeometry, vector<Segment> & segments)
 {
@@ -304,7 +304,7 @@ void BicycleDirectionsEngine::GetEdges(RoadGraphBase const & graph, Junction con
 
 void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
     IndexRoadGraph const & graph, vector<Junction> const & path,
-    IRoadGraph::TEdgeVector const & routeEdges, my::Cancellable const & cancellable)
+    IRoadGraph::TEdgeVector const & routeEdges, base::Cancellable const & cancellable)
 {
   size_t const pathSize = path.size();
   CHECK_GREATER(pathSize, 1, ());

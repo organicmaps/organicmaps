@@ -54,7 +54,7 @@ class QueryParams;
 class Ranker;
 class ReverseGeocoder;
 
-class Processor : public my::Cancellable
+class Processor : public ::base::Cancellable
 {
 public:
   // Maximum result candidates count for each viewport/criteria.

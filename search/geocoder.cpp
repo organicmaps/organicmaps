@@ -158,7 +158,7 @@ class LocalityScorerDelegate : public LocalityScorer::Delegate
 {
 public:
   LocalityScorerDelegate(MwmContext const & context, Geocoder::Params const & params,
-                         my::Cancellable const & cancellable)
+                         ::base::Cancellable const & cancellable)
     : m_context(context)
     , m_params(params)
     , m_cancellable(cancellable)
@@ -204,7 +204,7 @@ public:
 private:
   MwmContext const & m_context;
   Geocoder::Params const & m_params;
-  my::Cancellable const & m_cancellable;
+  ::base::Cancellable const & m_cancellable;
 
   Retrieval m_retrieval;
 
@@ -338,7 +338,7 @@ size_t OrderCountries(m2::RectD const & pivot, vector<shared_ptr<MwmInfo>> & inf
 // Geocoder::Geocoder ------------------------------------------------------------------------------
 Geocoder::Geocoder(Index const & index, storage::CountryInfoGetter const & infoGetter,
                    CategoriesHolder const & categories, PreRanker & preRanker,
-                   VillagesCache & villagesCache, my::Cancellable const & cancellable)
+                   VillagesCache & villagesCache, ::base::Cancellable const & cancellable)
   : m_index(index)
   , m_infoGetter(infoGetter)
   , m_categories(categories)

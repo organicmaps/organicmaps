@@ -15,7 +15,7 @@
 #include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
 
-namespace my
+namespace base
 {
 class Cancellable;
 };
@@ -49,7 +49,7 @@ protected:
 
   // |maxNumEntries| denotes the maximum number of rectangles that
   // will be cached for each mwm individually.
-  GeometryCache(size_t maxNumEntries, my::Cancellable const & cancellable);
+  GeometryCache(size_t maxNumEntries, ::base::Cancellable const & cancellable);
 
   template <typename TPred>
   pair<Entry &, bool> FindOrCreateEntry(MwmSet::MwmId const & id, TPred && pred)
@@ -76,13 +76,13 @@ protected:
 
   map<MwmSet::MwmId, deque<Entry>> m_entries;
   size_t const m_maxNumEntries;
-  my::Cancellable const & m_cancellable;
+  ::base::Cancellable const & m_cancellable;
 };
 
 class PivotRectsCache : public GeometryCache
 {
 public:
-  PivotRectsCache(size_t maxNumEntries, my::Cancellable const & cancellable,
+  PivotRectsCache(size_t maxNumEntries, ::base::Cancellable const & cancellable,
                   double maxRadiusMeters);
 
   // GeometryCache overrides:
@@ -95,7 +95,7 @@ private:
 class LocalityRectsCache : public GeometryCache
 {
 public:
-  LocalityRectsCache(size_t maxNumEntries, my::Cancellable const & cancellable);
+  LocalityRectsCache(size_t maxNumEntries, ::base::Cancellable const & cancellable);
 
   // GeometryCache overrides:
   CBV Get(MwmContext const & context, m2::RectD const & rect, int scale) override;

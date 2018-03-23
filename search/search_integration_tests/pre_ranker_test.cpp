@@ -55,9 +55,9 @@ public:
   TestRanker(Index & index, storage::CountryInfoGetter & infoGetter,
              CitiesBoundariesTable const & boundariesTable, KeywordLangMatcher & keywordsScorer,
              Emitter & emitter, vector<Suggest> const & suggests, VillagesCache & villagesCache,
-             my::Cancellable const & cancellable, vector<PreRankerResult> & results)
-    : Ranker(index, boundariesTable, infoGetter, keywordsScorer, emitter,
-             GetDefaultCategories(), suggests, villagesCache, cancellable)
+             ::base::Cancellable const & cancellable, vector<PreRankerResult> & results)
+    : Ranker(index, boundariesTable, infoGetter, keywordsScorer, emitter, GetDefaultCategories(),
+             suggests, villagesCache, cancellable)
     , m_results(results)
   {
   }
@@ -88,7 +88,7 @@ class PreRankerTest : public SearchTest
 {
 public:
   vector<Suggest> m_suggests;
-  my::Cancellable m_cancellable;
+  ::base::Cancellable m_cancellable;
 };
 
 UNIT_CLASS_TEST(PreRankerTest, Smoke)

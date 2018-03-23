@@ -31,7 +31,7 @@ class Processor : public IdfMap::Delegate
 public:
   using Index = base::MemSearchIndex<Id>;
 
-  Processor(Emitter & emitter, my::Cancellable const & cancellable);
+  Processor(Emitter & emitter, ::base::Cancellable const & cancellable);
   ~Processor() override = default;
 
   void Add(Id const & id, Doc const & doc);
@@ -63,7 +63,7 @@ private:
   QueryVec GetQueryVec(IdfMap & idfs, QueryParams const & params) const;
 
   Emitter & m_emitter;
-  my::Cancellable const & m_cancellable;
+  ::base::Cancellable const & m_cancellable;
 
   Index m_index;
   std::unordered_map<Id, DocVec> m_docs;

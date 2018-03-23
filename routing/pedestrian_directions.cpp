@@ -41,7 +41,7 @@ PedestrianDirectionsEngine::PedestrianDirectionsEngine(shared_ptr<NumMwmIds> num
 
 bool PedestrianDirectionsEngine::Generate(IndexRoadGraph const & graph,
                                           vector<Junction> const & path,
-                                          my::Cancellable const & cancellable,
+                                          base::Cancellable const & cancellable,
                                           Route::TTurns & turns, Route::TStreets & streetNames,
                                           vector<Junction> & routeGeometry,
                                           vector<Segment> & segments)
@@ -67,7 +67,7 @@ bool PedestrianDirectionsEngine::Generate(IndexRoadGraph const & graph,
 void PedestrianDirectionsEngine::CalculateTurns(IndexRoadGraph const & graph,
                                                 vector<Edge> const & routeEdges,
                                                 Route::TTurns & turns,
-                                                my::Cancellable const & cancellable) const
+                                                base::Cancellable const & cancellable) const
 {
   for (size_t i = 0; i < routeEdges.size(); ++i)
   {

@@ -13,7 +13,7 @@
 class FeaturesVector;
 class MwmValue;
 
-namespace my
+namespace base
 {
 class Cancellable;
 }
@@ -45,7 +45,7 @@ public:
     MODE_BOTTOM_UP
   };
 
-  FeaturesLayerPathFinder(my::Cancellable const & cancellable);
+  FeaturesLayerPathFinder(::base::Cancellable const & cancellable);
 
   template <typename TFn>
   void ForEachReachableVertex(FeaturesLayerMatcher & matcher,
@@ -92,7 +92,7 @@ private:
                                      vector<FeaturesLayer const *> const & layers,
                                      vector<IntersectionResult> & results);
 
-  my::Cancellable const & m_cancellable;
+  ::base::Cancellable const & m_cancellable;
 
   static Mode m_mode;
 };

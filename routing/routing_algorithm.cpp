@@ -154,7 +154,7 @@ IRoutingAlgorithm::Result AStarRoutingAlgorithm::CalculateRoute(IRoadGraph const
 
   };
 
-  my::Cancellable const & cancellable = delegate;
+  base::Cancellable const & cancellable = delegate;
   progress.Initialize(startPos.GetPoint(), finalPos.GetPoint());
   RoadGraph roadGraph(graph);
   TAlgorithmImpl::Params params(roadGraph, startPos, finalPos, nullptr /* prevRoute */, cancellable,
@@ -184,7 +184,7 @@ IRoutingAlgorithm::Result AStarBidirectionalRoutingAlgorithm::CalculateRoute(
       delegate.OnProgress(newValue);
   };
 
-  my::Cancellable const & cancellable = delegate;
+  base::Cancellable const & cancellable = delegate;
   progress.Initialize(startPos.GetPoint(), finalPos.GetPoint());
   RoadGraph roadGraph(graph);
   TAlgorithmImpl::Params params(roadGraph, startPos, finalPos, {} /* prevRoute */, cancellable,

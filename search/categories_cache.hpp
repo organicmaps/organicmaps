@@ -18,13 +18,13 @@ class CategoriesCache
 {
 public:
   template <typename TypesSource>
-  CategoriesCache(TypesSource const & source, my::Cancellable const & cancellable)
+  CategoriesCache(TypesSource const & source, ::base::Cancellable const & cancellable)
     : m_cancellable(cancellable)
   {
     source.ForEachType([this](uint32_t type) { m_categories.Add(type); });
   }
 
-  CategoriesCache(set<uint32_t> const & types, my::Cancellable const & cancellable)
+  CategoriesCache(set<uint32_t> const & types, ::base::Cancellable const & cancellable)
     : m_cancellable(cancellable)
   {
     for (uint32_t type : types)
@@ -41,25 +41,25 @@ private:
   CBV Load(MwmContext const & context) const;
 
   CategoriesSet m_categories;
-  my::Cancellable const & m_cancellable;
+  ::base::Cancellable const & m_cancellable;
   map<MwmSet::MwmId, CBV> m_cache;
 };
 
 class StreetsCache : public CategoriesCache
 {
 public:
-  StreetsCache(my::Cancellable const & cancellable);
+  StreetsCache(::base::Cancellable const & cancellable);
 };
 
 class VillagesCache : public CategoriesCache
 {
 public:
-  VillagesCache(my::Cancellable const & cancellable);
+  VillagesCache(::base::Cancellable const & cancellable);
 };
 
 class HotelsCache : public CategoriesCache
 {
 public:
-  HotelsCache(my::Cancellable const & cancellable);
+  HotelsCache(::base::Cancellable const & cancellable);
 };
 }  // namespace search

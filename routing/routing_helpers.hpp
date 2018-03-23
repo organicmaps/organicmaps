@@ -36,7 +36,7 @@ void FillSegmentInfo(std::vector<Segment> const & segments, std::vector<Junction
 
 void ReconstructRoute(IDirectionsEngine & engine, IndexRoadGraph const & graph,
                       std::shared_ptr<TrafficStash> const & trafficStash,
-                      my::Cancellable const & cancellable, std::vector<Junction> const & path,
+                      base::Cancellable const & cancellable, std::vector<Junction> const & path,
                       Route::TTimes && times, Route & route);
 
 /// \brief Converts |edge| to |segment|.

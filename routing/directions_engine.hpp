@@ -24,7 +24,7 @@ public:
   /// \param path is points of the route. It should not be empty.
   /// \returns true if fields passed by reference are filled correctly and false otherwise.
   virtual bool Generate(IndexRoadGraph const & graph, vector<Junction> const & path,
-                        my::Cancellable const & cancellable, Route::TTurns & turns,
+                        base::Cancellable const & cancellable, Route::TTurns & turns,
                         Route::TStreets & streetNames, vector<Junction> & routeGeometry,
                         vector<Segment> & segments) = 0;
 };

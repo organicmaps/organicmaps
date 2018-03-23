@@ -61,7 +61,7 @@ public:
   static int constexpr kBuildingRadiusMeters = 50;
   static int constexpr kStreetRadiusMeters = 100;
 
-  FeaturesLayerMatcher(Index const & index, my::Cancellable const & cancellable);
+  FeaturesLayerMatcher(Index const & index, ::base::Cancellable const & cancellable);
   void SetContext(MwmContext * context);
   void SetPostcodes(CBV const * postcodes);
 
@@ -396,6 +396,6 @@ private:
   Cache<uint32_t, uint32_t> m_matchingStreetsCache;
 
   StreetVicinityLoader m_loader;
-  my::Cancellable const & m_cancellable;
+  ::base::Cancellable const & m_cancellable;
 };
 }  // namespace search

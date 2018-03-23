@@ -360,7 +360,7 @@ Ranker::Ranker(Index const & index, CitiesBoundariesTable const & boundariesTabl
                storage::CountryInfoGetter const & infoGetter, KeywordLangMatcher & keywordsScorer,
                Emitter & emitter, CategoriesHolder const & categories,
                vector<Suggest> const & suggests, VillagesCache & villagesCache,
-               my::Cancellable const & cancellable)
+               ::base::Cancellable const & cancellable)
   : m_reverseGeocoder(index)
   , m_cancellable(cancellable)
   , m_keywordsScorer(keywordsScorer)

@@ -32,7 +32,7 @@ public:
 
   // IDirectionsEngine override:
   bool Generate(IndexRoadGraph const & graph, vector<Junction> const & path,
-                my::Cancellable const & cancellable, Route::TTurns & turns,
+                base::Cancellable const & cancellable, Route::TTurns & turns,
                 Route::TStreets & streetNames, vector<Junction> & routeGeometry,
                 vector<Segment> & segments) override;
 
@@ -48,7 +48,7 @@ private:
   void FillPathSegmentsAndAdjacentEdgesMap(IndexRoadGraph const & graph,
                                            std::vector<Junction> const & path,
                                            IRoadGraph::TEdgeVector const & routeEdges,
-                                           my::Cancellable const & cancellable);
+                                           base::Cancellable const & cancellable);
 
   void GetEdges(RoadGraphBase const & graph, Junction const & currJunction,
                 bool isCurrJunctionFinish, IRoadGraph::TEdgeVector & outgoing,

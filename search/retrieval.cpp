@@ -40,7 +40,7 @@ namespace
 class FeaturesCollector
 {
 public:
-  FeaturesCollector(my::Cancellable const & cancellable, vector<uint64_t> & features)
+  FeaturesCollector(::base::Cancellable const & cancellable, vector<uint64_t> & features)
     : m_cancellable(cancellable), m_features(features), m_counter(0)
   {
   }
@@ -58,7 +58,7 @@ public:
   inline void operator()(uint64_t feature) { m_features.push_back(feature); }
 
 private:
-  my::Cancellable const & m_cancellable;
+  ::base::Cancellable const & m_cancellable;
   vector<uint64_t> & m_features;
   uint32_t m_counter;
 };
@@ -200,7 +200,7 @@ bool MatchFeatureByPostcode(FeatureType const & ft, TokenSlice const & slice)
 template <typename Value, typename DFA>
 unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
     Retrieval::TrieRoot<Value> const & root, MwmContext const & context,
-    my::Cancellable const & cancellable, SearchTrieRequest<DFA> const & request)
+    ::base::Cancellable const & cancellable, SearchTrieRequest<DFA> const & request)
 {
   EditedFeaturesHolder holder(context.GetId());
   vector<uint64_t> features;
@@ -224,7 +224,7 @@ unique_ptr<coding::CompressedBitVector> RetrieveAddressFeaturesImpl(
 template <typename Value>
 unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeaturesImpl(
     Retrieval::TrieRoot<Value> const & root, MwmContext const & context,
-    my::Cancellable const & cancellable, TokenSlice const & slice)
+    ::base::Cancellable const & cancellable, TokenSlice const & slice)
 {
   EditedFeaturesHolder holder(context.GetId());
   vector<uint64_t> features;
@@ -246,7 +246,7 @@ unique_ptr<coding::CompressedBitVector> RetrievePostcodeFeaturesImpl(
 }
 
 unique_ptr<coding::CompressedBitVector> RetrieveGeometryFeaturesImpl(
-    MwmContext const & context, my::Cancellable const & cancellable, m2::RectD const & rect,
+    MwmContext const & context, ::base::Cancellable const & cancellable, m2::RectD const & rect,
     int scale)
 {
   EditedFeaturesHolder holder(context.GetId());
@@ -297,7 +297,7 @@ unique_ptr<Retrieval::TrieRoot<Value>> ReadTrie(MwmValue & value, ModelReaderPtr
 }
 }  // namespace
 
-Retrieval::Retrieval(MwmContext const & context, my::Cancellable const & cancellable)
+Retrieval::Retrieval(MwmContext const & context, ::base::Cancellable const & cancellable)
   : m_context(context)
   , m_cancellable(cancellable)
   , m_reader(context.m_value.m_cont.GetReader(SEARCH_INDEX_FILE_TAG))

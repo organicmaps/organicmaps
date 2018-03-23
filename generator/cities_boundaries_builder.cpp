@@ -72,7 +72,7 @@ CBV GetLocalities(string const & dataPath)
   CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ("Can't register", dataPath));
 
   search::MwmContext context(index.GetMwmHandleById(result.first));
-  return search::CategoriesCache(LocalitiesSource{}, my::Cancellable{}).Get(context);
+  return search::CategoriesCache(LocalitiesSource{}, base::Cancellable{}).Get(context);
 }
 
 template <typename BoundariesTable, typename MappingReader>

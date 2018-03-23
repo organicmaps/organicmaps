@@ -171,7 +171,7 @@ void PrintAsCSV(vector<string> const & columns, char const delimiter, ostream & 
 class Processor
 {
   search::ReverseGeocoder m_geocoder;
-  my::Cancellable m_cancellable;
+  base::Cancellable m_cancellable;
   search::CitiesBoundariesTable m_boundariesTable;
   search::VillagesCache m_villagesCache;
   search::LocalityFinder m_finder;

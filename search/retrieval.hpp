@@ -33,7 +33,7 @@ public:
   template<typename Value>
   using TrieRoot = trie::Iterator<ValueList<Value>>;
 
-  Retrieval(MwmContext const & context, my::Cancellable const & cancellable);
+  Retrieval(MwmContext const & context, ::base::Cancellable const & cancellable);
 
   // Following functions retrieve from the search index corresponding to
   // |value| all features matching to |request|.
@@ -62,7 +62,7 @@ private:
   unique_ptr<coding::CompressedBitVector> Retrieve(Args &&... args) const;
 
   MwmContext const & m_context;
-  my::Cancellable const & m_cancellable;
+  ::base::Cancellable const & m_cancellable;
   ModelReaderPtr m_reader;
 
   version::MwmTraits::SearchIndexFormat m_format;

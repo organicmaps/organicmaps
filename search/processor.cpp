@@ -147,15 +147,15 @@ Processor::Processor(Index const & index, CategoriesHolder const & categories,
   : m_categories(categories)
   , m_infoGetter(infoGetter)
   , m_position(0, 0)
-  , m_villagesCache(static_cast<my::Cancellable const &>(*this))
+  , m_villagesCache(static_cast<::base::Cancellable const &>(*this))
   , m_citiesBoundaries(index)
   , m_keywordsScorer(LanguageTier::LANGUAGE_TIER_COUNT)
   , m_ranker(index, m_citiesBoundaries, infoGetter, m_keywordsScorer, m_emitter, categories,
-             suggests, m_villagesCache, static_cast<my::Cancellable const &>(*this))
+             suggests, m_villagesCache, static_cast<::base::Cancellable const &>(*this))
   , m_preRanker(index, m_ranker)
   , m_geocoder(index, infoGetter, categories, m_preRanker, m_villagesCache,
-               static_cast<my::Cancellable const &>(*this))
-  , m_bookmarksProcessor(m_emitter, static_cast<my::Cancellable const &>(*this))
+               static_cast<::base::Cancellable const &>(*this))
+  , m_bookmarksProcessor(m_emitter, static_cast<::base::Cancellable const &>(*this))
 {
   // Current and input langs are to be set later.
   m_keywordsScorer.SetLanguages(

@@ -568,7 +568,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
   // Tests that postcode is added to the search index.
   {
     MwmContext context(m_index.GetMwmHandleById(countryId));
-    my::Cancellable cancellable;
+    ::base::Cancellable cancellable;
 
     QueryParams params;
     {

@@ -21,7 +21,7 @@
 
 namespace threads
 {
-class IRoutine : public my::Cancellable
+class IRoutine : public base::Cancellable
 {
 public:
   /// Perform the main task.

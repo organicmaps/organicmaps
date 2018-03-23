@@ -44,7 +44,7 @@ bool CitiesBoundariesTable::Load()
     return true;
 
   MwmContext context(move(handle));
-  auto const localities = CategoriesCache(LocalitiesSource{}, my::Cancellable{}).Get(context);
+  auto const localities = CategoriesCache(LocalitiesSource{}, ::base::Cancellable{}).Get(context);
 
   auto const & cont = context.m_value.m_cont;
 

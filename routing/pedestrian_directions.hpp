@@ -16,13 +16,13 @@ public:
 
   // IDirectionsEngine override:
   bool Generate(IndexRoadGraph const & graph, vector<Junction> const & path,
-                my::Cancellable const & cancellable, Route::TTurns & turns,
+                base::Cancellable const & cancellable, Route::TTurns & turns,
                 Route::TStreets & streetNames, vector<Junction> & routeGeometry,
                 vector<Segment> & segments) override;
 
 private:
   void CalculateTurns(IndexRoadGraph const & graph, std::vector<Edge> const & routeEdges,
-                      Route::TTurns & turnsDir, my::Cancellable const & cancellable) const;
+                      Route::TTurns & turnsDir, base::Cancellable const & cancellable) const;
 
   uint32_t const m_typeSteps;
   uint32_t const m_typeLiftGate;

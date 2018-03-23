@@ -73,7 +73,7 @@ bool MayHaveDelayedFeatures(FeaturesLayer const & layer)
 }
 }  // namespace
 
-FeaturesLayerPathFinder::FeaturesLayerPathFinder(my::Cancellable const & cancellable)
+FeaturesLayerPathFinder::FeaturesLayerPathFinder(::base::Cancellable const & cancellable)
   : m_cancellable(cancellable)
 {
 }
