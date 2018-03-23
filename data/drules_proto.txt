@@ -63052,37 +63052,6 @@ cont {
   }
 }
 cont {
-  name: "sponsored-holiday"
-  element {
-    scale: 16
-    symbol {
-      name: "christmastree"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 17
-    symbol {
-      name: "christmastree"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 18
-    symbol {
-      name: "christmastree"
-      priority: 16000
-    }
-  }
-  element {
-    scale: 19
-    symbol {
-      name: "christmastree"
-      priority: 16000
-    }
-  }
-}
-cont {
   name: "sponsored-partner2"
   element {
     scale: 14

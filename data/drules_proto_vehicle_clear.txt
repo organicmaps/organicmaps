@@ -39692,12 +39692,20 @@ cont {
 }
 colors {
   value {
+    name: "BookmarkPurple"
+    color: 10233776
+  }
+  value {
+    name: "TrafficOutline"
+    color: 15790320
+  }
+  value {
     name: "RouteMaskPedestrian"
     color: 2147483648
   }
   value {
-    name: "DefaultTrackColor"
-    color: 2004720
+    name: "BookmarkBlue"
+    color: 28359
   }
   value {
     name: "RoadShieldWhiteText"
@@ -39712,8 +39720,8 @@ colors {
     color: 3942645760
   }
   value {
-    name: "TrafficArrowLight"
-    color: 16777215
+    name: "BookmarkOrange"
+    color: 16752640
   }
   value {
     name: "GuiText"
@@ -39724,6 +39732,10 @@ colors {
     color: 1728053247
   }
   value {
+    name: "BookmarkRed"
+    color: 15014691
+  }
+  value {
     name: "PoiDeletedMask"
     color: 3019898879
   }
@@ -39732,8 +39744,15 @@ colors {
     color: 2147483648
   }
   value {
+    name: "LocalAdsPrimaryText"
+  }
+  value {
     name: "RoadShieldUKYellowText"
     color: 16765952
+  }
+  value {
+    name: "TrafficG4"
+    color: 3773998
   }
   value {
     name: "RoadShieldBlueBackground"
@@ -39748,12 +39767,31 @@ colors {
     color: 3422763904
   }
   value {
-    name: "TrafficArrowDark"
-    color: 4666933
+    name: "BookmarkCyan"
+    color: 113876
+  }
+  value {
+    name: "BookmarkBrown"
+    color: 7951688
+  }
+  value {
+    name: "BookmarkDeepOrange"
+    color: 6323595
+  }
+  value {
+    name: "RouteTrafficG2"
+    color: 15214341
+  }
+  value {
+    name: "BookmarkPink"
+    color: 15277923
   }
   value {
     name: "RoutePedestrian"
     color: 857551774
+  }
+  value {
+    name: "LocalAdsSecondaryText"
   }
   value {
     name: "TransitBackground"
@@ -39783,6 +39821,10 @@ colors {
     color: 4294960384
   }
   value {
+    name: "BookmarkDeepPurple"
+    color: 6765239
+  }
+  value {
     name: "Arrow3DShadow"
     color: 3258727484
   }
@@ -39790,7 +39832,8 @@ colors {
     name: "RoadShieldBlackText"
   }
   value {
-    name: "LocalAdsSecondaryText"
+    name: "BookmarkGray"
+    color: 7697781
   }
   value {
     name: "Route"
@@ -39816,6 +39859,10 @@ colors {
     color: 3432785840
   }
   value {
+    name: "BookmarkLightBlue"
+    color: 240116
+  }
+  value {
     name: "RoutePreview"
     color: 3003121664
   }
@@ -39828,16 +39875,24 @@ colors {
     color: 3003121664
   }
   value {
+    name: "BookmarkGreen"
+    color: 3706428
+  }
+  value {
     name: "Arrow3D"
     color: 5286655
+  }
+  value {
+    name: "BookmarkTeal"
+    color: 38280
   }
   value {
     name: "TrafficG3"
     color: 4294761984
   }
   value {
-    name: "TrafficG2"
-    color: 14951168
+    name: "BookmarkBlueGray"
+    color: 6323595
   }
   value {
     name: "TrafficG1"
@@ -39850,6 +39905,10 @@ colors {
   value {
     name: "TrafficTempBlock"
     color: 4605510
+  }
+  value {
+    name: "BookmarkYellow"
+    color: 16761096
   }
   value {
     name: "TrafficG5"
@@ -39867,15 +39926,20 @@ colors {
     name: "TrafficUnknown"
   }
   value {
-    name: "TrafficG4"
-    color: 3773998
+    name: "TrafficG2"
+    color: 14951168
   }
   value {
     name: "RoadShieldGreenBackground"
     color: 3183362
   }
   value {
-    name: "LocalAdsPrimaryText"
+    name: "DefaultTrackColor"
+    color: 2004720
+  }
+  value {
+    name: "TrafficArrowLight"
+    color: 16777215
   }
   value {
     name: "RouteTrafficG1"
@@ -39890,8 +39954,8 @@ colors {
     color: 16777215
   }
   value {
-    name: "RouteTrafficG2"
-    color: 15214341
+    name: "BookmarkLime"
+    color: 8306489
   }
   value {
     name: "LocalAdsPrimaryTextOutline"
@@ -39902,7 +39966,7 @@ colors {
     color: 865871792
   }
   value {
-    name: "TrafficOutline"
-    color: 15790320
+    name: "TrafficArrowDark"
+    color: 4666933
   }
 }
