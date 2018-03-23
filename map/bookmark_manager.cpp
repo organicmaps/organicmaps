@@ -1752,7 +1752,7 @@ bool BookmarkManager::MarksChangesTracker::CheckChanges()
     if (mark->IsDirty())
       m_dirtyGroups.insert(mark->GetGroupId());
   }
-  return !m_dirtyGroups.empty();
+  return !m_dirtyGroups.empty() || !m_removedGroups.empty();
 }
 
 void BookmarkManager::MarksChangesTracker::ResetChanges()
