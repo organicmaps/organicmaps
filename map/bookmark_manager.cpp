@@ -110,6 +110,38 @@ public:
   m2::AnyRectD const & m_rect;
   m2::PointD m_globalCenter;
 };
+
+BookmarkManager::SharingResult GetFileForSharing(df::MarkGroupID categoryId, std::string const & filePath)
+{
+  if (!GetPlatform().IsFileExistsByFullPath(filePath))
+  {
+    return BookmarkManager::SharingResult(categoryId, BookmarkManager::SharingResult::Code::FileError,
+                                          "Bookmarks file does not exist.");
+  }
+
+  auto ext = my::GetFileExtension(filePath);
+  strings::AsciiToLower(ext);
+  std::string fileName = filePath;
+  my::GetNameFromFullPath(fileName);
+  my::GetNameWithoutExt(fileName);
+  auto const tmpFilePath = my::JoinFoldersToPath(GetPlatform().TmpDir(), fileName + KMZ_EXTENSION);
+  if (ext == KMZ_EXTENSION)
+  {
+    if (my::CopyFileX(filePath, tmpFilePath))
+      return BookmarkManager::SharingResult(categoryId, tmpFilePath);
+
+    return BookmarkManager::SharingResult(categoryId, BookmarkManager::SharingResult::Code::FileError,
+                                          "Could not copy file.");
+  }
+
+  if (!CreateZipFromPathDeflatedAndDefaultCompression(filePath, tmpFilePath))
+  {
+    return BookmarkManager::SharingResult(categoryId, BookmarkManager::SharingResult::Code::ArchiveError,
+                                          "Could not create archive.");
+  }
+
+  return BookmarkManager::SharingResult(categoryId, tmpFilePath);
+}
 }  // namespace
 
 namespace migration
@@ -1457,37 +1489,21 @@ void BookmarkManager::SetInvalidTokenHandler(Cloud::InvalidTokenHandler && onInv
   m_bookmarkCloud.SetInvalidTokenHandler(std::move(onInvalidToken));
 }
 
-BookmarkManager::SharingResult BookmarkManager::BeginSharing(df::MarkGroupID categoryId)
+void BookmarkManager::PrepareFileForSharing(df::MarkGroupID categoryId, SharingHandler && handler)
 {
-  auto const it = m_activeSharing.find(categoryId);
-  if (it != m_activeSharing.end())
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  ASSERT(handler, ());
+  if (IsCategoryEmpty(categoryId))
   {
-    // In case if the sharing has already begun.
-    if (GetPlatform().IsFileExistsByFullPath(it->second))
-      return SharingResult(it->second);
-  }
-
-  auto const result = GetFileForSharing(categoryId);
-  if (result.m_code != SharingResult::Code::Success)
-  {
-    m_activeSharing.erase(categoryId);
-    return result;
-  }
-
-  m_activeSharing[categoryId] = result.m_sharingPath;
-  return result;
-}
-
-void BookmarkManager::EndSharing(df::MarkGroupID categoryId)
-{
-  auto const it = m_activeSharing.find(categoryId);
-  if (it == m_activeSharing.end())
+    handler(SharingResult(categoryId, SharingResult::Code::EmptyCategory));
     return;
+  }
 
-  if (GetPlatform().IsFileExistsByFullPath(it->second))
-    my::DeleteFileX(it->second);
-
-  m_activeSharing.erase(categoryId);
+  auto const filePath = GetCategoryFileName(categoryId);
+  GetPlatform().RunTask(Platform::Thread::File, [categoryId, filePath, handler = std::move(handler)]()
+  {
+    handler(GetFileForSharing(categoryId, filePath));
+  });
 }
 
 bool BookmarkManager::IsCategoryEmpty(df::MarkGroupID categoryId) const
@@ -1534,36 +1550,6 @@ void BookmarkManager::SetAllCategoriesVisibility(bool visible)
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
   for (auto & c : m_categories)
     c.second->SetIsVisible(visible);
-}
-
-BookmarkManager::SharingResult BookmarkManager::GetFileForSharing(df::MarkGroupID categoryId)
-{
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
-  if (IsCategoryEmpty(categoryId))
-    return SharingResult(SharingResult::Code::EmptyCategory);
-
-  auto const filePath = GetCategoryFileName(categoryId);
-  if (!GetPlatform().IsFileExistsByFullPath(filePath))
-    return SharingResult(SharingResult::Code::FileError, "Bookmarks file does not exist.");
-
-  auto ext = my::GetFileExtension(filePath);
-  strings::AsciiToLower(ext);
-  std::string fileName = filePath;
-  my::GetNameFromFullPath(fileName);
-  my::GetNameWithoutExt(fileName);
-  auto const tmpFilePath = my::JoinFoldersToPath(GetPlatform().TmpDir(), fileName + KMZ_EXTENSION);
-  if (ext == KMZ_EXTENSION)
-  {
-    if (my::CopyFileX(filePath, tmpFilePath))
-      return SharingResult(tmpFilePath);
-
-    return SharingResult(SharingResult::Code::FileError, "Could not copy file.");
-  }
-
-  if (!CreateZipFromPathDeflatedAndDefaultCompression(filePath, tmpFilePath))
-    return SharingResult(SharingResult::Code::ArchiveError, "Could not create archive.");
-
-  return SharingResult(tmpFilePath);
 }
 
 size_t BookmarkManager::GetKmlFilesCountForConversion() const

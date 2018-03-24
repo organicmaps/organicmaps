@@ -204,27 +204,31 @@ public:
       ArchiveError,
       FileError
     };
+    df::MarkGroupID m_categoryId;
     Code m_code;
     std::string m_sharingPath;
     std::string m_errorString;
 
-    explicit SharingResult(std::string const & sharingPath)
-      : m_code(Code::Success)
+    SharingResult(df::MarkGroupID categoryId, std::string const & sharingPath)
+      : m_categoryId(categoryId)
+      , m_code(Code::Success)
       , m_sharingPath(sharingPath)
     {}
 
-    explicit SharingResult(Code code)
-      : m_code(code)
+    SharingResult(df::MarkGroupID categoryId, Code code)
+      : m_categoryId(categoryId)
+      , m_code(code)
     {}
 
-    SharingResult(Code code, std::string const & errorString)
-      : m_code(code)
+    SharingResult(df::MarkGroupID categoryId, Code code, std::string const & errorString)
+      : m_categoryId(categoryId)
+      , m_code(code)
       , m_errorString(errorString)
     {}
   };
 
-  SharingResult BeginSharing(df::MarkGroupID categoryId);
-  void EndSharing(df::MarkGroupID categoryId);
+  using SharingHandler = platform::SafeCallback<void(SharingResult const & result)>;
+  void PrepareFileForSharing(df::MarkGroupID categoryId, SharingHandler && handler);
 
   bool IsCategoryEmpty(df::MarkGroupID categoryId) const;
 
@@ -251,7 +255,7 @@ private:
   class MarksChangesTracker : public df::UserMarksProvider
   {
   public:
-    MarksChangesTracker(BookmarkManager & bmManager) : m_bmManager(bmManager) {}
+    explicit MarksChangesTracker(BookmarkManager & bmManager) : m_bmManager(bmManager) {}
 
     void OnAddMark(df::MarkID markId);
     void OnDeleteMark(df::MarkID markId);
@@ -393,8 +397,6 @@ private:
 
   void SaveToKML(BookmarkCategory * group, std::ostream & s);
 
-  SharingResult GetFileForSharing(df::MarkGroupID categoryId);
-
   ThreadChecker m_threadChecker;
 
   Callbacks m_callbacks;
@@ -428,7 +430,7 @@ private:
   {
     std::string m_filename;
     bool m_isTemporaryFile = false;
-    BookmarkLoaderInfo() {}
+    BookmarkLoaderInfo() = default;
     BookmarkLoaderInfo(std::string const & filename, bool isTemporaryFile)
       : m_filename(filename), m_isTemporaryFile(isTemporaryFile)
     {}
@@ -436,8 +438,6 @@ private:
   std::list<BookmarkLoaderInfo> m_bookmarkLoadingQueue;
 
   Cloud m_bookmarkCloud;
-
-  std::map<df::MarkGroupID, std::string> m_activeSharing;
 
   DISALLOW_COPY_AND_MOVE(BookmarkManager);
 };

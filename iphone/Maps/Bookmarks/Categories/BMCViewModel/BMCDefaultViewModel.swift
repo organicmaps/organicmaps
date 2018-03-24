@@ -14,6 +14,8 @@ final class BMCDefaultViewModel: NSObject {
 
   private(set) var isPendingPermission = false
   private var isAuthenticated = false
+  
+  private var onPreparedToShareCategory: BMCViewModel.onPreparedToShareHandler?
 
   var minCategoryNameLength: UInt = Const.minCategoryNameLength
   var maxCategoryNameLength: UInt = Const.maxCategoryNameLength
@@ -159,20 +161,14 @@ extension BMCDefaultViewModel: BMCViewModel {
     return BM.checkCategoryName(name)
   }
 
-  func beginShareCategory(category: BMCCategory) -> BMCShareCategoryStatus {
-    switch BM.beginShareCategory(category.identifier) {
-    case .success:
-      return .success(BM.shareCategoryURL())
-    case .emptyCategory:
-      return .error(title: L("bookmarks_error_title_share_empty"), text: L("bookmarks_error_message_share_empty"))
-    case .archiveError: fallthrough
-    case .fileError:
-      return .error(title: L("dialog_routing_system_error"), text: L("bookmarks_error_message_share_general"))
-    }
+  func shareCategory(category: BMCCategory, handler: @escaping onPreparedToShareHandler) {
+    onPreparedToShareCategory = handler
+    BM.shareCategory(category.identifier)
   }
 
-  func endShareCategory(category: BMCCategory) {
-    BM.endShareCategory(category.identifier)
+  func finishShareCategory() {
+    BM.finishShareCategory()
+    onPreparedToShareCategory = nil
   }
 
   func pendingPermission(isPending: Bool) {
@@ -208,5 +204,17 @@ extension BMCDefaultViewModel: MWMBookmarksObserver {
 
   func onBookmarkDeleted(_: MWMMarkID) {
     loadData()
+  }
+  
+  func onBookmarksCategoryFilePrepared(_ status: MWMBookmarksShareStatus) {
+    switch status {
+    case .success:
+      onPreparedToShareCategory?(.success(BM.shareCategoryURL()))
+    case .emptyCategory:
+      onPreparedToShareCategory?(.error(title: L("bookmarks_error_title_share_empty"), text: L("bookmarks_error_message_share_empty")))
+    case .archiveError: fallthrough
+    case .fileError:
+      onPreparedToShareCategory?(.error(title: L("dialog_routing_system_error"), text: L("bookmarks_error_message_share_general")))
+    }
   }
 }

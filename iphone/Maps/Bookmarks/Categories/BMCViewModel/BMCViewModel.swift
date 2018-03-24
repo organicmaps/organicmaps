@@ -32,8 +32,9 @@ protocol BMCViewModel: AnyObject {
   func deleteCategory(category: BMCCategory)
   func checkCategory(name: String) -> Bool
 
-  func beginShareCategory(category: BMCCategory) -> BMCShareCategoryStatus
-  func endShareCategory(category: BMCCategory)
+  typealias onPreparedToShareHandler = (BMCShareCategoryStatus) -> Void
+  func shareCategory(category: BMCCategory, handler: @escaping onPreparedToShareHandler)
+  func finishShareCategory()
 
   func pendingPermission(isPending: Bool)
   func grant(permission: BMCPermission?)

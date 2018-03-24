@@ -24,9 +24,9 @@
 + (void)deleteBookmark:(MWMMarkID)bookmarkId;
 + (BOOL)checkCategoryName:(NSString *)name;
 
-+ (MWMBookmarksShareStatus)beginShareCategory:(MWMMarkGroupID)groupId;
++ (void)shareCategory:(MWMMarkGroupID)groupId;
 + (NSURL *)shareCategoryURL;
-+ (void)endShareCategory:(MWMMarkGroupID)groupId;
++ (void)finishShareCategory;
 
 + (NSDate *)lastSynchronizationDate;
 + (BOOL)isCloudEnabled;

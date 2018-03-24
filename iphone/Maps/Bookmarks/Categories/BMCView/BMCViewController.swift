@@ -67,7 +67,7 @@ final class BMCViewController: MWMViewController {
       let fileName = (url.lastPathComponent as NSString).deletingPathExtension
       let message = String(coreFormat: L("share_bookmarks_email_body"), arguments: [fileName])
       let shareController = AVC.share(for: url, message: message) { [viewModel] _, _, _, _ in
-        viewModel?.endShareCategory(category: category)
+        viewModel?.finishShareCategory()
       }
       shareController!.present(inParentViewController: self, anchorView: anchor)
     }
@@ -75,11 +75,12 @@ final class BMCViewController: MWMViewController {
     let showAlertOnError = { (title: String, text: String) in
       MWMAlertViewController.activeAlert().presentInfoAlert(title, text: text)
     }
-
-    let shareCategoryStatus = viewModel.beginShareCategory(category: category)
-    switch shareCategoryStatus {
-    case let .success(url): shareOnSuccess(url)
-    case let .error(title, text): showAlertOnError(title, text)
+    
+    viewModel.shareCategory(category: category) { (status: BMCShareCategoryStatus) in
+      switch status {
+      case let .success(url): shareOnSuccess(url)
+      case let .error(title, text): showAlertOnError(title, text)
+      }
     }
   }
 
