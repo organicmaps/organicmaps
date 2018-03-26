@@ -18,8 +18,8 @@ TEXTURING_GUI_PROGRAM texturing_gui.vsh.glsl texturing.fsh.glsl
 RULER_PROGRAM ruler.vsh.glsl texturing.fsh.glsl
 ACCURACY_PROGRAM position_accuracy3d.vsh.glsl texturing.fsh.glsl
 MY_POSITION_PROGRAM my_position.vsh.glsl texturing.fsh.glsl
-BOOKMARK_PROGRAM user_mark.vsh.glsl discarded_texturing.fsh.glsl
-BOOKMARK_ANIM_PROGRAM user_mark.vsh.glsl discarded_texturing.fsh.glsl
+BOOKMARK_PROGRAM user_mark.vsh.glsl user_mark.fsh.glsl
+BOOKMARK_ANIM_PROGRAM user_mark.vsh.glsl user_mark.fsh.glsl
 ROUTE_PROGRAM route.vsh.glsl route.fsh.glsl
 ROUTE_DASH_PROGRAM route.vsh.glsl route_dash.fsh.glsl
 ROUTE_ARROW_PROGRAM route_arrow.vsh.glsl route_arrow.fsh.glsl
@@ -36,8 +36,8 @@ MASKED_TEXTURING_BILLBOARD_PROGRAM masked_texturing_billboard.vsh.glsl masked_te
 TEXT_OUTLINED_BILLBOARD_PROGRAM text_outlined_billboard.vsh.glsl text.fsh.glsl
 TEXT_BILLBOARD_PROGRAM text_billboard.vsh.glsl text.fsh.glsl
 TEXT_FIXED_BILLBOARD_PROGRAM text_billboard.vsh.glsl text_fixed.fsh.glsl
-BOOKMARK_BILLBOARD_PROGRAM user_mark_billboard.vsh.glsl discarded_texturing.fsh.glsl
-BOOKMARK_ANIM_BILLBOARD_PROGRAM user_mark_billboard.vsh.glsl discarded_texturing.fsh.glsl
+BOOKMARK_BILLBOARD_PROGRAM user_mark_billboard.vsh.glsl user_mark.fsh.glsl
+BOOKMARK_ANIM_BILLBOARD_PROGRAM user_mark_billboard.vsh.glsl user_mark.fsh.glsl
 TRAFFIC_PROGRAM traffic.vsh.glsl traffic.fsh.glsl
 TRAFFIC_LINE_PROGRAM traffic_line.vsh.glsl traffic_line.fsh.glsl
 SMAA_EDGES_PROGRAM smaa_edges.vsh.glsl smaa_edges.fsh.glsl

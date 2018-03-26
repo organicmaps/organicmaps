@@ -581,6 +581,18 @@ void TextureManager::GetSymbolRegion(string const & symbolName, SymbolRegion & r
   LOG(LWARNING, ("Detected using of unknown symbol ", symbolName));
 }
 
+bool TextureManager::HasSymbolRegion(std::string const & symbolName) const
+{
+  for (size_t i = 0; i < m_symbolTextures.size(); ++i)
+  {
+    ASSERT(m_symbolTextures[i] != nullptr, ());
+    ref_ptr<SymbolsTexture> symbolsTexture = make_ref(m_symbolTextures[i]);
+    if (symbolsTexture->IsSymbolContained(symbolName))
+      return true;
+  }
+  return false;
+}
+
 void TextureManager::GetStippleRegion(TStipplePattern const & pen, StippleRegion & region)
 {
   GetRegionBase(make_ref(m_stipplePenTexture), region, StipplePenKey(pen));

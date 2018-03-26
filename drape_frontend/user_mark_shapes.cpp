@@ -34,11 +34,9 @@ int const kLineSimplifyLevelEnd = 15;
 
 namespace
 {
-
 template <typename TCreateVector>
-void AlignFormingNormals(TCreateVector const & fn, dp::Anchor anchor,
-                         dp::Anchor first, dp::Anchor second,
-                         glsl::vec2 & firstNormal, glsl::vec2 & secondNormal)
+void AlignFormingNormals(TCreateVector const & fn, dp::Anchor anchor, dp::Anchor first,
+                         dp::Anchor second, glsl::vec2 & firstNormal, glsl::vec2 & secondNormal)
 {
   firstNormal = fn();
   secondNormal = -firstNormal;
@@ -54,26 +52,27 @@ void AlignFormingNormals(TCreateVector const & fn, dp::Anchor anchor,
   }
 }
 
-void AlignHorizontal(float halfWidth, dp::Anchor anchor,
-                     glsl::vec2 & left, glsl::vec2 & right)
+void AlignHorizontal(float halfWidth, dp::Anchor anchor, glsl::vec2 & left, glsl::vec2 & right)
 {
-  AlignFormingNormals([&halfWidth]{ return glsl::vec2(-halfWidth, 0.0f); }, anchor, dp::Left, dp::Right, left, right);
+  AlignFormingNormals([&halfWidth] { return glsl::vec2(-halfWidth, 0.0f); }, anchor, dp::Left,
+                      dp::Right, left, right);
 }
 
-void AlignVertical(float halfHeight, dp::Anchor anchor,
-                   glsl::vec2 & up, glsl::vec2 & down)
+void AlignVertical(float halfHeight, dp::Anchor anchor, glsl::vec2 & up, glsl::vec2 & down)
 {
-  AlignFormingNormals([&halfHeight]{ return glsl::vec2(0.0f, -halfHeight); }, anchor, dp::Top, dp::Bottom, up, down);
+  AlignFormingNormals([&halfHeight] { return glsl::vec2(0.0f, -halfHeight); }, anchor, dp::Top,
+                      dp::Bottom, up, down);
 }
 
-struct UserPointVertex : gpu::BaseVertex
+struct UserPointVertex : public gpu::BaseVertex
 {
+  using TTexCoord = glsl::vec4;
+  using TColorAndAnimate = glsl::vec4;
+
   UserPointVertex() = default;
-  UserPointVertex(TPosition const & pos, TNormal const & normal, TTexCoord const & texCoord, bool isAnim)
-    : m_position(pos)
-    , m_normal(normal)
-    , m_texCoord(texCoord)
-    , m_isAnim(isAnim ? 1.0f : -1.0f)
+  UserPointVertex(TPosition const & pos, TNormal const & normal, TTexCoord const & texCoord,
+                  TColorAndAnimate const & colorAndAnimate)
+    : m_position(pos), m_normal(normal), m_texCoord(texCoord), m_colorAndAnimate(colorAndAnimate)
   {}
 
   static dp::BindingInfo GetBinding()
@@ -82,8 +81,8 @@ struct UserPointVertex : gpu::BaseVertex
     uint8_t offset = 0;
     offset += dp::FillDecl<TPosition, UserPointVertex>(0, "a_position", info, offset);
     offset += dp::FillDecl<TNormal, UserPointVertex>(1, "a_normal", info, offset);
-    offset += dp::FillDecl<TTexCoord, UserPointVertex>(2, "a_colorTexCoords", info, offset);
-    offset += dp::FillDecl<bool, UserPointVertex>(3, "a_animate", info, offset);
+    offset += dp::FillDecl<TTexCoord, UserPointVertex>(2, "a_texCoords", info, offset);
+    offset += dp::FillDecl<TColorAndAnimate, UserPointVertex>(3, "a_colorAndAnimate", info, offset);
 
     return info;
   }
@@ -91,22 +90,213 @@ struct UserPointVertex : gpu::BaseVertex
   TPosition m_position;
   TNormal m_normal;
   TTexCoord m_texCoord;
-  float m_isAnim;
+  TColorAndAnimate m_colorAndAnimate;
 };
 
-} // namespace
+std::string GetSymbolNameForZoomLevel(UserMarkRenderParams const & renderInfo,
+                                      TileKey const & tileKey)
+{
+  if (!renderInfo.m_symbolNames)
+    return {};
+
+  for (auto itName = renderInfo.m_symbolNames->rbegin(); itName != renderInfo.m_symbolNames->rend();
+       ++itName)
+  {
+    if (itName->first <= tileKey.m_zoomLevel)
+      return itName->second;
+  }
+  return {};
+}
+
+void GenerateColoredSymbolShapes(UserMarkRenderParams const & renderInfo, TileKey const & tileKey,
+                                 m2::PointD const & tileCenter, ref_ptr<dp::TextureManager> textures,
+                                 m2::PointF & symbolSize, dp::Batcher & batcher)
+{
+  for (auto itSym = renderInfo.m_coloredSymbols->rbegin();
+       itSym != renderInfo.m_coloredSymbols->rend(); ++itSym)
+  {
+    if (itSym->first <= tileKey.m_zoomLevel)
+    {
+      ColoredSymbolViewParams params = itSym->second;
+      if (params.m_shape == ColoredSymbolViewParams::Shape::Circle)
+        symbolSize = m2::PointF(params.m_radiusInPixels * 2.0f, params.m_radiusInPixels * 2.0f);
+      else
+        symbolSize = params.m_sizeInPixels;
+
+      params.m_featureID = renderInfo.m_featureId;
+      params.m_tileCenter = tileCenter;
+      params.m_depth = renderInfo.m_depth;
+      params.m_depthLayer = renderInfo.m_depthLayer;
+      params.m_minVisibleScale = renderInfo.m_minZoom;
+      params.m_specialDisplacement = SpecialDisplacement::UserMark;
+      params.m_specialPriority = renderInfo.m_priority;
+      if (renderInfo.m_symbolSizes != nullptr)
+      {
+        ColoredSymbolShape(renderInfo.m_pivot, params, tileKey,
+                           kStartUserMarkOverlayIndex + renderInfo.m_index,
+                           *renderInfo.m_symbolSizes.get())
+            .Draw(&batcher, textures);
+      }
+      else
+      {
+        ColoredSymbolShape(renderInfo.m_pivot, params, tileKey,
+                           kStartUserMarkOverlayIndex + renderInfo.m_index)
+            .Draw(&batcher, textures);
+      }
+      break;
+    }
+  }
+}
+
+void GeneratePoiSymbolShape(UserMarkRenderParams const & renderInfo, TileKey const & tileKey,
+                            m2::PointD const & tileCenter, std::string const & symbolName,
+                            ref_ptr<dp::TextureManager> textures, m2::PointF & symbolOffset,
+                            dp::Batcher & batcher)
+{
+  PoiSymbolViewParams params(renderInfo.m_featureId);
+  params.m_tileCenter = tileCenter;
+  params.m_depth = renderInfo.m_depth;
+  params.m_depthLayer = renderInfo.m_depthLayer;
+  params.m_minVisibleScale = renderInfo.m_minZoom;
+  params.m_specialDisplacement = SpecialDisplacement::UserMark;
+  params.m_specialPriority = renderInfo.m_priority;
+  params.m_symbolName = symbolName;
+  params.m_anchor = renderInfo.m_anchor;
+  params.m_startOverlayRank =
+      renderInfo.m_coloredSymbols != nullptr ? dp::OverlayRank1 : dp::OverlayRank0;
+  if (renderInfo.m_symbolOffsets != nullptr)
+  {
+    ASSERT_GREATER(tileKey.m_zoomLevel, 0, ());
+    ASSERT_LESS_OR_EQUAL(tileKey.m_zoomLevel, scales::UPPER_STYLE_SCALE, ());
+    size_t offsetIndex = 0;
+    if (tileKey.m_zoomLevel > 0)
+      offsetIndex = static_cast<size_t>(min(tileKey.m_zoomLevel - 1, scales::UPPER_STYLE_SCALE));
+    symbolOffset = renderInfo.m_symbolOffsets->at(offsetIndex);
+    params.m_offset = symbolOffset;
+  }
+  PoiSymbolShape(renderInfo.m_pivot, params, tileKey,
+                 kStartUserMarkOverlayIndex + renderInfo.m_index)
+      .Draw(&batcher, textures);
+}
+
+void GenerateTextShapes(UserMarkRenderParams const & renderInfo, TileKey const & tileKey,
+                        m2::PointD const & tileCenter, m2::PointF const & symbolSize,
+                        m2::PointF const & symbolOffset, ref_ptr<dp::TextureManager> textures,
+                        dp::Batcher & batcher)
+{
+  if (renderInfo.m_minTitleZoom > tileKey.m_zoomLevel)
+    return;
+
+  auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+
+  for (auto const & titleDecl : *renderInfo.m_titleDecl)
+  {
+    if (titleDecl.m_primaryText.empty())
+      continue;
+
+    TextViewParams params;
+    params.m_featureID = renderInfo.m_featureId;
+    params.m_tileCenter = tileCenter;
+    params.m_titleDecl = titleDecl;
+
+    // Here we use visual scale to adapt texts sizes and offsets
+    // to different screen resolutions and DPI.
+    params.m_titleDecl.m_primaryTextFont.m_size *= vs;
+    params.m_titleDecl.m_secondaryTextFont.m_size *= vs;
+    params.m_titleDecl.m_primaryOffset *= vs;
+    params.m_titleDecl.m_secondaryOffset *= vs;
+    bool const isSdf = df::VisualParams::Instance().IsSdfPrefered();
+    params.m_titleDecl.m_primaryTextFont.m_isSdf =
+      params.m_titleDecl.m_primaryTextFont.m_outlineColor != dp::Color::Transparent() ? true : isSdf;
+    params.m_titleDecl.m_secondaryTextFont.m_isSdf =
+      params.m_titleDecl.m_secondaryTextFont.m_outlineColor != dp::Color::Transparent() ? true : isSdf;
+
+    params.m_depth = renderInfo.m_depth;
+    params.m_depthLayer = renderInfo.m_depthLayer;
+    params.m_minVisibleScale = renderInfo.m_minZoom;
+
+    uint32_t const overlayIndex = kStartUserMarkOverlayIndex + renderInfo.m_index;
+    if (renderInfo.m_hasTitlePriority)
+    {
+      params.m_specialDisplacement = SpecialDisplacement::UserMark;
+      params.m_specialPriority = renderInfo.m_priority;
+      params.m_startOverlayRank = dp::OverlayRank0;
+      if (renderInfo.m_hasSymbolPriority)
+      {
+        if (renderInfo.m_symbolNames != nullptr)
+          params.m_startOverlayRank++;
+        if (renderInfo.m_coloredSymbols != nullptr)
+          params.m_startOverlayRank++;
+        ASSERT_LESS(params.m_startOverlayRank, dp::OverlayRanksCount, ());
+      }
+    }
+
+    if (renderInfo.m_symbolSizes != nullptr)
+    {
+      TextShape(renderInfo.m_pivot, params, tileKey, *renderInfo.m_symbolSizes,
+                m2::PointF(0.0f, 0.0f) /* symbolOffset */, renderInfo.m_anchor, overlayIndex)
+          .Draw(&batcher, textures);
+    }
+    else
+    {
+      TextShape(renderInfo.m_pivot, params, tileKey, symbolSize, symbolOffset, renderInfo.m_anchor,
+                overlayIndex)
+          .Draw(&batcher, textures);
+    }
+  }
+}
+
+m2::SharedSpline SimplifySpline(UserLineRenderParams const & renderInfo, double sqrScale)
+{
+  auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+  m2::SharedSpline spline;
+  spline.Reset(new m2::Spline(renderInfo.m_spline->GetSize()));
+
+  static double const kMinSegmentLength = std::pow(4.0 * vs, 2);
+  m2::PointD lastAddedPoint;
+  for (auto const & point : renderInfo.m_spline->GetPath())
+  {
+    if (spline->GetSize() > 1 && point.SquareLength(lastAddedPoint) * sqrScale < kMinSegmentLength)
+    {
+      spline->ReplacePoint(point);
+    }
+    else
+    {
+      spline->AddPoint(point);
+      lastAddedPoint = point;
+    }
+  }
+  return spline;
+}
+
+std::string GetBackgroundForSymbol(std::string const & symbolName,
+                                   ref_ptr<dp::TextureManager> textures)
+{
+  static std::string const kDelimiter = "-";
+  static std::string const kBackgroundName = "bg";
+  auto const tokens = strings::Tokenize(symbolName, kDelimiter.c_str());
+  if (tokens.size() < 2 || tokens.size() > 3)
+    return {};
+  std::string backgroundSymbol;
+  if (tokens.size() == 2)
+    backgroundSymbol = tokens[0] + kDelimiter + kBackgroundName;
+  else
+    backgroundSymbol = tokens[0] + kDelimiter + kBackgroundName + kDelimiter + tokens[2];
+  return textures->HasSymbolRegion(backgroundSymbol) ? backgroundSymbol : "";
+}
+}  // namespace
 
 void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
                     MarkIDCollection const & marksId, UserMarksRenderCollection & renderParams,
                     dp::Batcher & batcher)
 {
-  float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
   using UPV = UserPointVertex;
   size_t const vertexCount = marksId.size() * dp::Batcher::VertexPerQuad;
   buffer_vector<UPV, 128> buffer;
   bool isAnimated = false;
 
   dp::TextureManager::SymbolRegion region;
+  dp::TextureManager::SymbolRegion backgroundRegion;
   RenderState::DepthLayer depthLayer = RenderState::UserMarkLayer;
   for (auto const id : marksId)
   {
@@ -114,7 +304,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
     if (it == renderParams.end())
       continue;
 
-    UserMarkRenderParams & renderInfo = *it->second.get();
+    UserMarkRenderParams & renderInfo = *it->second;
     if (!renderInfo.m_isVisible)
       continue;
 
@@ -123,78 +313,21 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
 
     m2::PointF symbolSize(0.0f, 0.0f);
     m2::PointF symbolOffset(0.0f, 0.0f);
-    std::string symbolName;
-    if (renderInfo.m_symbolNames != nullptr)
-    {
-      for (auto itName = renderInfo.m_symbolNames->rbegin(); itName != renderInfo.m_symbolNames->rend(); ++itName)
-      {
-        if (itName->first <= tileKey.m_zoomLevel)
-        {
-          symbolName = itName->second;
-          break;
-        }
-      }
-    }
+    auto const symbolName = GetSymbolNameForZoomLevel(renderInfo, tileKey);
+
+    dp::Color color = dp::Color::White();
+    if (!renderInfo.m_color.empty())
+      color = df::GetColorConstant(renderInfo.m_color);
 
     if (renderInfo.m_hasSymbolPriority)
     {
       if (renderInfo.m_coloredSymbols != nullptr)
-      {
-        for (auto itSym = renderInfo.m_coloredSymbols->rbegin(); itSym != renderInfo.m_coloredSymbols->rend(); ++itSym)
-        {
-          if (itSym->first <= tileKey.m_zoomLevel)
-          {
-            ColoredSymbolViewParams params = itSym->second;
-            if (params.m_shape == ColoredSymbolViewParams::Shape::Circle)
-              symbolSize = m2::PointF(params.m_radiusInPixels * 2.0f, params.m_radiusInPixels * 2.0f);
-            else
-              symbolSize = params.m_sizeInPixels;
+        GenerateColoredSymbolShapes(renderInfo, tileKey, tileCenter, textures, symbolSize, batcher);
 
-            params.m_featureID = renderInfo.m_featureId;
-            params.m_tileCenter = tileCenter;
-            params.m_depth = renderInfo.m_depth;
-            params.m_depthLayer = renderInfo.m_depthLayer;
-            params.m_minVisibleScale = renderInfo.m_minZoom;
-            params.m_specialDisplacement = SpecialDisplacement::UserMark;
-            params.m_specialPriority = renderInfo.m_priority;
-            if (renderInfo.m_symbolSizes != nullptr)
-            {
-              ColoredSymbolShape(renderInfo.m_pivot, params, tileKey, kStartUserMarkOverlayIndex + renderInfo.m_index,
-                                 *renderInfo.m_symbolSizes.get()).Draw(&batcher, textures);
-            }
-            else
-            {
-              ColoredSymbolShape(renderInfo.m_pivot, params, tileKey,
-                                 kStartUserMarkOverlayIndex + renderInfo.m_index).Draw(&batcher, textures);
-            }
-            break;
-          }
-        }
-      }
       if (renderInfo.m_symbolNames != nullptr)
       {
-        PoiSymbolViewParams params(renderInfo.m_featureId);
-        params.m_tileCenter = tileCenter;
-        params.m_depth = renderInfo.m_depth;
-        params.m_depthLayer = renderInfo.m_depthLayer;
-        params.m_minVisibleScale = renderInfo.m_minZoom;
-        params.m_specialDisplacement = SpecialDisplacement::UserMark;
-        params.m_specialPriority = renderInfo.m_priority;
-        params.m_symbolName = symbolName;
-        params.m_anchor = renderInfo.m_anchor;
-        params.m_startOverlayRank = renderInfo.m_coloredSymbols != nullptr ? dp::OverlayRank1 : dp::OverlayRank0;
-        if (renderInfo.m_symbolOffsets != nullptr)
-        {
-          ASSERT_GREATER(tileKey.m_zoomLevel, 0, ());
-          ASSERT_LESS_OR_EQUAL(tileKey.m_zoomLevel, scales::UPPER_STYLE_SCALE, ());
-          size_t offsetIndex = 0;
-          if (tileKey.m_zoomLevel > 0)
-            offsetIndex = static_cast<size_t>(min(tileKey.m_zoomLevel - 1, scales::UPPER_STYLE_SCALE));
-          symbolOffset = renderInfo.m_symbolOffsets->at(offsetIndex);
-          params.m_offset = symbolOffset;
-        }
-        PoiSymbolShape(renderInfo.m_pivot, params, tileKey,
-                       kStartUserMarkOverlayIndex + renderInfo.m_index).Draw(&batcher, textures);
+        GeneratePoiSymbolShape(renderInfo, tileKey, tileCenter, symbolName, textures, symbolOffset,
+                               batcher);
       }
     }
     else if (renderInfo.m_symbolNames != nullptr)
@@ -202,7 +335,12 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
       buffer.reserve(vertexCount);
 
       textures->GetSymbolRegion(symbolName, region);
+      auto const backgroundSymbol = GetBackgroundForSymbol(symbolName, textures);
+      if (!backgroundSymbol.empty())
+        textures->GetSymbolRegion(backgroundSymbol, backgroundRegion);
+
       m2::RectF const & texRect = region.GetTexRect();
+      m2::RectF const & bgTexRect = backgroundRegion.GetTexRect();
       m2::PointF const pxSize = region.GetPixelSize();
       dp::Anchor const anchor = renderInfo.m_anchor;
       m2::PointD const pt = MapShape::ConvertToLocal(renderInfo.m_pivot, tileCenter,
@@ -217,11 +355,23 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
 
       m2::PointD const pixelOffset = renderInfo.m_pixelOffset;
       glsl::vec2 const offset(pixelOffset.x, pixelOffset.y);
+      up += offset;
+      down += offset;
 
-      buffer.emplace_back(pos, left + down + offset, glsl::ToVec2(texRect.LeftTop()), runAnim);
-      buffer.emplace_back(pos, left + up + offset, glsl::ToVec2(texRect.LeftBottom()), runAnim);
-      buffer.emplace_back(pos, right + down + offset, glsl::ToVec2(texRect.RightTop()), runAnim);
-      buffer.emplace_back(pos, right + up + offset, glsl::ToVec2(texRect.RightBottom()), runAnim);
+      glsl::vec4 colorAndAnimate(color.GetRedF(), color.GetGreenF(), color.GetBlueF(),
+                                 runAnim ? 1.0f : -1.0f);
+      buffer.emplace_back(pos, left + down,
+                          glsl::ToVec4(texRect.LeftTop(), bgTexRect.LeftTop()),
+                          colorAndAnimate);
+      buffer.emplace_back(pos, left + up,
+                          glsl::ToVec4(texRect.LeftBottom(), bgTexRect.LeftBottom()),
+                          colorAndAnimate);
+      buffer.emplace_back(pos, right + down,
+                          glsl::ToVec4(texRect.RightTop(), bgTexRect.RightTop()),
+                          colorAndAnimate);
+      buffer.emplace_back(pos, right + up,
+                          glsl::ToVec4(texRect.RightBottom(), bgTexRect.RightBottom()),
+                          colorAndAnimate);
     }
 
     if (!symbolName.empty())
@@ -231,62 +381,10 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
       symbolSize.y = std::max(region.GetPixelSize().y, symbolSize.y);
     }
 
-    if (renderInfo.m_titleDecl != nullptr && renderInfo.m_minTitleZoom <= tileKey.m_zoomLevel)
+    if (renderInfo.m_titleDecl != nullptr)
     {
-      for (auto const & titleDecl : *renderInfo.m_titleDecl)
-      {
-        if (titleDecl.m_primaryText.empty())
-          continue;
-
-        TextViewParams params;
-        params.m_featureID = renderInfo.m_featureId;
-        params.m_tileCenter = tileCenter;
-        params.m_titleDecl = titleDecl;
-
-        // Here we use visual scale to adapt texts sizes and offsets
-        // to different screen resolutions and DPI.
-        params.m_titleDecl.m_primaryTextFont.m_size *= vs;
-        params.m_titleDecl.m_secondaryTextFont.m_size *= vs;
-        params.m_titleDecl.m_primaryOffset *= vs;
-        params.m_titleDecl.m_secondaryOffset *= vs;
-        bool const isSdf = df::VisualParams::Instance().IsSdfPrefered();
-        params.m_titleDecl.m_primaryTextFont.m_isSdf =
-            params.m_titleDecl.m_primaryTextFont.m_outlineColor != dp::Color::Transparent() ? true : isSdf;
-        params.m_titleDecl.m_secondaryTextFont.m_isSdf =
-            params.m_titleDecl.m_secondaryTextFont.m_outlineColor != dp::Color::Transparent() ? true : isSdf;
-
-        params.m_depth = renderInfo.m_depth;
-        params.m_depthLayer = renderInfo.m_depthLayer;
-        params.m_minVisibleScale = renderInfo.m_minZoom;
-
-        uint32_t const overlayIndex = kStartUserMarkOverlayIndex + renderInfo.m_index;
-        if (renderInfo.m_hasTitlePriority)
-        {
-          params.m_specialDisplacement = SpecialDisplacement::UserMark;
-          params.m_specialPriority = renderInfo.m_priority;
-          params.m_startOverlayRank = dp::OverlayRank0;
-          if (renderInfo.m_hasSymbolPriority)
-          {
-            if (renderInfo.m_symbolNames != nullptr)
-              params.m_startOverlayRank++;
-            if (renderInfo.m_coloredSymbols != nullptr)
-              params.m_startOverlayRank++;
-            ASSERT_LESS(params.m_startOverlayRank, dp::OverlayRanksCount, ());
-          }
-        }
-
-        if (renderInfo.m_symbolSizes != nullptr)
-        {
-          TextShape(renderInfo.m_pivot, params, tileKey, *renderInfo.m_symbolSizes.get(),
-                    m2::PointF(0.0f, 0.0f) /* symbolOffset */, renderInfo.m_anchor,
-                    overlayIndex).Draw(&batcher, textures);
-        }
-        else
-        {
-          TextShape(renderInfo.m_pivot, params, tileKey,
-                    symbolSize, symbolOffset, renderInfo.m_anchor, overlayIndex).Draw(&batcher, textures);
-        }
-      }
+      GenerateTextShapes(renderInfo, tileKey, tileCenter, symbolSize, symbolOffset, textures,
+                         batcher);
     }
 
     renderInfo.m_justCreated = false;
@@ -342,7 +440,7 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
                     LineIDCollection const & linesId, UserLinesRenderCollection & renderParams,
                     dp::Batcher & batcher)
 {
-  float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+  auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
   bool const simplify = tileKey.m_zoomLevel <= kLineSimplifyLevelEnd;
 
   double sqrScale = 1.0;
@@ -358,7 +456,7 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
     if (it == renderParams.end())
       continue;
 
-    UserLineRenderParams const & renderInfo = *it->second.get();
+    UserLineRenderParams const & renderInfo = *it->second;
 
     m2::RectD const tileRect = tileKey.GetGlobalRect();
 
@@ -379,24 +477,7 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
 
     m2::SharedSpline spline = renderInfo.m_spline;
     if (simplify)
-    {
-      spline.Reset(new m2::Spline(renderInfo.m_spline->GetSize()));
-
-      static double const kMinSegmentLength = std::pow(4.0 * vs, 2);
-      m2::PointD lastAddedPoint;
-      for (auto const & point : renderInfo.m_spline->GetPath())
-      {
-        if (spline->GetSize() > 1 && point.SquareLength(lastAddedPoint) * sqrScale < kMinSegmentLength)
-        {
-          spline->ReplacePoint(point);
-        }
-        else
-        {
-          spline->AddPoint(point);
-          lastAddedPoint = point;
-        }
-      }
-    }
+      spline = SimplifySpline(renderInfo, sqrScale);
 
     auto const clippedSplines = m2::ClipSplineByRect(tileRect, spline);
     for (auto const & clippedSpline : clippedSplines)
@@ -411,7 +492,8 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
         params.m_color = layer.m_color;
         params.m_depth = layer.m_depth;
         params.m_depthLayer = renderInfo.m_depthLayer;
-        params.m_width = layer.m_width * vs * kLineWidthZoomFactor[tileKey.m_zoomLevel];
+        params.m_width = static_cast<float>(layer.m_width * vs *
+          kLineWidthZoomFactor[tileKey.m_zoomLevel]);
         params.m_minVisibleScale = 1;
         params.m_rank = 0;
 

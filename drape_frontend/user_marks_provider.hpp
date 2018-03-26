@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/render_state.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/user_marks_global.hpp"
@@ -41,8 +42,8 @@ public:
   using SymbolSizes = std::vector<m2::PointF>;
   using SymbolOffsets = std::vector<m2::PointF>;
 
-  UserPointMark(df::MarkID id);
-  virtual ~UserPointMark() {}
+  explicit UserPointMark(df::MarkID id);
+  virtual ~UserPointMark() = default;
 
   virtual bool IsDirty() const = 0;
   virtual void ResetChanges() const = 0;
@@ -69,6 +70,7 @@ public:
   virtual int GetMinTitleZoom() const = 0;
   virtual FeatureID GetFeatureID() const = 0;
   virtual bool HasCreationAnimation() const = 0;
+  virtual df::ColorConstant GetColor() const = 0;
 
 private:
   MarkID m_id;
@@ -77,8 +79,8 @@ private:
 class UserLineMark
 {
 public:
-  UserLineMark(df::LineID id);
-  virtual ~UserLineMark() {}
+  explicit UserLineMark(df::LineID id);
+  virtual ~UserLineMark() = default;
 
   virtual bool IsDirty() const = 0;
   virtual void ResetChanges() const = 0;
@@ -100,7 +102,7 @@ private:
 class UserMarksProvider
 {
 public:
-  virtual ~UserMarksProvider() {}
+  virtual ~UserMarksProvider() = default;
   virtual GroupIDSet const & GetDirtyGroupIds() const = 0;
   virtual GroupIDSet const & GetRemovedGroupIds() const = 0;
   virtual GroupIDSet GetAllGroupIds() const = 0;
@@ -117,5 +119,4 @@ public:
   /// Never store UserLineMark reference.
   virtual UserLineMark const * GetUserLineMark(LineID lineId) const = 0;
 };
-
-} // namespace df
+}  // namespace df

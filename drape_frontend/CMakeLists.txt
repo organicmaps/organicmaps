@@ -242,7 +242,6 @@ set(
   shaders/dashed_line.vsh.glsl
   shaders/debug_rect.fsh.glsl
   shaders/debug_rect.vsh.glsl
-  shaders/discarded_texturing.fsh.glsl
   shaders/hatching_area.fsh.glsl
   shaders/hatching_area.vsh.glsl
   shaders/line.fsh.glsl
@@ -287,6 +286,7 @@ set(
   shaders/traffic.vsh.glsl
   shaders/traffic_line.fsh.glsl
   shaders/traffic_line.vsh.glsl
+  shaders/user_mark.fsh.glsl
   shaders/user_mark.vsh.glsl
   shaders/user_mark_billboard.vsh.glsl
 )

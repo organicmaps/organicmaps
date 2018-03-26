@@ -59,8 +59,35 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetSymbolNames() cons
 {
   auto const name = GetType();
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
-  symbol->insert(std::make_pair(1 /* zoomLevel */, name));
+  symbol->insert(std::make_pair(1 /* zoomLevel */, "bookmark-default-xs"));
+  symbol->insert(std::make_pair(8 /* zoomLevel */, "bookmark-default-s"));
+  symbol->insert(std::make_pair(11 /* zoomLevel */, "bookmark-default-m"));
+  symbol->insert(std::make_pair(15 /* zoomLevel */, "bookmark-default-l"));
   return symbol;
+}
+
+df::ColorConstant Bookmark::GetColor() const
+{
+  //TODO(@darina): Use new colors instead of GetType().
+  auto const type = GetType();
+  if (type == "placemark-red")
+    return "BookmarkRed";
+  if (type == "placemark-blue")
+    return "BookmarkBlue";
+  if (type == "placemark-purple")
+    return "BookmarkPurple";
+  if (type == "placemark-yellow")
+    return "BookmarkYellow";
+  if (type == "placemark-pink")
+    return "BookmarkPink";
+  if (type == "placemark-brown")
+    return "BookmarkBrown";
+  if (type == "placemark-green")
+    return "BookmarkGreen";
+  if (type == "placemark-orange")
+    return "BookmarkOrange";
+
+  return "BookmarkRed";
 }
 
 bool Bookmark::HasCreationAnimation() const

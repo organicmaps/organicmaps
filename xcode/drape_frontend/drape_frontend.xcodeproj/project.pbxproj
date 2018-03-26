@@ -239,6 +239,9 @@
 		452C9ED31CEDCF3200A55E57 /* sequence_animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sequence_animation.hpp; sourceTree = "<group>"; };
 		452FE5C11EB2004F00EE470C /* screen_quad_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = screen_quad_renderer.cpp; sourceTree = "<group>"; };
 		452FE5C21EB2004F00EE470C /* screen_quad_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = screen_quad_renderer.hpp; sourceTree = "<group>"; };
+		453C5E882065599C00C78952 /* route_marker.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = route_marker.vsh.glsl; path = shaders/route_marker.vsh.glsl; sourceTree = "<group>"; };
+		453C5E892065599D00C78952 /* user_mark.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = user_mark.fsh.glsl; path = shaders/user_mark.fsh.glsl; sourceTree = "<group>"; };
+		453C5E8A2065599D00C78952 /* route_marker.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = route_marker.fsh.glsl; path = shaders/route_marker.fsh.glsl; sourceTree = "<group>"; };
 		453EEA6B1E3A28F400505E09 /* colored_symbol_shape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = colored_symbol_shape.cpp; sourceTree = "<group>"; };
 		453EEA6C1E3A28F400505E09 /* colored_symbol_shape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = colored_symbol_shape.hpp; sourceTree = "<group>"; };
 		453FEDAA1F34C257005C1BB4 /* render_state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = render_state.cpp; sourceTree = "<group>"; };
@@ -280,7 +283,6 @@
 		45BB02311EB8BE2B00FE5C0C /* dashed_line.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dashed_line.vsh.glsl; path = shaders/dashed_line.vsh.glsl; sourceTree = "<group>"; };
 		45BB02321EB8BE2B00FE5C0C /* debug_rect.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = debug_rect.fsh.glsl; path = shaders/debug_rect.fsh.glsl; sourceTree = "<group>"; };
 		45BB02331EB8BE2B00FE5C0C /* debug_rect.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = debug_rect.vsh.glsl; path = shaders/debug_rect.vsh.glsl; sourceTree = "<group>"; };
-		45BB02341EB8BE2B00FE5C0C /* discarded_texturing.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = discarded_texturing.fsh.glsl; path = shaders/discarded_texturing.fsh.glsl; sourceTree = "<group>"; };
 		45BB02351EB8BE2B00FE5C0C /* hatching_area.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hatching_area.fsh.glsl; path = shaders/hatching_area.fsh.glsl; sourceTree = "<group>"; };
 		45BB02361EB8BE2B00FE5C0C /* hatching_area.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hatching_area.vsh.glsl; path = shaders/hatching_area.vsh.glsl; sourceTree = "<group>"; };
 		45BB02371EB8BE2B00FE5C0C /* line.fsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = line.fsh.glsl; path = shaders/line.fsh.glsl; sourceTree = "<group>"; };
@@ -480,16 +482,6 @@
 		45BB02221EB8BE1400FE5C0C /* shaders */ = {
 			isa = PBXGroup;
 			children = (
-				455FFE391F3896F600F68481 /* route_arrow.fsh.glsl */,
-				455FFE3A1F3896F600F68481 /* smaa_blending_weight.fsh.glsl */,
-				455FFE3B1F3896F600F68481 /* smaa_blending_weight.vsh.glsl */,
-				455FFE3C1F3896F600F68481 /* smaa_edges.fsh.glsl */,
-				455FFE3D1F3896F600F68481 /* smaa_edges.vsh.glsl */,
-				455FFE3E1F3896F600F68481 /* smaa_final.fsh.glsl */,
-				455FFE3F1F3896F600F68481 /* smaa_final.vsh.glsl */,
-				451A2A7E1EE8463F003E05A4 /* circle_point.fsh.glsl */,
-				451A2A7F1EE8463F003E05A4 /* circle_point.vsh.glsl */,
-				4560692B1EB9F9D2009AB7B7 /* shaders_lib.glsl */,
 				45BB02231EB8BE2B00FE5C0C /* area.vsh.glsl */,
 				45BB02241EB8BE2B00FE5C0C /* area3d_outline.vsh.glsl */,
 				45BB02251EB8BE2B00FE5C0C /* area3d.vsh.glsl */,
@@ -498,6 +490,8 @@
 				45BB02281EB8BE2B00FE5C0C /* arrow3d_shadow.vsh.glsl */,
 				45BB02291EB8BE2B00FE5C0C /* arrow3d.fsh.glsl */,
 				45BB022A1EB8BE2B00FE5C0C /* arrow3d.vsh.glsl */,
+				451A2A7E1EE8463F003E05A4 /* circle_point.fsh.glsl */,
+				451A2A7F1EE8463F003E05A4 /* circle_point.vsh.glsl */,
 				45BB022B1EB8BE2B00FE5C0C /* circle.fsh.glsl */,
 				45BB022C1EB8BE2B00FE5C0C /* circle.vsh.glsl */,
 				45BB022D1EB8BE2B00FE5C0C /* colored_symbol_billboard.vsh.glsl */,
@@ -507,7 +501,6 @@
 				45BB02311EB8BE2B00FE5C0C /* dashed_line.vsh.glsl */,
 				45BB02321EB8BE2B00FE5C0C /* debug_rect.fsh.glsl */,
 				45BB02331EB8BE2B00FE5C0C /* debug_rect.vsh.glsl */,
-				45BB02341EB8BE2B00FE5C0C /* discarded_texturing.fsh.glsl */,
 				45BB02351EB8BE2B00FE5C0C /* hatching_area.fsh.glsl */,
 				45BB02361EB8BE2B00FE5C0C /* hatching_area.vsh.glsl */,
 				45BB02371EB8BE2B00FE5C0C /* line.fsh.glsl */,
@@ -518,13 +511,23 @@
 				45BB023C1EB8BE2B00FE5C0C /* my_position.vsh.glsl */,
 				45BB023D1EB8BE2B00FE5C0C /* path_symbol.vsh.glsl */,
 				45BB023E1EB8BE2B00FE5C0C /* position_accuracy3d.vsh.glsl */,
+				455FFE391F3896F600F68481 /* route_arrow.fsh.glsl */,
 				45BB023F1EB8BE2B00FE5C0C /* route_arrow.vsh.glsl */,
 				45BB02401EB8BE2B00FE5C0C /* route_dash.fsh.glsl */,
+				453C5E8A2065599D00C78952 /* route_marker.fsh.glsl */,
+				453C5E882065599C00C78952 /* route_marker.vsh.glsl */,
 				45BB02411EB8BE2B00FE5C0C /* route.fsh.glsl */,
 				45BB02421EB8BE2B00FE5C0C /* route.vsh.glsl */,
 				45BB02431EB8BE2B00FE5C0C /* ruler.vsh.glsl */,
 				45BB02441EB8BE2B00FE5C0C /* screen_quad.vsh.glsl */,
 				45BB02451EB8BE2B00FE5C0C /* shader_index.txt */,
+				4560692B1EB9F9D2009AB7B7 /* shaders_lib.glsl */,
+				455FFE3A1F3896F600F68481 /* smaa_blending_weight.fsh.glsl */,
+				455FFE3B1F3896F600F68481 /* smaa_blending_weight.vsh.glsl */,
+				455FFE3C1F3896F600F68481 /* smaa_edges.fsh.glsl */,
+				455FFE3D1F3896F600F68481 /* smaa_edges.vsh.glsl */,
+				455FFE3E1F3896F600F68481 /* smaa_final.fsh.glsl */,
+				455FFE3F1F3896F600F68481 /* smaa_final.vsh.glsl */,
 				45BB02461EB8BE2B00FE5C0C /* solid_color.fsh.glsl */,
 				45BB02471EB8BE2B00FE5C0C /* text_billboard.vsh.glsl */,
 				45BB02481EB8BE2B00FE5C0C /* text_fixed.fsh.glsl */,
@@ -543,6 +546,7 @@
 				45BB02571EB8BE2B00FE5C0C /* traffic.fsh.glsl */,
 				45BB02581EB8BE2B00FE5C0C /* traffic.vsh.glsl */,
 				45BB02591EB8BE2B00FE5C0C /* user_mark_billboard.vsh.glsl */,
+				453C5E892065599D00C78952 /* user_mark.fsh.glsl */,
 				45BB025A1EB8BE2B00FE5C0C /* user_mark.vsh.glsl */,
 			);
 			name = shaders;

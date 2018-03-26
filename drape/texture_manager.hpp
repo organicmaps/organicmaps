@@ -86,6 +86,7 @@ public:
   void OnSwitchMapStyle();
 
   void GetSymbolRegion(std::string const & symbolName, SymbolRegion & region);
+  bool HasSymbolRegion(std::string const & symbolName) const;
 
   typedef buffer_vector<uint8_t, 8> TStipplePattern;
   void GetStippleRegion(TStipplePattern const & pen, StippleRegion & region);

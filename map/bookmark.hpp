@@ -83,6 +83,7 @@ public:
 
   dp::Anchor GetAnchor() const override;
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
+  df::ColorConstant GetColor() const override;
   bool HasCreationAnimation() const override;
 
   std::string const & GetName() const;
