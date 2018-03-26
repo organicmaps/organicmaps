@@ -41,11 +41,11 @@ RouteWeight RouteWeight::operator+(RouteWeight const & rhs) const
 
 RouteWeight RouteWeight::operator-(RouteWeight const & rhs) const
 {
-  ASSERT_NOT_EQUAL(m_numPassThroughChanges, std::numeric_limits<int32_t>::min(), ());
-  ASSERT_NOT_EQUAL(m_numAccessChanges, std::numeric_limits<int32_t>::min(), ());
-  ASSERT(!SumWillOverflow(m_numPassThroughChanges, -rhs.m_numPassThroughChanges),
+  ASSERT_NOT_EQUAL(m_numPassThroughChanges, numeric_limits<int8_t>::min(), ());
+  ASSERT_NOT_EQUAL(m_numAccessChanges, numeric_limits<int8_t>::min(), ());
+  ASSERT(!SumWillOverflow(m_numPassThroughChanges, static_cast<int8_t>(-rhs.m_numPassThroughChanges)),
          (m_numPassThroughChanges, -rhs.m_numPassThroughChanges));
-  ASSERT(!SumWillOverflow(m_numAccessChanges, -rhs.m_numAccessChanges),
+  ASSERT(!SumWillOverflow(m_numAccessChanges, static_cast<int8_t>(-rhs.m_numAccessChanges)),
          (m_numAccessChanges, -rhs.m_numAccessChanges));
   return RouteWeight(m_weight - rhs.m_weight, m_numPassThroughChanges - rhs.m_numPassThroughChanges,
                      m_numAccessChanges - rhs.m_numAccessChanges,
@@ -67,8 +67,9 @@ RouteWeight & RouteWeight::operator+=(RouteWeight const & rhs)
 
 ostream & operator<<(ostream & os, RouteWeight const & routeWeight)
 {
-  os << "(" << routeWeight.GetNumPassThroughChanges() << ", " << routeWeight.GetNumAccessChanges()
-     << ", " << routeWeight.GetWeight() << ", " << routeWeight.GetTransitTime() << ")";
+  os << "(" << static_cast<int32_t>(routeWeight.GetNumPassThroughChanges()) << ", "
+     << static_cast<int32_t>(routeWeight.GetNumAccessChanges()) << ", " << routeWeight.GetWeight()
+     << ", " << routeWeight.GetTransitTime() << ")";
   return os;
 }
 

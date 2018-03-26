@@ -20,9 +20,9 @@ public:
   constexpr RouteWeight(double weight, int32_t numPassThroughChanges, int32_t numAccessChanges,
                         double transitTime)
     : m_weight(weight)
-    , m_numPassThroughChanges(numPassThroughChanges)
-    , m_numAccessChanges(numAccessChanges)
-    , m_transitTime(transitTime)
+    , m_numPassThroughChanges(static_cast<int8_t>(numPassThroughChanges))
+    , m_numAccessChanges(static_cast<int8_t>(numAccessChanges))
+    , m_transitTime(static_cast<float>(transitTime))
   {
   }
 
@@ -30,9 +30,9 @@ public:
 
   double ToCrossMwmWeight() const;
   double GetWeight() const { return m_weight; }
-  int32_t GetNumPassThroughChanges() const { return m_numPassThroughChanges; }
-  int32_t GetNumAccessChanges() const { return m_numAccessChanges; }
-  double GetTransitTime() const { return m_transitTime; }
+  int8_t GetNumPassThroughChanges() const { return m_numPassThroughChanges; }
+  int8_t GetNumAccessChanges() const { return m_numAccessChanges; }
+  double GetTransitTime() const { return static_cast<double>(m_transitTime); }
 
   bool operator<(RouteWeight const & rhs) const
   {
@@ -70,8 +70,8 @@ public:
 
   RouteWeight operator-() const
   {
-    ASSERT_NOT_EQUAL(m_numPassThroughChanges, std::numeric_limits<int32_t>::min(), ());
-    ASSERT_NOT_EQUAL(m_numAccessChanges, std::numeric_limits<int32_t>::min(), ());
+    ASSERT_NOT_EQUAL(m_numPassThroughChanges, std::numeric_limits<int8_t>::min(), ());
+    ASSERT_NOT_EQUAL(m_numAccessChanges, std::numeric_limits<int8_t>::min(), ());
     return RouteWeight(-m_weight, -m_numPassThroughChanges, -m_numAccessChanges, -m_transitTime);
   }
 
@@ -80,21 +80,18 @@ public:
     return m_numPassThroughChanges == rhs.m_numPassThroughChanges &&
            m_numAccessChanges == rhs.m_numAccessChanges &&
            my::AlmostEqualAbs(m_weight, rhs.m_weight, epsilon) &&
-           my::AlmostEqualAbs(m_transitTime, rhs.m_transitTime, epsilon);
+           my::AlmostEqualAbs(m_transitTime, rhs.m_transitTime, static_cast<float>(epsilon));
   }
 
 private:
-  // Note: consider smaller types for m_numPassThroughChanges and m_numAccessChanges
-  // in case of adding new fields to RouteWeight to reduce RouteWeight size.
-
   // Regular weight (seconds).
   double m_weight = 0.0;
   // Number of pass-through/non-pass-through zone changes.
-  int32_t m_numPassThroughChanges = 0;
+  int8_t m_numPassThroughChanges = 0;
   // Number of access=yes/access={private,destination} zone changes.
-  int32_t m_numAccessChanges = 0;
+  int8_t m_numAccessChanges = 0;
   // Transit time. It's already included in |m_weight| (m_transitTime <= m_weight).
-  double m_transitTime = 0.0;
+  float m_transitTime = 0.0F;
 };
 
 std::ostream & operator<<(std::ostream & os, RouteWeight const & routeWeight);
@@ -104,10 +101,10 @@ RouteWeight operator*(double lhs, RouteWeight const & rhs);
 template <>
 constexpr RouteWeight GetAStarWeightMax<RouteWeight>()
 {
-  return RouteWeight(std::numeric_limits<double>::max() /* weight */,
-                     std::numeric_limits<int32_t>::max() /* numPassThroughChanges */,
-                     std::numeric_limits<int32_t>::max() /* numAccessChanges */,
-                     0 /* transitTime */);  // operator< prefers bigger transit time
+  return RouteWeight(std::numeric_limits<float>::max() /* weight */,
+                     std::numeric_limits<int8_t>::max() /* numPassThroughChanges */,
+                     std::numeric_limits<int8_t>::max() /* numAccessChanges */,
+                     0.0 /* transitTime */);  // operator< prefers bigger transit time
 }
 
 template <>

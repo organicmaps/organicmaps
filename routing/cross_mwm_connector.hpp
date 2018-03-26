@@ -264,6 +264,7 @@ private:
   void AddEdge(Segment const & segment, connector::Weight weight,
                std::vector<SegmentEdge> & edges) const
   {
+    // @TODO Double and uint32_t are compared below. This comparison should be fixed.
     if (weight != connector::kNoRoute)
       edges.emplace_back(segment, RouteWeight::FromCrossMwmWeight(weight));
   }
