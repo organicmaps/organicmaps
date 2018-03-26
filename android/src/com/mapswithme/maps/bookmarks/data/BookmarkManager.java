@@ -24,6 +24,9 @@ public enum BookmarkManager
   @NonNull
   private List<KmlConversionListener> mConversionListeners = new ArrayList<>();
 
+  @NonNull
+  private List<BookmarksSharingListener> mSharingListeners = new ArrayList<>();
+
   static
   {
     ICONS.add(new Icon("placemark-red", "placemark-red", R.drawable.ic_bookmark_marker_red_off, R.drawable.ic_bookmark_marker_red_on));
@@ -81,6 +84,16 @@ public enum BookmarkManager
     mConversionListeners.remove(listener);
   }
 
+  public void addListener(@NonNull BookmarksSharingListener listener)
+  {
+    mSharingListeners.add(listener);
+  }
+
+  public void removeListener(@NonNull BookmarksSharingListener listener)
+  {
+    mSharingListeners.remove(listener);
+  }
+
   // Called from JNI.
   @MainThread
   public void onBookmarksLoadingStarted()
@@ -120,6 +133,14 @@ public enum BookmarkManager
   {
     for (KmlConversionListener listener : mConversionListeners)
       listener.onFinishKmlConversion(success);
+  }
+
+  // Called from JNI.
+  @MainThread
+  public void onPreparedFileForSharing(BookmarkSharingResult result)
+  {
+    for (BookmarksSharingListener listener : mSharingListeners)
+      listener.onPreparedFileForSharing(result);
   }
 
   public boolean isVisible(long catId)
@@ -281,6 +302,26 @@ public enum BookmarkManager
     nativeSetAllCategoriesVisibility(visible);
   }
 
+  public int getKmlFilesCountForConversion()
+  {
+    return nativeGetKmlFilesCountForConversion();
+  }
+
+  public void convertAllKmlFiles()
+  {
+    nativeConvertAllKmlFiles();
+  }
+
+  public void prepareFileForSharing(long catId)
+  {
+    nativePrepareFileForSharing(catId);
+  }
+
+  public boolean isCategoryEmpty(long catId)
+  {
+    return nativeIsCategoryEmpty(catId);
+  }
+
   private native int nativeGetCategoriesCount();
 
   private native int nativeGetCategoryPositionById(long catId);
@@ -364,6 +405,10 @@ public enum BookmarkManager
 
   private static native void nativeConvertAllKmlFiles();
 
+  private static native void nativePrepareFileForSharing(long catId);
+
+  private static native boolean nativeIsCategoryEmpty(long catId);
+
   public interface BookmarksLoadingListener
   {
     void onBookmarksLoadingStarted();
@@ -374,5 +419,10 @@ public enum BookmarkManager
   public interface KmlConversionListener
   {
     void onFinishKmlConversion(boolean success);
+  }
+
+  public interface BookmarksSharingListener
+  {
+    void onPreparedFileForSharing(BookmarkSharingResult result);
   }
 }

@@ -199,7 +199,7 @@ public:
   {
     enum class Code
     {
-      Success,
+      Success = 0,
       EmptyCategory,
       ArchiveError,
       FileError

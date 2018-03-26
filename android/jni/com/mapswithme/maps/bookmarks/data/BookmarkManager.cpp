@@ -19,6 +19,7 @@ jmethodID g_onBookmarksLoadingStartedMethod;
 jmethodID g_onBookmarksLoadingFinishedMethod;
 jmethodID g_onBookmarksFileLoadedMethod;
 jmethodID g_onFinishKmlConversionMethod;
+jmethodID g_onPreparedFileForSharingMethod;
 
 void PrepareClassRefs(JNIEnv * env)
 {
@@ -41,6 +42,9 @@ void PrepareClassRefs(JNIEnv * env)
                      "(ZLjava/lang/String;Z)V");
   g_onFinishKmlConversionMethod =
     jni::GetMethodID(env, bookmarkManagerInstance, "onFinishKmlConversion", "(Z)V");
+  g_onPreparedFileForSharingMethod =
+    jni::GetMethodID(env, bookmarkManagerInstance, "onPreparedFileForSharing",
+                     "(Lcom/mapswithme/maps/bookmarks/data/BookmarkSharingResult;)V");
 }
 
 void OnAsyncLoadingStarted(JNIEnv * env)
@@ -89,6 +93,31 @@ void OnFinishKmlConversion(JNIEnv * env, bool success)
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
                                                               g_bookmarkManagerInstanceField);
   env->CallVoidMethod(bookmarkManagerInstance, g_onFinishKmlConversionMethod, success);
+  jni::HandleJavaException(env);
+}
+
+void OnPreparedFileForSharing(JNIEnv * env, BookmarkManager::SharingResult const & result)
+{
+  ASSERT(g_bookmarkManagerClass != nullptr, ());
+  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
+                                                              g_bookmarkManagerInstanceField);
+
+  static jclass const classBookmarkSharingResult = jni::GetGlobalClassRef(env,
+    "com/mapswithme/maps/bookmarks/data/BookmarkSharingResult");
+  // Java signature : BookmarkSharingResult(long categoryId, @Code int code,
+  //                                        @NonNull String sharingPath,
+  //                                        @NonNull String errorString)
+  static jmethodID const ctorBookmarkSharingResult = jni::GetConstructorID(env,
+    classBookmarkSharingResult, "(JILjava/lang/String;Ljava/lang/String;)V");
+
+  jni::TScopedLocalRef const sharingPath(env, jni::ToJavaString(env, result.m_sharingPath));
+  jni::TScopedLocalRef const errorString(env, jni::ToJavaString(env, result.m_errorString));
+  jni::TScopedLocalRef const sharingResult(env, env->NewObject(classBookmarkSharingResult,
+    ctorBookmarkSharingResult, static_cast<jlong>(result.m_categoryId),
+    static_cast<jint>(result.m_code), sharingPath.get(), errorString.get()));
+
+  env->CallVoidMethod(bookmarkManagerInstance, g_onPreparedFileForSharingMethod,
+                      sharingResult.get());
   jni::HandleJavaException(env);
 }
 }  // namespace
@@ -413,5 +442,24 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeConvertAllKmlFiles
   {
     OnFinishKmlConversion(env, success);
   });
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativePrepareFileForSharing(
+        JNIEnv * env, jobject thiz, jlong catId)
+{
+  frm()->GetBookmarkManager().PrepareFileForSharing(static_cast<df::MarkGroupID>(catId),
+    [env](BookmarkManager::SharingResult const & result)
+  {
+    OnPreparedFileForSharing(env, result);
+  });
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsCategoryEmpty(
+        JNIEnv * env, jobject thiz, jlong catId)
+{
+  return static_cast<jboolean>(frm()->GetBookmarkManager().IsCategoryEmpty(
+    static_cast<df::MarkGroupID>(catId)));
 }
 }  // extern "C"
