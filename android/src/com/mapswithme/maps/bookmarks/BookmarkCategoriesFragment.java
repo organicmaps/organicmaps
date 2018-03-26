@@ -17,6 +17,7 @@ import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkBackupController;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
@@ -32,6 +33,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
                RecyclerClickListener,
                RecyclerLongClickListener,
                BookmarkManager.BookmarksLoadingListener,
+               BookmarkManager.BookmarksSharingListener,
                BookmarkCategoriesAdapter.CategoryListInterface
 {
   private static final int MAX_CATEGORY_NAME_LENGTH = 60;
@@ -121,7 +123,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   public void onStart()
   {
     super.onStart();
-    BookmarkManager.INSTANCE.addListener(this);
+    BookmarkManager.INSTANCE.addLoadingListener(this);
+    BookmarkManager.INSTANCE.addSharingListener(this);
     if (mBackupController != null)
       mBackupController.onStart();
   }
@@ -130,7 +133,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   public void onStop()
   {
     super.onStop();
-    BookmarkManager.INSTANCE.removeListener(this);
+    BookmarkManager.INSTANCE.removeLoadingListener(this);
+    BookmarkManager.INSTANCE.removeSharingListener(this);
     if (mBackupController != null)
       mBackupController.onStop();
   }
@@ -195,7 +199,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
       break;
 
     case R.id.set_share:
-      SharingHelper.shareBookmarksCategory(getActivity(), mSelectedCatId);
+      BookmarkManager.INSTANCE.prepareCategoryForSharing(mSelectedCatId);
       break;
 
     case R.id.set_delete:
@@ -283,6 +287,12 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   public void onBookmarksFileLoaded(boolean success)
   {
     // Do nothing here.
+  }
+
+  @Override
+  public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
+  {
+    SharingHelper.shareBookmarksCategory(getActivity(), result);
   }
 
   @Override

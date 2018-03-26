@@ -2,14 +2,13 @@ package com.mapswithme.maps.bookmarks.data;
 
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import com.mapswithme.maps.R;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.mapswithme.maps.R;
-import com.mapswithme.util.statistics.Statistics;
 
 @MainThread
 public enum BookmarkManager
@@ -64,32 +63,32 @@ public enum BookmarkManager
     return bookmark;
   }
 
-  public void addListener(@NonNull BookmarksLoadingListener listener)
+  public void addLoadingListener(@NonNull BookmarksLoadingListener listener)
   {
     mListeners.add(listener);
   }
 
-  public void removeListener(@NonNull BookmarksLoadingListener listener)
+  public void removeLoadingListener(@NonNull BookmarksLoadingListener listener)
   {
     mListeners.remove(listener);
   }
 
-  public void addListener(@NonNull KmlConversionListener listener)
+  public void addKmlConversionListener(@NonNull KmlConversionListener listener)
   {
     mConversionListeners.add(listener);
   }
 
-  public void removeListener(@NonNull KmlConversionListener listener)
+  public void removeKmlConversionListener(@NonNull KmlConversionListener listener)
   {
     mConversionListeners.remove(listener);
   }
 
-  public void addListener(@NonNull BookmarksSharingListener listener)
+  public void addSharingListener(@NonNull BookmarksSharingListener listener)
   {
     mSharingListeners.add(listener);
   }
 
-  public void removeListener(@NonNull BookmarksSharingListener listener)
+  public void removeSharingListener(@NonNull BookmarksSharingListener listener)
   {
     mSharingListeners.remove(listener);
   }
@@ -234,15 +233,6 @@ public enum BookmarkManager
 
   public void showBookmarkOnMap(long bmkId) { nativeShowBookmarkOnMap(bmkId); }
 
-  /**
-   * @return null, if wrong category is passed.
-   */
-  @Nullable
-  public String saveToKmzFile(long catId, @NonNull String tmpPath)
-  {
-    return nativeSaveToKmzFile(catId, tmpPath);
-  }
-
   @NonNull
   public Bookmark addBookmarkToLastEditedCategory(@NonNull String name, double lat, double lon)
   {
@@ -322,6 +312,11 @@ public enum BookmarkManager
     return nativeIsCategoryEmpty(catId);
   }
 
+  public void prepareCategoryForSharing(long catId)
+  {
+    nativePrepareFileForSharing(catId);
+  }
+
   private native int nativeGetCategoriesCount();
 
   private native int nativeGetCategoryPositionById(long catId);
@@ -365,12 +360,6 @@ public enum BookmarkManager
   private native long nativeCreateCategory(@NonNull String name);
 
   private native void nativeShowBookmarkOnMap(long bmkId);
-
-  /**
-   * @return null, if wrong category is passed.
-   */
-  @Nullable
-  private native String nativeSaveToKmzFile(long catId, @NonNull String tmpPath);
 
   @NonNull
   private native Bookmark nativeAddBookmarkToLastEditedCategory(String name, double lat, double lon);
@@ -423,6 +412,6 @@ public enum BookmarkManager
 
   public interface BookmarksSharingListener
   {
-    void onPreparedFileForSharing(BookmarkSharingResult result);
+    void onPreparedFileForSharing(@NonNull BookmarkSharingResult result);
   }
 }

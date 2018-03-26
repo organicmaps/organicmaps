@@ -200,22 +200,6 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteTrack(
   frm()->GetBookmarkManager().GetEditSession().DeleteTrack(static_cast<df::LineID>(trkId));
 }
 
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSaveToKmzFile(
-    JNIEnv * env, jobject thiz, jlong catId, jstring tmpPath)
-{
-  auto const categoryId = static_cast<df::MarkGroupID>(catId);
-  if (frm()->GetBookmarkManager().HasBmCategory(categoryId))
-  {
-    auto const name = frm()->GetBookmarkManager().GetCategoryName(categoryId);
-    auto const fileName = frm()->GetBookmarkManager().GetCategoryFileName(categoryId);
-    if (CreateZipFromPathDeflatedAndDefaultCompression(fileName, ToNativeString(env, tmpPath) + name + ".kmz"))
-      return ToJavaString(env, name);
-  }
-
-  return nullptr;
-}
-
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastEditedCategory(
     JNIEnv * env, jobject thiz, jstring name, double lat, double lon)

@@ -9,8 +9,21 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
+
+import com.cocosw.bottomsheet.BottomSheet;
+import com.google.gson.Gson;
+import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
+import com.mapswithme.util.BottomSheetHelper;
+import com.mapswithme.util.concurrency.ThreadPool;
+import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,19 +34,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.cocosw.bottomsheet.BottomSheet;
-import com.google.gson.Gson;
-import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.util.BottomSheetHelper;
-import com.mapswithme.util.StorageUtils;
-import com.mapswithme.util.StringUtils;
-import com.mapswithme.util.concurrency.ThreadPool;
-import com.mapswithme.util.concurrency.UiThread;
-
 public final class SharingHelper
 {
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final String TAG = SharingHelper.class.getSimpleName();
   private static final String PREFS_STORAGE = "sharing";
   private static final String PREFS_KEY_ITEMS = "items";
 
@@ -163,7 +167,6 @@ public final class SharingHelper
 
   private static void shareInternal(final BaseShareable data, int titleRes, final List<SharingTarget> items)
   {
-    boolean showing = BottomSheetHelper.isShowing();
     final BottomSheet.Builder builder = BottomSheetHelper.createGrid(data.getActivity(), titleRes)
                                                          .limit(R.integer.sharing_initial_rows);
 
@@ -185,12 +188,6 @@ public final class SharingHelper
         data.share(target);
       }
     });
-
-    if (!showing)
-    {
-      builder.show();
-      return;
-    }
 
     UiThread.runLater(new Runnable()
     {
@@ -215,14 +212,19 @@ public final class SharingHelper
     save();
   }
 
-  public static void shareBookmarksCategory(Activity context, long id)
+  public static void shareBookmarksCategory(@NonNull Activity context,
+                                            @NonNull BookmarkSharingResult result)
   {
-    final String path = StorageUtils.getTempPath() + "/";
-    String name = BookmarkManager.INSTANCE.saveToKmzFile(id, path);
-    if (name == null)
+    //TODO: show error dialog in this case.
+    String name = BookmarkManager.INSTANCE.getCategoryName(result.getCategoryId());
+    if (result.getCode() != BookmarkSharingResult.SUCCESS)
+    {
+      LOGGER.e(TAG, "Failed to share bookmark category '" + name + "', error code: "
+                    + result.getCode());
       return;
+    }
 
-    shareOutside(new LocalFileShareable(context, path + name + ".kmz", "application/vnd.google-earth.kmz")
+    shareOutside(new LocalFileShareable(context, result.getSharingPath(), "application/vnd.google-earth.kmz")
                               // TODO fix translation for some languages, that doesn't contain holder for filename
                      .setText(context.getString(R.string.share_bookmarks_email_body, name))
                      .setSubject(R.string.share_bookmarks_email_subject));

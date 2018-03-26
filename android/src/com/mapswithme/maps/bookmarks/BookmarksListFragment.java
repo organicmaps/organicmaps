@@ -21,6 +21,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmListFragment;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.widget.placepage.EditBookmarkFragment;
 import com.mapswithme.maps.widget.placepage.Sponsored;
@@ -30,7 +31,8 @@ import com.mapswithme.util.sharing.SharingHelper;
 
 public class BookmarksListFragment extends BaseMwmListFragment
                                 implements AdapterView.OnItemLongClickListener,
-                                           MenuItem.OnMenuItemClickListener
+                                           MenuItem.OnMenuItemClickListener,
+                                           BookmarkManager.BookmarksSharingListener
 {
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
 
@@ -68,6 +70,13 @@ public class BookmarksListFragment extends BaseMwmListFragment
   }
 
   @Override
+  public void onStart()
+  {
+    super.onStart();
+    BookmarkManager.INSTANCE.addSharingListener(this);
+  }
+
+  @Override
   public void onResume()
   {
     super.onResume();
@@ -85,6 +94,13 @@ public class BookmarksListFragment extends BaseMwmListFragment
 
     if (mAdapter != null)
       mAdapter.stopLocationUpdate();
+  }
+
+  @Override
+  public void onStop()
+  {
+    super.onStop();
+    BookmarkManager.INSTANCE.removeSharingListener(this);
   }
 
   private void initList()
@@ -172,6 +188,12 @@ public class BookmarksListFragment extends BaseMwmListFragment
   }
 
   @Override
+  public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
+  {
+    SharingHelper.shareBookmarksCategory(getActivity(), result);
+  }
+
+  @Override
   public boolean onMenuItemClick(MenuItem menuItem)
   {
     if (mAdapter == null)
@@ -224,7 +246,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
   {
     if (item.getItemId() == R.id.set_share)
     {
-      SharingHelper.shareBookmarksCategory(getActivity(), mCategoryId);
+      BookmarkManager.INSTANCE.prepareCategoryForSharing(mCategoryId);
       return true;
     }
 

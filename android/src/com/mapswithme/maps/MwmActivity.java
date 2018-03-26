@@ -1315,7 +1315,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onStart();
     Framework.nativeSetMapObjectListener(this);
-    BookmarkManager.INSTANCE.addListener(this);
+    BookmarkManager.INSTANCE.addLoadingListener(this);
     RoutingController.get().attach(this);
     if (MapFragment.nativeIsEngineCreated())
       LocationHelper.INSTANCE.attach(this);
@@ -1331,7 +1331,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     super.onStop();
     Framework.nativeRemoveMapObjectListener();
-    BookmarkManager.INSTANCE.removeListener(this);
+    BookmarkManager.INSTANCE.removeLoadingListener(this);
     LocationHelper.INSTANCE.detach(!isFinishing());
     RoutingController.get().detach();
     TrafficManager.INSTANCE.detachAll();
