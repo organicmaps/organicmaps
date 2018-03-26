@@ -139,6 +139,7 @@ public enum Statistics
     public static final String DOWNLOADER_DIALOG_MANUAL_DOWNLOAD = "Downloader_OnStartScreen_manual_download";
     public static final String DOWNLOADER_DIALOG_DOWNLOAD = "Downloader_OnStartScreen_auto_download";
     public static final String DOWNLOADER_DIALOG_LATER = "Downloader_OnStartScreen_select_later";
+    public static final String DOWNLOADER_DIALOG_HIDE = "Downloader_OnStartScreen_select_hide";
     public static final String DOWNLOADER_DIALOG_CANCEL = "Downloader_OnStartScreen_cancel_download";
     static final String DOWNLOADER_DIALOG_ERROR = "Downloader_OnStartScreen_error";
 

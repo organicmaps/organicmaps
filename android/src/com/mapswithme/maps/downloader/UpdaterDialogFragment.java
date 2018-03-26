@@ -35,6 +35,7 @@ import java.util.Set;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_CANCEL;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_DOWNLOAD;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_LATER;
+import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_HIDE;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_MANUAL_DOWNLOAD;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_SHOW;
 
@@ -55,12 +56,9 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   private TextView mTitle;
   private TextView mUpdateBtn;
   private WheelProgressView mProgressBar;
-  private TextView mLaterBtn;
+  private TextView mFinishBtn;
   private View mInfo;
   private TextView mRelativeStatus;
-  private TextView mCommonStatus;
-  private View mFrameBtn;
-  private TextView mHideBtn;
 
   @Nullable
   private String mTotalSize;
@@ -93,9 +91,11 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   }
 
   @NonNull
-  private final View.OnClickListener mLaterClickListener = (View v) ->
+  private final View.OnClickListener mFinishClickListener = (View v) ->
   {
-    Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_LATER, 0);
+    Statistics.INSTANCE.trackDownloaderDialogEvent(mAutoUpdate ?
+                                                   DOWNLOADER_DIALOG_HIDE :
+                                                   DOWNLOADER_DIALOG_LATER, 0);
 
     finish();
   };
@@ -129,9 +129,6 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   };
 
   @NonNull
-  private final View.OnClickListener mHideClickListener = (View v) -> finish();
-
-  @NonNull
   private final View.OnClickListener mUpdateClickListener = (View v) ->
       MapManager.warnOn3gUpdate(getActivity(), CountryItem.getRootId(), new Runnable()
       {
@@ -139,12 +136,13 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
         public void run()
         {
           mAutoUpdate = true;
+          mFinishBtn.setText(getString(R.string.downloader_hide_screen));
           mTitle.setText(getString(R.string.whats_new_auto_update_updating_maps));
           setProgress(0, 0, mTotalSizeBytes);
           setCommonStatus(mProcessedMapId, mCommonStatusResId);
           MapManager.nativeUpdate(CountryItem.getRootId());
-          UiUtils.show(mProgressBar, mInfo, mFrameBtn, mHideBtn);
-          UiUtils.hide(mUpdateBtn, mLaterBtn);
+          UiUtils.show(mProgressBar, mInfo);
+          UiUtils.hide(mUpdateBtn);
 
           Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_MANUAL_DOWNLOAD,
                                                          mTotalSizeBytes / Constants.MB);
@@ -250,12 +248,9 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     mTitle = content.findViewById(R.id.title);
     mUpdateBtn = content.findViewById(R.id.update_btn);
     mProgressBar = content.findViewById(R.id.progress);
-    mLaterBtn = content.findViewById(R.id.later_btn);
+    mFinishBtn = content.findViewById(R.id.later_btn);
     mInfo = content.findViewById(R.id.info);
     mRelativeStatus = content.findViewById(R.id.relative_status);
-    mCommonStatus = content.findViewById(R.id.common_status);
-    mFrameBtn = content.findViewById(R.id.frame_btn);
-    mHideBtn = content.findViewById(R.id.hide_btn);
 
     initViews();
 
@@ -340,23 +335,25 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
   private void initViews()
   {
-    UiUtils.showIf(mAutoUpdate, mProgressBar, mInfo, mFrameBtn, mHideBtn);
-    UiUtils.showIf(!mAutoUpdate, mUpdateBtn, mLaterBtn);
-
-    mTitle.setText(mAutoUpdate ? getString(R.string.whats_new_auto_update_updating_maps)
-                               : getString(R.string.whats_new_auto_update_title));
+    UiUtils.showIf(mAutoUpdate, mProgressBar, mInfo);
+    UiUtils.showIf(!mAutoUpdate, mUpdateBtn);
 
     mUpdateBtn.setText(getString(R.string.whats_new_auto_update_button_size, mTotalSize));
     mUpdateBtn.setOnClickListener(mUpdateClickListener);
-    mLaterBtn.setText(R.string.whats_new_auto_update_button_later);
-    mLaterBtn.setOnClickListener(mLaterClickListener);
+    mFinishBtn.setText(mAutoUpdate ?
+                       getString(R.string.downloader_hide_screen) :
+                       getString(R.string.whats_new_auto_update_button_later));
+    mFinishBtn.setOnClickListener(mFinishClickListener);
     mProgressBar.setOnClickListener(mCancelClickListener);
-    mHideBtn.setOnClickListener(mHideClickListener);
     if (mAutoUpdate)
     {
       int progress = MapManager.nativeGetOverallProgress(mOutdatedMaps);
       setProgress(progress, mTotalSizeBytes * progress / 100, mTotalSizeBytes);
       setCommonStatus(mProcessedMapId, mCommonStatusResId);
+    }
+    else
+    {
+      mTitle.setText(getString(R.string.whats_new_auto_update_title));
     }
   }
 
@@ -388,7 +385,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     mCommonStatusResId = mwmStatusResId;
 
     String status = getString(mwmStatusResId, MapManager.nativeGetName(mwmId));
-    mCommonStatus.setText(status);
+    mTitle.setText(status);
   }
   private static class DetachableStorageCallback implements MapManager.StorageCallback
   {
