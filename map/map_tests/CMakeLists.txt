@@ -29,49 +29,47 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   search_tests_support
-  generator_tests_support
   indexer_tests_support
+  generator_tests_support
   generator
   map
   drape_frontend
+  drape
   routing
   traffic
-  routing_common
   transit
+  tracking
+  routing_common
   search
   storage
-  tracking
-  drape
+  mwm_diff
+  bsdiff
   ugc
-  indexer
   partners_api
   local_ads
   kml
-  platform
+  indexer
   editor
-  mwm_diff
-  bsdiff
+  platform
   geometry
   coding
   base
-  freetype
-  icu
+
   agg
   expat
-  protobuf
+  freetype
+  icu
   jansson
-  stats_client
   minizip
-  succinct
-  pugixml
-  stats_client
-  opening_hours
   oauthcpp
-  drape_frontend
-  drape
-  tess2
-  stb_image
+  opening_hours
+  protobuf
+  pugixml
   sdf_image
+  stb_image
+  succinct
+  tess2
+  stats_client
   ${Qt5Widgets_LIBRARIES}
   ${Qt5Network_LIBRARIES}
   ${LIBZ}
