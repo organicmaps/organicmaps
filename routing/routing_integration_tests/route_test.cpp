@@ -23,7 +23,7 @@ namespace
     integration::CalculateRouteAndTestRouteLength(
         integration::GetVehicleComponents<VehicleType::Car>(),
         MercatorBounds::FromLatLon(55.66216, 37.63259), {0., 0.},
-        MercatorBounds::FromLatLon(55.66237, 37.63560), 1700.);
+        MercatorBounds::FromLatLon(55.66237, 37.63560), 2320.);
   }
 
   UNIT_TEST(MoscowToSVOAirport)
@@ -32,13 +32,10 @@ namespace
         integration::GetVehicleComponents<VehicleType::Car>(),
         MercatorBounds::FromLatLon(55.75100, 37.61790), {0., 0.},
         MercatorBounds::FromLatLon(55.97310, 37.41460), 37284.);
-//    This test stopped working because of an error in the map. The error has been just fixed:
-//    https://www.openstreetmap.org/changeset/56686302
-//    @TODO(bykoianko) The test should be uncommented for the next map build (after 170209).
-//    integration::CalculateRouteAndTestRouteLength(
-//        integration::GetVehicleComponents<VehicleType::Car>(),
-//        MercatorBounds::FromLatLon(55.97310, 37.41460), {0., 0.},
-//        MercatorBounds::FromLatLon(55.75100, 37.61790), 39449.);
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents<VehicleType::Car>(),
+        MercatorBounds::FromLatLon(55.97310, 37.41460), {0., 0.},
+        MercatorBounds::FromLatLon(55.75100, 37.61790), 39449.);
   }
 
   // Restrictions tests. Check restrictions generation, if there are any errors.

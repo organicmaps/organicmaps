@@ -243,7 +243,7 @@ UNIT_TEST(RussiaMoscowPankratevskiPerBolshaySuharedskazPloschadTurnTest)
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                   MercatorBounds::FromLatLon(55.77177, 37.63556), {0., 0.},
-                                  MercatorBounds::FromLatLon(55.77203, 37.63705));
+                                  MercatorBounds::FromLatLon(55.77209, 37.63707));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;
