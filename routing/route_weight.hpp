@@ -22,7 +22,7 @@ public:
     : m_weight(weight)
     , m_numPassThroughChanges(static_cast<int8_t>(numPassThroughChanges))
     , m_numAccessChanges(static_cast<int8_t>(numAccessChanges))
-    , m_transitTime(static_cast<float>(transitTime))
+    , m_transitTime(transitTime)
   {
   }
 
@@ -32,7 +32,7 @@ public:
   double GetWeight() const { return m_weight; }
   int8_t GetNumPassThroughChanges() const { return m_numPassThroughChanges; }
   int8_t GetNumAccessChanges() const { return m_numAccessChanges; }
-  double GetTransitTime() const { return static_cast<double>(m_transitTime); }
+  double GetTransitTime() const { return m_transitTime; }
 
   bool operator<(RouteWeight const & rhs) const
   {
@@ -48,7 +48,7 @@ public:
       return m_numAccessChanges < rhs.m_numAccessChanges;
     if (m_weight != rhs.m_weight)
       return m_weight < rhs.m_weight;
-    // Preffer bigger transit time if total weights are same.
+    // Prefer bigger transit time if total weights are same.
     return m_transitTime > rhs.m_transitTime;
   }
 
@@ -80,7 +80,7 @@ public:
     return m_numPassThroughChanges == rhs.m_numPassThroughChanges &&
            m_numAccessChanges == rhs.m_numAccessChanges &&
            my::AlmostEqualAbs(m_weight, rhs.m_weight, epsilon) &&
-           my::AlmostEqualAbs(m_transitTime, rhs.m_transitTime, static_cast<float>(epsilon));
+           my::AlmostEqualAbs(m_transitTime, rhs.m_transitTime, epsilon);
   }
 
 private:
@@ -91,7 +91,7 @@ private:
   // Number of access=yes/access={private,destination} zone changes.
   int8_t m_numAccessChanges = 0;
   // Transit time. It's already included in |m_weight| (m_transitTime <= m_weight).
-  float m_transitTime = 0.0F;
+  double m_transitTime = 0.0F;
 };
 
 std::ostream & operator<<(std::ostream & os, RouteWeight const & routeWeight);
@@ -101,7 +101,7 @@ RouteWeight operator*(double lhs, RouteWeight const & rhs);
 template <>
 constexpr RouteWeight GetAStarWeightMax<RouteWeight>()
 {
-  return RouteWeight(std::numeric_limits<float>::max() /* weight */,
+  return RouteWeight(std::numeric_limits<double>::max() /* weight */,
                      std::numeric_limits<int8_t>::max() /* numPassThroughChanges */,
                      std::numeric_limits<int8_t>::max() /* numAccessChanges */,
                      0.0 /* transitTime */);  // operator< prefers bigger transit time
