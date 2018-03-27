@@ -4,11 +4,7 @@
 #include "routing/road_graph.hpp"
 #include "routing/router.hpp"
 
-#include "base/cancellable.hpp"
-
-#include "std/functional.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include <string>
 
 namespace routing
 {
@@ -26,21 +22,11 @@ public:
   };
 
   virtual Result CalculateRoute(IRoadGraph const & graph, Junction const & startPos,
-                                Junction const & finalPos, RouterDelegate const & delegate,
+                                Junction const & finalPos,
                                 RoutingResult<IRoadGraph::Vertex, IRoadGraph::Weight> & path) = 0;
 };
 
-string DebugPrint(IRoutingAlgorithm::Result const & result);
-
-// AStar routing algorithm implementation
-class AStarRoutingAlgorithm : public IRoutingAlgorithm
-{
-public:
-  // IRoutingAlgorithm overrides:
-  Result CalculateRoute(IRoadGraph const & graph, Junction const & startPos,
-                        Junction const & finalPos, RouterDelegate const & delegate,
-                        RoutingResult<IRoadGraph::Vertex, IRoadGraph::Weight> & path) override;
-};
+std::string DebugPrint(IRoutingAlgorithm::Result const & result);
 
 // AStar-bidirectional routing algorithm implementation
 class AStarBidirectionalRoutingAlgorithm : public IRoutingAlgorithm
@@ -48,8 +34,7 @@ class AStarBidirectionalRoutingAlgorithm : public IRoutingAlgorithm
 public:
   // IRoutingAlgorithm overrides:
   Result CalculateRoute(IRoadGraph const & graph, Junction const & startPos,
-                        Junction const & finalPos, RouterDelegate const & delegate,
+                        Junction const & finalPos,
                         RoutingResult<IRoadGraph::Vertex, IRoadGraph::Weight> & path) override;
 };
-
 }  // namespace routing

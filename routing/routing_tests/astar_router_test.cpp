@@ -5,16 +5,22 @@
 
 #include "routing/features_road_graph.hpp"
 #include "routing/route.hpp"
+#include "routing/road_graph.hpp"
 #include "routing/router_delegate.hpp"
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/feature_altitude.hpp"
 
+#include "geometry/point2d.hpp"
+
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 
+#include <vector>
+
 using namespace routing;
 using namespace routing_test;
+using namespace std;
 
 namespace
 {
@@ -29,11 +35,10 @@ void TestAStarRouterMock(Junction const & startPos, Junction const & finalPos,
   RoadGraphMockSource graph;
   InitRoadGraphMockSourceWithTest2(graph);
 
-  RouterDelegate delegate;
   RoutingResult<Junction, double /* Weight */> result;
   TRoutingAlgorithm algorithm;
   TEST_EQUAL(TRoutingAlgorithm::Result::OK,
-             algorithm.CalculateRoute(graph, startPos, finalPos, delegate, result), ());
+             algorithm.CalculateRoute(graph, startPos, finalPos, result), ());
 
   TEST_EQUAL(expected, result.m_path, ());
 }
@@ -97,11 +102,10 @@ UNIT_TEST(AStarRouter_SimpleGraph_RouteIsFound)
       MakeJunctionForTesting(m2::PointD(0, 0)), MakeJunctionForTesting(m2::PointD(0, 30)),
       MakeJunctionForTesting(m2::PointD(0, 60)), MakeJunctionForTesting(m2::PointD(40, 100))};
 
-  RouterDelegate delegate;
   RoutingResult<Junction, double /* Weight */> result;
   TRoutingAlgorithm algorithm;
   TEST_EQUAL(TRoutingAlgorithm::Result::OK,
-             algorithm.CalculateRoute(graph, startPos, finalPos, delegate, result), ());
+             algorithm.CalculateRoute(graph, startPos, finalPos, result), ());
 
   TEST_EQUAL(expected, result.m_path, ());
 }
@@ -165,13 +169,12 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
     Junction const startPos = roadInfo_1[i].m_junctions[0];
     for (size_t j = 0; j < roadInfo_2.size(); ++j)
     {
-      RouterDelegate delegate;
       Junction const finalPos = roadInfo_2[j].m_junctions[0];
       RoutingResult<Junction, double /* Weight */> result;
       TEST_EQUAL(TRoutingAlgorithm::Result::NoPath,
-                 algorithm.CalculateRoute(graph, startPos, finalPos, delegate, result), ());
+                 algorithm.CalculateRoute(graph, startPos, finalPos, result), ());
       TEST_EQUAL(TRoutingAlgorithm::Result::NoPath,
-                 algorithm.CalculateRoute(graph, finalPos, startPos, delegate, result), ());
+                 algorithm.CalculateRoute(graph, finalPos, startPos, result), ());
     }
   }
 
@@ -181,13 +184,12 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
     Junction const startPos = roadInfo_1[i].m_junctions[0];
     for (size_t j = i + 1; j < roadInfo_1.size(); ++j)
     {
-      RouterDelegate delegate;
       Junction const finalPos = roadInfo_1[j].m_junctions[0];
       RoutingResult<Junction, double /* Weight */> result;
       TEST_EQUAL(TRoutingAlgorithm::Result::OK,
-                 algorithm.CalculateRoute(graph, startPos, finalPos, delegate, result), ());
+                 algorithm.CalculateRoute(graph, startPos, finalPos, result), ());
       TEST_EQUAL(TRoutingAlgorithm::Result::OK,
-                 algorithm.CalculateRoute(graph, finalPos, startPos, delegate, result), ());
+                 algorithm.CalculateRoute(graph, finalPos, startPos, result), ());
     }
   }
 
@@ -197,13 +199,12 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
     Junction const startPos = roadInfo_2[i].m_junctions[0];
     for (size_t j = i + 1; j < roadInfo_2.size(); ++j)
     {
-      RouterDelegate delegate;
       Junction const finalPos = roadInfo_2[j].m_junctions[0];
       RoutingResult<Junction, double /* Weight */> result;
       TEST_EQUAL(TRoutingAlgorithm::Result::OK,
-                 algorithm.CalculateRoute(graph, startPos, finalPos, delegate, result), ());
+                 algorithm.CalculateRoute(graph, startPos, finalPos, result), ());
       TEST_EQUAL(TRoutingAlgorithm::Result::OK,
-                 algorithm.CalculateRoute(graph, finalPos, startPos, delegate, result), ());
+                 algorithm.CalculateRoute(graph, finalPos, startPos, result), ());
     }
   }
 }
@@ -226,12 +227,11 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad1)
   // path2 = 8/3 = 2.666(6)
   // path3 = 1/5 + 8/4 + 1/5 = 2.4
 
-  RouterDelegate delegate;
   RoutingResult<Junction, double /* Weight */> result;
   TRoutingAlgorithm algorithm;
   TEST_EQUAL(TRoutingAlgorithm::Result::OK,
              algorithm.CalculateRoute(graph, MakeJunctionForTesting(m2::PointD(2, 2)),
-                                      MakeJunctionForTesting(m2::PointD(10, 2)), delegate, result),
+                                      MakeJunctionForTesting(m2::PointD(10, 2)), result),
              ());
   TEST_EQUAL(
       result.m_path,
@@ -261,12 +261,11 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad2)
   // path2 = 8/4.1 = 1.95
   // path3 = 1/5 + 8/4.4 + 1/5 = 2.2
 
-  RouterDelegate delegate;
   RoutingResult<Junction, double /* Weight */> result;
   TRoutingAlgorithm algorithm;
   TEST_EQUAL(TRoutingAlgorithm::Result::OK,
              algorithm.CalculateRoute(graph, MakeJunctionForTesting(m2::PointD(2, 2)),
-                                      MakeJunctionForTesting(m2::PointD(10, 2)), delegate, result),
+                                      MakeJunctionForTesting(m2::PointD(10, 2)), result),
              ());
   TEST_EQUAL(result.m_path,
              vector<Junction>({MakeJunctionForTesting(m2::PointD(2, 2)),
@@ -293,12 +292,11 @@ UNIT_TEST(AStarRouter_SimpleGraph_PickTheFasterRoad3)
   // path2 = 8/3.9 = 2.05
   // path3 = 1/5 + 8/4.9 + 1/5 = 2.03
 
-  RouterDelegate delegate;
   RoutingResult<Junction, double /* Weight */> result;
   TRoutingAlgorithm algorithm;
   TEST_EQUAL(TRoutingAlgorithm::Result::OK,
              algorithm.CalculateRoute(graph, MakeJunctionForTesting(m2::PointD(2, 2)),
-                                      MakeJunctionForTesting(m2::PointD(10, 2)), delegate, result),
+                                      MakeJunctionForTesting(m2::PointD(10, 2)), result),
              ());
   TEST_EQUAL(
       result.m_path,
