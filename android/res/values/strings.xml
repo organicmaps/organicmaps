@@ -1297,4 +1297,5 @@
 	<string name="bookmarks_error_message_list_name_already_taken">Please choose another name</string>
 	<string name="bookmarks_error_title_list_name_too_long">This name is too long</string>
 	<string name="bookmarks_error_message_list_name_too_long">Please choose another name</string>
+	<string name="please_wait">Please wait...</string>
 </resources>

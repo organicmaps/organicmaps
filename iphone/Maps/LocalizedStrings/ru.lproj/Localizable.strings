@@ -2244,3 +2244,5 @@
 "bookmarks_error_title_list_name_too_long" = "Слишком длинное название";
 
 "bookmarks_error_message_list_name_too_long" = "Выберите, пожалуйста, другое имя";
+
+"please_wait" = "Пожалуйста, подождите...";

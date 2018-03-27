@@ -1285,4 +1285,5 @@
 	<string name="bookmarks_error_message_list_name_already_taken">Выберите, пожалуйста, другое имя</string>
 	<string name="bookmarks_error_title_list_name_too_long">Слишком длинное название</string>
 	<string name="bookmarks_error_message_list_name_too_long">Выберите, пожалуйста, другое имя</string>
+	<string name="please_wait">Пожалуйста, подождите...</string>
 </resources>

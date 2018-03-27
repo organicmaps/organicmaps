@@ -2244,3 +2244,5 @@
 "bookmarks_error_title_list_name_too_long" = "This name is too long";
 
 "bookmarks_error_message_list_name_too_long" = "Please choose another name";
+
+"please_wait" = "Please wait...";
