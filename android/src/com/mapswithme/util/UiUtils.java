@@ -255,7 +255,7 @@ public final class UiUtils
   {
     return new AlertDialog.Builder(activity)
             .setCancelable(false)
-            .setMessage(titleId)
+            .setTitle(titleId)
             .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dlg, int which) { dlg.dismiss(); }
@@ -263,11 +263,29 @@ public final class UiUtils
             .create();
   }
 
-  public static void showAlertDialog(Activity activity, int titleId)
+  public static AlertDialog buildAlertDialog(Activity activity, int titleId, @StringRes int msgId)
+  {
+    return new AlertDialog.Builder(activity)
+        .setCancelable(false)
+        .setTitle(titleId)
+        .setMessage(msgId)
+        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dlg, int which) { dlg.dismiss(); }
+        })
+        .create();
+  }
+
+  public static void showAlertDialog(@NonNull Activity activity, @StringRes int titleId,
+                                     @StringRes int msgId)
+  {
+    buildAlertDialog(activity, titleId, msgId).show();
+  }
+
+  public static void showAlertDialog(@NonNull Activity activity, @StringRes int titleId)
   {
     buildAlertDialog(activity, titleId).show();
   }
-
 
   public static String deviceOrientationAsString(Activity activity)
   {

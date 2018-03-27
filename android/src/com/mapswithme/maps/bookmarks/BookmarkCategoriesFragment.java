@@ -6,7 +6,6 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -160,23 +159,15 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   {
     if (TextUtils.isEmpty(text))
     {
-      new AlertDialog.Builder(getActivity())
-          .setCancelable(true)
-          .setPositiveButton(R.string.ok, null)
-          .setTitle(R.string.bookmarks_error_title_empty_list_name)
-          .setMessage(R.string.bookmarks_error_message_empty_list_name)
-          .show();
+      UiUtils.showAlertDialog(getActivity(), R.string.bookmarks_error_title_empty_list_name,
+                              R.string.bookmarks_error_message_empty_list_name);
       return;
     }
 
     if (BookmarkManager.INSTANCE.isUsedCategoryName(text))
     {
-      new AlertDialog.Builder(getActivity())
-          .setCancelable(true)
-          .setPositiveButton(R.string.ok, null)
-          .setTitle(R.string.bookmarks_error_title_list_name_already_taken)
-          .setMessage(R.string.bookmarks_error_message_list_name_already_taken)
-          .show();
+      UiUtils.showAlertDialog(getActivity(), R.string.bookmarks_error_title_list_name_already_taken,
+                              R.string.bookmarks_error_message_list_name_already_taken);
       return;
     }
 

@@ -20,11 +20,13 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.util.BottomSheetHelper;
+import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -215,19 +217,32 @@ public final class SharingHelper
   public static void shareBookmarksCategory(@NonNull Activity context,
                                             @NonNull BookmarkSharingResult result)
   {
-    //TODO: show error dialog in this case.
-    String name = BookmarkManager.INSTANCE.getCategoryName(result.getCategoryId());
-    if (result.getCode() != BookmarkSharingResult.SUCCESS)
+    switch (result.getCode())
     {
-      LOGGER.e(TAG, "Failed to share bookmark category '" + name + "', error code: "
-                    + result.getCode());
-      return;
+      case BookmarkSharingResult.SUCCESS:
+        String name = new File(result.getSharingPath()).getName();
+        shareOutside(new LocalFileShareable(context, result.getSharingPath(),
+                                            "application/vnd.google-earth.kmz")
+                         // TODO fix translation for some languages, that doesn't contain holder
+                         // for filename
+                         .setText(context.getString(R.string.share_bookmarks_email_body, name))
+                         .setSubject(R.string.share_bookmarks_email_subject));
+        break;
+      case BookmarkSharingResult.EMPTY_CATEGORY:
+        UiUtils.showAlertDialog(context, R.string.bookmarks_error_title_share_empty,
+                                R.string.bookmarks_error_message_share_empty);
+        break;
+      case BookmarkSharingResult.ARCHIVE_ERROR:
+      case BookmarkSharingResult.FILE_ERROR:
+        UiUtils.showAlertDialog(context, R.string.dialog_routing_system_error,
+                                R.string.bookmarks_error_message_share_general);
+        String catName = BookmarkManager.INSTANCE.getCategoryName(result.getCategoryId());
+        LOGGER.e(TAG, "Failed to share bookmark category '" + catName + "', error code: "
+                      + result.getCode());
+        break;
+      default:
+        throw new AssertionError("Unsupported bookmark sharing code: " + result.getCode());
     }
-
-    shareOutside(new LocalFileShareable(context, result.getSharingPath(), "application/vnd.google-earth.kmz")
-                              // TODO fix translation for some languages, that doesn't contain holder for filename
-                     .setText(context.getString(R.string.share_bookmarks_email_body, name))
-                     .setSubject(R.string.share_bookmarks_email_subject));
   }
 
   public static void shareViralEditor(Activity context, @DrawableRes int imageId, @StringRes int subject, @StringRes int text)
