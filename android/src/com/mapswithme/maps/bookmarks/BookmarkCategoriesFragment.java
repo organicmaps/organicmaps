@@ -190,7 +190,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
       break;
 
     case R.id.set_share:
-      BookmarkManager.INSTANCE.prepareCategoryForSharing(mSelectedCatId);
+      SharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(getActivity(), mSelectedCatId);
       break;
 
     case R.id.set_delete:
@@ -283,7 +283,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   @Override
   public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
   {
-    SharingHelper.shareBookmarksCategory(getActivity(), result);
+    SharingHelper.INSTANCE.onPreparedFileForSharing(getActivity(), result);
   }
 
   @Override

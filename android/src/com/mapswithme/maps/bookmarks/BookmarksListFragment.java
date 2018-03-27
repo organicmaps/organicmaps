@@ -190,7 +190,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
   @Override
   public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
   {
-    SharingHelper.shareBookmarksCategory(getActivity(), result);
+    SharingHelper.INSTANCE.onPreparedFileForSharing(getActivity(), result);
   }
 
   @Override
@@ -246,7 +246,7 @@ public class BookmarksListFragment extends BaseMwmListFragment
   {
     if (item.getItemId() == R.id.set_share)
     {
-      BookmarkManager.INSTANCE.prepareCategoryForSharing(mCategoryId);
+      SharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(getActivity(), mCategoryId);
       return true;
     }
 
