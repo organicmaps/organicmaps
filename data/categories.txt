@@ -9167,3 +9167,11 @@ ru:^Празднование Рождества или Нового года
 
 sponsored-partner2
 en:^Luggage Storage|Luggage Hero|3luggagehero
+
+event-fc2018
+en:^3Football Cup 2018|2FIFA|championship|fc2018
+ru:^2ЧМ 2018 по футболу|1ФИФА|футбол|кубок
+
+event-fc2018_city
+en:^Football City 2018
+ru:^Город ЧМ 2018 по футболу

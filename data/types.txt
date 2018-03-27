@@ -1205,3 +1205,5 @@ sponsored|partner2
 sponsored|partner3
 sponsored|partner4
 sponsored|partner5
+event|fc2018
+event|fc2018_city

@@ -381,6 +381,8 @@ IsInvisibleIndexedChecker::IsInvisibleIndexedChecker() : BaseChecker(1 /* level 
 {
   m_types.push_back(classif().GetTypeByPath({"internet_access"}));
   m_types.push_back(classif().GetTypeByPath({"wheelchair"}));
+  m_types.push_back(classif().GetTypeByPath({"sponsored"}));
+  m_types.push_back(classif().GetTypeByPath({"event"}));
 }
 
 IsCityChecker::IsCityChecker()

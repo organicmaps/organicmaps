@@ -2,6 +2,20 @@
 # Format: type,id,key1=value1,key2=value2,...
 # Example: way,34306743,olympics=stadium
 
+# FC2018 Cities
+
+node,1686293227,event=fc2018,event=fc2018_city
+node,27490597,event=fc2018,event=fc2018_city
+node,27504067,event=fc2018,event=fc2018_city
+node,27503892,event=fc2018,event=fc2018_city
+node,191651581,event=fc2018,event=fc2018_city
+node,27503945,event=fc2018,event=fc2018_city
+node,34043670,event=fc2018,event=fc2018_city
+node,27504363,event=fc2018,event=fc2018_city
+node,160569651,event=fc2018,event=fc2018_city
+node,27048976,event=fc2018,event=fc2018_city
+node,27505889,event=fc2018,event=fc2018_city
+
 # Megabonus
 way,503035526,sponsored=partner1,banner_url=https://megabonus.com/shop/aliexpress?utm_source=maps.me&utm_medium=special&utm_campaign=button&utm_term=offline&utm_content=aliexpress&w=31000
 node,517598383,sponsored=partner1,banner_url=https://megabonus.com/shop/mts?utm_source=maps.me&utm_medium=special&utm_campaign=button&utm_term=offline&utm_content=mts&w=31002

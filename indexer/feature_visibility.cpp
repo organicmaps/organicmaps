@@ -227,6 +227,7 @@ namespace
     static const uint32_t psurface = classif().GetTypeByPath({ "psurface" });
     static const uint32_t wheelchair = classif().GetTypeByPath({ "wheelchair" });
     static const uint32_t sponsored = classif().GetTypeByPath({ "sponsored" });
+    static const uint32_t event = classif().GetTypeByPath({ "event" });
     static const uint32_t internet = classif().GetTypeByPath({ "internet_access" });
 
     // Caching type length to exclude generic [wheelchair].
@@ -250,7 +251,7 @@ namespace
     if (wheelchair == type && typeLength == 2)
       return true;
 
-    if (sponsored == type || internet == type)
+    if (sponsored == type || internet == type || event == type)
       return true;
 
     return false;
