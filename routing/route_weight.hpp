@@ -17,11 +17,11 @@ public:
 
   explicit constexpr RouteWeight(double weight) : m_weight(weight) {}
 
-  constexpr RouteWeight(double weight, int32_t numPassThroughChanges, int32_t numAccessChanges,
+  constexpr RouteWeight(double weight, int8_t numPassThroughChanges, int8_t numAccessChanges,
                         double transitTime)
     : m_weight(weight)
-    , m_numPassThroughChanges(static_cast<int8_t>(numPassThroughChanges))
-    , m_numAccessChanges(static_cast<int8_t>(numAccessChanges))
+    , m_numPassThroughChanges(numPassThroughChanges)
+    , m_numAccessChanges(numAccessChanges)
     , m_transitTime(transitTime)
   {
   }
@@ -91,7 +91,7 @@ private:
   // Number of access=yes/access={private,destination} zone changes.
   int8_t m_numAccessChanges = 0;
   // Transit time. It's already included in |m_weight| (m_transitTime <= m_weight).
-  double m_transitTime = 0.0F;
+  double m_transitTime = 0.0;
 };
 
 std::ostream & operator<<(std::ostream & os, RouteWeight const & routeWeight);
