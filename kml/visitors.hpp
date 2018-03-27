@@ -131,6 +131,24 @@ public:
     Collect(index, args...);
   }
 
+  template <typename... OtherStrings>
+  void Collect(LocalizableStringIndex & index, Properties const & properties,
+               OtherStrings const & ... args)
+  {
+    index.emplace_back(LocalizableStringSubIndex());
+    auto constexpr kMaxSize = std::numeric_limits<int8_t>::max() - 1;
+    int8_t counter = 0;
+    for (auto const & p : properties)
+    {
+      if (counter >= kMaxSize)
+        break;
+      CollectString(index.back(), counter++, p.first);
+      CollectString(index.back(), counter++, p.second);
+    }
+
+    Collect(index, args...);
+  }
+
   template <typename...>
   void Collect(LocalizableStringIndex & index) {}
 
@@ -201,6 +219,18 @@ public:
     WriteVarUint(m_sink, ToSecondsSinceEpoch(t));
   }
 
+  void operator()(double d, char const * /* name */ = nullptr)
+  {
+    uint64_t const encoded = DoubleToUint32(d, kMinRating, kMaxRating, kRatingBits);
+    WriteVarUint(m_sink, encoded);
+  }
+
+  void operator()(m2::PointD const & pt, char const * /* name */ = nullptr)
+  {
+    uint64_t const encoded = bits::ZigZagEncode(PointToInt64(pt, POINT_COORD_BITS));
+    WriteVarUint(m_sink, encoded);
+  }
+
   template <typename T>
   void operator()(std::vector<T> const & vs, char const * /* name */ = nullptr)
   {
@@ -227,6 +257,7 @@ public:
   SKIP_VISITING(LocalizableString const &)
   SKIP_VISITING(std::string const &)
   SKIP_VISITING(std::vector<std::string> const &)
+  SKIP_VISITING(Properties const &)
   SKIP_VISITING(std::vector<BookmarkData> const &)
   SKIP_VISITING(std::vector<TrackData> const &)
 
@@ -260,7 +291,7 @@ public:
 
   void operator()(double d, char const * /* name */ = nullptr)
   {
-    uint64_t const encoded = DoubleToUint32(d, kMinLineWidth, kMaxLineWidth, 30 /* coordBits */);
+    uint64_t const encoded = DoubleToUint32(d, kMinLineWidth, kMaxLineWidth, kLineWidthBits);
     WriteVarUint(m_sink, encoded);
   }
 
@@ -305,6 +336,7 @@ public:
   SKIP_VISITING(LocalizableString const &)
   SKIP_VISITING(std::string const &)
   SKIP_VISITING(std::vector<std::string> const &)
+  SKIP_VISITING(Properties const &)
 
 private:
   Sink & m_sink;
@@ -357,6 +389,18 @@ public:
     t = FromSecondsSinceEpoch(v);
   }
 
+  void operator()(double & d, char const * /* name */ = nullptr)
+  {
+    auto const v = ReadVarUint<uint32_t, Source>(m_source);
+    d = Uint32ToDouble(v, kMinRating, kMaxRating, kRatingBits);
+  }
+
+  void operator()(m2::PointD & pt, char const * /* name */ = nullptr)
+  {
+    auto const v = ReadVarUint<uint64_t, Source>(m_source);
+    pt = Int64ToPoint(bits::ZigZagDecode(v), POINT_COORD_BITS);
+  }
+
   template <typename T>
   void operator()(std::vector<T> & vs, char const * /* name */ = nullptr)
   {
@@ -387,6 +431,7 @@ public:
   SKIP_VISITING(LocalizableString &)
   SKIP_VISITING(std::string &)
   SKIP_VISITING(std::vector<std::string> &)
+  SKIP_VISITING(Properties &)
   SKIP_VISITING(std::vector<BookmarkData> &)
   SKIP_VISITING(std::vector<TrackData> &)
 
@@ -421,7 +466,7 @@ public:
   void operator()(double & d, char const * /* name */ = nullptr)
   {
     auto const v = ReadVarUint<uint32_t, Source>(m_source);
-    d = Uint32ToDouble(v, kMinLineWidth, kMaxLineWidth, 30 /* coordBits */);
+    d = Uint32ToDouble(v, kMinLineWidth, kMaxLineWidth, kLineWidthBits);
   }
 
   void operator()(Timestamp & t, char const * /* name */ = nullptr)
@@ -475,6 +520,7 @@ public:
   SKIP_VISITING(LocalizableString &)
   SKIP_VISITING(std::string &)
   SKIP_VISITING(std::vector<std::string> &)
+  SKIP_VISITING(Properties &)
 
 private:
   Source & m_source;
@@ -497,7 +543,7 @@ public:
 
     auto subIndex = index[m_counter];
     for (auto const & p : subIndex)
-      str[p.first] = ExtractString(subIndex, p.second);
+      str[p.first] = ExtractString(p.second);
 
     m_counter++;
     Collect(index, args...);
@@ -512,7 +558,7 @@ public:
 
     auto subIndex = index[m_counter];
     if (!subIndex.empty())
-      str = ExtractString(subIndex, subIndex.begin()->second);
+      str = ExtractString(subIndex.begin()->second);
     else
       str = {};
 
@@ -521,7 +567,8 @@ public:
   }
 
   template <typename... OtherStrings>
-  void Collect(LocalizableStringIndex & index, std::vector<std::string> & stringsArray,
+  void Collect(LocalizableStringIndex & index,
+               std::vector<std::string> & stringsArray,
                OtherStrings & ... args)
   {
     if (!SwitchSubIndexIfNeeded(index))
@@ -530,7 +577,26 @@ public:
     auto subIndex = index[m_counter];
     stringsArray.reserve(subIndex.size());
     for (auto const & p : subIndex)
-      stringsArray.emplace_back(ExtractString(subIndex, p.second));
+      stringsArray.emplace_back(ExtractString(p.second));
+
+    m_counter++;
+    Collect(index, args...);
+  }
+
+  template <typename... OtherStrings>
+  void Collect(LocalizableStringIndex & index, Properties & properties,
+               OtherStrings & ... args)
+  {
+    if (!SwitchSubIndexIfNeeded(index))
+      return;
+
+    auto subIndex = index[m_counter];
+    auto const sz = static_cast<int8_t>(subIndex.size() / 2);
+    for (int8_t i = 0; i < sz; i++)
+    {
+      properties.insert(std::make_pair(ExtractString(subIndex[2 * i]),
+                                       ExtractString(subIndex[2 * i + 1])));
+    }
 
     m_counter++;
     Collect(index, args...);
@@ -550,8 +616,7 @@ private:
     return m_counter < index.size();
   }
 
-  std::string ExtractString(LocalizableStringSubIndex const & subIndex,
-                            uint32_t stringIndex) const
+  std::string ExtractString(uint32_t stringIndex) const
   {
     auto const stringsCount = m_textStorage.GetNumStrings();
     if (stringIndex >= stringsCount)

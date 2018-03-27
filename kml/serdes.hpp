@@ -102,6 +102,7 @@ private:
 
   int8_t m_attrCode;
   std::string m_attrId;
+  std::string m_attrKey;
 
   LocalizableString m_name;
   LocalizableString m_description;
@@ -109,7 +110,8 @@ private:
   Timestamp m_timestamp;
   m2::PointD m_org;
   uint8_t m_viewportScale;
-  std::vector<uint32_t> m_types;
+  std::vector<uint32_t> m_featureTypes;
+  LocalizableString m_featureName;
   std::vector<LocalId> m_boundTracks;
   LocalId m_localId;
   BookmarkIcon m_icon;

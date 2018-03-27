@@ -102,7 +102,8 @@ struct BookmarkData
   DECLARE_VISITOR_AND_DEBUG_PRINT(BookmarkData, visitor(m_id, "id"),
                                   visitor(m_name, "name"),
                                   visitor(m_description, "description"),
-                                  visitor(m_types, "types"),
+                                  visitor(m_featureTypes, "featureTypes"),
+                                  visitor(m_featureName, "featureName"),
                                   visitor(m_color, "color"),
                                   visitor(m_icon, "icon"),
                                   visitor(m_viewportScale, "viewportScale"),
@@ -111,7 +112,7 @@ struct BookmarkData
                                   visitor(m_boundTracks, "boundTracks"),
                                   VISITOR_COLLECTABLE)
 
-  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description)
+  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description, m_featureName)
 
   bool operator==(BookmarkData const & data) const
   {
@@ -121,7 +122,9 @@ struct BookmarkData
            m_color == data.m_color && m_icon == data.m_icon &&
            m_viewportScale == data.m_viewportScale &&
            IsEqual(m_timestamp, data.m_timestamp) &&
-           m_point.EqualDxDy(data.m_point, kEps) && m_types == data.m_types &&
+           m_point.EqualDxDy(data.m_point, kEps) &&
+           m_featureTypes == data.m_featureTypes &&
+           m_featureName == data.m_featureName &&
            m_boundTracks == data.m_boundTracks;
   }
 
@@ -133,8 +136,10 @@ struct BookmarkData
   LocalizableString m_name;
   // Bookmark's description.
   LocalizableString m_description;
-  // Bookmark's types.
-  std::vector<uint32_t> m_types;
+  // Bound feature's types.
+  std::vector<uint32_t> m_featureTypes;
+  // Bound feature's name.
+  LocalizableString m_featureName;
   // Bookmark's color.
   ColorData m_color;
   // Bookmark's icon.
@@ -210,27 +215,36 @@ struct CategoryData
 {
   DECLARE_VISITOR_AND_DEBUG_PRINT(CategoryData, visitor(m_id, "id"),
                                   visitor(m_name, "name"),
+                                  visitor(m_imageUrl, "imageUrl"),
+                                  visitor(m_annotation, "annotation"),
                                   visitor(m_description, "description"),
                                   visitor(m_visible, "visible"),
                                   visitor(m_authorName, "authorName"),
                                   visitor(m_authorId, "authorId"),
+                                  visitor(m_rating, "rating"),
+                                  visitor(m_reviewsNumber, "reviewsNumber"),
                                   visitor(m_lastModified, "lastModified"),
                                   visitor(m_accessRules, "accessRules"),
                                   visitor(m_tags, "tags"),
-                                  visitor(m_toponyms, "toponyms"),
+                                  visitor(m_cities, "cities"),
                                   visitor(m_languageCodes, "languageCodes"),
+                                  visitor(m_properties, "properties"),
                                   VISITOR_COLLECTABLE)
 
-  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_description,
-                      m_authorName, m_authorId, m_tags, m_toponyms)
+  DECLARE_COLLECTABLE(LocalizableStringIndex, m_name, m_annotation, m_description,
+                      m_imageUrl, m_authorName, m_authorId, m_tags, m_properties)
 
   bool operator==(CategoryData const & data) const
   {
-    return m_id == data.m_id && m_name == data.m_name && m_description == data.m_description &&
+    double constexpr kEps = 1e-5;
+    return m_id == data.m_id && m_name == data.m_name && m_imageUrl == data.m_imageUrl &&
+           m_annotation == data.m_annotation && m_description == data.m_description &&
            m_visible == data.m_visible && m_accessRules == data.m_accessRules &&
            m_authorName == data.m_authorName && m_authorId == data.m_authorId &&
+           fabs(m_rating - data.m_rating) < kEps && m_reviewsNumber == data.m_reviewsNumber &&
            IsEqual(m_lastModified, data.m_lastModified) && m_tags == data.m_tags &&
-           m_toponyms == data.m_toponyms && m_languageCodes == data.m_languageCodes;
+           IsEqual(m_cities, data.m_cities) && m_languageCodes == data.m_languageCodes &&
+           m_properties == data.m_properties;
   }
 
   bool operator!=(CategoryData const & data) const { return !operator==(data); }
@@ -239,6 +253,10 @@ struct CategoryData
   CategoryId m_id = kInvalidCategoryId;
   // Category's name.
   LocalizableString m_name;
+  // Image URL.
+  std::string m_imageUrl;
+  // Category's description.
+  LocalizableString m_annotation;
   // Category's description.
   LocalizableString m_description;
   // Collection visibility.
@@ -249,14 +267,20 @@ struct CategoryData
   std::string m_authorId;
   // Last modification timestamp.
   Timestamp m_lastModified;
+  // Rating.
+  double m_rating = 0.0;
+  // Number of reviews.
+  uint32_t m_reviewsNumber = 0;
   // Access rules.
   AccessRules m_accessRules = AccessRules::Private;
   // Collection of tags.
   std::vector<std::string> m_tags;
-  // Collection of toponyms.
-  std::vector<std::string> m_toponyms;
+  // Collection of cities coordinates.
+  std::vector<m2::PointD> m_cities;
   // Language codes.
   std::vector<int8_t> m_languageCodes;
+  // Key-value properties.
+  Properties m_properties;
 };
 
 struct FileData

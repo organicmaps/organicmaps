@@ -16,6 +16,7 @@ using Timestamp = std::chrono::time_point<std::chrono::system_clock>;
 using LocalizableString = std::unordered_map<int8_t, std::string>;
 using LocalizableStringSubIndex = std::map<int8_t, uint32_t>;
 using LocalizableStringIndex = std::vector<LocalizableStringSubIndex>;
+using Properties = std::map<std::string, std::string>;
 using CategoryId = uint64_t;
 using BookmarkId = uint64_t;
 using TrackId = uint64_t;
@@ -60,6 +61,10 @@ inline bool IsEqual(Timestamp const & ts1, Timestamp const & ts2)
 uint32_t constexpr kEmptyStringId = 0;
 double constexpr kMinLineWidth = 0.0;
 double constexpr kMaxLineWidth = 100.0;
+uint32_t constexpr kLineWidthBits = 30;
+double constexpr kMinRating = 0.0;
+double constexpr kMaxRating = 10.0;
+uint32_t constexpr kRatingBits = 30;
 
 #define DECLARE_COLLECTABLE(IndexType, ...)            \
   IndexType m_collectionIndex;                         \
