@@ -5,6 +5,8 @@ set(CMAKE_AUTOUIC ON)
 
 QT5_ADD_RESOURCES(RES_SOURCES res/resources.qrc)
 
+set_property(SOURCE qrc_resources.cpp PROPERTY SKIP_AUTOGEN ON)
+
 include_directories(
   ${OMIM_ROOT}/3party/glm
   ${OMIM_ROOT}/3party/gflags/src

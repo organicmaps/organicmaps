@@ -2,6 +2,8 @@ project(qt_common)
 
 QT5_ADD_RESOURCES(RESOURCES res/resources_common.qrc)
 
+set_property(SOURCE qrc_resources_common.cpp PROPERTY SKIP_AUTOGEN ON)
+
 include_directories(
   ${OMIM_ROOT}/3party/jansson/src
 )
