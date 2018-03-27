@@ -194,7 +194,6 @@
 
   <style name="MwmTextAppearance.Discovery.Subtitle" parent="MwmTextAppearance.Body3">
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
-    <item name="android:textAllCaps">true</item>
     <item name="android:gravity">start</item>
   </style>
 
@@ -214,7 +213,6 @@
 
   <style name="MwmTextAppearance.BookingFilter.Title" parent="MwmTextAppearance.Body3">
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
-    <item name="android:textAllCaps">true</item>
   </style>
 
   <style name="MwmTextAppearance.BookingFilter.Warning" parent="MwmTextAppearance.Body3">
