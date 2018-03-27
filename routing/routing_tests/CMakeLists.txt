@@ -24,6 +24,8 @@ set(
   road_graph_builder.hpp
   road_graph_nearest_edges_test.cpp
   route_tests.cpp
+  routing_algorithm.cpp
+  routing_algorithm.hpp
   routing_helpers_tests.cpp
   routing_session_test.cpp
   turns_generator_test.cpp

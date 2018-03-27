@@ -1,8 +1,8 @@
 #include "testing/testing.hpp"
 
 #include "routing/routing_tests/road_graph_builder.hpp"
+#include "routing/routing_tests/routing_algorithm.hpp"
 
-#include "routing/routing_algorithm.hpp"
 #include "routing/features_road_graph.hpp"
 #include "routing/route.hpp"
 #include "routing/router_delegate.hpp"
