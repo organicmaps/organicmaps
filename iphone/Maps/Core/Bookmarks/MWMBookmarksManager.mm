@@ -202,7 +202,7 @@ using TLoopBlock = void (^)(Observer observer);
     {
       manager.shareCategoryURL = [NSURL fileURLWithPath:@(sharingResult.m_sharingPath.c_str())
                                             isDirectory:NO];
-      NSAssert(manager.shareCategoryURL != nil, @"Invalid share category url");
+      ASSERT(manager.shareCategoryURL, ("Invalid share category url"));
       status = MWMBookmarksShareStatusSuccess;
       break;
     }
