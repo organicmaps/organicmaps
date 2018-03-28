@@ -103,31 +103,32 @@
   <symbol minY="192" maxX="768" maxY="240" minX="720" name="09018_gym-l"/>
   <symbol minY="192" maxX="816" maxY="240" minX="768" name="09019_equestrian-l"/>
   <symbol minY="192" maxX="864" maxY="240" minX="816" name="09020_theme_park-l"/>
-  <symbol minY="192" maxX="912" maxY="240" minX="864" name="10001_kindergarten-l"/>
-  <symbol minY="192" maxX="960" maxY="240" minX="912" name="10002_school-l"/>
-  <symbol minY="192" maxX="1008" maxY="240" minX="960" name="10003_college-l"/>
-  <symbol minY="240" maxX="48" maxY="288" minX="0" name="10004_library-l"/>
-  <symbol minY="240" maxX="96" maxY="288" minX="48" name="10005_mail-l"/>
-  <symbol minY="240" maxX="144" maxY="288" minX="96" name="10008_historic-ship-l"/>
-  <symbol minY="240" maxX="192" maxY="288" minX="144" name="10012_public-building-l"/>
-  <symbol minY="240" maxX="240" maxY="288" minX="192" name="10013_hairdresser-l"/>
-  <symbol minY="240" maxX="288" maxY="288" minX="240" name="10014_taxi-l"/>
-  <symbol minY="240" maxX="336" maxY="288" minX="288" name="10015_office-l"/>
-  <symbol minY="240" maxX="384" maxY="288" minX="336" name="10016_remains-l"/>
-  <symbol minY="240" maxX="432" maxY="288" minX="384" name="10017_lighthouse-l"/>
-  <symbol minY="240" maxX="480" maxY="288" minX="432" name="10022_laundry-l"/>
-  <symbol minY="240" maxX="528" maxY="288" minX="480" name="10024_dentist-l"/>
-  <symbol minY="240" maxX="576" maxY="288" minX="528" name="10025_bookmaker-l"/>
-  <symbol minY="240" maxX="624" maxY="288" minX="576" name="10026_lawyer-l"/>
-  <symbol minY="240" maxX="672" maxY="288" minX="624" name="10027_sauna-l"/>
-  <symbol minY="240" maxX="720" maxY="288" minX="672" name="10028_picnic-l"/>
-  <symbol minY="240" maxX="768" maxY="288" minX="720" name="10029_campsite-l"/>
-  <symbol minY="240" maxX="816" maxY="288" minX="768" name="10030_hunting-tower-l"/>
-  <symbol minY="240" maxX="864" maxY="288" minX="816" name="10031_bbq-l"/>
-  <symbol minY="240" maxX="912" maxY="288" minX="864" name="10032_cemetery-l"/>
-  <symbol minY="240" maxX="960" maxY="288" minX="912" name="10033_beach-l"/>
-  <symbol minY="240" maxX="1008" maxY="288" minX="960" name="10034_dog_park-l"/>
-  <symbol minY="288" maxX="48" maxY="336" minX="0" name="10035_home-l"/>
-  <symbol minY="288" maxX="96" maxY="336" minX="48" name="10036_vending-l"/>
+  <symbol minY="192" maxX="912" maxY="240" minX="864" name="0_burger-king"/>
+  <symbol minY="192" maxX="960" maxY="240" minX="912" name="10001_kindergarten-l"/>
+  <symbol minY="192" maxX="1008" maxY="240" minX="960" name="10002_school-l"/>
+  <symbol minY="240" maxX="48" maxY="288" minX="0" name="10003_college-l"/>
+  <symbol minY="240" maxX="96" maxY="288" minX="48" name="10004_library-l"/>
+  <symbol minY="240" maxX="144" maxY="288" minX="96" name="10005_mail-l"/>
+  <symbol minY="240" maxX="192" maxY="288" minX="144" name="10008_historic-ship-l"/>
+  <symbol minY="240" maxX="240" maxY="288" minX="192" name="10012_public-building-l"/>
+  <symbol minY="240" maxX="288" maxY="288" minX="240" name="10013_hairdresser-l"/>
+  <symbol minY="240" maxX="336" maxY="288" minX="288" name="10014_taxi-l"/>
+  <symbol minY="240" maxX="384" maxY="288" minX="336" name="10015_office-l"/>
+  <symbol minY="240" maxX="432" maxY="288" minX="384" name="10016_remains-l"/>
+  <symbol minY="240" maxX="480" maxY="288" minX="432" name="10017_lighthouse-l"/>
+  <symbol minY="240" maxX="528" maxY="288" minX="480" name="10022_laundry-l"/>
+  <symbol minY="240" maxX="576" maxY="288" minX="528" name="10024_dentist-l"/>
+  <symbol minY="240" maxX="624" maxY="288" minX="576" name="10025_bookmaker-l"/>
+  <symbol minY="240" maxX="672" maxY="288" minX="624" name="10026_lawyer-l"/>
+  <symbol minY="240" maxX="720" maxY="288" minX="672" name="10027_sauna-l"/>
+  <symbol minY="240" maxX="768" maxY="288" minX="720" name="10028_picnic-l"/>
+  <symbol minY="240" maxX="816" maxY="288" minX="768" name="10029_campsite-l"/>
+  <symbol minY="240" maxX="864" maxY="288" minX="816" name="10030_hunting-tower-l"/>
+  <symbol minY="240" maxX="912" maxY="288" minX="864" name="10031_bbq-l"/>
+  <symbol minY="240" maxX="960" maxY="288" minX="912" name="10032_cemetery-l"/>
+  <symbol minY="240" maxX="1008" maxY="288" minX="960" name="10033_beach-l"/>
+  <symbol minY="288" maxX="48" maxY="336" minX="0" name="10034_dog_park-l"/>
+  <symbol minY="288" maxX="96" maxY="336" minX="48" name="10035_home-l"/>
+  <symbol minY="288" maxX="144" maxY="336" minX="96" name="10036_vending-l"/>
  </file>
 </root>
