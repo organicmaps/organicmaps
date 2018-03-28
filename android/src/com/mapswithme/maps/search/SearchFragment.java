@@ -124,7 +124,7 @@ public class SearchFragment extends BaseMwmFragment
         return;
       }
 
-      if (mLuggageCategorySelected)
+      if (mPromoCategorySelected)
         return;
 
       if (mAdsLoader != null && !isTabletSearch() && query.length() >= MIN_QUERY_LENGTH_FOR_AD)
@@ -207,7 +207,7 @@ public class SearchFragment extends BaseMwmFragment
 
   private final LastPosition mLastPosition = new LastPosition();
   private boolean mSearchRunning;
-  private boolean mLuggageCategorySelected;
+  private boolean mPromoCategorySelected;
   private String mInitialQuery;
   @Nullable
   private String mInitialLocale;
@@ -690,19 +690,19 @@ public class SearchFragment extends BaseMwmFragment
   }
 
   @Override
-  public void onCategorySelected(String category)
+  public void onCategorySelected(@Nullable String category)
   {
-    if (!TextUtils.isEmpty(category) &&
-        category.equals(CategoriesAdapter.LUGGAGE_CATEGORY + ' '))
+    PromoCategory promoCategory = PromoCategory.findByKey(category);
+    if (promoCategory != null)
     {
-      mLuggageCategorySelected = true;
-      mToolbarController.setQuery(category);
+      mPromoCategorySelected = true;
+      mToolbarController.setQuery(category + " ");
 
       Statistics.INSTANCE.trackSponsoredEventForCustomProvider(
           Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SELECTED,
-          Statistics.ParamValue.LUGGAGE_HERO);
+          promoCategory.getStatisticValue());
       showAllResultsOnMap();
-      mLuggageCategorySelected = false;
+      mPromoCategorySelected = false;
     }
     else
     {

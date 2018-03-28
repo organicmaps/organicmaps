@@ -2,7 +2,9 @@ package com.mapswithme.maps.search;
 
 import android.content.res.Resources;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -12,23 +14,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.statistics.Statistics;
 
 class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolder>
 {
+  @StringRes
   private final int mCategoryResIds[];
+  @DrawableRes
   private final int mIconResIds[];
 
   private final LayoutInflater mInflater;
   private final Resources mResources;
 
-  static final String LUGGAGE_CATEGORY = "luggagehero";
-
   interface OnCategorySelectedListener
   {
-    void onCategorySelected(String category);
+    void onCategorySelected(@Nullable String category);
   }
 
   private OnCategorySelectedListener mListener;
@@ -51,17 +52,17 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
       mCategoryResIds[i] = resources.getIdentifier(key, "string", packageName);
       if (mCategoryResIds[i] == 0)
       {
-        if (key.equals(LUGGAGE_CATEGORY))
+        PromoCategory category = PromoCategory.findByKey(key);
+        if (category != null)
         {
           Statistics.INSTANCE.trackSponsoredEventForCustomProvider(
               Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SHOWN,
-              Statistics.ParamValue.LUGGAGE_HERO);
-          mCategoryResIds[i] = R.string.luggage_storage;
+              category.getStatisticValue());
+          mCategoryResIds[i] = category.getStringId();
         }
-        else
-        {
+
+        if (mCategoryResIds[i] == 0)
           throw new IllegalStateException("Can't get string resource id for category:" + key);
-        }
       }
 
       String iconId = "ic_category_" + key;
@@ -112,10 +113,12 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
     return mCategoryResIds.length;
   }
 
-  private String getSuggestionFromCategory(int resId)
+  @NonNull
+  private String getSuggestionFromCategory(@StringRes int resId)
   {
-    if (resId == R.string.luggage_storage)
-      return LUGGAGE_CATEGORY + ' ';
+    PromoCategory promoCategory = PromoCategory.findByStringId(resId);
+    if (promoCategory != null)
+      return promoCategory.getKey();
     return mResources.getString(resId) + ' ';
   }
 

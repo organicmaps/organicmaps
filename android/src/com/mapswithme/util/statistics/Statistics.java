@@ -391,6 +391,7 @@ public enum Statistics
     static final String PLACEPAGE = "placepage";
     public static final String FACEBOOK = "facebook";
     public static final String LUGGAGE_HERO = "LuggageHero";
+    public static final String FIFA = "FIFA2018";
     public static final String CHECKIN = "check_in";
     public static final String CHECKOUT = "check_out";
     public static final String ANY = "any";
