@@ -101,6 +101,9 @@ DEFINE_bool(generate_world, false, "Generate separate world file.");
 DEFINE_bool(split_by_polygons, false,
             "Use countries borders to split planet by regions and countries.");
 
+DEFINE_string(nodes_list_path, "",
+              "Path to file containing list of node ids we need to add to locality index. May be empty.");
+
 // Routing.
 DEFINE_bool(make_routing_index, false, "Make sections with the routing information.");
 DEFINE_bool(make_cross_mwm, false,
@@ -274,7 +277,7 @@ int main(int argc, char ** argv)
 
     auto const locDataFile = my::JoinPath(path, FLAGS_output + LOC_DATA_FILE_EXTENSION);
     auto const outFile = my::JoinPath(path, FLAGS_output + LOC_IDX_FILE_EXTENSION);
-    if (!feature::GenerateLocalityData(genInfo.m_tmpDir, locDataFile))
+    if (!feature::GenerateLocalityData(genInfo.m_tmpDir, FLAGS_nodes_list_path, locDataFile))
     {
       LOG(LCRITICAL, ("Error generating locality data."));
       return -1;

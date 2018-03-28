@@ -18,11 +18,15 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
+#include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
 #include "defines.hpp"
 
+#include <cstdint>
+#include <fstream>
 #include <limits>
+#include <set>
 #include <vector>
 
 using namespace feature;
@@ -66,9 +70,6 @@ public:
 
   void operator()(FeatureBuilder2 & fb)
   {
-    if (!fb.IsLocalityObject())
-      return;
-
     // Do not limit inner triangles number to save all geometry without additional sections.
     GeometryHolder holder(fb, m_header, numeric_limits<uint32_t>::max() /* maxTrianglesNumber */);
 
@@ -124,16 +125,44 @@ FeatureBuilder2 & GetFeatureBuilder2(FeatureBuilder1 & fb)
 
 namespace feature
 {
-bool GenerateLocalityData(string const & featuresDir, string const & dataFilePath)
+bool GenerateLocalityData(string const & featuresDir, string const & nodesFile,
+                          string const & dataFile)
 {
   DataHeader header;
   header.SetCodingParams(serial::CodingParams());
   header.SetScales({scales::GetUpperScale()});
 
+  set<uint64_t> nodeIds;
+  if (!nodesFile.empty())
+  {
+    ifstream stream(nodesFile);
+    if (!stream)
+    {
+      LOG(LERROR, ("Could not open", nodesFile));
+      return false;
+    }
+
+    string line;
+    size_t lineNumber = 1;
+    while (getline(stream, line))
+    {
+      strings::SimpleTokenizer iter(line, " ");
+      uint64_t nodeId;
+      if (!iter || !strings::to_uint64(*iter, nodeId))
+      {
+        LOG(LERROR, ("Error while parsing node id at line", lineNumber, "Line contents:", line));
+        return false;
+      }
+
+      nodeIds.insert(nodeId);
+      ++lineNumber;
+    }
+  }
+
   // Transform features from raw format to LocalityObject format.
   try
   {
-    LocalityCollector collector(dataFilePath, header,
+    LocalityCollector collector(dataFile, header,
                                 static_cast<uint32_t>(my::SecondsSinceEpoch()));
 
     Platform::FilesList files;
@@ -159,7 +188,12 @@ bool GenerateLocalityData(string const & featuresDir, string const & dataFilePat
         FeatureBuilder1 f;
         ReadFromSourceRowFormat(src, f);
         // Emit object.
-        collector(GetFeatureBuilder2(f));
+        auto & fb2 = GetFeatureBuilder2(f);
+        if (fb2.IsLocalityObject() ||
+            (!fb2.GetOsmIds().empty() && nodeIds.count(fb2.GetMostGenericOsmId().EncodedId()) != 0))
+        {
+          collector(fb2);
+        }
       }
     }
 
