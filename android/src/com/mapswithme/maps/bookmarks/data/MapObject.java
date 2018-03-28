@@ -10,7 +10,7 @@ import android.text.TextUtils;
 import com.mapswithme.maps.ads.Banner;
 import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.routing.RoutePointInfo;
-import com.mapswithme.maps.taxi.TaxiManager;
+import com.mapswithme.maps.search.HotelsFilter;
 import com.mapswithme.maps.taxi.TaxiType;
 import com.mapswithme.maps.ugc.UGC;
 
@@ -66,6 +66,8 @@ public class MapObject implements Parcelable
   private boolean mCanBeReviewed;
   @Nullable
   private ArrayList<UGC.Rating> mRatings;
+  @Nullable
+  private HotelsFilter.HotelType mHotelType;
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType, String title,
                    @Nullable String secondaryTitle, String subtitle, String address,
@@ -73,12 +75,13 @@ public class MapObject implements Parcelable
                    @Nullable int[] types, @Nullable String bookingSearchUrl,
                    @Nullable LocalAdInfo localAdInfo, @Nullable RoutePointInfo routePointInfo,
                    boolean isExtendedView, boolean shouldShowUGC, boolean canBeRated,
-                   boolean canBeReviewed, @Nullable UGC.Rating[] ratings)
+                   boolean canBeReviewed, @Nullable UGC.Rating[] ratings,
+                   @Nullable HotelsFilter.HotelType hotelType)
   {
     this(featureId, mapObjectType, title, secondaryTitle,
          subtitle, address, lat, lon, new Metadata(), apiId, banners,
          types, bookingSearchUrl, localAdInfo, routePointInfo, isExtendedView, shouldShowUGC,
-         canBeRated, canBeReviewed, ratings);
+         canBeRated, canBeReviewed, ratings, hotelType);
   }
 
   public MapObject(@NonNull FeatureId featureId, @MapObjectType int mapObjectType,
@@ -88,7 +91,7 @@ public class MapObject implements Parcelable
                    @Nullable String bookingSearchUrl, @Nullable LocalAdInfo localAdInfo,
                    @Nullable RoutePointInfo routePointInfo, boolean isExtendedView,
                    boolean shouldShowUGC, boolean canBeRated, boolean canBeReviewed,
-                   @Nullable UGC.Rating[] ratings)
+                   @Nullable UGC.Rating[] ratings, @Nullable HotelsFilter.HotelType hotelType)
   {
     mFeatureId = featureId;
     mMapObjectType = mapObjectType;
@@ -117,6 +120,7 @@ public class MapObject implements Parcelable
     }
     if (ratings != null)
       mRatings = new ArrayList<>(Arrays.asList(ratings));
+    mHotelType = hotelType;
   }
 
   protected MapObject(@MapObjectType int type, Parcel source)
@@ -141,7 +145,8 @@ public class MapObject implements Parcelable
          source.readInt() == 1, // mShouldShowUGC
          source.readInt() == 1, // mCanBeRated;
          source.readInt() == 1, // mCanBeReviewed
-         null); // mRatings
+         null, // mRatings
+         source.readParcelable(HotelsFilter.HotelType.class.getClassLoader())); // mHotelType
 
     mBanners = readBanners(source);
     mReachableByTaxiTypes = readTaxiTypes(source);
@@ -156,7 +161,7 @@ public class MapObject implements Parcelable
                          "", subtitle, "", lat, lon, "", null,
                          null, "", null, null, false /* isExtendedView */,
                          false /* shouldShowUGC */, false /* canBeRated */, false /* canBeReviewed */,
-                         null /* ratings */);
+                         null /* ratings */, null /* mHotelType */);
   }
 
   @Nullable
@@ -372,6 +377,12 @@ public class MapObject implements Parcelable
     return mFeatureId;
   }
 
+  @Nullable
+  public HotelsFilter.HotelType getHotelType()
+  {
+    return mHotelType;
+  }
+
   private static MapObject readFromParcel(Parcel source)
   {
     @MapObjectType int type = source.readInt();
@@ -409,6 +420,7 @@ public class MapObject implements Parcelable
     dest.writeInt(mShouldShowUGC ? 1 : 0);
     dest.writeInt(mCanBeRated ? 1 : 0);
     dest.writeInt(mCanBeReviewed ? 1 : 0);
+    dest.writeParcelable(mHotelType, 0);
     dest.writeTypedList(mBanners);
     dest.writeList(mReachableByTaxiTypes);
     dest.writeTypedList(mRatings);

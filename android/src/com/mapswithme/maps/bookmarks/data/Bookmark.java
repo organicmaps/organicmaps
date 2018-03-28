@@ -10,6 +10,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.ads.Banner;
 import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.routing.RoutePointInfo;
+import com.mapswithme.maps.search.HotelsFilter;
 import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Constants;
@@ -30,11 +31,12 @@ public class Bookmark extends MapObject
                   @Nullable int[] reachableByTaxiTypes, @Nullable String bookingSearchUrl,
                   @Nullable LocalAdInfo localAdInfo, @Nullable RoutePointInfo routePointInfo,
                   boolean isExtendedView, boolean shouldShowUGC, boolean canBeRated,
-                  boolean canBeReviewed, @Nullable UGC.Rating[] ratings)
+                  boolean canBeReviewed, @Nullable UGC.Rating[] ratings,
+                  @Nullable HotelsFilter.HotelType hotelType)
   {
     super(featureId, BOOKMARK, title, secondaryTitle, subtitle, address, 0, 0, "",
           banners, reachableByTaxiTypes, bookingSearchUrl, localAdInfo, routePointInfo,
-          isExtendedView, shouldShowUGC, canBeRated, canBeReviewed, ratings);
+          isExtendedView, shouldShowUGC, canBeRated, canBeReviewed, ratings, hotelType);
 
     mCategoryId = categoryId;
     mBookmarkId = bookmarkId;

@@ -91,6 +91,8 @@ void Info::SetFromFeatureType(FeatureType const & ft)
     m_uiSubtitle = FormatSubtitle(false /* withType */);
     m_uiAddress = m_address;
   }
+
+  m_hotelType = ftypes::IsHotelChecker::Instance().GetHotelType(ft);
 }
 
 string Info::FormatSubtitle(bool withType) const

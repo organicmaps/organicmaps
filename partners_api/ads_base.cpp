@@ -9,7 +9,18 @@
 
 namespace ads
 {
-Container::Container() { AppendExcludedTypes({{"sponsored", "booking"}}); }
+Container::Container()
+{
+  AppendExcludedTypes({{"sponsored", "booking"},
+                       {"tourism", "hotel"},
+                       {"tourism", "apartment"},
+                       {"tourism", "camp_site"},
+                       {"tourism", "chalet"},
+                       {"tourism", "guest_house"},
+                       {"tourism", "hostel"},
+                       {"tourism", "motel"},
+                       {"tourism", "resort"}});
+}
 
 void Container::AppendEntry(std::initializer_list<std::initializer_list<char const *>> && types,
                             std::string const & id)

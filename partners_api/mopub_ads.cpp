@@ -38,12 +38,6 @@ Mopub::Mopub()
                {"amenity", "pub"},
                {"shop"},                  // shops
                {"amenity", "marketplace"},
-               {"tourism", "hotel"},      // hotels
-               {"tourism", "hostel"},
-               {"tourism", "motel"},
-               {"tourism", "apartment"},
-               {"tourism", "resort"},
-               {"tourism", "chalet"},
                {"tourism", "zoo"},        // sights
                {"tourism", "artwork"},
                {"tourism", "information"},
@@ -79,7 +73,7 @@ Mopub::Mopub()
                {"amenity", "hospital"},
                {"amenity", "pharmacy"},
                {"amenity", "veterinary"},
-               {"amenity", "bank"},       // finansial
+               {"amenity", "bank"},       // financial
                {"amenity", "atm"},
                {"amenity", "bureau_de_change"}},
               kNonTourismPlacementId);

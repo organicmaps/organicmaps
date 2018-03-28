@@ -12,6 +12,7 @@
 
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_meta.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/map_object.hpp"
 #include "indexer/osm_editor.hpp"
 
@@ -209,6 +210,8 @@ public:
   void SetMercator(m2::PointD const & mercator) { m_mercator = mercator; }
   std::vector<std::string> GetRawTypes() const { return m_types.ToObjectNames(); }
 
+  boost::optional<ftypes::IsHotelChecker::Type> GetHotelType() const { return m_hotelType; }
+
 private:
   std::string FormatSubtitle(bool withType) const;
   void GetPrefferedNames(std::string & primaryName, std::string & secondaryName) const;
@@ -292,6 +295,8 @@ private:
   std::string m_partnerName;
 
   feature::TypesHolder m_sortedTypes;
+
+  boost::optional<ftypes::IsHotelChecker::Type> m_hotelType;
 };
 
 namespace rating

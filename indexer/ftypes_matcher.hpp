@@ -12,6 +12,8 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
+#include <boost/optional.hpp>
+
 namespace feature { class TypesHolder; }
 class FeatureType;
 
@@ -172,6 +174,8 @@ public:
   static char const * GetHotelTypeTag(Type type);
 
   unsigned GetHotelTypesMask(FeatureType const & ft) const;
+
+  boost::optional<Type> GetHotelType(FeatureType const & ft) const;
 
   DECLARE_CHECKER_INSTANCE(IsHotelChecker);
 private:

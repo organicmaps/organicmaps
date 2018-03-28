@@ -6,7 +6,6 @@ auto const kFoodPlacementId = "1";
 auto const kShopsPlacementId = "2";
 auto const kCityTransportPlacementId = "13";
 auto const kGlobalTransportPlacementId = "12";
-auto const kHotelsPlacementId = "4";
 auto const kSightsPlacementId = "5";
 auto const kLargeToponymsPlacementId = "6";
 auto const kHealthPlacementId = "7";
@@ -59,15 +58,7 @@ Rb::Rb()
                {"man_made", "pier"}},
               kGlobalTransportPlacementId);
 
-  AppendEntry({{"tourism", "hotel"},
-               {"tourism", "hostel"},
-               {"tourism", "motel"},
-               {"tourism", "apartment"},
-               {"tourism", "resort"}},
-              kHotelsPlacementId);
-
-  AppendEntry({{"tourism", "chalet"},
-               {"tourism", "zoo"},
+  AppendEntry({{"tourism", "zoo"},
                {"tourism", "artwork"},
                {"tourism", "information"},
                {"tourism", "attraction"},

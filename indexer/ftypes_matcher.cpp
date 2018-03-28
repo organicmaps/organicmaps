@@ -321,6 +321,26 @@ unsigned IsHotelChecker::GetHotelTypesMask(FeatureType const & ft) const
   return mask;
 }
 
+boost::optional<IsHotelChecker::Type> IsHotelChecker::GetHotelType(FeatureType const & ft) const
+{
+  feature::TypesHolder types(ft);
+  buffer_vector<uint32_t, feature::kMaxTypesCount> sortedTypes(types.begin(), types.end());
+  sort(sortedTypes.begin(), sortedTypes.end());
+
+  size_t i = 0;
+  size_t j = 0;
+  while (i < sortedTypes.size() && j < m_sortedTypes.size())
+  {
+    if (sortedTypes[i] < m_sortedTypes[j].first)
+      ++i;
+    else if (sortedTypes[i] > m_sortedTypes[j].first)
+      ++j;
+    else
+      return m_sortedTypes[j].second;
+  }
+  return {};
+}
+
 // static
 char const * IsHotelChecker::GetHotelTypeTag(Type type)
 {
