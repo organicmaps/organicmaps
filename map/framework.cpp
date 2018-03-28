@@ -349,7 +349,8 @@ void Framework::Migrate(bool keepDownloaded)
 Framework::Framework(FrameworkParams const & params)
   : m_localAdsManager(bind(&Framework::GetMwmsByRect, this, _1, true /* rough */),
                       bind(&Framework::GetMwmIdByName, this, _1),
-                      bind(&Framework::ReadFeatures, this, _1, _2))
+                      bind(&Framework::ReadFeatures, this, _1, _2),
+                      bind(&Framework::GetFeatureByID, this, _1, _2))
   , m_startForegroundTime(0.0)
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_enabledDiffs(params.m_enableDiffs)
@@ -1873,6 +1874,7 @@ void Framework::SetMapStyle(MapStyle mapStyle)
   if (m_drapeEngine != nullptr)
     m_drapeEngine->UpdateMapStyle();
   InvalidateUserMarks();
+  m_localAdsManager.Invalidate();
   UpdateMinBuildingsTapZoom();
 }
 

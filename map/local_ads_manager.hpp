@@ -39,10 +39,11 @@ public:
   using ReadFeatureTypeFn = std::function<void(FeatureType const &)>;
   using ReadFeaturesFn = std::function<void(ReadFeatureTypeFn const &,
                                             std::set<FeatureID> const & features)>;
+  using GetFeatureByIdFn = std::function<bool(FeatureID const &, FeatureType &)>;
   using Timestamp = local_ads::Timestamp;
 
   LocalAdsManager(GetMwmsByRectFn && getMwmsByRectFn, GetMwmIdByNameFn && getMwmIdByName,
-                  ReadFeaturesFn && readFeaturesFn);
+                  ReadFeaturesFn && readFeaturesFn, GetFeatureByIdFn && getFeatureByIDFn);
   LocalAdsManager(LocalAdsManager && /* localAdsManager */) = default;
 
   void Startup(BookmarkManager * bmManager);
@@ -89,6 +90,7 @@ private:
   GetMwmsByRectFn const m_getMwmsByRectFn;
   GetMwmIdByNameFn const m_getMwmIdByNameFn;
   ReadFeaturesFn const m_readFeaturesFn;
+  GetFeatureByIdFn const m_getFeatureByIdFn;
 
   std::atomic<BookmarkManager *> m_bmManager;
 
