@@ -82,13 +82,13 @@ colors
   PoiDeletedMask-color: #FFFFFF;
   PoiDeletedMask-opacity: 0.3;
   DefaultTrackColor-color: #1E96F0;
-  RouteMarkPrimaryText-color: #FFFFFF;
+  RouteMarkPrimaryText-color: #888888;
   RouteMarkPrimaryTextOutline-color: #000000;
-  RouteMarkSecondaryText-color: #FFFFFF;
+  RouteMarkSecondaryText-color: #888888;
   RouteMarkSecondaryTextOutline-color: #000000;
-  LocalAdsPrimaryText-color: #FFFFFF;
+  LocalAdsPrimaryText-color: #888888;
   LocalAdsPrimaryTextOutline-color: #000000;
-  LocalAdsSecondaryText-color: #FFFFFF;
+  LocalAdsSecondaryText-color: #888888;
   LocalAdsSecondaryTextOutline-color: #000000;
   TransitBackground-color: #000000;
   TransitBackground-opacity: 0.4;
