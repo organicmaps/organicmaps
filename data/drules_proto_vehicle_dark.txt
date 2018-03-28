@@ -40135,7 +40135,7 @@ colors {
   }
   value {
     name: "LocalAdsPrimaryText"
-    color: 16777215
+    color: 8947848
   }
   value {
     name: "RoadShieldUKYellowText"
@@ -40183,7 +40183,7 @@ colors {
   }
   value {
     name: "LocalAdsSecondaryText"
-    color: 16777215
+    color: 8947848
   }
   value {
     name: "TransitBackground"
@@ -40203,7 +40203,7 @@ colors {
   }
   value {
     name: "RouteMarkPrimaryText"
-    color: 16777215
+    color: 8947848
   }
   value {
     name: "RouteMarkPrimaryTextOutline"
@@ -40238,7 +40238,7 @@ colors {
   }
   value {
     name: "RouteMarkSecondaryText"
-    color: 16777215
+    color: 8947848
   }
   value {
     name: "TrackPlaneSpeed"
