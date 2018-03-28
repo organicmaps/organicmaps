@@ -66,6 +66,10 @@
     provider = kStatFacebook;
     socialTokenType = User::SocialTokenType::Facebook;
     break;
+  case MWMSocialTokenTypePhone:
+    provider = kStatPhone;
+    socialTokenType = User::SocialTokenType::Phone;
+    break;
   }
   auto s = std::make_unique<User::Subscriber>();
   s->m_postCallAction = User::Subscriber::Action::RemoveSubscriber;

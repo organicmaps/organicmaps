@@ -3,11 +3,15 @@
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 
+#include "coding/serdes_json.hpp"
 #include "coding/url_encode.hpp"
+#include "coding/writer.hpp"
 
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
+
+#include "base/visitor.hpp"
 
 #include "3party/Alohalytics/src/alohalytics.h"
 #include "3party/jansson/myjansson.hpp"
@@ -41,24 +45,28 @@ std::string AuthenticationUrl(std::string const & socialToken,
   if (kPassportServerUrl.empty())
     return {};
 
-  std::string socialTokenStr;
+  std::ostringstream ss;
+  ss << kPassportServerUrl;
   switch (socialTokenType)
   {
   case User::SocialTokenType::Facebook:
-    socialTokenStr = "facebook";
-    break;
-  case User::SocialTokenType::Google:
-    socialTokenStr = "google-oauth2";
-    break;
-  default:
-    LOG(LWARNING, ("Unknown social token type"));
-    return {};
+  {
+    ss << "/register-by-token/facebook/?access_token=" << UrlEncode(socialToken)
+       << "&app=" << kAppName;
+    return ss.str();
   }
-
-  std::ostringstream ss;
-  ss << kPassportServerUrl << "/register-by-token/" << socialTokenStr
-     << "/?access_token=" << UrlEncode(socialToken) << "&app=" << kAppName;
-  return ss.str();
+  case User::SocialTokenType::Google:
+  {
+    ss << "/register-by-token/google-oauth2/?access_token=" << UrlEncode(socialToken)
+       << "&app=" << kAppName;
+    return ss.str();
+  }
+  case User::SocialTokenType::Phone:
+  {
+    ss << "/otp/token/";
+    return ss.str();
+  }
+  }
 }
 
 std::string UserDetailsUrl()
@@ -120,6 +128,31 @@ std::vector<uint64_t> DeserializeReviewIds(std::string const & reviewIdsSrc)
     return {};
   }
   return result;
+}
+
+struct PhoneAuthRequestData
+{
+  std::string m_cliendId;
+  std::string m_code;
+
+  explicit PhoneAuthRequestData(std::string const & code)
+    : m_cliendId("phone_device_app")
+    , m_code(code)
+  {}
+
+  DECLARE_VISITOR(visitor(m_cliendId, "client_id"),
+                  visitor(m_code, "code"))
+};
+
+template<typename DataType>
+std::string SerializeToJson(DataType const & data)
+{
+  std::string jsonStr;
+  using Sink = MemWriter<std::string>;
+  Sink sink(jsonStr);
+  coding::SerializerJson<Sink> serializer(sink);
+  serializer(data);
+  return jsonStr;
 }
 }  // namespace
 
@@ -207,9 +240,20 @@ void User::Authenticate(std::string const & socialToken, SocialTokenType socialT
   if (!StartAuthentication())
     return;
 
-  GetPlatform().RunTask(Platform::Thread::Network, [this, url]()
+  BuildRequestHandler phoneAuthParams;
+  if (socialTokenType == SocialTokenType::Phone)
   {
-    Request(url, nullptr, [this](std::string const & response)
+    phoneAuthParams = [socialToken](platform::HttpClient & request)
+    {
+      auto jsonData = SerializeToJson(PhoneAuthRequestData(socialToken));
+      request.SetBodyData(jsonData, "application/json");
+    };
+  }
+
+  GetPlatform().RunTask(Platform::Thread::Network,
+                        [this, url, phoneAuthParams = std::move(phoneAuthParams)]()
+  {
+    Request(url, phoneAuthParams, [this](std::string const & response)
     {
       SetAccessToken(ParseAccessToken(response));
       FinishAuthentication();

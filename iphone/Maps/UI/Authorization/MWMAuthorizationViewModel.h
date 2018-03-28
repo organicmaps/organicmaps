@@ -1,6 +1,7 @@
 typedef NS_ENUM(NSInteger, MWMSocialTokenType) {
   MWMSocialTokenTypeGoogle,
-  MWMSocialTokenTypeFacebook
+  MWMSocialTokenTypeFacebook,
+  MWMSocialTokenTypePhone
 };
 
 typedef NS_ENUM(NSInteger, MWMAuthorizationSource) {

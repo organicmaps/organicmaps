@@ -213,6 +213,7 @@ static NSString * const kStatOrientation = @"Orientation";
 static NSString * const kStatOther = @"Other";
 static NSString * const kStatOut = @"Out";
 static NSString * const kStatPedestrian = @"Pedestrian";
+static NSString * const kStatPhone = @"Phone";
 static NSString * const kStatPlacePage = @"placepage";
 static NSString * const kStatPlacePageBannerBlank = @"Placepage_Banner_blank";
 static NSString * const kStatPlacePageBannerClick = @"Placepage_Banner_click";

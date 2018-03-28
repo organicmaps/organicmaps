@@ -25,7 +25,8 @@ public:
   enum SocialTokenType
   {
     Facebook,
-    Google
+    Google,
+    Phone
   };
 
   struct Subscriber

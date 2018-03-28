@@ -165,10 +165,18 @@ final class AuthorizationViewController: MWMViewController {
     dismiss(animated: true)
     completionHandler?(self)
   }
+  
+  private func getProviderStatStr(type: MWMSocialTokenType) -> String {
+    switch type {
+    case .facebook: return kStatFacebook
+    case .google: return kStatGoogle
+    case .phone: return kStatPhone
+    }
+  }
 
   private func process(error: Error, type: MWMSocialTokenType) {
     Statistics.logEvent(kStatUGCReviewAuthError, withParameters: [
-      kStatProvider: type == .facebook ? kStatFacebook : kStatGoogle,
+      kStatProvider: getProviderStatStr(type: type),
       kStatError: error.localizedDescription,
     ])
     textLabel.text = L("profile_authorization_error")
@@ -176,7 +184,7 @@ final class AuthorizationViewController: MWMViewController {
   }
 
   private func process(token: String, type: MWMSocialTokenType) {
-    Statistics.logEvent(kStatUGCReviewAuthExternalRequestSuccess, withParameters: [kStatProvider: type == .facebook ? kStatFacebook : kStatGoogle])
+    Statistics.logEvent(kStatUGCReviewAuthExternalRequestSuccess, withParameters: [kStatProvider: getProviderStatStr(type: type)])
     ViewModel.authenticate(withToken: token, type: type, source: sourceComponent) { success in
       if success {
         self.successHandler?(type)

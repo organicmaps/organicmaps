@@ -107,6 +107,7 @@ import static com.mapswithme.util.statistics.Statistics.ParamValue.GOOGLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.HOLIDAY;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.MAPSME;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.PHONE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.SEARCH_BOOKING_COM;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.VIATOR;
 
@@ -395,6 +396,7 @@ public enum Statistics
     public static final String ANY = "any";
     public static final String GOOGLE = "google";
     public static final String MAPSME = "mapsme";
+    public static final String PHONE = "phone";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -982,6 +984,8 @@ public enum Statistics
         return FACEBOOK;
       case Framework.SOCIAL_TOKEN_GOOGLE:
         return GOOGLE;
+      case Framework.SOCIAL_TOKEN_PHONE:
+        return PHONE;
       case Framework.TOKEN_MAPSME:
         return MAPSME;
       default:

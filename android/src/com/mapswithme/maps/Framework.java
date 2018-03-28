@@ -81,13 +81,15 @@ public class Framework
   public static final int ROUTE_REBUILD_AFTER_POINTS_LOADING = 0;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ SOCIAL_TOKEN_FACEBOOK, SOCIAL_TOKEN_GOOGLE, TOKEN_MAPSME })
+  @IntDef({ SOCIAL_TOKEN_FACEBOOK, SOCIAL_TOKEN_GOOGLE, SOCIAL_TOKEN_PHONE, TOKEN_MAPSME })
   public @interface AuthTokenType
   {}
 
   public static final int SOCIAL_TOKEN_FACEBOOK = 0;
   public static final int SOCIAL_TOKEN_GOOGLE = 1;
-  public static final int TOKEN_MAPSME = 2;
+  public static final int SOCIAL_TOKEN_PHONE = 2;
+  //TODO(@alexzatsepin): remove TOKEN_MAPSME from this list.
+  public static final int TOKEN_MAPSME = 3;
 
   @SuppressWarnings("unused")
   public interface MapObjectListener
