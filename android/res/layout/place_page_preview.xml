@@ -188,8 +188,13 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/placepage_banner_height"
     android:layout_alignWithParentIfMissing="true"
+    android:layout_marginLeft="@dimen/margin_quarter"
+    android:layout_marginStart="@dimen/margin_quarter"
+    android:layout_marginBottom="@dimen/margin_quarter"
+    android:layout_marginRight="@dimen/margin_quarter"
+    android:layout_marginEnd="@dimen/margin_quarter"
     android:layout_below="@id/tv__address"
-    android:layout_marginTop="@dimen/margin_base"
+    android:layout_marginTop="@dimen/margin_half_plus"
     android:visibility="gone"
     tools:visibility="visible"/>
 </RelativeLayout>

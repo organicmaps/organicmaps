@@ -184,6 +184,7 @@
   <dimen name="placepage_banner_icon_size">40dp</dimen>
   <dimen name="placepage_banner_button_height">36dp</dimen>
   <dimen name="placepage_banner_button_margin_top">5dp</dimen>
+  <dimen name="placepage_banner_small_action_corner">20dp</dimen>
 
   <!-- Place page taxi-->
   <dimen name="placepage_taxi_button_min_width">96dp</dimen>

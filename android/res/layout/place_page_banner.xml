@@ -5,8 +5,8 @@
   android:layout_width="match_parent"
   android:layout_height="@dimen/placepage_banner_height"
   android:minHeight="@dimen/placepage_banner_height"
-  android:paddingLeft="@dimen/margin_base"
-  android:paddingRight="@dimen/margin_base"
+  android:paddingLeft="@dimen/margin_half_plus"
+  android:paddingRight="@dimen/margin_half_plus"
   android:paddingTop="@dimen/margin_half"
   android:background="?bannerBackground"
   android:clipToPadding="false"
@@ -24,12 +24,15 @@
     android:layout_marginLeft="@dimen/margin_half"
     android:layout_marginStart="@dimen/margin_half"
     android:textSize="@dimen/text_size_body_4"
-    android:textColor="?warmGray"
+    android:textColor="?android:textColorSecondary"
+    android:textAllCaps="true"
     android:background="?adsActionBackground"
     android:foreground="?clickableBackground"
     android:visibility="gone"
     tools:text="Заказать"
-    tools:visibility="visible"/>
+    tools:visibility="visible"
+    android:fontFamily="@string/robotoMedium"
+    tools:targetApi="jelly_bean"/>
 
   <RelativeLayout
     android:id="@+id/data_frame"
@@ -64,12 +67,13 @@
         android:layout_marginRight="@dimen/margin_quarter"
         android:layout_marginEnd="@dimen/margin_quarter"
         android:textSize="@dimen/text_size_banner"
-        android:textColor="?adsText"
+        android:textColor="?android:textColorSecondary"
         android:gravity="center"
         android:visibility="gone"
         android:background="?adsBackground"
-        android:text="@string/advertisement"/>
-
+        android:text="@string/advertisement"
+        android:fontFamily="@string/robotoMedium"
+        tools:targetApi="jelly_bean"/>
       <TextView
         android:id="@+id/tv__banner_title"
         android:layout_width="match_parent"
@@ -103,15 +107,18 @@
   <TextView
     android:id="@+id/tv__action_large"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/placepage_banner_button_height"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/placepage_banner_button_height"
     android:layout_below="@id/data_frame"
-    android:layout_marginLeft="@dimen/neg_margin_base"
-    android:layout_marginRight="@dimen/neg_margin_base"
     android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:textAllCaps="true"
     android:background="?bannerButtonBackground"
     android:foreground="?clickableBackground"
     android:gravity="center"
     android:visibility="gone"
     tools:text="Заказать"
-    tools:visibility="visible"/>
+    tools:visibility="visible"
+    android:layout_marginBottom="@dimen/margin_half"
+    android:fontFamily="@string/robotoMedium"
+    tools:targetApi="jelly_bean"/>
 </RelativeLayout>

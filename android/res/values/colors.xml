@@ -165,12 +165,12 @@
   <color name="bg_brand_partner1_pressed">#FFF2CE00</color>
 
   <!-- Banner colors -->
-  <color name="bg_banner_color">#FFFFFBF3</color>
+  <color name="bg_banner_color">#FFFDFFE6</color>
   <color name="bg_banner_color_night">#FF484C50</color>
   <color name="text_banner_color">#28000000</color>
   <color name="text_banner_color_night">#28FFFFFF</color>
-  <color name="bg_banner_button">#FFF3EBDA</color>
-  <color name="bg_banner_button_night">#FF52565A</color>
+  <color name="bg_banner_button">@color/black_12</color>
+  <color name="bg_banner_button_night">@color/white_12</color>
   <color name="text_ads_color">#FFFFFBF2</color>
   <color name="text_ads_color_night">#FFFFFBF2</color>
   <color name="banner_action_btn_start_anim_night">#FF888A82</color>
