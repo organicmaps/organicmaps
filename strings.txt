@@ -30130,4 +30130,9 @@ fa = دوباره نپرس
 
   [please_wait]
     en = Please wait...
-    ru = Пожалуйста, подождите...     
+    ru = Пожалуйста, подождите...
+
+  [football_world_cup]
+    en = Football World Cup 2018
+    ru = ЧМ по футболу 2018
+           
