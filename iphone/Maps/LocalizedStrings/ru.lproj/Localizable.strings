@@ -2257,3 +2257,5 @@
 "notification_unsent_reviews_message" = "Пожалуйста, авторизуйтесь, чтобы поделиться своими отзывами с другими путешественниками";
 
 "profile_osm" = "Профиль OSM";
+
+"place_page_search_similar_hotel" = "Найти похожие отели";
