@@ -4130,38 +4130,8 @@ fa = دوباره نپرس
     sk = Zdielané záložky MAPS.ME
 
   [share_bookmarks_email_body]
-    comment = Email text when sharing bookmarks category
-    tags = ios,android
     en = Hello!\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open them if you have MAPS.ME installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!
-    ru = Здравствуйте!\n\nВ прикрепленном файле "%@.kmz" мои метки из офлайновых карт MAPS.ME. Для того, чтобы открыть этот файл, вам потребуется приложение MAPS.ME, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!
-    ar = مرحباً،\n\nمرفق طياً اشاراتي المرجعية من خرائط MAPS.ME المتوافرة بدون الاتصال مع الانترنت. الرجاء فتحها اذا كان لديك تطبيق MAPS.ME مثبت على جهازك. اذا لم يكن التطبيق مثبت لديك، قم بتنزيله على جهازك أندرويد أو آي او إس من خلال الرابط التالي: http://maps.me/get?kmz\n\nاستمتع بالسفر مع MAPS.ME!
-    cs = Ahoj!\n\nZde jsou mé záložky z offline map aplikace MAPS.ME v přiloženém souboru „%@.kmz“. Pokud máš již aplikaci MAPS.ME nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://maps.me/get?kmz\n\nSkvěle se bav s MAPS.ME!
-    da = Hej, vedhæftet er mine bogmærker fra MAPS.ME offline kort. Åbn venligst vedhæftet hvis du har MAPS.ME installeret. Hvis ikke, så download app'en til din iOS eller Android enhed fra dette link: http://maps.me/get?kmz.\n\ Nyd at rejse med MAPS.ME!
-    nl = Hallo,\n\nHier zijn mijn bladwijzers uit de MAPS.ME offline kaarten, in het bijgevoegde "%@.kmz"-bestand. Open het bestand als u MAPS.ME al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://maps.me/get?kmz\n\nVeel plezier met MAPS.ME!
-    fi = Hei,\n\nLiitteenä ovat kirjanmerkkini MAPS.ME:n offline-kartoista. Voit avata liitteen mikäli olet jo asentanut MAPS.ME -sovelluksen. Mikäli et ole vielä asentanut sitä, voit ladata sen iOS- tai Android-laitteellesi oheisen linkin kautta: http://maps.me/get?kmz\n\nNauti reissailusta MAPS.ME:n kanssa!
-    fr = Bonjour,\n\nVous trouverez ci-joints mes signets de MAPS.ME - cartes hors ligne. Veuillez ouvrir le fichier si vous avez MAPS.ME d'installé. Sinon, téléchargez l'appli pour votre appareil iOS ou Android en suivant ce lien http://maps.me/get?kmz\n\nAppréciez vos voyages avec MAPS.ME !
-    de = Hallo,\n\nIn der angefügten „%@.KMZ“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MAPS.ME. Falls Sie MAPS.ME bereits installiert haben, müssen Sie die App nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://maps.me/get?kmz herunterladen.\n\nViel Spaß unterwegs mit MAPS.ME!
-    hu = Üdvözlöm!\n\nA mellékelt "%@.kmz" fájl tartalmazza a MAPS.ME könyvjelzőimet. Kérem nyissa meg, ha a MAPS.ME már telepítve van. Ha még nincs, akkor innen töltheti le: http://maps.me/get?kmz\n\nSok sikert a program használatához!
-    id = Salam,\n\nTerlampir penanda lokasi saya dari peta offline MAPS.ME. Mohon dibuka jika Anda memasang MAPS.ME. Jika tidak, unduhlah aplikasinya untuk perangkat iOS atau Android Anda melalui tautan ini: http://maps.me/get?kmz\n\nNikmatilah bepergian menggunakan MAPS.ME!
-    it = Ciao,\n\nQuesti sono i miei "preferiti" fra le mappe offline di MAPS.ME, che si trovano nel file allegato "%@.kmz". Il file può essere aperto se l'app MAPS.ME è già stata installata. In caso contrario, occorre scaricare l'app per il tuo iOS o dispositivo Android dal link http://maps.me/get?kmz\n\nBuon divertimento con MAPS.ME!
-    ja = MAPS.MEで作成したブックマークを添付ファイル"%@.kmz"で送付します。MAPS.ME がインストールされている端末でファイルを開いてみてください。インストールはこちらから http://maps.me/get?kmz iOSまたはAndroidデバイスで利用可能です。\n\nMAPS.MEで楽しい時間をお過ごしください！
-    ko = 안녕하세요.\n\n첨부된 "%@.kmz" 파일에 MAPS.ME 이미 설치되어 있다면 열어 보시기 바랍니다. MAPS.ME 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://maps.me/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nMAPS.ME와 함께 즐거운 시간 되시기 바랍니다!
-    nb = Hallo,\n\nVedlagt er bokmerkene mine fra MAPS.ME offline-kart. De kan åpnes hvis du har installert MAPS.ME. Hvis ikke kan du laste ned appen til en iOS- eller Android-enhet ved å følge denne koblingen: http://maps.me/get?kmz\n\nKos deg på reisen med MAPS.ME!
-    pl = Cześć,\n\nOto moje zakładki pochodzące z aplikacji MAPS.ME wraz z załączonymi mapami offline w pliku „%@.kmz”. Proszę otwórz je jeśli posiadasz zainstalowaną aplikację MAPS.ME. Jeśli nie, najpierw pobierz ją na swoje urządzenie z systemem iOS lub Android pod tym odnośnikiem: http://maps.me/get?kmz\n\nBaw się dobrze z MAPS.ME!
-    pt = Olá,\n\nAqui estão os meus favoritos dos mapas offline do MAPS.ME, anexados no ficheiro "%@.kmz". Por favor abra-os se já tiver instalado o MAPS.ME. Caso contrário, descarregue primeiro a app para o seu dispositivo iOS ou Android a partir desta hiperligação: http://maps.me/get?kmz\n\nDisfrute do MAPS.ME!
-    pt-BR = Olá,\n\nAqui estão os meus favoritos dos mapas offline do MAPS.ME, anexados no arquivo "%@.kmz". Por favor abra-os se já tiver instalado o MAPS.ME. Caso contrário, baixe primeiro o app para o seu dispositivo iOS ou Android a partir deste link: http://maps.me/get?kmz\n\nAproveite o MAPS.ME!
-    ro = Salutări,\n\nAm atașat marcajele mele din hărțile offline MAPS.ME. Te rog să le deschizi, dacă ai MAPS.ME instalată. Dacă nu, poți descărca aplicația pentru dispozitivul tău iOS sau Android, urmând acest link: http://maps.me/get?kmz\n\nCălătorie plăcută cu MAPS.ME!
-    es = ¡Hola!\n\nEn el archivo adjunto "%@.kmz", están mis marcadores de los mapas offline MAPS.ME. Por favor, ábrelo con MAPS.ME si ya lo has instalado. En caso contrario, descarga primero la aplicación para dispositivos iOS o Android desde el siguiente enlace: http://maps.me/get?kmz\n\n¡Que disfrutes de MAPS.ME!
-    sv = Hej,\n\nMina bokmärken från MAPS.ME offline-kartor är bifogade. Öppna dem ifall du har MAPS.ME installerat. Om inte, ladda ner appen till din iOS- eller Android-enhet från denna länk: http://maps.me/get?kmz\n\nNjut av att resa med MAPS.ME!
-    th = สวัสดี n\nสิ่งที่แนบ "%@.kmz" คือบุ๊กมาร์กของฉันจากแผนที่ MAPS.ME แบบออฟไลฟ์ โปรดเปิดมันหากคุณได้ติดตั้ง MAPS.ME หากยังไม่ได้ดาวน์โหลดแอปสำหรับอุปกรณ์ iOS และ Android ของคุณ โปรดทำตามลิงก์นี้: http://maps.me/get?kmz\n\nสนุกไปกับการเดินทางไปกับ MAPS.ME!
-    tr = Selamlar,\n\nEkte MAPS.ME çevrimdışı haritalarından yer imlerim var. Lütfen MAPS.ME sende yüklü ise aç. Değilse iOS veya Android cihazın için aşağıdaki bağlantıdan uygulamayı indir: http://maps.me/get?kmz.\n\nMAPS.ME ile iyi seyahatler!
-    uk = Вітаю!\n\nОсь мої мiтки з офлайн карт MAPS.ME у доданому файлі "%@.kmz". Ви можете відкрти його, якщо у вас встановлена MAPS.ME. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://maps.me/get?kmz\n\nПриємних розваг з MAPS.ME!
-    vi = Xin chào,\n\nPhần đính kèm là các điểm đánh dấu của tôi từ bản đồ ngoại tuyến MAPS.ME. Vui lòng mở nó nếu bạn đã cài đặt MAPS.ME. Nếu không, hãy tải xuống ứng dụng này cho thiết bị iOS hoặc Android của bạn theo liên kết sau: http://maps.me/get?kmz\n\nChúc bạn du lịch vui vẻ cùng MAPS.ME!
-    zh-Hans = 欢迎,\n\n附件是 MAPS.ME 离线地图中我 的书签。如果您已安装 MAPS.ME, 请打开它。若没有,请为您的 iOS 或安卓设 备下载此应用。下载链接: http://maps.me/get?kmz\n\n享 受 和 MAPS.ME 的旅行吧!
-    zh-Hant = 哈囉！\n\n這是我的 MAPS.ME 離線地圖中所夾帶的「%@.kmz」書籤檔案。若您已安裝 MAPS.ME 的話請開啟它，否則請先從 http://maps.me/get?kmz 這個連結下載 iOS 或 Android 平台的應用程式。\n\n祝您使用MAPS.ME愉快!
-    el = Γεια!\n\nΕπισυνάπτω τα αγαπημένα μου MAPS.ME από τους χάρτες εκτός σύνδεσης. Μπορείς να τους ανοίξεις εάν έχεςις MAPS.ME. Εάν δεν έχεις, μπορείς να κεταβάσεις την εφαρμογή για συσκευές iOS ή Android από αυτό το σύνδεσμο: http://maps.me/get?kmz\n\nΑπόλαυσε τα ταξίδια με το MAPS.ME!
-    he = . פתח אותה אם התקנת MAPS.ME מצ"ב רשימת האתרים שלי ממפות לא מקוונות שלברכות, או האנדרויד שלך מהאתר הבא: iOS. אם לא, הורד הישום למכשיר ה MAPS.ME! MAPS.ME נסיעה מהנה עם http://maps.me/get?kmz
-    sk = Ahoj!\n\nTu sú moje záložky z offline map aplikácie MAPS.ME v priloženom súbore "%@.kmz". Pokiaľ máte už podobnú aplikáciu MAPS.ME nainštalovanú, otvorte si, prosím tento súbor. V opačnom prípade si najprv nainštalujte aplikáciu pre svoje iOS alebo Android zariadenie z tohto odkazu http://maps.me/get?kmz\n\nPríjemnú zábavu s MAPS.ME!
+    ru = Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт MAPS.ME. Для того, чтобы открыть этот файл, вам потребуется приложение MAPS.ME, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо! 
 
   [load_kmz_title]
     comment = message title of loading file
@@ -30135,4 +30105,20 @@ fa = دوباره نپرس
   [football_world_cup]
     en = Football World Cup 2018
     ru = ЧМ по футболу 2018
-           
+
+  [phone_number]
+    en = Phone number
+    ru = Номер телефона
+
+  [notification_unsent_reviews_title]
+    en = You have several unsent reviews
+    ru = У вас есть неотправленные отзывы
+
+  [notification_unsent_reviews_message]
+    en = Please sign in to share reviews with other travelers
+    ru = Пожалуйста, авторизуйтесь, чтобы поделиться своими отзывами с другими путешественниками  
+
+  [profile_osm]
+    en = Profile OSM
+    ru = Профиль OSM  
+       
