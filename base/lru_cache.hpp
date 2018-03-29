@@ -97,7 +97,7 @@ private:
       CHECK_EQUAL(removed, 1, ());
       // Putting new age.
       m_ageToKey[m_age] = key;
-      m_keyToAge[key] = m_age;
+      keyToAgeIt->second = m_age;
     }
 
     /// \returns Least recently used key without updating the age.
@@ -154,7 +154,7 @@ private:
   private:
     size_t m_age = 0;
     std::map<size_t, Key> m_ageToKey;
-    std::map<Key, size_t> m_keyToAge;
+    std::unordered_map<Key, size_t> m_keyToAge;
   };
 
   size_t const m_maxCacheSize;
