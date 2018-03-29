@@ -221,8 +221,6 @@
 	<string name="share_by_email">Eメールで共有</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">MAPS.MEの位置情報シェア</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">MAPS.MEで作成したブックマークを添付ファイル\"%s.kmz\"で送付します。MAPS.ME がインストールされている端末でファイルを開いてみてください。インストールはこちらから http://maps.me/get?kmz iOSまたはAndroidデバイスで利用可能です。\n\nMAPS.MEで楽しい時間をお過ごしください！</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">ブックマークの読み込み中</string>
 	<!-- Kmz file successful loading -->

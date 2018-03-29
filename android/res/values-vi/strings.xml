@@ -220,8 +220,6 @@
 	<string name="share_by_email">Chia sẻ bằng email</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Điểm đánh dấu MAPS.ME được chia sẻ</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Xin chào,\n\nPhần đính kèm là các điểm đánh dấu của tôi từ bản đồ ngoại tuyến MAPS.ME. Vui lòng mở nó nếu bạn đã cài đặt MAPS.ME. Nếu không, hãy tải xuống ứng dụng này cho thiết bị iOS hoặc Android của bạn theo liên kết sau: http://maps.me/get?kmz\n\nChúc bạn du lịch vui vẻ cùng MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Tải Điểm đánh dấu</string>
 	<!-- Kmz file successful loading -->

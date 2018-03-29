@@ -226,8 +226,6 @@
 	<string name="share_by_email">مشاركة بواسطة البريد الالكتروني</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">تم مشاركة اشارات MAPS.ME المرجعية معك</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">مرحباً،\n\nمرفق طياً اشاراتي المرجعية من خرائط MAPS.ME المتوافرة بدون الاتصال مع الانترنت. الرجاء فتحها اذا كان لديك تطبيق MAPS.ME مثبت على جهازك. اذا لم يكن التطبيق مثبت لديك، قم بتنزيله على جهازك أندرويد أو آي او إس من خلال الرابط التالي: http://maps.me/get?kmz\n\nاستمتع بالسفر مع MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">تحميل الإشارات المرجعية</string>
 	<!-- Kmz file successful loading -->

@@ -223,8 +223,6 @@
 	<string name="share_by_email">Udostępnij przez email</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Udostępnione zakładki z MAPS.ME</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Cześć,\n\nOto moje zakładki pochodzące z aplikacji MAPS.ME wraz z załączonymi mapami offline w pliku „%s.kmz”. Proszę otwórz je jeśli posiadasz zainstalowaną aplikację MAPS.ME. Jeśli nie, najpierw pobierz ją na swoje urządzenie z systemem iOS lub Android pod tym odnośnikiem: http://maps.me/get?kmz\n\nBaw się dobrze z MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Wczytywanie zakładek</string>
 	<!-- Kmz file successful loading -->

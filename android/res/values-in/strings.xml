@@ -220,8 +220,6 @@
 	<string name="share_by_email">Bagikan menggunakan surel</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Bagikan penanda MAPS.ME</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Salam,\n\nTerlampir penanda lokasi saya dari peta offline MAPS.ME. Mohon dibuka jika Anda memasang MAPS.ME. Jika tidak, unduhlah aplikasinya untuk perangkat iOS atau Android Anda melalui tautan ini: http://maps.me/get?kmz\n\nNikmatilah bepergian menggunakan MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Memuat Penanda</string>
 	<!-- Kmz file successful loading -->

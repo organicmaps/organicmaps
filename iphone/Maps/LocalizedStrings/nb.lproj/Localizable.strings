@@ -355,8 +355,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Delte MAPS.ME-bokmerker";
 
-/* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Hallo,\n\nVedlagt er bokmerkene mine fra MAPS.ME offline-kart. De kan åpnes hvis du har installert MAPS.ME. Hvis ikke kan du laste ned appen til en iOS- eller Android-enhet ved å følge denne koblingen: http://maps.me/get?kmz\n\nKos deg på reisen med MAPS.ME!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open them if you have MAPS.ME installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!";
 
 /* message title of loading file */
 "load_kmz_title" = "Laster inn bokmerker";
@@ -2248,3 +2247,11 @@
 "please_wait" = "Please wait...";
 
 "football_world_cup" = "Football World Cup 2018";
+
+"phone_number" = "Phone number";
+
+"notification_unsent_reviews_title" = " You have several unsent reviews";
+
+"notification_unsent_reviews_message" = " Please sign in to share reviews with other travelers";
+
+"profile_osm" = "Profile OSM";

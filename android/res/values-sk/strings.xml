@@ -219,8 +219,6 @@
 	<string name="description">Poznámky</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Zdielané záložky MAPS.ME</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Ahoj!\n\nTu sú moje záložky z offline map aplikácie MAPS.ME v priloženom súbore \"%s.kmz\". Pokiaľ máte už podobnú aplikáciu MAPS.ME nainštalovanú, otvorte si, prosím tento súbor. V opačnom prípade si najprv nainštalujte aplikáciu pre svoje iOS alebo Android zariadenie z tohto odkazu http://maps.me/get?kmz\n\nPríjemnú zábavu s MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Načítavanie záložiek</string>
 	<!-- Kmz file successful loading -->

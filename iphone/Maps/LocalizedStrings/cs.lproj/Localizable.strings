@@ -355,8 +355,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "Sdílené záložky MAPS.ME";
 
-/* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Ahoj!\n\nZde jsou mé záložky z offline map aplikace MAPS.ME v přiloženém souboru „%@.kmz“. Pokud máš již aplikaci MAPS.ME nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://maps.me/get?kmz\n\nSkvěle se bav s MAPS.ME!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open them if you have MAPS.ME installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!";
 
 /* message title of loading file */
 "load_kmz_title" = "Nahrávání záložek";
@@ -2248,3 +2247,11 @@
 "please_wait" = "Please wait...";
 
 "football_world_cup" = "Football World Cup 2018";
+
+"phone_number" = "Phone number";
+
+"notification_unsent_reviews_title" = " You have several unsent reviews";
+
+"notification_unsent_reviews_message" = " Please sign in to share reviews with other travelers";
+
+"profile_osm" = "Profile OSM";

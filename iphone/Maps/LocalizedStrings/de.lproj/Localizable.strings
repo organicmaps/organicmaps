@@ -355,8 +355,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "MAPS.ME-Lesezeichen mit Ihnen geteilt";
 
-/* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Hallo,\n\nIn der angefügten „%@.KMZ“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MAPS.ME. Falls Sie MAPS.ME bereits installiert haben, müssen Sie die App nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://maps.me/get?kmz herunterladen.\n\nViel Spaß unterwegs mit MAPS.ME!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open them if you have MAPS.ME installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!";
 
 /* message title of loading file */
 "load_kmz_title" = "Lesezeichen werden geladen";
@@ -2248,3 +2247,11 @@
 "please_wait" = "Please wait...";
 
 "football_world_cup" = "Football World Cup 2018";
+
+"phone_number" = "Phone number";
+
+"notification_unsent_reviews_title" = " You have several unsent reviews";
+
+"notification_unsent_reviews_message" = " Please sign in to share reviews with other travelers";
+
+"profile_osm" = "Profile OSM";

@@ -225,8 +225,6 @@
 	<string name="share_by_email">Partager par courriel</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Signets MAPS.ME partagés</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Bonjour,\n\nVous trouverez ci-joints mes signets de MAPS.ME - cartes hors ligne. Veuillez ouvrir le fichier si vous avez MAPS.ME d\'installé. Sinon, téléchargez l\'appli pour votre appareil iOS ou Android en suivant ce lien http://maps.me/get?kmz\n\nAppréciez vos voyages avec MAPS.ME !</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Chargement des signets</string>
 	<!-- Kmz file successful loading -->

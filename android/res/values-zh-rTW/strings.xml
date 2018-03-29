@@ -222,8 +222,6 @@
 	<string name="share_by_email">以電子郵件分享</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">已分享 MAPS.ME 書籤</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">哈囉！\n\n這是我的 MAPS.ME 離線地圖中所夾帶的「%s.kmz」書籤檔案。若您已安裝 MAPS.ME 的話請開啟它，否則請先從 http://maps.me/get?kmz 這個連結下載 iOS 或 Android 平台的應用程式。\n\n祝您使用MAPS.ME愉快!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">正在載入書籤…</string>
 	<!-- Kmz file successful loading -->

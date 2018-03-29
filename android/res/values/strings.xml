@@ -228,7 +228,6 @@
 	<string name="share_by_email">Share by email</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">MAPS.ME bookmarks were shared with you</string>
-	<!-- Email text when sharing bookmarks category -->
 	<string name="share_bookmarks_email_body">Hello!\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open them if you have MAPS.ME installed. Or, if you don\'t, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Loading Bookmarks</string>
@@ -1299,4 +1298,8 @@
 	<string name="bookmarks_error_message_list_name_too_long">Please choose another name</string>
 	<string name="please_wait">Please wait...</string>
 	<string name="football_world_cup">Football World Cup 2018</string>
+	<string name="phone_number">Phone number</string>
+	<string name="notification_unsent_reviews_title"> You have several unsent reviews</string>
+	<string name="notification_unsent_reviews_message"> Please sign in to share reviews with other travelers</string>
+	<string name="profile_osm">Profile OSM</string>
 </resources>

@@ -355,8 +355,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "MAPS.ME 书签已与您共享";
 
-/* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "欢迎,\n\n附件是 MAPS.ME 离线地图中我 的书签。如果您已安装 MAPS.ME, 请打开它。若没有,请为您的 iOS 或安卓设 备下载此应用。下载链接: http://maps.me/get?kmz\n\n享 受 和 MAPS.ME 的旅行吧!";
+"share_bookmarks_email_body" = "Hello!\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open them if you have MAPS.ME installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!";
 
 /* message title of loading file */
 "load_kmz_title" = "加载书签";
@@ -2248,3 +2247,11 @@
 "please_wait" = "Please wait...";
 
 "football_world_cup" = "Football World Cup 2018";
+
+"phone_number" = "Phone number";
+
+"notification_unsent_reviews_title" = " You have several unsent reviews";
+
+"notification_unsent_reviews_message" = " Please sign in to share reviews with other travelers";
+
+"profile_osm" = "Profile OSM";

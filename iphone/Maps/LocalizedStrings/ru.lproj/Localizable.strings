@@ -355,8 +355,7 @@
 /* Email Subject when sharing bookmarks category */
 "share_bookmarks_email_subject" = "С вами поделились метками MAPS.ME";
 
-/* Email text when sharing bookmarks category */
-"share_bookmarks_email_body" = "Здравствуйте!\n\nВ прикрепленном файле \"%@.kmz\" мои метки из офлайновых карт MAPS.ME. Для того, чтобы открыть этот файл, вам потребуется приложение MAPS.ME, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!";
+"share_bookmarks_email_body" = "Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт MAPS.ME. Для того, чтобы открыть этот файл, вам потребуется приложение MAPS.ME, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!";
 
 /* message title of loading file */
 "load_kmz_title" = "Загрузка меток";
@@ -2248,3 +2247,11 @@
 "please_wait" = "Пожалуйста, подождите...";
 
 "football_world_cup" = "ЧМ по футболу 2018";
+
+"phone_number" = "Номер телефона";
+
+"notification_unsent_reviews_title" = "У вас есть неотправленные отзывы";
+
+"notification_unsent_reviews_message" = "Пожалуйста, авторизуйтесь, чтобы поделиться своими отзывами с другими путешественниками";
+
+"profile_osm" = "Профиль OSM";

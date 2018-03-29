@@ -168,8 +168,6 @@
 	<string name="share_by_email">Κοινοποίηση μέσω ηλεκτρονικού ταχυδρομείου</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Κοινοποιήθηκαν αγαπημένα MAPS.ME με σας</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Γεια!\n\nΕπισυνάπτω τα αγαπημένα μου MAPS.ME από τους χάρτες εκτός σύνδεσης. Μπορείς να τους ανοίξεις εάν έχεςις MAPS.ME. Εάν δεν έχεις, μπορείς να κεταβάσεις την εφαρμογή για συσκευές iOS ή Android από αυτό το σύνδεσμο: http://maps.me/get?kmz\n\nΑπόλαυσε τα ταξίδια με το MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Φόρτωση αγαπημένων</string>
 	<!-- Kmz file successful loading -->

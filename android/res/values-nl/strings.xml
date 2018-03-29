@@ -220,8 +220,6 @@
 	<string name="share_by_email">Delen via email</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Bladwijzers van MAPS.ME met u gedeeld</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Hallo,\n\nHier zijn mijn bladwijzers uit de MAPS.ME offline kaarten, in het bijgevoegde \"%s.kmz\"-bestand. Open het bestand als u MAPS.ME al heeft geïnstalleerd. Zo niet, download dan eerst de app voor uw iOS- of Android-toestel via de link http://maps.me/get?kmz\n\nVeel plezier met MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Bladwijzers aan het uploaden</string>
 	<!-- Kmz file successful loading -->

@@ -220,8 +220,6 @@
 	<string name="share_by_email">Jaa sähköpostilla</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Jaetut MAPS.ME-kirjanmerkit</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Hei,\n\nLiitteenä ovat kirjanmerkkini MAPS.ME:n offline-kartoista. Voit avata liitteen mikäli olet jo asentanut MAPS.ME -sovelluksen. Mikäli et ole vielä asentanut sitä, voit ladata sen iOS- tai Android-laitteellesi oheisen linkin kautta: http://maps.me/get?kmz\n\nNauti reissailusta MAPS.ME:n kanssa!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Ladataan kirjanmerkkejä</string>
 	<!-- Kmz file successful loading -->

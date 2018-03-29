@@ -222,8 +222,6 @@
 	<string name="share_by_email">Dela via email</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">MAPS.ME bokmärken har delats med dig</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Hej,\n\nMina bokmärken från MAPS.ME offline-kartor är bifogade. Öppna dem ifall du har MAPS.ME installerat. Om inte, ladda ner appen till din iOS- eller Android-enhet från denna länk: http://maps.me/get?kmz\n\nNjut av att resa med MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Läser in bokmärken</string>
 	<!-- Kmz file successful loading -->

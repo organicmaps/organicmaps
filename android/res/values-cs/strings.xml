@@ -221,8 +221,6 @@
 	<string name="share_by_email">Sdílet emailem</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Sdílené záložky MAPS.ME</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Ahoj!\n\nZde jsou mé záložky z offline map aplikace MAPS.ME v přiloženém souboru „%s.kmz“. Pokud máš již aplikaci MAPS.ME nainstalovanou, otevři si, prosím, tento soubor. V opačném případě si nejprve nainstaluj aplikaci pro své iOS nebo Android zařízení z tohoto odkazu http://maps.me/get?kmz\n\nSkvěle se bav s MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Nahrávání záložek</string>
 	<!-- Kmz file successful loading -->

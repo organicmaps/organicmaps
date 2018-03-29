@@ -226,8 +226,7 @@
 	<string name="share_by_email">Послать по email</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">С вами поделились метками MAPS.ME</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Здравствуйте!\n\nВ прикрепленном файле \"%s.kmz\" мои метки из офлайновых карт MAPS.ME. Для того, чтобы открыть этот файл, вам потребуется приложение MAPS.ME, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!</string>
+	<string name="share_bookmarks_email_body">Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт MAPS.ME. Для того, чтобы открыть этот файл, вам потребуется приложение MAPS.ME, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Загрузка меток</string>
 	<!-- Kmz file successful loading -->
@@ -1287,4 +1286,8 @@
 	<string name="bookmarks_error_message_list_name_too_long">Выберите, пожалуйста, другое имя</string>
 	<string name="please_wait">Пожалуйста, подождите...</string>
 	<string name="football_world_cup">ЧМ по футболу 2018</string>
+	<string name="phone_number">Номер телефона</string>
+	<string name="notification_unsent_reviews_title">У вас есть неотправленные отзывы</string>
+	<string name="notification_unsent_reviews_message">Пожалуйста, авторизуйтесь, чтобы поделиться своими отзывами с другими путешественниками</string>
+	<string name="profile_osm">Профиль OSM</string>
 </resources>

@@ -226,8 +226,6 @@
 	<string name="share_by_email">Per Email teilen</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">MAPS.ME-Lesezeichen mit Ihnen geteilt</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Hallo,\n\nIn der angefügten „%s.KMZ“-Datei befinden sich die Lesezeichen meiner Offline-Karten von MAPS.ME. Falls Sie MAPS.ME bereits installiert haben, müssen Sie die App nur noch öffnen. Sollte dies nicht der Fall sein, müssen Sie zuerst die App für Ihr iOS- oder Androidgerät unter der Adresse http://maps.me/get?kmz herunterladen.\n\nViel Spaß unterwegs mit MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Lesezeichen werden geladen</string>
 	<!-- Kmz file successful loading -->

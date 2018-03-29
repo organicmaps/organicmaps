@@ -221,8 +221,6 @@
 	<string name="share_by_email">Megosztás email-en</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Egy MAPS.ME könyvjelzőt osztottak meg Önnel</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Üdvözlöm!\n\nA mellékelt \"%s.kmz\" fájl tartalmazza a MAPS.ME könyvjelzőimet. Kérem nyissa meg, ha a MAPS.ME már telepítve van. Ha még nincs, akkor innen töltheti le: http://maps.me/get?kmz\n\nSok sikert a program használatához!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Könyvjelzők letöltése</string>
 	<!-- Kmz file successful loading -->

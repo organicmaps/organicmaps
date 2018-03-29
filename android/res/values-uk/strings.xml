@@ -226,8 +226,6 @@
 	<string name="share_by_email">Подiлитися по електронній пошті</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">З вами поділилися мiтками MAPS.ME</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Вітаю!\n\nОсь мої мiтки з офлайн карт MAPS.ME у доданому файлі \"%s.kmz\". Ви можете відкрти його, якщо у вас встановлена MAPS.ME. Якщо ні, то спочатку завантажте програму для пристроїв IOS або Android за цим посиланням http://maps.me/get?kmz\n\nПриємних розваг з MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Завантаження мiток</string>
 	<!-- Kmz file successful loading -->

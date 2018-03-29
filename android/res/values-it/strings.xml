@@ -219,8 +219,6 @@
 	<string name="share_by_email">Condividi via email</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Il segnalibri MAPS.ME è stato condiviso con te</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Ciao,\n\nQuesti sono i miei \"preferiti\" fra le mappe offline di MAPS.ME, che si trovano nel file allegato \"%s.kmz\". Il file può essere aperto se l\'app MAPS.ME è già stata installata. In caso contrario, occorre scaricare l\'app per il tuo iOS o dispositivo Android dal link http://maps.me/get?kmz\n\nBuon divertimento con MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Caricamento segnalibri in corso</string>
 	<!-- Kmz file successful loading -->

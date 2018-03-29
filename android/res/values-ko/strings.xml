@@ -222,8 +222,6 @@
 	<string name="share_by_email">이메일로 공유</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">귀하와 공유된 MAPS.ME 즐겨찾기</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">안녕하세요.\n\n첨부된 \"%s.kmz\" 파일에 MAPS.ME 이미 설치되어 있다면 열어 보시기 바랍니다. MAPS.ME 프로 버전이 이미 설치되어 있다면 열어 보시기 바랍니다. 그렇지 않은 경우 우선 iOS나 Android 장치용 앱을 http://maps.me/get?kmz 링크에서 다운로드하시기 바랍니다.\n\nMAPS.ME와 함께 즐거운 시간 되시기 바랍니다!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">즐겨찾기 로드</string>
 	<!-- Kmz file successful loading -->

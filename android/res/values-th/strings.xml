@@ -226,8 +226,6 @@
 	<string name="share_by_email">แชร์จากอีเมล</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">แชร์บุ๊กมาร์กของ MAPS.ME แล้ว</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">สวัสดี n\nสิ่งที่แนบ \"%s.kmz\" คือบุ๊กมาร์กของฉันจากแผนที่ MAPS.ME แบบออฟไลฟ์ โปรดเปิดมันหากคุณได้ติดตั้ง MAPS.ME หากยังไม่ได้ดาวน์โหลดแอปสำหรับอุปกรณ์ iOS และ Android ของคุณ โปรดทำตามลิงก์นี้: http://maps.me/get?kmz\n\nสนุกไปกับการเดินทางไปกับ MAPS.ME!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">กำลังโหลดบุ๊กมาร์ก</string>
 	<!-- Kmz file successful loading -->

@@ -226,8 +226,6 @@
 	<string name="share_by_email">E-postayla paylaş</string>
 	<!-- Email Subject when sharing bookmarks category -->
 	<string name="share_bookmarks_email_subject">Paylaşılan MAPS.ME yer imleri</string>
-	<!-- Email text when sharing bookmarks category -->
-	<string name="share_bookmarks_email_body">Selamlar,\n\nEkte MAPS.ME çevrimdışı haritalarından yer imlerim var. Lütfen MAPS.ME sende yüklü ise aç. Değilse iOS veya Android cihazın için aşağıdaki bağlantıdan uygulamayı indir: http://maps.me/get?kmz.\n\nMAPS.ME ile iyi seyahatler!</string>
 	<!-- message title of loading file -->
 	<string name="load_kmz_title">Yer İmleri Yükleniyor</string>
 	<!-- Kmz file successful loading -->
