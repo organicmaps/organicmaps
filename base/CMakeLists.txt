@@ -42,6 +42,7 @@ set(
   logging.cpp
   logging.hpp
   lower_case.cpp
+  lru_cache.hpp
   macros.hpp
   math.hpp
   matrix.hpp
