@@ -30124,5 +30124,9 @@ fa = دوباره نپرس
 
   [profile_osm]
     en = Profile OSM
-    ru = Профиль OSM  
+    ru = Профиль OSM 
+
+  [place_page_search_similar_hotel]
+    en = Search similar hotels
+    ru = Найти похожие отели   
        
