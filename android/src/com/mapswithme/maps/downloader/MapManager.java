@@ -154,18 +154,6 @@ public final class MapManager
     sCurrentErrorDialog = new WeakReference<>(dlg);
   }
 
-  public static void checkUpdates()
-  {
-    if (!Framework.nativeIsDataVersionChanged())
-      return;
-
-    String countriesToUpdate = Framework.nativeGetOutdatedCountriesString();
-    if (!TextUtils.isEmpty(countriesToUpdate))
-      Notifier.notifyUpdateAvailable(countriesToUpdate);
-
-    Framework.nativeUpdateSavedDataVersion();
-  }
-
   private static void notifyNoSpaceInternal(Activity activity)
   {
     new AlertDialog.Builder(activity)

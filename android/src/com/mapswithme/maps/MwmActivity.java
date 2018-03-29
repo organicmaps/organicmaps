@@ -134,7 +134,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   public static final String EXTRA_TASK = "map_task";
   public static final String EXTRA_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
-  private static final String EXTRA_UPDATE_COUNTRIES = ".extra.update.countries";
 
   private static final String[] DOCKED_FRAGMENTS = { SearchFragment.class.getName(),
                                                      DownloaderFragment.class.getName(),
@@ -317,17 +316,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private VisibleRectMeasurer mVisibleRectMeasurer;
 
-  public static Intent createShowMapIntent(Context context, String countryId, boolean doAutoDownload)
+  public static Intent createShowMapIntent(Context context, String countryId)
   {
     return new Intent(context, DownloadResourcesLegacyActivity.class)
-               .putExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY, countryId)
-               .putExtra(DownloadResourcesLegacyActivity.EXTRA_AUTODOWNLOAD, doAutoDownload);
+               .putExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY, countryId);
   }
-
-  public static Intent createUpdateMapsIntent()
-  {
-    return new Intent(MwmApplication.get(), MwmActivity.class)
-               .putExtra(EXTRA_UPDATE_COUNTRIES, true);
   }
 
   @Override
@@ -1202,12 +1195,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (intent.hasExtra(EXTRA_TASK))
     {
       addTask(intent);
-      return true;
-    }
-
-    if (intent.hasExtra(EXTRA_UPDATE_COUNTRIES))
-    {
-      showDownloader(true);
       return true;
     }
 

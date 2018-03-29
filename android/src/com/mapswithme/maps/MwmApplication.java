@@ -72,8 +72,6 @@ public class MwmApplication extends Application
         {
           if (MapManager.nativeIsAutoretryFailed())
           {
-            Notifier.cancelDownloadSuggest();
-
             Notifier.notifyDownloadFailed(item.countryId, MapManager.nativeGetName(item.countryId));
             MapManager.sendErrorStat(Statistics.EventName.DOWNLOADER_ERROR, MapManager.nativeGetError(item.countryId));
           }

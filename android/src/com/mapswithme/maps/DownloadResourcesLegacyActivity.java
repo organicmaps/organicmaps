@@ -54,7 +54,6 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private static final String TAG = DownloadResourcesLegacyActivity.class.getName();
 
   static final String EXTRA_COUNTRY = "country";
-  static final String EXTRA_AUTODOWNLOAD = "autodownload";
 
   // Error codes, should match the same codes in JNI
   private static final int ERR_DOWNLOAD_SUCCESS = 0;
@@ -708,13 +707,10 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     public boolean process(Intent intent)
     {
       String countryId = intent.getStringExtra(EXTRA_COUNTRY);
-      final boolean autoDownload = intent.getBooleanExtra(EXTRA_AUTODOWNLOAD, false);
-      if (autoDownload)
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOAD_COUNTRY_NOTIFICATION_CLICKED);
 
-      mMapTaskToForward = new MwmActivity.ShowCountryTask(countryId, autoDownload);
+      mMapTaskToForward = new MwmActivity.ShowCountryTask(countryId, false);
       org.alohalytics.Statistics.logEvent("OpenCountryTaskProcessor::process",
-                                          new String[] { "autoDownload", String.valueOf(autoDownload) },
+                                          new String[] { "autoDownload", "false" },
                                           LocationHelper.INSTANCE.getSavedLocation());
       return true;
     }
