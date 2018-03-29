@@ -70,7 +70,7 @@ public:
   int GetMinTitleZoom() const override { return GetMinZoom(); }
   FeatureID GetFeatureID() const override { return FeatureID(); }
   bool HasCreationAnimation() const override { return false; }
-  df::ColorConstant GetColor() const override { return {}; }
+  df::ColorConstant GetColorConstant() const override { return {}; }
 
   ms::LatLon GetLatLon() const;
 

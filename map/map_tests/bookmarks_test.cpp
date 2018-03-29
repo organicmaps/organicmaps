@@ -145,13 +145,13 @@ void CheckBookmarks(BookmarkManager const & bmManager, df::MarkGroupID groupId)
   auto it = markIds.rbegin();
   Bookmark const * bm = bmManager.GetBookmark(*it++);
   TEST_EQUAL(bm->GetName(), "Nebraska", ());
-  TEST_EQUAL(bm->GetIcon(), "placemark-red", ());
+  TEST_EQUAL(bm->GetColor(), kml::PredefinedColor::Red, ());
   TEST_EQUAL(bm->GetDescription(), "", ());
   TEST_EQUAL(kml::ToSecondsSinceEpoch(bm->GetTimeStamp()), 0, ());
 
   bm = bmManager.GetBookmark(*it++);
   TEST_EQUAL(bm->GetName(), "Monongahela National Forest", ());
-  TEST_EQUAL(bm->GetIcon(), "placemark-pink", ());
+  TEST_EQUAL(bm->GetColor(), kml::PredefinedColor::Pink, ());
   TEST_EQUAL(bm->GetDescription(), "Huttonsville, WV 26273<br>", ());
   TEST_EQUAL(kml::ToSecondsSinceEpoch(bm->GetTimeStamp()), 524214643, ());
 
@@ -160,7 +160,7 @@ void CheckBookmarks(BookmarkManager const & bmManager, df::MarkGroupID groupId)
   TEST_ALMOST_EQUAL_ULPS(MercatorBounds::XToLon(org.x), 27.566765, ());
   TEST_ALMOST_EQUAL_ULPS(MercatorBounds::YToLat(org.y), 53.900047, ());
   TEST_EQUAL(bm->GetName(), "From: Минск, Минская область, Беларусь", ());
-  TEST_EQUAL(bm->GetIcon(), "placemark-blue", ());
+  TEST_EQUAL(bm->GetColor(), kml::PredefinedColor::Blue, ());
   TEST_EQUAL(bm->GetDescription(), "", ());
   TEST_EQUAL(kml::ToSecondsSinceEpoch(bm->GetTimeStamp()), 888888888, ());
 
@@ -406,7 +406,7 @@ UNIT_TEST(Bookmarks_Getting)
   // Should find last added valid result, there two results with the
   // same coordinates 3 and 4, but 4 was added later.
   TEST_EQUAL(mark->GetName(), "4", ());
-  TEST_EQUAL(mark->GetIcon(), "placemark-blue", ());
+  TEST_EQUAL(mark->GetColor(), kml::PredefinedColor::Blue, ());
 
   TEST_EQUAL(bmManager.GetUserMarkIds(mark->GetGroupId()).size(), 2, ());
   bmManager.GetEditSession().DeleteBookmark(mark->GetId());
@@ -532,7 +532,7 @@ UNIT_TEST(Bookmarks_AddingMoving)
   mark = GetBookmarkPxPoint(fm, pixelPoint);
   TEST_EQUAL(bmManager.GetCategoryName(mark->GetGroupId()), "cat1", ());
   TEST_EQUAL(mark->GetName(), "name2", ());
-  TEST_EQUAL(mark->GetIcon(), "placemark-blue", ());
+  TEST_EQUAL(mark->GetColor(), kml::PredefinedColor::Blue, ());
 
   // Edit name, type and category of bookmark
   kml::SetDefaultStr(bm.m_name, "name3");
@@ -545,7 +545,7 @@ UNIT_TEST(Bookmarks_AddingMoving)
   TEST_EQUAL(bmManager.GetUserMarkIds(cat1).size(), 2,
              ("Bookmark wasn't moved from one category to another"));
   TEST_EQUAL(mark->GetName(), "name2", ());
-  TEST_EQUAL(mark->GetIcon(), "placemark-blue", ());
+  TEST_EQUAL(mark->GetColor(), kml::PredefinedColor::Blue, ());
 
   DeleteCategoryFiles(arrCat);
 }
@@ -634,7 +634,7 @@ char const * kmlString3 =
       return false;
     if (b1.GetDescription() != b2.GetDescription())
       return false;
-    if (b1.GetIcon() != b2.GetIcon())
+    if (b1.GetColor() != b2.GetColor())
       return false;
     if (b1.GetScale() != b2.GetScale())
       return false;

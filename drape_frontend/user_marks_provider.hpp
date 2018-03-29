@@ -70,7 +70,7 @@ public:
   virtual int GetMinTitleZoom() const = 0;
   virtual FeatureID GetFeatureID() const = 0;
   virtual bool HasCreationAnimation() const = 0;
-  virtual df::ColorConstant GetColor() const = 0;
+  virtual df::ColorConstant GetColorConstant() const = 0;
 
 private:
   MarkID m_id;

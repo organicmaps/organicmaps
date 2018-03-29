@@ -140,7 +140,9 @@ using TLoopBlock = void (^)(Observer observer);
 
 + (MWMMarkGroupID)createCategoryWithName:(NSString *)name
 {
-  return GetFramework().GetBookmarkManager().CreateBookmarkCategory(name.UTF8String);
+  auto groupId = GetFramework().GetBookmarkManager().CreateBookmarkCategory(name.UTF8String);
+  GetFramework().GetBookmarkManager().SetLastEditedBmCategory(groupId);
+  return groupId;
 }
 
 + (void)setCategory:(MWMMarkGroupID)groupId name:(NSString *)name

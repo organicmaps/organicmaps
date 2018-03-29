@@ -319,7 +319,7 @@ public:
   df::MarkGroupID AddCategory(string const & categoryName);
 
   df::MarkGroupID LastEditedBMCategory() { return GetBookmarkManager().LastEditedBMCategory(); }
-  string LastEditedBMType() const { return GetBookmarkManager().LastEditedBMType(); }
+  kml::PredefinedColor LastEditedBMColor() const { return GetBookmarkManager().LastEditedBMColor(); }
 
   void ShowBookmark(df::MarkID id);
   void ShowBookmark(Bookmark const * bookmark);

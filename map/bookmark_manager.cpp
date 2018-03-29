@@ -43,10 +43,11 @@ using namespace std::placeholders;
 
 namespace
 {
-char const * BOOKMARK_CATEGORY = "LastBookmarkCategory";
-char const * BOOKMARK_TYPE = "LastBookmarkType";
-char const * KMZ_EXTENSION = ".kmz";
-char const * kBookmarksExt = ".kmb";
+std::string const kLastBookmarkCategory = "LastBookmarkCategory";
+std::string const kLastBookmarkType = "LastBookmarkType";
+std::string const kLastBookmarkColor = "LastBookmarkColor";
+std::string const kKmzExtension = ".kmz";
+std::string const kBookmarksExt = ".kmb";
 
 // Returns extension with a dot in a lower case.
 std::string GetFileExt(std::string const & filePath)
@@ -125,8 +126,8 @@ BookmarkManager::SharingResult GetFileForSharing(df::MarkGroupID categoryId, std
   std::string fileName = filePath;
   my::GetNameFromFullPath(fileName);
   my::GetNameWithoutExt(fileName);
-  auto const tmpFilePath = my::JoinFoldersToPath(GetPlatform().TmpDir(), fileName + KMZ_EXTENSION);
-  if (ext == KMZ_EXTENSION)
+  auto const tmpFilePath = my::JoinFoldersToPath(GetPlatform().TmpDir(), fileName + kKmzExtension);
+  if (ext == kKmzExtension)
   {
     if (my::CopyFileX(filePath, tmpFilePath))
       return BookmarkManager::SharingResult(categoryId, tmpFilePath);
@@ -234,7 +235,7 @@ bool BackupBookmarks(std::string const & backupDir,
     std::string fileName = f;
     my::GetNameFromFullPath(fileName);
     my::GetNameWithoutExt(fileName);
-    auto const kmzPath = my::JoinPath(backupDir, fileName + KMZ_EXTENSION);
+    auto const kmzPath = my::JoinPath(backupDir, fileName + kKmzExtension);
     if (GetPlatform().IsFileExistsByFullPath(kmzPath))
       continue;
 
@@ -488,9 +489,8 @@ Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData & bm, df::MarkGroup
   group->AttachUserMark(bookmark->GetId());
   group->SetIsVisible(true);
 
-  m_lastCategoryUrl = group->GetFileName();
-  m_lastType = bookmark->GetIcon();
-  SaveState();
+  SetLastEditedBmCategory(groupId);
+  SetLastEditedBmColor(bookmark->GetData().m_color.m_predefinedColor);
 
   return bookmark;
 }
@@ -786,14 +786,24 @@ Track * BookmarkManager::AddTrack(std::unique_ptr<Track> && track)
 
 void BookmarkManager::SaveState() const
 {
-  settings::Set(BOOKMARK_CATEGORY, m_lastCategoryUrl);
-  settings::Set(BOOKMARK_TYPE, m_lastType);
+  settings::Set(kLastBookmarkCategory, m_lastCategoryUrl);
+  settings::Set(kLastBookmarkColor, static_cast<uint32_t>(m_lastColor));
 }
 
 void BookmarkManager::LoadState()
 {
-  UNUSED_VALUE(settings::Get(BOOKMARK_CATEGORY, m_lastCategoryUrl));
-  UNUSED_VALUE(settings::Get(BOOKMARK_TYPE, m_lastType));
+  UNUSED_VALUE(settings::Get(kLastBookmarkCategory, m_lastCategoryUrl));
+  uint32_t color;
+  if (settings::Get(kLastBookmarkColor, color) &&
+    color > static_cast<uint32_t>(kml::PredefinedColor::None) &&
+    color < static_cast<uint32_t>(kml::PredefinedColor::Count))
+  {
+    m_lastColor = static_cast<kml::PredefinedColor>(color);
+  }
+  else
+  {
+    m_lastColor = BookmarkCategory::GetDefaultColor();
+  }
 }
 
 void BookmarkManager::ClearCategories()
@@ -856,7 +866,7 @@ std::shared_ptr<BookmarkManager::KMLDataCollection> BookmarkManager::LoadBookmar
 
 std::shared_ptr<BookmarkManager::KMLDataCollection> BookmarkManager::LoadBookmarksKMB(std::vector<std::string> & filePaths)
 {
-  std::string const dir = GetPlatform().SettingsDir();
+  std::string const dir = GetBookmarksDirectory();
   Platform::FilesList files;
   Platform::GetFilesByExt(dir, kBookmarksExt, files);
 
@@ -866,7 +876,7 @@ std::shared_ptr<BookmarkManager::KMLDataCollection> BookmarkManager::LoadBookmar
 
   for (auto const & file : files)
   {
-    auto const filePath = dir + file;
+    auto const filePath = my::JoinPath(dir, file);
     auto kmlData = std::make_unique<kml::FileData>();
     try
     {
@@ -1064,7 +1074,7 @@ boost::optional<std::string> BookmarkManager::GetKMLPath(std::string const & fil
     if (!my::CopyFileX(filePath, fileSavePath))
       return {};
   }
-  else if (fileExt == KMZ_EXTENSION)
+  else if (fileExt == kKmzExtension)
   {
     try
     {
@@ -1106,35 +1116,59 @@ void BookmarkManager::MoveBookmark(df::MarkID bmID, df::MarkGroupID curGroupID, 
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
   DetachBookmark(bmID, curGroupID);
   AttachBookmark(bmID, newGroupID);
+
+  SetLastEditedBmCategory(newGroupID);
 }
 
 void BookmarkManager::UpdateBookmark(df::MarkID bmID, kml::BookmarkData const & bm)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto * bookmark = GetBookmarkForEdit(bmID);
+
+  auto const prevColor = bookmark->GetColor();
   bookmark->SetData(bm);
   ASSERT(bookmark->GetGroupId() != df::kInvalidMarkGroupId, ());
 
-  m_lastType = bookmark->GetIcon();
-  SaveState();
+  if (prevColor != bookmark->GetColor())
+    SetLastEditedBmColor(bookmark->GetColor());
 }
 
 df::MarkGroupID BookmarkManager::LastEditedBMCategory()
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
+  if (HasBmCategory(m_lastGroupId))
+    return m_lastGroupId;
+
   for (auto & cat : m_categories)
   {
     if (cat.second->GetFileName() == m_lastCategoryUrl)
-      return cat.first;
+    {
+      m_lastGroupId = cat.first;
+      return m_lastGroupId;
+    }
   }
   CheckAndCreateDefaultCategory();
   return m_bmGroupsIdList.front();
 }
 
-std::string BookmarkManager::LastEditedBMType() const
+kml::PredefinedColor BookmarkManager::LastEditedBMColor() const
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
-  return (m_lastType.empty() ? BookmarkCategory::GetDefaultType() : m_lastType);
+  return (m_lastColor != kml::PredefinedColor::None ? m_lastColor : BookmarkCategory::GetDefaultColor());
+}
+
+void BookmarkManager::SetLastEditedBmCategory(df::MarkGroupID groupId)
+{
+  m_lastGroupId = groupId;
+  m_lastCategoryUrl = GetBmCategory(groupId)->GetFileName();
+  SaveState();
+}
+
+void BookmarkManager::SetLastEditedBmColor(kml::PredefinedColor color)
+{
+  m_lastColor = color;
+  SaveState();
 }
 
 BookmarkCategory const * BookmarkManager::GetBmCategory(df::MarkGroupID categoryId) const

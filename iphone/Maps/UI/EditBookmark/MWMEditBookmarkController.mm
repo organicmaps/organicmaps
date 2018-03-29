@@ -40,7 +40,7 @@ enum RowInMetaInfo
 @property (nonatomic) MWMNoteCell * cachedNote;
 @property (copy, nonatomic) NSString * cachedDescription;
 @property (copy, nonatomic) NSString * cachedTitle;
-@property (copy, nonatomic) NSString * cachedColor;
+@property (nonatomic) kml::PredefinedColor cachedColor;
 @property (copy, nonatomic) NSString * cachedCategory;
 @property(nonatomic) df::MarkGroupID cachedNewBookmarkCatId;
 
@@ -104,7 +104,10 @@ enum RowInMetaInfo
   if (!bookmark)
     return;
 
-  bookmark->SetType(self.cachedColor.UTF8String);
+  if (self.cachedColor != bookmark->GetColor())
+    bmManager.SetLastEditedBmColor(self.cachedColor);
+  
+  bookmark->SetColor(self.cachedColor);
   bookmark->SetDescription(self.cachedDescription.UTF8String);
   bookmark->SetName(self.cachedTitle.UTF8String);
   
@@ -271,7 +274,7 @@ enum RowInMetaInfo
 
 #pragma mark - MWMBookmarkColorDelegate
 
-- (void)didSelectColor:(NSString *)color
+- (void)didSelectColor:(kml::PredefinedColor)color
 {
   self.cachedColor = color;
   [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:Color inSection:MetaInfo]] withRowAnimation:UITableViewRowAnimationAutomatic];

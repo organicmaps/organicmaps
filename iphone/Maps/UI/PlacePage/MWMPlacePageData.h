@@ -218,7 +218,7 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 
 // Bookmark
 - (NSString *)externalTitle;
-- (NSString *)bookmarkColor;
+- (kml::PredefinedColor)bookmarkColor;
 - (NSString *)bookmarkDescription;
 - (NSString *)bookmarkCategory;
 - (df::MarkID)bookmarkId;

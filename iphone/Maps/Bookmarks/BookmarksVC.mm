@@ -170,7 +170,7 @@
     if (bm)
     {
       bmCell.textLabel.text = @(bm->GetName().c_str());
-      bmCell.imageView.image = [CircleView createCircleImageWith:PINDIAMETER andColor:[ColorPickerView colorForName:@(bm->GetType().c_str())]];
+      bmCell.imageView.image = [CircleView createCircleImageWith:PINDIAMETER andColor:[ColorPickerView getUIColor:bm->GetColor()]];
 
       CLLocation * lastLocation = [MWMLocationManager lastLocation];
       if (lastLocation)

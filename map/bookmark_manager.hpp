@@ -161,7 +161,7 @@ public:
 
   bool IsVisible(df::MarkGroupID groupId) const;
 
-  df::MarkGroupID CreateBookmarkCategory(kml::CategoryData const & data, bool autoSae = true);
+  df::MarkGroupID CreateBookmarkCategory(kml::CategoryData const & data, bool autoSave = true);
   df::MarkGroupID CreateBookmarkCategory(std::string const & name, bool autoSave = true);
 
   std::string GetCategoryName(df::MarkGroupID categoryId) const;
@@ -170,7 +170,10 @@ public:
   df::GroupIDCollection const & GetBmGroupsIdList() const { return m_bmGroupsIdList; }
   bool HasBmCategory(df::MarkGroupID groupId) const;
   df::MarkGroupID LastEditedBMCategory();
-  std::string LastEditedBMType() const;
+  kml::PredefinedColor LastEditedBMColor() const;
+
+  void SetLastEditedBmCategory(df::MarkGroupID groupId);
+  void SetLastEditedBmColor(kml::PredefinedColor color);
 
   using TTouchRectHolder = function<m2::AnyRectD(UserMark::Type)>;
   UserMark const * FindNearestUserMark(TTouchRectHolder const & holder) const;
@@ -440,7 +443,8 @@ private:
   df::GroupIDCollection m_bmGroupsIdList;
 
   std::string m_lastCategoryUrl;
-  std::string m_lastType;
+  df::MarkGroupID m_lastGroupId = df::kInvalidMarkGroupId;
+  kml::PredefinedColor m_lastColor = kml::PredefinedColor::Red;
   UserMarkLayers m_userMarkLayers;
 
   MarksCollection m_userMarks;

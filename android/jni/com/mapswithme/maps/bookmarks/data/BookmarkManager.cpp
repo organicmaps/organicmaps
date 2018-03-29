@@ -269,7 +269,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastE
   BookmarkManager & bmMng = frm()->GetBookmarkManager();
 
   m2::PointD const glbPoint(MercatorBounds::FromLatLon(lat, lon));
-  BookmarkData bmkData(ToNativeString(env, name), frm()->LastEditedBMType());
+  BookmarkData bmkData(ToNativeString(env, name), frm()->LastEditedBMColor());
   auto const lastEditedCategory = frm()->LastEditedBMCategory();
 
   auto const * createdBookmark = bmMng.GetEditSession().CreateBookmark(glbPoint, bmkData, lastEditedCategory);

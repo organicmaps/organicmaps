@@ -69,7 +69,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetSymbolNames() cons
   return symbol;
 }
 
-df::ColorConstant Bookmark::GetColor() const
+df::ColorConstant Bookmark::GetColorConstant() const
 {
   switch (m_data.m_color.m_predefinedColor)
   {
@@ -95,35 +95,20 @@ df::ColorConstant Bookmark::GetColor() const
   }
 }
 
-std::string Bookmark::GetIcon() const
-{
-  switch (m_data.m_color.m_predefinedColor)
-  {
-    case kml::PredefinedColor::Red:
-      return "placemark-red";
-    case kml::PredefinedColor::Blue:
-      return "placemark-blue";
-    case kml::PredefinedColor::Purple:
-      return "placemark-purple";
-    case kml::PredefinedColor::Yellow:
-      return "placemark-yellow";
-    case kml::PredefinedColor::Pink:
-      return "placemark-pink";
-    case kml::PredefinedColor::Brown:
-      return "placemark-brown";
-    case kml::PredefinedColor::Green:
-      return "placemark-green";
-    case kml::PredefinedColor::Orange:
-      return "placemark-orange";
-    case kml::PredefinedColor::None:
-    case kml::PredefinedColor::Count:
-      return "placemark-red";
-  }
-}
-
 bool Bookmark::HasCreationAnimation() const
 {
   return true;
+}
+
+kml::PredefinedColor Bookmark::GetColor() const
+{
+  return m_data.m_color.m_predefinedColor;
+}
+
+void Bookmark::SetColor(kml::PredefinedColor color)
+{
+  SetDirty();
+  m_data.m_color.m_predefinedColor = color;
 }
 
 std::string Bookmark::GetName() const
@@ -160,6 +145,7 @@ kml::Timestamp Bookmark::GetTimeStamp() const
 
 void Bookmark::SetTimeStamp(kml::Timestamp timeStamp)
 {
+  SetDirty();
   m_data.m_timestamp = timeStamp;
 }
 
@@ -170,6 +156,7 @@ uint8_t Bookmark::GetScale() const
 
 void Bookmark::SetScale(uint8_t scale)
 {
+  SetDirty();
   m_data.m_viewportScale = scale;
 }
 
@@ -227,9 +214,10 @@ std::string BookmarkCategory::GetName() const
   return kml::GetDefaultStr(m_data.m_name);
 }
 
-std::string BookmarkCategory::GetDefaultType()
+// static
+kml::PredefinedColor BookmarkCategory::GetDefaultColor()
 {
-  return style::GetDefaultStyle();
+  return kml::PredefinedColor::Red;
 }
 
 std::unique_ptr<kml::FileData> LoadKMLFile(std::string const & file, bool useBinary)

@@ -27,53 +27,6 @@ namespace anim
 
 class BookmarkManager;
 
-/*
-class BookmarkData
-{
-public:
-  BookmarkData()
-    : m_scale(-1.0)
-    , m_timeStamp(my::INVALID_TIME_STAMP)
-  {
-  }
-
-  BookmarkData(std::string const & name,
-               std::string const & type,
-               std::string const & description = "",
-               double scale = -1.0,
-               time_t timeStamp = my::INVALID_TIME_STAMP)
-    : m_name(name)
-    , m_description(description)
-    , m_type(type)
-    , m_scale(scale)
-    , m_timeStamp(timeStamp)
-  {
-  }
-
-  std::string const & GetName() const { return m_name; }
-  void SetName(const std::string & name) { m_name = name; }
-
-  std::string const & GetDescription() const { return m_description; }
-  void SetDescription(const std::string & description) { m_description = description; }
-
-  std::string const & GetType() const { return m_type; }
-  void SetType(const std::string & type) { m_type = type; }
-
-  double const & GetScale() const { return m_scale; }
-  void SetScale(double scale) { m_scale = scale; }
-
-  time_t const & GetTimeStamp() const { return m_timeStamp; }
-  void SetTimeStamp(const time_t & timeStamp) { m_timeStamp = timeStamp; }
-
-private:
-  std::string m_name;
-  std::string m_description;
-  std::string m_type;  ///< Now it stores bookmark color (category style).
-  double m_scale; ///< Viewport scale. -1.0 - is a default value (no scale set).
-  time_t m_timeStamp;
-};
-*/
-
 class Bookmark : public UserMark
 {
   using Base = UserMark;
@@ -85,28 +38,32 @@ public:
   void SetData(kml::BookmarkData const & data);
   kml::BookmarkData const & GetData() const;
 
-  dp::Anchor GetAnchor() const override;
-  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
-  df::ColorConstant GetColor() const override;
-  // TODO(darina): Remove this method after UI refactoring.
-  std::string GetIcon() const;
   bool HasCreationAnimation() const override;
 
   std::string GetName() const;
   void SetName(std::string const & name);
+
+  kml::PredefinedColor GetColor() const;
+  void SetColor(kml::PredefinedColor color);
+
   m2::RectD GetViewport() const;
 
   std::string GetDescription() const;
   void SetDescription(std::string const & description);
 
-  /// @return my::INVALID_TIME_STAMP if bookmark has no timestamp
   kml::Timestamp GetTimeStamp() const;
   void SetTimeStamp(kml::Timestamp timeStamp);
 
   uint8_t GetScale() const;
   void SetScale(uint8_t scale);
 
+  dp::Anchor GetAnchor() const override;
+  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
+
+  df::ColorConstant GetColorConstant() const override;
+
   df::MarkGroupID GetGroupId() const override;
+
   void Attach(df::MarkGroupID groupId);
   void Detach();
 
@@ -124,7 +81,7 @@ public:
   BookmarkCategory(kml::CategoryData const & data, df::MarkGroupID groupId, bool autoSave);
   ~BookmarkCategory() override;
 
-  static std::string GetDefaultType();
+  static kml::PredefinedColor GetDefaultColor();
 
   df::MarkGroupID GetID() const { return m_groupId; }
 

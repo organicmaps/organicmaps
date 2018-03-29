@@ -441,9 +441,12 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   if (isBookmark)
   {
     auto const categoryId = f.LastEditedBMCategory();
-    BookmarkData bmData{m_info.FormatNewBookmarkName(), f.LastEditedBMType()};
+    kml::BookmarkData bmData;
+    kml::SetDefaultStr(bmData.m_name, m_info.FormatNewBookmarkName());
+    bmData.m_color.m_predefinedColor = f.LastEditedBMColor();
+    bmData.m_point = self.mercator;
     auto editSession = bmManager.GetEditSession();
-    auto const * bookmark = editSession.CreateBookmark(self.mercator, bmData, categoryId);
+    auto const * bookmark = editSession.CreateBookmark(bmData, categoryId);
     f.FillBookmarkInfo(*bookmark, m_info);
     m_sections.insert(m_sections.begin() + 1, Sections::Bookmark);
   }
@@ -693,14 +696,14 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   return m_info.GetSecondaryTitle().empty() ? nil : @(m_info.GetSecondaryTitle().c_str());
 }
 
-- (NSString *)bookmarkColor
+- (kml::PredefinedColor)bookmarkColor
 {
-  return m_info.IsBookmark() ? @(m_info.GetBookmarkData().GetType().c_str()) : nil;
+  return m_info.IsBookmark() ? m_info.GetBookmarkData().m_color.m_predefinedColor : kml::PredefinedColor::None;
 }
 
 - (NSString *)bookmarkDescription
 {
-  return m_info.IsBookmark() ? @(m_info.GetBookmarkData().GetDescription().c_str()) : nil;
+  return m_info.IsBookmark() ? @(kml::GetDefaultStr(m_info.GetBookmarkData().m_description).c_str()) : nil;
 }
 
 - (NSString *)bookmarkCategory
@@ -799,7 +802,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 - (BOOL)isHolidayObject { return m_info.GetSponsoredType() == SponsoredType::Holiday; }
 - (BOOL)isBookingSearch { return !m_info.GetBookingSearchUrl().empty(); }
 - (BOOL)isMyPosition { return m_info.IsMyPosition(); }
-- (BOOL)isHTMLDescription { return strings::IsHTML(m_info.GetBookmarkData().GetDescription()); }
+- (BOOL)isHTMLDescription { return strings::IsHTML(kml::GetDefaultStr(m_info.GetBookmarkData().m_description)); }
 - (BOOL)isRoutePoint { return m_info.IsRoutePoint(); }
 - (BOOL)isPreviewExtended { return m_info.IsPreviewExtended(); }
 - (BOOL)isPartnerAppInstalled
