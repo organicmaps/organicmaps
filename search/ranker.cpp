@@ -323,8 +323,7 @@ class RankerResultMaker
     case Model::TYPE_COUNTRY:
       return rank /= 1.5;
 
-    // For all other search types, rank should be zero for now.
-    default: return 0;
+    default: return rank;
     }
   }
 

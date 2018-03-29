@@ -1,5 +1,6 @@
 #include "indexer/rank_table.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/data_header.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_impl.hpp"
@@ -22,11 +23,16 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/macros.hpp"
+#include "base/math.hpp"
 
-#include "std/exception.hpp"
-#include "std/utility.hpp"
+#include <algorithm>
+#include <exception>
+#include <limits>
+#include <utility>
 
 #include "defines.hpp"
+
+using namespace std;
 
 namespace search
 {
@@ -214,10 +220,34 @@ unique_ptr<RankTable> LoadRankTable(unique_ptr<TRegion> && region)
   return unique_ptr<RankTable>();
 }
 
+uint8_t CalcEventRank(FeatureType const & ft)
+{
+  // |fc2018Rank| value was adjusted for cases:
+  // - fc2018 objects should be in thetop for "stadium" query iff fc2018 mwm is in viewport.
+  // - fc2018 objects should be above apartments and other objects with same name.
+  // - fc2018 objects should be in the top for object name query at any viewport.
+  uint8_t const fc2018Rank = 16;
+  Classificator const & c = classif();
+  auto const types = feature::TypesHolder(ft);
+  auto const fcType =
+      ftypes::BaseChecker::PrepareToMatch(c.GetTypeByPath({"event", "fc2018"}), 2 /* level */);
+  auto const fcCityType =
+      ftypes::BaseChecker::PrepareToMatch(c.GetTypeByPath({"event", "fc2018_city"}), 2 /* level */);
+  if (find(types.begin(), types.end(), fcType) != types.end() ||
+      find(types.begin(), types.end(), fcCityType) != types.end())
+  {
+    return fc2018Rank;
+  }
+  return 0;
+}
+
 // Calculates search rank for a feature.
 uint8_t CalcSearchRank(FeatureType const & ft)
 {
-  return feature::PopulationToRank(ftypes::GetPopulation(ft));
+  auto const eventRank = CalcEventRank(ft);
+  auto const populationRank = feature::PopulationToRank(ftypes::GetPopulation(ft));
+
+  return my::clamp(eventRank + populationRank, 0, static_cast<int>(numeric_limits<uint8_t>::max()));
 }
 
 // Creates rank table if it does not exists in |rcont| or has wrong
