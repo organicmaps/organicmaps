@@ -137,6 +137,7 @@ static NSString * const kStatExport = @"Export";
 static NSString * const kStatExternal = @"external";
 static NSString * const kStatFacebook = @"Facebook";
 static NSString * const kStatFeedback = @"Feedback";
+static NSString * const kStatFifa18 = @"FIFA2018";
 static NSString * const kStatFrom = @"from";
 static NSString * const kStatFromLocation = @"from_location";
 static NSString * const kStatFromMyPosition = @"From my position";

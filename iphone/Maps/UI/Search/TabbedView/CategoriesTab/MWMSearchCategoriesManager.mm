@@ -8,6 +8,8 @@
 
 extern NSString * const kLuggageCategory = @"luggagehero";
 
+static NSString * const kFifa18Category = @"fc2018";
+
 @implementation MWMSearchCategoriesManager
 {
   vector<string> m_categories;
@@ -70,13 +72,19 @@ extern NSString * const kLuggageCategory = @"luggagehero";
   [delegate searchText:[L(string) stringByAppendingString:@" "]
         forInputLocale:[[AppInfo sharedInfo] languageId]];
   [delegate dismissKeyboard];
-  if ([string isEqualToString:kLuggageCategory])
-  {
+
+  auto doWork = ^(NSString * param) {
     if (!IPAD)
       delegate.state = MWMSearchManagerStateMapSearch;
-    [MRMyTracker trackEventWithName:@"Search_SponsoredCategory_selected_LuggageHero"];
-    [Statistics logEvent:kStatSearchSponsoredSelect withParameters:@{kStatProvider : kStatLuggageHero}];
-  }
+
+    [Statistics logEvent:kStatSearchSponsoredSelect withParameters:@{kStatProvider : param}];
+    [MRMyTracker trackEventWithName:[kStatLuggageHero stringByAppendingFormat:@"_%@", param]];
+  };
+
+  if ([string isEqualToString:kLuggageCategory])
+    doWork(kStatLuggageHero);
+  else if ([string isEqualToString:kFifa18Category])
+    doWork(kStatFifa18);
 }
 
 @end
