@@ -150,6 +150,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private static final int REQ_CODE_LOCATION_PERMISSION = 1;
   private static final int REQ_CODE_DISCOVERY = 2;
+  private static final int REQ_CODE_SHOW_SIMILAR_HOTELS = 3;
 
   // Map tasks that we run AFTER rendering initialized
   private final Stack<MapTask> mTasks = new Stack<>();
@@ -942,6 +943,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Statistics.INSTANCE.trackDiscoveryOpen();
   }
 
+
+
   private void initOnmapDownloader()
   {
     mOnmapDownloader = new OnmapDownloader(this);
@@ -1077,6 +1080,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
       case FilterActivity.REQ_CODE_FILTER:
         handleFilterResult(data);
         break;
+      case REQ_CODE_SHOW_SIMILAR_HOTELS:
+        if (mSearchController != null)
+          mSearchController.setQuery(getString(R.string.hotel));
+        handleFilterResult(data);
+        break;
     }
   }
 
@@ -1155,6 +1163,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     FilterActivity.startForResult(MwmActivity.this, null, null,
                                   FilterActivity.REQ_CODE_FILTER);
+  }
+
+  public void onShowSimilarHotels()
+  {
+    FilterActivity.startForResult(MwmActivity.this, null, null, REQ_CODE_SHOW_SIMILAR_HOTELS);
   }
 
   @Override
