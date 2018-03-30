@@ -3,7 +3,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/start"
-  style="@style/MwmWidget.Button.Start"
+  style="@style/MwmWidget.Button.Primary"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
   android:minWidth="@dimen/start_button_width"

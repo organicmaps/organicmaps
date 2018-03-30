@@ -70,12 +70,13 @@
     <item name="android:textAppearance">@style/MwmTextAppearance.Body3</item>
   </style>
 
-  <style name="MwmWidget.Button.Start">
-    <item name="android:background">?startButtonBackground</item>
+  <style name="MwmWidget.Button.Primary">
+    <item name="android:background">?primaryButtonBackground</item>
     <item name="android:minWidth">0dp</item>
     <item name="android:minHeight">0dp</item>
     <item name="android:textColor">?accentButtonTextColor</item>
     <item name="android:textSize">@dimen/text_size_body_3</item>
+    <item name="textAllCaps">true</item>
   </style>
 
   <style name="MwmWidget.Button.LeaveReview">

@@ -182,6 +182,21 @@
     tools:background="#60000000"
     tools:text="Lenina str, 10"/>
 
+  <Button
+    android:id="@+id/search_hotels_btn"
+    android:layout_below="@id/tv__address"
+    style="@style/MwmWidget.Button.Primary"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/nav_button_height"
+    android:layout_marginTop="@dimen/margin_half_plus"
+    android:layout_marginStart="@dimen/margin_base"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_marginRight="@dimen/margin_base"
+    android:text="@string/place_page_search_similar_hotel"
+    tools:text="@string/authorization_button_sign_in"/>
+
   <include
     android:id="@+id/banner"
     layout="@layout/place_page_banner"

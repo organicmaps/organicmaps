@@ -48,7 +48,7 @@
       android:layout_gravity="center">
       <Button
         android:id="@+id/button"
-        style="@style/MwmWidget.Button.Start"
+        style="@style/MwmWidget.Button.Primary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:minHeight="@dimen/nav_button_height"
