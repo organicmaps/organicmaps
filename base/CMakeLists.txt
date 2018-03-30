@@ -23,6 +23,7 @@ set(
   dfa_helpers.hpp
   exception.cpp
   exception.hpp
+  fifo_cache.hpp
   get_time.hpp
   gmtime.cpp
   gmtime.hpp
