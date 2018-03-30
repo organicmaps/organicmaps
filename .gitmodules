@@ -13,3 +13,6 @@
 [submodule "3party/protobuf/protobuf"]
 	path = 3party/protobuf/protobuf
 	url = git://github.com/mapsme/protobuf.git
+[submodule "tools/twine"]
+	path = tools/twine
+	url = https://github.com/mapsme/twine.git
