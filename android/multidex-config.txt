@@ -7,7 +7,6 @@ com/mapswithme/maps/ugc/UGC$Rating.class
 com/mapswithme/util/log/LoggerFactory.class
 com/mapswithme/util/HttpClient.class
 com/mapswithme/util/HttpClient$Params.class
-com/mapswithme/util/HttpClient$HttpHeader.class
 com/mapswithme/util/HttpUploader.class
 com/mapswithme/util/HttpUploader$Result.class
 com/mapswithme/util/KeyValue.class
