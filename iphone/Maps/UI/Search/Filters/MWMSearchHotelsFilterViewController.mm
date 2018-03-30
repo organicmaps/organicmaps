@@ -7,6 +7,8 @@
 
 #include "search/hotels_filter.hpp"
 
+#include "base/stl_helpers.hpp"
+
 namespace
 {
 static NSTimeInterval kDayInterval = 24 * 60 * 60;
@@ -118,6 +120,8 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 @property(nonatomic) NSDate * checkInDate;
 @property(nonatomic) NSDate * checkOutDate;
 
+@property(nonatomic, copy) MWMVoidBlock onFinishCallback;
+
 @end
 
 @implementation MWMSearchHotelsFilterViewController
@@ -127,6 +131,60 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   NSString * identifier = [self className];
   return static_cast<MWMSearchHotelsFilterViewController *>(
       [self controllerWithIdentifier:identifier]);
+}
+
+- (void)applyParams:(search_filter::HotelParams &&)params onFinishCallback:(MWMVoidBlock)callback
+{
+  using namespace search_filter;
+  using namespace place_page::rating;
+
+  CHECK(params.m_type != ftypes::IsHotelChecker::Type::Count, ());
+
+  self.onFinishCallback = callback;
+  [self.type.collectionView
+                     selectItemAtIndexPath:[NSIndexPath indexPathForItem:my::Key(params.m_type)
+                                 inSection:0]
+                                  animated:NO
+                            scrollPosition:UICollectionViewScrollPositionNone];
+
+  auto ratingCell = self.rating;
+
+  ratingCell.any.selected = NO;
+
+  switch (params.m_rating)
+  {
+  case FilterRating::Any:
+    ratingCell.any.selected = YES;
+    break;
+  case FilterRating::Good:
+    ratingCell.good.selected = YES;
+    break;
+  case FilterRating::VeryGood:
+    ratingCell.veryGood.selected = YES;
+    break;
+  case FilterRating::Excellent:
+    ratingCell.excellent.selected = YES;
+    break;
+  }
+
+  auto priceCell = self.price;
+  switch (params.m_price)
+  {
+  case Price::Any:
+    break;
+  case Price::One:
+    priceCell.one.selected = YES;
+    break;
+  case Price::Two:
+    priceCell.two.selected = YES;
+    priceCell.one.selected = YES;
+    break;
+  case Price::Three:
+    priceCell.three.selected = YES;
+    priceCell.two.selected = YES;
+    priceCell.one.selected = YES;
+    break;
+  }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -179,7 +237,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 {
   [Statistics logEvent:kStatSearchFilterApply withParameters:@{kStatCategory: kStatHotel}];
   [MWMSearch update];
-  [self dismissViewControllerAnimated:YES completion:nil];
+  [self dismissViewControllerAnimated:YES completion:self.onFinishCallback];
 }
 
 - (void)initialCheckConfig

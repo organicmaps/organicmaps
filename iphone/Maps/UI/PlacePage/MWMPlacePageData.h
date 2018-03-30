@@ -10,6 +10,8 @@
 
 #include <vector>
 
+#include <boost/optional.hpp>
+
 @class MWMPlacePageData;
 @class MWMUGCReviewVM;
 
@@ -59,6 +61,7 @@ enum class PreviewRows
   Subtitle,
   Schedule,
   Review,
+  SearchSimilar,
   Address,
   Space,
   Banner
@@ -184,6 +187,9 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 - (NSUInteger)numberOfHotelReviews;
 - (NSURL *)URLToAllReviews;
 - (NSArray<MWMGalleryItemModel *> *)photos;
+
+- (boost::optional<int>)hotelRawApproximatePricing;
+- (boost::optional<ftypes::IsHotelChecker::Type>)hotelType;
 
 // Partners
 - (NSString *)partnerName;

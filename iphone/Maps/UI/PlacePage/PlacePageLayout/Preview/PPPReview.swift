@@ -69,4 +69,10 @@ final class PPPReview: MWMTableViewCell {
   @IBAction private func addReview() {
     onAddReview()
   }
+
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    let inset = width / 2
+    separatorInset = UIEdgeInsetsMake(0, inset, 0, inset)
+  }
 }

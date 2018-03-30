@@ -9,7 +9,7 @@
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
-#include "std/array.hpp"
+#include <array>
 
 #pragma mark - Base
 // Base class for avoiding copy-paste in inheriting cells.
@@ -103,11 +103,12 @@
 
 namespace
 {
-array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class],
+std::array<Class, 9> const kPreviewCells = {{[_MWMPPPTitle class],
                                         [_MWMPPPExternalTitle class],
                                         [_MWMPPPSubtitle class],
                                         [_MWMPPPSchedule class],
                                         [MWMPPPReview class],
+                                        [MWMPPPSearchSimilarButton class],
                                         [_MWMPPPAddress class],
                                         [_MWMPPPSpace class],
                                         [MWMAdBanner class]}};
@@ -175,7 +176,7 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class],
   using namespace place_page;
   auto tableView = self.tableView;
   auto const row = data.previewRows[indexPath.row];
-  Class cls = kPreviewCells[static_cast<size_t>(row)];
+  Class cls = kPreviewCells[my::Key(row)];
 
   auto * c = [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
   switch(row)
@@ -248,6 +249,14 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class],
           }];
     }
     return reviewCell;
+  }
+  case PreviewRows::SearchSimilar:
+  {
+    auto searchCell = static_cast<MWMPPPSearchSimilarButton *>(c);
+    [searchCell configWithTap:^{
+      [MWMPlacePageManagerHelper searchSimilar];
+    }];
+    return searchCell;
   }
   case PreviewRows::Address:
     static_cast<_MWMPPPAddress *>(c).address.text = data.address;

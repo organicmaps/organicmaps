@@ -12,6 +12,7 @@
 
 - (void)updateAvailableArea:(CGRect)frame;
 - (void)showUGCAddReview:(MWMRatingSummaryViewValueType)value fromPreview:(BOOL)fromPreview;
+- (void)searchSimilar;
 
 @end
 
@@ -26,6 +27,11 @@
 {
   [[MWMMapViewControlsManager manager].placePageManager showUGCAddReview:value
                                                              fromPreview:fromPreview];
+}
+
++ (void)searchSimilar
+{
+  [[MWMMapViewControlsManager manager].placePageManager searchSimilar];
 }
 
 @end

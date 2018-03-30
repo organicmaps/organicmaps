@@ -177,9 +177,15 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   if (self.schedule != OpeningHours::Unknown) m_previewRows.push_back(PreviewRows::Schedule);
   if (self.isBooking)
     m_previewRows.push_back(PreviewRows::Review);
-  if (self.address.length) m_previewRows.push_back(PreviewRows::Address);
-  m_previewRows.push_back(PreviewRows::Space);
 
+  if (self.address.length) m_previewRows.push_back(PreviewRows::Address);
+  if (self.hotelType)
+  {
+    m_previewRows.push_back(PreviewRows::Space);
+    m_previewRows.push_back(PreviewRows::SearchSimilar);
+  }
+
+  m_previewRows.push_back(PreviewRows::Space);
   NSAssert(!m_previewRows.empty(), @"Preview row's can't be empty!");
 
   if (network_policy::CanUseNetwork() && ![MWMSettings adForbidden] && m_info.HasBanner() &&
@@ -630,6 +636,16 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
 
   self.photos = res;
   return _photos;
+}
+
+- (boost::optional<int>)hotelRawApproximatePricing
+{
+  return m_info.GetRawApproximatePricing();
+}
+
+- (boost::optional<ftypes::IsHotelChecker::Type>)hotelType
+{
+  return m_info.GetHotelType();
 }
 
 #pragma mark - Partners

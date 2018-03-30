@@ -15,11 +15,11 @@
 
 @implementation MWMSearchManager (Filter)
 
-- (IBAction)updateFilter
+- (void)updateFilter:(MWMVoidBlock)completion
 {
   MWMSearchFilterViewController * filter = [MWMSearch getFilter];
   UINavigationController * navController =
-      [[UINavigationController alloc] initWithRootViewController:filter];
+  [[UINavigationController alloc] initWithRootViewController:filter];
   UIViewController * ownerController = self.ownerController;
 
   if (IPAD)
@@ -35,7 +35,12 @@
   [self configNavigationBar:navController.navigationBar];
   [self configNavigationItem:navController.topViewController.navigationItem];
 
-  [ownerController presentViewController:navController animated:YES completion:nil];
+  [ownerController presentViewController:navController animated:YES completion:completion];
+}
+
+- (IBAction)updateTap
+{
+  [self updateFilter:nil /* completion */];
 }
 
 - (IBAction)clearFilter { [MWMSearch clearFilter]; }

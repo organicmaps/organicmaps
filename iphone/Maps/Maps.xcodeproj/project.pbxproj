@@ -514,6 +514,8 @@
 		F6C16A671F9626B2000FE296 /* ReviewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3430291B1F87BC3000D0A07C /* ReviewsViewController.xib */; };
 		F6D67CDC2062B9C00032FD38 /* BCCreateCategoryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D67CDB2062B9C00032FD38 /* BCCreateCategoryAlert.swift */; };
 		F6D67CDE2062BBA60032FD38 /* MWMBCCreateCategoryAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6D67CDD2062BBA60032FD38 /* MWMBCCreateCategoryAlert.xib */; };
+		F6D67CE9206929590032FD38 /* PPPSearchSimilarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D67CE8206929590032FD38 /* PPPSearchSimilarButton.swift */; };
+		F6D67CEB2069318B0032FD38 /* PPPSearchSimilarButton.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6D67CEA2069318B0032FD38 /* PPPSearchSimilarButton.xib */; };
 		F6E2FD501E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FBFF1E097B9F0083EBEC /* MWMMapDownloaderAdsTableViewCell.mm */; };
 		F6E2FD531E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6E2FC001E097B9F0083EBEC /* MWMMapDownloaderAdsTableViewCell.xib */; };
 		F6E2FD561E097BA00083EBEC /* MWMMapDownloaderButtonTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6E2FC021E097B9F0083EBEC /* MWMMapDownloaderButtonTableViewCell.mm */; };
@@ -1437,6 +1439,8 @@
 		F6BD1D221CA412E30047B8E8 /* MWMOsmAuthAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMOsmAuthAlert.xib; sourceTree = "<group>"; };
 		F6D67CDB2062B9C00032FD38 /* BCCreateCategoryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BCCreateCategoryAlert.swift; sourceTree = "<group>"; };
 		F6D67CDD2062BBA60032FD38 /* MWMBCCreateCategoryAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMBCCreateCategoryAlert.xib; sourceTree = "<group>"; };
+		F6D67CE8206929590032FD38 /* PPPSearchSimilarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PPPSearchSimilarButton.swift; sourceTree = "<group>"; };
+		F6D67CEA2069318B0032FD38 /* PPPSearchSimilarButton.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PPPSearchSimilarButton.xib; sourceTree = "<group>"; };
 		F6DF5F321CD1136800A87154 /* LocaleTranslator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocaleTranslator.h; sourceTree = "<group>"; };
 		F6E2FBFE1E097B9F0083EBEC /* MWMMapDownloaderAdsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMapDownloaderAdsTableViewCell.h; sourceTree = "<group>"; };
 		F6E2FBFF1E097B9F0083EBEC /* MWMMapDownloaderAdsTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapDownloaderAdsTableViewCell.mm; sourceTree = "<group>"; };
@@ -3643,6 +3647,8 @@
 				F6E2FCDE1E097B9F0083EBEC /* _MWMPPPTitle.xib */,
 				F6E2FCDF1E097B9F0083EBEC /* MWMPPPreviewLayoutHelper.h */,
 				F6E2FCE01E097B9F0083EBEC /* MWMPPPreviewLayoutHelper.mm */,
+				F6D67CE8206929590032FD38 /* PPPSearchSimilarButton.swift */,
+				F6D67CEA2069318B0032FD38 /* PPPSearchSimilarButton.xib */,
 				34F1ADD11F6BC09E001CE79D /* PPPReview.swift */,
 				F6E2FCD91E097B9F0083EBEC /* PPPReview.xib */,
 			);
@@ -4058,6 +4064,7 @@
 				6741A9581BF340DE002C974C /* 04_padauk.ttf in Resources */,
 				6741A9591BF340DE002C974C /* 05_khmeros.ttf in Resources */,
 				34AB66801FC5AA330078E451 /* MWMiPhoneRoutePreview.xib in Resources */,
+				F6D67CEB2069318B0032FD38 /* PPPSearchSimilarButton.xib in Resources */,
 				F61757F11FC731F5000AD0D0 /* DiscoveryOnlineTemplateCell.xib in Resources */,
 				6741A95B1BF340DE002C974C /* 06_code2000.ttf in Resources */,
 				F603E05E1FDE9703006B84D6 /* DiscoverySearchCollectionHolderCell.xib in Resources */,
@@ -4340,6 +4347,7 @@
 				34F742321E0834F400AC1FD6 /* UIViewController+Navigation.mm in Sources */,
 				340475811E081B3300C92850 /* iosOGLContextFactory.mm in Sources */,
 				34AB66561FC5AA330078E451 /* TransportTransitPedestrian.swift in Sources */,
+				F6D67CE9206929590032FD38 /* PPPSearchSimilarButton.swift in Sources */,
 				6741A9B11BF340DE002C974C /* MWMAPIBarView.mm in Sources */,
 				3467CEB2202C6EEE00D3C670 /* BMCNotificationsHeader.swift in Sources */,
 				34F4072F1E9E1AFF00E57AC0 /* BannersCache.swift in Sources */,

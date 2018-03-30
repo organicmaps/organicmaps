@@ -4,5 +4,6 @@
 
 + (void)updateAvailableArea:(CGRect)frame;
 + (void)showUGCAddReview:(MWMRatingSummaryViewValueType)value fromPreview:(BOOL)fromPreview;
++ (void)searchSimilar;
 
 @end

@@ -458,8 +458,7 @@ using Observers = NSHashTable<Observer>;
 {
   if (_state == state)
     return;
-  if (_state == MWMSearchManagerStateHidden)
-    [self endSearch];
+
   _state = state;
   [self updateTopController];
   switch (state)

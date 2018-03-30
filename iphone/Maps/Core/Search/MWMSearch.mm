@@ -3,6 +3,8 @@
 #import "MWMBannerHelpers.h"
 #import "MWMFrameworkListener.h"
 #import "MWMSearchHotelsFilterViewController.h"
+#import "MWMSearchManager+Filter.h"
+#import "MWMSearchManager.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"
@@ -11,6 +13,8 @@
 
 #include "map/everywhere_search_params.hpp"
 #include "map/viewport_search_params.hpp"
+
+#include <utility>
 
 extern NSString * const kLuggageCategory;
 
@@ -317,6 +321,19 @@ using Observers = NSHashTable<Observer>;
   MWMSearch * manager = [MWMSearch manager];
   manager.filter = nil;
   [manager update];
+}
+
++ (void)showHotelFilterWithParams:(search_filter::HotelParams &&)params
+                 onFinishCallback:(MWMVoidBlock)callback
+{
+  auto filter =
+  static_cast<MWMSearchHotelsFilterViewController *>([MWMSearchHotelsFilterViewController controller]);
+  auto search = [MWMSearch manager];
+  search.filter = filter;
+  [[MWMSearchManager manager] updateFilter:[filter, callback, params = std::move(params)]() mutable
+  {
+    [filter applyParams:std::move(params) onFinishCallback:callback];
+  }];
 }
 
 - (void)updateItemsIndexWithBannerReload:(BOOL)reloadBanner

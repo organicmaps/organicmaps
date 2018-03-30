@@ -12,6 +12,8 @@
 #import "MWMPlacePageLayout.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
+#import "MWMSearch.h"
+#import "MWMSearchHotelsFilterViewController.h"
 #import "MWMStorage.h"
 #import "MWMUGCViewModel.h"
 #import "MapViewController.h"
@@ -23,6 +25,12 @@
 #include "map/bookmark.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
+
+#include "base/assert.hpp"
+#include "base/logging.hpp"
+#include "base/stl_helpers.hpp"
+
+#include <utility>
 
 namespace
 {
@@ -595,6 +603,33 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
                                                        [data setUGCUpdateFrom:model];
                                                      }];
   [[MapViewController controller].navigationController pushViewController:ugcVC animated:YES];
+}
+
+- (void)searchSimilar
+{
+  [Statistics logEvent:@"Placepage_Hotel_search_similar"
+        withParameters:@{kStatProvider : self.data.isBooking ? kStatBooking : kStatOSM}];
+
+  auto data = self.data;
+  if (!data)
+    return;
+
+  search_filter::HotelParams params;
+  CHECK(data.hotelType, ("Incorrect hotel type at coordinate:", data.latLon.lat, data.latLon.lon));
+  params.m_type = *data.hotelType;
+
+  if (auto const price = data.hotelRawApproximatePricing)
+  {
+    CHECK_LESS_OR_EQUAL(*price, my::Key(search_filter::Price::Three), ());
+    params.m_price = static_cast<search_filter::Price>(*price);
+  }
+
+  params.m_rating = place_page::rating::GetFilterRating(data.ratingRawValue);
+  [MWMSearch showHotelFilterWithParams:std::move(params)
+                      onFinishCallback:^{
+    [MWMMapViewControlsManager.manager searchTextOnMap:[L(@"booking_hotel") stringByAppendingString:@" "]
+                                        forInputLocale:[NSLocale currentLocale].localeIdentifier];
+  }];
 }
 
 - (void)showAllFacilities

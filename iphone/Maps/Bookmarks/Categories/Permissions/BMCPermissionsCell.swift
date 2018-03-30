@@ -12,9 +12,9 @@ final class BMCPermissionsCell: MWMTableViewCell {
 
   @IBOutlet private weak var button: UIButton! {
     didSet {
-      button.setTitleColor(.white, for: .normal)
+      button.setTitleColor(UIColor.whitePrimaryText(), for: .normal)
+      button.setTitleColor(UIColor.whitePrimaryTextHighlighted(), for: .highlighted)
       button.setBackgroundColor(.linkBlue(), for: .normal)
-      button.setBackgroundColor(.linkBlueHighlighted(), for: .highlighted)
       button.titleLabel?.font = .regular14()
       button.layer.cornerRadius = 6
       button.clipsToBounds = true

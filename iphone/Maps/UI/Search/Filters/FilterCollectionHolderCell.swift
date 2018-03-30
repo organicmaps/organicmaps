@@ -1,6 +1,6 @@
 @objc(MWMFilterCollectionHolderCell)
 final class FilterCollectionHolderCell: MWMTableViewCell {
-  @IBOutlet weak var collectionView: UICollectionView!
+  @IBOutlet private(set) weak var collectionView: UICollectionView!
   @IBOutlet private weak var collectionViewHeight: NSLayoutConstraint!
   private weak var tableView: UITableView?
   override var frame: CGRect {
