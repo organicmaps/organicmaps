@@ -116,7 +116,7 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     subtitle.setText(R.string.onboarding_welcome_first_subtitle);
     TextView terms = (TextView) content.findViewById(R.id.tv__subtitle2);
     UiUtils.show(terms);
-    terms.setText(Html.fromHtml(getString(R.string.onboarding_welcome_second_subtitle)));
+    terms.setText(R.string.onboarding_welcome_second_subtitle);
     terms.setMovementMethod(LinkMovementMethod.getInstance());
 
     return res;
