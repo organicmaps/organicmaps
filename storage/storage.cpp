@@ -635,7 +635,7 @@ void Storage::DownloadNextCountryFromQueue()
   DownloadNextFile(queuedCountry);
 
   // New status for the country, "Downloading"
-  NotifyStatusChangedForHierarchy(queuedCountry.GetCountryId());
+  NotifyStatusChangedForHierarchy(countryId);
 }
 
 void Storage::DownloadNextFile(QueuedCountry const & country)
