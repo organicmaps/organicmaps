@@ -30102,7 +30102,7 @@ fa = دوباره نپرس
     en = Please wait...
     ru = Пожалуйста, подождите...
 
-  [football_world_cup]
+  [fc2018]
     en = Football World Cup 2018
     ru = ЧМ по футболу 2018
 
