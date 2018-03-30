@@ -44,7 +44,7 @@ public enum PromoCategory
         @Override
         int getStringId()
         {
-          return R.string.football_world_cup;
+          return R.string.fc2018;
         }
 
         @NonNull
