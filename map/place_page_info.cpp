@@ -257,6 +257,18 @@ string Info::GetApproximatePricing() const
   return result;
 }
 
+boost::optional<int> Info::GetRawApproximatePricing() const
+{
+  if (!IsSponsored())
+    return {};
+
+  int pricing;
+  if (strings::to_int(GetMetadata().Get(feature::Metadata::FMD_PRICE_RATE), pricing))
+    return pricing;
+
+  return {};
+}
+
 bool Info::HasBanner() const
 {
   if (!m_adsEngine)

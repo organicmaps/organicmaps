@@ -27,6 +27,8 @@
 #include <utility>
 #include <vector>
 
+#include <boost/optional.hpp>
+
 namespace ads
 {
 struct Banner;
@@ -107,6 +109,7 @@ public:
   float GetRatingRawValue() const;
   /// @returns string with |kPricingSymbol| signs or empty std::string if it isn't booking object
   std::string GetApproximatePricing() const;
+  boost::optional<int> GetRawApproximatePricing() const;
 
   /// UI setters
   void SetCustomName(std::string const & name);
