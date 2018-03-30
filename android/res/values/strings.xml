@@ -1297,7 +1297,7 @@
 	<string name="bookmarks_error_title_list_name_too_long">This name is too long</string>
 	<string name="bookmarks_error_message_list_name_too_long">Please choose another name</string>
 	<string name="please_wait">Please wait...</string>
-	<string name="football_world_cup">Football World Cup 2018</string>
+	<string name="fc2018">Football World Cup 2018</string>
 	<string name="phone_number">Phone number</string>
 	<string name="notification_unsent_reviews_title"> You have several unsent reviews</string>
 	<string name="notification_unsent_reviews_message"> Please sign in to share reviews with other travelers</string>
