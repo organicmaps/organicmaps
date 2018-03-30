@@ -301,6 +301,22 @@ namespace
 std::string const kEmptyRatingSymbol = "-";
 }  // namespace
 
+FilterRating GetFilterRating(float const rawRating)
+{
+  CHECK_LESS_OR_EQUAL(rawRating, kTopRatingBound, ());
+  CHECK_GREATER_OR_EQUAL(rawRating, 0, ());
+
+  auto const rounded = static_cast<int>(rawRating);
+  if (rounded < 7)
+    return FilterRating::Any;
+  if (rounded < 8)
+    return FilterRating::Good;
+  if (rounded < 9)
+    return FilterRating::VeryGood;
+
+  return FilterRating::Excellent;
+}
+
 Impress GetImpress(float const rawRating)
 {
   CHECK_LESS_OR_EQUAL(rawRating, kTopRatingBound, ());

@@ -304,6 +304,14 @@ private:
 
 namespace rating
 {
+enum class FilterRating
+{
+  Any,
+  Good,
+  VeryGood,
+  Excellent
+};
+
 enum Impress
 {
   None,
@@ -313,6 +321,8 @@ enum Impress
   Good,
   Excellent
 };
+
+FilterRating GetFilterRating(float const rawRating);
 
 Impress GetImpress(float const rawRating);
 std::string GetRatingFormatted(float const rawRating);
