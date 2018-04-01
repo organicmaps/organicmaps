@@ -616,18 +616,22 @@ void BookmarkManager::NotifyChanges()
   if (!m_changesTracker.CheckChanges() && !m_firstDrapeNotification)
     return;
 
-  bool isBookmarks = false;
+  bool hasBookmarks = false;
+  df::GroupIDCollection categoriesToSave;
   for (auto groupId : m_changesTracker.GetDirtyGroupIds())
   {
     if (IsBookmarkCategory(groupId))
     {
       if (GetBmCategory(groupId)->IsAutoSaveEnabled())
-        SaveBookmarkCategoryToFile(groupId);
-      isBookmarks = true;
+        categoriesToSave.push_back(groupId);
+      hasBookmarks = true;
     }
   }
-  if (isBookmarks)
+  if (hasBookmarks)
+  {
+    SaveBookmarks(categoriesToSave);
     SendBookmarksChanges();
+  }
 
   df::DrapeEngineLockGuard lock(m_drapeEngine);
   if (lock)
@@ -917,11 +921,6 @@ void BookmarkManager::LoadBookmarks()
   });
 
   LoadState();
-}
-
-void BookmarkManager::MigrateAndLoadBookmarks()
-{
-
 }
 
 void BookmarkManager::LoadBookmark(std::string const & filePath, bool isTemporaryFile)
@@ -1409,7 +1408,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     {
       // Delete file since it will be merged.
       my::DeleteFileX(fileName);
-      SaveBookmarkCategoryToFile(groupId);
+      SaveBookmarks({groupId});
     }
   }
 
@@ -1443,77 +1442,111 @@ std::unique_ptr<kml::FileData> BookmarkManager::CollectBmGroupKMLData(BookmarkCa
   return kmlData;
 }
 
-void BookmarkManager::SaveToKML(df::MarkGroupID groupId, Writer & writer, bool useBinary) const
+bool BookmarkManager::SaveBookmarkCategory(df::MarkGroupID groupId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
-  SaveToKML(GetBmCategory(groupId), writer, useBinary);
+  auto collection = PrepareToSaveBookmarks({groupId});
+  if (!collection || collection->empty())
+    return false;
+  auto const & file = collection->front().first;
+  auto & kmlData = *collection->front().second;
+  return SaveKMLData(file, kmlData, migration::IsMigrationCompleted());
 }
 
-void BookmarkManager::SaveToKML(BookmarkCategory const * group, Writer & writer, bool useBinary) const
+void BookmarkManager::SaveToFile(df::MarkGroupID groupId, Writer & writer, bool useBinary) const
 {
-  auto const kmlData = CollectBmGroupKMLData(group);
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  auto * group = GetBmCategory(groupId);
+  auto kmlData = CollectBmGroupKMLData(group);
+  SaveToFile(*kmlData, writer, useBinary);
+}
+
+void BookmarkManager::SaveToFile(kml::FileData & kmlData, Writer & writer, bool useBinary) const
+{
   if (useBinary)
   {
-    kml::binary::SerializerKml ser(*kmlData);
+    kml::binary::SerializerKml ser(kmlData);
     ser.Serialize(writer);
   }
   else
   {
-    kml::SerializerKml ser(*kmlData);
+    kml::SerializerKml ser(kmlData);
     ser.Serialize(writer);
   }
 }
 
-bool BookmarkManager::SaveBookmarkCategoryToFile(df::MarkGroupID groupId)
+std::shared_ptr<BookmarkManager::KMLDataCollection> BookmarkManager::PrepareToSaveBookmarks(
+  df::GroupIDCollection const & groupIdCollection)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
-  std::string oldFile;
-
-  auto * group = GetBmCategory(groupId);
-
-  // Get valid file name from category name
-  std::string const name = RemoveInvalidSymbols(group->GetName());
-  std::string file = group->GetFileName();
-
   bool migrated = migration::IsMigrationCompleted();
-  std::string const fileExt(migrated ? kBookmarksExt : BOOKMARKS_FILE_EXTENSION);
+
   std::string const fileDir = migrated ? GetBookmarksDirectory() : GetPlatform().SettingsDir();
+  std::string const fileExt = migrated ? kBookmarksExt : BOOKMARKS_FILE_EXTENSION;
 
   if (migrated && !GetPlatform().IsFileExistsByFullPath(fileDir) && !GetPlatform().MkDirChecked(fileDir))
-    return false;
+    return std::shared_ptr<KMLDataCollection>();
 
-  if (file.empty())
+  auto collection = std::make_shared<KMLDataCollection>();
+
+  for (auto const groupId : groupIdCollection)
   {
-    file = GenerateUniqueFileName(fileDir, name, fileExt);
-    group->SetFileName(file);
-  }
+    auto * group = GetBmCategory(groupId);
 
-  std::string const fileTmp = file + ".tmp";
+    // Get valid file name from category name
+    std::string const name = RemoveInvalidSymbols(group->GetName());
+    std::string file = group->GetFileName();
+
+    if (file.empty())
+    {
+      file = GenerateUniqueFileName(fileDir, name, fileExt);
+      group->SetFileName(file);
+    }
+
+    collection->emplace_back(file, CollectBmGroupKMLData(group));
+  }
+  return collection;
+}
+
+bool BookmarkManager::SaveKMLData(std::string const & file, kml::FileData & kmlData, bool useBinary)
+{
+  auto const fileTmp = file + ".tmp";
   try
   {
     FileWriter writer(fileTmp);
-    SaveToKML(group, writer, migrated /* useBinary */);
+    SaveToFile(kmlData, writer, useBinary);
 
     // Only after successful save we replace original file
     my::DeleteFileX(file);
     VERIFY(my::RenameFileX(fileTmp, file), (fileTmp, file));
     return true;
   }
-  catch (FileWriter::Exception const &exc)
+  catch (FileWriter::Exception const & exc)
   {
-    LOG(LDEBUG, ("KML", migrated ? " binary" : "", " serialization failure: ", exc.what(), "file", fileTmp));
+    LOG(LDEBUG, ("KML serialization failure:", exc.what(), "file", fileTmp));
   }
   catch (std::exception const & e)
   {
-    LOG(LWARNING, ("Exception while saving bookmarks:", e.what()));
+    LOG(LWARNING, ("Exception while saving bookmarks:", e.what(), "file", file));
   }
-
-  LOG(LWARNING, ("Can't save bookmarks category", name, "to file", file));
 
   // remove possibly left tmp file
   my::DeleteFileX(fileTmp);
-
   return false;
+}
+
+void BookmarkManager::SaveBookmarks(df::GroupIDCollection const & groupIdCollection)
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+
+  auto kmlDataCollection = PrepareToSaveBookmarks(groupIdCollection);
+  if (!kmlDataCollection)
+    return;
+
+  bool const migrated = migration::IsMigrationCompleted();
+  GetPlatform().RunTask(Platform::Thread::File, [this, migrated, kmlDataCollection]()
+  {
+    for (auto const & kmlItem : *kmlDataCollection)
+      SaveKMLData(kmlItem.first, *kmlItem.second, migrated);
+  });
 }
 
 void BookmarkManager::SetCloudEnabled(bool enabled)

@@ -217,7 +217,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   {
     LOG(LWARNING, ("SaveToKML (", fileName, ")"));
     FileWriter writer(fileName);
-    bmManager.SaveToKML(groupId1, writer, false /* useBinary */);
+    bmManager.SaveToFile(groupId1, writer, false /* useBinary */);
   }
 
   bmManager.GetEditSession().ClearGroup(groupId1);
@@ -252,7 +252,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   auto const groupId3 = bmManager.GetBmGroupsIdList().front();
   CheckBookmarks(bmManager, groupId3);
 
-  TEST(bmManager.SaveBookmarkCategoryToFile(groupId3), ());
+  TEST(bmManager.SaveBookmarkCategory(groupId3), ());
   // old file shouldn't be deleted if we save bookmarks with new category name
   uint64_t dummy;
   TEST(my::GetFileSize(fileName, dummy), ());
@@ -600,11 +600,11 @@ UNIT_CLASS_TEST(Runner, BookmarkCategory_EmptyName)
   bm.m_point = m2::PointD(0, 0);
   bmManager.GetEditSession().CreateBookmark(bm, catId);
 
-  TEST(bmManager.SaveBookmarkCategoryToFile(catId), ());
+  TEST(bmManager.SaveBookmarkCategory(catId), ());
 
   bmManager.GetEditSession().SetCategoryName(catId, "xxx");
 
-  TEST(bmManager.SaveBookmarkCategoryToFile(catId), ());
+  TEST(bmManager.SaveBookmarkCategory(catId), ());
 
   vector<string> const arrFiles = {"Bookmarks", "xxx"};
   DeleteCategoryFiles(arrFiles);
@@ -659,7 +659,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
   auto const catId = groupIds.front();
   auto const expectedName = "3663 and M & J Seafood Branches";
   TEST_EQUAL(bmManager.GetUserMarkIds(catId).size(), 1, ());
-  TEST(bmManager.SaveBookmarkCategoryToFile(catId), ());
+  TEST(bmManager.SaveBookmarkCategory(catId), ());
 
   TEST_EQUAL(bmManager.GetCategoryName(catId), expectedName, ());
   // change category name to avoid merging it with the second one

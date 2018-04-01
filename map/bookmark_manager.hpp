@@ -185,11 +185,10 @@ public:
   std::shared_ptr<KMLDataCollection> LoadBookmarksKMB(std::vector<std::string> & filePaths);
   void LoadBookmarks();
   void LoadBookmark(std::string const & filePath, bool isTemporaryFile);
-  void MigrateAndLoadBookmarks();
 
   /// Uses the same file name from which was loaded, or
   /// creates unique file name on first save and uses it every time.
-  bool SaveBookmarkCategoryToFile(df::MarkGroupID groupId);
+  void SaveBookmarks(df::GroupIDCollection const & groupIdCollection);
 
   StaticMarkPoint & SelectionMark() { return *m_selectionMark; }
   StaticMarkPoint const & SelectionMark() const { return *m_selectionMark; }
@@ -263,7 +262,8 @@ public:
   void CancelCloudRestoring();
 
   /// These functions are public for unit tests only. You shouldn't call them from client code.
-  void SaveToKML(df::MarkGroupID groupId, Writer & writer, bool useBinary) const;
+  bool SaveBookmarkCategory(df::MarkGroupID groupId);
+  void SaveToFile(df::MarkGroupID groupId, Writer & writer, bool useBinary) const;
   void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = true);
   static std::string RemoveInvalidSymbols(std::string const & name);
   static std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string const & fileExt);
@@ -417,7 +417,9 @@ private:
   void CheckAndCreateDefaultCategory();
 
   std::unique_ptr<kml::FileData> CollectBmGroupKMLData(BookmarkCategory const * group) const;
-  void SaveToKML(BookmarkCategory const * group, Writer & writer, bool useBinary) const;
+  void SaveToFile(kml::FileData & kmlData, Writer & writer, bool useBinary) const;
+  std::shared_ptr<KMLDataCollection> PrepareToSaveBookmarks(df::GroupIDCollection const & groupIdCollection);
+  bool SaveKMLData(std::string const & file, kml::FileData & kmlData, bool useBinary);
 
   void OnSynchronizationStarted(Cloud::SynchronizationType type);
   void OnSynchronizationFinished(Cloud::SynchronizationType type, Cloud::SynchronizationResult result,

@@ -104,11 +104,5 @@ private:
   kml::CategoryData m_data;
 };
 
-struct CategoryFileInfo
-{
-  std::string m_filePath;
-  std::unique_ptr<kml::FileData> m_data;
-};
-
 std::unique_ptr<kml::FileData> LoadKMLFile(std::string const & file, bool useBinary);
 std::unique_ptr<kml::FileData> LoadKMLData(Reader const & reader, bool useBinary);
