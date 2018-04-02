@@ -172,7 +172,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
       return;
 
     final Bundle args = new Bundle();
-    args.putString(BookmarkColorDialogFragment.ICON_TYPE, mIcon.getType());
+    args.putInt(BookmarkColorDialogFragment.ICON_TYPE, mIcon.getColor());
     final BookmarkColorDialogFragment dialogFragment = (BookmarkColorDialogFragment) BookmarkColorDialogFragment.
         instantiate(getActivity(), BookmarkColorDialogFragment.class.getName(), args);
 

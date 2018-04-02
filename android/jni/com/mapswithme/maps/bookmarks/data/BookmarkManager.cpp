@@ -238,7 +238,9 @@ JNIEXPORT jlong JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeCreateCategory(
      JNIEnv * env, jobject thiz, jstring name)
 {
-  return static_cast<jlong>(frm()->GetBookmarkManager().CreateBookmarkCategory(ToNativeString(env, name)));
+  auto const categoryId = frm()->GetBookmarkManager().CreateBookmarkCategory(ToNativeString(env, name));
+  frm()->GetBookmarkManager().SetLastEditedBmCategory(categoryId);
+  return static_cast<jlong>(categoryId);
 }
 
 JNIEXPORT jboolean JNICALL
@@ -268,11 +270,13 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastE
 {
   BookmarkManager & bmMng = frm()->GetBookmarkManager();
 
-  m2::PointD const glbPoint(MercatorBounds::FromLatLon(lat, lon));
-  BookmarkData bmkData(ToNativeString(env, name), frm()->LastEditedBMColor());
+  kml::BookmarkData bmData;
+  kml::SetDefaultStr(bmData.m_name, ToNativeString(env, name));
+  bmData.m_color.m_predefinedColor = frm()->LastEditedBMColor();
+  bmData.m_point = MercatorBounds::FromLatLon(lat, lon);
   auto const lastEditedCategory = frm()->LastEditedBMCategory();
 
-  auto const * createdBookmark = bmMng.GetEditSession().CreateBookmark(glbPoint, bmkData, lastEditedCategory);
+  auto const * createdBookmark = bmMng.GetEditSession().CreateBookmark(bmData, lastEditedCategory);
 
   place_page::Info & info = g_framework->GetPlacePageInfo();
   frm()->FillBookmarkInfo(*createdBookmark, info);
@@ -287,12 +291,11 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetLastEditedCateg
   return static_cast<jlong>(frm()->LastEditedBMCategory());
 }
 
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGenerateUniqueFileName(JNIEnv * env, jclass thiz, jstring jBaseName)
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetLastEditedColor(
+        JNIEnv * env, jobject thiz)
 {
-  std::string baseName = ToNativeString(env, jBaseName);
-  std::string bookmarkFileName = BookmarkManager::GenerateUniqueFileName(GetPlatform().SettingsDir(), baseName);
-  return ToJavaString(env, bookmarkFileName);
+  return static_cast<jint>(frm()->LastEditedBMColor());
 }
 
 JNIEXPORT void JNICALL

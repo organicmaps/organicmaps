@@ -14,7 +14,7 @@ import com.mapswithme.maps.bookmarks.data.Icon;
 
 public class IconsAdapter extends ArrayAdapter<Icon>
 {
-  private String mCheckedIconType;
+  private int mCheckedIconColor;
 
   public IconsAdapter(Context context, List<Icon> list)
   {
@@ -36,7 +36,7 @@ public class IconsAdapter extends ArrayAdapter<Icon>
       holder = (SpinnerViewHolder) convertView.getTag();
 
     final Icon icon = getItem(position);
-    if (icon.getType().equals(mCheckedIconType))
+    if (icon.getColor() == mCheckedIconColor)
       holder.icon.setImageResource(getItem(position).getSelectedResId());
     else
       holder.icon.setImageResource(getItem(position).getResId());
@@ -54,9 +54,9 @@ public class IconsAdapter extends ArrayAdapter<Icon>
     }
   }
 
-  public void chooseItem(String position)
+  public void chooseItem(int position)
   {
-    mCheckedIconType = position;
+    mCheckedIconColor = position;
     notifyDataSetChanged();
   }
 }

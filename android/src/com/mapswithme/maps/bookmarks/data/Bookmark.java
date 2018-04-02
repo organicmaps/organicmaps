@@ -62,7 +62,7 @@ public class Bookmark extends MapObject
     super.writeToParcel(dest, flags);
     dest.writeLong(mCategoryId);
     dest.writeLong(mBookmarkId);
-    dest.writeString(mIcon.getType());
+    dest.writeInt(mIcon.getColor());
     dest.writeDouble(mMerX);
     dest.writeDouble(mMerY);
   }
@@ -75,7 +75,7 @@ public class Bookmark extends MapObject
     super(type, source);
     mCategoryId = source.readLong();
     mBookmarkId = source.readLong();
-    mIcon = BookmarkManager.getIconByType(source.readString());
+    mIcon = BookmarkManager.getIconByColor(source.readInt());
     mMerX = source.readDouble();
     mMerY = source.readDouble();
     initXY();
@@ -94,7 +94,7 @@ public class Bookmark extends MapObject
 
   private Icon getIconInternal()
   {
-    return BookmarkManager.getIconByType(nativeGetIcon(mBookmarkId));
+    return BookmarkManager.getIconByColor(nativeGetColor(mBookmarkId));
   }
 
   public Icon getIcon()
@@ -130,7 +130,9 @@ public class Bookmark extends MapObject
 
     if (!title.equals(getTitle()) || icon != mIcon || !description.equals(getBookmarkDescription()))
     {
-      nativeSetBookmarkParams(mBookmarkId, title, icon != null ? icon.getType() : "",
+      nativeSetBookmarkParams(mBookmarkId, title,
+                              icon != null ? icon.getColor()
+                                           : BookmarkManager.INSTANCE.getLastEditedColor(),
                               description);
     }
   }
@@ -164,13 +166,13 @@ public class Bookmark extends MapObject
 
   private native ParcelablePointD nativeGetXY(@IntRange(from = 0) long bookmarkId);
 
-  private native String nativeGetIcon(@IntRange(from = 0) long bookmarkId);
+  private native int nativeGetColor(@IntRange(from = 0) long bookmarkId);
 
   private native double nativeGetScale(@IntRange(from = 0) long bookmarkId);
 
   private native String nativeEncode2Ge0Url(@IntRange(from = 0) long bookmarkId, boolean addName);
 
-  private native void nativeSetBookmarkParams(@IntRange(from = 0) long bookmarkId, String name, String type, String descr);
+  private native void nativeSetBookmarkParams(@IntRange(from = 0) long bookmarkId, String name, int color, String descr);
 
   private native void nativeChangeCategory(@IntRange(from = 0) long oldCatId, @IntRange(from = 0) long newCatId, @IntRange(from = 0) long bookmarkId);
 }

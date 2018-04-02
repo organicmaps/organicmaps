@@ -58,24 +58,40 @@ public enum BookmarkManager
   @NonNull
   private List<BookmarksCloudListener> mCloudListeners = new ArrayList<>();
 
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ PREDEFINED_COLOR_NONE, PREDEFINED_COLOR_RED, PREDEFINED_COLOR_BLUE,
+            PREDEFINED_COLOR_PURPLE, PREDEFINED_COLOR_YELLOW, PREDEFINED_COLOR_PINK,
+            PREDEFINED_COLOR_BROWN, PREDEFINED_COLOR_GREEN, PREDEFINED_COLOR_ORANGE })
+
+  public @interface PredefinedColor {}
+
+  public static final int PREDEFINED_COLOR_NONE = 0;
+  public static final int PREDEFINED_COLOR_RED = 1;
+  public static final int PREDEFINED_COLOR_BLUE = 2;
+  public static final int PREDEFINED_COLOR_PURPLE = 3;
+  public static final int PREDEFINED_COLOR_YELLOW = 4;
+  public static final int PREDEFINED_COLOR_PINK = 5;
+  public static final int PREDEFINED_COLOR_BROWN = 6;
+  public static final int PREDEFINED_COLOR_GREEN = 7;
+  public static final int PREDEFINED_COLOR_ORANGE = 8;
+
   static
   {
-    ICONS.add(new Icon("placemark-red", "placemark-red", R.drawable.ic_bookmark_marker_red_off, R.drawable.ic_bookmark_marker_red_on));
-    ICONS.add(new Icon("placemark-blue", "placemark-blue", R.drawable.ic_bookmark_marker_blue_off, R.drawable.ic_bookmark_marker_blue_on));
-    ICONS.add(new Icon("placemark-purple", "placemark-purple", R.drawable.ic_bookmark_marker_purple_off, R.drawable.ic_bookmark_marker_purple_on));
-    ICONS.add(new Icon("placemark-yellow", "placemark-yellow", R.drawable.ic_bookmark_marker_yellow_off, R.drawable.ic_bookmark_marker_yellow_on));
-    ICONS.add(new Icon("placemark-pink", "placemark-pink", R.drawable.ic_bookmark_marker_pink_off, R.drawable.ic_bookmark_marker_pink_on));
-    ICONS.add(new Icon("placemark-brown", "placemark-brown", R.drawable.ic_bookmark_marker_brown_off, R.drawable.ic_bookmark_marker_brown_on));
-    ICONS.add(new Icon("placemark-green", "placemark-green", R.drawable.ic_bookmark_marker_green_off, R.drawable.ic_bookmark_marker_green_on));
-    ICONS.add(new Icon("placemark-orange", "placemark-orange", R.drawable.ic_bookmark_marker_orange_off, R.drawable.ic_bookmark_marker_orange_on));
-    ICONS.add(new Icon("placemark-hotel", "placemark-hotel", R.drawable.ic_bookmark_marker_hotel_off, R.drawable.ic_bookmark_marker_hotel_on));
+    ICONS.add(new Icon("placemark-red", PREDEFINED_COLOR_RED, R.drawable.ic_bookmark_marker_red_off, R.drawable.ic_bookmark_marker_red_on));
+    ICONS.add(new Icon("placemark-blue", PREDEFINED_COLOR_BLUE, R.drawable.ic_bookmark_marker_blue_off, R.drawable.ic_bookmark_marker_blue_on));
+    ICONS.add(new Icon("placemark-purple", PREDEFINED_COLOR_PURPLE, R.drawable.ic_bookmark_marker_purple_off, R.drawable.ic_bookmark_marker_purple_on));
+    ICONS.add(new Icon("placemark-yellow", PREDEFINED_COLOR_YELLOW, R.drawable.ic_bookmark_marker_yellow_off, R.drawable.ic_bookmark_marker_yellow_on));
+    ICONS.add(new Icon("placemark-pink", PREDEFINED_COLOR_PINK, R.drawable.ic_bookmark_marker_pink_off, R.drawable.ic_bookmark_marker_pink_on));
+    ICONS.add(new Icon("placemark-brown", PREDEFINED_COLOR_BROWN, R.drawable.ic_bookmark_marker_brown_off, R.drawable.ic_bookmark_marker_brown_on));
+    ICONS.add(new Icon("placemark-green", PREDEFINED_COLOR_GREEN, R.drawable.ic_bookmark_marker_green_off, R.drawable.ic_bookmark_marker_green_on));
+    ICONS.add(new Icon("placemark-orange", PREDEFINED_COLOR_ORANGE, R.drawable.ic_bookmark_marker_orange_off, R.drawable.ic_bookmark_marker_orange_on));
   }
 
-  static Icon getIconByType(String type)
+  static Icon getIconByColor(int color)
   {
     for (Icon icon : ICONS)
     {
-      if (icon.getType().equals(type))
+      if (icon.getColor() == color)
         return icon;
     }
     // return default icon
@@ -318,11 +334,7 @@ public enum BookmarkManager
 
   public long getLastEditedCategory() { return nativeGetLastEditedCategory(); }
 
-  @NonNull
-  public static String generateUniqueFileName(@NonNull String baseName)
-  {
-    return nativeGenerateUniqueFileName(baseName);
-  }
+  public int getLastEditedColor() { return nativeGetLastEditedColor(); }
 
   public void setCloudEnabled(boolean enabled) { nativeSetCloudEnabled(enabled); }
 
@@ -458,14 +470,13 @@ public enum BookmarkManager
 
   private native long nativeGetLastEditedCategory();
 
+  private native int nativeGetLastEditedColor();
+
   private native void nativeSetCloudEnabled(boolean enabled);
 
   private native boolean nativeIsCloudEnabled();
 
   private native long nativeGetLastSynchronizationTimestampInMs();
-
-  @NonNull
-  private static native String nativeGenerateUniqueFileName(@NonNull String baseName);
 
   private static native void nativeLoadKmzFile(@NonNull String path, boolean isTemporaryFile);
 

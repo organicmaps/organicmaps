@@ -372,7 +372,7 @@ void Framework::RemoveLocalMaps()
   m_work.DeregisterAllMaps();
 }
 
-void Framework::ReplaceBookmark(df::MarkID markId, BookmarkData & bm)
+void Framework::ReplaceBookmark(df::MarkID markId, kml::BookmarkData & bm)
 {
   m_work.GetBookmarkManager().GetEditSession().UpdateBookmark(markId, bm);
 }

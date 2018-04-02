@@ -21,7 +21,7 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
 {
   public static final String ICON_TYPE = "ExtraIconType";
 
-  private String mIconType;
+  private int mIconColor;
 
   interface OnBookmarkColorChangeListener
   {
@@ -37,7 +37,7 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
   public Dialog onCreateDialog(Bundle savedInstanceState)
   {
     if (getArguments() != null)
-      mIconType = getArguments().getString(ICON_TYPE);
+      mIconColor = getArguments().getInt(ICON_TYPE);
 
     return new AlertDialog.Builder(getActivity())
                           .setView(buildView())
@@ -55,7 +55,7 @@ public class BookmarkColorDialogFragment extends BaseMwmDialogFragment
   {
     final List<Icon> icons = BookmarkManager.ICONS;
     final IconsAdapter adapter = new IconsAdapter(getActivity(), icons);
-    adapter.chooseItem(mIconType);
+    adapter.chooseItem(mIconColor);
 
     final GridView gView = (GridView) LayoutInflater.from(getActivity()).inflate(R.layout.fragment_color_grid, null);
     gView.setAdapter(adapter);

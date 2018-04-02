@@ -138,7 +138,7 @@ namespace android
     void Scale(::Framework::EScaleMode mode);
     void Scale(m2::PointD const & centerPt, int targetZoom, bool animate);
 
-    void ReplaceBookmark(df::MarkID markId, BookmarkData & bm);
+    void ReplaceBookmark(df::MarkID markId, kml::BookmarkData & bm);
     void MoveBookmark(df::MarkID markId, df::MarkGroupID curCat, df::MarkGroupID newCat);
 
     ::Framework * NativeFramework();
