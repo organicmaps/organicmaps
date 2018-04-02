@@ -33,9 +33,14 @@ import com.mapswithme.util.statistics.Statistics;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import static com.mapswithme.maps.search.FilterUtils.combineFilters;
+import static com.mapswithme.maps.search.FilterUtils.findPriceFilter;
+import static com.mapswithme.maps.search.FilterUtils.findRatingFilter;
+import static com.mapswithme.maps.search.FilterUtils.findTypeFilter;
+import static com.mapswithme.maps.search.FilterUtils.makeOneOf;
 
 public class FilterFragment extends BaseMwmToolbarFragment
     implements HotelsTypeAdapter.OnTypeSelectedListener
@@ -336,35 +341,6 @@ public class FilterFragment extends BaseMwmToolbarFragment
     return combineFilters(rating, price, oneOf);
   }
 
-  @Nullable
-  private HotelsFilter.OneOf makeOneOf(@NonNull Iterator<HotelsFilter.HotelType> iterator)
-  {
-    if (!iterator.hasNext())
-      return null;
-
-    HotelsFilter.HotelType type = iterator.next();
-    return new HotelsFilter.OneOf(type, makeOneOf(iterator));
-  }
-
-  @Nullable
-  private HotelsFilter combineFilters(@NonNull HotelsFilter... filters)
-  {
-    HotelsFilter result = null;
-    for (HotelsFilter filter : filters)
-    {
-      if (result == null)
-      {
-        result = filter;
-        continue;
-      }
-
-      if (filter != null)
-        result = new HotelsFilter.And(filter, result);
-    }
-
-    return result;
-  }
-
   private void updateViews(@Nullable HotelsFilter filter, @Nullable BookingFilterParams params)
   {
     if (filter == null)
@@ -406,76 +382,6 @@ public class FilterFragment extends BaseMwmToolbarFragment
       mCheckoutDate = checkout;
       mCheckOut.setText(mDateFormatter.format(mCheckoutDate.getTime()));
     }
-  }
-
-  @Nullable
-  private HotelsFilter.RatingFilter findRatingFilter(@NonNull HotelsFilter filter)
-  {
-    if (filter instanceof HotelsFilter.RatingFilter)
-      return (HotelsFilter.RatingFilter) filter;
-
-    HotelsFilter.RatingFilter result;
-    if (filter instanceof HotelsFilter.And)
-    {
-      HotelsFilter.And and = (HotelsFilter.And) filter;
-      result = findRatingFilter(and.mLhs);
-      if (result == null)
-        result = findRatingFilter(and.mRhs);
-
-      return result;
-    }
-
-    return null;
-  }
-
-  @Nullable
-  private HotelsFilter findPriceFilter(@NonNull HotelsFilter filter)
-  {
-    if (filter instanceof HotelsFilter.PriceRateFilter)
-      return filter;
-
-    if (filter instanceof HotelsFilter.Or)
-    {
-      HotelsFilter.Or or = (HotelsFilter.Or) filter;
-      if (or.mLhs instanceof HotelsFilter.PriceRateFilter
-          && or.mRhs instanceof HotelsFilter.PriceRateFilter )
-      {
-        return filter;
-      }
-    }
-
-    HotelsFilter result;
-    if (filter instanceof HotelsFilter.And)
-    {
-      HotelsFilter.And and = (HotelsFilter.And) filter;
-      result = findPriceFilter(and.mLhs);
-      if (result == null)
-        result = findPriceFilter(and.mRhs);
-
-      return result;
-    }
-
-    return null;
-  }
-
-  @Nullable
-  private HotelsFilter.OneOf findTypeFilter(@NonNull HotelsFilter filter)
-  {
-    if (filter instanceof HotelsFilter.OneOf)
-      return (HotelsFilter.OneOf) filter;
-
-    HotelsFilter.OneOf result;
-    if (filter instanceof HotelsFilter.And)
-    {
-      HotelsFilter.And and = (HotelsFilter.And) filter;
-      result = findTypeFilter(and.mLhs);
-      if (result == null)
-        result = findTypeFilter(and.mRhs);
-
-      return result;
-    }
-
-    return null;
   }
 
   private void updateTypeAdapter(@NonNull HotelsTypeAdapter typeAdapter,
