@@ -134,7 +134,6 @@ final class AdBanner: UITableViewCell {
     case let ad as GoogleNativeBanner: configGoogleNativeBanner(ad: ad)
     default: assert(false)
     }
-    backgroundColor = UIColor.bannerBackground()
   }
 
   @objc func highlightButton() {
