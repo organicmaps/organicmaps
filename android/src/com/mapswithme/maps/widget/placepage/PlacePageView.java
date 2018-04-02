@@ -68,8 +68,8 @@ import com.mapswithme.maps.gallery.impl.Factory;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.review.Review;
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.maps.search.FilterActivity;
-import com.mapswithme.maps.taxi.TaxiManager;
+import com.mapswithme.maps.search.FilterUtils;
+import com.mapswithme.maps.search.HotelsFilter;
 import com.mapswithme.maps.taxi.TaxiType;
 import com.mapswithme.maps.ugc.Impress;
 import com.mapswithme.maps.ugc.UGCController;
@@ -1898,7 +1898,14 @@ public class PlacePageView extends RelativeLayout
         }
         break;
       case R.id.search_hotels_btn:
-        getActivity().onShowSimilarHotels();
+        if (mMapObject == null)
+          break;
+
+        HotelsFilter filter = FilterUtils.createHotelFilter(0 /* TODO: coming soon */,
+                                                            mMapObject.getPriceRate(),
+                                                            mMapObject.getHotelType());
+
+        getActivity().onShowSimilarHotels(filter);
         break;
     }
   }

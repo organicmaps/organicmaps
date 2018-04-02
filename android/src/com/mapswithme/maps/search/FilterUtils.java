@@ -3,7 +3,10 @@ package com.mapswithme.maps.search;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 public class FilterUtils
 {
@@ -52,6 +55,12 @@ public class FilterUtils
       HotelsFilter.Or or = (HotelsFilter.Or) filter;
       if (or.mLhs instanceof HotelsFilter.PriceRateFilter
           && or.mRhs instanceof HotelsFilter.PriceRateFilter )
+      {
+        return filter;
+      }
+      if (or.mLhs instanceof HotelsFilter.Or
+          && ((HotelsFilter.Or) or.mLhs).mLhs instanceof HotelsFilter.PriceRateFilter
+          && ((HotelsFilter.Or) or.mLhs).mRhs instanceof HotelsFilter.PriceRateFilter)
       {
         return filter;
       }
@@ -112,10 +121,31 @@ public class FilterUtils
   }
 
   @Nullable
-  static HotelsFilter createHotelFilter(int rating, int priceRate,
-                                        @Nullable HotelsFilter.HotelType type)
+  public static HotelsFilter createHotelFilter(int rating, int priceRate,
+                                               @Nullable HotelsFilter.HotelType... types)
   {
-    //TODO: implement it.
-    return null;
+    HotelsFilter priceFilter = createPriceRateFilter(priceRate);
+    HotelsFilter typesFilter = createHotelTypeFilter(types);
+    return combineFilters(priceFilter, typesFilter);
+  }
+
+  @Nullable
+  private static HotelsFilter createPriceRateFilter(@PriceFilterView.PriceDef int priceRate)
+  {
+    if (priceRate != PriceFilterView.LOW && priceRate != PriceFilterView.MEDIUM
+        && priceRate != PriceFilterView.HIGH)
+      return null;
+
+    return new HotelsFilter.PriceRateFilter(HotelsFilter.Op.OP_EQ, priceRate);
+  }
+
+  @Nullable
+  private static HotelsFilter createHotelTypeFilter(@Nullable HotelsFilter.HotelType... types)
+  {
+    if (types == null)
+      return null;
+
+    List<HotelsFilter.HotelType> hotelTypes = new ArrayList<>(Arrays.asList(types));
+    return makeOneOf(hotelTypes.iterator());
   }
 }

@@ -25,6 +25,8 @@ static constexpr int kBookmark = 2;
 static constexpr int kMyPosition = 3;
 static constexpr int kSearch = 4;
 
+static constexpr int kPriceRateUndefined = -1;
+
 // Fills mapobject's metadata.
 void InjectMetadata(JNIEnv * env, jclass clazz, jobject const mapObject, feature::Metadata const & metadata);
 

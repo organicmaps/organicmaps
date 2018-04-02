@@ -31,12 +31,13 @@ import static com.mapswithme.maps.search.HotelsFilter.Op.OP_EQ;
 
 public class PriceFilterView extends LinearLayout implements View.OnClickListener
 {
-  private static final int LOW = 1;
-  private static final int MEDIUM = 2;
-  private static final int HIGH = 3;
+  public static final int UNDEFINED = -1;
+  static final int LOW = 1;
+  static final int MEDIUM = 2;
+  static final int HIGH = 3;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ LOW, MEDIUM, HIGH })
+  @IntDef({ UNDEFINED, LOW, MEDIUM, HIGH })
   public @interface PriceDef
   {
   }
