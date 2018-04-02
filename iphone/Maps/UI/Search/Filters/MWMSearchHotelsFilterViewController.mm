@@ -138,14 +138,16 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   using namespace search_filter;
   using namespace place_page::rating;
 
-  CHECK(params.m_type != ftypes::IsHotelChecker::Type::Count, ());
-
   self.onFinishCallback = callback;
-  [self.type.collectionView
-                     selectItemAtIndexPath:[NSIndexPath indexPathForItem:my::Key(params.m_type)
-                                 inSection:0]
-                                  animated:NO
-                            scrollPosition:UICollectionViewScrollPositionNone];
+
+  if (params.m_type != ftypes::IsHotelChecker::Type::Count)
+  {
+    [self.type.collectionView
+                       selectItemAtIndexPath:[NSIndexPath indexPathForItem:my::Key(params.m_type)
+                                   inSection:0]
+                                    animated:NO
+                              scrollPosition:UICollectionViewScrollPositionNone];
+  }
 
   auto ratingCell = self.rating;
 
@@ -177,12 +179,9 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
     break;
   case Price::Two:
     priceCell.two.selected = YES;
-    priceCell.one.selected = YES;
     break;
   case Price::Three:
     priceCell.three.selected = YES;
-    priceCell.two.selected = YES;
-    priceCell.one.selected = YES;
     break;
   }
 }

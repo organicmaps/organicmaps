@@ -341,7 +341,11 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
 - (NSInteger)collectionView:(MWMDiscoveryCollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section
 {
-  return self.model().GetItemsCount(collectionView.itemType);
+  auto const count = self.model().GetItemsCount(collectionView.itemType);
+  if (collectionView.itemType == ItemType::Hotels)
+    return count > 0 ? count + 1 : 0;
+
+  return count;
 }
 
 - (UICollectionViewCell *)collectionView:(MWMDiscoveryCollectionView *)collectionView
@@ -414,6 +418,15 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
   }
   case ItemType::Hotels:
   {
+    if (indexPath.row == model.GetItemsCount(type))
+    {
+      Class cls = [MWMDiscoveryMoreCell class];
+      auto cell = static_cast<MWMDiscoveryMoreCell *>([collectionView
+                                                       dequeueReusableCellWithCellClass:cls
+                                                       indexPath:indexPath]);
+      return cell;
+    }
+
     Class cls = [MWMDiscoveryBookingCell class];
     auto cell = static_cast<MWMDiscoveryBookingCell *>(
         [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);

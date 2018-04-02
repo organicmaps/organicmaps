@@ -488,6 +488,8 @@
 		F653CE191C71F62700A453F1 /* MWMAddPlaceNavigationBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = F653CE151C71F60200A453F1 /* MWMAddPlaceNavigationBar.mm */; };
 		F6550C1F1FD81B3800352D88 /* RatingSummaryView+DefaultConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6550C1D1FD81B3800352D88 /* RatingSummaryView+DefaultConfig.swift */; };
 		F6558DA21E642CC0002203AE /* MWMFacilitiesController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6558DA01E642CC0002203AE /* MWMFacilitiesController.mm */; };
+		F655C027207278300048A241 /* DiscoveryMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F655C026207278300048A241 /* DiscoveryMoreCell.swift */; };
+		F655C02920727A630048A241 /* DiscoveryMoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F655C02820727A630048A241 /* DiscoveryMoreCell.xib */; };
 		F660DEE51EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift in Sources */ = {isa = PBXBuildFile; fileRef = F660DEE31EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift */; };
 		F6664BFA1E6459CB00E703C2 /* PPFacilityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6664BF71E6459CB00E703C2 /* PPFacilityCell.swift */; };
 		F6664BFD1E6459CB00E703C2 /* PPFacilityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F6664BF81E6459CB00E703C2 /* PPFacilityCell.xib */; };
@@ -1397,6 +1399,8 @@
 		F6550C1D1FD81B3800352D88 /* RatingSummaryView+DefaultConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RatingSummaryView+DefaultConfig.swift"; sourceTree = "<group>"; };
 		F6558D9F1E642CC0002203AE /* MWMFacilitiesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMFacilitiesController.h; sourceTree = "<group>"; };
 		F6558DA01E642CC0002203AE /* MWMFacilitiesController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMFacilitiesController.mm; sourceTree = "<group>"; };
+		F655C026207278300048A241 /* DiscoveryMoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryMoreCell.swift; sourceTree = "<group>"; };
+		F655C02820727A630048A241 /* DiscoveryMoreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryMoreCell.xib; sourceTree = "<group>"; };
 		F6588E2A1B15C26700EE1E58 /* MWMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTextView.h; sourceTree = "<group>"; };
 		F6588E2B1B15C26700EE1E58 /* MWMTextView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTextView.mm; sourceTree = "<group>"; };
 		F660DEE31EAF4F59004DC056 /* MWMLocationManager+SpeedAndAltitude.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MWMLocationManager+SpeedAndAltitude.swift"; sourceTree = "<group>"; };
@@ -3848,6 +3852,8 @@
 				F69739AF1FD197DB00FDA07D /* MWMDiscoveryTableManager.h */,
 				F69739B01FD197DB00FDA07D /* MWMDiscoveryTableManager.mm */,
 				F69739B51FD19D9900FDA07D /* MWMDiscoveryTapDelegate.h */,
+				F655C026207278300048A241 /* DiscoveryMoreCell.swift */,
+				F655C02820727A630048A241 /* DiscoveryMoreCell.xib */,
 			);
 			path = Discovery;
 			sourceTree = "<group>";
@@ -4158,6 +4164,7 @@
 				349A13851DEC138C00C7DB60 /* MWMMobileInternetAlert.xib in Resources */,
 				34D3B04B1E389D05004100F9 /* MWMNoteCell.xib in Resources */,
 				F6E2FDEF1E097BA00083EBEC /* MWMOpeningHoursAddClosedTableViewCell.xib in Resources */,
+				F655C02920727A630048A241 /* DiscoveryMoreCell.xib in Resources */,
 				34E50DE31F6FCBA1008EED49 /* UGCAddReviewCell.xib in Resources */,
 				34B6FD602015E6BF00C18E97 /* DiscoveryBookingCell.xib in Resources */,
 				F6E2FDF51E097BA00083EBEC /* MWMOpeningHoursAddScheduleTableViewCell.xib in Resources */,
@@ -4600,6 +4607,7 @@
 				F6E2FF1E1E097BA00083EBEC /* MWMSearchTabbedViewController.mm in Sources */,
 				F6E2FF301E097BA00083EBEC /* MWMSearchCommonCell.mm in Sources */,
 				F6E2FEA01E097BA00083EBEC /* MWMPlacePageLayout.mm in Sources */,
+				F655C027207278300048A241 /* DiscoveryMoreCell.swift in Sources */,
 				F6E2FEC41E097BA00083EBEC /* MWMSearchFilterPresentationController.mm in Sources */,
 				34AB66621FC5AA330078E451 /* TransportTransitSeparator.swift in Sources */,
 				340416541E7C09C200E2B6D6 /* PhotoScalingView.swift in Sources */,

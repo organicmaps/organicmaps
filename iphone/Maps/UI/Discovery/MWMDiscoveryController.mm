@@ -1,9 +1,13 @@
 #import "MWMDiscoveryController.h"
+
 #import "Framework.h"
 #import "MWMDiscoveryTableManager.h"
 #import "MWMDiscoveryTapDelegate.h"
+#import "MWMMapViewControlsManager.h"
 #import "MWMRoutePoint+CPP.h"
 #import "MWMRouter.h"
+#import "MWMSearch.h"
+#import "MWMSearchHotelsFilterViewController.h"
 #import "Statistics.h"
 #import "UIKitCategories.h"
 
@@ -144,6 +148,7 @@ struct Callback
 - (void)tapOnItem:(ItemType const)type atIndex:(size_t const)index
 {
   NSString * dest = @"";
+  NSString * event = kStatPlacepageSponsoredItemSelected;
   switch (type)
   {
   case ItemType::Viator:
@@ -163,10 +168,20 @@ struct Callback
     dest = kStatPlacePage;
     break;
   case ItemType::Hotels:
-    [self showSearchResult:m_model.GetHotelAt(index)];
-    dest = kStatPlacePage;
+    if (index == m_model.GetItemsCount(type))
+    {
+      [self openFilters];
+      event = kStatPlacepageSponsoredMoreSelected;
+      dest = kStatSearchFilterOpen;
+    }
+    else
+    {
+      [self showSearchResult:m_model.GetHotelAt(index)];
+      dest = kStatPlacePage;
+    }
     break;
   }
+
   NSAssert(dest.length > 0, @"");
   [Statistics logEvent:kStatPlacepageSponsoredItemSelected
         withParameters:@{
@@ -175,6 +190,17 @@ struct Callback
           kStatItem: @(index + 1),
           kStatDestination: dest
         }];
+}
+
+- (void)openFilters
+{
+  [self.navigationController popViewControllerAnimated:YES];
+  [MWMSearch showHotelFilterWithParams:{}
+                      onFinishCallback:^{
+                        [MWMMapViewControlsManager.manager
+                         searchTextOnMap:[L(@"booking_hotel") stringByAppendingString:@" "]
+                         forInputLocale:[NSLocale currentLocale].localeIdentifier];
+                      }];
 }
 
 - (void)routeToItem:(ItemType const)type atIndex:(size_t const)index
