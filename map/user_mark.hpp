@@ -32,6 +32,7 @@ public:
 
   enum Type: uint32_t
   {
+    BOOKMARK, // Should always be the first one
     API,
     SEARCH,
     STATIC,
@@ -39,7 +40,7 @@ public:
     TRANSIT,
     LOCAL_ADS,
     DEBUG_MARK,
-    BOOKMARK, // Should always be the last one
+    COUNT,
   };
 
   UserMark(df::MarkID id, m2::PointD const & ptOrg, UserMark::Type type);

@@ -45,7 +45,7 @@ df::MarkID GetNextUserMarkId(UserMark::Type type, bool reset = false)
     return df::kInvalidMarkId;
   }
 
-  static_assert(UserMark::Type::BOOKMARK < (1 << kMarkIdTypeBitsCount), "Not enough bits for user mark type.");
+  static_assert(UserMark::Type::COUNT <= (1 << kMarkIdTypeBitsCount), "Not enough bits for user mark type.");
 
   auto const typeBits = static_cast<uint64_t>(type) << (sizeof(df::MarkID) * 8 - kMarkIdTypeBitsCount);
   if (type == UserMark::Type::BOOKMARK)
@@ -147,5 +147,6 @@ string DebugPrint(UserMark::Type type)
   case UserMark::Type::ROUTING: return "ROUTING";
   case UserMark::Type::LOCAL_ADS: return "LOCAL_ADS";
   case UserMark::Type::TRANSIT: return "TRANSIT";
+  case UserMark::Type::COUNT: return "COUNT";
   }
 }

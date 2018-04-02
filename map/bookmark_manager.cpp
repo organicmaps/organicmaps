@@ -55,8 +55,8 @@ uint64_t LoadLastBmCategoryId()
   uint64_t lastId;
   std::string val;
   if (GetPlatform().GetSecureStorage().Load(kLastBookmarkCategoryId, val) && strings::to_uint64(val, lastId))
-    return lastId;
-  return static_cast<uint64_t>(UserMark::BOOKMARK);
+    return max(static_cast<uint64_t>(UserMark::COUNT), lastId);
+  return static_cast<uint64_t>(UserMark::COUNT);
 }
 
 void SaveLastBmCategoryId(uint64_t lastId)
@@ -66,7 +66,7 @@ void SaveLastBmCategoryId(uint64_t lastId)
 
 uint64_t ResetLastBmCategoryId()
 {
-  auto const lastId = static_cast<uint64_t>(UserMark::BOOKMARK);
+  auto const lastId = static_cast<uint64_t>(UserMark::COUNT);
   SaveLastBmCategoryId(lastId);
   return lastId;
 }
@@ -431,9 +431,9 @@ BookmarkManager::BookmarkManager(Callbacks && callbacks)
                                        std::bind(&ConvertAfterDownloading, _1, _2)))
 {
   ASSERT(m_callbacks.m_getStringsBundle != nullptr, ());
-  ASSERT_GREATER_OR_EQUAL(m_lastGroupID, UserMark::BOOKMARK, ());
-  m_userMarkLayers.reserve(UserMark::BOOKMARK);
-  for (uint32_t i = 0; i < UserMark::BOOKMARK; ++i)
+  ASSERT_GREATER_OR_EQUAL(m_lastGroupID, UserMark::COUNT, ());
+  m_userMarkLayers.reserve(UserMark::COUNT - 1);
+  for (uint32_t i = 1; i < UserMark::COUNT; ++i)
     m_userMarkLayers.emplace_back(std::make_unique<UserMarkLayer>(static_cast<UserMark::Type>(i)));
 
   m_selectionMark = CreateUserMark<StaticMarkPoint>(m2::PointD{});
@@ -1340,7 +1340,7 @@ public:
 
   void operator()(df::MarkGroupID groupId)
   {
-    m2::AnyRectD const & rect = m_rectHolder(min((UserMark::Type)groupId, UserMark::BOOKMARK));
+    m2::AnyRectD const & rect = m_rectHolder(BookmarkManager::GetGroupType(groupId));
     if (UserMark const * p = m_manager->FindMarkInRect(groupId, rect, m_d))
     {
       static double const kEps = 1e-5;
@@ -1381,8 +1381,8 @@ UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & h
 UserMarkLayer const * BookmarkManager::GetGroup(df::MarkGroupID groupId) const
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
-  if (groupId < UserMark::Type::BOOKMARK)
-    return m_userMarkLayers[groupId].get();
+  if (groupId < UserMark::Type::COUNT)
+    return m_userMarkLayers[groupId - 1].get();
 
   ASSERT(m_categories.find(groupId) != m_categories.end(), ());
   return m_categories.at(groupId).get();
@@ -1391,8 +1391,8 @@ UserMarkLayer const * BookmarkManager::GetGroup(df::MarkGroupID groupId) const
 UserMarkLayer * BookmarkManager::GetGroup(df::MarkGroupID groupId)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
-  if (groupId < UserMark::Type::BOOKMARK)
-    return m_userMarkLayers[groupId].get();
+  if (groupId < UserMark::Type::COUNT)
+    return m_userMarkLayers[groupId - 1].get();
 
   auto const it = m_categories.find(groupId);
   return it != m_categories.end() ? it->second.get() : nullptr;
@@ -1855,7 +1855,7 @@ df::GroupIDSet BookmarkManager::MarksChangesTracker::GetAllGroupIds() const
 {
   auto const & groupIds = m_bmManager.GetBmGroupsIdList();
   df::GroupIDSet resultingSet(groupIds.begin(), groupIds.end());
-  for (uint32_t i = 0; i < UserMark::BOOKMARK; ++i)
+  for (uint32_t i = 1; i < UserMark::COUNT; ++i)
     resultingSet.insert(static_cast<df::MarkGroupID>(i));
   return resultingSet;
 }

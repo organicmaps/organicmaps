@@ -141,7 +141,11 @@ public:
   void UpdateViewport(ScreenBase const & screen);
   void Teardown();
 
-  static bool IsBookmarkCategory(df::MarkGroupID groupId) { return groupId >= UserMark::BOOKMARK; }
+  static UserMark::Type GetGroupType(df::MarkGroupID groupId)
+  {
+    return groupId >= UserMark::COUNT ? UserMark::BOOKMARK : static_cast<UserMark::Type>(groupId);
+  }
+  static bool IsBookmarkCategory(df::MarkGroupID groupId) { return groupId >= UserMark::COUNT; }
   static bool IsBookmark(df::MarkID markId) { return UserMark::GetMarkType(markId) == UserMark::BOOKMARK; }
 
   template <typename UserMarkT>
@@ -332,7 +336,7 @@ private:
     ASSERT_LESS(groupId, m_userMarkLayers.size(), ());
     m_userMarks.emplace(markId, std::move(mark));
     m_changesTracker.OnAddMark(markId);
-    m_userMarkLayers[groupId]->AttachUserMark(markId);
+    m_userMarkLayers[groupId - 1]->AttachUserMark(markId);
     return m;
   }
 
