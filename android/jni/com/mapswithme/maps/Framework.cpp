@@ -1566,4 +1566,10 @@ Java_com_mapswithme_maps_Framework_nativeShowFeatureByLatLon(JNIEnv * env, jclas
 {
   frm()->ShowFeatureByMercator(MercatorBounds::FromLatLon(ms::LatLon(lat, lon)));
 }
+
+JNIEXPORT jint JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetFilterRating(JNIEnv * env, jclass, jfloat rawRating)
+{
+  return static_cast<jint>(place_page::rating::GetFilterRating(rawRating));
+}
 }  // extern "C"

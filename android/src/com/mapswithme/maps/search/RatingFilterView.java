@@ -24,9 +24,9 @@ import static com.mapswithme.maps.search.HotelsFilter.Op.OP_GE;
 
 public class RatingFilterView extends LinearLayout implements View.OnClickListener
 {
-  private static final float GOOD = 7.0f;
-  private static final float VERY_GOOD = 8.0f;
-  private static final float EXCELLENT = 9.0f;
+  static final float GOOD = 7.0f;
+  static final float VERY_GOOD = 8.0f;
+  static final float EXCELLENT = 9.0f;
 
   private static class Item
   {

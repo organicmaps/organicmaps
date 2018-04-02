@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 import android.support.annotation.UiThread;
+import android.text.TextUtils;
 
 import com.mapswithme.maps.ads.Banner;
 import com.mapswithme.maps.ads.LocalAdInfo;
@@ -21,7 +22,10 @@ import com.mapswithme.maps.routing.RouteMarkData;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingInfo;
 import com.mapswithme.maps.routing.TransitRouteInfo;
+import com.mapswithme.maps.search.FilterUtils;
 import com.mapswithme.util.Constants;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -32,6 +36,9 @@ import java.lang.annotation.RetentionPolicy;
  */
 public class Framework
 {
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final String TAG = Framework.class.getSimpleName();
+
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({MAP_STYLE_CLEAR, MAP_STYLE_DARK, MAP_STYLE_VEHICLE_CLEAR, MAP_STYLE_VEHICLE_DARK})
 
@@ -171,6 +178,25 @@ public class Framework
     double lon = location != null ? location.getLongitude() : 0;
     int accuracy = location != null ? (int) location.getAccuracy() : 0;
     nativeLogLocalAdsEvent(type, lat, lon, accuracy);
+  }
+
+  @FilterUtils.RatingDef
+  public static int getFilterRating(@Nullable String ratingString)
+  {
+    if (TextUtils.isEmpty(ratingString))
+      return FilterUtils.ANY;
+
+    try
+    {
+      float rawRating = Float.valueOf(ratingString);
+      return Framework.nativeGetFilterRating(rawRating);
+    }
+    catch (NumberFormatException e)
+    {
+      LOGGER.w(TAG, "Rating string is not valid: " + ratingString);
+    }
+
+    return FilterUtils.ANY;
   }
 
   public static native void nativeShowTrackRect(long track);
@@ -386,4 +412,6 @@ public class Framework
   public static native boolean nativeIsUserAuthenticated();
 
   public static native void nativeShowFeatureByLatLon(double lat, double lon);
+
+  private static native int nativeGetFilterRating(float rawRating);
 }

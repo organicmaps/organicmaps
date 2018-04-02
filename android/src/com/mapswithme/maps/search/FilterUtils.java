@@ -1,8 +1,11 @@
 package com.mapswithme.maps.search;
 
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -10,6 +13,17 @@ import java.util.List;
 
 public class FilterUtils
 {
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ ANY, GOOD, VERYGOOD, EXCELLENT })
+  public @interface RatingDef
+  {
+  }
+
+  public static final int ANY = 0;
+  static final int GOOD= 1;
+  static final int VERYGOOD = 2;
+  static final int EXCELLENT = 3;
+
   private FilterUtils()
   {
 
@@ -121,12 +135,31 @@ public class FilterUtils
   }
 
   @Nullable
-  public static HotelsFilter createHotelFilter(int rating, int priceRate,
+  public static HotelsFilter createHotelFilter(@RatingDef int rating, int priceRate,
                                                @Nullable HotelsFilter.HotelType... types)
   {
+    HotelsFilter ratingFilter = createRatingFilter(rating);
     HotelsFilter priceFilter = createPriceRateFilter(priceRate);
     HotelsFilter typesFilter = createHotelTypeFilter(types);
-    return combineFilters(priceFilter, typesFilter);
+    return combineFilters(ratingFilter, priceFilter, typesFilter);
+  }
+
+  @Nullable
+  private static HotelsFilter createRatingFilter(@RatingDef int rating)
+  {
+    switch (rating)
+    {
+      case ANY:
+        return null;
+      case GOOD:
+        return new HotelsFilter.RatingFilter(HotelsFilter.Op.OP_GE, RatingFilterView.GOOD);
+      case VERYGOOD:
+        return new HotelsFilter.RatingFilter(HotelsFilter.Op.OP_GE, RatingFilterView.VERY_GOOD);
+      case EXCELLENT:
+        return new HotelsFilter.RatingFilter(HotelsFilter.Op.OP_GE, RatingFilterView.EXCELLENT);
+      default:
+        throw new AssertionError("Unsupported rating type: " + rating);
+    }
   }
 
   @Nullable
