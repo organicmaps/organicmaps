@@ -176,6 +176,7 @@ public class MwmApplication extends Application
     initCrashlytics();
     initPushWoosh();
     initAppsFlyer();
+    initTracker();
   }
 
   /**
@@ -200,8 +201,6 @@ public class MwmApplication extends Application
       return;
 
     final boolean isInstallationIdFound = setInstallationIdToCrashlytics();
-
-    initTracker();
 
     final String settingsPath = StorageUtils.getSettingsPath();
     mLogger.d(TAG, "onCreate(), setting path = " + settingsPath);
