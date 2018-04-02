@@ -22,13 +22,14 @@ class Track : public df::UserLineMark
 public:
   explicit Track(kml::TrackData const & data);
 
+  static void ResetLastId();
+
   bool IsDirty() const override { return m_isDirty; }
   void ResetChanges() const override { m_isDirty = false; }
 
   kml::TrackData const & GetData() const { return m_data; }
-  //void SetData(kml::TrackData const & data) { m_data = data; }
 
-  string const & GetName() const;
+  std::string GetName() const;
   m2::RectD GetLimitRect() const;
   double GetLengthMeters() const;
 

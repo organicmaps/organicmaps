@@ -42,9 +42,11 @@ public:
     BOOKMARK, // Should always be the last one
   };
 
+  UserMark(df::MarkID id, m2::PointD const & ptOrg, UserMark::Type type);
   UserMark(m2::PointD const & ptOrg, UserMark::Type type);
 
   static Type GetMarkType(df::MarkID id);
+  static void ResetLastId(UserMark::Type type);
 
   Type GetMarkType() const { return GetMarkType(GetId()); }
   df::MarkGroupID GetGroupId() const override { return GetMarkType(); }

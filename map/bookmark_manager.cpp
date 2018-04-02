@@ -43,11 +43,33 @@ using namespace std::placeholders;
 
 namespace
 {
+std::string const kLastBookmarkCategoryId = "LastBookmarkCategoryId";
 std::string const kLastBookmarkCategory = "LastBookmarkCategory";
 std::string const kLastBookmarkType = "LastBookmarkType";
 std::string const kLastBookmarkColor = "LastBookmarkColor";
 std::string const kKmzExtension = ".kmz";
 std::string const kBookmarksExt = ".kmb";
+
+uint64_t LoadLastBmCategoryId()
+{
+  uint64_t lastId;
+  std::string val;
+  if (GetPlatform().GetSecureStorage().Load(kLastBookmarkCategoryId, val) && strings::to_uint64(val, lastId))
+    return lastId;
+  return static_cast<uint64_t>(UserMark::BOOKMARK);
+}
+
+void SaveLastBmCategoryId(uint64_t lastId)
+{
+  GetPlatform().GetSecureStorage().Save(kLastBookmarkCategoryId, strings::to_string(lastId));
+}
+
+uint64_t ResetLastBmCategoryId()
+{
+  auto const lastId = static_cast<uint64_t>(UserMark::BOOKMARK);
+  SaveLastBmCategoryId(lastId);
+  return lastId;
+}
 
 // Returns extension with a dot in a lower case.
 std::string GetFileExt(std::string const & filePath)
@@ -402,13 +424,14 @@ BookmarkManager::BookmarkManager(Callbacks && callbacks)
   : m_callbacks(std::move(callbacks))
   , m_changesTracker(*this)
   , m_needTeardown(false)
-  , m_nextGroupID(UserMark::BOOKMARK)
+  , m_lastGroupID(LoadLastBmCategoryId())
   , m_bookmarkCloud(Cloud::CloudParams("bmc.json", "bookmarks", "BookmarkCloudParam",
                                        GetBookmarksDirectory(), std::string(kBookmarksExt),
                                        std::bind(&ConvertBeforeUploading, _1, _2),
                                        std::bind(&ConvertAfterDownloading, _1, _2)))
 {
   ASSERT(m_callbacks.m_getStringsBundle != nullptr, ());
+  ASSERT_GREATER_OR_EQUAL(m_lastGroupID, UserMark::BOOKMARK, ());
   m_userMarkLayers.reserve(UserMark::BOOKMARK);
   for (uint32_t i = 0; i < UserMark::BOOKMARK; ++i)
     m_userMarkLayers.emplace_back(std::make_unique<UserMarkLayer>(static_cast<UserMark::Type>(i)));
@@ -1026,9 +1049,14 @@ void BookmarkManager::NotifyAboutFinishAsyncLoading(std::shared_ptr<KMLDataColle
     m_asyncLoadingInProgress = false;
     m_loadBookmarksFinished = true;
     if (!collection->empty())
+    {
       CreateCategories(std::move(*collection));
+    }
     else
+    {
+      CheckAndResetLastIds();
       CheckAndCreateDefaultCategory();
+    }
 
     if (m_asyncLoadingCallbacks.m_onFinished != nullptr)
       m_asyncLoadingCallbacks.m_onFinished();
@@ -1136,15 +1164,15 @@ df::MarkGroupID BookmarkManager::LastEditedBMCategory()
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
 
-  if (HasBmCategory(m_lastGroupId))
-    return m_lastGroupId;
+  if (HasBmCategory(m_lastEditedGroupId))
+    return m_lastEditedGroupId;
 
   for (auto & cat : m_categories)
   {
     if (cat.second->GetFileName() == m_lastCategoryUrl)
     {
-      m_lastGroupId = cat.first;
-      return m_lastGroupId;
+      m_lastEditedGroupId = cat.first;
+      return m_lastEditedGroupId;
     }
   }
   CheckAndCreateDefaultCategory();
@@ -1159,7 +1187,7 @@ kml::PredefinedColor BookmarkManager::LastEditedBMColor() const
 
 void BookmarkManager::SetLastEditedBmCategory(df::MarkGroupID groupId)
 {
-  m_lastGroupId = groupId;
+  m_lastEditedGroupId = groupId;
   m_lastCategoryUrl = GetBmCategory(groupId)->GetFileName();
   SaveState();
 }
@@ -1237,7 +1265,13 @@ bool BookmarkManager::HasBmCategory(df::MarkGroupID groupId) const
 df::MarkGroupID BookmarkManager::CreateBookmarkCategory(kml::CategoryData const & data, bool autoSave)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
-  auto const groupId = m_nextGroupID++;
+  auto groupId = data.m_id;
+  if (groupId == kml::kInvalidCategoryId)
+  {
+    groupId = ++m_lastGroupID;
+    SaveLastBmCategoryId(m_lastGroupID);
+  }
+  ASSERT_EQUAL(m_categories.count(groupId), 0, ());
   auto & cat = m_categories[groupId];
   cat = my::make_unique<BookmarkCategory>(data, groupId, autoSave);
   m_bmGroupsIdList.push_back(groupId);
@@ -1248,7 +1282,8 @@ df::MarkGroupID BookmarkManager::CreateBookmarkCategory(kml::CategoryData const 
 df::MarkGroupID BookmarkManager::CreateBookmarkCategory(std::string const & name, bool autoSave)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
-  auto const groupId = m_nextGroupID++;
+  auto const groupId = ++m_lastGroupID;
+  SaveLastBmCategoryId(m_lastGroupID);
   auto & cat = m_categories[groupId];
   cat = my::make_unique<BookmarkCategory>(name, groupId, autoSave);
   m_bmGroupsIdList.push_back(groupId);
@@ -1261,6 +1296,16 @@ void BookmarkManager::CheckAndCreateDefaultCategory()
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
   if (m_categories.empty())
     CreateBookmarkCategory(m_callbacks.m_getStringsBundle().GetString("core_my_places"));
+}
+
+void BookmarkManager::CheckAndResetLastIds()
+{
+  if (m_categories.empty())
+    m_lastGroupID = ResetLastBmCategoryId();
+  if (m_bookmarks.empty())
+    UserMark::ResetLastId(UserMark::BOOKMARK);
+  if (m_tracks.empty())
+    Track::ResetLastId();
 }
 
 bool BookmarkManager::DeleteBmCategory(df::MarkGroupID groupId)
@@ -1385,7 +1430,8 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     }
     else
     {
-      groupId = CreateBookmarkCategory(categoryData, false /* autoSave */);
+      bool const saveAfterCreation = categoryData.m_id == df::kInvalidMarkGroupId;
+      groupId = CreateBookmarkCategory(categoryData, saveAfterCreation);
       loadedGroups.insert(groupId);
       group = GetBmCategory(groupId);
       group->SetFileName(fileName);

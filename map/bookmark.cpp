@@ -35,13 +35,16 @@ Bookmark::Bookmark(m2::PointD const & ptOrg)
   , m_groupId(df::kInvalidMarkGroupId)
 {
   m_data.m_point = ptOrg;
+  m_data.m_id = GetId();
 }
 
 Bookmark::Bookmark(kml::BookmarkData const & data)
-  : Base(data.m_point, UserMark::BOOKMARK)
+  : Base(data.m_id, data.m_point, UserMark::BOOKMARK)
   , m_data(data)
   , m_groupId(df::kInvalidMarkGroupId)
-{}
+{
+  m_data.m_id = GetId();
+}
 
 void Bookmark::SetData(kml::BookmarkData const & data)
 {
@@ -181,6 +184,7 @@ BookmarkCategory::BookmarkCategory(std::string const & name, df::MarkGroupID gro
   , m_groupId(groupId)
   , m_autoSave(autoSave)
 {
+  m_data.m_id = groupId;
   SetName(name);
 }
 
@@ -190,6 +194,7 @@ BookmarkCategory::BookmarkCategory(kml::CategoryData const & data, df::MarkGroup
   , m_autoSave(autoSave)
   , m_data(data)
 {
+  m_data.m_id = groupId;
   Base::SetIsVisible(m_data.m_visible);
 }
 

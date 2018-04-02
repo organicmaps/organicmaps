@@ -6,25 +6,62 @@
 
 #include "geometry/distance_on_sphere.hpp"
 
+#include "platform/platform.hpp"
+
+#include "base/string_utils.hpp"
+
 namespace
 {
-df::LineID GetNextUserLineId()
+static const std::string kLastLineId = "LastLineId";
+
+uint64_t LoadLastLineId()
 {
-  static std::atomic<uint32_t> nextLineId(0);
-  return static_cast<df::LineID>(++nextLineId);
+  uint64_t lastId;
+  std::string val;
+  if (GetPlatform().GetSecureStorage().Load(kLastLineId, val) && strings::to_uint64(val, lastId))
+    return lastId;
+  return 0;
+}
+
+void SaveLastLineId(uint64_t lastId)
+{
+  GetPlatform().GetSecureStorage().Save(kLastLineId, strings::to_string(lastId));
+}
+
+df::LineID GetNextUserLineId(bool reset = false)
+{
+  static std::atomic<uint64_t> lastLineId(LoadLastLineId());
+
+  if (reset)
+  {
+    SaveLastLineId(0);
+    lastLineId = 0;
+    return df::kInvalidLineId;
+  }
+
+  auto const id = static_cast<df::LineID>(++lastLineId);
+  SaveLastLineId(lastLineId);
+  return id;
 }
 
 }  // namespace
 
 Track::Track(kml::TrackData const & data)
-  : df::UserLineMark(GetNextUserLineId())
+  : df::UserLineMark(data.m_id == df::kInvalidLineId ? GetNextUserLineId() : data.m_id)
   , m_data(data)
   , m_groupID(0)
 {
+  m_data.m_id = GetId();
   ASSERT_GREATER(m_data.m_points.size(), 1, ());
 }
 
-string const & Track::GetName() const
+// static
+void Track::ResetLastId()
+{
+  UNUSED_VALUE(GetNextUserLineId(true /* reset */));
+}
+
+string Track::GetName() const
 {
   return kml::GetDefaultStr(m_data.m_name);
 }

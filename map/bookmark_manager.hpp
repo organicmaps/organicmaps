@@ -415,6 +415,7 @@ private:
   void GetBookmarksData(df::MarkIDSet const & markIds,
                         std::vector<std::pair<df::MarkID, kml::BookmarkData>> & data) const;
   void CheckAndCreateDefaultCategory();
+  void CheckAndResetLastIds();
 
   std::unique_ptr<kml::FileData> CollectBmGroupKMLData(BookmarkCategory const * group) const;
   void SaveToFile(kml::FileData & kmlData, Writer & writer, bool useBinary) const;
@@ -434,7 +435,7 @@ private:
   df::DrapeEngineSafePtr m_drapeEngine;
   AsyncLoadingCallbacks m_asyncLoadingCallbacks;
   std::atomic<bool> m_needTeardown;
-  df::MarkGroupID m_nextGroupID;
+  df::MarkGroupID m_lastGroupID;
   size_t m_openedEditSessionsCount = 0;
   bool m_loadBookmarksFinished = false;
   bool m_firstDrapeNotification = false;
@@ -445,7 +446,7 @@ private:
   df::GroupIDCollection m_bmGroupsIdList;
 
   std::string m_lastCategoryUrl;
-  df::MarkGroupID m_lastGroupId = df::kInvalidMarkGroupId;
+  df::MarkGroupID m_lastEditedGroupId = df::kInvalidMarkGroupId;
   kml::PredefinedColor m_lastColor = kml::PredefinedColor::Red;
   UserMarkLayers m_userMarkLayers;
 
