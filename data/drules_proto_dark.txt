@@ -30687,12 +30687,6 @@ cont {
       color: 1317888
       priority: -15940
     }
-    symbol {
-      name: "nparkf-s"
-      priority: 16060
-      min_distance: 20
-    }
-    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 12
@@ -30700,21 +30694,14 @@ cont {
       color: 1317888
       priority: -15940
     }
-    symbol {
-      name: "nparkf-s"
-      priority: 16060
-      min_distance: 12
-    }
     caption {
       primary {
         height: 10
         color: 2836760
         stroke_color: 856756480
-        offset_y: 1
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 13
@@ -30736,7 +30723,6 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 14
@@ -30745,15 +30731,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-s"
+      name: "nparkf-s"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 856756480
         offset_y: 1
       }
       secondary {
@@ -30766,14 +30752,6 @@ cont {
       priority: 15060
     }
     apply_if: "name"
-  }
-  element {
-    scale: 14
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    apply_if: "!name"
   }
   element {
     scale: 14
@@ -30794,7 +30772,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 15
@@ -30803,15 +30781,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-m"
+      name: "nparkf-m"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -30824,14 +30802,6 @@ cont {
       priority: 15060
     }
     apply_if: "name"
-  }
-  element {
-    scale: 15
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    apply_if: "!name"
   }
   element {
     scale: 15
@@ -30852,7 +30822,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 16
@@ -30861,15 +30831,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-m"
+      name: "nparkf-l"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -30889,16 +30859,8 @@ cont {
       color: 1317888
       priority: -15940
     }
-    apply_if: "!name"
-  }
-  element {
-    scale: 16
-    area {
-      color: 1317888
-      priority: -15940
-    }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-l"
       priority: 16060
     }
     caption {
@@ -30910,7 +30872,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 17
@@ -30919,7 +30881,7 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
+      name: "nparkf-l"
       priority: 16060
       min_distance: 10
     }
@@ -30927,7 +30889,7 @@ cont {
       primary {
         height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -30940,14 +30902,6 @@ cont {
       priority: 15060
     }
     apply_if: "name"
-  }
-  element {
-    scale: 17
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    apply_if: "!name"
   }
   element {
     scale: 17
@@ -30968,7 +30922,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 18
@@ -30977,15 +30931,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
+      name: "nparkf-l"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 13
+        height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -31006,18 +30960,6 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
-      priority: 16060
-    }
-    apply_if: "!name"
-  }
-  element {
-    scale: 18
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    symbol {
       name: "nparkf-l"
       priority: 16060
     }
@@ -31030,7 +30972,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 19
@@ -31039,15 +30981,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
+      name: "nparkf-l"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 13
+        height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -31068,18 +31010,6 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
-      priority: 16060
-    }
-    apply_if: "!name"
-  }
-  element {
-    scale: 19
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    symbol {
       name: "nparkf-l"
       priority: 16060
     }
@@ -31092,7 +31022,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
 }
 cont {
@@ -31110,12 +31040,6 @@ cont {
       color: 1317888
       priority: -15940
     }
-    symbol {
-      name: "nparkf-s"
-      priority: 16060
-      min_distance: 20
-    }
-    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 12
@@ -31123,21 +31047,14 @@ cont {
       color: 1317888
       priority: -15940
     }
-    symbol {
-      name: "nparkf-s"
-      priority: 16060
-      min_distance: 12
-    }
     caption {
       primary {
         height: 10
         color: 2836760
         stroke_color: 856756480
-        offset_y: 1
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 13
@@ -31159,7 +31076,6 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 14
@@ -31168,15 +31084,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-s"
+      name: "nparkf-s"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 856756480
         offset_y: 1
       }
       secondary {
@@ -31189,14 +31105,6 @@ cont {
       priority: 15060
     }
     apply_if: "name"
-  }
-  element {
-    scale: 14
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    apply_if: "!name"
   }
   element {
     scale: 14
@@ -31217,7 +31125,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 15
@@ -31226,15 +31134,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-m"
+      name: "nparkf-m"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -31247,14 +31155,6 @@ cont {
       priority: 15060
     }
     apply_if: "name"
-  }
-  element {
-    scale: 15
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    apply_if: "!name"
   }
   element {
     scale: 15
@@ -31275,7 +31175,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 16
@@ -31284,15 +31184,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-m"
+      name: "nparkf-l"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -31312,16 +31212,8 @@ cont {
       color: 1317888
       priority: -15940
     }
-    apply_if: "!name"
-  }
-  element {
-    scale: 16
-    area {
-      color: 1317888
-      priority: -15940
-    }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-l"
       priority: 16060
     }
     caption {
@@ -31333,7 +31225,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 17
@@ -31342,7 +31234,7 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
+      name: "nparkf-l"
       priority: 16060
       min_distance: 10
     }
@@ -31350,7 +31242,7 @@ cont {
       primary {
         height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -31363,14 +31255,6 @@ cont {
       priority: 15060
     }
     apply_if: "name"
-  }
-  element {
-    scale: 17
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    apply_if: "!name"
   }
   element {
     scale: 17
@@ -31391,7 +31275,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 18
@@ -31400,15 +31284,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
+      name: "nparkf-l"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 13
+        height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -31429,18 +31313,6 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
-      priority: 16060
-    }
-    apply_if: "!name"
-  }
-  element {
-    scale: 18
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    symbol {
       name: "nparkf-l"
       priority: 16060
     }
@@ -31453,7 +31325,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 19
@@ -31462,15 +31334,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
+      name: "nparkf-l"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 13
+        height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -31491,18 +31363,6 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
-      priority: 16060
-    }
-    apply_if: "!name"
-  }
-  element {
-    scale: 19
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    symbol {
       name: "nparkf-l"
       priority: 16060
     }
@@ -31515,7 +31375,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
 }
 cont {
@@ -31533,12 +31393,6 @@ cont {
       color: 1317888
       priority: -15940
     }
-    symbol {
-      name: "nparkf-s"
-      priority: 16060
-      min_distance: 20
-    }
-    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 12
@@ -31546,21 +31400,14 @@ cont {
       color: 1317888
       priority: -15940
     }
-    symbol {
-      name: "nparkf-s"
-      priority: 16060
-      min_distance: 12
-    }
     caption {
       primary {
         height: 10
         color: 2836760
         stroke_color: 856756480
-        offset_y: 1
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 13
@@ -31582,7 +31429,6 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 14
@@ -31591,15 +31437,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-s"
+      name: "nparkf-s"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 856756480
         offset_y: 1
       }
       secondary {
@@ -31612,14 +31458,6 @@ cont {
       priority: 15060
     }
     apply_if: "name"
-  }
-  element {
-    scale: 14
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    apply_if: "!name"
   }
   element {
     scale: 14
@@ -31640,7 +31478,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 15
@@ -31649,15 +31487,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-m"
+      name: "nparkf-m"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -31670,14 +31508,6 @@ cont {
       priority: 15060
     }
     apply_if: "name"
-  }
-  element {
-    scale: 15
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    apply_if: "!name"
   }
   element {
     scale: 15
@@ -31698,7 +31528,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 16
@@ -31707,15 +31537,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-m"
+      name: "nparkf-l"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -31735,16 +31565,8 @@ cont {
       color: 1317888
       priority: -15940
     }
-    apply_if: "!name"
-  }
-  element {
-    scale: 16
-    area {
-      color: 1317888
-      priority: -15940
-    }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-l"
       priority: 16060
     }
     caption {
@@ -31756,7 +31578,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 17
@@ -31765,7 +31587,7 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
+      name: "nparkf-l"
       priority: 16060
       min_distance: 10
     }
@@ -31773,7 +31595,7 @@ cont {
       primary {
         height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -31786,14 +31608,6 @@ cont {
       priority: 15060
     }
     apply_if: "name"
-  }
-  element {
-    scale: 17
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    apply_if: "!name"
   }
   element {
     scale: 17
@@ -31814,7 +31628,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 18
@@ -31823,15 +31637,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
+      name: "nparkf-l"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 13
+        height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -31852,18 +31666,6 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
-      priority: 16060
-    }
-    apply_if: "!name"
-  }
-  element {
-    scale: 18
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    symbol {
       name: "nparkf-l"
       priority: 16060
     }
@@ -31876,7 +31678,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 19
@@ -31885,15 +31687,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
+      name: "nparkf-l"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 13
+        height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -31914,18 +31716,6 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
-      priority: 16060
-    }
-    apply_if: "!name"
-  }
-  element {
-    scale: 19
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    symbol {
       name: "nparkf-l"
       priority: 16060
     }
@@ -31938,7 +31728,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
 }
 cont {
@@ -31956,12 +31746,6 @@ cont {
       color: 1317888
       priority: -15940
     }
-    symbol {
-      name: "nparkf-s"
-      priority: 16060
-      min_distance: 20
-    }
-    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 12
@@ -31969,21 +31753,14 @@ cont {
       color: 1317888
       priority: -15940
     }
-    symbol {
-      name: "nparkf-s"
-      priority: 16060
-      min_distance: 12
-    }
     caption {
       primary {
         height: 10
         color: 2836760
         stroke_color: 856756480
-        offset_y: 1
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 13
@@ -32005,7 +31782,6 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
   }
   element {
     scale: 14
@@ -32014,15 +31790,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-s"
+      name: "nparkf-s"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 10
+        height: 11
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 856756480
         offset_y: 1
       }
       secondary {
@@ -32035,14 +31811,6 @@ cont {
       priority: 15060
     }
     apply_if: "name"
-  }
-  element {
-    scale: 14
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    apply_if: "!name"
   }
   element {
     scale: 14
@@ -32063,7 +31831,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 15
@@ -32072,15 +31840,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-m"
+      name: "nparkf-m"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -32093,14 +31861,6 @@ cont {
       priority: 15060
     }
     apply_if: "name"
-  }
-  element {
-    scale: 15
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    apply_if: "!name"
   }
   element {
     scale: 15
@@ -32121,7 +31881,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 16
@@ -32130,15 +31890,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-m"
+      name: "nparkf-l"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 11
+        height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -32158,16 +31918,8 @@ cont {
       color: 1317888
       priority: -15940
     }
-    apply_if: "!name"
-  }
-  element {
-    scale: 16
-    area {
-      color: 1317888
-      priority: -15940
-    }
     symbol {
-      name: "nparkf-m"
+      name: "nparkf-l"
       priority: 16060
     }
     caption {
@@ -32179,7 +31931,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 17
@@ -32188,7 +31940,7 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
+      name: "nparkf-l"
       priority: 16060
       min_distance: 10
     }
@@ -32196,7 +31948,7 @@ cont {
       primary {
         height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -32209,14 +31961,6 @@ cont {
       priority: 15060
     }
     apply_if: "name"
-  }
-  element {
-    scale: 17
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    apply_if: "!name"
   }
   element {
     scale: 17
@@ -32237,7 +31981,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 18
@@ -32246,15 +31990,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
+      name: "nparkf-l"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 13
+        height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -32275,18 +32019,6 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
-      priority: 16060
-    }
-    apply_if: "!name"
-  }
-  element {
-    scale: 18
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    symbol {
       name: "nparkf-l"
       priority: 16060
     }
@@ -32299,7 +32031,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
   element {
     scale: 19
@@ -32308,15 +32040,15 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
+      name: "nparkf-l"
       priority: 16060
       min_distance: 10
     }
     caption {
       primary {
-        height: 13
+        height: 12
         color: 2836760
-        stroke_color: 856756497
+        stroke_color: 437326080
         offset_y: 1
       }
       secondary {
@@ -32337,18 +32069,6 @@ cont {
       priority: -15940
     }
     symbol {
-      name: "park-l"
-      priority: 16060
-    }
-    apply_if: "!name"
-  }
-  element {
-    scale: 19
-    area {
-      color: 1317888
-      priority: -15940
-    }
-    symbol {
       name: "nparkf-l"
       priority: 16060
     }
@@ -32361,7 +32081,7 @@ cont {
       }
       priority: 15060
     }
-    apply_if: "extra_tag=boundary=national_park"
+    apply_if: "!name"
   }
 }
 cont {

@@ -100,6 +100,7 @@
 09018_gym-l
 09019_equestrian-l
 09020_theme_park-l
+0_burger-king
 10001_kindergarten-l
 10002_school-l
 10003_college-l
