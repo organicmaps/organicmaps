@@ -1441,8 +1441,12 @@ search::DisplayedCategories const & Framework::GetDisplayedCategories()
   if (auto const position = GetCurrentPosition())
     city = m_cityFinder->GetCityName(*position, StringUtf8Multilang::kEnglishCode);
 
-  LuggageHeroModifier modifier(city);
-  m_displayedCategories->Modify(modifier);
+  // Apply sponsored modifiers.
+  std::vector<std::unique_ptr<SponsoredCategoryModifier>> modifiers;
+  modifiers.push_back(std::make_unique<LuggageHeroModifier>(city));
+  modifiers.push_back(std::make_unique<Fc2018Modifier>(city));
+  for (auto & modifier : modifiers)
+    m_displayedCategories->Modify(*modifier);
 
   return *m_displayedCategories;
 }

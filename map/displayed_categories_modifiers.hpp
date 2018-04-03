@@ -2,14 +2,37 @@
 
 #include "search/displayed_categories.hpp"
 
-class LuggageHeroModifier : public search::CategoriesModifier
+#include <cstdint>
+#include <unordered_set>
+
+class SponsoredCategoryModifier : public search::CategoriesModifier
 {
 public:
-  explicit LuggageHeroModifier(std::string const & city);
+  using SupportedCities = std::unordered_set<std::string>;
+
+  SponsoredCategoryModifier(std::string const & currentCity,
+                            SupportedCities const & supportedCities,
+                            std::string const & categoryName,
+                            uint32_t position);
 
   // CategoriesModifier overrides:
   void Modify(search::DisplayedCategories::Keys & keys) override;
 
 private:
-  std::string m_city;
+  std::string const m_currentCity;
+  SupportedCities const m_supportedCities;
+  std::string const m_categoryName;
+  uint32_t const m_position;
+};
+
+class LuggageHeroModifier : public SponsoredCategoryModifier
+{
+public:
+  explicit LuggageHeroModifier(std::string const & currentCity);
+};
+
+class Fc2018Modifier : public SponsoredCategoryModifier
+{
+public:
+  explicit Fc2018Modifier(std::string const & currentCity);
 };
