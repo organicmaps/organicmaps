@@ -229,6 +229,7 @@ add_subdirectory(3party/pugixml)
 add_subdirectory(3party/sdf_image)
 add_subdirectory(3party/stb_image)
 add_subdirectory(3party/succinct)
+add_subdirectory(3party/open-location-code)
 
 if (PLATFORM_DESKTOP)
   add_subdirectory(3party/libtess2)

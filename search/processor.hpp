@@ -82,6 +82,8 @@ public:
 
   // Tries to generate a (lat, lon) result from |m_query|.
   void SearchCoordinates();
+  // Tries to parse a plus code from |m_query| and generate a (lat, lon) result.
+  void SearchPlusCode();
 
   void SearchBookmarks() const;
 

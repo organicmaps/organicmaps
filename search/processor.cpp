@@ -51,6 +51,7 @@
 #include <algorithm>
 
 #include "3party/Alohalytics/src/alohalytics.h"
+#include "3party/open-location-code/openlocationcode.h"
 
 using namespace std;
 
@@ -414,6 +415,7 @@ void Processor::Search(SearchParams const & params)
     case Mode::Viewport:    // fallthrough
     case Mode::Downloader:
       SearchCoordinates();
+      SearchPlusCode();
       if (viewportSearch)
       {
         m_geocoder.GoInViewport();
@@ -448,6 +450,32 @@ void Processor::SearchCoordinates()
     return;
   m_emitter.AddResultNoChecks(m_ranker.MakeResult(RankerResult(lat, lon), true /* needAddress */,
                                                   true /* needHighlighting */));
+  m_emitter.Emit();
+}
+
+void Processor::SearchPlusCode()
+{
+  string code;
+
+  if (openlocationcode::IsFull(m_query))
+  {
+    code = m_query;
+  }
+  else if (openlocationcode::IsShort(m_query))
+  {
+    if (GetPosition().IsAlmostZero())
+      return;
+    ms::LatLon const latLon = MercatorBounds::ToLatLon(GetPosition());
+    code = openlocationcode::RecoverNearest(m_query, {latLon.lat, latLon.lon});
+  }
+
+  if (code.empty())
+    return;
+
+  openlocationcode::CodeArea const area = openlocationcode::Decode(code);
+  m_emitter.AddResultNoChecks(
+      m_ranker.MakeResult(RankerResult(area.GetCenter().latitude, area.GetCenter().longitude),
+                          true /* needAddress */, false /* needHighlighting */));
   m_emitter.Emit();
 }
 
