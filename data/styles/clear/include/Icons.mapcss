@@ -619,8 +619,8 @@ node|z16-[natural=beach],
 area|z16-[natural=beach]
 {text: name;text-color: @poi_label;text-position: center;text-offset: 1;}
 
-node|z12-[landuse=forest][boundary=national_park],
-area|z12-[landuse=forest][boundary=national_park],
+node|z12-[boundary=national_park],
+area|z12-[boundary=national_park],
 node|z12-[boundary=national_park],
 area|z12-[boundary=national_park],
 node|z12-[leisure=nature_reserve],
@@ -700,41 +700,57 @@ node|z17-[natural=beach],
 area|z17-[natural=beach]
 {icon-image: beach-l.svg;font-size: 11;}
 
-node|z11[landuse=forest][boundary=national_park],
-area|z11[landuse=forest][boundary=national_park],
+node|z11[boundary=national_park],
+area|z11[boundary=national_park],
 node|z11[boundary=national_park],
 area|z11[boundary=national_park],
 node|z11[leisure=nature_reserve],
 area|z11[leisure=nature_reserve]
 {icon-image: nparkf-s.svg;icon-min-distance: 20;}
-node|z12-13[landuse=forest][boundary=national_park],
-area|z12-13[landuse=forest][boundary=national_park],
+node|z12-13[boundary=national_park],
+area|z12-13[boundary=national_park],
 node|z12-13[boundary=national_park],
 area|z12-13[boundary=national_park],
 node|z12-13[leisure=nature_reserve],
 area|z12-13[leisure=nature_reserve]
 {icon-image: nparkf-s.svg;text-offset: 1;font-size: 10;icon-min-distance: 12;}
-node|z14[landuse=forest][boundary=national_park],
-area|z14[landuse=forest][boundary=national_park],
+node|z14[boundary=national_park],
+area|z14[boundary=national_park],
 node|z14[boundary=national_park],
 area|z14[boundary=national_park],
 node|z14[leisure=nature_reserve],
 area|z14[leisure=nature_reserve]
 {icon-image: nparkf-s.svg;text-offset: 1;font-size: 11;}
-node|z15-16[landuse=forest][boundary=national_park],
-area|z15-16[landuse=forest][boundary=national_park],
+node|z15-16[boundary=national_park],
+area|z15-16[boundary=national_park],
 node|z15-16[boundary=national_park],
 area|z15-16[boundary=national_park],
 node|z15-16[leisure=nature_reserve],
 area|z15-16[leisure=nature_reserve]
 {icon-image: nparkf-m.svg;text-offset: 1;font-size: 12;text-halo-opacity: 0.9;}
-node|z17-[landuse=forest][boundary=national_park],
-area|z17-[landuse=forest][boundary=national_park],
+node|z17-[boundary=national_park],
+area|z17-[boundary=national_park],
 node|z17-[boundary=national_park],
 area|z17-[boundary=national_park],
 node|z17-[leisure=nature_reserve],
 area|z17-[leisure=nature_reserve]
 {icon-image: nparkf-l.svg;text-offset: 1;font-size: 12;text-halo-opacity: 0.9;}
+
+node|z12-[landuse=forest],
+area|z12-[landuse=forest]
+{fill-color: @green2;text: name;text-color: @park_label;text-halo-opacity: 0.8;text-halo-color: @label_halo_light;text-halo-radius:0.5;}
+node|z13[landuse=forest],
+area|z13[landuse=forest]
+{fill-color: @green3;icon-image: nparkf-s.svg;text-offset: 1;font-size: 10;icon-min-distance: 12;}
+node|z14[landuse=forest],
+area|z14[landuse=forest]
+{fill-color: @green4;icon-image: nparkf-s.svg;text-offset: 1;font-size: 11;}
+node|z15[landuse=forest],
+area|z15[landuse=forest]
+{fill-color: @green5;icon-image: nparkf-m.svg;text-offset: 1;font-size: 12;text-halo-opacity: 0.9;}
+node|z16-[landuse=forest],
+area|z16-[landuse=forest]
+{fill-color: @forest;icon-image: nparkf-l.svg;text-offset: 1;font-size: 12;text-halo-opacity: 0.9;}
 
 node|z14[natural=spring],
 area|z14[natural=spring]
