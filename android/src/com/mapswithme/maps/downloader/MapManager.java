@@ -141,7 +141,7 @@ public final class MapManager
                                            @Override
                                            public void run()
                                            {
-                                             Notifier.cancelDownloadFailed();
+                                             Notifier.cancelNotification(Notifier.ID_DOWNLOAD_FAILED);
 
                                              if (dialogClickListener != null)
                                                dialogClickListener.invoke(true);

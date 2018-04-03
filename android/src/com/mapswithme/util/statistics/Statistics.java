@@ -228,6 +228,8 @@ public enum Statistics
     public static final String ACTIVE_CONNECTION = "Connection";
     public static final String STATISTICS_STATUS_CHANGED = "Statistics status changed";
     public static final String TTS_FAILURE_LOCATION = "TTS failure location";
+    public static final String UGC_NOT_AUTH_NOTIFICATION_SHOWN = "UGC_UnsentNotification_shown";
+    public static final String UGC_NOT_AUTH_NOTIFICATION_CLICKED = "UGC_UnsentNotification_clicked";
 
     // routing
     public static final String ROUTING_BUILD = "Routing. Build";

@@ -129,8 +129,6 @@ void Platform::Initialize(JNIEnv * env, jobject functorProcessObject, jstring ap
   m_sendPushWooshTagsMethod = env->GetMethodID(functorProcessClass, "sendPushWooshTags", "(Ljava/lang/String;[Ljava/lang/String;)V");
   m_myTrackerTrackMethod = env->GetStaticMethodID(g_myTrackerClazz, "trackEvent", "(Ljava/lang/String;)Z");
 
-  m_secureStorage.Init();
-
   m_guiThread = my::make_unique<GuiThread>(m_functorProcessObject);
 
   std::string const flavor = jni::ToNativeString(env, flavorName);
@@ -249,10 +247,9 @@ void Platform::SetGuiThread(unique_ptr<base::TaskLoop> guiThread)
   m_guiThread = std::move(guiThread);
 }
 
-void Platform::AndroidSecureStorage::Init()
+void Platform::AndroidSecureStorage::Init(JNIEnv * env)
 {
-  JNIEnv * env = jni::GetEnv();
-  if (env == nullptr)
+  if (m_secureStorageClass != nullptr)
     return;
 
   m_secureStorageClass = jni::GetGlobalClassRef(env, "com/mapswithme/util/SecureStorage");
@@ -264,6 +261,8 @@ void Platform::AndroidSecureStorage::Save(std::string const & key, std::string c
   JNIEnv * env = jni::GetEnv();
   if (env == nullptr)
     return;
+
+  Init(env);
 
   static jmethodID const saveMethodId =
     jni::GetStaticMethodID(env, m_secureStorageClass, "save", "(Ljava/lang/String;Ljava/lang/String;)V");
@@ -278,6 +277,8 @@ bool Platform::AndroidSecureStorage::Load(std::string const & key, std::string &
   JNIEnv * env = jni::GetEnv();
   if (env == nullptr)
     return false;
+
+  Init(env);
 
   static jmethodID const loadMethodId =
     jni::GetStaticMethodID(env, m_secureStorageClass, "load", "(Ljava/lang/String;)Ljava/lang/String;");
@@ -296,6 +297,8 @@ void Platform::AndroidSecureStorage::Remove(std::string const & key)
   JNIEnv * env = jni::GetEnv();
   if (env == nullptr)
     return;
+
+  Init(env);
 
   static jmethodID const removeMethodId =
     jni::GetStaticMethodID(env, m_secureStorageClass, "remove", "(Ljava/lang/String;)V");

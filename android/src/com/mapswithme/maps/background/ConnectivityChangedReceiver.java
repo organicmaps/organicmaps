@@ -28,5 +28,6 @@ public class ConnectivityChangedReceiver extends BroadcastReceiver
                  + !backgroundTracker().isForeground();
     LOGGER.i(TAG, msg);
     CrashlyticsUtils.log(Log.INFO, TAG, msg);
+    NotificationService.startOnConnectivityChanged(context);
   }
 }

@@ -215,7 +215,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
             boolean retry = (mCurrentCountry.status == CountryItem.STATUS_FAILED);
             if (retry)
             {
-              Notifier.cancelDownloadFailed();
+              Notifier.cancelNotification(Notifier.ID_DOWNLOAD_FAILED);
               MapManager.nativeRetry(mCurrentCountry.id);
             }
             else

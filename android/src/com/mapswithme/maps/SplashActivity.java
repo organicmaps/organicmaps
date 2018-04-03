@@ -33,6 +33,7 @@ public class SplashActivity extends AppCompatActivity
 {
   public static final String EXTRA_INTENT = "extra_intent";
   private static final String EXTRA_ACTIVITY_TO_START = "extra_activity_to_start";
+  private static final String EXTRA_INITIAL_INTENT = "extra_initial_intent";
   private static final int REQUEST_PERMISSIONS = 1;
   private static final long FIRST_START_DELAY = 1000;
   private static final long DELAY = 100;
@@ -82,10 +83,14 @@ public class SplashActivity extends AppCompatActivity
   };
 
   public static void start(@NonNull Context context,
-                           @Nullable Class<? extends Activity> activityToStart)
+                           @Nullable Class<? extends Activity> activityToStart,
+                           @Nullable Intent initialIntent)
   {
     Intent intent = new Intent(context, SplashActivity.class);
-    intent.putExtra(EXTRA_ACTIVITY_TO_START, activityToStart);
+    if (activityToStart != null)
+      intent.putExtra(EXTRA_ACTIVITY_TO_START, activityToStart);
+    if (initialIntent != null)
+      intent.putExtra(EXTRA_INITIAL_INTENT, initialIntent);
     context.startActivity(intent);
   }
 
@@ -306,15 +311,21 @@ public class SplashActivity extends AppCompatActivity
   private void processNavigation()
   {
     Intent input = getIntent();
-    Intent intent = new Intent(this, DownloadResourcesLegacyActivity.class);
+    Intent result = new Intent(this, DownloadResourcesLegacyActivity.class);
     if (input != null)
     {
-      Class<? extends Activity> type = (Class<? extends Activity>) input.getSerializableExtra(EXTRA_ACTIVITY_TO_START);
-      if (type != null)
-        intent = new Intent(this, type);
-      intent.putExtra(EXTRA_INTENT, input);
+      if (input.hasExtra(EXTRA_ACTIVITY_TO_START))
+      {
+        result = new Intent(this,
+                            (Class<? extends Activity>) input.getSerializableExtra(EXTRA_ACTIVITY_TO_START));
+      }
+
+      Intent extraIntent = input.hasExtra(EXTRA_INITIAL_INTENT) ?
+                           input.getParcelableExtra(EXTRA_INITIAL_INTENT) :
+                           input;
+      result.putExtra(EXTRA_INTENT, extraIntent);
     }
-    startActivity(intent);
+    startActivity(result);
     finish();
   }
 }

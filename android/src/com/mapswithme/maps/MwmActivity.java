@@ -38,6 +38,8 @@ import com.mapswithme.maps.api.ParsedRoutingData;
 import com.mapswithme.maps.api.ParsedSearchRequest;
 import com.mapswithme.maps.api.ParsedUrlMwmRequest;
 import com.mapswithme.maps.api.RoutePoint;
+import com.mapswithme.maps.auth.PassportAuthDialogFragment;
+import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
@@ -51,7 +53,6 @@ import com.mapswithme.maps.downloader.DownloaderFragment;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.MigrationFragment;
 import com.mapswithme.maps.downloader.OnmapDownloader;
-import com.mapswithme.maps.editor.AuthDialogFragment;
 import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.editor.EditorActivity;
 import com.mapswithme.maps.editor.EditorHostFragment;
@@ -101,6 +102,8 @@ import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.permissions.PermissionsResult;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
@@ -131,6 +134,9 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  DiscoveryFragment.DiscoveryListener,
                                  FloatingSearchToolbarController.SearchToolbarListener
 {
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final String TAG = MwmActivity.class.getSimpleName();
+
   public static final String EXTRA_TASK = "map_task";
   public static final String EXTRA_LAUNCH_BY_DEEP_LINK = "launch_by_deep_link";
   private static final String EXTRA_CONSUMED = "mwm.extra.intent.processed";
@@ -321,6 +327,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return new Intent(context, DownloadResourcesLegacyActivity.class)
                .putExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY, countryId);
   }
+
+  public static Intent createAuthenticateIntent()
+  {
+    return new Intent(MwmApplication.get(), MwmActivity.class)
+        .addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        .putExtra(MwmActivity.EXTRA_TASK,
+                  new MwmActivity.ShowDialogTask(PassportAuthDialogFragment.class.getName()));
   }
 
   @Override
@@ -1192,6 +1206,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     if (intent == null)
       return false;
 
+    if (intent.hasExtra(SplashActivity.EXTRA_INTENT))
+      intent = intent.getParcelableExtra(SplashActivity.EXTRA_INTENT);
+
+    Notifier.processNotificationExtras(intent);
+
     if (intent.hasExtra(EXTRA_TASK))
     {
       addTask(intent);
@@ -1298,8 +1317,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       LikesManager.INSTANCE.showDialogs(this);
     }
   }
-
-
 
   @Override
   protected void onPause()
@@ -2389,13 +2406,21 @@ public class MwmActivity extends BaseMwmFragmentActivity
     showSearch(query);
   }
 
-  public static class ShowAuthorizationTask implements MapTask
+  public static class ShowDialogTask implements MapTask
   {
+    @NonNull
+    private String mDialogName;
+
+    public ShowDialogTask(@NonNull String dialogName)
+    {
+      mDialogName = dialogName;
+    }
+
     @Override
     public boolean run(MwmActivity target)
     {
-      final DialogFragment fragment = (DialogFragment) Fragment.instantiate(target, AuthDialogFragment.class.getName());
-      fragment.show(target.getSupportFragmentManager(), AuthDialogFragment.class.getName());
+      final DialogFragment fragment = (DialogFragment) Fragment.instantiate(target, mDialogName);
+      fragment.show(target.getSupportFragmentManager(), mDialogName);
       return true;
     }
   }

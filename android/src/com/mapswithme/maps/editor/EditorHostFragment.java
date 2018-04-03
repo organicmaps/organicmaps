@@ -319,7 +319,8 @@ public class EditorHostFragment extends BaseMwmToolbarFragment
         final Activity parent = getActivity();
         Intent intent = new Intent(parent, MwmActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        intent.putExtra(MwmActivity.EXTRA_TASK, new MwmActivity.ShowAuthorizationTask());
+        intent.putExtra(MwmActivity.EXTRA_TASK,
+                        new MwmActivity.ShowDialogTask(AuthDialogFragment.class.getName()));
         parent.startActivity(intent);
 
         if (parent instanceof MwmActivity)

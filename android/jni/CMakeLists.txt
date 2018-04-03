@@ -48,6 +48,7 @@ set(
   com/mapswithme/maps/editor/Editor.cpp
   com/mapswithme/maps/editor/OsmOAuth.cpp
   com/mapswithme/maps/Framework.cpp
+  com/mapswithme/maps/LightFramework.cpp
   com/mapswithme/maps/LocationState.cpp
   com/mapswithme/maps/LocationHelper.cpp
   com/mapswithme/maps/MapFragment.cpp

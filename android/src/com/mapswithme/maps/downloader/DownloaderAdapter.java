@@ -397,7 +397,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
           @Override
           public void run()
           {
-            Notifier.cancelDownloadFailed();
+            Notifier.cancelNotification(Notifier.ID_DOWNLOAD_FAILED);
           }
         });
         break;

@@ -420,6 +420,10 @@
         android:name="com.mapswithme.maps.background.WorkerService"
         android:exported="false"/>
 
+    <service
+      android:name="com.mapswithme.maps.background.NotificationService"
+      android:exported="false"/>
+
     <receiver android:name="com.mapswithme.maps.location.TrackRecorderWakeReceiver">
       <intent-filter>
         <action android:name="com.mapswithme.maps.TRACK_RECORDER_ALARM"/>

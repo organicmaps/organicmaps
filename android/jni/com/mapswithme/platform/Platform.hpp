@@ -48,12 +48,13 @@ public:
   class AndroidSecureStorage
   {
   public:
-    void Init();
     void Save(std::string const & key, std::string const & value);
     bool Load(std::string const & key, std::string & value);
     void Remove(std::string const & key);
 
   private:
+    void Init(JNIEnv * env);
+
     jclass m_secureStorageClass = nullptr;
   };
 

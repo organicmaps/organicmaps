@@ -58,7 +58,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
         || !PermissionsUtils.isExternalStorageGranted())
     {
       super.onCreate(savedInstanceState);
-      goToSplashScreen();
+      goToSplashScreen(getIntent());
       return;
     }
     mInitializationCompleted = true;
@@ -178,7 +178,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     super.onResume();
     if (!PermissionsUtils.isExternalStorageGranted())
     {
-      goToSplashScreen();
+      goToSplashScreen(null);
       return;
     }
 
@@ -266,12 +266,12 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     return android.R.id.content;
   }
 
-  private void goToSplashScreen()
+  private void goToSplashScreen(@Nullable Intent initialIntent)
   {
     Class<? extends Activity> type = null;
-    if (!(this instanceof MwmActivity))
+    if (!(this instanceof MwmActivity) || initialIntent != null)
       type = getClass();
-    SplashActivity.start(this, type);
+    SplashActivity.start(this, type, initialIntent);
     finish();
   }
 }
