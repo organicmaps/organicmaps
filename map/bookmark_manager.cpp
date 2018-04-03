@@ -1749,6 +1749,21 @@ void BookmarkManager::OnRestoredFilesPrepared()
   LOG(LINFO, ("Cloud Restore Files: Prepared"));
 }
 
+void BookmarkManager::RequestCloudRestoring()
+{
+  m_bookmarkCloud.RequestRestoring();
+}
+
+void BookmarkManager::ApplyCloudRestoring()
+{
+  m_bookmarkCloud.ApplyRestoring();
+}
+
+void BookmarkManager::CancelCloudRestoring()
+{
+  m_bookmarkCloud.CancelRestoring();
+}
+
 df::GroupIDSet BookmarkManager::MarksChangesTracker::GetAllGroupIds() const
 {
   auto const & groupIds = m_bmManager.GetBmGroupsIdList();

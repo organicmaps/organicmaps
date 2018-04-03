@@ -1,5 +1,6 @@
 package com.mapswithme.maps.bookmarks.data;
 
+import android.support.annotation.IntDef;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 
@@ -7,6 +8,8 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.io.File;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +17,32 @@ import java.util.List;
 public enum BookmarkManager
 {
   INSTANCE;
+
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ CLOUD_BACKUP, CLOUD_RESTORE })
+  public @interface SynchronizationType {}
+
+  public static final int CLOUD_BACKUP = 0;
+  public static final int CLOUD_RESTORE = 1;
+
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ CLOUD_SUCCESS, CLOUD_AUTH_ERROR, CLOUD_NETWORK_ERROR,
+            CLOUD_DISK_ERROR, CLOUD_USER_INTERRUPTED })
+  public @interface SynchronizationResult {}
+
+  public static final int CLOUD_SUCCESS = 0;
+  public static final int CLOUD_AUTH_ERROR = 1;
+  public static final int CLOUD_NETWORK_ERROR = 2;
+  public static final int CLOUD_DISK_ERROR = 3;
+  public static final int CLOUD_USER_INTERRUPTED = 4;
+
+  @Retention(RetentionPolicy.SOURCE)
+  @IntDef({ CLOUD_BACKUP_EXISTS, CLOUD_NO_BACKUP, CLOUD_NOT_ENOUGH_DISK_SPACE })
+  public @interface RestoringRequestResult {}
+
+  public static final int CLOUD_BACKUP_EXISTS = 0;
+  public static final int CLOUD_NO_BACKUP = 1;
+  public static final int CLOUD_NOT_ENOUGH_DISK_SPACE = 2;
 
   public static final List<Icon> ICONS = new ArrayList<>();
 
@@ -25,6 +54,9 @@ public enum BookmarkManager
 
   @NonNull
   private List<BookmarksSharingListener> mSharingListeners = new ArrayList<>();
+
+  @NonNull
+  private List<BookmarksCloudListener> mCloudListeners = new ArrayList<>();
 
   static
   {
@@ -93,6 +125,16 @@ public enum BookmarkManager
     mSharingListeners.remove(listener);
   }
 
+  public void addCloudListener(@NonNull BookmarksCloudListener listener)
+  {
+    mCloudListeners.add(listener);
+  }
+
+  public void removeCloudListener(@NonNull BookmarksCloudListener listener)
+  {
+    mCloudListeners.remove(listener);
+  }
+
   // Called from JNI.
   @MainThread
   public void onBookmarksLoadingStarted()
@@ -140,6 +182,41 @@ public enum BookmarkManager
   {
     for (BookmarksSharingListener listener : mSharingListeners)
       listener.onPreparedFileForSharing(result);
+  }
+
+  // Called from JNI.
+  @MainThread
+  public void onSynchronizationStarted(@SynchronizationType int type)
+  {
+    for (BookmarksCloudListener listener : mCloudListeners)
+      listener.onSynchronizationStarted(type);
+  }
+
+  // Called from JNI.
+  @MainThread
+  public void onSynchronizationFinished(@SynchronizationType int type,
+                                        @SynchronizationResult int result,
+                                        @NonNull String errorString)
+  {
+    for (BookmarksCloudListener listener : mCloudListeners)
+      listener.onSynchronizationFinished(type, result, errorString);
+  }
+
+  // Called from JNI.
+  @MainThread
+  public void onRestoreRequested(@RestoringRequestResult int result,
+                                 long backupTimestampInMs)
+  {
+    for (BookmarksCloudListener listener : mCloudListeners)
+      listener.onRestoreRequested(result, backupTimestampInMs);
+  }
+
+  // Called from JNI.
+  @MainThread
+  public void onRestoredFilesPrepared()
+  {
+    for (BookmarksCloudListener listener : mCloudListeners)
+      listener.onRestoredFilesPrepared();
   }
 
   public boolean isVisible(long catId)
@@ -317,6 +394,21 @@ public enum BookmarkManager
     nativePrepareFileForSharing(catId);
   }
 
+  public void requestRestoring()
+  {
+    nativeRequestRestoring();
+  }
+
+  public void applyRestoring()
+  {
+    nativeApplyRestoring();
+  }
+
+  public void cancelRestoring()
+  {
+    nativeCancelRestoring();
+  }
+
   private native int nativeGetCategoriesCount();
 
   private native int nativeGetCategoryPositionById(long catId);
@@ -398,6 +490,12 @@ public enum BookmarkManager
 
   private static native boolean nativeIsCategoryEmpty(long catId);
 
+  private static native void nativeRequestRestoring();
+
+  private static native void nativeApplyRestoring();
+
+  private static native void nativeCancelRestoring();
+
   public interface BookmarksLoadingListener
   {
     void onBookmarksLoadingStarted();
@@ -413,5 +511,41 @@ public enum BookmarkManager
   public interface BookmarksSharingListener
   {
     void onPreparedFileForSharing(@NonNull BookmarkSharingResult result);
+  }
+
+  public interface BookmarksCloudListener
+  {
+    /**
+     * The method is called when the synchronization started.
+     *
+     * @param type determines type of synchronization (backup or restoring).
+     */
+    void onSynchronizationStarted(@SynchronizationType int type);
+
+    /**
+     * The method is called when the synchronization finished.
+     *
+     * @param type determines type of synchronization (backup or restoring).
+     * @param result is one of possible results of the synchronization.
+     * @param errorString contains detailed description in case of unsuccessful completion.
+     */
+    void onSynchronizationFinished(@SynchronizationType int type,
+                                   @SynchronizationResult int result,
+                                   @NonNull String errorString);
+
+    /**
+     * The method is called after restoring request.
+     *
+     * @param result By result you can determine if the restoring is possible.
+     * @param backupTimestampInMs contains timestamp of the backup on the server (in milliseconds).
+     */
+    void onRestoreRequested(@RestoringRequestResult int result, long backupTimestampInMs);
+
+    /**
+     * Restored bookmark files are prepared to substitute for the current ones.
+     * After this callback any cached bookmarks data become invalid. Also after this
+     * callback the restoring process can not be cancelled.
+     */
+    void onRestoredFilesPrepared();
   }
 }

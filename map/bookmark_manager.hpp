@@ -249,6 +249,10 @@ public:
                         Cloud::RestoreRequestedHandler && onRestoreRequested,
                         Cloud::RestoredFilesPreparedHandler && onRestoredFilesPrepared);
 
+  void RequestCloudRestoring();
+  void ApplyCloudRestoring();
+  void CancelCloudRestoring();
+
   /// These functions are public for unit tests only. You shouldn't call them from client code.
   void SaveToKML(df::MarkGroupID groupId, std::ostream & s);
   void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = true);

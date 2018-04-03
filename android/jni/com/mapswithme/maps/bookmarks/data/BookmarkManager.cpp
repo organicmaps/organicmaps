@@ -20,6 +20,10 @@ jmethodID g_onBookmarksLoadingFinishedMethod;
 jmethodID g_onBookmarksFileLoadedMethod;
 jmethodID g_onFinishKmlConversionMethod;
 jmethodID g_onPreparedFileForSharingMethod;
+jmethodID g_onSynchronizationStartedMethod;
+jmethodID g_onSynchronizationFinishedMethod;
+jmethodID g_onRestoreRequestedMethod;
+jmethodID g_onRestoredFilesPreparedMethod;
 
 void PrepareClassRefs(JNIEnv * env)
 {
@@ -45,11 +49,20 @@ void PrepareClassRefs(JNIEnv * env)
   g_onPreparedFileForSharingMethod =
     jni::GetMethodID(env, bookmarkManagerInstance, "onPreparedFileForSharing",
                      "(Lcom/mapswithme/maps/bookmarks/data/BookmarkSharingResult;)V");
+  g_onSynchronizationStartedMethod =
+    jni::GetMethodID(env, bookmarkManagerInstance, "onSynchronizationStarted", "(I)V");
+  g_onSynchronizationFinishedMethod =
+    jni::GetMethodID(env, bookmarkManagerInstance,
+                     "onSynchronizationFinished", "(IILjava/lang/String;)V");
+  g_onRestoreRequestedMethod =
+    jni::GetMethodID(env, bookmarkManagerInstance, "onRestoreRequested", "(IJ)V");
+  g_onRestoredFilesPreparedMethod =
+    jni::GetMethodID(env, bookmarkManagerInstance, "onRestoredFilesPrepared", "()V");
 }
 
 void OnAsyncLoadingStarted(JNIEnv * env)
 {
-  ASSERT(g_bookmarkManagerClass != nullptr, ());
+  ASSERT(g_bookmarkManagerClass, ());
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
                                                               g_bookmarkManagerInstanceField);
   env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksLoadingStartedMethod);
@@ -58,7 +71,7 @@ void OnAsyncLoadingStarted(JNIEnv * env)
 
 void OnAsyncLoadingFinished(JNIEnv * env)
 {
-  ASSERT(g_bookmarkManagerClass != nullptr, ());
+  ASSERT(g_bookmarkManagerClass, ());
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
                                                               g_bookmarkManagerInstanceField);
   env->CallVoidMethod(bookmarkManagerInstance, g_onBookmarksLoadingFinishedMethod);
@@ -67,7 +80,7 @@ void OnAsyncLoadingFinished(JNIEnv * env)
 
 void OnAsyncLoadingFileSuccess(JNIEnv * env, std::string const & fileName, bool isTemporaryFile)
 {
-  ASSERT(g_bookmarkManagerClass != nullptr, ());
+  ASSERT(g_bookmarkManagerClass, ());
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
                                                               g_bookmarkManagerInstanceField);
   jni::TScopedLocalRef jFileName(env, jni::ToJavaString(env, fileName));
@@ -78,7 +91,7 @@ void OnAsyncLoadingFileSuccess(JNIEnv * env, std::string const & fileName, bool 
 
 void OnAsyncLoadingFileError(JNIEnv * env, std::string const & fileName, bool isTemporaryFile)
 {
-  ASSERT(g_bookmarkManagerClass != nullptr, ());
+  ASSERT(g_bookmarkManagerClass, ());
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
                                                               g_bookmarkManagerInstanceField);
   jni::TScopedLocalRef jFileName(env, jni::ToJavaString(env, fileName));
@@ -89,7 +102,7 @@ void OnAsyncLoadingFileError(JNIEnv * env, std::string const & fileName, bool is
 
 void OnFinishKmlConversion(JNIEnv * env, bool success)
 {
-  ASSERT(g_bookmarkManagerClass != nullptr, ());
+  ASSERT(g_bookmarkManagerClass, ());
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
                                                               g_bookmarkManagerInstanceField);
   env->CallVoidMethod(bookmarkManagerInstance, g_onFinishKmlConversionMethod, success);
@@ -98,7 +111,7 @@ void OnFinishKmlConversion(JNIEnv * env, bool success)
 
 void OnPreparedFileForSharing(JNIEnv * env, BookmarkManager::SharingResult const & result)
 {
-  ASSERT(g_bookmarkManagerClass != nullptr, ());
+  ASSERT(g_bookmarkManagerClass, ());
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
                                                               g_bookmarkManagerInstanceField);
 
@@ -118,6 +131,49 @@ void OnPreparedFileForSharing(JNIEnv * env, BookmarkManager::SharingResult const
 
   env->CallVoidMethod(bookmarkManagerInstance, g_onPreparedFileForSharingMethod,
                       sharingResult.get());
+  jni::HandleJavaException(env);
+}
+
+void OnSynchronizationStarted(JNIEnv * env, Cloud::SynchronizationType type)
+{
+  ASSERT(g_bookmarkManagerClass, ());
+  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
+                                                              g_bookmarkManagerInstanceField);
+  env->CallVoidMethod(bookmarkManagerInstance, g_onSynchronizationStartedMethod,
+                      static_cast<jint>(type));
+  jni::HandleJavaException(env);
+}
+
+void OnSynchronizationFinished(JNIEnv * env, Cloud::SynchronizationType type,
+                               Cloud::SynchronizationResult result,
+                               std::string const & errorStr)
+{
+  ASSERT(g_bookmarkManagerClass, ());
+  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
+                                                              g_bookmarkManagerInstanceField);
+  env->CallVoidMethod(bookmarkManagerInstance, g_onSynchronizationFinishedMethod,
+                      static_cast<jint>(type), static_cast<jint>(result),
+                      jni::ToJavaString(env, errorStr));
+  jni::HandleJavaException(env);
+}
+
+void OnRestoreRequested(JNIEnv * env, Cloud::RestoringRequestResult result,
+                        uint64_t backupTimestampInMs)
+{
+  ASSERT(g_bookmarkManagerClass, ());
+  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
+                                                              g_bookmarkManagerInstanceField);
+  env->CallVoidMethod(bookmarkManagerInstance, g_onRestoreRequestedMethod,
+                      static_cast<jint>(result), static_cast<jlong>(backupTimestampInMs));
+  jni::HandleJavaException(env);
+}
+
+void OnRestoredFilesPrepared(JNIEnv * env)
+{
+  ASSERT(g_bookmarkManagerClass, ());
+  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
+                                                              g_bookmarkManagerInstanceField);
+  env->CallVoidMethod(bookmarkManagerInstance, g_onRestoredFilesPreparedMethod);
   jni::HandleJavaException(env);
 }
 }  // namespace
@@ -143,6 +199,12 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeLoadBookmarks(JNIE
   callbacks.m_onFileSuccess = std::bind(&OnAsyncLoadingFileSuccess, env, _1, _2);
   callbacks.m_onFileError = std::bind(&OnAsyncLoadingFileError, env, _1, _2);
   frm()->GetBookmarkManager().SetAsyncLoadingCallbacks(std::move(callbacks));
+
+  frm()->GetBookmarkManager().SetCloudHandlers(
+    std::bind(&OnSynchronizationStarted, env, _1),
+    std::bind(&OnSynchronizationFinished, env, _1, _2, _3),
+    std::bind(&OnRestoreRequested, env, _1, _2),
+    std::bind(&OnRestoredFilesPrepared, env));
 
   frm()->LoadBookmarks();
 }
@@ -445,5 +507,26 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsCategoryEmpty(
 {
   return static_cast<jboolean>(frm()->GetBookmarkManager().IsCategoryEmpty(
     static_cast<df::MarkGroupID>(catId)));
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeRequestRestoring(
+        JNIEnv * env, jobject thiz)
+{
+  frm()->GetBookmarkManager().RequestCloudRestoring();
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeApplyRestoring(
+        JNIEnv * env, jobject thiz)
+{
+  frm()->GetBookmarkManager().ApplyCloudRestoring();
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeCancelRestoring(
+        JNIEnv * env, jobject thiz)
+{
+  frm()->GetBookmarkManager().CancelCloudRestoring();
 }
 }  // extern "C"
