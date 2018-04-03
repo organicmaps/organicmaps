@@ -9,7 +9,7 @@ namespace
 
 Bookmark const * getBookmark(jlong bokmarkId)
 {
-  Bookmark const * pBmk = frm()->GetBookmarkManager().GetBookmark(static_cast<df::MarkID>(bokmarkId));
+  Bookmark const * pBmk = frm()->GetBookmarkManager().GetBookmark(static_cast<kml::MarkId>(bokmarkId));
   ASSERT(pBmk, ("Bookmark not found, id", bokmarkId));
   return pBmk;
 }
@@ -54,15 +54,15 @@ Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeSetBookmarkParams(
     kml::SetDefaultStr(bmData.m_description, jni::ToNativeString(env, descr));
   bmData.m_color.m_predefinedColor = static_cast<kml::PredefinedColor>(color);
 
-  g_framework->ReplaceBookmark(static_cast<df::MarkID>(bmk), bmData);
+  g_framework->ReplaceBookmark(static_cast<kml::MarkId>(bmk), bmData);
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeChangeCategory(
        JNIEnv * env, jobject thiz, jlong oldCat, jlong newCat, jlong bmk)
 {
-  g_framework->MoveBookmark(static_cast<df::MarkID>(bmk), static_cast<df::MarkGroupID>(oldCat),
-                            static_cast<df::MarkGroupID>(newCat));
+  g_framework->MoveBookmark(static_cast<kml::MarkId>(bmk), static_cast<kml::MarkGroupId>(oldCat),
+                            static_cast<kml::MarkGroupId>(newCat));
 }
 
 JNIEXPORT jobject JNICALL

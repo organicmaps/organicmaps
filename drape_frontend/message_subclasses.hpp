@@ -207,32 +207,32 @@ private:
 class ClearUserMarkGroupMessage : public Message
 {
 public:
-  ClearUserMarkGroupMessage(MarkGroupID groupId)
+  ClearUserMarkGroupMessage(kml::MarkGroupId groupId)
     : m_groupId(groupId)
   {}
 
   Type GetType() const override { return Message::ClearUserMarkGroup; }
 
-  MarkGroupID GetGroupId() const { return m_groupId; }
+  kml::MarkGroupId GetGroupId() const { return m_groupId; }
 
 private:
-  MarkGroupID m_groupId;
+  kml::MarkGroupId m_groupId;
 };
 
 class ChangeUserMarkGroupVisibilityMessage : public Message
 {
 public:
-  ChangeUserMarkGroupVisibilityMessage(MarkGroupID groupId, bool isVisible)
+  ChangeUserMarkGroupVisibilityMessage(kml::MarkGroupId groupId, bool isVisible)
     : m_groupId(groupId)
     , m_isVisible(isVisible) {}
 
   Type GetType() const override { return Message::ChangeUserMarkGroupVisibility; }
 
-  MarkGroupID GetGroupId() const { return m_groupId; }
+  kml::MarkGroupId GetGroupId() const { return m_groupId; }
   bool IsVisible() const { return m_isVisible; }
 
 private:
-  MarkGroupID m_groupId;
+  kml::MarkGroupId m_groupId;
   bool m_isVisible;
 };
 
@@ -266,7 +266,7 @@ private:
 class UpdateUserMarkGroupMessage : public Message
 {
 public:
-  UpdateUserMarkGroupMessage(MarkGroupID groupId,
+  UpdateUserMarkGroupMessage(kml::MarkGroupId groupId,
                              drape_ptr<IDCollections> && ids)
     : m_groupId(groupId)
     , m_ids(std::move(ids))
@@ -274,11 +274,11 @@ public:
 
   Type GetType() const override { return Message::UpdateUserMarkGroup; }
 
-  MarkGroupID GetGroupId() const { return m_groupId; }
+  kml::MarkGroupId GetGroupId() const { return m_groupId; }
   drape_ptr<IDCollections> AcceptIds() { return std::move(m_ids); }
 
 private:
-  MarkGroupID m_groupId;
+  kml::MarkGroupId m_groupId;
   drape_ptr<IDCollections> m_ids;
 };
 

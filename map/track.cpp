@@ -28,7 +28,7 @@ void SaveLastLineId(uint64_t lastId)
   GetPlatform().GetSecureStorage().Save(kLastLineId, strings::to_string(lastId));
 }
 
-df::LineID GetNextUserLineId(bool reset = false)
+kml::TrackId GetNextUserLineId(bool reset = false)
 {
   static std::atomic<uint64_t> lastLineId(LoadLastLineId());
 
@@ -36,10 +36,10 @@ df::LineID GetNextUserLineId(bool reset = false)
   {
     SaveLastLineId(0);
     lastLineId = 0;
-    return df::kInvalidLineId;
+    return kml::kInvalidTrackId;
   }
 
-  auto const id = static_cast<df::LineID>(++lastLineId);
+  auto const id = static_cast<kml::TrackId>(++lastLineId);
   SaveLastLineId(lastLineId);
   return id;
 }
@@ -47,7 +47,7 @@ df::LineID GetNextUserLineId(bool reset = false)
 }  // namespace
 
 Track::Track(kml::TrackData const & data)
-  : df::UserLineMark(data.m_id == df::kInvalidLineId ? GetNextUserLineId() : data.m_id)
+  : df::UserLineMark(data.m_id == kml::kInvalidTrackId ? GetNextUserLineId() : data.m_id)
   , m_data(data)
   , m_groupID(0)
 {
@@ -123,7 +123,7 @@ std::vector<m2::PointD> const & Track::GetPoints() const
   return m_data.m_points;
 }
 
-void Track::Attach(df::MarkGroupID groupId)
+void Track::Attach(kml::MarkGroupId groupId)
 {
   ASSERT(!m_groupID, ());
   m_groupID = groupId;

@@ -41,13 +41,13 @@ public:
   float GetDepth(size_t layerIndex) const override;
   std::vector<m2::PointD> const & GetPoints() const override;
 
-  df::MarkGroupID GetGroupId() const { return m_groupID; }
-  void Attach(df::MarkGroupID groupId);
+  kml::MarkGroupId GetGroupId() const { return m_groupID; }
+  void Attach(kml::MarkGroupId groupId);
   void Detach();
 
 private:
   kml::TrackData m_data;
 
-  df::MarkGroupID m_groupID;
+  kml::MarkGroupId m_groupID;
   mutable bool m_isDirty = true;
 };

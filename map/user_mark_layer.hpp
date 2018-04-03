@@ -27,14 +27,14 @@ public:
   bool IsVisibilityChanged() const;
   UserMark::Type GetType() const;
 
-  df::MarkIDSet const & GetUserMarks() const { return m_userMarks; }
-  df::LineIDSet const & GetUserLines() const { return m_tracks; }
+  kml::MarkIdSet const & GetUserMarks() const { return m_userMarks; }
+  kml::TrackIdSet const & GetUserLines() const { return m_tracks; }
 
-  void AttachUserMark(df::MarkID markId);
-  void DetachUserMark(df::MarkID markId);
+  void AttachUserMark(kml::MarkId markId);
+  void DetachUserMark(kml::MarkId markId);
 
-  void AttachTrack(df::LineID trackId);
-  void DetachTrack(df::LineID trackId);
+  void AttachTrack(kml::TrackId trackId);
+  void DetachTrack(kml::TrackId trackId);
 
   void Clear();
   bool IsEmpty() const;
@@ -46,8 +46,8 @@ protected:
 
   UserMark::Type m_type;
 
-  df::MarkIDSet m_userMarks;
-  df::LineIDSet m_tracks;
+  kml::MarkIdSet m_userMarks;
+  kml::TrackIdSet m_tracks;
 
   bool m_isDirty = true;
   bool m_isVisible = true;

@@ -30,7 +30,7 @@ void SaveLastBookmarkId(uint64_t lastId)
   GetPlatform().GetSecureStorage().Save(kLastBookmarkId, strings::to_string(lastId));
 }
 
-df::MarkID GetNextUserMarkId(UserMark::Type type, bool reset = false)
+kml::MarkId GetNextUserMarkId(UserMark::Type type, bool reset = false)
 {
   static std::atomic<uint64_t> lastBookmarkId(LoadLastBookmarkId());
   static std::atomic<uint64_t> lastUserMarkId(0);
@@ -42,27 +42,27 @@ df::MarkID GetNextUserMarkId(UserMark::Type type, bool reset = false)
       SaveLastBookmarkId(0);
       lastBookmarkId = 0;
     }
-    return df::kInvalidMarkId;
+    return kml::kInvalidMarkId;
   }
 
   static_assert(UserMark::Type::COUNT <= (1 << kMarkIdTypeBitsCount), "Not enough bits for user mark type.");
 
-  auto const typeBits = static_cast<uint64_t>(type) << (sizeof(df::MarkID) * 8 - kMarkIdTypeBitsCount);
+  auto const typeBits = static_cast<uint64_t>(type) << (sizeof(kml::MarkId) * 8 - kMarkIdTypeBitsCount);
   if (type == UserMark::Type::BOOKMARK)
   {
-    auto const id = static_cast<df::MarkID>((++lastBookmarkId) | typeBits);
+    auto const id = static_cast<kml::MarkId>((++lastBookmarkId) | typeBits);
     SaveLastBookmarkId(lastBookmarkId);
     return id;
   }
   else
   {
-    return static_cast<df::MarkID>((++lastUserMarkId) | typeBits);
+    return static_cast<kml::MarkId>((++lastUserMarkId) | typeBits);
   }
 }
 }  // namespace
 
-UserMark::UserMark(df::MarkID id, m2::PointD const & ptOrg, UserMark::Type type)
-  : df::UserPointMark(id == df::kInvalidMarkId ? GetNextUserMarkId(type) : id)
+UserMark::UserMark(kml::MarkId id, m2::PointD const & ptOrg, UserMark::Type type)
+  : df::UserPointMark(id == kml::kInvalidMarkId ? GetNextUserMarkId(type) : id)
   , m_ptOrg(ptOrg)
 {
   ASSERT_EQUAL(GetMarkType(), type, ());
@@ -74,7 +74,7 @@ UserMark::UserMark(m2::PointD const & ptOrg, UserMark::Type type)
 {}
 
 // static
-UserMark::Type UserMark::GetMarkType(df::MarkID id)
+UserMark::Type UserMark::GetMarkType(kml::MarkId id)
 {
   return static_cast<Type>(id >> (sizeof(id) * 8 - kMarkIdTypeBitsCount));
 }

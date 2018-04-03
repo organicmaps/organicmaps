@@ -372,12 +372,12 @@ void Framework::RemoveLocalMaps()
   m_work.DeregisterAllMaps();
 }
 
-void Framework::ReplaceBookmark(df::MarkID markId, kml::BookmarkData & bm)
+void Framework::ReplaceBookmark(kml::MarkId markId, kml::BookmarkData & bm)
 {
   m_work.GetBookmarkManager().GetEditSession().UpdateBookmark(markId, bm);
 }
 
-void Framework::MoveBookmark(df::MarkID markId, df::MarkGroupID curCat, df::MarkGroupID newCat)
+void Framework::MoveBookmark(kml::MarkId markId, kml::MarkGroupId curCat, kml::MarkGroupId newCat)
 {
   m_work.GetBookmarkManager().GetEditSession().MoveBookmark(markId, curCat, newCat);
 }
@@ -414,7 +414,7 @@ string Framework::GetOutdatedCountriesString()
   return res;
 }
 
-void Framework::ShowTrack(df::LineID track)
+void Framework::ShowTrack(kml::TrackId track)
 {
   Track const * nTrack = NativeFramework()->GetBookmarkManager().GetTrack(track);
   NativeFramework()->ShowTrack(*nTrack);
@@ -903,7 +903,7 @@ Java_com_mapswithme_maps_Framework_nativeGetScreenRectCenter(JNIEnv * env, jclas
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeShowTrackRect(JNIEnv * env, jclass, jlong track)
 {
-  g_framework->ShowTrack(static_cast<df::LineID>(track));
+  g_framework->ShowTrack(static_cast<kml::TrackId>(track));
 }
 
 JNIEXPORT jstring JNICALL
@@ -1411,9 +1411,9 @@ Java_com_mapswithme_maps_Framework_nativeOnBookmarkCategoryChanged(JNIEnv * env,
   place_page::Info & info = g_framework->GetPlacePageInfo();
   ASSERT_GREATER_OR_EQUAL(bmk, 0, ());
   ASSERT_GREATER_OR_EQUAL(cat, 0, ());
-  info.SetBookmarkCategoryId(static_cast<df::MarkGroupID>(cat));
-  info.SetBookmarkId(static_cast<df::MarkID>(bmk));
-  info.SetBookmarkCategoryName(frm()->GetBookmarkManager().GetCategoryName(static_cast<df::MarkGroupID>(cat)));
+  info.SetBookmarkCategoryId(static_cast<kml::MarkGroupId>(cat));
+  info.SetBookmarkId(static_cast<kml::MarkId>(bmk));
+  info.SetBookmarkCategoryName(frm()->GetBookmarkManager().GetCategoryName(static_cast<kml::MarkGroupId>(cat)));
 }
 
 JNIEXPORT void JNICALL

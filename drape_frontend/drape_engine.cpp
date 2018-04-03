@@ -201,14 +201,14 @@ void DrapeEngine::SetModelViewAnyRect(m2::AnyRectD const & rect, bool isAnim)
   PostUserEvent(make_unique_dp<SetAnyRectEvent>(rect, isAnim));
 }
 
-void DrapeEngine::ClearUserMarksGroup(MarkGroupID groupId)
+void DrapeEngine::ClearUserMarksGroup(kml::MarkGroupId groupId)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<ClearUserMarkGroupMessage>(groupId),
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::ChangeVisibilityUserMarksGroup(MarkGroupID groupId, bool isVisible)
+void DrapeEngine::ChangeVisibilityUserMarksGroup(kml::MarkGroupId groupId, bool isVisible)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<ChangeUserMarkGroupVisibilityMessage>(groupId, isVisible),
@@ -235,14 +235,14 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
 
   if (!firstTime)
   {
-    df::MarkGroupID lastGroupId = *dirtyGroupIds.begin();
+    kml::MarkGroupId lastGroupId = *dirtyGroupIds.begin();
     bool visibilityChanged = provider->IsGroupVisibilityChanged(lastGroupId);
     bool groupIsVisible = provider->IsGroupVisible(lastGroupId);
 
     auto const handleMark = [&](
-      df::MarkID markId,
+      kml::MarkId markId,
       UserMarksRenderCollection & renderCollection,
-      MarkIDCollection *idCollection)
+      kml::MarkIdCollection *idCollection)
     {
       auto const *mark = provider->GetUserPointMark(markId);
       if (!mark->IsDirty())
@@ -277,7 +277,7 @@ void DrapeEngine::UpdateUserMarks(UserMarksProvider * provider, bool firstTime)
     removedIdCollection->m_lineIds.assign(removedLineIds.begin(), removedLineIds.end());
   }
 
-  std::map<df::MarkGroupID, drape_ptr<IDCollections>> dirtyMarkIds;
+  std::map<kml::MarkGroupId, drape_ptr<IDCollections>> dirtyMarkIds;
   for (auto groupId : dirtyGroupIds)
   {
     auto & idCollection = *(dirtyMarkIds.emplace(groupId, make_unique_dp<IDCollections>()).first->second);

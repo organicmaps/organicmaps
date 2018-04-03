@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape_frontend/user_marks_global.hpp"
+#include "kml/type_utils.hpp"
 
 #include "base/assert.hpp"
 
@@ -12,7 +12,7 @@ namespace search
 {
 struct BookmarksSearchParams
 {
-  using Results = std::vector<df::MarkID>;
+  using Results = std::vector<kml::MarkId>;
 
   enum class Status
   {

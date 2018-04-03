@@ -63,25 +63,25 @@ void UserMarkLayer::ResetChanges()
   m_wasVisible = m_isVisible;
 }
 
-void UserMarkLayer::AttachUserMark(df::MarkID markId)
+void UserMarkLayer::AttachUserMark(kml::MarkId markId)
 {
   SetDirty();
   m_userMarks.insert(markId);
 }
 
-void UserMarkLayer::DetachUserMark(df::MarkID markId)
+void UserMarkLayer::DetachUserMark(kml::MarkId markId)
 {
   SetDirty();
   m_userMarks.erase(markId);
 }
 
-void UserMarkLayer::AttachTrack(df::LineID trackId)
+void UserMarkLayer::AttachTrack(kml::TrackId trackId)
 {
   SetDirty();
   m_tracks.insert(trackId);
 }
 
-void UserMarkLayer::DetachTrack(df::LineID trackId)
+void UserMarkLayer::DetachTrack(kml::TrackId trackId)
 {
   SetDirty();
   m_tracks.erase(trackId);

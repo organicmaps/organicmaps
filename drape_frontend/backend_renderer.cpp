@@ -281,7 +281,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::UpdateUserMarkGroup:
     {
       ref_ptr<UpdateUserMarkGroupMessage> msg = message;
-      MarkGroupID const groupId = msg->GetGroupId();
+      kml::MarkGroupId const groupId = msg->GetGroupId();
       m_userMarkGenerator->SetGroup(groupId, msg->AcceptIds());
       break;
     }

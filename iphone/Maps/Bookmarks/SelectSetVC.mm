@@ -7,7 +7,7 @@
 
 @interface SelectSetVC () <AddSetVCDelegate>
 {
-  df::MarkGroupID m_categoryId;
+  kml::MarkGroupId m_categoryId;
 }
 
 @property (copy, nonatomic) NSString * category;
@@ -18,7 +18,7 @@
 @implementation SelectSetVC
 
 - (instancetype)initWithCategory:(NSString *)category
-                      categoryId:(df::MarkGroupID)categoryId
+                      categoryId:(kml::MarkGroupId)categoryId
                         delegate:(id<MWMSelectSetDelegate>)delegate
 {
   self = [super initWithStyle:UITableViewStyleGrouped];
@@ -77,12 +77,12 @@
   return cell;
 }
 
-- (void)addSetVC:(AddSetVC *)vc didAddSetWithCategoryId:(df::MarkGroupID)categoryId
+- (void)addSetVC:(AddSetVC *)vc didAddSetWithCategoryId:(kml::MarkGroupId)categoryId
 {
   [self moveBookmarkToSetWithCategoryId:categoryId];
 }
 
-- (void)moveBookmarkToSetWithCategoryId:(df::MarkGroupID)categoryId
+- (void)moveBookmarkToSetWithCategoryId:(kml::MarkGroupId)categoryId
 {
   m_categoryId = categoryId;
   self.category = @(GetFramework().GetBookmarkManager().GetCategoryName(categoryId).c_str());

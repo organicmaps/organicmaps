@@ -40,22 +40,22 @@ void CancelQuery(weak_ptr<ProcessorHandle> & handle)
   handle.reset();
 }
 
-bookmarks::Id MarkIDToBookmarkId(df::MarkID id)
+bookmarks::Id MarkIDToBookmarkId(kml::MarkId id)
 {
-  static_assert(is_integral<df::MarkID>::value, "");
+  static_assert(is_integral<kml::MarkId>::value, "");
   static_assert(is_integral<bookmarks::Id>::value, "");
 
-  static_assert(is_unsigned<df::MarkID>::value, "");
+  static_assert(is_unsigned<kml::MarkId>::value, "");
   static_assert(is_unsigned<bookmarks::Id>::value, "");
 
-  static_assert(sizeof(bookmarks::Id) >= sizeof(df::MarkID), "");
+  static_assert(sizeof(bookmarks::Id) >= sizeof(kml::MarkId), "");
 
   return static_cast<bookmarks::Id>(id);
 }
 
-df::MarkID BookmarkIdToMarkID(bookmarks::Id id) { return static_cast<df::MarkID>(id); }
+kml::MarkId BookmarkIdToMarkID(bookmarks::Id id) { return static_cast<kml::MarkId>(id); }
 
-void AppendBookmarkIdDocs(vector<pair<df::MarkID, kml::BookmarkData>> const & marks,
+void AppendBookmarkIdDocs(vector<pair<kml::MarkId, kml::BookmarkData>> const & marks,
                           vector<BookmarkIdDoc> & result)
 {
   result.reserve(result.size() + marks.size());
@@ -68,7 +68,7 @@ void AppendBookmarkIdDocs(vector<pair<df::MarkID, kml::BookmarkData>> const & ma
   }
 }
 
-void AppendBookmarkIds(vector<df::MarkID> const & marks, vector<bookmarks::Id> & result)
+void AppendBookmarkIds(vector<kml::MarkId> const & marks, vector<bookmarks::Id> & result)
 {
   result.reserve(result.size() + marks.size());
   transform(marks.begin(), marks.end(), back_inserter(result), MarkIDToBookmarkId);
@@ -368,21 +368,21 @@ ProductInfo SearchAPI::GetProductInfo(Result const & result) const
   return m_delegate.GetProductInfo(result);
 }
 
-void SearchAPI::OnBookmarksCreated(vector<pair<df::MarkID, kml::BookmarkData>> const & marks)
+void SearchAPI::OnBookmarksCreated(vector<pair<kml::MarkId, kml::BookmarkData>> const & marks)
 {
   vector<BookmarkIdDoc> data;
   AppendBookmarkIdDocs(marks, data);
   m_engine.OnBookmarksCreated(data);
 }
 
-void SearchAPI::OnBookmarksUpdated(vector<pair<df::MarkID, kml::BookmarkData>> const & marks)
+void SearchAPI::OnBookmarksUpdated(vector<pair<kml::MarkId, kml::BookmarkData>> const & marks)
 {
   vector<BookmarkIdDoc> data;
   AppendBookmarkIdDocs(marks, data);
   m_engine.OnBookmarksUpdated(data);
 }
 
-void SearchAPI::OnBookmarksDeleted(vector<df::MarkID> const & marks)
+void SearchAPI::OnBookmarksDeleted(vector<kml::MarkId> const & marks)
 {
   vector<bookmarks::Id> data;
   AppendBookmarkIds(marks, data);

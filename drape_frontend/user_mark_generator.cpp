@@ -20,14 +20,14 @@ UserMarkGenerator::UserMarkGenerator(TFlushFn const & flushFn)
   ASSERT(m_flushFn, ());
 }
 
-void UserMarkGenerator::RemoveGroup(MarkGroupID groupId)
+void UserMarkGenerator::RemoveGroup(kml::MarkGroupId groupId)
 {
   m_groupsVisibility.erase(groupId);
   m_groups.erase(groupId);
   UpdateIndex(groupId);
 }
 
-void UserMarkGenerator::SetGroup(MarkGroupID groupId, drape_ptr<IDCollections> && ids)
+void UserMarkGenerator::SetGroup(kml::MarkGroupId groupId, drape_ptr<IDCollections> && ids)
 {
   m_groups[groupId] = std::move(ids);
   UpdateIndex(groupId);
@@ -75,7 +75,7 @@ void UserMarkGenerator::SetUserLines(drape_ptr<UserLinesRenderCollection> && lin
   }
 }
 
-void UserMarkGenerator::UpdateIndex(MarkGroupID groupId)
+void UserMarkGenerator::UpdateIndex(kml::MarkGroupId groupId)
 {
   for (auto & tileGroups : m_index)
   {
@@ -134,7 +134,7 @@ void UserMarkGenerator::UpdateIndex(MarkGroupID groupId)
   CleanIndex();
 }
 
-ref_ptr<IDCollections> UserMarkGenerator::GetIdCollection(TileKey const & tileKey, MarkGroupID groupId)
+ref_ptr<IDCollections> UserMarkGenerator::GetIdCollection(TileKey const & tileKey, kml::MarkGroupId groupId)
 {
   ref_ptr<MarksIDGroups> tileGroups;
   auto itTileGroups = m_index.find(tileKey);
@@ -187,7 +187,7 @@ void UserMarkGenerator::CleanIndex()
   }
 }
 
-void UserMarkGenerator::SetGroupVisibility(MarkGroupID groupId, bool isVisible)
+void UserMarkGenerator::SetGroupVisibility(kml::MarkGroupId groupId, bool isVisible)
 {
   if (isVisible)
     m_groupsVisibility.insert(groupId);
@@ -249,7 +249,7 @@ void UserMarkGenerator::CacheUserLines(TileKey const & tileKey, MarksIDGroups co
 {
   for (auto & groupPair : indexesGroups)
   {
-    MarkGroupID groupId = groupPair.first;
+    kml::MarkGroupId groupId = groupPair.first;
     if (m_groupsVisibility.find(groupId) == m_groupsVisibility.end())
       continue;
 
@@ -262,7 +262,7 @@ void UserMarkGenerator::CacheUserMarks(TileKey const & tileKey, MarksIDGroups co
 {
   for (auto & groupPair : indexesGroups)
   {
-    MarkGroupID groupId = groupPair.first;
+    kml::MarkGroupId groupId = groupPair.first;
     if (m_groupsVisibility.find(groupId) == m_groupsVisibility.end())
       continue;
     df::CacheUserMarks(tileKey, textures, groupPair.second->m_markIds, m_marks, batcher);

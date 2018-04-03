@@ -22,9 +22,10 @@
 #include "drape_frontend/drape_api.hpp"
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/user_event_stream.hpp"
-#include "drape_frontend/user_marks_global.hpp"
 
 #include "drape/oglcontextfactory.hpp"
+
+#include "kml/type_utils.hpp"
 
 #include "ugc/api.hpp"
 
@@ -316,12 +317,12 @@ public:
   void LoadBookmarks();
 
   /// @return Created bookmark category id.
-  df::MarkGroupID AddCategory(string const & categoryName);
+  kml::MarkGroupId AddCategory(string const & categoryName);
 
-  df::MarkGroupID LastEditedBMCategory() { return GetBookmarkManager().LastEditedBMCategory(); }
+  kml::MarkGroupId LastEditedBMCategory() { return GetBookmarkManager().LastEditedBMCategory(); }
   kml::PredefinedColor LastEditedBMColor() const { return GetBookmarkManager().LastEditedBMColor(); }
 
-  void ShowBookmark(df::MarkID id);
+  void ShowBookmark(kml::MarkId id);
   void ShowBookmark(Bookmark const * bookmark);
   void ShowTrack(Track const & track);
   void ShowFeatureByMercator(m2::PointD const & pt);

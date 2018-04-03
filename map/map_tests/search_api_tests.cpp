@@ -133,7 +133,7 @@ UNIT_CLASS_TEST(SearchAPITest, MultipleViewportsRequests)
 
 UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
 {
-  vector<pair<df::MarkID, kml::BookmarkData>> marks;
+  vector<pair<kml::MarkId, kml::BookmarkData>> marks;
 
   kml::BookmarkData data;
   kml::SetDefaultStr(data.m_name, "R&R dinner");
@@ -147,12 +147,12 @@ UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
   marks.emplace_back(2, data);
   m_api.OnBookmarksCreated(marks);
 
-  promise<vector<df::MarkID>> promise;
+  promise<vector<kml::MarkId>> promise;
   auto future = promise.get_future();
 
   BookmarksSearchParams params;
   params.m_query = "gread silver hotel";
-  params.m_onResults = [&](vector<df::MarkID> const & results,
+  params.m_onResults = [&](vector<kml::MarkId> const & results,
                            BookmarksSearchParams::Status status) {
     if (status != BookmarksSearchParams::Status::Completed)
       return;
@@ -163,6 +163,6 @@ UNIT_CLASS_TEST(SearchAPITest, BookmarksSearch)
   m_api.SearchInBookmarks(params);
 
   auto const ids = future.get();
-  TEST_EQUAL(ids, vector<df::MarkID>({2, 1}), ());
+  TEST_EQUAL(ids, vector<kml::MarkId>({2, 1}), ());
 }
 }  // namespace

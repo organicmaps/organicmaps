@@ -711,12 +711,12 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   return m_info.IsBookmark() ? @(m_info.GetBookmarkCategoryName().c_str()) : nil;
 }
 
-- (df::MarkID)bookmarkId
+- (kml::MarkId)bookmarkId
 {
   return m_info.GetBookmarkId();
 }
 
-- (df::MarkGroupID)bookmarkCategoryId
+- (kml::MarkGroupId)bookmarkCategoryId
 {
   return m_info.GetBookmarkCategoryId();
 }

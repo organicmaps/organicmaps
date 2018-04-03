@@ -137,7 +137,7 @@ BookmarkManager::Callbacks const bmCallbacks(
   static_cast<BookmarkManager::Callbacks::UpdatedBookmarksCallback>(nullptr),
   static_cast<BookmarkManager::Callbacks::DeletedBookmarksCallback>(nullptr));
 
-void CheckBookmarks(BookmarkManager const & bmManager, df::MarkGroupID groupId)
+void CheckBookmarks(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
 {
   auto const & markIds = bmManager.GetUserMarkIds(groupId);
   TEST_EQUAL(markIds.size(), 4, ());
@@ -742,12 +742,12 @@ UNIT_CLASS_TEST(Runner, TrackParsingTest_2)
 
 UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
 {
-  set<df::MarkID> createdMarksResult;
-  set<df::MarkID> updatedMarksResult;
-  set<df::MarkID> deletedMarksResult;
-  set<df::MarkID> createdMarks;
-  set<df::MarkID> updatedMarks;
-  set<df::MarkID> deletedMarks;
+  set<kml::MarkId> createdMarksResult;
+  set<kml::MarkId> updatedMarksResult;
+  set<kml::MarkId> deletedMarksResult;
+  set<kml::MarkId> createdMarks;
+  set<kml::MarkId> updatedMarks;
+  set<kml::MarkId> deletedMarks;
 
   auto const checkNotifications = [&]()
   {
@@ -763,17 +763,17 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
     deletedMarks.clear();
   };
 
-  auto const onCreate = [&createdMarksResult](std::vector<std::pair<df::MarkID, kml::BookmarkData>> const &marks)
+  auto const onCreate = [&createdMarksResult](std::vector<std::pair<kml::MarkId, kml::BookmarkData>> const &marks)
   {
     for (auto const & markPair : marks)
       createdMarksResult.insert(markPair.first);
   };
-  auto const onUpdate = [&updatedMarksResult](std::vector<std::pair<df::MarkID, kml::BookmarkData>> const &marks)
+  auto const onUpdate = [&updatedMarksResult](std::vector<std::pair<kml::MarkId, kml::BookmarkData>> const &marks)
   {
     for (auto const & markPair : marks)
       updatedMarksResult.insert(markPair.first);
   };
-  auto const onDelete = [&deletedMarksResult](std::vector<df::MarkID> const &marks)
+  auto const onDelete = [&deletedMarksResult](std::vector<kml::MarkId> const &marks)
   {
     deletedMarksResult.insert(marks.begin(), marks.end());
   };
@@ -836,7 +836,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_AutoSave)
 {
   BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
   kml::BookmarkData data;
-  df::MarkID bmId0;
+  kml::MarkId bmId0;
   auto const catId = bmManager.CreateBookmarkCategory("test");
   data.m_point = m2::PointD(0.0, 0.0);
   {

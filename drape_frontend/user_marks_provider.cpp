@@ -2,13 +2,13 @@
 
 namespace df
 {
-UserPointMark::UserPointMark(df::MarkID id)
+UserPointMark::UserPointMark(kml::MarkId id)
   : m_id(id)
 {
 }
 
 
-UserLineMark::UserLineMark(df::LineID id)
+UserLineMark::UserLineMark(kml::TrackId id)
   : m_id(id)
 {
 }

@@ -43,14 +43,14 @@ public:
     COUNT,
   };
 
-  UserMark(df::MarkID id, m2::PointD const & ptOrg, UserMark::Type type);
+  UserMark(kml::MarkId id, m2::PointD const & ptOrg, UserMark::Type type);
   UserMark(m2::PointD const & ptOrg, UserMark::Type type);
 
-  static Type GetMarkType(df::MarkID id);
+  static Type GetMarkType(kml::MarkId id);
   static void ResetLastId(UserMark::Type type);
 
   Type GetMarkType() const { return GetMarkType(GetId()); }
-  df::MarkGroupID GetGroupId() const override { return GetMarkType(); }
+  kml::MarkGroupId GetGroupId() const override { return GetMarkType(); }
 
   // df::UserPointMark overrides.
   bool IsDirty() const override { return m_isDirty; }

@@ -44,7 +44,7 @@
   return self;
 }
 
-- (df::MarkID)getBookmarkIdByRow:(NSInteger)row
+- (kml::MarkId)getBookmarkIdByRow:(NSInteger)row
 {
   auto const & bmManager = GetFramework().GetBookmarkManager();
   auto const & bookmarkIds = bmManager.GetUserMarkIds(m_categoryId);
@@ -54,7 +54,7 @@
   return *it;
 }
 
-- (df::LineID)getTrackIdByRow:(NSInteger)row
+- (kml::TrackId)getTrackIdByRow:(NSInteger)row
 {
   auto const & bmManager = GetFramework().GetBookmarkManager();
   auto const & trackIds = bmManager.GetTrackIds(m_categoryId);
@@ -146,7 +146,7 @@
     cell = [tableView dequeueReusableCellWithIdentifier:@"TrackCell"];
     if (!cell)
       cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"TrackCell"];
-    df::LineID const trackId = [self getTrackIdByRow:indexPath.row];
+    kml::TrackId const trackId = [self getTrackIdByRow:indexPath.row];
     Track const * tr = bmManager.GetTrack(trackId);
     cell.textLabel.text = @(tr->GetName().c_str());
     string dist;
@@ -165,7 +165,7 @@
     UITableViewCell * bmCell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"BookmarksVCBookmarkItemCell"];
     if (!bmCell)
       bmCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"BookmarksVCBookmarkItemCell"];
-    df::MarkID const bmId = [self getBookmarkIdByRow:indexPath.row];
+    kml::MarkId const bmId = [self getBookmarkIdByRow:indexPath.row];
     Bookmark const * bm = bmManager.GetBookmark(bmId);
     if (bm)
     {
@@ -229,7 +229,7 @@
   {
     if (categoryExists)
     {
-      df::LineID const trackId = [self getTrackIdByRow:indexPath.row];
+      kml::TrackId const trackId = [self getTrackIdByRow:indexPath.row];
       Track const * tr = bmManager.GetTrack(trackId);
       ASSERT(tr, ("NULL track"));
       if (tr)
@@ -243,7 +243,7 @@
   {
     if (categoryExists)
     {
-      df::MarkID const bmId = [self getBookmarkIdByRow:indexPath.row];
+      kml::MarkId const bmId = [self getBookmarkIdByRow:indexPath.row];
       Bookmark const * bm = bmManager.GetBookmark(bmId);
       ASSERT(bm, ("NULL bookmark"));
       if (bm)
@@ -304,12 +304,12 @@
       {
         if (indexPath.section == m_trackSection)
         {
-          df::LineID const trackId = [self getTrackIdByRow:indexPath.row];
+          kml::TrackId const trackId = [self getTrackIdByRow:indexPath.row];
           bmManager.GetEditSession().DeleteTrack(trackId);
         }
         else
         {
-          df::MarkID const bmId = [self getBookmarkIdByRow:indexPath.row];
+          kml::MarkId const bmId = [self getBookmarkIdByRow:indexPath.row];
           [MWMBookmarksManager deleteBookmark:bmId];
         }
       }
@@ -343,7 +343,7 @@
       NSIndexPath * indexPath = [table indexPathForCell:cell];
       if (indexPath.section == self->m_bookmarkSection)
       {
-        df::MarkID const bmId = [self getBookmarkIdByRow:indexPath.row];
+        kml::MarkId const bmId = [self getBookmarkIdByRow:indexPath.row];
         Bookmark const * bm = bmManager.GetBookmark(bmId);
         if (bm)
         {

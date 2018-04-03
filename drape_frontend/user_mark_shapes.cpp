@@ -287,7 +287,7 @@ std::string GetBackgroundForSymbol(std::string const & symbolName,
 }  // namespace
 
 void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    MarkIDCollection const & marksId, UserMarksRenderCollection & renderParams,
+                    kml::MarkIdCollection const & marksId, UserMarksRenderCollection & renderParams,
                     dp::Batcher & batcher)
 {
   using UPV = UserPointVertex;
@@ -437,7 +437,7 @@ void ProcessSplineSegmentRects(m2::SharedSpline const & spline, double maxSegmen
 }
 
 void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    LineIDCollection const & linesId, UserLinesRenderCollection & renderParams,
+                    kml::TrackIdCollection const & linesId, UserLinesRenderCollection & renderParams,
                     dp::Batcher & batcher)
 {
   ASSERT_GREATER(tileKey.m_zoomLevel, 0, ());

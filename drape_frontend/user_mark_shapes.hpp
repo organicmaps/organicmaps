@@ -60,8 +60,8 @@ struct UserLineRenderParams
   m2::SharedSpline m_spline;
 };
 
-using UserMarksRenderCollection = std::unordered_map<MarkID, drape_ptr<UserMarkRenderParams>>;
-using UserLinesRenderCollection = std::unordered_map<MarkID, drape_ptr<UserLineRenderParams>>;
+using UserMarksRenderCollection = std::unordered_map<kml::MarkId, drape_ptr<UserMarkRenderParams>>;
+using UserLinesRenderCollection = std::unordered_map<kml::MarkId, drape_ptr<UserLineRenderParams>>;
 
 struct UserMarkRenderData
 {
@@ -82,10 +82,10 @@ void ProcessSplineSegmentRects(m2::SharedSpline const & spline, double maxSegmen
                                std::function<bool(m2::RectD const & segmentRect)> const & func);
 
 void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    MarkIDCollection const & marksId, UserMarksRenderCollection & renderParams,
+                    kml::MarkIdCollection const & marksId, UserMarksRenderCollection & renderParams,
                     dp::Batcher & batcher);
 
 void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures,
-                    LineIDCollection const & linesId, UserLinesRenderCollection & renderParams,
+                    kml::TrackIdCollection const & linesId, UserLinesRenderCollection & renderParams,
                     dp::Batcher & batcher);
 }  // namespace df

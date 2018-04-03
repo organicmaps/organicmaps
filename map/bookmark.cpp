@@ -32,7 +32,7 @@
 
 Bookmark::Bookmark(m2::PointD const & ptOrg)
   : Base(ptOrg, UserMark::BOOKMARK)
-  , m_groupId(df::kInvalidMarkGroupId)
+  , m_groupId(kml::kInvalidMarkGroupId)
 {
   m_data.m_point = ptOrg;
   m_data.m_id = GetId();
@@ -41,7 +41,7 @@ Bookmark::Bookmark(m2::PointD const & ptOrg)
 Bookmark::Bookmark(kml::BookmarkData const & data)
   : Base(data.m_id, data.m_point, UserMark::BOOKMARK)
   , m_data(data)
-  , m_groupId(df::kInvalidMarkGroupId)
+  , m_groupId(kml::kInvalidMarkGroupId)
 {
   m_data.m_id = GetId();
 }
@@ -163,23 +163,23 @@ void Bookmark::SetScale(uint8_t scale)
   m_data.m_viewportScale = scale;
 }
 
-df::MarkGroupID Bookmark::GetGroupId() const
+kml::MarkGroupId Bookmark::GetGroupId() const
 {
   return m_groupId;
 }
 
-void Bookmark::Attach(df::MarkGroupID groupId)
+void Bookmark::Attach(kml::MarkGroupId groupId)
 {
-  ASSERT(m_groupId == df::kInvalidMarkGroupId, ());
+  ASSERT(m_groupId == kml::kInvalidMarkGroupId, ());
   m_groupId = groupId;
 }
 
 void Bookmark::Detach()
 {
-  m_groupId = df::kInvalidMarkGroupId;
+  m_groupId = kml::kInvalidMarkGroupId;
 }
 
-BookmarkCategory::BookmarkCategory(std::string const & name, df::MarkGroupID groupId, bool autoSave)
+BookmarkCategory::BookmarkCategory(std::string const & name, kml::MarkGroupId groupId, bool autoSave)
   : Base(UserMark::Type::BOOKMARK)
   , m_groupId(groupId)
   , m_autoSave(autoSave)
@@ -188,7 +188,7 @@ BookmarkCategory::BookmarkCategory(std::string const & name, df::MarkGroupID gro
   SetName(name);
 }
 
-BookmarkCategory::BookmarkCategory(kml::CategoryData const & data, df::MarkGroupID groupId, bool autoSave)
+BookmarkCategory::BookmarkCategory(kml::CategoryData const & data, kml::MarkGroupId groupId, bool autoSave)
   : Base(UserMark::Type::BOOKMARK)
   , m_groupId(groupId)
   , m_autoSave(autoSave)

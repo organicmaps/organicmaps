@@ -418,13 +418,13 @@ Framework::Framework(FrameworkParams const & params)
 
   m_bmManager = make_unique<BookmarkManager>(BookmarkManager::Callbacks(
       [this]() -> StringsBundle const & { return m_stringsBundle; },
-      [this](vector<pair<df::MarkID, kml::BookmarkData>> const & marks) {
+      [this](vector<pair<kml::MarkId, kml::BookmarkData>> const & marks) {
         GetSearchAPI().OnBookmarksCreated(marks);
       },
-      [this](vector<pair<df::MarkID, kml::BookmarkData>> const & marks) {
+      [this](vector<pair<kml::MarkId, kml::BookmarkData>> const & marks) {
         GetSearchAPI().OnBookmarksUpdated(marks);
       },
-      [this](vector<df::MarkID> const & marks) { GetSearchAPI().OnBookmarksDeleted(marks); }));
+      [this](vector<kml::MarkId> const & marks) { GetSearchAPI().OnBookmarksDeleted(marks); }));
 
   m_ParsedMapApi.SetBookmarkManager(m_bmManager.get());
   m_routingManager.SetBookmarkManager(m_bmManager.get());
@@ -705,7 +705,7 @@ void Framework::LoadBookmarks()
   GetBookmarkManager().LoadBookmarks();
 }
 
-df::MarkGroupID Framework::AddCategory(string const & categoryName)
+kml::MarkGroupId Framework::AddCategory(string const & categoryName)
 {
   return GetBookmarkManager().CreateBookmarkCategory(categoryName);
 }
@@ -723,8 +723,8 @@ void Framework::ResetBookmarkInfo(Bookmark const & bmk, place_page::Info & info)
 {
   info.SetBookmarkCategoryName("");
   info.SetBookmarkData({});
-  info.SetBookmarkId(df::kInvalidMarkId);
-  info.SetBookmarkCategoryId(df::kInvalidMarkGroupId);
+  info.SetBookmarkId(kml::kInvalidMarkId);
+  info.SetBookmarkCategoryId(kml::kInvalidMarkGroupId);
   FillPointInfo(bmk.GetPivot(), {} /* customTitle */, info);
 }
 
@@ -942,7 +942,7 @@ void Framework::FillRouteMarkInfo(RouteMarkPoint const & rmp, place_page::Info &
   info.SetIntermediateIndex(rmp.GetIntermediateIndex());
 }
 
-void Framework::ShowBookmark(df::MarkID id)
+void Framework::ShowBookmark(kml::MarkId id)
 {
   auto const * mark = m_bmManager->GetBookmark(id);
   ShowBookmark(mark);

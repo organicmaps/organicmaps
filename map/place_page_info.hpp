@@ -72,7 +72,7 @@ public:
 
   /// Place traits
   bool IsFeature() const { return m_featureID.IsValid(); }
-  bool IsBookmark() const { return m_markGroupId != df::kInvalidMarkGroupId && m_markId != df::kInvalidMarkId; }
+  bool IsBookmark() const { return m_markGroupId != kml::kInvalidMarkGroupId && m_markId != kml::kInvalidMarkId; }
   bool IsMyPosition() const { return m_isMyPosition; }
   bool IsRoutePoint() const { return m_isRoutePoint; }
 
@@ -120,10 +120,10 @@ public:
   void SetLocalizedWifiString(std::string const & str) { m_localizedWifiString = str; }
 
   /// Bookmark
-  void SetBookmarkId(df::MarkID markId);
-  df::MarkID GetBookmarkId() const { return m_markId; }
-  void SetBookmarkCategoryId(df::MarkGroupID markGroupId) { m_markGroupId = markGroupId; }
-  df::MarkGroupID GetBookmarkCategoryId() const { return m_markGroupId; }
+  void SetBookmarkId(kml::MarkId markId);
+  kml::MarkId GetBookmarkId() const { return m_markId; }
+  void SetBookmarkCategoryId(kml::MarkGroupId markGroupId) { m_markGroupId = markGroupId; }
+  kml::MarkGroupId GetBookmarkCategoryId() const { return m_markGroupId; }
   std::string const & GetBookmarkCategoryName() const { return m_bookmarkCategoryName; }
   void SetBookmarkCategoryName(std::string const & name) { m_bookmarkCategoryName = name; }
   void SetBookmarkData(kml::BookmarkData const & data) { m_bookmarkData = data; }
@@ -243,8 +243,8 @@ private:
 
   /// Bookmarks
   /// If not invalid, bookmark is bound to this place page.
-  df::MarkID m_markId = df::kInvalidMarkId;
-  df::MarkGroupID m_markGroupId = df::kInvalidMarkGroupId;;
+  kml::MarkId m_markId = kml::kInvalidMarkId;
+  kml::MarkGroupId m_markGroupId = kml::kInvalidMarkGroupId;;
   /// Bookmark category name. Empty, if it's not bookmark;
   std::string m_bookmarkCategoryName;
   kml::BookmarkData m_bookmarkData;

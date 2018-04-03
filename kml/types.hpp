@@ -131,7 +131,7 @@ struct BookmarkData
   bool operator!=(BookmarkData const & data) const { return !operator==(data); }
 
   // Unique id.
-  BookmarkId m_id = kInvalidBookmarkId;
+  MarkId m_id = kInvalidMarkId;
   // Bookmark's name.
   LocalizableString m_name;
   // Bookmark's description.
@@ -250,7 +250,7 @@ struct CategoryData
   bool operator!=(CategoryData const & data) const { return !operator==(data); }
 
   // Unique id.
-  CategoryId m_id = kInvalidCategoryId;
+  MarkGroupId m_id = kInvalidMarkGroupId;
   // Category's name.
   LocalizableString m_name;
   // Image URL.

@@ -138,8 +138,8 @@ namespace android
     void Scale(::Framework::EScaleMode mode);
     void Scale(m2::PointD const & centerPt, int targetZoom, bool animate);
 
-    void ReplaceBookmark(df::MarkID markId, kml::BookmarkData & bm);
-    void MoveBookmark(df::MarkID markId, df::MarkGroupID curCat, df::MarkGroupID newCat);
+    void ReplaceBookmark(kml::MarkId markId, kml::BookmarkData & bm);
+    void MoveBookmark(kml::MarkId markId, kml::MarkGroupId curCat, kml::MarkGroupId newCat);
 
     ::Framework * NativeFramework();
 
@@ -151,7 +151,7 @@ namespace android
 
     std::string GetOutdatedCountriesString();
 
-    void ShowTrack(df::LineID track);
+    void ShowTrack(kml::TrackId track);
 
     void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
     location::EMyPositionMode GetMyPositionMode();

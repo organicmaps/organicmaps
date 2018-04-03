@@ -13,7 +13,7 @@
 
 namespace df
 {
-using MarksIDGroups = std::map<MarkGroupID, drape_ptr<IDCollections>>;
+using MarksIDGroups = std::map<kml::MarkGroupId, drape_ptr<IDCollections>>;
 using MarksIndex = std::map<TileKey, drape_ptr<MarksIDGroups>>;
 
 class UserMarkGenerator
@@ -28,16 +28,16 @@ public:
   void SetRemovedUserMarks(drape_ptr<IDCollections> && ids);
   void SetCreatedUserMarks(drape_ptr<IDCollections> && ids);
 
-  void SetGroup(MarkGroupID groupId, drape_ptr<IDCollections> && ids);
-  void RemoveGroup(MarkGroupID groupId);
-  void SetGroupVisibility(MarkGroupID groupId, bool isVisible);
+  void SetGroup(kml::MarkGroupId groupId, drape_ptr<IDCollections> && ids);
+  void RemoveGroup(kml::MarkGroupId groupId);
+  void SetGroupVisibility(kml::MarkGroupId groupId, bool isVisible);
 
   void GenerateUserMarksGeometry(TileKey const & tileKey, ref_ptr<dp::TextureManager> textures);
 
 private:
-  void UpdateIndex(MarkGroupID groupId);
+  void UpdateIndex(kml::MarkGroupId groupId);
 
-  ref_ptr<IDCollections> GetIdCollection(TileKey const & tileKey, MarkGroupID groupId);
+  ref_ptr<IDCollections> GetIdCollection(TileKey const & tileKey, kml::MarkGroupId groupId);
   void CleanIndex();
 
   int GetNearestLineIndexZoom(int zoom) const;
@@ -50,7 +50,7 @@ private:
   void CacheUserLines(TileKey const & tileKey, MarksIDGroups const & indexesGroups,
                       ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher);
 
-  std::unordered_set<MarkGroupID> m_groupsVisibility;
+  std::unordered_set<kml::MarkGroupId> m_groupsVisibility;
   MarksIDGroups m_groups;
 
   UserMarksRenderCollection m_marks;

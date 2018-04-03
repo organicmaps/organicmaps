@@ -221,8 +221,8 @@ using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * d
 - (kml::PredefinedColor)bookmarkColor;
 - (NSString *)bookmarkDescription;
 - (NSString *)bookmarkCategory;
-- (df::MarkID)bookmarkId;
-- (df::MarkGroupID)bookmarkCategoryId;
+- (kml::MarkId)bookmarkId;
+- (kml::MarkGroupId)bookmarkCategoryId;
 
 // Local Ads
 - (NSString *)localAdsURL;

@@ -186,7 +186,7 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeShowBookmarkOnMap(
     JNIEnv * env, jobject thiz, jlong bmkId)
 {
-  frm()->ShowBookmark(static_cast<df::MarkID>(bmkId));
+  frm()->ShowBookmark(static_cast<kml::MarkId>(bmkId));
 }
 
 JNIEXPORT void JNICALL
@@ -231,7 +231,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCategoryIdByPos
         JNIEnv * env, jobject thiz, jint position)
 {
   auto & ids = frm()->GetBookmarkManager().GetBmGroupsIdList();
-  return static_cast<jlong>(position < ids.size() ? ids[position] : df::kInvalidMarkGroupId);
+  return static_cast<jlong>(position < ids.size() ? ids[position] : kml::kInvalidMarkGroupId);
 }
 
 JNIEXPORT jlong JNICALL
@@ -247,21 +247,21 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteCategory(
      JNIEnv * env, jobject thiz, jlong catId)
 {
-  auto const categoryId = static_cast<df::MarkGroupID>(catId);
+  auto const categoryId = static_cast<kml::MarkGroupId>(catId);
   return static_cast<jboolean>(frm()->GetBookmarkManager().GetEditSession().DeleteBmCategory(categoryId));
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteBookmark(JNIEnv *, jobject, jlong bmkId)
 {
-  frm()->GetBookmarkManager().GetEditSession().DeleteBookmark(static_cast<df::MarkID>(bmkId));
+  frm()->GetBookmarkManager().GetEditSession().DeleteBookmark(static_cast<kml::MarkId>(bmkId));
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteTrack(
     JNIEnv * env, jobject thiz, jlong trkId)
 {
-  frm()->GetBookmarkManager().GetEditSession().DeleteTrack(static_cast<df::LineID>(trkId));
+  frm()->GetBookmarkManager().GetEditSession().DeleteTrack(static_cast<kml::TrackId>(trkId));
 }
 
 JNIEXPORT jobject JNICALL
@@ -321,21 +321,21 @@ JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsVisible(
     JNIEnv * env, jobject thiz, jlong catId)
 {
-  return static_cast<jboolean>(frm()->GetBookmarkManager().IsVisible(static_cast<df::MarkGroupID>(catId)));
+  return static_cast<jboolean>(frm()->GetBookmarkManager().IsVisible(static_cast<kml::MarkGroupId>(catId)));
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetVisibility(
     JNIEnv * env, jobject thiz, jlong catId, jboolean isVisible)
 {
-  frm()->GetBookmarkManager().GetEditSession().SetIsVisible(static_cast<df::MarkGroupID>(catId), isVisible);
+  frm()->GetBookmarkManager().GetEditSession().SetIsVisible(static_cast<kml::MarkGroupId>(catId), isVisible);
 }
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetCategoryName(
     JNIEnv * env, jobject thiz, jlong catId, jstring name)
 {
-  frm()->GetBookmarkManager().GetEditSession().SetCategoryName(static_cast<df::MarkGroupID>(catId),
+  frm()->GetBookmarkManager().GetEditSession().SetCategoryName(static_cast<kml::MarkGroupId>(catId),
                                                                jni::ToNativeString(env, name));
 }
 
@@ -343,21 +343,21 @@ JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCategoryName(
      JNIEnv * env, jobject thiz, jlong catId)
 {
-  return ToJavaString(env, frm()->GetBookmarkManager().GetCategoryName(static_cast<df::MarkGroupID>(catId)));
+  return ToJavaString(env, frm()->GetBookmarkManager().GetCategoryName(static_cast<kml::MarkGroupId>(catId)));
 }
 
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmarksCount(
      JNIEnv * env, jobject thiz, jlong catId)
 {
-  return frm()->GetBookmarkManager().GetUserMarkIds(static_cast<df::MarkGroupID>(catId)).size();
+  return frm()->GetBookmarkManager().GetUserMarkIds(static_cast<kml::MarkGroupId>(catId)).size();
 }
 
 JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetTracksCount(
      JNIEnv * env, jobject thiz, jlong catId)
 {
-  return frm()->GetBookmarkManager().GetTrackIds(static_cast<df::MarkGroupID>(catId)).size();
+  return frm()->GetBookmarkManager().GetTrackIds(static_cast<kml::MarkGroupId>(catId)).size();
 }
 
 // TODO(AlexZ): Get rid of UserMarks completely in UI code.
@@ -368,7 +368,7 @@ JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmark(
      JNIEnv * env, jobject thiz, jlong bmkId)
 {
-  auto const * mark = frm()->GetBookmarkManager().GetBookmark(static_cast<df::MarkID>(bmkId));
+  auto const * mark = frm()->GetBookmarkManager().GetBookmark(static_cast<kml::MarkId>(bmkId));
   place_page::Info info;
   frm()->FillBookmarkInfo(*mark, info);
   return usermark_helper::CreateMapObject(env, info);
@@ -378,9 +378,9 @@ JNIEXPORT jlong JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmarkIdByPosition(
         JNIEnv * env, jobject thiz, jlong catId, jint positionInCategory)
 {
-  auto & ids = frm()->GetBookmarkManager().GetUserMarkIds(static_cast<df::MarkGroupID>(catId));
+  auto & ids = frm()->GetBookmarkManager().GetUserMarkIds(static_cast<kml::MarkGroupId>(catId));
   if (positionInCategory >= ids.size())
-    return static_cast<jlong>(df::kInvalidMarkId);
+    return static_cast<jlong>(kml::kInvalidMarkId);
   auto it = ids.begin();
   std::advance(it, positionInCategory);
   return static_cast<jlong>(*it);
@@ -395,7 +395,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetTrack(
   // Track(long trackId, long categoryId, String name, String lengthString, int color)
   static jmethodID const cId = jni::GetConstructorID(env, trackClazz,
                                                      "(JJLjava/lang/String;Ljava/lang/String;I)V");
-  auto const * nTrack = frm()->GetBookmarkManager().GetTrack(static_cast<df::LineID>(trackId));
+  auto const * nTrack = frm()->GetBookmarkManager().GetTrack(static_cast<kml::TrackId>(trackId));
 
   ASSERT(nTrack, ("Track must not be null with id:)", trackId));
 
@@ -418,9 +418,9 @@ JNIEXPORT jlong JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetTrackIdByPosition(
         JNIEnv * env, jobject thiz, jlong catId, jint positionInCategory)
 {
-  auto & ids = frm()->GetBookmarkManager().GetTrackIds(static_cast<df::MarkGroupID>(catId));
+  auto & ids = frm()->GetBookmarkManager().GetTrackIds(static_cast<kml::MarkGroupId>(catId));
   if (positionInCategory >= ids.size())
-    return static_cast<jlong>(df::kInvalidLineId);
+    return static_cast<jlong>(kml::kInvalidTrackId);
   auto it = ids.begin();
   std::advance(it, positionInCategory);
   return static_cast<jlong>(*it);
@@ -497,7 +497,7 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativePrepareFileForSharing(
         JNIEnv * env, jobject thiz, jlong catId)
 {
-  frm()->GetBookmarkManager().PrepareFileForSharing(static_cast<df::MarkGroupID>(catId),
+  frm()->GetBookmarkManager().PrepareFileForSharing(static_cast<kml::MarkGroupId>(catId),
     [env](BookmarkManager::SharingResult const & result)
   {
     OnPreparedFileForSharing(env, result);
@@ -509,7 +509,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsCategoryEmpty(
         JNIEnv * env, jobject thiz, jlong catId)
 {
   return static_cast<jboolean>(frm()->GetBookmarkManager().IsCategoryEmpty(
-    static_cast<df::MarkGroupID>(catId)));
+    static_cast<kml::MarkGroupId>(catId)));
 }
 
 JNIEXPORT void JNICALL

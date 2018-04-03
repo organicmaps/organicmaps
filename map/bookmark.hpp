@@ -62,14 +62,14 @@ public:
 
   df::ColorConstant GetColorConstant() const override;
 
-  df::MarkGroupID GetGroupId() const override;
+  kml::MarkGroupId GetGroupId() const override;
 
-  void Attach(df::MarkGroupID groupId);
+  void Attach(kml::MarkGroupId groupId);
   void Detach();
 
 private:
   kml::BookmarkData m_data;
-  df::MarkGroupID m_groupId;
+  kml::MarkGroupId m_groupId;
 };
 
 class BookmarkCategory : public UserMarkLayer
@@ -77,13 +77,13 @@ class BookmarkCategory : public UserMarkLayer
   using Base = UserMarkLayer;
 
 public:
-  BookmarkCategory(std::string const & name, df::MarkGroupID groupId, bool autoSave);
-  BookmarkCategory(kml::CategoryData const & data, df::MarkGroupID groupId, bool autoSave);
+  BookmarkCategory(std::string const & name, kml::MarkGroupId groupId, bool autoSave);
+  BookmarkCategory(kml::CategoryData const & data, kml::MarkGroupId groupId, bool autoSave);
   ~BookmarkCategory() override;
 
   static kml::PredefinedColor GetDefaultColor();
 
-  df::MarkGroupID GetID() const { return m_groupId; }
+  kml::MarkGroupId GetID() const { return m_groupId; }
 
   void SetIsVisible(bool isVisible) override;
   void SetName(std::string const & name);
@@ -97,7 +97,7 @@ public:
   kml::CategoryData const & GetCategoryData() const { return m_data; }
 
 private:
-  df::MarkGroupID const m_groupId;
+  kml::MarkGroupId const m_groupId;
   // Stores file name from which bookmarks were loaded.
   std::string m_file;
   bool m_autoSave = true;
