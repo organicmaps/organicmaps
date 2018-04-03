@@ -180,7 +180,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       {
         Intent intent = new Intent(adapter.mActivity, MwmActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        intent.putExtra(MwmActivity.EXTRA_TASK, new MwmActivity.ShowCountryTask(item.id, false));
+        intent.putExtra(MwmActivity.EXTRA_TASK, new MwmActivity.ShowCountryTask(item.id));
         adapter.mActivity.startActivity(intent);
 
         if (!(adapter.mActivity instanceof MwmActivity))

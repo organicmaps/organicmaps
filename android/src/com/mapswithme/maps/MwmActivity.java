@@ -322,7 +322,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private VisibleRectMeasurer mVisibleRectMeasurer;
 
-  public static Intent createShowMapIntent(Context context, String countryId)
+  public static Intent createShowMapIntent(@NonNull Context context, @Nullable String countryId)
   {
     return new Intent(context, DownloadResourcesLegacyActivity.class)
                .putExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY, countryId);
@@ -1724,21 +1724,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     private static final long serialVersionUID = 1L;
     private final String mCountryId;
-    private final boolean mDoAutoDownload;
 
-    public ShowCountryTask(String countryId, boolean doAutoDownload)
+    public ShowCountryTask(String countryId)
     {
       mCountryId = countryId;
-      mDoAutoDownload = doAutoDownload;
     }
 
     @Override
     public boolean run(MwmActivity target)
     {
-      if (mDoAutoDownload)
-        MapManager.warn3gAndDownload(target, mCountryId, null);
-
-      Framework.nativeShowCountry(mCountryId, mDoAutoDownload);
+      Framework.nativeShowCountry(mCountryId, false);
       return true;
     }
   }

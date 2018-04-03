@@ -39,7 +39,7 @@ public final class Notifier
   {
   }
 
-  public static void notifyDownloadFailed(String id, String name)
+  public static void notifyDownloadFailed(@Nullable String id, @Nullable String name)
   {
     String title = APP.getString(R.string.app_name);
     String content = APP.getString(R.string.download_country_failed, name);

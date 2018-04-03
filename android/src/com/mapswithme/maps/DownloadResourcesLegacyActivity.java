@@ -708,7 +708,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     {
       String countryId = intent.getStringExtra(EXTRA_COUNTRY);
 
-      mMapTaskToForward = new MwmActivity.ShowCountryTask(countryId, false);
+      mMapTaskToForward = new MwmActivity.ShowCountryTask(countryId);
       org.alohalytics.Statistics.logEvent("OpenCountryTaskProcessor::process",
                                           new String[] { "autoDownload", "false" },
                                           LocationHelper.INSTANCE.getSavedLocation());

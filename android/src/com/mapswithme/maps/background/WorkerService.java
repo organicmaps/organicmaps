@@ -1,27 +1,17 @@
 package com.mapswithme.maps.background;
 
 import android.app.IntentService;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.downloader.CountryItem;
-import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
-import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.CrashlyticsUtils;
-import com.mapswithme.util.PermissionsUtils;
-import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-
-import java.util.concurrent.CountDownLatch;
 
 public class WorkerService extends IntentService
 {
@@ -69,7 +59,7 @@ public class WorkerService extends IntentService
     CrashlyticsUtils.log(Log.INFO, TAG, msg);
     final String action = intent.getAction();
 
-    if (action == null)
+    if (TextUtils.isEmpty(action))
       return;
 
     switch (action)

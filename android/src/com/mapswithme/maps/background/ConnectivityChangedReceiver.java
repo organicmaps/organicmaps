@@ -5,16 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.downloader.MapManager;
-import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.CrashlyticsUtils;
-import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
+import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static com.mapswithme.maps.MwmApplication.backgroundTracker;
-import static com.mapswithme.maps.MwmApplication.prefs;
 
 public class ConnectivityChangedReceiver extends BroadcastReceiver
 {
@@ -24,6 +20,13 @@ public class ConnectivityChangedReceiver extends BroadcastReceiver
   @Override
   public void onReceive(Context context, Intent intent)
   {
+    String action = intent != null ? intent.getAction() : null;
+    if (!CONNECTIVITY_ACTION.equals(action))
+    {
+      LOGGER.w(TAG, "An intent with wrong action detected: " + action);
+      return;
+    }
+
     String msg = "onReceive: " + intent + " app in background = "
                  + !backgroundTracker().isForeground();
     LOGGER.i(TAG, msg);
