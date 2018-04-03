@@ -89,14 +89,23 @@ public:
       std::string const & fileName, std::shared_ptr<VehicleModelInterface> vehicleModel);
 };
 
+/// \brief This class supports loading geometry of roads for routing.
+/// \note Loaded information about road geometry is kept in evicted cache |m_featureIdToRoad|.
+/// On the other hand methods GetRoad() and GetPoint() return geometry information by reference.
+/// The reference is valid until the next call of GetRoad() or GetPoint() because the cache
+/// item which is referred by returned reference may be evicted. It's done for performance reasons.
 class Geometry final
 {
 public:
   Geometry() = default;
   explicit Geometry(std::unique_ptr<GeometryLoader> loader);
 
+  /// \note The reference returned by the method is valid until the next call of GetRoad()
+  /// of GetPoint() methods.
   RoadGeometry const & GetRoad(uint32_t featureId);
 
+  /// \note The reference returned by the method is valid until the next call of GetRoad()
+  /// of GetPoint() methods.
   m2::PointD const & GetPoint(RoadPoint const & rp)
   {
     return GetRoad(rp.GetFeatureId()).GetPoint(rp.GetPointId());
