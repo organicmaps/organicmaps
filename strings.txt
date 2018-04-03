@@ -28010,6 +28010,10 @@ fa = دوباره نپرس
     en = Cash back
     ru = Кешбэк
 
+  [sponsored_partner3_action]
+    en = Coupon
+    ru = Купон
+
   [whats_new_ugc_title]
     en = Ratings and reviews
     ru = Оценки и отзывы
