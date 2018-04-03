@@ -1,10 +1,7 @@
 #include "map/track.hpp"
 
-#include "geometry/mercator.hpp"
-
-#include "drape/color.hpp"
-
 #include "geometry/distance_on_sphere.hpp"
+#include "geometry/mercator.hpp"
 
 #include "platform/platform.hpp"
 
@@ -46,9 +43,9 @@ kml::TrackId GetNextUserLineId(bool reset = false)
 
 }  // namespace
 
-Track::Track(kml::TrackData const & data)
-  : df::UserLineMark(data.m_id == kml::kInvalidTrackId ? GetNextUserLineId() : data.m_id)
-  , m_data(data)
+Track::Track(kml::TrackData && data)
+  : Base(data.m_id == kml::kInvalidTrackId ? GetNextUserLineId() : data.m_id)
+  , m_data(std::move(data))
   , m_groupID(0)
 {
   m_data.m_id = GetId();

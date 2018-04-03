@@ -22,6 +22,8 @@ set(
   booking_filter_cache.hpp
   bookmark.cpp
   bookmark.hpp
+  bookmark_helpers.cpp
+  bookmark_helpers.hpp
   bookmark_manager.cpp
   bookmark_manager.hpp
   bookmarks_search_params.hpp

@@ -1,39 +1,20 @@
 #pragma once
 
-#include "map/track.hpp"
 #include "map/user_mark.hpp"
 #include "map/user_mark_layer.hpp"
 
 #include "kml/types.hpp"
 
-#include "coding/reader.hpp"
-
-#include "geometry/point2d.hpp"
-#include "geometry/rect2d.hpp"
-
-#include "base/timer.hpp"
-
-#include "std/noncopyable.hpp"
-
-#include <iostream>
 #include <memory>
 #include <string>
-#include <vector>
-
-namespace anim
-{
-  class Task;
-}
-
-class BookmarkManager;
 
 class Bookmark : public UserMark
 {
   using Base = UserMark;
 public:
-  Bookmark(m2::PointD const & ptOrg);
+  explicit Bookmark(m2::PointD const & ptOrg);
 
-  Bookmark(kml::BookmarkData const & data);
+  explicit Bookmark(kml::BookmarkData && data);
 
   void SetData(kml::BookmarkData const & data);
   kml::BookmarkData const & GetData() const;
@@ -78,12 +59,12 @@ class BookmarkCategory : public UserMarkLayer
 
 public:
   BookmarkCategory(std::string const & name, kml::MarkGroupId groupId, bool autoSave);
-  BookmarkCategory(kml::CategoryData const & data, kml::MarkGroupId groupId, bool autoSave);
+  BookmarkCategory(kml::CategoryData && data, bool autoSave);
   ~BookmarkCategory() override;
 
   static kml::PredefinedColor GetDefaultColor();
 
-  kml::MarkGroupId GetID() const { return m_groupId; }
+  kml::MarkGroupId GetID() const { return m_data.m_id; }
 
   void SetIsVisible(bool isVisible) override;
   void SetName(std::string const & name);
@@ -97,12 +78,8 @@ public:
   kml::CategoryData const & GetCategoryData() const { return m_data; }
 
 private:
-  kml::MarkGroupId const m_groupId;
   // Stores file name from which bookmarks were loaded.
   std::string m_file;
   bool m_autoSave = true;
   kml::CategoryData m_data;
 };
-
-std::unique_ptr<kml::FileData> LoadKMLFile(std::string const & file, bool useBinary);
-std::unique_ptr<kml::FileData> LoadKMLData(Reader const & reader, bool useBinary);

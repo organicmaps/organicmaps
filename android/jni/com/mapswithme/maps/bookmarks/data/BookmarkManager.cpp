@@ -276,7 +276,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastE
   bmData.m_point = MercatorBounds::FromLatLon(lat, lon);
   auto const lastEditedCategory = frm()->LastEditedBMCategory();
 
-  auto const * createdBookmark = bmMng.GetEditSession().CreateBookmark(bmData, lastEditedCategory);
+  auto const * createdBookmark = bmMng.GetEditSession().CreateBookmark(std::move(bmData), lastEditedCategory);
 
   place_page::Info & info = g_framework->GetPlacePageInfo();
   frm()->FillBookmarkInfo(*createdBookmark, info);

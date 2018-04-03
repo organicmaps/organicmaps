@@ -2,9 +2,8 @@
 
 #include "map/bookmark.hpp"
 #include "map/cloud.hpp"
+#include "map/track.hpp"
 #include "map/user_mark_layer.hpp"
-
-#include "kml/types.hpp"
 
 #include "drape_frontend/drape_engine_safe_ptr.hpp"
 
@@ -85,9 +84,9 @@ public:
       return m_bmManager.CreateUserMark<UserMarkT>(ptOrg);
     }
 
-    Bookmark * CreateBookmark(kml::BookmarkData const & bm);
-    Bookmark * CreateBookmark(kml::BookmarkData & bm, kml::MarkGroupId groupId);
-    Track * CreateTrack(kml::TrackData const & trackData);
+    Bookmark * CreateBookmark(kml::BookmarkData && bmData);
+    Bookmark * CreateBookmark(kml::BookmarkData && bmData, kml::MarkGroupId groupId);
+    Track * CreateTrack(kml::TrackData && trackData);
 
     template <typename UserMarkT>
     UserMarkT * GetMarkForEdit(kml::MarkId markId)
@@ -165,7 +164,7 @@ public:
 
   bool IsVisible(kml::MarkGroupId groupId) const;
 
-  kml::MarkGroupId CreateBookmarkCategory(kml::CategoryData const & data, bool autoSave = true);
+  kml::MarkGroupId CreateBookmarkCategory(kml::CategoryData && data, bool autoSave = true);
   kml::MarkGroupId CreateBookmarkCategory(std::string const & name, bool autoSave = true);
 
   std::string GetCategoryName(kml::MarkGroupId categoryId) const;
@@ -184,11 +183,11 @@ public:
   UserMark const * FindNearestUserMark(m2::AnyRectD const & rect) const;
   UserMark const * FindMarkInRect(kml::MarkGroupId groupId, m2::AnyRectD const & rect, double & d) const;
 
-  /// Scans and loads all kml files with bookmarks in WritableDir.
-  std::shared_ptr<KMLDataCollection> LoadBookmarksKML(std::vector<std::string> & filePaths);
-  std::shared_ptr<KMLDataCollection> LoadBookmarksKMB(std::vector<std::string> & filePaths);
+  /// Scans and loads all kml files with bookmarks.
   void LoadBookmarks();
   void LoadBookmark(std::string const & filePath, bool isTemporaryFile);
+  std::shared_ptr<KMLDataCollection> LoadBookmarks(std::string const & dir, std::string const & ext, bool binary,
+                                                   std::vector<std::string> & filePaths);
 
   /// Uses the same file name from which was loaded, or
   /// creates unique file name on first save and uses it every time.
@@ -253,7 +252,7 @@ public:
 
   // Convert all found kml files to the binary format.
   using ConversionHandler = platform::SafeCallback<void(bool success)>;
-  void ConvertAllKmlFiles(ConversionHandler && handler) const;
+  void ConvertAllKmlFiles(ConversionHandler && handler);
 
   // These handlers are always called from UI-thread.
   void SetCloudHandlers(Cloud::SynchronizationStartedHandler && onSynchronizationStarted,
@@ -267,7 +266,7 @@ public:
 
   /// These functions are public for unit tests only. You shouldn't call them from client code.
   bool SaveBookmarkCategory(kml::MarkGroupId groupId);
-  void SaveToFile(kml::MarkGroupId groupId, Writer & writer, bool useBinary) const;
+  bool SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & writer, bool useBinary) const;
   void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = true);
   static std::string RemoveInvalidSymbols(std::string const & name);
   static std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string const & fileExt);
@@ -367,15 +366,15 @@ private:
   UserMark * GetUserMarkForEdit(kml::MarkId markId);
   void DeleteUserMark(kml::MarkId markId);
 
-  Bookmark * CreateBookmark(kml::BookmarkData const & bm);
-  Bookmark * CreateBookmark(kml::BookmarkData & bm, kml::MarkGroupId groupId);
+  Bookmark * CreateBookmark(kml::BookmarkData && bmData);
+  Bookmark * CreateBookmark(kml::BookmarkData && bmData, kml::MarkGroupId groupId);
 
   Bookmark * GetBookmarkForEdit(kml::MarkId markId);
   void AttachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
   void DetachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId);
   void DeleteBookmark(kml::MarkId bmId);
 
-  Track * CreateTrack(kml::TrackData const & trackData);
+  Track * CreateTrack(kml::TrackData && trackData);
 
   void AttachTrack(kml::TrackId trackId, kml::MarkGroupId groupId);
   void DetachTrack(kml::TrackId trackId, kml::MarkGroupId groupId);
@@ -422,9 +421,8 @@ private:
   void CheckAndResetLastIds();
 
   std::unique_ptr<kml::FileData> CollectBmGroupKMLData(BookmarkCategory const * group) const;
-  void SaveToFile(kml::FileData & kmlData, Writer & writer, bool useBinary) const;
   std::shared_ptr<KMLDataCollection> PrepareToSaveBookmarks(kml::GroupIdCollection const & groupIdCollection);
-  bool SaveKMLData(std::string const & file, kml::FileData & kmlData, bool useBinary);
+  bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, bool useBinary);
 
   void OnSynchronizationStarted(Cloud::SynchronizationType type);
   void OnSynchronizationFinished(Cloud::SynchronizationType type, Cloud::SynchronizationResult result,

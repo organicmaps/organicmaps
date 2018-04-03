@@ -3,24 +3,12 @@
 #include "kml/types.hpp"
 
 #include "drape_frontend/user_marks_provider.hpp"
-#include "drape/color.hpp"
-
-#include "geometry/polyline2d.hpp"
-
-#include "base/buffer_vector.hpp"
-#include "base/macros.hpp"
-
-namespace location
-{
-  class RouteMatchingInfo;
-}
 
 class Track : public df::UserLineMark
 {
-  DISALLOW_COPY_AND_MOVE(Track);
-
+  using Base = df::UserLineMark;
 public:
-  explicit Track(kml::TrackData const & data);
+  explicit Track(kml::TrackData && data);
 
   static void ResetLastId();
 
@@ -42,12 +30,12 @@ public:
   std::vector<m2::PointD> const & GetPoints() const override;
 
   kml::MarkGroupId GetGroupId() const { return m_groupID; }
+
   void Attach(kml::MarkGroupId groupId);
   void Detach();
 
 private:
   kml::TrackData m_data;
-
   kml::MarkGroupId m_groupID;
   mutable bool m_isDirty = true;
 };

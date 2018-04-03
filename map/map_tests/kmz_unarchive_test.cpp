@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "map/bookmark_helpers.hpp"
 #include "map/framework.hpp"
 
 #include "platform/platform.hpp"
@@ -35,7 +36,7 @@ UNIT_TEST(KMZ_UnzipTest)
   MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, kmlFile));
   ZipFileReader::UnzipFile(kmzFile, "doc.kml", kmlFile);
 
-  auto kmlData = LoadKMLData(FileReader(kmlFile), false /* useBinary */);
+  auto kmlData = LoadKmlData(FileReader(kmlFile), false /* useBinary */);
   TEST(kmlData != nullptr, ());
 
   TEST_EQUAL(files.size(), 6, ("KMZ file wrong number of files"));
@@ -43,7 +44,7 @@ UNIT_TEST(KMZ_UnzipTest)
   TEST_EQUAL(kmlData->m_bookmarksData.size(), 6, ("Category wrong number of bookmarks"));
 
   {
-    Bookmark const bm(kmlData->m_bookmarksData[0]);
+    Bookmark const bm(std::move(kmlData->m_bookmarksData[0]));
     TEST_EQUAL(bm.GetName(), ("Lahaina Breakwall"), ("KML wrong name!"));
     TEST_EQUAL(bm.GetColor(), kml::PredefinedColor::Red, ("KML wrong type!"));
     TEST_ALMOST_EQUAL_ULPS(bm.GetPivot().x, -156.6777046791284, ("KML wrong org x!"));
@@ -51,7 +52,7 @@ UNIT_TEST(KMZ_UnzipTest)
     TEST_EQUAL(bm.GetScale(), 0, ("KML wrong scale!"));
   }
   {
-    Bookmark const bm(kmlData->m_bookmarksData[1]);
+    Bookmark const bm(std::move(kmlData->m_bookmarksData[1]));
     TEST_EQUAL(bm.GetName(), ("Seven Sacred Pools, Kipahulu"), ("KML wrong name!"));
     TEST_EQUAL(bm.GetColor(), kml::PredefinedColor::Red, ("KML wrong type!"));
     TEST_ALMOST_EQUAL_ULPS(bm.GetPivot().x, -156.0405130750025, ("KML wrong org x!"));

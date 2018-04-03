@@ -446,7 +446,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     bmData.m_color.m_predefinedColor = f.LastEditedBMColor();
     bmData.m_point = self.mercator;
     auto editSession = bmManager.GetEditSession();
-    auto const * bookmark = editSession.CreateBookmark(bmData, categoryId);
+    auto const * bookmark = editSession.CreateBookmark(std::move(bmData), categoryId);
     f.FillBookmarkInfo(*bookmark, m_info);
     m_sections.insert(m_sections.begin() + 1, Sections::Bookmark);
   }

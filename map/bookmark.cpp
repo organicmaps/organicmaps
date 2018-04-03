@@ -1,34 +1,4 @@
 #include "map/bookmark.hpp"
-#include "map/api_mark_point.hpp"
-#include "map/bookmark_manager.hpp"
-#include "map/track.hpp"
-
-#include "kml/serdes.hpp"
-
-#include "geometry/mercator.hpp"
-
-#include "coding/file_reader.hpp"
-#include "coding/hex.hpp"
-#include "coding/parse_xml.hpp"  // LoadFromKML
-#include "coding/internal/file_data.hpp"
-
-#include "drape/drape_global.hpp"
-#include "drape/color.hpp"
-
-#include "drape_frontend/color_constants.hpp"
-
-#include "platform/platform.hpp"
-
-#include "base/scope_guard.hpp"
-#include "base/stl_add.hpp"
-#include "base/string_utils.hpp"
-
-#include <algorithm>
-#include <fstream>
-#include <iterator>
-#include <map>
-#include <memory>
-#include <kml/serdes_binary.hpp>
 
 Bookmark::Bookmark(m2::PointD const & ptOrg)
   : Base(ptOrg, UserMark::BOOKMARK)
@@ -38,9 +8,9 @@ Bookmark::Bookmark(m2::PointD const & ptOrg)
   m_data.m_id = GetId();
 }
 
-Bookmark::Bookmark(kml::BookmarkData const & data)
+Bookmark::Bookmark(kml::BookmarkData && data)
   : Base(data.m_id, data.m_point, UserMark::BOOKMARK)
-  , m_data(data)
+  , m_data(std::move(data))
   , m_groupId(kml::kInvalidMarkGroupId)
 {
   m_data.m_id = GetId();
@@ -181,20 +151,17 @@ void Bookmark::Detach()
 
 BookmarkCategory::BookmarkCategory(std::string const & name, kml::MarkGroupId groupId, bool autoSave)
   : Base(UserMark::Type::BOOKMARK)
-  , m_groupId(groupId)
   , m_autoSave(autoSave)
 {
   m_data.m_id = groupId;
   SetName(name);
 }
 
-BookmarkCategory::BookmarkCategory(kml::CategoryData const & data, kml::MarkGroupId groupId, bool autoSave)
+BookmarkCategory::BookmarkCategory(kml::CategoryData && data, bool autoSave)
   : Base(UserMark::Type::BOOKMARK)
-  , m_groupId(groupId)
   , m_autoSave(autoSave)
-  , m_data(data)
+  , m_data(std::move(data))
 {
-  m_data.m_id = groupId;
   Base::SetIsVisible(m_data.m_visible);
 }
 
@@ -223,41 +190,4 @@ std::string BookmarkCategory::GetName() const
 kml::PredefinedColor BookmarkCategory::GetDefaultColor()
 {
   return kml::PredefinedColor::Red;
-}
-
-std::unique_ptr<kml::FileData> LoadKMLFile(std::string const & file, bool useBinary)
-{
-  try
-  {
-    return LoadKMLData(FileReader(file), useBinary);
-  }
-  catch (std::exception const & e)
-  {
-    LOG(LWARNING, ("Error while loading bookmarks from", file, e.what()));
-  }
-  return nullptr;
-}
-
-std::unique_ptr<kml::FileData> LoadKMLData(Reader const & reader, bool useBinary)
-{
-  auto data = std::make_unique<kml::FileData>();
-  try
-  {
-    if (useBinary)
-    {
-      kml::binary::DeserializerKml des(*data.get());
-      des.Deserialize(reader);
-    }
-    else
-    {
-      kml::DeserializerKml des(*data.get());
-      des.Deserialize(reader);
-    }
-  }
-  catch (FileReader::Exception const & exc)
-  {
-    LOG(LWARNING, ("KML ", useBinary ? "binary" : "text", " deserialization failure: ", exc.what()));
-    data.reset();
-  }
-  return data;
 }

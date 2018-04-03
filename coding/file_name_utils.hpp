@@ -16,6 +16,9 @@ namespace my
   /// Get file name from full path.
   void GetNameFromFullPath(string & name);
 
+  /// Get file name from full path without extension.
+  string GetNameFromFullPathWithoutExt(string const & path);
+
   /// Returns all but last components of the path. After dropping the last
   /// component, all trailing slashes are removed, unless the result is a
   /// root directory. If the argument is a single component, returns ".".

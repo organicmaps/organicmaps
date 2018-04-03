@@ -1,5 +1,6 @@
 #include "map/bookmark_manager.hpp"
 #include "map/api_mark_point.hpp"
+#include "map/bookmark_helpers.hpp"
 #include "map/local_ads_mark.hpp"
 #include "map/routing_mark.hpp"
 #include "map/search_mark.hpp"
@@ -12,9 +13,6 @@
 #include "platform/settings.hpp"
 
 #include "indexer/scales.hpp"
-
-#include "kml/serdes.hpp"
-#include "kml/serdes_binary.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/file_writer.hpp"
@@ -44,11 +42,13 @@ using namespace std::placeholders;
 namespace
 {
 std::string const kLastBookmarkCategoryId = "LastBookmarkCategoryId";
-std::string const kLastBookmarkCategory = "LastBookmarkCategory";
+std::string const kLastEditedBookmarkCategory = "LastBookmarkCategory";
+// TODO(darina): Delete old setting.
 std::string const kLastBookmarkType = "LastBookmarkType";
-std::string const kLastBookmarkColor = "LastBookmarkColor";
+std::string const kLastEditedBookmarkColor = "LastBookmarkColor";
 std::string const kKmzExtension = ".kmz";
-std::string const kBookmarksExt = ".kmb";
+std::string const kKmlExtension = ".kml";
+std::string const kKmbExtension = ".kmb";
 
 uint64_t LoadLastBmCategoryId()
 {
@@ -145,10 +145,8 @@ BookmarkManager::SharingResult GetFileForSharing(kml::MarkGroupId categoryId, st
 
   auto ext = my::GetFileExtension(filePath);
   strings::AsciiToLower(ext);
-  std::string fileName = filePath;
-  my::GetNameFromFullPath(fileName);
-  my::GetNameWithoutExt(fileName);
-  auto const tmpFilePath = my::JoinFoldersToPath(GetPlatform().TmpDir(), fileName + kKmzExtension);
+  std::string fileName = my::GetNameFromFullPathWithoutExt(filePath);
+  auto const tmpFilePath = my::JoinPath(GetPlatform().TmpDir(), fileName + kKmzExtension);
   if (ext == kKmzExtension)
   {
     if (my::CopyFileX(filePath, tmpFilePath))
@@ -169,8 +167,21 @@ BookmarkManager::SharingResult GetFileForSharing(kml::MarkGroupId categoryId, st
 
 bool ConvertBeforeUploading(std::string const & filePath, std::string const & convertedFilePath)
 {
-  //TODO: convert from kmb to kmz.
-  return CreateZipFromPathDeflatedAndDefaultCompression(filePath, convertedFilePath);
+  std::string const fileName = my::GetNameFromFullPathWithoutExt(filePath);
+  auto const tmpFilePath = my::JoinPath(GetPlatform().TmpDir(), fileName + kKmlExtension);
+  MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, tmpFilePath));
+
+  auto kmlData = LoadKmlFile(filePath, true /* binary */);
+  if (kmlData == nullptr)
+    return false;
+
+  if (!SaveKmlFile(*kmlData, tmpFilePath, false /* binary */))
+  {
+    my::DeleteFileX(tmpFilePath);
+    return false;
+  }
+
+  return CreateZipFromPathDeflatedAndDefaultCompression(tmpFilePath, convertedFilePath);
 }
 
 bool ConvertAfterDownloading(std::string const & filePath, std::string const & convertedFilePath)
@@ -186,32 +197,11 @@ bool ConvertAfterDownloading(std::string const & filePath, std::string const & c
   if (!GetPlatform().IsFileExistsByFullPath(unarchievedPath))
     return false;
 
-  kml::FileData kmlData;
-  try
-  {
-    kml::DeserializerKml des(kmlData);
-    FileReader reader(unarchievedPath);
-    des.Deserialize(reader);
-  }
-  catch (FileReader::Exception const & exc)
-  {
-    LOG(LWARNING, ("KML text deserialization failure: ", exc.what(), "file:", unarchievedPath));
+  auto kmlData = LoadKmlFile(unarchievedPath, false /* binary */);
+  if (kmlData == nullptr)
     return false;
-  }
 
-  try
-  {
-    kml::binary::SerializerKml ser(kmlData);
-    FileWriter writer(convertedFilePath);
-    ser.Serialize(writer);
-  }
-  catch (FileWriter::Exception const & exc)
-  {
-    LOG(LWARNING, ("KML binary serialization failure: ", exc.what(), "file:", convertedFilePath));
-    return false;
-  }
-
-  return true;
+   return SaveKmlFile(*kmlData, convertedFilePath, true /* binary */);
 }
 }  // namespace
 
@@ -254,9 +244,7 @@ bool BackupBookmarks(std::string const & backupDir,
 {
   for (auto const & f : files)
   {
-    std::string fileName = f;
-    my::GetNameFromFullPath(fileName);
-    my::GetNameWithoutExt(fileName);
+    std::string fileName = my::GetNameFromFullPathWithoutExt(f);
     auto const kmzPath = my::JoinPath(backupDir, fileName + kKmzExtension);
     if (GetPlatform().IsFileExistsByFullPath(kmzPath))
       continue;
@@ -285,35 +273,17 @@ bool ConvertBookmarks(std::vector<std::string> const & files,
   convertedFiles.reserve(files.size());
   for (auto const & f : files)
   {
-    std::string fileName = f;
-    my::GetNameFromFullPath(fileName);
-    my::GetNameWithoutExt(fileName);
-    auto const kmbPath = my::JoinPath(conversionFolder, fileName + kBookmarksExt);
+    std::string fileName = my::GetNameFromFullPathWithoutExt(f);
+    auto const kmbPath = my::JoinPath(conversionFolder, fileName + kKmbExtension);
     if (!GetPlatform().IsFileExistsByFullPath(kmbPath))
     {
-      kml::FileData kmlData;
-      try
-      {
-        kml::DeserializerKml des(kmlData);
-        FileReader reader(f);
-        des.Deserialize(reader);
-      }
-      catch (FileReader::Exception const &exc)
-      {
-        LOG(LDEBUG, ("KML text deserialization failure: ", exc.what(), "file", f));
+      auto kmlData = LoadKmlFile(f, false /* binary */);
+      if (kmlData == nullptr)
         continue;
-      }
 
-      try
-      {
-        kml::binary::SerializerKml ser(kmlData);
-        FileWriter writer(kmbPath);
-        ser.Serialize(writer);
-      }
-      catch (FileWriter::Exception const &exc)
+      if (!SaveKmlFile(*kmlData, kmbPath, true /* binary */))
       {
         my::DeleteFileX(kmbPath);
-        LOG(LDEBUG, ("KML binary serialization failure: ", exc.what(), "file", f));
         continue;
       }
     }
@@ -331,15 +301,13 @@ bool ConvertBookmarks(std::vector<std::string> const & files,
   // Move converted bookmark-files with respect of existing files.
   for (auto const & f : convertedFiles)
   {
-    std::string fileName = f;
-    my::GetNameFromFullPath(fileName);
-    my::GetNameWithoutExt(fileName);
-    auto kmbPath = my::JoinPath(newBookmarksDir, fileName + kBookmarksExt);
+    std::string fileName = my::GetNameFromFullPathWithoutExt(f);
+    auto kmbPath = my::JoinPath(newBookmarksDir, fileName + kKmbExtension);
     size_t counter = 1;
     while (Platform::IsFileExistsByFullPath(kmbPath))
     {
       kmbPath = my::JoinPath(newBookmarksDir,
-        fileName + strings::to_string(counter++) + kBookmarksExt);
+        fileName + strings::to_string(counter++) + kKmbExtension);
     }
 
     if (!my::RenameFileX(f, kmbPath))
@@ -382,7 +350,7 @@ bool MigrateIfNeeded()
 
   std::string const dir = GetPlatform().SettingsDir();
   Platform::FilesList files;
-  Platform::GetFilesByExt(dir, BOOKMARKS_FILE_EXTENSION, files);
+  Platform::GetFilesByExt(dir, kKmlExtension, files);
   if (files.empty())
   {
     auto const newBookmarksDir = GetBookmarksDirectory();
@@ -410,9 +378,8 @@ bool MigrateIfNeeded()
     return false;
   }
 
-  //TODO(@darina): Uncomment after KMB integration.
-  //for (auto const & f : files)
-  //  my::DeleteFileX(f);
+  for (auto const & f : files)
+    my::DeleteFileX(f);
   OnMigrationSuccess(files.size(), convertedCount);
   return true;
 }
@@ -426,7 +393,7 @@ BookmarkManager::BookmarkManager(Callbacks && callbacks)
   , m_needTeardown(false)
   , m_lastGroupID(LoadLastBmCategoryId())
   , m_bookmarkCloud(Cloud::CloudParams("bmc.json", "bookmarks", "BookmarkCloudParam",
-                                       GetBookmarksDirectory(), std::string(kBookmarksExt),
+                                       GetBookmarksDirectory(), std::string(kKmbExtension),
                                        std::bind(&ConvertBeforeUploading, _1, _2),
                                        std::bind(&ConvertAfterDownloading, _1, _2)))
 {
@@ -491,13 +458,13 @@ void BookmarkManager::DeleteUserMark(kml::MarkId markId)
   m_userMarks.erase(it);
 }
 
-Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData const & bmData)
+Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bmData)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
-  return AddBookmark(std::make_unique<Bookmark>(bmData));
+  return AddBookmark(std::make_unique<Bookmark>(std::move(bmData)));
 }
 
-Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData & bm, kml::MarkGroupId groupId)
+Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bm, kml::MarkGroupId groupId)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
   GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kBookmarksBookmarkAction,
@@ -506,7 +473,7 @@ Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData & bm, kml::MarkGrou
   bm.m_timestamp = std::chrono::system_clock::now();
   bm.m_viewportScale = static_cast<uint8_t>(df::GetZoomLevel(m_viewport.GetScale()));
 
-  auto * bookmark = CreateBookmark(bm);
+  auto * bookmark = CreateBookmark(std::move(bm));
   bookmark->Attach(groupId);
   auto * group = GetBmCategory(groupId);
   group->AttachUserMark(bookmark->GetId());
@@ -565,10 +532,10 @@ void BookmarkManager::DeleteBookmark(kml::MarkId bmId)
   m_bookmarks.erase(groupIt);
 }
 
-Track * BookmarkManager::CreateTrack(kml::TrackData const & trackData)
+Track * BookmarkManager::CreateTrack(kml::TrackData && trackData)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
-  return AddTrack(std::make_unique<Track>(trackData));
+  return AddTrack(std::make_unique<Track>(std::move(trackData)));
 }
 
 Track const * BookmarkManager::GetTrack(kml::TrackId trackId) const
@@ -813,15 +780,15 @@ Track * BookmarkManager::AddTrack(std::unique_ptr<Track> && track)
 
 void BookmarkManager::SaveState() const
 {
-  settings::Set(kLastBookmarkCategory, m_lastCategoryUrl);
-  settings::Set(kLastBookmarkColor, static_cast<uint32_t>(m_lastColor));
+  settings::Set(kLastEditedBookmarkCategory, m_lastCategoryUrl);
+  settings::Set(kLastEditedBookmarkColor, static_cast<uint32_t>(m_lastColor));
 }
 
 void BookmarkManager::LoadState()
 {
-  UNUSED_VALUE(settings::Get(kLastBookmarkCategory, m_lastCategoryUrl));
+  UNUSED_VALUE(settings::Get(kLastEditedBookmarkCategory, m_lastCategoryUrl));
   uint32_t color;
-  if (settings::Get(kLastBookmarkColor, color) &&
+  if (settings::Get(kLastEditedBookmarkColor, color) &&
     color > static_cast<uint32_t>(kml::PredefinedColor::None) &&
     color < static_cast<uint32_t>(kml::PredefinedColor::Count))
   {
@@ -848,74 +815,23 @@ void BookmarkManager::ClearCategories()
   m_tracks.clear();
 }
 
-std::shared_ptr<BookmarkManager::KMLDataCollection> BookmarkManager::LoadBookmarksKML(std::vector<std::string> & filePaths)
+std::shared_ptr<BookmarkManager::KMLDataCollection> BookmarkManager::LoadBookmarks(std::string const & dir,
+                                                                                   std::string const & ext,
+                                                                                   bool binary,
+                                                                                   std::vector<std::string> & filePaths)
 {
-  std::string const dir = GetPlatform().SettingsDir();
   Platform::FilesList files;
-  Platform::GetFilesByExt(dir, BOOKMARKS_FILE_EXTENSION, files);
+  Platform::GetFilesByExt(dir, ext, files);
 
   auto collection = std::make_shared<KMLDataCollection>();
   collection->reserve(files.size());
   filePaths.reserve(files.size());
-  for (auto const & file : files)
-  {
-    auto const filePath = dir + file;
-    auto kmlData = std::make_unique<kml::FileData>();
-    try
-    {
-      kml::DeserializerKml des(*kmlData);
-      FileReader reader(filePath);
-      des.Deserialize(reader);
-    }
-    catch (FileReader::Exception const &exc)
-    {
-      LOG(LDEBUG, ("KML deserialization failure: ", exc.what(), "file", filePath));
-      continue;
-    }
-    if (m_needTeardown)
-      break;
-    filePaths.push_back(filePath);
-    collection->emplace_back(filePath, std::move(kmlData));
-
-    /*auto kmlData = LoadKMLFile(filePath);
-
-    if (m_needTeardown)
-      break;
-
-    if (kmlData)
-    {
-      filePaths.push_back(filePath);
-      collection->emplace_back(filePath, std::move(kmlData));
-    }*/
-  }
-  return collection;
-}
-
-std::shared_ptr<BookmarkManager::KMLDataCollection> BookmarkManager::LoadBookmarksKMB(std::vector<std::string> & filePaths)
-{
-  std::string const dir = GetBookmarksDirectory();
-  Platform::FilesList files;
-  Platform::GetFilesByExt(dir, kBookmarksExt, files);
-
-  auto collection = std::make_shared<KMLDataCollection>();
-  collection->reserve(files.size());
-  filePaths.reserve(files.size());
-
   for (auto const & file : files)
   {
     auto const filePath = my::JoinPath(dir, file);
-    auto kmlData = std::make_unique<kml::FileData>();
-    try
-    {
-      kml::binary::DeserializerKml des(*kmlData);
-      FileReader reader(filePath);
-      des.Deserialize(reader);
-    }
-    catch (FileReader::Exception const &exc)
-    {
-      LOG(LDEBUG, ("KML binary deserialization failure: ", exc.what(), "file", filePath));
+    auto kmlData = LoadKmlFile(filePath, binary);
+    if (kmlData == nullptr)
       continue;
-    }
     if (m_needTeardown)
       break;
     filePaths.push_back(filePath);
@@ -934,13 +850,20 @@ void BookmarkManager::LoadBookmarks()
   GetPlatform().RunTask(Platform::Thread::File, [this]()
   {
     bool const migrated = migration::MigrateIfNeeded();
+    std::string const dir = migrated ? GetBookmarksDirectory() : GetPlatform().SettingsDir();
+    std::string const filesExt = migrated ? kKmbExtension : kKmlExtension;
+
     std::vector<std::string> filePaths;
-    auto collection = migrated ? LoadBookmarksKMB(filePaths) : LoadBookmarksKML(filePaths);
+    auto collection = LoadBookmarks(dir, filesExt, migrated, filePaths);
+
     if (m_needTeardown)
       return;
     NotifyAboutFinishAsyncLoading(std::move(collection));
-    GetPlatform().RunTask(Platform::Thread::Gui,
-                          [this, filePaths]() { m_bookmarkCloud.Init(filePaths); });
+    if (migrated)
+    {
+      GetPlatform().RunTask(Platform::Thread::Gui,
+                            [this, filePaths]() { m_bookmarkCloud.Init(filePaths); });
+    }
   });
 
   LoadState();
@@ -963,63 +886,52 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
   NotifyAboutStartAsyncLoading();
   GetPlatform().RunTask(Platform::Thread::File, [this, filePath, isTemporaryFile]()
   {
+    if (m_needTeardown)
+      return;
+
     bool const migrated = migration::IsMigrationCompleted();
-    auto collection = std::make_shared<KMLDataCollection>();
-    auto kmlData = std::make_unique<kml::FileData>();
+
     std::string fileSavePath;
+    auto collection = std::make_shared<KMLDataCollection>();
 
-    try
+    auto const savePath = GetKMLPath(filePath);
+    if (savePath)
     {
-      auto const savePath = GetKMLPath(filePath);
-      if (m_needTeardown)
-        return;
-      if (savePath)
+      fileSavePath = savePath.get();
+      auto kmlData = LoadKmlFile(fileSavePath, false /* useBinary */);
+      if (kmlData != nullptr)
       {
-        kml::DeserializerKml des(*kmlData);
-        FileReader reader(fileSavePath);
-        des.Deserialize(reader);
-        fileSavePath = savePath.get();
+        if (m_needTeardown)
+          return;
+
+        if (migrated)
+        {
+          std::string fileName = my::GetNameFromFullPathWithoutExt(fileSavePath);
+
+          my::DeleteFileX(fileSavePath);
+          fileSavePath = GenerateValidAndUniqueFilePathForKMB(fileName);
+
+          if (!SaveKmlFile(*kmlData, fileSavePath, true /* binary */))
+          {
+            my::DeleteFileX(fileSavePath);
+            fileSavePath.clear();
+          }
+        }
+        if (!fileSavePath.empty())
+          collection->emplace_back(fileSavePath, std::move(kmlData));
       }
     }
-    catch (FileReader::Exception const & exc)
-    {
-      LOG(LDEBUG, ("KML deserialization failure: ", exc.what(), "file", filePath));
-    }
+
     if (m_needTeardown)
       return;
 
-    if (migrated)
-    {
-      std::string fileName = fileSavePath;
-      my::DeleteFileX(fileSavePath);
-      my::GetNameFromFullPath(fileName);
-      my::GetNameWithoutExt(fileName);
-      fileSavePath = GenerateValidAndUniqueFilePathForKMB(fileName);
+    bool const success = !collection->empty();
 
-      try
-      {
-        kml::binary::SerializerKml ser(*kmlData);
-        FileWriter writer(fileSavePath);
-        ser.Serialize(writer);
-      }
-      catch (FileWriter::Exception const & exc)
-      {
-        my::DeleteFileX(fileSavePath);
-        LOG(LDEBUG, ("KML binary serialization failure: ", exc.what(), "file", fileSavePath));
-        fileSavePath.clear();
-      }
-    }
-    if (m_needTeardown)
-      return;
-
-    if (!fileSavePath.empty())
-      collection->emplace_back(fileSavePath, std::move(kmlData));
-    NotifyAboutFile(!fileSavePath.empty() /* success */, filePath, isTemporaryFile);
+    NotifyAboutFile(success, filePath, isTemporaryFile);
     NotifyAboutFinishAsyncLoading(std::move(collection));
 
-    if (!fileSavePath.empty())
+    if (migrated && success)
     {
-      // TODO(darina): should we use the cloud only for KMB?
       GetPlatform().RunTask(Platform::Thread::Gui,
                             [this, fileSavePath]() { m_bookmarkCloud.Init({fileSavePath}); });
     }
@@ -1095,7 +1007,7 @@ boost::optional<std::string> BookmarkManager::GetKMLPath(std::string const & fil
 {
   std::string const fileExt = GetFileExt(filePath);
   string fileSavePath;
-  if (fileExt == BOOKMARKS_FILE_EXTENSION)
+  if (fileExt == kKmlExtension)
   {
     fileSavePath = GenerateValidAndUniqueFilePathForKML(GetFileName(filePath));
     if (!my::CopyFileX(filePath, fileSavePath))
@@ -1112,7 +1024,7 @@ boost::optional<std::string> BookmarkManager::GetKMLPath(std::string const & fil
       for (size_t i = 0; i < files.size(); ++i)
       {
         ext = GetFileExt(files[i].first);
-        if (ext == BOOKMARKS_FILE_EXTENSION)
+        if (ext == kKmlExtension)
         {
           kmlFileName = files[i].first;
           break;
@@ -1262,18 +1174,19 @@ bool BookmarkManager::HasBmCategory(kml::MarkGroupId groupId) const
   return m_categories.find(groupId) != m_categories.end();
 }
 
-kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData const & data, bool autoSave)
+kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData && data, bool autoSave)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
-  auto groupId = data.m_id;
-  if (groupId == kml::kInvalidMarkGroupId)
+
+  if (data.m_id == kml::kInvalidMarkGroupId)
   {
-    groupId = ++m_lastGroupID;
+    data.m_id = ++m_lastGroupID;
     SaveLastBmCategoryId(m_lastGroupID);
   }
+  auto groupId = data.m_id;
   ASSERT_EQUAL(m_categories.count(groupId), 0, ());
   auto & cat = m_categories[groupId];
-  cat = my::make_unique<BookmarkCategory>(data, groupId, autoSave);
+  cat = my::make_unique<BookmarkCategory>(std::move(data), autoSave);
   m_bmGroupsIdList.push_back(groupId);
   m_changesTracker.OnAddGroup(groupId);
   return groupId;
@@ -1414,8 +1327,8 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     BookmarkCategory * group = nullptr;
 
     auto const & fileName = data.first;
-    auto const * fileData = data.second.get();
-    auto const & categoryData = fileData->m_categoryData;
+    auto & fileData = *data.second.get();
+    auto & categoryData = fileData.m_categoryData;
 
     auto const it = std::find_if(categoriesForMerge.cbegin(), categoriesForMerge.cend(),
       [categoryData](auto const & v)
@@ -1431,21 +1344,21 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     else
     {
       bool const saveAfterCreation = categoryData.m_id == kml::kInvalidMarkGroupId;
-      groupId = CreateBookmarkCategory(categoryData, saveAfterCreation);
+      groupId = CreateBookmarkCategory(std::move(categoryData), saveAfterCreation);
       loadedGroups.insert(groupId);
       group = GetBmCategory(groupId);
       group->SetFileName(fileName);
     }
 
-    for (auto & bmData : fileData->m_bookmarksData)
+    for (auto & bmData : fileData.m_bookmarksData)
     {
-      auto * bm = CreateBookmark(bmData);
+      auto * bm = CreateBookmark(std::move(bmData));
       bm->Attach(groupId);
       group->AttachUserMark(bm->GetId());
     }
-    for (auto & trackData : fileData->m_tracksData)
+    for (auto & trackData : fileData.m_tracksData)
     {
-      auto track = make_unique<Track>(trackData);
+      auto track = make_unique<Track>(std::move(trackData));
       auto * t = AddTrack(std::move(track));
       t->Attach(groupId);
       group->AttachTrack(t->GetId());
@@ -1490,34 +1403,21 @@ std::unique_ptr<kml::FileData> BookmarkManager::CollectBmGroupKMLData(BookmarkCa
 
 bool BookmarkManager::SaveBookmarkCategory(kml::MarkGroupId groupId)
 {
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto collection = PrepareToSaveBookmarks({groupId});
   if (!collection || collection->empty())
     return false;
   auto const & file = collection->front().first;
   auto & kmlData = *collection->front().second;
-  return SaveKMLData(file, kmlData, migration::IsMigrationCompleted());
+  return SaveKmlFileSafe(kmlData, file, migration::IsMigrationCompleted());
 }
 
-void BookmarkManager::SaveToFile(kml::MarkGroupId groupId, Writer & writer, bool useBinary) const
+bool BookmarkManager::SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & writer, bool useBinary) const
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto * group = GetBmCategory(groupId);
   auto kmlData = CollectBmGroupKMLData(group);
-  SaveToFile(*kmlData, writer, useBinary);
-}
-
-void BookmarkManager::SaveToFile(kml::FileData & kmlData, Writer & writer, bool useBinary) const
-{
-  if (useBinary)
-  {
-    kml::binary::SerializerKml ser(kmlData);
-    ser.Serialize(writer);
-  }
-  else
-  {
-    kml::SerializerKml ser(kmlData);
-    ser.Serialize(writer);
-  }
+  return SaveKmlData(*kmlData, writer, useBinary);
 }
 
 std::shared_ptr<BookmarkManager::KMLDataCollection> BookmarkManager::PrepareToSaveBookmarks(
@@ -1526,7 +1426,7 @@ std::shared_ptr<BookmarkManager::KMLDataCollection> BookmarkManager::PrepareToSa
   bool migrated = migration::IsMigrationCompleted();
 
   std::string const fileDir = migrated ? GetBookmarksDirectory() : GetPlatform().SettingsDir();
-  std::string const fileExt = migrated ? kBookmarksExt : BOOKMARKS_FILE_EXTENSION;
+  std::string const fileExt = migrated ? kKmbExtension : kKmlExtension;
 
   if (migrated && !GetPlatform().IsFileExistsByFullPath(fileDir) && !GetPlatform().MkDirChecked(fileDir))
     return std::shared_ptr<KMLDataCollection>();
@@ -1552,29 +1452,17 @@ std::shared_ptr<BookmarkManager::KMLDataCollection> BookmarkManager::PrepareToSa
   return collection;
 }
 
-bool BookmarkManager::SaveKMLData(std::string const & file, kml::FileData & kmlData, bool useBinary)
+bool BookmarkManager::SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, bool useBinary)
 {
   auto const fileTmp = file + ".tmp";
-  try
+  if (SaveKmlFile(kmlData, fileTmp, useBinary))
   {
-    FileWriter writer(fileTmp);
-    SaveToFile(kmlData, writer, useBinary);
-
-    // Only after successful save we replace original file
+    // Only after successful save we replace original file.
     my::DeleteFileX(file);
     VERIFY(my::RenameFileX(fileTmp, file), (fileTmp, file));
     return true;
   }
-  catch (FileWriter::Exception const & exc)
-  {
-    LOG(LDEBUG, ("KML serialization failure:", exc.what(), "file", fileTmp));
-  }
-  catch (std::exception const & e)
-  {
-    LOG(LWARNING, ("Exception while saving bookmarks:", e.what(), "file", file));
-  }
-
-  // remove possibly left tmp file
+  // Remove possibly left tmp file.
   my::DeleteFileX(fileTmp);
   return false;
 }
@@ -1591,7 +1479,7 @@ void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollec
   GetPlatform().RunTask(Platform::Thread::File, [this, migrated, kmlDataCollection]()
   {
     for (auto const & kmlItem : *kmlDataCollection)
-      SaveKMLData(kmlItem.first, *kmlItem.second, migrated);
+      SaveKmlFileSafe(*kmlItem.second, kmlItem.first, migrated);
   });
 }
 
@@ -1691,23 +1579,23 @@ size_t BookmarkManager::GetKmlFilesCountForConversion() const
 
   Platform::FilesList files;
   Platform::GetFilesByExt(GetPlatform().SettingsDir(),
-                          BOOKMARKS_FILE_EXTENSION, files);
+                          kKmlExtension, files);
   return files.size();
 }
 
-void BookmarkManager::ConvertAllKmlFiles(ConversionHandler && handler) const
+void BookmarkManager::ConvertAllKmlFiles(ConversionHandler && handler)
 {
   // The conversion available only after successful migration.
   if (!migration::IsMigrationCompleted())
     return;
 
-  GetPlatform().RunTask(Platform::Thread::File, [handler = std::move(handler)]()
+  GetPlatform().RunTask(Platform::Thread::File, [this, handler = std::move(handler)]()
   {
     auto const oldDir = GetPlatform().SettingsDir();
     Platform::FilesList files;
-    Platform::GetFilesByExt(oldDir, BOOKMARKS_FILE_EXTENSION, files);
+    Platform::GetFilesByExt(oldDir, kKmlExtension, files);
     for (auto & f : files)
-      f = my::JoinFoldersToPath(oldDir, f);
+      f = my::JoinPath(oldDir, f);
 
     auto const newDir = GetBookmarksDirectory();
     if (!GetPlatform().IsFileExistsByFullPath(newDir) && !GetPlatform().MkDirChecked(newDir))
@@ -1716,55 +1604,44 @@ void BookmarkManager::ConvertAllKmlFiles(ConversionHandler && handler) const
       return;
     }
 
-    std::vector<std::pair<std::string, kml::FileData>> fileData;
-    fileData.reserve(files.size());
+    auto fileData = std::make_shared<KMLDataCollection>();
+
+    // TODO(darina): Check this refactoring.
+    bool allConverted = true;
     for (auto const & f : files)
     {
-      std::string fileName = f;
-      my::GetNameFromFullPath(fileName);
-      my::GetNameWithoutExt(fileName);
-      auto kmbPath = my::JoinPath(newDir, fileName + kBookmarksExt);
+      std::string fileName = my::GetNameFromFullPathWithoutExt(f);
+      auto kmbPath = my::JoinPath(newDir, fileName + kKmbExtension);
       size_t counter = 1;
       while (Platform::IsFileExistsByFullPath(kmbPath))
-        kmbPath = my::JoinPath(newDir, fileName + strings::to_string(counter++) + kBookmarksExt);
+        kmbPath = my::JoinPath(newDir, fileName + strings::to_string(counter++) + kKmbExtension);
 
-      kml::FileData kmlData;
-      try
+      std::unique_ptr<kml::FileData> kmlData = LoadKmlFile(f, false /* binary */);
+      if (kmlData == nullptr)
       {
-        kml::DeserializerKml des(kmlData);
-        FileReader reader(f);
-        des.Deserialize(reader);
-      }
-      catch (FileReader::Exception const & exc)
-      {
-        LOG(LDEBUG, ("KML text deserialization failure: ", exc.what(), "file", f));
-        handler(false /* success */);
-        return;
+        allConverted = false;
+        continue;
       }
 
-      try
+      if (!SaveKmlFile(*kmlData, kmbPath, true /* binary */))
       {
-        kml::binary::SerializerKml ser(kmlData);
-        FileWriter writer(kmbPath);
-        ser.Serialize(writer);
-      }
-      catch (FileWriter::Exception const & exc)
-      {
-        my::DeleteFileX(kmbPath);
-        LOG(LDEBUG, ("KML binary serialization failure: ", exc.what(), "file", f));
-        handler(false /* success */);
-        return;
+        allConverted = false;
+        continue;
       }
 
-      fileData.emplace_back(kmbPath, std::move(kmlData));
+      fileData->emplace_back(kmbPath, std::move(kmlData));
+      my::DeleteFileX(f);
     }
 
-    for (auto const & f : files)
-      my::DeleteFileX(f);
+    if (!fileData->empty())
+    {
+      GetPlatform().RunTask(Platform::Thread::Gui, [this, fileData = std::move(fileData)]() mutable
+      {
+        CreateCategories(std::move(*fileData), true /* autoSave */);
+      });
+    }
 
-    //TODO(@darina): add fileData to m_categories.
-
-    handler(true /* success */);
+    handler(allConverted);
   });
 }
 
@@ -2003,14 +1880,14 @@ std::string BookmarkManager::GenerateUniqueFileName(const std::string & path, st
 std::string BookmarkManager::GenerateValidAndUniqueFilePathForKML(std::string const & fileName)
 {
   std::string filePath = RemoveInvalidSymbols(fileName);
-  return GenerateUniqueFileName(GetPlatform().SettingsDir(), filePath, BOOKMARKS_FILE_EXTENSION);
+  return GenerateUniqueFileName(GetPlatform().SettingsDir(), filePath, kKmlExtension);
 }
 
 // static
 std::string BookmarkManager::GenerateValidAndUniqueFilePathForKMB(std::string const & fileName)
 {
   std::string filePath = RemoveInvalidSymbols(fileName);
-  return GenerateUniqueFileName(GetBookmarksDirectory(), filePath, kBookmarksExt);
+  return GenerateUniqueFileName(GetBookmarksDirectory(), filePath, kKmbExtension);
 }
 
 // static
@@ -2030,19 +1907,19 @@ BookmarkManager::EditSession::~EditSession()
   m_bmManager.OnEditSessionClosed();
 }
 
-Bookmark * BookmarkManager::EditSession::CreateBookmark(kml::BookmarkData const & bm)
+Bookmark * BookmarkManager::EditSession::CreateBookmark(kml::BookmarkData && bmData)
 {
-  return m_bmManager.CreateBookmark(bm);
+  return m_bmManager.CreateBookmark(std::move(bmData));
 }
 
-Bookmark * BookmarkManager::EditSession::CreateBookmark(kml::BookmarkData & bm, kml::MarkGroupId groupId)
+Bookmark * BookmarkManager::EditSession::CreateBookmark(kml::BookmarkData && bmData, kml::MarkGroupId groupId)
 {
-  return m_bmManager.CreateBookmark(bm, groupId);
+  return m_bmManager.CreateBookmark(std::move(bmData), groupId);
 }
 
-Track * BookmarkManager::EditSession::CreateTrack(kml::TrackData const & trackData)
+Track * BookmarkManager::EditSession::CreateTrack(kml::TrackData && trackData)
 {
-  return m_bmManager.CreateTrack(trackData);
+  return m_bmManager.CreateTrack(std::move(trackData));
 }
 
 Bookmark * BookmarkManager::EditSession::GetBookmarkForEdit(kml::MarkId markId)
