@@ -46,6 +46,8 @@
 + (UIColor *)ratingGreen;
 + (UIColor *)partner1Background;
 + (UIColor *)partner1TextColor;
++ (UIColor *)partner3Background;
++ (UIColor *)partner3TextColor;
 
 + (UIColor *)colorWithName:(NSString *)colorName;
 

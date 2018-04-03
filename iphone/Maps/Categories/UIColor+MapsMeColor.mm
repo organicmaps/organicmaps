@@ -346,6 +346,16 @@ UIColor * color(SEL cmd)
   return UIColor.blackColor;
 }
 
++ (UIColor *)partner3Background
+{
+  return [UIColor colorWithRed:scaled(230) green:scaled(23) blue:scaled(23) alpha:alpha100];
+}
+
++ (UIColor *)partner3TextColor
+{
+  return [UIColor colorWithRed:scaled(255) green:scaled(255) blue:scaled(255) alpha:alpha100];
+}
+
 + (UIColor *)bannerBackground
 {
   return [UIColor colorWithRed:scaled(249) green:scaled(251) blue:scaled(231) alpha:alpha100];

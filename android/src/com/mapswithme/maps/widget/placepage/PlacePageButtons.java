@@ -96,7 +96,20 @@ final class PlacePageButtons
 
     PARTNER2,
 
-    PARTNER3,
+    PARTNER3
+    {
+      @Override
+      int getTitle()
+      {
+        return R.string.sponsored_partner3_action;
+      }
+
+      @Override
+      int getIcon()
+      {
+        return R.drawable.ic_24px_logo_partner3;
+      }
+    },
 
     PARTNER4,
 

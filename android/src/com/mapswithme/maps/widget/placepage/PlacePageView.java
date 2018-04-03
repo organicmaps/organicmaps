@@ -472,6 +472,11 @@ public class PlacePageView extends RelativeLayout
             color = Color.BLACK;
             break;
 
+          case PARTNER3:
+            frame.setBackgroundResource(R.drawable.button_partner3);
+            color = Color.WHITE;
+            break;
+
           case BOOKMARK:
             mBookmarkButtonIcon = icon;
             updateBookmarkButton();

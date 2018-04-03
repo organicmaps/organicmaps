@@ -163,6 +163,8 @@
   <color name="bg_brand_opentable_pressed">#FFFC5965</color>
   <color name="bg_brand_partner1">#FFFFDA00</color>
   <color name="bg_brand_partner1_pressed">#FFF2CE00</color>
+  <color name="bg_brand_partner3">#FFE61717</color>
+  <color name="bg_brand_partner3_pressed">#FFB31212</color>
 
   <!-- Banner colors -->
   <color name="bg_banner_color">#FFFDFFE6</color>
