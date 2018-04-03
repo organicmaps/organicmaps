@@ -1907,7 +1907,7 @@ public class PlacePageView extends RelativeLayout
         HotelsFilter filter = FilterUtils.createHotelFilter(filterRating,
                                                             mMapObject.getPriceRate(),
                                                             mMapObject.getHotelType());
-        getActivity().onShowSimilarHotels(filter);
+        getActivity().onSearchSimilarHotels(filter);
         break;
     }
   }

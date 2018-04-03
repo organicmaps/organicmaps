@@ -1165,10 +1165,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                   FilterActivity.REQ_CODE_FILTER);
   }
 
-  public void onShowSimilarHotels(@Nullable HotelsFilter filter)
+  public void onSearchSimilarHotels(@Nullable HotelsFilter filter)
   {
-
-    FilterActivity.startForResult(MwmActivity.this, filter, null,
+    BookingFilterParams params = mFilterController != null
+                                 ? mFilterController.getBookingFilterParams() : null;
+    FilterActivity.startForResult(MwmActivity.this, filter, params,
                                   REQ_CODE_SHOW_SIMILAR_HOTELS);
   }
 
