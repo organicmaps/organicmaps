@@ -184,7 +184,7 @@ public class Framework
   public static int getFilterRating(@Nullable String ratingString)
   {
     if (TextUtils.isEmpty(ratingString))
-      return FilterUtils.ANY;
+      return FilterUtils.RATING_ANY;
 
     try
     {
@@ -196,7 +196,7 @@ public class Framework
       LOGGER.w(TAG, "Rating string is not valid: " + ratingString);
     }
 
-    return FilterUtils.ANY;
+    return FilterUtils.RATING_ANY;
   }
 
   public static native void nativeShowTrackRect(long track);

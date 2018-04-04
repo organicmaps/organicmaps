@@ -943,8 +943,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     Statistics.INSTANCE.trackDiscoveryOpen();
   }
 
-
-
   private void initOnmapDownloader()
   {
     mOnmapDownloader = new OnmapDownloader(this);

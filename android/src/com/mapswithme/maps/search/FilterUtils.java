@@ -14,19 +14,18 @@ import java.util.List;
 public class FilterUtils
 {
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ ANY, GOOD, VERYGOOD, EXCELLENT })
+  @IntDef({ RATING_ANY, RATING_GOOD, RATING_VERYGOOD, RATING_EXCELLENT })
   public @interface RatingDef
   {
   }
 
-  public static final int ANY = 0;
-  static final int GOOD= 1;
-  static final int VERYGOOD = 2;
-  static final int EXCELLENT = 3;
+  public static final int RATING_ANY = 0;
+  static final int RATING_GOOD = 1;
+  static final int RATING_VERYGOOD = 2;
+  static final int RATING_EXCELLENT = 3;
 
   private FilterUtils()
   {
-
   }
 
   @Nullable
@@ -68,7 +67,7 @@ public class FilterUtils
     {
       HotelsFilter.Or or = (HotelsFilter.Or) filter;
       if (or.mLhs instanceof HotelsFilter.PriceRateFilter
-          && or.mRhs instanceof HotelsFilter.PriceRateFilter )
+          && or.mRhs instanceof HotelsFilter.PriceRateFilter)
       {
         return filter;
       }
@@ -149,13 +148,13 @@ public class FilterUtils
   {
     switch (rating)
     {
-      case ANY:
+      case RATING_ANY:
         return null;
-      case GOOD:
+      case RATING_GOOD:
         return new HotelsFilter.RatingFilter(HotelsFilter.Op.OP_GE, RatingFilterView.GOOD);
-      case VERYGOOD:
+      case RATING_VERYGOOD:
         return new HotelsFilter.RatingFilter(HotelsFilter.Op.OP_GE, RatingFilterView.VERY_GOOD);
-      case EXCELLENT:
+      case RATING_EXCELLENT:
         return new HotelsFilter.RatingFilter(HotelsFilter.Op.OP_GE, RatingFilterView.EXCELLENT);
       default:
         throw new AssertionError("Unsupported rating type: " + rating);

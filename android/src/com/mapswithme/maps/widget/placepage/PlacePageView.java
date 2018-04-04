@@ -1903,7 +1903,7 @@ public class PlacePageView extends RelativeLayout
 
         @FilterUtils.RatingDef
         int filterRating = mSponsored != null ? Framework.getFilterRating(mSponsored.getRating())
-                           : FilterUtils.ANY;
+                           : FilterUtils.RATING_ANY;
         HotelsFilter filter = FilterUtils.createHotelFilter(filterRating,
                                                             mMapObject.getPriceRate(),
                                                             mMapObject.getHotelType());
