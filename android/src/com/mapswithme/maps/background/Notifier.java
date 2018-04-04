@@ -88,6 +88,7 @@ public final class Notifier
     return new NotificationCompat.Builder(APP)
         .setAutoCancel(true)
         .setSmallIcon(R.drawable.ic_notification)
+        .setColor(APP.getResources().getColor(R.color.base_accent))
         .setContentTitle(title)
         .setContentText(content)
         .setTicker(getTicker(title, content))
