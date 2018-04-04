@@ -34,7 +34,7 @@ public:
 
     auto & v = m_map[key];
     m_loader(key, v);
-    return (m_map[key] = v);
+    return v;
   }
 
 private:

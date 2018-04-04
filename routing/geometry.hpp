@@ -90,9 +90,9 @@ public:
 };
 
 /// \brief This class supports loading geometry of roads for routing.
-/// \note Loaded information about road geometry is kept in evicted cache |m_featureIdToRoad|.
+/// \note Loaded information about road geometry is kept in a fixed-size cache |m_featureIdToRoad|.
 /// On the other hand methods GetRoad() and GetPoint() return geometry information by reference.
-/// The reference is valid until the next call of GetRoad() or GetPoint() because the cache
+/// The reference may be invalid after the next call of GetRoad() or GetPoint() because the cache
 /// item which is referred by returned reference may be evicted. It's done for performance reasons.
 class Geometry final
 {

@@ -23,10 +23,10 @@ public:
 
   bool IsValid() const
   {
-    std::set<Key> listKeys(m_cache.m_list.cbegin(), m_cache.m_list.cend());
-    std::set<Key> mapKeys;
+    set<Key> listKeys(m_cache.m_list.cbegin(), m_cache.m_list.cend());
+    set<Key> mapKeys;
 
-    for (auto const & kv :m_cache. m_map)
+    for (auto const & kv : m_cache.m_map)
       mapKeys.insert(kv.first);
 
     return listKeys == mapKeys;
@@ -36,7 +36,7 @@ private:
   FifoCache<Key, Value> m_cache;
 };
 
-UNIT_TEST(FifoCacheSmokeTest)
+UNIT_TEST(FifoCache_Smoke)
 {
   using Key = int;
   using Value = int;
@@ -50,7 +50,7 @@ UNIT_TEST(FifoCacheSmokeTest)
   TEST(cache.IsValid(), ());
 }
 
-UNIT_TEST(FifoCacheTest)
+UNIT_TEST(FifoCache)
 {
   using Key = int;
   using Value = int;
@@ -77,7 +77,7 @@ UNIT_TEST(FifoCacheTest)
   }
 }
 
-UNIT_TEST(FifoCacheLoaderCallsTest)
+UNIT_TEST(FifoCache_LoaderCalls)
 {
   using Key = int;
   using Value = int;
