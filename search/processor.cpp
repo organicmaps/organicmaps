@@ -455,18 +455,22 @@ void Processor::SearchCoordinates()
 
 void Processor::SearchPlusCode()
 {
+  // Create a copy of the query to trim it in-place.
+  string query(m_query);
+  strings::Trim(query);
+
   string code;
 
-  if (openlocationcode::IsFull(m_query))
+  if (openlocationcode::IsFull(query))
   {
-    code = m_query;
+    code = query;
   }
-  else if (openlocationcode::IsShort(m_query))
+  else if (openlocationcode::IsShort(query))
   {
     if (GetPosition().IsAlmostZero())
       return;
     ms::LatLon const latLon = MercatorBounds::ToLatLon(GetPosition());
-    code = openlocationcode::RecoverNearest(m_query, {latLon.lat, latLon.lon});
+    code = openlocationcode::RecoverNearest(query, {latLon.lat, latLon.lon});
   }
 
   if (code.empty())
