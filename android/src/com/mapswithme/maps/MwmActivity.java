@@ -440,6 +440,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
       }
       SearchActivity.start(this, query, filter, params);
     }
+    if (mFilterController != null)
+      mFilterController.resetFilter();
   }
 
   public void showEditor()
