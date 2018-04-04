@@ -45,7 +45,7 @@ kml::MarkId GetNextUserMarkId(UserMark::Type type, bool reset = false)
     return kml::kInvalidMarkId;
   }
 
-  static_assert(UserMark::Type::COUNT <= (1 << kMarkIdTypeBitsCount), "Not enough bits for user mark type.");
+  static_assert(UserMark::Type::USER_MARK_TYPES_COUNT <= (1 << kMarkIdTypeBitsCount), "Not enough bits for user mark type.");
 
   auto const typeBits = static_cast<uint64_t>(type) << (sizeof(kml::MarkId) * 8 - kMarkIdTypeBitsCount);
   if (type == UserMark::Type::BOOKMARK)
@@ -147,6 +147,7 @@ string DebugPrint(UserMark::Type type)
   case UserMark::Type::ROUTING: return "ROUTING";
   case UserMark::Type::LOCAL_ADS: return "LOCAL_ADS";
   case UserMark::Type::TRANSIT: return "TRANSIT";
-  case UserMark::Type::COUNT: return "COUNT";
+  case UserMark::Type::USER_MARK_TYPES_COUNT: return "USER_MARK_TYPES_COUNT";
+  case UserMark::Type::USER_MARK_TYPES_COUNT_MAX: return "USER_MARK_TYPES_COUNT_MAX";
   }
 }

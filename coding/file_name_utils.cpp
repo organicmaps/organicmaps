@@ -33,7 +33,7 @@ void GetNameFromFullPath(string & name)
 
 string GetNameFromFullPathWithoutExt(string const & path)
 {
-  std::string name = path;
+  string name = path;
   GetNameFromFullPath(name);
   GetNameWithoutExt(name);
   return name;

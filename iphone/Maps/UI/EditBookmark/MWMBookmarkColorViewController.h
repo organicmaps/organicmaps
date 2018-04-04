@@ -16,7 +16,7 @@ inline NSString * TitleForBookmarkColor(kml::PredefinedColor color)
   case kml::PredefinedColor::Brown: return @"brown";
   case kml::PredefinedColor::Green: return @"green";
   case kml::PredefinedColor::Orange: return @"orange";
-  case kml::PredefinedColor::None: return @"";
+  case kml::PredefinedColor::None:
   case kml::PredefinedColor::Count: return @"";
   }
 }

@@ -37,6 +37,7 @@ class BookmarkManager final
 
 public:
   using KMLDataCollection = std::vector<std::pair<std::string, std::unique_ptr<kml::FileData>>>;
+  using KMLDataCollectionPtr = std::shared_ptr<KMLDataCollection>;
 
   using AsyncLoadingStartedCallback = std::function<void()>;
   using AsyncLoadingFinishedCallback = std::function<void()>;
@@ -140,12 +141,13 @@ public:
   void UpdateViewport(ScreenBase const & screen);
   void Teardown();
 
+
+  static bool IsBookmarkCategory(kml::MarkGroupId groupId) { return groupId >= UserMark::USER_MARK_TYPES_COUNT_MAX; }
+  static bool IsBookmark(kml::MarkId markId) { return UserMark::GetMarkType(markId) == UserMark::BOOKMARK; }
   static UserMark::Type GetGroupType(kml::MarkGroupId groupId)
   {
-    return groupId >= UserMark::COUNT ? UserMark::BOOKMARK : static_cast<UserMark::Type>(groupId);
+    return IsBookmarkCategory(groupId) ? UserMark::BOOKMARK : static_cast<UserMark::Type>(groupId);
   }
-  static bool IsBookmarkCategory(kml::MarkGroupId groupId) { return groupId >= UserMark::COUNT; }
-  static bool IsBookmark(kml::MarkId markId) { return UserMark::GetMarkType(markId) == UserMark::BOOKMARK; }
 
   template <typename UserMarkT>
   UserMarkT const * GetMark(kml::MarkId markId) const
@@ -186,8 +188,6 @@ public:
   /// Scans and loads all kml files with bookmarks.
   void LoadBookmarks();
   void LoadBookmark(std::string const & filePath, bool isTemporaryFile);
-  std::shared_ptr<KMLDataCollection> LoadBookmarks(std::string const & dir, std::string const & ext, bool binary,
-                                                   std::vector<std::string> & filePaths);
 
   /// Uses the same file name from which was loaded, or
   /// creates unique file name on first save and uses it every time.
@@ -407,10 +407,12 @@ private:
   void SaveState() const;
   void LoadState();
   void NotifyAboutStartAsyncLoading();
-  void NotifyAboutFinishAsyncLoading(std::shared_ptr<KMLDataCollection> && collection);
+  void NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && collection);
   boost::optional<std::string> GetKMLPath(std::string const & filePath);
   void NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile);
   void LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile);
+  KMLDataCollectionPtr LoadBookmarks(std::string const & dir, std::string const & ext, bool binary,
+                                     std::vector<std::string> & filePaths);
 
   void CollectDirtyGroups(kml::GroupIdSet & dirtyGroups);
 
@@ -421,7 +423,7 @@ private:
   void CheckAndResetLastIds();
 
   std::unique_ptr<kml::FileData> CollectBmGroupKMLData(BookmarkCategory const * group) const;
-  std::shared_ptr<KMLDataCollection> PrepareToSaveBookmarks(kml::GroupIdCollection const & groupIdCollection);
+  KMLDataCollectionPtr PrepareToSaveBookmarks(kml::GroupIdCollection const & groupIdCollection);
   bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, bool useBinary);
 
   void OnSynchronizationStarted(Cloud::SynchronizationType type);

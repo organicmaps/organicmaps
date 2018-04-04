@@ -40,7 +40,8 @@ public:
     TRANSIT,
     LOCAL_ADS,
     DEBUG_MARK,
-    COUNT,
+    USER_MARK_TYPES_COUNT,
+    USER_MARK_TYPES_COUNT_MAX = 1000,
   };
 
   UserMark(kml::MarkId id, m2::PointD const & ptOrg, UserMark::Type type);

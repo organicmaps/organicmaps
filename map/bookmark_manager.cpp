@@ -55,8 +55,8 @@ uint64_t LoadLastBmCategoryId()
   uint64_t lastId;
   std::string val;
   if (GetPlatform().GetSecureStorage().Load(kLastBookmarkCategoryId, val) && strings::to_uint64(val, lastId))
-    return max(static_cast<uint64_t>(UserMark::COUNT), lastId);
-  return static_cast<uint64_t>(UserMark::COUNT);
+    return std::max(static_cast<uint64_t>(UserMark::USER_MARK_TYPES_COUNT_MAX), lastId);
+  return static_cast<uint64_t>(UserMark::USER_MARK_TYPES_COUNT_MAX);
 }
 
 void SaveLastBmCategoryId(uint64_t lastId)
@@ -66,7 +66,7 @@ void SaveLastBmCategoryId(uint64_t lastId)
 
 uint64_t ResetLastBmCategoryId()
 {
-  auto const lastId = static_cast<uint64_t>(UserMark::COUNT);
+  auto const lastId = static_cast<uint64_t>(UserMark::USER_MARK_TYPES_COUNT_MAX);
   SaveLastBmCategoryId(lastId);
   return lastId;
 }
@@ -176,10 +176,7 @@ bool ConvertBeforeUploading(std::string const & filePath, std::string const & co
     return false;
 
   if (!SaveKmlFile(*kmlData, tmpFilePath, false /* binary */))
-  {
-    my::DeleteFileX(tmpFilePath);
     return false;
-  }
 
   return CreateZipFromPathDeflatedAndDefaultCompression(tmpFilePath, convertedFilePath);
 }
@@ -398,9 +395,9 @@ BookmarkManager::BookmarkManager(Callbacks && callbacks)
                                        std::bind(&ConvertAfterDownloading, _1, _2)))
 {
   ASSERT(m_callbacks.m_getStringsBundle != nullptr, ());
-  ASSERT_GREATER_OR_EQUAL(m_lastGroupID, UserMark::COUNT, ());
-  m_userMarkLayers.reserve(UserMark::COUNT - 1);
-  for (uint32_t i = 1; i < UserMark::COUNT; ++i)
+  ASSERT_GREATER_OR_EQUAL(m_lastGroupID, UserMark::USER_MARK_TYPES_COUNT_MAX, ());
+  m_userMarkLayers.reserve(UserMark::USER_MARK_TYPES_COUNT - 1);
+  for (uint32_t i = 1; i < UserMark::USER_MARK_TYPES_COUNT; ++i)
     m_userMarkLayers.emplace_back(std::make_unique<UserMarkLayer>(static_cast<UserMark::Type>(i)));
 
   m_selectionMark = CreateUserMark<StaticMarkPoint>(m2::PointD{});
@@ -789,8 +786,8 @@ void BookmarkManager::LoadState()
   UNUSED_VALUE(settings::Get(kLastEditedBookmarkCategory, m_lastCategoryUrl));
   uint32_t color;
   if (settings::Get(kLastEditedBookmarkColor, color) &&
-    color > static_cast<uint32_t>(kml::PredefinedColor::None) &&
-    color < static_cast<uint32_t>(kml::PredefinedColor::Count))
+      color > static_cast<uint32_t>(kml::PredefinedColor::None) &&
+      color < static_cast<uint32_t>(kml::PredefinedColor::Count))
   {
     m_lastColor = static_cast<kml::PredefinedColor>(color);
   }
@@ -815,10 +812,8 @@ void BookmarkManager::ClearCategories()
   m_tracks.clear();
 }
 
-std::shared_ptr<BookmarkManager::KMLDataCollection> BookmarkManager::LoadBookmarks(std::string const & dir,
-                                                                                   std::string const & ext,
-                                                                                   bool binary,
-                                                                                   std::vector<std::string> & filePaths)
+BookmarkManager::KMLDataCollectionPtr BookmarkManager::LoadBookmarks(std::string const & dir, std::string const & ext,
+                                                                     bool binary, std::vector<std::string> & filePaths)
 {
   Platform::FilesList files;
   Platform::GetFilesByExt(dir, ext, files);
@@ -891,13 +886,12 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
 
     bool const migrated = migration::IsMigrationCompleted();
 
-    std::string fileSavePath;
     auto collection = std::make_shared<KMLDataCollection>();
 
     auto const savePath = GetKMLPath(filePath);
     if (savePath)
     {
-      fileSavePath = savePath.get();
+      auto fileSavePath = savePath.get();
       auto kmlData = LoadKmlFile(fileSavePath, false /* useBinary */);
       if (kmlData != nullptr)
       {
@@ -929,12 +923,6 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
 
     NotifyAboutFile(success, filePath, isTemporaryFile);
     NotifyAboutFinishAsyncLoading(std::move(collection));
-
-    if (migrated && success)
-    {
-      GetPlatform().RunTask(Platform::Thread::Gui,
-                            [this, fileSavePath]() { m_bookmarkCloud.Init({fileSavePath}); });
-    }
   });
 }
 
@@ -951,7 +939,7 @@ void BookmarkManager::NotifyAboutStartAsyncLoading()
   });
 }
 
-void BookmarkManager::NotifyAboutFinishAsyncLoading(std::shared_ptr<KMLDataCollection> && collection)
+void BookmarkManager::NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && collection)
 {
   if (m_needTeardown)
     return;
@@ -1185,8 +1173,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData && da
   }
   auto groupId = data.m_id;
   ASSERT_EQUAL(m_categories.count(groupId), 0, ());
-  auto & cat = m_categories[groupId];
-  cat = my::make_unique<BookmarkCategory>(std::move(data), autoSave);
+  m_categories[groupId] = my::make_unique<BookmarkCategory>(std::move(data), autoSave);
   m_bmGroupsIdList.push_back(groupId);
   m_changesTracker.OnAddGroup(groupId);
   return groupId;
@@ -1197,8 +1184,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & nam
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto const groupId = ++m_lastGroupID;
   SaveLastBmCategoryId(m_lastGroupID);
-  auto & cat = m_categories[groupId];
-  cat = my::make_unique<BookmarkCategory>(name, groupId, autoSave);
+  m_categories[groupId] = my::make_unique<BookmarkCategory>(name, groupId, autoSave);
   m_bmGroupsIdList.push_back(groupId);
   m_changesTracker.OnAddGroup(groupId);
   return groupId;
@@ -1294,7 +1280,7 @@ UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & h
 UserMarkLayer const * BookmarkManager::GetGroup(kml::MarkGroupId groupId) const
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
-  if (groupId < UserMark::Type::COUNT)
+  if (groupId < UserMark::Type::USER_MARK_TYPES_COUNT)
     return m_userMarkLayers[groupId - 1].get();
 
   ASSERT(m_categories.find(groupId) != m_categories.end(), ());
@@ -1304,7 +1290,7 @@ UserMarkLayer const * BookmarkManager::GetGroup(kml::MarkGroupId groupId) const
 UserMarkLayer * BookmarkManager::GetGroup(kml::MarkGroupId groupId)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
-  if (groupId < UserMark::Type::COUNT)
+  if (groupId < UserMark::Type::USER_MARK_TYPES_COUNT)
     return m_userMarkLayers[groupId - 1].get();
 
   auto const it = m_categories.find(groupId);
@@ -1331,7 +1317,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     auto & categoryData = fileData.m_categoryData;
 
     auto const it = std::find_if(categoriesForMerge.cbegin(), categoriesForMerge.cend(),
-      [categoryData](auto const & v)
+      [&categoryData](auto const & v)
       {
         return v.second->GetName() == kml::GetDefaultStr(categoryData.m_name);
       });
@@ -1420,7 +1406,7 @@ bool BookmarkManager::SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & wr
   return SaveKmlData(*kmlData, writer, useBinary);
 }
 
-std::shared_ptr<BookmarkManager::KMLDataCollection> BookmarkManager::PrepareToSaveBookmarks(
+BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarks(
   kml::GroupIdCollection const & groupIdCollection)
 {
   bool migrated = migration::IsMigrationCompleted();
@@ -1429,7 +1415,7 @@ std::shared_ptr<BookmarkManager::KMLDataCollection> BookmarkManager::PrepareToSa
   std::string const fileExt = migrated ? kKmbExtension : kKmlExtension;
 
   if (migrated && !GetPlatform().IsFileExistsByFullPath(fileDir) && !GetPlatform().MkDirChecked(fileDir))
-    return std::shared_ptr<KMLDataCollection>();
+    return nullptr;
 
   auto collection = std::make_shared<KMLDataCollection>();
 
@@ -1462,7 +1448,6 @@ bool BookmarkManager::SaveKmlFileSafe(kml::FileData & kmlData, std::string const
     VERIFY(my::RenameFileX(fileTmp, file), (fileTmp, file));
     return true;
   }
-  // Remove possibly left tmp file.
   my::DeleteFileX(fileTmp);
   return false;
 }
@@ -1606,7 +1591,6 @@ void BookmarkManager::ConvertAllKmlFiles(ConversionHandler && handler)
 
     auto fileData = std::make_shared<KMLDataCollection>();
 
-    // TODO(darina): Check this refactoring.
     bool allConverted = true;
     for (auto const & f : files)
     {
@@ -1732,7 +1716,7 @@ kml::GroupIdSet BookmarkManager::MarksChangesTracker::GetAllGroupIds() const
 {
   auto const & groupIds = m_bmManager.GetBmGroupsIdList();
   kml::GroupIdSet resultingSet(groupIds.begin(), groupIds.end());
-  for (uint32_t i = 1; i < UserMark::COUNT; ++i)
+  for (uint32_t i = 1; i < UserMark::USER_MARK_TYPES_COUNT; ++i)
     resultingSet.insert(static_cast<kml::MarkGroupId>(i));
   return resultingSet;
 }

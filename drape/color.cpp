@@ -15,13 +15,11 @@ static const uint8_t MaxChannelValue = 255;
 
 Color::Color()
   : m_rgba(MaxChannelValue)
-{
-}
+{}
 
 Color::Color(uint32_t rgba)
   : m_rgba(rgba)
-{
-}
+{}
 
 Color::Color(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha)
 {
