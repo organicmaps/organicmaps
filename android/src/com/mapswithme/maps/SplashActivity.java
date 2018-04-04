@@ -26,6 +26,7 @@ import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.PushwooshHelper;
+import com.my.tracker.MyTracker;
 
 public class SplashActivity extends AppCompatActivity
     implements BaseNewsFragment.NewsDialogListener
@@ -141,6 +142,13 @@ public class SplashActivity extends AppCompatActivity
   }
 
   @Override
+  protected void onStart()
+  {
+    super.onStart();
+    MyTracker.onStartActivity(this);
+  }
+
+  @Override
   protected void onResume()
   {
     super.onResume();
@@ -182,6 +190,13 @@ public class SplashActivity extends AppCompatActivity
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
     UiThread.cancelDelayedTasks(mFinalDelayedTask);
     super.onPause();
+  }
+
+  @Override
+  protected void onStop()
+  {
+    super.onStop();
+    MyTracker.onStopActivity(this);
   }
 
   private void resumeDialogs()
