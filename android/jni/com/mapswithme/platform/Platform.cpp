@@ -127,7 +127,7 @@ void Platform::Initialize(JNIEnv * env, jobject functorProcessObject, jstring ap
   m_functorProcessObject = env->NewGlobalRef(functorProcessObject);
   jclass const functorProcessClass = env->GetObjectClass(functorProcessObject);
   m_sendPushWooshTagsMethod = env->GetMethodID(functorProcessClass, "sendPushWooshTags", "(Ljava/lang/String;[Ljava/lang/String;)V");
-  m_myTrackerTrackMethod = env->GetStaticMethodID(g_myTrackerClazz, "trackEvent", "(Ljava/lang/String;)V");
+  m_myTrackerTrackMethod = env->GetStaticMethodID(g_myTrackerClazz, "trackEvent", "(Ljava/lang/String;)Z");
 
   m_secureStorage.Init();
 
@@ -240,7 +240,7 @@ void Platform::SendMarketingEvent(std::string const & tag, std::map<std::string,
   for (auto const & item : params)
     eventData.append("_" + item.first + "_" + item.second);
 
-  env->CallStaticVoidMethod(g_myTrackerClazz, m_myTrackerTrackMethod,
+  env->CallStaticBooleanMethod(g_myTrackerClazz, m_myTrackerTrackMethod,
                             jni::TScopedLocalRef(env, jni::ToJavaString(env, eventData)).get());
 }
 

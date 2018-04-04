@@ -3,8 +3,6 @@ package com.mapswithme.maps;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -25,15 +23,11 @@ import com.mapswithme.maps.editor.Editor;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.routing.RoutingController;
-import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.traffic.TrafficManager;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Config;
-import com.mapswithme.util.Constants;
 import com.mapswithme.util.Counters;
-import com.mapswithme.util.CrashlyticsUtils;
-import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.ThemeSwitcher;
@@ -48,7 +42,6 @@ import com.my.tracker.MyTrackerParams;
 import com.pushwoosh.PushManager;
 import io.fabric.sdk.android.Fabric;
 
-import java.io.File;
 import java.util.List;
 
 public class MwmApplication extends Application
@@ -374,7 +367,8 @@ public class MwmApplication extends Application
     MyTracker.setDebugMode(BuildConfig.DEBUG);
     MyTracker.createTracker(PrivateVariables.myTrackerKey(), this);
     final MyTrackerParams myParams = MyTracker.getTrackerParams();
-    myParams.setDefaultVendorAppPackage();
+    if (myParams != null)
+      myParams.setDefaultVendorAppPackage();
     MyTracker.initTracker();
   }
 
