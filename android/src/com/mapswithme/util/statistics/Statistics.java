@@ -195,6 +195,7 @@ public enum Statistics
     public static final String PP_HOTEL_REVIEWS_LAND = "PlacePage_Hotel_Reviews_land";
     public static final String PP_HOTEL_DESCRIPTION_LAND = "PlacePage_Hotel_Description_land";
     public static final String PP_HOTEL_FACILITIES = "PlacePage_Hotel_Facilities_open";
+    public static final String PP_HOTEL_SEARCH_SIMILAR = "Placepage_Hotel_search_similar";
     static final String PP_OWNERSHIP_BUTTON_CLICK = "Placepage_OwnershipButton_click";
 
     // toolbar actions
@@ -339,7 +340,7 @@ public enum Statistics
     public static final String ERR_MSG = "error_message";
     public static final String OSM = "OSM";
     public static final String FACEBOOK = "Facebook";
-    static final String PROVIDER = "provider";
+    public static final String PROVIDER = "provider";
     public static final String HOTEL = "hotel";
     static final String HOTEL_LAT = "hotel_lat";
     static final String HOTEL_LON = "hotel_lon";
@@ -376,6 +377,7 @@ public enum Statistics
   public static class ParamValue
   {
     public static final String BOOKING_COM = "Booking.Com";
+    public static final String OSM = "OSM";
     static final String SEARCH_BOOKING_COM = "Search.Booking.Com";
     static final String OPENTABLE = "OpenTable";
     static final String VIATOR = "Viator.Com";

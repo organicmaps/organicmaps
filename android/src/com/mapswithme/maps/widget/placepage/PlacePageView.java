@@ -1908,6 +1908,11 @@ public class PlacePageView extends RelativeLayout
                                                             mMapObject.getPriceRate(),
                                                             mMapObject.getHotelType());
         getActivity().onSearchSimilarHotels(filter);
+        String provider = mSponsored != null && mSponsored.getType() == Sponsored.TYPE_BOOKING
+                          ? Statistics.ParamValue.BOOKING_COM : Statistics.ParamValue.OSM;
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_HOTEL_SEARCH_SIMILAR,
+                                       Statistics.params().add(Statistics.EventParam.PROVIDER,
+                                                               provider));
         break;
     }
   }
