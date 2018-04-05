@@ -9,15 +9,14 @@ import android.support.annotation.UiThread;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
-import java.lang.ref.WeakReference;
-import java.util.List;
-
-import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.lang.ref.WeakReference;
+import java.util.List;
 
 @UiThread
 public final class MapManager

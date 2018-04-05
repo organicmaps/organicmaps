@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.mapswithme.maps.LightFramework;
 import com.mapswithme.maps.MwmApplication;
@@ -13,6 +14,7 @@ import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
+import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 import static com.mapswithme.maps.MwmApplication.prefs;
 
 public class NotificationService extends IntentService
@@ -22,8 +24,6 @@ public class NotificationService extends IntentService
   private static final String LAST_AUTH_NOTIFICATION_TIMESTAMP = "DownloadOrUpdateTimestamp";
   private static final int MIN_COUNT_UNSENT_UGC = 2;
   private static final long MIN_AUTH_EVENT_DELTA_MILLIS = 5 * 24 * 60 * 60 * 1000; // 5 days
-  private static final String CONNECTIVITY_CHANGED =
-      "com.mapswithme.maps.notification_service.action.connectivity_changed";
 
   private interface NotificationExecutor
   {
@@ -33,7 +33,7 @@ public class NotificationService extends IntentService
   static void startOnConnectivityChanged(Context context)
   {
     final Intent intent = new Intent(context, NotificationService.class);
-    intent.setAction(NotificationService.CONNECTIVITY_CHANGED);
+    intent.setAction(CONNECTIVITY_ACTION);
     context.startService(intent);
   }
 
@@ -44,7 +44,7 @@ public class NotificationService extends IntentService
         LightFramework.nativeIsAuthenticated() ||
         LightFramework.nativeGetNumberUnsentUGC() < MIN_COUNT_UNSENT_UGC)
     {
-      LOGGER.d(TAG, "Authentication nofification is rejected. External storage granted: " +
+      LOGGER.d(TAG, "Authentication notification is rejected. External storage granted: " +
                     PermissionsUtils.isExternalStorageGranted() + ". Is user authenticated: " +
                     LightFramework.nativeIsAuthenticated() + ". Current network usage status: " +
                     NetworkPolicy.getCurrentNetworkUsageStatus() + ". Number of unsent UGC: " +
@@ -56,7 +56,7 @@ public class NotificationService extends IntentService
     if (MwmApplication.get().arePlatformAndCoreInitialized() &&
         RoutingController.get().isNavigating())
     {
-      LOGGER.d(TAG, "Authentication nofification is rejected. The user is in navigation mode.");
+      LOGGER.d(TAG, "Authentication notification is rejected. The user is in navigation mode.");
       return false;
     }
 
@@ -64,17 +64,17 @@ public class NotificationService extends IntentService
 
     if (System.currentTimeMillis() - lastEventTimestamp > MIN_AUTH_EVENT_DELTA_MILLIS)
     {
-      LOGGER.d(TAG, "Authentication nofification will be sent.");
+      LOGGER.d(TAG, "Authentication notification will be sent.");
 
       prefs().edit()
              .putLong(LAST_AUTH_NOTIFICATION_TIMESTAMP, System.currentTimeMillis())
              .apply();
 
-      Notifier.notifyIsNotAuthenticated();
+      Notifier.notifyAuthentication();
 
       return true;
     }
-    LOGGER.d(TAG, "Authentication nofification is rejected. Last event timestamp: " +
+    LOGGER.d(TAG, "Authentication notification is rejected. Last event timestamp: " +
                   lastEventTimestamp + "Current time milliseconds: " + System.currentTimeMillis());
     return false;
   }
@@ -92,12 +92,12 @@ public class NotificationService extends IntentService
 
     final String action = intent.getAction();
 
-    if (action == null)
+    if (TextUtils.isEmpty(action))
       return;
 
     switch(action)
     {
-      case CONNECTIVITY_CHANGED:
+      case CONNECTIVITY_ACTION:
         onConnectivityChanged();
         break;
     }

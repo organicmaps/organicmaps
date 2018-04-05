@@ -82,7 +82,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
                           boolean isCancel)
   {
     Fragment caller = getTargetFragment();
-    if (caller == null)
+    if (caller == null || !caller.isAdded())
       return;
 
     Intent data = new Intent();

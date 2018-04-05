@@ -268,10 +268,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
 
   private void goToSplashScreen(@Nullable Intent initialIntent)
   {
-    Class<? extends Activity> type = null;
-    if (!(this instanceof MwmActivity) || initialIntent != null)
-      type = getClass();
-    SplashActivity.start(this, type, initialIntent);
+    SplashActivity.start(this, getClass(), initialIntent);
     finish();
   }
 }

@@ -20,20 +20,19 @@ import java.lang.annotation.RetentionPolicy;
 
 public final class Notifier
 {
-  private static final String EXTRA_CANCEL_NOTIFICATION = "mwm.extra.intent.cancel_notification";
-  private static final String EXTRA_NOTIFICATION_CLICKED = "mwm.extra.intent.notification_clicked";
+  private static final String EXTRA_CANCEL_NOTIFICATION = "extra_cancel_notification";
+  private static final String EXTRA_NOTIFICATION_CLICKED = "extra_notification_clicked";
+  private static final MwmApplication APP = MwmApplication.get();
 
-  public final static int ID_NONE = 0;
-  public final static int ID_DOWNLOAD_FAILED = 1;
-  public final static int ID_IS_NOT_AUTHENTICATED = 2;
+  public static final int ID_NONE = 0;
+  public static final int ID_DOWNLOAD_FAILED = 1;
+  public static final int ID_IS_NOT_AUTHENTICATED = 2;
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ ID_NONE, ID_DOWNLOAD_FAILED, ID_IS_NOT_AUTHENTICATED })
   public @interface NotificationId
   {
   }
-
-  private static final MwmApplication APP = MwmApplication.get();
 
   private Notifier()
   {
@@ -52,7 +51,7 @@ public final class Notifier
     Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOAD_COUNTRY_NOTIFICATION_SHOWN);
   }
 
-  public static void notifyIsNotAuthenticated()
+  public static void notifyAuthentication()
   {
     Intent authIntent = MwmActivity.createAuthenticateIntent();
     authIntent.putExtra(EXTRA_CANCEL_NOTIFICATION, Notifier.ID_IS_NOT_AUTHENTICATED);

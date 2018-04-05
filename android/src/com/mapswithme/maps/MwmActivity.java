@@ -328,6 +328,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
                .putExtra(DownloadResourcesLegacyActivity.EXTRA_COUNTRY, countryId);
   }
 
+  @NonNull
   public static Intent createAuthenticateIntent()
   {
     return new Intent(MwmApplication.get(), MwmActivity.class)
@@ -547,7 +548,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     //  }
     //});
     //getWindow().getDecorView().addOnLayoutChangeListener(mVisibleRectMeasurer);
-    boolean isConsumed = processIntent(getIntent());
+    boolean isConsumed = savedInstanceState == null && processIntent(getIntent());
     // If the map activity is launched by any incoming intent (deeplink, update maps event, etc)
     // we haven't to try restoring the route. Also, if savedInstanceState != null it means that
     // the app is being restored by the system at the moment, so we don't need to restore the route.
@@ -2414,6 +2415,10 @@ public class MwmActivity extends BaseMwmFragmentActivity
     @Override
     public boolean run(MwmActivity target)
     {
+      Fragment f = target.getSupportFragmentManager().findFragmentByTag(mDialogName);
+      if (f != null)
+        return true;
+
       final DialogFragment fragment = (DialogFragment) Fragment.instantiate(target, mDialogName);
       fragment.show(target.getSupportFragmentManager(), mDialogName);
       return true;
