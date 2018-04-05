@@ -154,8 +154,6 @@ android {
         abiFilters.add("x86")
       } else {
         println("Building for the ARM and x86 architectures")
-        abiFilters.add("armeabi-v7a")
-        abiFilters.add("x86")
       }
     }
   }
