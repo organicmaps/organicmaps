@@ -9,6 +9,7 @@ import android.view.View;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.Authorizer;
+import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.widget.BookmarkBackupView;
 import com.mapswithme.util.DateUtils;
 import com.mapswithme.util.statistics.Statistics;
@@ -127,6 +128,7 @@ public class BookmarkBackupController implements Authorizer.Callback
   {
     if (success)
     {
+      Notifier.cancelNotification(Notifier.ID_IS_NOT_AUTHENTICATED);
       BookmarkManager.INSTANCE.setCloudEnabled(true);
       Statistics.INSTANCE.trackEvent(Statistics.EventName.BMK_SYNC_PROPOSAL_ENABLED);
     }

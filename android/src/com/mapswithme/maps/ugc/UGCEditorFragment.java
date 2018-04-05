@@ -13,8 +13,10 @@ import android.widget.EditText;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseMwmAuthorizationFragment;
+import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.widget.ToolbarController;
+import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Language;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
@@ -79,7 +81,8 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
     submitButton.setOnClickListener(v ->
                                     {
                                       onSubmitButtonClick();
-                                      authorize();
+                                      if (ConnectionState.isConnected())
+                                        authorize();
                                     });
   }
 
@@ -100,6 +103,9 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
   @Override
   public void onAuthorizationFinish(boolean success)
   {
+    if (success)
+      Notifier.cancelNotification(Notifier.ID_IS_NOT_AUTHENTICATED);
+
     if (isAdded())
       getActivity().finish();
   }

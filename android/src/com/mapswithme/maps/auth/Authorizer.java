@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
 import com.mapswithme.maps.Framework;
-import com.mapswithme.util.ConnectionState;
 
 /**
  * An authorizer is responsible for an authorization for the Mapsme server,
@@ -55,7 +54,7 @@ public class Authorizer implements AuthorizationListener
 
   public final void authorize()
   {
-    if (isAuthorized() || !ConnectionState.isConnected())
+    if (isAuthorized())
     {
       if (mCallback != null)
         mCallback.onAuthorizationFinish(true);

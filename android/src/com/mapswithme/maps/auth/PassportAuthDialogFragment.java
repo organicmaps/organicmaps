@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.Framework;
+import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -56,11 +57,15 @@ public class PassportAuthDialogFragment extends BaseMwmDialogFragment
     mAuthorizer.detach();
   }
 
-  private static class AuthCallback implements Authorizer.Callback
+  private class AuthCallback implements Authorizer.Callback
   {
     @Override
     public void onAuthorizationFinish(boolean success)
     {
+      dismiss();
+
+      if (success)
+        Notifier.cancelNotification(Notifier.ID_IS_NOT_AUTHENTICATED);
     }
 
     @Override
