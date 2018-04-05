@@ -440,6 +440,9 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
                     LineIDCollection const & linesId, UserLinesRenderCollection & renderParams,
                     dp::Batcher & batcher)
 {
+  ASSERT_GREATER(tileKey.m_zoomLevel, 0, ());
+  ASSERT_LESS_OR_EQUAL(tileKey.m_zoomLevel, scales::GetUpperStyleScale(), ());
+
   auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
   bool const simplify = tileKey.m_zoomLevel <= kLineSimplifyLevelEnd;
 
@@ -493,7 +496,7 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
         params.m_depth = layer.m_depth;
         params.m_depthLayer = renderInfo.m_depthLayer;
         params.m_width = static_cast<float>(layer.m_width * vs *
-          kLineWidthZoomFactor[tileKey.m_zoomLevel]);
+          kLineWidthZoomFactor[tileKey.m_zoomLevel - 1]);
         params.m_minVisibleScale = 1;
         params.m_rank = 0;
 

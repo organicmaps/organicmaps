@@ -5,6 +5,7 @@
 
 #include "drape/pointers.hpp"
 
+#include <functional>
 #include <map>
 #include <set>
 #include <string>
@@ -18,9 +19,9 @@ using MarksIndex = std::map<TileKey, drape_ptr<MarksIDGroups>>;
 class UserMarkGenerator
 {
 public:
-  using TFlushFn = function<void(TUserMarksRenderData && renderData)>;
+  using TFlushFn = std::function<void(TUserMarksRenderData && renderData)>;
 
-  UserMarkGenerator(TFlushFn const & flushFn);
+  explicit UserMarkGenerator(TFlushFn const & flushFn);
 
   void SetUserMarks(drape_ptr<UserMarksRenderCollection> && marks);
   void SetUserLines(drape_ptr<UserLinesRenderCollection> && lines);
