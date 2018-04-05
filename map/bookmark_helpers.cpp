@@ -8,8 +8,16 @@
 
 std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, bool useBinary)
 {
-  auto kmlData = LoadKmlData(FileReader(file), useBinary);
-
+  std::unique_ptr<kml::FileData> kmlData;
+  try
+  {
+    kmlData = LoadKmlData(FileReader(file), useBinary);
+  }
+  catch (std::exception const & e)
+  {
+    LOG(LWARNING, ("KML", useBinary ? "binary" : "text", "loading failure:", e.what()));
+    kmlData.reset();
+  }
   if (kmlData == nullptr)
     LOG(LWARNING, ("Loading bookmarks failed, file", file));
   return kmlData;
@@ -36,9 +44,19 @@ std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, bool useBinary
     LOG(LWARNING, ("KML", useBinary ? "binary" : "text", "reading failure:", e.what()));
     return nullptr;
   }
+  catch (kml::binary::DeserializerKml::DeserializeException const & e)
+  {
+    LOG(LWARNING, ("KML binary deserialization failure:", e.what()));
+    return nullptr;
+  }
+  catch (kml::DeserializerKml::DeserializeException const & e)
+  {
+    LOG(LWARNING, ("KML text deserialization failure:", e.what()));
+    return nullptr;
+  }
   catch (std::exception const & e)
   {
-    LOG(LWARNING, ("KML", useBinary ? "binary" : "text", "deserialization failure:", e.what()));
+    LOG(LWARNING, ("KML", useBinary ? "binary" : "text", "loading failure:", e.what()));
     return nullptr;
   }
   return data;

@@ -48,7 +48,6 @@ public:
   UserMark(m2::PointD const & ptOrg, UserMark::Type type);
 
   static Type GetMarkType(kml::MarkId id);
-  static void ResetLastId(UserMark::Type type);
 
   Type GetMarkType() const { return GetMarkType(GetId()); }
   kml::MarkGroupId GetGroupId() const override { return GetMarkType(); }

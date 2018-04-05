@@ -5,6 +5,7 @@
 #include "map/routing_mark.hpp"
 #include "map/search_mark.hpp"
 #include "map/user_mark.hpp"
+#include "map/user_mark_id_storage.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
 #include "drape_frontend/visual_params.hpp"
@@ -41,7 +42,6 @@ using namespace std::placeholders;
 
 namespace
 {
-std::string const kLastBookmarkCategoryId = "LastBookmarkCategoryId";
 std::string const kLastEditedBookmarkCategory = "LastBookmarkCategory";
 // TODO(darina): Delete old setting.
 std::string const kLastBookmarkType = "LastBookmarkType";
@@ -49,27 +49,6 @@ std::string const kLastEditedBookmarkColor = "LastBookmarkColor";
 std::string const kKmzExtension = ".kmz";
 std::string const kKmlExtension = ".kml";
 std::string const kKmbExtension = ".kmb";
-
-uint64_t LoadLastBmCategoryId()
-{
-  uint64_t lastId;
-  std::string val;
-  if (GetPlatform().GetSecureStorage().Load(kLastBookmarkCategoryId, val) && strings::to_uint64(val, lastId))
-    return std::max(static_cast<uint64_t>(UserMark::USER_MARK_TYPES_COUNT_MAX), lastId);
-  return static_cast<uint64_t>(UserMark::USER_MARK_TYPES_COUNT_MAX);
-}
-
-void SaveLastBmCategoryId(uint64_t lastId)
-{
-  GetPlatform().GetSecureStorage().Save(kLastBookmarkCategoryId, strings::to_string(lastId));
-}
-
-uint64_t ResetLastBmCategoryId()
-{
-  auto const lastId = static_cast<uint64_t>(UserMark::USER_MARK_TYPES_COUNT_MAX);
-  SaveLastBmCategoryId(lastId);
-  return lastId;
-}
 
 // Returns extension with a dot in a lower case.
 std::string GetFileExt(std::string const & filePath)
@@ -388,14 +367,13 @@ BookmarkManager::BookmarkManager(Callbacks && callbacks)
   : m_callbacks(std::move(callbacks))
   , m_changesTracker(*this)
   , m_needTeardown(false)
-  , m_lastGroupID(LoadLastBmCategoryId())
   , m_bookmarkCloud(Cloud::CloudParams("bmc.json", "bookmarks", "BookmarkCloudParam",
                                        GetBookmarksDirectory(), std::string(kKmbExtension),
                                        std::bind(&ConvertBeforeUploading, _1, _2),
                                        std::bind(&ConvertAfterDownloading, _1, _2)))
 {
   ASSERT(m_callbacks.m_getStringsBundle != nullptr, ());
-  ASSERT_GREATER_OR_EQUAL(m_lastGroupID, UserMark::USER_MARK_TYPES_COUNT_MAX, ());
+
   m_userMarkLayers.reserve(UserMark::USER_MARK_TYPES_COUNT - 1);
   for (uint32_t i = 1; i < UserMark::USER_MARK_TYPES_COUNT; ++i)
     m_userMarkLayers.emplace_back(std::make_unique<UserMarkLayer>(static_cast<UserMark::Type>(i)));
@@ -1168,8 +1146,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData && da
 
   if (data.m_id == kml::kInvalidMarkGroupId)
   {
-    data.m_id = ++m_lastGroupID;
-    SaveLastBmCategoryId(m_lastGroupID);
+    data.m_id = PersistentIdStorage::Instance().GetNextCategoryId();
   }
   auto groupId = data.m_id;
   ASSERT_EQUAL(m_categories.count(groupId), 0, ());
@@ -1182,8 +1159,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData && da
 kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & name, bool autoSave)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
-  auto const groupId = ++m_lastGroupID;
-  SaveLastBmCategoryId(m_lastGroupID);
+  auto const groupId = PersistentIdStorage::Instance().GetNextCategoryId();
   m_categories[groupId] = my::make_unique<BookmarkCategory>(name, groupId, autoSave);
   m_bmGroupsIdList.push_back(groupId);
   m_changesTracker.OnAddGroup(groupId);
@@ -1199,12 +1175,13 @@ void BookmarkManager::CheckAndCreateDefaultCategory()
 
 void BookmarkManager::CheckAndResetLastIds()
 {
+  auto & idStorage = PersistentIdStorage::Instance();
   if (m_categories.empty())
-    m_lastGroupID = ResetLastBmCategoryId();
+    idStorage.ResetCategoryId();
   if (m_bookmarks.empty())
-    UserMark::ResetLastId(UserMark::BOOKMARK);
+    idStorage.ResetBookmarkId();
   if (m_tracks.empty())
-    Track::ResetLastId();
+    idStorage.ResetTrackId();
 }
 
 bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId)
@@ -1329,7 +1306,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     }
     else
     {
-      bool const saveAfterCreation = categoryData.m_id == kml::kInvalidMarkGroupId;
+      bool const saveAfterCreation = autoSave && (categoryData.m_id == kml::kInvalidMarkGroupId);
       groupId = CreateBookmarkCategory(std::move(categoryData), saveAfterCreation);
       loadedGroups.insert(groupId);
       group = GetBmCategory(groupId);
@@ -1461,7 +1438,16 @@ void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollec
     return;
 
   bool const migrated = migration::IsMigrationCompleted();
-  GetPlatform().RunTask(Platform::Thread::File, [this, migrated, kmlDataCollection]()
+
+  if (m_testModeEnabled)
+  {
+    // Save bookmarks synchronously.
+    for (auto const & kmlItem : *kmlDataCollection)
+      SaveKmlFileSafe(*kmlItem.second, kmlItem.first, migrated);
+    return;
+  }
+
+  GetPlatform().RunTask(Platform::Thread::File, [this, migrated, kmlDataCollection = std::move(kmlDataCollection)]()
   {
     for (auto const & kmlItem : *kmlDataCollection)
       SaveKmlFileSafe(*kmlItem.second, kmlItem.first, migrated);
@@ -1712,6 +1698,12 @@ void BookmarkManager::CancelCloudRestoring()
   m_bookmarkCloud.CancelRestoring();
 }
 
+void BookmarkManager::EnableTestMode(bool enable)
+{
+  PersistentIdStorage::Instance().EnableTestMode(enable);
+  m_testModeEnabled = enable;
+}
+
 kml::GroupIdSet BookmarkManager::MarksChangesTracker::GetAllGroupIds() const
 {
   auto const & groupIds = m_bmManager.GetBmGroupsIdList();
@@ -1878,6 +1870,12 @@ std::string BookmarkManager::GenerateValidAndUniqueFilePathForKMB(std::string co
 bool BookmarkManager::IsMigrated()
 {
   return migration::IsMigrationCompleted();
+}
+
+// static
+std::string BookmarkManager::GetActualBookmarksDirectory()
+{
+  return IsMigrated() ? GetBookmarksDirectory() : GetPlatform().SettingsDir();
 }
 
 BookmarkManager::EditSession::EditSession(BookmarkManager & manager)

@@ -1,61 +1,16 @@
 #include "map/track.hpp"
+#include "map/user_mark_id_storage.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/mercator.hpp"
 
-#include "platform/platform.hpp"
-
-#include "base/string_utils.hpp"
-
-namespace
-{
-static const std::string kLastLineId = "LastLineId";
-
-uint64_t LoadLastLineId()
-{
-  uint64_t lastId;
-  std::string val;
-  if (GetPlatform().GetSecureStorage().Load(kLastLineId, val) && strings::to_uint64(val, lastId))
-    return lastId;
-  return 0;
-}
-
-void SaveLastLineId(uint64_t lastId)
-{
-  GetPlatform().GetSecureStorage().Save(kLastLineId, strings::to_string(lastId));
-}
-
-kml::TrackId GetNextUserLineId(bool reset = false)
-{
-  static std::atomic<uint64_t> lastLineId(LoadLastLineId());
-
-  if (reset)
-  {
-    SaveLastLineId(0);
-    lastLineId = 0;
-    return kml::kInvalidTrackId;
-  }
-
-  auto const id = static_cast<kml::TrackId>(++lastLineId);
-  SaveLastLineId(lastLineId);
-  return id;
-}
-
-}  // namespace
-
 Track::Track(kml::TrackData && data)
-  : Base(data.m_id == kml::kInvalidTrackId ? GetNextUserLineId() : data.m_id)
+  : Base(data.m_id == kml::kInvalidTrackId ? PersistentIdStorage::Instance().GetNextTrackId() : data.m_id)
   , m_data(std::move(data))
   , m_groupID(0)
 {
   m_data.m_id = GetId();
   ASSERT_GREATER(m_data.m_points.size(), 1, ());
-}
-
-// static
-void Track::ResetLastId()
-{
-  UNUSED_VALUE(GetNextUserLineId(true /* reset */));
 }
 
 string Track::GetName() const

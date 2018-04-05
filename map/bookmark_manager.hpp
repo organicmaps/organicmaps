@@ -141,7 +141,6 @@ public:
   void UpdateViewport(ScreenBase const & screen);
   void Teardown();
 
-
   static bool IsBookmarkCategory(kml::MarkGroupId groupId) { return groupId >= UserMark::USER_MARK_TYPES_COUNT_MAX; }
   static bool IsBookmark(kml::MarkId markId) { return UserMark::GetMarkType(markId) == UserMark::BOOKMARK; }
   static UserMark::Type GetGroupType(kml::MarkGroupId groupId)
@@ -265,6 +264,7 @@ public:
   void CancelCloudRestoring();
 
   /// These functions are public for unit tests only. You shouldn't call them from client code.
+  void EnableTestMode(bool enable);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & writer, bool useBinary) const;
   void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = true);
@@ -272,6 +272,7 @@ public:
   static std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string const & fileExt);
   static std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName);
   static std::string GenerateValidAndUniqueFilePathForKMB(std::string const & fileName);
+  static std::string GetActualBookmarksDirectory();
   static bool IsMigrated();
 
 private:
@@ -478,6 +479,8 @@ private:
   Cloud::SynchronizationFinishedHandler m_onSynchronizationFinished;
   Cloud::RestoreRequestedHandler m_onRestoreRequested;
   Cloud::RestoredFilesPreparedHandler m_onRestoredFilesPrepared;
+
+  bool m_testModeEnabled = false;
 
   DISALLOW_COPY_AND_MOVE(BookmarkManager);
 };

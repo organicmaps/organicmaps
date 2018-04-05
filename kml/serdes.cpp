@@ -562,7 +562,7 @@ void KmlParser::ParseLineCoordinates(std::string const & s, char const * blockSe
     m2::PointD pt;
     if (ParsePoint(*tupleIter, coordSeparator, pt))
     {
-      if (m_points.empty() || !(pt - m_points.back()).IsAlmostZero())
+      if (m_points.empty() || !pt.EqualDxDy(m_points.back(), 1e-5 /* eps */))
         m_points.push_back(std::move(pt));
     }
     ++tupleIter;

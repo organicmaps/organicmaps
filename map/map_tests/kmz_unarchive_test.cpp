@@ -2,6 +2,7 @@
 
 #include "map/bookmark_helpers.hpp"
 #include "map/framework.hpp"
+#include "map/user_mark_id_storage.hpp"
 
 #include "platform/platform.hpp"
 
@@ -16,6 +17,8 @@
 
 UNIT_TEST(KMZ_UnzipTest)
 {
+  PersistentIdStorage::Instance().EnableTestMode(true);
+
   string const kmzFile = GetPlatform().TestsDataPathForFile("test.kmz");
   ZipFileReader::FileListT files;
   ZipFileReader::FilesList(kmzFile, files);

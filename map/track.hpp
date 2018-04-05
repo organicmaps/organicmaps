@@ -10,8 +10,6 @@ class Track : public df::UserLineMark
 public:
   explicit Track(kml::TrackData && data);
 
-  static void ResetLastId();
-
   bool IsDirty() const override { return m_isDirty; }
   void ResetChanges() const override { m_isDirty = false; }
 

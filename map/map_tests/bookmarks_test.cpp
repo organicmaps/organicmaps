@@ -12,6 +12,7 @@
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
+#include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
 
 #include <array>
@@ -158,8 +159,10 @@ void CheckBookmarks(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
 
   bm = bmManager.GetBookmark(*it++);
   m2::PointD org = bm->GetPivot();
-  TEST_ALMOST_EQUAL_ULPS(MercatorBounds::XToLon(org.x), 27.566765, ());
-  TEST_ALMOST_EQUAL_ULPS(MercatorBounds::YToLat(org.y), 53.900047, ());
+
+  double const kEps = 1e-6;
+  TEST(my::AlmostEqualAbs(MercatorBounds::XToLon(org.x), 27.566765, kEps), ());
+  TEST(my::AlmostEqualAbs(MercatorBounds::YToLat(org.y), 53.900047, kEps), ());
   TEST_EQUAL(bm->GetName(), "From: Минск, Минская область, Беларусь", ());
   TEST_EQUAL(bm->GetColor(), kml::PredefinedColor::Blue, ());
   TEST_EQUAL(bm->GetDescription(), "", ());
@@ -167,8 +170,8 @@ void CheckBookmarks(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
 
   bm = bmManager.GetBookmark(*it++);
   org = bm->GetPivot();
-  TEST_ALMOST_EQUAL_ULPS(MercatorBounds::XToLon(org.x), 27.551532, ());
-  TEST_ALMOST_EQUAL_ULPS(MercatorBounds::YToLat(org.y), 53.89306, ());
+  TEST(my::AlmostEqualAbs(MercatorBounds::XToLon(org.x), 27.551532, kEps), ());
+  TEST(my::AlmostEqualAbs(MercatorBounds::YToLat(org.y), 53.89306, kEps), ());
   TEST_EQUAL(bm->GetName(), "<MWM & Sons>", ());
   TEST_EQUAL(bm->GetDescription(), "Amps & <brackets>", ());
   TEST_EQUAL(kml::ToSecondsSinceEpoch(bm->GetTimeStamp()), 0, ());
@@ -178,6 +181,8 @@ void CheckBookmarks(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
 UNIT_CLASS_TEST(Runner, Bookmarks_ImportKML)
 {
   BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
+  bmManager.EnableTestMode(true);
+
   BookmarkManager::KMLDataCollection kmlDataCollection;
 
   kmlDataCollection.emplace_back(""/* filePath */,
@@ -196,14 +201,17 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ImportKML)
 
 UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
 {
-  std::string const fileName = GetPlatform().SettingsDir() + "UnitTestBookmarks.kml";
+  string const dir = BookmarkManager::GetActualBookmarksDirectory();
+  string const ext = BookmarkManager::IsMigrated() ? ".kmb" : BOOKMARKS_FILE_EXTENSION;
+  string const fileName = my::JoinPath(dir, "UnitTestBookmarks" + ext);
 
   BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
-  BookmarkManager::KMLDataCollection kmlDataCollection;
+  bmManager.EnableTestMode(true);
 
-  kmlDataCollection.emplace_back(""/* filePath */,
-                                 LoadKmlData(MemReader(kmlString, strlen(kmlString)), false /* useBinary */));
-  bmManager.CreateCategories(std::move(kmlDataCollection), false /* autoSave */);
+  BookmarkManager::KMLDataCollection kmlDataCollection1;
+  kmlDataCollection1.emplace_back("",
+                                  LoadKmlData(MemReader(kmlString, strlen(kmlString)), false /* useBinary */));
+  bmManager.CreateCategories(std::move(kmlDataCollection1), false /* autoSave */);
   TEST_EQUAL(bmManager.GetBmGroupsIdList().size(), 1, ());
 
   auto const groupId1 = bmManager.GetBmGroupsIdList().front();
@@ -217,7 +225,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
 
   {
     FileWriter writer(fileName);
-    bmManager.SaveBookmarkCategory(groupId1, writer, false /* useBinary */);
+    bmManager.SaveBookmarkCategory(groupId1, writer, BookmarkManager::IsMigrated());
   }
 
   bmManager.GetEditSession().ClearGroup(groupId1);
@@ -227,11 +235,11 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   TEST_EQUAL(bmManager.HasBmCategory(groupId1), false, ());
   TEST_EQUAL(bmManager.GetBmGroupsIdList().size(), 0, ());
 
-  kmlDataCollection.clear();
-  kmlDataCollection.emplace_back("", LoadKmlData(FileReader(fileName), false /* useBinary */));
-  TEST(kmlDataCollection.back().second, ());
+  BookmarkManager::KMLDataCollection kmlDataCollection2;
+  kmlDataCollection2.emplace_back("", LoadKmlData(FileReader(fileName), BookmarkManager::IsMigrated()));
+  TEST(kmlDataCollection2.back().second, ());
 
-  bmManager.CreateCategories(std::move(kmlDataCollection), false /* autoSave */);
+  bmManager.CreateCategories(std::move(kmlDataCollection2), false /* autoSave */);
   TEST_EQUAL(bmManager.GetBmGroupsIdList().size(), 1, ());
 
   auto const groupId2 = bmManager.GetBmGroupsIdList().front();
@@ -241,11 +249,11 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   bmManager.GetEditSession().DeleteBmCategory(groupId2);
   TEST_EQUAL(bmManager.HasBmCategory(groupId2), false, ());
 
-  kmlDataCollection.clear();
-  kmlDataCollection.emplace_back("", LoadKmlFile(fileName, false /* useBinary */));
-  TEST(kmlDataCollection.back().second, ());
+  BookmarkManager::KMLDataCollection kmlDataCollection3;
+  kmlDataCollection3.emplace_back(fileName, LoadKmlFile(fileName, BookmarkManager::IsMigrated()));
+  TEST(kmlDataCollection3.back().second, ());
 
-  bmManager.CreateCategories(std::move(kmlDataCollection), false /* autoSave */);
+  bmManager.CreateCategories(std::move(kmlDataCollection3), BookmarkManager::IsMigrated());
   TEST_EQUAL(bmManager.GetBmGroupsIdList().size(), 1, ());
 
   auto const groupId3 = bmManager.GetBmGroupsIdList().front();
@@ -263,9 +271,10 @@ namespace
 {
   void DeleteCategoryFiles(vector<string> const & arrFiles)
   {
-    string const path = GetPlatform().SettingsDir();
+    string const path = BookmarkManager::GetActualBookmarksDirectory();
+    string const extension = BookmarkManager::IsMigrated() ? ".kmb" : BOOKMARKS_FILE_EXTENSION;
     for (auto const & fileName : arrFiles)
-      FileWriter::DeleteFileX(path + fileName + BOOKMARKS_FILE_EXTENSION);
+      FileWriter::DeleteFileX(my::JoinPath(path, fileName + extension));
   }
 
   UserMark const * GetMark(Framework & fm, m2::PointD const & pt)
@@ -301,11 +310,11 @@ UNIT_TEST(Bookmarks_Timestamp)
   Framework fm(kFrameworkParams);
   df::VisualParams::Init(1.0, 1024);
 
-  m2::PointD const orgPoint(10, 10);
-
-  vector<string> const arrCat = {"cat", "cat1"};
-
   BookmarkManager & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
+
+  m2::PointD const orgPoint(10, 10);
+  vector<string> const arrCat = {"cat", "cat1"};
 
   kml::BookmarkData b1;
   kml::SetDefaultStr(b1.m_name, "name");
@@ -357,6 +366,7 @@ UNIT_TEST(Bookmarks_Getting)
   //TEST(m2::AlmostEqualULPs(m2::PointD(400, 200), pixC), (pixC));
 
   BookmarkManager & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
 
   vector<string> const arrCat = {"cat1", "cat2", "cat3"};
 
@@ -516,6 +526,7 @@ UNIT_TEST(Bookmarks_AddingMoving)
   m2::PointD const pixelPoint = fm.GtoP(globalPoint);
 
   BookmarkManager & bmManager = fm.GetBookmarkManager();
+  bmManager.EnableTestMode(true);
 
   vector<string> const arrCat = {"cat1", "cat2"};
   auto const cat1 = bmManager.CreateBookmarkCategory(arrCat[0], false /* autoSave */);
@@ -530,6 +541,7 @@ UNIT_TEST(Bookmarks_AddingMoving)
 
   kml::BookmarkData bm2;
   kml::SetDefaultStr(bm2.m_name, "name2");
+  bm2.m_point = globalPoint;
   bm2.m_color.m_predefinedColor = kml::PredefinedColor::Blue;
   auto const * pBm11 = bmManager.GetEditSession().CreateBookmark(std::move(bm2), cat1);
   TEST_EQUAL(pBm1->GetGroupId(), pBm11->GetGroupId(), ());
@@ -541,6 +553,7 @@ UNIT_TEST(Bookmarks_AddingMoving)
   // Edit name, type and category of bookmark
   kml::BookmarkData bm3;
   kml::SetDefaultStr(bm3.m_name, "name3");
+  bm3.m_point = globalPoint;
   bm3.m_color.m_predefinedColor = kml::PredefinedColor::Green;
   auto const * pBm2 = bmManager.GetEditSession().CreateBookmark(std::move(bm3), cat2);
   TEST_NOT_EQUAL(pBm1->GetGroupId(), pBm2->GetGroupId(), ());
@@ -587,6 +600,8 @@ char const * kmlString2 =
 UNIT_CLASS_TEST(Runner, Bookmarks_InnerFolder)
 {
   BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
+  bmManager.EnableTestMode(true);
+
   BookmarkManager::KMLDataCollection kmlDataCollection;
 
   kmlDataCollection.emplace_back("" /* filePath */,
@@ -600,6 +615,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_InnerFolder)
 UNIT_CLASS_TEST(Runner, BookmarkCategory_EmptyName)
 {
   BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
+  bmManager.EnableTestMode(true);
+
   auto const catId = bmManager.CreateBookmarkCategory("", false /* autoSave */);
   kml::BookmarkData bm;
   bm.m_point = m2::PointD(0, 0);
@@ -643,7 +660,7 @@ char const * kmlString3 =
       return false;
     if (b1.GetScale() != b2.GetScale())
       return false;
-    if (!m2::AlmostEqualULPs(b1.GetPivot(), b2.GetPivot()))
+    if (!my::AlmostEqualAbs(b1.GetPivot(), b2.GetPivot(), 1e-6 /* eps*/))
       return false;
 
     // do not check timestamp
@@ -654,48 +671,68 @@ char const * kmlString3 =
 UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
 {
   BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
-  BookmarkManager::KMLDataCollection kmlDataCollection;
-  kmlDataCollection.emplace_back("" /* filePath */,
+  bmManager.EnableTestMode(true);
+
+  BookmarkManager::KMLDataCollection kmlDataCollection1;
+  kmlDataCollection1.emplace_back("" /* filePath */,
                                  LoadKmlData(MemReader(kmlString3, strlen(kmlString3)), false /* useBinary */));
-  bmManager.CreateCategories(std::move(kmlDataCollection), false /* autoSave */);
+  bmManager.CreateCategories(std::move(kmlDataCollection1), false /* autoSave */);
 
   auto const & groupIds = bmManager.GetBmGroupsIdList();
   TEST_EQUAL(groupIds.size(), 1, ());
+
   auto const catId = groupIds.front();
-  auto const expectedName = "3663 and M & J Seafood Branches";
   TEST_EQUAL(bmManager.GetUserMarkIds(catId).size(), 1, ());
+
+  string expectedName = "3663 and M & J Seafood Branches";
+  TEST_EQUAL(bmManager.GetCategoryName(catId), expectedName, ());
+
+  // change category name to avoid merging it with the second one
+  expectedName = "test";
+  bmManager.GetEditSession().SetCategoryName(catId, expectedName);
+
   TEST(bmManager.SaveBookmarkCategory(catId), ());
 
-  TEST_EQUAL(bmManager.GetCategoryName(catId), expectedName, ());
-  // change category name to avoid merging it with the second one
   auto const fileName = bmManager.GetCategoryFileName(catId);
-  auto editSession = bmManager.GetEditSession();
-  editSession.SetCategoryName(catId, "test");
+  auto const fileNameTmp = fileName + ".backup";
+  TEST(my::CopyFileX(fileName, fileNameTmp), ());
 
-  kmlDataCollection.clear();
-  kmlDataCollection.emplace_back(fileName, LoadKmlFile(fileName, BookmarkManager::IsMigrated()));
-  bmManager.CreateCategories(std::move(kmlDataCollection), false /* autoSave */);
+  bmManager.GetEditSession().DeleteBmCategory(catId);
+
+  BookmarkManager::KMLDataCollection kmlDataCollection2;
+  kmlDataCollection2.emplace_back("" /* filePath */,
+                                  LoadKmlFile(fileNameTmp, BookmarkManager::IsMigrated()));
+  bmManager.CreateCategories(std::move(kmlDataCollection2), false /* autoSave */);
+
+  BookmarkManager::KMLDataCollection kmlDataCollection3;
+  kmlDataCollection3.emplace_back("" /* filePath */,
+                                  LoadKmlData(MemReader(kmlString3, strlen(kmlString3)), false /* useBinary */));
+  bmManager.CreateCategories(std::move(kmlDataCollection3), false /* autoSave */);
+
   TEST_EQUAL(bmManager.GetBmGroupsIdList().size(), 2, ());
-  auto const catId2 = bmManager.GetBmGroupsIdList().back();
+  auto const catId2 = bmManager.GetBmGroupsIdList().front();
+  auto const catId3 = bmManager.GetBmGroupsIdList().back();
 
   TEST_EQUAL(bmManager.GetUserMarkIds(catId2).size(), 1, ());
   TEST_EQUAL(bmManager.GetCategoryName(catId2), expectedName, ());
-  TEST_EQUAL(bmManager.GetCategoryFileName(catId2), fileName, ());
+  TEST_EQUAL(bmManager.GetCategoryFileName(catId2), "", ());
 
-  auto const bmId1 = *bmManager.GetUserMarkIds(catId).begin();
+  auto const bmId1 = *bmManager.GetUserMarkIds(catId2).begin();
   auto const * bm1 = bmManager.GetBookmark(bmId1);
-  auto const bmId2 = *bmManager.GetUserMarkIds(catId2).begin();
+  auto const bmId2 = *bmManager.GetUserMarkIds(catId3).begin();
   auto const * bm2 = bmManager.GetBookmark(bmId2);
   TEST(EqualBookmarks(*bm1, *bm2), ());
   TEST_EQUAL(bm1->GetName(), "![X1]{X2}(X3)", ());
 
-  TEST(my::DeleteFileX(fileName), ());
+  TEST(my::DeleteFileX(fileNameTmp), ());
 }
 
 UNIT_CLASS_TEST(Runner, TrackParsingTest_1)
 {
   string const kmlFile = GetPlatform().TestsDataPathForFile("kml-with-track-kml.test");
   BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
+  bmManager.EnableTestMode(true);
+
   BookmarkManager::KMLDataCollection kmlDataCollection;
   kmlDataCollection.emplace_back(kmlFile, LoadKmlFile(kmlFile, false /* useBinary */));
   TEST(kmlDataCollection.back().second, ("KML can't be loaded"));
@@ -729,6 +766,8 @@ UNIT_CLASS_TEST(Runner, TrackParsingTest_2)
 {
   string const kmlFile = GetPlatform().TestsDataPathForFile("kml-with-track-from-google-earth.test");
   BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
+  bmManager.EnableTestMode(true);
+
   BookmarkManager::KMLDataCollection kmlDataCollection;
   kmlDataCollection.emplace_back(kmlFile, LoadKmlFile(kmlFile, false /* useBinary */));
 
@@ -794,6 +833,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
     onDelete);
 
   BookmarkManager bmManager(std::move(callbacks));
+  bmManager.EnableTestMode(true);
 
   auto const catId = bmManager.CreateBookmarkCategory("Default", false /* autoSave */);
 
@@ -841,11 +881,13 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
 UNIT_CLASS_TEST(Runner, Bookmarks_AutoSave)
 {
   BookmarkManager bmManager((BookmarkManager::Callbacks(bmCallbacks)));
-  kml::BookmarkData data0;
+  bmManager.EnableTestMode(true);
+
   kml::MarkId bmId0;
   auto const catId = bmManager.CreateBookmarkCategory("test");
-  data0.m_point = m2::PointD(0.0, 0.0);
   {
+    kml::BookmarkData data0;
+    data0.m_point = m2::PointD(0.0, 0.0);
     kml::SetDefaultStr(data0.m_name, "name 0");
     auto editSession = bmManager.GetEditSession();
     bmId0 = editSession.CreateBookmark(std::move(data0))->GetId();
