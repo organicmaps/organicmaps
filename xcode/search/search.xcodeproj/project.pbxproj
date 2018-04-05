@@ -297,6 +297,7 @@
 		0831F251200E56100034C365 /* processor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = processor.hpp; sourceTree = "<group>"; };
 		0831F252200E56100034C365 /* data.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = data.hpp; sourceTree = "<group>"; };
 		0831F253200E56100034C365 /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
+		1D4E79A92076190D006B7856 /* libopen_location_code.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libopen_location_code.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		342D83301D5233B3000D8AEA /* hotels_classifier.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hotels_classifier.cpp; sourceTree = "<group>"; };
 		342D83311D5233B3000D8AEA /* hotels_classifier.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = hotels_classifier.hpp; sourceTree = "<group>"; };
 		3441CE4B1CFC1D7000CF30D4 /* processor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = processor.cpp; sourceTree = "<group>"; };
@@ -618,6 +619,7 @@
 		34F558391DBF2E0E00A4FC11 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1D4E79A92076190D006B7856 /* libopen_location_code.a */,
 				3D0AEB041FBB102C00AD042B /* libgenerator_tests_support.a */,
 				3D0AEB051FBB102C00AD042B /* libindexer_tests_support.a */,
 				39B2B9841FB469ED00AB85A1 /* libminizip.a */,

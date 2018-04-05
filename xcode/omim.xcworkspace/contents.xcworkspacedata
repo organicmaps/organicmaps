@@ -187,6 +187,9 @@
       location = "container:"
       name = "3party">
       <FileRef
+         location = "container:open_location_code/open_location_code.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "container:agg/agg.xcodeproj">
       </FileRef>
       <FileRef
