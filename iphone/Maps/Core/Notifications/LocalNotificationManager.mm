@@ -10,8 +10,14 @@
 #include "storage/country_info_getter.hpp"
 #include "storage/storage_helpers.hpp"
 
+#include "map/framework_light.hpp"
+
+#include "platform/network_policy_ios.h"
+
 namespace
 {
+NSString * const kLocalNotificationNameKey = @"LocalNotificationName";
+NSString * const kUGCNotificationValue = @"UGC";
 NSString * const kDownloadMapActionKey = @"DownloadMapActionKey";
 NSString * const kDownloadMapActionName = @"DownloadMapActionName";
 NSString * const kDownloadMapCountryId = @"DownloadMapCountryId";
@@ -20,6 +26,7 @@ NSString * const kFlagsKey = @"DownloadMapNotificationFlags";
 
 NSTimeInterval constexpr kRepeatedNotificationIntervalInSeconds =
     3 * 30 * 24 * 60 * 60;  // three months
+NSString * const kLastUGCNotificationDate = @"LastUGCNotificationDate";
 }  // namespace
 
 using namespace storage;
@@ -29,6 +36,7 @@ using namespace storage;
 @property(nonatomic) CLLocationManager * locationManager;
 @property(copy, nonatomic) CompletionHandler downloadMapCompletionHandler;
 @property(weak, nonatomic) NSTimer * timer;
+@property(copy, nonatomic) MWMVoidBlock onTap;
 
 @end
 
@@ -42,6 +50,40 @@ using namespace storage;
     manager = [[self alloc] init];
   });
   return manager;
+}
+
++ (BOOL)shouldShowUGCNotification
+{
+  if (!network_policy::CanUseNetwork())
+    return NO;
+
+
+  auto ud = [NSUserDefaults standardUserDefaults];
+  if (NSDate * date = [ud objectForKey:kLastUGCNotificationDate])
+  {
+    auto calendar = [NSCalendar currentCalendar];
+    auto components = [calendar components:NSCalendarUnitDay fromDate:date
+                                    toDate:[NSDate date] options:NSCalendarWrapComponents];
+
+    auto constexpr minDaysSinceLast = 5u;
+    if (components.day <= minDaysSinceLast)
+      return NO;
+  }
+
+  using namespace lightweight;
+  lightweight::Framework f(REQUEST_TYPE_NUMBER_OF_UNSENT_UGC | REQUEST_TYPE_USER_AUTH_STATUS);
+  if (f.Get<REQUEST_TYPE_USER_AUTH_STATUS>() || f.Get<REQUEST_TYPE_NUMBER_OF_UNSENT_UGC>() < 2)
+    return NO;
+
+  return YES;
+}
+
++ (void)UGCNotificationWasShown
+{
+  auto ud = [NSUserDefaults standardUserDefaults];
+  [ud setObject:[NSDate date] forKey:kLastUGCNotificationDate];
+  [ud synchronize];
+  [Statistics logEvent:@"UGC_UnsentNotification_shown"];
 }
 
 - (void)dealloc { _locationManager.delegate = nil; }
@@ -68,9 +110,47 @@ using namespace storage;
                      GetFramework().ShowNode(countryId);
                    }];
   }
+  else if ([userInfo[kLocalNotificationNameKey] isEqualToString:kUGCNotificationValue])
+  {
+    if (self.onTap)
+      self.onTap();
+
+   [Statistics logEvent:@"UGC_UnsentNotification_clicked"];
+  }
 }
 
 #pragma mark - Location Notifications
+
+- (BOOL)showUGCNotificationIfNeeded:(MWMVoidBlock)onTap
+{
+  auto application = UIApplication.sharedApplication;
+  auto identifier = UIBackgroundTaskInvalid;
+  auto handler = [&identifier] {
+    [[UIApplication sharedApplication] endBackgroundTask:identifier];
+  };
+
+  identifier = [application beginBackgroundTaskWithExpirationHandler:^{
+    handler();
+  }];
+
+  if (![LocalNotificationManager shouldShowUGCNotification]) {
+    handler();
+    return NO;
+  }
+
+  self.onTap = onTap;
+  UILocalNotification * notification = [[UILocalNotification alloc] init];
+  notification.alertTitle = L(@"notification_unsent_reviews_title");
+  notification.alertBody = L(@"notification_unsent_reviews_message");
+  notification.alertAction = L(@"authorization_button_sign_in");
+  notification.soundName = UILocalNotificationDefaultSoundName;
+  notification.userInfo = @{kLocalNotificationNameKey : kUGCNotificationValue};
+
+  [application presentLocalNotificationNow:notification];
+  [LocalNotificationManager UGCNotificationWasShown];
+  handler();
+  return YES;
+}
 
 - (void)showDownloadMapNotificationIfNeeded:(CompletionHandler)completionHandler
 {

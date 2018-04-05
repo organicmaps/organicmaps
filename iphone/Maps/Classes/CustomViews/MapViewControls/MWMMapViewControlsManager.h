@@ -33,6 +33,8 @@ class Info;
 
 #pragma mark - Layout
 
+- (UIView *)anchorView;
+
 - (void)mwm_refreshUI;
 
 - (void)viewWillTransitionToSize:(CGSize)size

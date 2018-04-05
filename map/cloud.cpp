@@ -1019,7 +1019,7 @@ Cloud::RequestResult Cloud::ExecuteUploading(UploadingResponseData const & respo
     urls.push_back(responseData.m_fallbackUrl);
 
   std::string errorStr;
-  int code;
+  int code = 0;
   for (size_t i = 0; i < urls.size(); ++i)
   {
     platform::HttpUploader request;

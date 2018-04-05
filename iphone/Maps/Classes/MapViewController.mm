@@ -397,6 +397,33 @@ BOOL gIsFirstMyPositionMode = YES;
   [self performSegueWithIdentifier:kPP2BookmarkEditingSegue sender:data];
 }
 
+- (void)showUGCAuth
+{
+  [Statistics logEvent:kStatUGCReviewAuthShown];
+  if (IPAD)
+  {
+    auto controller = [[MWMAuthorizationViewController alloc]
+                       initWithPopoverSourceView:self.controlsManager.anchorView
+                       sourceComponent:MWMAuthorizationSourceUGC
+                       permittedArrowDirections:UIPopoverArrowDirectionDown
+                       successHandler:nil
+                       errorHandler:nil
+                       completionHandler:nil];
+
+    [self presentViewController:controller animated:YES completion:nil];
+    return;
+  }
+
+  auto controller = [[MWMAuthorizationViewController alloc]
+                     initWithBarButtonItem:nil
+                           sourceComponent:MWMAuthorizationSourceUGC
+                            successHandler:nil
+                              errorHandler:nil
+                         completionHandler:nil];
+
+  [self presentViewController:controller animated:YES completion:nil];
+}
+
 - (void)processMyPositionStateModeEvent:(MWMMyPositionMode)mode
 {
   [MWMLocationManager setMyPositionMode:mode];

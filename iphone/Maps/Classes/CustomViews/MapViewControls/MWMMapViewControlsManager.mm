@@ -89,6 +89,11 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 #pragma mark - Layout
 
+- (UIView *)anchorView
+{
+  return self.menuController.view;
+}
+
 - (void)mwm_refreshUI
 {
   [self.trafficButton mwm_refreshUI];

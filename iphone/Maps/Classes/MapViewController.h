@@ -24,6 +24,7 @@
 - (void)openEditor;
 - (void)openHotelFacilities;
 - (void)openBookmarkEditorWithData:(MWMPlacePageData *)data;
+- (void)showUGCAuth;
 
 - (void)setPlacePageTopBound:(CGFloat)bound;
 
