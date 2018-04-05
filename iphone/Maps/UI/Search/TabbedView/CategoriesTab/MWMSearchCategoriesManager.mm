@@ -66,11 +66,13 @@ static NSString * const kFifa18Category = @"fc2018";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSString * string = @(m_categories[indexPath.row].c_str());
+  auto query = [[string isEqualToString:kFifa18Category] ? kFifa18Category : L(string)
+                                                           stringByAppendingString:@" "];
+
   [Statistics logEvent:kStatEventName(kStatSearch, kStatSelectResult)
         withParameters:@{kStatValue : string, kStatScreen : kStatCategories}];
   id<MWMSearchTabbedViewProtocol> delegate = self.delegate;
-  [delegate searchText:[L(string) stringByAppendingString:@" "]
-        forInputLocale:[[AppInfo sharedInfo] languageId]];
+  [delegate searchText:query forInputLocale:[[AppInfo sharedInfo] languageId]];
   [delegate dismissKeyboard];
 
   auto doWork = ^(NSString * param) {
