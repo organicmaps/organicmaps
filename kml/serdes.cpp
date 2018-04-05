@@ -605,19 +605,32 @@ void KmlParser::ParseColor(std::string const & value)
   m_color = ToRGBA(fromHex[3], fromHex[2], fromHex[1], fromHex[0]);
 }
 
-bool KmlParser::GetColorForStyle(std::string const & styleUrl, uint32_t & color)
+bool KmlParser::GetColorForStyle(std::string const & styleUrl, uint32_t & color) const
 {
   if (styleUrl.empty())
     return false;
 
   // Remove leading '#' symbol
   auto const it = m_styleUrl2Color.find(styleUrl.substr(1));
-  if (it != m_styleUrl2Color.end())
+  if (it != m_styleUrl2Color.cend())
   {
     color = it->second;
     return true;
   }
   return false;
+}
+
+double KmlParser::GetTrackWidthForStyle(std::string const & styleUrl) const
+{
+  if (styleUrl.empty())
+    return kDefaultTrackWidth;
+
+  // Remove leading '#' symbol
+  auto const it = m_styleUrl2Width.find(styleUrl.substr(1));
+  if (it != m_styleUrl2Width.cend())
+    return it->second;
+
+  return kDefaultTrackWidth;
 }
 
 bool KmlParser::Push(std::string const & name)
@@ -701,12 +714,18 @@ void KmlParser::Pop(std::string const & tag)
       if (!m_styleId.empty())
       {
         m_styleUrl2Color[m_styleId] = m_color;
+        m_styleUrl2Width[m_styleId] = m_trackWidth;
         m_color = 0;
+        m_trackWidth = kDefaultTrackWidth;
       }
     }
   }
-  else if (tag == "mwm:additionalLineStyle" || tag == "LineStyle")
+  else if ((tag == "LineStyle" && m_tags.size() > 2 && GetTagFromEnd(2) == kPlacemark) ||
+           (tag == "mwm:additionalLineStyle" && m_tags.size() > 3 && GetTagFromEnd(3) == kPlacemark))
   {
+    // This code assumes that <Style> is stored inside <Placemark>.
+    // It is a violation of KML format, but it must be here to support
+    // loading of KML files which were stored by older versions of MAPS.ME.
     TrackLayer layer;
     layer.m_lineWidth = m_trackWidth;
     layer.m_color.m_predefinedColor = PredefinedColor::None;
@@ -815,12 +834,12 @@ void KmlParser::CharData(std::string value)
       {
         m_name[kDefaultLang] = value;
       }
-      else if (currTag == "styleUrl")
+      else if (currTag == kStyleUrl)
       {
         // Bookmark draw style.
         m_predefinedColor = ExtractPlacemarkPredefinedColor(value);
 
-        // Check if url is in styleMap map.
+        // Track draw style.
         if (!GetColorForStyle(value, m_color))
         {
           // Remove leading '#' symbol.
@@ -828,6 +847,11 @@ void KmlParser::CharData(std::string value)
           if (!styleId.empty())
             GetColorForStyle(styleId, m_color);
         }
+        TrackLayer layer;
+        layer.m_lineWidth = GetTrackWidthForStyle(value);
+        layer.m_color.m_predefinedColor = PredefinedColor::None;
+        layer.m_color.m_rgba = m_color;
+        m_trackLayers.push_back(std::move(layer));
       }
       else if (currTag == "description")
       {
