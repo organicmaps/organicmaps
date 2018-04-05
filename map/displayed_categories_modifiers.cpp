@@ -3,6 +3,7 @@
 #include "base/macros.hpp"
 
 #include <algorithm>
+#include <vector>
 
 namespace
 {
@@ -12,6 +13,29 @@ std::unordered_set<std::string> const kLuggageHeroesSupportedCities{"London", "N
 std::unordered_set<std::string> const kFc2018SupportedCities{
     "Moscow", "Saint Petersburg", "Kazan",         "Yekaterinburg", "Saransk",        "Samara",
     "Sochi",  "Volgograd",        "Rostov-on-Don", "Kaliningrad",   "Nizhny Novgorod"};
+  
+std::string const kLuggageHeroCategory = "luggagehero";
+std::string const kFc2018Category = "fc2018";
+
+std::vector<std::string> const kSponsoredCategories = {kLuggageHeroCategory, kFc2018Category};
+
+search::DisplayedCategories::Keys::const_iterator FindInsertionPlace(
+    search::DisplayedCategories::Keys & keys, uint32_t position)
+{
+  for (auto it = keys.cbegin(); it != keys.cend(); ++it)
+  {
+    if (position == 0)
+      return it;
+
+    // Do not count sponsored categories.
+    if (std::find(kSponsoredCategories.cbegin(), kSponsoredCategories.cend(), *it) ==
+        kSponsoredCategories.cend())
+    {
+      position--;
+    }
+  }
+  return keys.cend();
+}
 }  // namespace
 
 SponsoredCategoryModifier::SponsoredCategoryModifier(std::string const & currentCity,
@@ -32,16 +56,16 @@ void SponsoredCategoryModifier::Modify(search::DisplayedCategories::Keys & keys)
   ASSERT_LESS(m_position, keys.size(), ());
 
   if (supported && !contains)
-    keys.insert(keys.cbegin() + m_position, m_categoryName);
+    keys.insert(FindInsertionPlace(keys, m_position), m_categoryName);
   else if (!supported && contains)
     keys.erase(std::remove(keys.begin(), keys.end(), m_categoryName), keys.end());
 }
 
 LuggageHeroModifier::LuggageHeroModifier(std::string const & currentCity)
-  : SponsoredCategoryModifier(currentCity, kLuggageHeroesSupportedCities, "luggagehero",
+  : SponsoredCategoryModifier(currentCity, kLuggageHeroesSupportedCities, kLuggageHeroCategory,
                               4 /* position */)
 {}
 
 Fc2018Modifier::Fc2018Modifier(std::string const & currentCity)
-  : SponsoredCategoryModifier(currentCity, kFc2018SupportedCities, "fc2018", 3 /* position */)
+  : SponsoredCategoryModifier(currentCity, kFc2018SupportedCities, kFc2018Category, 3 /* position */)
 {}
