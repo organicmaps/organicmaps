@@ -11001,6 +11001,329 @@ cont {
   }
 }
 cont {
+  name: "event-fc2018"
+  element {
+    scale: 13
+    symbol {
+      name: "wfc_stadium"
+      apply_for_type: 1
+      priority: 16000
+      min_distance: 16
+    }
+    apply_if: "extra_tag=leisure=stadium"
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "wfc_stadium"
+      apply_for_type: 1
+      priority: 16000
+      min_distance: 16
+    }
+    apply_if: "extra_tag=leisure=stadium"
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "wfc_ticket"
+      priority: 16000
+      min_distance: 10
+    }
+    apply_if: "extra_tag=shop=ticket"
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "wfc_fanzone"
+      priority: 16000
+      min_distance: 10
+    }
+    apply_if: "extra_tag=olympics=live_site "
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "wfc_fanzone"
+      priority: 16000
+      min_distance: 10
+    }
+    apply_if: "extra_tag=shop=gift"
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "wfc_stadium"
+      apply_for_type: 1
+      priority: 16000
+      min_distance: 12
+    }
+    apply_if: "extra_tag=leisure=stadium"
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "wfc_ticket"
+      priority: 16000
+      min_distance: 10
+    }
+    apply_if: "extra_tag=shop=ticket"
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "wfc_fanzone"
+      priority: 16000
+      min_distance: 10
+    }
+    apply_if: "extra_tag=olympics=live_site "
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "wfc_fanzone"
+      priority: 16000
+      min_distance: 10
+    }
+    apply_if: "extra_tag=shop=gift"
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "wfc_stadium"
+      apply_for_type: 1
+      priority: 16000
+      min_distance: 12
+    }
+    apply_if: "extra_tag=leisure=stadium"
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "wfc_ticket"
+      priority: 16000
+      min_distance: 10
+    }
+    apply_if: "extra_tag=shop=ticket"
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "wfc_fanzone"
+      priority: 16000
+      min_distance: 10
+    }
+    apply_if: "extra_tag=olympics=live_site "
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "wfc_fanzone"
+      priority: 16000
+      min_distance: 10
+    }
+    apply_if: "extra_tag=shop=gift"
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "wfc_stadium"
+      apply_for_type: 1
+      priority: 16000
+      min_distance: 12
+    }
+    apply_if: "extra_tag=leisure=stadium"
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "wfc_ticket"
+      priority: 16000
+      min_distance: 10
+    }
+    apply_if: "extra_tag=shop=ticket"
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "wfc_fanzone"
+      priority: 16000
+      min_distance: 10
+    }
+    apply_if: "extra_tag=olympics=live_site "
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "wfc_fanzone"
+      priority: 16000
+      min_distance: 10
+    }
+    apply_if: "extra_tag=shop=gift"
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "wfc_stadium"
+      apply_for_type: 1
+      priority: 16000
+      min_distance: 12
+    }
+    apply_if: "extra_tag=leisure=stadium"
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "wfc_ticket"
+      priority: 16000
+      min_distance: 10
+    }
+    apply_if: "extra_tag=shop=ticket"
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "wfc_fanzone"
+      priority: 16000
+      min_distance: 10
+    }
+    apply_if: "extra_tag=olympics=live_site "
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "wfc_fanzone"
+      priority: 16000
+      min_distance: 10
+    }
+    apply_if: "extra_tag=shop=gift"
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "wfc_stadium"
+      apply_for_type: 1
+      priority: 16000
+      min_distance: 12
+    }
+    apply_if: "extra_tag=leisure=stadium"
+  }
+}
+cont {
+  name: "event-fc2018_city"
+  element {
+    scale: 6
+    symbol {
+      name: "wfc_city"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 7
+    symbol {
+      name: "wfc_city"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 8
+    symbol {
+      name: "wfc_city"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 9
+    symbol {
+      name: "wfc_city"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 10
+    symbol {
+      name: "wfc_city"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 11
+    symbol {
+      name: "wfc_city"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 12
+    symbol {
+      name: "wfc_city"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "wfc_city"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "wfc_city"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "wfc_city"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "wfc_city"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "wfc_city"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "wfc_city"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "wfc_city"
+      apply_for_type: 1
+      priority: 16000
+    }
+  }
+}
+cont {
   name: "highway-bridleway"
   element {
     scale: 14
