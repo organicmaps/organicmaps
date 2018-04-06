@@ -86,7 +86,7 @@ UNIT_TEST(Test_SymbolsConsistency)
 
   bool res = true;
 
-  string const densities[] = { "mdpi", "hdpi", "xhdpi", "xxhdpi", "6plus" };
+  string const densities[] = { "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi", "6plus" };
 
   styles::RunForEveryMapStyle([&](MapStyle mapStyle)
   {

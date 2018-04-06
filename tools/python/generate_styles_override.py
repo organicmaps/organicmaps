@@ -16,7 +16,7 @@ def copy_style_file(style_path, drules_suffix, target_path):
         return
     shutil.copyfile(drules_proto_path, os.path.join(target_path, 'drules_proto' + drules_suffix + '.bin'))
 
-    for density in ['6plus', 'hdpi', 'mdpi', 'xhdpi', 'xxhdpi']:
+    for density in ['6plus', 'hdpi', 'mdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi']:
         res_path = os.path.join(style_path, 'resources-' + density + "_design")
         if os.path.exists(res_path):
             shutil.copytree(res_path, os.path.join(target_path, 'resources-' + density + drules_suffix))

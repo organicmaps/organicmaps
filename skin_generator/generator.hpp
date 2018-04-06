@@ -7,11 +7,6 @@
 
 #include "base/base.hpp"
 
-#include "std/vector.hpp"
-#include "std/list.hpp"
-#include "std/string.hpp"
-#include "std/map.hpp"
-
 #include <QtGui/QPainter>
 #include <QtGui/QImage>
 #include <QtCore/QFileInfo>
@@ -20,61 +15,60 @@
 #include <QtXml/QXmlContentHandler>
 #include <QtXml/QXmlDefaultHandler>
 
+#include <cstdint>
+#include <map>
+#include <string>
+#include <vector>
+
 class QImage;
 
 namespace tools
 {
-  class SkinGenerator
+class SkinGenerator
+{
+public:
+  struct SymbolInfo
   {
-  public:
-      struct SymbolInfo
-      {
-        QSize m_size;
-        QString m_fullFileName;
-        QString m_symbolID;
+    QSize m_size;
+    QString m_fullFileName;
+    QString m_symbolID;
 
-        m2::Packer::handle_t m_handle;
+    m2::Packer::handle_t m_handle;
 
-        SymbolInfo() {}
-        SymbolInfo(QSize size, QString const & fullFileName, QString const & symbolID)
-          : m_size(size), m_fullFileName(fullFileName), m_symbolID(symbolID) {}
-      };
+    SymbolInfo() {}
+    SymbolInfo(QSize size, QString const & fullFileName, QString const & symbolID)
+      : m_size(size), m_fullFileName(fullFileName), m_symbolID(symbolID)
+    {}
+  };
 
-      typedef vector<SymbolInfo> TSymbols;
+  using TSymbols = std::vector<SymbolInfo>;
 
-      struct SkinPageInfo
-      {
-        TSymbols m_symbols;
-        uint32_t m_width;
-        uint32_t m_height;
-        string m_fileName;
-        string m_dir;
-        string m_suffix;
-        m2::Packer m_packer;
-      };
+  struct SkinPageInfo
+  {
+    TSymbols m_symbols;
+    uint32_t m_width = 0;
+    uint32_t m_height = 0;
+    std::string m_fileName;
+    std::string m_dir;
+    std::string m_suffix;
+    m2::Packer m_packer;
+  };
 
-  private:
+  explicit SkinGenerator(bool needColorCorrection);
 
-      bool m_needColorCorrection;
+  void ProcessSymbols(std::string const & symbolsDir, std::string const & skinName,
+                      std::vector<QSize> const & symbolSizes,
+                      std::vector<std::string> const & suffix);
+  bool RenderPages(uint32_t maxSize);
+  bool WriteToFileNewStyle(std::string const & skinName);
 
-      QSvgRenderer m_svgRenderer;
+private:
+  bool m_needColorCorrection;
+  QSvgRenderer m_svgRenderer;
+  using TSkinPages = std::vector<SkinPageInfo>;
+  TSkinPages m_pages;
+  bool m_overflowDetected;
 
-      typedef vector<SkinPageInfo> TSkinPages;
-      TSkinPages m_pages;
-
-      bool m_overflowDetected;
-      void markOverflow();
-
-  public:
-
-      SkinGenerator(bool needColorCorrection);
-      //void processFont(string const & fileName, string const & skinName, vector<int8_t> const & fontSizes, int symbolScale);
-      void processSymbols(string const & symbolsDir,
-                          string const & skinName,
-                          vector<QSize> const & symbolSizes,
-                          vector<string> const & suffix);
-      bool renderPages(uint32_t maxSize);
-      bool writeToFile(string const & skinName);
-      void writeToFileNewStyle(string const & skinName);
-    };
-} // namespace tools
+  void MarkOverflow();
+};
+}  // namespace tools

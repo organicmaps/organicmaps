@@ -20,6 +20,7 @@ public:
     NavigationLayer,
     TransitMarkLayer,
     RoutingMarkLayer,
+    SearchMarkLayer,
     GuiLayer,
     LayersCount
   };

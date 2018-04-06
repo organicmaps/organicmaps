@@ -1228,6 +1228,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     RenderUserMarksLayer(modelView, RenderState::UserMarkLayer);
     RenderUserMarksLayer(modelView, RenderState::TransitMarkLayer);
     RenderUserMarksLayer(modelView, RenderState::RoutingMarkLayer);
+    RenderSearchMarksLayer(modelView);
   }
 
   m_myPositionController->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
@@ -1359,17 +1360,40 @@ void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)
   GLFunctions::glDisable(gl_const::GLDepthTest);
 }
 
-void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, RenderState::DepthLayer layerId)
+void FrontendRenderer::RenderUserMarksLayer(ScreenBase const & modelView, RenderState::DepthLayer layerId,
+                                            bool enableDepthTest)
 {
   auto & renderGroups = m_layers[layerId].m_renderGroups;
   if (renderGroups.empty())
     return;
 
-  GLFunctions::glEnable(gl_const::GLDepthTest);
-  GLFunctions::glClear(gl_const::GLDepthBit);
+  if (enableDepthTest)
+  {
+    GLFunctions::glEnable(gl_const::GLDepthTest);
+    GLFunctions::glClear(gl_const::GLDepthBit);
+  }
+  else
+  {
+    GLFunctions::glDisable(gl_const::GLDepthTest);
+  }
+
   for (drape_ptr<RenderGroup> & group : renderGroups)
     RenderSingleGroup(modelView, make_ref(group));
-  GLFunctions::glDisable(gl_const::GLDepthTest);
+
+  if (enableDepthTest)
+    GLFunctions::glDisable(gl_const::GLDepthTest);
+}
+
+void FrontendRenderer::RenderSearchMarksLayer(ScreenBase const & modelView)
+{
+  auto & layer = m_layers[RenderState::SearchMarkLayer];
+  layer.Sort(nullptr);
+  for (drape_ptr<RenderGroup> & group : layer.m_renderGroups)
+  {
+    group->SetOverlayVisibility(true);
+    group->Update(modelView);
+  }
+  RenderUserMarksLayer(modelView, RenderState::SearchMarkLayer, false /* enableDepthTest */);
 }
 
 void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
@@ -2148,7 +2172,8 @@ void FrontendRenderer::RenderLayer::Sort(ref_ptr<dp::OverlayTree> overlayTree)
 
   while (!m_renderGroups.empty() && m_renderGroups.back()->CanBeDeleted())
   {
-    m_renderGroups.back()->RemoveOverlay(overlayTree);
+    if (overlayTree)
+      m_renderGroups.back()->RemoveOverlay(overlayTree);
     m_renderGroups.pop_back();
   }
 }

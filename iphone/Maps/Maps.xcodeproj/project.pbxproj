@@ -340,6 +340,8 @@
 		34F73FA31E08300E00AC1FD6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34F73FA11E08300E00AC1FD6 /* Images.xcassets */; };
 		34F742321E0834F400AC1FD6 /* UIViewController+Navigation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F742301E0834F400AC1FD6 /* UIViewController+Navigation.mm */; };
 		34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */; };
+		4501B1942077C35A001B9173 /* resources-xxxhdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 4501B1922077C35A001B9173 /* resources-xxxhdpi_clear */; };
+		4501B1952077C35A001B9173 /* resources-xxxhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4501B1932077C35A001B9173 /* resources-xxxhdpi_dark */; };
 		4554B6EC1E55F0EF0084017F /* drules_proto_vehicle_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */; };
 		4554B6EE1E55F0F30084017F /* drules_proto_vehicle_dark.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */; };
 		4586D0C41F48121A00DF9CE5 /* libbsdiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4586D0C31F48121A00DF9CE5 /* libbsdiff.a */; };
@@ -1260,6 +1262,8 @@
 		34FE4C441BCC013500066718 /* MWMMapWidgets.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapWidgets.mm; sourceTree = "<group>"; };
 		34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrafficButtonArea.swift; sourceTree = "<group>"; };
 		3DDB4BC31DAB98F000F4D021 /* libpartners_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartners_api.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libpartners_api.a"; sourceTree = "<group>"; };
+		4501B1922077C35A001B9173 /* resources-xxxhdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxxhdpi_clear"; path = "../../data/resources-xxxhdpi_clear"; sourceTree = "<group>"; };
+		4501B1932077C35A001B9173 /* resources-xxxhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxxhdpi_dark"; path = "../../data/resources-xxxhdpi_dark"; sourceTree = "<group>"; };
 		450703081E9E6CF000E8C029 /* local_ads_symbols.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = local_ads_symbols.txt; path = ../../data/local_ads_symbols.txt; sourceTree = "<group>"; };
 		451950391B7A3E070085DA05 /* patterns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = patterns.txt; path = ../../data/patterns.txt; sourceTree = "<group>"; };
 		452FCA3A1B6A3DF7007019AB /* colors.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = colors.txt; path = ../../data/colors.txt; sourceTree = "<group>"; };
@@ -3877,39 +3881,6 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BB25B1A51FB32767007276FA /* transit_colors.txt */,
-				F642D1221F0F9D1D005E3C25 /* ugc_types.csv */,
-				450703081E9E6CF000E8C029 /* local_ads_symbols.txt */,
-				BB7626B41E8559980031D71C /* icudt57l.dat */,
-				4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */,
-				4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */,
-				F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */,
-				6B9978341C89A316003B8AA0 /* editor.config */,
-				671182DE1C7F0DD400CB8177 /* countries_obsolete.txt */,
-				671182DF1C7F0DD400CB8177 /* packed_polygons_obsolete.bin */,
-				671182E01C7F0DD400CB8177 /* WorldCoasts_obsolete.mwm */,
-				3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */,
-				3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */,
-				4A23D1561B8B4DD700D4EB6F /* drules_proto_clear.bin */,
-				4A23D1571B8B4DD700D4EB6F /* resources-6plus_clear */,
-				4A23D1581B8B4DD700D4EB6F /* resources-mdpi_clear */,
-				F607C1831C032A8800B53A87 /* resources-hdpi_clear */,
-				4A23D1591B8B4DD700D4EB6F /* resources-xhdpi_clear */,
-				4A23D15A1B8B4DD700D4EB6F /* resources-xxhdpi_clear */,
-				4A7D89C11B2EBF3B00AC843E /* resources-6plus_dark */,
-				4A7D89C21B2EBF3B00AC843E /* resources-mdpi_dark */,
-				F607C1841C032A8800B53A87 /* resources-hdpi_dark */,
-				4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */,
-				4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */,
-				A367C93A1B17334800E2B6E7 /* resources-default */,
-				4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */,
-				97A5967E19B9CD47007A963F /* copyright.html */,
-				978D4A30199A11E600D72CA7 /* faq.html */,
-				FAAEA7D0161BD26600CCD661 /* synonyms.txt */,
-				FAAFD696139D9BE2000AE70C /* categories.txt */,
-				FA64D9A813F975AD00350ECF /* types.txt */,
-				452FCA3A1B6A3DF7007019AB /* colors.txt */,
-				451950391B7A3E070085DA05 /* patterns.txt */,
 				EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */,
 				9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */,
 				EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */,
@@ -3917,15 +3888,50 @@
 				EEA615E9134C4968003A9827 /* 05_khmeros.ttf */,
 				EE164810135CEE49003B8A3E /* 06_code2000.ttf */,
 				FAF30A94173AB23900818BF6 /* 07_roboto_medium.ttf */,
-				FAFF42291347F101009BBB14 /* World.mwm */,
-				FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */,
+				FAAFD696139D9BE2000AE70C /* categories.txt */,
+				EE026F0511D6AC0D00645242 /* classificator.txt */,
+				452FCA3A1B6A3DF7007019AB /* colors.txt */,
+				97A5967E19B9CD47007A963F /* copyright.html */,
+				671182DE1C7F0DD400CB8177 /* countries_obsolete.txt */,
+				FA46DA2B12D4166E00968C36 /* countries.txt */,
+				4A23D1561B8B4DD700D4EB6F /* drules_proto_clear.bin */,
+				4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */,
+				4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */,
+				4554B6E91E55F02B0084017F /* drules_proto_vehicle_dark.bin */,
+				6B9978341C89A316003B8AA0 /* editor.config */,
+				978D4A30199A11E600D72CA7 /* faq.html */,
 				EEFE7C1212F8C9E1006AF8C3 /* fonts_blacklist.txt */,
 				EEFE7C1312F8C9E1006AF8C3 /* fonts_whitelist.txt */,
-				EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */,
-				FA46DA2B12D4166E00968C36 /* countries.txt */,
-				FA85F632145DDDC20090E1A0 /* packed_polygons.bin */,
-				EE026F0511D6AC0D00645242 /* classificator.txt */,
+				BB7626B41E8559980031D71C /* icudt57l.dat */,
+				450703081E9E6CF000E8C029 /* local_ads_symbols.txt */,
 				3495433C1EB22D9600F08F73 /* MPAdBrowserController.xib */,
+				F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */,
+				671182DF1C7F0DD400CB8177 /* packed_polygons_obsolete.bin */,
+				FA85F632145DDDC20090E1A0 /* packed_polygons.bin */,
+				451950391B7A3E070085DA05 /* patterns.txt */,
+				4A23D1571B8B4DD700D4EB6F /* resources-6plus_clear */,
+				4A7D89C11B2EBF3B00AC843E /* resources-6plus_dark */,
+				A367C93A1B17334800E2B6E7 /* resources-default */,
+				F607C1831C032A8800B53A87 /* resources-hdpi_clear */,
+				F607C1841C032A8800B53A87 /* resources-hdpi_dark */,
+				4A23D1581B8B4DD700D4EB6F /* resources-mdpi_clear */,
+				4A7D89C21B2EBF3B00AC843E /* resources-mdpi_dark */,
+				4A23D1591B8B4DD700D4EB6F /* resources-xhdpi_clear */,
+				4A7D89C31B2EBF3B00AC843E /* resources-xhdpi_dark */,
+				4A23D15A1B8B4DD700D4EB6F /* resources-xxhdpi_clear */,
+				4A7D89C41B2EBF3B00AC843E /* resources-xxhdpi_dark */,
+				4501B1922077C35A001B9173 /* resources-xxxhdpi_clear */,
+				4501B1932077C35A001B9173 /* resources-xxxhdpi_dark */,
+				FAAEA7D0161BD26600CCD661 /* synonyms.txt */,
+				BB25B1A51FB32767007276FA /* transit_colors.txt */,
+				3476B8DF1BFDD33A00874594 /* tts-how-to-set-up-voice-img */,
+				3476B8D51BFDD30B00874594 /* tts-how-to-set-up-voice.html */,
+				FA64D9A813F975AD00350ECF /* types.txt */,
+				F642D1221F0F9D1D005E3C25 /* ugc_types.csv */,
+				EE583CBA12F773F00042CBE3 /* unicode_blocks.txt */,
+				FAFF42291347F101009BBB14 /* World.mwm */,
+				671182E01C7F0DD400CB8177 /* WorldCoasts_obsolete.mwm */,
+				FA459EB314327AF700B5BB3C /* WorldCoasts.mwm */,
 			);
 			name = "External Resources";
 			sourceTree = "<group>";
@@ -4126,6 +4132,7 @@
 				34EE25A61EFA6AD400F870AB /* ViatorElement.xib in Resources */,
 				F6E2FD951E097BA00083EBEC /* MWMBookmarkColorViewController.xib in Resources */,
 				F6E2FD9B1E097BA00083EBEC /* MWMBookmarkTitleCell.xib in Resources */,
+				4501B1942077C35A001B9173 /* resources-xxxhdpi_clear in Resources */,
 				349D1AD21E2E325B004A2006 /* MWMBottomMenuCollectionViewLandscapeCell.xib in Resources */,
 				3467CEB7202C6FA900D3C670 /* BMCNotificationsCell.xib in Resources */,
 				349D1AD51E2E325B004A2006 /* MWMBottomMenuCollectionViewPortraitCell.xib in Resources */,
@@ -4224,6 +4231,7 @@
 				F6E2FF421E097BA00083EBEC /* MWMSearchTableViewController.xib in Resources */,
 				34AB66681FC5AA330078E451 /* TransportTransitPedestrian.xib in Resources */,
 				F6E2FEEE1E097BA00083EBEC /* MWMSearchView.xib in Resources */,
+				4501B1952077C35A001B9173 /* resources-xxxhdpi_dark in Resources */,
 				F6D67CDE2062BBA60032FD38 /* MWMBCCreateCategoryAlert.xib in Resources */,
 				344532511F714FD70059FBCC /* UGCAddReviewController.xib in Resources */,
 				3490D2E31CE9DD2500D0B838 /* MWMSideButtonsView.xib in Resources */,

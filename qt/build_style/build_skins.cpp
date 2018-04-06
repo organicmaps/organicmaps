@@ -22,6 +22,7 @@ enum SkinType
   SkinXHDPI,
   SkinXXHDPI,
   Skin6Plus,
+  SkinXXXHDPI,
 
   // SkinCount MUST BE last
   SkinCount
@@ -35,6 +36,7 @@ SkinInfo const g_skinInfo[SkinCount] =
   std::make_tuple("xhdpi", 36, false),
   std::make_tuple("xxhdpi", 54, false),
   std::make_tuple("6plus", 54, false),
+  std::make_tuple("xxxhdpi", 64, false),
 };
 
 std::array<SkinType, SkinCount> const g_skinTypes =
@@ -43,7 +45,8 @@ std::array<SkinType, SkinCount> const g_skinTypes =
   SkinHDPI,
   SkinXHDPI,
   SkinXXHDPI,
-  Skin6Plus
+  Skin6Plus,
+  SkinXXXHDPI,
 }};
 
 inline const char * SkinSuffix(SkinType s) { return std::get<0>(g_skinInfo[s]); }

@@ -217,6 +217,7 @@ void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta)
     for (auto i = 0; i < pricing; i++)
       pricingStr.append(kPricingSymbol);
 
+    meta.m_hotelPricing = pricing;
     meta.m_hotelApproximatePricing = pricingStr;
   }
 

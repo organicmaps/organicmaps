@@ -224,6 +224,7 @@ if (BUILD_DESIGNER)
     COMMAND cp -rf ${OMIM_ROOT}/data/resources-xhdpi_clear/ ${OMIM_ROOT}/data/resources-xhdpi_design/
     COMMAND cp -rf ${OMIM_ROOT}/data/resources-xxhdpi_clear/ ${OMIM_ROOT}/data/resources-xxhdpi_design/
     COMMAND cp -rf ${OMIM_ROOT}/data/resources-6plus_clear/ ${OMIM_ROOT}/data/resources-6plus_design/
+    COMMAND cp -rf ${OMIM_ROOT}/data/resources-xxxhdpi_clear/ ${OMIM_ROOT}/data/resources-xxxhdpi_design/
     COMMAND cp -f ${OMIM_ROOT}/data/drules_proto_clear.bin ${OMIM_ROOT}/data/drules_proto_design.bin
     COMMAND cp -f ${OMIM_ROOT}/data/colors.txt ${OMIM_ROOT}/data/colors_design.txt
     COMMAND cp -f ${OMIM_ROOT}/data/patterns.txt ${OMIM_ROOT}/data/patterns_design.txt
@@ -239,6 +240,7 @@ if (BUILD_DESIGNER)
     resources-hdpi_design
     resources-xhdpi_design
     resources-xxhdpi_design
+    resources-xxxhdpi_design
     resources-6plus_design
   )
 

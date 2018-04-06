@@ -39,6 +39,7 @@ public:
   void CollectOverlayHandles(ref_ptr<OverlayTree> tree);
   bool HasOverlayHandles() const;
   void RemoveOverlayHandles(ref_ptr<OverlayTree> tree);
+  void SetOverlayVisibility(bool isVisible);
   void Render(bool drawAsLine);
 
   // Only for testing! Don't use this function in production code!

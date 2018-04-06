@@ -38,6 +38,7 @@ double const VisualParams::kHdpiScale = 1.5;
 double const VisualParams::kXhdpiScale = 2.0;
 double const VisualParams::k6plusScale = 2.4;
 double const VisualParams::kXxhdpiScale = 3.0;
+double const VisualParams::kXxxhdpiScale = 3.5;
 
 void VisualParams::Init(double vs, uint32_t tileSize)
 {
@@ -91,8 +92,9 @@ string const & VisualParams::GetResourcePostfix(double visualScale)
     make_pair("mdpi", kMdpiScale),
     make_pair("hdpi", kHdpiScale),
     make_pair("xhdpi", kXhdpiScale),
-    make_pair("xxhdpi", kXxhdpiScale),
     make_pair("6plus", k6plusScale),
+    make_pair("xxhdpi", kXxhdpiScale),
+    make_pair("xxxhdpi", kXxxhdpiScale),
   };
 
   // Looking for the nearest available scale.

@@ -90,6 +90,12 @@ void RenderBucket::RemoveOverlayHandles(ref_ptr<OverlayTree> tree)
     tree->Remove(make_ref(overlayHandle));
 }
 
+void RenderBucket::SetOverlayVisibility(bool isVisible)
+{
+  for (auto const & overlayHandle : m_overlay)
+    overlayHandle->SetIsVisible(isVisible);
+}
+
 void RenderBucket::Render(bool drawAsLine)
 {
   ASSERT(m_buffer != nullptr, ());

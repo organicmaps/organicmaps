@@ -18,6 +18,7 @@ public:
   static double const kXhdpiScale;
   static double const k6plusScale;
   static double const kXxhdpiScale;
+  static double const kXxxhdpiScale;
 
   static void Init(double vs, uint32_t tileSize);
   static VisualParams & Instance();

@@ -61,6 +61,7 @@ public:
   void CollectOverlay(ref_ptr<dp::OverlayTree> tree);
   bool HasOverlayHandles() const;
   void RemoveOverlay(ref_ptr<dp::OverlayTree> tree);
+  void SetOverlayVisibility(bool isVisible);
   void Render(ScreenBase const & screen) override;
 
   void AddBucket(drape_ptr<dp::RenderBucket> && bucket);

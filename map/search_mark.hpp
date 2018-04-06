@@ -26,9 +26,12 @@ class BookmarkManager;
 class SearchMarkPoint : public UserMark
 {
 public:
-  SearchMarkPoint(m2::PointD const & ptOrg);
+  explicit SearchMarkPoint(m2::PointD const & ptOrg);
 
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
+  df::ColorConstant GetColorConstant() const override;
+  drape_ptr<TitlesInfo> GetTitleDecl() const override;
+  df::RenderState::DepthLayer GetDepthLayer() const override;
 
   FeatureID GetFeatureID() const override { return m_featureID; }
   void SetFoundFeature(FeatureID const & feature);
@@ -37,8 +40,9 @@ public:
   void SetMatchedName(std::string const & name);
 
   void SetMarkType(SearchMarkType type);
-
   void SetPreparing(bool isPreparing);
+  void SetRating(float rating);
+  void SetPricing(int pricing);
 
 protected:
   template<typename T> void SetAttributeValue(T & dst, T const & src)
@@ -55,6 +59,9 @@ protected:
   // Used to pass exact search result matched string into a place page.
   std::string m_matchedName;
   bool m_isPreparing = false;
+  float m_rating = 0.0f;
+  int m_pricing = 0;
+  dp::TitleDecl m_titleDecl;
 };
 
 class SearchMarks

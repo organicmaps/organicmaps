@@ -58,6 +58,7 @@ function BuildSkin() {
   else
     COLOR_CORR=
   fi
+
   "$SKIN_GENERATOR" --symbolWidth $symbolSize --symbolHeight $symbolSize --symbolsDir "$STYLE_PATH/$symbolsFolder" \
       --skinName "$DATA_PATH/resources-$resourceName$suffix/basic" --skinSuffix="$symbolsSuffix" $COLOR_CORR
   # Reset environment
@@ -65,7 +66,7 @@ function BuildSkin() {
 }
 
 # Cleanup
-cleanup=(resources-{{6plus,mdpi,hdpi,xhdpi,xxhdpi}{_dark,_clear}})
+cleanup=(resources-{{6plus,mdpi,hdpi,xhdpi,xxhdpi,xxxhdpi}{_dark,_clear}})
 for item in ${cleanup[*]}
 do
   rm -rf "$DATA_PATH/$item" || true
@@ -74,34 +75,38 @@ done
 
 # Build styles
 
-BuildSkin clear  night mdpi   18 false _dark symbols
-BuildSkin clear  night hdpi   27 false _dark symbols
-BuildSkin clear  night xhdpi  36 false _dark symbols
-BuildSkin clear  night xxhdpi 54 false _dark symbols
-BuildSkin clear  night 6plus  54 false _dark symbols
+BuildSkin clear  night mdpi    18 false _dark symbols
+BuildSkin clear  night hdpi    27 false _dark symbols
+BuildSkin clear  night xhdpi   36 false _dark symbols
+BuildSkin clear  night xxhdpi  54 false _dark symbols
+BuildSkin clear  night 6plus   54 false _dark symbols
+BuildSkin clear  night xxxhdpi 64 false _dark symbols
 
-BuildSkin clear  clear mdpi   18 false _clear symbols
-BuildSkin clear  clear hdpi   27 false _clear symbols
-BuildSkin clear  clear xhdpi  36 false _clear symbols
-BuildSkin clear  clear xxhdpi 54 false _clear symbols
-BuildSkin clear  clear 6plus  54 false _clear symbols
+BuildSkin clear  clear mdpi    18 false _clear symbols
+BuildSkin clear  clear hdpi    27 false _clear symbols
+BuildSkin clear  clear xhdpi   36 false _clear symbols
+BuildSkin clear  clear xxhdpi  54 false _clear symbols
+BuildSkin clear  clear 6plus   54 false _clear symbols
+BuildSkin clear  clear xxxhdpi 64 false _clear symbols
 
-BuildSkin clear  night mdpi   22 false _dark symbols-ad -ad
-BuildSkin clear  night hdpi   34 false _dark symbols-ad -ad
-BuildSkin clear  night xhdpi  44 false _dark symbols-ad -ad
-BuildSkin clear  night xxhdpi 68 false _dark symbols-ad -ad
-BuildSkin clear  night 6plus  68 false _dark symbols-ad -ad
+BuildSkin clear  night mdpi    22 false _dark symbols-ad -ad
+BuildSkin clear  night hdpi    34 false _dark symbols-ad -ad
+BuildSkin clear  night xhdpi   44 false _dark symbols-ad -ad
+BuildSkin clear  night xxhdpi  68 false _dark symbols-ad -ad
+BuildSkin clear  night 6plus   68 false _dark symbols-ad -ad
+BuildSkin clear  night xxxhdpi 78 false _dark symbols-ad -ad
 
-BuildSkin clear  clear mdpi   22 false _clear symbols-ad -ad
-BuildSkin clear  clear hdpi   34 false _clear symbols-ad -ad
-BuildSkin clear  clear xhdpi  44 false _clear symbols-ad -ad
-BuildSkin clear  clear xxhdpi 68 false _clear symbols-ad -ad
-BuildSkin clear  clear 6plus  68 false _clear symbols-ad -ad
+BuildSkin clear  clear mdpi    22 false _clear symbols-ad -ad
+BuildSkin clear  clear hdpi    34 false _clear symbols-ad -ad
+BuildSkin clear  clear xhdpi   44 false _clear symbols-ad -ad
+BuildSkin clear  clear xxhdpi  68 false _clear symbols-ad -ad
+BuildSkin clear  clear 6plus   68 false _clear symbols-ad -ad
+BuildSkin clear  clear xxxhdpi 78 false _clear symbols-ad -ad
 
 rm -rf "$OMIM_PATH"/data/resources-{*}
 
 rm -rf "$OMIM_PATH"/data/resources-*_design
-for i in mdpi hdpi xhdpi xxhdpi 6plus; do
+for i in mdpi hdpi xhdpi xxhdpi xxxhdpi 6plus; do
   cp -r "$OMIM_PATH"/data/resources-${i}_clear/ "$OMIM_PATH"/data/resources-${i}_design/
 done
 

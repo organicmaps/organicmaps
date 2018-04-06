@@ -1592,7 +1592,11 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter be
     }
 
     if (r.m_metadata.m_isSponsoredHotel)
+    {
       mark->SetMarkType(SearchMarkType::Booking);
+      mark->SetRating(r.m_metadata.m_hotelRating);
+      mark->SetPricing(r.m_metadata.m_hotelPricing);
+    }
 
     if (fn)
       fn(*mark);

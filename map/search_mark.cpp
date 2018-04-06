@@ -1,7 +1,9 @@
 #include "map/search_mark.hpp"
 #include "map/bookmark_manager.hpp"
+#include "map/place_page_info.hpp"
 
 #include "drape_frontend/drape_engine.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include "platform/platform.hpp"
 
@@ -11,9 +13,9 @@ namespace
 {
 std::vector<std::string> const kSymbols =
 {
-  "search-result",  // Default.
-  "search-booking", // Booking.
-  "search-adv",     // LocalAds.
+  "search-result",           // Default.
+  "searchbooking-default-l", // Booking.
+  "search-adv",              // LocalAds.
 
   "non-found-search-result", // NotFound.
 };
@@ -21,16 +23,29 @@ std::vector<std::string> const kSymbols =
 std::vector<std::string> const kPreparingSymbols =
 {
   "search-result",           // Default.
-  "search-booking-inactive", // Booking.
+  "searchbooking-inactive",  // Booking.
   "search-adv",              // LocalAds.
 
   "non-found-search-result", // NotFound.
 };
+
+std::string const kBookingSmallIcon = "searchbooking-default-s";
+float const kRatingThreshold = 6.0f;
+
+inline bool HasNoRating(float rating)
+{
+  return fabs(rating) < 1e-5;
+}
 }  // namespace
 
 SearchMarkPoint::SearchMarkPoint(m2::PointD const & ptOrg)
   : UserMark(ptOrg, UserMark::Type::SEARCH)
-{}
+{
+  m_titleDecl.m_anchor = dp::Center;
+  m_titleDecl.m_primaryTextFont.m_color = df::GetColorConstant("RatingText");
+  m_titleDecl.m_primaryTextFont.m_size =
+      static_cast<float>(12.0 / df::VisualParams::Instance().GetFontScale());
+}
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames() const
 {
@@ -47,10 +62,45 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames
   else
   {
     name = kSymbols[static_cast<size_t>(m_type)];
+    if (m_type == SearchMarkType::Booking && m_rating < kRatingThreshold)
+      name = kBookingSmallIcon;
   }
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
   symbol->insert(std::make_pair(1 /* zoomLevel */, name));
   return symbol;
+}
+
+df::ColorConstant SearchMarkPoint::GetColorConstant() const
+{
+  if (m_type != SearchMarkType::Booking || m_isPreparing)
+    return {};
+
+  if (HasNoRating(m_rating))
+    return "RatingNone";
+  if (m_rating < 2.0f)
+    return "RatingHorrible";
+  if (m_rating < 4.0f)
+    return "RatingBad";
+  if (m_rating < 6.0f)
+    return "RatingNormal";
+  if (m_rating < 8.0f)
+    return "RatingGood";
+  return "RatingExcellent";
+}
+
+drape_ptr<df::UserPointMark::TitlesInfo> SearchMarkPoint::GetTitleDecl() const
+{
+  if (m_type != SearchMarkType::Booking || m_isPreparing || m_rating < kRatingThreshold)
+    return nullptr;
+
+  auto titles = make_unique_dp<TitlesInfo>();
+  titles->push_back(m_titleDecl);
+  return titles;
+}
+
+df::RenderState::DepthLayer SearchMarkPoint::GetDepthLayer() const
+{
+  return df::RenderState::SearchMarkLayer;
 }
 
 void SearchMarkPoint::SetFoundFeature(FeatureID const & feature)
@@ -71,6 +121,17 @@ void SearchMarkPoint::SetMarkType(SearchMarkType type)
 void SearchMarkPoint::SetPreparing(bool isPreparing)
 {
   SetAttributeValue(m_isPreparing, isPreparing);
+}
+
+void SearchMarkPoint::SetRating(float rating)
+{
+  SetAttributeValue(m_rating, rating);
+  m_titleDecl.m_primaryText = place_page::rating::GetRatingFormatted(rating);
+}
+
+void SearchMarkPoint::SetPricing(int pricing)
+{
+  SetAttributeValue(m_pricing, pricing);
 }
 
 SearchMarks::SearchMarks()

@@ -44,6 +44,7 @@ public:
     std::string m_cuisine;
 
     // Following fields are used for hotels only.
+    int m_hotelPricing = 0;
     std::string m_hotelApproximatePricing;
     float m_hotelRating = kInvalidRatingValue;
     int m_stars = 0;

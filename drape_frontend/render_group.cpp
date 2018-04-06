@@ -84,6 +84,12 @@ void RenderGroup::RemoveOverlay(ref_ptr<dp::OverlayTree> tree)
     renderBucket->RemoveOverlayHandles(tree);
 }
 
+void RenderGroup::SetOverlayVisibility(bool isVisible)
+{
+  for (auto & renderBucket : m_renderBuckets)
+    renderBucket->SetOverlayVisibility(isVisible);
+}
+
 void RenderGroup::Render(ScreenBase const & screen)
 {
   BaseRenderGroup::Render(screen);
@@ -166,7 +172,8 @@ bool RenderGroup::IsUserMark() const
          depthLayer == RenderState::UserMarkLayer ||
          depthLayer == RenderState::TransitMarkLayer ||
          depthLayer == RenderState::RoutingMarkLayer ||
-         depthLayer == RenderState::LocalAdsMarkLayer;
+         depthLayer == RenderState::LocalAdsMarkLayer ||
+         depthLayer == RenderState::SearchMarkLayer;
 }
 
 bool RenderGroup::UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, ref_ptr<dp::OverlayTree> tree)
