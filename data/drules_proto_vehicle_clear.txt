@@ -39696,6 +39696,10 @@ colors {
     color: 10233776
   }
   value {
+    name: "RatingText"
+    color: 16777215
+  }
+  value {
     name: "TrafficOutline"
     color: 15790320
   }
@@ -39751,16 +39755,16 @@ colors {
     color: 16765952
   }
   value {
-    name: "TrafficG4"
-    color: 3773998
+    name: "BookmarkBlueGray"
+    color: 6323595
   }
   value {
     name: "RoadShieldBlueBackground"
     color: 1728193
   }
   value {
-    name: "TrackHumanSpeed"
-    color: 1913758
+    name: "RatingGood"
+    color: 9682745
   }
   value {
     name: "RouteArrowsMaskCar"
@@ -39779,19 +39783,27 @@ colors {
     color: 6323595
   }
   value {
+    name: "RatingExcellent"
+    color: 3968060
+  }
+  value {
     name: "RouteTrafficG2"
     color: 15214341
   }
   value {
     name: "BookmarkPink"
-    color: 15277923
-  }
-  value {
-    name: "RoutePedestrian"
-    color: 857551774
+    color: 16728450
   }
   value {
     name: "LocalAdsSecondaryText"
+  }
+  value {
+    name: "RatingNone"
+    color: 5862272
+  }
+  value {
+    name: "BookmarkGray"
+    color: 7697781
   }
   value {
     name: "TransitBackground"
@@ -39802,7 +39814,15 @@ colors {
     color: 16760320
   }
   value {
+    name: "RatingNormal"
+    color: 16762880
+  }
+  value {
     name: "Arrow3DOutline"
+    color: 16777215
+  }
+  value {
+    name: "LocalAdsPrimaryTextOutline"
     color: 16777215
   }
   value {
@@ -39832,8 +39852,8 @@ colors {
     name: "RoadShieldBlackText"
   }
   value {
-    name: "BookmarkGray"
-    color: 7697781
+    name: "RoutePedestrian"
+    color: 857551774
   }
   value {
     name: "Route"
@@ -39844,11 +39864,19 @@ colors {
     color: 352205
   }
   value {
+    name: "TrackHumanSpeed"
+    color: 1913758
+  }
+  value {
     name: "RouteMarkSecondaryText"
   }
   value {
     name: "TrackPlaneSpeed"
     color: 11057133
+  }
+  value {
+    name: "RatingHorrible"
+    color: 15088685
   }
   value {
     name: "TrafficG0"
@@ -39891,8 +39919,8 @@ colors {
     color: 4294761984
   }
   value {
-    name: "BookmarkBlueGray"
-    color: 6323595
+    name: "RatingBad"
+    color: 15754290
   }
   value {
     name: "TrafficG1"
@@ -39908,7 +39936,7 @@ colors {
   }
   value {
     name: "BookmarkYellow"
-    color: 16761096
+    color: 16762880
   }
   value {
     name: "TrafficG5"
@@ -39958,8 +39986,8 @@ colors {
     color: 8306489
   }
   value {
-    name: "LocalAdsPrimaryTextOutline"
-    color: 16777215
+    name: "TrafficG4"
+    color: 3773998
   }
   value {
     name: "RouteBicycle"
