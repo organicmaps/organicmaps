@@ -230,7 +230,7 @@ public:
     if (elements != m_elements.end())
     {
       for (OsmElement::Tag tag : elements->second)
-        p->AddTag(tag.key, tag.value);
+        p->UpdateTag(tag.key, [&tag](std::string & v) { v = tag.value; });
     }
   }
 };

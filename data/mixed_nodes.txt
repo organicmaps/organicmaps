@@ -1,3 +1,66 @@
+# FC 2018
+
+lat=54.1817
+lon=45.2037
+leisure=stadium
+event=fc2018
+name=Мордовия Арена
+name:ru=Мордовия Арена
+name:en=Mordovia Arena
+name:de=Mordwinien-Arena
+name:fr=Stade de Mordovie
+name:es=Mordovia Arena
+
+lat=48.7344
+lon=44.5486
+leisure=stadium
+event=fc2018
+name=Волгоград Арена
+name:ru=Волгоград Арена
+name:en=Volgograd Arena
+name:de=Wolgograd-Arena
+name:fr=Volgograd Arena
+name:es=Volgogrado Arena
+
+lat=54.6981
+lon=20.5338
+leisure=stadium
+event=fc2018
+name=Стадион Калининград
+name:ru=Стадион Калининград
+name:en=Kaliningrad Stadium
+name:de=Kaliningrad-Stadion
+name:fr=Stade de Kaliningrad
+name:es=Estadio de Kaliningrado
+
+lat=56.3375
+lon=43.9633
+leisure=stadium
+event=fc2018
+name=Стадион Нижний Новгород
+name:ru=Стадион Нижний Новгород
+name:en=Nizhny Novgorod Stadium
+name:de=Nischni-Nowgorod-Stadion
+name:fr=Stade de Nijni-Novgorod
+name:es=Estadio de Nizhni Nóvgorod
+
+
+lat=55.72187
+lon=37.56318
+event=fc2018
+olympics=official_building
+name=Паспорт болельщика
+name:en=FAN ID
+
+lat=55.76019
+lon=37.62489
+event=fc2018
+shop=gift
+name=Атрибутика ЧМ 2018
+
+
+# Luggage Hero
+
 lat=40.7051423
 lon=-73.8092278
 name=LuggageHero @ Sutphin Business Center

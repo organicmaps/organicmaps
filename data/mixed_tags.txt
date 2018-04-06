@@ -2,18 +2,50 @@
 # Format: type,id,key1=value1,key2=value2,...
 # Example: way,34306743,olympics=stadium
 
-# FC2018 Cities
+# FC2018: city, stadium, other amenities
 
+# Moscow
 node,1686293227,event=fc2018,event=fc2018_city
+relation,162802,event=fc2018,name:ru=Стадион Лужники,int_name=Stadion Luzniki,name:en=Luzhniki Stadium,name:de=Luzhniki-Stadion,name:fr=Stade Loujniki,name:es=Estadio Luzhniki
+relation,4006864,event=fc2018,name:ru=Открытие Арена / Стадион Спартак,int_name=Otkrytie Arena / Stadion Spartac,name:en=Spartak Stadium,name:de=Spartak-Stadion,name:fr=Stade du Spartak,name:es=Estadio Spartak
+
+# Saint-Petersburg
 node,27490597,event=fc2018,event=fc2018_city
+way,217387802,event=fc2018,name:ru=Стадион Санкт-Петербург,int_name=Sankt Peterburg Stadion,name:en=Saint Petersburg Stadium,name:de=Sankt-Petersburg-Stadion,name:fr=Stade de Saint-Pétersbourg,name:es=Estadio de San Petersburgo
+
+# Kazan
 node,27504067,event=fc2018,event=fc2018_city
+relation,3840572,event=fc2018,name:ru=Казань Арена,name:en=Kazan Arena,name:de=Kasan-Arena,name:fr=Kazan Arena,name:es=Kazan Arena
+
+# Ekaterinburg
 node,27503892,event=fc2018,event=fc2018_city
+relation,55833,event=fc2018,name:ru=Екатеринбург Арена,name:en=Ekaterinburg Arena,name:de=Jekaterinburg-Arena,name:fr=Iekaterinbourg Arena,name:es=Ekaterimburgo Arena
+
+# Saransk
 node,191651581,event=fc2018,event=fc2018_city
+# under construction,name:ru=Мордовия Арена,name:en=Mordovia Arena,name:de=Mordwinien-Arena,name:fr=Stade de Mordovie,name:es=Mordovia Arena
+
+# Samara
 node,27503945,event=fc2018,event=fc2018_city
+way,572625474,event=fc2018,name:ru=Самара Арена,name:en=Samara Arena,name:de=Samara-Arena,name:fr=Samara Arena,name:es=Samara Arena
+
+# Sochi
 node,34043670,event=fc2018,event=fc2018_city
+relation,3405854,event=fc2018,name:ru=Стадион Фишт,name:en=Fisht Stadium,name:de=Fischt-Stadion,name:fr=Stade Ficht,name:es=Estadio Fisht
+
+# Volgograd
 node,27504363,event=fc2018,event=fc2018_city
+# under construction,name:ru=Волгоград Арена,name:en=Volgograd Arena,name:de=Wolgograd-Arena,name:fr=Volgograd Arena,name:es=Volgogrado Arena
+
+# Rostov-on-Don
 node,160569651,event=fc2018,event=fc2018_city
+way,137831707,event=fc2018,name:ru=Ростов Арена,name:en=Rostov Arena,name:de=Rostow-Arena,name:fr=Rostov Arena,name:es=Rostov Arena
+
+# Kaliningrad
 node,27048976,event=fc2018,event=fc2018_city
+# under construction,name:ru=Стадион Калининград,name:en=Kaliningrad Stadium,name:de=Kaliningrad-Stadion,name:fr=Stade de Kaliningrad,name:es=Estadio de Kaliningrado
+
+# Nizhny Novgorod
 node,27505889,event=fc2018,event=fc2018_city
 # under construction,name:ru=Стадион Нижний Новгород,name:en=Nizhny Novgorod Stadium,name:de=Nischni-Nowgorod-Stadion,name:fr=Stade de Nijni-Novgorod,name:es=Estadio de Nizhni Nóvgorod
 
