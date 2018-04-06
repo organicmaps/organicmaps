@@ -1,7 +1,0 @@
-<svg width="16" height="16" viewBox="0 0 16 16">
-  <g fill="none" fill-rule="evenodd">
-    <circle cx="8" cy="8" r="8" fill="#FFF" opacity=".4"/>
-    <circle cx="8" cy="8" r="7" fill="#4E3551"/>
-    <path fill="#FFF" d="M4,5 L12,5 L12,4 L4,4 L4,5 Z M10,9 L10,12 L11,12 L11,6 L5,6 L5,12 L6,12 L6,9 L10,9 Z M6.00421143,7 L10,7 L10,8 L6.00421143,8 L6.00421143,7 Z" opacity=".6"/>
-  </g>
-</svg>

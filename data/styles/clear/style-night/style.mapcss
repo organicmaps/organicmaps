@@ -93,7 +93,7 @@ colors
   TransitBackground-color: #000000;
   TransitBackground-opacity: 0.4;
   BookmarkRed-color: #E51B23;
-  BookmarkPink-color: #E91F63;
+  BookmarkPink-color: #FF4182;
   BookmarkPurple-color: #9C27B0;
   BookmarkDeepPurple-color: #673AB7;
   BookmarkBlue-color: #006EC7;
@@ -102,10 +102,17 @@ colors
   BookmarkTeal-color: #009588;
   BookmarkGreen-color: #388E3C;
   BookmarkLime-color: #7EBF39;
-  BookmarkYellow-color: #FFC108;
+  BookmarkYellow-color: #FFC800;
   BookmarkOrange-color: #FFA000;
   BookmarkDeepOrange-color: #607D8B;
   BookmarkBrown-color: #795548;
   BookmarkGray-color: #757575;
   BookmarkBlueGray-color: #607D8B;
+  RatingNone-color: #597380;
+  RatingHorrible-color: #E63C2D;
+  RatingBad-color: #F06432;
+  RatingNormal-color: #FFC800;
+  RatingGood-color: #93BF39;
+  RatingExcellent-color: #3C8C3C;
+  RatingText-color: #FFFFFF;
 }
