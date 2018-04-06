@@ -3015,3 +3015,27 @@ area|z14-[sponsored=partner2]
 node|z18-[sponsored=partner2],
 area|z18-[sponsored=partner2]
 {font-size: 11;}
+
+node|z13-14[event=fc2018][leisure=stadium]
+{icon-image: wfc_stadium.svg;icon-min-distance: 16;}
+node|z15-16[event=fc2018][leisure=stadium]
+{icon-image: wfc_stadium.svg;icon-min-distance: 12;}
+node|z17-[event=fc2018][leisure=stadium]
+{icon-image: wfc_stadium.svg;icon-min-distance: 12;}
+
+node|z15-[event=fc2018][shop=ticket],
+area|z15-[event=fc2018][shop=ticket],
+node|z15-[event=fc2018][olympics=official_building],
+area|z15-[event=fc2018][olympics=official_building],
+{icon-image: wfc_ticket.svg;text-offset: 1;font-size: 10;icon-min-distance: 10;}
+
+node|z15-[event=fc2018][olympics=live_site ],
+area|z15-[event=fc2018][olympics=live_site ]
+{icon-image: wfc_fanzone.svg;text-offset: 1;font-size: 10;icon-min-distance: 10;}
+
+node|z15-[event=fc2018][shop=gift],
+area|z15-[event=fc2018][shop=gift]
+{icon-image: wfc_fanzone.svg;text-offset: 1;font-size: 10;icon-min-distance: 10;}
+
+node|z6-[event=fc2018_city]
+{icon-image: wfc_city.svg;}
