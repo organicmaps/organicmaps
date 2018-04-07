@@ -972,18 +972,11 @@ void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAl
     symbols.push_back(typePair.second + "-l");
   }
   m_drapeEngine.SafeCall(&df::DrapeEngine::RequestSymbolsSize, symbols,
-                         [this, is3dAllowed](std::vector<m2::PointF> const & sizes)
+                         [this, is3dAllowed](std::map<std::string, m2::PointF> && sizes)
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, is3dAllowed, sizes]()
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, is3dAllowed, sizes = std::move(sizes)]() mutable
     {
-      auto it = kTransitSymbols.begin();
-      for (size_t i = 0; i < sizes.size(); i += 3)
-      {
-        m_transitSymbolSizes[it->second + "-s"] = sizes[i];
-        m_transitSymbolSizes[it->second + "-m"] = sizes[i + 1];
-        m_transitSymbolSizes[it->second + "-l"] = sizes[i + 2];
-        ++it;
-      }
+      m_transitSymbolSizes = std::move(sizes);
 
       // In case of the engine reinitialization recover route.
       if (IsRoutingActive())

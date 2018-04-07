@@ -25,6 +25,7 @@ struct UserMarkRenderParams
   drape_ptr<UserPointMark::TitlesInfo> m_titleDecl;
   drape_ptr<UserPointMark::SymbolSizes> m_symbolSizes;
   drape_ptr<UserPointMark::SymbolOffsets> m_symbolOffsets;
+  drape_ptr<UserPointMark::SymbolNameZoomInfo> m_badgeNames;
   df::ColorConstant m_color;
   bool m_hasSymbolPriority = false;
   bool m_hasTitlePriority = false;

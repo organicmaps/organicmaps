@@ -9,6 +9,9 @@
 #include "geometry/point2d.hpp"
 #include "geometry/screenbase.hpp"
 
+#include <boost/optional.hpp>
+
+#include <map>
 #include <string>
 #include <vector>
 
@@ -31,7 +34,10 @@ public:
   drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
   df::ColorConstant GetColorConstant() const override;
   drape_ptr<TitlesInfo> GetTitleDecl() const override;
+  int GetMinTitleZoom() const override;
   df::RenderState::DepthLayer GetDepthLayer() const override;
+  drape_ptr<SymbolNameZoomInfo> GetBadgeNames() const override;
+  drape_ptr<SymbolOffsets> GetSymbolOffsets() const override;
 
   FeatureID GetFeatureID() const override { return m_featureID; }
   void SetFoundFeature(FeatureID const & feature);
@@ -53,6 +59,8 @@ protected:
     SetDirty();
     dst = src;
   }
+
+  bool IsBookingSpecialMark() const;
 
   SearchMarkType m_type = SearchMarkType::Default;
   FeatureID m_featureID;
@@ -77,11 +85,12 @@ public:
   // NOTE: Vector of features must be sorted.
   void SetPreparingState(std::vector<FeatureID> const & features, bool isPreparing);
 
-private:
-  m2::PointD GetSize(SearchMarkType searchMarkType, ScreenBase const & modelView) const;
+  static m2::PointD GetSize(SearchMarkType searchMarkType, ScreenBase const & modelView);
+  static boost::optional<m2::PointD> GetSize(std::string const & symbolName);
 
+private:
   BookmarkManager * m_bmManager;
   df::DrapeEngineSafePtr m_drapeEngine;
 
-  std::vector<m2::PointF> m_searchMarksSizes;
+  static std::map<std::string, m2::PointF> m_searchMarksSizes;
 };

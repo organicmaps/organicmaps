@@ -908,27 +908,28 @@ private:
 class RequestSymbolsSizeMessage : public Message
 {
 public:
-  using TRequestSymbolsSizeCallback = function<void(vector<m2::PointF> const &)>;
+  using Sizes = std::map<std::string, m2::PointF>;
+  using RequestSymbolsSizeCallback = std::function<void(Sizes &&)>;
 
-  RequestSymbolsSizeMessage(vector<string> const & symbols,
-                            TRequestSymbolsSizeCallback const & callback)
+  RequestSymbolsSizeMessage(std::vector<std::string> const & symbols,
+                            RequestSymbolsSizeCallback const & callback)
     : m_symbols(symbols)
     , m_callback(callback)
   {}
 
   Type GetType() const override { return Message::RequestSymbolsSize; }
 
-  vector<string> const & GetSymbols() const { return m_symbols; }
+  std::vector<std::string> const & GetSymbols() const { return m_symbols; }
 
-  void InvokeCallback(vector<m2::PointF> const & sizes)
+  void InvokeCallback(Sizes && sizes)
   {
-    if (m_callback != nullptr)
-      m_callback(sizes);
+    if (m_callback)
+      m_callback(std::move(sizes));
   }
 
 private:
-  vector<string> m_symbols;
-  TRequestSymbolsSizeCallback m_callback;
+  std::vector<string> m_symbols;
+  RequestSymbolsSizeCallback m_callback;
 };
 
 class EnableTrafficMessage : public Message

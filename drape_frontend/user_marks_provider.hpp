@@ -60,6 +60,7 @@ public:
   virtual bool IsVisible() const = 0;
   virtual drape_ptr<TitlesInfo> GetTitleDecl() const = 0;
   virtual drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const = 0;
+  virtual drape_ptr<SymbolNameZoomInfo> GetBadgeNames() const = 0;
   virtual drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const = 0;
   virtual drape_ptr<SymbolSizes> GetSymbolSizes() const = 0;
   virtual drape_ptr<SymbolOffsets> GetSymbolOffsets() const = 0;

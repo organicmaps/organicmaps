@@ -362,14 +362,14 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<RequestSymbolsSizeMessage> msg = message;
       auto const & symbols = msg->GetSymbols();
 
-      vector<m2::PointF> sizes(symbols.size());
-      for (size_t i = 0; i < symbols.size(); i++)
+      RequestSymbolsSizeMessage::Sizes sizes;
+      for (auto const & s : symbols)
       {
         dp::TextureManager::SymbolRegion region;
-        m_texMng->GetSymbolRegion(symbols[i], region);
-        sizes[i] = region.GetPixelSize();
+        m_texMng->GetSymbolRegion(s, region);
+        sizes.insert(std::make_pair(s, region.GetPixelSize()));
       }
-      msg->InvokeCallback(sizes);
+      msg->InvokeCallback(std::move(sizes));
 
       break;
     }

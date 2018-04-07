@@ -4,10 +4,10 @@
 #include "base/math.hpp"
 
 #include <algorithm>
-#include <iterator>
 #include <fstream>
 #include <functional>
 #include <iostream>
+#include <iterator>
 
 #include <QtXml/QDomElement>
 #include <QtXml/QDomDocument>

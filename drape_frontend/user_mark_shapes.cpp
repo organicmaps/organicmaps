@@ -93,14 +93,13 @@ struct UserPointVertex : public gpu::BaseVertex
   TColorAndAnimate m_colorAndAnimate;
 };
 
-std::string GetSymbolNameForZoomLevel(UserMarkRenderParams const & renderInfo,
+std::string GetSymbolNameForZoomLevel(drape_ptr<UserPointMark::SymbolNameZoomInfo> const & symbolNames,
                                       TileKey const & tileKey)
 {
-  if (!renderInfo.m_symbolNames)
+  if (!symbolNames)
     return {};
 
-  for (auto itName = renderInfo.m_symbolNames->rbegin(); itName != renderInfo.m_symbolNames->rend();
-       ++itName)
+  for (auto itName = symbolNames->crbegin(); itName != symbolNames->crend(); ++itName)
   {
     if (itName->first <= tileKey.m_zoomLevel)
       return itName->second;
@@ -170,7 +169,7 @@ void GeneratePoiSymbolShape(UserMarkRenderParams const & renderInfo, TileKey con
     ASSERT_LESS_OR_EQUAL(tileKey.m_zoomLevel, scales::UPPER_STYLE_SCALE, ());
     size_t offsetIndex = 0;
     if (tileKey.m_zoomLevel > 0)
-      offsetIndex = static_cast<size_t>(min(tileKey.m_zoomLevel - 1, scales::UPPER_STYLE_SCALE));
+      offsetIndex = static_cast<size_t>(std::min(tileKey.m_zoomLevel, scales::UPPER_STYLE_SCALE) - 1);
     symbolOffset = renderInfo.m_symbolOffsets->at(offsetIndex);
     params.m_offset = symbolOffset;
   }
@@ -313,7 +312,7 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
 
     m2::PointF symbolSize(0.0f, 0.0f);
     m2::PointF symbolOffset(0.0f, 0.0f);
-    auto const symbolName = GetSymbolNameForZoomLevel(renderInfo, tileKey);
+    auto const symbolName = GetSymbolNameForZoomLevel(renderInfo.m_symbolNames, tileKey);
 
     dp::Color color = dp::Color::White();
     if (!renderInfo.m_color.empty())
@@ -385,6 +384,18 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
     {
       GenerateTextShapes(renderInfo, tileKey, tileCenter, symbolSize, symbolOffset, textures,
                          batcher);
+    }
+
+    if (renderInfo.m_badgeNames != nullptr)
+    {
+      ASSERT(!renderInfo.m_hasSymbolPriority || renderInfo.m_symbolNames == nullptr,
+             ("Multiple POI shapes in an usermark are not supported yet"));
+      auto const badgeName = GetSymbolNameForZoomLevel(renderInfo.m_badgeNames, tileKey);
+      if (!badgeName.empty())
+      {
+        GeneratePoiSymbolShape(renderInfo, tileKey, tileCenter, badgeName, textures, symbolOffset,
+                               batcher);
+      }
     }
 
     renderInfo.m_justCreated = false;

@@ -27,6 +27,7 @@
 #include "base/strings_bundle.hpp"
 
 #include <functional>
+#include <map>
 #include <mutex>
 #include <vector>
 
@@ -185,9 +186,9 @@ public:
 
   void SetDisplacementMode(int mode);
 
-  using TRequestSymbolsSizeCallback = std::function<void(std::vector<m2::PointF> const &)>;
+  using TRequestSymbolsSizeCallback = std::function<void(std::map<std::string, m2::PointF> &&)>;
 
-  void RequestSymbolsSize(std::vector<string> const & symbols,
+  void RequestSymbolsSize(std::vector<std::string> const & symbols,
                           TRequestSymbolsSizeCallback const & callback);
 
   void EnableTraffic(bool trafficEnabled);

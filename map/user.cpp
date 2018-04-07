@@ -376,7 +376,7 @@ void User::UploadUserReviews(std::string && dataStr, size_t numberOfUnsynchroniz
       request.SetRawHeader("Authorization", BuildAuthorizationToken(m_accessToken));
       request.SetBodyData(dataStr, "application/json");
     },
-    [this, bytesCount, onCompleteUploading](std::string const &)
+    [bytesCount, onCompleteUploading](std::string const &)
     {
       alohalytics::Stats::Instance().LogEvent("UGC_DataUpload_finished",
                                               strings::to_string(bytesCount));
@@ -385,7 +385,7 @@ void User::UploadUserReviews(std::string && dataStr, size_t numberOfUnsynchroniz
       if (onCompleteUploading != nullptr)
         onCompleteUploading(true /* isSuccessful */);
     },
-    [this, onCompleteUploading, numberOfUnsynchronized](int errorCode)
+    [onCompleteUploading, numberOfUnsynchronized](int errorCode)
     {
       alohalytics::Stats::Instance().LogEvent("UGC_DataUpload_error",
                                               {{"error", strings::to_string(errorCode)},
