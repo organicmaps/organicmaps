@@ -18,6 +18,7 @@
 #include <utility>
 #include <vector>
 
+#include <boost/circular_buffer.hpp>
 
 /// @name Declarations.
 //@{
@@ -29,6 +30,7 @@ inline std::string DebugPrint(char t);
 
 template <typename U, typename V> inline std::string DebugPrint(std::pair<U, V> const & p);
 template <typename T> inline std::string DebugPrint(std::list<T> const & v);
+template <typename T> inline std::string DebugPrint(boost::circular_buffer<T> const & v);
 template <typename T> inline std::string DebugPrint(std::vector<T> const & v);
 template <typename T, typename C = std::less<T>> inline std::string DebugPrint(std::set<T, C> const & v);
 template <typename T, typename C = std::less<T>> inline std::string DebugPrint(std::multiset<T, C> const & v);
@@ -116,6 +118,11 @@ template <typename T> inline std::string DebugPrint(std::deque<T> const & d)
 }
 
 template <typename T> inline std::string DebugPrint(std::list<T> const & v)
+{
+  return ::my::impl::DebugPrintSequence(v.begin(), v.end());
+}
+
+template <typename T> inline std::string DebugPrint(boost::circular_buffer<T> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
