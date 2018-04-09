@@ -7,7 +7,7 @@
                              rightButtonTitle:(nonnull NSString *)rightButtonTitle
                               leftButtonTitle:(nullable NSString *)leftButtonTitle
                             rightButtonAction:(nullable MWMVoidBlock)action
-                              statisticsEvent:(nonnull NSString *)statisticsEvent;
+                              statisticsEvent:(nullable NSString *)statisticsEvent;
 
 @property(copy, nonatomic, readonly, nullable) MWMVoidBlock rightButtonAction;
 

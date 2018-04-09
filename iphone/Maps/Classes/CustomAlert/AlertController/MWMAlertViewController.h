@@ -49,6 +49,11 @@
                                                 isNewCategory:(BOOL)isNewCategory
                                                      callback:(nonnull MWMCheckStringBlock)callback;
 
+- (void)presentConvertBookmarksAlertWithCount:(NSUInteger)count block:(nonnull MWMVoidBlock)block;
+
+- (void)presentSpinnerAlertWithTitle:(nonnull NSString *)title cancel:(nullable MWMVoidBlock)cancel;
+- (void)presentBookmarkConversionErrorAlert;
+
 - (void)closeAlert:(nullable MWMVoidBlock)completion;
 
 - (nonnull instancetype)init __attribute__((unavailable("call -initWithViewController: instead!")));

@@ -39,6 +39,10 @@
                                              minCharacterNum:(NSUInteger)min
                                                isNewCategory:(BOOL)isNewCategory
                                                     callback:(MWMCheckStringBlock)callback;
++ (MWMAlert *)convertBookmarksAlertWithCount:(NSUInteger)count block:(MWMVoidBlock)block;
++ (MWMAlert *)spinnerAlertWithTitle:(NSString *)title cancel:(MWMVoidBlock)cancel;
++ (MWMAlert *)bookmarkConversionErrorAlert;
+
 - (void)close:(MWMVoidBlock)completion;
 
 - (void)setNeedsCloseAlertAfterEnterBackground;

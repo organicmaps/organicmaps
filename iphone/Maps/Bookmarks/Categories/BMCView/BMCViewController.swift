@@ -40,6 +40,19 @@ final class BMCViewController: MWMViewController {
     viewModel = BMCDefaultViewModel()
   }
 
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    let count = viewModel.filesCountForConversion
+    if count > 0 {
+      MWMAlertViewController.activeAlert().presentConvertBookmarksAlert(withCount: count)
+      { [weak viewModel] in
+        MWMAlertViewController.activeAlert().presentSpinnerAlert(withTitle: L("converting"),
+                                                                 cancel: nil)
+        viewModel?.convertAllKML()
+      }
+    }
+  }
+
   private func updateCategoryName(category: BMCCategory?) {
     let isNewCategory = (category == nil)
     alertController.presentCreateBookmarkCategoryAlert(withMaxCharacterNum: viewModel.maxCategoryNameLength,
@@ -150,6 +163,14 @@ extension BMCViewController: BMCView {
 
   func delete(at indexPath: IndexPath) {
     tableView.deleteRows(at: [indexPath], with: .automatic)
+  }
+
+  func conversionFinished(success: Bool) {
+    MWMAlertViewController.activeAlert().closeAlert {
+      if !success {
+        MWMAlertViewController.activeAlert().presentBookmarkConversionErrorAlert()
+      }
+    }
   }
 }
 

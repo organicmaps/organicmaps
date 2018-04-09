@@ -209,6 +209,11 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
 
 #pragma mark - Properties
 
+- (UIView *)buttonView
+{
+  return self.button;
+}
+
 - (void)setState:(MWMCircularProgressState)state
 {
   if (state == MWMCircularProgressStateSpinner)

@@ -226,6 +226,20 @@ using TLoopBlock = void (^)(Observer observer);
   });
 }
 
++ (NSUInteger)filesCountForConversion
+{
+  return GetFramework().GetBookmarkManager().GetKmlFilesCountForConversion();
+}
+
++ (void)convertAll
+{
+  GetFramework().GetBookmarkManager().ConvertAllKmlFiles([](bool success) {
+    [[MWMBookmarksManager manager] loopObservers:^(Observer observer) {
+      [observer onConversionFinish:success];
+    }];
+  });
+}
+
 + (NSURL *)shareCategoryURL
 {
   MWMBookmarksManager * manager = [MWMBookmarksManager manager];

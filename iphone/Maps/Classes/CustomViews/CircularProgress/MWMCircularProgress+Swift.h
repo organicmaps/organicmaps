@@ -21,6 +21,7 @@
 - (void)setSpinnerColoring:(MWMImageColoring)coloring;
 - (void)setSpinnerBackgroundColor:(nonnull UIColor *)backgroundColor;
 - (void)setInvertColor:(BOOL)invertColor;
+- (void)setCancelButtonHidden;
 
 - (nonnull instancetype)init __attribute__((unavailable("init is not available")));
 - (nonnull instancetype)initWithParentView:(nonnull UIView *)parentView;

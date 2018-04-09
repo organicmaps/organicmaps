@@ -113,6 +113,11 @@
 
 #pragma mark - Actions
 
+- (void)setCancelButtonHidden
+{
+  self.rootView.buttonView.hidden = YES;
+}
+
 - (IBAction)buttonTouchUpInside:(UIButton *)sender { [self.delegate progressButtonPressed:self]; }
 #pragma mark - Properties
 

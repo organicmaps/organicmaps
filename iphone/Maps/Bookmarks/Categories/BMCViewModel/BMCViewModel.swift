@@ -2,6 +2,7 @@ protocol BMCView: AnyObject {
   func update(sections: [BMCSection])
   func delete(at indexPath: IndexPath)
   func insert(at indexPath: IndexPath)
+  func conversionFinished(success: Bool)
 }
 
 enum BMCShareCategoryStatus {
@@ -38,4 +39,7 @@ protocol BMCViewModel: AnyObject {
 
   func pendingPermission(isPending: Bool)
   func grant(permission: BMCPermission?)
+
+  var filesCountForConversion: UInt { get }
+  func convertAllKML();
 }

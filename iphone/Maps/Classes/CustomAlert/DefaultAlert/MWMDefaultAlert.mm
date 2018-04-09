@@ -415,14 +415,35 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                      statisticsEvent:@"Info Alert"];
 }
 
++ (instancetype)convertBookmarksWithCount:(NSUInteger)count okBlock:(MWMVoidBlock)okBlock
+{
+  return [self defaultAlertWithTitle:L(@"bookmarks_detect_title")
+                             message:[NSString stringWithFormat:L(@"bookmarks_detect_message"), count]
+                    rightButtonTitle:L(@"button_convert")
+                     leftButtonTitle:L(@"cancel")
+                   rightButtonAction:okBlock
+                     statisticsEvent:nil];
+}
+
++ (instancetype)bookmarkConversionErrorAlert
+{
+  return [self defaultAlertWithTitle:L(@"bookmarks_convert_error_title")
+                             message:L(@"bookmarks_convert_error_message")
+                    rightButtonTitle:L(@"ok")
+                     leftButtonTitle:nil
+                   rightButtonAction:nil
+                     statisticsEvent:nil];
+}
+
 + (instancetype)defaultAlertWithTitle:(nonnull NSString *)title
                               message:(nullable NSString *)message
                      rightButtonTitle:(nonnull NSString *)rightButtonTitle
                       leftButtonTitle:(nullable NSString *)leftButtonTitle
                     rightButtonAction:(nullable MWMVoidBlock)action
-                      statisticsEvent:(nonnull NSString *)statisticsEvent
+                      statisticsEvent:(nullable NSString *)statisticsEvent
 {
-  [Statistics logEvent:statisticsEvent withParameters:@{kStatAction : kStatOpen}];
+  if (statisticsEvent)
+    [Statistics logEvent:statisticsEvent withParameters:@{kStatAction : kStatOpen}];
   MWMDefaultAlert * alert =
       [NSBundle.mainBundle loadNibNamed:kDefaultAlertNibName owner:self options:nil].firstObject;
   alert.titleLabel.text = title;
@@ -456,13 +477,17 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 
 - (IBAction)rightButtonTap
 {
-  [Statistics logEvent:self.statisticsEvent withParameters:@{kStatAction : kStatApply}];
+  if (self.statisticsEvent)
+    [Statistics logEvent:self.statisticsEvent withParameters:@{kStatAction : kStatApply}];
+
   [self close:self.rightButtonAction];
 }
 
 - (IBAction)leftButtonTap
 {
-  [Statistics logEvent:self.statisticsEvent withParameters:@{kStatAction : kStatClose}];
+  if (self.statisticsEvent)
+    [Statistics logEvent:self.statisticsEvent withParameters:@{kStatAction : kStatClose}];
+
   [self close:self.leftButtonAction];
 }
 

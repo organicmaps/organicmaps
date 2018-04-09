@@ -1,5 +1,8 @@
 final class BMCDefaultViewModel: NSObject {
+  typealias BM = MWMBookmarksManager
+
   var view: BMCView!
+
   private enum Const
   {
     static let minCategoryNameLength: UInt = 0
@@ -20,11 +23,15 @@ final class BMCDefaultViewModel: NSObject {
   var minCategoryNameLength: UInt = Const.minCategoryNameLength
   var maxCategoryNameLength: UInt = Const.maxCategoryNameLength
 
-  typealias BM = MWMBookmarksManager
+  var filesCountForConversion: UInt {
+    get {
+      return BM.filesCountForConversion()
+    }
+  }
 
   override init() {
     super.init()
-    MWMBookmarksManager.add(self)
+    BM.add(self)
     loadData()
   }
 
@@ -66,7 +73,7 @@ final class BMCDefaultViewModel: NSObject {
     sections.append(.permissions)
     setPermissions()
 
-    if MWMBookmarksManager.areBookmarksLoaded() {
+    if BM.areBookmarksLoaded() {
       sections.append(.categories)
       setCategories()
 
@@ -195,6 +202,10 @@ extension BMCDefaultViewModel: BMCViewModel {
     }
     pendingPermission(isPending: false)
   }
+
+  func convertAllKML() {
+    BM.convertAll()
+  }
 }
 
 extension BMCDefaultViewModel: MWMBookmarksObserver {
@@ -216,5 +227,11 @@ extension BMCDefaultViewModel: MWMBookmarksObserver {
     case .fileError:
       onPreparedToShareCategory?(.error(title: L("dialog_routing_system_error"), text: L("bookmarks_error_message_share_general")))
     }
+  }
+
+  func onConversionFinish(_ success: Bool) {
+    setCategories()
+    view.update(sections: [.categories])
+    view.conversionFinished(success: success)
   }
 }

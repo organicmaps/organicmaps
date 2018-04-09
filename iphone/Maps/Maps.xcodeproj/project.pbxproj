@@ -477,6 +477,8 @@
 		F61757F11FC731F5000AD0D0 /* DiscoveryOnlineTemplateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F61757EF1FC731F5000AD0D0 /* DiscoveryOnlineTemplateCell.xib */; };
 		F623DA6C1C9C2731006A3436 /* opening_hours_how_to_edit.html in Resources */ = {isa = PBXBuildFile; fileRef = F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */; };
 		F623DA6F1C9C2E62006A3436 /* MWMAddPlaceNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = F653CE171C71F62400A453F1 /* MWMAddPlaceNavigationBar.xib */; };
+		F62607FD207B790300176C5A /* SpinnerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62607FC207B790300176C5A /* SpinnerAlert.swift */; };
+		F62607FF207B83C400176C5A /* MWMSpinnerAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F62607FE207B83C400176C5A /* MWMSpinnerAlert.xib */; };
 		F626D52F1C3E83F800C17D15 /* MWMTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F626D52D1C3E6CAA00C17D15 /* MWMTableViewCell.mm */; };
 		F6381BF61CD12045004CA943 /* LocaleTranslator.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6381BF41CD12045004CA943 /* LocaleTranslator.mm */; };
 		F63AF5061EA6162400A1DB98 /* FilterTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63AF5041EA6162400A1DB98 /* FilterTypeCell.swift */; };
@@ -1366,6 +1368,8 @@
 		F61757EB1FC73027000AD0D0 /* DiscoveryOnlineTemplateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryOnlineTemplateCell.swift; sourceTree = "<group>"; };
 		F61757EF1FC731F5000AD0D0 /* DiscoveryOnlineTemplateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DiscoveryOnlineTemplateCell.xib; sourceTree = "<group>"; };
 		F623DA6A1C9C2731006A3436 /* opening_hours_how_to_edit.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = opening_hours_how_to_edit.html; path = ../../data/opening_hours_how_to_edit.html; sourceTree = "<group>"; };
+		F62607FC207B790300176C5A /* SpinnerAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerAlert.swift; sourceTree = "<group>"; };
+		F62607FE207B83C400176C5A /* MWMSpinnerAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMSpinnerAlert.xib; sourceTree = "<group>"; };
 		F626D52C1C3E6CAA00C17D15 /* MWMTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTableViewCell.h; sourceTree = "<group>"; };
 		F626D52D1C3E6CAA00C17D15 /* MWMTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTableViewCell.mm; sourceTree = "<group>"; };
 		F63774E61B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMRoutingDisclaimerAlert.xib; sourceTree = "<group>"; };
@@ -3053,6 +3057,15 @@
 			path = RateAlert;
 			sourceTree = "<group>";
 		};
+		F62607FB207B78E300176C5A /* SpinnerAlert */ = {
+			isa = PBXGroup;
+			children = (
+				F62607FC207B790300176C5A /* SpinnerAlert.swift */,
+				F62607FE207B83C400176C5A /* MWMSpinnerAlert.xib */,
+			);
+			path = SpinnerAlert;
+			sourceTree = "<group>";
+		};
 		F63774E51B59374F00BCF54D /* RoutingDisclaimerAlert */ = {
 			isa = PBXGroup;
 			children = (
@@ -3076,6 +3089,7 @@
 		F64F195F1AB8125C006EAF7E /* CustomAlert */ = {
 			isa = PBXGroup;
 			children = (
+				F62607FB207B78E300176C5A /* SpinnerAlert */,
 				F6D67CDA2062B9810032FD38 /* CreateBookmarkCategory */,
 				349B92691DF0516C007779DD /* Toast */,
 				349A137E1DEC138C00C7DB60 /* MobileInternetAlert */,
@@ -4165,6 +4179,7 @@
 				3406FA191C6E0D8F00E9FAD2 /* MWMMapDownloadDialog.xib in Resources */,
 				F6E2FD531E097BA00083EBEC /* MWMMapDownloaderAdsTableViewCell.xib in Resources */,
 				F6E2FD591E097BA00083EBEC /* MWMMapDownloaderButtonTableViewCell.xib in Resources */,
+				F62607FF207B83C400176C5A /* MWMSpinnerAlert.xib in Resources */,
 				F6EBB2731FD7E4FD00B69B6A /* DiscoveryNoResultsCell.xib in Resources */,
 				F6E2FD621E097BA00083EBEC /* MWMMapDownloaderLargeCountryTableViewCell.xib in Resources */,
 				F6664BFD1E6459CB00E703C2 /* PPFacilityCell.xib in Resources */,
@@ -4515,6 +4530,7 @@
 				342CC5F21C2D7730005F3FE5 /* MWMAuthorizationLoginViewController.mm in Sources */,
 				340475591E081A4600C92850 /* WebViewController.mm in Sources */,
 				3404F4992028A20D0090E401 /* BMCCategoryCell.swift in Sources */,
+				F62607FD207B790300176C5A /* SpinnerAlert.swift in Sources */,
 				34F407411E9E1AFF00E57AC0 /* RBBanner.swift in Sources */,
 				3444DFD21F17620C00E73099 /* MWMMapWidgetsHelper.mm in Sources */,
 				348A8DFB1F66775A00D83026 /* RatingViewSettings.swift in Sources */,

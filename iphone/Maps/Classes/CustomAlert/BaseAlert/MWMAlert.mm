@@ -170,6 +170,21 @@
                                                     callback:callback];
 }
 
++ (MWMAlert *)convertBookmarksAlertWithCount:(NSUInteger)count block:(MWMVoidBlock)block
+{
+  return [MWMDefaultAlert convertBookmarksWithCount:count okBlock:block];
+}
+
++ (MWMAlert *)spinnerAlertWithTitle:(NSString *)title cancel:(MWMVoidBlock)cancel
+{
+  return [MWMSpinnerAlert alertWithTitle:title cancel:cancel];
+}
+
++ (MWMAlert *)bookmarkConversionErrorAlert
+{
+  return [MWMDefaultAlert bookmarkConversionErrorAlert];
+}
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
   // Should override this method if you want custom relayout after rotation.

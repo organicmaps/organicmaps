@@ -37,5 +37,7 @@
 + (instancetype)personalInfoWarningAlertWithBlock:(MWMVoidBlock)block;
 + (instancetype)trackWarningAlertWithCancelBlock:(MWMVoidBlock)block;
 + (instancetype)infoAlert:(NSString *)title text:(NSString *)text;
++ (instancetype)convertBookmarksWithCount:(NSUInteger)count okBlock:(MWMVoidBlock)okBlock;
++ (instancetype)bookmarkConversionErrorAlert;
 
 @end

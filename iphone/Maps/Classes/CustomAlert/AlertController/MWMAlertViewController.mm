@@ -232,6 +232,22 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   });
 }
 
+- (void)presentConvertBookmarksAlertWithCount:(NSUInteger)count block:(nonnull MWMVoidBlock)block
+{
+  auto alert = [MWMAlert convertBookmarksAlertWithCount:count block:block];
+  [self displayAlert:alert];
+}
+
+- (void)presentSpinnerAlertWithTitle:(nonnull NSString *)title cancel:(nullable MWMVoidBlock)cancel
+{
+  [self displayAlert:[MWMAlert spinnerAlertWithTitle:title cancel:cancel]];
+}
+
+- (void)presentBookmarkConversionErrorAlert
+{
+  [self displayAlert:[MWMAlert bookmarkConversionErrorAlert]];
+}
+
 - (void)displayAlert:(MWMAlert *)alert
 {
   // TODO(igrechuhin): Remove this check on location manager refactoring.

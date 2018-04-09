@@ -22,4 +22,6 @@
 
 - (void)updatePath:(CGFloat)progress;
 
+- (UIView *)buttonView;
+
 @end
