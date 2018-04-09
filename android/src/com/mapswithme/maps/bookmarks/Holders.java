@@ -101,7 +101,7 @@ public class Holders
 
     void setSize(int size)
     {
-      mSize.setText(mSize.getResources().getString(R.string.bookmarks_places, String.valueOf(size)));
+      mSize.setText(mSize.getResources().getQuantityString(R.plurals.bookmarks_places, size, size));
     }
   }
 }
