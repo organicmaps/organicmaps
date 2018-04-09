@@ -796,7 +796,8 @@ void BookmarkManager::ClearCategories()
   }
 
   m_categories.clear();
-  m_bmGroupsIdList.clear();
+  UpdateBmGroupIdList();
+
   m_bookmarks.clear();
   m_tracks.clear();
 }
@@ -1151,6 +1152,15 @@ bool BookmarkManager::HasBmCategory(kml::MarkGroupId groupId) const
   return m_categories.find(groupId) != m_categories.end();
 }
 
+void BookmarkManager::UpdateBmGroupIdList()
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  m_bmGroupsIdList.clear();
+  m_bmGroupsIdList.reserve(m_categories.size());
+  for (auto it = m_categories.crbegin(); it != m_categories.crend(); ++it)
+    m_bmGroupsIdList.push_back(it->first);
+}
+
 kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData && data, bool autoSave)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
@@ -1162,7 +1172,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData && da
   auto groupId = data.m_id;
   ASSERT_EQUAL(m_categories.count(groupId), 0, ());
   m_categories[groupId] = my::make_unique<BookmarkCategory>(std::move(data), autoSave);
-  m_bmGroupsIdList.push_back(groupId);
+  UpdateBmGroupIdList();
   m_changesTracker.OnAddGroup(groupId);
   return groupId;
 }
@@ -1172,7 +1182,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & nam
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto const groupId = PersistentIdStorage::Instance().GetNextCategoryId();
   m_categories[groupId] = my::make_unique<BookmarkCategory>(name, groupId, autoSave);
-  m_bmGroupsIdList.push_back(groupId);
+  UpdateBmGroupIdList();
   m_changesTracker.OnAddGroup(groupId);
   return groupId;
 }
@@ -1208,8 +1218,7 @@ bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId)
   FileWriter::DeleteFileX(it->second->GetFileName());
 
   m_categories.erase(it);
-  m_bmGroupsIdList.erase(std::remove(m_bmGroupsIdList.begin(), m_bmGroupsIdList.end(), groupId),
-                         m_bmGroupsIdList.end());
+  UpdateBmGroupIdList();
   return true;
 }
 

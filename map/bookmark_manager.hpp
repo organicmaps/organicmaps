@@ -419,6 +419,8 @@ private:
 
   void CollectDirtyGroups(kml::GroupIdSet & dirtyGroups);
 
+  void UpdateBmGroupIdList();
+
   void SendBookmarksChanges();
   void GetBookmarksData(kml::MarkIdSet const & markIds,
                         std::vector<std::pair<kml::MarkId, kml::BookmarkData>> & data) const;
