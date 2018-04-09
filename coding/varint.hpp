@@ -8,6 +8,7 @@
 #include "base/exception.hpp"
 #include "base/stl_add.hpp"
 
+#include <cstddef>
 #include <type_traits>
 
 /// This function writes, using optimal bytes count.
@@ -272,3 +273,9 @@ void const * ReadVarUint64Array(void const * pBeg, size_t count, F f)
   return impl::ReadVarInt64Array(pBeg, impl::ReadVarInt64ArrayGivenSize(count), f, IdFunctor());
 }
 
+template <class Cont, class Sink>
+inline void WriteVarUintArray(Cont const & v, Sink & sink)
+{
+  for (size_t i = 0; i != v.size(); ++i)
+    WriteVarUint(sink, v[i]);
+}

@@ -1,10 +1,9 @@
 #include "testing/testing.hpp"
 
-#include "indexer/coding_params.hpp"
-#include "indexer/geometry_coding.hpp"
-#include "indexer/indexer_tests/test_polylines.hpp"
-
 #include "coding/byte_stream.hpp"
+#include "coding/coding_tests/test_polylines.hpp"
+#include "coding/geometry_coding.hpp"
+#include "coding/point_to_integer.hpp"
 #include "coding/pointd_to_pointu.hpp"
 #include "coding/varint.hpp"
 #include "coding/writer.hpp"
@@ -16,7 +15,76 @@
 
 #include "base/logging.hpp"
 
+using namespace coding;
+
 using PU = m2::PointU;
+
+namespace
+{
+m2::PointU D2U(m2::PointD const & p) { return PointDToPointU(p, POINT_COORD_BITS); }
+
+m2::PointU GetMaxPoint() { return D2U(m2::PointD(MercatorBounds::maxX, MercatorBounds::maxY)); }
+
+void TestPolylineEncode(string testName,
+                        vector<m2::PointU> const & points,
+                        m2::PointU const & maxPoint,
+                        void (* fnEncode)(InPointsT const & points,
+                                          m2::PointU const & basePoint,
+                                          m2::PointU const & maxPoint,
+                                          OutDeltasT & deltas),
+                        void (* fnDecode)(InDeltasT const & deltas,
+                                          m2::PointU const & basePoint,
+                                          m2::PointU const & maxPoint,
+                                          OutPointsT & points))
+{
+  size_t const count = points.size();
+  if (count == 0) return;
+
+  m2::PointU const basePoint = m2::PointU::Zero();
+
+  vector<uint64_t> deltas;
+  deltas.resize(count);
+
+  OutDeltasT deltasA(deltas);
+  fnEncode(make_read_adapter(points), basePoint, maxPoint, deltasA);
+
+  vector<m2::PointU> decodedPoints;
+  decodedPoints.resize(count);
+
+  OutPointsT decodedPointsA(decodedPoints);
+  fnDecode(make_read_adapter(deltas), basePoint, maxPoint, decodedPointsA);
+
+  TEST_EQUAL(points, decodedPoints, ());
+
+  if (points.size() > 10)
+  {
+    vector<char> data;
+    MemWriter<vector<char> > writer(data);
+
+    for (size_t i = 0; i != deltas.size(); ++i)
+      WriteVarUint(writer, deltas[i]);
+
+    LOG(LINFO, (testName, points.size(), data.size()));
+  }
+}
+
+vector<m2::PointU> SimplifyPoints(vector<m2::PointU> const & points, double eps)
+{
+  vector<m2::PointU> simpPoints;
+  typedef m2::DistanceToLineSquare<m2::PointD> DistanceF;
+  DistanceF dist;
+  SimplifyNearOptimal(20, points.begin(), points.end(), eps, dist,
+                      AccumulateSkipSmallTrg<DistanceF, m2::PointU>(dist, simpPoints, eps));
+  return simpPoints;
+}
+
+void TestEncodePolyline(string name, m2::PointU maxPoint, vector<m2::PointU> const & points)
+{
+  TestPolylineEncode(name + "1", points, maxPoint, &EncodePolylinePrev1, &DecodePolylinePrev1);
+  TestPolylineEncode(name + "2", points, maxPoint, &EncodePolylinePrev2, &DecodePolylinePrev2);
+  TestPolylineEncode(name + "3", points, maxPoint, &EncodePolylinePrev3, &DecodePolylinePrev3);
+}
+}  // namespace
 
 UNIT_TEST(EncodeDelta)
 {
@@ -76,75 +144,6 @@ UNIT_TEST(PredictPointsInPolyline3_90deg)
 }
 */
 
-namespace
-{
-m2::PointU D2U(m2::PointD const & p) { return PointDToPointU(p, POINT_COORD_BITS); }
-
-m2::PointU GetMaxPoint() { return D2U(m2::PointD(MercatorBounds::maxX, MercatorBounds::maxY)); }
-
-void TestPolylineEncode(string testName,
-                        vector<m2::PointU> const & points,
-                        m2::PointU const & maxPoint,
-                        void (* fnEncode)(geo_coding::InPointsT const & points,
-                                          m2::PointU const & basePoint,
-                                          m2::PointU const & maxPoint,
-                                          geo_coding::OutDeltasT & deltas),
-                        void (* fnDecode)(geo_coding::InDeltasT const & deltas,
-                                          m2::PointU const & basePoint,
-                                          m2::PointU const & maxPoint,
-                                          geo_coding::OutPointsT & points))
-{
-  size_t const count = points.size();
-  if (count == 0) return;
-
-  m2::PointU const basePoint = serial::CodingParams().GetBasePoint();
-
-  vector<uint64_t> deltas;
-  deltas.resize(count);
-
-  geo_coding::OutDeltasT deltasA(deltas);
-  fnEncode(make_read_adapter(points), basePoint, maxPoint, deltasA);
-
-  vector<m2::PointU> decodedPoints;
-  decodedPoints.resize(count);
-
-  geo_coding::OutPointsT decodedPointsA(decodedPoints);
-  fnDecode(make_read_adapter(deltas), basePoint, maxPoint, decodedPointsA);
-
-  TEST_EQUAL(points, decodedPoints, ());
-
-  if (points.size() > 10)
-  {
-    vector<char> data;
-    MemWriter<vector<char> > writer(data);
-
-    for (size_t i = 0; i != deltas.size(); ++i)
-      WriteVarUint(writer, deltas[i]);
-
-    LOG(LINFO, (testName, points.size(), data.size()));
-  }
-}
-
-vector<m2::PointU> SimplifyPoints(vector<m2::PointU> const & points, double eps)
-{
-  vector<m2::PointU> simpPoints;
-  typedef m2::DistanceToLineSquare<m2::PointD> DistanceF;
-  DistanceF dist;
-  SimplifyNearOptimal(20, points.begin(), points.end(), eps, dist,
-                      AccumulateSkipSmallTrg<DistanceF, m2::PointU>(dist, simpPoints, eps));
-  return simpPoints;
-}
-
-void TestEncodePolyline(string name, m2::PointU maxPoint, vector<m2::PointU> const & points)
-{
-  using namespace geo_coding;
-
-  TestPolylineEncode(name + "1", points, maxPoint, &EncodePolylinePrev1, &DecodePolylinePrev1);
-  TestPolylineEncode(name + "2", points, maxPoint, &EncodePolylinePrev2, &DecodePolylinePrev2);
-  TestPolylineEncode(name + "3", points, maxPoint, &EncodePolylinePrev3, &DecodePolylinePrev3);
-}
-}  // namespace
-
 UNIT_TEST(EncodePolyline)
 {
   size_t const kSizes [] = { 0, 1, 2, 3, 4, ARRAY_SIZE(LargePolygon::kLargePolygon) };
@@ -175,12 +174,12 @@ UNIT_TEST(EncodePolyline)
 
 UNIT_TEST(DecodeEncodePolyline_DataSet1)
 {
-  size_t const count = ARRAY_SIZE(index_test::arr1);
+  size_t const count = ARRAY_SIZE(geometry_coding_tests::arr1);
   vector<m2::PointU> points;
   points.reserve(count);
   for (size_t i = 0; i < count; ++i)
-    points.push_back(D2U(index_test::arr1[i]));
+    points.push_back(D2U(geometry_coding_tests::arr1[i]));
 
   TestPolylineEncode("DataSet1", points, GetMaxPoint(),
-                     &geo_coding::EncodePolyline, &geo_coding::DecodePolyline);
+                     &EncodePolyline, &DecodePolyline);
 }

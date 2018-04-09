@@ -2,8 +2,8 @@
 
 #include "indexer/cities_boundaries_serdes.hpp"
 #include "indexer/city_boundary.hpp"
-#include "indexer/coding_params.hpp"
 
+#include "coding/geometry_coding.hpp"
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 

@@ -36,7 +36,7 @@ UNIT_CLASS_TEST(CentersTableTest, Smoke)
   string const kMap = my::JoinFoldersToPath(GetPlatform().WritableDir(), "minsk-pass.mwm");
 
   feature::DataHeader header(kMap);
-  auto const codingParams = header.GetDefCodingParams();
+  auto const codingParams = header.GetDefGeometryCodingParams();
 
   FeaturesVectorTest fv(kMap);
 
@@ -45,7 +45,7 @@ UNIT_CLASS_TEST(CentersTableTest, Smoke)
   {
     CentersTableBuilder builder;
 
-    builder.SetCodingParams(codingParams);
+    builder.SetGeometryCodingParams(codingParams);
     fv.GetVector().ForEach(
         [&](FeatureType & ft, uint32_t id) { builder.Put(id, feature::GetCenter(ft)); });
 
@@ -74,13 +74,13 @@ UNIT_CLASS_TEST(CentersTableTest, Subset)
   vector<pair<uint32_t, m2::PointD>> const features = {
       {1, m2::PointD(0, 0)}, {5, m2::PointD(1, 1)}, {10, m2::PointD(2, 2)}};
 
-  serial::CodingParams codingParams;
+  serial::GeometryCodingParams codingParams;
 
   TBuffer buffer;
   {
     CentersTableBuilder builder;
 
-    builder.SetCodingParams(codingParams);
+    builder.SetGeometryCodingParams(codingParams);
     for (auto const & feature : features)
       builder.Put(feature.first, feature.second);
 

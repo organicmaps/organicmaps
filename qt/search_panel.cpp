@@ -262,8 +262,8 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
     auto const timestamp = ++m_timestamp;
     m_params.m_onResults = [this, timestamp](search::Results const & results,
                                              std::vector<search::ProductInfo> const & productInfo) {
-      GetPlatform().RunTask(Platform::Thread::Gui, bind(&SearchPanel::OnSearchResults, this,
-                                                        timestamp, results));
+      GetPlatform().RunTask(Platform::Thread::Gui,
+                            std::bind(&SearchPanel::OnSearchResults, this, timestamp, results));
     };
 
     if (m_pDrawWidget->Search(m_params))

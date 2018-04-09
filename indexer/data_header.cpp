@@ -25,9 +25,9 @@ namespace feature
     Load(cont);
   }
 
-  serial::CodingParams DataHeader::GetCodingParams(int scaleIndex) const
+  serial::GeometryCodingParams DataHeader::GetGeometryCodingParams(int scaleIndex) const
   {
-    return serial::CodingParams(m_codingParams.GetCoordBits() -
+    return serial::GeometryCodingParams(m_codingParams.GetCoordBits() -
                                 (m_scales.back() - m_scales[scaleIndex]) / 2,
                                 m_codingParams.GetBasePointUint64());
   }
@@ -144,7 +144,7 @@ namespace feature
   {
     ReaderSource<ModelReaderPtr> src(r);
     int64_t const base = ReadPrimitiveFromSource<int64_t>(src);
-    m_codingParams = serial::CodingParams(POINT_COORD_BITS, base);
+    m_codingParams = serial::GeometryCodingParams(POINT_COORD_BITS, base);
 
     m_bounds.first = ReadVarInt<int64_t>(src) + base;
     m_bounds.second = ReadVarInt<int64_t>(src) + base;

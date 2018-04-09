@@ -16,8 +16,6 @@ set(
   feature_xml_test.cpp
   features_offsets_table_test.cpp
   features_vector_test.cpp
-  geometry_coding_test.cpp
-  geometry_serialization_test.cpp
   index_builder_test.cpp
   index_test.cpp
   interval_index_test.cpp
@@ -25,7 +23,6 @@ set(
   mwm_set_test.cpp
   osm_editor_test.cpp
   osm_editor_test.hpp
-  polyline_point_to_int64_test.cpp
   postcodes_matcher_tests.cpp
   rank_table_test.cpp
   scale_index_reading_tests.cpp
@@ -35,8 +32,6 @@ set(
   string_slice_tests.cpp
   succinct_trie_test.cpp
   test_mwm_set.hpp
-  test_polylines.cpp
-  test_polylines.hpp
   test_type.cpp
   trie_test.cpp
   ugc_types_test.cpp

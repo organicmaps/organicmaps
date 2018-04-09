@@ -31,7 +31,7 @@ void LazyCentersTable::EnsureTableLoaded()
     return;
   }
 
-  m_table = CentersTable::Load(*m_reader.GetPtr(), m_value.GetHeader().GetDefCodingParams());
+  m_table = CentersTable::Load(*m_reader.GetPtr(), m_value.GetHeader().GetDefGeometryCodingParams());
   if (m_table)
     m_state = STATE_LOADED;
   else

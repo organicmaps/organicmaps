@@ -62,7 +62,7 @@ public:
   {
     SetCustomOnResults(
         ViewportSearchCallback(static_cast<ViewportSearchCallback::Delegate &>(*this),
-                               bind(&InteractiveSearchRequest::OnResults, this, _1)));
+                               bind(&InteractiveSearchRequest::OnResults, this, placeholders::_1)));
   }
 };
 

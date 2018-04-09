@@ -1,11 +1,10 @@
 #pragma once
 
 #include "indexer/city_boundary.hpp"
-#include "indexer/coding_params.hpp"
-#include "indexer/geometry_coding.hpp"
 
 #include "coding/bit_streams.hpp"
 #include "coding/elias_coder.hpp"
+#include "coding/geometry_coding.hpp"
 #include "coding/pointd_to_pointu.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
@@ -40,7 +39,7 @@ public:
   struct Visitor
   {
   public:
-    Visitor(Sink & sink, serial::CodingParams const & params)
+    Visitor(Sink & sink, serial::GeometryCodingParams const & params)
       : m_sink(sink), m_params(params), m_last(params.GetBasePoint())
     {
     }
@@ -49,7 +48,7 @@ public:
 
     void operator()(m2::PointU const & p)
     {
-      WriteVarUint(m_sink, ::EncodeDelta(p, m_last));
+      WriteVarUint(m_sink, coding::EncodeDelta(p, m_last));
       m_last = p;
     }
 
@@ -156,11 +155,11 @@ public:
     }
 
     Sink & m_sink;
-    serial::CodingParams m_params;
+    serial::GeometryCodingParams m_params;
     m2::PointU m_last;
   };
 
-  CitiesBoundariesEncoder(Sink & sink, serial::CodingParams const & params)
+  CitiesBoundariesEncoder(Sink & sink, serial::GeometryCodingParams const & params)
     : m_sink(sink), m_visitor(sink, params)
   {
   }
@@ -200,7 +199,7 @@ public:
   struct Visitor
   {
   public:
-    Visitor(Source & source, serial::CodingParams const & params)
+    Visitor(Source & source, serial::GeometryCodingParams const & params)
       : m_source(source), m_params(params), m_last(params.GetBasePoint())
     {
     }
@@ -214,7 +213,7 @@ public:
 
     void operator()(m2::PointU & p)
     {
-      p = ::DecodeDelta(ReadVarUint<uint64_t>(m_source), m_last);
+      p = coding::DecodeDelta(ReadVarUint<uint64_t>(m_source), m_last);
       m_last = p;
     }
 
@@ -293,11 +292,11 @@ public:
     }
 
     Source & m_source;
-    serial::CodingParams const m_params;
+    serial::GeometryCodingParams const m_params;
     m2::PointU m_last;
   };
 
-  CitiesBoundariesDecoderV0(Source & source, serial::CodingParams const & params)
+  CitiesBoundariesDecoderV0(Source & source, serial::GeometryCodingParams const & params)
     : m_source(source), m_visitor(source, params)
   {
   }
@@ -399,7 +398,7 @@ struct CitiesBoundariesSerDes
     HeaderV0 const header;
     visitor(header);
 
-    serial::CodingParams const params(header.m_coordBits,
+    serial::GeometryCodingParams const params(header.m_coordBits,
                                       m2::PointD(MercatorBounds::minX, MercatorBounds::minY));
     CitiesBoundariesEncoder<Sink> encoder(sink, params);
     encoder(boundaries);
@@ -423,7 +422,7 @@ struct CitiesBoundariesSerDes
     auto const wy = MercatorBounds::maxY - MercatorBounds::minY;
     precision = std::max(wx, wy) / pow(2, header.m_coordBits);
 
-    serial::CodingParams const params(header.m_coordBits,
+    serial::GeometryCodingParams const params(header.m_coordBits,
                                       m2::PointD(MercatorBounds::minX, MercatorBounds::minY));
     CitiesBoundariesDecoderV0<Source> decoder(source, params);
     decoder(boundaries);

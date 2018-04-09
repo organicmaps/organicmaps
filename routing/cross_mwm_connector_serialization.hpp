@@ -8,10 +8,8 @@
 
 #include "transit/transit_types.hpp"
 
-#include "indexer/coding_params.hpp"
-#include "indexer/geometry_serialization.hpp"
-
 #include "coding/bit_streams.hpp"
+#include "coding/geometry_coding.hpp"
 #include "coding/reader.hpp"
 #include "coding/write_to_sink.hpp"
 #include "coding/writer.hpp"
@@ -92,7 +90,7 @@ public:
     }
 
     template <class Sink>
-    void Serialize(serial::CodingParams const & codingParams, uint32_t bitsPerCrossMwmId,
+    void Serialize(serial::GeometryCodingParams const & codingParams, uint32_t bitsPerCrossMwmId,
                    uint8_t bitsPerMask, Sink & sink) const
     {
       serial::SavePoint(sink, m_backPoint, codingParams);
@@ -125,7 +123,7 @@ public:
     }
 
     template <class Source>
-    void Deserialize(serial::CodingParams const & codingParams, uint32_t bitsPerCrossMwmId,
+    void Deserialize(serial::GeometryCodingParams const & codingParams, uint32_t bitsPerCrossMwmId,
                      uint8_t bitsPerMask, Source & src)
     {
       m_backPoint = serial::LoadPoint(src, codingParams);
@@ -165,7 +163,7 @@ public:
   template <class Sink, class CrossMwmId>
   static void Serialize(std::vector<Transition<CrossMwmId>> const & transitions,
                         CrossMwmConnectorPerVehicleType<CrossMwmId> const & connectors,
-                        serial::CodingParams const & codingParams, Sink & sink)
+                        serial::GeometryCodingParams const & codingParams, Sink & sink)
   {
     uint32_t const bitsPerCrossMwmId = CalcBitsPerCrossMwmId(transitions);
     auto const bitsPerMask = GetBitsPerMask<uint8_t>();
@@ -215,7 +213,7 @@ public:
     for (size_t i = 0; i < numTransitions; ++i)
     {
       Transition<CrossMwmId> transition;
-      transition.Deserialize(header.GetCodingParams(), header.GetBitsPerCrossMwmId(),
+      transition.Deserialize(header.GetGeometryCodingParams(), header.GetBitsPerCrossMwmId(),
                              header.GetBitsPerMask(), src);
       AddTransition(transition, requiredMask, connector);
     }
@@ -364,7 +362,7 @@ private:
     Header() = default;
 
     Header(uint32_t numTransitions, uint64_t sizeTransitions,
-           serial::CodingParams const & codingParams, uint32_t bitsPerCrossMwmId, uint8_t bitsPerMask)
+           serial::GeometryCodingParams const & codingParams, uint32_t bitsPerCrossMwmId, uint8_t bitsPerMask)
       : m_numTransitions(numTransitions)
       , m_sizeTransitions(sizeTransitions)
       , m_codingParams(codingParams)
@@ -417,7 +415,7 @@ private:
     uint32_t GetNumTransitions() const { return m_numTransitions; }
     uint64_t GetSizeTransitions() const { return m_sizeTransitions; }
     Weight GetGranularity() const { return m_granularity; }
-    serial::CodingParams const & GetCodingParams() const { return m_codingParams; }
+    serial::GeometryCodingParams const & GetGeometryCodingParams() const { return m_codingParams; }
     uint8_t GetBitsPerCrossMwmId() const { return m_bitsPerCrossMwmId; }
     uint8_t GetBitsPerMask() const { return m_bitsPerMask; }
     std::vector<Section> const & GetSections() const { return m_sections; }
@@ -427,7 +425,7 @@ private:
     uint32_t m_numTransitions = 0;
     uint64_t m_sizeTransitions = 0;
     Weight m_granularity = kGranularity;
-    serial::CodingParams m_codingParams;
+    serial::GeometryCodingParams m_codingParams;
     uint32_t m_bitsPerCrossMwmId = 0;
     uint8_t m_bitsPerMask = 0;
     std::vector<Section> m_sections;
@@ -467,7 +465,7 @@ private:
 
   template <typename CrossMwmId>
   static void WriteTransitions(std::vector<Transition<CrossMwmId>> const & transitions,
-                               serial::CodingParams const & codingParams, uint32_t bitsPerOsmId,
+                               serial::GeometryCodingParams const & codingParams, uint32_t bitsPerOsmId,
                                uint8_t bitsPerMask, std::vector<uint8_t> & buffer)
   {
     MemWriter<std::vector<uint8_t>> memWriter(buffer);

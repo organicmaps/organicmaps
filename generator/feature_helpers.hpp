@@ -1,10 +1,11 @@
 #pragma once
 
+#include "coding/geometry_coding.hpp"
+
 #include "geometry/distance.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/simplification.hpp"
 
-#include "indexer/coding_params.hpp"
 #include "indexer/scales.hpp"
 
 #include "base/assert.hpp"
@@ -40,7 +41,7 @@ private:
   m2::PointD m_midAll;
   size_t m_locCount = 0;
   size_t m_allCount = 0;
-  uint32_t m_coordBits = serial::CodingParams().GetCoordBits();
+  uint32_t m_coordBits = serial::GeometryCodingParams().GetCoordBits();
   std::vector<CellAndOffset> m_vec;
 };
 

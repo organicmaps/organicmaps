@@ -11,7 +11,10 @@
 #include <list>
 #include <string>
 
-namespace serial { class CodingParams; }
+namespace serial
+{
+class GeometryCodingParams;
+}  // namespace serial
 
 /// Used for serialization\deserialization of features during --generate_features.
 class FeatureBuilder1
@@ -91,7 +94,7 @@ public:
   /// @name Serialization.
   //@{
   void Serialize(TBuffer & data) const;
-  void SerializeBase(TBuffer & data, serial::CodingParams const & params, bool saveAddInfo) const;
+  void SerializeBase(TBuffer & data, serial::GeometryCodingParams const & params, bool saveAddInfo) const;
 
   void Deserialize(TBuffer & data);
   //@}
@@ -255,8 +258,8 @@ public:
   //@{
   bool PreSerialize(SupportingData const & data);
   bool IsLocalityObject();
-  void SerializeLocalityObject(serial::CodingParams const & params, SupportingData & data);
-  void Serialize(SupportingData & data, serial::CodingParams const & params);
+  void SerializeLocalityObject(serial::GeometryCodingParams const & params, SupportingData & data);
+  void Serialize(SupportingData & data, serial::GeometryCodingParams const & params);
   //@}
 
   feature::AddressData const & GetAddressData() const { return m_params.GetAddressData(); }

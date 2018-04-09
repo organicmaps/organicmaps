@@ -5,13 +5,13 @@
 #include "generator/feature_helpers.hpp"
 #include "generator/tesselator.hpp"
 
+
 #include "geometry/distance.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/polygon.hpp"
 #include "geometry/simplification.hpp"
 
 #include "indexer/data_header.hpp"
-#include "indexer/geometry_serialization.hpp"
 
 #include <cstdint>
 #include <functional>
@@ -156,7 +156,7 @@ private:
     // outer path can have 2 points in small scale levels
     ASSERT_GREATER(points.size(), 1, ());
 
-    auto cp = m_header.GetCodingParams(i);
+    auto cp = m_header.GetGeometryCodingParams(i);
 
     // Optimization: Store first point once in header for outer linear features.
     cp.SetBasePoint(points[0]);
@@ -180,7 +180,7 @@ private:
       return;
     }
 
-    auto const cp = m_header.GetCodingParams(i);
+    auto const cp = m_header.GetGeometryCodingParams(i);
 
     serial::TrianglesChainSaver saver(cp);
 

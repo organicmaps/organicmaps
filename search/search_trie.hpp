@@ -1,7 +1,6 @@
 #pragma once
 
-#include "indexer/coding_params.hpp"
-
+#include "coding/geometry_coding.hpp"
 #include "coding/pointd_to_pointu.hpp"
 
 namespace search
@@ -13,9 +12,9 @@ static const uint8_t kPointCodingBits = 20;
 
 namespace trie
 {
-inline serial::CodingParams GetCodingParams(serial::CodingParams const & orig)
+inline serial::GeometryCodingParams GetGeometryCodingParams(serial::GeometryCodingParams const & orig)
 {
-  return serial::CodingParams(search::kPointCodingBits,
+  return serial::GeometryCodingParams(search::kPointCodingBits,
                               PointUToPointD(orig.GetBasePoint(), orig.GetCoordBits()));
 }
 }  // namespace trie

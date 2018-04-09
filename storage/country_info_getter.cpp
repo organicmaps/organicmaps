@@ -1,16 +1,15 @@
-#include "storage/country.hpp"
 #include "storage/country_info_getter.hpp"
+
+#include "storage/country.hpp"
 #include "storage/country_polygon.hpp"
 
 #include "platform/local_country_file_utils.hpp"
 
-#include "indexer/geometry_serialization.hpp"
+#include "coding/read_write_utils.hpp"
 
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/region2d.hpp"
-
-#include "coding/read_write_utils.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
@@ -283,7 +282,7 @@ std::result_of_t<TFn(vector<m2::RegionD>)> CountryInfoReader::WithRegion(size_t 
     for (size_t i = 0; i < count; ++i)
     {
       std::vector<m2::PointD> points;
-      serial::LoadOuterPath(src, serial::CodingParams(), points);
+      serial::LoadOuterPath(src, serial::GeometryCodingParams(), points);
       rgns.emplace_back(move(points));
     }
   }

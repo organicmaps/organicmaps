@@ -1,16 +1,13 @@
+#include "testing/testing.hpp"
+
 #include "generator/tesselator.hpp"
 
-#include "indexer/geometry_serialization.hpp"
-#include "indexer/coding_params.hpp"
-
+#include "coding/geometry_coding.hpp"
 #include "coding/pointd_to_pointu.hpp"
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
 #include "geometry/mercator.hpp"
-
-#include "testing/testing.hpp"
-
 
 namespace
 {
@@ -59,7 +56,7 @@ namespace
     for (size_t i = 0; i < countT; ++i)
       info.Add(arrT[i][0], arrT[i][1], arrT[i][2]);
 
-    serial::CodingParams cp;
+    serial::GeometryCodingParams cp;
 
     serial::TrianglesChainSaver saver(cp);
     tesselator::PointsInfo points;

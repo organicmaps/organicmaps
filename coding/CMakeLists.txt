@@ -40,6 +40,8 @@ set(
   file_writer.cpp
   file_writer.hpp
   fixed_bits_ddvector.hpp
+  geometry_coding.cpp
+  geometry_coding.hpp
   hex.cpp
   hex.hpp
   huffman.cpp
@@ -79,6 +81,7 @@ set(
   streams_common.hpp
   streams_sink.hpp
   succinct_mapper.hpp
+  tesselator_decl.hpp
   text_storage.hpp
   traffic.cpp
   traffic.hpp

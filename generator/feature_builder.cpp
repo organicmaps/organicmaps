@@ -6,15 +6,14 @@
 #include "routing_common/car_model.hpp"
 #include "routing_common/pedestrian_model.hpp"
 
-#include "indexer/coding_params.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_visibility.hpp"
-#include "indexer/geometry_serialization.hpp"
-
-#include "geometry/region2d.hpp"
 
 #include "coding/bit_streams.hpp"
 #include "coding/byte_stream.hpp"
+#include "coding/geometry_coding.hpp"
+
+#include "geometry/region2d.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
@@ -364,7 +363,7 @@ bool FeatureBuilder1::CheckValid() const
   return true;
 }
 
-void FeatureBuilder1::SerializeBase(TBuffer & data, serial::CodingParams const & params, bool saveAddInfo) const
+void FeatureBuilder1::SerializeBase(TBuffer & data, serial::GeometryCodingParams const & params, bool saveAddInfo) const
 {
   PushBackByteSink<TBuffer> sink(data);
 
@@ -380,7 +379,7 @@ void FeatureBuilder1::Serialize(TBuffer & data) const
 
   data.clear();
 
-  serial::CodingParams cp;
+  serial::GeometryCodingParams cp;
 
   SerializeBase(data, cp, true /* store additional info from FeatureParams */);
 
@@ -410,7 +409,7 @@ void FeatureBuilder1::Serialize(TBuffer & data) const
 
 void FeatureBuilder1::Deserialize(TBuffer & data)
 {
-  serial::CodingParams cp;
+  serial::GeometryCodingParams cp;
 
   ArrayByteSource source(&data[0]);
   m_params.Read(source);
@@ -601,7 +600,7 @@ bool FeatureBuilder2::IsLocalityObject()
          !m_params.house.IsEmpty();
 }
 
-void FeatureBuilder2::SerializeLocalityObject(serial::CodingParams const & params,
+void FeatureBuilder2::SerializeLocalityObject(serial::GeometryCodingParams const & params,
                                               SupportingData & data)
 {
   data.m_buffer.clear();
@@ -628,7 +627,7 @@ void FeatureBuilder2::SerializeLocalityObject(serial::CodingParams const & param
   serial::SaveInnerTriangles(data.m_innerTrg, params, sink);
 }
 
-void FeatureBuilder2::Serialize(SupportingData & data, serial::CodingParams const & params)
+void FeatureBuilder2::Serialize(SupportingData & data, serial::GeometryCodingParams const & params)
 {
   data.m_buffer.clear();
 
@@ -690,7 +689,7 @@ void FeatureBuilder2::Serialize(SupportingData & data, serial::CodingParams cons
 
       // offsets was pushed from high scale index to low
       reverse(data.m_ptsOffset.begin(), data.m_ptsOffset.end());
-      serial::WriteVarUintArray(data.m_ptsOffset, sink);
+      WriteVarUintArray(data.m_ptsOffset, sink);
     }
   }
   else if (type == GEOM_AREA)
@@ -701,7 +700,7 @@ void FeatureBuilder2::Serialize(SupportingData & data, serial::CodingParams cons
     {
       // offsets was pushed from high scale index to low
       reverse(data.m_trgOffset.begin(), data.m_trgOffset.end());
-      serial::WriteVarUintArray(data.m_trgOffset, sink);
+      WriteVarUintArray(data.m_trgOffset, sink);
     }
   }
 }

@@ -1,5 +1,6 @@
 #pragma once
-#include "indexer/tesselator_decl.hpp"
+
+#include "coding/tesselator_decl.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -9,7 +10,6 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
-
 
 namespace tesselator
 {

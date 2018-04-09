@@ -197,7 +197,7 @@ namespace feature
 
     FilesContainerR container(make_unique<FileReader>(fPath));
     feature::DataHeader header(container);
-    serial::CodingParams codingParams(trie::GetCodingParams(header.GetDefCodingParams()));
+    serial::GeometryCodingParams codingParams(trie::GetGeometryCodingParams(header.GetDefGeometryCodingParams()));
 
     auto const trieRoot = trie::ReadTrie<ModelReaderPtr, ValueList<TValue>>(
         container.GetReader(SEARCH_INDEX_FILE_TAG), SingleValueSerializer<TValue>(codingParams));

@@ -19,10 +19,12 @@
 #include "base/macros.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/bind.hpp"
 #include "std/string.hpp"
 
 using namespace generator::tests_support;
 using namespace search::tests_support;
+using namespace std;
 
 class Index;
 
@@ -110,7 +112,7 @@ public:
     , m_downloaderCallback(static_cast<DownloaderSearchCallback::Delegate &>(*this), index,
                            m_engine.GetCountryInfoGetter(), m_storage, MakeDownloaderParams(query))
   {
-    SetCustomOnResults(bind(&DownloaderSearchRequest::OnResultsDownloader, this, _1));
+    SetCustomOnResults(bind(&DownloaderSearchRequest::OnResultsDownloader, this, placeholders::_1));
   }
 
   void OnResultsDownloader(search::Results const & results)

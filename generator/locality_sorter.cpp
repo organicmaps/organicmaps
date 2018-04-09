@@ -3,7 +3,6 @@
 #include "generator/geometry_holder.hpp"
 
 #include "indexer/data_header.hpp"
-#include "indexer/geometry_serialization.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/scales_patch.hpp"
 
@@ -111,7 +110,7 @@ public:
     auto & buffer = holder.GetBuffer();
     if (fb.PreSerialize(buffer))
     {
-      fb.SerializeLocalityObject(serial::CodingParams(), buffer);
+      fb.SerializeLocalityObject(serial::GeometryCodingParams(), buffer);
       WriteFeatureBase(buffer.m_buffer, fb);
     }
   }
@@ -129,7 +128,7 @@ bool GenerateLocalityData(string const & featuresDir, string const & nodesFile,
                           string const & dataFile)
 {
   DataHeader header;
-  header.SetCodingParams(serial::CodingParams());
+  header.SetGeometryCodingParams(serial::GeometryCodingParams());
   header.SetScales({scales::GetUpperScale()});
 
   set<uint64_t> nodeIds;

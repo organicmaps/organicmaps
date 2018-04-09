@@ -22,6 +22,7 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <functional>
 #include <map>
 #include <vector>
 
@@ -96,7 +97,7 @@ Engine::Engine(Index & index, CategoriesHolder const & categories,
   : m_shutdown(false)
 {
   InitSuggestions doInit;
-  categories.ForEachName(bind<void>(ref(doInit), _1));
+  categories.ForEachName(bind<void>(ref(doInit), placeholders::_1));
   doInit.GetSuggests(m_suggests);
 
   m_contexts.resize(params.m_numThreads);

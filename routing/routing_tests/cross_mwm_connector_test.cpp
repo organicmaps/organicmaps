@@ -164,7 +164,7 @@ void TestSerialization(vector<CrossMwmConnectorSerializer::Transition<CrossMwmId
     carConnector.FillWeights(
         [&](Segment const & enter, Segment const & exit) { return kEdgesWeight; });
 
-    serial::CodingParams const codingParams;
+    serial::GeometryCodingParams const codingParams;
     MemWriter<vector<uint8_t>> writer(buffer);
     CrossMwmConnectorSerializer::Serialize(transitions, connectors, codingParams, writer);
   }
@@ -277,7 +277,7 @@ void TestWeightsSerialization()
     carConnector.FillWeights(
         [&](Segment const & enter, Segment const & exit) { return weights[weightIdx++]; });
 
-    serial::CodingParams const codingParams;
+    serial::GeometryCodingParams const codingParams;
     MemWriter<vector<uint8_t>> writer(buffer);
     CrossMwmConnectorSerializer::Serialize(transitions, connectors, codingParams, writer);
   }

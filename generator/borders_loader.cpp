@@ -7,16 +7,15 @@
 
 #include "storage/country_polygon.hpp"
 
-#include "indexer/geometry_serialization.hpp"
 #include "indexer/scales.hpp"
-#include "geometry/mercator.hpp"
-
-#include "geometry/simplification.hpp"
-#include "geometry/distance.hpp"
 
 #include "coding/file_container.hpp"
-#include "coding/read_write_utils.hpp"
 #include "coding/file_name_utils.hpp"
+#include "coding/read_write_utils.hpp"
+
+#include "geometry/distance.hpp"
+#include "geometry/mercator.hpp"
+#include "geometry/simplification.hpp"
 
 #include "base/exception.hpp"
 #include "base/logging.hpp"
@@ -27,7 +26,6 @@
 #include <functional>
 #include <iomanip>
 #include <vector>
-
 
 namespace borders
 {
@@ -119,7 +117,7 @@ public:
   {
     // use index in vector as tag
     FileWriter w = m_writer.GetWriter(strings::to_string(m_polys.size()));
-    serial::CodingParams cp;
+    serial::GeometryCodingParams cp;
 
     // calc rect
     m2::RectD rect;
@@ -185,7 +183,7 @@ void UnpackBorders(std::string const & baseDir, std::string const & targetDir)
     {
       poly << i + 1 << endl;
       std::vector<m2::PointD> points;
-      serial::LoadOuterPath(src, serial::CodingParams(), points);
+      serial::LoadOuterPath(src, serial::GeometryCodingParams(), points);
       for (auto p : points)
       {
         ms::LatLon const ll = MercatorBounds::ToLatLon(p);

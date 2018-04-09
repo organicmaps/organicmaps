@@ -7,6 +7,10 @@
 
 #include "base/logging.hpp"
 
+#include <functional>
+
+using namespace std;
+
 namespace search
 {
 namespace tests_support
@@ -78,7 +82,7 @@ void TestSearchRequest::Wait()
 void TestSearchRequest::SetUpCallbacks()
 {
   m_params.m_onStarted = bind(&TestSearchRequest::OnStarted, this);
-  m_params.m_onResults = bind(&TestSearchRequest::OnResults, this, _1);
+  m_params.m_onResults = bind(&TestSearchRequest::OnResults, this, placeholders::_1);
 }
 
 void TestSearchRequest::SetUpResultParams()

@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "coding/coding_tests/test_polylines.hpp"
 #include "coding/point_to_integer.hpp"
 #include "coding/pointd_to_pointu.hpp"
 
@@ -109,4 +110,21 @@ UNIT_TEST(PointUToUint64Obsolete_1bit)
 
   TEST_EQUAL(3ULL << 60, PointUToUint64Obsolete(m2::PointU(kBig, kBig)), ());
   TEST_EQUAL((1ULL << 60) - 1, PointUToUint64Obsolete(m2::PointU(kBig - 1, kBig - 1)), ());
+}
+
+UNIT_TEST(PointToInt64_DataSet1)
+{
+  using namespace geometry_coding_tests;
+
+  for (size_t i = 0; i < ARRAY_SIZE(arr1); ++i)
+  {
+    m2::PointD const pt(arr1[i].x, arr1[i].y);
+    int64_t const id = PointToInt64Obsolete(pt, kCoordBits);
+    m2::PointD const pt1 = Int64ToPointObsolete(id, kCoordBits);
+
+    CheckEqualPoints(pt, pt1);
+
+    int64_t const id1 = PointToInt64Obsolete(pt1, kCoordBits);
+    TEST_EQUAL(id, id1, (pt, pt1));
+  }
 }

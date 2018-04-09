@@ -1,6 +1,6 @@
 #pragma once
 
-#include "indexer/coding_params.hpp"
+#include "coding/geometry_coding.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -53,7 +53,7 @@ public:
   // Loads CentersTable instance. Note that |reader| must be alive
   // until the destruction of loaded table. Returns nullptr if
   // CentersTable can't be loaded.
-  static unique_ptr<CentersTable> Load(Reader & reader, serial::CodingParams const & codingParams);
+  static unique_ptr<CentersTable> Load(Reader & reader, serial::GeometryCodingParams const & codingParams);
 
 private:
   virtual bool Init() = 0;
@@ -62,7 +62,7 @@ private:
 class CentersTableBuilder
 {
 public:
-  inline void SetCodingParams(serial::CodingParams const & codingParams)
+  inline void SetGeometryCodingParams(serial::GeometryCodingParams const & codingParams)
   {
     m_codingParams = codingParams;
   }
@@ -71,7 +71,7 @@ public:
   void Freeze(Writer & writer) const;
 
 private:
-  serial::CodingParams m_codingParams;
+  serial::GeometryCodingParams m_codingParams;
 
   vector<m2::PointU> m_centers;
   vector<uint32_t> m_ids;

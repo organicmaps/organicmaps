@@ -18,6 +18,7 @@ set(
   file_sort_test.cpp
   file_utils_test.cpp
   fixed_bits_ddvector_test.cpp
+  geometry_coding_test.cpp
   hex_test.cpp
   huffman_test.cpp
   mem_file_reader_test.cpp
@@ -32,6 +33,8 @@ set(
   reader_writer_ops_test.cpp
   simple_dense_coding_test.cpp
   succinct_mapper_test.cpp
+  test_polylines.cpp
+  test_polylines.hpp
   text_storage_tests.cpp
   traffic_test.cpp
   uri_test.cpp

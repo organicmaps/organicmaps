@@ -22,8 +22,6 @@ set(
   classificator_loader.cpp
   classificator_loader.hpp
   classificator.hpp
-  coding_params.cpp
-  coding_params.hpp
   cuisines.cpp
   cuisines.hpp
   data_factory.cpp
@@ -80,10 +78,6 @@ set(
   ftypes_matcher.hpp
   ftypes_sponsored.cpp
   ftypes_sponsored.hpp
-  geometry_coding.cpp
-  geometry_coding.hpp
-  geometry_serialization.cpp
-  geometry_serialization.hpp
   index_builder.cpp
   index_builder.hpp
   index_helpers.cpp
@@ -129,7 +123,6 @@ set(
   string_slice.hpp
   succinct_trie_builder.hpp
   succinct_trie_reader.hpp
-  tesselator_decl.hpp
   tree_structure.hpp
   trie_builder.hpp
   trie_reader.hpp

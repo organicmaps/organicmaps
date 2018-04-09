@@ -7,28 +7,27 @@
 #include "generator/region_meta.hpp"
 #include "generator/tesselator.hpp"
 
-#include "defines.hpp"
-
 #include "indexer/data_header.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_processor.hpp"
 #include "indexer/feature_visibility.hpp"
-#include "indexer/geometry_serialization.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/scales_patch.hpp"
 
 #include "platform/mwm_version.hpp"
 
-#include "geometry/polygon.hpp"
-
 #include "coding/file_container.hpp"
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
+
+#include "geometry/polygon.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
+
+#include "defines.hpp"
 
 #include <list>
 #include <memory>
@@ -280,7 +279,7 @@ public:
     auto & buffer = holder.GetBuffer();
     if (fb.PreSerialize(buffer))
     {
-      fb.Serialize(buffer, m_header.GetDefCodingParams());
+      fb.Serialize(buffer, m_header.GetDefGeometryCodingParams());
 
       featureId = WriteFeatureBase(buffer.m_buffer, fb);
 
@@ -339,7 +338,7 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
       coordBits -= ((scales::GetUpperScale() - scales::GetUpperWorldScale()) / 2);
 
     // coding params
-    header.SetCodingParams(serial::CodingParams(coordBits, midPoints.GetCenter()));
+    header.SetGeometryCodingParams(serial::GeometryCodingParams(coordBits, midPoints.GetCenter()));
 
     // scales
     if (isWorld)

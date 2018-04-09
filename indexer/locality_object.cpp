@@ -1,16 +1,16 @@
 #include "indexer/locality_object.hpp"
 
 #include "indexer/feature_decl.hpp"
-#include "indexer/geometry_serialization.hpp"
 
 #include "coding/byte_stream.hpp"
+#include "coding/geometry_coding.hpp"
 
 namespace indexer
 {
 void LocalityObject::Deserialize(char const * data)
 {
   ArrayByteSource src(data);
-  serial::CodingParams cp = {};
+  serial::GeometryCodingParams cp = {};
   ReadPrimitiveFromSource(src, m_id);
   uint8_t type;
   ReadPrimitiveFromSource(src, type);

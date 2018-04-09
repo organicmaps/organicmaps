@@ -1,11 +1,9 @@
 #pragma once
 
 #include "coding/compressed_bit_vector.hpp"
+#include "coding/geometry_coding.hpp"
 #include "coding/read_write_utils.hpp"
 #include "coding/write_to_sink.hpp"
-
-#include "indexer/coding_params.hpp"
-#include "indexer/geometry_serialization.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -98,7 +96,7 @@ class SingleValueSerializer<FeatureWithRankAndCenter>
 public:
   using Value = FeatureWithRankAndCenter;
 
-  SingleValueSerializer(serial::CodingParams const & codingParams) : m_codingParams(codingParams) {}
+  SingleValueSerializer(serial::GeometryCodingParams const & codingParams) : m_codingParams(codingParams) {}
 
   template <typename Sink>
   void Serialize(Sink & sink, Value const & v) const
@@ -124,7 +122,7 @@ public:
   }
 
 private:
-  serial::CodingParams m_codingParams;
+  serial::GeometryCodingParams m_codingParams;
 };
 
 template <>
@@ -136,7 +134,7 @@ public:
   SingleValueSerializer() = default;
 
   // todo(@mpimenov). Remove.
-  SingleValueSerializer(serial::CodingParams const & /* codingParams */) {}
+  SingleValueSerializer(serial::GeometryCodingParams const & /* codingParams */) {}
 
   // The serialization and deserialization is needed for StringsFile.
   // Use ValueList for group serialization in CBVs.

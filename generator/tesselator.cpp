@@ -1,10 +1,9 @@
 #include "generator/tesselator.hpp"
 
-#include "indexer/geometry_coding.hpp"
+#include "coding/geometry_coding.hpp"
+#include "coding/writer.hpp"
 
 #include "geometry/robust_orientation.hpp"
-
-#include "coding/writer.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -14,7 +13,6 @@
 #include <queue>
 
 #include "3party/libtess2/Include/tesselator.h"
-
 
 namespace tesselator
 {
@@ -102,10 +100,10 @@ int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
           m_neighbors.find(std::make_pair(i->first.second, i->first.first)) == m_neighbors.end())
       {
         uint64_t deltas[3];
-        deltas[0] = EncodeDelta(points.m_points[i->first.first], points.m_base);
-        deltas[1] = EncodeDelta(points.m_points[i->first.second], points.m_points[i->first.first]);
-        deltas[2] = EncodeDelta(points.m_points[m_triangles[i->second].GetPoint3(i->first)],
-                                points.m_points[i->first.second]);
+        deltas[0] = coding::EncodeDelta(points.m_points[i->first.first], points.m_base);
+        deltas[1] = coding::EncodeDelta(points.m_points[i->first.second], points.m_points[i->first.first]);
+        deltas[2] = coding::EncodeDelta(points.m_points[m_triangles[i->second].GetPoint3(i->first)],
+                                                 points.m_points[i->first.second]);
 
         size_t const sz = GetBufferSize(deltas, deltas + 3);
         if (sz < cr)
@@ -161,7 +159,7 @@ int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
     std::pair<int, int> const p = CommonEdge(to, from);
 
     m2::PointU const prediction =
-        PredictPointInTriangle(points.m_max,
+        coding::PredictPointInTriangle(points.m_max,
                                // common edge with 'to'
                                points.m_points[from.m_p[(p.second+1) % 3]],
                                points.m_points[from.m_p[(p.second)]],
@@ -169,7 +167,7 @@ int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
                                points.m_points[from.m_p[(p.second+2) % 3]]);
 
     // delta from prediction to diagonal point of 'to'
-    return EncodeDelta(points.m_points[to.m_p[(p.first+2) % 3]], prediction);
+    return coding::EncodeDelta(points.m_points[to.m_p[(p.first+2) % 3]], prediction);
   }
 
   template <class TPopOrder>
