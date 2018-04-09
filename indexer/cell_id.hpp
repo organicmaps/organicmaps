@@ -1,6 +1,6 @@
 #pragma once
-#include "coding/point_to_integer.hpp"
 
+#include "geometry/cellid.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
 

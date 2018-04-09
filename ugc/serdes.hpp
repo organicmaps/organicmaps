@@ -2,7 +2,6 @@
 
 #include "ugc/types.hpp"
 
-#include "coding/point_to_integer.hpp"
 #include "coding/read_write_utils.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"

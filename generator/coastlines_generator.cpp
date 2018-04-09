@@ -1,7 +1,8 @@
 #include "generator/coastlines_generator.hpp"
+
 #include "generator/feature_builder.hpp"
 
-#include "coding/point_to_integer.hpp"
+#include "coding/pointd_to_pointu.hpp"
 
 #include "geometry/region2d/binary_operators.hpp"
 
@@ -34,7 +35,7 @@ namespace
 
   inline PointT D2I(m2::PointD const & p)
   {
-    m2::PointU const pu = PointD2PointU(p, POINT_COORD_BITS);
+    m2::PointU const pu = PointDToPointU(p, POINT_COORD_BITS);
     return PointT(static_cast<int32_t>(pu.x), static_cast<int32_t>(pu.y));
   }
 
@@ -180,7 +181,7 @@ public:
 
   void operator()(PointT const & p)
   {
-    m_points.push_back(PointU2PointD(
+    m_points.push_back(PointUToPointD(
         m2::PointU(static_cast<uint32_t>(p.x), static_cast<uint32_t>(p.y)), POINT_COORD_BITS));
   }
 

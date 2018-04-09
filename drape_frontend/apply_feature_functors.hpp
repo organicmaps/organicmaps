@@ -9,8 +9,6 @@
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/road_shields_parser.hpp"
 
-#include "coding/point_to_integer.hpp"
-
 #include "geometry/point2d.hpp"
 #include "geometry/polyline2d.hpp"
 #include "geometry/spline.hpp"

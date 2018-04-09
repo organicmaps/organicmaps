@@ -4,10 +4,9 @@
 #include "indexer/cell_id.hpp"
 #include "indexer/scales.hpp"
 
+#include "geometry/cellid.hpp"
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
-
-#include "coding/point_to_integer.hpp"
 
 #include "base/logging.hpp"
 

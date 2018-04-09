@@ -3,6 +3,7 @@
 #include "kml/types.hpp"
 
 #include "coding/point_to_integer.hpp"
+#include "coding/pointd_to_pointu.hpp"
 #include "coding/text_storage.hpp"
 #include "coding/varint.hpp"
 
@@ -227,7 +228,7 @@ public:
 
   void operator()(m2::PointD const & pt, char const * /* name */ = nullptr)
   {
-    uint64_t const encoded = bits::ZigZagEncode(PointToInt64(pt, POINT_COORD_BITS));
+    uint64_t const encoded = bits::ZigZagEncode(PointToInt64Obsolete(pt, POINT_COORD_BITS));
     WriteVarUint(m_sink, encoded);
   }
 
@@ -285,7 +286,7 @@ public:
 
   void operator()(m2::PointD const & pt, char const * /* name */ = nullptr)
   {
-    uint64_t const encoded = bits::ZigZagEncode(PointToInt64(pt, POINT_COORD_BITS));
+    uint64_t const encoded = bits::ZigZagEncode(PointToInt64Obsolete(pt, POINT_COORD_BITS));
     WriteVarUint(m_sink, encoded);
   }
 
@@ -398,7 +399,7 @@ public:
   void operator()(m2::PointD & pt, char const * /* name */ = nullptr)
   {
     auto const v = ReadVarUint<uint64_t, Source>(m_source);
-    pt = Int64ToPoint(bits::ZigZagDecode(v), POINT_COORD_BITS);
+    pt = Int64ToPointObsolete(bits::ZigZagDecode(v), POINT_COORD_BITS);
   }
 
   template <typename T>
@@ -460,7 +461,7 @@ public:
   void operator()(m2::PointD & pt, char const * /* name */ = nullptr)
   {
     auto const v = ReadVarUint<uint64_t, Source>(m_source);
-    pt = Int64ToPoint(bits::ZigZagDecode(v), POINT_COORD_BITS);
+    pt = Int64ToPointObsolete(bits::ZigZagDecode(v), POINT_COORD_BITS);
   }
 
   void operator()(double & d, char const * /* name */ = nullptr)

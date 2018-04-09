@@ -6,7 +6,7 @@
 
 #include "geometry/point2d.hpp"
 
-#include "coding/point_to_integer.hpp"
+#include "coding/pointd_to_pointu.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 #include "coding/writer.hpp"
@@ -55,14 +55,14 @@ namespace serial
   template <class TSink>
   void SavePoint(TSink & sink, m2::PointD const & pt, CodingParams const & cp)
   {
-    WriteVarUint(sink, EncodeDelta(PointD2PointU(pt, cp.GetCoordBits()), cp.GetBasePoint()));
+    WriteVarUint(sink, EncodeDelta(PointDToPointU(pt, cp.GetCoordBits()), cp.GetBasePoint()));
   }
 
   template <class TSource>
   m2::PointD LoadPoint(TSource & src, CodingParams const & cp)
   {
-    m2::PointD const pt = PointU2PointD(
-              DecodeDelta(ReadVarUint<uint64_t>(src), cp.GetBasePoint()), cp.GetCoordBits());
+    m2::PointD const pt = PointUToPointD(DecodeDelta(ReadVarUint<uint64_t>(src), cp.GetBasePoint()),
+                                         cp.GetCoordBits());
     return pt;
   }
 

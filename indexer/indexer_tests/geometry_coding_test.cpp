@@ -1,24 +1,22 @@
 #include "testing/testing.hpp"
 
-#include "indexer/geometry_coding.hpp"
-#include "geometry/mercator.hpp"
 #include "indexer/coding_params.hpp"
-
+#include "indexer/geometry_coding.hpp"
 #include "indexer/indexer_tests/test_polylines.hpp"
 
-#include "geometry/geometry_tests/large_polygon.hpp"
-#include "geometry/distance.hpp"
-#include "geometry/simplification.hpp"
-
 #include "coding/byte_stream.hpp"
-#include "coding/point_to_integer.hpp"
+#include "coding/pointd_to_pointu.hpp"
 #include "coding/varint.hpp"
 #include "coding/writer.hpp"
 
+#include "geometry/distance.hpp"
+#include "geometry/geometry_tests/large_polygon.hpp"
+#include "geometry/mercator.hpp"
+#include "geometry/simplification.hpp"
+
 #include "base/logging.hpp"
 
-
-typedef m2::PointU PU;
+using PU = m2::PointU;
 
 UNIT_TEST(EncodeDelta)
 {
@@ -80,6 +78,9 @@ UNIT_TEST(PredictPointsInPolyline3_90deg)
 
 namespace
 {
+m2::PointU D2U(m2::PointD const & p) { return PointDToPointU(p, POINT_COORD_BITS); }
+
+m2::PointU GetMaxPoint() { return D2U(m2::PointD(MercatorBounds::maxX, MercatorBounds::maxY)); }
 
 void TestPolylineEncode(string testName,
                         vector<m2::PointU> const & points,
@@ -142,8 +143,7 @@ void TestEncodePolyline(string name, m2::PointU maxPoint, vector<m2::PointU> con
   TestPolylineEncode(name + "2", points, maxPoint, &EncodePolylinePrev2, &DecodePolylinePrev2);
   TestPolylineEncode(name + "3", points, maxPoint, &EncodePolylinePrev3, &DecodePolylinePrev3);
 }
-
-}
+}  // namespace
 
 UNIT_TEST(EncodePolyline)
 {
@@ -172,19 +172,6 @@ UNIT_TEST(EncodePolyline)
 }
 
 // see 476c1d1d125f0c2deb8c commit for special decode test
-
-namespace
-{
-  inline m2::PointU D2U(m2::PointD const & p)
-  {
-    return PointD2PointU(p, POINT_COORD_BITS);
-  }
-
-  inline m2::PointU GetMaxPoint()
-  {
-    return D2U(m2::PointD(MercatorBounds::maxX, MercatorBounds::maxY));
-  }
-}
 
 UNIT_TEST(DecodeEncodePolyline_DataSet1)
 {

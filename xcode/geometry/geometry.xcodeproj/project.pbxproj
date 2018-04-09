@@ -14,6 +14,7 @@
 		345C55F61C93140A00B6783F /* clipping.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 345C55F41C93140A00B6783F /* clipping.hpp */; };
 		347F33701C454205009758CC /* triangle2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 347F336E1C454205009758CC /* triangle2d.cpp */; };
 		347F33711C454205009758CC /* triangle2d.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 347F336F1C454205009758CC /* triangle2d.hpp */; };
+		395D1A9B207BCD8D001164A5 /* convex_hull_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 395D1A99207BCD8A001164A5 /* convex_hull_tests.cpp */; };
 		39B2B9701FB4680500AB85A1 /* diamond_box.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39B2B96E1FB4680500AB85A1 /* diamond_box.hpp */; };
 		39B2B9711FB4680500AB85A1 /* diamond_box.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39B2B96F1FB4680500AB85A1 /* diamond_box.cpp */; };
 		39B2B9731FB4681400AB85A1 /* line2d.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39B2B9721FB4681400AB85A1 /* line2d.hpp */; };
@@ -34,9 +35,6 @@
 		56D5456B1C74A46D00E3719C /* algorithm.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56D545691C74A46D00E3719C /* algorithm.hpp */; };
 		56EB1ED01C6B6DF30022D831 /* segment2d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EB1ECE1C6B6DF30022D831 /* segment2d.cpp */; };
 		56EB1ED11C6B6DF30022D831 /* segment2d.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56EB1ECF1C6B6DF30022D831 /* segment2d.hpp */; };
-		670F296A1BA9D3C200F2ABF4 /* equality.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F29291BA9D2E700F2ABF4 /* equality.hpp */; };
-		670F296C1BA9D3C200F2ABF4 /* large_polygon.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F292B1BA9D2E700F2ABF4 /* large_polygon.hpp */; };
-		670F297A1BA9D3C200F2ABF4 /* test_regions.hpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F29391BA9D2E700F2ABF4 /* test_regions.hpp */; };
 		670F29801BA9D42E00F2ABF4 /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F297E1BA9D41E00F2ABF4 /* testingmain.cpp */; };
 		670F29831BA9D46F00F2ABF4 /* libbase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F29811BA9D46F00F2ABF4 /* libbase.a */; };
 		670F29841BA9D46F00F2ABF4 /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670F29821BA9D46F00F2ABF4 /* libindexer.a */; };
@@ -52,7 +50,6 @@
 		670F298F1BAABDA600F2ABF4 /* latlon_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F292C1BA9D2E700F2ABF4 /* latlon_test.cpp */; };
 		670F29901BAABDA600F2ABF4 /* packer_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F292D1BA9D2E700F2ABF4 /* packer_test.cpp */; };
 		670F29911BAABDA600F2ABF4 /* point_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F292E1BA9D2E700F2ABF4 /* point_test.cpp */; };
-		670F29921BAABDA600F2ABF4 /* pointu_to_uint64_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F292F1BA9D2E700F2ABF4 /* pointu_to_uint64_test.cpp */; };
 		670F29931BAABDA600F2ABF4 /* polygon_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F29301BA9D2E700F2ABF4 /* polygon_test.cpp */; };
 		670F29941BAABDA600F2ABF4 /* rect_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F29311BA9D2E700F2ABF4 /* rect_test.cpp */; };
 		670F29951BAABDA600F2ABF4 /* region_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670F29321BA9D2E700F2ABF4 /* region_test.cpp */; };
@@ -80,7 +77,6 @@
 		675344C61A3F687400A0A8C3 /* packer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675344A91A3F687400A0A8C3 /* packer.cpp */; };
 		675344C71A3F687400A0A8C3 /* packer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344AA1A3F687400A0A8C3 /* packer.hpp */; };
 		675344C81A3F687400A0A8C3 /* point2d.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344AB1A3F687400A0A8C3 /* point2d.hpp */; };
-		675344C91A3F687400A0A8C3 /* pointu_to_uint64.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344AC1A3F687400A0A8C3 /* pointu_to_uint64.hpp */; };
 		675344CA1A3F687400A0A8C3 /* polygon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344AD1A3F687400A0A8C3 /* polygon.hpp */; };
 		675344CB1A3F687400A0A8C3 /* polyline2d.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344AE1A3F687400A0A8C3 /* polyline2d.hpp */; };
 		675344CC1A3F687400A0A8C3 /* rect_intersect.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675344AF1A3F687400A0A8C3 /* rect_intersect.hpp */; };
@@ -127,6 +123,7 @@
 		347F336F1C454205009758CC /* triangle2d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = triangle2d.hpp; sourceTree = "<group>"; };
 		34AF87CD1DBE517700E5E7DC /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34AF87CE1DBE517700E5E7DC /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		395D1A99207BCD8A001164A5 /* convex_hull_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = convex_hull_tests.cpp; sourceTree = "<group>"; };
 		39B2B96E1FB4680500AB85A1 /* diamond_box.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = diamond_box.hpp; sourceTree = "<group>"; };
 		39B2B96F1FB4680500AB85A1 /* diamond_box.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = diamond_box.cpp; sourceTree = "<group>"; };
 		39B2B9721FB4681400AB85A1 /* line2d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = line2d.hpp; sourceTree = "<group>"; };
@@ -152,13 +149,10 @@
 		670F29261BA9D2E700F2ABF4 /* covering_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = covering_test.cpp; sourceTree = "<group>"; };
 		670F29271BA9D2E700F2ABF4 /* distance_on_sphere_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = distance_on_sphere_test.cpp; sourceTree = "<group>"; };
 		670F29281BA9D2E700F2ABF4 /* distance_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = distance_test.cpp; sourceTree = "<group>"; };
-		670F29291BA9D2E700F2ABF4 /* equality.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = equality.hpp; sourceTree = "<group>"; };
 		670F292A1BA9D2E700F2ABF4 /* intersect_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = intersect_test.cpp; sourceTree = "<group>"; };
-		670F292B1BA9D2E700F2ABF4 /* large_polygon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = large_polygon.hpp; sourceTree = "<group>"; };
 		670F292C1BA9D2E700F2ABF4 /* latlon_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = latlon_test.cpp; sourceTree = "<group>"; };
 		670F292D1BA9D2E700F2ABF4 /* packer_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = packer_test.cpp; sourceTree = "<group>"; };
 		670F292E1BA9D2E700F2ABF4 /* point_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = point_test.cpp; sourceTree = "<group>"; };
-		670F292F1BA9D2E700F2ABF4 /* pointu_to_uint64_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pointu_to_uint64_test.cpp; sourceTree = "<group>"; };
 		670F29301BA9D2E700F2ABF4 /* polygon_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = polygon_test.cpp; sourceTree = "<group>"; };
 		670F29311BA9D2E700F2ABF4 /* rect_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rect_test.cpp; sourceTree = "<group>"; };
 		670F29321BA9D2E700F2ABF4 /* region_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = region_test.cpp; sourceTree = "<group>"; };
@@ -168,7 +162,6 @@
 		670F29361BA9D2E700F2ABF4 /* segments_intersect_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = segments_intersect_test.cpp; sourceTree = "<group>"; };
 		670F29371BA9D2E700F2ABF4 /* simplification_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = simplification_test.cpp; sourceTree = "<group>"; };
 		670F29381BA9D2E700F2ABF4 /* spline_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = spline_test.cpp; sourceTree = "<group>"; };
-		670F29391BA9D2E700F2ABF4 /* test_regions.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test_regions.hpp; sourceTree = "<group>"; };
 		670F293A1BA9D2E700F2ABF4 /* transformations_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transformations_test.cpp; sourceTree = "<group>"; };
 		670F293B1BA9D2E700F2ABF4 /* tree_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tree_test.cpp; sourceTree = "<group>"; };
 		670F293C1BA9D2E700F2ABF4 /* vector_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector_test.cpp; sourceTree = "<group>"; };
@@ -192,7 +185,6 @@
 		675344A91A3F687400A0A8C3 /* packer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = packer.cpp; sourceTree = "<group>"; };
 		675344AA1A3F687400A0A8C3 /* packer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = packer.hpp; sourceTree = "<group>"; };
 		675344AB1A3F687400A0A8C3 /* point2d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = point2d.hpp; sourceTree = "<group>"; };
-		675344AC1A3F687400A0A8C3 /* pointu_to_uint64.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pointu_to_uint64.hpp; sourceTree = "<group>"; };
 		675344AD1A3F687400A0A8C3 /* polygon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = polygon.hpp; sourceTree = "<group>"; };
 		675344AE1A3F687400A0A8C3 /* polyline2d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = polyline2d.hpp; sourceTree = "<group>"; };
 		675344AF1A3F687400A0A8C3 /* rect_intersect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = rect_intersect.hpp; sourceTree = "<group>"; };
@@ -239,6 +231,7 @@
 		670F29211BA9D25D00F2ABF4 /* geometry_tests */ = {
 			isa = PBXGroup;
 			children = (
+				395D1A99207BCD8A001164A5 /* convex_hull_tests.cpp */,
 				45A2D9C51F7526FE003310A0 /* bounding_box_tests.cpp */,
 				45A2D9C61F7526FE003310A0 /* calipers_box_tests.cpp */,
 				45A2D9C71F7526FE003310A0 /* diamond_box_tests.cpp */,
@@ -252,16 +245,13 @@
 				670F29261BA9D2E700F2ABF4 /* covering_test.cpp */,
 				670F29271BA9D2E700F2ABF4 /* distance_on_sphere_test.cpp */,
 				670F29281BA9D2E700F2ABF4 /* distance_test.cpp */,
-				670F29291BA9D2E700F2ABF4 /* equality.hpp */,
 				670F292A1BA9D2E700F2ABF4 /* intersect_test.cpp */,
-				670F292B1BA9D2E700F2ABF4 /* large_polygon.hpp */,
 				670F292C1BA9D2E700F2ABF4 /* latlon_test.cpp */,
 				670F299F1BAAC61C00F2ABF4 /* libs */,
 				E92D8BD01C15AF9100A98D17 /* mercator_test.cpp */,
 				344A713E1F3DA08300B8DDB8 /* nearby_points_sweeper_test.cpp */,
 				670F292D1BA9D2E700F2ABF4 /* packer_test.cpp */,
 				670F292E1BA9D2E700F2ABF4 /* point_test.cpp */,
-				670F292F1BA9D2E700F2ABF4 /* pointu_to_uint64_test.cpp */,
 				670F29301BA9D2E700F2ABF4 /* polygon_test.cpp */,
 				670F29311BA9D2E700F2ABF4 /* rect_test.cpp */,
 				670F29321BA9D2E700F2ABF4 /* region_test.cpp */,
@@ -271,7 +261,6 @@
 				670F29361BA9D2E700F2ABF4 /* segments_intersect_test.cpp */,
 				670F29371BA9D2E700F2ABF4 /* simplification_test.cpp */,
 				670F29381BA9D2E700F2ABF4 /* spline_test.cpp */,
-				670F29391BA9D2E700F2ABF4 /* test_regions.hpp */,
 				670F297E1BA9D41E00F2ABF4 /* testingmain.cpp */,
 				670F293A1BA9D2E700F2ABF4 /* transformations_test.cpp */,
 				670F293B1BA9D2E700F2ABF4 /* tree_test.cpp */,
@@ -346,7 +335,6 @@
 				675344A91A3F687400A0A8C3 /* packer.cpp */,
 				675344AA1A3F687400A0A8C3 /* packer.hpp */,
 				675344AB1A3F687400A0A8C3 /* point2d.hpp */,
-				675344AC1A3F687400A0A8C3 /* pointu_to_uint64.hpp */,
 				675344AD1A3F687400A0A8C3 /* polygon.hpp */,
 				675344AE1A3F687400A0A8C3 /* polyline2d.hpp */,
 				675344AF1A3F687400A0A8C3 /* rect_intersect.hpp */,
@@ -412,7 +400,6 @@
 				347F33711C454205009758CC /* triangle2d.hpp in Headers */,
 				675344D71A3F687400A0A8C3 /* tree4d.hpp in Headers */,
 				675344CD1A3F687400A0A8C3 /* rect2d.hpp in Headers */,
-				675344C91A3F687400A0A8C3 /* pointu_to_uint64.hpp in Headers */,
 				675344CE1A3F687400A0A8C3 /* region2d.hpp in Headers */,
 				675344BE1A3F687400A0A8C3 /* any_rect2d.hpp in Headers */,
 				675344C21A3F687400A0A8C3 /* covering.hpp in Headers */,
@@ -507,6 +494,7 @@
 				45A2D9CD1F752707003310A0 /* bounding_box_tests.cpp in Sources */,
 				670F29911BAABDA600F2ABF4 /* point_test.cpp in Sources */,
 				670F29941BAABDA600F2ABF4 /* rect_test.cpp in Sources */,
+				395D1A9B207BCD8D001164A5 /* convex_hull_tests.cpp in Sources */,
 				670F299A1BAABDA600F2ABF4 /* simplification_test.cpp in Sources */,
 				670F298A1BAABDA600F2ABF4 /* common_test.cpp in Sources */,
 				670F298D1BAABDA600F2ABF4 /* distance_test.cpp in Sources */,
@@ -516,7 +504,6 @@
 				670F299B1BAABDA600F2ABF4 /* spline_test.cpp in Sources */,
 				670F299C1BAABDA600F2ABF4 /* transformations_test.cpp in Sources */,
 				670F29951BAABDA600F2ABF4 /* region_test.cpp in Sources */,
-				670F29921BAABDA600F2ABF4 /* pointu_to_uint64_test.cpp in Sources */,
 				670F29891BAABDA600F2ABF4 /* cellid_test.cpp in Sources */,
 				670F29961BAABDA600F2ABF4 /* region2d_binary_op_test.cpp in Sources */,
 				670F299D1BAABDA600F2ABF4 /* tree_test.cpp in Sources */,
@@ -524,8 +511,6 @@
 				670F29991BAABDA600F2ABF4 /* segments_intersect_test.cpp in Sources */,
 				45A2D9D01F752710003310A0 /* line2d_tests.cpp in Sources */,
 				670F299E1BAABDA600F2ABF4 /* vector_test.cpp in Sources */,
-				670F296A1BA9D3C200F2ABF4 /* equality.hpp in Sources */,
-				670F296C1BA9D3C200F2ABF4 /* large_polygon.hpp in Sources */,
 				670F29981BAABDA600F2ABF4 /* screen_test.cpp in Sources */,
 				670F29801BA9D42E00F2ABF4 /* testingmain.cpp in Sources */,
 				670F298E1BAABDA600F2ABF4 /* intersect_test.cpp in Sources */,
@@ -536,7 +521,6 @@
 				670F298B1BAABDA600F2ABF4 /* covering_test.cpp in Sources */,
 				670F29931BAABDA600F2ABF4 /* polygon_test.cpp in Sources */,
 				670F298C1BAABDA600F2ABF4 /* distance_on_sphere_test.cpp in Sources */,
-				670F297A1BA9D3C200F2ABF4 /* test_regions.hpp in Sources */,
 				45A2D9D21F752727003310A0 /* clipping_test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

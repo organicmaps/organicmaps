@@ -26,7 +26,6 @@ set(
   mercator_test.cpp
   packer_test.cpp
   point_test.cpp
-  pointu_to_uint64_test.cpp
   polygon_test.cpp
   rect_test.cpp
   region2d_binary_op_test.cpp

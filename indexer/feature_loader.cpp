@@ -4,8 +4,6 @@
 #include "indexer/geometry_serialization.hpp"
 #include "indexer/scales.hpp"
 
-#include "geometry/pointu_to_uint64.hpp"
-
 #include "coding/byte_stream.hpp"
 #include "coding/dd_vector.hpp"
 

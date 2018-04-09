@@ -1,8 +1,8 @@
 #pragma once
+
 #include "geometry/point2d.hpp"
 
 #include "coding/varint.hpp"
-
 
 namespace serial
 {
@@ -48,4 +48,4 @@ namespace serial
     m2::PointU m_BasePoint;
     uint8_t m_CoordBits;
   };
-}
+}  // namespace serial

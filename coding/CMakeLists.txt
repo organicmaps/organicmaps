@@ -11,8 +11,7 @@ include_directories(
 
 set(
   SRC
-   ${OMIM_ROOT}/3party/expat/expat_impl.h
-
+  ${OMIM_ROOT}/3party/expat/expat_impl.h
   base64.cpp
   base64.hpp
   bit_streams.hpp
@@ -58,6 +57,8 @@ set(
   parse_xml.hpp
   point_to_integer.cpp
   point_to_integer.hpp
+  pointd_to_pointu.cpp
+  pointd_to_pointu.hpp
   polymorph_reader.hpp
   read_write_utils.hpp
   reader.cpp

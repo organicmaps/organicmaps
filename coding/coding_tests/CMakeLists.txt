@@ -25,6 +25,7 @@ set(
   multilang_utf8_string_test.cpp
   png_decoder_test.cpp
   point_to_integer_test.cpp
+  pointd_to_pointu_tests.cpp
   reader_cache_test.cpp
   reader_test.cpp
   reader_test.hpp
@@ -48,4 +49,16 @@ set(
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
-omim_link_libraries(${PROJECT_NAME} platform_tests_support platform coding base geometry minizip succinct stats_client ${Qt5Widgets_LIBRARIES} ${LIBZ})
+omim_link_libraries(
+  ${PROJECT_NAME}
+  platform_tests_support
+  platform
+  coding
+  base
+  geometry
+  minizip
+  succinct
+  stats_client
+  ${Qt5Widgets_LIBRARIES}
+  ${LIBZ}
+)

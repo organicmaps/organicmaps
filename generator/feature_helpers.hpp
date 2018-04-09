@@ -80,7 +80,7 @@ public:
 private:
   m2::RectD const & m_rect;
   // 5.0E-7 is near with minimal epsilon when integer points are different
-  // PointD2PointU(x, y) != PointD2PointU(x + m_eps, y + m_eps)
+  // PointDToPointU(x, y) != PointDToPointU(x + m_eps, y + m_eps)
   double m_eps = 5.0E-7;
 };
 

@@ -6,7 +6,7 @@
 
 #include "coding/bit_streams.hpp"
 #include "coding/elias_coder.hpp"
-#include "coding/point_to_integer.hpp"
+#include "coding/pointd_to_pointu.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
@@ -119,7 +119,10 @@ public:
     }
 
   private:
-    m2::PointU ToU(m2::PointD const & p) const { return PointD2PointU(p, m_params.GetCoordBits()); }
+    m2::PointU ToU(m2::PointD const & p) const
+    {
+      return PointDToPointU(p, m_params.GetCoordBits());
+    }
 
     std::vector<m2::PointU> ToU(std::vector<m2::PointD> const & ps) const
     {
@@ -264,7 +267,7 @@ public:
   private:
     m2::PointD FromU(m2::PointU const & u) const
     {
-      return PointU2PointD(u, m_params.GetCoordBits());
+      return PointUToPointD(u, m_params.GetCoordBits());
     }
 
     std::vector<m2::PointD> FromU(std::vector<m2::PointU> const & us) const

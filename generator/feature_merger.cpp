@@ -117,7 +117,7 @@ double MergedFeatureBuilder1::GetPriority() const
 
 FeatureMergeProcessor::key_t FeatureMergeProcessor::get_key(m2::PointD const & p)
 {
-  return PointToInt64(p, m_coordBits);
+  return PointToInt64Obsolete(p, m_coordBits);
 }
 
 FeatureMergeProcessor::FeatureMergeProcessor(uint32_t coordBits)

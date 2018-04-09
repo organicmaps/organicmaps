@@ -6,7 +6,7 @@
 #include "coding/endianness.hpp"
 #include "coding/file_container.hpp"
 #include "coding/memory_region.hpp"
-#include "coding/point_to_integer.hpp"
+#include "coding/pointd_to_pointu.hpp"
 #include "coding/reader.hpp"
 #include "coding/succinct_mapper.hpp"
 #include "coding/varint.hpp"
@@ -174,7 +174,7 @@ public:
       }
     }
 
-    center = PointU2PointD(entry[offset], m_codingParams.GetCoordBits());
+    center = PointUToPointD(entry[offset], m_codingParams.GetCoordBits());
     return true;
   }
 
@@ -269,7 +269,7 @@ void CentersTableBuilder::Put(uint32_t featureId, m2::PointD const & center)
   if (!m_ids.empty())
     CHECK_LESS(m_ids.back(), featureId, ());
 
-  m_centers.push_back(PointD2PointU(center, m_codingParams.GetCoordBits()));
+  m_centers.push_back(PointDToPointU(center, m_codingParams.GetCoordBits()));
   m_ids.push_back(featureId);
 }
 

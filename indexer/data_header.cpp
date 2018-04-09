@@ -6,6 +6,7 @@
 #include "coding/file_container.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/point_to_integer.hpp"
+#include "coding/pointd_to_pointu.hpp"
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
 
@@ -33,12 +34,12 @@ namespace feature
 
   m2::RectD const DataHeader::GetBounds() const
   {
-    return Int64ToRect(m_bounds, m_codingParams.GetCoordBits());
+    return Int64ToRectObsolete(m_bounds, m_codingParams.GetCoordBits());
   }
 
   void DataHeader::SetBounds(m2::RectD const & r)
   {
-    m_bounds = RectToInt64(r, m_codingParams.GetCoordBits());
+    m_bounds = RectToInt64Obsolete(r, m_codingParams.GetCoordBits());
   }
 
   pair<int, int> DataHeader::GetScaleRange() const

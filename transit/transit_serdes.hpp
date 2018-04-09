@@ -7,6 +7,7 @@
 #include "geometry/point2d.hpp"
 
 #include "coding/point_to_integer.hpp"
+#include "coding/pointd_to_pointu.hpp"
 #include "coding/read_write_utils.hpp"
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
@@ -80,7 +81,7 @@ public:
 
   void operator()(m2::PointD const & p, char const * /* name */ = nullptr)
   {
-    WriteVarInt(m_sink, PointToInt64(p, POINT_COORD_BITS));
+    WriteVarInt(m_sink, PointToInt64Obsolete(p, POINT_COORD_BITS));
   }
 
   void operator()(std::vector<m2::PointD> const & vs, char const * /* name */ = nullptr)
@@ -90,7 +91,7 @@ public:
     m2::PointU lastEncodedPoint;
     for (auto const & p : vs)
     {
-      m2::PointU const pointU = PointD2PointU(p, POINT_COORD_BITS);
+      m2::PointU const pointU = PointDToPointU(p, POINT_COORD_BITS);
       WriteVarUint(m_sink, EncodeDelta(pointU, lastEncodedPoint));
       lastEncodedPoint = pointU;
     }
@@ -212,7 +213,7 @@ public:
 
   void operator()(m2::PointD & p, char const * /* name */ = nullptr)
   {
-    p = Int64ToPoint(ReadVarInt<int64_t, Source>(m_source), POINT_COORD_BITS);
+    p = Int64ToPointObsolete(ReadVarInt<int64_t, Source>(m_source), POINT_COORD_BITS);
   }
 
   void operator()(Edge::WrappedEdgeId & id, char const * /* name */ = nullptr)
@@ -290,7 +291,7 @@ public:
     for (auto & p : vs)
     {
       m2::PointU const pointU = DecodeDelta(ReadVarUint<uint64_t, Source>(m_source), lastDecodedPoint);
-      p = PointU2PointD(pointU, POINT_COORD_BITS);
+      p = PointUToPointD(pointU, POINT_COORD_BITS);
       lastDecodedPoint = pointU;
     }
   }

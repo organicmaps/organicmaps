@@ -2,7 +2,7 @@
 
 #include "indexer/coding_params.hpp"
 
-#include "coding/point_to_integer.hpp"
+#include "coding/pointd_to_pointu.hpp"
 
 namespace search
 {
@@ -16,7 +16,6 @@ namespace trie
 inline serial::CodingParams GetCodingParams(serial::CodingParams const & orig)
 {
   return serial::CodingParams(search::kPointCodingBits,
-                              PointU2PointD(orig.GetBasePoint(), orig.GetCoordBits()));
+                              PointUToPointD(orig.GetBasePoint(), orig.GetCoordBits()));
 }
-
 }  // namespace trie

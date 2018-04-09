@@ -4,11 +4,13 @@
 #include "generator/feature_generator.hpp"
 #include "generator/feature_helpers.hpp"
 
-#include "geometry/mercator.hpp"
-#include "indexer/cell_id.hpp"
-#include "indexer/scales.hpp"
+#include "coding/pointd_to_pointu.hpp"
 
 #include "geometry/cellid.hpp"
+#include "geometry/mercator.hpp"
+
+#include "indexer/cell_id.hpp"
+#include "indexer/scales.hpp"
 
 #include "base/logging.hpp"
 
@@ -18,7 +20,7 @@ namespace
 {
   inline m2::PointU D2I(double x, double y)
   {
-    return PointD2PointU(m2::PointD(x, y), POINT_COORD_BITS);
+    return PointDToPointU(m2::PointD(x, y), POINT_COORD_BITS);
   }
 }
 

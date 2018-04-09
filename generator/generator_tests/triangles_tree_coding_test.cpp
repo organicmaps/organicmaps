@@ -1,12 +1,13 @@
 #include "generator/tesselator.hpp"
 
 #include "indexer/geometry_serialization.hpp"
-#include "geometry/mercator.hpp"
 #include "indexer/coding_params.hpp"
 
-#include "coding/point_to_integer.hpp"
+#include "coding/pointd_to_pointu.hpp"
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
+
+#include "geometry/mercator.hpp"
 
 #include "testing/testing.hpp"
 
@@ -62,7 +63,8 @@ namespace
 
     serial::TrianglesChainSaver saver(cp);
     tesselator::PointsInfo points;
-    m2::PointU (* D2U)(m2::PointD const &, uint32_t) = &PointD2PointU;
+
+    m2::PointU (*D2U)(m2::PointD const &, uint32_t) = &PointDToPointU;
     info.GetPointsInfo(saver.GetBasePoint(), saver.GetMaxPoint(),
                        std::bind(D2U, std::placeholders::_1, cp.GetCoordBits()), points);
 

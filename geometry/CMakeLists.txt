@@ -35,7 +35,6 @@ set(
   packer.cpp
   packer.hpp
   point2d.hpp
-  pointu_to_uint64.hpp
   polygon.hpp
   polyline2d.hpp
   rect2d.hpp

@@ -1,10 +1,10 @@
 #include "indexer/geometry_serialization.hpp"
-#include "geometry/mercator.hpp"
+
 #include "indexer/geometry_coding.hpp"
 
-#include "coding/point_to_integer.hpp"
+#include "coding/pointd_to_pointu.hpp"
 
-#include "geometry/pointu_to_uint64.hpp"
+#include "geometry/mercator.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
@@ -18,12 +18,12 @@ namespace serial
   {
     inline m2::PointU D2U(m2::PointD const & p, uint32_t coordBits)
     {
-      return PointD2PointU(p, coordBits);
+      return PointDToPointU(p, coordBits);
     }
 
     inline m2::PointD U2D(m2::PointU const & p, uint32_t coordBits)
     {
-      m2::PointD const pt = PointU2PointD(p, coordBits);
+      m2::PointD const pt = PointUToPointD(p, coordBits);
       ASSERT(MercatorBounds::minX <= pt.x && pt.y <= MercatorBounds::maxX,
              (p, pt, coordBits));
       ASSERT(MercatorBounds::minY <= pt.x && pt.y <= MercatorBounds::maxY,
