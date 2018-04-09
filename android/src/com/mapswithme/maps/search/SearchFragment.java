@@ -41,6 +41,7 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.Statistics;
+import ru.mail.libnotify.debug.NotifyDebugActivity;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -515,6 +516,12 @@ public class SearchFragment extends BaseMwmFragment
     if (str.equals("?emulateBadStorage"))
     {
       SharedPropertiesUtils.setShouldShowEmulateBadStorageSetting(true);
+      return true;
+    }
+
+    if (str.equals("?libnotifyId"))
+    {
+      startActivity(new Intent(getContext(), NotifyDebugActivity.class));
       return true;
     }
 
