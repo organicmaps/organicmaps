@@ -45,8 +45,8 @@ SourceReader::SourceReader()
 }
 
 SourceReader::SourceReader(string const & filename)
+: m_file(unique_ptr<istream, Deleter>(new ifstream(filename), Deleter()))
 {
-  m_file = unique_ptr<istream, Deleter>(new ifstream(filename), Deleter());
   CHECK(static_cast<ifstream *>(m_file.get())->is_open() , ("Can't open file:", filename));
   LOG_SHORT(LINFO, ("Reading OSM data from", filename));
 }

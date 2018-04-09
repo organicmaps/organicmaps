@@ -222,6 +222,9 @@ namespace
   /// See also ftypes_matcher.cpp, IsInvisibleIndexedChecker.
   bool TypeAlwaysExists(uint32_t type, EGeomType g = GEOM_UNDEFINED)
   {
+    if (!classif().IsTypeValid(type))
+      return false;
+
     static const uint32_t roundabout = classif().GetTypeByPath({ "junction", "roundabout" });
     static const uint32_t hwtag = classif().GetTypeByPath({ "hwtag" });
     static const uint32_t psurface = classif().GetTypeByPath({ "psurface" });
