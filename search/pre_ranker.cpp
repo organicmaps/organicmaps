@@ -22,13 +22,14 @@ namespace search
 {
 namespace
 {
-void SweepNearbyResults(double eps, vector<PreRankerResult> & results)
+void SweepNearbyResults(double eps, set<FeatureID> const & prevEmit, vector<PreRankerResult> & results)
 {
   m2::NearbyPointsSweeper sweeper(eps);
   for (size_t i = 0; i < results.size(); ++i)
   {
     auto const & p = results[i].GetInfo().m_center;
-    sweeper.Add(p.x, p.y, i);
+    uint8_t const priority = prevEmit.count(results[i].GetId()) ? 1 : 0;
+    sweeper.Add(p.x, p.y, i, priority);
   }
 
   vector<PreRankerResult> filtered;
@@ -230,7 +231,7 @@ void PreRanker::FilterForViewportSearch()
     return !viewport.IsPointInside(info.m_center);
   });
 
-  SweepNearbyResults(m_params.m_minDistanceOnMapBetweenResults, m_results);
+  SweepNearbyResults(m_params.m_minDistanceOnMapBetweenResults, m_prevEmit, m_results);
 
   size_t const n = m_results.size();
 
