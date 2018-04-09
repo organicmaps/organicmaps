@@ -171,6 +171,8 @@ public:
   std::string GetCategoryName(kml::MarkGroupId categoryId) const;
   std::string GetCategoryFileName(kml::MarkGroupId categoryId) const;
 
+  kml::MarkGroupId GetCategoryId(std::string const & name) const;
+
   kml::GroupIdCollection const & GetBmGroupsIdList() const { return m_bmGroupsIdList; }
   bool HasBmCategory(kml::MarkGroupId groupId) const;
   kml::MarkGroupId LastEditedBMCategory();

@@ -679,6 +679,17 @@ std::string BookmarkManager::GetCategoryFileName(kml::MarkGroupId categoryId) co
   return GetBmCategory(categoryId)->GetFileName();
 }
 
+kml::MarkGroupId BookmarkManager::GetCategoryId(std::string const & name) const
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  for (auto const & category : m_categories)
+  {
+    if (category.second->GetName() == name)
+      return category.first;
+  }
+  return kml::kInvalidMarkGroupId;
+}
+
 UserMark const * BookmarkManager::FindMarkInRect(kml::MarkGroupId groupId, m2::AnyRectD const & rect, double & d) const
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
@@ -1279,39 +1290,33 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
   kml::GroupIdSet loadedGroups;
 
-  std::vector<std::pair<kml::MarkGroupId, BookmarkCategory *>> categoriesForMerge;
-  categoriesForMerge.reserve(m_categories.size());
-  for (auto const & c : m_categories)
-    categoriesForMerge.emplace_back(c.first, c.second.get());
-
   for (auto const & data : dataCollection)
   {
-    kml::MarkGroupId groupId;
-    BookmarkCategory * group = nullptr;
-
     auto const & fileName = data.first;
     auto & fileData = *data.second.get();
     auto & categoryData = fileData.m_categoryData;
 
-    auto const it = std::find_if(categoriesForMerge.cbegin(), categoriesForMerge.cend(),
-      [&categoryData](auto const & v)
-      {
-        return v.second->GetName() == kml::GetDefaultStr(categoryData.m_name);
-      });
-    bool const merge = it != categoriesForMerge.cend();
-    if (merge)
+    auto const originalName = kml::GetDefaultStr(categoryData.m_name);
+    auto uniqueName = originalName;
+
+    int counter = 0;
+    while (IsUsedCategoryName(uniqueName))
+      uniqueName = originalName + strings::to_string(++counter);
+
+    if (counter > 0)
     {
-      groupId = it->first;
-      group = it->second;
+      auto const sameCategoryId = GetCategoryId(originalName);
+      if (categoryData.m_id != kml::kInvalidMarkGroupId && categoryData.m_id < sameCategoryId)
+        SetCategoryName(sameCategoryId, uniqueName);
+      else
+        kml::SetDefaultStr(categoryData.m_name, uniqueName);
     }
-    else
-    {
-      bool const saveAfterCreation = autoSave && (categoryData.m_id == kml::kInvalidMarkGroupId);
-      groupId = CreateBookmarkCategory(std::move(categoryData), saveAfterCreation);
-      loadedGroups.insert(groupId);
-      group = GetBmCategory(groupId);
-      group->SetFileName(fileName);
-    }
+
+    bool const saveAfterCreation = autoSave && (categoryData.m_id == kml::kInvalidMarkGroupId);
+    auto const groupId = CreateBookmarkCategory(std::move(categoryData), saveAfterCreation);
+    loadedGroups.insert(groupId);
+    auto * group = GetBmCategory(groupId);
+    group->SetFileName(fileName);
 
     for (auto & bmData : fileData.m_bookmarksData)
     {
@@ -1325,12 +1330,6 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
       auto * t = AddTrack(std::move(track));
       t->Attach(groupId);
       group->AttachTrack(t->GetId());
-    }
-    if (merge)
-    {
-      // Delete file since it will be merged.
-      my::DeleteFileX(fileName);
-      SaveBookmarks({groupId});
     }
   }
 
