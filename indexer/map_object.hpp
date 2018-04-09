@@ -65,6 +65,7 @@ public:
   string GetLocalizedType() const;
   feature::TypesHolder const & GetTypes() const;
   string GetDefaultName() const;
+  StringUtf8Multilang const & GetNameMultilang() const;
 
   /// @name Metadata fields.
   //@{

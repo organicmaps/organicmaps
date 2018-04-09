@@ -107,3 +107,13 @@ bool SaveKmlData(kml::FileData & kmlData, Writer & writer, bool useBinary)
   }
   return true;
 }
+
+void SaveFeatureInfo(StringUtf8Multilang const & name, feature::TypesHolder const & types, kml::BookmarkData & bmData)
+{
+  bmData.m_featureTypes.assign(types.begin(), types.end());
+
+  name.ForEach([&bmData](int8_t langCode, std::string const & localName)
+  {
+    bmData.m_featureName[langCode] = localName;
+  });
+}

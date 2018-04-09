@@ -11,6 +11,8 @@
 
 #include "local_ads/event.hpp"
 
+#include "map/bookmark_helpers.hpp"
+
 #include "platform/preferred_languages.hpp"
 
 #include "partners_api/booking_api.hpp"
@@ -445,6 +447,8 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     kml::SetDefaultStr(bmData.m_name, m_info.FormatNewBookmarkName());
     bmData.m_color.m_predefinedColor = f.LastEditedBMColor();
     bmData.m_point = self.mercator;
+    if (m_info.IsFeature())
+      SaveFeatureInfo(m_info.GetNameMultilang(), m_info.GetTypes(), bmData);
     auto editSession = bmManager.GetEditSession();
     auto const * bookmark = editSession.CreateBookmark(std::move(bmData), categoryId);
     f.FillBookmarkInfo(*bookmark, m_info);

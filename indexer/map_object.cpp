@@ -91,6 +91,11 @@ string MapObject::GetDefaultName() const
   return name;
 }
 
+StringUtf8Multilang const & MapObject::GetNameMultilang() const
+{
+  return m_name;
+}
+
 string MapObject::GetLocalizedType() const
 {
   ASSERT(!m_types.Empty(), ());
