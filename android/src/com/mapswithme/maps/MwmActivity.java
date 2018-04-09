@@ -95,6 +95,7 @@ import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.Animations;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.Counters;
+import com.mapswithme.util.DialogUtils;
 import com.mapswithme.util.InputUtils;
 import com.mapswithme.util.PermissionsUtils;
 import com.mapswithme.util.ThemeSwitcher;
@@ -650,7 +651,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           if (Framework.nativeIsDownloadedMapAtScreenCenter())
             startActivity(new Intent(MwmActivity.this, FeatureCategoryActivity.class));
           else
-            UiUtils.showAlertDialog(MwmActivity.this, R.string.message_invalid_feature_position);
+            DialogUtils.showAlertDialog(MwmActivity.this, R.string.message_invalid_feature_position);
         });
     UiUtils.hide(mPositionChooser);
   }

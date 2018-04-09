@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -37,12 +36,10 @@ import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.taxi.TaxiManager;
 
 public final class UiUtils
 {
@@ -249,42 +246,6 @@ public final class UiUtils
   public static void showHomeUpButton(Toolbar toolbar)
   {
     toolbar.setNavigationIcon(ThemeUtils.getResource(toolbar.getContext(), R.attr.homeAsUpIndicator));
-  }
-
-  public static AlertDialog buildAlertDialog(Activity activity, int titleId)
-  {
-    return new AlertDialog.Builder(activity)
-            .setCancelable(false)
-            .setTitle(titleId)
-            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-              @Override
-              public void onClick(DialogInterface dlg, int which) { dlg.dismiss(); }
-            })
-            .create();
-  }
-
-  public static AlertDialog buildAlertDialog(Activity activity, int titleId, @StringRes int msgId)
-  {
-    return new AlertDialog.Builder(activity)
-        .setCancelable(false)
-        .setTitle(titleId)
-        .setMessage(msgId)
-        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-          @Override
-          public void onClick(DialogInterface dlg, int which) { dlg.dismiss(); }
-        })
-        .create();
-  }
-
-  public static void showAlertDialog(@NonNull Activity activity, @StringRes int titleId,
-                                     @StringRes int msgId)
-  {
-    buildAlertDialog(activity, titleId, msgId).show();
-  }
-
-  public static void showAlertDialog(@NonNull Activity activity, @StringRes int titleId)
-  {
-    buildAlertDialog(activity, titleId).show();
   }
 
   public static String deviceOrientationAsString(Activity activity)

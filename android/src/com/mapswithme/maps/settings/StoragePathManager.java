@@ -18,7 +18,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.util.Config;
-import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.DialogUtils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
@@ -277,13 +277,13 @@ public class StoragePathManager
       public void moveFilesFinished(String newPath)
       {
         Config.setKitKatMigrationComplete();
-        UiUtils.showAlertDialog(activity, R.string.kitkat_migrate_ok);
+        DialogUtils.showAlertDialog(activity, R.string.kitkat_migrate_ok);
       }
 
       @Override
       public void moveFilesFailed(int errorCode)
       {
-        UiUtils.showAlertDialog(activity, R.string.kitkat_migrate_failed);
+        DialogUtils.showAlertDialog(activity, R.string.kitkat_migrate_failed);
       }
     });
   }

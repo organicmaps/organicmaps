@@ -21,7 +21,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.util.BottomSheetHelper;
-import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.DialogUtils;
 import com.mapswithme.util.concurrency.ThreadPool;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.log.Logger;
@@ -224,13 +224,13 @@ public enum SharingHelper
                          .setSubject(R.string.share_bookmarks_email_subject));
         break;
       case BookmarkSharingResult.EMPTY_CATEGORY:
-        UiUtils.showAlertDialog(context, R.string.bookmarks_error_title_share_empty,
-                                R.string.bookmarks_error_message_share_empty);
+        DialogUtils.showAlertDialog(context, R.string.bookmarks_error_title_share_empty,
+                                    R.string.bookmarks_error_message_share_empty);
         break;
       case BookmarkSharingResult.ARCHIVE_ERROR:
       case BookmarkSharingResult.FILE_ERROR:
-        UiUtils.showAlertDialog(context, R.string.dialog_routing_system_error,
-                                R.string.bookmarks_error_message_share_general);
+        DialogUtils.showAlertDialog(context, R.string.dialog_routing_system_error,
+                                    R.string.bookmarks_error_message_share_general);
         String catName = BookmarkManager.INSTANCE.getCategoryName(result.getCategoryId());
         LOGGER.e(TAG, "Failed to share bookmark category '" + catName + "', error code: "
                       + result.getCode());

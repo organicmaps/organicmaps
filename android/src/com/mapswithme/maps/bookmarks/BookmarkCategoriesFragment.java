@@ -23,6 +23,7 @@ import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 import com.mapswithme.util.BottomSheetHelper;
+import com.mapswithme.util.DialogUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.SharingHelper;
 
@@ -159,15 +160,15 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   {
     if (TextUtils.isEmpty(text))
     {
-      UiUtils.showAlertDialog(getActivity(), R.string.bookmarks_error_title_empty_list_name,
-                              R.string.bookmarks_error_message_empty_list_name);
+      DialogUtils.showAlertDialog(getActivity(), R.string.bookmarks_error_title_empty_list_name,
+                                  R.string.bookmarks_error_message_empty_list_name);
       return;
     }
 
     if (BookmarkManager.INSTANCE.isUsedCategoryName(text))
     {
-      UiUtils.showAlertDialog(getActivity(), R.string.bookmarks_error_title_list_name_already_taken,
-                              R.string.bookmarks_error_message_list_name_already_taken);
+      DialogUtils.showAlertDialog(getActivity(), R.string.bookmarks_error_title_list_name_already_taken,
+                                  R.string.bookmarks_error_message_list_name_already_taken);
       return;
     }
 
