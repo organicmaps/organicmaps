@@ -122,8 +122,7 @@ BookmarkManager::SharingResult GetFileForSharing(kml::MarkGroupId categoryId, st
                                           "Bookmarks file does not exist.");
   }
 
-  auto ext = my::GetFileExtension(filePath);
-  strings::AsciiToLower(ext);
+  auto const ext = GetFileExt(filePath);
   std::string fileName = my::GetNameFromFullPathWithoutExt(filePath);
   auto const tmpFilePath = my::JoinPath(GetPlatform().TmpDir(), fileName + kKmzExtension);
   if (ext == kKmzExtension)
@@ -167,9 +166,18 @@ bool ConvertAfterDownloading(std::string const & filePath, std::string const & c
   if (files.empty())
     return false;
 
+  auto fileName = files.front().first;
+  for (auto const & file : files)
+  {
+    if (GetFileExt(file.first) == kKmlExtension)
+    {
+      fileName = file.first;
+      break;
+    }
+  }
   std::string const unarchievedPath = filePath + ".raw";
   MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, unarchievedPath));
-  ZipFileReader::UnzipFile(filePath, files.front().first, unarchievedPath);
+  ZipFileReader::UnzipFile(filePath, fileName, unarchievedPath);
   if (!GetPlatform().IsFileExistsByFullPath(unarchievedPath))
     return false;
 
