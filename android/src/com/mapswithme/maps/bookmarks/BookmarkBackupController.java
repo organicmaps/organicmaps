@@ -1,4 +1,4 @@
-package com.mapswithme.maps.bookmarks.data;
+package com.mapswithme.maps.bookmarks;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.background.Notifier;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.widget.BookmarkBackupView;
 import com.mapswithme.util.DateUtils;
 import com.mapswithme.util.statistics.Statistics;
