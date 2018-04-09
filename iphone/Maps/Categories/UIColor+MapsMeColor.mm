@@ -64,7 +64,8 @@ NSDictionary<NSString *, UIColor *> * night = @{
       [UIColor colorWithRed:scaled(60.) green:scaled(64.) blue:scaled(68.) alpha:alpha90],
   @"blackOpaque": [UIColor colorWithWhite:1. alpha:alpha04],
   @"toastBackground": [UIColor colorWithWhite:0. alpha:alpha87],
-  @"statusBarBackground": [UIColor colorWithWhite:0. alpha:alpha32]
+  @"statusBarBackground": [UIColor colorWithWhite:0. alpha:alpha32],
+  @"bannerBackground" : [UIColor colorWithRed:scaled(71) green:scaled(75) blue:scaled(79) alpha:alpha100]
 };
 
 NSDictionary<NSString *, UIColor *> * day = @{
@@ -110,7 +111,8 @@ NSDictionary<NSString *, UIColor *> * day = @{
   @"alertBackground" : [UIColor colorWithWhite:1. alpha:alpha90],
   @"blackOpaque" : [UIColor colorWithWhite:0. alpha:alpha04],
   @"toastBackground" : [UIColor colorWithWhite:1. alpha:alpha87],
-  @"statusBarBackground" : [UIColor colorWithWhite:1. alpha:alpha36]
+  @"statusBarBackground" : [UIColor colorWithWhite:1. alpha:alpha36],
+  @"bannerBackground" : [UIColor colorWithRed:scaled(249) green:scaled(251) blue:scaled(231) alpha:alpha100]
 };
 
 UIColor * color(SEL cmd)
@@ -358,7 +360,7 @@ UIColor * color(SEL cmd)
 
 + (UIColor *)bannerBackground
 {
-  return [UIColor colorWithRed:scaled(249) green:scaled(251) blue:scaled(231) alpha:alpha100];
+  return color(_cmd);
 }
 
 + (UIColor *)bannerButtonBackground

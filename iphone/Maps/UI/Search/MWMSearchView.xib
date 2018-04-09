@@ -268,7 +268,7 @@
                                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="updateFilter" destination="-1" eventType="touchUpInside" id="Dpe-pe-Kps"/>
+                                <action selector="updateTap" destination="-1" eventType="touchUpInside" id="HXM-IS-ykz"/>
                             </connections>
                         </button>
                         <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUE-KN-mbf" customClass="MWMButton">
