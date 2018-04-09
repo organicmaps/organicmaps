@@ -1,6 +1,8 @@
 package com.mapswithme.util;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
@@ -28,11 +30,15 @@ public class DialogUtils
           .setMessage(msgId);
   }
 
-  private static AlertDialog.Builder buildAlertDialog(Activity activity, int titleId, @StringRes int msgId,
-                                                      @StringRes int posBtn, @StringRes int negBtn)
+  private static AlertDialog.Builder buildAlertDialog(Activity activity, int titleId,
+                                                      @NonNull CharSequence msg,
+                                                      @StringRes int posBtn,
+                                                      @NonNull DialogInterface.OnClickListener posClickListener,
+                                                      @StringRes int negBtn)
   {
-    return buildAlertDialog(activity, titleId, msgId)
-        .setPositiveButton(posBtn, (dlg, which) -> dlg.dismiss())
+    return buildAlertDialog(activity, titleId)
+        .setMessage(msg)
+        .setPositiveButton(posBtn, posClickListener)
         .setNegativeButton(negBtn, null);
   }
 
@@ -48,8 +54,21 @@ public class DialogUtils
   }
 
   public static void showAlertDialog(@NonNull Activity activity, @StringRes int titleId,
-                                     @StringRes int msgId, @StringRes int posBtn, @StringRes int negBtn)
+                                     @NonNull CharSequence msg, @StringRes int posBtn,
+                                     @NonNull DialogInterface.OnClickListener posClickListener,
+                                     @StringRes int negBtn)
   {
-    buildAlertDialog(activity, titleId, msgId, posBtn, negBtn).show();
+    buildAlertDialog(activity, titleId, msg, posBtn, posClickListener, negBtn).show();
+  }
+
+  @NonNull
+  public static ProgressDialog showModalProgressDialog(@NonNull Activity activity, @StringRes int msg)
+  {
+    ProgressDialog progress = new ProgressDialog(activity);
+    progress.setMessage(activity.getString(msg));
+    progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+    progress.setIndeterminate(true);
+    progress.setCancelable(false);
+    return progress;
   }
 }

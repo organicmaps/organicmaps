@@ -340,7 +340,7 @@ public enum BookmarkManager
     return nativeFormatNewBookmarkName();
   }
 
-  public static boolean isAsyncBookmarksLoadingInProgress()
+  public boolean isAsyncBookmarksLoadingInProgress()
   {
     return nativeIsAsyncBookmarksLoadingInProgress();
   }

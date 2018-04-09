@@ -33,7 +33,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
                RecyclerLongClickListener,
                BookmarkManager.BookmarksLoadingListener,
                BookmarkManager.BookmarksSharingListener,
-               BookmarkCategoriesAdapter.CategoryListInterface
+               BookmarkCategoriesAdapter.CategoryListInterface,
+               KmlImportController.ImportKmlCallback
 {
   private static final int MAX_CATEGORY_NAME_LENGTH = 60;
   private long mSelectedCatId;
@@ -44,6 +45,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
 
   @Nullable
   private BookmarkBackupController mBackupController;
+  @Nullable
+  private KmlImportController mKmlImportController;
 
   @Override
   protected @LayoutRes int getLayoutRes()
@@ -74,6 +77,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     mLoadingPlaceholder = view.findViewById(R.id.placeholder_loading);
     mBackupController = new BookmarkBackupController(view.findViewById(R.id.backup),
                                                      new Authorizer(this));
+    mKmlImportController = new KmlImportController(getActivity(), this);
     if (getAdapter() != null)
     {
       getAdapter().setOnClickListener(this);
@@ -89,13 +93,17 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
       });
     }
 
-    getRecyclerView().setNestedScrollingEnabled(false);
-    getRecyclerView().addItemDecoration(ItemDecoratorFactory.createVerticalDefaultDecorator(getContext()));
+    RecyclerView rw = getRecyclerView();
+    if (rw == null)
+      return;
+
+    rw.setNestedScrollingEnabled(false);
+    rw.addItemDecoration(ItemDecoratorFactory.createVerticalDefaultDecorator(getContext()));
   }
 
   private void updateResultsPlaceholder()
   {
-    boolean showLoadingPlaceholder = BookmarkManager.isAsyncBookmarksLoadingInProgress();
+    boolean showLoadingPlaceholder = BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress();
     boolean showPlaceHolder = !showLoadingPlaceholder &&
                               (getAdapter() == null || getAdapter().getItemCount() == 0);
     if (getAdapter() != null)
@@ -110,7 +118,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   {
     if (mLoadingPlaceholder != null)
     {
-      boolean showLoadingPlaceholder = BookmarkManager.isAsyncBookmarksLoadingInProgress();
+      boolean showLoadingPlaceholder = BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress();
       if (getAdapter() != null && getAdapter().getItemCount() != 0)
         showLoadingPlaceholder = false;
 
@@ -126,6 +134,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     BookmarkManager.INSTANCE.addSharingListener(this);
     if (mBackupController != null)
       mBackupController.onStart();
+    if (mKmlImportController != null)
+      mKmlImportController.onStart();
   }
 
   @Override
@@ -136,6 +146,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     BookmarkManager.INSTANCE.removeSharingListener(this);
     if (mBackupController != null)
       mBackupController.onStop();
+    if (mKmlImportController != null)
+      mKmlImportController.onStop();
   }
 
   @Override
@@ -145,6 +157,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     updateLoadingPlaceholder();
     if (getAdapter() != null)
       getAdapter().notifyDataSetChanged();
+    if (mKmlImportController != null)
+      mKmlImportController.importKml();
   }
 
   @Override
@@ -304,6 +318,13 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     super.onActivityResult(requestCode, resultCode, data);
     if (mBackupController != null)
       mBackupController.onActivityResult(requestCode, resultCode, data);
+  }
+
+  @Override
+  public void onFinishKmlImport()
+  {
+    if (getAdapter() != null)
+      getAdapter().notifyDataSetChanged();
   }
 
   interface CategoryEditor
