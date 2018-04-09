@@ -83,6 +83,14 @@
         android:name="PW_PROJECT_ID"
         android:value="${PW_PROJECT_ID}"/>
 
+    <meta-data
+      android:name="ru.mail.libnotify.application_name"
+      android:value="${LIBNOTIFY_APP_ID}"/>
+
+    <meta-data
+      android:name="ru.mail.libnotify.server_id"
+      android:value="${LIBNOTIFY_PROJECT_ID}"/>
+
     <!--meta-data
         android:name="PW_LOG_LEVEL"
         android:value="ERROR" /-->
@@ -474,17 +482,21 @@
       </intent-filter>
     </receiver>
 
+    <!-- Took this legacy code from https://www.pushwoosh.com/docs/gcm-integration-legacy.
+         Remove it after Pushwoosh is removed. -->
     <service
-        android:name="com.pushwoosh.GCMListenerService"
-        android:exported="false">
-      <intent-filter>
-        <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+      android:name="com.mapswithme.util.push.GCMListenerRouterService"
+      android:enabled="true"
+      android:exported="false" >
+      <intent-filter android:priority="100" >
+        <action android:name="com.google.android.c2dm.intent.RECEIVE" />
       </intent-filter>
     </service>
 
     <service
-        android:name="com.pushwoosh.GCMInstanceIDListenerService"
-        android:exported="false">
+      android:name="com.mapswithme.util.push.GcmInstanceIDRouterListenerService"
+      android:enabled="true"
+      android:exported="false">
       <intent-filter>
         <action android:name="com.google.android.gms.iid.InstanceID"/>
       </intent-filter>
@@ -496,7 +508,8 @@
 
     <service
         android:name="com.pushwoosh.location.GeoLocationService"/>
-
+    <service android:name="com.mapswithme.util.push.GcmInstanceIDListenerService"/>
+    <service android:name="com.mapswithme.util.push.GcmMessageHandlerService"/>
     <!-- Catches app upgraded intent -->
     <receiver android:name=".background.UpgradeReceiver">
       <intent-filter>

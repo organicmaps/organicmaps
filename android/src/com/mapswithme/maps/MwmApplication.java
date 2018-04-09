@@ -41,6 +41,9 @@ import com.my.tracker.MyTracker;
 import com.my.tracker.MyTrackerParams;
 import com.pushwoosh.PushManager;
 import io.fabric.sdk.android.Fabric;
+import ru.mail.libnotify.api.NotificationFactory;
+import ru.mail.notify.core.api.BackgroundAwakeMode;
+import ru.mail.notify.core.api.NetworkSyncMode;
 
 import java.util.List;
 
@@ -165,6 +168,7 @@ public class MwmApplication extends Application
   private void initCoreIndependentSdks()
   {
     initCrashlytics();
+    initLibnotify();
     initPushWoosh();
     initAppsFlyer();
     initTracker();
@@ -331,6 +335,22 @@ public class MwmApplication extends Application
     {
       mLogger.e("Pushwoosh", "Failed to init Pushwoosh", e);
     }
+  }
+
+  private void initLibnotify()
+  {
+    if (BuildConfig.DEBUG || BuildConfig.BUILD_TYPE.equals("beta"))
+    {
+      NotificationFactory.enableDebugMode();
+      NotificationFactory.setLogReceiver(LoggerFactory.INSTANCE.createLibnotifyLogger());
+      NotificationFactory.setUncaughtExceptionListener((thread, throwable) -> {
+        Logger l = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.THIRD_PARTY);
+        l.e("LIBNOTIFY", "Thread: " + thread, throwable);
+      });
+    }
+    NotificationFactory.setNetworkSyncMode(NetworkSyncMode.WIFI_ONLY);
+    NotificationFactory.setBackgroundAwakeMode(BackgroundAwakeMode.DISABLED);
+    NotificationFactory.initialize(this);
   }
 
   private void initAppsFlyer()

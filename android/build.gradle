@@ -28,6 +28,9 @@ repositories {
   maven {
     url 'https://s3.amazonaws.com/moat-sdk-builds'
   }
+  maven {
+    url 'https://dl.bintray.com/libverify/android'
+  }
 }
 
 apply plugin: 'com.android.application'
@@ -89,6 +92,18 @@ dependencies {
   implementation 'net.jcip:jcip-annotations:1.0'
   implementation 'com.android.support:multidex:1.0.3'
   implementation 'com.appsflyer:af-android-sdk:4.8.3'
+  implementation ("ru.mail:libnotify:0.1.163-notify-support-v98@aar") {
+    transitive = true;
+    changing = true;
+    exclude group: 'com.android.support'
+    exclude group: 'com.google.android.gms'
+  }
+  implementation ("ru.mail:libnotify-debug:0.1.163-notify-support-v98@aar") {
+    transitive = true;
+    changing = true;
+    exclude group: 'com.android.support'
+    exclude group: 'com.google.android.gms'
+  }
 }
 
 def getDate() {
@@ -133,6 +148,13 @@ android {
     manifestPlaceholders += ['PW_APPID': pwProps['pwAppId']]
     buildConfigField 'String', 'PW_APPID', /"${pwProps['pwAppId']}"/
     manifestPlaceholders += ['PW_PROJECT_ID': pwProps['pwProjectId']]
+
+    // Libnotify keys
+    Properties lnProps = new Properties()
+    lnProps.load(new FileInputStream("${projectDir}/libnotify.properties"));
+    manifestPlaceholders += ['LIBNOTIFY_APP_ID': lnProps['appId']]
+    manifestPlaceholders += ['LIBNOTIFY_PROJECT_ID': lnProps['projectId']]
+
     multiDexEnabled true
     multiDexKeepFile file('multidex-config.txt')
 
@@ -345,6 +367,7 @@ android {
       zipAlignEnabled true
       signingConfig signingConfigs.mapswithmeDebug
       android.sourceSets.debug.setRoot('flavors/debug')
+      manifestPlaceholders += ['LIBNOTIFY_APP_ID': 'MapsMeDebug']
     }
 
     release {
@@ -360,6 +383,7 @@ android {
       signingConfig signingConfigs.mapswithme
       android.sourceSets.beta.setRoot('flavors/beta')
       matchingFallbacks = ['debug', 'release']
+      manifestPlaceholders += ['LIBNOTIFY_APP_ID': 'MapsMeBeta']
     }
   }
 

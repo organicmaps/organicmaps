@@ -158,6 +158,7 @@ tools/android/yota.keystore
 android/secure.properties
 android/fabric.properties
 android/pushwoosh.properties
+android/libnotify.properties
 android/res/values/google-service.xml
 server
 
