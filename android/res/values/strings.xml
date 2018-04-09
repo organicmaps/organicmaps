@@ -1304,4 +1304,10 @@
 	<string name="notification_unsent_reviews_message"> Please sign in to share reviews with other travelers</string>
 	<string name="profile_osm">Profile OSM</string>
 	<string name="place_page_search_similar_hotel">Search similar hotels</string>
+	<string name="bookmarks_detect_title">New files detected</string>
+	<string name="bookmarks_detect_message">%d files were not imported. You can see them after conversion.</string>
+	<string name="button_convert">Convert</string>
+	<string name="bookmarks_convert_error_title">Error</string>
+	<string name="bookmarks_convert_error_message">Some files were not converted.</string>
+	<string name="converting">Converting...</string>
 </resources>

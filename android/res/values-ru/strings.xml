@@ -1292,4 +1292,10 @@
 	<string name="notification_unsent_reviews_message">Пожалуйста, авторизуйтесь, чтобы поделиться своими отзывами с другими путешественниками</string>
 	<string name="profile_osm">Профиль OSM</string>
 	<string name="place_page_search_similar_hotel">Найти похожие отели</string>
+	<string name="bookmarks_detect_title">Обнаружены новые файлы</string>
+	<string name="bookmarks_detect_message">%d файл не был импортирован. Вы увидете его после конвертации.</string>
+	<string name="button_convert">Конвертировать</string>
+	<string name="bookmarks_convert_error_title">Ошибка</string>
+	<string name="bookmarks_convert_error_message">Некоторые файлы не конвертировались.</string>
+	<string name="converting">Конвертация...</string>
 </resources>
