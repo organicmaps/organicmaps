@@ -51,7 +51,7 @@ public class KmlImportController implements BookmarkManager.KmlConversionListene
     DialogInterface.OnClickListener clickListener = (dialog, which) -> {
       BookmarkManager.INSTANCE.convertAllKmlFiles();
       dialog.dismiss();
-      mProgressDialog = DialogUtils.showModalProgressDialog(mContext, R.string.converting);
+      mProgressDialog = DialogUtils.createModalProgressDialog(mContext, R.string.converting);
       mProgressDialog.show();
     };
 

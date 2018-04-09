@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 
@@ -265,7 +266,7 @@ public class StoragePathManager
    * https://developer.android.com/guide/topics/providers/document-provider.html#client
    * https://code.google.com/p/android/issues/detail?id=103249
    */
-  public void checkKitkatMigration(final Activity activity)
+  public void checkKitkatMigration(@NonNull final Activity activity)
   {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT ||
         Config.isKitKatMigrationComplete())
@@ -342,7 +343,7 @@ public class StoragePathManager
     return settingsPath;
   }
 
-  private void checkExternalStoragePathOnKitkat(Context context, MoveFilesListener listener)
+  private void checkExternalStoragePathOnKitkat(@NonNull Activity context, MoveFilesListener listener)
   {
     final String settingsDir = Framework.nativeGetSettingsDir();
     final String writableDir = Framework.nativeGetWritableDir();
@@ -365,14 +366,12 @@ public class StoragePathManager
     listener.moveFilesFailed(UNKNOWN_KITKAT_ERROR);
   }
 
-  private void setStoragePath(final Context context, final MoveFilesListener listener, final StorageItem newStorage,
-                              final StorageItem oldStorage, final int messageId)
+  private void setStoragePath(@NonNull final Activity context,
+                              @NonNull final MoveFilesListener listener,
+                              @NonNull final StorageItem newStorage,
+                              @Nullable final StorageItem oldStorage, final int messageId)
   {
-    final ProgressDialog dialog = new ProgressDialog(context);
-    dialog.setMessage(context.getString(messageId));
-    dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-    dialog.setIndeterminate(true);
-    dialog.setCancelable(false);
+    final ProgressDialog dialog = DialogUtils.createModalProgressDialog(context, messageId);
     dialog.show();
 
     ThreadPool.getStorage().execute(new Runnable()

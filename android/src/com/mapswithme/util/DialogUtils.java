@@ -62,9 +62,9 @@ public class DialogUtils
   }
 
   @NonNull
-  public static ProgressDialog showModalProgressDialog(@NonNull Activity activity, @StringRes int msg)
+  public static ProgressDialog createModalProgressDialog(@NonNull Activity activity, @StringRes int msg)
   {
-    ProgressDialog progress = new ProgressDialog(activity);
+    ProgressDialog progress = new ProgressDialog(activity, R.style.MwmTheme_AlertDialog);
     progress.setMessage(activity.getString(msg));
     progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     progress.setIndeterminate(true);
