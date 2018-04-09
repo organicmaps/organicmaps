@@ -30128,5 +30128,29 @@ fa = دوباره نپرس
 
   [place_page_search_similar_hotel]
     en = Search similar hotels
-    ru = Найти похожие отели   
+    ru = Найти похожие отели
+
+  [bookmarks_detect_title]
+    en = New files detected
+    ru = Обнаружены новые файлы    
+
+  [bookmarks_detect_message]
+    en = %d files were not imported. You can see them after conversion.
+    ru = %d файл не был импортирован. Вы увидете его после конвертации.
+
+  [button_convert]
+    en = Convert
+    ru = Конвертировать
+
+  [bookmarks_convert_error_title]
+    en = Error
+    ru = Ошибка
+
+  [bookmarks_convert_error_message]
+    en = Some files were not converted.
+    ru = Некоторые файлы не конвертировались.
+
+  [converting]
+    en = Converting...
+    ru = Конвертация...   
        
