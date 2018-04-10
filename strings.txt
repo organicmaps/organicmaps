@@ -22383,36 +22383,6 @@ fa = دوباره نپرس
     sk = Zoznam
     fa = لیست
 
-  [booking_based_on_reviews]
-    en = Based on %d hotel reviews
-    ru = По %d отзывам об отеле
-    ar = استناداً إلى %d من مراجعات الفنادق
-    cs = Podle %d hodnocení hotelů
-    da = Baseret på %d hotelanmeldelser
-    nl = Gebaseerd op %d hotelbeoordelingen
-    fi = Perustuu %d hotelliarvioon
-    fr = Basé sur %d revues d'hôtels
-    de = Basierend auf %d Hotelbewertungen
-    hu = %d hotel-értékelés alapján
-    id = Berdasarkan %d ulasan hotel
-    it = Basato su %d recensioni d'hotel
-    ja = %d 件のホテルのレビューに基づいています
-    ko = %d개 호텔 리뷰 기반
-    nb = Basert på %d hotellvurderinger
-    pl = Na podstawie %d opinii o hotelach
-    pt = Com base em %d análises de hotel
-    ro = Bazat pe comentariile privind hotelul %d
-    es = Basado en %d reseñas de hoteles
-    sv = Baserat på %d hotellomdömen
-    th = ตาม %d รีวิวโรงแรม
-    tr = %d otel değerlendirmesine göre
-    uk = На основі %d відгуків(-у) про готель
-    vi = Dựa trên %d đánh giá khách sạn
-    zh-Hans = 根据 %d 条酒店点评
-    zh-Hant = 根據 %d 則飯店評論
-    el = Σύμφωνα με %d κριτικές ξενοδοχείων
-    sk = Na základe %d recenzií
-
   [booking_show_more]
     en = Show more
     ru = Показать еще
