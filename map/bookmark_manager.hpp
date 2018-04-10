@@ -447,6 +447,7 @@ private:
   size_t m_openedEditSessionsCount = 0;
   bool m_loadBookmarksFinished = false;
   bool m_firstDrapeNotification = false;
+  bool m_restoreApplying = false;
 
   ScreenBase m_viewport;
 

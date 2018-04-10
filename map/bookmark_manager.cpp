@@ -865,6 +865,8 @@ void BookmarkManager::LoadBookmarks()
 void BookmarkManager::LoadBookmark(std::string const & filePath, bool isTemporaryFile)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  if (m_restoreApplying)
+    return;
   if (!m_loadBookmarksFinished || m_asyncLoadingInProgress)
   {
     m_bookmarkLoadingQueue.emplace_back(filePath, isTemporaryFile);
@@ -1654,6 +1656,9 @@ void BookmarkManager::OnSynchronizationStarted(Cloud::SynchronizationType type)
 {
   GetPlatform().RunTask(Platform::Thread::Gui, [this, type]()
   {
+    if (type == Cloud::SynchronizationType::Restore)
+      m_restoreApplying = true;
+
     if (m_onSynchronizationStarted)
       m_onSynchronizationStarted(type);
   });
@@ -1670,11 +1675,12 @@ void BookmarkManager::OnSynchronizationFinished(Cloud::SynchronizationType type,
     if (m_onSynchronizationFinished)
       m_onSynchronizationFinished(type, result, errorStr);
 
-    if (type == Cloud::SynchronizationType::Restore &&
-        result == Cloud::SynchronizationResult::Success)
+    if (type == Cloud::SynchronizationType::Restore)
     {
+      m_restoreApplying = false;
       // Reload bookmarks after restoring.
-      LoadBookmarks();
+      if (result == Cloud::SynchronizationResult::Success)
+        LoadBookmarks();
     }
   });
 
