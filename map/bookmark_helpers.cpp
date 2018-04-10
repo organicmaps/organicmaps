@@ -123,6 +123,6 @@ void SaveFeatureInfo(StringUtf8Multilang const & name, feature::TypesHolder cons
 
   name.ForEach([&bmData](int8_t langCode, std::string const & localName)
   {
-    bmData.m_featureName[langCode] = localName;
+    bmData.m_name[langCode] = localName;
   });
 }

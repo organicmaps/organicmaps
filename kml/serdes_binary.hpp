@@ -20,7 +20,8 @@ namespace binary
 enum class Version : uint8_t
 {
   V0 = 0,
-  Latest = V0
+  V1 = 1, // 11th April 2018 (new Point2D storage, added deviceId, feature name -> custom name).
+  Latest = V1
 };
 
 class SerializerKml
@@ -36,6 +37,11 @@ public:
   {
     // Write format version.
     WriteToSink(sink, Version::Latest);
+
+    // Write device id.
+    auto const sz = m_data.m_deviceId.size();
+    WriteVarUint(sink, static_cast<uint32_t>(sz));
+    sink.Write(m_data.m_deviceId.data(), sz);
 
     auto const startPos = sink.Pos();
 
@@ -116,6 +122,11 @@ public:
     auto const v = ReadPrimitiveFromSource<Version>(source);
     if (v != Version::Latest)
       MYTHROW(DeserializeException, ("Incorrect file version."));
+
+    // Read device id.
+    auto const sz = ReadVarUint<uint32_t>(source);
+    m_data.m_deviceId.resize(sz);
+    source.Read(&m_data.m_deviceId[0], sz);
 
     auto subReader = reader.CreateSubReader(source.Pos(), source.Size());
     InitializeIfNeeded(*subReader);

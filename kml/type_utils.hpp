@@ -72,10 +72,9 @@ inline bool IsEqual(Timestamp const & ts1, Timestamp const & ts2)
 uint32_t constexpr kEmptyStringId = 0;
 double constexpr kMinLineWidth = 0.0;
 double constexpr kMaxLineWidth = 100.0;
-uint32_t constexpr kLineWidthBits = 30;
 double constexpr kMinRating = 0.0;
 double constexpr kMaxRating = 10.0;
-uint32_t constexpr kRatingBits = 30;
+uint32_t constexpr kDoubleBits = 30;
 
 int8_t constexpr kDefaultLangCode = 0;
 

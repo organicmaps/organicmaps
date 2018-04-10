@@ -113,7 +113,7 @@ private:
   m2::PointD m_org;
   uint8_t m_viewportScale;
   std::vector<uint32_t> m_featureTypes;
-  LocalizableString m_featureName;
+  LocalizableString m_customName;
   std::vector<LocalId> m_boundTracks;
   LocalId m_localId;
   BookmarkIcon m_icon;

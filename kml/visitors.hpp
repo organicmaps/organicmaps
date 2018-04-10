@@ -2,10 +2,13 @@
 
 #include "kml/types.hpp"
 
+#include "coding/geometry_coding.hpp"
 #include "coding/point_to_integer.hpp"
 #include "coding/pointd_to_pointu.hpp"
 #include "coding/text_storage.hpp"
 #include "coding/varint.hpp"
+
+#include "geometry/mercator.hpp"
 
 #include "base/bits.hpp"
 
@@ -192,6 +195,49 @@ inline void WriteLocalizableStringIndex(Sink & sink, LocalizableStringIndex cons
   }
 }
 
+template <typename Source>
+inline void ReadLocalizableStringIndex(Source & source, LocalizableStringIndex & index)
+{
+  auto const indexSize = ReadVarUint<uint32_t, Source>(source);
+  index.reserve(indexSize);
+  for (uint32_t i = 0; i < indexSize; ++i)
+  {
+    index.emplace_back(LocalizableStringSubIndex());
+    auto const subIndexSize = ReadVarUint<uint32_t, Source>(source);
+    for (uint32_t j = 0; j < subIndexSize; ++j)
+    {
+      auto const lang = ReadPrimitiveFromSource<int8_t>(source);
+      auto const strIndex = ReadVarUint<uint32_t, Source>(source);
+      index.back()[lang] = strIndex;
+    }
+  }
+}
+
+template <typename Sink>
+inline void WritePointU2D(Sink & sink, m2::PointU const & pt)
+{
+  WriteVarUint(sink, pt.x);
+  WriteVarUint(sink, pt.y);
+}
+
+template <typename Sink>
+inline void WritePoint2D(Sink & sink, m2::PointD const & pt)
+{
+  WritePointU2D(sink, PointDToPointU(pt, kDoubleBits));
+}
+
+template <typename Source>
+inline m2::PointU ReadPointU2D(Source & source)
+{
+  return {ReadVarUint<uint32_t, Source>(source), ReadVarUint<uint32_t, Source>(source)};
+}
+
+template <typename Source>
+inline m2::PointD ReadPoint2D(Source & source)
+{
+  return PointUToPointD(ReadPointU2D(source), kDoubleBits);
+}
+
 template <typename Sink>
 class CategorySerializerVisitor
 {
@@ -222,14 +268,13 @@ public:
 
   void operator()(double d, char const * /* name */ = nullptr)
   {
-    uint64_t const encoded = DoubleToUint32(d, kMinRating, kMaxRating, kRatingBits);
+    auto const encoded = DoubleToUint32(d, kMinRating, kMaxRating, kDoubleBits);
     WriteVarUint(m_sink, encoded);
   }
 
   void operator()(m2::PointD const & pt, char const * /* name */ = nullptr)
   {
-    uint64_t const encoded = bits::ZigZagEncode(PointToInt64Obsolete(pt, POINT_COORD_BITS));
-    WriteVarUint(m_sink, encoded);
+    WritePoint2D(m_sink, pt);
   }
 
   template <typename T>
@@ -286,13 +331,12 @@ public:
 
   void operator()(m2::PointD const & pt, char const * /* name */ = nullptr)
   {
-    uint64_t const encoded = bits::ZigZagEncode(PointToInt64Obsolete(pt, POINT_COORD_BITS));
-    WriteVarUint(m_sink, encoded);
+    WritePoint2D(m_sink, pt);
   }
 
   void operator()(double d, char const * /* name */ = nullptr)
   {
-    uint64_t const encoded = DoubleToUint32(d, kMinLineWidth, kMaxLineWidth, kLineWidthBits);
+    auto const encoded = DoubleToUint32(d, kMinLineWidth, kMaxLineWidth, kDoubleBits);
     WriteVarUint(m_sink, encoded);
   }
 
@@ -319,6 +363,26 @@ public:
       (*this)(v);
   }
 
+  void operator()(std::vector<m2::PointD> const & points, char const * /* name */ = nullptr)
+  {
+    WriteVarUint(m_sink, static_cast<uint32_t>(points.size()));
+    m2::PointU lastUpt;
+    for (uint32_t i = 0; i < static_cast<uint32_t>(points.size()); ++i)
+    {
+      if (i == 0)
+      {
+        lastUpt = PointDToPointU(points[i], kDoubleBits);
+        WritePointU2D(m_sink, lastUpt);
+      }
+      else
+      {
+        auto const upt = PointDToPointU(points[i], kDoubleBits);
+        coding::EncodePointDelta(m_sink, lastUpt, upt);
+        lastUpt = upt;
+      }
+    }
+  }
+
   template <typename D>
   std::enable_if_t<std::is_integral<D>::value>
   operator()(D d, char const * /* name */ = nullptr)
@@ -342,24 +406,6 @@ public:
 private:
   Sink & m_sink;
 };
-
-template <typename Source>
-inline void ReadLocalizableStringIndex(Source & source, LocalizableStringIndex & index)
-{
-  auto const indexSize = ReadVarUint<uint32_t, Source>(source);
-  index.reserve(indexSize);
-  for (uint32_t i = 0; i < indexSize; ++i)
-  {
-    index.emplace_back(LocalizableStringSubIndex());
-    auto const subIndexSize = ReadVarUint<uint32_t, Source>(source);
-    for (uint32_t j = 0; j < subIndexSize; ++j)
-    {
-      auto const lang = ReadPrimitiveFromSource<int8_t>(source);
-      auto const strIndex = ReadVarUint<uint32_t, Source>(source);
-      index.back()[lang] = strIndex;
-    }
-  }
-}
 
 template <typename Source>
 class CategoryDeserializerVisitor
@@ -393,13 +439,12 @@ public:
   void operator()(double & d, char const * /* name */ = nullptr)
   {
     auto const v = ReadVarUint<uint32_t, Source>(m_source);
-    d = Uint32ToDouble(v, kMinRating, kMaxRating, kRatingBits);
+    d = Uint32ToDouble(v, kMinRating, kMaxRating, kDoubleBits);
   }
 
   void operator()(m2::PointD & pt, char const * /* name */ = nullptr)
   {
-    auto const v = ReadVarUint<uint64_t, Source>(m_source);
-    pt = Int64ToPointObsolete(bits::ZigZagDecode(v), POINT_COORD_BITS);
+    pt = ReadPoint2D(m_source);
   }
 
   template <typename T>
@@ -460,14 +505,13 @@ public:
 
   void operator()(m2::PointD & pt, char const * /* name */ = nullptr)
   {
-    auto const v = ReadVarUint<uint64_t, Source>(m_source);
-    pt = Int64ToPointObsolete(bits::ZigZagDecode(v), POINT_COORD_BITS);
+    pt = ReadPoint2D(m_source);
   }
 
   void operator()(double & d, char const * /* name */ = nullptr)
   {
     auto const v = ReadVarUint<uint32_t, Source>(m_source);
-    d = Uint32ToDouble(v, kMinLineWidth, kMaxLineWidth, kLineWidthBits);
+    d = Uint32ToDouble(v, kMinLineWidth, kMaxLineWidth, kDoubleBits);
   }
 
   void operator()(Timestamp & t, char const * /* name */ = nullptr)
@@ -500,6 +544,21 @@ public:
     {
       vs.emplace_back(T());
       (*this)(vs.back());
+    }
+  }
+
+  void operator()(std::vector<m2::PointD> & points, char const * /* name */ = nullptr)
+  {
+    auto const sz = ReadVarUint<uint32_t, Source>(m_source);
+    points.reserve(sz);
+    m2::PointU lastUpt;
+    for (uint32_t i = 0; i < sz; ++i)
+    {
+      if (i == 0)
+        lastUpt = ReadPointU2D(m_source);
+      else
+        lastUpt = coding::DecodePointDelta(m_source, lastUpt);
+      points.emplace_back(PointUToPointD(lastUpt, kDoubleBits));
     }
   }
 

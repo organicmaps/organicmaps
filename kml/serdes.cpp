@@ -325,7 +325,7 @@ void SaveCategoryData(KmlWriter::WriterWrapper & writer, CategoryData const & ca
 void SaveBookmarkExtendedData(KmlWriter::WriterWrapper & writer, BookmarkData const & bookmarkData)
 {
   if (bookmarkData.m_name.size() < 2 && bookmarkData.m_description.size() < 2 &&
-      bookmarkData.m_featureName.empty() && bookmarkData.m_viewportScale == 0 &&
+      bookmarkData.m_customName.empty() && bookmarkData.m_viewportScale == 0 &&
       bookmarkData.m_icon == BookmarkIcon::None && bookmarkData.m_featureTypes.empty() &&
       bookmarkData.m_boundTracks.empty())
   {
@@ -342,8 +342,8 @@ void SaveBookmarkExtendedData(KmlWriter::WriterWrapper & writer, BookmarkData co
     types.push_back(strings::to_string(t));
   SaveStringsArray(writer, types, "featureTypes", kIndent6);
 
-  if (!bookmarkData.m_featureName.empty())
-    SaveLocalizableString(writer, bookmarkData.m_featureName, "featureName", kIndent6);
+  if (!bookmarkData.m_customName.empty())
+    SaveLocalizableString(writer, bookmarkData.m_customName, "customName", kIndent6);
 
   if (bookmarkData.m_viewportScale != 0)
   {
@@ -511,7 +511,7 @@ void KmlParser::ResetPoint()
   m_styleUrlKey.clear();
 
   m_featureTypes.clear();
-  m_featureName.clear();
+  m_customName.clear();
   m_boundTracks.clear();
   m_localId = 0;
   m_trackLayers.clear();
@@ -689,7 +689,7 @@ void KmlParser::Pop(std::string const & tag)
         data.m_timestamp = m_timestamp;
         data.m_point = m_org;
         data.m_featureTypes = std::move(m_featureTypes);
-        data.m_featureName = std::move(m_featureName);
+        data.m_customName = std::move(m_customName);
         data.m_boundTracks = std::move(m_boundTracks);
         m_data.m_bookmarksData.push_back(std::move(data));
       }
@@ -968,8 +968,8 @@ void KmlParser::CharData(std::string value)
           m_name[m_attrCode] = value;
         else if (prevTag == "mwm:description" && m_attrCode >= 0)
           m_description[m_attrCode] = value;
-        else if (prevTag == "mwm:featureName" && m_attrCode >= 0)
-          m_featureName[m_attrCode] = value;
+        else if (prevTag == "mwm:customName" && m_attrCode >= 0)
+          m_customName[m_attrCode] = value;
         m_attrCode = StringUtf8Multilang::kUnsupportedLanguageCode;
       }
       else if (currTag == "mwm:value")
