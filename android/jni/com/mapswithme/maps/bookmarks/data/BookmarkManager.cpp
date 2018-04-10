@@ -2,8 +2,10 @@
 #include "com/mapswithme/maps/Framework.hpp"
 #include "com/mapswithme/maps/UserMarkHelper.hpp"
 
-#include "coding/zip_creator.hpp"
+#include "map/bookmark_helpers.hpp"
 #include "map/place_page_info.hpp"
+
+#include "coding/zip_creator.hpp"
 
 #include <utility>
 
