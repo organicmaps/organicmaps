@@ -28,9 +28,6 @@ repositories {
   maven {
     url 'https://s3.amazonaws.com/moat-sdk-builds'
   }
-  maven {
-    url 'https://dl.bintray.com/libverify/android'
-  }
 }
 
 apply plugin: 'com.android.application'
@@ -92,18 +89,6 @@ dependencies {
   implementation 'net.jcip:jcip-annotations:1.0'
   implementation 'com.android.support:multidex:1.0.3'
   implementation 'com.appsflyer:af-android-sdk:4.8.3'
-  implementation ("ru.mail:libnotify:0.1.163-notify-support-v96@aar") {
-    transitive = true;
-    changing = true;
-    exclude group: 'com.android.support'
-    exclude group: 'com.google.android.gms'
-  }
-  implementation ("ru.mail:libnotify-debug:0.1.163-notify-support-v96@aar") {
-    transitive = true;
-    changing = true;
-    exclude group: 'com.android.support'
-    exclude group: 'com.google.android.gms'
-  }
 }
 
 def getDate() {

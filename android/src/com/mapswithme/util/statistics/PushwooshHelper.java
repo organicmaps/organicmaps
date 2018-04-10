@@ -5,12 +5,10 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.pushwoosh.PushManager;
 import com.pushwoosh.SendPushTagsCallBack;
-import ru.mail.libnotify.api.NotificationFactory;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -55,8 +53,6 @@ public final class PushwooshHelper implements SendPushTagsCallBack
 
   private void sendTags(Map<String, Object> tags)
   {
-    //TODO: move notifylib code to another place when Pushwoosh is deleted.
-    NotificationFactory.get(MwmApplication.get()).collectEventBatch(tags);
     synchronized (mSyncObject)
     {
       if (!canSendTags())
