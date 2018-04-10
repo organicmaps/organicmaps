@@ -1699,8 +1699,6 @@
 /* noun */
 "search_in_table" = "Λίστα";
 
-"booking_based_on_reviews" = "Σύμφωνα με %d κριτικές ξενοδοχείων";
-
 "booking_show_more" = "Εμφάνιση περισσοτέρων";
 
 "booking_reviews" = "Κριτικές";

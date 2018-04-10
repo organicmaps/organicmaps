@@ -993,7 +993,6 @@
 	<string name="search_no_results_reset_button">重設篩選條件</string>
 	<!-- noun -->
 	<string name="search_in_table">清單</string>
-	<string name="booking_based_on_reviews">根據 %d 則飯店評論</string>
 	<string name="booking_show_more">顯示更多</string>
 	<string name="booking_reviews">評論</string>
 	<string name="booking_hotel">飯店</string>

@@ -982,7 +982,6 @@
 	<string name="search_no_results_reset_button">フィルターをリセット</string>
 	<!-- noun -->
 	<string name="search_in_table">一覧</string>
-	<string name="booking_based_on_reviews">%d 件のホテルのレビューに基づいています</string>
 	<string name="booking_show_more">さらに表示</string>
 	<string name="booking_reviews">レビュー</string>
 	<string name="booking_hotel">ホテル</string>

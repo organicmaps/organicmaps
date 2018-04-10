@@ -982,7 +982,6 @@
 	<string name="search_no_results_reset_button">Atur Ulang Filter</string>
 	<!-- noun -->
 	<string name="search_in_table">Daftar</string>
-	<string name="booking_based_on_reviews">Berdasarkan %d ulasan hotel</string>
 	<string name="booking_show_more">Selengkapnya</string>
 	<string name="booking_reviews">Ulasan</string>
 	<string name="booking_hotel">Hotel</string>

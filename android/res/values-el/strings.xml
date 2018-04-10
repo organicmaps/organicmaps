@@ -747,7 +747,6 @@
 	<string name="search_no_results_reset_button">Μηδενισμός φίλτρου</string>
 	<!-- noun -->
 	<string name="search_in_table">Λίστα</string>
-	<string name="booking_based_on_reviews">Σύμφωνα με %d κριτικές ξενοδοχείων</string>
 	<string name="booking_show_more">Εμφάνιση περισσοτέρων</string>
 	<string name="booking_reviews">Κριτικές</string>
 	<string name="booking_hotel">Ξενοδοχείο</string>

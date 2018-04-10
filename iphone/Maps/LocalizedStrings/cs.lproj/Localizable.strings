@@ -1699,8 +1699,6 @@
 /* noun */
 "search_in_table" = "Seznam";
 
-"booking_based_on_reviews" = "Podle %d hodnocení hotelů";
-
 "booking_show_more" = "Zobrazit více";
 
 "booking_reviews" = "Hodnocení";

@@ -979,7 +979,6 @@
 	<string name="search_no_results_reset_button">필터 재설정</string>
 	<!-- noun -->
 	<string name="search_in_table">목록</string>
-	<string name="booking_based_on_reviews">%d개 호텔 리뷰 기반</string>
 	<string name="booking_show_more">자세히 표시</string>
 	<string name="booking_reviews">리뷰</string>
 	<string name="booking_hotel">호텔</string>

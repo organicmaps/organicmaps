@@ -1699,8 +1699,6 @@
 /* noun */
 "search_in_table" = "Список";
 
-"booking_based_on_reviews" = "На основі %d відгуків(-у) про готель";
-
 "booking_show_more" = "Показати більше";
 
 "booking_reviews" = "Відгуки";

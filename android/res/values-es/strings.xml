@@ -976,7 +976,6 @@
 	<string name="search_no_results_reset_button">Restablecer filtro</string>
 	<!-- noun -->
 	<string name="search_in_table">Lista</string>
-	<string name="booking_based_on_reviews">Basado en %d reseñas de hoteles</string>
 	<string name="booking_show_more">Mostrar más</string>
 	<string name="booking_reviews">Reseñas</string>
 	<string name="booking_hotel">Hotel</string>

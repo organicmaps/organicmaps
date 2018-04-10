@@ -979,7 +979,6 @@
 	<string name="search_no_results_reset_button">Resetare filtru</string>
 	<!-- noun -->
 	<string name="search_in_table">Listă</string>
-	<string name="booking_based_on_reviews">Bazat pe comentariile privind hotelul %d</string>
 	<string name="booking_show_more">Arată mai multe</string>
 	<string name="booking_reviews">Comentarii</string>
 	<string name="booking_hotel">Hotel</string>

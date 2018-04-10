@@ -1699,8 +1699,6 @@
 /* noun */
 "search_in_table" = "Zoznam";
 
-"booking_based_on_reviews" = "Na základe %d recenzií";
-
 "booking_show_more" = "Zobraziť viac";
 
 "booking_reviews" = "Recenzie";

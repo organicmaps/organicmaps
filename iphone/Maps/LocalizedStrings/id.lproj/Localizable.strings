@@ -1699,8 +1699,6 @@
 /* noun */
 "search_in_table" = "Daftar";
 
-"booking_based_on_reviews" = "Berdasarkan %d ulasan hotel";
-
 "booking_show_more" = "Selengkapnya";
 
 "booking_reviews" = "Ulasan";

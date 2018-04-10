@@ -987,7 +987,6 @@
 	<string name="search_no_results_reset_button">Скинути фільтри</string>
 	<!-- noun -->
 	<string name="search_in_table">Список</string>
-	<string name="booking_based_on_reviews">На основі %d відгуків(-у) про готель</string>
 	<string name="booking_show_more">Показати більше</string>
 	<string name="booking_reviews">Відгуки</string>
 	<string name="booking_hotel">Готель</string>

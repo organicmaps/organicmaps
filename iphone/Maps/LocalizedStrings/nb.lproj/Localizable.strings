@@ -1699,8 +1699,6 @@
 /* noun */
 "search_in_table" = "Liste";
 
-"booking_based_on_reviews" = "Basert på %d hotellvurderinger";
-
 "booking_show_more" = "Vis mer";
 
 "booking_reviews" = "Vurderinger";

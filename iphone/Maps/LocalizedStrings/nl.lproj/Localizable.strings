@@ -1699,8 +1699,6 @@
 /* noun */
 "search_in_table" = "Lijst";
 
-"booking_based_on_reviews" = "Gebaseerd op %d hotelbeoordelingen";
-
 "booking_show_more" = "Meer weergeven";
 
 "booking_reviews" = "Beoordelingen";

@@ -1699,8 +1699,6 @@
 /* noun */
 "search_in_table" = "Listă";
 
-"booking_based_on_reviews" = "Bazat pe comentariile privind hotelul %d";
-
 "booking_show_more" = "Arată mai multe";
 
 "booking_reviews" = "Comentarii";

@@ -1699,8 +1699,6 @@
 /* noun */
 "search_in_table" = "列表";
 
-"booking_based_on_reviews" = "根据 %d 条酒店点评";
-
 "booking_show_more" = "显示更多";
 
 "booking_reviews" = "点评";

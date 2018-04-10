@@ -989,7 +989,6 @@
 	<string name="search_no_results_reset_button">重置筛选器</string>
 	<!-- noun -->
 	<string name="search_in_table">列表</string>
-	<string name="booking_based_on_reviews">根据 %d 条酒店点评</string>
 	<string name="booking_show_more">显示更多</string>
 	<string name="booking_reviews">点评</string>
 	<string name="booking_hotel">酒店</string>

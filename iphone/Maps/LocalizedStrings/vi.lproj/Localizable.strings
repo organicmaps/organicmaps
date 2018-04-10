@@ -1699,8 +1699,6 @@
 /* noun */
 "search_in_table" = "Danh sách";
 
-"booking_based_on_reviews" = "Dựa trên %d đánh giá khách sạn";
-
 "booking_show_more" = "Hiển thị thêm";
 
 "booking_reviews" = "Đánh giá";

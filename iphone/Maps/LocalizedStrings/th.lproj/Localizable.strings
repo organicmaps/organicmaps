@@ -1699,8 +1699,6 @@
 /* noun */
 "search_in_table" = "รายการ";
 
-"booking_based_on_reviews" = "ตาม %d รีวิวโรงแรม";
-
 "booking_show_more" = "แสดงเพิ่มเติม";
 
 "booking_reviews" = "รีวิว";

@@ -983,7 +983,6 @@
 	<string name="search_no_results_reset_button">Filter Resetten</string>
 	<!-- noun -->
 	<string name="search_in_table">Lijst</string>
-	<string name="booking_based_on_reviews">Gebaseerd op %d hotelbeoordelingen</string>
 	<string name="booking_show_more">Meer weergeven</string>
 	<string name="booking_reviews">Beoordelingen</string>
 	<string name="booking_hotel">Hotel</string>

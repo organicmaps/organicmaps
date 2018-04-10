@@ -1699,8 +1699,6 @@
 /* noun */
 "search_in_table" = "Liste";
 
-"booking_based_on_reviews" = "%d otel değerlendirmesine göre";
-
 "booking_show_more" = "Daha fazla göster";
 
 "booking_reviews" = "Değerlendirmeler";

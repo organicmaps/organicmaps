@@ -1699,8 +1699,6 @@
 /* noun */
 "search_in_table" = "قائمة";
 
-"booking_based_on_reviews" = "استناداً إلى %d من مراجعات الفنادق";
-
 "booking_show_more" = "إظهار المزيد";
 
 "booking_reviews" = "المراجعات";

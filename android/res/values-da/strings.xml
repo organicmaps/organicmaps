@@ -987,7 +987,6 @@
 	<string name="search_no_results_reset_button">Nulstil Filter</string>
 	<!-- noun -->
 	<string name="search_in_table">Liste</string>
-	<string name="booking_based_on_reviews">Baseret på %d hotelanmeldelser</string>
 	<string name="booking_show_more">Vis mere</string>
 	<string name="booking_reviews">Anmeldelser</string>
 	<string name="booking_hotel">Hotel</string>

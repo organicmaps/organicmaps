@@ -990,7 +990,6 @@
 	<string name="search_no_results_reset_button">Resetovat filtr</string>
 	<!-- noun -->
 	<string name="search_in_table">Seznam</string>
-	<string name="booking_based_on_reviews">Podle %d hodnocení hotelů</string>
 	<string name="booking_show_more">Zobrazit více</string>
 	<string name="booking_reviews">Hodnocení</string>
 	<string name="booking_hotel">Hotel</string>

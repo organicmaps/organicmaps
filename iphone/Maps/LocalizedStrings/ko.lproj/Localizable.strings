@@ -1699,8 +1699,6 @@
 /* noun */
 "search_in_table" = "목록";
 
-"booking_based_on_reviews" = "%d개 호텔 리뷰 기반";
-
 "booking_show_more" = "자세히 표시";
 
 "booking_reviews" = "리뷰";

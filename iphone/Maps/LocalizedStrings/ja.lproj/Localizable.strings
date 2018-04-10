@@ -1699,8 +1699,6 @@
 /* noun */
 "search_in_table" = "一覧";
 
-"booking_based_on_reviews" = "%d 件のホテルのレビューに基づいています";
-
 "booking_show_more" = "さらに表示";
 
 "booking_reviews" = "レビュー";

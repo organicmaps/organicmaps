@@ -986,7 +986,6 @@
 	<string name="search_no_results_reset_button">Obnoviť filter</string>
 	<!-- noun -->
 	<string name="search_in_table">Zoznam</string>
-	<string name="booking_based_on_reviews">Na základe %d recenzií</string>
 	<string name="booking_show_more">Zobraziť viac</string>
 	<string name="booking_reviews">Recenzie</string>
 	<string name="booking_hotel">Hotel</string>

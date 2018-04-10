@@ -1699,8 +1699,6 @@
 /* noun */
 "search_in_table" = "Luettelo";
 
-"booking_based_on_reviews" = "Perustuu %d hotelliarvioon";
-
 "booking_show_more" = "Näytä lisää";
 
 "booking_reviews" = "Arviot";

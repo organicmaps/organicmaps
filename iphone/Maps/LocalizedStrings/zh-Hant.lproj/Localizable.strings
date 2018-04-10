@@ -1699,8 +1699,6 @@
 /* noun */
 "search_in_table" = "清單";
 
-"booking_based_on_reviews" = "根據 %d 則飯店評論";
-
 "booking_show_more" = "顯示更多";
 
 "booking_reviews" = "評論";
