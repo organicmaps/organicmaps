@@ -45,18 +45,26 @@ name:fr=Stade de Nijni-Novgorod
 name:es=Estadio de Nizhni Nóvgorod
 
 
-lat=55.72187
-lon=37.56318
-event=fc2018
-olympics=official_building
-name=Паспорт болельщика
-name:en=FAN ID
-
 lat=55.76019
 lon=37.62489
 event=fc2018
 shop=gift
 name=Атрибутика ЧМ 2018
+name:en=FC 2018 Gift Shop
+
+lat=59.93409
+lon=30.33282
+event=fc2018
+shop=gift
+name=Атрибутика ЧМ 2018
+name:en=FC 2018 Gift Shop
+
+lat=59.93006
+lon=30.3621
+event=fc2018
+shop=gift
+name=Атрибутика ЧМ 2018
+name:en=FC 2018 Gift Shop
 
 
 # Luggage Hero
