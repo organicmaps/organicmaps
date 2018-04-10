@@ -37,7 +37,7 @@ size_t CodeArea::GetCodeLength() const { return code_length_; }
 LatLng CodeArea::GetCenter() const {
   double latitude_center = std::min(latitude_lo_ + (latitude_hi_ - latitude_lo_) / 2, kLatitudeMaxDegrees);
   double longitude_center = std::min(longitude_lo_ + (longitude_hi_ - longitude_lo_) / 2, kLongitudeMaxDegrees);
-  LatLng center = {latitude: latitude_center, longitude: longitude_center};
+  LatLng center{latitude_center, longitude_center};
   return center;
 }
 
