@@ -94,7 +94,8 @@ public:
   /// @name Serialization.
   //@{
   void Serialize(TBuffer & data) const;
-  void SerializeBase(TBuffer & data, serial::GeometryCodingParams const & params, bool saveAddInfo) const;
+  void SerializeBase(TBuffer & data, serial::GeometryCodingParams const & params,
+                     bool saveAddInfo) const;
 
   void Deserialize(TBuffer & data);
   //@}

@@ -27,9 +27,9 @@ namespace feature
 
   serial::GeometryCodingParams DataHeader::GetGeometryCodingParams(int scaleIndex) const
   {
-    return serial::GeometryCodingParams(m_codingParams.GetCoordBits() -
-                                (m_scales.back() - m_scales[scaleIndex]) / 2,
-                                m_codingParams.GetBasePointUint64());
+    return serial::GeometryCodingParams(
+        m_codingParams.GetCoordBits() - (m_scales.back() - m_scales[scaleIndex]) / 2,
+        m_codingParams.GetBasePointUint64());
   }
 
   m2::RectD const DataHeader::GetBounds() const

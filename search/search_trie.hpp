@@ -12,9 +12,10 @@ static const uint8_t kPointCodingBits = 20;
 
 namespace trie
 {
-inline serial::GeometryCodingParams GetGeometryCodingParams(serial::GeometryCodingParams const & orig)
+inline serial::GeometryCodingParams GetGeometryCodingParams(
+    serial::GeometryCodingParams const & orig)
 {
   return serial::GeometryCodingParams(search::kPointCodingBits,
-                              PointUToPointD(orig.GetBasePoint(), orig.GetCoordBits()));
+                                      PointUToPointD(orig.GetBasePoint(), orig.GetCoordBits()));
 }
 }  // namespace trie

@@ -96,7 +96,10 @@ class SingleValueSerializer<FeatureWithRankAndCenter>
 public:
   using Value = FeatureWithRankAndCenter;
 
-  SingleValueSerializer(serial::GeometryCodingParams const & codingParams) : m_codingParams(codingParams) {}
+  SingleValueSerializer(serial::GeometryCodingParams const & codingParams)
+    : m_codingParams(codingParams)
+  {
+  }
 
   template <typename Sink>
   void Serialize(Sink & sink, Value const & v) const

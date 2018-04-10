@@ -291,7 +291,8 @@ struct RetrievePostcodeFeaturesAdaptor
 template <typename Value>
 unique_ptr<Retrieval::TrieRoot<Value>> ReadTrie(MwmValue & value, ModelReaderPtr & reader)
 {
-  serial::GeometryCodingParams params(trie::GetGeometryCodingParams(value.GetHeader().GetDefGeometryCodingParams()));
+  serial::GeometryCodingParams params(
+      trie::GetGeometryCodingParams(value.GetHeader().GetDefGeometryCodingParams()));
   return trie::ReadTrie<SubReaderWrapper<Reader>, ValueList<Value>>(
       SubReaderWrapper<Reader>(reader.GetPtr()), SingleValueSerializer<Value>(params));
 }

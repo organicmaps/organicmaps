@@ -53,7 +53,8 @@ public:
   // Loads CentersTable instance. Note that |reader| must be alive
   // until the destruction of loaded table. Returns nullptr if
   // CentersTable can't be loaded.
-  static unique_ptr<CentersTable> Load(Reader & reader, serial::GeometryCodingParams const & codingParams);
+  static unique_ptr<CentersTable> Load(Reader & reader,
+                                       serial::GeometryCodingParams const & codingParams);
 
 private:
   virtual bool Init() = 0;

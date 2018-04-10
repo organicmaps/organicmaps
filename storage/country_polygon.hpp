@@ -9,7 +9,8 @@
 
 namespace storage
 {
-template <class TSource> void Read(TSource & src, CountryDef & p)
+template <class TSource>
+void Read(TSource & src, CountryDef & p)
 {
   rw::Read(src, p.m_countryId);
 
@@ -19,7 +20,8 @@ template <class TSource> void Read(TSource & src, CountryDef & p)
   p.m_rect = Int64ToRectObsolete(r, serial::GeometryCodingParams().GetCoordBits());
 }
 
-template <class TSink> void Write(TSink & sink, CountryDef const & p)
+template <class TSink>
+void Write(TSink & sink, CountryDef const & p)
 {
   rw::Write(sink, p.m_countryId);
 

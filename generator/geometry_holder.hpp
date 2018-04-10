@@ -5,7 +5,6 @@
 #include "generator/feature_helpers.hpp"
 #include "generator/tesselator.hpp"
 
-
 #include "geometry/distance.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/polygon.hpp"

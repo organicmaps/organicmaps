@@ -469,7 +469,8 @@ void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter)
   CategoriesHolder categoriesHolder(platform.GetReader(SEARCH_CATEGORIES_FILE_NAME));
 
   FeaturesVectorTest features(container);
-  auto codingParams = trie::GetGeometryCodingParams(features.GetHeader().GetDefGeometryCodingParams());
+  auto codingParams =
+      trie::GetGeometryCodingParams(features.GetHeader().GetDefGeometryCodingParams());
   SingleValueSerializer<Value> serializer(codingParams);
 
   vector<pair<Key, Value>> searchIndexKeyValuePairs;

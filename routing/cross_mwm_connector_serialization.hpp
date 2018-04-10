@@ -362,7 +362,8 @@ private:
     Header() = default;
 
     Header(uint32_t numTransitions, uint64_t sizeTransitions,
-           serial::GeometryCodingParams const & codingParams, uint32_t bitsPerCrossMwmId, uint8_t bitsPerMask)
+           serial::GeometryCodingParams const & codingParams, uint32_t bitsPerCrossMwmId,
+           uint8_t bitsPerMask)
       : m_numTransitions(numTransitions)
       , m_sizeTransitions(sizeTransitions)
       , m_codingParams(codingParams)
@@ -465,8 +466,9 @@ private:
 
   template <typename CrossMwmId>
   static void WriteTransitions(std::vector<Transition<CrossMwmId>> const & transitions,
-                               serial::GeometryCodingParams const & codingParams, uint32_t bitsPerOsmId,
-                               uint8_t bitsPerMask, std::vector<uint8_t> & buffer)
+                               serial::GeometryCodingParams const & codingParams,
+                               uint32_t bitsPerOsmId, uint8_t bitsPerMask,
+                               std::vector<uint8_t> & buffer)
   {
     MemWriter<std::vector<uint8_t>> memWriter(buffer);
 

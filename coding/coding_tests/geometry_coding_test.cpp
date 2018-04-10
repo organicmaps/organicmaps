@@ -25,20 +25,16 @@ m2::PointU D2U(m2::PointD const & p) { return PointDToPointU(p, POINT_COORD_BITS
 
 m2::PointU GetMaxPoint() { return D2U(m2::PointD(MercatorBounds::maxX, MercatorBounds::maxY)); }
 
-void TestPolylineEncode(string testName,
-                        vector<m2::PointU> const & points,
+void TestPolylineEncode(string testName, vector<m2::PointU> const & points,
                         m2::PointU const & maxPoint,
-                        void (* fnEncode)(InPointsT const & points,
-                                          m2::PointU const & basePoint,
-                                          m2::PointU const & maxPoint,
-                                          OutDeltasT & deltas),
-                        void (* fnDecode)(InDeltasT const & deltas,
-                                          m2::PointU const & basePoint,
-                                          m2::PointU const & maxPoint,
-                                          OutPointsT & points))
+                        void (*fnEncode)(InPointsT const & points, m2::PointU const & basePoint,
+                                         m2::PointU const & maxPoint, OutDeltasT & deltas),
+                        void (*fnDecode)(InDeltasT const & deltas, m2::PointU const & basePoint,
+                                         m2::PointU const & maxPoint, OutPointsT & points))
 {
   size_t const count = points.size();
-  if (count == 0) return;
+  if (count == 0)
+    return;
 
   m2::PointU const basePoint = m2::PointU::Zero();
 
@@ -59,7 +55,7 @@ void TestPolylineEncode(string testName,
   if (points.size() > 10)
   {
     vector<char> data;
-    MemWriter<vector<char> > writer(data);
+    MemWriter<vector<char>> writer(data);
 
     for (size_t i = 0; i != deltas.size(); ++i)
       WriteVarUint(writer, deltas[i]);
@@ -96,11 +92,13 @@ UNIT_TEST(EncodeDelta)
       PU pred = PU(100, 100);
       TEST_EQUAL(orig, DecodeDelta(EncodeDelta(orig, pred), pred), ());
       vector<char> data;
-      PushBackByteSink<vector<char> > sink(data);
+      PushBackByteSink<vector<char>> sink(data);
       WriteVarUint(sink, EncodeDelta(orig, pred));
       size_t expectedSize = 1;
-      if (x >= 8 || x < -8 || y >= 4 || y < -4) expectedSize = 2;
-      if (x >= 64 || x < -64 || y >= 64 || y < -64) expectedSize = 3;
+      if (x >= 8 || x < -8 || y >= 4 || y < -4)
+        expectedSize = 2;
+      if (x >= 64 || x < -64 || y >= 64 || y < -64)
+        expectedSize = 3;
       TEST_EQUAL(data.size(), expectedSize, (x, y));
     }
   }
@@ -146,7 +144,7 @@ UNIT_TEST(PredictPointsInPolyline3_90deg)
 
 UNIT_TEST(EncodePolyline)
 {
-  size_t const kSizes [] = { 0, 1, 2, 3, 4, ARRAY_SIZE(LargePolygon::kLargePolygon) };
+  size_t const kSizes[] = {0, 1, 2, 3, 4, ARRAY_SIZE(LargePolygon::kLargePolygon)};
   m2::PointU const maxPoint(1000000000, 1000000000);
   for (size_t iSize = 0; iSize < ARRAY_SIZE(kSizes); ++iSize)
   {
@@ -154,8 +152,9 @@ UNIT_TEST(EncodePolyline)
     vector<m2::PointU> points;
     points.reserve(polygonSize);
     for (size_t i = 0; i < polygonSize; ++i)
-      points.push_back(m2::PointU(static_cast<uint32_t>(LargePolygon::kLargePolygon[i].x * 10000),
-                                  static_cast<uint32_t>((LargePolygon::kLargePolygon[i].y + 200) * 10000)));
+      points.push_back(
+          m2::PointU(static_cast<uint32_t>(LargePolygon::kLargePolygon[i].x * 10000),
+                     static_cast<uint32_t>((LargePolygon::kLargePolygon[i].y + 200) * 10000)));
 
     TestEncodePolyline("Unsimp", maxPoint, points);
     TestEncodePolyline("1simp", maxPoint, SimplifyPoints(points, 1));
@@ -180,6 +179,5 @@ UNIT_TEST(DecodeEncodePolyline_DataSet1)
   for (size_t i = 0; i < count; ++i)
     points.push_back(D2U(geometry_coding_tests::arr1[i]));
 
-  TestPolylineEncode("DataSet1", points, GetMaxPoint(),
-                     &EncodePolyline, &DecodePolyline);
+  TestPolylineEncode("DataSet1", points, GetMaxPoint(), &EncodePolyline, &DecodePolyline);
 }

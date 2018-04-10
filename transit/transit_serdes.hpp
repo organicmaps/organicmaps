@@ -289,7 +289,8 @@ public:
     vs.resize(size);
     for (auto & p : vs)
     {
-      m2::PointU const pointU = coding::DecodeDelta(ReadVarUint<uint64_t, Source>(m_source), lastDecodedPoint);
+      m2::PointU const pointU =
+          coding::DecodeDelta(ReadVarUint<uint64_t, Source>(m_source), lastDecodedPoint);
       p = PointUToPointD(pointU, POINT_COORD_BITS);
       lastDecodedPoint = pointU;
     }

@@ -398,8 +398,8 @@ struct CitiesBoundariesSerDes
     HeaderV0 const header;
     visitor(header);
 
-    serial::GeometryCodingParams const params(header.m_coordBits,
-                                      m2::PointD(MercatorBounds::minX, MercatorBounds::minY));
+    serial::GeometryCodingParams const params(
+        header.m_coordBits, m2::PointD(MercatorBounds::minX, MercatorBounds::minY));
     CitiesBoundariesEncoder<Sink> encoder(sink, params);
     encoder(boundaries);
   }
@@ -422,8 +422,8 @@ struct CitiesBoundariesSerDes
     auto const wy = MercatorBounds::maxY - MercatorBounds::minY;
     precision = std::max(wx, wy) / pow(2, header.m_coordBits);
 
-    serial::GeometryCodingParams const params(header.m_coordBits,
-                                      m2::PointD(MercatorBounds::minX, MercatorBounds::minY));
+    serial::GeometryCodingParams const params(
+        header.m_coordBits, m2::PointD(MercatorBounds::minX, MercatorBounds::minY));
     CitiesBoundariesDecoderV0<Source> decoder(source, params);
     decoder(boundaries);
   }

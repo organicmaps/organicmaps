@@ -363,7 +363,8 @@ bool FeatureBuilder1::CheckValid() const
   return true;
 }
 
-void FeatureBuilder1::SerializeBase(TBuffer & data, serial::GeometryCodingParams const & params, bool saveAddInfo) const
+void FeatureBuilder1::SerializeBase(TBuffer & data, serial::GeometryCodingParams const & params,
+                                    bool saveAddInfo) const
 {
   PushBackByteSink<TBuffer> sink(data);
 
