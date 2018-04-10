@@ -91,8 +91,7 @@ private:
   bool IsEnabledAtPos(Provider::Type type, m2::PointD const & point) const;
 
   template <typename ApiType>
-  void AddApi(std::vector<ProviderUrl> const & urls, Provider::Type type, Places const & enabled,
-              Places const & disabled);
+  void AddApi(std::vector<ProviderUrl> const & urls, Provider::Type type);
 
   std::vector<ApiItem> m_apis;
 

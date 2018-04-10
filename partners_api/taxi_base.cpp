@@ -21,12 +21,14 @@ bool ApiItem::AreAllCountriesDisabled(storage::TCountriesVec const & countryIds,
   if (countryIds.empty())
     return true;
 
-  if (m_disabledPlaces.IsCountriesEmpty())
+  auto const & disabled = m_places.m_disabledPlaces;
+
+  if (disabled.IsCountriesEmpty())
     return false;
 
   bool isCountryDisabled = true;
   for (auto const & countryId : countryIds)
-    isCountryDisabled = isCountryDisabled && m_disabledPlaces.Has(countryId, city);
+    isCountryDisabled = isCountryDisabled && disabled.Has(countryId, city);
 
   return isCountryDisabled;
 }
@@ -37,12 +39,14 @@ bool ApiItem::IsAnyCountryEnabled(storage::TCountriesVec const & countryIds,
   if (countryIds.empty())
     return false;
 
-  if (m_enabledPlaces.IsCountriesEmpty())
-    return true;
+  auto const & enabled = m_places.m_enabledPlaces;
+
+  if (enabled.IsCountriesEmpty())
+    return false;
 
   for (auto const & countryId : countryIds)
   {
-    if (m_enabledPlaces.Has(countryId, city))
+    if (enabled.Has(countryId, city))
       return true;
   }
 
@@ -51,23 +55,19 @@ bool ApiItem::IsAnyCountryEnabled(storage::TCountriesVec const & countryIds,
 
 bool ApiItem::IsMwmDisabled(storage::TCountryId const & mwmId) const
 {
+  auto const & disabled = m_places.m_disabledPlaces;
   if (mwmId.empty())
     return false;
 
-  if (m_disabledPlaces.IsMwmsEmpty())
-    return false;
-
-  return m_disabledPlaces.Has(mwmId);
+  return disabled.Has(mwmId);
 }
 
 bool ApiItem::IsMwmEnabled(storage::TCountryId const & mwmId) const
 {
+  auto const & enabled = m_places.m_enabledPlaces;
   if (mwmId.empty())
     return false;
 
-  if (m_enabledPlaces.IsMwmsEmpty())
-    return true;
-
-  return m_enabledPlaces.Has(mwmId);
+  return enabled.Has(mwmId);
 }
 }  // namespace taxi

@@ -4,13 +4,6 @@
 
 namespace taxi
 {
-Places::Places(std::vector<Country> const & countries,
-               std::unordered_set<storage::TCountryId> const & mwmIds)
-  : m_countries(countries)
-  , m_mwmIds(mwmIds)
-{
-}
-
 bool Places::IsCountriesEmpty() const { return m_countries.empty(); }
 bool Places::IsMwmsEmpty() const { return m_mwmIds.empty(); }
 

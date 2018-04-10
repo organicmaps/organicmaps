@@ -340,6 +340,7 @@
 		34F73FA31E08300E00AC1FD6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34F73FA11E08300E00AC1FD6 /* Images.xcassets */; };
 		34F742321E0834F400AC1FD6 /* UIViewController+Navigation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F742301E0834F400AC1FD6 /* UIViewController+Navigation.mm */; };
 		34FE5A6F1F18F30F00BCA729 /* TrafficButtonArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */; };
+		3DF9C22B207CC14A00DA0793 /* taxi_places in Resources */ = {isa = PBXBuildFile; fileRef = 3DF9C22A207CC14A00DA0793 /* taxi_places */; };
 		4501B1942077C35A001B9173 /* resources-xxxhdpi_clear in Resources */ = {isa = PBXBuildFile; fileRef = 4501B1922077C35A001B9173 /* resources-xxxhdpi_clear */; };
 		4501B1952077C35A001B9173 /* resources-xxxhdpi_dark in Resources */ = {isa = PBXBuildFile; fileRef = 4501B1932077C35A001B9173 /* resources-xxxhdpi_dark */; };
 		4554B6EC1E55F0EF0084017F /* drules_proto_vehicle_clear.bin in Resources */ = {isa = PBXBuildFile; fileRef = 4554B6E81E55F02B0084017F /* drules_proto_vehicle_clear.bin */; };
@@ -1264,6 +1265,7 @@
 		34FE4C441BCC013500066718 /* MWMMapWidgets.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMMapWidgets.mm; sourceTree = "<group>"; };
 		34FE5A6D1F18F30F00BCA729 /* TrafficButtonArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrafficButtonArea.swift; sourceTree = "<group>"; };
 		3DDB4BC31DAB98F000F4D021 /* libpartners_api.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpartners_api.a; path = "../../../omim-xcode-build/Debug-iphonesimulator/libpartners_api.a"; sourceTree = "<group>"; };
+		3DF9C22A207CC14A00DA0793 /* taxi_places */ = {isa = PBXFileReference; lastKnownFileType = folder; name = taxi_places; path = ../../data/taxi_places; sourceTree = "<group>"; };
 		4501B1922077C35A001B9173 /* resources-xxxhdpi_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxxhdpi_clear"; path = "../../data/resources-xxxhdpi_clear"; sourceTree = "<group>"; };
 		4501B1932077C35A001B9173 /* resources-xxxhdpi_dark */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-xxxhdpi_dark"; path = "../../data/resources-xxxhdpi_dark"; sourceTree = "<group>"; };
 		450703081E9E6CF000E8C029 /* local_ads_symbols.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = local_ads_symbols.txt; path = ../../data/local_ads_symbols.txt; sourceTree = "<group>"; };
@@ -3923,6 +3925,7 @@
 				671182DF1C7F0DD400CB8177 /* packed_polygons_obsolete.bin */,
 				FA85F632145DDDC20090E1A0 /* packed_polygons.bin */,
 				451950391B7A3E070085DA05 /* patterns.txt */,
+				3DF9C22A207CC14A00DA0793 /* taxi_places */,
 				4A23D1571B8B4DD700D4EB6F /* resources-6plus_clear */,
 				4A7D89C11B2EBF3B00AC843E /* resources-6plus_dark */,
 				A367C93A1B17334800E2B6E7 /* resources-default */,
@@ -4205,6 +4208,7 @@
 				F6E2FE011E097BA00083EBEC /* MWMOpeningHoursClosedSpanTableViewCell.xib in Resources */,
 				F6E2FE071E097BA00083EBEC /* MWMOpeningHoursDaysSelectorTableViewCell.xib in Resources */,
 				F6A806531FDAE51600D4D26F /* DiscoveryViatorCollectionHolderCell.xib in Resources */,
+				3DF9C22B207CC14A00DA0793 /* taxi_places in Resources */,
 				F6E2FE0D1E097BA00083EBEC /* MWMOpeningHoursDeleteScheduleTableViewCell.xib in Resources */,
 				F6E2FE161E097BA00083EBEC /* MWMOpeningHoursTimeSelectorTableViewCell.xib in Resources */,
 				F6E2FE1C1E097BA00083EBEC /* MWMOpeningHoursTimeSpanTableViewCell.xib in Resources */,

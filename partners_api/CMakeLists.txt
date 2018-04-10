@@ -33,7 +33,8 @@ set(
   taxi_engine.hpp
   taxi_places.cpp
   taxi_places.hpp
-  taxi_places_constants.hpp
+  taxi_places_loader.cpp
+  taxi_places_loader.hpp
   taxi_provider.hpp
   uber_api.cpp
   uber_api.hpp

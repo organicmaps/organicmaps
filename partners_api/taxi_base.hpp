@@ -1,6 +1,7 @@
 #pragma once
 
 #include "partners_api/taxi_places.hpp"
+#include "partners_api/taxi_places_loader.hpp"
 #include "partners_api/taxi_provider.hpp"
 
 #include <functional>
@@ -53,11 +54,10 @@ using ApiPtr = std::unique_ptr<ApiBase>;
 
 struct ApiItem
 {
-  ApiItem(Provider::Type type, ApiPtr && api, Places const & enabled, Places const & disabled)
+  ApiItem(Provider::Type type, ApiPtr && api)
     : m_type(type)
     , m_api(std::move(api))
-    , m_enabledPlaces(enabled)
-    , m_disabledPlaces(disabled)
+    , m_places(places::Loader::LoadFor(type))
   {
   }
 
@@ -71,7 +71,6 @@ struct ApiItem
   Provider::Type m_type;
   ApiPtr m_api;
 
-  Places m_enabledPlaces;
-  Places m_disabledPlaces;
+  SupportedPlaces m_places;
 };
 }  // namespace taxi

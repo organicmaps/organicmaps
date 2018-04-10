@@ -25,7 +25,7 @@ public:
   storage::TCountriesVec GetCountryIds(m2::PointD const & point) override { return {"Belarus"}; }
 
   std::string GetCityName(m2::PointD const & point) override { return "Minsk"; }
-  storage::TCountryId GetMwmId(m2::PointD const & point) override { return {}; }
+  storage::TCountryId GetMwmId(m2::PointD const & point) override { return "Belarus_Minsk Region"; }
 };
 
 class UkraineOdessaDelegate : public taxi::Delegate
@@ -34,7 +34,10 @@ public:
   storage::TCountriesVec GetCountryIds(m2::PointD const & point) override { return {"Ukraine"}; }
 
   std::string GetCityName(m2::PointD const & point) override { return "Odessa"; }
-  storage::TCountryId GetMwmId(m2::PointD const & point) override { return {}; }
+  storage::TCountryId GetMwmId(m2::PointD const & point) override
+  {
+    return "Ukraine_Odessa Oblast";
+  }
 };
 
 class UkraineMariupolDelegate : public taxi::Delegate
@@ -43,7 +46,10 @@ public:
   storage::TCountriesVec GetCountryIds(m2::PointD const & point) override { return {"Ukraine"}; }
 
   std::string GetCityName(m2::PointD const & point) override { return "Mariupol"; }
-  storage::TCountryId GetMwmId(m2::PointD const & point) override { return {}; }
+  storage::TCountryId GetMwmId(m2::PointD const & point) override
+  {
+    return "Ukraine_Donetsk Oblast";
+  }
 };
 
 class BulgariaSofiaDelegate : public taxi::Delegate
@@ -219,10 +225,10 @@ UNIT_CLASS_TEST(AsyncGuiThread, TaxiEngine_ResultMaker)
     testing::Notify();
   };
 
-  auto const successNotPossibleCallback =
-      [&reqId, &providers](taxi::ProvidersContainer const & products, uint64_t const requestId) {
-        TEST(false, ("successNotPossibleCallback", requestId));
-      };
+  auto const successNotPossibleCallback = [](taxi::ProvidersContainer const & products,
+                                             uint64_t const requestId) {
+    TEST(false, ("successNotPossibleCallback", requestId));
+  };
 
   auto const errorCallback = [&reqId, &errors](taxi::ErrorsContainer const e,
                                                uint64_t const requestId) {
@@ -231,8 +237,8 @@ UNIT_CLASS_TEST(AsyncGuiThread, TaxiEngine_ResultMaker)
     testing::Notify();
   };
 
-  auto const errorNotPossibleCallback = [&reqId](taxi::ErrorsContainer const errors,
-                                                 uint64_t const requestId) {
+  auto const errorNotPossibleCallback = [](taxi::ErrorsContainer const errors,
+                                           uint64_t const requestId) {
     TEST(false, ("errorNotPossibleCallback", requestId, errors));
   };
 

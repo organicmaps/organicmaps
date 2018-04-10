@@ -1,6 +1,6 @@
 #include "partners_api/taxi_engine.hpp"
 #include "partners_api/maxim_api.hpp"
-#include "partners_api/taxi_places_constants.hpp"
+#include "partners_api/taxi_places_loader.hpp"
 #include "partners_api/uber_api.hpp"
 #include "partners_api/yandex_api.hpp"
 
@@ -115,9 +115,9 @@ void ResultMaker::DecrementRequestCount()
 // Engine -----------------------------------------------------------------------------------------
 Engine::Engine(std::vector<ProviderUrl> urls /* = {} */)
 {
-  AddApi<yandex::Api>(urls, Provider::Type::Yandex, places::kYandexEnabledPlaces, {{}});
-  AddApi<uber::Api>(urls, Provider::Type::Uber, {{}}, places::kUberDisabledPlaces);
-  AddApi<maxim::Api>(urls, Provider::Type::Maxim, places::kMaximEnabledPlaces, {{}});
+  AddApi<yandex::Api>(urls, Provider::Type::Yandex);
+  AddApi<uber::Api>(urls, Provider::Type::Uber);
+  AddApi<maxim::Api>(urls, Provider::Type::Maxim);
 }
 
 void Engine::SetDelegate(std::unique_ptr<Delegate> delegate) { m_delegate = std::move(delegate); }
@@ -229,8 +229,7 @@ bool Engine::IsEnabledAtPos(Provider::Type type, m2::PointD const & point) const
 }
 
 template <typename ApiType>
-void Engine::AddApi(std::vector<ProviderUrl> const & urls, Provider::Type type,
-                    Places const & enabled, Places const & disabled)
+void Engine::AddApi(std::vector<ProviderUrl> const & urls, Provider::Type type)
 {
   auto const it = std::find_if(urls.cbegin(), urls.cend(), [type](ProviderUrl const & item)
   {
@@ -238,8 +237,8 @@ void Engine::AddApi(std::vector<ProviderUrl> const & urls, Provider::Type type,
   });
 
   if (it != urls.cend())
-    m_apis.emplace_back(type, my::make_unique<ApiType>(it->m_url), enabled, disabled);
+    m_apis.emplace_back(type, my::make_unique<ApiType>(it->m_url));
   else
-    m_apis.emplace_back(type, my::make_unique<ApiType>(), enabled, disabled);
+    m_apis.emplace_back(type, my::make_unique<ApiType>());
 }
 }  // namespace taxi
