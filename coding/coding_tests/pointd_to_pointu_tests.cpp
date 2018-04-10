@@ -19,25 +19,27 @@ UNIT_TEST(PointDToPointU_Epsilons)
   m2::PointD const arrD[] = {{1, 1}, {1, -1}, {-1, -1}, {-1, 1}};
   size_t const count = ARRAY_SIZE(arrPt);
 
-  /*
   double eps = 1.0;
-  for (; true; eps = eps / 10.0)
+  while (true)
   {
     size_t i = 0;
     for (; i < count; ++i)
     {
-      m2::PointU p = PointDToPointU(arrPt[i].x, arrPt[i].y, kCoordBits);
+      m2::PointU p0 = PointDToPointU(arrPt[i].x, arrPt[i].y, kCoordBits);
       m2::PointU p1 = PointDToPointU(arrPt[i].x + arrD[i].x * eps,
                                     arrPt[i].y + arrD[i].y * eps,
                                     kCoordBits);
 
-      if (p != p1) break;
+      if (p0 != p1)
+        break;
     }
-    if (i == count) break;
+    if (i == count)
+      break;
+
+    eps *= 0.1;
   }
 
-  LOG(LINFO, ("Epsilon = ", eps));
-  */
+  LOG(LINFO, ("Epsilon (relative error) =", eps));
 
   for (size_t i = 0; i < count; ++i)
   {
@@ -45,6 +47,6 @@ UNIT_TEST(PointDToPointU_Epsilons)
     m2::PointU const p2(p1.x + arrD[i].x, p1.y + arrD[i].y);
     m2::PointD const p3 = PointUToPointD(p2, kCoordBits);
 
-    LOG(LINFO, ("Dx = ", p3.x - arrPt[i].x, "Dy = ", p3.y - arrPt[i].y));
+    LOG(LINFO, ("Dx =", p3.x - arrPt[i].x, "Dy =", p3.y - arrPt[i].y));
   }
 }
