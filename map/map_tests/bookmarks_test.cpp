@@ -710,8 +710,8 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
   bmManager.CreateCategories(std::move(kmlDataCollection3), false /* autoSave */);
 
   TEST_EQUAL(bmManager.GetBmGroupsIdList().size(), 2, ());
-  auto const catId2 = bmManager.GetBmGroupsIdList().front();
-  auto const catId3 = bmManager.GetBmGroupsIdList().back();
+  auto const catId2 = bmManager.GetBmGroupsIdList().back();
+  auto const catId3 = bmManager.GetBmGroupsIdList().front();
 
   TEST_EQUAL(bmManager.GetUserMarkIds(catId2).size(), 1, ());
   TEST_EQUAL(bmManager.GetCategoryName(catId2), expectedName, ());
@@ -748,7 +748,7 @@ UNIT_CLASS_TEST(Runner, TrackParsingTest_1)
                                     dp::Color(171, 230, 0, 255),
                                     dp::Color(0, 230, 117, 255),
                                     dp::Color(0, 59, 230, 255)}};
-  array<double, 4> const length = {{3525.46839061, 27174.11393166, 27046.0456586, 23967.35765800}};
+  array<double, 4> const length = {{3525.46839061, 27172.44338132, 27046.0456586, 23967.35765800}};
 
   size_t i = 0;
   for (auto trackId : bmManager.GetTrackIds(catId))
