@@ -444,7 +444,6 @@ private:
   df::DrapeEngineSafePtr m_drapeEngine;
   AsyncLoadingCallbacks m_asyncLoadingCallbacks;
   std::atomic<bool> m_needTeardown;
-  kml::MarkGroupId m_lastGroupID;
   size_t m_openedEditSessionsCount = 0;
   bool m_loadBookmarksFinished = false;
   bool m_firstDrapeNotification = false;

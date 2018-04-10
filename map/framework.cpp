@@ -955,12 +955,12 @@ void Framework::ShowBookmark(Bookmark const * mark)
 
   StopLocationFollow();
 
-  double scale = mark->GetScale();
-  if (scale == -1.0)
+  auto scale = static_cast<int>(mark->GetScale());
+  if (scale == 0)
     scale = scales::GetUpperComfortScale();
 
   if (m_drapeEngine != nullptr)
-    m_drapeEngine->SetModelViewCenter(mark->GetPivot(), static_cast<int>(scale), true /* isAnim */,
+    m_drapeEngine->SetModelViewCenter(mark->GetPivot(), scale, true /* isAnim */,
                                       true /* trackVisibleViewport */);
 
   place_page::Info info;
