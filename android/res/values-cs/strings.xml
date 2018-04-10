@@ -1233,7 +1233,9 @@
 	<string name="bookmarks_groups">Seznamy</string>
 	<string name="bookmarks_groups_hide_all">Skrýt vše</string>
 	<string name="bookmarks_groups_show_all">Zobrazit vše</string>
-	<string name="bookmarks_places">%s záložek</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d záložek</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Vytvořte nový seznam</string>
 	<string name="downloader_hide_screen">Skrýt obrazovku</string>
 	<string name="downloader_percent">%1$s (%2$s z %3$s)</string>

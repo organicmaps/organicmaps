@@ -1232,7 +1232,9 @@
 	<string name="bookmarks_groups">清單</string>
 	<string name="bookmarks_groups_hide_all">全部隱藏</string>
 	<string name="bookmarks_groups_show_all">全部顯示</string>
-	<string name="bookmarks_places">%s 個書籤</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d 個書籤</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">创建新的列表</string>
 	<string name="downloader_hide_screen">隱藏畫面</string>
 	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>

@@ -1232,7 +1232,9 @@
 	<string name="bookmarks_groups">قوائم</string>
 	<string name="bookmarks_groups_hide_all">إخفاء الكل</string>
 	<string name="bookmarks_groups_show_all">إظهار الكل</string>
-	<string name="bookmarks_places">%s من الإشارات المرجعية</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d من الإشارات المرجعية</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">إنشاء قائمة جديدة</string>
 	<string name="downloader_hide_screen">إخفاء الشاشة</string>
 	<string name="downloader_percent">%1$s (%2$s من %3$s)</string>

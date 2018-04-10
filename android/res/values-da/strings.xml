@@ -1230,7 +1230,9 @@
 	<string name="bookmarks_groups">Lister</string>
 	<string name="bookmarks_groups_hide_all">Skjul alle</string>
 	<string name="bookmarks_groups_show_all">Vis alle</string>
-	<string name="bookmarks_places">%s bogmærker</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d bogmærker</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Opret ny liste</string>
 	<string name="downloader_hide_screen">Skjul skærm</string>
 	<string name="downloader_percent">%1$s (%2$s af %3$s)</string>

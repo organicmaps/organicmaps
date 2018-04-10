@@ -1222,7 +1222,9 @@
 	<string name="bookmarks_groups">Liste</string>
 	<string name="bookmarks_groups_hide_all">Ascundere toate</string>
 	<string name="bookmarks_groups_show_all">Afișare toate</string>
-	<string name="bookmarks_places">%s semne de carte</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d semne de carte</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Creați o listă nouă</string>
 	<string name="downloader_hide_screen">Ascundere ecran</string>
 	<string name="downloader_percent">%1$s (%2$s din %3$s)</string>

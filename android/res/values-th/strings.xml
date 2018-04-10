@@ -1232,7 +1232,9 @@
 	<string name="bookmarks_groups">รายการ</string>
 	<string name="bookmarks_groups_hide_all">ซ่อนทั้งหมด</string>
 	<string name="bookmarks_groups_show_all">แสดงทั้งหมด</string>
-	<string name="bookmarks_places">%s บุ๊กมาร์ก</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d บุ๊กมาร์ก</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">สร้างรายการใหม่</string>
 	<string name="downloader_hide_screen">ซ่อนหน้าจอ</string>
 	<string name="downloader_percent">%1$s (%2$s จาก %3$s)</string>

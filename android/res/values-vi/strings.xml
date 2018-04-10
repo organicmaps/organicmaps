@@ -1226,7 +1226,9 @@
 	<string name="bookmarks_groups">Danh sách</string>
 	<string name="bookmarks_groups_hide_all">Ẩn tất cả</string>
 	<string name="bookmarks_groups_show_all">Hiển thị tất cả</string>
-	<string name="bookmarks_places">%s dấu trang</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d dấu trang</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Tạo danh sách mới</string>
 	<string name="downloader_hide_screen">Ẩn Màn hình</string>
 	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>

@@ -1230,7 +1230,9 @@
 	<string name="bookmarks_groups">Listor</string>
 	<string name="bookmarks_groups_hide_all">Dölj alla</string>
 	<string name="bookmarks_groups_show_all">Visa alla</string>
-	<string name="bookmarks_places">%s bokmärken</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d bokmärken</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Skapa ny lista</string>
 	<string name="downloader_hide_screen">Dölj skärm</string>
 	<string name="downloader_percent">%1$s (%2$s av %3$s)</string>

@@ -1225,7 +1225,9 @@
 	<string name="bookmarks_groups">Daftar</string>
 	<string name="bookmarks_groups_hide_all">Sembunyikan semua</string>
 	<string name="bookmarks_groups_show_all">Perlihatkan semua</string>
-	<string name="bookmarks_places">%s markah</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d markah</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Buat daftar baru</string>
 	<string name="downloader_hide_screen">Sembunyikan Layar</string>
 	<string name="downloader_percent">%1$s (%2$s dari %3$s)</string>

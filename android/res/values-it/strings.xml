@@ -1225,7 +1225,9 @@
 	<string name="bookmarks_groups">Elenchi</string>
 	<string name="bookmarks_groups_hide_all">Nascondi tutto</string>
 	<string name="bookmarks_groups_show_all">Mostra tutto</string>
-	<string name="bookmarks_places">%s preferiti</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d preferiti</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Crea una nuova lista</string>
 	<string name="downloader_hide_screen">Nascondi schermata</string>
 	<string name="downloader_percent">%1$s (%2$s di %3$s)</string>

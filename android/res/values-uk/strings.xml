@@ -1230,7 +1230,9 @@
 	<string name="bookmarks_groups">Списки</string>
 	<string name="bookmarks_groups_hide_all">Приховати всі</string>
 	<string name="bookmarks_groups_show_all">Показати всі</string>
-	<string name="bookmarks_places">%s закладок</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d закладок</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Створити новий список</string>
 	<string name="downloader_hide_screen">Приховати екран</string>
 	<string name="downloader_percent">%1$s (%2$s з %3$s)</string>

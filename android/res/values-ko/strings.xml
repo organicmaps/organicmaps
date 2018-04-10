@@ -1222,7 +1222,9 @@
 	<string name="bookmarks_groups">기울기</string>
 	<string name="bookmarks_groups_hide_all">모두 숨기기</string>
 	<string name="bookmarks_groups_show_all">모두 표시</string>
-	<string name="bookmarks_places">%s 북마크</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d 북마크</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">새 목록 만들기</string>
 	<string name="downloader_hide_screen">화면 숨기기</string>
 	<string name="downloader_percent">%1$s(%2$s / %3$s)</string>

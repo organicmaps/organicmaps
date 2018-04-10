@@ -1226,7 +1226,9 @@
 	<string name="bookmarks_groups">List</string>
 	<string name="bookmarks_groups_hide_all">Összes elrejtése</string>
 	<string name="bookmarks_groups_show_all">Összes megjelenítése</string>
-	<string name="bookmarks_places">könyvjelzők %s</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">könyvjelzők %d</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Új lista létrehozása</string>
 	<string name="downloader_hide_screen">Képernyő elrejtése</string>
 	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>

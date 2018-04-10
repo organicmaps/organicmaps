@@ -1225,7 +1225,9 @@
 	<string name="bookmarks_groups">リスト</string>
 	<string name="bookmarks_groups_hide_all">すべて非表示</string>
 	<string name="bookmarks_groups_show_all">すべて表示</string>
-	<string name="bookmarks_places">%s のブックマーク</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d のブックマーク</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">新しいリストを作成する</string>
 	<string name="downloader_hide_screen">画面を非表示</string>
 	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>

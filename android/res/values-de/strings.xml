@@ -1240,7 +1240,9 @@
 	<string name="bookmarks_groups">Listen</string>
 	<string name="bookmarks_groups_hide_all">Alle verbergen</string>
 	<string name="bookmarks_groups_show_all">Alle anzeigen</string>
-	<string name="bookmarks_places">%s Lesezeichen</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d Lesezeichen</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Erstelle eine neue Liste</string>
 	<string name="downloader_hide_screen">Bildschirm verbergen</string>
 	<string name="downloader_percent">%1$s (%2$s von %3$s)</string>

@@ -1226,7 +1226,9 @@
 	<string name="bookmarks_groups">lijsten</string>
 	<string name="bookmarks_groups_hide_all">Alles verbergen</string>
 	<string name="bookmarks_groups_show_all">Alles weergeven</string>
-	<string name="bookmarks_places">%s bladwijzers</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d bladwijzers</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Nieuwe lijst maken</string>
 	<string name="downloader_hide_screen">Scherm Verbergen</string>
 	<string name="downloader_percent">%1$s (%2$s van %3$s)</string>

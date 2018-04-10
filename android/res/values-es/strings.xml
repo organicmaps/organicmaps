@@ -1219,7 +1219,9 @@
 	<string name="bookmarks_groups">Liza</string>
 	<string name="bookmarks_groups_hide_all">Ocultar todo</string>
 	<string name="bookmarks_groups_show_all">Mostrar todo</string>
-	<string name="bookmarks_places">%s marcadores</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d marcadores</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Crear nueva lista</string>
 	<string name="downloader_hide_screen">Ocultar pantalla</string>
 	<string name="downloader_percent">%1$s (%2$s de %3$s)</string>

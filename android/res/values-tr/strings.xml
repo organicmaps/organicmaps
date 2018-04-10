@@ -1232,7 +1232,9 @@
 	<string name="bookmarks_groups">Listeler</string>
 	<string name="bookmarks_groups_hide_all">Tümünü gizle</string>
 	<string name="bookmarks_groups_show_all">Tümünü göster</string>
-	<string name="bookmarks_places">%s yer imi</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d yer imi</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Yeni liste oluştur</string>
 	<string name="downloader_hide_screen">Ekranı Gizle</string>
 	<string name="downloader_percent">%1$s (%2$s / %3$s)</string>

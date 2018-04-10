@@ -1239,7 +1239,9 @@
 	<string name="bookmarks_groups">Listes</string>
 	<string name="bookmarks_groups_hide_all">Tout masquer</string>
 	<string name="bookmarks_groups_show_all">Tout afficher</string>
-	<string name="bookmarks_places">%s signets</string>
+	<plurals name="bookmarks_places">
+	  <item quantity="other">%d signets</item>
+	</plurals>
 	<string name="bookmarks_create_new_group">Créer une nouvelle liste</string>
 	<string name="downloader_hide_screen">Masquer l’écran</string>
 	<string name="downloader_percent">%1$s (%2$s de %3$s)</string>
