@@ -61,6 +61,10 @@ static NSString * const kFifa18Category = @"fc2018";
     [MRMyTracker trackEventWithName:@"Search_SponsoredCategory_shown_LuggageHero"];
     [Statistics logEvent:kStatSearchSponsoredShow withParameters:@{kStatProvider : kStatLuggageHero}];
   }
+  else if ([string isEqualToString:kFifa18Category])
+  {
+    [Statistics logEvent:kStatSearchSponsoredShow withParameters:@{kStatProvider : kStatFifa18}];
+  }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
