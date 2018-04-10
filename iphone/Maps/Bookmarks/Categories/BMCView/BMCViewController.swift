@@ -78,7 +78,7 @@ final class BMCViewController: MWMViewController {
     let shareOnSuccess = { [viewModel] (url: URL) in
       typealias AVC = MWMActivityViewController
       let fileName = (url.lastPathComponent as NSString).deletingPathExtension
-      let message = String(coreFormat: L("share_bookmarks_email_body"), arguments: [fileName])
+      let message = L("share_bookmarks_email_body")
       let shareController = AVC.share(for: url, message: message) { [viewModel] _, _, _, _ in
         viewModel?.finishShareCategory()
       }

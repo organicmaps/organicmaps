@@ -450,7 +450,7 @@
     auto myData = [[NSData alloc] initWithBytes:data.data() length:data.size()];
     [mailVC addAttachmentData:myData mimeType:mimeType fileName:[NSString stringWithFormat:@"%@%@", catName, fileExtension]];
   }
-  [mailVC setMessageBody:[NSString stringWithFormat:L(@"share_bookmarks_email_body"), catName] isHTML:NO];
+  [mailVC setMessageBody:L(@"share_bookmarks_email_body") isHTML:NO];
   [self presentViewController:mailVC animated:YES completion:nil];
 }
 

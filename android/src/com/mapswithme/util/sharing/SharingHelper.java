@@ -214,9 +214,7 @@ public enum SharingHelper
         String name = new File(result.getSharingPath()).getName();
         shareOutside(new LocalFileShareable(context, result.getSharingPath(),
                                             "application/vnd.google-earth.kmz")
-                         // TODO fix translation for some languages, that doesn't contain holder
-                         // for filename
-                         .setText(context.getString(R.string.share_bookmarks_email_body, name))
+                         .setText(context.getString(R.string.share_bookmarks_email_body))
                          .setSubject(R.string.share_bookmarks_email_subject));
         break;
       case BookmarkSharingResult.EMPTY_CATEGORY:
