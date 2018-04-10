@@ -944,17 +944,17 @@ void BookmarkManager::NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && coll
   
   GetPlatform().RunTask(Platform::Thread::Gui, [this, collection]()
   {
-    m_asyncLoadingInProgress = false;
-    m_loadBookmarksFinished = true;
     if (!collection->empty())
     {
       CreateCategories(std::move(*collection));
     }
-    else
+    else if (!m_loadBookmarksFinished)
     {
       CheckAndResetLastIds();
       CheckAndCreateDefaultCategory();
     }
+    m_asyncLoadingInProgress = false;
+    m_loadBookmarksFinished = true;
 
     if (m_asyncLoadingCallbacks.m_onFinished != nullptr)
       m_asyncLoadingCallbacks.m_onFinished();
@@ -1175,7 +1175,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData && da
 
   if (data.m_id == kml::kInvalidMarkGroupId)
   {
-    data.m_id = PersistentIdStorage::Instance().GetNextCategoryId();
+    data.m_id = UserMarkIdStorage::Instance().GetNextCategoryId();
   }
   auto groupId = data.m_id;
   ASSERT_EQUAL(m_categories.count(groupId), 0, ());
@@ -1188,7 +1188,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData && da
 kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & name, bool autoSave)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
-  auto const groupId = PersistentIdStorage::Instance().GetNextCategoryId();
+  auto const groupId = UserMarkIdStorage::Instance().GetNextCategoryId();
   m_categories[groupId] = my::make_unique<BookmarkCategory>(name, groupId, autoSave);
   UpdateBmGroupIdList();
   m_changesTracker.OnAddGroup(groupId);
@@ -1204,7 +1204,7 @@ void BookmarkManager::CheckAndCreateDefaultCategory()
 
 void BookmarkManager::CheckAndResetLastIds()
 {
-  auto & idStorage = PersistentIdStorage::Instance();
+  auto & idStorage = UserMarkIdStorage::Instance();
   if (m_categories.empty())
     idStorage.ResetCategoryId();
   if (m_bookmarks.empty())
@@ -1313,6 +1313,12 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     auto & fileData = *data.second.get();
     auto & categoryData = fileData.m_categoryData;
 
+    if ((categoryData.m_id != kml::kInvalidMarkGroupId) &&
+        (UserMarkIdStorage::Instance().IsJustCreated() || fileData.m_deviceId != GetPlatform().UniqueClientId()))
+    {
+      ResetIds(fileData);
+    }
+
     auto const originalName = kml::GetDefaultStr(categoryData.m_name);
     auto uniqueName = originalName;
 
@@ -1362,6 +1368,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
 std::unique_ptr<kml::FileData> BookmarkManager::CollectBmGroupKMLData(BookmarkCategory const * group) const
 {
   auto kmlData = std::make_unique<kml::FileData>();
+  kmlData->m_deviceId = GetPlatform().UniqueClientId();
   kmlData->m_categoryData = group->GetCategoryData();
   auto const & markIds = group->GetUserMarks();
   kmlData->m_bookmarksData.reserve(markIds.size());
@@ -1692,6 +1699,7 @@ void BookmarkManager::OnRestoredFilesPrepared()
 {
   // This method is always called from UI-thread.
   ClearCategories();
+  CheckAndResetLastIds();
 
   if (m_onRestoredFilesPrepared)
     m_onRestoredFilesPrepared();
@@ -1716,7 +1724,7 @@ void BookmarkManager::CancelCloudRestoring()
 
 void BookmarkManager::EnableTestMode(bool enable)
 {
-  PersistentIdStorage::Instance().EnableTestMode(enable);
+  UserMarkIdStorage::Instance().EnableTestMode(enable);
   m_testModeEnabled = enable;
 }
 

@@ -4,21 +4,21 @@
 #include "geometry/mercator.hpp"
 
 UserMark::UserMark(kml::MarkId id, m2::PointD const & ptOrg, UserMark::Type type)
-  : df::UserPointMark(id == kml::kInvalidMarkId ? PersistentIdStorage::Instance().GetNextUserMarkId(type) : id)
+  : df::UserPointMark(id == kml::kInvalidMarkId ? UserMarkIdStorage::Instance().GetNextUserMarkId(type) : id)
   , m_ptOrg(ptOrg)
 {
   ASSERT_EQUAL(GetMarkType(), type, ());
 }
 
 UserMark::UserMark(m2::PointD const & ptOrg, UserMark::Type type)
-  : df::UserPointMark(PersistentIdStorage::Instance().GetNextUserMarkId(type))
+  : df::UserPointMark(UserMarkIdStorage::Instance().GetNextUserMarkId(type))
   , m_ptOrg(ptOrg)
 {}
 
 // static
 UserMark::Type UserMark::GetMarkType(kml::MarkId id)
 {
-  return PersistentIdStorage::GetMarkType(id);
+  return UserMarkIdStorage::GetMarkType(id);
 }
 
 m2::PointD const & UserMark::GetPivot() const

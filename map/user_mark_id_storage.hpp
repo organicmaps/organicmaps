@@ -4,12 +4,14 @@
 
 #include <atomic>
 
-class PersistentIdStorage
+class UserMarkIdStorage
 {
 public:
-  static PersistentIdStorage & Instance();
+  static UserMarkIdStorage & Instance();
 
   static UserMark::Type GetMarkType(kml::MarkId id);
+
+  bool IsJustCreated() const;
 
   kml::MarkId GetNextUserMarkId(UserMark::Type type);
   kml::TrackId GetNextTrackId();
@@ -23,7 +25,7 @@ public:
   void EnableTestMode(bool enable);
 
 private:
-  PersistentIdStorage();
+  UserMarkIdStorage();
 
   void LoadLastBookmarkId();
   void LoadLastTrackId();
@@ -32,6 +34,10 @@ private:
   void SaveLastBookmarkId();
   void SaveLastTrackId();
   void SaveLastCategoryId();
+
+  bool HasKey(std::string const & name);
+
+  std::atomic<bool> m_isJustCreated;
 
   std::atomic<uint64_t> m_lastBookmarkId;
   std::atomic<uint64_t> m_lastTrackId;

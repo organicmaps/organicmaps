@@ -12,46 +12,62 @@ std::string const kLastTrackId = "LastTrackId";
 std::string const kLastBookmarkCategoryId = "LastBookmarkCategoryId";
 }  // namespace
 
-PersistentIdStorage::PersistentIdStorage()
-  : m_lastUserMarkId(0)
+UserMarkIdStorage::UserMarkIdStorage()
+  : m_isJustCreated(false)
+  , m_lastUserMarkId(0)
 {
-  LoadLastBookmarkId();
-  LoadLastTrackId();
-  LoadLastCategoryId();
+  m_isJustCreated = !(HasKey(kLastBookmarkCategoryId) && HasKey(kLastBookmarkId) && HasKey(kLastTrackId));
+  if (m_isJustCreated)
+  {
+    ResetCategoryId();
+    ResetBookmarkId();
+    ResetTrackId();
+  }
+  else
+  {
+    LoadLastBookmarkId();
+    LoadLastTrackId();
+    LoadLastCategoryId();
+  }
 }
 
 // static
-PersistentIdStorage & PersistentIdStorage::Instance()
+UserMarkIdStorage & UserMarkIdStorage::Instance()
 {
-  static PersistentIdStorage instance;
+  static UserMarkIdStorage instance;
   return instance;
 }
 
 // static
-UserMark::Type PersistentIdStorage::GetMarkType(kml::MarkId id)
+UserMark::Type UserMarkIdStorage::GetMarkType(kml::MarkId id)
 {
   return static_cast<UserMark::Type>(id >> (sizeof(id) * 8 - kMarkIdTypeBitsCount));
 }
 
-void PersistentIdStorage::ResetBookmarkId()
+bool UserMarkIdStorage::IsJustCreated() const
+{
+  return m_isJustCreated;
+}
+
+void UserMarkIdStorage::ResetBookmarkId()
 {
   m_lastBookmarkId = 0;
   SaveLastBookmarkId();
 }
 
-void PersistentIdStorage::ResetTrackId()
+void UserMarkIdStorage::ResetTrackId()
 {
   m_lastTrackId = 0;
   SaveLastTrackId();
 }
 
-void PersistentIdStorage::ResetCategoryId()
+void UserMarkIdStorage::ResetCategoryId()
 {
   m_lastCategoryId = static_cast<uint64_t>(UserMark::Type::USER_MARK_TYPES_COUNT_MAX);
   SaveLastCategoryId();
 }
 
-kml::MarkId PersistentIdStorage::GetNextUserMarkId(UserMark::Type type)
+kml::MarkId UserMarkIdStorage::GetNextUserMarkId(UserMark::Type type)
 {
   static_assert(UserMark::Type::USER_MARK_TYPES_COUNT <= (1 << kMarkIdTypeBitsCount),
                 "Not enough bits for user mark type.");
@@ -69,21 +85,27 @@ kml::MarkId PersistentIdStorage::GetNextUserMarkId(UserMark::Type type)
   }
 }
 
-kml::TrackId PersistentIdStorage::GetNextTrackId()
+kml::TrackId UserMarkIdStorage::GetNextTrackId()
 {
   auto const id = static_cast<kml::TrackId>(++m_lastTrackId);
   SaveLastTrackId();
   return id;
 }
 
-kml::MarkGroupId PersistentIdStorage::GetNextCategoryId()
+kml::MarkGroupId UserMarkIdStorage::GetNextCategoryId()
 {
   auto const id = static_cast<kml::TrackId>(++m_lastCategoryId);
   SaveLastCategoryId();
   return id;
 }
 
-void PersistentIdStorage::LoadLastBookmarkId()
+bool UserMarkIdStorage::HasKey(std::string const & name)
+{
+  std::string val;
+  return GetPlatform().GetSecureStorage().Load(name, val);
+}
+
+void UserMarkIdStorage::LoadLastBookmarkId()
 {
   uint64_t lastId;
   std::string val;
@@ -93,7 +115,7 @@ void PersistentIdStorage::LoadLastBookmarkId()
     m_lastBookmarkId = 0;
 }
 
-void PersistentIdStorage::LoadLastTrackId()
+void UserMarkIdStorage::LoadLastTrackId()
 {
   uint64_t lastId;
   std::string val;
@@ -103,7 +125,7 @@ void PersistentIdStorage::LoadLastTrackId()
     m_lastTrackId = 0;
 }
 
-void PersistentIdStorage::LoadLastCategoryId()
+void UserMarkIdStorage::LoadLastCategoryId()
 {
   uint64_t lastId;
   std::string val;
@@ -113,28 +135,28 @@ void PersistentIdStorage::LoadLastCategoryId()
     m_lastCategoryId = static_cast<uint64_t>(UserMark::USER_MARK_TYPES_COUNT_MAX);
 }
 
-void PersistentIdStorage::SaveLastBookmarkId()
+void UserMarkIdStorage::SaveLastBookmarkId()
 {
   if (m_testModeEnabled)
     return;
   GetPlatform().GetSecureStorage().Save(kLastBookmarkId, strings::to_string(m_lastBookmarkId.load()));
 }
 
-void PersistentIdStorage::SaveLastTrackId()
+void UserMarkIdStorage::SaveLastTrackId()
 {
   if (m_testModeEnabled)
     return;
   GetPlatform().GetSecureStorage().Save(kLastTrackId, strings::to_string(m_lastTrackId.load()));
 }
 
-void PersistentIdStorage::SaveLastCategoryId()
+void UserMarkIdStorage::SaveLastCategoryId()
 {
   if (m_testModeEnabled)
     return;
   GetPlatform().GetSecureStorage().Save(kLastBookmarkCategoryId, strings::to_string(m_lastCategoryId.load()));
 }
 
-void PersistentIdStorage::EnableTestMode(bool enable)
+void UserMarkIdStorage::EnableTestMode(bool enable)
 {
   m_testModeEnabled = enable;
 }

@@ -108,6 +108,15 @@ bool SaveKmlData(kml::FileData & kmlData, Writer & writer, bool useBinary)
   return true;
 }
 
+void ResetIds(kml::FileData & kmlData)
+{
+  kmlData.m_categoryData.m_id = kml::kInvalidMarkGroupId;
+  for (auto & bmData : kmlData.m_bookmarksData)
+    bmData.m_id = kml::kInvalidMarkId;
+  for (auto & trackData : kmlData.m_tracksData)
+    trackData.m_id = kml::kInvalidTrackId;
+}
+
 void SaveFeatureInfo(StringUtf8Multilang const & name, feature::TypesHolder const & types, kml::BookmarkData & bmData)
 {
   bmData.m_featureTypes.assign(types.begin(), types.end());

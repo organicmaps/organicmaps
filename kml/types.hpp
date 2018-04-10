@@ -297,6 +297,8 @@ struct FileData
 
   bool operator!=(FileData const & data) const { return !operator==(data); }
 
+  // Device id.
+  std::string m_deviceId;
   // Category's data.
   CategoryData m_categoryData;
   // Bookmarks collection.

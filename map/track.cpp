@@ -5,7 +5,7 @@
 #include "geometry/mercator.hpp"
 
 Track::Track(kml::TrackData && data)
-  : Base(data.m_id == kml::kInvalidTrackId ? PersistentIdStorage::Instance().GetNextTrackId() : data.m_id)
+  : Base(data.m_id == kml::kInvalidTrackId ? UserMarkIdStorage::Instance().GetNextTrackId() : data.m_id)
   , m_data(std::move(data))
   , m_groupID(0)
 {
