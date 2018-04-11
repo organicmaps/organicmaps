@@ -21,11 +21,11 @@ public:
 
   Value const & GetValue(Key const & key) { return m_cache.GetValue(key); }
   unordered_map<Key, Value> const & GetMap() const { return m_cache.m_map; }
-  boost::circular_buffer<Key> const & GetList() const { return m_cache.m_list; }
+  boost::circular_buffer<Key> const & GetFifo() const { return m_cache.m_fifo; }
 
   bool IsValid() const
   {
-    set<Key> listKeys(m_cache.m_list.begin(), m_cache.m_list.end());
+    set<Key> listKeys(m_cache.m_fifo.begin(), m_cache.m_fifo.end());
     set<Key> mapKeys;
 
     for (auto const & kv : m_cache.m_map)
@@ -65,9 +65,9 @@ UNIT_TEST(FifoCache)
   {
     unordered_map<Key, Value> expectedMap({{1 /* key */, 1 /* value */}, {2, 2}, {3, 3}});
     TEST_EQUAL(cache.GetMap(), expectedMap, ());
-    std::list<Key> expectedList({2, 3, 1});
+    list<Key> expectedList({2, 3, 1});
     boost::circular_buffer<Key> expectedCB(expectedList.cbegin(), expectedList.cend());
-    TEST_EQUAL(cache.GetList(), expectedCB, ());
+    TEST_EQUAL(cache.GetFifo(), expectedCB, ());
   }
 
   TEST_EQUAL(cache.GetValue(7), 7, ());
@@ -75,9 +75,9 @@ UNIT_TEST(FifoCache)
   {
     unordered_map<Key, Value> expectedMap({{7 /* key */, 7 /* value */}, {2, 2}, {3, 3}});
     TEST_EQUAL(cache.GetMap(), expectedMap, ());
-    std::list<Key> expectedList({7, 2, 3});
+    list<Key> expectedList({7, 2, 3});
     boost::circular_buffer<Key> expectedCB(expectedList.cbegin(), expectedList.cend());
-    TEST_EQUAL(cache.GetList(), expectedCB, ());
+    TEST_EQUAL(cache.GetFifo(), expectedCB, ());
   }
 }
 
