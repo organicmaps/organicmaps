@@ -58,7 +58,7 @@ public:
       auto const max = ToU(bbox.Max());
 
       (*this)(min);
-      coding::EncodePositivePointDelta(m_sink, min, max);
+      EncodeNonNegativePointDelta(min, max);
     }
 
     void operator()(m2::CalipersBox const & cbox)
@@ -131,6 +131,24 @@ public:
       return us;
     }
 
+    // Writes the difference of two 2d vectors to |m_sink|. The vector |next|
+    // must have both its coordinates greater than or equal to those
+    // of |curr|. While this condition is unlikely when encoding polylines,
+    // this method may be useful when encoding rectangles, in particular
+    // bounding boxes of shapes.
+    void EncodeNonNegativePointDelta(m2::PointU const & curr, m2::PointU const & next)
+    {
+      ASSERT_GREATER_OR_EQUAL(next.x, curr.x, ());
+      ASSERT_GREATER_OR_EQUAL(next.y, curr.y, ());
+
+      // Paranoid checks due to possible floating point artifacts
+      // here. In general, next.x >= curr.x and next.y >= curr.y.
+      auto const dx = next.x >= curr.x ? next.x - curr.x : 0;
+      auto const dy = next.y >= curr.y ? next.y - curr.y : 0;
+      WriteVarUint(m_sink, dx);
+      WriteVarUint(m_sink, dy);
+    }
+
     Sink & m_sink;
     serial::GeometryCodingParams m_params;
     m2::PointU m_last;
@@ -198,7 +216,7 @@ public:
     {
       m2::PointU min;
       (*this)(min);
-      auto const max = coding::DecodePositivePointDelta(m_source, min);
+      auto const max = DecodeNonNegativePointDelta(min);
 
       bbox = m2::BoundingBox();
       bbox.Add(FromU(min));
@@ -252,6 +270,16 @@ public:
       for (size_t i = 0; i < us.size(); ++i)
         ps[i] = FromU(us[i]);
       return ps;
+    }
+
+    // Reads the encoded difference from |m_source| and returns the
+    // point equal to |base| + difference. It is guaranteed that
+    // both coordinates of difference are non-negative.
+    m2::PointU DecodeNonNegativePointDelta(m2::PointU const & base)
+    {
+      auto const dx = ReadVarUint<uint32_t>(m_source);
+      auto const dy = ReadVarUint<uint32_t>(m_source);
+      return m2::PointU(base.x + dx, base.y + dy);
     }
 
     Source & m_source;

@@ -45,25 +45,6 @@ void EncodePointDelta(Sink & sink, m2::PointU const & curr, m2::PointU const & n
   WriteVarInt(sink, dy);
 }
 
-// Writes the difference of two 2d vectors to sink. The vector |next|
-// must have both its coordinates greater than or equal to those
-// of |curr|. While this condition is unlikely when encoding polylines,
-// the function may be useful when encoding rectangles, in particular
-// bounding boxes of shapes.
-template <typename Sink>
-void EncodePositivePointDelta(Sink & sink, m2::PointU const & curr, m2::PointU const & next)
-{
-  ASSERT_GREATER_OR_EQUAL(next.x, curr.x, ());
-  ASSERT_GREATER_OR_EQUAL(next.y, curr.y, ());
-
-  // Paranoid checks due to possible floating point artifacts
-  // here. In general, next.x >= curr.x and next.y >= curr.y.
-  auto const dx = next.x >= curr.x ? next.x - curr.x : 0;
-  auto const dy = next.y >= curr.y ? next.y - curr.y : 0;
-  WriteVarUint(sink, dx);
-  WriteVarUint(sink, dy);
-}
-
 // Reads the encoded difference from |source| and returns the
 // point equal to |base| + difference.
 template <typename Source>
@@ -71,17 +52,6 @@ m2::PointU DecodePointDelta(Source & source, m2::PointU const & base)
 {
   auto const dx = ReadVarInt<int32_t>(source);
   auto const dy = ReadVarInt<int32_t>(source);
-  return m2::PointU(base.x + dx, base.y + dy);
-}
-
-// Reads the encoded difference from |source| and returns the
-// point equal to |base| + difference. It is guaranteed that
-// both coordinates of difference are non-negative.
-template <typename Source>
-m2::PointU DecodePositivePointDelta(Source & source, m2::PointU const & base)
-{
-  auto const dx = ReadVarUint<uint32_t>(source);
-  auto const dy = ReadVarUint<uint32_t>(source);
   return m2::PointU(base.x + dx, base.y + dy);
 }
 
