@@ -865,20 +865,20 @@ void BookmarkManager::LoadBookmarks()
 void BookmarkManager::LoadBookmark(std::string const & filePath, bool isTemporaryFile)
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
-  if (m_restoreApplying)
-    return;
-  if (!m_loadBookmarksFinished || m_asyncLoadingInProgress)
+  // Defer bookmark loading in case of another asynchronous process.
+  if (!m_loadBookmarksFinished || m_asyncLoadingInProgress || m_conversionInProgress ||
+      m_restoreApplying)
   {
     m_bookmarkLoadingQueue.emplace_back(filePath, isTemporaryFile);
     return;
   }
+
+  NotifyAboutStartAsyncLoading();
   LoadBookmarkRoutine(filePath, isTemporaryFile);
 }
 
 void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile)
 {
-  ASSERT(!m_asyncLoadingInProgress, ());
-  NotifyAboutStartAsyncLoading();
   GetPlatform().RunTask(Platform::Thread::File, [this, filePath, isTemporaryFile]()
   {
     if (m_needTeardown)
@@ -955,17 +955,20 @@ void BookmarkManager::NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && coll
       CheckAndResetLastIds();
       CheckAndCreateDefaultCategory();
     }
-    m_asyncLoadingInProgress = false;
     m_loadBookmarksFinished = true;
-
-    if (m_asyncLoadingCallbacks.m_onFinished != nullptr)
-      m_asyncLoadingCallbacks.m_onFinished();
 
     if (!m_bookmarkLoadingQueue.empty())
     {
+      ASSERT(m_asyncLoadingInProgress, ());
       LoadBookmarkRoutine(m_bookmarkLoadingQueue.front().m_filename,
                           m_bookmarkLoadingQueue.front().m_isTemporaryFile);
       m_bookmarkLoadingQueue.pop_front();
+    }
+    else
+    {
+      m_asyncLoadingInProgress = false;
+      if (m_asyncLoadingCallbacks.m_onFinished != nullptr)
+        m_asyncLoadingCallbacks.m_onFinished();
     }
   });
 }
@@ -1567,10 +1570,36 @@ void BookmarkManager::SetAllCategoriesVisibility(bool visible)
     c.second->SetIsVisible(visible);
 }
 
-size_t BookmarkManager::GetKmlFilesCountForConversion() const
+bool BookmarkManager::CanConvert() const
 {
   // The conversion available only after successful migration.
-  if (!migration::IsMigrationCompleted())
+  // Also we cannot convert during asynchronous loading or another conversion.
+  return migration::IsMigrationCompleted() && m_loadBookmarksFinished &&
+         !m_asyncLoadingInProgress && !m_conversionInProgress;
+}
+
+void BookmarkManager::FinishConversion(ConversionHandler const & handler, bool result)
+{
+  handler(result);
+
+  // Run deferred asynchronous loading if possible.
+  GetPlatform().RunTask(Platform::Thread::Gui, [this]()
+  {
+    m_conversionInProgress = false;
+    if (!m_bookmarkLoadingQueue.empty())
+    {
+      NotifyAboutStartAsyncLoading();
+      LoadBookmarkRoutine(m_bookmarkLoadingQueue.front().m_filename,
+                          m_bookmarkLoadingQueue.front().m_isTemporaryFile);
+      m_bookmarkLoadingQueue.pop_front();
+    }
+  });
+}
+
+size_t BookmarkManager::GetKmlFilesCountForConversion() const
+{
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  if (!CanConvert())
     return 0;
 
   Platform::FilesList files;
@@ -1581,10 +1610,11 @@ size_t BookmarkManager::GetKmlFilesCountForConversion() const
 
 void BookmarkManager::ConvertAllKmlFiles(ConversionHandler && handler)
 {
-  // The conversion available only after successful migration.
-  if (!migration::IsMigrationCompleted())
+  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  if (!CanConvert())
     return;
 
+  m_conversionInProgress = true;
   GetPlatform().RunTask(Platform::Thread::File, [this, handler = std::move(handler)]()
   {
     auto const oldDir = GetPlatform().SettingsDir();
@@ -1596,7 +1626,7 @@ void BookmarkManager::ConvertAllKmlFiles(ConversionHandler && handler)
     auto const newDir = GetBookmarksDirectory();
     if (!GetPlatform().IsFileExistsByFullPath(newDir) && !GetPlatform().MkDirChecked(newDir))
     {
-      handler(false /* success */);
+      FinishConversion(handler, false /* success */);
       return;
     }
 
@@ -1636,7 +1666,7 @@ void BookmarkManager::ConvertAllKmlFiles(ConversionHandler && handler)
       });
     }
 
-    handler(allConverted);
+    FinishConversion(handler, allConverted);
   });
 }
 
