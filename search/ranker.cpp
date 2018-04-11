@@ -560,12 +560,25 @@ void Ranker::MakeRankerResults(Geocoder::Params const & geocoderParams,
 void Ranker::GetBestMatchName(FeatureType const & f, string & name) const
 {
   KeywordLangMatcher::Score bestScore;
-  auto bestNameFinder = [&](int8_t lang, string const & s) {
+  auto updateScore = [&](int8_t lang, string const & s) {
     auto const score = m_keywordsScorer.CalcScore(lang, s);
     if (bestScore < score)
     {
       bestScore = score;
       name = s;
+    }
+  };
+
+  auto bestNameFinder = [&](int8_t lang, string const & s) {
+    updateScore(lang, s);
+    // Default name should be written in the regional language.
+    if (lang == StringUtf8Multilang::kDefaultCode)
+    {
+      auto const mwmInfo = f.GetID().m_mwmId.GetInfo();
+      vector<int8_t> mwmLangCodes;
+      mwmInfo->GetRegionData().GetLanguages(mwmLangCodes);
+      for (auto const l : mwmLangCodes)
+        updateScore(l, s);
     }
   };
   UNUSED_VALUE(f.ForEachName(bestNameFinder));
