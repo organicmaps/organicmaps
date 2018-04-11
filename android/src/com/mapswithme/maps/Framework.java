@@ -410,6 +410,7 @@ public class Framework
                                                    @AuthTokenType int socialTokenType,
                                                    @NonNull AuthorizationListener listener);
   public static native boolean nativeIsUserAuthenticated();
+  public static native String nativeGetPhoneAuthUrl(@NonNull String redirectUrl);
 
   public static native void nativeShowFeatureByLatLon(double lat, double lon);
 

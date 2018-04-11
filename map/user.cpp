@@ -7,6 +7,8 @@
 #include "coding/url_encode.hpp"
 #include "coding/writer.hpp"
 
+#include "platform/preferred_languages.hpp"
+
 #include "base/logging.hpp"
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
@@ -396,6 +398,17 @@ void User::UploadUserReviews(std::string && dataStr, size_t numberOfUnsynchroniz
         onCompleteUploading(false /* isSuccessful */);
     });
   });
+}
+
+// static
+std::string User::GetPhoneAuthUrl(std::string const & redirectUri)
+{
+  std::ostringstream os;
+  os << kPassportServerUrl << "/oauth/authorize/?mode=phone_device&response_type=code"
+     << "&locale=" << languages::GetCurrentNorm() << "&redirect_uri=" << UrlEncode(redirectUri)
+     << "&client_id=" << kAppName;
+
+  return os.str();
 }
 
 void User::Request(std::string const & url, BuildRequestHandler const & onBuildRequest,

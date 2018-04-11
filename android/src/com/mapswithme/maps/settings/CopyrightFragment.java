@@ -19,7 +19,7 @@ public class CopyrightFragment extends BaseSettingsFragment
   @Override
   protected int getLayoutRes()
   {
-    return R.layout.fragment_prefs_copyright;
+    return R.layout.fragment_web_view_with_progress;
   }
 
   @Override

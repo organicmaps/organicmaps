@@ -18,16 +18,16 @@
   <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/auth_dialog_padding_top"
+    android:layout_marginTop="@dimen/margin_half_plus_eight"
     android:textAppearance="@style/MwmTextAppearance.Body3"
     android:text="Easy sign in without login and password in a couple of seconds."
     />
   <com.facebook.login.widget.LoginButton
     xmlns:fb="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/loging_button"
+    android:id="@+id/facebook_button"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/auth_dialog_facebook_btn_height"
-    android:layout_marginTop="@dimen/auth_dialog_padding_top"
+    android:layout_height="@dimen/height_primary_button"
+    android:layout_marginTop="@dimen/margin_base"
     android:textSize="@dimen/text_size_body_3"
     fb:com_facebook_login_text="@string/facebook"
     android:paddingStart="@dimen/margin_base"
@@ -37,4 +37,14 @@
     android:paddingTop="@dimen/margin_half_plus"
     android:paddingBottom="@dimen/margin_half_plus"
     android:layout_gravity="center_horizontal"/>
+  <TextView
+    android:id="@+id/phone_button"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_primary_button"
+    android:layout_marginTop="@dimen/margin_base"
+    android:textAppearance="@style/MwmTextAppearance.Button"
+    android:textColor="?accentButtonTextColor"
+    android:background="?accentButtonBackground"
+    android:gravity="center"
+    android:text="@string/phone_number"/>
 </LinearLayout>

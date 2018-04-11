@@ -1560,6 +1560,13 @@ Java_com_mapswithme_maps_Framework_nativeIsUserAuthenticated()
   return frm()->GetUser().IsAuthenticated();
 }
 
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetPhoneAuthUrl(JNIEnv * env, jclass, jstring redirectUrl)
+{
+  return jni::ToJavaString(env,
+                           frm()->GetUser().GetPhoneAuthUrl(jni::ToNativeString(env, redirectUrl)));
+}
+
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeShowFeatureByLatLon(JNIEnv * env, jclass,
                                                              jdouble lat, jdouble lon)

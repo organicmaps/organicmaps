@@ -409,6 +409,13 @@
         <data android:scheme="@string/fb_login_protocol_scheme"/>
       </intent-filter>
     </activity>
+    <!-- authorisation by phone number-->
+    <activity
+      android:name="com.mapswithme.maps.auth.PhoneAuthActivity"
+      android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"
+      android:windowSoftInputMode="adjustResize"
+      android:label="@string/authorization_button_sign_in"/>
+    
     <activity android:name="com.mopub.common.MoPubBrowser" android:configChanges="keyboardHidden|orientation|screenSize"/>
     <activity
       android:name=".search.FilterActivity"

@@ -64,6 +64,8 @@ public:
   void UploadUserReviews(std::string && dataStr, size_t numberOfUnsynchronized,
                          CompleteUploadingHandler const & onCompleteUploading);
 
+  static std::string GetPhoneAuthUrl(std::string const & redirectUri);
+
 private:
   void Init();
   void SetAccessToken(std::string const & accessToken);

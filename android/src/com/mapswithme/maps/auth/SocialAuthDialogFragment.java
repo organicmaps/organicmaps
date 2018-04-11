@@ -35,7 +35,16 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = SocialAuthDialogFragment.class.getSimpleName();
   @NonNull
-  private final CallbackManager mCallbackManager = CallbackManager.Factory.create();
+  private final CallbackManager mFacebookCallbackManager = CallbackManager.Factory.create();
+
+  @Nullable
+  private String mPhoneAuthToken;
+
+  @NonNull
+  private final View.OnClickListener mPhoneClickListener = (View v) ->
+  {
+    PhoneAuthActivity.start(this);
+  };
 
   @NonNull
   @Override
@@ -48,13 +57,17 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                           @Nullable Bundle savedInstanceState)
   {
     View view = inflater.inflate(R.layout.fragment_auth_passport_dialog, container, false);
-    LoginButton button = view.findViewById(R.id.loging_button);
-    button.setReadPermissions(Constants.FACEBOOK_PERMISSIONS);
-    button.setFragment(this);
-    button.registerCallback(mCallbackManager, new FBCallback(this));
+    LoginButton facebookButton = view.findViewById(R.id.facebook_button);
+    facebookButton.setReadPermissions(Constants.FACEBOOK_PERMISSIONS);
+    facebookButton.setFragment(this);
+    facebookButton.registerCallback(mFacebookCallbackManager, new FBCallback(this));
+
+    View phoneButton = view.findViewById(R.id.phone_button);
+    phoneButton.setOnClickListener(mPhoneClickListener);
     return view;
   }
 
@@ -62,10 +75,10 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   public void onResume()
   {
     super.onResume();
-    AccessToken token = AccessToken.getCurrentAccessToken();
+    AccessToken facebookToken = AccessToken.getCurrentAccessToken();
     String tokenValue = null;
-    if (token != null)
-      tokenValue = token.getToken();
+    if (facebookToken != null)
+      tokenValue = facebookToken.getToken();
 
     if (TextUtils.isEmpty(tokenValue))
     {
@@ -97,17 +110,32 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     super.onActivityResult(requestCode, resultCode, data);
-    mCallbackManager.onActivityResult(requestCode, resultCode, data);
+
+    if (data != null && requestCode == Constants.REQ_CODE_PHONE_AUTH_RESULT)
+    {
+      mPhoneAuthToken = data.getStringExtra(Constants.EXTRA_PHONE_AUTH_TOKEN);
+      dismiss();
+    }
+
+    mFacebookCallbackManager.onActivityResult(requestCode, resultCode, data);
   }
 
   @Override
   public void onDismiss(DialogInterface dialog)
   {
-    AccessToken token = AccessToken.getCurrentAccessToken();
-    int resultCode = token == null || TextUtils.isEmpty(token.getToken()) ? Activity.RESULT_CANCELED
-                                                                          : Activity.RESULT_OK;
-    sendResult(resultCode, token != null ? token.getToken() : null,
-               Framework.SOCIAL_TOKEN_FACEBOOK, null, true);
+    String token = mPhoneAuthToken;
+
+    @Framework.AuthTokenType
+    int tokenType = token != null ? Framework.SOCIAL_TOKEN_PHONE : Framework.SOCIAL_TOKEN_FACEBOOK;
+
+    if (token == null)
+    {
+      AccessToken facebookToken = AccessToken.getCurrentAccessToken();
+      token = facebookToken != null ? facebookToken.getToken() : null;
+    }
+
+    int resultCode = TextUtils.isEmpty(token) ? Activity.RESULT_CANCELED : Activity.RESULT_OK;
+    sendResult(resultCode, token, tokenType, null, true);
     super.onDismiss(dialog);
   }
 
