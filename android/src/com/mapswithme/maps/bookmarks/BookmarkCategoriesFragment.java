@@ -47,6 +47,21 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   private BookmarkBackupController mBackupController;
   @Nullable
   private KmlImportController mKmlImportController;
+  @NonNull
+  private Runnable mImportKmlTask = new Runnable()
+  {
+    private boolean alreadyDone = false;
+
+    @Override
+    public void run()
+    {
+      if (alreadyDone)
+        return;
+
+      importKml();
+      alreadyDone = true;
+    }
+  };
 
   @Override
   protected @LayoutRes int getLayoutRes()
@@ -157,8 +172,8 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     updateLoadingPlaceholder();
     if (getAdapter() != null)
       getAdapter().notifyDataSetChanged();
-    if (mKmlImportController != null)
-      mKmlImportController.importKml();
+    if (!BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress())
+      mImportKmlTask.run();
   }
 
   @Override
@@ -286,12 +301,19 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     updateResultsPlaceholder();
     if (getAdapter() != null)
       getAdapter().notifyDataSetChanged();
+    mImportKmlTask.run();
   }
 
   @Override
   public void onBookmarksFileLoaded(boolean success)
   {
     // Do nothing here.
+  }
+
+  private void importKml()
+  {
+    if (mKmlImportController != null)
+      mKmlImportController.importKml();
   }
 
   @Override

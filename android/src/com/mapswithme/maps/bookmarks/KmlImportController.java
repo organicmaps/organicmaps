@@ -18,7 +18,6 @@ public class KmlImportController implements BookmarkManager.KmlConversionListene
   private ProgressDialog mProgressDialog;
   @Nullable
   private final ImportKmlCallback mCallback;
-  private boolean mWasShown = false;
 
   KmlImportController(@NonNull Activity context, @Nullable ImportKmlCallback callback)
   {
@@ -38,12 +37,6 @@ public class KmlImportController implements BookmarkManager.KmlConversionListene
 
   void importKml()
   {
-    if (mWasShown)
-      return;
-
-    if (BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress())
-      return;
-
     int count = BookmarkManager.INSTANCE.getKmlFilesCountForConversion();
     if (count == 0)
       return;
@@ -58,7 +51,6 @@ public class KmlImportController implements BookmarkManager.KmlConversionListene
     String msg = mContext.getString(R.string.bookmarks_detect_message, count);
     DialogUtils.showAlertDialog(mContext, R.string.bookmarks_detect_title, msg,
                                 R.string.button_convert, clickListener, R.string.cancel);
-    mWasShown = true;
   }
 
   @Override

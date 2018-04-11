@@ -329,7 +329,7 @@ public enum BookmarkManager
     return nativeGetLastSynchronizationTimestampInMs();
   }
 
-  public static void loadKmzFile(@NonNull String path, boolean isTemporaryFile)
+  public void loadKmzFile(@NonNull String path, boolean isTemporaryFile)
   {
     nativeLoadKmzFile(path, isTemporaryFile);
   }

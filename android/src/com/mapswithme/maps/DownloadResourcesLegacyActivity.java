@@ -793,13 +793,18 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       else
         path = mData.getPath();
 
-      if (path != null)
+      if (!TextUtils.isEmpty(path))
       {
         LOGGER.d(TAG, "Loading bookmarks file from: " + path);
-        BookmarkManager.loadKmzFile(path, isTemporaryFile);
+        loadKmzFile(path, isTemporaryFile);
       }
       else
         LOGGER.w(TAG, "Can't get bookmarks file from URI: " + mData);
+    }
+
+    private void loadKmzFile(final @NonNull String path, final boolean isTemporaryFile)
+    {
+      runOnUiThread(() -> BookmarkManager.INSTANCE.loadKmzFile(path, isTemporaryFile));
     }
 
     private String getExtensionFromMime(String mime)
