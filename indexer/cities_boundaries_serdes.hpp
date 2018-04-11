@@ -48,7 +48,7 @@ public:
 
     void operator()(m2::PointU const & p)
     {
-      WriteVarUint(m_sink, coding::EncodeDelta(p, m_last));
+      WriteVarUint(m_sink, coding::EncodePointDeltaAsUint(p, m_last));
       m_last = p;
     }
 
@@ -58,7 +58,7 @@ public:
       auto const max = ToU(bbox.Max());
 
       (*this)(min);
-      EncodePositiveDelta(min, max);
+      coding::EncodePositivePointDelta(m_sink, min, max);
     }
 
     void operator()(m2::CalipersBox const & cbox)
@@ -89,8 +89,8 @@ public:
       auto const us = ToU(ps);
 
       (*this)(us[0]);
-      EncodeDelta(us[0], us[1]);
-      EncodeDelta(us[0], us[3]);
+      coding::EncodePointDelta(m_sink, us[0], us[1]);
+      coding::EncodePointDelta(m_sink, us[0], us[3]);
     }
 
     void operator()(m2::DiamondBox const & dbox)
@@ -129,29 +129,6 @@ public:
       for (size_t i = 0; i < ps.size(); ++i)
         us[i] = ToU(ps[i]);
       return us;
-    }
-
-    void EncodeDelta(m2::PointU const & curr, m2::PointU const & next)
-    {
-      auto const dx = base::asserted_cast<int32_t>(next.x) -
-                      base::asserted_cast<int32_t>(curr.x);
-      auto const dy = base::asserted_cast<int32_t>(next.y) -
-                      base::asserted_cast<int32_t>(curr.y);
-      WriteVarInt(m_sink, dx);
-      WriteVarInt(m_sink, dy);
-    }
-
-    void EncodePositiveDelta(m2::PointU const & curr, m2::PointU const & next)
-    {
-      ASSERT_GREATER_OR_EQUAL(next.x, curr.x, ());
-      ASSERT_GREATER_OR_EQUAL(next.y, curr.y, ());
-
-      // Paranoid checks due to possible floating point artifacts
-      // here.  In general, next.x >= curr.x and next.y >= curr.y.
-      auto const dx = next.x >= curr.x ? next.x - curr.x : 0;
-      auto const dy = next.y >= curr.y ? next.y - curr.y : 0;
-      WriteVarUint(m_sink, dx);
-      WriteVarUint(m_sink, dy);
     }
 
     Sink & m_sink;
@@ -213,7 +190,7 @@ public:
 
     void operator()(m2::PointU & p)
     {
-      p = coding::DecodeDelta(ReadVarUint<uint64_t>(m_source), m_last);
+      p = coding::DecodePointDeltaFromUint(ReadVarUint<uint64_t>(m_source), m_last);
       m_last = p;
     }
 
@@ -221,7 +198,7 @@ public:
     {
       m2::PointU min;
       (*this)(min);
-      auto const max = min + DecodePositiveDelta();
+      auto const max = coding::DecodePositivePointDelta(m_source, min);
 
       bbox = m2::BoundingBox();
       bbox.Add(FromU(min));
@@ -232,8 +209,8 @@ public:
     {
       std::vector<m2::PointU> us(4);
       (*this)(us[0]);
-      us[1] = DecodeDelta(us[0]);
-      us[3] = DecodeDelta(us[0]);
+      us[1] = coding::DecodePointDelta(m_source, us[0]);
+      us[3] = coding::DecodePointDelta(m_source, us[0]);
 
       auto ps = FromU(us);
       auto const dp = ps[3] - ps[0];
@@ -275,20 +252,6 @@ public:
       for (size_t i = 0; i < us.size(); ++i)
         ps[i] = FromU(us[i]);
       return ps;
-    }
-
-    m2::PointU DecodeDelta(m2::PointU const & base)
-    {
-      auto const dx = ReadVarInt<int32_t>(m_source);
-      auto const dy = ReadVarInt<int32_t>(m_source);
-      return m2::PointU(base.x + dx, base.y + dy);
-    }
-
-    m2::PointU DecodePositiveDelta()
-    {
-      auto const dx = ReadVarUint<uint32_t>(m_source);
-      auto const dy = ReadVarUint<uint32_t>(m_source);
-      return m2::PointU(dx, dy);
     }
 
     Source & m_source;

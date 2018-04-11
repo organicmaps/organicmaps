@@ -91,7 +91,7 @@ public:
     for (auto const & p : vs)
     {
       m2::PointU const pointU = PointDToPointU(p, POINT_COORD_BITS);
-      WriteVarUint(m_sink, coding::EncodeDelta(pointU, lastEncodedPoint));
+      WriteVarUint(m_sink, coding::EncodePointDeltaAsUint(pointU, lastEncodedPoint));
       lastEncodedPoint = pointU;
     }
   }
@@ -289,8 +289,8 @@ public:
     vs.resize(size);
     for (auto & p : vs)
     {
-      m2::PointU const pointU =
-          coding::DecodeDelta(ReadVarUint<uint64_t, Source>(m_source), lastDecodedPoint);
+      m2::PointU const pointU = coding::DecodePointDeltaFromUint(
+          ReadVarUint<uint64_t, Source>(m_source), lastDecodedPoint);
       p = PointUToPointD(pointU, POINT_COORD_BITS);
       lastDecodedPoint = pointU;
     }

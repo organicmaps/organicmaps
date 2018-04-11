@@ -100,11 +100,12 @@ int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
           m_neighbors.find(std::make_pair(i->first.second, i->first.first)) == m_neighbors.end())
       {
         uint64_t deltas[3];
-        deltas[0] = coding::EncodeDelta(points.m_points[i->first.first], points.m_base);
-        deltas[1] =
-            coding::EncodeDelta(points.m_points[i->first.second], points.m_points[i->first.first]);
-        deltas[2] = coding::EncodeDelta(points.m_points[m_triangles[i->second].GetPoint3(i->first)],
-                                        points.m_points[i->first.second]);
+        deltas[0] = coding::EncodePointDeltaAsUint(points.m_points[i->first.first], points.m_base);
+        deltas[1] = coding::EncodePointDeltaAsUint(points.m_points[i->first.second],
+                                                   points.m_points[i->first.first]);
+        deltas[2] = coding::EncodePointDeltaAsUint(
+            points.m_points[m_triangles[i->second].GetPoint3(i->first)],
+            points.m_points[i->first.second]);
 
         size_t const sz = GetBufferSize(deltas, deltas + 3);
         if (sz < cr)
@@ -167,7 +168,7 @@ int TesselateInterior(PolygonsT const & polys, TrianglesInfo & info)
         points.m_points[from.m_p[(p.second + 2) % 3]]);
 
     // delta from prediction to diagonal point of 'to'
-    return coding::EncodeDelta(points.m_points[to.m_p[(p.first + 2) % 3]], prediction);
+    return coding::EncodePointDeltaAsUint(points.m_points[to.m_p[(p.first + 2) % 3]], prediction);
   }
 
   template <class TPopOrder>

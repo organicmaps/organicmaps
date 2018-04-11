@@ -82,7 +82,7 @@ void TestEncodePolyline(string name, m2::PointU maxPoint, vector<m2::PointU> con
 }
 }  // namespace
 
-UNIT_TEST(EncodeDelta)
+UNIT_TEST(EncodePointDeltaAsUint)
 {
   for (int x = -100; x <= 100; ++x)
   {
@@ -90,10 +90,10 @@ UNIT_TEST(EncodeDelta)
     {
       PU orig = PU(100 + x, 100 + y);
       PU pred = PU(100, 100);
-      TEST_EQUAL(orig, DecodeDelta(EncodeDelta(orig, pred), pred), ());
+      TEST_EQUAL(orig, DecodePointDeltaFromUint(EncodePointDeltaAsUint(orig, pred), pred), ());
       vector<char> data;
       PushBackByteSink<vector<char>> sink(data);
-      WriteVarUint(sink, EncodeDelta(orig, pred));
+      WriteVarUint(sink, EncodePointDeltaAsUint(orig, pred));
       size_t expectedSize = 1;
       if (x >= 8 || x < -8 || y >= 4 || y < -4)
         expectedSize = 2;

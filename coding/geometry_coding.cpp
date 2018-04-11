@@ -67,14 +67,14 @@ m2::PointU PredictPointInPolyline(m2::PointU const & maxPoint, m2::PointU const 
   return ClampPoint(maxPoint, m2::PointD(p1) + (m2::PointD(p1) - m2::PointD(p2)) / 2.0);
 }
 
-uint64_t EncodeDelta(m2::PointU const & actual, m2::PointU const & prediction)
+uint64_t EncodePointDeltaAsUint(m2::PointU const & actual, m2::PointU const & prediction)
 {
   return bits::BitwiseMerge(
       bits::ZigZagEncode(static_cast<int32_t>(actual.x) - static_cast<int32_t>(prediction.x)),
       bits::ZigZagEncode(static_cast<int32_t>(actual.y) - static_cast<int32_t>(prediction.y)));
 }
 
-m2::PointU DecodeDelta(uint64_t delta, m2::PointU const & prediction)
+m2::PointU DecodePointDeltaFromUint(uint64_t delta, m2::PointU const & prediction)
 {
   uint32_t x, y;
   bits::BitwiseSplit(delta, x, y);
@@ -118,9 +118,9 @@ void EncodePolylinePrev1(InPointsT const & points, m2::PointU const & basePoint,
   size_t const count = points.size();
   if (count > 0)
   {
-    deltas.push_back(EncodeDelta(points[0], basePoint));
+    deltas.push_back(EncodePointDeltaAsUint(points[0], basePoint));
     for (size_t i = 1; i < count; ++i)
-      deltas.push_back(EncodeDelta(points[i], points[i - 1]));
+      deltas.push_back(EncodePointDeltaAsUint(points[i], points[i - 1]));
   }
 
   ASSERT(TestDecoding(points, basePoint, maxPoint, deltas, &DecodePolylinePrev1), ());
@@ -132,9 +132,9 @@ void DecodePolylinePrev1(InDeltasT const & deltas, m2::PointU const & basePoint,
   size_t const count = deltas.size();
   if (count > 0)
   {
-    points.push_back(DecodeDelta(deltas[0], basePoint));
+    points.push_back(DecodePointDeltaFromUint(deltas[0], basePoint));
     for (size_t i = 1; i < count; ++i)
-      points.push_back(DecodeDelta(deltas[i], points.back()));
+      points.push_back(DecodePointDeltaFromUint(deltas[i], points.back()));
   }
 }
 
@@ -144,13 +144,13 @@ void EncodePolylinePrev2(InPointsT const & points, m2::PointU const & basePoint,
   size_t const count = points.size();
   if (count > 0)
   {
-    deltas.push_back(EncodeDelta(points[0], basePoint));
+    deltas.push_back(EncodePointDeltaAsUint(points[0], basePoint));
     if (count > 1)
     {
-      deltas.push_back(EncodeDelta(points[1], points[0]));
+      deltas.push_back(EncodePointDeltaAsUint(points[1], points[0]));
       for (size_t i = 2; i < count; ++i)
-        deltas.push_back(
-            EncodeDelta(points[i], PredictPointInPolyline(maxPoint, points[i - 1], points[i - 2])));
+        deltas.push_back(EncodePointDeltaAsUint(
+            points[i], PredictPointInPolyline(maxPoint, points[i - 1], points[i - 2])));
     }
   }
 
@@ -163,15 +163,15 @@ void DecodePolylinePrev2(InDeltasT const & deltas, m2::PointU const & basePoint,
   size_t const count = deltas.size();
   if (count > 0)
   {
-    points.push_back(DecodeDelta(deltas[0], basePoint));
+    points.push_back(DecodePointDeltaFromUint(deltas[0], basePoint));
     if (count > 1)
     {
-      points.push_back(DecodeDelta(deltas[1], points.back()));
+      points.push_back(DecodePointDeltaFromUint(deltas[1], points.back()));
       for (size_t i = 2; i < count; ++i)
       {
         size_t const n = points.size();
-        points.push_back(
-            DecodeDelta(deltas[i], PredictPointInPolyline(maxPoint, points[n - 1], points[n - 2])));
+        points.push_back(DecodePointDeltaFromUint(
+            deltas[i], PredictPointInPolyline(maxPoint, points[n - 1], points[n - 2])));
       }
     }
   }
@@ -186,19 +186,19 @@ void EncodePolylinePrev3(InPointsT const & points, m2::PointU const & basePoint,
   size_t const count = points.size();
   if (count > 0)
   {
-    deltas.push_back(EncodeDelta(points[0], basePoint));
+    deltas.push_back(EncodePointDeltaAsUint(points[0], basePoint));
     if (count > 1)
     {
-      deltas.push_back(EncodeDelta(points[1], points[0]));
+      deltas.push_back(EncodePointDeltaAsUint(points[1], points[0]));
       if (count > 2)
       {
         m2::PointU const prediction = PredictPointInPolyline(maxPoint, points[1], points[0]);
-        deltas.push_back(EncodeDelta(points[2], prediction));
+        deltas.push_back(EncodePointDeltaAsUint(points[2], prediction));
         for (size_t i = 3; i < count; ++i)
         {
           m2::PointU const prediction =
               PredictPointInPolyline(maxPoint, points[i - 1], points[i - 2], points[i - 3]);
-          deltas.push_back(EncodeDelta(points[i], prediction));
+          deltas.push_back(EncodePointDeltaAsUint(points[i], prediction));
         }
       }
     }
@@ -216,21 +216,21 @@ void DecodePolylinePrev3(InDeltasT const & deltas, m2::PointU const & basePoint,
   size_t const count = deltas.size();
   if (count > 0)
   {
-    points.push_back(DecodeDelta(deltas[0], basePoint));
+    points.push_back(DecodePointDeltaFromUint(deltas[0], basePoint));
     if (count > 1)
     {
       m2::PointU const pt0 = points.back();
-      points.push_back(DecodeDelta(deltas[1], pt0));
+      points.push_back(DecodePointDeltaFromUint(deltas[1], pt0));
       if (count > 2)
       {
-        points.push_back(
-            DecodeDelta(deltas[2], PredictPointInPolyline(maxPoint, points.back(), pt0)));
+        points.push_back(DecodePointDeltaFromUint(
+            deltas[2], PredictPointInPolyline(maxPoint, points.back(), pt0)));
         for (size_t i = 3; i < count; ++i)
         {
           size_t const n = points.size();
           m2::PointU const prediction =
               PredictPointInPolyline(maxPoint, points[n - 1], points[n - 2], points[n - 3]);
-          points.push_back(DecodeDelta(deltas[i], prediction));
+          points.push_back(DecodePointDeltaFromUint(deltas[i], prediction));
         }
       }
     }
@@ -257,15 +257,15 @@ void EncodeTriangleStrip(InPointsT const & points, m2::PointU const & basePoint,
   {
     ASSERT_GREATER(count, 2, ());
 
-    deltas.push_back(EncodeDelta(points[0], basePoint));
-    deltas.push_back(EncodeDelta(points[1], points[0]));
-    deltas.push_back(EncodeDelta(points[2], points[1]));
+    deltas.push_back(EncodePointDeltaAsUint(points[0], basePoint));
+    deltas.push_back(EncodePointDeltaAsUint(points[1], points[0]));
+    deltas.push_back(EncodePointDeltaAsUint(points[2], points[1]));
 
     for (size_t i = 3; i < count; ++i)
     {
       m2::PointU const prediction =
           PredictPointInTriangle(maxPoint, points[i - 1], points[i - 2], points[i - 3]);
-      deltas.push_back(EncodeDelta(points[i], prediction));
+      deltas.push_back(EncodePointDeltaAsUint(points[i], prediction));
     }
   }
 }
@@ -278,16 +278,16 @@ void DecodeTriangleStrip(InDeltasT const & deltas, m2::PointU const & basePoint,
   {
     ASSERT_GREATER(count, 2, ());
 
-    points.push_back(DecodeDelta(deltas[0], basePoint));
-    points.push_back(DecodeDelta(deltas[1], points.back()));
-    points.push_back(DecodeDelta(deltas[2], points.back()));
+    points.push_back(DecodePointDeltaFromUint(deltas[0], basePoint));
+    points.push_back(DecodePointDeltaFromUint(deltas[1], points.back()));
+    points.push_back(DecodePointDeltaFromUint(deltas[2], points.back()));
 
     for (size_t i = 3; i < count; ++i)
     {
       size_t const n = points.size();
       m2::PointU const prediction =
           PredictPointInTriangle(maxPoint, points[n - 1], points[n - 2], points[n - 3]);
-      points.push_back(DecodeDelta(deltas[i], prediction));
+      points.push_back(DecodePointDeltaFromUint(deltas[i], prediction));
     }
   }
 }
@@ -392,11 +392,11 @@ void TrianglesChainSaver::operator()(TPoint arr[3], vector<TEdge> edges)
   m_buffers.push_back(TBuffer());
   MemWriter<TBuffer> writer(m_buffers.back());
 
-  WriteVarUint(writer, coding::EncodeDelta(arr[0], m_base));
-  WriteVarUint(writer, coding::EncodeDelta(arr[1], arr[0]));
+  WriteVarUint(writer, coding::EncodePointDeltaAsUint(arr[0], m_base));
+  WriteVarUint(writer, coding::EncodePointDeltaAsUint(arr[1], arr[0]));
 
   TEdge curr = edges.front();
-  curr.m_delta = coding::EncodeDelta(arr[2], arr[1]);
+  curr.m_delta = coding::EncodePointDeltaAsUint(arr[2], arr[1]);
 
   sort(edges.begin(), edges.end(), edge_less_p0());
 
@@ -459,9 +459,9 @@ void DecodeTriangles(coding::InDeltasT const & deltas, m2::PointU const & basePo
   size_t const count = deltas.size();
   ASSERT_GREATER(count, 2, ());
 
-  points.push_back(coding::DecodeDelta(deltas[0], basePoint));
-  points.push_back(coding::DecodeDelta(deltas[1], points.back()));
-  points.push_back(coding::DecodeDelta(deltas[2] >> 2, points.back()));
+  points.push_back(coding::DecodePointDeltaFromUint(deltas[0], basePoint));
+  points.push_back(coding::DecodePointDeltaFromUint(deltas[1], points.back()));
+  points.push_back(coding::DecodePointDeltaFromUint(deltas[2] >> 2, points.back()));
 
   stack<size_t> st;
 
@@ -505,7 +505,7 @@ void DecodeTriangles(coding::InDeltasT const & deltas, m2::PointU const & basePo
     // push points
     points.push_back(points[trg[0]]);
     points.push_back(points[trg[1]]);
-    points.push_back(coding::DecodeDelta(
+    points.push_back(coding::DecodePointDeltaFromUint(
         deltas[i] >> 2,
         coding::PredictPointInTriangle(maxPoint, points[trg[0]], points[trg[1]], points[trg[2]])));
 

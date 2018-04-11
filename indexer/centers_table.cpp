@@ -165,12 +165,12 @@ public:
       NonOwningReaderSource msource(mreader);
 
       uint64_t delta = ReadVarUint<uint64_t>(msource);
-      entry[0] = coding::DecodeDelta(delta, m_codingParams.GetBasePoint());
+      entry[0] = coding::DecodePointDeltaFromUint(delta, m_codingParams.GetBasePoint());
 
       for (size_t i = 1; i < kBlockSize && msource.Size() > 0; ++i)
       {
         delta = ReadVarUint<uint64_t>(msource);
-        entry[i] = coding::DecodeDelta(delta, entry[i - 1]);
+        entry[i] = coding::DecodePointDeltaFromUint(delta, entry[i - 1]);
       }
     }
 
@@ -300,11 +300,11 @@ void CentersTableBuilder::Freeze(Writer & writer) const
     {
       offsets.push_back(static_cast<uint32_t>(deltas.size()));
 
-      uint64_t delta = coding::EncodeDelta(m_centers[i], m_codingParams.GetBasePoint());
+      uint64_t delta = coding::EncodePointDeltaAsUint(m_centers[i], m_codingParams.GetBasePoint());
       WriteVarUint(writer, delta);
       for (size_t j = i + 1; j < i + CentersTableV0::kBlockSize && j < m_centers.size(); ++j)
       {
-        delta = coding::EncodeDelta(m_centers[j], m_centers[j - 1]);
+        delta = coding::EncodePointDeltaAsUint(m_centers[j], m_centers[j - 1]);
         WriteVarUint(writer, delta);
       }
     }

@@ -8,6 +8,7 @@
 #include "coding/writer.hpp"
 
 #include "base/array_adapters.hpp"
+#include "base/assert.hpp"
 #include "base/base.hpp"
 #include "base/bits.hpp"
 #include "base/buffer_vector.hpp"
@@ -28,9 +29,61 @@ using InDeltasT = array_read<uint64_t>;
 using OutPointsT = array_write<m2::PointU>;
 using OutDeltasT = array_write<uint64_t>;
 
-uint64_t EncodeDelta(m2::PointU const & actual, m2::PointU const & prediction);
+// Stores the difference of two points to a single unsigned 64-bit integer.
+// It is not recommended to use this function: consider EncodePointDelta instead.
+uint64_t EncodePointDeltaAsUint(m2::PointU const & actual, m2::PointU const & prediction);
 
-m2::PointU DecodeDelta(uint64_t delta, m2::PointU const & prediction);
+m2::PointU DecodePointDeltaFromUint(uint64_t delta, m2::PointU const & prediction);
+
+// Writes the difference of two 2d vectors to sink.
+template <typename Sink>
+void EncodePointDelta(Sink & sink, m2::PointU const & curr, m2::PointU const & next)
+{
+  auto const dx = base::asserted_cast<int32_t>(next.x) - base::asserted_cast<int32_t>(curr.x);
+  auto const dy = base::asserted_cast<int32_t>(next.y) - base::asserted_cast<int32_t>(curr.y);
+  WriteVarInt(sink, dx);
+  WriteVarInt(sink, dy);
+}
+
+// Writes the difference of two 2d vectors to sink. The vector |next|
+// must have both its coordinates greater than or equal to those
+// of |curr|. While this condition is unlikely when encoding polylines,
+// the function may be useful when encoding rectangles, in particular
+// bounding boxes of shapes.
+template <typename Sink>
+void EncodePositivePointDelta(Sink & sink, m2::PointU const & curr, m2::PointU const & next)
+{
+  ASSERT_GREATER_OR_EQUAL(next.x, curr.x, ());
+  ASSERT_GREATER_OR_EQUAL(next.y, curr.y, ());
+
+  // Paranoid checks due to possible floating point artifacts
+  // here. In general, next.x >= curr.x and next.y >= curr.y.
+  auto const dx = next.x >= curr.x ? next.x - curr.x : 0;
+  auto const dy = next.y >= curr.y ? next.y - curr.y : 0;
+  WriteVarUint(sink, dx);
+  WriteVarUint(sink, dy);
+}
+
+// Reads the encoded difference from |source| and returns the
+// point equal to |base| + difference.
+template <typename Source>
+m2::PointU DecodePointDelta(Source & source, m2::PointU const & base)
+{
+  auto const dx = ReadVarInt<int32_t>(source);
+  auto const dy = ReadVarInt<int32_t>(source);
+  return m2::PointU(base.x + dx, base.y + dy);
+}
+
+// Reads the encoded difference from |source| and returns the
+// point equal to |base| + difference. It is guaranteed that
+// both coordinates of difference are non-negative.
+template <typename Source>
+m2::PointU DecodePositivePointDelta(Source & source, m2::PointU const & base)
+{
+  auto const dx = ReadVarUint<uint32_t>(source);
+  auto const dy = ReadVarUint<uint32_t>(source);
+  return m2::PointU(base.x + dx, base.y + dy);
+}
 
 /// Predict next point for polyline with given previous points (p1, p2).
 m2::PointU PredictPointInPolyline(m2::PointU const & maxPoint, m2::PointU const & p1,
@@ -170,14 +223,16 @@ void DecodeImpl(TDecodeFun fn, DeltasT const & deltas, GeometryCodingParams cons
 template <class TSink>
 void SavePoint(TSink & sink, m2::PointD const & pt, GeometryCodingParams const & cp)
 {
-  WriteVarUint(sink, coding::EncodeDelta(PointDToPointU(pt, cp.GetCoordBits()), cp.GetBasePoint()));
+  WriteVarUint(sink, coding::EncodePointDeltaAsUint(PointDToPointU(pt, cp.GetCoordBits()),
+                                                    cp.GetBasePoint()));
 }
 
 template <class TSource>
 m2::PointD LoadPoint(TSource & src, GeometryCodingParams const & cp)
 {
   m2::PointD const pt = PointUToPointD(
-      coding::DecodeDelta(ReadVarUint<uint64_t>(src), cp.GetBasePoint()), cp.GetCoordBits());
+      coding::DecodePointDeltaFromUint(ReadVarUint<uint64_t>(src), cp.GetBasePoint()),
+      cp.GetCoordBits());
   return pt;
 }
 
