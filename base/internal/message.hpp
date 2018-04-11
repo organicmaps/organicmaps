@@ -30,7 +30,6 @@ inline std::string DebugPrint(char t);
 
 template <typename U, typename V> inline std::string DebugPrint(std::pair<U, V> const & p);
 template <typename T> inline std::string DebugPrint(std::list<T> const & v);
-template <typename T> inline std::string DebugPrint(boost::circular_buffer<T> const & v);
 template <typename T> inline std::string DebugPrint(std::vector<T> const & v);
 template <typename T, typename C = std::less<T>> inline std::string DebugPrint(std::set<T, C> const & v);
 template <typename T, typename C = std::less<T>> inline std::string DebugPrint(std::multiset<T, C> const & v);
@@ -42,8 +41,16 @@ template <class Key, class Hash = std::hash<Key>, class Pred = std::equal_to<Key
 inline std::string DebugPrint(std::unordered_set<Key, Hash, Pred> const & v);
 template <class Key, class T, class Hash = std::hash<Key>, class Pred = std::equal_to<Key>>
 inline std::string DebugPrint(std::unordered_map<Key, T, Hash, Pred> const & v);
+
+template <typename T> inline std::string DebugPrint(boost::circular_buffer<T> const & v);
 //@}
 
+template <typename T> inline std::string DebugPrint(T const & t)
+{
+  std::ostringstream out;
+  out << t;
+  return out.str();
+}
 
 inline std::string DebugPrint(char const * t)
 {
@@ -122,11 +129,6 @@ template <typename T> inline std::string DebugPrint(std::list<T> const & v)
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
 
-template <typename T> inline std::string DebugPrint(boost::circular_buffer<T> const & v)
-{
-  return ::my::impl::DebugPrintSequence(v.begin(), v.end());
-}
-
 template <typename T, typename C> inline std::string DebugPrint(std::set<T, C> const & v)
 {
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
@@ -159,13 +161,6 @@ inline std::string DebugPrint(std::unordered_map<Key, T, Hash, Pred> const & v)
   return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
 
-template <typename T> inline std::string DebugPrint(T const & t)
-{
-  std::ostringstream out;
-  out << t;
-  return out.str();
-}
-
 template <typename T> inline std::string DebugPrint(std::unique_ptr<T> const & v)
 {
   std::ostringstream out;
@@ -174,6 +169,11 @@ template <typename T> inline std::string DebugPrint(std::unique_ptr<T> const & v
   else
     out << DebugPrint("null");
   return out.str();
+}
+
+template <typename T> inline std::string DebugPrint(boost::circular_buffer<T> const & v)
+{
+  return ::my::impl::DebugPrintSequence(v.begin(), v.end());
 }
 
 namespace my
