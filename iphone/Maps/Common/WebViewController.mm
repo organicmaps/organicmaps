@@ -1,5 +1,14 @@
 #import "WebViewController.h"
 
+#include "base/assert.hpp"
+
+@interface WebViewController()
+
+@property(copy, nonatomic) MWMVoidBlock onFailure;
+@property(copy, nonatomic) MWMStringBlock onSuccess;
+
+@end
+
 @implementation WebViewController
 
 - (id)initWithUrl:(NSURL *)url andTitleOrNil:(NSString *)title
@@ -26,6 +35,19 @@
     _m_url = url;
     if (title)
       self.navigationItem.title = title;
+  }
+  return self;
+}
+
+- (instancetype)initWithAuthURL:(NSURL *)url onSuccessAuth:(MWMStringBlock)success
+                      onFailure:(MWMVoidBlock)failure
+{
+  self = [super init];
+  if (self)
+  {
+    _m_url = url;
+    _onFailure = failure;
+    _onSuccess = success;
   }
   return self;
 }
@@ -68,8 +90,38 @@
     [webView loadRequest:[NSURLRequest requestWithURL:self.m_url]];
 }
 
+- (void)backTap
+{
+  [self pop];
+
+  if (self.onFailure)
+    self.onFailure();
+}
+
+- (void)pop
+{
+  [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (BOOL)webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType
 {
+  if ([inRequest.URL.host isEqualToString:@"localhost"])
+  {
+    auto query = inRequest.URL.query;
+    NSArray<NSString *> * components = [query componentsSeparatedByString:@"="];
+    if (components.count != 2)
+    {
+      ASSERT(false, ("Incorrect query:", query.UTF8String));
+      [self pop];
+      self.onFailure();
+      return NO;
+    }
+
+    [self pop];
+    self.onSuccess(components[1]);
+    return NO;
+  }
+
   if (self.openInSafari && inType == UIWebViewNavigationTypeLinkClicked
       && ![inRequest.URL.scheme isEqualToString:@"applewebdata"]) // do not try to open local links in Safari
   {

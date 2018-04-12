@@ -22,6 +22,7 @@
 #import "AppInfo.h"
 #import "BookmarksVC.h"
 #import "LocalNotificationManager.h"
+#import "MapViewController.h"
 #import "MWMActivityViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationViewModel.h"
@@ -71,3 +72,4 @@
 #import "UIColor+MapsMeColor.h"
 #import "UIFont+MapsMeFonts.h"
 #import "UIViewController+Navigation.h"
+#import "WebViewController.h"

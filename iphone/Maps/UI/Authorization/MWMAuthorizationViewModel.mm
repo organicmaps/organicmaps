@@ -9,6 +9,11 @@
 
 @implementation MWMAuthorizationViewModel
 
++ (NSURL *)phoneAuthURL
+{
+  return [NSURL URLWithString:@(GetFramework().GetUser().GetPhoneAuthUrl("http://localhost").c_str())];
+}
+
 + (void)checkAuthenticationWithSource:(MWMAuthorizationSource)source
                            onComplete:(MWMAuthorizationCompleteBlock)onComplete
 {

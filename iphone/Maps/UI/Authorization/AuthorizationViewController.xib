@@ -28,7 +28,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5kf-Pd-KAZ">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="445"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="389"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <gestureRecognizers/>
                     <connections>
@@ -36,7 +36,7 @@
                     </connections>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mb9-vK-FLE">
-                    <rect key="frame" x="0.0" y="445" width="375" height="222"/>
+                    <rect key="frame" x="0.0" y="389" width="375" height="278"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sing in with social" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LFT-Lb-6jj">
                             <rect key="frame" x="16" y="10" width="168.5" height="24"/>
@@ -79,6 +79,27 @@
                             <rect key="frame" x="32" y="162" width="311" height="40"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
+                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZDx-fj-xoO">
+                            <rect key="frame" x="32" y="218" width="311" height="40"/>
+                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="jEe-rd-j73"/>
+                            </constraints>
+                            <state key="normal" title="Phone number"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="bold14"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="phone_number"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="whitePrimaryTextHighlighted"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="whitePrimaryText"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="phoneSignIn" destination="-1" eventType="touchUpInside" id="EmS-LY-4qT"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -86,6 +107,7 @@
                         <constraint firstItem="iK0-TH-4mm" firstAttribute="top" secondItem="8iU-Se-s8N" secondAttribute="bottom" constant="16" id="3s6-6d-mEf"/>
                         <constraint firstItem="iK0-TH-4mm" firstAttribute="height" secondItem="8iU-Se-s8N" secondAttribute="height" id="5NR-xJ-wsl"/>
                         <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="0EA-1u-hvB" secondAttribute="trailing" constant="24" id="63q-CV-FXu"/>
+                        <constraint firstItem="ZDx-fj-xoO" firstAttribute="leading" secondItem="mb9-vK-FLE" secondAttribute="leading" constant="32" id="8DE-4m-cmS"/>
                         <constraint firstItem="0EA-1u-hvB" firstAttribute="centerX" secondItem="mb9-vK-FLE" secondAttribute="centerX" id="9Lv-5S-Ecz"/>
                         <constraint firstItem="hia-tk-X0k" firstAttribute="centerY" secondItem="8iU-Se-s8N" secondAttribute="centerY" id="BdE-GF-TQn"/>
                         <constraint firstItem="hia-tk-X0k" firstAttribute="leading" secondItem="8iU-Se-s8N" secondAttribute="leading" constant="6" id="Csz-GA-6ot"/>
@@ -99,8 +121,10 @@
                         <constraint firstItem="8iU-Se-s8N" firstAttribute="top" secondItem="0EA-1u-hvB" secondAttribute="bottom" constant="20" id="gdh-8k-RCc"/>
                         <constraint firstAttribute="trailingMargin" secondItem="8iU-Se-s8N" secondAttribute="trailing" constant="24" id="ibi-5C-1cc"/>
                         <constraint firstItem="8iU-Se-s8N" firstAttribute="leading" secondItem="iK0-TH-4mm" secondAttribute="leading" id="jNy-RB-OlB"/>
+                        <constraint firstAttribute="bottom" secondItem="ZDx-fj-xoO" secondAttribute="bottom" constant="20" id="lcx-KO-Pps"/>
+                        <constraint firstAttribute="trailing" secondItem="ZDx-fj-xoO" secondAttribute="trailing" constant="32" id="ou5-D7-21x"/>
                         <constraint firstAttribute="trailingMargin" secondItem="hWD-aE-jYh" secondAttribute="trailing" constant="8" id="pvh-8S-jYH"/>
-                        <constraint firstAttribute="bottomMargin" secondItem="iK0-TH-4mm" secondAttribute="bottom" constant="12" id="xTQ-Ma-uWe"/>
+                        <constraint firstItem="ZDx-fj-xoO" firstAttribute="top" secondItem="iK0-TH-4mm" secondAttribute="bottom" constant="16" id="wPH-dE-m8b"/>
                     </constraints>
                 </view>
             </subviews>

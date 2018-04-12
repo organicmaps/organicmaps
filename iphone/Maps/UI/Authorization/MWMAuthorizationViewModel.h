@@ -18,6 +18,7 @@ typedef void (^MWMAuthorizationCompleteBlock)(BOOL);
 
 @interface MWMAuthorizationViewModel : NSObject
 
++ (NSURL *)phoneAuthURL;
 + (void)checkAuthenticationWithSource:(MWMAuthorizationSource)source
                            onComplete:(MWMAuthorizationCompleteBlock _Nonnull)onComplete;
 + (BOOL)hasSocialToken;
