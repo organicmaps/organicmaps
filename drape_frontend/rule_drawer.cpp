@@ -161,7 +161,13 @@ void ExtractTrafficGeometry(FeatureType const & f, df::RoadClass const & roadCla
   }
 }
 
-} //  namespace
+bool UsePreciseFeatureCenter(FeatureType const & f)
+{
+  // Add here types for which we want to calculate precise feature center (by best geometry).
+  // Warning! Large amount of such objects can reduce performance.
+  return ftypes::Fc2018Checker::Instance()(f);
+}
+}  // namespace
 
 namespace df
 {
@@ -317,7 +323,14 @@ void RuleDrawer::ProcessAreaStyle(FeatureType const & f, Stylist const & s,
   f.ForEachTriangle(apply, zoomLevel);
   apply.SetHotelData(ExtractHotelData(f));
   if (applyPointStyle)
+  {
+    if (UsePreciseFeatureCenter(f))
+    {
+      f.ResetGeometry();
+      featureCenter = feature::GetCenter(f, FeatureType::BEST_GEOMETRY);
+    }
     apply(featureCenter, true /* hasArea */);
+  }
 
   if (CheckCancelled())
     return;
