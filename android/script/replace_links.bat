@@ -25,9 +25,7 @@ cp ../data/types.txt assets/
 cp ../data/unicode_blocks.txt assets/
 cp ../data/opening_hours_how_to_edit.html assets/
 cp ../data/ugc_types.csv assets/
-cp ../data/taxi_places/maxim.json assets/
-cp ../data/taxi_places/uber.json assets/
-cp ../data/taxi_places/yandex.json assets/
+cp -r ../data/taxi_places/ assets/
 
 cp -r ../data/resources-hdpi_dark/ assets/
 cp -r ../data/resources-hdpi_clear/ assets/
