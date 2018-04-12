@@ -35,6 +35,13 @@ public:
 
   DECLARE_CHECKER_INSTANCE(SponsoredPartnerChecker);
 };
+
+class Fc2018Checker : public BaseChecker
+{
+  Fc2018Checker();
+public:
+  DECLARE_CHECKER_INSTANCE(Fc2018Checker);
+};
 }  // namespace ftypes
 
 extern std::string GetPartnerNameByIndex(int partnerIndex);

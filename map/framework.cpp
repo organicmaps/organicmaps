@@ -1585,6 +1585,13 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter be
       mark->SetFoundFeature(r.GetFeatureID());
     mark->SetMatchedName(r.GetString());
 
+    // TODO: Remove after FC2018 finishing.
+    if (r.m_metadata.m_isFootballCupObject)
+    {
+      mark->SetMarkType(SearchMarkType::Fc2018);
+      continue;
+    }
+
     if (isFeature && m_localAdsManager.Contains(r.GetFeatureID()))
     {
       mark->SetMarkType(SearchMarkType::LocalAds);

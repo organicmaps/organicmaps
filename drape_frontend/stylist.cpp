@@ -242,13 +242,15 @@ void CaptionDescription::ProcessMainTextType(drule::text_type_t const & mainText
   {
     m_mainText.swap(m_houseNumber);
     m_houseNumber.clear();
+    m_isHouseNumberInMainText = true;
   }
   else if (mainTextType == drule::text_type_name)
   {
-    if (!m_houseNumber.empty())
+    if (!m_houseNumber.empty() &&
+        (m_mainText.empty() || m_houseNumber.find(m_mainText) != string::npos))
     {
-      if (m_mainText.empty() || m_houseNumber.find(m_mainText) != string::npos)
-        m_houseNumber.swap(m_mainText);
+      m_houseNumber.swap(m_mainText);
+      m_isHouseNumberInMainText = true;
     }
   }
 }

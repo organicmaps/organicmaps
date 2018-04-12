@@ -36,6 +36,11 @@ int SponsoredPartnerChecker::GetPartnerIndex(FeatureType const & ft) const
   }
   return -1;
 }
+
+Fc2018Checker::Fc2018Checker()
+{
+  m_types.push_back(classif().GetTypeByPath({"event", "fc2018"}));
+}
 }  // namespace ftypes
 
 std::string GetPartnerNameByIndex(int partnerIndex)

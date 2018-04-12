@@ -428,8 +428,8 @@ uint64_t TextShape::GetOverlayPriority() const
   if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
     return dp::CalculateUserMarkPriority(m_params.m_minVisibleScale, m_params.m_specialPriority);
 
-  // Set up minimal priority for shapes which belong to areas
-  if (m_params.m_hasArea)
+  // Set up minimal priority for house numbers.
+  if (m_params.m_specialDisplacement == SpecialDisplacement::HouseNumber)
     return 0;
 
   // Overlay priority for text shapes considers length of the primary text

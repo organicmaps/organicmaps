@@ -49,6 +49,7 @@ struct CaptionDescription
   string const & GetAuxText() const;
   string const & GetRoadNumber() const;
   bool IsNameExists() const;
+  bool IsHouseNumberInMainText() const { return m_isHouseNumberInMainText; }
 
 private:
   /// Clear aux name on high zoom and clear long main name on low zoom.
@@ -60,6 +61,7 @@ private:
   string m_auxText;
   string m_roadNumber;
   string m_houseNumber;
+  bool m_isHouseNumberInMainText = false;
 };
 
 class Stylist

@@ -16,6 +16,7 @@ std::vector<std::string> const kSymbols =
   "search-result",           // Default.
   "searchbooking-default-l", // Booking.
   "search-adv",              // LocalAds.
+  "search-football",         // FC 2018.
 
   "non-found-search-result", // NotFound.
 };
@@ -25,6 +26,7 @@ std::vector<std::string> const kPreparingSymbols =
   "search-result",           // Default.
   "searchbooking-inactive",  // Booking.
   "search-adv",              // LocalAds.
+  "search-football",         // FC 2018.
 
   "non-found-search-result", // NotFound.
 };

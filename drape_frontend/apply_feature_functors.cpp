@@ -445,7 +445,6 @@ void BaseApplyFeature::ExtractCaptionParams(CaptionDefProto const * primaryProto
   titleDecl.m_primaryOptional = primaryProto->is_optional();
   titleDecl.m_secondaryOptional = true;
 
-
   if (secondaryProto)
   {
     dp::FontDecl auxDecl;
@@ -513,7 +512,7 @@ void ApplyPointFeature::ProcessPointRule(Stylist::TRuleWrapper const & rule)
     return;
 
   drule::BaseRule const * pRule = rule.first;
-  float const depth = static_cast<float>(rule.second);
+  auto const depth = static_cast<float>(rule.second);
 
   SymbolRuleProto const * symRule = pRule->GetSymbol();
   if (symRule != nullptr)
@@ -600,8 +599,15 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
 
   for (auto textParams : m_textParams)
   {
-    textParams.m_specialDisplacement = specialDisplacementMode ? SpecialDisplacement::SpecialMode
-                                                               : SpecialDisplacement::None;
+    if (m_captions.IsHouseNumberInMainText())
+    {
+      textParams.m_specialDisplacement = SpecialDisplacement::HouseNumber;
+    }
+    else
+    {
+      textParams.m_specialDisplacement = specialDisplacementMode ? SpecialDisplacement::SpecialMode
+                                                                 : SpecialDisplacement::None;
+    }
     textParams.m_specialPriority = specialModePriority;
     textParams.m_startOverlayRank = hasPOI ? dp::OverlayRank1 : dp::OverlayRank0;
     m_insertShape(make_unique_dp<TextShape>(m_centerPoint, textParams, m_tileKey, symbolSize,
@@ -1105,7 +1111,7 @@ void ApplyLineFeatureAdditional::Finish(ref_ptr<dp::TextureManager> texMng,
   if (m_clippedSplines.empty())
     return;
 
-  float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+  auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
 
   std::vector<m2::PointD> shieldPositions;
   if (m_shieldRule != nullptr && !roadShields.empty())
