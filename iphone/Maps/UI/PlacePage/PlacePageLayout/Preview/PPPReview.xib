@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PPPReview" id="ngD-jq-BYV" customClass="MWMPPPReview" propertyAccessControl="all">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PPPReview" id="ngD-jq-BYV" customClass="MWMPPPReview" propertyAccessControl="none">
             <rect key="frame" x="0.0" y="0.0" width="320" height="38"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ngD-jq-BYV" id="Zth-C7-aXm">
@@ -50,8 +50,8 @@
                             <userDefinedRuntimeAttribute type="image" keyPath="badImage" value="ic_12px_rating_bad"/>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XaG-Vf-CwT">
-                        <rect key="frame" x="68" y="6.5" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="499" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XaG-Vf-CwT">
+                        <rect key="frame" x="64" y="6.5" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -89,7 +89,6 @@
                     <constraint firstItem="t1Z-Sp-Xi5" firstAttribute="leading" secondItem="Zth-C7-aXm" secondAttribute="leading" id="5Qx-I3-eeG"/>
                     <constraint firstAttribute="trailing" secondItem="Ga0-6D-Ttl" secondAttribute="trailing" constant="12" id="6oV-WI-She"/>
                     <constraint firstItem="67u-jC-41D" firstAttribute="top" secondItem="Zth-C7-aXm" secondAttribute="top" constant="8" id="9Jf-DS-dPe"/>
-                    <constraint firstItem="XaG-Vf-CwT" firstAttribute="leading" secondItem="67u-jC-41D" secondAttribute="trailing" priority="100" constant="8" id="IrV-fs-bYL"/>
                     <constraint firstAttribute="bottom" secondItem="t1Z-Sp-Xi5" secondAttribute="bottom" id="MXa-Ha-DVe"/>
                     <constraint firstItem="Thk-j3-Or0" firstAttribute="centerY" secondItem="Zth-C7-aXm" secondAttribute="centerY" id="NbS-0e-2Dh"/>
                     <constraint firstItem="Ga0-6D-Ttl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="XaG-Vf-CwT" secondAttribute="trailing" constant="4" id="VnS-wf-vtj"/>
@@ -98,8 +97,8 @@
                     <constraint firstAttribute="trailing" secondItem="Thk-j3-Or0" secondAttribute="trailing" constant="16" id="dgG-Cd-fzs"/>
                     <constraint firstItem="Ga0-6D-Ttl" firstAttribute="top" secondItem="67u-jC-41D" secondAttribute="top" id="hGC-mM-qmJ"/>
                     <constraint firstItem="Ga0-6D-Ttl" firstAttribute="bottom" secondItem="67u-jC-41D" secondAttribute="bottom" id="j4s-Yj-bcx"/>
+                    <constraint firstItem="XaG-Vf-CwT" firstAttribute="leading" secondItem="67u-jC-41D" secondAttribute="trailing" constant="4" id="mto-4q-X6o"/>
                     <constraint firstItem="67u-jC-41D" firstAttribute="leading" secondItem="Zth-C7-aXm" secondAttribute="leading" constant="12" id="u0I-Zd-9bf"/>
-                    <constraint firstItem="XaG-Vf-CwT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="67u-jC-41D" secondAttribute="trailing" constant="4" id="yvS-sv-Rgf"/>
                 </constraints>
             </tableViewCellContentView>
             <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
