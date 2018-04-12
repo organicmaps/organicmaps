@@ -221,7 +221,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   UIButton * doneButton = self.doneButton;
   doneButton.backgroundColor = [UIColor linkBlue];
   doneButton.titleLabel.font = [UIFont bold16];
-  [doneButton setTitle:L(@"done") forState:UIControlStateNormal];
+  [doneButton setTitle:L(@"search") forState:UIControlStateNormal];
   [doneButton setTitleColor:[UIColor white] forState:UIControlStateNormal];
 }
 
