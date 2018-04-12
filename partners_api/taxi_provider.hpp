@@ -80,6 +80,7 @@ inline std::string DebugPrint(Provider::Type type)
   case Provider::Type::Uber: return "Uber";
   case Provider::Type::Yandex: return "Yandex";
   case Provider::Type::Maxim: return "Maxim";
+  case Provider::Type::Count: ASSERT(false, ()); return "";
   }
 }
 
