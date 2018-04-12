@@ -15,9 +15,9 @@ public:
   {
     using places::Loader;
 
-    std::vector<taxi::SupportedPlaces> places = {Loader::LoadFor(Provider::Type::Maxim),
-                                                 Loader::LoadFor(Provider::Type::Uber),
-                                                 Loader::LoadFor(Provider::Type::Yandex)};
+    std::vector<taxi::SupportedPlaces> places;
+    for (size_t i = 0; i < Provider::Type::Count; ++i)
+      places.emplace_back(Loader::LoadFor(static_cast<Provider::Type>(i)));
 
     for (size_t i = 0; i < places.size(); ++i)
     {
@@ -26,14 +26,14 @@ public:
         if (i == j)
           continue;
 
-        FindIdenticalPlaces(places[i].m_enabledPlaces, places[j].m_enabledPlaces);
-        FindIdenticalPlaces(places[i].m_disabledPlaces, places[j].m_disabledPlaces);
+        CheckAbsenceOfSimilarPlaces(places[i].m_enabledPlaces, places[j].m_enabledPlaces);
+        CheckAbsenceOfSimilarPlaces(places[i].m_disabledPlaces, places[j].m_disabledPlaces);
       }
     }
   }
 
 private:
-  static void FindIdenticalPlaces(taxi::Places const & lhs, taxi::Places const & rhs)
+  static void CheckAbsenceOfSimilarPlaces(taxi::Places const & lhs, taxi::Places const & rhs)
   {
     for (auto const & country : lhs.m_countries)
     {

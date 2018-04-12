@@ -23,7 +23,8 @@ public:
   {
     Uber,
     Yandex,
-    Maxim
+    Maxim,
+    Count
   };
 
   using Iter = std::vector<Product>::iterator;
