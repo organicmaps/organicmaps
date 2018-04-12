@@ -51,6 +51,7 @@
 
 #define LOCALITY_DATA_FILE_TAG "locdata"
 #define LOCALITY_INDEX_FILE_TAG "locidx"
+#define BORDERS_FILE_TAG "borders"
 
 #define READY_FILE_EXTENSION ".ready"
 #define RESUME_FILE_EXTENSION ".resume"

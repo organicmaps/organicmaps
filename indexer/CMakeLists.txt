@@ -6,6 +6,8 @@ set(
   SRC
   altitude_loader.cpp
   altitude_loader.hpp
+  borders.cpp
+  borders.hpp
   categories_holder.cpp
   categories_holder.hpp
   categories_holder_loader.cpp
