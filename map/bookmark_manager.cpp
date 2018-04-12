@@ -114,26 +114,22 @@ public:
   m2::PointD m_globalCenter;
 };
 
-BookmarkManager::SharingResult GetFileForSharing(kml::MarkGroupId categoryId, std::string const & filePath)
+BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollectionPtr collection)
 {
-  if (!GetPlatform().IsFileExistsByFullPath(filePath))
+  auto const & kmlToShare = collection->front();
+  auto const filePath = my::JoinPath(GetPlatform().TmpDir(), GetFileName(kmlToShare.first));
+  MY_SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, filePath));
+
+  auto const categoryId = kmlToShare.second->m_categoryData.m_id;
+
+  if (!SaveKmlFile(*kmlToShare.second, filePath, false /* useBinary */))
   {
     return BookmarkManager::SharingResult(categoryId, BookmarkManager::SharingResult::Code::FileError,
                                           "Bookmarks file does not exist.");
   }
 
-  auto const ext = GetFileExt(filePath);
-  std::string fileName = my::GetNameFromFullPathWithoutExt(filePath);
+  auto const fileName = my::GetNameFromFullPathWithoutExt(filePath);
   auto const tmpFilePath = my::JoinPath(GetPlatform().TmpDir(), fileName + kKmzExtension);
-  if (ext == kKmzExtension)
-  {
-    if (my::CopyFileX(filePath, tmpFilePath))
-      return BookmarkManager::SharingResult(categoryId, tmpFilePath);
-
-    return BookmarkManager::SharingResult(categoryId, BookmarkManager::SharingResult::Code::FileError,
-                                          "Could not copy file.");
-  }
-
   if (!CreateZipFromPathDeflatedAndDefaultCompression(filePath, tmpFilePath))
   {
     return BookmarkManager::SharingResult(categoryId, BookmarkManager::SharingResult::Code::ArchiveError,
@@ -1517,10 +1513,17 @@ void BookmarkManager::PrepareFileForSharing(kml::MarkGroupId categoryId, Sharing
     return;
   }
 
-  auto const filePath = GetCategoryFileName(categoryId);
-  GetPlatform().RunTask(Platform::Thread::File, [categoryId, filePath, handler = std::move(handler)]()
+  auto collection = PrepareToSaveBookmarks({categoryId});
+  if (!collection || collection->empty())
   {
-    handler(GetFileForSharing(categoryId, filePath));
+    handler(SharingResult(categoryId, SharingResult::Code::FileError));
+    return;
+  }
+
+  GetPlatform().RunTask(Platform::Thread::File,
+                        [collection = std::move(collection), handler = std::move(handler)]() mutable
+  {
+    handler(GetFileForSharing(std::move(collection)));
   });
 }
 
