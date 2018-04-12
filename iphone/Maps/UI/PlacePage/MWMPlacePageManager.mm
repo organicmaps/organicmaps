@@ -615,16 +615,20 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
     return;
 
   search_filter::HotelParams params;
-  CHECK(data.hotelType, ("Incorrect hotel type at coordinate:", data.latLon.lat, data.latLon.lon));
   params.m_type = *data.hotelType;
+  CHECK(data.hotelType, ("Incorrect hotel type at coordinate:", data.latLon.lat, data.latLon.lon));
 
-  if (auto const price = data.hotelRawApproximatePricing)
+  if (data.isBooking)
   {
-    CHECK_LESS_OR_EQUAL(*price, my::Key(search_filter::Price::Three), ());
-    params.m_price = static_cast<search_filter::Price>(*price);
+    if (auto const price = data.hotelRawApproximatePricing)
+    {
+      CHECK_LESS_OR_EQUAL(*price, my::Key(search_filter::Price::Three), ());
+      params.m_price = static_cast<search_filter::Price>(*price);
+    }
+
+    params.m_rating = place_page::rating::GetFilterRating(data.ratingRawValue);
   }
 
-  params.m_rating = place_page::rating::GetFilterRating(data.ratingRawValue);
   [MWMSearch showHotelFilterWithParams:std::move(params)
                       onFinishCallback:^{
     [MWMMapViewControlsManager.manager searchTextOnMap:[L(@"booking_hotel") stringByAppendingString:@" "]
