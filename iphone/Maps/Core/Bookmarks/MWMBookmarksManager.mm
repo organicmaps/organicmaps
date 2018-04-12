@@ -162,11 +162,7 @@ using TLoopBlock = void (^)(Observer observer);
 
 + (void)setAllCategoriesVisible:(BOOL)isVisible
 {
-  auto & bm = GetFramework().GetBookmarkManager();
-  auto editSession = bm.GetEditSession();
-  auto const & list = bm.GetBmGroupsIdList();
-  for (auto const & groupId : list)
-    editSession.SetIsVisible(groupId, isVisible);
+  GetFramework().GetBookmarkManager().SetAllCategoriesVisibility(isVisible);
 }
 
 + (void)deleteCategory:(MWMMarkGroupID)groupId
@@ -292,6 +288,11 @@ using TLoopBlock = void (^)(Observer observer);
   [alert addAction:action];
   alert.preferredAction = action;
   [[UIViewController topViewController] presentViewController:alert animated:YES completion:nil];
+}
+
++ (BOOL)areAllCategoriesInvisible
+{
+  return GetFramework().GetBookmarkManager().AreAllCategoriesInvisible();
 }
 
 @end

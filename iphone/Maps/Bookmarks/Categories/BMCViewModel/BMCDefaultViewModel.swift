@@ -123,8 +123,8 @@ extension BMCDefaultViewModel: BMCViewModel {
     }
   }
 
-  func areAllCategoriesVisible() -> Bool {
-    return categories.reduce(true) { $0 && $1.isVisible }
+  func areAllCategoriesInvisible() -> Bool {
+    return BM.areAllCategoriesInvisible()
   }
 
   func updateAllCategoriesVisibility(isShowAll: Bool) {

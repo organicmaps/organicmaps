@@ -247,7 +247,7 @@ extension BMCViewController: UITableViewDelegate {
     switch viewModel.sectionType(section: section) {
     case .permissions: return permissionsHeader
     case .categories:
-      categoriesHeader.isShowAll = !viewModel.areAllCategoriesVisible()
+      categoriesHeader.isShowAll = viewModel.areAllCategoriesInvisible()
       return categoriesHeader
     case .actions: return actionsHeader
     case .notifications: return notificationsHeader
@@ -289,7 +289,7 @@ extension BMCViewController: BMCPermissionsCellDelegate {
 extension BMCViewController: BMCCategoryCellDelegate {
   func visibilityAction(category: BMCCategory) {
     viewModel.updateCategoryVisibility(category: category)
-    categoriesHeader.isShowAll = !viewModel.areAllCategoriesVisible()
+    categoriesHeader.isShowAll = viewModel.areAllCategoriesInvisible()
   }
 
   func moreAction(category: BMCCategory, anchor: UIView) {
@@ -307,6 +307,6 @@ extension BMCViewController: BMCPermissionsHeaderDelegate {
 extension BMCViewController: BMCCategoriesHeaderDelegate {
   func visibilityAction(isShowAll: Bool) {
     viewModel.updateAllCategoriesVisibility(isShowAll: isShowAll)
-    categoriesHeader.isShowAll = !viewModel.areAllCategoriesVisible()
+    categoriesHeader.isShowAll = viewModel.areAllCategoriesInvisible()
   }
 }

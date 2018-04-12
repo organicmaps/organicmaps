@@ -24,7 +24,8 @@ protocol BMCViewModel: AnyObject {
 
   func item(indexPath: IndexPath) -> BMCModel
 
-  func areAllCategoriesVisible() -> Bool
+  func areAllCategoriesInvisible() -> Bool
+
   func updateAllCategoriesVisibility(isShowAll: Bool)
   func updateCategoryVisibility(category: BMCCategory)
 
