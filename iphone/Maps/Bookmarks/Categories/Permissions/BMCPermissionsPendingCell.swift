@@ -24,7 +24,7 @@ final class BMCPermissionsPendingCell: MWMTableViewCell {
           let formatter = DateFormatter()
           formatter.dateStyle = .short
           formatter.timeStyle = .none
-          label.text = String(coreFormat: L("bookmarks_message_backuped_user %s"), arguments: [formatter.string(from: date)])
+          label.text = String(coreFormat: L("bookmarks_message_backuped_user"), arguments: [formatter.string(from: date)])
         } else {
           label.text = L("bookmarks_message_unbackuped_user")
         }
