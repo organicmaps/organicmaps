@@ -1214,7 +1214,7 @@
 	<string name="placepage_translate_button">Translate</string>
 	<string name="placepage_show_original_button">Show original</string>
 	<string name="placepage_more_reviews_booking_button">More reviews on Booking.com</string>
-	<string name="profile_authorization_title">Sing in with</string>
+	<string name="profile_authorization_title">Sign in with</string>
 	<string name="profile_authorization_message">Easy sign in without login and password in a couple of seconds</string>
 	<string name="profile_authorization_error">Oops, there was an error. Try to sign in again.</string>
 	<string name="service">Service</string>
