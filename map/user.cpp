@@ -138,7 +138,7 @@ struct PhoneAuthRequestData
   std::string m_code;
 
   explicit PhoneAuthRequestData(std::string const & code)
-    : m_cliendId("phone_device_app")
+    : m_cliendId(kAppName)
     , m_code(code)
   {}
 
@@ -405,7 +405,7 @@ std::string User::GetPhoneAuthUrl(std::string const & redirectUri)
 {
   std::ostringstream os;
   os << kPassportServerUrl << "/oauth/authorize/?mode=phone_device&response_type=code"
-     << "&locale=" << languages::GetCurrentNorm() << "&redirect_uri=" << UrlEncode(redirectUri)
+     << "&locale=" << languages::GetCurrentOrig() << "&redirect_uri=" << UrlEncode(redirectUri)
      << "&client_id=" << kAppName;
 
   return os.str();

@@ -392,7 +392,6 @@
         android:value="com.mapswithme.maps.MwmActivity"/>
     </activity>
 
-    <!-- facebook -->
     <activity
       android:name="com.facebook.FacebookActivity"
       android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -409,11 +408,10 @@
         <data android:scheme="@string/fb_login_protocol_scheme"/>
       </intent-filter>
     </activity>
-    <!-- authorisation by phone number-->
+
     <activity
       android:name="com.mapswithme.maps.auth.PhoneAuthActivity"
       android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"
-      android:windowSoftInputMode="adjustResize"
       android:label="@string/authorization_button_sign_in"/>
     
     <activity android:name="com.mopub.common.MoPubBrowser" android:configChanges="keyboardHidden|orientation|screenSize"/>

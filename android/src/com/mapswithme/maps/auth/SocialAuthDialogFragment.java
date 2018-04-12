@@ -43,7 +43,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   @NonNull
   private final View.OnClickListener mPhoneClickListener = (View v) ->
   {
-    PhoneAuthActivity.start(this);
+    PhoneAuthActivity.startForResult(this);
   };
 
   @NonNull
@@ -126,9 +126,11 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     String token = mPhoneAuthToken;
 
     @Framework.AuthTokenType
-    int tokenType = token != null ? Framework.SOCIAL_TOKEN_PHONE : Framework.SOCIAL_TOKEN_FACEBOOK;
+    int tokenType = !TextUtils.isEmpty(token) ?
+                    Framework.SOCIAL_TOKEN_PHONE :
+                    Framework.SOCIAL_TOKEN_FACEBOOK;
 
-    if (token == null)
+    if (TextUtils.isEmpty(token))
     {
       AccessToken facebookToken = AccessToken.getCurrentAccessToken();
       token = facebookToken != null ? facebookToken.getToken() : null;

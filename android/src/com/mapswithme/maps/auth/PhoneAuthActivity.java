@@ -11,7 +11,7 @@ import com.mapswithme.maps.base.OnBackPressListener;
 
 public class PhoneAuthActivity extends BaseMwmExtraTitleActivity
 {
-  public static void start(@NonNull Fragment fragment)
+  public static void startForResult(@NonNull Fragment fragment)
   {
     final Intent i = new Intent(fragment.getContext(), PhoneAuthActivity.class);
     i.putExtra(EXTRA_TITLE, fragment.getString(R.string.authorization_button_sign_in));

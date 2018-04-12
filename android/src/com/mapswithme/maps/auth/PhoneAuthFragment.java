@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,7 @@ import com.mapswithme.util.UiUtils;
 
 public class PhoneAuthFragment extends BaseMwmFragment implements OnBackPressListener
 {
-  private static final String REDIRECT_URL = "https://localhost/";
+  private static final String REDIRECT_URL = "http://localhost";
 
   @SuppressWarnings("NullableProblems")
   @NonNull
@@ -43,9 +44,6 @@ public class PhoneAuthFragment extends BaseMwmFragment implements OnBackPressLis
   {
     super.onViewCreated(view, savedInstanceState);
 
-    if (savedInstanceState != null)
-      return;
-
     mWebView = view.findViewById(R.id.webview);
     mProgress = view.findViewById(R.id.progress);
     mWebView.setWebViewClient(new WebViewClient()
@@ -60,11 +58,11 @@ public class PhoneAuthFragment extends BaseMwmFragment implements OnBackPressLis
       @Override
       public boolean shouldOverrideUrlLoading(WebView view, String url)
       {
-        if (url.contains(REDIRECT_URL + "?code="))
+        if (!TextUtils.isEmpty(url) && url.contains(REDIRECT_URL + "/?code="))
         {
           Intent returnIntent = new Intent();
           returnIntent.putExtra(Constants.EXTRA_PHONE_AUTH_TOKEN,
-                                url.substring((REDIRECT_URL + "?code=").length()));
+                                url.substring((REDIRECT_URL + "/?code=").length()));
 
           getActivity().setResult(Activity.RESULT_OK, returnIntent);
           getActivity().finish();
