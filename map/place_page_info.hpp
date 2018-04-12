@@ -94,7 +94,7 @@ public:
   bool HasWifi() const { return GetInternet() == osm::Internet::Wlan; }
   /// Should be used by UI code to generate cool name for new bookmarks.
   // TODO: Tune new bookmark name. May be add address or some other data.
-  std::string FormatNewBookmarkName() const;
+  kml::LocalizableString FormatNewBookmarkName() const;
 
   /// For showing in UI
   std::string const & GetTitle() const { return m_uiTitle; };
@@ -218,6 +218,7 @@ public:
 private:
   std::string FormatSubtitle(bool withType) const;
   void GetPrefferedNames(std::string & primaryName, std::string & secondaryName) const;
+  std::string GetBookmarkName();
   /// @returns empty string or GetStars() count of ★ symbol.
   std::string FormatStars() const;
 

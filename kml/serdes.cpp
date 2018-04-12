@@ -174,7 +174,7 @@ std::string TimestampToString(Timestamp const & timestamp)
 void SaveLocalizableString(KmlWriter::WriterWrapper & writer, LocalizableString const & str,
                            std::string const & tagName, std::string const & offsetStr)
 {
-  if (str.size() < 2)
+  if ((tagName == "name" || tagName == "description") && str.size() == 1 && str.begin()->first == kDefaultLang)
     return;
 
   writer << offsetStr << "<mwm:" << tagName << ">\n";
@@ -576,7 +576,7 @@ bool KmlParser::MakeValid()
     if (MercatorBounds::ValidX(m_org.x) && MercatorBounds::ValidY(m_org.y))
     {
       // Set default name.
-      if (m_name.empty())
+      if (m_name.empty() && m_featureTypes.empty())
         m_name[kDefaultLang] = PointToString(m_org);
 
       // Set default pin.

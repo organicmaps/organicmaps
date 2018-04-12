@@ -268,19 +268,20 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeDeleteTrack(
 
 JNIEXPORT jobject JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAddBookmarkToLastEditedCategory(
-    JNIEnv * env, jobject thiz, jstring name, double lat, double lon)
+    JNIEnv * env, jobject thiz, double lat, double lon)
 {
   BookmarkManager & bmMng = frm()->GetBookmarkManager();
 
+  place_page::Info & info = g_framework->GetPlacePageInfo();
+
   kml::BookmarkData bmData;
-  kml::SetDefaultStr(bmData.m_name, ToNativeString(env, name));
+  bmData.m_name = info.FormatNewBookmarkName();
   bmData.m_color.m_predefinedColor = frm()->LastEditedBMColor();
   bmData.m_point = MercatorBounds::FromLatLon(lat, lon);
   auto const lastEditedCategory = frm()->LastEditedBMCategory();
 
-  place_page::Info & info = g_framework->GetPlacePageInfo();
   if (info.IsFeature())
-    SaveFeatureInfo(info.GetNameMultilang(), info.GetTypes(), bmData);
+    SaveFeatureTypes(info.GetTypes(), bmData);
 
   auto const * createdBookmark = bmMng.GetEditSession().CreateBookmark(std::move(bmData), lastEditedCategory);
 
@@ -308,12 +309,6 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeLoadKmzFile(JNIEnv
                                                                           jstring path, jboolean isTemporaryFile)
 {
   frm()->AddBookmarksFile(ToNativeString(env, path), isTemporaryFile);
-}
-
-JNIEXPORT jstring JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeFormatNewBookmarkName(JNIEnv * env, jclass)
-{
-  return ToJavaString(env, g_framework->GetPlacePageInfo().FormatNewBookmarkName());
 }
 
 JNIEXPORT jboolean JNICALL

@@ -48,7 +48,7 @@ UNIT_TEST(KMZ_UnzipTest)
 
   {
     Bookmark const bm(std::move(kmlData->m_bookmarksData[0]));
-    TEST_EQUAL(bm.GetName(), ("Lahaina Breakwall"), ("KML wrong name!"));
+    TEST_EQUAL(kml::GetDefaultStr(bm.GetName()), ("Lahaina Breakwall"), ("KML wrong name!"));
     TEST_EQUAL(bm.GetColor(), kml::PredefinedColor::Red, ("KML wrong type!"));
     TEST_ALMOST_EQUAL_ULPS(bm.GetPivot().x, -156.6777046791284, ("KML wrong org x!"));
     TEST_ALMOST_EQUAL_ULPS(bm.GetPivot().y, 21.34256685860084, ("KML wrong org y!"));
@@ -56,7 +56,7 @@ UNIT_TEST(KMZ_UnzipTest)
   }
   {
     Bookmark const bm(std::move(kmlData->m_bookmarksData[1]));
-    TEST_EQUAL(bm.GetName(), ("Seven Sacred Pools, Kipahulu"), ("KML wrong name!"));
+    TEST_EQUAL(kml::GetDefaultStr(bm.GetName()), ("Seven Sacred Pools, Kipahulu"), ("KML wrong name!"));
     TEST_EQUAL(bm.GetColor(), kml::PredefinedColor::Red, ("KML wrong type!"));
     TEST_ALMOST_EQUAL_ULPS(bm.GetPivot().x, -156.0405130750025, ("KML wrong org x!"));
     TEST_ALMOST_EQUAL_ULPS(bm.GetPivot().y, 21.12480639056074, ("KML wrong org y!"));

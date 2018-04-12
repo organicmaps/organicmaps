@@ -109,7 +109,8 @@ enum RowInMetaInfo
   
   bookmark->SetColor(self.cachedColor);
   bookmark->SetDescription(self.cachedDescription.UTF8String);
-  bookmark->SetName(self.cachedTitle.UTF8String);
+  if (self.cachedTitle.UTF8String != bookmark->GetPreferredName())
+    bookmark->SetCustomName(self.cachedTitle.UTF8String);
   
   f.UpdatePlacePageInfoForCurrentSelection();
   [self backTap];

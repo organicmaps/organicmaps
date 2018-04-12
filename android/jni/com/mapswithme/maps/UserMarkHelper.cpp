@@ -159,12 +159,10 @@ jobject CreateMapObject(JNIEnv * env, place_page::Info const & info)
 
     auto const bookmarkId = info.GetBookmarkId();
     auto const categoryId = info.GetBookmarkCategoryId();
-    kml::BookmarkData const & data = info.GetBookmarkData();
     jni::TScopedLocalRef jMwmName(env, jni::ToJavaString(env, info.GetID().GetMwmName()));
     jni::TScopedLocalRef jFeatureId(
         env, env->NewObject(g_featureIdClazz, featureCtorId, jMwmName.get(),
                             (jlong)info.GetID().GetMwmVersion(), (jint)info.GetID().m_index));
-    jni::TScopedLocalRef jName(env, jni::ToJavaString(env, kml::GetDefaultStr(data.m_name)));
     jni::TScopedLocalRef jTitle(env, jni::ToJavaString(env, info.GetTitle()));
     jni::TScopedLocalRef jSecondaryTitle(env, jni::ToJavaString(env, info.GetSecondaryTitle()));
     jni::TScopedLocalRef jSubtitle(env, jni::ToJavaString(env, info.GetSubtitle()));

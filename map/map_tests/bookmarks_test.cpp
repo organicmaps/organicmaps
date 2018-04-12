@@ -146,13 +146,13 @@ void CheckBookmarks(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
 
   auto it = markIds.rbegin();
   Bookmark const * bm = bmManager.GetBookmark(*it++);
-  TEST_EQUAL(bm->GetName(), "Nebraska", ());
+  TEST_EQUAL(kml::GetDefaultStr(bm->GetName()), "Nebraska", ());
   TEST_EQUAL(bm->GetColor(), kml::PredefinedColor::Red, ());
   TEST_EQUAL(bm->GetDescription(), "", ());
   TEST_EQUAL(kml::ToSecondsSinceEpoch(bm->GetTimeStamp()), 0, ());
 
   bm = bmManager.GetBookmark(*it++);
-  TEST_EQUAL(bm->GetName(), "Monongahela National Forest", ());
+  TEST_EQUAL(kml::GetDefaultStr(bm->GetName()), "Monongahela National Forest", ());
   TEST_EQUAL(bm->GetColor(), kml::PredefinedColor::Pink, ());
   TEST_EQUAL(bm->GetDescription(), "Huttonsville, WV 26273<br>", ());
   TEST_EQUAL(kml::ToSecondsSinceEpoch(bm->GetTimeStamp()), 524214643, ());
@@ -163,7 +163,7 @@ void CheckBookmarks(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
   double const kEps = 1e-6;
   TEST(my::AlmostEqualAbs(MercatorBounds::XToLon(org.x), 27.566765, kEps), ());
   TEST(my::AlmostEqualAbs(MercatorBounds::YToLat(org.y), 53.900047, kEps), ());
-  TEST_EQUAL(bm->GetName(), "From: Минск, Минская область, Беларусь", ());
+  TEST_EQUAL(kml::GetDefaultStr(bm->GetName()), "From: Минск, Минская область, Беларусь", ());
   TEST_EQUAL(bm->GetColor(), kml::PredefinedColor::Blue, ());
   TEST_EQUAL(bm->GetDescription(), "", ());
   TEST_EQUAL(kml::ToSecondsSinceEpoch(bm->GetTimeStamp()), 888888888, ());
@@ -172,7 +172,7 @@ void CheckBookmarks(BookmarkManager const & bmManager, kml::MarkGroupId groupId)
   org = bm->GetPivot();
   TEST(my::AlmostEqualAbs(MercatorBounds::XToLon(org.x), 27.551532, kEps), ());
   TEST(my::AlmostEqualAbs(MercatorBounds::YToLat(org.y), 53.89306, kEps), ());
-  TEST_EQUAL(bm->GetName(), "<MWM & Sons>", ());
+  TEST_EQUAL(kml::GetDefaultStr(bm->GetName()), "<MWM & Sons>", ());
   TEST_EQUAL(bm->GetDescription(), "Amps & <brackets>", ());
   TEST_EQUAL(kml::ToSecondsSinceEpoch(bm->GetTimeStamp()), 0, ());
 }
@@ -339,15 +339,15 @@ UNIT_TEST(Bookmarks_Timestamp)
 
   Bookmark const * pBm01 = bmManager.GetBookmark(pBm1->GetId());
 
-  TEST_EQUAL(pBm01->GetName(), "name", ());
+  TEST_EQUAL(kml::GetDefaultStr(pBm01->GetName()), "name", ());
 
   Bookmark const * pBm02 = bmManager.GetBookmark(pBm2->GetId());
 
-  TEST_EQUAL(pBm02->GetName(), "newName", ());
+  TEST_EQUAL(kml::GetDefaultStr(pBm02->GetName()), "newName", ());
 
   Bookmark const * pBm03 = bmManager.GetBookmark(pBm3->GetId());
 
-  TEST_EQUAL(pBm03->GetName(), "newName", ());
+  TEST_EQUAL(kml::GetDefaultStr(pBm03->GetName()), "newName", ());
 
   TEST_EQUAL(bmManager.GetUserMarkIds(cat1).size(), 2, ());
   TEST_EQUAL(bmManager.GetUserMarkIds(cat2).size(), 1, ());
@@ -418,7 +418,7 @@ UNIT_TEST(Bookmarks_Getting)
 
   // Should find last added valid result, there two results with the
   // same coordinates 3 and 4, but 4 was added later.
-  TEST_EQUAL(mark->GetName(), "4", ());
+  TEST_EQUAL(kml::GetDefaultStr(mark->GetName()), "4", ());
   TEST_EQUAL(mark->GetColor(), kml::PredefinedColor::Blue, ());
 
   TEST_EQUAL(bmManager.GetUserMarkIds(mark->GetGroupId()).size(), 2, ());
@@ -547,7 +547,7 @@ UNIT_TEST(Bookmarks_AddingMoving)
   TEST_EQUAL(pBm1->GetGroupId(), pBm11->GetGroupId(), ());
   mark = GetBookmarkPxPoint(fm, pixelPoint);
   TEST_EQUAL(bmManager.GetCategoryName(mark->GetGroupId()), "cat1", ());
-  TEST_EQUAL(mark->GetName(), "name2", ());
+  TEST_EQUAL(kml::GetDefaultStr(mark->GetName()), "name2", ());
   TEST_EQUAL(mark->GetColor(), kml::PredefinedColor::Blue, ());
 
   // Edit name, type and category of bookmark
@@ -562,7 +562,7 @@ UNIT_TEST(Bookmarks_AddingMoving)
   TEST_EQUAL(bmManager.GetCategoryName(mark->GetGroupId()), "cat1", ());
   TEST_EQUAL(bmManager.GetUserMarkIds(cat1).size(), 2,
              ("Bookmark wasn't moved from one category to another"));
-  TEST_EQUAL(mark->GetName(), "name2", ());
+  TEST_EQUAL(kml::GetDefaultStr(mark->GetName()), "name2", ());
   TEST_EQUAL(mark->GetColor(), kml::PredefinedColor::Blue, ());
 
   DeleteCategoryFiles(arrCat);
@@ -722,7 +722,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_SpecialXMLNames)
   auto const bmId2 = *bmManager.GetUserMarkIds(catId3).begin();
   auto const * bm2 = bmManager.GetBookmark(bmId2);
   TEST(EqualBookmarks(*bm1, *bm2), ());
-  TEST_EQUAL(bm1->GetName(), "![X1]{X2}(X3)", ());
+  TEST_EQUAL(kml::GetDefaultStr(bm1->GetName()), "![X1]{X2}(X3)", ());
 
   TEST(my::DeleteFileX(fileNameTmp), ());
 }
@@ -858,14 +858,14 @@ UNIT_CLASS_TEST(Runner, Bookmarks_Listeners)
   checkNotifications();
 
   auto const markId0 = *bmManager.GetUserMarkIds(catId).begin();
-  bmManager.GetEditSession().GetBookmarkForEdit(markId0)->SetName("name 3");
+  bmManager.GetEditSession().GetBookmarkForEdit(markId0)->SetName("name 3", kml::kDefaultLangCode);
   updatedMarks.insert(markId0);
 
   checkNotifications();
 
   {
     auto editSession = bmManager.GetEditSession();
-    editSession.GetBookmarkForEdit(markId0)->SetName("name 4");
+    editSession.GetBookmarkForEdit(markId0)->SetName("name 4", kml::kDefaultLangCode);
     editSession.DeleteBookmark(markId0);
     deletedMarks.insert(markId0);
 
@@ -902,7 +902,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_AutoSave)
 
   {
     auto editSession = bmManager.GetEditSession();
-    editSession.GetBookmarkForEdit(bmId0)->SetName("name 0 renamed");
+    editSession.GetBookmarkForEdit(bmId0)->SetName("name 0 renamed", kml::kDefaultLangCode);
 
     kml::BookmarkData data1;
     kml::SetDefaultStr(data1.m_name, "name 1");

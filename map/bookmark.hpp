@@ -21,8 +21,14 @@ public:
 
   bool HasCreationAnimation() const override;
 
-  std::string GetName() const;
-  void SetName(std::string const & name);
+  std::string GetPreferredName() const;
+
+  kml::LocalizableString GetName() const;
+  void SetName(kml::LocalizableString const & name);
+  void SetName(std::string const & name, int8_t langCode);
+
+  std::string GetCustomName() const;
+  void SetCustomName(std::string const & customName);
 
   kml::PredefinedColor GetColor() const;
   void SetColor(kml::PredefinedColor color);

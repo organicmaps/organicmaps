@@ -444,11 +444,11 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   {
     auto const categoryId = f.LastEditedBMCategory();
     kml::BookmarkData bmData;
-    kml::SetDefaultStr(bmData.m_name, m_info.FormatNewBookmarkName());
+    bmData.m_name = m_info.FormatNewBookmarkName();
     bmData.m_color.m_predefinedColor = f.LastEditedBMColor();
     bmData.m_point = self.mercator;
     if (m_info.IsFeature())
-      SaveFeatureInfo(m_info.GetNameMultilang(), m_info.GetTypes(), bmData);
+      SaveFeatureTypes(m_info.GetTypes(), bmData);
     auto editSession = bmManager.GetEditSession();
     auto const * bookmark = editSession.CreateBookmark(std::move(bmData), categoryId);
     f.FillBookmarkInfo(*bookmark, m_info);

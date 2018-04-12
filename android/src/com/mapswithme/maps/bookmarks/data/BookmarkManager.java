@@ -87,9 +87,9 @@ public enum BookmarkManager
     setVisibility(catId, !isVisible);
   }
 
-  public Bookmark addNewBookmark(String name, double lat, double lon)
+  public Bookmark addNewBookmark(double lat, double lon)
   {
-    final Bookmark bookmark = nativeAddBookmarkToLastEditedCategory(name, lat, lon);
+    final Bookmark bookmark = nativeAddBookmarkToLastEditedCategory(lat, lon);
     Statistics.INSTANCE.trackBookmarkCreated();
     return bookmark;
   }
@@ -309,12 +309,6 @@ public enum BookmarkManager
 
   public void showBookmarkOnMap(long bmkId) { nativeShowBookmarkOnMap(bmkId); }
 
-  @NonNull
-  public Bookmark addBookmarkToLastEditedCategory(@NonNull String name, double lat, double lon)
-  {
-    return nativeAddBookmarkToLastEditedCategory(name, lat, lon);
-  }
-
   public long getLastEditedCategory() { return nativeGetLastEditedCategory(); }
 
   @Icon.PredefinedColor
@@ -332,12 +326,6 @@ public enum BookmarkManager
   public void loadKmzFile(@NonNull String path, boolean isTemporaryFile)
   {
     nativeLoadKmzFile(path, isTemporaryFile);
-  }
-
-  @NonNull
-  public static String formatNewBookmarkName()
-  {
-    return nativeFormatNewBookmarkName();
   }
 
   public boolean isAsyncBookmarksLoadingInProgress()
@@ -450,7 +438,7 @@ public enum BookmarkManager
   private native void nativeShowBookmarkOnMap(long bmkId);
 
   @NonNull
-  private native Bookmark nativeAddBookmarkToLastEditedCategory(String name, double lat, double lon);
+  private native Bookmark nativeAddBookmarkToLastEditedCategory(double lat, double lon);
 
   private native long nativeGetLastEditedCategory();
 
@@ -464,9 +452,6 @@ public enum BookmarkManager
   private native long nativeGetLastSynchronizationTimestampInMs();
 
   private static native void nativeLoadKmzFile(@NonNull String path, boolean isTemporaryFile);
-
-  @NonNull
-  private static native String nativeFormatNewBookmarkName();
 
   private static native boolean nativeIsAsyncBookmarksLoadingInProgress();
 

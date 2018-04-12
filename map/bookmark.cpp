@@ -1,4 +1,5 @@
 #include "map/bookmark.hpp"
+#include "map/bookmark_helpers.hpp"
 
 Bookmark::Bookmark(m2::PointD const & ptOrg)
   : Base(ptOrg, UserMark::BOOKMARK)
@@ -84,15 +85,37 @@ void Bookmark::SetColor(kml::PredefinedColor color)
   m_data.m_color.m_predefinedColor = color;
 }
 
-std::string Bookmark::GetName() const
+std::string Bookmark::GetPreferredName() const
 {
-  return kml::GetDefaultStr(m_data.m_name);
+  return GetPreferredBookmarkName(m_data);
 }
 
-void Bookmark::SetName(std::string const & name)
+kml::LocalizableString Bookmark::GetName() const
+{
+  return m_data.m_name;
+}
+
+void Bookmark::SetName(kml::LocalizableString const & name)
 {
   SetDirty();
-  kml::SetDefaultStr(m_data.m_name, name);
+  m_data.m_name = name;
+}
+
+void Bookmark::SetName(std::string const & name, int8_t langCode)
+{
+  SetDirty();
+  m_data.m_name[langCode] = name;
+}
+
+std::string Bookmark::GetCustomName() const
+{
+  return kml::GetDefaultStr(m_data.m_customName);
+}
+
+void Bookmark::SetCustomName(std::string const & customName)
+{
+  SetDirty();
+  kml::SetDefaultStr(m_data.m_customName, customName);
 }
 
 m2::RectD Bookmark::GetViewport() const

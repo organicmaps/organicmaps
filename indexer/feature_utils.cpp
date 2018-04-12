@@ -76,17 +76,17 @@ bool GetBestName(StringUtf8Multilang const & src, vector<int8_t> const & priorit
   };
 
   src.ForEach([&](int8_t code, string const & name)
-  {
-    if (bestIndex == 0)
-      return base::ControlFlow::Break;
+              {
+                if (bestIndex == 0)
+                  return base::ControlFlow::Break;
 
-    findAndSet(priorityList, code, name, bestIndex, out);
-    return base::ControlFlow::Continue;
-  });
+                findAndSet(priorityList, code, name, bestIndex, out);
+                return base::ControlFlow::Continue;
+              });
 
   // There are many "junk" names in Arabian island.
   if (bestIndex < priorityList.size() &&
-      priorityList[bestIndex] == StrUtf8::kInternationalCode)
+    priorityList[bestIndex] == StrUtf8::kInternationalCode)
   {
     out = out.substr(0, out.find_first_of(','));
   }
@@ -360,5 +360,11 @@ int8_t GetNameForSearchOnBooking(RegionData const & regionData, StringUtf8Multil
 
   name.clear();
   return StringUtf8Multilang::kUnsupportedLanguageCode;
+}
+
+bool GetPreferredName(StringUtf8Multilang const & src, int8_t deviceLang, string & out)
+{
+  auto const priorityList = MakePrimaryNamePriorityList(deviceLang, true /* preferDefault */);
+  return GetBestName(src, priorityList, out);
 }
 } // namespace feature

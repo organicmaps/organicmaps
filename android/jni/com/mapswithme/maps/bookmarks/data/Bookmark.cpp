@@ -21,7 +21,7 @@ JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeGetName(
      JNIEnv * env, jobject thiz, jlong bmk)
 {
-  return jni::ToJavaString(env, getBookmark(bmk)->GetName());
+  return jni::ToJavaString(env, getBookmark(bmk)->GetPreferredName());
 }
 
 JNIEXPORT jstring JNICALL
@@ -49,7 +49,9 @@ Java_com_mapswithme_maps_bookmarks_data_Bookmark_nativeSetBookmarkParams(
 
   // initialize new bookmark
   kml::BookmarkData bmData(mark->GetData());
-  kml::SetDefaultStr(bmData.m_name, jni::ToNativeString(env, name));
+  auto const bmName = jni::ToNativeString(env, name);
+  if (mark->GetPreferredName() != bmName)
+    kml::SetDefaultStr(bmData.m_customName, bmName);
   if (descr)
     kml::SetDefaultStr(bmData.m_description, jni::ToNativeString(env, descr));
   bmData.m_color.m_predefinedColor = static_cast<kml::PredefinedColor>(color);

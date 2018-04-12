@@ -169,7 +169,7 @@
     Bookmark const * bm = bmManager.GetBookmark(bmId);
     if (bm)
     {
-      bmCell.textLabel.text = @(bm->GetName().c_str());
+      bmCell.textLabel.text = @(bm->GetPreferredName().c_str());
       bmCell.imageView.image = [CircleView createCircleImageWith:PINDIAMETER andColor:[ColorPickerView getUIColor:bm->GetColor()]];
 
       CLLocation * lastLocation = [MWMLocationManager lastLocation];

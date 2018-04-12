@@ -1922,8 +1922,7 @@ public class PlacePageView extends RelativeLayout
     if (MapObject.isOfType(MapObject.BOOKMARK, mapObject))
       setMapObject(Framework.nativeDeleteBookmarkFromMapObject(), true, null);
     else
-      setMapObject(BookmarkManager.INSTANCE.addNewBookmark(BookmarkManager.formatNewBookmarkName(),
-                                                           mapObject.getLat(), mapObject.getLon()), true, null);
+      setMapObject(BookmarkManager.INSTANCE.addNewBookmark(mapObject.getLat(), mapObject.getLon()), true, null);
     post(new Runnable()
     {
       @Override

@@ -3,6 +3,11 @@
 #include "kml/serdes.hpp"
 #include "kml/serdes_binary.hpp"
 
+#include "indexer/categories_holder.hpp"
+#include "indexer/feature_utils.hpp"
+
+#include "platform/preferred_languages.hpp"
+
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 
@@ -117,12 +122,60 @@ void ResetIds(kml::FileData & kmlData)
     trackData.m_id = kml::kInvalidTrackId;
 }
 
-void SaveFeatureInfo(StringUtf8Multilang const & name, feature::TypesHolder const & types, kml::BookmarkData & bmData)
+void SaveFeatureTypes(feature::TypesHolder const & types, kml::BookmarkData & bmData)
 {
   bmData.m_featureTypes.assign(types.begin(), types.end());
+}
 
-  name.ForEach([&bmData](int8_t langCode, std::string const & localName)
-  {
-    bmData.m_name[langCode] = localName;
-  });
+std::string GetPreferredBookmarkStr(kml::LocalizableString const & name)
+{
+  if (name.size() == 1)
+    return name.begin()->second;
+
+  StringUtf8Multilang nameMultilang;
+  for (auto const & pair : name)
+    nameMultilang.AddString(pair.first, pair.second);
+
+  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
+
+  std::string preferredName;
+  if (feature::GetPreferredName(nameMultilang, deviceLang, preferredName))
+    return preferredName;
+
+  return {};
+}
+
+std::string GetPreferredBookmarkStr(kml::LocalizableString const & name, feature::RegionData const & regionData)
+{
+  if (name.size() == 1)
+    return name.begin()->second;
+
+  StringUtf8Multilang nameMultilang;
+  for (auto const & pair : name)
+    nameMultilang.AddString(pair.first, pair.second);
+
+  auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
+
+  std::string preferredName;
+  feature::GetReadableName(regionData, nameMultilang, deviceLang, false /* allowTranslit */, preferredName);
+  return preferredName;
+}
+
+std::string GetLocalizedBookmarkType(std::vector<uint32_t> const & types)
+{
+  if (types.empty())
+    return {};
+
+  CategoriesHolder const & categories = GetDefaultCategories();
+  return categories.GetReadableFeatureType(types.front(), categories.MapLocaleToInteger(languages::GetCurrentOrig()));
+}
+
+std::string GetPreferredBookmarkName(kml::BookmarkData const & bmData)
+{
+  std::string name = GetPreferredBookmarkStr(bmData.m_customName);
+  if (name.empty())
+    name = GetPreferredBookmarkStr(bmData.m_name);
+  if (name.empty())
+    name = GetLocalizedBookmarkType(bmData.m_featureTypes);
+  return name;
 }

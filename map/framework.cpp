@@ -2351,7 +2351,7 @@ string Framework::CodeGe0url(Bookmark const * bmk, bool addName)
 {
   double lat = MercatorBounds::YToLat(bmk->GetPivot().y);
   double lon = MercatorBounds::XToLon(bmk->GetPivot().x);
-  return CodeGe0url(lat, lon, bmk->GetScale(), addName ? bmk->GetName() : "");
+  return CodeGe0url(lat, lon, bmk->GetScale(), addName ? bmk->GetPreferredName() : "");
 }
 
 string Framework::CodeGe0url(double lat, double lon, double zoomLevel, string const & name)
