@@ -41,6 +41,5 @@ protocol BMCViewModel: AnyObject {
   func pendingPermission(isPending: Bool)
   func grant(permission: BMCPermission?)
 
-  var filesCountForConversion: UInt { get }
-  func convertAllKML();
+  func convertAllKMLIfNeeded();
 }

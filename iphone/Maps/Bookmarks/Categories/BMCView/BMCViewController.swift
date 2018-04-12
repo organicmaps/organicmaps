@@ -42,15 +42,7 @@ final class BMCViewController: MWMViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    let count = viewModel.filesCountForConversion
-    if count > 0 {
-      MWMAlertViewController.activeAlert().presentConvertBookmarksAlert(withCount: count)
-      { [weak viewModel] in
-        MWMAlertViewController.activeAlert().presentSpinnerAlert(withTitle: L("converting"),
-                                                                 cancel: nil)
-        viewModel?.convertAllKML()
-      }
-    }
+    viewModel.convertAllKMLIfNeeded()
   }
 
   private func updateCategoryName(category: BMCCategory?) {
@@ -77,7 +69,6 @@ final class BMCViewController: MWMViewController {
   private func shareCategory(category: BMCCategory, anchor: UIView) {
     let shareOnSuccess = { [viewModel] (url: URL) in
       typealias AVC = MWMActivityViewController
-      let fileName = (url.lastPathComponent as NSString).deletingPathExtension
       let message = L("share_bookmarks_email_body")
       let shareController = AVC.share(for: url, message: message) { [viewModel] _, _, _, _ in
         viewModel?.finishShareCategory()

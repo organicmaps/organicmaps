@@ -23,12 +23,6 @@ final class BMCDefaultViewModel: NSObject {
   var minCategoryNameLength: UInt = Const.minCategoryNameLength
   var maxCategoryNameLength: UInt = Const.maxCategoryNameLength
 
-  var filesCountForConversion: UInt {
-    get {
-      return BM.filesCountForConversion()
-    }
-  }
-
   override init() {
     super.init()
     BM.add(self)
@@ -203,14 +197,22 @@ extension BMCDefaultViewModel: BMCViewModel {
     pendingPermission(isPending: false)
   }
 
-  func convertAllKML() {
-    BM.convertAll()
+  func convertAllKMLIfNeeded() {
+    let count = BM.filesCountForConversion()
+    if count > 0 {
+      MWMAlertViewController.activeAlert().presentConvertBookmarksAlert(withCount: count) {
+        MWMAlertViewController.activeAlert().presentSpinnerAlert(withTitle: L("converting"),
+                                                                 cancel: nil)
+        BM.convertAll()
+      }
+    }
   }
 }
 
 extension BMCDefaultViewModel: MWMBookmarksObserver {
   func onBookmarksLoadFinished() {
     loadData()
+    convertAllKMLIfNeeded()
   }
 
   func onBookmarkDeleted(_: MWMMarkID) {
