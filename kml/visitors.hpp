@@ -214,36 +214,39 @@ inline void ReadLocalizableStringIndex(Source & source, LocalizableStringIndex &
 }
 
 template <typename Sink>
-inline void WritePointU2D(Sink & sink, m2::PointU const & pt)
+inline void WritePointU(Sink & sink, m2::PointU const & pt)
 {
   WriteVarUint(sink, pt.x);
   WriteVarUint(sink, pt.y);
 }
 
 template <typename Sink>
-inline void WritePoint2D(Sink & sink, m2::PointD const & pt)
+inline void WritePointD(Sink & sink, m2::PointD const & pt, uint8_t doubleBits)
 {
-  WritePointU2D(sink, PointDToPointU(pt, kDoubleBits));
+  WritePointU(sink, PointDToPointU(pt, doubleBits));
 }
 
 template <typename Source>
-inline m2::PointU ReadPointU2D(Source & source)
+inline m2::PointU ReadPointU(Source & source)
 {
-  return {ReadVarUint<uint32_t, Source>(source), ReadVarUint<uint32_t, Source>(source)};
+  auto x = ReadVarUint<uint32_t>(source);
+  auto y = ReadVarUint<uint32_t>(source);
+  return {x, y};
 }
 
 template <typename Source>
-inline m2::PointD ReadPoint2D(Source & source)
+inline m2::PointD ReadPointD(Source & source, uint8_t doubleBits)
 {
-  return PointUToPointD(ReadPointU2D(source), kDoubleBits);
+  return PointUToPointD(ReadPointU(source), doubleBits);
 }
 
 template <typename Sink>
 class CategorySerializerVisitor
 {
 public:
-  explicit CategorySerializerVisitor(Sink & sink)
+  explicit CategorySerializerVisitor(Sink & sink, uint8_t doubleBits)
     : m_sink(sink)
+    , m_doubleBits(doubleBits)
   {}
 
   void operator()(LocalizableStringIndex const & index, char const * /* name */ = nullptr)
@@ -268,13 +271,13 @@ public:
 
   void operator()(double d, char const * /* name */ = nullptr)
   {
-    auto const encoded = DoubleToUint32(d, kMinRating, kMaxRating, kDoubleBits);
+    auto const encoded = DoubleToUint32(d, kMinRating, kMaxRating, m_doubleBits);
     WriteVarUint(m_sink, encoded);
   }
 
   void operator()(m2::PointD const & pt, char const * /* name */ = nullptr)
   {
-    WritePoint2D(m_sink, pt);
+    WritePointD(m_sink, pt, m_doubleBits);
   }
 
   template <typename T>
@@ -309,14 +312,16 @@ public:
 
 private:
   Sink & m_sink;
+  uint8_t const m_doubleBits;
 };
 
 template <typename Sink>
 class BookmarkSerializerVisitor
 {
 public:
-  explicit BookmarkSerializerVisitor(Sink & sink)
+  explicit BookmarkSerializerVisitor(Sink & sink, uint8_t doubleBits)
     : m_sink(sink)
+    , m_doubleBits(doubleBits)
   {}
 
   void operator()(LocalizableStringIndex const & index, char const * /* name */ = nullptr)
@@ -331,12 +336,12 @@ public:
 
   void operator()(m2::PointD const & pt, char const * /* name */ = nullptr)
   {
-    WritePoint2D(m_sink, pt);
+    WritePointD(m_sink, pt, m_doubleBits);
   }
 
   void operator()(double d, char const * /* name */ = nullptr)
   {
-    auto const encoded = DoubleToUint32(d, kMinLineWidth, kMaxLineWidth, kDoubleBits);
+    auto const encoded = DoubleToUint32(d, kMinLineWidth, kMaxLineWidth, m_doubleBits);
     WriteVarUint(m_sink, encoded);
   }
 
@@ -366,20 +371,12 @@ public:
   void operator()(std::vector<m2::PointD> const & points, char const * /* name */ = nullptr)
   {
     WriteVarUint(m_sink, static_cast<uint32_t>(points.size()));
-    m2::PointU lastUpt;
+    m2::PointU lastUpt = m2::PointU::Zero();
     for (uint32_t i = 0; i < static_cast<uint32_t>(points.size()); ++i)
     {
-      if (i == 0)
-      {
-        lastUpt = PointDToPointU(points[i], kDoubleBits);
-        WritePointU2D(m_sink, lastUpt);
-      }
-      else
-      {
-        auto const upt = PointDToPointU(points[i], kDoubleBits);
-        coding::EncodePointDelta(m_sink, lastUpt, upt);
-        lastUpt = upt;
-      }
+      auto const upt = PointDToPointU(points[i], m_doubleBits);
+      coding::EncodePointDelta(m_sink, lastUpt, upt);
+      lastUpt = upt;
     }
   }
 
@@ -405,14 +402,16 @@ public:
 
 private:
   Sink & m_sink;
+  uint8_t const m_doubleBits;
 };
 
 template <typename Source>
 class CategoryDeserializerVisitor
 {
 public:
-  explicit CategoryDeserializerVisitor(Source & source)
+  explicit CategoryDeserializerVisitor(Source & source, uint8_t doubleBits)
     : m_source(source)
+    , m_doubleBits(doubleBits)
   {}
 
   void operator()(LocalizableStringIndex & index, char const * /* name */ = nullptr)
@@ -439,12 +438,12 @@ public:
   void operator()(double & d, char const * /* name */ = nullptr)
   {
     auto const v = ReadVarUint<uint32_t, Source>(m_source);
-    d = Uint32ToDouble(v, kMinRating, kMaxRating, kDoubleBits);
+    d = Uint32ToDouble(v, kMinRating, kMaxRating, m_doubleBits);
   }
 
   void operator()(m2::PointD & pt, char const * /* name */ = nullptr)
   {
-    pt = ReadPoint2D(m_source);
+    pt = ReadPointD(m_source, m_doubleBits);
   }
 
   template <typename T>
@@ -483,14 +482,16 @@ public:
 
 private:
   Source & m_source;
+  uint8_t const m_doubleBits;
 };
 
 template <typename Source>
 class BookmarkDeserializerVisitor
 {
 public:
-  explicit BookmarkDeserializerVisitor(Source & source)
+  explicit BookmarkDeserializerVisitor(Source & source, uint8_t doubleBits)
     : m_source(source)
+    , m_doubleBits(doubleBits)
   {}
 
   void operator()(LocalizableStringIndex & index, char const * /* name */ = nullptr)
@@ -505,13 +506,13 @@ public:
 
   void operator()(m2::PointD & pt, char const * /* name */ = nullptr)
   {
-    pt = ReadPoint2D(m_source);
+    pt = ReadPointD(m_source, m_doubleBits);
   }
 
   void operator()(double & d, char const * /* name */ = nullptr)
   {
     auto const v = ReadVarUint<uint32_t, Source>(m_source);
-    d = Uint32ToDouble(v, kMinLineWidth, kMaxLineWidth, kDoubleBits);
+    d = Uint32ToDouble(v, kMinLineWidth, kMaxLineWidth, m_doubleBits);
   }
 
   void operator()(Timestamp & t, char const * /* name */ = nullptr)
@@ -551,14 +552,11 @@ public:
   {
     auto const sz = ReadVarUint<uint32_t, Source>(m_source);
     points.reserve(sz);
-    m2::PointU lastUpt;
+    m2::PointU lastUpt = m2::PointU::Zero();
     for (uint32_t i = 0; i < sz; ++i)
     {
-      if (i == 0)
-        lastUpt = ReadPointU2D(m_source);
-      else
-        lastUpt = coding::DecodePointDelta(m_source, lastUpt);
-      points.emplace_back(PointUToPointD(lastUpt, kDoubleBits));
+      lastUpt = coding::DecodePointDelta(m_source, lastUpt);
+      points.emplace_back(PointUToPointD(lastUpt, m_doubleBits));
     }
   }
 
@@ -584,6 +582,7 @@ public:
 
 private:
   Source & m_source;
+  uint8_t const m_doubleBits;
 };
 
 template <typename Reader>

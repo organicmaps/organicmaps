@@ -74,7 +74,7 @@ double constexpr kMinLineWidth = 0.0;
 double constexpr kMaxLineWidth = 100.0;
 double constexpr kMinRating = 0.0;
 double constexpr kMaxRating = 10.0;
-uint32_t constexpr kDoubleBits = 30;
+uint8_t constexpr kDoubleBits = 30;
 
 int8_t constexpr kDefaultLangCode = 0;
 

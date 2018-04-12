@@ -39,9 +39,12 @@ public:
     WriteToSink(sink, Version::Latest);
 
     // Write device id.
-    auto const sz = m_data.m_deviceId.size();
-    WriteVarUint(sink, static_cast<uint32_t>(sz));
+    auto const sz = static_cast<uint32_t>(m_data.m_deviceId.size());
+    WriteVarUint(sink, sz);
     sink.Write(m_data.m_deviceId.data(), sz);
+
+    // Write bits count in double number.
+    WriteToSink(sink, kDoubleBits);
 
     auto const startPos = sink.Pos();
 
@@ -75,21 +78,21 @@ public:
   template <typename Sink>
   void SerializeCategory(Sink & sink)
   {
-    CategorySerializerVisitor<Sink> visitor(sink);
+    CategorySerializerVisitor<Sink> visitor(sink, kDoubleBits);
     visitor(m_data.m_categoryData);
   }
 
   template <typename Sink>
   void SerializeBookmarks(Sink & sink)
   {
-    BookmarkSerializerVisitor<Sink> visitor(sink);
+    BookmarkSerializerVisitor<Sink> visitor(sink, kDoubleBits);
     visitor(m_data.m_bookmarksData);
   }
 
   template <typename Sink>
   void SerializeTracks(Sink & sink)
   {
-    BookmarkSerializerVisitor<Sink> visitor(sink);
+    BookmarkSerializerVisitor<Sink> visitor(sink, kDoubleBits);
     visitor(m_data.m_tracksData);
   }
 
@@ -128,6 +131,11 @@ public:
     m_data.m_deviceId.resize(sz);
     source.Read(&m_data.m_deviceId[0], sz);
 
+    // Read bits count in double number.
+    m_doubleBits = ReadPrimitiveFromSource<uint8_t>(source);
+    if (m_doubleBits == 0 || m_doubleBits > 32)
+      MYTHROW(DeserializeException, ("Incorrect double bits count: ", m_doubleBits));
+
     auto subReader = reader.CreateSubReader(source.Pos(), source.Size());
     InitializeIfNeeded(*subReader);
 
@@ -135,7 +143,7 @@ public:
     {
       auto categorySubReader = CreateCategorySubReader(*subReader);
       NonOwningReaderSource src(*categorySubReader);
-      CategoryDeserializerVisitor<decltype(src)> visitor(src);
+      CategoryDeserializerVisitor<decltype(src)> visitor(src, m_doubleBits);
       visitor(m_data.m_categoryData);
     }
 
@@ -143,7 +151,7 @@ public:
     {
       auto bookmarkSubReader = CreateBookmarkSubReader(*subReader);
       NonOwningReaderSource src(*bookmarkSubReader);
-      BookmarkDeserializerVisitor<decltype(src)> visitor(src);
+      BookmarkDeserializerVisitor<decltype(src)> visitor(src, m_doubleBits);
       visitor(m_data.m_bookmarksData);
     }
 
@@ -151,7 +159,7 @@ public:
     {
       auto trackSubReader = CreateTrackSubReader(*subReader);
       NonOwningReaderSource src(*trackSubReader);
-      BookmarkDeserializerVisitor<decltype(src)> visitor(src);
+      BookmarkDeserializerVisitor<decltype(src)> visitor(src, m_doubleBits);
       visitor(m_data.m_tracksData);
     }
 
@@ -216,6 +224,7 @@ private:
 
   FileData & m_data;
   Header m_header;
+  uint8_t m_doubleBits = 0;
   bool m_initialized = false;
 };
 }  // namespace binary
