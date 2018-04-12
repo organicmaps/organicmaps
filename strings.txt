@@ -27636,7 +27636,7 @@ fa = دوباره نپرس
     sw = Maoni zaidi kwenye Booking.com
 
   [profile_authorization_title]
-    en = Sing in with
+    en = Sign in with
     ru = Авторизуйтесь с помощью
     ar = تسجيل الدخول باستخدام
     cs = Přihlásit se s
