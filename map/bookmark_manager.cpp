@@ -117,7 +117,8 @@ public:
 BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollectionPtr collection)
 {
   auto const & kmlToShare = collection->front();
-  auto const filePath = my::JoinPath(GetPlatform().TmpDir(), GetFileName(kmlToShare.first));
+  auto const filePath = my::JoinPath(
+      GetPlatform().TmpDir(), my::GetNameFromFullPathWithoutExt(kmlToShare.first) + kKmlExtension);
   MY_SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, filePath));
 
   auto const categoryId = kmlToShare.second->m_categoryData.m_id;
