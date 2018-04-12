@@ -35,7 +35,7 @@
     productInfo:(search::ProductInfo const &)productInfo
 {
   [super config:result];
-  self.typeLabel.text = @(result.GetFeatureTypeName().c_str()).capitalizedString;
+  self.typeLabel.text = @(result.GetFeatureTypeName().c_str());
 
 
   auto const hotelRating = result.GetHotelRating();
