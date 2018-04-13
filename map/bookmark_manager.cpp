@@ -46,6 +46,7 @@ std::string const kLastEditedBookmarkCategory = "LastBookmarkCategory";
 // TODO(darina): Delete old setting.
 std::string const kLastBookmarkType = "LastBookmarkType";
 std::string const kLastEditedBookmarkColor = "LastBookmarkColor";
+std::string const kDefaultBookmarksFileName = "Bookmarks";
 std::string const kKmzExtension = ".kmz";
 std::string const kKmlExtension = ".kml";
 std::string const kKmbExtension = ".kmb";
@@ -117,8 +118,11 @@ public:
 BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollectionPtr collection)
 {
   auto const & kmlToShare = collection->front();
-  auto const filePath = my::JoinPath(
-      GetPlatform().TmpDir(), my::GetNameFromFullPathWithoutExt(kmlToShare.first) + kKmlExtension);
+  auto const categoryName = kml::GetDefaultStr(kmlToShare.second->m_categoryData.m_name);
+  std::string fileName = BookmarkManager::RemoveInvalidSymbols(categoryName, "");
+  if (fileName.empty())
+    fileName = my::GetNameFromFullPathWithoutExt(kmlToShare.first);
+  auto const filePath = my::JoinPath(GetPlatform().TmpDir(), fileName + kKmlExtension);
   MY_SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, filePath));
 
   auto const categoryId = kmlToShare.second->m_categoryData.m_id;
@@ -129,7 +133,6 @@ BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollect
                                           "Bookmarks file does not exist.");
   }
 
-  auto const fileName = my::GetNameFromFullPathWithoutExt(filePath);
   auto const tmpFilePath = my::JoinPath(GetPlatform().TmpDir(), fileName + kKmzExtension);
   if (!CreateZipFromPathDeflatedAndDefaultCompression(filePath, tmpFilePath))
   {
@@ -1426,7 +1429,7 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarks(
     auto * group = GetBmCategory(groupId);
 
     // Get valid file name from category name
-    std::string const name = RemoveInvalidSymbols(group->GetName());
+    std::string const name = RemoveInvalidSymbols(group->GetName(), kDefaultBookmarksFileName);
     std::string file = group->GetFileName();
 
     if (file.empty())
@@ -1887,12 +1890,12 @@ void BookmarkManager::MarksChangesTracker::ResetChanges()
 }
 
 // static
-std::string BookmarkManager::RemoveInvalidSymbols(std::string const & name)
+std::string BookmarkManager::RemoveInvalidSymbols(std::string const & name, std::string const & defaultName)
 {
   // Remove not allowed symbols
   strings::UniString uniName = strings::MakeUniString(name);
   uniName.erase_if(&IsBadCharForPath);
-  return (uniName.empty() ? "Bookmarks" : strings::ToUtf8(uniName));
+  return (uniName.empty() ? defaultName : strings::ToUtf8(uniName));
 }
 
 // static
@@ -1919,14 +1922,14 @@ std::string BookmarkManager::GenerateUniqueFileName(const std::string & path, st
 // static
 std::string BookmarkManager::GenerateValidAndUniqueFilePathForKML(std::string const & fileName)
 {
-  std::string filePath = RemoveInvalidSymbols(fileName);
+  std::string filePath = RemoveInvalidSymbols(fileName, kDefaultBookmarksFileName);
   return GenerateUniqueFileName(GetPlatform().SettingsDir(), filePath, kKmlExtension);
 }
 
 // static
 std::string BookmarkManager::GenerateValidAndUniqueFilePathForKMB(std::string const & fileName)
 {
-  std::string filePath = RemoveInvalidSymbols(fileName);
+  std::string filePath = RemoveInvalidSymbols(fileName, kDefaultBookmarksFileName);
   return GenerateUniqueFileName(GetBookmarksDirectory(), filePath, kKmbExtension);
 }
 

@@ -270,7 +270,7 @@ public:
   bool SaveBookmarkCategory(kml::MarkGroupId groupId);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & writer, bool useBinary) const;
   void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = true);
-  static std::string RemoveInvalidSymbols(std::string const & name);
+  static std::string RemoveInvalidSymbols(std::string const & name, std::string const & defaultName);
   static std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string const & fileExt);
   static std::string GenerateValidAndUniqueFilePathForKML(std::string const & fileName);
   static std::string GenerateValidAndUniqueFilePathForKMB(std::string const & fileName);
