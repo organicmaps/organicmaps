@@ -14,13 +14,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textAppearance="@style/MwmTextAppearance.Headline"
-    android:text="Sign in with social"/>
+    android:text="@string/profile_authorization_title"/>
   <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_half_plus_eight"
     android:textAppearance="@style/MwmTextAppearance.Body3"
-    android:text="Easy sign in without login and password in a couple of seconds."
+    android:text="@string/profile_authorization_message"
     />
   <com.facebook.login.widget.LoginButton
     xmlns:fb="http://schemas.android.com/apk/res-auto"
