@@ -51,4 +51,10 @@ extern "C"
   {
     return static_cast<jlong>(AD_PERMISION_CHECK_DURATION);
   }
+
+  JNIEXPORT jstring JNICALL
+  Java_com_mapswithme_maps_PrivateVariables_googleWebClientId(JNIEnv * env, jclass clazz)
+  {
+    return env->NewStringUTF(GOOGLE_WEB_CLIENT_ID);
+  }
 }

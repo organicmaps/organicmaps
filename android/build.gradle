@@ -51,11 +51,12 @@ dependencies {
   implementation 'com.android.support:customtabs:25.0.0'
 
   // google play services
-  implementation 'com.google.android.gms:play-services-location:10.0.1'
-  implementation 'com.google.android.gms:play-services-analytics:10.0.1'
-  implementation 'com.google.android.gms:play-services-plus:10.0.1'
-  implementation 'com.google.android.gms:play-services-gcm:10.0.1'
-  implementation 'com.google.android.gms:play-services-ads:10.0.1'
+  implementation 'com.google.android.gms:play-services-location:11.8.0'
+  implementation 'com.google.android.gms:play-services-analytics:11.8.0'
+  implementation 'com.google.android.gms:play-services-plus:11.8.0'
+  implementation 'com.google.android.gms:play-services-gcm:11.8.0'
+  implementation 'com.google.android.gms:play-services-ads:11.8.0'
+  implementation 'com.google.android.gms:play-services-auth:11.8.0'
   // statistics
   implementation 'com.flurry.android:analytics:6.7.0'
   // crash reporting

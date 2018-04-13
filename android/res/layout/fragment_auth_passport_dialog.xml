@@ -22,6 +22,12 @@
     android:textAppearance="@style/MwmTextAppearance.Body3"
     android:text="@string/profile_authorization_message"
     />
+  <com.google.android.gms.common.SignInButton
+    android:id="@+id/google_button"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/height_primary_button"
+    android:layout_marginTop="@dimen/margin_base"/>
   <com.facebook.login.widget.LoginButton
     xmlns:fb="http://schemas.android.com/apk/res-auto"
     android:id="@+id/facebook_button"

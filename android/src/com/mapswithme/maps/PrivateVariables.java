@@ -12,6 +12,7 @@ public class PrivateVariables
   public static native int myTargetSlot();
   public static native int myTargetRbSlot();
   public static native String myTargetCheckUrl();
+  public static native String googleWebClientId();
   /**
    * @return interval in seconds
    */
