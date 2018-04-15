@@ -22,7 +22,6 @@ import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
@@ -117,7 +116,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   {
     View view = inflater.inflate(R.layout.fragment_auth_passport_dialog, container, false);
 
-    SignInButton googleButton = view.findViewById(R.id.google_button);
+    View googleButton = view.findViewById(R.id.google_button);
     googleButton.setOnClickListener(mGoogleClickListener);
 
     LoginButton facebookButton = view.findViewById(R.id.facebook_button);

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
   android:orientation="vertical"
@@ -20,19 +21,33 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_half_plus_eight"
     android:textAppearance="@style/MwmTextAppearance.Body3"
-    android:text="@string/profile_authorization_message"
-    />
-  <com.google.android.gms.common.SignInButton
+    android:text="@string/profile_authorization_message"/>
+  <TextView
     android:id="@+id/google_button"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:foreground="?clickableBackground"
+    android:background="@drawable/button_transparent_with_border"
+    android:drawableStart="@drawable/ic_google"
+    android:drawableLeft="@drawable/ic_google"
+    android:paddingLeft="@dimen/margin_half_plus"
+    android:paddingStart="@dimen/margin_half_plus"
+    android:paddingRight="@dimen/margin_base_plus"
+    android:paddingEnd="@dimen/margin_base_plus"
+    android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
+    android:fontFamily="@string/robotoMedium"
+    android:text="@string/google"
+    android:gravity="center"
     android:minHeight="@dimen/height_primary_button"
-    android:layout_marginTop="@dimen/margin_base"/>
+    android:layout_marginTop="@dimen/margin_base"
+    tools:targetApi="jelly_bean"/>
   <com.facebook.login.widget.LoginButton
     xmlns:fb="http://schemas.android.com/apk/res-auto"
     android:id="@+id/facebook_button"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_primary_button"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/height_primary_button"
+    android:foreground="?clickableBackground"
     android:layout_marginTop="@dimen/margin_base"
     android:textSize="@dimen/text_size_body_3"
     fb:com_facebook_login_text="@string/facebook"
@@ -52,6 +67,7 @@
     android:textAppearance="@style/MwmTextAppearance.Button"
     android:textColor="?accentButtonTextColor"
     android:background="?accentButtonBackground"
+    android:foreground="?clickableBackground"
     android:gravity="center"
     android:text="@string/phone_number"/>
 </LinearLayout>
