@@ -82,7 +82,7 @@ public class Authorizer implements AuthorizationListener
         return;
 
       @Framework.AuthTokenType
-      int type = data.getIntExtra(Constants.EXTRA_TOKEN_TYPE, -1);
+      int type = data.getIntExtra(Constants.EXTRA_TOKEN_TYPE, Framework.SOCIAL_TOKEN_INVALID);
       boolean isCancel = data.getBooleanExtra(Constants.EXTRA_IS_CANCEL, false);
       if (isCancel)
       {
@@ -101,7 +101,7 @@ public class Authorizer implements AuthorizationListener
     if (!TextUtils.isEmpty(socialToken))
     {
       @Framework.AuthTokenType
-      int type = data.getIntExtra(Constants.EXTRA_TOKEN_TYPE, -1);
+      int type = data.getIntExtra(Constants.EXTRA_TOKEN_TYPE, Framework.SOCIAL_TOKEN_INVALID);
       mIsAuthorizationInProgress = true;
       if (mCallback != null)
         mCallback.onAuthorizationStart();

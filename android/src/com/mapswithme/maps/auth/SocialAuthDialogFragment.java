@@ -14,19 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.mapswithme.maps.Framework;
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
@@ -35,6 +32,8 @@ import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.lang.ref.WeakReference;
+import java.util.Arrays;
+import java.util.List;
 
 public class SocialAuthDialogFragment extends BaseMwmDialogFragment
 {
@@ -48,7 +47,32 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   private final CallbackManager mFacebookCallbackManager = CallbackManager.Factory.create();
   @Nullable
   private String mPhoneAuthToken;
+  @NonNull
+  private final List<TokenHandler> mTokenHandlers = Arrays.asList(
+      new FacebookTokenHandler(), new GoogleTokenHandler(),
+      new TokenHandler()
+      {
+        @Override
+        public boolean checkToken()
+        {
+          return !TextUtils.isEmpty(mPhoneAuthToken);
+        }
 
+        @Nullable
+        @Override
+        public String getToken()
+        {
+          return mPhoneAuthToken;
+        }
+
+        @Override
+        public int getType()
+        {
+          return Framework.SOCIAL_TOKEN_PHONE;
+        }
+      });
+  @Nullable
+  private TokenHandler mCurrentTokenHandler;
   @NonNull
   private final View.OnClickListener mPhoneClickListener = (View v) ->
   {
@@ -111,24 +135,18 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   {
     super.onResume();
 
-    AccessToken facebookToken = AccessToken.getCurrentAccessToken();
-    String fbTokenValue = null;
-    if (facebookToken != null)
-      fbTokenValue = facebookToken.getToken();
-
-    GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(MwmApplication.get());
-    String googleTokenValue = null;
-    if (account != null)
-      googleTokenValue = account.getIdToken();
-
-    if (TextUtils.isEmpty(fbTokenValue) && TextUtils.isEmpty(googleTokenValue))
+    for (TokenHandler handler: mTokenHandlers)
     {
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_AUTH_SHOWN);
-      return;
+      if (handler.checkToken())
+      {
+        mCurrentTokenHandler = handler;
+        LOGGER.i(TAG, "Social token is already obtained");
+        dismiss();
+        return;
+      }
     }
 
-    LOGGER.i(TAG, "Social token is already obtained");
-    dismiss();
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_AUTH_SHOWN);
   }
 
   private void sendResult(int resultCode, @Nullable String socialToken,
@@ -155,7 +173,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     if (data != null && requestCode == Constants.REQ_CODE_PHONE_AUTH_RESULT)
     {
       mPhoneAuthToken = data.getStringExtra(Constants.EXTRA_PHONE_AUTH_TOKEN);
-      dismiss();
+      return;
     }
 
     mFacebookCallbackManager.onActivityResult(requestCode, resultCode, data);
@@ -164,36 +182,29 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   @Override
   public void onDismiss(DialogInterface dialog)
   {
-    String token = mPhoneAuthToken;
-
-    if (TextUtils.isEmpty(token))
+    int resultCode;
+    String token;
+    @Framework.AuthTokenType
+    int type;
+    if (mCurrentTokenHandler == null)
     {
-      GoogleSignInAccount googleAccount = GoogleSignIn.getLastSignedInAccount(MwmApplication.get());
-      token = googleAccount != null ? googleAccount.getIdToken() : null;
+      resultCode = Activity.RESULT_CANCELED;
+      token = null;
+      type = Framework.SOCIAL_TOKEN_INVALID;
+    }
+    else
+    {
+      resultCode = Activity.RESULT_OK;
+      token = mCurrentTokenHandler.getToken();
+      type = mCurrentTokenHandler.getType();
+      if (TextUtils.isEmpty(token))
+        throw new AssertionError("Token must be non-null while token handler is non-null!");
+      if (type == Framework.SOCIAL_TOKEN_INVALID)
+        throw new AssertionError("Token type must be non-invalid while token handler is non-null!");
     }
 
-    if (TextUtils.isEmpty(token))
-    {
-      AccessToken facebookToken = AccessToken.getCurrentAccessToken();
-      token = facebookToken != null ? facebookToken.getToken() : null;
-    }
-
-    int resultCode = TextUtils.isEmpty(token) ? Activity.RESULT_CANCELED : Activity.RESULT_OK;
-    sendResult(resultCode, token, getAuthTokenType(), null, true);
+    sendResult(resultCode, token, type, null, true);
     super.onDismiss(dialog);
-  }
-
-  @Framework.AuthTokenType
-  private int getAuthTokenType()
-  {
-    if (!TextUtils.isEmpty(mPhoneAuthToken))
-      return Framework.SOCIAL_TOKEN_PHONE;
-
-    GoogleSignInAccount googleAccount = GoogleSignIn.getLastSignedInAccount(MwmApplication.get());
-    if (googleAccount != null && !TextUtils.isEmpty(googleAccount.getIdToken()))
-      return Framework.SOCIAL_TOKEN_GOOGLE;
-
-    return Framework.SOCIAL_TOKEN_FACEBOOK;
   }
 
   private static class FBCallback implements FacebookCallback<LoginResult>
