@@ -121,12 +121,16 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
   public void onSocialAuthenticationCancel(@Framework.AuthTokenType int type)
   {
     Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_AUTH_DECLINED);
+    if (isAdded())
+      getActivity().finish();
   }
 
   @Override
   public void onSocialAuthenticationError(int type, @Nullable String error)
   {
     Statistics.INSTANCE.trackUGCAuthFailed(type, error);
+    if (isAdded())
+      getActivity().finish();
   }
 
   private void onSubmitButtonClick()
