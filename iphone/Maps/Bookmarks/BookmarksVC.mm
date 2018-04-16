@@ -1,7 +1,6 @@
 #import "BookmarksVC.h"
 #import "CircleView.h"
 #import "ColorPickerView.h"
-#import "MWMBookmarkNameCell.h"
 #import "MWMBookmarksManager.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationObserver.h"
@@ -64,12 +63,6 @@
   return *it;
 }
 
-- (void)viewDidLoad
-{
-  [super viewDidLoad];
-  [self.tableView registerWithCellClass:[MWMBookmarkNameCell class]];
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
   return m_numberOfSections;
@@ -78,7 +71,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
   if (section == 0)
-    return 2;
+    return 1;
   else if (section == m_trackSection)
     return GetFramework().GetBookmarkManager().GetTrackIds(m_categoryId).size();
   else if (section == m_bookmarkSection)
@@ -118,27 +111,18 @@
   // First section, contains info about current set
   if (indexPath.section == 0)
   {
-    if (indexPath.row == 0)
+    cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksVCSetVisibilityCell"];
+    if (!cell)
     {
-      cell = [tableView dequeueReusableCellWithCellClass:[MWMBookmarkNameCell class]
-                                               indexPath:indexPath];
-      [static_cast<MWMBookmarkNameCell *>(cell) configWithName:@(bmManager.GetCategoryName(m_categoryId).c_str()) delegate:self];
+      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksVCSetVisibilityCell"];
+      cell.textLabel.text = L(@"visible");
+      cell.accessoryView = [[UISwitch alloc] init];
+      cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    else
-    {
-      cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksVCSetVisibilityCell"];
-      if (!cell)
-      {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksVCSetVisibilityCell"];
-        cell.textLabel.text = L(@"visible");
-        cell.accessoryView = [[UISwitch alloc] init];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-      }
-      UISwitch * sw = (UISwitch *)cell.accessoryView;
-      sw.on = bmManager.IsVisible(m_categoryId);
-      sw.onTintColor = [UIColor linkBlue];
-      [sw addTarget:self action:@selector(onVisibilitySwitched:) forControlEvents:UIControlEventValueChanged];
-    }
+    UISwitch * sw = (UISwitch *)cell.accessoryView;
+    sw.on = bmManager.IsVisible(m_categoryId);
+    sw.onTintColor = [UIColor linkBlue];
+    [sw addTarget:self action:@selector(onVisibilitySwitched:) forControlEvents:UIControlEventValueChanged];
   }
 
   else if (indexPath.section == m_trackSection)
@@ -375,41 +359,12 @@
   [super viewWillAppear:animated];
 }
 
-- (void)renameBMCategoryIfChanged:(NSString *)newName
-{
-  // Update edited category name
-  auto & bmManager = GetFramework().GetBookmarkManager();
-  char const * newCharName = newName.UTF8String;
-  if (bmManager.GetCategoryName(m_categoryId) != newCharName)
-  {
-    bmManager.GetEditSession().SetCategoryName(m_categoryId, newCharName);
-    self.navigationController.title = newName;
-  }
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
   [MWMLocationManager removeObserver:self];
 
   // Save possibly edited set name
-  UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-  if ([cell isKindOfClass:[MWMBookmarkNameCell class]])
-  {
-    NSString * newName = static_cast<MWMBookmarkNameCell *>(cell).currentName;
-    if (newName)
-      [self renameBMCategoryIfChanged:newName];
-  }
   [super viewWillDisappear:animated];
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-  if (textField.text.length == 0)
-    return YES;
-  // Hide keyboard
-  [textField resignFirstResponder];
-  [self renameBMCategoryIfChanged:textField.text];
-  return NO;
 }
 
 - (void)sendBookmarksWithExtension:(NSString *)fileExtension andType:(NSString *)mimeType andFile:(NSString *)filePath andCategory:(NSString *)catName

@@ -1,11 +1,10 @@
 #import "SelectSetVC.h"
-#import "AddSetVC.h"
 #import "SwiftBridge.h"
 #import "UIViewController+Navigation.h"
 
 #include "Framework.h"
 
-@interface SelectSetVC () <AddSetVCDelegate>
+@interface SelectSetVC ()
 {
   kml::MarkGroupId m_categoryId;
 }
@@ -77,11 +76,6 @@
   return cell;
 }
 
-- (void)addSetVC:(AddSetVC *)vc didAddSetWithCategoryId:(kml::MarkGroupId)categoryId
-{
-  [self moveBookmarkToSetWithCategoryId:categoryId];
-}
-
 - (void)moveBookmarkToSetWithCategoryId:(kml::MarkGroupId)categoryId
 {
   m_categoryId = categoryId;
@@ -95,9 +89,18 @@
   [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
   if (indexPath.section == 0)
   {
-    AddSetVC * asVC = [[AddSetVC alloc] init];
-    asVC.delegate = self;
-    [self.navigationController pushViewController:asVC animated:YES];
+    [self.alertController presentCreateBookmarkCategoryAlertWithMaxCharacterNum:60
+                                                          minCharacterNum:0
+                                                            isNewCategory:YES
+                                                                 callback:^BOOL (NSString * name)
+     {
+       if (![MWMBookmarksManager checkCategoryName:name])
+         return false;
+
+       auto const id = [MWMBookmarksManager createCategoryWithName:name];
+       [self moveBookmarkToSetWithCategoryId:id];
+       return true;
+    }];
   }
   else
   {
