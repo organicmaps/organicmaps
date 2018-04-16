@@ -254,8 +254,11 @@ namespace
     if (wheelchair == type && typeLength == 2)
       return true;
 
-    if (sponsored == type || internet == type || event == type)
-      return true;
+    if (g != GEOM_LINE)
+    {
+      if (sponsored == type || internet == type || event == type)
+        return true;
+    }
 
     return false;
   }
