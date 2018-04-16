@@ -134,7 +134,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   {
     super.onResume();
 
-    for (TokenHandler handler: mTokenHandlers)
+    for (TokenHandler handler : mTokenHandlers)
     {
       if (handler.checkToken())
       {
@@ -227,7 +227,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     public void onCancel()
     {
       LOGGER.w(TAG, "onCancel");
-      sendErrorResult(Activity.RESULT_CANCELED, Framework.SOCIAL_TOKEN_FACEBOOK,
+      sendEmptyResult(Activity.RESULT_CANCELED, Framework.SOCIAL_TOKEN_FACEBOOK,
                       null, true);
     }
 
@@ -235,11 +235,11 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     public void onError(FacebookException error)
     {
       LOGGER.e(TAG, "onError", error);
-      sendErrorResult(Activity.RESULT_CANCELED, Framework.SOCIAL_TOKEN_FACEBOOK,
+      sendEmptyResult(Activity.RESULT_CANCELED, Framework.SOCIAL_TOKEN_FACEBOOK,
                  error != null ? error.getMessage() : null, false);
     }
 
-    private void sendErrorResult(int resultCode, @Framework.AuthTokenType int type,
+    private void sendEmptyResult(int resultCode, @Framework.AuthTokenType int type,
                                  @Nullable String error, boolean isCancel)
     {
       SocialAuthDialogFragment fragment = mFragmentRef.get();
