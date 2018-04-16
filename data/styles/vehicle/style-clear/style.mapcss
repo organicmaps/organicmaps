@@ -114,5 +114,6 @@ colors
   RatingNormal-color: #FFC800;
   RatingGood-color: #93BF39;
   RatingExcellent-color: #3C8C3C;
+  RatingLocalAds-color: #249CF2;
   RatingText-color: #FFFFFF;
 }
