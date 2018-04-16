@@ -6,12 +6,26 @@
 
 #include "coding/internal/file_data.hpp"
 
+#include <utility>
+
 namespace
 {
 using Observer = id<MWMBookmarksObserver>;
 using Observers = NSHashTable<Observer>;
 
 using TLoopBlock = void (^)(Observer observer);
+  
+NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
+{
+  switch (result)
+  {
+  case Cloud::SynchronizationResult::Success: return nil;
+  case Cloud::SynchronizationResult::AuthError: return kStatAuth;
+  case Cloud::SynchronizationResult::NetworkError: return kStatNetwork;
+  case Cloud::SynchronizationResult::DiskError: return kStatDisk;
+  case Cloud::SynchronizationResult::UserInterrupted: return nil;
+  }
+}
 }  // namespace
 
 @interface MWMBookmarksManager ()
@@ -111,7 +125,57 @@ using TLoopBlock = void (^)(Observer observer);
 + (void)loadBookmarks
 {
   [MWMBookmarksManager manager];
-  GetFramework().LoadBookmarks();
+  
+  auto & bm = GetFramework().GetBookmarkManager();
+  
+  auto onSynchronizationStarted = [](Cloud::SynchronizationType type)
+  {
+    if (type == Cloud::SynchronizationType::Backup)
+      [Statistics logEvent:kStatBookmarksSyncStarted];
+  };
+  
+  auto onSynchronizationFinished = [](Cloud::SynchronizationType type, Cloud::SynchronizationResult result,
+                                      std::string const & errorStr)
+  {
+    if (result == Cloud::SynchronizationResult::Success)
+    {
+      [Statistics logEvent:type == Cloud::SynchronizationType::Backup ? kStatBookmarksSyncSuccess :
+                                                                        kStatBookmarksRestoreProposalSuccess];
+    }
+    else
+    {
+      NSString * const errorType = CloudErrorToString(result);
+      if (errorType != nil)
+      {
+        [Statistics logEvent:type == Cloud::SynchronizationType::Backup ? kStatBookmarksSyncError :
+                                                                          kStatBookmarksRestoreProposalError
+              withParameters:@{kStatType: errorType, kStatError: @(errorStr.c_str())}];
+      }
+    }
+  };
+  
+  auto onRestoreRequested = [](Cloud::RestoringRequestResult result, uint64_t backupTimestampInMs)
+  {
+    if (result == Cloud::RestoringRequestResult::NoBackup)
+    {
+      [Statistics logEvent:kStatBookmarksRestoreProposalError
+            withParameters:@{kStatType: kStatNoBackup, kStatError: @("")}];
+    }
+    else if (result == Cloud::RestoringRequestResult::NotEnoughDiskSpace)
+    {
+      [Statistics logEvent:kStatBookmarksRestoreProposalError
+            withParameters:@{kStatType: kStatDisk, kStatError: @("Not enough disk space")}];
+    }
+  };
+  
+  auto onRestoredFilesPrepared = []()
+  {
+    //TODO: On this callback we have to block cancel button in restore dialog if such button exists.
+  };
+  
+  bm.SetCloudHandlers(std::move(onSynchronizationStarted), std::move(onSynchronizationFinished),
+                      std::move(onRestoreRequested), std::move(onRestoredFilesPrepared));
+  bm.LoadBookmarks();
 }
 
 + (MWMGroupIDCollection)groupsIdList
