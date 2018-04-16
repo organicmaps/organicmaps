@@ -1,9 +1,14 @@
 #pragma once
+
 #include "base/assert.hpp"
 #include "base/base.hpp"
-#include "std/sstream.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
+#include "base/bits.hpp"
+
+#include <cstddef>
+#include <cstdint>
+#include <sstream>
+#include <string>
+#include <utility>
 
 namespace m2
 {
@@ -20,8 +25,8 @@ public:
   static uint8_t const MAX_CHILDREN = 4;
   static uint32_t const MAX_COORD = 1U << DEPTH_LEVELS;
 
-  CellId() : m_Bits(0), m_Level(0) { ASSERT(IsValid(), ()); }
-  explicit CellId(string const & s) { *this = FromString(s); }
+  CellId() : m_bits(0), m_level(0) { ASSERT(IsValid(), ()); }
+  explicit CellId(std::string const & s) { *this = FromString(s); }
 
   static CellId Root() { return CellId(0, 0); }
   static CellId FromBitsAndLevel(uint64_t bits, int level) { return CellId(bits, level); }
@@ -29,77 +34,75 @@ public:
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // Simple getters
-
   int Level() const
   {
-    ASSERT(IsValid(), (m_Bits, m_Level));
-    return m_Level;
+    ASSERT(IsValid(), (m_bits, m_level));
+    return m_level;
   }
 
   CellId Parent() const
   {
-    ASSERT(IsValid(), (m_Bits, m_Level));
-    ASSERT_GREATER(m_Level, 0, ());
-    return CellId(m_Bits >> 2, m_Level - 1);
+    ASSERT(IsValid(), (m_bits, m_level));
+    ASSERT_GREATER(m_level, 0, ());
+    return CellId(m_bits >> 2, m_level - 1);
   }
 
   CellId AncestorAtLevel(int level) const
   {
-    ASSERT(IsValid(), (m_Bits, m_Level));
-    ASSERT_GREATER_OR_EQUAL(m_Level, level, ());
-    return CellId(m_Bits >> ((m_Level - level) << 1), level);
+    ASSERT(IsValid(), (m_bits, m_level));
+    ASSERT_GREATER_OR_EQUAL(m_level, level, ());
+    return CellId(m_bits >> ((m_level - level) << 1), level);
   }
 
   CellId Child(int8_t c) const
   {
-    ASSERT(c >= 0 && c < 4, (c, m_Bits, m_Level));
-    ASSERT(IsValid(), (m_Bits, m_Level));
-    ASSERT_LESS(m_Level, DEPTH_LEVELS - 1, ());
-    return CellId((m_Bits << 2) | c, m_Level + 1);
+    ASSERT(c >= 0 && c < 4, (c, m_bits, m_level));
+    ASSERT(IsValid(), (m_bits, m_level));
+    ASSERT_LESS(m_level, DEPTH_LEVELS - 1, ());
+    return CellId((m_bits << 2) | c, m_level + 1);
   }
 
   char WhichChildOfParent() const
   {
-    ASSERT(IsValid(), (m_Bits, m_Level));
-    ASSERT_GREATER(m_Level, 0, ());
-    return m_Bits & 3;
+    ASSERT(IsValid(), (m_bits, m_level));
+    ASSERT_GREATER(m_level, 0, ());
+    return m_bits & 3;
   }
 
   uint64_t SubTreeSize(int depth) const
   {
-    ASSERT(IsValid(), (m_Bits, m_Level));
-    ASSERT(m_Level < depth && depth <= DEPTH_LEVELS, (m_Bits, m_Level, depth));
-    return TreeSizeForDepth(depth - m_Level);
+    ASSERT(IsValid(), (m_bits, m_level));
+    ASSERT(m_level < depth && depth <= DEPTH_LEVELS, (m_bits, m_level, depth));
+    return TreeSizeForDepth(depth - m_level);
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // Operators
-
   bool operator==(CellId const & cellId) const
   {
-    ASSERT(IsValid(), (m_Bits, m_Level));
-    ASSERT(cellId.IsValid(), (cellId.m_Bits, cellId.m_Level));
-    return m_Bits == cellId.m_Bits && m_Level == cellId.m_Level;
+    ASSERT(IsValid(), (m_bits, m_level));
+    ASSERT(cellId.IsValid(), (cellId.m_bits, cellId.m_level));
+    return m_bits == cellId.m_bits && m_level == cellId.m_level;
   }
 
   bool operator!=(CellId const & cellId) const { return !(*this == cellId); }
+
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // Conversion to/from string
-
-  string ToString() const
+  std::string ToString() const
   {
-    ASSERT(IsValid(), (m_Bits, m_Level));
-    string result(m_Level, '0');
-    uint64_t bits = m_Bits;
-    for (int i = 0; i < m_Level; ++i, bits >>= 2)
-      result[m_Level - 1 - i] += (bits & 3);
-    ASSERT_EQUAL(*this, FromString(result), (m_Bits, m_Level, result));
+    ASSERT(IsValid(), (m_bits, m_level));
+    std::string result(m_level, '0');
+    uint64_t bits = m_bits;
+    for (int i = 0; i < m_level; ++i, bits >>= 2)
+      result[m_level - 1 - i] += (bits & 3);
+    ASSERT_EQUAL(*this, FromString(result), (m_bits, m_level, result));
     return result;
   }
 
-  // Is string @s a valid CellId representation?
-  // Note that empty string is a valid CellId.
-  static bool IsCellId(string const & s)
+  // Tests whether the string |s| is a valid CellId representation.
+  // Note that an empty string is a valid CellId.
+  static bool IsCellId(std::string const & s)
   {
     size_t const length = s.size();
     if (length >= DEPTH_LEVELS)
@@ -112,7 +115,7 @@ public:
     return true;
   }
 
-  static CellId FromString(string const & s)
+  static CellId FromString(std::string const & s)
   {
     ASSERT(IsCellId(s), (s));
     uint64_t bits = 0;
@@ -133,26 +136,20 @@ public:
   // Should be 1 for the bottom level cell.
   uint32_t Radius() const
   {
-    ASSERT(IsValid(), (m_Bits, m_Level));
-    return 1 << (DEPTH_LEVELS - 1 - m_Level);
+    ASSERT(IsValid(), (m_bits, m_level));
+    return 1 << (DEPTH_LEVELS - 1 - m_level);
   }
 
-  pair<uint32_t, uint32_t> XY() const
+  std::pair<uint32_t, uint32_t> XY() const
   {
-    ASSERT(IsValid(), (m_Bits, m_Level));
-    uint32_t offset = 1 << (DEPTH_LEVELS - 1 - m_Level);
-    pair<uint32_t, uint32_t> xy(offset, offset);
-    uint64_t bits = m_Bits;
-    while (bits > 0)
-    {
-      offset <<= 1;
-      if (bits & 1)
-        xy.first += offset;
-      if (bits & 2)
-        xy.second += offset;
-      bits >>= 2;
-    }
-    ASSERT_EQUAL(*this, FromXY(xy.first, xy.second, m_Level), ());
+    ASSERT(IsValid(), (m_bits, m_level));
+    std::pair<uint32_t, uint32_t> xy;
+    bits::BitwiseSplit(m_bits, xy.first, xy.second);
+    xy.first = 2 * xy.first + 1;
+    xy.second = 2 * xy.second + 1;
+    xy.first <<= DEPTH_LEVELS - 1 - m_level;
+    xy.second <<= DEPTH_LEVELS - 1 - m_level;
+    ASSERT_EQUAL(*this, FromXY(xy.first, xy.second, m_level), ());
     return xy;
   }
 
@@ -172,24 +169,20 @@ public:
     }
     x >>= DEPTH_LEVELS - level;
     y >>= DEPTH_LEVELS - level;
-    // This operation is called "perfect shuffle". Optimized bit trick can be used here.
-    uint64_t bits = 0;
-    for (int i = 0; i < level; ++i)
-      bits |= ((uint64_t((y >> i) & 1) << (2 * i + 1)) | (uint64_t((x >> i) & 1) << (2 * i)));
+    uint64_t const bits = bits::BitwiseMerge(x, y);
     return CellId(bits, level);
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   // Ordering
-
   struct LessLevelOrder
   {
     bool operator()(CellId<DEPTH_LEVELS> const & id1, CellId<DEPTH_LEVELS> const & id2) const
     {
-      if (id1.m_Level != id2.m_Level)
-        return id1.m_Level < id2.m_Level;
-      if (id1.m_Bits != id2.m_Bits)
-        return id1.m_Bits < id2.m_Bits;
+      if (id1.m_level != id2.m_level)
+        return id1.m_level < id2.m_level;
+      if (id1.m_bits != id2.m_bits)
+        return id1.m_bits < id2.m_bits;
       return false;
     }
   };
@@ -198,10 +191,10 @@ public:
   {
     bool operator()(CellId<DEPTH_LEVELS> const & id1, CellId<DEPTH_LEVELS> const & id2) const
     {
-      if (id1.m_Level != id2.m_Level)
-        return id1.m_Level > id2.m_Level;
-      if (id1.m_Bits != id2.m_Bits)
-        return id1.m_Bits > id2.m_Bits;
+      if (id1.m_level != id2.m_level)
+        return id1.m_level > id2.m_level;
+      if (id1.m_bits != id2.m_bits)
+        return id1.m_bits > id2.m_bits;
       return false;
     }
   };
@@ -222,31 +215,34 @@ public:
 
   // Default ToInt64().
   int64_t ToInt64(int depth) const { return ToInt64LevelZOrder(depth); }
+
   // Default FromInt64().
   static CellId FromInt64(int64_t v, int depth) { return FromInt64LevelZOrder(v, depth); }
+
   // Level order, numbering by Z-curve.
   int64_t ToInt64LevelZOrder(int depth) const
   {
-    ASSERT(0 < depth && depth <= DEPTH_LEVELS, (m_Bits, m_Level, depth));
-    ASSERT(IsValid(), (m_Bits, m_Level));
+    ASSERT(0 < depth && depth <= DEPTH_LEVELS, (m_bits, m_level, depth));
+    ASSERT(IsValid(), (m_bits, m_level));
 
-    if (m_Level >= depth)
+    if (m_level >= depth)
       return AncestorAtLevel(depth - 1).ToInt64(depth);
-    else
+
+    uint64_t bits = m_bits;
+    uint64_t res = 0;
+    for (int i = 0; i <= m_level; ++i, bits >>= 2)
+      res += bits + 1;
+
+    bits = m_bits;
+    for (int i = m_level + 1; i < depth; ++i)
     {
-      uint64_t bits = m_Bits, res = 0;
-      for (int i = 0; i <= m_Level; ++i, bits >>= 2)
-        res += bits + 1;
-      bits = m_Bits;
-      for (int i = m_Level + 1; i < depth; ++i)
-      {
-        bits <<= 2;
-        res += bits;
-      }
-      ASSERT_GREATER(res, 0, (m_Bits, m_Level));
-      ASSERT_LESS_OR_EQUAL(res, TreeSizeForDepth(depth), (m_Bits, m_Level));
-      return static_cast<int64_t>(res);
+      bits <<= 2;
+      res += bits;
     }
+
+    ASSERT_GREATER(res, 0, (m_bits, m_level));
+    ASSERT_LESS_OR_EQUAL(res, TreeSizeForDepth(depth), (m_bits, m_level));
+    return static_cast<int64_t>(res);
   }
 
   // Level order, numbering by Z-curve.
@@ -262,14 +258,13 @@ public:
     {
       bits <<= 2;
       ++level;
-      uint64_t subTreeSize = TreeSizeForDepth(depth - level);
-      for (--v; v >= subTreeSize; v -= subTreeSize)
+      uint64_t subtreeSize = TreeSizeForDepth(depth - level);
+      for (--v; v >= subtreeSize; v -= subtreeSize)
         ++bits;
     }
     return CellId(bits, level);
   }
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
 private:
   static uint64_t TreeSizeForDepth(int depth)
   {
@@ -277,31 +272,31 @@ private:
     return ((1ULL << 2 * depth) - 1) / 3ULL;
   }
 
-  CellId(uint64_t bits, int level) : m_Bits(bits), m_Level(level)
+  CellId(uint64_t bits, int level) : m_bits(bits), m_level(level)
   {
     ASSERT_LESS(level, DEPTH_LEVELS, (bits, level));
-    ASSERT_LESS(bits, 1ULL << m_Level * 2, (bits, m_Level));
-    ASSERT(IsValid(), (m_Bits, m_Level));
+    ASSERT_LESS(bits, 1ULL << m_level * 2, (bits, m_level));
+    ASSERT(IsValid(), (m_bits, m_level));
   }
 
   bool IsValid() const
   {
-    if (m_Level < 0 || m_Level >= DEPTH_LEVELS)
+    if (m_level < 0 || m_level >= DEPTH_LEVELS)
       return false;
-    if (m_Bits >= (1ULL << m_Level * 2))
+    if (m_bits >= (1ULL << m_level * 2))
       return false;
     return true;
   }
 
-  uint64_t m_Bits;
-  int m_Level;
+  uint64_t m_bits;
+  int m_level;
 };
 
 template <int DEPTH_LEVELS>
-string DebugPrint(CellId<DEPTH_LEVELS> const & id)
+std::string DebugPrint(CellId<DEPTH_LEVELS> const & id)
 {
-  ostringstream out;
+  std::ostringstream out;
   out << "CellId<" << DEPTH_LEVELS << ">(\"" << id.ToString().c_str() << "\")";
   return out.str();
 }
-}
+}  // namespace m2

@@ -142,6 +142,12 @@ namespace bits
     return x;
   }
 
+  // Returns the integer that has the bits of |x| at even-numbered positions
+  // and the bits of |y| at odd-numbered positions without changing the
+  // relative order of bits coming from |x| and |y|.
+  // That is, if the bits of |x| are {x31, x30, ..., x0},
+  //         and the bits of |y| are {y31, y30, ..., y0},
+  // then the bits of the result are {y31, x31, y30, x30, ..., y0, x0}.
   inline uint64_t BitwiseMerge(uint32_t x, uint32_t y)
   {
     uint32_t const hi = PerfectShuffle((y & 0xFFFF0000) | (x >> 16));

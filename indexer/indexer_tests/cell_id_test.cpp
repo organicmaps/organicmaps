@@ -5,9 +5,12 @@
 
 #include "coding/hex.hpp"
 
-#include "std/cmath.hpp"
-#include "std/random.hpp"
-#include "std/string.hpp"
+#include <cmath>
+#include <random>
+#include <string>
+#include <utility>
+
+using namespace std;
 
 typedef m2::CellId<30> CellIdT;
 

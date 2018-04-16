@@ -1,8 +1,12 @@
 #include "testing/testing.hpp"
+
 #include "geometry/cellid.hpp"
-#include "std/algorithm.hpp"
-#include "std/string.hpp"
-#include "std/vector.hpp"
+
+#include <algorithm>
+#include <string>
+#include <vector>
+
+using namespace std;
 
 UNIT_TEST(CellID_Parent)
 {

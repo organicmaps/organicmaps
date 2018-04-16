@@ -6,6 +6,8 @@
 
 #include "base/assert.hpp"
 
+#include <utility>
+
 using RectId = m2::CellId<19>;
 
 // 24 is enough to have cell size < 2.5m * 2.5m for world.
@@ -39,7 +41,7 @@ public:
     uint32_t const iy = static_cast<uint32_t>(YToCellIdY(y));
     CellId id = CellId::FromXY(ix, iy, CellId::DEPTH_LEVELS - 1);
 #if 0 // DEBUG
-    pair<uint32_t, uint32_t> ixy = id.XY();
+    std::pair<uint32_t, uint32_t> ixy = id.XY();
     ASSERT(Abs(ixy.first  - ix) <= 1, (x, y, id, ixy));
     ASSERT(Abs(ixy.second - iy) <= 1, (x, y, id, ixy));
     CoordT minX, minY, maxX, maxY;
@@ -72,14 +74,14 @@ public:
 
   static m2::PointD FromCellId(CellId id)
   {
-    pair<uint32_t, uint32_t> const xy = id.XY();
+    std::pair<uint32_t, uint32_t> const xy = id.XY();
     return m2::PointD(CellIdXToX(xy.first), CellIdYToY(xy.second));
   }
 
   static void GetCellBounds(CellId id,
                             double & minX, double & minY, double & maxX, double & maxY)
   {
-    pair<uint32_t, uint32_t> const xy = id.XY();
+    std::pair<uint32_t, uint32_t> const xy = id.XY();
     uint32_t const r = id.Radius();
     minX = (xy.first - r) * StepX() + Bounds::minX;
     maxX = (xy.first + r) * StepX() + Bounds::minX;

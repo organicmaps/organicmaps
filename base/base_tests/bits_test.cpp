@@ -63,6 +63,32 @@ UNIT_TEST(PerfectShuffle)
   TEST_EQUAL(bits::PerfectUnshuffle(201547860), 557851022, ());
 }
 
+UNIT_TEST(BitwiseMerge)
+{
+  TEST_EQUAL(bits::BitwiseMerge(1, 1), 3, ());
+  TEST_EQUAL(bits::BitwiseMerge(3, 1), 7, ());
+  TEST_EQUAL(bits::BitwiseMerge(1, 3), 11, ());
+  TEST_EQUAL(bits::BitwiseMerge(uint32_t{1} << 31, uint32_t{1} << 31), uint64_t{3} << 62, ());
+
+  auto bitwiseMergeSlow = [](uint32_t x, uint32_t y) -> uint64_t {
+    uint64_t result = 0;
+    for (uint32_t i = 0; i < 32; ++i)
+    {
+      uint64_t const bitX = (static_cast<uint64_t>(x) >> i) & 1;
+      uint64_t const bitY = (static_cast<uint64_t>(y) >> i) & 1;
+      result |= bitX << (2 * i);
+      result |= bitY << (2 * i + 1);
+    }
+    return result;
+  };
+
+  for (uint32_t x = 0; x < 16; ++x)
+  {
+    for (uint32_t y = 0; y < 16; ++y)
+      TEST_EQUAL(bits::BitwiseMerge(x, y), bitwiseMergeSlow(x, y), (x, y));
+  }
+}
+
 UNIT_TEST(ZigZagEncode)
 {
   TEST_EQUAL(bits::ZigZagEncode(0),  0, ());
