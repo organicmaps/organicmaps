@@ -146,7 +146,7 @@ extension BCCreateCategoryAlert: UITextFieldDelegate {
 
 extension BCCreateCategoryAlert: MWMKeyboardObserver {
   func onKeyboardAnimation() {
-    centerHorizontaly.constant -= MWMKeyboard.keyboardHeight() / 2
+    centerHorizontaly.constant = -MWMKeyboard.keyboardHeight() / 2
     layoutIfNeeded()
   }
 
