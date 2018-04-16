@@ -18,6 +18,7 @@ public:
   public:
     Score();
     bool operator<(Score const & s) const;
+    bool operator<=(Score const & s) const;
 
   private:
     friend class KeywordLangMatcher;

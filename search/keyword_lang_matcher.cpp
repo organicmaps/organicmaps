@@ -35,6 +35,10 @@ bool KeywordLangMatcher::Score::operator<(KeywordLangMatcher::Score const & scor
   return m_parentScore.LessInTokensLength(score.m_parentScore);
 }
 
+bool KeywordLangMatcher::Score::operator<=(KeywordLangMatcher::Score const & score) const
+{
+  return !(score < *this);
+}
 // KeywordLangMatcher ------------------------------------------------------------------------------
 KeywordLangMatcher::KeywordLangMatcher(size_t maxLanguageTiers)
   : m_languagePriorities(maxLanguageTiers)
