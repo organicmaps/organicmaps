@@ -60594,7 +60594,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "erotic-m"
+      name: "hand-m"
       priority: 16447
       min_distance: 10
     }
@@ -60610,7 +60610,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "erotic-l"
+      name: "hand-l"
       priority: 16447
       min_distance: 24
     }
@@ -60626,7 +60626,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "erotic-l"
+      name: "hand-l"
       priority: 16447
       min_distance: 10
     }
@@ -60642,7 +60642,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "erotic-l"
+      name: "hand-l"
       priority: 16447
       min_distance: 10
     }
