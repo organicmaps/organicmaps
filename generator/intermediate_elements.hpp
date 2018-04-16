@@ -1,7 +1,6 @@
 #pragma once
 
 #include "base/assert.hpp"
-#include "base/std_serialization.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"

@@ -62,7 +62,6 @@ set(
   src_point.cpp
   src_point.hpp
   stats.hpp
-  std_serialization.hpp
   stl_add.hpp
   stl_helpers.hpp
   stl_iterator.hpp
