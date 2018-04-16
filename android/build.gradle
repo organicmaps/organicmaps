@@ -77,7 +77,8 @@ dependencies {
   implementation ('com.my.target:mytarget-sdk:4.6.14') {
     exclude group: 'com.android.support'
   }
-  implementation('com.mopub:mopub-sdk-native-static:4.17.0@aar') {
+  implementation('com.mopub:mopub-sdk-native-static:4.20.0@aar') {
+    exclude group: 'com.android.support'
     transitive = true
   }
   implementation fileTree(dir: '3rd_party', include: '*.jar')
@@ -307,6 +308,15 @@ android {
       versionName = android.defaultConfig.versionName + '-Blackberry'
       android.sourceSets.blackberry.assets.srcDirs = ['flavors/mwm-ttf-assets']
       buildConfigField 'String', 'REVIEW_URL', '"https://appworld.blackberry.com/webstore/content/51013892"'
+    }
+  }
+
+  variantFilter { variant ->
+    if (!variant.getFlavors().get(0).name.equals("web")
+            && !variant.getFlavors().get(0).name.equals("google")) {
+      println("Variant '" + variant.name + "' is ignored. If you want to build it please " +
+              "add variant's flavor to the variantFilter condition")
+      variant.setIgnore(true)
     }
   }
 
