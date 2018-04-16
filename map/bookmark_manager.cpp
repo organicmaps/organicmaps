@@ -755,7 +755,7 @@ Bookmark * BookmarkManager::AddBookmark(std::unique_ptr<Bookmark> && bookmark)
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto * bm = bookmark.get();
   auto const markId = bm->GetId();
-  ASSERT(m_bookmarks.count(markId) == 0, ());
+  CHECK_EQUAL(m_bookmarks.count(markId), 0, ());
   m_bookmarks.emplace(markId, std::move(bookmark));
   m_changesTracker.OnAddMark(markId);
   return bm;
@@ -766,7 +766,7 @@ Track * BookmarkManager::AddTrack(std::unique_ptr<Track> && track)
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto * t = track.get();
   auto const trackId = t->GetId();
-  ASSERT(m_tracks.count(trackId) == 0, ());
+  CHECK_EQUAL(m_tracks.count(trackId), 0, ());
   m_tracks.emplace(trackId, std::move(track));
   m_changesTracker.OnAddLine(trackId);
   return t;
@@ -1183,7 +1183,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData && da
     data.m_id = UserMarkIdStorage::Instance().GetNextCategoryId();
   }
   auto groupId = data.m_id;
-  ASSERT_EQUAL(m_categories.count(groupId), 0, ());
+  CHECK_EQUAL(m_categories.count(groupId), 0, ());
   m_categories[groupId] = my::make_unique<BookmarkCategory>(std::move(data), autoSave);
   UpdateBmGroupIdList();
   m_changesTracker.OnAddGroup(groupId);
@@ -1194,6 +1194,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & nam
 {
   ASSERT_THREAD_CHECKER(m_threadChecker, ());
   auto const groupId = UserMarkIdStorage::Instance().GetNextCategoryId();
+  CHECK_EQUAL(m_categories.count(groupId), 0, ());
   m_categories[groupId] = my::make_unique<BookmarkCategory>(name, groupId, autoSave);
   UpdateBmGroupIdList();
   m_changesTracker.OnAddGroup(groupId);

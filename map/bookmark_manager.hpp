@@ -334,7 +334,7 @@ private:
     auto * m = mark.get();
     auto const markId = m->GetId();
     auto const groupId = static_cast<kml::MarkGroupId>(m->GetMarkType());
-    ASSERT_EQUAL(m_userMarks.count(markId), 0, ());
+    CHECK_EQUAL(m_userMarks.count(markId), 0, ());
     ASSERT_LESS(groupId, m_userMarkLayers.size(), ());
     m_userMarks.emplace(markId, std::move(mark));
     m_changesTracker.OnAddMark(markId);
