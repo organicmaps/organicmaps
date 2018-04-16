@@ -2478,7 +2478,8 @@ node|z16[shop=computer],
 area|z16[shop=computer]
 {icon-image: computer-m.svg;}
 node|z16[shop=tattoo],
-area|z16[shop=tattoo],
+area|z16[shop=tattoo]
+{icon-image: hand-m.svg;}
 node|z16[shop=erotic],
 area|z16[shop=erotic]
 {icon-image: erotic-m.svg;}
@@ -2638,7 +2639,8 @@ node|z17[shop=computer],
 area|z17[shop=computer]
 {icon-image: computer-l.svg;icon-min-distance: 24;}
 node|z17[shop=tattoo],
-area|z17[shop=tattoo],
+area|z17[shop=tattoo]
+{icon-image: hand-l.svg;icon-min-distance: 24;}
 node|z17[shop=erotic],
 area|z17[shop=erotic]
 {icon-image: erotic-l.svg;icon-min-distance: 24;}
@@ -2804,7 +2806,8 @@ node|z18-[shop=computer],
 area|z18-[shop=computer]
 {icon-image: computer-l.svg;}
 node|z18-[shop=tattoo],
-area|z18-[shop=tattoo],
+area|z18-[shop=tattoo]
+{icon-image: hand-l.svg;}
 node|z18-[shop=erotic],
 area|z18-[shop=erotic]
 {icon-image: erotic-l.svg;}
