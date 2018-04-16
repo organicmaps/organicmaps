@@ -13,25 +13,26 @@ namespace
 {
 std::vector<std::string> const kSymbols =
 {
-  "search-result",           // Default.
-  "searchbooking-default-l", // Booking.
-  "search-adv",              // LocalAds.
-  "search-football",         // FC 2018.
+  "search-result",              // Default.
+  "searchbooking-default-l",    // Booking.
+  "search-adv",                 // Local Ads.
+  "searchbookingadv-default-l", // Local Ads + Booking.
+  "search-football",            // FC 2018.
 
-  "non-found-search-result", // NotFound.
+  "non-found-search-result",    // NotFound.
 };
 
 std::vector<std::string> const kPreparingSymbols =
 {
-  "search-result",           // Default.
-  "searchbooking-inactive",  // Booking.
-  "search-adv",              // LocalAds.
-  "search-football",         // FC 2018.
+  "search-result",              // Default.
+  "searchbooking-inactive",     // Booking.
+  "search-adv",                 // Local Ads.
+  "searchbookingadv-default-l", // Local Ads + Booking.
+  "search-football",            // FC 2018.
 
-  "non-found-search-result", // NotFound.
+  "non-found-search-result",    // NotFound.
 };
 
-std::string const kBookingSmallIcon = "searchbooking-default-s";
 float const kRatingThreshold = 6.0f;
 float const kMetricThreshold = 0.38f;
 
@@ -65,6 +66,15 @@ bool NeedShowBookingBadge(float rating, int pricing)
   auto const metric = CalculateAggregateMetric(rating, pricing);
   return metric >= kMetricThreshold;
 }
+
+std::string GetBookingSmallIcon(SearchMarkType type)
+{
+  if (type == SearchMarkType::Booking)
+    return "searchbooking-default-s";
+  if (type == SearchMarkType::LocalAdsBooking)
+    return "search-adv";
+  return {};
+}
 }  // namespace
 
 SearchMarkPoint::SearchMarkPoint(m2::PointD const & ptOrg)
@@ -97,7 +107,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames
   if (IsBookingSpecialMark())
   {
     symbol->insert(std::make_pair(1 /* zoomLevel */, m_rating < kRatingThreshold ?
-                                                     kBookingSmallIcon : name));
+                                                     GetBookingSmallIcon(m_type) : name));
     symbol->insert(std::make_pair(17 /* zoomLevel */, name));
   }
   else
@@ -150,6 +160,9 @@ df::ColorConstant SearchMarkPoint::GetColorConstant() const
 {
   if (!IsBookingSpecialMark())
     return {};
+
+  if (m_type == SearchMarkType::LocalAdsBooking)
+    return "RatingLocalAds";
 
   if (HasNoRating(m_rating))
     return "RatingNone";
@@ -219,7 +232,8 @@ void SearchMarkPoint::SetPricing(int pricing)
 
 bool SearchMarkPoint::IsBookingSpecialMark() const
 {
-  return m_type == SearchMarkType::Booking && !m_isPreparing;
+  return (m_type == SearchMarkType::Booking || m_type == SearchMarkType::LocalAdsBooking) &&
+         !m_isPreparing;
 }
 
 // static

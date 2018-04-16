@@ -545,11 +545,11 @@ public:
 
   size_t ShowSearchResults(search::Results const & results);
 
-  using SearchMarkPostProcesing = function<void(SearchMarkPoint & mark)>;
+  using SearchMarkPostProcessing = function<void(SearchMarkPoint & mark)>;
 
   void FillSearchResultsMarks(bool clear, search::Results const & results);
   void FillSearchResultsMarks(bool clear, search::Results::ConstIter begin,
-                              search::Results::ConstIter end, SearchMarkPostProcesing fn = nullptr);
+                              search::Results::ConstIter end, SearchMarkPostProcessing fn = nullptr);
   list<TSearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }
   void SaveSearchQuery(TSearchRequest const & query) { m_searchQuerySaver.Add(query); }
   void ClearSearchHistory() { m_searchQuerySaver.Clear(); }
