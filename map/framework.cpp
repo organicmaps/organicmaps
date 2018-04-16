@@ -95,6 +95,7 @@
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
 #include "std/target_os.hpp"
+#include "std/tuple.hpp"
 
 #include "api/internal/c/api-client-internals.h"
 #include "api/src/c/api-client.h"
@@ -1442,11 +1443,11 @@ search::DisplayedCategories const & Framework::GetDisplayedCategories()
     city = m_cityFinder->GetCityName(*position, StringUtf8Multilang::kEnglishCode);
 
   // Apply sponsored modifiers.
-  std::vector<std::unique_ptr<SponsoredCategoryModifier>> modifiers;
-  modifiers.push_back(std::make_unique<LuggageHeroModifier>(city));
-  modifiers.push_back(std::make_unique<Fc2018Modifier>(city));
-  for (auto & modifier : modifiers)
-    m_displayedCategories->Modify(*modifier);
+  tuple<LuggageHeroModifier, Fc2018Modifier> modifiers(city, city);
+  for_each_tuple(modifiers, [&](size_t, SponsoredCategoryModifier & modifier)
+  {
+    m_displayedCategories->Modify(modifier);
+  });
 
   return *m_displayedCategories;
 }
