@@ -67591,8 +67591,8 @@ colors {
     color: 4043309055
   }
   value {
-    name: "BookmarkOrange"
-    color: 16752640
+    name: "RatingLocalAds"
+    color: 4962790
   }
   value {
     name: "GuiText"
@@ -67649,6 +67649,10 @@ colors {
   value {
     name: "BookmarkDeepOrange"
     color: 6323595
+  }
+  value {
+    name: "Arrow3DShadow"
+    color: 3258727484
   }
   value {
     name: "RatingExcellent"
@@ -67713,8 +67717,8 @@ colors {
     color: 6765239
   }
   value {
-    name: "Arrow3DShadow"
-    color: 3258727484
+    name: "RatingBad"
+    color: 15754290
   }
   value {
     name: "RoadShieldBlackText"
@@ -67788,8 +67792,8 @@ colors {
     color: 4287393810
   }
   value {
-    name: "RatingBad"
-    color: 15754290
+    name: "BookmarkOrange"
+    color: 16752640
   }
   value {
     name: "TrafficG1"
