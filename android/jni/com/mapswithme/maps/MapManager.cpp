@@ -453,7 +453,7 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeIsDownloading(JNIEnv * env,
 
 static void StartBatchingCallbacks()
 {
-  ASSERT_THREAD_CHECKER(g_batchingThreadChecker, ("StartBatchingCallbacks"));
+  CHECK_THREAD_CHECKER(g_batchingThreadChecker, ("StartBatchingCallbacks"));
   ASSERT(!g_isBatched, ());
   ASSERT(g_batchedCallbackData.empty(), ());
 
@@ -462,7 +462,7 @@ static void StartBatchingCallbacks()
 
 static void EndBatchingCallbacks(JNIEnv * env)
 {
-  ASSERT_THREAD_CHECKER(g_batchingThreadChecker, ("EndBatchingCallbacks"));
+  CHECK_THREAD_CHECKER(g_batchingThreadChecker, ("EndBatchingCallbacks"));
 
   static jclass arrayListClass = jni::GetGlobalClassRef(env, "java/util/ArrayList");
   static jmethodID arrayListCtor = jni::GetConstructorID(env, arrayListClass, "(I)V");

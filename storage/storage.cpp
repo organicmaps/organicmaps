@@ -128,7 +128,7 @@ Storage::Storage(string const & referenceCountriesTxtJsonForTesting,
 
 void Storage::Init(TUpdateCallback const & didDownload, TDeleteCallback const & willDelete)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   m_didDownload = didDownload;
   m_willDelete = willDelete;
@@ -136,7 +136,7 @@ void Storage::Init(TUpdateCallback const & didDownload, TDeleteCallback const & 
 
 void Storage::DeleteAllLocalMaps(TCountriesVec * existedCountries /* = nullptr */)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   for (auto const & localFiles : m_localFiles)
   {
@@ -153,14 +153,14 @@ void Storage::DeleteAllLocalMaps(TCountriesVec * existedCountries /* = nullptr *
 
 bool Storage::HaveDownloadedCountries() const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   return !m_localFiles.empty();
 }
 
 Storage * Storage::GetPrefetchStorage()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_prefetchStorage.get() != nullptr, ());
 
   return m_prefetchStorage.get();
@@ -168,7 +168,7 @@ Storage * Storage::GetPrefetchStorage()
 
 void Storage::PrefetchMigrateData()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   m_prefetchStorage.reset(new Storage(COUNTRIES_FILE, "migrate"));
   m_prefetchStorage->EnableKeepDownloadingQueue(false);
@@ -180,7 +180,7 @@ void Storage::PrefetchMigrateData()
 
 void Storage::Migrate(TCountriesVec const & existedCountries)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   platform::migrate::SetMigrationFlag();
 
@@ -221,7 +221,7 @@ void Storage::Migrate(TCountriesVec const & existedCountries)
 
 void Storage::Clear()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   m_downloader->Reset();
   m_queue.clear();
@@ -234,7 +234,7 @@ void Storage::Clear()
 
 void Storage::RegisterAllLocalMaps(bool enableDiffs)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   m_localFiles.clear();
   m_localFilesForFakeCountries.clear();
@@ -312,7 +312,7 @@ void Storage::RegisterAllLocalMaps(bool enableDiffs)
 
 void Storage::GetLocalMaps(vector<TLocalFilePtr> & maps) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   for (auto const & p : m_localFiles)
     maps.push_back(GetLatestLocalFile(p.first));
@@ -325,7 +325,7 @@ void Storage::GetLocalMaps(vector<TLocalFilePtr> & maps) const
 
 size_t Storage::GetDownloadedFilesCount() const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   return m_localFiles.size();
 }
@@ -386,7 +386,7 @@ CountryFile const & Storage::GetCountryFile(TCountryId const & countryId) const
 
 TLocalFilePtr Storage::GetLatestLocalFile(CountryFile const & countryFile) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   TCountryId const countryId = FindCountryIdByFile(countryFile.GetName());
   if (IsLeaf(countryId))
@@ -405,7 +405,7 @@ TLocalFilePtr Storage::GetLatestLocalFile(CountryFile const & countryFile) const
 
 TLocalFilePtr Storage::GetLatestLocalFile(TCountryId const & countryId) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   auto const it = m_localFiles.find(countryId);
   if (it == m_localFiles.end() || it->second.empty())
@@ -462,7 +462,7 @@ void Storage::CountryStatusEx(TCountryId const & countryId, Status & status,
 
 void Storage::SaveDownloadQueue()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   if (!m_keepDownloadingQueue)
     return;
@@ -510,7 +510,7 @@ void Storage::RestoreDownloadQueue()
 
 void Storage::DownloadCountry(TCountryId const & countryId, MapOptions opt)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   if (opt == MapOptions::Nothing)
     return;
@@ -550,7 +550,7 @@ void Storage::DeleteCountry(TCountryId const & countryId, MapOptions opt)
 
 void Storage::DeleteCustomCountryVersion(LocalCountryFile const & localFile)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   CountryFile const countryFile = localFile.GetCountryFile();
   DeleteFromDiskWithIndexes(localFile, MapOptions::MapWithCarRouting);
@@ -574,7 +574,7 @@ void Storage::DeleteCustomCountryVersion(LocalCountryFile const & localFile)
 
 void Storage::NotifyStatusChanged(TCountryId const & countryId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   for (CountryObservers const & observer : m_observers)
     observer.m_changeCountryFn(countryId);
@@ -594,7 +594,7 @@ void Storage::NotifyStatusChangedForHierarchy(TCountryId const & countryId)
 
 void Storage::DownloadNextCountryFromQueue()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   bool const stopDownload = !m_downloadingPolicy->IsDownloadingAllowed();
 
@@ -681,7 +681,7 @@ void Storage::DownloadNextFile(QueuedCountry const & country)
 
 void Storage::DeleteFromDownloader(TCountryId const & countryId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   if (DeleteCountryFilesFromDownloader(countryId))
     NotifyStatusChangedForHierarchy(countryId);
@@ -689,14 +689,14 @@ void Storage::DeleteFromDownloader(TCountryId const & countryId)
 
 bool Storage::IsDownloadInProgress() const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   return !m_queue.empty();
 }
 
 TCountryId Storage::GetCurrentDownloadingCountryId() const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   return IsDownloadInProgress() ? m_queue.front().GetCountryId() : storage::TCountryId();
 }
@@ -718,7 +718,7 @@ void Storage::LoadCountriesFile(string const & pathToCountriesFile, string const
 
 int Storage::Subscribe(TChangeCountryFunction const & change, TProgressFunction const & progress)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   CountryObservers obs;
 
@@ -733,7 +733,7 @@ int Storage::Subscribe(TChangeCountryFunction const & change, TProgressFunction 
 
 void Storage::Unsubscribe(int slotId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   for (auto i = m_observers.begin(); i != m_observers.end(); ++i)
   {
@@ -748,7 +748,7 @@ void Storage::Unsubscribe(int slotId)
 void Storage::OnMapFileDownloadFinished(bool success,
                                         MapFilesDownloader::TProgress const & progress)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   if (m_queue.empty())
     return;
@@ -779,7 +779,7 @@ void Storage::OnMapFileDownloadFinished(bool success,
 
 void Storage::ReportProgress(TCountryId const & countryId, MapFilesDownloader::TProgress const & p)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (CountryObservers const & o : m_observers)
     o.m_progressFn(countryId, p);
 }
@@ -810,7 +810,7 @@ void Storage::ReportProgressForHierarchy(TCountryId const & countryId,
 
 void Storage::DoDownload()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK(m_sessionServerList || !m_downloadingUrlsForTesting.empty(), ());
 
   // Queue can be empty because countries were deleted from queue.
@@ -851,14 +851,14 @@ void Storage::DoDownload()
 
 void Storage::SetDeferDownloading()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   m_needToStartDeferredDownloading = true;
 }
 
 void Storage::DoDeferredDownloadIfNeeded()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   if (!m_needToStartDeferredDownloading || !m_sessionServerList)
     return;
@@ -869,7 +869,7 @@ void Storage::DoDeferredDownloadIfNeeded()
 
 void Storage::OnMapFileDownloadProgress(MapFilesDownloader::TProgress const & progress)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   // Queue can be empty because countries were deleted from queue.
   if (m_queue.empty())
@@ -883,11 +883,11 @@ void Storage::OnMapFileDownloadProgress(MapFilesDownloader::TProgress const & pr
 
 void Storage::RegisterDownloadedFiles(TCountryId const & countryId, MapOptions options)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   auto const fn = [this, countryId](bool isSuccess)
   {
-    ASSERT_THREAD_CHECKER(m_threadChecker, ());
+    CHECK_THREAD_CHECKER(m_threadChecker, ());
     if (!isSuccess)
     {
       OnDownloadFailed(countryId);
@@ -962,7 +962,7 @@ void Storage::RegisterDownloadedFiles(TCountryId const & countryId, MapOptions o
 
 void Storage::OnMapDownloadFinished(TCountryId const & countryId, bool success, MapOptions options)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_didDownload != nullptr, ("Storage::Init wasn't called"));
   ASSERT_NOT_EQUAL(MapOptions::Nothing, options,
                    ("This method should not be called for empty files set."));
@@ -1086,7 +1086,7 @@ MapOptions Storage::NormalizeDeleteFileSet(MapOptions options) const
 
 QueuedCountry * Storage::FindCountryInQueue(TCountryId const & countryId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   auto it = find(m_queue.begin(), m_queue.end(), countryId);
   return it == m_queue.end() ? nullptr : &*it;
@@ -1094,7 +1094,7 @@ QueuedCountry * Storage::FindCountryInQueue(TCountryId const & countryId)
 
 QueuedCountry const * Storage::FindCountryInQueue(TCountryId const & countryId) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   auto it = find(m_queue.begin(), m_queue.end(), countryId);
   return it == m_queue.end() ? nullptr : &*it;
@@ -1107,14 +1107,14 @@ bool Storage::IsCountryInQueue(TCountryId const & countryId) const
 
 bool Storage::IsCountryFirstInQueue(TCountryId const & countryId) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   return !m_queue.empty() && m_queue.front().GetCountryId() == countryId;
 }
 
 bool Storage::IsDiffApplyingInProgressToCountry(TCountryId const & countryId) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   if (!IsCountryFirstInQueue(countryId))
     return false;
@@ -1225,7 +1225,7 @@ void Storage::DeleteCountryFiles(TCountryId const & countryId, MapOptions opt, b
 
 bool Storage::DeleteCountryFilesFromDownloader(TCountryId const & countryId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   QueuedCountry * queuedCountry = FindCountryInQueue(countryId);
   if (!queuedCountry)
@@ -1300,7 +1300,7 @@ bool Storage::CheckFailedCountries(TCountriesVec const & countries) const
 TCountryId const Storage::GetRootId() const { return m_countries.GetRoot().Value().Name(); }
 void Storage::GetChildren(TCountryId const & parent, TCountriesVec & childIds) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   TCountryTreeNode const * const parentNode = m_countries.FindFirst(parent);
   if (parentNode == nullptr)
@@ -1318,7 +1318,7 @@ void Storage::GetChildren(TCountryId const & parent, TCountriesVec & childIds) c
 
 void Storage::GetLocalRealMaps(TCountriesVec & localMaps) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   localMaps.clear();
   localMaps.reserve(m_localFiles.size());
@@ -1330,7 +1330,7 @@ void Storage::GetLocalRealMaps(TCountriesVec & localMaps) const
 void Storage::GetChildrenInGroups(TCountryId const & parent, TCountriesVec & downloadedChildren,
                                   TCountriesVec & availChildren, bool keepAvailableChildren) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   TCountryTreeNode const * const parentNode = m_countries.FindFirst(parent);
   if (parentNode == nullptr)
@@ -1398,7 +1398,7 @@ void Storage::GetChildrenInGroups(TCountryId const & parent, TCountriesVec & dow
 
 bool Storage::IsNodeDownloaded(TCountryId const & countryId) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   for (auto const & localeMap : m_localFiles)
   {
@@ -1415,7 +1415,7 @@ bool Storage::HasLatestVersion(TCountryId const & countryId) const
 
 void Storage::DownloadNode(TCountryId const & countryId, bool isUpdate /* = false */)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   TCountryTreeNode const * const node = m_countries.FindFirst(countryId);
 
@@ -1437,7 +1437,7 @@ void Storage::DownloadNode(TCountryId const & countryId, bool isUpdate /* = fals
 
 void Storage::DeleteNode(TCountryId const & countryId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   TCountryTreeNode const * const node = m_countries.FindFirst(countryId);
 
@@ -1480,7 +1480,7 @@ void Storage::CalMaxMwmSizeBytes()
 
 void Storage::LoadDiffScheme()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   diffs::LocalMapsInfo localMapsInfo;
   auto const currentVersion = GetCurrentDataVersion();
   localMapsInfo.m_currentDataVersion = currentVersion;
@@ -1531,28 +1531,28 @@ void Storage::ApplyDiff(TCountryId const & countryId, function<void(bool isSucce
 
 void Storage::LoadServerListForSession()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   m_downloader->GetServersList([this](vector<string> const & urls) { PingServerList(urls); });
 }
 
 void Storage::LoadServerListForTesting()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   m_downloader->GetServersList([this](auto const & urls) { m_sessionServerList = urls; });
 }
 
 void Storage::PingServerList(vector<string> const & urls)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   if (urls.empty())
     return;
 
   GetPlatform().RunTask(Platform::Thread::Network, [urls, this] {
     Pinger::Ping(urls, [this, urls](vector<string> readyUrls) {
-      ASSERT_THREAD_CHECKER(m_threadChecker, ());
+      CHECK_THREAD_CHECKER(m_threadChecker, ());
 
       if (readyUrls.empty())
         m_sessionServerList = urls;
@@ -1566,13 +1566,13 @@ void Storage::PingServerList(vector<string> const & urls)
 
 bool Storage::IsPossibleToAutoupdate() const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   return m_diffManager.IsPossibleToAutoupdate();
 }
 
 void Storage::SetStartDownloadingCallback(StartDownloadingCallback const & cb)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   m_startDownloadingCallback = cb;
 }
@@ -1646,7 +1646,7 @@ StatusAndError Storage::GetNodeStatusInfo(
 
 void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   vector<TCountryTreeNode const *> nodes;
   m_countries.Find(countryId, nodes);
@@ -1753,7 +1753,7 @@ void Storage::GetNodeAttrs(TCountryId const & countryId, NodeAttrs & nodeAttrs) 
 
 void Storage::GetNodeStatuses(TCountryId const & countryId, NodeStatuses & nodeStatuses) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   TCountryTreeNode const * const node = m_countries.FindFirst(countryId);
   CHECK(node, (countryId));
@@ -1766,14 +1766,14 @@ void Storage::GetNodeStatuses(TCountryId const & countryId, NodeStatuses & nodeS
 
 void Storage::SetCallbackForClickOnDownloadMap(TDownloadFn & downloadFn)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   m_downloadMapOnTheMap = downloadFn;
 }
 
 void Storage::DoClickOnDownloadMap(TCountryId const & countryId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   if (m_downloadMapOnTheMap)
     m_downloadMapOnTheMap(countryId);

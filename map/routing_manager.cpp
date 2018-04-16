@@ -777,7 +777,7 @@ void RoutingManager::GenerateTurnNotifications(vector<string> & turnNotification
 
 void RoutingManager::BuildRoute(uint32_t timeoutSec)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
+  CHECK_THREAD_CHECKER(m_threadChecker, ("BuildRoute"));
 
   m_bmManager->GetEditSession().ClearGroup(UserMark::Type::TRANSIT);
 
@@ -1052,7 +1052,7 @@ bool RoutingManager::IsTrackingReporterEnabled() const
 
 void RoutingManager::SetRouter(RouterType type)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ("SetRouter"));
+  CHECK_THREAD_CHECKER(m_threadChecker, ("SetRouter"));
 
   if (m_currentRouterType == type)
     return;

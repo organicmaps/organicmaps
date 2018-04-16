@@ -56,7 +56,7 @@ std::string Manager::GetLocalExpertsUrl(m2::PointD const & point) const
 
 std::string Manager::GetCityViatorId(m2::PointD const & point) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto const fid = m_cityFinder.GetCityFeatureID(point);
   if (!fid.IsValid())
     return {};

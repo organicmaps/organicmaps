@@ -329,7 +329,7 @@ private:
   template <typename UserMarkT>
   UserMarkT * CreateUserMark(m2::PointD const & ptOrg)
   {
-    ASSERT_THREAD_CHECKER(m_threadChecker, ());
+    CHECK_THREAD_CHECKER(m_threadChecker, ());
     auto mark = std::make_unique<UserMarkT>(ptOrg);
     auto * m = mark.get();
     auto const markId = m->GetId();
@@ -345,7 +345,7 @@ private:
   template <typename UserMarkT>
   UserMarkT * GetMarkForEdit(kml::MarkId markId)
   {
-    ASSERT_THREAD_CHECKER(m_threadChecker, ());
+    CHECK_THREAD_CHECKER(m_threadChecker, ());
     auto * mark = GetUserMarkForEdit(markId);
     ASSERT(dynamic_cast<UserMarkT *>(mark) != nullptr, ());
     return static_cast<UserMarkT *>(mark);
@@ -354,7 +354,7 @@ private:
   template <typename UserMarkT, typename F>
   void DeleteUserMarks(UserMark::Type type, F && deletePredicate)
   {
-    ASSERT_THREAD_CHECKER(m_threadChecker, ());
+    CHECK_THREAD_CHECKER(m_threadChecker, ());
     std::list<kml::MarkId> marksToDelete;
     for (auto markId : GetUserMarkIds(type))
     {

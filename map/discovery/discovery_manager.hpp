@@ -59,7 +59,7 @@ public:
   uint32_t Discover(Params && params, ResultCallback const & onResult, ErrorCalback const & onError)
   {
     uint32_t const requestId = ++m_requestCounter;
-    ASSERT_THREAD_CHECKER(m_threadChecker, ());
+    CHECK_THREAD_CHECKER(m_threadChecker, ());
     auto const & types = params.m_itemTypes;
     ASSERT(!types.empty(), ("Types must contain at least one element."));
 
@@ -91,7 +91,7 @@ public:
             sponsoredId, params.m_curency,
             [this, requestId, sponsoredId, onResult, onError](std::string const & destId,
                                                      std::vector<viator::Product> const & products) {
-              ASSERT_THREAD_CHECKER(m_threadChecker, ());
+              CHECK_THREAD_CHECKER(m_threadChecker, ());
               if (destId == sponsoredId)
               {
                 if (products.empty())
@@ -129,11 +129,11 @@ public:
             [this, requestId, onResult](uint64_t id, std::vector<locals::LocalExpert> const & locals,
                                         size_t /* pageNumber */, size_t /* countPerPage */,
                                         bool /* hasPreviousPage */, bool /* hasNextPage */) {
-              ASSERT_THREAD_CHECKER(m_threadChecker, ());
+              CHECK_THREAD_CHECKER(m_threadChecker, ());
               onResult(requestId, locals);
             },
             [this, requestId, onError, type](uint64_t id, int errorCode, std::string const & errorMessage) {
-              ASSERT_THREAD_CHECKER(m_threadChecker, ());
+              CHECK_THREAD_CHECKER(m_threadChecker, ());
               onError(requestId, type);
             });
         break;

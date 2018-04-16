@@ -399,13 +399,13 @@ BookmarkManager::BookmarkManager(Callbacks && callbacks)
 
 BookmarkManager::EditSession BookmarkManager::GetEditSession()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   return EditSession(*this);
 }
 
 UserMark const * BookmarkManager::GetMark(kml::MarkId markId) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (IsBookmark(markId))
     return GetBookmark(markId);
   return GetUserMark(markId);
@@ -413,14 +413,14 @@ UserMark const * BookmarkManager::GetMark(kml::MarkId markId) const
 
 UserMark const * BookmarkManager::GetUserMark(kml::MarkId markId) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_userMarks.find(markId);
   return (it != m_userMarks.end()) ? it->second.get() : nullptr;
 }
 
 UserMark * BookmarkManager::GetUserMarkForEdit(kml::MarkId markId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_userMarks.find(markId);
   if (it != m_userMarks.end())
   {
@@ -432,7 +432,7 @@ UserMark * BookmarkManager::GetUserMarkForEdit(kml::MarkId markId)
 
 void BookmarkManager::DeleteUserMark(kml::MarkId markId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(!IsBookmark(markId), ());
   auto it = m_userMarks.find(markId);
   auto const groupId = it->second->GetGroupId();
@@ -443,13 +443,13 @@ void BookmarkManager::DeleteUserMark(kml::MarkId markId)
 
 Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bmData)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   return AddBookmark(std::make_unique<Bookmark>(std::move(bmData)));
 }
 
 Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bm, kml::MarkGroupId groupId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kBookmarksBookmarkAction,
                                                          {{"action", "create"}});
 
@@ -470,14 +470,14 @@ Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bm, kml::MarkGro
 
 Bookmark const * BookmarkManager::GetBookmark(kml::MarkId markId) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_bookmarks.find(markId);
   return (it != m_bookmarks.end()) ? it->second.get() : nullptr;
 }
 
 Bookmark * BookmarkManager::GetBookmarkForEdit(kml::MarkId markId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_bookmarks.find(markId);
   if (it == m_bookmarks.end())
     return nullptr;
@@ -491,21 +491,21 @@ Bookmark * BookmarkManager::GetBookmarkForEdit(kml::MarkId markId)
 
 void BookmarkManager::AttachBookmark(kml::MarkId bmId, kml::MarkGroupId catID)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   GetBookmarkForEdit(bmId)->Attach(catID);
   GetGroup(catID)->AttachUserMark(bmId);
 }
 
 void BookmarkManager::DetachBookmark(kml::MarkId bmId, kml::MarkGroupId catID)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   GetBookmarkForEdit(bmId)->Detach();
   GetGroup(catID)->DetachUserMark(bmId);
 }
 
 void BookmarkManager::DeleteBookmark(kml::MarkId bmId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(IsBookmark(bmId), ());
   auto groupIt = m_bookmarks.find(bmId);
   auto const groupId = groupIt->second->GetGroupId();
@@ -517,20 +517,20 @@ void BookmarkManager::DeleteBookmark(kml::MarkId bmId)
 
 Track * BookmarkManager::CreateTrack(kml::TrackData && trackData)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   return AddTrack(std::make_unique<Track>(std::move(trackData)));
 }
 
 Track const * BookmarkManager::GetTrack(kml::TrackId trackId) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_tracks.find(trackId);
   return (it != m_tracks.end()) ? it->second.get() : nullptr;
 }
 
 void BookmarkManager::AttachTrack(kml::TrackId trackId, kml::MarkGroupId groupId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_tracks.find(trackId);
   it->second->Attach(groupId);
   GetBmCategory(groupId)->AttachTrack(trackId);
@@ -538,13 +538,13 @@ void BookmarkManager::AttachTrack(kml::TrackId trackId, kml::MarkGroupId groupId
 
 void BookmarkManager::DetachTrack(kml::TrackId trackId, kml::MarkGroupId groupId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   GetBmCategory(groupId)->DetachTrack(trackId);
 }
 
 void BookmarkManager::DeleteTrack(kml::TrackId trackId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_tracks.find(trackId);
   auto const groupId = it->second->GetGroupId();
   if (groupId != kml::kInvalidMarkGroupId)
@@ -555,7 +555,7 @@ void BookmarkManager::DeleteTrack(kml::TrackId trackId)
 
 void BookmarkManager::CollectDirtyGroups(kml::GroupIdSet & dirtyGroups)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (auto const & group : m_userMarkLayers)
   {
     if (!group->IsDirty())
@@ -585,7 +585,7 @@ void BookmarkManager::OnEditSessionClosed()
 
 void BookmarkManager::NotifyChanges()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (!m_changesTracker.CheckChanges() && !m_firstDrapeNotification)
     return;
 
@@ -639,19 +639,19 @@ void BookmarkManager::NotifyChanges()
 
 kml::MarkIdSet const & BookmarkManager::GetUserMarkIds(kml::MarkGroupId groupId) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   return GetGroup(groupId)->GetUserMarks();
 }
 
 kml::TrackIdSet const & BookmarkManager::GetTrackIds(kml::MarkGroupId groupId) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   return GetGroup(groupId)->GetUserLines();
 }
 
 void BookmarkManager::ClearGroup(kml::MarkGroupId groupId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto * group = GetGroup(groupId);
   for (auto markId : group->GetUserMarks())
   {
@@ -671,25 +671,25 @@ void BookmarkManager::ClearGroup(kml::MarkGroupId groupId)
 
 std::string BookmarkManager::GetCategoryName(kml::MarkGroupId categoryId) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   return GetBmCategory(categoryId)->GetName();
 }
 
 void BookmarkManager::SetCategoryName(kml::MarkGroupId categoryId, std::string const & name)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   GetBmCategory(categoryId)->SetName(name);
 }
 
 std::string BookmarkManager::GetCategoryFileName(kml::MarkGroupId categoryId) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   return GetBmCategory(categoryId)->GetFileName();
 }
 
 kml::MarkGroupId BookmarkManager::GetCategoryId(std::string const & name) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (auto const & category : m_categories)
   {
     if (category.second->GetName() == name)
@@ -700,7 +700,7 @@ kml::MarkGroupId BookmarkManager::GetCategoryId(std::string const & name) const
 
 UserMark const * BookmarkManager::FindMarkInRect(kml::MarkGroupId groupId, m2::AnyRectD const & rect, double & d) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto const * group = GetGroup(groupId);
 
   UserMark const * resMark = nullptr;
@@ -719,13 +719,13 @@ UserMark const * BookmarkManager::FindMarkInRect(kml::MarkGroupId groupId, m2::A
 
 void BookmarkManager::SetIsVisible(kml::MarkGroupId groupId, bool visible)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   GetGroup(groupId)->SetIsVisible(visible);
 }
 
 bool BookmarkManager::IsVisible(kml::MarkGroupId groupId) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   return GetGroup(groupId)->IsVisible();
 }
 
@@ -752,7 +752,7 @@ void BookmarkManager::Teardown()
 
 Bookmark * BookmarkManager::AddBookmark(std::unique_ptr<Bookmark> && bookmark)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto * bm = bookmark.get();
   auto const markId = bm->GetId();
   CHECK_EQUAL(m_bookmarks.count(markId), 0, ());
@@ -763,7 +763,7 @@ Bookmark * BookmarkManager::AddBookmark(std::unique_ptr<Bookmark> && bookmark)
 
 Track * BookmarkManager::AddTrack(std::unique_ptr<Track> && track)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto * t = track.get();
   auto const trackId = t->GetId();
   CHECK_EQUAL(m_tracks.count(trackId), 0, ());
@@ -796,7 +796,7 @@ void BookmarkManager::LoadState()
 
 void BookmarkManager::ClearCategories()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (auto groupId : m_bmGroupsIdList)
   {
     ClearGroup(groupId);
@@ -835,7 +835,7 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::LoadBookmarks(std::string
 
 void BookmarkManager::LoadBookmarks()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   ClearCategories();
   m_loadBookmarksFinished = false;
 
@@ -864,7 +864,7 @@ void BookmarkManager::LoadBookmarks()
 
 void BookmarkManager::LoadBookmark(std::string const & filePath, bool isTemporaryFile)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   // Defer bookmark loading in case of another asynchronous process.
   if (!m_loadBookmarksFinished || m_asyncLoadingInProgress || m_conversionInProgress ||
       m_restoreApplying)
@@ -1043,7 +1043,7 @@ boost::optional<std::string> BookmarkManager::GetKMLPath(std::string const & fil
 
 void BookmarkManager::MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   DetachBookmark(bmID, curGroupID);
   AttachBookmark(bmID, newGroupID);
 
@@ -1052,7 +1052,7 @@ void BookmarkManager::MoveBookmark(kml::MarkId bmID, kml::MarkGroupId curGroupID
 
 void BookmarkManager::UpdateBookmark(kml::MarkId bmID, kml::BookmarkData const & bm)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto * bookmark = GetBookmarkForEdit(bmID);
 
   auto const prevColor = bookmark->GetColor();
@@ -1065,7 +1065,7 @@ void BookmarkManager::UpdateBookmark(kml::MarkId bmID, kml::BookmarkData const &
 
 kml::MarkGroupId BookmarkManager::LastEditedBMCategory()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   if (HasBmCategory(m_lastEditedGroupId))
     return m_lastEditedGroupId;
@@ -1084,7 +1084,7 @@ kml::MarkGroupId BookmarkManager::LastEditedBMCategory()
 
 kml::PredefinedColor BookmarkManager::LastEditedBMColor() const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   return (m_lastColor != kml::PredefinedColor::None ? m_lastColor : BookmarkCategory::GetDefaultColor());
 }
 
@@ -1103,7 +1103,7 @@ void BookmarkManager::SetLastEditedBmColor(kml::PredefinedColor color)
 
 BookmarkCategory const * BookmarkManager::GetBmCategory(kml::MarkGroupId categoryId) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(IsBookmarkCategory(categoryId), ());
   auto const it = m_categories.find(categoryId);
   return (it != m_categories.end() ? it->second.get() : nullptr);
@@ -1111,7 +1111,7 @@ BookmarkCategory const * BookmarkManager::GetBmCategory(kml::MarkGroupId categor
 
 BookmarkCategory * BookmarkManager::GetBmCategory(kml::MarkGroupId categoryId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(IsBookmarkCategory(categoryId), ());
   auto const it = m_categories.find(categoryId);
   return (it != m_categories.end() ? it->second.get() : nullptr);
@@ -1148,7 +1148,7 @@ void BookmarkManager::SendBookmarksChanges()
 void BookmarkManager::GetBookmarksData(kml::MarkIdSet const & markIds,
                                        std::vector<std::pair<kml::MarkId, kml::BookmarkData>> & data) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   data.clear();
   data.reserve(markIds.size());
   for (auto markId : markIds)
@@ -1161,13 +1161,13 @@ void BookmarkManager::GetBookmarksData(kml::MarkIdSet const & markIds,
 
 bool BookmarkManager::HasBmCategory(kml::MarkGroupId groupId) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   return m_categories.find(groupId) != m_categories.end();
 }
 
 void BookmarkManager::UpdateBmGroupIdList()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   m_bmGroupsIdList.clear();
   m_bmGroupsIdList.reserve(m_categories.size());
   for (auto it = m_categories.crbegin(); it != m_categories.crend(); ++it)
@@ -1176,7 +1176,7 @@ void BookmarkManager::UpdateBmGroupIdList()
 
 kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData && data, bool autoSave)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   if (data.m_id == kml::kInvalidMarkGroupId)
   {
@@ -1192,7 +1192,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(kml::CategoryData && da
 
 kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & name, bool autoSave)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto const groupId = UserMarkIdStorage::Instance().GetNextCategoryId();
   CHECK_EQUAL(m_categories.count(groupId), 0, ());
   m_categories[groupId] = my::make_unique<BookmarkCategory>(name, groupId, autoSave);
@@ -1203,7 +1203,7 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & nam
 
 void BookmarkManager::CheckAndCreateDefaultCategory()
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (m_categories.empty())
     CreateBookmarkCategory(m_callbacks.m_getStringsBundle().GetString("core_my_places"));
 }
@@ -1221,7 +1221,7 @@ void BookmarkManager::CheckAndResetLastIds()
 
 bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto it = m_categories.find(groupId);
   if (it == m_categories.end())
     return false;
@@ -1271,13 +1271,13 @@ private:
 
 UserMark const * BookmarkManager::FindNearestUserMark(m2::AnyRectD const & rect) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   return FindNearestUserMark([&rect](UserMark::Type) { return rect; });
 }
 
 UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & holder) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   BestUserMarkFinder finder(holder, this);
   finder(UserMark::Type::ROUTING);
   finder(UserMark::Type::SEARCH);
@@ -1290,7 +1290,7 @@ UserMark const * BookmarkManager::FindNearestUserMark(TTouchRectHolder const & h
 
 UserMarkLayer const * BookmarkManager::GetGroup(kml::MarkGroupId groupId) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (groupId < UserMark::Type::USER_MARK_TYPES_COUNT)
     return m_userMarkLayers[groupId - 1].get();
 
@@ -1300,7 +1300,7 @@ UserMarkLayer const * BookmarkManager::GetGroup(kml::MarkGroupId groupId) const
 
 UserMarkLayer * BookmarkManager::GetGroup(kml::MarkGroupId groupId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (groupId < UserMark::Type::USER_MARK_TYPES_COUNT)
     return m_userMarkLayers[groupId - 1].get();
 
@@ -1310,7 +1310,7 @@ UserMarkLayer * BookmarkManager::GetGroup(kml::MarkGroupId groupId)
 
 void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool autoSave)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   kml::GroupIdSet loadedGroups;
 
   for (auto const & data : dataCollection)
@@ -1395,7 +1395,7 @@ std::unique_ptr<kml::FileData> BookmarkManager::CollectBmGroupKMLData(BookmarkCa
 
 bool BookmarkManager::SaveBookmarkCategory(kml::MarkGroupId groupId)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto collection = PrepareToSaveBookmarks({groupId});
   if (!collection || collection->empty())
     return false;
@@ -1406,7 +1406,7 @@ bool BookmarkManager::SaveBookmarkCategory(kml::MarkGroupId groupId)
 
 bool BookmarkManager::SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & writer, bool useBinary) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto * group = GetBmCategory(groupId);
   auto kmlData = CollectBmGroupKMLData(group);
   return SaveKmlData(*kmlData, writer, useBinary);
@@ -1460,7 +1460,7 @@ bool BookmarkManager::SaveKmlFileSafe(kml::FileData & kmlData, std::string const
 
 void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollection)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
 
   auto kmlDataCollection = PrepareToSaveBookmarks(groupIdCollection);
   if (!kmlDataCollection)
@@ -1510,7 +1510,7 @@ void BookmarkManager::SetInvalidTokenHandler(Cloud::InvalidTokenHandler && onInv
 
 void BookmarkManager::PrepareFileForSharing(kml::MarkGroupId categoryId, SharingHandler && handler)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(handler, ());
   if (IsCategoryEmpty(categoryId))
   {
@@ -1534,13 +1534,13 @@ void BookmarkManager::PrepareFileForSharing(kml::MarkGroupId categoryId, Sharing
 
 bool BookmarkManager::IsCategoryEmpty(kml::MarkGroupId categoryId) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   return GetBmCategory(categoryId)->IsEmpty();
 }
 
 bool BookmarkManager::IsUsedCategoryName(std::string const & name) const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (auto const & c : m_categories)
   {
     if (c.second->GetName() == name)
@@ -1551,7 +1551,7 @@ bool BookmarkManager::IsUsedCategoryName(std::string const & name) const
 
 bool BookmarkManager::AreAllCategoriesVisible() const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (auto const & c : m_categories)
   {
     if (!c.second->IsVisible())
@@ -1562,7 +1562,7 @@ bool BookmarkManager::AreAllCategoriesVisible() const
 
 bool BookmarkManager::AreAllCategoriesInvisible() const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (auto const & c : m_categories)
   {
     if (c.second->IsVisible())
@@ -1573,7 +1573,7 @@ bool BookmarkManager::AreAllCategoriesInvisible() const
 
 void BookmarkManager::SetAllCategoriesVisibility(bool visible)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (auto & c : m_categories)
     c.second->SetIsVisible(visible);
 }
@@ -1606,7 +1606,7 @@ void BookmarkManager::FinishConversion(ConversionHandler const & handler, bool r
 
 size_t BookmarkManager::GetKmlFilesCountForConversion() const
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (!CanConvert())
     return 0;
 
@@ -1618,7 +1618,7 @@ size_t BookmarkManager::GetKmlFilesCountForConversion() const
 
 void BookmarkManager::ConvertAllKmlFiles(ConversionHandler && handler)
 {
-  ASSERT_THREAD_CHECKER(m_threadChecker, ());
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
   if (!CanConvert())
     return;
 

@@ -1004,7 +1004,7 @@ NewFeatureCategories Editor::GetNewFeatureCategories() const
 
 FeatureID Editor::GenerateNewFeatureId(MwmSet::MwmId const & id) const
 {
-  DECLARE_AND_ASSERT_THREAD_CHECKER("GenerateNewFeatureId is single-threaded.");
+  DECLARE_AND_CHECK_THREAD_CHECKER("GenerateNewFeatureId is single-threaded.");
   // TODO(vng): Double-check if new feature indexes should uninterruptedly continue after existing indexes in mwm file.
   uint32_t featureIndex = feature::FakeFeatureIds::kEditorCreatedFeaturesStart;
   auto const found = m_features.find(id);
