@@ -14,5 +14,5 @@
     Provide a color which could be used in libnotify notifications as secondary font color
     (may be also configured in notify console).
   -->
-  <string name="libnotify_resource_contrast_color_id">color/text_dark</string>
+  <string name="libnotify_resource_contrast_color_id">color/button_accent_text</string>
 </resources>
