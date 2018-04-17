@@ -3,20 +3,24 @@
 #include "base/bits.hpp"
 #include "base/checked_cast.hpp"
 
+#include <cstdint>
 #include <cstdlib>
 #include <vector>
 
 namespace
 {
-  template <typename T> uint32_t PopCountSimple(T x)
+template <typename T>
+uint32_t PopCountSimple(T x)
+{
+  uint32_t res = 0;
+  for (; x != 0; x >>= 1)
   {
-    uint32_t res = 0;
-    for (; x != 0; x >>= 1)
-      if (x & 1)
-        ++res;
-    return res;
+    if (x & 1)
+      ++res;
   }
+  return res;
 }
+}  // namespace
 
 UNIT_TEST(Popcount32)
 {

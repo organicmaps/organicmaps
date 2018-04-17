@@ -6,6 +6,7 @@
 
 #include "base/assert.hpp"
 
+#include <cstdint>
 #include <utility>
 
 using RectId = m2::CellId<19>;
