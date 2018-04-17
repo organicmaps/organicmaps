@@ -22,6 +22,9 @@ public class WorkerService extends IntentService
 
   private static final SharedPreferences PREFS = MwmApplication.prefs();
 
+  private final boolean mArePlatformAndCoreInitialized =
+      MwmApplication.get().arePlatformAndCoreInitialized();
+
   /**
    * Starts this service to upload map edits to osm servers.
    */
@@ -60,6 +63,9 @@ public class WorkerService extends IntentService
     final String action = intent.getAction();
 
     if (TextUtils.isEmpty(action))
+      return;
+
+    if (!mArePlatformAndCoreInitialized)
       return;
 
     switch (action)
