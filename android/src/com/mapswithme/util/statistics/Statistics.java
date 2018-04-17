@@ -23,6 +23,7 @@ import com.mapswithme.maps.PrivateVariables;
 import com.mapswithme.maps.ads.MwmNativeAd;
 import com.mapswithme.maps.ads.NativeAdError;
 import com.mapswithme.maps.api.ParsedMwmRequest;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
@@ -50,10 +51,12 @@ import static com.mapswithme.util.BatteryState.CHARGING_STATUS_PLUGGED;
 import static com.mapswithme.util.BatteryState.CHARGING_STATUS_UNKNOWN;
 import static com.mapswithme.util.BatteryState.CHARGING_STATUS_UNPLUGGED;
 import static com.mapswithme.util.statistics.Statistics.EventName.APPLICATION_COLD_STARTUP_INFO;
+import static com.mapswithme.util.statistics.Statistics.EventName.BMK_SYNC_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.BMK_SYNC_PROPOSAL_APPROVED;
 import static com.mapswithme.util.statistics.Statistics.EventName.BMK_SYNC_PROPOSAL_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.BMK_SYNC_PROPOSAL_SHOWN;
 import static com.mapswithme.util.statistics.Statistics.EventName.BMK_SYNC_PROPOSAL_TOGGLE;
+import static com.mapswithme.util.statistics.Statistics.EventName.BMK_SYNC_SUCCESS;
 import static com.mapswithme.util.statistics.Statistics.EventName.DISCOVERY_OPEN;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_BLANK;
@@ -154,6 +157,9 @@ public enum Statistics
     public static final String BMK_SYNC_PROPOSAL_ERROR = "Bookmarks_SyncProposal_error";
     public static final String BMK_SYNC_PROPOSAL_ENABLED = "Bookmarks_SyncProposal_enabled";
     public static final String BMK_SYNC_PROPOSAL_TOGGLE = "Settings_BookmarksSync_toggle";
+    public static final String BMK_SYNC_STARTED = "Bookmarks_sync_started";
+    public static final String BMK_SYNC_ERROR = "Bookmarks_sync_error";
+    public static final String BMK_SYNC_SUCCESS = "Bookmarks_sync_success";
 
     // search
     public static final String SEARCH_CAT_CLICKED = "Search. Category clicked";
@@ -402,6 +408,11 @@ public enum Statistics
     public static final String GOOGLE = "google";
     public static final String MAPSME = "mapsme";
     public static final String PHONE = "phone";
+    static final String UNKNOWN = "unknown";
+    static final String NETWORK = "network";
+    static final String DISK = "disk";
+    static final String AUTH = "auth";
+    static final String USER_INTERRUPTED = "user_interrupted";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -1044,6 +1055,41 @@ public enum Statistics
     trackEvent(BMK_SYNC_PROPOSAL_TOGGLE, params()
         .add(STATE, checked ? 1 : 0)
         .get());
+  }
+
+  public void trackBkmSynchronizationFinish(@BookmarkManager.SynchronizationType int type,
+                                            @BookmarkManager.SynchronizationResult int result,
+                                            @NonNull String errorString)
+  {
+    if (result == BookmarkManager.CLOUD_SUCCESS)
+    {
+      trackEvent(BMK_SYNC_SUCCESS);
+      return;
+    }
+
+    trackEvent(BMK_SYNC_ERROR, params()
+        .add(TYPE, getTypeForErrorSyncResult(result))
+        .add(ERROR, errorString));
+  }
+
+  @NonNull
+  private String getTypeForErrorSyncResult(@BookmarkManager.SynchronizationResult int result)
+  {
+    switch (result)
+    {
+      case BookmarkManager.CLOUD_AUTH_ERROR:
+        return ParamValue.AUTH;
+      case BookmarkManager.CLOUD_NETWORK_ERROR:
+        return ParamValue.NETWORK;
+      case BookmarkManager.CLOUD_DISK_ERROR:
+        return ParamValue.DISK;
+      case BookmarkManager.CLOUD_USER_INTERRUPTED:
+        return ParamValue.USER_INTERRUPTED;
+      case BookmarkManager.CLOUD_SUCCESS:
+        throw new AssertionError("It's not a error result!");
+      default:
+        throw new AssertionError("Unsupported error type: " + result);
+    }
   }
 
   public static ParameterBuilder params()

@@ -17,7 +17,8 @@ import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Date;
 
-public class BookmarkBackupController implements Authorizer.Callback
+public class BookmarkBackupController implements Authorizer.Callback,
+                                                 BookmarkManager.BookmarksCloudListener
 {
   @NonNull
   private final BookmarkBackupView mBackupView;
@@ -105,12 +106,14 @@ public class BookmarkBackupController implements Authorizer.Callback
   public void onStart()
   {
     mAuthorizer.attach(this);
+    BookmarkManager.INSTANCE.addCloudListener(this);
     update();
   }
 
   public void onStop()
   {
     mAuthorizer.detach();
+    BookmarkManager.INSTANCE.removeCloudListener(this);
   }
 
   public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
@@ -150,5 +153,36 @@ public class BookmarkBackupController implements Authorizer.Callback
   public void onSocialAuthenticationCancel(@Framework.AuthTokenType int type)
   {
     Statistics.INSTANCE.trackBkmSyncProposalError(type, "Cancel");
+  }
+
+  @Override
+  public void onSynchronizationStarted(@BookmarkManager.SynchronizationType int type)
+  {
+    if (type == BookmarkManager.CLOUD_BACKUP)
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.BMK_SYNC_STARTED);
+    update();
+  }
+
+  @Override
+  public void onSynchronizationFinished(@BookmarkManager.SynchronizationType int type,
+                                        @BookmarkManager.RestoringRequestResult int result,
+                                        @NonNull String errorString)
+  {
+    if (type == BookmarkManager.CLOUD_BACKUP)
+      Statistics.INSTANCE.trackBkmSynchronizationFinish(type, result, errorString);
+    update();
+  }
+
+  @Override
+  public void onRestoreRequested(@BookmarkManager.RestoringRequestResult int result,
+                                 long backupTimestampInMs)
+  {
+    // No op.
+  }
+
+  @Override
+  public void onRestoredFilesPrepared()
+  {
+    // No op.
   }
 }
