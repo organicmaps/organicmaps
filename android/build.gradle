@@ -26,10 +26,10 @@ repositories {
     url 'https://maven.fabric.io/public'
   }
   maven {
-    url 'https://s3.amazonaws.com/moat-sdk-builds'
+    url 'https://dl.bintray.com/libverify/android'
   }
   maven {
-    url 'https://dl.bintray.com/libverify/android'
+    url 'https://s3.amazonaws.com/moat-sdk-builds'
   }
 }
 
