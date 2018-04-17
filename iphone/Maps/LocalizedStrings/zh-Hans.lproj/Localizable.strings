@@ -2269,3 +2269,11 @@
 "bookmarks_convert_error_message" = "Some files were not converted.";
 
 "converting" = "Converting...";
+
+"wn_reinvented_bookmarks_title" = "We reinvented bookmarks!";
+
+"wn_reinvented_bookmarks_message" = "You can synchronize bookmarks, create lists... It's amazing...";
+
+"wn_way_of_booking_title" = "We reimagined the way of booking!";
+
+"wn_way_of_booking_message" = "Just find a hotel on the map and book it, or select the similar one.";
