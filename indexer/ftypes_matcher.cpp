@@ -8,11 +8,12 @@
 #include "base/buffer_vector.hpp"
 #include "base/string_utils.hpp"
 
-#include <algorithm>
+#include <cmath>
 #include <map>
 #include <sstream>
 #include <unordered_map>
-#include <utility>
+
+using namespace std;
 
 namespace
 {

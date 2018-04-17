@@ -3,14 +3,17 @@
 #include "indexer/feature_data.hpp"
 
 #include "base/base.hpp"
+#include "base/stl_helpers.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/array.hpp"
-#include "std/initializer_list.hpp"
-#include "std/limits.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <array>
+#include <cstddef>
+#include <functional>
+#include <initializer_list>
+#include <string>
+#include <type_traits>
+#include <utility>
+#include <vector>
 
 #include <boost/optional.hpp>
 
@@ -27,7 +30,7 @@ class BaseChecker
   size_t const m_level;
 
 protected:
-  vector<uint32_t> m_types;
+  std::vector<uint32_t> m_types;
 
   BaseChecker(size_t level = 2) : m_level(level) {}
   virtual ~BaseChecker() = default;
@@ -37,14 +40,14 @@ public:
 
   bool operator() (feature::TypesHolder const & types) const;
   bool operator() (FeatureType const & ft) const;
-  bool operator() (vector<uint32_t> const & types) const;
+  bool operator() (std::vector<uint32_t> const & types) const;
 
   static uint32_t PrepareToMatch(uint32_t type, uint8_t level);
 
   template <typename TFn>
   void ForEachType(TFn && fn) const
   {
-    for_each(m_types.cbegin(), m_types.cend(), forward<TFn>(fn));
+    std::for_each(m_types.cbegin(), m_types.cend(), std::forward<TFn>(fn));
   }
 };
 
@@ -168,7 +171,9 @@ public:
     Count
   };
 
-  static_assert(static_cast<size_t>(Type::Count) <= CHAR_BIT * sizeof(unsigned),
+  using UnderlyingType = std::underlying_type_t<Type>;
+
+  static_assert(my::Key(Type::Count) <= CHAR_BIT * sizeof(unsigned),
                 "Too many types of hotels");
 
   static char const * GetHotelTypeTag(Type type);
@@ -181,7 +186,7 @@ public:
 private:
   IsHotelChecker();
 
-  array<pair<uint32_t, Type>, static_cast<size_t>(Type::Count)> m_sortedTypes;
+  std::array<std::pair<uint32_t, Type>, my::Key(Type::Count)> m_sortedTypes;
 };
 
 // WiFi is a type in classificator.txt,
@@ -259,7 +264,7 @@ uint64_t GetPopulationByRadius(double r);
 /// feature types like "highway", "living_street", "bridge" and so on
 ///  or *. * means any class.
 /// The root name ("world") is ignored
-bool IsTypeConformed(uint32_t type, StringIL const & path);
+bool IsTypeConformed(uint32_t type, my::StringIL const & path);
 
 // Highway class. The order is important.
 // The enum values follow from the biggest roads (Trunk) to the smallest ones (Service).
@@ -278,7 +283,20 @@ enum class HighwayClass
   Count           // This value is used for internals only.
 };
 
-string DebugPrint(HighwayClass const cls);
+std::string DebugPrint(HighwayClass const cls);
 
 HighwayClass GetHighwayClass(feature::TypesHolder const & types);
 }  // namespace ftypes
+
+namespace std
+{
+template<>
+struct hash<ftypes::IsHotelChecker::Type>
+{
+  size_t operator()(ftypes::IsHotelChecker::Type type) const
+  {
+    using UnderlyingType = ftypes::IsHotelChecker::UnderlyingType;
+    return hash<UnderlyingType>()(static_cast<UnderlyingType>(type));
+  }
+};
+}  // namespace std

@@ -5,8 +5,9 @@
 #include "indexer/feature_decl.hpp"
 #include "indexer/index.hpp"
 
-#include "std/sstream.hpp"
+#include <sstream>
 
+using namespace std;
 using namespace generator::tests_support;
 
 namespace search

@@ -135,7 +135,7 @@ impl::Equals<false, T, C> EqualsBy(T (C::*p)() const)
 }
 
 template <typename T>
-std::underlying_type_t<T> Key(T value)
+constexpr std::underlying_type_t<T> Key(T value)
 {
   return static_cast<std::underlying_type_t<T>>(value);
 }
