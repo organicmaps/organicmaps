@@ -30122,5 +30122,17 @@ fa = دوباره نپرس
 
   [converting]
     en = Converting...
-    ru = Конвертация...   
-       
+    ru = Конвертация...
+
+  [wn_reinvented_bookmarks_title]
+    en = We reinvented bookmarks!
+
+  [wn_reinvented_bookmarks_message]
+    en = You can synchronize bookmarks, create lists... It's amazing...
+
+  [wn_way_of_booking_title]
+    en = We reimagined the way of booking!
+
+  [wn_way_of_booking_message]
+    en = Just find a hotel on the map and book it, or select the similar one.
+    
