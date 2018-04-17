@@ -7,7 +7,7 @@
 
 #include <algorithm>
 #include <array>
-#include <cstddef>
+#include <cstdint>
 #include <functional>
 #include <initializer_list>
 #include <string>

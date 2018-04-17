@@ -20,17 +20,11 @@ static uint8_t kAdultsCount = 2;
 static int8_t kAgeOfChild = 5;
 static NSString * const kHotelTypePattern = @"search_hotel_filter_%@";
 
-
-std::array<ftypes::IsHotelChecker::Type, my::Key(ftypes::IsHotelChecker::Type::Count)> const kTypes = {{
-  ftypes::IsHotelChecker::Type::Hotel,
-  ftypes::IsHotelChecker::Type::Apartment,
-  ftypes::IsHotelChecker::Type::CampSite,
-  ftypes::IsHotelChecker::Type::Chalet,
-  ftypes::IsHotelChecker::Type::GuestHouse,
-  ftypes::IsHotelChecker::Type::Hostel,
-  ftypes::IsHotelChecker::Type::Motel,
-  ftypes::IsHotelChecker::Type::Resort
-}};
+std::array<ftypes::IsHotelChecker::Type, my::Key(ftypes::IsHotelChecker::Type::Count)> const
+    kTypes = {{ftypes::IsHotelChecker::Type::Hotel, ftypes::IsHotelChecker::Type::Apartment,
+               ftypes::IsHotelChecker::Type::CampSite, ftypes::IsHotelChecker::Type::Chalet,
+               ftypes::IsHotelChecker::Type::GuestHouse, ftypes::IsHotelChecker::Type::Hostel,
+               ftypes::IsHotelChecker::Type::Motel, ftypes::IsHotelChecker::Type::Resort}};
 
 unsigned makeMask(std::unordered_set<ftypes::IsHotelChecker::Type> const & items)
 {
@@ -482,7 +476,8 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   cell.selected = selected;
   if (selected)
   {
-    [collectionView selectItemAtIndexPath:indexPath animated:NO
+    [collectionView selectItemAtIndexPath:indexPath
+                                 animated:NO
                            scrollPosition:UICollectionViewScrollPositionNone];
   }
 
@@ -519,8 +514,7 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
   auto const type = kTypes[indexPath.row];
-  if (m_selectedTypes.find(type) != m_selectedTypes.end())
-    m_selectedTypes.erase(type);
+  m_selectedTypes.erase(type);
 }
 
 #pragma mark - Properties
