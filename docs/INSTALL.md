@@ -5,18 +5,20 @@ First, do not forget to initialize a cloned repository, see
 
 ## Desktop
 
-You would need Clang, Boost and Qt 5. With that, just run `omim/tools/unix/build_omim.sh`.
-It will build both debug and release versions to `omim/../omim-build-<target>`, as
-well as OSRM backend for generating maps. Command-line switches are:
+You would need Cmake, Boost and Qt 5. With that, just run `omim/tools/unix/build_omim.sh`.
+It will build both debug and release versions to `omim/../omim-build-<target>`.
+Command-line switches are:
 
 * `-r` to build a release version
 * `-d` to build a debug version
-* `-o` to build OSRM backend
 * `-c` to delete target directories before building
+* `-s` to not build a desktop app, when you don't have desktop Qt libraries.
+* `-p` with a path to where the binaries will be built.
 
-To build a generator tool only, set `CONFIG=gtool` variable. To skip building tests,
-use `CONFIG=no-tests`. If you have Qt installed in an unusual directory, use
-`QMAKE` variable.
+After switches, you can specify a target (everything by default). For example,
+to build a generator tool only, use `generator_tool`.  If you have Qt installed
+in an unusual directory, use `QMAKE` variable. You can skip building tests
+with `CMAKE_CONFIG=-DSKIP_TESTS` variable.
 
 When using a lot of maps, increase open files limit, which is only 256 on Mac OS X.
 Use `ulimit -n 2000`, put it into `~/.bash_profile` to apply it to all new sessions.
@@ -29,30 +31,19 @@ and run
 
 The `build_omim.sh` script basically runs these commands:
 
-    qmake omim.pro -spec linux-clang-libc++ CONFIG+=debug
-    make -j <number_of_processes>
+    cmake <path_to_omim> -DCMAKE_BUILD_TYPE={Debug|Release}
+    make [<target>] -j <number_of_processes>
 
-It will compile binaries to the `out` subdirectory of the current directory.
-You might need to export `BOOST_INCLUDEDIR` variable with a path to Boost's
-`include` directory.
+It will compile binaries to the current directory. For a compiler, Clang
+is preferred, but GCC 6+ would also work.
 
-To build the OSRM backend, create `omim/3party/osrm/osrm-backend/build`
-directory, and from within it, run:
+### Ubuntu 16.04
 
-    cmake -DBOOST_ROOT=<where_is_your_Boost> ..
-    make
+Install Qt 5, CMake and Clang:
 
-### Ubuntu 14.04
-
-Install Qt 5.5:
-
-    sudo add-apt-repository ppa:beineri/opt-qt551-trusty
     sudo apt-get update
-    sudo apt-get install qt55base
-
-Set up the Qt 5.5 environment:
-
-    source /opt/qt55/bin/qt55-env.sh
+    sudo apt-get install qtbase5-dev cmake
+    sudo apt-get install clang libc++-dev libboost-iostreams-dev libglu1-mesa-dev
 
 Do a git clone:
 
@@ -60,33 +51,17 @@ Do a git clone:
     cd omim
     echo | ./configure.sh
 
-On Ubuntu 14.04, you'll need a PPA with an up-to-date version of libc++.
-You shouldn't need this on newer versions.
-
-    sudo add-apt-repository ppa:jhe/llvm-toolchain
-
 Then:
 
-    sudo apt-get install clang-3.6 libc++-dev libboost-iostreams-dev libglu1-mesa-dev
-    sudo ln -s /usr/lib/llvm-3.6/bin/clang /usr/bin/clang
-    sudo ln -s /usr/lib/llvm-3.6/bin/clang++ /usr/bin/clang++
-    tools/unix/build_omim.sh
+    tools/unix/build_omim.sh -r
 
-Prepend with `CONFIG=gtool` if only generator_tool is needed. You would need 1.5 GB of memory
-to compile `stats` module.
+Append `generator_tool` if only generator_tool is needed, or `desktop` if you need a desktop app.
+You would need 1.5 GB of memory to compile the `stats` module.
 
-The generated binaries appear in `omim-build-<flavour>/out/<flavour>/`.
-Run tests from this directory with `../../../omim/tools/unix/run_tests.sh`.
+The generated binaries appear in `omim-build-release`.
+Run tests from this directory with `omim/tools/unix/run_tests.sh`.
 
-To build and run OSRM binaries:
-
-    sudo apt-get install libtbb2 libluabind0.9.1 liblua50 libstxxl1
-    sudo apt-get install libtbb-dev libluabind-dev libstxxl-dev libosmpbf-dev libprotobuf-dev
-    sudo apt-get install libboost-thread-dev libboost-system-dev libboost-program-options-dev
-    sudo apt-get install libboost-filesystem-dev libboost-date-time-dev
-    tools/unix/build_omim.sh -o
-
-### Fedora 23
+### Fedora 27
 
 Install dependencies:
 
@@ -95,13 +70,6 @@ Install dependencies:
 Then do a git clone, run `configure.sh` and compile with linux-clang spec:
 
     SPEC=linux-clang tools/unix/build_omim.sh -r
-
-### Debian Jessie
-
-Example [Dockerfile](debian/Dockerfile). In instruction have been compiled Generator Tool and, for routing indices, OSRM backend. I used this command:
-	
-    CONFIG=gtool omim/tools/unix/build_omim.sh -cro
-
 
 ### Windows
 
@@ -114,15 +82,14 @@ See also [Android compilation instructions](android_toolchain_windows.txt) (also
 
 To browse maps in an application, you need first to download some. We maintain an archive
 of all released versions of data at [direct.mapswithme.com](http://direct.mapswithme.com/direct/).
-Place `.mwm` and `.mwm.routing` files to `~/Library/Application Support/MapsWithMe` for
-a desktop version. Alternatively, you can put these into `omim/data`, but there
-should be a soft link in a build directory: `build_omim.sh` creates it.
+Place `.mwm` files to `~/Library/Application Support/MapsWithMe` for
+a desktop version.
 
 For an Android application, place maps into `/MapsWithMe` directory on a device. For
 iOS devices, use iTunes.
 
 `World.mwm` and `WorldCoasts.mwm` are low-zoom overview maps and should be placed
-into a resource directory, e.g. `/Applications/MAPS.ME/Content/Resources` on Mac OS X.
+into a resource directory, e.g. `/Applications/MAPS.ME/Content/Resources` on macOS.
 Placing these into a maps directory should also work.
 
 For instructions on making your own maps, see [MAPS.md](MAPS.md).
@@ -132,43 +99,33 @@ For instructions on making your own maps, see [MAPS.md](MAPS.md).
 The generator tool is build together with the desktop app, but you can choose to skip
 other modules. Use this line:
 
-    CONFIG=gtool omim/tools/unix/build_omim.sh -ro
+    omim/tools/unix/build_omim.sh -sr generator_tool
 
-It is the preferable way to build a generator tool, for it can also build an OSRM
-backend (`-o` option).
-
-Dependencies for generator tool and OSRM backend:
+Dependencies for generator tool:
 
 * boost-iostreams
 * glu1-mesa
-* tbb
-* luabind
-* stxxl
-* osmpbf
 * protobuf
-* lua
 
 ## Designer Tool
 
-The designer tool resides in a branch `map-style-editor-new`. You would need
-to check it out before following these steps.
-
-### Building data
-
-* Run `CONFIG="gtool map_designer" omim/tools/unix/build_omim.sh`.
-* Generate data as usual (either with `generate_mwm.sh` or `generate_planet.sh`).
-* For MAPS.ME employees, publish planet data to http://designer.mapswithme.com/mac/DATA_VERSION
-(via a ticket to admins, from `mapsme4:/opt/mapsme/designers`).
-
 ### Building the tool
 
-* Run `omim/tools/unix/build_designer.sh DATA_VER APP_VER`, where `DATA_VER` is the
-latest data version published to `designer.mapswithme.com` (e.g. `150912`), and
-`APP_VER` is an application version, e.g. `1.2.3`.
+The designer tool has been merged into the master branch. You can build a package for macOS with:
+
+    omim/tools/unix/build_omim.sh -rt
+
 * If you got "hdiutil -5341" error, you would need to build a dmg package yourself:
 find a line with `hdiutil` in the script, copy it to a console, and if needed, increase
 `-size` argument value.
 * The resulting dmg package will be put into `omim/out`.
+
+### Building data
+
+* Build both the generator_tool and the designer tool
+* Generate data as usual (either with `generate_mwm.sh` or `generate_planet.sh`).
+* For MAPS.ME employees, publish planet data to http://designer.mapswithme.com/mac/DATA_VERSION
+(via a ticket to admins, from `mapsme4:/opt/mapsme/designers`).
 
 ## Android
 
