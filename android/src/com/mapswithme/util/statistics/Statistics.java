@@ -51,12 +51,12 @@ import static com.mapswithme.util.BatteryState.CHARGING_STATUS_PLUGGED;
 import static com.mapswithme.util.BatteryState.CHARGING_STATUS_UNKNOWN;
 import static com.mapswithme.util.BatteryState.CHARGING_STATUS_UNPLUGGED;
 import static com.mapswithme.util.statistics.Statistics.EventName.APPLICATION_COLD_STARTUP_INFO;
-import static com.mapswithme.util.statistics.Statistics.EventName.BMK_SYNC_ERROR;
-import static com.mapswithme.util.statistics.Statistics.EventName.BMK_SYNC_PROPOSAL_APPROVED;
-import static com.mapswithme.util.statistics.Statistics.EventName.BMK_SYNC_PROPOSAL_ERROR;
-import static com.mapswithme.util.statistics.Statistics.EventName.BMK_SYNC_PROPOSAL_SHOWN;
-import static com.mapswithme.util.statistics.Statistics.EventName.BMK_SYNC_PROPOSAL_TOGGLE;
-import static com.mapswithme.util.statistics.Statistics.EventName.BMK_SYNC_SUCCESS;
+import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_ERROR;
+import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_PROPOSAL_APPROVED;
+import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_PROPOSAL_ERROR;
+import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_PROPOSAL_SHOWN;
+import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_PROPOSAL_TOGGLE;
+import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_SUCCESS;
 import static com.mapswithme.util.statistics.Statistics.EventName.DISCOVERY_OPEN;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_BLANK;
@@ -148,18 +148,18 @@ public enum Statistics
     static final String DOWNLOADER_DIALOG_ERROR = "Downloader_OnStartScreen_error";
 
     // bookmarks
-    public static final String BMK_GROUP_CREATED = "Bookmark. Group created";
-    public static final String BMK_GROUP_CHANGED = "Bookmark. Group changed";
-    public static final String BMK_COLOR_CHANGED = "Bookmark. Color changed";
-    public static final String BMK_CREATED = "Bookmark. Bookmark created";
-    public static final String BMK_SYNC_PROPOSAL_SHOWN = "Bookmarks_SyncProposal_shown";
-    public static final String BMK_SYNC_PROPOSAL_APPROVED = "Bookmarks_SyncProposal_approved";
-    public static final String BMK_SYNC_PROPOSAL_ERROR = "Bookmarks_SyncProposal_error";
-    public static final String BMK_SYNC_PROPOSAL_ENABLED = "Bookmarks_SyncProposal_enabled";
-    public static final String BMK_SYNC_PROPOSAL_TOGGLE = "Settings_BookmarksSync_toggle";
-    public static final String BMK_SYNC_STARTED = "Bookmarks_sync_started";
-    public static final String BMK_SYNC_ERROR = "Bookmarks_sync_error";
-    public static final String BMK_SYNC_SUCCESS = "Bookmarks_sync_success";
+    public static final String BM_GROUP_CREATED = "Bookmark. Group created";
+    public static final String BM_GROUP_CHANGED = "Bookmark. Group changed";
+    public static final String BM_COLOR_CHANGED = "Bookmark. Color changed";
+    public static final String BM_CREATED = "Bookmark. Bookmark created";
+    public static final String BM_SYNC_PROPOSAL_SHOWN = "Bookmarks_SyncProposal_shown";
+    public static final String BM_SYNC_PROPOSAL_APPROVED = "Bookmarks_SyncProposal_approved";
+    public static final String BM_SYNC_PROPOSAL_ERROR = "Bookmarks_SyncProposal_error";
+    public static final String BM_SYNC_PROPOSAL_ENABLED = "Bookmarks_SyncProposal_enabled";
+    public static final String BM_SYNC_PROPOSAL_TOGGLE = "Settings_BookmarksSync_toggle";
+    public static final String BM_SYNC_STARTED = "Bookmarks_sync_started";
+    public static final String BM_SYNC_ERROR = "Bookmarks_sync_error";
+    public static final String BM_SYNC_SUCCESS = "Bookmarks_sync_success";
 
     // search
     public static final String SEARCH_CAT_CLICKED = "Search. Category clicked";
@@ -533,13 +533,13 @@ public enum Statistics
 
   public void trackColorChanged(String from, String to)
   {
-    trackEvent(EventName.BMK_COLOR_CHANGED, params().add(EventParam.FROM, from)
-                                                    .add(EventParam.TO, to));
+    trackEvent(EventName.BM_COLOR_CHANGED, params().add(EventParam.FROM, from)
+                                                   .add(EventParam.TO, to));
   }
 
   public void trackBookmarkCreated()
   {
-    trackEvent(EventName.BMK_CREATED, params().add(EventParam.COUNT, String.valueOf(++mBookmarksCreated)));
+    trackEvent(EventName.BM_CREATED, params().add(EventParam.COUNT, String.valueOf(++mBookmarksCreated)));
   }
 
   public void trackPlaceShared(String channel)
@@ -1029,45 +1029,45 @@ public enum Statistics
               .get());
   }
 
-  public void trackBkmSyncProposalShown(boolean hasAuth)
+  public void trackBmSyncProposalShown(boolean hasAuth)
   {
-    trackEvent(BMK_SYNC_PROPOSAL_SHOWN, params().add(HAS_AUTH, hasAuth ? 1 : 0).get());
+    trackEvent(BM_SYNC_PROPOSAL_SHOWN, params().add(HAS_AUTH, hasAuth ? 1 : 0).get());
   }
 
-  public void trackBkmSyncProposalApproved(boolean hasAuth)
+  public void trackBmSyncProposalApproved(boolean hasAuth)
   {
-    trackEvent(BMK_SYNC_PROPOSAL_APPROVED, params()
+    trackEvent(BM_SYNC_PROPOSAL_APPROVED, params()
         .add(HAS_AUTH, hasAuth ? 1 : 0)
         .add(NETWORK, getConnectionState())
         .get());
   }
 
-  public void trackBkmSyncProposalError(@Framework.AuthTokenType int type, @Nullable String message)
+  public void trackBmSyncProposalError(@Framework.AuthTokenType int type, @Nullable String message)
   {
-    trackEvent(BMK_SYNC_PROPOSAL_ERROR, params()
+    trackEvent(BM_SYNC_PROPOSAL_ERROR, params()
         .add(PROVIDER, getAuthProvider(type))
         .add(ERROR, message)
         .get());
   }
 
-  public void trackBkmSettingsToggle(boolean checked)
+  public void trackBmSettingsToggle(boolean checked)
   {
-    trackEvent(BMK_SYNC_PROPOSAL_TOGGLE, params()
+    trackEvent(BM_SYNC_PROPOSAL_TOGGLE, params()
         .add(STATE, checked ? 1 : 0)
         .get());
   }
 
-  public void trackBkmSynchronizationFinish(@BookmarkManager.SynchronizationType int type,
-                                            @BookmarkManager.SynchronizationResult int result,
-                                            @NonNull String errorString)
+  public void trackBmSynchronizationFinish(@BookmarkManager.SynchronizationType int type,
+                                           @BookmarkManager.SynchronizationResult int result,
+                                           @NonNull String errorString)
   {
     if (result == BookmarkManager.CLOUD_SUCCESS)
     {
-      trackEvent(BMK_SYNC_SUCCESS);
+      trackEvent(BM_SYNC_SUCCESS);
       return;
     }
 
-    trackEvent(BMK_SYNC_ERROR, params()
+    trackEvent(BM_SYNC_ERROR, params()
         .add(TYPE, getTypeForErrorSyncResult(result))
         .add(ERROR, errorString));
   }

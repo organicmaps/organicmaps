@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
-import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.util.statistics.Statistics;
@@ -89,7 +88,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
     if (mListener != null)
       mListener.onCategoryChanged(categoryId);
     dismiss();
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.BMK_GROUP_CREATED);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_GROUP_CREATED);
   }
 
   @Override
@@ -102,7 +101,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
       mListener.onCategoryChanged(categoryId);
     }
     dismiss();
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.BMK_GROUP_CHANGED);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_GROUP_CHANGED);
   }
 
   @Override
