@@ -20,7 +20,7 @@
 		342D83341D5233B3000D8AEA /* hotels_classifier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 342D83301D5233B3000D8AEA /* hotels_classifier.cpp */; };
 		342D83351D5233B3000D8AEA /* hotels_classifier.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 342D83311D5233B3000D8AEA /* hotels_classifier.hpp */; };
 		3441CE501CFC1D7000CF30D4 /* processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3441CE4B1CFC1D7000CF30D4 /* processor.cpp */; };
-		3441CE511CFC1D7000CF30D4 /* processor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3441CE4C1CFC1D7000CF30D4 /* processor.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		3441CE511CFC1D7000CF30D4 /* processor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3441CE4C1CFC1D7000CF30D4 /* processor.hpp */; };
 		3441CE521CFC1D7000CF30D4 /* query_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3441CE4D1CFC1D7000CF30D4 /* query_params.cpp */; };
 		3441CE531CFC1D7000CF30D4 /* query_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3441CE4E1CFC1D7000CF30D4 /* query_params.hpp */; };
 		344A71381F3DA03200B8DDB8 /* segment_tree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 344A71361F3DA03200B8DDB8 /* segment_tree.cpp */; };
@@ -910,6 +910,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				456E1B3F1F9A3C8E009C32E1 /* cities_boundaries_table.hpp in Headers */,
+				3441CE511CFC1D7000CF30D4 /* processor.hpp in Headers */,
 				34EEAD701E55AE4300E95575 /* token_range.hpp in Headers */,
 				3461C9A51D79949600E6E6F5 /* utils.hpp in Headers */,
 				345C8DB01D2D15A50037E3A6 /* cbv.hpp in Headers */,
@@ -982,7 +983,6 @@
 				3461C9A41D79949600E6E6F5 /* editor_delegate.hpp in Headers */,
 				349B658A1D4F21E5001798E2 /* lazy_centers_table.hpp in Headers */,
 				344A71391F3DA03200B8DDB8 /* segment_tree.hpp in Headers */,
-				3441CE511CFC1D7000CF30D4 /* processor.hpp in Headers */,
 				3441CE531CFC1D7000CF30D4 /* query_params.hpp in Headers */,
 				3DF37FAB1EA11B380012CB31 /* everywhere_search_callback.hpp in Headers */,
 				3453BD591DAF91C100380ECB /* emitter.hpp in Headers */,

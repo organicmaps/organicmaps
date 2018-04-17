@@ -156,6 +156,7 @@
 		1D5C088120764D3900EFC411 /* Production Full */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				SKIP_INSTALL = YES;
 			};
 			name = "Production Full";
 		};
@@ -170,12 +171,14 @@
 		1D5F8AB3207616D300CAADFC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
 		1D5F8AB4207616D300CAADFC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
