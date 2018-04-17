@@ -39,7 +39,7 @@ apply plugin: 'io.fabric'
 
 dependencies {
   // android support libs
-  implementation ('com.android.support:support-v4:25.0.0') {
+  implementation ('com.android.support:support-v4:25.1.0') {
     force = true;
   }
   implementation 'com.android.support:appcompat-v7:25.0.0'
