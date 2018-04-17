@@ -345,16 +345,11 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
                        getString(R.string.whats_new_auto_update_button_later));
     mFinishBtn.setOnClickListener(mFinishClickListener);
     mProgressBar.setOnClickListener(mCancelClickListener);
+    mProgressBar.post(() -> mProgressBar.setPending(true));
     if (mAutoUpdate)
-    {
-      int progress = MapManager.nativeGetOverallProgress(mOutdatedMaps);
-      setProgress(progress, mTotalSizeBytes * progress / 100, mTotalSizeBytes);
       setCommonStatus(mProcessedMapId, mCommonStatusResId);
-    }
     else
-    {
       mTitle.setText(getString(R.string.whats_new_auto_update_title));
-    }
   }
 
   private boolean isAllUpdated()
@@ -372,6 +367,9 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
   void setProgress(int progress, long localSize, long remoteSize)
   {
+    if (mProgressBar.isPending())
+      mProgressBar.setPending(false);
+
     mProgressBar.setProgress(progress);
     mRelativeStatus.setText(getRelativeStatusFormatted(progress, localSize, remoteSize));
   }
