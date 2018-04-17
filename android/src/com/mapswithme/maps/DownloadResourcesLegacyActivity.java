@@ -218,9 +218,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   @CallSuper
   @Override
-  protected void onCreate(@Nullable Bundle savedInstanceState)
+  protected void safeOnCreate(@Nullable Bundle savedInstanceState)
   {
-    super.onCreate(savedInstanceState);
+    super.safeOnCreate(savedInstanceState);
     setContentView(R.layout.activity_download_resources);
     initViewsAndListeners();
 

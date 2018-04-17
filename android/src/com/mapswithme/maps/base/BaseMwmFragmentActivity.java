@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.SplashActivity;
@@ -50,9 +49,15 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
   }
 
+  /**
+   * Shows splash screen and initializes the core in case when it was not initialized.
+   *
+   * Do not override this method!
+   * Use {@link #safeOnCreate(Bundle savedInstanceState)}
+   */
   @CallSuper
   @Override
-  protected void onCreate(@Nullable Bundle savedInstanceState)
+  protected final void onCreate(@Nullable Bundle savedInstanceState)
   {
     if (!MwmApplication.get().arePlatformAndCoreInitialized()
         || !PermissionsUtils.isExternalStorageGranted())
@@ -69,6 +74,10 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
     safeOnCreate(savedInstanceState);
   }
 
+  /**
+   * Use this safe method instead of {@link #onCreate(Bundle savedInstanceState)}.
+   * When this method is called, the core is already initialized.
+   */
   @CallSuper
   protected void safeOnCreate(@Nullable Bundle savedInstanceState)
   {
