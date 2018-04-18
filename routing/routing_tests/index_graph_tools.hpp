@@ -88,6 +88,7 @@ public:
   // IndexGraphLoader overrides:
   ~TestIndexGraphLoader() override = default;
 
+  Geometry & GetGeometry(NumMwmId mwmId) override { return GetIndexGraph(mwmId).GetGeometry(); }
   IndexGraph & GetIndexGraph(NumMwmId mwmId) override;
   void Clear() override;
 

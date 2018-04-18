@@ -18,6 +18,7 @@ class IndexGraphLoader
 public:
   virtual ~IndexGraphLoader() = default;
 
+  virtual Geometry & GetGeometry(NumMwmId numMwmId) = 0;
   virtual IndexGraph & GetIndexGraph(NumMwmId mwmId) = 0;
   virtual void Clear() = 0;
 

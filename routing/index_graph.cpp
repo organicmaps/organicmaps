@@ -80,7 +80,11 @@ void IndexGraph::GetEdgeList(Segment const & segment, bool isOutgoing, vector<Se
   }
 }
 
-void IndexGraph::Build(uint32_t numJoints) { m_jointIndex.Build(m_roadIndex, numJoints); }
+void IndexGraph::Build(uint32_t numJoints)
+{
+  m_jointIndex.Build(m_roadIndex, numJoints);
+  m_isBuilt = true;
+}
 
 void IndexGraph::Import(vector<Joint> const & joints)
 {

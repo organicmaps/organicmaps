@@ -65,6 +65,8 @@ public:
     m_roadIndex.PushFromSerializer(jointId, rp);
   }
 
+  bool IsBuilt() const { return m_isBuilt; }
+
   template <typename F>
   void ForEachRoad(F && f) const
   {
@@ -95,5 +97,6 @@ private:
   JointIndex m_jointIndex;
   RestrictionVec m_restrictions;
   RoadAccess m_roadAccess;
+  bool m_isBuilt = false;
 };
 }  // namespace routing

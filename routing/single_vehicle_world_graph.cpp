@@ -116,7 +116,7 @@ unique_ptr<TransitInfo> SingleVehicleWorldGraph::GetTransitInfo(Segment const &)
 
 RoadGeometry const & SingleVehicleWorldGraph::GetRoadGeometry(NumMwmId mwmId, uint32_t featureId)
 {
-  return m_loader->GetIndexGraph(mwmId).GetGeometry().GetRoad(featureId);
+  return m_loader->GetGeometry(mwmId).GetRoad(featureId);
 }
 
 void SingleVehicleWorldGraph::GetTwinsInner(Segment const & segment, bool isOutgoing,
