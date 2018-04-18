@@ -297,9 +297,7 @@ namespace integration
     {
       return routerComponents.GetCountryInfoGetter().GetRegionCountryId(p);
     };
-    auto localFileChecker =
-        [&routerComponents](string const & /* countryFile */) -> bool
-    {
+    auto localFileChecker = [](string const & /* countryFile */) -> bool {
       // Always returns that the file is absent.
       return false;
     };
