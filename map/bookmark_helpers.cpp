@@ -124,7 +124,9 @@ void ResetIds(kml::FileData & kmlData)
 
 void SaveFeatureTypes(feature::TypesHolder const & types, kml::BookmarkData & bmData)
 {
-  bmData.m_featureTypes.assign(types.begin(), types.end());
+  feature::TypesHolder copy(types);
+  copy.SortBySpec();
+  bmData.m_featureTypes.assign(copy.begin(), copy.end());
 }
 
 std::string GetPreferredBookmarkStr(kml::LocalizableString const & name)
