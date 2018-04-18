@@ -5,6 +5,7 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,8 @@ import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.maps.editor.data.LocalizedStreet;
 
-public class StreetFragment extends BaseMwmRecyclerFragment implements EditTextDialogFragment.OnTextSaveListener
+public class StreetFragment extends BaseMwmRecyclerFragment
+    implements EditTextDialogFragment.EditTextDialogInterface
 {
   private LocalizedStreet mSelectedString;
 
@@ -50,15 +52,23 @@ public class StreetFragment extends BaseMwmRecyclerFragment implements EditTextD
     return ((StreetAdapter) getAdapter()).getSelectedStreet();
   }
 
-  @Override
-  public void onSaveText(@Nullable String text)
-  {
-    saveStreet(new LocalizedStreet(text, ""));
-  }
-
   protected void saveStreet(LocalizedStreet street)
   {
     if (getParentFragment() instanceof EditorHostFragment)
       ((EditorHostFragment) getParentFragment()).setStreet(street);
+  }
+
+  @NonNull
+  @Override
+  public EditTextDialogFragment.OnTextSaveListener getSaveTextListener()
+  {
+    return text -> saveStreet(new LocalizedStreet(text, ""));
+  }
+
+  @NonNull
+  @Override
+  public EditTextDialogFragment.Validator getValidator()
+  {
+    return (activity, text) -> !TextUtils.isEmpty(text);
   }
 }

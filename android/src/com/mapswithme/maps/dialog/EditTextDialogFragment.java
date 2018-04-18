@@ -3,7 +3,6 @@ package com.mapswithme.maps.dialog;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,9 +35,23 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
   private String mHint;
   private EditText mEtInput;
 
+  public interface EditTextDialogInterface
+  {
+    @NonNull
+    OnTextSaveListener getSaveTextListener();
+
+    @NonNull
+    Validator getValidator();
+  }
+
   public interface OnTextSaveListener
   {
-    void onSaveText(@Nullable String text);
+    void onSaveText(@NonNull String text);
+  }
+
+  public interface Validator
+  {
+    boolean validate(@NonNull Activity activity, @Nullable String text);
   }
 
   public static void show(@Nullable String title, @Nullable String initialText,
@@ -96,27 +109,37 @@ public class EditTextDialogFragment extends BaseMwmDialogFragment
     }
 
     return new AlertDialog.Builder(getActivity())
-                          .setView(buildView())
-                          .setNegativeButton(negativeButtonText, null)
-                          .setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener()
-                          {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which)
-                            {
-                              final Fragment parentFragment = getParentFragment();
-                              final String result = mEtInput.getText().toString();
-                              if (parentFragment instanceof OnTextSaveListener)
-                              {
-                                dismiss();
-                                ((OnTextSaveListener) parentFragment).onSaveText(result);
-                                return;
-                              }
+        .setView(buildView())
+        .setNegativeButton(negativeButtonText, null)
+        .setPositiveButton(positiveButtonText, (dialog, which) -> {
+          final Fragment parentFragment = getParentFragment();
+          final String result = mEtInput.getText().toString();
+          if (parentFragment instanceof EditTextDialogInterface)
+          {
+            dismiss();
+            processInput((EditTextDialogInterface) parentFragment, result);
+            return;
+          }
 
-                              final Activity activity = getActivity();
-                              if (activity instanceof OnTextSaveListener)
-                                ((OnTextSaveListener) activity).onSaveText(result);
-                            }
-                          }).create();
+          final Activity activity = getActivity();
+          if (activity instanceof EditTextDialogInterface)
+          {
+            processInput((EditTextDialogInterface) activity, result);
+          }
+        }).create();
+  }
+
+  private void processInput(@NonNull EditTextDialogInterface editInterface,
+                            @Nullable String text)
+  {
+    Validator validator = editInterface.getValidator();
+    if (!validator.validate(getActivity(), text))
+      return;
+
+    if (TextUtils.isEmpty(text))
+      throw new AssertionError("Input must be non-empty!");
+
+    editInterface.getSaveTextListener().onSaveText(text);
   }
 
   private View buildView()

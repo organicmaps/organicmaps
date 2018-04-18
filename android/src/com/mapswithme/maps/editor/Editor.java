@@ -164,7 +164,7 @@ public final class Editor
   }
   public static native void nativeCreateMapObject(int categoryId);
   public static native void nativeCreateNote(String text);
-  public static native void nativePlaceDoesNotExist(String comment);
+  public static native void nativePlaceDoesNotExist(@NonNull String comment);
   public static native void nativeRollbackMapObject();
 
   /**

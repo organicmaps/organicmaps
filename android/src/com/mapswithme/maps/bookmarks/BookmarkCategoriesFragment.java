@@ -7,7 +7,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -22,12 +21,11 @@ import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 import com.mapswithme.util.BottomSheetHelper;
-import com.mapswithme.util.DialogUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.SharingHelper;
 
 public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
-    implements EditTextDialogFragment.OnTextSaveListener,
+    implements EditTextDialogFragment.EditTextDialogInterface,
                MenuItem.OnMenuItemClickListener,
                RecyclerClickListener,
                RecyclerLongClickListener,
@@ -184,30 +182,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  public void onSaveText(@Nullable String text)
-  {
-    if (TextUtils.isEmpty(text))
-    {
-      DialogUtils.showAlertDialog(getActivity(), R.string.bookmarks_error_title_empty_list_name,
-                                  R.string.bookmarks_error_message_empty_list_name);
-      return;
-    }
-
-    if (BookmarkManager.INSTANCE.isUsedCategoryName(text))
-    {
-      DialogUtils.showAlertDialog(getActivity(), R.string.bookmarks_error_title_list_name_already_taken,
-                                  R.string.bookmarks_error_message_list_name_already_taken);
-      return;
-    }
-
-    if (mCategoryEditor != null)
-      mCategoryEditor.commit(text);
-
-    if (getAdapter() != null)
-      getAdapter().notifyDataSetChanged();
-  }
-
-  @Override
   public boolean onMenuItemClick(MenuItem item)
   {
     switch (item.getItemId())
@@ -349,8 +323,28 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
       getAdapter().notifyDataSetChanged();
   }
 
+  @NonNull
+  @Override
+  public EditTextDialogFragment.OnTextSaveListener getSaveTextListener()
+  {
+    return text -> {
+      if (mCategoryEditor != null)
+        mCategoryEditor.commit(text);
+
+      if (getAdapter() != null)
+        getAdapter().notifyDataSetChanged();
+    };
+  }
+
+  @NonNull
+  @Override
+  public EditTextDialogFragment.Validator getValidator()
+  {
+    return new CategoryValidator();
+  }
+
   interface CategoryEditor
   {
-    void commit(@Nullable String newName);
+    void commit(@NonNull String newName);
   }
 }

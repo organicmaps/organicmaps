@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +40,8 @@ import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import org.solovyev.android.views.llm.LinearLayoutManager;
 
-public class EditorFragment extends BaseMwmFragment implements View.OnClickListener, EditTextDialogFragment.OnTextSaveListener
+public class EditorFragment extends BaseMwmFragment implements View.OnClickListener,
+                                                               EditTextDialogFragment.EditTextDialogInterface
 {
   final static String LAST_INDEX_OF_NAMES_ARRAY = "LastIndexOfNamesArray";
 
@@ -657,10 +659,20 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
                                 getString(R.string.editor_report_problem_send_button), getString(R.string.cancel), this);
   }
 
+  @NonNull
   @Override
-  public void onSaveText(@Nullable String text)
+  public EditTextDialogFragment.OnTextSaveListener getSaveTextListener()
   {
-    Editor.nativePlaceDoesNotExist(text);
-    mParent.onBackPressed();
+    return text -> {
+      Editor.nativePlaceDoesNotExist(text);
+      mParent.onBackPressed();
+    };
+  }
+
+  @NonNull
+  @Override
+  public EditTextDialogFragment.Validator getValidator()
+  {
+    return (activity, text) -> !TextUtils.isEmpty(text);
   }
 }
