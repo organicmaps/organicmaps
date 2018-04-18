@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <array>
 #include <chrono>
 #include <ctime>
@@ -78,7 +79,9 @@ inline std::string DebugPrint(unsigned char t)
 inline std::string DebugPrint(std::chrono::time_point<std::chrono::system_clock> const & ts)
 {
   auto t = std::chrono::system_clock::to_time_t(ts);
-  return std::ctime(&t);
+  std::string str = std::ctime(&t);
+  str.erase(std::remove(str.begin(), str.end(), '\n'), str.end());
+  return str;
 }
 
 template <typename U, typename V> inline std::string DebugPrint(std::pair<U,V> const & p)
