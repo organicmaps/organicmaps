@@ -1325,9 +1325,14 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
       ResetIds(fileData);
     }
 
-    auto const originalName = kml::GetDefaultStr(categoryData.m_name);
-    auto uniqueName = originalName;
+    auto originalName = kml::GetDefaultStr(categoryData.m_name);
+    if (originalName.empty())
+    {
+      originalName = kDefaultBookmarksFileName;
+      kml::SetDefaultStr(categoryData.m_name, originalName);
+    }
 
+    auto uniqueName = originalName;
     int counter = 0;
     while (IsUsedCategoryName(uniqueName))
       uniqueName = originalName + strings::to_string(++counter);
