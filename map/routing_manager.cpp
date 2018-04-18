@@ -241,6 +241,7 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
 
   m_routingSession.Init(routingStatisticsFn, [this](m2::PointD const & pt)
   {
+    UNUSED_VALUE(this);
 #ifdef SHOW_ROUTE_DEBUG_MARKS
     if (m_bmManager == nullptr)
       return;

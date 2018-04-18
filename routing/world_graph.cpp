@@ -17,9 +17,9 @@ void WorldGraph::GetTwins(Segment const & segment, bool isOutgoing, vector<Segme
     // We need both enter to mwm and exit from mwm in LeapsOnly mode to reconstruct leap.
     // That's why we need to duplicate twin segment here and than remove duplicate
     // while processing leaps.
+    m2::PointD const & from = GetPoint(segment, isOutgoing /* front */);
     for (Segment const & twin : twins)
     {
-      m2::PointD const & from = GetPoint(segment, isOutgoing /* front */);
       m2::PointD const & to = GetPoint(twin, isOutgoing /* front */);
       // Weight is usually zero because twins correspond the same feature
       // in different mwms. But if we have mwms with different versions and a feature
