@@ -364,6 +364,7 @@ static NSString * const kStatUnknown = @"unknown";
 static NSString * const kStatUnknownError = @"unknown_error";
 static NSString * const kStatUpdate = @"update";
 static NSString * const kStatUpdateAll = @"update_all";
+static NSString * const kStatUserInterrupted = @"user_interrupted";
 static NSString * const kStatValue = @"Value";
 static NSString * const kStatVehicle = @"Vehicle";
 static NSString * const kStatViator = @"Viator.com";
