@@ -7,6 +7,7 @@
 #include "geometry/point2d.hpp"
 
 #include <cstdint>
+#include <map>
 #include <string>
 #include <utility>
 #include <vector>
@@ -47,12 +48,12 @@ protected:
 
   TestFeature(std::string const & name, std::string const & lang);
   TestFeature(m2::PointD const & center, std::string const & name, std::string const & lang);
-  TestFeature(vector<m2::PointD> const & boundary, std::string const & name,
+  TestFeature(std::vector<m2::PointD> const & boundary, std::string const & name,
               std::string const & lang);
 
   uint64_t const m_id;
   m2::PointD const m_center;
-  vector<m2::PointD> const m_boundary;
+  std::vector<m2::PointD> const m_boundary;
   Type const m_type;
   std::string const m_name;
   std::string const m_lang;
@@ -120,8 +121,10 @@ class TestPOI : public TestFeature
 public:
   TestPOI(m2::PointD const & center, std::string const & name, std::string const & lang);
 
-  static std::pair<TestPOI, FeatureID> AddWithEditor(osm::Editor & editor, MwmSet::MwmId const & mwmId,
-                                                std::string const & enName, m2::PointD const & pt);
+  static std::pair<TestPOI, FeatureID> AddWithEditor(osm::Editor & editor,
+                                                     MwmSet::MwmId const & mwmId,
+                                                     std::string const & enName,
+                                                     m2::PointD const & pt);
 
   // TestFeature overrides:
   void Serialize(FeatureBuilder1 & fb) const override;
@@ -131,10 +134,23 @@ public:
   inline void SetStreet(TestStreet const & street) { m_streetName = street.GetName(); }
   inline void SetTypes(std::vector<std::vector<std::string>> const & types) { m_types = types; }
 
-private:
+protected:
   std::string m_houseNumber;
   std::string m_streetName;
   std::vector<std::vector<std::string>> m_types;
+};
+
+class TestMultilingualPOI : public TestPOI
+{
+public:
+  TestMultilingualPOI(m2::PointD const & center, std::string const & defaultName,
+                      std::map<std::string, std::string> const & multilingualNames);
+  // TestFeature overrides:
+  void Serialize(FeatureBuilder1 & fb) const override;
+  std::string ToString() const override;
+
+private:
+  std::map<std::string, std::string> m_multilingualNames;
 };
 
 class TestBuilding : public TestFeature

@@ -10,6 +10,7 @@
 #include "indexer/city_boundary.hpp"
 #include "indexer/data_header.hpp"
 #include "indexer/feature_data.hpp"
+#include "indexer/feature_meta.hpp"
 #include "indexer/features_offsets_table.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index_builder.hpp"
@@ -22,6 +23,29 @@
 #include "base/string_utils.hpp"
 
 #include "defines.hpp"
+
+using namespace std;
+
+namespace
+{
+bool WriteRegionDataForTests(string const & path, vector<string> const & languages)
+{
+  try
+  {
+    FilesContainerW writer(path, FileWriter::OP_WRITE_EXISTING);
+    feature::RegionData regionData;
+    regionData.SetLanguages(languages);
+    FileWriter w = writer.GetWriter(REGION_INFO_FILE_TAG);
+    regionData.Serialize(w);
+  }
+  catch (Writer::Exception const & e)
+  {
+    LOG(LERROR, ("Error writing file:", e.Msg()));
+    return false;
+  }
+  return true;
+}
+}  // namespace
 
 namespace generator
 {
@@ -80,9 +104,14 @@ bool TestMwmBuilder::Add(FeatureBuilder1 & fb)
   return true;
 }
 
+void TestMwmBuilder::SetMwmLanguages(vector<string> const & languages)
+{
+  m_languages = languages;
+}
+
 void TestMwmBuilder::Finish()
 {
-  std::string const tmpFilePath = m_collector->GetFilePath();
+  string const tmpFilePath = m_collector->GetFilePath();
 
   CHECK(m_collector, ("Finish() already was called."));
   m_collector.reset();
@@ -95,7 +124,7 @@ void TestMwmBuilder::Finish()
 
   CHECK(my::DeleteFileX(tmpFilePath), ());
 
-  std::string const path = m_file.GetPath(MapOptions::Map);
+  string const path = m_file.GetPath(MapOptions::Map);
   (void)my::DeleteFileX(path + OSM2FEATURE_FILE_EXTENSION);
 
   CHECK(feature::BuildOffsetsTable(path), ("Can't build feature offsets table."));
@@ -112,6 +141,9 @@ void TestMwmBuilder::Finish()
         ("Can't build centers table."));
 
   CHECK(search::RankTableBuilder::CreateIfNotExists(path), ());
+
+  if (!m_languages.empty())
+    CHECK(WriteRegionDataForTests(path, m_languages), ());
 
   m_file.SyncWithDisk();
 }

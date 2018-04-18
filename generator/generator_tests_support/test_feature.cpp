@@ -264,6 +264,39 @@ string TestPOI::ToString() const
   return os.str();
 }
 
+// TestMultilingualPOI -----------------------------------------------------------------------------
+TestMultilingualPOI::TestMultilingualPOI(m2::PointD const & center, string const & defaultName,
+                                         map<string, string> const & multilingualNames)
+  : TestPOI(center, defaultName, "default"), m_multilingualNames(multilingualNames)
+{
+}
+
+void TestMultilingualPOI::Serialize(FeatureBuilder1 & fb) const
+{
+  TestPOI::Serialize(fb);
+
+  for (auto const & kv : m_multilingualNames)
+  {
+    CHECK(fb.AddName(kv.first, kv.second),
+          ("Can't set feature name:", kv.second, "(", kv.first, ")"));
+  }
+}
+
+string TestMultilingualPOI::ToString() const
+{
+  ostringstream os;
+  os << "TestPOI [(" << m_name << ", " << m_lang << "), ";
+  for (auto const & kv : m_multilingualNames)
+    os << "( " << kv.second << ", " << kv.first << "), ";
+  os << DebugPrint(m_center);
+  if (!m_houseNumber.empty())
+    os << ", " << m_houseNumber;
+  if (!m_streetName.empty())
+    os << ", " << m_streetName;
+  os << "]";
+  return os.str();
+}
+
 // TestBuilding ------------------------------------------------------------------------------------
 TestBuilding::TestBuilding(m2::PointD const & center, string const & name,
                            string const & houseNumber, string const & lang)

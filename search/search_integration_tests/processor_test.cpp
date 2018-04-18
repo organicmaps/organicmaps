@@ -1369,5 +1369,61 @@ UNIT_CLASS_TEST(ProcessorTest, PathsThroughLayers)
     TEST(ResultsMatch("computing street ", {ruleStreet}), ());
   }
 }
+
+UNIT_CLASS_TEST(ProcessorTest, SelectProperName)
+{
+  string const countryName = "Wonderland";
+
+  auto testLanguage = [&](string language, string expectedRes) {
+    auto request = MakeRequest("cafe", language);
+    auto const & results = request->Results();
+    TEST_EQUAL(results.size(), 1, (results));
+    TEST_EQUAL(results[0].GetString(), expectedRes, (results));
+  };
+
+  TestMultilingualPOI cafe(
+      m2::PointD(0.0, 0.0), "Default",
+      {{"es", "Spanish"}, {"int_name", "International"}, {"fr", "French"}, {"ru", "Russian"}});
+  cafe.SetTypes({{"amenity", "cafe"}});
+
+  auto wonderlandId = BuildCountry(countryName, [&](TestMwmBuilder & builder) {
+    builder.Add(cafe);
+    builder.SetMwmLanguages({"it", "fr"});
+  });
+
+  SetViewport(m2::RectD(-1, -1, 1, 1));
+
+  // Language priorities:
+  // - device language
+  // - input language
+  // - default if mwm has device or input region
+  // - english and international
+  // - default
+
+  // Device language is English by default.
+
+  // No English(device) or Italian(query) name present but mwm has Italian region.
+  testLanguage("it", "Default");
+
+  // No English(device) name present. Mwm has French region but we should prefer explicit French
+  // name.
+  testLanguage("fr", "French");
+
+  // No English(device) name present. Use query language.
+  testLanguage("es", "Spanish");
+
+  // No English(device) or German(query) names present. Mwm does not have German region. We should
+  // use international name.
+  testLanguage("de", "International");
+
+  // Set Russian as device language.
+  m_engine.SetLocale("ru");
+
+  // Device language(Russian) is present and preferred for all queries.
+  testLanguage("it", "Russian");
+  testLanguage("fr", "Russian");
+  testLanguage("es", "Russian");
+  testLanguage("de", "Russian");
+}
 }  // namespace
 }  // namespace search
