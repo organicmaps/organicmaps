@@ -532,4 +532,18 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeCancelRestoring(
 {
   frm()->GetBookmarkManager().CancelCloudRestoring();
 }
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetNotificationsEnabled(
+        JNIEnv * env, jobject thiz, jboolean enabled)
+{
+  frm()->GetBookmarkManager().SetNotificationsEnabled(static_cast<bool>(enabled));
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAreNotificationsEnabled(
+        JNIEnv * env, jobject thiz)
+{
+  return static_cast<jboolean>(frm()->GetBookmarkManager().AreNotificationsEnabled());
+}
 }  // extern "C"

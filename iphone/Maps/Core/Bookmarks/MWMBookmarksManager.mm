@@ -359,4 +359,14 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   return GetFramework().GetBookmarkManager().AreAllCategoriesInvisible();
 }
 
++ (void)setNotificationsEnabled:(BOOL)enabled
+{
+  GetFramework().GetBookmarkManager().SetNotificationsEnabled(enabled);
+}
+
++ (BOOL)areNotificationsEnabled
+{
+  return GetFramework().GetBookmarkManager().AreNotificationsEnabled();
+}
+
 @end

@@ -265,6 +265,9 @@ public:
   void ApplyCloudRestoring();
   void CancelCloudRestoring();
 
+  void SetNotificationsEnabled(bool enabled);
+  bool AreNotificationsEnabled() const;
+
   /// These functions are public for unit tests only. You shouldn't call them from client code.
   void EnableTestMode(bool enable);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId);
@@ -453,6 +456,7 @@ private:
   bool m_restoreApplying = false;
   bool m_migrationInProgress = false;
   bool m_conversionInProgress = false;
+  bool m_notificationsEnabled = true;
 
   ScreenBase m_viewport;
 

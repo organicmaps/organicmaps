@@ -393,6 +393,16 @@ public enum BookmarkManager
     nativeCancelRestoring();
   }
 
+  public void setNotificationsEnabled(boolean enabled)
+  {
+    nativeSetNotificationsEnabled(enabled);
+  }
+
+  public boolean areNotificationsEnabled()
+  {
+    return nativeAreNotificationsEnabled();
+  }
+
   private native int nativeGetCategoriesCount();
 
   private native int nativeGetCategoryPositionById(long catId);
@@ -476,6 +486,10 @@ public enum BookmarkManager
   private static native void nativeApplyRestoring();
 
   private static native void nativeCancelRestoring();
+
+  private static native void nativeSetNotificationsEnabled(boolean enabled);
+
+  private static native boolean nativeAreNotificationsEnabled();
 
   public interface BookmarksLoadingListener
   {

@@ -214,6 +214,14 @@ extension BMCDefaultViewModel: BMCViewModel {
   func removeFromObserverList() {
     BM.remove(self)
   }
+  
+  func setNotificationsEnabled(_ enabled: Bool) {
+    BM.setNotificationsEnabled(enabled)
+  }
+  
+  func areNotificationsEnabled() -> Bool {
+    return BM.areNotificationsEnabled()
+  }
 }
 
 extension BMCDefaultViewModel: MWMBookmarksObserver {

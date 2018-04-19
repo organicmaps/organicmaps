@@ -586,6 +586,9 @@ void BookmarkManager::OnEditSessionClosed()
 void BookmarkManager::NotifyChanges()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (!m_notificationsEnabled)
+    return;
+
   if (!m_changesTracker.CheckChanges() && !m_firstDrapeNotification)
     return;
 
@@ -1779,6 +1782,23 @@ void BookmarkManager::ApplyCloudRestoring()
 void BookmarkManager::CancelCloudRestoring()
 {
   m_bookmarkCloud.CancelRestoring();
+}
+
+void BookmarkManager::SetNotificationsEnabled(bool enabled)
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  if (m_notificationsEnabled == enabled)
+    return;
+
+  m_notificationsEnabled = enabled;
+  if (m_openedEditSessionsCount == 0)
+    NotifyChanges();
+}
+
+bool BookmarkManager::AreNotificationsEnabled() const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  return m_notificationsEnabled;
 }
 
 void BookmarkManager::EnableTestMode(bool enable)

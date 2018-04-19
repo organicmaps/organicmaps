@@ -367,6 +367,24 @@
   [super viewWillDisappear:animated];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+  // Disable all notifications in BM on appearance of this view.
+  // It allows to significantly improve performance in case of bookmarks
+  // modification. All notifications will be sent on controller's disappearance.
+  [MWMBookmarksManager setNotificationsEnabled: NO];
+  
+  [super viewDidAppear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+  // Allow to send all notifications in BM.
+  [MWMBookmarksManager setNotificationsEnabled: YES];
+  
+  [super viewDidDisappear:animated];
+}
+
 - (void)sendBookmarksWithExtension:(NSString *)fileExtension andType:(NSString *)mimeType andFile:(NSString *)filePath andCategory:(NSString *)catName
 {
   MWMMailViewController * mailVC = [[MWMMailViewController alloc] init];

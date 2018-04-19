@@ -37,6 +37,9 @@
 
 + (BOOL)areAllCategoriesInvisible;
 
++ (void)setNotificationsEnabled:(BOOL)enabled;
++ (BOOL)areNotificationsEnabled;
+
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));
 - (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +manager instead")));
