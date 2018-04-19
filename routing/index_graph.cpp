@@ -60,8 +60,8 @@ namespace routing
 IndexGraph::IndexGraph(shared_ptr<Geometry> geometry, shared_ptr<EdgeEstimator> estimator)
   : m_geometry(geometry), m_estimator(move(estimator))
 {
-  ASSERT(m_geometry, ());
-  ASSERT(m_estimator, ());
+  CHECK(m_geometry, ());
+  CHECK(m_estimator, ());
 }
 
 void IndexGraph::GetEdgeList(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges)

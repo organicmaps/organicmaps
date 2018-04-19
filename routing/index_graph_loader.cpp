@@ -31,7 +31,7 @@ private:
   struct GeometryIndexGraph
   {
     shared_ptr<Geometry> m_geometry;
-    shared_ptr<IndexGraph> m_indexGraph;
+    unique_ptr<IndexGraph> m_indexGraph;
   };
 
   GeometryIndexGraph & CreateGeometry(NumMwmId numMwmId);
@@ -108,7 +108,7 @@ IndexGraphLoaderImpl::GeometryIndexGraph & IndexGraphLoaderImpl::CreateIndexGrap
   if (!handle.IsAlive())
     MYTHROW(RoutingException, ("Can't get mwm handle for", file));
 
-  graph.m_indexGraph = make_shared<IndexGraph>(graph.m_geometry, m_estimator);
+  graph.m_indexGraph = make_unique<IndexGraph>(graph.m_geometry, m_estimator);
   my::Timer timer;
   MwmValue const & mwmValue = *handle.GetValue<MwmValue>();
   DeserializeIndexGraph(mwmValue, m_vehicleType, *graph.m_indexGraph);
