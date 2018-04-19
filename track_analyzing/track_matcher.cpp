@@ -63,7 +63,8 @@ TrackMatcher::TrackMatcher(storage::Storage const & storage, NumMwmId mwmId,
 
   MwmSet::MwmHandle const handle = m_index.GetMwmHandleByCountryFile(countryFile);
   m_graph = make_unique<IndexGraph>(
-      GeometryLoader::Create(m_index, handle, m_vehicleModel, false /* loadAltitudes */),
+      make_shared<Geometry>(
+          GeometryLoader::Create(m_index, handle, m_vehicleModel, false /* loadAltitudes */)),
       EdgeEstimator::Create(VehicleType::Car, *m_vehicleModel, nullptr /* trafficStash */));
 
   DeserializeIndexGraph(*handle.GetValue<MwmValue>(), VehicleType::Car, *m_graph);
