@@ -42,7 +42,7 @@ public:
   virtual void SetIsVisible(bool isVisible);
 
 protected:
-  void SetDirty() { m_isDirty = true; }
+  virtual void SetDirty() { m_isDirty = true; }
 
   UserMark::Type m_type;
 

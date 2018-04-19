@@ -214,3 +214,9 @@ kml::PredefinedColor BookmarkCategory::GetDefaultColor()
 {
   return kml::PredefinedColor::Red;
 }
+
+void BookmarkCategory::SetDirty()
+{
+  Base::SetDirty();
+  m_data.m_lastModified = std::chrono::system_clock::now();
+}

@@ -84,6 +84,8 @@ public:
   kml::CategoryData const & GetCategoryData() const { return m_data; }
 
 private:
+  void SetDirty() override;
+
   // Stores file name from which bookmarks were loaded.
   std::string m_file;
   bool m_autoSave = true;

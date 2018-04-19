@@ -50,7 +50,7 @@ bool UserMarkLayer::IsEmpty() const
 
 void UserMarkLayer::SetIsVisible(bool isVisible)
 {
-  if (IsVisible() != isVisible)
+  if (m_isVisible != isVisible)
   {
     SetDirty();
     m_isVisible = isVisible;
