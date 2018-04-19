@@ -60100,7 +60100,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "hand-m"
+      name: "hand-l"
       priority: 16447
       min_distance: 10
     }
