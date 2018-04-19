@@ -57,9 +57,10 @@ bool IsRestricted(RestrictionVec const & restrictions, Segment const & u, Segmen
 
 namespace routing
 {
-IndexGraph::IndexGraph(unique_ptr<GeometryLoader> loader, shared_ptr<EdgeEstimator> estimator)
-  : m_geometry(move(loader)), m_estimator(move(estimator))
+IndexGraph::IndexGraph(shared_ptr<Geometry> geometry, shared_ptr<EdgeEstimator> estimator)
+  : m_geometry(geometry), m_estimator(move(estimator))
 {
+  ASSERT(m_geometry, ());
   ASSERT(m_estimator, ());
 }
 
@@ -83,7 +84,6 @@ void IndexGraph::GetEdgeList(Segment const & segment, bool isOutgoing, vector<Se
 void IndexGraph::Build(uint32_t numJoints)
 {
   m_jointIndex.Build(m_roadIndex, numJoints);
-  m_isBuilt = true;
 }
 
 void IndexGraph::Import(vector<Joint> const & joints)
@@ -122,13 +122,13 @@ RouteWeight IndexGraph::HeuristicCostEstimate(Segment const & from, Segment cons
 RouteWeight IndexGraph::CalcSegmentWeight(Segment const & segment)
 {
   return RouteWeight(
-      m_estimator->CalcSegmentWeight(segment, m_geometry.GetRoad(segment.GetFeatureId())));
+      m_estimator->CalcSegmentWeight(segment, m_geometry->GetRoad(segment.GetFeatureId())));
 }
 
 void IndexGraph::GetNeighboringEdges(Segment const & from, RoadPoint const & rp, bool isOutgoing,
                                      vector<SegmentEdge> & edges)
 {
-  RoadGeometry const & road = m_geometry.GetRoad(rp.GetFeatureId());
+  RoadGeometry const & road = m_geometry->GetRoad(rp.GetFeatureId());
 
   if (!road.IsValid())
     return;
@@ -156,7 +156,7 @@ void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bo
   // Blocking U-turns on internal feature points.
   RoadPoint const rp = from.GetRoadPoint(isOutgoing);
   if (IsUTurn(from, to) && m_roadIndex.GetJointId(rp) == Joint::kInvalidId
-      && !m_geometry.GetRoad(from.GetFeatureId()).IsEndPointId(rp.GetPointId()))
+      && !m_geometry->GetRoad(from.GetFeatureId()).IsEndPointId(rp.GetPointId()))
   {
     return;
   }
@@ -177,8 +177,8 @@ void IndexGraph::GetNeighboringEdge(Segment const & from, Segment const & to, bo
 
 RouteWeight IndexGraph::GetPenalties(Segment const & u, Segment const & v)
 {
-  bool const fromPassThroughAllowed = m_geometry.GetRoad(u.GetFeatureId()).IsPassThroughAllowed();
-  bool const toPassThroughAllowed = m_geometry.GetRoad(v.GetFeatureId()).IsPassThroughAllowed();
+  bool const fromPassThroughAllowed = m_geometry->GetRoad(u.GetFeatureId()).IsPassThroughAllowed();
+  bool const toPassThroughAllowed = m_geometry->GetRoad(v.GetFeatureId()).IsPassThroughAllowed();
   // Route crosses border of pass-through/non-pass-through area if |u| and |v| have different
   // pass through restrictions.
   int32_t const passThroughPenalty = fromPassThroughAllowed == toPassThroughAllowed ? 0 : 1;

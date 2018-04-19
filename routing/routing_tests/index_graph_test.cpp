@@ -131,7 +131,7 @@ UNIT_TEST(EdgesTest)
                   RoadGeometry::Points({{3.0, -1.0}, {3.0, 0.0}, {3.0, 1.0}}));
 
   traffic::TrafficCache const trafficCache;
-  IndexGraph graph(move(loader), CreateEstimatorForCar(trafficCache));
+  IndexGraph graph(make_shared<Geometry>(move(loader)), CreateEstimatorForCar(trafficCache));
 
   vector<Joint> joints;
   joints.emplace_back(MakeJoint({{0, 1}, {3, 1}}));  // J0

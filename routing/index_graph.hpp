@@ -29,14 +29,14 @@ public:
   using Weight = RouteWeight;
 
   IndexGraph() = default;
-  explicit IndexGraph(unique_ptr<GeometryLoader> loader, shared_ptr<EdgeEstimator> estimator);
+  IndexGraph(shared_ptr<Geometry> geometry, shared_ptr<EdgeEstimator> estimator);
 
   // Put outgoing (or ingoing) egdes for segment to the 'edges' vector.
   void GetEdgeList(Segment const & segment, bool isOutgoing, vector<SegmentEdge> & edges);
 
   Joint::Id GetJointId(RoadPoint const & rp) const { return m_roadIndex.GetJointId(rp); }
 
-  Geometry & GetGeometry() { return m_geometry; }
+  Geometry & GetGeometry() { return *m_geometry; }
   bool IsRoad(uint32_t featureId) const { return m_roadIndex.IsRoad(featureId); }
   RoadJointIds const & GetRoad(uint32_t featureId) const { return m_roadIndex.GetRoad(featureId); }
 
@@ -65,8 +65,6 @@ public:
     m_roadIndex.PushFromSerializer(jointId, rp);
   }
 
-  bool IsBuilt() const { return m_isBuilt; }
-
   template <typename F>
   void ForEachRoad(F && f) const
   {
@@ -91,12 +89,11 @@ private:
     return GetGeometry().GetRoad(segment.GetFeatureId()).GetPoint(segment.GetPointId(front));
   }
 
-  Geometry m_geometry;
+  shared_ptr<Geometry> m_geometry;
   shared_ptr<EdgeEstimator> m_estimator;
   RoadIndex m_roadIndex;
   JointIndex m_jointIndex;
   RestrictionVec m_restrictions;
   RoadAccess m_roadAccess;
-  bool m_isBuilt = false;
 };
 }  // namespace routing

@@ -2,6 +2,8 @@
 
 #include "testing/testing.hpp"
 
+#include "routing/geometry.hpp"
+
 #include "routing/base/routing_result.hpp"
 
 #include "routing_common/car_model.hpp"
@@ -311,7 +313,7 @@ unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoade
                                                     shared_ptr<EdgeEstimator> estimator,
                                                     vector<Joint> const & joints)
 {
-  auto graph = make_unique<IndexGraph>(move(geometryLoader), estimator);
+  auto graph = make_unique<IndexGraph>(make_shared<Geometry>(move(geometryLoader)), estimator);
   graph->Import(joints);
   auto indexLoader = make_unique<TestIndexGraphLoader>();
   indexLoader->AddGraph(kTestNumMwmId, move(graph));
@@ -323,7 +325,7 @@ unique_ptr<SingleVehicleWorldGraph> BuildWorldGraph(unique_ptr<ZeroGeometryLoade
                                                     shared_ptr<EdgeEstimator> estimator,
                                                     vector<Joint> const & joints)
 {
-  auto graph = make_unique<IndexGraph>(move(geometryLoader), estimator);
+  auto graph = make_unique<IndexGraph>(make_shared<Geometry>(move(geometryLoader)), estimator);
   graph->Import(joints);
   auto indexLoader = make_unique<TestIndexGraphLoader>();
   indexLoader->AddGraph(kTestNumMwmId, move(graph));
@@ -336,7 +338,7 @@ unique_ptr<TransitWorldGraph> BuildWorldGraph(unique_ptr<TestGeometryLoader> geo
                                               vector<Joint> const & joints,
                                               transit::GraphData const & transitData)
 {
-  auto indexGraph = make_unique<IndexGraph>(move(geometryLoader), estimator);
+  auto indexGraph = make_unique<IndexGraph>(make_shared<Geometry>(move(geometryLoader)), estimator);
   indexGraph->Import(joints);
 
   auto transitGraph = make_unique<TransitGraph>(kTestNumMwmId, estimator);
