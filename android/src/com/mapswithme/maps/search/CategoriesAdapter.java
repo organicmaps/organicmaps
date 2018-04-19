@@ -2,7 +2,6 @@ package com.mapswithme.maps.search;
 
 import android.content.res.Resources;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -50,20 +49,17 @@ class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ViewHolde
       String key = keys[i];
 
       mCategoryResIds[i] = resources.getIdentifier(key, "string", packageName);
-      if (mCategoryResIds[i] == 0)
+      PromoCategory promo = PromoCategory.findByKey(key);
+      if (promo != null)
       {
-        PromoCategory category = PromoCategory.findByKey(key);
-        if (category != null)
-        {
-          Statistics.INSTANCE.trackSponsoredEventForCustomProvider(
-              Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SHOWN,
-              category.getStatisticValue());
-          mCategoryResIds[i] = category.getStringId();
-        }
-
-        if (mCategoryResIds[i] == 0)
-          throw new IllegalStateException("Can't get string resource id for category:" + key);
+        Statistics.INSTANCE.trackSponsoredEventForCustomProvider(
+            Statistics.EventName.SEARCH_SPONSOR_CATEGORY_SHOWN,
+            promo.getStatisticValue());
+        mCategoryResIds[i] = promo.getStringId();
       }
+
+      if (mCategoryResIds[i] == 0)
+        throw new IllegalStateException("Can't get string resource id for category:" + key);
 
       String iconId = "ic_category_" + key;
       if (isNightTheme)
