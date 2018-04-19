@@ -2479,7 +2479,7 @@ area|z16[shop=computer]
 {icon-image: computer-m.svg;}
 node|z16[shop=tattoo],
 area|z16[shop=tattoo]
-{icon-image: hand-m.svg;}
+{icon-image: hand-l.svg;}
 node|z16[shop=erotic],
 area|z16[shop=erotic]
 {icon-image: erotic-m.svg;}
