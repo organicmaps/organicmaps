@@ -112,6 +112,7 @@ import static com.mapswithme.util.statistics.Statistics.ParamValue.MAPSME;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.PHONE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.SEARCH_BOOKING_COM;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.UNKNOWN;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.VIATOR;
 
 public enum Statistics
@@ -1004,6 +1005,8 @@ public enum Statistics
         return PHONE;
       case Framework.TOKEN_MAPSME:
         return MAPSME;
+      case Framework.SOCIAL_TOKEN_INVALID:
+        return UNKNOWN;
       default:
         throw new AssertionError("Unknown social token type: " + type);
     }
