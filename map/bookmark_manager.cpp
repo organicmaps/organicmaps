@@ -1579,6 +1579,7 @@ bool BookmarkManager::AreAllCategoriesInvisible() const
 void BookmarkManager::SetAllCategoriesVisibility(bool visible)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto session = GetEditSession();
   for (auto & c : m_categories)
     c.second->SetIsVisible(visible);
 }
