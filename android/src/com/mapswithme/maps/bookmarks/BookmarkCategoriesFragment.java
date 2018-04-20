@@ -232,12 +232,17 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     BottomSheetHelper.Builder bs = BottomSheetHelper.create(getActivity(), name)
                                                     .sheet(R.menu.menu_bookmark_categories)
                                                     .listener(this);
-    MenuItem show = bs.getMenu().getItem(0);
+
     final boolean isVisible = bmManager.isVisible(mSelectedCatId);
-    show.setIcon(isVisible ? R.drawable.ic_hide
-                           : R.drawable.ic_show);
-    show.setTitle(isVisible ? R.string.hide
-                            : R.string.show);
+    bs.getItemByIndex(0)
+      .setIcon(isVisible ? R.drawable.ic_hide : R.drawable.ic_show)
+      .setTitle(isVisible ? R.string.hide : R.string.show);
+
+    final boolean deleteIsPossible = bmManager.getCategoriesCount() > 1;
+    bs.getItemById(R.id.set_delete)
+      .setVisible(deleteIsPossible)
+      .setEnabled(deleteIsPossible);
+
     bs.tint().show();
   }
 

@@ -6,6 +6,7 @@ import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.support.annotation.MenuRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -156,6 +157,28 @@ public final class BottomSheetHelper
       }
 
       return this;
+    }
+
+    @NonNull
+    public MenuItem getItemByIndex(int index)
+    {
+      MenuItem item = getMenu().getItem(index);
+
+      if (item == null)
+        throw new AssertionError("Can not find bottom sheet item with index: " + index);
+
+      return item;
+    }
+
+    @NonNull
+    public MenuItem getItemById(@IdRes int id)
+    {
+      MenuItem item = getMenu().findItem(id);
+
+      if (item == null)
+        throw new AssertionError("Can not find bottom sheet item with id: " + id);
+
+      return item;
     }
   }
 
