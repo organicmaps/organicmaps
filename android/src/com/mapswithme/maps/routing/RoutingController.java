@@ -121,70 +121,48 @@ public class RoutingController implements TaxiManager.TaxiListener
     public void onRoutingEvent(final int resultCode, @Nullable final String[] missingMaps)
     {
       mLogger.d(TAG, "onRoutingEvent(resultCode: " + resultCode + ")");
+      UiThread.run(() -> {
+        mLastResultCode = resultCode;
+        mLastMissingMaps = missingMaps;
+        mContainsCachedResult = true;
 
-      UiThread.run(new Runnable()
-      {
-        @Override
-        public void run()
+        if (mLastResultCode == ResultCodesHelper.NO_ERROR
+            || ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
         {
-          mLastResultCode = resultCode;
-          mLastMissingMaps = missingMaps;
-          mContainsCachedResult = true;
-
-          if (mLastResultCode == ResultCodesHelper.NO_ERROR
-              || ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
-          {
-            mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
-            if (mLastRouterType == Framework.ROUTER_TYPE_TRANSIT)
-              mCachedTransitRouteInfo = Framework.nativeGetTransitRouteInfo();
-            setBuildState(BuildState.BUILT);
-            mLastBuildProgress = 100;
-            if (mContainer != null)
-              mContainer.onBuiltRoute();
-          }
-
-          processRoutingEvent();
+          mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
+          if (mLastRouterType == Framework.ROUTER_TYPE_TRANSIT)
+            mCachedTransitRouteInfo = Framework.nativeGetTransitRouteInfo();
+          setBuildState(BuildState.BUILT);
+          mLastBuildProgress = 100;
+          if (mContainer != null)
+            mContainer.onBuiltRoute();
         }
+
+        processRoutingEvent();
       });
     }
   };
 
   @SuppressWarnings("FieldCanBeLocal")
-  private final Framework.RoutingProgressListener mRoutingProgressListener = new Framework.RoutingProgressListener()
-  {
-    @Override
-    public void onRouteBuildingProgress(final float progress)
-    {
-      UiThread.run(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          mLastBuildProgress = (int) progress;
-          updateProgress();
-        }
-      });
-    }
-  };
+  private final Framework.RoutingProgressListener mRoutingProgressListener =
+    progress -> UiThread.run(() -> {
+      mLastBuildProgress = (int) progress;
+      updateProgress();
+    });
 
   @SuppressWarnings("FieldCanBeLocal")
   private final Framework.RoutingRecommendationListener mRoutingRecommendationListener =
-      new Framework.RoutingRecommendationListener()
-  {
-    @Override
-    public void onRecommend(@Framework.RouteRecommendationType final int recommendation)
-    {
-      UiThread.run(new Runnable()
-      {
-        @Override
-        public void run()
-        {
-          if (recommendation == Framework.ROUTE_REBUILD_AFTER_POINTS_LOADING)
-            setStartPoint(LocationHelper.INSTANCE.getMyPosition());
-        }
-      });
-    }
-  };
+    recommendation -> UiThread.run(() -> {
+      if (recommendation == Framework.ROUTE_REBUILD_AFTER_POINTS_LOADING)
+        setStartPoint(LocationHelper.INSTANCE.getMyPosition());
+    });
+
+  @SuppressWarnings("FieldCanBeLocal")
+  private final Framework.RoutingLoadPointsListener mRoutingLoadPointsListener =
+    success -> {
+      if (success)
+        prepare(getStartPoint(), getEndPoint());
+    };
 
   public static RoutingController get()
   {
@@ -281,6 +259,7 @@ public class RoutingController implements TaxiManager.TaxiListener
     Framework.nativeSetRoutingListener(mRoutingListener);
     Framework.nativeSetRouteProgressListener(mRoutingProgressListener);
     Framework.nativeSetRoutingRecommendationListener(mRoutingRecommendationListener);
+    Framework.nativeSetRoutingLoadPointsListener(mRoutingLoadPointsListener);
     TaxiManager.INSTANCE.setTaxiListener(this);
   }
 
@@ -387,10 +366,7 @@ public class RoutingController implements TaxiManager.TaxiListener
   public void restoreRoute()
   {
     if (Framework.nativeHasSavedRoutePoints())
-    {
       Framework.nativeLoadRoutePoints();
-      prepare(getStartPoint(), getEndPoint());
-    }
   }
 
   public void saveRoute()

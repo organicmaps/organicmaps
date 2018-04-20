@@ -666,6 +666,15 @@ void CallRouteRecommendationListener(shared_ptr<jobject> listener,
   env->CallVoidMethod(*listener, methodId, static_cast<int>(recommendation));
 }
 
+void CallSetRoutingLoadPointsListener(shared_ptr<jobject> listener, bool success)
+{
+  JNIEnv * env = jni::GetEnv();
+  jmethodID const methodId = jni::GetMethodID(env, *listener, "onRoutePointsLoaded", "(Z)V");
+  env->CallVoidMethod(*listener, methodId, static_cast<jboolean>(success));
+}
+
+RoutingManager::LoadRouteHandler g_loadRouteHandler;
+
 /// @name JNI EXPORTS
 //@{
 JNIEXPORT jstring JNICALL
@@ -1160,6 +1169,17 @@ Java_com_mapswithme_maps_Framework_nativeSetRoutingRecommendationListener(JNIEnv
 }
 
 JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetRoutingLoadPointsListener(
+        JNIEnv *, jclass, jobject listener)
+{
+  CHECK(g_framework, ("Framework isn't created yet!"));
+  if (listener != nullptr)
+    g_loadRouteHandler = bind(&CallSetRoutingLoadPointsListener, jni::make_global_ref(listener), _1);
+  else
+    g_loadRouteHandler = nullptr;
+}
+
+JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeDeactivatePopup(JNIEnv * env, jclass)
 {
   return g_framework->DeactivatePopup();
@@ -1504,10 +1524,10 @@ Java_com_mapswithme_maps_Framework_nativeHasSavedRoutePoints()
   return frm()->GetRoutingManager().HasSavedRoutePoints();
 }
 
-JNIEXPORT jboolean JNICALL
+JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeLoadRoutePoints()
 {
-  return frm()->GetRoutingManager().LoadRoutePoints();
+  frm()->GetRoutingManager().LoadRoutePoints(g_loadRouteHandler);
 }
 
 JNIEXPORT void JNICALL

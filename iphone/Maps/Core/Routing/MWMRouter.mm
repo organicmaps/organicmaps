@@ -708,8 +708,11 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
     auto & rm = GetFramework().GetRoutingManager();
     if ([self isRoutingActive] || !rm.HasSavedRoutePoints())
       return;
-    rm.LoadRoutePoints();
-    [self rebuildWithBestRouter:YES];
+    rm.LoadRoutePoints([self](bool success)
+    {
+      if (success)
+        [self rebuildWithBestRouter:YES];
+    });
   }
   else
   {

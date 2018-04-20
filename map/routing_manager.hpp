@@ -248,10 +248,11 @@ public:
   /// \returns true if there are route points saved in file and false otherwise.
   bool HasSavedRoutePoints() const;
   /// \brief It loads road points from file and delete file after loading.
-  /// \returns true if route points loaded and false otherwise.
-  bool LoadRoutePoints();
+  /// The result of the loading will be sent via SafeCallback.
+  using LoadRouteHandler = platform::SafeCallback<void(bool success)>;
+  void LoadRoutePoints(LoadRouteHandler const & handler);
   /// \brief It saves route points to file.
-  void SaveRoutePoints() const;
+  void SaveRoutePoints();
   /// \brief It deletes file with saved route points if it exists.
   void DeleteSavedRoutePoints();
 
@@ -277,6 +278,8 @@ private:
   void SetSubroutesVisibility(bool visible);
 
   void CancelRecommendation(Recommendation recommendation);
+
+  std::vector<RouteMarkData> GetRoutePointsToSave() const;
 
   RouteBuildingCallback m_routingCallback = nullptr;
   RouteRecommendCallback m_routeRecommendCallback = nullptr;

@@ -125,6 +125,12 @@ public class Framework
     void onRecommend(@RouteRecommendationType int recommendation);
   }
 
+  @SuppressWarnings("unused")
+  public interface RoutingLoadPointsListener
+  {
+    void onRoutePointsLoaded(boolean success);
+  }
+
   public static class Params3dMode
   {
     public boolean enabled;
@@ -305,6 +311,9 @@ public class Framework
 
   public static native void nativeSetRoutingRecommendationListener(RoutingRecommendationListener listener);
 
+  public static native void nativeSetRoutingLoadPointsListener(
+      @Nullable RoutingLoadPointsListener listener);
+
   public static native void nativeShowCountry(String countryId, boolean zoomToDownloadButton);
 
   public static native void nativeSetMapStyle(int mapStyle);
@@ -401,7 +410,7 @@ public class Framework
   public static native int nativeInvalidRoutePointsTransactionId();
 
   public static native boolean nativeHasSavedRoutePoints();
-  public static native boolean nativeLoadRoutePoints();
+  public static native void nativeLoadRoutePoints();
   public static native void nativeSaveRoutePoints();
   public static native void nativeDeleteSavedRoutePoints();
 

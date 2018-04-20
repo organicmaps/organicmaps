@@ -157,9 +157,11 @@ void DrawWidget::initializeGL()
   m_framework.LoadBookmarks();
   MapWidget::initializeGL();
 
-  auto & routingManager = m_framework.GetRoutingManager();
-  if (routingManager.LoadRoutePoints())
-    routingManager.BuildRoute(0 /* timeoutSec */);
+  m_framework.GetRoutingManager().LoadRoutePoints([this](bool success)
+  {
+    if (success)
+      m_framework.GetRoutingManager().BuildRoute(0 /* timeoutSec */);
+  });
 }
 
 void DrawWidget::mousePressEvent(QMouseEvent * e)

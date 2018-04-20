@@ -142,24 +142,12 @@ RouteMarkData DeserializeRoutePoint(json_t * node)
   return data;
 }
 
-string SerializeRoutePoints(BookmarkManager * bmManager, vector<RouteMarkData> const & points)
+string SerializeRoutePoints(vector<RouteMarkData> const & points)
 {
   ASSERT_GREATER_OR_EQUAL(points.size(), 2, ());
   auto pointsNode = my::NewJSONArray();
-
-  // Save last passed point. It will be used on points loading if my position
-  // isn't determined.
-  auto lastPassedPoint = GetLastPassedPoint(bmManager, points);
-  auto lastPassedNode = my::NewJSONObject();
-  SerializeRoutePoint(lastPassedNode.get(), lastPassedPoint);
-  json_array_append_new(pointsNode.get(), lastPassedNode.release());
-
   for (auto const & p : points)
   {
-    // Here we skip passed points and the start point.
-    if (p.m_isPassed || p.m_pointType == RouteMarkType::Start)
-      continue;
-
     auto pointNode = my::NewJSONObject();
     SerializeRoutePoint(pointNode.get(), p);
     json_array_append_new(pointsNode.get(), pointNode.release());
@@ -335,6 +323,8 @@ void RoutingManager::OnRoutePointPassed(RouteMarkType type, size_t intermediateI
 
   if (type == RouteMarkType::Finish)
     RemoveRoute(false /* deactivateFollowing */);
+
+  SaveRoutePoints();
 }
 
 RouterType RoutingManager::GetBestRouter(m2::PointD const & startPoint,
@@ -447,7 +437,7 @@ void RoutingManager::InsertRoute(Route const & route)
   // TODO: Now we always update whole route, so we need to remove previous one.
   RemoveRoute(false /* deactivateFollowing */);
 
-  std::shared_ptr<TransitRouteDisplay> transitRouteDisplay;
+  shared_ptr<TransitRouteDisplay> transitRouteDisplay;
   auto numMwmIds = make_shared<NumMwmIds>();
   if (m_currentRouterType == RouterType::Transit)
   {
@@ -555,7 +545,7 @@ void RoutingManager::InsertRoute(Route const & route)
 
   if (m_currentRouterType == RouterType::Transit)
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [transitRouteDisplay = std::move(transitRouteDisplay)]()
+    GetPlatform().RunTask(Platform::Thread::Gui, [transitRouteDisplay = move(transitRouteDisplay)]()
     {
       transitRouteDisplay->CreateTransitMarks();
     });
@@ -973,11 +963,11 @@ void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAl
     symbols.push_back(typePair.second + "-l");
   }
   m_drapeEngine.SafeCall(&df::DrapeEngine::RequestSymbolsSize, symbols,
-                         [this, is3dAllowed](std::map<std::string, m2::PointF> && sizes)
+                         [this, is3dAllowed](map<string, m2::PointF> && sizes)
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, is3dAllowed, sizes = std::move(sizes)]() mutable
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, is3dAllowed, sizes = move(sizes)]() mutable
     {
-      m_transitSymbolSizes = std::move(sizes);
+      m_transitSymbolSizes = move(sizes);
 
       // In case of the engine reinitialization recover route.
       if (IsRoutingActive())
@@ -1130,87 +1120,139 @@ bool RoutingManager::HasSavedRoutePoints() const
   return GetPlatform().IsFileExistsByFullPath(fileName);
 }
 
-bool RoutingManager::LoadRoutePoints()
+void RoutingManager::LoadRoutePoints(LoadRouteHandler const & handler)
 {
-  if (!HasSavedRoutePoints())
-    return false;
-
-  // Delete file after loading.
-  auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
-  MY_SCOPE_GUARD(routePointsFileGuard, bind(&FileWriter::DeleteFileX, cref(fileName)));
-
-  string data;
-  try
+  GetPlatform().RunTask(Platform::Thread::File, [this, handler]()
   {
-    ReaderPtr<Reader>(GetPlatform().GetReader(fileName)).ReadAsString(data);
-  }
-  catch (RootException const & ex)
-  {
-    LOG(LWARNING, ("Loading road points failed:", ex.Msg()));
-    return false;
-  }
-
-  auto points = DeserializeRoutePoints(data);
-  if (points.empty())
-    return false;
-
-  // If we have found my position, we use my position as start point.
-  auto const & myPosMark = m_bmManager->MyPositionMark();
-  ASSERT(m_bmManager != nullptr, ());
-  auto editSession = m_bmManager->GetEditSession();
-  editSession.ClearGroup(UserMark::Type::ROUTING);
-  for (auto & p : points)
-  {
-    if (p.m_pointType == RouteMarkType::Start && myPosMark.HasPosition())
+    if (!HasSavedRoutePoints())
     {
-      RouteMarkData startPt;
-      startPt.m_pointType = RouteMarkType::Start;
-      startPt.m_isMyPosition = true;
-      startPt.m_position = myPosMark.GetPivot();
-      AddRoutePoint(move(startPt));
+      if (handler)
+        handler(false /* success */);
+      return;
     }
-    else
+
+    // Delete file after loading.
+    auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
+    MY_SCOPE_GUARD(routePointsFileGuard, bind(&FileWriter::DeleteFileX, cref(fileName)));
+
+    string data;
+    try
     {
-      AddRoutePoint(move(p));
+      ReaderPtr<Reader>(GetPlatform().GetReader(fileName)).ReadAsString(data);
     }
-  }
+    catch (RootException const & ex)
+    {
+      LOG(LWARNING, ("Loading road points failed:", ex.Msg()));
+      if (handler)
+        handler(false /* success */);
+      return;
+    }
 
-  // If we don't have my position, save loading timestamp. Probably
-  // we will get my position soon.
-  if (!myPosMark.HasPosition())
-    m_loadRoutePointsTimestamp = chrono::steady_clock::now();
+    auto points = DeserializeRoutePoints(data);
+    if (handler && points.empty())
+    {
+      handler(false /* success */);
+      return;
+    }
 
-  return true;
+    GetPlatform().RunTask(Platform::Thread::Gui,
+                          [this, handler, points = move(points)]() mutable
+    {
+      ASSERT(m_bmManager != nullptr, ());
+      // If we have found my position, we use my position as start point.
+      auto const & myPosMark = m_bmManager->MyPositionMark();
+      auto editSession = m_bmManager->GetEditSession();
+      editSession.ClearGroup(UserMark::Type::ROUTING);
+      for (auto & p : points)
+      {
+        if (p.m_pointType == RouteMarkType::Start && myPosMark.HasPosition())
+        {
+          RouteMarkData startPt;
+          startPt.m_pointType = RouteMarkType::Start;
+          startPt.m_isMyPosition = true;
+          startPt.m_position = myPosMark.GetPivot();
+          AddRoutePoint(move(startPt));
+        }
+        else
+        {
+          AddRoutePoint(move(p));
+        }
+      }
+
+      // If we don't have my position, save loading timestamp. Probably
+      // we will get my position soon.
+      if (!myPosMark.HasPosition())
+        m_loadRoutePointsTimestamp = chrono::steady_clock::now();
+
+      if (handler)
+        handler(true /* success */);
+    });
+  });
 }
 
-void RoutingManager::SaveRoutePoints() const
+void RoutingManager::SaveRoutePoints()
+{
+  auto points = GetRoutePointsToSave();
+  if (points.empty())
+  {
+    DeleteSavedRoutePoints();
+    return;
+  }
+
+  GetPlatform().RunTask(Platform::Thread::File, [points = move(points)]()
+  {
+    try
+    {
+      auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
+      FileWriter writer(fileName);
+      string const pointsData = SerializeRoutePoints(points);
+      writer.Write(pointsData.c_str(), pointsData.length());
+    }
+    catch (RootException const & ex)
+    {
+      LOG(LWARNING, ("Saving road points failed:", ex.Msg()));
+    }
+  });
+}
+
+vector<RouteMarkData> RoutingManager::GetRoutePointsToSave() const
 {
   auto points = GetRoutePoints();
-  if (points.size() < 2)
-    return;
+  if (points.size() < 2 || points.back().m_isPassed)
+    return {};
 
-  if (points.back().m_isPassed)
-    return;
+  vector<RouteMarkData> result;
+  result.reserve(points.size());
 
-  try
+  // Save last passed point. It will be used on points loading if my position
+  // isn't determined.
+  result.emplace_back(GetLastPassedPoint(m_bmManager, points));
+
+  for (auto & p : points)
   {
-    auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
-    FileWriter writer(fileName);
-    string const pointsData = SerializeRoutePoints(m_bmManager, points);
-    writer.Write(pointsData.c_str(), pointsData.length());
+    // Here we skip passed points and the start point.
+    if (p.m_isPassed || p.m_pointType == RouteMarkType::Start)
+      continue;
+
+    result.push_back(std::move(p));
   }
-  catch (RootException const & ex)
-  {
-    LOG(LWARNING, ("Saving road points failed:", ex.Msg()));
-  }
+
+  if (result.size() < 2)
+    return {};
+
+  return result;
 }
 
 void RoutingManager::DeleteSavedRoutePoints()
 {
   if (!HasSavedRoutePoints())
     return;
-  auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
-  FileWriter::DeleteFileX(fileName);
+
+  GetPlatform().RunTask(Platform::Thread::File, []()
+  {
+    auto const fileName = GetPlatform().SettingsPathForFile(kRoutePointsFile);
+    FileWriter::DeleteFileX(fileName);
+  });
 }
 
 void RoutingManager::UpdatePreviewMode()
@@ -1260,7 +1302,7 @@ TransitRouteInfo RoutingManager::GetTransitRouteInfo() const
   return m_transitRouteInfo;
 }
 
-std::vector<dp::DrapeID> RoutingManager::GetSubrouteIds() const
+vector<dp::DrapeID> RoutingManager::GetSubrouteIds() const
 {
   lock_guard<mutex> lock(m_drapeSubroutesMutex);
   return m_drapeSubroutes;
