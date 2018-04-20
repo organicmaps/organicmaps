@@ -1583,6 +1583,7 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter be
     auto const isFeature = r.GetResultType() == search::Result::Type::Feature;
     if (isFeature)
       mark->SetFoundFeature(r.GetFeatureID());
+
     mark->SetMatchedName(r.GetString());
 
     // TODO: Remove after FC2018 finishing.
@@ -1594,6 +1595,15 @@ void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter be
       mark->SetMarkType(SearchMarkType::Booking);
       mark->SetRating(r.m_metadata.m_hotelRating);
       mark->SetPricing(r.m_metadata.m_hotelPricing);
+    }
+    else if (isFeature)
+    {
+      auto product = GetProductInfo(r);
+      if (product.m_ugcRating != search::ProductInfo::kInvalidRating)
+      {
+        mark->SetMarkType(SearchMarkType::UGC);
+        mark->SetRating(product.m_ugcRating);
+      }
     }
 
     if (isFeature && m_localAdsManager.Contains(r.GetFeatureID()))

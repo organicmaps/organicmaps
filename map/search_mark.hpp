@@ -21,6 +21,7 @@ enum class SearchMarkType
   Booking,
   LocalAds,
   LocalAdsBooking,
+  UGC,
   Fc2018,
   NotFound, // Service value used in developer tools.
   Count
@@ -63,6 +64,7 @@ protected:
   }
 
   bool IsBookingSpecialMark() const;
+  bool IsUGCMark() const;
 
   SearchMarkType m_type = SearchMarkType::Default;
   FeatureID m_featureID;

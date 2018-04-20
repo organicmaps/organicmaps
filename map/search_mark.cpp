@@ -14,9 +14,10 @@ namespace
 std::vector<std::string> const kSymbols =
 {
   "search-result",              // Default.
-  "searchbooking-default-l",    // Booking.
+  "coloredmark-default-l",     // Booking.
   "search-adv",                 // Local Ads.
   "searchbookingadv-default-l", // Local Ads + Booking.
+  "coloredmark-default-l",     // UGC.
   "search-football",            // FC 2018.
 
   "non-found-search-result",    // NotFound.
@@ -25,9 +26,10 @@ std::vector<std::string> const kSymbols =
 std::vector<std::string> const kPreparingSymbols =
 {
   "search-result",              // Default.
-  "searchbooking-inactive",     // Booking.
+  "coloredmark-inactive",      // Booking.
   "search-adv",                 // Local Ads.
   "searchbookingadv-default-l", // Local Ads + Booking.
+  "coloredmark-inactive",      // UGC.
   "search-football",            // FC 2018.
 
   "non-found-search-result",    // NotFound.
@@ -70,7 +72,7 @@ bool NeedShowBookingBadge(float rating, int pricing)
 std::string GetBookingSmallIcon(SearchMarkType type)
 {
   if (type == SearchMarkType::Booking)
-    return "searchbooking-default-s";
+    return "coloredmark-default-s";
   if (type == SearchMarkType::LocalAdsBooking)
     return "search-adv";
   return {};
@@ -104,7 +106,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames
   }
 
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
-  if (IsBookingSpecialMark())
+  if (IsBookingSpecialMark() || IsUGCMark())
   {
     symbol->insert(std::make_pair(1 /* zoomLevel */, m_rating < kRatingThreshold ?
                                                      GetBookingSmallIcon(m_type) : name));
@@ -158,7 +160,7 @@ drape_ptr<df::UserPointMark::SymbolOffsets> SearchMarkPoint::GetSymbolOffsets() 
 
 df::ColorConstant SearchMarkPoint::GetColorConstant() const
 {
-  if (!IsBookingSpecialMark())
+  if (!IsBookingSpecialMark() && !IsUGCMark())
     return {};
 
   if (m_type == SearchMarkType::LocalAdsBooking)
@@ -179,7 +181,7 @@ df::ColorConstant SearchMarkPoint::GetColorConstant() const
 
 drape_ptr<df::UserPointMark::TitlesInfo> SearchMarkPoint::GetTitleDecl() const
 {
-  if (!IsBookingSpecialMark() || fabs(m_rating) < 1e-5)
+  if (!(IsBookingSpecialMark() || IsUGCMark()) || fabs(m_rating) < 1e-5)
     return nullptr;
 
   auto titles = make_unique_dp<TitlesInfo>();
@@ -189,7 +191,7 @@ drape_ptr<df::UserPointMark::TitlesInfo> SearchMarkPoint::GetTitleDecl() const
 
 int SearchMarkPoint::GetMinTitleZoom() const
 {
-  if (IsBookingSpecialMark() && m_rating < kRatingThreshold)
+  if ((IsBookingSpecialMark() || IsUGCMark()) && m_rating < kRatingThreshold)
     return 17;
   return 1;
 }
@@ -234,6 +236,11 @@ bool SearchMarkPoint::IsBookingSpecialMark() const
 {
   return (m_type == SearchMarkType::Booking || m_type == SearchMarkType::LocalAdsBooking) &&
          !m_isPreparing;
+}
+
+bool SearchMarkPoint::IsUGCMark() const
+{
+  return m_type == SearchMarkType::UGC;
 }
 
 // static
