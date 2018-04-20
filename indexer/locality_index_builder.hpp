@@ -17,14 +17,18 @@
 #include "defines.hpp"
 
 #include <cstdint>
+#include <functional>
 #include <string>
 #include <vector>
 
 namespace covering
 {
-template <class TObjectsVector, class TWriter>
-void BuildLocalityIndex(TObjectsVector const & objects, TWriter & writer,
-                        string const & tmpFilePrefix)
+using CoverLocality = std::function<std::vector<int64_t>(indexer::LocalityObject const & o,
+                                                         int cellDepth, uint64_t cellPenaltyArea)>;
+
+template <class ObjectsVector, class Writer, int DEPTH_LEVELS>
+void BuildLocalityIndex(ObjectsVector const & objects, Writer & writer,
+                        CoverLocality const & coverLocality, string const & tmpFilePrefix)
 {
   string const cellsToValueFile = tmpFilePrefix + CELL2LOCALITY_SORTED_EXT + ".all";
   MY_SCOPE_GUARD(cellsToValueFileGuard, bind(&FileWriter::DeleteFileX, cellsToValueFile));
@@ -34,11 +38,10 @@ void BuildLocalityIndex(TObjectsVector const & objects, TWriter & writer,
     WriterFunctor<FileWriter> out(cellsToValueWriter);
     FileSorter<CellValuePair<uint64_t>, WriterFunctor<FileWriter>> sorter(
         1024 * 1024 /* bufferBytes */, tmpFilePrefix + CELL2LOCALITY_TMP_EXT, out);
-    objects.ForEach([&sorter](indexer::LocalityObject const & o) {
+    objects.ForEach([&sorter, &coverLocality](indexer::LocalityObject const & o) {
       // @todo(t.yan): adjust cellPenaltyArea for whole world locality index.
-      std::vector<int64_t> const cells = covering::CoverLocality(
-          o, GetCodingDepth<LocalityCellId::DEPTH_LEVELS>(scales::GetUpperScale()),
-          250 /* cellPenaltyArea */);
+      std::vector<int64_t> const cells = coverLocality(
+          o, GetCodingDepth<DEPTH_LEVELS>(scales::GetUpperScale()), 250 /* cellPenaltyArea */);
       for (auto const & cell : cells)
         sorter.Add(CellValuePair<uint64_t>(cell, o.GetStoredId()));
     });
@@ -49,13 +52,18 @@ void BuildLocalityIndex(TObjectsVector const & objects, TWriter & writer,
   DDVector<CellValuePair<uint64_t>, FileReader, uint64_t> cellsToValue(reader);
 
   {
-    BuildIntervalIndex(cellsToValue.begin(), cellsToValue.end(), writer,
-                       LocalityCellId::DEPTH_LEVELS * 2 + 1);
+    BuildIntervalIndex(cellsToValue.begin(), cellsToValue.end(), writer, DEPTH_LEVELS * 2 + 1);
   }
 }
 }  // namespace covering
 
 namespace indexer
 {
-bool BuildLocalityIndexFromDataFile(std::string const & dataFile, std::string const & tmpFile);
+// Builds indexer::GeoObjectsIndex for reverse geocoder with |kGeoObjectsDepthLevels| depth levels
+// and saves it to |GEO_OBJECTS_INDEX_FILE_TAG| of |out|.
+bool BuildGeoObjectsIndexFromDataFile(std::string const & dataFile, std::string const & out);
+
+// Builds indexer::RegionsIndex for reverse geocoder with |kRegionsDepthLevels| depth levels and
+// saves it to |REGIONS_INDEX_FILE_TAG| of |out|.
+bool BuildRegionsIndexFromDataFile(std::string const & dataFile, std::string const & out);
 }  // namespace indexer

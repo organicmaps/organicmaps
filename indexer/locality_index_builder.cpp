@@ -13,13 +13,13 @@ namespace indexer
 {
 namespace
 {
-template <class ReaderT>
+template <class Reader>
 class LocalityVector
 {
   DISALLOW_COPY(LocalityVector);
 
 public:
-  LocalityVector(ReaderT const & reader) : m_recordReader(reader, 256 /* expectedRecordSize */) {}
+  LocalityVector(Reader const & reader) : m_recordReader(reader, 256 /* expectedRecordSize */) {}
 
   template <class ToDo>
   void ForEach(ToDo && toDo) const
@@ -55,9 +55,12 @@ private:
   FilesContainerR m_cont;
   LocalityVector<ModelReaderPtr> m_vector;
 };
-}  // namespace
 
-bool BuildLocalityIndexFromDataFile(string const & dataFile, string const & outFileName)
+template <int DEPTH_LEVELS>
+bool BuildLocalityIndexFromDataFile(string const & dataFile,
+                                    covering::CoverLocality const & coverLocality,
+                                    string const & outFileName,
+                                    string const & localityIndexFileTag)
 {
   try
   {
@@ -66,11 +69,12 @@ bool BuildLocalityIndexFromDataFile(string const & dataFile, string const & outF
       LocalityVectorReader localities(dataFile);
       FileWriter writer(idxFileName);
 
-      covering::BuildLocalityIndex(localities.GetVector(), writer, outFileName);
+      covering::BuildLocalityIndex<LocalityVector<ModelReaderPtr>, FileWriter, DEPTH_LEVELS>(
+          localities.GetVector(), writer, coverLocality, outFileName);
     }
 
     FilesContainerW(outFileName, FileWriter::OP_WRITE_TRUNCATE)
-        .Write(idxFileName, LOCALITY_INDEX_FILE_TAG);
+        .Write(idxFileName, localityIndexFileTag);
     FileWriter::DeleteFileX(idxFileName);
   }
   catch (Reader::Exception const & e)
@@ -84,5 +88,26 @@ bool BuildLocalityIndexFromDataFile(string const & dataFile, string const & outF
     return false;
   }
   return true;
+}
+}  // namespace
+
+bool BuildGeoObjectsIndexFromDataFile(string const & dataFile, string const & outFileName)
+{
+  auto coverObject = [](indexer::LocalityObject const & o, int cellDepth,
+                        uint64_t cellPenaltyArea) {
+    return covering::CoverGeoObject(o, cellDepth, cellPenaltyArea);
+  };
+  return BuildLocalityIndexFromDataFile<kGeoObjectsDepthLevels>(dataFile, coverObject, outFileName,
+                                                                GEO_OBJECTS_INDEX_FILE_TAG);
+}
+
+bool BuildRegionsIndexFromDataFile(string const & dataFile, string const & outFileName)
+{
+  auto coverRegion = [](indexer::LocalityObject const & o, int cellDepth,
+                        uint64_t cellPenaltyArea) {
+    return covering::CoverRegion(o, cellDepth, cellPenaltyArea);
+  };
+  return BuildLocalityIndexFromDataFile<kGeoObjectsDepthLevels>(dataFile, coverRegion, outFileName,
+                                                                REGIONS_INDEX_FILE_TAG);
 }
 }  // namespace indexer

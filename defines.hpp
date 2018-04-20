@@ -50,7 +50,8 @@
 #define UGC_FILE_TAG "ugc"
 
 #define LOCALITY_DATA_FILE_TAG "locdata"
-#define LOCALITY_INDEX_FILE_TAG "locidx"
+#define GEO_OBJECTS_INDEX_FILE_TAG "locidx"
+#define REGIONS_INDEX_FILE_TAG "regidx"
 #define BORDERS_FILE_TAG "borders"
 
 #define READY_FILE_EXTENSION ".ready"

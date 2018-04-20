@@ -35,6 +35,18 @@ struct LocalityObjectVector
   vector<LocalityObject> m_objects;
 };
 
+template <class ObjectsVector, class Writer>
+void BuildGeoObjectsIndex(ObjectsVector const & objects, Writer & writer,
+                          string const & tmpFilePrefix)
+{
+  auto coverLocality = [](indexer::LocalityObject const & o, int cellDepth,
+                          uint64_t cellPenaltyArea) {
+    return covering::CoverGeoObject(o, cellDepth, cellPenaltyArea);
+  };
+  return covering::BuildLocalityIndex<ObjectsVector, Writer, kGeoObjectsDepthLevels>(
+      objects, writer, coverLocality, tmpFilePrefix);
+}
+
 using Ids = set<uint64_t>;
 using RankedIds = vector<uint64_t>;
 
@@ -67,10 +79,10 @@ UNIT_TEST(BuildLocalityIndexTest)
 
   vector<char> localityIndex;
   MemWriter<vector<char>> writer(localityIndex);
-  covering::BuildLocalityIndex(objects, writer, "tmp");
+  BuildGeoObjectsIndex(objects, writer, "tmp");
   MemReader reader(localityIndex.data(), localityIndex.size());
 
-  indexer::LocalityIndex<MemReader> index(reader);
+  indexer::GeoObjectsIndex<MemReader> index(reader);
 
   TEST_EQUAL(GetIds(index, m2::RectD{-0.5, -0.5, 0.5, 0.5}), (Ids{1}), ());
   TEST_EQUAL(GetIds(index, m2::RectD{0.5, -0.5, 1.5, 1.5}), (Ids{2, 3}), ());
@@ -88,10 +100,10 @@ UNIT_TEST(LocalityIndexRankTest)
 
   vector<char> localityIndex;
   MemWriter<vector<char>> writer(localityIndex);
-  covering::BuildLocalityIndex(objects, writer, "tmp");
+  BuildGeoObjectsIndex(objects, writer, "tmp");
   MemReader reader(localityIndex.data(), localityIndex.size());
 
-  indexer::LocalityIndex<MemReader> index(reader);
+  indexer::GeoObjectsIndex<MemReader> index(reader);
   TEST_EQUAL(GetRankedIds(index, m2::PointD{1, 0} /* center */, m2::PointD{4, 0} /* border */,
                           4 /* topSize */),
              (vector<uint64_t>{1, 2, 3, 4}), ());
@@ -120,10 +132,10 @@ UNIT_TEST(LocalityIndexTopSizeTest)
 
   vector<char> localityIndex;
   MemWriter<vector<char>> writer(localityIndex);
-  covering::BuildLocalityIndex(objects, writer, "tmp");
+  BuildGeoObjectsIndex(objects, writer, "tmp");
   MemReader reader(localityIndex.data(), localityIndex.size());
 
-  indexer::LocalityIndex<MemReader> index(reader);
+  indexer::GeoObjectsIndex<MemReader> index(reader);
   TEST_EQUAL(GetRankedIds(index, m2::PointD{1, 0} /* center */, m2::PointD{0, 0} /* border */,
                           4 /* topSize */)
                  .size(),

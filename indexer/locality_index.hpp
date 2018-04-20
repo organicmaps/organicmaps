@@ -20,7 +20,7 @@ namespace indexer
 // Geometry index which stores osm::Id as object identifier.
 // Used for geocoder server, stores only POIs and buildings which have address information.
 // Based on IntervalIndex.
-template <typename Reader>
+template <typename Reader, int DEPTH_LEVELS>
 class LocalityIndex
 {
 public:
@@ -34,8 +34,7 @@ public:
   void ForEachInRect(ProcessObject const & processObject, m2::RectD const & rect) const
   {
     covering::CoveringGetter cov(rect, covering::CoveringMode::ViewportWithLowLevels);
-    covering::Intervals const & intervals =
-        cov.Get<LocalityCellId::DEPTH_LEVELS>(scales::GetUpperScale());
+    covering::Intervals const & intervals = cov.Get<DEPTH_LEVELS>(scales::GetUpperScale());
 
     for (auto const & i : intervals)
     {
@@ -55,8 +54,7 @@ public:
     auto const rect =
         MercatorBounds::RectByCenterXYAndSizeInMeters(center, sizeM);
     covering::CoveringGetter cov(rect, covering::CoveringMode::Spiral);
-    covering::Intervals const & intervals =
-        cov.Get<LocalityCellId::DEPTH_LEVELS>(scales::GetUpperScale());
+    covering::Intervals const & intervals = cov.Get<DEPTH_LEVELS>(scales::GetUpperScale());
 
     std::set<uint64_t> objects;
     auto process = [topSize, &objects, &processObject](uint64_t storedId) {
@@ -75,4 +73,10 @@ public:
 private:
   std::unique_ptr<IntervalIndex<Reader, uint64_t>> m_intervalIndex;
 };
+
+template <typename Reader>
+using GeoObjectsIndex = LocalityIndex<Reader, kGeoObjectsDepthLevels>;
+
+template <typename Reader>
+using RegionsIndex = LocalityIndex<Reader, kRegionsDepthLevels>;
 }  // namespace indexer

@@ -285,7 +285,7 @@ int main(int argc, char ** argv)
 
     LOG(LINFO, ("Saving locality index to", outFile));
 
-    if (!indexer::BuildLocalityIndexFromDataFile(locDataFile, outFile))
+    if (!indexer::BuildGeoObjectsIndexFromDataFile(locDataFile, outFile))
     {
       LOG(LCRITICAL, ("Error generating locality index."));
       return -1;
