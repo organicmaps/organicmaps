@@ -97,6 +97,7 @@ final class AuthorizationViewController: MWMViewController {
         self.process(token: token!, type: .phone)
       }, onFailure: {
         self.process(error: NSError(domain: kMapsmeErrorDomain, code: 0), type: .phone)
+        self.errorHandler?(.cancelled)
       })
 
       MapViewController.topViewController().navigationController?.pushViewController(wv!, animated: true)
