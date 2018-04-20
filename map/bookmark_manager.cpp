@@ -838,7 +838,8 @@ void BookmarkManager::LoadBookmarks()
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ClearCategories();
   m_loadBookmarksFinished = false;
-
+  if (!IsMigrated())
+    m_migrationInProgress = true;
   NotifyAboutStartAsyncLoading();
   GetPlatform().RunTask(Platform::Thread::File, [this]()
   {
@@ -946,6 +947,11 @@ void BookmarkManager::NotifyAboutFinishAsyncLoading(KMLDataCollectionPtr && coll
   
   GetPlatform().RunTask(Platform::Thread::Gui, [this, collection]()
   {
+    if (m_migrationInProgress)
+    {
+      m_migrationInProgress = false;
+      SaveBookmarks(m_bmGroupsIdList);
+    }
     if (!collection->empty())
     {
       CreateCategories(std::move(*collection));
@@ -1466,6 +1472,9 @@ bool BookmarkManager::SaveKmlFileSafe(kml::FileData & kmlData, std::string const
 void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollection)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
+
+  if (m_migrationInProgress)
+    return;
 
   auto kmlDataCollection = PrepareToSaveBookmarks(groupIdCollection);
   if (!kmlDataCollection)
