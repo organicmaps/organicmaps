@@ -42,7 +42,19 @@ final class BMCViewController: MWMViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
+    // Disable all notifications in BM on appearance of this view.
+    // It allows to significantly improve performance in case of bookmarks
+    // modification. All notifications will be sent on controller's disappearance.
+    viewModel.setNotificationsEnabled(false)
+    viewModel.addToObserverList()
     viewModel.convertAllKMLIfNeeded()
+  }
+  
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    // Allow to send all notifications in BM.
+    viewModel.setNotificationsEnabled(true)
+    viewModel.removeFromObserverList()
   }
 
   private func updateCategoryName(category: BMCCategory?) {
