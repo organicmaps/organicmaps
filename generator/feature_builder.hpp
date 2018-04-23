@@ -96,6 +96,7 @@ public:
   void Serialize(TBuffer & data) const;
   void SerializeBase(TBuffer & data, serial::GeometryCodingParams const & params,
                      bool saveAddInfo) const;
+  void SerializeBorder(serial::GeometryCodingParams const & params, TBuffer & data) const;
 
   void Deserialize(TBuffer & data);
   //@}
@@ -258,9 +259,10 @@ public:
   /// @name Overwrite from base_type.
   //@{
   bool PreSerialize(SupportingData const & data);
-  bool IsLocalityObject();
-  void SerializeLocalityObject(serial::GeometryCodingParams const & params, SupportingData & data);
-  void Serialize(SupportingData & data, serial::GeometryCodingParams const & params);
+  bool IsLocalityObject() const;
+  void SerializeLocalityObject(serial::GeometryCodingParams const & params,
+                               SupportingData & data) const;
+  void Serialize(SupportingData & data, serial::GeometryCodingParams const & params) const;
   //@}
 
   feature::AddressData const & GetAddressData() const { return m_params.GetAddressData(); }

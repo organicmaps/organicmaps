@@ -91,7 +91,10 @@ DEFINE_bool(generate_geometry, false,
             "3rd pass - split and simplify geometry and triangles for features.");
 DEFINE_bool(generate_index, false, "4rd pass - generate index.");
 DEFINE_bool(generate_search_index, false, "5th pass - generate search index.");
-DEFINE_bool(generate_locality_index, false, "3rd pass - generate locality objects and locality index.");
+DEFINE_bool(generate_geo_objects_index, false,
+            "Generate objects and index for server-side reverse geocoder.");
+DEFINE_bool(generate_regions, false,
+            "Generate regiond index and borders for server-side reverse geocoder.");
 
 DEFINE_bool(dump_cities_boundaries, false, "Dump cities boundaries to a file");
 DEFINE_bool(generate_cities_boundaries, false, "Generate cities boundaries section");
@@ -212,9 +215,10 @@ int main(int argc, char ** argv)
   GetStyleReader().SetCurrentStyle(MapStyleMerged);
 
   // Load classificator only when necessary.
-  if (FLAGS_make_coasts || FLAGS_generate_features || FLAGS_generate_geometry || FLAGS_generate_locality_index ||
-      FLAGS_generate_index || FLAGS_generate_search_index || FLAGS_generate_cities_boundaries ||
-      FLAGS_calc_statistics || FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
+  if (FLAGS_make_coasts || FLAGS_generate_features || FLAGS_generate_geometry ||
+      FLAGS_generate_geo_objects_index || FLAGS_generate_regions || FLAGS_generate_index ||
+      FLAGS_generate_search_index || FLAGS_generate_cities_boundaries || FLAGS_calc_statistics ||
+      FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
       FLAGS_dump_feature_names != "" || FLAGS_check_mwm || FLAGS_srtm_path != "" ||
       FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm ||
       FLAGS_generate_traffic_keys || FLAGS_transit_path != "" || FLAGS_ugc_data != "")
@@ -266,7 +270,7 @@ int main(int argc, char ** argv)
       genInfo.m_bucketNames.push_back(FLAGS_output);
   }
 
-  if (FLAGS_generate_locality_index)
+  if (FLAGS_generate_geo_objects_index || FLAGS_generate_regions)
   {
     if (FLAGS_output.empty() || FLAGS_intermediate_data_path.empty())
     {
@@ -277,18 +281,43 @@ int main(int argc, char ** argv)
 
     auto const locDataFile = my::JoinPath(path, FLAGS_output + LOC_DATA_FILE_EXTENSION);
     auto const outFile = my::JoinPath(path, FLAGS_output + LOC_IDX_FILE_EXTENSION);
-    if (!feature::GenerateLocalityData(genInfo.m_tmpDir, FLAGS_nodes_list_path, locDataFile))
+    if (FLAGS_generate_geo_objects_index)
     {
-      LOG(LCRITICAL, ("Error generating locality data."));
-      return -1;
+      if (!feature::GenerateGeoObjectsData(genInfo.m_tmpDir, FLAGS_nodes_list_path, locDataFile))
+      {
+        LOG(LCRITICAL, ("Error generating geo objects data."));
+        return -1;
+      }
+
+      LOG(LINFO, ("Saving geo objects index to", outFile));
+
+      if (!indexer::BuildGeoObjectsIndexFromDataFile(locDataFile, outFile))
+      {
+        LOG(LCRITICAL, ("Error generating geo objects index."));
+        return -1;
+      }
     }
 
-    LOG(LINFO, ("Saving locality index to", outFile));
-
-    if (!indexer::BuildGeoObjectsIndexFromDataFile(locDataFile, outFile))
+    if (FLAGS_generate_regions)
     {
-      LOG(LCRITICAL, ("Error generating locality index."));
-      return -1;
+      if (!feature::GenerateRegionsData(genInfo.m_tmpDir, locDataFile))
+      {
+        LOG(LCRITICAL, ("Error generating regions data."));
+        return -1;
+      }
+
+      LOG(LINFO, ("Saving regions index to", outFile));
+
+      if (!indexer::BuildRegionsIndexFromDataFile(locDataFile, outFile))
+      {
+        LOG(LCRITICAL, ("Error generating regions index."));
+        return -1;
+      }
+      if (!feature::GenerateBorders(genInfo.m_tmpDir, outFile))
+      {
+        LOG(LCRITICAL, ("Error generating regions borders."));
+        return -1;
+      }
     }
   }
 

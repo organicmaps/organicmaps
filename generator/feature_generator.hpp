@@ -48,6 +48,12 @@ public:
   /// \note See implementation operator() in derived class for cases when |f| cannot be
   /// serialized.
   virtual uint32_t operator()(FeatureBuilder1 const & f);
+  virtual uint32_t operator()(FeatureBuilder1 & f)
+  {
+    auto const & f1 = f;
+    return (*this)(f1);
+  };
+  virtual void Finish() {}
 };
 
 class FeaturesAndRawGeometryCollector : public FeaturesCollector

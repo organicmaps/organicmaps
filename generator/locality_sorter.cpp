@@ -24,6 +24,7 @@
 
 #include <cstdint>
 #include <fstream>
+#include <functional>
 #include <limits>
 #include <set>
 #include <vector>
@@ -31,24 +32,56 @@
 using namespace feature;
 using namespace std;
 
-class LocalityCollector : public FeaturesCollector
+namespace
 {
-  DISALLOW_COPY_AND_MOVE(LocalityCollector);
+class BordersCollector : public FeaturesCollector
+{
+public:
+  BordersCollector(string const & filename)
+    : FeaturesCollector(filename + EXTENSION_TMP), m_writer(filename, FileWriter::OP_WRITE_EXISTING)
+  {
+  }
 
+  // FeaturesCollector overrides:
+  uint32_t operator()(FeatureBuilder1 & fb) override
+  {
+    if (fb.IsArea())
+    {
+      FeatureBuilder1::TBuffer buffer;
+      fb.SerializeBorder(serial::GeometryCodingParams(), buffer);
+      WriteFeatureBase(buffer, fb);
+    }
+    return 0;
+  }
+
+  void Finish() override
+  {
+    Flush();
+
+    m_writer.Write(m_datFile.GetName(), BORDERS_FILE_TAG);
+    m_writer.Finish();
+  }
+
+private:
   FilesContainerW m_writer;
   DataHeader m_header;
-  uint32_t m_versionDate;
 
+  DISALLOW_COPY_AND_MOVE(BordersCollector);
+};
+
+class LocalityCollector : public FeaturesCollector
+{
 public:
-  LocalityCollector(string const & fName, DataHeader const & header, uint32_t versionDate)
-    : FeaturesCollector(fName + EXTENSION_TMP)
-    , m_writer(fName)
+  LocalityCollector(string const & filename, DataHeader const & header, uint32_t versionDate)
+    : FeaturesCollector(filename + EXTENSION_TMP)
+    , m_writer(filename)
     , m_header(header)
     , m_versionDate(versionDate)
   {
   }
 
-  void Finish()
+  // FeaturesCollector overrides:
+  void Finish() override
   {
     {
       FileWriter w = m_writer.GetWriter(VERSION_FILE_TAG);
@@ -67,10 +100,12 @@ public:
     m_writer.Finish();
   }
 
-  void operator()(FeatureBuilder2 & fb)
+  uint32_t operator()(FeatureBuilder1 & fb1) override
   {
+    auto & fb2 = static_cast<FeatureBuilder2 &>(fb1);
+
     // Do not limit inner triangles number to save all geometry without additional sections.
-    GeometryHolder holder(fb, m_header, numeric_limits<uint32_t>::max() /* maxTrianglesNumber */);
+    GeometryHolder holder(fb2, m_header, numeric_limits<uint32_t>::max() /* maxTrianglesNumber */);
 
     // Simplify and serialize geometry.
     vector<m2::PointD> points;
@@ -79,11 +114,11 @@ public:
     SimplifyPoints(dist, scales::GetUpperScale(), holder.GetSourcePoints(), points);
 
     // For areas we save outer geometry only.
-    if (fb.IsArea() && holder.NeedProcessTriangles())
+    if (fb2.IsArea() && holder.NeedProcessTriangles())
     {
       // At this point we don't need last point equal to first.
       points.pop_back();
-      auto const & polys = fb.GetGeometry();
+      auto const & polys = fb2.GetGeometry();
       if (polys.size() != 1)
       {
         points.clear();
@@ -98,7 +133,7 @@ public:
           m2::ConvexHull hull(points, 1e-16);
           vector<m2::PointD> hullPoints = hull.Points();
           holder.SetInner();
-          auto const id = fb.GetMostGenericOsmId();
+          auto const id = fb2.GetMostGenericOsmId();
           CHECK(holder.TryToMakeStrip(hullPoints),
                 ("Error while building tringles for object with OSM Id:", id.OsmId(),
                  "Type:", id.IsRelation() ? "Relation" : "Way", "points:", points,
@@ -108,68 +143,65 @@ public:
     }
 
     auto & buffer = holder.GetBuffer();
-    if (fb.PreSerialize(buffer))
+    if (fb2.PreSerialize(buffer))
     {
-      fb.SerializeLocalityObject(serial::GeometryCodingParams(), buffer);
-      WriteFeatureBase(buffer.m_buffer, fb);
+      fb2.SerializeLocalityObject(serial::GeometryCodingParams(), buffer);
+      WriteFeatureBase(buffer.m_buffer, fb2);
     }
+    return 0;
   }
+
+private:
+  FilesContainerW m_writer;
+  DataHeader m_header;
+  uint32_t m_versionDate;
+
+  DISALLOW_COPY_AND_MOVE(LocalityCollector);
 };
 
-// Simplify geometry for the upper scale.
-FeatureBuilder2 & GetFeatureBuilder2(FeatureBuilder1 & fb)
+bool ParseNodes(string nodesFile, set<uint64_t> & nodeIds)
 {
-  return static_cast<FeatureBuilder2 &>(fb);
-}
+  if (nodesFile.empty())
+    return true;
 
-namespace feature
-{
-bool GenerateLocalityData(string const & featuresDir, string const & nodesFile,
-                          string const & dataFile)
-{
-  DataHeader header;
-  header.SetGeometryCodingParams(serial::GeometryCodingParams());
-  header.SetScales({scales::GetUpperScale()});
-
-  set<uint64_t> nodeIds;
-  if (!nodesFile.empty())
+  ifstream stream(nodesFile);
+  if (!stream)
   {
-    ifstream stream(nodesFile);
-    if (!stream)
+    LOG(LERROR, ("Could not open", nodesFile));
+    return false;
+  }
+
+  string line;
+  size_t lineNumber = 1;
+  while (getline(stream, line))
+  {
+    strings::SimpleTokenizer iter(line, " ");
+    uint64_t nodeId;
+    if (!iter || !strings::to_uint64(*iter, nodeId))
     {
-      LOG(LERROR, ("Could not open", nodesFile));
+      LOG(LERROR, ("Error while parsing node id at line", lineNumber, "Line contents:", line));
       return false;
     }
 
-    string line;
-    size_t lineNumber = 1;
-    while (getline(stream, line))
-    {
-      strings::SimpleTokenizer iter(line, " ");
-      uint64_t nodeId;
-      if (!iter || !strings::to_uint64(*iter, nodeId))
-      {
-        LOG(LERROR, ("Error while parsing node id at line", lineNumber, "Line contents:", line));
-        return false;
-      }
-
-      nodeIds.insert(nodeId);
-      ++lineNumber;
-    }
+    nodeIds.insert(nodeId);
+    ++lineNumber;
   }
+  return true;
+}
 
+using NeedSerialize = function<bool(FeatureBuilder1 & fb1)>;
+bool GenerateLocalityDataImpl(FeaturesCollector & collector, NeedSerialize const & needSerialize,
+                              string const & featuresDir, string const & dataFile)
+{
   // Transform features from raw format to LocalityObject format.
   try
   {
-    LocalityCollector collector(dataFile, header,
-                                static_cast<uint32_t>(my::SecondsSinceEpoch()));
-
     Platform::FilesList files;
     Platform::GetFilesByExt(featuresDir, DATA_FILE_EXTENSION_TMP, files);
 
-    for (auto const & fileName : files)
+    for (auto const & filename : files)
     {
-      auto const file = my::JoinFoldersToPath(featuresDir, fileName);
+      auto const file = my::JoinFoldersToPath(featuresDir, filename);
       LOG(LINFO, ("Processing", file));
 
       CalculateMidPoints midPoints;
@@ -187,12 +219,8 @@ bool GenerateLocalityData(string const & featuresDir, string const & nodesFile,
         FeatureBuilder1 f;
         ReadFromSourceRowFormat(src, f);
         // Emit object.
-        auto & fb2 = GetFeatureBuilder2(f);
-        if (fb2.IsLocalityObject() ||
-            (!fb2.GetOsmIds().empty() && nodeIds.count(fb2.GetMostGenericOsmId().EncodedId()) != 0))
-        {
-          collector(fb2);
-        }
+        if (needSerialize(f))
+          collector(f);
       }
     }
 
@@ -205,5 +233,49 @@ bool GenerateLocalityData(string const & featuresDir, string const & nodesFile,
   }
 
   return true;
+}
+}  // namespace
+
+namespace feature
+{
+bool GenerateGeoObjectsData(string const & featuresDir, string const & nodesFile,
+                            string const & dataFile)
+{
+  set<uint64_t> nodeIds;
+  if (!ParseNodes(nodesFile, nodeIds))
+    return false;
+
+  auto const needSerialize = [&nodeIds](FeatureBuilder1 & fb) {
+    auto & fb2 = static_cast<FeatureBuilder2 &>(fb);
+    return fb2.IsLocalityObject() ||
+           (!fb.GetOsmIds().empty() && nodeIds.count(fb.GetMostGenericOsmId().EncodedId()) != 0);
+  };
+
+  DataHeader header;
+  header.SetGeometryCodingParams(serial::GeometryCodingParams());
+  header.SetScales({scales::GetUpperScale()});
+
+  LocalityCollector localityCollector(dataFile, header,
+                                      static_cast<uint32_t>(my::SecondsSinceEpoch()));
+  return GenerateLocalityDataImpl(localityCollector, needSerialize, featuresDir, dataFile);
+}
+
+bool GenerateRegionsData(string const & featuresDir, string const & dataFile)
+{
+  DataHeader header;
+  header.SetGeometryCodingParams(serial::GeometryCodingParams());
+  header.SetScales({scales::GetUpperScale()});
+
+  LocalityCollector regionsCollector(dataFile, header,
+                                     static_cast<uint32_t>(my::SecondsSinceEpoch()));
+  auto const needSerialize = [](FeatureBuilder1 const & fb) { return fb.IsArea(); };
+  return GenerateLocalityDataImpl(regionsCollector, needSerialize, featuresDir, dataFile);
+}
+
+bool GenerateBorders(string const & featuresDir, string const & dataFile)
+{
+  BordersCollector bordersCollector(dataFile);
+  auto const needSerialize = [](FeatureBuilder1 const & fb) { return fb.IsArea(); };
+  return GenerateLocalityDataImpl(bordersCollector, needSerialize, featuresDir, dataFile);
 }
 }  // namespace feature

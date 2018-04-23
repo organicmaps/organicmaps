@@ -408,6 +408,25 @@ void FeatureBuilder1::Serialize(TBuffer & data) const
 #endif
 }
 
+void FeatureBuilder1::SerializeBorder(serial::GeometryCodingParams const & params,
+                                      TBuffer & data) const
+{
+  data.clear();
+
+  PushBackByteSink<TBuffer> sink(data);
+  WriteToSink(sink, GetMostGenericOsmId().EncodedId());
+
+  CHECK_GREATER(m_polygons.size(), 0, ());
+
+  WriteToSink(sink, m_polygons.size() - 1);
+  for (auto const & polygon : m_polygons)
+  {
+    WriteToSink(sink, polygon.size());
+    for (auto const & p : polygon)
+      serial::SavePoint(sink, p, params);
+  }
+}
+
 void FeatureBuilder1::Deserialize(TBuffer & data)
 {
   serial::GeometryCodingParams cp;
@@ -595,14 +614,14 @@ bool FeatureBuilder2::PreSerialize(SupportingData const & data)
   return TBase::PreSerialize();
 }
 
-bool FeatureBuilder2::IsLocalityObject()
+bool FeatureBuilder2::IsLocalityObject() const
 {
   return (m_params.GetGeomType() == GEOM_POINT || m_params.GetGeomType() == GEOM_AREA) &&
          !m_params.house.IsEmpty();
 }
 
 void FeatureBuilder2::SerializeLocalityObject(serial::GeometryCodingParams const & params,
-                                              SupportingData & data)
+                                              SupportingData & data) const
 {
   data.m_buffer.clear();
 
@@ -628,7 +647,8 @@ void FeatureBuilder2::SerializeLocalityObject(serial::GeometryCodingParams const
   serial::SaveInnerTriangles(data.m_innerTrg, params, sink);
 }
 
-void FeatureBuilder2::Serialize(SupportingData & data, serial::GeometryCodingParams const & params)
+void FeatureBuilder2::Serialize(SupportingData & data,
+                                serial::GeometryCodingParams const & params) const
 {
   data.m_buffer.clear();
 
