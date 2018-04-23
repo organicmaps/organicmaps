@@ -107,7 +107,7 @@ bool BuildRegionsIndexFromDataFile(string const & dataFile, string const & outFi
                         uint64_t cellPenaltyArea) {
     return covering::CoverRegion(o, cellDepth, cellPenaltyArea);
   };
-  return BuildLocalityIndexFromDataFile<kGeoObjectsDepthLevels>(dataFile, coverRegion, outFileName,
-                                                                REGIONS_INDEX_FILE_TAG);
+  return BuildLocalityIndexFromDataFile<kRegionsDepthLevels>(dataFile, coverRegion, outFileName,
+                                                             REGIONS_INDEX_FILE_TAG);
 }
 }  // namespace indexer
