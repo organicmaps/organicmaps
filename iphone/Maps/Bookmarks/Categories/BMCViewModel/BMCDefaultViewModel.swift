@@ -222,6 +222,14 @@ extension BMCDefaultViewModel: BMCViewModel {
   func areNotificationsEnabled() -> Bool {
     return BM.areNotificationsEnabled()
   }
+
+  func addToObserverList() {
+    BM.add(self)
+  }
+
+  func removeFromObserverList() {
+    BM.remove(self)
+  }
 }
 
 extension BMCDefaultViewModel: MWMBookmarksObserver {
