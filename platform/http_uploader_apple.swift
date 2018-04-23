@@ -17,7 +17,7 @@ final class MultipartUploader: NSObject {
     Alamofire.upload(multipartFormData: multipartFormData, to: url, method: method, headers: headers) { encodingResult in
       switch encodingResult {
       case let .success(upload, _, _):
-        upload.responseJSON { callback($0.response!.statusCode, $0.error?.localizedDescription ?? "") }
+        upload.responseJSON { callback($0.response?.statusCode ?? -1, $0.error?.localizedDescription ?? "") }
       case let .failure(encodingError):
         callback(-1, encodingError.localizedDescription)
       }

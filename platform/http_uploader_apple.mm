@@ -12,7 +12,7 @@
 
 namespace
 {
-  auto const kTimeout = std::chrono::seconds(30);
+  auto const kTimeout = std::chrono::seconds(5);
 }
 
 namespace platform
