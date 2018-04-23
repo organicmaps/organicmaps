@@ -1252,4 +1252,27 @@
 	<string name="bookmarks_error_message_share_empty">ไม่สามารถแชร์รายการที่ว่างเปล่าได้</string>
 	<string name="discovery_button_subtitle_book_hotels">จองโรงแรม</string>
 	<string name="luggage_storage">พื้นที่จัดเก็บกระเป๋าเดินทาง</string>
+	<string name="bookmarks_error_title_empty_list_name">ชื่อต้องไม่ว่างเปล่า</string>
+	<string name="bookmarks_error_message_empty_list_name">โปรดป้อนชื่อรายการ</string>
+	<string name="bookmarks_new_list_hint">รายการใหม่</string>
+	<string name="bookmarks_error_title_list_name_already_taken">ชื่อนี้ถูกนำมาใช้แล้ว</string>
+	<string name="bookmarks_error_message_list_name_already_taken">โปรดเลือกชื่ออื่น</string>
+	<string name="bookmarks_error_title_list_name_too_long">ชื่อนี้ยาวเกินไป</string>
+	<string name="bookmarks_error_message_list_name_too_long">โปรดเลือกชื่ออื่น</string>
+	<string name="please_wait">โปรดรอสักครู่ ...</string>
+	<string name="fc2018">ฟุตบอลโลก 2018</string>
+	<string name="phone_number">หมายเลขโทรศัพท์</string>
+	<string name="notification_unsent_reviews_title">คุณมีรีวิวที่ยังไม่ได้อ่านหลายฉบับ</string>
+	<string name="notification_unsent_reviews_message">โปรดลงชื่อเข้าใช้เพื่อแบ่งปันความเห็นกับผู้อื่น</string>
+	<string name="profile_osm">โปรไฟล์ OSM</string>
+	<string name="place_page_search_similar_hotel">ค้นหาโรงแรมที่คล้ายกัน</string>
+	<string name="bookmarks_detect_title">พบไฟล์ใหม่แล้ว</string>
+	<string name="button_convert">แปลง</string>
+	<string name="bookmarks_convert_error_title">ความผิดพลาด</string>
+	<string name="bookmarks_convert_error_message">ไฟล์บางไฟล์ไม่ได้รับการแปลง</string>
+	<string name="converting">กำลังแปลง...</string>
+	<string name="wn_reinvented_bookmarks_title">เราสร้างสรรค์บุ๊กมาร์กใหม่!</string>
+	<string name="wn_reinvented_bookmarks_message">คุณสามารถซิงโครไนซ์บุ๊กมาร์กสร้างรายการ... มันน่าทึ่ง...</string>
+	<string name="wn_way_of_booking_title">เราทบทวนวิธีการจองห้องพัก!</string>
+	<string name="wn_way_of_booking_message">เพียงแค่หาโรงแรมบนแผนที่และจองหนังสือหรือเลือกหนังสือที่คล้ายกัน</string>
 </resources>

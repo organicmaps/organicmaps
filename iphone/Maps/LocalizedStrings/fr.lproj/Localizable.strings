@@ -2228,50 +2228,48 @@
 
 "maxim_taxi_title" = "maxim";
 
-"bookmarks_error_title_empty_list_name" = "The name couldn't be empty";
+"bookmarks_error_title_empty_list_name" = "Le nom ne peut pas être vide";
 
-"bookmarks_error_message_empty_list_name" = "Please enter the list name";
+"bookmarks_error_message_empty_list_name" = "Veuillez entrer le nom de la liste";
 
-"bookmarks_new_list_hint" = "New list";
+"bookmarks_new_list_hint" = "Nouvelle liste";
 
-"bookmarks_error_title_list_name_already_taken" = "This name is already taken";
+"bookmarks_error_title_list_name_already_taken" = "Ce nom est déjà pris";
 
-"bookmarks_error_message_list_name_already_taken" = "Please choose another name";
+"bookmarks_error_message_list_name_already_taken" = "Merci de choisir un autre nom";
 
-"bookmarks_error_title_list_name_too_long" = "This name is too long";
+"bookmarks_error_title_list_name_too_long" = "Ce nom est trop long";
 
-"bookmarks_error_message_list_name_too_long" = "Please choose another name";
+"bookmarks_error_message_list_name_too_long" = "Merci de choisir un autre nom";
 
-"please_wait" = "Please wait...";
+"please_wait" = "S'il vous plaît, attendez...";
 
-"fc2018" = "Football World Cup 2018";
+"fc2018" = "Coupe du monde de football 2018";
 
-"phone_number" = "Phone number";
+"phone_number" = "Numéro de téléphone";
 
-"notification_unsent_reviews_title" = " You have several unsent reviews";
+"notification_unsent_reviews_title" = "Vous avez plusieurs avis non envoyés";
 
-"notification_unsent_reviews_message" = " Please sign in to share reviews with other travelers";
+"notification_unsent_reviews_message" = "Veuillez vous connecter pour partager des avis avec d'autres voyageurs";
 
-"profile_osm" = "Profile OSM";
+"profile_osm" = "Profil OSM";
 
-"place_page_search_similar_hotel" = "Search similar hotels";
+"place_page_search_similar_hotel" = "Rechercher des hôtels similaires";
 
-"bookmarks_detect_title" = "New files detected";
+"bookmarks_detect_title" = "Nouveaux fichiers détectés";
 
-"bookmarks_detect_message" = "%d files were not imported. You can see them after conversion.";
+"button_convert" = "Convertir";
 
-"button_convert" = "Convert";
+"bookmarks_convert_error_title" = "Erreur";
 
-"bookmarks_convert_error_title" = "Error";
+"bookmarks_convert_error_message" = "Certains fichiers n'ont pas été convertis.";
 
-"bookmarks_convert_error_message" = "Some files were not converted.";
+"converting" = "Conversion...";
 
-"converting" = "Converting...";
+"wn_reinvented_bookmarks_title" = "Nous avons réinventé les signets!";
 
-"wn_reinvented_bookmarks_title" = "We reinvented bookmarks!";
+"wn_reinvented_bookmarks_message" = "Vous pouvez synchroniser des signets, créer des listes... C'est incroyable...";
 
-"wn_reinvented_bookmarks_message" = "You can synchronize bookmarks, create lists... It's amazing...";
+"wn_way_of_booking_title" = "Nous avons réinventé le mode de réservation!";
 
-"wn_way_of_booking_title" = "We reimagined the way of booking!";
-
-"wn_way_of_booking_message" = "Just find a hotel on the map and book it, or select the similar one.";
+"wn_way_of_booking_message" = "Il suffit de trouver un hôtel sur la carte et de le réserver, ou sélectionnez le même";

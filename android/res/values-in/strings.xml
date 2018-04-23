@@ -1245,4 +1245,27 @@
 	<string name="bookmarks_error_message_share_empty">Tidak dapat membagikan daftar kosong</string>
 	<string name="discovery_button_subtitle_book_hotels">Pesan hotel</string>
 	<string name="luggage_storage">Penyimpanan barang</string>
+	<string name="bookmarks_error_title_empty_list_name">Namanya tidak boleh kosong</string>
+	<string name="bookmarks_error_message_empty_list_name">Silakan masukkan nama daftar</string>
+	<string name="bookmarks_new_list_hint">Daftar baru</string>
+	<string name="bookmarks_error_title_list_name_already_taken">Nama ini sudah dipakai</string>
+	<string name="bookmarks_error_message_list_name_already_taken">Silakan pilih nama lain</string>
+	<string name="bookmarks_error_title_list_name_too_long">Nama ini terlalu panjang</string>
+	<string name="bookmarks_error_message_list_name_too_long">Silakan pilih nama lain</string>
+	<string name="please_wait">Mohon tunggu...</string>
+	<string name="fc2018">Piala Dunia Sepakbola 2018</string>
+	<string name="phone_number">Nomor telepon</string>
+	<string name="notification_unsent_reviews_title">Anda memiliki beberapa ulasan yang tidak terkirim</string>
+	<string name="notification_unsent_reviews_message">Harap masuk untuk berbagi ulasan dengan wisatawan lain</string>
+	<string name="profile_osm">Profil OSM</string>
+	<string name="place_page_search_similar_hotel">Cari hotel serupa</string>
+	<string name="bookmarks_detect_title">File baru terdeteksi</string>
+	<string name="button_convert">Mengubah</string>
+	<string name="bookmarks_convert_error_title">Kesalahan</string>
+	<string name="bookmarks_convert_error_message">Beberapa file tidak dikonversi.</string>
+	<string name="converting">Mengkonversi...</string>
+	<string name="wn_reinvented_bookmarks_title">Kami menemukan kembali bookmark!</string>
+	<string name="wn_reinvented_bookmarks_message">Anda dapat menyinkronkan bookmark, membuat daftar... Sungguh menakjubkan...</string>
+	<string name="wn_way_of_booking_title">Kami membayangkan ulang cara pemesanan!</string>
+	<string name="wn_way_of_booking_message">Temukan saja hotel di peta dan pesan, atau pilih yang serupa.</string>
 </resources>

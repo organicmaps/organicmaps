@@ -1249,4 +1249,27 @@
 	<string name="bookmarks_error_message_share_empty">Prázdny zoznam nie je možné zdieľať</string>
 	<string name="discovery_button_subtitle_book_hotels">Rezervovať hotely</string>
 	<string name="luggage_storage">Odkladací priestor pre batožinu</string>
+	<string name="bookmarks_error_title_empty_list_name">Názov nemôže byť prázdny</string>
+	<string name="bookmarks_error_message_empty_list_name">Zadajte názov zoznamu</string>
+	<string name="bookmarks_new_list_hint">Nový zoznam</string>
+	<string name="bookmarks_error_title_list_name_already_taken">Tento názov už bol prijatý</string>
+	<string name="bookmarks_error_message_list_name_already_taken">Vyberte iné meno</string>
+	<string name="bookmarks_error_title_list_name_too_long">Tento názov je príliš dlhý</string>
+	<string name="bookmarks_error_message_list_name_too_long">Vyberte iné meno</string>
+	<string name="please_wait">Prosím čakajte...</string>
+	<string name="fc2018">Majstrovstvá sveta vo futbale 2018</string>
+	<string name="phone_number">Telefónne číslo</string>
+	<string name="notification_unsent_reviews_title">Máte niekoľko neoslaných recenzií</string>
+	<string name="notification_unsent_reviews_message">Prihláste sa a zdieľajte recenzie s ostatnými cestujúcimi</string>
+	<string name="profile_osm">Profil OSM</string>
+	<string name="place_page_search_similar_hotel">Vyhľadať podobné hotely</string>
+	<string name="bookmarks_detect_title">Zistené nové súbory</string>
+	<string name="button_convert">Premeniť</string>
+	<string name="bookmarks_convert_error_title">Chyba</string>
+	<string name="bookmarks_convert_error_message">Niektoré súbory neboli konvertované.</string>
+	<string name="converting">Konverziu...</string>
+	<string name="wn_reinvented_bookmarks_title">Znovu sme vytvorili záložky!</string>
+	<string name="wn_reinvented_bookmarks_message">Môžete synchronizovať záložky, vytvárať zoznamy... Je to úžasné...</string>
+	<string name="wn_way_of_booking_title">Zmenili sme spôsob rezervácie!</string>
+	<string name="wn_way_of_booking_message">Stačí nájsť hotel na mape a rezervovať ho, alebo si vybrať podobný hotel.</string>
 </resources>

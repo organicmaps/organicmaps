@@ -1252,4 +1252,27 @@
 	<string name="bookmarks_error_message_share_empty">Boş bir liste paylaşılamaz</string>
 	<string name="discovery_button_subtitle_book_hotels">Otellerde rezervasyon yap</string>
 	<string name="luggage_storage">Bagaj saklama</string>
+	<string name="bookmarks_error_title_empty_list_name">Isim boş olamaz</string>
+	<string name="bookmarks_error_message_empty_list_name">Lütfen liste ismini giriniz</string>
+	<string name="bookmarks_new_list_hint">Yeni liste</string>
+	<string name="bookmarks_error_title_list_name_already_taken">Bu isim zaten alınmış</string>
+	<string name="bookmarks_error_message_list_name_already_taken">Lütfen başka bir isim seçiniz</string>
+	<string name="bookmarks_error_title_list_name_too_long">Bu isim çok uzun</string>
+	<string name="bookmarks_error_message_list_name_too_long">Lütfen başka bir isim seçiniz</string>
+	<string name="please_wait">Lütfen bekle...</string>
+	<string name="fc2018">Futbol Dünya Kupası 2018</string>
+	<string name="phone_number">Telefon numarası</string>
+	<string name="notification_unsent_reviews_title">Birkaç onaylanmamış yorumunuz var</string>
+	<string name="notification_unsent_reviews_message">Diğer gezginlerle yorum paylaşmak için lütfen giriş yapın</string>
+	<string name="profile_osm">Profil OSM</string>
+	<string name="place_page_search_similar_hotel">Benzer otellerde ara</string>
+	<string name="bookmarks_detect_title">Yeni dosyalar algılandı</string>
+	<string name="button_convert">Dönüştürmek</string>
+	<string name="bookmarks_convert_error_title">Hata</string>
+	<string name="bookmarks_convert_error_message">Bazı dosyalar dönüştürülmedi.</string>
+	<string name="converting">Dönüştürme...</string>
+	<string name="wn_reinvented_bookmarks_title">Yer imlerini yeniden keşfettik!</string>
+	<string name="wn_reinvented_bookmarks_message">Yer imlerini senkronize edebilir, listeler oluşturabilirsiniz... Harika...</string>
+	<string name="wn_way_of_booking_title">Rezervasyon yolunu yeniden tasarladık!</string>
+	<string name="wn_way_of_booking_message">Haritadaki bir oteli bulup rezervasyon yapın ya da benzer olanı seçin.</string>
 </resources>

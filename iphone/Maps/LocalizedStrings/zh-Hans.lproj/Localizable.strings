@@ -2228,50 +2228,48 @@
 
 "maxim_taxi_title" = "maxim";
 
-"bookmarks_error_title_empty_list_name" = "The name couldn't be empty";
+"bookmarks_error_title_empty_list_name" = "名字不能为空";
 
-"bookmarks_error_message_empty_list_name" = "Please enter the list name";
+"bookmarks_error_message_empty_list_name" = "请输入列表名称";
 
-"bookmarks_new_list_hint" = "New list";
+"bookmarks_new_list_hint" = "新的列表";
 
-"bookmarks_error_title_list_name_already_taken" = "This name is already taken";
+"bookmarks_error_title_list_name_already_taken" = "这个名字已经被使用了";
 
-"bookmarks_error_message_list_name_already_taken" = "Please choose another name";
+"bookmarks_error_message_list_name_already_taken" = "请选择其他名称";
 
-"bookmarks_error_title_list_name_too_long" = "This name is too long";
+"bookmarks_error_title_list_name_too_long" = "这个名字太长了";
 
-"bookmarks_error_message_list_name_too_long" = "Please choose another name";
+"bookmarks_error_message_list_name_too_long" = "请选择其他名称";
 
-"please_wait" = "Please wait...";
+"please_wait" = "请稍候...";
 
-"fc2018" = "Football World Cup 2018";
+"fc2018" = "2018年世界杯足球赛";
 
-"phone_number" = "Phone number";
+"phone_number" = "电话号码";
 
-"notification_unsent_reviews_title" = " You have several unsent reviews";
+"notification_unsent_reviews_title" = "你有几个未发表的评论";
 
-"notification_unsent_reviews_message" = " Please sign in to share reviews with other travelers";
+"notification_unsent_reviews_message" = "请登录与其他旅客分享评论";
 
-"profile_osm" = "Profile OSM";
+"profile_osm" = "配置文件OSM";
 
-"place_page_search_similar_hotel" = "Search similar hotels";
+"place_page_search_similar_hotel" = "搜索类似的酒店";
 
-"bookmarks_detect_title" = "New files detected";
+"bookmarks_detect_title" = "检测到新文件";
 
-"bookmarks_detect_message" = "%d files were not imported. You can see them after conversion.";
+"button_convert" = "兑换";
 
-"button_convert" = "Convert";
+"bookmarks_convert_error_title" = "错误";
 
-"bookmarks_convert_error_title" = "Error";
+"bookmarks_convert_error_message" = "有些文件未被转换。";
 
-"bookmarks_convert_error_message" = "Some files were not converted.";
+"converting" = "转换...";
 
-"converting" = "Converting...";
+"wn_reinvented_bookmarks_title" = "我们改造了书签！";
 
-"wn_reinvented_bookmarks_title" = "We reinvented bookmarks!";
+"wn_reinvented_bookmarks_message" = "你可以同步书签，创建列表...这太神奇了...";
 
-"wn_reinvented_bookmarks_message" = "You can synchronize bookmarks, create lists... It's amazing...";
+"wn_way_of_booking_title" = "我们重新定位了预订方式！";
 
-"wn_way_of_booking_title" = "We reimagined the way of booking!";
-
-"wn_way_of_booking_message" = "Just find a hotel on the map and book it, or select the similar one.";
+"wn_way_of_booking_message" = "只需在地图上找到一家酒店并预订，或选择类似的酒店即可。";

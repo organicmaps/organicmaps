@@ -2228,50 +2228,48 @@
 
 "maxim_taxi_title" = "maxim";
 
-"bookmarks_error_title_empty_list_name" = "The name couldn't be empty";
+"bookmarks_error_title_empty_list_name" = "이름을 비워 둘 수는 없습니다.";
 
-"bookmarks_error_message_empty_list_name" = "Please enter the list name";
+"bookmarks_error_message_empty_list_name" = "목록 이름을 입력하십시오.";
 
-"bookmarks_new_list_hint" = "New list";
+"bookmarks_new_list_hint" = "새 목록";
 
-"bookmarks_error_title_list_name_already_taken" = "This name is already taken";
+"bookmarks_error_title_list_name_already_taken" = "이 이름은 이미 사용 중입니다.";
 
-"bookmarks_error_message_list_name_already_taken" = "Please choose another name";
+"bookmarks_error_message_list_name_already_taken" = "다른 이름을 선택하십시오.";
 
-"bookmarks_error_title_list_name_too_long" = "This name is too long";
+"bookmarks_error_title_list_name_too_long" = "이 이름이 너무 깁니다.";
 
-"bookmarks_error_message_list_name_too_long" = "Please choose another name";
+"bookmarks_error_message_list_name_too_long" = "다른 이름을 선택하십시오.";
 
-"please_wait" = "Please wait...";
+"please_wait" = "잠시만 기다려주십시오...";
 
-"fc2018" = "Football World Cup 2018";
+"fc2018" = "2018 축구 월드컵";
 
-"phone_number" = "Phone number";
+"phone_number" = "전화 번호";
 
-"notification_unsent_reviews_title" = " You have several unsent reviews";
+"notification_unsent_reviews_title" = "보내지 않은 리뷰가 여러 개 있습니다.";
 
-"notification_unsent_reviews_message" = " Please sign in to share reviews with other travelers";
+"notification_unsent_reviews_message" = "다른 여행자와 리뷰를 공유하려면 로그인하십시오.";
 
-"profile_osm" = "Profile OSM";
+"profile_osm" = "OSM 프로필";
 
-"place_page_search_similar_hotel" = "Search similar hotels";
+"place_page_search_similar_hotel" = "비슷한 호텔 검색";
 
-"bookmarks_detect_title" = "New files detected";
+"bookmarks_detect_title" = "새 파일이 감지되었습니다.";
 
-"bookmarks_detect_message" = "%d files were not imported. You can see them after conversion.";
+"button_convert" = "변하게 하다";
 
-"button_convert" = "Convert";
+"bookmarks_convert_error_title" = "오류";
 
-"bookmarks_convert_error_title" = "Error";
+"bookmarks_convert_error_message" = "일부 파일은 변환되지 않았습니다.";
 
-"bookmarks_convert_error_message" = "Some files were not converted.";
+"converting" = "변환 중...";
 
-"converting" = "Converting...";
+"wn_reinvented_bookmarks_title" = "우리는 북마크를 재발 명했습니다!";
 
-"wn_reinvented_bookmarks_title" = "We reinvented bookmarks!";
+"wn_reinvented_bookmarks_message" = "북마크를 동기화하고 목록을 만들 수 있습니다... 놀라운...";
 
-"wn_reinvented_bookmarks_message" = "You can synchronize bookmarks, create lists... It's amazing...";
+"wn_way_of_booking_title" = "우리는 예약 방법을 상상했습니다!";
 
-"wn_way_of_booking_title" = "We reimagined the way of booking!";
-
-"wn_way_of_booking_message" = "Just find a hotel on the map and book it, or select the similar one.";
+"wn_way_of_booking_message" = "지도에서 호텔을 찾아 예약하거나 유사한 호텔을 선택하십시오.";

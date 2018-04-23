@@ -23,5 +23,20 @@
       <string>%d закладок</string>
     </dict>
   </dict>
+
+  <key>bookmarks_detect_message</key>
+  <dict>
+    <key>NSStringLocalizedFormatKey</key>
+    <string>%#@value@</string>
+    <key>value</key>
+    <dict>
+      <key>NSStringFormatSpecTypeKey</key>
+      <string>NSStringPluralRuleType</string>
+      <key>NSStringFormatValueTypeKey</key>
+      <string>d</string>
+      <key>other</key>
+      <string>%d files were found. You can see them after conversion.</string>
+    </dict>
+  </dict>
 </dict>
 </plist>

@@ -27,5 +27,24 @@
       <string>%d меток</string>
     </dict>
   </dict>
+
+  <key>bookmarks_detect_message</key>
+  <dict>
+    <key>NSStringLocalizedFormatKey</key>
+    <string>%#@value@</string>
+    <key>value</key>
+    <dict>
+      <key>NSStringFormatSpecTypeKey</key>
+      <string>NSStringPluralRuleType</string>
+      <key>NSStringFormatValueTypeKey</key>
+      <string>d</string>
+      <key>one</key>
+      <string>%d файл был найден. Вы увидете его после конвертации.</string>
+      <key>few</key>
+      <string>%d файла были найдены. Вы увидете их после конвертации.</string>
+      <key>other</key>
+      <string>%d файлов было найдено. Вы увидете их после конвертации.</string>
+    </dict>
+  </dict>
 </dict>
 </plist>

@@ -1246,4 +1246,27 @@
 	<string name="bookmarks_error_message_share_empty">Không thể chia sẻ một danh sách trống</string>
 	<string name="discovery_button_subtitle_book_hotels">Đặt phòng khách sạn</string>
 	<string name="luggage_storage">Giữ hộ hành lý</string>
+	<string name="bookmarks_error_title_empty_list_name">Tên không được để trống</string>
+	<string name="bookmarks_error_message_empty_list_name">Vui lòng nhập tên danh sách</string>
+	<string name="bookmarks_new_list_hint">Danh sách mới</string>
+	<string name="bookmarks_error_title_list_name_already_taken">Tên này đã được sử dụng</string>
+	<string name="bookmarks_error_message_list_name_already_taken">Vui lòng chọn một tên khác</string>
+	<string name="bookmarks_error_title_list_name_too_long">Tên này quá dài</string>
+	<string name="bookmarks_error_message_list_name_too_long">Vui lòng chọn một tên khác</string>
+	<string name="please_wait">Vui lòng chờ...</string>
+	<string name="fc2018">World Cup bóng đá 2018</string>
+	<string name="phone_number">Số điện thoại</string>
+	<string name="notification_unsent_reviews_title">Bạn có một số bài đánh giá chưa được đánh giá</string>
+	<string name="notification_unsent_reviews_message">Vui lòng đăng nhập để chia sẻ bài đánh giá với các khách du lịch khác</string>
+	<string name="profile_osm">Hồ sơ OSM</string>
+	<string name="place_page_search_similar_hotel">Tìm kiếm khách sạn</string>
+	<string name="bookmarks_detect_title">Đã phát hiện tệp mới</string>
+	<string name="button_convert">Chuyển đổi</string>
+	<string name="bookmarks_convert_error_title">Lỗi</string>
+	<string name="bookmarks_convert_error_message">Một số tệp không được chuyển đổi.</string>
+	<string name="converting">Đang chuyển đổi...</string>
+	<string name="wn_reinvented_bookmarks_title">Chúng tôi đã tạo lại dấu trang!</string>
+	<string name="wn_reinvented_bookmarks_message">Bạn có thể đồng bộ hóa chỉ mục, tạo danh sách... Thật tuyệt vời...</string>
+	<string name="wn_way_of_booking_title">Chúng tôi đã hình dung lại cách đặt phòng!</string>
+	<string name="wn_way_of_booking_message">Chỉ cần tìm một khách sạn trên bản đồ và đặt nó, hoặc chọn một khách sạn tương tự.</string>
 </resources>

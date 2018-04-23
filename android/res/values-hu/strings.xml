@@ -1246,4 +1246,27 @@
 	<string name="bookmarks_error_message_share_empty">Üres lista nem osztható meg</string>
 	<string name="discovery_button_subtitle_book_hotels">Szállodák foglalása</string>
 	<string name="luggage_storage">Csomagmegőrzés</string>
+	<string name="bookmarks_error_title_empty_list_name">A név nem lehet üres</string>
+	<string name="bookmarks_error_message_empty_list_name">Adja meg a lista nevét</string>
+	<string name="bookmarks_new_list_hint">Új lista</string>
+	<string name="bookmarks_error_title_list_name_already_taken">Ez a név már foglalt</string>
+	<string name="bookmarks_error_message_list_name_already_taken">Kérjük, válasszon másik nevet</string>
+	<string name="bookmarks_error_title_list_name_too_long">Ez a név túl hosszú</string>
+	<string name="bookmarks_error_message_list_name_too_long">Kérjük, válasszon másik nevet</string>
+	<string name="please_wait">Kérlek várj...</string>
+	<string name="fc2018">Futball Világkupa 2018</string>
+	<string name="phone_number">Telefonszám</string>
+	<string name="notification_unsent_reviews_title">Több elküldött véleménye is van</string>
+	<string name="notification_unsent_reviews_message">Kérjük, jelentkezzen be, hogy megoszthassa véleményét más utazókkal</string>
+	<string name="profile_osm">Profil OSM</string>
+	<string name="place_page_search_similar_hotel">Hasonló szálláshelyek keresése</string>
+	<string name="bookmarks_detect_title">Új fájlokat észleltek</string>
+	<string name="button_convert">Alakítani</string>
+	<string name="bookmarks_convert_error_title">Hiba</string>
+	<string name="bookmarks_convert_error_message">Egyes fájlok nem konvertáltak.</string>
+	<string name="converting">Átalakítás...</string>
+	<string name="wn_reinvented_bookmarks_title">Új könyveket készítettünk!</string>
+	<string name="wn_reinvented_bookmarks_message">Könyvjelzőket szinkronizálhat, listákat hozhat létre... Hihetetlen...</string>
+	<string name="wn_way_of_booking_title">Újra átfogtuk a foglalás módját!</string>
+	<string name="wn_way_of_booking_message">Csak keresse meg a szállodát a térképen, és foglalja le, vagy válassza ki a megfelelőt.</string>
 </resources>

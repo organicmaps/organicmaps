@@ -2228,50 +2228,48 @@
 
 "maxim_taxi_title" = "maxim";
 
-"bookmarks_error_title_empty_list_name" = "The name couldn't be empty";
+"bookmarks_error_title_empty_list_name" = "ชื่อต้องไม่ว่างเปล่า";
 
-"bookmarks_error_message_empty_list_name" = "Please enter the list name";
+"bookmarks_error_message_empty_list_name" = "โปรดป้อนชื่อรายการ";
 
-"bookmarks_new_list_hint" = "New list";
+"bookmarks_new_list_hint" = "รายการใหม่";
 
-"bookmarks_error_title_list_name_already_taken" = "This name is already taken";
+"bookmarks_error_title_list_name_already_taken" = "ชื่อนี้ถูกนำมาใช้แล้ว";
 
-"bookmarks_error_message_list_name_already_taken" = "Please choose another name";
+"bookmarks_error_message_list_name_already_taken" = "โปรดเลือกชื่ออื่น";
 
-"bookmarks_error_title_list_name_too_long" = "This name is too long";
+"bookmarks_error_title_list_name_too_long" = "ชื่อนี้ยาวเกินไป";
 
-"bookmarks_error_message_list_name_too_long" = "Please choose another name";
+"bookmarks_error_message_list_name_too_long" = "โปรดเลือกชื่ออื่น";
 
-"please_wait" = "Please wait...";
+"please_wait" = "โปรดรอสักครู่ ...";
 
-"fc2018" = "Football World Cup 2018";
+"fc2018" = "ฟุตบอลโลก 2018";
 
-"phone_number" = "Phone number";
+"phone_number" = "หมายเลขโทรศัพท์";
 
-"notification_unsent_reviews_title" = " You have several unsent reviews";
+"notification_unsent_reviews_title" = "คุณมีรีวิวที่ยังไม่ได้อ่านหลายฉบับ";
 
-"notification_unsent_reviews_message" = " Please sign in to share reviews with other travelers";
+"notification_unsent_reviews_message" = "โปรดลงชื่อเข้าใช้เพื่อแบ่งปันความเห็นกับผู้อื่น";
 
-"profile_osm" = "Profile OSM";
+"profile_osm" = "โปรไฟล์ OSM";
 
-"place_page_search_similar_hotel" = "Search similar hotels";
+"place_page_search_similar_hotel" = "ค้นหาโรงแรมที่คล้ายกัน";
 
-"bookmarks_detect_title" = "New files detected";
+"bookmarks_detect_title" = "พบไฟล์ใหม่แล้ว";
 
-"bookmarks_detect_message" = "%d files were not imported. You can see them after conversion.";
+"button_convert" = "แปลง";
 
-"button_convert" = "Convert";
+"bookmarks_convert_error_title" = "ความผิดพลาด";
 
-"bookmarks_convert_error_title" = "Error";
+"bookmarks_convert_error_message" = "ไฟล์บางไฟล์ไม่ได้รับการแปลง";
 
-"bookmarks_convert_error_message" = "Some files were not converted.";
+"converting" = "กำลังแปลง...";
 
-"converting" = "Converting...";
+"wn_reinvented_bookmarks_title" = "เราสร้างสรรค์บุ๊กมาร์กใหม่!";
 
-"wn_reinvented_bookmarks_title" = "We reinvented bookmarks!";
+"wn_reinvented_bookmarks_message" = "คุณสามารถซิงโครไนซ์บุ๊กมาร์กสร้างรายการ... มันน่าทึ่ง...";
 
-"wn_reinvented_bookmarks_message" = "You can synchronize bookmarks, create lists... It's amazing...";
+"wn_way_of_booking_title" = "เราทบทวนวิธีการจองห้องพัก!";
 
-"wn_way_of_booking_title" = "We reimagined the way of booking!";
-
-"wn_way_of_booking_message" = "Just find a hotel on the map and book it, or select the similar one.";
+"wn_way_of_booking_message" = "เพียงแค่หาโรงแรมบนแผนที่และจองหนังสือหรือเลือกหนังสือที่คล้ายกัน";

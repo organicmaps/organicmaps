@@ -1250,4 +1250,27 @@
 	<string name="bookmarks_error_message_share_empty">Kan inte dela en tom lista</string>
 	<string name="discovery_button_subtitle_book_hotels">Boka hotell</string>
 	<string name="luggage_storage">Bagageförvaring</string>
+	<string name="bookmarks_error_title_empty_list_name">Namnet kunde inte vara tomt</string>
+	<string name="bookmarks_error_message_empty_list_name">Vänligen ange listnamnet</string>
+	<string name="bookmarks_new_list_hint">Ny lista</string>
+	<string name="bookmarks_error_title_list_name_already_taken">Det här namnet är redan taget</string>
+	<string name="bookmarks_error_message_list_name_already_taken">Vänligen välj ett annat namn</string>
+	<string name="bookmarks_error_title_list_name_too_long">Det här namnet är för långt</string>
+	<string name="bookmarks_error_message_list_name_too_long">Vänligen välj ett annat namn</string>
+	<string name="please_wait">Vänligen vänta...</string>
+	<string name="fc2018">Fotbolls VM 2018</string>
+	<string name="phone_number">Telefonnummer</string>
+	<string name="notification_unsent_reviews_title">Du har flera unsent recensioner</string>
+	<string name="notification_unsent_reviews_message">Vänligen logga in för att dela omdömen med andra resenärer</string>
+	<string name="profile_osm">OSM-profil</string>
+	<string name="place_page_search_similar_hotel">Sök liknande hotell</string>
+	<string name="bookmarks_detect_title">Nya filer upptäcktes</string>
+	<string name="button_convert">Konvertera</string>
+	<string name="bookmarks_convert_error_title">Fel</string>
+	<string name="bookmarks_convert_error_message">Vissa filer konverterades inte.</string>
+	<string name="converting">Konvertera...</string>
+	<string name="wn_reinvented_bookmarks_title">Vi återuppfinde bokmärken!</string>
+	<string name="wn_reinvented_bookmarks_message">Du kan synkronisera bokmärken, skapa listor... Det är fantastiskt...</string>
+	<string name="wn_way_of_booking_title">Vi reimagined sättet att boka!</string>
+	<string name="wn_way_of_booking_message">Hitta bara ett hotell på kartan och boka det, eller välj den liknande.</string>
 </resources>

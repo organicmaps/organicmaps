@@ -1296,9 +1296,17 @@
 	<string name="profile_osm">Профиль OSM</string>
 	<string name="place_page_search_similar_hotel">Найти похожие отели</string>
 	<string name="bookmarks_detect_title">Обнаружены новые файлы</string>
-	<string name="bookmarks_detect_message">%d файл не был импортирован. Вы увидете его после конвертации.</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="one">%d файл был найден. Вы увидете его после конвертации.</item>
+	  <item quantity="few">%d файла были найдены. Вы увидете их после конвертации.</item>
+	  <item quantity="other">%d файлов было найдено. Вы увидете их после конвертации.</item>
+	</plurals>
 	<string name="button_convert">Конвертировать</string>
 	<string name="bookmarks_convert_error_title">Ошибка</string>
 	<string name="bookmarks_convert_error_message">Некоторые файлы не конвертировались.</string>
 	<string name="converting">Конвертация...</string>
+	<string name="wn_reinvented_bookmarks_title">Мы переизобрели метки!</string>
+	<string name="wn_reinvented_bookmarks_message">Вы можете синхронизировать метки, создавать списки... И это поразительно...</string>
+	<string name="wn_way_of_booking_title">Мы переосмыслили способ бронирования!</string>
+	<string name="wn_way_of_booking_message">Нашли отель на карте, но что-то не устраивает? Мы найдем похожие!</string>
 </resources>

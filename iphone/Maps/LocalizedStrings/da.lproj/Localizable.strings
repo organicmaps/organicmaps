@@ -2228,50 +2228,48 @@
 
 "maxim_taxi_title" = "maxim";
 
-"bookmarks_error_title_empty_list_name" = "The name couldn't be empty";
+"bookmarks_error_title_empty_list_name" = "Navnet kunne ikke være tomt";
 
-"bookmarks_error_message_empty_list_name" = "Please enter the list name";
+"bookmarks_error_message_empty_list_name" = "Indtast venligst listen navn";
 
-"bookmarks_new_list_hint" = "New list";
+"bookmarks_new_list_hint" = "Ny liste";
 
-"bookmarks_error_title_list_name_already_taken" = "This name is already taken";
+"bookmarks_error_title_list_name_already_taken" = "Dette navn er allerede taget";
 
-"bookmarks_error_message_list_name_already_taken" = "Please choose another name";
+"bookmarks_error_message_list_name_already_taken" = "Vælg venligst et andet navn";
 
-"bookmarks_error_title_list_name_too_long" = "This name is too long";
+"bookmarks_error_title_list_name_too_long" = "Dette navn er for langt";
 
-"bookmarks_error_message_list_name_too_long" = "Please choose another name";
+"bookmarks_error_message_list_name_too_long" = "Vælg venligst et andet navn";
 
-"please_wait" = "Please wait...";
+"please_wait" = "Vent venligst...";
 
-"fc2018" = "Football World Cup 2018";
+"fc2018" = "Fodbold VM 2018";
 
-"phone_number" = "Phone number";
+"phone_number" = "Telefonnummer";
 
-"notification_unsent_reviews_title" = " You have several unsent reviews";
+"notification_unsent_reviews_title" = "Du har flere usendte anmeldelser";
 
-"notification_unsent_reviews_message" = " Please sign in to share reviews with other travelers";
+"notification_unsent_reviews_message" = "Venligst log ind for at dele anmeldelser med andre rejsende";
 
-"profile_osm" = "Profile OSM";
+"profile_osm" = "Profil OSM";
 
-"place_page_search_similar_hotel" = "Search similar hotels";
+"place_page_search_similar_hotel" = "Søg lignende hoteller";
 
-"bookmarks_detect_title" = "New files detected";
+"bookmarks_detect_title" = "Nye filer registreret";
 
-"bookmarks_detect_message" = "%d files were not imported. You can see them after conversion.";
+"button_convert" = "Konvertere";
 
-"button_convert" = "Convert";
+"bookmarks_convert_error_title" = "Fejl";
 
-"bookmarks_convert_error_title" = "Error";
+"bookmarks_convert_error_message" = "Nogle filer blev ikke konverteret.";
 
-"bookmarks_convert_error_message" = "Some files were not converted.";
+"converting" = "Konvertering...";
 
-"converting" = "Converting...";
+"wn_reinvented_bookmarks_title" = "Vi genopfandt bogmærker!";
 
-"wn_reinvented_bookmarks_title" = "We reinvented bookmarks!";
+"wn_reinvented_bookmarks_message" = "Du kan synkronisere bogmærker, oprette lister... Det er fantastisk...";
 
-"wn_reinvented_bookmarks_message" = "You can synchronize bookmarks, create lists... It's amazing...";
+"wn_way_of_booking_title" = "Vi reimagined måde at reservere!";
 
-"wn_way_of_booking_title" = "We reimagined the way of booking!";
-
-"wn_way_of_booking_message" = "Just find a hotel on the map and book it, or select the similar one.";
+"wn_way_of_booking_message" = "Find blot et hotel på kortet og book det, eller vælg det samme.";

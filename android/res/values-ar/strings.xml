@@ -1252,4 +1252,27 @@
 	<string name="bookmarks_error_message_share_empty">لا يمكن مشاركة قائمة فارغة</string>
 	<string name="discovery_button_subtitle_book_hotels">حجز فنادق</string>
 	<string name="luggage_storage">مخزن الحقائب</string>
+	<string name="bookmarks_error_title_empty_list_name">الاسم لا يمكن أن يكون فارغًا</string>
+	<string name="bookmarks_error_message_empty_list_name">يرجى إدخال اسم القائمة</string>
+	<string name="bookmarks_new_list_hint">قائمة جديدة</string>
+	<string name="bookmarks_error_title_list_name_already_taken">هذا الاسم أخذ سابقا</string>
+	<string name="bookmarks_error_message_list_name_already_taken">يرجى اختيار اسم آخر</string>
+	<string name="bookmarks_error_title_list_name_too_long">هذا الاسم طويل للغاية</string>
+	<string name="bookmarks_error_message_list_name_too_long">يرجى اختيار اسم آخر</string>
+	<string name="please_wait">أرجو الإنتظار...</string>
+	<string name="fc2018">كأس العالم لكرة القدم 2018</string>
+	<string name="phone_number">رقم الهاتف</string>
+	<string name="notification_unsent_reviews_title">لديك عدة تعليقات غير مرغوب فيها</string>
+	<string name="notification_unsent_reviews_message">الرجاء تسجيل الدخول لمشاركة التعليقات مع المسافرين الآخرين</string>
+	<string name="profile_osm">الملف الشخصي OSM</string>
+	<string name="place_page_search_similar_hotel">ابحث عن فنادق مماثلة</string>
+	<string name="bookmarks_detect_title">تم اكتشاف ملفات جديدة</string>
+	<string name="button_convert">تحول</string>
+	<string name="bookmarks_convert_error_title">خطأ</string>
+	<string name="bookmarks_convert_error_message">لم يتم تحويل بعض الملفات.</string>
+	<string name="converting">تحويل...</string>
+	<string name="wn_reinvented_bookmarks_title">لقد قمنا بإعادة اختراع العناوين!</string>
+	<string name="wn_reinvented_bookmarks_message">يمكنك مزامنة الإشارات المرجعية وإنشاء القوائم... إنه لأمر مدهش...</string>
+	<string name="wn_way_of_booking_title">نحن إعادة تصور طريقة الحجز!</string>
+	<string name="wn_way_of_booking_message">ما عليك سوى العثور على فندق على الخريطة وحجزه ، أو تحديد فندق مشابه.</string>
 </resources>

@@ -1245,4 +1245,27 @@
 	<string name="bookmarks_error_message_share_empty">Impossibile condividere una lista vuota</string>
 	<string name="discovery_button_subtitle_book_hotels">Prenota hotel</string>
 	<string name="luggage_storage">Deposito bagagli</string>
+	<string name="bookmarks_error_title_empty_list_name">Il nome non può essere vuoto</string>
+	<string name="bookmarks_error_message_empty_list_name">Si prega di inserire il nome della lista</string>
+	<string name="bookmarks_new_list_hint">Nuova lista</string>
+	<string name="bookmarks_error_title_list_name_already_taken">Questo nome è già stato scelto</string>
+	<string name="bookmarks_error_message_list_name_already_taken">Si prega di scegliere un altro nome</string>
+	<string name="bookmarks_error_title_list_name_too_long">Questo nome è troppo lungo</string>
+	<string name="bookmarks_error_message_list_name_too_long">Si prega di scegliere un altro nome</string>
+	<string name="please_wait">Attendere prego...</string>
+	<string name="fc2018">Mondiali di calcio 2018</string>
+	<string name="phone_number">Numero di telefono</string>
+	<string name="notification_unsent_reviews_title">Hai diverse recensioni non inviate</string>
+	<string name="notification_unsent_reviews_message">Accedi per condividere recensioni con altri viaggiatori</string>
+	<string name="profile_osm">Profilo OSM</string>
+	<string name="place_page_search_similar_hotel">Cerca hotel simili</string>
+	<string name="bookmarks_detect_title">Nuovi file rilevati</string>
+	<string name="button_convert">Convertire</string>
+	<string name="bookmarks_convert_error_title">Errore</string>
+	<string name="bookmarks_convert_error_message">Alcuni file non sono stati convertiti.</string>
+	<string name="converting">Conversione...</string>
+	<string name="wn_reinvented_bookmarks_title">Abbiamo reinventato i segnalibri!</string>
+	<string name="wn_reinvented_bookmarks_message">Puoi sincronizzare i segnalibri, creare liste ... È incredibile ...</string>
+	<string name="wn_way_of_booking_title">Abbiamo reimmaginato il modo di prenotare!</string>
+	<string name="wn_way_of_booking_message">Basta trovare un hotel sulla mappa e prenotarlo, o selezionare quello simile.</string>
 </resources>

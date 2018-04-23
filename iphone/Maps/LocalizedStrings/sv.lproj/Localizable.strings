@@ -2228,50 +2228,48 @@
 
 "maxim_taxi_title" = "maxim";
 
-"bookmarks_error_title_empty_list_name" = "The name couldn't be empty";
+"bookmarks_error_title_empty_list_name" = "Namnet kunde inte vara tomt";
 
-"bookmarks_error_message_empty_list_name" = "Please enter the list name";
+"bookmarks_error_message_empty_list_name" = "Vänligen ange listnamnet";
 
-"bookmarks_new_list_hint" = "New list";
+"bookmarks_new_list_hint" = "Ny lista";
 
-"bookmarks_error_title_list_name_already_taken" = "This name is already taken";
+"bookmarks_error_title_list_name_already_taken" = "Det här namnet är redan taget";
 
-"bookmarks_error_message_list_name_already_taken" = "Please choose another name";
+"bookmarks_error_message_list_name_already_taken" = "Vänligen välj ett annat namn";
 
-"bookmarks_error_title_list_name_too_long" = "This name is too long";
+"bookmarks_error_title_list_name_too_long" = "Det här namnet är för långt";
 
-"bookmarks_error_message_list_name_too_long" = "Please choose another name";
+"bookmarks_error_message_list_name_too_long" = "Vänligen välj ett annat namn";
 
-"please_wait" = "Please wait...";
+"please_wait" = "Vänligen vänta...";
 
-"fc2018" = "Football World Cup 2018";
+"fc2018" = "Fotbolls VM 2018";
 
-"phone_number" = "Phone number";
+"phone_number" = "Telefonnummer";
 
-"notification_unsent_reviews_title" = " You have several unsent reviews";
+"notification_unsent_reviews_title" = "Du har flera unsent recensioner";
 
-"notification_unsent_reviews_message" = " Please sign in to share reviews with other travelers";
+"notification_unsent_reviews_message" = "Vänligen logga in för att dela omdömen med andra resenärer";
 
-"profile_osm" = "Profile OSM";
+"profile_osm" = "OSM-profil";
 
-"place_page_search_similar_hotel" = "Search similar hotels";
+"place_page_search_similar_hotel" = "Sök liknande hotell";
 
-"bookmarks_detect_title" = "New files detected";
+"bookmarks_detect_title" = "Nya filer upptäcktes";
 
-"bookmarks_detect_message" = "%d files were not imported. You can see them after conversion.";
+"button_convert" = "Konvertera";
 
-"button_convert" = "Convert";
+"bookmarks_convert_error_title" = "Fel";
 
-"bookmarks_convert_error_title" = "Error";
+"bookmarks_convert_error_message" = "Vissa filer konverterades inte.";
 
-"bookmarks_convert_error_message" = "Some files were not converted.";
+"converting" = "Konvertera...";
 
-"converting" = "Converting...";
+"wn_reinvented_bookmarks_title" = "Vi återuppfinde bokmärken!";
 
-"wn_reinvented_bookmarks_title" = "We reinvented bookmarks!";
+"wn_reinvented_bookmarks_message" = "Du kan synkronisera bokmärken, skapa listor... Det är fantastiskt...";
 
-"wn_reinvented_bookmarks_message" = "You can synchronize bookmarks, create lists... It's amazing...";
+"wn_way_of_booking_title" = "Vi reimagined sättet att boka!";
 
-"wn_way_of_booking_title" = "We reimagined the way of booking!";
-
-"wn_way_of_booking_message" = "Just find a hotel on the map and book it, or select the similar one.";
+"wn_way_of_booking_message" = "Hitta bara ett hotell på kartan och boka det, eller välj den liknande.";

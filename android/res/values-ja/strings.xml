@@ -1245,4 +1245,27 @@
 	<string name="bookmarks_error_message_share_empty">空のリストは教諭できません</string>
 	<string name="discovery_button_subtitle_book_hotels">ホテルを予約</string>
 	<string name="luggage_storage">荷物スペース</string>
+	<string name="bookmarks_error_title_empty_list_name">名前を空にすることはできませんでした</string>
+	<string name="bookmarks_error_message_empty_list_name">リスト名を入力してください</string>
+	<string name="bookmarks_new_list_hint">新しいリスト</string>
+	<string name="bookmarks_error_title_list_name_already_taken">この名前はすでに使用されています</string>
+	<string name="bookmarks_error_message_list_name_already_taken">別の名前を選んでください</string>
+	<string name="bookmarks_error_title_list_name_too_long">この名前は長すぎます</string>
+	<string name="bookmarks_error_message_list_name_too_long">別の名前を選んでください</string>
+	<string name="please_wait">お待ちください...</string>
+	<string name="fc2018">サッカーワールドカップ2018</string>
+	<string name="phone_number">電話番号</string>
+	<string name="notification_unsent_reviews_title">あなたはいくつかの未送信のレビューを持っています</string>
+	<string name="notification_unsent_reviews_message">他の旅行者とレビューを共有するにはログインしてください</string>
+	<string name="profile_osm">プロフィールOSM</string>
+	<string name="place_page_search_similar_hotel">類似のホテルを検索</string>
+	<string name="bookmarks_detect_title">新しいファイルが検出されました</string>
+	<string name="button_convert">変換</string>
+	<string name="bookmarks_convert_error_title">エラー</string>
+	<string name="bookmarks_convert_error_message">一部のファイルは変換されませんでした。</string>
+	<string name="converting">変換中...</string>
+	<string name="wn_reinvented_bookmarks_title">ブックマークを作り直しました！</string>
+	<string name="wn_reinvented_bookmarks_message">あなたは、ブックマークを同期することができますリストを作成する...それは素晴らしいです...</string>
+	<string name="wn_way_of_booking_title">我々は予約の方法を想像した！</string>
+	<string name="wn_way_of_booking_message">地図上のホテルを見つけて予約するか、同様のホテルを選択するだけです。</string>
 </resources>

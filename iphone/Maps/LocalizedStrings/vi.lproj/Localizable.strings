@@ -2228,50 +2228,48 @@
 
 "maxim_taxi_title" = "maxim";
 
-"bookmarks_error_title_empty_list_name" = "The name couldn't be empty";
+"bookmarks_error_title_empty_list_name" = "Tên không được để trống";
 
-"bookmarks_error_message_empty_list_name" = "Please enter the list name";
+"bookmarks_error_message_empty_list_name" = "Vui lòng nhập tên danh sách";
 
-"bookmarks_new_list_hint" = "New list";
+"bookmarks_new_list_hint" = "Danh sách mới";
 
-"bookmarks_error_title_list_name_already_taken" = "This name is already taken";
+"bookmarks_error_title_list_name_already_taken" = "Tên này đã được sử dụng";
 
-"bookmarks_error_message_list_name_already_taken" = "Please choose another name";
+"bookmarks_error_message_list_name_already_taken" = "Vui lòng chọn một tên khác";
 
-"bookmarks_error_title_list_name_too_long" = "This name is too long";
+"bookmarks_error_title_list_name_too_long" = "Tên này quá dài";
 
-"bookmarks_error_message_list_name_too_long" = "Please choose another name";
+"bookmarks_error_message_list_name_too_long" = "Vui lòng chọn một tên khác";
 
-"please_wait" = "Please wait...";
+"please_wait" = "Vui lòng chờ...";
 
-"fc2018" = "Football World Cup 2018";
+"fc2018" = "World Cup bóng đá 2018";
 
-"phone_number" = "Phone number";
+"phone_number" = "Số điện thoại";
 
-"notification_unsent_reviews_title" = " You have several unsent reviews";
+"notification_unsent_reviews_title" = "Bạn có một số bài đánh giá chưa được đánh giá";
 
-"notification_unsent_reviews_message" = " Please sign in to share reviews with other travelers";
+"notification_unsent_reviews_message" = "Vui lòng đăng nhập để chia sẻ bài đánh giá với các khách du lịch khác";
 
-"profile_osm" = "Profile OSM";
+"profile_osm" = "Hồ sơ OSM";
 
-"place_page_search_similar_hotel" = "Search similar hotels";
+"place_page_search_similar_hotel" = "Tìm kiếm khách sạn";
 
-"bookmarks_detect_title" = "New files detected";
+"bookmarks_detect_title" = "Đã phát hiện tệp mới";
 
-"bookmarks_detect_message" = "%d files were not imported. You can see them after conversion.";
+"button_convert" = "Chuyển đổi";
 
-"button_convert" = "Convert";
+"bookmarks_convert_error_title" = "Lỗi";
 
-"bookmarks_convert_error_title" = "Error";
+"bookmarks_convert_error_message" = "Một số tệp không được chuyển đổi.";
 
-"bookmarks_convert_error_message" = "Some files were not converted.";
+"converting" = "Đang chuyển đổi...";
 
-"converting" = "Converting...";
+"wn_reinvented_bookmarks_title" = "Chúng tôi đã tạo lại dấu trang!";
 
-"wn_reinvented_bookmarks_title" = "We reinvented bookmarks!";
+"wn_reinvented_bookmarks_message" = "Bạn có thể đồng bộ hóa chỉ mục, tạo danh sách... Thật tuyệt vời...";
 
-"wn_reinvented_bookmarks_message" = "You can synchronize bookmarks, create lists... It's amazing...";
+"wn_way_of_booking_title" = "Chúng tôi đã hình dung lại cách đặt phòng!";
 
-"wn_way_of_booking_title" = "We reimagined the way of booking!";
-
-"wn_way_of_booking_message" = "Just find a hotel on the map and book it, or select the similar one.";
+"wn_way_of_booking_message" = "Chỉ cần tìm một khách sạn trên bản đồ và đặt nó, hoặc chọn một khách sạn tương tự.";

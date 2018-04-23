@@ -1244,4 +1244,27 @@
 	<string name="bookmarks_error_message_share_empty">Kan ikke dele en tom liste</string>
 	<string name="discovery_button_subtitle_book_hotels">Bestill hotell</string>
 	<string name="luggage_storage">Bagasjerom</string>
+	<string name="bookmarks_error_title_empty_list_name">Navnet kan ikke være tomt</string>
+	<string name="bookmarks_error_message_empty_list_name">Vennligst skriv inn listenavnet</string>
+	<string name="bookmarks_new_list_hint">Ny liste</string>
+	<string name="bookmarks_error_title_list_name_already_taken">Dette navnet er allerede tatt</string>
+	<string name="bookmarks_error_message_list_name_already_taken">Vennligst velg et annet navn</string>
+	<string name="bookmarks_error_title_list_name_too_long">Dette navnet er for langt</string>
+	<string name="bookmarks_error_message_list_name_too_long">Vennligst velg et annet navn</string>
+	<string name="please_wait">Vennligst vent...</string>
+	<string name="fc2018">Fotball VM 2018</string>
+	<string name="phone_number">Telefonnummer</string>
+	<string name="notification_unsent_reviews_title">Du har flere usendte anmeldelser</string>
+	<string name="notification_unsent_reviews_message">Vennligst logg inn for å dele anmeldelser med andre reisende</string>
+	<string name="profile_osm">Profil OSM</string>
+	<string name="place_page_search_similar_hotel">Søk lignende hoteller</string>
+	<string name="bookmarks_detect_title">Nye filer oppdaget</string>
+	<string name="button_convert">Konvertere</string>
+	<string name="bookmarks_convert_error_title">Feil</string>
+	<string name="bookmarks_convert_error_message">Noen filer ble ikke konvertert.</string>
+	<string name="converting">Konvertere...</string>
+	<string name="wn_reinvented_bookmarks_title">Vi gjenoppfunnet bokmerker!</string>
+	<string name="wn_reinvented_bookmarks_message">Du kan synkronisere bokmerker, lage lister... Det er utrolig...</string>
+	<string name="wn_way_of_booking_title">Vi reimagined veien for booking!</string>
+	<string name="wn_way_of_booking_message">Bare finn et hotell på kartet og bestill det, eller velg det samme.</string>
 </resources>

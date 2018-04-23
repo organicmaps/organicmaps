@@ -1262,10 +1262,10 @@
 	<string name="price_per_hour">%s/hour</string>
 	<string name="bookmarks_backup">Enable backup</string>
 	<string name="authorization_button_sign_in">Sign in</string>
-	<string name="bookmarks_message_authorized_user">Your bookmarks backup automaticaly in a secure cloud storage. Do you want enable backup?</string>
-	<string name="bookmarks_message_unauthorized_user">Your bookmarks backup automaticaly in a secure cloud storage. Sign in to enable backup.</string>
-	<string name="bookmarks_message_unbackuped_user">Your bookmarks backup automaticaly in a secure cloud storage.</string>
-	<string name="bookmarks_message_backuped_user">Your bookmarks backup automaticaly every week in a secure storage. Last backup was %s</string>
+	<string name="bookmarks_message_authorized_user">Your bookmarks backup automatically in a secure cloud storage. Do you want enable backup?</string>
+	<string name="bookmarks_message_unauthorized_user">Your bookmarks backup automatically in a secure cloud storage. Sign in to enable backup.</string>
+	<string name="bookmarks_message_unbackuped_user">Your bookmarks backup automatically in a secure cloud storage.</string>
+	<string name="bookmarks_message_backuped_user">Your bookmarks backup automatically every week in a secure storage. Last backup was %s</string>
 	<string name="settings_backup_bookmarks">Backup Bookmarks</string>
 	<string name="bookmarks_groups">Lists</string>
 	<string name="bookmarks_groups_hide_all">Hide all</string>
@@ -1307,7 +1307,10 @@
 	<string name="profile_osm">Profile OSM</string>
 	<string name="place_page_search_similar_hotel">Search similar hotels</string>
 	<string name="bookmarks_detect_title">New files detected</string>
-	<string name="bookmarks_detect_message">%d files were not imported. You can see them after conversion.</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="one">%d file was found. You can see it after conversion.</item>
+	  <item quantity="other">%d files were found. You can see them after conversion.</item>
+	</plurals>
 	<string name="button_convert">Convert</string>
 	<string name="bookmarks_convert_error_title">Error</string>
 	<string name="bookmarks_convert_error_message">Some files were not converted.</string>

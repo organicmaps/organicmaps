@@ -2228,50 +2228,48 @@
 
 "maxim_taxi_title" = "maxim";
 
-"bookmarks_error_title_empty_list_name" = "The name couldn't be empty";
+"bookmarks_error_title_empty_list_name" = "名前を空にすることはできませんでした";
 
-"bookmarks_error_message_empty_list_name" = "Please enter the list name";
+"bookmarks_error_message_empty_list_name" = "リスト名を入力してください";
 
-"bookmarks_new_list_hint" = "New list";
+"bookmarks_new_list_hint" = "新しいリスト";
 
-"bookmarks_error_title_list_name_already_taken" = "This name is already taken";
+"bookmarks_error_title_list_name_already_taken" = "この名前はすでに使用されています";
 
-"bookmarks_error_message_list_name_already_taken" = "Please choose another name";
+"bookmarks_error_message_list_name_already_taken" = "別の名前を選んでください";
 
-"bookmarks_error_title_list_name_too_long" = "This name is too long";
+"bookmarks_error_title_list_name_too_long" = "この名前は長すぎます";
 
-"bookmarks_error_message_list_name_too_long" = "Please choose another name";
+"bookmarks_error_message_list_name_too_long" = "別の名前を選んでください";
 
-"please_wait" = "Please wait...";
+"please_wait" = "お待ちください...";
 
-"fc2018" = "Football World Cup 2018";
+"fc2018" = "サッカーワールドカップ2018";
 
-"phone_number" = "Phone number";
+"phone_number" = "電話番号";
 
-"notification_unsent_reviews_title" = " You have several unsent reviews";
+"notification_unsent_reviews_title" = "あなたはいくつかの未送信のレビューを持っています";
 
-"notification_unsent_reviews_message" = " Please sign in to share reviews with other travelers";
+"notification_unsent_reviews_message" = "他の旅行者とレビューを共有するにはログインしてください";
 
-"profile_osm" = "Profile OSM";
+"profile_osm" = "プロフィールOSM";
 
-"place_page_search_similar_hotel" = "Search similar hotels";
+"place_page_search_similar_hotel" = "類似のホテルを検索";
 
-"bookmarks_detect_title" = "New files detected";
+"bookmarks_detect_title" = "新しいファイルが検出されました";
 
-"bookmarks_detect_message" = "%d files were not imported. You can see them after conversion.";
+"button_convert" = "変換";
 
-"button_convert" = "Convert";
+"bookmarks_convert_error_title" = "エラー";
 
-"bookmarks_convert_error_title" = "Error";
+"bookmarks_convert_error_message" = "一部のファイルは変換されませんでした。";
 
-"bookmarks_convert_error_message" = "Some files were not converted.";
+"converting" = "変換中...";
 
-"converting" = "Converting...";
+"wn_reinvented_bookmarks_title" = "ブックマークを作り直しました！";
 
-"wn_reinvented_bookmarks_title" = "We reinvented bookmarks!";
+"wn_reinvented_bookmarks_message" = "あなたは、ブックマークを同期することができますリストを作成する...それは素晴らしいです...";
 
-"wn_reinvented_bookmarks_message" = "You can synchronize bookmarks, create lists... It's amazing...";
+"wn_way_of_booking_title" = "我々は予約の方法を想像した！";
 
-"wn_way_of_booking_title" = "We reimagined the way of booking!";
-
-"wn_way_of_booking_message" = "Just find a hotel on the map and book it, or select the similar one.";
+"wn_way_of_booking_message" = "地図上のホテルを見つけて予約するか、同様のホテルを選択するだけです。";

@@ -2228,50 +2228,48 @@
 
 "maxim_taxi_title" = "maxim";
 
-"bookmarks_error_title_empty_list_name" = "The name couldn't be empty";
+"bookmarks_error_title_empty_list_name" = "Ім'я не може бути порожнім";
 
-"bookmarks_error_message_empty_list_name" = "Please enter the list name";
+"bookmarks_error_message_empty_list_name" = "Будь ласка, введіть назву списку";
 
-"bookmarks_new_list_hint" = "New list";
+"bookmarks_new_list_hint" = "Новий список";
 
-"bookmarks_error_title_list_name_already_taken" = "This name is already taken";
+"bookmarks_error_title_list_name_already_taken" = "Це ім'я вже зайнято";
 
-"bookmarks_error_message_list_name_already_taken" = "Please choose another name";
+"bookmarks_error_message_list_name_already_taken" = "Виберіть інше ім'я";
 
-"bookmarks_error_title_list_name_too_long" = "This name is too long";
+"bookmarks_error_title_list_name_too_long" = "Це ім'я задовге";
 
-"bookmarks_error_message_list_name_too_long" = "Please choose another name";
+"bookmarks_error_message_list_name_too_long" = "Виберіть інше ім'я";
 
-"please_wait" = "Please wait...";
+"please_wait" = "Будь ласка, зачекайте...";
 
-"fc2018" = "Football World Cup 2018";
+"fc2018" = "Чемпіонат світу з футболу 2018 року";
 
-"phone_number" = "Phone number";
+"phone_number" = "Номер телефону";
 
-"notification_unsent_reviews_title" = " You have several unsent reviews";
+"notification_unsent_reviews_title" = "У вас є невідправлені відгуки";
 
-"notification_unsent_reviews_message" = " Please sign in to share reviews with other travelers";
+"notification_unsent_reviews_message" = "Будь ласка, увійдіть, щоб поділитися своїми відгуками з іншими мандрівниками";
 
-"profile_osm" = "Profile OSM";
+"profile_osm" = "Профіль OSM";
 
-"place_page_search_similar_hotel" = "Search similar hotels";
+"place_page_search_similar_hotel" = "Шукати схожі готелі";
 
-"bookmarks_detect_title" = "New files detected";
+"bookmarks_detect_title" = "Виявлено нові файли";
 
-"bookmarks_detect_message" = "%d files were not imported. You can see them after conversion.";
+"button_convert" = "Конвертувати";
 
-"button_convert" = "Convert";
+"bookmarks_convert_error_title" = "Помилка";
 
-"bookmarks_convert_error_title" = "Error";
+"bookmarks_convert_error_message" = "Деякі файли не конвертувалися.";
 
-"bookmarks_convert_error_message" = "Some files were not converted.";
+"converting" = "Конвертація...";
 
-"converting" = "Converting...";
+"wn_reinvented_bookmarks_title" = "Ми переізобрел мітки!";
 
-"wn_reinvented_bookmarks_title" = "We reinvented bookmarks!";
+"wn_reinvented_bookmarks_message" = "Ви можете синхронізувати мітки, створювати листи... І це разюче...";
 
-"wn_reinvented_bookmarks_message" = "You can synchronize bookmarks, create lists... It's amazing...";
+"wn_way_of_booking_title" = "Ми переосмислили спосіб бронювання!";
 
-"wn_way_of_booking_title" = "We reimagined the way of booking!";
-
-"wn_way_of_booking_message" = "Just find a hotel on the map and book it, or select the similar one.";
+"wn_way_of_booking_message" = "Просто знайдіть готель на карті, забронюйте його або виберіть аналогічний.";

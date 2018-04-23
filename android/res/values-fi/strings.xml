@@ -1246,4 +1246,27 @@
 	<string name="bookmarks_error_message_share_empty">Tyhjää listaa ei voi jakaa</string>
 	<string name="discovery_button_subtitle_book_hotels">Varaa hotelleja</string>
 	<string name="luggage_storage">Matkatavaroiden säilytys</string>
+	<string name="bookmarks_error_title_empty_list_name">Nimi ei voinut olla tyhjä</string>
+	<string name="bookmarks_error_message_empty_list_name">Anna luettelon nimi</string>
+	<string name="bookmarks_new_list_hint">Uusi lista</string>
+	<string name="bookmarks_error_title_list_name_already_taken">Tämä nimi on jo otettu</string>
+	<string name="bookmarks_error_message_list_name_already_taken">Valitse toinen nimi</string>
+	<string name="bookmarks_error_title_list_name_too_long">Tämä nimi on liian pitkä</string>
+	<string name="bookmarks_error_message_list_name_too_long">Valitse toinen nimi</string>
+	<string name="please_wait">Odota...</string>
+	<string name="fc2018">Jalkapallomaajoukkue 2018</string>
+	<string name="phone_number">Puhelinnumero</string>
+	<string name="notification_unsent_reviews_title">Sinulla on useita epävirallisia arvosteluja</string>
+	<string name="notification_unsent_reviews_message">Kirjaudu sisään jaa arviot muiden matkustajien kanssa</string>
+	<string name="profile_osm">Profiili OSM</string>
+	<string name="place_page_search_similar_hotel">Etsi samanlaisia ​​hotelleja</string>
+	<string name="bookmarks_detect_title">Uusia tiedostoja havaittiin</string>
+	<string name="button_convert">Muuntaa</string>
+	<string name="bookmarks_convert_error_title">Virhe</string>
+	<string name="bookmarks_convert_error_message">Joitakin tiedostoja ei muutettu.</string>
+	<string name="converting">Muuntaa...</string>
+	<string name="wn_reinvented_bookmarks_title">Uusimme kirjanmerkit!</string>
+	<string name="wn_reinvented_bookmarks_message">Voit synkronoida kirjanmerkkejä, luoda luetteloita... On hämmästyttävää...</string>
+	<string name="wn_way_of_booking_title">Me kuvittelimme uudelleen varauksen tapaa!</string>
+	<string name="wn_way_of_booking_message">Etsi hotelli kartalla ja varaa se tai valitse vastaava.</string>
 </resources>

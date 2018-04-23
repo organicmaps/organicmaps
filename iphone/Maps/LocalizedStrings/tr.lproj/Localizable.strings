@@ -2228,50 +2228,48 @@
 
 "maxim_taxi_title" = "maxim";
 
-"bookmarks_error_title_empty_list_name" = "The name couldn't be empty";
+"bookmarks_error_title_empty_list_name" = "Isim boş olamaz";
 
-"bookmarks_error_message_empty_list_name" = "Please enter the list name";
+"bookmarks_error_message_empty_list_name" = "Lütfen liste ismini giriniz";
 
-"bookmarks_new_list_hint" = "New list";
+"bookmarks_new_list_hint" = "Yeni liste";
 
-"bookmarks_error_title_list_name_already_taken" = "This name is already taken";
+"bookmarks_error_title_list_name_already_taken" = "Bu isim zaten alınmış";
 
-"bookmarks_error_message_list_name_already_taken" = "Please choose another name";
+"bookmarks_error_message_list_name_already_taken" = "Lütfen başka bir isim seçiniz";
 
-"bookmarks_error_title_list_name_too_long" = "This name is too long";
+"bookmarks_error_title_list_name_too_long" = "Bu isim çok uzun";
 
-"bookmarks_error_message_list_name_too_long" = "Please choose another name";
+"bookmarks_error_message_list_name_too_long" = "Lütfen başka bir isim seçiniz";
 
-"please_wait" = "Please wait...";
+"please_wait" = "Lütfen bekle...";
 
-"fc2018" = "Football World Cup 2018";
+"fc2018" = "Futbol Dünya Kupası 2018";
 
-"phone_number" = "Phone number";
+"phone_number" = "Telefon numarası";
 
-"notification_unsent_reviews_title" = " You have several unsent reviews";
+"notification_unsent_reviews_title" = "Birkaç onaylanmamış yorumunuz var";
 
-"notification_unsent_reviews_message" = " Please sign in to share reviews with other travelers";
+"notification_unsent_reviews_message" = "Diğer gezginlerle yorum paylaşmak için lütfen giriş yapın";
 
-"profile_osm" = "Profile OSM";
+"profile_osm" = "Profil OSM";
 
-"place_page_search_similar_hotel" = "Search similar hotels";
+"place_page_search_similar_hotel" = "Benzer otellerde ara";
 
-"bookmarks_detect_title" = "New files detected";
+"bookmarks_detect_title" = "Yeni dosyalar algılandı";
 
-"bookmarks_detect_message" = "%d files were not imported. You can see them after conversion.";
+"button_convert" = "Dönüştürmek";
 
-"button_convert" = "Convert";
+"bookmarks_convert_error_title" = "Hata";
 
-"bookmarks_convert_error_title" = "Error";
+"bookmarks_convert_error_message" = "Bazı dosyalar dönüştürülmedi.";
 
-"bookmarks_convert_error_message" = "Some files were not converted.";
+"converting" = "Dönüştürme...";
 
-"converting" = "Converting...";
+"wn_reinvented_bookmarks_title" = "Yer imlerini yeniden keşfettik!";
 
-"wn_reinvented_bookmarks_title" = "We reinvented bookmarks!";
+"wn_reinvented_bookmarks_message" = "Yer imlerini senkronize edebilir, listeler oluşturabilirsiniz... Harika...";
 
-"wn_reinvented_bookmarks_message" = "You can synchronize bookmarks, create lists... It's amazing...";
+"wn_way_of_booking_title" = "Rezervasyon yolunu yeniden tasarladık!";
 
-"wn_way_of_booking_title" = "We reimagined the way of booking!";
-
-"wn_way_of_booking_message" = "Just find a hotel on the map and book it, or select the similar one.";
+"wn_way_of_booking_message" = "Haritadaki bir oteli bulup rezervasyon yapın ya da benzer olanı seçin.";

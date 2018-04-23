@@ -1250,4 +1250,27 @@
 	<string name="bookmarks_error_message_share_empty">Kan ikke dele en tom liste</string>
 	<string name="discovery_button_subtitle_book_hotels">Reserver hoteller</string>
 	<string name="luggage_storage">Bagageopbevaring</string>
+	<string name="bookmarks_error_title_empty_list_name">Navnet kunne ikke være tomt</string>
+	<string name="bookmarks_error_message_empty_list_name">Indtast venligst listen navn</string>
+	<string name="bookmarks_new_list_hint">Ny liste</string>
+	<string name="bookmarks_error_title_list_name_already_taken">Dette navn er allerede taget</string>
+	<string name="bookmarks_error_message_list_name_already_taken">Vælg venligst et andet navn</string>
+	<string name="bookmarks_error_title_list_name_too_long">Dette navn er for langt</string>
+	<string name="bookmarks_error_message_list_name_too_long">Vælg venligst et andet navn</string>
+	<string name="please_wait">Vent venligst...</string>
+	<string name="fc2018">Fodbold VM 2018</string>
+	<string name="phone_number">Telefonnummer</string>
+	<string name="notification_unsent_reviews_title">Du har flere usendte anmeldelser</string>
+	<string name="notification_unsent_reviews_message">Venligst log ind for at dele anmeldelser med andre rejsende</string>
+	<string name="profile_osm">Profil OSM</string>
+	<string name="place_page_search_similar_hotel">Søg lignende hoteller</string>
+	<string name="bookmarks_detect_title">Nye filer registreret</string>
+	<string name="button_convert">Konvertere</string>
+	<string name="bookmarks_convert_error_title">Fejl</string>
+	<string name="bookmarks_convert_error_message">Nogle filer blev ikke konverteret.</string>
+	<string name="converting">Konvertering...</string>
+	<string name="wn_reinvented_bookmarks_title">Vi genopfandt bogmærker!</string>
+	<string name="wn_reinvented_bookmarks_message">Du kan synkronisere bogmærker, oprette lister... Det er fantastisk...</string>
+	<string name="wn_way_of_booking_title">Vi reimagined måde at reservere!</string>
+	<string name="wn_way_of_booking_message">Find blot et hotel på kortet og book det, eller vælg det samme.</string>
 </resources>

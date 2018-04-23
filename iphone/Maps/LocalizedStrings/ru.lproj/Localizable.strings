@@ -2258,8 +2258,6 @@
 
 "bookmarks_detect_title" = "Обнаружены новые файлы";
 
-"bookmarks_detect_message" = "%d файл не был импортирован. Вы увидете его после конвертации.";
-
 "button_convert" = "Конвертировать";
 
 "bookmarks_convert_error_title" = "Ошибка";
@@ -2268,10 +2266,10 @@
 
 "converting" = "Конвертация...";
 
-"wn_reinvented_bookmarks_title" = "We reinvented bookmarks!";
+"wn_reinvented_bookmarks_title" = "Мы переизобрели метки!";
 
-"wn_reinvented_bookmarks_message" = "You can synchronize bookmarks, create lists... It's amazing...";
+"wn_reinvented_bookmarks_message" = "Вы можете синхронизировать метки, создавать списки... И это поразительно...";
 
-"wn_way_of_booking_title" = "We reimagined the way of booking!";
+"wn_way_of_booking_title" = "Мы переосмыслили способ бронирования!";
 
-"wn_way_of_booking_message" = "Just find a hotel on the map and book it, or select the similar one.";
+"wn_way_of_booking_message" = "Нашли отель на карте, но что-то не устраивает? Мы найдем похожие!";

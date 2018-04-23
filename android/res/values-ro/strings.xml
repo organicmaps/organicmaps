@@ -1242,4 +1242,27 @@
 	<string name="bookmarks_error_message_share_empty">Nu se poate distribui o listă goală</string>
 	<string name="discovery_button_subtitle_book_hotels">Rezervă hoteluri</string>
 	<string name="luggage_storage">Depozitare bagaje</string>
+	<string name="bookmarks_error_title_empty_list_name">Numele nu poate fi gol</string>
+	<string name="bookmarks_error_message_empty_list_name">Introduceți numele listei</string>
+	<string name="bookmarks_new_list_hint">Lista nouă</string>
+	<string name="bookmarks_error_title_list_name_already_taken">Acest nume este deja luat</string>
+	<string name="bookmarks_error_message_list_name_already_taken">Alegeți un alt nume</string>
+	<string name="bookmarks_error_title_list_name_too_long">Acest nume este prea lung</string>
+	<string name="bookmarks_error_message_list_name_too_long">Alegeți un alt nume</string>
+	<string name="please_wait">Te rog asteapta...</string>
+	<string name="fc2018">Campionatul Mondial de Fotbal 2018</string>
+	<string name="phone_number">Numar de telefon</string>
+	<string name="notification_unsent_reviews_title">Aveți mai multe recenzii nesoluționate</string>
+	<string name="notification_unsent_reviews_message">Vă rugăm să vă conectați pentru a trimite recenzii altor călătorii</string>
+	<string name="profile_osm">Profil OSM</string>
+	<string name="place_page_search_similar_hotel">Căutați hoteluri similare</string>
+	<string name="bookmarks_detect_title">Au fost detectate fișiere noi</string>
+	<string name="button_convert">Convertit</string>
+	<string name="bookmarks_convert_error_title">Eroare</string>
+	<string name="bookmarks_convert_error_message">Unele fișiere nu au fost convertite.</string>
+	<string name="converting">Conversia...</string>
+	<string name="wn_reinvented_bookmarks_title">Am reinventat marcaje!</string>
+	<string name="wn_reinvented_bookmarks_message">Puteți sincroniza marcaje, crea liste... Este uimitor...</string>
+	<string name="wn_way_of_booking_title">Am reimaginat modul de rezervare!</string>
+	<string name="wn_way_of_booking_message">Găsiți un hotel pe hartă și rezervați-l sau selectați unul similar.</string>
 </resources>
