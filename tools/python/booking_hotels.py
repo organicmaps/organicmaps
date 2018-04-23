@@ -42,7 +42,7 @@ class BookingApi:
 
         if self.requestPerMinute >= self.requestLimit:
             waittime = 60 - now.second
-            logging.warning("Limit for request per minute exceeded. Waiting for: {0} sec.".format(waittime))
+            logging.info("Limit for request per minute exceeded. Waiting for: {0} sec.".format(waittime))
             time.sleep(waittime)
             now = datetime.utcnow()
 

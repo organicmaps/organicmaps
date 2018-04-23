@@ -18,13 +18,18 @@ namespace routing
 bool BuildRoadRestrictions(std::string const & mwmPath, std::string const & restrictionPath,
                            std::string const & osmIdsTofeatureIdsPath)
 {
-  LOG(LINFO, ("BuildRoadRestrictions(", mwmPath, ", ", restrictionPath, ", ",
+  LOG(LDEBUG, ("BuildRoadRestrictions(", mwmPath, ", ", restrictionPath, ", ",
               osmIdsTofeatureIdsPath, ");"));
   RestrictionCollector restrictionCollector(restrictionPath, osmIdsTofeatureIdsPath);
-  if (!restrictionCollector.HasRestrictions() || !restrictionCollector.IsValid())
+  if (!restrictionCollector.HasRestrictions())
   {
-    LOG(LWARNING, ("No valid restrictions for", mwmPath, "It's necessary to check that",
+    LOG(LINFO, ("No restrictions for", mwmPath, "It's necessary to check that",
                    restrictionPath, "and", osmIdsTofeatureIdsPath, "are available."));
+    return false;
+  }
+  if (!restrictionCollector.IsValid())
+  {
+    LOG(LWARNING, ("Found invalid restrictions for", mwmPath, "Are osm2ft files relevant?"));
     return false;
   }
 

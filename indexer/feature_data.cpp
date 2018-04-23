@@ -502,7 +502,7 @@ bool FeatureParams::FinishAddingTypes()
   // Patch fix that removes house number from localities.
   if (!house.IsEmpty() && ftypes::IsLocalityChecker::Instance()(m_Types))
   {
-    LOG(LWARNING, ("Locality with house number", *this));
+    LOG(LINFO, ("Locality with house number", *this));
     house.Clear();
   }
 
