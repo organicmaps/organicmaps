@@ -87,6 +87,8 @@ DEFINE_uint64(planet_version, my::SecondsSinceEpoch(),
 // Preprocessing and feature generator.
 DEFINE_bool(preprocess, false, "1st pass - create nodes/ways/relations data.");
 DEFINE_bool(generate_features, false, "2nd pass - generate intermediate features.");
+DEFINE_bool(generate_region_features, false,
+            "Generate intermediate features for regions to use in regions index and borders generation.");
 DEFINE_bool(generate_geometry, false,
             "3rd pass - split and simplify geometry and triangles for features.");
 DEFINE_bool(generate_index, false, "4rd pass - generate index.");
@@ -211,10 +213,10 @@ int main(int argc, char ** argv)
   GetStyleReader().SetCurrentStyle(MapStyleMerged);
 
   // Load classificator only when necessary.
-  if (FLAGS_make_coasts || FLAGS_generate_features || FLAGS_generate_geometry ||
-      FLAGS_generate_geo_objects_index || FLAGS_generate_regions || FLAGS_generate_index ||
-      FLAGS_generate_search_index || FLAGS_generate_cities_boundaries || FLAGS_calc_statistics ||
-      FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
+  if (FLAGS_make_coasts || FLAGS_generate_features || FLAGS_generate_region_features ||
+      FLAGS_generate_geometry || FLAGS_generate_geo_objects_index || FLAGS_generate_regions ||
+      FLAGS_generate_index || FLAGS_generate_search_index || FLAGS_generate_cities_boundaries ||
+      FLAGS_calc_statistics || FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
       FLAGS_dump_feature_names != "" || FLAGS_check_mwm || FLAGS_srtm_path != "" ||
       FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm ||
       FLAGS_generate_traffic_keys || FLAGS_transit_path != "" || FLAGS_ugc_data != "")
@@ -232,6 +234,8 @@ int main(int argc, char ** argv)
   if (FLAGS_generate_features || FLAGS_make_coasts)
   {
     LOG(LINFO, ("Generating final data ..."));
+    CHECK(!FLAGS_generate_region_features, ("FLAGS_generate_features and FLAGS_make_coasts should "
+                                            "not be used with FLAGS_generate_region_features"));
 
     genInfo.m_splitByPolygons = FLAGS_split_by_polygons;
     genInfo.m_createWorld = FLAGS_generate_world;
@@ -260,11 +264,20 @@ int main(int argc, char ** argv)
       }
     }
   }
-  else
+
+  if (FLAGS_generate_region_features)
   {
-    if (!FLAGS_output.empty())
-      genInfo.m_bucketNames.push_back(FLAGS_output);
+    CHECK(!FLAGS_generate_features && !FLAGS_make_coasts,
+          ("FLAGS_generate_features and FLAGS_make_coasts should "
+           "not be used with FLAGS_generate_region_features"));
+
+    genInfo.m_fileName = FLAGS_output;
+    if (!GenerateRegionFeatures(genInfo))
+      return -1;
   }
+
+  if (genInfo.m_bucketNames.empty() && !FLAGS_output.empty())
+    genInfo.m_bucketNames.push_back(FLAGS_output);
 
   if (FLAGS_generate_geo_objects_index || FLAGS_generate_regions)
   {

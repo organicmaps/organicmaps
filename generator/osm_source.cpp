@@ -33,6 +33,7 @@
 #include "coding/parse_xml.hpp"
 
 #include <memory>
+#include <set>
 
 #include "defines.hpp"
 
@@ -728,8 +729,11 @@ void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *
 // Generate functions implementations.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+using PreEmit = function<bool(OsmElement *)>;
+
 template <class TNodesHolder>
-bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter)
+bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter,
+                          PreEmit const & preEmit)
 {
   try
   {
@@ -746,19 +750,9 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter)
         info.GetIntermediateFileName(ROAD_ACCESS_FILENAME, ""),
         info.GetIntermediateFileName(METALINES_FILENAME, ""));
 
-    TagAdmixer tagAdmixer(info.GetIntermediateFileName("ways", ".csv"),
-                          info.GetIntermediateFileName("towns", ".csv"));
-    TagReplacer tagReplacer(GetPlatform().ResourcesDir() + REPLACED_TAGS_FILE);
-    OsmTagMixer osmTagMixer(GetPlatform().ResourcesDir() + MIXED_TAGS_FILE);
-
-    // Here we can add new tags to the elements!
-    auto const fn = [&](OsmElement * e)
-    {
-      tagReplacer(e);
-      tagAdmixer(e);
-      osmTagMixer(e);
-
-      parser.EmitElement(e);
+    auto const fn = [&](OsmElement * e) {
+      if (preEmit(e))
+        parser.EmitElement(e);
     };
 
     SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
@@ -825,19 +819,84 @@ bool GenerateIntermediateDataImpl(feature::GenerateInfo & info)
   return true;
 }
 
-bool GenerateFeatures(feature::GenerateInfo & info, EmitterFactory factory)
+bool GenerateRaw(feature::GenerateInfo & info, std::unique_ptr<EmitterBase> emitter, PreEmit const & preEmit)
 {
-  auto emitter = factory(info);
   switch (info.m_nodeStorageType)
   {
     case feature::GenerateInfo::NodeStorageType::File:
-      return GenerateFeaturesImpl<cache::RawFilePointStorage<cache::EMode::Read>>(info, *emitter);
+      return GenerateFeaturesImpl<cache::RawFilePointStorage<cache::EMode::Read>>(info, *emitter, preEmit);
     case feature::GenerateInfo::NodeStorageType::Index:
-      return GenerateFeaturesImpl<cache::MapFilePointStorage<cache::EMode::Read>>(info, *emitter);
+      return GenerateFeaturesImpl<cache::MapFilePointStorage<cache::EMode::Read>>(info, *emitter, preEmit);
     case feature::GenerateInfo::NodeStorageType::Memory:
-      return GenerateFeaturesImpl<cache::RawMemPointStorage<cache::EMode::Read>>(info, *emitter);
+      return GenerateFeaturesImpl<cache::RawMemPointStorage<cache::EMode::Read>>(info, *emitter, preEmit);
   }
   return false;
+}
+
+bool GenerateFeatures(feature::GenerateInfo & info, EmitterFactory factory)
+{
+  TagAdmixer tagAdmixer(info.GetIntermediateFileName("ways", ".csv"),
+                        info.GetIntermediateFileName("towns", ".csv"));
+  TagReplacer tagReplacer(GetPlatform().ResourcesDir() + REPLACED_TAGS_FILE);
+  OsmTagMixer osmTagMixer(GetPlatform().ResourcesDir() + MIXED_TAGS_FILE);
+
+  auto preEmit = [&](OsmElement * e) {
+    // Here we can add new tags to the elements!
+    tagReplacer(e);
+    tagAdmixer(e);
+    osmTagMixer(e);
+    return true;
+  };
+
+  return GenerateRaw(info, factory(info), preEmit);
+}
+
+bool GenerateRegionFeatures(feature::GenerateInfo & info, EmitterFactory factory)
+{
+  set<string> const adminLevels = {"2", "4", "5", "6"};
+  set<string> const places = {"city", "town", "village", "hamlet", "suburb"};
+
+  auto isRegion = [&adminLevels, &places](OsmElement const & e) {
+    // We do not make any assumptions about shape of places without explicit border for now.
+    if (e.type != OsmElement::EntityType::Way && e.type != OsmElement::EntityType::Relation)
+      return false;
+
+    bool haveBoundary = false;
+    bool haveAdminLevel = false;
+    for (auto const & t : e.Tags())
+    {
+      if (t.key == "boundary" && t.value == "administrative")
+        haveBoundary = true;
+
+      if (t.key == "admin_level" && adminLevels.find(t.value) != adminLevels.end())
+        haveAdminLevel = true;
+
+      if (haveBoundary && haveAdminLevel)
+        return true;
+
+      if (t.key == "place" && places.find(t.value) != places.end())
+        return true;
+    }
+
+    return false;
+  };
+
+  auto preEmit = [&isRegion](OsmElement * e) {
+    if (isRegion(*e))
+    {
+      // Emit feature with original geometry and visible "natural = land" tag.
+      // Now emitter does not have a single place of decision which elements to emit and which to
+      // ignore. So the only way to make it emit element is to construct "good" element.
+      // This code should be removed in case of emitter refactoring.
+      e->m_tags = {};
+      e->AddTag("natural", "land");
+      e->AddTag("type", "multipolygon");
+      return true;
+    }
+    return false;
+  };
+
+  return GenerateRaw(info, factory(info), preEmit);
 }
 
 bool GenerateIntermediateData(feature::GenerateInfo & info)

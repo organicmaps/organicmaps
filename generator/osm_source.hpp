@@ -61,6 +61,8 @@ using EmitterFactory = std::function<std::unique_ptr<EmitterBase>(feature::Gener
 
 bool GenerateFeatures(feature::GenerateInfo & info,
                       EmitterFactory factory = MakeMainFeatureEmitter);
+bool GenerateRegionFeatures(feature::GenerateInfo & info,
+                            EmitterFactory factory = MakeMainFeatureEmitter);
 bool GenerateIntermediateData(feature::GenerateInfo & info);
 
 void ProcessOsmElementsFromO5M(SourceReader & stream, std::function<void(OsmElement *)> processor);
