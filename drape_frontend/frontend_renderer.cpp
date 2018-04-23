@@ -1700,7 +1700,9 @@ bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport,
   gOffset = m2::PointD(0, 0);
   if (m_myPositionController->IsModeChangeViewport() || m_selectionShape == nullptr ||
       oldViewport == newViewport)
+  {
     return false;
+  }
 
   ScreenBase const & screen = m_userEventStream.GetCurrentScreen();
 

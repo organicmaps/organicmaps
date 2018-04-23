@@ -378,6 +378,7 @@ bool OverlayTree::GetSelectedFeatureRect(ScreenBase const & screen, m2::RectD & 
   featureRect.MakeEmpty();
   for (auto const & handle : m_handlesCache)
   {
+    CHECK(handle != nullptr, ());
     if (handle->IsVisible() && handle->GetOverlayID().m_featureId == m_selectedFeatureID)
     {
       m2::RectD rect = handle->GetPixelRect(screen, screen.isPerspective());

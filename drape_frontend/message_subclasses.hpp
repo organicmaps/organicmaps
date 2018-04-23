@@ -511,7 +511,8 @@ public:
     , m_isDismiss(true)
   {}
 
-  SelectObjectMessage(SelectionShape::ESelectedObject selectedObject, m2::PointD const & glbPoint, FeatureID const & featureID,  bool isAnim)
+  SelectObjectMessage(SelectionShape::ESelectedObject selectedObject,
+                      m2::PointD const & glbPoint, FeatureID const & featureID, bool isAnim)
     : m_selected(selectedObject)
     , m_glbPoint(glbPoint)
     , m_featureID(featureID)
@@ -520,7 +521,7 @@ public:
   {}
 
   Type GetType() const override { return SelectObject; }
-  bool IsGLContextDependent() const override { return true; }
+  bool IsGLContextDependent() const override { return false; }
 
   m2::PointD const & GetPosition() const { return m_glbPoint; }
   SelectionShape::ESelectedObject GetSelectedObject() const { return m_selected; }
