@@ -342,7 +342,8 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
      numberOfItemsInSection:(NSInteger)section
 {
   auto const count = self.model().GetItemsCount(collectionView.itemType);
-  if (collectionView.itemType == ItemType::Hotels)
+  auto type = collectionView.itemType;
+  if (type == ItemType::Hotels || type == ItemType::LocalExperts)
     return count > 0 ? count + 1 : 0;
 
   return count;
@@ -399,6 +400,15 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
   }
   case ItemType::LocalExperts:
   {
+    if (indexPath.row == model.GetItemsCount(type))
+    {
+      Class cls = [MWMDiscoveryMoreCell class];
+      auto cell = static_cast<MWMDiscoveryMoreCell *>([collectionView
+                                                       dequeueReusableCellWithCellClass:cls
+                                                       indexPath:indexPath]);
+      return cell;
+    }
+
     Class cls = [MWMDiscoveryLocalExpertCell class];
     auto cell = static_cast<MWMDiscoveryLocalExpertCell *>(
         [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);

@@ -24,6 +24,7 @@ final class DiscoveryLocalExpertCollectionHolderCell: DiscoveryCollectionHolder 
   @objc func config() {
     header.text = L("discovery_button_subtitle_local_guides").uppercased()
     collectionView.register(cellClass: DiscoveryLocalExpertCell.self)
+    collectionView.register(cellClass: DiscoveryMoreCell.self)
   }
 }
 

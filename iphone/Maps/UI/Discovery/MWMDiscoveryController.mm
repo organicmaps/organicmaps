@@ -156,7 +156,15 @@ struct Callback
     dest = kStatExternal;
     break;
   case ItemType::LocalExperts:
-    [self openUrl:[NSURL URLWithString:@(m_model.GetExpertAt(index).m_pageUrl.c_str())]];
+    if (index == m_model.GetItemsCount(type))
+    {
+      [self openURLForItem:type];
+      event = kStatPlacepageSponsoredMoreSelected;
+    }
+    else
+    {
+      [self openUrl:[NSURL URLWithString:@(m_model.GetExpertAt(index).m_pageUrl.c_str())]];
+    }
     dest = kStatExternal;
     break;
   case ItemType::Attractions:

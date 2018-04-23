@@ -1,5 +1,7 @@
 #include "map/discovery/discovery_manager.hpp"
 
+#include <sstream>
+
 namespace
 {
 std::string GetQuery(discovery::ItemType const type)
@@ -50,8 +52,10 @@ std::string Manager::GetViatorUrl(m2::PointD const & point) const
 
 std::string Manager::GetLocalExpertsUrl(m2::PointD const & point) const
 {
-  UNUSED_VALUE(point);
-  return locals::Api::GetLocalsPageUrl();
+  ms::LatLon const ll(MercatorBounds::ToLatLon(point));
+  std::ostringstream os;
+  os << locals::Api::GetLocalsPageUrl() << "?lat=" << ll.lat << "&lon=" << ll.lon;
+  return os.str();
 }
 
 std::string Manager::GetCityViatorId(m2::PointD const & point) const
