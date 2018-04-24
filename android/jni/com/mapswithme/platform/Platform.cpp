@@ -119,6 +119,18 @@ platform::NetworkPolicy GetCurrentNetworkPolicy()
 
 namespace android
 {
+Platform::Platform()
+{
+  auto env = jni::GetEnv();
+  static auto const getSettingsPathId =
+      jni::GetStaticMethodID(env, g_storageUtilsClazz, "getSettingsPath", "()Ljava/lang/String;");
+
+  auto const settingsDir =
+      static_cast<jstring>(env->CallStaticObjectMethod(g_storageUtilsClazz, getSettingsPathId));
+
+  SetSettingsDir(jni::ToNativeString(env, settingsDir));
+}
+
 void Platform::Initialize(JNIEnv * env, jobject functorProcessObject, jstring apkPath,
                           jstring storagePath, jstring privatePath, jstring tmpPath,
                           jstring obbGooglePath, jstring flavorName, jstring buildType,

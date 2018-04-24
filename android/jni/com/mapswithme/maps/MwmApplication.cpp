@@ -11,13 +11,6 @@ crashlytics_context_t * g_crashlytics;
 
 extern "C"
 {
-  // static void nativePreparePlatform(String settingsPath);
-  JNIEXPORT void JNICALL
-  Java_com_mapswithme_maps_MwmApplication_nativePreparePlatform(JNIEnv * env, jclass clazz, jstring settingsPath)
-  {
-    android::Platform::Instance().SetSettingsDir(jni::ToNativeString(env, settingsPath));
-  }
-
   // void nativeInitPlatform(String apkPath, String storagePath, String privatePath, String tmpPath,
   // String obbGooglePath, String flavorName, String buildType, boolean isTablet);
   JNIEXPORT void JNICALL

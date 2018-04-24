@@ -17,6 +17,8 @@ namespace android
 class Platform : public ::Platform
 {
 public:
+  Platform();
+
   void Initialize(JNIEnv * env, jobject functorProcessObject, jstring apkPath, jstring storagePath,
                   jstring privatePath, jstring tmpPath, jstring obbGooglePath, jstring flavorName,
                   jstring buildType, bool isTablet);

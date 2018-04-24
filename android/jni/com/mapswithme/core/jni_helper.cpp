@@ -29,6 +29,7 @@ jclass g_keyValueClazz;
 jclass g_httpUploaderClazz;
 jclass g_httpUploaderResultClazz;
 jclass g_networkPolicyClazz;
+jclass g_storageUtilsClazz;
 
 extern "C"
 {
@@ -55,6 +56,7 @@ JNI_OnLoad(JavaVM * jvm, void *)
   g_httpUploaderClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpUploader");
   g_httpUploaderResultClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/HttpUploader$Result");
   g_networkPolicyClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/NetworkPolicy");
+  g_storageUtilsClazz = jni::GetGlobalClassRef(env, "com/mapswithme/util/StorageUtils");
 
   return JNI_VERSION_1_6;
 }
@@ -79,6 +81,7 @@ JNI_OnUnload(JavaVM *, void *)
   env->DeleteGlobalRef(g_httpUploaderClazz);
   env->DeleteGlobalRef(g_httpUploaderResultClazz);
   env->DeleteGlobalRef(g_networkPolicyClazz);
+  env->DeleteGlobalRef(g_storageUtilsClazz);
 }
 } // extern "C"
 

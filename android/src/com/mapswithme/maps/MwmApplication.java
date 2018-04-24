@@ -211,7 +211,6 @@ public class MwmApplication extends Application
       return;
 
     // First we need initialize paths and platform to have access to settings and other components.
-    nativePreparePlatform(settingsPath);
     nativeInitPlatform(StorageUtils.getApkPath(), StorageUtils.getStoragePath(settingsPath),
                        filesPath, tempPath, StorageUtils.getObbGooglePath(), BuildConfig.FLAVOR,
                        BuildConfig.BUILD_TYPE, UiUtils.isTablet());
@@ -410,7 +409,6 @@ public class MwmApplication extends Application
     mMainLoopHandler.sendMessage(m);
   }
 
-  private static native void nativePreparePlatform(String settingsPath);
   private native void nativeInitPlatform(String apkPath, String storagePath, String privatePath,
                                          String tmpPath, String obbGooglePath, String flavorName,
                                          String buildType, boolean isTablet);
