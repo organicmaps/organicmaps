@@ -1149,7 +1149,9 @@
 	<string name="placepage_no_reviews">Tidak ada ulasan</string>
 	<string name="placepage_reviewed">Anda sudah mengulas tempat ini</string>
 	<string name="placepage_summary_rating">Rangkuman peringkat</string>
-	<string name="placepage_summary_rating_description">Berdasarkan %s ulasan</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">Berdasarkan %d ulasan</item>
+	</plurals>
 	<string name="placepage_rate_comment">Ketuk untuk memberikan peringkat dan mengulas tempat ini.</string>
 	<string name="placepage_rate_horrible">Buruk sekali</string>
 	<string name="placepage_rate_bad">Buruk</string>

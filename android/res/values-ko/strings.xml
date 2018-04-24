@@ -1146,7 +1146,9 @@
 	<string name="placepage_no_reviews">리뷰 없음</string>
 	<string name="placepage_reviewed">이미 이 곳을 리뷰했습니다.</string>
 	<string name="placepage_summary_rating">요약 평가</string>
-	<string name="placepage_summary_rating_description">%s개 리뷰 기준</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">%d개 리뷰 기준</item>
+	</plurals>
 	<string name="placepage_rate_comment">탭하여 이곳을 평가하고 리뷰를 남기세요.</string>
 	<string name="placepage_rate_horrible">최악</string>
 	<string name="placepage_rate_bad">나쁨</string>

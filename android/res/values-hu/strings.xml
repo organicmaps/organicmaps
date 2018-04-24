@@ -1150,7 +1150,9 @@
 	<string name="placepage_no_reviews">Nincs véleményezés</string>
 	<string name="placepage_reviewed">Ezt a helyet már átnézte</string>
 	<string name="placepage_summary_rating">Összesített minősítés</string>
-	<string name="placepage_summary_rating_description">%s értékelések alapján</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">%d értékelések alapján</item>
+	</plurals>
 	<string name="placepage_rate_comment">A hely értékeléséhez és minősítéséhez koppintson rá.</string>
 	<string name="placepage_rate_horrible">Borzalmas</string>
 	<string name="placepage_rate_bad">Rossz</string>

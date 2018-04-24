@@ -2036,8 +2036,6 @@
 
 "placepage_summary_rating" = "요약 평가";
 
-"placepage_summary_rating_description" = "%s개 리뷰 기준";
-
 "placepage_rate_comment" = "탭하여 이곳을 평가하고 리뷰를 남기세요.";
 
 "placepage_rate_horrible" = "최악";

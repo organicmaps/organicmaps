@@ -1160,7 +1160,9 @@
 	<string name="placepage_no_reviews">無評論</string>
 	<string name="placepage_reviewed">您已評論過這個地方</string>
 	<string name="placepage_summary_rating">評分摘要</string>
-	<string name="placepage_summary_rating_description">根據 %s 則評論</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">根據 %d 則評論</item>
+	</plurals>
 	<string name="placepage_rate_comment">點選以為這個地點評分或評論。</string>
 	<string name="placepage_rate_horrible">很糟</string>
 	<string name="placepage_rate_bad">不好</string>

@@ -1163,7 +1163,9 @@
 	<string name="placepage_no_reviews">Aucun avis</string>
 	<string name="placepage_reviewed">Vous avez déjà donné votre avis sur ce lieu</string>
 	<string name="placepage_summary_rating">Note moyenne</string>
-	<string name="placepage_summary_rating_description">Basé sur %s revues</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">Basé sur %d revues</item>
+	</plurals>
 	<string name="placepage_rate_comment">Appuyez pour évaluer et donner votre avis sur ce lieu.</string>
 	<string name="placepage_rate_horrible">Horrible</string>
 	<string name="placepage_rate_bad">Mauvais</string>

@@ -1180,7 +1180,10 @@
 	<string name="placepage_no_reviews">Нет отзывов</string>
 	<string name="placepage_reviewed">Вы уже оставили отзыв</string>
 	<string name="placepage_summary_rating">Общий рейтинг</string>
-	<string name="placepage_summary_rating_description">На основе %s отзывов</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="one">На основе %d отзыва</item>
+	  <item quantity="other">На основе %d отзывов</item>
+	</plurals>
 	<string name="placepage_rate_comment">Нажмите, чтобы оставить оценку и отзыв этого места.</string>
 	<string name="placepage_rate_horrible">Ужасно</string>
 	<string name="placepage_rate_bad">Плохо</string>

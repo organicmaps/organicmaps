@@ -1149,7 +1149,9 @@
 	<string name="placepage_no_reviews">Nessuna recensione</string>
 	<string name="placepage_reviewed">Hai già recensito questa località</string>
 	<string name="placepage_summary_rating">Riepilogo valutazione</string>
-	<string name="placepage_summary_rating_description">Basato su %s recensioni</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">Basato su %d recensioni</item>
+	</plurals>
 	<string name="placepage_rate_comment">Tocca per valutare e recensire questa località.</string>
 	<string name="placepage_rate_horrible">Pessimo</string>
 	<string name="placepage_rate_bad">Scarso</string>

@@ -1156,7 +1156,9 @@
 	<string name="placepage_no_reviews">ไม่มีรีวิว</string>
 	<string name="placepage_reviewed">คุณได้รีวิวสถานที่นี้ไปแล้ว</string>
 	<string name="placepage_summary_rating">อันดับคะแนนสรุป</string>
-	<string name="placepage_summary_rating_description">จาก %s รีวิว</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">จาก %d รีวิว</item>
+	</plurals>
 	<string name="placepage_rate_comment">แตะเพื่อให้คะแนนและรีวิวสถานที่นี</string>
 	<string name="placepage_rate_horrible">แย่มาก</string>
 	<string name="placepage_rate_bad">แย่</string>

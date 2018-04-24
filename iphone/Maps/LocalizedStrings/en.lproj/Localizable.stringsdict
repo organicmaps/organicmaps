@@ -9,6 +9,23 @@
 
 <!-- ********** Strings for downloading map from search **********/ -->
 
+  <key>placepage_summary_rating_description</key>
+  <dict>
+    <key>NSStringLocalizedFormatKey</key>
+    <string>%#@value@</string>
+    <key>value</key>
+    <dict>
+      <key>NSStringFormatSpecTypeKey</key>
+      <string>NSStringPluralRuleType</string>
+      <key>NSStringFormatValueTypeKey</key>
+      <string>d</string>
+      <key>one</key>
+      <string>Based on %d review</string>
+      <key>other</key>
+      <string>Based on %d reviews</string>
+    </dict>
+  </dict>
+
   <key>bookmarks_places</key>
   <dict>
     <key>NSStringLocalizedFormatKey</key>

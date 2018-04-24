@@ -1148,7 +1148,9 @@
 	<string name="placepage_no_reviews">Ingen vurderinger</string>
 	<string name="placepage_reviewed">Du har allerede gitt din vurdering av stedet</string>
 	<string name="placepage_summary_rating">Sammendrag av vurderinger</string>
-	<string name="placepage_summary_rating_description">Basert på %s vurderinger</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">Basert på %d vurderinger</item>
+	</plurals>
 	<string name="placepage_rate_comment">Trykk for å gi din vurdering av stedet.</string>
 	<string name="placepage_rate_horrible">Elendig</string>
 	<string name="placepage_rate_bad">Dårlig</string>

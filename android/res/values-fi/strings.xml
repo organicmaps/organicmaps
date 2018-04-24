@@ -1150,7 +1150,9 @@
 	<string name="placepage_no_reviews">Ei arvosteluja</string>
 	<string name="placepage_reviewed">Olet jo arvioinut tämän paikan</string>
 	<string name="placepage_summary_rating">Yhteenvetoarvio</string>
-	<string name="placepage_summary_rating_description">%s arvion perusteella</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">%d arvion perusteella</item>
+	</plurals>
 	<string name="placepage_rate_comment">Arvioi ja arvostele tämä paikka napauttamalla.</string>
 	<string name="placepage_rate_horrible">Kamala</string>
 	<string name="placepage_rate_bad">Huono</string>

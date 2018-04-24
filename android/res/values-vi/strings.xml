@@ -1150,7 +1150,9 @@
 	<string name="placepage_no_reviews">Không có đánh giá</string>
 	<string name="placepage_reviewed">Bạn đã đánh giá nơi này</string>
 	<string name="placepage_summary_rating">Điểm tóm tắt</string>
-	<string name="placepage_summary_rating_description">Dựa trên %s đánh giá</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">Dựa trên %d đánh giá</item>
+	</plurals>
 	<string name="placepage_rate_comment">Chạm để cho điểm và đánh giá nơi này.</string>
 	<string name="placepage_rate_horrible">Khủng khiếp</string>
 	<string name="placepage_rate_bad">Tồi tệ</string>

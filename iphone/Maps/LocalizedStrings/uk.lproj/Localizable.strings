@@ -2036,8 +2036,6 @@
 
 "placepage_summary_rating" = "Сумарний рейтинг";
 
-"placepage_summary_rating_description" = "На основі %s відгуків(-у)";
-
 "placepage_rate_comment" = "Торкніться, щоб оцінити це місце та залишити свій відгук.";
 
 "placepage_rate_horrible" = "Жахливо";

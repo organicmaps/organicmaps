@@ -1156,7 +1156,9 @@
 	<string name="placepage_no_reviews">Değerlendirme yok</string>
 	<string name="placepage_reviewed">Bu yer için zaten yorum eklediniz</string>
 	<string name="placepage_summary_rating">Değerlendirme özeti</string>
-	<string name="placepage_summary_rating_description">%s değerlendirmeye göre</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">%d değerlendirmeye göre</item>
+	</plurals>
 	<string name="placepage_rate_comment">Bu yeri değerlendirmek ve oylamak için dokunun.</string>
 	<string name="placepage_rate_horrible">Korkunç</string>
 	<string name="placepage_rate_bad">Kötü</string>

@@ -1154,7 +1154,9 @@
 	<string name="placepage_no_reviews">Ingen anmeldelser</string>
 	<string name="placepage_reviewed">Du har allerede anmeldt dette sted</string>
 	<string name="placepage_summary_rating">Sammenfattende vurdering</string>
-	<string name="placepage_summary_rating_description">Baseret på %s anmeldelser</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">Baseret på %d anmeldelser</item>
+	</plurals>
 	<string name="placepage_rate_comment">Tryk for at vurdere og anmelde dette sted.</string>
 	<string name="placepage_rate_horrible">Forfærdeligt</string>
 	<string name="placepage_rate_bad">Dårligt</string>

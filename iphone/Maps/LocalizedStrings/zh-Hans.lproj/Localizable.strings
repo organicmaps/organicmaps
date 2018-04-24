@@ -2036,8 +2036,6 @@
 
 "placepage_summary_rating" = "评分汇总";
 
-"placepage_summary_rating_description" = "基于 %s 条评价";
-
 "placepage_rate_comment" = "点按，为这个地方留下评分和评价。";
 
 "placepage_rate_horrible" = "极差";

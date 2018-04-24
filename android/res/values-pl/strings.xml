@@ -1153,7 +1153,9 @@
 	<string name="placepage_no_reviews">Brak recenzji</string>
 	<string name="placepage_reviewed">Już wystawiono recenzję temu miejscu</string>
 	<string name="placepage_summary_rating">Łączna ocena</string>
-	<string name="placepage_summary_rating_description">Na podstawie %s recenzji</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">Na podstawie %d recenzji</item>
+	</plurals>
 	<string name="placepage_rate_comment">Naciśnij, aby ocenić i zrecenzować miejsce.</string>
 	<string name="placepage_rate_horrible">Okropne</string>
 	<string name="placepage_rate_bad">Złe</string>

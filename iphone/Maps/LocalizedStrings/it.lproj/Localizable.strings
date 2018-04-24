@@ -2036,8 +2036,6 @@
 
 "placepage_summary_rating" = "Riepilogo valutazione";
 
-"placepage_summary_rating_description" = "Basato su %s recensioni";
-
 "placepage_rate_comment" = "Tocca per valutare e recensire questa località.";
 
 "placepage_rate_horrible" = "Pessimo";

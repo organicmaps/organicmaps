@@ -1150,7 +1150,9 @@
 	<string name="placepage_no_reviews">Geen beoordelingen</string>
 	<string name="placepage_reviewed">U hebt deze plaats al beoordeeld</string>
 	<string name="placepage_summary_rating">Samengevatte rating</string>
-	<string name="placepage_summary_rating_description">Gebaseerd op %s beoordelingen</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">Gebaseerd op %d beoordelingen</item>
+	</plurals>
 	<string name="placepage_rate_comment">Tap om deze plaats te raten en te beoordelen.</string>
 	<string name="placepage_rate_horrible">Verschrikkelijk</string>
 	<string name="placepage_rate_bad">Slecht</string>

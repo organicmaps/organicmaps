@@ -1149,7 +1149,9 @@
 	<string name="placepage_no_reviews">レビューなし</string>
 	<string name="placepage_reviewed">このスポットはすでにレビュー済みです</string>
 	<string name="placepage_summary_rating">評価の概要</string>
-	<string name="placepage_summary_rating_description">%s 件のレビューに基づいています</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">%d 件のレビューに基づいています</item>
+	</plurals>
 	<string name="placepage_rate_comment">タップしてこのスポットを評価し、レビューします。</string>
 	<string name="placepage_rate_horrible">ひどい</string>
 	<string name="placepage_rate_bad">悪い</string>

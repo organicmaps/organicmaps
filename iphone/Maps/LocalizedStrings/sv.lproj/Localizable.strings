@@ -2036,8 +2036,6 @@
 
 "placepage_summary_rating" = "Sammanfattning av omdömen";
 
-"placepage_summary_rating_description" = "Baserat på %s omdömen";
-
 "placepage_rate_comment" = "Tryck för att betygsätta och lämna ett omdöme om den här platsen.";
 
 "placepage_rate_horrible" = "Hemskt";

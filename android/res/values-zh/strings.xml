@@ -1156,7 +1156,9 @@
 	<string name="placepage_no_reviews">无评价</string>
 	<string name="placepage_reviewed">您已评价这个地方</string>
 	<string name="placepage_summary_rating">评分汇总</string>
-	<string name="placepage_summary_rating_description">基于 %s 条评价</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">基于 %d 条评价</item>
+	</plurals>
 	<string name="placepage_rate_comment">点按，为这个地方留下评分和评价。</string>
 	<string name="placepage_rate_horrible">极差</string>
 	<string name="placepage_rate_bad">差</string>

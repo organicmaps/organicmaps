@@ -1156,7 +1156,9 @@
 	<string name="placepage_no_reviews">لا توجد مراجعات</string>
 	<string name="placepage_reviewed">لقد راجعت بالفعل هذا المكان</string>
 	<string name="placepage_summary_rating">ملخص التقييم</string>
-	<string name="placepage_summary_rating_description">استنادًا إلى %s مراجعة</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">استنادًا إلى %d مراجعة</item>
+	</plurals>
 	<string name="placepage_rate_comment">المس لتقييم ومراجعة هذا المكان.</string>
 	<string name="placepage_rate_horrible">كريه</string>
 	<string name="placepage_rate_bad">سيء</string>

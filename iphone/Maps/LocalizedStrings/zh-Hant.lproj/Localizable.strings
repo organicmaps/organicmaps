@@ -2036,8 +2036,6 @@
 
 "placepage_summary_rating" = "評分摘要";
 
-"placepage_summary_rating_description" = "根據 %s 則評論";
-
 "placepage_rate_comment" = "點選以為這個地點評分或評論。";
 
 "placepage_rate_horrible" = "很糟";

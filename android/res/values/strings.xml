@@ -1192,7 +1192,10 @@
 	<string name="placepage_no_reviews">No reviews</string>
 	<string name="placepage_reviewed">You have already reviewed this place</string>
 	<string name="placepage_summary_rating">Summary rating</string>
-	<string name="placepage_summary_rating_description">Based on %s reviews</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="one">Based on %d review</item>
+	  <item quantity="other">Based on %d reviews</item>
+	</plurals>
 	<string name="placepage_rate_comment">Tap to rate and review this place.</string>
 	<string name="placepage_rate_horrible">Horrible</string>
 	<string name="placepage_rate_bad">Bad</string>

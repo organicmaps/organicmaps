@@ -2036,8 +2036,6 @@
 
 "placepage_summary_rating" = "Yhteenvetoarvio";
 
-"placepage_summary_rating_description" = "%s arvion perusteella";
-
 "placepage_rate_comment" = "Arvioi ja arvostele tämä paikka napauttamalla.";
 
 "placepage_rate_horrible" = "Kamala";

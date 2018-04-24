@@ -1157,7 +1157,9 @@
 	<string name="placepage_no_reviews">Žádná hodnocení</string>
 	<string name="placepage_reviewed">Toto místo jste již hodnotili</string>
 	<string name="placepage_summary_rating">Souhrnné hodnocení</string>
-	<string name="placepage_summary_rating_description">Na základě %s hodnocení</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">Na základě %d hodnocení</item>
+	</plurals>
 	<string name="placepage_rate_comment">Pro ohodnocení tohoto místa a napsání recenze klepněte níže.</string>
 	<string name="placepage_rate_horrible">Hrozné</string>
 	<string name="placepage_rate_bad">Špatné</string>

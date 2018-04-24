@@ -2036,8 +2036,6 @@
 
 "placepage_summary_rating" = "Общий рейтинг";
 
-"placepage_summary_rating_description" = "На основе %s отзывов";
-
 "placepage_rate_comment" = "Нажмите, чтобы оставить оценку и отзыв этого места.";
 
 "placepage_rate_horrible" = "Ужасно";

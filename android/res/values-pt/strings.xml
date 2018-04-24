@@ -1153,7 +1153,9 @@
 	<string name="placepage_no_reviews">Sem avaliações</string>
 	<string name="placepage_reviewed">Já avaliou este lugar</string>
 	<string name="placepage_summary_rating">Classificação média</string>
-	<string name="placepage_summary_rating_description">Baseado em %s avaliações</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">Baseado em %d avaliações</item>
+	</plurals>
 	<string name="placepage_rate_comment">Prima para classificar e avaliar este local.</string>
 	<string name="placepage_rate_horrible">Horrível</string>
 	<string name="placepage_rate_bad">Mau</string>

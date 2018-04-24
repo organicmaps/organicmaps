@@ -2036,8 +2036,6 @@
 
 "placepage_summary_rating" = "Note moyenne";
 
-"placepage_summary_rating_description" = "Basé sur %s revues";
-
 "placepage_rate_comment" = "Appuyez pour évaluer et donner votre avis sur ce lieu.";
 
 "placepage_rate_horrible" = "Horrible";

@@ -914,7 +914,9 @@
 	<string name="placepage_no_reviews">Δεν υπάρχουν κριτικές</string>
 	<string name="placepage_reviewed">Έχετε ήδη παρέχει μια κριτική για αυτό το μέρος</string>
 	<string name="placepage_summary_rating">Σύνοψη κριτικών</string>
-	<string name="placepage_summary_rating_description">Σύμφωνα με %s κριτικές</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">Σύμφωνα με %d κριτικές</item>
+	</plurals>
 	<string name="placepage_rate_comment">Πατήστε για να βαθμολογήσετε και να γράψετε μια κριτική για αυτό το μέρος.</string>
 	<string name="placepage_rate_horrible">Απαίσιο</string>
 	<string name="placepage_rate_bad">Κακό</string>

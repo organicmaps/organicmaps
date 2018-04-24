@@ -1164,7 +1164,9 @@
 	<string name="placepage_no_reviews">Keine Bewertungen</string>
 	<string name="placepage_reviewed">Sie haben bereits eine Bewertung für diesen Ort hinterlassen</string>
 	<string name="placepage_summary_rating">Zusammenfassende Bewertung</string>
-	<string name="placepage_summary_rating_description">Basierend auf %s Bewertungen</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">Basierend auf %d Bewertungen</item>
+	</plurals>
 	<string name="placepage_rate_comment">Tippen Sie, um diesen Ort zu bewerten und einen Kommentar zu hinterlassen.</string>
 	<string name="placepage_rate_horrible">Schrecklich</string>
 	<string name="placepage_rate_bad">Schlecht</string>

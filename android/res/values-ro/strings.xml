@@ -1146,7 +1146,9 @@
 	<string name="placepage_no_reviews">Nicio recenzie</string>
 	<string name="placepage_reviewed">Ați recenzat deja acest loc</string>
 	<string name="placepage_summary_rating">Calificativ sumar</string>
-	<string name="placepage_summary_rating_description">Bazat pe %s recenzii</string>
+	<plurals name="placepage_summary_rating_description">
+	  <item quantity="other">Bazat pe %d recenzii</item>
+	</plurals>
 	<string name="placepage_rate_comment">Atingeți pentru a evalua și a recenza acest loc.</string>
 	<string name="placepage_rate_horrible">Oribil</string>
 	<string name="placepage_rate_bad">Rău</string>
