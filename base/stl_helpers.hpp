@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <functional>
+#include <tuple>
 #include <type_traits>
 #include <utility>
 #include <vector>
@@ -163,4 +164,33 @@ IgnoreFirstArgument<Fn> MakeIgnoreFirstArgument(Fn && fn)
 {
   return IgnoreFirstArgument<Fn>(std::forward<Fn>(fn));
 }
+
+template <size_t I = 0, typename Fn, typename... Tp>
+std::enable_if_t<I == sizeof...(Tp), void>
+for_each_in_tuple(std::tuple<Tp...> &, Fn &&)
+{
+}
+
+template <size_t I = 0, typename Fn, typename... Tp>
+std::enable_if_t<I != sizeof...(Tp), void>
+for_each_in_tuple(std::tuple<Tp...> & t, Fn && fn)
+{
+  fn(I, std::get<I>(t));
+  for_each_in_tuple<I + 1, Fn, Tp...>(t, std::forward<Fn>(fn));
+}
+
+template <size_t I = 0, typename Fn, typename... Tp>
+std::enable_if_t<I == sizeof...(Tp), void>
+for_each_in_tuple_const(std::tuple<Tp...> const &, Fn &&)
+{
+}
+
+template <size_t I = 0, typename Fn, typename... Tp>
+std::enable_if_t<I != sizeof...(Tp), void>
+for_each_in_tuple_const(std::tuple<Tp...> const & t, Fn && fn)
+{
+  fn(I, std::get<I>(t));
+  for_each_in_tuple_const<I + 1, Fn, Tp...>(t, std::forward<Fn>(fn));
+}
+
 }  // namespace my

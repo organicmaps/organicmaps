@@ -90,12 +90,12 @@
 #include "base/math.hpp"
 #include "base/scope_guard.hpp"
 #include "base/stl_add.hpp"
+#include "base/stl_helpers.hpp"
 #include "base/timer.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/bind.hpp"
 #include "std/target_os.hpp"
-#include "std/tuple.hpp"
 
 #include "api/internal/c/api-client-internals.h"
 #include "api/src/c/api-client.h"
@@ -1443,8 +1443,8 @@ search::DisplayedCategories const & Framework::GetDisplayedCategories()
     city = m_cityFinder->GetCityName(*position, StringUtf8Multilang::kEnglishCode);
 
   // Apply sponsored modifiers.
-  tuple<LuggageHeroModifier, Fc2018Modifier> modifiers(city, city);
-  for_each_tuple(modifiers, [&](size_t, SponsoredCategoryModifier & modifier)
+  std::tuple<LuggageHeroModifier, Fc2018Modifier> modifiers(city, city);
+  my::for_each_in_tuple(modifiers, [&](size_t, SponsoredCategoryModifier & modifier)
   {
     m_displayedCategories->Modify(modifier);
   });
