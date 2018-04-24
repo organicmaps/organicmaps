@@ -179,6 +179,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -187,6 +188,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -202,6 +204,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Production Full";
