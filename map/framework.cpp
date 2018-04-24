@@ -216,7 +216,7 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
   GpsInfo rInfo(info);
 #endif
 
-  m_routingManager.OnLocationUpdate(rInfo);
+  m_extrapolator.OnLocationUpdate(rInfo);
 }
 
 void Framework::OnCompassUpdate(CompassInfo const & info)
@@ -356,18 +356,20 @@ Framework::Framework(FrameworkParams const & params)
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_enabledDiffs(params.m_enableDiffs)
   , m_isRenderingEnabled(true)
-  , m_routingManager(RoutingManager::Callbacks([this]() -> Index & { return m_model.GetIndex(); },
-                                               [this]() -> storage::CountryInfoGetter & { return GetCountryInfoGetter(); },
-                                               [this](string const & id) -> string {
-                                                 return m_storage.GetParentIdFor(id);
-                                               },
-                                               [this](RoutingManager::Callbacks::FeatureCallback const & fn,
-                                                      vector<FeatureID> const & features)
-                                               {
-                                                 return m_model.ReadFeatures(fn, features);
-                                               },
-                                               [this]() -> StringsBundle const & { return m_stringsBundle; }),
-                     static_cast<RoutingManager::Delegate &>(*this))
+  , m_routingManager(
+        RoutingManager::Callbacks(
+            [this]() -> Index & { return m_model.GetIndex(); },
+            [this]() -> storage::CountryInfoGetter & { return GetCountryInfoGetter(); },
+            [this](string const & id) -> string { return m_storage.GetParentIdFor(id); },
+            [this](RoutingManager::Callbacks::FeatureCallback const & fn,
+                   vector<FeatureID> const & features) {
+              return m_model.ReadFeatures(fn, features);
+            },
+            [this]() -> StringsBundle const & { return m_stringsBundle; }),
+        static_cast<RoutingManager::Delegate &>(*this))
+  , m_extrapolator([this](location::GpsInfo & gpsInfo) {
+    this->GetRoutingManager().OnLocationUpdate(gpsInfo);
+  })
   , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1, false /* rough */),
                      kMaxTrafficCacheSizeBytes, m_routingManager.RoutingSession())
   , m_bookingFilterProcessor(m_model.GetIndex(), *m_bookingApi)
@@ -495,6 +497,7 @@ Framework::~Framework()
 
   GetBookmarkManager().Teardown();
   m_trafficManager.Teardown();
+  m_extrapolator.Cancel();
   DestroyDrapeEngine();
   m_model.SetOnMapDeregisteredCallback(nullptr);
 

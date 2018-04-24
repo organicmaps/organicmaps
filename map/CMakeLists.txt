@@ -47,6 +47,8 @@ set(
   everywhere_search_callback.cpp
   everywhere_search_callback.hpp
   everywhere_search_params.hpp
+  extrapolation/extrapolator.cpp
+  extrapolation/extrapolator.hpp
   feature_vec_model.cpp
   feature_vec_model.hpp
   framework.cpp

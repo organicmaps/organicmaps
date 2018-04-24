@@ -7,6 +7,7 @@
 #include "map/bookmark_manager.hpp"
 #include "map/discovery/discovery_manager.hpp"
 #include "map/displacement_mode_manager.hpp"
+#include "map/extrapolation/extrapolator.hpp"
 #include "map/feature_vec_model.hpp"
 #include "map/local_ads_manager.hpp"
 #include "map/mwm_url.hpp"
@@ -207,6 +208,7 @@ protected:
 
   // Note. |m_routingManager| should be declared before |m_trafficManager|
   RoutingManager m_routingManager;
+  position_extrapolator::Extrapolator m_extrapolator;
 
   TrafficManager m_trafficManager;
 
