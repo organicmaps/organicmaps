@@ -63,7 +63,7 @@ UNIT_TEST(RussiaMoscowSalameiNerisPossibleTurnCorrectionBicycleWayTurnTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightLeft);
   integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightLeft);
-  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::GoStraight);
+  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnSlightRight);
 }
 
 // Test that there's no uturn notification in case of zero point edges on two way edges.
@@ -79,7 +79,7 @@ UNIT_TEST(RussiaMoscowSalameiNerisNoUTurnBicycleWayTurnTest)
   TEST_EQUAL(result, IRouter::NoError, ());
 
   integration::TestTurnCount(route, 1 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnSlightRight);
 }
 
 UNIT_TEST(RussiaMoscowSevTushinoParkBicycleOnePointOnewayRoadTurnTest)
@@ -139,7 +139,7 @@ UNIT_TEST(RussiaMoscowSvobodiOnewayBicycleWayTurnTest)
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightRight);
   integration::GetNthTurn(route, 2).TestValid().TestDirection(CarDirection::TurnSlightLeft);
-  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::GoStraight);
+  integration::GetNthTurn(route, 3).TestValid().TestDirection(CarDirection::TurnSlightRight);
   integration::GetNthTurn(route, 4).TestValid().TestOneOfDirections(
       {CarDirection::TurnSlightRight, CarDirection::TurnRight});
   integration::GetNthTurn(route, 5).TestValid().TestDirection(CarDirection::TurnLeft);

@@ -628,10 +628,10 @@ CarDirection RightmostDirection(const double angle)
 {
   static vector<pair<double, CarDirection>> const kLowerBounds = {
       {157., CarDirection::TurnSharpRight},
-      {40., CarDirection::TurnRight},
-      {-10., CarDirection::TurnSlightRight},
-      {-20., CarDirection::GoStraight},
-      {-60., CarDirection::TurnSlightLeft},
+      {50., CarDirection::TurnRight},
+      {2., CarDirection::TurnSlightRight},
+      {-10., CarDirection::GoStraight},
+      {-50., CarDirection::TurnSlightLeft},
       {-157., CarDirection::TurnLeft},
       {-180., CarDirection::TurnSharpLeft}};
 
