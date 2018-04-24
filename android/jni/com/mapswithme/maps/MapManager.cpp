@@ -448,7 +448,13 @@ Java_com_mapswithme_maps_downloader_MapManager_nativeFindCountry(JNIEnv * env, j
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_downloader_MapManager_nativeIsDownloading(JNIEnv * env, jclass clazz)
 {
-  return GetStorage().IsDownloadInProgress();
+  return static_cast<jboolean>(GetStorage().IsDownloadInProgress());
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_downloader_MapManager_nativeGetCurrentDownloadingCountryId(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, GetStorage().GetCurrentDownloadingCountryId());
 }
 
 static void StartBatchingCallbacks()

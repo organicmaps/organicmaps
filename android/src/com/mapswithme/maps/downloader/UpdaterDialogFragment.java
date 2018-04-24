@@ -107,16 +107,10 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
                                                    mTotalSizeBytes / Constants.MB);
 
     MapManager.nativeCancel(CountryItem.getRootId());
-    final UpdateInfo info = MapManager.nativeGetUpdateInfo(CountryItem.getRootId());
-    if (info == null)
-    {
-      finish();
-      return;
-    }
+
+    updateTotalSizes();
 
     mAutoUpdate = false;
-    mTotalSize = StringUtils.getFileSizeString(info.totalSize);
-    mTotalSizeBytes = info.totalSize;
     mOutdatedMaps = Framework.nativeGetOutdatedCountries();
 
     if (mStorageCallback != null)
@@ -262,28 +256,39 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   {
     super.onResume();
 
-    if (isAllUpdated())
+    // The storage callback must be non-null at this point.
+    //noinspection ConstantConditions
+    mStorageCallback.attach(this);
+
+    if (isAllUpdated() || Framework.nativeGetOutdatedCountries().length == 0)
     {
       finish();
       return;
     }
 
-    // The storage callback must be non-null at this point.
-    //noinspection ConstantConditions
-    mStorageCallback.attach(this);
-
-    if (mAutoUpdate && !MapManager.nativeIsDownloading())
+    if (mAutoUpdate)
     {
-      MapManager.warnOn3gUpdate(getActivity(), CountryItem.getRootId(), new Runnable()
+      if (!MapManager.nativeIsDownloading())
       {
-        @Override
-        public void run()
+        MapManager.warnOn3gUpdate(getActivity(), CountryItem.getRootId(), new Runnable()
         {
-          MapManager.nativeUpdate(CountryItem.getRootId());
-          Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_DOWNLOAD,
-                                                         mTotalSizeBytes / Constants.MB);
-        }
-      });
+          @Override
+          public void run()
+          {
+            MapManager.nativeUpdate(CountryItem.getRootId());
+            Statistics.INSTANCE.trackDownloaderDialogEvent(DOWNLOADER_DIALOG_DOWNLOAD,
+                                                           mTotalSizeBytes / Constants.MB);
+          }
+        });
+      }
+      else
+      {
+        updateTotalSizes();
+        updateProgress();
+
+        updateProcessedMapInfo();
+        setCommonStatus(mProcessedMapId, mCommonStatusResId);
+      }
     }
   }
 
@@ -385,6 +390,47 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     String status = getString(mwmStatusResId, MapManager.nativeGetName(mwmId));
     mTitle.setText(status);
   }
+
+  void updateTotalSizes()
+  {
+    final UpdateInfo info = MapManager.nativeGetUpdateInfo(CountryItem.getRootId());
+    if (info == null)
+    {
+      finish();
+      return;
+    }
+
+    mTotalSize = StringUtils.getFileSizeString(info.totalSize);
+    mTotalSizeBytes = info.totalSize;
+  }
+
+  void updateProgress()
+  {
+    int progress = MapManager.nativeGetOverallProgress(mOutdatedMaps);
+    setProgress(progress, mTotalSizeBytes * progress / 100, mTotalSizeBytes);
+  }
+
+  void updateProcessedMapInfo()
+  {
+    mProcessedMapId = MapManager.nativeGetCurrentDownloadingCountryId();
+
+    CountryItem processedCountryItem = new CountryItem(mProcessedMapId);
+    MapManager.nativeGetAttributes(processedCountryItem);
+
+    switch (processedCountryItem.status)
+    {
+      case CountryItem.STATUS_PROGRESS:
+        mCommonStatusResId = R.string.downloader_process;
+        break;
+      case CountryItem.STATUS_APPLYING:
+        mCommonStatusResId = R.string.downloader_applying;
+        break;
+      default:
+        mCommonStatusResId = 0;
+        break;
+    }
+  }
+
   private static class DetachableStorageCallback implements MapManager.StorageCallback
   {
     @Nullable
