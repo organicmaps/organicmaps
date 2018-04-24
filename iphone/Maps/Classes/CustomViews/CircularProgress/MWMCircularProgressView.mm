@@ -209,7 +209,7 @@ CGFloat angleWithProgress(CGFloat progress) { return 2.0 * M_PI * progress - M_P
 
 #pragma mark - Properties
 
-- (UIView *)buttonView
+- (UIView * _Nullable)buttonView
 {
   return self.button;
 }

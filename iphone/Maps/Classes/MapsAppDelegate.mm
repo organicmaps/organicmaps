@@ -253,7 +253,7 @@ using namespace osm_auth_ios;
       auto const & request = f.GetParsedSearchRequest();
       auto manager = [MWMMapViewControlsManager manager];
 
-      auto query = [@((request.m_query + " ").c_str()) stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+      auto query = [@((request.m_query + " ").c_str()) stringByRemovingPercentEncoding];
       auto locale = @(request.m_locale.c_str());
 
       if (request.m_isSearchOnMap)

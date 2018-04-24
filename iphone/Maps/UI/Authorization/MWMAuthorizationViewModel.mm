@@ -9,7 +9,7 @@
 
 @implementation MWMAuthorizationViewModel
 
-+ (NSURL *)phoneAuthURL
++ (NSURL * _Nullable)phoneAuthURL
 {
   return [NSURL URLWithString:@(GetFramework().GetUser().GetPhoneAuthUrl("http://localhost").c_str())];
 }

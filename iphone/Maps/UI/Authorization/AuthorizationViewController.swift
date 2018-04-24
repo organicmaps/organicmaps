@@ -92,7 +92,7 @@ final class AuthorizationViewController: MWMViewController {
 
   @IBAction private func phoneSignIn() {
     dismiss(animated: true) {
-      let url = ViewModel.phoneAuthURL()
+      let url = ViewModel.phoneAuthURL()!
       let wv = WebViewController(authURL: url, onSuccessAuth: { (token: String?) in
         self.process(token: token!, type: .phone)
       }, onFailure: {

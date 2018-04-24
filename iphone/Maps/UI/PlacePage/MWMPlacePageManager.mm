@@ -121,6 +121,8 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
 
 #pragma mark - MWMBookmarksObserver
 
+- (void)onConversionFinish:(BOOL)success {}
+
 - (void)onBookmarkDeleted:(MWMMarkID)bookmarkId
 {
   auto data = self.data;
