@@ -419,11 +419,17 @@ void FeatureBuilder1::SerializeBorder(serial::GeometryCodingParams const & param
   CHECK_GREATER(m_polygons.size(), 0, ());
 
   WriteToSink(sink, m_polygons.size() - 1);
+
+  auto toU = [&params](m2::PointD const & p) { return PointDToPointU(p, params.GetCoordBits()); };
   for (auto const & polygon : m_polygons)
   {
     WriteToSink(sink, polygon.size());
+    auto last = params.GetBasePoint();
     for (auto const & p : polygon)
-      serial::SavePoint(sink, p, params);
+    {
+      coding::EncodePointDelta(sink, toU(last), toU(p));
+      last = p;
+    }
   }
 }
 

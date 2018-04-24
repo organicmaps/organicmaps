@@ -25,6 +25,16 @@ public:
     m_recordReader.ForEachRecord([&](uint32_t pos, char const * data, uint32_t /*size*/) {
       ArrayByteSource src(data);
       serial::GeometryCodingParams cp = {};
+
+      auto readPoly = [&cp, &src](vector<m2::PointD> & poly) {
+        m2::PointU base = PointDToPointU(cp.GetBasePoint(), cp.GetCoordBits());
+        for (auto & point : poly)
+        {
+          base = coding::DecodePointDelta(src, base);
+          point = PointUToPointD(base, cp.GetCoordBits());
+        }
+      };
+
       uint64_t id;
       ReadPrimitiveFromSource(src, id);
       size_t size;
@@ -32,9 +42,7 @@ public:
       size_t outerSize;
       ReadPrimitiveFromSource(src, outerSize);
       vector<m2::PointD> outer(outerSize);
-      // todo:(@t.yan) consider delta coding techniques.
-      for (auto & point : outer)
-        point = serial::LoadPoint(src, cp);
+      readPoly(outer);
 
       vector<vector<m2::PointD>> inners(size);
       for (auto & inner : inners)
@@ -42,8 +50,7 @@ public:
         size_t innerSize;
         ReadPrimitiveFromSource(src, innerSize);
         inner = vector<m2::PointD>(innerSize);
-        for (auto & point : inner)
-          point = serial::LoadPoint(src, cp);
+        readPoly(inner);
       }
       toDo(id, outer, inners);
     });
