@@ -10,11 +10,6 @@
 
 #include <memory>
 
-namespace
-{
-  auto const kTimeout = std::chrono::seconds(5);
-}
-
 namespace platform
 {
 HttpUploader::Result HttpUploader::Upload() const
@@ -43,9 +38,8 @@ HttpUploader::Result HttpUploader::Upload() const
                                resultPtr->m_description = description.UTF8String;
                                waiterPtr->Notify();
                              }];
-
-  if (waiterPtr->Wait(kTimeout) == base::Waiter::Result::NoTimeout)
-    return *resultPtr;
+  waiterPtr->Wait();
+  return *resultPtr;
 #endif
   return {};
 }
