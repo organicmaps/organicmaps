@@ -755,8 +755,9 @@ public class PlacePageView extends RelativeLayout
       mReviewAdapter.setItems(new ArrayList<>(Arrays.asList(info.mReviews)));
       //noinspection ConstantConditions
       mHotelRating.setText(mSponsored.getRating());
-      String text = getResources().getString(R.string.placepage_summary_rating_description,
-                                             String.valueOf(info.mReviewsAmount));
+      int reviewsCount = (int) info.mReviewsAmount;
+      String text = getResources().getQuantityString(
+          R.plurals.placepage_summary_rating_description, reviewsCount, reviewsCount);
       mHotelRatingBase.setText(text);
       TextView previewReviewCountView = (TextView) mPreviewRatingInfo.findViewById(R.id.tv__review_count);
       previewReviewCountView.setText(text);

@@ -212,8 +212,9 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     }
 
     Context context = mPlacePage.getContext();
-    mReviewCount.setText(context.getString(R.string.placepage_summary_rating_description,
-                                           String.valueOf(ugc.getBasedOnCount())));
+    int reviewsCount = ugc.getBasedOnCount();
+    mReviewCount.setText(context.getResources().getQuantityString(
+        R.plurals.placepage_summary_rating_description, reviewsCount, reviewsCount));
     ratingView.setRating(Impress.values()[impress], rating);
     setSummaryViews(ugc, impress, rating);
     setUserReviewAndRatingsView(ugcUpdate);
@@ -231,8 +232,9 @@ public class UGCController implements View.OnClickListener, UGC.UGCListener
     RatingView ratingView = (RatingView) mSummaryRootView.findViewById(R.id.rv__summary_rating);
     ratingView.setRating(Impress.values()[impress], rating);
     Context context = mPlacePage.getContext();
-    mSummaryReviewCount.setText(context.getString(R.string.placepage_summary_rating_description,
-                                           String.valueOf(ugc.getBasedOnCount())));
+    int reviewsCount = ugc.getBasedOnCount();
+    mSummaryReviewCount.setText(context.getResources().getQuantityString(
+        R.plurals.placepage_summary_rating_description, reviewsCount, reviewsCount));
     mUGCRatingRecordsAdapter.setItems(ugc.getRatings());
 
   }

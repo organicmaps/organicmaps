@@ -45,7 +45,7 @@ final class UGCSummaryRatingCell: MWMTableViewCell {
   }
 
   @objc func config(reviewsCount: UInt, summaryRating: UGCRatingValueType, ratings: [UGCRatingStars]) {
-    countLabel.text = String(coreFormat: L("placepage_summary_rating_description"), arguments: [reviewsCount])
+    countLabel.text = String(format:L("placepage_summary_rating_description"), reviewsCount)
     ratingSummaryView.value = summaryRating.value
     ratingSummaryView.type = summaryRating.type
     self.ratings = ratings

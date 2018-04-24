@@ -48,7 +48,8 @@ public class KmlImportController implements BookmarkManager.KmlConversionListene
       mProgressDialog.show();
     };
 
-    String msg = mContext.getResources().getQuantityString(R.plurals.bookmarks_detect_message, count);
+    String msg = mContext.getResources().getQuantityString(
+        R.plurals.bookmarks_detect_message, count, count);
     DialogUtils.showAlertDialog(mContext, R.string.bookmarks_detect_title, msg,
                                 R.string.button_convert, clickListener, R.string.cancel);
   }
