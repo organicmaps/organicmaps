@@ -164,6 +164,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1D5F8AC42076182E00CAADFC /* common-release.xcconfig */;
 			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = "Production Full";
@@ -186,6 +187,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1D5F8AC32076182E00CAADFC /* common-debug.xcconfig */;
 			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -194,6 +196,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1D5F8AC42076182E00CAADFC /* common-release.xcconfig */;
 			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
