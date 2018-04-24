@@ -198,7 +198,7 @@ struct SearchTrieRequest
   void SetLangs(Langs const & langs)
   {
     m_langs.clear();
-    for (auto const & lang : langs)
+    for (auto const lang : langs)
     {
       if (lang >= 0 && lang <= numeric_limits<int8_t>::max())
         m_langs.insert(static_cast<int8_t>(lang));

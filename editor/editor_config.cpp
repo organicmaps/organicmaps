@@ -65,7 +65,7 @@ bool TypeDescriptionFromXml(pugi::xml_node const & root, pugi::xml_node const & 
     outDesc.m_editableFields.push_back(it->second);
   };
 
-  for (auto const xNode : node.select_nodes("include[@group]"))
+  for (auto const & xNode : node.select_nodes("include[@group]"))
   {
     auto const node = xNode.node();
     string const groupName = node.attribute("group").value();
@@ -74,14 +74,14 @@ bool TypeDescriptionFromXml(pugi::xml_node const & root, pugi::xml_node const & 
     auto const group = root.select_node(xpath.data()).node();
     ASSERT(group, ("No such group", groupName));
 
-    for (auto const fieldRefXName : group.select_nodes("field_ref/@name"))
+    for (auto const & fieldRefXName : group.select_nodes("field_ref/@name"))
     {
       auto const fieldName = fieldRefXName.attribute().value();
       handleField(fieldName);
     }
   }
 
-  for (auto const xNode : node.select_nodes("include[@field]"))
+  for (auto const & xNode : node.select_nodes("include[@field]"))
   {
     auto const node = xNode.node();
     string const fieldName = node.attribute("field").value();
@@ -96,7 +96,7 @@ bool TypeDescriptionFromXml(pugi::xml_node const & root, pugi::xml_node const & 
 vector<pugi::xml_node> GetPrioritizedTypes(pugi::xml_node const & node)
 {
   vector<pugi::xml_node> result;
-  for (auto const xNode : node.select_nodes("/mapsme/editor/types/type[@id]"))
+  for (auto const & xNode : node.select_nodes("/mapsme/editor/types/type[@id]"))
     result.push_back(xNode.node());
   stable_sort(begin(result), end(result),
               [](pugi::xml_node const & lhs, pugi::xml_node const & rhs) {
@@ -156,7 +156,7 @@ vector<string> EditorConfig::GetTypesThatCanBeAdded() const
       m_document.select_nodes("/mapsme/editor/types/type[not(@can_add='no' or @editable='no')]");
 
   vector<string> result;
-  for (auto const xNode : xpathResult)
+  for (auto const & xNode : xpathResult)
     result.emplace_back(xNode.node().attribute("id").value());
   return result;
 }

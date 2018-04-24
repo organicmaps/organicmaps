@@ -307,7 +307,7 @@ TOpeningDays TimeTableSet::GetUnhandledDays() const
     osmoh::Weekday::Saturday
   };
 
-  for (auto const tt : *this)
+  for (auto const & tt : *this)
     for (auto const day : tt.GetOpeningDays())
       days.erase(day);
 

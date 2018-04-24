@@ -117,7 +117,7 @@ vector<XMLFeature> XMLFeature::FromOSM(string const & osmXml)
     MYTHROW(editor::InvalidXML, ("Not valid XML:", osmXml));
 
   vector<XMLFeature> features;
-  for (auto const n : doc.child("osm").children())
+  for (auto const & n : doc.child("osm").children())
   {
     if (StringToType(n.name()) != Type::Unknown)
       features.emplace_back(n);
@@ -213,7 +213,7 @@ vector<m2::PointD> XMLFeature::GetGeometry() const
   ASSERT_NOT_EQUAL(GetType(), Type::Unknown, ());
   ASSERT_NOT_EQUAL(GetType(), Type::Node, ());
   vector<m2::PointD> geometry;
-  for (auto const xCenter : GetRootNode().select_nodes("nd"))
+  for (auto const & xCenter : GetRootNode().select_nodes("nd"))
   {
     ASSERT(xCenter.node(), ("no nd attribute."));
     geometry.emplace_back(GetMercatorPointFromNode(xCenter.node()));

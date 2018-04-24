@@ -210,7 +210,7 @@ std::string DebugPrint(SafeSmallSet<UpperBound> const & set)
 {
   std::ostringstream os;
   os << "SafeSmallSet<" << UpperBound << "> [" << set.Size() << ": ";
-  for (auto const & v : set)
+  for (auto const v : set)
     os << v << " ";
   os << "]";
   return os.str();

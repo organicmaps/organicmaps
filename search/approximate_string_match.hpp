@@ -62,7 +62,10 @@ uint32_t StringMatchCost(CharT const * sA, size_t sizeA,
     uint32_t const c = q.top().m_Cost;
     q.pop();
     while (a < sizeA && b < sizeB && sA[a] == sB[b])
-      ++a, ++b;
+    {
+      ++a;
+      ++b;
+    }
 
     if (a == sizeA && (bPrefixMatch || b == sizeB))
       return c;

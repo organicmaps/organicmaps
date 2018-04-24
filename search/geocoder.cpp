@@ -173,7 +173,7 @@ public:
     FeatureType ft;
     if (!m_context.GetFeature(featureId, ft))
       return;
-    for (auto const & lang : m_params.GetLangs())
+    for (auto const lang : m_params.GetLangs())
     {
       string name;
       if (ft.GetName(lang, name))

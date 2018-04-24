@@ -152,6 +152,10 @@ taxi::ProvidersContainer GetProvidersSynchronous(taxi::Engine const & engine,
       break;
     case taxi::Provider::Type::Maxim:
       providers.emplace_back(taxi::Provider::Type::Maxim, GetMaximSynchronous(from, to, url));
+      break;
+    case taxi::Provider::Type::Count:
+      LOG(LERROR, ());
+      break;
     }
   }
 

@@ -287,7 +287,7 @@ void TrafficInfo::SerializeTrafficKeys(vector<RoadSegmentId> const & keys, vecto
       UNUSED_VALUE(ok);
     }
 
-    for (auto const & val : oneWay)
+    for (auto const val : oneWay)
       bitWriter.Write(val ? 1 : 0, 1 /* numBits */);
   }
 }

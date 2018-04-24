@@ -73,7 +73,7 @@ public:
         if (sponsoredId.empty())
         {
           GetPlatform().RunTask(Platform::Thread::Gui,
-                                [requestId, onResult, type] {
+                                [requestId, onResult] {
                                     onResult(requestId, std::vector<viator::Product>());
                                 });
           break;

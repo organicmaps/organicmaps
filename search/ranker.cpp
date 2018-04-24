@@ -59,7 +59,7 @@ NameScores GetNameScores(FeatureType const & ft, Geocoder::Params const & params
   TokenSlice slice(params, range);
   TokenSliceNoCategories sliceNoCategories(params, range);
 
-  for (auto const & lang : params.GetLangs())
+  for (auto const lang : params.GetLangs())
   {
     string name;
     if (!ft.GetName(lang, name))
@@ -455,7 +455,7 @@ void Ranker::SuggestStrings()
 
   string prologue = DropLastToken(m_params.m_query);
 
-  for (auto const & locale : m_params.m_categoryLocales)
+  for (auto const locale : m_params.m_categoryLocales)
     MatchForSuggestions(m_params.m_prefix, locale, prologue);
 }
 

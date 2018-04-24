@@ -154,7 +154,7 @@ double ScoreLatLon(XMLFeature const & xmlFt, ms::LatLon const & latLon)
 void ForEachRefInWay(pugi::xml_document const & osmResponse, pugi::xml_node const & way,
                      ForEachRefFn const & fn)
 {
-  for (auto const xNodeRef : way.select_nodes("nd/@ref"))
+  for (auto const & xNodeRef : way.select_nodes("nd/@ref"))
   {
     string const nodeRef = xNodeRef.attribute().value();
     auto const node = osmResponse.select_node(("osm/node[@id='" + nodeRef + "']").data()).node();
