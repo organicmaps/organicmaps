@@ -34,8 +34,8 @@ import java.util.Set;
 
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_CANCEL;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_DOWNLOAD;
-import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_LATER;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_HIDE;
+import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_LATER;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_MANUAL_DOWNLOAD;
 import static com.mapswithme.util.statistics.Statistics.EventName.DOWNLOADER_DIALOG_SHOW;
 
@@ -81,7 +81,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   @Nullable
   private String mProcessedMapId;
   @StringRes
-  private int mCommonStatusResId;
+  private int mCommonStatusResId = Utils.INVALID_ID;
 
   private void finish()
   {
@@ -108,7 +108,14 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
     MapManager.nativeCancel(CountryItem.getRootId());
 
-    updateTotalSizes();
+    final UpdateInfo info = MapManager.nativeGetUpdateInfo(CountryItem.getRootId());
+    if (info == null)
+    {
+      finish();
+      return;
+    }
+
+    updateTotalSizes(info);
 
     mAutoUpdate = false;
     mOutdatedMaps = Framework.nativeGetOutdatedCountries();
@@ -283,7 +290,14 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
       }
       else
       {
-        updateTotalSizes();
+        final UpdateInfo info = MapManager.nativeGetUpdateInfo(CountryItem.getRootId());
+        if (info == null)
+        {
+          finish();
+          return;
+        }
+
+        updateTotalSizes(info);
         updateProgress();
 
         updateProcessedMapInfo();
@@ -381,7 +395,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
   void setCommonStatus(@Nullable String mwmId, @StringRes int mwmStatusResId)
   {
-    if (mwmId == null || mwmStatusResId == 0)
+    if (mwmId == null || mwmStatusResId == Utils.INVALID_ID)
       return;
 
     mProcessedMapId = mwmId;
@@ -391,15 +405,8 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     mTitle.setText(status);
   }
 
-  void updateTotalSizes()
+  void updateTotalSizes(@NonNull UpdateInfo info)
   {
-    final UpdateInfo info = MapManager.nativeGetUpdateInfo(CountryItem.getRootId());
-    if (info == null)
-    {
-      finish();
-      return;
-    }
-
     mTotalSize = StringUtils.getFileSizeString(info.totalSize);
     mTotalSizeBytes = info.totalSize;
   }
@@ -414,6 +421,9 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   {
     mProcessedMapId = MapManager.nativeGetCurrentDownloadingCountryId();
 
+    if (mProcessedMapId == null)
+      return;
+
     CountryItem processedCountryItem = new CountryItem(mProcessedMapId);
     MapManager.nativeGetAttributes(processedCountryItem);
 
@@ -426,7 +436,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
         mCommonStatusResId = R.string.downloader_applying;
         break;
       default:
-        mCommonStatusResId = 0;
+        mCommonStatusResId = Utils.INVALID_ID;
         break;
     }
   }

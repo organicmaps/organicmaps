@@ -392,6 +392,7 @@ public final class MapManager
    */
   public static native boolean nativeIsDownloading();
 
+  @Nullable
   public static native String nativeGetCurrentDownloadingCountryId();
 
   /**
