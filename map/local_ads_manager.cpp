@@ -48,6 +48,8 @@ uint8_t constexpr kRequestMinZoomLevel = 12;
 auto constexpr kFailedDownloadingTimeout = std::chrono::seconds(2);
 auto constexpr kMaxDownloadingAttempts = 5;
 
+auto constexpr kHiddenFeaturePriority = 1;
+
 void SerializeCampaign(FileWriter & writer, std::string const & countryName,
                        LocalAdsManager::Timestamp const & ts,
                        std::vector<uint8_t> const & rawData)
@@ -92,7 +94,7 @@ std::string GetCustomIcon(FeatureType & featureType)
   return {};
 }
 
-using CampaignData = std::map<FeatureID, LocalAdsMarkData>;
+using CampaignData = std::map<FeatureID, std::shared_ptr<LocalAdsMarkData>>;
 
 CampaignData ParseCampaign(std::vector<uint8_t> const & rawData, MwmSet::MwmId const & mwmId,
                            LocalAdsManager::Timestamp timestamp,
@@ -103,12 +105,18 @@ CampaignData ParseCampaign(std::vector<uint8_t> const & rawData, MwmSet::MwmId c
   auto campaigns = local_ads::Deserialize(rawData);
   for (local_ads::Campaign const & campaign : campaigns)
   {
+    FeatureID featureId(mwmId, campaign.m_featureId);
+    if (campaign.m_priority == kHiddenFeaturePriority)
+    {
+      data.insert(std::make_pair(featureId, nullptr));
+      continue;
+    }
+
     std::string iconName = campaign.GetIconName();
     auto const expiration = timestamp + std::chrono::hours(24 * campaign.m_daysBeforeExpired);
     if (iconName.empty() || local_ads::Clock::now() > expiration)
       continue;
 
-    FeatureID featureId(mwmId, campaign.m_featureId);
     FeatureType featureType;
     if (getFeatureByIdFn(featureId, featureType))
     {
@@ -117,50 +125,60 @@ CampaignData ParseCampaign(std::vector<uint8_t> const & rawData, MwmSet::MwmId c
         iconName = customIcon;
     }
 
-    LocalAdsMarkData markData;
-    markData.m_symbolName = iconName;
-    markData.m_minZoomLevel = campaign.m_minZoomLevel;
+    auto markData = std::make_shared<LocalAdsMarkData>();
+    markData->m_symbolName = iconName;
+    markData->m_minZoomLevel = campaign.m_minZoomLevel;
     data.insert(std::make_pair(featureId, std::move(markData)));
   }
 
   return data;
 }
 
-std::set<FeatureID> ReadCampaignFeatures(LocalAdsManager::ReadFeaturesFn const & reader,
-                                         CampaignData & campaignData)
+df::CustomFeatures ReadCampaignFeatures(LocalAdsManager::ReadFeaturesFn const & reader,
+                                        CampaignData & campaignData)
 {
   ASSERT(reader != nullptr, ());
 
-  std::set<FeatureID> features;
+  std::vector<FeatureID> features;
+  features.reserve(campaignData.size());
+  df::CustomFeatures customFeatures;
   for (auto const & data : campaignData)
-    features.insert(data.first);
+  {
+    if (data.second)
+      features.push_back(data.first);
+    customFeatures.insert(std::make_pair(data.first, data.second != nullptr));
+  }
 
   auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
   reader([&campaignData, deviceLang](FeatureType const & ft)
   {
     auto it = campaignData.find(ft.GetID());
     CHECK(it != campaignData.end(), ());
-    it->second.m_position = feature::GetCenter(ft, scales::GetUpperScale());
+    CHECK(it->second != nullptr, ());
+    it->second->m_position = feature::GetCenter(ft, scales::GetUpperScale());
     ft.GetPreferredNames(true /* allowTranslit */, deviceLang,
-                         it->second.m_mainText, it->second.m_auxText);
+                         it->second->m_mainText, it->second->m_auxText);
   }, features);
 
-  return features;
+  return customFeatures;
 }
 
-void CreateLocalAdsMarks(BookmarkManager * bmManager, CampaignData const & campaignData)
+void CreateLocalAdsMarks(BookmarkManager * bmManager, CampaignData && campaignData)
 {
   if (bmManager == nullptr)
     return;
 
   // Here we copy campaign data, because we can create user marks only from UI thread.
-  GetPlatform().RunTask(Platform::Thread::Gui, [bmManager, campaignData]()
+  GetPlatform().RunTask(Platform::Thread::Gui, [bmManager, campaignData = std::move(campaignData)]()
   {
     auto editSession = bmManager->GetEditSession();
     for (auto const & data : campaignData)
     {
-      auto * mark = editSession.CreateUserMark<LocalAdsMark>(data.second.m_position);
-      mark->SetData(LocalAdsMarkData(data.second));
+      if (data.second == nullptr)
+        continue;
+
+      auto * mark = editSession.CreateUserMark<LocalAdsMark>(data.second->m_position);
+      mark->SetData(LocalAdsMarkData(*data.second));
       mark->SetFeatureId(data.first);
     }
   });
@@ -229,6 +247,7 @@ LocalAdsManager::LocalAdsManager(GetMwmsByRectFn && getMwmsByRectFn,
   CHECK(m_getMwmsByRectFn != nullptr, ());
   CHECK(m_getMwmIdByNameFn != nullptr, ());
   CHECK(m_readFeaturesFn != nullptr, ());
+  CHECK(m_getFeatureByIdFn != nullptr, ());
 }
 
 void LocalAdsManager::Startup(BookmarkManager * bmManager)
@@ -411,12 +430,11 @@ void LocalAdsManager::ProcessRequests(std::set<Request> && requests)
         ClearLocalAdsForMwm(mwm);
         if (!info.m_data.empty())
         {
-          auto campaignData = ParseCampaign(std::move(info.m_data), mwm, info.m_created,
-                                            m_getFeatureByIdFn);
+          auto campaignData = ParseCampaign(info.m_data, mwm, info.m_created, m_getFeatureByIdFn);
           if (!campaignData.empty())
           {
             UpdateFeaturesCache(ReadCampaignFeatures(m_readFeaturesFn, campaignData));
-            CreateLocalAdsMarks(m_bmManager, campaignData);
+            CreateLocalAdsMarks(m_bmManager, std::move(campaignData));
           }
         }
         
@@ -520,17 +538,17 @@ void LocalAdsManager::Invalidate()
       }
     }
     UpdateFeaturesCache(ReadCampaignFeatures(m_readFeaturesFn, campaignData));
-    CreateLocalAdsMarks(m_bmManager, campaignData);
+    CreateLocalAdsMarks(m_bmManager, std::move(campaignData));
   });
 }
 
-void LocalAdsManager::UpdateFeaturesCache(std::set<FeatureID> && ids)
+void LocalAdsManager::UpdateFeaturesCache(df::CustomFeatures && features)
 {
-  std::set<FeatureID> featuresCache;
+  df::CustomFeatures featuresCache;
   {
     std::lock_guard<std::mutex> lock(m_featuresCacheMutex);
-    if (!ids.empty())
-      m_featuresCache.insert(ids.begin(), ids.end());
+    if (!features.empty())
+      m_featuresCache.insert(features.begin(), features.end());
     featuresCache = m_featuresCache;
   }
   m_drapeEngine.SafeCall(&df::DrapeEngine::SetCustomFeatures, std::move(featuresCache));
@@ -543,7 +561,7 @@ void LocalAdsManager::ClearLocalAdsForMwm(MwmSet::MwmId const & mwmId)
     std::lock_guard<std::mutex> lock(m_featuresCacheMutex);
     for (auto it = m_featuresCache.begin(); it != m_featuresCache.end();)
     {
-      if (it->m_mwmId == mwmId)
+      if (it->first.m_mwmId == mwmId)
         it = m_featuresCache.erase(it);
       else
         ++it;

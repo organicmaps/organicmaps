@@ -2,23 +2,28 @@
 
 #include "indexer/feature_decl.hpp"
 
+#include <map>
 #include <memory>
-#include <set>
 #include <utility>
 
 namespace df
 {
+using CustomFeatures = std::map<FeatureID, bool>;
+
 struct CustomFeaturesContext
 {
-  std::set<FeatureID> const m_features;
+  CustomFeatures const m_features;
 
-  explicit CustomFeaturesContext(std::set<FeatureID> && features)
+  explicit CustomFeaturesContext(CustomFeatures && features)
     : m_features(std::move(features))
   {}
 
-  bool Contains(FeatureID const & id) const
+  bool NeedDiscard(FeatureID const & id) const
   {
-    return m_features.find(id) != m_features.cend();
+    auto const it = m_features.find(id);
+    if (it == m_features.cend())
+      return false;
+    return it->second;
   }
 };
 

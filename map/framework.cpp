@@ -3201,9 +3201,9 @@ MwmSet::MwmId Framework::GetMwmIdByName(string const & name) const
 }
 
 void Framework::ReadFeatures(function<void(FeatureType const &)> const & reader,
-                             set<FeatureID> const & features)
+                             vector<FeatureID> const & features)
 {
-  m_model.ReadFeatures(reader, vector<FeatureID>(features.begin(), features.end()));
+  m_model.ReadFeatures(reader, features);
 }
 
 // RoutingManager::Delegate

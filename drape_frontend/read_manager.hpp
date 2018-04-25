@@ -25,7 +25,6 @@ class TextureManager;
 namespace df
 {
 class MapDataProvider;
-class CoverageUpdateDescriptor;
 class MetalineManager;
 
 uint8_t constexpr kReadingThreadsCount = 2;
@@ -54,7 +53,7 @@ public:
 
   void SetDisplacementMode(int displacementMode);
 
-  bool SetCustomFeatures(std::set<FeatureID> && ids);
+  void SetCustomFeatures(CustomFeatures && ids);
   std::vector<FeatureID> GetCustomFeaturesArray() const;
   bool RemoveCustomFeatures(MwmSet::MwmId const & mwmId);
   bool RemoveAllCustomFeatures();

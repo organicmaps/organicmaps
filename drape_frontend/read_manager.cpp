@@ -337,12 +337,9 @@ void ReadManager::SetDisplacementMode(int displacementMode)
   }
 }
 
-bool ReadManager::SetCustomFeatures(std::set<FeatureID> && ids)
+void ReadManager::SetCustomFeatures(CustomFeatures && ids)
 {
-  size_t const sz = m_customFeaturesContext ? m_customFeaturesContext->m_features.size() : 0;
   m_customFeaturesContext = std::make_shared<CustomFeaturesContext>(std::move(ids));
-
-  return sz != m_customFeaturesContext->m_features.size();
 }
 
 std::vector<FeatureID> ReadManager::GetCustomFeaturesArray() const
@@ -352,7 +349,7 @@ std::vector<FeatureID> ReadManager::GetCustomFeaturesArray() const
   std::vector<FeatureID> features;
   features.reserve(m_customFeaturesContext->m_features.size());
   for (auto const & s : m_customFeaturesContext->m_features)
-    features.push_back(s);
+    features.push_back(s.first);
   return features;
 }
 
@@ -361,10 +358,10 @@ bool ReadManager::RemoveCustomFeatures(MwmSet::MwmId const & mwmId)
   if (!m_customFeaturesContext)
     return false;
 
-  std::set<FeatureID> features;
+  CustomFeatures features;
   for (auto const & s : m_customFeaturesContext->m_features)
   {
-    if (s.m_mwmId != mwmId)
+    if (s.first.m_mwmId != mwmId)
       features.insert(s);
   }
   if (features.size() == m_customFeaturesContext->m_features.size())
@@ -379,7 +376,7 @@ bool ReadManager::RemoveAllCustomFeatures()
   if (!m_customFeaturesContext || m_customFeaturesContext->m_features.empty())
     return false;
 
-  m_customFeaturesContext = std::make_shared<CustomFeaturesContext>(std::set<FeatureID>());
+  m_customFeaturesContext = std::make_shared<CustomFeaturesContext>(CustomFeatures());
   return true;
 }
 } // namespace df

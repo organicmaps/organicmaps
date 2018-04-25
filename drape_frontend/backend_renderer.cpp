@@ -453,13 +453,11 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::SetCustomFeatures:
     {
       ref_ptr<SetCustomFeaturesMessage> msg = message;
-      if (m_readManager->SetCustomFeatures(msg->AcceptFeatures()))
-      {
-        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<UpdateCustomFeaturesMessage>(
-                                    m_readManager->GetCustomFeaturesArray()),
-                                  MessagePriority::Normal);
-      }
+      m_readManager->SetCustomFeatures(msg->AcceptFeatures());
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<SetTrackedFeaturesMessage>(
+                                  m_readManager->GetCustomFeaturesArray()),
+                                MessagePriority::Normal);
       break;
     }
 
@@ -475,7 +473,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       if (changed)
       {
         m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<UpdateCustomFeaturesMessage>(
+                                  make_unique_dp<SetTrackedFeaturesMessage>(
                                     m_readManager->GetCustomFeaturesArray()),
                                   MessagePriority::Normal);
       }

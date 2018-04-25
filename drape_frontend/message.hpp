@@ -78,7 +78,7 @@ public:
     DrapeApiFlush,
     SetCustomFeatures,
     RemoveCustomFeatures,
-    UpdateCustomFeatures,
+    SetTrackedFeatures,
     SetPostprocessStaticTextures,
     SetPosteffectEnabled,
     RunFirstLaunchAnimation,

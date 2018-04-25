@@ -753,7 +753,7 @@ void DrapeEngine::RunScenario(ScenarioManager::ScenarioData && scenarioData,
     manager->RunScenario(std::move(scenarioData), onStartFn, onFinishFn);
 }
 
-void DrapeEngine::SetCustomFeatures(std::set<FeatureID> && ids)
+void DrapeEngine::SetCustomFeatures(df::CustomFeatures && ids)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
                                   make_unique_dp<SetCustomFeaturesMessage>(std::move(ids)),

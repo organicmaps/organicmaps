@@ -2,6 +2,7 @@
 
 #include "drape_frontend/circles_pack_shape.hpp"
 #include "drape_frontend/color_constants.hpp"
+#include "drape_frontend/custom_features_context.hpp"
 #include "drape_frontend/drape_api.hpp"
 #include "drape_frontend/drape_api_builder.hpp"
 #include "drape_frontend/gps_track_point.hpp"
@@ -1071,16 +1072,16 @@ private:
 class SetCustomFeaturesMessage : public Message
 {
 public:
-  explicit SetCustomFeaturesMessage(std::set<FeatureID> && ids)
+  explicit SetCustomFeaturesMessage(CustomFeatures && ids)
     : m_features(std::move(ids))
   {}
 
   Type GetType() const override { return Message::SetCustomFeatures; }
 
-  std::set<FeatureID> && AcceptFeatures() { return std::move(m_features); }
+  CustomFeatures && AcceptFeatures() { return std::move(m_features); }
 
 private:
-  std::set<FeatureID> m_features;
+  CustomFeatures m_features;
 };
 
 class RemoveCustomFeaturesMessage : public Message
@@ -1100,14 +1101,14 @@ private:
   bool m_removeAll = true;
 };
 
-class UpdateCustomFeaturesMessage : public Message
+class SetTrackedFeaturesMessage : public Message
 {
 public:
-  explicit UpdateCustomFeaturesMessage(std::vector<FeatureID> && features)
+  explicit SetTrackedFeaturesMessage(std::vector<FeatureID> && features)
     : m_features(std::move(features))
   {}
 
-  Type GetType() const override { return Message::UpdateCustomFeatures; }
+  Type GetType() const override { return Message::SetTrackedFeatures; }
 
   std::vector<FeatureID> && AcceptFeatures() { return std::move(m_features); }
 

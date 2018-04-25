@@ -799,9 +799,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::UpdateCustomFeatures:
+  case Message::SetTrackedFeatures:
     {
-      ref_ptr<UpdateCustomFeaturesMessage> msg = message;
+      ref_ptr<SetTrackedFeaturesMessage> msg = message;
       m_overlaysTracker->SetTrackedOverlaysFeatures(msg->AcceptFeatures());
       m_forceUpdateScene = true;
       break;

@@ -384,7 +384,7 @@ public:
   MwmSet::MwmId GetMwmIdByName(string const & name) const;
 
   void ReadFeatures(function<void(FeatureType const &)> const & reader,
-                    set<FeatureID> const & features);
+                    vector<FeatureID> const & features);
 
 private:
   struct TapEvent

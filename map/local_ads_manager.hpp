@@ -2,6 +2,7 @@
 
 #include "local_ads/statistics.hpp"
 
+#include "drape_frontend/custom_features_context.hpp"
 #include "drape_frontend/drape_engine_safe_ptr.hpp"
 
 #include "drape/pointers.hpp"
@@ -38,7 +39,7 @@ public:
   using GetMwmIdByNameFn = std::function<MwmSet::MwmId(std::string const &)>;
   using ReadFeatureTypeFn = std::function<void(FeatureType const &)>;
   using ReadFeaturesFn = std::function<void(ReadFeatureTypeFn const &,
-                                            std::set<FeatureID> const & features)>;
+                                            std::vector<FeatureID> const & features)>;
   using GetFeatureByIdFn = std::function<bool(FeatureID const &, FeatureType &)>;
   using Timestamp = local_ads::Timestamp;
 
@@ -76,7 +77,7 @@ private:
   void ReadCampaignFile(std::string const & campaignFile);
   void WriteCampaignFile(std::string const & campaignFile);
 
-  void UpdateFeaturesCache(std::set<FeatureID> && ids);
+  void UpdateFeaturesCache(df::CustomFeatures && features);
   void ClearLocalAdsForMwm(MwmSet::MwmId const &mwmId);
 
   void FillSupportedTypes();
@@ -105,7 +106,7 @@ private:
   std::map<std::string, CampaignInfo> m_info;
   std::mutex m_campaignsMutex;
 
-  std::set<FeatureID> m_featuresCache;
+  df::CustomFeatures m_featuresCache;
   mutable std::mutex m_featuresCacheMutex;
 
   ftypes::HashSetMatcher<uint32_t> m_supportedTypes;
