@@ -167,7 +167,7 @@
     android:gravity="center"
     android:textAppearance="@style/MwmTextAppearance.Button"
     android:fontFamily="@string/robotoMedium"
-    android:text="@string/done"
+    android:text="@string/search"
     android:background="?filterPropertyBackground"
     tools:targetApi="jelly_bean"/>
 </android.support.design.widget.CoordinatorLayout>
