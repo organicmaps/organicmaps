@@ -98,19 +98,10 @@ bool Borders::Border::IsPointInside(m2::PointD const & point) const
   return true;
 }
 
-bool Borders::Deserialize(string const & filename)
+void Borders::Deserialize(string const & filename)
 {
-  try
-  {
-    BordersVectorReader reader(filename);
-    auto const & records = reader.GetVector();
-    DeserializeFromVec(records);
-  }
-  catch (Reader::Exception const & e)
-  {
-    LOG(LERROR, ("Error while reading file:", e.Msg()));
-    return false;
-  }
-  return true;
+  BordersVectorReader reader(filename);
+  auto const & records = reader.GetVector();
+  DeserializeFromVec(records);
 }
 }  // namespace indexer

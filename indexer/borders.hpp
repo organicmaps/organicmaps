@@ -32,7 +32,8 @@ public:
     return false;
   }
 
-  bool Deserialize(std::string const & filename);
+  // Throws Reader::Exception in case of data reading errors.
+  void Deserialize(std::string const & filename);
 
   template <typename BordersVec>
   void DeserializeFromVec(BordersVec const & vec)
