@@ -130,7 +130,7 @@ struct BookmarkData
 
   bool operator!=(BookmarkData const & data) const { return !operator==(data); }
 
-  // Unique id.
+  // Unique id (it will not be serialized in text files).
   MarkId m_id = kInvalidMarkId;
   // Bookmark's name.
   LocalizableString m_name;
@@ -195,7 +195,7 @@ struct TrackData
 
   bool operator!=(TrackData const & data) const { return !operator==(data); }
   
-  // Unique id.
+  // Unique id (it will not be serialized in text files).
   TrackId m_id = kInvalidTrackId;
   // Local track id.
   LocalId m_localId = 0;
@@ -249,7 +249,7 @@ struct CategoryData
 
   bool operator!=(CategoryData const & data) const { return !operator==(data); }
 
-  // Unique id.
+  // Unique id (it will not be serialized in text files).
   MarkGroupId m_id = kInvalidMarkGroupId;
   // Category's name.
   LocalizableString m_name;
@@ -291,14 +291,16 @@ struct FileData
 
   bool operator==(FileData const & data) const
   {
-    return m_categoryData == data.m_categoryData && m_bookmarksData == data.m_bookmarksData &&
-           m_tracksData == data.m_tracksData;
+    return m_serverId == data.m_serverId && m_categoryData == data.m_categoryData &&
+           m_bookmarksData == data.m_bookmarksData && m_tracksData == data.m_tracksData;
   }
 
   bool operator!=(FileData const & data) const { return !operator==(data); }
 
-  // Device id.
+  // Device id (it will not be serialized in text files).
   std::string m_deviceId;
+  // Server id.
+  std::string m_serverId;
   // Category's data.
   CategoryData m_categoryData;
   // Bookmarks collection.

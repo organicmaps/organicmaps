@@ -21,7 +21,8 @@ enum class Version : uint8_t
 {
   V0 = 0,
   V1 = 1, // 11th April 2018 (new Point2D storage, added deviceId, feature name -> custom name).
-  Latest = V1
+  V2 = 2, // 25th April 2018 (added serverId).
+  Latest = V2
 };
 
 class SerializerKml
@@ -39,9 +40,18 @@ public:
     WriteToSink(sink, Version::Latest);
 
     // Write device id.
-    auto const sz = static_cast<uint32_t>(m_data.m_deviceId.size());
-    WriteVarUint(sink, sz);
-    sink.Write(m_data.m_deviceId.data(), sz);
+    {
+      auto const sz = static_cast<uint32_t>(m_data.m_deviceId.size());
+      WriteVarUint(sink, sz);
+      sink.Write(m_data.m_deviceId.data(), sz);
+    }
+
+    // Write server id.
+    {
+      auto const sz = static_cast<uint32_t>(m_data.m_serverId.size());
+      WriteVarUint(sink, sz);
+      sink.Write(m_data.m_serverId.data(), sz);
+    }
 
     // Write bits count in double number.
     WriteToSink(sink, kDoubleBits);
@@ -127,9 +137,18 @@ public:
       MYTHROW(DeserializeException, ("Incorrect file version."));
 
     // Read device id.
-    auto const sz = ReadVarUint<uint32_t>(source);
-    m_data.m_deviceId.resize(sz);
-    source.Read(&m_data.m_deviceId[0], sz);
+    {
+      auto const sz = ReadVarUint<uint32_t>(source);
+      m_data.m_deviceId.resize(sz);
+      source.Read(&m_data.m_deviceId[0], sz);
+    }
+
+    // Read server id.
+    {
+      auto const sz = ReadVarUint<uint32_t>(source);
+      m_data.m_serverId.resize(sz);
+      source.Read(&m_data.m_serverId[0], sz);
+    }
 
     // Read bits count in double number.
     m_doubleBits = ReadPrimitiveFromSource<uint8_t>(source);
