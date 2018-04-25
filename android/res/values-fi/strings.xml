@@ -1263,12 +1263,16 @@
 	<string name="profile_osm">Profiili OSM</string>
 	<string name="place_page_search_similar_hotel">Etsi samanlaisia ​​hotelleja</string>
 	<string name="bookmarks_detect_title">Uusia tiedostoja havaittiin</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="one">%d tiedosto löydettiin. Näet sen muunnoksen jälkeen.</item>
+	  <item quantity="other">%d tiedostoa on löytynyt. Näet heidät muuntamisen jälkeen.</item>
+	</plurals>
 	<string name="button_convert">Muuntaa</string>
 	<string name="bookmarks_convert_error_title">Virhe</string>
 	<string name="bookmarks_convert_error_message">Joitakin tiedostoja ei muutettu.</string>
 	<string name="converting">Muuntaa...</string>
 	<string name="wn_reinvented_bookmarks_title">Uusimme kirjanmerkit!</string>
-	<string name="wn_reinvented_bookmarks_message">Voit synkronoida kirjanmerkkejä, luoda luetteloita... On hämmästyttävää...</string>
+	<string name="wn_reinvented_bookmarks_message">Voit varmuuskopioida kirjanmerkkejä, luoda luetteloita... On hämmästyttävää...</string>
 	<string name="wn_way_of_booking_title">Me kuvittelimme uudelleen varauksen tapaa!</string>
 	<string name="wn_way_of_booking_message">Etsi hotelli kartalla ja varaa se tai valitse vastaava.</string>
 </resources>

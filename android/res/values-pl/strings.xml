@@ -1266,12 +1266,17 @@
 	<string name="profile_osm">Profil OSM</string>
 	<string name="place_page_search_similar_hotel">Wyszukaj podobne hotele</string>
 	<string name="bookmarks_detect_title">Wykryto nowe pliki</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="one">Znaleziono %d plik. Zobaczysz to po konwersji.</item>
+	  <item quantity="two">Znaleziono %d pliki. Zobaczysz je po konwersji.</item>
+	  <item quantity="other">Znaleziono %d plików. Zobaczysz je po konwersji.</item>
+	</plurals>
 	<string name="button_convert">konwertować</string>
 	<string name="bookmarks_convert_error_title">błąd</string>
 	<string name="bookmarks_convert_error_message">Sommige bestanden waren niet geconverteerd.</string>
 	<string name="converting">Przekształcanie...</string>
 	<string name="wn_reinvented_bookmarks_title">Odnowiliśmy zakładki!</string>
-	<string name="wn_reinvented_bookmarks_message">Du kan synchronizuje zakładki, tworzy listy... To niesamowite...</string>
+	<string name="wn_reinvented_bookmarks_message">Możesz tworzyć kopie zapasowe zakładek, tworzyć listy... To niesamowite...</string>
 	<string name="wn_way_of_booking_title">Przeformułowaliśmy sposób rezerwacji!</string>
 	<string name="wn_way_of_booking_message">Wystarczy znaleźć hotel na mapie i zarezerwować go lub wybrać podobny.</string>
 </resources>

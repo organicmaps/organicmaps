@@ -1319,7 +1319,7 @@
 	<string name="bookmarks_convert_error_message">Some files were not converted.</string>
 	<string name="converting">Converting...</string>
 	<string name="wn_reinvented_bookmarks_title">We reinvented bookmarks!</string>
-	<string name="wn_reinvented_bookmarks_message">You can synchronize bookmarks, create lists... It\'s amazing...</string>
+	<string name="wn_reinvented_bookmarks_message">You can backup them, create lists...It’s amazing...</string>
 	<string name="wn_way_of_booking_title">We reimagined the way of booking!</string>
 	<string name="wn_way_of_booking_message">Just find a hotel on the map and book it, or select the similar one.</string>
 </resources>

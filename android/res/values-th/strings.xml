@@ -1269,12 +1269,15 @@
 	<string name="profile_osm">โปรไฟล์ OSM</string>
 	<string name="place_page_search_similar_hotel">ค้นหาโรงแรมที่คล้ายกัน</string>
 	<string name="bookmarks_detect_title">พบไฟล์ใหม่แล้ว</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="other">%d ไฟล์ที่ค้นพบ คุณจะเห็นพวกเขาหลังจากการแปลง</item>
+	</plurals>
 	<string name="button_convert">แปลง</string>
 	<string name="bookmarks_convert_error_title">ความผิดพลาด</string>
 	<string name="bookmarks_convert_error_message">ไฟล์บางไฟล์ไม่ได้รับการแปลง</string>
 	<string name="converting">กำลังแปลง...</string>
 	<string name="wn_reinvented_bookmarks_title">เราสร้างสรรค์บุ๊กมาร์กใหม่!</string>
-	<string name="wn_reinvented_bookmarks_message">คุณสามารถซิงโครไนซ์บุ๊กมาร์กสร้างรายการ... มันน่าทึ่ง...</string>
+	<string name="wn_reinvented_bookmarks_message">คุณสามารถสำรองบุ๊คมาร์คสร้างรายการ... มันน่าทึ่ง...</string>
 	<string name="wn_way_of_booking_title">เราทบทวนวิธีการจองห้องพัก!</string>
 	<string name="wn_way_of_booking_message">เพียงแค่หาโรงแรมบนแผนที่และจองหนังสือหรือเลือกหนังสือที่คล้ายกัน</string>
 </resources>

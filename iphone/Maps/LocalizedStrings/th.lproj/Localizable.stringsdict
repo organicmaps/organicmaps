@@ -50,7 +50,7 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>other</key>
-      <string>%d files were found. You can see them after conversion.</string>
+      <string>%d ไฟล์ที่ค้นพบ คุณจะเห็นพวกเขาหลังจากการแปลง</string>
     </dict>
   </dict>
 </dict>

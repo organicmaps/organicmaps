@@ -1266,12 +1266,16 @@
 	<string name="profile_osm">Perfil OSM</string>
 	<string name="place_page_search_similar_hotel">Pesquisar hotéis semelhantes</string>
 	<string name="bookmarks_detect_title">Novos arquivos detectados</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="one">%d arquivo foi encontrado. Você vai ver depois da conversão.</item>
+	  <item quantity="other">%d arquivos foram encontrados. Você os verá depois da conversão.</item>
+	</plurals>
 	<string name="button_convert">Converter</string>
 	<string name="bookmarks_convert_error_title">Erro</string>
 	<string name="bookmarks_convert_error_message">Alguns arquivos não foram convertidos.</string>
 	<string name="converting">Convertendo...</string>
 	<string name="wn_reinvented_bookmarks_title">Nós reinventamos os marcadores!</string>
-	<string name="wn_reinvented_bookmarks_message">Você pode sincronizar marcadores, criar listas... É incrível...</string>
+	<string name="wn_reinvented_bookmarks_message">Você pode fazer backup de favoritos, criar listas... É incrível...</string>
 	<string name="wn_way_of_booking_title">Nós reinventamos a maneira de reservar!</string>
 	<string name="wn_way_of_booking_message">Basta encontrar um hotel no mapa e reservá-lo ou selecionar o mesmo.</string>
 </resources>

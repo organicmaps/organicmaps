@@ -49,8 +49,12 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>zero</key>
+      <string>%d fichier a été trouvé. Vous le verrez après la conversion.</string>
+      <key>one</key>
+      <string>%d fichier a été trouvé. Vous le verrez après la conversion.</string>
       <key>other</key>
-      <string>%d files were found. You can see them after conversion.</string>
+      <string>%d fichiers ont été trouvés. Vous les verrez après la conversion.</string>
     </dict>
   </dict>
 </dict>

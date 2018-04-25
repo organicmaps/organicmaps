@@ -1277,12 +1277,16 @@
 	<string name="profile_osm">Profil OSM</string>
 	<string name="place_page_search_similar_hotel">Nach ähnlichen Hotels suchen</string>
 	<string name="bookmarks_detect_title">Neue Dateien erkannt</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="one">%d Datei wurde gefunden. Sie werden es nach der Konvertierung sehen.</item>
+	  <item quantity="other">%d Dateien wurden gefunden. Sie werden sie nach der Konvertierung sehen.</item>
+	</plurals>
 	<string name="button_convert">Konvertieren</string>
 	<string name="bookmarks_convert_error_title">Error</string>
 	<string name="bookmarks_convert_error_message">Einige Dateien wurden nicht konvertiert.</string>
 	<string name="converting">Konvertieren...</string>
 	<string name="wn_reinvented_bookmarks_title">Wir haben Lesezeichen neu erfunden!</string>
-	<string name="wn_reinvented_bookmarks_message">Sie können Lesezeichen synchronisieren, Listen erstellen... Es ist erstaunlich...</string>
+	<string name="wn_reinvented_bookmarks_message">Sie können Lesezeichen sichern, Listen erstellen... Es ist erstaunlich...</string>
 	<string name="wn_way_of_booking_title">Wir haben die Art der Buchung neu gedacht!</string>
 	<string name="wn_way_of_booking_message">Suchen Sie einfach ein Hotel auf der Karte und buchen Sie es oder wählen Sie ein ähnliches.</string>
 </resources>

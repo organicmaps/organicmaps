@@ -1268,7 +1268,7 @@
 	<string name="bookmarks_convert_error_message">Một số tệp không được chuyển đổi.</string>
 	<string name="converting">Đang chuyển đổi...</string>
 	<string name="wn_reinvented_bookmarks_title">Chúng tôi đã tạo lại dấu trang!</string>
-	<string name="wn_reinvented_bookmarks_message">Bạn có thể đồng bộ hóa chỉ mục, tạo danh sách... Thật tuyệt vời...</string>
+	<string name="wn_reinvented_bookmarks_message">Bạn có thể sao lưu dấu trang, tạo danh sách... Thật tuyệt vời...</string>
 	<string name="wn_way_of_booking_title">Chúng tôi đã hình dung lại cách đặt phòng!</string>
 	<string name="wn_way_of_booking_message">Chỉ cần tìm một khách sạn trên bản đồ và đặt nó, hoặc chọn một khách sạn tương tự.</string>
 </resources>

@@ -1262,12 +1262,16 @@
 	<string name="profile_osm">Profil OSM</string>
 	<string name="place_page_search_similar_hotel">Cari hotel serupa</string>
 	<string name="bookmarks_detect_title">File baru terdeteksi</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="one">%d file ditemukan. Anda akan melihatnya setelah mengonversi.</item>
+	  <item quantity="other">%d file telah ditemukan. Anda akan melihatnya setelah konversi.</item>
+	</plurals>
 	<string name="button_convert">Mengubah</string>
 	<string name="bookmarks_convert_error_title">Kesalahan</string>
 	<string name="bookmarks_convert_error_message">Beberapa file tidak dikonversi.</string>
 	<string name="converting">Mengkonversi...</string>
 	<string name="wn_reinvented_bookmarks_title">Kami menemukan kembali bookmark!</string>
-	<string name="wn_reinvented_bookmarks_message">Anda dapat menyinkronkan bookmark, membuat daftar... Sungguh menakjubkan...</string>
+	<string name="wn_reinvented_bookmarks_message">Anda dapat mencadangkan bookmark, membuat daftar... Sungguh menakjubkan...</string>
 	<string name="wn_way_of_booking_title">Kami membayangkan ulang cara pemesanan!</string>
 	<string name="wn_way_of_booking_message">Temukan saja hotel di peta dan pesan, atau pilih yang serupa.</string>
 </resources>

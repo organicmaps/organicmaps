@@ -1267,12 +1267,17 @@
 	<string name="profile_osm">Профіль OSM</string>
 	<string name="place_page_search_similar_hotel">Шукати схожі готелі</string>
 	<string name="bookmarks_detect_title">Виявлено нові файли</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="one">%d файл був знайдений. Ви побачите його після перетворення.</item>
+	  <item quantity="two">%d файлу були знайдені. Ви побачите їх після конвертації.</item>
+	  <item quantity="other">%d файлів було знайдено. Ви побачите їх після конвертації.</item>
+	</plurals>
 	<string name="button_convert">Конвертувати</string>
 	<string name="bookmarks_convert_error_title">Помилка</string>
 	<string name="bookmarks_convert_error_message">Деякі файли не конвертувалися.</string>
 	<string name="converting">Конвертація...</string>
 	<string name="wn_reinvented_bookmarks_title">Ми переізобрел мітки!</string>
-	<string name="wn_reinvented_bookmarks_message">Ви можете синхронізувати мітки, створювати листи... І це разюче...</string>
+	<string name="wn_reinvented_bookmarks_message">Ви можете зробити резервне копіювання міток, створити списки. А як круто вони виглядають на карті!</string>
 	<string name="wn_way_of_booking_title">Ми переосмислили спосіб бронювання!</string>
 	<string name="wn_way_of_booking_message">Просто знайдіть готель на карті, забронюйте його або виберіть аналогічний.</string>
 </resources>

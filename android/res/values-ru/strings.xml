@@ -1308,8 +1308,8 @@
 	<string name="bookmarks_convert_error_title">Ошибка</string>
 	<string name="bookmarks_convert_error_message">Некоторые файлы не конвертировались.</string>
 	<string name="converting">Конвертация...</string>
-	<string name="wn_reinvented_bookmarks_title">Мы переизобрели метки!</string>
-	<string name="wn_reinvented_bookmarks_message">Вы можете синхронизировать метки, создавать списки... И это поразительно...</string>
-	<string name="wn_way_of_booking_title">Мы переосмыслили способ бронирования!</string>
-	<string name="wn_way_of_booking_message">Нашли отель на карте, но что-то не устраивает? Мы найдем похожие!</string>
+	<string name="wn_reinvented_bookmarks_title">Мы улучшили функционал меток!</string>
+	<string name="wn_reinvented_bookmarks_message">Теперь вы можете сделать резервное копирование меток, создать списки. А как круто они смотрятся на карте!</string>
+	<string name="wn_way_of_booking_title">Больше возможностей для бронирования отелей!</string>
+	<string name="wn_way_of_booking_message">Если интересующий отель занят, воспользуйтесь кнопкой «Найти похожие отели».</string>
 </resources>

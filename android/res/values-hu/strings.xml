@@ -1263,12 +1263,16 @@
 	<string name="profile_osm">Profil OSM</string>
 	<string name="place_page_search_similar_hotel">Hasonló szálláshelyek keresése</string>
 	<string name="bookmarks_detect_title">Új fájlokat észleltek</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="one">%d fájlt találtunk. Látni fogja őket a megtérés után.</item>
+	  <item quantity="other">%d fájl található. Látni fogja őket a megtérés után.</item>
+	</plurals>
 	<string name="button_convert">Alakítani</string>
 	<string name="bookmarks_convert_error_title">Hiba</string>
 	<string name="bookmarks_convert_error_message">Egyes fájlok nem konvertáltak.</string>
 	<string name="converting">Átalakítás...</string>
 	<string name="wn_reinvented_bookmarks_title">Új könyveket készítettünk!</string>
-	<string name="wn_reinvented_bookmarks_message">Könyvjelzőket szinkronizálhat, listákat hozhat létre... Hihetetlen...</string>
+	<string name="wn_reinvented_bookmarks_message">Könyvjelzőket menthet, listákat hozhat létre... Hihetetlen...</string>
 	<string name="wn_way_of_booking_title">Újra átfogtuk a foglalás módját!</string>
 	<string name="wn_way_of_booking_message">Csak keresse meg a szállodát a térképen, és foglalja le, vagy válassza ki a megfelelőt.</string>
 </resources>

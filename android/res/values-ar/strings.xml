@@ -1269,12 +1269,15 @@
 	<string name="profile_osm">الملف الشخصي OSM</string>
 	<string name="place_page_search_similar_hotel">ابحث عن فنادق مماثلة</string>
 	<string name="bookmarks_detect_title">تم اكتشاف ملفات جديدة</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="other">تم العثور على %d ملفات. سوف تراهم بعد التحويل.</item>
+	</plurals>
 	<string name="button_convert">تحول</string>
 	<string name="bookmarks_convert_error_title">خطأ</string>
 	<string name="bookmarks_convert_error_message">لم يتم تحويل بعض الملفات.</string>
 	<string name="converting">تحويل...</string>
 	<string name="wn_reinvented_bookmarks_title">لقد قمنا بإعادة اختراع العناوين!</string>
-	<string name="wn_reinvented_bookmarks_message">يمكنك مزامنة الإشارات المرجعية وإنشاء القوائم... إنه لأمر مدهش...</string>
+	<string name="wn_reinvented_bookmarks_message">يمكنك الاحتفاظ بنسخة احتياطية منها وإنشاء قوائم... إنه أمر مذهل...</string>
 	<string name="wn_way_of_booking_title">نحن إعادة تصور طريقة الحجز!</string>
 	<string name="wn_way_of_booking_message">ما عليك سوى العثور على فندق على الخريطة وحجزه ، أو تحديد فندق مشابه.</string>
 </resources>

@@ -1259,12 +1259,15 @@
 	<string name="profile_osm">OSM 프로필</string>
 	<string name="place_page_search_similar_hotel">비슷한 호텔 검색</string>
 	<string name="bookmarks_detect_title">새 파일이 감지되었습니다.</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="other">%d 파일을 찾았습니다. 회심 후 그들을 볼 수 있습니다.</item>
+	</plurals>
 	<string name="button_convert">변하게 하다</string>
 	<string name="bookmarks_convert_error_title">오류</string>
 	<string name="bookmarks_convert_error_message">일부 파일은 변환되지 않았습니다.</string>
 	<string name="converting">변환 중...</string>
 	<string name="wn_reinvented_bookmarks_title">우리는 북마크를 재발 명했습니다!</string>
-	<string name="wn_reinvented_bookmarks_message">북마크를 동기화하고 목록을 만들 수 있습니다... 놀라운...</string>
+	<string name="wn_reinvented_bookmarks_message">당신은 북마크를 백업하고, 목록을 만들 수 있습니다... 그것은 놀랍습니다...</string>
 	<string name="wn_way_of_booking_title">우리는 예약 방법을 상상했습니다!</string>
 	<string name="wn_way_of_booking_message">지도에서 호텔을 찾아 예약하거나 유사한 호텔을 선택하십시오.</string>
 </resources>

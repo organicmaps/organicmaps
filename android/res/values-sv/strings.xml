@@ -1267,12 +1267,16 @@
 	<string name="profile_osm">OSM-profil</string>
 	<string name="place_page_search_similar_hotel">Sök liknande hotell</string>
 	<string name="bookmarks_detect_title">Nya filer upptäcktes</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="one">%d fil hittades. Du kommer att se den efter omvandlingen.</item>
+	  <item quantity="other">%d filer har hittats. Du kommer att se dem efter omvandlingen.</item>
+	</plurals>
 	<string name="button_convert">Konvertera</string>
 	<string name="bookmarks_convert_error_title">Fel</string>
 	<string name="bookmarks_convert_error_message">Vissa filer konverterades inte.</string>
 	<string name="converting">Konvertera...</string>
 	<string name="wn_reinvented_bookmarks_title">Vi återuppfinde bokmärken!</string>
-	<string name="wn_reinvented_bookmarks_message">Du kan synkronisera bokmärken, skapa listor... Det är fantastiskt...</string>
+	<string name="wn_reinvented_bookmarks_message">Du kan säkerhetskopiera bokmärken, skapa listor... Det är fantastiskt...</string>
 	<string name="wn_way_of_booking_title">Vi reimagined sättet att boka!</string>
 	<string name="wn_way_of_booking_message">Hitta bara ett hotell på kartan och boka det, eller välj den liknande.</string>
 </resources>

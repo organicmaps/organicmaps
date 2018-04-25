@@ -49,6 +49,8 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>%d dã tìm thấy một tệp. Bạn sẽ thấy nó sau khi chuyển đổi.</string>
       <key>other</key>
       <string>%d files were found. You can see them after conversion.</string>
     </dict>

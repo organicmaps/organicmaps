@@ -1263,12 +1263,16 @@
 	<string name="profile_osm">Profiel OSM</string>
 	<string name="place_page_search_similar_hotel">Zoek vergelijkbare hotels</string>
 	<string name="bookmarks_detect_title">Nieuwe bestanden gedetecteerd</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="one">%d bestand gevonden. Je ziet het na het converteren.</item>
+	  <item quantity="other">Er zijn %d bestanden gevonden. Je zult ze na de conversie zien.</item>
+	</plurals>
 	<string name="button_convert">Omzetten</string>
 	<string name="bookmarks_convert_error_title">Fout</string>
 	<string name="bookmarks_convert_error_message">Sommige bestanden waren niet geconverteerd.</string>
 	<string name="converting">Het omzetten van...</string>
 	<string name="wn_reinvented_bookmarks_title">We hebben bladwijzers opnieuw uitgevonden!</string>
-	<string name="wn_reinvented_bookmarks_message">Du kan synkronisere bladwijzers, maak lijsten... Het is geweldig...</string>
+	<string name="wn_reinvented_bookmarks_message">U kunt een back-up maken van bladwijzers, lijsten maken... Het is verbazingwekkend...</string>
 	<string name="wn_way_of_booking_title">We hebben de manier van boeken opnieuw bedacht!</string>
 	<string name="wn_way_of_booking_message">Zoek gewoon een hotel op de kaart en boek het, of selecteer een vergelijkbaar hotel.</string>
 </resources>

@@ -1270,12 +1270,17 @@
 	<string name="profile_osm">Profil OSM</string>
 	<string name="place_page_search_similar_hotel">Hledat podobné hotely</string>
 	<string name="bookmarks_detect_title">Byly zjištěny nové soubory</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="one">%d soubor byl nalezen. Uvidíte ji po konverzi.</item>
+	  <item quantity="few">%d byly nalezeny soubory. Uvidíte je po konverzi.</item>
+	  <item quantity="other">Bylo nalezeno %d souborů. Uvidíte je po konverzi.</item>
+	</plurals>
 	<string name="button_convert">Konvertovat</string>
 	<string name="bookmarks_convert_error_title">Chyba</string>
 	<string name="bookmarks_convert_error_message">Některé soubory nebyly převedeny.</string>
 	<string name="converting">Převádění...</string>
 	<string name="wn_reinvented_bookmarks_title">Znovu jsme vytvořili záložky!</string>
-	<string name="wn_reinvented_bookmarks_message">Můžete synchronizovat záložky, vytvářet seznamy... Je to úžasné...</string>
+	<string name="wn_reinvented_bookmarks_message">Můžete je zálohovat, vytvářet seznamy... Je to úžasné...</string>
 	<string name="wn_way_of_booking_title">Změnili jsme způsob rezervace!</string>
 	<string name="wn_way_of_booking_message">Stačí najít hotel na mapě a rezervovat ho, nebo si vybrat podobný hotel.</string>
 </resources>

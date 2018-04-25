@@ -1266,12 +1266,17 @@
 	<string name="profile_osm">Profil OSM</string>
 	<string name="place_page_search_similar_hotel">Vyhľadať podobné hotely</string>
 	<string name="bookmarks_detect_title">Zistené nové súbory</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="one">Bol nájdený %d súbor. Uvidíte to po konverzii.</item>
+	  <item quantity="few">Boli nájdené %d súbory. Uvidíte ich po konverzii.</item>
+	  <item quantity="other">Bolo nájdených %d súborov. Uvidíte ich po konverzii.</item>
+	</plurals>
 	<string name="button_convert">Premeniť</string>
 	<string name="bookmarks_convert_error_title">Chyba</string>
 	<string name="bookmarks_convert_error_message">Niektoré súbory neboli konvertované.</string>
 	<string name="converting">Konverziu...</string>
 	<string name="wn_reinvented_bookmarks_title">Znovu sme vytvorili záložky!</string>
-	<string name="wn_reinvented_bookmarks_message">Môžete synchronizovať záložky, vytvárať zoznamy... Je to úžasné...</string>
+	<string name="wn_reinvented_bookmarks_message">Môžete zálohovať záložky, vytvárať zoznamy... Je to úžasné...</string>
 	<string name="wn_way_of_booking_title">Zmenili sme spôsob rezervácie!</string>
 	<string name="wn_way_of_booking_message">Stačí nájsť hotel na mape a rezervovať ho, alebo si vybrať podobný hotel.</string>
 </resources>

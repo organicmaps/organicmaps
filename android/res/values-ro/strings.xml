@@ -1259,12 +1259,16 @@
 	<string name="profile_osm">Profil OSM</string>
 	<string name="place_page_search_similar_hotel">Căutați hoteluri similare</string>
 	<string name="bookmarks_detect_title">Au fost detectate fișiere noi</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="one">%d fișier a fost găsit. Veți vedea după conversie.</item>
+	  <item quantity="other">Au fost găsite %d fișiere. Veți vedea după convertire.</item>
+	</plurals>
 	<string name="button_convert">Convertit</string>
 	<string name="bookmarks_convert_error_title">Eroare</string>
 	<string name="bookmarks_convert_error_message">Unele fișiere nu au fost convertite.</string>
 	<string name="converting">Conversia...</string>
 	<string name="wn_reinvented_bookmarks_title">Am reinventat marcaje!</string>
-	<string name="wn_reinvented_bookmarks_message">Puteți sincroniza marcaje, crea liste... Este uimitor...</string>
+	<string name="wn_reinvented_bookmarks_message">Aveți posibilitatea să copiați marcajele de rezervă, să creați liste... Este uimitor...</string>
 	<string name="wn_way_of_booking_title">Am reimaginat modul de rezervare!</string>
 	<string name="wn_way_of_booking_message">Găsiți un hotel pe hartă și rezervați-l sau selectați unul similar.</string>
 </resources>

@@ -1262,12 +1262,15 @@
 	<string name="profile_osm">プロフィールOSM</string>
 	<string name="place_page_search_similar_hotel">類似のホテルを検索</string>
 	<string name="bookmarks_detect_title">新しいファイルが検出されました</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="other">%d ファイルが見つかりました。 あなたは変換後にそれらを見るでしょう。</item>
+	</plurals>
 	<string name="button_convert">変換</string>
 	<string name="bookmarks_convert_error_title">エラー</string>
 	<string name="bookmarks_convert_error_message">一部のファイルは変換されませんでした。</string>
 	<string name="converting">変換中...</string>
 	<string name="wn_reinvented_bookmarks_title">ブックマークを作り直しました！</string>
-	<string name="wn_reinvented_bookmarks_message">あなたは、ブックマークを同期することができますリストを作成する...それは素晴らしいです...</string>
+	<string name="wn_reinvented_bookmarks_message">あなたはブックマークをバックアップし、リストを作成することができます...それは素晴らしいです...</string>
 	<string name="wn_way_of_booking_title">我々は予約の方法を想像した！</string>
 	<string name="wn_way_of_booking_message">地図上のホテルを見つけて予約するか、同様のホテルを選択するだけです。</string>
 </resources>

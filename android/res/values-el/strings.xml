@@ -1027,12 +1027,16 @@
 	<string name="profile_osm">Προφίλ OSM</string>
 	<string name="place_page_search_similar_hotel">Αναζήτηση παρόμοιων ξενοδοχείων</string>
 	<string name="bookmarks_detect_title">Εντοπίστηκαν νέα αρχεία</string>
+	<plurals name="bookmarks_detect_message">
+	  <item quantity="one">Βρέθηκε %d αρχείο. Θα το δείτε μετά τη μετατροπή.</item>
+	  <item quantity="other">έχουν βρεθεί %d αρχεία. Θα τα δείτε μετά τη μετατροπή.</item>
+	</plurals>
 	<string name="button_convert">Μετατρέπω</string>
 	<string name="bookmarks_convert_error_title">Λάθος</string>
 	<string name="bookmarks_convert_error_message">Ορισμένα αρχεία δεν μετατράπηκαν.</string>
 	<string name="converting">Μετατροπή...</string>
 	<string name="wn_reinvented_bookmarks_title">Επεκτείνασαμε σελιδοδείκτες!</string>
-	<string name="wn_reinvented_bookmarks_message">Μπορείτε να συγχρονίσετε σελιδοδείκτες, να δημιουργήσετε λίστες ... Είναι εκπληκτικό ...</string>
+	<string name="wn_reinvented_bookmarks_message">You can back up them and create lists - just look at them on the map! They are gorgeous!</string>
 	<string name="wn_way_of_booking_title">Επαναφέρουμε τον τρόπο κράτησης!</string>
 	<string name="wn_way_of_booking_message">Απλά βρείτε ένα ξενοδοχείο στο χάρτη και κρατήστε το, ή επιλέξτε παρόμοιο.</string>
 </resources>
