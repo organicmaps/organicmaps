@@ -285,7 +285,8 @@ struct CategoryData
 
 struct FileData
 {
-  DECLARE_VISITOR_AND_DEBUG_PRINT(FileData, visitor(m_categoryData, "category"),
+  DECLARE_VISITOR_AND_DEBUG_PRINT(FileData, visitor(m_serverId, "serverId"),
+                                  visitor(m_categoryData, "category"),
                                   visitor(m_bookmarksData, "bookmarks"),
                                   visitor(m_tracksData, "tracks"))
 

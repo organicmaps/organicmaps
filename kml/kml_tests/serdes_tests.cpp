@@ -183,6 +183,7 @@ kml::FileData GenerateKmlFileData()
 {
   kml::FileData result;
   result.m_deviceId = "AAAA";
+  result.m_serverId = "AAAA-BBBB-CCCC-DDDD";
 
   result.m_categoryData.m_name[kDefaultLang] = "Test category";
   result.m_categoryData.m_name[kRuLang] = "Тестовая категория";
@@ -299,6 +300,7 @@ char const * kGeneratedKml =
   "  <description>Test description</description>\n"
   "  <visibility>1</visibility>\n"
   "  <ExtendedData xmlns:mwm=\"https://maps.me\">\n"
+  "    <mwm:serverId>AAAA-BBBB-CCCC-DDDD</mwm:serverId>\n"
   "    <mwm:name>\n"
   "      <mwm:lang code=\"ru\">Тестовая категория</mwm:lang>\n"
   "    </mwm:name>\n"

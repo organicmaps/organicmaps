@@ -242,9 +242,13 @@ void SaveStringsMap(KmlWriter::WriterWrapper & writer,
   writer << offsetStr << "</mwm:" << tagName << ">\n";
 }
 
-void SaveCategoryExtendedData(KmlWriter::WriterWrapper & writer, CategoryData const & categoryData)
+void SaveCategoryExtendedData(KmlWriter::WriterWrapper & writer, CategoryData const & categoryData,
+                              std::string const & extendedServerId)
 {
   writer << kIndent2 << kExtendedDataHeader;
+
+  if (!extendedServerId.empty())
+    writer << kIndent4 << "<mwm:serverId>" << extendedServerId << "</mwm:serverId>\n";
 
   SaveLocalizableString(writer, categoryData.m_name, "name", kIndent4);
   SaveLocalizableString(writer, categoryData.m_annotation, "annotation", kIndent4);
@@ -301,7 +305,8 @@ void SaveCategoryExtendedData(KmlWriter::WriterWrapper & writer, CategoryData co
   writer << kIndent2 << kExtendedDataFooter;
 }
 
-void SaveCategoryData(KmlWriter::WriterWrapper & writer, CategoryData const & categoryData)
+void SaveCategoryData(KmlWriter::WriterWrapper & writer, CategoryData const & categoryData,
+                      std::string const & extendedServerId)
 {
   for (uint8_t i = 0; i < my::Key(PredefinedColor::Count); ++i)
     SaveStyle(writer, GetStyleForPredefinedColor(static_cast<PredefinedColor>(i)));
@@ -319,7 +324,7 @@ void SaveCategoryData(KmlWriter::WriterWrapper & writer, CategoryData const & ca
 
   writer << kIndent2 << "<visibility>" << (categoryData.m_visible ? "1" : "0") <<"</visibility>\n";
 
-  SaveCategoryExtendedData(writer, categoryData);
+  SaveCategoryExtendedData(writer, categoryData, extendedServerId);
 }
 
 void SaveBookmarkExtendedData(KmlWriter::WriterWrapper & writer, BookmarkData const & bookmarkData)
@@ -476,7 +481,7 @@ void KmlWriter::Write(FileData const & fileData)
   m_writer << kKmlHeader;
 
   // Save category.
-  SaveCategoryData(m_writer, fileData.m_categoryData);
+  SaveCategoryData(m_writer, fileData.m_categoryData, fileData.m_serverId);
 
   // Save bookmarks.
   for (auto const & bookmarkData : fileData.m_bookmarksData)
@@ -792,6 +797,10 @@ void KmlParser::CharData(std::string value)
       {
         if (!strings::to_uint(value, m_data.m_categoryData.m_reviewsNumber))
           m_data.m_categoryData.m_reviewsNumber = 0;
+      }
+      else if (currTag == "mwm:serverId")
+      {
+        m_data.m_serverId = value;
       }
     }
     else if (pppTag == kDocument && ppTag == kExtendedData && currTag == "mwm:lang")

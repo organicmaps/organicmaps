@@ -422,13 +422,14 @@ std::string CategoryDataToString(CategoryData const & c)
   return out.str();
 }
 
-std::string FileDataToString(FileData const & c)
+std::string FileDataToString(FileData const & fd)
 {
   std::ostringstream out;
   out << "["
-      << "category:" << CategoryDataToString(c.m_categoryData) << ", "
-      << "bookmarks:" << VectorAdapter<BookmarkData>::ToString(c.m_bookmarksData) << ", "
-      << "tracks:" << VectorAdapter<TrackData>::ToString(c.m_tracksData)
+      << "server_id:" << fd.m_serverId << ", "
+      << "category:" << CategoryDataToString(fd.m_categoryData) << ", "
+      << "bookmarks:" << VectorAdapter<BookmarkData>::ToString(fd.m_bookmarksData) << ", "
+      << "tracks:" << VectorAdapter<TrackData>::ToString(fd.m_tracksData)
       << "]";
   return out.str();
 }
@@ -739,6 +740,7 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def("__str__", &VectorAdapter<TrackData>::ToString);
 
   class_<FileData>("FileData")
+    .def_readwrite("server_id", &FileData::m_serverId)
     .def_readwrite("category", &FileData::m_categoryData)
     .def_readwrite("bookmarks", &FileData::m_bookmarksData)
     .def_readwrite("tracks", &FileData::m_tracksData)

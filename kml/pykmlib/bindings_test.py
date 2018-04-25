@@ -62,6 +62,7 @@ class PyKmlibAdsTest(unittest.TestCase):
         	pykmlib.LatLon(45.1964, 56.9832)])
 
         file_data = pykmlib.FileData()
+        file_data.server_id = 'AAAA-BBBB-CCCC-DDDD'
         file_data.category = category
         file_data.bookmarks.append(bookmark)
         file_data.tracks.append(track)
