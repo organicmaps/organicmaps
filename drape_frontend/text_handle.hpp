@@ -6,14 +6,15 @@
 
 #include "base/string_utils.hpp"
 
+#include <string>
+
 namespace dp
 {
-  class TextureManager;
+class TextureManager;
 }
 
 namespace df
 {
-
 class TextHandle : public dp::OverlayHandle
 {
 public:
@@ -37,7 +38,7 @@ public:
   void SetForceUpdateNormals(bool forceUpdate) const;
 
 #ifdef DEBUG_OVERLAYS_OUTPUT
-  virtual string GetOverlayDebugInfo() override;
+  virtual std::string GetOverlayDebugInfo() override;
 #endif
 
 protected:
@@ -52,6 +53,4 @@ private:
   bool m_glyphsReady;
   int m_fixedHeight;
 };
-
-
-} // namespace df
+}  // namespace df

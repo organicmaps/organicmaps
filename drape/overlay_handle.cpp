@@ -8,6 +8,7 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
+#include <ios>
 #include <sstream>
 
 namespace dp
@@ -248,7 +249,7 @@ bool SquareHandle::IsBound() const { return m_isBound; }
 std::string SquareHandle::GetOverlayDebugInfo()
 {
   std::ostringstream out;
-  out << "POI Priority(" << GetPriority() << ") "
+  out << "POI Priority(" << std::hex << GetPriority() << ") " << std::dec
       << GetOverlayID().m_featureId.m_index << "-" << GetOverlayID().m_index << " "
       << m_debugStr;
   return out.str();
