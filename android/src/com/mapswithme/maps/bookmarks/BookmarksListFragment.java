@@ -67,7 +67,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
-    initList();
+    configureAdapter();
     setHasOptionsMenu(true);
     ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
     if (bar != null)
@@ -110,15 +110,15 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
     BookmarkManager.INSTANCE.removeSharingListener(this);
   }
 
-  private void initList()
+  private void configureAdapter()
   {
     BookmarkListAdapter adapter = (BookmarkListAdapter) getAdapter();
-    if (adapter != null)
-    {
-      adapter.startLocationUpdate();
-      adapter.setOnClickListener(this);
-      adapter.setOnLongClickListener(this);
-    }
+    if (adapter == null)
+      return;
+
+    adapter.startLocationUpdate();
+    adapter.setOnClickListener(this);
+    adapter.setOnLongClickListener(this);
   }
 
   @Override
@@ -197,7 +197,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
         break;
     }
   }
-
 
   @Override
   public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)

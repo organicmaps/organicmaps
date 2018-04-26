@@ -2,6 +2,7 @@ package com.mapswithme.maps.bookmarks;
 
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,8 @@ import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,6 +126,10 @@ public class Holders
   {
     static final int SECTION_TRACKS = 0;
     static final int SECTION_BMKS = 1;
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({ SECTION_TRACKS, SECTION_BMKS })
+    public @interface Section {}
+
     final long mCategoryId;
     @NonNull
     private final View mView;
@@ -136,14 +143,17 @@ public class Holders
 
     abstract void bind(int position);
 
-    static boolean isSectionEmpty(long categoryId,  int section)
+    static boolean isSectionEmpty(long categoryId, @Section int section)
     {
-      if (section == SECTION_TRACKS)
-        return BookmarkManager.INSTANCE.getTracksCount(categoryId) == 0;
-      if (section == SECTION_BMKS)
-        return BookmarkManager.INSTANCE.getBookmarksCount(categoryId) == 0;
-
-      throw new IllegalArgumentException("There is no section with index " + section);
+      switch (section)
+      {
+        case SECTION_TRACKS:
+          return BookmarkManager.INSTANCE.getTracksCount(categoryId) == 0;
+        case SECTION_BMKS:
+          return BookmarkManager.INSTANCE.getBookmarksCount(categoryId) == 0;
+        default:
+          throw new IllegalArgumentException("There is no section with index " + section);
+      }
     }
 
     static int getSectionForPosition(long categoryId, int position)
@@ -211,8 +221,7 @@ public class Holders
     @Override
     void bind(int position)
     {
-      int pos = position - 1 - (isSectionEmpty(mCategoryId, SECTION_TRACKS)
-                                ? 0 : BookmarkManager.INSTANCE.getTracksCount(mCategoryId) + 1);
+      int pos = calculateBookmarkPosition(mCategoryId, position);
       final long bookmarkId = BookmarkManager.INSTANCE.getBookmarkIdByPosition(mCategoryId, pos);
       BookmarkInfo bookmark = new BookmarkInfo(mCategoryId, bookmarkId);
       mName.setText(bookmark.getTitle());
@@ -226,6 +235,14 @@ public class Holders
       else
         mDistance.setText(null);
       mIcon.setImageResource(bookmark.getIcon().getSelectedResId());
+    }
+
+    static int calculateBookmarkPosition(long categoryId, int position)
+    {
+      // Since bookmarks are always below tracks and header we should take it into account
+      // during the bookmark's position calculation.
+      return position - 1 - (isSectionEmpty(categoryId, SECTION_TRACKS)
+                                ? 0 : BookmarkManager.INSTANCE.getTracksCount(categoryId) + 1);
     }
   }
 
