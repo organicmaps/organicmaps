@@ -47,7 +47,8 @@ additionalSkipLanguageCodes:(vector<NSInteger>)additionalSkipLanguageCodes
   {
     return;
   }
-  auto const kDefaultCode = StringUtf8Multilang::kDefaultCode;
+
+  auto constexpr kDefaultCode = StringUtf8Multilang::kDefaultCode;
   for (auto const & language : supportedLanguages)
   {
     auto const langIndex = getIndex(language.m_code);
@@ -57,8 +58,9 @@ additionalSkipLanguageCodes:(vector<NSInteger>)additionalSkipLanguageCodes
     if (it == m_additionalSkipLanguageCodes.end())
       m_languages.push_back(language);
   }
+
   sort(m_languages.begin(), m_languages.end(),
-       [&getIndex, kDefaultCode](StringUtf8Multilang::Lang const & lhs, StringUtf8Multilang::Lang const & rhs) {
+       [&getIndex](StringUtf8Multilang::Lang const & lhs, StringUtf8Multilang::Lang const & rhs) {
          // Default name can be changed in advanced mode, but it should be last in list of names.
          if (getIndex(lhs.m_code) == kDefaultCode && getIndex(rhs.m_code) != kDefaultCode)
            return false;
