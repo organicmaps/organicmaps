@@ -266,6 +266,7 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     // The storage callback must be non-null at this point.
     //noinspection ConstantConditions
     mStorageCallback.attach(this);
+    mProgressBar.setOnClickListener(mCancelClickListener);
 
     if (isAllUpdated() || Framework.nativeGetOutdatedCountries().length == 0)
     {
@@ -309,10 +310,12 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
   @Override
   public void onPause()
   {
+    super.onPause();
+
+    mProgressBar.setOnClickListener(null);
+
     if (mStorageCallback != null)
       mStorageCallback.detach();
-
-    super.onPause();
   }
 
   @Override
@@ -363,7 +366,6 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
                        getString(R.string.downloader_hide_screen) :
                        getString(R.string.whats_new_auto_update_button_later));
     mFinishBtn.setOnClickListener(mFinishClickListener);
-    mProgressBar.setOnClickListener(mCancelClickListener);
     mProgressBar.post(() -> mProgressBar.setPending(true));
     if (mAutoUpdate)
       setCommonStatus(mProcessedMapId, mCommonStatusResId);
