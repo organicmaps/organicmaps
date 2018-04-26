@@ -14,7 +14,7 @@ import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.Statistics;
 import com.my.tracker.MyTracker;
 
-class BaseActivityDelegate
+public class BaseActivityDelegate
 {
   private static final String TAG = BaseActivityDelegate.class.getSimpleName();
   @NonNull
@@ -22,12 +22,12 @@ class BaseActivityDelegate
   @Nullable
   private String mThemeName;
 
-  BaseActivityDelegate(@NonNull BaseActivity activity)
+  public BaseActivityDelegate(@NonNull BaseActivity activity)
   {
     mActivity = activity;
   }
 
-  void onNewIntent(@NonNull Intent intent)
+  public void onNewIntent(@NonNull Intent intent)
   {
     logLifecycleMethod("onNewIntent(" + intent + ")");
   }
@@ -40,26 +40,26 @@ class BaseActivityDelegate
       mActivity.get().setTheme(mActivity.getThemeResourceId(mThemeName));
   }
 
-  void onDestroy()
+  public void onDestroy()
   {
     logLifecycleMethod("onDestroy()");
     ViewServer.get(mActivity.get()).removeWindow(mActivity.get());
   }
 
-  void onPostCreate()
+  public void onPostCreate()
   {
     logLifecycleMethod("onPostCreate()");
     ViewServer.get(mActivity.get()).addWindow(mActivity.get());
   }
 
-  void onStart()
+  public void onStart()
   {
     logLifecycleMethod("onStart()");
     Statistics.INSTANCE.startActivity(mActivity.get());
     MyTracker.onStartActivity(mActivity.get());
   }
 
-  void onStop()
+  public void onStop()
   {
     logLifecycleMethod("onStop()");
     Statistics.INSTANCE.stopActivity(mActivity.get());
@@ -80,7 +80,7 @@ class BaseActivityDelegate
     org.alohalytics.Statistics.logEvent("$onPause", mActivity.getClass().getSimpleName());
   }
 
-  void onPostResume()
+  public void onPostResume()
   {
     logLifecycleMethod("onPostResume()");
     if (!TextUtils.isEmpty(mThemeName) && mThemeName.equals(Config.getCurrentUiTheme()))

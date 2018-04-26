@@ -7,12 +7,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.mapswithme.maps.base.BaseActivity;
+import com.mapswithme.maps.base.BaseActivityDelegate;
 import com.mapswithme.maps.downloader.UpdaterDialogFragment;
 import com.mapswithme.maps.editor.ViralFragment;
 import com.mapswithme.maps.news.BaseNewsFragment;
@@ -23,13 +26,14 @@ import com.mapswithme.maps.permissions.StoragePermissionsDialogFragment;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.PermissionsUtils;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
 import com.mapswithme.util.statistics.PushwooshHelper;
 import com.my.tracker.MyTracker;
 
 public class SplashActivity extends AppCompatActivity
-    implements BaseNewsFragment.NewsDialogListener
+    implements BaseNewsFragment.NewsDialogListener, BaseActivity
 {
   public static final String EXTRA_INTENT = "extra_intent";
   private static final String EXTRA_ACTIVITY_TO_START = "extra_activity_to_start";
@@ -82,6 +86,9 @@ public class SplashActivity extends AppCompatActivity
     }
   };
 
+  @NonNull
+  private final BaseActivityDelegate mBaseDelegate = new BaseActivityDelegate(this);
+
   public static void start(@NonNull Context context,
                            @Nullable Class<? extends Activity> activityToStart,
                            @Nullable Intent initialIntent)
@@ -105,12 +112,20 @@ public class SplashActivity extends AppCompatActivity
   protected void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+    mBaseDelegate.onCreate();
     handleUpdateMapsFragmentCorrectly(savedInstanceState);
     UiThread.cancelDelayedTasks(mPermissionsDelayedTask);
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
     UiThread.cancelDelayedTasks(mFinalDelayedTask);
     Counters.initCounters(this);
     initView();
+  }
+
+  @Override
+  protected void onNewIntent(Intent intent)
+  {
+    super.onNewIntent(intent);
+    mBaseDelegate.onNewIntent(intent);
   }
 
   private void handleUpdateMapsFragmentCorrectly(@Nullable Bundle savedInstanceState)
@@ -150,6 +165,7 @@ public class SplashActivity extends AppCompatActivity
   protected void onStart()
   {
     super.onStart();
+    mBaseDelegate.onStart();
     MyTracker.onStartActivity(this);
   }
 
@@ -157,6 +173,7 @@ public class SplashActivity extends AppCompatActivity
   protected void onResume()
   {
     super.onResume();
+    mBaseDelegate.onResume();
     mCanceled = false;
     mPermissionsGranted = PermissionsUtils.isExternalStorageGranted();
     DialogFragment storagePermissionsDialog = StoragePermissionsDialogFragment.find(this);
@@ -190,18 +207,27 @@ public class SplashActivity extends AppCompatActivity
   @Override
   protected void onPause()
   {
+    super.onPause();
+    mBaseDelegate.onPause();
     mCanceled = true;
     UiThread.cancelDelayedTasks(mPermissionsDelayedTask);
     UiThread.cancelDelayedTasks(mInitCoreDelayedTask);
     UiThread.cancelDelayedTasks(mFinalDelayedTask);
-    super.onPause();
   }
 
   @Override
   protected void onStop()
   {
     super.onStop();
+    mBaseDelegate.onStop();
     MyTracker.onStopActivity(this);
+  }
+
+  @Override
+  protected void onDestroy()
+  {
+    super.onDestroy();
+    mBaseDelegate.onDestroy();
   }
 
   private void resumeDialogs()
@@ -327,5 +353,24 @@ public class SplashActivity extends AppCompatActivity
     }
     startActivity(result);
     finish();
+  }
+
+  @Override
+  @NonNull
+  public Activity get()
+  {
+    return this;
+  }
+
+  @Override
+  public int getThemeResourceId(@NonNull String theme)
+  {
+    if (ThemeUtils.isDefaultTheme(theme))
+      return R.style.MwmTheme;
+
+    if (ThemeUtils.isNightTheme(theme))
+      return R.style.MwmTheme_Night;
+
+    throw new IllegalArgumentException("Attempt to apply unsupported theme: " + theme);
   }
 }

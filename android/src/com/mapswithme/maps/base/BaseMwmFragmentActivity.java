@@ -31,6 +31,7 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   private boolean mInitializationCompleted = false;
 
   @Override
+  @NonNull
   public Activity get()
   {
     return this;
