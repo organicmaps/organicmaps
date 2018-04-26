@@ -70,7 +70,8 @@ public enum BookmarkManager
     ICONS.add(new Icon("placemark-orange", Icon.PREDEFINED_COLOR_ORANGE, R.drawable.ic_bookmark_marker_orange_off, R.drawable.ic_bookmark_marker_orange_on));
   }
 
-  static Icon getIconByColor(@Icon.PredefinedColor int color)
+  @NonNull
+  Icon getIconByColor(@Icon.PredefinedColor int color)
   {
     for (Icon icon : ICONS)
     {

@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.Bookmark;
+import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.Track;
@@ -214,7 +214,7 @@ public class Holders
       int pos = position - 1 - (isSectionEmpty(mCategoryId, SECTION_TRACKS)
                                 ? 0 : BookmarkManager.INSTANCE.getTracksCount(mCategoryId) + 1);
       final long bookmarkId = BookmarkManager.INSTANCE.getBookmarkIdByPosition(mCategoryId, pos);
-      Bookmark bookmark = BookmarkManager.INSTANCE.getBookmark(bookmarkId);
+      BookmarkInfo bookmark = new BookmarkInfo(mCategoryId, bookmarkId);
       mName.setText(bookmark.getTitle());
       final Location loc = LocationHelper.INSTANCE.getSavedLocation();
       if (loc != null)

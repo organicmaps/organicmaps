@@ -12,7 +12,6 @@ import com.mapswithme.maps.ads.LocalAdInfo;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.search.HotelsFilter;
 import com.mapswithme.maps.search.PriceFilterView;
-import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Constants;
 
@@ -75,7 +74,7 @@ public class Bookmark extends MapObject
     super(type, source);
     mCategoryId = source.readLong();
     mBookmarkId = source.readLong();
-    mIcon = BookmarkManager.getIconByColor(source.readInt());
+    mIcon = BookmarkManager.INSTANCE.getIconByColor(source.readInt());
     mMerX = source.readDouble();
     mMerY = source.readDouble();
     initXY();
@@ -94,7 +93,7 @@ public class Bookmark extends MapObject
 
   private Icon getIconInternal()
   {
-    return BookmarkManager.getIconByColor(nativeGetColor(mBookmarkId));
+    return BookmarkManager.INSTANCE.getIconByColor(nativeGetColor(mBookmarkId));
   }
 
   public Icon getIcon()
@@ -162,11 +161,13 @@ public class Bookmark extends MapObject
     return getGe0Url(addName).replaceFirst(Constants.Url.GE0_PREFIX, Constants.Url.HTTP_GE0_PREFIX);
   }
 
+  public static native String nativeGetName(@IntRange(from = 0) long bookmarkId);
+
+  public static native ParcelablePointD nativeGetXY(@IntRange(from = 0) long bookmarkId);
+
+  public static native int nativeGetColor(@IntRange(from = 0) long bookmarkId);
+
   private native String nativeGetBookmarkDescription(@IntRange(from = 0) long bookmarkId);
-
-  private native ParcelablePointD nativeGetXY(@IntRange(from = 0) long bookmarkId);
-
-  private native int nativeGetColor(@IntRange(from = 0) long bookmarkId);
 
   private native double nativeGetScale(@IntRange(from = 0) long bookmarkId);
 
