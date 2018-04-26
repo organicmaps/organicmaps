@@ -7,40 +7,39 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.base.BaseMwmListFragment;
+import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.widget.placepage.EditBookmarkFragment;
 import com.mapswithme.maps.widget.placepage.Sponsored;
+import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
+import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 
-public class BookmarksListFragment extends BaseMwmListFragment
-                                implements AdapterView.OnItemLongClickListener,
-                                           MenuItem.OnMenuItemClickListener,
-                                           BookmarkManager.BookmarksSharingListener
+public class BookmarksListFragment extends BaseMwmRecyclerFragment
+    implements RecyclerLongClickListener, RecyclerClickListener,
+               MenuItem.OnMenuItemClickListener,
+               BookmarkManager.BookmarksSharingListener
 {
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
 
   private int mCategoryPosition;
   private long mCategoryId;
   private int mSelectedPosition;
-  @Nullable
-  private BookmarkListAdapter mAdapter;
 
   @CallSuper
   @Override
@@ -52,9 +51,15 @@ public class BookmarksListFragment extends BaseMwmListFragment
   }
 
   @Override
+  protected RecyclerView.Adapter createAdapter()
+  {
+    return new BookmarkListAdapter(getActivity(), mCategoryId);
+  }
+
+  @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
-    return inflater.inflate(R.layout.simple_list, container, false);
+    return inflater.inflate(R.layout.fragment_bookmark_list, container, false);
   }
 
   @CallSuper
@@ -80,11 +85,12 @@ public class BookmarksListFragment extends BaseMwmListFragment
   public void onResume()
   {
     super.onResume();
-    if (mAdapter == null)
+    BookmarkListAdapter adapter = (BookmarkListAdapter) getAdapter();
+    if (adapter == null)
       return;
 
-    mAdapter.startLocationUpdate();
-    mAdapter.notifyDataSetChanged();
+    adapter.startLocationUpdate();
+    adapter.notifyDataSetChanged();
   }
 
   @Override
@@ -92,8 +98,9 @@ public class BookmarksListFragment extends BaseMwmListFragment
   {
     super.onPause();
 
-    if (mAdapter != null)
-      mAdapter.stopLocationUpdate();
+    BookmarkListAdapter adapter = (BookmarkListAdapter) getAdapter();
+    if (adapter != null)
+      adapter.stopLocationUpdate();
   }
 
   @Override
@@ -105,30 +112,35 @@ public class BookmarksListFragment extends BaseMwmListFragment
 
   private void initList()
   {
-    mAdapter = new BookmarkListAdapter(getActivity(), mCategoryId);
-    mAdapter.startLocationUpdate();
-    setListAdapter(mAdapter);
-    getListView().setOnItemLongClickListener(this);
+    BookmarkListAdapter adapter = (BookmarkListAdapter) getAdapter();
+    if (adapter != null)
+    {
+      adapter.startLocationUpdate();
+      adapter.setOnClickListener(this);
+      adapter.setOnLongClickListener(this);
+    }
   }
 
   @Override
-  public void onListItemClick(ListView l, View v, int position, long id)
+  public void onItemClick(View v, int position)
   {
     final Intent i = new Intent(getActivity(), MwmActivity.class);
 
-    if (mAdapter != null)
+    BookmarkListAdapter adapter = (BookmarkListAdapter) getAdapter();
+
+    if (adapter != null)
     {
-      switch (mAdapter.getItemViewType(position))
+      switch (adapter.getItemViewType(position))
       {
         case BookmarkListAdapter.TYPE_SECTION:
           return;
         case BookmarkListAdapter.TYPE_BOOKMARK:
-          final Bookmark bookmark = (Bookmark) mAdapter.getItem(position);
+          final Bookmark bookmark = (Bookmark) adapter.getItem(position);
           i.putExtra(MwmActivity.EXTRA_TASK,
                      new MwmActivity.ShowBookmarkTask(bookmark.getCategoryId(), bookmark.getBookmarkId()));
           break;
         case BookmarkListAdapter.TYPE_TRACK:
-          final Track track = (Track) mAdapter.getItem(position);
+          final Track track = (Track) adapter.getItem(position);
           i.putExtra(MwmActivity.EXTRA_TASK,
                      new MwmActivity.ShowTrackTask(track.getCategoryId(), track.getTrackId()));
           break;
@@ -140,52 +152,52 @@ public class BookmarksListFragment extends BaseMwmListFragment
   }
 
   @Override
-  public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
+  public void onLongItemClick(View v, int position)
   {
-    if (mAdapter == null)
-      return false;
+    BookmarkListAdapter adapter = (BookmarkListAdapter) getAdapter();
+    if (adapter == null)
+      return;
 
     mSelectedPosition = position;
-    final Object item = mAdapter.getItem(mSelectedPosition);
-    int type = mAdapter.getItemViewType(mSelectedPosition);
+    final Object item = adapter.getItem(mSelectedPosition);
+    int type = adapter.getItemViewType(mSelectedPosition);
 
     switch (type)
     {
-    case BookmarkListAdapter.TYPE_SECTION:
-      // Do nothing here?
-      break;
+      case BookmarkListAdapter.TYPE_SECTION:
+        // Do nothing here?
+        break;
 
-    case BookmarkListAdapter.TYPE_BOOKMARK:
-      BottomSheetHelper.Builder bs = BottomSheetHelper.create(getActivity(), ((Bookmark) item).getTitle())
-                                                      .sheet(R.menu.menu_bookmarks)
-                                                      .listener(this);
-      if (!ShareOption.SMS.isSupported(getActivity()))
-        bs.getMenu().removeItem(R.id.share_message);
+      case BookmarkListAdapter.TYPE_BOOKMARK:
+        BottomSheetHelper.Builder bs = BottomSheetHelper.create(getActivity(), ((Bookmark) item).getTitle())
+                                                        .sheet(R.menu.menu_bookmarks)
+                                                        .listener(this);
+        if (!ShareOption.SMS.isSupported(getActivity()))
+          bs.getMenu().removeItem(R.id.share_message);
 
-      if (!ShareOption.EMAIL.isSupported(getActivity()))
-        bs.getMenu().removeItem(R.id.share_email);
+        if (!ShareOption.EMAIL.isSupported(getActivity()))
+          bs.getMenu().removeItem(R.id.share_email);
 
-      bs.tint().show();
-      break;
+        bs.tint().show();
+        break;
 
-    case BookmarkListAdapter.TYPE_TRACK:
-      BottomSheetHelper.create(getActivity(), ((Track) item).getName())
-                       .sheet(Menu.NONE, R.drawable.ic_delete, R.string.delete)
-                       .listener(new MenuItem.OnMenuItemClickListener()
-                       {
-                         @Override
-                         public boolean onMenuItemClick(MenuItem menuItem)
+      case BookmarkListAdapter.TYPE_TRACK:
+        BottomSheetHelper.create(getActivity(), ((Track) item).getName())
+                         .sheet(Menu.NONE, R.drawable.ic_delete, R.string.delete)
+                         .listener(new MenuItem.OnMenuItemClickListener()
                          {
-                           BookmarkManager.INSTANCE.deleteTrack(((Track) item).getTrackId());
-                           mAdapter.notifyDataSetChanged();
-                           return false;
-                         }
-                       }).tint().show();
-      break;
+                           @Override
+                           public boolean onMenuItemClick(MenuItem menuItem)
+                           {
+                             BookmarkManager.INSTANCE.deleteTrack(((Track) item).getTrackId());
+                             adapter.notifyDataSetChanged();
+                             return false;
+                           }
+                         }).tint().show();
+        break;
     }
-
-    return true;
   }
+
 
   @Override
   public void onPreparedFileForSharing(@NonNull BookmarkSharingResult result)
@@ -196,10 +208,11 @@ public class BookmarksListFragment extends BaseMwmListFragment
   @Override
   public boolean onMenuItemClick(MenuItem menuItem)
   {
-    if (mAdapter == null)
+    BookmarkListAdapter adapter = (BookmarkListAdapter) getAdapter();
+    if (adapter == null)
       return false;
 
-    Bookmark item = (Bookmark) mAdapter.getItem(mSelectedPosition);
+    Bookmark item = (Bookmark) adapter.getItem(mSelectedPosition);
 
     switch (menuItem.getItemId())
     {
@@ -222,14 +235,14 @@ public class BookmarksListFragment extends BaseMwmListFragment
             @Override
             public void onBookmarkSaved(long bookmarkId)
             {
-              mAdapter.notifyDataSetChanged();
+              adapter.notifyDataSetChanged();
             }
           });
       break;
 
     case R.id.delete:
       BookmarkManager.INSTANCE.deleteBookmark(item.getBookmarkId());
-      mAdapter.notifyDataSetChanged();
+      adapter.notifyDataSetChanged();
       break;
     }
     return false;
