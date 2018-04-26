@@ -135,6 +135,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
            + (Holders.BaseBookmarkHolder.isSectionEmpty(mCategoryId, SECTION_BMKS) ? 0 : 1);
   }
 
+  // FIXME: remove this heavy method and use BoomarkInfo class instead.
   public Object getItem(int position)
   {
     if (getItemViewType(position) == TYPE_TRACK)
