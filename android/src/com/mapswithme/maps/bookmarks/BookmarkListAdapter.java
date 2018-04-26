@@ -151,5 +151,4 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
       return BookmarkManager.INSTANCE.getBookmark(bookmarkId);
     }
   }
-
 }
