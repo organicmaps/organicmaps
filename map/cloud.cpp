@@ -10,6 +10,7 @@
 #include "platform/http_client.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
+#include "platform/remote_file.hpp"
 #include "platform/settings.hpp"
 #include "platform/http_uploader.hpp"
 
@@ -329,7 +330,7 @@ Cloud::SnapshotResponseData ReadSnapshotFile(std::string const & filename)
   return {};
 }
 
-Cloud::RequestResult DownloadFile(std::string const & url, std::string const & fileName,
+/*Cloud::RequestResult DownloadFile(std::string const & url, std::string const & fileName,
                                   bool & successfullyWritten)
 {
   successfullyWritten = true;
@@ -361,7 +362,7 @@ Cloud::RequestResult DownloadFile(std::string const & url, std::string const & f
     }
   }
   return {Cloud::RequestStatus::NetworkError, request.ServerResponse()};
-}
+}*/
 
 bool CheckAndGetFileSize(std::string const & filePath, uint64_t & fileSize)
 {
@@ -1423,25 +1424,31 @@ void Cloud::DownloadingTask(std::string const & dirPath, bool useFallbackUrl,
         FinishRestoring(SynchronizationResult::NetworkError, "Fallback url is absent");
         return;
       }
-      bool successfullyWritten = true;
-      auto const downloadResult = DownloadFile(useFallbackUrl ? result.m_response.m_fallbackUrl
-                                                              : result.m_response.m_url,
-                                               filePath, successfullyWritten);
-      if (!successfullyWritten)
-      {
-        FinishRestoring(SynchronizationResult::DiskError, "Could not create downloaded file");
-      }
-      else if (downloadResult.m_status == RequestStatus::Ok)
+
+      platform::RemoteFile remoteFile(useFallbackUrl ? result.m_response.m_fallbackUrl
+                                                     : result.m_response.m_url,
+                                      false /* allowRedirection */);
+      auto const downloadResult = remoteFile.Download(filePath);
+
+      if (downloadResult.m_status == platform::RemoteFile::Status::Ok)
       {
         // Download next file.
         DownloadingTask(dirPath, false /* useFallbackUrl */, std::move(files));
+      }
+      else if (downloadResult.m_status == platform::RemoteFile::Status::DiskError)
+      {
+        FinishRestoring(SynchronizationResult::DiskError, downloadResult.m_description);
+      }
+      else if (downloadResult.m_status == platform::RemoteFile::Status::Forbidden)
+      {
+        FinishRestoring(SynchronizationResult::AuthError, downloadResult.m_description);
       }
       else
       {
         alohalytics::TStringMap details{
           {"service", m_params.m_serverPathName},
           {"type", useFallbackUrl ? "fallback_server" : "download_server"},
-          {"error", downloadResult.m_error}};
+          {"error", downloadResult.m_description}};
         alohalytics::Stats::Instance().LogEvent("Cloud_Restore_error", details);
 
         if (!useFallbackUrl)
@@ -1452,7 +1459,7 @@ void Cloud::DownloadingTask(std::string const & dirPath, bool useFallbackUrl,
         }
         else
         {
-          FinishRestoring(SynchronizationResult::NetworkError, "File downloader error");
+          FinishRestoring(SynchronizationResult::NetworkError, downloadResult.m_description);
         }
       }
     }

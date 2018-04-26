@@ -427,3 +427,13 @@ std::string GetPreferredBookmarkName(kml::BookmarkData const & bmData)
     name = GetLocalizedBookmarkType(bmData.m_featureTypes);
   return name;
 }
+
+bool FromCatalog(kml::FileData const & kmlData)
+{
+  return FromCatalog(kmlData.m_categoryData, kmlData.m_serverId);
+}
+
+bool FromCatalog(kml::CategoryData const & categoryData, std::string const & serverId)
+{
+  return !serverId.empty() && categoryData.m_accessRules == kml::AccessRules::Public;
+}

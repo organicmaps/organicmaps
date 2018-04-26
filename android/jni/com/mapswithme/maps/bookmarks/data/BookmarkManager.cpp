@@ -26,6 +26,8 @@ jmethodID g_onSynchronizationStartedMethod;
 jmethodID g_onSynchronizationFinishedMethod;
 jmethodID g_onRestoreRequestedMethod;
 jmethodID g_onRestoredFilesPreparedMethod;
+jmethodID g_onImportStartedMethod;
+jmethodID g_onImportFinishedMethod;
 
 void PrepareClassRefs(JNIEnv * env)
 {
@@ -60,6 +62,10 @@ void PrepareClassRefs(JNIEnv * env)
     jni::GetMethodID(env, bookmarkManagerInstance, "onRestoreRequested", "(IJ)V");
   g_onRestoredFilesPreparedMethod =
     jni::GetMethodID(env, bookmarkManagerInstance, "onRestoredFilesPrepared", "()V");
+  g_onImportStartedMethod =
+    jni::GetMethodID(env, bookmarkManagerInstance, "onImportStarted", "(Ljava/lang/String;)V");
+  g_onImportFinishedMethod =
+    jni::GetMethodID(env, bookmarkManagerInstance, "onImportFinished", "(Ljava/lang/String;Z)V");
 }
 
 void OnAsyncLoadingStarted(JNIEnv * env)
@@ -178,6 +184,26 @@ void OnRestoredFilesPrepared(JNIEnv * env)
   env->CallVoidMethod(bookmarkManagerInstance, g_onRestoredFilesPreparedMethod);
   jni::HandleJavaException(env);
 }
+
+void OnImportStarted(JNIEnv * env, std::string const & serverId)
+{
+  ASSERT(g_bookmarkManagerClass, ());
+  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
+                                                              g_bookmarkManagerInstanceField);
+  env->CallVoidMethod(bookmarkManagerInstance, g_onImportStartedMethod,
+                      jni::ToJavaString(env, serverId));
+  jni::HandleJavaException(env);
+}
+
+void OnImportFinished(JNIEnv * env, std::string const & serverId, bool successful)
+{
+  ASSERT(g_bookmarkManagerClass, ());
+  jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
+                                                              g_bookmarkManagerInstanceField);
+  env->CallVoidMethod(bookmarkManagerInstance, g_onImportFinishedMethod,
+                      jni::ToJavaString(env, serverId), static_cast<jboolean>(successful));
+  jni::HandleJavaException(env);
+}
 }  // namespace
 
 extern "C"
@@ -208,11 +234,15 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeLoadBookmarks(JNIE
     std::bind(&OnRestoreRequested, env, _1, _2),
     std::bind(&OnRestoredFilesPrepared, env));
 
+  frm()->GetBookmarkManager().SetCatalogHandlers(nullptr, nullptr,
+                                                 std::bind(&OnImportStarted, env, _1),
+                                                 std::bind(&OnImportFinished, env, _1, _2));
   frm()->LoadBookmarks();
 }
 
 JNIEXPORT jint JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCategoriesCount(JNIEnv * env, jobject thiz)
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCategoriesCount(
+        JNIEnv * env, jobject thiz)
 {
   return frm()->GetBookmarkManager().GetBmGroupsIdList().size();
 }
@@ -545,5 +575,29 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAreNotificationsEn
         JNIEnv * env, jobject thiz)
 {
   return static_cast<jboolean>(frm()->GetBookmarkManager().AreNotificationsEnabled());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeImportFromCatalog(
+        JNIEnv * env, jobject thiz, jstring serverId, jstring filePath)
+{
+  auto & bm = frm()->GetBookmarkManager();
+  bm.ImportDownloadedFromCatalog(ToNativeString(env, serverId), ToNativeString(env, filePath));
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCatalogDeeplink(
+        JNIEnv * env, jobject thiz, jlong catId)
+{
+  auto & bm = frm()->GetBookmarkManager();
+  return ToJavaString(env, bm.GetCategoryCatalogDeeplink(static_cast<kml::MarkGroupId>(catId)));
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsCategoryFromCatalog(
+        JNIEnv * env, jobject thiz, jlong catId)
+{
+  auto & bm = frm()->GetBookmarkManager();
+  return static_cast<jboolean>(bm.IsCategoryFromCatalog(static_cast<kml::MarkGroupId>(catId)));
 }
 }  // extern "C"

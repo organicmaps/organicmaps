@@ -1,6 +1,7 @@
 #pragma once
 
 #include "map/bookmark.hpp"
+#include "map/bookmark_catalog.hpp"
 #include "map/cloud.hpp"
 #include "map/track.hpp"
 #include "map/user_mark_layer.hpp"
@@ -268,6 +269,23 @@ public:
   void SetNotificationsEnabled(bool enabled);
   bool AreNotificationsEnabled() const;
 
+  using OnCatalogDownloadStartedHandler = platform::SafeCallback<void(std::string const & id)>;
+  using OnCatalogDownloadFinishedHandler = platform::SafeCallback<void(std::string const & id,
+                                                                       platform::RemoteFile::Result const &)>;
+  using OnCatalogImportStartedHandler = platform::SafeCallback<void(std::string const & id)>;
+  using OnCatalogImportFinishedHandler = platform::SafeCallback<void(std::string const & id,
+                                                                     bool successful)>;
+  void SetCatalogHandlers(OnCatalogDownloadStartedHandler && onCatalogDownloadStarted,
+                          OnCatalogDownloadFinishedHandler && onCatalogDownloadFinished,
+                          OnCatalogImportStartedHandler && onCatalogImportStarted,
+                          OnCatalogImportFinishedHandler && onCatalogImportFinished);
+  void DownloadFromCatalogAndImport(std::string const & id, std::string const & name);
+  void ImportDownloadedFromCatalog(std::string const & id, std::string const & filePath);
+  size_t GetDownloadingFromCatalogCount() const;
+  std::vector<std::string> GetDownloadingFromCatalogNames() const;
+  bool IsCategoryFromCatalog(kml::MarkGroupId categoryId) const;
+  std::string GetCategoryCatalogDeeplink(kml::MarkGroupId categoryId) const;
+
   /// These functions are public for unit tests only. You shouldn't call them from client code.
   void EnableTestMode(bool enable);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId);
@@ -432,7 +450,7 @@ private:
 
   std::unique_ptr<kml::FileData> CollectBmGroupKMLData(BookmarkCategory const * group) const;
   KMLDataCollectionPtr PrepareToSaveBookmarks(kml::GroupIdCollection const & groupIdCollection);
-  bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, bool useBinary);
+  bool SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file);
 
   void OnSynchronizationStarted(Cloud::SynchronizationType type);
   void OnSynchronizationFinished(Cloud::SynchronizationType type, Cloud::SynchronizationResult result,
@@ -494,6 +512,12 @@ private:
   Cloud::SynchronizationFinishedHandler m_onSynchronizationFinished;
   Cloud::RestoreRequestedHandler m_onRestoreRequested;
   Cloud::RestoredFilesPreparedHandler m_onRestoredFilesPrepared;
+
+  BookmarkCatalog m_bookmarkCatalog;
+  OnCatalogDownloadStartedHandler m_onCatalogDownloadStarted;
+  OnCatalogDownloadFinishedHandler m_onCatalogDownloadFinished;
+  OnCatalogImportStartedHandler m_onCatalogImportStarted;
+  OnCatalogImportFinishedHandler m_onCatalogImportFinished;
 
   bool m_testModeEnabled = false;
 

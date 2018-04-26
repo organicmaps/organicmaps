@@ -96,6 +96,7 @@ Platform::Platform()
   m_writableDir = my::AddSlashIfNeeded(m_writableDir);
 
   m_settingsDir = m_writableDir;
+  m_privateDir = m_writableDir;
 
   NSString * tempDir = NSTemporaryDirectory();
   if (tempDir == nil)

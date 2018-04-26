@@ -24,3 +24,6 @@ std::string GetPreferredBookmarkName(kml::BookmarkData const & bmData);
 std::string GetPreferredBookmarkStr(kml::LocalizableString const & name);
 std::string GetPreferredBookmarkStr(kml::LocalizableString const & name, feature::RegionData const & regionData);
 std::string GetLocalizedBookmarkType(std::vector<uint32_t> const & types);
+
+bool FromCatalog(kml::FileData const & kmlData);
+bool FromCatalog(kml::CategoryData const & categoryData, std::string const & serverId);

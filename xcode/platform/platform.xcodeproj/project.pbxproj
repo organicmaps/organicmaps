@@ -25,6 +25,8 @@
 		451E32A01F73A8B000964C9F /* secure_storage_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 451E329D1F73A8B000964C9F /* secure_storage_ios.mm */; };
 		451E32A11F73A8B000964C9F /* secure_storage_qt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 451E329E1F73A8B000964C9F /* secure_storage_qt.cpp */; };
 		451E32A21F73A8B000964C9F /* secure_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 451E329F1F73A8B000964C9F /* secure_storage.hpp */; };
+		4564FA7E2094978D0043CCFB /* remote_file.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4564FA7C2094978C0043CCFB /* remote_file.hpp */; };
+		4564FA7F2094978D0043CCFB /* remote_file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4564FA7D2094978D0043CCFB /* remote_file.cpp */; };
 		56EB1EDC1C6B6E6C0022D831 /* file_logging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EB1ED81C6B6E6C0022D831 /* file_logging.cpp */; };
 		56EB1EDD1C6B6E6C0022D831 /* file_logging.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56EB1ED91C6B6E6C0022D831 /* file_logging.hpp */; };
 		56EB1EDE1C6B6E6C0022D831 /* mwm_traits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */; };
@@ -137,6 +139,8 @@
 		451E329D1F73A8B000964C9F /* secure_storage_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = secure_storage_ios.mm; sourceTree = "<group>"; };
 		451E329E1F73A8B000964C9F /* secure_storage_qt.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = secure_storage_qt.cpp; sourceTree = "<group>"; };
 		451E329F1F73A8B000964C9F /* secure_storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = secure_storage.hpp; sourceTree = "<group>"; };
+		4564FA7C2094978C0043CCFB /* remote_file.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = remote_file.hpp; sourceTree = "<group>"; };
+		4564FA7D2094978D0043CCFB /* remote_file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = remote_file.cpp; sourceTree = "<group>"; };
 		56EB1ED81C6B6E6C0022D831 /* file_logging.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file_logging.cpp; sourceTree = "<group>"; };
 		56EB1ED91C6B6E6C0022D831 /* file_logging.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = file_logging.hpp; sourceTree = "<group>"; };
 		56EB1EDA1C6B6E6C0022D831 /* mwm_traits.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mwm_traits.cpp; sourceTree = "<group>"; };
@@ -404,6 +408,8 @@
 				675343A21A3F5D5A00A0A8C3 /* platform.hpp */,
 				675343A31A3F5D5A00A0A8C3 /* preferred_languages.cpp */,
 				675343A41A3F5D5A00A0A8C3 /* preferred_languages.hpp */,
+				4564FA7D2094978D0043CCFB /* remote_file.cpp */,
+				4564FA7C2094978C0043CCFB /* remote_file.hpp */,
 				3D78157C1F3D8A0A0068B6AC /* safe_callback.hpp */,
 				451E329D1F73A8B000964C9F /* secure_storage_ios.mm */,
 				451E329E1F73A8B000964C9F /* secure_storage_qt.cpp */,
@@ -483,6 +489,7 @@
 				675343B41A3F5D5A00A0A8C3 /* chunks_download_strategy.hpp in Headers */,
 				67247FFE1C60BD6500EDE56A /* writable_dir_changer.hpp in Headers */,
 				3D78157D1F3D8A0A0068B6AC /* safe_callback.hpp in Headers */,
+				4564FA7E2094978D0043CCFB /* remote_file.hpp in Headers */,
 				3D78156F1F3A14090068B6AC /* gui_thread.hpp in Headers */,
 				451E32A21F73A8B000964C9F /* secure_storage.hpp in Headers */,
 				674125091B4C00CC00A3E828 /* country_defines.hpp in Headers */,
@@ -632,6 +639,7 @@
 				67AB92DC1B7B3D7300AB5194 /* mwm_version.cpp in Sources */,
 				67A2526B1BB40E520063F8A8 /* platform_mac.mm in Sources */,
 				6741250A1B4C00CC00A3E828 /* country_file.cpp in Sources */,
+				4564FA7F2094978D0043CCFB /* remote_file.cpp in Sources */,
 				674125081B4C00CC00A3E828 /* country_defines.cpp in Sources */,
 				EB60B4DC204C130300E4953B /* network_policy_ios.mm in Sources */,
 				6741250E1B4C00CC00A3E828 /* local_country_file.cpp in Sources */,

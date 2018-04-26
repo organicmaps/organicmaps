@@ -41,6 +41,8 @@ set(
   platform.hpp
   preferred_languages.cpp
   preferred_languages.hpp
+  remote_file.cpp
+  remote_file.hpp
   secure_storage.hpp
   servers_list.cpp
   servers_list.hpp

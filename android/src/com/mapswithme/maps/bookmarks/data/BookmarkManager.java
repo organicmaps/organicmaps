@@ -58,6 +58,9 @@ public enum BookmarkManager
 
   @NonNull
   private List<BookmarksCloudListener> mCloudListeners = new ArrayList<>();
+
+  @NonNull
+  private List<BookmarksCatalogListener> mCatalogListeners = new ArrayList<>();
   
   static
   {
@@ -134,6 +137,16 @@ public enum BookmarkManager
   public void removeCloudListener(@NonNull BookmarksCloudListener listener)
   {
     mCloudListeners.remove(listener);
+  }
+
+  public void addCatalogListener(@NonNull BookmarksCatalogListener listener)
+  {
+    mCatalogListeners.add(listener);
+  }
+
+  public void removeCatalogListener(@NonNull BookmarksCatalogListener listener)
+  {
+    mCatalogListeners.remove(listener);
   }
 
   // Called from JNI.
@@ -218,6 +231,22 @@ public enum BookmarkManager
   {
     for (BookmarksCloudListener listener : mCloudListeners)
       listener.onRestoredFilesPrepared();
+  }
+
+  // Called from JNI.
+  @MainThread
+  public void onImportStarted(@NonNull String id)
+  {
+    for (BookmarksCatalogListener listener : mCatalogListeners)
+      listener.onImportStarted(id);
+  }
+
+  // Called from JNI.
+  @MainThread
+  public void onImportFinished(@NonNull String id, boolean successful)
+  {
+    for (BookmarksCatalogListener listener : mCatalogListeners)
+      listener.onImportFinished(id, successful);
   }
 
   public boolean isVisible(long catId)
@@ -405,6 +434,22 @@ public enum BookmarkManager
     return nativeAreNotificationsEnabled();
   }
 
+  public void importFromCatalog(@NonNull String serverId, @NonNull String filePath)
+  {
+    nativeImportFromCatalog(serverId, filePath);
+  }
+
+  @NonNull
+  public String getCatalogDeeplink(long catId)
+  {
+    return nativeGetCatalogDeeplink(catId);
+  }
+
+  public boolean isCategoryFromCatalog(long catId)
+  {
+    return nativeIsCategoryFromCatalog(catId);
+  }
+
   private native int nativeGetCategoriesCount();
 
   private native int nativeGetCategoryPositionById(long catId);
@@ -493,6 +538,14 @@ public enum BookmarkManager
 
   private static native boolean nativeAreNotificationsEnabled();
 
+  private static native void nativeImportFromCatalog(@NonNull String serverId,
+                                                     @NonNull String filePath);
+
+  @NonNull
+  private static native String nativeGetCatalogDeeplink(long catId);
+
+  private static native boolean nativeIsCategoryFromCatalog(long catId);
+
   public interface BookmarksLoadingListener
   {
     void onBookmarksLoadingStarted();
@@ -544,5 +597,23 @@ public enum BookmarkManager
      * callback the restoring process can not be cancelled.
      */
     void onRestoredFilesPrepared();
+  }
+
+  public interface BookmarksCatalogListener
+  {
+    /**
+     * The method is called when the importing of a file from the catalog is started.
+     *
+     * @param serverId is server identifier of the file.
+     */
+    void onImportStarted(@NonNull String serverId);
+
+    /**
+     * The method is called when the importing of a file from the catalog is finished.
+     *
+     * @param serverId is server identifier of the file.
+     * @param successful is result of the importing.
+     */
+    void onImportFinished(@NonNull String serverId, boolean successful);
   }
 }

@@ -74,6 +74,11 @@ std::string GetBookmarksDirectory()
   return my::JoinPath(GetPlatform().SettingsDir(), "bookmarks");
 }
 
+std::string GetPrivateBookmarksDirectory()
+{
+  return my::JoinPath(GetPlatform().PrivateDir(), "bookmarks_private");
+}
+
 bool IsBadCharForPath(strings::UniChar const & c)
 {
   static strings::UniChar const illegalChars[] = {':', '/', '\\', '<', '>', '\"', '|', '?', '*'};
@@ -167,14 +172,14 @@ Cloud::ConvertionResult ConvertBeforeUploading(std::string const & filePath,
   return result;
 }
 
-Cloud::ConvertionResult ConvertAfterDownloading(std::string const & filePath,
-                                                std::string const & convertedFilePath)
+std::unique_ptr<kml::FileData> ImportAfterDownloading(std::string const & filePath,
+                                                      std::string & hash)
 {
   ZipFileReader::FileListT files;
   ZipFileReader::FilesList(filePath, files);
   if (files.empty())
     return {};
-
+  
   auto fileName = files.front().first;
   for (auto const & file : files)
   {
@@ -188,14 +193,22 @@ Cloud::ConvertionResult ConvertAfterDownloading(std::string const & filePath,
   MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, unarchievedPath));
   ZipFileReader::UnzipFile(filePath, fileName, unarchievedPath);
   if (!GetPlatform().IsFileExistsByFullPath(unarchievedPath))
-    return {};
+    return nullptr;
+  
+  hash = coding::SHA1::CalculateBase64(unarchievedPath);
+  return LoadKmlFile(unarchievedPath, false /* binary */);
+}
 
-  auto kmlData = LoadKmlFile(unarchievedPath, false /* binary */);
+Cloud::ConvertionResult ConvertAfterDownloading(std::string const & filePath,
+                                                std::string const & convertedFilePath)
+{
+  std::string hash;
+  auto kmlData = ImportAfterDownloading(filePath, hash);
   if (kmlData == nullptr)
     return {};
-
+  
   Cloud::ConvertionResult result;
-  result.m_hash = coding::SHA1::CalculateBase64(unarchievedPath);
+  result.m_hash = hash;
   result.m_isSuccessful = SaveKmlFile(*kmlData, convertedFilePath, true /* binary */);
   return result;
 }
@@ -502,6 +515,7 @@ BookmarkManager::BookmarkManager(Callbacks && callbacks)
                                        GetBookmarksDirectory(), std::string(kKmbExtension),
                                        std::bind(&ConvertBeforeUploading, _1, _2),
                                        std::bind(&ConvertAfterDownloading, _1, _2)))
+  , m_bookmarkCatalog(GetPrivateBookmarksDirectory())
 {
   ASSERT(m_callbacks.m_getStringsBundle != nullptr, ());
 
@@ -793,6 +807,7 @@ void BookmarkManager::ClearGroup(kml::MarkGroupId groupId)
     m_tracks.erase(trackId);
   }
   group->Clear();
+  m_changesTracker.OnDeleteGroup(groupId);
 }
 
 std::string BookmarkManager::GetCategoryName(kml::MarkGroupId categoryId) const
@@ -924,10 +939,7 @@ void BookmarkManager::ClearCategories()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (auto groupId : m_bmGroupsIdList)
-  {
     ClearGroup(groupId);
-    m_changesTracker.OnDeleteGroup(groupId);
-  }
 
   m_categories.clear();
   UpdateBmGroupIdList();
@@ -936,8 +948,9 @@ void BookmarkManager::ClearCategories()
   m_tracks.clear();
 }
 
-BookmarkManager::KMLDataCollectionPtr BookmarkManager::LoadBookmarks(std::string const & dir, std::string const & ext,
-                                                                     bool binary, std::vector<std::string> & filePaths)
+BookmarkManager::KMLDataCollectionPtr BookmarkManager::LoadBookmarks(
+    std::string const & dir, std::string const & ext, bool binary,
+    std::vector<std::string> & filePaths)
 {
   Platform::FilesList files;
   Platform::GetFilesByExt(dir, ext, files);
@@ -977,6 +990,14 @@ void BookmarkManager::LoadBookmarks()
     std::vector<std::string> filePaths;
     auto collection = LoadBookmarks(dir, filesExt, migrated, filePaths);
     migration::FixUpHotelPlacemarks(collection, isMigrationCompleted);
+
+    // Load files downloaded from catalog.
+    std::vector<std::string> unusedFilePaths;
+    auto catalogCollection = LoadBookmarks(GetPrivateBookmarksDirectory(), kKmbExtension,
+                                           true /* binary */, unusedFilePaths);
+    collection->reserve(collection->size() + catalogCollection->size());
+    for (auto & p : *catalogCollection)
+      collection->emplace_back(p.first, std::move(p.second));
 
     if (m_needTeardown)
       return;
@@ -1022,7 +1043,7 @@ void BookmarkManager::LoadBookmarkRoutine(std::string const & filePath, bool isT
     {
       auto fileSavePath = savePath.get();
       auto kmlData = LoadKmlFile(fileSavePath, false /* useBinary */);
-      if (kmlData != nullptr)
+      if (kmlData && !FromCatalog(*kmlData))
       {
         if (m_needTeardown)
           return;
@@ -1361,9 +1382,9 @@ bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId)
     return false;
 
   ClearGroup(groupId);
-  m_changesTracker.OnDeleteGroup(groupId);
 
   FileWriter::DeleteFileX(it->second->GetFileName());
+  m_bookmarkCatalog.UnregisterDownloadedId(it->second->GetServerId());
 
   m_categories.erase(it);
   UpdateBmGroupIdList();
@@ -1375,7 +1396,8 @@ namespace
 class BestUserMarkFinder
 {
 public:
-  explicit BestUserMarkFinder(BookmarkManager::TTouchRectHolder const & rectHolder, BookmarkManager const * manager)
+  explicit BestUserMarkFinder(BookmarkManager::TTouchRectHolder const & rectHolder,
+                              BookmarkManager const * manager)
     : m_rectHolder(rectHolder)
     , m_d(numeric_limits<double>::max())
     , m_mark(nullptr)
@@ -1487,6 +1509,7 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     loadedGroups.insert(groupId);
     auto * group = GetBmCategory(groupId);
     group->SetFileName(fileName);
+    group->SetServerId(fileData.m_serverId);
 
     for (auto & bmData : fileData.m_bookmarksData)
     {
@@ -1541,12 +1564,13 @@ std::unique_ptr<kml::FileData> BookmarkManager::CollectBmGroupKMLData(BookmarkCa
 {
   auto kmlData = std::make_unique<kml::FileData>();
   kmlData->m_deviceId = GetPlatform().UniqueClientId();
+  kmlData->m_serverId = group->GetServerId();
   kmlData->m_categoryData = group->GetCategoryData();
   auto const & markIds = group->GetUserMarks();
   kmlData->m_bookmarksData.reserve(markIds.size());
   for (auto it = markIds.rbegin(); it != markIds.rend(); ++it)
   {
-    Bookmark const *bm = GetBookmark(*it);
+    Bookmark const * bm = GetBookmark(*it);
     kmlData->m_bookmarksData.emplace_back(bm->GetData());
   }
   auto const & lineIds = group->GetUserLines();
@@ -1567,7 +1591,7 @@ bool BookmarkManager::SaveBookmarkCategory(kml::MarkGroupId groupId)
     return false;
   auto const & file = collection->front().first;
   auto & kmlData = *collection->front().second;
-  return SaveKmlFileSafe(kmlData, file, migration::IsMigrationCompleted());
+  return SaveKmlFileSafe(kmlData, file);
 }
 
 bool BookmarkManager::SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & writer, bool useBinary) const
@@ -1582,7 +1606,6 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarks(
   kml::GroupIdCollection const & groupIdCollection)
 {
   bool migrated = migration::IsMigrationCompleted();
-
   std::string const fileDir = migrated ? GetBookmarksDirectory() : GetPlatform().SettingsDir();
   std::string const fileExt = migrated ? kKmbExtension : kKmlExtension;
 
@@ -1590,10 +1613,23 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarks(
     return nullptr;
 
   auto collection = std::make_shared<KMLDataCollection>();
-
   for (auto const groupId : groupIdCollection)
   {
     auto * group = GetBmCategory(groupId);
+
+    if (group->IsCategoryFromCatalog())
+    {
+      std::string const privateFileDir = GetPrivateBookmarksDirectory();
+      if (!GetPlatform().IsFileExistsByFullPath(privateFileDir) &&
+          !GetPlatform().MkDirChecked(privateFileDir))
+      {
+        return nullptr;
+      }
+      auto const fn = my::JoinPath(privateFileDir, group->GetServerId() + kKmbExtension);
+      group->SetFileName(fn);
+      collection->emplace_back(fn, CollectBmGroupKMLData(group));
+      continue;
+    }
 
     // Get valid file name from category name
     std::string const name = RemoveInvalidSymbols(group->GetName(), kDefaultBookmarksFileName);
@@ -1610,10 +1646,11 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarks(
   return collection;
 }
 
-bool BookmarkManager::SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file, bool useBinary)
+bool BookmarkManager::SaveKmlFileSafe(kml::FileData & kmlData, std::string const & file)
 {
+  auto const ext = my::GetFileExtension(file);
   auto const fileTmp = file + ".tmp";
-  if (SaveKmlFile(kmlData, fileTmp, useBinary))
+  if (SaveKmlFile(kmlData, fileTmp, ext == kKmbExtension))
   {
     // Only after successful save we replace original file.
     my::DeleteFileX(file);
@@ -1635,20 +1672,19 @@ void BookmarkManager::SaveBookmarks(kml::GroupIdCollection const & groupIdCollec
   if (!kmlDataCollection)
     return;
 
-  bool const migrated = migration::IsMigrationCompleted();
-
   if (m_testModeEnabled)
   {
     // Save bookmarks synchronously.
     for (auto const & kmlItem : *kmlDataCollection)
-      SaveKmlFileSafe(*kmlItem.second, kmlItem.first, migrated);
+      SaveKmlFileSafe(*kmlItem.second, kmlItem.first);
     return;
   }
 
-  GetPlatform().RunTask(Platform::Thread::File, [this, migrated, kmlDataCollection = std::move(kmlDataCollection)]()
+  GetPlatform().RunTask(Platform::Thread::File,
+                        [this, kmlDataCollection = std::move(kmlDataCollection)]()
   {
     for (auto const & kmlItem : *kmlDataCollection)
-      SaveKmlFileSafe(*kmlItem.second, kmlItem.first, migrated);
+      SaveKmlFileSafe(*kmlItem.second, kmlItem.first);
   });
 }
 
@@ -1813,18 +1849,18 @@ void BookmarkManager::ConvertAllKmlFiles(ConversionHandler && handler)
     bool allConverted = true;
     for (auto const & f : files)
     {
+      std::unique_ptr<kml::FileData> kmlData = LoadKmlFile(f, false /* binary */);
+      if (kmlData == nullptr || FromCatalog(*kmlData))
+      {
+        allConverted = false;
+        continue;
+      }
+
       std::string fileName = my::GetNameFromFullPathWithoutExt(f);
       auto kmbPath = my::JoinPath(newDir, fileName + kKmbExtension);
       size_t counter = 1;
       while (Platform::IsFileExistsByFullPath(kmbPath))
         kmbPath = my::JoinPath(newDir, fileName + strings::to_string(counter++) + kKmbExtension);
-
-      std::unique_ptr<kml::FileData> kmlData = LoadKmlFile(f, false /* binary */);
-      if (kmlData == nullptr)
-      {
-        allConverted = false;
-        continue;
-      }
 
       if (!SaveKmlFile(*kmlData, kmbPath, true /* binary */))
       {
@@ -1957,6 +1993,107 @@ bool BookmarkManager::AreNotificationsEnabled() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   return m_notificationsEnabled;
+}
+
+void BookmarkManager::SetCatalogHandlers(OnCatalogDownloadStartedHandler && onCatalogDownloadStarted,
+                                         OnCatalogDownloadFinishedHandler && onCatalogDownloadFinished,
+                                         OnCatalogImportStartedHandler && onCatalogImportStarted,
+                                         OnCatalogImportFinishedHandler && onCatalogImportFinished)
+{
+  m_onCatalogDownloadStarted = std::move(onCatalogDownloadStarted);
+  m_onCatalogDownloadFinished = std::move(onCatalogDownloadFinished);
+  m_onCatalogImportStarted = std::move(onCatalogImportStarted);
+  m_onCatalogImportFinished = std::move(onCatalogImportFinished);
+}
+
+void BookmarkManager::DownloadFromCatalogAndImport(std::string const & id, std::string const & name)
+{
+  m_bookmarkCatalog.Download(id, name, [this, id]()
+  {
+    if (m_onCatalogDownloadStarted)
+      m_onCatalogDownloadStarted(id);
+  },
+    [this, id](platform::RemoteFile::Result && result, std::string const & filePath)
+  {
+    if (m_onCatalogDownloadFinished)
+      m_onCatalogDownloadFinished(id, result);
+
+    if (result.m_status == platform::RemoteFile::Status::Ok)
+      ImportDownloadedFromCatalog(id, filePath);
+  });
+}
+
+void BookmarkManager::ImportDownloadedFromCatalog(std::string const & id, std::string const & filePath)
+{
+  if (m_onCatalogImportStarted)
+    m_onCatalogImportStarted(id);
+
+  GetPlatform().RunTask(Platform::Thread::File, [this, id, filePath]()
+  {
+    MY_SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, filePath));
+    std::string hash;
+    auto kmlData = ImportAfterDownloading(filePath, hash);
+    if (kmlData && FromCatalog(*kmlData) && kmlData->m_serverId == id)
+    {
+      auto const p = my::JoinPath(GetPrivateBookmarksDirectory(), id, kKmbExtension);
+      auto collection = std::make_shared<KMLDataCollection>();
+      collection->emplace_back(p, std::move(kmlData));
+
+      GetPlatform().RunTask(Platform::Thread::Gui, [this, id, collection]()
+      {
+        std::vector<kml::MarkGroupId> idsToDelete;
+        for (auto const & group : m_categories)
+        {
+          if (id == group.second->GetServerId())
+          {
+            ClearGroup(group.first);
+            idsToDelete.push_back(group.first);
+          }
+        }
+        for (auto const & categoryId : idsToDelete)
+          m_categories.erase(categoryId);
+
+        CreateCategories(std::move(*collection));
+
+        m_bookmarkCatalog.RegisterDownloadedId(id);
+
+        if (m_onCatalogImportFinished)
+          m_onCatalogImportFinished(id, true /* successful */);
+      });
+    }
+    else
+    {
+      if (m_onCatalogImportFinished)
+        m_onCatalogImportFinished(id, false /* successful */);
+    }
+  });
+}
+
+size_t BookmarkManager::GetDownloadingFromCatalogCount() const
+{
+  return m_bookmarkCatalog.GetDownloadingCount();
+}
+
+std::vector<std::string> BookmarkManager::GetDownloadingFromCatalogNames() const
+{
+  return m_bookmarkCatalog.GetDownloadingNames();
+}
+
+bool BookmarkManager::IsCategoryFromCatalog(kml::MarkGroupId categoryId) const
+{
+  auto cat = GetBmCategory(categoryId);
+  if (cat == nullptr)
+    return false;
+
+  return cat->IsCategoryFromCatalog();
+}
+
+std::string BookmarkManager::GetCategoryCatalogDeeplink(kml::MarkGroupId categoryId) const
+{
+  auto cat = GetBmCategory(categoryId);
+  if (cat == nullptr)
+    return {};
+  return cat->GetCatalogDeeplink();
 }
 
 void BookmarkManager::EnableTestMode(bool enable)

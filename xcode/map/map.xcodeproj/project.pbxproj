@@ -44,6 +44,8 @@
 		454649F21F2728CE00EF4064 /* local_ads_mark.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 454649F01F2728CE00EF4064 /* local_ads_mark.hpp */; };
 		45580ABE1E2CBD5E00CD535D /* benchmark_tools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45580ABC1E2CBD5E00CD535D /* benchmark_tools.cpp */; };
 		45580ABF1E2CBD5E00CD535D /* benchmark_tools.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45580ABD1E2CBD5E00CD535D /* benchmark_tools.hpp */; };
+		4564FA82209497A70043CCFB /* bookmark_catalog.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4564FA80209497A60043CCFB /* bookmark_catalog.hpp */; };
+		4564FA83209497A70043CCFB /* bookmark_catalog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4564FA81209497A70043CCFB /* bookmark_catalog.cpp */; };
 		456E1B3A1F9A3C2A009C32E1 /* search_mark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 456E1B381F9A3C29009C32E1 /* search_mark.cpp */; };
 		456E1B3B1F9A3C2A009C32E1 /* search_mark.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 456E1B391F9A3C2A009C32E1 /* search_mark.hpp */; };
 		45A2D9D51F7556EB003310A0 /* user.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A2D9D31F7556EB003310A0 /* user.cpp */; };
@@ -211,6 +213,8 @@
 		454649F01F2728CE00EF4064 /* local_ads_mark.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = local_ads_mark.hpp; sourceTree = "<group>"; };
 		45580ABC1E2CBD5E00CD535D /* benchmark_tools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = benchmark_tools.cpp; sourceTree = "<group>"; };
 		45580ABD1E2CBD5E00CD535D /* benchmark_tools.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = benchmark_tools.hpp; sourceTree = "<group>"; };
+		4564FA80209497A60043CCFB /* bookmark_catalog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bookmark_catalog.hpp; sourceTree = "<group>"; };
+		4564FA81209497A70043CCFB /* bookmark_catalog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bookmark_catalog.cpp; sourceTree = "<group>"; };
 		456E1B381F9A3C29009C32E1 /* search_mark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = search_mark.cpp; sourceTree = "<group>"; };
 		456E1B391F9A3C2A009C32E1 /* search_mark.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = search_mark.hpp; sourceTree = "<group>"; };
 		45A2D9D31F7556EB003310A0 /* user.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = user.cpp; sourceTree = "<group>"; };
@@ -526,9 +530,6 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
-				F6D67CE22063F4980032FD38 /* framework_light.hpp */,
-				BBFC7E38202D29BF00531BE7 /* user_mark_layer.cpp */,
-				BBFC7E39202D29BF00531BE7 /* user_mark_layer.hpp */,
 				675345CB1A4054E800A0A8C3 /* address_finder.cpp */,
 				45201E921CE4AC90008A4842 /* api_mark_point.cpp */,
 				34921F611BFA0A6900737D6E /* api_mark_point.hpp */,
@@ -539,12 +540,14 @@
 				3D4E999E1FB4A6400025B48C /* booking_filter_cache.hpp */,
 				3D4E99A01FB4A6410025B48C /* booking_filter.cpp */,
 				3D4E99A11FB4A6410025B48C /* booking_filter.hpp */,
-				675345DB1A4054E800A0A8C3 /* bookmark.cpp */,
-				675345DC1A4054E800A0A8C3 /* bookmark.hpp */,
+				4564FA81209497A70043CCFB /* bookmark_catalog.cpp */,
+				4564FA80209497A60043CCFB /* bookmark_catalog.hpp */,
 				BBA014AB2073C783007402E4 /* bookmark_helpers.cpp */,
 				BBA014AC2073C784007402E4 /* bookmark_helpers.hpp */,
 				675345D91A4054E800A0A8C3 /* bookmark_manager.cpp */,
 				675345DA1A4054E800A0A8C3 /* bookmark_manager.hpp */,
+				675345DB1A4054E800A0A8C3 /* bookmark.cpp */,
+				675345DC1A4054E800A0A8C3 /* bookmark.hpp */,
 				0831F23B200E53600034C365 /* bookmarks_search_params.hpp */,
 				348AB57A1D7EE0C6009F8301 /* chart_generator.cpp */,
 				348AB57B1D7EE0C6009F8301 /* chart_generator.hpp */,
@@ -558,6 +561,7 @@
 				3D4E99801FB462B60025B48C /* everywhere_search_params.hpp */,
 				675345F31A4054E800A0A8C3 /* feature_vec_model.cpp */,
 				675345F41A4054E800A0A8C3 /* feature_vec_model.hpp */,
+				F6D67CE22063F4980032FD38 /* framework_light.hpp */,
 				675345F51A4054E800A0A8C3 /* framework.cpp */,
 				675345F61A4054E800A0A8C3 /* framework.hpp */,
 				675345F71A4054E800A0A8C3 /* ge0_parser.cpp */,
@@ -602,10 +606,12 @@
 				347B60741DD9926D0050FA24 /* traffic_manager.cpp */,
 				347B60751DD9926D0050FA24 /* traffic_manager.hpp */,
 				BB4E5F201FCC663700A77250 /* transit */,
-				674C385F1BFF3095000D603B /* user_mark.cpp */,
-				675346331A4054E800A0A8C3 /* user_mark.hpp */,
 				BBA014B020754996007402E4 /* user_mark_id_storage.cpp */,
 				BBA014AF20754996007402E4 /* user_mark_id_storage.hpp */,
+				BBFC7E38202D29BF00531BE7 /* user_mark_layer.cpp */,
+				BBFC7E39202D29BF00531BE7 /* user_mark_layer.hpp */,
+				674C385F1BFF3095000D603B /* user_mark.cpp */,
+				675346331A4054E800A0A8C3 /* user_mark.hpp */,
 				45A2D9D31F7556EB003310A0 /* user.cpp */,
 				45A2D9D41F7556EB003310A0 /* user.hpp */,
 				3D4E99811FB462B60025B48C /* viewport_search_params.hpp */,
@@ -660,6 +666,7 @@
 				3D4E99821FB462B60025B48C /* everywhere_search_params.hpp in Headers */,
 				675346751A4054E800A0A8C3 /* mwm_url.hpp in Headers */,
 				6753464B1A4054E800A0A8C3 /* bookmark.hpp in Headers */,
+				4564FA82209497A70043CCFB /* bookmark_catalog.hpp in Headers */,
 				3D47B2941F054BC5000828D2 /* taxi_delegate.hpp in Headers */,
 				3D47B2C81F20EF06000828D2 /* displayed_categories_modifiers.hpp in Headers */,
 				454523AA202A0068009275C1 /* cloud.hpp in Headers */,
@@ -794,6 +801,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				456E1B3A1F9A3C2A009C32E1 /* search_mark.cpp in Sources */,
+				4564FA83209497A70043CCFB /* bookmark_catalog.cpp in Sources */,
 				F6B283051C1B03320081957A /* gps_track_filter.cpp in Sources */,
 				675346481A4054E800A0A8C3 /* bookmark_manager.cpp in Sources */,
 				45F6EE9F1FB1C77600019892 /* search_api.cpp in Sources */,

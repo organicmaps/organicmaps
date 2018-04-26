@@ -1,6 +1,10 @@
 #include "map/bookmark.hpp"
 #include "map/bookmark_helpers.hpp"
 
+#include "coding/url_encode.hpp"
+
+#include <sstream>
+
 namespace
 {
 std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
@@ -222,10 +226,6 @@ BookmarkCategory::BookmarkCategory(kml::CategoryData && data, bool autoSave)
   Base::SetIsVisible(m_data.m_visible);
 }
 
-BookmarkCategory::~BookmarkCategory()
-{
-}
-
 void BookmarkCategory::SetIsVisible(bool isVisible)
 {
   Base::SetIsVisible(isVisible);
@@ -238,9 +238,30 @@ void BookmarkCategory::SetName(std::string const & name)
   kml::SetDefaultStr(m_data.m_name, name);
 }
 
+void BookmarkCategory::SetServerId(std::string const & serverId)
+{
+  if (m_serverId == serverId)
+    return;
+
+  SetDirty();
+  m_serverId = serverId;
+}
+
 std::string BookmarkCategory::GetName() const
 {
   return kml::GetDefaultStr(m_data.m_name);
+}
+
+bool BookmarkCategory::IsCategoryFromCatalog() const
+{
+  return FromCatalog(m_data, m_serverId);
+}
+
+std::string BookmarkCategory::GetCatalogDeeplink() const
+{
+  std::ostringstream ss;
+  ss << "mapsme://dlink.maps.me/catalogue?id=" << m_serverId << "&name=" << UrlEncode(GetName());
+  return ss.str();
 }
 
 // static

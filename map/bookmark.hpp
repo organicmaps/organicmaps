@@ -66,7 +66,6 @@ class BookmarkCategory : public UserMarkLayer
 public:
   BookmarkCategory(std::string const & name, kml::MarkGroupId groupId, bool autoSave);
   BookmarkCategory(kml::CategoryData && data, bool autoSave);
-  ~BookmarkCategory() override;
 
   static kml::PredefinedColor GetDefaultColor();
 
@@ -83,6 +82,12 @@ public:
 
   kml::CategoryData const & GetCategoryData() const { return m_data; }
 
+  void SetServerId(std::string const & serverId);
+  std::string const & GetServerId() const { return m_serverId; }
+
+  bool IsCategoryFromCatalog() const;
+  std::string GetCatalogDeeplink() const;
+
 private:
   void SetDirty() override;
 
@@ -90,4 +95,5 @@ private:
   std::string m_file;
   bool m_autoSave = true;
   kml::CategoryData m_data;
+  std::string m_serverId;
 };
