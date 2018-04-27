@@ -27,7 +27,7 @@ public:
       serial::GeometryCodingParams cp = {};
 
       auto readPoly = [&cp, &src](vector<m2::PointD> & poly) {
-        m2::PointU base = PointDToPointU(cp.GetBasePoint(), cp.GetCoordBits());
+        m2::PointU base = cp.GetBasePoint();
         for (auto & point : poly)
         {
           base = coding::DecodePointDelta(src, base);

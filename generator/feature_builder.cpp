@@ -424,11 +424,12 @@ void FeatureBuilder1::SerializeBorder(serial::GeometryCodingParams const & param
   for (auto const & polygon : m_polygons)
   {
     WriteToSink(sink, polygon.size());
-    auto last = params.GetBasePoint();
+    m2::PointU last = params.GetBasePoint();
     for (auto const & p : polygon)
     {
-      coding::EncodePointDelta(sink, toU(last), toU(p));
-      last = p;
+      auto const curr = toU(p);
+      coding::EncodePointDelta(sink, last, curr);
+      last = curr;
     }
   }
 }
