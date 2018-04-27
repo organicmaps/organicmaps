@@ -4131,7 +4131,7 @@ fa = دوباره نپرس
 
   [share_bookmarks_email_body]
     en = Hello!\n\nAttached are my bookmarks from MAPS.ME offline maps. Please open them if you have MAPS.ME installed. Or, if you don't, download the app for your iOS or Android device by following this link: http://maps.me/get?kmz\n\nEnjoy traveling with MAPS.ME!
-    ru = Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт MAPS.ME. Для того, чтобы открыть этот файл, вам потребуется приложение MAPS.ME, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо! 
+    ru = Здравствуйте!\n\nВ прикрепленном файле мои метки из офлайновых карт MAPS.ME. Для того, чтобы открыть этот файл, вам потребуется приложение MAPS.ME, которое можно установить по ссылке: http://maps.me/get?kmz\n\nСпасибо!
 
   [load_kmz_title]
     comment = message title of loading file
@@ -29747,7 +29747,7 @@ fa = دوباره نپرس
     zh-Hant = 預訂在您所選日期有空的賓館！用入住和離店篩選
 
   [whats_new_title_ugc_travel]
-    en = Share your experience with other travellers! 
+    en = Share your experience with other travellers!
     ru = Делитесь вашими впечатлениями с другими путешественниками!
     ar = شارك تجربتك مع المسافرين الآخرين!
     cs = Podělte se o své zkušenosti s dalšími cestovateli!
@@ -29764,7 +29764,7 @@ fa = دوباره نپرس
     nb = Del dine opplevelser med andre reisende!
     pl = Podziel się swoimi wrażeniami z innymi podróżnymi!
     pt = Partilhe a sua experiência com outros viajantes!
-    pt-BR = Compartilhe sua experiência com outros viajantes! 
+    pt-BR = Compartilhe sua experiência com outros viajantes!
     ro = Comunicați-vă experiențele altor călători!
     es = ¡Comparta su experiencia con otros viajeros!
     sv = Dela din upplevelse med andra resenärer!
@@ -29773,7 +29773,7 @@ fa = دوباره نپرس
     uk = Поділіться вашими враженнями з іншими мандрівниками!
     vi = Chia sẻ trải nghiệm của bạn với những du khách khác!
     el = Μοιραστείτε την εμπειρία σας με άλλους ταξιδιώτες!
-    es_MX = Comparte tu experiencia con otros viajeros! 
+    es_MX = Comparte tu experiencia con otros viajeros!
     sk = Podeľte sa o svoje skúsenosti s ďalšími cestovateľmi!
     sw = Shiriki hisia zako na wasafiri wengine!
     zh-Hans = 與其他旅客分享您的體驗！
@@ -29811,7 +29811,7 @@ fa = دوباره نپرس
     sw = Kadiria na utoe maoni kuhusu maeneo uliyotembelea!
     zh-Hans = 評價您參觀過的地方！
     zh-Hant = 給您訪問過的地方打分和評價！
- 
+
   [dialog_pedestrian_route_is_long]
     tags = ios,android
     en = The pedestrian route is too long
@@ -30080,7 +30080,7 @@ fa = دوباره نپرس
     sw = Jina halikuweza kuwa tupu
     zh-Hans = 名字不能为空
     zh-Hant = 名字不能為空
-  
+
   [bookmarks_error_message_empty_list_name]
     en = Please enter the list name
     ru = Введите имя списка, пожалуйста
@@ -30248,7 +30248,7 @@ fa = دوباره نپرس
 
   [bookmarks_error_message_list_name_too_long]
     en = Please choose another name
-    ru = Выберите, пожалуйста, другое имя 
+    ru = Выберите, пожалуйста, другое имя
     ar = يرجى اختيار اسم آخر
     cs = Zvolte jiný název
     da = Vælg venligst et andet navn
@@ -30541,7 +30541,7 @@ fa = دوباره نپرس
     sk = Zistené nové súbory
     sw = Faili mpya zimegunduliwa
     zh-Hans = 检测到新文件
-    zh-Hant = 檢測到新文件  
+    zh-Hant = 檢測到新文件
 
   [bookmarks_detect_message]
     en:one = %d file was found. You can see it after conversion.
@@ -30870,4 +30870,46 @@ fa = دوباره نپرس
     zh-Hans = 只需在地图上找到一家酒店并预订，或选择类似的酒店即可。
     zh-Hant = 只需在地圖上找到一家酒店並預訂，或選擇類似的酒店即可。
 
-    
+  [bookmarks_restore]
+    en = Restore bookmarks
+    ru = Восстановить метки
+
+  [bookmarks_restore_process]
+    en = Restoring...
+    ru = Восстановление...
+
+  [bookmarks_restore_title]
+    en = Restore this version?
+    ru = Восстановить эту версию?
+
+  [bookmarks_restore_message]
+    en = Your bookmarks will restore from %s
+    ru = Ваши закладки будут восстановлены от %s
+
+  [bookmarks_restore_empty_title]
+    en = You don’t have a backup
+    ru = У вас нет резервных копий
+
+  [bookmarks_restore_empty_message]
+    en = The server didn’t find previously made backups
+    ru = Сервер не нашел ранее сделанные ранее резервные копии
+
+  [common_check_internet_connection_dialog_title]
+    en = No internet connection
+    ru = Нет интернет соединения
+
+  [error_server_title]
+    en = Server error
+    ru = Ошибка сервера
+
+  [error_server_message]
+    en = There was an error on the server, please try again later.
+    ru = На сервере произошла ошибка, повторите попытку позже.
+
+  [error_system_message]
+    en = An unknown error occurred.
+    ru = Произошла неизвестная ошибка.
+
+  [restore]
+    en = Restore
+    ru = Восстановить        
