@@ -19,6 +19,7 @@ set(
   source_data.cpp
   source_data.hpp
   source_to_element_test.cpp
+  sponsored_storage_tests.cpp
   srtm_parser_test.cpp
   tag_admixer_test.cpp
   tesselator_test.cpp

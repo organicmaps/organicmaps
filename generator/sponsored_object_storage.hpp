@@ -5,18 +5,24 @@
 #include "geometry/distance_on_sphere.hpp"
 #include "geometry/latlon.hpp"
 
+#include "coding/file_name_utils.hpp"
+
 #include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include <fstream>
 #include <functional>
 #include <map>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 #include "boost/geometry.hpp"
 #include "boost/geometry/geometries/box.hpp"
 #include "boost/geometry/geometries/point.hpp"
 #include "boost/geometry/index/rtree.hpp"
+
+#include "defines.hpp"
 
 namespace generator
 {
@@ -26,7 +32,7 @@ class SponsoredObjectStorage
 public:
   using ObjectId = typename Object::ObjectId;
   using ObjectsContainer = std::map<ObjectId, Object>;
-  using FillObject = std::function<void(ObjectsContainer & objects)>;
+  using ExcludedIdsContainer = std::unordered_set<ObjectId, typename ObjectId::Hash>;
 
   SponsoredObjectStorage(double distanceLimitMeters, size_t maxSelectedElements)
     : m_distanceLimitMeters(distanceLimitMeters)
@@ -54,12 +60,7 @@ public:
     return m_objects.size();
   }
 
-  void SetFillObjects(FillObject const & fn)
-  {
-    m_fillObject = fn;
-  }
-
-  void LoadData(std::string const & dataPath, std::string const & addressReferencePath)
+  void LoadData(std::string const & dataPath)
   {
     if (dataPath.empty())
       return;
@@ -71,10 +72,42 @@ public:
       return;
     }
 
-    LoadData(dataSource, addressReferencePath);
+    auto const excludedIdsPath = my::JoinPath(GetPlatform().ResourcesDir(), BOOKING_EXCLUDED_FILE);
+
+    LoadData(dataSource, LoadExcludedIds(excludedIdsPath));
   }
 
-  void LoadData(std::istream & src, std::string const & addressReferencePath)
+  ExcludedIdsContainer LoadExcludedIds(std::string const & excludedIdsPath)
+  {
+    if (excludedIdsPath.empty())
+      return {};
+
+    std::ifstream source(excludedIdsPath);
+    if (!source)
+    {
+      LOG(LERROR, ("Error while opening", excludedIdsPath, ":", strerror(errno)));
+      return {};
+    }
+
+    ExcludedIdsContainer result;
+    for (std::string line; std::getline(source, line);)
+    {
+      ObjectId id{Object::InvalidObjectId()};
+
+      if (!strings::to_any(line, id.Get()))
+      {
+        LOG(LWARNING, ("Incorrect excluded sponsored id:", line));
+        continue;
+      }
+
+      if (id != Object::InvalidObjectId())
+        result.emplace(id);
+    }
+
+    return result;
+  }
+
+  void LoadData(std::istream & src, ExcludedIdsContainer const & excludedIds)
   {
     m_objects.clear();
     m_rtree.clear();
@@ -82,25 +115,11 @@ public:
     for (std::string line; std::getline(src, line);)
     {
       Object object(line);
-      if (object.m_id != Object::InvalidObjectId())
+      if (object.m_id != Object::InvalidObjectId() &&
+          excludedIds.find(object.m_id) == excludedIds.cend())
+      {
         m_objects.emplace(object.m_id, object);
-    }
-
-    // Try to get object address from existing MWMs.
-    if (!addressReferencePath.empty())
-    {
-      LOG(LINFO, ("Reference addresses for sponsored objects", addressReferencePath));
-      Platform & platform = GetPlatform();
-      std::string const backupPath = platform.WritableDir();
-
-      // MWMs can be loaded only from a writebledir or from a resourcedir,
-      // changig resourcedir can lead to problems with classificator, so
-      // we change writebledir.
-      platform.SetWritableDirForTests(addressReferencePath);
-
-      m_fillObject(m_objects);
-
-      platform.SetWritableDirForTests(backupPath);
+      }
     }
 
     for (auto const & item : m_objects)
@@ -159,6 +178,5 @@ private:
 
   double const m_distanceLimitMeters;
   size_t const m_maxSelectedElements;
-  FillObject m_fillObject;
 };
 }  // namespace generator

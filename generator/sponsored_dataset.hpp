@@ -21,8 +21,7 @@ public:
   static double constexpr kDistanceLimitInMeters = 150;
   static size_t constexpr kMaxSelectedElements = 3;
 
-  explicit SponsoredDataset(std::string const & dataPath,
-                            std::string const & addressReferencePath = std::string());
+  explicit SponsoredDataset(std::string const & dataPath);
 
   /// @return true if |fb| satisfies some necessary conditions to match one or serveral
   /// objects from dataset.
@@ -39,8 +38,6 @@ public:
   SponsoredObjectStorage<Object> const & GetStorage() const { return m_storage; }
 
 private:
-  void InitStorage();
-
   void BuildObject(Object const & object,
                    std::function<void(FeatureBuilder1 &)> const & fn) const;
 

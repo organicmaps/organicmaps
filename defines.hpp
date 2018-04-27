@@ -102,4 +102,6 @@
 
 #define LOCALIZATION_DESCRIPTION_SUFFIX " Description"
 
+#define BOOKING_EXCLUDED_FILE "booking_excluded.txt"
+
 auto constexpr kInvalidRatingValue = -1.0f;

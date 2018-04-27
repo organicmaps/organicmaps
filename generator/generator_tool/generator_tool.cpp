@@ -121,9 +121,7 @@ DEFINE_string(transit_path, "", "Path to directory with transit graphs in json."
 
 // Sponsored-related.
 DEFINE_string(booking_data, "", "Path to booking data in .tsv format.");
-DEFINE_string(booking_reference_path, "", "Path to mwm dataset for booking addresses matching.");
 DEFINE_string(opentable_data, "", "Path to opentable data in .tsv format.");
-DEFINE_string(opentable_reference_path, "", "Path to mwm dataset for opentable addresses matching.");
 DEFINE_string(viator_data, "", "Path to viator data in .tsv format.");
 
 // UGC
@@ -188,9 +186,7 @@ int main(int argc, char ** argv)
   genInfo.m_failOnCoasts = FLAGS_fail_on_coasts;
   genInfo.m_preloadCache = FLAGS_preload_cache;
   genInfo.m_bookingDatafileName = FLAGS_booking_data;
-  genInfo.m_bookingReferenceDir = FLAGS_booking_reference_path;
   genInfo.m_opentableDatafileName = FLAGS_opentable_data;
-  genInfo.m_opentableReferenceDir = FLAGS_opentable_reference_path;
   genInfo.m_viatorDatafileName = FLAGS_viator_data;
   genInfo.m_boundariesTable = make_shared<generator::OsmIdToBoundariesTable>();
 

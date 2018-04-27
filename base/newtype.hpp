@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <iostream>
 #include <string>
 #include <type_traits>
@@ -13,7 +14,7 @@ using IsConvertibleGuard = std::enable_if_t<std::is_convertible<From, To>::value
 }  // namespace impl
 
 /// Creates a typesafe alias to a given numeric Type.
-template <typename Type, typename Tag>
+template <typename Type, typename Tag, typename Hasher = std::hash<Type>>
 class NewType
 {
   static_assert(std::is_integral<Type>::value || std::is_floating_point<Type>::value,
@@ -137,6 +138,15 @@ public:
   NewType operator^(NewType const & o) const { return NewType(m_value ^ o.m_value); }
   NewType operator|(NewType const & o) const { return NewType(m_value | o.m_value); }
   NewType operator&(NewType const & o) const { return NewType(m_value & o.m_value); }
+
+  struct Hash
+  {
+    size_t operator()(NewType const & v) const
+    {
+      Hasher h;
+      return h(v.Get());
+    }
+  };
 
 private:
   Type m_value;

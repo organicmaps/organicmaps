@@ -332,8 +332,8 @@ public:
   MainFeaturesEmitter(feature::GenerateInfo const & info)
     : m_skippedElementsPath(info.GetIntermediateFileName("skipped_elements", ".lst"))
     , m_failOnCoasts(info.m_failOnCoasts)
-    , m_bookingDataset(info.m_bookingDatafileName, info.m_bookingReferenceDir)
-    , m_opentableDataset(info.m_opentableDatafileName, info.m_opentableReferenceDir)
+    , m_bookingDataset(info.m_bookingDatafileName)
+    , m_opentableDataset(info.m_opentableDatafileName)
     , m_viatorDataset(info.m_viatorDatafileName)
     , m_boundariesTable(info.m_boundariesTable)
   {

@@ -59,7 +59,7 @@ ViatorDataset::ViatorDataset(std::string const & dataPath)
   LoadIndex(m_index);
   m_cityFinder = make_unique<search::CityFinder>(m_index);
 
-  m_storage.LoadData(dataPath, "");
+  m_storage.LoadData(dataPath);
 }
 
 ViatorCity::ObjectId ViatorDataset::FindMatchingObjectId(FeatureBuilder1 const & fb) const

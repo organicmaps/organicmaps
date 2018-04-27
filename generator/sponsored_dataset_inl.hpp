@@ -38,38 +38,10 @@ private:
 
 // SponsoredDataset --------------------------------------------------------------------------------
 template <typename SponsoredObject>
-SponsoredDataset<SponsoredObject>::SponsoredDataset(std::string const & dataPath,
-                                                    std::string const & addressReferencePath)
+SponsoredDataset<SponsoredObject>::SponsoredDataset(std::string const & dataPath)
   : m_storage(kDistanceLimitInMeters, kMaxSelectedElements)
 {
-  InitStorage();
-  m_storage.LoadData(dataPath, addressReferencePath);
-}
-
-template <typename SponsoredObject>
-void SponsoredDataset<SponsoredObject>::InitStorage()
-{
-  using Container = typename SponsoredObjectStorage<SponsoredObject>::ObjectsContainer;
-
-  m_storage.SetFillObjects([](Container & objects) {
-    AddressMatcher addressMatcher;
-
-    size_t matchedCount = 0;
-    size_t emptyCount = 0;
-    for (auto & item : objects)
-    {
-      auto & object = item.second;
-      addressMatcher(object);
-
-      if (object.m_address.empty())
-        ++emptyCount;
-      if (object.HasAddresParts())
-        ++matchedCount;
-    }
-
-    LOG(LINFO, ("Num of objects:", objects.size(), "matched:", matchedCount,
-                "empty addresses:", emptyCount));
-  });
+  m_storage.LoadData(dataPath);
 }
 
 template <typename SponsoredObject>

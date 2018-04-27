@@ -376,6 +376,18 @@ std::string to_string(T t)
   return ss.str();
 }
 
+WARN_UNUSED_RESULT inline bool to_any(std::string const & s, int & i) { return to_int(s, i); }
+WARN_UNUSED_RESULT inline bool to_any(std::string const & s, unsigned int & i) { return to_uint(s, i); }
+WARN_UNUSED_RESULT inline bool to_any(std::string const & s, uint64_t & i) { return to_uint64(s, i); }
+WARN_UNUSED_RESULT inline bool to_any(std::string const & s, int64_t & i) { return to_int64(s, i); }
+WARN_UNUSED_RESULT inline bool to_any(std::string const & s, float & f) { return to_float(s, f); }
+WARN_UNUSED_RESULT inline bool to_any(std::string const & s, double & d) { return to_double(s, d); }
+WARN_UNUSED_RESULT inline bool to_any(std::string const & s, std::string & result)
+{
+  result = s;
+  return true;
+}
+
 namespace impl
 {
 template <typename T>
