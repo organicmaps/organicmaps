@@ -2271,3 +2271,25 @@
 "wn_way_of_booking_title" = "우리는 예약 방법을 상상했습니다!";
 
 "wn_way_of_booking_message" = "지도에서 호텔을 찾아 예약하거나 유사한 호텔을 선택하십시오.";
+
+"bookmarks_restore" = "Restore bookmarks";
+
+"bookmarks_restore_process" = "Restoring...";
+
+"bookmarks_restore_title" = "Restore this version?";
+
+"bookmarks_restore_message" = "Your bookmarks will restore from %s";
+
+"bookmarks_restore_empty_title" = "You don’t have a backup";
+
+"bookmarks_restore_empty_message" = "The server didn’t find previously made backups";
+
+"common_check_internet_connection_dialog_title" = "No internet connection";
+
+"error_server_title" = "Server error";
+
+"error_server_message" = "There was an error on the server, please try again later.";
+
+"error_system_message" = "An unknown error occurred.";
+
+"restore" = "Restore";

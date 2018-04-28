@@ -2271,3 +2271,25 @@
 "wn_way_of_booking_title" = "Больше возможностей для бронирования отелей!";
 
 "wn_way_of_booking_message" = "Если интересующий отель занят, воспользуйтесь кнопкой «Найти похожие отели».";
+
+"bookmarks_restore" = "Восстановить метки";
+
+"bookmarks_restore_process" = "Восстановление...";
+
+"bookmarks_restore_title" = "Восстановить эту версию?";
+
+"bookmarks_restore_message" = "Ваши закладки будут восстановлены от %s";
+
+"bookmarks_restore_empty_title" = "У вас нет резервных копий";
+
+"bookmarks_restore_empty_message" = "Сервер не нашел ранее сделанные ранее резервные копии";
+
+"common_check_internet_connection_dialog_title" = "Нет интернет соединения";
+
+"error_server_title" = "Ошибка сервера";
+
+"error_server_message" = "На сервере произошла ошибка, повторите попытку позже.";
+
+"error_system_message" = "Произошла неизвестная ошибка.";
+
+"restore" = "Восстановить";

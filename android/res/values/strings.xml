@@ -1322,4 +1322,15 @@
 	<string name="wn_reinvented_bookmarks_message">You can backup them, create lists...It’s amazing...</string>
 	<string name="wn_way_of_booking_title">We reimagined the way of booking!</string>
 	<string name="wn_way_of_booking_message">Just find a hotel on the map and book it, or select the similar one.</string>
+	<string name="bookmarks_restore">Restore bookmarks</string>
+	<string name="bookmarks_restore_process">Restoring...</string>
+	<string name="bookmarks_restore_title">Restore this version?</string>
+	<string name="bookmarks_restore_message">Your bookmarks will restore from %s</string>
+	<string name="bookmarks_restore_empty_title">You don’t have a backup</string>
+	<string name="bookmarks_restore_empty_message">The server didn’t find previously made backups</string>
+	<string name="common_check_internet_connection_dialog_title">No internet connection</string>
+	<string name="error_server_title">Server error</string>
+	<string name="error_server_message">There was an error on the server, please try again later.</string>
+	<string name="error_system_message">An unknown error occurred.</string>
+	<string name="restore">Restore</string>
 </resources>
