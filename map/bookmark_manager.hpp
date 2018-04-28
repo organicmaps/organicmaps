@@ -443,6 +443,8 @@ private:
   bool CanConvert() const;
   void FinishConversion(ConversionHandler const & handler, bool result);
 
+  bool HasDuplicatedIds(kml::FileData const & fileData) const;
+
   ThreadChecker m_threadChecker;
 
   Callbacks m_callbacks;

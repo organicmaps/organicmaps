@@ -13,10 +13,10 @@ std::string const kLastBookmarkCategoryId = "LastBookmarkCategoryId";
 }  // namespace
 
 UserMarkIdStorage::UserMarkIdStorage()
-  : m_isJustCreated(false)
-  , m_lastUserMarkId(0)
+  : m_lastUserMarkId(0)
 {
-  m_isJustCreated = !(HasKey(kLastBookmarkCategoryId) && HasKey(kLastBookmarkId) && HasKey(kLastTrackId));
+  m_isJustCreated = !(HasKey(kLastBookmarkCategoryId) && HasKey(kLastBookmarkId) &&
+                      HasKey(kLastTrackId));
   if (m_isJustCreated)
   {
     ResetCategoryId();
@@ -29,6 +29,10 @@ UserMarkIdStorage::UserMarkIdStorage()
     LoadLastTrackId();
     LoadLastCategoryId();
   }
+
+  m_initialLastBookmarkId = m_lastBookmarkId;
+  m_initialLastTrackId = m_lastTrackId;
+  m_initialLastCategoryId = m_lastCategoryId;
 }
 
 // static
@@ -42,11 +46,6 @@ UserMarkIdStorage & UserMarkIdStorage::Instance()
 UserMark::Type UserMarkIdStorage::GetMarkType(kml::MarkId id)
 {
   return static_cast<UserMark::Type>(id >> (sizeof(id) * 8 - kMarkIdTypeBitsCount));
-}
-
-bool UserMarkIdStorage::IsJustCreated() const
-{
-  return m_isJustCreated;
 }
 
 void UserMarkIdStorage::ResetBookmarkId()
@@ -65,6 +64,41 @@ void UserMarkIdStorage::ResetCategoryId()
 {
   m_lastCategoryId = static_cast<uint64_t>(UserMark::Type::USER_MARK_TYPES_COUNT_MAX);
   SaveLastCategoryId();
+}
+
+bool UserMarkIdStorage::CheckIds(kml::FileData const & fileData) const
+{
+  // File has no ids. Check passed.
+  if (fileData.m_categoryData.m_id == kml::kInvalidMarkGroupId)
+    return true;
+
+  // Storage is just created. Check failed.
+  if (m_isJustCreated)
+    return false;
+
+  // File was created on another device. Check failed.
+  if (fileData.m_deviceId != GetPlatform().UniqueClientId())
+    return false;
+
+  // There are ids of categories, bookmarks or tracks with values
+  // more than last stored maximums. Check failed.
+  if (fileData.m_categoryData.m_id > m_initialLastCategoryId)
+    return false;
+
+  for (auto const & b : fileData.m_bookmarksData)
+  {
+    if (b.m_id > m_initialLastBookmarkId)
+      return false;
+  }
+
+  for (auto const & t : fileData.m_tracksData)
+  {
+    if (t.m_id > m_initialLastTrackId)
+      return false;
+  }
+
+  // No one corner case. Check passed.
+  return true;
 }
 
 kml::MarkId UserMarkIdStorage::GetNextUserMarkId(UserMark::Type type)
