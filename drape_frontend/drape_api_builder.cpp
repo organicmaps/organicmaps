@@ -83,7 +83,7 @@ void DrapeApiBuilder::BuildLines(DrapeApi::TLines const & lines, ref_ptr<dp::Tex
         cvp.m_radiusInPixels = data.m_width * 2.0f;
         for (m2::PointD const & pt : data.m_points)
         {
-          ColoredSymbolShape(m2::PointF(pt), cvp, TileKey(), 0 /* textIndex */,
+          ColoredSymbolShape(m2::PointD(pt), cvp, TileKey(), 0 /* textIndex */,
                              false /* need overlay */).Draw(make_ref(&batcher), textures);
         }
       }

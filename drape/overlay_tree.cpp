@@ -460,8 +460,8 @@ void OverlayTree::StoreDisplacementInfo(int caseIndex, ref_ptr<OverlayHandle> di
 
   if (!dp::DebugRectRenderer::Instance().IsEnabled())
     return;
-  m_displacementInfo.emplace_back(displacerHandle->GetExtendedPixelRect(modelView).Center(),
-                                  displacedHandle->GetExtendedPixelRect(modelView).Center(),
+  m_displacementInfo.emplace_back(m2::PointF(displacerHandle->GetExtendedPixelRect(modelView).Center()),
+                                  m2::PointF(displacedHandle->GetExtendedPixelRect(modelView).Center()),
                                   dp::Color(0, 0, 255, 255));
 }
 

@@ -1,4 +1,7 @@
 #pragma once
+
+#include "geometry/point2d.hpp"
+
 #include "base/base.hpp"
 #include "base/stl_add.hpp"
 #include "base/logging.hpp"
@@ -15,7 +18,6 @@
 
 namespace impl
 {
-
 ///@name This functions take input range NOT like STL does: [first, last].
 //@{
 template <typename DistanceF, typename IterT>
@@ -25,16 +27,17 @@ pair<double, IterT> MaxDistance(IterT first, IterT last, DistanceF & dist)
   if (distance(first, last) <= 1)
     return res;
 
-  dist.SetBounds(*first, *last);
+  dist.SetBounds(m2::PointD(*first), m2::PointD(*last));
   for (IterT i = first + 1; i != last; ++i)
   {
-    double const d = dist(*i);
+    double const d = dist(m2::PointD(*i));
     if (d > res.first)
     {
       res.first = d;
       res.second = i;
     }
   }
+
   return res;
 }
 
@@ -64,8 +67,7 @@ struct SimplifyOptimalRes
   int32_t m_NextPoint;
   uint32_t m_PointCount;
 };
-
-}
+}  // namespace impl
 
 // Douglas-Peucker algorithm for STL-like range [beg, end).
 // Iteratively includes the point with max distance form the current simplification.
@@ -124,7 +126,6 @@ void SimplifyNearOptimal(int kMaxFalseLookAhead, IterT beg, IterT end,
     out(*(beg + i));
 }
 
-
 // Additional points filter to use in simplification.
 // SimplifyDP can produce points that define degenerate triangle.
 template <class DistanceF, class PointT>
@@ -146,8 +147,8 @@ public:
     size_t count;
     while ((count = m_vec.size()) >= 2)
     {
-      m_dist.SetBounds(m_vec[count-2], p);
-      if (m_dist(m_vec[count-1]) < m_eps)
+      m_dist.SetBounds(m2::PointD(m_vec[count-2]), m2::PointD(p));
+      if (m_dist(m2::PointD(m_vec[count-1])) < m_eps)
         m_vec.pop_back();
       else
         break;

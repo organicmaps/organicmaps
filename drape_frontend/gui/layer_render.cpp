@@ -14,6 +14,7 @@
 #include "drape/render_bucket.hpp"
 
 #include "geometry/mercator.hpp"
+#include "geometry/point2d.hpp"
 
 #include "base/stl_add.hpp"
 
@@ -85,7 +86,7 @@ void LayerRenderer::SetLayout(TWidgetsLayoutInfo const & info)
   {
     auto renderer = m_renderers.find(node.first);
     if (renderer != m_renderers.end())
-      renderer->second->SetPivot(node.second);
+      renderer->second->SetPivot(m2::PointF(node.second));
   }
 }
 

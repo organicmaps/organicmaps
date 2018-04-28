@@ -27,7 +27,7 @@ void AreaShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
 {
   dp::TextureManager::ColorRegion region;
   textures->GetColorRegion(m_params.m_color, region);
-  m2::PointD const colorUv = region.GetTexRect().Center();
+  m2::PointD const colorUv(region.GetTexRect().Center());
   m2::PointD outlineUv(0.0, 0.0);
   if (m_buildingOutline.m_generateOutline)
   {
@@ -52,9 +52,9 @@ void AreaShape::DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorU
 
   buffer_vector<gpu::AreaVertex, 128> vertexes;
   vertexes.resize(m_vertexes.size());
-  transform(m_vertexes.begin(), m_vertexes.end(), vertexes.begin(), [&uv, this](m2::PointF const & vertex)
+  transform(m_vertexes.begin(), m_vertexes.end(), vertexes.begin(), [&uv, this](m2::PointD const & vertex)
   {
-    return gpu::AreaVertex(glsl::vec3(glsl::ToVec2(ConvertToLocal(vertex, m_params.m_tileCenter, kShapeCoordScalar)),
+    return gpu::AreaVertex(glsl::vec3(glsl::ToVec2(ConvertToLocal(m2::PointD(vertex), m_params.m_tileCenter, kShapeCoordScalar)),
                                       m_params.m_depth), uv);
   });
 

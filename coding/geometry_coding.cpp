@@ -109,7 +109,7 @@ m2::PointU PredictPointInTriangle(m2::PointU const & maxPoint, m2::PointU const 
                                   m2::PointU const & p2, m2::PointU const & p3)
 {
   // parallelogram prediction
-  return ClampPoint(maxPoint, p1 + p2 - p3);
+  return ClampPoint(maxPoint, m2::PointD(p1 + p2 - p3));
 }
 
 void EncodePolylinePrev1(InPointsT const & points, m2::PointU const & basePoint,

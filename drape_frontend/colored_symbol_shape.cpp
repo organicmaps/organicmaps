@@ -279,13 +279,13 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher,
     if (!m_overlaySizes.empty())
     {
       handle = make_unique_dp<DynamicSquareHandle>(overlayId, m_params.m_anchor, m_point, m_overlaySizes,
-                                                   m_params.m_offset, GetOverlayPriority(), true /* isBound */,
+                                                   m2::PointD(m_params.m_offset), GetOverlayPriority(), true /* isBound */,
                                                    debugName, true /* isBillboard */);
     }
     else
     {
-      handle = make_unique_dp<dp::SquareHandle>(overlayId, m_params.m_anchor, m_point, pixelSize,
-                                                m_params.m_offset, GetOverlayPriority(), true /* isBound */,
+      handle = make_unique_dp<dp::SquareHandle>(overlayId, m_params.m_anchor, m_point, m2::PointD(pixelSize),
+                                                m2::PointD(m_params.m_offset), GetOverlayPriority(), true /* isBound */,
                                                 debugName, true /* isBillboard */);
     }
 

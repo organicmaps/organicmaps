@@ -148,7 +148,7 @@ drape_ptr<dp::OverlayHandle> PoiSymbolShape::CreateOverlayHandle(m2::PointF cons
 {
   dp::OverlayID overlayId = dp::OverlayID(m_params.m_id, m_tileCoords, m_textIndex);
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<dp::SquareHandle>(overlayId, m_params.m_anchor,
-                                                                         m_pt, pixelSize, m_params.m_offset,
+                                                                         m_pt, m2::PointD(pixelSize), m2::PointD(m_params.m_offset),
                                                                          GetOverlayPriority(),
                                                                          true /* isBound */,
                                                                          m_params.m_symbolName,

@@ -764,7 +764,7 @@ bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
 
 bool UserEventStream::CheckDrag(array<Touch, 2> const & touches, double threshold) const
 {
-  return m_startDragOrg.SquareLength(touches[0].m_location) > threshold;
+  return m_startDragOrg.SquareLength(m2::PointD(touches[0].m_location)) > threshold;
 }
 
 bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
@@ -986,7 +986,7 @@ void UserEventStream::BeginDrag(Touch const & t)
   m_startDragOrg = m_navigator.Screen().GetOrg();
   if (m_listener)
     m_listener->OnDragStarted();
-  m_navigator.StartDrag(t.m_location);
+  m_navigator.StartDrag(m2::PointD(t.m_location));
 
   if (m_kineticScrollEnabled && !m_scroller.IsActive())
   {
@@ -999,7 +999,7 @@ void UserEventStream::Drag(Touch const & t)
 {
   TEST_CALL(DRAG);
   ASSERT_EQUAL(m_state, STATE_DRAG, ());
-  m_navigator.DoDrag(t.m_location);
+  m_navigator.DoDrag(m2::PointD(t.m_location));
 
   if (m_kineticScrollEnabled && m_scroller.IsActive())
     m_scroller.Update(m_navigator.Screen());
@@ -1014,7 +1014,7 @@ bool UserEventStream::EndDrag(Touch const & t, bool cancelled)
     m_listener->OnDragEnded(m_navigator.GtoP(m_navigator.Screen().GetOrg()) - m_navigator.GtoP(m_startDragOrg));
 
   m_startDragOrg = m2::PointD::Zero();
-  m_navigator.StopDrag(t.m_location);
+  m_navigator.StopDrag(m2::PointD(t.m_location));
 
   CheckAutoRotate();
 
@@ -1043,8 +1043,8 @@ void UserEventStream::BeginScale(Touch const & t1, Touch const & t2)
 
   ASSERT(m_state == STATE_EMPTY || m_state == STATE_TAP_TWO_FINGERS, ());
   m_state = STATE_SCALE;
-  m2::PointD touch1 = t1.m_location;
-  m2::PointD touch2 = t2.m_location;
+  m2::PointD touch1(t1.m_location);
+  m2::PointD touch2(t2.m_location);
 
   if (m_listener)
   {
@@ -1060,8 +1060,8 @@ void UserEventStream::Scale(Touch const & t1, Touch const & t2)
   TEST_CALL(SCALE);
   ASSERT_EQUAL(m_state, STATE_SCALE, ());
 
-  m2::PointD touch1 = t1.m_location;
-  m2::PointD touch2 = t2.m_location;
+  m2::PointD touch1(t1.m_location);
+  m2::PointD touch2(t2.m_location);
 
   if (m_listener)
   {
@@ -1080,8 +1080,8 @@ void UserEventStream::EndScale(const Touch & t1, const Touch & t2)
   ASSERT_EQUAL(m_state, STATE_SCALE, ());
   m_state = STATE_EMPTY;
 
-  m2::PointD touch1 = t1.m_location;
-  m2::PointD touch2 = t2.m_location;
+  m2::PointD touch1(t1.m_location);
+  m2::PointD touch2(t2.m_location);
 
   if (m_listener)
   {
@@ -1113,7 +1113,7 @@ void UserEventStream::DetectShortTap(Touch const & touch)
   {
     m_state = STATE_EMPTY;
     if (m_listener)
-      m_listener->OnTap(touch.m_location, false /* isLongTap */);
+      m_listener->OnTap(m2::PointD(touch.m_location), false /* isLongTap */);
   }
 }
 
@@ -1130,7 +1130,7 @@ void UserEventStream::DetectLongTap(Touch const & touch)
     TEST_CALL(LONG_TAP_DETECTED);
     m_state = STATE_EMPTY;
     if (m_listener)
-      m_listener->OnTap(touch.m_location, true /* isLongTap */);
+      m_listener->OnTap(m2::PointD(touch.m_location), true /* isLongTap */);
   }
 }
 
@@ -1150,7 +1150,7 @@ void UserEventStream::PerformDoubleTap(Touch const & touch)
   ASSERT_EQUAL(m_state, STATE_WAIT_DOUBLE_TAP_HOLD, ());
   m_state = STATE_EMPTY;
   if (m_listener)
-    m_listener->OnDoubleTap(touch.m_location);
+    m_listener->OnDoubleTap(m2::PointD(touch.m_location));
 }
 
 bool UserEventStream::DetectForceTap(Touch const & touch)
@@ -1159,7 +1159,7 @@ bool UserEventStream::DetectForceTap(Touch const & touch)
   {
     m_state = STATE_EMPTY;
     if (m_listener)
-      m_listener->OnForceTap(touch.m_location);
+      m_listener->OnForceTap(m2::PointD(touch.m_location));
     return true;
   }
 
@@ -1185,7 +1185,7 @@ bool UserEventStream::TryBeginFilter(Touch const & t)
 {
   TEST_CALL(TRY_FILTER);
   ASSERT_EQUAL(m_state, STATE_EMPTY, ());
-  if (m_listener && m_listener->OnSingleTouchFiltrate(t.m_location, TouchEvent::TOUCH_DOWN))
+  if (m_listener && m_listener->OnSingleTouchFiltrate(m2::PointD(t.m_location), TouchEvent::TOUCH_DOWN))
   {
     m_state = STATE_FILTER;
     return true;
@@ -1200,7 +1200,7 @@ void UserEventStream::EndFilter(const Touch & t)
   ASSERT_EQUAL(m_state, STATE_FILTER, ());
   m_state = STATE_EMPTY;
   if (m_listener)
-    m_listener->OnSingleTouchFiltrate(t.m_location, TouchEvent::TOUCH_UP);
+    m_listener->OnSingleTouchFiltrate(m2::PointD(t.m_location), TouchEvent::TOUCH_UP);
 }
 
 void UserEventStream::CancelFilter(Touch const & t)
@@ -1209,7 +1209,7 @@ void UserEventStream::CancelFilter(Touch const & t)
   ASSERT_EQUAL(m_state, STATE_FILTER, ());
   m_state = STATE_EMPTY;
   if (m_listener)
-    m_listener->OnSingleTouchFiltrate(t.m_location, TouchEvent::TOUCH_CANCEL);
+    m_listener->OnSingleTouchFiltrate(m2::PointD(t.m_location), TouchEvent::TOUCH_CANCEL);
 }
   
 void UserEventStream::StartDoubleTapAndHold(Touch const & touch)

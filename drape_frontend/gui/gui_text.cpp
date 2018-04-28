@@ -361,7 +361,7 @@ void MutableLabel::Precache(PrecacheParams const & params, PrecacheResult & resu
   for (auto node : m_alphabet)
   {
     dp::TextureManager::GlyphRegion const & reg = node.second;
-    m2::PointU pixelSize = reg.GetPixelSize();
+    m2::PointU pixelSize(reg.GetPixelSize());
     maxGlyphWidth = max(maxGlyphWidth, pixelSize.x);
     maxGlyphHeight = max(maxGlyphHeight, pixelSize.y);
   }
@@ -421,7 +421,7 @@ void MutableLabel::SetText(LabelResult & result, string text) const
   for (DynamicVertex & v : result.m_buffer)
   {
     v.m_normal += anchorModifyer;
-    result.m_boundRect.Add(glsl::ToPoint(v.m_normal));
+    result.m_boundRect.Add(m2::PointD(glsl::ToPoint(v.m_normal)));
   }
 
   for (size_t i = result.m_buffer.size(); i < 4 * m_maxLength; ++i)

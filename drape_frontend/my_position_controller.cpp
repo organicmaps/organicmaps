@@ -566,7 +566,7 @@ void MyPositionController::Render(ScreenBase const & screen, int zoomLevel,
       m_isPendingAnimation = false;
 
     m_shape->SetPositionObsolete(m_positionIsObsolete);
-    m_shape->SetPosition(GetDrawablePosition());
+    m_shape->SetPosition(m2::PointF(GetDrawablePosition()));
     m_shape->SetAzimuth(static_cast<float>(GetDrawableAzimut()));
     m_shape->SetIsValidAzimuth(IsRotationAvailable());
     m_shape->SetAccuracy(static_cast<float>(m_errorRadius));

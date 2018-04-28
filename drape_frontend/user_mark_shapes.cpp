@@ -360,16 +360,16 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
       glsl::vec4 colorAndAnimate(color.GetRedF(), color.GetGreenF(), color.GetBlueF(),
                                  runAnim ? 1.0f : -1.0f);
       buffer.emplace_back(pos, left + down,
-                          glsl::ToVec4(texRect.LeftTop(), bgTexRect.LeftTop()),
+                          glsl::ToVec4(m2::PointD(texRect.LeftTop()), m2::PointD(bgTexRect.LeftTop())),
                           colorAndAnimate);
       buffer.emplace_back(pos, left + up,
-                          glsl::ToVec4(texRect.LeftBottom(), bgTexRect.LeftBottom()),
+                          glsl::ToVec4(m2::PointD(texRect.LeftBottom()), m2::PointD(bgTexRect.LeftBottom())),
                           colorAndAnimate);
       buffer.emplace_back(pos, right + down,
-                          glsl::ToVec4(texRect.RightTop(), bgTexRect.RightTop()),
+                          glsl::ToVec4(m2::PointD(texRect.RightTop()), m2::PointD(bgTexRect.RightTop())),
                           colorAndAnimate);
       buffer.emplace_back(pos, right + up,
-                          glsl::ToVec4(texRect.RightBottom(), bgTexRect.RightBottom()),
+                          glsl::ToVec4(m2::PointD(texRect.RightBottom()), m2::PointD(bgTexRect.RightBottom())),
                           colorAndAnimate);
     }
 

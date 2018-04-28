@@ -590,7 +590,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
                                                            : SpecialDisplacement::None;
     params.m_specialPriority = specialModePriority;
 
-    m_insertShape(make_unique_dp<PoiSymbolShape>(m_centerPoint, params, m_tileKey, 0 /* text index */));
+    m_insertShape(make_unique_dp<PoiSymbolShape>(m2::PointD(m_centerPoint), params, m_tileKey, 0 /* text index */));
 
     dp::TextureManager::SymbolRegion region;
     texMng->GetSymbolRegion(params.m_symbolName, region);
@@ -610,7 +610,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     }
     textParams.m_specialPriority = specialModePriority;
     textParams.m_startOverlayRank = hasPOI ? dp::OverlayRank1 : dp::OverlayRank0;
-    m_insertShape(make_unique_dp<TextShape>(m_centerPoint, textParams, m_tileKey, symbolSize,
+    m_insertShape(make_unique_dp<TextShape>(m2::PointD(m_centerPoint), textParams, m_tileKey, symbolSize,
                                             m2::PointF(0.0f, 0.0f) /* symbolOffset */,
                                             dp::Center /* symbolAnchor */, 0 /* textIndex */));
   }

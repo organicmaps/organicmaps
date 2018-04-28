@@ -1199,22 +1199,22 @@ void Framework::ClearAllCaches()
   GetSearchAPI().ClearCaches();
 }
 
-void Framework::OnUpdateCurrentCountry(m2::PointF const & pt, int zoomLevel)
+void Framework::OnUpdateCurrentCountry(m2::PointD const & pt, int zoomLevel)
 {
-   storage::TCountryId newCountryId;
-   if (zoomLevel > scales::GetUpperWorldScale())
-     newCountryId = m_infoGetter->GetRegionCountryId(m2::PointD(pt));
+  storage::TCountryId newCountryId;
+  if (zoomLevel > scales::GetUpperWorldScale())
+    newCountryId = m_infoGetter->GetRegionCountryId(pt);
 
-   if (newCountryId == m_lastReportedCountry)
-     return;
+  if (newCountryId == m_lastReportedCountry)
+    return;
 
-   m_lastReportedCountry = newCountryId;
+  m_lastReportedCountry = newCountryId;
 
-   GetPlatform().RunTask(Platform::Thread::Gui, [this, newCountryId]()
-   {
-     if (m_currentCountryChanged != nullptr)
-       m_currentCountryChanged(newCountryId);
-   });
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, newCountryId]()
+  {
+    if (m_currentCountryChanged != nullptr)
+      m_currentCountryChanged(newCountryId);
+  });
 }
 
 void Framework::SetCurrentCountryChangedListener(TCurrentCountryChanged const & listener)

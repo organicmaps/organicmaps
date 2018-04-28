@@ -169,7 +169,7 @@ df::TouchEvent MapWidget::GetTouchEvent(QMouseEvent * e, df::TouchEvent::ETouchT
 df::Touch MapWidget::GetSymmetrical(df::Touch const & touch) const
 {
   m2::PointD const pixelCenter = m_framework.GetPixelCenter();
-  m2::PointD const symmetricalLocation = pixelCenter + (pixelCenter - touch.m_location);
+  m2::PointD const symmetricalLocation = pixelCenter + pixelCenter - m2::PointD(touch.m_location);
 
   df::Touch result;
   result.m_id = touch.m_id + 1;

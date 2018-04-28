@@ -504,7 +504,7 @@ private:
 
   bool m_connectToGpsTrack; // need to connect to tracker when Drape is being constructed
 
-  void OnUpdateCurrentCountry(m2::PointF const & pt, int zoomLevel);
+  void OnUpdateCurrentCountry(m2::PointD const & pt, int zoomLevel);
 
   storage::TCountryId m_lastReportedCountry;
   TCurrentCountryChanged m_currentCountryChanged;

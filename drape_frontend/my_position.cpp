@@ -103,13 +103,13 @@ void MyPosition::RenderAccuracy(ScreenBase const & screen, int zoomLevel,
 {
   dp::UniformValuesStorage uniforms = commonUniforms;
   m2::PointD accuracyPoint(m_position.x + m_accuracy, m_position.y);
-  float pixelAccuracy = (screen.GtoP(accuracyPoint) - screen.GtoP(m_position)).Length();
+  float pixelAccuracy = (screen.GtoP(accuracyPoint) - screen.GtoP(m2::PointD(m_position))).Length();
 
-  TileKey const key = GetTileKeyByPoint(m_position, ClipTileZoomByMaxDataZoom(zoomLevel));
+  TileKey const key = GetTileKeyByPoint(m2::PointD(m_position), ClipTileZoomByMaxDataZoom(zoomLevel));
   math::Matrix<float, 4, 4> mv = key.GetTileBasedModelView(screen);
   uniforms.SetMatrix4x4Value("modelView", mv.m_data);
 
-  m2::PointD const pos = MapShape::ConvertToLocal(m_position, key.GetGlobalRect().Center(), kShapeCoordScalar);
+  m2::PointD const pos = MapShape::ConvertToLocal(m2::PointD(m_position), key.GetGlobalRect().Center(), kShapeCoordScalar);
   uniforms.SetFloatValue("u_position", pos.x, pos.y, 0.0f);
   uniforms.SetFloatValue("u_accuracy", pixelAccuracy);
   uniforms.SetFloatValue("u_opacity", 1.0f);
@@ -122,18 +122,18 @@ void MyPosition::RenderMyPosition(ScreenBase const & screen, int zoomLevel,
 {
   if (m_showAzimuth)
   {
-    m_arrow3d.SetPosition(m_position);
+    m_arrow3d.SetPosition(m2::PointD(m_position));
     m_arrow3d.SetAzimuth(m_azimuth);
     m_arrow3d.Render(screen, mng, m_isRoutingMode);
   }
   else
   {
     dp::UniformValuesStorage uniforms = commonUniforms;
-    TileKey const key = GetTileKeyByPoint(m_position, ClipTileZoomByMaxDataZoom(zoomLevel));
+    TileKey const key = GetTileKeyByPoint(m2::PointD(m_position), ClipTileZoomByMaxDataZoom(zoomLevel));
     math::Matrix<float, 4, 4> mv = key.GetTileBasedModelView(screen);
     uniforms.SetMatrix4x4Value("modelView", mv.m_data);
 
-    m2::PointD const pos = MapShape::ConvertToLocal(m_position, key.GetGlobalRect().Center(), kShapeCoordScalar);
+    m2::PointD const pos = MapShape::ConvertToLocal(m2::PointD(m_position), key.GetGlobalRect().Center(), kShapeCoordScalar);
     uniforms.SetFloatValue("u_position", pos.x, pos.y, dp::depth::kMyPositionMarkDepth);
     uniforms.SetFloatValue("u_azimut", -(m_azimuth + screen.GetAngle()));
     uniforms.SetFloatValue("u_opacity", 1.0);
