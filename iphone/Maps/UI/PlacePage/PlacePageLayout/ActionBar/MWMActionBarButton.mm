@@ -5,7 +5,7 @@
 
 NSString * titleForPartner(int partnerIndex)
 {
-  NSString * str = [NSString stringWithFormat:@"sponsored_partner%d_action", partnerIndex + 1];
+  NSString * str = [NSString stringWithFormat:@"sponsored_partner%d_action", partnerIndex];
   NSString * localizedStr = L(str);
   NSCAssert(![str isEqualToString:localizedStr], @"Localization is absent.");
   return localizedStr;
@@ -33,7 +33,7 @@ NSString * titleForButton(EButton type, int partnerIndex, BOOL isSelected)
 
 NSString * imageNameForPartner(int partnerIndex)
 {
-  return [NSString stringWithFormat:@"ic_28px_logo_partner%d", partnerIndex + 1];
+  return [NSString stringWithFormat:@"ic_28px_logo_partner%d", partnerIndex];
 }
 
 UIImage * imageForPartner(int partnerIndex)
@@ -45,7 +45,7 @@ UIImage * imageForPartner(int partnerIndex)
 
 UIColor * textColorForPartner(int partnerIndex)
 {
-  NSString * textColor = [NSString stringWithFormat:@"partner%dTextColor", partnerIndex + 1];
+  NSString * textColor = [NSString stringWithFormat:@"partner%dTextColor", partnerIndex];
   UIColor * color = [UIColor colorWithName:textColor];
   NSCAssert(color != nil, @"Partner text color is absent.");
   return color;
@@ -53,7 +53,7 @@ UIColor * textColorForPartner(int partnerIndex)
 
 UIColor * backgroundColorForPartner(int partnerIndex)
 {
-  NSString * colorName = [NSString stringWithFormat:@"partner%dBackground", partnerIndex + 1];
+  NSString * colorName = [NSString stringWithFormat:@"partner%dBackground", partnerIndex];
   UIColor * color = [UIColor colorWithName:colorName];
   NSCAssert(color != nil, @"Partner background color is absent.");
   return color;

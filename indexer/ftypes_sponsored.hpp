@@ -25,17 +25,6 @@ SPONSORED_CHECKER(IsHolidayChecker, "holiday");
 
 #undef SPONSORED_CHECKER
 
-class SponsoredPartnerChecker : public BaseChecker
-{
-protected:
-  SponsoredPartnerChecker();
-
-public:
-  int GetPartnerIndex(FeatureType const & ft) const;
-
-  DECLARE_CHECKER_INSTANCE(SponsoredPartnerChecker);
-};
-
 class Fc2018Checker : public BaseChecker
 {
   Fc2018Checker();
@@ -43,6 +32,3 @@ public:
   DECLARE_CHECKER_INSTANCE(Fc2018Checker);
 };
 }  // namespace ftypes
-
-extern std::string GetPartnerNameByIndex(int partnerIndex);
-extern bool IsPartnerButtonExist(int partnerIndex);

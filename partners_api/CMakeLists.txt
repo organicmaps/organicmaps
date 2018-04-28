@@ -25,6 +25,8 @@ set(
   mopub_ads.hpp
   opentable_api.cpp
   opentable_api.hpp
+  partners.cpp
+  partners.hpp
   rb_ads.cpp
   rb_ads.hpp
   taxi_base.cpp

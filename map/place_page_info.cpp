@@ -4,6 +4,7 @@
 
 #include "partners_api/ads_engine.hpp"
 #include "partners_api/banner.hpp"
+#include "partners_api/partners.hpp"
 
 #include "indexer/feature_utils.hpp"
 #include "indexer/ftypes_sponsored.hpp"
@@ -323,7 +324,7 @@ vector<ads::Banner> Info::GetBanners() const
 void Info::SetPartnerIndex(int index)
 {
   m_partnerIndex = index;
-  m_partnerName = GetPartnerNameByIndex(m_partnerIndex);
+  m_partnerName = GetPartnerByIndex(m_partnerIndex).m_name;
 }
 
 namespace rating

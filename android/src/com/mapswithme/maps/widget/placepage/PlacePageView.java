@@ -581,10 +581,7 @@ public class PlacePageView extends RelativeLayout
         case BOOKING:
         case OPENTABLE:
         case PARTNER1:
-        case PARTNER2:
         case PARTNER3:
-        case PARTNER4:
-        case PARTNER5:
           onSponsoredClick(true /* book */, false);
           break;
 

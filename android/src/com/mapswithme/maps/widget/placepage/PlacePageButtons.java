@@ -14,7 +14,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
@@ -94,8 +96,6 @@ final class PlacePageButtons
       }
     },
 
-    PARTNER2,
-
     PARTNER3
     {
       @Override
@@ -110,10 +110,6 @@ final class PlacePageButtons
         return R.drawable.ic_24px_logo_partner3;
       }
     },
-
-    PARTNER4,
-
-    PARTNER5,
 
     BACK
     {
@@ -261,9 +257,11 @@ final class PlacePageButtons
     }
   }
 
-  private static final Item[] PARTNERS_ITEMS = new Item[] { Item.PARTNER1, Item.PARTNER2,
-                                                            Item.PARTNER3, Item.PARTNER4,
-                                                            Item.PARTNER5 };
+  private static final Map<Integer, Item> PARTNERS_ITEMS = new HashMap<Integer, Item>()
+  {{
+    put(1, Item.PARTNER1);
+    put(3, Item.PARTNER3);
+  }};
 
   interface ItemListener
   {
@@ -283,9 +281,9 @@ final class PlacePageButtons
   @NonNull
   static Item getPartnerItem(int partnerIndex)
   {
-    if (partnerIndex < 0 || partnerIndex >= PARTNERS_ITEMS.length)
+    if (!PARTNERS_ITEMS.containsKey(partnerIndex))
       throw new AssertionError("Wrong partner index: " + partnerIndex);
-    return PARTNERS_ITEMS[partnerIndex];
+    return PARTNERS_ITEMS.get(partnerIndex);
   }
 
   private @NonNull List<Item> collectButtons(List<Item> items)

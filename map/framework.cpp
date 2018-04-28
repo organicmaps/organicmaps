@@ -85,6 +85,7 @@
 
 #include "partners_api/ads_engine.hpp"
 #include "partners_api/opentable_api.hpp"
+#include "partners_api/partners.hpp"
 
 #include "base/logging.hpp"
 #include "base/math.hpp"
@@ -101,8 +102,6 @@
 #include "api/src/c/api-client.h"
 
 #include "3party/Alohalytics/src/alohalytics.h"
-
-#define DEFAULT_BOOKMARK_TYPE "placemark-red"
 
 using namespace storage;
 using namespace routing;
@@ -855,12 +854,12 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     info.SetBookingSearchUrl(url);
     LOG(LINFO, (url));
   }
-  else if (ftypes::SponsoredPartnerChecker::Instance()(ft))
+  else if (PartnerChecker::Instance()(ft))
   {
     info.SetSponsoredType(place_page::SponsoredType::Partner);
-    auto const partnerIndex = ftypes::SponsoredPartnerChecker::Instance().GetPartnerIndex(ft);
+    auto const partnerIndex = PartnerChecker::Instance().GetPartnerIndex(ft);
     info.SetPartnerIndex(partnerIndex);
-    if (IsPartnerButtonExist(partnerIndex))
+    if (GetPartnerByIndex(partnerIndex).m_hasButton)
     {
       auto const & url = info.GetMetadata().Get(feature::Metadata::FMD_BANNER_URL);
       info.SetSponsoredUrl(url);
