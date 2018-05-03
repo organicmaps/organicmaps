@@ -45,7 +45,7 @@
 using namespace std;
 using namespace std::placeholders;
 
-android::Framework * g_framework = 0;
+unique_ptr<android::Framework> g_framework;
 
 namespace platform
 {
@@ -90,9 +90,6 @@ Framework::Framework()
   , m_isCurrentModeInitialized(false)
   , m_isChoosePositionMode(false)
 {
-  ASSERT_EQUAL ( g_framework, 0, () );
-  g_framework = this;
-
   m_work.GetTrafficManager().SetStateListener(bind(&Framework::TrafficStateChanged, this, _1));
 }
 
