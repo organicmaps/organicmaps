@@ -50,6 +50,7 @@ double constexpr kSpeedFootwayKMpH = 5.0;
 double constexpr kSpeedPlatformKMpH = 5.0;
 double constexpr kSpeedPierKMpH = 4.0;
 double constexpr kSpeedOffroadKMpH = 3.0;
+double constexpr kSpeedFerry = 1.0;
 
 // Default
 VehicleModel::InitListT const g_pedestrianLimitsDefault =
@@ -290,7 +291,7 @@ void PedestrianModel::Init()
 
   vector<AdditionalRoadTags> const additionalTags = {
       {hwtagYesFoot, m_maxSpeedKMpH},
-      {{"route", "ferry"}, m_maxSpeedKMpH},
+      {{"route", "ferry"}, kSpeedFerry},
       {{"man_made", "pier"}, kSpeedPierKMpH},
   };
 

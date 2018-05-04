@@ -50,6 +50,7 @@ double constexpr kSpeedFootwayKMpH = 7.0;
 double constexpr kSpeedPlatformKMpH = 3.0;
 double constexpr kSpeedPierKMpH = 7.0;
 double constexpr kSpeedOffroadKMpH = 3.0;
+double constexpr kSpeedFerry = 3.0;
 
 // Default
 VehicleModel::InitListT const g_bicycleLimitsDefault =
@@ -439,7 +440,7 @@ void BicycleModel::Init()
 
   vector<AdditionalRoadTags> const additionalTags = {
       {hwtagYesBicycle, m_maxSpeedKMpH},
-      {{"route", "ferry"}, m_maxSpeedKMpH},
+      {{"route", "ferry"}, kSpeedFerry},
       {{"man_made", "pier"}, kSpeedPierKMpH},
   };
 
