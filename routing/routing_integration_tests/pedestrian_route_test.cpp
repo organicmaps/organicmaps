@@ -484,3 +484,12 @@ UNIT_TEST(MoscowKashirskoe16ToVorobeviGori)
       MercatorBounds::FromLatLon(55.66230, 37.63214), {0., 0.},
       MercatorBounds::FromLatLon(55.70934, 37.54232), 9553.0);
 }
+
+// Test on building pedestrian route past ferry.
+UNIT_TEST(SwitzerlandSaintBlaisePedestrian)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetVehicleComponents<VehicleType::Pedestrian>(),
+      MercatorBounds::FromLatLon(47.010336, 6.982954), {0.0, 0.0},
+      MercatorBounds::FromLatLon(47.005817, 6.970227), 1532.3);
+}
