@@ -28,8 +28,8 @@ final class BMCPermissionsHeader: UIView {
   var delegate: BMCPermissionsHeaderDelegate!
 
   private func updateButton() {
-    UIView.animate(withDuration: kDefaultAnimationDuration) {
-      self.button?.imageView?.transform = self.isCollapsed ? .init(rotationAngle: .pi) : .identity
+    UIView.animate(withDuration: 0.3) {
+      self.button?.imageView?.transform = self.isCollapsed ? .init(rotationAngle: .pi - 0.001) : .identity //fix for rotation direction on expand-collapse
     }
   }
 

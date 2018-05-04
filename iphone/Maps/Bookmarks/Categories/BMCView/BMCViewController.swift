@@ -303,7 +303,17 @@ extension BMCViewController: BMCCategoryCellDelegate {
 extension BMCViewController: BMCPermissionsHeaderDelegate {
   func collapseAction(isCollapsed: Bool) {
     permissionsHeader.isCollapsed = !isCollapsed
-    update(sections: [.permissions])
+    let sectionIndex = viewModel.sectionIndex(section: .permissions)
+    let rowsInSection = viewModel.numberOfRows(section: .permissions)
+    var rowIndexes = [IndexPath]()
+    for rowIndex in 0..<rowsInSection {
+      rowIndexes.append(IndexPath(row: rowIndex, section: sectionIndex))
+    }
+    if (permissionsHeader.isCollapsed) {
+      tableView.deleteRows(at: rowIndexes, with: .automatic)
+    } else {
+      tableView.insertRows(at: rowIndexes, with: .automatic)
+    }
   }
 }
 
