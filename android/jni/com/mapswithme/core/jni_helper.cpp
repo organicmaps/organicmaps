@@ -219,11 +219,11 @@ bool HandleJavaException(JNIEnv * env)
 {
   if (env->ExceptionCheck())
    {
-     const jthrowable e = env->ExceptionOccurred();
+     jni::ScopedLocalRef<jthrowable> const  e(env, env->ExceptionOccurred());
      env->ExceptionDescribe();
      env->ExceptionClear();
-     my::LogLevel level = GetLogLevelForException(env, e);
-     LOG(level, (ToNativeString(env, e)));
+     my::LogLevel level = GetLogLevelForException(env, e.get());
+     LOG(level, (ToNativeString(env, e.get())));
      return true;
    }
    return false;
