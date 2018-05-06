@@ -274,57 +274,66 @@ void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
   // Request local ads campaigns.
   GetPlatform().RunTask(Platform::Thread::File, [this, mwms = std::move(mwms)]() mutable
   {
-    auto const requestedCampaigns = GetRequestedCampaigns(std::move(mwms));
-    if (!requestedCampaigns.empty())
-    {
-      std::set<Request> requests;
-      for (auto const & campaign : requestedCampaigns)
-        requests.insert(std::make_pair(m_getMwmIdByNameFn(campaign), RequestType::Download));
-      ProcessRequests(std::move(requests));
-    }
+    RequestCampaigns(std::move(mwms));
   });
 }
 
-std::vector<std::string> LocalAdsManager::GetRequestedCampaigns(std::vector<MwmSet::MwmId> && mwmIds) const
+void LocalAdsManager::RequestCampaigns(std::vector<MwmSet::MwmId> && mwmIds)
 {
-  std::lock_guard<std::mutex> lock(m_campaignsMutex);
   auto const connectionStatus = GetPlatform().ConnectionStatus();
   
   std::vector<std::string> requestedCampaigns;
-  for (auto const & mwm : mwmIds)
   {
-    auto info = mwm.GetInfo();
-    if (!info)
-      continue;
-    
-    // Skip downloading request if maximum attempts count has reached or
-    // we are waiting for new attempt.
-    auto const failedDownloadsIt = m_failedDownloads.find(mwm);
-    if (failedDownloadsIt != m_failedDownloads.cend() && !failedDownloadsIt->second.CanRetry())
-      continue;
-    
-    std::string const & mwmName = info->GetCountryName();
-    auto campaignIt = m_campaigns.find(mwmName);
-    if (campaignIt == m_campaigns.end())
+    std::lock_guard<std::mutex> lock(m_campaignsMutex);
+    for (auto const & mwm : mwmIds)
     {
-      requestedCampaigns.push_back(mwmName);
-      continue;
-    }
-    
-    // If a campaign has not been requested from server this session.
-    if (!campaignIt->second)
-    {
-      auto const it = m_info.find(mwmName);
-      bool needUpdateByTimeout = (connectionStatus == Platform::EConnectionType::CONNECTION_WIFI);
-      if (!needUpdateByTimeout && it != m_info.end())
-        needUpdateByTimeout = local_ads::Clock::now() > (it->second.m_created + kWWanUpdateTimeout);
+      auto info = mwm.GetInfo();
+      if (!info)
+        continue;
       
-      if (needUpdateByTimeout || it == m_info.end())
+      // Skip currently downloading mwms.
+      if (m_downloadingMwms.find(mwm) != m_downloadingMwms.cend())
+        continue;
+
+      // Skip downloading request if maximum attempts count has been reached or
+      // we are waiting for new attempt.
+      auto const failedDownloadsIt = m_failedDownloads.find(mwm);
+      if (failedDownloadsIt != m_failedDownloads.cend() && !failedDownloadsIt->second.CanRetry())
+        continue;
+      
+      std::string const & mwmName = info->GetCountryName();
+      auto campaignIt = m_campaigns.find(mwmName);
+      if (campaignIt == m_campaigns.end())
+      {
         requestedCampaigns.push_back(mwmName);
+        m_downloadingMwms.insert(mwm);
+        continue;
+      }
+      
+      // If a campaign has not been requested from server this session.
+      if (!campaignIt->second)
+      {
+        auto const it = m_info.find(mwmName);
+        bool needUpdateByTimeout = (connectionStatus == Platform::EConnectionType::CONNECTION_WIFI);
+        if (!needUpdateByTimeout && it != m_info.end())
+          needUpdateByTimeout = local_ads::Clock::now() > (it->second.m_created + kWWanUpdateTimeout);
+        
+        if (needUpdateByTimeout || it == m_info.end())
+        {
+          requestedCampaigns.push_back(mwmName);
+          m_downloadingMwms.insert(mwm);
+        }
+      }
     }
   }
   
-  return requestedCampaigns;
+  if (requestedCampaigns.empty())
+    return;
+  
+  std::set<Request> requests;
+  for (auto const & campaign : requestedCampaigns)
+    requests.insert(std::make_pair(m_getMwmIdByNameFn(campaign), RequestType::Download));
+  ProcessRequests(std::move(requests));
 }
 
 bool LocalAdsManager::DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<uint8_t> & bytes)
@@ -337,15 +346,19 @@ bool LocalAdsManager::DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<
 
   // Skip already downloaded campaigns.
   auto const & countryName = mwmId.GetInfo()->GetCountryName();
-  auto const it = m_campaigns.find(countryName);
-  if (it != m_campaigns.cend() && it->second)
-    return false;
+  {
+    std::lock_guard<std::mutex> lock(m_campaignsMutex);
+    auto const it = m_campaigns.find(countryName);
+    if (it != m_campaigns.cend() && it->second)
+      return false;
+  }
 
   platform::HttpClient request(url);
-  request.SetTimeout(5);    // timeout in seconds
+  request.SetTimeout(5); // timeout in seconds
   bool const success = request.RunHttpRequest() && request.ErrorCode() == 200;
 
   std::lock_guard<std::mutex> lock(m_campaignsMutex);
+  m_downloadingMwms.erase(mwmId);
   if (!success)
   {
     bool const isAbsent = request.ErrorCode() == 404;

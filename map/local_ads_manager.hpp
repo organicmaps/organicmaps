@@ -85,7 +85,7 @@ private:
   // by some reason.
   bool DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<uint8_t> & bytes);
   
-  std::vector<std::string> GetRequestedCampaigns(std::vector<MwmSet::MwmId> && mwmIds) const;
+  void RequestCampaigns(std::vector<MwmSet::MwmId> && mwmIds);
 
   GetMwmsByRectFn const m_getMwmsByRectFn;
   GetMwmIdByNameFn const m_getMwmIdByNameFn;
@@ -103,7 +103,7 @@ private:
     std::vector<uint8_t> m_data;
   };
   std::map<std::string, CampaignInfo> m_info;
-  mutable std::mutex m_campaignsMutex;
+  std::mutex m_campaignsMutex;
 
   std::set<FeatureID> m_featuresCache;
   mutable std::mutex m_featuresCacheMutex;
@@ -130,6 +130,7 @@ private:
     bool CanRetry() const;
   };
   std::map<MwmSet::MwmId, BackoffStats> m_failedDownloads;
-
+  std::set<MwmSet::MwmId> m_downloadingMwms;
+  
   local_ads::Statistics m_statistics;
 };
