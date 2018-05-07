@@ -46,7 +46,7 @@ PartnerInfo::PartnerInfo(int partnerIndex, std::string && name)
   : PartnerInfo(partnerIndex, std::move(name), false /* hasButton */)
 {}
 
-std::string PartnerInfo::GetBannerPlacementId() const
+std::string const & PartnerInfo::GetBannerPlacementId() const
 {
 #if defined(OMIM_OS_IPHONE)
   return m_iosBannerPlacementId;
@@ -75,6 +75,11 @@ int PartnerChecker::GetPartnerIndex(FeatureType const & ft) const
     index++;
   }
   return kFakePartnerIndex;
+}
+
+std::vector<PartnerInfo> const & GetPartners()
+{
+  return kPartners;
 }
 
 PartnerInfo const & GetPartnerByIndex(int partnerIndex)

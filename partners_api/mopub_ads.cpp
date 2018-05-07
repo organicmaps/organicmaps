@@ -71,9 +71,9 @@ Mopub::Mopub()
 
   AppendEntry({{"sponsored", "banner"}}, kSponsoredBannerPlacementId);
 
-  for (auto const & p : kPartners)
+  for (auto const & p : GetPartners())
   {
-    auto const placementId = p.GetBannerPlacementId();
+    auto const & placementId = p.GetBannerPlacementId();
     if (!placementId.empty())
       AppendEntry({{"sponsored", p.m_type.c_str()}}, placementId);
   }

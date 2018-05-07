@@ -107,6 +107,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import static com.mapswithme.maps.widget.placepage.PlacePageButtons.Item.BOOKING;
 import static com.mapswithme.util.statistics.Destination.EXTERNAL;
 import static com.mapswithme.util.statistics.GalleryPlacement.PLACEPAGE;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_HOTEL_DESCRIPTION_LAND;
@@ -448,11 +449,11 @@ public class PlacePageView extends RelativeLayout
     mButtons = new PlacePageButtons(this, ppButtons, new PlacePageButtons.ItemListener()
     {
       @Override
-      public void onPrepareVisibleView(PlacePageButtons.Item item, View frame, ImageView icon, TextView title)
+      public void onPrepareVisibleView(PlacePageButtons.ButtonInterface item, View frame, ImageView icon, TextView title)
       {
         int color;
 
-        switch (item)
+        switch (item.getType())
         {
           case BOOKING:
             frame.setBackgroundResource(R.drawable.button_booking);
@@ -495,9 +496,9 @@ public class PlacePageView extends RelativeLayout
       }
 
       @Override
-      public void onItemClick(PlacePageButtons.Item item)
+      public void onItemClick(PlacePageButtons.ButtonInterface item)
       {
-        switch (item)
+        switch (item.getType())
         {
         case BOOKMARK:
           if (mMapObject == null)
@@ -1591,7 +1592,7 @@ public class PlacePageView extends RelativeLayout
 
   private void setButtons(@NonNull MapObject mapObject, boolean showBackButton, boolean showRoutingButton)
   {
-    List<PlacePageButtons.Item> buttons = new ArrayList<>();
+    List<PlacePageButtons.ButtonInterface> buttons = new ArrayList<>();
     if (RoutingController.get().isRoutePoint(mapObject))
     {
       buttons.add(PlacePageButtons.Item.ROUTE_REMOVE);
@@ -1607,7 +1608,7 @@ public class PlacePageView extends RelativeLayout
       switch (mSponsored.getType())
       {
         case Sponsored.TYPE_BOOKING:
-          buttons.add(PlacePageButtons.Item.BOOKING);
+          buttons.add(BOOKING);
           break;
         case Sponsored.TYPE_OPENTABLE:
           buttons.add(PlacePageButtons.Item.OPENTABLE);

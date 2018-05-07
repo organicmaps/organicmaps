@@ -20,7 +20,7 @@ struct PartnerInfo
 
   PartnerInfo(int partnerIndex, std::string && name);
 
-  std::string GetBannerPlacementId() const;
+  std::string const & GetBannerPlacementId() const;
 };
 
 class PartnerChecker : public ftypes::BaseChecker
@@ -34,6 +34,6 @@ public:
   DECLARE_CHECKER_INSTANCE(PartnerChecker);
 };
 
-extern std::vector<PartnerInfo> const kPartners;
+extern std::vector<PartnerInfo> const & GetPartners();
 
 extern PartnerInfo const & GetPartnerByIndex(int partnerIndex);
