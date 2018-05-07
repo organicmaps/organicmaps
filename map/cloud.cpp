@@ -1146,27 +1146,94 @@ std::string Cloud::GetAccessToken() const
   return m_accessToken;
 }
 
+bool Cloud::IsRestoringEnabledCommonImpl(std::string & reason) const
+{
+  if (m_state != State::Enabled)
+  {
+    reason = "Cloud is not enabled";
+    return false;
+  }
+  
+  if (!m_indexUpdated)
+  {
+    reason = "Cloud is not initialized";
+    return false;
+  }
+  
+  if (m_accessToken.empty())
+  {
+    reason = "User is not authenticated";
+    return false;
+  }
+  
+  return true;
+}
+
+bool Cloud::IsRequestRestoringEnabled(std::string & reason) const
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  if (!IsRestoringEnabledCommonImpl(reason))
+    return false;
+  
+  if (m_restoringState != RestoringState::None)
+  {
+    reason = "Restoring process exists";
+    return false;
+  }
+  
+  return true;
+}
+
+bool Cloud::IsApplyRestoringEnabled(std::string & reason) const
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  if (!IsRestoringEnabledCommonImpl(reason))
+    return false;
+  
+  if (m_restoringState != RestoringState::Requested)
+  {
+    reason = "Restoring process does not exist";
+    return false;
+  }
+  
+  if (m_bestSnapshotData.m_deviceId.empty())
+  {
+    reason = "Backup is absent";
+    return false;
+  }
+  
+  return true;
+}
+
 void Cloud::RequestRestoring()
 {
+  FinishUploading(SynchronizationResult::UserInterrupted, {});
+  
+  ThreadSafeCallback<SynchronizationStartedHandler>(
+    [this]() { return m_onSynchronizationStarted; }, SynchronizationType::Restore);
+  
   auto const status = GetPlatform().ConnectionStatus();
   if (status == Platform::EConnectionType::CONNECTION_NONE)
-    return;
-
   {
-    std::lock_guard<std::mutex> lock(m_mutex);
-    if (m_state != State::Enabled || !m_indexUpdated || m_accessToken.empty() ||
-        m_restoringState != RestoringState::None)
-    {
-      return;
-    }
-
-    m_restoringState = RestoringState::Requested;
+    ThreadSafeCallback<SynchronizationFinishedHandler>(
+      [this]() { return m_onSynchronizationFinished; }, SynchronizationType::Restore,
+      SynchronizationResult::InvalidCall, "No internet connection");
+    return;
   }
 
-  FinishUploading(SynchronizationResult::UserInterrupted, {});
-
-  ThreadSafeCallback<SynchronizationStartedHandler>(
-      [this]() { return m_onSynchronizationStarted; }, SynchronizationType::Restore);
+  std::string reason;
+  if (!IsRequestRestoringEnabled(reason))
+  {
+    ThreadSafeCallback<SynchronizationFinishedHandler>(
+       [this]() { return m_onSynchronizationFinished; }, SynchronizationType::Restore,
+       SynchronizationResult::InvalidCall, reason);
+    return;
+  }
+  
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_restoringState = RestoringState::Requested;
+  }
 
   GetBestSnapshotTask(kTaskTimeoutInSeconds, 0 /* attemptIndex */);
 }
@@ -1175,15 +1242,24 @@ void Cloud::ApplyRestoring()
 {
   auto const status = GetPlatform().ConnectionStatus();
   if (status == Platform::EConnectionType::CONNECTION_NONE)
+  {
+    ThreadSafeCallback<SynchronizationFinishedHandler>(
+      [this]() { return m_onSynchronizationFinished; }, SynchronizationType::Restore,
+      SynchronizationResult::InvalidCall, "No internet connection");
     return;
+  }
+  
+  std::string reason;
+  if (!IsApplyRestoringEnabled(reason))
+  {
+    ThreadSafeCallback<SynchronizationFinishedHandler>(
+      [this]() { return m_onSynchronizationFinished; }, SynchronizationType::Restore,
+      SynchronizationResult::InvalidCall, reason);
+    return;
+  }
 
   {
     std::lock_guard<std::mutex> lock(m_mutex);
-    if (m_state != State::Enabled || m_accessToken.empty() ||
-        m_restoringState != RestoringState::Requested || m_bestSnapshotData.m_deviceId.empty())
-    {
-      return;
-    }
     m_restoringState = RestoringState::Applying;
   }
 

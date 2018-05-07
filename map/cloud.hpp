@@ -176,7 +176,9 @@ public:
     // Synchronization was interrupted by a disk error.
     DiskError = 3,
     // Synchronization was interrupted by the user.
-    UserInterrupted = 4
+    UserInterrupted = 4,
+    // Synchronization was finished because of invalid function call.
+    InvalidCall = 5
   };
 
   enum class RestoringRequestResult
@@ -255,8 +257,18 @@ public:
 
   std::unique_ptr<User::Subscriber> GetUserSubscriber();
 
+  // This function requests restoring of files. The function must be called only
+  // if internet connection exists, the cloud is enabled and initialized, user is
+  // authenticated and there is no any current restoring process, otherwise
+  // InvalidCall result will be got.
   void RequestRestoring();
+  
+  // This function applies requested files. The function must be called only
+  // if internet connection exists, the cloud is enabled and initialized, user is
+  // authenticated, there is an existing restoring process and there is
+  // the backup on the server, otherwise InvalidCall result will be got.
   void ApplyRestoring();
+  
   void CancelRestoring();
 
 private:
@@ -276,6 +288,10 @@ private:
   bool ReadIndex();
   void UpdateIndex(bool indexExists);
   void SaveIndexImpl() const;
+  
+  bool IsRestoringEnabledCommonImpl(std::string & reason) const;
+  bool IsRequestRestoringEnabled(std::string & reason) const;
+  bool IsApplyRestoringEnabled(std::string & reason) const;
 
   EntryPtr GetEntryImpl(std::string const & fileName) const;
   void MarkModifiedImpl(std::string const & filePath, bool isOutdated);
@@ -374,6 +390,7 @@ inline std::string DebugPrint(Cloud::SynchronizationResult result)
   case Cloud::SynchronizationResult::NetworkError: return "NetworkError";
   case Cloud::SynchronizationResult::DiskError: return "DiskError";
   case Cloud::SynchronizationResult::UserInterrupted: return "UserInterrupted";
+  case Cloud::SynchronizationResult::InvalidCall: return "InvalidCall";
   }
 }
 

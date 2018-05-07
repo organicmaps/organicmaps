@@ -24,6 +24,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   case Cloud::SynchronizationResult::NetworkError: return kStatNetwork;
   case Cloud::SynchronizationResult::DiskError: return kStatDisk;
   case Cloud::SynchronizationResult::UserInterrupted: return kStatUserInterrupted;
+  case Cloud::SynchronizationResult::InvalidCall: return kStatInvalidCall;
   }
 }
 }  // namespace

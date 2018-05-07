@@ -27,7 +27,7 @@ public enum BookmarkManager
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ CLOUD_SUCCESS, CLOUD_AUTH_ERROR, CLOUD_NETWORK_ERROR,
-            CLOUD_DISK_ERROR, CLOUD_USER_INTERRUPTED })
+            CLOUD_DISK_ERROR, CLOUD_USER_INTERRUPTED, CLOUD_INVALID_CALL })
   public @interface SynchronizationResult {}
 
   public static final int CLOUD_SUCCESS = 0;
@@ -35,6 +35,7 @@ public enum BookmarkManager
   public static final int CLOUD_NETWORK_ERROR = 2;
   public static final int CLOUD_DISK_ERROR = 3;
   public static final int CLOUD_USER_INTERRUPTED = 4;
+  public static final int CLOUD_INVALID_CALL = 5;
 
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({ CLOUD_BACKUP_EXISTS, CLOUD_NO_BACKUP, CLOUD_NOT_ENOUGH_DISK_SPACE })

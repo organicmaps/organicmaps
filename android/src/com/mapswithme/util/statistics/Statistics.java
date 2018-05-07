@@ -414,6 +414,7 @@ public enum Statistics
     static final String DISK = "disk";
     static final String AUTH = "auth";
     static final String USER_INTERRUPTED = "user_interrupted";
+    static final String INVALID_CALL = "invalid_call";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -1088,6 +1089,8 @@ public enum Statistics
         return ParamValue.DISK;
       case BookmarkManager.CLOUD_USER_INTERRUPTED:
         return ParamValue.USER_INTERRUPTED;
+      case BookmarkManager.CLOUD_INVALID_CALL:
+        return ParamValue.INVALID_CALL;
       case BookmarkManager.CLOUD_SUCCESS:
         throw new AssertionError("It's not a error result!");
       default:

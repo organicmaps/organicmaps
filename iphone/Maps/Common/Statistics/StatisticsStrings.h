@@ -161,6 +161,7 @@ static NSString * const kStatHotel = @"hotel";
 static NSString * const kStatHotelLocation = @"hotel_location";
 static NSString * const kStatImport = @"Import";
 static NSString * const kStatIn = @"In";
+static NSString * const kStatInvalidCall = @"invalid_call";
 static NSString * const kStatIsAuthenticated = @"is_authenticated";
 static NSString * const kStatIsAuto = @"is_auto";
 static NSString * const kStatIsOnline = @"is_online";
