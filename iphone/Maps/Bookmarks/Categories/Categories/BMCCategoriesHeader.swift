@@ -22,6 +22,7 @@ final class BMCCategoriesHeader: UIView {
       let title = L(isShowAll ? "bookmarks_groups_show_all" : "bookmarks_groups_hide_all")
       UIView.performWithoutAnimation {
         button.setTitle(title, for: .normal)
+        button.layoutIfNeeded()
       }
     }
   }
