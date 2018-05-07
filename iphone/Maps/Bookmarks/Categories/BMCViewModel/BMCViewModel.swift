@@ -1,7 +1,7 @@
 protocol BMCView: AnyObject {
   func update(sections: [BMCSection])
-  func delete(at indexPath: IndexPath)
-  func insert(at indexPath: IndexPath)
+  func delete(at indexPaths: [IndexPath])
+  func insert(at indexPaths: [IndexPath])
   func conversionFinished(success: Bool)
 }
 

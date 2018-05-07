@@ -137,7 +137,7 @@ extension BMCDefaultViewModel: BMCViewModel {
     }
     
     categories.append(BMCCategory(identifier: BM.createCategory(withName: name), title: name))
-    view.insert(at: IndexPath(row: categories.count - 1, section: section))
+    view.insert(at: [IndexPath(row: categories.count - 1, section: section)])
   }
 
   func renameCategory(category: BMCCategory, name: String) {
@@ -154,7 +154,7 @@ extension BMCDefaultViewModel: BMCViewModel {
 
     categories.remove(at: row)
     BM.deleteCategory(category.identifier)
-    view.delete(at: IndexPath(row: row, section: section))
+    view.delete(at: [IndexPath(row: row, section: section)])
   }
 
   func checkCategory(name: String) -> Bool {

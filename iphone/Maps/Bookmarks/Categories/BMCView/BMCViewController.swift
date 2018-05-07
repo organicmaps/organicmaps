@@ -160,12 +160,12 @@ extension BMCViewController: BMCView {
     }
   }
 
-  func insert(at indexPath: IndexPath) {
-    tableView.insertRows(at: [indexPath], with: .automatic)
+  func insert(at indexPaths: [IndexPath]) {
+    tableView.insertRows(at: indexPaths, with: .automatic)
   }
 
-  func delete(at indexPath: IndexPath) {
-    tableView.deleteRows(at: [indexPath], with: .automatic)
+  func delete(at indexPaths: [IndexPath]) {
+    tableView.deleteRows(at: indexPaths, with: .automatic)
   }
 
   func conversionFinished(success: Bool) {
@@ -310,9 +310,9 @@ extension BMCViewController: BMCPermissionsHeaderDelegate {
       rowIndexes.append(IndexPath(row: rowIndex, section: sectionIndex))
     }
     if (permissionsHeader.isCollapsed) {
-      tableView.deleteRows(at: rowIndexes, with: .automatic)
+      delete(at: rowIndexes)
     } else {
-      tableView.insertRows(at: rowIndexes, with: .automatic)
+      insert(at: rowIndexes)
     }
   }
 }
