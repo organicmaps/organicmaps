@@ -698,21 +698,29 @@ void Cloud::ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout,
   {
     std::string entryName;
     std::string entryHash;
+    bool isInvalidToken;
     {
       std::lock_guard<std::mutex> lock(m_mutex);
-    #ifdef DEBUG
-      ASSERT(m_state == State::Enabled, ());
-      ASSERT(!m_accessToken.empty(), ());
-      ASSERT(m_uploadingStarted, ());
+      // Uploading has finished.
+      if (!m_uploadingStarted)
+        return;
+
       ASSERT(entry->m_isOutdated, ());
-    #endif
       entryName = entry->m_name;
       entryHash = entry->m_hash;
+      isInvalidToken = m_accessToken.empty();
     }
 
     if (kServerUrl.empty())
     {
       FinishUploading(SynchronizationResult::NetworkError, "Empty server url");
+      return;
+    }
+
+    // Access token may become invalid between tasks.
+    if (isInvalidToken)
+    {
+      FinishUploading(SynchronizationResult::AuthError, "Access token is empty");
       return;
     }
 
@@ -818,19 +826,28 @@ void Cloud::CreateSnapshotTask(uint32_t timeout, uint32_t attemptIndex,
                                [this, timeout, attemptIndex, files = std::move(files),
                                 handler = std::move(handler)]() mutable
   {
-    #ifdef DEBUG
+    ASSERT(!files.empty(), ());
+
+    bool isInvalidToken;
     {
+      // Uploading has finished.
       std::lock_guard<std::mutex> lock(m_mutex);
-      ASSERT(m_state == State::Enabled, ());
-      ASSERT(!m_accessToken.empty(), ());
-      ASSERT(m_uploadingStarted, ());
-      ASSERT(!files.empty(), ());
+      if (!m_uploadingStarted)
+        return;
+
+      isInvalidToken = m_accessToken.empty();
     }
-    #endif
 
     if (kServerUrl.empty())
     {
       FinishUploading(SynchronizationResult::NetworkError, "Empty server url");
+      return;
+    }
+
+    // Access token may become invalid between tasks.
+    if (isInvalidToken)
+    {
+      FinishUploading(SynchronizationResult::AuthError, "Access token is empty");
       return;
     }
 
@@ -865,18 +882,26 @@ void Cloud::FinishSnapshotTask(uint32_t timeout, uint32_t attemptIndex)
   GetPlatform().RunDelayedTask(Platform::Thread::Network, seconds(timeout),
                                [this, timeout, attemptIndex]()
   {
-  #ifdef DEBUG
+    bool isInvalidToken;
     {
+      // Uploading has finished.
       std::lock_guard<std::mutex> lock(m_mutex);
-      ASSERT(m_state == State::Enabled, ());
-      ASSERT(!m_accessToken.empty(), ());
-      ASSERT(m_uploadingStarted, ());
+      if (!m_uploadingStarted)
+        return;
+
+      isInvalidToken = m_accessToken.empty();
     }
-  #endif
 
     if (kServerUrl.empty())
     {
       FinishUploading(SynchronizationResult::NetworkError, "Empty server url");
+      return;
+    }
+
+    // Access token may become invalid between tasks.
+    if (isInvalidToken)
+    {
+      FinishUploading(SynchronizationResult::AuthError, "Access token is empty");
       return;
     }
 
@@ -1201,18 +1226,26 @@ void Cloud::GetBestSnapshotTask(uint32_t timeout, uint32_t attemptIndex)
   GetPlatform().RunDelayedTask(Platform::Thread::Network, seconds(timeout),
     [this, timeout, attemptIndex]()
   {
-  #ifdef DEBUG
+    bool isInvalidToken;
     {
+      // Restoring state may be changed between tasks.
       std::lock_guard<std::mutex> lock(m_mutex);
-      ASSERT(m_state == State::Enabled, ());
-      ASSERT(!m_accessToken.empty(), ());
-      ASSERT_EQUAL(m_restoringState, RestoringState::Requested, ());
+      if (m_restoringState != RestoringState::Requested)
+        return;
+
+      isInvalidToken = m_accessToken.empty();
     }
-  #endif
 
     if (kServerUrl.empty())
     {
       FinishRestoring(SynchronizationResult::NetworkError, "Empty server url");
+      return;
+    }
+
+    // Access token may become invalid between tasks.
+    if (isInvalidToken)
+    {
+      FinishRestoring(SynchronizationResult::AuthError, "Access token is empty");
       return;
     }
 
@@ -1270,11 +1303,11 @@ void Cloud::ProcessSuccessfulSnapshot(SnapshotResult const & result)
   }
   
   // Save snapshot data.
-  bool isInterrupted = false;
+  bool isInterrupted;
   {
     std::lock_guard<std::mutex> lock(m_mutex);
     m_bestSnapshotData = result.m_response;
-    isInterrupted = m_restoringState != RestoringState::Requested;
+    isInterrupted = (m_restoringState != RestoringState::Requested);
   }
   if (!isInterrupted)
   {
