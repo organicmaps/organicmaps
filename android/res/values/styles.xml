@@ -79,6 +79,16 @@
     <item name="textAllCaps">true</item>
   </style>
 
+  <style name="MwmWidget.Button.Ghost">
+    <item name="android:background">@android:color/transparent</item>
+    <item name="android:foreground">?clickableBackground</item>
+    <item name="android:minHeight">@dimen/height_primary_button</item>
+    <item name="android:textColor">?colorAccent</item>
+    <item name="android:textSize">@dimen/text_size_body_3</item>
+    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoMedium</item>
+    <item name="textAllCaps">true</item>
+  </style>
+
   <style name="MwmWidget.Button.LeaveReview">
     <item name="android:background">?reviewButtonBackground</item>
     <item name="android:minWidth">0dp</item>

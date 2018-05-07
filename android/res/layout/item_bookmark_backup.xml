@@ -42,16 +42,44 @@
       android:layout_height="wrap_content"
       android:textAppearance="@style/MwmTextAppearance.Body3"
       tools:text="@string/bookmarks_message_unbackuped_user"/>
-    <FrameLayout
+    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_gravity="center">
-      <Button
-        android:id="@+id/button"
-        style="@style/MwmWidget.Button.Primary"
+      android:orientation="vertical">
+      <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:minHeight="@dimen/nav_button_height"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+        <Button
+          android:id="@+id/backup_button"
+          style="@style/MwmWidget.Button.Primary"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:minHeight="@dimen/nav_button_height"
+          android:layout_marginTop="@dimen/margin_base"
+          android:layout_marginBottom="@dimen/margin_half"
+          android:paddingBottom="@dimen/margin_half_plus"
+          android:paddingTop="@dimen/margin_half_plus"
+          android:paddingStart="@dimen/margin_half"
+          android:paddingLeft="@dimen/margin_half"
+          android:paddingEnd="@dimen/margin_half"
+          android:paddingRight="@dimen/margin_half"
+          tools:text="@string/authorization_button_sign_in"/>
+        <ProgressBar
+          android:id="@+id/progress"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_base"
+          android:layout_marginBottom="@dimen/margin_half"
+          android:layout_gravity="center"
+          android:visibility="gone"
+          tools:visibility="visible"/>
+      </FrameLayout>
+      <Button
+        android:id="@+id/restore_button"
+        style="@style/MwmWidget.Button.Ghost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_base"
         android:layout_marginBottom="@dimen/margin_half"
         android:paddingBottom="@dimen/margin_half_plus"
@@ -60,16 +88,7 @@
         android:paddingLeft="@dimen/margin_half"
         android:paddingEnd="@dimen/margin_half"
         android:paddingRight="@dimen/margin_half"
-        tools:text="@string/authorization_button_sign_in"/>
-      <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_base"
-        android:layout_marginBottom="@dimen/margin_half"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        tools:visibility="visible"/>
-    </FrameLayout>
+        android:text="@string/bookmarks_restore"/>
+    </LinearLayout>
   </LinearLayout>
 </LinearLayout>

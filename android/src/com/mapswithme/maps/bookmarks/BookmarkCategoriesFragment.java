@@ -88,7 +88,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     super.onViewCreated(view, savedInstanceState);
 
     mLoadingPlaceholder = view.findViewById(R.id.placeholder_loading);
-    mBackupController = new BookmarkBackupController(view.findViewById(R.id.backup),
+    mBackupController = new BookmarkBackupController(getActivity(), view.findViewById(R.id.backup),
                                                      new Authorizer(this));
     mKmlImportController = new KmlImportController(getActivity(), this);
     if (getAdapter() != null)

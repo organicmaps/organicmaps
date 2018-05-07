@@ -1,7 +1,7 @@
 package com.mapswithme.util;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -15,57 +15,57 @@ public class DialogUtils
   {
   }
 
-  private static AlertDialog.Builder buildAlertDialog(@NonNull Activity activity, @StringRes int titleId)
+  private static AlertDialog.Builder buildAlertDialog(@NonNull Context context, @StringRes int titleId)
   {
-    return new AlertDialog.Builder(activity)
+    return new AlertDialog.Builder(context)
             .setCancelable(false)
             .setTitle(titleId)
             .setPositiveButton(R.string.ok, (dlg, which) -> dlg.dismiss());
   }
 
-  private static AlertDialog.Builder buildAlertDialog(@NonNull Activity activity, @StringRes int titleId,
+  private static AlertDialog.Builder buildAlertDialog(@NonNull Context context, @StringRes int titleId,
                                                       @StringRes int msgId)
   {
-    return buildAlertDialog(activity, titleId)
+    return buildAlertDialog(context, titleId)
           .setMessage(msgId);
   }
 
-  private static AlertDialog.Builder buildAlertDialog(Activity activity, int titleId,
+  private static AlertDialog.Builder buildAlertDialog(@NonNull Context context, @StringRes int titleId,
                                                       @NonNull CharSequence msg,
                                                       @StringRes int posBtn,
                                                       @NonNull DialogInterface.OnClickListener posClickListener,
                                                       @StringRes int negBtn)
   {
-    return buildAlertDialog(activity, titleId)
+    return buildAlertDialog(context, titleId)
         .setMessage(msg)
         .setPositiveButton(posBtn, posClickListener)
         .setNegativeButton(negBtn, null);
   }
 
-  public static void showAlertDialog(@NonNull Activity activity, @StringRes int titleId,
+  public static void showAlertDialog(@NonNull Context context, @StringRes int titleId,
                                      @StringRes int msgId)
   {
-    buildAlertDialog(activity, titleId, msgId).show();
+    buildAlertDialog(context, titleId, msgId).show();
   }
 
-  public static void showAlertDialog(@NonNull Activity activity, @StringRes int titleId)
+  public static void showAlertDialog(@NonNull Context context, @StringRes int titleId)
   {
-    buildAlertDialog(activity, titleId).show();
+    buildAlertDialog(context, titleId).show();
   }
 
-  public static void showAlertDialog(@NonNull Activity activity, @StringRes int titleId,
+  public static void showAlertDialog(@NonNull Context context, @StringRes int titleId,
                                      @NonNull CharSequence msg, @StringRes int posBtn,
                                      @NonNull DialogInterface.OnClickListener posClickListener,
                                      @StringRes int negBtn)
   {
-    buildAlertDialog(activity, titleId, msg, posBtn, posClickListener, negBtn).show();
+    buildAlertDialog(context, titleId, msg, posBtn, posClickListener, negBtn).show();
   }
 
   @NonNull
-  public static ProgressDialog createModalProgressDialog(@NonNull Activity activity, @StringRes int msg)
+  public static ProgressDialog createModalProgressDialog(@NonNull Context context, @StringRes int msg)
   {
-    ProgressDialog progress = new ProgressDialog(activity, R.style.MwmTheme_AlertDialog);
-    progress.setMessage(activity.getString(msg));
+    ProgressDialog progress = new ProgressDialog(context, R.style.MwmTheme_AlertDialog);
+    progress.setMessage(context.getString(msg));
     progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     progress.setIndeterminate(true);
     progress.setCancelable(false);

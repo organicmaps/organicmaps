@@ -133,20 +133,30 @@ public class BookmarkBackupView extends LinearLayout
     message.setText(msg);
   }
 
-  public void setButtonLabel(@NonNull String label)
+  public void setBackupButtonLabel(@NonNull String label)
   {
-    TextView button = mContentLayout.findViewById(R.id.button);
+    TextView button = mContentLayout.findViewById(R.id.backup_button);
     button.setText(label);
   }
 
-  public void hideButton()
+  public void hideBackupButton()
   {
-    UiUtils.hide(mContentLayout, R.id.button);
+    UiUtils.hide(mContentLayout, R.id.backup_button);
   }
 
-  public void showButton()
+  public void showBackupButton()
   {
-    UiUtils.show(mContentLayout, R.id.button);
+    UiUtils.show(mContentLayout, R.id.backup_button);
+  }
+
+  public void hideRestoreButton()
+  {
+    UiUtils.hide(mContentLayout, R.id.restore_button);
+  }
+
+  public void showRestoreButton()
+  {
+    UiUtils.show(mContentLayout, R.id.restore_button);
   }
 
   public void hideProgressBar()
@@ -159,8 +169,13 @@ public class BookmarkBackupView extends LinearLayout
     UiUtils.show(mContentLayout, R.id.progress);
   }
 
-  public void setClickListener(@Nullable OnClickListener listener)
+  public void setBackupClickListener(@Nullable OnClickListener listener)
   {
-    mContentLayout.findViewById(R.id.button).setOnClickListener(listener);
+    mContentLayout.findViewById(R.id.backup_button).setOnClickListener(listener);
+  }
+
+  public void setRestoreClickListener(@Nullable OnClickListener listener)
+  {
+    mContentLayout.findViewById(R.id.restore_button).setOnClickListener(listener);
   }
 }
