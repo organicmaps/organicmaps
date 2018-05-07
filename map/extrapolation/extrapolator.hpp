@@ -12,6 +12,12 @@
 
 namespace position_extrapolator
 {
+/// \brief Returns extrapolated position after |point2| in |timeAfterPoint2Ms|.
+/// \note This function is assumed that between |point1| and |point2| passed one second.
+/// \note |timeAfterPoint2Ms| should be relevantly small (several seconds maximum).
+location::GpsInfo LinearExtrapolation(location::GpsInfo const & point1, location::GpsInfo const & point2,
+                                      uint64_t timeAfterPoint2Ms);
+
 class Extrapolator
 {
 public:

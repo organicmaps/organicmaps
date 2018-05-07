@@ -20,14 +20,16 @@ double LinearExtrapolationOfOneParam(double param1, double param2, uint64_t time
 {
   return (param2 - param1) * timeAfterPoint2Ms / timeBetweenPointsMs;
 }
+}  // namespace
 
-/// \brief Returns extrapolated position after |point2| in |timeAfterPoint2Ms|.
-/// \note This function is assumed that between |point1| and |point2| passed one second.
-/// \note |timeAfterPoint2Ms| should be relevantly small (several seconds maximum).
-location::GpsInfo LinearExtrapolation(location::GpsInfo const & point1, location::GpsInfo & point2,
+namespace position_extrapolator
+{
+using namespace std;
+
+location::GpsInfo LinearExtrapolation(location::GpsInfo const & point1, location::GpsInfo const & point2,
                                       uint64_t timeAfterPoint2Ms)
 {
-  uint64_t const timeBetweenPointsMs =
+  auto const timeBetweenPointsMs =
       static_cast<uint64_t>((point2.m_timestamp - point1.m_timestamp) * 1000);
 
   location::GpsInfo extrapolated = point2;
@@ -66,14 +68,8 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & point1, location
   }
   return extrapolated;
 }
-}  // namespace
-
-namespace position_extrapolator
-{
-using namespace std;
 
 // Extrapolator::Routine ---------------------------------------------------------------------------
-
 Extrapolator::Routine::Routine(ExtrapolatedLocationUpdate const & update)
   : m_extrapolatedLocationUpdate(update)
 {

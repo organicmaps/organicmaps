@@ -10,6 +10,7 @@ set(
   bookmarks_test.cpp
   chart_generator_tests.cpp
   cloud_tests.cpp
+  extrapolator_tests.cpp
   feature_getters_tests.cpp
   framework_light_tests.cpp
   ge0_parser_tests.cpp
