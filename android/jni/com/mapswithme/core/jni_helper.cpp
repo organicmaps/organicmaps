@@ -219,7 +219,7 @@ bool HandleJavaException(JNIEnv * env)
 {
   if (env->ExceptionCheck())
    {
-     jni::ScopedLocalRef<jthrowable> const  e(env, env->ExceptionOccurred());
+     jni::ScopedLocalRef<jthrowable> const e(env, env->ExceptionOccurred());
      env->ExceptionDescribe();
      env->ExceptionClear();
      my::LogLevel level = GetLogLevelForException(env, e.get());
@@ -251,12 +251,12 @@ std::string DescribeException()
 
   if (env->ExceptionCheck())
   {
-    jthrowable e = env->ExceptionOccurred();
+    jni::ScopedLocalRef<jthrowable> const e(env, env->ExceptionOccurred());
 
     // have to clear the exception before JNI will work again.
     env->ExceptionClear();
 
-    return ToNativeString(env, e);
+    return ToNativeString(env, e.get());
   }
   return {};
 }
