@@ -11,6 +11,21 @@
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 
+namespace
+{
+void ValidateKmlData(std::unique_ptr<kml::FileData> & data)
+{
+  if (!data)
+    return;
+
+  for (auto & t : data->m_tracksData)
+  {
+    if (t.m_layers.empty())
+      t.m_layers.emplace_back(kml::KmlParser::GetDefaultTrackLayer());
+  }
+}
+}  // namespace
+
 std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, bool useBinary)
 {
   std::unique_ptr<kml::FileData> kmlData;
@@ -35,14 +50,15 @@ std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, bool useBinary
   {
     if (useBinary)
     {
-      kml::binary::DeserializerKml des(*data.get());
+      kml::binary::DeserializerKml des(*data);
       des.Deserialize(reader);
     }
     else
     {
-      kml::DeserializerKml des(*data.get());
+      kml::DeserializerKml des(*data);
       des.Deserialize(reader);
     }
+    ValidateKmlData(data);
   }
   catch (Reader::Exception const & e)
   {
@@ -69,7 +85,7 @@ std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, bool useBinary
 
 bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, bool useBinary)
 {
-  bool success = false;
+  bool success;
   try
   {
     FileWriter writer(file);

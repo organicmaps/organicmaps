@@ -57,11 +57,13 @@ size_t Track::GetLayerCount() const
 
 dp::Color Track::GetColor(size_t layerIndex) const
 {
+  CHECK_LESS(layerIndex, m_data.m_layers.size(), ());
   return dp::Color(m_data.m_layers[layerIndex].m_color.m_rgba);
 }
 
 float Track::GetWidth(size_t layerIndex) const
 {
+  CHECK_LESS(layerIndex, m_data.m_layers.size(), ());
   return static_cast<float>(m_data.m_layers[layerIndex].m_lineWidth);
 }
 

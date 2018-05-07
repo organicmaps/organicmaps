@@ -70,6 +70,8 @@ public:
   void Pop(std::string const & tag);
   void CharData(std::string value);
 
+  static kml::TrackLayer GetDefaultTrackLayer();
+
 private:
   enum GeometryType
   {

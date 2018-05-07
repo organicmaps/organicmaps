@@ -44,6 +44,7 @@ std::string const kExtendedDataFooter =
 auto const kDefaultLang = StringUtf8Multilang::kDefaultCode;
 
 auto const kDefaultTrackWidth = 5.0;
+auto const kDefaultTrackColor = 0xe51b23ff;
 
 std::string Indent(size_t count)
 {
@@ -734,7 +735,7 @@ void KmlParser::Pop(std::string const & tag)
     TrackLayer layer;
     layer.m_lineWidth = m_trackWidth;
     layer.m_color.m_predefinedColor = PredefinedColor::None;
-    layer.m_color.m_rgba = m_color;
+    layer.m_color.m_rgba = (m_color != 0 ? m_color : kDefaultTrackColor);
     m_trackLayers.push_back(std::move(layer));
 
     m_trackWidth = kDefaultTrackWidth;
@@ -859,7 +860,7 @@ void KmlParser::CharData(std::string value)
         TrackLayer layer;
         layer.m_lineWidth = GetTrackWidthForStyle(value);
         layer.m_color.m_predefinedColor = PredefinedColor::None;
-        layer.m_color.m_rgba = m_color;
+        layer.m_color.m_rgba = (m_color != 0 ? m_color : kDefaultTrackColor);
         m_trackLayers.push_back(std::move(layer));
       }
       else if (currTag == "description")
@@ -991,6 +992,15 @@ void KmlParser::CharData(std::string value)
       }
     }
   }
+}
+
+// static
+kml::TrackLayer KmlParser::GetDefaultTrackLayer()
+{
+  kml::TrackLayer layer;
+  layer.m_lineWidth = kDefaultTrackWidth;
+  layer.m_color.m_rgba = kDefaultTrackColor;
+  return layer;
 }
 
 DeserializerKml::DeserializerKml(FileData & fileData)
