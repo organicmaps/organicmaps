@@ -4,6 +4,7 @@
 #include "kml/serdes_binary.hpp"
 
 #include "indexer/categories_holder.hpp"
+#include "indexer/classificator.hpp"
 #include "indexer/feature_utils.hpp"
 
 #include "platform/preferred_languages.hpp"
@@ -140,9 +141,14 @@ void ResetIds(kml::FileData & kmlData)
 
 void SaveFeatureTypes(feature::TypesHolder const & types, kml::BookmarkData & bmData)
 {
+  auto const & c = classif();
   feature::TypesHolder copy(types);
   copy.SortBySpec();
-  bmData.m_featureTypes.assign(copy.begin(), copy.end());
+  bmData.m_featureTypes.reserve(copy.Size());
+  for (auto it = copy.begin(); it != copy.end(); ++it)
+  {
+    bmData.m_featureTypes.push_back(c.GetIndexForType(*it));
+  }
 }
 
 std::string GetPreferredBookmarkStr(kml::LocalizableString const & name)
@@ -184,8 +190,10 @@ std::string GetLocalizedBookmarkType(std::vector<uint32_t> const & types)
   if (types.empty())
     return {};
 
+  auto const & c = classif();
+  auto const type = c.GetTypeForIndex(types.front());
   CategoriesHolder const & categories = GetDefaultCategories();
-  return categories.GetReadableFeatureType(types.front(), categories.MapLocaleToInteger(languages::GetCurrentOrig()));
+  return categories.GetReadableFeatureType(type, categories.MapLocaleToInteger(languages::GetCurrentOrig()));
 }
 
 std::string GetPreferredBookmarkName(kml::BookmarkData const & bmData)

@@ -22,7 +22,8 @@ enum class Version : uint8_t
   V0 = 0,
   V1 = 1, // 11th April 2018 (new Point2D storage, added deviceId, feature name -> custom name).
   V2 = 2, // 25th April 2018 (added serverId).
-  Latest = V2
+  V3 = 3, // 7th May 2018 (persistent feature types).
+  Latest = V3
 };
 
 class SerializerKml
@@ -133,7 +134,8 @@ public:
     // Check version.
     NonOwningReaderSource source(reader);
     auto const v = ReadPrimitiveFromSource<Version>(source);
-    if (v != Version::Latest)
+
+    if (v != Version::Latest && v != Version::V2)
       MYTHROW(DeserializeException, ("Incorrect file version."));
 
     // Read device id.
@@ -172,6 +174,13 @@ public:
       NonOwningReaderSource src(*bookmarkSubReader);
       BookmarkDeserializerVisitor<decltype(src)> visitor(src, m_doubleBits);
       visitor(m_data.m_bookmarksData);
+    }
+
+    // Migrate bookmarks.
+    if (v == Version::V2)
+    {
+      for (auto & data : m_data.m_bookmarksData)
+        data.m_featureTypes.clear();
     }
 
     // Deserialize tracks.

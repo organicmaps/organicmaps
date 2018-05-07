@@ -20,10 +20,10 @@ omim_link_libraries(
   traffic
   routing_common
   ugc
+  kml
   indexer
   editor
   storage
-  kml
   platform
   geometry
   coding

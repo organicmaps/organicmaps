@@ -14,8 +14,8 @@ omim_link_libraries(
   search search_quality
   storage
   ugc
-  indexer
   kml
+  indexer
   platform
   editor
   mwm_diff

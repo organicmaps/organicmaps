@@ -22,12 +22,12 @@ omim_link_libraries(
   expat
   map
   traffic
+  kml
   indexer
   pugixml
   opening_hours
   editor
   oauthcpp
-  kml
   platform
   jansson
   geometry

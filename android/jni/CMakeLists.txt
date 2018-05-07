@@ -110,9 +110,9 @@ target_link_libraries(
   search
   storage
   ugc
-  indexer
   drape
   kml
+  indexer
   platform
   editor
   partners_api

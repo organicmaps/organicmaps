@@ -24,8 +24,8 @@ omim_link_libraries(
   search
   storage
   mwm_diff
-  indexer
   kml
+  indexer
   platform
   editor
   geometry

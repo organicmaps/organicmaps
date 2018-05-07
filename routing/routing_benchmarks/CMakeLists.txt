@@ -22,9 +22,9 @@ omim_link_libraries(
   search
   storage
   mwm_diff
-  indexer
   traffic
   kml
+  indexer
   platform
   editor
   oauthcpp

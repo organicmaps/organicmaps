@@ -3,15 +3,17 @@
 #include "kml/serdes.hpp"
 #include "kml/serdes_binary.hpp"
 
+#include "indexer/classificator_loader.hpp"
+
 #include "coding/file_name_utils.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 #include "coding/hex.hpp"
+#include "coding/multilang_utf8_string.hpp"
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
 #include "base/scope_guard.hpp"
-#include "coding/multilang_utf8_string.hpp"
 
 #include <chrono>
 #include <cstring>
@@ -123,7 +125,7 @@ char const * kTextKml =
     "</kml>";
 
 std::vector<uint8_t> const kBinKml = {
-  0x02, 0x00, 0x00, 0x1E, 0x28, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x4D, 0x00, 0x00, 0x00,
+  0x03, 0x00, 0x00, 0x1E, 0x28, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x4D, 0x00, 0x00, 0x00,
   0x00, 0x00, 0x00, 0x00, 0xE5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE6, 0x00, 0x00, 0x00,
   0x00, 0x00, 0x00, 0x00, 0x3D, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF,
   0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x01,
@@ -209,7 +211,7 @@ kml::FileData GenerateKmlFileData()
   bookmarkData.m_name[kRuLang] = "Тестовая метка";
   bookmarkData.m_description[kDefaultLang] = "Test bookmark description";
   bookmarkData.m_description[kRuLang] = "Тестовое описание метки";
-  bookmarkData.m_featureTypes = {8, 13, 34, 565};
+  bookmarkData.m_featureTypes = {718, 715};
   bookmarkData.m_customName[kDefaultLang] = "Мое любимое место";
   bookmarkData.m_customName[kEnLang] = "My favorite place";
   bookmarkData.m_color = {kml::PredefinedColor::Blue, 0};
@@ -243,56 +245,56 @@ char const * kGeneratedKml =
   "  <Style id=\"placemark-red\">\n"
   "    <IconStyle>\n"
   "      <Icon>\n"
-  "        <href>http://mapswith.me/placemarks/placemark-red.png</href>\n"
+  "        <href>http://maps.me/placemarks/placemark-red.png</href>\n"
   "      </Icon>\n"
   "    </IconStyle>\n"
   "  </Style>\n"
   "  <Style id=\"placemark-blue\">\n"
   "    <IconStyle>\n"
   "      <Icon>\n"
-  "        <href>http://mapswith.me/placemarks/placemark-blue.png</href>\n"
+  "        <href>http://maps.me/placemarks/placemark-blue.png</href>\n"
   "      </Icon>\n"
   "    </IconStyle>\n"
   "  </Style>\n"
   "  <Style id=\"placemark-purple\">\n"
   "    <IconStyle>\n"
   "      <Icon>\n"
-  "        <href>http://mapswith.me/placemarks/placemark-purple.png</href>\n"
+  "        <href>http://maps.me/placemarks/placemark-purple.png</href>\n"
   "      </Icon>\n"
   "    </IconStyle>\n"
   "  </Style>\n"
   "  <Style id=\"placemark-yellow\">\n"
   "    <IconStyle>\n"
   "      <Icon>\n"
-  "        <href>http://mapswith.me/placemarks/placemark-yellow.png</href>\n"
+  "        <href>http://maps.me/placemarks/placemark-yellow.png</href>\n"
   "      </Icon>\n"
   "    </IconStyle>\n"
   "  </Style>\n"
   "  <Style id=\"placemark-pink\">\n"
   "    <IconStyle>\n"
   "      <Icon>\n"
-  "        <href>http://mapswith.me/placemarks/placemark-pink.png</href>\n"
+  "        <href>http://maps.me/placemarks/placemark-pink.png</href>\n"
   "      </Icon>\n"
   "    </IconStyle>\n"
   "  </Style>\n"
   "  <Style id=\"placemark-brown\">\n"
   "    <IconStyle>\n"
   "      <Icon>\n"
-  "        <href>http://mapswith.me/placemarks/placemark-brown.png</href>\n"
+  "        <href>http://maps.me/placemarks/placemark-brown.png</href>\n"
   "      </Icon>\n"
   "    </IconStyle>\n"
   "  </Style>\n"
   "  <Style id=\"placemark-green\">\n"
   "    <IconStyle>\n"
   "      <Icon>\n"
-  "        <href>http://mapswith.me/placemarks/placemark-green.png</href>\n"
+  "        <href>http://maps.me/placemarks/placemark-green.png</href>\n"
   "      </Icon>\n"
   "    </IconStyle>\n"
   "  </Style>\n"
   "  <Style id=\"placemark-orange\">\n"
   "    <IconStyle>\n"
   "      <Icon>\n"
-  "        <href>http://mapswith.me/placemarks/placemark-orange.png</href>\n"
+  "        <href>http://maps.me/placemarks/placemark-orange.png</href>\n"
   "      </Icon>\n"
   "    </IconStyle>\n"
   "  </Style>\n"
@@ -350,10 +352,8 @@ char const * kGeneratedKml =
   "        <mwm:lang code=\"ru\">Тестовое описание метки</mwm:lang>\n"
   "      </mwm:description>\n"
   "      <mwm:featureTypes>\n"
-  "        <mwm:value>8</mwm:value>\n"
-  "        <mwm:value>13</mwm:value>\n"
-  "        <mwm:value>34</mwm:value>\n"
-  "        <mwm:value>565</mwm:value>\n"
+  "        <mwm:value>historic-castle</mwm:value>\n"
+  "        <mwm:value>historic-memorial</mwm:value>\n"
   "      </mwm:featureTypes>\n"
   "      <mwm:customName>\n"
   "        <mwm:lang code=\"en\">My favorite place</mwm:lang>\n"
@@ -605,6 +605,8 @@ UNIT_TEST(Kml_Serialization_Bin_File)
 // bookmarks and tracks.
 UNIT_TEST(Kml_Serialization_Text_File)
 {
+  classificator::Load();
+
   auto data = GenerateKmlFileData();
 
   std::string const kmlFile = my::JoinPath(GetPlatform().TmpDir(), "tmp.kml");

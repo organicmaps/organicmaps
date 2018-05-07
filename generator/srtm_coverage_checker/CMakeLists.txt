@@ -19,9 +19,9 @@ omim_link_libraries(
   routing
   routing_common
   traffic
+  kml
   indexer
   editor
-  kml
   platform
   geometry
   coding

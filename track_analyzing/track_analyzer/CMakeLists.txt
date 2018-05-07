@@ -23,9 +23,9 @@ omim_link_libraries(
   traffic
   routing_common
   storage
+  kml
   indexer
   editor
-  kml
   platform
   mwm_diff
   bsdiff

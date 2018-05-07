@@ -19,6 +19,7 @@
 		45E4560E20584E6A00D9F45E /* libalohalitics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45E4560F20584E6A00D9F45E /* libalohalitics.a */; };
 		45E4561120584E8F00D9F45E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 45E4561020584E8F00D9F45E /* libz.tbd */; };
 		45E456142058509200D9F45E /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45E456122058508C00D9F45E /* testingmain.cpp */; };
+		BB31223C20A0B24500B80260 /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB31223B20A0B24500B80260 /* libindexer.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,6 +56,7 @@
 		45E4560F20584E6A00D9F45E /* libalohalitics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libalohalitics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		45E4561020584E8F00D9F45E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		45E456122058508C00D9F45E /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
+		BB31223B20A0B24500B80260 /* libindexer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB31223C20A0B24500B80260 /* libindexer.a in Frameworks */,
 				45E4560320584E1C00D9F45E /* libkml.a in Frameworks */,
 				45E4560420584E2600D9F45E /* libplatform.a in Frameworks */,
 				45E4560620584E3600D9F45E /* libcoding.a in Frameworks */,
@@ -133,6 +136,7 @@
 		45E4560220584E1C00D9F45E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BB31223B20A0B24500B80260 /* libindexer.a */,
 				45E4561020584E8F00D9F45E /* libz.tbd */,
 				45E4560F20584E6A00D9F45E /* libalohalitics.a */,
 				45E4560D20584E5200D9F45E /* libexpat.a */,

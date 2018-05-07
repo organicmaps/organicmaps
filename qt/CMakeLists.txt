@@ -71,11 +71,11 @@ omim_link_libraries(
   routing_common
   transit
   ugc
-  indexer
   drape
   partners_api
   local_ads
   kml
+  indexer
   platform
   editor
   geometry

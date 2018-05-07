@@ -31,12 +31,12 @@ omim_link_libraries(
   search
   storage
   mwm_diff
-  indexer
-  editor
   traffic
   routing_common
   transit
   kml
+  indexer
+  editor
   platform
   oauthcpp
   geometry

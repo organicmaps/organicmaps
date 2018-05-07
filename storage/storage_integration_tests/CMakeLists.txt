@@ -29,11 +29,11 @@ omim_link_libraries(
   tracking
   traffic
   ugc
-  indexer
   drape
   partners_api
   local_ads
   kml
+  indexer
   platform_tests_support
   platform
   editor
