@@ -17,6 +17,7 @@ final class BMCDefaultViewModel: NSObject {
 
   private(set) var isPendingPermission = false
   private var isAuthenticated = false
+  private var filesPrepared = false;
   
   private var onPreparedToShareCategory: BMCViewModel.onPreparedToShareHandler?
 
@@ -38,7 +39,7 @@ final class BMCDefaultViewModel: NSObject {
       isPendingPermission = false
       permissions = [.backup]
     } else {
-      isPendingPermission = true
+      isPendingPermission = false
       permissions = [.restore(BM.lastSynchronizationDate())]
     }
   }
@@ -222,9 +223,103 @@ extension BMCDefaultViewModel: BMCViewModel {
   func areNotificationsEnabled() -> Bool {
     return BM.areNotificationsEnabled()
   }
+
+  func requestRestoring() {
+    BM.requestRestoring()
+  }
+
+  func applyRestoring() {
+    BM.applyRestoring()
+  }
+
+  func cancelRestoring() {
+    if filesPrepared {
+      return
+    }
+
+    BM.cancelRestoring()
+  }
 }
 
 extension BMCDefaultViewModel: MWMBookmarksObserver {
+  func onRestoringStarted() {
+    filesPrepared = false
+    MWMAlertViewController.activeAlert().presentSpinnerAlert(withTitle: L("bookmarks_restore_process"))
+    { [weak self] in self?.cancelRestoring() }
+  }
+
+  func onRestoringFilesPrepared() {
+    filesPrepared = true
+  }
+
+  func onRestoringFinished(_ result: MWMSynchronizationResult) {
+    MWMAlertViewController.activeAlert().closeAlert() { [weak self] in
+      switch result {
+        case .networkError: fallthrough
+        case .authError:
+          MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("error_server_title"),
+                                                                   message: L("error_server_message"),
+                                                                   rightButtonTitle: L("try_again"),
+                                                                   leftButtonTitle: L("cancel")) {
+            [weak self] in
+            self?.requestRestoring()
+        }
+
+        case .diskError:
+          MWMAlertViewController.activeAlert().presentInternalErrorAlert()
+
+        case .userInterrupted: break
+        case .success:
+          guard let s = self else { return }
+          s.setCategories()
+          s.view.update(sections: [.categories])
+      }
+    }
+  }
+
+  func onRestoringRequest(_ result: MWMRestoringRequestResult, backupDate date: Date?) {
+    MWMAlertViewController.activeAlert().closeAlert() {
+      switch result {
+        case .noInternet: MWMAlertViewController.activeAlert().presentNoConnectionAlert()
+
+        case .backupExists:
+          guard let date = date else {
+            assertionFailure()
+            return
+          }
+
+          let formatter = DateFormatter()
+          formatter.dateStyle = .short
+          formatter.timeStyle = .none
+          let message = String(coreFormat: L("bookmarks_message_backuped_user"),
+                              arguments: [formatter.string(from: date)])
+
+          MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("bookmarks_restore_title"),
+                                                                   message: message,
+                                                                   rightButtonTitle: L("restore"),
+                                                                   leftButtonTitle: L("cancel"))
+          { [weak self] in
+            MWMAlertViewController.activeAlert().presentSpinnerAlert(withTitle: L("bookmarks_restore_process")) {
+              [weak self] in
+              self?.cancelRestoring()
+            }
+            self?.applyRestoring()
+          }
+
+        case .noBackup:
+          MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("bookmarks_restore_empty_title"),
+                                                                   message: L("bookmarks_restore_empty_message"),
+                                                                   rightButtonTitle: L("ok"),
+                                                                   leftButtonTitle: nil,
+                                                                   rightButtonAction: nil)
+
+        case .notEnoughDiskSpace: MWMAlertViewController.activeAlert().presentNotEnoughSpaceAlert()
+
+        case .requestError: assertionFailure()
+      }
+    }
+  }
+
   func onBookmarksLoadFinished() {
     loadData()
     convertAllKMLIfNeeded()

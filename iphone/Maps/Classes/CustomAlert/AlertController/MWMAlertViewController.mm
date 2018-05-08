@@ -248,6 +248,19 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert bookmarkConversionErrorAlert]];
 }
 
+- (void)presentDefaultAlertWithTitle:(nonnull NSString *)title
+                             message:(nullable NSString *)message
+                    rightButtonTitle:(nonnull NSString *)rightButtonTitle
+                     leftButtonTitle:(nullable NSString *)leftButtonTitle
+                   rightButtonAction:(nullable MWMVoidBlock)action
+{
+  [self displayAlert:[MWMAlert defaultAlertWithTitle:title
+                                             message:message
+                                    rightButtonTitle:rightButtonTitle
+                                     leftButtonTitle:leftButtonTitle
+                                   rightButtonAction:action]];
+}
+
 - (void)displayAlert:(MWMAlert *)alert
 {
   // TODO(igrechuhin): Remove this check on location manager refactoring.

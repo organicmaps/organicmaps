@@ -284,7 +284,8 @@ extension BMCViewController: BMCPermissionsCellDelegate {
       })
     case .backup:
       viewModel.grant(permission: permission)
-    case .restore: assertionFailure()
+    case .restore:
+      viewModel.requestRestoring()
     }
   }
 }

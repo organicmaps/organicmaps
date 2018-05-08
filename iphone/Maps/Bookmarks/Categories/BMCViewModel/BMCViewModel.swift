@@ -48,4 +48,8 @@ protocol BMCViewModel: AnyObject {
 
   func setNotificationsEnabled(_ enabled: Bool)
   func areNotificationsEnabled() -> Bool
+
+  func requestRestoring()
+  func applyRestoring()
+  func cancelRestoring()
 }

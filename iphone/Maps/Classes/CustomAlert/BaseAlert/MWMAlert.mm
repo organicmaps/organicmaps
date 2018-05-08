@@ -185,6 +185,20 @@
   return [MWMDefaultAlert bookmarkConversionErrorAlert];
 }
 
++ (MWMAlert *)defaultAlertWithTitle:(NSString *)title
+                            message:(NSString *)message
+                   rightButtonTitle:(NSString *)rightButtonTitle
+                    leftButtonTitle:(NSString *)leftButtonTitle
+                  rightButtonAction:(MWMVoidBlock)action
+{
+  return [MWMDefaultAlert defaultAlertWithTitle:title
+                                        message:message
+                               rightButtonTitle:rightButtonTitle
+                                leftButtonTitle:leftButtonTitle
+                              rightButtonAction:action
+                                statisticsEvent:nil];
+}
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
   // Should override this method if you want custom relayout after rotation.

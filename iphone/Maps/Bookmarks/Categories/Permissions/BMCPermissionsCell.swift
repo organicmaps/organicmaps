@@ -30,7 +30,18 @@ final class BMCPermissionsCell: MWMTableViewCell {
       case .backup:
         label.text = L("bookmarks_message_authorized_user")
         button.setTitle(L("bookmarks_backup").uppercased(), for: .normal)
-      case .restore: assertionFailure()
+      case let .restore(date):
+        if let date = date {
+          let formatter = DateFormatter()
+          formatter.dateStyle = .short
+          formatter.timeStyle = .none
+          label.text = String(coreFormat: L("bookmarks_message_backuped_user"),
+                              arguments: [formatter.string(from: date)])
+        } else {
+          label.text = L("bookmarks_message_unbackuped_user")
+        }
+
+        button.setTitle(L("bookmarks_restore"), for: .normal)
       }
     }
   }

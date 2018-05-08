@@ -54,6 +54,13 @@
 - (void)presentSpinnerAlertWithTitle:(nonnull NSString *)title cancel:(nullable MWMVoidBlock)cancel;
 - (void)presentBookmarkConversionErrorAlert;
 
+- (void)presentDefaultAlertWithTitle:(nonnull NSString *)title
+                             message:(nullable NSString *)message
+                    rightButtonTitle:(nonnull NSString *)rightButtonTitle
+                     leftButtonTitle:(nullable NSString *)leftButtonTitle
+                   rightButtonAction:(nullable MWMVoidBlock)action;
+
+
 - (void)closeAlert:(nullable MWMVoidBlock)completion;
 
 - (nonnull instancetype)init __attribute__((unavailable("call -initWithViewController: instead!")));

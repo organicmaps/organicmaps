@@ -43,6 +43,12 @@
 + (MWMAlert *)spinnerAlertWithTitle:(NSString *)title cancel:(MWMVoidBlock)cancel;
 + (MWMAlert *)bookmarkConversionErrorAlert;
 
++ (MWMAlert *)defaultAlertWithTitle:(NSString *)title
+                            message:(NSString *)message
+                   rightButtonTitle:(NSString *)rightButtonTitle
+                    leftButtonTitle:(NSString *)leftButtonTitle
+                  rightButtonAction:(MWMVoidBlock)action;
+
 - (void)close:(MWMVoidBlock)completion;
 
 - (void)setNeedsCloseAlertAfterEnterBackground;

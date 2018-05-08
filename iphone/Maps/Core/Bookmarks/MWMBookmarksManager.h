@@ -40,6 +40,10 @@
 + (void)setNotificationsEnabled:(BOOL)enabled;
 + (BOOL)areNotificationsEnabled;
 
++ (void)requestRestoring;
++ (void)applyRestoring;
++ (void)cancelRestoring;
+
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));
 - (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +manager instead")));

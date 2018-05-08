@@ -6,6 +6,8 @@
 
 #include "coding/internal/file_data.hpp"
 
+#include "base/stl_helpers.hpp"
+
 #include <utility>
 
 namespace
@@ -132,7 +134,16 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   auto onSynchronizationStarted = [](Cloud::SynchronizationType type)
   {
     if (type == Cloud::SynchronizationType::Backup)
+    {
       [Statistics logEvent:kStatBookmarksSyncStarted];
+    }
+    else
+    {
+      [[MWMBookmarksManager manager] loopObservers:^(Observer observer) {
+        if ([observer respondsToSelector:@selector(onRestoringStarted)])
+          [observer onRestoringStarted];
+      }];
+    }
   };
   
   auto onSynchronizationFinished = [](Cloud::SynchronizationType type, Cloud::SynchronizationResult result,
@@ -143,21 +154,33 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
       [Statistics logEvent:type == Cloud::SynchronizationType::Backup ? kStatBookmarksSyncSuccess :
                                                                         kStatBookmarksRestoreProposalSuccess];
     }
-    else
+    else if (auto const error = CloudErrorToString(result))
     {
-      NSString * const errorType = CloudErrorToString(result);
-      if (errorType != nil)
-      {
-        [Statistics logEvent:type == Cloud::SynchronizationType::Backup ? kStatBookmarksSyncError :
-                                                                          kStatBookmarksRestoreProposalError
-              withParameters:@{kStatType: errorType, kStatError: @(errorStr.c_str())}];
-      }
+      [Statistics logEvent:type == Cloud::SynchronizationType::Backup ? kStatBookmarksSyncError :
+                                                                        kStatBookmarksRestoreProposalError
+            withParameters:@{kStatType: error, kStatError: @(errorStr.c_str())}];
     }
+
+    if (type != Cloud::SynchronizationType::Restore)
+      return;
+
+    [[MWMBookmarksManager manager] loopObservers:^(Observer observer) {
+      if ([observer respondsToSelector:@selector(onRestoringFinished:)])
+        [observer onRestoringFinished:static_cast<MWMSynchronizationResult>(my::Key(result))];
+    }];
   };
   
   auto onRestoreRequested = [](Cloud::RestoringRequestResult result, uint64_t backupTimestampInMs)
   {
-    if (result == Cloud::RestoringRequestResult::NoBackup)
+    auto const res = static_cast<MWMRestoringRequestResult>(my::Key(result));
+    NSDate * date = nil;
+
+    if (result == Cloud::RestoringRequestResult::BackupExists)
+    {
+        auto const interval = static_cast<NSTimeInterval>(backupTimestampInMs / 1000.);
+        date = [NSDate dateWithTimeIntervalSince1970:interval];
+    }
+    else if (result == Cloud::RestoringRequestResult::NoBackup)
     {
       [Statistics logEvent:kStatBookmarksRestoreProposalError
             withParameters:@{kStatType: kStatNoBackup, kStatError: @("")}];
@@ -167,11 +190,19 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
       [Statistics logEvent:kStatBookmarksRestoreProposalError
             withParameters:@{kStatType: kStatDisk, kStatError: @("Not enough disk space")}];
     }
+
+    [[MWMBookmarksManager manager] loopObservers:^(Observer observer) {
+      if ([observer respondsToSelector:@selector(onRestoringRequest:backupDate:)])
+        [observer onRestoringRequest:res backupDate:date];
+    }];
   };
   
-  auto onRestoredFilesPrepared = []()
+  auto onRestoredFilesPrepared = []
   {
-    //TODO: On this callback we have to block cancel button in restore dialog if such button exists.
+    [[MWMBookmarksManager manager] loopObservers:^(Observer observer) {
+      if ([observer respondsToSelector:@selector(onRestoringFilesPrepared)])
+        [observer onRestoringFilesPrepared];
+    }];
   };
   
   bm.SetCloudHandlers(std::move(onSynchronizationStarted), std::move(onSynchronizationFinished),
@@ -331,6 +362,47 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 + (void)setCloudEnabled:(BOOL)enabled
 {
   GetFramework().GetBookmarkManager().SetCloudEnabled(enabled);
+}
+
++ (void)requestRestoring
+{
+  auto const status = Platform::ConnectionStatus();
+  auto statusStr = [](Platform::EConnectionType type) -> NSString * {
+    switch (type)
+    {
+    case Platform::EConnectionType::CONNECTION_NONE:
+      return kStatOffline;
+    case Platform::EConnectionType::CONNECTION_WWAN:
+      return kStatMobile;
+    case Platform::EConnectionType::CONNECTION_WIFI:
+      return kStatWifi;
+    }
+  } (status);
+
+  [Statistics logEvent:kStatBookmarksRestoreProposalClick
+        withParameters:@{kStatNetwork : statusStr}];
+
+  if (status == Platform::EConnectionType::CONNECTION_NONE)
+  {
+    [self.manager loopObservers:^(Observer observer) {
+      if ([observer respondsToSelector:@selector(onRestoringRequest:backupDate:)])
+        [observer onRestoringRequest:MWMRestoringRequestResultNoInternet backupDate:nil];
+    }];
+    return;
+  }
+
+  GetFramework().GetBookmarkManager().RequestCloudRestoring();
+}
+
++ (void)applyRestoring
+{
+  GetFramework().GetBookmarkManager().ApplyCloudRestoring();
+}
+
++ (void)cancelRestoring
+{
+  [Statistics logEvent:kStatBookmarksRestoreProposalCancel];
+  GetFramework().GetBookmarkManager().CancelCloudRestoring();
 }
 
 - (void)loopObservers:(TLoopBlock)block
