@@ -435,8 +435,7 @@ void Cloud::SetState(State state)
 
   case State::Disabled:
     // Delete index file and clear memory.
-    my::DeleteFileX(m_params.m_indexName);
-    m_files.clear();
+    my::DeleteFileX(GetIndexFilePath(m_params.m_indexName));
     m_index = Index();
     break;
 
