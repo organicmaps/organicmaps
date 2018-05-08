@@ -955,3 +955,10 @@ UNIT_CLASS_TEST(Runner, Bookmarks_AutoSave)
   TEST(my::DeleteFileX(fileName), ());
   TEST(my::DeleteFileX(fileName2), ());
 }
+
+UNIT_CLASS_TEST(Runner, Bookmarks_BrokenFile)
+{
+  string const fileName = GetPlatform().TestsDataPathForFile("broken_bookmarks.kmb.test");
+  auto kmlData = LoadKmlFile(fileName, true /* useBinary */);
+  TEST(kmlData == nullptr, ());
+}
