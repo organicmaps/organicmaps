@@ -1,6 +1,4 @@
 #import <Foundation/Foundation.h>
-#ifndef IGNORE_SWIFT // Temporary solution for CMAKE builds. TODO: Remove when support of swift code compilation is added.
-#endif
 
 #include "platform/http_uploader.hpp"
 
@@ -11,14 +9,66 @@
 
 @interface MultipartUploadTask : NSObject
 
-- (void)uploadWithCompletion:(void(^)())completion;
+@property (nonatomic, copy) NSString *method;
+@property (nonatomic, copy) NSString *urlString;
+@property (nonatomic, copy) NSString *fileKey;
+@property (nonatomic, copy) NSString *filePath;
+@property (nonatomic, copy) NSDictionary<NSString*, NSString*> *params;
+@property (nonatomic, copy) NSDictionary<NSString*, NSString*> *headers;
+
+- (void)uploadWithCompletion:(void(^)(NSInteger httpCode, NSString * _Nonnull description))completion;
 
 @end
 
 @implementation MultipartUploadTask
 
-- (void)uploadWithCompletion:(void (^)())completion {
-    dispatch_async(dispatch_get_main_queue(), completion);
+- (NSData *)requestDataWithBoundary:(NSString *)boundary {
+  NSMutableData *data = [NSMutableData data];
+
+  [self.params enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
+    [data appendData:(NSData* _Nonnull)[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [data appendData:(NSData* _Nonnull)[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", key] dataUsingEncoding:NSUTF8StringEncoding]];
+    [data appendData:(NSData* _Nonnull)[[NSString stringWithFormat:@"%@\r\n", value] dataUsingEncoding:NSUTF8StringEncoding]];
+  }];
+
+  NSString *fileName = self.filePath.lastPathComponent;
+  NSData *fileData = [NSData dataWithContentsOfFile:self.filePath];
+  NSString *mimeType = @"application/octet-stream";
+
+  [data appendData:(NSData* _Nonnull)[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+  [data appendData:(NSData* _Nonnull)[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", self.fileKey, fileName] dataUsingEncoding:NSUTF8StringEncoding]];
+  [data appendData:(NSData* _Nonnull)[[NSString stringWithFormat:@"Content-Type: %@\r\n\r\n", mimeType] dataUsingEncoding:NSUTF8StringEncoding]];
+  [data appendData:fileData];
+  [data appendData:(NSData* _Nonnull)[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+  [data appendData:(NSData* _Nonnull)[[NSString stringWithFormat:@"--%@--", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+
+  return data;
+}
+
+- (void)uploadWithCompletion:(void (^)(NSInteger httpCode, NSString * _Nonnull description))completion {
+  NSURL *url = [NSURL URLWithString:self.urlString];
+  NSMutableURLRequest *uploadRequest = [NSMutableURLRequest requestWithURL:url];
+  uploadRequest.timeoutInterval = 5;
+  uploadRequest.HTTPMethod = self.method;
+
+  NSString *boundary = [NSString stringWithFormat:@"Boundary-%@", [[NSUUID UUID] UUIDString]];
+  NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+  [uploadRequest setValue:contentType forHTTPHeaderField: @"Content-Type"];
+
+  NSData *postData = [self requestDataWithBoundary:boundary];
+
+  NSURLSessionUploadTask *uploadTask = [[NSURLSession sharedSession] uploadTaskWithRequest:uploadRequest
+                                                                                  fromData:postData
+                                                                         completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                                                                           if (error == nil) {
+                                                                             NSString *description = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                                                             completion(httpResponse.statusCode, description);
+                                                                           } else {
+                                                                             completion(-1, error.localizedDescription);
+                                                                           }
+                                                                         }];
+  [uploadTask resume];
 }
 
 @end
@@ -27,7 +77,6 @@ namespace platform
 {
 HttpUploader::Result HttpUploader::Upload() const
 {
-#ifndef IGNORE_SWIFT // Temporary solution for CMAKE builds. TODO: Remove when support of swift code compilation is added.
   std::shared_ptr<Result> resultPtr = std::make_shared<Result>();
   std::shared_ptr<base::Waiter> waiterPtr = std::make_shared<base::Waiter>();
 
@@ -40,27 +89,19 @@ HttpUploader::Result HttpUploader::Upload() const
     return [params copy];
   };
 
-    MultipartUploadTask *uploadTask = [[MultipartUploadTask alloc] init];
-    [uploadTask uploadWithCompletion:[resultPtr, waiterPtr]() {
-//        resultPtr->m_httpCode = static_cast<int32_t>(httpCode);
-//        resultPtr->m_description = description.UTF8String;
-        waiterPtr->Notify();
-
-    }];
-//  [MultipartUploader uploadWithMethod:@(m_method.c_str())
-//                                  url:@(m_url.c_str())
-//                              fileKey:@(m_fileKey.c_str())
-//                             filePath:@(m_filePath.c_str())
-//                               params:mapTransform(m_params)
-//                              headers:mapTransform(m_headers)
-//                             callback:[resultPtr, waiterPtr](NSInteger httpCode, NSString * _Nonnull description) {
-//                               resultPtr->m_httpCode = static_cast<int32_t>(httpCode);
-//                               resultPtr->m_description = description.UTF8String;
-//                               waiterPtr->Notify();
-//                             }];
+  MultipartUploadTask *uploadTask = [[MultipartUploadTask alloc] init];
+  uploadTask.method = @(m_method.c_str());
+  uploadTask.urlString = @(m_url.c_str());
+  uploadTask.fileKey = @(m_fileKey.c_str());
+  uploadTask.filePath = @(m_filePath.c_str());
+  uploadTask.params = mapTransform(m_params);
+  uploadTask.headers = mapTransform(m_headers);
+  [uploadTask uploadWithCompletion:[resultPtr, waiterPtr](NSInteger httpCode, NSString * _Nonnull description) {
+    resultPtr->m_httpCode = static_cast<int32_t>(httpCode);
+    resultPtr->m_description = description.UTF8String;
+    waiterPtr->Notify();
+  }];
   waiterPtr->Wait();
   return *resultPtr;
-#endif
-  return {};
 }
 } // namespace platform
