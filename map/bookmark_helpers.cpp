@@ -32,7 +32,7 @@ std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, bool useBin
   std::unique_ptr<kml::FileData> kmlData;
   try
   {
-    kmlData = LoadKmlData(FileReader(file), useBinary);
+    kmlData = LoadKmlData(FileReader(file, true /* withExceptions */), useBinary);
   }
   catch (std::exception const & e)
   {

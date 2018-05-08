@@ -157,7 +157,7 @@ std::list<local_ads::Event> ReadEvents(std::string const & fileName)
   
   try
   {
-    FileReader reader(fileName);
+    FileReader reader(fileName, true /* withExceptions */);
     ReaderSource<FileReader> src(reader);
     ReadPackedData(src, [&result](local_ads::Statistics::PackedData && data,
                                   std::string const & countryId, int64_t mwmVersion,
@@ -462,7 +462,7 @@ void Statistics::ExtractMetadata(std::string const & fileName)
     int64_t mwmVersion;
     Timestamp baseTimestamp;
     {
-      FileReader reader(fileName);
+      FileReader reader(fileName, true /* withExceptions */);
       ReaderSource<FileReader> src(reader);
       ReadMetadata(src, countryId, mwmVersion, baseTimestamp);
     }
