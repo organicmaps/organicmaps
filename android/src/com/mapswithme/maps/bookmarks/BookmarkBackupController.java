@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.Button;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
@@ -281,8 +282,8 @@ public class BookmarkBackupController implements Authorizer.Callback,
         DialogInterface.OnClickListener clickListener
             = (dialog, which) -> requestRestoring();
         DialogUtils.showAlertDialog(mContext, R.string.error_server_title,
-                                    mContext.getString(R.string.error_server_message),
-                                    R.string.try_again, clickListener, R.string.cancel);
+                                    R.string.error_server_message, R.string.try_again,
+                                    clickListener, R.string.cancel);
         break;
       case CLOUD_DISK_ERROR:
         DialogUtils.showAlertDialog(mContext, R.string.dialog_routing_system_error,
@@ -325,7 +326,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
         break;
       case CLOUD_NO_BACKUP:
         DialogUtils.showAlertDialog(mContext, R.string.bookmarks_restore_empty_title,
-                                    mContext.getString(R.string.bookmarks_restore_empty_message),
+                                    R.string.bookmarks_restore_empty_message,
                                     R.string.ok, cancelListener);
         break;
       case CLOUD_NOT_ENOUGH_DISK_SPACE:
@@ -345,5 +346,13 @@ public class BookmarkBackupController implements Authorizer.Callback,
   public void onRestoredFilesPrepared()
   {
     LOGGER.d(TAG, "onRestoredFilesPrepared()");
+    if (mRestoringProgressDialog == null || !mRestoringProgressDialog.isShowing())
+      return;
+
+    Button cancelButton = mRestoringProgressDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+    if (cancelButton == null)
+      throw new AssertionError("Restoring progress dialog must contain cancel button!");
+
+    cancelButton.setEnabled(false);
   }
 }

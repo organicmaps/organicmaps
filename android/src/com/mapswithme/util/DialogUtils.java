@@ -106,10 +106,10 @@ public class DialogUtils
   }
 
   public static void showAlertDialog(@NonNull Context context, @StringRes int titleId,
-                                     @NonNull CharSequence msg, @StringRes int posBtn,
+                                     @StringRes int msgId, @StringRes int posBtn,
                                      @NonNull DialogInterface.OnClickListener posClickListener)
   {
-    buildAlertDialog(context, titleId, msg, posBtn, posClickListener).show();
+    buildAlertDialog(context, titleId, context.getString(msgId), posBtn, posClickListener).show();
   }
 
 
