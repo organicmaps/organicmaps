@@ -1283,7 +1283,6 @@
 	<string name="bookmarks_error_message_share_empty">Нельзя делиться пустыми списками</string>
 	<string name="discovery_button_subtitle_book_hotels">Бронирование отелей</string>
 	<string name="luggage_storage">Хранение багажа</string>
-	<string name="maxim_taxi_title">Максим</string>
 	<string name="bookmarks_error_title_empty_list_name">Имя списка не может быть пустым</string>
 	<string name="bookmarks_error_message_empty_list_name">Введите имя списка, пожалуйста</string>
 	<string name="bookmarks_new_list_hint">Новый список</string>
