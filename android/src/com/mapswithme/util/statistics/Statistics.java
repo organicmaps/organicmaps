@@ -104,6 +104,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.RESTAURANT_LO
 import static com.mapswithme.util.statistics.Statistics.EventParam.STATE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.TYPE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.VALUE;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.BACKUP;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BOOKING_COM;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.FACEBOOK;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.GOOGLE;
@@ -111,6 +112,7 @@ import static com.mapswithme.util.statistics.Statistics.ParamValue.HOLIDAY;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.MAPSME;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.PHONE;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.RESTORE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.SEARCH_BOOKING_COM;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.UNKNOWN;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.VIATOR;
@@ -415,6 +417,8 @@ public enum Statistics
     static final String AUTH = "auth";
     static final String USER_INTERRUPTED = "user_interrupted";
     static final String INVALID_CALL = "invalid_call";
+    static final String BACKUP = "backup";
+    static final String RESTORE = "restore";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -994,7 +998,7 @@ public enum Statistics
   }
 
   @NonNull
-  private static String getAuthProvider(@Framework.AuthTokenType int type)
+  public static String getAuthProvider(@Framework.AuthTokenType int type)
   {
     switch (type)
     {
@@ -1011,6 +1015,12 @@ public enum Statistics
       default:
         throw new AssertionError("Unknown social token type: " + type);
     }
+  }
+
+  @NonNull
+  public static String getSynchronizationType(@BookmarkManager.SynchronizationType int type)
+  {
+    return type == 0 ? BACKUP : RESTORE;
   }
 
   public void trackDiscoveryOpen()

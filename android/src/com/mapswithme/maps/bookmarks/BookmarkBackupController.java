@@ -19,6 +19,8 @@ import com.mapswithme.util.DateUtils;
 import com.mapswithme.util.DialogUtils;
 import com.mapswithme.util.NetworkPolicy;
 import com.mapswithme.util.Utils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.util.Date;
@@ -38,6 +40,8 @@ import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_USER_INTE
 public class BookmarkBackupController implements Authorizer.Callback,
                                                  BookmarkManager.BookmarksCloudListener
 {
+  private static final String TAG = BookmarkBackupController.class.getSimpleName();
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   @NonNull
   private final FragmentActivity mContext;
   @NonNull
@@ -91,6 +95,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
     }
 
     NetworkPolicy.NetworkPolicyListener policyListener = policy -> {
+      LOGGER.d(TAG, "Request bookmark restoring");
       BookmarkManager.INSTANCE.requestRestoring();
     };
 
@@ -197,12 +202,14 @@ public class BookmarkBackupController implements Authorizer.Callback,
   @Override
   public void onAuthorizationStart()
   {
+    LOGGER.d(TAG, "onAuthorizationStart");
     updateWidget();
   }
 
   @Override
   public void onAuthorizationFinish(boolean success)
   {
+    LOGGER.d(TAG, "onAuthorizationFinish, success: " + success);
     if (success)
     {
       Notifier.cancelNotification(Notifier.ID_IS_NOT_AUTHENTICATED);
@@ -219,18 +226,22 @@ public class BookmarkBackupController implements Authorizer.Callback,
   @Override
   public void onSocialAuthenticationError(@Framework.AuthTokenType int type, @Nullable String error)
   {
+    LOGGER.w(TAG, "onSocialAuthenticationError, type: " + Statistics.getAuthProvider(type) +
+                  " error: " + error);
     Statistics.INSTANCE.trackBmSyncProposalError(type, error);
   }
 
   @Override
   public void onSocialAuthenticationCancel(@Framework.AuthTokenType int type)
   {
+    LOGGER.i(TAG, "onSocialAuthenticationCancel, type: " + Statistics.getAuthProvider(type));
     Statistics.INSTANCE.trackBmSyncProposalError(type, "Cancel");
   }
 
   @Override
   public void onSynchronizationStarted(@BookmarkManager.SynchronizationType int type)
   {
+    LOGGER.d(TAG, "onSynchronizationStarted, type: " + Statistics.getSynchronizationType(type));
     switch (type)
     {
       case CLOUD_BACKUP:
@@ -250,6 +261,8 @@ public class BookmarkBackupController implements Authorizer.Callback,
                                         @BookmarkManager.SynchronizationResult int result,
                                         @NonNull String errorString)
   {
+    LOGGER.d(TAG, "onSynchronizationFinished, type: " + Statistics.getSynchronizationType(type)
+                  + ", result: " + result + ", errorString = " + errorString);
     hideRestoringProgressDialog();
 
     updateWidget();
@@ -276,6 +289,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
                                     R.string.error_system_message);
         break;
       case CLOUD_INVALID_CALL:
+        throw new AssertionError("Check correctness of cloud api usage!");
       case CLOUD_USER_INTERRUPTED:
       case CLOUD_SUCCESS:
         // Do nothing.
@@ -290,6 +304,8 @@ public class BookmarkBackupController implements Authorizer.Callback,
   public void onRestoreRequested(@BookmarkManager.RestoringRequestResult int result,
                                  long backupTimestampInMs)
   {
+    LOGGER.d(TAG, "onRestoreRequested, result: " + result + ",  backupTimestampInMs = "
+                  + backupTimestampInMs);
     hideRestoringProgressDialog();
 
     final DialogInterface.OnClickListener cancelListener
@@ -328,6 +344,6 @@ public class BookmarkBackupController implements Authorizer.Callback,
   @Override
   public void onRestoredFilesPrepared()
   {
-    // No op.
+    LOGGER.d(TAG, "onRestoredFilesPrepared()");
   }
 }
