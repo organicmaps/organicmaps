@@ -30047,7 +30047,6 @@ fa = دوباره نپرس
 
   [maxim_taxi_title]
     en = maxim
-    ru = Максим
 
   [bookmarks_error_title_empty_list_name]
     en = The name couldn't be empty
