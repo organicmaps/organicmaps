@@ -81,8 +81,12 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
     submitButton.setOnClickListener(v ->
                                     {
                                       onSubmitButtonClick();
-                                      if (ConnectionState.isConnected())
-                                        authorize();
+                                      if (!ConnectionState.isConnected())
+                                      {
+                                        finishActivity();
+                                        return;
+                                      }
+                                      authorize();
                                     });
   }
 
@@ -106,6 +110,11 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
     if (success)
       Notifier.cancelNotification(Notifier.ID_IS_NOT_AUTHENTICATED);
 
+    finishActivity();
+  }
+
+  private void finishActivity()
+  {
     if (isAdded())
       getActivity().finish();
   }
@@ -113,24 +122,21 @@ public class UGCEditorFragment extends BaseMwmAuthorizationFragment
   @Override
   public void onAuthorizationStart()
   {
-    if (isAdded())
-      getActivity().finish();
+    finishActivity();
   }
 
   @Override
   public void onSocialAuthenticationCancel(@Framework.AuthTokenType int type)
   {
     Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_AUTH_DECLINED);
-    if (isAdded())
-      getActivity().finish();
+    finishActivity();
   }
 
   @Override
   public void onSocialAuthenticationError(int type, @Nullable String error)
   {
     Statistics.INSTANCE.trackUGCAuthFailed(type, error);
-    if (isAdded())
-      getActivity().finish();
+    finishActivity();
   }
 
   private void onSubmitButtonClick()
