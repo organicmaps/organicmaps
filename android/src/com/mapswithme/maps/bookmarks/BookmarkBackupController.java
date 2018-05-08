@@ -27,6 +27,7 @@ import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_AUTH_ERRO
 import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_BACKUP;
 import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_BACKUP_EXISTS;
 import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_DISK_ERROR;
+import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_INVALID_CALL;
 import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_NETWORK_ERROR;
 import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_NOT_ENOUGH_DISK_SPACE;
 import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_NO_BACKUP;
@@ -90,7 +91,6 @@ public class BookmarkBackupController implements Authorizer.Callback,
     }
 
     NetworkPolicy.NetworkPolicyListener policyListener = policy -> {
-      showRestoringProgressDialog();
       BookmarkManager.INSTANCE.requestRestoring();
     };
 
@@ -237,7 +237,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
         Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_SYNC_STARTED);
         break;
       case CLOUD_RESTORE:
-        // Do nothing.
+        showRestoringProgressDialog();
         break;
       default:
         throw new AssertionError("Unsupported synchronization type: " + type);
@@ -275,6 +275,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
         DialogUtils.showAlertDialog(mContext, R.string.dialog_routing_system_error,
                                     R.string.error_system_message);
         break;
+      case CLOUD_INVALID_CALL:
       case CLOUD_USER_INTERRUPTED:
       case CLOUD_SUCCESS:
         // Do nothing.
