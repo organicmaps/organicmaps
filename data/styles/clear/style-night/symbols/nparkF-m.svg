@@ -1,7 +1,1 @@
-<svg width="24" height="24" viewBox="0 0 24 24">
-  <g fill="none" fill-rule="evenodd">
-    <circle cx="12" cy="12" r="12" fill="#FFF" opacity=".4"/>
-    <circle cx="12" cy="12" r="11" fill="#304C1F"/>
-    <polygon fill="#FFF" points="12 5 7.556 9.308 10.333 9.308 7 12.538 9.778 12.538 7 15.769 11.444 15.769 11.444 19 12.556 19 12.556 15.769 17 15.769 14.222 12.538 17 12.538 13.667 9.308 16.444 9.308" opacity=".6"/>
-  </g>
-</svg>
+<svg height="24" viewBox="0 0 24 24" width="24"><g fill="none" fill-rule="evenodd"><circle cx="12" cy="12" fill="#fff" opacity=".4" r="12"/><circle cx="12" cy="12" fill="#304d1f" r="11"/><path d="m12 5-4.444 4.308h2.777l-3.333 3.23h2.778l-2.778 3.231h4.444v3.231h1.112v-3.231h4.444l-2.778-3.231h2.778l-3.333-3.23h2.777z" fill="#fff" opacity=".6"/></g></svg>

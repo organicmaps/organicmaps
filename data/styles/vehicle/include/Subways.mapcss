@@ -593,50 +593,43 @@ node|z18-[railway=subway_entrance][city=nagoya] {icon-image: subway-nagoya-m.svg
 /* New York Subway Station */
 node|z13[railway=station][transport=subway][city=newyork] {icon-image: subway-newyork-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=newyork] {icon-image: subway-newyork-s.svg;}
-node|z15[railway=station][transport=subway][city=newyork] {icon-image: subway-newyork-m.svg;}
-node|z17-[railway=station][transport=subway][city=newyork] {icon-image: subway-newyork-l.svg;}
+node|z15-[railway=station][transport=subway][city=newyork] {icon-image: subway-newyork-m.svg;}
 node|z17-[railway=subway_entrance][city=newyork] {icon-image: subway-newyork-s.svg;}
 
 /* Nizhniy Novgorod Subway Station */
 node|z13[railway=station][transport=subway][city=nnov] {icon-image: subway-nnov-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=nnov] {icon-image: subway-nnov-s.svg;}
-node|z15[railway=station][transport=subway][city=nnov] {icon-image: subway-nnov-m.svg;}
-node|z17-[railway=station][transport=subway][city=nnov] {icon-image: subway-nnov-l.svg;}
+node|z15-[railway=station][transport=subway][city=nnov] {icon-image: subway-nnov-m.svg;}
 node|z17-[railway=subway_entrance][city=nnov] {icon-image: subway-nnov-s.svg;}
 
 /* Novosibirsk Subway Station */
 node|z13[railway=station][transport=subway][city=novosibirsk] {icon-image: subway-novosibirsk-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=novosibirsk] {icon-image: subway-novosibirsk-s.svg;}
-node|z15[railway=station][transport=subway][city=novosibirsk] {icon-image: subway-novosibirsk-m.svg;}
-node|z17-[railway=station][transport=subway][city=novosibirsk] {icon-image: subway-novosibirsk-l.svg;}
+node|z15-[railway=station][transport=subway][city=novosibirsk] {icon-image: subway-novosibirsk-m.svg;}
 node|z17-[railway=subway_entrance][city=novosibirsk] {icon-image: subway-novosibirsk-s.svg;}
 
 /* Osaka Subway Station */
 node|z13[railway=station][transport=subway][city=osaka] {icon-image: subway-osaka-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=osaka] {icon-image: subway-osaka-s.svg;}
-node|z15[railway=station][transport=subway][city=osaka] {icon-image: subway-osaka-m.svg;}
-node|z17-[railway=station][transport=subway][city=osaka] {icon-image: subway-osaka-l.svg;}
+node|z15-[railway=station][transport=subway][city=osaka] {icon-image: subway-osaka-m.svg;}
 node|z17-[railway=subway_entrance][city=osaka] {icon-image: subway-osaka-s.svg;}
 
 /* Oslo Subway Station */
 node|z13[railway=station][transport=subway][city=oslo] {icon-image: subway-oslo-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=oslo] {icon-image: subway-oslo-s.svg;}
-node|z15[railway=station][transport=subway][city=oslo] {icon-image: subway-oslo-m.svg;}
-node|z17-[railway=station][transport=subway][city=oslo] {icon-image: subway-oslo-l.svg;}
+node|z15-[railway=station][transport=subway][city=oslo] {icon-image: subway-oslo-m.svg;}
 node|z17-[railway=subway_entrance][city=oslo] {icon-image: subway-oslo-s.svg;}
 
 /* Palma Subway Station */
 node|z13[railway=station][transport=subway][city=palma] {icon-image: subway-palma-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=palma] {icon-image: subway-palma-s.svg;}
-node|z15[railway=station][transport=subway][city=palma] {icon-image: subway-palma-m.svg;}
-node|z17-[railway=station][transport=subway][city=palma] {icon-image: subway-palma-l.svg;}
+node|z15-[railway=station][transport=subway][city=palma] {icon-image: subway-palma-m.svg;}
 node|z17-[railway=subway_entrance][city=palma] {icon-image: subway-palma-s.svg;}
 
 /* Panama Subway Station */
 node|z13[railway=station][transport=subway][city=panama] {icon-image: subway-panama-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=panama] {icon-image: subway-panama-s.svg;}
-node|z15[railway=station][transport=subway][city=panama] {icon-image: subway-panama-m.svg;}
-node|z17-[railway=station][transport=subway][city=panama] {icon-image: subway-panama-l.svg;}
+node|z15-[railway=station][transport=subway][city=panama] {icon-image: subway-panama-m.svg;}
 node|z17-[railway=subway_entrance][city=panama] {icon-image: subway-panama-s.svg;}
 
 /* Paris Subway Station */
@@ -649,29 +642,25 @@ node|z17-[railway=subway_entrance][city=paris] {icon-image: subway-paris-s.svg;}
 /* Philadelphia Subway Station */
 node|z13[railway=station][transport=subway][city=philadelphia] {icon-image: subway-philadelphia-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=philadelphia] {icon-image: subway-philadelphia-s.svg;}
-node|z15[railway=station][transport=subway][city=philadelphia] {icon-image: subway-philadelphia-m.svg;}
-node|z17-[railway=station][transport=subway][city=philadelphia] {icon-image: subway-philadelphia-l.svg;}
+node|z15-[railway=station][transport=subway][city=philadelphia] {icon-image: subway-philadelphia-m.svg;}
 node|z17-[railway=subway_entrance][city=philadelphia] {icon-image: subway-philadelphia-s.svg;}
 
 /* Pyongyang Subway Station */
 node|z13[railway=station][transport=subway][city=pyongyang] {icon-image: subway-pyongyang-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=pyongyang] {icon-image: subway-pyongyang-s.svg;}
-node|z15[railway=station][transport=subway][city=pyongyang] {icon-image: subway-pyongyang-m.svg;}
-node|z17-[railway=station][transport=subway][city=pyongyang] {icon-image: subway-pyongyang-l.svg;}
+node|z15-[railway=station][transport=subway][city=pyongyang] {icon-image: subway-pyongyang-m.svg;}
 node|z17-[railway=subway_entrance][city=pyongyang] {icon-image: subway-pyongyang-s.svg;}
 
 /* Rennes Subway Station */
 node|z13[railway=station][transport=subway][city=rennes] {icon-image: subway-rennes-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=rennes] {icon-image: subway-rennes-s.svg;}
-node|z15[railway=station][transport=subway][city=rennes] {icon-image: subway-rennes-m.svg;}
-node|z17-[railway=station][transport=subway][city=rennes] {icon-image: subway-rennes-l.svg;}
+node|z15-[railway=station][transport=subway][city=rennes] {icon-image: subway-rennes-m.svg;}
 node|z17-[railway=subway_entrance][city=rennes] {icon-image: subway-rennes-s.svg;}
 
 /* Rio De Janeiro Subway Station */
 node|z13[railway=station][transport=subway][city=rio] {icon-image: subway-riodejaneiro-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=rio] {icon-image: subway-riodejaneiro-s.svg;}
-node|z15[railway=station][transport=subway][city=rio] {icon-image: subway-riodejaneiro-m.svg;}
-node|z17-[railway=station][transport=subway][city=rio] {icon-image: subway-riodejaneiro-l.svg;}
+node|z15-[railway=station][transport=subway][city=rio] {icon-image: subway-riodejaneiro-m.svg;}
 node|z17-[railway=subway_entrance][city=rio] {icon-image: subway-riodejaneiro-s.svg;}
 
 /* Roma Subway Station */
@@ -685,22 +674,19 @@ node|z17-[railway=subway_entrance][city=roma] {icon-image: subway-rome-m.svg;}
 /* Rotterdam Subway Station */
 node|z13[railway=station][transport=subway][city=rotterdam] {icon-image: subway-rotterdam-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=rotterdam] {icon-image: subway-rotterdam-s.svg;}
-node|z15[railway=station][transport=subway][city=rotterdam] {icon-image: subway-rotterdam-m.svg;}
-node|z17-[railway=station][transport=subway][city=rotterdam] {icon-image: subway-rotterdam-l.svg;}
+node|z15-[railway=station][transport=subway][city=rotterdam] {icon-image: subway-rotterdam-m.svg;}
 node|z17-[railway=subway_entrance][city=rotterdam] {icon-image: subway-rotterdam-s.svg;}
 
 /* Samara Subway Station */
 node|z13[railway=station][transport=subway][city=samara] {icon-image: subway-samara-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=samara] {icon-image: subway-samara-s.svg;}
-node|z15[railway=station][transport=subway][city=samara] {icon-image: subway-samara-m.svg;}
-node|z17-[railway=station][transport=subway][city=samara] {icon-image: subway-samara-l.svg;}
+node|z15-[railway=station][transport=subway][city=samara] {icon-image: subway-samara-m.svg;}
 node|z17-[railway=subway_entrance][city=samara] {icon-image: subway-samara-s.svg;}
 
 /* San Francisco Subway Station */
 node|z13[railway=station][transport=subway][city=sf] {icon-image: subway-sanfrancisco-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=sf] {icon-image: subway-sanfrancisco-s.svg;}
-node|z15[railway=station][transport=subway][city=sf] {icon-image: subway-sanfrancisco-m.svg;}
-node|z17-[railway=station][transport=subway][city=sf] {icon-image: subway-sanfrancisco-l.svg;}
+node|z15-[railway=station][transport=subway][city=sf] {icon-image: subway-sanfrancisco-m.svg;}
 node|z17-[railway=subway_entrance][city=sf] {icon-image: subway-sanfrancisco-s.svg;}
 
 /* Santiago Subway Station */
@@ -713,50 +699,43 @@ node|z17-[railway=subway_entrance][city=santiago] {icon-image: subway-santiago-s
 /* Santo Domingo Subway Station */
 node|z13[railway=station][transport=subway][city=santo_domingo] {icon-image: subway-santodomingo-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=santo_domingo] {icon-image: subway-santodomingo-s.svg;}
-node|z15[railway=station][transport=subway][city=santo_domingo] {icon-image: subway-santodomingo-m.svg;}
-node|z17-[railway=station][transport=subway][city=santo_domingo] {icon-image: subway-santodomingo-l.svg;}
+node|z15-[railway=station][transport=subway][city=santo_domingo] {icon-image: subway-santodomingo-m.svg;}
 node|z17-[railway=subway_entrance][city=santo_domingo] {icon-image: subway-santodomingo-s.svg;}
 
 /* Sao Paulo Subway Station */
 node|z13[railway=station][transport=subway][city=saopaulo] {icon-image: subway-saopaulo-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=saopaulo] {icon-image: subway-saopaulo-s.svg;}
-node|z15[railway=station][transport=subway][city=saopaulo] {icon-image: subway-saopaulo-m.svg;}
-node|z17-[railway=station][transport=subway][city=saopaulo] {icon-image: subway-saopaulo-l.svg;}
+node|z15-[railway=station][transport=subway][city=saopaulo] {icon-image: subway-saopaulo-m.svg;}
 node|z17-[railway=subway_entrance][city=saopaulo] {icon-image: subway-saopaulo-s.svg;}
 
 /* Sapporo Subway Station */
 node|z13[railway=station][transport=subway][city=sapporo] {icon-image: subway-sapporo-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=sapporo] {icon-image: subway-sapporo-s.svg;}
-node|z15[railway=station][transport=subway][city=sapporo] {icon-image: subway-sapporo-m.svg;}
-node|z17-[railway=station][transport=subway][city=sapporo] {icon-image: subway-sapporo-l.svg;}
+node|z15-[railway=station][transport=subway][city=sapporo] {icon-image: subway-sapporo-m.svg;}
 node|z17-[railway=subway_entrance][city=sapporo] {icon-image: subway-sapporo-s.svg;}
 
 /* Sendai Subway Station */
 node|z13[railway=station][transport=subway][city=sendai] {icon-image: subway-sendai-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=sendai] {icon-image: subway-sendai-s.svg;}
-node|z15[railway=station][transport=subway][city=sendai] {icon-image: subway-sendai-m.svg;}
-node|z17-[railway=station][transport=subway][city=sendai] {icon-image: subway-sendai-l.svg;}
+node|z15-[railway=station][transport=subway][city=sendai] {icon-image: subway-sendai-m.svg;}
 node|z17-[railway=subway_entrance][city=sendai] {icon-image: subway-sendai-s.svg;}
 
 /* Shanghai Subway Station */
 node|z13[railway=station][transport=subway][city=shanghai] {icon-image: subway-shanghai-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=shanghai] {icon-image: subway-shanghai-s.svg;}
-node|z15[railway=station][transport=subway][city=shanghai] {icon-image: subway-shanghai-m.svg;}
-node|z17-[railway=station][transport=subway][city=shanghai] {icon-image: subway-shanghai-l.svg;}
+node|z15-[railway=station][transport=subway][city=shanghai] {icon-image: subway-shanghai-m.svg;}
 node|z17-[railway=subway_entrance][city=shanghai] {icon-image: subway-shanghai-s.svg;}
 
 /* Shiraz Subway Station */
 node|z13[railway=station][transport=subway][city=shiraz] {icon-image: subway-shiraz-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=shiraz] {icon-image: subway-shiraz-s.svg;}
-node|z15[railway=station][transport=subway][city=shiraz] {icon-image: subway-shiraz-m.svg;}
-node|z17-[railway=station][transport=subway][city=shiraz] {icon-image: subway-shiraz-l.svg;}
+node|z15-[railway=station][transport=subway][city=shiraz] {icon-image: subway-shiraz-m.svg;}
 node|z17-[railway=subway_entrance][city=shiraz] {icon-image: subway-shiraz-s.svg;}
 
 /* Sofia Subway Station */
 node|z13[railway=station][transport=subway][city=sofia] {icon-image: subway-sofia-s.svg;icon-min-distance: 1;}
 node|z14[railway=station][transport=subway][city=sofia] {icon-image: subway-sofia-s.svg;}
-node|z15[railway=station][transport=subway][city=sofia] {icon-image: subway-sofia-m.svg;}
-node|z17-[railway=station][transport=subway][city=sofia] {icon-image: subway-sofia-l.svg;}
+node|z15-[railway=station][transport=subway][city=sofia] {icon-image: subway-sofia-m.svg;}
 node|z17-[railway=subway_entrance][city=sofia] {icon-image: subway-sofia-s.svg;}
 
 /* Saint Petersburg Subway Station */
@@ -791,11 +770,11 @@ node|z16[railway=subway_entrance][city=spb]
 node|z16[railway=subway_entrance][city=spb]::int_name
 {text-offset: 25;font-size: 11;text-halo-opacity: 0.8;}
 node|z17[railway=subway_entrance][city=spb]
-{icon-image: subway-spb-l.svg;text-offset: 1;font-size: 13;text-halo-opacity: 0.8;}
+{icon-image: subway-spb-m.svg;text-offset: 1;font-size: 13;text-halo-opacity: 0.8;}
 node|z17[railway=subway_entrance][city=spb]::int_name
 {text-offset: 25;font-size: 11;text-halo-opacity: 0.8;}
 node|z18-[railway=subway_entrance][city=spb]
-{icon-image: subway-spb-l.svg;text-offset: 1;font-size: 13;text-halo-opacity: 0.8;}
+{icon-image: subway-spb-m.svg;text-offset: 1;font-size: 13;text-halo-opacity: 0.8;}
 node|z18-[railway=subway_entrance][city=spb]::int_name
 {text-offset: 25;font-size: 12;text-halo-opacity: 0.8;}
 

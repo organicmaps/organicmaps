@@ -1,7 +1,0 @@
-<svg width="28" height="28" viewBox="0 0 28 28">
-  <g fill="none" fill-rule="evenodd">
-    <circle cx="14" cy="14" r="14" fill="#FFF" opacity=".6"/>
-    <circle cx="14" cy="14" r="13" fill="#717065"/>
-    <polygon fill="#FFF" points="14.801 6 19 6.014 14.801 12.222 18.944 12.222 9.829 22 13.144 13.997 9 13.997"/>
-  </g>
-</svg>

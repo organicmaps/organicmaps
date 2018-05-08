@@ -418,7 +418,7 @@ area|z14-[landuse=forest][!name]
 
 area|z15-[leisure=park][name],
 area|z15-[landuse=forest][name]
-{icon-image: park-l.svg;text-offset: 1;font-size: 12;}
+{icon-image: park-m.svg;text-offset: 1;font-size: 12;}
 area|z15-17[leisure=park][name]::int_name,
 area|z15-17[landuse=forest][name]::int_name,
 area|z16-17[landuse=forest][name]::int_name
@@ -429,7 +429,7 @@ area|z15[landuse=forest][!name]
 
 area|z16[leisure=park][name],
 area|z16[landuse=forest][name]
-{icon-image: park-l.svg;text-offset: 1;font-size: 12.5;}
+{icon-image: park-m.svg;text-offset: 1;font-size: 12.5;}
 area|z16[leisure=park][!name],
 area|z16[landuse=forest][!name],
 area|z16[leisure=park][!name]::int_name,
@@ -438,7 +438,7 @@ area|z16[landuse=forest][!name]::int_name
 
 area|z18-[leisure=park][name],
 area|z18-[landuse=forest][name]
-{icon-image: park-xl.svg;text-offset: 1;font-size: 13.5;}
+{icon-image: park-m.svg;text-offset: 1;font-size: 13.5;}
 area|z18-[leisure=park][name],
 area|z18-[landuse=forest][name]
 {}
@@ -446,7 +446,7 @@ area|z18-[landuse=forest][name]
 
 area|z18-[leisure=park],
 area|z18-[landuse=forest]
-{icon-image: park-xl.svg;text-offset: 1;font-size: 13.5;}
+{icon-image: park-m.svg;text-offset: 1;font-size: 13.5;}
 area|z18-[leisure=park]::int_name,
 area|z18-[leisure=forest]::int_name
 {text-offset: 1;font-size: 11;}

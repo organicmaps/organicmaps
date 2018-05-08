@@ -1,3 +1,1 @@
-<svg width="15" height="13" viewBox="0 0 15 13">
-  <path fill="#717065" fill-rule="evenodd" d="M5,3 L5,4 L10,4 L10,3 L5,3 Z M5,2 L10,2 L10,1 L11,1 L11,2 L14,2 L14,3 L11,3 L11,4 L13,4 L13,4.5673974 L13,5 L11,5 L11,7 L10,7 L10,5 L5,5 L5,7 L4,7 L4,5 L2,5 L2,4 L4,4 L4,3 L1,3 L1,2 L4,2 L4,1 L5,1 L5,2 Z M2,9 L4,9 L4,12 L2,12 L2,9 Z M11,9 L13,9 L13,12 L11,12 L11,9 Z M0,7 L15,7 L15,9 L0,9 L0,7 Z"/>
-</svg>
+<svg height="13" viewBox="0 0 15 13" width="15"><path d="m4 7v-2h-2v-1h2v-1h-3v-1h3v-1h1v1h5v-1h1v1h3v1h-3v1h2v.5673974.4326026h-2v2h4v2h-2v3h-2v-3h-7v3h-2v-3h-2v-2zm1 0h5v-2h-5zm0-4v1h5v-1z" fill="#717065" fill-rule="evenodd"/></svg>

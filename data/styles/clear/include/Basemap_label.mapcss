@@ -471,9 +471,9 @@ area|z16[landuse=forest][!name]::int_name
 
 area|z17[leisure=park][name],
 area|z17[landuse=forest][name]
-{icon-image: park-l.svg;text-offset: 1;font-size: 12;}
+{icon-image: park-m.svg;text-offset: 1;font-size: 12;}
 area|z17[leisure=garden][name]
-{icon-image: garden-l.svg;text-offset: 1;font-size: 12;}
+{icon-image: garden-m.svg;text-offset: 1;font-size: 12;}
 area|z17[leisure=park][!name],
 area|z17[landuse=forest][!name],
 area|z17[leisure=garden][!name],
@@ -484,9 +484,9 @@ area|z17[leisure=forest][!name]::int_name
 
 area|z18-[leisure=park],
 area|z18-[landuse=forest]
-{icon-image: park-l.svg;text-offset: 1;font-size: 13;}
+{icon-image: park-m.svg;text-offset: 1;font-size: 13;}
 area|z18-[leisure=garden]
-{icon-image: garden-l.svg;text-offset: 1;font-size: 13;}
+{icon-image: garden-m.svg;text-offset: 1;font-size: 13;}
 area|z18-[leisure=park]::int_name,
 area|z18-[leisure=garden]::int_name,
 area|z18-[leisure=forest]::int_name
@@ -619,7 +619,7 @@ area|z17-[landuse=cemetery],
 node|z17-[landuse=cemetery],
 area|z17-[amenity=grave_yard],
 node|z17-[amenity=grave_yard],
-{icon-image: cemetery-l.svg;}
+{icon-image: cemetery-m.svg;}
 
 /* 	7.5 Pedestrian areas */
 
@@ -637,7 +637,7 @@ node|z16[landuse=military]
 
 area|z17-[landuse=military],
 node|z17-[landuse=military]
-{icon-image: military-l.svg;text-offset: 1;text: name;font-size: 10;text-color: @poi_label;}
+{icon-image: military-m.svg;text-offset: 1;text: name;font-size: 10;text-color: @poi_label;}
 
 /* 	7.7 Commercial */
 
