@@ -435,7 +435,11 @@ private:
   boost::optional<std::string> GetKMLPath(std::string const & filePath);
   void NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile);
   void LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile);
-  KMLDataCollectionPtr LoadBookmarks(std::string const & dir, std::string const & ext, bool binary,
+  
+  using BookmarksChecker = std::function<bool(std::unique_ptr<kml::FileData> const &)>;
+  KMLDataCollectionPtr LoadBookmarks(std::string const & dir,
+                                     std::string const & ext, bool binary,
+                                     BookmarksChecker const & checker,
                                      std::vector<std::string> & filePaths);
 
   void CollectDirtyGroups(kml::GroupIdSet & dirtyGroups);

@@ -28,6 +28,7 @@
 
 #include "base/macros.hpp"
 #include "base/stl_add.hpp"
+#include "base/string_utils.hpp"
 
 #include "std/target_os.hpp"
 
@@ -50,16 +51,11 @@ std::string const kLastBookmarkType = "LastBookmarkType";
 std::string const kLastEditedBookmarkColor = "LastBookmarkColor";
 std::string const kDefaultBookmarksFileName = "Bookmarks";
 std::string const kHotelsBookmarks = "Hotels";
-std::string const kKmzExtension = ".kmz";
-std::string const kKmlExtension = ".kml";
-std::string const kKmbExtension = ".kmb";
 
 // Returns extension with a dot in a lower case.
 std::string GetFileExt(std::string const & filePath)
 {
-  std::string ext = my::GetFileExtension(filePath);
-  std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
-  return ext;
+  return strings::MakeLowerCase(my::GetFileExtension(filePath));
 }
 
 std::string GetFileName(std::string const & filePath)
@@ -172,38 +168,11 @@ Cloud::ConvertionResult ConvertBeforeUploading(std::string const & filePath,
   return result;
 }
 
-std::unique_ptr<kml::FileData> ImportAfterDownloading(std::string const & filePath,
-                                                      std::string & hash)
-{
-  ZipFileReader::FileListT files;
-  ZipFileReader::FilesList(filePath, files);
-  if (files.empty())
-    return {};
-  
-  auto fileName = files.front().first;
-  for (auto const & file : files)
-  {
-    if (GetFileExt(file.first) == kKmlExtension)
-    {
-      fileName = file.first;
-      break;
-    }
-  }
-  std::string const unarchievedPath = filePath + ".raw";
-  MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, unarchievedPath));
-  ZipFileReader::UnzipFile(filePath, fileName, unarchievedPath);
-  if (!GetPlatform().IsFileExistsByFullPath(unarchievedPath))
-    return nullptr;
-  
-  hash = coding::SHA1::CalculateBase64(unarchievedPath);
-  return LoadKmlFile(unarchievedPath, false /* binary */);
-}
-
 Cloud::ConvertionResult ConvertAfterDownloading(std::string const & filePath,
                                                 std::string const & convertedFilePath)
 {
   std::string hash;
-  auto kmlData = ImportAfterDownloading(filePath, hash);
+  auto kmlData = LoadKmzFile(filePath, hash);
   if (kmlData == nullptr)
     return {};
   
@@ -416,29 +385,9 @@ void FixUpHotelPlacemarks(BookmarkManager::KMLDataCollectionPtr & collection,
   {
     if (GetFileExt(f) != kKmzExtension)
       continue;
-
-    // TODO: use LoadKmzFile after rebase on master.
-    ZipFileReader::FileListT filesInZip;
-    ZipFileReader::FilesList(f, filesInZip);
-    if (filesInZip.empty())
-      continue;
     
-    auto fileName = filesInZip.front().first;
-    for (auto const & fileInZip : filesInZip)
-    {
-      if (GetFileExt(fileInZip.first) == kKmlExtension)
-      {
-        fileName = fileInZip.first;
-        break;
-      }
-    }
-    std::string const unarchievedPath = my::JoinPath(GetPlatform().TmpDir(), fileName + ".raw");
-    MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, unarchievedPath));
-    ZipFileReader::UnzipFile(f, fileName, unarchievedPath);
-    if (!GetPlatform().IsFileExistsByFullPath(unarchievedPath))
-      continue;
-    
-    auto kmlData = LoadKmlFile(unarchievedPath, false /* binary */);
+    std::string hash;
+    auto kmlData = LoadKmzFile(f, hash);
     if (kmlData == nullptr)
       continue;
     
@@ -807,7 +756,6 @@ void BookmarkManager::ClearGroup(kml::MarkGroupId groupId)
     m_tracks.erase(trackId);
   }
   group->Clear();
-  m_changesTracker.OnDeleteGroup(groupId);
 }
 
 std::string BookmarkManager::GetCategoryName(kml::MarkGroupId categoryId) const
@@ -939,7 +887,10 @@ void BookmarkManager::ClearCategories()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   for (auto groupId : m_bmGroupsIdList)
+  {
     ClearGroup(groupId);
+    m_changesTracker.OnDeleteGroup(groupId);
+  }
 
   m_categories.clear();
   UpdateBmGroupIdList();
@@ -950,7 +901,7 @@ void BookmarkManager::ClearCategories()
 
 BookmarkManager::KMLDataCollectionPtr BookmarkManager::LoadBookmarks(
     std::string const & dir, std::string const & ext, bool binary,
-    std::vector<std::string> & filePaths)
+    BookmarksChecker const & checker, std::vector<std::string> & filePaths)
 {
   Platform::FilesList files;
   Platform::GetFilesByExt(dir, ext, files);
@@ -963,6 +914,8 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::LoadBookmarks(
     auto const filePath = my::JoinPath(dir, file);
     auto kmlData = LoadKmlFile(filePath, binary);
     if (kmlData == nullptr)
+      continue;
+    if (checker && !checker(kmlData))
       continue;
     if (m_needTeardown)
       break;
@@ -988,13 +941,22 @@ void BookmarkManager::LoadBookmarks()
     std::string const filesExt = migrated ? kKmbExtension : kKmlExtension;
 
     std::vector<std::string> filePaths;
-    auto collection = LoadBookmarks(dir, filesExt, migrated, filePaths);
+    auto collection = LoadBookmarks(dir, filesExt, migrated,
+                                    [](std::unique_ptr<kml::FileData> const & kmlData)
+    {
+      return !FromCatalog(*kmlData);
+    }, filePaths);
+    
     migration::FixUpHotelPlacemarks(collection, isMigrationCompleted);
 
     // Load files downloaded from catalog.
     std::vector<std::string> unusedFilePaths;
     auto catalogCollection = LoadBookmarks(GetPrivateBookmarksDirectory(), kKmbExtension,
-                                           true /* binary */, unusedFilePaths);
+                                           true /* binary */, [](std::unique_ptr<kml::FileData> const & kmlData)
+    {
+      return FromCatalog(*kmlData);
+    }, unusedFilePaths);
+    
     collection->reserve(collection->size() + catalogCollection->size());
     for (auto & p : *catalogCollection)
       collection->emplace_back(p.first, std::move(p.second));
@@ -1382,6 +1344,7 @@ bool BookmarkManager::DeleteBmCategory(kml::MarkGroupId groupId)
     return false;
 
   ClearGroup(groupId);
+  m_changesTracker.OnDeleteGroup(groupId);
 
   FileWriter::DeleteFileX(it->second->GetFileName());
   m_bookmarkCatalog.UnregisterDownloadedId(it->second->GetServerId());
@@ -1619,7 +1582,7 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::PrepareToSaveBookmarks(
 
     if (group->IsCategoryFromCatalog())
     {
-      std::string const privateFileDir = GetPrivateBookmarksDirectory();
+      auto const privateFileDir = GetPrivateBookmarksDirectory();
       if (!GetPlatform().IsFileExistsByFullPath(privateFileDir) &&
           !GetPlatform().MkDirChecked(privateFileDir))
       {
@@ -2032,14 +1995,15 @@ void BookmarkManager::ImportDownloadedFromCatalog(std::string const & id, std::s
   {
     MY_SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, filePath));
     std::string hash;
-    auto kmlData = ImportAfterDownloading(filePath, hash);
+    auto kmlData = LoadKmzFile(filePath, hash);
     if (kmlData && FromCatalog(*kmlData) && kmlData->m_serverId == id)
     {
       auto const p = my::JoinPath(GetPrivateBookmarksDirectory(), id, kKmbExtension);
       auto collection = std::make_shared<KMLDataCollection>();
       collection->emplace_back(p, std::move(kmlData));
 
-      GetPlatform().RunTask(Platform::Thread::Gui, [this, id, collection]()
+      GetPlatform().RunTask(Platform::Thread::Gui,
+                            [this, id, collection = std::move(collection)]() mutable
       {
         std::vector<kml::MarkGroupId> idsToDelete;
         for (auto const & group : m_categories)
@@ -2051,7 +2015,10 @@ void BookmarkManager::ImportDownloadedFromCatalog(std::string const & id, std::s
           }
         }
         for (auto const & categoryId : idsToDelete)
+        {
+          m_changesTracker.OnDeleteGroup(categoryId);
           m_categories.erase(categoryId);
+        }
 
         CreateCategories(std::move(*collection));
 

@@ -9,7 +9,12 @@
 #include <memory>
 #include <string>
 
+extern std::string const kKmzExtension;
+extern std::string const kKmlExtension;
+extern std::string const kKmbExtension;
+
 std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, bool useBinary);
+std::unique_ptr<kml::FileData> LoadKmzFile(std::string const & file, std::string & kmlHash);
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, bool useBinary);
 
 bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, bool useBinary);

@@ -71,7 +71,7 @@ void BookmarkCatalog::Download(std::string const & id, std::string const & name,
 
   platform::RemoteFile remoteFile(BuildCatalogUrl(id));
   remoteFile.DownloadAsync(path, [finishHandler = std::move(finishHandler)]
-    (platform::RemoteFile::Result && result, std::string const & filePath) mutable
+    (platform::RemoteFile::Result && result, std::string const & filePath)
   {
     if (finishHandler)
       finishHandler(std::move(result), filePath);

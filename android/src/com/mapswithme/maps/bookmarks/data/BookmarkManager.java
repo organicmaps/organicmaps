@@ -48,19 +48,19 @@ public enum BookmarkManager
   public static final List<Icon> ICONS = new ArrayList<>();
 
   @NonNull
-  private List<BookmarksLoadingListener> mListeners = new ArrayList<>();
+  private final List<BookmarksLoadingListener> mListeners = new ArrayList<>();
 
   @NonNull
-  private List<KmlConversionListener> mConversionListeners = new ArrayList<>();
+  private final List<KmlConversionListener> mConversionListeners = new ArrayList<>();
 
   @NonNull
-  private List<BookmarksSharingListener> mSharingListeners = new ArrayList<>();
+  private final List<BookmarksSharingListener> mSharingListeners = new ArrayList<>();
 
   @NonNull
-  private List<BookmarksCloudListener> mCloudListeners = new ArrayList<>();
+  private final List<BookmarksCloudListener> mCloudListeners = new ArrayList<>();
 
   @NonNull
-  private List<BookmarksCatalogListener> mCatalogListeners = new ArrayList<>();
+  private final List<BookmarksCatalogListener> mCatalogListeners = new ArrayList<>();
   
   static
   {

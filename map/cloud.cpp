@@ -330,40 +330,6 @@ Cloud::SnapshotResponseData ReadSnapshotFile(std::string const & filename)
   return {};
 }
 
-/*Cloud::RequestResult DownloadFile(std::string const & url, std::string const & fileName,
-                                  bool & successfullyWritten)
-{
-  successfullyWritten = true;
-  platform::HttpClient request(url);
-  request.SetTimeout(kRequestTimeoutInSec);
-  if (request.RunHttpRequest() && !request.WasRedirected())
-  {
-    auto const & response = request.ServerResponse();
-    int const resultCode = request.ErrorCode();
-    if (resultCode == 403)
-    {
-      LOG(LWARNING, ("Access denied for", url));
-      return {Cloud::RequestStatus::Forbidden, response};
-    }
-
-    if (IsSuccessfulResultCode(resultCode))
-    {
-      try
-      {
-        FileWriter w(fileName);
-        w.Write(response.data(), response.length());
-      }
-      catch (FileWriter::Exception const & exception)
-      {
-        LOG(LWARNING, ("Exception while writing file:", fileName, "reason:", exception.what()));
-        successfullyWritten = false;
-      }
-      return {Cloud::RequestStatus::Ok, {}};
-    }
-  }
-  return {Cloud::RequestStatus::NetworkError, request.ServerResponse()};
-}*/
-
 bool CheckAndGetFileSize(std::string const & filePath, uint64_t & fileSize)
 {
   if (!my::GetFileSize(filePath, fileSize))

@@ -7,10 +7,17 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature_utils.hpp"
 
+#include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
 
+#include "coding/file_name_utils.hpp"
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
+#include "coding/sha1.hpp"
+#include "coding/zip_reader.hpp"
+
+#include "base/scope_guard.hpp"
+#include "base/string_utils.hpp"
 
 #include <map>
 
@@ -242,6 +249,10 @@ void ValidateKmlData(std::unique_ptr<kml::FileData> & data)
 }
 }  // namespace
 
+std::string const kKmzExtension = ".kmz";
+std::string const kKmlExtension = ".kml";
+std::string const kKmbExtension = ".kmb";
+
 std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, bool useBinary)
 {
   std::unique_ptr<kml::FileData> kmlData;
@@ -257,6 +268,32 @@ std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, bool useBin
   if (kmlData == nullptr)
     LOG(LWARNING, ("Loading bookmarks failed, file", file));
   return kmlData;
+}
+
+std::unique_ptr<kml::FileData> LoadKmzFile(std::string const & file, std::string & kmlHash)
+{
+  ZipFileReader::FileListT files;
+  ZipFileReader::FilesList(file, files);
+  if (files.empty())
+    return nullptr;
+  
+  auto fileName = files.front().first;
+  for (auto const & file : files)
+  {
+    if (strings::MakeLowerCase(my::GetFileExtension(file.first)) == kKmlExtension)
+    {
+      fileName = file.first;
+      break;
+    }
+  }
+  std::string const unarchievedPath = file + ".raw";
+  MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, unarchievedPath));
+  ZipFileReader::UnzipFile(file, fileName, unarchievedPath);
+  if (!GetPlatform().IsFileExistsByFullPath(unarchievedPath))
+    return nullptr;
+  
+  kmlHash = coding::SHA1::CalculateBase64(unarchievedPath);
+  return LoadKmlFile(unarchievedPath, false /* binary */);
 }
 
 std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, bool useBinary)
