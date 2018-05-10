@@ -33,7 +33,7 @@ string DebugPrint(MwmSet::MwmId const & id)
 {
   ostringstream ss;
   if (id.m_info.get())
-    ss << "MwmId [" << id.m_info->GetCountryName() << "]";
+    ss << "MwmId [" << id.m_info->GetCountryName() << ", " << id.m_info->GetVersion() << "]";
   else
     ss << "MwmId [invalid]";
   return ss.str();

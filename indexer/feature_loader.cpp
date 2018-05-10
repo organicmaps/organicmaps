@@ -11,6 +11,7 @@
 #include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/exception.hpp"
 #include "std/limits.hpp"
 
 #include "defines.hpp"
@@ -29,8 +30,23 @@ void LoaderCurrent::ParseTypes()
   ArrayByteSource source(DataPtr() + m_TypesOffset);
 
   size_t const count = m_pF->GetTypesCount();
-  for (size_t i = 0; i < count; ++i)
-    m_pF->m_types[i] = c.GetTypeForIndex(ReadVarUint<uint32_t>(source));
+  uint32_t index = 0;
+  try
+  {
+    for (size_t i = 0; i < count; ++i)
+    {
+      index = ReadVarUint<uint32_t>(source);
+      m_pF->m_types[i] = c.GetTypeForIndex(index);
+    }
+  }
+  catch (std::out_of_range const & ex)
+  {
+    LOG(LERROR, ("Incorrect type index for feature. FeatureID:", m_pF->m_id,
+                 ". Incorrect index:", index, ". Loaded feature types:", m_pF->m_types,
+                 ". Total count of types:", count, ". Header:", m_pF->m_header,
+                 ". Exception:", ex.what()));
+    throw;
+  }
 
   m_CommonOffset = CalcOffset(source);
 }

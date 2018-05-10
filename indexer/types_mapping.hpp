@@ -19,10 +19,11 @@ public:
   void Clear();
   void Load(istream & s);
 
+  // Throws std::out_of_range exception.
   uint32_t GetType(uint32_t ind) const
   {
     ASSERT_LESS ( ind, m_types.size(), () );
-    return m_types[ind];
+    return m_types.at(ind);
   }
 
   uint32_t GetIndex(uint32_t t) const;
