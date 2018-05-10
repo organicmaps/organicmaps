@@ -9,14 +9,12 @@
 
 @interface MultipartUploadTask : NSObject
 
-@property (nonatomic, copy) NSString *method;
-@property (nonatomic, copy) NSString *urlString;
-@property (nonatomic, copy) NSString *fileKey;
-@property (nonatomic, copy) NSString *filePath;
-@property (nonatomic, copy) NSDictionary<NSString*, NSString*> *params;
-@property (nonatomic, copy) NSDictionary<NSString*, NSString*> *headers;
-
-- (void)uploadWithCompletion:(void(^)(NSInteger httpCode, NSString * _Nonnull description))completion;
+@property (copy, nonatomic) NSString *method;
+@property (copy, nonatomic) NSString *urlString;
+@property (copy, nonatomic) NSString *fileKey;
+@property (copy, nonatomic) NSString *filePath;
+@property (strong, nonatomic) NSDictionary<NSString*, NSString*> *params;
+@property (strong, nonatomic) NSDictionary<NSString*, NSString*> *headers;
 
 @end
 
@@ -26,14 +24,11 @@
   NSMutableData *data = [NSMutableData data];
 
   [self.params enumerateKeysAndObjectsUsingBlock:^(NSString * key, NSString * value, BOOL * stop) {
-    [data appendData:
-     (NSData * _Nonnull)[[NSString stringWithFormat:@"--%@\r\n", boundary]
+    [data appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary]
                          dataUsingEncoding:NSUTF8StringEncoding]];
-    [data appendData:
-     (NSData * _Nonnull)[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n",
+    [data appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n",
                           key] dataUsingEncoding:NSUTF8StringEncoding]];
-    [data appendData:
-     (NSData * _Nonnull)[[NSString stringWithFormat:@"%@\r\n", value]
+    [data appendData:[[NSString stringWithFormat:@"%@\r\n", value]
                          dataUsingEncoding:NSUTF8StringEncoding]];
   }];
 
@@ -41,19 +36,17 @@
   NSData *fileData = [NSData dataWithContentsOfFile:self.filePath];
   NSString *mimeType = @"application/octet-stream";
 
-  [data appendData:(NSData* _Nonnull)[[NSString stringWithFormat:@"--%@\r\n", boundary]
+  [data appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary]
                        dataUsingEncoding:NSUTF8StringEncoding]];
-  [data appendData:
-   (NSData* _Nonnull)[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n",
+  [data appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n",
                         self.fileKey,
                         fileName]
                        dataUsingEncoding:NSUTF8StringEncoding]];
-  [data appendData:
-   (NSData* _Nonnull)[[NSString stringWithFormat:@"Content-Type: %@\r\n\r\n", mimeType]
+  [data appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n\r\n", mimeType]
                       dataUsingEncoding:NSUTF8StringEncoding]];
   [data appendData:fileData];
-  [data appendData:(NSData* _Nonnull)[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-  [data appendData:(NSData* _Nonnull)[[NSString stringWithFormat:@"--%@--", boundary]
+  [data appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+  [data appendData:[[NSString stringWithFormat:@"--%@--", boundary]
                                       dataUsingEncoding:NSUTF8StringEncoding]];
 
   return data;
@@ -100,13 +93,13 @@ HttpUploader::Result HttpUploader::Upload() const
   auto mapTransform =
       ^NSDictionary<NSString *, NSString *> *(std::map<std::string, std::string> keyValues)
   {
-    NSMutableDictionary<NSString *, NSString *> * params = [@{} mutableCopy];
+    NSMutableDictionary<NSString *, NSString *> * params = [NSMutableDictionary dictionary];
     for (auto const & keyValue : keyValues)
       params[@(keyValue.first.c_str())] = @(keyValue.second.c_str());
     return [params copy];
   };
 
-  MultipartUploadTask *uploadTask = [[MultipartUploadTask alloc] init];
+  auto *uploadTask = [[MultipartUploadTask alloc] init];
   uploadTask.method = @(m_method.c_str());
   uploadTask.urlString = @(m_url.c_str());
   uploadTask.fileKey = @(m_fileKey.c_str());
