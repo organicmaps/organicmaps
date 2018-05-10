@@ -20,6 +20,7 @@
 #include "coding/hex.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/multilang_utf8_string.hpp"
+#include "coding/sha1.hpp"
 #include "coding/zip_creator.hpp"
 #include "coding/zip_reader.hpp"
 
@@ -143,7 +144,8 @@ BookmarkManager::SharingResult GetFileForSharing(BookmarkManager::KMLDataCollect
   return BookmarkManager::SharingResult(categoryId, tmpFilePath);
 }
 
-bool ConvertBeforeUploading(std::string const & filePath, std::string const & convertedFilePath)
+Cloud::ConvertionResult ConvertBeforeUploading(std::string const & filePath,
+                                               std::string const & convertedFilePath)
 {
   std::string const fileName = my::GetNameFromFullPathWithoutExt(filePath);
   auto const tmpFilePath = my::JoinPath(GetPlatform().TmpDir(), fileName + kKmlExtension);
@@ -151,20 +153,25 @@ bool ConvertBeforeUploading(std::string const & filePath, std::string const & co
 
   auto kmlData = LoadKmlFile(filePath, true /* binary */);
   if (kmlData == nullptr)
-    return false;
+    return {};
 
   if (!SaveKmlFile(*kmlData, tmpFilePath, false /* binary */))
-    return false;
+    return {};
 
-  return CreateZipFromPathDeflatedAndDefaultCompression(tmpFilePath, convertedFilePath);
+  Cloud::ConvertionResult result;
+  result.m_hash = coding::SHA1::CalculateBase64(tmpFilePath);
+  result.m_isSuccessful = CreateZipFromPathDeflatedAndDefaultCompression(tmpFilePath,
+                                                                         convertedFilePath);
+  return result;
 }
 
-bool ConvertAfterDownloading(std::string const & filePath, std::string const & convertedFilePath)
+Cloud::ConvertionResult ConvertAfterDownloading(std::string const & filePath,
+                                                std::string const & convertedFilePath)
 {
   ZipFileReader::FileListT files;
   ZipFileReader::FilesList(filePath, files);
   if (files.empty())
-    return false;
+    return {};
 
   auto fileName = files.front().first;
   for (auto const & file : files)
@@ -179,13 +186,16 @@ bool ConvertAfterDownloading(std::string const & filePath, std::string const & c
   MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, unarchievedPath));
   ZipFileReader::UnzipFile(filePath, fileName, unarchievedPath);
   if (!GetPlatform().IsFileExistsByFullPath(unarchievedPath))
-    return false;
+    return {};
 
   auto kmlData = LoadKmlFile(unarchievedPath, false /* binary */);
   if (kmlData == nullptr)
-    return false;
+    return {};
 
-   return SaveKmlFile(*kmlData, convertedFilePath, true /* binary */);
+  Cloud::ConvertionResult result;
+  result.m_hash = coding::SHA1::CalculateBase64(unarchievedPath);
+  result.m_isSuccessful = SaveKmlFile(*kmlData, convertedFilePath, true /* binary */);
+  return result;
 }
 }  // namespace
 

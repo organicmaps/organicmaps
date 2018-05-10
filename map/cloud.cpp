@@ -649,8 +649,6 @@ void Cloud::SaveIndexImpl() const
 
 void Cloud::ScheduleUploading()
 {
-  std::vector<std::string> snapshotFiles;
-  bool allUpdated = true;
   {
     std::lock_guard<std::mutex> lock(m_mutex);
     if (!CanUploadImpl())
@@ -658,42 +656,34 @@ void Cloud::ScheduleUploading()
 
     SortEntriesBeforeUploadingImpl();
 
-    snapshotFiles.reserve(m_index.m_entries.size());
+    m_snapshotFiles.clear();
+    m_snapshotFiles.reserve(m_index.m_entries.size());
     for (auto const & entry : m_index.m_entries)
-    {
-      snapshotFiles.emplace_back(entry->m_name);
-      allUpdated = allUpdated && !entry->m_isOutdated;
-    }
+      m_snapshotFiles.emplace_back(entry->m_name);
 
     m_uploadingStarted = true;
+    m_isSnapshotCreated = false;
   }
 
   ThreadSafeCallback<SynchronizationStartedHandler>([this]() { return m_onSynchronizationStarted; },
                                                     SynchronizationType::Backup);
 
-  if (allUpdated)
+  auto entry = FindOutdatedEntry();
+  if (entry != nullptr)
   {
-    FinishSnapshotTask(kTaskTimeoutInSeconds, 0 /* attemptIndex */);
+    ScheduleUploadingTask(entry, kTaskTimeoutInSeconds);
   }
   else
   {
-    // Create snapshot and begin uploading in case of success.
-    CreateSnapshotTask(kTaskTimeoutInSeconds, 0 /* attemptIndex */, std::move(snapshotFiles), [this]()
-    {
-      auto entry = FindOutdatedEntry();
-      if (entry != nullptr)
-        ScheduleUploadingTask(entry, kTaskTimeoutInSeconds, 0 /* attemptIndex */);
-      else
-        FinishUploading(SynchronizationResult::Success, {});
-    });
+    ThreadSafeCallback<SynchronizationFinishedHandler>([this]() { return m_onSynchronizationFinished; },
+                                                       SynchronizationType::Backup,
+                                                       SynchronizationResult::Success, "");
   }
 }
 
-void Cloud::ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout,
-                                  uint32_t attemptIndex)
+void Cloud::ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout)
 {
-  GetPlatform().RunDelayedTask(Platform::Thread::Network, seconds(timeout),
-                               [this, entry, timeout, attemptIndex]()
+  GetPlatform().RunDelayedTask(Platform::Thread::Network, seconds(timeout), [this, entry]()
   {
     std::string entryName;
     std::string entryHash;
@@ -724,7 +714,8 @@ void Cloud::ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout,
     }
 
     // Prepare file to uploading.
-    auto const uploadedName = PrepareFileToUploading(entryName);
+    std::string hash;
+    auto const uploadedName = PrepareFileToUploading(entryName, hash);
     auto deleteAfterUploading = [uploadedName]() {
       if (!uploadedName.empty())
         my::DeleteFileX(uploadedName);
@@ -737,201 +728,105 @@ void Cloud::ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout,
       return;
     }
 
-    // Upload only if SHA1 is not equal to previous one.
-    auto const sha1 = coding::SHA1::CalculateBase64(uploadedName);
-    if (sha1.empty())
-    {
-      FinishUploading(SynchronizationResult::DiskError, "SHA1 calculation error");
+    // Upload only if calculated hash is not equal to previous one.
+    if (entryHash != hash && !UploadFile(uploadedName))
       return;
-    }
-
-    if (entryHash != sha1)
-    {
-      uint64_t uploadedFileSize = 0;
-      if (!my::GetFileSize(uploadedName, uploadedFileSize))
-      {
-        FinishUploading(SynchronizationResult::DiskError, "File size calculation error");
-        return;
-      }
-
-      // Request uploading.
-      auto const result = RequestUploading(uploadedName);
-      if (result.m_isMalformed)
-      {
-        FinishUploading(SynchronizationResult::NetworkError, "Malformed uploading response");
-        return;
-      }
-      else if (result.m_requestResult.m_status == RequestStatus::NetworkError)
-      {
-        // Retry uploading request up to kRetryMaxAttempts times.
-        if (attemptIndex + 1 == kRetryMaxAttempts)
-        {
-          FinishUploading(SynchronizationResult::NetworkError, result.m_requestResult.m_error);
-          return;
-        }
-
-        auto const retryTimeout = attemptIndex == 0 ? kRetryTimeoutInSeconds
-                                                    : timeout * kRetryDegradationFactor;
-        ScheduleUploadingTask(entry, retryTimeout, attemptIndex + 1);
-        return;
-      }
-      else if (result.m_requestResult.m_status == RequestStatus::Forbidden)
-      {
-        FinishUploading(SynchronizationResult::AuthError, result.m_requestResult.m_error);
-        return;
-      }
-
-      // Execute uploading.
-      auto const executeResult = ExecuteUploading(result.m_response, uploadedName);
-      if (executeResult.m_status != RequestStatus::Ok)
-      {
-        FinishUploading(SynchronizationResult::NetworkError, executeResult.m_error);
-        return;
-      }
-
-      // Notify about successful uploading.
-      auto const notificationResult = NotifyAboutUploading(uploadedName, uploadedFileSize);
-      if (executeResult.m_status != RequestStatus::Ok)
-      {
-        FinishUploading(executeResult.m_status == RequestStatus::Forbidden ?
-                        SynchronizationResult::AuthError : SynchronizationResult::NetworkError,
-                        notificationResult.m_error);
-        return;
-      }
-    }
 
     // Mark entry as not outdated.
+    bool isSnapshotCreated;
     {
       std::lock_guard<std::mutex> lock(m_mutex);
       entry->m_isOutdated = false;
-      entry->m_hash = sha1;
+      entry->m_hash = hash;
       SaveIndexImpl();
+      isSnapshotCreated = m_isSnapshotCreated;
     }
 
     // Schedule next uploading task.
     auto nextEntry = FindOutdatedEntry();
     if (nextEntry != nullptr)
-      ScheduleUploadingTask(nextEntry, kTaskTimeoutInSeconds, 0 /* attemptIndex */);
-    else
-      FinishSnapshotTask(kTaskTimeoutInSeconds, 0 /* attemptIndex */);
+    {
+      ScheduleUploadingTask(nextEntry, kTaskTimeoutInSeconds);
+      return;
+    }
+
+    // Finish snapshot.
+    if (isSnapshotCreated)
+    {
+      auto const result = FinishSnapshot();
+      if (!CheckUploadingForFailure(result))
+        return;
+    }
+    FinishUploading(SynchronizationResult::Success, {});
   });
 }
 
-void Cloud::CreateSnapshotTask(uint32_t timeout, uint32_t attemptIndex,
-                               std::vector<std::string> && files,
-                               SnapshotCompletionHandler && handler)
+bool Cloud::UploadFile(std::string const & uploadedName)
 {
-  GetPlatform().RunDelayedTask(Platform::Thread::Network, seconds(timeout),
-                               [this, timeout, attemptIndex, files = std::move(files),
-                                handler = std::move(handler)]() mutable
+  uint64_t uploadedFileSize = 0;
+  if (!my::GetFileSize(uploadedName, uploadedFileSize))
   {
-    ASSERT(!files.empty(), ());
+    FinishUploading(SynchronizationResult::DiskError, "File size calculation error");
+    return false;
+  }
 
-    bool isInvalidToken;
-    {
-      // Uploading has finished.
-      std::lock_guard<std::mutex> lock(m_mutex);
-      if (!m_uploadingStarted)
-        return;
+  // Create snapshot if it was not created early.
+  bool snapshotCreated;
+  std::vector<std::string> snapshotFiles;
+  {
+    std::lock_guard<std::mutex> lock(m_mutex);
+    snapshotCreated = m_isSnapshotCreated;
+    std::swap(snapshotFiles, m_snapshotFiles);
+  }
+  if (!snapshotCreated)
+  {
+    auto const result = CreateSnapshot(snapshotFiles);
+    if (!CheckUploadingForFailure(result))
+      return false;
 
-      isInvalidToken = m_accessToken.empty();
-    }
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_isSnapshotCreated = true;
+  }
 
-    if (kServerUrl.empty())
-    {
-      FinishUploading(SynchronizationResult::NetworkError, "Empty server url");
-      return;
-    }
+  // Request uploading.
+  auto const result = RequestUploading(uploadedName);
+  if (result.m_isMalformed)
+  {
+    FinishUploading(SynchronizationResult::NetworkError, "Malformed uploading response");
+    return false;
+  }
+  if (!CheckUploadingForFailure(result.m_requestResult))
+    return false;
 
-    // Access token may become invalid between tasks.
-    if (isInvalidToken)
-    {
-      FinishUploading(SynchronizationResult::AuthError, "Access token is empty");
-      return;
-    }
+  // Execute uploading.
+  auto const executeResult = ExecuteUploading(result.m_response, uploadedName);
+  if (!CheckUploadingForFailure(executeResult))
+    return false;
 
-    auto const result = CreateSnapshot(files);
-    if (result.m_status == RequestStatus::NetworkError)
-    {
-      // Retry request up to kRetryMaxAttempts times.
-      if (attemptIndex + 1 == kRetryMaxAttempts)
-      {
-        FinishUploading(SynchronizationResult::NetworkError, result.m_error);
-        return;
-      }
+  // Notify about successful uploading.
+  auto const notificationResult = NotifyAboutUploading(uploadedName, uploadedFileSize);
+  if (!CheckUploadingForFailure(notificationResult))
+    return false;
 
-      auto const retryTimeout = attemptIndex == 0 ? kRetryTimeoutInSeconds
-                                                  : timeout * kRetryDegradationFactor;
-      CreateSnapshotTask(retryTimeout, attemptIndex + 1, std::move(files), std::move(handler));
-      return;
-    }
-    else if (result.m_status == RequestStatus::Forbidden)
-    {
-      FinishUploading(SynchronizationResult::AuthError, result.m_error);
-      return;
-    }
-
-    if (handler != nullptr)
-      handler();
-  });
+  return true;
 }
 
-void Cloud::FinishSnapshotTask(uint32_t timeout, uint32_t attemptIndex)
+bool Cloud::CheckUploadingForFailure(Cloud::RequestResult const & result)
 {
-  GetPlatform().RunDelayedTask(Platform::Thread::Network, seconds(timeout),
-                               [this, timeout, attemptIndex]()
+  switch (result.m_status)
   {
-    bool isInvalidToken;
-    {
-      // Uploading has finished.
-      std::lock_guard<std::mutex> lock(m_mutex);
-      if (!m_uploadingStarted)
-        return;
-
-      isInvalidToken = m_accessToken.empty();
-    }
-
-    if (kServerUrl.empty())
-    {
-      FinishUploading(SynchronizationResult::NetworkError, "Empty server url");
-      return;
-    }
-
-    // Access token may become invalid between tasks.
-    if (isInvalidToken)
-    {
-      FinishUploading(SynchronizationResult::AuthError, "Access token is empty");
-      return;
-    }
-
-    auto const result = FinishSnapshot();
-    if (result.m_status == RequestStatus::Ok)
-    {
-      FinishUploading(SynchronizationResult::Success, {});
-    }
-    else if (result.m_status == RequestStatus::NetworkError)
-    {
-      // Retry request up to kRetryMaxAttempts times.
-      if (attemptIndex + 1 == kRetryMaxAttempts)
-      {
-        FinishUploading(SynchronizationResult::NetworkError, result.m_error);
-        return;
-      }
-
-      auto const retryTimeout = attemptIndex == 0 ? kRetryTimeoutInSeconds
-                                                  : timeout * kRetryDegradationFactor;
-      FinishSnapshotTask(retryTimeout, attemptIndex + 1);
-      return;
-    }
-    else if (result.m_status == RequestStatus::Forbidden)
-    {
-      FinishUploading(SynchronizationResult::AuthError, result.m_error);
-      return;
-    }
-  });
+  case RequestStatus::Ok:
+    return true;
+  case RequestStatus::Forbidden:
+    FinishUploading(SynchronizationResult::AuthError, result.m_error);
+    return false;
+  case RequestStatus::NetworkError:
+    FinishUploading(SynchronizationResult::NetworkError, result.m_error);
+    return false;
+  }
 }
 
-std::string Cloud::PrepareFileToUploading(std::string const & fileName)
+std::string Cloud::PrepareFileToUploading(std::string const & fileName, std::string & hash)
 {
   // 1. Get path to the original uploading file.
   std::string filePath;
@@ -971,12 +866,9 @@ std::string Cloud::PrepareFileToUploading(std::string const & fileName)
   // 5. Convert temporary file and save to output path.
   if (m_params.m_backupConverter != nullptr)
   {
-    if (m_params.m_backupConverter(tmpPath, outputPath))
-      return outputPath;
-  }
-  else
-  {
-    if (my::RenameFileX(tmpPath, outputPath))
+    auto const convertionResult = m_params.m_backupConverter(tmpPath, outputPath);
+    hash = convertionResult.m_hash;
+    if (convertionResult.m_isSuccessful)
       return outputPath;
   }
   return {};
@@ -1586,12 +1478,14 @@ void Cloud::CompleteRestoring(std::string const & dirPath)
         return;
       }
 
-      auto const sha1 = coding::SHA1::CalculateBase64(restoringFile);
+      std::string hash;
       auto const fn = f.m_fileName + ".converted";
       auto const convertedFile = my::JoinPath(dirPath, fn);
       if (m_params.m_restoreConverter != nullptr)
       {
-        if (!m_params.m_restoreConverter(restoringFile, convertedFile))
+        auto const convertionResult = m_params.m_restoreConverter(restoringFile, convertedFile);
+        hash = convertionResult.m_hash;
+        if (!convertionResult.m_isSuccessful)
         {
           FinishRestoring(SynchronizationResult::DiskError, "Restored file conversion error");
           return;
@@ -1599,13 +1493,10 @@ void Cloud::CompleteRestoring(std::string const & dirPath)
       }
       else
       {
-        if (!my::RenameFileX(restoringFile, convertedFile))
-        {
-          FinishRestoring(SynchronizationResult::DiskError, "Restored file conversion error");
-          return;
-        }
+        FinishRestoring(SynchronizationResult::DiskError, "Restored file conversion error");
+        return;
       }
-      convertedFiles.emplace_back(fn, sha1);
+      convertedFiles.emplace_back(fn, hash);
     }
 
     // Check if the process was interrupted and start finalizing.

@@ -191,9 +191,15 @@ public:
     NotEnoughDiskSpace = 2
   };
 
+  struct ConvertionResult
+  {
+    bool m_isSuccessful = false;
+    std::string m_hash;
+  };
+
   using InvalidTokenHandler = std::function<void()>;
-  using FileConverter = std::function<bool(std::string const & filePath,
-                                           std::string const & convertedFilePath)>;
+  using FileConverter = std::function<ConvertionResult(std::string const & filePath,
+                                                       std::string const & convertedFilePath)>;
   using SynchronizationStartedHandler = std::function<void(SynchronizationType)>;
   using SynchronizationFinishedHandler = std::function<void(SynchronizationType,
                                                             SynchronizationResult,
@@ -201,7 +207,6 @@ public:
   using RestoreRequestedHandler = std::function<void(RestoringRequestResult,
                                                      uint64_t backupTimestampInMs)>;
   using RestoredFilesPreparedHandler = std::function<void()>;
-  using SnapshotCompletionHandler = std::function<void()>;
 
   struct CloudParams
   {
@@ -302,12 +307,9 @@ private:
   bool CanUploadImpl() const;
   void SortEntriesBeforeUploadingImpl();
   void ScheduleUploading();
-  void ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout,
-                             uint32_t attemptIndex);
-  void CreateSnapshotTask(uint32_t timeout, uint32_t attemptIndex,
-                          std::vector<std::string> && files,
-                          SnapshotCompletionHandler && handler);
-  void FinishSnapshotTask(uint32_t timeout, uint32_t attemptIndex);
+  void ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout);
+  bool UploadFile(std::string const & uploadedName);
+  bool CheckUploadingForFailure(Cloud::RequestResult const & result);
   EntryPtr FindOutdatedEntry() const;
   void FinishUploading(SynchronizationResult result, std::string const & errorStr);
   void SetAccessToken(std::string const & token);
@@ -315,7 +317,7 @@ private:
 
   // This function always returns path to a temporary file or the empty string
   // in case of a disk error.
-  std::string PrepareFileToUploading(std::string const & fileName);
+  std::string PrepareFileToUploading(std::string const & fileName, std::string & hash);
 
   RequestResult CreateSnapshot(std::vector<std::string> const & files) const;
   RequestResult FinishSnapshot() const;
@@ -358,6 +360,8 @@ private:
   std::string m_accessToken;
   std::map<std::string, std::string> m_files;
   bool m_uploadingStarted = false;
+  std::vector<std::string> m_snapshotFiles;
+  bool m_isSnapshotCreated = false;
 
   enum RestoringState
   {
