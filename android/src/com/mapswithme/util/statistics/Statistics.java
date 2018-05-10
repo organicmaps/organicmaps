@@ -51,6 +51,9 @@ import static com.mapswithme.util.BatteryState.CHARGING_STATUS_PLUGGED;
 import static com.mapswithme.util.BatteryState.CHARGING_STATUS_UNKNOWN;
 import static com.mapswithme.util.BatteryState.CHARGING_STATUS_UNPLUGGED;
 import static com.mapswithme.util.statistics.Statistics.EventName.APPLICATION_COLD_STARTUP_INFO;
+import static com.mapswithme.util.statistics.Statistics.EventName.BM_RESTORE_PROPOSAL_CLICK;
+import static com.mapswithme.util.statistics.Statistics.EventName.BM_RESTORE_PROPOSAL_ERROR;
+import static com.mapswithme.util.statistics.Statistics.EventName.BM_RESTORE_PROPOSAL_SUCCESS;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_PROPOSAL_APPROVED;
 import static com.mapswithme.util.statistics.Statistics.EventName.BM_SYNC_PROPOSAL_ERROR;
@@ -106,10 +109,12 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.TYPE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.VALUE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BACKUP;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BOOKING_COM;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.DISK_NO_SPACE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.FACEBOOK;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.GOOGLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.HOLIDAY;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.MAPSME;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.NO_BACKUP;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.PHONE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.RESTORE;
@@ -163,6 +168,10 @@ public enum Statistics
     public static final String BM_SYNC_STARTED = "Bookmarks_sync_started";
     public static final String BM_SYNC_ERROR = "Bookmarks_sync_error";
     public static final String BM_SYNC_SUCCESS = "Bookmarks_sync_success";
+    static final String BM_RESTORE_PROPOSAL_CLICK = "Bookmarks_RestoreProposal_click";
+    public static final String BM_RESTORE_PROPOSAL_CANCEL = "Bookmarks_RestoreProposal_cancel";
+    public static final String BM_RESTORE_PROPOSAL_SUCCESS = "Bookmarks_RestoreProposal_success";
+    static final String BM_RESTORE_PROPOSAL_ERROR = "Bookmarks_RestoreProposal_error";
 
     // search
     public static final String SEARCH_CAT_CLICKED = "Search. Category clicked";
@@ -417,6 +426,8 @@ public enum Statistics
     static final String AUTH = "auth";
     static final String USER_INTERRUPTED = "user_interrupted";
     static final String INVALID_CALL = "invalid_call";
+    static final String NO_BACKUP = "no_backup";
+    static final String DISK_NO_SPACE = "disk_no_space";
     static final String BACKUP = "backup";
     static final String RESTORE = "restore";
   }
@@ -1056,6 +1067,13 @@ public enum Statistics
         .get());
   }
 
+  public void trackBmRestoreProposalClick()
+  {
+    trackEvent(BM_RESTORE_PROPOSAL_CLICK, params()
+        .add(NETWORK, getConnectionState())
+        .get());
+  }
+
   public void trackBmSyncProposalError(@Framework.AuthTokenType int type, @Nullable String message)
   {
     trackEvent(BM_SYNC_PROPOSAL_ERROR, params()
@@ -1077,17 +1095,28 @@ public enum Statistics
   {
     if (result == BookmarkManager.CLOUD_SUCCESS)
     {
-      trackEvent(BM_SYNC_SUCCESS);
+      if (type == BookmarkManager.CLOUD_BACKUP)
+        trackEvent(BM_SYNC_SUCCESS);
+      else
+        trackEvent(BM_RESTORE_PROPOSAL_SUCCESS);
       return;
     }
 
+    trackEvent(type == BookmarkManager.CLOUD_BACKUP ? BM_SYNC_ERROR : BM_RESTORE_PROPOSAL_ERROR,
+               params().add(TYPE, getTypeForErrorSyncResult(result)).add(ERROR, errorString));
+  }
+
+  public void trackBmRestoringRequestResult(@BookmarkManager.RestoringRequestResult int result)
+  {
+    if (result == BookmarkManager.CLOUD_BACKUP_EXISTS)
+      return;
+
     trackEvent(BM_SYNC_ERROR, params()
-        .add(TYPE, getTypeForErrorSyncResult(result))
-        .add(ERROR, errorString));
+        .add(TYPE, getTypeForRequestRestoringError(result)));
   }
 
   @NonNull
-  private String getTypeForErrorSyncResult(@BookmarkManager.SynchronizationResult int result)
+  private static String getTypeForErrorSyncResult(@BookmarkManager.SynchronizationResult int result)
   {
     switch (result)
     {
@@ -1105,6 +1134,22 @@ public enum Statistics
         throw new AssertionError("It's not a error result!");
       default:
         throw new AssertionError("Unsupported error type: " + result);
+    }
+  }
+
+  @NonNull
+  private static String getTypeForRequestRestoringError(@BookmarkManager.RestoringRequestResult int result)
+  {
+    switch (result)
+    {
+      case BookmarkManager.CLOUD_BACKUP_EXISTS:
+        throw new AssertionError("It's not a error result!");
+      case BookmarkManager.CLOUD_NOT_ENOUGH_DISK_SPACE:
+        return DISK_NO_SPACE;
+      case BookmarkManager.CLOUD_NO_BACKUP:
+        return NO_BACKUP;
+      default:
+        throw new AssertionError("Unsupported restoring request result: " + result);
     }
   }
 

@@ -38,6 +38,7 @@ import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_NO_BACKUP
 import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_RESTORE;
 import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_SUCCESS;
 import static com.mapswithme.maps.bookmarks.data.BookmarkManager.CLOUD_USER_INTERRUPTED;
+import static com.mapswithme.util.statistics.Statistics.EventName.BM_RESTORE_PROPOSAL_CANCEL;
 
 public class BookmarkBackupController implements Authorizer.Callback,
                                                  BookmarkManager.BookmarksCloudListener
@@ -72,9 +73,18 @@ public class BookmarkBackupController implements Authorizer.Callback,
     }
   };
   @NonNull
-  private final View.OnClickListener mRestoreClickListener = v -> requestRestoring();
+  private final View.OnClickListener mRestoreClickListener = v ->
+  {
+    requestRestoring();
+    Statistics.INSTANCE.trackBmRestoreProposalClick();
+  };
   @Nullable
   private ProgressDialog mRestoringProgressDialog;
+  @NonNull
+  private final DialogInterface.OnClickListener mRestoreCancelListener = (dialog, which) -> {
+    Statistics.INSTANCE.trackEvent(BM_RESTORE_PROPOSAL_CANCEL);
+    BookmarkManager.INSTANCE.cancelRestoring();
+  };
 
   BookmarkBackupController(@NonNull FragmentActivity context, @NonNull BookmarkBackupView backupView,
                            @NonNull Authorizer authorizer)
@@ -109,13 +119,11 @@ public class BookmarkBackupController implements Authorizer.Callback,
     if (mRestoringProgressDialog != null && mRestoringProgressDialog.isShowing())
       throw new AssertionError("Previous progress must be dismissed before " +
                                "showing another one!");
-    DialogInterface.OnClickListener cancelListener = (dialog, which) -> {
-      BookmarkManager.INSTANCE.cancelRestoring();
-    };
     mRestoringProgressDialog = DialogUtils.createModalProgressDialog(mContext,
                                                                      R.string.bookmarks_restore_process,
                                                                      DialogInterface.BUTTON_NEGATIVE,
-                                                                     R.string.cancel, cancelListener);
+                                                                     R.string.cancel,
+                                                                     mRestoreCancelListener);
     mRestoringProgressDialog.show();
   }
 
@@ -267,15 +275,13 @@ public class BookmarkBackupController implements Authorizer.Callback,
   {
     LOGGER.d(TAG, "onSynchronizationFinished, type: " + Statistics.getSynchronizationType(type)
                   + ", result: " + result + ", errorString = " + errorString);
+    Statistics.INSTANCE.trackBmSynchronizationFinish(type, result, errorString);
     hideRestoringProgressDialog();
 
     updateWidget();
 
     if (type == CLOUD_BACKUP)
-    {
-      Statistics.INSTANCE.trackBmSynchronizationFinish(type, result, errorString);
       return;
-    }
 
     // Restoring is finished.
     switch (result)
@@ -310,10 +316,8 @@ public class BookmarkBackupController implements Authorizer.Callback,
   {
     LOGGER.d(TAG, "onRestoreRequested, result: " + result + ",  backupTimestampInMs = "
                   + backupTimestampInMs);
+    Statistics.INSTANCE.trackBmRestoringRequestResult(result);
     hideRestoringProgressDialog();
-
-    final DialogInterface.OnClickListener cancelListener
-        = (dialog, which) -> BookmarkManager.INSTANCE.cancelRestoring();
 
     switch (result)
     {
@@ -325,12 +329,12 @@ public class BookmarkBackupController implements Authorizer.Callback,
         };
         String msg = mContext.getString(R.string.bookmarks_restore_message, backupDate);
         DialogUtils.showAlertDialog(mContext, R.string.bookmarks_restore_title, msg,
-                                    R.string.restore, clickListener, R.string.cancel, cancelListener);
+                                    R.string.restore, clickListener, R.string.cancel, mRestoreCancelListener);
         break;
       case CLOUD_NO_BACKUP:
         DialogUtils.showAlertDialog(mContext, R.string.bookmarks_restore_empty_title,
                                     R.string.bookmarks_restore_empty_message,
-                                    R.string.ok, cancelListener);
+                                    R.string.ok, mRestoreCancelListener);
         break;
       case CLOUD_NOT_ENOUGH_DISK_SPACE:
         DialogInterface.OnClickListener tryAgainListener
@@ -338,7 +342,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
         DialogUtils.showAlertDialog(mContext, R.string.routing_not_enough_space,
                                     R.string.not_enough_free_space_on_sdcard,
                                     R.string.try_again, tryAgainListener, R.string.cancel,
-                                    cancelListener);
+                                    mRestoreCancelListener);
         break;
       default:
         throw new AssertionError("Unsupported restoring request result: " + result);
