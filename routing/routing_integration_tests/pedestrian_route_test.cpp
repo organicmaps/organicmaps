@@ -486,10 +486,28 @@ UNIT_TEST(MoscowKashirskoe16ToVorobeviGori)
 }
 
 // Test on building pedestrian route past ferry.
-UNIT_TEST(SwitzerlandSaintBlaisePedestrian)
+UNIT_TEST(SwitzerlandSaintBlaisePedestrianPastFerry)
 {
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents<VehicleType::Pedestrian>(),
       MercatorBounds::FromLatLon(47.010336, 6.982954), {0.0, 0.0},
       MercatorBounds::FromLatLon(47.005817, 6.970227), 1532.3);
+}
+
+// Test on building pedestrian route past ferry.
+UNIT_TEST(NetherlandsAmsterdamPedestrianPastFerry)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetVehicleComponents<VehicleType::Pedestrian>(),
+      MercatorBounds::FromLatLon(52.38075, 4.89938), {0.0, 0.0},
+      MercatorBounds::FromLatLon(52.40194, 4.89038), 3580.0);
+}
+
+// Test on building pedestrian route past ferry.
+UNIT_TEST(ItalyVenicePedestrianPastFerry)
+{
+  integration::CalculateRouteAndTestRouteLength(
+      integration::GetVehicleComponents<VehicleType::Pedestrian>(),
+      MercatorBounds::FromLatLon(45.4375, 12.33549), {0.0, 0.0},
+      MercatorBounds::FromLatLon(45.44057, 12.33393), 725.4);
 }
