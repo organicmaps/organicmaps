@@ -12,10 +12,16 @@ omim_link_libraries(
   ${PYTHON_LIBRARIES}
   ${Boost_LIBRARIES}
   kml
+  indexer
+  editor
   platform
   coding
   geometry
   base
+  icu
+  jansson
+  protobuf
+  pugixml
   expat
   stats_client
 )
