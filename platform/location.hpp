@@ -27,7 +27,7 @@ namespace location
 
   enum TLocationSource
   {
-    EUndefine,
+    EUndefined,
     EAppleNative,
     EWindowsNative,
     EAndroidNative,
@@ -42,7 +42,7 @@ namespace location
   class GpsInfo
   {
   public:
-    TLocationSource m_source = EUndefine;
+    TLocationSource m_source = EUndefined;
     /// \note |m_timestamp| is calculated based on platform methods which don't
     /// guarantee that |m_timestamp| is monotonic. |m_monotonicTimeMs| should be added to
     /// class |GpsInfo|. This time should be calculated based on Location::getElapsedRealtimeNanos()
@@ -58,9 +58,10 @@ namespace location
     double m_bearing = -1.0;              //!< positive degrees from the true North
     double m_speed = -1.0;                //!< metres per second
 
-    bool IsValid() const { return m_source != EUndefine; }
+    bool IsValid() const { return m_source != EUndefined; }
     bool HasBearing() const { return m_bearing >= 0.0; }
     bool HasSpeed() const { return m_speed >= 0.0; }
+    bool HasVerticalAccuracy() const { return m_verticalAccuracy >= 0.0; }
   };
 
   /// GpsTrackInfo struct describes a point for GPS tracking

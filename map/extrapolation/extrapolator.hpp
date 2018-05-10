@@ -10,12 +10,12 @@
 #include <mutex>
 #include <thread>
 
-namespace position_extrapolator
+namespace extrapolation
 {
 /// \brief Returns extrapolated position after |point2| in |timeAfterPoint2Ms|.
-/// \note This function is assumed that between |point1| and |point2| passed one second.
 /// \note |timeAfterPoint2Ms| should be relevantly small (several seconds maximum).
-location::GpsInfo LinearExtrapolation(location::GpsInfo const & point1, location::GpsInfo const & point2,
+location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1,
+                                      location::GpsInfo const & gpsInfo2,
                                       uint64_t timeAfterPoint2Ms);
 
 class Extrapolator
@@ -28,7 +28,7 @@ public:
   /// \param update is a function which is called with params according to extrapolated position.
   /// |update| will be called on gui thread.
   explicit Extrapolator(ExtrapolatedLocationUpdate const & update);
-  void OnLocationUpdate(location::GpsInfo & info);
+  void OnLocationUpdate(location::GpsInfo const & info);
   // @TODO(bykoianko) Gyroscope information should be taken into account as well for calculation
   // extrapolated position.
 
@@ -58,4 +58,4 @@ private:
 
   threads::Thread m_extrapolatedLocationThread;
 };
-}  // namespace position_extrapolator
+}  // namespace extrapolation

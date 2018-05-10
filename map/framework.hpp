@@ -208,7 +208,7 @@ protected:
 
   // Note. |m_routingManager| should be declared before |m_trafficManager|
   RoutingManager m_routingManager;
-  position_extrapolator::Extrapolator m_extrapolator;
+  extrapolation::Extrapolator m_extrapolator;
 
   TrafficManager m_trafficManager;
 
