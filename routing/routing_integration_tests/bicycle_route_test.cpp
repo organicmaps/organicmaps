@@ -99,7 +99,7 @@ UNIT_TEST(RussiaKerchStraitFerryRoute)
       MercatorBounds::FromLatLon(45.3653, 36.6161), 18000.0);
 }
 
-// Test on building pedestrian route past ferry.
+// Test on building bicycle route past ferry.
 UNIT_TEST(SwedenStockholmBicyclePastFerry)
 {
   CalculateRouteAndTestRouteLength(
