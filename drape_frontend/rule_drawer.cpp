@@ -337,7 +337,7 @@ void RuleDrawer::ProcessAreaStyle(FeatureType const & f, Stylist const & s,
 
   s.ForEachRule(std::bind(&ApplyAreaFeature::ProcessAreaRule, &apply, _1));
 
-  if (!m_customFeaturesContext || !m_customFeaturesContext->NeedDiscard(f.GetID()))
+  if (!m_customFeaturesContext || !m_customFeaturesContext->NeedDiscardGeometry(f.GetID()))
     apply.Finish(m_context->GetTextureManager());
 }
 
@@ -433,7 +433,7 @@ void RuleDrawer::ProcessLineStyle(FeatureType const & f, Stylist const & s,
 void RuleDrawer::ProcessPointStyle(FeatureType const & f, Stylist const & s, TInsertShapeFn const & insertShape,
                                    int & minVisibleScale)
 {
-  if (m_customFeaturesContext && m_customFeaturesContext->NeedDiscard(f.GetID()))
+  if (m_customFeaturesContext && m_customFeaturesContext->NeedDiscardGeometry(f.GetID()))
     return;
 
   int const zoomLevel = m_context->GetTileKey().m_zoomLevel;

@@ -18,7 +18,7 @@ struct CustomFeaturesContext
     : m_features(std::move(features))
   {}
 
-  bool NeedDiscard(FeatureID const & id) const
+  bool NeedDiscardGeometry(FeatureID const & id) const
   {
     auto const it = m_features.find(id);
     if (it == m_features.cend())
