@@ -19,6 +19,7 @@ import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.DateUtils;
 import com.mapswithme.util.DialogUtils;
 import com.mapswithme.util.NetworkPolicy;
+import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -186,6 +187,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
   {
     mAuthorizer.attach(this);
     BookmarkManager.INSTANCE.addCloudListener(this);
+    mBackupView.setExpanded(SharedPropertiesUtils.getBackupWidgetExpanded());
     updateWidget();
   }
 
@@ -193,6 +195,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
   {
     mAuthorizer.detach();
     BookmarkManager.INSTANCE.removeCloudListener(this);
+    SharedPropertiesUtils.setBackupWidgetExpanded(mBackupView.getExpanded());
   }
 
   public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)

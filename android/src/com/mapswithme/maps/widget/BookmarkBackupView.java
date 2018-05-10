@@ -127,6 +127,21 @@ public class BookmarkBackupView extends LinearLayout
                          R.attr.secondary);
   }
 
+  public void setExpanded(boolean expanded)
+  {
+    if (mExpanded == expanded)
+      return;
+
+    mExpanded = expanded;
+    UiUtils.showIf(mExpanded, mContentLayout);
+    mTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, getToggle(), null);
+  }
+
+  public boolean getExpanded()
+  {
+    return mExpanded;
+  }
+
   public void setMessage(@NonNull String msg)
   {
     TextView message = mContentLayout.findViewById(R.id.message);

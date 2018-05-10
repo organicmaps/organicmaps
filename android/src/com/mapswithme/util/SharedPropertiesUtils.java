@@ -11,6 +11,9 @@ import static com.mapswithme.util.Config.KEY_PREF_STATISTICS;
 public final class SharedPropertiesUtils
 {
   private static final String PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING = "ShowEmulateBadStorageSetting";
+  private static final String PREFS_BACKUP_WIDGET_EXPANDED = "BackupWidgetExpanded";
+  private static final SharedPreferences PREFS
+      = PreferenceManager.getDefaultSharedPreferences(MwmApplication.get());
 
   public static boolean isShowcaseSwitchedOnLocal()
   {
@@ -30,22 +33,28 @@ public final class SharedPropertiesUtils
 
   public static void setShouldShowEmulateBadStorageSetting(boolean show)
   {
-    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(MwmApplication.get());
-    sp.edit().putBoolean(PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING, show).apply();
+    PREFS.edit().putBoolean(PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING, show).apply();
   }
 
   public static boolean shouldShowEmulateBadStorageSetting()
   {
-    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(MwmApplication.get());
-    return sp.getBoolean(PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING, false);
+    return PREFS.getBoolean(PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING, false);
   }
 
   public static boolean shouldEmulateBadExternalStorage()
   {
-    String key = MwmApplication.get()
-                               .getString(R.string.pref_emulate_bad_external_storage);
-    return PreferenceManager.getDefaultSharedPreferences(MwmApplication.get())
-                            .getBoolean(key, false);
+    String key = MwmApplication.get().getString(R.string.pref_emulate_bad_external_storage);
+    return PREFS.getBoolean(key, false);
+  }
+
+  public static void setBackupWidgetExpanded(boolean expanded)
+  {
+    PREFS.edit().putBoolean(PREFS_BACKUP_WIDGET_EXPANDED, expanded).apply();
+  }
+
+  public static boolean getBackupWidgetExpanded()
+  {
+    return PREFS.getBoolean(PREFS_BACKUP_WIDGET_EXPANDED, true);
   }
 
   //Utils class
