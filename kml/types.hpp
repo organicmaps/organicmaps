@@ -66,6 +66,7 @@ inline std::string DebugPrint(AccessRules accessRules)
 enum class BookmarkIcon : uint16_t
 {
   None = 0,
+  Hotel,
 
   Count
 };
@@ -75,6 +76,7 @@ inline std::string DebugPrint(BookmarkIcon icon)
   switch (icon)
   {
     case BookmarkIcon::None: return "None";
+    case BookmarkIcon::Hotel: return "Hotel";
     case BookmarkIcon::Count: return {};
   }
 }

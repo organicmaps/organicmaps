@@ -123,6 +123,17 @@ std::string GetStyleForPredefinedColor(PredefinedColor color)
     return {};
   }
 }
+  
+BookmarkIcon GetIcon(std::string const & iconName)
+{
+  for (size_t i = 0; i < static_cast<size_t>(BookmarkIcon::Count); ++i)
+  {
+    auto const icon = static_cast<BookmarkIcon>(i);
+    if (iconName == DebugPrint(icon))
+      return icon;
+  }
+  return BookmarkIcon::None;
+}
 
 template <typename Channel>
 uint32_t ToRGBA(Channel red, Channel green, Channel blue, Channel alpha)
@@ -852,6 +863,13 @@ void KmlParser::CharData(std::string value)
       {
         // Bookmark draw style.
         m_predefinedColor = ExtractPlacemarkPredefinedColor(value);
+        
+        // Here we support old-style hotel placemarks.
+        if (value == "#placemark-hotel")
+        {
+          m_predefinedColor = PredefinedColor::Blue;
+          m_icon = BookmarkIcon::Hotel;
+        }
 
         // Track draw style.
         if (!GetColorForStyle(value, m_color))
@@ -930,8 +948,7 @@ void KmlParser::CharData(std::string value)
         }
         else if (currTag == "mwm:icon")
         {
-          //TODO: add new icon types.
-          //m_icon = ;
+          m_icon = GetIcon(value);
         }
       }
       else if (prevTag == "TimeStamp")

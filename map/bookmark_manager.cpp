@@ -48,6 +48,7 @@ std::string const kLastEditedBookmarkCategory = "LastBookmarkCategory";
 std::string const kLastBookmarkType = "LastBookmarkType";
 std::string const kLastEditedBookmarkColor = "LastBookmarkColor";
 std::string const kDefaultBookmarksFileName = "Bookmarks";
+std::string const kHotelsBookmarks = "Hotels";
 std::string const kKmzExtension = ".kmz";
 std::string const kKmlExtension = ".kml";
 std::string const kKmbExtension = ".kmb";
@@ -376,6 +377,124 @@ bool MigrateIfNeeded()
     my::DeleteFileX(f);
   OnMigrationSuccess(files.size(), convertedCount);
   return true;
+}
+
+// Here we read backup and try to restore old-style #placemark-hotel bookmarks.
+void FixUpHotelPlacemarks(BookmarkManager::KMLDataCollectionPtr & collection)
+{
+  static std::string const kSettingsKey = "HotelPlacemarksExtracted";
+  bool isHotelPlacemarksExtracted;
+  if (settings::Get(kSettingsKey, isHotelPlacemarksExtracted) && isHotelPlacemarksExtracted)
+    return;
+  
+  if (!migration::IsMigrationCompleted())
+  {
+    settings::Set(kSettingsKey, true);
+    return;
+  }
+  
+  // Find all hotel bookmarks in backup.
+  Platform::FilesList files;
+  Platform::GetFilesRecursively(GetBackupFolderName(), files);
+  std::vector<std::pair<kml::BookmarkData, bool>> hotelBookmarks;
+  hotelBookmarks.reserve(100);
+  for (auto const & f : files)
+  {
+    if (GetFileExt(f) != kKmzExtension)
+      continue;
+    
+    ZipFileReader::FileListT filesInZip;
+    ZipFileReader::FilesList(f, filesInZip);
+    if (filesInZip.empty())
+      continue;
+    
+    auto fileName = filesInZip.front().first;
+    for (auto const & fileInZip : filesInZip)
+    {
+      if (GetFileExt(fileInZip.first) == kKmlExtension)
+      {
+        fileName = fileInZip.first;
+        break;
+      }
+    }
+    std::string const unarchievedPath = my::JoinPath(GetPlatform().TmpDir(), fileName + ".raw");
+    MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, unarchievedPath));
+    ZipFileReader::UnzipFile(f, fileName, unarchievedPath);
+    if (!GetPlatform().IsFileExistsByFullPath(unarchievedPath))
+      continue;
+    
+    auto kmlData = LoadKmlFile(unarchievedPath, false /* binary */);
+    if (kmlData == nullptr)
+      continue;
+    
+    for (auto const & b : kmlData->m_bookmarksData)
+    {
+      if (b.m_icon == kml::BookmarkIcon::Hotel)
+        hotelBookmarks.emplace_back(b, false);
+    }
+  }
+  if (hotelBookmarks.empty())
+  {
+    settings::Set(kSettingsKey, true);
+    return;
+  }
+  
+  if (!collection)
+    collection = std::make_shared<BookmarkManager::KMLDataCollection>();
+  
+  if (collection->empty())
+  {
+    auto fileData = std::make_unique<kml::FileData>();
+    kml::SetDefaultStr(fileData->m_categoryData.m_name, kHotelsBookmarks);
+    fileData->m_bookmarksData.reserve(hotelBookmarks.size());
+    for (auto & hb : hotelBookmarks)
+      fileData->m_bookmarksData.push_back(std::move(hb.first));
+    collection->emplace_back("", std::move(fileData));
+    settings::Set(kSettingsKey, true);
+    return;
+  }
+  
+  // Match found hotel bookmarks with existing bookmarks.
+  double constexpr kEps = 1e-5;
+  for (auto const & p : *collection)
+  {
+    CHECK(p.second, ());
+    bool needSave = false;
+    for (auto & b : p.second->m_bookmarksData)
+    {
+      for (auto & hb : hotelBookmarks)
+      {
+        if (hb.second)
+          continue;
+        
+        if (b.m_point.EqualDxDy(hb.first.m_point, kEps))
+        {
+          needSave = true;
+          hb.second = true;
+          b.m_color = hb.first.m_color;
+          b.m_icon = hb.first.m_icon;
+        }
+      }
+    }
+    if (needSave)
+    {
+      CHECK(!p.first.empty(), ());
+      SaveKmlFile(*p.second, p.first, true /* useBinary */);
+    }
+  }
+  
+  // Add not-matched hotel bookmarks.
+  auto fileData = std::make_unique<kml::FileData>();
+  kml::SetDefaultStr(fileData->m_categoryData.m_name, kHotelsBookmarks);
+  fileData->m_bookmarksData.reserve(hotelBookmarks.size());
+  for (auto & hb : hotelBookmarks)
+  {
+    if (!hb.second)
+      fileData->m_bookmarksData.push_back(std::move(hb.first));
+  }
+  if (!fileData->m_bookmarksData.empty())
+    collection->emplace_back("", std::move(fileData));
+  settings::Set(kSettingsKey, true);
 }
 }  // namespace migration
 
@@ -862,6 +981,7 @@ void BookmarkManager::LoadBookmarks()
 
     std::vector<std::string> filePaths;
     auto collection = LoadBookmarks(dir, filesExt, migrated, filePaths);
+    migration::FixUpHotelPlacemarks(collection);
 
     if (m_needTeardown)
       return;
