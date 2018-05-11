@@ -24,6 +24,7 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
   private Toolbar mToolbar;
   @Nullable
   private RecyclerView mRecycler;
+  @Nullable
   private PlaceholderView mPlaceholder;
 
   protected abstract RecyclerView.Adapter createAdapter();
@@ -81,7 +82,7 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
     mRecycler.setLayoutManager(manager);
     mRecycler.setAdapter(createAdapter());
 
-    mPlaceholder = (PlaceholderView) view.findViewById(R.id.placeholder);
+    mPlaceholder = view.findViewById(R.id.placeholder);
     setupPlaceholder(mPlaceholder);
   }
 
@@ -110,7 +111,7 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
     org.alohalytics.Statistics.logEvent("$onPause", this.getClass().getSimpleName());
   }
 
-  protected void setupPlaceholder(@NonNull PlaceholderView placeholder) {}
+  protected void setupPlaceholder(@Nullable PlaceholderView placeholder) {}
 
   public void setupPlaceholder()
   {

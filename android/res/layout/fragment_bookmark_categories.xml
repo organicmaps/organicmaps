@@ -2,6 +2,7 @@
 <android.support.v4.widget.NestedScrollView
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  android:fillViewport="true"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
   <FrameLayout
@@ -25,20 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/bookmark_recycler_view_bottom_margin"/>
     </LinearLayout>
-    <com.mapswithme.maps.widget.PlaceholderView
-      android:id="@+id/placeholder"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:paddingLeft="@dimen/margin_double_and_half"
-      android:paddingRight="@dimen/margin_double_and_half"
-      android:paddingTop="@dimen/placeholder_margin_top"
-      android:visibility="gone"
-      tools:visibility="visible"/>
     <LinearLayout
       android:id="@+id/placeholder_loading"
       android:orientation="vertical"
-      android:paddingLeft="@dimen/margin_double_and_half"
-      android:paddingRight="@dimen/margin_double_and_half"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:gravity="center"
@@ -47,11 +37,9 @@
       <ProgressBar
         style="@style/Widget.AppCompat.ProgressBar"
         android:background="@null"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
       <TextView
-        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/margin_half"

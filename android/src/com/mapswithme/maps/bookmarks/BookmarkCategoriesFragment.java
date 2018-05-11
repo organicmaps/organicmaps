@@ -37,8 +37,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   private static final int MAX_CATEGORY_NAME_LENGTH = 60;
   private long mSelectedCatId;
   @Nullable
-  private View mLoadingPlaceholder;
-  @Nullable
   private CategoryEditor mCategoryEditor;
 
   @Nullable
@@ -87,7 +85,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   {
     super.onViewCreated(view, savedInstanceState);
 
-    mLoadingPlaceholder = view.findViewById(R.id.placeholder_loading);
     mBackupController = new BookmarkBackupController(getActivity(), view.findViewById(R.id.backup),
                                                      new Authorizer(this));
     mKmlImportController = new KmlImportController(getActivity(), this);
@@ -96,14 +93,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
       getAdapter().setOnClickListener(this);
       getAdapter().setOnLongClickListener(this);
       getAdapter().setCategoryListInterface(this);
-      getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
-      {
-        @Override
-        public void onChanged()
-        {
-          updateResultsPlaceholder();
-        }
-      });
     }
 
     RecyclerView rw = getRecyclerView();
@@ -114,29 +103,16 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
     rw.addItemDecoration(ItemDecoratorFactory.createVerticalDefaultDecorator(getContext()));
   }
 
-  private void updateResultsPlaceholder()
-  {
-    boolean showLoadingPlaceholder = BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress();
-    boolean showPlaceHolder = !showLoadingPlaceholder &&
-                              (getAdapter() == null || getAdapter().getItemCount() == 0);
-    if (getAdapter() != null)
-      showPlaceholder(showPlaceHolder);
-
-    View root = getView();
-    if (root != null)
-      UiUtils.showIf(!showLoadingPlaceholder && !showPlaceHolder, root, R.id.backup);
-  }
-
   private void updateLoadingPlaceholder()
   {
-    if (mLoadingPlaceholder != null)
-    {
-      boolean showLoadingPlaceholder = BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress();
-      if (getAdapter() != null && getAdapter().getItemCount() != 0)
-        showLoadingPlaceholder = false;
+    View root = getView();
+    if (root == null)
+      throw new AssertionError("Fragment view must be non-null at this point!");
 
-      UiUtils.showIf(showLoadingPlaceholder, mLoadingPlaceholder);
-    }
+    View loadingPlaceholder = root.findViewById(R.id.placeholder_loading);
+    boolean showLoadingPlaceholder = BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress();
+    UiUtils.showIf(showLoadingPlaceholder, loadingPlaceholder);
+    UiUtils.showIf(!showLoadingPlaceholder, getView(), R.id.backup, R.id.recycler);
   }
 
   @Override
@@ -260,24 +236,21 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  protected void setupPlaceholder(@NonNull PlaceholderView placeholder)
+  protected void setupPlaceholder(@Nullable PlaceholderView placeholder)
   {
-    placeholder.setContent(R.drawable.img_bookmarks, R.string.bookmarks_empty_title,
-                           R.string.bookmarks_usage_hint);
+    // A placeholder is no needed on this screen.
   }
 
   @Override
   public void onBookmarksLoadingStarted()
   {
     updateLoadingPlaceholder();
-    updateResultsPlaceholder();
   }
 
   @Override
   public void onBookmarksLoadingFinished()
   {
     updateLoadingPlaceholder();
-    updateResultsPlaceholder();
     if (getAdapter() != null)
       getAdapter().notifyDataSetChanged();
     mImportKmlTask.run();
