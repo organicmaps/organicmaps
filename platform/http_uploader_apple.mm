@@ -99,7 +99,7 @@ HttpUploader::Result HttpUploader::Upload() const
     return [params copy];
   };
 
-  auto *uploadTask = [[MultipartUploadTask alloc] init];
+  auto uploadTask = [[MultipartUploadTask alloc] init];
   uploadTask.method = @(m_method.c_str());
   uploadTask.urlString = @(m_url.c_str());
   uploadTask.fileKey = @(m_fileKey.c_str());
