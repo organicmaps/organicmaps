@@ -37,6 +37,7 @@
 #include <ctime>
 #include <fstream>
 #include <iomanip>
+#include <list>
 #include <sstream>
 
 using namespace std::placeholders;
@@ -380,14 +381,15 @@ bool MigrateIfNeeded()
 }
 
 // Here we read backup and try to restore old-style #placemark-hotel bookmarks.
-void FixUpHotelPlacemarks(BookmarkManager::KMLDataCollectionPtr & collection)
+void FixUpHotelPlacemarks(BookmarkManager::KMLDataCollectionPtr & collection,
+                          bool isMigrationCompleted)
 {
   static std::string const kSettingsKey = "HotelPlacemarksExtracted";
   bool isHotelPlacemarksExtracted;
   if (settings::Get(kSettingsKey, isHotelPlacemarksExtracted) && isHotelPlacemarksExtracted)
     return;
   
-  if (!migration::IsMigrationCompleted())
+  if (!isMigrationCompleted)
   {
     settings::Set(kSettingsKey, true);
     return;
@@ -396,13 +398,13 @@ void FixUpHotelPlacemarks(BookmarkManager::KMLDataCollectionPtr & collection)
   // Find all hotel bookmarks in backup.
   Platform::FilesList files;
   Platform::GetFilesRecursively(GetBackupFolderName(), files);
-  std::vector<std::pair<kml::BookmarkData, bool>> hotelBookmarks;
-  hotelBookmarks.reserve(100);
+  std::list<kml::BookmarkData> hotelBookmarks;
   for (auto const & f : files)
   {
     if (GetFileExt(f) != kKmzExtension)
       continue;
-    
+
+    // TODO: use LoadKmzFile after rebase on master.
     ZipFileReader::FileListT filesInZip;
     ZipFileReader::FilesList(f, filesInZip);
     if (filesInZip.empty())
@@ -427,10 +429,10 @@ void FixUpHotelPlacemarks(BookmarkManager::KMLDataCollectionPtr & collection)
     if (kmlData == nullptr)
       continue;
     
-    for (auto const & b : kmlData->m_bookmarksData)
+    for (auto & b : kmlData->m_bookmarksData)
     {
       if (b.m_icon == kml::BookmarkIcon::Hotel)
-        hotelBookmarks.emplace_back(b, false);
+        hotelBookmarks.push_back(std::move(b));
     }
   }
   if (hotelBookmarks.empty())
@@ -446,9 +448,7 @@ void FixUpHotelPlacemarks(BookmarkManager::KMLDataCollectionPtr & collection)
   {
     auto fileData = std::make_unique<kml::FileData>();
     kml::SetDefaultStr(fileData->m_categoryData.m_name, kHotelsBookmarks);
-    fileData->m_bookmarksData.reserve(hotelBookmarks.size());
-    for (auto & hb : hotelBookmarks)
-      fileData->m_bookmarksData.push_back(std::move(hb.first));
+    fileData->m_bookmarksData.assign(hotelBookmarks.begin(), hotelBookmarks.end());
     collection->emplace_back("", std::move(fileData));
     settings::Set(kSettingsKey, true);
     return;
@@ -462,17 +462,15 @@ void FixUpHotelPlacemarks(BookmarkManager::KMLDataCollectionPtr & collection)
     bool needSave = false;
     for (auto & b : p.second->m_bookmarksData)
     {
-      for (auto & hb : hotelBookmarks)
+      for (auto it = hotelBookmarks.begin(); it != hotelBookmarks.end(); ++it)
       {
-        if (hb.second)
-          continue;
-        
-        if (b.m_point.EqualDxDy(hb.first.m_point, kEps))
+        if (b.m_point.EqualDxDy(it->m_point, kEps))
         {
           needSave = true;
-          hb.second = true;
-          b.m_color = hb.first.m_color;
-          b.m_icon = hb.first.m_icon;
+          b.m_color = it->m_color;
+          b.m_icon = it->m_icon;
+          hotelBookmarks.erase(it);
+          break;
         }
       }
     }
@@ -486,14 +484,10 @@ void FixUpHotelPlacemarks(BookmarkManager::KMLDataCollectionPtr & collection)
   // Add not-matched hotel bookmarks.
   auto fileData = std::make_unique<kml::FileData>();
   kml::SetDefaultStr(fileData->m_categoryData.m_name, kHotelsBookmarks);
-  fileData->m_bookmarksData.reserve(hotelBookmarks.size());
-  for (auto & hb : hotelBookmarks)
-  {
-    if (!hb.second)
-      fileData->m_bookmarksData.push_back(std::move(hb.first));
-  }
+  fileData->m_bookmarksData.assign(hotelBookmarks.begin(), hotelBookmarks.end());
   if (!fileData->m_bookmarksData.empty())
     collection->emplace_back("", std::move(fileData));
+
   settings::Set(kSettingsKey, true);
 }
 }  // namespace migration
@@ -975,13 +969,14 @@ void BookmarkManager::LoadBookmarks()
   NotifyAboutStartAsyncLoading();
   GetPlatform().RunTask(Platform::Thread::File, [this]()
   {
+    bool const isMigrationCompleted = migration::IsMigrationCompleted();
     bool const migrated = migration::MigrateIfNeeded();
     std::string const dir = migrated ? GetBookmarksDirectory() : GetPlatform().SettingsDir();
     std::string const filesExt = migrated ? kKmbExtension : kKmlExtension;
 
     std::vector<std::string> filePaths;
     auto collection = LoadBookmarks(dir, filesExt, migrated, filePaths);
-    migration::FixUpHotelPlacemarks(collection);
+    migration::FixUpHotelPlacemarks(collection, isMigrationCompleted);
 
     if (m_needTeardown)
       return;

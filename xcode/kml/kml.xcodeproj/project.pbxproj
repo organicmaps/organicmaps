@@ -20,6 +20,11 @@
 		45E4561120584E8F00D9F45E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 45E4561020584E8F00D9F45E /* libz.tbd */; };
 		45E456142058509200D9F45E /* testingmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45E456122058508C00D9F45E /* testingmain.cpp */; };
 		BB31223C20A0B24500B80260 /* libindexer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB31223B20A0B24500B80260 /* libindexer.a */; };
+		EBAAF0D820A5A01700C4D321 /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBAAF0D720A5A01700C4D321 /* libeditor.a */; };
+		EBAAF0DA20A5A01D00C4D321 /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBAAF0D920A5A01D00C4D321 /* libicu.a */; };
+		EBAAF0DC20A5A0BD00C4D321 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBAAF0DB20A5A0BD00C4D321 /* libjansson.a */; };
+		EBAAF0DE20A5A0C300C4D321 /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBAAF0DD20A5A0C300C4D321 /* libpugixml.a */; };
+		EBAAF0E020A5A0DF00C4D321 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EBAAF0DF20A5A0DF00C4D321 /* libprotobuf.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,6 +62,11 @@
 		45E4561020584E8F00D9F45E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		45E456122058508C00D9F45E /* testingmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = testingmain.cpp; path = ../../testing/testingmain.cpp; sourceTree = "<group>"; };
 		BB31223B20A0B24500B80260 /* libindexer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libindexer.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBAAF0D720A5A01700C4D321 /* libeditor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libeditor.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBAAF0D920A5A01D00C4D321 /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBAAF0DB20A5A0BD00C4D321 /* libjansson.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libjansson.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBAAF0DD20A5A0C300C4D321 /* libpugixml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libpugixml.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBAAF0DF20A5A0DF00C4D321 /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +81,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBAAF0E020A5A0DF00C4D321 /* libprotobuf.a in Frameworks */,
+				EBAAF0DE20A5A0C300C4D321 /* libpugixml.a in Frameworks */,
+				EBAAF0DC20A5A0BD00C4D321 /* libjansson.a in Frameworks */,
+				EBAAF0DA20A5A01D00C4D321 /* libicu.a in Frameworks */,
+				EBAAF0D820A5A01700C4D321 /* libeditor.a in Frameworks */,
 				BB31223C20A0B24500B80260 /* libindexer.a in Frameworks */,
 				45E4560320584E1C00D9F45E /* libkml.a in Frameworks */,
 				45E4560420584E2600D9F45E /* libplatform.a in Frameworks */,
@@ -136,6 +151,11 @@
 		45E4560220584E1C00D9F45E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EBAAF0DF20A5A0DF00C4D321 /* libprotobuf.a */,
+				EBAAF0DD20A5A0C300C4D321 /* libpugixml.a */,
+				EBAAF0DB20A5A0BD00C4D321 /* libjansson.a */,
+				EBAAF0D920A5A01D00C4D321 /* libicu.a */,
+				EBAAF0D720A5A01700C4D321 /* libeditor.a */,
 				BB31223B20A0B24500B80260 /* libindexer.a */,
 				45E4561020584E8F00D9F45E /* libz.tbd */,
 				45E4560F20584E6A00D9F45E /* libalohalitics.a */,
