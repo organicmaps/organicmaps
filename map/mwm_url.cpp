@@ -200,7 +200,7 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
         auto * mark = editSession.CreateUserMark<ApiMarkPoint>(glPoint);
         mark->SetName(p.m_name);
         mark->SetApiID(p.m_id);
-        mark->SetStyle(style::GetSupportedStyle(p.m_style, p.m_name, ""));
+        mark->SetStyle(style::GetSupportedStyle(p.m_style));
       }
 
       return ParsingResult::Map;

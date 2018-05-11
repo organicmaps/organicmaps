@@ -2,68 +2,68 @@
 
 #include "base/logging.hpp"
 
+#include <map>
+
 namespace style
 {
+std::map<std::string, std::string> kStyleToColor = {
+  {"placemark-red", "BookmarkRed"},
+  {"placemark-blue", "BookmarkBlue"},
+  {"placemark-purple", "BookmarkPurple"},
+  {"placemark-yellow", "BookmarkYellow"},
+  {"placemark-pink", "BookmarkPink"},
+  {"placemark-brown", "BookmarkBrown"},
+  {"placemark-green", "BookmarkGreen"},
+  {"placemark-orange", "BookmarkOrange"}
+};
 
-char const * kSupportedColors[] = {"placemark-red",    "placemark-blue",    "placemark-purple",
-                                   "placemark-yellow", "placemark-pink",    "placemark-brown",
-                                   "placemark-green",  "placemark-orange",  "placemark-hotel"};
-
-string GetSupportedStyle(string const & s, string const & context, string const & fallback)
+std::string GetSupportedStyle(std::string const & style)
 {
-  if (s.empty())
-    return fallback;
-
-  for (size_t i = 0; i < ARRAY_SIZE(kSupportedColors); ++i)
-  {
-    if (s == kSupportedColors[i])
-      return s;
-  }
-  return fallback;
+  auto const it = kStyleToColor.find(style);
+  if (it == kStyleToColor.cend())
+    return "BookmarkGreen";
+  return it->second;
 }
-
-string GetDefaultStyle() { return kSupportedColors[0]; }
-
-} // style
+}  // style
 
 ApiMarkPoint::ApiMarkPoint(m2::PointD const & ptOrg)
   : UserMark(ptOrg, UserMark::Type::API)
 {}
 
-ApiMarkPoint::ApiMarkPoint(string const & name, string const & id, string const & style,
+ApiMarkPoint::ApiMarkPoint(std::string const & name, std::string const & id, std::string const & style,
                            m2::PointD const & ptOrg)
-  : UserMark(ptOrg, UserMark::Type::API),
-    m_name(name),
-    m_id(id),
-    m_style(style)
+  : UserMark(ptOrg, UserMark::Type::API)
+  , m_name(name)
+  , m_id(id)
+  , m_style(style)
 {}
 
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> ApiMarkPoint::GetSymbolNames() const
 {
-  auto const name = m_style.empty() ? "api-result" : m_style;
+  //TODO: use its own icon.
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
-  symbol->insert(std::make_pair(1 /* zoomLevel */, name));
+  symbol->insert(std::make_pair(1 /* zoomLevel */, "searchbooking-default-s"));
   return symbol;
 }
 
-m2::PointD ApiMarkPoint::GetPixelOffset() const
+df::ColorConstant ApiMarkPoint::GetColorConstant() const
 {
-  return m_style.empty() ? m2::PointD(0.0, 0.0) : m2::PointD(0.0, 3.0);
+  return m_style;
 }
 
-void ApiMarkPoint::SetName(string const & name)
+void ApiMarkPoint::SetName(std::string const & name)
 {
   SetDirty();
   m_name = name;
 }
 
-void ApiMarkPoint::SetApiID(string const & id)
+void ApiMarkPoint::SetApiID(std::string const & id)
 {
   SetDirty();
   m_id = id;
 }
 
-void ApiMarkPoint::SetStyle(string const & style)
+void ApiMarkPoint::SetStyle(std::string const & style)
 {
   SetDirty();
   m_style = style;

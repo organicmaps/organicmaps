@@ -67,7 +67,7 @@ DebugMarkPoint::DebugMarkPoint(const m2::PointD & ptOrg)
 drape_ptr<df::UserPointMark::SymbolNameZoomInfo> DebugMarkPoint::GetSymbolNames() const
 {
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
-  symbol->insert(std::make_pair(1 /* zoomLevel */, "api-result"));
+  symbol->insert(std::make_pair(1 /* zoomLevel */, "non-found-search-result"));
   return symbol;
 }
 
