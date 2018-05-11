@@ -53,7 +53,8 @@ std::string const & PartnerInfo::GetBannerPlacementId() const
 #elif defined(OMIM_OS_ANDROID)
   return m_androidBannerPlacementId;
 #endif
-  return {};
+  static std::string kEmptyStr;
+  return kEmptyStr;
 }
 
 PartnerChecker::PartnerChecker()

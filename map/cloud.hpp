@@ -130,6 +130,11 @@ public:
       : m_status(status)
       , m_error(error)
     {}
+    
+    operator bool() const
+    {
+      return m_status == RequestStatus::Ok;
+    }
 
     RequestStatus m_status = RequestStatus::Ok;
     std::string m_error;
@@ -309,7 +314,7 @@ private:
   void ScheduleUploading();
   void ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout);
   bool UploadFile(std::string const & uploadedName);
-  bool CheckUploadingForFailure(Cloud::RequestResult const & result);
+  void FinishUploadingOnRequestError(Cloud::RequestResult const & result);
   EntryPtr FindOutdatedEntry() const;
   void FinishUploading(SynchronizationResult result, std::string const & errorStr);
   void SetAccessToken(std::string const & token);

@@ -699,6 +699,12 @@ void Cloud::ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout)
       entryHash = entry->m_hash;
       isInvalidToken = m_accessToken.empty();
     }
+    
+    if (!m_params.m_backupConverter)
+    {
+      FinishUploading(SynchronizationResult::InvalidCall, "Backup converter is not set");
+      return;
+    }
 
     if (kServerUrl.empty())
     {
@@ -754,8 +760,11 @@ void Cloud::ScheduleUploadingTask(EntryPtr const & entry, uint32_t timeout)
     if (isSnapshotCreated)
     {
       auto const result = FinishSnapshot();
-      if (!CheckUploadingForFailure(result))
+      if (!result)
+      {
+        FinishUploadingOnRequestError(result);
         return;
+      }
     }
     FinishUploading(SynchronizationResult::Success, {});
   });
@@ -781,8 +790,11 @@ bool Cloud::UploadFile(std::string const & uploadedName)
   if (!snapshotCreated)
   {
     auto const result = CreateSnapshot(snapshotFiles);
-    if (!CheckUploadingForFailure(result))
+    if (!result)
+    {
+      FinishUploadingOnRequestError(result);
       return false;
+    }
 
     std::lock_guard<std::mutex> lock(m_mutex);
     m_isSnapshotCreated = true;
@@ -795,34 +807,44 @@ bool Cloud::UploadFile(std::string const & uploadedName)
     FinishUploading(SynchronizationResult::NetworkError, "Malformed uploading response");
     return false;
   }
-  if (!CheckUploadingForFailure(result.m_requestResult))
+  if (!result.m_requestResult)
+  {
+    FinishUploadingOnRequestError(result.m_requestResult);
     return false;
+  }
 
   // Execute uploading.
   auto const executeResult = ExecuteUploading(result.m_response, uploadedName);
-  if (!CheckUploadingForFailure(executeResult))
+  if (!executeResult)
+  {
+    FinishUploadingOnRequestError(executeResult);
     return false;
+  }
 
   // Notify about successful uploading.
   auto const notificationResult = NotifyAboutUploading(uploadedName, uploadedFileSize);
-  if (!CheckUploadingForFailure(notificationResult))
+  if (!notificationResult)
+  {
+    FinishUploadingOnRequestError(notificationResult);
     return false;
+  }
 
   return true;
 }
 
-bool Cloud::CheckUploadingForFailure(Cloud::RequestResult const & result)
+void Cloud::FinishUploadingOnRequestError(Cloud::RequestResult const & result)
 {
   switch (result.m_status)
   {
   case RequestStatus::Ok:
-    return true;
+    ASSERT(false, ("Possibly incorrect call"));
+    return;
   case RequestStatus::Forbidden:
     FinishUploading(SynchronizationResult::AuthError, result.m_error);
-    return false;
+    return;
   case RequestStatus::NetworkError:
     FinishUploading(SynchronizationResult::NetworkError, result.m_error);
-    return false;
+    return;
   }
 }
 
@@ -864,13 +886,12 @@ std::string Cloud::PrepareFileToUploading(std::string const & fileName, std::str
                                                 name + ".uploaded");
 
   // 5. Convert temporary file and save to output path.
-  if (m_params.m_backupConverter != nullptr)
-  {
-    auto const convertionResult = m_params.m_backupConverter(tmpPath, outputPath);
-    hash = convertionResult.m_hash;
-    if (convertionResult.m_isSuccessful)
-      return outputPath;
-  }
+  CHECK(m_params.m_backupConverter, ());
+  auto const convertionResult = m_params.m_backupConverter(tmpPath, outputPath);
+  hash = convertionResult.m_hash;
+  if (convertionResult.m_isSuccessful)
+    return outputPath;
+  
   return {};
 }
 
@@ -1450,6 +1471,12 @@ void Cloud::CompleteRestoring(std::string const & dirPath)
 {
   GetPlatform().RunTask(Platform::Thread::File, [this, dirPath]()
   {
+    if (!m_params.m_restoreConverter)
+    {
+      FinishRestoring(SynchronizationResult::InvalidCall, "Restore converter is not set");
+      return;
+    }
+    
     // Check files and convert them to expected format.
     SnapshotResponseData currentSnapshot;
     {
@@ -1478,25 +1505,15 @@ void Cloud::CompleteRestoring(std::string const & dirPath)
         return;
       }
 
-      std::string hash;
       auto const fn = f.m_fileName + ".converted";
       auto const convertedFile = my::JoinPath(dirPath, fn);
-      if (m_params.m_restoreConverter != nullptr)
-      {
-        auto const convertionResult = m_params.m_restoreConverter(restoringFile, convertedFile);
-        hash = convertionResult.m_hash;
-        if (!convertionResult.m_isSuccessful)
-        {
-          FinishRestoring(SynchronizationResult::DiskError, "Restored file conversion error");
-          return;
-        }
-      }
-      else
+      auto const convertionResult = m_params.m_restoreConverter(restoringFile, convertedFile);
+      if (!convertionResult.m_isSuccessful)
       {
         FinishRestoring(SynchronizationResult::DiskError, "Restored file conversion error");
         return;
       }
-      convertedFiles.emplace_back(fn, hash);
+      convertedFiles.emplace_back(fn, convertionResult.m_hash);
     }
 
     // Check if the process was interrupted and start finalizing.
@@ -1555,6 +1572,7 @@ void Cloud::ApplyRestoredFiles(std::string const & dirPath, RestoredFilesCollect
     // Reset upload index to the restored state.
     {
       std::lock_guard<std::mutex> lock(m_mutex);
+      m_files.clear();
       auto const lastSyncTimestampInSec = m_bestSnapshotData.m_datetime / 1000;
       UpdateIndexByRestoredFilesImpl(readyFiles, lastSyncTimestampInSec);
     }

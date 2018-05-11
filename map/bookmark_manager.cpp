@@ -1796,6 +1796,12 @@ void BookmarkManager::OnRestoredFilesPrepared()
   ClearCategories();
   CheckAndResetLastIds();
 
+  // Force notify about changes, because new groups can get the same ids.
+  auto const notificationEnabled = AreNotificationsEnabled();
+  SetNotificationsEnabled(true);
+  NotifyChanges();
+  SetNotificationsEnabled(notificationEnabled);
+
   if (m_onRestoredFilesPrepared)
     m_onRestoredFilesPrepared();
 
