@@ -33,6 +33,7 @@ std::string const kReviewIdsKey = "UserReviewIds";
 std::string const kPassportServerUrl = PASSPORT_URL;
 std::string const kAppName = PASSPORT_APP_NAME;
 std::string const kUGCServerUrl = UGC_URL;
+std::string const kApplicationJson = "application/json";
 
 enum class ReviewReceiverProtocol : uint8_t
 {
@@ -53,14 +54,12 @@ std::string AuthenticationUrl(std::string const & socialToken,
   {
   case User::SocialTokenType::Facebook:
   {
-    ss << "/register-by-token/facebook/?access_token=" << UrlEncode(socialToken)
-       << "&app=" << kAppName;
+    ss << "/register-by-token/facebook/";
     return ss.str();
   }
   case User::SocialTokenType::Google:
   {
-    ss << "/register-by-token/google-oauth2/?access_token=" << UrlEncode(socialToken)
-       << "&app=" << kAppName;
+    ss << "/register-by-token/google-oauth2/";
     return ss.str();
   }
   case User::SocialTokenType::Phone:
@@ -144,6 +143,25 @@ struct PhoneAuthRequestData
 
   DECLARE_VISITOR(visitor(m_cliendId, "client_id"),
                   visitor(m_code, "code"))
+};
+  
+struct SocialNetworkAuthRequestData
+{
+  std::string m_accessToken;
+  std::string m_clientId;
+  std::string m_privacyLink;
+  std::string m_termsLink;
+  bool m_privacyAccepted = false;
+  bool m_termsAccepted = false;
+  bool m_promoAccepted = false;
+  
+  DECLARE_VISITOR(visitor(m_accessToken, "access_token"),
+                  visitor(m_clientId, "client_id"),
+                  visitor(m_privacyLink, "privacy_link"),
+                  visitor(m_termsLink, "terms_link"),
+                  visitor(m_privacyAccepted, "privacy_accepted"),
+                  visitor(m_termsAccepted, "terms_accepted"),
+                  visitor(m_promoAccepted, "promo_accepted"))
 };
 
 template<typename DataType>
@@ -230,7 +248,8 @@ void User::SetAccessToken(std::string const & accessToken)
   NotifySubscribersImpl();
 }
 
-void User::Authenticate(std::string const & socialToken, SocialTokenType socialTokenType)
+void User::Authenticate(std::string const & socialToken, SocialTokenType socialTokenType,
+                        bool privacyAccepted, bool termsAccepted, bool promoAccepted)
 {
   std::string const url = AuthenticationUrl(socialToken, socialTokenType);
   if (url.empty())
@@ -242,20 +261,36 @@ void User::Authenticate(std::string const & socialToken, SocialTokenType socialT
   if (!StartAuthentication())
     return;
 
-  BuildRequestHandler phoneAuthParams;
+  BuildRequestHandler authParams;
   if (socialTokenType == SocialTokenType::Phone)
   {
-    phoneAuthParams = [socialToken](platform::HttpClient & request)
+    authParams = [socialToken](platform::HttpClient & request)
     {
       auto jsonData = SerializeToJson(PhoneAuthRequestData(socialToken));
-      request.SetBodyData(jsonData, "application/json");
+      request.SetBodyData(jsonData, kApplicationJson);
+    };
+  }
+  else
+  {
+    SocialNetworkAuthRequestData authData;
+    authData.m_accessToken = socialToken;
+    authData.m_clientId = kAppName;
+    authData.m_termsLink = GetTermsOfUseLink();
+    authData.m_privacyLink = GetPrivacyPolicyLink();
+    authData.m_termsAccepted = termsAccepted;
+    authData.m_privacyAccepted = privacyAccepted;
+    authData.m_promoAccepted = promoAccepted;
+    authParams = [authData = std::move(authData)](platform::HttpClient & request)
+    {
+      auto jsonData = SerializeToJson(authData);
+      request.SetBodyData(jsonData, kApplicationJson);
     };
   }
 
   GetPlatform().RunTask(Platform::Thread::Network,
-                        [this, url, phoneAuthParams = std::move(phoneAuthParams)]()
+                        [this, url, authParams = std::move(authParams)]()
   {
-    Request(url, phoneAuthParams, [this](std::string const & response)
+    Request(url, authParams, [this](std::string const & response)
     {
       SetAccessToken(ParseAccessToken(response));
       FinishAuthentication();
@@ -376,7 +411,7 @@ void User::UploadUserReviews(std::string && dataStr, size_t numberOfUnsynchroniz
     Request(url, [this, dataStr](platform::HttpClient & request)
     {
       request.SetRawHeader("Authorization", BuildAuthorizationToken(m_accessToken));
-      request.SetBodyData(dataStr, "application/json");
+      request.SetBodyData(dataStr, kApplicationJson);
     },
     [bytesCount, onCompleteUploading](std::string const &)
     {
@@ -411,6 +446,18 @@ std::string User::GetPhoneAuthUrl(std::string const & redirectUri)
   return os.str();
 }
 
+// static
+std::string User::GetPrivacyPolicyLink()
+{
+  return "https://legal.my.com/us/maps/privacy/";
+}
+
+// static
+std::string User::GetTermsOfUseLink()
+{
+  return "https://legal.my.com/us/maps/tou/";
+}
+
 void User::Request(std::string const & url, BuildRequestHandler const & onBuildRequest,
                    SuccessHandler const & onSuccess, ErrorHandler const & onError)
 {
@@ -431,7 +478,7 @@ void User::RequestImpl(std::string const & url, BuildRequestHandler const & onBu
   bool isSuccessfulCode = false;
 
   platform::HttpClient request(url);
-  request.SetRawHeader("Accept", "application/json");
+  request.SetRawHeader("Accept", kApplicationJson);
   if (onBuildRequest)
     onBuildRequest(request);
 

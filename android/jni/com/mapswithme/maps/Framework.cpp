@@ -1550,7 +1550,11 @@ Java_com_mapswithme_maps_Framework_nativeGetSearchBanners(JNIEnv * env, jclass)
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeAuthenticateUser(JNIEnv * env, jclass, jstring socialToken,
-                                                          jint socialTokenType, jobject listener)
+                                                          jint socialTokenType,
+                                                          jboolean privacyAccepted,
+                                                          jboolean termsAccepted,
+                                                          jboolean promoAccepted,
+                                                          jobject listener)
 {
   std::shared_ptr<_jobject> gListener(env->NewGlobalRef(listener), [](jobject l)
   {
@@ -1571,7 +1575,9 @@ Java_com_mapswithme_maps_Framework_nativeAuthenticateUser(JNIEnv * env, jclass, 
     });
   };
   user.AddSubscriber(std::move(s));
-  user.Authenticate(tokenStr, static_cast<User::SocialTokenType>(socialTokenType));
+  user.Authenticate(tokenStr, static_cast<User::SocialTokenType>(socialTokenType),
+                    static_cast<bool>(privacyAccepted), static_cast<bool>(termsAccepted),
+                    static_cast<bool>(promoAccepted));
 }
 
 JNIEXPORT jboolean JNICALL
@@ -1583,8 +1589,19 @@ Java_com_mapswithme_maps_Framework_nativeIsUserAuthenticated()
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetPhoneAuthUrl(JNIEnv * env, jclass, jstring redirectUrl)
 {
-  return jni::ToJavaString(env,
-                           frm()->GetUser().GetPhoneAuthUrl(jni::ToNativeString(env, redirectUrl)));
+  return jni::ToJavaString(env, User::GetPhoneAuthUrl(jni::ToNativeString(env, redirectUrl)));
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetPrivacyPolicyLink(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, User::GetPrivacyPolicyLink());
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetTermsOfUseLink(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, User::GetTermsOfUseLink());
 }
 
 JNIEXPORT void JNICALL

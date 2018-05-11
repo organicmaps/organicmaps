@@ -50,7 +50,8 @@ public:
   using CompleteUploadingHandler = std::function<void(bool)>;
 
   User();
-  void Authenticate(std::string const & socialToken, SocialTokenType socialTokenType);
+  void Authenticate(std::string const & socialToken, SocialTokenType socialTokenType,
+                    bool privacyAccepted, bool termsAccepted, bool promoAccepted);
   bool IsAuthenticated() const;
   void ResetAccessToken();
   void UpdateUserDetails();
@@ -65,6 +66,8 @@ public:
                          CompleteUploadingHandler const & onCompleteUploading);
 
   static std::string GetPhoneAuthUrl(std::string const & redirectUri);
+  static std::string GetPrivacyPolicyLink();
+  static std::string GetTermsOfUseLink();
 
 private:
   void Init();

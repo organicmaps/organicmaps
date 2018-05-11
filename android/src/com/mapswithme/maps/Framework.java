@@ -418,9 +418,17 @@ public class Framework
 
   public static native void nativeAuthenticateUser(@NonNull String socialToken,
                                                    @AuthTokenType int socialTokenType,
+                                                   boolean privacyAccepted,
+                                                   boolean termsAccepted,
+                                                   boolean promoAccepted,
                                                    @NonNull AuthorizationListener listener);
   public static native boolean nativeIsUserAuthenticated();
+  @NonNull
   public static native String nativeGetPhoneAuthUrl(@NonNull String redirectUrl);
+  @NonNull
+  public static native String nativeGetPrivacyPolicyLink();
+  @NonNull
+  public static native String nativeGetTermsOfUseLink();
 
   public static native void nativeShowFeatureByLatLon(double lat, double lon);
 

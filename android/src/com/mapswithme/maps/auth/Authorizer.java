@@ -105,7 +105,10 @@ public class Authorizer implements AuthorizationListener
       mIsAuthorizationInProgress = true;
       if (mCallback != null)
         mCallback.onAuthorizationStart();
-      Framework.nativeAuthenticateUser(socialToken, type, this);
+
+      //TODO: support privacy policy, terms of use and promo offers.
+      Framework.nativeAuthenticateUser(socialToken, type, false /* privacyAccepted */,
+                                      false /* termsAccepted */, false /* promoAccepted */, this);
     }
   }
 

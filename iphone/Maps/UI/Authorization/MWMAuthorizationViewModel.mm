@@ -99,7 +99,9 @@
     });
   };
   user.AddSubscriber(std::move(s));
-  user.Authenticate(token.UTF8String, socialTokenType);
+  //TODO: support privacy policy, terms of use and promo offers.
+  user.Authenticate(token.UTF8String, socialTokenType, false /* privacyAccepted */,
+                    false /* termsAccepted */, false /* promoAccepted */);
 }
 
 @end
