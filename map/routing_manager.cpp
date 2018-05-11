@@ -955,12 +955,11 @@ void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAl
   }
 
   vector<string> symbols;
-  symbols.reserve(kTransitSymbols.size() * 3);
+  symbols.reserve(kTransitSymbols.size() * 2);
   for (auto const & typePair : kTransitSymbols)
   {
     symbols.push_back(typePair.second + "-s");
     symbols.push_back(typePair.second + "-m");
-    symbols.push_back(typePair.second + "-l");
   }
   m_drapeEngine.SafeCall(&df::DrapeEngine::RequestSymbolsSize, symbols,
                          [this, is3dAllowed](map<string, m2::PointF> && sizes)

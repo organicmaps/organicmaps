@@ -23,7 +23,6 @@ const float kGateBgScale = 1.2f;
 
 const int kSmallIconZoom = 1;
 const int kMediumIconZoom = 10;
-const int kLargeIconZoom = 15;
 
 const int kMinStopTitleZoom = 13;
 
@@ -505,7 +504,6 @@ void TransitRouteDisplay::CreateTransitMarks()
       df::UserPointMark::SymbolNameZoomInfo symbolNames;
       symbolNames[kSmallIconZoom] = mark.m_symbolName + "-s";
       symbolNames[kMediumIconZoom] = mark.m_symbolName + "-m";
-      symbolNames[kLargeIconZoom] = mark.m_symbolName + "-l";
       transitMark->SetSymbolNames(symbolNames);
       transitMark->SetPriority(UserMark::Priority::TransitGate);
     }
@@ -566,7 +564,6 @@ void TransitRouteDisplay::CreateTransitMarks()
         df::UserPointMark::SymbolNameZoomInfo symbolNames;
         symbolNames[kSmallIconZoom] = mark.m_symbolName + "-s";
         symbolNames[kMediumIconZoom] = mark.m_symbolName + "-m";
-        symbolNames[kLargeIconZoom] = mark.m_symbolName + "-l";
         transitMark->SetSymbolNames(symbolNames);
 
         df::UserPointMark::ColoredSymbolZoomInfo coloredSymbol;
@@ -580,10 +577,6 @@ void TransitRouteDisplay::CreateTransitMarks()
         sz = m_symbolSizes.at(symbolNames[kMediumIconZoom]);
         params.m_radiusInPixels = max(sz.x, sz.y) * kGateBgScale * 0.5f;
         coloredSymbol[kMediumIconZoom] = params;
-
-        sz = m_symbolSizes.at(symbolNames[kLargeIconZoom]);
-        params.m_radiusInPixels = max(sz.x, sz.y) * kGateBgScale * 0.5f;
-        coloredSymbol[kLargeIconZoom] = params;
 
         transitMark->SetColoredSymbols(coloredSymbol);
         transitMark->SetPriority(UserMark::Priority::TransitKeyStop);
