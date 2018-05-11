@@ -10,7 +10,7 @@ CGFloat const kTopOffset = 36;
 CGFloat const kBottomOffset = 36;
 }  // namespace
 
-@interface MWMiPadPlacePageLayoutImpl ()<UITableViewDelegate>
+@interface MWMiPadPlacePageLayoutImpl ()
 
 @property(nonatomic) CGRect availableArea;
 
@@ -33,7 +33,6 @@ CGFloat const kBottomOffset = 36;
     _ownerView = ownerView;
     _availableArea = ownerView.frame;
     [self setPlacePageView:placePageView];
-    placePageView.tableView.delegate = self;
     _delegate = delegate;
     [self addShadow];
   }
@@ -162,14 +161,6 @@ CGFloat const kBottomOffset = 36;
 
 - (CGFloat)topBound { return self.availableArea.origin.y + kTopOffset; }
 - (CGFloat)leftBound { return self.availableArea.origin.x + kLeftOffset; }
-#pragma mark - UITableViewDelegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  auto cell = [tableView cellForRowAtIndexPath:indexPath];
-  if ([cell isKindOfClass:[MWMAdBanner class]])
-    [static_cast<MWMAdBanner *>(cell) highlightButton];
-}
 
 #pragma mark - Properties
 

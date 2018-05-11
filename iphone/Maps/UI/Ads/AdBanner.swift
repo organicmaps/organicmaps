@@ -136,27 +136,10 @@ final class AdBanner: UITableViewCell {
     default: assert(false)
     }
   }
-
-  @objc func highlightButton() {
-    adCallToActionButtonDetailed.setBackgroundImage(nil, for: .normal)
-    adCallToActionButtonCompact.setBackgroundImage(nil, for: .normal)
-
-    adCallToActionButtonDetailed.backgroundColor = UIColor.bannerButtonBackground()
-    adCallToActionButtonCompact.backgroundColor = UIColor.bannerBackground()
-    let duration = 0.5 * kDefaultAnimationDuration
-    let darkerPercent: CGFloat = 0.2
-    UIView.animate(withDuration: duration, animations: {
-      self.adCallToActionButtonDetailed.backgroundColor = UIColor.bannerButtonBackground().darker(percent: darkerPercent)
-      self.adCallToActionButtonCompact.backgroundColor = UIColor.bannerBackground().darker(percent: darkerPercent)
-    }, completion: { _ in
-      UIView.animate(withDuration: duration, animations: {
-        self.adCallToActionButtonDetailed.backgroundColor = UIColor.bannerButtonBackground()
-        self.adCallToActionButtonCompact.backgroundColor = UIColor.bannerBackground()
-      }, completion: { _ in
-        self.adCallToActionButtonDetailed.setBackgroundColor(UIColor.bannerButtonBackground(), for: .normal)
-        self.adCallToActionButtonCompact.setBackgroundColor(UIColor.bannerBackground(), for: .normal)
-      })
-    })
+  
+  override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+      adCallToActionButtonCompact.isHighlighted = highlighted;
+      adCallToActionButtonDetailed.isHighlighted = highlighted;
   }
 
   private func configFBBanner(ad: FBNativeAd) {

@@ -290,7 +290,6 @@ CGFloat const kMinOffset = 1;
   auto cell = [tableView cellForRowAtIndexPath:indexPath];
   if ([cell isKindOfClass:[MWMAdBanner class]])
   {
-    [static_cast<MWMAdBanner *>(cell) highlightButton];
     return;
   }
 
