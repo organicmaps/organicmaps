@@ -9,16 +9,21 @@ node,1686293227,event=fc2018,event=fc2018_city
 relation,162802,event=fc2018,name:ru=Стадион Лужники,int_name=Stadion Luzniki,name:en=Luzhniki Stadium,name:de=Luzhniki-Stadion,name:fr=Stade Loujniki,name:es=Estadio Luzhniki
 relation,4006864,event=fc2018,name:ru=Открытие Арена / Стадион Спартак,int_name=Otkrytie Arena / Stadion Spartac,name:en=Spartak Stadium,name:de=Spartak-Stadion,name:fr=Stade du Spartak,name:es=Estadio Spartak
 node,5518180725,event=fc2018
+node,5614227995,event=fc2018
+node,5602026526,event=fc2018
 
 # Saint-Petersburg
 node,27490597,event=fc2018,event=fc2018_city
 way,217387802,event=fc2018,name:ru=Стадион Санкт-Петербург,int_name=Sankt Peterburg Stadion,name:en=Saint Petersburg Stadium,name:de=Sankt-Petersburg-Stadion,name:fr=Stade de Saint-Pétersbourg,name:es=Estadio de San Petersburgo
 node,5510340721,event=fc2018
+node,5602106621,event=fc2018
+node,5602054321,event=fc2018
 
 # Kazan
 node,27504067,event=fc2018,event=fc2018_city
 relation,3840572,event=fc2018,name:ru=Казань Арена,name:en=Kazan Arena,name:de=Kasan-Arena,name:fr=Kazan Arena,name:es=Kazan Arena
 node,5516316021,event=fc2018
+node,5614238413,event=fc2018
 
 # Ekaterinburg
 node,27503892,event=fc2018,event=fc2018_city
@@ -39,26 +44,30 @@ node,5516328322,event=fc2018
 node,34043670,event=fc2018,event=fc2018_city
 relation,3405854,event=fc2018,name:ru=Стадион Фишт,name:en=Fisht Stadium,name:de=Fischt-Stadion,name:fr=Stade Ficht,name:es=Estadio Fisht
 node,5510340722,event=fc2018
+node,5614242996,event=fc2018
 
 # Volgograd
 node,27504363,event=fc2018,event=fc2018_city
-# under construction,name:ru=Волгоград Арена,name:en=Volgograd Arena,name:de=Wolgograd-Arena,name:fr=Volgograd Arena,name:es=Volgogrado Arena
+relation,7718662,event=fc2018,name:ru=Волгоград Арена,name:en=Volgograd Arena,name:de=Wolgograd-Arena,name:fr=Volgograd Arena,name:es=Volgogrado Arena
 node,5516328122,event=fc2018
 
 # Rostov-on-Don
 node,160569651,event=fc2018,event=fc2018_city
 way,137831707,event=fc2018,name:ru=Ростов Арена,name:en=Rostov Arena,name:de=Rostow-Arena,name:fr=Rostov Arena,name:es=Rostov Arena
 node,5516316121,event=fc2018
+node,5602066021,event=fc2018
 
 # Kaliningrad
 node,27048976,event=fc2018,event=fc2018_city
 # under construction,name:ru=Стадион Калининград,name:en=Kaliningrad Stadium,name:de=Kaliningrad-Stadion,name:fr=Stade de Kaliningrad,name:es=Estadio de Kaliningrado
-node,5514732428,event=fc2018
+# node,5514732428,event=fc2018
+node,5602066024,event=fc2018
 
 # Nizhny Novgorod
 node,27505889,event=fc2018,event=fc2018_city
-# under construction,name:ru=Стадион Нижний Новгород,name:en=Nizhny Novgorod Stadium,name:de=Nischni-Nowgorod-Stadion,name:fr=Stade de Nijni-Novgorod,name:es=Estadio de Nizhni Nóvgorod
+relation,7718680,event=fc2018,name:ru=Стадион Нижний Новгород,name:en=Nizhny Novgorod Stadium,name:de=Nischni-Nowgorod-Stadion,name:fr=Stade de Nijni-Novgorod,name:es=Estadio de Nizhni Nóvgorod
 node,5514732429,event=fc2018
+node,5602104122,event=fc2018
 
 
 # Adidas
