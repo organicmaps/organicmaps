@@ -30912,4 +30912,44 @@ fa = دوباره نپرس
 
   [restore]
     en = Restore
-    ru = Восстановить        
+    ru = Восстановить
+
+  [sign_message_gdpr]
+    en = To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully. 
+    ru = Чтобы продолжить работу, вы должны принять наши Условия использования и Политику конфиденциальности. Пожалуйста, внимательно их прочитайте.
+    es = Para continuar debes aceptar nuestros Términos de Uso y la Política de Privacidad. Por favor, léelos cuidadosamente. 
+    it = Per continuare, devi accettare i nostri Termini di utilizzo e la nostra Informativa sulla Privacy. Ti invitiamo a leggerli attentamente.
+    fr = Pour continuer, vous devez accepter nos conditions d'utilisation et notre politique de confidentialité. Veuillez les lire attentivement. 
+    nl = Om verder te kunnen gaan, dient u onze gebruiksvoorwaarden en ons privacybeleid te accepteren. Lees ze zorgvuldig.
+    pl = Aby kontynuować, musisz zaakceptować nasze Warunki użytkowania i Politykę prywatności. Prosimy o ich uważne przeczytanie.
+    tr = Devam etmek için Kullanım Şartları ve Gizlilik Politikası bölümlerimizi kabul etmelisiniz. Lütfen onları dikkatle okuyun. 
+
+  [sign_agree_pp_gdpr]
+    en = I agree to the <a href="https://legal.my.com/us/general/privacy/">Privacy Policy</a>
+    ru = Я согласен с <a href="https://legal.my.com/us/general/privacy/">Политикой конфиденциальности</a>
+    es = Acepto la <a href="https://legal.my.com/us/general/privacy/">Política de Privacidad</a>
+    it = Accetto la <a href="https://legal.my.com/us/general/privacy/">Informativa sulla Privacy</a>
+    fr = J'accepte la <a href="https://legal.my.com/us/general/privacy/">politique de confidentialité</a>
+    nl = Ik accepteer het privacybeleid
+    pl = Akceptuję <a href="https://legal.my.com/us/general/privacy/">Privacy Policy</a>
+    tr = <a href="https://legal.my.com/us/general/privacy/">Gizlilik Politikası</a> bölümünü kabul ediyorum
+
+  [sign_agree_tof_gdpr]
+    en = I agree to the <a href="http://legal.my.com/us/maps/tou/">Terms of Use</a>
+    ru = Я согласен с <a href="http://legal.my.com/us/maps/tou/">Условиями использования</a>
+    es = Acepto los <a href="http://legal.my.com/us/maps/tou/">Términos de Uso</a>
+    it = Accetto i <a href="http://legal.my.com/us/maps/tou/">Termini di utilizzo</a>
+    fr = Je suis en accord avec les <a href="http://legal.my.com/us/maps/tou/">conditions d'utilisation</a>
+    nl = Ik accepteer <a href="http://legal.my.com/us/maps/tou/">de gebruiksvoorwaarden</a>
+    pl = Akceptuję <a href="http://legal.my.com/us/maps/tou/">Terms of Use</a>
+    tr = <a href="http://legal.my.com/us/maps/tou/">Kullanım Şartları</a> bölümünü kabul ediyorum
+
+  [sign_agree_news_gdpr]
+    en = I agree to receive the latest news about MAPS.ME products
+    ru = Я согласен получать последние новости о MAPS.ME
+    es = Acepto recibir las últimas noticias sobre productos de MAPS.ME
+    it = Accetto di ricevere le ultime notizie sui prodotti di MAPS.ME
+    fr = J'accepte de recevoir les dernières nouvelles sur les 
+    nl = Ik ga ermee akkoord dat ik het recentste nieuws over de producten van MAPS.ME zal ontvangen
+    pl = Chcę otrzymywać aktualności na temat produktów MAPS.ME
+    tr = MAPS.ME ürünleri hakkında en yeni haberleri almayı kabul ediyorum
