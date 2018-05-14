@@ -128,6 +128,8 @@ node[man_made=windmill],
 area[man_made=windmill],
 node[amenity=casino],
 area[amenity=casino],
+node[shop=money_lender],
+area[shop=money_lender],
 node[amenity=kindergarten],
 area[amenity=kindergarten],
 node[amenity=childcare],
@@ -1530,6 +1532,8 @@ node|z17-[amenity=dentist],
 area|z17-[amenity=dentist],
 node|z17-[amenity=casino],
 area|z17-[amenity=casino],
+node|z17-[shop=money_lender],
+area|z17-[shop=money_lender],
 node|z17-[amenity=courthouse],
 area|z17-[amenity=courthouse],
 node|z17-[amenity=nursing_home],
@@ -1978,6 +1982,10 @@ area|z17-[man_made=windmill]
 node|z17-[amenity=casino],
 area|z17-[amenity=casino]
 {icon-image: casino-m.svg;icon-min-distance: 20;}
+
+node|z17-[shop=money_lender],
+area|z17-[shop=money_lender]
+{icon-image: bank-m.svg;icon-min-distance: 20;}
 
 node|z17-[amenity=courthouse],
 area|z17-[amenity=courthouse]
