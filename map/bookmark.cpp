@@ -1,6 +1,20 @@
 #include "map/bookmark.hpp"
 #include "map/bookmark_helpers.hpp"
 
+namespace
+{
+std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
+{
+  switch (icon)
+  {
+  case kml::BookmarkIcon::None: return "default";
+  case kml::BookmarkIcon::Count:
+    ASSERT(false, ("Invalid bookmark icon type"));
+    return {};
+  }
+}
+}  // namespace
+
 Bookmark::Bookmark(m2::PointD const & ptOrg)
   : Base(ptOrg, UserMark::BOOKMARK)
   , m_groupId(kml::kInvalidMarkGroupId)
@@ -38,8 +52,8 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> Bookmark::GetSymbolNames() cons
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
   symbol->insert(std::make_pair(1 /* zoomLevel */, "bookmark-default-xs"));
   symbol->insert(std::make_pair(8 /* zoomLevel */, "bookmark-default-s"));
-  symbol->insert(std::make_pair(11 /* zoomLevel */, "bookmark-default-m"));
-  symbol->insert(std::make_pair(15 /* zoomLevel */, "bookmark-default-l"));
+  auto const iconType = GetBookmarkIconType(m_data.m_icon);
+  symbol->insert(std::make_pair(14 /* zoomLevel */, "bookmark-" + iconType + "-m"));
   return symbol;
 }
 
