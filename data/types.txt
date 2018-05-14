@@ -1207,3 +1207,4 @@ sponsored|partner4
 sponsored|partner5
 event|fc2018
 event|fc2018_city
+shop|money_lender

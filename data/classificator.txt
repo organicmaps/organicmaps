@@ -828,6 +828,7 @@ world  +
         mall  -
         massage  -
         mobile_phone  -
+        money_lender  -
         motorcycle  -
         music  -
         musical_instrument  -

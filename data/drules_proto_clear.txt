@@ -59235,6 +59235,73 @@ cont {
   }
 }
 cont {
+  name: "shop-money_lender"
+  element {
+    scale: 16
+    symbol {
+      name: "shop-m"
+      priority: 16447
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15447
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "shop-m"
+      priority: 16447
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15447
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "shop-m"
+      priority: 16447
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15447
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "shop-m"
+      priority: 16447
+      min_distance: 10
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15447
+    }
+  }
+}
+cont {
   name: "shop-motorcycle"
   element {
     scale: 16
