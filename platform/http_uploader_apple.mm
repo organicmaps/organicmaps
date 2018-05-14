@@ -13,8 +13,8 @@
 @property (copy, nonatomic) NSString * urlString;
 @property (copy, nonatomic) NSString * fileKey;
 @property (copy, nonatomic) NSString * filePath;
-@property (strong, nonatomic) NSDictionary<NSString *, NSString *> * params;
-@property (strong, nonatomic) NSDictionary<NSString *, NSString *> * headers;
+@property (copy, nonatomic) NSDictionary<NSString *, NSString *> * params;
+@property (copy, nonatomic) NSDictionary<NSString *, NSString *> * headers;
 
 @end
 
