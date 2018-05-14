@@ -294,8 +294,9 @@ void User::Authenticate(std::string const & socialToken, SocialTokenType socialT
     {
       SetAccessToken(ParseAccessToken(response));
       FinishAuthentication();
-    }, [this](int)
+    }, [this](int code, std::string const & response)
     {
+      LOG(LWARNING, ("Authentication failed. Code =", code, "Response =", response));
       FinishAuthentication();
     });
   });
@@ -422,12 +423,12 @@ void User::UploadUserReviews(std::string && dataStr, size_t numberOfUnsynchroniz
       if (onCompleteUploading != nullptr)
         onCompleteUploading(true /* isSuccessful */);
     },
-    [onCompleteUploading, numberOfUnsynchronized](int errorCode)
+    [onCompleteUploading, numberOfUnsynchronized](int errorCode, std::string const & response)
     {
       alohalytics::Stats::Instance().LogEvent("UGC_DataUpload_error",
                                               {{"error", strings::to_string(errorCode)},
                                                {"num", strings::to_string(numberOfUnsynchronized)}});
-      LOG(LWARNING, ("Reviews have not been uploaded. Code =", errorCode));
+      LOG(LWARNING, ("Reviews have not been uploaded. Code =", errorCode, "Response =", response));
 
       if (onCompleteUploading != nullptr)
         onCompleteUploading(false /* isSuccessful */);
@@ -498,7 +499,7 @@ void User::RequestImpl(std::string const & url, BuildRequestHandler const & onBu
       ResetAccessToken();
       LOG(LWARNING, ("Access denied for", url));
       if (onError)
-        onError(resultCode);
+        onError(resultCode, request.ServerResponse());
       return;
     }
   }
@@ -512,7 +513,7 @@ void User::RequestImpl(std::string const & url, BuildRequestHandler const & onBu
   attemptIndex++;
 
   if (!isSuccessfulCode && attemptIndex == kMaxAttemptsCount && onError)
-    onError(resultCode);
+    onError(resultCode, request.ServerResponse());
 
   if (attemptIndex < kMaxAttemptsCount)
   {

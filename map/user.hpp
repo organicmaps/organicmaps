@@ -46,7 +46,7 @@ public:
 
   using BuildRequestHandler = std::function<void(platform::HttpClient &)>;
   using SuccessHandler = std::function<void(std::string const &)>;
-  using ErrorHandler = std::function<void(int)>;
+  using ErrorHandler = std::function<void(int, std::string const & response)>;
   using CompleteUploadingHandler = std::function<void(bool)>;
 
   User();
