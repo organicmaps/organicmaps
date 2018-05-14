@@ -172,7 +172,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "airport-l"
+      name: "airport-m"
       priority: 16883
     }
     caption {
@@ -199,7 +199,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "airport-l"
+      name: "airport-m"
       priority: 16883
     }
     caption {
@@ -226,7 +226,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "airport-l"
+      name: "airport-m"
       priority: 16883
     }
     caption {
@@ -431,7 +431,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "airport-l"
+      name: "airport-m"
       priority: 16883
     }
     caption {
@@ -458,7 +458,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "airport-l"
+      name: "airport-m"
       priority: 16883
     }
     caption {
@@ -485,7 +485,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "airport-l"
+      name: "airport-m"
       priority: 16883
     }
     caption {
@@ -615,7 +615,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "bank-l"
+      name: "bank-m"
       priority: 16000
       min_distance: 15
     }
@@ -631,7 +631,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bank-xl"
+      name: "bank-m"
       priority: 16000
       min_distance: 10
     }
@@ -647,7 +647,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "bank-xl"
+      name: "bank-m"
       priority: 16000
       min_distance: 10
     }
@@ -682,7 +682,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "cafe-l"
+      name: "cafe-m"
       priority: 16805
       min_distance: 10
     }
@@ -698,7 +698,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "cafe-l"
+      name: "cafe-m"
       priority: 16805
       min_distance: 20
     }
@@ -714,7 +714,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "cafe-xl"
+      name: "cafe-m"
       priority: 16805
       min_distance: 25
     }
@@ -730,7 +730,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "cafe-xl"
+      name: "cafe-m"
       priority: 16805
       min_distance: 35
     }
@@ -749,7 +749,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "car_sharing-xl"
+      name: "car_sharing-m"
       priority: 16831
     }
     caption {
@@ -764,7 +764,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "car_sharing-xl"
+      name: "car_sharing-m"
       priority: 16831
     }
     caption {
@@ -782,7 +782,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "car_sharing-xl"
+      name: "car_sharing-m"
       priority: 16000
     }
     caption {
@@ -797,7 +797,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "car_sharing-xl"
+      name: "car_sharing-m"
       priority: 16000
     }
     caption {
@@ -815,7 +815,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "car-wash-l"
+      name: "car-wash-m"
       priority: 16831
       min_distance: 24
     }
@@ -831,7 +831,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "car-wash-xl"
+      name: "car-wash-m"
       apply_for_type: 1
       priority: 16831
     }
@@ -847,7 +847,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "car-wash-xl"
+      name: "car-wash-m"
       apply_for_type: 1
       priority: 16831
     }
@@ -898,7 +898,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "charging-station-l"
+      name: "charging-station-m"
       priority: 16909
       min_distance: 10
     }
@@ -914,7 +914,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "charging-station-l"
+      name: "charging-station-m"
       priority: 16909
     }
     caption {
@@ -929,7 +929,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "charging-station-xl"
+      name: "charging-station-m"
       priority: 16909
     }
     caption {
@@ -944,7 +944,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "charging-station-xl"
+      name: "charging-station-m"
       priority: 16909
     }
     caption {
@@ -962,7 +962,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "fastfood-l"
+      name: "fastfood-m"
       priority: 16779
       min_distance: 25
     }
@@ -978,7 +978,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "fastfood-xl"
+      name: "fastfood-m"
       priority: 16779
       min_distance: 25
     }
@@ -994,7 +994,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "fastfood-xl"
+      name: "fastfood-m"
       priority: 16779
       min_distance: 45
     }
@@ -1077,7 +1077,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "fuel-l"
+      name: "fuel-m"
       priority: 16909
       min_distance: 10
     }
@@ -1093,7 +1093,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "fuel-l"
+      name: "fuel-m"
       priority: 16909
     }
     caption {
@@ -1108,7 +1108,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "fuel-xl"
+      name: "fuel-m"
       priority: 16909
     }
     caption {
@@ -1123,7 +1123,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "fuel-xl"
+      name: "fuel-m"
       priority: 16909
     }
     caption {
@@ -1248,7 +1248,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "hospital-l"
+      name: "hospital-m"
       apply_for_type: 1
       priority: 16844
       min_distance: 8
@@ -1265,7 +1265,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "hospital-l"
+      name: "hospital-m"
       apply_for_type: 1
       priority: 16844
       min_distance: 14
@@ -1282,7 +1282,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hospital-xl"
+      name: "hospital-m"
       apply_for_type: 1
       priority: 16844
     }
@@ -1298,7 +1298,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hospital-xl"
+      name: "hospital-m"
       apply_for_type: 1
       priority: 16844
     }
@@ -1353,7 +1353,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-l"
+      name: "parking-m"
       priority: 16883
       min_distance: 15
     }
@@ -1373,7 +1373,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-xl"
+      name: "parking-m"
       priority: 16883
       min_distance: 10
     }
@@ -1393,7 +1393,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-xl"
+      name: "parking-m"
       priority: 16883
       min_distance: 6
     }
@@ -1448,7 +1448,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-l"
+      name: "parking-m"
       priority: 16883
       min_distance: 15
     }
@@ -1468,7 +1468,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-xl"
+      name: "parking-m"
       priority: 16883
       min_distance: 10
     }
@@ -1488,7 +1488,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-xl"
+      name: "parking-m"
       priority: 16883
       min_distance: 6
     }
@@ -1543,7 +1543,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-l"
+      name: "parking-m"
       priority: 16883
       min_distance: 15
     }
@@ -1563,7 +1563,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-xl"
+      name: "parking-m"
       priority: 16883
       min_distance: 10
     }
@@ -1583,7 +1583,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-xl"
+      name: "parking-m"
       priority: 16883
       min_distance: 6
     }
@@ -1638,7 +1638,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-l"
+      name: "parking-m"
       priority: 16883
       min_distance: 15
     }
@@ -1658,7 +1658,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-xl"
+      name: "parking-m"
       priority: 16883
       min_distance: 10
     }
@@ -1678,7 +1678,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-xl"
+      name: "parking-m"
       priority: 16883
       min_distance: 6
     }
@@ -1733,7 +1733,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-l"
+      name: "parking-m"
       priority: 16883
       min_distance: 15
     }
@@ -1753,7 +1753,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-xl"
+      name: "parking-m"
       priority: 16883
       min_distance: 10
     }
@@ -1773,7 +1773,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-xl"
+      name: "parking-m"
       priority: 16883
       min_distance: 6
     }
@@ -1828,7 +1828,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-l"
+      name: "parking-m"
       priority: 16883
       min_distance: 15
     }
@@ -1848,7 +1848,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-xl"
+      name: "parking-m"
       priority: 16883
       min_distance: 10
     }
@@ -1868,7 +1868,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-xl"
+      name: "parking-m"
       priority: 16883
       min_distance: 6
     }
@@ -1963,7 +1963,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-xl"
+      name: "parking-m"
       priority: 16883
       min_distance: 6
     }
@@ -2058,7 +2058,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-xl"
+      name: "parking-m"
       priority: 16883
       min_distance: 6
     }
@@ -2153,7 +2153,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-xl"
+      name: "parking-m"
       priority: 16883
       min_distance: 6
     }
@@ -2208,7 +2208,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-l"
+      name: "parking-m"
       priority: 16883
       min_distance: 15
     }
@@ -2228,7 +2228,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-xl"
+      name: "parking-m"
       priority: 16883
       min_distance: 10
     }
@@ -2248,7 +2248,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-xl"
+      name: "parking-m"
       priority: 16883
       min_distance: 6
     }
@@ -2303,7 +2303,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-l"
+      name: "parking-m"
       priority: 16883
       min_distance: 15
     }
@@ -2323,7 +2323,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-xl"
+      name: "parking-m"
       priority: 16883
       min_distance: 10
     }
@@ -2343,7 +2343,7 @@ cont {
       priority: -15117
     }
     symbol {
-      name: "parking-xl"
+      name: "parking-m"
       priority: 16883
       min_distance: 6
     }
@@ -2362,7 +2362,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "place-of-worship-l"
+      name: "place-of-worship-m"
       priority: 16311
       min_distance: 10
     }
@@ -2370,7 +2370,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "place-of-worship-l"
+      name: "place-of-worship-m"
       priority: 16311
       min_distance: 10
     }
@@ -2386,7 +2386,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "place-of-worship-l"
+      name: "place-of-worship-m"
       priority: 16311
       min_distance: 10
     }
@@ -2402,7 +2402,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "place-of-worship-l"
+      name: "place-of-worship-m"
       priority: 16311
       min_distance: 10
     }
@@ -2421,7 +2421,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "buddhist-l"
+      name: "buddhist-m"
       priority: 16311
       min_distance: 10
     }
@@ -2429,7 +2429,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "buddhist-l"
+      name: "buddhist-m"
       priority: 16311
       min_distance: 10
     }
@@ -2445,7 +2445,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "buddhist-l"
+      name: "buddhist-m"
       priority: 16311
       min_distance: 10
     }
@@ -2461,7 +2461,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "buddhist-l"
+      name: "buddhist-m"
       priority: 16311
       min_distance: 10
     }
@@ -2480,7 +2480,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "christian-l"
+      name: "christian-m"
       priority: 16311
       min_distance: 10
     }
@@ -2488,7 +2488,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "christian-l"
+      name: "christian-m"
       priority: 16311
       min_distance: 10
     }
@@ -2504,7 +2504,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "christian-l"
+      name: "christian-m"
       priority: 16311
       min_distance: 10
     }
@@ -2520,7 +2520,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "christian-l"
+      name: "christian-m"
       priority: 16311
       min_distance: 10
     }
@@ -2539,7 +2539,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "hindu-l"
+      name: "hindu-m"
       priority: 16311
       min_distance: 10
     }
@@ -2547,7 +2547,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "hindu-l"
+      name: "hindu-m"
       priority: 16311
       min_distance: 10
     }
@@ -2563,7 +2563,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hindu-l"
+      name: "hindu-m"
       priority: 16311
       min_distance: 10
     }
@@ -2579,7 +2579,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hindu-l"
+      name: "hindu-m"
       priority: 16311
       min_distance: 10
     }
@@ -2598,7 +2598,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "place-of-worship-l"
+      name: "place-of-worship-m"
       priority: 16311
       min_distance: 10
     }
@@ -2606,7 +2606,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "place-of-worship-l"
+      name: "place-of-worship-m"
       priority: 16311
       min_distance: 10
     }
@@ -2622,7 +2622,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "place-of-worship-l"
+      name: "place-of-worship-m"
       priority: 16311
       min_distance: 10
     }
@@ -2638,7 +2638,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "place-of-worship-l"
+      name: "place-of-worship-m"
       priority: 16311
       min_distance: 10
     }
@@ -2657,7 +2657,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "muslim-l"
+      name: "muslim-m"
       priority: 16311
       min_distance: 10
     }
@@ -2665,7 +2665,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "muslim-l"
+      name: "muslim-m"
       priority: 16311
       min_distance: 10
     }
@@ -2681,7 +2681,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "muslim-l"
+      name: "muslim-m"
       priority: 16311
       min_distance: 10
     }
@@ -2697,7 +2697,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "muslim-l"
+      name: "muslim-m"
       priority: 16311
       min_distance: 10
     }
@@ -2716,7 +2716,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "place-of-worship-l"
+      name: "place-of-worship-m"
       priority: 16311
       min_distance: 10
     }
@@ -2724,7 +2724,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "place-of-worship-l"
+      name: "place-of-worship-m"
       priority: 16311
       min_distance: 10
     }
@@ -2740,7 +2740,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "place-of-worship-l"
+      name: "place-of-worship-m"
       priority: 16311
       min_distance: 10
     }
@@ -2756,7 +2756,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "place-of-worship-l"
+      name: "place-of-worship-m"
       priority: 16311
       min_distance: 10
     }
@@ -2775,7 +2775,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "place-of-worship-l"
+      name: "place-of-worship-m"
       priority: 16311
       min_distance: 10
     }
@@ -2783,7 +2783,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "place-of-worship-l"
+      name: "place-of-worship-m"
       priority: 16311
       min_distance: 10
     }
@@ -2799,7 +2799,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "place-of-worship-l"
+      name: "place-of-worship-m"
       priority: 16311
       min_distance: 10
     }
@@ -2815,7 +2815,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "place-of-worship-l"
+      name: "place-of-worship-m"
       priority: 16311
       min_distance: 10
     }
@@ -2834,7 +2834,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "restaurant-l"
+      name: "restaurant-m"
       priority: 16792
       min_distance: 22
     }
@@ -2850,7 +2850,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "restaurant-l"
+      name: "restaurant-m"
       priority: 16792
       min_distance: 22
     }
@@ -2866,7 +2866,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "restaurant-xl"
+      name: "restaurant-m"
       priority: 16792
       min_distance: 25
     }
@@ -2882,7 +2882,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "restaurant-xl"
+      name: "restaurant-m"
       priority: 16792
       min_distance: 40
     }
@@ -2930,7 +2930,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "college-l"
+      name: "college-m"
       priority: 16012
       min_distance: 9
     }
@@ -2959,7 +2959,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "college-l"
+      name: "college-m"
       priority: 16012
       min_distance: 9
     }
@@ -2988,7 +2988,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "college-xl"
+      name: "college-m"
       priority: 16012
       min_distance: 10
     }
@@ -3017,7 +3017,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "college-xl"
+      name: "college-m"
       priority: 16012
     }
     caption {
@@ -3048,7 +3048,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16000
       min_distance: 20
     }
@@ -3064,7 +3064,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16000
       min_distance: 20
     }
@@ -3080,7 +3080,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16000
       min_distance: 20
     }
@@ -3099,7 +3099,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16000
       min_distance: 20
     }
@@ -3115,7 +3115,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16000
       min_distance: 20
     }
@@ -3131,7 +3131,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16000
       min_distance: 20
     }
@@ -3150,7 +3150,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "parking-meter-l"
+      name: "parking-meter-m"
       priority: 16000
       min_distance: 20
     }
@@ -3166,7 +3166,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "parking-meter-l"
+      name: "parking-meter-m"
       priority: 16000
       min_distance: 20
     }
@@ -3182,7 +3182,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "parking-meter-l"
+      name: "parking-meter-m"
       priority: 16000
       min_distance: 20
     }
@@ -3201,7 +3201,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16000
       min_distance: 20
     }
@@ -3217,7 +3217,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16000
       min_distance: 20
     }
@@ -3233,7 +3233,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16000
       min_distance: 20
     }
@@ -3284,7 +3284,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "bcontrol-l"
+      name: "bcontrol-m"
       apply_for_type: 1
       priority: 16857
     }
@@ -3300,7 +3300,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bcontrol-l"
+      name: "bcontrol-m"
       apply_for_type: 1
       priority: 16857
     }
@@ -3316,7 +3316,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "bcontrol-l"
+      name: "bcontrol-m"
       apply_for_type: 1
       priority: 16857
     }
@@ -3504,7 +3504,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "lift_gate-l"
+      name: "lift_gate-m"
       priority: 16857
       min_distance: 20
     }
@@ -3520,7 +3520,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "lift_gate-l"
+      name: "lift_gate-m"
       priority: 16857
       min_distance: 20
     }
@@ -3536,7 +3536,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "lift_gate-l"
+      name: "lift_gate-m"
       priority: 16857
       min_distance: 20
     }
@@ -3587,7 +3587,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "toll_booth-l"
+      name: "toll_booth-m"
       priority: 16857
       min_distance: 8
     }
@@ -3603,7 +3603,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "toll_booth-l"
+      name: "toll_booth-m"
       priority: 16857
       min_distance: 8
     }
@@ -3619,7 +3619,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "toll_booth-xl"
+      name: "toll_booth-m"
       priority: 16857
       min_distance: 8
     }
@@ -3635,7 +3635,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "toll_booth-xl"
+      name: "toll_booth-m"
       priority: 16857
       min_distance: 8
     }
@@ -3651,7 +3651,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "toll_booth-xl"
+      name: "toll_booth-m"
       priority: 16857
       min_distance: 8
     }
@@ -4396,7 +4396,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16740
     }
     caption {
@@ -4412,7 +4412,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16740
     }
     caption {
@@ -4428,7 +4428,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16740
     }
     caption {
@@ -4884,7 +4884,7 @@ cont {
       priority: 1949
     }
     symbol {
-      name: "train-l"
+      name: "train-m"
       priority: 19100
       min_distance: 2
     }
@@ -4916,7 +4916,7 @@ cont {
       priority: 1195
     }
     symbol {
-      name: "train-l"
+      name: "train-m"
       priority: 19100
       min_distance: 2
     }
@@ -4949,7 +4949,7 @@ cont {
       priority: 1195
     }
     symbol {
-      name: "train-l"
+      name: "train-m"
       priority: 19100
       min_distance: 2
     }
@@ -4982,7 +4982,7 @@ cont {
       priority: 1195
     }
     symbol {
-      name: "train-l"
+      name: "train-m"
       priority: 19100
       min_distance: 2
     }
@@ -13617,7 +13617,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "speedcam-l"
+      name: "speedcam-m"
       apply_for_type: 1
       priority: 16974
     }
@@ -13625,7 +13625,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "speedcam-xl"
+      name: "speedcam-m"
       apply_for_type: 1
       priority: 16974
     }
@@ -13633,7 +13633,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "speedcam-xl"
+      name: "speedcam-m"
       apply_for_type: 1
       priority: 16974
     }
@@ -13641,7 +13641,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "speedcam-xl"
+      name: "speedcam-m"
       apply_for_type: 1
       priority: 16974
     }
@@ -13649,7 +13649,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "speedcam-xl"
+      name: "speedcam-m"
       apply_for_type: 1
       priority: 16974
     }
@@ -18061,7 +18061,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -18112,7 +18112,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -18163,7 +18163,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -18193,7 +18193,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16103
     }
     caption {
@@ -18214,7 +18214,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -18236,7 +18236,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16103
     }
     apply_if: "!name"
@@ -18248,7 +18248,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16103
     }
     caption {
@@ -18269,7 +18269,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -18291,7 +18291,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16103
     }
     apply_if: "!name"
@@ -18303,7 +18303,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16103
     }
     caption {
@@ -18436,7 +18436,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -18487,7 +18487,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -18538,7 +18538,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -18568,7 +18568,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16103
     }
     caption {
@@ -18589,7 +18589,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -18611,7 +18611,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16103
     }
     apply_if: "!name"
@@ -18623,7 +18623,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16103
     }
     caption {
@@ -18644,7 +18644,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -18666,7 +18666,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16103
     }
     apply_if: "!name"
@@ -18678,7 +18678,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16103
     }
     caption {
@@ -18811,7 +18811,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -18862,7 +18862,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -18913,7 +18913,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -18943,7 +18943,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16103
     }
     caption {
@@ -18964,7 +18964,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -18986,7 +18986,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16103
     }
     apply_if: "!name"
@@ -18998,7 +18998,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16103
     }
     caption {
@@ -19019,7 +19019,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -19041,7 +19041,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16103
     }
     apply_if: "!name"
@@ -19053,7 +19053,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16103
     }
     caption {
@@ -19186,7 +19186,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -19237,7 +19237,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -19288,7 +19288,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -19318,7 +19318,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16103
     }
     caption {
@@ -19339,7 +19339,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -19361,7 +19361,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16103
     }
     apply_if: "!name"
@@ -19373,7 +19373,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16103
     }
     caption {
@@ -19394,7 +19394,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16103
       min_distance: 10
     }
@@ -19416,7 +19416,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16103
     }
     apply_if: "!name"
@@ -19428,7 +19428,7 @@ cont {
       priority: -15897
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16103
     }
     caption {
@@ -20608,7 +20608,7 @@ cont {
       priority: -15260
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16740
     }
     caption {
@@ -20628,7 +20628,7 @@ cont {
       priority: -15260
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16740
     }
     caption {
@@ -20648,7 +20648,7 @@ cont {
       priority: -15260
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16740
     }
     caption {
@@ -20729,7 +20729,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -20759,7 +20759,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -20789,7 +20789,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -20819,7 +20819,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -20841,7 +20841,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16116
     }
     apply_if: "!name"
@@ -20853,7 +20853,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -20875,7 +20875,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16116
     }
     apply_if: "!name"
@@ -20948,7 +20948,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -20978,7 +20978,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -21008,7 +21008,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -21038,7 +21038,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -21060,7 +21060,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16116
     }
     apply_if: "!name"
@@ -21072,7 +21072,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -21094,7 +21094,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16116
     }
     apply_if: "!name"
@@ -21167,7 +21167,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -21197,7 +21197,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -21227,7 +21227,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -21257,7 +21257,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -21279,7 +21279,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16116
     }
     apply_if: "!name"
@@ -21291,7 +21291,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -21313,7 +21313,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16116
     }
     apply_if: "!name"
@@ -21386,7 +21386,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -21416,7 +21416,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -21446,7 +21446,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -21476,7 +21476,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -21498,7 +21498,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16116
     }
     apply_if: "!name"
@@ -21510,7 +21510,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16116
       min_distance: 10
     }
@@ -21532,7 +21532,7 @@ cont {
       priority: -15884
     }
     symbol {
-      name: "park-xl"
+      name: "park-m"
       priority: 16116
     }
     apply_if: "!name"
@@ -30318,7 +30318,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16857
     }
@@ -30342,7 +30342,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16857
     }
@@ -30366,7 +30366,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16857
     }
@@ -30390,7 +30390,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16857
     }
@@ -30417,7 +30417,7 @@ cont {
   element {
     scale: 15
     symbol {
-      name: "railway-crossing-l"
+      name: "railway-crossing-m"
       apply_for_type: 1
       priority: 16857
     }
@@ -30425,7 +30425,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "railway-crossing-l"
+      name: "railway-crossing-m"
       apply_for_type: 1
       priority: 16857
     }
@@ -30433,7 +30433,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "railway-crossing-xl"
+      name: "railway-crossing-m"
       apply_for_type: 1
       priority: 16857
     }
@@ -30441,7 +30441,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "railway-crossing-xl"
+      name: "railway-crossing-m"
       apply_for_type: 1
       priority: 16857
     }
@@ -30449,7 +30449,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "railway-crossing-xl"
+      name: "railway-crossing-m"
       apply_for_type: 1
       priority: 16857
     }
@@ -32050,7 +32050,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16870
     }
@@ -32074,7 +32074,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16870
     }
@@ -32098,7 +32098,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16870
     }
@@ -32115,7 +32115,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16870
     }
@@ -32207,7 +32207,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16870
     }
@@ -32231,7 +32231,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16870
     }
@@ -32255,7 +32255,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16870
     }
@@ -32272,7 +32272,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16870
     }
@@ -32364,7 +32364,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16870
     }
@@ -32388,7 +32388,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16870
     }
@@ -32412,7 +32412,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16870
     }
@@ -32429,7 +32429,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16870
     }
@@ -32521,7 +32521,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -32545,7 +32545,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -32569,7 +32569,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -32593,7 +32593,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33036,7 +33036,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33060,7 +33060,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33084,7 +33084,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33108,7 +33108,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33207,7 +33207,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33231,7 +33231,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33255,7 +33255,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33279,7 +33279,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33378,7 +33378,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33402,7 +33402,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33426,7 +33426,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33450,7 +33450,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33549,7 +33549,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33573,7 +33573,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33597,7 +33597,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33621,7 +33621,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33720,7 +33720,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33744,7 +33744,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33768,7 +33768,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33792,7 +33792,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33891,7 +33891,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33915,7 +33915,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33939,7 +33939,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -33963,7 +33963,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -34228,7 +34228,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -34252,7 +34252,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -34276,7 +34276,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -34300,7 +34300,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -34399,7 +34399,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -34423,7 +34423,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -34447,7 +34447,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -34471,7 +34471,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -35113,7 +35113,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -35137,7 +35137,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -35161,7 +35161,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -35185,7 +35185,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -35285,7 +35285,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "subway-newyork-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -35309,7 +35309,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-newyork-l"
+      name: "subway-newyork-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -35333,7 +35333,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-newyork-l"
+      name: "subway-newyork-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -35357,7 +35357,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-newyork-l"
+      name: "subway-newyork-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -35456,7 +35456,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -35480,7 +35480,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -35504,7 +35504,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -35528,7 +35528,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -35799,7 +35799,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -35823,7 +35823,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -35847,7 +35847,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -35871,7 +35871,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -35970,7 +35970,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -35994,7 +35994,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -36018,7 +36018,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -36042,7 +36042,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -36340,7 +36340,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -36364,7 +36364,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -36388,7 +36388,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -36412,7 +36412,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -36511,7 +36511,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -36535,7 +36535,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -36559,7 +36559,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -36583,7 +36583,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -36682,7 +36682,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -36706,7 +36706,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -36730,7 +36730,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -36754,7 +36754,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16883
     }
@@ -37792,7 +37792,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-spb-l"
+      name: "subway-spb-m"
       apply_for_type: 1
       priority: 16000
     }
@@ -37816,7 +37816,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-spb-l"
+      name: "subway-spb-m"
       apply_for_type: 1
       priority: 16000
     }
@@ -37840,7 +37840,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-spb-l"
+      name: "subway-spb-m"
       apply_for_type: 1
       priority: 16000
     }
@@ -38092,7 +38092,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "tram-l"
+      name: "tram-m"
       priority: 16870
     }
     caption {
@@ -38115,7 +38115,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "tram-l"
+      name: "tram-m"
       priority: 16870
     }
     caption {
@@ -38138,7 +38138,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "tram-l"
+      name: "tram-m"
       priority: 16870
     }
     caption {
@@ -38658,7 +38658,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "car_shop-l"
+      name: "car_shop-m"
       priority: 16000
       min_distance: 24
     }
@@ -38666,14 +38666,14 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "car_shop-xl"
+      name: "car_shop-m"
       priority: 16000
     }
   }
   element {
     scale: 19
     symbol {
-      name: "car_shop-xl"
+      name: "car_shop-m"
       priority: 16000
     }
   }
@@ -38683,7 +38683,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "car-part-l"
+      name: "car-part-m"
       priority: 16000
       min_distance: 24
     }
@@ -38691,14 +38691,14 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "car-part-xl"
+      name: "car-part-m"
       priority: 16000
     }
   }
   element {
     scale: 19
     symbol {
-      name: "car-part-xl"
+      name: "car-part-m"
       priority: 16000
     }
   }
@@ -38708,7 +38708,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "car-repair-l"
+      name: "car-repair-m"
       priority: 16000
       min_distance: 24
     }
@@ -38716,14 +38716,14 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "car-repair-xl"
+      name: "car-repair-m"
       priority: 16000
     }
   }
   element {
     scale: 19
     symbol {
-      name: "car-repair-xl"
+      name: "car-repair-m"
       priority: 16000
     }
   }
@@ -38749,7 +38749,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "car-repair-l"
+      name: "car-repair-m"
       priority: 16831
     }
     caption {
@@ -38764,7 +38764,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "car-repair-l"
+      name: "car-repair-m"
       priority: 16831
       min_distance: 24
     }
@@ -38780,7 +38780,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "car-repair-xl"
+      name: "car-repair-m"
       priority: 16831
     }
     caption {
@@ -38795,7 +38795,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "car-repair-xl"
+      name: "car-repair-m"
       priority: 16831
     }
     caption {
@@ -38845,7 +38845,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 15500
       min_distance: 8
     }
@@ -38861,7 +38861,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 15500
       min_distance: 8
     }
@@ -38877,7 +38877,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-xl"
+      name: "shop-m"
       priority: 15500
       min_distance: 8
     }
@@ -38893,7 +38893,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-xl"
+      name: "shop-m"
       priority: 15500
       min_distance: 8
     }
@@ -38912,7 +38912,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "motorcycle_shop-l"
+      name: "motorcycle_shop-m"
       priority: 16000
       min_distance: 24
     }
@@ -38920,14 +38920,14 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "motorcycle_shop-l"
+      name: "motorcycle_shop-m"
       priority: 16000
     }
   }
   element {
     scale: 19
     symbol {
-      name: "motorcycle_shop-l"
+      name: "motorcycle_shop-m"
       priority: 16000
     }
   }
@@ -38969,7 +38969,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "grocery-l"
+      name: "grocery-m"
       priority: 16727
       min_distance: 16
     }
@@ -38985,7 +38985,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "grocery-l"
+      name: "grocery-m"
       priority: 16727
       min_distance: 16
     }
@@ -39001,7 +39001,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "grocery-xl"
+      name: "grocery-m"
       priority: 16727
       min_distance: 15
     }
@@ -39017,7 +39017,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "grocery-xl"
+      name: "grocery-m"
       priority: 16727
       min_distance: 15
     }

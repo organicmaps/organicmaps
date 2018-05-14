@@ -157,7 +157,7 @@ cont {
       priority: 1373
     }
     symbol {
-      name: "cable-car-l"
+      name: "cable-car-m"
       apply_for_type: 1
       priority: 16485
     }
@@ -188,7 +188,7 @@ cont {
       priority: 1373
     }
     symbol {
-      name: "cable-car-l"
+      name: "cable-car-m"
       apply_for_type: 1
       priority: 16485
     }
@@ -219,7 +219,7 @@ cont {
       priority: 1373
     }
     symbol {
-      name: "cable-car-l"
+      name: "cable-car-m"
       apply_for_type: 1
       priority: 16485
     }
@@ -393,7 +393,7 @@ cont {
       priority: 1373
     }
     symbol {
-      name: "cable-car-l"
+      name: "cable-car-m"
       apply_for_type: 1
       priority: 16485
     }
@@ -424,7 +424,7 @@ cont {
       priority: 1373
     }
     symbol {
-      name: "cable-car-l"
+      name: "cable-car-m"
       apply_for_type: 1
       priority: 16485
     }
@@ -455,7 +455,7 @@ cont {
       priority: 1373
     }
     symbol {
-      name: "cable-car-l"
+      name: "cable-car-m"
       apply_for_type: 1
       priority: 16485
     }
@@ -612,7 +612,7 @@ cont {
       priority: 1373
     }
     symbol {
-      name: "cable-car-l"
+      name: "cable-car-m"
       apply_for_type: 1
       priority: 16485
     }
@@ -643,7 +643,7 @@ cont {
       priority: 1373
     }
     symbol {
-      name: "cable-car-l"
+      name: "cable-car-m"
       apply_for_type: 1
       priority: 16485
     }
@@ -674,7 +674,7 @@ cont {
       priority: 1373
     }
     symbol {
-      name: "cable-car-l"
+      name: "cable-car-m"
       apply_for_type: 1
       priority: 16485
     }
@@ -848,7 +848,7 @@ cont {
       priority: 1373
     }
     symbol {
-      name: "cable-car-l"
+      name: "cable-car-m"
       apply_for_type: 1
       priority: 16485
     }
@@ -879,7 +879,7 @@ cont {
       priority: 1373
     }
     symbol {
-      name: "cable-car-l"
+      name: "cable-car-m"
       apply_for_type: 1
       priority: 16485
     }
@@ -910,7 +910,7 @@ cont {
       priority: 1373
     }
     symbol {
-      name: "cable-car-l"
+      name: "cable-car-m"
       apply_for_type: 1
       priority: 16485
     }
@@ -1084,7 +1084,7 @@ cont {
       priority: 1373
     }
     symbol {
-      name: "cable-car-l"
+      name: "cable-car-m"
       apply_for_type: 1
       priority: 16485
     }
@@ -1115,7 +1115,7 @@ cont {
       priority: 1373
     }
     symbol {
-      name: "cable-car-l"
+      name: "cable-car-m"
       apply_for_type: 1
       priority: 16485
     }
@@ -1146,7 +1146,7 @@ cont {
       priority: 1373
     }
     symbol {
-      name: "cable-car-l"
+      name: "cable-car-m"
       apply_for_type: 1
       priority: 16485
     }
@@ -1226,7 +1226,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "cable-car-l"
+      name: "cable-car-m"
       apply_for_type: 1
       priority: 16485
     }
@@ -1243,7 +1243,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "cable-car-l"
+      name: "cable-car-m"
       apply_for_type: 1
       priority: 16485
     }
@@ -1260,7 +1260,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "cable-car-l"
+      name: "cable-car-m"
       apply_for_type: 1
       priority: 16485
     }
@@ -1449,7 +1449,7 @@ cont {
       priority: -15053
     }
     symbol {
-      name: "airport-l"
+      name: "airport-m"
       priority: 16947
     }
     caption {
@@ -1476,7 +1476,7 @@ cont {
       priority: -15053
     }
     symbol {
-      name: "airport-l"
+      name: "airport-m"
       priority: 16947
     }
     caption {
@@ -1503,7 +1503,7 @@ cont {
       priority: -15053
     }
     symbol {
-      name: "airport-l"
+      name: "airport-m"
       priority: 16947
     }
     caption {
@@ -1708,7 +1708,7 @@ cont {
       priority: -15053
     }
     symbol {
-      name: "airport-l"
+      name: "airport-m"
       priority: 16947
     }
     caption {
@@ -1735,7 +1735,7 @@ cont {
       priority: -15053
     }
     symbol {
-      name: "airport-l"
+      name: "airport-m"
       priority: 16947
     }
     caption {
@@ -1762,7 +1762,7 @@ cont {
       priority: -15053
     }
     symbol {
-      name: "airport-l"
+      name: "airport-m"
       priority: 16947
     }
     caption {
@@ -1788,7 +1788,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "gate-l"
+      name: "gate-m"
       priority: 16440
     }
     caption {
@@ -1803,7 +1803,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "gate-l"
+      name: "gate-m"
       priority: 16985
     }
     caption {
@@ -1818,7 +1818,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "gate-l"
+      name: "gate-m"
       priority: 16985
     }
     caption {
@@ -1836,7 +1836,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "helipad-l"
+      name: "helipad-m"
       priority: 16485
     }
     caption {
@@ -1851,7 +1851,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "helipad-l"
+      name: "helipad-m"
       priority: 16485
     }
     caption {
@@ -1866,7 +1866,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "helipad-l"
+      name: "helipad-m"
       priority: 16485
     }
     caption {
@@ -2127,8 +2127,9 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "gallery-l"
+      name: "gallery-m"
       priority: 16000
+      min_distance: 12
     }
     caption {
       primary {
@@ -2142,8 +2143,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "gallery-l"
+      name: "gallery-m"
       priority: 16000
+      min_distance: 12
     }
     caption {
       primary {
@@ -2157,8 +2159,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "gallery-l"
+      name: "gallery-m"
       priority: 16000
+      min_distance: 12
     }
     caption {
       primary {
@@ -2175,7 +2178,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "atm-l"
+      name: "atm-m"
       priority: 16470
     }
     caption {
@@ -2190,7 +2193,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "atm-l"
+      name: "atm-m"
       priority: 16470
     }
     caption {
@@ -2238,12 +2241,12 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bank-l"
+      name: "bank-m"
       priority: 16485
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
       }
@@ -2253,12 +2256,12 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "bank-l"
+      name: "bank-m"
       priority: 16485
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
       }
@@ -2303,7 +2306,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "beer-l"
+      name: "beer-m"
       priority: 16507
       min_distance: 12
     }
@@ -2319,8 +2322,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "beer-l"
+      name: "beer-m"
       priority: 16507
+      min_distance: 12
     }
     caption {
       primary {
@@ -2334,8 +2338,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "beer-l"
+      name: "beer-m"
       priority: 16507
+      min_distance: 12
     }
     caption {
       primary {
@@ -2352,7 +2357,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bbq-l"
+      name: "bbq-m"
       priority: 16447
     }
     caption {
@@ -2367,7 +2372,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "bbq-l"
+      name: "bbq-m"
       priority: 16447
     }
     caption {
@@ -2412,7 +2417,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "bike-parking-l"
+      name: "bike-parking-m"
       priority: 16447
       min_distance: 20
     }
@@ -2428,7 +2433,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bike-parking-l"
+      name: "bike-parking-m"
       priority: 16447
       min_distance: 20
     }
@@ -2444,7 +2449,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "bike-parking-l"
+      name: "bike-parking-m"
       priority: 16447
       min_distance: 20
     }
@@ -2463,7 +2468,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "bicycle-l"
+      name: "bicycle-m"
       priority: 16470
     }
     caption {
@@ -2478,7 +2483,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bicycle-l"
+      name: "bicycle-m"
       priority: 16470
     }
     caption {
@@ -2493,7 +2498,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "bicycle-l"
+      name: "bicycle-m"
       priority: 16470
     }
     caption {
@@ -2543,7 +2548,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "beer-l"
+      name: "beer-m"
       priority: 16500
       min_distance: 12
     }
@@ -2559,8 +2564,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "beer-l"
+      name: "beer-m"
       priority: 16500
+      min_distance: 12
     }
     caption {
       primary {
@@ -2574,8 +2580,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "beer-l"
+      name: "beer-m"
       priority: 16500
+      min_distance: 12
     }
     caption {
       primary {
@@ -2606,7 +2613,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "banknote-l"
+      name: "banknote-m"
       apply_for_type: 1
       priority: 16470
     }
@@ -2614,7 +2621,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "banknote-l"
+      name: "banknote-m"
       apply_for_type: 1
       priority: 16470
     }
@@ -2630,7 +2637,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "banknote-l"
+      name: "banknote-m"
       apply_for_type: 1
       priority: 16470
     }
@@ -2734,7 +2741,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "bus-l"
+      name: "bus-m"
       priority: 16492
     }
     caption {
@@ -2757,7 +2764,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bus-l"
+      name: "bus-m"
       priority: 16492
     }
     caption {
@@ -2780,7 +2787,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "bus-l"
+      name: "bus-m"
       priority: 16492
     }
     caption {
@@ -2838,7 +2845,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "cafe-l"
+      name: "cafe-m"
       priority: 16529
       min_distance: 12
     }
@@ -2854,8 +2861,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "cafe-l"
+      name: "cafe-m"
       priority: 16529
+      min_distance: 12
     }
     caption {
       primary {
@@ -2869,8 +2877,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "cafe-l"
+      name: "cafe-m"
       priority: 16529
+      min_distance: 12
     }
     caption {
       primary {
@@ -2887,7 +2896,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "car_sharing-l"
+      name: "car_sharing-m"
       priority: 16470
     }
     caption {
@@ -2902,7 +2911,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "car_sharing-l"
+      name: "car_sharing-m"
       priority: 16470
     }
     caption {
@@ -2920,7 +2929,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "car_sharing-l"
+      name: "car_sharing-m"
       priority: 16447
     }
     caption {
@@ -2935,7 +2944,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "car_sharing-l"
+      name: "car_sharing-m"
       priority: 16447
     }
     caption {
@@ -2953,7 +2962,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "car-wash-l"
+      name: "car-wash-m"
       priority: 16470
       min_distance: 24
     }
@@ -2969,9 +2978,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "car-wash-l"
-      apply_for_type: 1
+      name: "car-wash-m"
       priority: 16470
+      min_distance: 24
     }
     caption {
       primary {
@@ -2985,9 +2994,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "car-wash-l"
-      apply_for_type: 1
+      name: "car-wash-m"
       priority: 16470
+      min_distance: 24
     }
     caption {
       primary {
@@ -3004,7 +3013,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "casino-l"
+      name: "casino-m"
       priority: 16447
       min_distance: 20
     }
@@ -3020,7 +3029,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "casino-l"
+      name: "casino-m"
       priority: 16447
       min_distance: 20
     }
@@ -3036,7 +3045,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "casino-l"
+      name: "casino-m"
       priority: 16447
       min_distance: 20
     }
@@ -3103,7 +3112,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "charging-station-l"
+      name: "charging-station-m"
       priority: 16477
     }
     caption {
@@ -3118,7 +3127,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "charging-station-l"
+      name: "charging-station-m"
       priority: 16477
     }
     caption {
@@ -3133,7 +3142,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "charging-station-l"
+      name: "charging-station-m"
       priority: 16477
     }
     caption {
@@ -3151,7 +3160,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "kindergarten-l"
+      name: "kindergarten-m"
       priority: 16447
     }
     caption {
@@ -3166,7 +3175,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "kindergarten-l"
+      name: "kindergarten-m"
       priority: 16447
     }
     caption {
@@ -3181,7 +3190,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "kindergarten-l"
+      name: "kindergarten-m"
       priority: 16447
     }
     caption {
@@ -3199,7 +3208,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "cinema-l"
+      name: "cinema-m"
       priority: 16485
     }
     caption {
@@ -3214,7 +3223,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "cinema-l"
+      name: "cinema-m"
       priority: 16485
     }
     caption {
@@ -3229,7 +3238,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "cinema-l"
+      name: "cinema-m"
       priority: 16485
     }
     caption {
@@ -3247,7 +3256,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "hospital-l"
+      name: "hospital-m"
       priority: 16485
       min_distance: 4
     }
@@ -3263,7 +3272,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hospital-l"
+      name: "hospital-m"
       priority: 16485
     }
     caption {
@@ -3278,7 +3287,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hospital-l"
+      name: "hospital-m"
       priority: 16485
     }
     caption {
@@ -3296,7 +3305,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "college-l"
+      name: "college-m"
       priority: 16485
     }
     caption {
@@ -3311,7 +3320,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "college-l"
+      name: "college-m"
       priority: 16485
     }
     caption {
@@ -3326,7 +3335,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "college-l"
+      name: "college-m"
       priority: 16485
     }
     caption {
@@ -3428,7 +3437,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "public-building-l"
+      name: "public-building-m"
       priority: 16485
     }
     caption {
@@ -3443,7 +3452,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "public-building-l"
+      name: "public-building-m"
       priority: 16485
     }
     caption {
@@ -3458,7 +3467,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "public-building-l"
+      name: "public-building-m"
       priority: 16485
     }
     caption {
@@ -3476,7 +3485,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "dentist-l"
+      name: "dentist-m"
       priority: 16447
     }
     caption {
@@ -3491,7 +3500,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "dentist-l"
+      name: "dentist-m"
       priority: 16447
     }
     caption {
@@ -3506,7 +3515,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "dentist-l"
+      name: "dentist-m"
       priority: 16447
     }
     caption {
@@ -3549,7 +3558,7 @@ cont {
       priority: -15515
     }
     symbol {
-      name: "hospital-l"
+      name: "hospital-m"
       priority: 16485
       min_distance: 4
     }
@@ -3569,7 +3578,7 @@ cont {
       priority: -15515
     }
     symbol {
-      name: "hospital-l"
+      name: "hospital-m"
       priority: 16485
     }
     caption {
@@ -3588,7 +3597,7 @@ cont {
       priority: -15515
     }
     symbol {
-      name: "hospital-l"
+      name: "hospital-m"
       priority: 16485
     }
     caption {
@@ -3622,22 +3631,25 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "drinking-water-l"
+      name: "drinking-water-m"
       priority: 16432
+      min_distance: 36
     }
   }
   element {
     scale: 18
     symbol {
-      name: "drinking-water-l"
+      name: "drinking-water-m"
       priority: 16432
+      min_distance: 36
     }
   }
   element {
     scale: 19
     symbol {
-      name: "drinking-water-l"
+      name: "drinking-water-m"
       priority: 16432
+      min_distance: 36
     }
     caption {
       primary {
@@ -3668,7 +3680,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "embassy-l"
+      name: "embassy-m"
       priority: 16485
     }
     caption {
@@ -3683,7 +3695,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "embassy-l"
+      name: "embassy-m"
       priority: 16485
     }
     caption {
@@ -3698,7 +3710,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "embassy-l"
+      name: "embassy-m"
       priority: 16485
     }
     caption {
@@ -3748,7 +3760,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "fastfood-l"
+      name: "fastfood-m"
       priority: 16514
       min_distance: 12
     }
@@ -3764,8 +3776,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "fastfood-l"
+      name: "fastfood-m"
       priority: 16514
+      min_distance: 12
     }
     caption {
       primary {
@@ -3779,8 +3792,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "fastfood-l"
+      name: "fastfood-m"
       priority: 16514
+      min_distance: 12
     }
     caption {
       primary {
@@ -3856,7 +3870,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "ship-l"
+      name: "ship-m"
       apply_for_type: 1
       priority: 16492
     }
@@ -3873,7 +3887,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "ship-l"
+      name: "ship-m"
       apply_for_type: 1
       priority: 16492
     }
@@ -3890,7 +3904,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "ship-l"
+      name: "ship-m"
       apply_for_type: 1
       priority: 16492
     }
@@ -3910,7 +3924,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "fire_station-l"
+      name: "fire_station-m"
       priority: 16470
     }
     caption {
@@ -3925,7 +3939,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "fire_station-l"
+      name: "fire_station-m"
       priority: 16470
     }
     caption {
@@ -3975,7 +3989,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "fastfood-l"
+      name: "fastfood-m"
       priority: 16514
       min_distance: 12
     }
@@ -3991,8 +4005,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "fastfood-l"
+      name: "fastfood-m"
       priority: 16514
+      min_distance: 12
     }
     caption {
       primary {
@@ -4006,8 +4021,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "fastfood-l"
+      name: "fastfood-m"
       priority: 16514
+      min_distance: 12
     }
     caption {
       primary {
@@ -4048,9 +4064,9 @@ cont {
       priority: -15575
     }
     symbol {
-      name: "fountain-l"
+      name: "fountain-m"
       priority: 16425
-      min_distance: 24
+      min_distance: 20
     }
     caption {
       primary {
@@ -4068,9 +4084,9 @@ cont {
       priority: -15575
     }
     symbol {
-      name: "fountain-l"
+      name: "fountain-m"
       priority: 16425
-      min_distance: 24
+      min_distance: 20
     }
     caption {
       primary {
@@ -4088,9 +4104,9 @@ cont {
       priority: -15575
     }
     symbol {
-      name: "fountain-l"
+      name: "fountain-m"
       priority: 16425
-      min_distance: 24
+      min_distance: 20
     }
     caption {
       primary {
@@ -4187,7 +4203,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "fuel-l"
+      name: "fuel-m"
       priority: 16477
     }
     caption {
@@ -4202,7 +4218,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "fuel-l"
+      name: "fuel-m"
       priority: 16477
     }
     caption {
@@ -4217,7 +4233,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "fuel-l"
+      name: "fuel-m"
       priority: 16477
     }
     caption {
@@ -4260,7 +4276,7 @@ cont {
       priority: -15702
     }
     symbol {
-      name: "cemetery-l"
+      name: "cemetery-m"
       priority: 16298
     }
     caption {
@@ -4279,7 +4295,7 @@ cont {
       priority: -15702
     }
     symbol {
-      name: "cemetery-l"
+      name: "cemetery-m"
       priority: 16298
     }
     caption {
@@ -4298,7 +4314,7 @@ cont {
       priority: -15702
     }
     symbol {
-      name: "cemetery-l"
+      name: "cemetery-m"
       priority: 16298
     }
     caption {
@@ -4341,7 +4357,7 @@ cont {
       priority: -15702
     }
     symbol {
-      name: "cemetery-l"
+      name: "cemetery-m"
       priority: 16298
     }
     caption {
@@ -4360,7 +4376,7 @@ cont {
       priority: -15702
     }
     symbol {
-      name: "cemetery-l"
+      name: "cemetery-m"
       priority: 16298
     }
     caption {
@@ -4379,7 +4395,7 @@ cont {
       priority: -15702
     }
     symbol {
-      name: "cemetery-l"
+      name: "cemetery-m"
       priority: 16298
     }
     caption {
@@ -4455,7 +4471,7 @@ cont {
       priority: -15083
     }
     symbol {
-      name: "hospital-l"
+      name: "hospital-m"
       apply_for_type: 1
       priority: 16917
       min_distance: 4
@@ -4476,9 +4492,10 @@ cont {
       priority: -15083
     }
     symbol {
-      name: "hospital-l"
+      name: "hospital-m"
       apply_for_type: 1
       priority: 16917
+      min_distance: 4
     }
     caption {
       primary {
@@ -4496,9 +4513,10 @@ cont {
       priority: -15083
     }
     symbol {
-      name: "hospital-l"
+      name: "hospital-m"
       apply_for_type: 1
       priority: 16917
+      min_distance: 4
     }
     caption {
       primary {
@@ -4515,7 +4533,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hunting-tower-l"
+      name: "hunting-tower-m"
       priority: 16440
     }
     caption {
@@ -4530,7 +4548,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hunting-tower-l"
+      name: "hunting-tower-m"
       priority: 16440
     }
     caption {
@@ -4555,24 +4573,13 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "ice_cream-l"
+      name: "ice_cream-m"
       priority: 16000
       min_distance: 24
     }
   }
   element {
-    scale: 18
-    symbol {
-      name: "ice_cream-l"
-      priority: 16000
-    }
-  }
-  element {
     scale: 19
-    symbol {
-      name: "ice_cream-l"
-      priority: 16000
-    }
     caption {
       primary {
         height: 10
@@ -4602,7 +4609,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "kindergarten-l"
+      name: "kindergarten-m"
       priority: 16447
     }
     caption {
@@ -4617,7 +4624,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "kindergarten-l"
+      name: "kindergarten-m"
       priority: 16447
     }
     caption {
@@ -4632,7 +4639,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "kindergarten-l"
+      name: "kindergarten-m"
       priority: 16447
     }
     caption {
@@ -4650,7 +4657,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "library-l"
+      name: "library-m"
       apply_for_type: 1
       priority: 16470
     }
@@ -4666,7 +4673,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "library-l"
+      name: "library-m"
       apply_for_type: 1
       priority: 16470
     }
@@ -4701,7 +4708,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "marketplace-l"
+      name: "marketplace-m"
       priority: 16447
       min_distance: 8
     }
@@ -4717,8 +4724,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "marketplace-l"
+      name: "marketplace-m"
       priority: 16447
+      min_distance: 8
     }
     caption {
       primary {
@@ -4732,8 +4740,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "marketplace-l"
+      name: "marketplace-m"
       priority: 16447
+      min_distance: 8
     }
     caption {
       primary {
@@ -4750,7 +4759,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "motorcycle-parking-l"
+      name: "motorcycle-parking-m"
       priority: 16000
       min_distance: 20
     }
@@ -4766,7 +4775,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "motorcycle-parking-l"
+      name: "motorcycle-parking-m"
       priority: 16000
       min_distance: 20
     }
@@ -4782,7 +4791,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "motorcycle-parking-l"
+      name: "motorcycle-parking-m"
       priority: 16000
       min_distance: 20
     }
@@ -4801,7 +4810,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "bar-l"
+      name: "bar-m"
       priority: 16470
     }
     caption {
@@ -4816,7 +4825,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "bar-l"
+      name: "bar-m"
       priority: 16470
     }
     caption {
@@ -4831,7 +4840,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bar-l"
+      name: "bar-m"
       priority: 16470
     }
     caption {
@@ -4846,7 +4855,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "bar-l"
+      name: "bar-m"
       priority: 16470
     }
     caption {
@@ -4864,7 +4873,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "home-l"
+      name: "home-m"
       priority: 16000
     }
     caption {
@@ -4879,7 +4888,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "home-l"
+      name: "home-m"
       priority: 16000
     }
     caption {
@@ -4894,7 +4903,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "home-l"
+      name: "home-m"
       priority: 16000
     }
     caption {
@@ -5693,7 +5702,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16000
       min_distance: 20
     }
@@ -5709,7 +5718,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16000
       min_distance: 20
     }
@@ -5725,7 +5734,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16000
       min_distance: 20
     }
@@ -5752,7 +5761,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "pharmacy-l"
+      name: "pharmacy-m"
       priority: 16917
       min_distance: 20
     }
@@ -5768,8 +5777,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "pharmacy-l"
+      name: "pharmacy-m"
       priority: 16917
+      min_distance: 20
     }
     caption {
       primary {
@@ -5783,8 +5793,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "pharmacy-l"
+      name: "pharmacy-m"
       priority: 16917
+      min_distance: 20
     }
     caption {
       primary {
@@ -5857,8 +5868,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "place-of-worship-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -5876,8 +5888,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "place-of-worship-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -5895,8 +5908,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "place-of-worship-l"
+      name: "place-of-worship-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -5969,8 +5983,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "buddhist-l"
+      name: "buddhist-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -5988,8 +6003,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "buddhist-l"
+      name: "buddhist-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6007,8 +6023,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "buddhist-l"
+      name: "buddhist-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6081,8 +6098,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "christian-l"
+      name: "christian-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6100,8 +6118,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "christian-l"
+      name: "christian-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6119,8 +6138,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "christian-l"
+      name: "christian-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6193,8 +6213,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "hindu-l"
+      name: "hindu-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6212,8 +6233,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "hindu-l"
+      name: "hindu-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6231,8 +6253,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "hindu-l"
+      name: "hindu-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6305,8 +6328,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "jewish-l"
+      name: "jewish-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6324,8 +6348,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "jewish-l"
+      name: "jewish-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6343,8 +6368,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "jewish-l"
+      name: "jewish-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6417,8 +6443,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "muslim-l"
+      name: "muslim-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6436,8 +6463,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "muslim-l"
+      name: "muslim-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6455,8 +6483,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "muslim-l"
+      name: "muslim-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6529,8 +6558,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "shinto-l"
+      name: "shinto-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6548,8 +6578,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "shinto-l"
+      name: "shinto-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6567,8 +6598,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "shinto-l"
+      name: "shinto-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6641,8 +6673,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "taoist-l"
+      name: "taoist-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6660,8 +6693,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "taoist-l"
+      name: "taoist-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6679,8 +6713,9 @@ cont {
       priority: -15135
     }
     symbol {
-      name: "taoist-l"
+      name: "taoist-m"
       priority: 16865
+      min_distance: 10
     }
     caption {
       primary {
@@ -6697,7 +6732,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "police-l"
+      name: "police-m"
       priority: 16485
     }
     caption {
@@ -6712,7 +6747,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "police-l"
+      name: "police-m"
       priority: 16485
     }
     caption {
@@ -6727,7 +6762,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "police-l"
+      name: "police-m"
       priority: 16485
     }
     caption {
@@ -6745,7 +6780,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "postbox-l"
+      name: "postbox-m"
       priority: 16440
     }
     caption {
@@ -6760,7 +6795,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "postbox-l"
+      name: "postbox-m"
       priority: 16440
     }
     caption {
@@ -6778,7 +6813,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "mail-l"
+      name: "mail-m"
       apply_for_type: 1
       priority: 16447
     }
@@ -6794,7 +6829,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "mail-m"
+      name: "postbox-m"
       apply_for_type: 1
       priority: 16447
     }
@@ -6810,7 +6845,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "mail-m"
+      name: "postbox-m"
       apply_for_type: 1
       priority: 16447
     }
@@ -6829,7 +6864,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "prison-l"
+      name: "prison-m"
       priority: 16485
     }
     caption {
@@ -6844,7 +6879,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "prison-l"
+      name: "prison-m"
       priority: 16485
     }
     caption {
@@ -6859,7 +6894,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "prison-l"
+      name: "prison-m"
       priority: 16485
     }
     caption {
@@ -6909,7 +6944,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "beer-l"
+      name: "beer-m"
       priority: 16500
       min_distance: 12
     }
@@ -6925,8 +6960,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "beer-l"
+      name: "beer-m"
       priority: 16500
+      min_distance: 12
     }
     caption {
       primary {
@@ -6940,8 +6976,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "beer-l"
+      name: "beer-m"
       priority: 16500
+      min_distance: 12
     }
     caption {
       primary {
@@ -6972,7 +7009,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "recycling-l"
+      name: "recycling-m"
       priority: 16440
       min_distance: 30
     }
@@ -6980,7 +7017,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "recycling-l"
+      name: "recycling-m"
       priority: 16440
       min_distance: 30
     }
@@ -6988,7 +7025,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "recycling-l"
+      name: "recycling-m"
       priority: 16440
       min_distance: 30
     }
@@ -7039,7 +7076,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "restaurant-l"
+      name: "restaurant-m"
       priority: 16522
       min_distance: 12
     }
@@ -7055,8 +7092,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "restaurant-l"
+      name: "restaurant-m"
       priority: 16522
+      min_distance: 12
     }
     caption {
       primary {
@@ -7070,8 +7108,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "restaurant-l"
+      name: "restaurant-m"
       priority: 16522
+      min_distance: 12
     }
     caption {
       primary {
@@ -7088,7 +7127,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "school-l"
+      name: "school-m"
       priority: 16470
     }
     caption {
@@ -7103,7 +7142,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "school-l"
+      name: "school-m"
       priority: 16470
     }
     caption {
@@ -7118,7 +7157,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "school-l"
+      name: "school-m"
       priority: 16470
     }
     caption {
@@ -7152,7 +7191,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "picnic-l"
+      name: "picnic-m"
       priority: 16470
       min_distance: 10
     }
@@ -7168,7 +7207,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "picnic-l"
+      name: "picnic-m"
       priority: 16470
       min_distance: 10
     }
@@ -7184,7 +7223,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "picnic-l"
+      name: "picnic-m"
       priority: 16470
       min_distance: 10
     }
@@ -7203,7 +7242,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shower-l"
+      name: "shower-m"
       priority: 16440
       min_distance: 20
     }
@@ -7219,7 +7258,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shower-l"
+      name: "shower-m"
       priority: 16440
       min_distance: 20
     }
@@ -7235,7 +7274,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shower-l"
+      name: "shower-m"
       priority: 16440
       min_distance: 20
     }
@@ -7284,7 +7323,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "taxi-l"
+      name: "taxi-m"
       priority: 16447
       min_distance: 20
     }
@@ -7300,8 +7339,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "taxi-l"
+      name: "taxi-m"
       priority: 16447
+      min_distance: 20
     }
     caption {
       primary {
@@ -7315,8 +7355,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "taxi-l"
+      name: "taxi-m"
       priority: 16447
+      min_distance: 20
     }
     caption {
       primary {
@@ -7333,7 +7374,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "phone-l"
+      name: "phone-m"
       apply_for_type: 1
       priority: 16440
       min_distance: 30
@@ -7342,7 +7383,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "phone-l"
+      name: "phone-m"
       apply_for_type: 1
       priority: 16440
       min_distance: 30
@@ -7351,7 +7392,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "phone-l"
+      name: "phone-m"
       apply_for_type: 1
       priority: 16440
       min_distance: 30
@@ -7414,8 +7455,9 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "theatre-l"
+      name: "theatre-m"
       priority: 16529
+      min_distance: 10
     }
     caption {
       primary {
@@ -7429,12 +7471,13 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "theatre-l"
+      name: "theatre-m"
       priority: 16529
+      min_distance: 10
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
       }
@@ -7444,8 +7487,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "theatre-l"
+      name: "theatre-m"
       priority: 16529
+      min_distance: 10
     }
     caption {
       primary {
@@ -7462,7 +7506,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "toilets-l"
+      name: "toilets-m"
       priority: 16470
     }
     caption {
@@ -7477,7 +7521,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "toilets-l"
+      name: "toilets-m"
       priority: 16470
     }
     caption {
@@ -7608,7 +7652,7 @@ cont {
       priority: -15993
     }
     symbol {
-      name: "college-l"
+      name: "college-m"
       priority: 16007
       min_distance: 10
     }
@@ -7645,7 +7689,7 @@ cont {
       priority: -15993
     }
     symbol {
-      name: "college-l"
+      name: "college-m"
       priority: 16007
     }
     caption {
@@ -7681,7 +7725,7 @@ cont {
       priority: -15993
     }
     symbol {
-      name: "college-l"
+      name: "college-m"
       priority: 16007
     }
     caption {
@@ -7716,7 +7760,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16440
       min_distance: 20
     }
@@ -7732,7 +7776,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16440
       min_distance: 20
     }
@@ -7748,7 +7792,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16440
       min_distance: 20
     }
@@ -7767,7 +7811,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16440
       min_distance: 20
     }
@@ -7783,7 +7827,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16440
       min_distance: 20
     }
@@ -7799,7 +7843,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16440
       min_distance: 20
     }
@@ -7818,7 +7862,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "parking-meter-l"
+      name: "parking-meter-m"
       priority: 16440
       min_distance: 20
     }
@@ -7834,7 +7878,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "parking-meter-l"
+      name: "parking-meter-m"
       priority: 16440
       min_distance: 20
     }
@@ -7850,7 +7894,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "parking-meter-l"
+      name: "parking-meter-m"
       priority: 16440
       min_distance: 20
     }
@@ -7869,7 +7913,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16440
       min_distance: 20
     }
@@ -7885,7 +7929,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16440
       min_distance: 20
     }
@@ -7901,7 +7945,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "vending-l"
+      name: "vending-m"
       priority: 16440
       min_distance: 20
     }
@@ -7935,7 +7979,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "veterinary-l"
+      name: "veterinary-m"
       priority: 16447
     }
     caption {
@@ -7950,7 +7994,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "veterinary-l"
+      name: "veterinary-m"
       priority: 16447
     }
     caption {
@@ -7965,7 +8009,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "veterinary-l"
+      name: "veterinary-m"
       priority: 16447
     }
     caption {
@@ -8010,7 +8054,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "recycling-l"
+      name: "recycling-m"
       priority: 16432
     }
     caption {
@@ -8025,7 +8069,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "recycling-l"
+      name: "recycling-m"
       priority: 16432
     }
     caption {
@@ -8059,22 +8103,25 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "drinking-water-l"
+      name: "drinking-water-m"
       priority: 16432
+      min_distance: 36
     }
   }
   element {
     scale: 18
     symbol {
-      name: "drinking-water-l"
+      name: "drinking-water-m"
       priority: 16432
+      min_distance: 36
     }
   }
   element {
     scale: 19
     symbol {
-      name: "drinking-water-l"
+      name: "drinking-water-m"
       priority: 16432
+      min_distance: 36
     }
     caption {
       primary {
@@ -8454,7 +8501,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "bcontrol-l"
+      name: "bcontrol-m"
       apply_for_type: 1
       priority: 16492
     }
@@ -8470,7 +8517,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bcontrol-l"
+      name: "bcontrol-m"
       apply_for_type: 1
       priority: 16492
     }
@@ -8486,7 +8533,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "bcontrol-l"
+      name: "bcontrol-m"
       apply_for_type: 1
       priority: 16492
     }
@@ -8800,7 +8847,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "lift_gate-l"
+      name: "lift_gate-m"
       priority: 16447
       min_distance: 20
     }
@@ -8816,7 +8863,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "lift_gate-l"
+      name: "lift_gate-m"
       priority: 16447
       min_distance: 20
     }
@@ -8832,7 +8879,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "lift_gate-l"
+      name: "lift_gate-m"
       priority: 16447
       min_distance: 20
     }
@@ -9830,7 +9877,7 @@ cont {
       priority: -15508
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16492
     }
     caption {
@@ -9850,7 +9897,7 @@ cont {
       priority: -15508
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16492
     }
     caption {
@@ -9870,7 +9917,7 @@ cont {
       priority: -15508
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16492
     }
     caption {
@@ -10375,7 +10422,7 @@ cont {
       priority: 1195
     }
     symbol {
-      name: "train-l"
+      name: "train-m"
       priority: 16194
     }
     caption {
@@ -10404,7 +10451,7 @@ cont {
       priority: 1195
     }
     symbol {
-      name: "train-l"
+      name: "train-m"
       priority: 16194
     }
     caption {
@@ -10433,7 +10480,7 @@ cont {
       priority: 1195
     }
     symbol {
-      name: "train-l"
+      name: "train-m"
       priority: 16194
     }
     caption {
@@ -10504,7 +10551,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10519,7 +10566,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10537,7 +10584,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10552,7 +10599,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10570,7 +10617,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10585,7 +10632,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10603,7 +10650,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10618,7 +10665,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10636,7 +10683,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10651,7 +10698,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10669,7 +10716,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10684,7 +10731,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10702,7 +10749,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10717,7 +10764,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10735,7 +10782,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10750,7 +10797,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10768,7 +10815,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10783,7 +10830,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10801,7 +10848,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10816,7 +10863,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10834,7 +10881,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10849,7 +10896,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
     }
     caption {
@@ -10867,7 +10914,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "defibrillator-l"
+      name: "defibrillator-m"
       priority: 16000
     }
     caption {
@@ -10882,7 +10929,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "defibrillator-l"
+      name: "defibrillator-m"
       priority: 16000
     }
     caption {
@@ -10900,7 +10947,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "firehydrant-l"
+      name: "firehydrant-m"
       priority: 16000
     }
     caption {
@@ -10915,7 +10962,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "firehydrant-l"
+      name: "firehydrant-m"
       priority: 16000
     }
     caption {
@@ -10933,7 +10980,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "phone-l"
+      name: "phone-m"
       apply_for_type: 1
       priority: 16440
       min_distance: 30
@@ -10942,7 +10989,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "phone-l"
+      name: "phone-m"
       apply_for_type: 1
       priority: 16440
       min_distance: 30
@@ -10951,7 +10998,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "phone-l"
+      name: "phone-m"
       apply_for_type: 1
       priority: 16440
       min_distance: 30
@@ -11857,7 +11904,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "bus-l"
+      name: "bus-m"
       priority: 16940
     }
     caption {
@@ -11880,7 +11927,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bus-l"
+      name: "bus-m"
       priority: 16940
     }
     caption {
@@ -11903,7 +11950,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "bus-l"
+      name: "bus-m"
       priority: 16940
     }
     caption {
@@ -21062,7 +21109,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "picnic-l"
+      name: "picnic-m"
       priority: 16470
       min_distance: 10
     }
@@ -21078,7 +21125,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "picnic-l"
+      name: "picnic-m"
       priority: 16470
       min_distance: 10
     }
@@ -21094,7 +21141,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "picnic-l"
+      name: "picnic-m"
       priority: 16470
       min_distance: 10
     }
@@ -23736,7 +23783,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "car-repair-l"
+      name: "car-repair-m"
       priority: 16485
     }
     path_text {
@@ -23745,37 +23792,37 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 16485
+      priority: 15500
     }
   }
   element {
     scale: 18
     symbol {
-      name: "car-repair-l"
+      name: "car-repair-m"
       priority: 16485
     }
     path_text {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
       }
-      priority: 16485
+      priority: 15500
     }
   }
   element {
     scale: 19
     symbol {
-      name: "car-repair-l"
+      name: "car-repair-m"
       priority: 16485
     }
     path_text {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
       }
-      priority: 16485
+      priority: 15500
     }
   }
 }
@@ -29536,7 +29583,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "remains-l"
+      name: "remains-m"
       priority: 16485
     }
     caption {
@@ -29551,7 +29598,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "remains-l"
+      name: "remains-m"
       priority: 16485
     }
     caption {
@@ -29566,7 +29613,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "remains-l"
+      name: "remains-m"
       priority: 16485
     }
     caption {
@@ -29600,7 +29647,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "monument-l"
+      name: "monument-m"
       priority: 16440
       min_distance: 8
     }
@@ -29616,7 +29663,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "monument-l"
+      name: "monument-m"
       priority: 16440
       min_distance: 8
     }
@@ -29632,7 +29679,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "monument-l"
+      name: "monument-m"
       priority: 16440
       min_distance: 8
     }
@@ -29730,7 +29777,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "remains-l"
+      name: "remains-m"
       priority: 16910
     }
     caption {
@@ -29745,7 +29792,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "remains-l"
+      name: "remains-m"
       priority: 16910
     }
     caption {
@@ -29760,7 +29807,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "remains-l"
+      name: "remains-m"
       priority: 16910
     }
     caption {
@@ -29908,7 +29955,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "remains-l"
+      name: "remains-m"
       priority: 16910
     }
     caption {
@@ -29923,7 +29970,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "remains-l"
+      name: "remains-m"
       priority: 16910
     }
     caption {
@@ -29938,7 +29985,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "remains-l"
+      name: "remains-m"
       priority: 16910
     }
     caption {
@@ -29988,8 +30035,9 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "monument-l"
+      name: "monument-m"
       priority: 16537
+      min_distance: 12
     }
     caption {
       primary {
@@ -30003,8 +30051,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "monument-l"
+      name: "monument-m"
       priority: 16537
+      min_distance: 12
     }
     caption {
       primary {
@@ -30018,8 +30067,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "monument-l"
+      name: "monument-m"
       priority: 16537
+      min_distance: 12
     }
     caption {
       primary {
@@ -30100,8 +30150,9 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "monument-l"
+      name: "monument-m"
       priority: 16537
+      min_distance: 12
     }
     caption {
       primary {
@@ -30115,8 +30166,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "monument-l"
+      name: "monument-m"
       priority: 16537
+      min_distance: 12
     }
     caption {
       primary {
@@ -30130,8 +30182,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "monument-l"
+      name: "monument-m"
       priority: 16537
+      min_distance: 12
     }
     caption {
       primary {
@@ -30164,8 +30217,9 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "museum-l"
+      name: "museum-m"
       priority: 16000
+      min_distance: 12
     }
     caption {
       primary {
@@ -30179,8 +30233,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "museum-l"
+      name: "museum-m"
       priority: 16000
+      min_distance: 12
     }
     caption {
       primary {
@@ -30194,8 +30249,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "museum-l"
+      name: "museum-m"
       priority: 16000
+      min_distance: 12
     }
     caption {
       primary {
@@ -30212,7 +30268,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "remains-l"
+      name: "remains-m"
       priority: 16000
     }
     caption {
@@ -30227,7 +30283,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "remains-l"
+      name: "remains-m"
       priority: 16000
     }
     caption {
@@ -30242,7 +30298,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "remains-l"
+      name: "remains-m"
       priority: 16000
     }
     caption {
@@ -30276,7 +30332,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "historic-ship-l"
+      name: "historic-ship-m"
       priority: 16447
       min_distance: 8
     }
@@ -30292,7 +30348,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "historic-ship-l"
+      name: "historic-ship-m"
       priority: 16447
       min_distance: 8
     }
@@ -30308,7 +30364,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "historic-ship-l"
+      name: "historic-ship-m"
       priority: 16447
       min_distance: 8
     }
@@ -30343,7 +30399,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "tomb-l"
+      name: "tomb-m"
       priority: 16440
       min_distance: 8
     }
@@ -30359,7 +30415,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "tomb-l"
+      name: "tomb-m"
       priority: 16440
       min_distance: 8
     }
@@ -30375,7 +30431,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "tomb-l"
+      name: "tomb-m"
       priority: 16440
       min_distance: 8
     }
@@ -30410,7 +30466,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "monument-l"
+      name: "monument-m"
       priority: 16440
       min_distance: 8
     }
@@ -30426,7 +30482,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "monument-l"
+      name: "monument-m"
       priority: 16440
       min_distance: 8
     }
@@ -30442,7 +30498,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "monument-l"
+      name: "monument-m"
       priority: 16440
       min_distance: 8
     }
@@ -30469,7 +30525,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "wayside_shrine-l"
+      name: "wayside_shrine-m"
       priority: 16440
       min_distance: 8
     }
@@ -30485,7 +30541,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "wayside_shrine-l"
+      name: "wayside_shrine-m"
       priority: 16440
       min_distance: 8
     }
@@ -30501,7 +30557,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "wayside_shrine-l"
+      name: "wayside_shrine-m"
       priority: 16440
       min_distance: 8
     }
@@ -30780,7 +30836,7 @@ cont {
       priority: -15702
     }
     symbol {
-      name: "cemetery-l"
+      name: "cemetery-m"
       priority: 16298
     }
     caption {
@@ -30799,7 +30855,7 @@ cont {
       priority: -15702
     }
     symbol {
-      name: "cemetery-l"
+      name: "cemetery-m"
       priority: 16298
     }
     caption {
@@ -30818,7 +30874,7 @@ cont {
       priority: -15702
     }
     symbol {
-      name: "cemetery-l"
+      name: "cemetery-m"
       priority: 16298
     }
     caption {
@@ -30885,7 +30941,7 @@ cont {
       priority: -15702
     }
     symbol {
-      name: "cemetery-l"
+      name: "cemetery-m"
       priority: 16298
     }
     caption {
@@ -30904,7 +30960,7 @@ cont {
       priority: -15702
     }
     symbol {
-      name: "cemetery-l"
+      name: "cemetery-m"
       priority: 16298
     }
     caption {
@@ -30923,7 +30979,7 @@ cont {
       priority: -15702
     }
     symbol {
-      name: "cemetery-l"
+      name: "cemetery-m"
       priority: 16298
     }
     caption {
@@ -31354,7 +31410,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
       min_distance: 10
     }
@@ -31383,7 +31439,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
     }
     caption {
@@ -31404,7 +31460,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
       min_distance: 10
     }
@@ -31433,7 +31489,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
     }
     caption {
@@ -31454,7 +31510,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
       min_distance: 10
     }
@@ -31483,7 +31539,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
     }
     caption {
@@ -31504,7 +31560,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
       min_distance: 10
     }
@@ -31533,7 +31589,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
     }
     caption {
@@ -31707,7 +31763,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
       min_distance: 10
     }
@@ -31736,7 +31792,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
     }
     caption {
@@ -31757,7 +31813,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
       min_distance: 10
     }
@@ -31786,7 +31842,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
     }
     caption {
@@ -31807,7 +31863,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
       min_distance: 10
     }
@@ -31836,7 +31892,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
     }
     caption {
@@ -31857,7 +31913,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
       min_distance: 10
     }
@@ -31886,7 +31942,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
     }
     caption {
@@ -32060,7 +32116,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
       min_distance: 10
     }
@@ -32089,7 +32145,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
     }
     caption {
@@ -32110,7 +32166,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
       min_distance: 10
     }
@@ -32139,7 +32195,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
     }
     caption {
@@ -32160,7 +32216,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
       min_distance: 10
     }
@@ -32189,7 +32245,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
     }
     caption {
@@ -32210,7 +32266,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
       min_distance: 10
     }
@@ -32239,7 +32295,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
     }
     caption {
@@ -32413,7 +32469,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
       min_distance: 10
     }
@@ -32442,7 +32498,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
     }
     caption {
@@ -32463,7 +32519,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
       min_distance: 10
     }
@@ -32492,7 +32548,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
     }
     caption {
@@ -32513,7 +32569,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
       min_distance: 10
     }
@@ -32542,7 +32598,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
     }
     caption {
@@ -32563,7 +32619,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
       min_distance: 10
     }
@@ -32592,7 +32648,7 @@ cont {
       priority: -15941
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16059
     }
     caption {
@@ -32847,7 +32903,7 @@ cont {
       priority: -15530
     }
     symbol {
-      name: "recycling-l"
+      name: "recycling-m"
       priority: 16470
     }
     caption {
@@ -32866,7 +32922,7 @@ cont {
       priority: -15530
     }
     symbol {
-      name: "recycling-l"
+      name: "recycling-m"
       priority: 16470
     }
     caption {
@@ -32885,7 +32941,7 @@ cont {
       priority: -15530
     }
     symbol {
-      name: "recycling-l"
+      name: "recycling-m"
       priority: 16470
     }
     caption {
@@ -32992,7 +33048,7 @@ cont {
       priority: -15650
     }
     symbol {
-      name: "military-l"
+      name: "military-m"
       priority: 16350
     }
     caption {
@@ -33011,7 +33067,7 @@ cont {
       priority: -15650
     }
     symbol {
-      name: "military-l"
+      name: "military-m"
       priority: 16350
     }
     caption {
@@ -33030,7 +33086,7 @@ cont {
       priority: -15650
     }
     symbol {
-      name: "military-l"
+      name: "military-m"
       priority: 16350
     }
     caption {
@@ -33938,7 +33994,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "dog_park-l"
+      name: "dog_park-m"
       priority: 16447
       min_distance: 20
     }
@@ -33954,7 +34010,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "dog_park-l"
+      name: "dog_park-m"
       priority: 16447
       min_distance: 20
     }
@@ -33970,7 +34026,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "dog_park-l"
+      name: "dog_park-m"
       priority: 16447
       min_distance: 20
     }
@@ -34005,7 +34061,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "dog_park-l"
+      name: "dog_park-m"
       priority: 16470
       min_distance: 20
     }
@@ -34021,7 +34077,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "dog_park-l"
+      name: "dog_park-m"
       priority: 16470
       min_distance: 20
     }
@@ -34037,7 +34093,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "dog_park-l"
+      name: "dog_park-m"
       priority: 16470
       min_distance: 20
     }
@@ -34056,7 +34112,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "gym-l"
+      name: "gym-m"
       apply_for_type: 1
       priority: 16037
       min_distance: 10
@@ -34073,7 +34129,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "gym-l"
+      name: "gym-m"
       apply_for_type: 1
       priority: 16037
       min_distance: 10
@@ -34090,7 +34146,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "gym-l"
+      name: "gym-m"
       apply_for_type: 1
       priority: 16037
       min_distance: 10
@@ -34110,7 +34166,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "gym-l"
+      name: "gym-m"
       apply_for_type: 1
       priority: 16037
       min_distance: 10
@@ -34127,7 +34183,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "gym-l"
+      name: "gym-m"
       apply_for_type: 1
       priority: 16037
       min_distance: 10
@@ -34144,7 +34200,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "gym-l"
+      name: "gym-m"
       apply_for_type: 1
       priority: 16037
       min_distance: 10
@@ -34233,7 +34289,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "garden-l"
+      name: "garden-m"
       priority: 16037
       min_distance: 10
     }
@@ -34278,7 +34334,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "garden-l"
+      name: "garden-m"
       priority: 16037
       min_distance: 10
     }
@@ -34307,7 +34363,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "garden-l"
+      name: "garden-m"
       priority: 16037
       min_distance: 10
     }
@@ -34374,7 +34430,7 @@ cont {
       priority: -15889
     }
     symbol {
-      name: "golf-l"
+      name: "golf-m"
       priority: 16111
       min_distance: 10
     }
@@ -34394,7 +34450,7 @@ cont {
       priority: -15889
     }
     symbol {
-      name: "golf-l"
+      name: "golf-m"
       priority: 16111
       min_distance: 10
     }
@@ -34414,7 +34470,7 @@ cont {
       priority: -15889
     }
     symbol {
-      name: "golf-l"
+      name: "golf-m"
       priority: 16111
       min_distance: 10
     }
@@ -34433,7 +34489,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16037
       min_distance: 10
@@ -34450,7 +34506,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16037
       min_distance: 10
@@ -34467,7 +34523,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16037
       min_distance: 10
@@ -34673,7 +34729,7 @@ cont {
       priority: -15508
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16492
     }
     caption {
@@ -34693,7 +34749,7 @@ cont {
       priority: -15508
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16492
     }
     caption {
@@ -34713,7 +34769,7 @@ cont {
       priority: -15508
     }
     symbol {
-      name: "nparkf-l"
+      name: "nparkf-m"
       priority: 16492
     }
     caption {
@@ -34875,7 +34931,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
       min_distance: 10
     }
@@ -34920,7 +34976,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
       min_distance: 10
     }
@@ -34949,7 +35005,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
     }
     caption {
@@ -34969,7 +35025,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
       min_distance: 10
     }
@@ -34998,7 +35054,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
     }
     caption {
@@ -35160,7 +35216,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
       min_distance: 10
     }
@@ -35205,7 +35261,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
       min_distance: 10
     }
@@ -35234,7 +35290,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
     }
     caption {
@@ -35254,7 +35310,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
       min_distance: 10
     }
@@ -35283,7 +35339,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
     }
     caption {
@@ -35445,7 +35501,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
       min_distance: 10
     }
@@ -35490,7 +35546,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
       min_distance: 10
     }
@@ -35519,7 +35575,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
     }
     caption {
@@ -35539,7 +35595,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
       min_distance: 10
     }
@@ -35568,7 +35624,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
     }
     caption {
@@ -35730,7 +35786,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
       min_distance: 10
     }
@@ -35775,7 +35831,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
       min_distance: 10
     }
@@ -35804,7 +35860,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
     }
     caption {
@@ -35824,7 +35880,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
       min_distance: 10
     }
@@ -35853,7 +35909,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "park-l"
+      name: "park-m"
       priority: 16037
     }
     caption {
@@ -35890,7 +35946,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16037
       min_distance: 10
@@ -35911,7 +35967,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16037
       min_distance: 10
@@ -35932,7 +35988,7 @@ cont {
       priority: -15963
     }
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16037
       min_distance: 10
@@ -35970,7 +36026,7 @@ cont {
       priority: -15530
     }
     symbol {
-      name: "tennis-l"
+      name: "tennis-m"
       apply_for_type: 1
       priority: 16470
       min_distance: 10
@@ -35991,7 +36047,7 @@ cont {
       priority: -15530
     }
     symbol {
-      name: "tennis-l"
+      name: "tennis-m"
       apply_for_type: 1
       priority: 16470
       min_distance: 10
@@ -36012,7 +36068,7 @@ cont {
       priority: -15530
     }
     symbol {
-      name: "tennis-l"
+      name: "tennis-m"
       apply_for_type: 1
       priority: 16470
       min_distance: 10
@@ -36036,7 +36092,7 @@ cont {
       priority: -15553
     }
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16447
       min_distance: 10
@@ -36057,7 +36113,7 @@ cont {
       priority: -15553
     }
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16447
       min_distance: 10
@@ -36078,7 +36134,7 @@ cont {
       priority: -15553
     }
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16447
       min_distance: 10
@@ -36102,7 +36158,7 @@ cont {
       priority: -15530
     }
     symbol {
-      name: "tennis-l"
+      name: "tennis-m"
       apply_for_type: 1
       priority: 16470
       min_distance: 10
@@ -36123,7 +36179,7 @@ cont {
       priority: -15530
     }
     symbol {
-      name: "tennis-l"
+      name: "tennis-m"
       apply_for_type: 1
       priority: 16470
       min_distance: 10
@@ -36144,7 +36200,7 @@ cont {
       priority: -15530
     }
     symbol {
-      name: "tennis-l"
+      name: "tennis-m"
       apply_for_type: 1
       priority: 16470
       min_distance: 10
@@ -36164,7 +36220,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "tennis-l"
+      name: "tennis-m"
       apply_for_type: 1
       priority: 16470
       min_distance: 10
@@ -36181,7 +36237,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "tennis-l"
+      name: "tennis-m"
       apply_for_type: 1
       priority: 16470
       min_distance: 10
@@ -36198,7 +36254,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "tennis-l"
+      name: "tennis-m"
       apply_for_type: 1
       priority: 16470
       min_distance: 10
@@ -36254,7 +36310,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "sauna-l"
+      name: "sauna-m"
       apply_for_type: 1
       priority: 16037
       min_distance: 10
@@ -36271,7 +36327,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "sauna-l"
+      name: "sauna-m"
       apply_for_type: 1
       priority: 16037
       min_distance: 10
@@ -36288,7 +36344,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "sauna-l"
+      name: "sauna-m"
       apply_for_type: 1
       priority: 16037
       min_distance: 10
@@ -36344,7 +36400,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16037
       min_distance: 10
@@ -36361,7 +36417,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16037
       min_distance: 10
@@ -36378,7 +36434,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16037
       min_distance: 10
@@ -36398,7 +36454,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "climbing-l"
+      name: "climbing-m"
       apply_for_type: 1
       priority: 16447
       min_distance: 10
@@ -36415,7 +36471,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "climbing-l"
+      name: "climbing-m"
       apply_for_type: 1
       priority: 16447
       min_distance: 10
@@ -36432,7 +36488,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "climbing-l"
+      name: "climbing-m"
       apply_for_type: 1
       priority: 16447
       min_distance: 10
@@ -36452,7 +36508,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "archery-l"
+      name: "archery-m"
       priority: 16447
       min_distance: 10
     }
@@ -36468,7 +36524,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "archery-l"
+      name: "archery-m"
       priority: 16455
       min_distance: 10
     }
@@ -36484,7 +36540,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "archery-l"
+      name: "archery-m"
       priority: 16455
       min_distance: 10
     }
@@ -36503,7 +36559,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "swimming-l"
+      name: "swimming-m"
       apply_for_type: 1
       priority: 16447
       min_distance: 10
@@ -36520,7 +36576,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "swimming-l"
+      name: "swimming-m"
       apply_for_type: 1
       priority: 16462
       min_distance: 10
@@ -36537,7 +36593,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "swimming-l"
+      name: "swimming-m"
       apply_for_type: 1
       priority: 16462
       min_distance: 10
@@ -36557,7 +36613,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16447
       min_distance: 10
@@ -36574,7 +36630,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16447
       min_distance: 10
@@ -36591,7 +36647,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16447
       min_distance: 10
@@ -36691,7 +36747,7 @@ cont {
       priority: -15112
     }
     symbol {
-      name: "stadium-l"
+      name: "stadium-m"
       apply_for_type: 1
       priority: 16888
       min_distance: 8
@@ -36712,7 +36768,7 @@ cont {
       priority: -15112
     }
     symbol {
-      name: "stadium-l"
+      name: "stadium-m"
       apply_for_type: 1
       priority: 16888
       min_distance: 8
@@ -36733,7 +36789,7 @@ cont {
       priority: -15112
     }
     symbol {
-      name: "stadium-l"
+      name: "stadium-m"
       apply_for_type: 1
       priority: 16888
       min_distance: 8
@@ -36785,7 +36841,7 @@ cont {
       priority: -15515
     }
     symbol {
-      name: "swimming-l"
+      name: "swimming-m"
       priority: 16485
       min_distance: 10
     }
@@ -36805,7 +36861,7 @@ cont {
       priority: -15515
     }
     symbol {
-      name: "swimming-l"
+      name: "swimming-m"
       priority: 16485
       min_distance: 10
     }
@@ -36825,7 +36881,7 @@ cont {
       priority: -15515
     }
     symbol {
-      name: "swimming-l"
+      name: "swimming-m"
       priority: 16485
       min_distance: 10
     }
@@ -36948,7 +37004,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "swimming-l"
+      name: "swimming-m"
       priority: 16447
       min_distance: 20
     }
@@ -36964,13 +37020,13 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "swimming-l"
+      name: "swimming-m"
       priority: 16447
       min_distance: 20
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
       }
@@ -36980,13 +37036,13 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "swimming-l"
+      name: "swimming-m"
       priority: 16447
       min_distance: 20
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
       }
@@ -37111,7 +37167,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "chimney-l"
+      name: "chimney-m"
       priority: 16440
     }
     caption {
@@ -37126,7 +37182,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "chimney-l"
+      name: "chimney-m"
       priority: 16440
     }
     caption {
@@ -37243,7 +37299,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "lighthouse-l"
+      name: "lighthouse-m"
       priority: 16492
     }
     caption {
@@ -37258,7 +37314,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "lighthouse-l"
+      name: "lighthouse-m"
       priority: 16492
     }
     caption {
@@ -37273,7 +37329,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "lighthouse-l"
+      name: "lighthouse-m"
       priority: 16492
     }
     caption {
@@ -37416,6 +37472,30 @@ cont {
       min_distance: 36
     }
   }
+  element {
+    scale: 17
+    symbol {
+      name: "drinking-water-m"
+      priority: 16432
+      min_distance: 36
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "drinking-water-m"
+      priority: 16432
+      min_distance: 36
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "drinking-water-m"
+      priority: 16432
+      min_distance: 36
+    }
+  }
 }
 cont {
   name: "man_made-windmill"
@@ -37438,7 +37518,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "windmill-l"
+      name: "windmill-m"
       priority: 16447
       min_distance: 20
     }
@@ -37454,7 +37534,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "windmill-l"
+      name: "windmill-m"
       priority: 16447
       min_distance: 20
     }
@@ -37470,7 +37550,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "windmill-l"
+      name: "windmill-m"
       priority: 16447
       min_distance: 20
     }
@@ -37489,7 +37569,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "chimney-l"
+      name: "chimney-m"
       priority: 16000
     }
     caption {
@@ -37504,7 +37584,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "chimney-l"
+      name: "chimney-m"
       priority: 16000
     }
     caption {
@@ -37536,21 +37616,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "peakt-l"
+      name: "peakt-m"
       priority: 16000
     }
   }
   element {
     scale: 18
     symbol {
-      name: "peakt-l"
+      name: "peakt-m"
       priority: 16000
     }
   }
   element {
     scale: 19
     symbol {
-      name: "peakt-l"
+      name: "peakt-m"
       priority: 16000
     }
   }
@@ -37747,7 +37827,7 @@ cont {
       priority: -15553
     }
     symbol {
-      name: "beach-l"
+      name: "beach-m"
       priority: 16447
     }
     caption {
@@ -37766,7 +37846,7 @@ cont {
       priority: -15553
     }
     symbol {
-      name: "beach-l"
+      name: "beach-m"
       priority: 16447
     }
     caption {
@@ -37785,7 +37865,7 @@ cont {
       priority: -15553
     }
     symbol {
-      name: "beach-l"
+      name: "beach-m"
       priority: 16447
     }
     caption {
@@ -37957,7 +38037,6 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "cave-l"
       priority: 16440
     }
     caption {
@@ -37972,7 +38051,6 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "cave-l"
       priority: 16440
     }
     caption {
@@ -37987,7 +38065,6 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "cave-l"
       priority: 16440
     }
     caption {
@@ -38952,12 +39029,12 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "peakt-l"
+      name: "peakt-m"
       priority: 16440
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
       }
@@ -38967,12 +39044,12 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "peakt-l"
+      name: "peakt-m"
       priority: 16440
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
       }
@@ -38982,12 +39059,12 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "peakt-l"
+      name: "peakt-m"
       priority: 16440
     }
     caption {
       primary {
-        height: 11
+        height: 10
         color: 4473924
         offset_y: 1
       }
@@ -39156,21 +39233,21 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "peakt-l"
+      name: "peakt-m"
       priority: 16000
     }
   }
   element {
     scale: 18
     symbol {
-      name: "peakt-l"
+      name: "peakt-m"
       priority: 16000
     }
   }
   element {
     scale: 19
     symbol {
-      name: "peakt-l"
+      name: "peakt-m"
       priority: 16000
     }
   }
@@ -39429,7 +39506,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "drinking-water-l"
+      name: "drinking-water-m"
       priority: 16432
       min_distance: 24
     }
@@ -39445,7 +39522,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "drinking-water-l"
+      name: "drinking-water-m"
       priority: 16432
       min_distance: 24
     }
@@ -39461,7 +39538,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "drinking-water-l"
+      name: "drinking-water-m"
       priority: 16432
       min_distance: 24
     }
@@ -39585,7 +39662,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "volcano-l"
+      name: "volcano-m"
       priority: 16440
     }
     caption {
@@ -39600,7 +39677,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "volcano-l"
+      name: "volcano-m"
       priority: 16440
     }
     caption {
@@ -39615,7 +39692,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "volcano-l"
+      name: "volcano-m"
       priority: 16440
     }
     caption {
@@ -40551,7 +40628,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "office-l"
+      name: "office-m"
       priority: 16470
     }
     caption {
@@ -40566,7 +40643,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "office-l"
+      name: "office-m"
       priority: 16470
     }
     caption {
@@ -40584,7 +40661,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "office-l"
+      name: "office-m"
       priority: 16470
     }
     caption {
@@ -40599,7 +40676,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "office-l"
+      name: "office-m"
       priority: 16470
     }
     caption {
@@ -40617,7 +40694,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "office-l"
+      name: "office-m"
       priority: 16470
     }
     caption {
@@ -40632,7 +40709,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "office-l"
+      name: "office-m"
       priority: 16470
     }
     caption {
@@ -40650,7 +40727,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "office-l"
+      name: "office-m"
       priority: 16470
     }
     caption {
@@ -40665,7 +40742,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "office-l"
+      name: "office-m"
       priority: 16470
     }
     caption {
@@ -40683,7 +40760,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "office-l"
+      name: "office-m"
       priority: 16470
     }
     caption {
@@ -40698,7 +40775,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "office-l"
+      name: "office-m"
       priority: 16470
     }
     caption {
@@ -40716,7 +40793,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "lawyer-l"
+      name: "lawyer-m"
       priority: 16485
       min_distance: 10
     }
@@ -40732,7 +40809,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "lawyer-l"
+      name: "lawyer-m"
       priority: 16485
       min_distance: 10
     }
@@ -40748,7 +40825,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "lawyer-l"
+      name: "lawyer-m"
       priority: 16485
       min_distance: 10
     }
@@ -40767,7 +40844,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "office-l"
+      name: "office-m"
       priority: 16470
     }
     caption {
@@ -40782,7 +40859,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "office-l"
+      name: "office-m"
       priority: 16470
     }
     caption {
@@ -40800,7 +40877,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "office-l"
+      name: "office-m"
       priority: 16470
     }
     caption {
@@ -40815,7 +40892,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "office-l"
+      name: "office-m"
       priority: 16470
     }
     caption {
@@ -47428,7 +47505,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "power-l"
+      name: "power-m"
       priority: 16447
       min_distance: 20
     }
@@ -47444,7 +47521,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "power-l"
+      name: "power-m"
       priority: 16447
       min_distance: 20
     }
@@ -47460,7 +47537,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "power-l"
+      name: "power-m"
       priority: 16447
       min_distance: 20
     }
@@ -47479,7 +47556,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "power-l"
+      name: "power-m"
       priority: 16447
       min_distance: 20
     }
@@ -47495,7 +47572,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "power-l"
+      name: "power-m"
       priority: 16447
       min_distance: 20
     }
@@ -47511,7 +47588,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "power-l"
+      name: "power-m"
       priority: 16447
       min_distance: 20
     }
@@ -48388,7 +48465,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16537
     }
@@ -48412,7 +48489,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16537
     }
@@ -48436,7 +48513,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16537
     }
@@ -50087,7 +50164,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16537
     }
@@ -50095,7 +50172,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16537
     }
@@ -50103,7 +50180,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16537
     }
@@ -50146,7 +50223,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16537
     }
@@ -50154,7 +50231,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16537
     }
@@ -50162,7 +50239,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16537
     }
@@ -50205,7 +50282,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16537
     }
@@ -50213,7 +50290,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16537
     }
@@ -50221,7 +50298,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "train-l"
+      name: "train-m"
       apply_for_type: 1
       priority: 16537
     }
@@ -50314,7 +50391,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -50338,7 +50415,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -50362,7 +50439,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -50785,7 +50862,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -50809,7 +50886,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -50833,7 +50910,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -50942,7 +51019,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -50966,7 +51043,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -50990,7 +51067,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -51099,7 +51176,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -51123,7 +51200,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -51147,7 +51224,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -51256,7 +51333,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -51280,7 +51357,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -51304,7 +51381,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -51413,7 +51490,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -51437,7 +51514,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -51461,7 +51538,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -51570,7 +51647,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -51594,7 +51671,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -51618,7 +51695,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -51887,7 +51964,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -51911,7 +51988,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -51935,7 +52012,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -52044,7 +52121,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -52068,7 +52145,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -52092,7 +52169,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -52723,7 +52800,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -52747,7 +52824,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -52771,7 +52848,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -52856,7 +52933,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "subway-m"
+      name: "subway-newyork-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -52880,7 +52957,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-newyork-l"
+      name: "subway-newyork-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -52904,7 +52981,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-newyork-l"
+      name: "subway-newyork-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -52928,7 +53005,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-newyork-l"
+      name: "subway-newyork-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -53037,7 +53114,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -53061,7 +53138,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -53085,7 +53162,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -53351,7 +53428,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -53375,7 +53452,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -53399,7 +53476,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -53508,7 +53585,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -53532,7 +53609,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -53556,7 +53633,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -53865,7 +53942,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -53889,7 +53966,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -53913,7 +53990,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -54022,7 +54099,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -54046,7 +54123,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -54070,7 +54147,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -54179,7 +54256,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -54203,7 +54280,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -54227,7 +54304,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-l"
+      name: "subway-m"
       apply_for_type: 1
       priority: 16917
     }
@@ -55307,7 +55384,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "subway-spb-l"
+      name: "subway-spb-m"
       apply_for_type: 1
       priority: 16537
     }
@@ -55331,7 +55408,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "subway-spb-l"
+      name: "subway-spb-m"
       apply_for_type: 1
       priority: 16537
     }
@@ -55355,7 +55432,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "subway-spb-l"
+      name: "subway-spb-m"
       apply_for_type: 1
       priority: 16537
     }
@@ -55590,7 +55667,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "tram-l"
+      name: "tram-m"
       priority: 16537
     }
     caption {
@@ -55613,7 +55690,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "tram-l"
+      name: "tram-m"
       priority: 16537
     }
     caption {
@@ -55636,7 +55713,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "tram-l"
+      name: "tram-m"
       priority: 16537
     }
     caption {
@@ -56778,7 +56855,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -56794,7 +56871,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -56810,7 +56887,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -56845,7 +56922,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "alcohol-l"
+      name: "alcohol-m"
       priority: 16447
       min_distance: 24
     }
@@ -56861,9 +56938,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "alcohol-l"
+      name: "alcohol-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -56877,9 +56954,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "alcohol-l"
+      name: "alcohol-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -56912,7 +56989,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "bakery-l"
+      name: "bakery-m"
       priority: 16447
       min_distance: 24
     }
@@ -56928,9 +57005,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bakery-l"
+      name: "bakery-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -56944,9 +57021,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "bakery-l"
+      name: "bakery-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -56979,7 +57056,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "beauty-l"
+      name: "beauty-m"
       priority: 16447
       min_distance: 24
     }
@@ -56995,9 +57072,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "beauty-l"
+      name: "beauty-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57011,9 +57088,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "beauty-l"
+      name: "beauty-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57046,7 +57123,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "alcohol-l"
+      name: "alcohol-m"
       priority: 16447
       min_distance: 24
     }
@@ -57062,9 +57139,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "alcohol-l"
+      name: "alcohol-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57078,9 +57155,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "alcohol-l"
+      name: "alcohol-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57113,7 +57190,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-bicycle-l"
+      name: "shop-bicycle-m"
       priority: 16447
       min_distance: 24
     }
@@ -57129,9 +57206,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-bicycle-l"
+      name: "shop-bicycle-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57145,9 +57222,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-bicycle-l"
+      name: "shop-bicycle-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57180,7 +57257,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "bookmaker-l"
+      name: "bookmaker-m"
       priority: 16447
       min_distance: 24
     }
@@ -57196,9 +57273,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bookmaker-l"
+      name: "bookmaker-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57212,9 +57289,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "bookmaker-l"
+      name: "bookmaker-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57247,7 +57324,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "book-shop-l"
+      name: "book-shop-m"
       priority: 16447
       min_distance: 24
     }
@@ -57263,9 +57340,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "book-shop-l"
+      name: "book-shop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57279,9 +57356,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "book-shop-l"
+      name: "book-shop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57314,7 +57391,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "butcher-l"
+      name: "butcher-m"
       priority: 16447
       min_distance: 24
     }
@@ -57330,9 +57407,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "butcher-l"
+      name: "butcher-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57346,9 +57423,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "butcher-l"
+      name: "butcher-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57381,7 +57458,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "car_shop-l"
+      name: "car_shop-m"
       priority: 16447
       min_distance: 24
     }
@@ -57397,9 +57474,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "car_shop-l"
+      name: "car_shop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57413,9 +57490,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "car_shop-l"
+      name: "car_shop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57448,7 +57525,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "car-part-l"
+      name: "car-part-m"
       priority: 16447
       min_distance: 24
     }
@@ -57464,9 +57541,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "car-part-l"
+      name: "car-part-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57480,9 +57557,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "car-part-l"
+      name: "car-part-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57515,7 +57592,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "car-repair-l"
+      name: "car-repair-m"
       priority: 16447
       min_distance: 24
     }
@@ -57531,9 +57608,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "car-repair-l"
+      name: "car-repair-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57547,9 +57624,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "car-repair-l"
+      name: "car-repair-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57598,7 +57675,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "car-repair-l"
+      name: "car-repair-m"
       priority: 16485
       min_distance: 24
     }
@@ -57608,15 +57685,15 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15485
+      priority: 15500
     }
   }
   element {
     scale: 18
     symbol {
-      name: "car-repair-l"
+      name: "car-repair-m"
       priority: 16485
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57624,15 +57701,15 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15485
+      priority: 15500
     }
   }
   element {
     scale: 19
     symbol {
-      name: "car-repair-l"
+      name: "car-repair-m"
       priority: 16485
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57640,7 +57717,7 @@ cont {
         color: 4473924
         offset_y: 1
       }
-      priority: 15485
+      priority: 15500
     }
   }
 }
@@ -57665,7 +57742,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "chemist-l"
+      name: "chemist-m"
       priority: 16447
       min_distance: 24
     }
@@ -57681,9 +57758,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "chemist-l"
+      name: "chemist-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57697,9 +57774,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "chemist-l"
+      name: "chemist-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57732,7 +57809,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "sweets-l"
+      name: "sweets-m"
       priority: 16447
       min_distance: 24
     }
@@ -57748,9 +57825,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "sweets-l"
+      name: "sweets-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57764,9 +57841,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "sweets-l"
+      name: "sweets-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57799,7 +57876,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "clothes-l"
+      name: "clothes-m"
       priority: 16447
       min_distance: 24
     }
@@ -57815,9 +57892,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "clothes-l"
+      name: "clothes-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57831,9 +57908,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "clothes-l"
+      name: "clothes-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57866,7 +57943,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -57882,7 +57959,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -57898,7 +57975,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -57933,7 +58010,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "computer-l"
+      name: "computer-m"
       priority: 16447
       min_distance: 24
     }
@@ -57949,9 +58026,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "computer-l"
+      name: "computer-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -57965,9 +58042,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "computer-l"
+      name: "computer-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58000,7 +58077,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "sweets-l"
+      name: "sweets-m"
       priority: 16447
       min_distance: 24
     }
@@ -58016,9 +58093,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "sweets-l"
+      name: "sweets-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58032,9 +58109,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "sweets-l"
+      name: "sweets-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58067,7 +58144,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "grocery-l"
+      name: "grocery-m"
       priority: 16447
       min_distance: 24
     }
@@ -58083,9 +58160,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "grocery-l"
+      name: "grocery-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58099,9 +58176,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "grocery-l"
+      name: "grocery-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58134,7 +58211,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "copyshop-l"
+      name: "copyshop-m"
       priority: 16447
       min_distance: 24
     }
@@ -58150,9 +58227,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "copyshop-l"
+      name: "copyshop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58166,9 +58243,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "copyshop-l"
+      name: "copyshop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58201,7 +58278,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "beauty-l"
+      name: "beauty-m"
       priority: 16447
       min_distance: 24
     }
@@ -58217,9 +58294,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "beauty-l"
+      name: "beauty-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58233,9 +58310,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "beauty-l"
+      name: "beauty-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58268,7 +58345,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "department_store-l"
+      name: "department_store-m"
       priority: 16447
       min_distance: 24
     }
@@ -58284,9 +58361,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "department_store-l"
+      name: "department_store-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58300,9 +58377,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "department_store-l"
+      name: "department_store-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58335,7 +58412,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "doityourself-l"
+      name: "doityourself-m"
       priority: 16447
       min_distance: 24
     }
@@ -58351,9 +58428,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "doityourself-l"
+      name: "doityourself-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58367,9 +58444,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "doityourself-l"
+      name: "doityourself-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58402,7 +58479,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "laundry-l"
+      name: "laundry-m"
       priority: 16447
       min_distance: 24
     }
@@ -58418,9 +58495,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "laundry-l"
+      name: "laundry-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58434,9 +58511,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "laundry-l"
+      name: "laundry-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58469,7 +58546,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "electronics-l"
+      name: "electronics-m"
       priority: 16447
       min_distance: 24
     }
@@ -58485,9 +58562,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "electronics-l"
+      name: "electronics-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58501,9 +58578,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "electronics-l"
+      name: "electronics-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58536,7 +58613,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "erotic-l"
+      name: "erotic-m"
       priority: 16447
       min_distance: 24
     }
@@ -58552,9 +58629,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "erotic-l"
+      name: "erotic-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58568,9 +58645,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "erotic-l"
+      name: "erotic-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58603,7 +58680,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -58619,7 +58696,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -58635,7 +58712,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -58670,7 +58747,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "florist-l"
+      name: "florist-m"
       priority: 16447
       min_distance: 24
     }
@@ -58686,9 +58763,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "florist-l"
+      name: "florist-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58702,9 +58779,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "florist-l"
+      name: "florist-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58737,7 +58814,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "funeral_directors-l"
+      name: "funeral_directors-m"
       priority: 16447
       min_distance: 24
     }
@@ -58753,9 +58830,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "funeral_directors-l"
+      name: "funeral_directors-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58769,9 +58846,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "funeral_directors-l"
+      name: "funeral_directors-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58804,7 +58881,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "furniture-l"
+      name: "furniture-m"
       priority: 16447
       min_distance: 24
     }
@@ -58820,9 +58897,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "furniture-l"
+      name: "furniture-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58836,9 +58913,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "furniture-l"
+      name: "furniture-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58871,7 +58948,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "garden_center-l"
+      name: "garden_center-m"
       priority: 16447
       min_distance: 24
     }
@@ -58887,9 +58964,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "garden_center-l"
+      name: "garden_center-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58903,9 +58980,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "garden_center-l"
+      name: "garden_center-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58938,7 +59015,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "gift-l"
+      name: "gift-m"
       priority: 16447
       min_distance: 24
     }
@@ -58954,9 +59031,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "gift-l"
+      name: "gift-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -58970,9 +59047,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "gift-l"
+      name: "gift-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59005,7 +59082,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "greengrocer-l"
+      name: "greengrocer-m"
       priority: 16447
       min_distance: 24
     }
@@ -59021,9 +59098,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "greengrocer-l"
+      name: "greengrocer-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59037,9 +59114,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "greengrocer-l"
+      name: "greengrocer-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59072,7 +59149,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "hairdresser-l"
+      name: "hairdresser-m"
       priority: 16447
       min_distance: 24
     }
@@ -59088,9 +59165,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hairdresser-l"
+      name: "hairdresser-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59104,9 +59181,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hairdresser-l"
+      name: "hairdresser-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59139,7 +59216,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "doityourself-l"
+      name: "doityourself-m"
       priority: 16447
       min_distance: 24
     }
@@ -59155,9 +59232,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "doityourself-l"
+      name: "doityourself-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59171,9 +59248,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "doityourself-l"
+      name: "doityourself-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59206,7 +59283,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "jewelry-l"
+      name: "jewelry-m"
       priority: 16447
       min_distance: 24
     }
@@ -59222,9 +59299,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "jewelry-l"
+      name: "jewelry-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59238,9 +59315,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "jewelry-l"
+      name: "jewelry-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59273,7 +59350,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "kiosk-l"
+      name: "kiosk-m"
       priority: 16447
       min_distance: 24
     }
@@ -59289,9 +59366,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "kiosk-l"
+      name: "kiosk-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59305,9 +59382,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "kiosk-l"
+      name: "kiosk-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59340,7 +59417,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "laundry-l"
+      name: "laundry-m"
       priority: 16447
       min_distance: 24
     }
@@ -59356,9 +59433,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "laundry-l"
+      name: "laundry-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59372,9 +59449,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "laundry-l"
+      name: "laundry-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59439,7 +59516,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16932
       min_distance: 10
     }
@@ -59455,7 +59532,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16932
       min_distance: 10
     }
@@ -59471,7 +59548,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16932
       min_distance: 10
     }
@@ -59506,7 +59583,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -59522,7 +59599,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -59538,7 +59615,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -59573,7 +59650,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "mobile_phone-l"
+      name: "mobile_phone-m"
       priority: 16447
       min_distance: 24
     }
@@ -59589,9 +59666,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "mobile_phone-l"
+      name: "mobile_phone-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59605,9 +59682,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "mobile_phone-l"
+      name: "mobile_phone-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59640,7 +59717,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "motorcycle_shop-l"
+      name: "motorcycle_shop-m"
       priority: 16447
       min_distance: 24
     }
@@ -59656,9 +59733,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "motorcycle_shop-l"
+      name: "motorcycle_shop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59672,9 +59749,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "motorcycle_shop-l"
+      name: "motorcycle_shop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59707,7 +59784,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "media-l"
+      name: "media-m"
       priority: 16447
       min_distance: 24
     }
@@ -59723,9 +59800,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "media-l"
+      name: "media-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59739,9 +59816,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "media-l"
+      name: "media-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59774,7 +59851,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "music-l"
+      name: "music-m"
       priority: 16447
       min_distance: 24
     }
@@ -59790,9 +59867,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "music-l"
+      name: "music-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59806,9 +59883,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "music-l"
+      name: "music-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59841,7 +59918,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "newsagent-l"
+      name: "newsagent_shop-m"
       priority: 16447
       min_distance: 24
     }
@@ -59857,9 +59934,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "newsagent-l"
+      name: "newsagent_shop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59873,9 +59950,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "newsagent-l"
+      name: "newsagent_shop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59908,7 +59985,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "optician-l"
+      name: "optician-m"
       priority: 16447
       min_distance: 24
     }
@@ -59924,9 +60001,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "optician-l"
+      name: "optician-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59940,9 +60017,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "optician-l"
+      name: "optician-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -59975,7 +60052,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "outdoor-shop-l"
+      name: "outdoor-shop-m"
       priority: 16447
       min_distance: 24
     }
@@ -59991,9 +60068,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "outdoor-shop-l"
+      name: "outdoor-shop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60007,9 +60084,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "outdoor-shop-l"
+      name: "outdoor-shop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60042,7 +60119,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16470
       min_distance: 10
     }
@@ -60058,7 +60135,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16470
       min_distance: 10
     }
@@ -60074,7 +60151,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16470
       min_distance: 10
     }
@@ -60109,7 +60186,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "petshop-l"
+      name: "petshop-m"
       priority: 16447
       min_distance: 24
     }
@@ -60125,9 +60202,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "petshop-l"
+      name: "petshop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60141,9 +60218,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "petshop-l"
+      name: "petshop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60176,7 +60253,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "photo-shop-l"
+      name: "photo-shop-m"
       priority: 16447
       min_distance: 24
     }
@@ -60192,9 +60269,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "photo-shop-l"
+      name: "photo-shop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60208,9 +60285,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "photo-shop-l"
+      name: "photo-shop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60243,7 +60320,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "seafood-shop-l"
+      name: "seafood-shop-m"
       priority: 16447
       min_distance: 24
     }
@@ -60259,9 +60336,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "seafood-shop-l"
+      name: "seafood-shop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60275,9 +60352,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "seafood-shop-l"
+      name: "seafood-shop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60310,7 +60387,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shoes-l"
+      name: "shoes-m"
       priority: 16447
       min_distance: 24
     }
@@ -60326,9 +60403,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shoes-l"
+      name: "shoes-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60342,9 +60419,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shoes-l"
+      name: "shoes-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60377,7 +60454,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "sports-l"
+      name: "sports-m"
       priority: 16447
       min_distance: 24
     }
@@ -60393,9 +60470,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "sports-l"
+      name: "sports-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60409,9 +60486,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "sports-l"
+      name: "sports-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60444,7 +60521,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "stationery_shop-l"
+      name: "stationery_shop-m"
       priority: 16447
       min_distance: 24
     }
@@ -60460,9 +60537,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "stationery_shop-l"
+      name: "stationery_shop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60476,9 +60553,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "stationery_shop-l"
+      name: "stationery_shop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60543,7 +60620,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16485
       min_distance: 10
     }
@@ -60559,7 +60636,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16485
       min_distance: 10
     }
@@ -60575,7 +60652,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16485
       min_distance: 10
     }
@@ -60594,7 +60671,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
       min_distance: 10
     }
@@ -60610,7 +60687,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
       min_distance: 24
     }
@@ -60626,9 +60703,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60642,9 +60719,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hand-l"
+      name: "hand-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60677,7 +60754,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -60693,7 +60770,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -60709,7 +60786,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -60744,7 +60821,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "ticket-shop-l"
+      name: "ticket-shop-m"
       priority: 16447
       min_distance: 24
     }
@@ -60760,9 +60837,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "ticket-shop-l"
+      name: "ticket-shop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60776,9 +60853,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "ticket-shop-l"
+      name: "ticket-shop-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60811,7 +60888,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "toys-l"
+      name: "toys-m"
       priority: 16447
       min_distance: 24
     }
@@ -60827,9 +60904,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "toys-l"
+      name: "toys-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60843,9 +60920,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "toys-l"
+      name: "toys-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60878,7 +60955,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -60894,7 +60971,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -60910,7 +60987,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -60945,7 +61022,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "car-repair-l"
+      name: "car-repair-m"
       priority: 16447
       min_distance: 24
     }
@@ -60961,9 +61038,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "car-repair-l"
+      name: "car-repair-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -60977,9 +61054,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "car-repair-l"
+      name: "car-repair-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -61012,7 +61089,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -61028,7 +61105,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -61044,7 +61121,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "shop-l"
+      name: "shop-m"
       priority: 16447
       min_distance: 10
     }
@@ -61079,7 +61156,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "media-l"
+      name: "media-m"
       priority: 16447
       min_distance: 24
     }
@@ -61095,9 +61172,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "media-l"
+      name: "media-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -61111,9 +61188,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "media-l"
+      name: "media-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -61146,7 +61223,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "alcohol-l"
+      name: "alcohol-m"
       priority: 16447
       min_distance: 24
     }
@@ -61162,9 +61239,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "alcohol-l"
+      name: "alcohol-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -61178,9 +61255,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "alcohol-l"
+      name: "alcohol-m"
       priority: 16447
-      min_distance: 10
+      min_distance: 24
     }
     caption {
       primary {
@@ -61289,7 +61366,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16611
       min_distance: 24
     }
@@ -61327,7 +61404,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16641
       min_distance: 24
     }
@@ -61365,7 +61442,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16664
       min_distance: 24
     }
@@ -61403,7 +61480,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16694
       min_distance: 24
     }
@@ -61441,7 +61518,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16805
       min_distance: 24
     }
@@ -61479,7 +61556,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16805
       min_distance: 24
     }
@@ -61517,7 +61594,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16768
       min_distance: 24
     }
@@ -61555,7 +61632,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16798
       min_distance: 24
     }
@@ -61593,7 +61670,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16820
       min_distance: 24
     }
@@ -61631,7 +61708,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16850
       min_distance: 24
     }
@@ -61650,7 +61727,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16589
       min_distance: 24
     }
@@ -61668,7 +61745,7 @@ cont {
   element {
     scale: 16
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16589
       min_distance: 24
     }
@@ -61759,7 +61836,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16611
       min_distance: 16
     }
@@ -61797,7 +61874,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16641
       min_distance: 16
     }
@@ -61835,7 +61912,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16664
       min_distance: 16
     }
@@ -61873,7 +61950,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16694
       min_distance: 16
     }
@@ -61911,7 +61988,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16805
       min_distance: 16
     }
@@ -61949,7 +62026,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16805
       min_distance: 16
     }
@@ -61987,7 +62064,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16768
       min_distance: 16
     }
@@ -62025,7 +62102,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16798
       min_distance: 16
     }
@@ -62063,7 +62140,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16820
       min_distance: 16
     }
@@ -62101,7 +62178,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16850
       min_distance: 16
     }
@@ -62120,7 +62197,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16589
       min_distance: 16
     }
@@ -62138,7 +62215,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16589
       min_distance: 16
     }
@@ -62210,7 +62287,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "apartment-l"
+      name: "apartment-m"
       priority: 16604
       min_distance: 24
     }
@@ -62229,7 +62306,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16611
       min_distance: 16
     }
@@ -62248,7 +62325,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hostel-l"
+      name: "hostel-m"
       priority: 16619
       min_distance: 24
     }
@@ -62267,7 +62344,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16641
       min_distance: 16
     }
@@ -62286,7 +62363,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "apartment-l"
+      name: "apartment-m"
       priority: 16656
       min_distance: 24
     }
@@ -62305,7 +62382,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16664
       min_distance: 16
     }
@@ -62324,7 +62401,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hostel-l"
+      name: "hostel-m"
       priority: 16671
       min_distance: 24
     }
@@ -62343,7 +62420,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16694
       min_distance: 16
     }
@@ -62362,7 +62439,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "apartment-l"
+      name: "apartment-m"
       priority: 16805
       min_distance: 24
     }
@@ -62381,7 +62458,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16805
       min_distance: 16
     }
@@ -62400,7 +62477,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hostel-l"
+      name: "hostel-m"
       priority: 16805
       min_distance: 24
     }
@@ -62419,7 +62496,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16805
       min_distance: 16
     }
@@ -62438,7 +62515,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "apartment-l"
+      name: "apartment-m"
       priority: 16761
       min_distance: 24
     }
@@ -62457,7 +62534,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16768
       min_distance: 16
     }
@@ -62476,7 +62553,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hostel-l"
+      name: "hostel-m"
       priority: 16776
       min_distance: 24
     }
@@ -62495,7 +62572,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16798
       min_distance: 16
     }
@@ -62514,7 +62591,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "apartment-l"
+      name: "apartment-m"
       priority: 16813
       min_distance: 24
     }
@@ -62533,7 +62610,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16820
       min_distance: 16
     }
@@ -62552,7 +62629,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hostel-l"
+      name: "hostel-m"
       priority: 16828
       min_distance: 24
     }
@@ -62571,7 +62648,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16850
       min_distance: 16
     }
@@ -62590,7 +62667,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16589
       min_distance: 16
     }
@@ -62608,7 +62685,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16589
       min_distance: 16
     }
@@ -62626,7 +62703,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hostel-l"
+      name: "hostel-m"
       priority: 16589
       min_distance: 24
     }
@@ -62644,7 +62721,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16589
       min_distance: 24
     }
@@ -62662,7 +62739,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "apartment-l"
+      name: "apartment-m"
       priority: 16589
       min_distance: 24
     }
@@ -62680,7 +62757,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "apartment-l"
+      name: "apartment-m"
       priority: 16604
       min_distance: 24
     }
@@ -62699,7 +62776,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16611
       min_distance: 16
     }
@@ -62718,7 +62795,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hostel-l"
+      name: "hostel-m"
       priority: 16619
       min_distance: 24
     }
@@ -62737,7 +62814,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16641
       min_distance: 16
     }
@@ -62756,7 +62833,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "apartment-l"
+      name: "apartment-m"
       priority: 16656
       min_distance: 24
     }
@@ -62775,7 +62852,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16664
       min_distance: 16
     }
@@ -62794,7 +62871,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hostel-l"
+      name: "hostel-m"
       priority: 16671
       min_distance: 24
     }
@@ -62813,7 +62890,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16694
       min_distance: 16
     }
@@ -62832,7 +62909,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "apartment-l"
+      name: "apartment-m"
       priority: 16805
       min_distance: 24
     }
@@ -62851,7 +62928,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16805
       min_distance: 16
     }
@@ -62870,7 +62947,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hostel-l"
+      name: "hostel-m"
       priority: 16805
       min_distance: 24
     }
@@ -62889,7 +62966,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16805
       min_distance: 16
     }
@@ -62908,7 +62985,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "apartment-l"
+      name: "apartment-m"
       priority: 16761
       min_distance: 24
     }
@@ -62927,7 +63004,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16768
       min_distance: 16
     }
@@ -62946,7 +63023,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hostel-l"
+      name: "hostel-m"
       priority: 16776
       min_distance: 24
     }
@@ -62965,7 +63042,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16798
       min_distance: 16
     }
@@ -62984,7 +63061,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "apartment-l"
+      name: "apartment-m"
       priority: 16813
       min_distance: 24
     }
@@ -63003,7 +63080,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16820
       min_distance: 16
     }
@@ -63022,7 +63099,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hostel-l"
+      name: "hostel-m"
       priority: 16828
       min_distance: 24
     }
@@ -63041,7 +63118,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16850
       min_distance: 16
     }
@@ -63060,7 +63137,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16589
       min_distance: 16
     }
@@ -63078,7 +63155,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16589
       min_distance: 16
     }
@@ -63096,7 +63173,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hostel-l"
+      name: "hostel-m"
       priority: 16589
       min_distance: 24
     }
@@ -63114,7 +63191,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16589
       min_distance: 24
     }
@@ -63132,7 +63209,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "apartment-l"
+      name: "apartment-m"
       priority: 16589
       min_distance: 24
     }
@@ -63540,7 +63617,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "america-football-l"
+      name: "america-football-m"
       apply_for_type: 1
       priority: 16462
     }
@@ -63556,7 +63633,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "america-football-l"
+      name: "america-football-m"
       apply_for_type: 1
       priority: 16462
     }
@@ -63575,7 +63652,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "archery-l"
+      name: "archery-m"
       priority: 16447
       min_distance: 10
     }
@@ -63591,7 +63668,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "archery-l"
+      name: "archery-m"
       priority: 16455
       min_distance: 10
     }
@@ -63607,7 +63684,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "archery-l"
+      name: "archery-m"
       priority: 16455
       min_distance: 10
     }
@@ -63637,7 +63714,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16462
     }
@@ -63653,7 +63730,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16462
     }
@@ -63672,7 +63749,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "australian-football-l"
+      name: "australian-football-m"
       priority: 16447
       min_distance: 10
     }
@@ -63688,7 +63765,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "australian-football-l"
+      name: "australian-football-m"
       priority: 16455
       min_distance: 10
     }
@@ -63704,7 +63781,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "australian-football-l"
+      name: "australian-football-m"
       priority: 16455
       min_distance: 10
     }
@@ -63734,7 +63811,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "baseball-l"
+      name: "baseball-m"
       apply_for_type: 1
       priority: 16462
     }
@@ -63750,7 +63827,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "baseball-l"
+      name: "baseball-m"
       apply_for_type: 1
       priority: 16462
     }
@@ -63780,7 +63857,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "basketball-l"
+      name: "basketball-m"
       apply_for_type: 1
       priority: 16462
     }
@@ -63796,7 +63873,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "basketball-l"
+      name: "basketball-m"
       apply_for_type: 1
       priority: 16462
     }
@@ -63815,7 +63892,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "bowls-l"
+      name: "bowls-m"
       priority: 16447
       min_distance: 10
     }
@@ -63831,7 +63908,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "bowls-l"
+      name: "bowls-m"
       priority: 16455
       min_distance: 10
     }
@@ -63847,7 +63924,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "bowls-l"
+      name: "bowls-m"
       priority: 16455
       min_distance: 10
     }
@@ -63866,7 +63943,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "cricket-l"
+      name: "cricket-m"
       priority: 16447
       min_distance: 10
     }
@@ -63882,7 +63959,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "cricket-l"
+      name: "cricket-m"
       priority: 16455
       min_distance: 10
     }
@@ -63898,7 +63975,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "cricket-l"
+      name: "cricket-m"
       priority: 16455
       min_distance: 10
     }
@@ -63917,7 +63994,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "curling-l"
+      name: "curling-m"
       priority: 16447
       min_distance: 10
     }
@@ -63933,7 +64010,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "curling-l"
+      name: "curling-m"
       priority: 16455
       min_distance: 10
     }
@@ -63949,7 +64026,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "curling-l"
+      name: "curling-m"
       priority: 16455
       min_distance: 10
     }
@@ -63968,7 +64045,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "diving-l"
+      name: "diving-m"
       priority: 16447
       min_distance: 10
     }
@@ -63984,7 +64061,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "diving-l"
+      name: "diving-m"
       priority: 16455
       min_distance: 10
     }
@@ -64000,7 +64077,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "diving-l"
+      name: "diving-m"
       priority: 16455
       min_distance: 10
     }
@@ -64027,7 +64104,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "equestrian-l"
+      name: "equestrian-m"
       priority: 16447
       min_distance: 20
     }
@@ -64043,7 +64120,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "equestrian-l"
+      name: "equestrian-m"
       priority: 16447
       min_distance: 20
     }
@@ -64059,7 +64136,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "equestrian-l"
+      name: "equestrian-m"
       priority: 16447
       min_distance: 20
     }
@@ -64078,7 +64155,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "soccer-l"
+      name: "soccer-m"
       priority: 16447
       min_distance: 10
     }
@@ -64094,7 +64171,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "soccer-l"
+      name: "soccer-m"
       priority: 16447
       min_distance: 10
     }
@@ -64110,7 +64187,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "soccer-l"
+      name: "soccer-m"
       priority: 16447
       min_distance: 10
     }
@@ -64140,7 +64217,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "golf-l"
+      name: "golf-m"
       apply_for_type: 1
       priority: 16462
     }
@@ -64156,7 +64233,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "golf-l"
+      name: "golf-m"
       apply_for_type: 1
       priority: 16462
     }
@@ -64186,7 +64263,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16462
     }
@@ -64202,7 +64279,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16462
     }
@@ -64261,7 +64338,7 @@ cont {
       priority: -15553
     }
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16447
       min_distance: 10
@@ -64282,7 +64359,7 @@ cont {
       priority: -15553
     }
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16447
       min_distance: 10
@@ -64303,7 +64380,7 @@ cont {
       priority: -15553
     }
     symbol {
-      name: "pitch-l"
+      name: "pitch-m"
       apply_for_type: 1
       priority: 16447
       min_distance: 10
@@ -64323,7 +64400,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "diving-l"
+      name: "diving-m"
       priority: 16447
       min_distance: 10
     }
@@ -64339,7 +64416,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "diving-l"
+      name: "diving-m"
       priority: 16455
       min_distance: 10
     }
@@ -64355,7 +64432,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "diving-l"
+      name: "diving-m"
       priority: 16455
       min_distance: 10
     }
@@ -64374,7 +64451,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "archery-l"
+      name: "archery-m"
       priority: 16447
       min_distance: 10
     }
@@ -64390,7 +64467,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "archery-l"
+      name: "archery-m"
       priority: 16455
       min_distance: 10
     }
@@ -64406,7 +64483,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "archery-l"
+      name: "archery-m"
       priority: 16455
       min_distance: 10
     }
@@ -64472,7 +64549,7 @@ cont {
       priority: -15553
     }
     symbol {
-      name: "soccer-l"
+      name: "soccer-m"
       priority: 16447
       min_distance: 10
     }
@@ -64492,7 +64569,7 @@ cont {
       priority: -15553
     }
     symbol {
-      name: "soccer-l"
+      name: "soccer-m"
       priority: 16447
       min_distance: 10
     }
@@ -64512,7 +64589,7 @@ cont {
       priority: -15553
     }
     symbol {
-      name: "soccer-l"
+      name: "soccer-m"
       priority: 16447
       min_distance: 10
     }
@@ -64542,7 +64619,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "swimming-l"
+      name: "swimming-m"
       apply_for_type: 1
       priority: 16462
     }
@@ -64558,7 +64635,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "swimming-l"
+      name: "swimming-m"
       apply_for_type: 1
       priority: 16462
     }
@@ -64577,7 +64654,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "tennis-l"
+      name: "tennis-m"
       apply_for_type: 1
       priority: 16470
       min_distance: 10
@@ -64594,7 +64671,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "tennis-l"
+      name: "tennis-m"
       apply_for_type: 1
       priority: 16470
       min_distance: 10
@@ -64611,7 +64688,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "tennis-l"
+      name: "tennis-m"
       apply_for_type: 1
       priority: 16470
       min_distance: 10
@@ -64647,7 +64724,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16552
       min_distance: 16
     }
@@ -64663,7 +64740,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16552
       min_distance: 16
     }
@@ -64679,7 +64756,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16552
       min_distance: 16
     }
@@ -64729,7 +64806,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "apartment-l"
+      name: "apartment-m"
       priority: 16544
       min_distance: 16
     }
@@ -64745,7 +64822,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "apartment-l"
+      name: "apartment-m"
       priority: 16544
       min_distance: 16
     }
@@ -64798,7 +64875,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "tourism-l"
+      name: "tourism-m"
       apply_for_type: 1
       priority: 16858
       min_distance: 24
@@ -64815,7 +64892,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "tourism-l"
+      name: "tourism-m"
       apply_for_type: 1
       priority: 16858
       min_distance: 24
@@ -64832,7 +64909,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "tourism-l"
+      name: "tourism-m"
       apply_for_type: 1
       priority: 16858
       min_distance: 24
@@ -64901,9 +64978,9 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "tourism-l"
+      name: "tourism-m"
       priority: 16865
-      min_distance: 24
+      min_distance: 36
     }
     caption {
       primary {
@@ -64917,9 +64994,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "tourism-l"
+      name: "tourism-m"
       priority: 16865
-      min_distance: 24
+      min_distance: 36
     }
     caption {
       primary {
@@ -64933,9 +65010,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "tourism-l"
+      name: "tourism-m"
       priority: 16865
-      min_distance: 24
+      min_distance: 36
     }
     caption {
       primary {
@@ -64984,8 +65061,9 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "campsite-l"
+      name: "campsite-m"
       priority: 16470
+      min_distance: 12
     }
     caption {
       primary {
@@ -64999,8 +65077,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "campsite-l"
+      name: "campsite-m"
       priority: 16470
+      min_distance: 12
     }
     caption {
       primary {
@@ -65014,8 +65093,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "campsite-l"
+      name: "campsite-m"
       priority: 16470
+      min_distance: 12
     }
     caption {
       primary {
@@ -65048,7 +65128,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "caravan_site-l"
+      name: "caravan_site-m"
       priority: 16447
       min_distance: 20
     }
@@ -65064,8 +65144,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "caravan_site-l"
+      name: "caravan_site-m"
       priority: 16447
+      min_distance: 20
     }
     caption {
       primary {
@@ -65079,8 +65160,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "caravan_site-l"
+      name: "caravan_site-m"
       priority: 16447
+      min_distance: 20
     }
     caption {
       primary {
@@ -65113,7 +65195,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16544
       min_distance: 16
     }
@@ -65129,7 +65211,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16544
       min_distance: 16
     }
@@ -65145,7 +65227,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16544
       min_distance: 16
     }
@@ -65197,8 +65279,9 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "gallery-l"
+      name: "gallery-m"
       priority: 16873
+      min_distance: 12
     }
     caption {
       primary {
@@ -65212,8 +65295,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "gallery-l"
+      name: "gallery-m"
       priority: 16873
+      min_distance: 12
     }
     caption {
       primary {
@@ -65227,8 +65311,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "gallery-l"
+      name: "gallery-m"
       priority: 16873
+      min_distance: 12
     }
     caption {
       primary {
@@ -65276,7 +65361,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "apartment-l"
+      name: "apartment-m"
       priority: 16544
       min_distance: 16
     }
@@ -65292,7 +65377,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "apartment-l"
+      name: "apartment-m"
       priority: 16544
       min_distance: 16
     }
@@ -65328,7 +65413,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "hostel-l"
+      name: "hostel-m"
       apply_for_type: 1
       priority: 16559
       min_distance: 16
@@ -65345,7 +65430,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hostel-l"
+      name: "hostel-m"
       apply_for_type: 1
       priority: 16559
       min_distance: 16
@@ -65362,7 +65447,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hostel-l"
+      name: "hostel-m"
       apply_for_type: 1
       priority: 16559
       min_distance: 16
@@ -65399,7 +65484,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       apply_for_type: 1
       priority: 16582
       min_distance: 16
@@ -65416,7 +65501,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       apply_for_type: 1
       priority: 16582
       min_distance: 16
@@ -65433,7 +65518,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       apply_for_type: 1
       priority: 16582
       min_distance: 16
@@ -65470,9 +65555,10 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "information-l"
+      name: "information-m"
       apply_for_type: 1
       priority: 16440
+      min_distance: 10
     }
     caption {
       primary {
@@ -65486,9 +65572,10 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "information-l"
+      name: "information-m"
       apply_for_type: 1
       priority: 16447
+      min_distance: 10
     }
     caption {
       primary {
@@ -65502,9 +65589,10 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "information-l"
+      name: "information-m"
       apply_for_type: 1
       priority: 16447
+      min_distance: 10
     }
     caption {
       primary {
@@ -65538,9 +65626,10 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "information-l"
+      name: "information-m"
       apply_for_type: 1
       priority: 16440
+      min_distance: 10
     }
     caption {
       primary {
@@ -65554,9 +65643,10 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "information-l"
+      name: "information-m"
       apply_for_type: 1
       priority: 16447
+      min_distance: 10
     }
     caption {
       primary {
@@ -65570,9 +65660,10 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "information-l"
+      name: "information-m"
       apply_for_type: 1
       priority: 16447
+      min_distance: 10
     }
     caption {
       primary {
@@ -65606,9 +65697,10 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "information-l"
+      name: "information-m"
       apply_for_type: 1
       priority: 16440
+      min_distance: 10
     }
     caption {
       primary {
@@ -65622,9 +65714,10 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "information-l"
+      name: "information-m"
       apply_for_type: 1
       priority: 16447
+      min_distance: 10
     }
     caption {
       primary {
@@ -65638,9 +65731,10 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "information-l"
+      name: "information-m"
       apply_for_type: 1
       priority: 16447
+      min_distance: 10
     }
     caption {
       primary {
@@ -65674,9 +65768,10 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "information-l"
+      name: "information-m"
       apply_for_type: 1
       priority: 16440
+      min_distance: 10
     }
     caption {
       primary {
@@ -65690,9 +65785,10 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "information-l"
+      name: "information-m"
       apply_for_type: 1
       priority: 16447
+      min_distance: 10
     }
     caption {
       primary {
@@ -65706,9 +65802,10 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "information-l"
+      name: "information-m"
       apply_for_type: 1
       priority: 16447
+      min_distance: 10
     }
     caption {
       primary {
@@ -65742,9 +65839,10 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "information-l"
+      name: "information-m"
       apply_for_type: 1
       priority: 16440
+      min_distance: 10
     }
     caption {
       primary {
@@ -65758,9 +65856,10 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "information-l"
+      name: "information-m"
       apply_for_type: 1
       priority: 16447
+      min_distance: 10
     }
     caption {
       primary {
@@ -65774,9 +65873,10 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "information-l"
+      name: "information-m"
       apply_for_type: 1
       priority: 16447
+      min_distance: 10
     }
     caption {
       primary {
@@ -65809,7 +65909,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16567
       min_distance: 16
     }
@@ -65825,7 +65925,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16567
       min_distance: 16
     }
@@ -65841,7 +65941,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16567
       min_distance: 16
     }
@@ -65924,8 +66024,9 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "museum-l"
+      name: "museum-m"
       priority: 16880
+      min_distance: 12
     }
     caption {
       primary {
@@ -65939,8 +66040,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "museum-l"
+      name: "museum-m"
       priority: 16880
+      min_distance: 12
     }
     caption {
       primary {
@@ -65954,8 +66056,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "museum-l"
+      name: "museum-m"
       priority: 16880
+      min_distance: 12
     }
     caption {
       primary {
@@ -65988,7 +66091,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "picnic-l"
+      name: "picnic-m"
       priority: 16470
       min_distance: 10
     }
@@ -66004,7 +66107,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "picnic-l"
+      name: "picnic-m"
       priority: 16470
       min_distance: 10
     }
@@ -66020,7 +66123,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "picnic-l"
+      name: "picnic-m"
       priority: 16470
       min_distance: 10
     }
@@ -66055,7 +66158,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16574
       min_distance: 16
     }
@@ -66071,7 +66174,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16574
       min_distance: 16
     }
@@ -66087,7 +66190,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "hotel-l"
+      name: "hotel-m"
       priority: 16574
       min_distance: 16
     }
@@ -66154,7 +66257,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "theme_park-l"
+      name: "theme_park-m"
       priority: 16865
       min_distance: 24
     }
@@ -66170,7 +66273,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "theme_park-l"
+      name: "theme_park-m"
       priority: 16865
       min_distance: 24
     }
@@ -66186,7 +66289,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "theme_park-l"
+      name: "theme_park-m"
       priority: 16865
       min_distance: 24
     }
@@ -66256,9 +66359,10 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "viewpoint-l"
+      name: "viewpoint-m"
       apply_for_type: 1
       priority: 16895
+      min_distance: 8
     }
     caption {
       primary {
@@ -66272,9 +66376,10 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "viewpoint-l"
+      name: "viewpoint-m"
       apply_for_type: 1
       priority: 16895
+      min_distance: 8
     }
     caption {
       primary {
@@ -66288,9 +66393,10 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "viewpoint-l"
+      name: "viewpoint-m"
       apply_for_type: 1
       priority: 16895
+      min_distance: 8
     }
     caption {
       primary {
@@ -66323,7 +66429,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16552
       min_distance: 16
     }
@@ -66339,7 +66445,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16552
       min_distance: 16
     }
@@ -66355,7 +66461,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "alpine_hut-l"
+      name: "alpine_hut-m"
       priority: 16552
       min_distance: 16
     }
@@ -66438,8 +66544,9 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "zoo-l"
+      name: "zoo-m"
       priority: 16902
+      min_distance: 8
     }
     caption {
       primary {
@@ -66453,8 +66560,9 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "zoo-l"
+      name: "zoo-m"
       priority: 16902
+      min_distance: 8
     }
     caption {
       primary {
@@ -66468,8 +66576,9 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "zoo-l"
+      name: "zoo-m"
       priority: 16902
+      min_distance: 8
     }
     caption {
       primary {
@@ -67983,7 +68092,7 @@ cont {
   element {
     scale: 17
     symbol {
-      name: "waterfall-l"
+      name: "waterfall-m"
       priority: 16440
     }
     caption {
@@ -67998,7 +68107,7 @@ cont {
   element {
     scale: 18
     symbol {
-      name: "waterfall-l"
+      name: "waterfall-m"
       priority: 16440
     }
     caption {
@@ -68013,7 +68122,7 @@ cont {
   element {
     scale: 19
     symbol {
-      name: "waterfall-l"
+      name: "waterfall-m"
       priority: 16440
     }
     caption {
