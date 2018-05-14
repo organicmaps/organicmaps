@@ -1268,4 +1268,8 @@
 	<string name="wn_reinvented_bookmarks_message">Puede hacer una copia de seguridad de los marcadores, crear listas... Es increíble...</string>
 	<string name="wn_way_of_booking_title">¡Hemos vuelto a imaginar la forma de reservar!</string>
 	<string name="wn_way_of_booking_message">Solo encuentra un hotel en el mapa y reservalo, o selecciona el similar.</string>
+	<string name="sign_message_gdpr">Para continuar debes aceptar nuestros Términos de Uso y la Política de Privacidad. Por favor, léelos cuidadosamente.</string>
+	<string name="sign_agree_pp_gdpr">Acepto la <a href="https://legal.my.com/us/general/privacy/">Política de Privacidad</a></string>
+	<string name="sign_agree_tof_gdpr">Acepto los <a href="http://legal.my.com/us/maps/tou/">Términos de Uso</a></string>
+	<string name="sign_agree_news_gdpr">Acepto recibir las últimas noticias sobre productos de MAPS.ME</string>
 </resources>

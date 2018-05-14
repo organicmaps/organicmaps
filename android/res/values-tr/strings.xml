@@ -1280,4 +1280,8 @@
 	<string name="wn_reinvented_bookmarks_message">Yer imlerini yedekleyebilir, listeler oluşturabilirsin... Harika...</string>
 	<string name="wn_way_of_booking_title">Rezervasyon yolunu yeniden tasarladık!</string>
 	<string name="wn_way_of_booking_message">Haritadaki bir oteli bulup rezervasyon yapın ya da benzer olanı seçin.</string>
+	<string name="sign_message_gdpr">Devam etmek için Kullanım Şartları ve Gizlilik Politikası bölümlerimizi kabul etmelisiniz. Lütfen onları dikkatle okuyun.</string>
+	<string name="sign_agree_pp_gdpr"><a href="https://legal.my.com/us/general/privacy/">Gizlilik Politikası</a> bölümünü kabul ediyorum</string>
+	<string name="sign_agree_tof_gdpr"><a href="http://legal.my.com/us/maps/tou/">Kullanım Şartları</a> bölümünü kabul ediyorum</string>
+	<string name="sign_agree_news_gdpr">MAPS.ME ürünleri hakkında en yeni haberleri almayı kabul ediyorum</string>
 </resources>

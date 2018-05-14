@@ -2293,3 +2293,11 @@
 "error_system_message" = "An unknown error occurred.";
 
 "restore" = "Restore";
+
+"sign_message_gdpr" = "Pour continuer, vous devez accepter nos conditions d'utilisation et notre politique de confidentialité. Veuillez les lire attentivement.";
+
+"sign_agree_pp_gdpr" = "J'accepte la <a href=\"https://legal.my.com/us/general/privacy/\">politique de confidentialité</a>";
+
+"sign_agree_tof_gdpr" = "Je suis en accord avec les <a href=\"http://legal.my.com/us/maps/tou/\">conditions d'utilisation</a>";
+
+"sign_agree_news_gdpr" = "J'accepte de recevoir les dernières nouvelles sur les";

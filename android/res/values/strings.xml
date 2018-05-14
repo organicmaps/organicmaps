@@ -1333,4 +1333,8 @@
 	<string name="error_server_message">There was an error on the server, please try again later.</string>
 	<string name="error_system_message">An unknown error occurred.</string>
 	<string name="restore">Restore</string>
+	<string name="sign_message_gdpr">To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully.</string>
+	<string name="sign_agree_pp_gdpr">I agree to the <a href="https://legal.my.com/us/general/privacy/">Privacy Policy</a></string>
+	<string name="sign_agree_tof_gdpr">I agree to the <a href="http://legal.my.com/us/maps/tou/">Terms of Use</a></string>
+	<string name="sign_agree_news_gdpr">I agree to receive the latest news about MAPS.ME products</string>
 </resources>

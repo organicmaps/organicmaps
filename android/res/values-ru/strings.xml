@@ -1322,4 +1322,8 @@
 	<string name="error_server_message">На сервере произошла ошибка, повторите попытку позже.</string>
 	<string name="error_system_message">Произошла неизвестная ошибка.</string>
 	<string name="restore">Восстановить</string>
+	<string name="sign_message_gdpr">Чтобы продолжить работу, вы должны принять наши Условия использования и Политику конфиденциальности. Пожалуйста, внимательно их прочитайте.</string>
+	<string name="sign_agree_pp_gdpr">Я согласен с <a href="https://legal.my.com/us/general/privacy/">Политикой конфиденциальности</a></string>
+	<string name="sign_agree_tof_gdpr">Я согласен с <a href="http://legal.my.com/us/maps/tou/">Условиями использования</a></string>
+	<string name="sign_agree_news_gdpr">Я согласен получать последние новости о MAPS.ME</string>
 </resources>

@@ -1274,4 +1274,8 @@
 	<string name="wn_reinvented_bookmarks_message">Puoi fare il backup dei segnalibri, creare liste... È incredibile...</string>
 	<string name="wn_way_of_booking_title">Abbiamo reimmaginato il modo di prenotare!</string>
 	<string name="wn_way_of_booking_message">Basta trovare un hotel sulla mappa e prenotarlo, o selezionare quello simile.</string>
+	<string name="sign_message_gdpr">Per continuare, devi accettare i nostri Termini di utilizzo e la nostra Informativa sulla Privacy. Ti invitiamo a leggerli attentamente.</string>
+	<string name="sign_agree_pp_gdpr">Accetto la <a href="https://legal.my.com/us/general/privacy/">Informativa sulla Privacy</a></string>
+	<string name="sign_agree_tof_gdpr">Accetto i <a href="http://legal.my.com/us/maps/tou/">Termini di utilizzo</a></string>
+	<string name="sign_agree_news_gdpr">Accetto di ricevere le ultime notizie sui prodotti di MAPS.ME</string>
 </resources>

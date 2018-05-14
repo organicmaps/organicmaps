@@ -2293,3 +2293,11 @@
 "error_system_message" = "An unknown error occurred.";
 
 "restore" = "Restore";
+
+"sign_message_gdpr" = "To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully.";
+
+"sign_agree_pp_gdpr" = "I agree to the <a href=\"https://legal.my.com/us/general/privacy/\">Privacy Policy</a>";
+
+"sign_agree_tof_gdpr" = "I agree to the <a href=\"http://legal.my.com/us/maps/tou/\">Terms of Use</a>";
+
+"sign_agree_news_gdpr" = "I agree to receive the latest news about MAPS.ME products";

@@ -1289,4 +1289,8 @@
 	<string name="wn_reinvented_bookmarks_message">Vous pouvez sauvegarder des signets, créer des listes... C\'est incroyable...</string>
 	<string name="wn_way_of_booking_title">Nous avons réinventé le mode de réservation!</string>
 	<string name="wn_way_of_booking_message">Il suffit de trouver un hôtel sur la carte et de le réserver, ou sélectionnez le même</string>
+	<string name="sign_message_gdpr">Pour continuer, vous devez accepter nos conditions d\'utilisation et notre politique de confidentialité. Veuillez les lire attentivement.</string>
+	<string name="sign_agree_pp_gdpr">J\'accepte la <a href="https://legal.my.com/us/general/privacy/">politique de confidentialité</a></string>
+	<string name="sign_agree_tof_gdpr">Je suis en accord avec les <a href="http://legal.my.com/us/maps/tou/">conditions d\'utilisation</a></string>
+	<string name="sign_agree_news_gdpr">J\'accepte de recevoir les dernières nouvelles sur les</string>
 </resources>

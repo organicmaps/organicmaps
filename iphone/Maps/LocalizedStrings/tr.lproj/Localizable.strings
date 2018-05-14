@@ -2293,3 +2293,11 @@
 "error_system_message" = "An unknown error occurred.";
 
 "restore" = "Restore";
+
+"sign_message_gdpr" = "Devam etmek için Kullanım Şartları ve Gizlilik Politikası bölümlerimizi kabul etmelisiniz. Lütfen onları dikkatle okuyun.";
+
+"sign_agree_pp_gdpr" = "<a href=\"https://legal.my.com/us/general/privacy/\">Gizlilik Politikası</a> bölümünü kabul ediyorum";
+
+"sign_agree_tof_gdpr" = "<a href=\"http://legal.my.com/us/maps/tou/\">Kullanım Şartları</a> bölümünü kabul ediyorum";
+
+"sign_agree_news_gdpr" = "MAPS.ME ürünleri hakkında en yeni haberleri almayı kabul ediyorum";
