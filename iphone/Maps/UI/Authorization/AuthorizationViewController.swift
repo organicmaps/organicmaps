@@ -272,7 +272,12 @@ final class AuthorizationViewController: MWMViewController {
 
   private func process(token: String, type: MWMSocialTokenType) {
     Statistics.logEvent(kStatUGCReviewAuthExternalRequestSuccess, withParameters: [kStatProvider: getProviderStatStr(type: type)])
-    ViewModel.authenticate(withToken: token, type: type, source: sourceComponent) { success in
+    ViewModel.authenticate(withToken: token,
+                           type: type,
+                           privacyAccepted: privacyPolicyCheck.isChecked,
+                           termsAccepted: termsOfUseCheck.isChecked,
+                           promoAccepted: latestNewsCheck.isChecked,
+                           source: sourceComponent) { success in
       if success {
         self.successHandler?(type)
       } else {

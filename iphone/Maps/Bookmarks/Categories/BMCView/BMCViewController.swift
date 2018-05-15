@@ -106,8 +106,8 @@ final class BMCViewController: MWMViewController {
   }
 
   private func signup(anchor: UIView, onComplete: @escaping (Bool) -> Void) {
-    if MWMAuthorizationViewModel.hasSocialToken() {
-      MWMAuthorizationViewModel.checkAuthentication(with: .bookmarks, onComplete: onComplete)
+    if MWMAuthorizationViewModel.isAuthenticated() {
+      onComplete(true)
     } else {
       let authVC = AuthorizationViewController(popoverSourceView: anchor,
                                                sourceComponent: .bookmarks,

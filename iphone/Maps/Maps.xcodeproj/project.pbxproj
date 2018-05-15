@@ -348,6 +348,7 @@
 		4767CD9F20AAD48A00BD8166 /* Checkmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CD9E20AAD48A00BD8166 /* Checkmark.swift */; };
 		4767CDA420AAF66B00BD8166 /* NSAttributedString+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */; };
 		4767CDA620AB1F6200BD8166 /* LeftAlignedIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDA520AB1F6200BD8166 /* LeftAlignedIconButton.swift */; };
+		4767CDA820AB401000BD8166 /* LinkTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDA720AB401000BD8166 /* LinkTextView.swift */; };
 		4A300ED51C6DCFD400140018 /* countries-strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A300ED31C6DCFD400140018 /* countries-strings */; };
 		56C74C391C74A3BC00B71B9F /* MWMInputEmailValidator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA62F1C2D58F300FE1BEC /* MWMInputEmailValidator.mm */; };
 		56EE14D11FE804550036F20C /* libtransit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56EE14D21FE804550036F20C /* libtransit.a */; };
@@ -1277,6 +1278,7 @@
 		4767CD9E20AAD48A00BD8166 /* Checkmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkmark.swift; sourceTree = "<group>"; };
 		4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+HTML.swift"; sourceTree = "<group>"; };
 		4767CDA520AB1F6200BD8166 /* LeftAlignedIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedIconButton.swift; sourceTree = "<group>"; };
+		4767CDA720AB401000BD8166 /* LinkTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkTextView.swift; sourceTree = "<group>"; };
 		4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_dark.bin; path = ../../data/drules_proto_dark.bin; sourceTree = "<group>"; };
 		4A23D1561B8B4DD700D4EB6F /* drules_proto_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_clear.bin; path = ../../data/drules_proto_clear.bin; sourceTree = "<group>"; };
 		4A23D1571B8B4DD700D4EB6F /* resources-6plus_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-6plus_clear"; path = "../../data/resources-6plus_clear"; sourceTree = "<group>"; };
@@ -2558,6 +2560,7 @@
 				348A8DF01F66775A00D83026 /* RatingView */,
 				4767CD9E20AAD48A00BD8166 /* Checkmark.swift */,
 				4767CDA520AB1F6200BD8166 /* LeftAlignedIconButton.swift */,
+				4767CDA720AB401000BD8166 /* LinkTextView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -4664,6 +4667,7 @@
 				F6E2FEC41E097BA00083EBEC /* MWMSearchFilterPresentationController.mm in Sources */,
 				34AB66621FC5AA330078E451 /* TransportTransitSeparator.swift in Sources */,
 				340416541E7C09C200E2B6D6 /* PhotoScalingView.swift in Sources */,
+				4767CDA820AB401000BD8166 /* LinkTextView.swift in Sources */,
 				34763EE71F2F392300F4D2D3 /* MWMTextToSpeech.mm in Sources */,
 				34ABA6251C2D551900FE1BEC /* MWMInputValidatorFactory.mm in Sources */,
 				F6E2FD861E097BA00083EBEC /* MWMBaseMapDownloaderViewController.mm in Sources */,

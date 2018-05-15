@@ -80,8 +80,9 @@ class Checkmark: UIControl {
     var width: CGFloat = imageView.width;
     var height: CGFloat = imageView.height;
     
-    switch effectiveContentHorizontalAlignment {
-    case .right:
+    switch contentHorizontalAlignment {
+    case .right: fallthrough
+    case .trailing:
       left = bounds.width - imageView.width
     case .center:
       left = floor(bounds.width - width) / 2

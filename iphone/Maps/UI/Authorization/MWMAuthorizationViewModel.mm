@@ -14,47 +14,13 @@
   return [NSURL URLWithString:@(GetFramework().GetUser().GetPhoneAuthUrl("http://localhost").c_str())];
 }
 
-+ (void)checkAuthenticationWithSource:(MWMAuthorizationSource)source
-                           onComplete:(MWMAuthorizationCompleteBlock)onComplete
-{
-  if ([self isAuthenticated])
-  {
-    onComplete(YES);
-    return;
-  }
-
-  auto googleToken = [GIDSignIn sharedInstance].currentUser.authentication.idToken;
-  if (googleToken)
-  {
-    [self authenticateWithToken:googleToken
-                           type:MWMSocialTokenTypeGoogle
-                         source:source
-                     onComplete:onComplete];
-    return;
-  }
-
-  auto fbToken = [FBSDKAccessToken currentAccessToken].tokenString;
-  if (fbToken)
-  {
-    [self authenticateWithToken:fbToken
-                           type:MWMSocialTokenTypeFacebook
-                         source:source
-                     onComplete:onComplete];
-    return;
-  }
-  onComplete(NO);
-}
-
-+ (BOOL)hasSocialToken
-{
-  return [GIDSignIn sharedInstance].currentUser.authentication.idToken != nil ||
-         [FBSDKAccessToken currentAccessToken].tokenString != nil;
-}
-
 + (BOOL)isAuthenticated { return GetFramework().GetUser().IsAuthenticated(); }
 
 + (void)authenticateWithToken:(NSString * _Nonnull)token
                          type:(MWMSocialTokenType)type
+              privacyAccepted:(BOOL)privacyAccepted
+                termsAccepted:(BOOL)termsAccepted
+                promoAccepted:(BOOL)promoAccepted
                        source:(MWMAuthorizationSource)source
                    onComplete:(MWMAuthorizationCompleteBlock)onComplete
 {
@@ -99,9 +65,8 @@
     });
   };
   user.AddSubscriber(std::move(s));
-  //TODO: support privacy policy, terms of use and promo offers.
-  user.Authenticate(token.UTF8String, socialTokenType, false /* privacyAccepted */,
-                    false /* termsAccepted */, false /* promoAccepted */);
+  user.Authenticate(token.UTF8String, socialTokenType, privacyAccepted,
+                    termsAccepted, promoAccepted);
 }
 
 @end

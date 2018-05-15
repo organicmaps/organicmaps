@@ -82,7 +82,7 @@
                                                         <action selector="onCheck:" destination="-1" eventType="valueChanged" id="GHm-Xj-Fic"/>
                                                     </connections>
                                                 </view>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="I agree to Privacy Policy" translatesAutoresizingMaskIntoConstraints="NO" id="LhW-gs-XN9">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="I agree to Privacy Policy" translatesAutoresizingMaskIntoConstraints="NO" id="LhW-gs-XN9" customClass="LinkTextView" customModule="maps_me" customModuleProvider="target">
                                                     <rect key="frame" x="40" y="10" width="182.5" height="35.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
@@ -127,7 +127,7 @@
                                                         <action selector="onCheck:" destination="-1" eventType="valueChanged" id="3jl-dT-yZS"/>
                                                     </connections>
                                                 </view>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="I agree to Terms of Use" translatesAutoresizingMaskIntoConstraints="NO" id="PBR-9l-2Gh">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="I agree to Terms of Use" translatesAutoresizingMaskIntoConstraints="NO" id="PBR-9l-2Gh" customClass="LinkTextView" customModule="maps_me" customModuleProvider="target">
                                                     <rect key="frame" x="40" y="10" width="178.5" height="35.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
@@ -166,7 +166,7 @@
                                                         <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="radioBtnOn"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="I agree to recieve latest news about our products" translatesAutoresizingMaskIntoConstraints="NO" id="p04-D7-97V">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="I agree to recieve latest news about our products" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p04-D7-97V">
                                                     <rect key="frame" x="40" y="10" width="263" height="35.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>

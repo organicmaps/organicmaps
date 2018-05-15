@@ -64,12 +64,6 @@ final class UGCAddReviewController: MWMTableViewController {
     guard let nc = navigationController else { return }
     if MWMAuthorizationViewModel.isAuthenticated() || MWMPlatform.networkConnectionType() == .none {
       nc.popViewController(animated: true)
-      return
-    }
-
-    if MWMAuthorizationViewModel.hasSocialToken() {
-      MWMAuthorizationViewModel.checkAuthentication(with: .UGC, onComplete: { _ in})
-      nc.popViewController(animated: true)
     } else {
       Statistics.logEvent(kStatUGCReviewAuthShown, withParameters: [kStatFrom: kStatAfterSave])
       let authVC = AuthorizationViewController(barButtonItem: navigationItem.rightBarButtonItem!,
