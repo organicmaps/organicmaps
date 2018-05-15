@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
@@ -230,6 +231,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
     }
     else
     {
+      Toast.makeText(mContext, R.string.profile_authorization_error, Toast.LENGTH_LONG).show();
       Statistics.INSTANCE.trackBmSyncProposalError(Framework.TOKEN_MAPSME, "Unknown error");
     }
     updateWidget();

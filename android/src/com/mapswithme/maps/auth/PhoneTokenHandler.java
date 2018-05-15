@@ -5,29 +5,33 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.facebook.AccessToken;
 import com.mapswithme.maps.Framework;
 
-class FacebookTokenHandler implements TokenHandler
+public class PhoneTokenHandler implements TokenHandler
 {
+  @Nullable
+  private String mToken;
+
   @Override
   public boolean checkToken(int requestCode, @NonNull Intent data)
   {
-    AccessToken facebookToken = AccessToken.getCurrentAccessToken();
-    return facebookToken != null && !TextUtils.isEmpty(facebookToken.getToken());
+    if (requestCode != Constants.REQ_CODE_PHONE_AUTH_RESULT)
+      return false;
+
+    mToken = data.getStringExtra(Constants.EXTRA_PHONE_AUTH_TOKEN);
+    return !TextUtils.isEmpty(mToken);
   }
 
   @Nullable
   @Override
   public String getToken()
   {
-    AccessToken facebookToken = AccessToken.getCurrentAccessToken();
-    return facebookToken != null ? facebookToken.getToken() : null;
+    return mToken;
   }
 
   @Override
   public int getType()
   {
-    return Framework.SOCIAL_TOKEN_FACEBOOK;
+    return Framework.SOCIAL_TOKEN_PHONE;
   }
 }

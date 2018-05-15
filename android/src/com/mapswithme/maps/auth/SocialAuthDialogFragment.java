@@ -48,32 +48,9 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   private GoogleSignInClient mGoogleSignInClient;
   @NonNull
   private final CallbackManager mFacebookCallbackManager = CallbackManager.Factory.create();
-  @Nullable
-  private String mPhoneAuthToken;
   @NonNull
   private final List<TokenHandler> mTokenHandlers = Arrays.asList(
-      new FacebookTokenHandler(), new GoogleTokenHandler(),
-      new TokenHandler()
-      {
-        @Override
-        public boolean checkToken()
-        {
-          return !TextUtils.isEmpty(mPhoneAuthToken);
-        }
-
-        @Nullable
-        @Override
-        public String getToken()
-        {
-          return mPhoneAuthToken;
-        }
-
-        @Override
-        public int getType()
-        {
-          return Framework.SOCIAL_TOKEN_PHONE;
-        }
-      });
+      new FacebookTokenHandler(), new GoogleTokenHandler(), new PhoneTokenHandler());
   @Nullable
   private TokenHandler mCurrentTokenHandler;
   @NonNull
@@ -88,7 +65,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     public void onClick(View v)
     {
       Intent intent = mGoogleSignInClient.getSignInIntent();
-      startActivity(intent);
+      startActivityForResult(intent, Constants.REQ_CODE_GOOGLE_SIGN_IN);
     }
   };
   @SuppressWarnings("NullableProblems")
@@ -176,18 +153,6 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   public void onResume()
   {
     super.onResume();
-
-    for (TokenHandler handler : mTokenHandlers)
-    {
-      if (handler.checkToken())
-      {
-        mCurrentTokenHandler = handler;
-        LOGGER.i(TAG, "Social token is already obtained");
-        dismiss();
-        return;
-      }
-    }
-
     Statistics.INSTANCE.trackEvent(Statistics.EventName.UGC_AUTH_SHOWN);
   }
 
@@ -211,14 +176,21 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   public void onActivityResult(int requestCode, int resultCode, Intent data)
   {
     super.onActivityResult(requestCode, resultCode, data);
+    mFacebookCallbackManager.onActivityResult(requestCode, resultCode, data);
 
-    if (data != null && requestCode == Constants.REQ_CODE_PHONE_AUTH_RESULT)
-    {
-      mPhoneAuthToken = data.getStringExtra(Constants.EXTRA_PHONE_AUTH_TOKEN);
+    if (resultCode != Activity.RESULT_OK || data == null)
       return;
+
+    for (TokenHandler handler : mTokenHandlers)
+    {
+      if (handler.checkToken(requestCode, data))
+        mCurrentTokenHandler = handler;
     }
 
-    mFacebookCallbackManager.onActivityResult(requestCode, resultCode, data);
+    if (mCurrentTokenHandler == null)
+      return;
+
+    dismiss();
   }
 
   @Override
