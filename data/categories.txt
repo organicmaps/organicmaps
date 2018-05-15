@@ -3065,7 +3065,7 @@ da:3^Springvand|fontæne
 nl:^Fontein
 fi:^Suihkulähde
 fr:^Fontaine
-de:^Brunnen|Fontäne
+de:^Springbrunnen|Fontäne
 hu:^Szökőkút
 id:^Air mancur
 it:^Fontana|zampillo
