@@ -67,7 +67,25 @@ enum class BookmarkIcon : uint16_t
 {
   None = 0,
   Hotel,
-
+  Animals,
+  Buddhism,
+  Building,
+  Christianity,
+  Entertainment,
+  Exchange,
+  Food,
+  Gas,
+  Judaism,
+  Medicine,
+  Mountain,
+  Museum,
+  Islam,
+  Park,
+  Parking,
+  Shop,
+  Sights,
+  Swim,
+  Water,
   Count
 };
 
@@ -77,6 +95,25 @@ inline std::string DebugPrint(BookmarkIcon icon)
   {
     case BookmarkIcon::None: return "None";
     case BookmarkIcon::Hotel: return "Hotel";
+    case BookmarkIcon::Animals: return "Animals";
+    case BookmarkIcon::Buddhism: return "Buddhism";
+    case BookmarkIcon::Building: return "Building";
+    case BookmarkIcon::Christianity: return "Christianity";
+    case BookmarkIcon::Entertainment: return "Entertainment";
+    case BookmarkIcon::Exchange: return "Exchange";
+    case BookmarkIcon::Food: return "Food";
+    case BookmarkIcon::Gas: return "Gas";
+    case BookmarkIcon::Judaism: return "Judaism";
+    case BookmarkIcon::Medicine: return "Medicine";
+    case BookmarkIcon::Mountain: return "Mountain";
+    case BookmarkIcon::Museum: return "Museum";
+    case BookmarkIcon::Islam: return "Islam";
+    case BookmarkIcon::Park: return "Park";
+    case BookmarkIcon::Parking: return "Parking";
+    case BookmarkIcon::Shop: return "Shop";
+    case BookmarkIcon::Sights: return "Sights";
+    case BookmarkIcon::Swim: return "Swim";
+    case BookmarkIcon::Water: return "Water";
     case BookmarkIcon::Count: return {};
   }
 }
