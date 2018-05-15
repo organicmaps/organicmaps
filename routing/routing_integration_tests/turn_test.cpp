@@ -422,9 +422,6 @@ UNIT_TEST(RussiaMoscowBolshayaNikitskayaOkhotnyRyadTest)
   integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnSlightRight);
 }
 
-// Test case: a route goes in Moscow from Tverskaya street (towards city center)
-// to Mokhovaya street. Road goes left but there are no other turn option.
-// Turn instruction is not needed in this case.
 UNIT_TEST(RussiaMoscowTverskajaOkhotnyRyadTest)
 {
   TRouteResult const routeResult =
@@ -436,7 +433,8 @@ UNIT_TEST(RussiaMoscowTverskajaOkhotnyRyadTest)
   IRouter::ResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, IRouter::NoError, ());
-  integration::TestTurnCount(route, 0 /* expectedTurnCount */);
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnLeft);
 }
 
 UNIT_TEST(RussiaMoscowBolshoyKislovskiyPerBolshayaNikitinskayaUlTest)
@@ -474,7 +472,7 @@ UNIT_TEST(SwitzerlandSamstagernBergstrasseTest)
 {
   TRouteResult const routeResult =
       integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
-                                  MercatorBounds::FromLatLon(47.19300, 8.67568), {0., 0.},
+                                  MercatorBounds::FromLatLon(47.19307, 8.67594), {0., 0.},
                                   MercatorBounds::FromLatLon(47.19162, 8.67590));
 
   Route const & route = *routeResult.first;
@@ -797,8 +795,14 @@ UNIT_TEST(BelorussiaMinskTest)
   IRouter::ResultCode const result = routeResult.second;
 
   TEST_EQUAL(result, IRouter::NoError, ());
-  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
-  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+  integration::TestTurnCount(route, 2 /* expectedTurnCount */);
+  // @TODO(bykoianko) In this case it's better to get GoStraight direction or not get
+  // direction at all. But the turn generator generates TurnSlightRight based on road geometry.
+  // It's so because the turn generator does not take into account the significant number of lanes
+  // of the roads at the crossing. While turn generation number of lanes should be taken into account.
+  integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
+      {CarDirection::GoStraight, CarDirection::TurnSlightRight});
+  integration::GetNthTurn(route, 1).TestValid().TestDirection(CarDirection::TurnRight);
 }
 
 UNIT_TEST(EnglandLondonExitToLeftTest)
@@ -952,6 +956,39 @@ UNIT_TEST(RussiaMoscowMinskia2TurnTest)
       integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                   MercatorBounds::FromLatLon(55.74244, 37.4808), {0., 0.},
                                   MercatorBounds::FromLatLon(55.74336, 37.48124));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+}
+
+// This test on getting correct (far enough) outgoing turn point (result of method GetPointForTurn())
+// despite the fact that a small road adjoins immediately after the turn point.
+UNIT_TEST(RussiaMoscowBarikadnaiTurnTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(55.75979, 37.58502), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.75936, 37.58286));
+
+  Route const & route = *routeResult.first;
+  IRouter::ResultCode const result = routeResult.second;
+
+  TEST_EQUAL(result, IRouter::NoError, ());
+  integration::TestTurnCount(route, 1 /* expectedTurnCount */);
+  integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
+}
+
+// This test on getting correct (far enough) outgoing turn point (result of method GetPointForTurn()).
+UNIT_TEST(RussiaMoscowKomsomolskyTurnTest)
+{
+  TRouteResult const routeResult =
+      integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                  MercatorBounds::FromLatLon(55.73442, 37.59391), {0., 0.},
+                                  MercatorBounds::FromLatLon(55.73485, 37.59543));
 
   Route const & route = *routeResult.first;
   IRouter::ResultCode const result = routeResult.second;

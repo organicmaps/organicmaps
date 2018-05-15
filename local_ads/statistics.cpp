@@ -148,7 +148,7 @@ void CreateDirIfNotExist()
   if (!GetPlatform().IsFileExistsByFullPath(statsFolder) && !Platform::MkDirChecked(statsFolder))
     MYTHROW(FileSystemException, ("Unable to find or create directory", statsFolder));
 }
-  
+
 std::list<local_ads::Event> ReadEvents(std::string const & fileName)
 {
   std::list<local_ads::Event> result;

@@ -23,9 +23,8 @@ public:
   /// this method computes number of ingoing ways to |junctionPoint| and fills |outgoingTurns|.
   /// \note This method should not be called for |segmentRange| of fake edges.
   /// So method |segmentRange.IsClear()| should return false.
-  virtual void GetPossibleTurns(SegmentRange const & segmentRange, m2::PointD const & ingoingPoint,
-                                m2::PointD const & junctionPoint, size_t & ingoingCount,
-                                TurnCandidates & outgoingTurns) const = 0;
+  virtual void GetPossibleTurns(SegmentRange const & segmentRange, m2::PointD const & junctionPoint,
+                                size_t & ingoingCount, TurnCandidates & outgoingTurns) const = 0;
   virtual double GetPathLength() const = 0;
   virtual Junction GetStartPoint() const = 0;
   virtual Junction GetEndPoint() const = 0;

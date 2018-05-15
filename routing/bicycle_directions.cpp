@@ -52,12 +52,10 @@ public:
   // turns::IRoutingResult overrides:
   TUnpackedPathSegments const & GetSegments() const override { return m_pathSegments; }
 
-  void GetPossibleTurns(SegmentRange const & segmentRange, m2::PointD const & ingoingPoint,
-                        m2::PointD const & junctionPoint, size_t & ingoingCount,
-                        TurnCandidates & outgoingTurns) const override
+  void GetPossibleTurns(SegmentRange const & segmentRange, m2::PointD const & junctionPoint,
+                        size_t & ingoingCount, TurnCandidates & outgoingTurns) const override
   {
-    CHECK(!segmentRange.IsEmpty(), ("SegmentRange presents a fake feature. ingoingPoint:",
-                                    MercatorBounds::ToLatLon(ingoingPoint),
+    CHECK(!segmentRange.IsEmpty(), ("SegmentRange presents a fake feature.",
                                     "junctionPoint:", MercatorBounds::ToLatLon(junctionPoint)));
 
     ingoingCount = 0;

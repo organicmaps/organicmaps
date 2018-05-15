@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "routing/loaded_path_segment.hpp"
+#include "routing/routing_result_graph.hpp"
 #include "routing/route.hpp"
 #include "routing/turns.hpp"
 #include "routing/turns_generator.hpp"
@@ -8,6 +10,8 @@
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
+
+#include "base/macros.hpp"
 
 #include "std/cmath.hpp"
 #include "std/string.hpp"
@@ -18,6 +22,43 @@ using namespace turns;
 
 namespace
 {
+// It's a dummy class to wrap |segments| for tests.
+class RoutingResultTest : public IRoutingResult
+{
+public:
+  explicit RoutingResultTest(TUnpackedPathSegments const & segments) : m_segments(segments) {}
+
+  TUnpackedPathSegments const & GetSegments() const override { return m_segments; }
+
+  void GetPossibleTurns(SegmentRange const & segmentRange, m2::PointD const & junctionPoint,
+                        size_t & ingoingCount, TurnCandidates & outgoingTurns) const override
+  {
+    outgoingTurns.candidates.emplace_back(0.0, Segment(), ftypes::HighwayClass::Tertiary, false);
+    outgoingTurns.isCandidatesAngleValid = false;
+  }
+
+  double GetPathLength() const override
+  {
+    NOTIMPLEMENTED();
+    return 0.0;
+  }
+
+  Junction GetStartPoint() const override
+  {
+    NOTIMPLEMENTED();
+    return Junction();
+  }
+
+  Junction GetEndPoint() const override
+  {
+    NOTIMPLEMENTED();
+    return Junction();
+  }
+
+private:
+  TUnpackedPathSegments m_segments;
+};
+
 UNIT_TEST(TestSplitLanes)
 {
   vector<string> result;
@@ -360,16 +401,71 @@ UNIT_TEST(TestCheckUTurnOnRoute)
                                        pathSegments[3].m_path.back().GetPoint());
   pathSegments[3].m_path.clear();
 
+  RoutingResultTest resultTest(pathSegments);
+
   // Zigzag test.
   TurnItem turn1;
-  TEST_EQUAL(CheckUTurnOnRoute(pathSegments, 1, turn1), 1, ());
+  TEST_EQUAL(CheckUTurnOnRoute(resultTest, 1 /* outgoingSegmentIndex */, NumMwmIds(), turn1), 1, ());
   TEST_EQUAL(turn1.m_turn, CarDirection::UTurnLeft, ());
   TurnItem turn2;
-  TEST_EQUAL(CheckUTurnOnRoute(pathSegments, 2, turn2), 1, ());
+  TEST_EQUAL(CheckUTurnOnRoute(resultTest, 2 /* outgoingSegmentIndex */, NumMwmIds(), turn2), 1, ());
   TEST_EQUAL(turn2.m_turn, CarDirection::UTurnLeft, ());
 
   // Empty path test.
   TurnItem turn3;
-  TEST_EQUAL(CheckUTurnOnRoute(pathSegments, 3, turn3), 0, ());
+  TEST_EQUAL(CheckUTurnOnRoute(resultTest, 3 /* outgoingSegmentIndex */, NumMwmIds(), turn3), 0, ());
+}
+
+UNIT_TEST(GetNextRoutePointIndex)
+{
+  TUnpackedPathSegments pathSegments(2, LoadedPathSegment());
+  pathSegments[0].m_path = {{{0, 0}, 0}, {{0, 1}, 0}, {{0, 2}, 0}};
+  pathSegments[1].m_path = {{{0, 2}, 0}, {{1, 2}, 0}};
+
+  RoutingResultTest resultTest(pathSegments);
+  RoutePointIndex nextIndex;
+
+  // Forward direction.
+  TEST(GetNextRoutePointIndex(resultTest,
+                              RoutePointIndex({0 /* m_segmentIndex */, 0 /* m_pathIndex */}),
+                              NumMwmIds(), true /* forward */, nextIndex), ());
+  TEST_EQUAL(nextIndex, RoutePointIndex({0 /* m_segmentIndex */, 1 /* m_pathIndex */}), ());
+
+  TEST(GetNextRoutePointIndex(resultTest,
+                              RoutePointIndex({0 /* m_segmentIndex */, 1 /* m_pathIndex */}),
+                              NumMwmIds(), true /* forward */, nextIndex), ());
+  TEST_EQUAL(nextIndex, RoutePointIndex({0 /* m_segmentIndex */, 2 /* m_pathIndex */}), ());
+
+  // Trying to get next item after the last item of the first segment.
+  TEST(!GetNextRoutePointIndex(resultTest,
+                               RoutePointIndex({0 /* m_segmentIndex */, 2 /* m_pathIndex */}),
+                               NumMwmIds(), true /* forward */, nextIndex), ());
+
+  // Trying to get point about the end of the route.
+  TEST(!GetNextRoutePointIndex(resultTest,
+                               RoutePointIndex({1 /* m_segmentIndex */, 1 /* m_pathIndex */}),
+                               NumMwmIds(), true /* forward */, nextIndex), ());
+
+  // Backward direction.
+  // Moving in backward direction it's possible to get index of the first item of a segment.
+  TEST(GetNextRoutePointIndex(resultTest,
+                              RoutePointIndex({1 /* m_segmentIndex */, 1 /* m_pathIndex */}),
+                              NumMwmIds(), false /* forward */, nextIndex), ());
+  TEST_EQUAL(nextIndex, RoutePointIndex({1 /* m_segmentIndex */, 0 /* m_pathIndex */}), ());
+
+  TEST(GetNextRoutePointIndex(resultTest,
+                              RoutePointIndex({0 /* m_segmentIndex */, 2 /* m_pathIndex */}),
+                              NumMwmIds(), false /* forward */, nextIndex), ());
+  TEST_EQUAL(nextIndex, RoutePointIndex({0 /* m_segmentIndex */, 1 /* m_pathIndex */}), ());
+
+  TEST(GetNextRoutePointIndex(resultTest,
+                              RoutePointIndex({0 /* m_segmentIndex */, 1 /* m_pathIndex */}),
+                              NumMwmIds(), false /* forward */, nextIndex), ());
+  TEST_EQUAL(nextIndex, RoutePointIndex({0 /* m_segmentIndex */, 0 /* m_pathIndex */}), ());
+
+  // Trying to get point before the beginning.
+  TEST(!GetNextRoutePointIndex(resultTest,
+                               RoutePointIndex({0 /* m_segmentIndex */, 0 /* m_pathIndex */}),
+                               NumMwmIds(), false /* forward */, nextIndex), ());
 }
 }  // namespace

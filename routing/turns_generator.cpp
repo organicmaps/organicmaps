@@ -12,21 +12,26 @@
 #include "base/macros.hpp"
 #include "base/stl_helpers.hpp"
 
-#include "std/cmath.hpp"
-#include "std/numeric.hpp"
-#include "std/string.hpp"
+#include <cmath>
+#include <sstream>
+#include <numeric>
 
 using namespace routing;
 using namespace routing::turns;
+using namespace std;
 
 namespace
 {
-size_t constexpr kMaxOutgoingPointsCount = 5;
-double constexpr kMinOutgoingDistMeters = 200.;
+// @TODO(bykoianko) For the time being |kMaxOutgoingPointsCount| and |kMinOutgoingDistMeters|
+// have value for car navigation. On the other hand it's used for bicycle navigation.
+// But for bicycle navigation the value should be smaller. They should be moved to
+// RoutingSettings structure.
+size_t constexpr kMaxOutgoingPointsCount = 9;
+double constexpr kMinOutgoingDistMeters = 120.0;
 size_t constexpr kMaxIngoingPointsCount = 2;
-double constexpr kMinIngoingDistMeters = 300.;
+double constexpr kMinIngoingDistMeters = 100.0;
 size_t constexpr kNotSoCloseMaxPointsCount = 3;
-double constexpr kNotSoCloseMinDistMeters = 30.;
+double constexpr kNotSoClosemaxDistMeters = 30.0;
 
 bool IsHighway(ftypes::HighwayClass hwClass, bool isLink)
 {
@@ -100,21 +105,11 @@ bool IsExit(TurnCandidates const & possibleTurns, TurnInfo const & turnInfo,
  * \brief Returns false when
  * - the route leads from one big road to another one;
  * - and the other possible turns lead to small roads;
- * - and the turn is GoStraight or TurnSlight*.
  * Returns true otherwise.
  */
-bool KeepTurnByHighwayClass(CarDirection turn, TurnCandidates const & possibleTurns,
-                            TurnInfo const & turnInfo, NumMwmIds const & numMwmIds)
+bool KeepTurnByHighwayClass(TurnCandidates const & possibleTurns, TurnInfo const & turnInfo,
+                            NumMwmIds const & numMwmIds)
 {
-  if (!IsGoStraightOrSlightTurn(turn))
-    return true;  // The road significantly changes its direction here. So this turn shall be kept.
-
-  // There's only one exit from this junction. This turn should be kept here.
-  // That means the the decision to keep this turn or not is left for KeepTurnByIngoingEdges()
-  // method which should be called after this one.
-  if (possibleTurns.candidates.size() == 1)
-    return true;
-
   // The turn should be kept if there's no any information about feature id of outgoing segment
   // just to be on the safe side. It may happen in case of outgoing segment is a finish segment.
   Segment firstOutgoingSegment;
@@ -132,6 +127,7 @@ bool KeepTurnByHighwayClass(CarDirection turn, TurnCandidates const & possibleTu
   }
   if (maxClassForPossibleTurns == ftypes::HighwayClass::Error)
   {
+    ASSERT_GREATER(possibleTurns.candidates.size(), 1, ("No turn candidates or there's only one turn candidate."));
     ASSERT(false, ("One of possible turns follows along an undefined HighwayClass."));
     return true;
   }
@@ -159,7 +155,7 @@ bool KeepTurnByHighwayClass(CarDirection turn, TurnCandidates const & possibleTu
   if (diff >= kMaxHighwayClassDiff ||
       (maxClassForPossibleTurns == ftypes::HighwayClass::Service && diff >= kMaxHighwayClassDiffForService))
   {
-    // The turn shall be removed if the route goes near small roads without changing the direction.
+    // The turn shall be removed if the route goes near small roads.
     return false;
   }
   return true;
@@ -291,76 +287,87 @@ CarDirection FindDirectionByAngle(vector<pair<double, CarDirection>> const & low
   return CarDirection::None;
 }
 
+RoutePointIndex GetFirstOutgoingPointIndex(size_t outgoingSegmentIndex)
+{
+  return RoutePointIndex({outgoingSegmentIndex, 0 /* m_pathIndex */});
+}
+
+RoutePointIndex GetLastIngoingPointIndex(TUnpackedPathSegments const & segments,
+                                         size_t outgoingSegmentIndex)
+{
+  return RoutePointIndex({outgoingSegmentIndex - 1,
+                          segments[outgoingSegmentIndex - 1].m_path.size() - 1 /* m_pathIndex */});
+}
+
+m2::PointD GetPointByIndex(TUnpackedPathSegments const & segments, RoutePointIndex const & index)
+{
+  return segments[index.m_segmentIndex].m_path[index.m_pathIndex].GetPoint();
+}
+
 /*!
- * \brief GetPointForTurn returns ingoingPoint or outgoingPoint for turns.
- * These points belongs to the route but they often are not neighbor of junctionPoint.
+ * \brief GetPointForTurn returns ingoing point or outgoing point for turns.
+ * These points belongs to the route but they often are not neighbor of junction point.
  * To calculate the resulting point the function implements the following steps:
- * - going from junctionPoint along segment path according to the direction which is set in GetPointIndex().
+ * - going from junction point along route path according to the direction which is set in GetPointIndex().
  * - until one of following conditions is fulfilled:
- *   - the end of ft is reached; (returns the last feature point)
- *   - more than kMaxIngoingPointsCount or kMaxOutgoingPointsCount points are passed;
- *     (returns the kMaxIngoingPointsCount-th or kMaxOutgoingPointsCount point)
- *   - the length of passed parts of segment exceeds kMinIngoingDistMeters or kMinOutgoingDistMeters;
+ *   - more than |maxPointsCount| points are passed (returns the maxPointsCount-th point);
+ *   - the length of passed parts of segment exceeds maxDistMeters;
  *     (returns the next point after the event)
- * \param path geometry of the segment.
- * \param junctionPoint is a junction point.
- * \param maxPointsCount returned poit could't be more than maxPointsCount poins away from junctionPoint
- * \param minDistMeters returned point should be minDistMeters away from junctionPoint if ft is long and consists of short segments
- * \param GetPointIndex is a function for getting points by index.
- * It defines a direction of following along a feature. So it differs for ingoing and outgoing
- * cases.
- * It has following parameters:
- * - start is an index of the start point of a feature segment. For example, path.back().
- * - end is an index of the end point of a feature segment. For example, path.front().
- * - shift is a number of points which shall be added to end or start index. After that
- *   the sum reflects an index of a feature segment point which will be used for a turn calculation.
- * The sum shall belongs to a range [min(start, end), max(start, end)].
- * shift belongs to a  range [0, abs(end - start)].
+ *   - an important bifurcation point is reached in case of outgoing point is looked up (forward == true).
+ * \param result information about the route. |result.GetSegments()| is composed of LoadedPathSegment.
+ * Each LoadedPathSegment is composed of several Segments. The sequence of Segments belongs to
+ * single feature and does not split by other features.
+ * \param outgoingSegmentIndex index in |segments|. Junction point noticed above is the first point
+ * of |outgoingSegmentIndex| segment in |result.GetSegments()|.
+ * \param maxPointsCount maximum number between the returned point and junction point.
+ * \param maxDistMeters maximum distance between the returned point and junction point.
+ * \param forward is direction of moving along the route to calculate the returned point.
+ * If forward == true the direction is to route finish. If forward == false the direction is to route start.
  * \return an ingoing or outgoing point for a turn calculation.
  */
-m2::PointD GetPointForTurn(vector<Junction> const & path, m2::PointD const & junctionPoint,
-                           size_t const maxPointsCount, double const minDistMeters,
-                           function<size_t(const size_t start, const size_t end, const size_t shift)> GetPointIndex)
+m2::PointD GetPointForTurn(IRoutingResult const & result, size_t outgoingSegmentIndex,
+                           NumMwmIds const & numMwmIds, size_t const maxPointsCount,
+                           double const maxDistMeters, bool forward)
 {
+  auto const & segments = result.GetSegments();
+  ASSERT_LESS(outgoingSegmentIndex, segments.size(), ());
+  ASSERT_GREATER(outgoingSegmentIndex, 0, ());
+
+  RoutePointIndex index = forward ? GetFirstOutgoingPointIndex(outgoingSegmentIndex)
+                                  : GetLastIngoingPointIndex(segments, outgoingSegmentIndex);
+  ASSERT_LESS(index.m_pathIndex, segments[index.m_segmentIndex].m_path.size(), ());
+  ASSERT_GREATER_OR_EQUAL(index.m_segmentIndex, 0, ());
+  ASSERT_LESS(index.m_segmentIndex, segments.size(), ());
+
+  vector<Junction> const & path = segments[index.m_segmentIndex].m_path;
   ASSERT(!path.empty(), ());
 
-  double curDistanceMeters = 0.;
-  m2::PointD point = junctionPoint;
+  m2::PointD point = GetPointByIndex(segments, index);
   m2::PointD nextPoint;
+  RoutePointIndex nextIndex;
+  size_t count = 0;
+  double curDistanceMeters = 0.0;
 
-  size_t const numSegPoints = path.size() - 1;
-  ASSERT_GREATER(numSegPoints, 0, ());
-  size_t const usedFtPntNum = min(maxPointsCount, numSegPoints);
-  ASSERT_GREATER_OR_EQUAL(usedFtPntNum, 1, ());
-
-  for (size_t i = 1; i <= usedFtPntNum; ++i)
+  while (GetNextRoutePointIndex(result, index, numMwmIds, forward, nextIndex))
   {
-    nextPoint = path[GetPointIndex(0, numSegPoints, i)].GetPoint();
+    nextPoint = GetPointByIndex(segments, nextIndex);
 
-    // TODO The code below is a stub for compatability with older versions with this function.
-    // Remove it, fix tests cases when it works (integration test
-    // RussiaMoscowTTKVarshavskoeShosseOutTurnTest)
-    // and remove point duplication when we get geometry from feature segments.
-    if (point == nextPoint)
+    // At start and finish there are two edges with zero length. There is special processing for them below.
+    if (point == nextPoint && (outgoingSegmentIndex == 1 || outgoingSegmentIndex + 1 == segments.size()))
+    {
+      ASSERT_EQUAL(path.size(), 2, ("At start and finish point should have two point edge."));
       return nextPoint;
+    }
 
     curDistanceMeters += MercatorBounds::DistanceOnEarth(point, nextPoint);
-    if (curDistanceMeters > minDistMeters)
+    if (curDistanceMeters > maxDistMeters || ++count >= maxPointsCount)
       return nextPoint;
+
     point = nextPoint;
+    index = nextIndex;
   }
 
   return nextPoint;
-}
-
-size_t GetIngoingPointIndex(const size_t start, const size_t end, const size_t i)
-{
-  return end > start ? end - i : end + i;
-}
-
-size_t GetOutgoingPointIndex(const size_t start, const size_t end, const size_t i)
-{
-  return end > start ? start + i : start - i;
 }
 
 size_t GetLinkCount(vector<TurnCandidate> const & candidates)
@@ -373,12 +380,103 @@ size_t GetLinkCount(vector<TurnCandidate> const & candidates)
   }
   return numLinks;
 }
+
+/*!
+ * \brief Calculates |nextIndex| which is an index of next route point at result.GetSegments()
+ * in forward direction.
+ * If
+ *  - |index| points at the last point of the turn segment:
+ *  - and the route at this point leads from one big road to another one
+ *  - and the other possible turns lead to small roads or there's no them
+ *  - and the turn is GoStraight or TurnSlight*
+ *  method returns the second point of the next segment. First point of the next segment is skipped
+ *  because it's almost the same with the last point of this segment.
+ *  if |index| points at the first or intermediate point in turn segment returns the next one.
+ * \returns true if |nextIndex| fills correctly and false otherwise.
+ */
+bool GetNextCrossSegmentRoutePoint(IRoutingResult const & result, RoutePointIndex const & index,
+                                   NumMwmIds const & numMwmIds, RoutePointIndex & nextIndex)
+{
+  auto const & segments = result.GetSegments();
+  ASSERT_LESS(index.m_segmentIndex, segments.size(), ());
+  ASSERT_LESS(index.m_pathIndex, segments[index.m_segmentIndex].m_path.size(), ());
+
+  if (index.m_pathIndex + 1 != segments[index.m_segmentIndex].m_path.size())
+  {
+    // In segment case.
+    nextIndex = {index.m_segmentIndex, index.m_pathIndex + 1};
+    return true;
+  }
+
+  // Case when the last point of the current segment is reached.
+  // So probably it's necessary to cross a segment border.
+  if (index.m_segmentIndex + 1 == segments.size())
+    return false; // The end of the route is reached.
+
+  TurnInfo const turnInfo(segments[index.m_segmentIndex], segments[index.m_segmentIndex + 1]);
+  ASSERT_GREATER_OR_EQUAL(turnInfo.m_ingoing.m_path.size(), 2, ());
+  ASSERT_GREATER_OR_EQUAL(turnInfo.m_outgoing.m_path.size(), 2, ());
+
+  double const oneSegmentTurnAngle = my::RadToDeg(
+      PiMinusTwoVectorsAngle(turnInfo.m_ingoing.m_path.back().GetPoint(),
+                             turnInfo.m_ingoing.m_path[turnInfo.m_ingoing.m_path.size() - 2].GetPoint(),
+                             turnInfo.m_outgoing.m_path[1].GetPoint()));
+  CarDirection const oneSegmentDirection = IntermediateDirection(oneSegmentTurnAngle);
+  if (!IsGoStraightOrSlightTurn(oneSegmentDirection))
+    return false; // Too sharp turn angle.
+
+  size_t ingoingCount = 0;
+  TurnCandidates possibleTurns;
+  result.GetPossibleTurns(turnInfo.m_ingoing.m_segmentRange, GetPointByIndex(segments, index),
+                          ingoingCount, possibleTurns);
+
+  if (possibleTurns.candidates.empty())
+    return false;
+
+  // |segments| is a vector of |LoadedPathSegment|. Every |LoadedPathSegment::m_path|
+  // contains junctions of the segment. The first junction at a |LoadedPathSegment::m_path|
+  // is the same (or almost the same) with the last junction at the next |LoadedPathSegment::m_path|.
+  // To prevent using the same point twice it's necessary to take the first point only from the
+  // first item of |loadedSegments|. The beginning should be ignored for the rest |m_path|.
+  // Please see a comment in MakeTurnAnnotation() for more details.
+  if (possibleTurns.candidates.size() == 1)
+  {
+    // Taking the next point of the next segment.
+    nextIndex = {index.m_segmentIndex + 1, 1 /* m_pathIndex */};
+    return true;
+  }
+
+  if (!KeepTurnByHighwayClass(possibleTurns, turnInfo, numMwmIds))
+  {
+    // Taking the next point of the next segment.
+    nextIndex = {index.m_segmentIndex + 1, 1 /* m_pathIndex */};
+    return true;
+  }
+  // Stopping getting next route points because an important bifurcation point is reached.
+  return false;
+}
+
+bool GetPrevInSegmentRoutePoint(RoutePointIndex const & index, RoutePointIndex & nextIndex)
+{
+  if (index.m_pathIndex == 0)
+    return false;
+
+  nextIndex = {index.m_segmentIndex, index.m_pathIndex - 1};
+  return true;
+}
 }  // namespace
 
 namespace routing
 {
 namespace turns
 {
+// RoutePointIndex ---------------------------------------------------------------------------------
+bool RoutePointIndex::operator==(RoutePointIndex const & index) const
+{
+  return m_segmentIndex == index.m_segmentIndex && m_pathIndex == index.m_pathIndex;
+}
+
+// TurnInfo ----------------------------------------------------------------------------------------
 bool TurnInfo::IsSegmentsValid() const
 {
   if (m_ingoing.m_path.empty() || m_outgoing.m_path.empty())
@@ -389,7 +487,26 @@ bool TurnInfo::IsSegmentsValid() const
   return true;
 }
 
-IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result, NumMwmIds const & numMwmIds,
+bool GetNextRoutePointIndex(IRoutingResult const & result, RoutePointIndex const & index,
+                            NumMwmIds const & numMwmIds, bool forward, RoutePointIndex & nextIndex)
+{
+  if (forward)
+  {
+    if (!GetNextCrossSegmentRoutePoint(result, index, numMwmIds, nextIndex))
+      return false;
+  }
+  else
+  {
+    if (!GetPrevInSegmentRoutePoint(index, nextIndex))
+      return false;
+  }
+
+  ASSERT_LESS(nextIndex.m_segmentIndex, result.GetSegments().size(), ());
+  ASSERT_LESS(nextIndex.m_pathIndex, result.GetSegments()[nextIndex.m_segmentIndex].m_path.size(), ());
+  return true;
+}
+
+IRouter::ResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds const & numMwmIds,
                                        RouterDelegate const & delegate,
                                        vector<Junction> & junctions, Route::TTurns & turnsDir,
                                        Route::TStreets & streets, vector<Segment> & segments)
@@ -414,21 +531,23 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result, Num
     // Turns information.
     if (!junctions.empty() && skipTurnSegments == 0)
     {
-      turns::TurnItem turnItem;
+      TurnItem turnItem;
       turnItem.m_index = static_cast<uint32_t>(junctions.size() - 1);
 
-      size_t segmentIndex = distance(loadedSegments.begin(), loadedSegmentIt);
-      skipTurnSegments = CheckUTurnOnRoute(loadedSegments, segmentIndex, turnItem);
+      auto const outgoingSegmentDist = distance(loadedSegments.begin(), loadedSegmentIt);
+      CHECK_GREATER_OR_EQUAL(outgoingSegmentDist, 0, ());
+      auto const outgoingSegmentIndex = static_cast<size_t>(outgoingSegmentDist);
 
-      turns::TurnInfo turnInfo(loadedSegments[segmentIndex - 1], *loadedSegmentIt);
+      skipTurnSegments = CheckUTurnOnRoute(result, outgoingSegmentIndex, numMwmIds, turnItem);
 
-      if (turnItem.m_turn == turns::CarDirection::None)
-        turns::GetTurnDirection(result, numMwmIds, turnInfo, turnItem);
+      if (turnItem.m_turn == CarDirection::None)
+        GetTurnDirection(result, outgoingSegmentIndex, numMwmIds, turnItem);
 
-      //  Lane information.
-      if (turnItem.m_turn != turns::CarDirection::None)
+      // Lane information.
+      if (turnItem.m_turn != CarDirection::None)
       {
-        turnItem.m_lanes = turnInfo.m_ingoing.m_lanes;
+        auto const & ingoingSegment = loadedSegments[outgoingSegmentIndex - 1];
+        turnItem.m_lanes = ingoingSegment.m_lanes;
         turnsDir.push_back(move(turnItem));
       }
     }
@@ -463,13 +582,13 @@ IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result, Num
   junctions.front() = result.GetStartPoint();
   junctions.back() = result.GetEndPoint();
 
-  turnsDir.emplace_back(turns::TurnItem(static_cast<uint32_t>(junctions.size()) - 1, turns::CarDirection::ReachedYourDestination));
-  turns::FixupTurns(junctions, turnsDir);
+  turnsDir.emplace_back(TurnItem(static_cast<uint32_t>(junctions.size()) - 1, CarDirection::ReachedYourDestination));
+  FixupTurns(junctions, turnsDir);
 
 #ifdef DEBUG
   for (auto t : turnsDir)
   {
-    LOG(LDEBUG, (turns::GetTurnString(t.m_turn), ":", t.m_index, t.m_sourceName, "-",
+    LOG(LDEBUG, (GetTurnString(t.m_turn), ":", t.m_index, t.m_sourceName, "-",
                  t.m_targetName, "exit:", t.m_exitNum));
   }
 #endif
@@ -692,9 +811,14 @@ bool HasMultiTurns(NumMwmIds const & numMwmIds, TurnCandidates const & turnCandi
   return !OneOfTurnCandidatesGoesAlongIngoingSegment(numMwmIds, turnCandidates, turnInfo);
 }
 
-void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds,
-                      TurnInfo & turnInfo, TurnItem & turn)
+void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex,
+                      NumMwmIds const & numMwmIds, TurnItem & turn)
 {
+  auto const & segments = result.GetSegments();
+  CHECK_LESS(outgoingSegmentIndex, segments.size(), ());
+  CHECK_GREATER(outgoingSegmentIndex, 0, ());
+
+  TurnInfo turnInfo(segments[outgoingSegmentIndex - 1], segments[outgoingSegmentIndex]);
   if (!turnInfo.IsSegmentsValid() || turnInfo.m_ingoing.m_segmentRange.IsEmpty())
     return;
 
@@ -705,12 +829,12 @@ void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds
               kFeaturesNearTurnMeters, ());
 
   m2::PointD const junctionPoint = turnInfo.m_ingoing.m_path.back().GetPoint();
-  m2::PointD const ingoingPoint = GetPointForTurn(turnInfo.m_ingoing.m_path, junctionPoint,
-                                                  kMaxIngoingPointsCount, kMinIngoingDistMeters,
-                                                  GetIngoingPointIndex);
-  m2::PointD const outgoingPoint = GetPointForTurn(turnInfo.m_outgoing.m_path, junctionPoint,
-                                                   kMaxOutgoingPointsCount, kMinOutgoingDistMeters,
-                                                   GetOutgoingPointIndex);
+  m2::PointD const ingoingPoint =
+      GetPointForTurn(result, outgoingSegmentIndex, numMwmIds, kMaxIngoingPointsCount,
+                      kMinIngoingDistMeters, false /* forward */);
+  m2::PointD const outgoingPoint =
+      GetPointForTurn(result, outgoingSegmentIndex, numMwmIds, kMaxOutgoingPointsCount,
+                      kMinOutgoingDistMeters, true /* forward */);
 
   double const turnAngle = my::RadToDeg(PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint));
   CarDirection const intermediateDirection = IntermediateDirection(turnAngle);
@@ -721,11 +845,9 @@ void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds
   turn.m_turn = CarDirection::None;
 
   ASSERT_GREATER(turnInfo.m_ingoing.m_path.size(), 1, ());
-  m2::PointD const ingoingPointOneSegment = turnInfo.m_ingoing.m_path[turnInfo.m_ingoing.m_path.size() - 2].GetPoint();
   TurnCandidates nodes;
   size_t ingoingCount;
-  result.GetPossibleTurns(turnInfo.m_ingoing.m_segmentRange, ingoingPointOneSegment, junctionPoint,
-                          ingoingCount, nodes);
+  result.GetPossibleTurns(turnInfo.m_ingoing.m_segmentRange, junctionPoint, ingoingCount, nodes);
   if (nodes.isCandidatesAngleValid)
   {
     ASSERT(is_sorted(nodes.candidates.begin(), nodes.candidates
@@ -782,8 +904,13 @@ void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds
     return;
   }
 
-  bool const keepTurnByHighwayClass = KeepTurnByHighwayClass(turn.m_turn, nodes, turnInfo, numMwmIds);
-  if (!turn.m_keepAnyway && !keepTurnByHighwayClass)
+  // Note 1. If the road significantly changes its direction this turn shall be kept here.
+  // Note 2. If there's only one exit from this junction (nodes.candidates.size() != 1)
+  // this turn should be kept.
+  // Note 3. Keeping a turn at this point means that the decision to keep this turn or not
+  // will be made after.
+  if (!turn.m_keepAnyway && IsGoStraightOrSlightTurn(turn.m_turn) && nodes.candidates.size() != 1 &&
+      !KeepTurnByHighwayClass(nodes, turnInfo, numMwmIds))
   {
     turn.m_turn = CarDirection::None;
     return;
@@ -792,8 +919,8 @@ void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds
   if (IsGoStraightOrSlightTurn(turn.m_turn))
   {
     auto const notSoCloseToTheTurnPoint =
-        GetPointForTurn(turnInfo.m_ingoing.m_path, junctionPoint, kNotSoCloseMaxPointsCount,
-                        kNotSoCloseMinDistMeters, GetIngoingPointIndex);
+        GetPointForTurn(result, outgoingSegmentIndex, numMwmIds, kNotSoCloseMaxPointsCount,
+                        kNotSoClosemaxDistMeters, false /* forward */);
 
     // Removing a slight turn if there's only one way to leave the turn and there's no ingoing edges.
     if (!KeepTurnByIngoingEdges(junctionPoint, notSoCloseToTheTurnPoint, outgoingPoint, hasMultiTurns,
@@ -822,27 +949,28 @@ void GetTurnDirection(IRoutingResult const & result, NumMwmIds const & numMwmIds
   }
 }
 
-size_t CheckUTurnOnRoute(TUnpackedPathSegments const & segments,
-                         size_t currentSegment, TurnItem & turn)
+size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t outgoingSegmentIndex,
+                         NumMwmIds const & numMwmIds, TurnItem & turn)
 {
   size_t constexpr kUTurnLookAhead = 3;
   double constexpr kUTurnHeadingSensitivity = math::pi / 10.0;
+  auto const & segments = result.GetSegments();
 
   // In this function we process the turn between the previous and the current
   // segments. So we need a shift to get the previous segment.
   ASSERT_GREATER(segments.size(), 1, ());
-  ASSERT_GREATER(currentSegment, 0, ());
-  ASSERT_GREATER(segments.size(), currentSegment, ());
-  auto const & masterSegment = segments[currentSegment - 1];
+  ASSERT_GREATER(outgoingSegmentIndex, 0, ());
+  ASSERT_GREATER(segments.size(), outgoingSegmentIndex, ());
+  auto const & masterSegment = segments[outgoingSegmentIndex - 1];
   if (masterSegment.m_path.size() < 2)
     return 0;
 
   // Roundabout is not the UTurn.
   if (masterSegment.m_onRoundabout)
     return 0;
-  for (size_t i = 0; i < kUTurnLookAhead && i + currentSegment < segments.size(); ++i)
+  for (size_t i = 0; i < kUTurnLookAhead && i + outgoingSegmentIndex < segments.size(); ++i)
   {
-    auto const & checkedSegment = segments[currentSegment + i];
+    auto const & checkedSegment = segments[outgoingSegmentIndex + i];
     if (checkedSegment.m_path.size() < 2)
       return 0;
 
@@ -887,12 +1015,14 @@ size_t CheckUTurnOnRoute(TUnpackedPathSegments const & segments,
 
       // Determine turn direction.
       m2::PointD const junctionPoint = masterSegment.m_path.back().GetPoint();
-      m2::PointD const ingoingPoint = GetPointForTurn(masterSegment.m_path, junctionPoint,
-                                                      kMaxIngoingPointsCount, kMinIngoingDistMeters,
-                                                      GetIngoingPointIndex);
-      m2::PointD const outgoingPoint = GetPointForTurn(segments[currentSegment].m_path, junctionPoint,
-                                                       kMaxOutgoingPointsCount, kMinOutgoingDistMeters,
-                                                       GetOutgoingPointIndex);
+
+      m2::PointD const ingoingPoint =
+          GetPointForTurn(result, outgoingSegmentIndex, numMwmIds, kMaxIngoingPointsCount,
+                          kMinIngoingDistMeters, false /* forward */);
+      m2::PointD const outgoingPoint =
+          GetPointForTurn(result, outgoingSegmentIndex, numMwmIds, kMaxOutgoingPointsCount,
+                          kMinOutgoingDistMeters, true /* forward */);
+
       if (PiMinusTwoVectorsAngle(junctionPoint, ingoingPoint, outgoingPoint) < 0)
         turn.m_turn = CarDirection::UTurnLeft;
       else
@@ -902,6 +1032,14 @@ size_t CheckUTurnOnRoute(TUnpackedPathSegments const & segments,
   }
 
   return 0;
+}
+
+std::string DebugPrint(RoutePointIndex const & index)
+{
+  stringstream out;
+  out << "RoutePointIndex [ m_segmentIndex == " << index.m_segmentIndex
+      << ", m_pathIndex == " << index.m_pathIndex << " ]" << endl;
+  return out.str();
 }
 }  // namespace turns
 }  // namespace routing
