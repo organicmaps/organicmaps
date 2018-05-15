@@ -8,31 +8,88 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingStart="@dimen/margin_base_plus"
-    android:paddingLeft="@dimen/margin_base_plus"
-    android:paddingEnd="@dimen/margin_base_plus"
-    android:paddingRight="@dimen/margin_base_plus"
-    android:paddingBottom="@dimen/auth_dialog_padding_bottom"
-    android:paddingTop="@dimen/auth_dialog_padding_top">
+    android:padding="@dimen/margin_base_plus">
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textAppearance="@style/MwmTextAppearance.Headline"
+      style="@style/MwmTheme.DialogTitleBase"
       android:text="@string/profile_authorization_title"/>
     <TextView
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/margin_half_plus_eight"
-      android:textAppearance="@style/MwmTextAppearance.Body3"
-      android:text="@string/profile_authorization_message"/>
+      android:layout_marginTop="@dimen/margin_half_plus"
+      android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
+      android:layout_marginBottom="@dimen/margin_half"
+      android:text="@string/sign_message_gdpr"/>
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:gravity="center_vertical"
+      android:paddingTop="@dimen/margin_half"
+      android:paddingBottom="@dimen/margin_half">
+      <CheckBox
+        android:id="@+id/privacyPolicyCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+      <TextView
+        android:id="@+id/privacyPolicyLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_base"
+        android:layout_marginStart="@dimen/margin_base"
+        android:linksClickable="true"
+        android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
+        android:text="@string/sign_agree_pp_gdpr"/>
+    </LinearLayout>
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:gravity="center_vertical"
+      android:paddingTop="@dimen/margin_half"
+      android:paddingBottom="@dimen/margin_half">
+      <CheckBox
+        android:id="@+id/termOfUseCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+      <TextView
+        android:id="@+id/termOfUseLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_base"
+        android:layout_marginStart="@dimen/margin_base"
+        android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
+        android:text="@string/sign_agree_tof_gdpr"/>
+    </LinearLayout>
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:gravity="center_vertical"
+      android:paddingTop="@dimen/margin_half"
+      android:paddingBottom="@dimen/margin_half">
+      <CheckBox
+        android:id="@+id/newsCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_base"
+        android:layout_marginStart="@dimen/margin_base"
+        android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
+        android:text="@string/sign_agree_news_gdpr"/>
+    </LinearLayout>
     <TextView
       android:id="@+id/google_button"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:foreground="?clickableBackground"
-      android:background="@drawable/button_transparent_with_border"
-      android:drawableStart="@drawable/ic_google"
-      android:drawableLeft="@drawable/ic_google"
+      android:background="?ghostButtonBackground"
+      android:textColor="?ghostButtonTextColor"
+      android:drawableStart="@drawable/img_google"
+      android:drawableLeft="@drawable/img_google"
       android:paddingLeft="@dimen/margin_half_plus"
       android:paddingStart="@dimen/margin_half_plus"
       android:paddingRight="@dimen/margin_base_plus"

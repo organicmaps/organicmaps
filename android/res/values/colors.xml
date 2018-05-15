@@ -3,7 +3,7 @@
   <!-- Text colors -->
   <color name="text_dark">@color/black_primary</color>
   <color name="text_dark_subtitle">@color/black_secondary</color>
-  <color name="text_dark_hint">@color/black_lightest</color>
+  <color name="text_dark_hint">@color/black_38</color>
   <color name="text_light">@color/white_primary</color>
   <color name="text_light_subtitle">@color/white_secondary</color>
   <color name="text_light_hint">@color/white_lightest</color>
@@ -19,13 +19,13 @@
 
   <color name="black_primary">#DE000000</color>   <!-- 87% black -->
   <color name="black_secondary">#8A000000</color> <!-- 54% black -->
-  <color name="black_lightest">#61000000</color>  <!-- 38% black -->
   <color name="black_4">#0A000000</color> <!-- 4% black -->
   <color name="black_8">#14000000</color> <!-- 8% black -->
   <color name="black_11">#1C000000</color> <!-- 11% black -->
   <color name="black_12">#1E000000</color> <!-- 12% black -->
   <color name="black_24">#3D000000</color> <!-- 24% black -->
-  <color name="black_60">#99000000</color> <!-- 24% black -->
+  <color name="black_38">#61000000</color>  <!-- 38% black -->
+  <color name="black_60">#99000000</color> <!-- 60% black -->
   <color name="white_primary">#FFFFFFFF</color>   <!-- 100% white -->
   <color name="white_secondary">#B3FFFFFF</color> <!-- 70% white -->
   <color name="white_lightest">#4CFFFFFF</color>  <!-- 50% white -->
@@ -33,8 +33,9 @@
   <color name="white_8">#14FFFFFF</color> <!-- 8% white -->
   <color name="white_11">#1CFFFFFF</color> <!-- 11% white -->
   <color name="white_12">#1EFFFFFF</color> <!-- 12% white -->
-  <color name="white_24">#3DFFFFFF</color> <!-- 24% black -->
-  <color name="white_60">#99FFFFFF</color> <!-- 24% black -->
+  <color name="white_24">#3DFFFFFF</color> <!-- 24% white -->
+  <color name="white_38">#61FFFFFF</color>  <!-- 38% white -->
+  <color name="white_60">#99FFFFFF</color> <!-- 60% white -->
   <color name="warm_gray">#FF999691</color>
   <color name="warm_gray_night">#FF999691</color>
 
@@ -95,7 +96,7 @@
   <color name="button_pressed">#66999999</color>
   <color name="button_pressed_night">#40CCCCCC</color>
   <color name="button_disabled">#00000000</color>
-  <color name="button_disabled_night">#00000000</color>
+  <color name="button_disabled_night">@color/white_12</color>
   <color name="button_text">#FF000000</color>
   <color name="button_text_night">#FFFFFFFF</color>
   <color name="button_text_disabled">#42000000</color>
@@ -107,7 +108,7 @@
   <color name="button_accent_normal_night">@color/base_accent_night</color>
   <color name="button_accent_pressed">#FF1C85D6</color>
   <color name="button_accent_pressed_night">#FF3C9BBE</color>
-  <color name="button_accent_disabled">#FFEFEFEF</color>
+  <color name="button_accent_disabled">@color/black_12</color>
   <color name="button_accent_disabled_night">#FF505050</color>
   <color name="button_accent_text">#FFFFFFFF</color>
   <color name="button_accent_text_night">#FF000000</color>

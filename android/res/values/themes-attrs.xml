@@ -40,6 +40,8 @@
     <attr name="accentButtonRoundBackground" format="reference"/>
     <attr name="accentButtonTextColor" format="color"/>
     <attr name="accentButtonTextColorDisabled" format="color"/>
+    <attr name="ghostButtonBackground" format="reference"/>
+    <attr name="ghostButtonTextColor" format="color"/>
 
     <attr name="redButtonBackground" format="reference"/>
     <attr name="redButtonTextColor" format="color"/>

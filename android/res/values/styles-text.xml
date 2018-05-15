@@ -44,6 +44,10 @@
     <item name="android:textColor">?android:textColorSecondary</item>
   </style>
 
+  <style name="MwmTextAppearance.Body2.Primary">
+    <item name="android:textColor">?android:textColorPrimary</item>
+  </style>
+
   <style name="MwmTextAppearance.Body2.Light">
     <item name="android:textColor">?android:textColorPrimaryInverse</item>
   </style>

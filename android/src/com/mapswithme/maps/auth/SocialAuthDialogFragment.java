@@ -5,14 +5,18 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -77,7 +81,6 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   {
     PhoneAuthActivity.startForResult(this);
   };
-
   @NonNull
   private final View.OnClickListener mGoogleClickListener = new View.OnClickListener()
   {
@@ -88,6 +91,12 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
       startActivity(intent);
     }
   };
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private CheckBox mPrivacyPolicyCheck;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private CheckBox mTermOfUseCheck;
 
   @NonNull
   @Override
@@ -126,7 +135,41 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
 
     View phoneButton = view.findViewById(R.id.phone_button);
     phoneButton.setOnClickListener(mPhoneClickListener);
+
+    mPrivacyPolicyCheck = view.findViewById(R.id.privacyPolicyCheck);
+    mPrivacyPolicyCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+      setButtonAvailability(view, isChecked && mTermOfUseCheck.isChecked(),
+                            R.id.google_button, R.id.facebook_button, R.id.phone_button);
+    });
+
+    mTermOfUseCheck = view.findViewById(R.id.termOfUseCheck);
+    mTermOfUseCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+      setButtonAvailability(view, isChecked && mPrivacyPolicyCheck.isChecked(),
+                            R.id.google_button, R.id.facebook_button, R.id.phone_button);
+    });
+
+    linkifyPolicyViews(view, R.id.privacyPolicyLink, R.id.termOfUseLink);
+    setButtonAvailability(view, false, R.id.google_button, R.id.facebook_button,
+                          R.id.phone_button);
     return view;
+  }
+
+  private static void linkifyPolicyViews(@NonNull View root, @IdRes int... ids)
+  {
+    for(int id: ids)
+    {
+      TextView policyView = root.findViewById(id);
+      policyView.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+  }
+
+  private static void setButtonAvailability(@NonNull View root, boolean available, @IdRes int... ids)
+  {
+     for(int id: ids)
+     {
+       View button = root.findViewById(id);
+       button.setEnabled(available);
+     }
   }
 
   @Override

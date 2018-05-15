@@ -49,8 +49,12 @@
 
     <item name="accentButtonBackground">@drawable/button_accent</item>
     <item name="accentButtonRoundBackground">@drawable/button_accent_round</item>
-    <item name="accentButtonTextColor">@color/button_accent_text</item>
+    <item name="accentButtonTextColor">@color/button_text_accent</item>
+    <!-- TODO: remove accentButtonTextColorDisabled attribute and use everywhere
+               accentButtonTextColor selector -->
     <item name="accentButtonTextColorDisabled">@color/button_accent_text_disabled</item>
+    <item name="ghostButtonBackground">@drawable/button_ghost</item>
+    <item name="ghostButtonTextColor">@color/button_text_ghost</item>
 
     <item name="redButtonBackground">@drawable/button_red</item>
     <item name="redButtonTextColor">@color/button_red_text</item>
@@ -171,7 +175,11 @@
     <item name="accentButtonBackground">@drawable/button_accent_night</item>
     <item name="accentButtonRoundBackground">@drawable/button_accent_round_night</item>
     <item name="accentButtonTextColor">@color/button_accent_text_night</item>
+    <!-- TODO: remove accentButtonTextColorDisabled attribute and use everywhere
+               accentButtonTextColor selector -->
     <item name="accentButtonTextColorDisabled">@color/button_accent_text_disabled_night</item>
+    <item name="ghostButtonBackground">@drawable/button_ghost_night</item>
+    <item name="ghostButtonTextColor">@color/button_text_ghost_night</item>
 
     <item name="redButtonBackground">@drawable/button_red</item>
     <item name="redButtonTextColor">@color/button_red_text</item>
