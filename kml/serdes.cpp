@@ -46,7 +46,7 @@ std::string const kExtendedDataFooter =
 auto const kDefaultLang = StringUtf8Multilang::kDefaultCode;
 
 auto const kDefaultTrackWidth = 5.0;
-auto const kDefaultTrackColor = 0xe51b23ff;
+auto const kDefaultTrackColor = 0x006ec7ff;
 
 std::string Indent(size_t count)
 {
