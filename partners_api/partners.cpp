@@ -13,10 +13,6 @@
 #include <utility>
 
 std::vector<PartnerInfo> const kPartners = {
-  PartnerInfo(1, "Megabonus.Ru", true /* m_hasButton */,
-              "e0c1d4d9c88c4670b9541116bcb75c5f" /* m_iosBannerPlacementId */,
-              "2bab47102d38485996788ab9b602ce2c" /* m_androidBannerPlacementId */),
-
   PartnerInfo(2, "LuggageHero"),
 
   PartnerInfo(3, "BurgerKing", true /* m_hasButton */)
