@@ -161,12 +161,9 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
             withParameters:@{kStatType: error, kStatError: @(errorStr.c_str())}];
     }
 
-    if (type != Cloud::SynchronizationType::Restore)
-      return;
-
     [[MWMBookmarksManager manager] loopObservers:^(Observer observer) {
-      if ([observer respondsToSelector:@selector(onRestoringFinished:)])
-        [observer onRestoringFinished:static_cast<MWMSynchronizationResult>(my::Key(result))];
+      if ([observer respondsToSelector:@selector(onSynchronizationFinished:)])
+        [observer onSynchronizationFinished:static_cast<MWMSynchronizationResult>(my::Key(result))];
     }];
   };
   

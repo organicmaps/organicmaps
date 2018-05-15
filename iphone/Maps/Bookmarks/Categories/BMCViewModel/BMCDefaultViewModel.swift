@@ -252,7 +252,7 @@ extension BMCDefaultViewModel: MWMBookmarksObserver {
     filesPrepared = true
   }
 
-  func onRestoringFinished(_ result: MWMSynchronizationResult) {
+  func onSynchronizationFinished(_ result: MWMSynchronizationResult) {
     MWMAlertViewController.activeAlert().closeAlert() { [weak self] in
       switch result {
         case .networkError: fallthrough
