@@ -378,26 +378,11 @@ UIColor * color(SEL cmd)
 #pragma clang diagnostic pop
 }
 
-- (UIColor *)colorByBlendingWithColor:(UIColor *)color {
-  CGFloat bgR;
-  CGFloat bgG;
-  CGFloat bgB;
-  CGFloat bgA;
-  
-  CGFloat fgR;
-  CGFloat fgG;
-  CGFloat fgB;
-  CGFloat fgA;
-  
-  [self getRed:&bgR green:&bgG blue:&bgB alpha:&bgA];
-  [color getRed:&fgR green:&fgG blue:&fgB alpha:&fgA];
-  
-  CGFloat r = fgA * fgR + (1 - fgA) * bgR;
-  CGFloat g = fgA * fgG + (1 - fgA) * bgG;
-  CGFloat b = fgA * fgB + (1 - fgA) * bgB;
-  
-  return [UIColor colorWithRed:r green:g blue:b alpha:bgA];
++ (UIColor *)facebookButtonBackground {
+  return [UIColor colorWithRed:scaled(59) green:scaled(89) blue:scaled(152) alpha:alpha100];
 }
 
-
++ (UIColor *)facebookButtonBackgroundDisabled {
+  return [self.facebookButtonBackground colorWithAlphaComponent:.7];
+}
 @end

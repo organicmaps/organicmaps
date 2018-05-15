@@ -55,6 +55,8 @@
 + (BOOL)isNightMode;
 
 - (UIColor *)opposite;
-- (UIColor *)colorByBlendingWithColor:(UIColor * _Nonnull)color;
+
++ (UIColor *)facebookButtonBackground;
++ (UIColor *)facebookButtonBackgroundDisabled;
 
 @end

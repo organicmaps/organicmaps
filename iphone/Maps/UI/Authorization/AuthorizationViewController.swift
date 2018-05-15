@@ -88,6 +88,8 @@ final class AuthorizationViewController: MWMViewController {
       facebookButton.layer.cornerRadius = 8
       facebookButton.clipsToBounds = true
       facebookButton.titleLabel?.font = UIFont.bold14()
+      facebookButton.setBackgroundColor(UIColor.facebookButtonBackground(), for: .normal)
+      facebookButton.setBackgroundColor(UIColor.facebookButtonBackgroundDisabled(), for: .disabled)
       facebookButton.isEnabled = false
     }
   }
