@@ -55,5 +55,6 @@
 + (BOOL)isNightMode;
 
 - (UIColor *)opposite;
+- (UIColor *)colorByBlendingWithColor:(UIColor * _Nonnull)color;
 
 @end

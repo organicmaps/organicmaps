@@ -345,6 +345,7 @@
 		4586D0E71F4813AB00DF9CE5 /* libmwm_diff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4586D0E61F4813AB00DF9CE5 /* libmwm_diff.a */; };
 		45CBCCBA20590AAB006B55C2 /* libkml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CBCCBB20590AAB006B55C2 /* libkml.a */; };
 		45FFD65D1E965EBE00DB854E /* liblocal_ads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FFD65C1E965EBE00DB854E /* liblocal_ads.a */; };
+		4767CD9F20AAD48A00BD8166 /* Checkmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CD9E20AAD48A00BD8166 /* Checkmark.swift */; };
 		4A300ED51C6DCFD400140018 /* countries-strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A300ED31C6DCFD400140018 /* countries-strings */; };
 		56C74C391C74A3BC00B71B9F /* MWMInputEmailValidator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA62F1C2D58F300FE1BEC /* MWMInputEmailValidator.mm */; };
 		56EE14D11FE804550036F20C /* libtransit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56EE14D21FE804550036F20C /* libtransit.a */; };
@@ -1271,6 +1272,7 @@
 		46F26CD610F623BA00ECCA39 /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EAGLView.h; sourceTree = "<group>"; };
 		46F26CD710F623BA00ECCA39 /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = EAGLView.mm; sourceTree = "<group>"; };
 		46F8A2EB10EB63040045521A /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapViewController.h; sourceTree = "<group>"; };
+		4767CD9E20AAD48A00BD8166 /* Checkmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkmark.swift; sourceTree = "<group>"; };
 		4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_dark.bin; path = ../../data/drules_proto_dark.bin; sourceTree = "<group>"; };
 		4A23D1561B8B4DD700D4EB6F /* drules_proto_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_clear.bin; path = ../../data/drules_proto_clear.bin; sourceTree = "<group>"; };
 		4A23D1571B8B4DD700D4EB6F /* resources-6plus_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-6plus_clear"; path = "../../data/resources-6plus_clear"; sourceTree = "<group>"; };
@@ -2549,6 +2551,7 @@
 				34C9BD011C6DB693000DC38D /* MWMViewController.mm */,
 				344BEAEF1F66BDC30045DC45 /* RatingSummaryView */,
 				348A8DF01F66775A00D83026 /* RatingView */,
+				4767CD9E20AAD48A00BD8166 /* Checkmark.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -4535,6 +4538,7 @@
 				34AB66171FC5AA320078E451 /* MWMiPhoneRoutePreview.mm in Sources */,
 				6741A9E71BF340DE002C974C /* MWMCircularProgressView.mm in Sources */,
 				34AC8FDB1EFC07FE00E7F910 /* UILabel+NumberOfVisibleLines.swift in Sources */,
+				4767CD9F20AAD48A00BD8166 /* Checkmark.swift in Sources */,
 				F6E2FD981E097BA00083EBEC /* MWMBookmarkTitleCell.m in Sources */,
 				6741A9E81BF340DE002C974C /* MWMAPIBar.mm in Sources */,
 				349A13831DEC138C00C7DB60 /* MWMMobileInternetAlert.mm in Sources */,

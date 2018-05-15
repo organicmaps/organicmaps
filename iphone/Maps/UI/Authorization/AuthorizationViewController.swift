@@ -114,6 +114,49 @@ final class AuthorizationViewController: MWMViewController {
       facebookButtonHolder.clipsToBounds = true
     }
   }
+  
+  @IBOutlet private weak var privacyPolicyCheck: UIButton! {
+    didSet {
+      privacyPolicyCheck.tintColor = .blackHintText()
+    }
+  }
+  
+  @IBOutlet private weak var termsOfUseCheck: UIButton! {
+    didSet {
+      termsOfUseCheck.tintColor = .blackHintText()
+    }
+  }
+  
+  @IBOutlet private weak var latestNewsCheck: UIButton! {
+    didSet {
+      latestNewsCheck.tintColor = .blackHintText()
+    }
+  }
+  
+  @IBOutlet private weak var privacyPolicyTextView: UITextView! {
+    didSet {
+      let htmlString = L("sign_agree_pp_gdpr")
+      guard let data = htmlString.data(using: .utf8) else { return }
+      guard let text = try? NSMutableAttributedString(data: data,
+                                         options: [.documentType: NSAttributedString.DocumentType.html,
+                                                   .characterEncoding: String.Encoding.utf8.rawValue],
+                                         documentAttributes: nil) else { return }
+      text.addAttributes([NSAttributedStringKey.font: UIFont.regular16()], range: NSMakeRange(0, text.length))
+      privacyPolicyTextView.attributedText = text
+    }
+  }
+  
+  @IBOutlet private weak var termsOfUseTextView: UITextView! {
+    didSet {
+      
+    }
+  }
+  
+  @IBOutlet private weak var latestNewsTextView: UITextView! {
+    didSet {
+      
+    }
+  }
 
   typealias SuccessHandler = (MWMSocialTokenType) -> Void
   typealias ErrorHandler = (MWMAuthorizationError) -> Void
@@ -233,5 +276,11 @@ extension AuthorizationViewController: GIDSignInDelegate {
     } else {
       process(token: user.authentication.idToken, type: .google)
     }
+  }
+}
+
+extension AuthorizationViewController: UITextViewDelegate {
+  func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+    return true;
   }
 }
