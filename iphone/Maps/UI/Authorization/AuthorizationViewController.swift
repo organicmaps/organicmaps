@@ -1,6 +1,7 @@
 import FBSDKCoreKit
 import FBSDKLoginKit
 import GoogleSignIn
+import SafariServices
 
 @objc(MWMAuthorizationViewController)
 final class AuthorizationViewController: MWMViewController {
@@ -52,7 +53,7 @@ final class AuthorizationViewController: MWMViewController {
     didSet {
       textLabel.font = UIFont.regular14()
       textLabel.textColor = UIColor.blackSecondaryText()
-      textLabel.text = L("profile_authorization_message")
+      textLabel.text = L("sign_message_gdpr")
     }
   }
 
@@ -65,7 +66,9 @@ final class AuthorizationViewController: MWMViewController {
       googleButton.clipsToBounds = true
       googleButton.setTitle("Google", for: .normal)
       googleButton.setTitleColor(UIColor.blackPrimaryText(), for: .normal)
+      googleButton.setTitleColor(UIColor.blackSecondaryText(), for: .disabled)
       googleButton.titleLabel?.font = UIFont.bold14()
+      googleButton.isEnabled = false
     }
   }
 
@@ -86,6 +89,7 @@ final class AuthorizationViewController: MWMViewController {
     button.loginBehavior = .systemAccount
     button.setAttributedTitle(NSAttributedString(string: "Facebook"), for: .normal)
     button.readPermissions = ["public_profile", "email"]
+    button.isEnabled = false
     return button
   }()
 
@@ -103,6 +107,12 @@ final class AuthorizationViewController: MWMViewController {
       MapViewController.topViewController().navigationController?.pushViewController(wv!, animated: true)
     }
   }
+  
+  @IBOutlet private weak var phoneSignInButton: UIButton! {
+    didSet {
+      phoneSignInButton.isEnabled = false
+    }
+  }
 
   @IBOutlet private weak var facebookButtonHolder: UIView! {
     didSet {
@@ -115,46 +125,65 @@ final class AuthorizationViewController: MWMViewController {
     }
   }
   
-  @IBOutlet private weak var privacyPolicyCheck: UIButton! {
+  @IBOutlet private weak var privacyPolicyCheck: Checkmark! {
     didSet {
-      privacyPolicyCheck.tintColor = .blackHintText()
+      privacyPolicyCheck.offTintColor = .blackHintText()
+      privacyPolicyCheck.onTintColor = .linkBlue()
+      privacyPolicyCheck.contentHorizontalAlignment = .left
     }
   }
   
-  @IBOutlet private weak var termsOfUseCheck: UIButton! {
+  @IBOutlet private weak var termsOfUseCheck: Checkmark! {
     didSet {
-      termsOfUseCheck.tintColor = .blackHintText()
+      termsOfUseCheck.offTintColor = .blackHintText()
+      termsOfUseCheck.onTintColor = .linkBlue()
+      termsOfUseCheck.contentHorizontalAlignment = .left
     }
   }
   
-  @IBOutlet private weak var latestNewsCheck: UIButton! {
+  @IBOutlet private weak var latestNewsCheck: Checkmark! {
     didSet {
-      latestNewsCheck.tintColor = .blackHintText()
+      latestNewsCheck.offTintColor = .blackHintText()
+      latestNewsCheck.onTintColor = .linkBlue()
+      latestNewsCheck.contentHorizontalAlignment = .left
     }
+  }
+  
+  @IBAction func onCheck(_ sender: Checkmark) {
+    let allButtonsChecked = privacyPolicyCheck.isChecked &&
+      termsOfUseCheck.isChecked;
+    
+    googleButton.isEnabled = allButtonsChecked;
+    facebookButton.isEnabled = allButtonsChecked;
+    phoneSignInButton.isEnabled = allButtonsChecked;
   }
   
   @IBOutlet private weak var privacyPolicyTextView: UITextView! {
     didSet {
       let htmlString = L("sign_agree_pp_gdpr")
-      guard let data = htmlString.data(using: .utf8) else { return }
-      guard let text = try? NSMutableAttributedString(data: data,
-                                         options: [.documentType: NSAttributedString.DocumentType.html,
-                                                   .characterEncoding: String.Encoding.utf8.rawValue],
-                                         documentAttributes: nil) else { return }
-      text.addAttributes([NSAttributedStringKey.font: UIFont.regular16()], range: NSMakeRange(0, text.length))
-      privacyPolicyTextView.attributedText = text
+      let attributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey.font: UIFont.regular16(),
+                                                       NSAttributedStringKey.foregroundColor: UIColor.blackPrimaryText()]
+      privacyPolicyTextView.attributedText = NSAttributedString.string(withHtml: htmlString,
+                                                                       defaultAttributes: attributes)
+      privacyPolicyTextView.delegate = self
     }
   }
   
   @IBOutlet private weak var termsOfUseTextView: UITextView! {
     didSet {
-      
+      let htmlString = L("sign_agree_tof_gdpr")
+      let attributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey.font: UIFont.regular16(),
+                                                       NSAttributedStringKey.foregroundColor: UIColor.blackPrimaryText()]
+      termsOfUseTextView.attributedText = NSAttributedString.string(withHtml: htmlString,
+                                                                    defaultAttributes: attributes)
+      termsOfUseTextView.delegate = self
     }
   }
   
   @IBOutlet private weak var latestNewsTextView: UITextView! {
     didSet {
-      
+      latestNewsTextView.text = L("sign_agree_news_gdpr")
+      latestNewsTextView.textColor = UIColor.blackPrimaryText()
     }
   }
 
@@ -281,6 +310,8 @@ extension AuthorizationViewController: GIDSignInDelegate {
 
 extension AuthorizationViewController: UITextViewDelegate {
   func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
-    return true;
+    let safari = SFSafariViewController(url: URL)
+    self.present(safari, animated: true, completion: nil)
+    return false;
   }
 }

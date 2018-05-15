@@ -16,6 +16,7 @@
                 <outlet property="googleButton" destination="8iU-Se-s8N" id="rSq-jz-U5t"/>
                 <outlet property="latestNewsCheck" destination="Z2X-Qq-dwV" id="8oR-t5-2oo"/>
                 <outlet property="latestNewsTextView" destination="p04-D7-97V" id="AIZ-wF-v4D"/>
+                <outlet property="phoneSignInButton" destination="ZDx-fj-xoO" id="vMM-Al-0Ex"/>
                 <outlet property="privacyPolicyCheck" destination="33D-0u-y3N" id="kAN-wB-yUl"/>
                 <outlet property="privacyPolicyTextView" destination="LhW-gs-XN9" id="HWt-AO-vvH"/>
                 <outlet property="separator" destination="hWD-aE-jYh" id="myS-1z-Saw"/>
@@ -34,7 +35,7 @@
             <subviews>
                 <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="5kf-Pd-KAZ">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="212.5"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.19983411815068494" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <gestureRecognizers/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="NYl-aG-vKs"/>
@@ -68,16 +69,22 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cdf-p5-Bbb">
                                             <rect key="frame" x="32" y="59" width="311" height="55.5"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="33D-0u-y3N">
+                                                <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="33D-0u-y3N" customClass="Checkmark" customModule="maps_me" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="40" height="55.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="awT-NV-5En"/>
                                                     </constraints>
-                                                    <state key="normal" image="radioBtnOff"/>
-                                                </button>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="radioBtnOff"/>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="radioBtnOn"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="onCheck:" destination="-1" eventType="valueChanged" id="GHm-Xj-Fic"/>
+                                                    </connections>
+                                                </view>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="I agree to Privacy Policy" translatesAutoresizingMaskIntoConstraints="NO" id="LhW-gs-XN9">
-                                                    <rect key="frame" x="40" y="10" width="263" height="35.5"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <rect key="frame" x="40" y="10" width="182.5" height="35.5"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <userDefinedRuntimeAttributes>
@@ -93,13 +100,13 @@
                                                     </connections>
                                                 </textView>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="33D-0u-y3N" firstAttribute="leading" secondItem="Cdf-p5-Bbb" secondAttribute="leading" id="bfU-g4-jey"/>
                                                 <constraint firstItem="33D-0u-y3N" firstAttribute="top" secondItem="Cdf-p5-Bbb" secondAttribute="top" id="cE0-Vo-mlj"/>
                                                 <constraint firstAttribute="bottom" secondItem="33D-0u-y3N" secondAttribute="bottom" id="gmp-bg-gGj"/>
                                                 <constraint firstItem="LhW-gs-XN9" firstAttribute="top" secondItem="Cdf-p5-Bbb" secondAttribute="top" constant="10" id="mhL-Bd-ArP"/>
-                                                <constraint firstAttribute="trailing" secondItem="LhW-gs-XN9" secondAttribute="trailing" constant="8" id="v1T-SO-6ll"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LhW-gs-XN9" secondAttribute="trailing" constant="8" id="v1T-SO-6ll"/>
                                                 <constraint firstAttribute="bottom" secondItem="LhW-gs-XN9" secondAttribute="bottom" constant="10" id="xgl-tw-klI"/>
                                                 <constraint firstItem="LhW-gs-XN9" firstAttribute="leading" secondItem="33D-0u-y3N" secondAttribute="trailing" id="yOg-UF-SwU"/>
                                             </constraints>
@@ -107,16 +114,22 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XHd-bd-GsP">
                                             <rect key="frame" x="32" y="115" width="311" height="55.5"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3cN-Qb-mdM">
+                                                <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="3cN-Qb-mdM" customClass="Checkmark" customModule="maps_me" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="40" height="55.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="Gsk-Bp-DHv"/>
                                                     </constraints>
-                                                    <state key="normal" image="radioBtnOff"/>
-                                                </button>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="radioBtnOff"/>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="radioBtnOn"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="onCheck:" destination="-1" eventType="valueChanged" id="3jl-dT-yZS"/>
+                                                    </connections>
+                                                </view>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="I agree to Terms of Use" translatesAutoresizingMaskIntoConstraints="NO" id="PBR-9l-2Gh">
-                                                    <rect key="frame" x="40" y="10" width="263" height="35.5"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <rect key="frame" x="40" y="10" width="178.5" height="35.5"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <userDefinedRuntimeAttributes>
@@ -129,7 +142,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </textView>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="PBR-9l-2Gh" secondAttribute="bottom" constant="10" id="0VT-4u-6Fg"/>
                                                 <constraint firstItem="PBR-9l-2Gh" firstAttribute="top" secondItem="XHd-bd-GsP" secondAttribute="top" constant="10" id="9eq-98-ygD"/>
@@ -137,22 +150,25 @@
                                                 <constraint firstItem="3cN-Qb-mdM" firstAttribute="leading" secondItem="XHd-bd-GsP" secondAttribute="leading" id="Z3C-FT-yqQ"/>
                                                 <constraint firstItem="3cN-Qb-mdM" firstAttribute="top" secondItem="XHd-bd-GsP" secondAttribute="top" id="dkg-sP-6gL"/>
                                                 <constraint firstAttribute="bottom" secondItem="3cN-Qb-mdM" secondAttribute="bottom" id="pRC-nx-yBP"/>
-                                                <constraint firstAttribute="trailing" secondItem="PBR-9l-2Gh" secondAttribute="trailing" constant="8" id="x3t-yD-KpE"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="PBR-9l-2Gh" secondAttribute="trailing" constant="8" id="x3t-yD-KpE"/>
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4NF-GO-a8Q">
                                             <rect key="frame" x="32" y="170.5" width="311" height="55.5"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z2X-Qq-dwV">
+                                                <view opaque="NO" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="Z2X-Qq-dwV" customClass="Checkmark" customModule="maps_me" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="40" height="55.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="Ed8-DA-DiE"/>
                                                     </constraints>
-                                                    <state key="normal" image="radioBtnOff"/>
-                                                </button>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="radioBtnOff"/>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="radioBtnOn"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="I agree to recieve latest news about our products" translatesAutoresizingMaskIntoConstraints="NO" id="p04-D7-97V">
                                                     <rect key="frame" x="40" y="10" width="263" height="35.5"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <userDefinedRuntimeAttributes>
@@ -165,7 +181,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </textView>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="p04-D7-97V" firstAttribute="top" secondItem="4NF-GO-a8Q" secondAttribute="top" constant="10" id="7DY-f4-uiW"/>
                                                 <constraint firstAttribute="bottom" secondItem="p04-D7-97V" secondAttribute="bottom" constant="10" id="At3-DG-uub"/>
@@ -173,18 +189,18 @@
                                                 <constraint firstItem="Z2X-Qq-dwV" firstAttribute="top" secondItem="4NF-GO-a8Q" secondAttribute="top" id="d3x-dj-I9Q"/>
                                                 <constraint firstItem="Z2X-Qq-dwV" firstAttribute="leading" secondItem="4NF-GO-a8Q" secondAttribute="leading" id="gTk-JI-cfK"/>
                                                 <constraint firstItem="p04-D7-97V" firstAttribute="leading" secondItem="Z2X-Qq-dwV" secondAttribute="trailing" id="jda-uN-kLq"/>
-                                                <constraint firstAttribute="trailing" secondItem="p04-D7-97V" secondAttribute="trailing" constant="8" id="u9Y-IJ-lA3"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="p04-D7-97V" secondAttribute="trailing" constant="8" id="u9Y-IJ-lA3"/>
                                             </constraints>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8iU-Se-s8N">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8iU-Se-s8N" customClass="LeftAlignedIconButton" customModule="maps_me" customModuleProvider="target">
                                             <rect key="frame" x="32" y="238" width="311" height="40"/>
-                                            <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                            <state key="normal" title="Google"/>
+                                            <inset key="imageEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            <state key="normal" title="Google" image="login_google_button"/>
                                             <connections>
                                                 <action selector="googleSignIn" destination="-1" eventType="touchUpInside" id="pit-ir-2fB"/>
                                             </connections>
                                         </button>
-                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_google_button" translatesAutoresizingMaskIntoConstraints="NO" id="hia-tk-X0k">
+                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_google_button" translatesAutoresizingMaskIntoConstraints="NO" id="hia-tk-X0k">
                                             <rect key="frame" x="48" y="246" width="24" height="24"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="24" id="OyH-4I-nMX"/>
@@ -193,7 +209,7 @@
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iK0-TH-4mm">
                                             <rect key="frame" x="32" y="294" width="311" height="40"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </view>
                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZDx-fj-xoO">
                                             <rect key="frame" x="32" y="350" width="311" height="40"/>
@@ -223,7 +239,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="0EA-1u-hvB" firstAttribute="trailing" secondItem="Cdf-p5-Bbb" secondAttribute="trailing" id="0aL-94-2S0"/>
                                         <constraint firstItem="ZDx-fj-xoO" firstAttribute="top" secondItem="iK0-TH-4mm" secondAttribute="bottom" constant="16" id="0f2-8L-isT"/>
@@ -301,5 +317,6 @@
     <resources>
         <image name="login_google_button" width="24" height="24"/>
         <image name="radioBtnOff" width="22" height="22"/>
+        <image name="radioBtnOn" width="22" height="22"/>
     </resources>
 </document>

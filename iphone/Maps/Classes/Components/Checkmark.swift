@@ -74,7 +74,35 @@ class Checkmark: UIControl {
     super.layoutSubviews()
     
     imageView.sizeToFit()
-    imageView.center = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
+    
+    var left: CGFloat = 0;
+    var top: CGFloat = 0;
+    var width: CGFloat = imageView.width;
+    var height: CGFloat = imageView.height;
+    
+    switch effectiveContentHorizontalAlignment {
+    case .right:
+      left = bounds.width - imageView.width
+    case .center:
+      left = floor(bounds.width - width) / 2
+    case .fill:
+      width = bounds.width
+    default:
+      left = 0
+    }
+    
+    switch contentVerticalAlignment {
+    case .top:
+      top = 0
+    case .bottom:
+      top = bounds.height - height
+    case .center:
+      top = floor(bounds.height - height) / 2
+    case .fill:
+      height = bounds.height
+    }
+    
+    imageView.frame = CGRect(x: left, y: top, width: width, height: height)
   }
   
   @objc func onTouch() {
