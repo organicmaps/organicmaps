@@ -74,6 +74,9 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   @SuppressWarnings("NullableProblems")
   @NonNull
   private CheckBox mTermOfUseCheck;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private CheckBox mPromoCheck;
 
   @NonNull
   @Override
@@ -113,6 +116,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     View phoneButton = view.findViewById(R.id.phone_button);
     phoneButton.setOnClickListener(mPhoneClickListener);
 
+    mPromoCheck = view.findViewById(R.id.newsCheck);
     mPrivacyPolicyCheck = view.findViewById(R.id.privacyPolicyCheck);
     mPrivacyPolicyCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
       setButtonAvailability(view, isChecked && mTermOfUseCheck.isChecked(),
@@ -133,7 +137,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
 
   private static void linkifyPolicyViews(@NonNull View root, @IdRes int... ids)
   {
-    for(int id: ids)
+    for (int id : ids)
     {
       TextView policyView = root.findViewById(id);
       policyView.setMovementMethod(LinkMovementMethod.getInstance());
@@ -142,11 +146,11 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
 
   private static void setButtonAvailability(@NonNull View root, boolean available, @IdRes int... ids)
   {
-     for(int id: ids)
-     {
-       View button = root.findViewById(id);
-       button.setEnabled(available);
-     }
+    for (int id : ids)
+    {
+      View button = root.findViewById(id);
+      button.setEnabled(available);
+    }
   }
 
   @Override
@@ -169,6 +173,9 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     data.putExtra(Constants.EXTRA_TOKEN_TYPE, type);
     data.putExtra(Constants.EXTRA_AUTH_ERROR, error);
     data.putExtra(Constants.EXTRA_IS_CANCEL, isCancel);
+    data.putExtra(Constants.EXTRA_PRIVACY_POLICY_ACCEPTED, mPrivacyPolicyCheck.isChecked());
+    data.putExtra(Constants.EXTRA_TERMS_OF_USE_ACCEPTED, mTermOfUseCheck.isChecked());
+    data.putExtra(Constants.EXTRA_PROMO_ACCEPTED, mPromoCheck.isChecked());
     caller.onActivityResult(Constants.REQ_CODE_GET_SOCIAL_TOKEN, resultCode, data);
   }
 

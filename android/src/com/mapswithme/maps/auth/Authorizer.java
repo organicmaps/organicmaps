@@ -102,13 +102,15 @@ public class Authorizer implements AuthorizationListener
     {
       @Framework.AuthTokenType
       int type = data.getIntExtra(Constants.EXTRA_TOKEN_TYPE, Framework.SOCIAL_TOKEN_INVALID);
+      boolean privacyAccepted = data.getBooleanExtra(Constants.EXTRA_PRIVACY_POLICY_ACCEPTED, false);
+      boolean termsOfUseAccepted = data.getBooleanExtra(Constants.EXTRA_TERMS_OF_USE_ACCEPTED, false);
+      boolean promoAccepted = data.getBooleanExtra(Constants.EXTRA_PROMO_ACCEPTED, false);
       mIsAuthorizationInProgress = true;
       if (mCallback != null)
         mCallback.onAuthorizationStart();
 
-      //TODO: support privacy policy, terms of use and promo offers.
-      Framework.nativeAuthenticateUser(socialToken, type, false /* privacyAccepted */,
-                                      false /* termsAccepted */, false /* promoAccepted */, this);
+      Framework.nativeAuthenticateUser(socialToken, type, privacyAccepted, termsOfUseAccepted,
+                                       promoAccepted, this);
     }
   }
 
