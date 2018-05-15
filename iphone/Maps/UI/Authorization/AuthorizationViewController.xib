@@ -12,7 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MWMAuthorizationViewController">
             <connections>
                 <outlet property="contentView" destination="mb9-vK-FLE" id="NNo-Na-BYT"/>
-                <outlet property="facebookButtonHolder" destination="iK0-TH-4mm" id="FRM-L8-FLN"/>
+                <outlet property="facebookButton" destination="O8A-fR-loh" id="7x9-Od-uKg"/>
                 <outlet property="googleButton" destination="8iU-Se-s8N" id="rSq-jz-U5t"/>
                 <outlet property="latestNewsCheck" destination="Z2X-Qq-dwV" id="8oR-t5-2oo"/>
                 <outlet property="latestNewsTextView" destination="p04-D7-97V" id="AIZ-wF-v4D"/>
@@ -200,17 +200,15 @@
                                                 <action selector="googleSignIn" destination="-1" eventType="touchUpInside" id="pit-ir-2fB"/>
                                             </connections>
                                         </button>
-                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_google_button" translatesAutoresizingMaskIntoConstraints="NO" id="hia-tk-X0k">
-                                            <rect key="frame" x="48" y="246" width="24" height="24"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="24" id="OyH-4I-nMX"/>
-                                                <constraint firstAttribute="height" constant="24" id="sN7-F7-IZb"/>
-                                            </constraints>
-                                        </imageView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iK0-TH-4mm">
-                                            <rect key="frame" x="32" y="294" width="311" height="40"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O8A-fR-loh" customClass="LeftAlignedIconButton" customModule="maps_me" customModuleProvider="target">
+                                            <rect key="frame" x="32" y="293.5" width="311" height="40"/>
+                                            <color key="backgroundColor" red="0.23137254901960785" green="0.34901960784313724" blue="0.59607843137254901" alpha="1" colorSpace="calibratedRGB"/>
+                                            <inset key="imageEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            <state key="normal" title="Facebook" image="login_facebook_button"/>
+                                            <connections>
+                                                <action selector="facebookSignIn" destination="-1" eventType="touchUpInside" id="t2x-dC-1bh"/>
+                                            </connections>
+                                        </button>
                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZDx-fj-xoO">
                                             <rect key="frame" x="32" y="350" width="311" height="40"/>
                                             <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -242,30 +240,28 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="0EA-1u-hvB" firstAttribute="trailing" secondItem="Cdf-p5-Bbb" secondAttribute="trailing" id="0aL-94-2S0"/>
-                                        <constraint firstItem="ZDx-fj-xoO" firstAttribute="top" secondItem="iK0-TH-4mm" secondAttribute="bottom" constant="16" id="0f2-8L-isT"/>
-                                        <constraint firstItem="8iU-Se-s8N" firstAttribute="trailing" secondItem="iK0-TH-4mm" secondAttribute="trailing" id="3ij-AG-b3y"/>
                                         <constraint firstItem="4NF-GO-a8Q" firstAttribute="trailing" secondItem="8iU-Se-s8N" secondAttribute="trailing" id="6RS-e0-gTP"/>
                                         <constraint firstItem="4NF-GO-a8Q" firstAttribute="top" secondItem="XHd-bd-GsP" secondAttribute="bottom" id="7qp-Nm-K8G"/>
-                                        <constraint firstItem="8iU-Se-s8N" firstAttribute="height" secondItem="iK0-TH-4mm" secondAttribute="height" id="8Ys-5U-WWc"/>
+                                        <constraint firstItem="O8A-fR-loh" firstAttribute="top" secondItem="8iU-Se-s8N" secondAttribute="bottom" constant="16" id="8A3-dV-XD9"/>
                                         <constraint firstItem="8iU-Se-s8N" firstAttribute="top" secondItem="4NF-GO-a8Q" secondAttribute="bottom" constant="12" id="9km-qR-9Pg"/>
                                         <constraint firstItem="0EA-1u-hvB" firstAttribute="top" secondItem="eSu-cK-AZG" secondAttribute="top" constant="20" id="CEY-Fc-Ke1"/>
-                                        <constraint firstItem="8iU-Se-s8N" firstAttribute="leading" secondItem="iK0-TH-4mm" secondAttribute="leading" id="FZg-Fb-7pt"/>
-                                        <constraint firstItem="iK0-TH-4mm" firstAttribute="trailing" secondItem="ZDx-fj-xoO" secondAttribute="trailing" id="M66-8e-Qs5"/>
-                                        <constraint firstItem="hia-tk-X0k" firstAttribute="leading" secondItem="8iU-Se-s8N" secondAttribute="leading" constant="16" id="T7E-Pr-Evl"/>
                                         <constraint firstItem="0EA-1u-hvB" firstAttribute="leading" secondItem="Cdf-p5-Bbb" secondAttribute="leading" id="T8k-DU-XSa"/>
-                                        <constraint firstItem="hia-tk-X0k" firstAttribute="centerY" secondItem="8iU-Se-s8N" secondAttribute="centerY" id="UHR-Ra-ZC7"/>
+                                        <constraint firstItem="O8A-fR-loh" firstAttribute="height" secondItem="8iU-Se-s8N" secondAttribute="height" id="UPb-aR-4iP"/>
                                         <constraint firstAttribute="bottom" secondItem="ZDx-fj-xoO" secondAttribute="bottom" constant="20" id="WBD-ik-SuA"/>
                                         <constraint firstItem="Cdf-p5-Bbb" firstAttribute="trailing" secondItem="XHd-bd-GsP" secondAttribute="trailing" id="YXt-XZ-b1M"/>
-                                        <constraint firstItem="iK0-TH-4mm" firstAttribute="leading" secondItem="ZDx-fj-xoO" secondAttribute="leading" id="Yhr-fq-HU2"/>
+                                        <constraint firstItem="ZDx-fj-xoO" firstAttribute="trailing" secondItem="O8A-fR-loh" secondAttribute="trailing" id="bmQ-cr-oBt"/>
+                                        <constraint firstItem="ZDx-fj-xoO" firstAttribute="height" secondItem="O8A-fR-loh" secondAttribute="height" id="bxT-8Q-tvg"/>
                                         <constraint firstItem="XHd-bd-GsP" firstAttribute="top" secondItem="Cdf-p5-Bbb" secondAttribute="bottom" id="cdP-NT-aSw"/>
-                                        <constraint firstItem="iK0-TH-4mm" firstAttribute="top" secondItem="8iU-Se-s8N" secondAttribute="bottom" constant="16" id="ey9-81-p2w"/>
+                                        <constraint firstItem="ZDx-fj-xoO" firstAttribute="leading" secondItem="O8A-fR-loh" secondAttribute="leading" id="eSk-pZ-QJo"/>
+                                        <constraint firstItem="O8A-fR-loh" firstAttribute="trailing" secondItem="8iU-Se-s8N" secondAttribute="trailing" id="gf6-0y-xJm"/>
                                         <constraint firstItem="Cdf-p5-Bbb" firstAttribute="top" secondItem="0EA-1u-hvB" secondAttribute="bottom" constant="5.5" id="k8B-gX-711"/>
                                         <constraint firstAttribute="trailing" secondItem="ZDx-fj-xoO" secondAttribute="trailing" constant="32" id="kDT-F8-g2Z"/>
                                         <constraint firstItem="ZDx-fj-xoO" firstAttribute="leading" secondItem="eSu-cK-AZG" secondAttribute="leading" constant="32" id="nfo-aZ-a2s"/>
                                         <constraint firstItem="XHd-bd-GsP" firstAttribute="trailing" secondItem="4NF-GO-a8Q" secondAttribute="trailing" id="pUf-gk-ebN"/>
                                         <constraint firstItem="Cdf-p5-Bbb" firstAttribute="leading" secondItem="XHd-bd-GsP" secondAttribute="leading" id="pfi-Os-bO3"/>
+                                        <constraint firstItem="ZDx-fj-xoO" firstAttribute="top" secondItem="O8A-fR-loh" secondAttribute="bottom" constant="16" id="tjK-Iu-rKs"/>
                                         <constraint firstItem="XHd-bd-GsP" firstAttribute="leading" secondItem="4NF-GO-a8Q" secondAttribute="leading" id="u4f-BS-vwE"/>
-                                        <constraint firstItem="iK0-TH-4mm" firstAttribute="height" secondItem="ZDx-fj-xoO" secondAttribute="height" id="wy4-JY-DWP"/>
+                                        <constraint firstItem="O8A-fR-loh" firstAttribute="leading" secondItem="8iU-Se-s8N" secondAttribute="leading" id="xy5-u2-7s7"/>
                                         <constraint firstItem="4NF-GO-a8Q" firstAttribute="leading" secondItem="8iU-Se-s8N" secondAttribute="leading" id="yaF-Uc-O4D"/>
                                     </constraints>
                                 </view>
@@ -315,6 +311,7 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
+        <image name="login_facebook_button" width="24" height="24"/>
         <image name="login_google_button" width="24" height="24"/>
         <image name="radioBtnOff" width="22" height="22"/>
         <image name="radioBtnOn" width="22" height="22"/>

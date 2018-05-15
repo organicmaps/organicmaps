@@ -83,16 +83,26 @@ final class AuthorizationViewController: MWMViewController {
     gid.signIn()
   }
 
-  private lazy var facebookButton: FBSDKLoginButton = {
-    let button = FBSDKLoginButton()
-    button.delegate = self
-    button.loginBehavior = .systemAccount
-    button.setAttributedTitle(NSAttributedString(string: "Facebook"), for: .normal)
-    button.readPermissions = ["public_profile", "email"]
-    button.isEnabled = false
-    return button
-  }()
-
+  @IBOutlet private weak var facebookButton: UIButton! {
+    didSet {
+      facebookButton.layer.cornerRadius = 8
+      facebookButton.clipsToBounds = true
+      facebookButton.titleLabel?.font = UIFont.bold14()
+      facebookButton.isEnabled = false
+    }
+  }
+  
+  @IBAction func facebookSignIn() {
+    let fbLoginManager = FBSDKLoginManager()
+    fbLoginManager.loginBehavior = .systemAccount
+    fbLoginManager.logIn(withReadPermissions: ["public_profile", "email"], from: self) { [weak self] (result, error) in
+      if let error = error {
+        self?.process(error: error, type: .facebook)
+      } else if let token = result?.token {
+        self?.process(token: token.tokenString, type: .facebook)
+      }
+    }
+  }
 
   @IBAction private func phoneSignIn() {
     dismiss(animated: true) {
@@ -114,17 +124,6 @@ final class AuthorizationViewController: MWMViewController {
     }
   }
 
-  @IBOutlet private weak var facebookButtonHolder: UIView! {
-    didSet {
-      facebookButton.translatesAutoresizingMaskIntoConstraints = false
-      facebookButtonHolder.addSubview(facebookButton)
-      facebookButton.removeConstraints(facebookButton.constraints)
-      addConstraints(v1: facebookButton, v2: facebookButtonHolder)
-      facebookButtonHolder.layer.cornerRadius = 8
-      facebookButtonHolder.clipsToBounds = true
-    }
-  }
-  
   @IBOutlet private weak var privacyPolicyCheck: Checkmark! {
     didSet {
       privacyPolicyCheck.offTintColor = .blackHintText()
@@ -232,9 +231,6 @@ final class AuthorizationViewController: MWMViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-
-    let fbImage = facebookButton.subviews.first(where: { $0 is UIImageView && $0.frame != facebookButton.frame })
-    fbImage?.frame = CGRect(x: 16, y: 8, width: 24, height: 24)
   }
 
   override func viewDidLayoutSubviews() {
@@ -286,18 +282,6 @@ final class AuthorizationViewController: MWMViewController {
     }
     onClose()
   }
-}
-
-extension AuthorizationViewController: FBSDKLoginButtonDelegate {
-  func loginButton(_: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-    if let error = error {
-      process(error: error, type: .facebook)
-    } else if let token = result?.token {
-      process(token: token.tokenString, type: .facebook)
-    }
-  }
-
-  func loginButtonDidLogOut(_: FBSDKLoginButton!) {}
 }
 
 extension AuthorizationViewController: GIDSignInUIDelegate {
