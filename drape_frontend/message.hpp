@@ -85,6 +85,7 @@ public:
     UpdateMetalines,
     PostUserEvent,
     FinishTexturesInitialization,
+    EnableUGCRendering,
   };
 
   virtual ~Message() {}

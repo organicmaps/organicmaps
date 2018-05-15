@@ -495,11 +495,12 @@ ApplyPointFeature::ApplyPointFeature(TileKey const & tileKey, TInsertShapeFn con
   , m_displacementMode(displacementMode)
 {}
 
-void ApplyPointFeature::operator()(m2::PointD const & point, bool hasArea)
+void ApplyPointFeature::operator()(m2::PointD const & point, bool hasArea, bool isUGC)
 {
   auto const & editor = osm::Editor::Instance();
   m_hasPoint = true;
   m_hasArea = hasArea;
+  m_isUGC = isUGC;
   auto const featureStatus = editor.GetFeatureStatus(m_id);
   m_createdByEditor = featureStatus == osm::Editor::FeatureStatus::Created;
   m_obsoleteInEditor = featureStatus == osm::Editor::FeatureStatus::Obsolete;
@@ -570,7 +571,7 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
   }
 
   bool const hasPOI = m_symbolRule != nullptr;
-
+  double const mainScale = df::VisualParams::Instance().GetVisualScale();
   if (hasPOI)
   {
     PoiSymbolViewParams params(m_id);
@@ -580,7 +581,6 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     params.m_minVisibleScale = m_minVisibleScale;
     params.m_rank = m_rank;
     params.m_symbolName = m_symbolRule->name();
-    double const mainScale = df::VisualParams::Instance().GetVisualScale();
     params.m_extendingSize = static_cast<uint32_t>(mainScale * m_symbolRule->min_distance());
     params.m_posZ = m_posZ;
     params.m_hasArea = m_hasArea;
@@ -613,6 +613,29 @@ void ApplyPointFeature::Finish(ref_ptr<dp::TextureManager> texMng)
     m_insertShape(make_unique_dp<TextShape>(m2::PointD(m_centerPoint), textParams, m_tileKey, symbolSize,
                                             m2::PointF(0.0f, 0.0f) /* symbolOffset */,
                                             dp::Center /* symbolAnchor */, 0 /* textIndex */));
+  }
+
+  if (m_isUGC)
+  {
+    df::ColoredSymbolViewParams params;
+    params.m_featureID = m_id;
+    params.m_tileCenter = m_tileRect.Center();
+    params.m_color = dp::Color::Yellow();
+    params.m_radiusInPixels = hasPOI ? static_cast<float>(symbolSize.x / 2.0 + mainScale * 3)
+                                     : static_cast<float>(mainScale * 7);
+    params.m_anchor = dp::Center;
+    params.m_startOverlayRank = hasPOI ? dp::OverlayRank2 : dp::OverlayRank1;
+    params.m_specialDisplacement = specialDisplacementMode ? SpecialDisplacement::SpecialMode
+                                                           : SpecialDisplacement::None;
+    params.m_specialPriority = specialModePriority;
+    params.m_depthLayer = m_depthLayer;
+    params.m_minVisibleScale = m_minVisibleScale;
+    params.m_rank = m_rank;
+    params.m_depth = static_cast<float>(m_symbolDepth);
+
+    auto coloredShape = make_unique_dp<ColoredSymbolShape>(m2::PointD(m_centerPoint), params,
+                                                           m_tileKey, 0 /* textIndex */, true);
+    m_insertShape(std::move(coloredShape));
   }
 }
 

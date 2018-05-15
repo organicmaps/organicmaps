@@ -291,6 +291,7 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher,
 
     if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
       handle->SetUserMarkOverlay(true);
+    handle->SetOverlayRank(m_params.m_startOverlayRank);
   }
   auto state = CreateGLState(gpu::COLORED_SYMBOL_PROGRAM, m_params.m_depthLayer);
   state.SetProgram3dIndex(gpu::COLORED_SYMBOL_BILLBOARD_PROGRAM);

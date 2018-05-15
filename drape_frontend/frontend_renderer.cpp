@@ -755,6 +755,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::SetSimplifiedTrafficColors:
   case Message::SetDisplacementMode:
   case Message::UpdateMetalines:
+  case Message::EnableUGCRendering:
     {
       m_forceUpdateScene = true;
       break;

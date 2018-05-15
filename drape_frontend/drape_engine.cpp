@@ -98,7 +98,8 @@ DrapeEngine::DrapeEngine(Params && params)
                                    make_ref(m_requestedTiles),
                                    params.m_allow3dBuildings,
                                    params.m_trafficEnabled,
-                                   params.m_simplifiedTrafficColors);
+                                   params.m_simplifiedTrafficColors,
+                                   std::move(params.m_isUGCFn));
 
   m_backend = make_unique_dp<BackendRenderer>(std::move(brParams));
 
@@ -784,6 +785,13 @@ void DrapeEngine::SetPosteffectEnabled(PostprocessRenderer::Effect effect, bool 
 
   m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
                                   make_unique_dp<SetPosteffectEnabledMessage>(effect, enabled),
+                                  MessagePriority::Normal);
+}
+
+void DrapeEngine::EnableUGCRendering(bool enabled)
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<EnableUGCRenderingMessage>(enabled),
                                   MessagePriority::Normal);
 }
 

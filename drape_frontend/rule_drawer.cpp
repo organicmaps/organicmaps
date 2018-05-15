@@ -22,6 +22,7 @@
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 
+#include "drape_frontend/text_shape.hpp"
 #ifdef DRAW_TILE_NET
 #include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/text_shape.hpp"
@@ -329,7 +330,8 @@ void RuleDrawer::ProcessAreaStyle(FeatureType const & f, Stylist const & s,
       f.ResetGeometry();
       featureCenter = feature::GetCenter(f, FeatureType::BEST_GEOMETRY);
     }
-    apply(featureCenter, true /* hasArea */);
+    bool const isUGC = m_context->IsUGC(f.GetID());
+    apply(featureCenter, true /* hasArea */, isUGC);
   }
 
   if (CheckCancelled())
@@ -450,7 +452,8 @@ void RuleDrawer::ProcessPointStyle(FeatureType const & f, Stylist const & s, TIn
                           s.GetCaptionDescription(), 0.0f /* posZ */, m_context->GetDisplacementMode(),
                           depthLayer);
   apply.SetHotelData(ExtractHotelData(f));
-  f.ForEachPoint([&apply](m2::PointD const & pt) { apply(pt, false /* hasArea */); }, zoomLevel);
+  bool const isUGC = m_context->IsUGC(f.GetID());
+  f.ForEachPoint([&apply, isUGC](m2::PointD const & pt) { apply(pt, false /* hasArea */, isUGC); }, zoomLevel);
 
   if (CheckCancelled())
     return;

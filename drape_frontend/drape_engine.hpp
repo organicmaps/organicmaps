@@ -66,7 +66,9 @@ public:
            bool isRoutingActive,
            bool isAutozoomEnabled,
            bool simplifiedTrafficColors,
-           OverlaysShowStatsCallback && overlaysShowStatsCallback)
+           OverlaysShowStatsCallback && overlaysShowStatsCallback,
+           TIsUGCFn && isUGCFn
+           )
       : m_apiVersion(apiVersion)
       , m_factory(factory)
       , m_viewport(viewport)
@@ -86,6 +88,7 @@ public:
       , m_isAutozoomEnabled(isAutozoomEnabled)
       , m_simplifiedTrafficColors(simplifiedTrafficColors)
       , m_overlaysShowStatsCallback(std::move(overlaysShowStatsCallback))
+      , m_isUGCFn(std::move(isUGCFn))
     {}
 
     dp::ApiVersion m_apiVersion;
@@ -107,6 +110,7 @@ public:
     bool m_isAutozoomEnabled;
     bool m_simplifiedTrafficColors;
     OverlaysShowStatsCallback m_overlaysShowStatsCallback;
+    TIsUGCFn m_isUGCFn;
   };
 
   DrapeEngine(Params && params);
@@ -211,6 +215,7 @@ public:
   void RemoveAllCustomFeatures();
 
   void SetPosteffectEnabled(PostprocessRenderer::Effect effect, bool enabled);
+  void EnableUGCRendering(bool enabled);
 
   void RunFirstLaunchAnimation();
 

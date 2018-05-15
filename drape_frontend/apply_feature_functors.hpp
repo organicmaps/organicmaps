@@ -81,7 +81,7 @@ public:
                     CaptionDescription const & captions, float posZ,
                     int displacementMode, RenderState::DepthLayer depthLayer);
 
-  void operator()(m2::PointD const & point, bool hasArea);
+  void operator()(m2::PointD const & point, bool hasArea, bool isUGC);
   void ProcessPointRule(Stylist::TRuleWrapper const & rule);
   void Finish(ref_ptr<dp::TextureManager> texMng);
 
@@ -93,6 +93,7 @@ private:
   bool m_hasArea;
   bool m_createdByEditor;
   bool m_obsoleteInEditor;
+  bool m_isUGC;
   RenderState::DepthLayer m_depthLayer;
   double m_symbolDepth;
   SymbolRuleProto const * m_symbolRule;

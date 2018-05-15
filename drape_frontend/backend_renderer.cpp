@@ -30,7 +30,8 @@ BackendRenderer::BackendRenderer(Params && params)
   : BaseRenderer(ThreadsCommutator::ResourceUploadThread, params)
   , m_model(params.m_model)
   , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model,
-                                              params.m_allow3dBuildings, params.m_trafficEnabled))
+                                              params.m_allow3dBuildings, params.m_trafficEnabled,
+                                              std::move(params.m_isUGCFn)))
   , m_trafficGenerator(make_unique_dp<TrafficGenerator>(bind(&BackendRenderer::FlushTrafficRenderData, this, _1)))
   , m_userMarkGenerator(make_unique_dp<UserMarkGenerator>(bind(&BackendRenderer::FlushUserMarksRenderData, this, _1)))
   , m_requestedTiles(params.m_requestedTiles)
@@ -490,6 +491,16 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
                                   make_unique_dp<SetDisplacementModeMessage>(msg->GetMode()),
                                   MessagePriority::Normal);
       }
+      break;
+    }
+
+  case Message::EnableUGCRendering:
+    {
+      ref_ptr<EnableUGCRenderingMessage> msg = message;
+      m_readManager->EnableUGCRendering(msg->IsEnabled());
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<EnableUGCRenderingMessage>(msg->IsEnabled()),
+                                MessagePriority::Normal);
       break;
     }
 

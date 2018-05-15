@@ -1149,6 +1149,20 @@ private:
   bool const m_enabled;
 };
 
+class EnableUGCRenderingMessage : public Message
+{
+public:
+  EnableUGCRenderingMessage(bool enabled)
+    : m_enabled(enabled)
+  {}
+
+  Type GetType() const override { return Message::EnableUGCRendering; }
+  bool IsEnabled() const { return m_enabled; }
+
+private:
+  bool const m_enabled;
+};
+
 class RunFirstLaunchAnimationMessage : public Message
 {
 public:

@@ -1701,6 +1701,11 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
     m_localAdsManager.GetStatistics().RegisterEvents(std::move(statEvents));
   };
 
+  auto isUGCFn = [this](FeatureID const & id)
+  {
+    auto const ugc = m_ugcApi->GetLoader().GetUGC(id);
+    return !ugc.IsEmpty();
+  };
   auto isCountryLoadedByNameFn = bind(&Framework::IsCountryLoadedByName, this, _1);
   auto updateCurrentCountryFn = bind(&Framework::OnUpdateCurrentCountry, this, _1, _2);
 
@@ -1725,7 +1730,7 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
       move(myPositionModeChangedFn), allow3dBuildings, trafficEnabled,
       params.m_isChoosePositionMode, params.m_isChoosePositionMode, GetSelectedFeatureTriangles(),
       m_routingManager.IsRoutingActive() && m_routingManager.IsRoutingFollowing(),
-      isAutozoomEnabled, simplifiedTrafficColors, move(overlaysShowStatsFn));
+      isAutozoomEnabled, simplifiedTrafficColors, move(overlaysShowStatsFn), move(isUGCFn));
 
   m_drapeEngine = make_unique_dp<df::DrapeEngine>(move(p));
   m_drapeEngine->SetModelViewListener([this](ScreenBase const & screen)
@@ -2633,6 +2638,16 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
   {
     m_drapeEngine->SetPosteffectEnabled(df::PostprocessRenderer::Antialiasing,
                                         false /* enabled */);
+    return true;
+  }
+  else if (query == "?ugc")
+  {
+    m_drapeEngine->EnableUGCRendering(true /* enabled */);
+    return true;
+  }
+  else if (query == "?no-ugc")
+  {
+    m_drapeEngine->EnableUGCRendering(false /* enabled */);
     return true;
   }
 

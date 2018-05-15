@@ -22,6 +22,7 @@ class MetalineManager;
 class EngineContext
 {
 public:
+  using TIsUGCFn = function<bool (FeatureID const &)>;
   EngineContext(TileKey tileKey,
                 ref_ptr<ThreadsCommutator> commutator,
                 ref_ptr<dp::TextureManager> texMng,
@@ -29,11 +30,13 @@ public:
                 CustomFeaturesContextWeakPtr customFeaturesContext,
                 bool is3dBuildingsEnabled,
                 bool isTrafficEnabled,
-                int displacementMode);
+                int displacementMode,
+                TIsUGCFn const & isUGCFn);
 
   TileKey const & GetTileKey() const { return m_tileKey; }
   bool Is3dBuildingsEnabled() const { return m_3dBuildingsEnabled; }
   bool IsTrafficEnabled() const { return m_trafficEnabled; }
+  bool IsUGC(FeatureID const & fid) { return m_isUGCFn ? m_isUGCFn(fid) : false; }
   int GetDisplacementMode() const { return m_displacementMode; }
   CustomFeaturesContextWeakPtr GetCustomFeaturesContext() const { return m_customFeaturesContext; }
   ref_ptr<dp::TextureManager> GetTextureManager() const;
@@ -56,5 +59,6 @@ private:
   bool m_3dBuildingsEnabled;
   bool m_trafficEnabled;
   int m_displacementMode;
+  TIsUGCFn m_isUGCFn;
 };
 }  // namespace df

@@ -27,6 +27,8 @@ class ReadManager;
 class RouteBuilder;
 class MetalineManager;
 
+using TIsUGCFn = function<bool (FeatureID const &)>;
+
 class BackendRenderer : public BaseRenderer
 {
 public:
@@ -38,7 +40,7 @@ public:
            ref_ptr<dp::OGLContextFactory> factory, ref_ptr<dp::TextureManager> texMng,
            MapDataProvider const & model, TUpdateCurrentCountryFn const & updateCurrentCountryFn,
            ref_ptr<RequestedTiles> requestedTiles, bool allow3dBuildings, bool trafficEnabled,
-           bool simplifiedTrafficColors)
+           bool simplifiedTrafficColors, TIsUGCFn && isUGCFn)
       : BaseRenderer::Params(apiVersion, commutator, factory, texMng)
       , m_model(model)
       , m_updateCurrentCountryFn(updateCurrentCountryFn)
@@ -46,6 +48,7 @@ public:
       , m_allow3dBuildings(allow3dBuildings)
       , m_trafficEnabled(trafficEnabled)
       , m_simplifiedTrafficColors(simplifiedTrafficColors)
+      , m_isUGCFn(std::move(isUGCFn))
     {
     }
 
@@ -55,6 +58,7 @@ public:
     bool m_allow3dBuildings;
     bool m_trafficEnabled;
     bool m_simplifiedTrafficColors;
+    TIsUGCFn m_isUGCFn;
   };
 
   BackendRenderer(Params && params);
