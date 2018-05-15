@@ -37,6 +37,7 @@ final class AdBanner: UITableViewCell {
   @IBOutlet private weak var adIconImageView: UIImageView!
   @IBOutlet private weak var adTitleLabel: UILabel!
   @IBOutlet private weak var adBodyLabel: UILabel!
+  @IBOutlet private weak var adPrivacyImage: UIImageView!
   @IBOutlet private weak var adCallToActionButtonCompact: UIButton!
   @IBOutlet private weak var adCallToActionButtonDetailed: UIButton!
   @IBOutlet private weak var adCallToActionButtonCustom: UIButton!
@@ -160,6 +161,8 @@ final class AdBanner: UITableViewCell {
 
   private func configFBBanner(ad: FBNativeAd) {
     adType = .native
+    adPrivacyImage.image = #imageLiteral(resourceName: "ic_ads_fb")
+
     let adCallToActionButtons: [UIView]
     if state == .search {
       adCallToActionButtons = [self, adCallToActionButtonCompact]
@@ -192,6 +195,7 @@ final class AdBanner: UITableViewCell {
   private func configRBBanner(ad: MTRGNativeAd) {
     guard let banner = ad.banner else { return }
     adType = .native
+    adPrivacyImage.image = UIColor.isNightMode() ? #imageLiteral(resourceName: "img_ad_dark") : #imageLiteral(resourceName: "img_ad_light")
 
     MTRGNativeAd.loadImage(banner.icon, to: adIconImageView)
 
@@ -217,6 +221,7 @@ final class AdBanner: UITableViewCell {
   private func configMopubBanner(ad: MopubBanner) {
     mpNativeAd = ad.nativeAd
     adType = .native
+    adPrivacyImage.image = UIColor.isNightMode() ? #imageLiteral(resourceName: "img_ad_dark") : #imageLiteral(resourceName: "img_ad_light")
 
     let adCallToActionButtons: [UIButton]
     if state == .search {
@@ -247,6 +252,8 @@ final class AdBanner: UITableViewCell {
 
   private func configGoogleFallbackBanner(ad: GoogleFallbackBanner) {
     adType = .fallback
+    adPrivacyImage.image = UIColor.isNightMode() ? #imageLiteral(resourceName: "img_ad_dark") : #imageLiteral(resourceName: "img_ad_light")
+
     fallbackAdView.subviews.forEach { $0.removeFromSuperview() }
     fallbackAdView.addSubview(ad)
     updateFallbackBannerLayout(ad: ad)

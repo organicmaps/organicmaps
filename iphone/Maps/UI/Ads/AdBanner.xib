@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -44,26 +44,18 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zWu-Gh-Vf7">
                                 <rect key="frame" x="16" y="10" width="20" height="12"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ads" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWR-j0-gpt">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U70-zR-E2N">
                                         <rect key="frame" x="0.0" y="0.0" width="20" height="12"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="8"/>
-                                        <color key="textColor" red="1" green="0.98431372549019602" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium9"/>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
+                                    </imageView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.23999999999999999" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="iWR-j0-gpt" firstAttribute="top" secondItem="zWu-Gh-Vf7" secondAttribute="top" id="1Ar-tP-Uoj"/>
+                                    <constraint firstItem="U70-zR-E2N" firstAttribute="top" secondItem="zWu-Gh-Vf7" secondAttribute="top" id="KPA-ST-eMa"/>
+                                    <constraint firstAttribute="trailing" secondItem="U70-zR-E2N" secondAttribute="trailing" id="KWp-03-stj"/>
                                     <constraint firstAttribute="width" constant="20" id="TMB-lh-n1g"/>
-                                    <constraint firstAttribute="bottom" secondItem="iWR-j0-gpt" secondAttribute="bottom" id="j0v-gq-9l0"/>
-                                    <constraint firstAttribute="trailing" secondItem="iWR-j0-gpt" secondAttribute="trailing" id="jDy-yc-aSX"/>
+                                    <constraint firstAttribute="bottom" secondItem="U70-zR-E2N" secondAttribute="bottom" id="WCZ-em-LCa"/>
                                     <constraint firstAttribute="height" constant="12" id="mwW-Ni-one"/>
-                                    <constraint firstItem="iWR-j0-gpt" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" id="zek-Of-Clw"/>
+                                    <constraint firstItem="U70-zR-E2N" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" id="ovH-QV-FXc"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -74,7 +66,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="300" text="Delivery Club" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIR-cO-v6L">
-                                <rect key="frame" x="16" y="8" width="262" height="15"/>
+                                <rect key="frame" x="16" y="8" width="262" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -84,7 +76,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="451" verticalHuggingPriority="249" horizontalCompressionResistancePriority="249" text="Как " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ev3-yY-ql1">
-                                <rect key="frame" x="16" y="27" width="262" height="66.5"/>
+                                <rect key="frame" x="16" y="26.5" width="262" height="67"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -223,6 +215,7 @@
                 <outlet property="adCallToActionButtonDetailed" destination="NKM-3R-3g1" id="diP-AI-tNi"/>
                 <outlet property="adIconImageView" destination="EuF-Rm-DHQ" id="Edf-Ak-VAy"/>
                 <outlet property="adPrivacyButton" destination="So8-wM-Cgz" id="tY6-tl-gGx"/>
+                <outlet property="adPrivacyImage" destination="U70-zR-E2N" id="otr-5d-TIb"/>
                 <outlet property="adTitleLabel" destination="kIR-cO-v6L" id="OOh-tX-yBM"/>
                 <outlet property="fallbackAdView" destination="ucm-4E-iB7" id="dOb-SQ-pex"/>
                 <outlet property="fallbackAdViewBottom" destination="DdI-tM-5Yy" id="Tyv-gy-gf7"/>
