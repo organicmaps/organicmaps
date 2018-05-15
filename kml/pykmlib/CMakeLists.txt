@@ -26,4 +26,9 @@ omim_link_libraries(
   stats_client
 )
 
+if (PLATFORM_MAC)
+  omim_link_libraries(${PROJECT_NAME} ${LIBZ})
+  link_qt5_core(${PROJECT_NAME})
+endif()
+
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")

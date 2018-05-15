@@ -1,7 +1,5 @@
 project(pysearch)
 
-add_definitions(-DBOOST_BIND_NO_PLACEHOLDERS)
-
 set(
   SRC
   bindings.cpp
