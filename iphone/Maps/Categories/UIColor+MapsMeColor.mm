@@ -383,6 +383,6 @@ UIColor * color(SEL cmd)
 }
 
 + (UIColor *)facebookButtonBackgroundDisabled {
-  return [self.facebookButtonBackground colorWithAlphaComponent:.7];
+  return [self.facebookButtonBackground colorWithAlphaComponent:alpha70];
 }
 @end

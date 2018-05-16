@@ -1,13 +1,3 @@
-//
-//  NSAttributedString+HTML.swift
-//  MAPS.ME
-//
-//  Created by Aleksey Belousov on 15/05/2018.
-//  Copyright © 2018 MapsWithMe. All rights reserved.
-//
-
-import Foundation
-
 extension NSAttributedString {
   public class func string(withHtml htmlString:String, defaultAttributes attributes:[NSAttributedStringKey : Any]) -> NSAttributedString? {
     guard let data = htmlString.data(using: .utf8) else { return nil }
