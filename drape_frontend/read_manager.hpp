@@ -32,10 +32,8 @@ uint8_t constexpr kReadingThreadsCount = 2;
 class ReadManager
 {
 public:
-  using TIsUGCFn = function<bool (FeatureID const &)>;
-
   ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model,
-              bool allow3dBuildings, bool trafficEnabled, TIsUGCFn && isUGCFn);
+              bool allow3dBuildings, bool trafficEnabled, EngineContext::TIsUGCFn && isUGCFn);
 
   void Start();
   void Stop();
@@ -106,7 +104,7 @@ private:
 
   CustomFeaturesContextPtr m_customFeaturesContext;
 
-  TIsUGCFn m_isUGCFn;
+  EngineContext::TIsUGCFn m_isUGCFn;
 
   void CancelTileInfo(std::shared_ptr<TileInfo> const & tileToCancel);
   void ClearTileInfo(std::shared_ptr<TileInfo> const & tileToClear);

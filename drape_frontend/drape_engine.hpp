@@ -67,8 +67,7 @@ public:
            bool isAutozoomEnabled,
            bool simplifiedTrafficColors,
            OverlaysShowStatsCallback && overlaysShowStatsCallback,
-           TIsUGCFn && isUGCFn
-           )
+           TIsUGCFn && isUGCFn)
       : m_apiVersion(apiVersion)
       , m_factory(factory)
       , m_viewport(viewport)

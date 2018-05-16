@@ -106,7 +106,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetSymbolNames
   }
 
   auto symbol = make_unique_dp<SymbolNameZoomInfo>();
-  if (IsBookingSpecialMark() || IsUGCMark())
+  if (IsMarkWithRating())
   {
     symbol->insert(std::make_pair(1 /* zoomLevel */, m_rating < kRatingThreshold ?
                                                      GetBookingSmallIcon(m_type) : name));
@@ -160,7 +160,7 @@ drape_ptr<df::UserPointMark::SymbolOffsets> SearchMarkPoint::GetSymbolOffsets() 
 
 df::ColorConstant SearchMarkPoint::GetColorConstant() const
 {
-  if (!IsBookingSpecialMark() && !IsUGCMark())
+  if (!IsMarkWithRating())
     return {};
 
   if (m_type == SearchMarkType::LocalAdsBooking)
@@ -181,7 +181,7 @@ df::ColorConstant SearchMarkPoint::GetColorConstant() const
 
 drape_ptr<df::UserPointMark::TitlesInfo> SearchMarkPoint::GetTitleDecl() const
 {
-  if (!(IsBookingSpecialMark() || IsUGCMark()) || fabs(m_rating) < 1e-5)
+  if (!IsMarkWithRating() || fabs(m_rating) < 1e-5)
     return nullptr;
 
   auto titles = make_unique_dp<TitlesInfo>();
@@ -191,7 +191,7 @@ drape_ptr<df::UserPointMark::TitlesInfo> SearchMarkPoint::GetTitleDecl() const
 
 int SearchMarkPoint::GetMinTitleZoom() const
 {
-  if ((IsBookingSpecialMark() || IsUGCMark()) && m_rating < kRatingThreshold)
+  if (IsMarkWithRating() && m_rating < kRatingThreshold)
     return 17;
   return 1;
 }
@@ -241,6 +241,11 @@ bool SearchMarkPoint::IsBookingSpecialMark() const
 bool SearchMarkPoint::IsUGCMark() const
 {
   return m_type == SearchMarkType::UGC;
+}
+
+bool SearchMarkPoint::IsMarkWithRating() const
+{
+  return IsBookingSpecialMark() || IsUGCMark();
 }
 
 // static

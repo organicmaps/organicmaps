@@ -9,6 +9,8 @@
 #include "drape/constants.hpp"
 #include "drape/pointers.hpp"
 
+#include <functional>
+
 namespace dp
 {
 class TextureManager;
@@ -22,7 +24,7 @@ class MetalineManager;
 class EngineContext
 {
 public:
-  using TIsUGCFn = function<bool (FeatureID const &)>;
+  using TIsUGCFn = std::function<bool (FeatureID const &)>;
   EngineContext(TileKey tileKey,
                 ref_ptr<ThreadsCommutator> commutator,
                 ref_ptr<dp::TextureManager> texMng,

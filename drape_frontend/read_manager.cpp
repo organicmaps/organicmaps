@@ -44,7 +44,7 @@ bool ReadManager::LessByTileInfo::operator()(std::shared_ptr<TileInfo> const & l
 }
 
 ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider & model,
-                         bool allow3dBuildings, bool trafficEnabled, TIsUGCFn && isUGCFn)
+                         bool allow3dBuildings, bool trafficEnabled, EngineContext::TIsUGCFn && isUGCFn)
   : m_commutator(commutator)
   , m_model(model)
   , m_have3dBuildings(false)
@@ -57,7 +57,7 @@ ReadManager::ReadManager(ref_ptr<ThreadsCommutator> commutator, MapDataProvider 
   , m_counter(0)
   , m_generationCounter(0)
   , m_userMarksGenerationCounter(0)
-  , m_isUGCFn(isUGCFn)
+  , m_isUGCFn(std::move(isUGCFn))
 {
   Start();
 }

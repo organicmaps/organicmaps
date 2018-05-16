@@ -2634,18 +2634,18 @@ bool Framework::ParseDrapeDebugCommand(string const & query)
                                         true /* enabled */);
     return true;
   }
-  else if (query == "?no-aa" || query == "effect:no-antialiasing")
+  if (query == "?no-aa" || query == "effect:no-antialiasing")
   {
     m_drapeEngine->SetPosteffectEnabled(df::PostprocessRenderer::Antialiasing,
                                         false /* enabled */);
     return true;
   }
-  else if (query == "?ugc")
+  if (query == "?ugc")
   {
     m_drapeEngine->EnableUGCRendering(true /* enabled */);
     return true;
   }
-  else if (query == "?no-ugc")
+  if (query == "?no-ugc")
   {
     m_drapeEngine->EnableUGCRendering(false /* enabled */);
     return true;

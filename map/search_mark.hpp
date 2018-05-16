@@ -65,6 +65,7 @@ protected:
 
   bool IsBookingSpecialMark() const;
   bool IsUGCMark() const;
+  bool IsMarkWithRating() const;
 
   SearchMarkType m_type = SearchMarkType::Default;
   FeatureID m_featureID;
