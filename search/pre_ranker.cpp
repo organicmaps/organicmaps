@@ -70,10 +70,7 @@ void PreRanker::FillMissingFieldsInPreResults()
   unique_ptr<RankTable> ranks = make_unique<DummyRankTable>();
   unique_ptr<LazyCentersTable> centers;
 
-  bool const fillCenters = (Size() > BatchSize());
-
-  if (fillCenters)
-    m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
+  m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
 
   ForEach([&](PreRankerResult & r) {
     FeatureID const & id = r.GetId();
@@ -95,20 +92,17 @@ void PreRanker::FillMissingFieldsInPreResults()
 
     info.m_rank = ranks->Get(id.m_index);
 
-    if (fillCenters)
+    m2::PointD center;
+    if (centers && centers->Get(id.m_index, center))
     {
-      m2::PointD center;
-      if (centers && centers->Get(id.m_index, center))
-      {
-        info.m_distanceToPivot =
-            MercatorBounds::DistanceOnEarth(m_params.m_accuratePivotCenter, center);
-        info.m_center = center;
-        info.m_centerLoaded = true;
-      }
-      else
-      {
-        info.m_distanceToPivot = m_pivotFeatures.GetDistanceToFeatureMeters(id);
-      }
+      info.m_distanceToPivot =
+          MercatorBounds::DistanceOnEarth(m_params.m_accuratePivotCenter, center);
+      info.m_center = center;
+      info.m_centerLoaded = true;
+    }
+    else
+    {
+      info.m_distanceToPivot = m_pivotFeatures.GetDistanceToFeatureMeters(id);
     }
   });
 }
@@ -139,52 +133,49 @@ void PreRanker::Filter(bool viewportSearch)
   m_results.erase(unique(m_results.begin(), m_results.end(), my::EqualsBy(&PreRankerResult::GetId)),
                   m_results.end());
 
-  if (m_results.size() > BatchSize())
+  bool const centersLoaded =
+      all_of(m_results.begin(), m_results.end(),
+             [](PreRankerResult const & result) { return result.GetInfo().m_centerLoaded; });
+  if (viewportSearch && centersLoaded)
   {
-    bool const centersLoaded =
-        all_of(m_results.begin(), m_results.end(),
-               [](PreRankerResult const & result) { return result.GetInfo().m_centerLoaded; });
-    if (viewportSearch && centersLoaded)
-    {
-      FilterForViewportSearch();
-      ASSERT_LESS_OR_EQUAL(m_results.size(), BatchSize(), ());
-      for (auto const & result : m_results)
-        m_currEmit.insert(result.GetId());
-    }
-    else
-    {
-      sort(m_results.begin(), m_results.end(), &PreRankerResult::LessDistance);
+    FilterForViewportSearch();
+    ASSERT_LESS_OR_EQUAL(m_results.size(), BatchSize(), ());
+    for (auto const & result : m_results)
+      m_currEmit.insert(result.GetId());
+  }
+  else if (m_results.size() > BatchSize())
+  {
+    sort(m_results.begin(), m_results.end(), &PreRankerResult::LessDistance);
 
-      // Priority is some kind of distance from the viewport or
-      // position, therefore if we have a bunch of results with the same
-      // priority, we have no idea here which results are relevant.  To
-      // prevent bias from previous search routines (like sorting by
-      // feature id) this code randomly selects tail of the
-      // sorted-by-priority list of pre-results.
+    // Priority is some kind of distance from the viewport or
+    // position, therefore if we have a bunch of results with the same
+    // priority, we have no idea here which results are relevant.  To
+    // prevent bias from previous search routines (like sorting by
+    // feature id) this code randomly selects tail of the
+    // sorted-by-priority list of pre-results.
 
-      double const last = m_results[BatchSize()].GetDistance();
+    double const last = m_results[BatchSize()].GetDistance();
 
-      auto b = m_results.begin() + BatchSize();
-      for (; b != m_results.begin() && b->GetDistance() == last; --b)
-        ;
-      if (b->GetDistance() != last)
-        ++b;
+    auto b = m_results.begin() + BatchSize();
+    for (; b != m_results.begin() && b->GetDistance() == last; --b)
+      ;
+    if (b->GetDistance() != last)
+      ++b;
 
-      auto e = m_results.begin() + BatchSize();
-      for (; e != m_results.end() && e->GetDistance() == last; ++e)
-        ;
+    auto e = m_results.begin() + BatchSize();
+    for (; e != m_results.end() && e->GetDistance() == last; ++e)
+      ;
 
-      // The main reason of shuffling here is to select a random subset
-      // from the low-priority results. We're using a linear
-      // congruential method with default seed because it is fast,
-      // simple and doesn't need an external entropy source.
-      //
-      // TODO (@y, @m, @vng): consider to take some kind of hash from
-      // features and then select a subset with smallest values of this
-      // hash.  In this case this subset of results will be persistent
-      // to small changes in the original set.
-      shuffle(b, e, m_rng);
-    }
+    // The main reason of shuffling here is to select a random subset
+    // from the low-priority results. We're using a linear
+    // congruential method with default seed because it is fast,
+    // simple and doesn't need an external entropy source.
+    //
+    // TODO (@y, @m, @vng): consider to take some kind of hash from
+    // features and then select a subset with smallest values of this
+    // hash.  In this case this subset of results will be persistent
+    // to small changes in the original set.
+    shuffle(b, e, m_rng);
   }
 
   set<PreRankerResult, LessFeatureID> filtered;
