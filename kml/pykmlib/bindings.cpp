@@ -1,6 +1,9 @@
 #include "kml/serdes.hpp"
 #include "kml/serdes_binary.hpp"
 
+#include "indexer/classificator.hpp"
+#include "indexer/classificator_loader.hpp"
+
 #include "coding/multilang_utf8_string.hpp"
 
 #include "geometry/latlon.hpp"
@@ -315,6 +318,26 @@ std::string BookmarkIconToString(BookmarkIcon icon)
   switch (icon)
   {
     case BookmarkIcon::None: return "NONE";
+    case BookmarkIcon::Hotel: return "HOTEL";
+    case BookmarkIcon::Animals: return "ANIMALS";
+    case BookmarkIcon::Buddhism: return "BUDDHISM";
+    case BookmarkIcon::Building: return "BUILDING";
+    case BookmarkIcon::Christianity: return "CHRISTIANITY";
+    case BookmarkIcon::Entertainment: return "ENTERTAINMENT";
+    case BookmarkIcon::Exchange: return "EXCHANGE";
+    case BookmarkIcon::Food: return "FOOD";
+    case BookmarkIcon::Gas: return "GAS";
+    case BookmarkIcon::Judaism: return "JUDAISM";
+    case BookmarkIcon::Medicine: return "MEDICINE";
+    case BookmarkIcon::Mountain: return "MOUNTAIN";
+    case BookmarkIcon::Museum: return "MUSEUM";
+    case BookmarkIcon::Islam: return "ISLAM";
+    case BookmarkIcon::Park: return "PARK";
+    case BookmarkIcon::Parking: return "PARKING";
+    case BookmarkIcon::Shop: return "SHOP";
+    case BookmarkIcon::Sights: return "SIGHTS";
+    case BookmarkIcon::Swim: return "SWIM";
+    case BookmarkIcon::Water: return "WATER";
     case BookmarkIcon::Count:
       CHECK(false, ("Unknown bookmark icon"));
       return {};
@@ -438,13 +461,7 @@ struct TimestampConverter
 {
   TimestampConverter()
   {
-    to_python_converter<Timestamp, TimestampConverter>();
     converter::registry::push_back(&convertible, &construct, type_id<Timestamp>());
-  }
-
-  static PyObject * convert(Timestamp const & timestamp)
-  {
-    return boost::python::incref(boost::python::object(ToSecondsSinceEpoch(timestamp)).ptr());
   }
 
   static void * convertible(PyObject * objPtr)
@@ -469,14 +486,7 @@ struct LatLonConverter
 {
   LatLonConverter()
   {
-    to_python_converter<m2::PointD, LatLonConverter>();
     converter::registry::push_back(&convertible, &construct, type_id<m2::PointD>());
-  }
-
-  static PyObject * convert(m2::PointD const & pt)
-  {
-    ms::LatLon latLon(MercatorBounds::YToLat(pt.y), MercatorBounds::XToLon(pt.x));
-    return boost::python::incref(boost::python::object(latLon).ptr());
   }
 
   static void * convertible(PyObject * objPtr)
@@ -552,10 +562,15 @@ boost::python::object GetLanguageIndex(std::string const & lang)
 std::string ExportKml(FileData const & fileData)
 {
   std::string resultBuffer;
+  try
   {
     MemWriter<decltype(resultBuffer)> sink(resultBuffer);
     kml::SerializerKml ser(fileData);
     ser.Serialize(sink);
+  }
+  catch (kml::SerializerKml::SerializeException const & exc)
+  {
+    throw std::runtime_error(std::string("Export error: ") + exc.what());
   }
   return resultBuffer;
 }
@@ -574,6 +589,50 @@ FileData ImportKml(std::string const & str)
     throw std::runtime_error(std::string("Import error: ") + exc.what());
   }
   return data;
+}
+
+void LoadClassificatorTypes(std::string const & classificatorFileStr,
+                            std::string const & typesFileStr)
+{
+  classificator::LoadTypes(classificatorFileStr, typesFileStr);
+}
+
+uint32_t ClassificatorTypeToInt(std::string const & typeStr)
+{
+  if (typeStr.empty())
+    throw std::runtime_error("Empty type is not allowed.");
+
+  auto const & c = classif();
+  if (!c.HasMapping())
+    throw std::runtime_error("Types mapping is not loaded.");
+
+  auto const type = c.GetTypeByReadableObjectName(typeStr);
+  if (!c.IsTypeValid(type))
+    throw std::runtime_error("Type is not valid.");
+
+  return c.GetIndexForType(type);
+}
+
+std::string IntToClassificatorType(uint32_t index)
+{
+  auto const & c = classif();
+  if (!c.HasMapping())
+    throw std::runtime_error("Types mapping is not loaded.");
+
+  uint32_t t;
+  try
+  {
+    t = c.GetTypeForIndex(index);
+  }
+  catch (std::out_of_range const & exc)
+  {
+    throw std::runtime_error("Type is not found.");
+  }
+
+  if (!c.IsTypeValid(t))
+    throw std::runtime_error("Type is not valid.");
+
+  return c.GetReadableObjectName(t);
 }
 }  // namespace
 
@@ -602,6 +661,26 @@ BOOST_PYTHON_MODULE(pykmlib)
 
   enum_<BookmarkIcon>("BookmarkIcon")
     .value(BookmarkIconToString(BookmarkIcon::None).c_str(), BookmarkIcon::None)
+    .value(BookmarkIconToString(BookmarkIcon::Hotel).c_str(), BookmarkIcon::Hotel)
+    .value(BookmarkIconToString(BookmarkIcon::Animals).c_str(), BookmarkIcon::Animals)
+    .value(BookmarkIconToString(BookmarkIcon::Buddhism).c_str(), BookmarkIcon::Buddhism)
+    .value(BookmarkIconToString(BookmarkIcon::Building).c_str(), BookmarkIcon::Building)
+    .value(BookmarkIconToString(BookmarkIcon::Christianity).c_str(), BookmarkIcon::Christianity)
+    .value(BookmarkIconToString(BookmarkIcon::Entertainment).c_str(), BookmarkIcon::Entertainment)
+    .value(BookmarkIconToString(BookmarkIcon::Exchange).c_str(), BookmarkIcon::Exchange)
+    .value(BookmarkIconToString(BookmarkIcon::Food).c_str(), BookmarkIcon::Food)
+    .value(BookmarkIconToString(BookmarkIcon::Gas).c_str(), BookmarkIcon::Gas)
+    .value(BookmarkIconToString(BookmarkIcon::Judaism).c_str(), BookmarkIcon::Judaism)
+    .value(BookmarkIconToString(BookmarkIcon::Medicine).c_str(), BookmarkIcon::Medicine)
+    .value(BookmarkIconToString(BookmarkIcon::Mountain).c_str(), BookmarkIcon::Mountain)
+    .value(BookmarkIconToString(BookmarkIcon::Museum).c_str(), BookmarkIcon::Museum)
+    .value(BookmarkIconToString(BookmarkIcon::Islam).c_str(), BookmarkIcon::Islam)
+    .value(BookmarkIconToString(BookmarkIcon::Park).c_str(), BookmarkIcon::Park)
+    .value(BookmarkIconToString(BookmarkIcon::Parking).c_str(), BookmarkIcon::Parking)
+    .value(BookmarkIconToString(BookmarkIcon::Shop).c_str(), BookmarkIcon::Shop)
+    .value(BookmarkIconToString(BookmarkIcon::Sights).c_str(), BookmarkIcon::Sights)
+    .value(BookmarkIconToString(BookmarkIcon::Swim).c_str(), BookmarkIcon::Swim)
+    .value(BookmarkIconToString(BookmarkIcon::Water).c_str(), BookmarkIcon::Water)
     .export_values();
 
   class_<ColorData>("ColorData")
@@ -646,6 +725,10 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def_readwrite("lon", &ms::LatLon::lon)
     .def("__str__", &LatLonToString);
 
+  class_<m2::PointD>("PointD");
+
+  class_<Timestamp>("Timestamp");
+
   class_<BookmarkData>("BookmarkData")
     .def_readwrite("name", &BookmarkData::m_name)
     .def_readwrite("description", &BookmarkData::m_description)
@@ -679,6 +762,9 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def("get_list", &VectorAdapter<m2::PointD>::Get)
     .def("set_list", &VectorAdapter<m2::PointD>::Set)
     .def("__str__", &VectorAdapter<m2::PointD>::ToString);
+
+  class_<std::vector<ms::LatLon>>("LatLonList")
+    .def(vector_indexing_suite<std::vector<ms::LatLon>>());
 
   class_<TrackData>("TrackData")
     .def_readwrite("local_id", &TrackData::m_localId)
@@ -750,6 +836,13 @@ BOOST_PYTHON_MODULE(pykmlib)
 
   def("get_supported_languages", GetSupportedLanguages);
   def("get_language_index", GetLanguageIndex);
+  def("timestamp_to_int", &ToSecondsSinceEpoch);
+  def("point_to_latlon", &MercatorBounds::ToLatLon);
+
   def("export_kml", ExportKml);
   def("import_kml", ImportKml);
+
+  def("load_classificator_types", LoadClassificatorTypes);
+  def("classificator_type_to_int", ClassificatorTypeToInt);
+  def("int_to_classificator_type", IntToClassificatorType);
 }

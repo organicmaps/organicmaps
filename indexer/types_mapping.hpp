@@ -18,6 +18,7 @@ class IndexAndTypeMapping
 public:
   void Clear();
   void Load(istream & s);
+  bool IsLoaded() const { return !m_types.empty(); }
 
   // Throws std::out_of_range exception.
   uint32_t GetType(uint32_t ind) const

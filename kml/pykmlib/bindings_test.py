@@ -5,6 +5,16 @@ import pykmlib
 class PyKmlibAdsTest(unittest.TestCase):
 
     def test_smoke(self):
+        classificator_file_str = ''
+        with open('./data/classificator.txt', 'r') as classificator_file:
+            classificator_file_str = classificator_file.read()
+
+        types_file_str = ''
+        with open('./data/types.txt', 'r') as types_file:
+            types_file_str = types_file.read()
+
+        pykmlib.load_classificator_types(classificator_file_str, types_file_str)
+
         category = pykmlib.CategoryData()
         category.name.set_default('Test category')
         category.name['ru'] = 'Тестовая категория'
@@ -30,12 +40,14 @@ class PyKmlibAdsTest(unittest.TestCase):
         bookmark.name['ru'] = 'Тестовая метка'
         bookmark.description.set_default('Test bookmark description')
         bookmark.description['ru'] = 'Тестовое описание метки'
-        bookmark.feature_types.set_list([8, 13, 34, 565])
+        bookmark.feature_types.set_list([
+            pykmlib.classificator_type_to_int('historic-castle'),
+            pykmlib.classificator_type_to_int('historic-memorial')])
         bookmark.custom_name.set_default('Мое любимое место')
         bookmark.custom_name['en'] = 'My favorite place'
         bookmark.color.predefined_color = pykmlib.PredefinedColor.BLUE
         bookmark.color.rgba = 0
-        bookmark.icon = pykmlib.BookmarkIcon.NONE
+        bookmark.icon = pykmlib.BookmarkIcon.HOTEL
         bookmark.viewport_scale = 15
         bookmark.timestamp = int(datetime.datetime.now().timestamp())
         bookmark.point = pykmlib.LatLon(45.9242, 56.8679) 

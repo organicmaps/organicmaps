@@ -617,6 +617,10 @@ UNIT_TEST(Kml_Serialization_Text_File)
     FileWriter sink(kmlFile);
     ser.Serialize(sink);
   }
+  catch (kml::SerializerKml::SerializeException const & exc)
+  {
+    TEST(false, ("Exception raised", exc.what()));
+  }
   catch (FileWriter::Exception const & exc)
   {
     TEST(false, ("Exception raised", exc.what()));

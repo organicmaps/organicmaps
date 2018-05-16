@@ -43,6 +43,8 @@ private:
 class SerializerKml
 {
 public:
+  DECLARE_EXCEPTION(SerializeException, RootException);
+
   explicit SerializerKml(FileData const & fileData)
     : m_fileData(fileData)
   {}
