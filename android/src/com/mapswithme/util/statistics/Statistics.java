@@ -1111,7 +1111,7 @@ public enum Statistics
     if (result == BookmarkManager.CLOUD_BACKUP_EXISTS)
       return;
 
-    trackEvent(BM_SYNC_ERROR, params()
+    trackEvent(BM_RESTORE_PROPOSAL_ERROR, params()
         .add(TYPE, getTypeForRequestRestoringError(result)));
   }
 
