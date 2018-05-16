@@ -60,20 +60,13 @@
       android:layout_toEndOf="@id/iv__banner_icon"
       android:layout_toRightOf="@id/iv__banner_icon"
       android:gravity="center_vertical">
-      <TextView
-        android:id="@+id/tv__ads"
+      <ImageView
+        android:id="@+id/ad_choices"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/margin_half_plus"
+        android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/margin_quarter"
         android:layout_marginEnd="@dimen/margin_quarter"
-        android:textSize="@dimen/text_size_banner"
-        android:textColor="?android:textColorSecondary"
-        android:gravity="center"
-        android:visibility="gone"
-        android:background="?adsBackground"
-        android:text="@string/advertisement"
-        android:fontFamily="@string/robotoMedium"
-        tools:targetApi="jelly_bean"/>
+        android:visibility="gone"/>
       <TextView
         android:id="@+id/tv__banner_title"
         android:layout_width="match_parent"

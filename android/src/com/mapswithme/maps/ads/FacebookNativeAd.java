@@ -99,4 +99,11 @@ class FacebookNativeAd extends CachedMwmNativeAd
                                "AdListener class! Not '" + listener.getClass() + "'!");
     mAd.setAdListener((AdListener) listener);
   }
+
+  @NonNull
+  @Override
+  public NetworkType getNetworkType()
+  {
+    return NetworkType.FACEBOOK;
+  }
 }

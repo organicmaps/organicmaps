@@ -97,6 +97,7 @@
     <attr name="transitPedestrianBackground" format="color"/>
     <attr name="transitStepDivider" format="reference"/>
     <attr name="filterPropertyBackground" format="reference"/>
+    <attr name="adChoicesIcon" format="reference"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">

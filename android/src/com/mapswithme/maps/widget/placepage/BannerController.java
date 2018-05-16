@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.ads.AdTracker;
 import com.mapswithme.maps.ads.Banner;
@@ -70,7 +69,7 @@ final class BannerController
   @NonNull
   private final TextView mActionLarge;
   @NonNull
-  private final View mAds;
+  private final ImageView mAdChoices;
 
   private final float mCloseFrameHeight;
 
@@ -96,32 +95,18 @@ final class BannerController
     mListener = listener;
     Resources resources = mFrame.getResources();
     mCloseFrameHeight = resources.getDimension(R.dimen.placepage_banner_height);
-    mIcon = (ImageView) bannerView.findViewById(R.id.iv__banner_icon);
-    mTitle = (TextView) bannerView.findViewById(R.id.tv__banner_title);
-    mMessage = (TextView) bannerView.findViewById(R.id.tv__banner_message);
-    mActionSmall = (TextView) bannerView.findViewById(R.id.tv__action_small);
-    mActionLarge = (TextView) bannerView.findViewById(R.id.tv__action_large);
-    mAds = bannerView.findViewById(R.id.tv__ads);
-    mAds.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        handlePrivacyInfoUrl();
-      }
-    });
+    mIcon = bannerView.findViewById(R.id.iv__banner_icon);
+    mTitle = bannerView.findViewById(R.id.tv__banner_title);
+    mMessage = bannerView.findViewById(R.id.tv__banner_message);
+    mActionSmall = bannerView.findViewById(R.id.tv__action_small);
+    mActionLarge = bannerView.findViewById(R.id.tv__action_large);
+    mAdChoices = bannerView.findViewById(R.id.ad_choices);
+    mAdChoices.setOnClickListener(v -> handlePrivacyInfoUrl());
     Resources res = mFrame.getResources();
-    UiUtils.expandTouchAreaForView(mAds, (int) res.getDimension(R.dimen.margin_quarter_plus));
+    UiUtils.expandTouchAreaForView(mAdChoices, (int) res.getDimension(R.dimen.margin_quarter_plus));
     mAdsLoader = loader;
     mAdTracker = tracker;
-    mFrame.setOnClickListener(new View.OnClickListener()
-    {
-      @Override
-      public void onClick(View v)
-      {
-        animateActionButton();
-      }
-    });
+    mFrame.setOnClickListener(v -> animateActionButton());
   }
 
   private void handlePrivacyInfoUrl()
@@ -155,11 +140,11 @@ final class BannerController
     if ((mAdsLoader.isAdLoading() || hasErrorOccurred())
         && mCurrentAd == null)
     {
-      UiUtils.hide(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAds);
+      UiUtils.hide(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAdChoices);
     }
     else
     {
-      UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAds);
+      UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAdChoices);
       if (mOpened)
         UiUtils.hide(mActionSmall);
       else
@@ -292,6 +277,16 @@ final class BannerController
     mMessage.setText(data.getDescription());
     mActionSmall.setText(data.getAction());
     mActionLarge.setText(data.getAction());
+    fillAdChoicesIcon(data);
+  }
+
+  private void fillAdChoicesIcon(@NonNull MwmNativeAd data)
+  {
+    MwmNativeAd.NetworkType type = data.getNetworkType();
+    if (type == MwmNativeAd.NetworkType.FACEBOOK)
+      mAdChoices.setImageResource(R.drawable.ic_ads_fb);
+    else
+      mAdChoices.setImageResource(ThemeUtils.getResource(mFrame.getContext(), R.attr.adChoicesIcon));
   }
 
   private void loadIconAndOpenIfNeeded(@NonNull MwmNativeAd data)

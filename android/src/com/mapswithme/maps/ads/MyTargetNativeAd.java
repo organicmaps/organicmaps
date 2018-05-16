@@ -105,4 +105,11 @@ class MyTargetNativeAd extends CachedMwmNativeAd
                                "NativeAd.NativeAdListener class! Not '" + listener.getClass() + "'!");
     mAd.setListener((NativeAd.NativeAdListener) listener);
   }
+
+  @NonNull
+  @Override
+  public NetworkType getNetworkType()
+  {
+    return NetworkType.MYTARGET;
+  }
 }
