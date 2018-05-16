@@ -17311,36 +17311,36 @@ fa = دوباره نپرس
     fa = رایگان,سریع,با جزئیات و با نقشه هایی کامل افلاین به همراه مسیر یابی پیچ به پیچ.
 
   [onboarding_welcome_second_subtitle]
-    en = By launching the application, you agree to <a href="http://legal.my.com/us/maps/tou/">Terms of Use</a> and <a href="https://legal.my.com/us/maps/privacy/">Privacy Policy</a>.
-    ru = Запуская приложение, вы соглашаетесь с <a href="http://legal.my.com/us/maps/tou/">Условиями использования</a> и <a href="https://legal.my.com/us/maps/privacy/">Политикой конфиденциальности</a>.
-    ar = من خلال إطلاق التطبيق، فإنك توافق على <a href="http://legal.my.com/us/maps/tou/">شروط الاستخدام</a> و<a href="https://legal.my.com/us/maps/privacy/">سياسة الخصوصية</a>.
-    cs = Spuštěním aplikace souhlasíte s <a href="http://legal.my.com/us/maps/tou/"> Podmínkami použití</a> a <a href="https://legal.my.com/us/maps/privacy/"> Zásadami ochrany osobních údajů</a>.
-    da = Ved at åbne appen accepterer du vores <a href="http://legal.my.com/us/maps/tou/">Vilkår for anvendelse</a> og <a href="https://legal.my.com/us/maps/privacy/">Fortrolighedspolitik</a>.
-    nl = Door de toepassing te starten, gaat u akkoord met de <a href="http://legal.my.com/us/maps/tou/">Gebruiksvoorwaarden</a> en het <a href="https://legal.my.com/us/maps/privacy/">Privacybeleid</a>.
-    fi = Käynnistämällä sovelluksen hyväksyt <a href="http://legal.my.com/us/maps/tou/">käyttöehdot</a> ja <a href="https://legal.my.com/us/maps/privacy/">tietosuojakäytännön</a>.
-    fr = En lançant l’application, vous acceptez les <a href="http://legal.my.com/us/maps/tou/">Conditions d’utilisation</a> et la <a href="https://legal.my.com/us/maps/privacy/">Politique de confidentialité</a>.
-    de = Durch das Starten der Anwendung stimmen Sie den <a href="http://legal.my.com/us/maps/tou/">Nutzungsbedingungen</a> und der <a href="https://legal.my.com/us/maps/privacy/">Datenschutzrichtlinie</a> zu.
-    hu = Az alkalmazás indításával Ön elfogadja a <a href="http://legal.my.com/us/maps/tou/"> Felhasználási feltételeket</a> és <a href="https://legal.my.com/us/maps/privacy/"> az Adatvédelmi szabályzatot</a>.
-    id = Dengan menjalankan aplikasi ini, Anda menyetujui <a href="http://legal.my.com/us/maps/tou/">Syarat-Syarat Penggunaan</a> dan <a href="https://legal.my.com/us/maps/privacy/">Kebijakan Privasi</a>.
-    it = Lanciando l'applicazione, accetti i <a href="http://legal.my.com/us/maps/tou/">Termini di utilizzo</a> e l'<a href="https://legal.my.com/us/maps/privacy/">Informativa sulla privacy</a>.
-    ja = アプリケーションを起動することで、<a href="http://legal.my.com/us/maps/tou/">利用規約</a>および<a href="https://legal.my.com/us/maps/privacy/">プライバシーポリシー</a>にご同意いただいたものとみなします。
-    ko = 애플리케이션을 시작하면, <a href="http://legal.my.com/us/maps/tou/">이용 약관</a> 및 <a href="https://legal.my.com/us/maps/privacy/">개인정보취급방침</a>에 동의하는 것입니다.
-    nb = Når du starter programmet samtykker du til <a href="http://legal.my.com/us/maps/tou/">bruksvilkårene</a> og <a href="https://legal.my.com/us/maps/privacy/">reglene for personvern</a>.
-    pl = Poprzez uruchomienie aplikacji wyrażasz zgodę na <a href="http://legal.my.com/us/maps/tou/">warunki użytkowania</a> i <a href="https://legal.my.com/us/maps/privacy/">politykę prywatności</a>.
-    pt = Ao lançar a aplicação, o utilizador concorda com os <a href="http://legal.my.com/us/maps/tou/">Termos de Utilização</a> e a <a href="https://legal.my.com/us/maps/privacy/">Política de Privacidade</a>.
-    ro = Lansând aplicația confirmați că sunteți de acord cu <a href="http://legal.my.com/us/maps/tou/">Condițiile de utilizare</a> și <a href="https://legal.my.com/us/maps/privacy/">Politica de confidențialitate</a>.
-    es = Al iniciar la aplicación, usted acepta los <a href="http://legal.my.com/us/maps/tou/">Términos de uso</a> y la <a href="https://legal.my.com/us/maps/privacy/">Política de privacidad</a>.
-    sv = Genom att starta applikationen godkänner du <a href="http://legal.my.com/us/maps/tou/">användningsvillkoren</a> och <a href="https://legal.my.com/us/maps/privacy/">sekretesspolicyn</a>.
-    th = ด้วยการเรียกใช้แอปพลิเคชั่นคุณได้ตกลงต่อ <a href="http://legal.my.com/us/maps/tou/">เงื่อนไขการใช้งาน</a> และ <a href="https://legal.my.com/us/maps/privacy/">นโยบายความเป็นส่วนตัว</a>
-    tr = Uygulamayı başlatarak <a href="http://legal.my.com/us/maps/tou/">Kullanım Koşullarını</a> ve <a href="https://legal.my.com/us/maps/privacy/">Gizlilik Politikasını</a> kabul etmiş sayılırsınız.
-    uk = Використовуючи цей додаток, ви погоджуєтеся з <a href="http://legal.my.com/us/maps/tou/">Умовами використання</a> та <a href="https://legal.my.com/us/maps/privacy/">Політикою конфіденційності</a>.
-    vi = Bằng cách khởi chạy ứng dụng, bạn đồng ý với <a href="http://legal.my.com/us/maps/tou/">Điều khoản Sử dụng</a> và <a href="https://legal.my.com/us/maps/privacy/">Chính sách Riêng tư</a>.
-    zh-Hans = 启动应用程序即表明您同意<a href="http://legal.my.com/us/maps/tou/">使用条款</a>和<a href="https://legal.my.com/us/maps/privacy/">隐私政策</a>。
-    zh-Hant = 啟用本應用程式，即表示您同意 <a href="http://legal.my.com/us/maps/tou/">服務條款</a>和 <a href="https://legal.my.com/us/maps/privacy/">隱私權原則</a>。
-    el = Με την εκκίνηση της εφαρμογής συμφωνείτε με <a href="http://legal.my.com/us/maps/tou/">τους Όρους χρήσης</a> και <a href="https://legal.my.com/us/maps/privacy/">την Πολιτική απορρήτου</a>.
-    sk = Spustením aplikácie súhlasíte s <a href="http://legal.my.com/us/maps/tou/"> Podmienkami používania</a> a <a href="https://legal.my.com/us/maps/privacy/"> Zásadami ochrany osobných údajov</a>.
-    sw = Kwa kuanzisha programu-tumizi hii, unakubaliana na <a href="http://legal.my.com/us/maps/tou/">Sheria za Utumizi</a> na <a href="https://legal.my.com/us/maps/privacy/">Sera ya Faragha</a>.
-    fa = با اجرای این اپلیکیشن, شما موافقت خود را با  <a href="http://legal.my.com/us/maps/tou/">Terms of Use</a> و <a href="https://legal.my.com/us/maps/privacy/">Privacy Policy</a>اعلام می کنید.
+    en = By launching the application, you agree to <a href="https://legal.my.com/us/maps/tou/">Terms of Use</a> and <a href="https://legal.my.com/us/maps/privacy/">Privacy Policy</a>.
+    ru = Запуская приложение, вы соглашаетесь с <a href="https://legal.my.com/us/maps/tou/">Условиями использования</a> и <a href="https://legal.my.com/us/maps/privacy/">Политикой конфиденциальности</a>.
+    ar = من خلال إطلاق التطبيق، فإنك توافق على <a href="https://legal.my.com/us/maps/tou/">شروط الاستخدام</a> و<a href="https://legal.my.com/us/maps/privacy/">سياسة الخصوصية</a>.
+    cs = Spuštěním aplikace souhlasíte s <a href="https://legal.my.com/us/maps/tou/">Podmínkami použití</a> a <a href="https://legal.my.com/us/maps/privacy/">Zásadami ochrany osobních údajů</a>.
+    da = Ved at åbne appen accepterer du vores <a href="https://legal.my.com/us/maps/tou/">Vilkår for anvendelse</a> og <a href="https://legal.my.com/us/maps/privacy/">Fortrolighedspolitik</a>.
+    nl = Door de toepassing te starten, gaat u akkoord met de <a href="https://legal.my.com/us/maps/tou/">Gebruiksvoorwaarden</a> en het <a href="https://legal.my.com/us/maps/privacy/">Privacybeleid</a>.
+    fi = Käynnistämällä sovelluksen hyväksyt <a href="https://legal.my.com/us/maps/tou/">käyttöehdot</a> ja <a href="https://legal.my.com/us/maps/privacy/">tietosuojakäytännön</a>.
+    fr = En lançant l’application, vous acceptez les <a href="https://legal.my.com/us/maps/tou/">Conditions d’utilisation</a> et la <a href="https://legal.my.com/us/maps/privacy/">Politique de confidentialité</a>.
+    de = Durch das Starten der Anwendung stimmen Sie den <a href="https://legal.my.com/us/maps/tou/">Nutzungsbedingungen</a> und der <a href="https://legal.my.com/us/maps/privacy/">Datenschutzrichtlinie</a> zu.
+    hu = Az alkalmazás indításával Ön elfogadja a <a href="https://legal.my.com/us/maps/tou/">Felhasználási feltételeket</a> és <a href="https://legal.my.com/us/maps/privacy/">az Adatvédelmi szabályzatot</a>.
+    id = Dengan menjalankan aplikasi ini, Anda menyetujui <a href="https://legal.my.com/us/maps/tou/">Syarat-Syarat Penggunaan</a> dan <a href="https://legal.my.com/us/maps/privacy/">Kebijakan Privasi</a>.
+    it = Lanciando l'applicazione, accetti i <a href="https://legal.my.com/us/maps/tou/">Termini di utilizzo</a> e l'<a href="https://legal.my.com/us/maps/privacy/">Informativa sulla privacy</a>.
+    ja = アプリケーションを起動することで、<a href="https://legal.my.com/us/maps/tou/">利用規約</a>および<a href="https://legal.my.com/us/maps/privacy/">プライバシーポリシー</a>にご同意いただいたものとみなします。
+    ko = 애플리케이션을 시작하면, <a href="https://legal.my.com/us/maps/tou/">이용 약관</a> 및 <a href="https://legal.my.com/us/maps/privacy/">개인정보취급방침</a>에 동의하는 것입니다.
+    nb = Når du starter programmet samtykker du til <a href="https://legal.my.com/us/maps/tou/">bruksvilkårene</a> og <a href="https://legal.my.com/us/maps/privacy/">reglene for personvern</a>.
+    pl = Poprzez uruchomienie aplikacji wyrażasz zgodę na <a href="https://legal.my.com/us/maps/tou/">warunki użytkowania</a> i <a href="https://legal.my.com/us/maps/privacy/">politykę prywatności</a>.
+    pt = Ao lançar a aplicação, o utilizador concorda com os <a href="https://legal.my.com/us/maps/tou/">Termos de Utilização</a> e a <a href="https://legal.my.com/us/maps/privacy/">Política de Privacidade</a>.
+    ro = Lansând aplicația confirmați că sunteți de acord cu <a href="https://legal.my.com/us/maps/tou/">Condițiile de utilizare</a> și <a href="https://legal.my.com/us/maps/privacy/">Politica de confidențialitate</a>.
+    es = Al iniciar la aplicación, usted acepta los <a href="https://legal.my.com/us/maps/tou/">Términos de uso</a> y la <a href="https://legal.my.com/us/maps/privacy/">Política de privacidad</a>.
+    sv = Genom att starta applikationen godkänner du <a href="https://legal.my.com/us/maps/tou/">användningsvillkoren</a> och <a href="https://legal.my.com/us/maps/privacy/">sekretesspolicyn</a>.
+    th = ด้วยการเรียกใช้แอปพลิเคชั่นคุณได้ตกลงต่อ <a href="https://legal.my.com/us/maps/tou/">เงื่อนไขการใช้งาน</a> และ <a href="https://legal.my.com/us/maps/privacy/">นโยบายความเป็นส่วนตัว</a>
+    tr = Uygulamayı başlatarak <a href="https://legal.my.com/us/maps/tou/">Kullanım Koşullarını</a> ve <a href="https://legal.my.com/us/maps/privacy/">Gizlilik Politikasını</a> kabul etmiş sayılırsınız.
+    uk = Використовуючи цей додаток, ви погоджуєтеся з <a href="https://legal.my.com/us/maps/tou/">Умовами використання</a> та <a href="https://legal.my.com/us/maps/privacy/">Політикою конфіденційності</a>.
+    vi = Bằng cách khởi chạy ứng dụng, bạn đồng ý với <a href="https://legal.my.com/us/maps/tou/">Điều khoản Sử dụng</a> và <a href="https://legal.my.com/us/maps/privacy/">Chính sách Riêng tư</a>.
+    zh-Hans = 启动应用程序即表明您同意<a href="https://legal.my.com/us/maps/tou/">使用条款</a>和<a href="https://legal.my.com/us/maps/privacy/">隐私政策</a>。
+    zh-Hant = 啟用本應用程式，即表示您同意 <a href="https://legal.my.com/us/maps/tou/">服務條款</a>和 <a href="https://legal.my.com/us/maps/privacy/">隱私權原則</a>。
+    el = Με την εκκίνηση της εφαρμογής συμφωνείτε με <a href="https://legal.my.com/us/maps/tou/">τους Όρους χρήσης</a> και <a href="https://legal.my.com/us/maps/privacy/">την Πολιτική απορρήτου</a>.
+    sk = Spustením aplikácie súhlasíte s <a href="https://legal.my.com/us/maps/tou/">Podmienkami používania</a> a <a href="https://legal.my.com/us/maps/privacy/">Zásadami ochrany osobných údajov</a>.
+    sw = Kwa kuanzisha programu-tumizi hii, unakubaliana na <a href="https://legal.my.com/us/maps/tou/">Sheria za Utumizi</a> na <a href="https://legal.my.com/us/maps/privacy/">Sera ya Faragha</a>.
+    fa = با اجرای این اپلیکیشن, شما موافقت خود را با  <a href="https://legal.my.com/us/maps/tou/">Terms of Use</a> و <a href="https://legal.my.com/us/maps/privacy/">Privacy Policy</a>اعلام می کنید.
 
   [dialog_incorrect_feature_position]
     en = Change location
@@ -29182,7 +29182,7 @@ fa = دوباره نپرس
     zh-Hant = 登錄
 
   [bookmarks_message_authorized_user]
-    en = Your bookmarks backup automatically in a secure cloud storage. Do you want enable backup?
+    en = Your bookmarks are backed up automatically in a secure cloud storage. Do you want enable backup?
     ru = Резервная копия ваших меток автоматически создается в безопасном облачном хранилище. Включить резервное копирование?
     ar = يتم عمل نسخ احتياطي للإشارات المرجعية الخاصة بك تلقائيًا في تخزين سحابة آمن. هل تريد تمكين النسخ الاحتياطي؟
     cs = Vaše záložky se zálohují automaticky v zabezpečeném cloudovém úložišti. Chcete povolit zálohování?
@@ -29215,7 +29215,7 @@ fa = دوباره نپرس
     zh-Hant = 您的書籤自動備份在安全的云儲存中。您想要啟用備份嗎？
 
   [bookmarks_message_unauthorized_user]
-    en = Your bookmarks backup automatically in a secure cloud storage. Sign in to enable backup.
+    en = Your bookmarks are backed up automatically in a secure cloud storage. Sign in to enable backup.
     ru = Резервная копия ваших меток автоматически создается в безопасном облачном хранилище. Авторизуйтесь, чтобы включить резервное копирование.
     ar = يتم عمل نسخ احتياطي للإشارات المرجعية الخاصة بك تلقائيًا في تخزين سحابة آمن. قم بالتسجيل لتمكين النسخ الاحتياطي.
     cs = Vaše záložky se zálohují automaticky v zabezpečeném cloudovém úložišti. Pro povolení zálohování se přihlašte.
@@ -29248,7 +29248,7 @@ fa = دوباره نپرس
     zh-Hant = 您的書籤自動備份在安全的云儲存中。登錄以啟用備份。
 
   [bookmarks_message_unbackuped_user]
-    en = Your bookmarks backup automatically in a secure cloud storage.
+    en = Your bookmarks are backed up automatically in a secure cloud storage.
     ru = Резервная копия ваших меток автоматически создается в безопасном облачном хранилище.
     ar = يتم عمل نسخ احتياطي للإشارات المرجعية الخاصة بك تلقائيًا في تخزين سحابة آمن.
     cs = Vaše záložky se zálohují automaticky v zabezpečeném cloudovém úložišti.
@@ -29281,7 +29281,7 @@ fa = دوباره نپرس
     zh-Hant = 您的書籤自動備份在安全的云儲存中。
 
   [bookmarks_message_backuped_user]
-    en = Your bookmarks backup automatically every week in a secure storage. Last backup was %s
+    en = Your bookmarks are backed up automatically in a secure cloud storage. Last backup was %s
     ru = Резервная копия ваших меток автоматически создается в безопасном облачном хранилище. Последнее резервное копирование было %s
     ar = يتم عمل نسخ احتياطي للإشارات المرجعية الخاصة بك تلقائيًا في تخزين سحابة آمن. آخر نسخ احتياطي %s
     cs = Vaše záložky se zálohují automaticky v zabezpečeném cloudovém úložišti. Poslední zálohování %s
@@ -30871,85 +30871,496 @@ fa = دوباره نپرس
     zh-Hant = 只需在地圖上找到一家酒店並預訂，或選擇類似的酒店即可。
 
   [bookmarks_restore]
-    en = Restore bookmarks
+    en = Restore bookmarks
     ru = Восстановить метки
+    ar = استعادة الإشارات المرجعية
+    cs = Obnovit záložky
+    da = Gendan bogmærker
+    nl = Bladwijzers herstellen
+    fi = Palauta kirjanmerkit
+    fr = Restaurer les favoris
+    de = Lesezeichen wiederherstellen
+    hu = Könyvjelzők visszaállítása
+    id = Kembalikan bookmark
+    it = Ripristina segnalibri
+    ja = ブックマークを復元する
+    ko = 북마크 복원
+    nb = Gjenopprett bokmerker
+    pl = Przywróć zakładki
+    pt = Restaurar marcadores
+    pt-BR = Restaurar marcadores
+    ro = Restaurați marcajele
+    es = Restaurar marcadores
+    es_MX = Restaurar marcadores
+    sv = Återställ bokmärken
+    th = เรียกคืนบุ๊กมาร์ก
+    tr = Yer işaretlerini geri yükle
+    uk = Відновити закладки
+    vi = Khôi phục dấu trang
+    el = Επαναφορά των σελιδοδεικτών
+    sk = Obnoviť záložky
+    sw = Rejesha marudio
+    zh-Hans = 恢复书签
+    zh-Hant = 恢復書籤
 
   [bookmarks_restore_process]
-    en = Restoring...
+    en = Restoring...
     ru = Восстановление...
+    ar = استعادة...
+    cs = Obnovení...
+    da = Gendannelse...
+    nl = Herstel van...
+    fi = Palautetaan...
+    fr = Restaurer...
+    de = Wiederherstellen...
+    hu = Visszaállítása ...
+    id = Memulihkan...
+    it = Ripristino...
+    ja = 復元中...
+    ko = 복원 중...
+    nb = Gjenopprette...
+    pl = Przywracanie...
+    pt = Restaurando...
+    pt-BR = Restaurando...
+    ro = Restaurarea...
+    es = Restaurando...
+    es_MX = Restaurando...
+    sv = Återställer...
+    th = กำลังกู้คืน...
+    tr = Geri yükleniyor...
+    uk = Відновлення...
+    vi = Đang khôi phục...
+    el = Επαναφορά...
+    sk = Obnovenie...
+    sw = Inarudi...
+    zh-Hans = 恢复...
+    zh-Hant = 恢復...
 
   [bookmarks_restore_title]
-    en = Restore this version?
+    en = Restore this version?
     ru = Восстановить эту версию?
+    ar = استعادة هذا الإصدار؟
+    cs = Obnovit tuto verzi?
+    da = Gendan denne version?
+    nl = Deze versie herstellen?
+    fi = Palauta tämä versio?
+    fr = Restaurer cette version?
+    de = Diese Version wiederherstellen?
+    hu = A verzió visszaállítása?
+    id = Kembalikan versi ini?
+    it = Ripristina questa versione?
+    ja = このバージョンを復元しますか？
+    ko = 이 버전을 복원 하시겠습니까?
+    nb = Gjenopprett denne versjonen?
+    pl = Przywróć tę wersję?
+    pt = Restaurar esta versão?
+    pt-BR = Restaurar esta versão?
+    ro = Restabiliți această versiune?
+    es = Restaurar esta versión?
+    es_MX = ¿Está seguro que desea restaurar esta versión?
+    sv = Återställ den här versionen?
+    th = เรียกคืนเวอร์ชันนี้หรือไม่?
+    tr = Bu sürümü geri yükle?
+    uk = Відновити цю версію?
+    vi = Khôi phục phiên bản này?
+    el = Επαναφορά αυτής της έκδοσης;
+    sk = Obnoviť túto verziu?
+    sw = Rejesha toleo hili?
+    zh-Hans = 还原这个版本？
+    zh-Hant = 還原這個版本？
 
   [bookmarks_restore_message]
-    en = Your bookmarks will restore from %s
-    ru = Ваши закладки будут восстановлены от %s
+    en = Your bookmarks will be restored from %s
+    ru = Ваши закладки будут восстановлены от s%
+    ar = ستستعيد إشاراتك المرجعية من %s
+    cs = Záložky se obnoví z %s
+    da = Dine bogmærker gendannes fra %s
+    nl = Je bladwijzers worden hersteld vanaf %s
+    fi = Kirjanmerkit palaavat %s: sta
+    fr = Vos marque-pages restaureront à partir de %s
+    de = Ihre Lesezeichen werden von %s wiederhergestellt
+    hu = Könyvjelzői %s-ból visszaállnak
+    id = Bookmark Anda akan memulihkan dari %s
+    it = I tuoi segnalibri verranno ripristinati da %s
+    ja = ブックマークは%sから復元されます
+    ko = 북마크가 %s에서 복원됩니다.
+    nb = Bokmerkene dine gjenopprettes fra %s
+    pl = Twoje zakładki zostaną przywrócone z %s
+    pt = Seus favoritos serão restaurados a partir de %s
+    pt-BR = Seus favoritos serão restaurados desde %s
+    ro = Marcajele dvs. vor fi restabilite de la %s
+    es = Tus marcadores se restaurarán desde %s
+    es_MX = Sus marcadores se restaurarán desde %s
+    sv = Dina bokmärken återställs från %s
+    th = บุ๊กมาร์กของคุณจะคืนค่าจาก %s
+    tr = Yer işaretleriniz %s'dan geri yüklenecek
+    uk = Ваші закладки відновлюватимуться з %s
+    vi = Dấu trang của bạn sẽ khôi phục từ %s
+    el = Οι σελιδοδείκτες σας θα αποκατασταθούν από το %s
+    sk = Záložky sa obnovia z %s
+    sw = Vitambulisho vyako vitaburudisha kutoka %s
+    zh-Hans = 您的书签将从%s个恢复
+    zh-Hant = 您的書籤將從%s個恢復
 
   [bookmarks_restore_empty_title]
-    en = You don’t have a backup
+    en = You don’t have any backups
     ru = У вас нет резервных копий
+    ar = ليس لديك نسخة احتياطية
+    cs = Nemáte zálohu
+    da = Du har ikke en sikkerhedskopi
+    nl = U hebt geen back-up
+    fi = Sinulla ei ole varmuuskopiota
+    fr = Vous n'avez pas de sauvegarde
+    de = Sie haben kein Backup
+    hu = Nincs biztonsági mentése
+    id = Anda tidak memiliki cadangan
+    it = Non hai un backup
+    ja = あなたはバックアップを持っていません
+    ko = 백업이 없습니다.
+    nb = Du har ikke en sikkerhetskopi
+    pl = Nie masz kopii zapasowej
+    pt = Você não tem um backup
+    pt-BR = Você não tem um backup
+    ro = Nu aveți o copie de rezervă
+    es = No tienes una copia de seguridad
+    es_MX = No tiene una copia de seguridad
+    sv = Du har ingen säkerhetskopia
+    th = คุณไม่มีข้อมูลสำรอง
+    tr = Yedekleme yok
+    uk = У вас немає резервної копії
+    vi = Bạn không có bản sao lưu
+    el = Δεν διαθέτετε αντίγραφο ασφαλείας
+    sk = Nemáte zálohu
+    sw = Huna salama
+    zh-Hans = 你没有备份
+    zh-Hant = 你沒有備份
 
   [bookmarks_restore_empty_message]
-    en = The server didn’t find previously made backups
-    ru = Сервер не нашел ранее сделанные ранее резервные копии
+    en = The server couldn't find previously made backups
+    ru = Сервер не нашел ранее сделанные резервные копии
+    ar = لم يعثر الخادم على نسخ احتياطية سابقة
+    cs = Server nenalezl dříve vytvořené zálohy
+    da = Serveren fandt ikke tidligere sikkerhedskopier
+    nl = De server heeft eerder gemaakte back-ups niet gevonden
+    fi = Palvelin ei löytänyt aiemmin tehtyjä varmuuskopioita
+    fr = Le serveur n'a pas trouvé de sauvegardes effectuées précédemment
+    de = Der Server hat zuvor erstellte Sicherungen nicht gefunden
+    hu = A szerver nem találta a korábban készített biztonsági másolatokat
+    id = Server tidak menemukan cadangan yang dibuat sebelumnya
+    it = Il server non ha trovato i backup creati in precedenza
+    ja = サーバーは以前に作成したバックアップを見つけられませんでした
+    ko = 서버가 이전에 만들어진 백업을 찾지 못했습니다.
+    nb = Serveren fant ikke tidligere sikkerhetskopier
+    pl = Serwer nie znalazł wcześniej utworzonych kopii zapasowych
+    pt = O servidor não encontrou backups feitos anteriormente
+    pt-BR = O servidor não encontrou backups anteriores
+    ro = Serverul nu a găsit copii de rezervă create anterior
+    es = El servidor no encontró copias de seguridad previamente hechas
+    es_MX = El servidor no encontró copias de seguridad anteriores
+    sv = Servern hittade inte tidigare säkerhetskopior
+    th = เซิร์ฟเวอร์ไม่พบการสำรองข้อมูลก่อนหน้านี้
+    tr = Sunucu daha önce yapılmış yedeklemeyi bulamadı
+    uk = Сервер не знайшов раніше створені резервні копії
+    vi = Máy chủ không tìm thấy các bản sao lưu được tạo trước đó
+    el = Ο διακομιστής δεν βρήκε προηγουμένως δημιουργημένα αντίγραφα ασφαλείας
+    sk = Server nenašiel predtým vytvorené zálohy
+    sw = Seva haipata vidokezo vya awali zilizofanywa
+    zh-Hans = 服务器没有找到以前做的备份
+    zh-Hant = 服務器沒有找到以前做的備份
 
   [common_check_internet_connection_dialog_title]
     en = No internet connection
     ru = Нет интернет соединения
+    ar = لا يوجد اتصال بالإنترنت
+    cs = Žádné internetové připojení
+    da = Ingen internetforbindelse
+    nl = Geen internet verbinding
+    fi = Ei Internet-yhteyttä
+    fr = Pas de connexion Internet
+    de = Keine Internetverbindung
+    hu = Nincs internetkapcsolat
+    id = Tidak ada koneksi internet
+    it = Nessuna connessione internet
+    ja = インターネット接続なし
+    ko = 인터넷에 연결되지 않음
+    nb = Ingen internettforbindelse
+    pl = Brak połączenia z internetem
+    pt = Sem conexão com a internet
+    pt-BR = Sem conexão com a Internet
+    ro = Fără conexiune internet
+    es = Sin conexión a Internet
+    es_MX = Sin conexión a Internet
+    sv = Ingen internetanslutning
+    th = ไม่มีการเชื่อมต่ออินเทอร์เน็ต
+    tr = İnternet bağlantısı yok
+    uk = Нема інтернет з'єднання
+    vi = Không có kết nối internet
+    el = Δεν υπάρχει σύνδεση στο διαδίκτυο
+    sk = Žiadne internetové pripojenie
+    sw = Hakuna uhusiano wa internet
+    zh-Hans = 没有互联网连接
+    zh-Hant = 沒有互聯網連接
 
   [error_server_title]
-    en = Server error
+    en = Server error
     ru = Ошибка сервера
+    ar = خطأ في الخادم
+    cs = Chyba serveru
+    da = Server Fejl
+    nl = Serverfout
+    fi = Palvelinvirhe
+    fr = Erreur du serveur
+    de = Serverfehler
+    hu = Szerver hiba
+    id = Server error
+    it = Errore del server
+    ja = サーバーエラー
+    ko = 서버 오류
+    nb = Serverfeil
+    pl = Błąd serwera
+    pt = Erro de servidor
+    pt-BR = Erro de servidor
+    ro = Eroare de server
+    es = Error del Servidor
+    es_MX = Error del servidor
+    sv = Serverfel
+    th = ข้อผิดพลาดของเซิร์ฟเวอร์
+    tr = Server hatası
+    uk = Помилка серверу
+    vi = Lỗi máy chủ
+    el = Σφάλμα Διακομιστή
+    sk = Chyba servera
+    sw = Hitilafu ya seva
+    zh-Hans = 服务器错误
+    zh-Hant = 服務器錯誤
 
   [error_server_message]
-    en = There was an error on the server, please try again later.
-    ru = На сервере произошла ошибка, повторите попытку позже.
+    en = There was an error on the server, please try again later
+    ru = На сервере произошла ошибка, повторите попытку позже
+    ar = حدث خطأ على الخادم ، يرجى المحاولة مرة أخرى في وقت لاحق
+    cs = Na serveru došlo k chybě, zkuste to prosím znovu později
+    da = Der opstod en fejl på serveren, prøv igen senere
+    nl = Der var en fejl på serveren, prøv igen senere
+    fi = Palvelimessa oli virhe, yritä myöhemmin uudelleen
+    fr = Une erreur s'est produite sur le serveur. Veuillez réessayer plus tard.
+    de = Auf dem Server ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.
+    hu = Hiba történt a szerveren, próbálkozzon később
+    id = Terjadi kesalahan pada server, coba lagi nanti
+    it = Si è verificato un errore sul server, riprova più tardi
+    ja = サーバーにエラーがありました。後でもう一度お試しください
+    ko = 서버에 오류가 발생했습니다. 잠시 후 다시 시도하십시오
+    nb = Det oppsto en feil på serveren, prøv igjen senere
+    pl = Der var en fejl på serveren, prøv igen senere
+    pt = Houve um erro no servidor, tente novamente mais tarde
+    pt-BR = Houve um erro no servidor, por favor, tente novamente mais tarde
+    ro = A apărut o eroare la server, încercați din nou mai târziu
+    es = Hubo un error en el servidor, intente de nuevo más tarde
+    es_MX = Hubo un error en el servidor, intente de nuevo más tarde
+    sv = Det uppstod ett fel på servern, försök igen senare
+    th = เกิดข้อผิดพลาดบนเซิร์ฟเวอร์โปรดลองอีกครั้งในภายหลัง
+    tr = Sunucuda bir hata oluştu, lütfen daha sonra tekrar deneyin
+    uk = На сервері сталася помилка. Повторіть спробу пізніше
+    vi = Đã xảy ra lỗi trên máy chủ, vui lòng thử lại sau
+    el = Παρουσιάστηκε σφάλμα στο διακομιστή, δοκιμάστε ξανά αργότερα
+    sk = Na serveri sa vyskytla chyba, skúste to znova neskôr
+    sw = Kulikuwa na hitilafu kwenye seva, tafadhali jaribu tena baadaye
+    zh-Hans = 服务器发生错误，请稍后重试
+    zh-Hant = 服務器發生錯誤，請稍後重試
 
   [error_system_message]
-    en = An unknown error occurred.
-    ru = Произошла неизвестная ошибка.
+    en = An unknown error occurred
+    ru = Произошла неизвестная ошибка
+    ar = حدث خطأ غير معروف
+    cs = Nastala neznámá chyba
+    da = Der opstod en ukendt fejl
+    nl = Er is een onbekende fout opgetreden
+    fi = Tuntematon virhe tapahtui
+    fr = Une erreur inconnue est survenue
+    de = Ein unbekannter Fehler ist aufgetreten
+    hu = Ismeretlen hiba történt
+    id = Terjadi kesalahan yang tidak diketahui
+    it = Si è verificato un errore sconosciuto
+    ja = 不明なエラーが発生しました
+    ko = 알 수없는 오류가 발생했습니다
+    nb = En ukjent feil oppstod
+    pl = Wystąpił nieznany błąd
+    pt = Ocorreu um erro desconhecido
+    pt-BR = Ocorreu um erro desconhecido
+    ro = O eroare necunoscută s-a întamplat
+    es = Un error desconocido ocurrió
+    es_MX = Ocurrió un error desconocido
+    sv = Ett okänt fel uppstod
+    th = เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ
+    tr = Bilinmeyen bir hata oluştu
+    uk = Виникла невідома помилка
+    vi = Đã xảy ra lỗi không xác định
+    el = Συνέβη ένα άγνωστο σφάλμα
+    sk = Vyskytla sa neznáma chyba
+    sw = Hitilafu isiyojulikana ilitokea
+    zh-Hans = 出现未知错误
+    zh-Hant = 出現未知錯誤
 
   [restore]
     en = Restore
     ru = Восстановить
+    ar = استعادة
+    cs = Obnovit
+    da = Gendan
+    nl = Herstellen
+    fi = Palauttaa
+    fr = Restaurer
+    de = Wiederherstellen
+    hu = Visszaállítás
+    id = Mengembalikan
+    it = Ristabilire
+    ja = リストア
+    ko = 복원
+    nb = Restaurere
+    pl = Przywracać
+    pt = Restaurar
+    pt-BR = Restaurar
+    ro = Restabili
+    es = Restaurar
+    es_MX = Restaurar
+    sv = Återställa
+    th = ฟื้นฟู
+    tr = Restore
+    uk = Відновити
+    vi = Khôi phục
+    el = Επαναφορά
+    sk = Obnoviť
+    sw = Rejesha
+    zh-Hans = 恢复
+    zh-Hant = 恢復
 
   [sign_message_gdpr]
     en = To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully. 
     ru = Чтобы продолжить работу, вы должны принять наши Условия использования и Политику конфиденциальности. Пожалуйста, внимательно их прочитайте.
-    es = Para continuar debes aceptar nuestros Términos de Uso y la Política de Privacidad. Por favor, léelos cuidadosamente. 
-    it = Per continuare, devi accettare i nostri Termini di utilizzo e la nostra Informativa sulla Privacy. Ti invitiamo a leggerli attentamente.
-    fr = Pour continuer, vous devez accepter nos conditions d'utilisation et notre politique de confidentialité. Veuillez les lire attentivement. 
+    ar = للمتابعة يجب عليك قبول شروط الاستخدام وسياسة الخصوصية الخاصة بنا. يرجى قراءتها بعناية.
+    cs = Chcete-li pokračovat, musíte přijmout naše Smluvní podmínky a zásady ochrany osobních údajů. Přečtěte si je pečlivě.
+    da = For at fortsætte skal du acceptere vores Vilkår for brug og Privacy Policy. Læs dem grundigt.
     nl = Om verder te kunnen gaan, dient u onze gebruiksvoorwaarden en ons privacybeleid te accepteren. Lees ze zorgvuldig.
+    fi = Jotta voit jatkaa, sinun on hyväksyttävä käyttöehdot ja tietosuojakäytäntö. Lue ne huolellisesti.
+    fr = Pour continuer, vous devez accepter nos conditions d'utilisation et notre politique de confidentialité. Veuillez les lire attentivement. 
+    de = Um fortfahren zu können, müssen Sie unsere Nutzungsbedingungen und Datenschutzbestimmungen akzeptieren. Bitte lies sie sorgfältig durch.
+    hu = A folytatáshoz el kell fogadnia a Felhasználási feltételeinket és az adatvédelmi irányelveinket. Kérjük, figyelmesen olvassa el őket.
+    id = Untuk melanjutkan, Anda harus menerima Ketentuan Penggunaan dan Kebijakan Privasi kami. Silakan baca dengan seksama.
+    it = Per continuare, devi accettare i nostri Termini di utilizzo e la nostra Informativa sulla Privacy. Ti invitiamo a leggerli attentamente.
+    ja = 続行するには、利用規約とプライバシーポリシーに同意する必要があります。 注意深くお読みください。
+    ko = 계속하려면 이용 약관 및 개인 정보 보호 정책에 동의해야합니다. 주의 깊게 읽으십시오.
+    nb = For å fortsette må du godta vilkårene for bruk og personvern. Vennligst les dem nøye.
     pl = Aby kontynuować, musisz zaakceptować nasze Warunki użytkowania i Politykę prywatności. Prosimy o ich uważne przeczytanie.
+    pt = Para continuar, você deve aceitar nossos Termos de Uso e Política de Privacidade. Por favor, leia-os com atenção.
+    pt-BR = Para continuar, é necessário aceitar nossos Termos de Uso e Política de Privacidade. Por favor, leia-os atentamente. 
+    ro = Pentru a continua, trebuie să acceptați Termenii de utilizare și Politica de confidențialitate. Citiți-le cu atenție.
+    es = Para continuar debes aceptar nuestros Términos de Uso y la Política de Privacidad. Por favor, léelos cuidadosamente. 
+    es_MX = Para continuar, debe aceptar nuestros Términos de uso y Política de privacidad. Por favor léalos cuidadosamente.
+    sv = För att fortsätta måste du acceptera våra användarvillkor och sekretesspolicy. Läs dem noggrant.
+    th = คุณต้องยอมรับข้อกำหนดในการให้บริการและนโยบายความเป็นส่วนตัวของเรา โปรดอ่านอย่างระมัดระวัง
     tr = Devam etmek için Kullanım Şartları ve Gizlilik Politikası bölümlerimizi kabul etmelisiniz. Lütfen onları dikkatle okuyun. 
+    uk = Щоб продовжити роботу, ви повинні прийняти наші Умови використання та Політику конфіденційності. Будь ласка, уважно їх прочитайте.
+    vi = Bạn phải chấp nhận Điều khoản sử dụng và Chính sách bảo mật của chúng tôi. Vui lòng đọc kỹ chúng.
+    el = Πρέπει να αποδεχτείτε τους Όρους Χρήσης και την Πολιτική Απορρήτου. Διαβάστε τις προσεκτικά.
+    sk = Musíte prijať naše Zmluvné podmienky a Pravidlá ochrany osobných údajov. Prečítajte si ich pozorne.
+    sw = Lazima ufikie Masharti yetu ya Kutumia na Sera ya Faragha. Tafadhali soma kwa makini.
+    zh-Hans = 您必须接受我们的使用条款和隐私政策。 请仔细阅读。
+    zh-Hant = 您必須接受我們的使用條款和隱私政策。 請仔細閱讀。
 
   [sign_agree_pp_gdpr]
-    en = I agree to the <a href="https://legal.my.com/us/general/privacy/">Privacy Policy</a>
-    ru = Я согласен с <a href="https://legal.my.com/us/general/privacy/">Политикой конфиденциальности</a>
-    es = Acepto la <a href="https://legal.my.com/us/general/privacy/">Política de Privacidad</a>
-    it = Accetto la <a href="https://legal.my.com/us/general/privacy/">Informativa sulla Privacy</a>
-    fr = J'accepte la <a href="https://legal.my.com/us/general/privacy/">politique de confidentialité</a>
-    nl = Ik accepteer het privacybeleid
-    pl = Akceptuję <a href="https://legal.my.com/us/general/privacy/">Privacy Policy</a>
-    tr = <a href="https://legal.my.com/us/general/privacy/">Gizlilik Politikası</a> bölümünü kabul ediyorum
+    en = I agree to the <a href="https://legal.my.com/us/maps/privacy/">Privacy Policy</a>
+    ru = Я согласен с <a href="https://legal.my.com/us/maps/privacy/">Политикой конфиденциальности</a>
+    ar = أوافق على <a href="https://legal.my.com/us/maps/privacy/">سياسة الخصوصية</a>
+    cs = Souhlasím s <a href="https://legal.my.com/us/maps/privacy/">Zásadami ochrany osobních údajů</a>
+    da = Jeg accepterer <a href="https://legal.my.com/us/maps/privacy/">Politik til beskyttelse af personlige oplysninger</a>
+    nl = Ik ga akkoord met het <a href="https://legal.my.com/us/maps/privacy/">Privacybeleid</a>
+    fi = Hyväksyn <a href="https://legal.my.com/us/maps/privacy/">tietosuojakäytännön</a>
+    fr = J'accepte la <a href="https://legal.my.com/us/maps/privacy/">politique de confidentialité</a>
+    de = Ich stimme den <a href="https://legal.my.com/us/maps/privacy/">Datenschutzbestimmungen</a> zu
+    hu = Elfogadom a <a href="https://legal.my.com/us/maps/privacy/">adatvédelmi irányelveket</a>
+    id = Saya setuju dengan <a href="https://legal.my.com/us/maps/privacy/">Kebijakan Privasi</a>
+    it = Accetto la <a href="https://legal.my.com/us/maps/privacy/">Informativa sulla Privacy</a>
+    ja = <a href="https://legal.my.com/us/maps/privacy/">プライバシーポリシー</a>に同意します
+    ko = <a href="https://legal.my.com/us/maps/privacy/">개인 정보 보호 정책</a>에 동의합니다.
+    nb = Jeg godtar <a href="https://legal.my.com/no/general/privacy/">personvernregler</a>
+    pl = Akceptuję <a href="https://legal.my.com/us/maps/privacy/">Privacy Policy</a>
+    pt = Concordo com a <a href="https://legal.my.com/us/maps/privacy/">Política de Privacidade</a>
+    pt-BR = Concordo com a <a href="https://legal.my.com/us/maps/privacy/">Política de Privacidade</a>
+    ro = Sunt de acord cu <a href="https://legal.my.com/us/maps/privacy/">Politica de confidențialitate</a>
+    es = Acepto la <a href="https://legal.my.com/us/maps/privacy/">Política de Privacidad</a>
+    es_MX = Acepto la <a href="https://legal.my.com/us/maps/privacy/">Política de Privacidad</a>
+    sv = Jag godkänner <a href="https://legal.my.com/us/maps/privacy/">sekretesspolicy</a>
+    th = ฉันยอมรับ <a href="https://legal.my.com/us/maps/privacy/">นโยบายข้อมูลส่วนบุคคล</a>
+    tr = <a href="https://legal.my.com/us/maps/privacy/">Gizlilik Politikası</a> bölümünü kabul ediyorum
+    uk = Я згоден з <a href="https://legal.my.com/us/maps/privacy/">Політикою конфіденційності</a>
+    vi = Tôi đồng ý với <a href="https://legal.my.com/us/maps/privacy/">Chính sách bảo mật</a>
+    el = Συμφωνώ με την <a href="https://legal.my.com/us/maps/privacy/">Πολιτική Απορρήτου</a>
+    sk = Súhlasím s <a href="https://legal.my.com/us/maps/privacy/">Zásadami ochrany osobných údajov</a>
+    sw = Nakubali <a href="https://legal.my.com/us/maps/privacy/">Sera ya Faragha</a>
+    zh-Hans = 我同意<a href="https://legal.my.com/us/maps/privacy/">隐私政策</a>
+    zh-Hant = 我同意<a href="https://legal.my.com/us/maps/privacy/">隱私政策</a>
 
   [sign_agree_tof_gdpr]
-    en = I agree to the <a href="http://legal.my.com/us/maps/tou/">Terms of Use</a>
-    ru = Я согласен с <a href="http://legal.my.com/us/maps/tou/">Условиями использования</a>
-    es = Acepto los <a href="http://legal.my.com/us/maps/tou/">Términos de Uso</a>
-    it = Accetto i <a href="http://legal.my.com/us/maps/tou/">Termini di utilizzo</a>
-    fr = Je suis en accord avec les <a href="http://legal.my.com/us/maps/tou/">conditions d'utilisation</a>
-    nl = Ik accepteer <a href="http://legal.my.com/us/maps/tou/">de gebruiksvoorwaarden</a>
-    pl = Akceptuję <a href="http://legal.my.com/us/maps/tou/">Terms of Use</a>
-    tr = <a href="http://legal.my.com/us/maps/tou/">Kullanım Şartları</a> bölümünü kabul ediyorum
+    en = I agree to the <a href="https://legal.my.com/us/maps/tou/">Terms of Use</a>
+    ru = Я согласен с <a href="https://legal.my.com/us/maps/tou/">Условиями использования</a>
+    ar = أوافق على <a href="https://legal.my.com/us/maps/tou/">شروط الاستخدام</a>
+    cs = Souhlasím s <a href="https://legal.my.com/us/maps/tou/">Smluvními podmínkami</a>
+    da = Jeg accepterer <a href="https://legal.my.com/us/maps/tou/">Vilkår for brug</a>
+    nl = Ik accepteer <a href="https://legal.my.com/us/maps/tou/">de gebruiksvoorwaarden</a>
+    fi = Hyväksyn <a href="https://legal.my.com/us/maps/tou/">käyttöehdot</a>
+    fr = Je suis en accord avec les <a href="https://legal.my.com/us/maps/tou/">conditions d'utilisation</a>
+    de = Ich stimme den <a href="https://legal.my.com/us/maps/tou/">Nutzungsbedingungen</a> zu
+    hu = Elfogadom a <a href="https://legal.my.com/us/maps/tou/">Általános Szerződési Feltételeket</a>
+    id = Saya setuju dengan <a href="https://legal.my.com/us/maps/tou/">Ketentuan Penggunaan</a>
+    it = Accetto i <a href="https://legal.my.com/us/maps/tou/">Termini di utilizzo</a>
+    ja = <a href="https://legal.my.com/us/maps/tou/">利用規約</a>に同意します
+    ko = <a href="https://legal.my.com/us/maps/tou/">이용 약관</a>에 동의합니다.
+    nb = Jeg godtar <a href="https://legal.my.com/us/maps/tou/">bruksbetingelsene</a>
+    pl = Akceptuję <a href="https://legal.my.com/us/maps/tou/">Terms of Use</a>
+    pt = Eu concordo com os <a href="https://legal.my.com/us/maps/tou/">Termos de Uso</a>
+    pt-BR = Concordo com os <a href="https://legal.my.com/us/maps/tou/">Termos de Uso</a>
+    ro = Sunt de acord cu <a href="https://legal.my.com/us/maps/tou/">Termenii și condițiile</a>
+    es = Acepto los <a href="https://legal.my.com/us/maps/tou/">Términos de Uso</a>
+    es_MX = Acepto los <a href="https://legal.my.com/us/maps/tou/">Términos de Uso</a>
+    sv = Jag godkänner <a href="https://legal.my.com/us/maps/tou/">användarvillkoren</a>
+    th = ฉันยอมรับ <a href="https://legal.my.com/us/maps/tou/">ข้อกำหนดในการให้บริการ</a>
+    tr = <a href="https://legal.my.com/us/maps/tou/">Kullanım Şartları</a> bölümünü kabul ediyorum
+    uk = Я згоден з <a href="https://legal.my.com/us/maps/tou/">Умовами використання</a>
+    vi = Tôi đồng ý với <a href="https://legal.my.com/us/maps/tou/">Điều khoản sử dụng</a>
+    el = Συμφωνώ με τους <a href="https://legal.my.com/us/maps/tou/">Όρους Χρήσης</a>
+    sk = Súhlasím s <a href="https://legal.my.com/us/maps/tou/">zmluvnými podmienkami</a>
+    sw = Ninakubali <a href="https://legal.my.com/us/maps/tou/">Sheria ya Matumizi</a>
+    zh-Hans = 我同意<a href="https://legal.my.com/us/maps/tou/">使用条款</a>
+    zh-Hant = 我同意<a href="https://legal.my.com/us/maps/tou/">使用條款</a>
 
   [sign_agree_news_gdpr]
     en = I agree to receive the latest news about MAPS.ME products
     ru = Я согласен получать последние новости о MAPS.ME
-    es = Acepto recibir las últimas noticias sobre productos de MAPS.ME
-    it = Accetto di ricevere le ultime notizie sui prodotti di MAPS.ME
-    fr = J'accepte de recevoir les dernières nouvelles sur les 
+    ar = أوافق على تلقي آخر الأخبار حول منتجات MAPS.ME
+    cs = Souhlasím s tím, že obdržím nejnovější zprávy o produktech MAPS.ME
+    da = Jeg accepterer at modtage de seneste nyheder om MAPS.ME produkter
     nl = Ik ga ermee akkoord dat ik het recentste nieuws over de producten van MAPS.ME zal ontvangen
+    fi = Hyväksyn viimeisimmät uutiset MAPS.ME-tuotteista
+    fr = J'accepte de recevoir les dernières nouvelles sur les
+    de = Ich bin damit einverstanden, die neuesten Nachrichten über MAPS.ME-Produkte zu erhalten
+    hu = Elfogadom, hogy megkapja a MAPS.ME termékekkel kapcsolatos legfrissebb híreke
+    id = Saya setuju untuk menerima berita terbaru tentang produk MAPS.ME
+    it = Accetto di ricevere le ultime notizie sui prodotti di MAPS.ME
+    ja = 私はMAPS.ME製品に関する最新ニュースを受け取ることに同意します
+    ko = MAPS.ME 제품에 대한 최신 뉴스를받는 것에 동의합니다.
+    nb = Jeg godtar å motta de siste nyhetene om MAPS.ME-produkter
     pl = Chcę otrzymywać aktualności na temat produktów MAPS.ME
+    pt = Concordo em receber as últimas novidades sobre os produtos MAPS.ME
+    pt-BR = Concordo em receber as últimas novidades sobre os produtos MAPS.ME
+    ro = Sunt de acord să primesc ultimele știri despre produsele MAPS.ME
+    es = Acepto recibir las últimas noticias sobre productos de MAPS.ME
+    es_MX = Acepto recibir las últimas noticias sobre los productos MAPS.ME
+    sv = Jag håller med om att få de senaste nyheterna om MAPS.ME produkter
+    th = ฉันยอมรับที่จะรับข่าวสารล่าสุดเกี่ยวกับผลิตภัณฑ์ MAPS.ME
     tr = MAPS.ME ürünleri hakkında en yeni haberleri almayı kabul ediyorum
+    uk = Я згоден отримувати останні новини про MAPS.ME
+    vi = Tôi đồng ý nhận tin tức mới nhất về các sản phẩm MAPS.ME
+    el = Συμφωνώ να λαμβάνω τα τελευταία νέα σχετικά με τα προϊόντα MAPS.ME
+    sk = Súhlasím so zasielaním najnovších správ o produktoch MAPS.ME
+    sw = Nakubali kupokea habari za hivi karibuni kuhusu bidhaa za MAPS.ME
+    zh-Hans = 我同意接收有关MAPS.ME产品的最新消息
+    zh-Hant = 我同意接收有關MAPS.ME產品的最新消息
