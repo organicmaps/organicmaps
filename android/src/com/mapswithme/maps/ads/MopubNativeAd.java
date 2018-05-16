@@ -109,6 +109,6 @@ class MopubNativeAd extends CachedMwmNativeAd
     String className = mAd.getClass().toString().toLowerCase();
     if (className.contains("facebook"))
       return NetworkType.FACEBOOK;
-    return NetworkType.UKNOWN;
+    return NetworkType.UNKNOWN;
   }
 }
