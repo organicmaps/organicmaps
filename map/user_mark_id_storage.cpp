@@ -171,26 +171,35 @@ void UserMarkIdStorage::LoadLastCategoryId()
 
 void UserMarkIdStorage::SaveLastBookmarkId()
 {
-  if (m_testModeEnabled)
+  if (!m_savingEnabled)
     return;
-  GetPlatform().GetSecureStorage().Save(kLastBookmarkId, strings::to_string(m_lastBookmarkId.load()));
+  GetPlatform().GetSecureStorage().Save(kLastBookmarkId, strings::to_string(m_lastBookmarkId));
 }
 
 void UserMarkIdStorage::SaveLastTrackId()
 {
-  if (m_testModeEnabled)
+  if (!m_savingEnabled)
     return;
-  GetPlatform().GetSecureStorage().Save(kLastTrackId, strings::to_string(m_lastTrackId.load()));
+  GetPlatform().GetSecureStorage().Save(kLastTrackId, strings::to_string(m_lastTrackId));
 }
 
 void UserMarkIdStorage::SaveLastCategoryId()
 {
-  if (m_testModeEnabled)
+  if (!m_savingEnabled)
     return;
-  GetPlatform().GetSecureStorage().Save(kLastBookmarkCategoryId, strings::to_string(m_lastCategoryId.load()));
+  GetPlatform().GetSecureStorage().Save(kLastBookmarkCategoryId, strings::to_string(m_lastCategoryId));
 }
 
-void UserMarkIdStorage::EnableTestMode(bool enable)
+void UserMarkIdStorage::EnableSaving(bool enable)
 {
-  m_testModeEnabled = enable;
+  if (m_savingEnabled == enable)
+    return;
+
+  m_savingEnabled = enable;
+  if (enable)
+  {
+    SaveLastBookmarkId();
+    SaveLastTrackId();
+    SaveLastCategoryId();
+  }
 }

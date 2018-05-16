@@ -4,8 +4,6 @@
 
 #include "kml/types.hpp"
 
-#include <atomic>
-
 class UserMarkIdStorage
 {
 public:
@@ -23,8 +21,7 @@ public:
   void ResetTrackId();
   void ResetCategoryId();
 
-  // Disable saving. For test purpose only!
-  void EnableTestMode(bool enable);
+  void EnableSaving(bool enable);
 
 private:
   UserMarkIdStorage();
@@ -41,15 +38,14 @@ private:
 
   bool m_isJustCreated;
 
-  //TODO: do we really need atomics here?
-  std::atomic<uint64_t> m_lastBookmarkId;
-  std::atomic<uint64_t> m_lastTrackId;
-  std::atomic<uint64_t> m_lastUserMarkId;
-  std::atomic<uint64_t> m_lastCategoryId;
+  uint64_t m_lastBookmarkId;
+  uint64_t m_lastTrackId;
+  uint64_t m_lastUserMarkId;
+  uint64_t m_lastCategoryId;
 
   uint64_t m_initialLastBookmarkId;
   uint64_t m_initialLastTrackId;
   uint64_t m_initialLastCategoryId;
 
-  bool m_testModeEnabled = false;
+  bool m_savingEnabled = true;
 };

@@ -1480,6 +1480,8 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
         kml::SetDefaultStr(categoryData.m_name, uniqueName);
     }
 
+    UserMarkIdStorage::Instance().EnableSaving(false);
+
     bool const saveAfterCreation = autoSave && (categoryData.m_id == kml::kInvalidMarkGroupId);
     auto const groupId = CreateBookmarkCategory(std::move(categoryData), saveAfterCreation);
     loadedGroups.insert(groupId);
@@ -1499,6 +1501,8 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
       t->Attach(groupId);
       group->AttachTrack(t->GetId());
     }
+
+    UserMarkIdStorage::Instance().EnableSaving(true);
   }
 
   NotifyChanges();
@@ -1957,7 +1961,7 @@ bool BookmarkManager::AreNotificationsEnabled() const
 
 void BookmarkManager::EnableTestMode(bool enable)
 {
-  UserMarkIdStorage::Instance().EnableTestMode(enable);
+  UserMarkIdStorage::Instance().EnableSaving(!enable);
   m_testModeEnabled = enable;
 }
 

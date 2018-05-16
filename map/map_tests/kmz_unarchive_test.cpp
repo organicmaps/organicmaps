@@ -17,7 +17,7 @@
 
 UNIT_TEST(KMZ_UnzipTest)
 {
-  UserMarkIdStorage::Instance().EnableTestMode(true);
+  UserMarkIdStorage::Instance().EnableSaving(false);
 
   string const kmzFile = GetPlatform().TestsDataPathForFile("test.kmz");
   ZipFileReader::FileListT files;
