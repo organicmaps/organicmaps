@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Peta gratis, cepat, terperinci, dan sepenuhnya tanpa internet dengan navigasi untuk setiap belokan.";
 
-"onboarding_welcome_second_subtitle" = "Dengan menjalankan aplikasi ini, Anda menyetujui <a href=\"http://legal.my.com/us/maps/tou/\">Syarat-Syarat Penggunaan</a> dan <a href=\"https://legal.my.com/us/maps/privacy/\">Kebijakan Privasi</a>.";
+"onboarding_welcome_second_subtitle" = "Dengan menjalankan aplikasi ini, Anda menyetujui <a href=\"https://legal.my.com/us/maps/tou/\">Syarat-Syarat Penggunaan</a> dan <a href=\"https://legal.my.com/us/maps/privacy/\">Kebijakan Privasi</a>.";
 
 "dialog_incorrect_feature_position" = "Ubah lokasi";
 
@@ -2272,32 +2272,32 @@
 
 "wn_way_of_booking_message" = "Temukan saja hotel di peta dan pesan, atau pilih yang serupa.";
 
-"bookmarks_restore" = "Restore bookmarks";
+"bookmarks_restore" = "Kembalikan bookmark";
 
-"bookmarks_restore_process" = "Restoring...";
+"bookmarks_restore_process" = "Memulihkan...";
 
-"bookmarks_restore_title" = "Restore this version?";
+"bookmarks_restore_title" = "Kembalikan versi ini?";
 
-"bookmarks_restore_message" = "Your bookmarks will restore from %s";
+"bookmarks_restore_message" = "Bookmark Anda akan memulihkan dari %s";
 
-"bookmarks_restore_empty_title" = "You don’t have a backup";
+"bookmarks_restore_empty_title" = "Anda tidak memiliki cadangan";
 
-"bookmarks_restore_empty_message" = "The server didn’t find previously made backups";
+"bookmarks_restore_empty_message" = "Server tidak menemukan cadangan yang dibuat sebelumnya";
 
-"common_check_internet_connection_dialog_title" = "No internet connection";
+"common_check_internet_connection_dialog_title" = "Tidak ada koneksi internet";
 
 "error_server_title" = "Server error";
 
-"error_server_message" = "There was an error on the server, please try again later.";
+"error_server_message" = "Terjadi kesalahan pada server, coba lagi nanti";
 
-"error_system_message" = "An unknown error occurred.";
+"error_system_message" = "Terjadi kesalahan yang tidak diketahui";
 
-"restore" = "Restore";
+"restore" = "Mengembalikan";
 
-"sign_message_gdpr" = "To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully.";
+"sign_message_gdpr" = "Untuk melanjutkan, Anda harus menerima Ketentuan Penggunaan dan Kebijakan Privasi kami. Silakan baca dengan seksama.";
 
-"sign_agree_pp_gdpr" = "I agree to the <a href=\"https://legal.my.com/us/general/privacy/\">Privacy Policy</a>";
+"sign_agree_pp_gdpr" = "Saya setuju dengan <a href=\"https://legal.my.com/us/maps/privacy/\">Kebijakan Privasi</a>";
 
-"sign_agree_tof_gdpr" = "I agree to the <a href=\"http://legal.my.com/us/maps/tou/\">Terms of Use</a>";
+"sign_agree_tof_gdpr" = "Saya setuju dengan <a href=\"https://legal.my.com/us/maps/tou/\">Ketentuan Penggunaan</a>";
 
-"sign_agree_news_gdpr" = "I agree to receive the latest news about MAPS.ME products";
+"sign_agree_news_gdpr" = "Saya setuju untuk menerima berita terbaru tentang produk MAPS.ME";

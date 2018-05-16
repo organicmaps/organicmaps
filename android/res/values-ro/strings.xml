@@ -785,7 +785,7 @@
 	<string name="onboarding_permissions_message">Puteți să descărcați hărți, să vedeți locurile și starea traficului din apropiere și să utilizați navigația.</string>
 	<string name="onboarding_welcome_title">Bun venit în MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.</string>
-	<string name="onboarding_welcome_second_subtitle">Lansând aplicația confirmați că sunteți de acord cu <a href="http://legal.my.com/us/maps/tou/">Condițiile de utilizare</a> și <a href="https://legal.my.com/us/maps/privacy/">Politica de confidențialitate</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Lansând aplicația confirmați că sunteți de acord cu <a href="https://legal.my.com/us/maps/tou/">Condițiile de utilizare</a> și <a href="https://legal.my.com/us/maps/privacy/">Politica de confidențialitate</a>.</string>
 	<string name="dialog_incorrect_feature_position">Schimbare locație</string>
 	<string name="message_invalid_feature_position">În acest loc nu poate fi localizat un obiect</string>
 	<string name="login_to_make_edits_visible">Autentificați-vă pentru ca modificările pe care le-ați efectuat să poată fi văzute și de alți utilizatori.</string>
@@ -1271,4 +1271,19 @@
 	<string name="wn_reinvented_bookmarks_message">Aveți posibilitatea să copiați marcajele de rezervă, să creați liste... Este uimitor...</string>
 	<string name="wn_way_of_booking_title">Am reimaginat modul de rezervare!</string>
 	<string name="wn_way_of_booking_message">Găsiți un hotel pe hartă și rezervați-l sau selectați unul similar.</string>
+	<string name="bookmarks_restore">Restaurați marcajele</string>
+	<string name="bookmarks_restore_process">Restaurarea...</string>
+	<string name="bookmarks_restore_title">Restabiliți această versiune?</string>
+	<string name="bookmarks_restore_message">Marcajele dvs. vor fi restabilite de la %s</string>
+	<string name="bookmarks_restore_empty_title">Nu aveți o copie de rezervă</string>
+	<string name="bookmarks_restore_empty_message">Serverul nu a găsit copii de rezervă create anterior</string>
+	<string name="common_check_internet_connection_dialog_title">Fără conexiune internet</string>
+	<string name="error_server_title">Eroare de server</string>
+	<string name="error_server_message">A apărut o eroare la server, încercați din nou mai târziu</string>
+	<string name="error_system_message">O eroare necunoscută s-a întamplat</string>
+	<string name="restore">Restabili</string>
+	<string name="sign_message_gdpr">Pentru a continua, trebuie să acceptați Termenii de utilizare și Politica de confidențialitate. Citiți-le cu atenție.</string>
+	<string name="sign_agree_pp_gdpr">Sunt de acord cu <a href="https://legal.my.com/us/maps/privacy/">Politica de confidențialitate</a></string>
+	<string name="sign_agree_tof_gdpr">Sunt de acord cu <a href="https://legal.my.com/us/maps/tou/">Termenii și condițiile</a></string>
+	<string name="sign_agree_news_gdpr">Sunt de acord să primesc ultimele știri despre produsele MAPS.ME</string>
 </resources>

@@ -807,7 +807,7 @@
 	<string name="onboarding_permissions_message">Чтобы скачивать карты, смотреть места вокруг вас и пользоваться навигацией.</string>
 	<string name="onboarding_welcome_title">Добро пожаловать в MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Бесплатные, быстрые, подробные и полностью автономные карты с пошаговой навигацией.</string>
-	<string name="onboarding_welcome_second_subtitle">Запуская приложение, вы соглашаетесь с <a href="http://legal.my.com/us/maps/tou/">Условиями использования</a> и <a href="https://legal.my.com/us/maps/privacy/">Политикой конфиденциальности</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Запуская приложение, вы соглашаетесь с <a href="https://legal.my.com/us/maps/tou/">Условиями использования</a> и <a href="https://legal.my.com/us/maps/privacy/">Политикой конфиденциальности</a>.</string>
 	<string name="dialog_incorrect_feature_position">Измените местоположение</string>
 	<string name="message_invalid_feature_position">Объект не может находиться в этом месте</string>
 	<string name="login_to_make_edits_visible">Войдите, чтобы ваши изменения увидели другие пользователи.</string>
@@ -1314,16 +1314,16 @@
 	<string name="bookmarks_restore">Восстановить метки</string>
 	<string name="bookmarks_restore_process">Восстановление...</string>
 	<string name="bookmarks_restore_title">Восстановить эту версию?</string>
-	<string name="bookmarks_restore_message">Ваши закладки будут восстановлены от %s</string>
+	<string name="bookmarks_restore_message">Ваши закладки будут восстановлены от s%</string>
 	<string name="bookmarks_restore_empty_title">У вас нет резервных копий</string>
-	<string name="bookmarks_restore_empty_message">Сервер не нашел ранее сделанные ранее резервные копии</string>
+	<string name="bookmarks_restore_empty_message">Сервер не нашел ранее сделанные резервные копии</string>
 	<string name="common_check_internet_connection_dialog_title">Нет интернет соединения</string>
 	<string name="error_server_title">Ошибка сервера</string>
-	<string name="error_server_message">На сервере произошла ошибка, повторите попытку позже.</string>
-	<string name="error_system_message">Произошла неизвестная ошибка.</string>
+	<string name="error_server_message">На сервере произошла ошибка, повторите попытку позже</string>
+	<string name="error_system_message">Произошла неизвестная ошибка</string>
 	<string name="restore">Восстановить</string>
 	<string name="sign_message_gdpr">Чтобы продолжить работу, вы должны принять наши Условия использования и Политику конфиденциальности. Пожалуйста, внимательно их прочитайте.</string>
-	<string name="sign_agree_pp_gdpr">Я согласен с <a href="https://legal.my.com/us/general/privacy/">Политикой конфиденциальности</a></string>
-	<string name="sign_agree_tof_gdpr">Я согласен с <a href="http://legal.my.com/us/maps/tou/">Условиями использования</a></string>
+	<string name="sign_agree_pp_gdpr">Я согласен с <a href="https://legal.my.com/us/maps/privacy/">Политикой конфиденциальности</a></string>
+	<string name="sign_agree_tof_gdpr">Я согласен с <a href="https://legal.my.com/us/maps/tou/">Условиями использования</a></string>
 	<string name="sign_agree_news_gdpr">Я согласен получать последние новости о MAPS.ME</string>
 </resources>

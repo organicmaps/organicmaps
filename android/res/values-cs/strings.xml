@@ -795,7 +795,7 @@
 	<string name="onboarding_permissions_message">Tím umožníte stahování map, zobrazovat místa a dopravu ve vaší blízkosti a používat navigaci.</string>
 	<string name="onboarding_welcome_title">Vítá vás aplikace MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Bezplatné, rychlé, podrobné a zcela offline mapy s kompletní navigací.</string>
-	<string name="onboarding_welcome_second_subtitle">Spuštěním aplikace souhlasíte s <a href="http://legal.my.com/us/maps/tou/"> Podmínkami použití</a> a <a href="https://legal.my.com/us/maps/privacy/"> Zásadami ochrany osobních údajů</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Spuštěním aplikace souhlasíte s <a href="https://legal.my.com/us/maps/tou/">Podmínkami použití</a> a <a href="https://legal.my.com/us/maps/privacy/">Zásadami ochrany osobních údajů</a>.</string>
 	<string name="dialog_incorrect_feature_position">Změnit umístění</string>
 	<string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
 	<string name="login_to_make_edits_visible">Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.</string>
@@ -1283,4 +1283,19 @@
 	<string name="wn_reinvented_bookmarks_message">Můžete je zálohovat, vytvářet seznamy... Je to úžasné...</string>
 	<string name="wn_way_of_booking_title">Změnili jsme způsob rezervace!</string>
 	<string name="wn_way_of_booking_message">Stačí najít hotel na mapě a rezervovat ho, nebo si vybrat podobný hotel.</string>
+	<string name="bookmarks_restore">Obnovit záložky</string>
+	<string name="bookmarks_restore_process">Obnovení...</string>
+	<string name="bookmarks_restore_title">Obnovit tuto verzi?</string>
+	<string name="bookmarks_restore_message">Záložky se obnoví z %s</string>
+	<string name="bookmarks_restore_empty_title">Nemáte zálohu</string>
+	<string name="bookmarks_restore_empty_message">Server nenalezl dříve vytvořené zálohy</string>
+	<string name="common_check_internet_connection_dialog_title">Žádné internetové připojení</string>
+	<string name="error_server_title">Chyba serveru</string>
+	<string name="error_server_message">Na serveru došlo k chybě, zkuste to prosím znovu později</string>
+	<string name="error_system_message">Nastala neznámá chyba</string>
+	<string name="restore">Obnovit</string>
+	<string name="sign_message_gdpr">Chcete-li pokračovat, musíte přijmout naše Smluvní podmínky a zásady ochrany osobních údajů. Přečtěte si je pečlivě.</string>
+	<string name="sign_agree_pp_gdpr">Souhlasím s <a href="https://legal.my.com/us/maps/privacy/">Zásadami ochrany osobních údajů</a></string>
+	<string name="sign_agree_tof_gdpr">Souhlasím s <a href="https://legal.my.com/us/maps/tou/">Smluvními podmínkami</a></string>
+	<string name="sign_agree_news_gdpr">Souhlasím s tím, že obdržím nejnovější zprávy o produktech MAPS.ME</string>
 </resources>

@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Gideceğiniz yeri adım adım gösteren navigasyon ile birlikte ücretsiz, hızlı, detaylı ve tamamen çevrimdışı haritalar.";
 
-"onboarding_welcome_second_subtitle" = "Uygulamayı başlatarak <a href=\"http://legal.my.com/us/maps/tou/\">Kullanım Koşullarını</a> ve <a href=\"https://legal.my.com/us/maps/privacy/\">Gizlilik Politikasını</a> kabul etmiş sayılırsınız.";
+"onboarding_welcome_second_subtitle" = "Uygulamayı başlatarak <a href=\"https://legal.my.com/us/maps/tou/\">Kullanım Koşullarını</a> ve <a href=\"https://legal.my.com/us/maps/privacy/\">Gizlilik Politikasını</a> kabul etmiş sayılırsınız.";
 
 "dialog_incorrect_feature_position" = "Konumu değiştir";
 
@@ -2272,32 +2272,32 @@
 
 "wn_way_of_booking_message" = "Haritadaki bir oteli bulup rezervasyon yapın ya da benzer olanı seçin.";
 
-"bookmarks_restore" = "Restore bookmarks";
+"bookmarks_restore" = "Yer işaretlerini geri yükle";
 
-"bookmarks_restore_process" = "Restoring...";
+"bookmarks_restore_process" = "Geri yükleniyor...";
 
-"bookmarks_restore_title" = "Restore this version?";
+"bookmarks_restore_title" = "Bu sürümü geri yükle?";
 
-"bookmarks_restore_message" = "Your bookmarks will restore from %s";
+"bookmarks_restore_message" = "Yer işaretleriniz %s'dan geri yüklenecek";
 
-"bookmarks_restore_empty_title" = "You don’t have a backup";
+"bookmarks_restore_empty_title" = "Yedekleme yok";
 
-"bookmarks_restore_empty_message" = "The server didn’t find previously made backups";
+"bookmarks_restore_empty_message" = "Sunucu daha önce yapılmış yedeklemeyi bulamadı";
 
-"common_check_internet_connection_dialog_title" = "No internet connection";
+"common_check_internet_connection_dialog_title" = "İnternet bağlantısı yok";
 
-"error_server_title" = "Server error";
+"error_server_title" = "Server hatası";
 
-"error_server_message" = "There was an error on the server, please try again later.";
+"error_server_message" = "Sunucuda bir hata oluştu, lütfen daha sonra tekrar deneyin";
 
-"error_system_message" = "An unknown error occurred.";
+"error_system_message" = "Bilinmeyen bir hata oluştu";
 
 "restore" = "Restore";
 
 "sign_message_gdpr" = "Devam etmek için Kullanım Şartları ve Gizlilik Politikası bölümlerimizi kabul etmelisiniz. Lütfen onları dikkatle okuyun.";
 
-"sign_agree_pp_gdpr" = "<a href=\"https://legal.my.com/us/general/privacy/\">Gizlilik Politikası</a> bölümünü kabul ediyorum";
+"sign_agree_pp_gdpr" = "<a href=\"https://legal.my.com/us/maps/privacy/\">Gizlilik Politikası</a> bölümünü kabul ediyorum";
 
-"sign_agree_tof_gdpr" = "<a href=\"http://legal.my.com/us/maps/tou/\">Kullanım Şartları</a> bölümünü kabul ediyorum";
+"sign_agree_tof_gdpr" = "<a href=\"https://legal.my.com/us/maps/tou/\">Kullanım Şartları</a> bölümünü kabul ediyorum";
 
 "sign_agree_news_gdpr" = "MAPS.ME ürünleri hakkında en yeni haberleri almayı kabul ediyorum";

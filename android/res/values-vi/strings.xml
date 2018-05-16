@@ -788,7 +788,7 @@
 	<string name="onboarding_permissions_message">Để bạn có thể tải về các bản đồ, xem các địa điểm và lưu lượng giao thông gần bạn và sử dụng điều hướng.</string>
 	<string name="onboarding_welcome_title">Chào mừng đến với MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Các bản đồ hoàn toàn ngoại tuyến miễn phí, nhanh và chi tiết với điều hướng qua từng khúc quanh.</string>
-	<string name="onboarding_welcome_second_subtitle">Bằng cách khởi chạy ứng dụng, bạn đồng ý với <a href="http://legal.my.com/us/maps/tou/">Điều khoản Sử dụng</a> và <a href="https://legal.my.com/us/maps/privacy/">Chính sách Riêng tư</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Bằng cách khởi chạy ứng dụng, bạn đồng ý với <a href="https://legal.my.com/us/maps/tou/">Điều khoản Sử dụng</a> và <a href="https://legal.my.com/us/maps/privacy/">Chính sách Riêng tư</a>.</string>
 	<string name="dialog_incorrect_feature_position">Thay đổi địa điểm</string>
 	<string name="message_invalid_feature_position">Một đối tượng không thể đặt được ở đây</string>
 	<string name="login_to_make_edits_visible">Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.</string>
@@ -1271,4 +1271,19 @@
 	<string name="wn_reinvented_bookmarks_message">Bạn có thể sao lưu dấu trang, tạo danh sách... Thật tuyệt vời...</string>
 	<string name="wn_way_of_booking_title">Chúng tôi đã hình dung lại cách đặt phòng!</string>
 	<string name="wn_way_of_booking_message">Chỉ cần tìm một khách sạn trên bản đồ và đặt nó, hoặc chọn một khách sạn tương tự.</string>
+	<string name="bookmarks_restore">Khôi phục dấu trang</string>
+	<string name="bookmarks_restore_process">Đang khôi phục...</string>
+	<string name="bookmarks_restore_title">Khôi phục phiên bản này?</string>
+	<string name="bookmarks_restore_message">Dấu trang của bạn sẽ khôi phục từ %s</string>
+	<string name="bookmarks_restore_empty_title">Bạn không có bản sao lưu</string>
+	<string name="bookmarks_restore_empty_message">Máy chủ không tìm thấy các bản sao lưu được tạo trước đó</string>
+	<string name="common_check_internet_connection_dialog_title">Không có kết nối internet</string>
+	<string name="error_server_title">Lỗi máy chủ</string>
+	<string name="error_server_message">Đã xảy ra lỗi trên máy chủ, vui lòng thử lại sau</string>
+	<string name="error_system_message">Đã xảy ra lỗi không xác định</string>
+	<string name="restore">Khôi phục</string>
+	<string name="sign_message_gdpr">Bạn phải chấp nhận Điều khoản sử dụng và Chính sách bảo mật của chúng tôi. Vui lòng đọc kỹ chúng.</string>
+	<string name="sign_agree_pp_gdpr">Tôi đồng ý với <a href="https://legal.my.com/us/maps/privacy/">Chính sách bảo mật</a></string>
+	<string name="sign_agree_tof_gdpr">Tôi đồng ý với <a href="https://legal.my.com/us/maps/tou/">Điều khoản sử dụng</a></string>
+	<string name="sign_agree_news_gdpr">Tôi đồng ý nhận tin tức mới nhất về các sản phẩm MAPS.ME</string>
 </resources>

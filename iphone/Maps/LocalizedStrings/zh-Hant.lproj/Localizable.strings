@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "免費、快速、詳盡又全面的地圖，提供逐向導航服務。";
 
-"onboarding_welcome_second_subtitle" = "啟用本應用程式，即表示您同意 <a href=\"http://legal.my.com/us/maps/tou/\">服務條款</a>和 <a href=\"https://legal.my.com/us/maps/privacy/\">隱私權原則</a>。";
+"onboarding_welcome_second_subtitle" = "啟用本應用程式，即表示您同意 <a href=\"https://legal.my.com/us/maps/tou/\">服務條款</a>和 <a href=\"https://legal.my.com/us/maps/privacy/\">隱私權原則</a>。";
 
 "dialog_incorrect_feature_position" = "改變位置";
 
@@ -2272,32 +2272,32 @@
 
 "wn_way_of_booking_message" = "只需在地圖上找到一家酒店並預訂，或選擇類似的酒店即可。";
 
-"bookmarks_restore" = "Restore bookmarks";
+"bookmarks_restore" = "恢復書籤";
 
-"bookmarks_restore_process" = "Restoring...";
+"bookmarks_restore_process" = "恢復...";
 
-"bookmarks_restore_title" = "Restore this version?";
+"bookmarks_restore_title" = "還原這個版本？";
 
-"bookmarks_restore_message" = "Your bookmarks will restore from %s";
+"bookmarks_restore_message" = "您的書籤將從%s個恢復";
 
-"bookmarks_restore_empty_title" = "You don’t have a backup";
+"bookmarks_restore_empty_title" = "你沒有備份";
 
-"bookmarks_restore_empty_message" = "The server didn’t find previously made backups";
+"bookmarks_restore_empty_message" = "服務器沒有找到以前做的備份";
 
-"common_check_internet_connection_dialog_title" = "No internet connection";
+"common_check_internet_connection_dialog_title" = "沒有互聯網連接";
 
-"error_server_title" = "Server error";
+"error_server_title" = "服務器錯誤";
 
-"error_server_message" = "There was an error on the server, please try again later.";
+"error_server_message" = "服務器發生錯誤，請稍後重試";
 
-"error_system_message" = "An unknown error occurred.";
+"error_system_message" = "出現未知錯誤";
 
-"restore" = "Restore";
+"restore" = "恢復";
 
-"sign_message_gdpr" = "To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully.";
+"sign_message_gdpr" = "您必須接受我們的使用條款和隱私政策。 請仔細閱讀。";
 
-"sign_agree_pp_gdpr" = "I agree to the <a href=\"https://legal.my.com/us/general/privacy/\">Privacy Policy</a>";
+"sign_agree_pp_gdpr" = "我同意<a href=\"https://legal.my.com/us/maps/privacy/\">隱私政策</a>";
 
-"sign_agree_tof_gdpr" = "I agree to the <a href=\"http://legal.my.com/us/maps/tou/\">Terms of Use</a>";
+"sign_agree_tof_gdpr" = "我同意<a href=\"https://legal.my.com/us/maps/tou/\">使用條款</a>";
 
-"sign_agree_news_gdpr" = "I agree to receive the latest news about MAPS.ME products";
+"sign_agree_news_gdpr" = "我同意接收有關MAPS.ME產品的最新消息";

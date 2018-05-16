@@ -792,7 +792,7 @@
 	<string name="onboarding_permissions_message">Таким чином ви зможете завантажувати карти, переглядати місцевість і трафік, а також використовувати навігацію.</string>
 	<string name="onboarding_welcome_title">Вітаємо у MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Безкоштовні, швидкі, деталізовані та повністю офлайнові карти з покроковою навігацією.</string>
-	<string name="onboarding_welcome_second_subtitle">Використовуючи цей додаток, ви погоджуєтеся з <a href="http://legal.my.com/us/maps/tou/">Умовами використання</a> та <a href="https://legal.my.com/us/maps/privacy/">Політикою конфіденційності</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Використовуючи цей додаток, ви погоджуєтеся з <a href="https://legal.my.com/us/maps/tou/">Умовами використання</a> та <a href="https://legal.my.com/us/maps/privacy/">Політикою конфіденційності</a>.</string>
 	<string name="dialog_incorrect_feature_position">Змініть розташування</string>
 	<string name="message_invalid_feature_position">Об\'єкт не може перебувати в цьому місцезнаходженні</string>
 	<string name="login_to_make_edits_visible">Увійдіть, щоб ваші зміни побачили інші користувачі.</string>
@@ -1280,4 +1280,19 @@
 	<string name="wn_reinvented_bookmarks_message">Ви можете зробити резервне копіювання міток, створити списки. А як круто вони виглядають на карті!</string>
 	<string name="wn_way_of_booking_title">Ми переосмислили спосіб бронювання!</string>
 	<string name="wn_way_of_booking_message">Просто знайдіть готель на карті, забронюйте його або виберіть аналогічний.</string>
+	<string name="bookmarks_restore">Відновити закладки</string>
+	<string name="bookmarks_restore_process">Відновлення...</string>
+	<string name="bookmarks_restore_title">Відновити цю версію?</string>
+	<string name="bookmarks_restore_message">Ваші закладки відновлюватимуться з %s</string>
+	<string name="bookmarks_restore_empty_title">У вас немає резервної копії</string>
+	<string name="bookmarks_restore_empty_message">Сервер не знайшов раніше створені резервні копії</string>
+	<string name="common_check_internet_connection_dialog_title">Нема інтернет з\'єднання</string>
+	<string name="error_server_title">Помилка серверу</string>
+	<string name="error_server_message">На сервері сталася помилка. Повторіть спробу пізніше</string>
+	<string name="error_system_message">Виникла невідома помилка</string>
+	<string name="restore">Відновити</string>
+	<string name="sign_message_gdpr">Щоб продовжити роботу, ви повинні прийняти наші Умови використання та Політику конфіденційності. Будь ласка, уважно їх прочитайте.</string>
+	<string name="sign_agree_pp_gdpr">Я згоден з <a href="https://legal.my.com/us/maps/privacy/">Політикою конфіденційності</a></string>
+	<string name="sign_agree_tof_gdpr">Я згоден з <a href="https://legal.my.com/us/maps/tou/">Умовами використання</a></string>
+	<string name="sign_agree_news_gdpr">Я згоден отримувати останні новини про MAPS.ME</string>
 </resources>

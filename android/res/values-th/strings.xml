@@ -794,7 +794,7 @@
 	<string name="onboarding_permissions_message">เพื่อที่คุณจะได้สามารถดาวน์โหลดแผนที่ ดูสถานที่ต่าง ๆ และการจราจรที่อยู่ใกล้ ๆ คุณแล้วใช้งานการนำทางได้</string>
 	<string name="onboarding_welcome_title">ยินดีต้อนรับสู่ MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">แผนที่ที่ฟรี รวดเร็ว มีรายละเอียด และออฟไลน์พร้อมกับการนำทางแบบทีละขั้นตอน</string>
-	<string name="onboarding_welcome_second_subtitle">ด้วยการเรียกใช้แอปพลิเคชั่นคุณได้ตกลงต่อ <a href="http://legal.my.com/us/maps/tou/">เงื่อนไขการใช้งาน</a> และ <a href="https://legal.my.com/us/maps/privacy/">นโยบายความเป็นส่วนตัว</a></string>
+	<string name="onboarding_welcome_second_subtitle">ด้วยการเรียกใช้แอปพลิเคชั่นคุณได้ตกลงต่อ <a href="https://legal.my.com/us/maps/tou/">เงื่อนไขการใช้งาน</a> และ <a href="https://legal.my.com/us/maps/privacy/">นโยบายความเป็นส่วนตัว</a></string>
 	<string name="dialog_incorrect_feature_position">เปลี่ยนสถานที่ตั้ง</string>
 	<string name="message_invalid_feature_position">ไม่สามารถตั้งวัตถุได้ที่นี่</string>
 	<string name="login_to_make_edits_visible">ล็อกอินเพื่อให้ผู้ใช้คนอื่นสามารถเห็นการเปลี่ยนแปลงของคุณได้</string>
@@ -1280,4 +1280,19 @@
 	<string name="wn_reinvented_bookmarks_message">คุณสามารถสำรองบุ๊คมาร์คสร้างรายการ... มันน่าทึ่ง...</string>
 	<string name="wn_way_of_booking_title">เราทบทวนวิธีการจองห้องพัก!</string>
 	<string name="wn_way_of_booking_message">เพียงแค่หาโรงแรมบนแผนที่และจองหนังสือหรือเลือกหนังสือที่คล้ายกัน</string>
+	<string name="bookmarks_restore">เรียกคืนบุ๊กมาร์ก</string>
+	<string name="bookmarks_restore_process">กำลังกู้คืน...</string>
+	<string name="bookmarks_restore_title">เรียกคืนเวอร์ชันนี้หรือไม่?</string>
+	<string name="bookmarks_restore_message">บุ๊กมาร์กของคุณจะคืนค่าจาก %s</string>
+	<string name="bookmarks_restore_empty_title">คุณไม่มีข้อมูลสำรอง</string>
+	<string name="bookmarks_restore_empty_message">เซิร์ฟเวอร์ไม่พบการสำรองข้อมูลก่อนหน้านี้</string>
+	<string name="common_check_internet_connection_dialog_title">ไม่มีการเชื่อมต่ออินเทอร์เน็ต</string>
+	<string name="error_server_title">ข้อผิดพลาดของเซิร์ฟเวอร์</string>
+	<string name="error_server_message">เกิดข้อผิดพลาดบนเซิร์ฟเวอร์โปรดลองอีกครั้งในภายหลัง</string>
+	<string name="error_system_message">เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ</string>
+	<string name="restore">ฟื้นฟู</string>
+	<string name="sign_message_gdpr">คุณต้องยอมรับข้อกำหนดในการให้บริการและนโยบายความเป็นส่วนตัวของเรา โปรดอ่านอย่างระมัดระวัง</string>
+	<string name="sign_agree_pp_gdpr">ฉันยอมรับ <a href="https://legal.my.com/us/maps/privacy/">นโยบายข้อมูลส่วนบุคคล</a></string>
+	<string name="sign_agree_tof_gdpr">ฉันยอมรับ <a href="https://legal.my.com/us/maps/tou/">ข้อกำหนดในการให้บริการ</a></string>
+	<string name="sign_agree_news_gdpr">ฉันยอมรับที่จะรับข่าวสารล่าสุดเกี่ยวกับผลิตภัณฑ์ MAPS.ME</string>
 </resources>

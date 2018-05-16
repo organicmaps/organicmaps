@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.";
 
-"onboarding_welcome_second_subtitle" = "Lansând aplicația confirmați că sunteți de acord cu <a href=\"http://legal.my.com/us/maps/tou/\">Condițiile de utilizare</a> și <a href=\"https://legal.my.com/us/maps/privacy/\">Politica de confidențialitate</a>.";
+"onboarding_welcome_second_subtitle" = "Lansând aplicația confirmați că sunteți de acord cu <a href=\"https://legal.my.com/us/maps/tou/\">Condițiile de utilizare</a> și <a href=\"https://legal.my.com/us/maps/privacy/\">Politica de confidențialitate</a>.";
 
 "dialog_incorrect_feature_position" = "Schimbare locație";
 
@@ -2272,32 +2272,32 @@
 
 "wn_way_of_booking_message" = "Găsiți un hotel pe hartă și rezervați-l sau selectați unul similar.";
 
-"bookmarks_restore" = "Restore bookmarks";
+"bookmarks_restore" = "Restaurați marcajele";
 
-"bookmarks_restore_process" = "Restoring...";
+"bookmarks_restore_process" = "Restaurarea...";
 
-"bookmarks_restore_title" = "Restore this version?";
+"bookmarks_restore_title" = "Restabiliți această versiune?";
 
-"bookmarks_restore_message" = "Your bookmarks will restore from %s";
+"bookmarks_restore_message" = "Marcajele dvs. vor fi restabilite de la %s";
 
-"bookmarks_restore_empty_title" = "You don’t have a backup";
+"bookmarks_restore_empty_title" = "Nu aveți o copie de rezervă";
 
-"bookmarks_restore_empty_message" = "The server didn’t find previously made backups";
+"bookmarks_restore_empty_message" = "Serverul nu a găsit copii de rezervă create anterior";
 
-"common_check_internet_connection_dialog_title" = "No internet connection";
+"common_check_internet_connection_dialog_title" = "Fără conexiune internet";
 
-"error_server_title" = "Server error";
+"error_server_title" = "Eroare de server";
 
-"error_server_message" = "There was an error on the server, please try again later.";
+"error_server_message" = "A apărut o eroare la server, încercați din nou mai târziu";
 
-"error_system_message" = "An unknown error occurred.";
+"error_system_message" = "O eroare necunoscută s-a întamplat";
 
-"restore" = "Restore";
+"restore" = "Restabili";
 
-"sign_message_gdpr" = "To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully.";
+"sign_message_gdpr" = "Pentru a continua, trebuie să acceptați Termenii de utilizare și Politica de confidențialitate. Citiți-le cu atenție.";
 
-"sign_agree_pp_gdpr" = "I agree to the <a href=\"https://legal.my.com/us/general/privacy/\">Privacy Policy</a>";
+"sign_agree_pp_gdpr" = "Sunt de acord cu <a href=\"https://legal.my.com/us/maps/privacy/\">Politica de confidențialitate</a>";
 
-"sign_agree_tof_gdpr" = "I agree to the <a href=\"http://legal.my.com/us/maps/tou/\">Terms of Use</a>";
+"sign_agree_tof_gdpr" = "Sunt de acord cu <a href=\"https://legal.my.com/us/maps/tou/\">Termenii și condițiile</a>";
 
-"sign_agree_news_gdpr" = "I agree to receive the latest news about MAPS.ME products";
+"sign_agree_news_gdpr" = "Sunt de acord să primesc ultimele știri despre produsele MAPS.ME";

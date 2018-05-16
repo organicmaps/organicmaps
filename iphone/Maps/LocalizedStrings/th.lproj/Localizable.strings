@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "แผนที่ที่ฟรี รวดเร็ว มีรายละเอียด และออฟไลน์พร้อมกับการนำทางแบบทีละขั้นตอน";
 
-"onboarding_welcome_second_subtitle" = "ด้วยการเรียกใช้แอปพลิเคชั่นคุณได้ตกลงต่อ <a href=\"http://legal.my.com/us/maps/tou/\">เงื่อนไขการใช้งาน</a> และ <a href=\"https://legal.my.com/us/maps/privacy/\">นโยบายความเป็นส่วนตัว</a>";
+"onboarding_welcome_second_subtitle" = "ด้วยการเรียกใช้แอปพลิเคชั่นคุณได้ตกลงต่อ <a href=\"https://legal.my.com/us/maps/tou/\">เงื่อนไขการใช้งาน</a> และ <a href=\"https://legal.my.com/us/maps/privacy/\">นโยบายความเป็นส่วนตัว</a>";
 
 "dialog_incorrect_feature_position" = "เปลี่ยนสถานที่ตั้ง";
 
@@ -2272,32 +2272,32 @@
 
 "wn_way_of_booking_message" = "เพียงแค่หาโรงแรมบนแผนที่และจองหนังสือหรือเลือกหนังสือที่คล้ายกัน";
 
-"bookmarks_restore" = "Restore bookmarks";
+"bookmarks_restore" = "เรียกคืนบุ๊กมาร์ก";
 
-"bookmarks_restore_process" = "Restoring...";
+"bookmarks_restore_process" = "กำลังกู้คืน...";
 
-"bookmarks_restore_title" = "Restore this version?";
+"bookmarks_restore_title" = "เรียกคืนเวอร์ชันนี้หรือไม่?";
 
-"bookmarks_restore_message" = "Your bookmarks will restore from %s";
+"bookmarks_restore_message" = "บุ๊กมาร์กของคุณจะคืนค่าจาก %s";
 
-"bookmarks_restore_empty_title" = "You don’t have a backup";
+"bookmarks_restore_empty_title" = "คุณไม่มีข้อมูลสำรอง";
 
-"bookmarks_restore_empty_message" = "The server didn’t find previously made backups";
+"bookmarks_restore_empty_message" = "เซิร์ฟเวอร์ไม่พบการสำรองข้อมูลก่อนหน้านี้";
 
-"common_check_internet_connection_dialog_title" = "No internet connection";
+"common_check_internet_connection_dialog_title" = "ไม่มีการเชื่อมต่ออินเทอร์เน็ต";
 
-"error_server_title" = "Server error";
+"error_server_title" = "ข้อผิดพลาดของเซิร์ฟเวอร์";
 
-"error_server_message" = "There was an error on the server, please try again later.";
+"error_server_message" = "เกิดข้อผิดพลาดบนเซิร์ฟเวอร์โปรดลองอีกครั้งในภายหลัง";
 
-"error_system_message" = "An unknown error occurred.";
+"error_system_message" = "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ";
 
-"restore" = "Restore";
+"restore" = "ฟื้นฟู";
 
-"sign_message_gdpr" = "To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully.";
+"sign_message_gdpr" = "คุณต้องยอมรับข้อกำหนดในการให้บริการและนโยบายความเป็นส่วนตัวของเรา โปรดอ่านอย่างระมัดระวัง";
 
-"sign_agree_pp_gdpr" = "I agree to the <a href=\"https://legal.my.com/us/general/privacy/\">Privacy Policy</a>";
+"sign_agree_pp_gdpr" = "ฉันยอมรับ <a href=\"https://legal.my.com/us/maps/privacy/\">นโยบายข้อมูลส่วนบุคคล</a>";
 
-"sign_agree_tof_gdpr" = "I agree to the <a href=\"http://legal.my.com/us/maps/tou/\">Terms of Use</a>";
+"sign_agree_tof_gdpr" = "ฉันยอมรับ <a href=\"https://legal.my.com/us/maps/tou/\">ข้อกำหนดในการให้บริการ</a>";
 
-"sign_agree_news_gdpr" = "I agree to receive the latest news about MAPS.ME products";
+"sign_agree_news_gdpr" = "ฉันยอมรับที่จะรับข่าวสารล่าสุดเกี่ยวกับผลิตภัณฑ์ MAPS.ME";

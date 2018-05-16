@@ -787,7 +787,7 @@
 	<string name="onboarding_permissions_message">これにより地図のダウンロード、近隣のスポットや交通情報の確認、およびナビゲーションを利用できるようになります。</string>
 	<string name="onboarding_welcome_title">MAPS.ME へようこそ</string>
 	<string name="onboarding_welcome_first_subtitle">ターンバイターン方式のナビゲーションを採用した、完全にオフラインで利用できる無料・高速かつ詳細な地図を提供します。</string>
-	<string name="onboarding_welcome_second_subtitle">アプリケーションを起動することで、<a href="http://legal.my.com/us/maps/tou/">利用規約</a>および<a href="https://legal.my.com/us/maps/privacy/">プライバシーポリシー</a>にご同意いただいたものとみなします。</string>
+	<string name="onboarding_welcome_second_subtitle">アプリケーションを起動することで、<a href="https://legal.my.com/us/maps/tou/">利用規約</a>および<a href="https://legal.my.com/us/maps/privacy/">プライバシーポリシー</a>にご同意いただいたものとみなします。</string>
 	<string name="dialog_incorrect_feature_position">位置を変更してください</string>
 	<string name="message_invalid_feature_position">ここにはオブジェクトを配置できません</string>
 	<string name="login_to_make_edits_visible">他のユーザーにも変更が表示されるようログインしてください。</string>
@@ -1273,4 +1273,19 @@
 	<string name="wn_reinvented_bookmarks_message">あなたはブックマークをバックアップし、リストを作成することができます...それは素晴らしいです...</string>
 	<string name="wn_way_of_booking_title">我々は予約の方法を想像した！</string>
 	<string name="wn_way_of_booking_message">地図上のホテルを見つけて予約するか、同様のホテルを選択するだけです。</string>
+	<string name="bookmarks_restore">ブックマークを復元する</string>
+	<string name="bookmarks_restore_process">復元中...</string>
+	<string name="bookmarks_restore_title">このバージョンを復元しますか？</string>
+	<string name="bookmarks_restore_message">ブックマークは%sから復元されます</string>
+	<string name="bookmarks_restore_empty_title">あなたはバックアップを持っていません</string>
+	<string name="bookmarks_restore_empty_message">サーバーは以前に作成したバックアップを見つけられませんでした</string>
+	<string name="common_check_internet_connection_dialog_title">インターネット接続なし</string>
+	<string name="error_server_title">サーバーエラー</string>
+	<string name="error_server_message">サーバーにエラーがありました。後でもう一度お試しください</string>
+	<string name="error_system_message">不明なエラーが発生しました</string>
+	<string name="restore">リストア</string>
+	<string name="sign_message_gdpr">続行するには、利用規約とプライバシーポリシーに同意する必要があります。 注意深くお読みください。</string>
+	<string name="sign_agree_pp_gdpr"><a href="https://legal.my.com/us/maps/privacy/">プライバシーポリシー</a>に同意します</string>
+	<string name="sign_agree_tof_gdpr"><a href="https://legal.my.com/us/maps/tou/">利用規約</a>に同意します</string>
+	<string name="sign_agree_news_gdpr">私はMAPS.ME製品に関する最新ニュースを受け取ることに同意します</string>
 </resources>

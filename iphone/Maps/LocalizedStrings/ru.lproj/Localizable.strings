@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Бесплатные, быстрые, подробные и полностью автономные карты с пошаговой навигацией.";
 
-"onboarding_welcome_second_subtitle" = "Запуская приложение, вы соглашаетесь с <a href=\"http://legal.my.com/us/maps/tou/\">Условиями использования</a> и <a href=\"https://legal.my.com/us/maps/privacy/\">Политикой конфиденциальности</a>.";
+"onboarding_welcome_second_subtitle" = "Запуская приложение, вы соглашаетесь с <a href=\"https://legal.my.com/us/maps/tou/\">Условиями использования</a> и <a href=\"https://legal.my.com/us/maps/privacy/\">Политикой конфиденциальности</a>.";
 
 "dialog_incorrect_feature_position" = "Измените местоположение";
 
@@ -2278,26 +2278,26 @@
 
 "bookmarks_restore_title" = "Восстановить эту версию?";
 
-"bookmarks_restore_message" = "Ваши закладки будут восстановлены от %s";
+"bookmarks_restore_message" = "Ваши закладки будут восстановлены от s%";
 
 "bookmarks_restore_empty_title" = "У вас нет резервных копий";
 
-"bookmarks_restore_empty_message" = "Сервер не нашел ранее сделанные ранее резервные копии";
+"bookmarks_restore_empty_message" = "Сервер не нашел ранее сделанные резервные копии";
 
 "common_check_internet_connection_dialog_title" = "Нет интернет соединения";
 
 "error_server_title" = "Ошибка сервера";
 
-"error_server_message" = "На сервере произошла ошибка, повторите попытку позже.";
+"error_server_message" = "На сервере произошла ошибка, повторите попытку позже";
 
-"error_system_message" = "Произошла неизвестная ошибка.";
+"error_system_message" = "Произошла неизвестная ошибка";
 
 "restore" = "Восстановить";
 
 "sign_message_gdpr" = "Чтобы продолжить работу, вы должны принять наши Условия использования и Политику конфиденциальности. Пожалуйста, внимательно их прочитайте.";
 
-"sign_agree_pp_gdpr" = "Я согласен с <a href=\"https://legal.my.com/us/general/privacy/\">Политикой конфиденциальности</a>";
+"sign_agree_pp_gdpr" = "Я согласен с <a href=\"https://legal.my.com/us/maps/privacy/\">Политикой конфиденциальности</a>";
 
-"sign_agree_tof_gdpr" = "Я согласен с <a href=\"http://legal.my.com/us/maps/tou/\">Условиями использования</a>";
+"sign_agree_tof_gdpr" = "Я согласен с <a href=\"https://legal.my.com/us/maps/tou/\">Условиями использования</a>";
 
 "sign_agree_news_gdpr" = "Я согласен получать последние новости о MAPS.ME";

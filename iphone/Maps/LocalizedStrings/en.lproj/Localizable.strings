@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Free, fast, detailed and entirely offline maps with turn-by-turn navigation.";
 
-"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"http://legal.my.com/us/maps/tou/\">Terms of Use</a> and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
+"onboarding_welcome_second_subtitle" = "By launching the application, you agree to <a href=\"https://legal.my.com/us/maps/tou/\">Terms of Use</a> and <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>.";
 
 "dialog_incorrect_feature_position" = "Change location";
 
@@ -2174,13 +2174,13 @@
 
 "authorization_button_sign_in" = "Sign in";
 
-"bookmarks_message_authorized_user" = "Your bookmarks backup automatically in a secure cloud storage. Do you want enable backup?";
+"bookmarks_message_authorized_user" = "Your bookmarks are backed up automatically in a secure cloud storage. Do you want enable backup?";
 
-"bookmarks_message_unauthorized_user" = "Your bookmarks backup automatically in a secure cloud storage. Sign in to enable backup.";
+"bookmarks_message_unauthorized_user" = "Your bookmarks are backed up automatically in a secure cloud storage. Sign in to enable backup.";
 
-"bookmarks_message_unbackuped_user" = "Your bookmarks backup automatically in a secure cloud storage.";
+"bookmarks_message_unbackuped_user" = "Your bookmarks are backed up automatically in a secure cloud storage.";
 
-"bookmarks_message_backuped_user" = "Your bookmarks backup automatically every week in a secure storage. Last backup was %s";
+"bookmarks_message_backuped_user" = "Your bookmarks are backed up automatically in a secure cloud storage. Last backup was %s";
 
 "settings_backup_bookmarks" = "Backup Bookmarks";
 
@@ -2272,32 +2272,32 @@
 
 "wn_way_of_booking_message" = "Just find a hotel on the map and book it, or select the similar one.";
 
-"bookmarks_restore" = "Restore bookmarks";
+"bookmarks_restore" = " Restore bookmarks";
 
-"bookmarks_restore_process" = "Restoring...";
+"bookmarks_restore_process" = " Restoring...";
 
-"bookmarks_restore_title" = "Restore this version?";
+"bookmarks_restore_title" = " Restore this version?";
 
-"bookmarks_restore_message" = "Your bookmarks will restore from %s";
+"bookmarks_restore_message" = " Your bookmarks will be restored from %s";
 
-"bookmarks_restore_empty_title" = "You don’t have a backup";
+"bookmarks_restore_empty_title" = " You don’t have any backups";
 
-"bookmarks_restore_empty_message" = "The server didn’t find previously made backups";
+"bookmarks_restore_empty_message" = " The server couldn't find previously made backups";
 
 "common_check_internet_connection_dialog_title" = "No internet connection";
 
-"error_server_title" = "Server error";
+"error_server_title" = " Server error";
 
-"error_server_message" = "There was an error on the server, please try again later.";
+"error_server_message" = " There was an error on the server, please try again later";
 
-"error_system_message" = "An unknown error occurred.";
+"error_system_message" = " An unknown error occurred";
 
 "restore" = "Restore";
 
 "sign_message_gdpr" = "To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully.";
 
-"sign_agree_pp_gdpr" = "I agree to the <a href=\"https://legal.my.com/us/general/privacy/\">Privacy Policy</a>";
+"sign_agree_pp_gdpr" = "I agree to the <a href=\"https://legal.my.com/us/maps/privacy/\">Privacy Policy</a>";
 
-"sign_agree_tof_gdpr" = "I agree to the <a href=\"http://legal.my.com/us/maps/tou/\">Terms of Use</a>";
+"sign_agree_tof_gdpr" = "I agree to the <a href=\"https://legal.my.com/us/maps/tou/\">Terms of Use</a>";
 
 "sign_agree_news_gdpr" = "I agree to receive the latest news about MAPS.ME products";

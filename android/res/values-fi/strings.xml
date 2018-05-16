@@ -788,7 +788,7 @@
 	<string name="onboarding_permissions_message">Jotta voisit ladata karttoja, nähdä lähistöllä olevat paikan ja liikenteen sekä käyttää navigointia.</string>
 	<string name="onboarding_welcome_title">Tervetuloa käyttämään MAPS.ME:tä</string>
 	<string name="onboarding_welcome_first_subtitle">Ilmaiset, nopeat, yksityiskohtaiset ja offline-tilassa täysin toimivat kartat käännös käännökseltä -navigoinnilla.</string>
-	<string name="onboarding_welcome_second_subtitle">Käynnistämällä sovelluksen hyväksyt <a href="http://legal.my.com/us/maps/tou/">käyttöehdot</a> ja <a href="https://legal.my.com/us/maps/privacy/">tietosuojakäytännön</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Käynnistämällä sovelluksen hyväksyt <a href="https://legal.my.com/us/maps/tou/">käyttöehdot</a> ja <a href="https://legal.my.com/us/maps/privacy/">tietosuojakäytännön</a>.</string>
 	<string name="dialog_incorrect_feature_position">Vaihda sijaintia</string>
 	<string name="message_invalid_feature_position">Kohdetta ei voida asettaa tänne</string>
 	<string name="login_to_make_edits_visible">Kirjaudu sisään jotta muut käyttäjät voivat nähdä tekemäsi muokkaukset.</string>
@@ -1275,4 +1275,19 @@
 	<string name="wn_reinvented_bookmarks_message">Voit varmuuskopioida kirjanmerkkejä, luoda luetteloita... On hämmästyttävää...</string>
 	<string name="wn_way_of_booking_title">Me kuvittelimme uudelleen varauksen tapaa!</string>
 	<string name="wn_way_of_booking_message">Etsi hotelli kartalla ja varaa se tai valitse vastaava.</string>
+	<string name="bookmarks_restore">Palauta kirjanmerkit</string>
+	<string name="bookmarks_restore_process">Palautetaan...</string>
+	<string name="bookmarks_restore_title">Palauta tämä versio?</string>
+	<string name="bookmarks_restore_message">Kirjanmerkit palaavat %s: sta</string>
+	<string name="bookmarks_restore_empty_title">Sinulla ei ole varmuuskopiota</string>
+	<string name="bookmarks_restore_empty_message">Palvelin ei löytänyt aiemmin tehtyjä varmuuskopioita</string>
+	<string name="common_check_internet_connection_dialog_title">Ei Internet-yhteyttä</string>
+	<string name="error_server_title">Palvelinvirhe</string>
+	<string name="error_server_message">Palvelimessa oli virhe, yritä myöhemmin uudelleen</string>
+	<string name="error_system_message">Tuntematon virhe tapahtui</string>
+	<string name="restore">Palauttaa</string>
+	<string name="sign_message_gdpr">Jotta voit jatkaa, sinun on hyväksyttävä käyttöehdot ja tietosuojakäytäntö. Lue ne huolellisesti.</string>
+	<string name="sign_agree_pp_gdpr">Hyväksyn <a href="https://legal.my.com/us/maps/privacy/">tietosuojakäytännön</a></string>
+	<string name="sign_agree_tof_gdpr">Hyväksyn <a href="https://legal.my.com/us/maps/tou/">käyttöehdot</a></string>
+	<string name="sign_agree_news_gdpr">Hyväksyn viimeisimmät uutiset MAPS.ME-tuotteista</string>
 </resources>

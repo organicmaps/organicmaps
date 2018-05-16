@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Bezplatné, rychlé, podrobné a zcela offline mapy s kompletní navigací.";
 
-"onboarding_welcome_second_subtitle" = "Spuštěním aplikace souhlasíte s <a href=\"http://legal.my.com/us/maps/tou/\"> Podmínkami použití</a> a <a href=\"https://legal.my.com/us/maps/privacy/\"> Zásadami ochrany osobních údajů</a>.";
+"onboarding_welcome_second_subtitle" = "Spuštěním aplikace souhlasíte s <a href=\"https://legal.my.com/us/maps/tou/\">Podmínkami použití</a> a <a href=\"https://legal.my.com/us/maps/privacy/\">Zásadami ochrany osobních údajů</a>.";
 
 "dialog_incorrect_feature_position" = "Změnit umístění";
 
@@ -2272,32 +2272,32 @@
 
 "wn_way_of_booking_message" = "Stačí najít hotel na mapě a rezervovat ho, nebo si vybrat podobný hotel.";
 
-"bookmarks_restore" = "Restore bookmarks";
+"bookmarks_restore" = "Obnovit záložky";
 
-"bookmarks_restore_process" = "Restoring...";
+"bookmarks_restore_process" = "Obnovení...";
 
-"bookmarks_restore_title" = "Restore this version?";
+"bookmarks_restore_title" = "Obnovit tuto verzi?";
 
-"bookmarks_restore_message" = "Your bookmarks will restore from %s";
+"bookmarks_restore_message" = "Záložky se obnoví z %s";
 
-"bookmarks_restore_empty_title" = "You don’t have a backup";
+"bookmarks_restore_empty_title" = "Nemáte zálohu";
 
-"bookmarks_restore_empty_message" = "The server didn’t find previously made backups";
+"bookmarks_restore_empty_message" = "Server nenalezl dříve vytvořené zálohy";
 
-"common_check_internet_connection_dialog_title" = "No internet connection";
+"common_check_internet_connection_dialog_title" = "Žádné internetové připojení";
 
-"error_server_title" = "Server error";
+"error_server_title" = "Chyba serveru";
 
-"error_server_message" = "There was an error on the server, please try again later.";
+"error_server_message" = "Na serveru došlo k chybě, zkuste to prosím znovu později";
 
-"error_system_message" = "An unknown error occurred.";
+"error_system_message" = "Nastala neznámá chyba";
 
-"restore" = "Restore";
+"restore" = "Obnovit";
 
-"sign_message_gdpr" = "To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully.";
+"sign_message_gdpr" = "Chcete-li pokračovat, musíte přijmout naše Smluvní podmínky a zásady ochrany osobních údajů. Přečtěte si je pečlivě.";
 
-"sign_agree_pp_gdpr" = "I agree to the <a href=\"https://legal.my.com/us/general/privacy/\">Privacy Policy</a>";
+"sign_agree_pp_gdpr" = "Souhlasím s <a href=\"https://legal.my.com/us/maps/privacy/\">Zásadami ochrany osobních údajů</a>";
 
-"sign_agree_tof_gdpr" = "I agree to the <a href=\"http://legal.my.com/us/maps/tou/\">Terms of Use</a>";
+"sign_agree_tof_gdpr" = "Souhlasím s <a href=\"https://legal.my.com/us/maps/tou/\">Smluvními podmínkami</a>";
 
-"sign_agree_news_gdpr" = "I agree to receive the latest news about MAPS.ME products";
+"sign_agree_news_gdpr" = "Souhlasím s tím, že obdržím nejnovější zprávy o produktech MAPS.ME";

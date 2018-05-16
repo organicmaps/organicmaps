@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.";
 
-"onboarding_welcome_second_subtitle" = "Με την εκκίνηση της εφαρμογής συμφωνείτε με <a href=\"http://legal.my.com/us/maps/tou/\">τους Όρους χρήσης</a> και <a href=\"https://legal.my.com/us/maps/privacy/\">την Πολιτική απορρήτου</a>.";
+"onboarding_welcome_second_subtitle" = "Με την εκκίνηση της εφαρμογής συμφωνείτε με <a href=\"https://legal.my.com/us/maps/tou/\">τους Όρους χρήσης</a> και <a href=\"https://legal.my.com/us/maps/privacy/\">την Πολιτική απορρήτου</a>.";
 
 "dialog_incorrect_feature_position" = "Αλλαγή τοποθεσίας";
 
@@ -2272,32 +2272,32 @@
 
 "wn_way_of_booking_message" = "Απλά βρείτε ένα ξενοδοχείο στο χάρτη και κρατήστε το, ή επιλέξτε παρόμοιο.";
 
-"bookmarks_restore" = "Restore bookmarks";
+"bookmarks_restore" = "Επαναφορά των σελιδοδεικτών";
 
-"bookmarks_restore_process" = "Restoring...";
+"bookmarks_restore_process" = "Επαναφορά...";
 
-"bookmarks_restore_title" = "Restore this version?";
+"bookmarks_restore_title" = "Επαναφορά αυτής της έκδοσης;";
 
-"bookmarks_restore_message" = "Your bookmarks will restore from %s";
+"bookmarks_restore_message" = "Οι σελιδοδείκτες σας θα αποκατασταθούν από το %s";
 
-"bookmarks_restore_empty_title" = "You don’t have a backup";
+"bookmarks_restore_empty_title" = "Δεν διαθέτετε αντίγραφο ασφαλείας";
 
-"bookmarks_restore_empty_message" = "The server didn’t find previously made backups";
+"bookmarks_restore_empty_message" = "Ο διακομιστής δεν βρήκε προηγουμένως δημιουργημένα αντίγραφα ασφαλείας";
 
-"common_check_internet_connection_dialog_title" = "No internet connection";
+"common_check_internet_connection_dialog_title" = "Δεν υπάρχει σύνδεση στο διαδίκτυο";
 
-"error_server_title" = "Server error";
+"error_server_title" = "Σφάλμα Διακομιστή";
 
-"error_server_message" = "There was an error on the server, please try again later.";
+"error_server_message" = "Παρουσιάστηκε σφάλμα στο διακομιστή, δοκιμάστε ξανά αργότερα";
 
-"error_system_message" = "An unknown error occurred.";
+"error_system_message" = "Συνέβη ένα άγνωστο σφάλμα";
 
-"restore" = "Restore";
+"restore" = "Επαναφορά";
 
-"sign_message_gdpr" = "To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully.";
+"sign_message_gdpr" = "Πρέπει να αποδεχτείτε τους Όρους Χρήσης και την Πολιτική Απορρήτου. Διαβάστε τις προσεκτικά.";
 
-"sign_agree_pp_gdpr" = "I agree to the <a href=\"https://legal.my.com/us/general/privacy/\">Privacy Policy</a>";
+"sign_agree_pp_gdpr" = "Συμφωνώ με την <a href=\"https://legal.my.com/us/maps/privacy/\">Πολιτική Απορρήτου</a>";
 
-"sign_agree_tof_gdpr" = "I agree to the <a href=\"http://legal.my.com/us/maps/tou/\">Terms of Use</a>";
+"sign_agree_tof_gdpr" = "Συμφωνώ με τους <a href=\"https://legal.my.com/us/maps/tou/\">Όρους Χρήσης</a>";
 
-"sign_agree_news_gdpr" = "I agree to receive the latest news about MAPS.ME products";
+"sign_agree_news_gdpr" = "Συμφωνώ να λαμβάνω τα τελευταία νέα σχετικά με τα προϊόντα MAPS.ME";

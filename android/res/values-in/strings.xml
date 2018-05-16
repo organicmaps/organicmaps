@@ -787,7 +787,7 @@
 	<string name="onboarding_permissions_message">Agar Anda dapat mengunduh peta, melihat tempat dan lalu lintas di dekat Anda, dan menggunakan navigasi.</string>
 	<string name="onboarding_welcome_title">Selamat datang di MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Peta gratis, cepat, terperinci, dan sepenuhnya tanpa internet dengan navigasi untuk setiap belokan.</string>
-	<string name="onboarding_welcome_second_subtitle">Dengan menjalankan aplikasi ini, Anda menyetujui <a href="http://legal.my.com/us/maps/tou/">Syarat-Syarat Penggunaan</a> dan <a href="https://legal.my.com/us/maps/privacy/">Kebijakan Privasi</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Dengan menjalankan aplikasi ini, Anda menyetujui <a href="https://legal.my.com/us/maps/tou/">Syarat-Syarat Penggunaan</a> dan <a href="https://legal.my.com/us/maps/privacy/">Kebijakan Privasi</a>.</string>
 	<string name="dialog_incorrect_feature_position">Ubah lokasi</string>
 	<string name="message_invalid_feature_position">Objek tidak dapat diletakkan di sini</string>
 	<string name="login_to_make_edits_visible">Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.</string>
@@ -1274,4 +1274,19 @@
 	<string name="wn_reinvented_bookmarks_message">Anda dapat mencadangkan bookmark, membuat daftar... Sungguh menakjubkan...</string>
 	<string name="wn_way_of_booking_title">Kami membayangkan ulang cara pemesanan!</string>
 	<string name="wn_way_of_booking_message">Temukan saja hotel di peta dan pesan, atau pilih yang serupa.</string>
+	<string name="bookmarks_restore">Kembalikan bookmark</string>
+	<string name="bookmarks_restore_process">Memulihkan...</string>
+	<string name="bookmarks_restore_title">Kembalikan versi ini?</string>
+	<string name="bookmarks_restore_message">Bookmark Anda akan memulihkan dari %s</string>
+	<string name="bookmarks_restore_empty_title">Anda tidak memiliki cadangan</string>
+	<string name="bookmarks_restore_empty_message">Server tidak menemukan cadangan yang dibuat sebelumnya</string>
+	<string name="common_check_internet_connection_dialog_title">Tidak ada koneksi internet</string>
+	<string name="error_server_title">Server error</string>
+	<string name="error_server_message">Terjadi kesalahan pada server, coba lagi nanti</string>
+	<string name="error_system_message">Terjadi kesalahan yang tidak diketahui</string>
+	<string name="restore">Mengembalikan</string>
+	<string name="sign_message_gdpr">Untuk melanjutkan, Anda harus menerima Ketentuan Penggunaan dan Kebijakan Privasi kami. Silakan baca dengan seksama.</string>
+	<string name="sign_agree_pp_gdpr">Saya setuju dengan <a href="https://legal.my.com/us/maps/privacy/">Kebijakan Privasi</a></string>
+	<string name="sign_agree_tof_gdpr">Saya setuju dengan <a href="https://legal.my.com/us/maps/tou/">Ketentuan Penggunaan</a></string>
+	<string name="sign_agree_news_gdpr">Saya setuju untuk menerima berita terbaru tentang produk MAPS.ME</string>
 </resources>

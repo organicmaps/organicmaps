@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Cartes avec navigation étape par étape, gratuites, rapides, détaillées et totalement hors ligne.";
 
-"onboarding_welcome_second_subtitle" = "En lançant l’application, vous acceptez les <a href=\"http://legal.my.com/us/maps/tou/\">Conditions d’utilisation</a> et la <a href=\"https://legal.my.com/us/maps/privacy/\">Politique de confidentialité</a>.";
+"onboarding_welcome_second_subtitle" = "En lançant l’application, vous acceptez les <a href=\"https://legal.my.com/us/maps/tou/\">Conditions d’utilisation</a> et la <a href=\"https://legal.my.com/us/maps/privacy/\">Politique de confidentialité</a>.";
 
 "dialog_incorrect_feature_position" = "Modifier l'emplacement";
 
@@ -2272,32 +2272,32 @@
 
 "wn_way_of_booking_message" = "Il suffit de trouver un hôtel sur la carte et de le réserver, ou sélectionnez le même";
 
-"bookmarks_restore" = "Restore bookmarks";
+"bookmarks_restore" = "Restaurer les favoris";
 
-"bookmarks_restore_process" = "Restoring...";
+"bookmarks_restore_process" = "Restaurer...";
 
-"bookmarks_restore_title" = "Restore this version?";
+"bookmarks_restore_title" = "Restaurer cette version?";
 
-"bookmarks_restore_message" = "Your bookmarks will restore from %s";
+"bookmarks_restore_message" = "Vos marque-pages restaureront à partir de %s";
 
-"bookmarks_restore_empty_title" = "You don’t have a backup";
+"bookmarks_restore_empty_title" = "Vous n'avez pas de sauvegarde";
 
-"bookmarks_restore_empty_message" = "The server didn’t find previously made backups";
+"bookmarks_restore_empty_message" = "Le serveur n'a pas trouvé de sauvegardes effectuées précédemment";
 
-"common_check_internet_connection_dialog_title" = "No internet connection";
+"common_check_internet_connection_dialog_title" = "Pas de connexion Internet";
 
-"error_server_title" = "Server error";
+"error_server_title" = "Erreur du serveur";
 
-"error_server_message" = "There was an error on the server, please try again later.";
+"error_server_message" = "Une erreur s'est produite sur le serveur. Veuillez réessayer plus tard.";
 
-"error_system_message" = "An unknown error occurred.";
+"error_system_message" = "Une erreur inconnue est survenue";
 
-"restore" = "Restore";
+"restore" = "Restaurer";
 
 "sign_message_gdpr" = "Pour continuer, vous devez accepter nos conditions d'utilisation et notre politique de confidentialité. Veuillez les lire attentivement.";
 
-"sign_agree_pp_gdpr" = "J'accepte la <a href=\"https://legal.my.com/us/general/privacy/\">politique de confidentialité</a>";
+"sign_agree_pp_gdpr" = "J'accepte la <a href=\"https://legal.my.com/us/maps/privacy/\">politique de confidentialité</a>";
 
-"sign_agree_tof_gdpr" = "Je suis en accord avec les <a href=\"http://legal.my.com/us/maps/tou/\">conditions d'utilisation</a>";
+"sign_agree_tof_gdpr" = "Je suis en accord avec les <a href=\"https://legal.my.com/us/maps/tou/\">conditions d'utilisation</a>";
 
 "sign_agree_news_gdpr" = "J'accepte de recevoir les dernières nouvelles sur les";

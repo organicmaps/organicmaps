@@ -794,7 +794,7 @@
 	<string name="onboarding_permissions_message">من ثم يمكنك تنزيل الخرائط وعرض الأماكن وحركة المرور القريبة منك استخدام الملاحة.</string>
 	<string name="onboarding_welcome_title">مرحبًا بك في MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">خرائط تفصيلية مجانية وسريعة وتفصيلية وبدون اتصال بالكامل مع الملاحة منعطف بمنعطف.</string>
-	<string name="onboarding_welcome_second_subtitle">من خلال إطلاق التطبيق، فإنك توافق على <a href="http://legal.my.com/us/maps/tou/">شروط الاستخدام</a> و<a href="https://legal.my.com/us/maps/privacy/">سياسة الخصوصية</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">من خلال إطلاق التطبيق، فإنك توافق على <a href="https://legal.my.com/us/maps/tou/">شروط الاستخدام</a> و<a href="https://legal.my.com/us/maps/privacy/">سياسة الخصوصية</a>.</string>
 	<string name="dialog_incorrect_feature_position">تغيير الموقع</string>
 	<string name="message_invalid_feature_position">لا يمكن تحديد موقع الكائن هنا</string>
 	<string name="login_to_make_edits_visible">قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.</string>
@@ -1280,4 +1280,19 @@
 	<string name="wn_reinvented_bookmarks_message">يمكنك الاحتفاظ بنسخة احتياطية منها وإنشاء قوائم... إنه أمر مذهل...</string>
 	<string name="wn_way_of_booking_title">نحن إعادة تصور طريقة الحجز!</string>
 	<string name="wn_way_of_booking_message">ما عليك سوى العثور على فندق على الخريطة وحجزه ، أو تحديد فندق مشابه.</string>
+	<string name="bookmarks_restore">استعادة الإشارات المرجعية</string>
+	<string name="bookmarks_restore_process">استعادة...</string>
+	<string name="bookmarks_restore_title">استعادة هذا الإصدار؟</string>
+	<string name="bookmarks_restore_message">ستستعيد إشاراتك المرجعية من %s</string>
+	<string name="bookmarks_restore_empty_title">ليس لديك نسخة احتياطية</string>
+	<string name="bookmarks_restore_empty_message">لم يعثر الخادم على نسخ احتياطية سابقة</string>
+	<string name="common_check_internet_connection_dialog_title">لا يوجد اتصال بالإنترنت</string>
+	<string name="error_server_title">خطأ في الخادم</string>
+	<string name="error_server_message">حدث خطأ على الخادم ، يرجى المحاولة مرة أخرى في وقت لاحق</string>
+	<string name="error_system_message">حدث خطأ غير معروف</string>
+	<string name="restore">استعادة</string>
+	<string name="sign_message_gdpr">للمتابعة يجب عليك قبول شروط الاستخدام وسياسة الخصوصية الخاصة بنا. يرجى قراءتها بعناية.</string>
+	<string name="sign_agree_pp_gdpr">أوافق على <a href="https://legal.my.com/us/maps/privacy/">سياسة الخصوصية</a></string>
+	<string name="sign_agree_tof_gdpr">أوافق على <a href="https://legal.my.com/us/maps/tou/">شروط الاستخدام</a></string>
+	<string name="sign_agree_news_gdpr">أوافق على تلقي آخر الأخبار حول منتجات MAPS.ME</string>
 </resources>

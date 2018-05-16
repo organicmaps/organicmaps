@@ -787,7 +787,7 @@
 	<string name="onboarding_permissions_message">Così puoi scaricare mappe, vedere luoghi e traffico vicino a te e usare la funzione di navigazione.</string>
 	<string name="onboarding_welcome_title">Benvenuto in MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Mappe gratuite, veloci, dettagliate e interamente offline con navigazione turn-by-turn.</string>
-	<string name="onboarding_welcome_second_subtitle">Lanciando l\'applicazione, accetti i <a href="http://legal.my.com/us/maps/tou/">Termini di utilizzo</a> e l\'<a href="https://legal.my.com/us/maps/privacy/">Informativa sulla privacy</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Lanciando l\'applicazione, accetti i <a href="https://legal.my.com/us/maps/tou/">Termini di utilizzo</a> e l\'<a href="https://legal.my.com/us/maps/privacy/">Informativa sulla privacy</a>.</string>
 	<string name="dialog_incorrect_feature_position">Cambia posizione</string>
 	<string name="message_invalid_feature_position">Un oggetto non può essere posizionato qui</string>
 	<string name="login_to_make_edits_visible">Accedi per consentire ad altri utenti di vedere le modifiche apportate.</string>
@@ -1274,8 +1274,19 @@
 	<string name="wn_reinvented_bookmarks_message">Puoi fare il backup dei segnalibri, creare liste... È incredibile...</string>
 	<string name="wn_way_of_booking_title">Abbiamo reimmaginato il modo di prenotare!</string>
 	<string name="wn_way_of_booking_message">Basta trovare un hotel sulla mappa e prenotarlo, o selezionare quello simile.</string>
+	<string name="bookmarks_restore">Ripristina segnalibri</string>
+	<string name="bookmarks_restore_process">Ripristino...</string>
+	<string name="bookmarks_restore_title">Ripristina questa versione?</string>
+	<string name="bookmarks_restore_message">I tuoi segnalibri verranno ripristinati da %s</string>
+	<string name="bookmarks_restore_empty_title">Non hai un backup</string>
+	<string name="bookmarks_restore_empty_message">Il server non ha trovato i backup creati in precedenza</string>
+	<string name="common_check_internet_connection_dialog_title">Nessuna connessione internet</string>
+	<string name="error_server_title">Errore del server</string>
+	<string name="error_server_message">Si è verificato un errore sul server, riprova più tardi</string>
+	<string name="error_system_message">Si è verificato un errore sconosciuto</string>
+	<string name="restore">Ristabilire</string>
 	<string name="sign_message_gdpr">Per continuare, devi accettare i nostri Termini di utilizzo e la nostra Informativa sulla Privacy. Ti invitiamo a leggerli attentamente.</string>
-	<string name="sign_agree_pp_gdpr">Accetto la <a href="https://legal.my.com/us/general/privacy/">Informativa sulla Privacy</a></string>
-	<string name="sign_agree_tof_gdpr">Accetto i <a href="http://legal.my.com/us/maps/tou/">Termini di utilizzo</a></string>
+	<string name="sign_agree_pp_gdpr">Accetto la <a href="https://legal.my.com/us/maps/privacy/">Informativa sulla Privacy</a></string>
+	<string name="sign_agree_tof_gdpr">Accetto i <a href="https://legal.my.com/us/maps/tou/">Termini di utilizzo</a></string>
 	<string name="sign_agree_news_gdpr">Accetto di ricevere le ultime notizie sui prodotti di MAPS.ME</string>
 </resources>

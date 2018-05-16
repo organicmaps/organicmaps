@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "ターンバイターン方式のナビゲーションを採用した、完全にオフラインで利用できる無料・高速かつ詳細な地図を提供します。";
 
-"onboarding_welcome_second_subtitle" = "アプリケーションを起動することで、<a href=\"http://legal.my.com/us/maps/tou/\">利用規約</a>および<a href=\"https://legal.my.com/us/maps/privacy/\">プライバシーポリシー</a>にご同意いただいたものとみなします。";
+"onboarding_welcome_second_subtitle" = "アプリケーションを起動することで、<a href=\"https://legal.my.com/us/maps/tou/\">利用規約</a>および<a href=\"https://legal.my.com/us/maps/privacy/\">プライバシーポリシー</a>にご同意いただいたものとみなします。";
 
 "dialog_incorrect_feature_position" = "位置を変更してください";
 
@@ -2272,32 +2272,32 @@
 
 "wn_way_of_booking_message" = "地図上のホテルを見つけて予約するか、同様のホテルを選択するだけです。";
 
-"bookmarks_restore" = "Restore bookmarks";
+"bookmarks_restore" = "ブックマークを復元する";
 
-"bookmarks_restore_process" = "Restoring...";
+"bookmarks_restore_process" = "復元中...";
 
-"bookmarks_restore_title" = "Restore this version?";
+"bookmarks_restore_title" = "このバージョンを復元しますか？";
 
-"bookmarks_restore_message" = "Your bookmarks will restore from %s";
+"bookmarks_restore_message" = "ブックマークは%sから復元されます";
 
-"bookmarks_restore_empty_title" = "You don’t have a backup";
+"bookmarks_restore_empty_title" = "あなたはバックアップを持っていません";
 
-"bookmarks_restore_empty_message" = "The server didn’t find previously made backups";
+"bookmarks_restore_empty_message" = "サーバーは以前に作成したバックアップを見つけられませんでした";
 
-"common_check_internet_connection_dialog_title" = "No internet connection";
+"common_check_internet_connection_dialog_title" = "インターネット接続なし";
 
-"error_server_title" = "Server error";
+"error_server_title" = "サーバーエラー";
 
-"error_server_message" = "There was an error on the server, please try again later.";
+"error_server_message" = "サーバーにエラーがありました。後でもう一度お試しください";
 
-"error_system_message" = "An unknown error occurred.";
+"error_system_message" = "不明なエラーが発生しました";
 
-"restore" = "Restore";
+"restore" = "リストア";
 
-"sign_message_gdpr" = "To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully.";
+"sign_message_gdpr" = "続行するには、利用規約とプライバシーポリシーに同意する必要があります。 注意深くお読みください。";
 
-"sign_agree_pp_gdpr" = "I agree to the <a href=\"https://legal.my.com/us/general/privacy/\">Privacy Policy</a>";
+"sign_agree_pp_gdpr" = "<a href=\"https://legal.my.com/us/maps/privacy/\">プライバシーポリシー</a>に同意します";
 
-"sign_agree_tof_gdpr" = "I agree to the <a href=\"http://legal.my.com/us/maps/tou/\">Terms of Use</a>";
+"sign_agree_tof_gdpr" = "<a href=\"https://legal.my.com/us/maps/tou/\">利用規約</a>に同意します";
 
-"sign_agree_news_gdpr" = "I agree to receive the latest news about MAPS.ME products";
+"sign_agree_news_gdpr" = "私はMAPS.ME製品に関する最新ニュースを受け取ることに同意します";

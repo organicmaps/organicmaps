@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Mapas com navegação curva a curva grátis, rápidos, detalhados e totalmente offline.";
 
-"onboarding_welcome_second_subtitle" = "Ao lançar a aplicação, o utilizador concorda com os <a href=\"http://legal.my.com/us/maps/tou/\">Termos de Utilização</a> e a <a href=\"https://legal.my.com/us/maps/privacy/\">Política de Privacidade</a>.";
+"onboarding_welcome_second_subtitle" = "Ao lançar a aplicação, o utilizador concorda com os <a href=\"https://legal.my.com/us/maps/tou/\">Termos de Utilização</a> e a <a href=\"https://legal.my.com/us/maps/privacy/\">Política de Privacidade</a>.";
 
 "dialog_incorrect_feature_position" = "Mudar local";
 
@@ -2272,32 +2272,32 @@
 
 "wn_way_of_booking_message" = "Basta encontrar um hotel no mapa e reservá-lo ou selecionar o mesmo.";
 
-"bookmarks_restore" = "Restore bookmarks";
+"bookmarks_restore" = "Restaurar marcadores";
 
-"bookmarks_restore_process" = "Restoring...";
+"bookmarks_restore_process" = "Restaurando...";
 
-"bookmarks_restore_title" = "Restore this version?";
+"bookmarks_restore_title" = "Restaurar esta versão?";
 
-"bookmarks_restore_message" = "Your bookmarks will restore from %s";
+"bookmarks_restore_message" = "Seus favoritos serão restaurados a partir de %s";
 
-"bookmarks_restore_empty_title" = "You don’t have a backup";
+"bookmarks_restore_empty_title" = "Você não tem um backup";
 
-"bookmarks_restore_empty_message" = "The server didn’t find previously made backups";
+"bookmarks_restore_empty_message" = "O servidor não encontrou backups feitos anteriormente";
 
-"common_check_internet_connection_dialog_title" = "No internet connection";
+"common_check_internet_connection_dialog_title" = "Sem conexão com a internet";
 
-"error_server_title" = "Server error";
+"error_server_title" = "Erro de servidor";
 
-"error_server_message" = "There was an error on the server, please try again later.";
+"error_server_message" = "Houve um erro no servidor, tente novamente mais tarde";
 
-"error_system_message" = "An unknown error occurred.";
+"error_system_message" = "Ocorreu um erro desconhecido";
 
-"restore" = "Restore";
+"restore" = "Restaurar";
 
-"sign_message_gdpr" = "To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully.";
+"sign_message_gdpr" = "Para continuar, você deve aceitar nossos Termos de Uso e Política de Privacidade. Por favor, leia-os com atenção.";
 
-"sign_agree_pp_gdpr" = "I agree to the <a href=\"https://legal.my.com/us/general/privacy/\">Privacy Policy</a>";
+"sign_agree_pp_gdpr" = "Concordo com a <a href=\"https://legal.my.com/us/maps/privacy/\">Política de Privacidade</a>";
 
-"sign_agree_tof_gdpr" = "I agree to the <a href=\"http://legal.my.com/us/maps/tou/\">Terms of Use</a>";
+"sign_agree_tof_gdpr" = "Eu concordo com os <a href=\"https://legal.my.com/us/maps/tou/\">Termos de Uso</a>";
 
-"sign_agree_news_gdpr" = "I agree to receive the latest news about MAPS.ME products";
+"sign_agree_news_gdpr" = "Concordo em receber as últimas novidades sobre os produtos MAPS.ME";

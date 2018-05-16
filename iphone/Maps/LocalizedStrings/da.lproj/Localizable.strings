@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Kort, der er gratis, hurtige, detaljerede og helt igennem offline, med rutenavigation.";
 
-"onboarding_welcome_second_subtitle" = "Ved at åbne appen accepterer du vores <a href=\"http://legal.my.com/us/maps/tou/\">Vilkår for anvendelse</a> og <a href=\"https://legal.my.com/us/maps/privacy/\">Fortrolighedspolitik</a>.";
+"onboarding_welcome_second_subtitle" = "Ved at åbne appen accepterer du vores <a href=\"https://legal.my.com/us/maps/tou/\">Vilkår for anvendelse</a> og <a href=\"https://legal.my.com/us/maps/privacy/\">Fortrolighedspolitik</a>.";
 
 "dialog_incorrect_feature_position" = "Skift lokation";
 
@@ -2272,32 +2272,32 @@
 
 "wn_way_of_booking_message" = "Find blot et hotel på kortet og book det, eller vælg det samme.";
 
-"bookmarks_restore" = "Restore bookmarks";
+"bookmarks_restore" = "Gendan bogmærker";
 
-"bookmarks_restore_process" = "Restoring...";
+"bookmarks_restore_process" = "Gendannelse...";
 
-"bookmarks_restore_title" = "Restore this version?";
+"bookmarks_restore_title" = "Gendan denne version?";
 
-"bookmarks_restore_message" = "Your bookmarks will restore from %s";
+"bookmarks_restore_message" = "Dine bogmærker gendannes fra %s";
 
-"bookmarks_restore_empty_title" = "You don’t have a backup";
+"bookmarks_restore_empty_title" = "Du har ikke en sikkerhedskopi";
 
-"bookmarks_restore_empty_message" = "The server didn’t find previously made backups";
+"bookmarks_restore_empty_message" = "Serveren fandt ikke tidligere sikkerhedskopier";
 
-"common_check_internet_connection_dialog_title" = "No internet connection";
+"common_check_internet_connection_dialog_title" = "Ingen internetforbindelse";
 
-"error_server_title" = "Server error";
+"error_server_title" = "Server Fejl";
 
-"error_server_message" = "There was an error on the server, please try again later.";
+"error_server_message" = "Der opstod en fejl på serveren, prøv igen senere";
 
-"error_system_message" = "An unknown error occurred.";
+"error_system_message" = "Der opstod en ukendt fejl";
 
-"restore" = "Restore";
+"restore" = "Gendan";
 
-"sign_message_gdpr" = "To continue you must accept our Terms of Use and Privacy Policy. Please read them carefully.";
+"sign_message_gdpr" = "For at fortsætte skal du acceptere vores Vilkår for brug og Privacy Policy. Læs dem grundigt.";
 
-"sign_agree_pp_gdpr" = "I agree to the <a href=\"https://legal.my.com/us/general/privacy/\">Privacy Policy</a>";
+"sign_agree_pp_gdpr" = "Jeg accepterer <a href=\"https://legal.my.com/us/maps/privacy/\">Politik til beskyttelse af personlige oplysninger</a>";
 
-"sign_agree_tof_gdpr" = "I agree to the <a href=\"http://legal.my.com/us/maps/tou/\">Terms of Use</a>";
+"sign_agree_tof_gdpr" = "Jeg accepterer <a href=\"https://legal.my.com/us/maps/tou/\">Vilkår for brug</a>";
 
-"sign_agree_news_gdpr" = "I agree to receive the latest news about MAPS.ME products";
+"sign_agree_news_gdpr" = "Jeg accepterer at modtage de seneste nyheder om MAPS.ME produkter";

@@ -789,7 +789,7 @@
 	<string name="onboarding_permissions_message">Így tehát Ön letölthet térképeket, megtekintheti az Önhöz közeli helyeket és forgalmat, és használhatja a navigációt.</string>
 	<string name="onboarding_welcome_title">Üdvözöljük a MAPS.ME alkalmazásban</string>
 	<string name="onboarding_welcome_first_subtitle">Ingyenes, gyors, részletes és teljes egészében offline térképek navigációval lépésről lépésre.</string>
-	<string name="onboarding_welcome_second_subtitle">Az alkalmazás indításával Ön elfogadja a <a href="http://legal.my.com/us/maps/tou/"> Felhasználási feltételeket</a> és <a href="https://legal.my.com/us/maps/privacy/"> az Adatvédelmi szabályzatot</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Az alkalmazás indításával Ön elfogadja a <a href="https://legal.my.com/us/maps/tou/">Felhasználási feltételeket</a> és <a href="https://legal.my.com/us/maps/privacy/">az Adatvédelmi szabályzatot</a>.</string>
 	<string name="dialog_incorrect_feature_position">Helyszín megváltoztatása</string>
 	<string name="message_invalid_feature_position">Célpont áthelyezése ide nem lehetséges</string>
 	<string name="login_to_make_edits_visible">Jelentkezz be, hogy más felhasználók is láthassák a változtatásaidat.</string>
@@ -1275,4 +1275,19 @@
 	<string name="wn_reinvented_bookmarks_message">Könyvjelzőket menthet, listákat hozhat létre... Hihetetlen...</string>
 	<string name="wn_way_of_booking_title">Újra átfogtuk a foglalás módját!</string>
 	<string name="wn_way_of_booking_message">Csak keresse meg a szállodát a térképen, és foglalja le, vagy válassza ki a megfelelőt.</string>
+	<string name="bookmarks_restore">Könyvjelzők visszaállítása</string>
+	<string name="bookmarks_restore_process">Visszaállítása ...</string>
+	<string name="bookmarks_restore_title">A verzió visszaállítása?</string>
+	<string name="bookmarks_restore_message">Könyvjelzői %s-ból visszaállnak</string>
+	<string name="bookmarks_restore_empty_title">Nincs biztonsági mentése</string>
+	<string name="bookmarks_restore_empty_message">A szerver nem találta a korábban készített biztonsági másolatokat</string>
+	<string name="common_check_internet_connection_dialog_title">Nincs internetkapcsolat</string>
+	<string name="error_server_title">Szerver hiba</string>
+	<string name="error_server_message">Hiba történt a szerveren, próbálkozzon később</string>
+	<string name="error_system_message">Ismeretlen hiba történt</string>
+	<string name="restore">Visszaállítás</string>
+	<string name="sign_message_gdpr">A folytatáshoz el kell fogadnia a Felhasználási feltételeinket és az adatvédelmi irányelveinket. Kérjük, figyelmesen olvassa el őket.</string>
+	<string name="sign_agree_pp_gdpr">Elfogadom a <a href="https://legal.my.com/us/maps/privacy/">adatvédelmi irányelveket</a></string>
+	<string name="sign_agree_tof_gdpr">Elfogadom a <a href="https://legal.my.com/us/maps/tou/">Általános Szerződési Feltételeket</a></string>
+	<string name="sign_agree_news_gdpr">Elfogadom, hogy megkapja a MAPS.ME termékekkel kapcsolatos legfrissebb híreke</string>
 </resources>

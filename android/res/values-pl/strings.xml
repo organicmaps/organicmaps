@@ -791,7 +791,7 @@
 	<string name="onboarding_permissions_message">Aby pobierać mapy, sprawdzać miejsca i ruch drogowy w twojej okolicy i móc korzystać z nawigacji.</string>
 	<string name="onboarding_welcome_title">Witaj w MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Bezpłatne, szybkie i szczegółowe mapy offline z funkcją nawigacji.</string>
-	<string name="onboarding_welcome_second_subtitle">Poprzez uruchomienie aplikacji wyrażasz zgodę na <a href="http://legal.my.com/us/maps/tou/">warunki użytkowania</a> i <a href="https://legal.my.com/us/maps/privacy/">politykę prywatności</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Poprzez uruchomienie aplikacji wyrażasz zgodę na <a href="https://legal.my.com/us/maps/tou/">warunki użytkowania</a> i <a href="https://legal.my.com/us/maps/privacy/">politykę prywatności</a>.</string>
 	<string name="dialog_incorrect_feature_position">Zmień lokalizację</string>
 	<string name="message_invalid_feature_position">Obiekt nie może znajdować się tutaj</string>
 	<string name="login_to_make_edits_visible">Zaloguj się, by inni użytkownicy mogli zobaczyć Twoje zmiany.</string>
@@ -1279,8 +1279,19 @@
 	<string name="wn_reinvented_bookmarks_message">Możesz tworzyć kopie zapasowe zakładek, tworzyć listy... To niesamowite...</string>
 	<string name="wn_way_of_booking_title">Przeformułowaliśmy sposób rezerwacji!</string>
 	<string name="wn_way_of_booking_message">Wystarczy znaleźć hotel na mapie i zarezerwować go lub wybrać podobny.</string>
+	<string name="bookmarks_restore">Przywróć zakładki</string>
+	<string name="bookmarks_restore_process">Przywracanie...</string>
+	<string name="bookmarks_restore_title">Przywróć tę wersję?</string>
+	<string name="bookmarks_restore_message">Twoje zakładki zostaną przywrócone z %s</string>
+	<string name="bookmarks_restore_empty_title">Nie masz kopii zapasowej</string>
+	<string name="bookmarks_restore_empty_message">Serwer nie znalazł wcześniej utworzonych kopii zapasowych</string>
+	<string name="common_check_internet_connection_dialog_title">Brak połączenia z internetem</string>
+	<string name="error_server_title">Błąd serwera</string>
+	<string name="error_server_message">Der var en fejl på serveren, prøv igen senere</string>
+	<string name="error_system_message">Wystąpił nieznany błąd</string>
+	<string name="restore">Przywracać</string>
 	<string name="sign_message_gdpr">Aby kontynuować, musisz zaakceptować nasze Warunki użytkowania i Politykę prywatności. Prosimy o ich uważne przeczytanie.</string>
-	<string name="sign_agree_pp_gdpr">Akceptuję <a href="https://legal.my.com/us/general/privacy/">Privacy Policy</a></string>
-	<string name="sign_agree_tof_gdpr">Akceptuję <a href="http://legal.my.com/us/maps/tou/">Terms of Use</a></string>
+	<string name="sign_agree_pp_gdpr">Akceptuję <a href="https://legal.my.com/us/maps/privacy/">Privacy Policy</a></string>
+	<string name="sign_agree_tof_gdpr">Akceptuję <a href="https://legal.my.com/us/maps/tou/">Terms of Use</a></string>
 	<string name="sign_agree_news_gdpr">Chcę otrzymywać aktualności na temat produktów MAPS.ME</string>
 </resources>

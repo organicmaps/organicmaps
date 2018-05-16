@@ -801,7 +801,7 @@
 	<string name="onboarding_permissions_message">Afin de pouvoir télécharger des cartes, voir les lieux et le trafic près de vous et utiliser la navigation.</string>
 	<string name="onboarding_welcome_title">Bienvenue sur MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Cartes avec navigation étape par étape, gratuites, rapides, détaillées et totalement hors ligne.</string>
-	<string name="onboarding_welcome_second_subtitle">En lançant l’application, vous acceptez les <a href="http://legal.my.com/us/maps/tou/">Conditions d’utilisation</a> et la <a href="https://legal.my.com/us/maps/privacy/">Politique de confidentialité</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">En lançant l’application, vous acceptez les <a href="https://legal.my.com/us/maps/tou/">Conditions d’utilisation</a> et la <a href="https://legal.my.com/us/maps/privacy/">Politique de confidentialité</a>.</string>
 	<string name="dialog_incorrect_feature_position">Modifier l\'emplacement</string>
 	<string name="message_invalid_feature_position">Aucun objet ne peut être localisé ici</string>
 	<string name="login_to_make_edits_visible">Se connecter pour que d\'autres utilisateurs puissent voir les changements que vous avez effectués.</string>
@@ -1289,8 +1289,19 @@
 	<string name="wn_reinvented_bookmarks_message">Vous pouvez sauvegarder des signets, créer des listes... C\'est incroyable...</string>
 	<string name="wn_way_of_booking_title">Nous avons réinventé le mode de réservation!</string>
 	<string name="wn_way_of_booking_message">Il suffit de trouver un hôtel sur la carte et de le réserver, ou sélectionnez le même</string>
+	<string name="bookmarks_restore">Restaurer les favoris</string>
+	<string name="bookmarks_restore_process">Restaurer...</string>
+	<string name="bookmarks_restore_title">Restaurer cette version?</string>
+	<string name="bookmarks_restore_message">Vos marque-pages restaureront à partir de %s</string>
+	<string name="bookmarks_restore_empty_title">Vous n\'avez pas de sauvegarde</string>
+	<string name="bookmarks_restore_empty_message">Le serveur n\'a pas trouvé de sauvegardes effectuées précédemment</string>
+	<string name="common_check_internet_connection_dialog_title">Pas de connexion Internet</string>
+	<string name="error_server_title">Erreur du serveur</string>
+	<string name="error_server_message">Une erreur s\'est produite sur le serveur. Veuillez réessayer plus tard.</string>
+	<string name="error_system_message">Une erreur inconnue est survenue</string>
+	<string name="restore">Restaurer</string>
 	<string name="sign_message_gdpr">Pour continuer, vous devez accepter nos conditions d\'utilisation et notre politique de confidentialité. Veuillez les lire attentivement.</string>
-	<string name="sign_agree_pp_gdpr">J\'accepte la <a href="https://legal.my.com/us/general/privacy/">politique de confidentialité</a></string>
-	<string name="sign_agree_tof_gdpr">Je suis en accord avec les <a href="http://legal.my.com/us/maps/tou/">conditions d\'utilisation</a></string>
+	<string name="sign_agree_pp_gdpr">J\'accepte la <a href="https://legal.my.com/us/maps/privacy/">politique de confidentialité</a></string>
+	<string name="sign_agree_tof_gdpr">Je suis en accord avec les <a href="https://legal.my.com/us/maps/tou/">conditions d\'utilisation</a></string>
 	<string name="sign_agree_news_gdpr">J\'accepte de recevoir les dernières nouvelles sur les</string>
 </resources>

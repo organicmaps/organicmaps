@@ -792,7 +792,7 @@
 	<string name="onboarding_permissions_message">Så du kan hente kort, se steder og trafik i nærheden af dig og benytte navigation.</string>
 	<string name="onboarding_welcome_title">Velkommen til MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Kort, der er gratis, hurtige, detaljerede og helt igennem offline, med rutenavigation.</string>
-	<string name="onboarding_welcome_second_subtitle">Ved at åbne appen accepterer du vores <a href="http://legal.my.com/us/maps/tou/">Vilkår for anvendelse</a> og <a href="https://legal.my.com/us/maps/privacy/">Fortrolighedspolitik</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Ved at åbne appen accepterer du vores <a href="https://legal.my.com/us/maps/tou/">Vilkår for anvendelse</a> og <a href="https://legal.my.com/us/maps/privacy/">Fortrolighedspolitik</a>.</string>
 	<string name="dialog_incorrect_feature_position">Skift lokation</string>
 	<string name="message_invalid_feature_position">Et objekt kan ikke placeres her</string>
 	<string name="login_to_make_edits_visible">Log på så andre brugere kan se ændringerne som du har foretaget.</string>
@@ -1279,4 +1279,19 @@
 	<string name="wn_reinvented_bookmarks_message">Du kan sikkerhedskopiere bogmærker, oprette lister... Det er fantastisk...</string>
 	<string name="wn_way_of_booking_title">Vi reimagined måde at reservere!</string>
 	<string name="wn_way_of_booking_message">Find blot et hotel på kortet og book det, eller vælg det samme.</string>
+	<string name="bookmarks_restore">Gendan bogmærker</string>
+	<string name="bookmarks_restore_process">Gendannelse...</string>
+	<string name="bookmarks_restore_title">Gendan denne version?</string>
+	<string name="bookmarks_restore_message">Dine bogmærker gendannes fra %s</string>
+	<string name="bookmarks_restore_empty_title">Du har ikke en sikkerhedskopi</string>
+	<string name="bookmarks_restore_empty_message">Serveren fandt ikke tidligere sikkerhedskopier</string>
+	<string name="common_check_internet_connection_dialog_title">Ingen internetforbindelse</string>
+	<string name="error_server_title">Server Fejl</string>
+	<string name="error_server_message">Der opstod en fejl på serveren, prøv igen senere</string>
+	<string name="error_system_message">Der opstod en ukendt fejl</string>
+	<string name="restore">Gendan</string>
+	<string name="sign_message_gdpr">For at fortsætte skal du acceptere vores Vilkår for brug og Privacy Policy. Læs dem grundigt.</string>
+	<string name="sign_agree_pp_gdpr">Jeg accepterer <a href="https://legal.my.com/us/maps/privacy/">Politik til beskyttelse af personlige oplysninger</a></string>
+	<string name="sign_agree_tof_gdpr">Jeg accepterer <a href="https://legal.my.com/us/maps/tou/">Vilkår for brug</a></string>
+	<string name="sign_agree_news_gdpr">Jeg accepterer at modtage de seneste nyheder om MAPS.ME produkter</string>
 </resources>
