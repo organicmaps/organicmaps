@@ -21,7 +21,7 @@
   self = [super initWithActivityItems:activityItems applicationActivities:nil];
   if (self)
     self.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,
-                                 UIActivityTypeAirDrop, UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr,
+                                 UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr,
                                  UIActivityTypePostToVimeo];
   return self;
 }
@@ -29,13 +29,17 @@
 + (instancetype)shareControllerForMyPosition:(CLLocationCoordinate2D)location
 {
   MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForMyPositionAtLocation:location];
-  return [[self alloc] initWithActivityItem:item];
+  MWMActivityViewController *shareVC = [[self alloc] initWithActivityItem:item];
+  shareVC.excludedActivityTypes = [shareVC.excludedActivityTypes arrayByAddingObject:UIActivityTypeAirDrop];
+  return shareVC;
 }
 
 + (instancetype)shareControllerForPlacePageObject:(id<MWMPlacePageObject>)object
 {
   MWMShareActivityItem * item = [[MWMShareActivityItem alloc] initForPlacePageObject:object];
-  return [[self alloc] initWithActivityItem:item];
+  MWMActivityViewController *shareVC = [[self alloc] initWithActivityItem:item];
+  shareVC.excludedActivityTypes = [shareVC.excludedActivityTypes arrayByAddingObject:UIActivityTypeAirDrop];
+  return shareVC;
 }
 
 + (instancetype)shareControllerForURL:(NSURL *)url
@@ -44,6 +48,7 @@
                         (UIActivityViewControllerCompletionWithItemsHandler)completionHandler
 {
   MWMActivityViewController * shareVC = [[self alloc] initWithActivityItems:@[message, url]];
+  shareVC.excludedActivityTypes = [shareVC.excludedActivityTypes arrayByAddingObject:UIActivityTypePostToFacebook];
   shareVC.completionWithItemsHandler = completionHandler;
   return shareVC;
 }
