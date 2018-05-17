@@ -12,7 +12,7 @@ void ForEachFeatureAtPoint(Index const & index, function<void(FeatureType &)> &&
   int constexpr kScale = scales::GetUpperScale();
   m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(mercator, kSelectRectWidthInMeters);
 
-  auto const emitter = [&fn, &rect, &mercator, kScale, kMetersToLinearFeature, toleranceInMeters](FeatureType & ft)
+  auto const emitter = [&fn, &rect, &mercator, toleranceInMeters](FeatureType & ft)
   {
    switch (ft.GetFeatureType())
    {

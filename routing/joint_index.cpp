@@ -17,6 +17,7 @@ void JointIndex::Build(RoadIndex const & roadIndex, uint32_t numJoints)
   // 2, 5, 3, 4, 2, 3, 0
   roadIndex.ForEachRoad([this, numJoints](uint32_t /* featureId */, RoadJointIds const & road) {
     road.ForEachJoint([this, numJoints](uint32_t /* pointId */, Joint::Id jointId) {
+      UNUSED_VALUE(numJoints);
       ASSERT_LESS(jointId, numJoints, ());
       ++m_offsets[jointId];
     });
