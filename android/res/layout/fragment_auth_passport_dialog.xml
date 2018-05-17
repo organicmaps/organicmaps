@@ -100,23 +100,26 @@
       android:minHeight="@dimen/height_primary_button"
       android:layout_marginTop="@dimen/margin_base"
       tools:targetApi="jelly_bean"/>
-    <com.facebook.login.widget.LoginButton
-      xmlns:fb="http://schemas.android.com/apk/res-auto"
+    <TextView
       android:id="@+id/facebook_button"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:minHeight="@dimen/height_primary_button"
       android:foreground="?clickableBackground"
+      android:background="?facebookButtonBackground"
+      android:textColor="?accentButtonTextColor"
+      android:drawableStart="@drawable/img_facebook"
+      android:drawableLeft="@drawable/img_facebook"
+      android:paddingLeft="@dimen/margin_half_plus"
+      android:paddingStart="@dimen/margin_half_plus"
+      android:paddingRight="@dimen/margin_base_plus"
+      android:paddingEnd="@dimen/margin_base_plus"
+      android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
+      android:fontFamily="@string/robotoMedium"
+      android:text="@string/facebook"
+      android:gravity="center"
+      android:minHeight="@dimen/height_primary_button"
       android:layout_marginTop="@dimen/margin_base"
-      android:textSize="@dimen/text_size_body_3"
-      fb:com_facebook_login_text="@string/facebook"
-      android:paddingStart="@dimen/margin_base"
-      android:paddingLeft="@dimen/margin_base"
-      android:paddingEnd="@dimen/margin_base"
-      android:paddingRight="@dimen/margin_base"
-      android:paddingTop="@dimen/margin_half_plus"
-      android:paddingBottom="@dimen/margin_half_plus"
-      android:layout_gravity="center_horizontal"/>
+      tools:targetApi="jelly_bean"/>
     <TextView
       android:id="@+id/phone_button"
       android:layout_width="match_parent"

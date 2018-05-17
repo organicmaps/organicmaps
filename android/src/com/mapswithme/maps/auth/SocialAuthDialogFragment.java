@@ -23,7 +23,6 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -68,6 +67,13 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
       startActivityForResult(intent, Constants.REQ_CODE_GOOGLE_SIGN_IN);
     }
   };
+  @NonNull
+  private final View.OnClickListener mFacebookClickListener = v -> {
+    LoginManager lm = LoginManager.getInstance();
+    lm.logInWithReadPermissions(SocialAuthDialogFragment.this,
+                                  Constants.FACEBOOK_PERMISSIONS);
+    lm.registerCallback(mFacebookCallbackManager, new FBCallback(SocialAuthDialogFragment.this));
+  };
   @SuppressWarnings("NullableProblems")
   @NonNull
   private CheckBox mPrivacyPolicyCheck;
@@ -105,17 +111,9 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   {
     View view = inflater.inflate(R.layout.fragment_auth_passport_dialog, container, false);
 
-    View googleButton = view.findViewById(R.id.google_button);
-    googleButton.setOnClickListener(mGoogleClickListener);
-
-    LoginManager.getInstance().logOut();
-    LoginButton facebookButton = view.findViewById(R.id.facebook_button);
-    facebookButton.setReadPermissions(Constants.FACEBOOK_PERMISSIONS);
-    facebookButton.setFragment(this);
-    facebookButton.registerCallback(mFacebookCallbackManager, new FBCallback(this));
-
-    View phoneButton = view.findViewById(R.id.phone_button);
-    phoneButton.setOnClickListener(mPhoneClickListener);
+    setLoginButton(view, R.id.google_button, mGoogleClickListener);
+    setLoginButton(view, R.id.facebook_button, mFacebookClickListener);
+    setLoginButton(view, R.id.phone_button, mPhoneClickListener);
 
     mPromoCheck = view.findViewById(R.id.newsCheck);
     mPrivacyPolicyCheck = view.findViewById(R.id.privacyPolicyCheck);
@@ -134,6 +132,13 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     setButtonAvailability(view, false, R.id.google_button, R.id.facebook_button,
                           R.id.phone_button);
     return view;
+  }
+
+  private static void setLoginButton(@NonNull View root, @IdRes int id,
+                                     @NonNull View.OnClickListener clickListener)
+  {
+    View button = root.findViewById(id);
+    button.setOnClickListener(clickListener);
   }
 
   private static void linkifyPolicyViews(@NonNull View root, @IdRes int... ids)
