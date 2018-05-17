@@ -230,8 +230,6 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
         });
       }
     });
-
-    UiUtils.updateAccentButton(mButton);
   }
 
   @Override

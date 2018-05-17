@@ -304,12 +304,6 @@ public final class UiUtils
                                                                                     : R.attr.redButtonTextColorDisabled));
   }
 
-  public static void updateAccentButton(Button button)
-  {
-    button.setTextColor(ThemeUtils.getColor(button.getContext(), button.isEnabled() ? R.attr.accentButtonTextColor
-                                                                                    : R.attr.accentButtonTextColorDisabled));
-  }
-
   public static Uri getUriToResId(@NonNull Context context, @AnyRes int resId)
   {
     final Resources resources = context.getResources();

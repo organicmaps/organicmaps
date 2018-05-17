@@ -53,7 +53,7 @@
       android:clipChildren="false">
       <Button
         android:id="@+id/downloader_button"
-        style="@style/MwmWidget.Button.Accent"
+        style="@style/MwmWidget.Button.Primary"
         android:layout_width="180dp"
         android:visibility="gone"/>
 

@@ -282,7 +282,6 @@ final class RoutingBottomMenuController implements View.OnClickListener
       });
     }
 
-    UiUtils.updateAccentButton(mStart);
     showStartButton(true);
   }
 

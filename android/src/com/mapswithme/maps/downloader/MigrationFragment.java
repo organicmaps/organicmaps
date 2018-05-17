@@ -95,7 +95,6 @@ public class MigrationFragment extends BaseMwmFragment
 
     mButtonPrimary.setOnClickListener(mButtonClickListener);
     mButtonSecondary.setOnClickListener(mButtonClickListener);
-    UiUtils.updateAccentButton(mButtonPrimary);
 
     mProgress.setOnClickListener(new View.OnClickListener()
     {

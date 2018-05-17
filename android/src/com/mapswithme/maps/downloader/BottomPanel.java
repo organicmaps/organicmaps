@@ -89,8 +89,6 @@ class BottomPanel
     });
 
     mButton = (Button) frame.findViewById(R.id.action);
-
-    UiUtils.updateAccentButton(mButton);
   }
 
   private void setUpdateAllState(UpdateInfo info)
