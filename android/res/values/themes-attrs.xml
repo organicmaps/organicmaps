@@ -42,6 +42,7 @@
     <attr name="accentButtonTextColorDisabled" format="color"/>
     <attr name="ghostButtonBackground" format="reference"/>
     <attr name="ghostButtonTextColor" format="color"/>
+    <attr name="facebookButtonBackground" format="reference"/>
 
     <attr name="redButtonBackground" format="reference"/>
     <attr name="redButtonTextColor" format="color"/>

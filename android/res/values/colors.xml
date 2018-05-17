@@ -121,6 +121,7 @@
   <color name="button_red_disabled">#FFB9332B</color>
   <color name="button_red_text">#FFFFFFFF</color>
   <color name="button_red_text_disabled">#FF606060</color>
+  <color name="button_facebook">#FF3B5998</color>
 
   <color name="downloader_gray">#FF999999</color>
 

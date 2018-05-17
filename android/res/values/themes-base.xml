@@ -55,6 +55,7 @@
     <item name="accentButtonTextColorDisabled">@color/button_accent_text_disabled</item>
     <item name="ghostButtonBackground">@drawable/button_ghost</item>
     <item name="ghostButtonTextColor">@color/button_text_ghost</item>
+    <item name="facebookButtonBackground">@drawable/button_ghost_facebook</item>
 
     <item name="redButtonBackground">@drawable/button_red</item>
     <item name="redButtonTextColor">@color/button_red_text</item>
@@ -181,6 +182,7 @@
     <item name="accentButtonTextColorDisabled">@color/button_accent_text_disabled_night</item>
     <item name="ghostButtonBackground">@drawable/button_ghost_night</item>
     <item name="ghostButtonTextColor">@color/button_text_ghost_night</item>
+    <item name="facebookButtonBackground">@drawable/button_ghost_facebook_night</item>
 
     <item name="redButtonBackground">@drawable/button_red</item>
     <item name="redButtonTextColor">@color/button_red_text</item>
