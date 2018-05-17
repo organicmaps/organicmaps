@@ -597,13 +597,13 @@ void LoadClassificatorTypes(std::string const & classificatorFileStr,
   classificator::LoadTypes(classificatorFileStr, typesFileStr);
 }
 
-uint32_t ClassificatorTypeToInt(std::string const & typeStr)
+uint32_t ClassificatorTypeToIndex(std::string const & typeStr)
 {
   if (typeStr.empty())
     throw std::runtime_error("Empty type is not allowed.");
 
   auto const & c = classif();
-  if (!c.HasMapping())
+  if (!c.HasTypesMapping())
     throw std::runtime_error("Types mapping is not loaded.");
 
   auto const type = c.GetTypeByReadableObjectName(typeStr);
@@ -613,10 +613,10 @@ uint32_t ClassificatorTypeToInt(std::string const & typeStr)
   return c.GetIndexForType(type);
 }
 
-std::string IntToClassificatorType(uint32_t index)
+std::string IndexToClassificatorType(uint32_t index)
 {
   auto const & c = classif();
-  if (!c.HasMapping())
+  if (!c.HasTypesMapping())
     throw std::runtime_error("Types mapping is not loaded.");
 
   uint32_t t;
@@ -843,6 +843,6 @@ BOOST_PYTHON_MODULE(pykmlib)
   def("import_kml", ImportKml);
 
   def("load_classificator_types", LoadClassificatorTypes);
-  def("classificator_type_to_int", ClassificatorTypeToInt);
-  def("int_to_classificator_type", IntToClassificatorType);
+  def("classificator_type_to_index", ClassificatorTypeToIndex);
+  def("index_to_classificator_type", IndexToClassificatorType);
 }

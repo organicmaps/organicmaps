@@ -358,7 +358,7 @@ void SaveBookmarkExtendedData(KmlWriter::WriterWrapper & writer, BookmarkData co
   std::vector<std::string> types;
   types.reserve(bookmarkData.m_featureTypes.size());
   auto const & c = classif();
-  if (!c.HasMapping())
+  if (!c.HasTypesMapping())
     MYTHROW(SerializerKml::SerializeException, ("Types mapping is not loaded."));
   for (auto const & t : bookmarkData.m_featureTypes)
     types.push_back(c.GetReadableObjectName(c.GetTypeForIndex(t)));
@@ -1011,7 +1011,7 @@ void KmlParser::CharData(std::string value)
         if (prevTag == "mwm:featureTypes")
         {
           auto const & c = classif();
-          if (!c.HasMapping())
+          if (!c.HasTypesMapping())
             MYTHROW(DeserializerKml::DeserializeException, ("Types mapping is not loaded."));
           auto const type = c.GetTypeByReadableObjectName(value);
           if (c.IsTypeValid(type))

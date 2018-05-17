@@ -41,8 +41,8 @@ class PyKmlibAdsTest(unittest.TestCase):
         bookmark.description.set_default('Test bookmark description')
         bookmark.description['ru'] = 'Тестовое описание метки'
         bookmark.feature_types.set_list([
-            pykmlib.classificator_type_to_int('historic-castle'),
-            pykmlib.classificator_type_to_int('historic-memorial')])
+            pykmlib.classificator_type_to_index('historic-castle'),
+            pykmlib.classificator_type_to_index('historic-memorial')])
         bookmark.custom_name.set_default('Мое любимое место')
         bookmark.custom_name['en'] = 'My favorite place'
         bookmark.color.predefined_color = pykmlib.PredefinedColor.BLUE

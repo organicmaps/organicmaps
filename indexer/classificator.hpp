@@ -178,7 +178,7 @@ public:
 
   void Clear();
 
-  bool HasMapping() const { return m_mapping.IsLoaded(); }
+  bool HasTypesMapping() const { return m_mapping.IsLoaded(); }
 
   /// Return type by path in classificator tree, for example
   /// path = ["natural", "caostline"].
