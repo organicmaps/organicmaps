@@ -85,15 +85,15 @@ bool GetNextRoutePointIndex(IRoutingResult const & result, RoutePointIndex const
 
 /*!
  * \brief Compute turn and time estimation structs for the abstract route result.
- * \param routingResult abstract routing result to annotate.
+ * \param result abstract routing result to annotate.
  * \param delegate Routing callbacks delegate.
  * \param points Storage for unpacked points of the path.
  * \param turnsDir output turns annotation storage.
  * \param streets output street names along the path.
- * \param traffic road traffic information.
+ * \param segments route segments.
  * \return routing operation result code.
  */
-IRouter::ResultCode MakeTurnAnnotation(turns::IRoutingResult const & result, NumMwmIds const & numMwmIds,
+IRouter::ResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds const & numMwmIds,
                                        RouterDelegate const & delegate, std::vector<Junction> & points,
                                        Route::TTurns & turnsDir, Route::TStreets & streets,
                                        std::vector<Segment> & segments);
@@ -161,7 +161,7 @@ CarDirection GetRoundaboutDirection(bool isIngoingEdgeRoundabout, bool isOutgoin
  * \param outgoingSegmentIndex index of an outgoing segments in vector result.GetSegments().
  * \param turn is used for keeping the result of turn calculation.
  */
-void GetTurnDirection(turns::IRoutingResult const & result, size_t outgoingSegmentIndex,
+void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex,
                       NumMwmIds const & numMwmIds, TurnItem & turn);
 
 /*!

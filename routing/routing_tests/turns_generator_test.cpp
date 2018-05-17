@@ -1,8 +1,8 @@
 #include "testing/testing.hpp"
 
 #include "routing/loaded_path_segment.hpp"
-#include "routing/routing_result_graph.hpp"
 #include "routing/route.hpp"
+#include "routing/routing_result_graph.hpp"
 #include "routing/turns.hpp"
 #include "routing/turns_generator.hpp"
 

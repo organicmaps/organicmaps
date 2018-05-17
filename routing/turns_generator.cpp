@@ -9,6 +9,7 @@
 
 #include "geometry/angles.hpp"
 
+#include "base/checked_cast.hpp"
 #include "base/macros.hpp"
 #include "base/stl_helpers.hpp"
 
@@ -31,7 +32,7 @@ double constexpr kMinOutgoingDistMeters = 120.0;
 size_t constexpr kMaxIngoingPointsCount = 2;
 double constexpr kMinIngoingDistMeters = 100.0;
 size_t constexpr kNotSoCloseMaxPointsCount = 3;
-double constexpr kNotSoClosemaxDistMeters = 30.0;
+double constexpr kNotSoCloseMaxDistMeters = 30.0;
 
 bool IsHighway(ftypes::HighwayClass hwClass, bool isLink)
 {
@@ -295,6 +296,8 @@ RoutePointIndex GetFirstOutgoingPointIndex(size_t outgoingSegmentIndex)
 RoutePointIndex GetLastIngoingPointIndex(TUnpackedPathSegments const & segments,
                                          size_t outgoingSegmentIndex)
 {
+  ASSERT_GREATER(outgoingSegmentIndex, 0, ());
+  ASSERT(segments[outgoingSegmentIndex - 1].IsValid(), ());
   return RoutePointIndex({outgoingSegmentIndex - 1,
                           segments[outgoingSegmentIndex - 1].m_path.size() - 1 /* m_pathIndex */});
 }
@@ -338,26 +341,26 @@ m2::PointD GetPointForTurn(IRoutingResult const & result, size_t outgoingSegment
   ASSERT_LESS(index.m_pathIndex, segments[index.m_segmentIndex].m_path.size(), ());
   ASSERT_GREATER_OR_EQUAL(index.m_segmentIndex, 0, ());
   ASSERT_LESS(index.m_segmentIndex, segments.size(), ());
+  RoutePointIndex nextIndex;
 
   vector<Junction> const & path = segments[index.m_segmentIndex].m_path;
   ASSERT(!path.empty(), ());
 
   m2::PointD point = GetPointByIndex(segments, index);
   m2::PointD nextPoint;
-  RoutePointIndex nextIndex;
   size_t count = 0;
   double curDistanceMeters = 0.0;
 
+  ASSERT(GetNextRoutePointIndex(result, index, numMwmIds, forward, nextIndex), ());
   while (GetNextRoutePointIndex(result, index, numMwmIds, forward, nextIndex))
   {
     nextPoint = GetPointByIndex(segments, nextIndex);
 
-    // At start and finish there are two edges with zero length. There is special processing for them below.
-    if (point == nextPoint && (outgoingSegmentIndex == 1 || outgoingSegmentIndex + 1 == segments.size()))
-    {
-      ASSERT_EQUAL(path.size(), 2, ("At start and finish point should have two point edge."));
+    // At start and finish there are two edges with zero length.
+    // GetPointForTurn() should not be called for the start (|outgoingSegmentIndex| == 0).
+    // So there is special processing for the finish below.
+    if (point == nextPoint && outgoingSegmentIndex + 1 == segments.size())
       return nextPoint;
-    }
 
     curDistanceMeters += MercatorBounds::DistanceOnEarth(point, nextPoint);
     if (curDistanceMeters > maxDistMeters || ++count >= maxPointsCount)
@@ -535,7 +538,7 @@ IRouter::ResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds 
       turnItem.m_index = static_cast<uint32_t>(junctions.size() - 1);
 
       auto const outgoingSegmentDist = distance(loadedSegments.begin(), loadedSegmentIt);
-      CHECK_GREATER_OR_EQUAL(outgoingSegmentDist, 0, ());
+      CHECK_GREATER(outgoingSegmentDist, 0, ());
       auto const outgoingSegmentIndex = static_cast<size_t>(outgoingSegmentDist);
 
       skipTurnSegments = CheckUTurnOnRoute(result, outgoingSegmentIndex, numMwmIds, turnItem);
@@ -582,7 +585,8 @@ IRouter::ResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds 
   junctions.front() = result.GetStartPoint();
   junctions.back() = result.GetEndPoint();
 
-  turnsDir.emplace_back(TurnItem(static_cast<uint32_t>(junctions.size()) - 1, CarDirection::ReachedYourDestination));
+  turnsDir.emplace_back(TurnItem(base::asserted_cast<uint32_t>(junctions.size()) - 1,
+      CarDirection::ReachedYourDestination));
   FixupTurns(junctions, turnsDir);
 
 #ifdef DEBUG
@@ -920,7 +924,7 @@ void GetTurnDirection(IRoutingResult const & result, size_t outgoingSegmentIndex
   {
     auto const notSoCloseToTheTurnPoint =
         GetPointForTurn(result, outgoingSegmentIndex, numMwmIds, kNotSoCloseMaxPointsCount,
-                        kNotSoClosemaxDistMeters, false /* forward */);
+                        kNotSoCloseMaxDistMeters, false /* forward */);
 
     // Removing a slight turn if there's only one way to leave the turn and there's no ingoing edges.
     if (!KeepTurnByIngoingEdges(junctionPoint, notSoCloseToTheTurnPoint, outgoingPoint, hasMultiTurns,
@@ -1034,7 +1038,7 @@ size_t CheckUTurnOnRoute(IRoutingResult const & result, size_t outgoingSegmentIn
   return 0;
 }
 
-std::string DebugPrint(RoutePointIndex const & index)
+string DebugPrint(RoutePointIndex const & index)
 {
   stringstream out;
   out << "RoutePointIndex [ m_segmentIndex == " << index.m_segmentIndex

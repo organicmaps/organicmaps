@@ -35,7 +35,7 @@ struct LoadedPathSegment
   bool m_onRoundabout = false;
   bool m_isLink = false;
 
-  bool IsValid() const { return !m_path.empty(); }
+  bool IsValid() const { return m_path.size() > 1; }
 };
 
 using TUnpackedPathSegments = vector<LoadedPathSegment>;
