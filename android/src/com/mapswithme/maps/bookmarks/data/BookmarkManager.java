@@ -450,6 +450,12 @@ public enum BookmarkManager
     return nativeIsCategoryFromCatalog(catId);
   }
 
+  @NonNull
+  private String getCategoryAuthor(long catId)
+  {
+    return nativeGetCategoryAuthor(catId);
+  }
+
   private native int nativeGetCategoriesCount();
 
   private native int nativeGetCategoryPositionById(long catId);
@@ -478,6 +484,9 @@ public enum BookmarkManager
   private native String nativeGetCategoryName(long catId);
 
   private native void nativeSetCategoryName(long catId, @NonNull String n);
+
+  @NonNull
+  private native String nativeGetCategoryAuthor(long catId);
 
   private static native void nativeLoadBookmarks();
 

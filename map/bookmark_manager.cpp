@@ -760,19 +760,33 @@ void BookmarkManager::ClearGroup(kml::MarkGroupId groupId)
 std::string BookmarkManager::GetCategoryName(kml::MarkGroupId categoryId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return GetBmCategory(categoryId)->GetName();
+  auto const category = GetBmCategory(categoryId);
+  CHECK(category != nullptr, ());
+  return category->GetName();
 }
 
 void BookmarkManager::SetCategoryName(kml::MarkGroupId categoryId, std::string const & name)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  GetBmCategory(categoryId)->SetName(name);
+  auto category = GetBmCategory(categoryId);
+  CHECK(category != nullptr, ());
+  category->SetName(name);
 }
 
 std::string BookmarkManager::GetCategoryFileName(kml::MarkGroupId categoryId) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return GetBmCategory(categoryId)->GetFileName();
+  auto const category = GetBmCategory(categoryId);
+  CHECK(category != nullptr, ());
+  return category->GetFileName();
+}
+
+kml::CategoryData const & BookmarkManager::GetCategoryData(kml::MarkGroupId categoryId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto const category = GetBmCategory(categoryId);
+  CHECK(category != nullptr, ());
+  return category->GetCategoryData();
 }
 
 kml::MarkGroupId BookmarkManager::GetCategoryId(std::string const & name) const

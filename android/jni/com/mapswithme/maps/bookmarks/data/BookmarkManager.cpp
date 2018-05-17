@@ -373,7 +373,17 @@ JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCategoryName(
      JNIEnv * env, jobject thiz, jlong catId)
 {
-  return ToJavaString(env, frm()->GetBookmarkManager().GetCategoryName(static_cast<kml::MarkGroupId>(catId)));
+  return ToJavaString(env, frm()->GetBookmarkManager().GetCategoryName(
+                      static_cast<kml::MarkGroupId>(catId)));
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCategoryAuthor(
+        JNIEnv * env, jobject thiz, jlong catId)
+{
+  auto const & data = frm()->GetBookmarkManager().GetCategoryData(
+    static_cast<kml::MarkGroupId>(catId));
+  return ToJavaString(env, data.m_authorName);
 }
 
 JNIEXPORT jint JNICALL
