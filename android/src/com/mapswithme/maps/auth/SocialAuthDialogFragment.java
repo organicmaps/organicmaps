@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -40,7 +41,6 @@ import java.util.List;
 
 public class SocialAuthDialogFragment extends BaseMwmDialogFragment
 {
-
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = SocialAuthDialogFragment.class.getSimpleName();
   @SuppressWarnings("NullableProblems")
@@ -108,6 +108,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     View googleButton = view.findViewById(R.id.google_button);
     googleButton.setOnClickListener(mGoogleClickListener);
 
+    LoginManager.getInstance().logOut();
     LoginButton facebookButton = view.findViewById(R.id.facebook_button);
     facebookButton.setReadPermissions(Constants.FACEBOOK_PERMISSIONS);
     facebookButton.setFragment(this);
