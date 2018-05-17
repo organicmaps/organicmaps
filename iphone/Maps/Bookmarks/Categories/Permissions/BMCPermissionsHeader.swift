@@ -3,6 +3,8 @@ protocol BMCPermissionsHeaderDelegate {
 }
 
 final class BMCPermissionsHeader: UIView {
+  static private let kUDPermissionWidgetColapsed = "UDPermissionWidgetColapsed"
+
   @IBOutlet private weak var label: UILabel! {
     didSet {
       label.font = .bold14()
@@ -19,8 +21,9 @@ final class BMCPermissionsHeader: UIView {
     }
   }
 
-  var isCollapsed = false {
+  var isCollapsed = UserDefaults.standard.bool(forKey: BMCPermissionsHeader.kUDPermissionWidgetColapsed) {
     didSet {
+      UserDefaults.standard.set(isCollapsed, forKey: BMCPermissionsHeader.kUDPermissionWidgetColapsed)
       updateButton()
     }
   }

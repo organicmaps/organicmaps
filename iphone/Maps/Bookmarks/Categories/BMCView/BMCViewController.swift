@@ -20,7 +20,6 @@ final class BMCViewController: MWMViewController {
 
   @IBOutlet private var permissionsHeader: BMCPermissionsHeader! {
     didSet {
-      permissionsHeader.isCollapsed = false
       permissionsHeader.delegate = self
     }
   }
