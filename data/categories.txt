@@ -131,7 +131,7 @@ el:Βενζίνη
 he:גז
 sk:3^Čerpacia stanica
 sw:Sheli
-fa:سوخت
+fa:سوخت|بنزین|دیزل|گازوئیل
 
 @parking
 en:^Parking
@@ -701,7 +701,7 @@ uk:2Магазин|крамниця
 zh-Hans:商店
 zh-Hant:1購物|店鋪|商店|雜貨店|便利商店
 el:Κατάστημα
-fa:^فروشگاه|مرکزخرید
+fa:مرکزخرید
 
 shop-cosmetics|@shop
 en:4^Beauty Care|home care|U+1F3EC|U+1F3EA
@@ -3243,7 +3243,7 @@ zh-Hans:^医师办公室|诊所|医院
 zh-Hant:^醫師診間|診所|醫院
 el:^Γιατρός|κλινική|νοσοκομείο
 sk:^Ambulancia|Poliklinika|nemocnica
-fa:دکتر
+fa:کلینیک|مطب دکتر
 
 amenity-dentist
 en:^Dentist
@@ -3307,7 +3307,7 @@ zh-Hant:1^狩獵場|打獵|狩獵|獵人|獵
 el:^Βάση σκόπευσης
 sk:^Lovecké stanovisko|posiedka
 sw:^Uwanja wa mawindo
-fa:محل شکار
+fa:شکارگاه
 
 amenity-kindergarten
 en:^Kindergarten|U+1F476|U+1F37C|U+1F6BC
@@ -3340,7 +3340,7 @@ zh-Hant:^幼兒園|1幼稚園
 el:^Νηπιαγωγείο
 sk:^Škôlka|materská škola|detská škôlka
 sw:^Chekechea
-fa:مهد کودک
+fa:مهدکودک
 
 amenity-library
 en:3^Library|U+1F4D6
@@ -3566,7 +3566,7 @@ zh-Hant:^垃圾|回收|回收場
 el:^Σκουπίδια
 he:^במכולה|הפשא
 sk:^Odpadky|kôš
-fa:مکان دفع زباله
+fa:زباله دانی
 
 amenity-recycling
 en:^Recycling Center|U+1F6AE|U+267B
@@ -3731,7 +3731,7 @@ el:^Τουαλέτα
 he:^שירותים
 sk:^Záchody
 sw:^Choo
-fa:توالت
+fa:دستشویی|توالت
 
 amenity-toilets|@toilet
 en:wc|5restroom|4bathroom|loo|lavatory|U+1F6BD|U+1F6BE|U+1F4A9|U+1F6BB|U+1F6B9|U+1F6BA
@@ -3751,7 +3751,7 @@ vi:Nhà vệ sinh
 zh-Hant:2洗手間|wc
 el:μπάνιο|χώρος ανάγκης|αποχωρητήριο|wc
 sk:3Toalety|wc
-fa:توالت
+fa:توالت|دستشویی
 
 amenity-university
 en:4^University|U+1F393
@@ -5875,7 +5875,7 @@ zh-Hans:^裁缝
 zh-Hant:^裁縫師
 el:^Ράφτης
 sk:^Krajčírstvo
-fa:خیاط
+fa:خیاطی
 
 area:highway-footway|area:highway-pedestrian|area:highway-steps
 en:^Square
