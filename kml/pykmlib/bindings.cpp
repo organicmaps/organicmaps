@@ -77,16 +77,6 @@ struct LocalizableStringAdapter
       throw std::runtime_error("Language not found");
   }
 
-  static std::string GetDefault(LocalizableString const & str)
-  {
-    return GetDefaultStr(str);
-  }
-
-  static void SetDefault(LocalizableString & str, std::string const & val)
-  {
-    SetDefaultStr(str, val);
-  }
-
   static boost::python::dict GetDict(LocalizableString const & str)
   {
     boost::python::dict d;
@@ -696,8 +686,6 @@ BOOST_PYTHON_MODULE(pykmlib)
     .def("__getitem__", &LocalizableStringAdapter::Get, return_value_policy<copy_const_reference>())
     .def("__setitem__", &LocalizableStringAdapter::Set, with_custodian_and_ward<1,2>())
     .def("__delitem__", &LocalizableStringAdapter::Delete)
-    .def("get_default", &LocalizableStringAdapter::GetDefault)
-    .def("set_default", &LocalizableStringAdapter::SetDefault)
     .def("get_dict", &LocalizableStringAdapter::GetDict)
     .def("set_dict", &LocalizableStringAdapter::SetDict)
     .def("__str__", &LocalizableStringAdapter::ToString);

@@ -16,11 +16,11 @@ class PyKmlibAdsTest(unittest.TestCase):
         pykmlib.load_classificator_types(classificator_file_str, types_file_str)
 
         category = pykmlib.CategoryData()
-        category.name.set_default('Test category')
+        category.name['default'] = 'Test category'
         category.name['ru'] = 'Тестовая категория'
-        category.description.set_default('Test description')
+        category.description['default'] = 'Test description'
         category.description['ru'] = 'Тестовое описание'
-        category.annotation.set_default('Test annotation')
+        category.annotation['default'] = 'Test annotation'
         category.annotation['en'] = 'Test annotation'
         category.image_url = 'https://localhost/123.png'
         category.visible = True
@@ -36,14 +36,14 @@ class PyKmlibAdsTest(unittest.TestCase):
         category.properties.set_dict({'property1':'value1', 'property2':'value2'})
 
         bookmark = pykmlib.BookmarkData()
-        bookmark.name.set_default('Test bookmark')
+        bookmark.name['default'] = 'Test bookmark'
         bookmark.name['ru'] = 'Тестовая метка'
-        bookmark.description.set_default('Test bookmark description')
+        bookmark.description['default'] = 'Test bookmark description'
         bookmark.description['ru'] = 'Тестовое описание метки'
         bookmark.feature_types.set_list([
             pykmlib.classificator_type_to_index('historic-castle'),
             pykmlib.classificator_type_to_index('historic-memorial')])
-        bookmark.custom_name.set_default('Мое любимое место')
+        bookmark.custom_name['default'] = 'Мое любимое место'
         bookmark.custom_name['en'] = 'My favorite place'
         bookmark.color.predefined_color = pykmlib.PredefinedColor.BLUE
         bookmark.color.rgba = 0
@@ -62,9 +62,9 @@ class PyKmlibAdsTest(unittest.TestCase):
 
         track = pykmlib.TrackData()
         track.local_id = 1
-        track.name.set_default('Test track')
+        track.name['default'] = 'Test track'
         track.name['ru'] = 'Тестовый трек'
-        track.description.set_default('Test track description')
+        track.description['default'] = 'Test track description'
         track.description['ru'] = 'Тестовое описание трека'
         track.timestamp = int(datetime.datetime.now().timestamp())
         track.layers.set_list([layer1, layer2])
