@@ -76,9 +76,9 @@ protected:
 UNIT_CLASS_TEST(SearchAPITest, MultipleViewportsRequests)
 {
   TestCafe cafe1(m2::PointD(0, 0), "cafe 1", "en");
-  TestCafe cafe2(m2::PointD(0, 0), "cafe 2", "en");
+  TestCafe cafe2(m2::PointD(0.5, 0.5), "cafe 2", "en");
   TestCafe cafe3(m2::PointD(10, 10), "cafe 3", "en");
-  TestCafe cafe4(m2::PointD(10, 10), "cafe 4", "en");
+  TestCafe cafe4(m2::PointD(10.5, 10.5), "cafe 4", "en");
 
   auto const id = BuildCountry("Wonderland", [&](TestMwmBuilder & builder) {
     builder.Add(cafe1);
