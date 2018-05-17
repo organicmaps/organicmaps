@@ -10,7 +10,7 @@
     android:orientation="vertical"
     android:padding="@dimen/margin_base_plus">
     <TextView
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       style="@style/MwmTheme.DialogTitleBase"
       android:text="@string/profile_authorization_title"/>
@@ -38,7 +38,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_base"
         android:layout_marginStart="@dimen/margin_base"
-        android:linksClickable="true"
         android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
         android:text="@string/sign_agree_pp_gdpr"/>
     </LinearLayout>
