@@ -842,12 +842,6 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     info.SetSponsoredUrl(url);
     info.SetSponsoredDescriptionUrl(url);
   }
-  else if (ftypes::IsViatorChecker::Instance()(ft))
-  {
-    info.SetSponsoredType(place_page::SponsoredType::Viator);
-    auto const & sponsoredId = info.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
-    info.SetSponsoredUrl(viator::Api::GetCityUrl(sponsoredId));
-  }
   else if (ftypes::IsHotelChecker::Instance()(ft))
   {
     auto const url = MakeSearchBookingUrl(*m_bookingApi, *m_cityFinder, ft);
@@ -2139,7 +2133,6 @@ void Framework::UpdatePlacePageInfoForCurrentSelection()
     return;
 
   SetPlacePageLocation(info);
-  InjectViator(info);
 
   ActivateMapSelection(false, obj, info);
 }
@@ -2208,7 +2201,6 @@ void Framework::OnTapEvent(TapEvent const & tapEvent)
     }
 
     SetPlacePageLocation(info);
-    InjectViator(info);
 
     ActivateMapSelection(true, selection, info);
   }
