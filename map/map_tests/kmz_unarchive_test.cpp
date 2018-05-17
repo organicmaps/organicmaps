@@ -20,29 +20,9 @@ UNIT_TEST(KMZ_UnzipTest)
   UserMarkIdStorage::Instance().EnableSaving(false);
 
   string const kmzFile = GetPlatform().TestsDataPathForFile("test.kmz");
-  ZipFileReader::FileListT files;
-  ZipFileReader::FilesList(kmzFile, files);
-
-  bool isKMLinZip = false;
-
-  for (size_t i = 0; i < files.size(); ++i)
-  {
-    if (files[i].first == "doc.kml")
-    {
-      isKMLinZip = true;
-      break;
-    }
-  }
-  TEST(isKMLinZip, ("No KML file in KMZ"));
-
-  string const kmlFile = GetPlatform().WritablePathForFile("newKml.kml");
-  MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, kmlFile));
-  ZipFileReader::UnzipFile(kmzFile, "doc.kml", kmlFile);
-
-  auto kmlData = LoadKmlData(FileReader(kmlFile), false /* useBinary */);
+  std::string kmlHash;
+  auto kmlData = LoadKmzFile(kmzFile, kmlHash);
   TEST(kmlData != nullptr, ());
-
-  TEST_EQUAL(files.size(), 6, ("KMZ file wrong number of files"));
 
   TEST_EQUAL(kmlData->m_bookmarksData.size(), 6, ("Category wrong number of bookmarks"));
 

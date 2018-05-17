@@ -253,16 +253,16 @@ std::string const kKmzExtension = ".kmz";
 std::string const kKmlExtension = ".kml";
 std::string const kKmbExtension = ".kmb";
 
-std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, bool useBinary)
+std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType fileType)
 {
   std::unique_ptr<kml::FileData> kmlData;
   try
   {
-    kmlData = LoadKmlData(FileReader(file, true /* withExceptions */), useBinary);
+    kmlData = LoadKmlData(FileReader(file, true /* withExceptions */), fileType);
   }
   catch (std::exception const & e)
   {
-    LOG(LWARNING, ("KML", useBinary ? "binary" : "text", "loading failure:", e.what()));
+    LOG(LWARNING, ("KML", fileType, "loading failure:", e.what()));
     kmlData.reset();
   }
   if (kmlData == nullptr)
@@ -293,60 +293,64 @@ std::unique_ptr<kml::FileData> LoadKmzFile(std::string const & file, std::string
     return nullptr;
   
   kmlHash = coding::SHA1::CalculateBase64(unarchievedPath);
-  return LoadKmlFile(unarchievedPath, false /* binary */);
+  return LoadKmlFile(unarchievedPath, KmlFileType::Text);
 }
 
-std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, bool useBinary)
+std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fileType)
 {
   auto data = std::make_unique<kml::FileData>();
   try
   {
-    if (useBinary)
+    if (fileType == KmlFileType::Binary)
     {
       kml::binary::DeserializerKml des(*data);
       des.Deserialize(reader);
     }
-    else
+    else if (fileType == KmlFileType::Text)
     {
       kml::DeserializerKml des(*data);
       des.Deserialize(reader);
+    }
+    else
+    {
+      CHECK(false, ("Not supported KmlFileType"));
     }
     ValidateKmlData(data);
   }
   catch (Reader::Exception const & e)
   {
-    LOG(LWARNING, ("KML", useBinary ? "binary" : "text", "reading failure:", e.what()));
+    LOG(LWARNING, ("KML", fileType, "reading failure:", e.what()));
     return nullptr;
   }
   catch (kml::binary::DeserializerKml::DeserializeException const & e)
   {
-    LOG(LWARNING, ("KML binary deserialization failure:", e.what()));
+    LOG(LWARNING, ("KML", fileType, "deserialization failure:", e.what()));
     return nullptr;
   }
   catch (kml::DeserializerKml::DeserializeException const & e)
   {
-    LOG(LWARNING, ("KML text deserialization failure:", e.what()));
+    LOG(LWARNING, ("KML", fileType, "deserialization failure:", e.what()));
     return nullptr;
   }
   catch (std::exception const & e)
   {
-    LOG(LWARNING, ("KML", useBinary ? "binary" : "text", "loading failure:", e.what()));
+    LOG(LWARNING, ("KML", fileType, "loading failure:", e.what()));
     return nullptr;
   }
   return data;
 }
 
-bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, bool useBinary)
+bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, KmlFileType fileType)
 {
   bool success;
   try
   {
     FileWriter writer(file);
-    success = SaveKmlData(kmlData, writer, useBinary);
+    success = SaveKmlData(kmlData, writer, fileType);
   }
   catch (std::exception const & e)
   {
-    LOG(LWARNING, ("KML", useBinary ? "binary" : "text", "saving failure:", e.what()));
+    LOG(LWARNING, ("KML", fileType, "saving failure:", e.what()));
     success = false;
   }
   if (!success)
@@ -354,29 +358,33 @@ bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, bool useBina
   return success;
 }
 
-bool SaveKmlData(kml::FileData & kmlData, Writer & writer, bool useBinary)
+bool SaveKmlData(kml::FileData & kmlData, Writer & writer, KmlFileType fileType)
 {
   try
   {
-    if (useBinary)
+    if (fileType == KmlFileType::Binary)
     {
       kml::binary::SerializerKml ser(kmlData);
       ser.Serialize(writer);
     }
-    else
+    else if (fileType == KmlFileType::Text)
     {
       kml::SerializerKml ser(kmlData);
       ser.Serialize(writer);
     }
+    else
+    {
+      CHECK(false, ("Not supported KmlFileType"));
+    }
   }
   catch (Writer::Exception const & e)
   {
-    LOG(LWARNING, ("KML", useBinary ? "binary" : "text", "writing failure:", e.what()));
+    LOG(LWARNING, ("KML", fileType, "writing failure:", e.what()));
     return false;
   }
   catch (std::exception const & e)
   {
-    LOG(LWARNING, ("KML", useBinary ? "binary" : "text", "serialization failure:", e.what()));
+    LOG(LWARNING, ("KML", fileType, "serialization failure:", e.what()));
     return false;
   }
   return true;

@@ -2,6 +2,7 @@
 
 #include "map/bookmark.hpp"
 #include "map/bookmark_catalog.hpp"
+#include "map/bookmark_helpers.hpp"
 #include "map/cloud.hpp"
 #include "map/track.hpp"
 #include "map/user_mark_layer.hpp"
@@ -289,7 +290,7 @@ public:
   /// These functions are public for unit tests only. You shouldn't call them from client code.
   void EnableTestMode(bool enable);
   bool SaveBookmarkCategory(kml::MarkGroupId groupId);
-  bool SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & writer, bool useBinary) const;
+  bool SaveBookmarkCategory(kml::MarkGroupId groupId, Writer & writer, KmlFileType fileType) const;
   void CreateCategories(KMLDataCollection && dataCollection, bool autoSave = true);
   static std::string RemoveInvalidSymbols(std::string const & name, std::string const & defaultName);
   static std::string GenerateUniqueFileName(std::string const & path, std::string name, std::string const & fileExt);
@@ -436,10 +437,9 @@ private:
   void NotifyAboutFile(bool success, std::string const & filePath, bool isTemporaryFile);
   void LoadBookmarkRoutine(std::string const & filePath, bool isTemporaryFile);
   
-  using BookmarksChecker = std::function<bool(std::unique_ptr<kml::FileData> const &)>;
-  KMLDataCollectionPtr LoadBookmarks(std::string const & dir,
-                                     std::string const & ext, bool binary,
-                                     BookmarksChecker const & checker,
+  using BookmarksChecker = std::function<bool(kml::FileData const &)>;
+  KMLDataCollectionPtr LoadBookmarks(std::string const & dir, std::string const & ext,
+                                     KmlFileType fileType, BookmarksChecker const & checker,
                                      std::vector<std::string> & filePaths);
 
   void CollectDirtyGroups(kml::GroupIdSet & dirtyGroups);

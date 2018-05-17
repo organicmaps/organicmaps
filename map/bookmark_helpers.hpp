@@ -13,12 +13,27 @@ extern std::string const kKmzExtension;
 extern std::string const kKmlExtension;
 extern std::string const kKmbExtension;
 
-std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, bool useBinary);
-std::unique_ptr<kml::FileData> LoadKmzFile(std::string const & file, std::string & kmlHash);
-std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, bool useBinary);
+enum class KmlFileType
+{
+  Text,
+  Binary
+};
 
-bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, bool useBinary);
-bool SaveKmlData(kml::FileData & kmlData, Writer & writer, bool useBinary);
+inline std::string DebugPrint(KmlFileType fileType)
+{
+  switch (fileType)
+  {
+  case KmlFileType::Text: return "Text";
+  case KmlFileType::Binary: return "Binary";
+  }
+}
+
+std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType fileType);
+std::unique_ptr<kml::FileData> LoadKmzFile(std::string const & file, std::string & kmlHash);
+std::unique_ptr<kml::FileData> LoadKmlData(Reader const & reader, KmlFileType fileType);
+
+bool SaveKmlFile(kml::FileData & kmlData, std::string const & file, KmlFileType fileType);
+bool SaveKmlData(kml::FileData & kmlData, Writer & writer, KmlFileType fileType);
 
 void ResetIds(kml::FileData & kmlData);
 
