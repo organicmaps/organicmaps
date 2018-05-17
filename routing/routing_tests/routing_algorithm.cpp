@@ -137,8 +137,9 @@ IRoutingAlgorithm::Result AStarBidirectionalRoutingAlgorithm::CalculateRoute(
     RoutingResult<IRoadGraph::Vertex, IRoadGraph::Weight> & path)
 {
   RoadGraph roadGraph(graph);
+  base::Cancellable const cancellable;
   TAlgorithmImpl::Params params(roadGraph, startPos, finalPos, {} /* prevRoute */,
-                                {} /* cancellable */, {} /* onVisitJunctionFn */, {} /* checkLength */);
+                                cancellable, {} /* onVisitJunctionFn */, {} /* checkLength */);
   TAlgorithmImpl::Result const res = TAlgorithmImpl().FindPathBidirectional(params, path);
   return Convert(res);
 }
