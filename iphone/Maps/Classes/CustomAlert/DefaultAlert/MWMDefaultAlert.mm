@@ -197,7 +197,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 + (instancetype)internalErrorAlert
 {
   return [self defaultAlertWithTitle:L(@"dialog_routing_system_error")
-                             message:nil
+                             message:L(@"error_system_message")
                     rightButtonTitle:L(@"ok")
                      leftButtonTitle:nil
                    rightButtonAction:nil
@@ -206,7 +206,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 
 + (instancetype)notEnoughSpaceAlert
 {
-  MWMDefaultAlert * alert = [self defaultAlertWithTitle:L(@"migration_download_error_dialog")
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:L(@"downloader_no_space_title")
                                                 message:L(@"migration_no_space_message")
                                        rightButtonTitle:L(@"ok")
                                         leftButtonTitle:nil
