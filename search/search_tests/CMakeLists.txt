@@ -24,6 +24,7 @@ set(
   region_info_getter_tests.cpp
   segment_tree_tests.cpp
   string_match_test.cpp
+  text_index_tests.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})

@@ -2,17 +2,19 @@
 
 #include "coding/endianness.hpp"
 
+#include <cstdint>
 #include <type_traits>
 
-template <class TSink, typename T>
+template <class Sink, typename T>
 std::enable_if_t<std::is_integral<T>::value || std::is_enum<T>::value, void> WriteToSink(
-    TSink & sink, T const & v)
+    Sink & sink, T const & v)
 {
   T const t = SwapIfBigEndian(v);
   sink.Write(&t, sizeof(T));
 }
 
-template <class TSink> void WriteZeroesToSink(TSink & sink, uint64_t size)
+template <class Sink>
+void WriteZeroesToSink(Sink & sink, uint64_t size)
 {
   uint8_t const zeroes[256] = { 0 };
   for (uint64_t i = 0; i < (size >> 8); ++i)
@@ -20,14 +22,17 @@ template <class TSink> void WriteZeroesToSink(TSink & sink, uint64_t size)
   sink.Write(zeroes, size & 255);
 }
 
-template <typename SinkT> class WriterFunctor
+template <typename Sink>
+class WriterFunctor
 {
-  SinkT & m_Sink;
-
 public:
-  explicit WriterFunctor(SinkT & sink) : m_Sink(sink) {}
+  explicit WriterFunctor(Sink & sink) : m_sink(sink) {}
+
   template <typename T> void operator() (T const & t) const
   {
-    m_Sink.Write(&t, sizeof(T));
+    m_sink.Write(&t, sizeof(T));
   }
+
+private:
+  Sink & m_sink;
 };
