@@ -191,8 +191,9 @@ struct DownloadingRequestData
   std::string m_fileName;
   uint64_t m_datetime = 0;
 
-  explicit DownloadingRequestData(std::string const & fileName, uint64_t datetime)
-    : m_deviceId(GetPlatform().UniqueClientId()), m_fileName(fileName), m_datetime(datetime)
+  DownloadingRequestData(std::string const & deviceId, std::string const & fileName,
+                         uint64_t datetime)
+    : m_deviceId(deviceId), m_fileName(fileName), m_datetime(datetime)
   {}
 
   DECLARE_VISITOR(visitor(m_deviceId, "device_id"), visitor(m_fileName, "file_name"),
@@ -1358,11 +1359,13 @@ void Cloud::DownloadingTask(std::string const & dirPath, bool useFallbackUrl,
   GetPlatform().RunTask(Platform::Thread::Network,
     [this, dirPath, useFallbackUrl, files = std::move(files)]() mutable
   {
+    std::string snapshotDeviceId;
     {
       // Check if the process was interrupted.
       std::lock_guard<std::mutex> lock(m_mutex);
       if (m_restoringState != RestoringState::Applying)
         return;
+      snapshotDeviceId = m_bestSnapshotData.m_deviceId;
     }
 
     if (files.empty())
@@ -1377,7 +1380,7 @@ void Cloud::DownloadingTask(std::string const & dirPath, bool useFallbackUrl,
 
     auto const url = BuildMethodUrl(m_params.m_serverPathName, kServerDownloadMethod);
     auto const result = CloudRequestWithJsonResult<DownloadingRequestData, DownloadingResult>(
-        url, GetAccessToken(), f.m_fileName, f.m_datetime);
+        url, GetAccessToken(), snapshotDeviceId, f.m_fileName, f.m_datetime);
 
     if (result.m_isMalformed || result.m_response.m_url.empty())
     {
