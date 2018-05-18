@@ -1314,7 +1314,7 @@
 	<string name="bookmarks_restore">Восстановить метки</string>
 	<string name="bookmarks_restore_process">Восстановление...</string>
 	<string name="bookmarks_restore_title">Восстановить эту версию?</string>
-	<string name="bookmarks_restore_message">Ваши закладки будут восстановлены от s%</string>
+	<string name="bookmarks_restore_message">Ваши закладки будут восстановлены от %s</string>
 	<string name="bookmarks_restore_empty_title">У вас нет резервных копий</string>
 	<string name="bookmarks_restore_empty_message">Сервер не нашел ранее сделанные резервные копии</string>
 	<string name="common_check_internet_connection_dialog_title">Нет интернет соединения</string>
