@@ -30971,7 +30971,7 @@ fa = دوباره نپرس
 
   [bookmarks_restore_message]
     en = Your bookmarks will be restored from %s
-    ru = Ваши закладки будут восстановлены от s%
+    ru = Ваши закладки будут восстановлены от %s
     ar = ستستعيد إشاراتك المرجعية من %s
     cs = Záložky se obnoví z %s
     da = Dine bogmærker gendannes fra %s
