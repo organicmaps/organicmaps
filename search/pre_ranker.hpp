@@ -28,7 +28,7 @@ public:
   {
     m2::RectD m_viewport;
 
-    // A minimum distance between search results in meters, needed for
+    // Minimal distance between search results in mercators, needed for
     // filtering of viewport search results.
     double m_minDistanceOnMapBetweenResults = 0.0;
 

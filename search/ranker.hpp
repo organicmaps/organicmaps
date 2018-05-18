@@ -66,9 +66,9 @@ public:
 
     m2::PointD m_accuratePivotCenter = m2::PointD(0, 0);
 
-    // A minimum distance between search results in meters, needed for
+    // Minimal distance between search results in meters, needed for
     // filtering of identical search results.
-    double m_minDistanceOnMapBetweenResults = 0.0;
+    double m_minDistanceBetweenResultsM = 100.0;
 
     Locales m_categoryLocales;
 

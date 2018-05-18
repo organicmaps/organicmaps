@@ -63,8 +63,6 @@ public:
   static double const kMinViewportRadiusM;
   static double const kMaxViewportRadiusM;
 
-  static double const kMinDistanceOnMapBetweenResultsM;
-
   Processor(Index const & index, CategoriesHolder const & categories,
             std::vector<Suggest> const & suggests, storage::CountryInfoGetter const & infoGetter);
 

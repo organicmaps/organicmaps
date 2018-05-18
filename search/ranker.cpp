@@ -552,7 +552,7 @@ void Ranker::MakeRankerResults(Geocoder::Params const & geocoderParams,
       continue;
     }
 
-    if (!ResultExists(*p, results, m_params.m_minDistanceOnMapBetweenResults))
+    if (!ResultExists(*p, results, m_params.m_minDistanceBetweenResultsM))
       results.push_back(move(*p));
   };
 }

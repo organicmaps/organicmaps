@@ -140,7 +140,6 @@ void RemoveStopWordsIfNeeded(QueryTokens & tokens, strings::UniString & prefix)
 size_t const Processor::kPreResultsCount = 200;
 double const Processor::kMinViewportRadiusM = 5.0 * 1000;
 double const Processor::kMaxViewportRadiusM = 50.0 * 1000;
-double const Processor::kMinDistanceOnMapBetweenResultsM = 100.0;
 
 Processor::Processor(Index const & index, CategoriesHolder const & categories,
                      vector<Suggest> const & suggests,
@@ -580,14 +579,7 @@ void Processor::InitRanker(Geocoder::Params const & geocoderParams,
   params.m_currentLocaleCode = m_currentLocaleCode;
 
   if (viewportSearch)
-  {
     params.m_viewport = GetViewport();
-    params.m_minDistanceOnMapBetweenResults = searchParams.m_minDistanceOnMapBetweenResults;
-  }
-  else
-  {
-    params.m_minDistanceOnMapBetweenResults = kMinDistanceOnMapBetweenResultsM;
-  }
 
   params.m_limit = searchParams.m_maxNumResults;
   params.m_position = GetPosition();
