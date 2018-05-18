@@ -18,11 +18,13 @@
 
 #include "defines.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-#include "std/set.hpp"
+#include <algorithm>
+#include <functional>
+#include <set>
+#include <string>
 
 using namespace platform::tests_support;
+using namespace std;
 
 namespace platform
 {
@@ -112,25 +114,29 @@ UNIT_TEST(LocalCountryFile_DiskFiles)
 
     string const mapFileName = GetFileName(countryFile.GetName(), MapOptions::Map,
                                            version::FOR_TESTING_TWO_COMPONENT_MWM1);
-    ScopedFile testMapFile(mapFileName, "map");
+
+    string const mapFileContents("map");
+    ScopedFile testMapFile(mapFileName, mapFileContents);
 
     localFile.SyncWithDisk();
     TEST(localFile.OnDisk(MapOptions::Map), ());
     TEST(!localFile.OnDisk(MapOptions::CarRouting), ());
     TEST(!localFile.OnDisk(MapOptions::MapWithCarRouting), ());
-    TEST_EQUAL(3, localFile.GetSize(MapOptions::Map), ("Size of the content (word \"map\") should be 3."));
+    TEST_EQUAL(mapFileContents.size(), localFile.GetSize(MapOptions::Map), ());
 
     string const routingFileName = GetFileName(countryFile.GetName(), MapOptions::CarRouting,
                                                version::FOR_TESTING_TWO_COMPONENT_MWM1);
-    ScopedFile testRoutingFile(routingFileName, "routing");
+    string const routingFileContents("routing");
+    ScopedFile testRoutingFile(routingFileName, routingFileContents);
 
     localFile.SyncWithDisk();
     TEST(localFile.OnDisk(MapOptions::Map), ());
     TEST(localFile.OnDisk(MapOptions::CarRouting), ());
     TEST(localFile.OnDisk(MapOptions::MapWithCarRouting), ());
-    TEST_EQUAL(3, localFile.GetSize(MapOptions::Map), ());
-    TEST_EQUAL(7, localFile.GetSize(MapOptions::CarRouting), ());
-    TEST_EQUAL(10, localFile.GetSize(MapOptions::MapWithCarRouting), ());
+    TEST_EQUAL(mapFileContents.size(), localFile.GetSize(MapOptions::Map), ());
+    TEST_EQUAL(routingFileContents.size(), localFile.GetSize(MapOptions::CarRouting), ());
+    TEST_EQUAL(mapFileContents.size() + routingFileContents.size(),
+               localFile.GetSize(MapOptions::MapWithCarRouting), ());
 
     localFile.DeleteFromDisk(MapOptions::MapWithCarRouting);
     TEST(!testMapFile.Exists(), (testMapFile, "wasn't deleted by LocalCountryFile."));
