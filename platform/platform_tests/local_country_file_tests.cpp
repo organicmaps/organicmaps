@@ -112,17 +112,17 @@ UNIT_TEST(LocalCountryFile_DiskFiles)
 
     string const mapFileName = GetFileName(countryFile.GetName(), MapOptions::Map,
                                            version::FOR_TESTING_TWO_COMPONENT_MWM1);
-    ScopedFile testMapFile(mapFileName, ScopedFile::Mode::Create);
+    ScopedFile testMapFile(mapFileName, "map");
 
     localFile.SyncWithDisk();
     TEST(localFile.OnDisk(MapOptions::Map), ());
     TEST(!localFile.OnDisk(MapOptions::CarRouting), ());
     TEST(!localFile.OnDisk(MapOptions::MapWithCarRouting), ());
-    TEST_EQUAL(3, localFile.GetSize(MapOptions::Map), ());
+    TEST_EQUAL(3, localFile.GetSize(MapOptions::Map), ("Size of the content (word \"map\") should be 3."));
 
     string const routingFileName = GetFileName(countryFile.GetName(), MapOptions::CarRouting,
                                                version::FOR_TESTING_TWO_COMPONENT_MWM1);
-    ScopedFile testRoutingFile(routingFileName, ScopedFile::Mode::Create);
+    ScopedFile testRoutingFile(routingFileName, "routing");
 
     localFile.SyncWithDisk();
     TEST(localFile.OnDisk(MapOptions::Map), ());
