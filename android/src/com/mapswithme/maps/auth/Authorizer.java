@@ -63,16 +63,14 @@ public class Authorizer implements AuthorizationListener
 
     String name = SocialAuthDialogFragment.class.getName();
     DialogFragment fragment = (DialogFragment) Fragment.instantiate(mFragment.getContext(), name);
-    fragment.setTargetFragment(mFragment, Constants.REQ_CODE_GET_SOCIAL_TOKEN);
-    fragment.show(mFragment.getActivity().getSupportFragmentManager(), name);
+    // A communication with the SocialAuthDialogFragment is implemented via getParentFragment method
+    // because of 'setTargetFragment' paradigm doesn't survive the activity configuration change
+    // due to this issue https://issuetracker.google.com/issues/36969568
+    fragment.show(mFragment.getChildFragmentManager(), name);
   }
 
-  public final void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+  public final void onSocialTokenResult(int resultCode, @Nullable Intent data)
   {
-
-    if (requestCode != Constants.REQ_CODE_GET_SOCIAL_TOKEN)
-      return;
-
     if (data == null)
       return;
 
@@ -138,5 +136,10 @@ public class Authorizer implements AuthorizationListener
     void onAuthorizationStart();
     void onSocialAuthenticationCancel(@Framework.AuthTokenType int type);
     void onSocialAuthenticationError(@Framework.AuthTokenType int type, @Nullable String error);
+  }
+
+  public interface SocialAuthCallback
+  {
+    void onSocialTokenResult(int resultCode, @Nullable Intent data);
   }
 }

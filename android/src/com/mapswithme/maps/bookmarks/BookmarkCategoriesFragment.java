@@ -32,7 +32,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
                BookmarkManager.BookmarksLoadingListener,
                BookmarkManager.BookmarksSharingListener,
                BookmarkCategoriesAdapter.CategoryListInterface,
-               KmlImportController.ImportKmlCallback
+               KmlImportController.ImportKmlCallback, Authorizer.SocialAuthCallback
 {
   private static final int MAX_CATEGORY_NAME_LENGTH = 60;
   private long mSelectedCatId;
@@ -287,14 +287,6 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent data)
-  {
-    super.onActivityResult(requestCode, resultCode, data);
-    if (mBackupController != null)
-      mBackupController.onActivityResult(requestCode, resultCode, data);
-  }
-
-  @Override
   public void onFinishKmlImport()
   {
     if (getAdapter() != null)
@@ -319,6 +311,13 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   public EditTextDialogFragment.Validator getValidator()
   {
     return new CategoryValidator();
+  }
+
+  @Override
+  public void onSocialTokenResult(int resultCode, @Nullable Intent data)
+  {
+    if (mBackupController != null)
+      mBackupController.onSocialTokenResult(resultCode, data);
   }
 
   interface CategoryEditor

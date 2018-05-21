@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
@@ -83,6 +82,8 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   @SuppressWarnings("NullableProblems")
   @NonNull
   private CheckBox mPromoCheck;
+  @Nullable
+  private Authorizer.SocialAuthCallback mTargetCallback;
 
   @NonNull
   @Override
@@ -97,11 +98,24 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+    setTargetCallback();
     GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestIdToken(PrivateVariables.googleWebClientId())
         .requestEmail()
         .build();
     mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
+  }
+
+  private void setTargetCallback()
+  {
+    try
+    {
+      mTargetCallback = (Authorizer.SocialAuthCallback) getParentFragment();
+    }
+    catch (ClassCastException e)
+    {
+      throw new ClassCastException("Caller must implement SocialAuthCallback interface!");
+    }
   }
 
   @Nullable
@@ -170,8 +184,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
                           @Framework.AuthTokenType int type, @Nullable String error,
                           boolean isCancel)
   {
-    Fragment caller = getTargetFragment();
-    if (caller == null || !caller.isAdded())
+    if (mTargetCallback == null)
       return;
 
     Intent data = new Intent();
@@ -182,7 +195,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     data.putExtra(Constants.EXTRA_PRIVACY_POLICY_ACCEPTED, mPrivacyPolicyCheck.isChecked());
     data.putExtra(Constants.EXTRA_TERMS_OF_USE_ACCEPTED, mTermOfUseCheck.isChecked());
     data.putExtra(Constants.EXTRA_PROMO_ACCEPTED, mPromoCheck.isChecked());
-    caller.onActivityResult(Constants.REQ_CODE_GET_SOCIAL_TOKEN, resultCode, data);
+    mTargetCallback.onSocialTokenResult(resultCode, data);
   }
 
   @Override

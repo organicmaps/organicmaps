@@ -3,6 +3,7 @@ package com.mapswithme.maps.auth;
 import android.content.Intent;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 
@@ -12,7 +13,7 @@ import com.mapswithme.maps.base.BaseMwmToolbarFragment;
  * to get user authorized for the MapsMe server (Passport).
  */
 public abstract class BaseMwmAuthorizationFragment extends BaseMwmToolbarFragment
-    implements Authorizer.Callback
+    implements Authorizer.Callback, Authorizer.SocialAuthCallback
 {
   @NonNull
   private final Authorizer mAuthorizer = new Authorizer(this);
@@ -39,9 +40,8 @@ public abstract class BaseMwmAuthorizationFragment extends BaseMwmToolbarFragmen
   }
 
   @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent data)
+  public void onSocialTokenResult(int resultCode, @Nullable Intent data)
   {
-    super.onActivityResult(requestCode, resultCode, data);
-    mAuthorizer.onActivityResult(requestCode, resultCode, data);
+    mAuthorizer.onSocialTokenResult(resultCode, data);
   }
 }

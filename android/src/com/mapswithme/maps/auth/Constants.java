@@ -5,7 +5,6 @@ import java.util.List;
 
 class Constants
 {
-  static final int REQ_CODE_GET_SOCIAL_TOKEN = 101;
   static final int REQ_CODE_PHONE_AUTH_RESULT = 102;
   static final int REQ_CODE_GOOGLE_SIGN_IN = 103;
   static final String EXTRA_SOCIAL_TOKEN = "extra_social_token";

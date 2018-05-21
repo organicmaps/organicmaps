@@ -15,6 +15,7 @@ import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.statistics.Statistics;
 
 public class PassportAuthDialogFragment extends BaseMwmDialogFragment
+    implements Authorizer.SocialAuthCallback
 {
   @NonNull
   private final Authorizer mAuthorizer = new Authorizer(this);
@@ -33,15 +34,6 @@ public class PassportAuthDialogFragment extends BaseMwmDialogFragment
   }
 
   @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent data)
-  {
-    super.onActivityResult(requestCode, resultCode, data);
-
-    mAuthorizer.onActivityResult(requestCode, resultCode, data);
-    dismiss();
-  }
-
-  @Override
   @CallSuper
   public void onStart()
   {
@@ -55,6 +47,13 @@ public class PassportAuthDialogFragment extends BaseMwmDialogFragment
   {
     super.onStop();
     mAuthorizer.detach();
+  }
+
+  @Override
+  public void onSocialTokenResult(int resultCode, @Nullable Intent data)
+  {
+    mAuthorizer.onSocialTokenResult(resultCode, data);
+    dismiss();
   }
 
   private class AuthCallback implements Authorizer.Callback
