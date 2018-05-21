@@ -369,6 +369,12 @@ public enum BookmarkManager
     return nativeIsUsedCategoryName(name);
   }
 
+  public boolean isEditableBookmark(long bmkId) { return nativeIsEditableBookmark(bmkId); }
+
+  public boolean isEditableTrack(long trackId) { return nativeIsEditableTrack(trackId); }
+
+  public boolean isEditableCategory(long catId) { return nativeIsEditableCategory(catId); }
+
   public boolean areAllCategoriesVisible()
   {
     return nativeAreAllCategoriesVisible();
@@ -534,6 +540,12 @@ public enum BookmarkManager
   private static native boolean nativeIsAsyncBookmarksLoadingInProgress();
 
   private static native boolean nativeIsUsedCategoryName(@NonNull String name);
+
+  private static native boolean nativeIsEditableBookmark(long bmkId);
+
+  private static native boolean nativeIsEditableTrack(long trackId);
+
+  private static native boolean nativeIsEditableCategory(long catId);
 
   private static native boolean nativeAreAllCategoriesVisible();
 

@@ -1721,6 +1721,30 @@ bool BookmarkManager::IsCategoryEmpty(kml::MarkGroupId categoryId) const
   return GetBmCategory(categoryId)->IsEmpty();
 }
 
+bool BookmarkManager::IsEditableBookmark(kml::MarkId bmId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto const * mark = GetBookmark(bmId);
+  if (mark->GetGroupId() != kml::kInvalidMarkGroupId)
+    return !IsCategoryFromCatalog(mark->GetGroupId());
+  return true;
+}
+
+bool BookmarkManager::IsEditableTrack(kml::TrackId trackId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  auto const * track = GetTrack(trackId);
+  if (track->GetGroupId() != kml::kInvalidMarkGroupId)
+    return !IsCategoryFromCatalog(track->GetGroupId());
+  return true;
+}
+
+bool BookmarkManager::IsEditableCategory(kml::MarkGroupId groupId) const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  return !IsCategoryFromCatalog(groupId);
+}
+
 bool BookmarkManager::IsUsedCategoryName(std::string const & name) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -2286,6 +2310,7 @@ Bookmark * BookmarkManager::EditSession::CreateBookmark(kml::BookmarkData && bmD
 
 Bookmark * BookmarkManager::EditSession::CreateBookmark(kml::BookmarkData && bmData, kml::MarkGroupId groupId)
 {
+  CHECK(m_bmManager.IsEditableCategory(groupId), ());
   return m_bmManager.CreateBookmark(std::move(bmData), groupId);
 }
 
@@ -2294,9 +2319,10 @@ Track * BookmarkManager::EditSession::CreateTrack(kml::TrackData && trackData)
   return m_bmManager.CreateTrack(std::move(trackData));
 }
 
-Bookmark * BookmarkManager::EditSession::GetBookmarkForEdit(kml::MarkId markId)
+Bookmark * BookmarkManager::EditSession::GetBookmarkForEdit(kml::MarkId bmId)
 {
-  return m_bmManager.GetBookmarkForEdit(markId);
+  CHECK(m_bmManager.IsEditableBookmark(bmId), ());
+  return m_bmManager.GetBookmarkForEdit(bmId);
 }
 
 void BookmarkManager::EditSession::DeleteUserMark(kml::MarkId markId)
@@ -2306,16 +2332,20 @@ void BookmarkManager::EditSession::DeleteUserMark(kml::MarkId markId)
 
 void BookmarkManager::EditSession::DeleteBookmark(kml::MarkId bmId)
 {
+  CHECK(m_bmManager.IsEditableBookmark(bmId), ());
   m_bmManager.DeleteBookmark(bmId);
 }
 
 void BookmarkManager::EditSession::DeleteTrack(kml::TrackId trackId)
 {
+  CHECK(m_bmManager.IsEditableTrack(trackId), ());
   m_bmManager.DeleteTrack(trackId);
 }
 
 void BookmarkManager::EditSession::ClearGroup(kml::MarkGroupId groupId)
 {
+  if (m_bmManager.IsBookmarkCategory(groupId))
+    CHECK(m_bmManager.IsEditableCategory(groupId), ());
   m_bmManager.ClearGroup(groupId);
 }
 
@@ -2327,36 +2357,45 @@ void BookmarkManager::EditSession::SetIsVisible(kml::MarkGroupId groupId, bool v
 void BookmarkManager::EditSession::MoveBookmark(
   kml::MarkId bmID, kml::MarkGroupId curGroupID, kml::MarkGroupId newGroupID)
 {
+  CHECK(m_bmManager.IsEditableCategory(curGroupID), ());
+  CHECK(m_bmManager.IsEditableCategory(newGroupID), ());
+
   m_bmManager.MoveBookmark(bmID, curGroupID, newGroupID);
 }
 
 void BookmarkManager::EditSession::UpdateBookmark(kml::MarkId bmId, kml::BookmarkData const & bm)
 {
+  CHECK(m_bmManager.IsEditableBookmark(bmId), ());
   return m_bmManager.UpdateBookmark(bmId, bm);
 }
 
 void BookmarkManager::EditSession::AttachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId)
 {
+  CHECK(m_bmManager.IsEditableCategory(groupId), ());
   m_bmManager.AttachBookmark(bmId, groupId);
 }
 
 void BookmarkManager::EditSession::DetachBookmark(kml::MarkId bmId, kml::MarkGroupId groupId)
 {
+  CHECK(m_bmManager.IsEditableCategory(groupId), ());
   m_bmManager.DetachBookmark(bmId, groupId);
 }
 
 void BookmarkManager::EditSession::AttachTrack(kml::TrackId trackId, kml::MarkGroupId groupId)
 {
+  CHECK(m_bmManager.IsEditableCategory(groupId), ());
   m_bmManager.AttachTrack(trackId, groupId);
 }
 
 void BookmarkManager::EditSession::DetachTrack(kml::TrackId trackId, kml::MarkGroupId groupId)
 {
+  CHECK(m_bmManager.IsEditableCategory(groupId), ());
   m_bmManager.DetachTrack(trackId, groupId);
 }
 
 void BookmarkManager::EditSession::SetCategoryName(kml::MarkGroupId categoryId, std::string const & name)
 {
+  CHECK(m_bmManager.IsEditableCategory(categoryId), ());
   m_bmManager.SetCategoryName(categoryId, name);
 }
 

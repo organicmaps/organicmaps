@@ -496,6 +496,28 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsUsedCategoryName
 }
 
 JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsEditableBookmark(
+        JNIEnv * env, jobject thiz, jlong bmkId)
+{
+  return static_cast<jboolean>(frm()->GetBookmarkManager().IsEditableBookmark(static_cast<kml::MarkId>(bmkId)));
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsEditableTrack(
+        JNIEnv * env, jobject thiz, jlong trackId)
+{
+  return static_cast<jboolean>(frm()->GetBookmarkManager().IsEditableTrack(static_cast<kml::TrackId>(trackId)));
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsEditableCategory(
+        JNIEnv * env, jobject thiz, jlong catId)
+{
+  return static_cast<jboolean>(frm()->GetBookmarkManager().IsEditableCategory(static_cast<kml::MarkGroupId>(catId)));
+}
+
+
+JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAreAllCategoriesVisible(
         JNIEnv * env, jobject thiz)
 {

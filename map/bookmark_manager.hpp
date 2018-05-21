@@ -97,7 +97,7 @@ public:
       return m_bmManager.GetMarkForEdit<UserMarkT>(markId);
     }
 
-    Bookmark * GetBookmarkForEdit(kml::MarkId markId);
+    Bookmark * GetBookmarkForEdit(kml::MarkId bmId);
 
     template <typename UserMarkT, typename F>
     void DeleteUserMarks(UserMark::Type type, F && deletePredicate)
@@ -245,6 +245,10 @@ public:
   void PrepareFileForSharing(kml::MarkGroupId categoryId, SharingHandler && handler);
 
   bool IsCategoryEmpty(kml::MarkGroupId categoryId) const;
+
+  bool IsEditableBookmark(kml::MarkId bmId) const;
+  bool IsEditableTrack(kml::TrackId trackId) const;
+  bool IsEditableCategory(kml::MarkGroupId groupId) const;
 
   bool IsUsedCategoryName(std::string const & name) const;
   bool AreAllCategoriesVisible() const;
