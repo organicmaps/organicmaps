@@ -67,10 +67,11 @@ void RestrictionWriter::Write(RelationElement const & relationElement)
     return;  // Unsupported restriction. For example line-line-line.
 
   // Extracting osm ids of lines and points of the restriction.
-  auto const findTag = [&relationElement](std::vector<std::pair<uint64_t, std::string>> const & members,
-                                          std::string const & tag) {
-    auto const it = std::find_if(members.cbegin(), members.cend(),
-                            [&tag](std::pair<uint64_t, std::string> const & p) { return p.second == tag; });
+  auto const findTag = [](std::vector<std::pair<uint64_t, std::string>> const & members,
+                          std::string const & tag) {
+    auto const it = std::find_if(
+        members.cbegin(), members.cend(),
+        [&tag](std::pair<uint64_t, std::string> const & p) { return p.second == tag; });
     return it;
   };
 
