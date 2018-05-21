@@ -60,8 +60,8 @@ dependencies {
   // statistics
   implementation 'com.flurry.android:analytics:6.7.0'
   // crash reporting
-  implementation('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') { transitive = true }
-  implementation('com.crashlytics.sdk.android:crashlytics-ndk:1.1.2@aar') { transitive = true }
+  implementation('com.crashlytics.sdk.android:crashlytics:2.9.2@aar') { transitive = true }
+  implementation('com.crashlytics.sdk.android:crashlytics-ndk:2.0.0@aar') { transitive = true }
   // 3-party
   implementation ('com.facebook.android:facebook-android-sdk:4.26.0') {
     exclude group: 'com.google.android.gms'
@@ -77,7 +77,7 @@ dependencies {
   implementation ('com.my.target:mytarget-sdk:4.6.14') {
     exclude group: 'com.android.support'
   }
-  implementation('com.mopub:mopub-sdk-native-static:4.20.0@aar') {
+  implementation('com.mopub:mopub-sdk-native-static:5.0.0@aar') {
     exclude group: 'com.android.support'
     transitive = true
   }
