@@ -8,65 +8,69 @@
 
 #include "base/timer.hpp"
 
-#include "std/bind.hpp"
+#include <functional>
+#include <utility>
+
+using namespace std::placeholders;
 
 namespace gui
 {
-
 namespace
 {
-  double const kCopyrightVisibleTime = 2.0f;
-  double const kCopyrightHideTime = 0.25f;
+double const kCopyrightVisibleTime = 2.0f;
+double const kCopyrightHideTime = 0.25f;
 
-  class CopyrightHandle : public StaticLabelHandle
+class CopyrightHandle : public StaticLabelHandle
+{
+  using TBase = StaticLabelHandle;
+
+public:
+  CopyrightHandle(uint32_t id, ref_ptr<dp::TextureManager> textureManager,
+                  dp::Anchor anchor, m2::PointF const & pivot,
+                  m2::PointF const & size, TAlphabet const & alphabet)
+    : TBase(id, textureManager, anchor, pivot, size, alphabet)
   {
-    using TBase = StaticLabelHandle;
+    SetIsVisible(true);
+  }
 
-  public:
-    CopyrightHandle(uint32_t id, ref_ptr<dp::TextureManager> textureManager,
-                    dp::Anchor anchor, m2::PointF const & pivot,
-                    m2::PointF const & size, TAlphabet const & alphabet)
-      : TBase(id, textureManager, anchor, pivot, size, alphabet)
+  bool Update(ScreenBase const & screen) override
+  {
+    if (!IsVisible())
+      return false;
+
+    if (!TBase::Update(screen))
+      return false;
+
+    if (!DrapeGui::Instance().IsCopyrightActive())
     {
-      SetIsVisible(true);
+      SetIsVisible(false);
+      return false;
     }
 
-    bool Update(ScreenBase const & screen) override
+    if (m_animation == nullptr)
     {
-      if (!IsVisible())
-        return false;
-
-      if (!TBase::Update(screen))
-        return false;
-      
-      if (!DrapeGui::Instance().IsCopyrightActive())
-      {
-        SetIsVisible(false);
-        return false;
-      }
-
-      if (m_animation == nullptr)
-        m_animation.reset(new df::OpacityAnimation(kCopyrightHideTime, kCopyrightVisibleTime, 1.0f, 0.0f));
-      else if (m_animation->IsFinished())
-      {
-        DrapeGui::Instance().DeactivateCopyright();
-        SetIsVisible(false);
-      }
-
-      m_uniforms.SetFloatValue("u_opacity", m_animation->GetOpacity());
-
-      return true;
+      m_animation = make_unique_dp<df::OpacityAnimation>(kCopyrightHideTime,
+                                                         kCopyrightVisibleTime, 1.0f, 0.0f);
+    }
+    else if (m_animation->IsFinished())
+    {
+      DrapeGui::Instance().DeactivateCopyright();
+      SetIsVisible(false);
     }
 
-  private:
-    drape_ptr<df::OpacityAnimation> m_animation;
-  };
-}
+    m_uniforms.SetFloatValue("u_opacity", static_cast<float>(m_animation->GetOpacity()));
+
+    return true;
+  }
+
+private:
+  drape_ptr<df::OpacityAnimation> m_animation;
+};
+}  // namespace
 
 CopyrightLabel::CopyrightLabel(Position const & position)
   : TBase(position)
-{
-}
+{}
 
 drape_ptr<ShapeRenderer> CopyrightLabel::Draw(m2::PointF & size, ref_ptr<dp::TextureManager> tex) const
 {
@@ -78,9 +82,9 @@ drape_ptr<ShapeRenderer> CopyrightLabel::Draw(m2::PointF & size, ref_ptr<dp::Tex
   provider.InitStream(0 /*stream index*/, StaticLabel::Vertex::GetBindingInfo(),
                       make_ref(result.m_buffer.data()));
 
-  uint32_t vertexCount = static_cast<uint32_t>(result.m_buffer.size());
+  auto const vertexCount = static_cast<uint32_t>(result.m_buffer.size());
   ASSERT(vertexCount % dp::Batcher::VertexPerQuad == 0, ());
-  uint32_t indexCount = dp::Batcher::IndexPerQuad * vertexCount / dp::Batcher::VertexPerQuad;
+  auto const indexCount = dp::Batcher::IndexPerQuad * vertexCount / dp::Batcher::VertexPerQuad;
 
   size = m2::PointF(result.m_boundRect.SizeX(), result.m_boundRect.SizeY());
   drape_ptr<dp::OverlayHandle> handle = make_unique_dp<CopyrightHandle>(EGuiHandle::GuiHandleCopyright,
@@ -90,11 +94,10 @@ drape_ptr<ShapeRenderer> CopyrightLabel::Draw(m2::PointF & size, ref_ptr<dp::Tex
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(indexCount, vertexCount);
-  dp::SessionGuard guard(batcher, bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
+  dp::SessionGuard guard(batcher, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
   batcher.InsertListOfStrip(result.m_state, make_ref(&provider),
-                            move(handle), dp::Batcher::VertexPerQuad);
+                            std::move(handle), dp::Batcher::VertexPerQuad);
 
   return renderer;
 }
-
-}
+}  // namespace gui

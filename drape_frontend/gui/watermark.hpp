@@ -4,12 +4,11 @@
 
 namespace gui
 {
-class CopyrightLabel : public Shape
+class Watermark : public Shape
 {
-  using TBase = Shape;
-
 public:
-  explicit CopyrightLabel(gui::Position const & position);
+  explicit Watermark(gui::Position const & position) : Shape(position) {}
+
   drape_ptr<ShapeRenderer> Draw(m2::PointF & size, ref_ptr<dp::TextureManager> tex) const;
 };
 }  // namespace gui

@@ -51,6 +51,10 @@
 		45580ABB1E28DB2600CD535D /* scenario_manager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45580AB91E28DB2600CD535D /* scenario_manager.hpp */; };
 		456B3F991ED464FE009B3D1F /* postprocess_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 456B3F971ED464FE009B3D1F /* postprocess_renderer.cpp */; };
 		456B3F9A1ED464FE009B3D1F /* postprocess_renderer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 456B3F981ED464FE009B3D1F /* postprocess_renderer.hpp */; };
+		45A3781D20B324E6005FBDBB /* watermark.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45A3781920B324E5005FBDBB /* watermark.hpp */; };
+		45A3781E20B324E6005FBDBB /* watermark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A3781A20B324E6005FBDBB /* watermark.cpp */; };
+		45A3781F20B324E6005FBDBB /* debug_label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45A3781B20B324E6005FBDBB /* debug_label.cpp */; };
+		45A3782020B324E6005FBDBB /* debug_label.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45A3781C20B324E6005FBDBB /* debug_label.hpp */; };
 		45B4B8CB1CF5C16B00A54761 /* screen_animations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B4B8C71CF5C16B00A54761 /* screen_animations.cpp */; };
 		45B4B8CC1CF5C16B00A54761 /* screen_animations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45B4B8C81CF5C16B00A54761 /* screen_animations.hpp */; };
 		45B4B8CD1CF5C16B00A54761 /* screen_operations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B4B8C91CF5C16B00A54761 /* screen_operations.cpp */; };
@@ -261,6 +265,10 @@
 		4560692B1EB9F9D2009AB7B7 /* shaders_lib.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = shaders_lib.glsl; path = shaders/shaders_lib.glsl; sourceTree = "<group>"; };
 		456B3F971ED464FE009B3D1F /* postprocess_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = postprocess_renderer.cpp; sourceTree = "<group>"; };
 		456B3F981ED464FE009B3D1F /* postprocess_renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = postprocess_renderer.hpp; sourceTree = "<group>"; };
+		45A3781920B324E5005FBDBB /* watermark.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = watermark.hpp; sourceTree = "<group>"; };
+		45A3781A20B324E6005FBDBB /* watermark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = watermark.cpp; sourceTree = "<group>"; };
+		45A3781B20B324E6005FBDBB /* debug_label.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = debug_label.cpp; sourceTree = "<group>"; };
+		45A3781C20B324E6005FBDBB /* debug_label.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = debug_label.hpp; sourceTree = "<group>"; };
 		45B4B8C71CF5C16B00A54761 /* screen_animations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = screen_animations.cpp; sourceTree = "<group>"; };
 		45B4B8C81CF5C16B00A54761 /* screen_animations.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = screen_animations.hpp; sourceTree = "<group>"; };
 		45B4B8C91CF5C16B00A54761 /* screen_operations.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = screen_operations.cpp; sourceTree = "<group>"; };
@@ -768,6 +776,8 @@
 				670948241BDF9C48005014C0 /* compass.hpp */,
 				670948251BDF9C48005014C0 /* copyright_label.cpp */,
 				670948261BDF9C48005014C0 /* copyright_label.hpp */,
+				45A3781B20B324E6005FBDBB /* debug_label.cpp */,
+				45A3781C20B324E6005FBDBB /* debug_label.hpp */,
 				6709482B1BDF9C48005014C0 /* drape_gui.cpp */,
 				6709482C1BDF9C48005014C0 /* drape_gui.hpp */,
 				6709482D1BDF9C48005014C0 /* gui_text.cpp */,
@@ -782,6 +792,8 @@
 				670948361BDF9C48005014C0 /* shape.hpp */,
 				670948371BDF9C48005014C0 /* skin.cpp */,
 				670948381BDF9C48005014C0 /* skin.hpp */,
+				45A3781A20B324E6005FBDBB /* watermark.cpp */,
+				45A3781920B324E5005FBDBB /* watermark.hpp */,
 			);
 			path = gui;
 			sourceTree = "<group>";
@@ -798,6 +810,7 @@
 				BB7D67D21F34A62C002FD122 /* custom_features_context.hpp in Headers */,
 				EB2B78001EEDD418002697B6 /* metaline_manager.hpp in Headers */,
 				45580ABB1E28DB2600CD535D /* scenario_manager.hpp in Headers */,
+				45A3782020B324E6005FBDBB /* debug_label.hpp in Headers */,
 				670948031BDF9BF5005014C0 /* drape_engine.hpp in Headers */,
 				670948191BDF9C39005014C0 /* interpolations.hpp in Headers */,
 				456B3F9A1ED464FE009B3D1F /* postprocess_renderer.hpp in Headers */,
@@ -872,6 +885,7 @@
 				670947B01BDF9BE1005014C0 /* read_manager.hpp in Headers */,
 				670947CF1BDF9BE1005014C0 /* tile_key.hpp in Headers */,
 				670947BA1BDF9BE1005014C0 /* route_renderer.hpp in Headers */,
+				45A3781D20B324E6005FBDBB /* watermark.hpp in Headers */,
 				453EEA6E1E3A28F400505E09 /* colored_symbol_shape.hpp in Headers */,
 				670948201BDF9C39005014C0 /* value_mapping.hpp in Headers */,
 				670948441BDF9C48005014C0 /* drape_gui.hpp in Headers */,
@@ -1018,6 +1032,7 @@
 				670947961BDF9BE1005014C0 /* line_shape.cpp in Sources */,
 				670947A91BDF9BE1005014C0 /* path_symbol_shape.cpp in Sources */,
 				670947FA1BDF9BF5005014C0 /* backend_renderer.cpp in Sources */,
+				45A3781E20B324E6005FBDBB /* watermark.cpp in Sources */,
 				45BB025D1EB8BE5200FE5C0C /* shader_def.cpp in Sources */,
 				670948451BDF9C48005014C0 /* gui_text.cpp in Sources */,
 				EB2B78031EEDD439002697B6 /* read_metaline_task.cpp in Sources */,
@@ -1048,6 +1063,7 @@
 				456B3F991ED464FE009B3D1F /* postprocess_renderer.cpp in Sources */,
 				670947CA1BDF9BE1005014C0 /* threads_commutator.cpp in Sources */,
 				670947981BDF9BE1005014C0 /* map_data_provider.cpp in Sources */,
+				45A3781F20B324E6005FBDBB /* debug_label.cpp in Sources */,
 				670948181BDF9C39005014C0 /* interpolations.cpp in Sources */,
 				670948021BDF9BF5005014C0 /* drape_engine.cpp in Sources */,
 				56D545661C74A44900E3719C /* overlay_batcher.cpp in Sources */,

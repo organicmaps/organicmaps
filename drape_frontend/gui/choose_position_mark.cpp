@@ -4,19 +4,19 @@
 
 #include "drape/utils/vertex_decl.hpp"
 
-#include "std/bind.hpp"
+#include <functional>
+#include <utility>
+
+using namespace std::placeholders;
 
 namespace gui
 {
-
 namespace
 {
-
 struct ChoosePositionMarkVertex
 {
   ChoosePositionMarkVertex(glsl::vec2 const & position, glsl::vec2 const & texCoord)
-    : m_position(position)
-    , m_texCoord(texCoord)
+    : m_position(position), m_texCoord(texCoord)
   {}
 
   glsl::vec2 m_position;
@@ -40,8 +40,7 @@ public:
     return TBase::Update(screen);
   }
 };
-
-} // namespace
+}  // namespace
 
 drape_ptr<ShapeRenderer> ChoosePositionMark::Draw(ref_ptr<dp::TextureManager> tex) const
 {
@@ -82,16 +81,14 @@ drape_ptr<ShapeRenderer> ChoosePositionMark::Draw(ref_ptr<dp::TextureManager> te
   provider.InitStream(0, info, make_ref(&vertexes));
 
   m2::PointF const markSize = region.GetPixelSize();
-  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<ChoosePositionMarkHandle>(EGuiHandle::GuiHandleChoosePositionMark,
-                                                                                 m_position.m_pixelPivot,
-                                                                                 markSize);
+  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<ChoosePositionMarkHandle>(
+    EGuiHandle::GuiHandleChoosePositionMark, m_position.m_pixelPivot, markSize);
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
-  dp::SessionGuard guard(batcher, bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
-  batcher.InsertTriangleStrip(state, make_ref(&provider), move(handle));
+  dp::SessionGuard guard(batcher, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
+  batcher.InsertTriangleStrip(state, make_ref(&provider), std::move(handle));
 
   return renderer;
 }
-
-} // namespace gui
+}  // namespace gui

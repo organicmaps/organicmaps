@@ -8,14 +8,16 @@
 #include "drape/glsl_types.hpp"
 #include "drape/texture_manager.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/unordered_set.hpp"
-#include "std/utility.hpp"
+#include <cstdint>
+#include <functional>
+#include <string>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 namespace gui
 {
-
-using TAlphabet = unordered_set<strings::UniChar>;
+using TAlphabet = std::unordered_set<strings::UniChar>;
 
 class StaticLabel
 {
@@ -31,8 +33,7 @@ public:
       , m_colorTexCoord(color)
       , m_outlineColorTexCoord(outline)
       , m_maskTexCoord(mask)
-    {
-    }
+    {}
 
     static dp::BindingInfo const & GetBindingInfo();
 
@@ -53,9 +54,9 @@ public:
     TAlphabet m_alphabet;
   };
 
-  static void CacheStaticText(string const & text, char const * delim,
-                              dp::Anchor anchor, dp::FontDecl const & font,
-                              ref_ptr<dp::TextureManager> mng, LabelResult & result);
+  static void CacheStaticText(std::string const & text, char const * delim, dp::Anchor anchor,
+                              dp::FontDecl const & font, ref_ptr<dp::TextureManager> mng,
+                              LabelResult & result);
 };
 
 class MutableLabel
@@ -64,12 +65,10 @@ public:
   struct StaticVertex
   {
     StaticVertex() = default;
-    StaticVertex(glsl::vec3 const & position, glsl::vec2 const & color, glsl::vec2 const & outlineColor)
-      : m_position(position)
-      , m_color(color)
-      , m_outline(outlineColor)
-    {
-    }
+    StaticVertex(glsl::vec3 const & position, glsl::vec2 const & color,
+                 glsl::vec2 const & outlineColor)
+      : m_position(position), m_color(color), m_outline(outlineColor)
+    {}
 
     static dp::BindingInfo const & GetBindingInfo();
 
@@ -82,10 +81,8 @@ public:
   {
     DynamicVertex() = default;
     DynamicVertex(glsl::vec2 const & normal, glsl::vec2 const & mask)
-      : m_normal(normal)
-      , m_maskTexCoord(mask)
-    {
-    }
+      : m_normal(normal), m_maskTexCoord(mask)
+    {}
 
     static dp::BindingInfo const & GetBindingInfo();
 
@@ -93,11 +90,11 @@ public:
     glsl::vec2 m_maskTexCoord;
   };
 
-  MutableLabel(dp::Anchor anchor);
+  explicit MutableLabel(dp::Anchor anchor);
 
   struct PrecacheParams
   {
-    string m_alphabet;
+    std::string m_alphabet;
     size_t m_maxLength;
     dp::FontDecl m_font;
   };
@@ -120,17 +117,17 @@ public:
   void Precache(PrecacheParams const & params, PrecacheResult & result,
                 ref_ptr<dp::TextureManager> mng);
 
-  void SetText(LabelResult & result, string text) const;
+  void SetText(LabelResult & result, std::string text) const;
   m2::PointF GetAvarageSize() const;
 
-  using TAlphabetNode = pair<strings::UniChar, dp::TextureManager::GlyphRegion>;
-  using TAlphabet = vector<TAlphabetNode>;
+  using TAlphabetNode = std::pair<strings::UniChar, dp::TextureManager::GlyphRegion>;
+  using TAlphabet = std::vector<TAlphabetNode>;
 
   TAlphabet const & GetAlphabet() const { return m_alphabet; }
 
 private:
   void SetMaxLength(uint16_t maxLength);
-  ref_ptr<dp::Texture> SetAlphabet(string const & alphabet, ref_ptr<dp::TextureManager> mng);
+  ref_ptr<dp::Texture> SetAlphabet(std::string const & alphabet, ref_ptr<dp::TextureManager> mng);
 
 private:
   dp::Anchor m_anchor;
@@ -158,14 +155,14 @@ public:
   void UpdateSize(m2::PointF const & size);
 
 protected:
-  void SetContent(string && content);
-  void SetContent(string const & content);
+  void SetContent(std::string && content);
+  void SetContent(std::string const & content);
   void SetTextureManager(ref_ptr<dp::TextureManager> textures);
 
 private:
   drape_ptr<MutableLabel> m_textView;
   mutable bool m_isContentDirty;
-  string m_content;
+  std::string m_content;
   ref_ptr<dp::TextureManager> m_textureManager;
   bool m_glyphsReady;
 };
@@ -174,19 +171,19 @@ class MutableLabelDrawer
 {
 public:
   using TCreatoreResult = drape_ptr<MutableLabelHandle>;
-  using THandleCreator = function<TCreatoreResult(dp::Anchor, m2::PointF const & /*pivot*/)>;
+  using THandleCreator = std::function<TCreatoreResult(dp::Anchor, m2::PointF const & /*pivot*/)>;
 
   struct Params
   {
     dp::Anchor m_anchor;
     dp::FontDecl m_font;
     m2::PointF m_pivot;
-    string m_alphabet;
+    std::string m_alphabet;
     uint32_t m_maxLength;
     THandleCreator m_handleCreator;
   };
 
-  /// return maximum pixel size
+  // Return maximum pixel size.
   static m2::PointF Draw(Params const & params, ref_ptr<dp::TextureManager> mng,
                          dp::Batcher::TFlushFn const & flushFn);
 };
@@ -196,10 +193,8 @@ class StaticLabelHandle : public Handle
   using TBase = Handle;
 
 public:
-  StaticLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> textureManager,
-                    dp::Anchor anchor, m2::PointF const & pivot,
-                    m2::PointF const & size,
-                    TAlphabet const & alphabet);
+  StaticLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> textureManager, dp::Anchor anchor,
+                    m2::PointF const & pivot, m2::PointF const & size, TAlphabet const & alphabet);
 
   bool Update(ScreenBase const & screen) override;
 
@@ -208,5 +203,4 @@ private:
   ref_ptr<dp::TextureManager> m_textureManager;
   bool m_glyphsReady;
 };
-
-}
+}  // namespace gui

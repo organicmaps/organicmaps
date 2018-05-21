@@ -1539,7 +1539,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         public void run()
         {
           final int menuHeight = menu.getFrame().getHeight();
-          adjustRuler(0, menuHeight);
+          adjustBottomWidgets(0, menuHeight);
 
           mIsFullscreenAnimating = false;
           if (mIsAppearMenuLater)
@@ -1573,7 +1573,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       @Override
       public void run()
       {
-        adjustRuler(0, 0);
+        adjustBottomWidgets(0, 0);
       }
     });
     if (mNavMyPosition != null)
@@ -1762,12 +1762,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
       MapFragment.nativeCompassUpdated(compass.getMagneticNorth(), compass.getTrueNorth(), true);
   }
 
-  private void adjustRuler(int offsetX, int offsetY)
+  private void adjustBottomWidgets(int offsetX, int offsetY)
   {
     if (mMapFragment == null || !mMapFragment.isAdded())
       return;
 
     mMapFragment.setupRuler(offsetX, offsetY, true);
+    mMapFragment.setupWatermark(offsetX, offsetY, true);
   }
 
   @Override
@@ -1854,7 +1855,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         public void run()
         {
           final int menuHeight = getCurrentMenu().getFrame().getHeight();
-          adjustRuler(0, menuHeight);
+          adjustBottomWidgets(0, menuHeight);
           if (completion != null)
             completion.run();
         }
@@ -1956,7 +1957,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       @Override
       public void run()
       {
-        adjustRuler(0, 0);
+        adjustBottomWidgets(0, 0);
       }
     });
   }

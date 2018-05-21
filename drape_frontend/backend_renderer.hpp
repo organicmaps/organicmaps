@@ -77,7 +77,7 @@ private:
   void RecacheChoosePositionMark();
   void RecacheMapShapes();
 
-#ifdef RENRER_DEBUG_INFO_LABELS
+#ifdef RENDER_DEBUG_INFO_LABELS
   void RecacheDebugLabels();
 #endif
 

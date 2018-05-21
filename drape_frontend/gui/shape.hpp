@@ -10,26 +10,29 @@
 #include "drape/texture_manager.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
+#include <functional>
+#include <vector>
+
 namespace gui
 {
-
 class Handle : public dp::OverlayHandle
 {
 public:
-  Handle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot, m2::PointF const & size = m2::PointF::Zero());
+  Handle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot,
+         m2::PointF const & size = m2::PointF::Zero());
 
   dp::UniformValuesStorage const & GetUniforms() const { return m_uniforms; }
 
   bool Update(ScreenBase const & screen) override;
 
-  virtual bool IsTapped(m2::RectD const & /*touchArea*/) const { return false; }
-  virtual void OnTapBegin(){}
-  virtual void OnTap(){}
-  virtual void OnTapEnd(){}
+  virtual bool IsTapped(m2::RectD const & /* touchArea */) const { return false; }
+  virtual void OnTapBegin() {}
+  virtual void OnTap() {}
+  virtual void OnTapEnd() {}
 
-  virtual bool IndexesRequired() const override;
-  virtual m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
-  virtual void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const override;
+  bool IndexesRequired() const override;
+  m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;
+  void GetPixelShape(ScreenBase const & screen, bool perspective, Rects & rects) const override;
 
   m2::PointF GetSize() const { return m_size; }
   virtual void SetPivot(glsl::vec2 const & pivot) { m_pivot = pivot; }
@@ -74,13 +77,13 @@ struct ShapeControl
 
   void AddShape(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket);
 
-  vector<ShapeInfo> m_shapesInfo;
+  std::vector<ShapeInfo> m_shapesInfo;
 };
 
 class ShapeRenderer final
 {
 public:
-  using TShapeControlEditFn = function<void(ShapeControl &)>;
+  using TShapeControlEditFn = std::function<void(ShapeControl &)>;
 
   ~ShapeRenderer();
 
@@ -95,15 +98,14 @@ public:
   ref_ptr<Handle> FindHandle(FeatureID const & id);
 
 private:
-  friend void ArrangeShapes(ref_ptr<ShapeRenderer>,
-                            ShapeRenderer::TShapeControlEditFn const &);
+  friend void ArrangeShapes(ref_ptr<ShapeRenderer>, ShapeRenderer::TShapeControlEditFn const &);
   void ForEachShapeControl(TShapeControlEditFn const & fn);
 
-  using TShapeInfoEditFn = function<void(ShapeControl::ShapeInfo &)>;
+  using TShapeInfoEditFn = std::function<void(ShapeControl::ShapeInfo &)>;
   void ForEachShapeInfo(TShapeInfoEditFn const & fn);
 
 private:
-  vector<ShapeControl> m_shapes;
+  std::vector<ShapeControl> m_shapes;
 };
 
 void ArrangeShapes(ref_ptr<ShapeRenderer> renderer,
@@ -112,11 +114,13 @@ void ArrangeShapes(ref_ptr<ShapeRenderer> renderer,
 class Shape
 {
 public:
-  Shape(gui::Position const & position) : m_position(position) {}
-  using TTapHandler = function<void()>;
+  explicit Shape(gui::Position const & position)
+    : m_position(position)
+  {}
+
+  using TTapHandler = std::function<void()>;
 
 protected:
   gui::Position m_position;
 };
-
-}
+}  // namespace gui

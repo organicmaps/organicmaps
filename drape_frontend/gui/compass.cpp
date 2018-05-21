@@ -9,91 +9,93 @@
 
 #include "drape/utils/vertex_decl.hpp"
 
-#include "std/bind.hpp"
+#include <functional>
+#include <utility>
+
+using namespace std::placeholders;
 
 namespace gui
 {
-
 namespace
 {
-  struct CompassVertex
+struct CompassVertex
+{
+  CompassVertex(glsl::vec2 const & position, glsl::vec2 const & texCoord)
+    : m_position(position)
+    , m_texCoord(texCoord)
+  {}
+
+  glsl::vec2 m_position;
+  glsl::vec2 m_texCoord;
+};
+
+class CompassHandle : public TappableHandle
+{
+  using TBase = TappableHandle;
+  double const VisibleStartAngle = my::DegToRad(5.0);
+  double const VisibleEndAngle = my::DegToRad(355.0);
+
+public:
+  CompassHandle(uint32_t id, m2::PointF const & pivot, m2::PointF const & size,
+                Shape::TTapHandler const & tapHandler)
+    : TappableHandle(id, dp::Center, pivot, size)
+    , m_tapHandler(tapHandler)
+    , m_animation(false, 0.25)
+  {}
+
+  void OnTap() override
   {
-    CompassVertex(glsl::vec2 const & position, glsl::vec2 const & texCoord)
-      : m_position(position)
-      , m_texCoord(texCoord) {}
+    if (m_tapHandler != nullptr)
+      m_tapHandler();
+  }
 
-    glsl::vec2 m_position;
-    glsl::vec2 m_texCoord;
-  };
-
-  class CompassHandle : public TappableHandle
+  bool Update(ScreenBase const & screen) override
   {
-    using TBase = TappableHandle;
-    double const VisibleStartAngle = my::DegToRad(5.0);
-    double const VisibleEndAngle = my::DegToRad(355.0);
+    float angle = ang::AngleIn2PI(screen.GetAngle());
 
-  public:
-    CompassHandle(uint32_t id, m2::PointF const & pivot, m2::PointF const & size,
-                  Shape::TTapHandler const & tapHandler)
-      : TappableHandle(id, dp::Center, pivot, size)
-      , m_tapHandler(tapHandler)
-      , m_animation(false, 0.25)
+    bool isVisiblePrev = IsVisible();
+    bool isVisibleAngle = angle > VisibleStartAngle && angle < VisibleEndAngle;
+
+    bool isVisible = isVisibleAngle || (isVisiblePrev && DrapeGui::Instance().IsInUserAction());
+
+    if (isVisible)
     {
+      m_animation.ShowAnimated();
+      SetIsVisible(true);
+    }
+    else
+      m_animation.HideAnimated();
+
+    if (IsVisible())
+    {
+      TBase::Update(screen);
+
+      glsl::mat4 r = glsl::rotate(glsl::mat4(), angle, glsl::vec3(0.0, 0.0, 1.0));
+      glsl::mat4 m = glsl::translate(glsl::mat4(), glsl::vec3(m_pivot, 0.0));
+      m = glsl::transpose(m * r);
+      m_uniforms.SetMatrix4x4Value("modelView", glsl::value_ptr(m));
+      m_uniforms.SetFloatValue("u_opacity", static_cast<float>(m_animation.GetT()));
     }
 
-    void OnTap() override
-    {
-      if (m_tapHandler != nullptr)
-        m_tapHandler();
-    }
+    if (m_animation.IsFinished())
+      SetIsVisible(isVisible);
 
-    bool Update(ScreenBase const & screen) override
-    {
-      float angle = ang::AngleIn2PI(screen.GetAngle());
+    return true;
+  }
 
-      bool isVisiblePrev = IsVisible();
-      bool isVisibleAngle = angle > VisibleStartAngle && angle < VisibleEndAngle;
-
-      bool isVisible = isVisibleAngle || (isVisiblePrev && DrapeGui::Instance().IsInUserAction());
-
-      if (isVisible)
-      {
-        m_animation.ShowAnimated();
-        SetIsVisible(true);
-      }
-      else
-        m_animation.HideAnimated();
-
-      if (IsVisible())
-      {
-        TBase::Update(screen);
-
-        glsl::mat4 r = glsl::rotate(glsl::mat4(), angle, glsl::vec3(0.0, 0.0, 1.0));
-        glsl::mat4 m = glsl::translate(glsl::mat4(), glsl::vec3(m_pivot, 0.0));
-        m = glsl::transpose(m * r);
-        m_uniforms.SetMatrix4x4Value("modelView", glsl::value_ptr(m));
-        m_uniforms.SetFloatValue("u_opacity", m_animation.GetT());
-      }
-
-      if (m_animation.IsFinished())
-        SetIsVisible(isVisible);
-
-      return true;
-    }
-
-  private:
-    Shape::TTapHandler m_tapHandler;
-    df::ShowHideAnimation m_animation;
-  };
-}
+private:
+  Shape::TTapHandler m_tapHandler;
+  df::ShowHideAnimation m_animation;
+};
+}  // namespace
 
 drape_ptr<ShapeRenderer> Compass::Draw(m2::PointF & compassSize, ref_ptr<dp::TextureManager> tex,
                                        TTapHandler const & tapHandler) const
 {
   dp::TextureManager::SymbolRegion region;
   tex->GetSymbolRegion("compass-image", region);
-  glsl::vec2 halfSize = glsl::ToVec2(region.GetPixelSize() * 0.5f);
-  m2::RectF texRect = region.GetTexRect();
+  auto const halfSize = glsl::ToVec2(region.GetPixelSize() * 0.5f);
+  auto const texRect = region.GetTexRect();
 
   ASSERT_EQUAL(m_position.m_anchor, dp::Center, ());
   CompassVertex vertexes[] =
@@ -133,10 +135,9 @@ drape_ptr<ShapeRenderer> Compass::Draw(m2::PointF & compassSize, ref_ptr<dp::Tex
 
   drape_ptr<ShapeRenderer> renderer = make_unique_dp<ShapeRenderer>();
   dp::Batcher batcher(dp::Batcher::IndexPerQuad, dp::Batcher::VertexPerQuad);
-  dp::SessionGuard guard(batcher, bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
-  batcher.InsertTriangleStrip(state, make_ref(&provider), move(handle));
+  dp::SessionGuard guard(batcher, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
+  batcher.InsertTriangleStrip(state, make_ref(&provider), std::move(handle));
 
   return renderer;
 }
-
-}
+}  // namespace gui

@@ -1,33 +1,33 @@
 #include "drape_frontend/gui/ruler_helper.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
-
 #include "drape_frontend/visual_params.hpp"
 
-#include "platform/settings.hpp"
 #include "platform/measurement_utils.hpp"
+#include "platform/settings.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/screenbase.hpp"
 
 #include "base/macros.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/numeric.hpp"
-#include "std/iterator.hpp"
+#include <algorithm>
+#include <iterator>
+#include <limits>
+#include <set>
 
 namespace gui
 {
-
 namespace
 {
+int constexpr kMinPixelWidth = 60;
+int constexpr kMinMetersWidth = 10;
+int constexpr kMaxMetersWidth = 1000000;
 
-static int const MinPixelWidth = 60;
-static int const MinMetersWidth = 10;
-static int const MaxMetersWidth = 1000000;
+int constexpr kMinUnitValue = -1;
+int constexpr kMaxUnitValue = std::numeric_limits<int>::max() - 1;
+int constexpr kInvalidUnitValue = kMaxUnitValue + 1;
 
-static int const MinUnitValue = -1;
-static int const MaxUnitValue = numeric_limits<int>::max() - 1;
-static int const InvalidUnitValue = MaxUnitValue + 1;
+int constexpr kVisibleRulerBottomScale = 5;
 
 struct UnitValue
 {
@@ -94,41 +94,37 @@ UnitValue g_arrMetres[] = {
   { "1000 km", 1000000 }
 };
 
-double identity(double val)
+double Identity(double val)
 {
   return val;
 }
-
-int const VISIBLE_RULER_BOTTOM_SCALE = 5;
-
-}
+}  // namespace
 
 RulerHelper::RulerHelper()
   : m_pixelLength(0.0)
-  , m_rangeIndex(InvalidUnitValue)
+  , m_rangeIndex(kInvalidUnitValue)
   , m_isTextDirty(false)
   , m_dirtyTextRequested(false)
-{
-}
+{}
 
 void RulerHelper::Update(ScreenBase const & screen)
 {
   m2::PointD pivot = screen.PixelRect().Center();
-  int const minPxWidth = my::rounds(MinPixelWidth * df::VisualParams::Instance().GetVisualScale());
+  int const minPxWidth = my::rounds(kMinPixelWidth * df::VisualParams::Instance().GetVisualScale());
   m2::PointD pt1 = screen.PtoG(pivot);
   m2::PointD pt0 = screen.PtoG(pivot - m2::PointD(minPxWidth, 0));
 
   double const distanceInMetres = MercatorBounds::DistanceOnEarth(pt0, pt1);
 
-  // convert metres to units for calculating m_metresDiff
+  // convert metres to units for calculating m_metresDiff.
   double metersDiff = CalcMetresDiff(distanceInMetres);
 
-  bool const higherThanMax = metersDiff > MaxMetersWidth;
-  bool const lessThanMin = metersDiff < MinMetersWidth;
-  m_pixelLength = minPxWidth;
+  bool const higherThanMax = metersDiff > kMaxMetersWidth;
+  bool const lessThanMin = metersDiff < kMinMetersWidth;
+  m_pixelLength = static_cast<float>(minPxWidth);
 
   if (higherThanMax)
-    m_pixelLength = minPxWidth * 3 / 2;
+    m_pixelLength = static_cast<float>(minPxWidth) * 3.0f / 2.0f;
   else if (!lessThanMin)
   {
     double const a = ang::AngleTo(pt1, pt0);
@@ -138,8 +134,8 @@ void RulerHelper::Update(ScreenBase const & screen)
   }
 
   int drawScale = df::GetDrawTileScale(screen);
-  if (m_currentDrawScale < VISIBLE_RULER_BOTTOM_SCALE &&
-      drawScale >= VISIBLE_RULER_BOTTOM_SCALE)
+  if (m_currentDrawScale < kVisibleRulerBottomScale &&
+      drawScale >= kVisibleRulerBottomScale)
   {
     SetTextDirty();
   }
@@ -150,7 +146,7 @@ void RulerHelper::Update(ScreenBase const & screen)
 bool RulerHelper::IsVisible(ScreenBase const & screen) const
 {
   DrapeGui & gui = DrapeGui::Instance();
-  return !gui.IsCopyrightActive() && df::GetDrawTileScale(screen) >= VISIBLE_RULER_BOTTOM_SCALE;
+  return !gui.IsCopyrightActive() && df::GetDrawTileScale(screen) >= kVisibleRulerBottomScale;
 }
 
 void RulerHelper::Invalidate()
@@ -161,7 +157,7 @@ void RulerHelper::Invalidate()
 float RulerHelper::GetRulerHalfHeight() const
 {
   float const kRulerHalfHeight = 1.0f;
-  return kRulerHalfHeight * df::VisualParams::Instance().GetVisualScale();
+  return kRulerHalfHeight * static_cast<float>(df::VisualParams::Instance().GetVisualScale());
 }
 
 float RulerHelper::GetRulerPixelLength() const
@@ -171,12 +167,12 @@ float RulerHelper::GetRulerPixelLength() const
 
 float RulerHelper::GetMaxRulerPixelLength() const
 {
-  return MinPixelWidth * 3.0 / 2.0;
+  return static_cast<float>(kMinPixelWidth) * 3.0f / 2.0f;
 }
 
 int RulerHelper::GetVerticalTextOffset() const
 {
-  return -5 * df::VisualParams::Instance().GetVisualScale();
+  return static_cast<int>(-5 * df::VisualParams::Instance().GetVisualScale());
 }
 
 bool RulerHelper::IsTextDirty() const
@@ -198,7 +194,7 @@ void RulerHelper::ResetTextDirtyFlag()
 
 void RulerHelper::GetTextInitInfo(string & alphabet, uint32_t & size) const
 {
-  set<char> symbols;
+  std::set<char> symbols;
   size_t result = 0;
   auto const functor = [&result, &symbols](UnitValue const & v)
   {
@@ -208,17 +204,17 @@ void RulerHelper::GetTextInitInfo(string & alphabet, uint32_t & size) const
       symbols.insert(v.m_s[i]);
   };
 
-  for_each(begin(g_arrFeets), end(g_arrFeets), functor);
-  for_each(begin(g_arrMetres), end(g_arrMetres), functor);
-  for_each(begin(g_arrYards), end(g_arrYards), functor);
+  std::for_each(std::begin(g_arrFeets), std::end(g_arrFeets), functor);
+  std::for_each(std::begin(g_arrMetres), std::end(g_arrMetres), functor);
+  std::for_each(std::begin(g_arrYards), std::end(g_arrYards), functor);
 
-  for_each(begin(symbols), end(symbols), [&alphabet](char c)
+  std::for_each(begin(symbols), end(symbols), [&alphabet](char c)
   {
     alphabet.push_back(c);
   });
   alphabet.append("<>");
 
-  size = static_cast<uint32_t>(result) + 2; // add 2 char for symbols "< " and "> "
+  size = static_cast<uint32_t>(result) + 2; // add 2 char for symbols "< " and "> ".
 }
 
 double RulerHelper::CalcMetresDiff(double value)
@@ -226,8 +222,7 @@ double RulerHelper::CalcMetresDiff(double value)
   UnitValue * arrU = g_arrMetres;
   int count = ARRAY_SIZE(g_arrMetres);
 
-  typedef double (*ConversionFn)(double);
-  ConversionFn conversionFn = &identity;
+  auto conversionFn = &Identity;
 
   auto units = measurement_utils::Units::Metric;
   UNUSED_VALUE(settings::Get(settings::kMeasurementUnits, units));
@@ -244,17 +239,18 @@ double RulerHelper::CalcMetresDiff(double value)
   double v = conversionFn(value);
   if (arrU[0].m_i > v)
   {
-    m_rangeIndex = MinUnitValue;
+    m_rangeIndex = kMinUnitValue;
     m_rulerText = string("< ") + arrU[0].m_s;
-    result = MinMetersWidth - 1.0;
+    result = kMinMetersWidth - 1.0;
   }
   else if (arrU[count-1].m_i <= v)
   {
-    m_rangeIndex = MaxUnitValue;
+    m_rangeIndex = kMaxUnitValue;
     m_rulerText = string("> ") + arrU[count-1].m_s;
-    result = MaxMetersWidth + 1.0;
+    result = kMaxMetersWidth + 1.0;
   }
   else
+  {
     for (int i = 0; i < count; ++i)
     {
       if (arrU[i].m_i > v)
@@ -265,6 +261,7 @@ double RulerHelper::CalcMetresDiff(double value)
         break;
       }
     }
+  }
 
   if (m_rangeIndex != prevUnitRange)
     SetTextDirty();
@@ -277,5 +274,4 @@ void RulerHelper::SetTextDirty()
   m_dirtyTextRequested = false;
   m_isTextDirty = true;
 }
-
-}
+}  // namespace gui

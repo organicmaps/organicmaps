@@ -59,6 +59,7 @@
     switch (w)
     {
     case gui::WIDGET_RULER:
+    case gui::WIDGET_WATERMARK:
     case gui::WIDGET_COPYRIGHT: pivot += rulerOffset; break;
     case gui::WIDGET_COMPASS: pivot += compassOffset; break;
     case gui::WIDGET_SCALE_LABEL:

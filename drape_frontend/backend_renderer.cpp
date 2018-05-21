@@ -91,7 +91,7 @@ void BackendRenderer::RecacheGui(gui::TWidgetsInitInfo const & initInfo, bool ne
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::Normal);
 }
 
-#ifdef RENRER_DEBUG_INFO_LABELS
+#ifdef RENDER_DEBUG_INFO_LABELS
 void BackendRenderer::RecacheDebugLabels()
 {
   drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheDebugLabels(m_texMng);
@@ -149,7 +149,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<GuiRecacheMessage> msg = message;
       RecacheGui(msg->GetInitInfo(), msg->NeedResetOldGui());
 
-#ifdef RENRER_DEBUG_INFO_LABELS
+#ifdef RENDER_DEBUG_INFO_LABELS
       RecacheDebugLabels();
 #endif
       break;
