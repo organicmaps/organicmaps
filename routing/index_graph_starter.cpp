@@ -233,8 +233,11 @@ RouteWeight IndexGraphStarter::CalcSegmentWeight(Segment const & segment) const
     auto const partLen = MercatorBounds::DistanceOnEarth(vertex.GetPointFrom(), vertex.GetPointTo());
     auto const fullLen = MercatorBounds::DistanceOnEarth(GetPoint(real, false /* front */),
                                                          GetPoint(real, true /* front */));
-    CHECK_GREATER(fullLen, 0.0, ());
-    return partLen / fullLen * m_graph.CalcSegmentWeight(real);
+    // Note. |fullLen| == 0.0 in case of Segment(s) with the same ends.
+    if (fullLen == 0.0)
+      return 0.0 * m_graph.CalcSegmentWeight(real);
+
+    return (partLen / fullLen) * m_graph.CalcSegmentWeight(real);
   }
 
   return m_graph.CalcOffroadWeight(vertex.GetPointFrom(), vertex.GetPointTo());

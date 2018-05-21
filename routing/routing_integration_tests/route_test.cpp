@@ -379,4 +379,26 @@ namespace
     IRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, IRouter::NoError, ());
   }
+
+  // Test on the route with the finish near zero length edge.
+  UNIT_TEST(BelarusSlonimFinishNearZeroEdgeTest)
+  {
+    TRouteResult const routeResult =
+        integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                    MercatorBounds::FromLatLon(53.08279, 25.30036), {0.0, 0.0},
+                                    MercatorBounds::FromLatLon(53.09443, 25.34356));
+    IRouter::ResultCode const result = routeResult.second;
+    TEST_EQUAL(result, IRouter::NoError, ());
+  }
+
+  // Test on the route with the start near zero length edge.
+  UNIT_TEST(BelarusSlonimStartNearZeroEdgeTest)
+  {
+    TRouteResult const routeResult =
+        integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
+                                    MercatorBounds::FromLatLon(53.09422, 25.34411), {0.0, 0.0},
+                                    MercatorBounds::FromLatLon(53.09271, 25.3467));
+    IRouter::ResultCode const result = routeResult.second;
+    TEST_EQUAL(result, IRouter::NoError, ());
+  }
 }  // namespace
