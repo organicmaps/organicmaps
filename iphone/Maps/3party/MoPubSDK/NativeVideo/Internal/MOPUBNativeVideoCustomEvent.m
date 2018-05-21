@@ -22,7 +22,7 @@
 - (void)handleSuccessfulVastParsing:(MPVASTResponse *)mpVastResponse info:(NSDictionary *)info
 {
     NSMutableDictionary *infoMutableCopy = [info mutableCopy];
-    [infoMutableCopy setObject:[[MPVideoConfig alloc] initWithVASTResponse:mpVastResponse additionalTrackers:((MOPUBNativeVideoAdConfigValues *)info[kNativeVideoAdConfigKey]).trackers] forKey:kVideoConfigKey];
+    [infoMutableCopy setObject:[[MPVideoConfig alloc] initWithVASTResponse:mpVastResponse additionalTrackers:((MOPUBNativeVideoAdConfigValues *)info[kNativeAdConfigKey]).trackers] forKey:kVideoConfigKey];
     MOPUBNativeVideoAdAdapter *adAdapter = [[MOPUBNativeVideoAdAdapter alloc] initWithAdProperties:infoMutableCopy];
     if (adAdapter.properties) {
         MPNativeAd *interfaceAd = [[MPNativeAd alloc] initWithAdAdapter:adAdapter];
@@ -53,7 +53,7 @@
 
 - (void)requestAdWithCustomEventInfo:(NSDictionary *)info
 {
-    MOPUBNativeVideoAdConfigValues *nativeVideoAdConfigValues = [info objectForKey:kNativeVideoAdConfigKey];
+    MOPUBNativeVideoAdConfigValues *nativeVideoAdConfigValues = [info objectForKey:kNativeAdConfigKey];
     if (nativeVideoAdConfigValues && [nativeVideoAdConfigValues isValid]) {
         NSString *vastString = [info objectForKey:kVASTVideoKey];
         if (vastString) {

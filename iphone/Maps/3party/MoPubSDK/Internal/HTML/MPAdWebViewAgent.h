@@ -19,11 +19,14 @@ typedef NSUInteger MPAdWebViewEvent;
 
 @class MPAdConfiguration;
 @class CLLocation;
+@class MPViewabilityTracker;
 
 @interface MPAdWebViewAgent : NSObject <MPWebViewDelegate, MPAdDestinationDisplayAgentDelegate>
 
 @property (nonatomic, strong) MPWebView *view;
 @property (nonatomic, weak) id<MPAdWebViewAgentDelegate> delegate;
+
+@property (nonatomic, strong, readonly) MPViewabilityTracker *viewabilityTracker;
 
 - (id)initWithAdWebViewFrame:(CGRect)frame delegate:(id<MPAdWebViewAgentDelegate>)delegate;
 - (void)loadConfiguration:(MPAdConfiguration *)configuration;
@@ -33,6 +36,8 @@ typedef NSUInteger MPAdWebViewEvent;
 
 - (void)enableRequestHandling;
 - (void)disableRequestHandling;
+
+- (void)startViewabilityTracker;
 
 @end
 

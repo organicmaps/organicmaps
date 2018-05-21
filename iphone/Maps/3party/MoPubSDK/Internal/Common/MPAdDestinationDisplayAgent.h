@@ -11,6 +11,7 @@
 #import "MPProgressOverlayView.h"
 #import "MPAdBrowserController.h"
 #import "MPStoreKitProvider.h"
+#import "MOPUBDisplayAgentType.h"
 
 @protocol MPAdDestinationDisplayAgentDelegate;
 
@@ -22,6 +23,7 @@
 @property (nonatomic, weak) id<MPAdDestinationDisplayAgentDelegate> delegate;
 
 + (MPAdDestinationDisplayAgent *)agentWithDelegate:(id<MPAdDestinationDisplayAgentDelegate>)delegate;
++ (BOOL)shouldUseSafariViewController;
 - (void)displayDestinationForURL:(NSURL *)URL;
 - (void)cancel;
 

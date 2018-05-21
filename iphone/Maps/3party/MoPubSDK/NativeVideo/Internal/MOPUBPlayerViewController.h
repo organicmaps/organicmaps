@@ -10,7 +10,6 @@
 @class MOPUBAVPlayer;
 @class MOPUBPlayerViewController;
 @class MOPUBNativeVideoAdConfigValues;
-@class MPAdConfigurationLogEventProperties;
 @class MPVASTTracking;
 @class MPVideoConfig;
 
@@ -57,7 +56,7 @@
 @property (nonatomic, weak) id<MOPUBPlayerViewControllerDelegate> delegate;
 
 #pragma mark - Initializer
-- (instancetype)initWithVideoConfig:(MPVideoConfig *)videoConfig nativeVideoAdConfig:(MOPUBNativeVideoAdConfigValues *)nativeVideoAdConfig logEventProperties:(MPAdConfigurationLogEventProperties *)logEventProperties;
+- (instancetype)initWithVideoConfig:(MPVideoConfig *)videoConfig nativeVideoAdConfig:(MOPUBNativeVideoAdConfigValues *)nativeVideoAdConfig;
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 

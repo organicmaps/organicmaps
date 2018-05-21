@@ -28,7 +28,7 @@
  * Initializes the MPActivityViewControllerHelper and stores a weak reference
  * to the supplied delegate.
  *
- * @param delegate
+ * @param delegate Optional callback delegate
  */
 - (instancetype)initWithDelegate:(id<MPActivityViewControllerHelperDelegate>)delegate;
 

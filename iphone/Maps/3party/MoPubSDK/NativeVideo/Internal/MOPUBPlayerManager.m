@@ -33,14 +33,14 @@
     self.currentPlayerViewController = nil;
 }
 
-- (MOPUBPlayerViewController *)playerViewControllerWithVideoConfig:(MPVideoConfig *)videoConfig nativeVideoAdConfig:(MOPUBNativeVideoAdConfigValues *)nativeVideoAdConfig logEventProperties:(MPAdConfigurationLogEventProperties *)logEventProperties
+- (MOPUBPlayerViewController *)playerViewControllerWithVideoConfig:(MPVideoConfig *)videoConfig nativeVideoAdConfig:(MOPUBNativeVideoAdConfigValues *)nativeVideoAdConfig
 {
     // make sure only one instance of avPlayer at a time
     if (self.currentPlayerViewController) {
         [self disposePlayerViewController];
     }
 
-    self.currentPlayerViewController = [[MOPUBPlayerViewController alloc] initWithVideoConfig:videoConfig nativeVideoAdConfig:nativeVideoAdConfig logEventProperties:logEventProperties];
+    self.currentPlayerViewController = [[MOPUBPlayerViewController alloc] initWithVideoConfig:videoConfig nativeVideoAdConfig:nativeVideoAdConfig];
     return self.currentPlayerViewController;
 }
 

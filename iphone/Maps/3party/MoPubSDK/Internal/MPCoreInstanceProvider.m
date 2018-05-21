@@ -17,8 +17,6 @@
 #import "MPTimer.h"
 #import "MPAnalyticsTracker.h"
 #import "MPGeolocationProvider.h"
-#import "MPLogEventRecorder.h"
-#import "MPNetworkManager.h"
 
 #define MOPUB_CARRIER_INFO_DEFAULTS_KEY @"com.mopub.carrierinfo"
 
@@ -41,7 +39,6 @@ typedef enum
 
 @interface MPCoreInstanceProvider ()
 
-@property (nonatomic, copy) NSString *userAgent;
 @property (nonatomic, strong) NSMutableDictionary *singletons;
 @property (nonatomic, strong) NSMutableDictionary *carrierInfo;
 @property (nonatomic, assign) MPTwitterDeepLink twitterDeepLinkStatus;
@@ -50,7 +47,6 @@ typedef enum
 
 @implementation MPCoreInstanceProvider
 
-@synthesize userAgent = _userAgent;
 @synthesize singletons = _singletons;
 @synthesize carrierInfo = _carrierInfo;
 @synthesize twitterDeepLinkStatus = _twitterDeepLinkStatus;
@@ -136,48 +132,7 @@ static MPCoreInstanceProvider *sharedProvider = nil;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-#pragma mark - Fetching Ads
-- (NSMutableURLRequest *)buildConfiguredURLRequestWithURL:(NSURL *)URL
-{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-    [request setHTTPShouldHandleCookies:YES];
-    [request setValue:self.userAgent forHTTPHeaderField:@"User-Agent"];
-    return request;
-}
-
-- (NSString *)userAgent
-{
-    if (!_userAgent) {
-        self.userAgent = [[[UIWebView alloc] init] stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
-    }
-
-    return _userAgent;
-}
-
-- (MPAdServerCommunicator *)buildMPAdServerCommunicatorWithDelegate:(id<MPAdServerCommunicatorDelegate>)delegate
-{
-    return [(MPAdServerCommunicator *)[MPAdServerCommunicator alloc] initWithDelegate:delegate];
-}
-
-
-#pragma mark - URL Handling
-
-- (MPURLResolver *)buildMPURLResolverWithURL:(NSURL *)URL completion:(MPURLResolverCompletionBlock)completion;
-{
-    return [MPURLResolver resolverWithURL:URL completion:completion];
-}
-
-- (MPAdDestinationDisplayAgent *)buildMPAdDestinationDisplayAgentWithDelegate:(id<MPAdDestinationDisplayAgentDelegate>)delegate
-{
-    return [MPAdDestinationDisplayAgent agentWithDelegate:delegate];
-}
-
 #pragma mark - Utilities
-
-- (UIDevice *)sharedCurrentDevice
-{
-    return [UIDevice currentDevice];
-}
 
 - (MPGeolocationProvider *)sharedMPGeolocationProvider
 {
@@ -216,18 +171,6 @@ static MPCoreInstanceProvider *sharedProvider = nil;
     return gestureRecognizer;
 }
 
-- (NSOperationQueue *)sharedOperationQueue
-{
-    static NSOperationQueue *sharedOperationQueue = nil;
-    static dispatch_once_t pred;
-
-    dispatch_once(&pred, ^{
-        sharedOperationQueue = [[NSOperationQueue alloc] init];
-    });
-
-    return sharedOperationQueue;
-}
-
 - (MPAnalyticsTracker *)sharedMPAnalyticsTracker
 {
     return [self singletonForClass:[MPAnalyticsTracker class] provider:^id{
@@ -239,21 +182,6 @@ static MPCoreInstanceProvider *sharedProvider = nil;
 {
     return [self singletonForClass:[MPReachability class] provider:^id{
         return [MPReachability reachabilityForLocalWiFi];
-    }];
-}
-
-- (MPLogEventRecorder *)sharedLogEventRecorder
-{
-    return [self singletonForClass:[MPLogEventRecorder class] provider:^id{
-        MPLogEventRecorder *recorder = [[MPLogEventRecorder alloc] init];
-        return recorder;
-    }];
-}
-
-- (MPNetworkManager *)sharedNetworkManager
-{
-    return [self singletonForClass:[MPNetworkManager class] provider:^id{
-        return [MPNetworkManager sharedNetworkManager];
     }];
 }
 

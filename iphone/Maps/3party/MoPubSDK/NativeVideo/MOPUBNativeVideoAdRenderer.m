@@ -318,13 +318,12 @@ static const CGFloat kAutoPlayTimerInterval = 0.25f;
     if ([self.adView respondsToSelector:(@selector(nativeVideoView))]) {
         BOOL createdNewVideoController = NO;
         self.videoConfig = [self.adapter.properties objectForKey:kVideoConfigKey];
-        self.nativeVideoAdConfig = [self.adapter.properties objectForKey:kNativeVideoAdConfigKey];
+        self.nativeVideoAdConfig = [self.adapter.properties objectForKey:kNativeAdConfigKey];
 
         if (!self.videoController || self.videoController.disposed) {
             createdNewVideoController = YES;
             self.videoController = [[MOPUBPlayerManager sharedInstance] playerViewControllerWithVideoConfig:self.videoConfig
-                                                                                        nativeVideoAdConfig:self.nativeVideoAdConfig
-                                                                                         logEventProperties:[self.adapter.properties valueForKey:kLogEventRequestPropertiesKey]];
+                                                                                        nativeVideoAdConfig:self.nativeVideoAdConfig];
             self.videoController.defaultActionURL = self.adapter.defaultActionURL;
             self.videoController.displayMode = MOPUBPlayerDisplayModeInline;
             self.videoController.delegate = self;
@@ -338,7 +337,9 @@ static const CGFloat kAutoPlayTimerInterval = 0.25f;
                 [self.autoPlayTimer scheduleNow];
             }
 
-            self.trackingAgent = [[MOPUBNativeVideoImpressionAgent alloc] initWithVideoView:self.videoController.playerView requiredVisibilityPercentage:self.nativeVideoAdConfig.impressionMinVisiblePercent/100.0f requiredPlaybackDuration:self.nativeVideoAdConfig.impressionVisible];
+            self.trackingAgent = [[MOPUBNativeVideoImpressionAgent alloc] initWithVideoView:self.videoController.playerView
+                                                               requiredVisibilityPercentage:self.nativeVideoAdConfig.impressionMinVisiblePercent/100.0f
+                                                                   requiredPlaybackDuration:self.nativeVideoAdConfig.impressionMinVisibleSeconds];
         }
         // Lazy load vast tracking. It must be created after we know the video controller has been initialized.
         // If we created a new video controller, we must ensure the vast tracking has the new view.

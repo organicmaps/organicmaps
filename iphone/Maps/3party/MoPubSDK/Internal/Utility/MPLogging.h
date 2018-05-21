@@ -7,22 +7,10 @@
 
 #import <Foundation/Foundation.h>
 #import "MPConstants.h"
+#import "MPLogLevel.h"
 
 extern NSString * const kMPClearErrorLogFormatWithAdUnitID;
 extern NSString * const kMPWarmingUpErrorLogFormatWithAdUnitID;
-
-// Lower = finer-grained logs.
-typedef enum
-{
-    MPLogLevelAll        = 0,
-    MPLogLevelTrace        = 10,
-    MPLogLevelDebug        = 20,
-    MPLogLevelInfo        = 30,
-    MPLogLevelWarn        = 40,
-    MPLogLevelError        = 50,
-    MPLogLevelFatal        = 60,
-    MPLogLevelOff        = 70
-} MPLogLevel;
 
 MPLogLevel MPLogGetLevel(void);
 void MPLogSetLevel(MPLogLevel level);

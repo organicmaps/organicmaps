@@ -8,10 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
 
-@interface MPLastResortDelegate : NSObject
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
-<SKStoreProductViewControllerDelegate>
-#endif
+@interface MPLastResortDelegate : NSObject <SKStoreProductViewControllerDelegate>
 
 + (id)sharedDelegate;
 

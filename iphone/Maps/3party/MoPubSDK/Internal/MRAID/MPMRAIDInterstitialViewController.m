@@ -115,6 +115,15 @@
     self.interstitialView.frame = self.view.bounds;
     self.interstitialView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.interstitialView];
+    if (@available(iOS 9.0, *)) {
+        self.interstitialView.translatesAutoresizingMaskIntoConstraints = NO;
+        [NSLayoutConstraint activateConstraints:@[
+                                                  [self.interstitialView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
+                                                  [self.interstitialView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+                                                  [self.interstitialView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+                                                  [self.interstitialView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+                                                  ]];
+    }
 
     if ([self.delegate respondsToSelector:@selector(interstitialDidLoadAd:)]) {
         [self.delegate interstitialDidLoadAd:self];
@@ -152,7 +161,7 @@
 {
     _supportedOrientationMask = supportedOrientationMask;
 
-    // This should be called whenever the return value of -shouldAutorotateToInterfaceOrientation changes. Since the return
+    // This should be called whenever the return value of -supportedInterfaceOrientations changes. Since the return
     // value is based on _supportedOrientationMask, we do that here. Prevents possible rotation bugs.
     [UIViewController attemptRotationToDeviceOrientation];
 }
@@ -179,12 +188,6 @@
 - (BOOL)shouldAutorotate
 {
     return YES;
-}
-
-// shouldAutorotateToInterfaceOrientation is for ios 5.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return [[UIApplication sharedApplication] mp_doesOrientation:interfaceOrientation matchOrientationMask:self.supportedOrientationMask];
 }
 
 @end

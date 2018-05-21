@@ -71,7 +71,7 @@ static CGFloat const kStallSpinnerSize = 35.0f;
         _playerView = self.playerController.playerView;
         _playerController.delegate = self;
         _dismissBlock = [dismissBlock copy];
-        _displayAgent = [[MPCoreInstanceProvider sharedProvider] buildMPAdDestinationDisplayAgentWithDelegate:self];
+        _displayAgent = [MPAdDestinationDisplayAgent agentWithDelegate:self];
     }
     return self;
 }

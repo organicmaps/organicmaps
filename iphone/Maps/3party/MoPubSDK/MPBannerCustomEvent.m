@@ -17,6 +17,13 @@
     // and implement code to load a banner here.
 }
 
+- (void)requestAdWithSize:(CGSize)size customEventInfo:(NSDictionary *)info adMarkup:(NSString *)adMarkup
+{
+    // By default, the original requestAdWithSize:customEventInfo: method will be called.
+    // Otherwise subclasses must override this method and implement code to load a banner here.
+    [self requestAdWithSize:size customEventInfo:info];
+}
+
 - (void)didDisplayAd
 {
     // The default implementation of this method does nothing. Subclasses may override this method

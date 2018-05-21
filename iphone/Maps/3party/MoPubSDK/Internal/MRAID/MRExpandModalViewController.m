@@ -92,12 +92,6 @@
     return YES;
 }
 
-// shouldAutorotateToInterfaceOrientation is for ios 5.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return [[UIApplication sharedApplication] mp_doesOrientation:interfaceOrientation matchOrientationMask:self.supportedOrientationMask];
-}
-
 #pragma mark - <MPClosableViewDelegate>
 
 // We transfer closable view delegation to the expand view controller in the event MRController is deallocated and the expand modal is presented.

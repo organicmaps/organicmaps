@@ -27,11 +27,9 @@
     [(UIViewController *)controller dismissViewControllerAnimated:MP_ANIMATED completion:nil];
 }
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 60000
 - (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController
 {
     [viewController dismissViewControllerAnimated:MP_ANIMATED completion:nil];
 }
-#endif
 
 @end

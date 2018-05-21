@@ -17,9 +17,9 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 id<MPObjectMapper> MPParseArrayOf(id<MPObjectMapper> internalMapper);
-id<MPObjectMapper> MPParseURLFromString();
+id<MPObjectMapper> MPParseURLFromString(void);
 id<MPObjectMapper> MPParseNumberFromString(NSNumberFormatterStyle numberStyle);
-id<MPObjectMapper> MPParseTimeIntervalFromDurationString();
+id<MPObjectMapper> MPParseTimeIntervalFromDurationString(void);
 id<MPObjectMapper> MPParseClass(Class destinationClass);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

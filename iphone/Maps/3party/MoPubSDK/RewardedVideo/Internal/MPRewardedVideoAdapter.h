@@ -43,8 +43,10 @@
  * Plays a rewarded video ad.
  *
  * @param viewController Presents the rewarded video ad from viewController.
+ * @param customData Optional custom data string to include in the server-to-server callback. If a server-to-server callback
+ * is not used, or if the ad unit is configured for local rewarding, this value will not be persisted.
  */
-- (void)presentRewardedVideoFromViewController:(UIViewController *)viewController;
+- (void)presentRewardedVideoFromViewController:(UIViewController *)viewController customData:(NSString *)customData;
 
 /**
  * This method is called when another ad unit has played a rewarded video from the same network this adapter's custom event

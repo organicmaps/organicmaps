@@ -50,31 +50,17 @@ NSArray *MPConvertStringArrayToURLArray(NSArray *strArray);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-enum {
+typedef NS_ENUM(NSUInteger, MPInterstitialCloseButtonStyle) {
     MPInterstitialCloseButtonStyleAlwaysVisible,
     MPInterstitialCloseButtonStyleAlwaysHidden,
-    MPInterstitialCloseButtonStyleAdControlled
+    MPInterstitialCloseButtonStyleAdControlled,
 };
-typedef NSUInteger MPInterstitialCloseButtonStyle;
 
-enum {
+typedef NS_ENUM(NSUInteger, MPInterstitialOrientationType) {
     MPInterstitialOrientationTypePortrait,
     MPInterstitialOrientationTypeLandscape,
-    MPInterstitialOrientationTypeAll
+    MPInterstitialOrientationTypeAll,
 };
-typedef NSUInteger MPInterstitialOrientationType;
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@interface NSString (MPAdditions)
-
-/*
- * Returns string with reserved/unsafe characters encoded.
- */
-- (NSString *)mp_URLEncodedString;
-
-@end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 

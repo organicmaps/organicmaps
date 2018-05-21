@@ -27,10 +27,8 @@
 @class MPTimer;
 @class MPGeolocationProvider;
 @class CLLocationManager;
-@class MPLogEventRecorder;
-@class MPNetworkManager;
 
-typedef id(^MPSingletonProviderBlock)();
+typedef id(^MPSingletonProviderBlock)(void);
 
 
 typedef NS_OPTIONS(NSUInteger, MPATSSetting) {
@@ -49,25 +47,13 @@ typedef NS_OPTIONS(NSUInteger, MPATSSetting) {
 
 - (void)keepObjectAliveForCurrentRunLoopIteration:(id)anObject;
 
-#pragma mark - Fetching Ads
-- (NSMutableURLRequest *)buildConfiguredURLRequestWithURL:(NSURL *)URL;
-- (MPAdServerCommunicator *)buildMPAdServerCommunicatorWithDelegate:(id<MPAdServerCommunicatorDelegate>)delegate;
-
-#pragma mark - URL Handling
-- (MPURLResolver *)buildMPURLResolverWithURL:(NSURL *)URL completion:(MPURLResolverCompletionBlock)completion;
-- (MPAdDestinationDisplayAgent *)buildMPAdDestinationDisplayAgentWithDelegate:(id<MPAdDestinationDisplayAgentDelegate>)delegate;
-
 #pragma mark - Utilities
-- (UIDevice *)sharedCurrentDevice;
 - (MPGeolocationProvider *)sharedMPGeolocationProvider;
 - (CLLocationManager *)buildCLLocationManager;
 - (id<MPAdAlertManagerProtocol>)buildMPAdAlertManagerWithDelegate:(id)delegate;
 - (MPAdAlertGestureRecognizer *)buildMPAdAlertGestureRecognizerWithTarget:(id)target action:(SEL)action;
-- (NSOperationQueue *)sharedOperationQueue;
 - (MPAnalyticsTracker *)sharedMPAnalyticsTracker;
 - (MPReachability *)sharedMPReachability;
-- (MPLogEventRecorder *)sharedLogEventRecorder;
-- (MPNetworkManager *)sharedNetworkManager;
 - (MPATSSetting)appTransportSecuritySettings;
 
 // This call may return nil and may not update if the user hot-swaps the device's sim card.

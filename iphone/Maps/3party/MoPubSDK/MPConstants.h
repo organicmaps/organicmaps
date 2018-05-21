@@ -14,7 +14,7 @@
 #define DEFAULT_PUB_ID              @"agltb3B1Yi1pbmNyDAsSBFNpdGUYkaoMDA"
 #define MP_SERVER_VERSION           @"8"
 #define MP_BUNDLE_IDENTIFIER        @"com.mopub.mopub"
-#define MP_SDK_VERSION              @"4.13.0"
+#define MP_SDK_VERSION              @"5.0.0"
 
 // Sizing constants.
 extern CGSize const MOPUB_BANNER_SIZE;
@@ -28,6 +28,13 @@ extern CGSize const MOPUB_WIDE_SKYSCRAPER_SIZE;
 #define BANNER_TIMEOUT_INTERVAL             10
 #define INTERSTITIAL_TIMEOUT_INTERVAL       30
 #define REWARDED_VIDEO_TIMEOUT_INTERVAL     30
+#define MOPUB_ADS_EXPIRATION_INTERVAL       14400 // 4 hours converted to seconds
 
 // Feature Flags
 #define SESSION_TRACKING_ENABLED            1
+
+@interface MPConstants : NSObject
+
++ (NSTimeInterval)adsExpirationInterval;
+
+@end

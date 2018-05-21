@@ -66,19 +66,9 @@
 
 #pragma mark - MRCommandDelegate
 
-- (void)mrCommand:(MRCommand *)command createCalendarEventWithParams:(NSDictionary *)params
-{
-    // DEPRECATED
-}
-
 - (void)mrCommand:(MRCommand *)command playVideoWithURL:(NSURL *)url
 {
     [self.videoPlayerManager playVideo:url];
-}
-
-- (void)mrCommand:(MRCommand *)command storePictureWithURL:(NSURL *)url
-{
-    // DEPRECATED
 }
 
 - (void)mrCommand:(MRCommand *)command shouldUseCustomClose:(BOOL)useCustomClose

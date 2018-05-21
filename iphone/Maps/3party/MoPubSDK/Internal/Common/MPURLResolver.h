@@ -11,7 +11,7 @@
 
 typedef void (^MPURLResolverCompletionBlock)(MPURLActionInfo *actionInfo, NSError *error);
 
-@interface MPURLResolver : NSObject <NSURLConnectionDataDelegate>
+@interface MPURLResolver : NSObject
 
 + (instancetype)resolverWithURL:(NSURL *)URL completion:(MPURLResolverCompletionBlock)completion;
 - (void)start;

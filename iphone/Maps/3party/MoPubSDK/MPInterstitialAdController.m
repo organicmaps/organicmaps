@@ -23,13 +23,6 @@
 
 @implementation MPInterstitialAdController
 
-@synthesize manager = _manager;
-@synthesize delegate = _delegate;
-@synthesize adUnitId = _adUnitId;
-@synthesize keywords = _keywords;
-@synthesize location = _location;
-@synthesize testing = _testing;
-
 - (id)initWithAdUnitId:(NSString *)adUnitId
 {
     if (self = [super init]) {
@@ -79,8 +72,8 @@
 {
     [self.manager loadInterstitialWithAdUnitID:self.adUnitId
                                       keywords:self.keywords
-                                      location:self.location
-                                       testing:self.testing];
+                              userDataKeywords:self.userDataKeywords
+                                      location:self.location];
 }
 
 - (void)showFromViewController:(UIViewController *)controller
@@ -135,7 +128,9 @@
 - (void)manager:(MPInterstitialAdManager *)manager
         didFailToLoadInterstitialWithError:(NSError *)error
 {
-    if ([self.delegate respondsToSelector:@selector(interstitialDidFailToLoadAd:)]) {
+    if ([self.delegate respondsToSelector:@selector(interstitialDidFailToLoadAd:withError:)]) {
+        [self.delegate interstitialDidFailToLoadAd:self withError:error];
+    } else if ([self.delegate respondsToSelector:@selector(interstitialDidFailToLoadAd:)]) {
         [self.delegate interstitialDidFailToLoadAd:self];
     }
 }

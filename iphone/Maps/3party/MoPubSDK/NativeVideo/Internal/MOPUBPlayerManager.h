@@ -8,13 +8,12 @@
 @class MOPUBPlayerViewController;
 @class MOPUBNativeVideoAdConfigValues;
 @class MPVideoConfig;
-@class MPAdConfigurationLogEventProperties;
 
 @interface MOPUBPlayerManager : NSObject
 
 + (MOPUBPlayerManager *)sharedInstance;
 - (void)disposePlayerViewController;
 
-- (MOPUBPlayerViewController *)playerViewControllerWithVideoConfig:(MPVideoConfig *)videoConfig nativeVideoAdConfig:(MOPUBNativeVideoAdConfigValues *)nativeVideoAdConfig logEventProperties:(MPAdConfigurationLogEventProperties *)logEventProperties;
+- (MOPUBPlayerViewController *)playerViewControllerWithVideoConfig:(MPVideoConfig *)videoConfig nativeVideoAdConfig:(MOPUBNativeVideoAdConfigValues *)nativeVideoAdConfig;
 
 @end

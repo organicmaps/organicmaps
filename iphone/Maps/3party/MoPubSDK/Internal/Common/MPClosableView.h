@@ -42,6 +42,7 @@ CGRect MPClosableViewCustomCloseButtonFrame(CGSize size, MPClosableViewCloseButt
 @property (nonatomic, assign) MPClosableViewCloseButtonType closeButtonType;
 @property (nonatomic, assign) MPClosableViewCloseButtonLocation closeButtonLocation;
 @property (nonatomic, readonly) BOOL wasTapped;
+@property (nonatomic, strong, readonly) UIButton *closeButton;
 
 - (instancetype)initWithFrame:(CGRect)frame closeButtonType:(MPClosableViewCloseButtonType)closeButtonType;
 

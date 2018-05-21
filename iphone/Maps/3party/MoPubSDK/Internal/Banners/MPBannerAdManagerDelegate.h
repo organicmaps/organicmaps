@@ -18,8 +18,8 @@
 - (id<MPAdViewDelegate>)bannerDelegate;
 - (CGSize)containerSize;
 - (NSString *)keywords;
+- (NSString *)userDataKeywords;
 - (CLLocation *)location;
-- (BOOL)isTesting;
 - (UIViewController *)viewControllerForPresentingModalView;
 
 - (void)invalidateContentView;

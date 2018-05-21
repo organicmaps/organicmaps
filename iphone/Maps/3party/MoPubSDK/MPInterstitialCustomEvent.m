@@ -17,6 +17,13 @@
     // and implement code to load an interstitial here.
 }
 
+- (void)requestInterstitialWithCustomEventInfo:(NSDictionary *)info adMarkup:(NSString *)adMarkup
+{
+    // By default, the original requestInterstitialWithCustomEventInfo: method will be called.
+    // Otherwise subclasses must override this method and implement code to load an interstitial here.
+    [self requestInterstitialWithCustomEventInfo:info];
+}
+
 - (BOOL)enableAutomaticImpressionAndClickTracking
 {
     // Subclasses may override this method to return NO to perform impression and click tracking

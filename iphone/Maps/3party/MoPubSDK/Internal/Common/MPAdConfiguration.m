@@ -7,12 +7,19 @@
 
 #import "MPAdConfiguration.h"
 
+#import "MOPUBExperimentProvider.h"
+#import "MPConsentAdServerKeys.h"
+#import "MPConsentManager.h"
 #import "MPConstants.h"
 #import "MPLogging.h"
-#import "math.h"
-#import "NSJSONSerialization+MPAdditions.h"
 #import "MPRewardedVideoReward.h"
+#import "MPViewabilityTracker.h"
+#import "NSJSONSerialization+MPAdditions.h"
+#import "NSString+MPAdditions.h"
+
+#if MP_HAS_NATIVE_PACKAGE
 #import "MPVASTTrackingEvent.h"
+#endif
 
 NSString * const kAdTypeHeaderKey = @"X-Adtype";
 NSString * const kAdUnitWarmingUpHeaderKey = @"X-Warmup";
@@ -24,7 +31,6 @@ NSString * const kCustomEventClassDataHeaderKey = @"X-Custom-Event-Class-Data";
 NSString * const kFailUrlHeaderKey = @"X-Failurl";
 NSString * const kHeightHeaderKey = @"X-Height";
 NSString * const kImpressionTrackerHeaderKey = @"X-Imptracker";
-NSString * const kInterceptLinksHeaderKey = @"X-Interceptlinks";
 NSString * const kLaunchpageHeaderKey = @"X-Launchpage";
 NSString * const kNativeSDKParametersHeaderKey = @"X-Nativeparams";
 NSString * const kNetworkTypeHeaderKey = @"X-Networktype";
@@ -35,18 +41,20 @@ NSString * const kWidthHeaderKey = @"X-Width";
 NSString * const kDspCreativeIdKey = @"X-DspCreativeid";
 NSString * const kPrecacheRequiredKey = @"X-PrecacheRequired";
 NSString * const kIsVastVideoPlayerKey = @"X-VastVideoPlayer";
-//TODO: Remove `kForceUIWebViewKey` once WKWebView is proven
-NSString * const kForceUIWebViewKey = @"X-ForceUIWebView";
 
 NSString * const kInterstitialAdTypeHeaderKey = @"X-Fulladtype";
 NSString * const kOrientationTypeHeaderKey = @"X-Orientation";
 
+NSString * const kNativeImpressionMinVisiblePixelsHeaderKey = @"X-Native-Impression-Min-Px"; // The pixels header takes priority over percentage, but percentage is left for backwards compatibility
+NSString * const kNativeImpressionMinVisiblePercentHeaderKey = @"X-Impression-Min-Visible-Percent";
+NSString * const kNativeImpressionVisibleMsHeaderKey = @"X-Impression-Visible-Ms";
 NSString * const kNativeVideoPlayVisiblePercentHeaderKey = @"X-Play-Visible-Percent";
 NSString * const kNativeVideoPauseVisiblePercentHeaderKey = @"X-Pause-Visible-Percent";
-NSString * const kNativeVideoImpressionMinVisiblePercentHeaderKey = @"X-Impression-Min-Visible-Percent";
-NSString * const kNativeVideoImpressionVisibleMsHeaderKey = @"X-Impression-Visible-Ms";
 NSString * const kNativeVideoMaxBufferingTimeMsHeaderKey = @"X-Max-Buffer-Ms";
 NSString * const kNativeVideoTrackersHeaderKey = @"X-Video-Trackers";
+
+NSString * const kBannerImpressionVisableMsHeaderKey = @"X-Banner-Impression-Min-Ms";
+NSString * const kBannerImpressionMinPixelHeaderKey = @"X-Banner-Impression-Min-Pixels";
 
 NSString * const kAdTypeHtml = @"html";
 NSString * const kAdTypeInterstitial = @"interstitial";
@@ -72,11 +80,19 @@ NSString * const kNativeVideoTrackerUrlsHeaderKey = @"urls";
 NSString * const kNativeVideoTrackerEventDictionaryKey = @"event";
 NSString * const kNativeVideoTrackerTextDictionaryKey = @"text";
 
+// clickthrough experiment
+NSString * const kClickthroughExperimentBrowserAgent = @"X-Browser-Agent";
+static const NSInteger kMaximumVariantForClickthroughExperiment = 2;
+
+// viewability
+NSString * const kViewabilityDisableHeaderKey = @"X-Disable-Viewability";
+
 
 @interface MPAdConfiguration ()
 
 @property (nonatomic, copy) NSString *adResponseHTMLString;
 @property (nonatomic, strong, readwrite) NSArray *availableRewards;
+@property (nonatomic) MOPUBDisplayAgentType clickthroughExperimentBrowserAgent;
 
 - (MPAdType)adTypeFromHeaders:(NSDictionary *)headers;
 - (NSString *)networkTypeFromHeaders:(NSDictionary *)headers;
@@ -116,8 +132,6 @@ NSString * const kNativeVideoTrackerTextDictionaryKey = @"text";
         self.interceptURLPrefix = [self URLFromHeaders:headers
                                                 forKey:kLaunchpageHeaderKey];
 
-        NSNumber *shouldInterceptLinks = [headers objectForKey:kInterceptLinksHeaderKey];
-        self.shouldInterceptLinks = shouldInterceptLinks ? [shouldInterceptLinks boolValue] : YES;
         self.scrollable = [[headers objectForKey:kScrollableHeaderKey] boolValue];
         self.refreshInterval = [self refreshIntervalFromHeaders:headers];
         self.adTimeoutInterval = [self timeIntervalFromHeaders:headers forKey:kAdTimeoutHeaderKey];
@@ -139,8 +153,6 @@ NSString * const kNativeVideoTrackerTextDictionaryKey = @"text";
 
         self.isVastVideoPlayer = [[headers objectForKey:kIsVastVideoPlayerKey] boolValue];
 
-        self.forceUIWebView = [[headers objectForKey:kForceUIWebViewKey] boolValue];
-
         self.creationTimestamp = [NSDate date];
 
         self.creativeId = [headers objectForKey:kCreativeIdHeaderKey];
@@ -151,14 +163,19 @@ NSString * const kNativeVideoTrackerTextDictionaryKey = @"text";
 
         self.nativeVideoPauseVisiblePercent = [self percentFromHeaders:headers forKey:kNativeVideoPauseVisiblePercentHeaderKey];
 
-        self.nativeVideoImpressionMinVisiblePercent = [self percentFromHeaders:headers forKey:kNativeVideoImpressionMinVisiblePercentHeaderKey];
+        self.nativeImpressionMinVisiblePixels = [[self adAmountFromHeaders:headers key:kNativeImpressionMinVisiblePixelsHeaderKey] floatValue];
 
-        self.nativeVideoImpressionVisible = [self timeIntervalFromMsHeaders:headers forKey:kNativeVideoImpressionVisibleMsHeaderKey];
+        self.nativeImpressionMinVisiblePercent = [self percentFromHeaders:headers forKey:kNativeImpressionMinVisiblePercentHeaderKey];
+
+        self.nativeImpressionMinVisibleTimeInterval = [self timeIntervalFromMsHeaders:headers forKey:kNativeImpressionVisibleMsHeaderKey];
 
         self.nativeVideoMaxBufferingTime = [self timeIntervalFromMsHeaders:headers forKey:kNativeVideoMaxBufferingTimeMsHeaderKey];
-
+#if MP_HAS_NATIVE_PACKAGE
         self.nativeVideoTrackers = [self nativeVideoTrackersFromHeaders:headers key:kNativeVideoTrackersHeaderKey];
+#endif
 
+        self.impressionMinVisibleTimeInSec = [self timeIntervalFromMsHeaders:headers forKey:kBannerImpressionVisableMsHeaderKey];
+        self.impressionMinVisiblePixels = [[self adAmountFromHeaders:headers key:kBannerImpressionMinPixelHeaderKey] floatValue];
 
         // rewarded video
 
@@ -199,6 +216,27 @@ NSString * const kNativeVideoTrackerTextDictionaryKey = @"text";
         // rewarded playables
         self.rewardedPlayableDuration = [self timeIntervalFromHeaders:headers forKey:kRewardedPlayableDurationHeaderKey];
         self.rewardedPlayableShouldRewardOnClick = [[headers objectForKey:kRewardedPlayableRewardOnClickHeaderKey] boolValue];
+
+        // clickthrough experiment
+        self.clickthroughExperimentBrowserAgent = [self clickthroughExperimentVariantFromHeaders:headers forKey:kClickthroughExperimentBrowserAgent];
+        [MOPUBExperimentProvider setDisplayAgentFromAdServer:self.clickthroughExperimentBrowserAgent];
+
+        // viewability
+        NSString * disabledViewabilityValue = [headers objectForKey:kViewabilityDisableHeaderKey];
+        NSNumber * disabledViewabilityVendors = disabledViewabilityValue != nil ? [disabledViewabilityValue safeIntegerValue] : nil;
+        if (disabledViewabilityVendors != nil &&
+            [disabledViewabilityVendors integerValue] >= MPViewabilityOptionNone &&
+            [disabledViewabilityVendors integerValue] <= MPViewabilityOptionAll) {
+            MPViewabilityOption vendorsToDisable = (MPViewabilityOption)([disabledViewabilityVendors integerValue]);
+            [MPViewabilityTracker disableViewability:vendorsToDisable];
+        }
+
+        // consent
+        [[MPConsentManager sharedManager] forceStatusShouldForceExplicitNo:[headers[kForceExplicitNoKey] boolValue]
+                                                   shouldInvalidateConsent:[headers[kInvalidateConsentKey] boolValue]
+                                                    shouldReacquireConsent:[headers[kReacquireConsentKey] boolValue]
+                                                       consentChangeReason:headers[kConsentChangedReasonKey]
+                                                   shouldBroadcast:YES];
     }
     return self;
 }
@@ -397,6 +435,7 @@ NSString * const kNativeVideoTrackerTextDictionaryKey = @"text";
     }
 }
 
+#if MP_HAS_NATIVE_PACKAGE
 - (NSDictionary *)nativeVideoTrackersFromHeaders:(NSDictionary *)headers key:(NSString *)key
 {
     NSDictionary *dictFromHeader = [self dictionaryFromHeaders:headers forKey:key];
@@ -434,6 +473,8 @@ NSString * const kNativeVideoTrackerTextDictionaryKey = @"text";
     }
 }
 
+#endif
+
 - (NSArray *)parseAvailableRewardsFromHeaders:(NSDictionary *)headers {
     // The X-Rewarded-Currencies header key doesn't exist. This is probably
     // not a rewarded ad.
@@ -461,6 +502,29 @@ NSString * const kNativeVideoTrackerTextDictionaryKey = @"text";
     }];
 
     return availableRewards;
+}
+
+- (MOPUBDisplayAgentType)clickthroughExperimentVariantFromHeaders:(NSDictionary *)headers forKey:(NSString *)key
+{
+    NSString *variantString = [headers objectForKey:key];
+    NSInteger variant = 0;
+    if (variantString) {
+        int parsedInt = -1;
+        BOOL isNumber = [[NSScanner scannerWithString:variantString] scanInt:&parsedInt];
+        if (isNumber && parsedInt >= 0 && parsedInt <= kMaximumVariantForClickthroughExperiment) {
+            variant = parsedInt;
+        }
+    }
+
+    return variant;
+}
+
+- (BOOL)visibleImpressionTrackingEnabled
+{
+    if (self.impressionMinVisibleTimeInSec < 0 || self.impressionMinVisiblePixels <= 0) {
+        return NO;
+    }
+    return YES;
 }
 
 @end

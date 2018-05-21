@@ -224,22 +224,6 @@ NSArray *MPConvertStringArrayToURLArray(NSArray *strArray)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@implementation NSString (MPAdditions)
-
-- (NSString *)mp_URLEncodedString
-{
-    NSString *result = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(NULL,
-                                                                           (CFStringRef)self,
-                                                                           NULL,
-                                                                           (CFStringRef)@"!*'();:@&=+$,/?%#[]<>",
-                                                                           kCFStringEncodingUTF8));
-    return result;
-}
-
-@end
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
 @implementation UIDevice (MPAdditions)
 
 - (NSString *)mp_hardwareDeviceName

@@ -13,22 +13,16 @@
 #import "MPIdentityProvider.h"
 #import "MPCoreInstanceProvider.h"
 #import "MPAPIEndpoints.h"
-
-#define MOPUB_CONVERSION_DEFAULTS_KEY @"com.mopub.conversion"
+#import "MPHTTPNetworkSession.h"
+#import "MPURLRequest.h"
+#import "MPConsentManager.h"
+#import "MPAdServerURLBuilder.h"
 
 @interface MPAdConversionTracker ()
-
-@property (nonatomic, strong) NSMutableData *responseData;
-@property (nonatomic, assign) NSInteger statusCode;
-
-- (NSURL *)URLForAppID:(NSString *)appID;
-
+@property (nonatomic, strong) NSURLSessionTask * task;
 @end
 
 @implementation MPAdConversionTracker
-
-@synthesize responseData = _responseData;
-@synthesize statusCode = _statusCode;
 
 + (MPAdConversionTracker *)sharedConversionTracker
 {
@@ -45,52 +39,26 @@
 
 - (void)reportApplicationOpenForApplicationID:(NSString *)appID
 {
+    // Store app ID in case retry is needed.
+    [[NSUserDefaults standardUserDefaults] setObject:appID forKey:MOPUB_CONVERSION_APP_ID_KEY];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+    // Do not send app conversion request if collecting personal information is not allowed.
+    if (![MPConsentManager sharedManager].canCollectPersonalInfo) {
+        return;
+    }
+
     if (![[NSUserDefaults standardUserDefaults] boolForKey:MOPUB_CONVERSION_DEFAULTS_KEY]) {
         MPLogInfo(@"Tracking conversion");
-        NSMutableURLRequest *request = [[MPCoreInstanceProvider sharedProvider] buildConfiguredURLRequestWithURL:[self URLForAppID:appID]];
-        self.responseData = [NSMutableData data];
-        [NSURLConnection connectionWithRequest:request delegate:self];
+        MPURLRequest * request = [[MPURLRequest alloc] initWithURL:[MPAdServerURLBuilder conversionTrackingURLForAppID:appID]];
+        self.task = [MPHTTPNetworkSession startTaskWithHttpRequest:request responseHandler:^(NSData * data, NSHTTPURLResponse * response) {
+            if (response.statusCode == 200 && data.length > 0) {
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:MOPUB_CONVERSION_APP_ID_KEY];
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:MOPUB_CONVERSION_DEFAULTS_KEY];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+        } errorHandler:nil];
     }
 }
 
-#pragma mark - <NSURLConnectionDataDelegate>
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    self.statusCode = [(NSHTTPURLResponse *)response statusCode];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    [self.responseData appendData:data];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    //NOOP
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    if (self.statusCode == 200 && [self.responseData length] > 0) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:MOPUB_CONVERSION_DEFAULTS_KEY];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-}
-
-#pragma mark -
-#pragma mark Internal
-
-- (NSURL *)URLForAppID:(NSString *)appID
-{
-    NSString *path = [NSString stringWithFormat:@"%@?v=%@&udid=%@&id=%@&av=%@",
-                      [MPAPIEndpoints baseURLStringWithPath:MOPUB_API_PATH_CONVERSION testing:NO],
-                      MP_SERVER_VERSION,
-                      [MPIdentityProvider identifier],
-                      appID,
-                      [[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
-                      ];
-
-    return [NSURL URLWithString:path];
-}
 @end

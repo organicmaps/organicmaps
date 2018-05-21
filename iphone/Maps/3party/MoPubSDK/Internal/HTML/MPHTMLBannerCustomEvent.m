@@ -10,6 +10,7 @@
 #import "MPLogging.h"
 #import "MPAdConfiguration.h"
 #import "MPInstanceProvider.h"
+#import "MPAnalyticsTracker.h"
 
 @interface MPHTMLBannerCustomEvent ()
 
@@ -99,5 +100,14 @@
     [self.delegate bannerCustomEventWillLeaveApplication:self];
 }
 
+- (void)trackMPXAndThirdPartyImpressions
+{
+    [self.bannerAgent invokeJavaScriptForEvent:MPAdWebViewEventAdDidAppear];
+}
+
+- (void)startViewabilityTracker
+{
+    [self.bannerAgent startViewabilityTracker];
+}
 
 @end

@@ -8,6 +8,7 @@
 #import "MPVASTMacroProcessor.h"
 #import "MPGlobal.h"
 #import "MPVASTStringUtilities.h"
+#import "NSString+MPAdditions.h"
 
 @implementation MPVASTMacroProcessor
 

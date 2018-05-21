@@ -14,7 +14,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@interface MPAdServerCommunicator : NSObject <NSURLConnectionDataDelegate>
+@interface MPAdServerCommunicator : NSObject
 
 @property (nonatomic, weak) id<MPAdServerCommunicatorDelegate> delegate;
 @property (nonatomic, assign, readonly) BOOL loading;
@@ -31,7 +31,7 @@
 @protocol MPAdServerCommunicatorDelegate <NSObject>
 
 @required
-- (void)communicatorDidReceiveAdConfiguration:(MPAdConfiguration *)configuration;
+- (void)communicatorDidReceiveAdConfigurations:(NSArray<MPAdConfiguration *> *)configurations;
 - (void)communicatorDidFailWithError:(NSError *)error;
 
 @end

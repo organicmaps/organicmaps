@@ -14,15 +14,12 @@
 @class MPAdConfiguration;
 
 @interface MPBaseBannerAdapter : NSObject
-{
-    id<MPBannerAdapterDelegate> __weak _delegate;
-}
 
 @property (nonatomic, weak) id<MPBannerAdapterDelegate> delegate;
 @property (nonatomic, copy) NSURL *impressionTrackingURL;
 @property (nonatomic, copy) NSURL *clickTrackingURL;
 
-- (id)initWithDelegate:(id<MPBannerAdapterDelegate>)delegate;
+- (instancetype)initWithDelegate:(id<MPBannerAdapterDelegate>)delegate;
 
 /*
  * Sets the adapter's delegate to nil.

@@ -6,21 +6,24 @@
 //
 
 #import "MOPUBNativeVideoAdConfigValues.h"
+#import "MPNativeAdConfigValues+Internal.h"
 
 @implementation MOPUBNativeVideoAdConfigValues
 
 - (instancetype)initWithPlayVisiblePercent:(NSInteger)playVisiblePercent
                        pauseVisiblePercent:(NSInteger)pauseVisiblePercent
+                impressionMinVisiblePixels:(CGFloat)impressionMinVisiblePixels
                impressionMinVisiblePercent:(NSInteger)impressionMinVisiblePercent
-                         impressionVisible:(NSTimeInterval)impressionVisible
-                                 maxBufferingTime:(NSTimeInterval)maxBufferingTime trackers:(NSDictionary *)trackers
+               impressionMinVisibleSeconds:(NSTimeInterval)impressionMinVisibleSeconds
+                          maxBufferingTime:(NSTimeInterval)maxBufferingTime
+                                  trackers:(NSDictionary *)trackers
 {
-    self = [super init];
+    self = [super initWithImpressionMinVisiblePixels:impressionMinVisiblePixels
+                         impressionMinVisiblePercent:impressionMinVisiblePercent
+                         impressionMinVisibleSeconds:impressionMinVisibleSeconds];
     if (self) {
         _playVisiblePercent = playVisiblePercent;
         _pauseVisiblePercent = pauseVisiblePercent;
-        _impressionMinVisiblePercent = impressionMinVisiblePercent;
-        _impressionVisible = impressionVisible;
         _maxBufferingTime = maxBufferingTime;
         _trackers = trackers;
     }
@@ -29,21 +32,11 @@
 
 - (BOOL)isValid
 {
-    return ([self isValidPercentage:self.playVisiblePercent] &&
+    return ((self.isImpressionMinVisiblePixelsValid || self.isImpressionMinVisiblePercentValid) && // OR because we only need pixels or percent, not both
+            self.isImpressionMinVisibleSecondsValid &&
+            [self isValidPercentage:self.playVisiblePercent] &&
             [self isValidPercentage:self.pauseVisiblePercent] &&
-            [self isValidPercentage:self.impressionMinVisiblePercent] &&
-            [self isValidTimeInterval:self.impressionVisible] &&
             [self isValidTimeInterval:self.maxBufferingTime]);
-}
-
-- (BOOL)isValidPercentage:(NSInteger)percentage
-{
-    return (percentage >= 0 && percentage <= 100);
-}
-
-- (BOOL)isValidTimeInterval:(NSTimeInterval)timeInterval
-{
-    return timeInterval > 0;
 }
 
 @end

@@ -12,23 +12,25 @@
 #import "NSURL+MPAdditions.h"
 #import "MPCoreInstanceProvider.h"
 #import "MPAnalyticsTracker.h"
+#import "MOPUBExperimentProvider.h"
+#import <SafariServices/SafariServices.h>
 
 static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@interface MPAdDestinationDisplayAgent ()
+@interface MPAdDestinationDisplayAgent () <SFSafariViewControllerDelegate>
 
 @property (nonatomic, strong) MPURLResolver *resolver;
 @property (nonatomic, strong) MPURLResolver *enhancedDeeplinkFallbackResolver;
 @property (nonatomic, strong) MPProgressOverlayView *overlayView;
 @property (nonatomic, assign) BOOL isLoadingDestination;
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_6_0
+@property (nonatomic) MOPUBDisplayAgentType displayAgentType;
 @property (nonatomic, strong) SKStoreProductViewController *storeKitController;
-#endif
 
 @property (nonatomic, strong) MPAdBrowserController *browserController;
+@property (nonatomic, strong) SFSafariViewController *safariController;
+
 @property (nonatomic, strong) MPTelephoneConfirmationController *telephoneConfirmationController;
 @property (nonatomic, strong) MPActivityViewControllerHelper *activityViewControllerHelper;
 
@@ -53,6 +55,7 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
     agent.delegate = delegate;
     agent.overlayView = [[MPProgressOverlayView alloc] initWithDelegate:agent];
     agent.activityViewControllerHelper = [[MPActivityViewControllerHelper alloc] initWithDelegate:agent];
+    agent.displayAgentType = [MOPUBExperimentProvider displayAgentType];
     return agent;
 }
 
@@ -61,13 +64,13 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
     [self dismissAllModalContent];
 
     self.overlayView.delegate = nil;
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_6_0
+
     // XXX: If this display agent is deallocated while a StoreKit controller is still on-screen,
     // nil-ing out the controller's delegate would leave us with no way to dismiss the controller
     // in the future. Therefore, we change the controller's delegate to a singleton object which
     // implements SKStoreProductViewControllerDelegate and is always around.
     self.storeKitController.delegate = [MPLastResortDelegate sharedDelegate];
-#endif
+
     self.browserController.delegate = nil;
 
 }
@@ -88,15 +91,13 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
     [self.resolver cancel];
     [self.enhancedDeeplinkFallbackResolver cancel];
 
-    __weak typeof(self) weakSelf = self;
-    self.resolver = [[MPCoreInstanceProvider sharedProvider] buildMPURLResolverWithURL:URL completion:^(MPURLActionInfo *suggestedAction, NSError *error) {
-        typeof(self) strongSelf = weakSelf;
-        if (strongSelf) {
-            if (error) {
-                [strongSelf failedToResolveURLWithError:error];
-            } else {
-                [strongSelf handleSuggestedURLAction:suggestedAction isResolvingEnhancedDeeplink:NO];
-            }
+    __weak __typeof__(self) weakSelf = self;
+    self.resolver = [MPURLResolver resolverWithURL:URL completion:^(MPURLActionInfo *suggestedAction, NSError *error) {
+        __typeof__(self) strongSelf = weakSelf;
+        if (error) {
+            [strongSelf failedToResolveURLWithError:error];
+        } else {
+            [strongSelf handleSuggestedURLAction:suggestedAction isResolvingEnhancedDeeplink:NO];
         }
     }];
 
@@ -124,8 +125,7 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
 
     switch (actionInfo.actionType) {
         case MPURLActionTypeStoreKit:
-            [self showStoreKitProductWithParameter:actionInfo.iTunesItemIdentifier
-                                       fallbackURL:actionInfo.iTunesStoreFallbackURL];
+            [self showStoreKitWithAction:actionInfo];
             break;
         case MPURLActionTypeGenericDeeplink:
             [self openURLInApplication:actionInfo.deeplinkURL];
@@ -144,11 +144,10 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
             [self openURLInApplication:actionInfo.safariDestinationURL];
             break;
         case MPURLActionTypeOpenInWebView:
-            [self showWebViewWithHTMLString:actionInfo.HTTPResponseString
-                                    baseURL:actionInfo.webViewBaseURL];
+            [self showWebViewWithHTMLString:actionInfo.HTTPResponseString baseURL:actionInfo.webViewBaseURL actionType:MPURLActionTypeOpenInWebView];
             break;
         case MPURLActionTypeOpenURLInWebView:
-            [self showWebViewWithURL:actionInfo.originalURL];
+            [self showWebViewWithHTMLString:actionInfo.HTTPResponseString baseURL:actionInfo.originalURL actionType:MPURLActionTypeOpenInWebView];
             break;
         case MPURLActionTypeShare:
             [self openShareURL:actionInfo.shareURL];
@@ -179,46 +178,60 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
 
 - (void)handleEnhancedDeeplinkFallbackForRequest:(MPEnhancedDeeplinkRequest *)request;
 {
-    __weak typeof(self) weakSelf = self;
+    __weak __typeof__(self) weakSelf = self;
     [self.enhancedDeeplinkFallbackResolver cancel];
-    self.enhancedDeeplinkFallbackResolver = [[MPCoreInstanceProvider sharedProvider] buildMPURLResolverWithURL:request.fallbackURL completion:^(MPURLActionInfo *actionInfo, NSError *error) {
-        typeof(self) strongSelf = weakSelf;
-        if (strongSelf) {
-            if (error) {
-                // If the resolver fails, just treat the entire original URL as a regular deeplink.
-                [strongSelf openURLInApplication:request.originalURL];
-            } else {
-                // Otherwise, the resolver will return us a URL action. We process that action
-                // normally with one exception: we don't follow any nested enhanced deeplinks.
-                BOOL success = [strongSelf handleSuggestedURLAction:actionInfo isResolvingEnhancedDeeplink:YES];
-                if (success) {
-                    [[[MPCoreInstanceProvider sharedProvider] sharedMPAnalyticsTracker] sendTrackingRequestForURLs:request.fallbackTrackingURLs];
-                }
+    self.enhancedDeeplinkFallbackResolver = [MPURLResolver resolverWithURL:request.fallbackURL completion:^(MPURLActionInfo *actionInfo, NSError *error) {
+        __typeof__(self) strongSelf = weakSelf;
+        if (error) {
+            // If the resolver fails, just treat the entire original URL as a regular deeplink.
+            [strongSelf openURLInApplication:request.originalURL];
+        }
+        else {
+            // Otherwise, the resolver will return us a URL action. We process that action
+            // normally with one exception: we don't follow any nested enhanced deeplinks.
+            BOOL success = [strongSelf handleSuggestedURLAction:actionInfo isResolvingEnhancedDeeplink:YES];
+            if (success) {
+                [[[MPCoreInstanceProvider sharedProvider] sharedMPAnalyticsTracker] sendTrackingRequestForURLs:request.fallbackTrackingURLs];
             }
         }
     }];
     [self.enhancedDeeplinkFallbackResolver start];
 }
 
-- (void)showWebViewWithHTMLString:(NSString *)HTMLString baseURL:(NSURL *)URL
-{
-    self.browserController = [[MPAdBrowserController alloc] initWithURL:URL
-                                                             HTMLString:HTMLString
-                                                               delegate:self];
-    [self showAdBrowserController:self.browserController];
+- (void)showWebViewWithHTMLString:(NSString *)HTMLString baseURL:(NSURL *)URL actionType:(MPURLActionType)actionType {
+    switch (self.displayAgentType) {
+        case MOPUBDisplayAgentTypeInApp:
+        case MOPUBDisplayAgentTypeSafariViewController:
+            if ([MPAdDestinationDisplayAgent shouldUseSafariViewController]) {
+                if (@available(iOS 9.0, *)) {
+                    self.safariController = [[SFSafariViewController alloc] initWithURL:URL];
+                    self.safariController.delegate = self;
+                }
+            } else {
+                if (actionType == MPURLActionTypeOpenInWebView) {
+                    self.browserController = [[MPAdBrowserController alloc] initWithURL:URL
+                                                                         HTMLString:HTMLString
+                                                                           delegate:self];
+                } else {
+                    self.browserController = [[MPAdBrowserController alloc] initWithURL:URL
+                                                                               delegate:self];
+                }
+            }
+            [self showAdBrowserController];
+            break;
+        case MOPUBDisplayAgentTypeNativeSafari:
+            [self openURLInApplication:URL];
+            break;
+    }
 }
 
-- (void)showWebViewWithURL:(NSURL *)URL {
-    self.browserController = [[MPAdBrowserController alloc] initWithURL:URL
-                                                               delegate:self];
-    [self showAdBrowserController:self.browserController];
-}
-
-- (void)showAdBrowserController:(MPAdBrowserController *)adBrowserController {
+- (void)showAdBrowserController {
     [self hideOverlay];
 
-    self.browserController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [[self.delegate viewControllerForPresentingModalView] presentViewController:self.browserController
+    UIViewController *browserViewController = self.safariController ? self.safariController : self.browserController;
+
+    browserViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [[self.delegate viewControllerForPresentingModalView] presentViewController:browserViewController
                                                                        animated:MP_ANIMATED
                                                                      completion:nil];
 }
@@ -291,7 +304,6 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
 
 - (void)presentStoreKitControllerWithItemIdentifier:(NSString *)identifier fallbackURL:(NSURL *)URL
 {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= MP_IOS_6_0
     self.storeKitController = [MPStoreKitProvider buildController];
     self.storeKitController.delegate = self;
 
@@ -301,7 +313,6 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
 
     [self hideOverlay];
     [[self.delegate viewControllerForPresentingModalView] presentViewController:self.storeKitController animated:MP_ANIMATED completion:nil];
-#endif
 }
 
 #pragma mark - <MPSKStoreProductViewControllerDelegate>
@@ -329,6 +340,13 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
     return nil;
 }
 
+#pragma mark - <SFSafariViewControllerDelegate>
+
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+    self.isLoadingDestination = NO;
+    [self.delegate displayAgentDidDismissModal];
+}
+
 #pragma mark - <MPProgressOverlayViewDelegate>
 
 - (void)overlayCancelButtonPressed
@@ -343,6 +361,16 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
     [[self.delegate viewControllerForPresentingModalView] dismissViewControllerAnimated:MP_ANIMATED completion:^{
         [self.delegate displayAgentDidDismissModal];
     }];
+}
+
++ (BOOL)shouldUseSafariViewController
+{
+    MOPUBDisplayAgentType displayAgentType = [MOPUBExperimentProvider displayAgentType];
+    if (@available(iOS 9.0, *)) {
+        return (displayAgentType == MOPUBDisplayAgentTypeSafariViewController);
+    }
+
+    return NO;
 }
 
 - (void)hideOverlay
@@ -367,6 +395,24 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
 - (void)activityViewControllerDidDismiss
 {
     [self.delegate displayAgentDidDismissModal];
+}
+
+#pragma mark - Experiment with 3 display agent types: 0 -> keep existing, 1 -> use native safari, 2 -> use SafariViewController
+
+- (void)showStoreKitWithAction:(MPURLActionInfo *)actionInfo
+{
+    switch (self.displayAgentType) {
+        case MOPUBDisplayAgentTypeInApp:
+        case MOPUBDisplayAgentTypeSafariViewController: // It doesn't make sense to open store kit in SafariViewController so storeKitController is used here.
+            [self showStoreKitProductWithParameter:actionInfo.iTunesItemIdentifier
+                                       fallbackURL:actionInfo.iTunesStoreFallbackURL];
+            break;
+        case MOPUBDisplayAgentTypeNativeSafari:
+            [self openURLInApplication:actionInfo.iTunesStoreFallbackURL];
+            break;
+        default:
+            break;
+    }
 }
 
 @end

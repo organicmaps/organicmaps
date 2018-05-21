@@ -74,13 +74,6 @@
 - (id)singletonForClass:(Class)klass provider:(MPSingletonProviderBlock)provider;
 - (id)singletonForClass:(Class)klass provider:(MPSingletonProviderBlock)provider context:(id)context;
 
-#pragma mark - Banners
-- (MPBannerAdManager *)buildMPBannerAdManagerWithDelegate:(id<MPBannerAdManagerDelegate>)delegate;
-- (MPBaseBannerAdapter *)buildBannerAdapterForConfiguration:(MPAdConfiguration *)configuration
-                                                   delegate:(id<MPBannerAdapterDelegate>)delegate;
-- (MPBannerCustomEvent *)buildBannerCustomEventFromCustomClass:(Class)customClass
-                                                      delegate:(id<MPBannerCustomEventDelegate>)delegate;
-
 #pragma mark - Interstitials
 - (MPInterstitialAdManager *)buildMPInterstitialAdManagerWithDelegate:(id<MPInterstitialAdManagerDelegate>)delegate;
 - (MPBaseInterstitialAdapter *)buildInterstitialAdapterForConfiguration:(MPAdConfiguration *)configuration

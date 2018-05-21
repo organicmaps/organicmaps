@@ -52,7 +52,16 @@
 @property (nonatomic, copy) NSString *adUnitId;
 
 /**
- * A string representing a set of keywords that should be passed to the MoPub ad server to receive
+ * A string representing a set of non-personally identifiable keywords that should be passed to the MoPub ad server to receive
+ * more relevant advertising.
+
+ * Note: If a user is in General Data Protection Regulation (GDPR) region and MoPub doesn't obtain consent from the user, "keywords" will still be sent to the server.
+ *
+ */
+@property (nonatomic, copy) NSString *keywords;
+
+/**
+ * A string representing a set of personally identifiable keywords that should be passed to the MoPub ad server to receive
  * more relevant advertising.
  *
  * Keywords are typically used to target ad campaigns at specific user segments. They should be
@@ -60,26 +69,16 @@
  *
  * On the MoPub website, keyword targeting options can be found under the "Advanced Targeting"
  * section when managing campaigns.
+ *
+ * Note: If a user is in General Data Protection Regulation (GDPR) region and MoPub doesn't obtain consent from the user, personally identifiable keywords will not be sent to the server.
  */
-@property (nonatomic, copy) NSString *keywords;
+@property (nonatomic, copy) NSString *userDataKeywords;
 
 /**
  * A `CLLocation` object representing a user's location that should be passed to the MoPub ad server
  * to receive more relevant advertising.
  */
 @property (nonatomic, copy) CLLocation *location;
-
-/** @name Enabling Test Mode */
-
-/**
- * A Boolean value that determines whether the interstitial ad object should request ads in test
- * mode.
- *
- * The default value is NO.
- * @warning **Important**: If you set this value to YES, make sure to reset it to NO before
- * submitting your application to the App Store.
- */
-@property (nonatomic, assign, getter=isTesting) BOOL testing;
 
 /** @name Loading an Interstitial Ad */
 
@@ -177,6 +176,15 @@
  * @param interstitial The interstitial ad object sending the message.
  */
 - (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial;
+
+/**
+ * Sent when an interstitial ad object fails to load an ad.
+ *
+ * @param interstitial The interstitial ad object sending the message.
+ * @param error The error that occurred during the load.
+ */
+- (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial
+                          withError:(NSError *)error;
 
 /** @name Detecting When an Interstitial Ad is Presented */
 

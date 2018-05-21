@@ -7,23 +7,28 @@
 
 #import <WebKit/WebKit.h>
 #import "MPURLResolver.h"
+#import "MPHTTPNetworkSession.h"
 #import "NSURL+MPAdditions.h"
 #import "NSHTTPURLResponse+MPAdditions.h"
 #import "MPInstanceProvider.h"
 #import "MPLogging.h"
 #import "MPCoreInstanceProvider.h"
+#import "MOPUBExperimentProvider.h"
+#import "NSURL+MPAdditions.h"
+#import "MPURLRequest.h"
 
 static NSString * const kMoPubSafariScheme = @"mopubnativebrowser";
 static NSString * const kMoPubSafariNavigateHost = @"navigate";
 static NSString * const kResolverErrorDomain = @"com.mopub.resolver";
+static NSString * const kWebviewClickthroughHost = @"ads.mopub.com";
+static NSString * const kWebviewClickthroughPath = @"/m/aclk";
+static NSString * const kRedirectURLQueryStringKey = @"r";
 
 @interface MPURLResolver ()
 
 @property (nonatomic, strong) NSURL *originalURL;
 @property (nonatomic, strong) NSURL *currentURL;
-@property (nonatomic, strong) NSURLConnection *connection;
-@property (nonatomic, strong) NSMutableData *responseData;
-@property (nonatomic, assign) NSStringEncoding responseEncoding;
+@property (nonatomic, strong) NSURLSessionTask *task;
 @property (nonatomic, copy) MPURLResolverCompletionBlock completion;
 
 - (MPURLActionInfo *)actionInfoFromURL:(NSURL *)URL error:(NSError **)error;
@@ -36,12 +41,6 @@ static NSString * const kResolverErrorDomain = @"com.mopub.resolver";
 @end
 
 @implementation MPURLResolver
-
-@synthesize originalURL = _originalURL;
-@synthesize currentURL = _currentURL;
-@synthesize connection = _connection;
-@synthesize responseData = _responseData;
-@synthesize completion = _completion;
 
 + (instancetype)resolverWithURL:(NSURL *)URL completion:(MPURLResolverCompletionBlock)completion
 {
@@ -60,7 +59,7 @@ static NSString * const kResolverErrorDomain = @"com.mopub.resolver";
 
 - (void)start
 {
-    [self.connection cancel];
+    [self.task cancel];
     self.currentURL = self.originalURL;
 
     NSError *error = nil;
@@ -68,29 +67,73 @@ static NSString * const kResolverErrorDomain = @"com.mopub.resolver";
 
     if (info) {
         [self safeInvokeAndNilCompletionBlock:info error:nil];
+    } else if ([self shouldEnableClickthroughExperiment]) {
+        info = [MPURLActionInfo infoWithURL:self.originalURL webViewBaseURL:self.currentURL];
+        [self safeInvokeAndNilCompletionBlock:info error:nil];
     } else if (error) {
         [self safeInvokeAndNilCompletionBlock:nil error:error];
     } else {
-        NSURLRequest *request = [[MPCoreInstanceProvider sharedProvider] buildConfiguredURLRequestWithURL:self.originalURL];
-        self.responseData = [NSMutableData data];
-        self.responseEncoding = NSUTF8StringEncoding;
-        self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
+        MPURLRequest *request = [[MPURLRequest alloc] initWithURL:self.originalURL];
+        self.task = [self httpTaskWithRequest:request];
     }
+}
+
+- (NSURLSessionTask *)httpTaskWithRequest:(MPURLRequest *)request {
+    __weak __typeof__(self) weakSelf = self;
+    NSURLSessionTask * task = [MPHTTPNetworkSession startTaskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+        __typeof__(self) strongSelf = weakSelf;
+
+        // Set the response content type
+        NSStringEncoding responseEncoding = NSUTF8StringEncoding;
+        NSDictionary *headers = [response allHeaderFields];
+        NSString *contentType = [headers objectForKey:kMoPubHTTPHeaderContentType];
+        if (contentType != nil) {
+            responseEncoding = [response stringEncodingFromContentType:contentType];
+        }
+
+        NSString *responseString = [[NSString alloc] initWithData:data encoding:responseEncoding];
+        MPURLActionInfo *info = [MPURLActionInfo infoWithURL:strongSelf.originalURL HTTPResponseString:responseString webViewBaseURL:strongSelf.currentURL];
+        [strongSelf safeInvokeAndNilCompletionBlock:info error:nil];
+
+    } errorHandler:^(NSError * _Nonnull error) {
+        __typeof__(self) strongSelf = weakSelf;
+        [strongSelf safeInvokeAndNilCompletionBlock:nil error:error];
+    } shouldRedirectWithNewRequest:^BOOL(NSURLSessionTask * _Nonnull task, NSURLRequest * _Nonnull newRequest) {
+        __typeof__(self) strongSelf = weakSelf;
+
+        // First, check to see if the redirect URL matches any of our suggested actions.
+        NSError * actionInfoError = nil;
+        MPURLActionInfo * info = [strongSelf actionInfoFromURL:newRequest.URL error:&actionInfoError];
+
+        if (info) {
+            [task cancel];
+            [strongSelf safeInvokeAndNilCompletionBlock:info error:nil];
+            return NO;
+        } else {
+            // The redirected URL didn't match any actions, so we should continue with loading the URL.
+            strongSelf.currentURL = newRequest.URL;
+            return YES;
+        }
+    }];
+
+    return task;
 }
 
 - (void)cancel
 {
-    [self.connection cancel];
-    self.connection = nil;
+    [self.task cancel];
+    self.task = nil;
     self.completion = nil;
 }
 
 - (void)safeInvokeAndNilCompletionBlock:(MPURLActionInfo *)info error:(NSError *)error
 {
-    if (self.completion != nil) {
-        self.completion(info, error);
-        self.completion = nil;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.completion != nil) {
+            self.completion(info, error);
+            self.completion = nil;
+        }
+    });
 }
 
 #pragma mark - Handling Application/StoreKit URLs
@@ -225,7 +268,7 @@ static NSString * const kResolverErrorDomain = @"com.mopub.resolver";
         NSString *charset = [contentType substringWithRange:[charsetResult range]];
 
         // ensure that charset is not deallocated early
-        CFStringRef cfCharset = CFBridgingRetain(charset);
+        CFStringRef cfCharset = (CFStringRef)CFBridgingRetain(charset);
         CFStringEncoding cfEncoding = CFStringConvertIANACharSetNameToEncoding(cfCharset);
         CFBridgingRelease(cfCharset);
 
@@ -238,49 +281,38 @@ static NSString * const kResolverErrorDomain = @"com.mopub.resolver";
     return encoding;
 }
 
-#pragma mark - <NSURLConnectionDataDelegate>
+#pragma mark - Check if it's necessary to include a URL in the clickthrough experiment.
+// There are two types of clickthrough URL sources: from webviews and from non-web views.
+// The ones from webviews start with (https|http)://ads.mopub.com/m/aclk
+// For webviews, in order for a URL to be included in the clickthrough experiment, redirect URL scheme needs to be http/https.
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+- (BOOL)shouldEnableClickthroughExperiment
 {
-    [self.responseData appendData:data];
-}
-
-- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response
-{
-    // First, check to see if the redirect URL matches any of our suggested actions.
-    NSError *error = nil;
-    MPURLActionInfo *info = [self actionInfoFromURL:request.URL error:&error];
-
-    if (info) {
-        [connection cancel];
-        [self safeInvokeAndNilCompletionBlock:info error:nil];
-        return nil;
-    } else {
-        // The redirected URL didn't match any actions, so we should continue with loading the URL.
-        self.currentURL = request.URL;
-        return request;
+    if (!self.currentURL) {
+        return NO;
     }
-}
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+    // If redirect URL isn't http/https, do not include it in the clickthrough experiment.
+    if (![self URLIsHTTPOrHTTPS:self.currentURL]) {
+        return NO;
+    }
 
-    NSDictionary *headers = [httpResponse allHeaderFields];
-    NSString *contentType = [headers objectForKey:kMoPubHTTPHeaderContentType];
-    self.responseEncoding = [httpResponse stringEncodingFromContentType:contentType];
-}
+    // Clickthroughs from webviews
+    if ([self.currentURL.host isEqualToString:kWebviewClickthroughHost] &&
+        [self.currentURL.path isEqualToString:kWebviewClickthroughPath]) {
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    NSString *responseString = [[NSString alloc] initWithData:self.responseData encoding:self.responseEncoding];
-    MPURLActionInfo *info = [MPURLActionInfo infoWithURL:self.originalURL HTTPResponseString:responseString webViewBaseURL:self.currentURL];
-    [self safeInvokeAndNilCompletionBlock:info error:nil];
-}
+        NSString *redirectURLStr = [self.currentURL mp_queryParameterForKey:kRedirectURLQueryStringKey];
+        if (!redirectURLStr || ![self URLIsHTTPOrHTTPS:[NSURL URLWithString:redirectURLStr]]) {
+            return NO;
+        }
+    }
 
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    [self safeInvokeAndNilCompletionBlock:nil error:error];
+    // Check experiment variant is in test group.
+    if ([MPAdDestinationDisplayAgent shouldUseSafariViewController] ||
+            [MOPUBExperimentProvider displayAgentType] == MOPUBDisplayAgentTypeNativeSafari) {
+        return YES;
+    }
+    return NO;
 }
 
 @end

@@ -71,57 +71,69 @@ static NSString * const kMraidURLScheme = @"mraid";
 
 - (void)fireReadyEvent
 {
+    MPLogDebug(@"mraidbridge.fireReadyEvent()");
     [self executeJavascript:@"window.mraidbridge.fireReadyEvent();"];
 }
 
 - (void)fireChangeEventForProperty:(MRProperty *)property
 {
     NSString *JSON = [NSString stringWithFormat:@"{%@}", property];
+
+    MPLogDebug(@"mraidbridge.fireChangeEvent(%@)", JSON);
     [self executeJavascript:@"window.mraidbridge.fireChangeEvent(%@);", JSON];
-    MPLogTrace(@"JSON: %@", JSON);
 }
 
 - (void)fireChangeEventsForProperties:(NSArray *)properties
 {
     NSString *JSON = [NSString stringWithFormat:@"{%@}", [properties componentsJoinedByString:@", "]];
+
+    MPLogDebug(@"mraidbridge.fireChangeEvent(%@)", JSON);
     [self executeJavascript:@"window.mraidbridge.fireChangeEvent(%@);", JSON];
-    MPLogTrace(@"JSON: %@", JSON);
 }
 
 - (void)fireErrorEventForAction:(NSString *)action withMessage:(NSString *)message
 {
+    MPLogDebug(@"mraidbridge.fireErrorEvent('%@', '%@')", message, action);
     [self executeJavascript:@"window.mraidbridge.fireErrorEvent('%@', '%@');", message, action];
 }
 
 - (void)fireSizeChangeEvent:(CGSize)size
 {
+    MPLogDebug(@"mraidbridge.notifySizeChangeEvent(%.1f, %.1f)", size.width, size.height);
     [self executeJavascript:@"window.mraidbridge.notifySizeChangeEvent(%.1f, %.1f);", size.width, size.height];
 }
 
 - (void)fireSetScreenSize:(CGSize)size
 {
+    MPLogDebug(@"mraidbridge.setScreenSize(%.1f, %.1f)", size.width, size.height);
     [self executeJavascript:@"window.mraidbridge.setScreenSize(%.1f, %.1f);", size.width, size.height];
 }
 
 - (void)fireSetPlacementType:(NSString *)placementType
 {
+    MPLogDebug(@"mraidbridge.setPlacementType('%@')", placementType);
     [self executeJavascript:@"window.mraidbridge.setPlacementType('%@');", placementType];
 }
 
 - (void)fireSetCurrentPositionWithPositionRect:(CGRect)positionRect
 {
+    MPLogDebug(@"mraidbridge.setCurrentPosition(%.1f, %.1f, %.1f, %.1f)", positionRect.origin.x, positionRect.origin.y,
+              positionRect.size.width, positionRect.size.height);
     [self executeJavascript:@"window.mraidbridge.setCurrentPosition(%.1f, %.1f, %.1f, %.1f);", positionRect.origin.x, positionRect.origin.y,
      positionRect.size.width, positionRect.size.height];
 }
 
 - (void)fireSetDefaultPositionWithPositionRect:(CGRect)positionRect
 {
+    MPLogDebug(@"mraidbridge.setDefaultPosition(%.1f, %.1f, %.1f, %.1f)", positionRect.origin.x, positionRect.origin.y,
+              positionRect.size.width, positionRect.size.height);
     [self executeJavascript:@"window.mraidbridge.setDefaultPosition(%.1f, %.1f, %.1f, %.1f);", positionRect.origin.x, positionRect.origin.y,
      positionRect.size.width, positionRect.size.height];
 }
 
 - (void)fireSetMaxSize:(CGSize)maxSize
 {
+    MPLogDebug(@"mraidbridge.setMaxSize(%.1f, %.1f)", maxSize.width, maxSize.height);
     [self executeJavascript:@"window.mraidbridge.setMaxSize(%.1f, %.1f);", maxSize.width, maxSize.height];
 }
 
@@ -220,6 +232,7 @@ static NSString * const kMraidURLScheme = @"mraid";
 
 - (void)fireNativeCommandCompleteEvent:(NSString *)command
 {
+    MPLogDebug(@"mraidbridge.nativeCallComplete('%@')", command);
     [self executeJavascript:@"window.mraidbridge.nativeCallComplete('%@');", command];
 }
 

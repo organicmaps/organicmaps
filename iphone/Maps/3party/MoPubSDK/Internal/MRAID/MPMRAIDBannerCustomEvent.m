@@ -10,6 +10,8 @@
 #import "MPAdConfiguration.h"
 #import "MPInstanceProvider.h"
 #import "MRController.h"
+#import "MPWebView.h"
+#import "MPViewabilityTracker.h"
 
 @interface MPMRAIDBannerCustomEvent () <MRControllerDelegate>
 
@@ -83,6 +85,16 @@
 {
     MPLogInfo(@"MoPub MRAID banner did end action");
     [self.delegate bannerCustomEventDidFinishAction:self];
+}
+
+- (void)trackMPXAndThirdPartyImpressions
+{
+    [self.mraidController.mraidWebView stringByEvaluatingJavaScriptFromString:@"webviewDidAppear();"];
+}
+
+- (void)startViewabilityTracker
+{
+    [self.mraidController.viewabilityTracker startTracking];
 }
 
 @end

@@ -331,29 +331,6 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@implementation MRCreateCalendarEventCommand
-
-+ (void)load
-{
-    [MRCommand registerCommand:self];
-}
-
-+ (NSString *)commandType
-{
-    return @"createCalendarEvent";
-}
-
-- (BOOL)executeWithParams:(NSDictionary *)params
-{
-    [self.delegate mrCommand:self createCalendarEventWithParams:params];
-
-    return YES;
-}
-
-@end
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
 @implementation MRPlayVideoCommand
 
 + (void)load
@@ -375,29 +352,6 @@
 - (BOOL)executeWithParams:(NSDictionary *)params
 {
     [self.delegate mrCommand:self playVideoWithURL:[self urlFromParameters:params forKey:@"uri"]];
-
-    return YES;
-}
-
-@end
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@implementation MRStorePictureCommand
-
-+ (void)load
-{
-    [MRCommand registerCommand:self];
-}
-
-+ (NSString *)commandType
-{
-    return @"storePicture";
-}
-
-- (BOOL)executeWithParams:(NSDictionary *)params
-{
-    [self.delegate mrCommand:self storePictureWithURL:[self urlFromParameters:params forKey:@"uri"]];
 
     return YES;
 }

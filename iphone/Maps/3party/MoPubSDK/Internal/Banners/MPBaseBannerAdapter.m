@@ -28,11 +28,7 @@
 
 @implementation MPBaseBannerAdapter
 
-@synthesize delegate = _delegate;
-@synthesize configuration = _configuration;
-@synthesize timeoutTimer = _timeoutTimer;
-
-- (id)initWithDelegate:(id<MPBannerAdapterDelegate>)delegate
+- (instancetype)initWithDelegate:(id<MPBannerAdapterDelegate>)delegate
 {
     if (self = [super init]) {
         self.delegate = delegate;

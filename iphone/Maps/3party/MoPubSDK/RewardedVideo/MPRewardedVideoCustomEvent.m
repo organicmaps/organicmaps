@@ -10,10 +10,23 @@
 
 @implementation MPRewardedVideoCustomEvent
 
+- (void)initializeSdkWithParameters:(NSDictionary *)parameters
+{
+    // The default implementation of this method does nothing. Subclasses must override this method
+    // and implement code to initialize the underlying SDK here.
+}
+
 - (void)requestRewardedVideoWithCustomEventInfo:(NSDictionary *)info
 {
     // The default implementation of this method does nothing. Subclasses must override this method
     // and implement code to load a rewarded video here.
+}
+
+- (void)requestRewardedVideoWithCustomEventInfo:(NSDictionary *)info adMarkup:(NSString *)adMarkup
+{
+    // By default, the original requestRewardedVideoWithCustomEventInfo: method will be called.
+    // Otherwise subclasses must override this method and implement code to load a banner here.
+    [self requestRewardedVideoWithCustomEventInfo:info];
 }
 
 - (BOOL)hasAdAvailable

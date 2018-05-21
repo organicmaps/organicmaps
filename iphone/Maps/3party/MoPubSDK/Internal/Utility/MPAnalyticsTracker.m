@@ -8,13 +8,9 @@
 #import "MPAnalyticsTracker.h"
 #import "MPAdConfiguration.h"
 #import "MPCoreInstanceProvider.h"
+#import "MPHTTPNetworkSession.h"
 #import "MPLogging.h"
-
-@interface MPAnalyticsTracker ()
-
-- (NSURLRequest *)requestForURL:(NSURL *)URL;
-
-@end
+#import "MPURLRequest.h"
 
 @implementation MPAnalyticsTracker
 
@@ -26,30 +22,23 @@
 - (void)trackImpressionForConfiguration:(MPAdConfiguration *)configuration
 {
     MPLogDebug(@"Tracking impression: %@", configuration.impressionTrackingURL);
-    [NSURLConnection connectionWithRequest:[self requestForURL:configuration.impressionTrackingURL]
-                                  delegate:nil];
+    MPURLRequest * request = [[MPURLRequest alloc] initWithURL:configuration.impressionTrackingURL];
+    [MPHTTPNetworkSession startTaskWithHttpRequest:request];
 }
 
 - (void)trackClickForConfiguration:(MPAdConfiguration *)configuration
 {
     MPLogDebug(@"Tracking click: %@", configuration.clickTrackingURL);
-    [NSURLConnection connectionWithRequest:[self requestForURL:configuration.clickTrackingURL]
-                                  delegate:nil];
+    MPURLRequest * request = [[MPURLRequest alloc] initWithURL:configuration.clickTrackingURL];
+    [MPHTTPNetworkSession startTaskWithHttpRequest:request];
 }
 
 - (void)sendTrackingRequestForURLs:(NSArray *)URLs
 {
     for (NSURL *URL in URLs) {
-        NSURLRequest *trackingRequest = [self requestForURL:URL];
-        [NSURLConnection connectionWithRequest:trackingRequest delegate:nil];
+        MPURLRequest * trackingRequest = [[MPURLRequest alloc] initWithURL:URL];
+        [MPHTTPNetworkSession startTaskWithHttpRequest:trackingRequest];
     }
-}
-
-- (NSURLRequest *)requestForURL:(NSURL *)URL
-{
-    NSMutableURLRequest *request = [[MPCoreInstanceProvider sharedProvider] buildConfiguredURLRequestWithURL:URL];
-    request.cachePolicy = NSURLRequestReloadIgnoringCacheData;
-    return request;
 }
 
 @end

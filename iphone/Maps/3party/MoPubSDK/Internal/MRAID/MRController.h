@@ -13,6 +13,8 @@
 @protocol MRControllerDelegate;
 @class MPAdConfiguration;
 @class CLLocation;
+@class MPWebView;
+@class MPViewabilityTracker;
 
 /**
  * The `MRController` class is used to load and interact with MRAID ads.
@@ -22,6 +24,8 @@
  */
 @interface MRController : NSObject
 
+@property (nonatomic, readonly) MPWebView *mraidWebView;
+@property (nonatomic, readonly) MPViewabilityTracker *viewabilityTracker;
 @property (nonatomic, weak) id<MRControllerDelegate> delegate;
 
 - (instancetype)initWithAdViewFrame:(CGRect)adViewFrame adPlacementType:(MRAdViewPlacementType)placementType;
