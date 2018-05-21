@@ -140,7 +140,7 @@ private:
 
   // Adds fake edges of type PartOfReal which correspond real edges from |edges| and are connected
   // to |segment|
-  void AddFakeEdges(Segment const & segment, vector<SegmentEdge> & edges) const;
+  void AddFakeEdges(Segment const & segment, bool isOutgoing, std::vector<SegmentEdge> & edges) const;
 
   // Checks whether ending belongs to pass-through or non-pass-through zone.
   bool EndingPassThroughAllowed(Ending const & ending);
