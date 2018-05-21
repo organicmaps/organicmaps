@@ -40,11 +40,15 @@
 + (instancetype)convertBookmarksWithCount:(NSUInteger)count okBlock:(MWMVoidBlock)okBlock;
 + (instancetype)bookmarkConversionErrorAlert;
 
-+ (instancetype)defaultAlertWithTitle:(nonnull NSString *)title
-                              message:(nullable NSString *)message
-                     rightButtonTitle:(nonnull NSString *)rightButtonTitle
-                      leftButtonTitle:(nullable NSString *)leftButtonTitle
-                    rightButtonAction:(nullable MWMVoidBlock)action
-                      statisticsEvent:(nullable NSString *)statisticsEvent;
++ (instancetype)restoreBookmarkAlertWithMessage:(NSString *)message
+                              rightButtonAction:(MWMVoidBlock)rightButton
+                               leftButtonAction:(MWMVoidBlock)leftButton;
+
++ (instancetype)defaultAlertWithTitle:(NSString *)title
+                              message:(NSString *)message
+                     rightButtonTitle:(NSString *)rightButtonTitle
+                      leftButtonTitle:(NSString *)leftButtonTitle
+                    rightButtonAction:(MWMVoidBlock)action
+                      statisticsEvent:(NSString *)statisticsEvent;
 
 @end

@@ -185,6 +185,15 @@
   return [MWMDefaultAlert bookmarkConversionErrorAlert];
 }
 
++ (MWMAlert *)restoreBookmarkAlertWithMessage:(NSString *)message
+                            rightButtonAction:(MWMVoidBlock)rightButton
+                             leftButtonAction:(MWMVoidBlock)leftButton
+{
+  return [MWMDefaultAlert restoreBookmarkAlertWithMessage:message
+                                        rightButtonAction:rightButton
+                                         leftButtonAction:leftButton];
+}
+
 + (MWMAlert *)defaultAlertWithTitle:(NSString *)title
                             message:(NSString *)message
                    rightButtonTitle:(NSString *)rightButtonTitle

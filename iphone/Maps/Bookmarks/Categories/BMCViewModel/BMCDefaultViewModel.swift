@@ -294,17 +294,13 @@ extension BMCDefaultViewModel: MWMBookmarksObserver {
           let message = String(coreFormat: L("bookmarks_message_backuped_user"),
                               arguments: [formatter.string(from: date)])
 
-          MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("bookmarks_restore_title"),
-                                                                   message: message,
-                                                                   rightButtonTitle: L("restore"),
-                                                                   leftButtonTitle: L("cancel"))
-          { [weak self] in
-            MWMAlertViewController.activeAlert().presentSpinnerAlert(withTitle: L("bookmarks_restore_process")) {
-              [weak self] in
-              self?.cancelRestoring()
-            }
-            self?.applyRestoring()
-          }
+          let cancelAction = { [weak self] in self?.cancelRestoring() } as MWMVoidBlock
+          MWMAlertViewController.activeAlert().presentRestoreBookmarkAlert(withMessage: message,
+                                                                           rightButtonAction: { [weak self] in
+              MWMAlertViewController.activeAlert().presentSpinnerAlert(withTitle: L("bookmarks_restore_process"),
+                                                                       cancel: cancelAction)
+              self?.applyRestoring()
+          }, leftButtonAction: cancelAction)
 
         case .noBackup:
           MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("bookmarks_restore_empty_title"),

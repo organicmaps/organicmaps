@@ -42,6 +42,9 @@
 + (MWMAlert *)convertBookmarksAlertWithCount:(NSUInteger)count block:(MWMVoidBlock)block;
 + (MWMAlert *)spinnerAlertWithTitle:(NSString *)title cancel:(MWMVoidBlock)cancel;
 + (MWMAlert *)bookmarkConversionErrorAlert;
++ (MWMAlert *)restoreBookmarkAlertWithMessage:(NSString *)message
+                            rightButtonAction:(MWMVoidBlock)rightButton
+                             leftButtonAction:(MWMVoidBlock)leftButton;
 
 + (MWMAlert *)defaultAlertWithTitle:(NSString *)title
                             message:(NSString *)message

@@ -248,6 +248,15 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert bookmarkConversionErrorAlert]];
 }
 
+- (void)presentRestoreBookmarkAlertWithMessage:(nonnull NSString *)message
+                             rightButtonAction:(nonnull MWMVoidBlock)rightButton
+                              leftButtonAction:(nonnull MWMVoidBlock)leftButton
+{
+  [self displayAlert:[MWMAlert restoreBookmarkAlertWithMessage:message
+                                             rightButtonAction:rightButton
+                                              leftButtonAction:leftButton]];
+}
+
 - (void)presentDefaultAlertWithTitle:(nonnull NSString *)title
                              message:(nullable NSString *)message
                     rightButtonTitle:(nonnull NSString *)rightButtonTitle

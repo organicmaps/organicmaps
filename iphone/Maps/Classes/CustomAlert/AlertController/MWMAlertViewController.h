@@ -54,6 +54,10 @@
 - (void)presentSpinnerAlertWithTitle:(nonnull NSString *)title cancel:(nullable MWMVoidBlock)cancel;
 - (void)presentBookmarkConversionErrorAlert;
 
+- (void)presentRestoreBookmarkAlertWithMessage:(nonnull NSString *)message
+                             rightButtonAction:(nonnull MWMVoidBlock)rightButton
+                              leftButtonAction:(nonnull MWMVoidBlock)leftButton;
+
 - (void)presentDefaultAlertWithTitle:(nonnull NSString *)title
                              message:(nullable NSString *)message
                     rightButtonTitle:(nonnull NSString *)rightButtonTitle

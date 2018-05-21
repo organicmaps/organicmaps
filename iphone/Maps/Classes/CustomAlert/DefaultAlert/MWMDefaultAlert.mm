@@ -425,6 +425,21 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                      statisticsEvent:nil];
 }
 
++ (instancetype)restoreBookmarkAlertWithMessage:(NSString *)message
+                              rightButtonAction:(MWMVoidBlock)rightButton
+                               leftButtonAction:(MWMVoidBlock)leftButton
+{
+  MWMDefaultAlert * alert =
+  [NSBundle.mainBundle loadNibNamed:kDefaultAlertNibName owner:self options:nil].firstObject;
+  alert.titleLabel.text = L(@"bookmarks_restore_title");
+  alert.messageLabel.text = message;
+  [alert.rightButton setTitle:L(@"restore") forState:UIControlStateNormal];
+  [alert.leftButton setTitle:L(@"cancel") forState:UIControlStateNormal];
+  alert.leftButtonAction = leftButton;
+  alert.rightButtonAction = rightButton;
+  return alert;
+}
+
 + (instancetype)bookmarkConversionErrorAlert
 {
   return [self defaultAlertWithTitle:L(@"bookmarks_convert_error_title")
@@ -435,12 +450,12 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                      statisticsEvent:nil];
 }
 
-+ (instancetype)defaultAlertWithTitle:(nonnull NSString *)title
-                              message:(nullable NSString *)message
-                     rightButtonTitle:(nonnull NSString *)rightButtonTitle
-                      leftButtonTitle:(nullable NSString *)leftButtonTitle
-                    rightButtonAction:(nullable MWMVoidBlock)action
-                      statisticsEvent:(nullable NSString *)statisticsEvent
++ (instancetype)defaultAlertWithTitle:(NSString *)title
+                              message:(NSString *)message
+                     rightButtonTitle:(NSString *)rightButtonTitle
+                      leftButtonTitle:(NSString *)leftButtonTitle
+                    rightButtonAction:(MWMVoidBlock)action
+                      statisticsEvent:(NSString *)statisticsEvent
 {
   if (statisticsEvent)
     [Statistics logEvent:statisticsEvent withParameters:@{kStatAction : kStatOpen}];
