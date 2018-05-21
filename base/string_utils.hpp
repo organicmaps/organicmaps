@@ -18,17 +18,20 @@
 /// All methods work with strings in utf-8 format
 namespace strings
 {
-typedef uint32_t UniChar;
+using UniChar = uint32_t;
 // typedef buffer_vector<UniChar, 32> UniString;
 
 /// Make new type, not typedef. Need to specialize DebugPrint.
 class UniString : public buffer_vector<UniChar, 32>
 {
-  typedef buffer_vector<UniChar, 32> BaseT;
+  using BaseT = buffer_vector<UniChar, 32>;
 
 public:
+  using value_type = UniChar;
+
   UniString() {}
   explicit UniString(size_t n, UniChar c = UniChar()) : BaseT(n, c) {}
+
   template <class IterT>
   UniString(IterT b, IterT e)
     : BaseT(b, e)

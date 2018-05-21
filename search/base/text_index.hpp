@@ -77,6 +77,7 @@ struct TextIndexHeader
     source.Read(&headerMagic[0], headerMagic.size());
     CHECK_EQUAL(headerMagic, kHeaderMagic, ());
     m_version = static_cast<TextIndexVersion>(ReadPrimitiveFromSource<uint8_t>(source));
+    CHECK_EQUAL(m_version, TextIndexVersion::V0, ());
     m_numTokens = ReadPrimitiveFromSource<uint32_t>(source);
     m_dictPositionsOffset = ReadPrimitiveFromSource<uint32_t>(source);
     m_dictWordsOffset = ReadPrimitiveFromSource<uint32_t>(source);
@@ -109,10 +110,10 @@ public:
   template <typename F>
   void ForEachPosting(Token const & token, F && f) const
   {
-    auto it = m_postingsByToken.find(token);
+    auto const it = m_postingsByToken.find(token);
     if (it == m_postingsByToken.end())
       return;
-    for (auto const & p : it->second)
+    for (auto const p : it->second)
       f(p);
   }
 
@@ -124,31 +125,117 @@ public:
     TextIndexHeader header;
 
     uint64_t const startPos = sink.Pos();
+    // Will be filled in later.
     header.Serialize(sink);
 
     header.m_numTokens = ::base::checked_cast<uint32_t>(m_postingsByToken.size());
+    SerializeDictionary(sink, header, startPos);
+    SerializePostingsLists(sink, header, startPos);
 
+    uint64_t const finishPos = sink.Pos();
+    sink.Seek(startPos);
+    header.Serialize(sink);
+    sink.Seek(finishPos);
+  }
+
+  template <typename Source>
+  void Deserialize(Source & source)
+  {
+    uint64_t startPos = source.Pos();
+
+    TextIndexHeader header;
+    header.Deserialize(source);
+
+    std::vector<Token> tokens;
+    DeserializeDictionary(source, header, startPos, tokens);
+    DeserializePostingsLists(source, header, startPos, tokens);
+  }
+
+private:
+  template <typename Sink>
+  void SerializeDictionary(Sink & sink, TextIndexHeader & header, uint64_t startPos) const
+  {
     header.m_dictPositionsOffset = RelativePos(sink, startPos);
-    uint32_t offset = header.m_dictPositionsOffset;
-    for (auto const & entry : m_postingsByToken)
-    {
-      auto const & token = entry.first;
-      WriteToSink(sink, offset);
-      offset += static_cast<uint32_t>(token.size());
-    }
-    // One more for convenience.
-    WriteToSink(sink, offset);
-
+    // An uint32_t for each 32-bit offset and an uint32_t for the dummy entry at the end.
+    WriteZeroesToSink(sink, sizeof(uint32_t) * (header.m_numTokens + 1));
     header.m_dictWordsOffset = RelativePos(sink, startPos);
+
+    std::vector<uint32_t> offsets;
+    offsets.reserve(header.m_numTokens + 1);
+
     for (auto const & entry : m_postingsByToken)
     {
-      auto const & token = entry.first;
-      sink.Write(token.data(), token.size());
+      offsets.emplace_back(RelativePos(sink, startPos));
+      SerializeToken(sink, entry.first);
     }
+    offsets.emplace_back(RelativePos(sink, startPos));
 
+    {
+      uint64_t const savedPos = sink.Pos();
+      sink.Seek(startPos + header.m_dictPositionsOffset);
+
+      for (uint32_t const o : offsets)
+        WriteToSink(sink, o);
+
+      CHECK_EQUAL(sink.Pos(), startPos + header.m_dictWordsOffset, ());
+      sink.Seek(savedPos);
+    }
+  }
+
+  template <typename Source>
+  static void DeserializeDictionary(Source & source, TextIndexHeader const & header,
+                                    uint64_t startPos, std::vector<Token> & tokens)
+  {
+    CHECK_EQUAL(source.Pos(), startPos + header.m_dictPositionsOffset, ());
+    std::vector<uint32_t> tokenOffsets(header.m_numTokens + 1);
+    for (uint32_t & offset : tokenOffsets)
+      offset = ReadPrimitiveFromSource<uint32_t>(source);
+
+    CHECK_EQUAL(source.Pos(), startPos + header.m_dictWordsOffset, ());
+    tokens.resize(header.m_numTokens);
+    for (size_t i = 0; i < tokens.size(); ++i)
+    {
+      size_t const size = ::base::checked_cast<size_t>(tokenOffsets[i + 1] - tokenOffsets[i]);
+      DeserializeToken(source, tokens[i], size);
+    }
+  }
+
+  template <typename Sink>
+  static void SerializeToken(Sink & sink, std::string const & token)
+  {
+    CHECK(!token.empty(), ());
+    sink.Write(token.data(), token.size());
+  }
+
+  template <typename Sink>
+  static void SerializeToken(Sink & sink, strings::UniString const & token)
+  {
+    CHECK(!token.empty(), ());
+    // todo(@m) Endianness.
+    sink.Write(token.data(), token.size() * sizeof(strings::UniString::value_type));
+  }
+
+  template <typename Source>
+  static void DeserializeToken(Source & source, std::string & token, size_t size)
+  {
+    token.resize(size);
+    source.Read(&token[0], size);
+  }
+
+  template <typename Source>
+  static void DeserializeToken(Source & source, strings::UniString & token, size_t size)
+  {
+    ASSERT_EQUAL(size % sizeof(strings::UniString::value_type), 0, ());
+    token.resize(size / sizeof(strings::UniString::value_type));
+    source.Read(&token[0], size);
+  }
+
+  template <typename Sink>
+  void SerializePostingsLists(Sink & sink, TextIndexHeader & header, uint64_t startPos) const
+  {
     header.m_postingsStartsOffset = RelativePos(sink, startPos);
-    // 4 bytes for each 32-bit position and 4 bytes for the dummy entry at the end.
-    WriteZeroesToSink(sink, 4 * (header.m_numTokens + 1));
+    // An uint32_t for each 32-bit offset and an uint32_t for the dummy entry at the end.
+    WriteZeroesToSink(sink, sizeof(uint32_t) * (header.m_numTokens + 1));
 
     header.m_postingsListsOffset = RelativePos(sink, startPos);
 
@@ -160,11 +247,11 @@ public:
 
       postingsStarts.emplace_back(RelativePos(sink, startPos));
 
-      uint64_t last = 0;
-      for (auto const & p : postings)
+      uint32_t last = 0;
+      for (auto const p : postings)
       {
         CHECK(last == 0 || last < p, (last, p));
-        uint64_t const delta = ::base::checked_cast<uint64_t>(p) - last;
+        uint32_t const delta = p - last;
         WriteVarUint(sink, delta);
         last = p;
       }
@@ -181,35 +268,12 @@ public:
       CHECK_EQUAL(sink.Pos(), startPos + header.m_postingsListsOffset, ());
       sink.Seek(savedPos);
     }
-
-    uint64_t const finishPos = sink.Pos();
-    sink.Seek(startPos);
-    header.Serialize(sink);
-    sink.Seek(finishPos);
   }
 
   template <typename Source>
-  void Deserialize(Source & source)
+  void DeserializePostingsLists(Source & source, TextIndexHeader const & header, uint64_t startPos,
+                                std::vector<Token> const & tokens)
   {
-    uint64_t startPos = source.Pos();
-
-    TextIndexHeader header;
-    header.Deserialize(source);
-
-    CHECK_EQUAL(source.Pos(), startPos + header.m_dictPositionsOffset, ());
-    std::vector<uint32_t> tokenOffsets(header.m_numTokens + 1);
-    for (size_t i = 0; i < tokenOffsets.size(); ++i)
-      tokenOffsets[i] = ReadPrimitiveFromSource<uint32_t>(source);
-
-    CHECK_EQUAL(source.Pos(), startPos + header.m_dictWordsOffset, ());
-    std::vector<Token> tokens(header.m_numTokens);
-    for (size_t i = 0; i < tokens.size(); ++i)
-    {
-      size_t const size = ::base::checked_cast<size_t>(tokenOffsets[i + 1] - tokenOffsets[i]);
-      tokens[i].resize(size);
-      source.Read(&tokens[i][0], size);
-    }
-
     CHECK_EQUAL(source.Pos(), startPos + header.m_postingsStartsOffset, ());
     std::vector<uint32_t> postingsStarts(header.m_numTokens + 1);
     for (size_t i = 0; i < postingsStarts.size(); ++i)
@@ -232,7 +296,6 @@ public:
     }
   }
 
-private:
   void SortPostings()
   {
     for (auto & entry : m_postingsByToken)
@@ -246,7 +309,7 @@ private:
   }
 
   template <typename Sink>
-  uint32_t RelativePos(Sink & sink, uint64_t startPos)
+  static uint32_t RelativePos(Sink & sink, uint64_t startPos)
   {
     return ::base::checked_cast<uint32_t>(sink.Pos() - startPos);
   }

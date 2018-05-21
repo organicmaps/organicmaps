@@ -18,7 +18,7 @@ namespace search
 strings::UniString NormalizeAndSimplifyString(std::string const & s);
 
 template <class Delims, typename Fn>
-void SplitUniString(strings::UniString const & uniS, Fn f, Delims const & delims)
+void SplitUniString(strings::UniString const & uniS, Fn && f, Delims const & delims)
 {
   for (strings::TokenizeIterator<Delims> iter(uniS, delims); iter; ++iter)
     f(iter.GetUniString());
