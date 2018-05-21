@@ -270,19 +270,22 @@ unsigned Platform::CpuCores() const
 
 void Platform::ShutdownThreads()
 {
-  ASSERT(m_networkThread && m_fileThread, ());
+  ASSERT(m_networkThread && m_fileThread && m_backgroundThread, ());
   m_networkThread->ShutdownAndJoin();
   m_fileThread->ShutdownAndJoin();
+  m_backgroundThread->ShutdownAndJoin();
 
   m_networkThread.reset();
   m_fileThread.reset();
+  m_backgroundThread.reset();
 }
 
 void Platform::RunThreads()
 {
-  ASSERT(!m_networkThread && !m_fileThread, ());
+  ASSERT(!m_networkThread && !m_fileThread && !m_backgroundThread, ());
   m_networkThread = make_unique<base::WorkerThread>();
   m_fileThread = make_unique<base::WorkerThread>();
+  m_backgroundThread =  make_unique<base::WorkerThread>();
 }
 
 string DebugPrint(Platform::EError err)
