@@ -210,13 +210,16 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     for (TokenHandler handler : mTokenHandlers)
     {
       if (handler.checkToken(requestCode, data))
+      {
         mCurrentTokenHandler = handler;
+        break;
+      }
     }
 
     if (mCurrentTokenHandler == null)
       return;
 
-    dismiss();
+    dismissAllowingStateLoss();
   }
 
   @Override
