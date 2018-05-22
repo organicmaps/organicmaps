@@ -1,35 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
-            <string>HelveticaNeue-Medium</string>
-        </array>
-    </customFonts>
     <scenes>
-        <!--Welcome Page Controller-->
-        <scene sceneID="1ZX-3C-7bF">
-            <objects>
-                <pageViewController storyboardIdentifier="WelcomePageScrollController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="hqM-da-ko0" customClass="MWMWelcomePageController" propertyAccessControl="all" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fu9-Ui-e6Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1881" y="495"/>
-        </scene>
         <!--First Launch Controller-->
         <scene sceneID="AgG-8B-fRd">
             <objects>
-                <viewController storyboardIdentifier="FirstLaunchController" id="Gh3-qE-FWN" customClass="FirstLaunchController" customModule="maps_me" customModuleProvider="target" propertyAccessControl="all" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FirstLaunchController" id="Gh3-qE-FWN" customClass="FirstLaunchController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RNH-dF-vbJ" customClass="SolidTouchView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -41,10 +27,10 @@
                                         <rect key="frame" x="16" y="40" width="488" height="456"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y7O-d8-Zqv" userLabel="CenteredView">
-                                                <rect key="frame" x="44" y="50" width="400" height="357"/>
+                                                <rect key="frame" x="44.5" y="49.5" width="400" height="357"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ic_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="3yX-3O-NmI">
-                                                        <rect key="frame" x="80.5" y="0.0" width="240" height="240"/>
+                                                        <rect key="frame" x="80" y="0.0" width="240" height="240"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="lessThanOrEqual" priority="800" constant="280" id="0jq-yV-Ew3"/>
                                                             <constraint firstAttribute="width" secondItem="3yX-3O-NmI" secondAttribute="height" multiplier="1:1" id="OJT-CV-liK"/>
@@ -100,7 +86,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UqX-Ni-ms1" userLabel="NotNow">
-                                        <rect key="frame" x="140.5" y="516" width="240" height="44"/>
+                                        <rect key="frame" x="140" y="516" width="240" height="44"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="240" id="66G-KS-XdJ"/>
@@ -121,6 +107,9 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="nextPage" destination="Gh3-qE-FWN" eventType="touchUpInside" id="ECl-7U-cG4"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -161,20 +150,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tm5-G5-Xsm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2563" y="1224"/>
-        </scene>
-        <!--Welcome Page Controller-->
-        <scene sceneID="yjG-6M-B0J">
-            <objects>
-                <pageViewController storyboardIdentifier="WelcomePageCurlController" autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="none" id="Co6-CL-XGB" customClass="MWMWelcomePageController" propertyAccessControl="all" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QyJ-ER-oPm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2563" y="495"/>
+            <point key="canvasLocation" x="-7980" y="136"/>
         </scene>
         <!--Whats New Controller-->
         <scene sceneID="tit-8N-P9M">
             <objects>
-                <viewController storyboardIdentifier="WhatsNewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BOY-Lz-6Ub" customClass="WhatsNewController" customModule="maps_me" customModuleProvider="target" propertyAccessControl="all" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WhatsNewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BOY-Lz-6Ub" customClass="WhatsNewController" customModule="maps_me" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MhV-XF-2d3" customClass="SolidTouchView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -186,7 +167,7 @@
                                         <rect key="frame" x="16" y="40" width="488" height="456"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="umw-NL-UxH" userLabel="CenteredView">
-                                                <rect key="frame" x="44" y="62" width="400" height="333"/>
+                                                <rect key="frame" x="44.5" y="62" width="400" height="333"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="ic_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="oT6-Mu-189">
                                                         <rect key="frame" x="80.5" y="0.0" width="240" height="240"/>
@@ -197,7 +178,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Бронируй отель из приложения" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3d2-EJ-eSS" userLabel="Title">
-                                                        <rect key="frame" x="0.0" y="260" width="400" height="24"/>
+                                                        <rect key="frame" x="1" y="260" width="399.5" height="24"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -207,7 +188,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="При выборе отелей на карте будут отображаться ценовая категория и рейтинг заведения." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Il6-Xw-i2E" userLabel="Text">
-                                                        <rect key="frame" x="0.0" y="300" width="400" height="33"/>
+                                                        <rect key="frame" x="1" y="300" width="399.5" height="33"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -245,7 +226,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fc6-q2-mnq" userLabel="NotNow">
-                                        <rect key="frame" x="140.5" y="516" width="240" height="44"/>
+                                        <rect key="frame" x="140" y="516" width="240" height="44"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="240" id="4a0-nS-HLp"/>
@@ -266,6 +247,9 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
                                             <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="nextPage" destination="BOY-Lz-6Ub" eventType="touchUpInside" id="lwz-30-RgL"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -320,7 +304,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ftD-7X-i1Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3230" y="2742"/>
+            <point key="canvasLocation" x="-7097" y="136"/>
         </scene>
     </scenes>
     <resources>

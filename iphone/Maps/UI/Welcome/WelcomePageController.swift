@@ -11,7 +11,7 @@ protocol WelcomePageControllerProtocol {
 
 @objc(MWMWelcomePageController)
 final class WelcomePageController: UIPageViewController {
-
+  
   fileprivate var controllers: [UIViewController] = []
   private var parentController: WelcomePageControllerProtocol!
   private var iPadBackgroundView: SolidTouchView?
@@ -34,15 +34,19 @@ final class WelcomePageController: UIPageViewController {
   }
 
   @objc static func controller(parent: WelcomePageControllerProtocol) -> WelcomePageController? {
-    let isFirstSession = Alohalytics.isFirstSession()
-    let welcomeKey = isFirstSession ? FirstLaunchController.key : WhatsNewController.key
-    guard UserDefaults.standard.bool(forKey: welcomeKey) == false else { return nil }
-
-    let pagesCount = isFirstSession ? FirstLaunchController.pagesCount : WhatsNewController.pagesCount
-    let id = pagesCount == 1 ? "WelcomePageCurlController" : "WelcomePageScrollController"
-    let sb = UIStoryboard.instance(.welcome)
-    let vc = sb.instantiateViewController(withIdentifier: id) as! WelcomePageController
-    vc.config(parent)
+    if (!WelcomeViewController.shouldShowWelcome) { return nil }
+    guard let welcomeControllers = WelcomeViewController.controllers(firstSession: Alohalytics.isFirstSession())
+      else { return nil }
+    
+    let vc = WelcomePageController(transitionStyle: welcomeControllers.count > 1 ? .scroll : .pageCurl,
+                                   navigationOrientation: .horizontal,
+                                   options: [:])
+    vc.parentController = parent
+    vc.dataSource = vc
+    welcomeControllers.forEach { (controller) in
+      controller.delegate = vc
+    }
+    vc.controllers = welcomeControllers
     vc.show()
     return vc
   }
@@ -62,32 +66,20 @@ final class WelcomePageController: UIPageViewController {
     currentController = controllers.first
   }
 
-  private func config(_ parent: WelcomePageControllerProtocol) {
-    parentController = parent
-    let isFirstSession = Alohalytics.isFirstSession()
-    let pagesCount = isFirstSession ? FirstLaunchController.pagesCount : WhatsNewController.pagesCount
-    let welcomeClass: WelcomeProtocolBase.Type = isFirstSession ? FirstLaunchController.self : WhatsNewController.self
-    (0 ..< pagesCount).forEach {
-      let vc = welcomeClass.controller($0)
-      (vc as! WelcomeProtocolBase).pageController = self
-      controllers.append(vc)
-    }
-    dataSource = self
-  }
-
   func nextPage() {
-    let welcomeKey = Alohalytics.isFirstSession() ? FirstLaunchController.key : WhatsNewController.key
-    Statistics.logEvent(kStatEventName(kStatWhatsNew, welcomeKey),
-                        withParameters: [kStatAction: kStatNext])
     currentController = pageViewController(self, viewControllerAfter: currentController)
+    if let controller = currentController as? WelcomeViewController {
+      Statistics.logEvent(kStatEventName(kStatWhatsNew, type(of: controller).key),
+                          withParameters: [kStatAction: kStatNext])
+    }
   }
 
   func close() {
-    UserDefaults.standard.set(true, forKey: FirstLaunchController.key)
-    UserDefaults.standard.set(true, forKey: WhatsNewController.key)
-    let welcomeKey = Alohalytics.isFirstSession() ? FirstLaunchController.key : WhatsNewController.key
-    Statistics.logEvent(kStatEventName(kStatWhatsNew, welcomeKey),
+    WelcomeViewController.shouldShowWelcome = false
+    if let controller = currentController as? WelcomeViewController {
+      Statistics.logEvent(kStatEventName(kStatWhatsNew, type(of: controller).key),
                         withParameters: [kStatAction: kStatClose])
+    }
     iPadBackgroundView?.removeFromSuperview()
     view.removeFromSuperview()
     removeFromParentViewController()
@@ -95,9 +87,10 @@ final class WelcomePageController: UIPageViewController {
   }
 
   func show() {
-    let welcomeKey = Alohalytics.isFirstSession() ? FirstLaunchController.key : WhatsNewController.key
-    Statistics.logEvent(kStatEventName(kStatWhatsNew, welcomeKey),
-                        withParameters: [kStatAction: kStatOpen])
+    if let controller = currentController as? WelcomeViewController {
+      Statistics.logEvent(kStatEventName(kStatWhatsNew, type(of: controller).key),
+                          withParameters: [kStatAction: kStatOpen])
+    }
     parentController.addChildViewController(self)
     parentController.view.addSubview(view)
     updateFrame()
@@ -107,7 +100,7 @@ final class WelcomePageController: UIPageViewController {
     let parentView = parentController.view!
     view.frame = alternative(iPhone: CGRect(origin: CGPoint(), size: parentView.size),
                              iPad: CGRect(x: parentView.center.x - 260, y: parentView.center.y - 300, width: 520, height: 600))
-    (currentController as! WelcomeProtocolBase).updateSize()
+    (currentController as! WelcomeViewController).updateSize()
   }
 
   override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -137,5 +130,27 @@ extension WelcomePageController: UIPageViewControllerDataSource {
   func presentationIndex(for _: UIPageViewController) -> Int {
     guard let vc = currentController else { return 0 }
     return controllers.index(of: vc)!
+  }
+}
+
+extension WelcomePageController: WelcomeViewControllerDelegate {
+  func viewSize() -> CGSize {
+    return view.size
+  }
+  
+  func welcomeViewControllerDidPressNext(_ viewContoller: WelcomeViewController) {
+    guard let index = controllers.index(of: viewContoller) else {
+      close()
+      return
+    }
+    if index + 1 < controllers.count {
+      nextPage()
+    } else {
+      close()
+    }
+  }
+  
+  func welcomeViewControllerDidPressClose(_ viewContoller: WelcomeViewController) {
+    close()
   }
 }

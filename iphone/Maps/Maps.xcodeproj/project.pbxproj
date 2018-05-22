@@ -176,7 +176,6 @@
 		3490D2E11CE9DD2500D0B838 /* MWMSideButtonsView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3490D2DC1CE9DD2500D0B838 /* MWMSideButtonsView.mm */; };
 		3490D2E31CE9DD2500D0B838 /* MWMSideButtonsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3490D2DD1CE9DD2500D0B838 /* MWMSideButtonsView.xib */; };
 		34926BE71EA4C2A700DCF14C /* SearchBanners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34926BE51EA4C2A700DCF14C /* SearchBanners.swift */; };
-		34943BB71E26222300B14F84 /* WelcomeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34943BB51E26222300B14F84 /* WelcomeProtocol.swift */; };
 		34943BBB1E2626B200B14F84 /* WelcomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34943BB91E2626B200B14F84 /* WelcomePageController.swift */; };
 		3495433D1EB22D9600F08F73 /* MPAdBrowserController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3495433C1EB22D9600F08F73 /* MPAdBrowserController.xib */; };
 		349A13831DEC138C00C7DB60 /* MWMMobileInternetAlert.mm in Sources */ = {isa = PBXBuildFile; fileRef = 349A13801DEC138C00C7DB60 /* MWMMobileInternetAlert.mm */; };
@@ -348,6 +347,7 @@
 		4767CDA420AAF66B00BD8166 /* NSAttributedString+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */; };
 		4767CDA620AB1F6200BD8166 /* LeftAlignedIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDA520AB1F6200BD8166 /* LeftAlignedIconButton.swift */; };
 		4767CDA820AB401000BD8166 /* LinkTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDA720AB401000BD8166 /* LinkTextView.swift */; };
+		4767CDC120B477BA00BD8166 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDC020B477BA00BD8166 /* WelcomeViewController.swift */; };
 		4A300ED51C6DCFD400140018 /* countries-strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A300ED31C6DCFD400140018 /* countries-strings */; };
 		56C74C391C74A3BC00B71B9F /* MWMInputEmailValidator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA62F1C2D58F300FE1BEC /* MWMInputEmailValidator.mm */; };
 		56EE14D11FE804550036F20C /* libtransit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56EE14D21FE804550036F20C /* libtransit.a */; };
@@ -975,7 +975,6 @@
 		3490D2DC1CE9DD2500D0B838 /* MWMSideButtonsView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMSideButtonsView.mm; sourceTree = "<group>"; };
 		3490D2DD1CE9DD2500D0B838 /* MWMSideButtonsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMSideButtonsView.xib; sourceTree = "<group>"; };
 		34926BE51EA4C2A700DCF14C /* SearchBanners.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBanners.swift; sourceTree = "<group>"; };
-		34943BB51E26222300B14F84 /* WelcomeProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeProtocol.swift; sourceTree = "<group>"; };
 		34943BB91E2626B200B14F84 /* WelcomePageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomePageController.swift; sourceTree = "<group>"; };
 		3495433C1EB22D9600F08F73 /* MPAdBrowserController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MPAdBrowserController.xib; path = 3party/MoPubSDK/Internal/Common/MPAdBrowserController.xib; sourceTree = "<group>"; };
 		349A137F1DEC138C00C7DB60 /* MWMMobileInternetAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMMobileInternetAlert.h; sourceTree = "<group>"; };
@@ -1278,6 +1277,7 @@
 		4767CDA320AAF66B00BD8166 /* NSAttributedString+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+HTML.swift"; sourceTree = "<group>"; };
 		4767CDA520AB1F6200BD8166 /* LeftAlignedIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedIconButton.swift; sourceTree = "<group>"; };
 		4767CDA720AB401000BD8166 /* LinkTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkTextView.swift; sourceTree = "<group>"; };
+		4767CDC020B477BA00BD8166 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_dark.bin; path = ../../data/drules_proto_dark.bin; sourceTree = "<group>"; };
 		4A23D1561B8B4DD700D4EB6F /* drules_proto_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_clear.bin; path = ../../data/drules_proto_clear.bin; sourceTree = "<group>"; };
 		4A23D1571B8B4DD700D4EB6F /* resources-6plus_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-6plus_clear"; path = "../../data/resources-6plus_clear"; sourceTree = "<group>"; };
@@ -2661,10 +2661,10 @@
 		34943BB01E2620C600B14F84 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
-				34943BB51E26222300B14F84 /* WelcomeProtocol.swift */,
 				34943BB91E2626B200B14F84 /* WelcomePageController.swift */,
 				34D4FA611E26572D003F53EF /* FirstLaunchController.swift */,
 				34D4FA651E265749003F53EF /* WhatsNewController.swift */,
+				4767CDC020B477BA00BD8166 /* WelcomeViewController.swift */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -4498,7 +4498,6 @@
 				34B846A12029DCC10081ECCD /* BMCCategoriesHeader.swift in Sources */,
 				346DB8341E5C4F6700E3123E /* GalleryViewController.swift in Sources */,
 				F61757ED1FC73027000AD0D0 /* DiscoveryOnlineTemplateCell.swift in Sources */,
-				34943BB71E26222300B14F84 /* WelcomeProtocol.swift in Sources */,
 				F6E2FD5F1E097BA00083EBEC /* MWMMapDownloaderLargeCountryTableViewCell.mm in Sources */,
 				34F4073B1E9E1AFF00E57AC0 /* MopubBanner.swift in Sources */,
 				F6E2FF481E097BA00083EBEC /* SettingsTableViewSelectableCell.swift in Sources */,
@@ -4599,6 +4598,7 @@
 				3472B5EB200F8CFF00DC6CD5 /* MWMUGCHelper.mm in Sources */,
 				3454D7C21E07F045004AF2AD /* NSString+Categories.mm in Sources */,
 				6741A9FE1BF340DE002C974C /* SelectSetVC.mm in Sources */,
+				4767CDC120B477BA00BD8166 /* WelcomeViewController.swift in Sources */,
 				34E7761F1F14DB48003040B3 /* PlacePageArea.swift in Sources */,
 				346DB82E1E5C4F6700E3123E /* GalleryItemViewController.swift in Sources */,
 				340475561E081A4600C92850 /* Statistics.mm in Sources */,
