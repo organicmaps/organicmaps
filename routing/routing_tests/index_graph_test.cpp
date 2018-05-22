@@ -7,6 +7,7 @@
 #include "routing/index_graph_serialization.hpp"
 #include "routing/index_graph_starter.hpp"
 #include "routing/index_router.hpp"
+#include "routing/routing_helpers.hpp"
 #include "routing/vehicle_mask.hpp"
 
 #include "routing/routing_tests/index_graph_tools.hpp"
@@ -38,7 +39,6 @@ using namespace routing_test;
 
 using TestEdge = TestIndexGraphTopology::Edge;
 
-double constexpr kKMPH2MPS = 1000.0 / (60 * 60);
 double constexpr kUnknownWeight = -1.0;
 
 void TestRoute(FakeEnding const & start, FakeEnding const & finish, size_t expectedLength,
@@ -390,11 +390,11 @@ UNIT_TEST(RoadSpeed)
                                        {kTestNumMwmId, 0, 3, true},
                                        {kTestNumMwmId, 1, 3, true}});
   double const expectedWeight =
-      MercatorBounds::DistanceOnEarth({0.5, 0.0}, {1.0, 0.0}) / (1.0 * kKMPH2MPS) +
-      MercatorBounds::DistanceOnEarth({1.0, 0.0}, {2.0, -1.0}) / (10.0 * kKMPH2MPS) +
-      MercatorBounds::DistanceOnEarth({2.0, -1.0}, {4.0, -1.0}) / (10.0 * kKMPH2MPS) +
-      MercatorBounds::DistanceOnEarth({4.0, -1.0}, {5.0, 0.0}) / (10.0 * kKMPH2MPS) +
-      MercatorBounds::DistanceOnEarth({5.0, 0.0}, {5.5, 0.0}) / (1.0 * kKMPH2MPS);
+      MercatorBounds::DistanceOnEarth({0.5, 0.0}, {1.0, 0.0}) / KMPH2MPS(1.0) +
+      MercatorBounds::DistanceOnEarth({1.0, 0.0}, {2.0, -1.0}) / KMPH2MPS(10.0) +
+      MercatorBounds::DistanceOnEarth({2.0, -1.0}, {4.0, -1.0}) / KMPH2MPS(10.0) +
+      MercatorBounds::DistanceOnEarth({4.0, -1.0}, {5.0, 0.0}) / KMPH2MPS(10.0) +
+      MercatorBounds::DistanceOnEarth({5.0, 0.0}, {5.5, 0.0}) / KMPH2MPS(1.0);
   TestRoute(start, finish, expectedRoute.size(), &expectedRoute, expectedWeight, *worldGraph);
 }
 
@@ -431,7 +431,7 @@ UNIT_TEST(OneSegmentWay)
                                          m2::PointD(2.0, 0.0), *worldGraph);
 
       auto const expectedWeight =
-          MercatorBounds::DistanceOnEarth({1.0, 0.0}, {2.0, 0.0}) / (1.0 * kKMPH2MPS);
+          MercatorBounds::DistanceOnEarth({1.0, 0.0}, {2.0, 0.0}) / KMPH2MPS(1.0);
       TestRoute(start, finish, expectedRoute.size(), &expectedRoute, expectedWeight, *worldGraph);
     }
   }
@@ -543,7 +543,7 @@ UNIT_TEST(FakeEndingAStarInvariant)
 
   auto const expectedWeight =
       estimator->CalcOffroadWeight({1.0, 1.0}, {1.0, 0.0}) +
-      MercatorBounds::DistanceOnEarth({1.0, 0.0}, {2.0, 0.0}) / (1.0 * kKMPH2MPS) +
+      MercatorBounds::DistanceOnEarth({1.0, 0.0}, {2.0, 0.0}) / KMPH2MPS(1.0) +
       estimator->CalcOffroadWeight({2.0, 0.0}, {2.0, 1.0});
   TestRoute(start, finish, expectedRoute.size(), &expectedRoute, expectedWeight, *worldGraph);
 }
@@ -682,13 +682,13 @@ UNIT_CLASS_TEST(RestrictionTest, LoopGraph)
                                          {kTestNumMwmId, 2, 0, true}};
 
   auto const expectedWeight =
-      MercatorBounds::DistanceOnEarth({0.0002, 0.0}, {0.0002, 0.0001}) / (100.0 * kKMPH2MPS) +
-      MercatorBounds::DistanceOnEarth({0.0002, 0.0001}, {0.00015, 0.0001}) / (100.0 * kKMPH2MPS) +
-      MercatorBounds::DistanceOnEarth({0.00015, 0.0001}, {0.0001, 0.0001}) / (100.0 * kKMPH2MPS) +
-      MercatorBounds::DistanceOnEarth({0.0001, 0.0001}, {0.00005, 0.00015}) / (100.0 * kKMPH2MPS) +
-      MercatorBounds::DistanceOnEarth({0.00005, 0.00015}, {0.00005, 0.0002}) / (100.0 * kKMPH2MPS) +
-      MercatorBounds::DistanceOnEarth({0.00005, 0.0002}, {0.00005, 0.0003}) / (100.0 * kKMPH2MPS) +
-      MercatorBounds::DistanceOnEarth({0.00005, 0.0003}, {0.00005, 0.0004}) / (100.0 * kKMPH2MPS);
+      MercatorBounds::DistanceOnEarth({0.0002, 0.0}, {0.0002, 0.0001}) / KMPH2MPS(100.0) +
+      MercatorBounds::DistanceOnEarth({0.0002, 0.0001}, {0.00015, 0.0001}) / KMPH2MPS(100.0) +
+      MercatorBounds::DistanceOnEarth({0.00015, 0.0001}, {0.0001, 0.0001}) / KMPH2MPS(100.0) +
+      MercatorBounds::DistanceOnEarth({0.0001, 0.0001}, {0.00005, 0.00015}) / KMPH2MPS(100.0) +
+      MercatorBounds::DistanceOnEarth({0.00005, 0.00015}, {0.00005, 0.0002}) / KMPH2MPS(100.0) +
+      MercatorBounds::DistanceOnEarth({0.00005, 0.0002}, {0.00005, 0.0003}) / KMPH2MPS(100.0) +
+      MercatorBounds::DistanceOnEarth({0.00005, 0.0003}, {0.00005, 0.0004}) / KMPH2MPS(100.0);
   TestRoute(start, finish, expectedRoute.size(), &expectedRoute, expectedWeight, *m_graph);
 }
 

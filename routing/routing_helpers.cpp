@@ -9,11 +9,6 @@
 #include <algorithm>
 #include <utility>
 
-namespace
-{
-double constexpr KMPH2MPS = 1000.0 / (60 * 60);
-}  // namespace
-
 namespace routing
 {
 using namespace std;
@@ -171,7 +166,7 @@ void CalculateMaxSpeedTimes(RoadGraphBase const & graph, vector<Junction> const 
   // is set in pedestrian_model (bicycle_model) for big roads. On the other hand
   // the most likely a pedestrian (a cyclist) will go along big roads with average
   // speed (graph.GetMaxSpeedKMPH()).
-  double const speedMPS = graph.GetMaxSpeedKMPH() * KMPH2MPS;
+  double const speedMPS = KMPH2MPS(graph.GetMaxSpeedKMPH());
   CHECK_GREATER(speedMPS, 0.0, ());
 
   times.reserve(path.size());

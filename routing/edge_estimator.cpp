@@ -1,5 +1,7 @@
 #include "routing/edge_estimator.hpp"
 
+#include "routing/routing_helpers.hpp"
+
 #include "traffic/traffic_info.hpp"
 
 #include "base/assert.hpp"
@@ -13,8 +15,6 @@ using namespace traffic;
 
 namespace
 {
-double constexpr kKMPH2MPS = 1000.0 / (60 * 60);
-
 double TimeBetweenSec(m2::PointD const & from, m2::PointD const & to, double speedMPS)
 {
   CHECK_GREATER(speedMPS, 0.0,
@@ -62,7 +62,7 @@ double CalcClimbSegmentWeight(Segment const & segment, RoadGeometry const & road
   Junction const & to = road.GetJunction(segment.GetPointId(true /* front */));
 
   double const distance = MercatorBounds::DistanceOnEarth(from.GetPoint(), to.GetPoint());
-  double const speedMPS = road.GetSpeed() * kKMPH2MPS;
+  double const speedMPS = KMPH2MPS(road.GetSpeed());
   CHECK_GREATER(speedMPS, 0.0, ());
   double const timeSec = distance / speedMPS;
 
@@ -79,7 +79,7 @@ namespace routing
 {
 // EdgeEstimator -----------------------------------------------------------------------------------
 EdgeEstimator::EdgeEstimator(double maxSpeedKMpH, double offroadSpeedKMpH)
-  : m_maxSpeedMPS(maxSpeedKMpH * kKMPH2MPS), m_offroadSpeedMPS(offroadSpeedKMpH * kKMPH2MPS)
+  : m_maxSpeedMPS(KMPH2MPS(maxSpeedKMpH)), m_offroadSpeedMPS(KMPH2MPS(offroadSpeedKMpH))
 {
   CHECK_GREATER(m_offroadSpeedMPS, 0.0, ());
   CHECK_GREATER_OR_EQUAL(m_maxSpeedMPS, m_offroadSpeedMPS, ());

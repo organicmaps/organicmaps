@@ -1,6 +1,7 @@
 #include "routing/routing_tests/routing_algorithm.hpp"
 
 #include "routing/base/astar_algorithm.hpp"
+#include "routing/routing_helpers.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -16,8 +17,6 @@ using namespace std;
 
 namespace
 {
-double constexpr KMPH2MPS = 1000.0 / (60 * 60);
-
 inline double TimeBetweenSec(Junction const & j1, Junction const & j2, double speedMPS)
 {
   ASSERT(speedMPS > 0.0, ());
@@ -53,8 +52,7 @@ public:
   using Weight = double;
 
   RoadGraph(IRoadGraph const & roadGraph)
-    : m_roadGraph(roadGraph)
-    , m_maxSpeedMPS(roadGraph.GetMaxSpeedKMPH() * KMPH2MPS)
+    : m_roadGraph(roadGraph), m_maxSpeedMPS(KMPH2MPS(roadGraph.GetMaxSpeedKMPH()))
   {}
 
   void GetOutgoingEdgesList(Junction const & v, vector<WeightedEdge> & adj) const
@@ -69,7 +67,7 @@ public:
     {
       ASSERT_EQUAL(v, e.GetStartJunction(), ());
 
-      double const speedMPS = m_roadGraph.GetSpeedKMPH(e) * KMPH2MPS;
+      double const speedMPS = KMPH2MPS(m_roadGraph.GetSpeedKMPH(e));
       adj.emplace_back(e.GetEndJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
     }
   }
@@ -86,7 +84,7 @@ public:
     {
       ASSERT_EQUAL(v, e.GetEndJunction(), ());
 
-      double const speedMPS = m_roadGraph.GetSpeedKMPH(e) * KMPH2MPS;
+      double const speedMPS = KMPH2MPS(m_roadGraph.GetSpeedKMPH(e));
       adj.emplace_back(e.GetStartJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
     }
   }

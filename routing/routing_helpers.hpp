@@ -20,6 +20,8 @@
 
 namespace routing
 {
+inline double KMPH2MPS(double kmph) { return kmph * 1000.0 / (60 * 60); }
+
 /// \returns true when there exists a routing mode where the feature with |types| can be used.
 template <class TTypes>
 bool IsRoad(TTypes const & types)
