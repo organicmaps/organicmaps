@@ -13,6 +13,7 @@
 
 #include "routing_common/car_model.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
 #include "coding/reader.hpp"
@@ -37,8 +38,11 @@ using namespace routing_test;
 
 using TestEdge = TestIndexGraphTopology::Edge;
 
+double constexpr kKMPH2MPS = 1000.0 / (60 * 60);
+double constexpr kUnknownWeight = -1.0;
+
 void TestRoute(FakeEnding const & start, FakeEnding const & finish, size_t expectedLength,
-               vector<Segment> const * expectedRoute, WorldGraph & graph)
+               vector<Segment> const * expectedRoute, double expectedWeight, WorldGraph & graph)
 {
   auto starter = MakeStarter(start, finish, graph);
   vector<Segment> route;
@@ -58,6 +62,13 @@ void TestRoute(FakeEnding const & start, FakeEnding const & finish, size_t expec
   }
 
   TEST_EQUAL(noFakeRoute.size(), expectedLength, ("route =", noFakeRoute));
+
+  if (expectedWeight != kUnknownWeight)
+  {
+    double constexpr kEpsilon = 0.01;
+    TEST(my::AlmostEqualRel(timeSec, expectedWeight, kEpsilon),
+         ("Expected weight:", expectedWeight, "got:", timeSec));
+  }
 
   if (expectedRoute)
     TEST_EQUAL(noFakeRoute, *expectedRoute, ());
@@ -226,7 +237,8 @@ UNIT_TEST(FindPathCross)
         else
           expectedLength += finish.m_projections[0].m_segment.GetSegmentIdx() - 1;
       }
-      TestRoute(start, finish, expectedLength, nullptr, *worldGraph);
+      TestRoute(start, finish, expectedLength, nullptr /* expectedRoute */, kUnknownWeight,
+                *worldGraph);
     }
   }
 }
@@ -331,7 +343,8 @@ UNIT_TEST(FindPathManhattan)
         }
       }
 
-      TestRoute(start, finish, expectedLength, nullptr, *worldGraph);
+      TestRoute(start, finish, expectedLength, nullptr /* expectedRoute */, kUnknownWeight,
+                *worldGraph);
     }
   }
 }
@@ -376,7 +389,13 @@ UNIT_TEST(RoadSpeed)
                                        {kTestNumMwmId, 0, 2, true},
                                        {kTestNumMwmId, 0, 3, true},
                                        {kTestNumMwmId, 1, 3, true}});
-  TestRoute(start, finish, expectedRoute.size(), &expectedRoute, *worldGraph);
+  double const expectedWeight =
+      MercatorBounds::DistanceOnEarth({0.5, 0.0}, {1.0, 0.0}) / (1.0 * kKMPH2MPS) +
+      MercatorBounds::DistanceOnEarth({1.0, 0.0}, {2.0, -1.0}) / (10.0 * kKMPH2MPS) +
+      MercatorBounds::DistanceOnEarth({2.0, -1.0}, {4.0, -1.0}) / (10.0 * kKMPH2MPS) +
+      MercatorBounds::DistanceOnEarth({4.0, -1.0}, {5.0, 0.0}) / (10.0 * kKMPH2MPS) +
+      MercatorBounds::DistanceOnEarth({5.0, 0.0}, {5.5, 0.0}) / (1.0 * kKMPH2MPS);
+  TestRoute(start, finish, expectedRoute.size(), &expectedRoute, expectedWeight, *worldGraph);
 }
 
 // Roads                             y:
@@ -407,11 +426,13 @@ UNIT_TEST(OneSegmentWay)
     for (auto const finishIsForward : tf)
     {
       auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 0, 0, startIsForward),
-                                        m2::PointD(1, 0), *worldGraph);
+                                        m2::PointD(1.0, 0.0), *worldGraph);
       auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 0, 0, finishIsForward),
-                                         m2::PointD(2, 0), *worldGraph);
+                                         m2::PointD(2.0, 0.0), *worldGraph);
 
-      TestRoute(start, finish, expectedRoute.size(), &expectedRoute, *worldGraph);
+      auto const expectedWeight =
+          MercatorBounds::DistanceOnEarth({1.0, 0.0}, {2.0, 0.0}) / (1.0 * kKMPH2MPS);
+      TestRoute(start, finish, expectedRoute.size(), &expectedRoute, expectedWeight, *worldGraph);
     }
   }
 }
@@ -517,10 +538,14 @@ UNIT_TEST(FakeEndingAStarInvariant)
       {{kTestNumMwmId, 0 /* featureId */, 0 /* seg id */, true /* forward */}});
 
   auto const start =
-      MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(1, 1), *worldGraph);
-  auto const finish = MakeFakeEnding(0, 0, m2::PointD(2, 1), *worldGraph);
+      MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(1.0, 1.0), *worldGraph);
+  auto const finish = MakeFakeEnding(0, 0, m2::PointD(2.0, 1.0), *worldGraph);
 
-  TestRoute(start, finish, expectedRoute.size(), &expectedRoute, *worldGraph);
+  auto const expectedWeight =
+      estimator->CalcOffroadWeight({1.0, 1.0}, {1.0, 0.0}) +
+      MercatorBounds::DistanceOnEarth({1.0, 0.0}, {2.0, 0.0}) / (1.0 * kKMPH2MPS) +
+      estimator->CalcOffroadWeight({2.0, 0.0}, {2.0, 1.0});
+  TestRoute(start, finish, expectedRoute.size(), &expectedRoute, expectedWeight, *worldGraph);
 }
 
 //
@@ -656,7 +681,15 @@ UNIT_CLASS_TEST(RestrictionTest, LoopGraph)
                                          {kTestNumMwmId, 0, 7, false}, {kTestNumMwmId, 0, 6, false},
                                          {kTestNumMwmId, 2, 0, true}};
 
-  TestRoute(start, finish, expectedRoute.size(), &expectedRoute, *m_graph);
+  auto const expectedWeight =
+      MercatorBounds::DistanceOnEarth({0.0002, 0.0}, {0.0002, 0.0001}) / (100.0 * kKMPH2MPS) +
+      MercatorBounds::DistanceOnEarth({0.0002, 0.0001}, {0.00015, 0.0001}) / (100.0 * kKMPH2MPS) +
+      MercatorBounds::DistanceOnEarth({0.00015, 0.0001}, {0.0001, 0.0001}) / (100.0 * kKMPH2MPS) +
+      MercatorBounds::DistanceOnEarth({0.0001, 0.0001}, {0.00005, 0.00015}) / (100.0 * kKMPH2MPS) +
+      MercatorBounds::DistanceOnEarth({0.00005, 0.00015}, {0.00005, 0.0002}) / (100.0 * kKMPH2MPS) +
+      MercatorBounds::DistanceOnEarth({0.00005, 0.0002}, {0.00005, 0.0003}) / (100.0 * kKMPH2MPS) +
+      MercatorBounds::DistanceOnEarth({0.00005, 0.0003}, {0.00005, 0.0004}) / (100.0 * kKMPH2MPS);
+  TestRoute(start, finish, expectedRoute.size(), &expectedRoute, expectedWeight, *m_graph);
 }
 
 UNIT_TEST(IndexGraph_OnlyTopology_1)
