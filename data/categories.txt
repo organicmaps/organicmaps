@@ -127,7 +127,7 @@ uk:^Заправка
 vi:Khí đốt
 zh-Hans:汽油
 zh-Hant:加油站
-el:Βενζίνη
+el:Υγρά Καύσιμα
 he:גז
 sk:3^Čerpacia stanica
 sw:Sheli
@@ -194,7 +194,7 @@ uk:^Крамниця
 vi:^Cửa hàng
 zh-Hans:^商店
 zh-Hant:^購物
-el:^Μαγαζί
+el:^Κατάστημα
 he:^חנות
 sk:^Obchod
 sw:^Duka
@@ -261,7 +261,7 @@ uk:Пам’ятні місця
 vi:Diểm tham quan
 zh-Hans:景点
 zh-Hant:旅遊景點
-el:Αξιοθέατα
+el:Αξιοθέατο
 he:נקודות עיניין
 sk:Pamätihodnosť
 fa:گردشگری
@@ -587,7 +587,7 @@ uk:3^Фастфуд|3ресторан|3кафе|2їжа|2їсти
 vi:^Thức ăn nhanh|quán ăn
 zh-Hans:1^快餐|餐厅|外卖|食物
 zh-Hant:1^速食店|麥當勞|肯德雞|漢堡王|頂呱呱|薯條|速食|用餐|飲食
-el:^Εστιατόριο|καφετέρια|φαγητό για το σπίτι|φαγητό
+el:^Ταχυφαγίο|καφετέρια|φαγητό για το σπίτι|φαγητό
 sk:2^Rýchle občerstvenie|4fastfood|3kaviareň|reštaurácia
 fa:^فست فود|غذای حاضری
 
@@ -682,7 +682,7 @@ uk:3^Пекарня|магазин|крамниця
 vi:^Hiệu bánh
 zh-Hans:1^面包店|商店
 zh-Hant:1^麵包店|2蛋糕店|烘焙|麵包|蛋糕|購物
-el:^Αρτοποιείο|κατάστημα
+el:^Αρτοποιείο|Φούρνος|κατάστημα
 sk:3^Pekáreň
 sw:^Kituo cha kuwoka mikate
 fa:نانوایی
@@ -830,7 +830,7 @@ uk:^Мобільні телефони|салон мобільного зв'яз�
 vi:^Cửa hàng điện thoại di động|cửa hàng ĐTDĐ
 zh-Hans:^手机商店|商店
 zh-Hant:^手機專賣店|購物
-el:^Κινητά τηλέφωνα|Κινητά|κατάστημα ηλεκτρονικών|κατάστημα
+el:^Κινητή Τηλεφωνία|Κινητά|κατάστημα ηλεκτρονικών|κατάστημα
 sk:^Mobilné telefóny
 sw:^Duka la simu
 fa:موبایل فروشی
@@ -1023,7 +1023,7 @@ uk:^Магазин взуття|2магазин|крамниця
 vi:^Cửa hàng giày
 zh-Hans:^鞋店|商店
 zh-Hant:^鞋店|1購物|店鋪|商店|雜貨店|便利商店
-el:^Κατάστημα παπουτσιών|κατάστημα
+el:^Υποδηματοπωλείο|κατάστημα
 sk:^Obuvníctvo
 fa:کفش فروشی
 
@@ -1087,7 +1087,7 @@ uk:^Будматеріали|господарський|магазин|крам�
 vi:^Cửa hàng phần cứng
 zh-Hans:^硬件店|自助商店|商店
 zh-Hant:^五金行|硬件店|購物|店鋪|商店|雜貨店|便利商店
-el:^Κατάστημα εξοπλισμού|DIY|Κάντεο μόνος σου|κατάστημα
+el:^Είδη κιγκαλερίας|DIY|Κάν'το μόνος σου|κατάστημα
 sk:^Železiarstvo|Náradie
 fa:فروشگاه ابزار و یراق
 
@@ -1215,7 +1215,7 @@ uk:^Салон краси
 vi:^Thẩm mỹ viện
 zh-Hans:^美容院|美容产品店
 zh-Hant:^美容院|美容產品店
-el:^Ινστιτούτο αισθητικής
+el:^Σαλόνι αισθητικής
 he:^יפוי ןוכמ
 sk:^Kozmetický salón
 sw:^Uzuri saluni
@@ -1346,7 +1346,7 @@ uk:^Торговий центр|крамниця
 vi:^Khu mua sắm
 zh-Hans:^商场|商店
 zh-Hant:^商场|購物
-el:^Το εμπορικό κέντρο|μαγαζί
+el:^Εμπορικό κέντρο|μαγαζί
 he:^ןוינקה
 sk:^The Mall
 sw:^Ununuzi maduka
@@ -1444,7 +1444,7 @@ uk:^Комп'ютерний магазин|комп'ютерна техніка|
 vi:^Cửa hàng máy tính
 zh-Hans:^电脑商店|商店
 zh-Hant:^電腦商店|電腦專賣店|購物
-el:^Κατάστημα υπολογιστών|κατάστημα
+el:^Κατάστημα πληροφορικής|κατάστημα
 sk:^Obchod s výpočtovou technikou
 fa:فروشگاه کامپیوتر
 
@@ -1508,7 +1508,7 @@ uk:4^Пральня
 vi:^Giặt là
 zh-Hans:^洗衣店
 zh-Hant:^洗衣店
-el:^Άπλυτα|κατάστημα με πλυντήρια τούχων
+el:^Άπλυτα|κατάστημα με πλυντήρια ρούχων
 sk:4^Práčovňa
 fa:لباس شویی
 
@@ -1635,7 +1635,7 @@ uk:^Автосалон|магазин|крамниця
 vi:^Cửa hàng xe
 zh-Hans:^车店|商店
 zh-Hant:1^買車|購車|購物
-el:^Κατάστημα αυτοκινήτων|κατάστημα
+el:^Αντιπροσωπεία αυτοκινήτων|κατάστημα
 sk:^Predajňa áut
 sw:^Yadi|duka la gari|gari
 fa:فروشگاه خودرو
@@ -1860,7 +1860,7 @@ uk:3^Метро|транспорт
 vi:3^Ngầm
 zh-Hans:^地铁|地铁|地铁|地铁|交通
 zh-Hant:1^地鐵|捷運|2地下鐵|運輸
-el:^Υπόγειος|σωλήνας|μετρό|υπόγεια|μεταφορές
+el:^Υπόγειος|μετρό|υπόγεια|μεταφορές
 sk:3^Metro|podzemná doprava
 sw:^Reli ya chini
 fa:ایستگاه مترو
@@ -1881,6 +1881,7 @@ da:^Jernbaneoverskæring
 fi:^Tasoristeys
 hu:^Útátjáró
 fa:تقاطع هم سطح با راه اهن
+el:^Ισόπεδη σιδ/μική διάβαση
 
 amenity-ferry_terminal|@transport
 en:3^Ferry|terminal|U+1F6A2|U+1F6A4|U+2693
@@ -1943,7 +1944,7 @@ uk:3^Таксі|транспорт
 vi:3^Taxi
 zh-Hans:^出租车|交通
 zh-Hant:1^計程車|交通
-el:^Ταξί|μεταφορές
+el:^Ταξί|πιάτσα|μεταφορές
 sk:3^Taxi
 sw:^Teksi|usafiri
 fa:^تاکسی|اژانس
@@ -2075,7 +2076,7 @@ uk:4^Оглядний майданчик|4місце огляду|туризм|�
 vi:^Điểm nhìn
 zh-Hans:1^观点|旅游|景点
 zh-Hant:1^視野|景觀|景點|觀光|3旅遊景點
-el:^Άποψη|τουρισμός|αξιοθέατα
+el:^Παρατηρητήριο|τουρισμός|αξιοθέατα
 sk:3^Vyhliadka
 sw:^Genge|utalii
 fa:مناظرگردشگری
@@ -2174,7 +2175,7 @@ uk:3^Храм|пам’ятка|алтарь|мавзолей|пам’ятні 
 vi:^Chùa
 zh-Hans:1^礼拜场所|庙|景点
 zh-Hant:1^寺廟|1禱告|寺|禪寺|旅遊景點
-el:^Τόπος λατρείας|ναός|αξιοθέατα
+el:^Χώρος λατρείας|ναός|αξιοθέατα
 sk:3^Svätyňa|3chrám|3posvätné miesto
 sw:^Sehemu ya kusali
 fa:معبد
@@ -2497,7 +2498,7 @@ uk:^Меморіал|монумент|пам'ятка|туризм|статуя|
 vi:3^Đài tưởng niệm
 zh-Hans:^纪念馆|景点
 zh-Hant:^紀念館|1紀念碑|紀念館|旅遊景點
-el:^Επιμνημόσυνο|μνημείο|θέαμα|τουρισμός|αξιοθέατα
+el:^Μνημείο|θέαμα|τουρισμός|αξιοθέατα
 sk:^Pomník|pamiatka|atrakcia|zaujímavosť
 sw:^Makumbusho|kumbukumbu ya kihistoria|kivutio|utalii
 fa:یادبود تاریخی
@@ -2563,7 +2564,7 @@ uk:^Руїни|розвалини|древність|історична пам'�
 vi:^Phế tích
 zh-Hans:^废墟|景点
 zh-Hant:1^廢墟|古蹟|遺址|旅遊景點
-el:^Αρχεία|θέαμα|τουρισμός|αξιοθέατα
+el:^Ερείπια|χαλάσματα|θέαμα|τουρισμός|αξιοθέατα
 sk:^Zrúcanina|ruiny
 sw:^Maeneo ya kale|jengo la kale|chakavu
 fa:خرابه های تاریخی
@@ -2662,7 +2663,7 @@ uk:2^Садок|пам’ятні місця
 vi:^Điểm khảo cổ
 zh-Hans:2^花园|景点
 zh-Hant:1^花園|旅遊景點
-el:^Κήπος|αξιοθέατα
+el:^Κήπος αναψυχής|αξιοθέατα
 sk:2^Záhrada
 sw:^Bustani
 fa:باغ تفریحی
@@ -2695,7 +2696,7 @@ uk:^Лавка
 vi:^Xe đạp
 zh-Hans:^长凳
 zh-Hant:1^長板凳|板凳|長椅|長椅子|條凳
-el:^Πάγκος
+el:^Παγκάκι
 sk:^Lavička
 sw:^Benchi
 fa:^سَکو|نیمکت
@@ -2740,7 +2741,7 @@ ar:^مشاركة السيارة|تقاسم السيارة
 cs:^Sdílení aut
 da:^Delebiler
 de:^Carsharing
-el:^Κοινή χρήση αυτοκινήτου
+el:^Παραχώρηση αυτοκινήτου
 es:^Compartir coche
 fi:^Autojen yhteiskäyttö
 fr:^Car Sharing
@@ -2793,7 +2794,7 @@ uk:4^Прокат авто|3авто|3машина|прокат
 vi:^Ô tô
 zh-Hans:1^汽车出租์|汽车์
 zh-Hant:1^租車|出租|租金|租錢
-el:^Ενοικίαση αυτοκινήτων|αυτοκίνητο|ενοικιάσεις|κοινή χρήση
+el:^Ενοικίαση αυτοκινήτου|αυτοκίνητο|ενοικιάσεις|κοινή χρήση
 sk:3^Autopožičovňa|požičovňa áut
 sw:^Kodi ya gari|gari|kodi
 fa:مکان اجاره ماشین
@@ -2892,7 +2893,7 @@ uk:3^Нічний клуб|3дискотека|розваги
 vi:^Câu lạc bộ đêm
 zh-Hans:3^夜总会|娱乐
 zh-Hant:1^夜店|2俱樂部|酒|喝酒|跳舞|舞|2夜生活|娛樂
-el:^Νυχτερινό κέντρο διασκέδασης|ντίσκο|χορός|ψυχαγωγία
+el:^Νυχτερινό κέντρο διασκέδασης|ντίσκο|μπουζούκια|χορός|ψυχαγωγία
 sk:4^Nočný klub|3disco|3nightclub|night club
 sw:^Ukumbi wa starehe|klabu|burudani
 fa:^کلوپ شبانه|کلوپ رقص
@@ -2922,7 +2923,7 @@ tr:^Genelev
 uk:^Бордель|розваги
 zh-Hans:^妓院|娱乐
 zh-Hant:^妓院|娛樂
-el:^Πορνείο|ψυχαγωγία
+el:^Πορνείο|οίκος ανοχής|ψυχαγωγία
 sk:^Nevestinec|verejný dom
 sw:^Danguro
 fa:^فاحشه خانه|جنده خانه
@@ -3051,7 +3052,7 @@ uk:^Пожежна частина
 vi:^Trạm cứu hỏa
 zh-Hans:1^消防局
 zh-Hant:1^消防局|滅火隊|消防隊|消防車|救難|緊急
-el:^Πυροσβεστικός σταθμός
+el:^Σταθμός πυρόσβεσης
 sk:^Hasičská stanica|hasiči
 sw:^Kituo cha zimamoto
 fa:ایستگاه اتش نشانی
@@ -3241,7 +3242,7 @@ uk:^Лікар|Поліклініка|клініка|лікарня
 vi:^Bác sĩ|Phòng khám|bịnh viện|dưỡng đường|BVbệnh viện
 zh-Hans:^医师办公室|诊所|医院
 zh-Hant:^醫師診間|診所|醫院
-el:^Γιατρός|κλινική|νοσοκομείο
+el:^Γιατροί|ιατροί|κλινική|νοσοκομείο
 sk:^Ambulancia|Poliklinika|nemocnica
 fa:کلینیک|مطب دکتر
 
@@ -3304,7 +3305,7 @@ uk:^Мисливська башта
 vi:^Điểm săn bắn
 zh-Hans:^狩猎屋
 zh-Hant:1^狩獵場|打獵|狩獵|獵人|獵
-el:^Βάση σκόπευσης
+el:^Βάση σκόπευσης|καρτέρι
 sk:^Lovecké stanovisko|posiedka
 sw:^Uwanja wa mawindo
 fa:شکارگاه
@@ -3394,6 +3395,7 @@ zh-Hans:1停车
 zh-Hant:1停車場|停車|泊車
 sw:Maegesho
 fa:پارکینگ
+el:Στάθμευση
 
 @pharmacy
 en:3^Pharmacy
@@ -3510,7 +3512,7 @@ uk:3^Пошта
 vi:^Bưuđiện
 zh-Hans:1^邮政
 zh-Hant:1^郵局
-el:^Δημοσίευση
+el:^Ταχυδρομείο
 he:^דואר
 sk:3^Pošta
 sw:^Posta
@@ -3534,6 +3536,7 @@ vi:Bưu điện
 zh-Hant:郵筒
 sk:poštový úrad
 fa:اداره پست
+el:Ταχυδρομείο
 
 amenity-waste_disposal
 en:^Dumpster|Trash|bin|garbage|waste disposal|U+1F6AE
@@ -3563,7 +3566,7 @@ uk:^Сміттєвий контейнер|сміття|смітник
 vi:^Xử lý chất thải|Rác
 zh-Hans:^垃圾
 zh-Hant:^垃圾|回收|回收場
-el:^Σκουπίδια
+el:^Σιαχείριση απορριμάτων|σκουπίδια
 he:^במכולה|הפשא
 sk:^Odpadky|kôš
 fa:زباله دانی
@@ -3978,7 +3981,7 @@ uk:^Округ|графство
 vi:^Thị trấn
 zh-Hans:^国家
 zh-Hant:^縣
-el:^Κομητεία
+el:^Δήμος
 sk:^Krajina
 fa:بخش
 
@@ -4274,7 +4277,7 @@ uk:^Річка
 vi:^Sông
 zh-Hans:^河
 zh-Hant:1^河流|河
-el:^Ποταμός
+el:^Ποταμός|ρυάκι
 sk:^Rieka
 sw:^Mto
 fa:رودخانه
@@ -4792,7 +4795,7 @@ uk:^Гірський готель|гірська хатинка|готель
 vi:^Nhà ở trên núi|khách sạn
 zh-Hans:^山上住宿|旅馆|旅店
 zh-Hant:1^山上住宿|飯店|旅館|住宿|旅舍|2高山住宿
-el:^Διαμονή στο βουνό|ξενοδοχείο|ξενώνας|αλπική καλύβα
+el:^Ορεινό καταφύγιο|ξενοδοχείο|ξενώνας|αλπική καλύβα
 sk:4^Horská chata|horský hotel|hotel
 
 shop-hairdresser
@@ -4889,7 +4892,7 @@ uk:^Стадіон|4спорт
 vi:^Sân vận động
 zh-Hans:^体育场
 zh-Hant:1^體育中心|2運動場|2體育館|體育|運動
-el:^Γήπεδο|Αθλητισμός
+el:^Γήπεδο|στάδιο|Αθλητισμός
 sk:^Štadión|4šport
 sw:^Kiwanja cha michezo
 fa:استادیوم
@@ -5068,6 +5071,7 @@ fr:Sport équestre
 hu:Lovassportok
 nl:Paardensport
 pt-BR:Esportes equestres
+el:Ιππασία
 
 sport-basketball
 en:^Basketball
@@ -5082,6 +5086,7 @@ nl:^Basketbal
 pt-BR:^Basquetebol
 da:^Basketball
 fa:بسکتبال
+el:Καλαθόσφαιρα
 
 sport-athletics
 en:^Athletics
@@ -5094,6 +5099,7 @@ it:^Atletica leggera
 hu:^Atlétika
 nl:^Atletiek
 pt-BR:^Atletismo
+el:Στίβος
 
 building|building-address
 en:^Building|U+1F3E0|U+1F3E1|U+1F3E2
@@ -5179,6 +5185,7 @@ vi:Cảnh sát
 zh-Hant:警察|警員
 sk:3policajná stanica
 fa:^کلانتری|اگاهی
+el:Αστυνομία
 
 amenity-embassy
 en:4^Embassy
@@ -5273,7 +5280,7 @@ uk:^Джерело|криниця
 vi:^Suối
 zh-Hans:^海湾
 zh-Hant:1^泉水|泉|玩水
-el:^Άνοιξη
+el:^Πηγή νερού
 sk:^Prameň
 sw:^Chemchemi
 fa:چشمه
@@ -5306,7 +5313,7 @@ uk:3^СТО|3автомайстерня|автосервіс|ремонт авт
 vi:^Cửa hàng sửa chữa ô tô
 zh-Hans:3^汽车修理店|服务站
 zh-Hant:1^汽車維修|維修|汽車|修理
-el:^Κατάστημα επισκευής αυτοκινήτων|Σταθμός επισκευής|αυτόματο|γκαράζ
+el:^Συνεργείο αυτοκινήτων|Σταθμός επισκευής|αυτόματο|γκαράζ
 sk:3^Autoservis|autoopravovňa
 sw:^Fundi wa gari
 fa:تعمیرگاه ماشین
@@ -5686,7 +5693,7 @@ uk:^Кондиціонери
 vi:^Điều hòa nhiệt độ
 zh-Hans:^暖通工程师
 zh-Hant:^空調設備
-el:^Κλιματιστικό
+el:^Ψυκτικός|κλιματισμός
 sk:^Vzduchotechnika
 
 craft-metal_construction
@@ -5747,7 +5754,7 @@ uk:^Маляр|малярська майстерня
 vi:^Họa sỹ
 zh-Hans:^油漆匠
 zh-Hant:^油漆工
-el:^Ζωγράφος
+el:^Μπογιατζής|χρωματιστής
 sk:^Maliar natierač
 fa:نقاش
 
@@ -5841,7 +5848,7 @@ uk:^Ремонт взуття
 vi:^Sửa giày
 zh-Hans:^修鞋匠
 zh-Hant:^修鞋工
-el:^Επισκευή υποδημάτων
+el:^Υποδηματοποιός|τσαγκάρης
 sk:^Oprava obuvy
 fa:کفاش
 
@@ -5872,7 +5879,7 @@ uk:^Ательє|Ремонт одягу|швейна майстерня
 vi:^Thợ may
 zh-Hans:^裁缝
 zh-Hant:^裁縫師
-el:^Ράφτης
+el:^Ράφτης|ράπτης
 sk:^Krajčírstvo
 fa:خیاطی
 
@@ -6034,7 +6041,7 @@ uk:3^Інтернет|Internet
 vi:3^Internet
 zh-Hans:3^互联网|WiFi|3Internet
 zh-Hant:3^互聯網|WiFi|3Internet
-el:^Ίντερνετ
+el:^Ίντερνετ|διαδίκτυο
 sk:3^Internet
 sw:^Intaneti
 fa:اینترنت
@@ -6067,7 +6074,7 @@ uk:^Пляж
 vi:^Bãi biển
 zh-Hans:^海滩
 zh-Hant:^海灘
-el:^Παραλία
+el:^Παραλία|ακρογιαλιά
 sw:^Pwani
 fa:ساحل
 
@@ -6099,7 +6106,7 @@ uk:^Камера безпеки дорожнього руху
 vi:^Camera bắn tốc độ
 zh-Hans:^测速照相机
 zh-Hant:^測速照相機
-el:^Κάμερα ταχύτητας
+el:^Κάμερα ταχύτητας|ραντάρ
 sk:^Rýchlostná kamera
 fa:دوربین سرعت سنج
 
@@ -6225,7 +6232,7 @@ uk:^Турагентство|подорожі
 vi:^Đại lý Du lịch|chuyến du lịch
 zh-Hans:^旅行社|游览
 zh-Hant:^旅行社|遊覽
-el:^Ταξιδιωτικό γραφείο|Περιηγήσεις
+el:^Ταξιδιωτικό γραφείο|Τουριστικός πράκτορας|Περιηγήσεις
 sk:^Cestovná kancelária|Zájazdy
 fa:اژانس مسافرتی
 
@@ -6257,7 +6264,7 @@ uk:^Спорядження|магазин|крамниця
 vi:^Thiết bị Ngoài trời|dã ngoại|leo|cắm trại
 zh-Hans:^室外设备|远足|攀岩|野营|商店
 zh-Hant:^室外設備|遠足|攀巖|野營|商店
-el:^Υπαίθριος εξοπλισμός|πεζοπορία|αναρρίχηση|κάμπινγκ|κατάστημα
+el:^Εξοπλισμός υπαίθρου|πεζοπορία|αναρρίχηση|κάμπινγκ|κατάστημα
 sk:^Outdoorové vybavenie|Treking|Lezenie|Kempy
 
 shop-dry_cleaning
@@ -6320,7 +6327,7 @@ uk:^Магазин шин|магазин|крамниця
 vi:^Cửa hàng Lốp
 zh-Hans:^轮胎店|商店
 zh-Hant:^輪胎店|商店
-el:^Κατάστημα ελαστικών|κατάστημα
+el:^Βουλκανιζατέρ|Κατάστημα ελαστικών|κατάστημα
 sk:^Obchod s pneumatikami
 fa:فروشگاه لاستیک
 
@@ -6352,7 +6359,7 @@ uk:^Автомийна
 vi:^Rửa Xe
 zh-Hans:^洗车
 zh-Hant:^洗車
-el:^Πλύσιμο αυτοκινήτων
+el:^Καθαρισμός αυτοκινήτων
 sk:^Autoumývareň
 fa:کارواش
 
@@ -6544,7 +6551,7 @@ uk:^Аварійний телефон
 vi:^Điện thoại khẩn cấp
 zh-Hans:^紧急电话
 zh-Hant:^緊急電話
-el:^τηλεφώνου έκτακτης ανάγκης
+el:^Τηλέφωνο έκτακτης ανάγκης
 he:^טלפון חירום
 sk:^Tiesňového volania
 sw:^Simu ya dharura
@@ -6578,7 +6585,7 @@ uk:^Фітнес-зал
 vi:^Phòng Tập
 zh-Hans:^健身中心|健身房
 zh-Hant:^健身中心|健身房
-el:^Λέντρο γυμναστικής|Γυμναστήριο
+el:^Κέντρο γυμναστικής|Γυμναστήριο
 sk:^Fitnescentrum|telocvičňa
 fa:باشگاه بدنسازی
 
@@ -6674,7 +6681,7 @@ uk:^Шиномонтаж
 vi:^Vá Lốp
 zh-Hans:^轮胎修理
 zh-Hant:^輪胎修補
-el:^Επισκευή ελαστικών|επισκευή ελαστικών|ελαστικά|λάστιχα
+el:^Βουλκανιζατέρ|Επισκευή ελαστικών|επισκευή ελαστικών|ελαστικά|λάστιχα
 sk:^Pneuservis
 fa:^اپاراتی|پنچرگیری
 
@@ -6706,7 +6713,7 @@ uk:^Магазин побутової хімії
 vi:^Cửa hàng Hóa chất
 zh-Hans:^药妆店
 zh-Hant:^藥妝店
-el:^Κατάστημα χημικών
+el:^Φαρμακείο
 sk:^Drogéria
 sw:^Duka la Kemikali na Dawa za Nyumbani
 fa:فروشگاه مواد شیمیایی
@@ -6805,7 +6812,7 @@ uk:^Туристичний офіс
 vi:^Văn Phòng Du Lịch
 zh-Hans:^旅游服务处
 zh-Hant:^旅遊辦事處
-el:^Τουριστικό γραφείο
+el:^Ενημέρωση τουριστών
 sk:^Turistické informačné centrum
 fa:دفتر گردشگری
 
@@ -6901,7 +6908,7 @@ uk:^Автомат з продажу сигарет
 vi:^Máy bán thuốc lá
 zh-Hans:^自动售烟机
 zh-Hant:^香菸自動販賣機
-el:^Τσιγαροθήκη
+el:^Αυτόματος πωλητής τσιγάρων
 sk:^Automat na cigarety
 fa:ماشین سیگار فروشی
 
@@ -6933,7 +6940,7 @@ uk:^Автомат з напоями
 vi:^Máy bán thức uống
 zh-Hans:^饮料售卖机
 zh-Hant:^飲料自動販賣機
-el:^Δοχείο για ποτά
+el:^Αυτόματος πωλητής ποτών
 sk:^Nápojový automat
 fa:ماشین فروش نوشیدنی
 
@@ -6997,7 +7004,7 @@ uk:^Зона відпочинку
 vi:^Khu Vực Thụt Vào Để Đỗ Xe
 zh-Hans:^休息区
 zh-Hant:^休息區
-el:^Χώρος ανάπαυσης στον αυτοκινητόδρομο
+el:^Χώρος ανάπαυσης αυτοκινητιστών
 sk:^Odpočívadlo
 
 highway-traffic_signals
@@ -7154,7 +7161,7 @@ uk:^Букмекерська контора
 vi:^Người nhận cá cược
 zh-Hans:^做书店
 zh-Hant:^賭博業者
-el:^Πράκτορας στοιχημάτων
+el:^Πράκτορας στοιχημάτων|Προποτζίδικο
 sk:^Stávková kancelária
 fa:صحافی
 
@@ -7218,7 +7225,7 @@ uk:^Білетна каса
 vi:^Phòng vé
 zh-Hans:^售票处
 zh-Hant:^售票處
-el:^Κατάστημα πώλησης εισιτηρίων
+el:^Κατάστημα πώλησης εισιτηρίων|Γκισέ
 sk:^Pokladnica
 fa:بلیط فروشی
 
@@ -7282,7 +7289,7 @@ uk:^Автозапчастини
 vi:^Những bộ phận xe hơi
 zh-Hans:^汽车零件
 zh-Hant:^汽車零件
-el:^Εξαρτήματα αυτοκινήτου
+el:^Εξαρτήματα αυτοκινήτου|ανταλλακτικά
 he:^תינוכמ יקלח
 sk:^Autodiely
 sw:^Vipuri vya magari
@@ -7507,7 +7514,7 @@ uk:^Блок
 vi:^Khối
 zh-Hans:^障碍
 zh-Hant:^街區
-el:^Αποκλεισμός
+el:^Εμπόδιο
 sk:^Blok
 fa:بلوک|حفاظ
 
@@ -7667,7 +7674,7 @@ uk:^Шлагбаум
 vi:^Thanh Chắn
 zh-Hans:^水栅门
 zh-Hant:^遮斷機
-el:^Πόρτα φόρτωσης
+el:^Πόρτα ανελκυστήρα
 sk:^Závora
 fa:اسانسور
 
@@ -7699,7 +7706,7 @@ uk:^Перелаз
 vi:^Trụ chắn
 zh-Hans:^台阶
 zh-Hant:^梯磴
-el:^Σκαλοπάτι
+el:^Τουρνικέ
 sk:^Turniket
 fa:پلکان
 
@@ -7827,7 +7834,7 @@ uk:^Водонапірна вежа
 vi:^Tháp Nước
 zh-Hans:^水塔
 zh-Hant:^水塔
-el:^Πύργος νερού
+el:^Υδατόπυργος
 sk:^Vodojem
 fa:منبع اب
 
@@ -7891,7 +7898,7 @@ uk:^Бункер
 vi:^Boongke
 zh-Hans:^地堡
 zh-Hant:^地堡
-el:^Αποθήκη
+el:^Στρατιωτική αποθήκη
 sk:^Bunker
 fa:پناهگاه
 
@@ -8051,7 +8058,7 @@ uk:^Стовп ЛЕП
 vi:^Trụ Điện
 zh-Hans:^电线杆
 zh-Hant:^電塔
-el:^Μπάρα γυμναστικής
+el:^Πυλώνες μεταφοράς ρεύματος
 sk:^Stĺp elektrického vedenia
 fa:برج قدرت
 
@@ -8083,7 +8090,7 @@ uk:^Шлюз
 vi:^Cổng Khóa
 zh-Hans:^锁门
 zh-Hant:^閘門
-el:^Κλείδωμα πύλης
+el:^Φράγμα
 sk:^Stavidlo
 
 amenity-public_bookcase
@@ -8273,7 +8280,7 @@ uk:^Апартаменти
 vi:^Căn hộ
 zh-Hans:^公寓
 zh-Hant:^公寓
-el:^Διαμερίσματα
+el:^Διαμερίσματα για ενοικίαση
 sk:^Apartmány
 fa:^اپارتمان|سوئیت
 
@@ -8347,7 +8354,7 @@ ar:^مدرسة قيادة
 cs:^Autoškola
 da:^Køreskole
 de:^Fahrschule
-el:^Σχολή οδηγών
+el:^Σχολή οδήγησης
 es:^Autoescuela
 fi:^Autokoulu
 fr:^Auto-école
@@ -8609,7 +8616,7 @@ ar:^مزيل الرجفان
 cs:^Defibrilátor
 da:^Hjertestarter
 de:^Defibrillator
-el:^Απινιδωτής
+el:^Πρώτες βοήθειες|απινιδωτής
 es:^Desfibrilador
 fi:^Defibrillaattori
 fr:^Défibrillateur
@@ -8873,7 +8880,7 @@ ar:^منظموا الجنازات
 cs:^Pohřební služba
 da:^Bedemand
 de:^Bestattungsinstitut
-el:^Γραφεία τελετών
+el:^Γραφεία τελετών|γραφείο κηδειών
 es:^Funeraria
 fi:^Hautaustoimisto
 fr:^Pompes funèbres
@@ -8971,7 +8978,7 @@ ar:^كشك الجرائد
 cs:^Novinový stánek
 da:^Avis-kiosk
 de:^Zeitungsstand
-el:^Περίπτερο εφημερίδων
+el:^Εφημεριδοπώλης|πράκτορας εφημερίδων
 es:^Puesto de venta de periódicos
 fi:^Lehtikioski
 fr:^Kiosque à journaux
@@ -9036,7 +9043,7 @@ ar:^متجر قرطاسية
 cs:^Papírnictví
 da:^Kontorartikler
 de:^Schreibwarenladen
-el:^Κατάστημα γραφικής ύλης
+el:^Κατάστημα γραφικής ύλης|χαρτικά
 es:^Papelería
 fi:^Kirjoitustarvikekauppa
 fr:^Papeterie
@@ -9069,7 +9076,7 @@ ar:^قاعة رسم الوشم
 cs:^Tetovací salon
 da:^Tatovør
 de:^Tattoo-Studio
-el:^Τατουάζ
+el:^Τατουάζ|δερματοστιξία
 es:^Tatuajes
 fi:^Tatuointiliike
 fr:^Salon de tatouage
@@ -9102,7 +9109,7 @@ ar:^متجر متنوع\n
 cs:^Smíšené zboží
 da:^Småtingsbutik
 de:^Billigladen
-el:^Ψιλικατζίδικο
+el:^Παντοπωλείο|Μπακάλικο|Ψιλικατζίδικο
 es:^«Todo a cien»
 fi:^Halpakauppa
 fr:^Bazar
@@ -9135,7 +9142,7 @@ ar:^كوخ برية
 cs:^Chata v divočině
 da:^Vildmarkshytte
 de:^Wildnishütte
-el:^Καλύβα
+el:^Καλύβα|αγροικία
 es:^Cabaña
 fi:^Autiotupa
 fr:^Cabane sauvage
@@ -9163,6 +9170,7 @@ zh-Hant:^山屋
 sponsored-holiday
 en:^Christmas or New Year Celebrations
 ru:^Празднование Рождества или Нового года
+el:^Χριστούγεννα ή Ρεβεγιόν πρωτοχρονιάς
 
 sponsored-partner2
 en:^Luggage Storage|Luggage Hero|3luggagehero
