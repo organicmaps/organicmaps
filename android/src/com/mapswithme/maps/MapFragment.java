@@ -92,15 +92,8 @@ public class MapFragment extends BaseMwmFragment
       sWasCopyrightDisplayed = true;
     }
 
-    nativeSetupWidget(WIDGET_RULER,
-                      UiUtils.dimen(R.dimen.margin_ruler_left),
-                      mHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom),
-                      ANCHOR_LEFT_BOTTOM);
-
-    nativeSetupWidget(WIDGET_WATERMARK,
-                      UiUtils.dimen(R.dimen.margin_watermark_right),
-                      mHeight - UiUtils.dimen(R.dimen.margin_watermark_bottom),
-                      ANCHOR_RIGHT_BOTTOM);
+    setupRuler(0, false);
+    setupWatermark(0, false);
 
     if (BuildConfig.DEBUG)
     {
@@ -126,20 +119,20 @@ public class MapFragment extends BaseMwmFragment
       nativeApplyWidgets();
   }
 
-  void setupRuler(int offsetX, int offsetY, boolean forceRedraw)
+  void setupRuler(int offsetY, boolean forceRedraw)
   {
     nativeSetupWidget(WIDGET_RULER,
-                      UiUtils.dimen(R.dimen.margin_ruler_left) + offsetX,
+                      UiUtils.dimen(R.dimen.margin_ruler_left),
                       mHeight - UiUtils.dimen(R.dimen.margin_ruler_bottom) + offsetY,
                       ANCHOR_LEFT_BOTTOM);
     if (forceRedraw && mContextCreated)
       nativeApplyWidgets();
   }
 
-  void setupWatermark(int offsetX, int offsetY, boolean forceRedraw)
+  void setupWatermark(int offsetY, boolean forceRedraw)
   {
     nativeSetupWidget(WIDGET_WATERMARK,
-                      UiUtils.dimen(R.dimen.margin_watermark_right) + offsetX,
+                      mWidth - UiUtils.dimen(R.dimen.margin_watermark_right),
                       mHeight - UiUtils.dimen(R.dimen.margin_watermark_bottom) + offsetY,
                       ANCHOR_RIGHT_BOTTOM);
     if (forceRedraw && mContextCreated)

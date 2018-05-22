@@ -230,7 +230,7 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheDebugLabels(ref_ptr<dp::TextureMana
 {
   drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
 
-  float const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
+  auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
   DebugInfoLabels debugLabels = DebugInfoLabels(Position(m2::PointF(10.0f * vs, 50.0f * vs), dp::Center));
 
   debugLabels.AddLabel(textures, "visible: km2, readed: km2, ratio:",

@@ -101,7 +101,7 @@ double Identity(double val)
 }  // namespace
 
 RulerHelper::RulerHelper()
-  : m_pixelLength(0.0)
+  : m_pixelLength(0.0f)
   , m_rangeIndex(kInvalidUnitValue)
   , m_isTextDirty(false)
   , m_dirtyTextRequested(false)

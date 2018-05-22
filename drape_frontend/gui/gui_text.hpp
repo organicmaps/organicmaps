@@ -67,7 +67,9 @@ public:
     StaticVertex() = default;
     StaticVertex(glsl::vec3 const & position, glsl::vec2 const & color,
                  glsl::vec2 const & outlineColor)
-      : m_position(position), m_color(color), m_outline(outlineColor)
+      : m_position(position)
+      , m_color(color)
+      , m_outline(outlineColor)
     {}
 
     static dp::BindingInfo const & GetBindingInfo();
@@ -81,7 +83,8 @@ public:
   {
     DynamicVertex() = default;
     DynamicVertex(glsl::vec2 const & normal, glsl::vec2 const & mask)
-      : m_normal(normal), m_maskTexCoord(mask)
+      : m_normal(normal)
+      , m_maskTexCoord(mask)
     {}
 
     static dp::BindingInfo const & GetBindingInfo();

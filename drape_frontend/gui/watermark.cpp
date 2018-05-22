@@ -35,7 +35,7 @@ public:
   {
     SetIsVisible(true);
 
-    m2::PointD halfSize(0.5 * size.x , 0.5 * size.y);
+    m2::PointF const halfSize(0.5f * size.x , 0.5f * size.y);
     m_offset = glsl::vec2(0.0f, 0.0f);
 
     if (anchor & dp::Left)

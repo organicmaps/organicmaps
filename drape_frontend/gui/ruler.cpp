@@ -21,7 +21,9 @@ struct RulerVertex
 {
   RulerVertex() = default;
   RulerVertex(glsl::vec2 const & pos, glsl::vec2 const & normal, glsl::vec2 const & texCoord)
-    : m_position(pos), m_normal(normal), m_texCoord(texCoord)
+    : m_position(pos)
+    , m_normal(normal)
+    , m_texCoord(texCoord)
   {}
 
   glsl::vec2 m_position;
