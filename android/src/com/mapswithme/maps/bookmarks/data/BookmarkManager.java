@@ -445,6 +445,18 @@ public enum BookmarkManager
     return nativeGetCatalogDeeplink(catId);
   }
 
+  @NonNull
+  public String getCatalogDownloadUrl(@NonNull String serverId)
+  {
+    return nativeGetCatalogDownloadUrl(serverId);
+  }
+
+  @NonNull
+  public String getCatalogFrontendUrl()
+  {
+    return nativeGetCatalogFrontendUrl();
+  }
+
   public boolean isCategoryFromCatalog(long catId)
   {
     return nativeIsCategoryFromCatalog(catId);
@@ -552,6 +564,12 @@ public enum BookmarkManager
 
   @NonNull
   private static native String nativeGetCatalogDeeplink(long catId);
+
+  @NonNull
+  private static native String nativeGetCatalogDownloadUrl(@NonNull String serverId);
+
+  @NonNull
+  private static native String nativeGetCatalogFrontendUrl();
 
   private static native boolean nativeIsCategoryFromCatalog(long catId);
 

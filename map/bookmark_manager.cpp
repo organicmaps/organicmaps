@@ -2078,6 +2078,16 @@ std::string BookmarkManager::GetCategoryCatalogDeeplink(kml::MarkGroupId categor
   return cat->GetCatalogDeeplink();
 }
 
+std::string BookmarkManager::GetCatalogDownloadUrl(std::string const & serverId) const
+{
+  return m_bookmarkCatalog.GetCatalogDownloadUrl(serverId);
+}
+
+std::string BookmarkManager::GetCatalogFrontendUrl() const
+{
+  return m_bookmarkCatalog.GetCatalogFrontendUrl();
+}
+
 void BookmarkManager::EnableTestMode(bool enable)
 {
   UserMarkIdStorage::Instance().EnableSaving(!enable);

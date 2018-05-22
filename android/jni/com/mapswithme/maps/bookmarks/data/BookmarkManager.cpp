@@ -589,7 +589,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAreNotificationsEn
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeImportFromCatalog(
-        JNIEnv * env, jobject thiz, jstring serverId, jstring filePath)
+        JNIEnv * env, jobject, jstring serverId, jstring filePath)
 {
   auto & bm = frm()->GetBookmarkManager();
   bm.ImportDownloadedFromCatalog(ToNativeString(env, serverId), ToNativeString(env, filePath));
@@ -597,15 +597,31 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeImportFromCatalog(
 
 JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCatalogDeeplink(
-        JNIEnv * env, jobject thiz, jlong catId)
+        JNIEnv * env, jobject, jlong catId)
 {
   auto & bm = frm()->GetBookmarkManager();
   return ToJavaString(env, bm.GetCategoryCatalogDeeplink(static_cast<kml::MarkGroupId>(catId)));
 }
 
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCatalogDownloadUrl(
+        JNIEnv * env, jobject, jstring serverId)
+{
+  auto & bm = frm()->GetBookmarkManager();
+  return ToJavaString(env, bm.GetCatalogDownloadUrl(ToNativeString(env, serverId)));
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCatalogFrontendUrl(
+        JNIEnv * env, jobject)
+{
+  auto & bm = frm()->GetBookmarkManager();
+  return ToJavaString(env, bm.GetCatalogFrontendUrl());
+}
+
 JNIEXPORT jboolean JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsCategoryFromCatalog(
-        JNIEnv * env, jobject thiz, jlong catId)
+        JNIEnv *, jobject, jlong catId)
 {
   auto & bm = frm()->GetBookmarkManager();
   return static_cast<jboolean>(bm.IsCategoryFromCatalog(static_cast<kml::MarkGroupId>(catId)));

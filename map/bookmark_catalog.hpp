@@ -22,6 +22,9 @@ public:
   size_t GetDownloadingCount() const { return m_downloadingIds.size(); }
   std::vector<std::string> GetDownloadingNames() const;
 
+  std::string GetCatalogDownloadUrl(std::string const & serverId) const;
+  std::string GetCatalogFrontendUrl() const;
+
 private:
   std::map<std::string, std::string> m_downloadingIds;
   std::set<std::string> m_downloadedIds;

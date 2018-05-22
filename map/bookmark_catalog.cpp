@@ -6,14 +6,25 @@
 
 #include "base/string_utils.hpp"
 
+#include <sstream>
 #include <utility>
+
+#define STAGE_BOOKMARKS_CATALOG_SERVER
+#include "private.h"
 
 namespace
 {
-std::string BuildCatalogUrl(std::string const & serverId)
+std::string const kCatalogFrontendServer = BOOKMARKS_CATALOG_FRONT_URL;
+std::string const kCatalogDownloadServer = BOOKMARKS_CATALOG_DOWNLOAD_URL;
+
+std::string BuildCatalogDownloadUrl(std::string const & serverId)
 {
-  //TODO: This code is temporary.
-  return "https://bookcat.demo.mapsme1.devmail.ru/static/" + serverId + "/" + serverId;
+  if (kCatalogDownloadServer.empty())
+    return {};
+
+  std::ostringstream ss;
+  ss << kCatalogDownloadServer << "/static/" << serverId << "/" << serverId;
+  return ss.str();
 }
 }  // namespace
 
@@ -69,11 +80,32 @@ void BookmarkCatalog::Download(std::string const & id, std::string const & name,
   static uint32_t counter = 0;
   auto const path = my::JoinPath(GetPlatform().TmpDir(), "file" + strings::to_string(++counter));
 
-  platform::RemoteFile remoteFile(BuildCatalogUrl(id));
+  auto const url = BuildCatalogDownloadUrl(id);
+  if (url.empty())
+  {
+    if (finishHandler)
+    {
+      finishHandler(platform::RemoteFile::Result(url, platform::RemoteFile::Status::NetworkError,
+                                                 "Empty server URL."), {});
+    }
+    return;
+  }
+
+  platform::RemoteFile remoteFile(url);
   remoteFile.DownloadAsync(path, [finishHandler = std::move(finishHandler)]
     (platform::RemoteFile::Result && result, std::string const & filePath)
   {
     if (finishHandler)
       finishHandler(std::move(result), filePath);
   });
+}
+
+std::string BookmarkCatalog::GetCatalogDownloadUrl(std::string const & serverId) const
+{
+  return BuildCatalogDownloadUrl(serverId);
+}
+
+std::string BookmarkCatalog::GetCatalogFrontendUrl() const
+{
+  return kCatalogFrontendServer;
 }

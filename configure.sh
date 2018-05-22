@@ -96,6 +96,8 @@ else
 #define CLOUD_URL ""
 #define MAXIM_CLIENT_ID ""
 #define MAXIM_SERVER_TOKEN ""
+#define BOOKMARKS_CATALOG_FRONT_URL ""
+#define BOOKMARKS_CATALOG_DOWNLOAD_URL ""
 
 ' > "$PRIVATE_HEADER"
     echo 'ext {
