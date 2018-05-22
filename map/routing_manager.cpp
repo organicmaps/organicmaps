@@ -918,17 +918,18 @@ void RoutingManager::MatchLocationToRoute(location::GpsInfo & location,
   m_routingSession.MatchLocationToRoute(location, routeMatchingInfo);
 }
 
-void RoutingManager::OnLocationUpdate(location::GpsInfo & info)
+void RoutingManager::OnLocationUpdate(location::GpsInfo const & info)
 {
+  location::GpsInfo gpsInfo(info);
   if (!m_drapeEngine)
-    m_gpsInfoCache = my::make_unique<location::GpsInfo>(info);
+    m_gpsInfoCache = my::make_unique<location::GpsInfo>(gpsInfo);
 
-  auto routeMatchingInfo = GetRouteMatchingInfo(info);
-  m_drapeEngine.SafeCall(&df::DrapeEngine::SetGpsInfo, info,
+  auto routeMatchingInfo = GetRouteMatchingInfo(gpsInfo);
+  m_drapeEngine.SafeCall(&df::DrapeEngine::SetGpsInfo, gpsInfo,
                          m_routingSession.IsNavigable(), routeMatchingInfo);
 
   if (IsTrackingReporterEnabled())
-    m_trackingReporter.AddLocation(info, m_routingSession.MatchTraffic(routeMatchingInfo));
+    m_trackingReporter.AddLocation(gpsInfo, m_routingSession.MatchTraffic(routeMatchingInfo));
 }
 
 location::RouteMatchingInfo RoutingManager::GetRouteMatchingInfo(location::GpsInfo & info)

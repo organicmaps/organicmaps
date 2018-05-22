@@ -209,7 +209,7 @@ public:
   void OnBuildRouteReady(routing::Route const & route, routing::RouterResultCode code);
   void OnRebuildRouteReady(routing::Route const & route, routing::RouterResultCode code);
   void OnRoutePointPassed(RouteMarkType type, size_t intermediateIndex);
-  void OnLocationUpdate(location::GpsInfo & info);
+  void OnLocationUpdate(location::GpsInfo const & info);
   void SetAllowSendingPoints(bool isAllowed)
   {
     m_trackingReporter.SetAllowSendingPoints(isAllowed);

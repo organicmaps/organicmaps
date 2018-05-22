@@ -70,52 +70,17 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1,
   return result;
 }
 
-// Extrapolator::Routine ---------------------------------------------------------------------------
-Extrapolator::Routine::Routine(ExtrapolatedLocationUpdate const & update)
+// Extrapolator ------------------------------------------------------------------------------------
+Extrapolator::Extrapolator(ExtrapolatedLocationUpdateFn const & update)
   : m_extrapolatedLocationUpdate(update)
 {
-}
-
-void Extrapolator::Routine::Do()
-{
-  while (!IsCancelled())
+  GetPlatform().RunTask(Platform::Thread::Background, [this]
   {
-    {
-      GetPlatform().RunTask(Platform::Thread::Gui, [this]() {
-        lock_guard<mutex> guard(m_mutex);
-        uint64_t const extrapolationTimeMs = kExtrapolationPeriodMs * m_extrapolationCounter;
-        if (extrapolationTimeMs >= kMaxExtrapolationTimeMs)
-          return;
-
-        if (DoesExtrapolationWork(extrapolationTimeMs))
-        {
-          location::GpsInfo gpsInfo =
-              LinearExtrapolation(m_beforeLastGpsInfo, m_lastGpsInfo, extrapolationTimeMs);
-          m_extrapolatedLocationUpdate(gpsInfo);
-        }
-        else
-        {
-          if (m_lastGpsInfo.m_source != location::EUndefined)
-          {
-            location::GpsInfo gpsInfo = m_lastGpsInfo;
-            m_extrapolatedLocationUpdate(gpsInfo);
-          }
-        }
-      });
-
-      lock_guard<mutex> guard(m_mutex);
-      if (m_extrapolationCounter != m_extrapolationCounterUndefined)
-        ++m_extrapolationCounter;
-    }
-    // @TODO(bykoinako) Method m_extrapolatedLocationUpdate() is run on gui thread every
-    // |kExtrapolationPeriodMs| milliseconds. But after changing GPS position
-    // (that means after a call of method Routine::SetGpsInfo())
-    // m_extrapolatedLocationUpdate() should be run immediately on gui thread.
-    this_thread::sleep_for(std::chrono::milliseconds(kExtrapolationPeriodMs));
-  }
+    ExtrapolatedLocationUpdate();
+  });
 }
 
-void Extrapolator::Routine::SetGpsInfo(location::GpsInfo const & gpsInfo)
+void Extrapolator::OnLocationUpdate(location::GpsInfo const & gpsInfo)
 {
   lock_guard<mutex> guard(m_mutex);
   m_beforeLastGpsInfo = m_lastGpsInfo;
@@ -123,15 +88,55 @@ void Extrapolator::Routine::SetGpsInfo(location::GpsInfo const & gpsInfo)
   m_extrapolationCounter = 0;
 }
 
-bool Extrapolator::Routine::DoesExtrapolationWork(uint64_t extrapolationTimeMs) const
+void Extrapolator::ExtrapolatedLocationUpdate()
+{
+  location::GpsInfo gpsInfo;
+  do
+  {
+    lock_guard<mutex> guard(m_mutex);
+    uint64_t const extrapolationTimeMs = kExtrapolationPeriodMs * m_extrapolationCounter;
+    if (extrapolationTimeMs >= kMaxExtrapolationTimeMs || !m_lastGpsInfo.IsValid())
+      break;
+
+    if (DoesExtrapolationWork(extrapolationTimeMs))
+    {
+      gpsInfo = LinearExtrapolation(m_beforeLastGpsInfo, m_lastGpsInfo, extrapolationTimeMs);
+      break;
+    }
+
+    if (m_lastGpsInfo.IsValid())
+      gpsInfo = m_lastGpsInfo;
+  } while (false);
+
+  if (gpsInfo.IsValid())
+  {
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, gpsInfo]() {
+      m_extrapolatedLocationUpdate(gpsInfo);
+    });
+  }
+
+  {
+    lock_guard<mutex> guard(m_mutex);
+    if (m_extrapolationCounter != m_extrapolationCounterUndefined)
+      ++m_extrapolationCounter;
+  }
+
+  // Call ExtrapolatedLocationUpdate() every |kExtrapolationPeriodMs| milliseconds.
+  auto constexpr kSExtrapolationPeriod = std::chrono::milliseconds(kExtrapolationPeriodMs);
+  GetPlatform().RunDelayedTask(Platform::Thread::Background, kSExtrapolationPeriod, [this]
+  {
+    ExtrapolatedLocationUpdate();
+  });
+}
+
+bool Extrapolator::DoesExtrapolationWork(uint64_t extrapolationTimeMs) const
 {
   // Note. It's possible that m_beforeLastGpsInfo.m_timestamp >= m_lastGpsInfo.m_timestamp.
   // It may happen in rare cases because GpsInfo::m_timestamp is not monotonic generally.
   // Please see comment in declaration of class GpsInfo for details.
 
   if (m_extrapolationCounter == m_extrapolationCounterUndefined ||
-      m_lastGpsInfo.m_source == location::EUndefined ||
-      m_beforeLastGpsInfo.m_source == location::EUndefined ||
+      !m_lastGpsInfo.IsValid() || !m_beforeLastGpsInfo.IsValid() ||
       m_beforeLastGpsInfo.m_timestamp >= m_lastGpsInfo.m_timestamp)
   {
     return false;
@@ -145,19 +150,5 @@ bool Extrapolator::Routine::DoesExtrapolationWork(uint64_t extrapolationTimeMs) 
   // Switching off extrapolation based on speed.
   return distM / timeS < kMaxExtrapolationSpeedMPS;
   // @TODO(bykoianko) Switching off extrapolation based on acceleration should be implemented.
-}
-
-// Extrapolator ------------------------------------------------------------------------------------
-Extrapolator::Extrapolator(ExtrapolatedLocationUpdate const & update)
-  : m_extrapolatedLocationThread()
-{
-  m_extrapolatedLocationThread.Create(make_unique<Routine>(update));
-}
-
-void Extrapolator::OnLocationUpdate(location::GpsInfo const & info)
-{
-  auto * routine = m_extrapolatedLocationThread.GetRoutineAs<Routine>();
-  CHECK(routine, ());
-  routine->SetGpsInfo(info);
 }
 }  // namespace extrapolation
