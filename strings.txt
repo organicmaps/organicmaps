@@ -31365,6 +31365,15 @@ fa = دوباره نپرس
     zh-Hans = 我同意接收有关MAPS.ME产品的最新消息
     zh-Hant = 我同意接收有關MAPS.ME產品的最新消息
 
+  [whats_new_localbiz_title]
+    ru = Малый бизнес заслуживает внимания
+
+  [whats_new_localbiz_message]
+    ru = Локальные кафе, хостелы и магазинчики - именно они делают путешествия незабываемыми.\n\nОставьте заявку, и мы бесплатно оптимизируем страницу вашего бизнеса в MAPS.ME.
+
+  [whats_new_order_button]
+    ru = Оставить заявку
+
   [bookmarks_page_downloaded]
     en = Downloaded
     ru = Загруженные
