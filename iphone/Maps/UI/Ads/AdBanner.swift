@@ -221,7 +221,12 @@ final class AdBanner: UITableViewCell {
   private func configMopubBanner(ad: MopubBanner) {
     mpNativeAd = ad.nativeAd
     adType = .native
-    adPrivacyImage.image = UIColor.isNightMode() ? #imageLiteral(resourceName: "img_ad_dark") : #imageLiteral(resourceName: "img_ad_light")
+
+    if mpNativeAd?.adAdapter is FacebookNativeAdAdapter {
+      adPrivacyImage.image = #imageLiteral(resourceName: "ic_ads_fb")
+    } else {
+      adPrivacyImage.image = UIColor.isNightMode() ? #imageLiteral(resourceName: "img_ad_dark") : #imageLiteral(resourceName: "img_ad_light")
+    }
 
     let adCallToActionButtons: [UIButton]
     if state == .search {

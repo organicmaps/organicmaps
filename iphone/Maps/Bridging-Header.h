@@ -21,6 +21,7 @@
 
 #import "AppInfo.h"
 #import "BookmarksVC.h"
+#import "FacebookNativeAdAdapter.h"
 #import "LocalNotificationManager.h"
 #import "MapViewController.h"
 #import "MWMActivityViewController.h"
