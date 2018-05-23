@@ -20,7 +20,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,8 +27,13 @@ import android.widget.TextView;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
+import com.mapswithme.util.Language;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class BaseNewsFragment extends BaseMwmDialogFragment
 {
@@ -46,10 +50,17 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
 
   abstract class Adapter extends PagerAdapter
   {
+    @NonNull
     private final int[] mImages;
+    @NonNull
     private final String[] mTitles;
+    @NonNull
     private final String[] mSubtitles;
+    @NonNull
+    private final List<PromoButton> mPromoButtons;
+    @NonNull
     private final String[] mSwitchTitles;
+    @NonNull
     private final String[] mSwitchSubtitles;
 
     Adapter()
@@ -71,6 +82,7 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
         }
       }
 
+      mPromoButtons = getPromoButtons(res);
       mSwitchTitles = res.getStringArray(getSwitchTitles());
       mSwitchSubtitles = res.getStringArray(getSwitchSubtitles());
 
@@ -82,12 +94,22 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
       images.recycle();
     }
 
-    abstract @ArrayRes int getTitles();
-    abstract @ArrayRes int getSubtitles1();
-    abstract @ArrayRes int getSubtitles2();
-    abstract @ArrayRes int getSwitchTitles();
-    abstract @ArrayRes int getSwitchSubtitles();
-    abstract @ArrayRes int getImages();
+    @ArrayRes
+    abstract int getTitles();
+    @ArrayRes
+    abstract int getSubtitles1();
+    @ArrayRes
+    abstract int getSubtitles2();
+    @ArrayRes
+    abstract int getButtonLabels();
+    @ArrayRes
+    abstract int getButtonLinks();
+    @ArrayRes
+    abstract int getSwitchTitles();
+    @ArrayRes
+    abstract int getSwitchSubtitles();
+    @ArrayRes
+    abstract int getImages();
 
     @Override
     public int getCount()
@@ -115,6 +137,31 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
       ((TextView)res.findViewById(R.id.subtitle))
         .setText(mSubtitles[position]);
 
+      processSwitchBlock(position, res);
+      processButton(position, res);
+
+      container.addView(res);
+      return res;
+    }
+
+    @NonNull
+    private List<PromoButton> getPromoButtons(@NonNull Resources res)
+    {
+      String[] labels = res.getStringArray(getButtonLabels());
+      String[] links = res.getStringArray(getButtonLinks());
+
+      if (labels.length != links.length)
+        throw new AssertionError("Button labels count must be equal to links count!");
+
+      List<PromoButton> result = new ArrayList<>();
+      for (int i = 0; i < labels.length; i++)
+        result.add(new PromoButton(labels[i], links[i]));
+
+      return result;
+    }
+
+    private void processSwitchBlock(int position, @NonNull View res)
+    {
       View switchBlock = res.findViewById(R.id.switch_block);
       String text = mSwitchTitles[position];
       if (TextUtils.isEmpty(text))
@@ -124,34 +171,36 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
         ((TextView)switchBlock.findViewById(R.id.switch_title))
           .setText(text);
 
-        TextView subtitle = (TextView)switchBlock.findViewById(R.id.switch_subtitle);
+        TextView subtitle = switchBlock.findViewById(R.id.switch_subtitle);
         if (TextUtils.isEmpty(mSwitchSubtitles[position]))
           UiUtils.hide(subtitle);
         else
           subtitle.setText(mSwitchSubtitles[position]);
 
-        final SwitchCompat checkBox = (SwitchCompat)switchBlock.findViewById(R.id.switch_box);
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
-          @Override
-          public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-          {
-            onSwitchChanged(position, isChecked);
-          }
-        });
+        final SwitchCompat checkBox = switchBlock.findViewById(R.id.switch_box);
+        checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> onSwitchChanged(position, isChecked));
 
-        switchBlock.setOnClickListener(new View.OnClickListener()
-        {
-          @Override
-          public void onClick(View v)
-          {
-            checkBox.performClick();
-          }
-        });
+        switchBlock.setOnClickListener(v -> checkBox.performClick());
+      }
+    }
+
+    private void processButton(int position, @NonNull View res)
+    {
+      TextView button = res.findViewById(R.id.button);
+      PromoButton promo = mPromoButtons.get(position);
+      if (promo == null || TextUtils.isEmpty(promo.getLabel()))
+      {
+        UiUtils.hide(button);
+        return;
       }
 
-      container.addView(res);
-      return res;
+      button.setText(promo.getLabel());
+      button.setOnClickListener(
+          v ->
+          {
+            String locale = Language.nativeNormalize(Language.getDefaultLocale());
+            Utils.openUrl(getContext(), promo.getLink() + locale);
+          });
     }
 
     @Override

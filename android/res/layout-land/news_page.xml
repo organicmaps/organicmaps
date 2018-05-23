@@ -29,6 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center_horizontal"
         android:layout_gravity="center">
         <TextView
           android:id="@+id/title"
@@ -37,7 +38,6 @@
           android:layout_marginBottom="@dimen/margin_base"
           android:textAppearance="@style/MwmTextAppearance.Title"
           android:layout_gravity="center_horizontal"
-          android:gravity="center_horizontal"
           android:fontFamily="@string/robotoMedium"
           tools:text="Whats new feature!"/>
 
@@ -46,9 +46,10 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
-          android:layout_gravity="center_horizontal"
           android:gravity="center_horizontal"
           tools:text="We\'ve made some cool stuff!\nSit down and be happy now, man."/>
+
+        <include layout="@layout/whats_new_promo_button"/>
       </LinearLayout>
     </FrameLayout>
 

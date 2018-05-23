@@ -35,6 +35,18 @@ public class NewsFragment extends BaseNewsFragment
     }
 
     @Override
+    int getButtonLabels()
+    {
+      return R.array.news_button_labels;
+    }
+
+    @Override
+    int getButtonLinks()
+    {
+      return R.array.news_button_links;
+    }
+
+    @Override
     int getSwitchTitles()
     {
       return R.array.news_switch_titles;
