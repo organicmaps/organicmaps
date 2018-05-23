@@ -816,4 +816,38 @@ UNIT_TEST(BestEdgeComparator_TwoEdgesOfOneFeature)
   TEST_EQUAL(bestEdgeComparator.Compare(edge1, edge2), -1, ());
   TEST_EQUAL(bestEdgeComparator.Compare(edge2, edge1), 1, ());
 }
+
+// Roads
+//
+//                 R0 *  - - - - -** R1
+//              ^                       ^
+//           start                    finish
+//
+//    x:  0     1     2     3     4     5
+//
+UNIT_TEST(FinishNearZeroEdge)
+{
+  unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
+
+  loader->AddRoad(0 /* featureId */, false, 1.0 /* speed */,
+                  RoadGeometry::Points({{2.0, 0.0}, {4.0, 0.0}}));
+  loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */,
+                  RoadGeometry::Points({{4.0, 0.0}, {4.0, 0.0}}));
+
+  vector<Joint> joints;
+  joints.emplace_back(MakeJoint({{0 /* featureId */, 1 /* pointId */}, {1, 0}}));
+
+  traffic::TrafficCache const trafficCache;
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
+  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, joints);
+  auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 0, 0, true /* forward */),
+                                    m2::PointD(1.0, 0.0), *worldGraph);
+  auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 1, 0, false /* forward */),
+                                     m2::PointD(5.0, 0.0), *worldGraph);
+  auto starter = MakeStarter(start, finish, *worldGraph);
+
+  vector<m2::PointD> const expectedGeom = {
+      {1.0 /* x */, 0.0 /* y */}, {2.0, 0.0}, {4.0, 0.0}, {5.0, 0.0}};
+  TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+}
 }  // namespace routing_test
