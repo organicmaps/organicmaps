@@ -447,7 +447,7 @@ private:
   using BookmarksChecker = std::function<bool(kml::FileData const &)>;
   KMLDataCollectionPtr LoadBookmarks(std::string const & dir, std::string const & ext,
                                      KmlFileType fileType, BookmarksChecker const & checker,
-                                     std::vector<std::string> & filePaths);
+                                     std::vector<std::string> & cloudFilePaths);
 
   void CollectDirtyGroups(kml::GroupIdSet & dirtyGroups);
 

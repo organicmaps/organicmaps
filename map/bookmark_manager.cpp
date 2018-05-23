@@ -914,14 +914,14 @@ void BookmarkManager::ClearCategories()
 
 BookmarkManager::KMLDataCollectionPtr BookmarkManager::LoadBookmarks(
     std::string const & dir, std::string const & ext, KmlFileType fileType,
-    BookmarksChecker const & checker, std::vector<std::string> & filePaths)
+    BookmarksChecker const & checker, std::vector<std::string> & cloudFilePaths)
 {
   Platform::FilesList files;
   Platform::GetFilesByExt(dir, ext, files);
 
   auto collection = std::make_shared<KMLDataCollection>();
   collection->reserve(files.size());
-  filePaths.reserve(files.size());
+  cloudFilePaths.reserve(files.size());
   for (auto const & file : files)
   {
     auto const filePath = my::JoinPath(dir, file);
@@ -932,7 +932,8 @@ BookmarkManager::KMLDataCollectionPtr BookmarkManager::LoadBookmarks(
       continue;
     if (m_needTeardown)
       break;
-    filePaths.push_back(filePath);
+    if (!kmlData->m_bookmarksData.empty() || !kmlData->m_tracksData.empty())
+      cloudFilePaths.push_back(filePath);
     collection->emplace_back(filePath, std::move(kmlData));
   }
   return collection;
@@ -952,13 +953,13 @@ void BookmarkManager::LoadBookmarks()
     bool const migrated = migration::MigrateIfNeeded();
     std::string const dir = migrated ? GetBookmarksDirectory() : GetPlatform().SettingsDir();
     std::string const filesExt = migrated ? kKmbExtension : kKmlExtension;
-
-    std::vector<std::string> filePaths;
+    
+    std::vector<std::string> cloudFilePaths;
     auto collection = LoadBookmarks(dir, filesExt, migrated ? KmlFileType::Binary : KmlFileType::Text,
       [](kml::FileData const & kmlData)
     {
       return !FromCatalog(kmlData);
-    }, filePaths);
+    }, cloudFilePaths);
     
     migration::FixUpHotelPlacemarks(collection, isMigrationCompleted);
 
@@ -980,7 +981,7 @@ void BookmarkManager::LoadBookmarks()
     if (migrated)
     {
       GetPlatform().RunTask(Platform::Thread::Gui,
-                            [this, filePaths]() { m_bookmarkCloud.Init(filePaths); });
+                            [this, cloudFilePaths]() { m_bookmarkCloud.Init(cloudFilePaths); });
     }
   });
 
