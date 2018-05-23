@@ -127,7 +127,6 @@ Storage::SettingResult SetGenericUGCUpdate(
   {
     FileWriter w(ugcFilePath, FileWriter::Op::OP_APPEND);
     Serialize(w, ugc, version);
-    indexes.emplace_back(move(index));
   }
   catch (FileWriter::Exception const & exception)
   {
@@ -135,6 +134,7 @@ Storage::SettingResult SetGenericUGCUpdate(
     return Storage::SettingResult::WritingError;
   }
 
+  indexes.emplace_back(move(index));
   return Storage::SettingResult::Success;
 }
 }  // namespace
