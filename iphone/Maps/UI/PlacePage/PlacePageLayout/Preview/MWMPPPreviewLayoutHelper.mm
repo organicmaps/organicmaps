@@ -371,9 +371,6 @@ std::array<Class, 9> const kPreviewCells = {{[_MWMPPPTitle class],
     if (!data)
       return;
 
-    CLS_LOG(@"layoutInOpenState\tisOpen:%@\tLatitude:%@\tLongitude:%@", @(isOpen),
-            @(data.latLon.lat), @(data.latLon.lon));
-
     [self.tableView update:^{
       self.cachedBannerCell.state = isOpen ? MWMAdBannerStateDetailed : MWMAdBannerStateCompact;
     }];

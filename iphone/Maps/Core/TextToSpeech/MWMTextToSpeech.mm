@@ -225,7 +225,6 @@ using Observers = NSHashTable<Observer>;
 
 - (void)speakOneString:(NSString *)textToSpeak
 {
-  CLS_LOG(@"Speak text: %@", textToSpeak);
   AVSpeechUtterance * utterance = [AVSpeechUtterance speechUtteranceWithString:textToSpeak];
   utterance.voice = self.speechVoice;
   utterance.rate = AVSpeechUtteranceDefaultSpeechRate;
