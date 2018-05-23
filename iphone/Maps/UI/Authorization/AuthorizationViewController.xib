@@ -20,30 +20,19 @@
                 <outlet property="privacyPolicyCheck" destination="33D-0u-y3N" id="kAN-wB-yUl"/>
                 <outlet property="privacyPolicyTextView" destination="LhW-gs-XN9" id="HWt-AO-vvH"/>
                 <outlet property="separator" destination="hWD-aE-jYh" id="myS-1z-Saw"/>
-                <outlet property="tapView" destination="5kf-Pd-KAZ" id="QD3-Pa-zgR"/>
                 <outlet property="termsOfUseCheck" destination="3cN-Qb-mdM" id="lk9-6H-kB5"/>
                 <outlet property="termsOfUseTextView" destination="PBR-9l-2Gh" id="aBv-qx-F9h"/>
                 <outlet property="textLabel" destination="0EA-1u-hvB" id="oDy-2V-Lrx"/>
                 <outlet property="titleLabel" destination="LFT-Lb-6jj" id="uQG-BI-EAe"/>
+                <outlet property="topToContentConstraint" destination="ISc-Du-Svk" id="BA2-22-dk0"/>
                 <outlet property="view" destination="iN0-l3-epB" id="6le-MR-NDK"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SolidTouchView">
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="5kf-Pd-KAZ">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="212.5"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.19983411815068494" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <gestureRecognizers/>
-                    <constraints>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="NYl-aG-vKs"/>
-                    </constraints>
-                    <connections>
-                        <outletCollection property="gestureRecognizers" destination="h3R-bf-65K" appends="YES" id="el6-fa-sPv"/>
-                    </connections>
-                </view>
                 <view contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mb9-vK-FLE">
                     <rect key="frame" x="0.0" y="212.5" width="375" height="454.5"/>
                     <subviews>
@@ -60,7 +49,7 @@
                                 <constraint firstAttribute="height" constant="1" id="KJA-Gs-fVA"/>
                             </constraints>
                         </view>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="C1g-0v-suZ">
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="250" bounces="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C1g-0v-suZ">
                             <rect key="frame" x="0.0" y="45" width="375" height="410"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eSu-cK-AZG">
@@ -295,18 +284,19 @@
             <gestureRecognizers/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="mb9-vK-FLE" secondAttribute="bottom" id="Dma-Bm-O11"/>
-                <constraint firstAttribute="trailing" secondItem="5kf-Pd-KAZ" secondAttribute="trailing" id="MP9-cM-ON8"/>
+                <constraint firstItem="mb9-vK-FLE" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" constant="40" id="ISc-Du-Svk"/>
                 <constraint firstItem="mb9-vK-FLE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="S7z-xe-BcP"/>
-                <constraint firstItem="5kf-Pd-KAZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="V7Y-js-5JA"/>
                 <constraint firstAttribute="trailing" secondItem="mb9-vK-FLE" secondAttribute="trailing" id="cjh-uT-fAL"/>
-                <constraint firstItem="5kf-Pd-KAZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="mhC-Cp-zLW"/>
-                <constraint firstItem="mb9-vK-FLE" firstAttribute="top" secondItem="5kf-Pd-KAZ" secondAttribute="bottom" id="pkl-0y-Ozq"/>
             </constraints>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="h3R-bf-65K" appends="YES" id="8sz-cx-4Za"/>
+            </connections>
             <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
-        <tapGestureRecognizer id="h3R-bf-65K">
+        <tapGestureRecognizer cancelsTouchesInView="NO" id="h3R-bf-65K">
             <connections>
                 <action selector="onCancel" destination="-1" id="xbp-Y6-A46"/>
+                <outlet property="delegate" destination="-1" id="CFc-rf-awe"/>
             </connections>
         </tapGestureRecognizer>
     </objects>

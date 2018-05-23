@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,7 +21,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT" propertyAccessControl="none">
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -44,8 +44,9 @@
                 <constraint firstItem="2ia-hi-UhQ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="zOH-o1-384"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="10" y="54"/>
         </view>
-        <view contentMode="scaleToFill" id="JS4-5h-4t1" customClass="BMCPermissionsHeader" customModule="maps_me" customModuleProvider="target" propertyAccessControl="all">
+        <view contentMode="scaleToFill" id="JS4-5h-4t1" customClass="BMCPermissionsHeader" customModule="maps_me" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -82,9 +83,10 @@
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="n2n-JX-PVD" secondAttribute="bottom" id="16J-5N-167"/>
                         <constraint firstAttribute="trailing" secondItem="n2n-JX-PVD" secondAttribute="trailing" id="1Kk-We-iJr"/>
+                        <constraint firstItem="HgY-nM-JMn" firstAttribute="leading" secondItem="lfK-mr-B7Y" secondAttribute="leading" constant="16" id="AR8-Fj-h1S"/>
                         <constraint firstItem="cae-1g-tnD" firstAttribute="top" secondItem="lfK-mr-B7Y" secondAttribute="top" id="Abh-kc-zx4"/>
                         <constraint firstItem="n2n-JX-PVD" firstAttribute="leading" secondItem="lfK-mr-B7Y" secondAttribute="leading" id="DnB-7Y-lie"/>
-                        <constraint firstItem="cae-1g-tnD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HgY-nM-JMn" secondAttribute="trailing" constant="4" id="JxT-EF-AfH"/>
+                        <constraint firstItem="cae-1g-tnD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HgY-nM-JMn" secondAttribute="trailing" priority="999" constant="4" id="JxT-EF-AfH"/>
                         <constraint firstItem="HgY-nM-JMn" firstAttribute="centerY" secondItem="lfK-mr-B7Y" secondAttribute="centerY" id="NMx-gW-Qgc"/>
                         <constraint firstAttribute="trailing" secondItem="cae-1g-tnD" secondAttribute="trailing" id="hgt-qC-DUY"/>
                         <constraint firstAttribute="bottom" secondItem="cae-1g-tnD" secondAttribute="bottom" id="k7O-5e-giN"/>
@@ -97,7 +99,6 @@
                 <constraint firstItem="lfK-mr-B7Y" firstAttribute="top" secondItem="qAR-ec-71L" secondAttribute="top" id="W1B-S9-ibc"/>
                 <constraint firstItem="qAR-ec-71L" firstAttribute="bottom" secondItem="lfK-mr-B7Y" secondAttribute="bottom" id="bKs-eE-2xZ"/>
                 <constraint firstItem="qAR-ec-71L" firstAttribute="trailing" secondItem="lfK-mr-B7Y" secondAttribute="trailing" id="ihj-Ul-4Pq"/>
-                <constraint firstItem="HgY-nM-JMn" firstAttribute="leading" secondItem="qAR-ec-71L" secondAttribute="leading" constant="16" id="j4b-bK-ETs"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="qAR-ec-71L"/>
@@ -105,9 +106,9 @@
                 <outlet property="button" destination="cae-1g-tnD" id="hql-xY-t8w"/>
                 <outlet property="label" destination="HgY-nM-JMn" id="N0S-Nq-WPq"/>
             </connections>
-            <point key="canvasLocation" x="483" y="-256"/>
+            <point key="canvasLocation" x="482.5" y="-256"/>
         </view>
-        <view contentMode="scaleToFill" id="7vF-P7-dID" customClass="BMCCategoriesHeader" customModule="maps_me" customModuleProvider="target" propertyAccessControl="all">
+        <view contentMode="scaleToFill" id="7vF-P7-dID" customClass="BMCCategoriesHeader" customModule="maps_me" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -134,6 +135,7 @@
                         <constraint firstAttribute="trailing" secondItem="JVu-ay-TFe" secondAttribute="trailing" id="KIx-2a-nNg"/>
                         <constraint firstItem="1W2-mD-BVK" firstAttribute="centerY" secondItem="sv4-Wg-K1m" secondAttribute="centerY" id="OAv-W6-rZH"/>
                         <constraint firstAttribute="bottom" secondItem="JVu-ay-TFe" secondAttribute="bottom" id="TkC-ge-8MO"/>
+                        <constraint firstItem="1W2-mD-BVK" firstAttribute="leading" secondItem="sv4-Wg-K1m" secondAttribute="leading" constant="16" id="cad-o8-xir"/>
                         <constraint firstItem="JVu-ay-TFe" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1W2-mD-BVK" secondAttribute="trailing" constant="4" id="gDO-lh-aI1"/>
                     </constraints>
                 </view>
@@ -141,7 +143,6 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="sv4-Wg-K1m" firstAttribute="leading" secondItem="8ge-Sy-Y71" secondAttribute="leading" id="5Lw-3V-bwA"/>
-                <constraint firstItem="1W2-mD-BVK" firstAttribute="leading" secondItem="8ge-Sy-Y71" secondAttribute="leading" constant="16" id="Siv-i4-TtA"/>
                 <constraint firstItem="8ge-Sy-Y71" firstAttribute="bottom" secondItem="sv4-Wg-K1m" secondAttribute="bottom" id="Sn0-II-lrv"/>
                 <constraint firstItem="8ge-Sy-Y71" firstAttribute="trailing" secondItem="sv4-Wg-K1m" secondAttribute="trailing" id="TX6-c7-3GF"/>
                 <constraint firstItem="sv4-Wg-K1m" firstAttribute="top" secondItem="8ge-Sy-Y71" secondAttribute="top" id="fpS-lQ-tKT"/>
@@ -154,7 +155,7 @@
             </connections>
             <point key="canvasLocation" x="483" y="-148"/>
         </view>
-        <view contentMode="scaleToFill" id="DhR-7O-ccQ" propertyAccessControl="all">
+        <view contentMode="scaleToFill" id="DhR-7O-ccQ">
             <rect key="frame" x="0.0" y="0.0" width="375" height="24"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -162,7 +163,7 @@
             <viewLayoutGuide key="safeArea" id="Iuf-Mb-Pmk"/>
             <point key="canvasLocation" x="483" y="-50"/>
         </view>
-        <view contentMode="scaleToFill" id="G0o-Op-zPp" customClass="BMCNotificationsHeader" customModule="maps_me" customModuleProvider="target" propertyAccessControl="all">
+        <view contentMode="scaleToFill" id="G0o-Op-zPp" customClass="BMCNotificationsHeader" customModule="maps_me" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>

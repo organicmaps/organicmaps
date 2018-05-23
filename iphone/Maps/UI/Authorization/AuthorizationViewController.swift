@@ -21,14 +21,6 @@ final class AuthorizationViewController: MWMViewController {
     }
   }
 
-  @IBOutlet private weak var tapView: UIView! {
-    didSet {
-      iPadSpecific {
-        tapView.removeFromSuperview()
-      }
-    }
-  }
-
   @IBOutlet private weak var contentView: UIView! {
     didSet {
       contentView.backgroundColor = UIColor.white()
@@ -183,10 +175,14 @@ final class AuthorizationViewController: MWMViewController {
   
   @IBOutlet private weak var latestNewsTextView: UITextView! {
     didSet {
-      latestNewsTextView.text = L("sign_agree_news_gdpr")
-      latestNewsTextView.textColor = UIColor.blackPrimaryText()
+      let text = L("sign_agree_news_gdpr")
+      let attributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey.font: UIFont.regular16(),
+                                                       NSAttributedStringKey.foregroundColor: UIColor.blackPrimaryText()]
+      latestNewsTextView.attributedText = NSAttributedString(string: text, attributes: attributes)
     }
   }
+  
+  @IBOutlet private weak var topToContentConstraint: NSLayoutConstraint!
 
   typealias SuccessHandler = (MWMSocialTokenType) -> Void
   typealias ErrorHandler = (MWMAuthorizationError) -> Void
@@ -196,12 +192,6 @@ final class AuthorizationViewController: MWMViewController {
   private let successHandler: SuccessHandler?
   private let errorHandler: ErrorHandler?
   private let completionHandler: CompletionHandler?
-
-  private func addConstraints(v1: UIView, v2: UIView) {
-    [NSLayoutAttribute.top, .bottom, .left, .right].forEach {
-      NSLayoutConstraint(item: v1, attribute: $0, relatedBy: .equal, toItem: v2, attribute: $0, multiplier: 1, constant: 0).isActive = true
-    }
-  }
 
   @objc
   init(barButtonItem: UIBarButtonItem?, sourceComponent: MWMAuthorizationSource, successHandler: SuccessHandler? = nil, errorHandler: ErrorHandler? = nil, completionHandler: CompletionHandler? = nil) {
@@ -230,6 +220,13 @@ final class AuthorizationViewController: MWMViewController {
   required init?(coder _: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    iPadSpecific {
+      topToContentConstraint.isActive = false
+    }
+  }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
@@ -237,7 +234,9 @@ final class AuthorizationViewController: MWMViewController {
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    preferredContentSize = contentView.size
+    iPadSpecific {
+      preferredContentSize = contentView.systemLayoutSizeFitting(preferredContentSize, withHorizontalFittingPriority: .fittingSizeLevel, verticalFittingPriority: .fittingSizeLevel)
+    }
   }
 
   @IBAction func onCancel() {
@@ -304,5 +303,11 @@ extension AuthorizationViewController: UITextViewDelegate {
     let safari = SFSafariViewController(url: URL)
     self.present(safari, animated: true, completion: nil)
     return false;
+  }
+}
+
+extension AuthorizationViewController: UIGestureRecognizerDelegate {
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    return !contentView.point(inside: touch.location(in: contentView), with: nil)
   }
 }
