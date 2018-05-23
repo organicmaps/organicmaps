@@ -11,10 +11,6 @@
     style="@style/MwmWidget.Button.Primary"
     android:layout_gravity="center"
     android:enabled="false"
-    android:paddingLeft="@dimen/margin_half"
-    android:paddingStart="@dimen/margin_half"
-    android:paddingRight="@dimen/margin_half"
-    android:paddingEnd="@dimen/margin_half"
     android:text="@string/editor_time_add"/>
 
 </FrameLayout>

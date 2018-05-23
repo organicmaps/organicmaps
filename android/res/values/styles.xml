@@ -72,17 +72,23 @@
 
   <style name="MwmWidget.Button.Primary">
     <item name="android:background">?primaryButtonBackground</item>
-    <item name="android:minWidth">0dp</item>
-    <item name="android:minHeight">0dp</item>
+    <item name="android:minWidth">@dimen/primary_button_min_width</item>
+    <item name="android:minHeight">@dimen/primary_button_min_height</item>
     <item name="android:textColor">?accentButtonTextColor</item>
     <item name="android:textSize">@dimen/text_size_body_3</item>
+    <item name="android:paddingLeft">@dimen/margin_base</item>
+    <item name="android:paddingStart" tools:targetApi="jelly_bean_mr1">@dimen/margin_base</item>
+    <item name="android:paddingRight">@dimen/margin_base</item>
+    <item name="android:paddingEnd" tools:targetApi="jelly_bean_mr1">@dimen/margin_base</item>
+    <item name="android:paddingTop">@dimen/margin_half_plus</item>
+    <item name="android:paddingBottom">@dimen/margin_half_plus</item>
     <item name="textAllCaps">true</item>
   </style>
 
   <style name="MwmWidget.Button.Ghost">
     <item name="android:background">@android:color/transparent</item>
     <item name="android:foreground">?clickableBackground</item>
-    <item name="android:minHeight">@dimen/height_primary_button</item>
+    <item name="android:minHeight">@dimen/primary_button_min_height</item>
     <item name="android:textColor">?colorAccent</item>
     <item name="android:textSize">@dimen/text_size_body_3</item>
     <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoMedium</item>

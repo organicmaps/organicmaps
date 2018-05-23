@@ -34,7 +34,8 @@
   <dimen name="height_item_oneline">56dp</dimen>
   <dimen name="height_item_multiline">72dp</dimen>
   <dimen name="height_item_edit_bookmark">72dp</dimen>
-  <dimen name="height_primary_button">36dp</dimen>
+  <dimen name="primary_button_min_height">36dp</dimen>
+  <dimen name="primary_button_min_width">64dp</dimen>
 
   <dimen name="dialog_max_height">320dp</dimen>
   <dimen name="search_item_height">56dp</dimen>
@@ -117,7 +118,7 @@
   <dimen name="nav_toggle">40dp</dimen>
   <dimen name="nav_toggle_margin">8dp</dimen>
   <dimen name="nav_button_width">200dp</dimen>
-  <dimen name="nav_button_height">@dimen/height_primary_button</dimen>
+  <dimen name="nav_button_height">@dimen/primary_button_min_height</dimen>
   <dimen name="nav_icon_size">48dp</dimen>
   <dimen name="nav_bottom_gap">12dp</dimen>
   <dimen name="nav_menu_top_offset">0dp</dimen>
@@ -148,7 +149,7 @@
   <dimen name="editor_height_field">64dp</dimen>
   <dimen name="editor_margin_left">56dp</dimen>
   <dimen name="editor_margin_left_plus">72dp</dimen>
-  <dimen name="editor_auth_btn_height">@dimen/height_primary_button</dimen>
+  <dimen name="editor_auth_btn_height">@dimen/primary_button_min_height</dimen>
   <dimen name="editor_margin_timetable_left">50dp</dimen>
 
   <!-- Altitude chart -->
@@ -184,7 +185,7 @@
   <!-- Banner-->
   <dimen name="placepage_banner_height">64dp</dimen>
   <dimen name="placepage_banner_icon_size">40dp</dimen>
-  <dimen name="placepage_banner_button_height">@dimen/height_primary_button</dimen>
+  <dimen name="placepage_banner_button_height">@dimen/primary_button_min_height</dimen>
   <dimen name="placepage_banner_button_margin_top">5dp</dimen>
   <dimen name="placepage_banner_small_action_corner">20dp</dimen>
 

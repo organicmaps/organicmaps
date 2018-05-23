@@ -97,7 +97,7 @@
       android:fontFamily="@string/robotoMedium"
       android:text="@string/google"
       android:gravity="center"
-      android:minHeight="@dimen/height_primary_button"
+      android:minHeight="@dimen/primary_button_min_height"
       android:layout_marginTop="@dimen/margin_base"
       tools:targetApi="jelly_bean"/>
     <TextView
@@ -117,14 +117,14 @@
       android:fontFamily="@string/robotoMedium"
       android:text="@string/facebook"
       android:gravity="center"
-      android:minHeight="@dimen/height_primary_button"
+      android:minHeight="@dimen/primary_button_min_height"
       android:layout_marginTop="@dimen/margin_base"
       tools:targetApi="jelly_bean"/>
     <TextView
       android:id="@+id/phone_button"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:minHeight="@dimen/height_primary_button"
+      android:minHeight="@dimen/primary_button_min_height"
       android:layout_marginTop="@dimen/margin_base"
       android:textAppearance="@style/MwmTextAppearance.Button"
       android:textColor="?accentButtonTextColor"

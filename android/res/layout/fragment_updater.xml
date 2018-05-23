@@ -53,7 +53,7 @@
       android:orientation="vertical">
       <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_primary_button"
+        android:layout_height="@dimen/primary_button_min_height"
         android:layout_marginBottom="@dimen/margin_half"
         android:layout_gravity="center_horizontal">
         <TextView
@@ -78,7 +78,7 @@
           tools:visibility="visible">
           <com.mapswithme.maps.widget.WheelProgressView
             android:id="@+id/progress"
-            android:layout_width="@dimen/height_primary_button"
+            android:layout_width="@dimen/primary_button_min_height"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             app:wheelProgressColor="?colorAccent"
@@ -101,7 +101,7 @@
       <TextView
         android:id="@+id/later_btn"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_primary_button"
+        android:layout_height="@dimen/primary_button_min_height"
         android:layout_marginBottom="@dimen/margin_half"
         android:textAppearance="@style/MwmTextAppearance.Button"
         android:textColor="?buttonDialogTextColor"

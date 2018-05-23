@@ -13,8 +13,6 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_block_base"
     android:layout_alignParentBottom="true"
-    android:paddingLeft="@dimen/margin_base"
-    android:paddingRight="@dimen/margin_base"
     style="@style/MwmWidget.Button.Primary"
     tools:text="@string/downloader_update_all_button"/>
 
