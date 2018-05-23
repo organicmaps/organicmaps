@@ -3731,7 +3731,7 @@ el:^Τουαλέτα
 he:^שירותים
 sk:^Záchody
 sw:^Choo
-fa:دستشویی|توالت
+fa:دستشویی^|توالت
 
 amenity-toilets|@toilet
 en:wc|5restroom|4bathroom|loo|lavatory|U+1F6BD|U+1F6BE|U+1F4A9|U+1F6BB|U+1F6B9|U+1F6BA
@@ -3751,7 +3751,6 @@ vi:Nhà vệ sinh
 zh-Hant:2洗手間|wc
 el:μπάνιο|χώρος ανάγκης|αποχωρητήριο|wc
 sk:3Toalety|wc
-fa:توالت|دستشویی
 
 amenity-university
 en:4^University|U+1F393
