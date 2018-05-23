@@ -1326,6 +1326,9 @@
 	<string name="sign_agree_pp_gdpr">Я согласен с <a href="https://legal.my.com/us/maps/privacy/">Политикой конфиденциальности</a></string>
 	<string name="sign_agree_tof_gdpr">Я согласен с <a href="https://legal.my.com/us/maps/tou/">Условиями использования</a></string>
 	<string name="sign_agree_news_gdpr">Я согласен получать последние новости о MAPS.ME</string>
+	<string name="whats_new_localbiz_title">Малый бизнес заслуживает внимания</string>
+	<string name="whats_new_localbiz_message">Локальные кафе, хостелы и магазинчики - именно они делают путешествия незабываемыми.\n\nОставьте заявку, и мы бесплатно оптимизируем страницу вашего бизнеса в MAPS.ME.</string>
+	<string name="whats_new_order_button">Оставить заявку</string>
 	<string name="bookmarks_page_downloaded">Загруженные</string>
 	<string name="bookmarks_page_my">Мои</string>
 	<string name="routes_and_bookmarks">Маршруты и метки</string>
