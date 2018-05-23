@@ -39,9 +39,8 @@ template <class ObjectsVector, class Writer>
 void BuildGeoObjectsIndex(ObjectsVector const & objects, Writer & writer,
                           string const & tmpFilePrefix)
 {
-  auto coverLocality = [](indexer::LocalityObject const & o, int cellDepth,
-                          uint64_t cellPenaltyArea) {
-    return covering::CoverGeoObject(o, cellDepth, cellPenaltyArea);
+  auto coverLocality = [](indexer::LocalityObject const & o, int cellDepth) {
+    return covering::CoverGeoObject(o, cellDepth);
   };
   return covering::BuildLocalityIndex<ObjectsVector, Writer, kGeoObjectsDepthLevels>(
       objects, writer, coverLocality, tmpFilePrefix);

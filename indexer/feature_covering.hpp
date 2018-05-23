@@ -31,11 +31,9 @@ typedef std::vector<Interval> Intervals;
 std::vector<int64_t> CoverFeature(FeatureType const & feature, int cellDepth,
                                   uint64_t cellPenaltyArea);
 
-std::vector<int64_t> CoverGeoObject(indexer::LocalityObject const & o, int cellDepth,
-                                    uint64_t cellPenaltyArea);
+std::vector<int64_t> CoverGeoObject(indexer::LocalityObject const & o, int cellDepth);
 
-std::vector<int64_t> CoverRegion(indexer::LocalityObject const & o, int cellDepth,
-                                 uint64_t cellPenaltyArea);
+std::vector<int64_t> CoverRegion(indexer::LocalityObject const & o, int cellDepth);
 
 // Given a vector of intervals [a, b), sort them and merge overlapping intervals.
 Intervals SortAndMergeIntervals(Intervals const & intervals);

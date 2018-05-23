@@ -150,13 +150,12 @@ vector<int64_t> CoverIntersection(FeatureIntersector<DEPTH_LEVELS> const & fIsec
 }
 
 template <int DEPTH_LEVELS>
-vector<int64_t> CoverLocality(indexer::LocalityObject const & o, int cellDepth,
-                              uint64_t cellPenaltyArea)
+vector<int64_t> CoverLocality(indexer::LocalityObject const & o, int cellDepth)
 {
   FeatureIntersector<DEPTH_LEVELS> fIsect;
   o.ForEachPoint(fIsect);
   o.ForEachTriangle(fIsect);
-  return CoverIntersection(fIsect, cellDepth, cellPenaltyArea);
+  return CoverIntersection(fIsect, cellDepth, 0 /* cellPenaltyArea */);
 }
 }  // namespace
 
@@ -169,16 +168,14 @@ vector<int64_t> CoverFeature(FeatureType const & f, int cellDepth, uint64_t cell
   return CoverIntersection(fIsect, cellDepth, cellPenaltyArea);
 }
 
-vector<int64_t> CoverGeoObject(indexer::LocalityObject const & o, int cellDepth,
-                               uint64_t cellPenaltyArea)
+vector<int64_t> CoverGeoObject(indexer::LocalityObject const & o, int cellDepth)
 {
-  return CoverLocality<kGeoObjectsDepthLevels>(o, cellDepth, cellPenaltyArea);
+  return CoverLocality<kGeoObjectsDepthLevels>(o, cellDepth);
 }
 
-vector<int64_t> CoverRegion(indexer::LocalityObject const & o, int cellDepth,
-                            uint64_t cellPenaltyArea)
+vector<int64_t> CoverRegion(indexer::LocalityObject const & o, int cellDepth)
 {
-  return CoverLocality<kRegionsDepthLevels>(o, cellDepth, cellPenaltyArea);
+  return CoverLocality<kRegionsDepthLevels>(o, cellDepth);
 }
 
 void SortAndMergeIntervals(Intervals v, Intervals & res)

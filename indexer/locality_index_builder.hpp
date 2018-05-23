@@ -23,8 +23,8 @@
 
 namespace covering
 {
-using CoverLocality = std::function<std::vector<int64_t>(indexer::LocalityObject const & o,
-                                                         int cellDepth, uint64_t cellPenaltyArea)>;
+using CoverLocality =
+    std::function<std::vector<int64_t>(indexer::LocalityObject const & o, int cellDepth)>;
 
 template <class ObjectsVector, class Writer, int DEPTH_LEVELS>
 void BuildLocalityIndex(ObjectsVector const & objects, Writer & writer,
@@ -39,9 +39,8 @@ void BuildLocalityIndex(ObjectsVector const & objects, Writer & writer,
     FileSorter<CellValuePair<uint64_t>, WriterFunctor<FileWriter>> sorter(
         1024 * 1024 /* bufferBytes */, tmpFilePrefix + CELL2LOCALITY_TMP_EXT, out);
     objects.ForEach([&sorter, &coverLocality](indexer::LocalityObject const & o) {
-      // @todo(t.yan): adjust cellPenaltyArea for whole world locality index.
-      std::vector<int64_t> const cells = coverLocality(
-          o, GetCodingDepth<DEPTH_LEVELS>(scales::GetUpperScale()), 250 /* cellPenaltyArea */);
+      std::vector<int64_t> const cells =
+          coverLocality(o, GetCodingDepth<DEPTH_LEVELS>(scales::GetUpperScale()));
       for (auto const & cell : cells)
         sorter.Add(CellValuePair<uint64_t>(cell, o.GetStoredId()));
     });

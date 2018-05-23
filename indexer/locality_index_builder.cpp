@@ -93,9 +93,8 @@ bool BuildLocalityIndexFromDataFile(string const & dataFile,
 
 bool BuildGeoObjectsIndexFromDataFile(string const & dataFile, string const & outFileName)
 {
-  auto coverObject = [](indexer::LocalityObject const & o, int cellDepth,
-                        uint64_t cellPenaltyArea) {
-    return covering::CoverGeoObject(o, cellDepth, cellPenaltyArea);
+  auto coverObject = [](indexer::LocalityObject const & o, int cellDepth) {
+    return covering::CoverGeoObject(o, cellDepth);
   };
   return BuildLocalityIndexFromDataFile<kGeoObjectsDepthLevels>(dataFile, coverObject, outFileName,
                                                                 GEO_OBJECTS_INDEX_FILE_TAG);
@@ -103,9 +102,8 @@ bool BuildGeoObjectsIndexFromDataFile(string const & dataFile, string const & ou
 
 bool BuildRegionsIndexFromDataFile(string const & dataFile, string const & outFileName)
 {
-  auto coverRegion = [](indexer::LocalityObject const & o, int cellDepth,
-                        uint64_t cellPenaltyArea) {
-    return covering::CoverRegion(o, cellDepth, cellPenaltyArea);
+  auto coverRegion = [](indexer::LocalityObject const & o, int cellDepth) {
+    return covering::CoverRegion(o, cellDepth);
   };
   return BuildLocalityIndexFromDataFile<kRegionsDepthLevels>(dataFile, coverRegion, outFileName,
                                                              REGIONS_INDEX_FILE_TAG);
