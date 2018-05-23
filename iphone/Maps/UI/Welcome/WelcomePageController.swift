@@ -100,7 +100,6 @@ final class WelcomePageController: UIPageViewController {
     let parentView = parentController.view!
     view.frame = alternative(iPhone: CGRect(origin: CGPoint(), size: parentView.size),
                              iPad: CGRect(x: parentView.center.x - 260, y: parentView.center.y - 300, width: 520, height: 600))
-    (currentController as! WelcomeViewController).updateSize()
   }
 
   override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

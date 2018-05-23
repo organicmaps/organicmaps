@@ -19,22 +19,15 @@ class WelcomeViewController: MWMViewController {
   @IBOutlet weak var alertTitle: UILabel!
   @IBOutlet weak var alertText: UILabel!
   @IBOutlet weak var nextPageButton: UIButton!
-  @IBOutlet weak var containerWidth: NSLayoutConstraint!
-  @IBOutlet weak var containerHeight: NSLayoutConstraint!
-  
-  @IBOutlet weak var imageMinHeight: NSLayoutConstraint!
-  @IBOutlet weak var imageHeight: NSLayoutConstraint!
-  
-  @IBOutlet weak var titleTopOffset: NSLayoutConstraint!
-  @IBOutlet weak var titleImageOffset: NSLayoutConstraint!
-  
+
   var pageConfig: WelcomeConfig?
   
   class var key: String { return "" }
   
   static var shouldShowWelcome: Bool {
     get {
-      return !UserDefaults.standard.bool(forKey: WhatsNewController.key)
+      return true
+//      return !UserDefaults.standard.bool(forKey: WhatsNewController.key)
     }
     set {
       UserDefaults.standard.set(!newValue, forKey: WhatsNewController.key)
@@ -42,7 +35,8 @@ class WelcomeViewController: MWMViewController {
   }
   
   static func controllers(firstSession: Bool) -> [WelcomeViewController]? {
-    let result = firstSession ? FirstLaunchController.controllers() : WhatsNewController.controllers()
+    let result = FirstLaunchController.controllers()
+//    let result = firstSession ? FirstLaunchController.controllers() : WhatsNewController.controllers()
     return result
   }
 
@@ -53,19 +47,8 @@ class WelcomeViewController: MWMViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    updateSize()
   }
   
-  func updateSize() {
-    let size = (delegate?.viewSize())!
-    let (width, height) = (size.width, size.height)
-    let hideImage = (imageHeight.multiplier * height <= imageMinHeight.constant)
-    titleImageOffset.priority = hideImage ? UILayoutPriority.defaultLow : UILayoutPriority.defaultHigh
-    image.isHidden = hideImage
-    containerWidth.constant = width
-    containerHeight.constant = height
-  }
-
   private func configInternal() {
     if let config = pageConfig {
       image.image = config.image
