@@ -16,6 +16,7 @@
 #include <set>
 #include <string>
 
+constexpr int32_t kRoundDigits = 1e6;
 std::set<std::string> const kPoiTypes = {"amenity",  "shop",    "tourism",  "leisure",   "sport",
                                          "craft",    "man_made", "office",  "historic",  "building"};
 
@@ -48,8 +49,8 @@ void PrintFeature(FeatureBuilder1 const & fb, uint64_t)
 
   auto const center = MercatorBounds::ToLatLon(fb.GetKeyPoint());
   auto coordinates = my::NewJSONArray();
-  ToJSONArray(*coordinates, strings::to_string_dac(center.lon, 6));
-  ToJSONArray(*coordinates, strings::to_string_dac(center.lat, 6));
+  ToJSONArray(*coordinates, std::round(center.lon * kRoundDigits) / kRoundDigits);
+  ToJSONArray(*coordinates, std::round(center.lat * kRoundDigits) / kRoundDigits);
   auto geometry = my::NewJSONObject();
   ToJSONObject(*geometry, "type", "Point");
   ToJSONObject(*geometry, "coordinates", coordinates);

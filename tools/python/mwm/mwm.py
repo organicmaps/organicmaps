@@ -496,12 +496,12 @@ RESET = ~(NODE | WAY | RELATION)
 
 
 def unpack_osmid(num):
-    if num & NODE == NODE:
-        typ = 'n'
+    if num & RELATION == RELATION:
+        typ = 'r'
     elif num & WAY == WAY:
         typ = 'w'
-    elif num & RELATION == RELATION:
-        typ = 'r'
+    elif num & NODE == NODE:
+        typ = 'n'
     else:
         return None
     return typ, num & RESET
