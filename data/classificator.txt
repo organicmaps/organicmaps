@@ -870,10 +870,25 @@ world  +
         holiday  -
         opentable  -
         partner1  -
+        partner10  -
+        partner11  -
+        partner12  -
+        partner13  -
+        partner14  -
+        partner15  -
+        partner16  -
+        partner17  -
+        partner18  -
+        partner19  -
         partner2  -
+        partner20  -
         partner3  -
         partner4  -
         partner5  -
+        partner6  -
+        partner7  -
+        partner8  -
+        partner9  -
         viator  -
         {}
     sport  +
