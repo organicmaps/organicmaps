@@ -220,6 +220,8 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   , m_delegate(delegate)
   , m_trackingReporter(platform::CreateSocket(), TRACKING_REALTIME_HOST, TRACKING_REALTIME_PORT,
                        tracking::Reporter::kPushDelayMs)
+  , m_extrapolator(
+        [this](location::GpsInfo const & gpsInfo) { this->OnExtrapolatedLocationUpdate(gpsInfo); })
   , m_transitReadManager(m_callbacks.m_indexGetter(), m_callbacks.m_readFeaturesFn)
 {
   auto const routingStatisticsFn = [](map<string, string> const & statistics) {
@@ -325,6 +327,11 @@ void RoutingManager::OnRoutePointPassed(RouteMarkType type, size_t intermediateI
     RemoveRoute(false /* deactivateFollowing */);
 
   SaveRoutePoints();
+}
+
+void RoutingManager::OnLocationUpdate(location::GpsInfo const & info)
+{
+  m_extrapolator.OnLocationUpdate(info);
 }
 
 RouterType RoutingManager::GetBestRouter(m2::PointD const & startPoint,
@@ -557,6 +564,8 @@ void RoutingManager::FollowRoute()
   if (!m_routingSession.EnableFollowMode())
     return;
 
+  // Switching on the extrapolatior only for following mode in car and bicycle navigation.
+  m_extrapolator.Enable(m_currentRouterType == RouterType::Vehicle || m_currentRouterType == RouterType::Bicycle);
   m_delegate.OnRouteFollow(m_currentRouterType);
 
   HideRoutePoint(RouteMarkType::Start);
@@ -567,6 +576,7 @@ void RoutingManager::FollowRoute()
 
 void RoutingManager::CloseRouting(bool removeRoutePoints)
 {
+  m_extrapolator.Enable(false);
   // Hide preview.
   HidePreviewSegments();
   
@@ -918,20 +928,6 @@ void RoutingManager::MatchLocationToRoute(location::GpsInfo & location,
   m_routingSession.MatchLocationToRoute(location, routeMatchingInfo);
 }
 
-void RoutingManager::OnLocationUpdate(location::GpsInfo const & info)
-{
-  location::GpsInfo gpsInfo(info);
-  if (!m_drapeEngine)
-    m_gpsInfoCache = my::make_unique<location::GpsInfo>(gpsInfo);
-
-  auto routeMatchingInfo = GetRouteMatchingInfo(gpsInfo);
-  m_drapeEngine.SafeCall(&df::DrapeEngine::SetGpsInfo, gpsInfo,
-                         m_routingSession.IsNavigable(), routeMatchingInfo);
-
-  if (IsTrackingReporterEnabled())
-    m_trackingReporter.AddLocation(gpsInfo, m_routingSession.MatchTraffic(routeMatchingInfo));
-}
-
 location::RouteMatchingInfo RoutingManager::GetRouteMatchingInfo(location::GpsInfo & info)
 {
   location::RouteMatchingInfo routeMatchingInfo;
@@ -1241,6 +1237,20 @@ vector<RouteMarkData> RoutingManager::GetRoutePointsToSave() const
     return {};
 
   return result;
+}
+
+void RoutingManager::OnExtrapolatedLocationUpdate(location::GpsInfo const & info)
+{
+  location::GpsInfo gpsInfo(info);
+  if (!m_drapeEngine)
+    m_gpsInfoCache = my::make_unique<location::GpsInfo>(gpsInfo);
+
+  auto routeMatchingInfo = GetRouteMatchingInfo(gpsInfo);
+  m_drapeEngine.SafeCall(&df::DrapeEngine::SetGpsInfo, gpsInfo,
+                         m_routingSession.IsNavigable(), routeMatchingInfo);
+
+  if (IsTrackingReporterEnabled())
+    m_trackingReporter.AddLocation(gpsInfo, m_routingSession.MatchTraffic(routeMatchingInfo));
 }
 
 void RoutingManager::DeleteSavedRoutePoints()

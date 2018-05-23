@@ -29,10 +29,15 @@ public:
   // @TODO(bykoianko) Gyroscope information should be taken into account as well for calculation
   // extrapolated position.
 
-  void ExtrapolatedLocationUpdate();
+  void Enable(bool enabled);
 
 private:
+  /// \returns true if there's enough information for extrapolation and extrapolation is enabled.
+  /// \note This method should be called only when |m_mutex| is locked.
   bool DoesExtrapolationWork(uint64_t extrapolationTimeMs) const;
+  void ExtrapolatedLocationUpdate();
+
+  bool m_isEnabled;
 
   std::mutex m_mutex;
   ExtrapolatedLocationUpdateFn m_extrapolatedLocationUpdate;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "map/bookmark_manager.hpp"
+#include "map/extrapolation/extrapolator.hpp"
 #include "map/routing_mark.hpp"
 #include "map/transit/transit_display.hpp"
 #include "map/transit/transit_reader.hpp"
@@ -281,6 +282,8 @@ private:
 
   std::vector<RouteMarkData> GetRoutePointsToSave() const;
 
+  void OnExtrapolatedLocationUpdate(location::GpsInfo const & info);
+
   RouteBuildingCallback m_routingCallback = nullptr;
   RouteRecommendCallback m_routeRecommendCallback = nullptr;
   Callbacks m_callbacks;
@@ -291,6 +294,7 @@ private:
   Delegate & m_delegate;
   tracking::Reporter m_trackingReporter;
   BookmarkManager * m_bmManager = nullptr;
+  extrapolation::Extrapolator m_extrapolator;
 
   std::vector<dp::DrapeID> m_drapeSubroutes;
   mutable std::mutex m_drapeSubroutesMutex;

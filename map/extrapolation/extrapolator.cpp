@@ -62,7 +62,9 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1,
   // @TODO(bykoianko) Now |result.m_bearing == gpsInfo2.m_bearing|.
   // In case of |gpsInfo1.HasBearing() && gpsInfo2.HasBearing() == true|
   // consider finding an average value between |gpsInfo1.m_bearing| and |gpsInfo2.m_bearing|
-  // taking into account that they are periodic.
+  // taking into account that they are periodic. It's important to implement it
+  // because current implementation leads to changing course by steps. It doesn't
+  // look nice when the road changes its direction.
 
   if (gpsInfo1.HasSpeed() && gpsInfo2.HasSpeed())
     result.m_speed = e.Extrapolate(gpsInfo1.m_speed, gpsInfo2.m_speed);
@@ -72,7 +74,7 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1,
 
 // Extrapolator ------------------------------------------------------------------------------------
 Extrapolator::Extrapolator(ExtrapolatedLocationUpdateFn const & update)
-  : m_extrapolatedLocationUpdate(update)
+  : m_isEnabled(false), m_extrapolatedLocationUpdate(update)
 {
   GetPlatform().RunTask(Platform::Thread::Background, [this]
   {
@@ -82,10 +84,18 @@ Extrapolator::Extrapolator(ExtrapolatedLocationUpdateFn const & update)
 
 void Extrapolator::OnLocationUpdate(location::GpsInfo const & gpsInfo)
 {
+  // @TODO Consider calling ExtrapolatedLocationUpdate() on background thread immediately
+  // after OnLocationUpdate() was called.
   lock_guard<mutex> guard(m_mutex);
   m_beforeLastGpsInfo = m_lastGpsInfo;
   m_lastGpsInfo = gpsInfo;
   m_extrapolationCounter = 0;
+}
+
+void Extrapolator::Enable(bool enabled)
+{
+  lock_guard<mutex> guard(m_mutex);
+  m_isEnabled = enabled;
 }
 
 void Extrapolator::ExtrapolatedLocationUpdate()
@@ -135,7 +145,7 @@ bool Extrapolator::DoesExtrapolationWork(uint64_t extrapolationTimeMs) const
   // It may happen in rare cases because GpsInfo::m_timestamp is not monotonic generally.
   // Please see comment in declaration of class GpsInfo for details.
 
-  if (m_extrapolationCounter == m_extrapolationCounterUndefined ||
+  if (!m_isEnabled || m_extrapolationCounter == m_extrapolationCounterUndefined ||
       !m_lastGpsInfo.IsValid() || !m_beforeLastGpsInfo.IsValid() ||
       m_beforeLastGpsInfo.m_timestamp >= m_lastGpsInfo.m_timestamp)
   {

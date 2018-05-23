@@ -216,7 +216,7 @@ void Framework::OnLocationUpdate(GpsInfo const & info)
   GpsInfo rInfo(info);
 #endif
 
-  m_extrapolator.OnLocationUpdate(rInfo);
+  m_routingManager.OnLocationUpdate(rInfo);
 }
 
 void Framework::OnCompassUpdate(CompassInfo const & info)
@@ -367,9 +367,6 @@ Framework::Framework(FrameworkParams const & params)
             },
             [this]() -> StringsBundle const & { return m_stringsBundle; }),
         static_cast<RoutingManager::Delegate &>(*this))
-  , m_extrapolator([this](location::GpsInfo const & gpsInfo) {
-    this->GetRoutingManager().OnLocationUpdate(gpsInfo);
-  })
   , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1, false /* rough */),
                      kMaxTrafficCacheSizeBytes, m_routingManager.RoutingSession())
   , m_bookingFilterProcessor(m_model.GetIndex(), *m_bookingApi)
