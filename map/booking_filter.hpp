@@ -1,14 +1,12 @@
 #pragma once
 
-#include "map/booking_filter_availability_params.hpp"
-#include "map/booking_filter_cache.hpp"
+#include "map/booking_filter_params.hpp"
 
 #include "base/macros.hpp"
 
-#include <functional>
 #include <memory>
-#include <vector>
 
+struct FeatureID;
 class Index;
 
 namespace search
@@ -22,36 +20,35 @@ class Api;
 
 namespace filter
 {
-
-using FillSearchMarksCallback = platform::SafeCallback<void(std::vector<FeatureID> availableHotelsSorted)>;
-
-class Filter
+class FilterBase
 {
 public:
-  Filter(Index const & index, booking::Api const & api);
+  class Delegate
+  {
+  public:
+    virtual ~Delegate() = default;
 
-  void FilterAvailability(search::Results const & results,
-                          availability::internal::Params const & params);
+    virtual Index const & GetIndex() const = 0;
+    virtual Api const & GetApi() const = 0;
+  };
 
-  void OnParamsUpdated(AvailabilityParams const & params);
+  explicit FilterBase(Delegate const & d) : m_delegate(d) {}
+  virtual ~FilterBase() = default;
 
-  void GetAvailableFeaturesFromCache(search::Results const & results,
-                                     FillSearchMarksCallback const & callback);
+  virtual void ApplyFilter(search::Results const & results, ParamsInternal const & params) = 0;
+  virtual void GetFeaturesFromCache(search::Results const & results,
+                                    std::vector<FeatureID> & sortedResults) = 0;
+  virtual void UpdateParams(ParamsBase const & params) = 0;
+
+  Delegate const & GetDelegate() const
+  {
+    return m_delegate;
+  }
 
 private:
-
-  void UpdateAvailabilityParams(AvailabilityParams params);
-
-  Index const & m_index;
-  Api const & m_api;
-
-  using CachePtr = std::shared_ptr<availability::Cache>;
-
-  CachePtr m_availabilityCache = std::make_shared<availability::Cache>();
-
-  AvailabilityParams m_currentParams;
-
-  DISALLOW_COPY_AND_MOVE(Filter);
+  Delegate const & m_delegate;
 };
+
+using FilterPtr = std::unique_ptr<FilterBase>;
 }  // namespace filter
 }  // namespace booking

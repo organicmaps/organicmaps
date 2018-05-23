@@ -369,7 +369,7 @@ Framework::Framework(FrameworkParams const & params)
                      static_cast<RoutingManager::Delegate &>(*this))
   , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1, false /* rough */),
                      kMaxTrafficCacheSizeBytes, m_routingManager.RoutingSession())
-  , m_bookingFilter(m_model.GetIndex(), *m_bookingApi)
+  , m_bookingFilterProcessor(m_model.GetIndex(), *m_bookingApi)
   , m_displacementModeManager([this](bool show) {
     int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
     if (m_drapeEngine != nullptr)
@@ -3151,7 +3151,8 @@ void Framework::ShowViewportSearchResults(bool clear, search::Results::ConstIter
     FillSearchResultsMarks(clear, results.begin(), results.end(), postProcessing);
   };
 
-  m_bookingFilter.GetAvailableFeaturesFromCache(results, fillCallback);
+  m_bookingFilterProcessor.GetFeaturesFromCache(booking::filter::Type::Availability,
+                                                results, fillCallback);
 }
 
 void Framework::ClearViewportSearchResults()
@@ -3396,14 +3397,14 @@ ugc::Reviews Framework::FilterUGCReviews(ugc::Reviews const & reviews) const
   return result;
 }
 
-void Framework::FilterSearchResultsOnBooking(booking::filter::availability::Params const & params,
+void Framework::FilterSearchResultsOnBooking(booking::filter::Params const & params,
                                              search::Results const & results, bool inViewport)
 {
   using namespace booking::filter;
 
   auto const & p = params.m_params;
   auto const & cb = params.m_callback;
-  availability::internal::Params paramsInternal
+  ParamsInternal paramsInternal
   {
     p,
     [this, p, cb, inViewport](search::Results const & results)
@@ -3431,11 +3432,11 @@ void Framework::FilterSearchResultsOnBooking(booking::filter::availability::Para
     }
   };
 
-  m_bookingFilter.FilterAvailability(results, paramsInternal);
+  m_bookingFilterProcessor.ApplyFilters(results, {{Type::Availability, std::move(paramsInternal)}});
 }
 
-void Framework::OnBookingFilterParamsUpdate(booking::AvailabilityParams const & params)
+void Framework::OnBookingAvailabilityParamsUpdate(std::shared_ptr<booking::ParamsBase> const & params)
 {
-  m_bookingAvailabilityParams = params;
-  m_bookingFilter.OnParamsUpdated(params);
+  m_bookingAvailabilityParams.Set(*params);
+  m_bookingFilterProcessor.OnParamsUpdated(booking::filter::Type::Availability, params);
 }

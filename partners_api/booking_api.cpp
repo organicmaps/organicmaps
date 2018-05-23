@@ -38,13 +38,13 @@ string const kSearchBaseUrl = "https://www.booking.com/search.html";
 string const kDeepLinkBaseUrl = "booking://hotel/";
 string g_BookingUrlForTesting = "";
 
-booking::AvailabilityParams::Filter const kAvailabilityParamsForUniversalLink =
+booking::AvailabilityParams::UrlFilter const kAvailabilityParamsForUniversalLink =
 {
   "checkin",
   "checkout",
   "room"
 };
-booking::AvailabilityParams::Filter const kAvailabilityParamsForDeepLink =
+booking::AvailabilityParams::UrlFilter const kAvailabilityParamsForDeepLink =
 {
   "checkin",
   "checkout"
@@ -372,7 +372,7 @@ string Api::GetSearchUrl(string const & city, string const & name) const
   return resultStream.str();
 }
 
-string Api::ApplyAvailabilityParams(string const & url, AvailabilityParams const & params)
+string Api::ApplyAvailabilityParams(string const & url, AvailabilityParams const & params) const
 {
   ASSERT(!url.empty(), ());
 

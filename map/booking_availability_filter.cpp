@@ -1,14 +1,13 @@
-#include "map/booking_filter.hpp"
-
-#include "partners_api/booking_api.hpp"
+#include "map/booking_availability_filter.hpp"
 
 #include "search/result.hpp"
 
+#include "partners_api/booking_api.hpp"
+
+#include "indexer/feature_decl.hpp"
 #include "indexer/index.hpp"
 
 #include "platform/platform.hpp"
-
-#include "base/stl_add.hpp"
 
 #include <algorithm>
 #include <utility>
@@ -114,10 +113,10 @@ void PrepareData(Index const & index, search::Results const & results,
     }
 
     auto it = std::find_if(hotelToResults.begin(), hotelToResults.end(),
-                          [&featureId](HotelToResult const & item)
-                          {
-                            return item.m_result.GetFeatureID() == featureId;
-                          });
+                           [&featureId](HotelToResult const & item)
+                           {
+                             return item.m_result.GetFeatureID() == featureId;
+                           });
     ASSERT(it != hotelToResults.cend(), ());
 
     FeatureType ft;
@@ -141,10 +140,69 @@ void PrepareData(Index const & index, search::Results const & results,
     p.m_hotelIds.push_back(std::move(hotelId));
   }
 }
+}  // namespace
 
-void GetAvailableFeaturesFromCacheImpl(Index const & index, search::Results const & results,
-                                       availability::Cache & cache,
-                                       std::vector<FeatureID> & sortedResults)
+namespace booking
+{
+namespace filter
+{
+AvailabilityFilter::AvailabilityFilter(Delegate const & d) : FilterBase(d) {}
+
+void AvailabilityFilter::ApplyFilter(search::Results const & results, ParamsInternal const & params)
+{
+  ASSERT(params.m_params, ());
+
+  auto const & p = *params.m_params;
+  auto const & cb = params.m_callback;
+
+  UpdateParams(p);
+
+  m_params.m_hotelIds.clear();
+
+  HotelToResults hotelToResults;
+  PrepareData(GetDelegate().GetIndex(), results, hotelToResults, *m_cache, m_params);
+
+  if (m_params.m_hotelIds.empty())
+  {
+    search::Results result;
+    FillResults(std::move(hotelToResults), {}, *m_cache, result);
+    cb(result);
+
+    return;
+  }
+
+  auto availabilityCache = m_cache;
+
+  auto const apiCallback =
+    [cb, hotelToResults, availabilityCache](std::vector<std::string> hotelIds) mutable
+    {
+      GetPlatform().RunTask(Platform::Thread::File,
+                            [cb, hotelToResults, availabilityCache, hotelIds]() mutable
+                            {
+                              search::Results results;
+                              std::sort(hotelIds.begin(), hotelIds.end());
+                              UpdateCache(hotelToResults, hotelIds, *availabilityCache);
+                              FillResults(std::move(hotelToResults), hotelIds, *availabilityCache,
+                                          results);
+                              cb(results);
+                            });
+    };
+
+  GetDelegate().GetApi().GetHotelAvailability(m_params, apiCallback);
+  m_cache->RemoveOutdated();
+}
+
+void AvailabilityFilter::UpdateParams(ParamsBase const & params)
+{
+  if (m_params.Equals(params))
+    return;
+
+  m_params.Set(params);
+  m_cache = std::make_shared<availability::Cache>();
+}
+
+void AvailabilityFilter::GetFeaturesFromCache(search::Results const & results,
+                                                   std::vector<FeatureID> & sortedResults)
 {
   std::vector<FeatureID> features;
 
@@ -164,7 +222,8 @@ void GetAvailableFeaturesFromCacheImpl(Index const & index, search::Results cons
   {
     if (mwmId != featureId.m_mwmId)
     {
-      guard = my::make_unique<Index::FeaturesLoaderGuard>(index, featureId.m_mwmId);
+      guard = my::make_unique<Index::FeaturesLoaderGuard>(GetDelegate().GetIndex(),
+                                                          featureId.m_mwmId);
       mwmId = featureId.m_mwmId;
     }
 
@@ -177,89 +236,9 @@ void GetAvailableFeaturesFromCacheImpl(Index const & index, search::Results cons
 
     auto const & hotelId = ft.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID);
 
-    if (cache.Get(hotelId) == availability::Cache::HotelStatus::Available)
+    if (m_cache->Get(hotelId) == availability::Cache::HotelStatus::Available)
       sortedResults.push_back(featureId);
   }
 }
-}  // namespace
-
-namespace booking
-{
-namespace filter
-{
-Filter::Filter(Index const & index, booking::Api const & api) : m_index(index), m_api(api) {}
-
-void Filter::FilterAvailability(search::Results const & results,
-                                availability::internal::Params const & params)
-{
-  GetPlatform().RunTask(Platform::Thread::File, [this, results, params]()
-  {
-    auto const & cb = params.m_callback;
-
-    ASSERT(params.m_params.m_hotelIds.empty(), ());
-    m_currentParams.m_hotelIds.clear();
-
-    UpdateAvailabilityParams(std::move(params.m_params));
-
-    HotelToResults hotelToResults;
-    PrepareData(m_index, results, hotelToResults, *m_availabilityCache, m_currentParams);
-
-    if (m_currentParams.m_hotelIds.empty())
-    {
-      search::Results result;
-      FillResults(std::move(hotelToResults), {}, *m_availabilityCache, result);
-      cb(result);
-
-      return;
-    }
-
-    auto availabilityCache = m_availabilityCache;
-
-    auto const apiCallback =
-      [cb, hotelToResults, availabilityCache](std::vector<std::string> hotelIds) mutable
-    {
-      GetPlatform().RunTask(Platform::Thread::File,
-                            [cb, hotelToResults, availabilityCache, hotelIds]() mutable
-      {
-        search::Results results;
-        std::sort(hotelIds.begin(), hotelIds.end());
-        UpdateCache(hotelToResults, hotelIds, *availabilityCache);
-        FillResults(std::move(hotelToResults), hotelIds, *availabilityCache, results);
-        cb(results);
-      });
-    };
-
-    m_api.GetHotelAvailability(m_currentParams, apiCallback);
-    m_availabilityCache->RemoveOutdated();
-  });
-}
-
-void Filter::OnParamsUpdated(AvailabilityParams const & params)
-{
-  GetPlatform().RunTask(Platform::Thread::File, [this, params]()
-  {
-    UpdateAvailabilityParams(std::move(params));
-  });
-}
-
-void Filter::GetAvailableFeaturesFromCache(search::Results const & results,
-                                           FillSearchMarksCallback const & callback)
-{
-  GetPlatform().RunTask(Platform::Thread::File, [this, results, callback]()
-  {
-    std::vector<FeatureID> resultSorted;
-    GetAvailableFeaturesFromCacheImpl(m_index, results, *m_availabilityCache, resultSorted);
-    callback(resultSorted);
-  });
-}
-
-void Filter::UpdateAvailabilityParams(AvailabilityParams params)
-{
-  if (m_currentParams == params)
-    return;
-
-  m_currentParams = std::move(params);
-  m_availabilityCache = std::make_shared<availability::Cache>();
-}
-}  // namespace filter
 }  // namespace booking
+}  // namespace filter

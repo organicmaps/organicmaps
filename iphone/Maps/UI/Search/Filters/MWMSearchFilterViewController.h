@@ -1,6 +1,6 @@
 #import "MWMViewController.h"
 
-#include "map/booking_filter_availability_params.hpp"
+#include "map/booking_filter_params.hpp"
 
 #include "std/shared_ptr.hpp"
 
@@ -17,7 +17,7 @@ struct Rule;
 + (MWMSearchFilterViewController *)controller;
 
 - (shared_ptr<search::hotels_filter::Rule>)rules;
-- (booking::filter::availability::Params)availabilityParams;
+- (booking::filter::Params)availabilityParams;
 - (void)reset;
 
 @end

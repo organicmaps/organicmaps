@@ -326,14 +326,14 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   return And(And(ratingRule, priceRule), typeRule);
 }
 
-- (booking::filter::availability::Params)availabilityParams
+- (booking::filter::Params)availabilityParams
 {
   using Clock = booking::AvailabilityParams::Clock;
-  booking::filter::availability::Params params;
-  params.m_params.m_rooms = {{kAdultsCount, kAgeOfChild}};
-  params.m_params.m_checkin = Clock::from_time_t(self.checkInDate.timeIntervalSince1970);
-  params.m_params.m_checkout = Clock::from_time_t(self.checkOutDate.timeIntervalSince1970);
-  return params;
+  booking::AvailabilityParams params;
+  params.m_rooms = {{kAdultsCount, kAgeOfChild}};
+  params.m_checkin = Clock::from_time_t(self.checkInDate.timeIntervalSince1970);
+  params.m_checkout = Clock::from_time_t(self.checkOutDate.timeIntervalSince1970);
+  return { make_shared<booking::AvailabilityParams>(params), {} };
 }
 
 #pragma mark - MWMFilterCheckCellDelegate

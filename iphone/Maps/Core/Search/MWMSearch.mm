@@ -102,9 +102,10 @@ using Observers = NSHashTable<Observer>;
   };
 
   m_everywhereParams.m_bookingFilterParams.m_callback =
-      [self](booking::AvailabilityParams const & params,
+      [self](shared_ptr<booking::ParamsBase> const & params,
              std::vector<FeatureID> const & sortedFeatures) {
-        if (self->m_everywhereParams.m_bookingFilterParams.m_params != params)
+        auto const & p = self->m_everywhereParams.m_bookingFilterParams;
+        if (p.m_params->IsEmpty() || !p.m_params->Equals(*params))
           return;
         self->m_bookingAvailableFeatureIDs = sortedFeatures;
         [self onSearchResultsUpdated];
@@ -134,7 +135,7 @@ using Observers = NSHashTable<Observer>;
   m_everywhereParams.m_hotelsFilter = hotelsRules;
 
   auto const availabilityParams =
-      self.filter ? [self.filter availabilityParams] : booking::filter::availability::Params();
+      self.filter ? [self.filter availabilityParams] : booking::filter::Params();
   m_viewportParams.m_bookingFilterParams = availabilityParams;
   m_everywhereParams.m_bookingFilterParams = availabilityParams;
 }
@@ -262,7 +263,7 @@ using Observers = NSHashTable<Observer>;
   m_viewportResults.Clear();
 
   m_bookingAvailableFeatureIDs.clear();
-  auto const availabilityParams = booking::filter::availability::Params();
+  auto const availabilityParams = booking::filter::Params();
   m_viewportParams.m_bookingFilterParams = availabilityParams;
   m_everywhereParams.m_bookingFilterParams = availabilityParams;
 

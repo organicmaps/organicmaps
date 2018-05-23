@@ -1,5 +1,7 @@
 #pragma once
 
+#include "partners_api/booking_params_base.hpp"
+
 #include "base/url_helpers.hpp"
 
 #include <chrono>
@@ -11,7 +13,7 @@ namespace booking
 {
 /// Params for checking availability of hotels.
 /// [m_hotelIds], [m_checkin], [m_checkout], [m_rooms] are required.
-struct AvailabilityParams
+struct AvailabilityParams : ParamsBase
 {
   struct Room
   {
@@ -41,12 +43,14 @@ struct AvailabilityParams
   using Rooms = std::vector<Room>;
   using Stars = std::vector<std::string>;
 
-  using Filter = std::unordered_set<std::string>;
+  using UrlFilter = std::unordered_set<std::string>;
+  base::url::Params Get(UrlFilter const & filter = {}) const;
 
-  base::url::Params Get(Filter const & filter = {}) const;
-  bool IsEmpty() const;
-  bool operator!=(AvailabilityParams const & rhs) const;
-  bool operator==(AvailabilityParams const & rhs) const;
+  // ParamsBase overrides:
+  bool IsEmpty() const override;
+  bool Equals(ParamsBase const & rhs) const override;
+  bool Equals(AvailabilityParams const & rhs) const override;
+  void Set(ParamsBase const & src) override;
 
   /// Limit the result list to the specified hotels where they have availability for the
   /// specified guests and dates.

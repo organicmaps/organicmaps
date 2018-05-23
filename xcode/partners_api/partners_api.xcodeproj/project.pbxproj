@@ -39,6 +39,7 @@
 		3D4E997D1FB439260025B48C /* booking_availability_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E997B1FB439260025B48C /* booking_availability_params.cpp */; };
 		3D4E997F1FB439300025B48C /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E997E1FB439300025B48C /* utils.cpp */; };
 		3D7815761F3A14910068B6AC /* async_gui_thread.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D7815751F3A14910068B6AC /* async_gui_thread.hpp */; };
+		3DA5713420B57358007BDE27 /* booking_params_base.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA5713320B57358007BDE27 /* booking_params_base.hpp */; };
 		3DBC1C541E4B14920016897F /* facebook_ads.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC1C521E4B14920016897F /* facebook_ads.cpp */; };
 		3DBC1C551E4B14920016897F /* facebook_ads.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DBC1C531E4B14920016897F /* facebook_ads.hpp */; };
 		3DF01C2D20652463005DDF8C /* taxi_places.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DF01C2A20652462005DDF8C /* taxi_places.cpp */; };
@@ -115,6 +116,7 @@
 		3D4E997B1FB439260025B48C /* booking_availability_params.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_availability_params.cpp; sourceTree = "<group>"; };
 		3D4E997E1FB439300025B48C /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
 		3D7815751F3A14910068B6AC /* async_gui_thread.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = async_gui_thread.hpp; sourceTree = "<group>"; };
+		3DA5713320B57358007BDE27 /* booking_params_base.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_params_base.hpp; sourceTree = "<group>"; };
 		3DBC1C501E4B14810016897F /* facebook_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = facebook_tests.cpp; sourceTree = "<group>"; };
 		3DBC1C521E4B14920016897F /* facebook_ads.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = facebook_ads.cpp; sourceTree = "<group>"; };
 		3DBC1C531E4B14920016897F /* facebook_ads.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = facebook_ads.hpp; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 		F6B5363B1DA520B20067EEA5 /* partners_api */ = {
 			isa = PBXGroup;
 			children = (
+				3DA5713320B57358007BDE27 /* booking_params_base.hpp */,
 				346E888F1E9D087400D4CE9B /* ads_base.cpp */,
 				346E88901E9D087400D4CE9B /* ads_base.hpp */,
 				346E88911E9D087400D4CE9B /* ads_engine.cpp */,
@@ -322,6 +325,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DA5713420B57358007BDE27 /* booking_params_base.hpp in Headers */,
 				346E88971E9D087400D4CE9B /* ads_base.hpp in Headers */,
 				3D7815761F3A14910068B6AC /* async_gui_thread.hpp in Headers */,
 				F67E75261DB8F06F00D6741F /* opentable_api.hpp in Headers */,

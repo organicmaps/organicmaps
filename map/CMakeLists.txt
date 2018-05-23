@@ -15,11 +15,14 @@ set(
   api_mark_point.hpp
   benchmark_tools.hpp
   benchmark_tools.cpp
-  booking_filter.cpp
+  booking_availability_filter.cpp
+  booking_availability_filter.hpp
   booking_filter.hpp
-  booking_filter_availability_params.hpp
   booking_filter_cache.cpp
   booking_filter_cache.hpp
+  booking_filter_params.hpp
+  booking_filter_processor.cpp
+  booking_filter_processor.hpp
   bookmark.cpp
   bookmark.hpp
   bookmark_catalog.cpp

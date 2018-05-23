@@ -152,7 +152,7 @@ void SearchAPI::OnViewportChanged(m2::RectD const & viewport)
 
 bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
 {
-  UpdateSponsoredMode(params.m_query, params.m_bookingFilterParams);
+  UpdateSponsoredMode(params);
 
   SearchParams p;
   p.m_query = params.m_query;
@@ -173,7 +173,7 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
           RunUITask([params, results, productInfo] {
             params.m_onResults(results, productInfo);
           });
-        if (results.IsEndedNormal() && !params.m_bookingFilterParams.IsEmpty())
+        if (results.IsEndedNormal() && m_sponsoredMode == SponsoredMode::Booking)
         {
           m_delegate.FilterSearchResultsOnBooking(params.m_bookingFilterParams, results,
                                                   false /* inViewport */);
@@ -181,14 +181,14 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
       });
 
   if (m_sponsoredMode == SponsoredMode::Booking)
-    m_delegate.OnBookingFilterParamsUpdate(params.m_bookingFilterParams.m_params);
+    m_delegate.OnBookingAvailabilityParamsUpdate(params.m_bookingFilterParams.m_params);
 
   return Search(p, true /* forceSearch */);
 }
 
 bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
 {
-  UpdateSponsoredMode(params.m_query, params.m_bookingFilterParams);
+  UpdateSponsoredMode(params);
 
   SearchParams p;
   p.m_query = params.m_query;
@@ -212,7 +212,7 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
       [this, params](Results const & results) {
         if (results.IsEndMarker() && params.m_onCompleted)
           RunUITask([params, results] { params.m_onCompleted(results); });
-        if (results.IsEndedNormal() && !params.m_bookingFilterParams.IsEmpty())
+        if (results.IsEndedNormal() && m_sponsoredMode == SponsoredMode::Booking)
         {
           m_delegate.FilterSearchResultsOnBooking(params.m_bookingFilterParams, results,
                                                   true /* inViewport */);
@@ -220,7 +220,7 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
       });
 
   if (m_sponsoredMode == SponsoredMode::Booking)
-    m_delegate.OnBookingFilterParamsUpdate(params.m_bookingFilterParams.m_params);
+    m_delegate.OnBookingAvailabilityParamsUpdate(params.m_bookingFilterParams.m_params);
 
   return Search(p, false /* forceSearch */);
 }
@@ -328,11 +328,11 @@ void SearchAPI::CancelSearch(Mode mode)
 
   if (mode == Mode::Viewport)
   {
-    m_sponsoredMode = SponsoredMode::None;
-
     m_delegate.ClearViewportSearchResults();
     m_delegate.SetSearchDisplacementModeEnabled(false /* enabled */);
   }
+
+  m_sponsoredMode = SponsoredMode::None;
 
   auto & intent = m_searchIntents[static_cast<size_t>(mode)];
   intent.m_params.Clear();
@@ -462,11 +462,11 @@ bool SearchAPI::QueryMayBeSkipped(SearchParams const & prevParams,
   return true;
 }
 
-void SearchAPI::UpdateSponsoredMode(string const & query,
-                                    booking::filter::availability::Params const & params)
+template <typename T>
+void SearchAPI::UpdateSponsoredMode(T const & searchParams)
 {
   m_sponsoredMode = SponsoredMode::None;
-  if (!params.IsEmpty())
+  if (!searchParams.m_bookingFilterParams.IsEmpty())
     m_sponsoredMode = SponsoredMode::Booking;
 }
 

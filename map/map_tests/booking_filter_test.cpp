@@ -3,7 +3,7 @@
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "indexer/indexer_tests_support/test_with_custom_mwms.hpp"
 
-#include "map/booking_filter.hpp"
+#include "map/booking_availability_filter.hpp"
 
 #include "partners_api/booking_api.hpp"
 
@@ -23,7 +23,19 @@ using namespace generator::tests_support;
 namespace
 {
 class TestMwmEnvironment : public indexer::tests_support::TestWithCustomMwms
+                         , public FilterBase::Delegate
 {
+public:
+  Index const & GetIndex() const override
+  {
+    return m_index;
+  }
+
+  booking::Api const & GetApi() const override
+  {
+    return m_api;
+  }
+
 protected:
   TestMwmEnvironment()
   {
@@ -43,12 +55,12 @@ protected:
 private:
   storage::CountryInfoGetterForTesting m_infoGetter;
   Platform::ThreadRunner m_runner;
+  booking::Api m_api;
 };
 
 UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_AvailabilitySmoke)
 {
-  booking::Api api;
-  Filter filter(m_index, api);
+  AvailabilityFilter filter(*this);
 
   std::vector<std::string> const kHotelIds = {"10623", "10624", "10625"};
 
@@ -81,15 +93,16 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_AvailabilitySmoke)
         expectedResults.AddResult(std::move(copy));
       },
       rect, scales::GetUpperScale());
-  availability::internal::Params params;
+  ParamsInternal params;
   search::Results filteredResults;
+  params.m_params = make_shared<booking::AvailabilityParams>();
   params.m_callback = [&filteredResults](search::Results const & results)
   {
     filteredResults = results;
     testing::Notify();
   };
 
-  filter.FilterAvailability(results, params);
+  filter.ApplyFilter(results, params);
 
   testing::Wait();
 

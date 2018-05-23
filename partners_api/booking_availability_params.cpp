@@ -14,7 +14,7 @@ std::string FormatTime(booking::AvailabilityParams::Time p)
   return partners_api::FormatTime(p, "%Y-%m-%d");
 }
 
-bool IsAcceptedByFilter(booking::AvailabilityParams::Filter const & filter,
+bool IsAcceptedByFilter(booking::AvailabilityParams::UrlFilter const & filter,
                         std::string const & value)
 {
   if (filter.empty())
@@ -73,7 +73,7 @@ bool AvailabilityParams::Room::operator==(AvailabilityParams::Room const & rhs) 
   return !this->operator!=(rhs);
 }
 
-url::Params AvailabilityParams::Get(Filter const & filter /* = {} */) const
+url::Params AvailabilityParams::Get(UrlFilter const & filter /* = {} */) const
 {
   url::Params result;
 
@@ -106,13 +106,19 @@ bool AvailabilityParams::IsEmpty() const
   return m_checkin == Time() || m_checkout == Time() || m_rooms.empty();
 }
 
-bool AvailabilityParams::operator!=(AvailabilityParams const & rhs) const
+bool AvailabilityParams::Equals(ParamsBase const & rhs) const
 {
-  return m_checkin != rhs.m_checkin || m_checkout != rhs.m_checkout || m_rooms != rhs.m_rooms ||
-         m_minReviewScore != rhs.m_minReviewScore || m_stars != rhs.m_stars;
+  return rhs.Equals(*this);
 }
-bool AvailabilityParams::operator==(AvailabilityParams const & rhs) const
+
+bool AvailabilityParams::Equals(AvailabilityParams const & rhs) const
 {
-  return !(*this != rhs);
+  return m_checkin == rhs.m_checkin && m_checkout == rhs.m_checkout && m_rooms == rhs.m_rooms &&
+         m_minReviewScore == rhs.m_minReviewScore && m_stars == rhs.m_stars;
+}
+
+void AvailabilityParams::Set(ParamsBase const & src)
+{
+  src.CopyTo(*this);
 }
 }  // namespace booking

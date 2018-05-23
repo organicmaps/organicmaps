@@ -1,7 +1,7 @@
 #pragma once
 
 #include "map/api_mark_point.hpp"
-#include "map/booking_filter.hpp"
+#include "map/booking_filter_processor.hpp"
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
 #include "map/discovery/discovery_manager.hpp"
@@ -211,7 +211,7 @@ protected:
 
   User m_user;
 
-  booking::filter::Filter m_bookingFilter;
+  booking::filter::FilterProcessor m_bookingFilterProcessor;
   booking::AvailabilityParams m_bookingAvailabilityParams;
 
   /// This function will be called by m_storage when latest local files
@@ -841,9 +841,9 @@ private:
   ugc::Reviews FilterUGCReviews(ugc::Reviews const & reviews) const;
 
 public:
-  void FilterSearchResultsOnBooking(booking::filter::availability::Params const & params,
+  void FilterSearchResultsOnBooking(booking::filter::Params const & params,
                                     search::Results const & results, bool inViewport) override;
-  void OnBookingFilterParamsUpdate(booking::AvailabilityParams const & params) override;
+  void OnBookingAvailabilityParamsUpdate(std::shared_ptr<booking::ParamsBase> const & params) override;
 
 private:
   // m_discoveryManager must be bellow m_searchApi, m_viatorApi, m_localsApi

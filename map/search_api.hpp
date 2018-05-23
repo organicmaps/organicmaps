@@ -1,6 +1,7 @@
 #pragma once
 
 #include "map/bookmark.hpp"
+#include "map/booking_filter_params.hpp"
 
 #include "search/downloader_search_callback.hpp"
 #include "search/engine.hpp"
@@ -39,18 +40,6 @@ class Storage;
 struct DownloaderSearchParams;
 }
 
-namespace booking
-{
-struct AvailabilityParams;
-namespace filter
-{
-namespace availability
-{
-struct Params;
-}
-}
-}
-
 class SearchAPI : public search::DownloaderSearchCallback::Delegate,
                   public search::EverywhereSearchCallback::Delegate,
                   public search::ViewportSearchCallback::Delegate
@@ -86,12 +75,12 @@ public:
 
     virtual double GetMinDistanceBetweenResults() const { return 0.0; };
 
-    virtual void FilterSearchResultsOnBooking(booking::filter::availability::Params const & params,
+    virtual void FilterSearchResultsOnBooking(booking::filter::Params const & params,
                                               search::Results const & results, bool inViewport)
     {
     }
 
-    virtual void OnBookingFilterParamsUpdate(booking::AvailabilityParams const & params) {}
+    virtual void OnBookingAvailabilityParamsUpdate(std::shared_ptr<booking::ParamsBase> const & params) {}
 
     virtual search::ProductInfo GetProductInfo(search::Result const & result) const { return {}; };
   };
@@ -161,8 +150,8 @@ private:
   bool QueryMayBeSkipped(search::SearchParams const & prevParams,
                          search::SearchParams const & currParams) const;
 
-  void UpdateSponsoredMode(std::string const & query,
-                           booking::filter::availability::Params const & params);
+  template <typename T>
+  void UpdateSponsoredMode(T const & searchParams);
 
   Index & m_index;
   storage::Storage const & m_storage;

@@ -30,12 +30,15 @@
 		3D47B2C81F20EF06000828D2 /* displayed_categories_modifiers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D47B2C61F20EF06000828D2 /* displayed_categories_modifiers.hpp */; };
 		3D4E99821FB462B60025B48C /* everywhere_search_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D4E99801FB462B60025B48C /* everywhere_search_params.hpp */; };
 		3D4E99831FB462B60025B48C /* viewport_search_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D4E99811FB462B60025B48C /* viewport_search_params.hpp */; };
-		3D4E99851FB469DD0025B48C /* booking_filter_availability_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D4E99841FB469DD0025B48C /* booking_filter_availability_params.hpp */; };
 		3D4E99A21FB4A6410025B48C /* booking_filter_cache.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D4E999E1FB4A6400025B48C /* booking_filter_cache.hpp */; };
 		3D4E99A31FB4A6410025B48C /* booking_filter_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E999F1FB4A6400025B48C /* booking_filter_cache.cpp */; };
-		3D4E99A41FB4A6410025B48C /* booking_filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E99A01FB4A6410025B48C /* booking_filter.cpp */; };
 		3D4E99A51FB4A6410025B48C /* booking_filter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D4E99A11FB4A6410025B48C /* booking_filter.hpp */; };
 		3D74ABBE1EA76F1D0063A898 /* local_ads_supported_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74ABBD1EA76F1D0063A898 /* local_ads_supported_types.cpp */; };
+		3DA5713F20B5CC80007BDE27 /* booking_availability_filter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA5713A20B5CC7F007BDE27 /* booking_availability_filter.hpp */; };
+		3DA5714020B5CC80007BDE27 /* booking_filter_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA5713B20B5CC7F007BDE27 /* booking_filter_params.hpp */; };
+		3DA5714120B5CC80007BDE27 /* booking_availability_filter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5713C20B5CC7F007BDE27 /* booking_availability_filter.cpp */; };
+		3DA5714220B5CC80007BDE27 /* booking_filter_processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5713D20B5CC7F007BDE27 /* booking_filter_processor.cpp */; };
+		3DA5714320B5CC80007BDE27 /* booking_filter_processor.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA5713E20B5CC7F007BDE27 /* booking_filter_processor.hpp */; };
 		45201E931CE4AC90008A4842 /* api_mark_point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45201E921CE4AC90008A4842 /* api_mark_point.cpp */; };
 		454523A9202A0068009275C1 /* cloud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 454523A7202A0067009275C1 /* cloud.cpp */; };
 		454523AA202A0068009275C1 /* cloud.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 454523A8202A0067009275C1 /* cloud.hpp */; };
@@ -199,12 +202,15 @@
 		3D47B2C61F20EF06000828D2 /* displayed_categories_modifiers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = displayed_categories_modifiers.hpp; sourceTree = "<group>"; };
 		3D4E99801FB462B60025B48C /* everywhere_search_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = everywhere_search_params.hpp; sourceTree = "<group>"; };
 		3D4E99811FB462B60025B48C /* viewport_search_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = viewport_search_params.hpp; sourceTree = "<group>"; };
-		3D4E99841FB469DD0025B48C /* booking_filter_availability_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_filter_availability_params.hpp; sourceTree = "<group>"; };
 		3D4E999E1FB4A6400025B48C /* booking_filter_cache.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_filter_cache.hpp; sourceTree = "<group>"; };
 		3D4E999F1FB4A6400025B48C /* booking_filter_cache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_filter_cache.cpp; sourceTree = "<group>"; };
-		3D4E99A01FB4A6410025B48C /* booking_filter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_filter.cpp; sourceTree = "<group>"; };
 		3D4E99A11FB4A6410025B48C /* booking_filter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_filter.hpp; sourceTree = "<group>"; };
 		3D74ABBD1EA76F1D0063A898 /* local_ads_supported_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = local_ads_supported_types.cpp; sourceTree = "<group>"; };
+		3DA5713A20B5CC7F007BDE27 /* booking_availability_filter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_availability_filter.hpp; sourceTree = "<group>"; };
+		3DA5713B20B5CC7F007BDE27 /* booking_filter_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_filter_params.hpp; sourceTree = "<group>"; };
+		3DA5713C20B5CC7F007BDE27 /* booking_availability_filter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_availability_filter.cpp; sourceTree = "<group>"; };
+		3DA5713D20B5CC7F007BDE27 /* booking_filter_processor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_filter_processor.cpp; sourceTree = "<group>"; };
+		3DA5713E20B5CC7F007BDE27 /* booking_filter_processor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_filter_processor.hpp; sourceTree = "<group>"; };
 		45201E921CE4AC90008A4842 /* api_mark_point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_mark_point.cpp; sourceTree = "<group>"; };
 		454523A7202A0067009275C1 /* cloud.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cloud.cpp; sourceTree = "<group>"; };
 		454523A8202A0067009275C1 /* cloud.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cloud.hpp; sourceTree = "<group>"; };
@@ -530,15 +536,18 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				3DA5713C20B5CC7F007BDE27 /* booking_availability_filter.cpp */,
+				3DA5713A20B5CC7F007BDE27 /* booking_availability_filter.hpp */,
+				3DA5713B20B5CC7F007BDE27 /* booking_filter_params.hpp */,
+				3DA5713D20B5CC7F007BDE27 /* booking_filter_processor.cpp */,
+				3DA5713E20B5CC7F007BDE27 /* booking_filter_processor.hpp */,
 				675345CB1A4054E800A0A8C3 /* address_finder.cpp */,
 				45201E921CE4AC90008A4842 /* api_mark_point.cpp */,
 				34921F611BFA0A6900737D6E /* api_mark_point.hpp */,
 				45580ABC1E2CBD5E00CD535D /* benchmark_tools.cpp */,
 				45580ABD1E2CBD5E00CD535D /* benchmark_tools.hpp */,
-				3D4E99841FB469DD0025B48C /* booking_filter_availability_params.hpp */,
 				3D4E999F1FB4A6400025B48C /* booking_filter_cache.cpp */,
 				3D4E999E1FB4A6400025B48C /* booking_filter_cache.hpp */,
-				3D4E99A01FB4A6410025B48C /* booking_filter.cpp */,
 				3D4E99A11FB4A6410025B48C /* booking_filter.hpp */,
 				4564FA81209497A70043CCFB /* bookmark_catalog.cpp */,
 				4564FA80209497A60043CCFB /* bookmark_catalog.hpp */,
@@ -667,8 +676,10 @@
 				675346751A4054E800A0A8C3 /* mwm_url.hpp in Headers */,
 				6753464B1A4054E800A0A8C3 /* bookmark.hpp in Headers */,
 				4564FA82209497A70043CCFB /* bookmark_catalog.hpp in Headers */,
+				3DA5714020B5CC80007BDE27 /* booking_filter_params.hpp in Headers */,
 				3D47B2941F054BC5000828D2 /* taxi_delegate.hpp in Headers */,
 				3D47B2C81F20EF06000828D2 /* displayed_categories_modifiers.hpp in Headers */,
+				3DA5713F20B5CC80007BDE27 /* booking_availability_filter.hpp in Headers */,
 				454523AA202A0068009275C1 /* cloud.hpp in Headers */,
 				BB4E5F271FCC664A00A77250 /* transit_reader.hpp in Headers */,
 				348AB57D1D7EE0C6009F8301 /* chart_generator.hpp in Headers */,
@@ -677,13 +688,13 @@
 				BBFC7E3B202D29C000531BE7 /* user_mark_layer.hpp in Headers */,
 				3D4E99A51FB4A6410025B48C /* booking_filter.hpp in Headers */,
 				675346491A4054E800A0A8C3 /* bookmark_manager.hpp in Headers */,
+				3DA5714320B5CC80007BDE27 /* booking_filter_processor.hpp in Headers */,
 				F6B2830A1C1B03320081957A /* gps_track.hpp in Headers */,
 				3D4E99A21FB4A6410025B48C /* booking_filter_cache.hpp in Headers */,
 				F6D67CE32063F4980032FD38 /* framework_light.hpp in Headers */,
 				45F6EE9D1FB1C77600019892 /* search_api.hpp in Headers */,
 				F6FC3CB51FC323430001D929 /* discovery_client_params.hpp in Headers */,
 				0831F23C200E53600034C365 /* bookmarks_search_params.hpp in Headers */,
-				3D4E99851FB469DD0025B48C /* booking_filter_availability_params.hpp in Headers */,
 				0C2B73DF1E92AB9900530BB8 /* local_ads_manager.hpp in Headers */,
 				675346631A4054E800A0A8C3 /* feature_vec_model.hpp in Headers */,
 				F6FC3CB71FC323430001D929 /* discovery_manager.hpp in Headers */,
@@ -802,17 +813,18 @@
 			files = (
 				456E1B3A1F9A3C2A009C32E1 /* search_mark.cpp in Sources */,
 				4564FA83209497A70043CCFB /* bookmark_catalog.cpp in Sources */,
+				3DA5714120B5CC80007BDE27 /* booking_availability_filter.cpp in Sources */,
 				F6B283051C1B03320081957A /* gps_track_filter.cpp in Sources */,
 				675346481A4054E800A0A8C3 /* bookmark_manager.cpp in Sources */,
 				45F6EE9F1FB1C77600019892 /* search_api.cpp in Sources */,
 				BB4E5F251FCC664A00A77250 /* transit_display.cpp in Sources */,
 				3D47B2931F054BC5000828D2 /* taxi_delegate.cpp in Sources */,
 				675346741A4054E800A0A8C3 /* mwm_url.cpp in Sources */,
+				3DA5714220B5CC80007BDE27 /* booking_filter_processor.cpp in Sources */,
 				347B60761DD9926D0050FA24 /* traffic_manager.cpp in Sources */,
 				BBFC7E3A202D29C000531BE7 /* user_mark_layer.cpp in Sources */,
 				F6B283091C1B03320081957A /* gps_track.cpp in Sources */,
 				34583BCF1C88556800F94664 /* place_page_info.cpp in Sources */,
-				3D4E99A41FB4A6410025B48C /* booking_filter.cpp in Sources */,
 				F6B283031C1B03320081957A /* gps_track_collection.cpp in Sources */,
 				3D4E99A31FB4A6410025B48C /* booking_filter_cache.cpp in Sources */,
 				6753469B1A4054E800A0A8C3 /* track.cpp in Sources */,
