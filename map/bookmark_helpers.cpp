@@ -272,26 +272,42 @@ std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType
 
 std::unique_ptr<kml::FileData> LoadKmzFile(std::string const & file, std::string & kmlHash)
 {
-  ZipFileReader::FileListT files;
-  ZipFileReader::FilesList(file, files);
-  if (files.empty())
-    return nullptr;
-  
-  auto fileName = files.front().first;
-  for (auto const & file : files)
+  std::string unarchievedPath;
+  try
   {
-    if (strings::MakeLowerCase(my::GetFileExtension(file.first)) == kKmlExtension)
+    ZipFileReader::FileListT files;
+    ZipFileReader::FilesList(file, files);
+    if (files.empty())
+      return nullptr;
+
+    auto fileName = files.front().first;
+    for (auto const & f : files)
     {
-      fileName = file.first;
-      break;
+      if (strings::MakeLowerCase(my::GetFileExtension(f.first)) == kKmlExtension)
+      {
+        fileName = f.first;
+        break;
+      }
     }
+    unarchievedPath = file + ".raw";
+    ZipFileReader::UnzipFile(file, fileName, unarchievedPath);
   }
-  std::string const unarchievedPath = file + ".raw";
-  MY_SCOPE_GUARD(fileGuard, bind(&FileWriter::DeleteFileX, unarchievedPath));
-  ZipFileReader::UnzipFile(file, fileName, unarchievedPath);
+  catch (ZipFileReader::OpenException const & ex)
+  {
+    LOG(LWARNING, ("Could not open zip file", ex.what()));
+    return nullptr;
+  }
+  catch (std::exception const & ex)
+  {
+    LOG(LWARNING, ("Unexpected exception on openning zip file", ex.what()));
+    return nullptr;
+  }
+
   if (!GetPlatform().IsFileExistsByFullPath(unarchievedPath))
     return nullptr;
-  
+
+  MY_SCOPE_GUARD(fileGuard, std::bind(&FileWriter::DeleteFileX, unarchievedPath));
+
   kmlHash = coding::SHA1::CalculateBase64(unarchievedPath);
   return LoadKmlFile(unarchievedPath, KmlFileType::Text);
 }
