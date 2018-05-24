@@ -1,5 +1,6 @@
 package com.mapswithme.maps.news;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.downloader.UpdaterDialogFragment;
 import com.mapswithme.util.Counters;
+import com.mapswithme.util.SharedPropertiesUtils;
 
 public class NewsFragment extends BaseNewsFragment
 {
@@ -17,9 +19,9 @@ public class NewsFragment extends BaseNewsFragment
   private class Adapter extends BaseNewsFragment.Adapter
   {
     @Override
-    int getTitles()
+    int getTitleKeys()
     {
-      return R.array.news_titles;
+      return TITLE_KEYS;
     }
 
     @Override
@@ -98,15 +100,32 @@ public class NewsFragment extends BaseNewsFragment
     if (f != null)
       return UpdaterDialogFragment.showOn(activity, listener);
 
-    if (Counters.getLastWhatsNewVersion() / 10 >= BuildConfig.VERSION_CODE / 10 &&
-        !recreate(activity, NewsFragment.class))
+    String currentTitle = getCurrentTitleConcatenation(activity.getApplicationContext());
+    String oldTitle = SharedPropertiesUtils.getWhatsNewTitleConcatenation();
+    if (currentTitle.equals(oldTitle) && !recreate(activity, NewsFragment.class))
       return false;
 
     create(activity, NewsFragment.class, listener);
 
     Counters.setWhatsNewShown();
+    SharedPropertiesUtils.setWhatsNewTitleConcatenation(currentTitle);
     Counters.setShowReviewForOldUser(true);
 
     return true;
+  }
+
+  @NonNull
+  private static String getCurrentTitleConcatenation(@NonNull Context context)
+  {
+    String[] keys = context.getResources().getStringArray(TITLE_KEYS);
+    final int length = keys.length;
+    if (length == 0)
+      return "";
+
+    StringBuilder sb = new StringBuilder("");
+    for (String key : keys)
+      sb.append(key);
+
+    return sb.toString().trim();
   }
 }

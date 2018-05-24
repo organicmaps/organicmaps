@@ -6,8 +6,8 @@
     <item>@drawable/img_wn_business</item>
   </integer-array>
 
-  <string-array name="news_titles">
-    <item>@string/whats_new_localbiz_title</item>
+  <string-array name="news_title_keys">
+    <item>whats_new_localbiz_title</item>
   </string-array>
 
   <string-array name="news_messages_1">

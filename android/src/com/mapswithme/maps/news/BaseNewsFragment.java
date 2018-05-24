@@ -8,6 +8,7 @@ import android.support.annotation.ArrayRes;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -37,6 +38,8 @@ import java.util.List;
 
 public abstract class BaseNewsFragment extends BaseMwmDialogFragment
 {
+  @ArrayRes
+  static final int TITLE_KEYS = R.array.news_title_keys;
   private ViewPager mPager;
   private View mPrevButton;
   private View mNextButton;
@@ -67,7 +70,7 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
     {
       Resources res = MwmApplication.get().getResources();
 
-      mTitles = res.getStringArray(getTitles());
+      mTitles = getTitles(res);
       mSubtitles = res.getStringArray(getSubtitles1());
 
       int subtitles2 = getSubtitles2();
@@ -94,8 +97,26 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
       images.recycle();
     }
 
+    @NonNull
+    private String[] getTitles(@NonNull Resources res)
+    {
+      String[] keys = res.getStringArray(getTitleKeys());
+      final int length = keys.length;
+      if (length == 0)
+        throw new AssertionError("Title keys must me non-empty!");
+
+      String[] titles = new String[length];
+      for (int i = 0; i < length; i++)
+      {
+        @StringRes
+        int id = res.getIdentifier(keys[i], "string", getContext().getPackageName());
+        titles[i] = res.getString(id);
+      }
+      return titles;
+    }
+
     @ArrayRes
-    abstract int getTitles();
+    abstract int getTitleKeys();
     @ArrayRes
     abstract int getSubtitles1();
     @ArrayRes

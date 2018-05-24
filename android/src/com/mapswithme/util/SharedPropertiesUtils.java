@@ -2,6 +2,8 @@ package com.mapswithme.util;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
@@ -12,6 +14,7 @@ public final class SharedPropertiesUtils
 {
   private static final String PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING = "ShowEmulateBadStorageSetting";
   private static final String PREFS_BACKUP_WIDGET_EXPANDED = "BackupWidgetExpanded";
+  private static final String PREFS_WHATS_NEW_TITLE_CONCATENATION = "WhatsNewTitleConcatenation";
   private static final SharedPreferences PREFS
       = PreferenceManager.getDefaultSharedPreferences(MwmApplication.get());
 
@@ -55,6 +58,17 @@ public final class SharedPropertiesUtils
   public static boolean getBackupWidgetExpanded()
   {
     return PREFS.getBoolean(PREFS_BACKUP_WIDGET_EXPANDED, true);
+  }
+
+  @Nullable
+  public static String getWhatsNewTitleConcatenation()
+  {
+    return PREFS.getString(PREFS_WHATS_NEW_TITLE_CONCATENATION, null);
+  }
+
+  public static void setWhatsNewTitleConcatenation(@NonNull String concatenation)
+  {
+    PREFS.edit().putString(PREFS_WHATS_NEW_TITLE_CONCATENATION, concatenation).apply();
   }
 
   //Utils class

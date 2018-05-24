@@ -52,10 +52,6 @@ public final class Counters
                   .apply();
   }
 
-  public static int getLastWhatsNewVersion()
-  {
-    return MwmApplication.prefs().getInt(KEY_MISC_NEWS_LAST_VERSION, 0);
-  }
 
   public static void setWhatsNewShown()
   {
