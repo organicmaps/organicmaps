@@ -19,6 +19,7 @@ TARGET="$(cd "${TARGET:-$1}"; pwd)"
 LOG_PATH="${LOG_PATH:-$TARGET/logs}"
 PLANET_LOG="$LOG_PATH/generate_planet.log"
 DELTA_WITH=
+BOOKING_THRESHOLD=20
 [ $# -gt 1 -a -d "${2-}" ] && DELTA_WITH="$2"
 
 source "$SCRIPT_PATH/find_generator_tool.sh"
@@ -39,7 +40,7 @@ for log in "$LOG_PATH"/*.log; do
   fi
 done
 
-# Step 2: test if mwms and routing were made
+# Step 2.1: test if mwms and routing were made
 echo
 echo '### MISSING FILES'
 # Missing MWM files can be derived only from intermediate borders
@@ -50,7 +51,7 @@ if [ -d "$TARGET/borders" ]; then
   done
 fi
 
-# Step 2.5: compare new files sizes with old
+# Step 2.2: compare new files sizes with old
 if [ -n "$DELTA_WITH" ]; then
   echo
   echo "### SIZE DIFFERENCE WITH $DELTA_WITH"
@@ -69,7 +70,7 @@ for file in "$TARGET"/*.mwm*; do
   ln -s "$TARGET/$BASENAME" "$FTARGET/$BASENAME"
 done
 
-# Step 3: run calc_statistics and check for sections
+# Step 3.1: run calc_statistics and check for sections
 echo
 echo '### MISSING MWM SECTIONS'
 FOUND_COASTS=
@@ -83,7 +84,7 @@ done
 
 [ -z "$FOUND_COASTS" ] && echo && echo 'WARNING: Did not find any coastlines in MWM files'
 
-# Step 3.5: run type_statistics for old and new files to compare
+# Step 3.2: run type_statistics for old and new files to compare
 if [ -n "$DELTA_WITH" ]; then
   echo
   echo '### FEATURE DIFFERENCE'
@@ -104,7 +105,14 @@ if [ -n "$DELTA_WITH" ]; then
   rm "$TMPBASE"_*
 fi
 
-# Step 4: run intergation tests
+# Step 3.3: check booking hotels count in new .mwm files
+if [ -n "$DELTA_WITH" ]; then
+  echo
+  echo '### BOOKING HOTELS COUNT DIFFERENCE'
+  python "$OMIM_PATH/tools/python/mwm/mwm_feature_compare.py" -n "$TARGET" -o "$DELTA_WITH" -f "sponsored-booking" -t $BOOKING_THRESHOLD
+fi
+
+# Step 4: run integration tests
 echo
 echo '### INTEGRATION TESTS'
 "$(dirname "$GENERATOR_TOOL")/routing_integration_tests" "--data_path=$FTARGET/../" "--user_resource_path=$OMIM_PATH/data/" "--suppress=online_cross_tests.*" 2>&1
