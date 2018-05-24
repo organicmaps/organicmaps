@@ -45,6 +45,17 @@ name=Атрибутика ЧМ 2018
 name:en=FC 2018 Gift Shop
 
 
+# Adidas Temporary Store
+
+lat=55.73654
+lon=37.59405
+shop=sports
+name=Adidas
+sponsored=partner4
+event=fc2018
+banner_url=http://www.adidas.ru
+
+
 # Luggage Hero
 
 lat=40.7051423

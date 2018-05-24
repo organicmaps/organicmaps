@@ -100,8 +100,7 @@ node,5614185076,sponsored=partner4,banner_url=http://www.adidas.ru
 node,5614185080,sponsored=partner6,banner_url=http://www.adidas.ru/originals
 node,5614185081,sponsored=partner4,banner_url=http://www.adidas.ru
 node,4412830395,sponsored=partner6,banner_url=http://www.adidas.ru/originals
-node,5614216502,sponsored=partner4,banner_url=http://www.adidas.ru
-node,5614216503,sponsored=partner4,banner_url=http://www.adidas.ru
+node,5614216502,sponsored=partner4,event=fc2018,banner_url=http://www.adidas.ru
 
 
 # Tretyakovka
