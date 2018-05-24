@@ -1197,19 +1197,19 @@ kml::MarkGroupId BookmarkManager::LastEditedBMCategory()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
 
-  if (HasBmCategory(m_lastEditedGroupId))
+  if (HasBmCategory(m_lastEditedGroupId) && IsEditableCategory(m_lastEditedGroupId))
     return m_lastEditedGroupId;
 
   for (auto & cat : m_categories)
   {
-    if (cat.second->GetFileName() == m_lastCategoryUrl)
+    if (IsEditableCategory(cat.first) && cat.second->GetFileName() == m_lastCategoryUrl)
     {
       m_lastEditedGroupId = cat.first;
       return m_lastEditedGroupId;
     }
   }
-  CheckAndCreateDefaultCategory();
-  return m_bmGroupsIdList.front();
+  m_lastEditedGroupId = CheckAndCreateDefaultCategory();
+  return m_lastEditedGroupId;
 }
 
 kml::PredefinedColor BookmarkManager::LastEditedBMColor() const
@@ -1220,6 +1220,8 @@ kml::PredefinedColor BookmarkManager::LastEditedBMColor() const
 
 void BookmarkManager::SetLastEditedBmCategory(kml::MarkGroupId groupId)
 {
+  if (!IsEditableCategory(groupId))
+    return;
   m_lastEditedGroupId = groupId;
   m_lastCategoryUrl = GetBmCategory(groupId)->GetFileName();
   SaveState();
@@ -1331,11 +1333,15 @@ kml::MarkGroupId BookmarkManager::CreateBookmarkCategory(std::string const & nam
   return groupId;
 }
 
-void BookmarkManager::CheckAndCreateDefaultCategory()
+kml::MarkGroupId BookmarkManager::CheckAndCreateDefaultCategory()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  if (m_categories.empty())
-    CreateBookmarkCategory(m_callbacks.m_getStringsBundle().GetString("core_my_places"));
+  for (auto const & cat : m_categories)
+  {
+    if (IsEditableCategory(cat.first))
+      return cat.first;
+  }
+  return CreateBookmarkCategory(m_callbacks.m_getStringsBundle().GetString("core_my_places"));
 }
 
 void BookmarkManager::CheckAndResetLastIds()

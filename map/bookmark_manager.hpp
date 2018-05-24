@@ -456,7 +456,7 @@ private:
   void SendBookmarksChanges();
   void GetBookmarksData(kml::MarkIdSet const & markIds,
                         std::vector<std::pair<kml::MarkId, kml::BookmarkData>> & data) const;
-  void CheckAndCreateDefaultCategory();
+  kml::MarkGroupId CheckAndCreateDefaultCategory();
   void CheckAndResetLastIds();
 
   std::unique_ptr<kml::FileData> CollectBmGroupKMLData(BookmarkCategory const * group) const;
