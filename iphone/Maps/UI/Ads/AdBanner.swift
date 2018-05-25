@@ -41,7 +41,6 @@ final class AdBanner: UITableViewCell {
   @IBOutlet private weak var adCallToActionButtonCompact: UIButton!
   @IBOutlet private weak var adCallToActionButtonDetailed: UIButton!
   @IBOutlet private weak var adCallToActionButtonCustom: UIButton!
-  @IBOutlet private weak var adPrivacyButton: UIButton!
   @IBOutlet private weak var nativeAdView: UIView!
   @IBOutlet private weak var fallbackAdView: UIView!
   @IBOutlet private var nativeAdViewBottom: NSLayoutConstraint!
@@ -69,7 +68,6 @@ final class AdBanner: UITableViewCell {
   @objc var state = AdBannerState.unset {
     didSet {
       guard state != .unset else {
-        adPrivacyButton.isHidden = true
         adCallToActionButtonCustom.isHidden = true
         mpNativeAd = nil
         nativeAd = nil
@@ -235,7 +233,6 @@ final class AdBanner: UITableViewCell {
     if let url = URL(string: ad.iconURL) {
       adIconImageView.af_setImage(withURL: url)
     }
-    adPrivacyButton.isHidden = ad.privacyInfoURL == nil
   }
 
   private func configGoogleFallbackBanner(ad: GoogleFallbackBanner) {

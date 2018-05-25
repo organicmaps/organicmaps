@@ -129,7 +129,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="367" height="101.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="So8-wM-Cgz">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="So8-wM-Cgz">
                                 <rect key="frame" x="14" y="8" width="24" height="16"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -213,7 +213,6 @@
                 <outlet property="adCallToActionButtonCustom" destination="54O-iN-1Gg" id="vvO-p7-eBA"/>
                 <outlet property="adCallToActionButtonDetailed" destination="NKM-3R-3g1" id="diP-AI-tNi"/>
                 <outlet property="adIconImageView" destination="EuF-Rm-DHQ" id="Edf-Ak-VAy"/>
-                <outlet property="adPrivacyButton" destination="So8-wM-Cgz" id="tY6-tl-gGx"/>
                 <outlet property="adPrivacyImage" destination="U70-zR-E2N" id="otr-5d-TIb"/>
                 <outlet property="adTitleLabel" destination="kIR-cO-v6L" id="OOh-tX-yBM"/>
                 <outlet property="fallbackAdView" destination="ucm-4E-iB7" id="dOb-SQ-pex"/>
