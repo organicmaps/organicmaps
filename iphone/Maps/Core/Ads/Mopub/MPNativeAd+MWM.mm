@@ -1,4 +1,3 @@
-#import "FacebookNativeAdAdapter.h"
 #import "MPNativeAd+MWM.h"
 #import "SwiftBridge.h"
 
@@ -12,12 +11,6 @@
 - (void)adViewTapped;
 - (void)nativeViewWillMoveToSuperview:(UIView *)superview;
 - (UIViewController *)viewControllerForPresentingModalView;
-
-@end
-
-@interface FacebookNativeAdAdapter ()
-
-@property(nonatomic, readonly) FBNativeAd * fbNativeAd;
 
 @end
 

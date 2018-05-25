@@ -131,8 +131,14 @@ final class MopubBanner: NSObject, Banner {
     return nativeAd?.properties[kAdCTATextKey] as? String ?? ""
   }
 
-  var privacyInfoURL: String? {
-    return nativeAd?.properties[kDAAIconTapDestinationURL] as? String
+  var privacyInfoURL: URL? {
+    guard let nativeAd = nativeAd else { return nil }
+
+    if nativeAd.adAdapter is FacebookNativeAdAdapter {
+      return (nativeAd.adAdapter as! FacebookNativeAdAdapter).fbNativeAd.adChoicesLinkURL
+    }
+
+    return URL(string: kDAAIconTapDestinationURL)
   }
 
   // MARK: - Helpers

@@ -100,7 +100,7 @@ final class AdBanner: UITableViewCell {
 
   @IBAction
   private func privacyAction() {
-    if let ad = nativeAd as? MopubBanner, let urlStr = ad.privacyInfoURL, let url = URL(string: urlStr) {
+    if let ad = nativeAd as? MopubBanner, let url = ad.privacyInfoURL {
       UIViewController.topViewController().open(url)
     }
   }
