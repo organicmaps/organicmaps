@@ -489,17 +489,19 @@ void OnBookmarksSearchResults(search::BookmarksSearchParams::Results const & res
   env->CallVoidMethod(g_javaListener, method, jResults.get(), static_cast<jlong>(timestamp));
 }
 
-void OnBookingFilterResults(std::shared_ptr<booking::ParamsBase> const & params,
+void OnBookingFilterResults(std::shared_ptr<booking::ParamsBase> const & apiParams,
                             vector<FeatureID> const & featuresSorted)
 {
   // Ignore obsolete booking filter results.
-  if (!g_lastBookingFilterParams.Equals(*params))
+  if (!g_lastBookingFilterParams.Equals(*apiParams))
     return;
 
-    JNIEnv * env = jni::GetEnv();
-    jni::TScopedLocalObjectArrayRef jResults(env,
-                                             usermark_helper::ToFeatureIdArray(env, featuresSorted));
-    env->CallVoidMethod(g_javaListener, g_onFilterAvailableHotelsId, jResults.get());
+  ASSERT(std::is_sorted(featuresSorted.cbegin(), featuresSorted.cend()), ());
+
+  JNIEnv * env = jni::GetEnv();
+  jni::TScopedLocalObjectArrayRef jResults(env,
+                                           usermark_helper::ToFeatureIdArray(env, featuresSorted));
+  env->CallVoidMethod(g_javaListener, g_onFilterAvailableHotelsId, jResults.get());
 }
 }  // namespace
 
@@ -571,8 +573,8 @@ extern "C"
     params.m_onResults = bind(&OnResults, _1, _2, timestamp, false, hasPosition, lat, lon);
     params.m_hotelsFilter = g_hotelsFilterBuilder.Build(env, hotelsFilter);
     g_lastBookingFilterParams = g_bookingAvailabilityParamsBuilder.Build(env, bookingFilterParams);
-    params.m_bookingFilterParams.m_params =
-      std::make_shared<booking::AvailabilityParams>(g_lastBookingFilterParams);
+    params.m_bookingFilterParams.m_apiParams =
+        std::make_shared<booking::AvailabilityParams>(g_lastBookingFilterParams);
     params.m_bookingFilterParams.m_callback = bind(&OnBookingFilterResults, _1, _2);
 
     bool const searchStarted = g_framework->NativeFramework()->SearchEverywhere(params);
@@ -590,8 +592,8 @@ extern "C"
     vparams.m_inputLocale = jni::ToNativeString(env, lang);
     vparams.m_hotelsFilter = g_hotelsFilterBuilder.Build(env, hotelsFilter);
     g_lastBookingFilterParams = g_bookingAvailabilityParamsBuilder.Build(env, bookingFilterParams);
-    vparams.m_bookingFilterParams.m_params =
-      std::make_shared<booking::AvailabilityParams>(g_lastBookingFilterParams);
+    vparams.m_bookingFilterParams.m_apiParams =
+        std::make_shared<booking::AvailabilityParams>(g_lastBookingFilterParams);
     vparams.m_bookingFilterParams.m_callback = bind(&OnBookingFilterResults, _1, _2);
 
     // TODO (@alexzatsepin): set up vparams.m_onCompleted here and use
@@ -606,8 +608,8 @@ extern "C"
       eparams.m_onResults = bind(&OnResults, _1, _2, timestamp, isMapAndTable,
                                  false /* hasPosition */, 0.0 /* lat */, 0.0 /* lon */);
       eparams.m_hotelsFilter = vparams.m_hotelsFilter;
-      eparams.m_bookingFilterParams.m_params =
-        std::make_shared<booking::AvailabilityParams>(g_lastBookingFilterParams);
+      eparams.m_bookingFilterParams.m_apiParams =
+          std::make_shared<booking::AvailabilityParams>(g_lastBookingFilterParams);
       eparams.m_bookingFilterParams.m_callback = bind(&OnBookingFilterResults, _1, _2);
 
       if (g_framework->NativeFramework()->SearchEverywhere(eparams))

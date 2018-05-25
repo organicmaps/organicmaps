@@ -29,15 +29,15 @@ template <typename R>
 struct ParamsImpl
 {
   ParamsImpl() = default;
-  ParamsImpl(std::shared_ptr<ParamsBase> params, R const & cb)
-    : m_params(move(params))
+  ParamsImpl(std::shared_ptr<ParamsBase> apiParams, R const & cb)
+    : m_apiParams(apiParams)
     , m_callback(cb)
   {
   }
 
-  bool IsEmpty() const { return !m_params || m_params->IsEmpty(); }
+  bool IsEmpty() const { return !m_apiParams || m_apiParams->IsEmpty(); }
 
-  std::shared_ptr<ParamsBase> m_params;
+  std::shared_ptr<ParamsBase> m_apiParams;
   R m_callback;
 };
 

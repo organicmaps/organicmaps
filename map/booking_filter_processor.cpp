@@ -25,31 +25,33 @@ void FilterProcessor::ApplyFilters(search::Results const & results,
     // Run provided filters consecutively.
     for (size_t i = tasks.size() - 1; i > 0; --i)
     {
-      auto const & cb = tasks[i - 1].m_params.m_callback;
+      auto const & cb = tasks[i - 1].m_filterParams.m_callback;
 
-      tasks[i - 1].m_params.m_callback =
-        [this, cb, nextTask = std::move(tasks[i])](search::Results const & results) mutable
+      tasks[i - 1].m_filterParams.m_callback =
+          [ this, cb, nextTask = std::move(tasks[i]) ](search::Results const & results) mutable
       {
         cb(results);
         // Run the next filter with obtained results from the previous one.
         // Post different task on the file thread to increase granularity.
         GetPlatform().RunTask(Platform::Thread::File, [this, results, nextTask = std::move(nextTask)]()
         {
-          m_filters.at(nextTask.m_type)->ApplyFilter(results, nextTask.m_params);
+          m_filters.at(nextTask.m_type)->ApplyFilter(results, nextTask.m_filterParams);
         });
       };
     }
     // Run first filter.
-    m_filters.at(tasks.front().m_type)->ApplyFilter(results, tasks.front().m_params);
+    m_filters.at(tasks.front().m_type)->ApplyFilter(results, tasks.front().m_filterParams);
   });
 }
 
-void FilterProcessor::OnParamsUpdated(Type const type, std::shared_ptr<ParamsBase> const & params)
+void FilterProcessor::OnParamsUpdated(Type const type,
+                                      std::shared_ptr<ParamsBase> const & apiParams)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [this, type, params = std::move(params)]() mutable
-  {
-    m_filters.at(type)->UpdateParams(*params);
-  });
+  GetPlatform().RunTask(Platform::Thread::File,
+                        [this, type, apiParams = std::move(apiParams)]() mutable
+                        {
+                          m_filters.at(type)->UpdateParams(*apiParams);
+                        });
 }
 
 void FilterProcessor::GetFeaturesFromCache(Type const type, search::Results const & results,
@@ -57,9 +59,11 @@ void FilterProcessor::GetFeaturesFromCache(Type const type, search::Results cons
 {
   GetPlatform().RunTask(Platform::Thread::File, [this, type, results, callback]()
   {
-    std::vector<FeatureID> resultSorted;
-    m_filters.at(type)->GetFeaturesFromCache(results, resultSorted);
-    callback(resultSorted);
+    std::vector<FeatureID> featuresSorted;
+    m_filters.at(type)->GetFeaturesFromCache(results, featuresSorted);
+
+    ASSERT(std::is_sorted(featuresSorted.begin(), featuresSorted.end()), ());
+    callback(featuresSorted);
   });
 }
 

@@ -58,29 +58,29 @@ void FillResults(HotelToResults && hotelToResults, std::vector<std::string> cons
   {
     switch (hotelToResult.m_cacheStatus)
     {
-      case Cache::HotelStatus::Unavailable: continue;
-      case Cache::HotelStatus::Available:
-      {
+    case Cache::HotelStatus::Unavailable: continue;
+    case Cache::HotelStatus::Available:
+    {
+      results.AddResult(std::move(hotelToResult.m_result));
+      continue;
+    }
+    case Cache::HotelStatus::NotReady:
+    {
+      auto hotelStatus = cache.Get(hotelToResult.m_hotelId);
+      CHECK_NOT_EQUAL(hotelStatus, Cache::HotelStatus::Absent, ());
+
+      if (hotelStatus == Cache::HotelStatus::Available)
         results.AddResult(std::move(hotelToResult.m_result));
-        continue;
-      }
-      case Cache::HotelStatus::NotReady:
-      {
-        auto hotelStatus = cache.Get(hotelToResult.m_hotelId);
-        CHECK_NOT_EQUAL(hotelStatus, Cache::HotelStatus::Absent, ());
 
-        if (hotelStatus == Cache::HotelStatus::Available)
-          results.AddResult(std::move(hotelToResult.m_result));
+      continue;
+    }
+    case Cache::HotelStatus::Absent:
+    {
+      if (std::binary_search(hotelIds.cbegin(), hotelIds.cend(), hotelToResult.m_hotelId))
+        results.AddResult(std::move(hotelToResult.m_result));
 
-        continue;
-      }
-      case Cache::HotelStatus::Absent:
-      {
-        if (std::binary_search(hotelIds.cbegin(), hotelIds.cend(), hotelToResult.m_hotelId))
-          results.AddResult(std::move(hotelToResult.m_result));
-
-        continue;
-      }
+      continue;
+    }
     }
   }
 }
@@ -148,24 +148,25 @@ namespace filter
 {
 AvailabilityFilter::AvailabilityFilter(Delegate const & d) : FilterBase(d) {}
 
-void AvailabilityFilter::ApplyFilter(search::Results const & results, ParamsInternal const & params)
+void AvailabilityFilter::ApplyFilter(search::Results const & results,
+                                     ParamsInternal const & filterParams)
 {
-  ASSERT(params.m_params, ());
+  ASSERT(filterParams.m_apiParams, ());
 
-  auto const & p = *params.m_params;
-  auto const & cb = params.m_callback;
+  auto const & p = *filterParams.m_apiParams;
+  auto const & cb = filterParams.m_callback;
 
   UpdateParams(p);
 
-  m_params.m_hotelIds.clear();
+  m_apiParams.m_hotelIds.clear();
 
   HotelToResults hotelToResults;
-  PrepareData(GetDelegate().GetIndex(), results, hotelToResults, *m_cache, m_params);
+  PrepareData(GetDelegate().GetIndex(), results, hotelToResults, *m_cache, m_apiParams);
 
-  if (m_params.m_hotelIds.empty())
+  if (m_apiParams.m_hotelIds.empty())
   {
     search::Results result;
-    FillResults(std::move(hotelToResults), {}, *m_cache, result);
+    FillResults(std::move(hotelToResults), {} /* hotelIds */, *m_cache, result);
     cb(result);
 
     return;
@@ -188,21 +189,21 @@ void AvailabilityFilter::ApplyFilter(search::Results const & results, ParamsInte
                             });
     };
 
-  GetDelegate().GetApi().GetHotelAvailability(m_params, apiCallback);
+  GetDelegate().GetApi().GetHotelAvailability(m_apiParams, apiCallback);
   m_cache->RemoveOutdated();
 }
 
-void AvailabilityFilter::UpdateParams(ParamsBase const & params)
+void AvailabilityFilter::UpdateParams(ParamsBase const & apiParams)
 {
-  if (m_params.Equals(params))
+  if (m_apiParams.Equals(apiParams))
     return;
 
-  m_params.Set(params);
+  m_apiParams.Set(apiParams);
   m_cache = std::make_shared<availability::Cache>();
 }
 
 void AvailabilityFilter::GetFeaturesFromCache(search::Results const & results,
-                                                   std::vector<FeatureID> & sortedResults)
+                                              std::vector<FeatureID> & sortedResults)
 {
   std::vector<FeatureID> features;
 
@@ -222,8 +223,8 @@ void AvailabilityFilter::GetFeaturesFromCache(search::Results const & results,
   {
     if (mwmId != featureId.m_mwmId)
     {
-      guard = my::make_unique<Index::FeaturesLoaderGuard>(GetDelegate().GetIndex(),
-                                                          featureId.m_mwmId);
+      guard =
+          my::make_unique<Index::FeaturesLoaderGuard>(GetDelegate().GetIndex(), featureId.m_mwmId);
       mwmId = featureId.m_mwmId;
     }
 

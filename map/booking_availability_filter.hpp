@@ -21,17 +21,17 @@ class AvailabilityFilter : public FilterBase
 {
 public:
   explicit AvailabilityFilter(Delegate const & d);
-  void ApplyFilter(search::Results const & results, ParamsInternal const & params) override;
+  void ApplyFilter(search::Results const & results, ParamsInternal const & filterParams) override;
 
   void GetFeaturesFromCache(search::Results const & results,
                             std::vector<FeatureID> & sortedResults) override;
-  void UpdateParams(ParamsBase const & params) override;
+  void UpdateParams(ParamsBase const & apiParams) override;
 
 private:
   using CachePtr = std::shared_ptr<availability::Cache>;
   CachePtr m_cache = std::make_shared<availability::Cache>();
 
-  AvailabilityParams m_params;
+  AvailabilityParams m_apiParams;
 };
 }  // namespace filter
 }  // namespace booking

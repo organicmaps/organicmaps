@@ -102,10 +102,10 @@ using Observers = NSHashTable<Observer>;
   };
 
   m_everywhereParams.m_bookingFilterParams.m_callback =
-      [self](shared_ptr<booking::ParamsBase> const & params,
+      [self](shared_ptr<booking::ParamsBase> const & apiParams,
              std::vector<FeatureID> const & sortedFeatures) {
         auto const & p = self->m_everywhereParams.m_bookingFilterParams;
-        if (p.m_params->IsEmpty() || !p.m_params->Equals(*params))
+        if (p.m_apiParams->IsEmpty() || !p.m_apiParams->Equals(*apiParams))
           return;
         self->m_bookingAvailableFeatureIDs = sortedFeatures;
         [self onSearchResultsUpdated];

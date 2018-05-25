@@ -13,7 +13,7 @@ namespace booking
 {
 /// Params for checking availability of hotels.
 /// [m_hotelIds], [m_checkin], [m_checkout], [m_rooms] are required.
-struct AvailabilityParams : ParamsBase
+struct AvailabilityParams : public ParamsBase
 {
   struct Room
   {

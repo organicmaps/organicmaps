@@ -181,7 +181,7 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
       });
 
   if (m_sponsoredMode == SponsoredMode::Booking)
-    m_delegate.OnBookingAvailabilityParamsUpdate(params.m_bookingFilterParams.m_params);
+    m_delegate.OnBookingAvailabilityParamsUpdate(params.m_bookingFilterParams.m_apiParams);
 
   return Search(p, true /* forceSearch */);
 }
@@ -220,7 +220,7 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
       });
 
   if (m_sponsoredMode == SponsoredMode::Booking)
-    m_delegate.OnBookingAvailabilityParamsUpdate(params.m_bookingFilterParams.m_params);
+    m_delegate.OnBookingAvailabilityParamsUpdate(params.m_bookingFilterParams.m_apiParams);
 
   return Search(p, false /* forceSearch */);
 }

@@ -74,7 +74,8 @@ public:
   std::string GetDescriptionUrl(std::string const & baseUrl) const;
   std::string GetHotelReviewsUrl(std::string const & hotelId, std::string const & baseUrl) const;
   std::string GetSearchUrl(std::string const & city, std::string const & name) const;
-  std::string ApplyAvailabilityParams(std::string const & url, AvailabilityParams const & params) const;
+  std::string ApplyAvailabilityParams(std::string const & url,
+                                      AvailabilityParams const & params) const;
 
   /// Real-time information methods (used for retrieving rapidly changing information).
   /// These methods send requests directly to Booking.

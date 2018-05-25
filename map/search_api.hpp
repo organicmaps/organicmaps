@@ -1,7 +1,7 @@
 #pragma once
 
-#include "map/bookmark.hpp"
 #include "map/booking_filter_params.hpp"
+#include "map/bookmark.hpp"
 
 #include "search/downloader_search_callback.hpp"
 #include "search/engine.hpp"
@@ -80,7 +80,10 @@ public:
     {
     }
 
-    virtual void OnBookingAvailabilityParamsUpdate(std::shared_ptr<booking::ParamsBase> const & params) {}
+    virtual void OnBookingAvailabilityParamsUpdate(
+        std::shared_ptr<booking::ParamsBase> const & params)
+    {
+    }
 
     virtual search::ProductInfo GetProductInfo(search::Result const & result) const { return {}; };
   };

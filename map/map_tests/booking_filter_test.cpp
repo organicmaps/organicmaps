@@ -22,19 +22,13 @@ using namespace generator::tests_support;
 
 namespace
 {
-class TestMwmEnvironment : public indexer::tests_support::TestWithCustomMwms
-                         , public FilterBase::Delegate
+class TestMwmEnvironment : public indexer::tests_support::TestWithCustomMwms,
+                           public FilterBase::Delegate
 {
 public:
-  Index const & GetIndex() const override
-  {
-    return m_index;
-  }
+  Index const & GetIndex() const override { return m_index; }
 
-  booking::Api const & GetApi() const override
-  {
-    return m_api;
-  }
+  booking::Api const & GetApi() const override { return m_api; }
 
 protected:
   TestMwmEnvironment()
@@ -93,16 +87,15 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_AvailabilitySmoke)
         expectedResults.AddResult(std::move(copy));
       },
       rect, scales::GetUpperScale());
-  ParamsInternal params;
+  ParamsInternal filterParams;
   search::Results filteredResults;
-  params.m_params = make_shared<booking::AvailabilityParams>();
-  params.m_callback = [&filteredResults](search::Results const & results)
-  {
+  filterParams.m_apiParams = make_shared<booking::AvailabilityParams>();
+  filterParams.m_callback = [&filteredResults](search::Results const & results) {
     filteredResults = results;
     testing::Notify();
   };
 
-  filter.ApplyFilter(results, params);
+  filter.ApplyFilter(results, filterParams);
 
   testing::Wait();
 

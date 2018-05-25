@@ -35,15 +35,13 @@ public:
   explicit FilterBase(Delegate const & d) : m_delegate(d) {}
   virtual ~FilterBase() = default;
 
-  virtual void ApplyFilter(search::Results const & results, ParamsInternal const & params) = 0;
+  virtual void ApplyFilter(search::Results const & results,
+                           ParamsInternal const & filterParams) = 0;
   virtual void GetFeaturesFromCache(search::Results const & results,
                                     std::vector<FeatureID> & sortedResults) = 0;
-  virtual void UpdateParams(ParamsBase const & params) = 0;
+  virtual void UpdateParams(ParamsBase const & apiParams) = 0;
 
-  Delegate const & GetDelegate() const
-  {
-    return m_delegate;
-  }
+  Delegate const & GetDelegate() const { return m_delegate; }
 
 private:
   Delegate const & m_delegate;

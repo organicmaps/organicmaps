@@ -3151,8 +3151,8 @@ void Framework::ShowViewportSearchResults(bool clear, search::Results::ConstIter
     FillSearchResultsMarks(clear, results.begin(), results.end(), postProcessing);
   };
 
-  m_bookingFilterProcessor.GetFeaturesFromCache(booking::filter::Type::Availability,
-                                                results, fillCallback);
+  m_bookingFilterProcessor.GetFeaturesFromCache(booking::filter::Type::Availability, results,
+                                                fillCallback);
 }
 
 void Framework::ClearViewportSearchResults()
@@ -3397,17 +3397,17 @@ ugc::Reviews Framework::FilterUGCReviews(ugc::Reviews const & reviews) const
   return result;
 }
 
-void Framework::FilterSearchResultsOnBooking(booking::filter::Params const & params,
+void Framework::FilterSearchResultsOnBooking(booking::filter::Params const & filterParams,
                                              search::Results const & results, bool inViewport)
 {
   using namespace booking::filter;
 
-  auto const & p = params.m_params;
-  auto const & cb = params.m_callback;
+  auto const & apiParams = filterParams.m_apiParams;
+  auto const & cb = filterParams.m_callback;
   ParamsInternal paramsInternal
   {
-    p,
-    [this, p, cb, inViewport](search::Results const & results)
+    apiParams,
+    [this, apiParams, cb, inViewport](search::Results const & results)
     {
       if (results.GetCount() == 0)
         return;
@@ -3428,7 +3428,7 @@ void Framework::FilterSearchResultsOnBooking(booking::filter::Params const & par
         });
       }
 
-      cb(p, features);
+      cb(apiParams, features);
     }
   };
 

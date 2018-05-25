@@ -33,17 +33,18 @@ enum class Type
 
 struct FilterTask
 {
-  FilterTask(Type const type, ParamsInternal && params)
+  FilterTask(Type const type, ParamsInternal && filterParams)
     : m_type(type)
-    , m_params(std::move(params))
+    , m_filterParams(std::move(filterParams))
   {
   }
 
   Type const m_type;
-  ParamsInternal m_params;
+  ParamsInternal m_filterParams;
 };
 
-using FillSearchMarksCallback = platform::SafeCallback<void(std::vector<FeatureID> availableHotelsSorted)>;
+using FillSearchMarksCallback =
+    platform::SafeCallback<void(std::vector<FeatureID> availableHotelsSorted)>;
 
 class FilterProcessor : public FilterBase::Delegate
 {

@@ -3,7 +3,6 @@
 #include "base/macros.hpp"
 
 #include <exception>
-#include <type_traits>
 
 namespace booking
 {

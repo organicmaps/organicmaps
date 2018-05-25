@@ -841,9 +841,10 @@ private:
   ugc::Reviews FilterUGCReviews(ugc::Reviews const & reviews) const;
 
 public:
-  void FilterSearchResultsOnBooking(booking::filter::Params const & params,
+  void FilterSearchResultsOnBooking(booking::filter::Params const & filterParams,
                                     search::Results const & results, bool inViewport) override;
-  void OnBookingAvailabilityParamsUpdate(std::shared_ptr<booking::ParamsBase> const & params) override;
+  void OnBookingAvailabilityParamsUpdate(
+      std::shared_ptr<booking::ParamsBase> const & params) override;
 
 private:
   // m_discoveryManager must be bellow m_searchApi, m_viatorApi, m_localsApi
