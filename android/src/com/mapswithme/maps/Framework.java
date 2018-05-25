@@ -433,4 +433,7 @@ public class Framework
   public static native void nativeShowFeatureByLatLon(double lat, double lon);
 
   private static native int nativeGetFilterRating(float rawRating);
+
+  @NonNull
+  public static native String nativeMoPubInitializationBannerId();
 }

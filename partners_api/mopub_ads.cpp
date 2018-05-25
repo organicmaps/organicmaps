@@ -83,4 +83,10 @@ std::string Mopub::GetBannerIdForOtherTypes() const
 {
   return kNonTourismPlacementId;
 }
+
+// static
+std::string Mopub::InitializationBannerId()
+{
+  return kSponsoredBannerPlacementId;
+}
 }  // namespace ads

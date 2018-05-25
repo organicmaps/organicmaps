@@ -11,6 +11,7 @@
 
 #include "partners_api/ads_engine.hpp"
 #include "partners_api/banner.hpp"
+#include "partners_api/mopub_ads.hpp"
 
 #include "storage/storage_helpers.hpp"
 
@@ -1615,5 +1616,11 @@ JNIEXPORT jint JNICALL
 Java_com_mapswithme_maps_Framework_nativeGetFilterRating(JNIEnv * env, jclass, jfloat rawRating)
 {
   return static_cast<jint>(place_page::rating::GetFilterRating(rawRating));
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_Framework_nativeMoPubInitializationBannerId(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, ads::Mopub::InitializationBannerId());
 }
 }  // extern "C"
