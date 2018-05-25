@@ -18,7 +18,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * websiteCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * facebookCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * twitterCell;
-@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * subscribeCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * osmCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * rateCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * copyrightCell;
@@ -65,13 +64,6 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"followOnTwitter"];
     [self openUrl:[NSURL URLWithString:@"https://twitter.com/MAPS_ME"]];
-  }
-  else if (cell == self.subscribeCell)
-  {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"subscribeToNews"];
-    [self sendEmailWithText:L(@"subscribe_me_body")
-                    subject:L(@"subscribe_me_subject")
-                toRecipient:@"subscribe@maps.me"];
   }
   else if (cell == self.osmCell)
   {
