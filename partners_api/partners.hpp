@@ -10,11 +10,17 @@ struct PartnerInfo
   std::string const m_type;
   std::string const m_name;
   bool const m_hasButton = false;
+  std::string const m_defaultBannerUrl;
   std::string const m_iosBannerPlacementId;
   std::string const m_androidBannerPlacementId;
 
   PartnerInfo(int partnerIndex, std::string && name, bool hasButton,
-              std::string && iosBannerPlacementId, std::string && androidBannerPlacementId);
+              std::string && defaultBannerUrl,
+              std::string && iosBannerPlacementId,
+              std::string && androidBannerPlacementId);
+
+  PartnerInfo(int partnerIndex, std::string && name, bool hasButton,
+              std::string && defaultBannerUrl);
 
   PartnerInfo(int partnerIndex, std::string && name, bool hasButton);
 

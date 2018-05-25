@@ -456,27 +456,25 @@ public class PlacePageView extends RelativeLayout
         switch (item.getType())
         {
           case BOOKING:
-            frame.setBackgroundResource(R.drawable.button_booking);
-            color = Color.WHITE;
-            break;
-
           case BOOKING_SEARCH:
-            frame.setBackgroundResource(R.drawable.button_booking);
-            color = Color.WHITE;
-            break;
-
           case OPENTABLE:
-            frame.setBackgroundResource(R.drawable.button_opentable);
-            color = Color.WHITE;
-            break;
-
           case PARTNER1:
-            frame.setBackgroundResource(R.drawable.button_partner1);
-            color = Color.BLACK;
-            break;
-
           case PARTNER3:
-            frame.setBackgroundResource(R.drawable.button_partner3);
+          case PARTNER4:
+          case PARTNER5:
+          case PARTNER6:
+          case PARTNER7:
+          case PARTNER8:
+          case PARTNER9:
+          case PARTNER10:
+          case PARTNER11:
+          case PARTNER12:
+          case PARTNER13:
+          case PARTNER14:
+          case PARTNER15:
+          case PARTNER16:
+          case PARTNER17:
+            frame.setBackgroundResource(item.getBackgroundResource());
             color = Color.WHITE;
             break;
 
@@ -583,6 +581,20 @@ public class PlacePageView extends RelativeLayout
         case OPENTABLE:
         case PARTNER1:
         case PARTNER3:
+        case PARTNER4:
+        case PARTNER5:
+        case PARTNER6:
+        case PARTNER7:
+        case PARTNER8:
+        case PARTNER9:
+        case PARTNER10:
+        case PARTNER11:
+        case PARTNER12:
+        case PARTNER13:
+        case PARTNER14:
+        case PARTNER15:
+        case PARTNER16:
+        case PARTNER17:
           onSponsoredClick(true /* book */, false);
           break;
 

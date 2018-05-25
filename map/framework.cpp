@@ -853,9 +853,12 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
     info.SetSponsoredType(place_page::SponsoredType::Partner);
     auto const partnerIndex = PartnerChecker::Instance().GetPartnerIndex(ft);
     info.SetPartnerIndex(partnerIndex);
-    if (GetPartnerByIndex(partnerIndex).m_hasButton)
+    auto const & partnerInfo = GetPartnerByIndex(partnerIndex);
+    if (partnerInfo.m_hasButton)
     {
-      auto const & url = info.GetMetadata().Get(feature::Metadata::FMD_BANNER_URL);
+      auto url = info.GetMetadata().Get(feature::Metadata::FMD_BANNER_URL);
+      if (url.empty())
+        url = partnerInfo.m_defaultBannerUrl;
       info.SetSponsoredUrl(url);
       info.SetSponsoredDescriptionUrl(url);
     }
