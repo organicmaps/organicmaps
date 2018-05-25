@@ -180,7 +180,7 @@ public class MwmApplication extends Application
   private void initMoPub()
   {
     SdkConfiguration sdkConfiguration = new SdkConfiguration
-        .Builder("")
+        .Builder(Framework.nativeMoPubInitializationBannerId())
         .build();
 
     MoPub.initializeSdk(this, sdkConfiguration, null);
