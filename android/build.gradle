@@ -58,7 +58,7 @@ dependencies {
   implementation 'com.google.android.gms:play-services-ads:11.8.0'
   implementation 'com.google.android.gms:play-services-auth:11.8.0'
   // statistics
-  implementation 'com.flurry.android:analytics:6.7.0'
+  implementation 'com.flurry.android:analytics:11.0.0@aar'
   // crash reporting
   implementation('com.crashlytics.sdk.android:crashlytics:2.9.2@aar') { transitive = true }
   implementation('com.crashlytics.sdk.android:crashlytics-ndk:2.0.0@aar') { transitive = true }
@@ -67,7 +67,7 @@ dependencies {
     exclude group: 'com.google.android.gms'
     exclude group: 'com.android.support'
   }
-  implementation('com.facebook.android:audience-network-sdk:4.26.0') {
+  implementation('com.facebook.android:audience-network-sdk:4.27.0') {
     exclude group: 'com.google.android.gms'
     exclude group: 'com.android.support'
   }

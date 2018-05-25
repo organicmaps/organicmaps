@@ -37,6 +37,8 @@ import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.PushwooshHelper;
 import com.mapswithme.util.statistics.Statistics;
+import com.mopub.common.MoPub;
+import com.mopub.common.SdkConfiguration;
 import com.my.tracker.MyTracker;
 import com.my.tracker.MyTrackerParams;
 import com.pushwoosh.PushManager;
@@ -167,11 +169,21 @@ public class MwmApplication extends Application
 
   private void initCoreIndependentSdks()
   {
+    initMoPub();
     initCrashlytics();
     initLibnotify();
     initPushWoosh();
     initAppsFlyer();
     initTracker();
+  }
+
+  private void initMoPub()
+  {
+    SdkConfiguration sdkConfiguration = new SdkConfiguration
+        .Builder("")
+        .build();
+
+    MoPub.initializeSdk(this, sdkConfiguration, null);
   }
 
   /**

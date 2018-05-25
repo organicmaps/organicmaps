@@ -454,10 +454,13 @@ public enum Statistics
     if (mEnabled)
     {
       //noinspection ConstantConditions
-      FlurryAgent.setLogLevel(BuildConfig.DEBUG ? Log.DEBUG : Log.ERROR);
       FlurryAgent.setVersionName(BuildConfig.VERSION_NAME);
-      FlurryAgent.setCaptureUncaughtExceptions(false);
-      FlurryAgent.init(context, PrivateVariables.flurryKey());
+      new FlurryAgent
+          .Builder()
+          .withLogEnabled(true)
+          .withLogLevel(BuildConfig.DEBUG ? Log.DEBUG : Log.ERROR)
+          .withCaptureUncaughtExceptions(false)
+          .build(context, PrivateVariables.flurryKey());
     }
     // At the moment, need to always initialize engine for correct JNI http part reusing.
     // Statistics is still enabled/disabled separately and never sent anywhere if turned off.
