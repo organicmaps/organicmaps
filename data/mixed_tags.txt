@@ -11,6 +11,9 @@ relation,4006864,event=fc2018,name:ru=Открытие Арена / Стадио
 node,5518180725,event=fc2018
 node,5614227995,event=fc2018
 node,5602026526,event=fc2018
+node,5202107560,event=fc2018,olympics=transport_bus
+node,4379061181,event=fc2018,olympics=transport_bus
+node,297335182,event=fc2018,olympics=transport_bus
 
 # Saint-Petersburg
 node,27490597,event=fc2018,event=fc2018_city
@@ -18,17 +21,21 @@ way,217387802,event=fc2018,name:ru=Стадион Санкт-Петербург,
 node,5510340721,event=fc2018
 node,5602106621,event=fc2018
 node,5602054321,event=fc2018
+node,5614907439,event=fc2018,olympics=transport_bus
 
 # Kazan
 node,27504067,event=fc2018,event=fc2018_city
 relation,3840572,event=fc2018,name:ru=Казань Арена,name:en=Kazan Arena,name:de=Kasan-Arena,name:fr=Kazan Arena,name:es=Kazan Arena
 node,5516316021,event=fc2018
 node,5614238413,event=fc2018
+node,1931215209,event=fc2018,olympics=transport_bus
 
 # Ekaterinburg
 node,27503892,event=fc2018,event=fc2018_city
 relation,55833,event=fc2018,name:ru=Екатеринбург Арена,name:en=Ekaterinburg Arena,name:de=Jekaterinburg-Arena,name:fr=Iekaterinbourg Arena,name:es=Ekaterimburgo Arena
 node,5514737722,event=fc2018
+node,456774510,event=fc2018,olympics=transport_bus
+node,1794063609,event=fc2018,olympics=transport_bus
 
 # Saransk
 node,191651581,event=fc2018,event=fc2018_city
@@ -39,23 +46,28 @@ node,5510340621,event=fc2018
 node,27503945,event=fc2018,event=fc2018_city
 way,572625474,event=fc2018,name:ru=Самара Арена,name:en=Samara Arena,name:de=Samara-Arena,name:fr=Samara Arena,name:es=Samara Arena
 node,5516328322,event=fc2018
+way,585482626,event=fc2018,olympics=transport_bus
 
 # Sochi
 node,34043670,event=fc2018,event=fc2018_city
 relation,3405854,event=fc2018,name:ru=Стадион Фишт,name:en=Fisht Stadium,name:de=Fischt-Stadion,name:fr=Stade Ficht,name:es=Estadio Fisht
 node,5510340722,event=fc2018
 node,5614242996,event=fc2018
+node,2195050637,event=fc2018,olympics=transport_bus
 
 # Volgograd
 node,27504363,event=fc2018,event=fc2018_city
 relation,7718662,event=fc2018,name:ru=Волгоград Арена,name:en=Volgograd Arena,name:de=Wolgograd-Arena,name:fr=Volgograd Arena,name:es=Volgogrado Arena
 node,5516328122,event=fc2018
+node,5505648416,event=fc2018,olympics=transport_bus
 
 # Rostov-on-Don
 node,160569651,event=fc2018,event=fc2018_city
 way,137831707,event=fc2018,name:ru=Ростов Арена,name:en=Rostov Arena,name:de=Rostow-Arena,name:fr=Rostov Arena,name:es=Rostov Arena
 node,5516316121,event=fc2018
 node,5602066021,event=fc2018
+node,4743644020,event=fc2018,olympics=transport_bus
+node,4743644018,event=fc2018,olympics=transport_bus
 
 # Kaliningrad
 node,27048976,event=fc2018,event=fc2018_city
