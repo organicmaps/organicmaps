@@ -109,6 +109,28 @@ node,2468882311,sponsored=partner5
 relation,1907261,sponsored=partner5
 
 
+# TGI Fridays
+
+node,480803495,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
+node,5641681133,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
+node,524512022,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
+node,1538555418,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
+node,4111273695,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
+node,5641681134,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
+node,5644400576,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
+node,5641681135,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
+node,619248592,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
+node,5643723652,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
+node,2345363046,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
+node,4247950418,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
+node,5641681128,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
+node,5641681126,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
+node,5641681131,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
+node,3658494958,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
+node,3025611230,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
+node,3025611231,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
+
+
 # Sportmaster
 
 node,5643849583,sponsored=partner10,banner_url=https://www.sportmaster.ru/news/20029000/
