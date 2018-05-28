@@ -17,10 +17,10 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1,
 
 class Extrapolator
 {
+  static uint64_t constexpr kExtrapolationCounterUndefined = std::numeric_limits<uint64_t>::max();
+
 public:
   using ExtrapolatedLocationUpdateFn = std::function<void(location::GpsInfo const &)>;
-
-  static uint64_t constexpr m_extrapolationCounterUndefined = std::numeric_limits<uint64_t>::max();
 
   /// \param update is a function which is called with params according to extrapolated position.
   /// |update| will be called on gui thread.
@@ -43,6 +43,6 @@ private:
   ExtrapolatedLocationUpdateFn m_extrapolatedLocationUpdate;
   location::GpsInfo m_lastGpsInfo;
   location::GpsInfo m_beforeLastGpsInfo;
-  uint64_t m_extrapolationCounter = m_extrapolationCounterUndefined;
+  uint64_t m_extrapolationCounter = kExtrapolationCounterUndefined;
 };
 }  // namespace extrapolation

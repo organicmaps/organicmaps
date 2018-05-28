@@ -127,7 +127,7 @@ void Extrapolator::ExtrapolatedLocationUpdate()
 
   {
     lock_guard<mutex> guard(m_mutex);
-    if (m_extrapolationCounter != m_extrapolationCounterUndefined)
+    if (m_extrapolationCounter != kExtrapolationCounterUndefined)
       ++m_extrapolationCounter;
   }
 
@@ -145,7 +145,7 @@ bool Extrapolator::DoesExtrapolationWork(uint64_t extrapolationTimeMs) const
   // It may happen in rare cases because GpsInfo::m_timestamp is not monotonic generally.
   // Please see comment in declaration of class GpsInfo for details.
 
-  if (!m_isEnabled || m_extrapolationCounter == m_extrapolationCounterUndefined ||
+  if (!m_isEnabled || m_extrapolationCounter == kExtrapolationCounterUndefined ||
       !m_lastGpsInfo.IsValid() || !m_beforeLastGpsInfo.IsValid() ||
       m_beforeLastGpsInfo.m_timestamp >= m_lastGpsInfo.m_timestamp)
   {

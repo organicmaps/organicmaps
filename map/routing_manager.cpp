@@ -1243,7 +1243,7 @@ void RoutingManager::OnExtrapolatedLocationUpdate(location::GpsInfo const & info
 {
   location::GpsInfo gpsInfo(info);
   if (!m_drapeEngine)
-    m_gpsInfoCache = my::make_unique<location::GpsInfo>(gpsInfo);
+    m_gpsInfoCache = make_unique<location::GpsInfo>(gpsInfo);
 
   auto routeMatchingInfo = GetRouteMatchingInfo(gpsInfo);
   m_drapeEngine.SafeCall(&df::DrapeEngine::SetGpsInfo, gpsInfo,
