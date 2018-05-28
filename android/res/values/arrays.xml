@@ -23,7 +23,7 @@
   </string-array>
 
   <string-array name="news_button_links">
-    <item>https://b2b.maps.me/whatsnew/?lang=</item>
+    <item>https://b2b.maps.me/whatsnew/us</item>
   </string-array>
 
   <string-array name="news_switch_titles">
