@@ -3,6 +3,8 @@ fileprivate struct WhatsNewConfig: WelcomeConfig {
   let title: String
   let text: String
   let buttonTitle: String
+  let ctaButtonTitle: String
+  let ctaButtonUrl: String
 }
 
 final class WhatsNewController: WelcomeViewController {
@@ -12,7 +14,9 @@ final class WhatsNewController: WelcomeViewController {
     WhatsNewConfig(image: #imageLiteral(resourceName: "img_wn_business"),
                    title: "whats_new_localbiz_title",
                    text: "whats_new_localbiz_message",
-                   buttonTitle: "done")
+                   buttonTitle: "done",
+                   ctaButtonTitle: "whats_new_order_button",
+                   ctaButtonUrl: "https://b2b.maps.me/whatsnew/us")
     ]
   }
 
@@ -27,5 +31,21 @@ final class WhatsNewController: WelcomeViewController {
       result.append(vc)
     }
     return result
+  }
+  
+  @IBOutlet weak var ctaButton: UIButton!
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    let config = pageConfig as! WhatsNewConfig
+    ctaButton.setTitle(L(config.ctaButtonTitle), for: .normal)
+  }
+  
+  @IBAction func onCta() {
+    let config = pageConfig as! WhatsNewConfig
+    if let url = URL(string: config.ctaButtonUrl) {
+      UIApplication.shared.openURL(url)
+    }
+    close()
   }
 }

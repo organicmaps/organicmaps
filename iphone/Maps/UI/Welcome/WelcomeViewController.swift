@@ -26,8 +26,7 @@ class WelcomeViewController: MWMViewController {
   
   static var shouldShowWelcome: Bool {
     get {
-      return true
-//      return !UserDefaults.standard.bool(forKey: WhatsNewController.key)
+      return !UserDefaults.standard.bool(forKey: WhatsNewController.key)
     }
     set {
       UserDefaults.standard.set(!newValue, forKey: WhatsNewController.key)
@@ -35,9 +34,7 @@ class WelcomeViewController: MWMViewController {
   }
   
   static func controllers(firstSession: Bool) -> [WelcomeViewController]? {
-    let result = FirstLaunchController.controllers()
-//    let result = firstSession ? FirstLaunchController.controllers() : WhatsNewController.controllers()
-    return result
+    return firstSession ? FirstLaunchController.controllers() : WhatsNewController.controllers()
   }
 
   override func viewDidLoad() {
