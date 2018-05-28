@@ -2618,6 +2618,62 @@ node|z18-[sponsored=partner2],
 area|z18-[sponsored=partner2]
 {font-size: 11;}
 
+/* Adidas */
+
+node|z15-[sponsored=partner4],
+area|z15-[sponsored=partner4]
+{icon-image: partner4-l.svg;font-size: 10;text: name;text-color: @poi_label;text-offset: 1;}
+
+node|z18-[sponsored=partner4],
+area|z18-[sponsored=partner4]
+{font-size: 11;}
+
+node|z15-[sponsored=partner6],
+area|z15-[sponsored=partner6]
+{icon-image: partner6-l.svg;font-size: 10;text: name;text-color: @poi_label;text-offset: 1;}
+
+node|z18-[sponsored=partner6],
+area|z18-[sponsored=partner6]
+{font-size: 11;}
+
+node|z15-[sponsored=partner7],
+area|z15-[sponsored=partner7]
+{icon-image: partner7-l.svg;font-size: 10;text: name;text-color: @poi_label;text-offset: 1;}
+
+node|z18-[sponsored=partner7],
+area|z18-[sponsored=partner7]
+{font-size: 11;}
+
+/* Rosinter */
+
+node|z15-[sponsored=partner8],
+area|z15-[sponsored=partner8]
+{icon-image: partner8-l.svg;font-size: 10;text: name;text-color: @poi_label;text-offset: 1;}
+
+node|z18-[sponsored=partner8],
+area|z18-[sponsored=partner8]
+{font-size: 11;}
+
+node|z15-[sponsored=partner9],
+area|z15-[sponsored=partner9]
+{icon-image: partner9-l.svg;font-size: 10;text: name;text-color: @poi_label;text-offset: 1;}
+
+node|z18-[sponsored=partner9],
+area|z18-[sponsored=partner9]
+{font-size: 11;}
+
+/* Sportmaster */
+
+node|z15-[sponsored=partner10],
+area|z15-[sponsored=partner10]
+{icon-image: partner10-l.svg;font-size: 10;text: name;text-color: @poi_label;text-offset: 1;}
+
+node|z18-[sponsored=partner10],
+area|z18-[sponsored=partner10]
+{font-size: 11;}
+
+/* Fifa */
+
 node|z13-[event=fc2018],
 area|z13-[event=fc2018]
 {font-size: 10;text: name;text-color: @poi_label;text-offset: 1;}
@@ -2647,3 +2703,69 @@ area|z15-[event=fc2018][olympics=live_site]
 node|z15-[event=fc2018][shop=gift],
 area|z15-[event=fc2018][shop=gift]
 {icon-image: wfc_shop.svg;icon-min-distance: 10;}
+
+/* Subway Station */
+
+node|z13[event=fc2018][railway=station][transport=subway]
+{icon-image: wfc_subway-s.svg;}
+node|z14[event=fc2018][railway=station][transport=subway]
+{icon-image: wfc_subway-s.svg;}
+node|z15[event=fc2018][railway=station][transport=subway]
+{icon-image: wfc_subway-m.svg;}
+node|z16[event=fc2018][railway=station][transport=subway]
+{icon-image: wfc_subway-m.svg;}
+node|z17-[event=fc2018][railway=station][transport=subway]
+{icon-image: wfc_subway-m.svg;}
+
+node|z17-[event=fc2018][railway=subway_entrance]
+{icon-image: subway-entrance-m.svg;}
+
+/* Tram Station */
+
+node|z14[event=fc2018][railway=tram_stop]
+{icon-image: wfc_tram-s.svg;}
+node|z15-16[event=fc2018][railway=tram_stop],
+area|z15-16[event=fc2018][railway=tram_stop]
+{icon-image: wfc_tram-m.svg;}
+node|z17[event=fc2018][railway=tram_stop],
+area|z17[event=fc2018][railway=tram_stop]
+{icon-image: wfc_tram-m.svg;}
+node|z18-[event=fc2018][railway=tram_stop],
+area|z18-[event=fc2018][railway=tram_stop]
+{icon-image: wfc_tram-m.svg;}
+
+/* Bus Station */
+
+node|z12-13[event=fc2018][amenity=bus_station],
+area|z12-13[event=fc2018][amenity=bus_station]
+{icon-image: wfc_bus-s.svg;}
+node|z14[event=fc2018][amenity=bus_station],
+area|z14[event=fc2018][amenity=bus_station]
+{icon-image: wfc_bus-s.svg;}
+node|z15-16[event=fc2018][amenity=bus_station],
+area|z15-16[event=fc2018][amenity=bus_station]
+{icon-image: wfc_bus-m.svg;}
+node|z17[event=fc2018][amenity=bus_station],
+area|z17[event=fc2018][amenity=bus_station]
+{icon-image: wfc_bus-m.svg;}
+node|z18[event=fc2018][amenity=bus_station],
+area|z18[event=fc2018][amenity=bus_station]
+{icon-image: wfc_bus-m.svg;}
+node|z19-[event=fc2018][amenity=bus_station],
+area|z19-[event=fc2018][amenity=bus_station]
+{icon-image: wfc_bus-m.svg;}
+
+
+node|z16[event=fc2018][highway=bus_stop],
+area|z16[event=fc2018][highway=bus_stop]
+{icon-image: wfc_bus-m.svg;}
+node|z17-[event=fc2018][highway=bus_stop],
+area|z17-[event=fc2018][highway=bus_stop],
+node|z18-[event=fc2018][public_transport=station],
+area|z18-[event=fc2018][public_transport=station]
+{icon-image: wfc_bus-m.svg;}
+node|z18-19[event=fc2018][highway=bus_stop]::int_name,
+area|z18-19[event=fc2018][highway=bus_stop]::int_name,
+node|z18-19[event=fc2018][public_transport=station]::int_name,
+area|z18-19[event=fc2018][public_transport=station]::int_name
+{icon-image: wfc_bus-m.svg;}
