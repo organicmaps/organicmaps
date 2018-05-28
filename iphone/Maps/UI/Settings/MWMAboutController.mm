@@ -1,6 +1,5 @@
 #import "MWMAboutController.h"
 #import "AppInfo.h"
-#import "MWMMailViewController.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 #import "WebViewController.h"
@@ -10,7 +9,7 @@
 
 extern NSString * const kAlohalyticsTapEventKey;
 
-@interface MWMAboutController ()<MFMailComposeViewControllerDelegate>
+@interface MWMAboutController ()
 
 @property(weak, nonatomic) IBOutlet UILabel * versionLabel;
 @property(weak, nonatomic) IBOutlet UILabel * dateLabel;
@@ -88,35 +87,6 @@ extern NSString * const kAlohalyticsTapEventKey;
     aboutViewController.openInSafari = YES;
     [self.navigationController pushViewController:aboutViewController animated:YES];
   }
-}
-
-- (void)sendEmailWithText:(NSString *)text subject:(NSString *)subject toRecipient:(NSString *)email
-{
-  if ([MWMMailViewController canSendMail])
-  {
-    MWMMailViewController * vc = [[MWMMailViewController alloc] init];
-    vc.mailComposeDelegate = self;
-    [vc setSubject:subject];
-    [vc setMessageBody:text isHTML:NO];
-    [vc setToRecipients:@[ email ]];
-    [self presentViewController:vc animated:YES completion:nil];
-  }
-  else
-  {
-    NSString * text = [NSString stringWithFormat:L(@"email_error_body"), email];
-    [[[UIAlertView alloc] initWithTitle:L(@"email_error_title")
-                                message:text
-                               delegate:nil
-                      cancelButtonTitle:L(@"ok")
-                      otherButtonTitles:nil] show];
-  }
-}
-
-- (void)mailComposeController:(MFMailComposeViewController *)controller
-          didFinishWithResult:(MFMailComposeResult)result
-                        error:(NSError *)error
-{
-  [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

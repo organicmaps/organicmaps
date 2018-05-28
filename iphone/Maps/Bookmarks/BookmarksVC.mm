@@ -4,7 +4,6 @@
 #import "MWMBookmarksManager.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationObserver.h"
-#import "MWMMailViewController.h"
 #import "MWMSearchManager.h"
 #import "SwiftBridge.h"
 
@@ -19,11 +18,10 @@
 
 #define EMPTY_SECTION -666
 
-@interface BookmarksVC() <MFMailComposeViewControllerDelegate, MWMLocationObserver>
+@interface BookmarksVC() <MWMLocationObserver>
 {
   int m_trackSection;
   int m_bookmarkSection;
-  int m_shareSection;
   int m_numberOfSections;
 }
 @end
@@ -76,8 +74,6 @@
     return GetFramework().GetBookmarkManager().GetTrackIds(m_categoryId).size();
   else if (section == m_bookmarkSection)
     return GetFramework().GetBookmarkManager().GetUserMarkIds(m_categoryId).size();
-  else if (section == m_shareSection)
-    return 1;
   else
     return 0;
 }
@@ -176,16 +172,6 @@
     cell = bmCell;
   }
 
-  else if (indexPath.section == m_shareSection)
-  {
-    cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksExportCell"];
-    if (!cell)
-    {
-      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"BookmarksExportCell"];
-      cell.textLabel.textAlignment = NSTextAlignmentCenter;
-      cell.textLabel.text = L(@"share_by_email");
-    }
-  }
   cell.backgroundColor = [UIColor white];
   cell.textLabel.textColor = [UIColor blackPrimaryText];
   cell.detailTextLabel.textColor = [UIColor blackSecondaryText];
@@ -240,34 +226,6 @@
       }
     }
   }
-  else if (indexPath.section == m_shareSection)
-  {
-    if (categoryExists)
-    {
-      [Statistics logEvent:kStatEventName(kStatBookmarks, kStatExport)];
-      NSString * catName = @(bmManager.GetCategoryName(m_categoryId).c_str());
-      if (![catName length])
-        catName = @"MapsMe";
-
-      NSString * filePath = self.categoryFileName;
-      NSMutableString * kmzFile = [NSMutableString stringWithString:filePath];
-      [kmzFile replaceCharactersInRange:NSMakeRange([filePath length] - 1, 1) withString:@"z"];
-
-      if (CreateZipFromPathDeflatedAndDefaultCompression(filePath.UTF8String, kmzFile.UTF8String))
-        [self sendBookmarksWithExtension:@".kmz" andType:@"application/vnd.google-earth.kmz" andFile:kmzFile andCategory:catName];
-      else
-        [self sendBookmarksWithExtension:@".kml" andType:@"application/vnd.google-earth.kml+xml" andFile:filePath andCategory:catName];
-
-      (void)my::DeleteFileX(kmzFile.UTF8String);
-    }
-  }
-}
-
-- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
-{
-  [Statistics logEvent:kStatEventName(kStatBookmarks, kStatExport)
-                   withParameters:@{kStatValue : kStatKML}];
-  [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -385,48 +343,6 @@
   [super viewDidDisappear:animated];
 }
 
-- (void)sendBookmarksWithExtension:(NSString *)fileExtension andType:(NSString *)mimeType andFile:(NSString *)filePath andCategory:(NSString *)catName
-{
-  MWMMailViewController * mailVC = [[MWMMailViewController alloc] init];
-  mailVC.mailComposeDelegate = self;
-  [mailVC setSubject:L(@"share_bookmarks_email_subject")];
-
-  std::ifstream ifs(filePath.UTF8String);
-  std::vector<char> data;
-  if (ifs.is_open())
-  {
-    ifs.seekg(0, ifs.end);
-    auto const size = ifs.tellg();
-    if (size == -1)
-    {
-      ASSERT(false, ("Attachment file seek error."));
-    }
-    else if (size == 0)
-    {
-      ASSERT(false, ("Attachment file is empty."));
-    }
-    else
-    {
-      data.resize(size);
-      ifs.seekg(0);
-      ifs.read(data.data(), size);
-      ifs.close();
-    }
-  }
-  else
-  {
-    ASSERT(false, ("Attachment file is missing."));
-  }
-
-  if (!data.empty())
-  {
-    auto myData = [[NSData alloc] initWithBytes:data.data() length:data.size()];
-    [mailVC addAttachmentData:myData mimeType:mimeType fileName:[NSString stringWithFormat:@"%@%@", catName, fileExtension]];
-  }
-  [mailVC setMessageBody:L(@"share_bookmarks_email_body") isHTML:NO];
-  [self presentViewController:mailVC animated:YES completion:nil];
-}
-
 - (NSString *)categoryFileName
 {
   return @(GetFramework().GetBookmarkManager().GetCategoryFileName(m_categoryId).c_str());
@@ -444,10 +360,6 @@
     m_bookmarkSection = index++;
   else
     m_bookmarkSection = EMPTY_SECTION;
-  if ([MWMMailViewController canSendMail] && self.categoryFileName.length > 0)
-    m_shareSection = index++;
-  else
-    m_shareSection = EMPTY_SECTION;
   m_numberOfSections = index;
 }
 
