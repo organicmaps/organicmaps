@@ -1277,7 +1277,7 @@
 	<string name="bookmarks_restore">Kembalikan bookmark</string>
 	<string name="bookmarks_restore_process">Memulihkan...</string>
 	<string name="bookmarks_restore_title">Kembalikan versi ini?</string>
-	<string name="bookmarks_restore_message">Bookmark Anda akan memulihkan dari %s</string>
+	<string name="bookmarks_restore_message">Bookmark Anda akan memulihkan dari %1$s (%2$s)</string>
 	<string name="bookmarks_restore_empty_title">Anda tidak memiliki cadangan</string>
 	<string name="bookmarks_restore_empty_message">Server tidak menemukan cadangan yang dibuat sebelumnya</string>
 	<string name="common_check_internet_connection_dialog_title">Tidak ada koneksi internet</string>

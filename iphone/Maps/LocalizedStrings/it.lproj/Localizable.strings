@@ -2306,7 +2306,7 @@
 
 "bookmarks_restore_title" = "Ripristina questa versione?";
 
-"bookmarks_restore_message" = "I tuoi segnalibri verranno ripristinati da %s";
+"bookmarks_restore_message" = "I tuoi segnalibri verranno ripristinati da %s (%s)";
 
 "bookmarks_restore_empty_title" = "Non hai un backup";
 

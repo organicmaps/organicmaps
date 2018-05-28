@@ -1274,7 +1274,7 @@
 	<string name="bookmarks_restore">Khôi phục dấu trang</string>
 	<string name="bookmarks_restore_process">Đang khôi phục...</string>
 	<string name="bookmarks_restore_title">Khôi phục phiên bản này?</string>
-	<string name="bookmarks_restore_message">Dấu trang của bạn sẽ khôi phục từ %s</string>
+	<string name="bookmarks_restore_message">Dấu trang của bạn sẽ khôi phục từ %1$s (%2$s)</string>
 	<string name="bookmarks_restore_empty_title">Bạn không có bản sao lưu</string>
 	<string name="bookmarks_restore_empty_message">Máy chủ không tìm thấy các bản sao lưu được tạo trước đó</string>
 	<string name="common_check_internet_connection_dialog_title">Không có kết nối internet</string>

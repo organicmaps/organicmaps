@@ -1282,7 +1282,7 @@
 	<string name="bookmarks_restore">Återställ bokmärken</string>
 	<string name="bookmarks_restore_process">Återställer...</string>
 	<string name="bookmarks_restore_title">Återställ den här versionen?</string>
-	<string name="bookmarks_restore_message">Dina bokmärken återställs från %s</string>
+	<string name="bookmarks_restore_message">Dina bokmärken återställs från %1$s (%2$s)</string>
 	<string name="bookmarks_restore_empty_title">Du har ingen säkerhetskopia</string>
 	<string name="bookmarks_restore_empty_message">Servern hittade inte tidigare säkerhetskopior</string>
 	<string name="common_check_internet_connection_dialog_title">Ingen internetanslutning</string>

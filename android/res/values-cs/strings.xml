@@ -1286,7 +1286,7 @@
 	<string name="bookmarks_restore">Obnovit záložky</string>
 	<string name="bookmarks_restore_process">Obnovení...</string>
 	<string name="bookmarks_restore_title">Obnovit tuto verzi?</string>
-	<string name="bookmarks_restore_message">Záložky se obnoví z %s</string>
+	<string name="bookmarks_restore_message">Záložky se obnoví z %1$s (%2$s)</string>
 	<string name="bookmarks_restore_empty_title">Nemáte zálohu</string>
 	<string name="bookmarks_restore_empty_message">Server nenalezl dříve vytvořené zálohy</string>
 	<string name="common_check_internet_connection_dialog_title">Žádné internetové připojení</string>

@@ -1283,7 +1283,7 @@
 	<string name="bookmarks_restore">恢复书签</string>
 	<string name="bookmarks_restore_process">恢复...</string>
 	<string name="bookmarks_restore_title">还原这个版本？</string>
-	<string name="bookmarks_restore_message">您的书签将从%s个恢复</string>
+	<string name="bookmarks_restore_message">您的书签将从%1$s (%2$s)个恢复</string>
 	<string name="bookmarks_restore_empty_title">你没有备份</string>
 	<string name="bookmarks_restore_empty_message">服务器没有找到以前做的备份</string>
 	<string name="common_check_internet_connection_dialog_title">没有互联网连接</string>

@@ -2306,7 +2306,7 @@
 
 "bookmarks_restore_title" = " Restore this version?";
 
-"bookmarks_restore_message" = " Your bookmarks will be restored from %s";
+"bookmarks_restore_message" = " Your bookmarks will be restored from %s (%s)";
 
 "bookmarks_restore_empty_title" = " You don’t have any backups";
 

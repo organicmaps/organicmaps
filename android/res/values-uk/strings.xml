@@ -1283,7 +1283,7 @@
 	<string name="bookmarks_restore">Відновити закладки</string>
 	<string name="bookmarks_restore_process">Відновлення...</string>
 	<string name="bookmarks_restore_title">Відновити цю версію?</string>
-	<string name="bookmarks_restore_message">Ваші закладки відновлюватимуться з %s</string>
+	<string name="bookmarks_restore_message">Ваші закладки відновлюватимуться з %1$s (%2$s)</string>
 	<string name="bookmarks_restore_empty_title">У вас немає резервної копії</string>
 	<string name="bookmarks_restore_empty_message">Сервер не знайшов раніше створені резервні копії</string>
 	<string name="common_check_internet_connection_dialog_title">Нема інтернет з\'єднання</string>

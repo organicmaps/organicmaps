@@ -2306,7 +2306,7 @@
 
 "bookmarks_restore_title" = "Diese Version wiederherstellen?";
 
-"bookmarks_restore_message" = "Ihre Lesezeichen werden von %s wiederhergestellt";
+"bookmarks_restore_message" = "Ihre Lesezeichen werden von %s (%s) wiederhergestellt";
 
 "bookmarks_restore_empty_title" = "Sie haben kein Backup";
 

@@ -1042,7 +1042,7 @@
 	<string name="bookmarks_restore">Επαναφορά των σελιδοδεικτών</string>
 	<string name="bookmarks_restore_process">Επαναφορά...</string>
 	<string name="bookmarks_restore_title">Επαναφορά αυτής της έκδοσης;</string>
-	<string name="bookmarks_restore_message">Οι σελιδοδείκτες σας θα αποκατασταθούν από το %s</string>
+	<string name="bookmarks_restore_message">Οι σελιδοδείκτες σας θα αποκατασταθούν από το %1$s (%2$s)</string>
 	<string name="bookmarks_restore_empty_title">Δεν διαθέτετε αντίγραφο ασφαλείας</string>
 	<string name="bookmarks_restore_empty_message">Ο διακομιστής δεν βρήκε προηγουμένως δημιουργημένα αντίγραφα ασφαλείας</string>
 	<string name="common_check_internet_connection_dialog_title">Δεν υπάρχει σύνδεση στο διαδίκτυο</string>

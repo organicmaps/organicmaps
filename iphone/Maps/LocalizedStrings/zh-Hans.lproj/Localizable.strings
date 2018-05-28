@@ -2306,7 +2306,7 @@
 
 "bookmarks_restore_title" = "还原这个版本？";
 
-"bookmarks_restore_message" = "您的书签将从%s个恢复";
+"bookmarks_restore_message" = "您的书签将从%s (%s)个恢复";
 
 "bookmarks_restore_empty_title" = "你没有备份";
 

@@ -1277,7 +1277,7 @@
 	<string name="bookmarks_restore">Ripristina segnalibri</string>
 	<string name="bookmarks_restore_process">Ripristino...</string>
 	<string name="bookmarks_restore_title">Ripristina questa versione?</string>
-	<string name="bookmarks_restore_message">I tuoi segnalibri verranno ripristinati da %s</string>
+	<string name="bookmarks_restore_message">I tuoi segnalibri verranno ripristinati da %1$s (%2$s)</string>
 	<string name="bookmarks_restore_empty_title">Non hai un backup</string>
 	<string name="bookmarks_restore_empty_message">Il server non ha trovato i backup creati in precedenza</string>
 	<string name="common_check_internet_connection_dialog_title">Nessuna connessione internet</string>

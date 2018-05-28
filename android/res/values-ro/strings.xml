@@ -1274,7 +1274,7 @@
 	<string name="bookmarks_restore">Restaurați marcajele</string>
 	<string name="bookmarks_restore_process">Restaurarea...</string>
 	<string name="bookmarks_restore_title">Restabiliți această versiune?</string>
-	<string name="bookmarks_restore_message">Marcajele dvs. vor fi restabilite de la %s</string>
+	<string name="bookmarks_restore_message">Marcajele dvs. vor fi restabilite de la %1$s (%2$s)</string>
 	<string name="bookmarks_restore_empty_title">Nu aveți o copie de rezervă</string>
 	<string name="bookmarks_restore_empty_message">Serverul nu a găsit copii de rezervă create anterior</string>
 	<string name="common_check_internet_connection_dialog_title">Fără conexiune internet</string>

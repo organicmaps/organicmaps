@@ -1283,7 +1283,7 @@
 	<string name="bookmarks_restore">เรียกคืนบุ๊กมาร์ก</string>
 	<string name="bookmarks_restore_process">กำลังกู้คืน...</string>
 	<string name="bookmarks_restore_title">เรียกคืนเวอร์ชันนี้หรือไม่?</string>
-	<string name="bookmarks_restore_message">บุ๊กมาร์กของคุณจะคืนค่าจาก %s</string>
+	<string name="bookmarks_restore_message">บุ๊กมาร์กของคุณจะคืนค่าจาก %1$s (%2$s)</string>
 	<string name="bookmarks_restore_empty_title">คุณไม่มีข้อมูลสำรอง</string>
 	<string name="bookmarks_restore_empty_message">เซิร์ฟเวอร์ไม่พบการสำรองข้อมูลก่อนหน้านี้</string>
 	<string name="common_check_internet_connection_dialog_title">ไม่มีการเชื่อมต่ออินเทอร์เน็ต</string>

@@ -1276,7 +1276,7 @@
 	<string name="bookmarks_restore">Gjenopprett bokmerker</string>
 	<string name="bookmarks_restore_process">Gjenopprette...</string>
 	<string name="bookmarks_restore_title">Gjenopprett denne versjonen?</string>
-	<string name="bookmarks_restore_message">Bokmerkene dine gjenopprettes fra %s</string>
+	<string name="bookmarks_restore_message">Bokmerkene dine gjenopprettes fra %1$s (%2$s)</string>
 	<string name="bookmarks_restore_empty_title">Du har ikke en sikkerhetskopi</string>
 	<string name="bookmarks_restore_empty_message">Serveren fant ikke tidligere sikkerhetskopier</string>
 	<string name="common_check_internet_connection_dialog_title">Ingen internettforbindelse</string>

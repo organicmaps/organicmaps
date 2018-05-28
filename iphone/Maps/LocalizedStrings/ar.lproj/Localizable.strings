@@ -2306,7 +2306,7 @@
 
 "bookmarks_restore_title" = "استعادة هذا الإصدار؟";
 
-"bookmarks_restore_message" = "ستستعيد إشاراتك المرجعية من %s";
+"bookmarks_restore_message" = "ستستعيد إشاراتك المرجعية من %s (%s)";
 
 "bookmarks_restore_empty_title" = "ليس لديك نسخة احتياطية";
 

@@ -2306,7 +2306,7 @@
 
 "bookmarks_restore_title" = "Deze versie herstellen?";
 
-"bookmarks_restore_message" = "Je bladwijzers worden hersteld vanaf %s";
+"bookmarks_restore_message" = "Je bladwijzers worden hersteld vanaf %s (%s)";
 
 "bookmarks_restore_empty_title" = "U hebt geen back-up";
 

@@ -1278,7 +1278,7 @@
 	<string name="bookmarks_restore">Bladwijzers herstellen</string>
 	<string name="bookmarks_restore_process">Herstel van...</string>
 	<string name="bookmarks_restore_title">Deze versie herstellen?</string>
-	<string name="bookmarks_restore_message">Je bladwijzers worden hersteld vanaf %s</string>
+	<string name="bookmarks_restore_message">Je bladwijzers worden hersteld vanaf %1$s (%2$s)</string>
 	<string name="bookmarks_restore_empty_title">U hebt geen back-up</string>
 	<string name="bookmarks_restore_empty_message">De server heeft eerder gemaakte back-ups niet gevonden</string>
 	<string name="common_check_internet_connection_dialog_title">Geen internet verbinding</string>

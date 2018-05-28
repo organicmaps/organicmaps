@@ -2306,7 +2306,7 @@
 
 "bookmarks_restore_title" = "Restaurar esta versión?";
 
-"bookmarks_restore_message" = "Tus marcadores se restaurarán desde %s";
+"bookmarks_restore_message" = "Tus marcadores se restaurarán desde %s (%s)";
 
 "bookmarks_restore_empty_title" = "No tienes una copia de seguridad";
 

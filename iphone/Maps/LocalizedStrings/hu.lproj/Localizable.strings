@@ -2306,7 +2306,7 @@
 
 "bookmarks_restore_title" = "A verzió visszaállítása?";
 
-"bookmarks_restore_message" = "Könyvjelzői %s-ból visszaállnak";
+"bookmarks_restore_message" = "Könyvjelzői %s (%s)-ból visszaállnak";
 
 "bookmarks_restore_empty_title" = "Nincs biztonsági mentése";
 

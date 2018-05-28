@@ -2306,7 +2306,7 @@
 
 "bookmarks_restore_title" = "Bu sürümü geri yükle?";
 
-"bookmarks_restore_message" = "Yer işaretleriniz %s'dan geri yüklenecek";
+"bookmarks_restore_message" = "Yer işaretleriniz %s (%s)'dan geri yüklenecek";
 
 "bookmarks_restore_empty_title" = "Yedekleme yok";
 

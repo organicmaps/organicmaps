@@ -2306,7 +2306,7 @@
 
 "bookmarks_restore_title" = "Gjenopprett denne versjonen?";
 
-"bookmarks_restore_message" = "Bokmerkene dine gjenopprettes fra %s";
+"bookmarks_restore_message" = "Bokmerkene dine gjenopprettes fra %s (%s)";
 
 "bookmarks_restore_empty_title" = "Du har ikke en sikkerhetskopi";
 

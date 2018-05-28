@@ -2306,7 +2306,7 @@
 
 "bookmarks_restore_title" = "Przywróć tę wersję?";
 
-"bookmarks_restore_message" = "Twoje zakładki zostaną przywrócone z %s";
+"bookmarks_restore_message" = "Twoje zakładki zostaną przywrócone z %s (%s)";
 
 "bookmarks_restore_empty_title" = "Nie masz kopii zapasowej";
 

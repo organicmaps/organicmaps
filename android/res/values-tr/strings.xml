@@ -1283,7 +1283,7 @@
 	<string name="bookmarks_restore">Yer işaretlerini geri yükle</string>
 	<string name="bookmarks_restore_process">Geri yükleniyor...</string>
 	<string name="bookmarks_restore_title">Bu sürümü geri yükle?</string>
-	<string name="bookmarks_restore_message">Yer işaretleriniz %s\'dan geri yüklenecek</string>
+	<string name="bookmarks_restore_message">Yer işaretleriniz %1$s (%2$s)\'dan geri yüklenecek</string>
 	<string name="bookmarks_restore_empty_title">Yedekleme yok</string>
 	<string name="bookmarks_restore_empty_message">Sunucu daha önce yapılmış yedeklemeyi bulamadı</string>
 	<string name="common_check_internet_connection_dialog_title">İnternet bağlantısı yok</string>

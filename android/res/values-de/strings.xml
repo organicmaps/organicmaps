@@ -1292,7 +1292,7 @@
 	<string name="bookmarks_restore">Lesezeichen wiederherstellen</string>
 	<string name="bookmarks_restore_process">Wiederherstellen...</string>
 	<string name="bookmarks_restore_title">Diese Version wiederherstellen?</string>
-	<string name="bookmarks_restore_message">Ihre Lesezeichen werden von %s wiederhergestellt</string>
+	<string name="bookmarks_restore_message">Ihre Lesezeichen werden von %1$s (%2$s) wiederhergestellt</string>
 	<string name="bookmarks_restore_empty_title">Sie haben kein Backup</string>
 	<string name="bookmarks_restore_empty_message">Der Server hat zuvor erstellte Sicherungen nicht gefunden</string>
 	<string name="common_check_internet_connection_dialog_title">Keine Internetverbindung</string>

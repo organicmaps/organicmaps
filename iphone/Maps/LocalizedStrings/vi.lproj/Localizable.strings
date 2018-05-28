@@ -2306,7 +2306,7 @@
 
 "bookmarks_restore_title" = "Khôi phục phiên bản này?";
 
-"bookmarks_restore_message" = "Dấu trang của bạn sẽ khôi phục từ %s";
+"bookmarks_restore_message" = "Dấu trang của bạn sẽ khôi phục từ %s (%s)";
 
 "bookmarks_restore_empty_title" = "Bạn không có bản sao lưu";
 

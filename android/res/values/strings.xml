@@ -1339,7 +1339,7 @@
 	<string name="bookmarks_restore"> Restore bookmarks</string>
 	<string name="bookmarks_restore_process"> Restoring...</string>
 	<string name="bookmarks_restore_title"> Restore this version?</string>
-	<string name="bookmarks_restore_message"> Your bookmarks will be restored from %s</string>
+	<string name="bookmarks_restore_message"> Your bookmarks will be restored from %1$s (%2$s)</string>
 	<string name="bookmarks_restore_empty_title"> You don’t have any backups</string>
 	<string name="bookmarks_restore_empty_message"> The server couldn\'t find previously made backups</string>
 	<string name="common_check_internet_connection_dialog_title">No internet connection</string>

@@ -1282,7 +1282,7 @@
 	<string name="bookmarks_restore">Gendan bogmærker</string>
 	<string name="bookmarks_restore_process">Gendannelse...</string>
 	<string name="bookmarks_restore_title">Gendan denne version?</string>
-	<string name="bookmarks_restore_message">Dine bogmærker gendannes fra %s</string>
+	<string name="bookmarks_restore_message">Dine bogmærker gendannes fra %1$s (%2$s)</string>
 	<string name="bookmarks_restore_empty_title">Du har ikke en sikkerhedskopi</string>
 	<string name="bookmarks_restore_empty_message">Serveren fandt ikke tidligere sikkerhedskopier</string>
 	<string name="common_check_internet_connection_dialog_title">Ingen internetforbindelse</string>

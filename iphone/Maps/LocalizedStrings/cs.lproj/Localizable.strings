@@ -2306,7 +2306,7 @@
 
 "bookmarks_restore_title" = "Obnovit tuto verzi?";
 
-"bookmarks_restore_message" = "Záložky se obnoví z %s";
+"bookmarks_restore_message" = "Záložky se obnoví z %s (%s)";
 
 "bookmarks_restore_empty_title" = "Nemáte zálohu";
 

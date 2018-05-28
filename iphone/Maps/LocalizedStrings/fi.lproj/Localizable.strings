@@ -2306,7 +2306,7 @@
 
 "bookmarks_restore_title" = "Palauta tämä versio?";
 
-"bookmarks_restore_message" = "Kirjanmerkit palaavat %s: sta";
+"bookmarks_restore_message" = "Kirjanmerkit palaavat %s (%s): sta";
 
 "bookmarks_restore_empty_title" = "Sinulla ei ole varmuuskopiota";
 

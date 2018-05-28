@@ -1278,7 +1278,7 @@
 	<string name="bookmarks_restore">Könyvjelzők visszaállítása</string>
 	<string name="bookmarks_restore_process">Visszaállítása ...</string>
 	<string name="bookmarks_restore_title">A verzió visszaállítása?</string>
-	<string name="bookmarks_restore_message">Könyvjelzői %s-ból visszaállnak</string>
+	<string name="bookmarks_restore_message">Könyvjelzői %1$s (%2$s)-ból visszaállnak</string>
 	<string name="bookmarks_restore_empty_title">Nincs biztonsági mentése</string>
 	<string name="bookmarks_restore_empty_message">A szerver nem találta a korábban készített biztonsági másolatokat</string>
 	<string name="common_check_internet_connection_dialog_title">Nincs internetkapcsolat</string>

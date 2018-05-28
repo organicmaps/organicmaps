@@ -1287,7 +1287,7 @@
 	<string name="bookmarks_restore">恢復書籤</string>
 	<string name="bookmarks_restore_process">恢復...</string>
 	<string name="bookmarks_restore_title">還原這個版本？</string>
-	<string name="bookmarks_restore_message">您的書籤將從%s個恢復</string>
+	<string name="bookmarks_restore_message">您的書籤將從%1$s (%2$s)個恢復</string>
 	<string name="bookmarks_restore_empty_title">你沒有備份</string>
 	<string name="bookmarks_restore_empty_message">服務器沒有找到以前做的備份</string>
 	<string name="common_check_internet_connection_dialog_title">沒有互聯網連接</string>

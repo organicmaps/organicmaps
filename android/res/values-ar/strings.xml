@@ -1283,7 +1283,7 @@
 	<string name="bookmarks_restore">استعادة الإشارات المرجعية</string>
 	<string name="bookmarks_restore_process">استعادة...</string>
 	<string name="bookmarks_restore_title">استعادة هذا الإصدار؟</string>
-	<string name="bookmarks_restore_message">ستستعيد إشاراتك المرجعية من %s</string>
+	<string name="bookmarks_restore_message">ستستعيد إشاراتك المرجعية من %1$s (%2$s)</string>
 	<string name="bookmarks_restore_empty_title">ليس لديك نسخة احتياطية</string>
 	<string name="bookmarks_restore_empty_message">لم يعثر الخادم على نسخ احتياطية سابقة</string>
 	<string name="common_check_internet_connection_dialog_title">لا يوجد اتصال بالإنترنت</string>

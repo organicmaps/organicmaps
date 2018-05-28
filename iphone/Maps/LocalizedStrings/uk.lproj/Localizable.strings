@@ -2306,7 +2306,7 @@
 
 "bookmarks_restore_title" = "Відновити цю версію?";
 
-"bookmarks_restore_message" = "Ваші закладки відновлюватимуться з %s";
+"bookmarks_restore_message" = "Ваші закладки відновлюватимуться з %s (%s)";
 
 "bookmarks_restore_empty_title" = "У вас немає резервної копії";
 

@@ -2306,7 +2306,7 @@
 
 "bookmarks_restore_title" = "Επαναφορά αυτής της έκδοσης;";
 
-"bookmarks_restore_message" = "Οι σελιδοδείκτες σας θα αποκατασταθούν από το %s";
+"bookmarks_restore_message" = "Οι σελιδοδείκτες σας θα αποκατασταθούν από το %s (%s)";
 
 "bookmarks_restore_empty_title" = "Δεν διαθέτετε αντίγραφο ασφαλείας";
 

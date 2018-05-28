@@ -1278,7 +1278,7 @@
 	<string name="bookmarks_restore">Palauta kirjanmerkit</string>
 	<string name="bookmarks_restore_process">Palautetaan...</string>
 	<string name="bookmarks_restore_title">Palauta tämä versio?</string>
-	<string name="bookmarks_restore_message">Kirjanmerkit palaavat %s: sta</string>
+	<string name="bookmarks_restore_message">Kirjanmerkit palaavat %1$s (%2$s): sta</string>
 	<string name="bookmarks_restore_empty_title">Sinulla ei ole varmuuskopiota</string>
 	<string name="bookmarks_restore_empty_message">Palvelin ei löytänyt aiemmin tehtyjä varmuuskopioita</string>
 	<string name="common_check_internet_connection_dialog_title">Ei Internet-yhteyttä</string>

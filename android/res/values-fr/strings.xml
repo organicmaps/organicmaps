@@ -1292,7 +1292,7 @@
 	<string name="bookmarks_restore">Restaurer les favoris</string>
 	<string name="bookmarks_restore_process">Restaurer...</string>
 	<string name="bookmarks_restore_title">Restaurer cette version?</string>
-	<string name="bookmarks_restore_message">Vos marque-pages restaureront à partir de %s</string>
+	<string name="bookmarks_restore_message">Vos marque-pages restaureront à partir de %1$s (%2$s)</string>
 	<string name="bookmarks_restore_empty_title">Vous n\'avez pas de sauvegarde</string>
 	<string name="bookmarks_restore_empty_message">Le serveur n\'a pas trouvé de sauvegardes effectuées précédemment</string>
 	<string name="common_check_internet_connection_dialog_title">Pas de connexion Internet</string>

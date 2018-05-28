@@ -1276,7 +1276,7 @@
 	<string name="bookmarks_restore">ブックマークを復元する</string>
 	<string name="bookmarks_restore_process">復元中...</string>
 	<string name="bookmarks_restore_title">このバージョンを復元しますか？</string>
-	<string name="bookmarks_restore_message">ブックマークは%sから復元されます</string>
+	<string name="bookmarks_restore_message">ブックマークは%1$s (%2$s)から復元されます</string>
 	<string name="bookmarks_restore_empty_title">あなたはバックアップを持っていません</string>
 	<string name="bookmarks_restore_empty_message">サーバーは以前に作成したバックアップを見つけられませんでした</string>
 	<string name="common_check_internet_connection_dialog_title">インターネット接続なし</string>

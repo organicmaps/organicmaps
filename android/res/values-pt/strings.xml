@@ -1281,7 +1281,7 @@
 	<string name="bookmarks_restore">Restaurar marcadores</string>
 	<string name="bookmarks_restore_process">Restaurando...</string>
 	<string name="bookmarks_restore_title">Restaurar esta versão?</string>
-	<string name="bookmarks_restore_message">Seus favoritos serão restaurados a partir de %s</string>
+	<string name="bookmarks_restore_message">Seus favoritos serão restaurados a partir de %1$s (%2$s)</string>
 	<string name="bookmarks_restore_empty_title">Você não tem um backup</string>
 	<string name="bookmarks_restore_empty_message">O servidor não encontrou backups feitos anteriormente</string>
 	<string name="common_check_internet_connection_dialog_title">Sem conexão com a internet</string>

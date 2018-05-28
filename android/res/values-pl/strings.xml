@@ -1282,7 +1282,7 @@
 	<string name="bookmarks_restore">Przywróć zakładki</string>
 	<string name="bookmarks_restore_process">Przywracanie...</string>
 	<string name="bookmarks_restore_title">Przywróć tę wersję?</string>
-	<string name="bookmarks_restore_message">Twoje zakładki zostaną przywrócone z %s</string>
+	<string name="bookmarks_restore_message">Twoje zakładki zostaną przywrócone z %1$s (%2$s)</string>
 	<string name="bookmarks_restore_empty_title">Nie masz kopii zapasowej</string>
 	<string name="bookmarks_restore_empty_message">Serwer nie znalazł wcześniej utworzonych kopii zapasowych</string>
 	<string name="common_check_internet_connection_dialog_title">Brak połączenia z internetem</string>

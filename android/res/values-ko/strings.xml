@@ -1273,7 +1273,7 @@
 	<string name="bookmarks_restore">북마크 복원</string>
 	<string name="bookmarks_restore_process">복원 중...</string>
 	<string name="bookmarks_restore_title">이 버전을 복원 하시겠습니까?</string>
-	<string name="bookmarks_restore_message">북마크가 %s에서 복원됩니다.</string>
+	<string name="bookmarks_restore_message">북마크가 %1$s (%2$s)에서 복원됩니다.</string>
 	<string name="bookmarks_restore_empty_title">백업이 없습니다.</string>
 	<string name="bookmarks_restore_empty_message">서버가 이전에 만들어진 백업을 찾지 못했습니다.</string>
 	<string name="common_check_internet_connection_dialog_title">인터넷에 연결되지 않음</string>
