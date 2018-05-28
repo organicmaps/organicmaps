@@ -11,7 +11,7 @@ protocol WelcomePageControllerProtocol {
 
 @objc(MWMWelcomePageController)
 final class WelcomePageController: UIPageViewController {
-  
+
   fileprivate var controllers: [UIViewController] = []
   private var parentController: WelcomePageControllerProtocol!
   private var iPadBackgroundView: SolidTouchView?
@@ -133,10 +133,6 @@ extension WelcomePageController: UIPageViewControllerDataSource {
 }
 
 extension WelcomePageController: WelcomeViewControllerDelegate {
-  func viewSize() -> CGSize {
-    return view.size
-  }
-  
   func welcomeViewControllerDidPressNext(_ viewContoller: WelcomeViewController) {
     guard let index = controllers.index(of: viewContoller) else {
       close()

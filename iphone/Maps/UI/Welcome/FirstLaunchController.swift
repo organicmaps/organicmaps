@@ -1,40 +1,41 @@
-fileprivate struct FirstLaunchConfig: WelcomeConfig {
-  let image: UIImage
-  let title: String
-  let text: String
-  let buttonTitle: String
-  let requestLocationPermission: Bool
-  let requestNotificationsPermission: Bool
-}
-
 final class FirstLaunchController: WelcomeViewController {
 
+  private enum Permission {
+    case location
+    case notifications
+    case nothing
+  }
+  
+  private struct FirstLaunchConfig: WelcomeConfig {
+    let image: UIImage
+    let title: String
+    let text: String
+    let buttonTitle: String
+    let requestPermission: Permission
+  }
+  
   static var welcomeConfigs: [WelcomeConfig] {
     return [
       FirstLaunchConfig(image: #imageLiteral(resourceName: "img_onboarding_offline_maps"),
                         title: "onboarding_offline_maps_title",
                         text: "onboarding_offline_maps_message",
                         buttonTitle: "whats_new_next_button",
-                        requestLocationPermission: false,
-                        requestNotificationsPermission: false),
+                        requestPermission: .nothing),
       FirstLaunchConfig(image: #imageLiteral(resourceName: "img_onboarding_geoposition"),
                         title: "onboarding_location_title",
                         text: "onboarding_location_message",
                         buttonTitle: "whats_new_next_button",
-                        requestLocationPermission: false,
-                        requestNotificationsPermission: false),
+                        requestPermission: .nothing),
       FirstLaunchConfig(image: #imageLiteral(resourceName: "img_onboarding_notification"),
                         title: "onboarding_notifications_title",
                         text: "onboarding_notifications_message",
                         buttonTitle: "whats_new_next_button",
-                        requestLocationPermission: true,
-                        requestNotificationsPermission: false),
+                        requestPermission: .location),
       FirstLaunchConfig(image: #imageLiteral(resourceName: "img_onboarding_done"),
                         title: "first_launch_congrats_title",
                         text: "first_launch_congrats_text",
                         buttonTitle: "done",
-                        requestLocationPermission: false,
-                        requestNotificationsPermission: true)
+                        requestPermission: .notifications)
     ]
   }
 
@@ -53,13 +54,14 @@ final class FirstLaunchController: WelcomeViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    if let config = pageConfig as? FirstLaunchConfig {
-      if config.requestLocationPermission {
-        MWMLocationManager.start()
-      }
-      if config.requestNotificationsPermission {
-        MWMPushNotifications.setup(nil)
-      }
+    let config = pageConfig as! FirstLaunchConfig
+    switch config.requestPermission {
+    case .location:
+      MWMLocationManager.start()
+    case .notifications:
+      MWMPushNotifications.setup(nil)
+    case .nothing:
+      break
     }
   }
 

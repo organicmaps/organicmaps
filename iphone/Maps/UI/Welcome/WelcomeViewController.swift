@@ -8,7 +8,6 @@ protocol WelcomeConfig {
 protocol WelcomeViewControllerDelegate: class {
   func welcomeViewControllerDidPressNext(_ viewContoller: WelcomeViewController)
   func welcomeViewControllerDidPressClose(_ viewContoller: WelcomeViewController)
-  func viewSize() -> CGSize
 }
 
 class WelcomeViewController: MWMViewController {
