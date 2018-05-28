@@ -23,7 +23,15 @@ namespace
     return FLAGS_##name;                                                      \
   }
 
-DEFINE_string_ext(cmd, "", "command: match, info, cpptrack");
+DEFINE_string_ext(cmd, "",
+                  "command:\n"
+                  "match - based on raw logs gathers points to tracks and matchs them to features\n"
+                  "unmatched_tracks - based on raw logs gathers points to tracks "
+                  "and save tracks to csv. Track points save as lat, log, timestamp in seconds\n"
+                  "tracks - prints track statistics\n"
+                  "track - prints info about single track\n"
+                  "cpptrack - prints track coords to insert them to cpp code\n"
+                  "table - prints csv table based on matched tracks\n");
 DEFINE_string_ext(in, "", "input log file name");
 DEFINE_string(out, "", "output track file name");
 DEFINE_string_ext(mwm, "", "short mwm name");
@@ -66,6 +74,8 @@ void CmdCppTrack(string const & trackFile, string const & mwmName, string const 
                  size_t trackIdx);
 // Match raw gps logs to tracks.
 void CmdMatch(string const & logFile, string const & trackFile);
+// Parse |logFile| and save tracks (mwm name, aloha id, lats, lons, timestamps in seconds in csv).
+void CmdUnmatchedTracks(string const & logFile, string const & trackFileCsv);
 // Print aggregated tracks to csv table.
 void CmdTagsTable(string const & filepath, string const & trackExtension,
                   StringFilter mwmIsFiltered, StringFilter userFilter);
@@ -92,6 +102,11 @@ int main(int argc, char ** argv)
     {
       string const & logFile = Checked_in();
       CmdMatch(logFile, FLAGS_out.empty() ? logFile + ".track" : FLAGS_out);
+    }
+    else if (cmd == "unmatched_tracks")
+    {
+      string const & logFile = Checked_in();
+      CmdUnmatchedTracks(logFile, FLAGS_out.empty() ? logFile + ".track.csv" : FLAGS_out);
     }
     else if (cmd == "tracks")
     {

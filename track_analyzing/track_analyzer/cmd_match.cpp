@@ -1,18 +1,14 @@
-#include "track_analyzing/log_parser.hpp"
 #include "track_analyzing/serialization.hpp"
 #include "track_analyzing/track.hpp"
+#include "track_analyzing/track_analyzer/utils.hpp"
 #include "track_analyzing/track_matcher.hpp"
 #include "track_analyzing/utils.hpp"
 
 #include "routing_common/num_mwm_id.hpp"
 
-#include "storage/country_info_getter.hpp"
-#include "storage/routing_helpers.hpp"
 #include "storage/storage.hpp"
 
 #include "platform/platform.hpp"
-
-#include "geometry/tree4d.hpp"
 
 #include "base/logging.hpp"
 #include "base/timer.hpp"
@@ -86,21 +82,10 @@ namespace track_analyzing
 void CmdMatch(string const & logFile, string const & trackFile)
 {
   LOG(LINFO, ("Matching", logFile));
-
+  shared_ptr<NumMwmIds> numMwmIds;
   storage::Storage storage;
-  storage.RegisterAllLocalMaps(false /* enableDiffs */);
-  shared_ptr<NumMwmIds> numMwmIds = CreateNumMwmIds(storage);
-
-  Platform const & platform = GetPlatform();
-  string const dataDir = platform.WritableDir();
-
-  unique_ptr<storage::CountryInfoGetter> countryInfoGetter =
-      storage::CountryInfoReader::CreateCountryInfoReader(platform);
-  unique_ptr<m4::Tree<NumMwmId>> mwmTree = MakeNumMwmTree(*numMwmIds, *countryInfoGetter);
-
-  LogParser parser(numMwmIds, move(mwmTree), dataDir);
   MwmToTracks mwmToTracks;
-  parser.Parse(logFile, mwmToTracks);
+  ParseTracks(logFile, numMwmIds, storage, mwmToTracks);
 
   MwmToMatchedTracks mwmToMatchedTracks;
   MatchTracks(mwmToTracks, storage, *numMwmIds, mwmToMatchedTracks);

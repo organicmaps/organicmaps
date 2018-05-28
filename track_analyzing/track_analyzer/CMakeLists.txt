@@ -9,7 +9,10 @@ set(
   cmd_table.cpp
   cmd_track.cpp
   cmd_tracks.cpp
+  cmd_unmatched_tracks.cpp
   track_analyzer.cpp
+  utils.cpp
+  utils.hpp
 )
 
 omim_add_executable(${PROJECT_NAME} ${SRC})
