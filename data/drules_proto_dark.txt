@@ -11004,6 +11004,14 @@ cont {
 cont {
   name: "event-fc2018"
   element {
+    scale: 12
+    symbol {
+      name: "wfc_bus-s"
+      priority: 16955
+    }
+    apply_if: "extra_tag=amenity=bus_station"
+  }
+  element {
     scale: 13
     symbol {
       name: "wfc_stadium"
@@ -11019,6 +11027,22 @@ cont {
       priority: 15955
     }
     apply_if: "extra_tag=leisure=stadium"
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "wfc_bus-s"
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=amenity=bus_station"
   }
   element {
     scale: 14
@@ -11038,6 +11062,39 @@ cont {
     apply_if: "extra_tag=leisure=stadium"
   }
   element {
+    scale: 14
+    symbol {
+      name: "wfc_bus-s"
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=amenity=bus_station"
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "wfc_tram-s"
+      apply_for_type: 1
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=railway=tram_stop"
+  }
+  element {
     scale: 15
     symbol {
       name: "wfc_stadium"
@@ -11106,6 +11163,38 @@ cont {
     apply_if: "extra_tag=shop=gift"
   }
   element {
+    scale: 15
+    symbol {
+      name: "wfc_tram-m"
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=railway=tram_stop"
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "wfc_bus-m"
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=amenity=bus_station"
+  }
+  element {
     scale: 16
     symbol {
       name: "wfc_stadium"
@@ -11174,6 +11263,54 @@ cont {
     apply_if: "extra_tag=shop=gift"
   }
   element {
+    scale: 16
+    symbol {
+      name: "wfc_tram-m"
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=railway=tram_stop"
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "wfc_bus-m"
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=amenity=bus_station"
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "wfc_bus-m"
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=highway=bus_stop"
+  }
+  element {
     scale: 17
     symbol {
       name: "wfc_stadium"
@@ -11242,6 +11379,71 @@ cont {
     apply_if: "extra_tag=shop=gift"
   }
   element {
+    scale: 17
+    symbol {
+      name: "wfc_tram-m"
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=railway=tram_stop"
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "wfc_bus-m"
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=amenity=bus_station"
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "wfc_bus-m"
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=highway=bus_stop"
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "subway-entrance-m"
+      apply_for_type: 1
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=railway=subway_entrance"
+  }
+  element {
     scale: 18
     symbol {
       name: "wfc_stadium"
@@ -11310,6 +11512,71 @@ cont {
     apply_if: "extra_tag=shop=gift"
   }
   element {
+    scale: 18
+    symbol {
+      name: "wfc_tram-m"
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=railway=tram_stop"
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "wfc_bus-m"
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=amenity=bus_station"
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "wfc_bus-m"
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=highway=bus_stop"
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "subway-entrance-m"
+      apply_for_type: 1
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=railway=subway_entrance"
+  }
+  element {
     scale: 19
     symbol {
       name: "wfc_stadium"
@@ -11376,6 +11643,71 @@ cont {
       priority: 15955
     }
     apply_if: "extra_tag=shop=gift"
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "wfc_tram-m"
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=railway=tram_stop"
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "wfc_bus-m"
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=amenity=bus_station"
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "wfc_bus-m"
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=highway=bus_stop"
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "subway-entrance-m"
+      apply_for_type: 1
+      priority: 16955
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15955
+    }
+    apply_if: "extra_tag=railway=subway_entrance"
   }
 }
 cont {
@@ -62891,6 +63223,84 @@ cont {
   }
 }
 cont {
+  name: "sponsored-partner10"
+  element {
+    scale: 15
+    symbol {
+      name: "partner10-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "partner10-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "partner10-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "partner10-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "partner10-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
   name: "sponsored-partner2"
   element {
     scale: 14
@@ -62980,6 +63390,396 @@ cont {
         offset_y: 1
       }
       priority: 15529
+    }
+  }
+}
+cont {
+  name: "sponsored-partner4"
+  element {
+    scale: 15
+    symbol {
+      name: "partner4-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "partner4-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "partner4-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "partner4-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "partner4-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "sponsored-partner6"
+  element {
+    scale: 15
+    symbol {
+      name: "partner6-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "partner6-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "partner6-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "partner6-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "partner6-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "sponsored-partner7"
+  element {
+    scale: 15
+    symbol {
+      name: "partner7-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "partner7-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "partner7-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "partner7-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "partner7-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "sponsored-partner8"
+  element {
+    scale: 15
+    symbol {
+      name: "partner8-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "partner8-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "partner8-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "partner8-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "partner8-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+}
+cont {
+  name: "sponsored-partner9"
+  element {
+    scale: 15
+    symbol {
+      name: "partner9-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "partner9-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "partner9-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 10
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "partner9-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "partner9-l"
+      priority: 16000
+    }
+    caption {
+      primary {
+        height: 11
+        color: 5592405
+        offset_y: 1
+      }
+      priority: 15000
     }
   }
 }
