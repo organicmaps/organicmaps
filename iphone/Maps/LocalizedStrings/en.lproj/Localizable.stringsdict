@@ -59,5 +59,56 @@
       <string>%d files were found. You can see them after conversion.</string>
     </dict>
   </dict>
+
+  <key>objects</key>
+  <dict>
+    <key>NSStringLocalizedFormatKey</key>
+    <string>%#@value@</string>
+    <key>value</key>
+    <dict>
+      <key>NSStringFormatSpecTypeKey</key>
+      <string>NSStringPluralRuleType</string>
+      <key>NSStringFormatValueTypeKey</key>
+      <string>d</string>
+      <key>one</key>
+      <string>%d object</string>
+      <key>other</key>
+      <string>%d objects</string>
+    </dict>
+  </dict>
+
+  <key>places</key>
+  <dict>
+    <key>NSStringLocalizedFormatKey</key>
+    <string>%#@value@</string>
+    <key>value</key>
+    <dict>
+      <key>NSStringFormatSpecTypeKey</key>
+      <string>NSStringPluralRuleType</string>
+      <key>NSStringFormatValueTypeKey</key>
+      <string>d</string>
+      <key>one</key>
+      <string>%d place</string>
+      <key>other</key>
+      <string>%d places</string>
+    </dict>
+  </dict>
+
+  <key>tracks</key>
+  <dict>
+    <key>NSStringLocalizedFormatKey</key>
+    <string>%#@value@</string>
+    <key>value</key>
+    <dict>
+      <key>NSStringFormatSpecTypeKey</key>
+      <string>NSStringPluralRuleType</string>
+      <key>NSStringFormatValueTypeKey</key>
+      <string>d</string>
+      <key>one</key>
+      <string>%d track</string>
+      <key>other</key>
+      <string>%d tracks</string>
+    </dict>
+  </dict>
 </dict>
 </plist>

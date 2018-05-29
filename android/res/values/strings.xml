@@ -1337,4 +1337,26 @@
 	<string name="sign_agree_pp_gdpr">I agree to the <a href="https://legal.my.com/us/maps/privacy/">Privacy Policy</a></string>
 	<string name="sign_agree_tof_gdpr">I agree to the <a href="https://legal.my.com/us/maps/tou/">Terms of Use</a></string>
 	<string name="sign_agree_news_gdpr">I agree to receive the latest news about MAPS.ME products</string>
+	<string name="bookmarks_page_downloaded">Downloaded</string>
+	<string name="bookmarks_page_my">My</string>
+	<string name="routes_and_bookmarks">Routes and bookmarks</string>
+	<string name="bookmarks_webview_success_toast">Bookmarks succesfully downloaded</string>
+	<string name="cached_bookmarks_placeholder_title">Download new places</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.</string>
+	<string name="downloader_download_routers">Download bookmarks</string>
+	<string name="bookmarks_groups_cached">Downloaded lists</string>
+	<string name="author_name_by_prefix">by %s</string>
+	<string name="bookmarks_objects">objects</string>
+	<plurals name="objects">
+	  <item quantity="one">%d object</item>
+	  <item quantity="other">%d objects</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="one">%d place</item>
+	  <item quantity="other">%d places</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="one">%d track</item>
+	  <item quantity="other">%d tracks</item>
+	</plurals>
 </resources>

@@ -1326,4 +1326,14 @@
 	<string name="sign_agree_pp_gdpr">Я согласен с <a href="https://legal.my.com/us/maps/privacy/">Политикой конфиденциальности</a></string>
 	<string name="sign_agree_tof_gdpr">Я согласен с <a href="https://legal.my.com/us/maps/tou/">Условиями использования</a></string>
 	<string name="sign_agree_news_gdpr">Я согласен получать последние новости о MAPS.ME</string>
+	<string name="bookmarks_page_downloaded">Загруженные</string>
+	<string name="bookmarks_page_my">Мои</string>
+	<string name="routes_and_bookmarks">Маршруты и метки</string>
+	<string name="bookmarks_webview_success_toast">Метки успешно загружены</string>
+	<string name="cached_bookmarks_placeholder_title">Загрузите новые места</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Нажмите кнопку, чтобы загрузить тысячи интересных мест и маршрутов, созданных пользователями MAPS.ME. Вам понадобится подключение к интернету.</string>
+	<string name="downloader_download_routers">Загрузить метки</string>
+	<string name="bookmarks_groups_cached">Загруженные списки</string>
+	<string name="author_name_by_prefix">%s</string>
+	<string name="bookmarks_objects">объектов</string>
 </resources>

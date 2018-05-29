@@ -2301,3 +2301,23 @@
 "sign_agree_tof_gdpr" = "<a href=\"https://legal.my.com/us/maps/tou/\">이용 약관</a>에 동의합니다.";
 
 "sign_agree_news_gdpr" = "MAPS.ME 제품에 대한 최신 뉴스를받는 것에 동의합니다.";
+
+"bookmarks_page_downloaded" = "Downloaded";
+
+"bookmarks_page_my" = "My";
+
+"routes_and_bookmarks" = "Routes and bookmarks";
+
+"bookmarks_webview_success_toast" = "Bookmarks succesfully downloaded";
+
+"cached_bookmarks_placeholder_title" = "Download new places";
+
+"cached_bookmarks_placeholder_subtitle" = "Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.";
+
+"downloader_download_routers" = "Download bookmarks";
+
+"bookmarks_groups_cached" = "Downloaded lists";
+
+"author_name_by_prefix" = "by %s";
+
+"bookmarks_objects" = "objects";

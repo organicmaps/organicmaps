@@ -2301,3 +2301,23 @@
 "sign_agree_tof_gdpr" = "Я согласен с <a href=\"https://legal.my.com/us/maps/tou/\">Условиями использования</a>";
 
 "sign_agree_news_gdpr" = "Я согласен получать последние новости о MAPS.ME";
+
+"bookmarks_page_downloaded" = "Загруженные";
+
+"bookmarks_page_my" = "Мои";
+
+"routes_and_bookmarks" = "Маршруты и метки";
+
+"bookmarks_webview_success_toast" = "Метки успешно загружены";
+
+"cached_bookmarks_placeholder_title" = "Загрузите новые места";
+
+"cached_bookmarks_placeholder_subtitle" = "Нажмите кнопку, чтобы загрузить тысячи интересных мест и маршрутов, созданных пользователями MAPS.ME. Вам понадобится подключение к интернету.";
+
+"downloader_download_routers" = "Загрузить метки";
+
+"bookmarks_groups_cached" = "Загруженные списки";
+
+"author_name_by_prefix" = "%s";
+
+"bookmarks_objects" = "объектов";
