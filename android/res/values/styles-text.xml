@@ -192,8 +192,9 @@
     <item name="android:textColor">?bannerText</item>
   </style>
 
-  <style name="MwmTextAppearance.Tab" parent="MwmTextAppearance.Body4">
+  <style name="MwmTextAppearance.Tab" parent="MwmTextAppearance.Body3">
     <item name="android:textAllCaps">true</item>
+    <item name="android:textColor">@color/white_secondary</item>
   </style>
 
   <style name="MwmTextAppearance.Discovery.Subtitle" parent="MwmTextAppearance.Body3">

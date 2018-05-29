@@ -24,12 +24,6 @@ class TabAdapter extends FragmentPagerAdapter
     HISTORY
     {
       @Override
-      public int getIconRes()
-      {
-        return R.drawable.ic_search_tab_history;
-      }
-
-      @Override
       public int getTitleRes()
       {
         return R.string.history;
@@ -45,12 +39,6 @@ class TabAdapter extends FragmentPagerAdapter
     CATEGORIES
     {
       @Override
-      public int getIconRes()
-      {
-        return R.drawable.ic_search_tab_categories;
-      }
-
-      @Override
       public int getTitleRes()
       {
         return R.string.categories;
@@ -63,7 +51,6 @@ class TabAdapter extends FragmentPagerAdapter
       }
     };
 
-    public abstract int getIconRes();
     public abstract int getTitleRes();
     public abstract Class<? extends Fragment> getFragmentClass();
   }
@@ -85,7 +72,7 @@ class TabAdapter extends FragmentPagerAdapter
     {
       super.onPageSelected(position);
       if (mTabSelectedListener != null)
-        mTabSelectedListener.onTabSelected(TABS[position]);
+        mTabSelectedListener.onTabSelected(Tab.values()[position]);
     }
   }
 
@@ -115,8 +102,6 @@ class TabAdapter extends FragmentPagerAdapter
     }
   }
 
-  static final Tab[] TABS = Tab.values();
-
   private final ViewPager mPager;
   private final List<Class<? extends Fragment>> mClasses = new ArrayList<>();
   private final SparseArray<Fragment> mFragments = new SparseArray<>();
@@ -126,7 +111,7 @@ class TabAdapter extends FragmentPagerAdapter
   {
     super(fragmentManager);
 
-    for (Tab tab : TABS)
+    for (Tab tab : Tab.values())
       mClasses.add(tab.getFragmentClass());
 
     final List<Fragment> fragments = fragmentManager.getFragments();
@@ -160,14 +145,11 @@ class TabAdapter extends FragmentPagerAdapter
   {
     final Context context = tabs.getContext();
 
-    for (Tab tab : TABS)
+    for (Tab tab : Tab.values())
     {
       TabLayout.Tab t = tabs.newTab();
-      t.setIcon(tab.getIconRes());
       t.setText(tab.getTitleRes());
       tabs.addTab(t, false);
-      tabs.setTabTextColors(getTabTextColor(context));
-      Graphics.tint(context, t.getIcon());
     }
 
     ViewPager.OnPageChangeListener listener = new PageChangedListener(tabs);

@@ -245,4 +245,5 @@
   <!-- Bookmarks-->
   <dimen name="bookmark_hide_btn_padding_top">22dp</dimen>
   <dimen name="bookmark_recycler_view_bottom_margin">80dp</dimen>
+  <dimen name="dp_0">0dp</dimen>
 </resources>

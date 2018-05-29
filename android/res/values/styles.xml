@@ -311,10 +311,12 @@
 
   <style name="MwmWidget.TabLayout" parent="Widget.Design.TabLayout">
     <item name="tabMaxWidth">0dp</item>
-    <item name="tabIndicatorColor">?colorAccent</item>
     <item name="tabTextAppearance">@style/MwmTextAppearance.Tab</item>
     <item name="tabMode">fixed</item>
     <item name="tabGravity">fill</item>
+    <item name="tabBackground">?colorPrimary</item>
+    <item name="tabIndicatorColor">@color/white_primary</item>
+    <item name="tabSelectedTextColor">@color/white_primary</item>
   </style>
 
   <style name="MwmWidget.Downloader.ToolbarButton">
