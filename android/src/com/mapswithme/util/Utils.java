@@ -468,6 +468,28 @@ public class Utils
     return INVALID_ID;
   }
 
+  /**
+   * Returns a string value for the specified key. If the value is not found then its key will be
+   * returned.
+   *
+   * @return string value or its key if there is no string for the specified key.
+   */
+  @NonNull
+  public static String getStringValueByKey(@NonNull Context context, @NonNull String key)
+  {
+    @StringRes
+    int id = getStringIdByKey(context, key);
+    try
+    {
+      return context.getString(id);
+    }
+    catch (Resources.NotFoundException e)
+    {
+      LOGGER.e(TAG, "Failed to get value for string '" + key + "'", e);
+    }
+    return key;
+  }
+
   @NonNull
   public static String getDeviceName()
   {

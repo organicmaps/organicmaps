@@ -8,7 +8,6 @@ import android.support.annotation.ArrayRes;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -107,11 +106,8 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
 
       String[] titles = new String[length];
       for (int i = 0; i < length; i++)
-      {
-        @StringRes
-        int id = res.getIdentifier(keys[i], "string", getContext().getPackageName());
-        titles[i] = res.getString(id);
-      }
+        titles[i] = Utils.getStringValueByKey(getContext(), keys[i]);
+
       return titles;
     }
 
