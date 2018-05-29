@@ -188,15 +188,9 @@ std::string TimestampToString(Timestamp const & timestamp)
 void SaveLocalizableString(KmlWriter::WriterWrapper & writer, LocalizableString const & str,
                            std::string const & tagName, std::string const & offsetStr)
 {
-  if ((tagName == "name" || tagName == "description") && str.size() == 1 && str.begin()->first == kDefaultLang)
-    return;
-
   writer << offsetStr << "<mwm:" << tagName << ">\n";
   for (auto const & s : str)
   {
-    if (s.first == kDefaultLang && (tagName == "name" || tagName == "description"))
-      continue;
-
     writer << offsetStr << kIndent2 << "<mwm:lang code=\""
            << StringUtf8Multilang::GetLangByCode(s.first) << "\">";
     SaveStringWithCDATA(writer, s.second);
@@ -343,7 +337,7 @@ void SaveCategoryData(KmlWriter::WriterWrapper & writer, CategoryData const & ca
 
 void SaveBookmarkExtendedData(KmlWriter::WriterWrapper & writer, BookmarkData const & bookmarkData)
 {
-  if (bookmarkData.m_name.size() < 2 && bookmarkData.m_description.size() < 2 &&
+  if (bookmarkData.m_name.empty() && bookmarkData.m_description.empty() &&
       bookmarkData.m_customName.empty() && bookmarkData.m_viewportScale == 0 &&
       bookmarkData.m_icon == BookmarkIcon::None && bookmarkData.m_featureTypes.empty() &&
       bookmarkData.m_boundTracks.empty())
@@ -389,7 +383,8 @@ void SaveBookmarkData(KmlWriter::WriterWrapper & writer, BookmarkData const & bo
 {
   writer << kIndent2 << "<Placemark>\n";
   writer << kIndent4 << "<name>";
-  SaveStringWithCDATA(writer, GetLocalizableString(bookmarkData.m_name, kDefaultLang));
+  std::string const defaultLang = StringUtf8Multilang::GetLangByCode(kDefaultLangCode);
+  SaveStringWithCDATA(writer, GetPreferredBookmarkName(bookmarkData, defaultLang, defaultLang));
   writer << "</name>\n";
 
   if (!bookmarkData.m_description.empty())
@@ -714,6 +709,14 @@ void KmlParser::Pop(std::string const & tag)
         data.m_featureTypes = std::move(m_featureTypes);
         data.m_customName = std::move(m_customName);
         data.m_boundTracks = std::move(m_boundTracks);
+
+        // Here we set custom name from 'name' field for KML-files exported from 3rd-party services.
+        if (data.m_name.size() == 1 && data.m_name.begin()->first == kDefaultLangCode &&
+            data.m_customName.empty() && data.m_featureTypes.empty())
+        {
+          data.m_customName = data.m_name;
+        }
+
         m_data.m_bookmarksData.push_back(std::move(data));
       }
       else if (GEOMETRY_TYPE_LINE == m_geometryType)
@@ -859,7 +862,9 @@ void KmlParser::CharData(std::string value)
     {
       if (currTag == "name")
       {
-        m_name[kDefaultLang] = value;
+        // Use this name only if we have not read name from extended data yet.
+        if (m_name.find(kDefaultLang) == m_name.end())
+          m_name[kDefaultLang] = value;
       }
       else if (currTag == kStyleUrl)
       {

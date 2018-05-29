@@ -7,6 +7,7 @@ set(
   serdes.hpp
   serdes_binary.cpp
   serdes_binary.hpp
+  type_utils.cpp
   type_utils.hpp
   types.hpp
   visitors.hpp

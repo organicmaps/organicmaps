@@ -1,5 +1,7 @@
 #pragma once
 
+#include "indexer/feature.hpp"
+
 #include "geometry/point2d.hpp"
 
 #include <cstdint>
@@ -8,6 +10,7 @@
 #include <map>
 #include <set>
 #include <sstream>
+#include <string>
 #include <vector>
 #include <unordered_map>
 
@@ -48,22 +51,6 @@ inline Timestamp FromSecondsSinceEpoch(uint64_t seconds)
   return Timestamp(std::chrono::seconds(seconds));
 }
 
-inline bool IsEqual(std::vector<m2::PointD> const & v1,
-                    std::vector<m2::PointD> const & v2)
-{
-  if (v1.size() != v2.size())
-    return false;
-
-  double constexpr kEps = 1e-5;
-  for (size_t i = 0; i < v1.size(); ++i)
-  {
-    if (!v1[i].EqualDxDy(v2[i], kEps))
-      return false;
-  }
-
-  return true;
-}
-
 inline bool IsEqual(Timestamp const & ts1, Timestamp const & ts2)
 {
   return ToSecondsSinceEpoch(ts1) == ToSecondsSinceEpoch(ts2);
@@ -87,6 +74,16 @@ inline void SetDefaultStr(LocalizableString & localizableStr, std::string const 
 {
   localizableStr[kDefaultLangCode] = str;
 }
+
+extern bool IsEqual(std::vector<m2::PointD> const & v1, std::vector<m2::PointD> const & v2);
+
+struct BookmarkData;
+std::string GetPreferredBookmarkName(BookmarkData const & bmData, std::string const & languageNorm,
+                                     std::string const & languageOrig);
+std::string GetPreferredBookmarkStr(LocalizableString const & name, std::string const & languageNorm);
+std::string GetPreferredBookmarkStr(LocalizableString const & name, feature::RegionData const & regionData,
+                                    std::string const & languageNorm);
+std::string GetLocalizedBookmarkType(std::vector<uint32_t> const & types, std::string const & languageOrig);
 
 #define DECLARE_COLLECTABLE(IndexType, ...)            \
   IndexType m_collectionIndex;                         \
