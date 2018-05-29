@@ -277,7 +277,7 @@ extension BMCDefaultViewModel: MWMBookmarksObserver {
     }
   }
 
-  func onRestoringRequest(_ result: MWMRestoringRequestResult, backupDate date: Date?) {
+  func onRestoringRequest(_ result: MWMRestoringRequestResult, deviceName name: String?, backupDate date: Date?) {
     MWMAlertViewController.activeAlert().closeAlert() {
       switch result {
         case .noInternet: MWMAlertViewController.activeAlert().presentNoConnectionAlert()
@@ -291,8 +291,9 @@ extension BMCDefaultViewModel: MWMBookmarksObserver {
           let formatter = DateFormatter()
           formatter.dateStyle = .short
           formatter.timeStyle = .none
-          let message = String(coreFormat: L("bookmarks_message_backuped_user"),
-                              arguments: [formatter.string(from: date)])
+          let deviceName = name ?? ""
+          let message = String(coreFormat: L("bookmarks_restore_message"),
+                              arguments: [formatter.string(from: date), deviceName])
 
           let cancelAction = { [weak self] in self?.cancelRestoring() } as MWMVoidBlock
           MWMAlertViewController.activeAlert().presentRestoreBookmarkAlert(withMessage: message,

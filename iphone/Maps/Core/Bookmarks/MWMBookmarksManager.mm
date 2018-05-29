@@ -170,7 +170,6 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   auto onRestoreRequested = [](Cloud::RestoringRequestResult result, std::string const & deviceName,
                                uint64_t backupTimestampInMs)
   {
-    //TODO (@beloal): Output device name to the dialog.
     auto const res = static_cast<MWMRestoringRequestResult>(my::Key(result));
     NSDate * date = nil;
 
@@ -191,8 +190,8 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
     }
 
     [[MWMBookmarksManager manager] loopObservers:^(Observer observer) {
-      if ([observer respondsToSelector:@selector(onRestoringRequest:backupDate:)])
-        [observer onRestoringRequest:res backupDate:date];
+      if ([observer respondsToSelector:@selector(onRestoringRequest:deviceName:backupDate:)])
+        [observer onRestoringRequest:res deviceName:@(deviceName.c_str()) backupDate:date];
     }];
   };
   
@@ -384,8 +383,8 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   if (status == Platform::EConnectionType::CONNECTION_NONE)
   {
     [self.manager loopObservers:^(Observer observer) {
-      if ([observer respondsToSelector:@selector(onRestoringRequest:backupDate:)])
-        [observer onRestoringRequest:MWMRestoringRequestResultNoInternet backupDate:nil];
+      if ([observer respondsToSelector:@selector(onRestoringRequest:deviceName:backupDate:)])
+        [observer onRestoringRequest:MWMRestoringRequestResultNoInternet deviceName:nil backupDate:nil];
     }];
     return;
   }

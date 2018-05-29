@@ -23,7 +23,7 @@ typedef NS_ENUM(NSUInteger, MWMSynchronizationResult)
 - (void)onConversionFinish:(BOOL)success;
 
 @optional
-- (void)onRestoringRequest:(MWMRestoringRequestResult)result backupDate:(NSDate * _Nullable)date;
+- (void)onRestoringRequest:(MWMRestoringRequestResult)result deviceName:(NSString * _Nullable)name backupDate:(NSDate * _Nullable)date;
 - (void)onSynchronizationFinished:(MWMSynchronizationResult)result;
 - (void)onRestoringStarted;
 - (void)onRestoringFilesPrepared;
