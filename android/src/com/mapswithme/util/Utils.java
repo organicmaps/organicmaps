@@ -52,6 +52,11 @@ public class Utils
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = "Utils";
 
+  public static <T> T castTo(Object object)
+  {
+    return (T) object;
+  }
+
   public interface Proc<T>
   {
     void invoke(@NonNull T param);

@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 
 import com.mapswithme.util.Utils;
 
-public class BaseMwmFragment extends Fragment
+public class BaseMwmFragment extends Fragment implements OnBackPressListener
 {
 
   @Override
@@ -32,6 +32,12 @@ public class BaseMwmFragment extends Fragment
 
   public BaseMwmFragmentActivity getMwmActivity()
   {
-    return (BaseMwmFragmentActivity) getActivity();
+    return Utils.castTo(getActivity());
+  }
+
+  @Override
+  public boolean onBackPressed()
+  {
+    return false;
   }
 }
