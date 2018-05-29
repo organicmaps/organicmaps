@@ -150,6 +150,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @SuppressWarnings("unused")
   @MainThread
   public void onBookmarksLoadingStarted()
   {
@@ -158,6 +159,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @SuppressWarnings("unused")
   @MainThread
   public void onBookmarksLoadingFinished()
   {
@@ -166,6 +168,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @SuppressWarnings("unused")
   @MainThread
   public void onBookmarksFileLoaded(boolean success, @NonNull String fileName,
                                     boolean isTemporaryFile)
@@ -183,6 +186,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @SuppressWarnings("unused")
   @MainThread
   public void onFinishKmlConversion(boolean success)
   {
@@ -191,6 +195,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @SuppressWarnings("unused")
   @MainThread
   public void onPreparedFileForSharing(BookmarkSharingResult result)
   {
@@ -199,6 +204,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @SuppressWarnings("unused")
   @MainThread
   public void onSynchronizationStarted(@SynchronizationType int type)
   {
@@ -207,6 +213,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @SuppressWarnings("unused")
   @MainThread
   public void onSynchronizationFinished(@SynchronizationType int type,
                                         @SynchronizationResult int result,
@@ -217,6 +224,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @SuppressWarnings("unused")
   @MainThread
   public void onRestoreRequested(@RestoringRequestResult int result, @NonNull String deviceName,
                                  long backupTimestampInMs)
@@ -226,6 +234,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @SuppressWarnings("unused")
   @MainThread
   public void onRestoredFilesPrepared()
   {
@@ -234,6 +243,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @SuppressWarnings("unused")
   @MainThread
   public void onImportStarted(@NonNull String id)
   {
@@ -242,6 +252,7 @@ public enum BookmarkManager
   }
 
   // Called from JNI.
+  @SuppressWarnings("unused")
   @MainThread
   public void onImportFinished(@NonNull String id, boolean successful)
   {
@@ -280,11 +291,23 @@ public enum BookmarkManager
 
   public int getCategoriesCount() { return nativeGetCategoriesCount(); }
 
-  public int getCategoryPositionById(long catId)
+  @NonNull
+  public BookmarkCategory getCategoryById(long catId)
   {
-    return nativeGetCategoryPositionById(catId);
+    List<BookmarkCategory> items = getAllCategoriesSnapshot().items();
+    for (BookmarkCategory each : items){
+      if (catId ==  each.getId())
+      {
+        return each;
+      }
+    }
+    throw new IllegalArgumentException(new StringBuilder().append("category with id = ")
+                                                          .append(catId)
+                                                          .append(" missing")
+                                                          .toString());
   }
 
+  @Deprecated
   public long getCategoryIdByPosition(int position)
   {
     return nativeGetCategoryIdByPosition(position);
@@ -364,6 +387,30 @@ public enum BookmarkManager
     return nativeIsAsyncBookmarksLoadingInProgress();
   }
 
+  @NonNull
+  public AbstractCategoriesSnapshot.Default getCatalogCategoriesSnapshot()
+  {
+    return new AbstractCategoriesSnapshot.Catalog(nativeGetBookmarkCategories());
+  }
+
+  @NonNull
+  public AbstractCategoriesSnapshot.Default getOwnedCategoriesSnapshot()
+  {
+    return new AbstractCategoriesSnapshot.Private(nativeGetBookmarkCategories());
+  }
+
+  @NonNull
+  public AbstractCategoriesSnapshot.Default getAllCategoriesSnapshot()
+  {
+    return new AbstractCategoriesSnapshot.All(nativeGetBookmarkCategories());
+  }
+
+  @NonNull
+  public AbstractCategoriesSnapshot.Default getCategoriesSnapshot(FilterStrategy strategy)
+  {
+    return AbstractCategoriesSnapshot.Default.from(nativeGetBookmarkCategories(), strategy);
+  }
+
   public boolean isUsedCategoryName(@NonNull String name)
   {
     return nativeIsUsedCategoryName(name);
@@ -375,14 +422,35 @@ public enum BookmarkManager
 
   public boolean isEditableCategory(long catId) { return nativeIsEditableCategory(catId); }
 
-  public boolean areAllCategoriesVisible()
+  public boolean areAllCatalogCategoriesVisible()
   {
-    return nativeAreAllCategoriesVisible();
+    return areAllCategoriesVisible(BookmarkCategory.Type.CATALOG);
   }
 
-  public boolean areAllCategoriesInvisible()
+  public boolean areAllOwnedCategoriesVisible()
   {
-    return nativeAreAllCategoriesInvisible();
+    return areAllCategoriesVisible(BookmarkCategory.Type.PRIVATE);
+  }
+
+  public boolean areAllCategoriesVisible(BookmarkCategory.Type type)
+  {
+
+    return nativeAreAllCategoriesVisible(type.ordinal());
+  }
+
+  public boolean areAllCategoriesInvisible(BookmarkCategory.Type type)
+  {
+    return nativeAreAllCategoriesInvisible(type.ordinal());
+  }
+
+  public boolean areAllCatalogCategoriesInvisible()
+  {
+    return areAllCategoriesInvisible(BookmarkCategory.Type.CATALOG);
+  }
+
+  public boolean areAllOwnedCategoriesInvisible()
+  {
+    return areAllCategoriesInvisible(BookmarkCategory.Type.PRIVATE);
   }
 
   public void setAllCategoriesVisibility(boolean visible)
@@ -484,6 +552,8 @@ public enum BookmarkManager
 
   private native int nativeGetTracksCount(long catId);
 
+  private native BookmarkCategory[] nativeGetBookmarkCategories();
+
   @NonNull
   private native Bookmark nativeGetBookmark(long bmkId);
 
@@ -547,9 +617,9 @@ public enum BookmarkManager
 
   private static native boolean nativeIsEditableCategory(long catId);
 
-  private static native boolean nativeAreAllCategoriesVisible();
+  private static native boolean nativeAreAllCategoriesVisible(int type);
 
-  private static native boolean nativeAreAllCategoriesInvisible();
+  private static native boolean nativeAreAllCategoriesInvisible(int type);
 
   private static native void nativeSetAllCategoriesVisibility(boolean visible);
 

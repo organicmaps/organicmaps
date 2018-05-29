@@ -209,6 +209,13 @@ public:
   std::unique_ptr<User::Subscriber> GetUserSubscriber();
   void SetInvalidTokenHandler(Cloud::InvalidTokenHandler && onInvalidToken);
 
+  enum class CategoryFilterType
+  {
+      Private = 0,
+      Public,
+      All
+  };
+
   struct SharingResult
   {
     enum class Code
@@ -251,8 +258,8 @@ public:
   bool IsEditableCategory(kml::MarkGroupId groupId) const;
 
   bool IsUsedCategoryName(std::string const & name) const;
-  bool AreAllCategoriesVisible() const;
-  bool AreAllCategoriesInvisible() const;
+  bool AreAllCategoriesVisible(CategoryFilterType const filter) const;
+  bool AreAllCategoriesInvisible(CategoryFilterType const filter) const;
   void SetAllCategoriesVisibility(bool visible);
 
   // Return number of files for the conversion to the binary format.
@@ -474,6 +481,7 @@ private:
   void FinishConversion(ConversionHandler const & handler, bool result);
 
   bool HasDuplicatedIds(kml::FileData const & fileData) const;
+  bool IsFilterTypeCorrected(CategoryFilterType const filter, bool const fromCatalog) const;
 
   ThreadChecker m_threadChecker;
 

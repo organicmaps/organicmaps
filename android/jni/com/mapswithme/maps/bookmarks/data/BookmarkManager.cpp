@@ -28,6 +28,8 @@ jmethodID g_onRestoreRequestedMethod;
 jmethodID g_onRestoredFilesPreparedMethod;
 jmethodID g_onImportStartedMethod;
 jmethodID g_onImportFinishedMethod;
+jclass g_bookmarkCategoryClass;
+jmethodID g_bookmarkCategoryConstructor;
 
 void PrepareClassRefs(JNIEnv * env)
 {
@@ -66,6 +68,18 @@ void PrepareClassRefs(JNIEnv * env)
     jni::GetMethodID(env, bookmarkManagerInstance, "onImportStarted", "(Ljava/lang/String;)V");
   g_onImportFinishedMethod =
     jni::GetMethodID(env, bookmarkManagerInstance, "onImportFinished", "(Ljava/lang/String;Z)V");
+  g_bookmarkCategoryClass =
+    jni::GetGlobalClassRef(env, "com/mapswithme/maps/bookmarks/data/BookmarkCategory");
+//public BookmarkCategory(long id,
+//                          String name,
+//                          String authorId,
+//                          String authorName,
+//                          int tracksCount,
+//                          int bookmarksCount,
+//                          boolean fromCatalog,
+//                          boolean isVisible)
+  g_bookmarkCategoryConstructor =
+    jni::GetConstructorID(env, g_bookmarkCategoryClass, "(JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZ)V");
 }
 
 void OnAsyncLoadingStarted(JNIEnv * env)
@@ -517,19 +531,20 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsEditableCategory
   return static_cast<jboolean>(frm()->GetBookmarkManager().IsEditableCategory(static_cast<kml::MarkGroupId>(catId)));
 }
 
-
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAreAllCategoriesVisible(
-        JNIEnv * env, jobject thiz)
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAreAllCategoriesInvisible(
+        JNIEnv * env, jobject thiz, jint type)
 {
-  return static_cast<jboolean>(frm()->GetBookmarkManager().AreAllCategoriesVisible());
+  auto const value = static_cast<BookmarkManager::CategoryFilterType>(type);
+  return static_cast<jboolean>(frm()->GetBookmarkManager().AreAllCategoriesInvisible(value));
 }
 
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAreAllCategoriesInvisible(
-        JNIEnv * env, jobject thiz)
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAreAllCategoriesVisible(
+        JNIEnv * env, jobject thiz, jint type)
 {
-  return static_cast<jboolean>(frm()->GetBookmarkManager().AreAllCategoriesInvisible());
+  auto const value = static_cast<BookmarkManager::CategoryFilterType>(type);
+  return static_cast<jboolean>(frm()->GetBookmarkManager().AreAllCategoriesVisible(value));
 }
 
 JNIEXPORT void JNICALL
@@ -648,5 +663,35 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeIsCategoryFromCata
 {
   auto & bm = frm()->GetBookmarkManager();
   return static_cast<jboolean>(bm.IsCategoryFromCatalog(static_cast<kml::MarkGroupId>(catId)));
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategories(
+        JNIEnv *env, jobject thiz)
+{
+    auto const & bm = frm()->GetBookmarkManager();
+    kml::GroupIdCollection const & categories = bm.GetBmGroupsIdList();
+
+    return ToJavaArray(env,
+                       g_bookmarkCategoryClass,
+                       categories,
+                       [](JNIEnv * env, kml::MarkGroupId const & item) {
+        auto const & manager = frm()->GetBookmarkManager();
+        auto const & data = manager.GetCategoryData(item);
+        auto const isFromCatalog = manager.IsCategoryFromCatalog(item);
+        auto const tracksCount = manager.GetTrackIds(data.m_id).size();
+        auto const bookmarksCount = manager.GetUserMarkIds(data.m_id).size();
+        auto const isVisible = manager.IsVisible(data.m_id);
+        return env->NewObject(g_bookmarkCategoryClass,
+                              g_bookmarkCategoryConstructor,
+                              static_cast<jlong>(data.m_id),
+                              jni::ToJavaString(env, kml::GetDefaultStr(data.m_name)),
+                              jni::ToJavaString(env, data.m_authorId),
+                              jni::ToJavaString(env, data.m_authorName),
+                              static_cast<jint>(tracksCount),
+                              static_cast<jint>(bookmarksCount),
+                              static_cast<jboolean>(isFromCatalog),
+                              static_cast<jboolean>(isVisible));
+    });
 }
 }  // extern "C"

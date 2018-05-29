@@ -1764,24 +1764,45 @@ bool BookmarkManager::IsUsedCategoryName(std::string const & name) const
   return false;
 }
 
-bool BookmarkManager::AreAllCategoriesVisible() const
+bool BookmarkManager::AreAllCategoriesVisible(CategoryFilterType const filter) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  for (auto const & c : m_categories)
+  bool visible = false;
+  bool fromCatalog = false;
+  for (auto const & category : m_categories)
   {
-    if (!c.second->IsVisible())
+    visible = category.second->IsVisible();
+    fromCatalog = IsCategoryFromCatalog(category.first);
+
+    if (!visible && IsFilterTypeCorrected(filter, fromCatalog))
+    {
       return false;
+    }
   }
   return true;
 }
 
-bool BookmarkManager::AreAllCategoriesInvisible() const
+bool BookmarkManager::IsFilterTypeCorrected(CategoryFilterType const filter,
+                                            bool const fromCatalog) const
+{
+    return (filter == CategoryFilterType::All ||
+            (filter == CategoryFilterType::Public && fromCatalog) ||
+            (filter == CategoryFilterType::Private && !fromCatalog));
+}
+
+bool BookmarkManager::AreAllCategoriesInvisible(CategoryFilterType const filter) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  for (auto const & c : m_categories)
+  bool visible = false;
+  bool fromCatalog = false;
+  for (auto const & category : m_categories)
   {
-    if (c.second->IsVisible())
+    visible = category.second->IsVisible();
+    fromCatalog = IsCategoryFromCatalog(category.first);
+    if (visible && IsFilterTypeCorrected(filter, fromCatalog))
+    {
       return false;
+    }
   }
   return true;
 }
