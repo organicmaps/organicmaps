@@ -6,10 +6,11 @@ OPT_RELEASE=
 OPT_CLEAN=
 OPT_SKIP_DESKTOP=
 OPT_DESIGNER=
+OPT_GCC=
 OPT_TARGET=
 OPT_PATH=
 
-while getopts ":cdrstp:" opt; do
+while getopts ":cdrsgtp:" opt; do
   case $opt in
     d)
       OPT_DEBUG=1
@@ -27,18 +28,22 @@ while getopts ":cdrstp:" opt; do
     t)
       OPT_DESIGNER=1
       ;;
+    g)
+      OPT_GCC=1
+      ;;
     p)
       OPT_PATH="$OPTARG"
       ;;
     *)
       echo "This tool builds omim"
-      echo "Usage: $0 [-d] [-r] [-c] [-s] [-g] [-p PATH] [target1 target2 ...]"
+      echo "Usage: $0 [-d] [-r] [-c] [-s] [-t] [-g] [-p PATH] [target1 target2 ...]"
       echo
       echo -e "-d\tBuild omim-debug"
       echo -e "-r\tBuild omim-release"
       echo -e "-c\tClean before building"
       echo -e "-s\tSkip desktop app building"
       echo -e "-t\tBuild designer tool (only for MacOS X platform)"
+      echo -e "-g\tForce use GCC (only for MacOS X platform)"
       echo -e "-p\tDirectory for built binaries"
       echo "By default both configurations is built."
       exit 1
@@ -78,12 +83,20 @@ source "$OMIM_PATH/tools/autobuild/detect_cmake.sh"
 # OS-specific parameters
 if [ "$(uname -s)" == "Darwin" ]; then
   PROCESSES=$(sysctl -n hw.ncpu)
+
+  if [ -n "$OPT_GCC" ]; then
+    GCC="$(ls /usr/local/bin | grep '^gcc-[6-9][0-9]\?' -m 1)" || true
+    GPP="$(ls /usr/local/bin | grep '^g++-[6-9][0-9]\?' -m 1)" || true
+    [ -z "$GCC" -o -z "$GPP" ] \
+    && echo "Either gcc or g++ is not found. Note, minimal supported gcc version is 6." \
+    && exit 2
+    CMAKE_CONFIG="${CMAKE_CONFIG:-} -DCMAKE_C_COMPILER=/usr/local/bin/$GCC \
+                                    -DCMAKE_CXX_COMPILER=/usr/local/bin/$GPP"
+  fi
 else
   [ -n "$OPT_DESIGNER" ] \
   && echo "Designer tool supported only on MacOS X platform" && exit 2
   PROCESSES=$(nproc)
-  # Let linux version be built with gcc
-  CMAKE_CONFIG="${CMAKE_CONFIG:-} -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++"
 fi
 
 build()
