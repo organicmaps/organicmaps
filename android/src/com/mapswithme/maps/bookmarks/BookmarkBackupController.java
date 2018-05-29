@@ -316,9 +316,8 @@ public class BookmarkBackupController implements Authorizer.Callback,
   public void onRestoreRequested(@BookmarkManager.RestoringRequestResult int result,
                                  @NonNull String deviceName, long backupTimestampInMs)
   {
-    //TODO (@alexzatsepin): Output deviceName to the dialog.
     LOGGER.d(TAG, "onRestoreRequested, result: " + result + ", deviceName = " + deviceName +
-        ", backupTimestampInMs = " + backupTimestampInMs);
+                  ", backupTimestampInMs = " + backupTimestampInMs);
     Statistics.INSTANCE.trackBmRestoringRequestResult(result);
     hideRestoringProgressDialog();
 
@@ -330,7 +329,7 @@ public class BookmarkBackupController implements Authorizer.Callback,
           showRestoringProgressDialog();
           BookmarkManager.INSTANCE.applyRestoring();
         };
-        String msg = mContext.getString(R.string.bookmarks_restore_message, backupDate);
+        String msg = mContext.getString(R.string.bookmarks_restore_message, backupDate, deviceName);
         DialogUtils.showAlertDialog(mContext, R.string.bookmarks_restore_title, msg,
                                     R.string.restore, clickListener, R.string.cancel, mRestoreCancelListener);
         break;
