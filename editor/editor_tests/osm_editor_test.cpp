@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "indexer/indexer_tests/osm_editor_test.hpp"
+#include "editor/editor_tests/osm_editor_test.hpp"
 
 #include "search/editor_delegate.hpp"
 
@@ -844,7 +844,7 @@ void EditorTest::LoadMapEditsTest()
     builder.Add(TestCafe(m2::PointD(4.0, 4.0), "Moscow Cafe3", "en"));
     builder.Add(TestCafe(m2::PointD(6.0, 6.0), "Moscow Cafe4", "en"));
 
-    builder.Add(TestPOI(m2::PointD(100, 100), "Corner Post", "default"));    
+    builder.Add(TestPOI(m2::PointD(100, 100), "Corner Post", "default"));
   });
 
   vector<FeatureID> features;
@@ -878,7 +878,7 @@ void EditorTest::LoadMapEditsTest()
     editor.DeleteFeature(ft.GetID());
     features.emplace_back(ft.GetID());
   });
-  
+
   ForEachCafeAtPoint(m_index, m2::PointD(6.0, 6.0), [&features](FeatureType & ft)
   {
     SetBuildingLevelsToOne(ft);
@@ -951,7 +951,7 @@ void EditorTest::LoadMapEditsTest()
 
   m_index.DeregisterMap(m_mwmFiles.back().GetCountryFile());
   TEST(RemoveMwm(gbMwmId), ());
-  
+
   auto const newGbMwmId = BuildMwm("GB", [](TestMwmBuilder & builder)
   {
     builder.Add(TestCafe(m2::PointD(0.0, 0.0), "London Cafe", "en"));
@@ -972,7 +972,7 @@ void EditorTest::SaveEditedFeatureTest()
   {
     builder.Add(TestCafe(m2::PointD(1.0, 1.0), "London Cafe1", "en"));
 
-    builder.Add(TestPOI(m2::PointD(10, 10), "Corner Post", "default"));    
+    builder.Add(TestPOI(m2::PointD(10, 10), "Corner Post", "default"));
   });
 
   osm::EditableMapObject emo;

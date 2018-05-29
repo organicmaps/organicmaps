@@ -22,8 +22,6 @@ set(
   interval_index_test.cpp
   locality_index_test.cpp
   mwm_set_test.cpp
-  osm_editor_test.cpp
-  osm_editor_test.hpp
   postcodes_matcher_tests.cpp
   rank_table_test.cpp
   scale_index_reading_tests.cpp
