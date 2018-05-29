@@ -236,6 +236,12 @@
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/app_name"/>
 
+<!--
+    <activity
+      android:name="com.mapswithme.maps.bookmarks.BookmarksCatalogActivity"
+      android:label="@string/routes_and_bookmarks"/>
+-->
+
     <activity-alias
       android:name="com.mapswithme.maps.DownloadResourcesActivity"
       android:label="@string/app_name"
@@ -496,6 +502,19 @@
         <category android:name="${applicationId}"/>
       </intent-filter>
     </receiver>
+
+    <receiver
+      android:name="com.mapswithme.maps.bookmarks.SystemDownloadCompletedReceiver"
+      android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+      </intent-filter>
+    </receiver>
+
+    <service
+      android:name="com.mapswithme.maps.bookmarks.SystemDownloadCompletedService"
+      android:exported="false">
+    </service>
 
     <!-- Took this legacy code from https://www.pushwoosh.com/docs/gcm-integration-legacy.
          Remove it after Pushwoosh is removed. -->
