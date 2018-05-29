@@ -979,7 +979,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    BottomSheetHelper.free();
     SearchEngine.INSTANCE.removeListener(this);
 
     super.onDestroy();

@@ -13,6 +13,7 @@
     <attr name="panel" format="color"/>
     <attr name="sidePanel" format="color"/>
     <attr name="iconTint" format="color"/>
+    <attr name="iconTintDisabled" format="color"/>
     <attr name="iconTintLight" format="color"/>
     <attr name="counterTextColor" format="color"/>
 

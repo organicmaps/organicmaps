@@ -72,10 +72,7 @@ public final class BottomSheetHelper
     @Override
     public BottomSheet build()
     {
-      free();
-
       BottomSheet res = super.build();
-      sRef = new WeakReference<>(res);
       return res;
     }
 
@@ -88,7 +85,6 @@ public final class BottomSheetHelper
         @Override
         public void onDismiss(DialogInterface dialog)
         {
-          free();
           if (listener != null)
             listener.onDismiss(dialog);
         }
@@ -182,46 +178,11 @@ public final class BottomSheetHelper
     }
   }
 
-
-  private static WeakReference<BottomSheet> sRef;
-
-
   private BottomSheetHelper()
   {}
 
-  public static BottomSheet getReference()
-  {
-    if (sRef == null)
-      return null;
-
-    return sRef.get();
-  }
-
-  public static boolean isShowing()
-  {
-    BottomSheet bs = getReference();
-    return (bs != null && bs.isShowing());
-  }
-
-  public static void free()
-  {
-    BottomSheet ref = getReference();
-    if (ref != null)
-    {
-      if (ref.isShowing())
-      {
-        Activity activity = (Activity)((ContextWrapper)ref.getContext()).getBaseContext();
-        if (!activity.isFinishing())
-          ref.dismiss();
-      }
-
-      sRef = null;
-    }
-  }
-
   public static Builder create(Activity context)
   {
-    free();
     return new Builder(context);
   }
 

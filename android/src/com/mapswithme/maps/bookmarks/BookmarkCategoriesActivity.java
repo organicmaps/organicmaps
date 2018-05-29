@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
 
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseToolbarActivity;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.ThemeUtils;
@@ -43,6 +44,12 @@ public class BookmarkCategoriesActivity extends BaseToolbarActivity
   @Override
   protected Class<? extends Fragment> getFragmentClass()
   {
-    return BookmarkCategoriesFragment.class;
+    return BookmarkCategoriesPagerFragment.class;
+  }
+
+  @Override
+  protected int getContentLayoutResId()
+  {
+    return R.layout.bookmarks_activity;
   }
 }

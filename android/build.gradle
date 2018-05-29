@@ -106,6 +106,7 @@ dependencies {
     exclude group: 'com.android.support'
     exclude group: 'com.google.android.gms'
   }
+  implementation 'com.android.support.constraint:constraint-layout:1.1.0'
 }
 
 def getDate() {

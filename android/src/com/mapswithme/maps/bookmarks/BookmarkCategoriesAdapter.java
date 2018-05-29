@@ -9,9 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
-import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
-import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 
 import static com.mapswithme.maps.bookmarks.Holders.CategoryViewHolder;
 import static com.mapswithme.maps.bookmarks.Holders.HeaderViewHolder;
@@ -19,74 +18,70 @@ import static com.mapswithme.maps.bookmarks.Holders.HeaderViewHolder;
 public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<RecyclerView.ViewHolder>
 {
   private final static int TYPE_CATEGORY_ITEM = 0;
-  private final static int TYPE_ACTION_CREATE_GROUP = 1;
+  private final static int TYPE_ACTION_FOOTER = 1;
   private final static int TYPE_ACTION_HEADER = 2;
   private final static int HEADER_POSITION = 0;
+  @NonNull
+  private final AdapterResourceProvider mResProvider;
   @Nullable
-  private RecyclerLongClickListener mLongClickListener;
+  private OnItemLongClickListener<BookmarkCategory> mLongClickListener;
   @Nullable
-  private RecyclerClickListener mClickListener;
+  private OnItemClickListener<BookmarkCategory> mClickListener;
   @Nullable
-  private CategoryListInterface mCategoryListInterface;
+  private CategoryListCallback mCategoryListCallback;
+  @NonNull
+  private final MassOperationAction mMassOperationAction = new MassOperationAction();
+  @NonNull
+  private final BookmarkCategory.Type mType;
+
+  BookmarkCategoriesAdapter(@NonNull Context context, @NonNull BookmarkCategory.Type type)
+  {
+    super(context.getApplicationContext());
+    mType = type;
+    mResProvider = type.getFactory().getResProvider();
+  }
 
   BookmarkCategoriesAdapter(@NonNull Context context)
   {
-    super(context);
+    this(context, BookmarkCategory.Type.PRIVATE);
   }
 
-  public void setOnClickListener(@Nullable RecyclerClickListener listener)
+  public void setOnClickListener(@Nullable OnItemClickListener<BookmarkCategory> listener)
   {
     mClickListener = listener;
   }
 
-  void setOnLongClickListener(@Nullable RecyclerLongClickListener listener)
+  void setOnLongClickListener(@Nullable OnItemLongClickListener<BookmarkCategory> listener)
   {
     mLongClickListener = listener;
   }
 
-  void setCategoryListInterface(@Nullable CategoryListInterface listener)
+  void setCategoryListCallback(@Nullable CategoryListCallback listener)
   {
-    mCategoryListInterface = listener;
+    mCategoryListCallback = listener;
   }
 
   @Override
   public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
   {
-    LayoutInflater inflater = LayoutInflater.from(getContext());
+    LayoutInflater inflater = LayoutInflater.from(parent.getContext());
     if (viewType == TYPE_ACTION_HEADER)
     {
       View header = inflater.inflate(R.layout.item_bookmark_group_list_header, parent, false);
       return new Holders.HeaderViewHolder(header);
     }
 
-    if (viewType == TYPE_ACTION_CREATE_GROUP)
+    if (viewType == TYPE_ACTION_FOOTER)
     {
-      View createListView = inflater.inflate(R.layout.item_bookmark_create_group, parent, false);
-      createListView.setOnClickListener
-          (v ->
-           {
-             if (mCategoryListInterface != null)
-               mCategoryListInterface.onAddCategory();
-           });
-      return new Holders.GeneralViewHolder(createListView);
+      View item = inflater.inflate(R.layout.item_bookmark_create_group, parent, false);
+      item.setOnClickListener(new FooterClickListener());
+      return new Holders.GeneralViewHolder(item);
     }
 
-    View view = LayoutInflater.from(getContext()).inflate(R.layout.item_bookmark_category,
-                                                          parent, false);
+    View view = inflater.inflate(R.layout.item_bookmark_category, parent,false);
     final CategoryViewHolder holder = new CategoryViewHolder(view);
-    view.setOnClickListener(
-        v ->
-        {
-          if (mClickListener != null)
-            mClickListener.onItemClick(v, toCategoryPosition(holder.getAdapterPosition()));
-        });
-    view.setOnLongClickListener(
-        v ->
-        {
-          if (mLongClickListener != null)
-            mLongClickListener.onLongItemClick(v, toCategoryPosition(holder.getAdapterPosition()));
-          return true;
-        });
+    view.setOnClickListener(new CategoryItemClickListener(holder));
+    view.setOnLongClickListener(new LongClickListener(holder));
 
     return holder;
   }
@@ -95,48 +90,69 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position)
   {
     int type = getItemViewType(position);
-    if (type == TYPE_ACTION_CREATE_GROUP)
-      return;
-
-    if (type == TYPE_ACTION_HEADER)
+    if (type == TYPE_ACTION_FOOTER)
     {
-      HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
-      headerHolder.setAction(new HeaderViewHolder.HeaderAction()
-      {
-        @Override
-        public void onHideAll()
-        {
-          BookmarkManager.INSTANCE.setAllCategoriesVisibility(false);
-          notifyDataSetChanged();
-        }
-
-        @Override
-        public void onShowAll()
-        {
-          BookmarkManager.INSTANCE.setAllCategoriesVisibility(true);
-          notifyDataSetChanged();
-        }
-      }, BookmarkManager.INSTANCE.areAllCategoriesInvisible());
+      bindFooterHolder(holder);
       return;
     }
 
+    if (type == TYPE_ACTION_HEADER)
+    {
+      bindHeaderHolder(holder);
+      return;
+    }
+
+    bindCategoryHolder(holder, position);
+  }
+
+  private void bindFooterHolder(@NonNull RecyclerView.ViewHolder holder)
+  {
+    Holders.GeneralViewHolder generalViewHolder = (Holders.GeneralViewHolder) holder;
+    generalViewHolder.getImage().setImageResource(mResProvider.getFooterImage());
+    generalViewHolder.getText().setText(mResProvider.getFooterText());
+  }
+
+  private void bindHeaderHolder(@NonNull RecyclerView.ViewHolder holder)
+  {
+    HeaderViewHolder headerViewHolder = (HeaderViewHolder) holder;
+    headerViewHolder.setAction(mMassOperationAction,
+                               mResProvider,
+                               BookmarkManager.INSTANCE.areAllCategoriesInvisible(mType));
+    headerViewHolder.getText().setText(mResProvider.getHeaderText());
+  }
+
+  private void bindCategoryHolder(@NonNull RecyclerView.ViewHolder holder, int position)
+  {
+    final BookmarkCategory category = getCategoryByPosition(toCategoryPosition(position));
     CategoryViewHolder categoryHolder = (CategoryViewHolder) holder;
-    final BookmarkManager bmManager = BookmarkManager.INSTANCE;
-    final long catId = getCategoryIdByPosition(toCategoryPosition(position));
-    categoryHolder.setName(bmManager.getCategoryName(catId));
-    categoryHolder.setSize(bmManager.getCategorySize(catId));
-    categoryHolder.setVisibilityState(bmManager.isVisible(catId));
-    categoryHolder.setVisibilityListener(
-        v ->
-        {
-          BookmarkManager.INSTANCE.toggleCategoryVisibility(catId);
-          categoryHolder.setVisibilityState(bmManager.isVisible(catId));
-          notifyItemChanged(HEADER_POSITION);
-        });
+    categoryHolder.setCategory(category);
+    categoryHolder.setName(category.getName());
+    bindSize(categoryHolder, category);
+    bindAuthor(categoryHolder, category);
+    categoryHolder.setVisibilityState(category.isVisible());
+    ToggleVisibilityClickListener listener = new ToggleVisibilityClickListener(categoryHolder);
+    categoryHolder.setVisibilityListener(listener);
     categoryHolder.setMoreListener(v -> {
-      if (mCategoryListInterface != null)
-        mCategoryListInterface.onMoreOperationClick(toCategoryPosition(position));
+      if (mCategoryListCallback != null)
+        mCategoryListCallback.onMoreOperationClick(category);
     });
+  }
+
+  private void bindSize(@NonNull CategoryViewHolder categoryHolder,
+                        @NonNull BookmarkCategory category)
+  {
+    categoryHolder.setSize(category.getPluralsCountTemplate(), category.getPluralsCount());
+  }
+
+  private void bindAuthor(@NonNull CategoryViewHolder categoryHolder,
+                          @NonNull BookmarkCategory category)
+  {
+    CharSequence authorName = category.getAuthor() == null
+                              ? null
+                              : BookmarkCategory
+                                  .Author
+                                  .getRepresentation(getContext(), category.getAuthor());
+    categoryHolder.getAuthorName().setText(authorName);
   }
 
   @Override
@@ -144,7 +160,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   {
     if (position == 0)
       return TYPE_ACTION_HEADER;
-    return (position == getItemCount() - 1) ? TYPE_ACTION_CREATE_GROUP : TYPE_CATEGORY_ITEM;
+    return (position == getItemCount() - 1) ? TYPE_ACTION_FOOTER : TYPE_CATEGORY_ITEM;
   }
 
   private int toCategoryPosition(int adapterPosition)
@@ -165,9 +181,92 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     return count > 0 ? count + 2 /* header + add category btn */ : 0;
   }
 
-  interface CategoryListInterface
+  private class LongClickListener implements View.OnLongClickListener
   {
-    void onAddCategory();
-    void onMoreOperationClick(int position);
+    @NonNull
+    private final CategoryViewHolder mHolder;
+
+    LongClickListener(@NonNull CategoryViewHolder holder)
+    {
+      mHolder = holder;
+    }
+
+    @Override
+    public boolean onLongClick(View view)
+    {
+      if (mLongClickListener != null)
+      {
+        mLongClickListener.onItemLongClick(view, mHolder.getEntity());
+      }
+      return true;
+    }
+  }
+
+  private class MassOperationAction implements HeaderViewHolder.HeaderAction
+  {
+    @Override
+    public void onHideAll()
+    {
+      BookmarkManager.INSTANCE.setAllCategoriesVisibility(false);
+      notifyDataSetChanged();
+    }
+
+    @Override
+    public void onShowAll()
+    {
+      BookmarkManager.INSTANCE.setAllCategoriesVisibility(true);
+      notifyDataSetChanged();
+    }
+  }
+
+  private class CategoryItemClickListener implements View.OnClickListener
+  {
+    @NonNull
+    private final CategoryViewHolder mHolder;
+
+    CategoryItemClickListener(@NonNull CategoryViewHolder holder)
+    {
+      mHolder = holder;
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+      if (mClickListener != null)
+      {
+        mClickListener.onItemClick(v, mHolder.getEntity());
+      }
+    }
+  }
+
+  private class FooterClickListener implements View.OnClickListener
+  {
+    @Override
+    public void onClick(View v)
+    {
+      if (mCategoryListCallback != null)
+      {
+        mCategoryListCallback.onFooterClick();
+      }
+    }
+  }
+
+  private class ToggleVisibilityClickListener implements View.OnClickListener
+  {
+    @NonNull
+    private final CategoryViewHolder mHolder;
+
+    ToggleVisibilityClickListener(@NonNull CategoryViewHolder holder)
+    {
+      mHolder = holder;
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+      BookmarkManager.INSTANCE.toggleCategoryVisibility(mHolder.getEntity().getId());
+      notifyItemChanged(mHolder.getAdapterPosition());
+      notifyItemChanged(HEADER_POSITION);
+    }
   }
 }

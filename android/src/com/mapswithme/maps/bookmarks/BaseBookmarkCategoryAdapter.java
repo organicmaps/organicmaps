@@ -4,9 +4,13 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
-public abstract class BaseBookmarkCategoryAdapter<V extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<V>
+import java.util.List;
+
+public abstract class BaseBookmarkCategoryAdapter<V extends RecyclerView.ViewHolder>
+    extends RecyclerView.Adapter<V>
 {
   @NonNull
   private final Context mContext;
@@ -22,14 +26,24 @@ public abstract class BaseBookmarkCategoryAdapter<V extends RecyclerView.ViewHol
     return mContext;
   }
 
+  public List<BookmarkCategory> getBookmarkCategories()
+  {
+    return BookmarkManager.INSTANCE.getOwnedCategoriesSnapshot().items();
+  }
+
   @Override
   public int getItemCount()
   {
-    return BookmarkManager.INSTANCE.getCategoriesCount();
+    return getBookmarkCategories().size();
   }
 
-  public long getCategoryIdByPosition(int position)
+  public BookmarkCategory getCategoryByPosition(int position)
   {
-    return BookmarkManager.INSTANCE.getCategoryIdByPosition(position);
+    List<BookmarkCategory> categories = getBookmarkCategories();
+    if (position < 0 || position > categories.size() - 1){
+      throw new ArrayIndexOutOfBoundsException(position);
+    }
+    return categories.get(position);
+
   }
 }

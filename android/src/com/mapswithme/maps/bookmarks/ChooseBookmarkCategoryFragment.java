@@ -12,9 +12,12 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.util.List;
 
 public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
                                          implements EditTextDialogFragment.EditTextDialogInterface,
@@ -27,7 +30,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
 
   public interface Listener
   {
-    void onCategoryChanged(long newCategoryId);
+    void onCategoryChanged(BookmarkCategory newCategory);
   }
   private Listener mListener;
 
@@ -89,14 +92,22 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
   }
 
 
+  /*FIXME*/
   private void createCategory(@NonNull String name)
   {
     final long categoryId = BookmarkManager.INSTANCE.createCategory(name);
-    final int categoryPosition = BookmarkManager.INSTANCE.getCategoriesCount() - 1;
+
+    List<BookmarkCategory> bookmarkCategories = mAdapter.getBookmarkCategories();
+
+    final int categoryPosition = bookmarkCategories.size() - 1;
+
     mAdapter.chooseItem(categoryPosition);
 
     if (mListener != null)
-      mListener.onCategoryChanged(categoryId);
+    {
+      BookmarkCategory newCategory = bookmarkCategories.get(categoryPosition);
+      mListener.onCategoryChanged(newCategory);
+    }
     dismiss();
     Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_GROUP_CREATED);
   }
@@ -107,8 +118,8 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
     mAdapter.chooseItem(categoryPosition);
     if (mListener != null)
     {
-      final long categoryId = BookmarkManager.INSTANCE.getCategoryIdByPosition(categoryPosition);
-      mListener.onCategoryChanged(categoryId);
+      final BookmarkCategory category = mAdapter.getBookmarkCategories().get(categoryPosition);
+      mListener.onCategoryChanged(category);
     }
     dismiss();
     Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_GROUP_CHANGED);

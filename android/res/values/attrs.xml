@@ -75,4 +75,10 @@
 
   <bool name="isTablet">false</bool>
   <bool name="tabletLayout">false</bool>
+
+  <declare-styleable name="PlaceholderView">
+    <attr name="imgSrcDefault" format="reference"/>
+    <attr name="titleDefault" format="reference"/>
+    <attr name="subTitleDefault" format="reference"/>
+  </declare-styleable>
 </resources>

@@ -276,6 +276,8 @@ public class PlacePageView extends RelativeLayout
       detachCountry();
     }
   };
+  @NonNull
+  private final EditBookmarkClickListener mEditBookmarkClickListener = new EditBookmarkClickListener();
 
   public enum State
   {
@@ -419,7 +421,7 @@ public class PlacePageView extends RelativeLayout
     mWvBookmarkNote = (WebView) mBookmarkFrame.findViewById(R.id.wv__bookmark_notes);
     mWvBookmarkNote.getSettings().setJavaScriptEnabled(false);
     mTvBookmarkNote = (TextView) mBookmarkFrame.findViewById(R.id.tv__bookmark_notes);
-    mBookmarkFrame.findViewById(R.id.tv__bookmark_edit).setOnClickListener(this);
+    initEditMapObjectBtn();
 
     ViewGroup ppButtons = (ViewGroup) findViewById(R.id.pp__buttons).findViewById(R.id.container);
 
@@ -449,7 +451,7 @@ public class PlacePageView extends RelativeLayout
     mButtons = new PlacePageButtons(this, ppButtons, new PlacePageButtons.ItemListener()
     {
       @Override
-      public void onPrepareVisibleView(PlacePageButtons.ButtonInterface item, View frame, ImageView icon, TextView title)
+      public void onPrepareVisibleView(PlacePageButtons.PlacePageButton item, View frame, ImageView icon, TextView title)
       {
         int color;
 
@@ -480,7 +482,8 @@ public class PlacePageView extends RelativeLayout
 
           case BOOKMARK:
             mBookmarkButtonIcon = icon;
-            updateBookmarkButton();
+            updateBookmarkBtn();
+            frame.setEnabled(isEditableMapObject());
             color = ThemeUtils.getColor(getContext(), R.attr.iconTint);
             break;
 
@@ -494,7 +497,7 @@ public class PlacePageView extends RelativeLayout
       }
 
       @Override
-      public void onItemClick(PlacePageButtons.ButtonInterface item)
+      public void onItemClick(PlacePageButtons.PlacePageButton item)
       {
         switch (item.getType())
         {
@@ -661,6 +664,34 @@ public class PlacePageView extends RelativeLayout
     Sponsored.setPriceListener(this);
     Sponsored.setInfoListener(this);
     Viator.setViatorListener(this);
+  }
+
+  private void updateCatalogBookmarkBtn()
+  {
+    if (isEditableMapObject() || mBookmarkButtonIcon == null)
+      return;
+    final int resId = PlacePageButtons.Item.BOOKMARK.getIcon().getDisabledStateResId();
+    Drawable drawable = Graphics.tint(getContext(), resId, R.attr.iconTintDisabled);
+    mBookmarkButtonIcon.setImageDrawable(drawable);
+  }
+
+  private void initEditMapObjectBtn()
+  {
+    boolean isEditSupported = isEditableMapObject();
+    View editBookmarkBtn = mBookmarkFrame.findViewById(R.id.tv__bookmark_edit);
+    UiUtils.showIf(isEditSupported, editBookmarkBtn);
+    editBookmarkBtn.setOnClickListener(isEditSupported ? mEditBookmarkClickListener : null);
+  }
+
+  public boolean isEditableMapObject()
+  {
+    boolean isBookmark = MapObject.isOfType(MapObject.BOOKMARK, mMapObject);
+    return isBookmark
+           && BookmarkManager
+               .INSTANCE
+               .isEditableBookmark(Utils
+                                       .<Bookmark>castTo(mMapObject)
+                                       .getBookmarkId());
   }
 
   private void initHotelRatingView()
@@ -1202,6 +1233,7 @@ public class PlacePageView extends RelativeLayout
       clearSponsoredGalleryViews();
       clearUGCViews();
       processSponsored(policy);
+      initEditMapObjectBtn();
       if (mUgcController != null)
         mUgcController.getUGC(mMapObject);
 
@@ -1296,7 +1328,7 @@ public class PlacePageView extends RelativeLayout
       case MapObject.BOOKMARK:
         refreshDistanceToObject(mapObject, loc);
         showBookmarkDetails(mapObject);
-        updateBookmarkButton();
+        updateBookmarkBtn();
         setButtons(mapObject, false, true);
         break;
       case MapObject.POI:
@@ -1556,7 +1588,7 @@ public class PlacePageView extends RelativeLayout
     mTodayOpeningHours.setTextColor(color);
   }
 
-  private void updateBookmarkButton()
+  private void updateBookmarkBtn()
   {
     if (mBookmarkButtonIcon == null)
       return;
@@ -1565,13 +1597,14 @@ public class PlacePageView extends RelativeLayout
       mBookmarkButtonIcon.setImageResource(R.drawable.ic_bookmarks_on);
     else
       mBookmarkButtonIcon.setImageDrawable(Graphics.tint(getContext(), R.drawable.ic_bookmarks_off, R.attr.iconTint));
+    updateCatalogBookmarkBtn();
   }
 
   private void hideBookmarkDetails()
   {
     mBookmarkSet = false;
     UiUtils.hide(mBookmarkFrame);
-    updateBookmarkButton();
+    updateBookmarkBtn();
   }
 
   private void showBookmarkDetails(@NonNull MapObject mapObject)
@@ -1604,7 +1637,7 @@ public class PlacePageView extends RelativeLayout
 
   private void setButtons(@NonNull MapObject mapObject, boolean showBackButton, boolean showRoutingButton)
   {
-    List<PlacePageButtons.ButtonInterface> buttons = new ArrayList<>();
+    List<PlacePageButtons.PlacePageButton> buttons = new ArrayList<>();
     if (RoutingController.get().isRoutePoint(mapObject))
     {
       buttons.add(PlacePageButtons.Item.ROUTE_REMOVE);
@@ -1847,17 +1880,6 @@ public class PlacePageView extends RelativeLayout
         break;
       case R.id.ll__place_email:
         Utils.sendTo(getContext(), mTvEmail.getText().toString());
-        break;
-      case R.id.tv__bookmark_edit:
-        if (mMapObject == null)
-        {
-          LOGGER.e(TAG, "A bookmark cannot be edited, mMapObject is null!", new Throwable());
-          return;
-        }
-        Bookmark bookmark = (Bookmark) mMapObject;
-        EditBookmarkFragment.editBookmark(bookmark.getCategoryId(), bookmark.getBookmarkId(),
-                                          getActivity(), getActivity().getSupportFragmentManager(),
-                                          this);
         break;
       case R.id.tv__place_hotel_more:
         UiUtils.hide(mHotelMoreDescription);
@@ -2185,5 +2207,25 @@ public class PlacePageView extends RelativeLayout
                                               PLACEPAGE);
       }
     };
+  }
+
+  private class EditBookmarkClickListener implements OnClickListener
+  {
+    @Override
+    public void onClick(View v)
+    {
+      if (mMapObject == null)
+      {
+        LOGGER.e(TAG, "A bookmark cannot be edited, mMapObject is null!", new Throwable());
+        return;
+      }
+      Bookmark bookmark = (Bookmark) mMapObject;
+      EditBookmarkFragment.editBookmark(bookmark.getCategoryId(),
+                                        bookmark.getBookmarkId(),
+                                        getActivity(),
+                                        getActivity().getSupportFragmentManager(),
+                                        PlacePageView.this);
+
+    }
   }
 }

@@ -28,6 +28,7 @@
     <item name="panel">@color/bg_panel</item>
     <item name="sidePanel">@color/bg_side_panel</item>
     <item name="iconTint">@color/icon_tint</item>
+    <item name="iconTintDisabled">@color/black_38</item>
     <item name="iconTintLight">@color/icon_tint_light</item>
     <item name="counterTextColor">?android:textColorPrimaryInverse</item>
 
@@ -156,6 +157,7 @@
     <item name="panel">@color/bg_panel_night</item>
     <item name="sidePanel">@color/bg_side_panel_night</item>
     <item name="iconTint">@color/icon_tint_night</item>
+    <item name="iconTintDisabled">@color/white_38</item>
     <item name="iconTintLight">@color/icon_tint_light_night</item>
     <item name="counterTextColor">?android:textColorPrimary</item>
 

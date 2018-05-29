@@ -2,6 +2,7 @@
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="?clickableBackground"
@@ -20,7 +21,7 @@
     android:id="@+id/name"
     android:layout_toEndOf="@id/checkbox"
     android:layout_toRightOf="@id/checkbox"
-    android:layout_toStartOf="@+id/more"
+    android:layout_toStartOf="@id/more"
     android:layout_toLeftOf="@id/more"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -36,11 +37,24 @@
     android:layout_below="@id/name"
     android:layout_alignLeft="@id/name"
     android:layout_alignStart="@id/name"
+    android:layout_marginBottom="@dimen/margin_half_plus"
+    android:ellipsize="end"
+    android:singleLine="true"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    tools:text="42000000"/>
+
+  <TextView
+    android:id="@+id/author_name"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/name"
+    android:layout_toRightOf="@id/size"
+    android:layout_toEndOf="@id/size"
+    android:layout_marginBottom="@dimen/margin_half_plus"
     android:layout_alignEnd="@id/name"
     android:layout_alignRight="@id/name"
-    android:layout_toStartOf="@+id/more"
+    android:layout_toStartOf="@id/more"
     android:layout_toLeftOf="@id/more"
-    android:layout_marginBottom="@dimen/margin_half_plus"
     android:ellipsize="end"
     android:singleLine="true"
     android:textAppearance="@style/MwmTextAppearance.Body3"
@@ -57,6 +71,6 @@
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
     android:src="@drawable/ic_more"
-    android:background="?selectableItemBackgroundBorderless"
+    android:background="?attr/selectableItemBackgroundBorderless"
     android:tint="?secondary"/>
 </RelativeLayout>

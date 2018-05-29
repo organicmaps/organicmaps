@@ -7,6 +7,7 @@
   android:layout_height="wrap_content"
   android:background="?windowBackgroundForced">
   <TextView
+    android:id="@+id/text_message"
     android:layout_width="0dp"
     android:layout_weight="1"
     android:layout_height="wrap_content"

@@ -5,6 +5,7 @@ import android.location.Location;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.PluralsRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkInfo;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
@@ -32,9 +34,28 @@ public class Holders
   static class GeneralViewHolder extends RecyclerView.ViewHolder
   {
 
+    @NonNull
+    private final TextView mText;
+    @NonNull
+    private final ImageView mImage;
+
     GeneralViewHolder(@NonNull View itemView)
     {
       super(itemView);
+      mImage = itemView.findViewById(R.id.image);
+      mText = itemView.findViewById(R.id.text);
+    }
+
+    @NonNull
+    public TextView getText()
+    {
+      return mText;
+    }
+
+    @NonNull
+    public ImageView getImage()
+    {
+      return mImage;
     }
   }
 
@@ -42,34 +63,65 @@ public class Holders
   {
     @NonNull
     private TextView mButton;
+    @NonNull
+    private TextView mText;
+
 
     HeaderViewHolder(@NonNull View itemView)
     {
       super(itemView);
       mButton = itemView.findViewById(R.id.button);
+      mText = itemView.findViewById(R.id.text_message);
     }
 
-    void setAction(@Nullable HeaderAction action, final boolean showAll)
+    @NonNull
+    public TextView getText()
     {
-      mButton.setText(showAll ? R.string.bookmarks_groups_show_all :
-                      R.string.bookmarks_groups_hide_all);
-      mButton.setOnClickListener
-          (v ->
-           {
-             if (action == null)
-               return;
+      return mText;
+    }
 
-             if (showAll)
-               action.onShowAll();
-             else
-               action.onHideAll();
-           });
+    @NonNull
+    public TextView getButton()
+    {
+      return mButton;
+    }
+
+    void setAction(@NonNull HeaderAction action,
+                   @NonNull AdapterResourceProvider resProvider,
+                   final boolean showAll)
+    {
+      mButton.setText(showAll
+                      ? resProvider.getHeaderBtn().getSelectModeText()
+                      : resProvider.getHeaderBtn().getUnSelectModeText());
+      mButton.setOnClickListener(new ToggleShowAllClickListener(action, showAll));
+
     }
 
     public interface HeaderAction
     {
       void onHideAll();
       void onShowAll();
+    }
+
+    private static class ToggleShowAllClickListener implements View.OnClickListener
+    {
+      private final HeaderAction mAction;
+      private final boolean mShowAll;
+
+      ToggleShowAllClickListener(@NonNull HeaderAction action, boolean showAll)
+      {
+        mAction = action;
+        mShowAll = showAll;
+      }
+
+      @Override
+      public void onClick(View view)
+      {
+        if (mShowAll)
+          mAction.onShowAll();
+        else
+          mAction.onHideAll();
+      }
     }
   }
 
@@ -83,6 +135,10 @@ public class Holders
     TextView mSize;
     @NonNull
     View mMore;
+    @NonNull
+    TextView mAuthorName;
+    @NonNull
+    private BookmarkCategory mEntity;
 
     CategoryViewHolder(@NonNull View root)
     {
@@ -94,6 +150,7 @@ public class Holders
       UiUtils.expandTouchAreaForView(mVisibilityMarker, 0, left, 0, right);
       mSize = root.findViewById(R.id.size);
       mMore = root.findViewById(R.id.more);
+      mAuthorName = root.findViewById(R.id.author_name);
     }
 
     void setVisibilityState(boolean visible)
@@ -116,9 +173,26 @@ public class Holders
       mName.setText(name);
     }
 
-    void setSize(int size)
+    void setSize(@PluralsRes int phrase, int size)
     {
-      mSize.setText(mSize.getResources().getQuantityString(R.plurals.bookmarks_places, size, size));
+      mSize.setText(mSize.getResources().getQuantityString(phrase, size, size));
+    }
+
+    void setCategory(@NonNull BookmarkCategory entity)
+    {
+      mEntity = entity;
+    }
+
+    @NonNull
+    public BookmarkCategory getEntity()
+    {
+      return mEntity;
+    }
+
+    @NonNull
+    public TextView getAuthorName()
+    {
+      return mAuthorName;
     }
   }
 
@@ -126,6 +200,7 @@ public class Holders
   {
     static final int SECTION_TRACKS = 0;
     static final int SECTION_BMKS = 1;
+
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({ SECTION_TRACKS, SECTION_BMKS })
     public @interface Section {}
@@ -270,8 +345,11 @@ public class Holders
                                                                          position - 1);
       Track track = BookmarkManager.INSTANCE.getTrack(trackId);
       mName.setText(track.getName());
-      mDistance.setText(mDistance.getContext().getString(R.string.length)
-                        + " " + track.getLengthString());
+      mDistance.setText(new StringBuilder().append(mDistance.getContext()
+                                                            .getString(R.string.length))
+                                           .append(" ")
+                                           .append(track.getLengthString())
+                                           .toString());
       Drawable circle = Graphics.drawCircle(track.getColor(), R.dimen.track_circle_size,
                                             mIcon.getContext().getResources());
       mIcon.setImageDrawable(circle);

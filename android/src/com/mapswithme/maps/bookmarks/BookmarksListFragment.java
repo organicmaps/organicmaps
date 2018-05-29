@@ -19,6 +19,7 @@ import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.maps.bookmarks.data.Track;
@@ -36,9 +37,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
                BookmarkManager.BookmarksSharingListener
 {
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
+  public static final String EXTRA_CATEGORY = "bookmark_category";
 
-  private int mCategoryPosition;
-  private long mCategoryId;
+  private BookmarkCategory mCategory;
   private int mSelectedPosition;
 
   @CallSuper
@@ -46,14 +47,13 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mCategoryPosition = getArguments().getInt(ChooseBookmarkCategoryFragment.CATEGORY_POSITION, 0);
-    mCategoryId = BookmarkManager.INSTANCE.getCategoryIdByPosition(mCategoryPosition);
+    mCategory = getArguments().getParcelable(EXTRA_CATEGORY);
   }
 
   @Override
   protected RecyclerView.Adapter createAdapter()
   {
-    return new BookmarkListAdapter(getActivity(), mCategoryId);
+    return new BookmarkListAdapter(getActivity(), mCategory.getId());
   }
 
   @Override
@@ -71,7 +71,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
     setHasOptionsMenu(true);
     ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
     if (bar != null)
-      bar.setTitle(BookmarkManager.INSTANCE.getCategoryName(mCategoryId));
+      bar.setTitle(mCategory.getName());
   }
 
   @Override
@@ -258,7 +258,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
   {
     if (item.getItemId() == R.id.set_share)
     {
-      SharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(getActivity(), mCategoryId);
+      SharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(getActivity(), mCategory.getId());
       return true;
     }
 

@@ -13,11 +13,13 @@
   android:paddingBottom="@dimen/margin_half_plus"
   android:paddingTop="@dimen/margin_half_plus">
   <ImageView
+    android:id="@+id/image"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:src="@drawable/ic_checkbox_add"
     android:tint="?colorAccent"/>
   <TextView
+    android:id="@+id/text"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/margin_half"

@@ -9,7 +9,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 
 public class ChooseBookmarkCategoryAdapter extends BaseBookmarkCategoryAdapter<ChooseBookmarkCategoryAdapter.SingleChoiceHolder>
 {
@@ -73,7 +73,8 @@ public class ChooseBookmarkCategoryAdapter extends BaseBookmarkCategoryAdapter<C
   {
     if (holder.getItemViewType() == VIEW_TYPE_CATEGORY)
     {
-      holder.name.setText(BookmarkManager.INSTANCE.getCategoryName(getCategoryIdByPosition(position)));
+      BookmarkCategory category = getCategoryByPosition(position);
+      holder.name.setText(category.getName());
       holder.checked.setChecked(mCheckedPosition == position);
     }
   }

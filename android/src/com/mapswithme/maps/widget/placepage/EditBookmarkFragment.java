@@ -20,8 +20,11 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryFragment;
 import com.mapswithme.maps.bookmarks.ChooseBookmarkCategoryFragment.Listener;
+import com.mapswithme.maps.bookmarks.data.AbstractCategoriesSnapshot;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.maps.bookmarks.data.FilterStrategy;
 import com.mapswithme.maps.bookmarks.data.Icon;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.Statistics;
@@ -35,8 +38,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   private EditText mEtName;
   private TextView mTvBookmarkGroup;
   private ImageView mIvColor;
-  private int mCategoryPosition;
-  private long mCategoryId;
+  private BookmarkCategory mBookmarkCategory;
   @Nullable
   private Icon mIcon;
   @Nullable
@@ -82,8 +84,8 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   public void onViewCreated(@NonNull View view, Bundle savedInstanceState)
   {
     final Bundle args = getArguments();
-    mCategoryId = args.getLong(EXTRA_CATEGORY_ID);
-    mCategoryPosition = BookmarkManager.INSTANCE.getCategoryPositionById(mCategoryId);
+    long categoryId = args.getLong(EXTRA_CATEGORY_ID);
+    mBookmarkCategory = BookmarkManager.INSTANCE.getCategoryById(categoryId);
     long bookmarkId = args.getLong(EXTRA_BOOKMARK_ID);
     mBookmark = BookmarkManager.INSTANCE.getBookmark(bookmarkId);
     mIcon = mBookmark.getIcon();
@@ -129,9 +131,9 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
       dismiss();
       return;
     }
-    if (mBookmark.getCategoryId() != mCategoryId)
+    if (mBookmark.getCategoryId() != mBookmarkCategory.getId())
     {
-      mBookmark.setCategoryId(mCategoryId);
+      mBookmark.setCategoryId(mBookmarkCategory.getId());
       Framework.nativeOnBookmarkCategoryChanged(mBookmark.getCategoryId(), mBookmark.getBookmarkId());
     }
     mBookmark.setParams(mEtName.getText().toString(), mIcon, mEtDescription.getText().toString());
@@ -161,9 +163,19 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
       return;
 
     final Bundle args = new Bundle();
-    args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_POSITION, mCategoryPosition);
-    final ChooseBookmarkCategoryFragment fragment = (ChooseBookmarkCategoryFragment) Fragment.instantiate(getActivity(), ChooseBookmarkCategoryFragment.class.getName(), args);
-    fragment.show(getChildFragmentManager(), null);
+    FilterStrategy strategy = mBookmarkCategory.getType()
+                                               .getFilterStrategy();
+    AbstractCategoriesSnapshot.Default snapshot = BookmarkManager
+        .INSTANCE
+        .getCategoriesSnapshot(strategy);
+    final int index = snapshot.indexOfOrThrow(mBookmarkCategory);
+    args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_POSITION, index);
+    String className = ChooseBookmarkCategoryFragment.class.getName();
+    ChooseBookmarkCategoryFragment frag = (ChooseBookmarkCategoryFragment) Fragment.instantiate(
+        getActivity(),
+        className,
+        args);
+    frag.show(getChildFragmentManager(), null);
   }
 
   private void selectBookmarkColor()
@@ -204,7 +216,7 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
 
   private void refreshCategory()
   {
-    mTvBookmarkGroup.setText(BookmarkManager.INSTANCE.getCategoryName(mCategoryId));
+    mTvBookmarkGroup.setText(mBookmarkCategory.getName());
   }
 
   private void refreshBookmark()
@@ -222,9 +234,9 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
   }
 
   @Override
-  public void onCategoryChanged(long newCategoryId)
+  public void onCategoryChanged(BookmarkCategory newCategory)
   {
-    mCategoryId = newCategoryId;
+    mBookmarkCategory = newCategory;
     refreshCategory();
   }
 
