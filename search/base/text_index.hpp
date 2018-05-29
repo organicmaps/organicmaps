@@ -201,32 +201,19 @@ private:
   }
 
   template <typename Sink>
-  static void SerializeToken(Sink & sink, std::string const & token)
-  {
-    CHECK(!token.empty(), ());
-    sink.Write(token.data(), token.size());
-  }
-
-  template <typename Sink>
-  static void SerializeToken(Sink & sink, strings::UniString const & token)
+  static void SerializeToken(Sink & sink, Token const & token)
   {
     CHECK(!token.empty(), ());
     // todo(@m) Endianness.
-    sink.Write(token.data(), token.size() * sizeof(strings::UniString::value_type));
+    sink.Write(token.data(), token.size() * sizeof(typename Token::value_type));
   }
 
   template <typename Source>
-  static void DeserializeToken(Source & source, std::string & token, size_t size)
+  static void DeserializeToken(Source & source, Token & token, size_t size)
   {
-    token.resize(size);
-    source.Read(&token[0], size);
-  }
-
-  template <typename Source>
-  static void DeserializeToken(Source & source, strings::UniString & token, size_t size)
-  {
-    ASSERT_EQUAL(size % sizeof(strings::UniString::value_type), 0, ());
-    token.resize(size / sizeof(strings::UniString::value_type));
+    CHECK_GREATER(size, 0, ());
+    ASSERT_EQUAL(size % sizeof(typename Token::value_type), 0, ());
+    token.resize(size / sizeof(typename Token::value_type));
     source.Read(&token[0], size);
   }
 
@@ -276,8 +263,8 @@ private:
   {
     CHECK_EQUAL(source.Pos(), startPos + header.m_postingsStartsOffset, ());
     std::vector<uint32_t> postingsStarts(header.m_numTokens + 1);
-    for (size_t i = 0; i < postingsStarts.size(); ++i)
-      postingsStarts[i] = ReadPrimitiveFromSource<uint32_t>(source);
+    for (uint32_t & start : postingsStarts)
+      start = ReadPrimitiveFromSource<uint32_t>(source);
 
     CHECK_EQUAL(source.Pos(), startPos + header.m_postingsListsOffset, ());
     m_postingsByToken.clear();
