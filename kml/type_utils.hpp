@@ -78,8 +78,7 @@ inline void SetDefaultStr(LocalizableString & localizableStr, std::string const 
 extern bool IsEqual(std::vector<m2::PointD> const & v1, std::vector<m2::PointD> const & v2);
 
 struct BookmarkData;
-std::string GetPreferredBookmarkName(BookmarkData const & bmData, std::string const & languageNorm,
-                                     std::string const & languageOrig);
+std::string GetPreferredBookmarkName(BookmarkData const & bmData, std::string const & languageOrig);
 std::string GetPreferredBookmarkStr(LocalizableString const & name, std::string const & languageNorm);
 std::string GetPreferredBookmarkStr(LocalizableString const & name, feature::RegionData const & regionData,
                                     std::string const & languageNorm);

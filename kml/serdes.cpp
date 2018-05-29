@@ -384,7 +384,7 @@ void SaveBookmarkData(KmlWriter::WriterWrapper & writer, BookmarkData const & bo
   writer << kIndent2 << "<Placemark>\n";
   writer << kIndent4 << "<name>";
   std::string const defaultLang = StringUtf8Multilang::GetLangByCode(kDefaultLangCode);
-  SaveStringWithCDATA(writer, GetPreferredBookmarkName(bookmarkData, defaultLang, defaultLang));
+  SaveStringWithCDATA(writer, GetPreferredBookmarkName(bookmarkData, defaultLang));
   writer << "</name>\n";
 
   if (!bookmarkData.m_description.empty())
@@ -862,7 +862,15 @@ void KmlParser::CharData(std::string value)
     {
       if (currTag == "name")
       {
-        // Use this name only if we have not read name from extended data yet.
+        // We always prefer extended data. There is the following logic of "name" data usage:
+        // 1. We have read extended data.
+        //   1.1. There is "default" language in extended data (m_name is not empty).
+        //        The condition protects us from name rewriting.
+        //   1.2. There is no "default" language in extended data. Data from "name" are merged
+        //        with extended data. It helps us in the case when we did not save "default"
+        //        language in extended data.
+        // 2. We have NOT read extended data yet (or at all). In this case m_name must be empty.
+        // If extended data will be read, it can rewrite "default" language, since we prefer extended data.
         if (m_name.find(kDefaultLang) == m_name.end())
           m_name[kDefaultLang] = value;
       }

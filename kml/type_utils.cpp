@@ -5,6 +5,8 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature_utils.hpp"
 
+#include "platform/preferred_languages.hpp"
+
 #include "coding/multilang_utf8_string.hpp"
 
 namespace kml
@@ -70,9 +72,9 @@ std::string GetLocalizedBookmarkType(std::vector<uint32_t> const & types, std::s
   return categories.GetReadableFeatureType(type, categories.MapLocaleToInteger(languageOrig));
 }
 
-std::string GetPreferredBookmarkName(BookmarkData const & bmData, std::string const & languageNorm,
-                                     std::string const & languageOrig)
+std::string GetPreferredBookmarkName(BookmarkData const & bmData, std::string const & languageOrig)
 {
+  auto const languageNorm = languages::Normalize(languageOrig);
   std::string name = GetPreferredBookmarkStr(bmData.m_customName, languageNorm);
   if (name.empty())
     name = GetPreferredBookmarkStr(bmData.m_name, languageNorm);
