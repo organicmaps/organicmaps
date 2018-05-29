@@ -31364,3 +31364,55 @@ fa = دوباره نپرس
     sw = Nakubali kupokea habari za hivi karibuni kuhusu bidhaa za MAPS.ME
     zh-Hans = 我同意接收有关MAPS.ME产品的最新消息
     zh-Hant = 我同意接收有關MAPS.ME產品的最新消息
+
+  [bookmarks_page_downloaded]
+    en = Downloaded
+    ru = Загруженные
+
+  [bookmarks_page_my]
+    en = My
+    ru = Мои
+
+  [routes_and_bookmarks]
+    en = Routes and bookmarks
+    ru = Маршруты и метки
+
+  [bookmarks_webview_success_toast]
+    en = Bookmarks succesfully downloaded
+    ru = Метки успешно загружены
+
+  [cached_bookmarks_placeholder_title]
+    en = Download new places
+    ru = Загрузите новые места
+
+  [cached_bookmarks_placeholder_subtitle]
+    en = Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.
+    ru = Нажмите кнопку, чтобы загрузить тысячи интересных мест и маршрутов, созданных пользователями MAPS.ME. Вам понадобится подключение к интернету.
+
+  [downloader_download_routers]
+    en = Download bookmarks
+    ru = Загрузить метки
+
+  [bookmarks_groups_cached]
+    en = Downloaded lists
+    ru = Загруженные списки
+
+  [author_name_by_prefix]
+    en = by %s
+    ru = %s
+
+  [bookmarks_objects]
+    en = objects
+    ru = объектов
+
+  [objects]
+    en:one = %d object
+    en:other = %d objects
+
+  [places]
+    en:one = %d place
+    en:other = %d places
+
+  [tracks]
+    en:one = %d track
+    en:other = %d tracks
