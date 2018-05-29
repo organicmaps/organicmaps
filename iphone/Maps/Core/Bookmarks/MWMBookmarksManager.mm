@@ -167,8 +167,10 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
     }];
   };
   
-  auto onRestoreRequested = [](Cloud::RestoringRequestResult result, uint64_t backupTimestampInMs)
+  auto onRestoreRequested = [](Cloud::RestoringRequestResult result, std::string const & deviceName,
+                               uint64_t backupTimestampInMs)
   {
+    //TODO (@beloal): Output device name to the dialog.
     auto const res = static_cast<MWMRestoringRequestResult>(my::Key(result));
     NSDate * date = nil;
 

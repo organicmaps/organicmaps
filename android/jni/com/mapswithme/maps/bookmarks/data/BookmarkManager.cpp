@@ -59,7 +59,7 @@ void PrepareClassRefs(JNIEnv * env)
     jni::GetMethodID(env, bookmarkManagerInstance,
                      "onSynchronizationFinished", "(IILjava/lang/String;)V");
   g_onRestoreRequestedMethod =
-    jni::GetMethodID(env, bookmarkManagerInstance, "onRestoreRequested", "(IJ)V");
+    jni::GetMethodID(env, bookmarkManagerInstance, "onRestoreRequested", "(ILjava/lang/String;J)V");
   g_onRestoredFilesPreparedMethod =
     jni::GetMethodID(env, bookmarkManagerInstance, "onRestoredFilesPrepared", "()V");
   g_onImportStartedMethod =
@@ -166,13 +166,14 @@ void OnSynchronizationFinished(JNIEnv * env, Cloud::SynchronizationType type,
 }
 
 void OnRestoreRequested(JNIEnv * env, Cloud::RestoringRequestResult result,
-                        uint64_t backupTimestampInMs)
+                        std::string const & deviceName, uint64_t backupTimestampInMs)
 {
   ASSERT(g_bookmarkManagerClass, ());
   jobject bookmarkManagerInstance = env->GetStaticObjectField(g_bookmarkManagerClass,
                                                               g_bookmarkManagerInstanceField);
   env->CallVoidMethod(bookmarkManagerInstance, g_onRestoreRequestedMethod,
-                      static_cast<jint>(result), static_cast<jlong>(backupTimestampInMs));
+                      static_cast<jint>(result), jni::ToJavaString(env, deviceName),
+                      static_cast<jlong>(backupTimestampInMs));
   jni::HandleJavaException(env);
 }
 
@@ -231,7 +232,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeLoadBookmarks(JNIE
   frm()->GetBookmarkManager().SetCloudHandlers(
     std::bind(&OnSynchronizationStarted, env, _1),
     std::bind(&OnSynchronizationFinished, env, _1, _2, _3),
-    std::bind(&OnRestoreRequested, env, _1, _2),
+    std::bind(&OnRestoreRequested, env, _1, _2, _3),
     std::bind(&OnRestoredFilesPrepared, env));
 
   frm()->GetBookmarkManager().SetCatalogHandlers(nullptr, nullptr,

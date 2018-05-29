@@ -314,10 +314,11 @@ public class BookmarkBackupController implements Authorizer.Callback,
 
   @Override
   public void onRestoreRequested(@BookmarkManager.RestoringRequestResult int result,
-                                 long backupTimestampInMs)
+                                 @NonNull String deviceName, long backupTimestampInMs)
   {
-    LOGGER.d(TAG, "onRestoreRequested, result: " + result + ",  backupTimestampInMs = "
-                  + backupTimestampInMs);
+    //TODO (@alexzatsepin): Output deviceName to the dialog.
+    LOGGER.d(TAG, "onRestoreRequested, result: " + result + ", deviceName = " + deviceName +
+        ", backupTimestampInMs = " + backupTimestampInMs);
     Statistics.INSTANCE.trackBmRestoringRequestResult(result);
     hideRestoringProgressDialog();
 

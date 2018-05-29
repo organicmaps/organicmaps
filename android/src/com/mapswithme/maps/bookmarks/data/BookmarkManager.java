@@ -218,11 +218,11 @@ public enum BookmarkManager
 
   // Called from JNI.
   @MainThread
-  public void onRestoreRequested(@RestoringRequestResult int result,
+  public void onRestoreRequested(@RestoringRequestResult int result, @NonNull String deviceName,
                                  long backupTimestampInMs)
   {
     for (BookmarksCloudListener listener : mCloudListeners)
-      listener.onRestoreRequested(result, backupTimestampInMs);
+      listener.onRestoreRequested(result, deviceName, backupTimestampInMs);
   }
 
   // Called from JNI.
@@ -626,9 +626,11 @@ public enum BookmarkManager
      * The method is called after restoring request.
      *
      * @param result By result you can determine if the restoring is possible.
+     * @param deviceName The name of device which was the source of the backup.
      * @param backupTimestampInMs contains timestamp of the backup on the server (in milliseconds).
      */
-    void onRestoreRequested(@RestoringRequestResult int result, long backupTimestampInMs);
+    void onRestoreRequested(@RestoringRequestResult int result, @NonNull String deviceName,
+                            long backupTimestampInMs);
 
     /**
      * Restored bookmark files are prepared to substitute for the current ones.

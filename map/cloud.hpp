@@ -210,6 +210,7 @@ public:
                                                             SynchronizationResult,
                                                             std::string const & error)>;
   using RestoreRequestedHandler = std::function<void(RestoringRequestResult,
+                                                     std::string const & deviceName,
                                                      uint64_t backupTimestampInMs)>;
   using RestoredFilesPreparedHandler = std::function<void()>;
 

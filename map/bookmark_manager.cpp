@@ -478,7 +478,7 @@ BookmarkManager::BookmarkManager(Callbacks && callbacks)
   m_bookmarkCloud.SetSynchronizationHandlers(
       std::bind(&BookmarkManager::OnSynchronizationStarted, this, _1),
       std::bind(&BookmarkManager::OnSynchronizationFinished, this, _1, _2, _3),
-      std::bind(&BookmarkManager::OnRestoreRequested, this, _1, _2),
+      std::bind(&BookmarkManager::OnRestoreRequested, this, _1, _2, _3),
       std::bind(&BookmarkManager::OnRestoredFilesPrepared, this));
 }
 
@@ -1941,16 +1941,17 @@ void BookmarkManager::OnSynchronizationFinished(Cloud::SynchronizationType type,
 }
 
 void BookmarkManager::OnRestoreRequested(Cloud::RestoringRequestResult result,
+                                         std::string const & deviceName,
                                          uint64_t backupTimestampInMs)
 {
-  GetPlatform().RunTask(Platform::Thread::Gui, [this, result, backupTimestampInMs]()
+  GetPlatform().RunTask(Platform::Thread::Gui, [this, result, deviceName, backupTimestampInMs]()
   {
     if (m_onRestoreRequested)
-      m_onRestoreRequested(result, backupTimestampInMs);
+      m_onRestoreRequested(result, deviceName, backupTimestampInMs);
   });
 
   using namespace std::chrono;
-  LOG(LINFO, ("Cloud Restore Requested:", result,
+  LOG(LINFO, ("Cloud Restore Requested:", result, deviceName,
               time_point<system_clock>(milliseconds(backupTimestampInMs))));
 }
 

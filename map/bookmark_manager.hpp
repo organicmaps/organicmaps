@@ -466,7 +466,8 @@ private:
   void OnSynchronizationStarted(Cloud::SynchronizationType type);
   void OnSynchronizationFinished(Cloud::SynchronizationType type, Cloud::SynchronizationResult result,
                                  std::string const & errorStr);
-  void OnRestoreRequested(Cloud::RestoringRequestResult result, uint64_t backupTimestampInMs);
+  void OnRestoreRequested(Cloud::RestoringRequestResult result, std::string const & deviceName,
+                          uint64_t backupTimestampInMs);
   void OnRestoredFilesPrepared();
 
   bool CanConvert() const;
