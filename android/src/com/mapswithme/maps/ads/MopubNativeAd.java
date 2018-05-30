@@ -104,11 +104,6 @@ class MopubNativeAd extends CachedMwmNativeAd
   @Override
   public NetworkType getNetworkType()
   {
-    // There is no more elegant way to detect the type of the native ad when it's hidden under the
-    // Mopub architecture(classes).
-    String className = mAd.getClass().toString().toLowerCase();
-    if (className.contains("facebook"))
-      return NetworkType.FACEBOOK;
-    return NetworkType.UNKNOWN;
+    return NetworkType.MOPUB;
   }
 }

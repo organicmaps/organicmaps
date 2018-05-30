@@ -11,7 +11,7 @@ import android.view.View;
 public interface MwmNativeAd
 {
   enum NetworkType{
-    UNKNOWN, FACEBOOK, MYTARGET, GOOGLE;
+    FACEBOOK, GOOGLE, MOPUB, MYTARGET;
   }
 
   @NonNull

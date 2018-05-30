@@ -283,7 +283,7 @@ final class BannerController
   private void fillAdChoicesIcon(@NonNull MwmNativeAd data)
   {
     MwmNativeAd.NetworkType type = data.getNetworkType();
-    if (type == MwmNativeAd.NetworkType.FACEBOOK)
+    if (type == MwmNativeAd.NetworkType.MOPUB)
       mAdChoices.setImageResource(R.drawable.ic_ads_fb);
     else
       mAdChoices.setImageResource(ThemeUtils.getResource(mFrame.getContext(), R.attr.adChoicesIcon));
