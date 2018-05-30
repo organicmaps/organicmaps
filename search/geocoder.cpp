@@ -1341,7 +1341,7 @@ void Geocoder::EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32
 
   m_preRanker.Emplace(id, info);
 
-  ++ctx.m_numEmitted;
+  // ++ctx.m_numEmitted;
 }
 
 void Geocoder::EmitResult(BaseContext & ctx, Region const & region, TokenRange const & tokenRange,

@@ -75,7 +75,7 @@ struct BaseContext
 
   // The total number of results emitted using this
   // context in all branches of the search.
-  size_t m_numEmitted = 0;
+  // size_t m_numEmitted = 0;
 
   std::unique_ptr<hotels_filter::HotelsFilter::ScopedFilter> m_hotelsFilter;
 };
