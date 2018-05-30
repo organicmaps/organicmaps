@@ -20,8 +20,8 @@ omim_link_libraries(
   ugc
   search
   storage
-  indexer
   editor
+  indexer
   platform
   geometry
   coding

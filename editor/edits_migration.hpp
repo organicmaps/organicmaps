@@ -1,9 +1,9 @@
 #pragma once
 
-#include "indexer/feature_decl.hpp"
-#include "indexer/osm_editor.hpp"
-
+#include "editor/osm_editor.hpp"
 #include "editor/xml_feature.hpp"
+
+#include "indexer/feature_decl.hpp"
 
 #include "base/exception.hpp"
 

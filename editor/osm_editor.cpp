@@ -1,8 +1,13 @@
-#include "indexer/osm_editor.hpp"
+#include "editor/osm_editor.hpp"
+
+#include "editor/changeset_wrapper.hpp"
+#include "editor/edits_migration.hpp"
+#include "editor/osm_auth.hpp"
+#include "editor/server_api.hpp"
+#include "editor/xml_feature.hpp"
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
-#include "indexer/edits_migration.hpp"
 #include "indexer/fake_feature_ids.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_decl.hpp"
@@ -15,11 +20,6 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 #include "platform/preferred_languages.hpp"
-
-#include "editor/changeset_wrapper.hpp"
-#include "editor/osm_auth.hpp"
-#include "editor/server_api.hpp"
-#include "editor/xml_feature.hpp"
 
 #include "coding/internal/file_data.hpp"
 

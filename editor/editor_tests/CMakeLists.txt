@@ -7,6 +7,7 @@ set(
   editor_notes_test.cpp
   feature_matcher_test.cpp
   match_by_geometry_test.cpp
+  new_feature_categories_test.cpp
   opening_hours_ui_test.cpp
   osm_editor_test.cpp
   osm_editor_test.hpp
@@ -19,21 +20,17 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
-  editor
+  editor_tests_support
   platform_tests_support
   generator_tests_support
-  generator
   indexer_tests_support
-  indexer
+  generator
   routing
   routing_common
   search
-  succinct
+  editor
+  indexer
   storage
-  tess2
-  jansson
-  icu
-  protobuf
   platform
   geometry
   coding
@@ -41,6 +38,11 @@ omim_link_libraries(
   stats_client
   opening_hours
   pugixml
+  tess2
+  jansson
+  succinct
+  icu
+  protobuf
   oauthcpp
   ${LIBZ}
   ${Qt5Widgets_LIBRARIES}

@@ -35,8 +35,8 @@ omim_link_libraries(
   indexer_tests_support
   generator_tests_support
   search
-  indexer
   editor
+  indexer
   storage
   platform
   geometry

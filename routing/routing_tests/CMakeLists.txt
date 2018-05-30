@@ -43,8 +43,8 @@ omim_link_libraries(
   routing_common
   transit
   kml
-  indexer
   editor
+  indexer
   platform
   oauthcpp
   geometry

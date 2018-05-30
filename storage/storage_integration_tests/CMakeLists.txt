@@ -19,6 +19,7 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
+  platform_tests_support
   map
   drape_frontend
   routing
@@ -33,10 +34,9 @@ omim_link_libraries(
   partners_api
   local_ads
   kml
-  indexer
-  platform_tests_support
-  platform
   editor
+  indexer
+  platform
   opening_hours
   mwm_diff
   bsdiff

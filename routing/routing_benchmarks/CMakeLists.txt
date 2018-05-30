@@ -24,9 +24,9 @@ omim_link_libraries(
   mwm_diff
   traffic
   kml
+  editor
   indexer
   platform
-  editor
   oauthcpp
   opening_hours
   geometry

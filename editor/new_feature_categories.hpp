@@ -1,8 +1,8 @@
 #pragma once
 
-#include "indexer/categories_index.hpp"
-
 #include "editor/editor_config.hpp"
+
+#include "indexer/categories_index.hpp"
 
 #include "base/macros.hpp"
 

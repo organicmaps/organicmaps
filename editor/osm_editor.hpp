@@ -1,18 +1,18 @@
 #pragma once
 
-#include "geometry/rect2d.hpp"
+#include "editor/config_loader.hpp"
+#include "editor/editor_config.hpp"
+#include "editor/editor_notes.hpp"
+#include "editor/editor_storage.hpp"
+#include "editor/new_feature_categories.hpp"
+#include "editor/xml_feature.hpp"
 
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/mwm_set.hpp"
-#include "indexer/new_feature_categories.hpp"
 
-#include "editor/config_loader.hpp"
-#include "editor/editor_config.hpp"
-#include "editor/editor_notes.hpp"
-#include "editor/editor_storage.hpp"
-#include "editor/xml_feature.hpp"
+#include "geometry/rect2d.hpp"
 
 #include "base/timer.hpp"
 

@@ -39,6 +39,8 @@
 
 #include "drape/constants.hpp"
 
+#include "editor/osm_editor.hpp"
+
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
@@ -48,7 +50,6 @@
 #include "indexer/feature_visibility.hpp"
 #include "indexer/ftypes_sponsored.hpp"
 #include "indexer/map_style_reader.hpp"
-#include "indexer/osm_editor.hpp"
 #include "indexer/scales.hpp"
 
 /// @todo Probably it's better to join this functionality.

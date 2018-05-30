@@ -14,8 +14,8 @@ omim_link_libraries(
   search
   storage
   kml
-  indexer
   editor
+  indexer
   platform
   geometry
   coding

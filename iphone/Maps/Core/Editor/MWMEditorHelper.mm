@@ -2,9 +2,9 @@
 #import "AppInfo.h"
 #import "MWMAuthorizationCommon.h"
 
-#include "platform/platform.hpp"
+#include "editor/osm_editor.hpp"
 
-#include "indexer/osm_editor.hpp"
+#include "platform/platform.hpp"
 
 @implementation MWMEditorHelper
 

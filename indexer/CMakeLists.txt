@@ -43,8 +43,6 @@ set(
   drules_struct.pb.h
   editable_map_object.cpp
   editable_map_object.hpp
-  edits_migration.cpp
-  edits_migration.hpp
   fake_feature_ids.cpp
   fake_feature_ids.hpp
   feature_algo.cpp
@@ -101,10 +99,6 @@ set(
   map_style.hpp
   mwm_set.cpp
   mwm_set.hpp
-  new_feature_categories.cpp   # it's in indexer because of CategoriesHolder dependency.
-  new_feature_categories.hpp   # it's in indexer because of CategoriesHolder dependency.
-  osm_editor.cpp
-  osm_editor.hpp
   postcodes_matcher.cpp   # it's in indexer due to editor which is in indexer and depends on postcodes_marcher
   postcodes_matcher.hpp    # it's in indexer due to editor which is in indexer and depends on postcodes_marcher
   rank_table.cpp

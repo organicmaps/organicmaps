@@ -2,6 +2,8 @@
 
 #include "generator/feature_builder.hpp"
 
+#include "editor/osm_editor.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
@@ -10,7 +12,6 @@
 #include "indexer/feature_meta.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/mwm_set.hpp"
-#include "indexer/osm_editor.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
 

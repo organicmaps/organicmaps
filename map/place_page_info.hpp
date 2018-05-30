@@ -10,11 +10,12 @@
 
 #include "storage/index.hpp"
 
+#include "editor/osm_editor.hpp"
+
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_meta.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/map_object.hpp"
-#include "indexer/osm_editor.hpp"
 
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"

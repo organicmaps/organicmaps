@@ -3,15 +3,16 @@
 #include "com/mapswithme/core/jni_helper.hpp"
 #include "com/mapswithme/maps/Framework.hpp"
 
+#include "editor/osm_editor.hpp"
+
+#include "indexer/cuisines.hpp"
+#include "indexer/editable_map_object.hpp"
+
 #include "coding/multilang_utf8_string.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
-
-#include "indexer/cuisines.hpp"
-#include "indexer/editable_map_object.hpp"
-#include "indexer/osm_editor.hpp"
 
 #include "std/target_os.hpp"
 

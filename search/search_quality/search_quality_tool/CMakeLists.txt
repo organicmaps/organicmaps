@@ -13,8 +13,8 @@ omim_link_libraries(
   search
   search_quality
   storage
-  indexer
   editor
+  indexer
   platform
   mwm_diff
   bsdiff

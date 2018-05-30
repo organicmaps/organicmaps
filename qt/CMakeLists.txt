@@ -75,9 +75,9 @@ omim_link_libraries(
   partners_api
   local_ads
   kml
+  editor
   indexer
   platform
-  editor
   geometry
   coding
   base

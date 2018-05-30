@@ -9,16 +9,16 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
+  platform_tests_support
   generator_tests_support
   platform_tests_support
   generator
   routing
   search
   openlr
+  editor
   indexer
   routing_common
-  editor
-  platform_tests_support
   platform
   coding
   geometry

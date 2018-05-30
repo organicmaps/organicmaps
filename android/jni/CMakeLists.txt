@@ -112,9 +112,9 @@ target_link_libraries(
   ugc
   drape
   kml
+  editor
   indexer
   platform
-  editor
   partners_api
   local_ads
   mwm_diff

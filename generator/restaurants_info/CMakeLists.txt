@@ -18,8 +18,8 @@ omim_link_libraries(
   search
   routing
   routing_common
-  indexer
   editor
+  indexer
   geometry
   platform
   coding

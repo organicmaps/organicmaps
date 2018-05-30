@@ -6,9 +6,13 @@
 #include "indexer/features_offsets_table.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/mwm_set.hpp"
-#include "indexer/osm_editor.hpp"
 #include "indexer/scale_index.hpp"
 #include "indexer/unique_index.hpp"
+
+// todo(@syershov) In general, including editor files in indexer may introduce
+// a circular dependency. We are currently working on proper separation and
+// there are no actual dependencies now, so this include is ok.
+#include "editor/osm_editor.hpp"
 
 #include "coding/file_container.hpp"
 

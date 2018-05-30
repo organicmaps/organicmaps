@@ -29,12 +29,12 @@
 
 #include "ugc/api.hpp"
 
+#include "editor/new_feature_categories.hpp"
+#include "editor/user_stats.hpp"
+
 #include "indexer/data_header.hpp"
 #include "indexer/index_helpers.hpp"
 #include "indexer/map_style.hpp"
-#include "indexer/new_feature_categories.hpp"
-
-#include "editor/user_stats.hpp"
 
 #include "search/city_finder.hpp"
 #include "search/displayed_categories.hpp"

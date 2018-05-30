@@ -1,6 +1,9 @@
 #include "testing/testing.hpp"
 
+#include "editor/editor_storage.hpp"
 #include "editor/editor_tests/osm_editor_test.hpp"
+#include "editor/editor_tests_support/helpers.hpp"
+#include "editor/osm_editor.hpp"
 
 #include "search/editor_delegate.hpp"
 
@@ -8,10 +11,6 @@
 #include "indexer/classificator_loader.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/index_helpers.hpp"
-#include "indexer/indexer_tests_support/helpers.hpp"
-#include "indexer/osm_editor.hpp"
-
-#include "editor/editor_storage.hpp"
 
 #include "platform/platform_tests_support/scoped_file.hpp"
 
@@ -20,7 +19,7 @@
 #include "std/unique_ptr.hpp"
 
 using namespace generator::tests_support;
-using namespace indexer::tests_support;
+using namespace editor::tests_support;
 using platform::tests_support::ScopedFile;
 
 namespace
@@ -147,13 +146,13 @@ EditorTest::EditorTest()
     LOG(LERROR, ("Classificator read error: ", e.what()));
   }
 
-  indexer::tests_support::SetUpEditorForTesting(make_unique<search::EditorDelegate>(m_index));
+  editor::tests_support::SetUpEditorForTesting(make_unique<search::EditorDelegate>(m_index));
 }
 
 EditorTest::~EditorTest()
 {
 
-  indexer::tests_support::TearDownEditorForTesting();
+  editor::tests_support::TearDownEditorForTesting();
 
   for (auto const & file : m_mwmFiles)
     Cleanup(file);
@@ -174,7 +173,7 @@ void EditorTest::GetFeatureTypeInfoTest()
     builder.Add(cafe);
   });
 
-  ForEachCafeAtPoint(m_index, m2::PointD(1.0, 1.0), [&editor, &mwmId](FeatureType & ft)
+  ForEachCafeAtPoint(m_index, m2::PointD(1.0, 1.0), [&editor](FeatureType & ft)
   {
     TEST(!editor.GetFeatureTypeInfo(ft.GetID().m_mwmId, ft.GetID().m_index), ());
 

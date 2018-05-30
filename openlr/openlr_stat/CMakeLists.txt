@@ -13,8 +13,8 @@ omim_link_libraries(${PROJECT_NAME}
   routing
   routing_common
   storage
-  indexer
   editor
+  indexer
   platform
   geometry
   coding

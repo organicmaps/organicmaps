@@ -6,9 +6,10 @@
 #include "partners_api/banner.hpp"
 #include "partners_api/partners.hpp"
 
+#include "editor/osm_editor.hpp"
+
 #include "indexer/feature_utils.hpp"
 #include "indexer/ftypes_sponsored.hpp"
-#include "indexer/osm_editor.hpp"
 
 #include "platform/measurement_utils.hpp"
 #include "platform/preferred_languages.hpp"

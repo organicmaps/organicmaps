@@ -6,7 +6,8 @@
 #include "indexer/feature_loader_base.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
-#include "indexer/osm_editor.hpp"
+
+#include "editor/osm_editor.hpp"
 
 #include "platform/preferred_languages.hpp"
 

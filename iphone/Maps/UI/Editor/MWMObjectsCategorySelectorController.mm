@@ -13,7 +13,7 @@
 
 #include "Framework.h"
 
-#include "indexer/new_feature_categories.hpp"
+#include "editor/new_feature_categories.hpp"
 
 using namespace osm;
 

@@ -20,8 +20,8 @@ omim_link_libraries(
   map
   ugc
   kml
-  indexer
   editor
+  indexer
   geometry
   platform
   coding

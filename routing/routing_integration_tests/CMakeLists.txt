@@ -26,6 +26,7 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
+  editor_tests_support
   map
   routing
   search
@@ -35,8 +36,8 @@ omim_link_libraries(
   routing_common
   transit
   kml
-  indexer
   editor
+  indexer
   platform
   oauthcpp
   geometry

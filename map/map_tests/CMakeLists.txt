@@ -29,6 +29,7 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   search_tests_support
+  editor_tests_support
   indexer_tests_support
   generator_tests_support
   generator
@@ -48,8 +49,8 @@ omim_link_libraries(
   partners_api
   local_ads
   kml
-  indexer
   editor
+  indexer
   platform
   geometry
   coding

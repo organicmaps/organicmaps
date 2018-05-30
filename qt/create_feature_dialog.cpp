@@ -2,7 +2,7 @@
 
 #include "platform/preferred_languages.hpp"
 
-#include "indexer/new_feature_categories.hpp"
+#include "editor/new_feature_categories.hpp"
 
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QListWidget>

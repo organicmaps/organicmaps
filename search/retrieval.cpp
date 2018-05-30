@@ -8,12 +8,13 @@
 #include "search/search_trie.hpp"
 #include "search/token_slice.hpp"
 
+#include "editor/osm_editor.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/index.hpp"
-#include "indexer/osm_editor.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"

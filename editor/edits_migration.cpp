@@ -1,10 +1,11 @@
-#include "geometry/algorithm.hpp"
-#include "geometry/mercator.hpp"
-
-#include "indexer/edits_migration.hpp"
-#include "indexer/feature.hpp"
+#include "editor/edits_migration.hpp"
 
 #include "editor/feature_matcher.hpp"
+
+#include "indexer/feature.hpp"
+
+#include "geometry/algorithm.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/logging.hpp"
 

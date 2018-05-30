@@ -15,9 +15,9 @@ omim_link_libraries(
   storage
   ugc
   kml
+  editor
   indexer
   platform
-  editor
   mwm_diff
   bsdiff
   geometry

@@ -1,8 +1,8 @@
-#include "indexer/indexer_tests_support/helpers.hpp"
+#include "editor/editor_tests_support/helpers.hpp"
 
 #include "editor/editor_storage.hpp"
 
-namespace indexer
+namespace editor
 {
 namespace tests_support
 {
@@ -22,4 +22,4 @@ void TearDownEditorForTesting()
   editor.SetDefaultStorage();
 }
 }  // namespace tests_support
-}  // namespace indexer
+}  // namespace editor

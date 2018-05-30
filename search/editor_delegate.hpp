@@ -1,6 +1,6 @@
 #pragma once
 
-#include "indexer/osm_editor.hpp"
+#include "editor/osm_editor.hpp"
 
 class Index;
 
