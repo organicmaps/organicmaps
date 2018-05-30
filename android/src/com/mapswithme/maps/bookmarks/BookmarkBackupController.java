@@ -207,9 +207,9 @@ public class BookmarkBackupController implements Authorizer.Callback,
     SharedPropertiesUtils.setBackupWidgetExpanded(mBackupView.getExpanded());
   }
 
-  public void onSocialTokenResult(int resultCode, @Nullable Intent data)
+  public void onTargetFragmentResult(int resultCode, @Nullable Intent data)
   {
-    mAuthorizer.onSocialTokenResult(resultCode, data);
+    mAuthorizer.onTargetFragmentResult(resultCode, data);
   }
 
   @Override

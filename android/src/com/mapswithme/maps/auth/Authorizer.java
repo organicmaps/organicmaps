@@ -69,7 +69,7 @@ public class Authorizer implements AuthorizationListener
     fragment.show(mFragment.getChildFragmentManager(), name);
   }
 
-  public final void onSocialTokenResult(int resultCode, @Nullable Intent data)
+  public final void onTargetFragmentResult(int resultCode, @Nullable Intent data)
   {
     if (data == null)
       return;
@@ -136,10 +136,5 @@ public class Authorizer implements AuthorizationListener
     void onAuthorizationStart();
     void onSocialAuthenticationCancel(@Framework.AuthTokenType int type);
     void onSocialAuthenticationError(@Framework.AuthTokenType int type, @Nullable String error);
-  }
-
-  public interface SocialAuthCallback
-  {
-    void onSocialTokenResult(int resultCode, @Nullable Intent data);
   }
 }

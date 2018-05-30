@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.Authorizer;
+import com.mapswithme.maps.auth.TargetFragmentCallback;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
@@ -32,7 +33,7 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
                BookmarkManager.BookmarksLoadingListener,
                BookmarkManager.BookmarksSharingListener,
                BookmarkCategoriesAdapter.CategoryListInterface,
-               KmlImportController.ImportKmlCallback, Authorizer.SocialAuthCallback
+               KmlImportController.ImportKmlCallback, TargetFragmentCallback
 {
   private static final int MAX_CATEGORY_NAME_LENGTH = 60;
   private long mSelectedCatId;
@@ -314,10 +315,16 @@ public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  public void onSocialTokenResult(int resultCode, @Nullable Intent data)
+  public void onTargetFragmentResult(int resultCode, @Nullable Intent data)
   {
     if (mBackupController != null)
-      mBackupController.onSocialTokenResult(resultCode, data);
+      mBackupController.onTargetFragmentResult(resultCode, data);
+  }
+
+  @Override
+  public boolean isTargetAdded()
+  {
+    return isAdded();
   }
 
   interface CategoryEditor

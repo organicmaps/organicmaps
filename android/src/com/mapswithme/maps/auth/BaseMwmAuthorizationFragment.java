@@ -13,7 +13,7 @@ import com.mapswithme.maps.base.BaseMwmToolbarFragment;
  * to get user authorized for the MapsMe server (Passport).
  */
 public abstract class BaseMwmAuthorizationFragment extends BaseMwmToolbarFragment
-    implements Authorizer.Callback, Authorizer.SocialAuthCallback
+    implements Authorizer.Callback, TargetFragmentCallback
 {
   @NonNull
   private final Authorizer mAuthorizer = new Authorizer(this);
@@ -40,8 +40,14 @@ public abstract class BaseMwmAuthorizationFragment extends BaseMwmToolbarFragmen
   }
 
   @Override
-  public void onSocialTokenResult(int resultCode, @Nullable Intent data)
+  public void onTargetFragmentResult(int resultCode, @Nullable Intent data)
   {
-    mAuthorizer.onSocialTokenResult(resultCode, data);
+    mAuthorizer.onTargetFragmentResult(resultCode, data);
+  }
+
+  @Override
+  public boolean isTargetAdded()
+  {
+    return isAdded();
   }
 }

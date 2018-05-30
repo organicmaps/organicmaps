@@ -86,7 +86,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   @NonNull
   private CheckBox mPromoCheck;
   @Nullable
-  private Authorizer.SocialAuthCallback mTargetCallback;
+  private TargetFragmentCallback mTargetCallback;
 
   @NonNull
   @Override
@@ -113,11 +113,11 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
   {
     try
     {
-      mTargetCallback = (Authorizer.SocialAuthCallback) getParentFragment();
+      mTargetCallback = (TargetFragmentCallback) getParentFragment();
     }
     catch (ClassCastException e)
     {
-      throw new ClassCastException("Caller must implement SocialAuthCallback interface!");
+      throw new ClassCastException("Caller must implement TargetFragmentCallback interface!");
     }
   }
 
@@ -192,7 +192,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
                           @Framework.AuthTokenType int type, @Nullable String error,
                           boolean isCancel)
   {
-    if (mTargetCallback == null)
+    if (mTargetCallback == null || !mTargetCallback.isTargetAdded())
       return;
 
     Intent data = new Intent();
@@ -203,7 +203,7 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     data.putExtra(Constants.EXTRA_PRIVACY_POLICY_ACCEPTED, mPrivacyPolicyCheck.isChecked());
     data.putExtra(Constants.EXTRA_TERMS_OF_USE_ACCEPTED, mTermOfUseCheck.isChecked());
     data.putExtra(Constants.EXTRA_PROMO_ACCEPTED, mPromoCheck.isChecked());
-    mTargetCallback.onSocialTokenResult(resultCode, data);
+    mTargetCallback.onTargetFragmentResult(resultCode, data);
   }
 
   @Override
