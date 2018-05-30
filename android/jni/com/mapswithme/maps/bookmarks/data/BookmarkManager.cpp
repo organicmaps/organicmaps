@@ -676,22 +676,22 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategor
                        g_bookmarkCategoryClass,
                        categories,
                        [](JNIEnv * env, kml::MarkGroupId const & item) {
-        auto const & manager = frm()->GetBookmarkManager();
-        auto const & data = manager.GetCategoryData(item);
-        auto const isFromCatalog = manager.IsCategoryFromCatalog(item);
-        auto const tracksCount = manager.GetTrackIds(data.m_id).size();
-        auto const bookmarksCount = manager.GetUserMarkIds(data.m_id).size();
-        auto const isVisible = manager.IsVisible(data.m_id);
-        return env->NewObject(g_bookmarkCategoryClass,
-                              g_bookmarkCategoryConstructor,
-                              static_cast<jlong>(data.m_id),
-                              jni::ToJavaString(env, kml::GetDefaultStr(data.m_name)),
-                              jni::ToJavaString(env, data.m_authorId),
-                              jni::ToJavaString(env, data.m_authorName),
-                              static_cast<jint>(tracksCount),
-                              static_cast<jint>(bookmarksCount),
-                              static_cast<jboolean>(isFromCatalog),
-                              static_cast<jboolean>(isVisible));
+      auto const & manager = frm()->GetBookmarkManager();
+      auto const & data = manager.GetCategoryData(item);
+      auto const isFromCatalog = manager.IsCategoryFromCatalog(item);
+      auto const tracksCount = manager.GetTrackIds(data.m_id).size();
+      auto const bookmarksCount = manager.GetUserMarkIds(data.m_id).size();
+      auto const isVisible = manager.IsVisible(data.m_id);
+      return env->NewObject(g_bookmarkCategoryClass,
+                            g_bookmarkCategoryConstructor,
+                            static_cast<jlong>(data.m_id),
+                            jni::ToJavaString(env, kml::GetDefaultStr(data.m_name)),
+                            jni::ToJavaString(env, data.m_authorId),
+                            jni::ToJavaString(env, data.m_authorName),
+                            static_cast<jint>(tracksCount),
+                            static_cast<jint>(bookmarksCount),
+                            static_cast<jboolean>(isFromCatalog),
+                            static_cast<jboolean>(isVisible));
     });
 }
 }  // extern "C"

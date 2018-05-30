@@ -294,16 +294,15 @@ public enum BookmarkManager
   @NonNull
   public BookmarkCategory getCategoryById(long catId)
   {
-    List<BookmarkCategory> items = getAllCategoriesSnapshot().items();
-    for (BookmarkCategory each : items){
-      if (catId ==  each.getId())
-      {
+    List<BookmarkCategory> items = getAllCategoriesSnapshot().getItems();
+    for (BookmarkCategory each : items)
+    {
+      if (catId == each.getId())
         return each;
-      }
     }
-    throw new IllegalArgumentException(new StringBuilder().append("category with id = ")
+    throw new IllegalArgumentException(new StringBuilder().append("Category with id = ")
                                                           .append(catId)
-                                                          .append(" missing")
+                                                          .append(" missed")
                                                           .toString());
   }
 
@@ -390,25 +389,28 @@ public enum BookmarkManager
   @NonNull
   public AbstractCategoriesSnapshot.Default getCatalogCategoriesSnapshot()
   {
-    return new AbstractCategoriesSnapshot.Catalog(nativeGetBookmarkCategories());
+    BookmarkCategory[] items = nativeGetBookmarkCategories();
+    return new AbstractCategoriesSnapshot.Default(items, new FilterStrategy.Catalog());
   }
 
   @NonNull
   public AbstractCategoriesSnapshot.Default getOwnedCategoriesSnapshot()
   {
-    return new AbstractCategoriesSnapshot.Private(nativeGetBookmarkCategories());
+    BookmarkCategory[] items = nativeGetBookmarkCategories();
+    return new AbstractCategoriesSnapshot.Default(items, new FilterStrategy.Private());
   }
 
   @NonNull
   public AbstractCategoriesSnapshot.Default getAllCategoriesSnapshot()
   {
-    return new AbstractCategoriesSnapshot.All(nativeGetBookmarkCategories());
+    BookmarkCategory[] items = nativeGetBookmarkCategories();
+    return new AbstractCategoriesSnapshot.Default(items, new FilterStrategy.All());
   }
 
   @NonNull
   public AbstractCategoriesSnapshot.Default getCategoriesSnapshot(FilterStrategy strategy)
   {
-    return AbstractCategoriesSnapshot.Default.from(nativeGetBookmarkCategories(), strategy);
+    return new AbstractCategoriesSnapshot.Default(nativeGetBookmarkCategories(), strategy);
   }
 
   public boolean isUsedCategoryName(@NonNull String name)

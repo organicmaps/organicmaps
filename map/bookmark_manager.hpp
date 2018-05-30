@@ -211,9 +211,9 @@ public:
 
   enum class CategoryFilterType
   {
-      Private = 0,
-      Public,
-      All
+    Private = 0,
+    Public,
+    All
   };
 
   struct SharingResult
@@ -481,8 +481,7 @@ private:
   void FinishConversion(ConversionHandler const & handler, bool result);
 
   bool HasDuplicatedIds(kml::FileData const & fileData) const;
-  bool IsFilterTypeCorrected(CategoryFilterType const filter, bool const fromCatalog) const;
-
+  bool CheckVisibility(CategoryFilterType const filter, bool isVisible) const;
   ThreadChecker m_threadChecker;
 
   Callbacks m_callbacks;

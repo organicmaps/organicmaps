@@ -11,7 +11,7 @@ import android.text.TextUtils;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.BookmarksPageFactory;
-import com.mapswithme.maps.content.TypeConverter;
+import com.mapswithme.util.TypeConverter;
 
 public class BookmarkCategory implements Parcelable
 {
@@ -25,14 +25,9 @@ public class BookmarkCategory implements Parcelable
   private final int mTypeIndex;
   private final boolean mIsVisible;
 
-  public BookmarkCategory(long id,
-                          @NonNull String name,
-                          @NonNull String authorId,
-                          @NonNull String authorName,
-                          int tracksCount,
-                          int bookmarksCount,
-                          boolean fromCatalog,
-                          boolean isVisible)
+  public BookmarkCategory(long id, @NonNull String name, @NonNull String authorId,
+                          @NonNull String authorName, int tracksCount, int bookmarksCount,
+                          boolean fromCatalog, boolean isVisible)
   {
     mId = id;
     mName = name;
@@ -44,7 +39,6 @@ public class BookmarkCategory implements Parcelable
               ? null
               : new Author(authorId, authorName);
   }
-
 
   @Override
   public boolean equals(Object o)
@@ -105,47 +99,51 @@ public class BookmarkCategory implements Parcelable
 
   public int size()
   {
-    return getBookmarksCount() +  getTracksCount();
+    return getBookmarksCount() + getTracksCount();
   }
 
-  @PluralsRes
-  public int getPluralsCountTemplate()
+  @NonNull
+  public CountAndPlurals getPluralsCountTemplate()
   {
-    return size() == 0
-           ? R.plurals.objects
-           : getTracksCount() == 0
-             ? R.plurals.places
-             : getBookmarksCount() == 0
-               ? R.string.tracks
-               : R.plurals.objects;
+    if (size() == 0)
+      return new CountAndPlurals(0, R.plurals.objects);
+
+    if (getBookmarksCount() == 0)
+      return new CountAndPlurals(getTracksCount(), R.plurals.tracks);
+
+    if (getTracksCount() == 0)
+      return new CountAndPlurals(getBookmarksCount(), R.plurals.places);
+
+    return new CountAndPlurals(size(), R.plurals.objects);
   }
 
-  public int getPluralsCount()
-  {
-    return size() == 0
-           ? 0
-           : getBookmarksCount() == 0
-             ? getTracksCount()
-             : getTracksCount() == 0
-               ? getBookmarksCount()
-               : size();
-  }
+  public static class CountAndPlurals {
+    private final int mCount;
+    @PluralsRes
+    private final int mPlurals;
 
-  public static class Author implements Parcelable{
-
-    public static final String PHRASE_SEPARATOR = " • ";
-    public static final String SPACE = " ";
-    @NonNull
-    private final String mId;
-    public static String getRepresentation(Context context, Author author){
-      Resources res = context.getResources();
-      return new StringBuilder()
-          .append(PHRASE_SEPARATOR)
-          .append(String.format(res.getString(R.string.author_name_by_prefix),
-                                author.getName()))
-          .toString();
+    public CountAndPlurals(int count, int plurals)
+    {
+      mCount = count;
+      mPlurals = plurals;
     }
 
+    public int getCount()
+    {
+      return mCount;
+    }
+
+    public int getPlurals()
+    {
+      return mPlurals;
+    }
+  }
+
+  public static class Author implements Parcelable
+  {
+    private static final String PHRASE_SEPARATOR = " • ";
+    @NonNull
+    private final String mId;
     @NonNull
     private final String mName;
 
@@ -198,6 +196,15 @@ public class BookmarkCategory implements Parcelable
       return 0;
     }
 
+    public static String getRepresentation(@NonNull Context context, @NonNull Author author)
+    {
+      Resources res = context.getResources();
+      return new StringBuilder()
+          .append(PHRASE_SEPARATOR)
+          .append(String.format(res.getString(R.string.author_name_by_prefix), author.getName()))
+          .toString();
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
@@ -225,15 +232,6 @@ public class BookmarkCategory implements Parcelable
         return new Author[size];
       }
     };
-  }
-
-  public static class IsFromCatalog implements TypeConverter<BookmarkCategory, Boolean>
-  {
-    @Override
-    public Boolean convert(@NonNull BookmarkCategory data)
-    {
-      return data.isFromCatalog();
-    }
   }
 
   @Override
@@ -295,20 +293,24 @@ public class BookmarkCategory implements Parcelable
     }
   };
 
+  public static class IsFromCatalog implements TypeConverter<BookmarkCategory, Boolean>
+  {
+    @Override
+    public Boolean convert(@NonNull BookmarkCategory data)
+    {
+      return data.isFromCatalog();
+    }
+  }
+
   public enum Type
   {
-    PRIVATE(
-        BookmarksPageFactory.PRIVATE,
-        FilterStrategy.Private.makeInstance()),
-    CATALOG(
-        BookmarksPageFactory.CATALOG,
-        FilterStrategy.Catalog.makeInstance());
+    PRIVATE(BookmarksPageFactory.PRIVATE, FilterStrategy.PredicativeStrategy.makePrivateInstance()),
+    CATALOG(BookmarksPageFactory.CATALOG, FilterStrategy.PredicativeStrategy.makeCatalogInstance());
 
     private BookmarksPageFactory mFactory;
     private FilterStrategy mFilterStrategy;
 
-    Type(@NonNull BookmarksPageFactory pageFactory,
-         @NonNull FilterStrategy filterStrategy)
+    Type(@NonNull BookmarksPageFactory pageFactory, @NonNull FilterStrategy filterStrategy)
     {
       mFactory = pageFactory;
       mFilterStrategy = filterStrategy;

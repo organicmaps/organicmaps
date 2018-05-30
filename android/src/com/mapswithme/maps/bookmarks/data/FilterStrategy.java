@@ -2,18 +2,18 @@ package com.mapswithme.maps.bookmarks.data;
 
 import android.support.annotation.NonNull;
 
-import com.mapswithme.maps.content.Predicate;
+import com.mapswithme.util.Predicate;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class FilterStrategy
+public interface FilterStrategy
 {
   @NonNull
-  public abstract List<BookmarkCategory> filter(@NonNull List<BookmarkCategory> items);
+  List<BookmarkCategory> filter(@NonNull List<BookmarkCategory> items);
 
-  public static class All extends FilterStrategy
+  class All implements FilterStrategy
   {
     @NonNull
     @Override
@@ -23,33 +23,23 @@ public abstract class FilterStrategy
     }
   }
 
-  public static class Private extends PredicativeStrategy<Boolean>
+  class Private extends PredicativeStrategy<Boolean>
   {
     public Private()
     {
       super(new Predicate.Equals<>(new BookmarkCategory.IsFromCatalog(), false));
     }
-
-    public static FilterStrategy makeInstance()
-    {
-      return new Private();
-    }
   }
 
-  public static class Catalog extends PredicativeStrategy<Boolean>
+  class Catalog extends PredicativeStrategy<Boolean>
   {
     Catalog()
     {
       super(new Predicate.Equals<>(new BookmarkCategory.IsFromCatalog(), true));
     }
-
-    public static Catalog makeInstance()
-    {
-      return new Catalog();
-    }
   }
 
-  public static class PredicativeStrategy<T> extends FilterStrategy
+  class PredicativeStrategy<T> implements FilterStrategy
   {
     @NonNull
     private final Predicate<T, BookmarkCategory> mPredicate;
@@ -67,11 +57,21 @@ public abstract class FilterStrategy
       for (BookmarkCategory each : items)
       {
         if (mPredicate.apply(each))
-        {
           result.add(each);
-        }
       }
       return Collections.unmodifiableList(result);
+    }
+
+    @NonNull
+    public static FilterStrategy makeCatalogInstance()
+    {
+      return new Catalog();
+    }
+
+    @NonNull
+    public static FilterStrategy makePrivateInstance()
+    {
+      return new Private();
     }
   }
 }

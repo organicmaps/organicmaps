@@ -6,18 +6,18 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class AbstractCategoriesSnapshot
+public abstract class AbstractCategoriesSnapshot
 {
   @NonNull
   private final List<BookmarkCategory> mSnapshot;
 
-  public AbstractCategoriesSnapshot(@NonNull BookmarkCategory[] items)
+  AbstractCategoriesSnapshot(@NonNull BookmarkCategory[] items)
   {
     mSnapshot = Collections.unmodifiableList(Arrays.asList(items));
   }
 
   @NonNull
-  protected List<BookmarkCategory> items()
+  protected List<BookmarkCategory> getItems()
   {
     return mSnapshot;
   }
@@ -35,52 +35,21 @@ public class AbstractCategoriesSnapshot
 
     @Override
     @NonNull
-    public final List<BookmarkCategory> items()
+    public final List<BookmarkCategory> getItems()
     {
-      return mStrategy.filter(super.items());
+      return mStrategy.filter(super.getItems());
     }
 
     public int indexOfOrThrow(@NonNull BookmarkCategory category)
     {
-      int indexOf = items().indexOf(category);
+      int indexOf = getItems().indexOf(category);
       if (indexOf < 0)
       {
-        throw new UnsupportedOperationException(new StringBuilder("this category absent ")
-                                                    .append("in current snapshot")
-                                                    .append(indexOf)
+        throw new UnsupportedOperationException(new StringBuilder("This category absent in current snapshot ")
+                                                    .append(category)
                                                     .toString());
       }
       return indexOf;
-    }
-
-    public static Default from(BookmarkCategory[] bookmarkCategories,
-                               FilterStrategy strategy)
-    {
-      return new Default(bookmarkCategories, strategy);
-    }
-  }
-
-  public static class Private extends Default
-  {
-    public Private(@NonNull BookmarkCategory[] items)
-    {
-      super(items, new FilterStrategy.Private());
-    }
-  }
-
-  public static class Catalog extends Default
-  {
-    public Catalog(@NonNull BookmarkCategory[] items)
-    {
-      super(items, new FilterStrategy.Catalog());
-    }
-  }
-
-  public static class All extends Default {
-
-    public All(@NonNull BookmarkCategory[] items)
-    {
-      super(items, new FilterStrategy.All());
     }
   }
 }

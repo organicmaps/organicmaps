@@ -88,6 +88,17 @@ bool IsBadCharForPath(strings::UniChar const & c)
   return false;
 }
 
+bool IsValidFilterType(BookmarkManager::CategoryFilterType const filter,
+                       bool const fromCatalog) const
+{
+  switch (filter)
+  {
+  case BookmarkManager::CategoryFilterType::All: return true;
+  case BookmarkManager::CategoryFilterType::Public: return fromCatalog;
+  case BookmarkManager::CategoryFilterType::Private: return !fromCatalog;
+  }
+}
+
 class FindMarkFunctor
 {
 public:
@@ -1766,44 +1777,27 @@ bool BookmarkManager::IsUsedCategoryName(std::string const & name) const
 
 bool BookmarkManager::AreAllCategoriesVisible(CategoryFilterType const filter) const
 {
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  bool visible = false;
-  bool fromCatalog = false;
-  for (auto const & category : m_categories)
-  {
-    visible = category.second->IsVisible();
-    fromCatalog = IsCategoryFromCatalog(category.first);
-
-    if (!visible && IsFilterTypeCorrected(filter, fromCatalog))
-    {
-      return false;
-    }
-  }
-  return true;
-}
-
-bool BookmarkManager::IsFilterTypeCorrected(CategoryFilterType const filter,
-                                            bool const fromCatalog) const
-{
-    return (filter == CategoryFilterType::All ||
-            (filter == CategoryFilterType::Public && fromCatalog) ||
-            (filter == CategoryFilterType::Private && !fromCatalog));
+  return CheckVisibility(filter, true /* isVisible */);
 }
 
 bool BookmarkManager::AreAllCategoriesInvisible(CategoryFilterType const filter) const
 {
+  return CheckVisibility(filter, false /* isVisible */);
+}
+
+bool BookmarkManager::CheckVisibility(BookmarkManager::CategoryFilterType const filter,
+                                      bool isVisible) const
+{
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  bool visible = false;
-  bool fromCatalog = false;
   for (auto const & category : m_categories)
   {
-    visible = category.second->IsVisible();
-    fromCatalog = IsCategoryFromCatalog(category.first);
-    if (visible && IsFilterTypeCorrected(filter, fromCatalog))
-    {
+    auto const fromCatalog = IsCategoryFromCatalog(category.first);
+    if (!IsValidFilterType(filter, fromCatalog))
+      continue;
+    if (category.second->IsVisible() != isVisible)
       return false;
-    }
   }
+
   return true;
 }
 
