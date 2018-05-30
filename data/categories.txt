@@ -462,8 +462,8 @@ sk:3^Zmenáreň|peniaze
 fa:صرافی
 
 amenity-bar|@food
-en:2^Bar|2pub|beer|drink|U+1F37A|U+1F37B|U+1F376
-ru:2^Бар|2паб|пиво|выпить|еда
+en:2^Bar|2pub|beer|drink|U+1F37A|U+1F37B|U+1F376|tavern|bars and pubs|brew pub|cocktail lounge
+ru:2^Бар|2паб|пиво|выпить|пивной ресторан|пивбар|крафт|коктейль бар|пивная|коктейли|алкоголь|алкогольные напитки
 ar:^حانة|خمارة|بيرة|شراب
 cs:2^Bar|pivo|pití|voda|pitná voda|tekutiny
 da:2^Bar|øl|pub|drink
@@ -527,8 +527,8 @@ sk:^Pohostinstvo|Bar|pivo|pitie|voda|pitná voda|tekutiny
 fa:^میکده|کاباره
 
 amenity-cafe|@food
-en:3^Cafe|3restaurant|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|U+1F375
-ru:3^Кафе|3ресторан|3еда
+en:3^Cafe|3restaurant|U+2615|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|U+1F375|bistro|lunch|coffee shop|coffee bar|coffee|joint|canteen|cafeteria|dining room|place to eat|buffet
+ru:3^Кафе|3ресторан|3еда|кофейня|столовая|кофе
 ar:^مقهى|مطعم|طعام|قهوة|كافتيريا
 cs:3^Kavárna|restaurace|hospoda
 da:3^Café|restaurant
@@ -560,8 +560,8 @@ sw:^Mgahawa|hoteli|chakula
 fa:^کافه|قهوه فروشی|قهوه خانه
 
 amenity-fast_food|@food
-en:4^Fast Food|3restaurant|3cafe|takeaway|U+1F354|U+1F355|U+1F35F|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374
-ru:3^Фастфуд|3ресторан|3кафе|еда
+en:4^Fast Food|3restaurant|3cafe|takeaway|U+1F354|U+1F355|U+1F35F|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|food to go|junk food
+ru:3^Фастфуд|3ресторан|3кафе|еда|закусочная|быстрое питание|снеки|поесть|покушать|перекусить|экспресс-питание
 ar:^وجبات سريعة|مطعم|مقهى|وجبة جاهزة|طعام
 cs:2^Rychlé občerstvení|4fastfood|kavárna|restaurace
 da:4^Fastfood|restaurant|café|takeaway
@@ -592,8 +592,8 @@ sk:2^Rýchle občerstvenie|4fastfood|3kaviareň|reštaurácia
 fa:^فست فود|غذای حاضری
 
 amenity-restaurant|@food
-en:3^Restaurant|3cafe|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B
-ru:3^Ресторан|3кафе|еда
+en:3^Restaurant|3cafe|U+1F356|U+1F357|U+1F35A|U+1F35B|U+1F35C|U+1F35D|U+1F363|U+1F366|U+1F367|U+1F368|U+1F369|U+1F370|U+1F372|U+1F374|U+1F377|U+1F60B|diner|place to eat|meals|lunch|dinner|eating house|buffet
+ru:3^Ресторан|3кафе|еда|кухня|ресторан|
 ar:2^مطعم|مقهى|طعام
 cs:3^Restaurace|hospoda|kavárna
 da:3^Restaurant|café
@@ -738,8 +738,8 @@ sw:^Vipodozi
 fa:لوازم ارایشی بهداشتی
 
 shop-convenience|@shop
-en:4^Convenience Store|U+1F3EC|U+1F3EA
-ru:4^Продуктовый магазин|2магазин
+en:4^Convenience Store|U+1F3EC|U+1F3EA|grocer|grocery store|supermarket|food store|food market
+ru:4^Продуктовый магазин|2магазин|продукты|продуктовый магазин еда|продуктовая лавка|магаз|универмаг|универсам|гастроном|продмаг|супермаркет
 ar:^متجر صغير
 cs:^Smíšené zboží|koloniál
 da:^Døgnbutik|døgnkiosk|kiosk
@@ -836,8 +836,8 @@ sw:^Duka la simu
 fa:موبایل فروشی
 
 shop-florist|@shop
-en:^Florist’s|U+1F337|U+1F338|U+1F339|U+1F33A|U+1F33B|U+1F33C|U+1F490|U+1F33E
-ru:^Цветочный магазин|цветы|2магазин
+en:^Florist’s|U+1F337|U+1F338|U+1F339|U+1F33A|U+1F33B|U+1F33C|U+1F490|U+1F33E|flowers|flower shop|bouquet|floral arrangements|same day flowers|floral shop
+ru:^Цветочный магазин|цветы|2магазин|цветок|флорист|букет|цветочный салон|свежие цветы
 ar:^متجر زهور|متجر
 cs:^Květinářství
 da:^Blomsterbutik|blomsterforretning|blomsterhandel|blomsterhandler
@@ -996,8 +996,8 @@ sk:^Kníhkupectvo
 fa:کتاب فروشی
 
 shop-shoes|@shop
-en:^Shoe Store|U+1F461|U+1F460|U+1F462|U+1F45E|U+1F45F
-ru:^Магазин обуви|2обувь|2обувной|2магазин
+en:^Shoe Store|U+1F461|U+1F460|U+1F462|U+1F45E|U+1F45F|shoes|shoe shop|footwear store
+ru:^Магазин обуви|2обувь|2обувной|2магазин|
 ar:^متجر أحذية|متجر
 cs:^Obuv
 da:^Skobutik
@@ -1153,11 +1153,11 @@ zh-Hans:^眼镜店|商店
 zh-Hant:^眼鏡店|1購物|店鋪|商店|雜貨店|便利商店
 el:^Κατάστημα οπτικών
 sk:^Optika
-fa:عینک فروشی 
+fa:عینک فروشی
 
 shop-gift|@shop
-en:^Gift Shop|U+1F381
-ru:^Магазин сувениров|сувенирная лавка|cувениры|2магазин
+en:^Gift Shop|U+1F381|souvenir shop|souvenirs|gifts|presents|
+ru:^Магазин сувениров|сувенирная лавка|cувениры|2магазин|сувенирный магазин|сувенирная продукция|подарки|магазин подарков и сувениров|магазин подарков
 ar:^متجر هدايا|متجر
 cs:^Obchod s dárkovým zbožím
 da:^Gavebutik|souvenirbutik
@@ -1188,8 +1188,8 @@ sk:^Darčeky
 fa:مغازه کادو فروشی
 
 shop-beauty
-en:^Beauty Shop|beautician|hairdresser|U+1F484
-ru:^Салон красоты|косметический салон|парикмахерская
+en:^Beauty Shop|beautician|hairdresser|U+1F484|beauty salon|hair salon|hairdressing|beauty parlor|hair and nail salon|nail salon|haircut|coloring
+ru:^Салон красоты|косметический салон|парикмахерская|салоны красоты и парикмахерские|стрижка|подстричься|маникюр|маникюрный салон|красота|студия красоты|центр красоты
 ar:^صالون تجميل|كوافير|متجر
 cs:^Kosmetický salon
 da:^Skønhedssalon
@@ -1319,8 +1319,8 @@ sw:^Supamaketi
 fa:سوپر مارکت
 
 shop-mall|@shop
-en:^Mall|5shopping mall
-ru:^Торговый центр|магазин
+en:^Mall|5shopping mall|shopping gallery|shopping|shopping centre|shopping arcade|entertainment centre|retail
+ru:^Торговый центр|магазин|молл|шоппинг|трц|трк|покупки|развлекательный центр|торговый комплекс|тц
 ar:^مركز تسوق|مجمع تجاري|مول|متجر
 cs:^Obchoďák
 da:^Indkøbscenter|butikscenter|storcenter|center
@@ -1353,8 +1353,8 @@ sw:^Ununuzi maduka
 fa:مرکز خرید
 
 shop-department_store|@shop
-en:^Department Store|U+1F3EC|U+1F3EA
-ru:^Универмаг|магазин
+en:^Department Store|U+1F3EC|U+1F3EA|shopping|shopping centre|shopping arcade
+ru:^Универмаг|магазин|молл|шоппинг|покупки|торговый комплекс|универсам
 ar:^متجر شامل|مركز تجاري
 cs:^Obchodní dům
 da:^Stormagasin|varehus
@@ -1449,8 +1449,8 @@ sk:^Obchod s výpočtovou technikou
 fa:فروشگاه کامپیوتر
 
 shop-confectionery|@shop
-en:^Sweets|3confectionery|candy store|U+1F36C|U+1F36D
-ru:^Кондитерская|магазин
+en:^Sweets|3confectionery|candy store|U+1F36C|U+1F36D|cake shop|sweetshop|tuck shop|pastry|candy shop|cake shop
+ru:^Кондитерская|магазин|кондитерские изделия|сладости|торты|десерты|пирожные
 ar:^متجر حلويات|حلويات|حلوى|متجر
 cs:^Cukrárna
 da:^Slikbutik|slikforretning|konfektureforretning|slik|konfekt
@@ -1513,8 +1513,8 @@ sk:4^Práčovňa
 fa:لباس شویی
 
 shop-toys|@shop
-en:^Toy Store
-ru:^Магазин игрушек|игрушки|магазин
+en:^Toy Store|toy shop|toyshop|kids toys
+ru:^Магазин игрушек|игрушки|магазин|игрушечный магазин
 ar:^متجر ألعاب|متجر
 cs:^Hračkářství
 da:^Legetøjsbutik|legetøj
@@ -1575,8 +1575,8 @@ sw:^Soko
 fa:بازار
 
 shop-clothes|@shop
-en:^Clothes Shop|4clothes|U+1F45A|U+1F457|U+1F456|U+1F455
-ru:^Магазин одежды|4одежда|магазин
+en:^Clothes Shop|4clothes|U+1F45A|U+1F457|U+1F456|U+1F455|clothing shop|clothing store|wear|shopping
+ru:^Магазин одежды|4одежда|магазин|шоппинг|
 ar:^متجر ملابس|ملابس|متجر
 cs:^Oblečení
 da:^Tøjbutik|tøjforretning|tøj
@@ -2404,8 +2404,8 @@ sk:^Chrám|svätyňa|posvätné miesto
 fa:معبد طاوی
 
 tourism-museum|@tourism
-en:2^Museum|attraction|tourism|U+1F3A8
-ru:2^Музей|достопримечательность|туризм
+en:2^Museum|attraction|tourism|U+1F3A8|exhibition|gallery|sight|tourist attraction
+ru:2^Музей|достопримечательность|туризм|выставка|выставочный зал|билеты музей|музей билеты|экспозиция|галерея
 ar:^متحف|أماكن جذابة|سياحة|مناظر
 cs:2^Muzeum|zajímavost
 da:2^Museum|attraktioner
@@ -2701,8 +2701,8 @@ sw:^Benchi
 fa:^سَکو|نیمکت
 
 amenity-bicycle_rental
-en:4^Bicycle Rental|cycle|bike|3rental|U+1F6B2|U+1F6B4|U+1F6B5
-ru:4^Велопрокат|велосипед|3прокат
+en:4^Bicycle Rental|cycle|bike|3rental|U+1F6B2|U+1F6B4|U+1F6B5|bicycle hire|bike rental|
+ru:4^Велопрокат|велосипед|3прокат|прокат велосипедов|велосипед аренда|велосипед напрокат|
 ar:^تأجير دراجات
 cs:2^Půjčovna kol|4jízdní kolo|3kolo|3pronájem|3nájemné
 da:4^Cykeludlejning|udlejning|cykel
@@ -2734,8 +2734,8 @@ sw:^Kodi ya baiskeli|baiskeli|kodi
 fa:مکان اجاره دوچرخه
 
 amenity-car_sharing
-en:^Car Sharing|car|sharing|U+1F697|U+1F698|U+1F699
-ru:^Каршеринг|аренда|машин
+en:^Car Sharing|car|sharing|U+1F697|U+1F698|U+1F699|carpool|car sharing services|car share|rideshare
+ru:^Каршеринг|аренда|машин|
 ar:^مشاركة السيارة|تقاسم السيارة
 cs:^Sdílení aut
 da:^Delebiler
@@ -2766,8 +2766,8 @@ zh-Hans:^拼车点
 zh-Hant:^汽車共用
 
 amenity-car_rental
-en:3^Car Rental|car|rental|U+1F697|U+1F698|U+1F699
-ru:4^Прокат авто|3авто|3машина|прокат
+en:3^Car Rental|car|rental|U+1F697|U+1F698|U+1F699|car hire|rent-a-car|rent a car|auto rental|vehicle rent|
+ru:4^Прокат авто|3авто|3машина|прокат|аренда авто|автомобиль аренда|авто напрокат|автопрокат
 ar:^تأجير سيارات|سيارة|تأجير|إيجار
 cs:3^Půjčovna aut|auto|pronájem|nájemné
 da:4^Biludlejning|bil
@@ -2865,8 +2865,8 @@ sw:^Thieta|burudani|maonyesho
 fa:تئاتر
 
 amenity-nightclub|@entertainment
-en:3^Nightclub|night club|3disco|dance|U+1F378|U+1F379|U+1F46F|U+1F483
-ru:3^Ночной клуб|3дискотека|развлечения
+en:3^Nightclub|night club|3disco|dance|U+1F378|U+1F379|U+1F46F|U+1F483|club|nightspot|night bar
+ru:3^Ночной клуб|3дискотека|развлечения|ночной бар|диско|танцы
 ar:^نادي ليلي|رقص
 cs:4^Noční klub|3disco|3klub
 da:3^Natklub|dans|danseklub
@@ -3156,8 +3156,8 @@ sw:^Hospitali
 fa:بیمارستان
 
 amenity-hospital|@hospital
-en:clinic|3doctor|U+1F691|U+1F3E5|U+1F489|U+1F48A
-ru:4госпиталь|врач|доктор
+en:clinic|3doctor|U+1F691|U+1F3E5|U+1F489|U+1F48A|medical center|health services|first aid
+ru:4госпиталь|врач|доктор|медицинский центр|медицинские услуги|медпомощь|медицинская помощь|лечебница|первая помощь
 ar:^عيادة|طبيب|دكتور
 cs:klinika|pohotovost|zdravotnické centrum|3lékař|doktor
 da:sygehus
@@ -3182,8 +3182,8 @@ sw:zahanati|daktari
 fa:درمانگاه
 
 amenity-clinic
-en:^Clinic|1hospital|doctor|U+1F3E5|U+1F489
-ru:^Поликлиника|клиника|больница|врач
+en:^Clinic|1hospital|doctor|U+1F3E5|U+1F489|diagnostics|health services|doctor
+ru:^Поликлиника|клиника|больница|врач|медицинское обслуживание| амбулаторное лечение|диагностика|
 ar:^عيادة|مستشفى|طبيب|دكتور
 cs:^Klinika|nemocnice
 da:^Klinik|hospital
@@ -3310,8 +3310,8 @@ sw:^Uwanja wa mawindo
 fa:شکارگاه
 
 amenity-kindergarten
-en:^Kindergarten|U+1F476|U+1F37C|U+1F6BC
-ru:^Детсад|ясли
+en:^Kindergarten|U+1F476|U+1F37C|U+1F6BC|day care center|nursery school|nursery|play school|childcare center|preschool
+ru:^Детсад|ясли|детский сад|детский садик|дошкольное образование|детские ясли|садик
 ar:^حضانة أطفال|روضة أطفال
 cs:^Školka|mateřská škola|dětská školka|mateřská školka
 da:4^Børnehave
@@ -3340,7 +3340,7 @@ zh-Hant:^幼兒園|1幼稚園
 el:^Νηπιαγωγείο
 sk:^Škôlka|materská škola|detská škôlka
 sw:^Chekechea
-fa:مهدکودک
+fa:مهد کودک
 
 amenity-library
 en:3^Library|U+1F4D6
@@ -4640,8 +4640,8 @@ sw:^Mbuga
 fa:پارک
 
 tourism-hostel|@hotel
-en:3^Hostel|motel|U+1F3E8
-ru:3^Хостел|гостиница|отель|мотель
+en:3^Hostel|motel|U+1F3E8|backpack|backpacking
+ru:3^Хостел|гостиница|мотель|гостевой дом|мини отель
 ar:^نزُل|فندق|فندق رخيص
 cs:3^Hostel|ubytovna|motel
 da:3^Hostel|kro|vandrerhjem|motel|herberg
@@ -4673,8 +4673,8 @@ sw:^Bweni
 fa:مسافر خانه
 
 tourism-hotel|@hotel
-en:motel|U+1F3E8|U+1F62A|U+1F634
-ru:2отель|мотель
+en:motel|U+1F3E8|U+1F62A|U+1F634|tourist court|
+ru:2отель|гостиница|
 ar:فندق|فندق رخيص
 cs:ubytovna|motel
 da:motel
@@ -4701,7 +4701,7 @@ fa:هتل
 
 tourism-guest_house|@hotel
 en:^Guest House|hostel|U+1F3E8
-ru:^Гостевой дом|гостиница|отель|хостел
+ru:^Гостевой дом|гостиница|отель|хостел|база отдыха
 ar:^دار الضيافة|فندق|نزُل
 cs:^Penzion|hostel|ubytovna
 da:^Gæstehus|gæstehjem|hostel
@@ -4765,8 +4765,8 @@ sk:3^Motel|penzión|hostel|ubytovňa
 fa:مُتل
 
 tourism-alpine_hut
-en:^Mountains Lodging|hotel|hostel|alpine hut|U+1F3E8
-ru:^Горный отель|отель
+en:^Mountains Lodging|hotel|hostel|alpine hut|U+1F3E8|camp
+ru:^Горный отель|отель|горный отдых|турбаза|база отдыха
 ar:^مساكن جبلية|فندق|الفندق
 cs:4^Ubytování v horách|Horská chata|horský hotel|hotel
 da:^Bjerg logi|hotel
@@ -4796,8 +4796,8 @@ el:^Διαμονή στο βουνό|ξενοδοχείο|ξενώνας|αλπ�
 sk:4^Horská chata|horský hotel|hotel
 
 shop-hairdresser
-en:3^Hairdresser|U+2702|U+1F488
-ru:3^Парикмахерская
+en:3^Hairdresser|U+2702|U+1F488|hair salon|hairdressing saloon|barbershop|hair cuttery|haircut|beauty parlor
+ru:3^Парикмахерская|стрижки|укладки|покрас|салон красоты|стрижка волос|салон парикмахерская|парикмахер|стилист|салон|подстричься|покраситься
 ar:^مصفف شعر
 cs:4^Kadeřnictví|4holičství
 da:3^Frisør
@@ -4862,8 +4862,8 @@ sw:^Uwanja wa ndege
 fa:فرودگاه
 
 leisure-stadium
-en:^Stadium|4sport|U+26BD|U+26BE|U+1F3BE|U+1F3C0|U+1F3C8|U+1F4AA|U+1F3C9
-ru:^Стадион|4спорт
+en:^Stadium|4sport|U+26BD|U+26BE|U+1F3BE|U+1F3C0|U+1F3C8|U+1F4AA|U+1F3C9|olympic stadium|sports stadium|sports complex|arena
+ru:^Стадион|4спорт|матч|чм|арена|спортивная арена|соревнования|чемпионат|cпорткомплекс
 ar:^استاد|رياضة
 cs:^Stadion|4sport
 da:^Stadium|sport
@@ -4928,8 +4928,8 @@ sw:^Viwanja vya michezo
 fa:زمین بازی
 
 leisure-sports_centre
-en:^Sports Center|sport|U+26BD|U+26BE|U+1F3BE|U+1F4AA|U+1F3C8|U+1F3C0|U+1F3C9
-ru:^Спорткомплекс|спорт
+en:^Sports Center|sport|U+26BD|U+26BE|U+1F3BE|U+1F4AA|U+1F3C8|U+1F3C0|U+1F3C9|sports complex|sports forum
+ru:^Спорткомплекс|спорт|спортивный комплекс|арена|занятия спортом|дворец спорта|
 ar:^رياضة
 cs:^Sportovní centrum|sport
 da:^Idrætscenter|sportshal|sport
@@ -5376,8 +5376,8 @@ el:^Χώρος για τροχόσπιτα|Χώρος για οχήματα RV
 sk:^Kemp pre karavany|kemp pre obytné prívesy
 
 office
-en:^Office|company|U+1F454|U+1F4BC|U+1F3E2
-ru:^Офис|компания|контора|фирма
+en:^Office|company|U+1F454|U+1F4BC|U+1F3E2|bureau|administrative office|firm|business|corporation|
+ru:^Офис|компания|контора|фирма|бизнес|бюро|учреждение|
 ar:^مكتب|شركة
 cs:^Kancelář
 da:^Kontor|firma|virksomhed
@@ -5474,7 +5474,7 @@ fa:اداره دولتی
 
 office-lawyer
 en:^Lawyer|advocate|attorney|barrister|counsel|councellor|solicitor
-ru:^Адвокат|нотариус
+ru:^Адвокат|нотариус|защита|юрист|солиситор|право|защита прав|юридическая консультация|адвокатская услуга|юридическая помощь|юрпомощь|нотариальная контора
 ar:^مكتب محامي|مكتب محاماة
 cs:^Právní kancelář
 da:^Advokatkontor
@@ -5535,8 +5535,8 @@ sk:^Mobilný operátor
 fa:اپراتور تلفن همراه
 
 craft-brewery
-en:^Brewery
-ru:^Пивоварня
+en:^Brewery|brew house|beer|beer bar|craft beer|craft brewery
+ru:^Пивоварня|крафт|пиво|крафтовое пиво|пивзавод|производство пива|пивоваренный завод|живое пиво|
 ar:^مصنع جعة
 cs:^Pivovar
 da:^Bryggeri
@@ -6101,7 +6101,7 @@ zh-Hans:^测速照相机
 zh-Hant:^測速照相機
 el:^Κάμερα ταχύτητας
 sk:^Rýchlostná kamera
-fa:دوربین سرعت سنج 
+fa:دوربین سرعت سنج
 
 man_made-lighthouse
 en:^Lighthouse
@@ -6198,8 +6198,8 @@ el:^Φωτογραφείο|πλαίσια|κατάστημα
 sk:^Fotografické služby|Rámovanie
 
 shop-travel_agency
-en:^Travel Agency|tours
-ru:^Турагентство|путешествия
+en:^Travel Agency|tours|tour agency|trips|journeys|travel bureau|holidays|travel agent|tourist office|last minute tour
+ru:^Турагентство|путешествия|туристическое агентство|турфирма|путевки|пакетные туры|горящие туры|горящие путевки|туроператор|купить тур|купить путевку|бронирование туров|туристическая компания|туристическая фирма|агенство тур
 ar:^وكيل سفريات|جولات
 cs:^Cestovní kancelář|cesty
 da:^Rejsebureau|rundrejser
@@ -6551,8 +6551,8 @@ sw:^Simu ya dharura
 fa:تلفن اضطراری
 
 leisure-fitness_centre
-en:^Fitness Centre|Gym|U+1F4AA
-ru:^Фитнес-клуб|качалка|джим
+en:^Fitness Centre|Gym|U+1F4AA|fitness|workout|fitness gym|fitness club|health club|fitness studio|workout studio
+ru:^Фитнес-клуб|качалка|джим|тренажерный зал|фитнес центр|фитнес|cпортзал|тренажерка
 ar:^مركز للياقة البدنية، نادي رياضي
 cs:^Fitness|tělocvična
 da:^Trænings- og motionscenter|fitnesscenter
@@ -6583,8 +6583,8 @@ sk:^Fitnescentrum|telocvičňa
 fa:باشگاه بدنسازی
 
 leisure-sauna
-en:^Sauna
-ru:^Баня|Сауна
+en:^Sauna|sweatbath|sweat lodge|steam room|steam sauna|sauna room
+ru:^Баня|Сауна|парная|банька|банный комплекс
 ar:^ساونا
 cs:^Sauna
 da:^Sauna
@@ -6647,8 +6647,8 @@ sk:^Studňa
 fa:چاه اب
 
 shop-car_repair-tyres
-en:^Tyre Repair|tire repair|tyre|tire
-ru:^Шиномонтаж
+en:^Tyre Repair|tire repair|tyre|tire|puncture repair|tyre puncture repair|flat tyre repair|tire fix|tyre replacement
+ru:^Шиномонтаж|шиномонтажная мастерская|балансировка
 ar:^إصلاح إطارات
 cs:^Pneuservis
 da:^Dækreparation
@@ -7159,8 +7159,8 @@ sk:^Stávková kancelária
 fa:صحافی
 
 shop-seafood|@shop
-en:^Seafood Shop
-ru:^Рыбный магазин
+en:^Seafood Shop|fish market|seafood|fish|shellfish|marine food
+ru:^Рыбный магазин|рыба|морепродукты|рыбная лавка
 ar:^سماك
 cs:^Prodej ryb
 da:^Fiskehandler
@@ -7191,8 +7191,8 @@ sk:^Obchodník s rybami
 fa:فروشگاه غذای دریایی
 
 shop-ticket|@shop
-en:^Ticket Shop
-ru:^Билетная касса
+en:^Ticket Shop|tickets|ticket hub|ticket office|ticket center|booking office|box office|ticket agency|ticket booth|pay box
+ru:^Билетная касса|билет|театральная касса|билетный центр|городской билетный центр|городская касса|продажа билетов|бронирование билетов
 ar:^مكتب تذاكر
 cs:^Prodej vstupenek
 da:^Billetkontor
@@ -7350,7 +7350,7 @@ zh-Hans:^公告板
 zh-Hant:^資訊中心
 el:^Πίνακας πληροφοριών
 sk:^Informačné centrum
-fa:تابلو اعلانات 
+fa:تابلو اعلانات
 
 tourism-information-map|@tourism
 en:^Tourist Map
@@ -8899,8 +8899,8 @@ zh-Hans:^殡仪馆
 zh-Hant:^葬儀社
 
 shop-massage
-en:^Massage Parlour|spa
-ru:^Массажный салон|массаж|спа|спа-салон
+en:^Massage Parlour|spa|massage center|massage therapy|massage services|massage salon|spa treatment|spa services
+ru:^Массажный салон|массаж|спа|спа-салон|резорт спа|салон красоты|массажный кабинет
 ar:^قاعة تدليك
 cs:^Masážní salon
 da:^Massageklinik
