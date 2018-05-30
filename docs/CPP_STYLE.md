@@ -195,7 +195,7 @@ v = w * (x + z);
 
 - If you see outdated code which can be improved, DO IT NOW (but in a separate pull request)!
 - Your code should work at least on [mac|linux|android][x86|x86_64], [ios|android][x86|armv7|arm64] architectures
-- Your code should compile with gcc 6.0+ and clang 3.5+
+- Your code should compile with gcc 6.0+ and clang 5.0+
 - Try to avoid using any new 3party library if it is not fully tested and supported on all our platforms
 - Cover your code with unit tests. See examples for existing libraries
 - Check Base and Coding libraries for most of the basic functions
