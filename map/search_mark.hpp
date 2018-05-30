@@ -11,6 +11,7 @@
 
 #include <boost/optional.hpp>
 
+#include <functional>
 #include <map>
 #include <string>
 #include <vector>
@@ -52,6 +53,7 @@ public:
   void SetPreparing(bool isPreparing);
   void SetRating(float rating);
   void SetPricing(int pricing);
+  void SetSale(bool hasSale);
 
 protected:
   template<typename T> void SetAttributeValue(T & dst, T const & src)
@@ -74,6 +76,7 @@ protected:
   bool m_isPreparing = false;
   float m_rating = 0.0f;
   int m_pricing = 0;
+  bool m_hasSale = false;
   dp::TitleDecl m_titleDecl;
 };
 
@@ -90,10 +93,16 @@ public:
   // NOTE: Vector of features must be sorted.
   void SetPreparingState(std::vector<FeatureID> const & features, bool isPreparing);
 
+  // NOTE: Vector of features must be sorted.
+  void SetSales(std::vector<FeatureID> const & features, bool hasSale);
+
   static m2::PointD GetSize(SearchMarkType searchMarkType, ScreenBase const & modelView);
   static boost::optional<m2::PointD> GetSize(std::string const & symbolName);
 
 private:
+  void FilterAndProcessMarks(std::vector<FeatureID> const & features,
+                             std::function<void(SearchMarkPoint *)> && processor);
+
   BookmarkManager * m_bmManager;
   df::DrapeEngineSafePtr m_drapeEngine;
 

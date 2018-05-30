@@ -14,10 +14,10 @@ namespace
 std::vector<std::string> const kSymbols =
 {
   "search-result",              // Default.
-  "coloredmark-default-l",     // Booking.
+  "coloredmark-default-l",      // Booking.
   "search-adv",                 // Local Ads.
   "searchbookingadv-default-l", // Local Ads + Booking.
-  "coloredmark-default-l",     // UGC.
+  "coloredmark-default-l",      // UGC.
   "search-football",            // FC 2018.
 
   "non-found-search-result",    // NotFound.
@@ -26,14 +26,16 @@ std::vector<std::string> const kSymbols =
 std::vector<std::string> const kPreparingSymbols =
 {
   "search-result",              // Default.
-  "coloredmark-inactive",      // Booking.
+  "coloredmark-inactive",       // Booking.
   "search-adv",                 // Local Ads.
   "searchbookingadv-default-l", // Local Ads + Booking.
-  "coloredmark-inactive",      // UGC.
+  "coloredmark-inactive",       // UGC.
   "search-football",            // FC 2018.
 
   "non-found-search-result",    // NotFound.
 };
+
+std::string const kSaleBadgeName = "searchbooking-sale-1";
 
 float const kRatingThreshold = 6.0f;
 float const kMetricThreshold = 0.38f;
@@ -124,7 +126,7 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> SearchMarkPoint::GetBadgeNames(
   if (!IsBookingSpecialMark())
     return nullptr;
 
-  auto const badgeName = GetBookingBadgeName(m_pricing);
+  auto const badgeName = m_hasSale ? kSaleBadgeName : GetBookingBadgeName(m_pricing);
   if (badgeName.empty() || !SearchMarks::GetSize(badgeName))
     return nullptr;
 
@@ -141,7 +143,7 @@ drape_ptr<df::UserPointMark::SymbolOffsets> SearchMarkPoint::GetSymbolOffsets() 
   if (!IsBookingSpecialMark())
     return nullptr;
 
-  auto const badgeName = GetBookingBadgeName(m_pricing);
+  auto const badgeName = m_hasSale ? kSaleBadgeName : GetBookingBadgeName(m_pricing);
   if (badgeName.empty() || !SearchMarks::GetSize(badgeName))
     return nullptr;
 
@@ -232,6 +234,11 @@ void SearchMarkPoint::SetPricing(int pricing)
   SetAttributeValue(m_pricing, pricing);
 }
 
+void SearchMarkPoint::SetSale(bool hasSale)
+{
+  SetAttributeValue(m_hasSale, hasSale);
+}
+
 bool SearchMarkPoint::IsBookingSpecialMark() const
 {
   return (m_type == SearchMarkType::Booking || m_type == SearchMarkType::LocalAdsBooking) &&
@@ -265,6 +272,7 @@ void SearchMarks::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
   symbols.insert(symbols.end(), kSymbols.begin(), kSymbols.end());
   for (int pricing = 1; pricing <= 3; pricing++)
     symbols.push_back(GetBookingBadgeName(pricing));
+  symbols.push_back(kSaleBadgeName);
 
   m_drapeEngine.SafeCall(&df::DrapeEngine::RequestSymbolsSize, symbols,
                          [](std::map<std::string, m2::PointF> && sizes)
@@ -316,7 +324,24 @@ boost::optional<m2::PointD> SearchMarks::GetSize(std::string const & symbolName)
 
 void SearchMarks::SetPreparingState(std::vector<FeatureID> const & features, bool isPreparing)
 {
-  if (m_bmManager == nullptr)
+  FilterAndProcessMarks(features, [isPreparing](SearchMarkPoint * mark)
+  {
+    mark->SetPreparing(isPreparing);
+  });
+}
+
+void SearchMarks::SetSales(std::vector<FeatureID> const & features, bool hasSale)
+{
+  FilterAndProcessMarks(features, [hasSale](SearchMarkPoint * mark)
+  {
+    mark->SetSale(hasSale);
+  });
+}
+
+void SearchMarks::FilterAndProcessMarks(std::vector<FeatureID> const & features,
+                                        std::function<void(SearchMarkPoint *)> && processor)
+{
+  if (m_bmManager == nullptr || processor == nullptr)
     return;
 
   ASSERT(std::is_sorted(features.begin(), features.end()), ());
@@ -326,6 +351,6 @@ void SearchMarks::SetPreparingState(std::vector<FeatureID> const & features, boo
   {
     auto * mark = editSession.GetMarkForEdit<SearchMarkPoint>(markId);
     if (std::binary_search(features.begin(), features.end(), mark->GetFeatureID()))
-      mark->SetPreparing(isPreparing);
+      processor(mark);
   }
 }
