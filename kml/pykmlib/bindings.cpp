@@ -93,6 +93,9 @@ struct LocalizableStringAdapter
   static void SetDict(LocalizableString & str, boost::python::dict & dict)
   {
     str.clear();
+    if (dict.is_none())
+      return;
+
     auto const langs = python_list_to_std_vector<std::string>(dict.keys());
     for (auto const & lang : langs)
     {
@@ -156,6 +159,9 @@ struct PropertiesAdapter
   static void SetDict(Properties & props, boost::python::dict & dict)
   {
     props.clear();
+    if (dict.is_none())
+      return;
+
     auto const keys = python_list_to_std_vector<std::string>(dict.keys());
     for (auto const & k : keys)
       props[k] = extract<std::string>(dict[k]);
@@ -188,6 +194,11 @@ struct VectorAdapter
 
   static void Set(std::vector<T> & v, boost::python::object const & iterable)
   {
+    if (iterable.is_none())
+    {
+      v.clear();
+      return;
+    }
     v = python_list_to_std_vector<T>(iterable);
   }
 
@@ -243,8 +254,11 @@ boost::python::list VectorAdapter<m2::PointD>::Get(std::vector<m2::PointD> const
 template<>
 void VectorAdapter<m2::PointD>::Set(std::vector<m2::PointD> & v, boost::python::object const & iterable)
 {
-  auto const latLon = python_list_to_std_vector<ms::LatLon>(iterable);
   v.clear();
+  if (iterable.is_none())
+    return;
+
+  auto const latLon = python_list_to_std_vector<ms::LatLon>(iterable);
   v.reserve(latLon.size());
   for (size_t i = 0; i < latLon.size(); ++i)
     v.emplace_back(MercatorBounds::LonToX(latLon[i].lon), MercatorBounds::LatToY(latLon[i].lat));
@@ -519,8 +533,11 @@ boost::python::list GetLanguages(std::vector<int8_t> const & langs)
 
 void SetLanguages(std::vector<int8_t> & langs, boost::python::object const & iterable)
 {
-  auto const langStr = python_list_to_std_vector<std::string>(iterable);
   langs.clear();
+  if (iterable.is_none())
+    return;
+
+  auto const langStr = python_list_to_std_vector<std::string>(iterable);
   langs.reserve(langStr.size());
   for (auto const & lang : langStr)
   {
