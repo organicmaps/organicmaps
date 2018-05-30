@@ -4,30 +4,29 @@ In general, [Google's coding standard](https://google.github.io/styleguide/cppgu
 
 Below are our specific (but not all!) exceptions to the Google's coding standard:
 
-- All code should conform to C++11 standard (not C++14 or higher). If target platform does not support all features of C++11, older C++ standard should be used.
+- All code should conform to the C++14 standard (not C++17 or higher).
 - We use `.cpp` and `.hpp` files, not `.cc` and `.h` (`.c` and `.h` are used for C code), in UTF-8 encoding.
 - File names are lowercase with underscores, like `file_reader.cpp`.
 - We use `#pragma once` instead of the `#define` Guard in header files.
-- We don't include system, std and boost headers directly, use `#include "std/<wrapper.hpp>"`.
 - Includes are sorted and grouped by directory, there should be newlines between different directories.
-- Order of directories in includes: "current_dir/current_file.hpp", other includes from the same dir, includes from other dirs sorted by dependencies: `coding, geometry, base, std, "defines.hpp", 3party` should go last in that order.
+- Order of directories in includes: "current_dir/current_file.hpp", includes from other dirs sorted by dependencies (e.g. indexer, then coding, then base), "defines.hpp", C++ standard library headers, boost headers, 3party.
 - We ARE using C++ exceptions.
 - We are using all features of C++11 (the only known exception is thread_local which is not fully supported on all platforms).
-- We don't use boost libraries which require linking (and prefer C++11 types over their boost counterparts).
+- We try to limit the usage of boost libraries which require linking (and prefer C++11 types over their boost counterparts).
 
 Naming and formatting
 
 - We ALWAYS use two spaces indent and don't use tabs.
-- We don't have hardcoded line width, but keep it reasonable to fit on the screen.
+- We don't have strict limits on line width, but keep it reasonable to fit on the screen. The advised width is that written in the .clang-format file (currently 100).
 - Doxygen-style comments can be used.
 - Underscores are allowed only in prefixes for member variables and namespace names, like `int m_countriesCount; namespace utf_parser`.
-- Don't specify `std::` and `boost::` prefixes (headers in std/ folder already have `using std::string`).
 - Use right-to-left order for variables/params: `string const & s` (reference to the const string).
 - In one line `if`, `for`, `while` we do not use brackets. If one line `for` or `while` is combined with one line `if`, do use brackets for cycle.
 - Space after the keyword in conditions and loops. Space after `;` in `for` loop.
 - Space between binary operators: `x = y * y + z * z`.
 - Space after double dash.
 - We use `using` keyword instead of `typedef`.
+- We do not use the Systems Hungarian Notation: do not add the "p" suffix to your pointer variable names and the "T" prefix or suffix to your type names.
 - Compile-time constants must be named in camelCase, starting with a lower-case `k`, e.g. `kCompileTimeConstant` and marked as `constexpr` when possible.
 - Values of enum classes must be named in CamelCase, e.g. `enum class Color { Red, Green, LightBlue };`.
 - Macros and C-style enums must be named in UPPER_CASE, and enum values must be prefixed with a capitalized enum name.
@@ -67,15 +66,18 @@ class ComplexClass
 {
 public:
   Complex(double rePart, double imPart) : m_re(rePart), m_im(imPart) {}
+
   double Modulus() const
   {
     double const rere = m_re * m_re;
     double const imim = m_im * m_im;
     return sqrt(rere + imim);
   }
+
   double OneLineMethod() const { return m_re; }
+
 private:
-  // We use m_ prefix for member variables.
+  // We use the "m_" prefix for member variables.
   double m_re;
   double m_im;
 };
@@ -91,9 +93,9 @@ void CamelCaseFunctionName(int lowerCamelCaseVar)
 
 namespace lower_case
 {
-template <class TTemplateTypeStartsWithCapitalTLetter>
+template <typename TypenameWithoutAffixes>
 void SomeFoo(int a, int b,
-             TTemplateTypeStartsWithCapitalTLetter /* We avoid compilation warnings. */)
+             TypenameWithoutAffixes /* We avoid compilation warnings. */)
 {
   for (int i = 0; i < a; ++i)
   {
@@ -191,15 +193,15 @@ v = w * (x + z);
 
 ## Tips and Hints
 
-- If you see outdated code which can be improved - DO IT NOW (but in the separate pull request)! Make this awesome world even more better! 
-- Your code should work at least on [mac|win|linux|android][x86|x86_64], [ios|android][armv7|arm64] architectures
-- Your code should compile well with gcc 4.8+ and clang 3.5+
+- If you see outdated code which can be improved, DO IT NOW (but in a separate pull request)!
+- Your code should work at least on [mac|linux|android][x86|x86_64], [ios|android][x86|armv7|arm64] architectures
+- Your code should compile with gcc 6.0+ and clang 3.5+
 - Try to avoid using any new 3party library if it is not fully tested and supported on all our platforms
-- Cover your code with unit tests! See examples for existing libraries
+- Cover your code with unit tests. See examples for existing libraries
 - Check Base and Coding libraries for most of the basic functions
 - Ask your team if you have any questions
 - Use dev@maps.me mailing list to ask all developers and bugs@maps.me mailing list to post bugs
-- Release builds contain debugging information (for profiling), production builds are not
+- Release builds contain debugging information (for profiling), production builds do not
 - If you don't have enough time to make it right, leave a `// TODO(DeveloperName): need to fix it` comment
 
 ### Some useful macros:
