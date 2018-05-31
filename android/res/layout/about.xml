@@ -95,7 +95,14 @@
             android:layout_marginTop="@dimen/margin_quarter"
             android:layout_marginBottom="@dimen/margin_quarter"
             android:background="?dividerHorizontal"/>
-
+      <!--FIXME text-->
+      <TextView android:id="@+id/privacy_policy"
+                style="@style/MwmWidget.TextView.Item"
+                android:text="@string/copyright"/>
+      <!--FIXME text-->
+      <TextView android:id="@+id/term_of_use_link"
+                style="@style/MwmWidget.TextView.Item"
+                android:text="@string/copyright"/>
       <TextView android:id="@+id/copyright"
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/copyright"/>

@@ -38,10 +38,10 @@ public class StoragePathFragment extends BaseSettingsFragment
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
-    super.onCreateView(inflater, container, savedInstanceState);
+    View root = super.onCreateView(inflater, container, savedInstanceState);
 
-    mHeader = (TextView) mFrame.findViewById(R.id.header);
-    mList = (ListView) mFrame.findViewById(R.id.list);
+    mHeader = (TextView) root.findViewById(R.id.header);
+    mList = (ListView) root.findViewById(R.id.list);
     mList.setOnItemClickListener(new AdapterView.OnItemClickListener()
     {
       @Override
@@ -51,7 +51,7 @@ public class StoragePathFragment extends BaseSettingsFragment
       }
     });
 
-    return mFrame;
+    return root;
   }
 
   @Override

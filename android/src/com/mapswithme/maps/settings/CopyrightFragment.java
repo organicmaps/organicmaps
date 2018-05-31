@@ -25,9 +25,9 @@ public class CopyrightFragment extends BaseSettingsFragment
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
-    super.onCreateView(inflater, container, savedInstanceState);
+    View root = super.onCreateView(inflater, container, savedInstanceState);
 
-    mDelegate = new WebContainerDelegate(mFrame, Constants.Url.COPYRIGHT)
+    mDelegate = new WebContainerDelegate(root, Constants.Url.COPYRIGHT)
     {
       @Override
       protected void doStartActivity(Intent intent)
@@ -36,7 +36,7 @@ public class CopyrightFragment extends BaseSettingsFragment
       }
     };
 
-    return mFrame;
+    return root;
   }
 
   @Override

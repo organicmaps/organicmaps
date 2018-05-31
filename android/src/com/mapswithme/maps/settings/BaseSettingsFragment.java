@@ -11,7 +11,7 @@ import com.mapswithme.maps.base.BaseMwmFragment;
 
 abstract class BaseSettingsFragment extends BaseMwmFragment
 {
-  protected View mFrame;
+  private View mFrame;
 
   private final Rect mSavedPaddings = new Rect();
 
@@ -37,8 +37,7 @@ abstract class BaseSettingsFragment extends BaseMwmFragment
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
   {
-    mFrame = inflater.inflate(getLayoutRes(), container, false);
-    return mFrame;
+    return mFrame = inflater.inflate(getLayoutRes(), container, false);
   }
 
   @Override
