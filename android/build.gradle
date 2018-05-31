@@ -379,6 +379,7 @@ android {
       signingConfig signingConfigs.mapswithmeDebug
       android.sourceSets.debug.setRoot('flavors/debug')
       manifestPlaceholders += ['LIBNOTIFY_APP_ID': 'MapsMeDebug']
+      resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
     }
 
     release {
@@ -386,6 +387,7 @@ android {
       minifyEnabled true
       shrinkResources true
       proguardFile('proguard-mwm.txt')
+      resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
     }
 
     beta {
@@ -395,6 +397,7 @@ android {
       android.sourceSets.beta.setRoot('flavors/beta')
       matchingFallbacks = ['debug', 'release']
       manifestPlaceholders += ['LIBNOTIFY_APP_ID': 'MapsMeBeta']
+      resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
     }
   }
 

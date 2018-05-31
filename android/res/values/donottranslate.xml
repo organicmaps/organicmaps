@@ -86,7 +86,6 @@
 
   <string name="search_hotel_filter" translatable="false">search_hotel_filter_%s</string>
 
-  <string name="pref_opt_out_appsflyer" translatable="false">pref_opt_out_appsflyer</string>
   <string name="pref_subtittle_opt_out" translatable="false">pref_subtittle_opt_out</string>
   <string name="pref_opt_out_fabric" translatable="false">pref_opt_out_fabric</string>
   <string name="pref_opt_out_fabric_activated" translatable="false">pref_opt_out_fabric_activated</string>

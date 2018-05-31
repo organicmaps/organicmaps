@@ -7,23 +7,6 @@
     android:title="@string/profile"
     android:order="1"/>
   <android.support.v7.preference.PreferenceCategory
-    android:key="@string/pref_subtittle_opt_out"
-    android:title="@string/subtittle_opt_out">
-    <Preference
-      android:key="@string/pref_opt_out_flurry"
-      android:title="@string/opt_out_flurry"/>
-    <Preference
-      android:key="@string/pref_opt_out_mopub"
-      android:title="@string/opt_out_mopub"/>
-    <Preference
-      android:key="@string/pref_opt_out_fabric"
-      android:title="@string/opt_out_fabric"/>
-    <Preference
-      android:key="@string/pref_opt_out_appsflyer"
-      android:title="@string/opt_out_appsflyer"/>
-  </android.support.v7.preference.PreferenceCategory>
-
-  <android.support.v7.preference.PreferenceCategory
     android:key="@string/pref_settings_general"
     android:title="@string/prefs_group_general"
     android:order="2">
@@ -174,7 +157,6 @@
         android:order="4"/>
     </android.support.v7.preference.PreferenceScreen>
   </android.support.v7.preference.PreferenceCategory>
-
   <android.support.v7.preference.PreferenceCategory
     android:key="@string/pref_information"
     android:title="@string/prefs_group_information"
@@ -189,5 +171,29 @@
       android:title="@string/about"
       android:fragment="com.mapswithme.maps.settings.AboutFragment"
       android:order="2"/>
+
+  </android.support.v7.preference.PreferenceCategory>
+  <android.support.v7.preference.PreferenceCategory
+    android:key="@string/pref_subtittle_opt_out"
+    android:title="@string/subtittle_opt_out"
+    android:order="7">
+    <Preference
+      android:key="@string/pref_opt_out_mopub"
+      android:title="@string/opt_out_mopub">
+      <intent
+        android:targetClass="com.mapswithme.maps.gdpr.MwmOptOutActivity"
+        android:targetPackage="@string/app_id">
+      </intent>
+    </Preference>
+    <Preference
+      android:key="@string/pref_opt_out_flurry"
+      android:title="@string/opt_out_flurry">
+    </Preference>
+    <SwitchPreferenceCompat
+      android:key="@string/pref_opt_out_fabric_activated"
+      android:defaultValue="true"
+      android:title="@string/opt_out_fabric"
+      android:summary="@string/opt_out_fabric_description">
+    </SwitchPreferenceCompat>
   </android.support.v7.preference.PreferenceCategory>
 </android.support.v7.preference.PreferenceScreen>

@@ -20,7 +20,6 @@ import android.support.v7.preference.TwoStatePreference;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.View;
 
 import com.flurry.android.FlurryAgent;
@@ -34,7 +33,6 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.downloader.OnmapDownloader;
 import com.mapswithme.maps.editor.ProfileActivity;
-import com.mapswithme.maps.gdpr.OptOutDialogFragment;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.sound.LanguageData;
@@ -45,15 +43,11 @@ import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.MytargetHelper;
 import com.mapswithme.util.statistics.Statistics;
-import com.mopub.common.MoPub;
-import com.mopub.common.logging.MoPubLog;
-import com.mopub.common.privacy.ConsentDialogListener;
-import com.mopub.common.privacy.PersonalInfoManager;
-import com.mopub.mobileads.MoPubErrorCode;
 
 import java.util.HashMap;
 import java.util.List;
@@ -66,6 +60,8 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
                                                              .getString(R.string.pref_tts_screen);
   private static final String TTS_INFO_LINK = MwmApplication.get()
                                                             .getString(R.string.tts_info_link);
+  private static final String TAG = "settings";
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
 
   @NonNull
   private final StoragePathManager mPathManager = new StoragePathManager();
@@ -323,27 +319,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   private void initOptOutBlock()
   {
     initFlurryOptOut();
-    initMoPubOptOut();
-    initFabricOptOut();
-    initAppsFlyerOptOut();
-  }
-
-  private void initAppsFlyerOptOut()
-  {
-    initOptOutItem(R.string.pref_opt_out_appsflyer, new AppsFlyerPrefClickListener());
-  }
-
-  private void initFabricOptOut()
-  {
-    initOptOutItem(R.string.pref_opt_out_fabric, new FabricClickListener());
-  }
-
-  private void initMoPubOptOut()
-  {
-    final PersonalInfoManager moPubManager = MoPub.getPersonalInformationManager();
-    if (moPubManager == null)
-      return;
-    initOptOutItem(R.string.pref_opt_out_mopub, new MoPubPrefClickListener(moPubManager));
   }
 
   private void initFlurryOptOut()
@@ -918,119 +893,31 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     mPathManager.stopExternalStorageWatching();
   }
 
-  private abstract class AbstractPrefDialogClickListener implements Preference.OnPreferenceClickListener {
-
-    @Override
-    public boolean onPreferenceClick(Preference preference)
-    {
-      OptOutDialogFragment frag = new OptOutDialogFragment();
-      OptOutDialogFragment.OptOutActionsFactory factory = getOptOutActionsFactory();
-
-      frag.setArguments(factory.getFragArgs());
-      frag.show(getFragmentManager(), OptOutDialogFragment.TAG);
-      return false;
-    }
-
-    @NonNull
-    protected abstract OptOutDialogFragment.OptOutActionsFactory getOptOutActionsFactory();
-  }
-
-  private class AppsFlyerPrefClickListener extends AbstractPrefDialogClickListener
-  {
-    @Override
-    public boolean onPreferenceClick(Preference preference)
-    {
-      OptOutDialogFragment frag = new OptOutDialogFragment();
-
-      OptOutDialogFragment.OptOutActionsFactory factory = OptOutDialogFragment
-          .OptOutActionsFactory
-          .APPSFLYER;
-      frag.setArguments(factory.getFragArgs());
-      frag.show(getFragmentManager(), OptOutDialogFragment.TAG);
-      return true;
-    }
-
-    @NonNull
-    @Override
-    protected OptOutDialogFragment.OptOutActionsFactory getOptOutActionsFactory()
-    {
-      return OptOutDialogFragment
-          .OptOutActionsFactory
-          .APPSFLYER;
-    }
-  }
-
-  private class MoPubPrefClickListener implements Preference.OnPreferenceClickListener
-  {
-    @NonNull
-    private final PersonalInfoManager mMoPubManager;
-
-    MoPubPrefClickListener(@NonNull PersonalInfoManager moPubManager)
-    {
-      mMoPubManager = moPubManager;
-    }
-
-    @Override
-    public boolean onPreferenceClick(Preference preference)
-    {
-      /*FIXME*/
-      if (mMoPubManager.shouldShowConsentDialog())
-      {
-        class MapsMeMoPubDialogListener implements ConsentDialogListener
-        {
-          @Override
-          public void onConsentDialogLoaded()
-          {
-            mMoPubManager.showConsentDialog();
-          }
-
-          @Override
-          public void onConsentDialogLoadFailed(@NonNull MoPubErrorCode moPubErrorCode)
-          {
-            MoPubLog.i("Consent dialog failed to load.");
-          }
-        }
-        mMoPubManager.loadConsentDialog(new MapsMeMoPubDialogListener());
-      }
-      return true;
-    }
-  }
-
   private class FlurryPrefClickListener implements Preference.OnPreferenceClickListener
   {
     @Override
     public boolean onPreferenceClick(Preference preference)
     {
-      class MapsMeFlurryPrivacySession implements FlurryPrivacySession.Callback
-      {
-        @Override
-        public void success() {
-          Log.d("settings", "Privacy Dashboard opened successfully");
-        }
-
-        @Override
-        public void failure() {
-          Log.d("settings", "Opening Privacy Dashboard failed");
-        }
-      }
-
       Context c = getContext().getApplicationContext();
       MapsMeFlurryPrivacySession callback = new MapsMeFlurryPrivacySession();
       final FlurryPrivacySession.Request request = new FlurryPrivacySession.Request(c, callback);
       FlurryAgent.openPrivacyDashboard(request);
       return true;
     }
-  }
 
-  private class FabricClickListener extends AbstractPrefDialogClickListener
-  {
-    @NonNull
-    @Override
-    protected OptOutDialogFragment.OptOutActionsFactory getOptOutActionsFactory()
+    class MapsMeFlurryPrivacySession implements FlurryPrivacySession.Callback
     {
-      return OptOutDialogFragment
-          .OptOutActionsFactory
-          .FABRIC;
+      @Override
+      public void success()
+      {
+        LOGGER.d(TAG, "Privacy Dashboard opened successfully");
+      }
+
+      @Override
+      public void failure()
+      {
+        LOGGER.d(TAG, "Opening Privacy Dashboard failed");
+      }
     }
   }
 }

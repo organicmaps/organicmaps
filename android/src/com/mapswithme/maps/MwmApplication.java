@@ -149,10 +149,10 @@ public class MwmApplication extends Application
 
   public boolean isCrashlyticsEnabled()
   {
-    return !BuildConfig.FABRIC_API_KEY.startsWith("0000") && forceFabricActivated();
+    return !BuildConfig.FABRIC_API_KEY.startsWith("0000");
   }
 
-  private boolean forceFabricActivated()
+  private boolean isFabricActivated()
   {
     String prefKey = getResources().getString(R.string.pref_opt_out_fabric_activated);
     return mPrefs.getBoolean(prefKey, true);
@@ -304,11 +304,14 @@ public class MwmApplication extends Application
     if (isCrashlyticsInitialized())
       return false;
 
-    Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
+    Crashlytics core = new Crashlytics
+        .Builder()
+        .core(new CrashlyticsCore.Builder().disabled(!isFabricActivated()).build())
+        .build();
 
+    Fabric.with(this, core, new CrashlyticsNdk());
     nativeInitCrashlytics();
-
-    mCrashlyticsInitialized = true;
+    return mCrashlyticsInitialized = true;
   }
 
   public boolean isCrashlyticsInitialized()
@@ -316,7 +319,7 @@ public class MwmApplication extends Application
     return mCrashlyticsInitialized;
   }
 
-  private static boolean setInstallationIdToCrashlytics()
+  private boolean setInstallationIdToCrashlytics()
   {
     if (!isCrashlyticsEnabled())
       return false;

@@ -425,6 +425,11 @@
 
     <activity android:name="com.mopub.common.privacy.ConsentDialogActivity"
               android:configChanges="keyboardHidden|orientation|screenSize"/>
+    <activity
+      android:name="com.mapswithme.maps.gdpr.MwmOptOutActivity"
+      android:label="@string/subtittle_opt_out"
+      android:configChanges="keyboardHidden|orientation|screenSize">
+    </activity>
     <receiver
         android:name="com.mapswithme.maps.background.ConnectivityChangedReceiver"
         android:enabled="true"
