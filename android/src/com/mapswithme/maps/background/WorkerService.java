@@ -20,8 +20,6 @@ public class WorkerService extends IntentService
   private static final String ACTION_UPLOAD_OSM_CHANGES = "com.mapswithme.maps.action.upload_osm_changes";
   private static final String ACTION_UPLOAD_UGC = "com.mapswithme.maps.action.upload_ugc";
 
-  private static final SharedPreferences PREFS = MwmApplication.prefs();
-
   private final boolean mArePlatformAndCoreInitialized =
       MwmApplication.get().arePlatformAndCoreInitialized();
 

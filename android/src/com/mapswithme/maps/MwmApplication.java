@@ -13,6 +13,7 @@ import android.util.Log;
 
 import com.appsflyer.AppsFlyerLib;
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
 import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.mapswithme.maps.background.AppBackgroundTracker;
 import com.mapswithme.maps.background.Notifier;
@@ -131,6 +132,7 @@ public class MwmApplication extends Application
     return sSelf.mBackgroundTracker;
   }
 
+  @Deprecated
   public synchronized static SharedPreferences prefs()
   {
     if (sSelf.mPrefs == null)
@@ -139,9 +141,21 @@ public class MwmApplication extends Application
     return sSelf.mPrefs;
   }
 
-  public static boolean isCrashlyticsEnabled()
+  public static SharedPreferences prefs(Context context)
   {
-    return !BuildConfig.FABRIC_API_KEY.startsWith("0000");
+    String prefFile = context.getResources().getString(R.string.pref_file_name);
+    return context.getApplicationContext().getSharedPreferences(prefFile, MODE_PRIVATE);
+  }
+
+  public boolean isCrashlyticsEnabled()
+  {
+    return !BuildConfig.FABRIC_API_KEY.startsWith("0000") && forceFabricActivated();
+  }
+
+  private boolean forceFabricActivated()
+  {
+    String prefKey = getResources().getString(R.string.pref_opt_out_fabric_activated);
+    return mPrefs.getBoolean(prefKey, true);
   }
 
   @Override
@@ -160,9 +174,9 @@ public class MwmApplication extends Application
     mLogger.d(TAG, "Application is created");
     mMainLoopHandler = new Handler(getMainLooper());
 
+    mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
     initCoreIndependentSdks();
 
-    mPrefs = getSharedPreferences(getString(R.string.pref_file_name), MODE_PRIVATE);
     mBackgroundTracker = new AppBackgroundTracker();
     mBackgroundTracker.addListener(mVisibleAppLaunchListener);
   }
@@ -282,13 +296,13 @@ public class MwmApplication extends Application
     nativeAddLocalization("wifi", getString(R.string.wifi));
   }
 
-  public void initCrashlytics()
+  public boolean initCrashlytics()
   {
     if (!isCrashlyticsEnabled())
-      return;
+      return false;
 
     if (isCrashlyticsInitialized())
-      return;
+      return false;
 
     Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
 

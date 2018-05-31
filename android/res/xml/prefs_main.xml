@@ -6,6 +6,22 @@
     android:key="@string/pref_osm_profile"
     android:title="@string/profile"
     android:order="1"/>
+  <android.support.v7.preference.PreferenceCategory
+    android:key="@string/pref_subtittle_opt_out"
+    android:title="@string/subtittle_opt_out">
+    <Preference
+      android:key="@string/pref_opt_out_flurry"
+      android:title="@string/opt_out_flurry"/>
+    <Preference
+      android:key="@string/pref_opt_out_mopub"
+      android:title="@string/opt_out_mopub"/>
+    <Preference
+      android:key="@string/pref_opt_out_fabric"
+      android:title="@string/opt_out_fabric"/>
+    <Preference
+      android:key="@string/pref_opt_out_appsflyer"
+      android:title="@string/opt_out_appsflyer"/>
+  </android.support.v7.preference.PreferenceCategory>
 
   <android.support.v7.preference.PreferenceCategory
     android:key="@string/pref_settings_general"
@@ -67,6 +83,7 @@
         android:enabled="false"
         android:summary="@string/recent_track_help_text"
         android:order="3"/>
+
     </android.support.v7.preference.PreferenceScreen>
     <Preference
       android:key="@string/pref_storage"

@@ -25,12 +25,14 @@ public final class CrashlyticsUtils
 
   private static boolean checkCrashlytics()
   {
-    if (!MwmApplication.isCrashlyticsEnabled())
+    MwmApplication app = MwmApplication.get();
+    if (!app.isCrashlyticsEnabled())
+    {
       return false;
+    }
 
-    MwmApplication application = MwmApplication.get();
-    if (!application.isCrashlyticsInitialized())
-      application.initCrashlytics();
+    if (!app.isCrashlyticsInitialized())
+      app.initCrashlytics();
     return true;
   }
 
