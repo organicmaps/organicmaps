@@ -792,7 +792,7 @@
 	<string name="onboarding_permissions_message">Så att du kan ladda ned kartor, visa platser och trafik i närheten och använda navigering.</string>
 	<string name="onboarding_welcome_title">Välkommen till MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Gratis, snabba, detaljerade och fullständiga kartor offline med sväng-för-sväng-navigering.</string>
-	<string name="onboarding_welcome_second_subtitle">Genom att starta applikationen godkänner du <a href="https://legal.my.com/us/maps/tou/">användningsvillkoren</a> och <a href="https://legal.my.com/us/maps/privacy/">sekretesspolicyn</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Genom att starta applikationen godkänner du &lt;a href="%1$s">användningsvillkoren&lt;/a> och &lt;a href="%2$s">sekretesspolicyn&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Ändra placering</string>
 	<string name="message_invalid_feature_position">Ett objekt kan inte placeras här</string>
 	<string name="login_to_make_edits_visible">Logga in så att andra användare kan se de ändringar du gjort.</string>
@@ -1291,7 +1291,7 @@
 	<string name="error_system_message">Ett okänt fel uppstod</string>
 	<string name="restore">Återställa</string>
 	<string name="sign_message_gdpr">För att fortsätta måste du acceptera våra användarvillkor och sekretesspolicy. Läs dem noggrant.</string>
-	<string name="sign_agree_pp_gdpr">Jag godkänner <a href="https://legal.my.com/us/maps/privacy/">sekretesspolicy</a></string>
-	<string name="sign_agree_tof_gdpr">Jag godkänner <a href="https://legal.my.com/us/maps/tou/">användarvillkoren</a></string>
+	<string name="sign_agree_pp_gdpr">Jag godkänner &lt;a href="%s">sekretesspolicy&lt;/a></string>
+	<string name="sign_agree_tof_gdpr">Jag godkänner &lt;a href="%s">användarvillkoren&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Jag håller med om att få de senaste nyheterna om MAPS.ME produkter</string>
 </resources>

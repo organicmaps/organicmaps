@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Gratis, snabba, detaljerade och fullständiga kartor offline med sväng-för-sväng-navigering.";
 
-"onboarding_welcome_second_subtitle" = "Genom att starta applikationen godkänner du <a href=\"https://legal.my.com/us/maps/tou/\">användningsvillkoren</a> och <a href=\"https://legal.my.com/us/maps/privacy/\">sekretesspolicyn</a>.";
+"onboarding_welcome_second_subtitle" = "Genom att starta applikationen godkänner du <a href=\"%s\">användningsvillkoren</a> och <a href=\"%s\">sekretesspolicyn</a>.";
 
 "dialog_incorrect_feature_position" = "Ändra placering";
 
@@ -2324,9 +2324,9 @@
 
 "sign_message_gdpr" = "För att fortsätta måste du acceptera våra användarvillkor och sekretesspolicy. Läs dem noggrant.";
 
-"sign_agree_pp_gdpr" = "Jag godkänner <a href=\"https://legal.my.com/us/maps/privacy/\">sekretesspolicy</a>";
+"sign_agree_pp_gdpr" = "Jag godkänner <a href=\"%s\">sekretesspolicy</a>";
 
-"sign_agree_tof_gdpr" = "Jag godkänner <a href=\"https://legal.my.com/us/maps/tou/\">användarvillkoren</a>";
+"sign_agree_tof_gdpr" = "Jag godkänner <a href=\"%s\">användarvillkoren</a>";
 
 "sign_agree_news_gdpr" = "Jag håller med om att få de senaste nyheterna om MAPS.ME produkter";
 

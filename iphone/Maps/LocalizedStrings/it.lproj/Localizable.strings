@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Mappe gratuite, veloci, dettagliate e interamente offline con navigazione turn-by-turn.";
 
-"onboarding_welcome_second_subtitle" = "Lanciando l'applicazione, accetti i <a href=\"https://legal.my.com/us/maps/tou/\">Termini di utilizzo</a> e l'<a href=\"https://legal.my.com/us/maps/privacy/\">Informativa sulla privacy</a>.";
+"onboarding_welcome_second_subtitle" = "Lanciando l'applicazione, accetti i <a href=\"%s\">Termini di utilizzo</a> e l'<a href=\"%s\">Informativa sulla privacy</a>.";
 
 "dialog_incorrect_feature_position" = "Cambia posizione";
 
@@ -2324,9 +2324,9 @@
 
 "sign_message_gdpr" = "Per continuare, devi accettare i nostri Termini di utilizzo e la nostra Informativa sulla Privacy. Ti invitiamo a leggerli attentamente.";
 
-"sign_agree_pp_gdpr" = "Accetto la <a href=\"https://legal.my.com/us/maps/privacy/\">Informativa sulla Privacy</a>";
+"sign_agree_pp_gdpr" = "Accetto la <a href=\"%s\">Informativa sulla Privacy</a>";
 
-"sign_agree_tof_gdpr" = "Accetto i <a href=\"https://legal.my.com/us/maps/tou/\">Termini di utilizzo</a>";
+"sign_agree_tof_gdpr" = "Accetto i <a href=\"%s\">Termini di utilizzo</a>";
 
 "sign_agree_news_gdpr" = "Accetto di ricevere le ultime notizie sui prodotti di MAPS.ME";
 

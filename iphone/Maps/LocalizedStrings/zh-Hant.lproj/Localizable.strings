@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "免費、快速、詳盡又全面的地圖，提供逐向導航服務。";
 
-"onboarding_welcome_second_subtitle" = "啟用本應用程式，即表示您同意 <a href=\"https://legal.my.com/us/maps/tou/\">服務條款</a>和 <a href=\"https://legal.my.com/us/maps/privacy/\">隱私權原則</a>。";
+"onboarding_welcome_second_subtitle" = "啟用本應用程式，即表示您同意 <a href=\"%s\">服務條款</a>和 <a href=\"%s\">隱私權原則</a>。";
 
 "dialog_incorrect_feature_position" = "改變位置";
 
@@ -2324,9 +2324,9 @@
 
 "sign_message_gdpr" = "您必須接受我們的使用條款和隱私政策。 請仔細閱讀。";
 
-"sign_agree_pp_gdpr" = "我同意<a href=\"https://legal.my.com/us/maps/privacy/\">隱私政策</a>";
+"sign_agree_pp_gdpr" = "我同意<a href=\"%s\">隱私政策</a>";
 
-"sign_agree_tof_gdpr" = "我同意<a href=\"https://legal.my.com/us/maps/tou/\">使用條款</a>";
+"sign_agree_tof_gdpr" = "我同意<a href=\"%s\">使用條款</a>";
 
 "sign_agree_news_gdpr" = "我同意接收有關MAPS.ME產品的最新消息";
 

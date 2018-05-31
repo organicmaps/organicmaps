@@ -792,7 +792,7 @@
 	<string name="onboarding_permissions_message">Таким чином ви зможете завантажувати карти, переглядати місцевість і трафік, а також використовувати навігацію.</string>
 	<string name="onboarding_welcome_title">Вітаємо у MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Безкоштовні, швидкі, деталізовані та повністю офлайнові карти з покроковою навігацією.</string>
-	<string name="onboarding_welcome_second_subtitle">Використовуючи цей додаток, ви погоджуєтеся з <a href="https://legal.my.com/us/maps/tou/">Умовами використання</a> та <a href="https://legal.my.com/us/maps/privacy/">Політикою конфіденційності</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Використовуючи цей додаток, ви погоджуєтеся з &lt;a href="%1$s">Умовами використання&lt;/a> та &lt;a href="%2$s">Політикою конфіденційності&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Змініть розташування</string>
 	<string name="message_invalid_feature_position">Об\'єкт не може перебувати в цьому місцезнаходженні</string>
 	<string name="login_to_make_edits_visible">Увійдіть, щоб ваші зміни побачили інші користувачі.</string>
@@ -1292,7 +1292,7 @@
 	<string name="error_system_message">Виникла невідома помилка</string>
 	<string name="restore">Відновити</string>
 	<string name="sign_message_gdpr">Щоб продовжити роботу, ви повинні прийняти наші Умови використання та Політику конфіденційності. Будь ласка, уважно їх прочитайте.</string>
-	<string name="sign_agree_pp_gdpr">Я згоден з <a href="https://legal.my.com/us/maps/privacy/">Політикою конфіденційності</a></string>
-	<string name="sign_agree_tof_gdpr">Я згоден з <a href="https://legal.my.com/us/maps/tou/">Умовами використання</a></string>
+	<string name="sign_agree_pp_gdpr">Я згоден з &lt;a href="%s">Політикою конфіденційності&lt;/a></string>
+	<string name="sign_agree_tof_gdpr">Я згоден з &lt;a href="%s">Умовами використання&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Я згоден отримувати останні новини про MAPS.ME</string>
 </resources>

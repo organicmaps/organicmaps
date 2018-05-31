@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "턴-바이-턴 네비게이션을 이용하는 빠르고 상세하며 완전히 오프라인으로 이용 가능한 무료 지도입니다.";
 
-"onboarding_welcome_second_subtitle" = "애플리케이션을 시작하면, <a href=\"https://legal.my.com/us/maps/tou/\">이용 약관</a> 및 <a href=\"https://legal.my.com/us/maps/privacy/\">개인정보취급방침</a>에 동의하는 것입니다.";
+"onboarding_welcome_second_subtitle" = "애플리케이션을 시작하면, <a href=\"%s\">이용 약관</a> 및 <a href=\"%s\">개인정보취급방침</a>에 동의하는 것입니다.";
 
 "dialog_incorrect_feature_position" = "위치 변경";
 
@@ -2324,9 +2324,9 @@
 
 "sign_message_gdpr" = "계속하려면 이용 약관 및 개인 정보 보호 정책에 동의해야합니다. 주의 깊게 읽으십시오.";
 
-"sign_agree_pp_gdpr" = "<a href=\"https://legal.my.com/us/maps/privacy/\">개인 정보 보호 정책</a>에 동의합니다.";
+"sign_agree_pp_gdpr" = "<a href=\"%s\">개인 정보 보호 정책</a>에 동의합니다.";
 
-"sign_agree_tof_gdpr" = "<a href=\"https://legal.my.com/us/maps/tou/\">이용 약관</a>에 동의합니다.";
+"sign_agree_tof_gdpr" = "<a href=\"%s\">이용 약관</a>에 동의합니다.";
 
 "sign_agree_news_gdpr" = "MAPS.ME 제품에 대한 최신 뉴스를받는 것에 동의합니다.";
 

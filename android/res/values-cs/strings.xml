@@ -795,7 +795,7 @@
 	<string name="onboarding_permissions_message">Tím umožníte stahování map, zobrazovat místa a dopravu ve vaší blízkosti a používat navigaci.</string>
 	<string name="onboarding_welcome_title">Vítá vás aplikace MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Bezplatné, rychlé, podrobné a zcela offline mapy s kompletní navigací.</string>
-	<string name="onboarding_welcome_second_subtitle">Spuštěním aplikace souhlasíte s <a href="https://legal.my.com/us/maps/tou/">Podmínkami použití</a> a <a href="https://legal.my.com/us/maps/privacy/">Zásadami ochrany osobních údajů</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Spuštěním aplikace souhlasíte s &lt;a href="%1$s">Podmínkami použití&lt;/a> a &lt;a href="%2$s">Zásadami ochrany osobních údajů&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Změnit umístění</string>
 	<string name="message_invalid_feature_position">Objekt zde nemůže být umístěn</string>
 	<string name="login_to_make_edits_visible">Přihlaste se, aby ostatní uživatelé mohli vidět změny, které jste provedli.</string>
@@ -1295,7 +1295,7 @@
 	<string name="error_system_message">Nastala neznámá chyba</string>
 	<string name="restore">Obnovit</string>
 	<string name="sign_message_gdpr">Chcete-li pokračovat, musíte přijmout naše Smluvní podmínky a zásady ochrany osobních údajů. Přečtěte si je pečlivě.</string>
-	<string name="sign_agree_pp_gdpr">Souhlasím s <a href="https://legal.my.com/us/maps/privacy/">Zásadami ochrany osobních údajů</a></string>
-	<string name="sign_agree_tof_gdpr">Souhlasím s <a href="https://legal.my.com/us/maps/tou/">Smluvními podmínkami</a></string>
+	<string name="sign_agree_pp_gdpr">Souhlasím s &lt;a href="%s">Zásadami ochrany osobních údajů&lt;/a></string>
+	<string name="sign_agree_tof_gdpr">Souhlasím s &lt;a href="%s">Smluvními podmínkami&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Souhlasím s tím, že obdržím nejnovější zprávy o produktech MAPS.ME</string>
 </resources>

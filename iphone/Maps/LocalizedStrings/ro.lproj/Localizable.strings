@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.";
 
-"onboarding_welcome_second_subtitle" = "Lansând aplicația confirmați că sunteți de acord cu <a href=\"https://legal.my.com/us/maps/tou/\">Condițiile de utilizare</a> și <a href=\"https://legal.my.com/us/maps/privacy/\">Politica de confidențialitate</a>.";
+"onboarding_welcome_second_subtitle" = "Lansând aplicația confirmați că sunteți de acord cu <a href=\"%s\">Condițiile de utilizare</a> și <a href=\"%s\">Politica de confidențialitate</a>.";
 
 "dialog_incorrect_feature_position" = "Schimbare locație";
 
@@ -2324,9 +2324,9 @@
 
 "sign_message_gdpr" = "Pentru a continua, trebuie să acceptați Termenii de utilizare și Politica de confidențialitate. Citiți-le cu atenție.";
 
-"sign_agree_pp_gdpr" = "Sunt de acord cu <a href=\"https://legal.my.com/us/maps/privacy/\">Politica de confidențialitate</a>";
+"sign_agree_pp_gdpr" = "Sunt de acord cu <a href=\"%s\">Politica de confidențialitate</a>";
 
-"sign_agree_tof_gdpr" = "Sunt de acord cu <a href=\"https://legal.my.com/us/maps/tou/\">Termenii și condițiile</a>";
+"sign_agree_tof_gdpr" = "Sunt de acord cu <a href=\"%s\">Termenii și condițiile</a>";
 
 "sign_agree_news_gdpr" = "Sunt de acord să primesc ultimele știri despre produsele MAPS.ME";
 

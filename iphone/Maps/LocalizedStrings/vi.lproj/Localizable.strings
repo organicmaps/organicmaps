@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Các bản đồ hoàn toàn ngoại tuyến miễn phí, nhanh và chi tiết với điều hướng qua từng khúc quanh.";
 
-"onboarding_welcome_second_subtitle" = "Bằng cách khởi chạy ứng dụng, bạn đồng ý với <a href=\"https://legal.my.com/us/maps/tou/\">Điều khoản Sử dụng</a> và <a href=\"https://legal.my.com/us/maps/privacy/\">Chính sách Riêng tư</a>.";
+"onboarding_welcome_second_subtitle" = "Bằng cách khởi chạy ứng dụng, bạn đồng ý với <a href=\"%s\">Điều khoản Sử dụng</a> và <a href=\"%s\">Chính sách Riêng tư</a>.";
 
 "dialog_incorrect_feature_position" = "Thay đổi địa điểm";
 
@@ -2324,9 +2324,9 @@
 
 "sign_message_gdpr" = "Bạn phải chấp nhận Điều khoản sử dụng và Chính sách bảo mật của chúng tôi. Vui lòng đọc kỹ chúng.";
 
-"sign_agree_pp_gdpr" = "Tôi đồng ý với <a href=\"https://legal.my.com/us/maps/privacy/\">Chính sách bảo mật</a>";
+"sign_agree_pp_gdpr" = "Tôi đồng ý với <a href=\"%s\">Chính sách bảo mật</a>";
 
-"sign_agree_tof_gdpr" = "Tôi đồng ý với <a href=\"https://legal.my.com/us/maps/tou/\">Điều khoản sử dụng</a>";
+"sign_agree_tof_gdpr" = "Tôi đồng ý với <a href=\"%s\">Điều khoản sử dụng</a>";
 
 "sign_agree_news_gdpr" = "Tôi đồng ý nhận tin tức mới nhất về các sản phẩm MAPS.ME";
 

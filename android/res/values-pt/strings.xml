@@ -791,7 +791,7 @@
 	<string name="onboarding_permissions_message">Para que possa transferir mapas, ver locais e o trânsito perto e si e utilizar a navegação.</string>
 	<string name="onboarding_welcome_title">Bem-vindo ao MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Mapas com navegação curva a curva grátis, rápidos, detalhados e totalmente offline.</string>
-	<string name="onboarding_welcome_second_subtitle">Ao lançar a aplicação, o utilizador concorda com os <a href="https://legal.my.com/us/maps/tou/">Termos de Utilização</a> e a <a href="https://legal.my.com/us/maps/privacy/">Política de Privacidade</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Ao lançar a aplicação, o utilizador concorda com os &lt;a href="%1$s">Termos de Utilização&lt;/a> e a &lt;a href="%2$s">Política de Privacidade&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Mudar local</string>
 	<string name="message_invalid_feature_position">Um objeto não pode ser posicionado aqui</string>
 	<string name="login_to_make_edits_visible">Inicie sessão para que outros usuários vejam as mudanças que você fez.</string>
@@ -1290,7 +1290,7 @@
 	<string name="error_system_message">Ocorreu um erro desconhecido</string>
 	<string name="restore">Restaurar</string>
 	<string name="sign_message_gdpr">Para continuar, você deve aceitar nossos Termos de Uso e Política de Privacidade. Por favor, leia-os com atenção.</string>
-	<string name="sign_agree_pp_gdpr">Concordo com a <a href="https://legal.my.com/us/maps/privacy/">Política de Privacidade</a></string>
-	<string name="sign_agree_tof_gdpr">Eu concordo com os <a href="https://legal.my.com/us/maps/tou/">Termos de Uso</a></string>
+	<string name="sign_agree_pp_gdpr">Concordo com a &lt;a href="%s">Política de Privacidade&lt;/a></string>
+	<string name="sign_agree_tof_gdpr">Eu concordo com os &lt;a href="%s">Termos de Uso&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Concordo em receber as últimas novidades sobre os produtos MAPS.ME</string>
 </resources>

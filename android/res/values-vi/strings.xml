@@ -788,7 +788,7 @@
 	<string name="onboarding_permissions_message">Để bạn có thể tải về các bản đồ, xem các địa điểm và lưu lượng giao thông gần bạn và sử dụng điều hướng.</string>
 	<string name="onboarding_welcome_title">Chào mừng đến với MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Các bản đồ hoàn toàn ngoại tuyến miễn phí, nhanh và chi tiết với điều hướng qua từng khúc quanh.</string>
-	<string name="onboarding_welcome_second_subtitle">Bằng cách khởi chạy ứng dụng, bạn đồng ý với <a href="https://legal.my.com/us/maps/tou/">Điều khoản Sử dụng</a> và <a href="https://legal.my.com/us/maps/privacy/">Chính sách Riêng tư</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Bằng cách khởi chạy ứng dụng, bạn đồng ý với &lt;a href="%1$s">Điều khoản Sử dụng&lt;/a> và &lt;a href="%2$s">Chính sách Riêng tư&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Thay đổi địa điểm</string>
 	<string name="message_invalid_feature_position">Một đối tượng không thể đặt được ở đây</string>
 	<string name="login_to_make_edits_visible">Đăng nhập để người dùng khác có thể nhìn thấy những thay đổi bạn đã thực hiện.</string>
@@ -1283,7 +1283,7 @@
 	<string name="error_system_message">Đã xảy ra lỗi không xác định</string>
 	<string name="restore">Khôi phục</string>
 	<string name="sign_message_gdpr">Bạn phải chấp nhận Điều khoản sử dụng và Chính sách bảo mật của chúng tôi. Vui lòng đọc kỹ chúng.</string>
-	<string name="sign_agree_pp_gdpr">Tôi đồng ý với <a href="https://legal.my.com/us/maps/privacy/">Chính sách bảo mật</a></string>
-	<string name="sign_agree_tof_gdpr">Tôi đồng ý với <a href="https://legal.my.com/us/maps/tou/">Điều khoản sử dụng</a></string>
+	<string name="sign_agree_pp_gdpr">Tôi đồng ý với &lt;a href="%s">Chính sách bảo mật&lt;/a></string>
+	<string name="sign_agree_tof_gdpr">Tôi đồng ý với &lt;a href="%s">Điều khoản sử dụng&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Tôi đồng ý nhận tin tức mới nhất về các sản phẩm MAPS.ME</string>
 </resources>

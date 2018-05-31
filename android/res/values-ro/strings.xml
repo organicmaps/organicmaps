@@ -785,7 +785,7 @@
 	<string name="onboarding_permissions_message">Puteți să descărcați hărți, să vedeți locurile și starea traficului din apropiere și să utilizați navigația.</string>
 	<string name="onboarding_welcome_title">Bun venit în MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Hărți gratuite, accesibile și disponibile offline, alături de navigație pas cu pas.</string>
-	<string name="onboarding_welcome_second_subtitle">Lansând aplicația confirmați că sunteți de acord cu <a href="https://legal.my.com/us/maps/tou/">Condițiile de utilizare</a> și <a href="https://legal.my.com/us/maps/privacy/">Politica de confidențialitate</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Lansând aplicația confirmați că sunteți de acord cu &lt;a href="%1$s">Condițiile de utilizare&lt;/a> și &lt;a href="%2$s">Politica de confidențialitate&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Schimbare locație</string>
 	<string name="message_invalid_feature_position">În acest loc nu poate fi localizat un obiect</string>
 	<string name="login_to_make_edits_visible">Autentificați-vă pentru ca modificările pe care le-ați efectuat să poată fi văzute și de alți utilizatori.</string>
@@ -1283,7 +1283,7 @@
 	<string name="error_system_message">O eroare necunoscută s-a întamplat</string>
 	<string name="restore">Restabili</string>
 	<string name="sign_message_gdpr">Pentru a continua, trebuie să acceptați Termenii de utilizare și Politica de confidențialitate. Citiți-le cu atenție.</string>
-	<string name="sign_agree_pp_gdpr">Sunt de acord cu <a href="https://legal.my.com/us/maps/privacy/">Politica de confidențialitate</a></string>
-	<string name="sign_agree_tof_gdpr">Sunt de acord cu <a href="https://legal.my.com/us/maps/tou/">Termenii și condițiile</a></string>
+	<string name="sign_agree_pp_gdpr">Sunt de acord cu &lt;a href="%s">Politica de confidențialitate&lt;/a></string>
+	<string name="sign_agree_tof_gdpr">Sunt de acord cu &lt;a href="%s">Termenii și condițiile&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Sunt de acord să primesc ultimele știri despre produsele MAPS.ME</string>
 </resources>

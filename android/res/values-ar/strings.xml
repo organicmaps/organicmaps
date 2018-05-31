@@ -794,7 +794,7 @@
 	<string name="onboarding_permissions_message">من ثم يمكنك تنزيل الخرائط وعرض الأماكن وحركة المرور القريبة منك استخدام الملاحة.</string>
 	<string name="onboarding_welcome_title">مرحبًا بك في MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">خرائط تفصيلية مجانية وسريعة وتفصيلية وبدون اتصال بالكامل مع الملاحة منعطف بمنعطف.</string>
-	<string name="onboarding_welcome_second_subtitle">من خلال إطلاق التطبيق، فإنك توافق على <a href="https://legal.my.com/us/maps/tou/">شروط الاستخدام</a> و<a href="https://legal.my.com/us/maps/privacy/">سياسة الخصوصية</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">من خلال إطلاق التطبيق، فإنك توافق على &lt;a href="%1$s">شروط الاستخدام&lt;/a> و&lt;a href="%2$s">سياسة الخصوصية&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">تغيير الموقع</string>
 	<string name="message_invalid_feature_position">لا يمكن تحديد موقع الكائن هنا</string>
 	<string name="login_to_make_edits_visible">قم بتسجيل الدخول حتى يتمكن باقي المستخدمين من رؤية التغييرات التي قمت بها.</string>
@@ -1292,7 +1292,7 @@
 	<string name="error_system_message">حدث خطأ غير معروف</string>
 	<string name="restore">استعادة</string>
 	<string name="sign_message_gdpr">للمتابعة يجب عليك قبول شروط الاستخدام وسياسة الخصوصية الخاصة بنا. يرجى قراءتها بعناية.</string>
-	<string name="sign_agree_pp_gdpr">أوافق على <a href="https://legal.my.com/us/maps/privacy/">سياسة الخصوصية</a></string>
-	<string name="sign_agree_tof_gdpr">أوافق على <a href="https://legal.my.com/us/maps/tou/">شروط الاستخدام</a></string>
+	<string name="sign_agree_pp_gdpr">أوافق على &lt;a href="%s">سياسة الخصوصية&lt;/a></string>
+	<string name="sign_agree_tof_gdpr">أوافق على &lt;a href="%s">شروط الاستخدام&lt;/a></string>
 	<string name="sign_agree_news_gdpr">أوافق على تلقي آخر الأخبار حول منتجات MAPS.ME</string>
 </resources>

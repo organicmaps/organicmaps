@@ -787,7 +787,7 @@
 	<string name="onboarding_permissions_message">これにより地図のダウンロード、近隣のスポットや交通情報の確認、およびナビゲーションを利用できるようになります。</string>
 	<string name="onboarding_welcome_title">MAPS.ME へようこそ</string>
 	<string name="onboarding_welcome_first_subtitle">ターンバイターン方式のナビゲーションを採用した、完全にオフラインで利用できる無料・高速かつ詳細な地図を提供します。</string>
-	<string name="onboarding_welcome_second_subtitle">アプリケーションを起動することで、<a href="https://legal.my.com/us/maps/tou/">利用規約</a>および<a href="https://legal.my.com/us/maps/privacy/">プライバシーポリシー</a>にご同意いただいたものとみなします。</string>
+	<string name="onboarding_welcome_second_subtitle">アプリケーションを起動することで、&lt;a href="%1$s">利用規約&lt;/a>および&lt;a href="%2$s">プライバシーポリシー&lt;/a>にご同意いただいたものとみなします。</string>
 	<string name="dialog_incorrect_feature_position">位置を変更してください</string>
 	<string name="message_invalid_feature_position">ここにはオブジェクトを配置できません</string>
 	<string name="login_to_make_edits_visible">他のユーザーにも変更が表示されるようログインしてください。</string>
@@ -1285,7 +1285,7 @@
 	<string name="error_system_message">不明なエラーが発生しました</string>
 	<string name="restore">リストア</string>
 	<string name="sign_message_gdpr">続行するには、利用規約とプライバシーポリシーに同意する必要があります。 注意深くお読みください。</string>
-	<string name="sign_agree_pp_gdpr"><a href="https://legal.my.com/us/maps/privacy/">プライバシーポリシー</a>に同意します</string>
-	<string name="sign_agree_tof_gdpr"><a href="https://legal.my.com/us/maps/tou/">利用規約</a>に同意します</string>
+	<string name="sign_agree_pp_gdpr">&lt;a href="%s">プライバシーポリシー&lt;/a>に同意します</string>
+	<string name="sign_agree_tof_gdpr">&lt;a href="%s">利用規約&lt;/a>に同意します</string>
 	<string name="sign_agree_news_gdpr">私はMAPS.ME製品に関する最新ニュースを受け取ることに同意します</string>
 </resources>

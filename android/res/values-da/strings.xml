@@ -792,7 +792,7 @@
 	<string name="onboarding_permissions_message">Så du kan hente kort, se steder og trafik i nærheden af dig og benytte navigation.</string>
 	<string name="onboarding_welcome_title">Velkommen til MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Kort, der er gratis, hurtige, detaljerede og helt igennem offline, med rutenavigation.</string>
-	<string name="onboarding_welcome_second_subtitle">Ved at åbne appen accepterer du vores <a href="https://legal.my.com/us/maps/tou/">Vilkår for anvendelse</a> og <a href="https://legal.my.com/us/maps/privacy/">Fortrolighedspolitik</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Ved at åbne appen accepterer du vores &lt;a href="%1$s">Vilkår for anvendelse&lt;/a> og &lt;a href="%2$s">Fortrolighedspolitik&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Skift lokation</string>
 	<string name="message_invalid_feature_position">Et objekt kan ikke placeres her</string>
 	<string name="login_to_make_edits_visible">Log på så andre brugere kan se ændringerne som du har foretaget.</string>
@@ -1291,7 +1291,7 @@
 	<string name="error_system_message">Der opstod en ukendt fejl</string>
 	<string name="restore">Gendan</string>
 	<string name="sign_message_gdpr">For at fortsætte skal du acceptere vores Vilkår for brug og Privacy Policy. Læs dem grundigt.</string>
-	<string name="sign_agree_pp_gdpr">Jeg accepterer <a href="https://legal.my.com/us/maps/privacy/">Politik til beskyttelse af personlige oplysninger</a></string>
-	<string name="sign_agree_tof_gdpr">Jeg accepterer <a href="https://legal.my.com/us/maps/tou/">Vilkår for brug</a></string>
+	<string name="sign_agree_pp_gdpr">Jeg accepterer &lt;a href="%s">Politik til beskyttelse af personlige oplysninger&lt;/a></string>
+	<string name="sign_agree_tof_gdpr">Jeg accepterer &lt;a href="%s">Vilkår for brug&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Jeg accepterer at modtage de seneste nyheder om MAPS.ME produkter</string>
 </resources>

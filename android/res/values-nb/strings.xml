@@ -788,7 +788,7 @@
 	<string name="onboarding_permissions_message">Du kan laste ned kart, se steder og trafikk nær deg og bruke navigasjon.</string>
 	<string name="onboarding_welcome_title">Velkommen til MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Gratis, rask, detaljert og helt offline kart med rutenavigasjon.</string>
-	<string name="onboarding_welcome_second_subtitle">Når du starter programmet samtykker du til <a href="https://legal.my.com/us/maps/tou/">bruksvilkårene</a> og <a href="https://legal.my.com/us/maps/privacy/">reglene for personvern</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Når du starter programmet samtykker du til &lt;a href="%1$s">bruksvilkårene&lt;/a> og &lt;a href="%2$s">reglene for personvern&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Endre plassering</string>
 	<string name="message_invalid_feature_position">Et objekt kan ikke plasseres her</string>
 	<string name="login_to_make_edits_visible">Logg inn slik at andre brukere kan se endringene du har utført.</string>
@@ -1285,7 +1285,7 @@
 	<string name="error_system_message">En ukjent feil oppstod</string>
 	<string name="restore">Restaurere</string>
 	<string name="sign_message_gdpr">For å fortsette må du godta vilkårene for bruk og personvern. Vennligst les dem nøye.</string>
-	<string name="sign_agree_pp_gdpr">Jeg godtar <a href="https://legal.my.com/no/general/privacy/">personvernregler</a></string>
-	<string name="sign_agree_tof_gdpr">Jeg godtar <a href="https://legal.my.com/us/maps/tou/">bruksbetingelsene</a></string>
+	<string name="sign_agree_pp_gdpr">Jeg godtar &lt;a href="%s">personvernregler&lt;/a></string>
+	<string name="sign_agree_tof_gdpr">Jeg godtar &lt;a href="%s">bruksbetingelsene&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Jeg godtar å motta de siste nyhetene om MAPS.ME-produkter</string>
 </resources>

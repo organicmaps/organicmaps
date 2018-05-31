@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Bezplatné, rýchle, podrobné a úplne offline mapy s podrobnou navigáciou.";
 
-"onboarding_welcome_second_subtitle" = "Spustením aplikácie súhlasíte s <a href=\"https://legal.my.com/us/maps/tou/\">Podmienkami používania</a> a <a href=\"https://legal.my.com/us/maps/privacy/\">Zásadami ochrany osobných údajov</a>.";
+"onboarding_welcome_second_subtitle" = "Spustením aplikácie súhlasíte s <a href=\"%s\">Podmienkami používania</a> a <a href=\"%s\">Zásadami ochrany osobných údajov</a>.";
 
 "dialog_incorrect_feature_position" = "Zmeniť polohu";
 
@@ -2324,9 +2324,9 @@
 
 "sign_message_gdpr" = "Musíte prijať naše Zmluvné podmienky a Pravidlá ochrany osobných údajov. Prečítajte si ich pozorne.";
 
-"sign_agree_pp_gdpr" = "Súhlasím s <a href=\"https://legal.my.com/us/maps/privacy/\">Zásadami ochrany osobných údajov</a>";
+"sign_agree_pp_gdpr" = "Súhlasím s <a href=\"%s\">Zásadami ochrany osobných údajov</a>";
 
-"sign_agree_tof_gdpr" = "Súhlasím s <a href=\"https://legal.my.com/us/maps/tou/\">zmluvnými podmienkami</a>";
+"sign_agree_tof_gdpr" = "Súhlasím s <a href=\"%s\">zmluvnými podmienkami</a>";
 
 "sign_agree_news_gdpr" = "Súhlasím so zasielaním najnovších správ o produktoch MAPS.ME";
 

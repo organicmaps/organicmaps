@@ -791,7 +791,7 @@
 	<string name="onboarding_permissions_message">Aby pobierać mapy, sprawdzać miejsca i ruch drogowy w twojej okolicy i móc korzystać z nawigacji.</string>
 	<string name="onboarding_welcome_title">Witaj w MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Bezpłatne, szybkie i szczegółowe mapy offline z funkcją nawigacji.</string>
-	<string name="onboarding_welcome_second_subtitle">Poprzez uruchomienie aplikacji wyrażasz zgodę na <a href="https://legal.my.com/us/maps/tou/">warunki użytkowania</a> i <a href="https://legal.my.com/us/maps/privacy/">politykę prywatności</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Poprzez uruchomienie aplikacji wyrażasz zgodę na &lt;a href="%1$s">warunki użytkowania&lt;/a> i &lt;a href="%2$s">politykę prywatności&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Zmień lokalizację</string>
 	<string name="message_invalid_feature_position">Obiekt nie może znajdować się tutaj</string>
 	<string name="login_to_make_edits_visible">Zaloguj się, by inni użytkownicy mogli zobaczyć Twoje zmiany.</string>
@@ -1291,7 +1291,7 @@
 	<string name="error_system_message">Wystąpił nieznany błąd</string>
 	<string name="restore">Przywracać</string>
 	<string name="sign_message_gdpr">Aby kontynuować, musisz zaakceptować nasze Warunki użytkowania i Politykę prywatności. Prosimy o ich uważne przeczytanie.</string>
-	<string name="sign_agree_pp_gdpr">Akceptuję <a href="https://legal.my.com/us/maps/privacy/">Privacy Policy</a></string>
-	<string name="sign_agree_tof_gdpr">Akceptuję <a href="https://legal.my.com/us/maps/tou/">Terms of Use</a></string>
+	<string name="sign_agree_pp_gdpr">Akceptuję &lt;a href="%s">Privacy Policy&lt;/a></string>
+	<string name="sign_agree_tof_gdpr">Akceptuję &lt;a href="%s">Terms of Use&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Chcę otrzymywać aktualności na temat produktów MAPS.ME</string>
 </resources>

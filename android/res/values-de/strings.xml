@@ -802,7 +802,7 @@
 	<string name="onboarding_permissions_message">So können Sie Karten herunterladen, Orte und Verkehrslage in Ihrer Nähe sehen und die Navigation nutzen.</string>
 	<string name="onboarding_welcome_title">Willkommen bei MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Kostenlose, schnelle, detaillierte und vollständig offline benutzbare Karten mit genauer Navigation.</string>
-	<string name="onboarding_welcome_second_subtitle">Durch das Starten der Anwendung stimmen Sie den <a href="https://legal.my.com/us/maps/tou/">Nutzungsbedingungen</a> und der <a href="https://legal.my.com/us/maps/privacy/">Datenschutzrichtlinie</a> zu.</string>
+	<string name="onboarding_welcome_second_subtitle">Durch das Starten der Anwendung stimmen Sie den &lt;a href="%1$s">Nutzungsbedingungen&lt;/a> und der &lt;a href="%2$s">Datenschutzrichtlinie&lt;/a> zu.</string>
 	<string name="dialog_incorrect_feature_position">Standort wechseln</string>
 	<string name="message_invalid_feature_position">Ein Objekt kann hier nicht positioniert werden</string>
 	<string name="login_to_make_edits_visible">Melden Sie sich an, damit andere Benutzer Ihre Änderungen sehen können.</string>
@@ -1301,7 +1301,7 @@
 	<string name="error_system_message">Ein unbekannter Fehler ist aufgetreten</string>
 	<string name="restore">Wiederherstellen</string>
 	<string name="sign_message_gdpr">Um fortfahren zu können, müssen Sie unsere Nutzungsbedingungen und Datenschutzbestimmungen akzeptieren. Bitte lies sie sorgfältig durch.</string>
-	<string name="sign_agree_pp_gdpr">Ich stimme den <a href="https://legal.my.com/us/maps/privacy/">Datenschutzbestimmungen</a> zu</string>
-	<string name="sign_agree_tof_gdpr">Ich stimme den <a href="https://legal.my.com/us/maps/tou/">Nutzungsbedingungen</a> zu</string>
+	<string name="sign_agree_pp_gdpr">Ich stimme den &lt;a href="%s">Datenschutzbestimmungen&lt;/a> zu</string>
+	<string name="sign_agree_tof_gdpr">Ich stimme den &lt;a href="%s">Nutzungsbedingungen&lt;/a> zu</string>
 	<string name="sign_agree_news_gdpr">Ich bin damit einverstanden, die neuesten Nachrichten über MAPS.ME-Produkte zu erhalten</string>
 </resources>

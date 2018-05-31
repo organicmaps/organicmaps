@@ -794,7 +794,7 @@
 	<string name="onboarding_permissions_message">Böylece haritaları indirebilir, size yakın olan yerleri ve trafik bilgilerini görebilir ve navigasyonu kullanabilirsiniz.</string>
 	<string name="onboarding_welcome_title">MAPS.ME\'ye Hoş Geldiniz</string>
 	<string name="onboarding_welcome_first_subtitle">Gideceğiniz yeri adım adım gösteren navigasyon ile birlikte ücretsiz, hızlı, detaylı ve tamamen çevrimdışı haritalar.</string>
-	<string name="onboarding_welcome_second_subtitle">Uygulamayı başlatarak <a href="https://legal.my.com/us/maps/tou/">Kullanım Koşullarını</a> ve <a href="https://legal.my.com/us/maps/privacy/">Gizlilik Politikasını</a> kabul etmiş sayılırsınız.</string>
+	<string name="onboarding_welcome_second_subtitle">Uygulamayı başlatarak &lt;a href="%1$s">Kullanım Koşullarını&lt;/a> ve &lt;a href="%2$s">Gizlilik Politikasını&lt;/a> kabul etmiş sayılırsınız.</string>
 	<string name="dialog_incorrect_feature_position">Konumu değiştir</string>
 	<string name="message_invalid_feature_position">Buraya bir nesne konumlandırılamıyor</string>
 	<string name="login_to_make_edits_visible">Giriş yapın böylelikle diğer kullanıcılar yaptığınız değişiklikleri görebilirler.</string>
@@ -1292,7 +1292,7 @@
 	<string name="error_system_message">Bilinmeyen bir hata oluştu</string>
 	<string name="restore">Restore</string>
 	<string name="sign_message_gdpr">Devam etmek için Kullanım Şartları ve Gizlilik Politikası bölümlerimizi kabul etmelisiniz. Lütfen onları dikkatle okuyun.</string>
-	<string name="sign_agree_pp_gdpr"><a href="https://legal.my.com/us/maps/privacy/">Gizlilik Politikası</a> bölümünü kabul ediyorum</string>
-	<string name="sign_agree_tof_gdpr"><a href="https://legal.my.com/us/maps/tou/">Kullanım Şartları</a> bölümünü kabul ediyorum</string>
+	<string name="sign_agree_pp_gdpr">&lt;a href="%s">Gizlilik Politikası&lt;/a> bölümünü kabul ediyorum</string>
+	<string name="sign_agree_tof_gdpr">&lt;a href="%s">Kullanım Şartları&lt;/a> bölümünü kabul ediyorum</string>
 	<string name="sign_agree_news_gdpr">MAPS.ME ürünleri hakkında en yeni haberleri almayı kabul ediyorum</string>
 </resources>

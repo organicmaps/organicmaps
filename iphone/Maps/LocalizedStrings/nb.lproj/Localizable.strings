@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Gratis, rask, detaljert og helt offline kart med rutenavigasjon.";
 
-"onboarding_welcome_second_subtitle" = "Når du starter programmet samtykker du til <a href=\"https://legal.my.com/us/maps/tou/\">bruksvilkårene</a> og <a href=\"https://legal.my.com/us/maps/privacy/\">reglene for personvern</a>.";
+"onboarding_welcome_second_subtitle" = "Når du starter programmet samtykker du til <a href=\"%s\">bruksvilkårene</a> og <a href=\"%s\">reglene for personvern</a>.";
 
 "dialog_incorrect_feature_position" = "Endre plassering";
 
@@ -2324,9 +2324,9 @@
 
 "sign_message_gdpr" = "For å fortsette må du godta vilkårene for bruk og personvern. Vennligst les dem nøye.";
 
-"sign_agree_pp_gdpr" = "Jeg godtar <a href=\"https://legal.my.com/no/general/privacy/\">personvernregler</a>";
+"sign_agree_pp_gdpr" = "Jeg godtar <a href=\"%s\">personvernregler</a>";
 
-"sign_agree_tof_gdpr" = "Jeg godtar <a href=\"https://legal.my.com/us/maps/tou/\">bruksbetingelsene</a>";
+"sign_agree_tof_gdpr" = "Jeg godtar <a href=\"%s\">bruksbetingelsene</a>";
 
 "sign_agree_news_gdpr" = "Jeg godtar å motta de siste nyhetene om MAPS.ME-produkter";
 

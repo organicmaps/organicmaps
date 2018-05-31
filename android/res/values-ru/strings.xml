@@ -807,7 +807,7 @@
 	<string name="onboarding_permissions_message">Чтобы скачивать карты, смотреть места вокруг вас и пользоваться навигацией.</string>
 	<string name="onboarding_welcome_title">Добро пожаловать в MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Бесплатные, быстрые, подробные и полностью автономные карты с пошаговой навигацией.</string>
-	<string name="onboarding_welcome_second_subtitle">Запуская приложение, вы соглашаетесь с <a href="https://legal.my.com/us/maps/tou/">Условиями использования</a> и <a href="https://legal.my.com/us/maps/privacy/">Политикой конфиденциальности</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Запуская приложение, вы соглашаетесь с &lt;a href="%1$s">Условиями использования&lt;/a> и &lt;a href="%2$s">Политикой конфиденциальности&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Измените местоположение</string>
 	<string name="message_invalid_feature_position">Объект не может находиться в этом месте</string>
 	<string name="login_to_make_edits_visible">Войдите, чтобы ваши изменения увидели другие пользователи.</string>
@@ -1337,8 +1337,8 @@
 	<string name="error_system_message">Произошла неизвестная ошибка</string>
 	<string name="restore">Восстановить</string>
 	<string name="sign_message_gdpr">Чтобы продолжить работу, вы должны принять наши Условия использования и Политику конфиденциальности. Пожалуйста, внимательно их прочитайте.</string>
-	<string name="sign_agree_pp_gdpr">Я согласен с <a href="https://legal.my.com/us/maps/privacy/">Политикой конфиденциальности</a></string>
-	<string name="sign_agree_tof_gdpr">Я согласен с <a href="https://legal.my.com/us/maps/tou/">Условиями использования</a></string>
+	<string name="sign_agree_pp_gdpr">Я согласен с &lt;a href="%s">Политикой конфиденциальности&lt;/a></string>
+	<string name="sign_agree_tof_gdpr">Я согласен с &lt;a href="%s">Условиями использования&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Я согласен получать последние новости о MAPS.ME</string>
 	<string name="whats_new_localbiz_title">Малый бизнес заслуживает внимания</string>
 	<string name="whats_new_localbiz_message">Локальные кафе, хостелы и магазинчики - именно они делают путешествия незабываемыми.\n\nОставьте заявку, и мы бесплатно оптимизируем страницу вашего бизнеса в MAPS.ME.</string>

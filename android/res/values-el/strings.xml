@@ -601,7 +601,7 @@
 	<string name="onboarding_permissions_message">Μπορείτε να κατεβάσετε χάρτες, να δείτε μέρη και πληροφορίες για την κίνηση κοντά σε εσάς και να χρησιμοποιήσεττ την πλοήγηση.</string>
 	<string name="onboarding_welcome_title">Καλωσήρθατε στο MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.</string>
-	<string name="onboarding_welcome_second_subtitle">Με την εκκίνηση της εφαρμογής συμφωνείτε με <a href="https://legal.my.com/us/maps/tou/">τους Όρους χρήσης</a> και <a href="https://legal.my.com/us/maps/privacy/">την Πολιτική απορρήτου</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Με την εκκίνηση της εφαρμογής συμφωνείτε με &lt;a href="%1$s">τους Όρους χρήσης&lt;/a> και &lt;a href="%2$s">την Πολιτική απορρήτου&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Αλλαγή τοποθεσίας</string>
 	<string name="message_invalid_feature_position">Δε μπορεί να εντοπιστεί αντικείμενο εδώ</string>
 	<string name="login_to_make_edits_visible">Συνδεθείτε ώστε άλλοι χρήστες να μπορούν να δουν τις αλλαγές που έχετε κάνει</string>
@@ -1051,7 +1051,7 @@
 	<string name="error_system_message">Συνέβη ένα άγνωστο σφάλμα</string>
 	<string name="restore">Επαναφορά</string>
 	<string name="sign_message_gdpr">Πρέπει να αποδεχτείτε τους Όρους Χρήσης και την Πολιτική Απορρήτου. Διαβάστε τις προσεκτικά.</string>
-	<string name="sign_agree_pp_gdpr">Συμφωνώ με την <a href="https://legal.my.com/us/maps/privacy/">Πολιτική Απορρήτου</a></string>
-	<string name="sign_agree_tof_gdpr">Συμφωνώ με τους <a href="https://legal.my.com/us/maps/tou/">Όρους Χρήσης</a></string>
+	<string name="sign_agree_pp_gdpr">Συμφωνώ με την &lt;a href="%s">Πολιτική Απορρήτου&lt;/a></string>
+	<string name="sign_agree_tof_gdpr">Συμφωνώ με τους &lt;a href="%s">Όρους Χρήσης&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Συμφωνώ να λαμβάνω τα τελευταία νέα σχετικά με τα προϊόντα MAPS.ME</string>
 </resources>

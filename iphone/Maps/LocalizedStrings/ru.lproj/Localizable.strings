@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Бесплатные, быстрые, подробные и полностью автономные карты с пошаговой навигацией.";
 
-"onboarding_welcome_second_subtitle" = "Запуская приложение, вы соглашаетесь с <a href=\"https://legal.my.com/us/maps/tou/\">Условиями использования</a> и <a href=\"https://legal.my.com/us/maps/privacy/\">Политикой конфиденциальности</a>.";
+"onboarding_welcome_second_subtitle" = "Запуская приложение, вы соглашаетесь с <a href=\"%s\">Условиями использования</a> и <a href=\"%s\">Политикой конфиденциальности</a>.";
 
 "dialog_incorrect_feature_position" = "Измените местоположение";
 
@@ -2324,9 +2324,9 @@
 
 "sign_message_gdpr" = "Чтобы продолжить работу, вы должны принять наши Условия использования и Политику конфиденциальности. Пожалуйста, внимательно их прочитайте.";
 
-"sign_agree_pp_gdpr" = "Я согласен с <a href=\"https://legal.my.com/us/maps/privacy/\">Политикой конфиденциальности</a>";
+"sign_agree_pp_gdpr" = "Я согласен с <a href=\"%s\">Политикой конфиденциальности</a>";
 
-"sign_agree_tof_gdpr" = "Я согласен с <a href=\"https://legal.my.com/us/maps/tou/\">Условиями использования</a>";
+"sign_agree_tof_gdpr" = "Я согласен с <a href=\"%s\">Условиями использования</a>";
 
 "sign_agree_news_gdpr" = "Я согласен получать последние новости о MAPS.ME";
 

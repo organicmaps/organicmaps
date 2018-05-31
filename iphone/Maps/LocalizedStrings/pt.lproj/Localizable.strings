@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Mapas com navegação curva a curva grátis, rápidos, detalhados e totalmente offline.";
 
-"onboarding_welcome_second_subtitle" = "Ao lançar a aplicação, o utilizador concorda com os <a href=\"https://legal.my.com/us/maps/tou/\">Termos de Utilização</a> e a <a href=\"https://legal.my.com/us/maps/privacy/\">Política de Privacidade</a>.";
+"onboarding_welcome_second_subtitle" = "Ao lançar a aplicação, o utilizador concorda com os <a href=\"%s\">Termos de Utilização</a> e a <a href=\"%s\">Política de Privacidade</a>.";
 
 "dialog_incorrect_feature_position" = "Mudar local";
 
@@ -2324,9 +2324,9 @@
 
 "sign_message_gdpr" = "Para continuar, você deve aceitar nossos Termos de Uso e Política de Privacidade. Por favor, leia-os com atenção.";
 
-"sign_agree_pp_gdpr" = "Concordo com a <a href=\"https://legal.my.com/us/maps/privacy/\">Política de Privacidade</a>";
+"sign_agree_pp_gdpr" = "Concordo com a <a href=\"%s\">Política de Privacidade</a>";
 
-"sign_agree_tof_gdpr" = "Eu concordo com os <a href=\"https://legal.my.com/us/maps/tou/\">Termos de Uso</a>";
+"sign_agree_tof_gdpr" = "Eu concordo com os <a href=\"%s\">Termos de Uso</a>";
 
 "sign_agree_news_gdpr" = "Concordo em receber as últimas novidades sobre os produtos MAPS.ME";
 

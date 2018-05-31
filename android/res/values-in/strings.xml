@@ -787,7 +787,7 @@
 	<string name="onboarding_permissions_message">Agar Anda dapat mengunduh peta, melihat tempat dan lalu lintas di dekat Anda, dan menggunakan navigasi.</string>
 	<string name="onboarding_welcome_title">Selamat datang di MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Peta gratis, cepat, terperinci, dan sepenuhnya tanpa internet dengan navigasi untuk setiap belokan.</string>
-	<string name="onboarding_welcome_second_subtitle">Dengan menjalankan aplikasi ini, Anda menyetujui <a href="https://legal.my.com/us/maps/tou/">Syarat-Syarat Penggunaan</a> dan <a href="https://legal.my.com/us/maps/privacy/">Kebijakan Privasi</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Dengan menjalankan aplikasi ini, Anda menyetujui &lt;a href="%1$s">Syarat-Syarat Penggunaan&lt;/a> dan &lt;a href="%2$s">Kebijakan Privasi&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Ubah lokasi</string>
 	<string name="message_invalid_feature_position">Objek tidak dapat diletakkan di sini</string>
 	<string name="login_to_make_edits_visible">Masuk agar pengguna lain dapat melihat perubahan yang Anda buat.</string>
@@ -1286,7 +1286,7 @@
 	<string name="error_system_message">Terjadi kesalahan yang tidak diketahui</string>
 	<string name="restore">Mengembalikan</string>
 	<string name="sign_message_gdpr">Untuk melanjutkan, Anda harus menerima Ketentuan Penggunaan dan Kebijakan Privasi kami. Silakan baca dengan seksama.</string>
-	<string name="sign_agree_pp_gdpr">Saya setuju dengan <a href="https://legal.my.com/us/maps/privacy/">Kebijakan Privasi</a></string>
-	<string name="sign_agree_tof_gdpr">Saya setuju dengan <a href="https://legal.my.com/us/maps/tou/">Ketentuan Penggunaan</a></string>
+	<string name="sign_agree_pp_gdpr">Saya setuju dengan &lt;a href="%s">Kebijakan Privasi&lt;/a></string>
+	<string name="sign_agree_tof_gdpr">Saya setuju dengan &lt;a href="%s">Ketentuan Penggunaan&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Saya setuju untuk menerima berita terbaru tentang produk MAPS.ME</string>
 </resources>

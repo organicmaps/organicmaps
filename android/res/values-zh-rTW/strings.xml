@@ -798,7 +798,7 @@
 	<string name="onboarding_permissions_message">所以，您可以下載地圖，查看您附近的地點和交通，以及使用導航服務。</string>
 	<string name="onboarding_welcome_title">歡迎來到 MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">免費、快速、詳盡又全面的地圖，提供逐向導航服務。</string>
-	<string name="onboarding_welcome_second_subtitle">啟用本應用程式，即表示您同意 <a href="https://legal.my.com/us/maps/tou/">服務條款</a>和 <a href="https://legal.my.com/us/maps/privacy/">隱私權原則</a>。</string>
+	<string name="onboarding_welcome_second_subtitle">啟用本應用程式，即表示您同意 &lt;a href="%1$s">服務條款&lt;/a>和 &lt;a href="%2$s">隱私權原則&lt;/a>。</string>
 	<string name="dialog_incorrect_feature_position">改變位置</string>
 	<string name="message_invalid_feature_position">物件無法設置在這裡</string>
 	<string name="login_to_make_edits_visible">登入來讓其他使用者能看到您所作出的修改。</string>
@@ -1296,7 +1296,7 @@
 	<string name="error_system_message">出現未知錯誤</string>
 	<string name="restore">恢復</string>
 	<string name="sign_message_gdpr">您必須接受我們的使用條款和隱私政策。 請仔細閱讀。</string>
-	<string name="sign_agree_pp_gdpr">我同意<a href="https://legal.my.com/us/maps/privacy/">隱私政策</a></string>
-	<string name="sign_agree_tof_gdpr">我同意<a href="https://legal.my.com/us/maps/tou/">使用條款</a></string>
+	<string name="sign_agree_pp_gdpr">我同意&lt;a href="%s">隱私政策&lt;/a></string>
+	<string name="sign_agree_tof_gdpr">我同意&lt;a href="%s">使用條款&lt;/a></string>
 	<string name="sign_agree_news_gdpr">我同意接收有關MAPS.ME產品的最新消息</string>
 </resources>

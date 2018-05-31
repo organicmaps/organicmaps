@@ -801,7 +801,7 @@
 	<string name="onboarding_permissions_message">Afin de pouvoir télécharger des cartes, voir les lieux et le trafic près de vous et utiliser la navigation.</string>
 	<string name="onboarding_welcome_title">Bienvenue sur MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Cartes avec navigation étape par étape, gratuites, rapides, détaillées et totalement hors ligne.</string>
-	<string name="onboarding_welcome_second_subtitle">En lançant l’application, vous acceptez les <a href="https://legal.my.com/us/maps/tou/">Conditions d’utilisation</a> et la <a href="https://legal.my.com/us/maps/privacy/">Politique de confidentialité</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">En lançant l’application, vous acceptez les &lt;a href="%1$s">Conditions d’utilisation&lt;/a> et la &lt;a href="%2$s">Politique de confidentialité&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Modifier l\'emplacement</string>
 	<string name="message_invalid_feature_position">Aucun objet ne peut être localisé ici</string>
 	<string name="login_to_make_edits_visible">Se connecter pour que d\'autres utilisateurs puissent voir les changements que vous avez effectués.</string>
@@ -1301,7 +1301,7 @@
 	<string name="error_system_message">Une erreur inconnue est survenue</string>
 	<string name="restore">Restaurer</string>
 	<string name="sign_message_gdpr">Pour continuer, vous devez accepter nos conditions d\'utilisation et notre politique de confidentialité. Veuillez les lire attentivement.</string>
-	<string name="sign_agree_pp_gdpr">J\'accepte la <a href="https://legal.my.com/us/maps/privacy/">politique de confidentialité</a></string>
-	<string name="sign_agree_tof_gdpr">Je suis en accord avec les <a href="https://legal.my.com/us/maps/tou/">conditions d\'utilisation</a></string>
+	<string name="sign_agree_pp_gdpr">J\'accepte la &lt;a href="%s">politique de confidentialité&lt;/a></string>
+	<string name="sign_agree_tof_gdpr">Je suis en accord avec les &lt;a href="%s">conditions d\'utilisation&lt;/a></string>
 	<string name="sign_agree_news_gdpr">J\'accepte de recevoir les dernières nouvelles sur les</string>
 </resources>

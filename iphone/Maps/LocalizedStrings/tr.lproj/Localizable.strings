@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Gideceğiniz yeri adım adım gösteren navigasyon ile birlikte ücretsiz, hızlı, detaylı ve tamamen çevrimdışı haritalar.";
 
-"onboarding_welcome_second_subtitle" = "Uygulamayı başlatarak <a href=\"https://legal.my.com/us/maps/tou/\">Kullanım Koşullarını</a> ve <a href=\"https://legal.my.com/us/maps/privacy/\">Gizlilik Politikasını</a> kabul etmiş sayılırsınız.";
+"onboarding_welcome_second_subtitle" = "Uygulamayı başlatarak <a href=\"%s\">Kullanım Koşullarını</a> ve <a href=\"%s\">Gizlilik Politikasını</a> kabul etmiş sayılırsınız.";
 
 "dialog_incorrect_feature_position" = "Konumu değiştir";
 
@@ -2324,9 +2324,9 @@
 
 "sign_message_gdpr" = "Devam etmek için Kullanım Şartları ve Gizlilik Politikası bölümlerimizi kabul etmelisiniz. Lütfen onları dikkatle okuyun.";
 
-"sign_agree_pp_gdpr" = "<a href=\"https://legal.my.com/us/maps/privacy/\">Gizlilik Politikası</a> bölümünü kabul ediyorum";
+"sign_agree_pp_gdpr" = "<a href=\"%s\">Gizlilik Politikası</a> bölümünü kabul ediyorum";
 
-"sign_agree_tof_gdpr" = "<a href=\"https://legal.my.com/us/maps/tou/\">Kullanım Şartları</a> bölümünü kabul ediyorum";
+"sign_agree_tof_gdpr" = "<a href=\"%s\">Kullanım Şartları</a> bölümünü kabul ediyorum";
 
 "sign_agree_news_gdpr" = "MAPS.ME ürünleri hakkında en yeni haberleri almayı kabul ediyorum";
 

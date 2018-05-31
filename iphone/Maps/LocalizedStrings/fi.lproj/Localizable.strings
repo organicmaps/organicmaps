@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Ilmaiset, nopeat, yksityiskohtaiset ja offline-tilassa täysin toimivat kartat käännös käännökseltä -navigoinnilla.";
 
-"onboarding_welcome_second_subtitle" = "Käynnistämällä sovelluksen hyväksyt <a href=\"https://legal.my.com/us/maps/tou/\">käyttöehdot</a> ja <a href=\"https://legal.my.com/us/maps/privacy/\">tietosuojakäytännön</a>.";
+"onboarding_welcome_second_subtitle" = "Käynnistämällä sovelluksen hyväksyt <a href=\"%s\">käyttöehdot</a> ja <a href=\"%s\">tietosuojakäytännön</a>.";
 
 "dialog_incorrect_feature_position" = "Vaihda sijaintia";
 
@@ -2324,9 +2324,9 @@
 
 "sign_message_gdpr" = "Jotta voit jatkaa, sinun on hyväksyttävä käyttöehdot ja tietosuojakäytäntö. Lue ne huolellisesti.";
 
-"sign_agree_pp_gdpr" = "Hyväksyn <a href=\"https://legal.my.com/us/maps/privacy/\">tietosuojakäytännön</a>";
+"sign_agree_pp_gdpr" = "Hyväksyn <a href=\"%s\">tietosuojakäytännön</a>";
 
-"sign_agree_tof_gdpr" = "Hyväksyn <a href=\"https://legal.my.com/us/maps/tou/\">käyttöehdot</a>";
+"sign_agree_tof_gdpr" = "Hyväksyn <a href=\"%s\">käyttöehdot</a>";
 
 "sign_agree_news_gdpr" = "Hyväksyn viimeisimmät uutiset MAPS.ME-tuotteista";
 

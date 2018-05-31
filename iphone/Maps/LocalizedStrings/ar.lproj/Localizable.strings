@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "خرائط تفصيلية مجانية وسريعة وتفصيلية وبدون اتصال بالكامل مع الملاحة منعطف بمنعطف.";
 
-"onboarding_welcome_second_subtitle" = "من خلال إطلاق التطبيق، فإنك توافق على <a href=\"https://legal.my.com/us/maps/tou/\">شروط الاستخدام</a> و<a href=\"https://legal.my.com/us/maps/privacy/\">سياسة الخصوصية</a>.";
+"onboarding_welcome_second_subtitle" = "من خلال إطلاق التطبيق، فإنك توافق على <a href=\"%s\">شروط الاستخدام</a> و<a href=\"%s\">سياسة الخصوصية</a>.";
 
 "dialog_incorrect_feature_position" = "تغيير الموقع";
 
@@ -2324,9 +2324,9 @@
 
 "sign_message_gdpr" = "للمتابعة يجب عليك قبول شروط الاستخدام وسياسة الخصوصية الخاصة بنا. يرجى قراءتها بعناية.";
 
-"sign_agree_pp_gdpr" = "أوافق على <a href=\"https://legal.my.com/us/maps/privacy/\">سياسة الخصوصية</a>";
+"sign_agree_pp_gdpr" = "أوافق على <a href=\"%s\">سياسة الخصوصية</a>";
 
-"sign_agree_tof_gdpr" = "أوافق على <a href=\"https://legal.my.com/us/maps/tou/\">شروط الاستخدام</a>";
+"sign_agree_tof_gdpr" = "أوافق على <a href=\"%s\">شروط الاستخدام</a>";
 
 "sign_agree_news_gdpr" = "أوافق على تلقي آخر الأخبار حول منتجات MAPS.ME";
 

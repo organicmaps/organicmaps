@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Ingyenes, gyors, részletes és teljes egészében offline térképek navigációval lépésről lépésre.";
 
-"onboarding_welcome_second_subtitle" = "Az alkalmazás indításával Ön elfogadja a <a href=\"https://legal.my.com/us/maps/tou/\">Felhasználási feltételeket</a> és <a href=\"https://legal.my.com/us/maps/privacy/\">az Adatvédelmi szabályzatot</a>.";
+"onboarding_welcome_second_subtitle" = "Az alkalmazás indításával Ön elfogadja a <a href=\"%s\">Felhasználási feltételeket</a> és <a href=\"%s\">az Adatvédelmi szabályzatot</a>.";
 
 "dialog_incorrect_feature_position" = "Helyszín megváltoztatása";
 
@@ -2324,9 +2324,9 @@
 
 "sign_message_gdpr" = "A folytatáshoz el kell fogadnia a Felhasználási feltételeinket és az adatvédelmi irányelveinket. Kérjük, figyelmesen olvassa el őket.";
 
-"sign_agree_pp_gdpr" = "Elfogadom a <a href=\"https://legal.my.com/us/maps/privacy/\">adatvédelmi irányelveket</a>";
+"sign_agree_pp_gdpr" = "Elfogadom a <a href=\"%s\">adatvédelmi irányelveket</a>";
 
-"sign_agree_tof_gdpr" = "Elfogadom a <a href=\"https://legal.my.com/us/maps/tou/\">Általános Szerződési Feltételeket</a>";
+"sign_agree_tof_gdpr" = "Elfogadom a <a href=\"%s\">Általános Szerződési Feltételeket</a>";
 
 "sign_agree_news_gdpr" = "Elfogadom, hogy megkapja a MAPS.ME termékekkel kapcsolatos legfrissebb híreke";
 

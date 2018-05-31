@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "ターンバイターン方式のナビゲーションを採用した、完全にオフラインで利用できる無料・高速かつ詳細な地図を提供します。";
 
-"onboarding_welcome_second_subtitle" = "アプリケーションを起動することで、<a href=\"https://legal.my.com/us/maps/tou/\">利用規約</a>および<a href=\"https://legal.my.com/us/maps/privacy/\">プライバシーポリシー</a>にご同意いただいたものとみなします。";
+"onboarding_welcome_second_subtitle" = "アプリケーションを起動することで、<a href=\"%s\">利用規約</a>および<a href=\"%s\">プライバシーポリシー</a>にご同意いただいたものとみなします。";
 
 "dialog_incorrect_feature_position" = "位置を変更してください";
 
@@ -2324,9 +2324,9 @@
 
 "sign_message_gdpr" = "続行するには、利用規約とプライバシーポリシーに同意する必要があります。 注意深くお読みください。";
 
-"sign_agree_pp_gdpr" = "<a href=\"https://legal.my.com/us/maps/privacy/\">プライバシーポリシー</a>に同意します";
+"sign_agree_pp_gdpr" = "<a href=\"%s\">プライバシーポリシー</a>に同意します";
 
-"sign_agree_tof_gdpr" = "<a href=\"https://legal.my.com/us/maps/tou/\">利用規約</a>に同意します";
+"sign_agree_tof_gdpr" = "<a href=\"%s\">利用規約</a>に同意します";
 
 "sign_agree_news_gdpr" = "私はMAPS.ME製品に関する最新ニュースを受け取ることに同意します";
 

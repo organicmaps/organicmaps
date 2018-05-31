@@ -1339,7 +1339,7 @@
 
 "onboarding_welcome_first_subtitle" = "Δωρεάν, γρήγοροι, λεπτομερείς χάρτες αποκλειστικά εκτός σύνδεσης με πλοήγηση αννά στροφή.";
 
-"onboarding_welcome_second_subtitle" = "Με την εκκίνηση της εφαρμογής συμφωνείτε με <a href=\"https://legal.my.com/us/maps/tou/\">τους Όρους χρήσης</a> και <a href=\"https://legal.my.com/us/maps/privacy/\">την Πολιτική απορρήτου</a>.";
+"onboarding_welcome_second_subtitle" = "Με την εκκίνηση της εφαρμογής συμφωνείτε με <a href=\"%s\">τους Όρους χρήσης</a> και <a href=\"%s\">την Πολιτική απορρήτου</a>.";
 
 "dialog_incorrect_feature_position" = "Αλλαγή τοποθεσίας";
 
@@ -2324,9 +2324,9 @@
 
 "sign_message_gdpr" = "Πρέπει να αποδεχτείτε τους Όρους Χρήσης και την Πολιτική Απορρήτου. Διαβάστε τις προσεκτικά.";
 
-"sign_agree_pp_gdpr" = "Συμφωνώ με την <a href=\"https://legal.my.com/us/maps/privacy/\">Πολιτική Απορρήτου</a>";
+"sign_agree_pp_gdpr" = "Συμφωνώ με την <a href=\"%s\">Πολιτική Απορρήτου</a>";
 
-"sign_agree_tof_gdpr" = "Συμφωνώ με τους <a href=\"https://legal.my.com/us/maps/tou/\">Όρους Χρήσης</a>";
+"sign_agree_tof_gdpr" = "Συμφωνώ με τους <a href=\"%s\">Όρους Χρήσης</a>";
 
 "sign_agree_news_gdpr" = "Συμφωνώ να λαμβάνω τα τελευταία νέα σχετικά με τα προϊόντα MAPS.ME";
 

@@ -787,7 +787,7 @@
 	<string name="onboarding_permissions_message">Così puoi scaricare mappe, vedere luoghi e traffico vicino a te e usare la funzione di navigazione.</string>
 	<string name="onboarding_welcome_title">Benvenuto in MAPS.ME</string>
 	<string name="onboarding_welcome_first_subtitle">Mappe gratuite, veloci, dettagliate e interamente offline con navigazione turn-by-turn.</string>
-	<string name="onboarding_welcome_second_subtitle">Lanciando l\'applicazione, accetti i <a href="https://legal.my.com/us/maps/tou/">Termini di utilizzo</a> e l\'<a href="https://legal.my.com/us/maps/privacy/">Informativa sulla privacy</a>.</string>
+	<string name="onboarding_welcome_second_subtitle">Lanciando l\'applicazione, accetti i &lt;a href="%1$s">Termini di utilizzo&lt;/a> e l\'&lt;a href="%2$s">Informativa sulla privacy&lt;/a>.</string>
 	<string name="dialog_incorrect_feature_position">Cambia posizione</string>
 	<string name="message_invalid_feature_position">Un oggetto non può essere posizionato qui</string>
 	<string name="login_to_make_edits_visible">Accedi per consentire ad altri utenti di vedere le modifiche apportate.</string>
@@ -1286,7 +1286,7 @@
 	<string name="error_system_message">Si è verificato un errore sconosciuto</string>
 	<string name="restore">Ristabilire</string>
 	<string name="sign_message_gdpr">Per continuare, devi accettare i nostri Termini di utilizzo e la nostra Informativa sulla Privacy. Ti invitiamo a leggerli attentamente.</string>
-	<string name="sign_agree_pp_gdpr">Accetto la <a href="https://legal.my.com/us/maps/privacy/">Informativa sulla Privacy</a></string>
-	<string name="sign_agree_tof_gdpr">Accetto i <a href="https://legal.my.com/us/maps/tou/">Termini di utilizzo</a></string>
+	<string name="sign_agree_pp_gdpr">Accetto la &lt;a href="%s">Informativa sulla Privacy&lt;/a></string>
+	<string name="sign_agree_tof_gdpr">Accetto i &lt;a href="%s">Termini di utilizzo&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Accetto di ricevere le ultime notizie sui prodotti di MAPS.ME</string>
 </resources>
