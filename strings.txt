@@ -17311,36 +17311,36 @@ fa = دوباره نپرس
     fa = رایگان,سریع,با جزئیات و با نقشه هایی کامل افلاین به همراه مسیر یابی پیچ به پیچ.
 
   [onboarding_welcome_second_subtitle]
-    en = By launching the application, you agree to <a href="https://legal.my.com/us/maps/tou/">Terms of Use</a> and <a href="https://legal.my.com/us/maps/privacy/">Privacy Policy</a>.
-    ru = Запуская приложение, вы соглашаетесь с <a href="https://legal.my.com/us/maps/tou/">Условиями использования</a> и <a href="https://legal.my.com/us/maps/privacy/">Политикой конфиденциальности</a>.
-    ar = من خلال إطلاق التطبيق، فإنك توافق على <a href="https://legal.my.com/us/maps/tou/">شروط الاستخدام</a> و<a href="https://legal.my.com/us/maps/privacy/">سياسة الخصوصية</a>.
-    cs = Spuštěním aplikace souhlasíte s <a href="https://legal.my.com/us/maps/tou/">Podmínkami použití</a> a <a href="https://legal.my.com/us/maps/privacy/">Zásadami ochrany osobních údajů</a>.
-    da = Ved at åbne appen accepterer du vores <a href="https://legal.my.com/us/maps/tou/">Vilkår for anvendelse</a> og <a href="https://legal.my.com/us/maps/privacy/">Fortrolighedspolitik</a>.
-    nl = Door de toepassing te starten, gaat u akkoord met de <a href="https://legal.my.com/us/maps/tou/">Gebruiksvoorwaarden</a> en het <a href="https://legal.my.com/us/maps/privacy/">Privacybeleid</a>.
-    fi = Käynnistämällä sovelluksen hyväksyt <a href="https://legal.my.com/us/maps/tou/">käyttöehdot</a> ja <a href="https://legal.my.com/us/maps/privacy/">tietosuojakäytännön</a>.
-    fr = En lançant l’application, vous acceptez les <a href="https://legal.my.com/us/maps/tou/">Conditions d’utilisation</a> et la <a href="https://legal.my.com/us/maps/privacy/">Politique de confidentialité</a>.
-    de = Durch das Starten der Anwendung stimmen Sie den <a href="https://legal.my.com/us/maps/tou/">Nutzungsbedingungen</a> und der <a href="https://legal.my.com/us/maps/privacy/">Datenschutzrichtlinie</a> zu.
-    hu = Az alkalmazás indításával Ön elfogadja a <a href="https://legal.my.com/us/maps/tou/">Felhasználási feltételeket</a> és <a href="https://legal.my.com/us/maps/privacy/">az Adatvédelmi szabályzatot</a>.
-    id = Dengan menjalankan aplikasi ini, Anda menyetujui <a href="https://legal.my.com/us/maps/tou/">Syarat-Syarat Penggunaan</a> dan <a href="https://legal.my.com/us/maps/privacy/">Kebijakan Privasi</a>.
-    it = Lanciando l'applicazione, accetti i <a href="https://legal.my.com/us/maps/tou/">Termini di utilizzo</a> e l'<a href="https://legal.my.com/us/maps/privacy/">Informativa sulla privacy</a>.
-    ja = アプリケーションを起動することで、<a href="https://legal.my.com/us/maps/tou/">利用規約</a>および<a href="https://legal.my.com/us/maps/privacy/">プライバシーポリシー</a>にご同意いただいたものとみなします。
-    ko = 애플리케이션을 시작하면, <a href="https://legal.my.com/us/maps/tou/">이용 약관</a> 및 <a href="https://legal.my.com/us/maps/privacy/">개인정보취급방침</a>에 동의하는 것입니다.
-    nb = Når du starter programmet samtykker du til <a href="https://legal.my.com/us/maps/tou/">bruksvilkårene</a> og <a href="https://legal.my.com/us/maps/privacy/">reglene for personvern</a>.
-    pl = Poprzez uruchomienie aplikacji wyrażasz zgodę na <a href="https://legal.my.com/us/maps/tou/">warunki użytkowania</a> i <a href="https://legal.my.com/us/maps/privacy/">politykę prywatności</a>.
-    pt = Ao lançar a aplicação, o utilizador concorda com os <a href="https://legal.my.com/us/maps/tou/">Termos de Utilização</a> e a <a href="https://legal.my.com/us/maps/privacy/">Política de Privacidade</a>.
-    ro = Lansând aplicația confirmați că sunteți de acord cu <a href="https://legal.my.com/us/maps/tou/">Condițiile de utilizare</a> și <a href="https://legal.my.com/us/maps/privacy/">Politica de confidențialitate</a>.
-    es = Al iniciar la aplicación, usted acepta los <a href="https://legal.my.com/us/maps/tou/">Términos de uso</a> y la <a href="https://legal.my.com/us/maps/privacy/">Política de privacidad</a>.
-    sv = Genom att starta applikationen godkänner du <a href="https://legal.my.com/us/maps/tou/">användningsvillkoren</a> och <a href="https://legal.my.com/us/maps/privacy/">sekretesspolicyn</a>.
-    th = ด้วยการเรียกใช้แอปพลิเคชั่นคุณได้ตกลงต่อ <a href="https://legal.my.com/us/maps/tou/">เงื่อนไขการใช้งาน</a> และ <a href="https://legal.my.com/us/maps/privacy/">นโยบายความเป็นส่วนตัว</a>
-    tr = Uygulamayı başlatarak <a href="https://legal.my.com/us/maps/tou/">Kullanım Koşullarını</a> ve <a href="https://legal.my.com/us/maps/privacy/">Gizlilik Politikasını</a> kabul etmiş sayılırsınız.
-    uk = Використовуючи цей додаток, ви погоджуєтеся з <a href="https://legal.my.com/us/maps/tou/">Умовами використання</a> та <a href="https://legal.my.com/us/maps/privacy/">Політикою конфіденційності</a>.
-    vi = Bằng cách khởi chạy ứng dụng, bạn đồng ý với <a href="https://legal.my.com/us/maps/tou/">Điều khoản Sử dụng</a> và <a href="https://legal.my.com/us/maps/privacy/">Chính sách Riêng tư</a>.
-    zh-Hans = 启动应用程序即表明您同意<a href="https://legal.my.com/us/maps/tou/">使用条款</a>和<a href="https://legal.my.com/us/maps/privacy/">隐私政策</a>。
-    zh-Hant = 啟用本應用程式，即表示您同意 <a href="https://legal.my.com/us/maps/tou/">服務條款</a>和 <a href="https://legal.my.com/us/maps/privacy/">隱私權原則</a>。
-    el = Με την εκκίνηση της εφαρμογής συμφωνείτε με <a href="https://legal.my.com/us/maps/tou/">τους Όρους χρήσης</a> και <a href="https://legal.my.com/us/maps/privacy/">την Πολιτική απορρήτου</a>.
-    sk = Spustením aplikácie súhlasíte s <a href="https://legal.my.com/us/maps/tou/">Podmienkami používania</a> a <a href="https://legal.my.com/us/maps/privacy/">Zásadami ochrany osobných údajov</a>.
-    sw = Kwa kuanzisha programu-tumizi hii, unakubaliana na <a href="https://legal.my.com/us/maps/tou/">Sheria za Utumizi</a> na <a href="https://legal.my.com/us/maps/privacy/">Sera ya Faragha</a>.
-    fa = با اجرای این اپلیکیشن, شما موافقت خود را با  <a href="https://legal.my.com/us/maps/tou/">Terms of Use</a> و <a href="https://legal.my.com/us/maps/privacy/">Privacy Policy</a>اعلام می کنید.
+    en = By launching the application, you agree to <a href="%s">Terms of Use</a> and <a href="%s">Privacy Policy</a>.
+    ru = Запуская приложение, вы соглашаетесь с <a href="%s">Условиями использования</a> и <a href="%s">Политикой конфиденциальности</a>.
+    ar = من خلال إطلاق التطبيق، فإنك توافق على <a href="%s">شروط الاستخدام</a> و<a href="%s">سياسة الخصوصية</a>.
+    cs = Spuštěním aplikace souhlasíte s <a href="%s">Podmínkami použití</a> a <a href="%s">Zásadami ochrany osobních údajů</a>.
+    da = Ved at åbne appen accepterer du vores <a href="%s">Vilkår for anvendelse</a> og <a href="%s">Fortrolighedspolitik</a>.
+    nl = Door de toepassing te starten, gaat u akkoord met de <a href="%s">Gebruiksvoorwaarden</a> en het <a href="%s">Privacybeleid</a>.
+    fi = Käynnistämällä sovelluksen hyväksyt <a href="%s">käyttöehdot</a> ja <a href="%s">tietosuojakäytännön</a>.
+    fr = En lançant l’application, vous acceptez les <a href="%s">Conditions d’utilisation</a> et la <a href="%s">Politique de confidentialité</a>.
+    de = Durch das Starten der Anwendung stimmen Sie den <a href="%s">Nutzungsbedingungen</a> und der <a href="%s">Datenschutzrichtlinie</a> zu.
+    hu = Az alkalmazás indításával Ön elfogadja a <a href="%s">Felhasználási feltételeket</a> és <a href="%s">az Adatvédelmi szabályzatot</a>.
+    id = Dengan menjalankan aplikasi ini, Anda menyetujui <a href="%s">Syarat-Syarat Penggunaan</a> dan <a href="%s">Kebijakan Privasi</a>.
+    it = Lanciando l'applicazione, accetti i <a href="%s">Termini di utilizzo</a> e l'<a href="%s">Informativa sulla privacy</a>.
+    ja = アプリケーションを起動することで、<a href="%s">利用規約</a>および<a href="%s">プライバシーポリシー</a>にご同意いただいたものとみなします。
+    ko = 애플리케이션을 시작하면, <a href="%s">이용 약관</a> 및 <a href="%s">개인정보취급방침</a>에 동의하는 것입니다.
+    nb = Når du starter programmet samtykker du til <a href="%s">bruksvilkårene</a> og <a href="%s">reglene for personvern</a>.
+    pl = Poprzez uruchomienie aplikacji wyrażasz zgodę na <a href="%s">warunki użytkowania</a> i <a href="%s">politykę prywatności</a>.
+    pt = Ao lançar a aplicação, o utilizador concorda com os <a href="%s">Termos de Utilização</a> e a <a href="%s">Política de Privacidade</a>.
+    ro = Lansând aplicația confirmați că sunteți de acord cu <a href="%s">Condițiile de utilizare</a> și <a href="%s">Politica de confidențialitate</a>.
+    es = Al iniciar la aplicación, usted acepta los <a href="%s">Términos de uso</a> y la <a href="%s">Política de privacidad</a>.
+    sv = Genom att starta applikationen godkänner du <a href="%s">användningsvillkoren</a> och <a href="%s">sekretesspolicyn</a>.
+    th = ด้วยการเรียกใช้แอปพลิเคชั่นคุณได้ตกลงต่อ <a href="%s">เงื่อนไขการใช้งาน</a> และ <a href="%s">นโยบายความเป็นส่วนตัว</a>
+    tr = Uygulamayı başlatarak <a href="%s">Kullanım Koşullarını</a> ve <a href="%s">Gizlilik Politikasını</a> kabul etmiş sayılırsınız.
+    uk = Використовуючи цей додаток, ви погоджуєтеся з <a href="%s">Умовами використання</a> та <a href="%s">Політикою конфіденційності</a>.
+    vi = Bằng cách khởi chạy ứng dụng, bạn đồng ý với <a href="%s">Điều khoản Sử dụng</a> và <a href="%s">Chính sách Riêng tư</a>.
+    zh-Hans = 启动应用程序即表明您同意<a href="%s">使用条款</a>和<a href="%s">隐私政策</a>。
+    zh-Hant = 啟用本應用程式，即表示您同意 <a href="%s">服務條款</a>和 <a href="%s">隱私權原則</a>。
+    el = Με την εκκίνηση της εφαρμογής συμφωνείτε με <a href="%s">τους Όρους χρήσης</a> και <a href="%s">την Πολιτική απορρήτου</a>.
+    sk = Spustením aplikácie súhlasíte s <a href="%s">Podmienkami používania</a> a <a href="%s">Zásadami ochrany osobných údajov</a>.
+    sw = Kwa kuanzisha programu-tumizi hii, unakubaliana na <a href="%s">Sheria za Utumizi</a> na <a href="%s">Sera ya Faragha</a>.
+    fa = با اجرای این اپلیکیشن, شما موافقت خود را با  <a href="%s">Terms of Use</a> و <a href="%s">Privacy Policy</a>اعلام می کنید.
 
   [dialog_incorrect_feature_position]
     en = Change location
@@ -31323,70 +31323,70 @@ fa = دوباره نپرس
     zh-Hant = 您必須接受我們的使用條款和隱私政策。 請仔細閱讀。
 
   [sign_agree_pp_gdpr]
-    en = I agree to the <a href="https://legal.my.com/us/maps/privacy/">Privacy Policy</a>
-    ru = Я согласен с <a href="https://legal.my.com/us/maps/privacy/">Политикой конфиденциальности</a>
-    ar = أوافق على <a href="https://legal.my.com/us/maps/privacy/">سياسة الخصوصية</a>
-    cs = Souhlasím s <a href="https://legal.my.com/us/maps/privacy/">Zásadami ochrany osobních údajů</a>
-    da = Jeg accepterer <a href="https://legal.my.com/us/maps/privacy/">Politik til beskyttelse af personlige oplysninger</a>
-    nl = Ik ga akkoord met het <a href="https://legal.my.com/us/maps/privacy/">Privacybeleid</a>
-    fi = Hyväksyn <a href="https://legal.my.com/us/maps/privacy/">tietosuojakäytännön</a>
-    fr = J'accepte la <a href="https://legal.my.com/us/maps/privacy/">politique de confidentialité</a>
-    de = Ich stimme den <a href="https://legal.my.com/us/maps/privacy/">Datenschutzbestimmungen</a> zu
-    hu = Elfogadom a <a href="https://legal.my.com/us/maps/privacy/">adatvédelmi irányelveket</a>
-    id = Saya setuju dengan <a href="https://legal.my.com/us/maps/privacy/">Kebijakan Privasi</a>
-    it = Accetto la <a href="https://legal.my.com/us/maps/privacy/">Informativa sulla Privacy</a>
-    ja = <a href="https://legal.my.com/us/maps/privacy/">プライバシーポリシー</a>に同意します
-    ko = <a href="https://legal.my.com/us/maps/privacy/">개인 정보 보호 정책</a>에 동의합니다.
-    nb = Jeg godtar <a href="https://legal.my.com/no/general/privacy/">personvernregler</a>
-    pl = Akceptuję <a href="https://legal.my.com/us/maps/privacy/">Privacy Policy</a>
-    pt = Concordo com a <a href="https://legal.my.com/us/maps/privacy/">Política de Privacidade</a>
-    pt-BR = Concordo com a <a href="https://legal.my.com/us/maps/privacy/">Política de Privacidade</a>
-    ro = Sunt de acord cu <a href="https://legal.my.com/us/maps/privacy/">Politica de confidențialitate</a>
-    es = Acepto la <a href="https://legal.my.com/us/maps/privacy/">Política de Privacidad</a>
-    es_MX = Acepto la <a href="https://legal.my.com/us/maps/privacy/">Política de Privacidad</a>
-    sv = Jag godkänner <a href="https://legal.my.com/us/maps/privacy/">sekretesspolicy</a>
-    th = ฉันยอมรับ <a href="https://legal.my.com/us/maps/privacy/">นโยบายข้อมูลส่วนบุคคล</a>
-    tr = <a href="https://legal.my.com/us/maps/privacy/">Gizlilik Politikası</a> bölümünü kabul ediyorum
-    uk = Я згоден з <a href="https://legal.my.com/us/maps/privacy/">Політикою конфіденційності</a>
-    vi = Tôi đồng ý với <a href="https://legal.my.com/us/maps/privacy/">Chính sách bảo mật</a>
-    el = Συμφωνώ με την <a href="https://legal.my.com/us/maps/privacy/">Πολιτική Απορρήτου</a>
-    sk = Súhlasím s <a href="https://legal.my.com/us/maps/privacy/">Zásadami ochrany osobných údajov</a>
-    sw = Nakubali <a href="https://legal.my.com/us/maps/privacy/">Sera ya Faragha</a>
-    zh-Hans = 我同意<a href="https://legal.my.com/us/maps/privacy/">隐私政策</a>
-    zh-Hant = 我同意<a href="https://legal.my.com/us/maps/privacy/">隱私政策</a>
+    en = I agree to the <a href="%s">Privacy Policy</a>
+    ru = Я согласен с <a href="%s">Политикой конфиденциальности</a>
+    ar = أوافق على <a href="%s">سياسة الخصوصية</a>
+    cs = Souhlasím s <a href="%s">Zásadami ochrany osobních údajů</a>
+    da = Jeg accepterer <a href="%s">Politik til beskyttelse af personlige oplysninger</a>
+    nl = Ik ga akkoord met het <a href="%s">Privacybeleid</a>
+    fi = Hyväksyn <a href="%s">tietosuojakäytännön</a>
+    fr = J'accepte la <a href="%s">politique de confidentialité</a>
+    de = Ich stimme den <a href="%s">Datenschutzbestimmungen</a> zu
+    hu = Elfogadom a <a href="%s">adatvédelmi irányelveket</a>
+    id = Saya setuju dengan <a href="%s">Kebijakan Privasi</a>
+    it = Accetto la <a href="%s">Informativa sulla Privacy</a>
+    ja = <a href="%s">プライバシーポリシー</a>に同意します
+    ko = <a href="%s">개인 정보 보호 정책</a>에 동의합니다.
+    nb = Jeg godtar <a href="%s">personvernregler</a>
+    pl = Akceptuję <a href="%s">Privacy Policy</a>
+    pt = Concordo com a <a href="%s">Política de Privacidade</a>
+    pt-BR = Concordo com a <a href="%s">Política de Privacidade</a>
+    ro = Sunt de acord cu <a href="%s">Politica de confidențialitate</a>
+    es = Acepto la <a href="%s">Política de Privacidad</a>
+    es_MX = Acepto la <a href="%s">Política de Privacidad</a>
+    sv = Jag godkänner <a href="%s">sekretesspolicy</a>
+    th = ฉันยอมรับ <a href="%s">นโยบายข้อมูลส่วนบุคคล</a>
+    tr = <a href="%s">Gizlilik Politikası</a> bölümünü kabul ediyorum
+    uk = Я згоден з <a href="%s">Політикою конфіденційності</a>
+    vi = Tôi đồng ý với <a href="%s">Chính sách bảo mật</a>
+    el = Συμφωνώ με την <a href="%s">Πολιτική Απορρήτου</a>
+    sk = Súhlasím s <a href="%s">Zásadami ochrany osobných údajov</a>
+    sw = Nakubali <a href="%s">Sera ya Faragha</a>
+    zh-Hans = 我同意<a href="%s">隐私政策</a>
+    zh-Hant = 我同意<a href="%s">隱私政策</a>
 
   [sign_agree_tof_gdpr]
-    en = I agree to the <a href="https://legal.my.com/us/maps/tou/">Terms of Use</a>
-    ru = Я согласен с <a href="https://legal.my.com/us/maps/tou/">Условиями использования</a>
-    ar = أوافق على <a href="https://legal.my.com/us/maps/tou/">شروط الاستخدام</a>
-    cs = Souhlasím s <a href="https://legal.my.com/us/maps/tou/">Smluvními podmínkami</a>
-    da = Jeg accepterer <a href="https://legal.my.com/us/maps/tou/">Vilkår for brug</a>
-    nl = Ik accepteer <a href="https://legal.my.com/us/maps/tou/">de gebruiksvoorwaarden</a>
-    fi = Hyväksyn <a href="https://legal.my.com/us/maps/tou/">käyttöehdot</a>
-    fr = Je suis en accord avec les <a href="https://legal.my.com/us/maps/tou/">conditions d'utilisation</a>
-    de = Ich stimme den <a href="https://legal.my.com/us/maps/tou/">Nutzungsbedingungen</a> zu
-    hu = Elfogadom a <a href="https://legal.my.com/us/maps/tou/">Általános Szerződési Feltételeket</a>
-    id = Saya setuju dengan <a href="https://legal.my.com/us/maps/tou/">Ketentuan Penggunaan</a>
-    it = Accetto i <a href="https://legal.my.com/us/maps/tou/">Termini di utilizzo</a>
-    ja = <a href="https://legal.my.com/us/maps/tou/">利用規約</a>に同意します
-    ko = <a href="https://legal.my.com/us/maps/tou/">이용 약관</a>에 동의합니다.
-    nb = Jeg godtar <a href="https://legal.my.com/us/maps/tou/">bruksbetingelsene</a>
-    pl = Akceptuję <a href="https://legal.my.com/us/maps/tou/">Terms of Use</a>
-    pt = Eu concordo com os <a href="https://legal.my.com/us/maps/tou/">Termos de Uso</a>
-    pt-BR = Concordo com os <a href="https://legal.my.com/us/maps/tou/">Termos de Uso</a>
-    ro = Sunt de acord cu <a href="https://legal.my.com/us/maps/tou/">Termenii și condițiile</a>
-    es = Acepto los <a href="https://legal.my.com/us/maps/tou/">Términos de Uso</a>
-    es_MX = Acepto los <a href="https://legal.my.com/us/maps/tou/">Términos de Uso</a>
-    sv = Jag godkänner <a href="https://legal.my.com/us/maps/tou/">användarvillkoren</a>
-    th = ฉันยอมรับ <a href="https://legal.my.com/us/maps/tou/">ข้อกำหนดในการให้บริการ</a>
-    tr = <a href="https://legal.my.com/us/maps/tou/">Kullanım Şartları</a> bölümünü kabul ediyorum
-    uk = Я згоден з <a href="https://legal.my.com/us/maps/tou/">Умовами використання</a>
-    vi = Tôi đồng ý với <a href="https://legal.my.com/us/maps/tou/">Điều khoản sử dụng</a>
-    el = Συμφωνώ με τους <a href="https://legal.my.com/us/maps/tou/">Όρους Χρήσης</a>
-    sk = Súhlasím s <a href="https://legal.my.com/us/maps/tou/">zmluvnými podmienkami</a>
-    sw = Ninakubali <a href="https://legal.my.com/us/maps/tou/">Sheria ya Matumizi</a>
-    zh-Hans = 我同意<a href="https://legal.my.com/us/maps/tou/">使用条款</a>
-    zh-Hant = 我同意<a href="https://legal.my.com/us/maps/tou/">使用條款</a>
+    en = I agree to the <a href="%s">Terms of Use</a>
+    ru = Я согласен с <a href="%s">Условиями использования</a>
+    ar = أوافق على <a href="%s">شروط الاستخدام</a>
+    cs = Souhlasím s <a href="%s">Smluvními podmínkami</a>
+    da = Jeg accepterer <a href="%s">Vilkår for brug</a>
+    nl = Ik accepteer <a href="%s">de gebruiksvoorwaarden</a>
+    fi = Hyväksyn <a href="%s">käyttöehdot</a>
+    fr = Je suis en accord avec les <a href="%s">conditions d'utilisation</a>
+    de = Ich stimme den <a href="%s">Nutzungsbedingungen</a> zu
+    hu = Elfogadom a <a href="%s">Általános Szerződési Feltételeket</a>
+    id = Saya setuju dengan <a href="%s">Ketentuan Penggunaan</a>
+    it = Accetto i <a href="%s">Termini di utilizzo</a>
+    ja = <a href="%s">利用規約</a>に同意します
+    ko = <a href="%s">이용 약관</a>에 동의합니다.
+    nb = Jeg godtar <a href="%s">bruksbetingelsene</a>
+    pl = Akceptuję <a href="%s">Terms of Use</a>
+    pt = Eu concordo com os <a href="%s">Termos de Uso</a>
+    pt-BR = Concordo com os <a href="%s">Termos de Uso</a>
+    ro = Sunt de acord cu <a href="%s">Termenii și condițiile</a>
+    es = Acepto los <a href="%s">Términos de Uso</a>
+    es_MX = Acepto los <a href="%s">Términos de Uso</a>
+    sv = Jag godkänner <a href="%s">användarvillkoren</a>
+    th = ฉันยอมรับ <a href="%s">ข้อกำหนดในการให้บริการ</a>
+    tr = <a href="%s">Kullanım Şartları</a> bölümünü kabul ediyorum
+    uk = Я згоден з <a href="%s">Умовами використання</a>
+    vi = Tôi đồng ý với <a href="%s">Điều khoản sử dụng</a>
+    el = Συμφωνώ με τους <a href="%s">Όρους Χρήσης</a>
+    sk = Súhlasím s <a href="%s">zmluvnými podmienkami</a>
+    sw = Ninakubali <a href="%s">Sheria ya Matumizi</a>
+    zh-Hans = 我同意<a href="%s">使用条款</a>
+    zh-Hant = 我同意<a href="%s">使用條款</a>
 
   [sign_agree_news_gdpr]
     en = I agree to receive the latest news about MAPS.ME products
