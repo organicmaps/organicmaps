@@ -70,6 +70,8 @@ final class BannerController
   private final TextView mActionLarge;
   @NonNull
   private final ImageView mAdChoices;
+  @NonNull
+  private final ImageView mAdChoicesLabel;
 
   private final float mCloseFrameHeight;
 
@@ -100,8 +102,9 @@ final class BannerController
     mMessage = bannerView.findViewById(R.id.tv__banner_message);
     mActionSmall = bannerView.findViewById(R.id.tv__action_small);
     mActionLarge = bannerView.findViewById(R.id.tv__action_large);
-    mAdChoices = bannerView.findViewById(R.id.ad_choices);
+    mAdChoices = bannerView.findViewById(R.id.ad_choices_icon);
     mAdChoices.setOnClickListener(v -> handlePrivacyInfoUrl());
+    mAdChoicesLabel = bannerView.findViewById(R.id.ad_choices_label);
     Resources res = mFrame.getResources();
     UiUtils.expandTouchAreaForView(mAdChoices, (int) res.getDimension(R.dimen.margin_quarter_plus));
     mAdsLoader = loader;
@@ -140,11 +143,12 @@ final class BannerController
     if ((mAdsLoader.isAdLoading() || hasErrorOccurred())
         && mCurrentAd == null)
     {
-      UiUtils.hide(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAdChoices);
+      UiUtils.hide(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAdChoices, mAdChoicesLabel);
     }
-    else
+    else if (mCurrentAd != null)
     {
-      UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAdChoices);
+      UiUtils.showIf(mCurrentAd.getNetworkType() == MwmNativeAd.NetworkType.MOPUB, mAdChoices);
+      UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAdChoicesLabel);
       if (mOpened)
         UiUtils.hide(mActionSmall);
       else
@@ -277,16 +281,6 @@ final class BannerController
     mMessage.setText(data.getDescription());
     mActionSmall.setText(data.getAction());
     mActionLarge.setText(data.getAction());
-    fillAdChoicesIcon(data);
-  }
-
-  private void fillAdChoicesIcon(@NonNull MwmNativeAd data)
-  {
-    MwmNativeAd.NetworkType type = data.getNetworkType();
-    if (type == MwmNativeAd.NetworkType.MOPUB)
-      mAdChoices.setImageResource(R.drawable.ic_ads_fb);
-    else
-      mAdChoices.setImageResource(ThemeUtils.getResource(mFrame.getContext(), R.attr.adChoicesIcon));
   }
 
   private void loadIconAndOpenIfNeeded(@NonNull MwmNativeAd data)

@@ -61,9 +61,18 @@
       android:layout_toRightOf="@id/iv__banner_icon"
       android:gravity="center_vertical">
       <ImageView
-        android:id="@+id/ad_choices"
+        android:id="@+id/ad_choices_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_ads_fb"
+        android:layout_marginRight="@dimen/margin_quarter"
+        android:layout_marginEnd="@dimen/margin_quarter"
+        android:visibility="gone"/>
+      <ImageView
+        android:id="@+id/ad_choices_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="?adChoicesIcon"
         android:layout_marginRight="@dimen/margin_quarter"
         android:layout_marginEnd="@dimen/margin_quarter"
         android:visibility="gone"/>
