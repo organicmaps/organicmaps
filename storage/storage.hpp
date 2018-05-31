@@ -460,7 +460,7 @@ public:
   //@}
 
   /// \returns real (not fake) local maps contained in countries.txt.
-  /// So this method does not return custom user local maps and World and WorldCoosts country id.
+  /// So this method does not return custom user local maps and World and WorldCoasts country id.
   void GetLocalRealMaps(TCountriesVec & localMaps) const;
 
   /// Do we have downloaded countries

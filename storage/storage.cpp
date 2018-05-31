@@ -1484,14 +1484,17 @@ void Storage::LoadDiffScheme()
   diffs::LocalMapsInfo localMapsInfo;
   auto const currentVersion = GetCurrentDataVersion();
   localMapsInfo.m_currentDataVersion = currentVersion;
-  vector<TLocalFilePtr> localMaps;
-  GetLocalMaps(localMaps);
-  for (auto const & map : localMaps)
+
+  TCountriesVec localMaps;
+  GetLocalRealMaps(localMaps);
+  for (auto const & countryId : localMaps)
   {
-    auto const mapVersion = map->GetVersion();
+    auto const localFile = GetLatestLocalFile(countryId);
+    auto const mapVersion = localFile->GetVersion();
     if (mapVersion != currentVersion && mapVersion > 0)
-      localMapsInfo.m_localMaps.emplace(map->GetCountryName(), mapVersion);
+      localMapsInfo.m_localMaps.emplace(localFile->GetCountryName(), mapVersion);
   }
+
   m_diffManager.AddObserver(*this);
   m_diffManager.Load(move(localMapsInfo));
 }
