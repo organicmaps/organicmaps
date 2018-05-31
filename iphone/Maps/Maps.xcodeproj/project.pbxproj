@@ -348,6 +348,7 @@
 		4767CDA620AB1F6200BD8166 /* LeftAlignedIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDA520AB1F6200BD8166 /* LeftAlignedIconButton.swift */; };
 		4767CDA820AB401000BD8166 /* LinkTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDA720AB401000BD8166 /* LinkTextView.swift */; };
 		4767CDC120B477BA00BD8166 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767CDC020B477BA00BD8166 /* WelcomeViewController.swift */; };
+		47800D1D20BEEE2E00072F42 /* TermsOfUseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47800D1C20BEEE2E00072F42 /* TermsOfUseController.swift */; };
 		4A300ED51C6DCFD400140018 /* countries-strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A300ED31C6DCFD400140018 /* countries-strings */; };
 		56C74C391C74A3BC00B71B9F /* MWMInputEmailValidator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34ABA62F1C2D58F300FE1BEC /* MWMInputEmailValidator.mm */; };
 		56EE14D11FE804550036F20C /* libtransit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56EE14D21FE804550036F20C /* libtransit.a */; };
@@ -1278,6 +1279,7 @@
 		4767CDA520AB1F6200BD8166 /* LeftAlignedIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedIconButton.swift; sourceTree = "<group>"; };
 		4767CDA720AB401000BD8166 /* LinkTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkTextView.swift; sourceTree = "<group>"; };
 		4767CDC020B477BA00BD8166 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		47800D1C20BEEE2E00072F42 /* TermsOfUseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseController.swift; sourceTree = "<group>"; };
 		4A00DBDE1AB704C400113624 /* drules_proto_dark.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_dark.bin; path = ../../data/drules_proto_dark.bin; sourceTree = "<group>"; };
 		4A23D1561B8B4DD700D4EB6F /* drules_proto_clear.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = drules_proto_clear.bin; path = ../../data/drules_proto_clear.bin; sourceTree = "<group>"; };
 		4A23D1571B8B4DD700D4EB6F /* resources-6plus_clear */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "resources-6plus_clear"; path = "../../data/resources-6plus_clear"; sourceTree = "<group>"; };
@@ -2665,6 +2667,7 @@
 				34D4FA611E26572D003F53EF /* FirstLaunchController.swift */,
 				34D4FA651E265749003F53EF /* WhatsNewController.swift */,
 				4767CDC020B477BA00BD8166 /* WelcomeViewController.swift */,
+				47800D1C20BEEE2E00072F42 /* TermsOfUseController.swift */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -4714,6 +4717,7 @@
 				F6E2FF031E097BA00083EBEC /* MWMSearchHistoryClearCell.mm in Sources */,
 				340475091E08199E00C92850 /* MWMMyTarget.mm in Sources */,
 				340416501E7C086000E2B6D6 /* PhotoViewController.swift in Sources */,
+				47800D1D20BEEE2E00072F42 /* TermsOfUseController.swift in Sources */,
 				674A7E301C0DB10B003D48E1 /* MWMMapWidgets.mm in Sources */,
 				34AB66291FC5AA330078E451 /* RouteManagerViewController.swift in Sources */,
 				3404754D1E081A4600C92850 /* MWMKeyboard.mm in Sources */,

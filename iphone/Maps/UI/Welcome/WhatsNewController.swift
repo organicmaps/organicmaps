@@ -23,6 +23,15 @@ final class WhatsNewController: WelcomeViewController {
 
   override class var key: String { return welcomeConfigs.reduce("\(self)", { return "\($0)_\($1.title)" }) }
   
+  static var shouldShowWhatsNew: Bool {
+    get {
+      return !UserDefaults.standard.bool(forKey: key)
+    }
+    set {
+      UserDefaults.standard.set(!newValue, forKey: key)
+    }
+  }
+
   static func controllers() -> [WelcomeViewController] {
     var result = [WelcomeViewController]()
     let sb = UIStoryboard.instance(.welcome)

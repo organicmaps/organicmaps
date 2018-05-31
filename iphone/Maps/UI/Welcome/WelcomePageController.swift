@@ -34,19 +34,33 @@ final class WelcomePageController: UIPageViewController {
   }
 
   @objc static func controller(parent: WelcomePageControllerProtocol) -> WelcomePageController? {
-    if (!WelcomeViewController.shouldShowWelcome) { return nil }
-    guard let welcomeControllers = WelcomeViewController.controllers(firstSession: Alohalytics.isFirstSession())
-      else { return nil }
-    
-    let vc = WelcomePageController(transitionStyle: welcomeControllers.count > 1 ? .scroll : .pageCurl,
+    var controllersToShow: [WelcomeViewController] = []
+
+    if TermsOfUseController.needTerms {
+      controllersToShow.append(TermsOfUseController.controller())
+      controllersToShow.append(contentsOf: FirstLaunchController.controllers())
+    } else {
+      if Alohalytics.isFirstSession() {
+        TermsOfUseController.needTerms = true
+        controllersToShow.append(TermsOfUseController.controller())
+        controllersToShow.append(contentsOf: FirstLaunchController.controllers())
+      } else {
+        if (WhatsNewController.shouldShowWhatsNew) {
+          controllersToShow.append(contentsOf: WhatsNewController.controllers())
+        }
+      }
+    }
+
+    if controllersToShow.count == 0 { return nil }
+
+    let vc = WelcomePageController(transitionStyle: controllersToShow.count > 1 ? .scroll : .pageCurl,
                                    navigationOrientation: .horizontal,
                                    options: [:])
     vc.parentController = parent
-    vc.dataSource = vc
-    welcomeControllers.forEach { (controller) in
+    controllersToShow.forEach { (controller) in
       controller.delegate = vc
     }
-    vc.controllers = welcomeControllers
+    vc.controllers = controllersToShow
     vc.show()
     return vc
   }
@@ -64,6 +78,7 @@ final class WelcomePageController: UIPageViewController {
       view.clipsToBounds = true
     }
     currentController = controllers.first
+    WhatsNewController.shouldShowWhatsNew = false
   }
 
   func nextPage() {
@@ -75,7 +90,6 @@ final class WelcomePageController: UIPageViewController {
   }
 
   func close() {
-    WelcomeViewController.shouldShowWelcome = false
     if let controller = currentController as? WelcomeViewController {
       Statistics.logEvent(kStatEventName(kStatWhatsNew, type(of: controller).key),
                         withParameters: [kStatAction: kStatClose])

@@ -23,15 +23,6 @@ class WelcomeViewController: MWMViewController {
   
   class var key: String { return "" }
   
-  static var shouldShowWelcome: Bool {
-    get {
-      return !UserDefaults.standard.bool(forKey: WhatsNewController.key)
-    }
-    set {
-      UserDefaults.standard.set(!newValue, forKey: WhatsNewController.key)
-    }
-  }
-  
   static func controllers(firstSession: Bool) -> [WelcomeViewController]? {
     return firstSession ? FirstLaunchController.controllers() : WhatsNewController.controllers()
   }
