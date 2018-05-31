@@ -41,18 +41,32 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zWu-Gh-Vf7">
-                                <rect key="frame" x="16" y="10" width="20" height="12"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zWu-Gh-Vf7" userLabel="Privacy images">
+                                <rect key="frame" x="8" y="10" width="40" height="12"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U70-zR-E2N">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_ads_fb" translatesAutoresizingMaskIntoConstraints="NO" id="U70-zR-E2N">
                                         <rect key="frame" x="0.0" y="0.0" width="20" height="12"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="CEf-0a-Yb6"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_ad_light" translatesAutoresizingMaskIntoConstraints="NO" id="042-9V-wU6">
+                                        <rect key="frame" x="20" y="0.0" width="20" height="12"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="NWc-9i-Mu1"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="mwm_name" value="img_ad"/>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="042-9V-wU6" firstAttribute="top" secondItem="zWu-Gh-Vf7" secondAttribute="top" id="9FX-BC-c1A"/>
+                                    <constraint firstAttribute="bottom" secondItem="042-9V-wU6" secondAttribute="bottom" id="ALM-H2-g0X"/>
+                                    <constraint firstItem="042-9V-wU6" firstAttribute="leading" secondItem="U70-zR-E2N" secondAttribute="trailing" id="Em1-Yx-Maa"/>
+                                    <constraint firstAttribute="trailing" secondItem="042-9V-wU6" secondAttribute="trailing" id="J4y-Yt-bUs"/>
                                     <constraint firstItem="U70-zR-E2N" firstAttribute="top" secondItem="zWu-Gh-Vf7" secondAttribute="top" id="KPA-ST-eMa"/>
-                                    <constraint firstAttribute="trailing" secondItem="U70-zR-E2N" secondAttribute="trailing" id="KWp-03-stj"/>
-                                    <constraint firstAttribute="width" constant="20" id="TMB-lh-n1g"/>
                                     <constraint firstAttribute="bottom" secondItem="U70-zR-E2N" secondAttribute="bottom" id="WCZ-em-LCa"/>
                                     <constraint firstAttribute="height" constant="12" id="mwW-Ni-one"/>
                                     <constraint firstItem="U70-zR-E2N" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" id="ovH-QV-FXc"/>
@@ -65,7 +79,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="300" text="Delivery Club" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIR-cO-v6L">
-                                <rect key="frame" x="16" y="8" width="262" height="14.5"/>
+                                <rect key="frame" x="12" y="8" width="266" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -75,7 +89,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="451" verticalHuggingPriority="249" horizontalCompressionResistancePriority="249" text="Как " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ev3-yY-ql1">
-                                <rect key="frame" x="16" y="26.5" width="262" height="67"/>
+                                <rect key="frame" x="8" y="26.5" width="270" height="67"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -130,14 +144,14 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="So8-wM-Cgz">
-                                <rect key="frame" x="14" y="8" width="24" height="16"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="6" y="8" width="42" height="16"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="privacyAction" destination="WK2-gA-ocn" eventType="touchUpInside" id="ma2-uV-7hH"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="9qA-JC-fkn" secondAttribute="leading" priority="250" id="5CH-Fo-S70"/>
                             <constraint firstAttribute="bottom" secondItem="Ev3-yY-ql1" secondAttribute="bottom" priority="500" constant="8" id="FJI-xF-QTM"/>
@@ -152,7 +166,7 @@
                             <constraint firstItem="zWu-Gh-Vf7" firstAttribute="top" secondItem="kIR-cO-v6L" secondAttribute="top" constant="2" id="Q0s-7L-aih"/>
                             <constraint firstAttribute="trailing" secondItem="54O-iN-1Gg" secondAttribute="trailing" id="S6I-ea-HJN"/>
                             <constraint firstItem="9qA-JC-fkn" firstAttribute="leading" secondItem="Ev3-yY-ql1" secondAttribute="trailing" priority="500" constant="4" id="YNA-Lu-LXQ"/>
-                            <constraint firstItem="kIR-cO-v6L" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" id="ZVP-Gs-m00"/>
+                            <constraint firstItem="kIR-cO-v6L" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" constant="4" id="ZVP-Gs-m00"/>
                             <constraint firstAttribute="trailing" secondItem="NKM-3R-3g1" secondAttribute="trailing" constant="12" id="ZiW-Tk-SOB"/>
                             <constraint firstItem="kIR-cO-v6L" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" constant="8" id="ajZ-XY-N1h"/>
                             <constraint firstItem="So8-wM-Cgz" firstAttribute="bottom" secondItem="zWu-Gh-Vf7" secondAttribute="bottom" constant="2" id="akC-Fs-8Iv"/>
@@ -167,9 +181,9 @@
                             <constraint firstAttribute="bottom" secondItem="54O-iN-1Gg" secondAttribute="bottom" id="tOj-8H-AsH"/>
                             <constraint firstItem="Ev3-yY-ql1" firstAttribute="leading" secondItem="zWu-Gh-Vf7" secondAttribute="leading" id="tVH-Tk-6D6"/>
                             <constraint firstItem="9qA-JC-fkn" firstAttribute="top" secondItem="f76-qn-ne4" secondAttribute="top" constant="18" id="u8g-fp-l2o"/>
-                            <constraint firstItem="zWu-Gh-Vf7" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" priority="600" constant="16" id="vlX-zx-nfP"/>
+                            <constraint firstItem="zWu-Gh-Vf7" firstAttribute="leading" secondItem="f76-qn-ne4" secondAttribute="leading" priority="600" constant="8" id="vlX-zx-nfP"/>
                             <constraint firstItem="zWu-Gh-Vf7" firstAttribute="leading" secondItem="EuF-Rm-DHQ" secondAttribute="trailing" priority="250" constant="8" id="w5K-BT-1ED"/>
-                            <constraint firstItem="So8-wM-Cgz" firstAttribute="trailing" secondItem="zWu-Gh-Vf7" secondAttribute="trailing" constant="2" id="zGz-Sf-G1b"/>
+                            <constraint firstItem="So8-wM-Cgz" firstAttribute="trailing" secondItem="zWu-Gh-Vf7" secondAttribute="trailing" id="zGz-Sf-G1b"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
@@ -207,13 +221,15 @@
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
             </userDefinedRuntimeAttributes>
             <connections>
+                <outlet property="DAAImage" destination="U70-zR-E2N" id="xY2-Lz-w3W"/>
+                <outlet property="DAAImageWidth" destination="CEf-0a-Yb6" id="4Fe-eM-oIn"/>
                 <outlet property="adBodyLabel" destination="Ev3-yY-ql1" id="xw6-9k-OYn"/>
                 <outlet property="adCallToActionButtonCompact" destination="9qA-JC-fkn" id="2AF-5i-Wey"/>
                 <outlet property="adCallToActionButtonCompactLeading" destination="5CH-Fo-S70" id="Vdl-uS-6Gd"/>
                 <outlet property="adCallToActionButtonCustom" destination="54O-iN-1Gg" id="vvO-p7-eBA"/>
                 <outlet property="adCallToActionButtonDetailed" destination="NKM-3R-3g1" id="diP-AI-tNi"/>
                 <outlet property="adIconImageView" destination="EuF-Rm-DHQ" id="Edf-Ak-VAy"/>
-                <outlet property="adPrivacyImage" destination="U70-zR-E2N" id="otr-5d-TIb"/>
+                <outlet property="adPrivacyImage" destination="042-9V-wU6" id="JLV-4K-UTc"/>
                 <outlet property="adTitleLabel" destination="kIR-cO-v6L" id="OOh-tX-yBM"/>
                 <outlet property="fallbackAdView" destination="ucm-4E-iB7" id="dOb-SQ-pex"/>
                 <outlet property="fallbackAdViewBottom" destination="DdI-tM-5Yy" id="Tyv-gy-gf7"/>
@@ -230,4 +246,8 @@
             <point key="canvasLocation" x="-285.5" y="-205"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="ic_ads_fb" width="20" height="12"/>
+        <image name="img_ad_light" width="20" height="12"/>
+    </resources>
 </document>

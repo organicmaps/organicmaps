@@ -30,6 +30,17 @@ enum AdBannerContainerType: Int {
   case search
 }
 
+private func attributedTitle(title: String, indent: CGFloat) -> NSAttributedString {
+  let paragraphStyle = NSMutableParagraphStyle()
+  paragraphStyle.firstLineHeadIndent = indent
+  paragraphStyle.lineBreakMode = .byTruncatingTail
+  return NSAttributedString(string: title,
+                        attributes: [NSAttributedStringKey.paragraphStyle: paragraphStyle,
+                                     NSAttributedStringKey.font: UIFont.bold12(),
+                                     NSAttributedStringKey.foregroundColor: UIColor.blackSecondaryText()
+                                    ])
+}
+
 @objc(MWMAdBanner)
 final class AdBanner: UITableViewCell {
   @IBOutlet private var detailedModeConstraints: [NSLayoutConstraint]!
@@ -37,6 +48,8 @@ final class AdBanner: UITableViewCell {
   @IBOutlet private weak var adIconImageView: UIImageView!
   @IBOutlet private weak var adTitleLabel: UILabel!
   @IBOutlet private weak var adBodyLabel: UILabel!
+  @IBOutlet private weak var DAAImage: UIImageView!
+  @IBOutlet private weak var DAAImageWidth: NSLayoutConstraint!
   @IBOutlet private weak var adPrivacyImage: UIImageView!
   @IBOutlet private weak var adCallToActionButtonCompact: UIButton!
   @IBOutlet private weak var adCallToActionButtonDetailed: UIButton!
@@ -98,9 +111,16 @@ final class AdBanner: UITableViewCell {
 
   @IBAction
   private func privacyAction() {
-    if let ad = nativeAd as? MopubBanner, let url = ad.privacyInfoURL {
-      UIViewController.topViewController().open(url)
+    let url: URL?
+    if let ad = nativeAd as? FacebookBanner {
+      url = ad.nativeAd.adChoicesLinkURL
+    } else if let ad = nativeAd as? MopubBanner, let u = ad.privacyInfoURL {
+      url = u
+    } else {
+      return
     }
+
+    UIViewController.topViewController().open(url)
   }
 
   override func layoutSubviews() {
@@ -142,7 +162,8 @@ final class AdBanner: UITableViewCell {
 
   private func configFBBanner(ad: FBNativeAd) {
     adType = .native
-    adPrivacyImage.image = #imageLiteral(resourceName: "ic_ads_fb")
+    DAAImageWidth.constant = adPrivacyImage.width;
+    DAAImage.isHidden = false;
 
     let adCallToActionButtons: [UIView]
     if state == .search {
@@ -155,17 +176,8 @@ final class AdBanner: UITableViewCell {
     ad.icon?.loadAsync { [weak self] image in
       self?.adIconImageView.image = image
     }
-
-    let paragraphStyle = NSMutableParagraphStyle()
-    paragraphStyle.firstLineHeadIndent = 24
-    paragraphStyle.lineBreakMode = .byTruncatingTail
-    let adTitle = NSAttributedString(string: ad.title ?? "",
-                                     attributes: [
-                                       NSAttributedStringKey.paragraphStyle: paragraphStyle,
-                                       NSAttributedStringKey.font: UIFont.bold12(),
-                                       NSAttributedStringKey.foregroundColor: UIColor.blackSecondaryText(),
-    ])
-    adTitleLabel.attributedText = adTitle
+    adTitleLabel.attributedText = attributedTitle(title: ad.title ?? "",
+                                                  indent: adPrivacyImage.width + DAAImageWidth.constant)
     adBodyLabel.text = ad.body ?? ""
     let config = state.config()
     adTitleLabel.numberOfLines = config.numberOfTitleLines
@@ -176,20 +188,12 @@ final class AdBanner: UITableViewCell {
   private func configRBBanner(ad: MTRGNativeAd) {
     guard let banner = ad.banner else { return }
     adType = .native
-    adPrivacyImage.image = UIColor.isNightMode() ? #imageLiteral(resourceName: "img_ad_dark") : #imageLiteral(resourceName: "img_ad_light")
+    DAAImageWidth.constant = 0;
+    DAAImage.isHidden = true;
 
     MTRGNativeAd.loadImage(banner.icon, to: adIconImageView)
-
-    let paragraphStyle = NSMutableParagraphStyle()
-    paragraphStyle.firstLineHeadIndent = 24
-    paragraphStyle.lineBreakMode = .byTruncatingTail
-    let adTitle = NSAttributedString(string: banner.title ?? "",
-                                     attributes: [
-                                       NSAttributedStringKey.paragraphStyle: paragraphStyle,
-                                       NSAttributedStringKey.font: UIFont.bold12(),
-                                       NSAttributedStringKey.foregroundColor: UIColor.blackSecondaryText(),
-    ])
-    adTitleLabel.attributedText = adTitle
+    adTitleLabel.attributedText = attributedTitle(title: banner.title,
+                                                  indent: adPrivacyImage.width + DAAImageWidth.constant)
     adBodyLabel.text = banner.descriptionText ?? ""
     let config = state.config()
     adTitleLabel.numberOfLines = config.numberOfTitleLines
@@ -203,11 +207,8 @@ final class AdBanner: UITableViewCell {
     mpNativeAd = ad.nativeAd
     adType = .native
 
-    if mpNativeAd?.adAdapter is FacebookNativeAdAdapter {
-      adPrivacyImage.image = #imageLiteral(resourceName: "ic_ads_fb")
-    } else {
-      adPrivacyImage.image = UIColor.isNightMode() ? #imageLiteral(resourceName: "img_ad_dark") : #imageLiteral(resourceName: "img_ad_light")
-    }
+    DAAImageWidth.constant = adPrivacyImage.width;
+    DAAImage.isHidden = false;
 
     let adCallToActionButtons: [UIButton]
     if state == .search {
@@ -219,16 +220,8 @@ final class AdBanner: UITableViewCell {
     }
     mpNativeAd?.setAdView(self, actionButtons: adCallToActionButtons)
 
-    let paragraphStyle = NSMutableParagraphStyle()
-    paragraphStyle.firstLineHeadIndent = 24
-    paragraphStyle.lineBreakMode = .byTruncatingTail
-    let adTitle = NSAttributedString(string: ad.title,
-                                     attributes: [
-                                       NSAttributedStringKey.paragraphStyle: paragraphStyle,
-                                       NSAttributedStringKey.font: UIFont.bold12(),
-                                       NSAttributedStringKey.foregroundColor: UIColor.blackSecondaryText(),
-    ])
-    adTitleLabel.attributedText = adTitle
+    adTitleLabel.attributedText = attributedTitle(title: ad.title,
+                                                  indent: adPrivacyImage.width + DAAImageWidth.constant)
     adBodyLabel.text = ad.text
     if let url = URL(string: ad.iconURL) {
       adIconImageView.af_setImage(withURL: url)
@@ -237,7 +230,8 @@ final class AdBanner: UITableViewCell {
 
   private func configGoogleFallbackBanner(ad: GoogleFallbackBanner) {
     adType = .fallback
-    adPrivacyImage.image = UIColor.isNightMode() ? #imageLiteral(resourceName: "img_ad_dark") : #imageLiteral(resourceName: "img_ad_light")
+    DAAImageWidth.constant = adPrivacyImage.width;
+    DAAImage.isHidden = false;
 
     fallbackAdView.subviews.forEach { $0.removeFromSuperview() }
     fallbackAdView.addSubview(ad)
