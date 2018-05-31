@@ -27,5 +27,7 @@ typedef void (^MWMAuthorizationCompleteBlock)(BOOL);
                 promoAccepted:(BOOL)promoAccepted
                        source:(MWMAuthorizationSource)source
                    onComplete:(MWMAuthorizationCompleteBlock _Nonnull)onComplete;
++ (NSString * _Nonnull)termsOfUseLink;
++ (NSString * _Nonnull)privacyPolicyLink;
 
 @end

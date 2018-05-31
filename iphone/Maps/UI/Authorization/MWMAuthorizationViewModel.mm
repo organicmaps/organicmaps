@@ -69,4 +69,14 @@
                     termsAccepted, promoAccepted);
 }
 
++ (NSString * _Nonnull)termsOfUseLink
+{
+  return @(User::GetTermsOfUseLink().c_str());
+}
+
++ (NSString * _Nonnull)privacyPolicyLink
+{
+  return @(User::GetPrivacyPolicyLink().c_str());
+}
+
 @end

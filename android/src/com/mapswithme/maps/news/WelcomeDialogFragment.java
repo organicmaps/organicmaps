@@ -2,6 +2,7 @@ package com.mapswithme.maps.news;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.BuildConfig;
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.maps.location.LocationHelper;
@@ -116,7 +118,9 @@ public class WelcomeDialogFragment extends BaseMwmDialogFragment implements View
     subtitle.setText(R.string.onboarding_welcome_first_subtitle);
     TextView terms = (TextView) content.findViewById(R.id.tv__subtitle2);
     UiUtils.show(terms);
-    terms.setText(R.string.onboarding_welcome_second_subtitle);
+    Resources rs = content.getResources();
+    terms.setText(Html.fromHtml(rs.getString(R.string.onboarding_welcome_second_subtitle,
+        Framework.nativeGetTermsOfUseLink(), Framework.nativeGetPrivacyPolicyLink())));
     terms.setMovementMethod(LinkMovementMethod.getInstance());
 
     return res;

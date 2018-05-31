@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
+import android.text.Html;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
@@ -142,7 +145,12 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
                             R.id.google_button, R.id.facebook_button, R.id.phone_button);
     });
 
-    linkifyPolicyViews(view, R.id.privacyPolicyLink, R.id.termOfUseLink);
+    linkifyPolicyView(view, R.id.privacyPolicyLink, R.string.sign_agree_pp_gdpr,
+                      Framework.nativeGetPrivacyPolicyLink());
+
+    linkifyPolicyView(view, R.id.termOfUseLink, R.string.sign_agree_tof_gdpr,
+                      Framework.nativeGetTermsOfUseLink());
+
     setButtonAvailability(view, false, R.id.google_button, R.id.facebook_button,
                           R.id.phone_button);
     return view;
@@ -155,13 +163,13 @@ public class SocialAuthDialogFragment extends BaseMwmDialogFragment
     button.setOnClickListener(clickListener);
   }
 
-  private static void linkifyPolicyViews(@NonNull View root, @IdRes int... ids)
+  private static void linkifyPolicyView(@NonNull View root, @IdRes int id, @StringRes int stringId,
+                                        @NonNull String link)
   {
-    for (int id : ids)
-    {
-      TextView policyView = root.findViewById(id);
-      policyView.setMovementMethod(LinkMovementMethod.getInstance());
-    }
+    TextView policyView = root.findViewById(id);
+    Resources rs = policyView.getResources();
+    policyView.setText(Html.fromHtml(rs.getString(stringId, link)));
+    policyView.setMovementMethod(LinkMovementMethod.getInstance());
   }
 
   private static void setButtonAvailability(@NonNull View root, boolean available, @IdRes int... ids)

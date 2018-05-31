@@ -153,7 +153,7 @@ final class AuthorizationViewController: MWMViewController {
   
   @IBOutlet private weak var privacyPolicyTextView: UITextView! {
     didSet {
-      let htmlString = L("sign_agree_pp_gdpr")
+      let htmlString = String(coreFormat: L("sign_agree_pp_gdpr"), arguments: [ViewModel.privacyPolicyLink()])
       let attributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey.font: UIFont.regular16(),
                                                        NSAttributedStringKey.foregroundColor: UIColor.blackPrimaryText()]
       privacyPolicyTextView.attributedText = NSAttributedString.string(withHtml: htmlString,
@@ -164,7 +164,7 @@ final class AuthorizationViewController: MWMViewController {
   
   @IBOutlet private weak var termsOfUseTextView: UITextView! {
     didSet {
-      let htmlString = L("sign_agree_tof_gdpr")
+      let htmlString = String(coreFormat: L("sign_agree_tof_gdpr"), arguments: [ViewModel.termsOfUseLink()])
       let attributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey.font: UIFont.regular16(),
                                                        NSAttributedStringKey.foregroundColor: UIColor.blackPrimaryText()]
       termsOfUseTextView.attributedText = NSAttributedString.string(withHtml: htmlString,
