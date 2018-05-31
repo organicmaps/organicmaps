@@ -121,8 +121,8 @@ public final class HttpUploader
     }
     finally
     {
-      Utils.closeStream(writer);
-      Utils.closeStream(reader);
+      Utils.closeSafely(writer);
+      Utils.closeSafely(reader);
       if (connection != null)
         connection.disconnect();
     }
@@ -174,7 +174,7 @@ public final class HttpUploader
     }
     finally
     {
-      Utils.closeStream(reader);
+      Utils.closeSafely(reader);
     }
     return null;
   }
@@ -237,7 +237,7 @@ public final class HttpUploader
     int bytesRead;
     while ((bytesRead = inputStream.read(buffer)) != -1)
       outputStream.write(buffer, 0, bytesRead);
-    Utils.closeStream(inputStream);
+    Utils.closeSafely(inputStream);
   }
 
   private void writeEndPart(@NonNull PrintWriter writer)

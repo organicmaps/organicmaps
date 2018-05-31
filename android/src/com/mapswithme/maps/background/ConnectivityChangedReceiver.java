@@ -1,36 +1,23 @@
 package com.mapswithme.maps.background;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+import android.net.ConnectivityManager;
+import android.support.annotation.NonNull;
 
-import com.mapswithme.util.CrashlyticsUtils;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
-
-import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
-import static com.mapswithme.maps.MwmApplication.backgroundTracker;
-
-public class ConnectivityChangedReceiver extends BroadcastReceiver
+public class ConnectivityChangedReceiver extends AbstractLogBroadcastReceiver
 {
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
-  private static final String TAG = ConnectivityChangedReceiver.class.getSimpleName();
 
   @Override
-  public void onReceive(Context context, Intent intent)
+  public void onReceiveInternal(@NonNull Context context, @NonNull Intent intent)
   {
-    String action = intent != null ? intent.getAction() : null;
-    if (!CONNECTIVITY_ACTION.equals(action))
-    {
-      LOGGER.w(TAG, "An intent with wrong action detected: " + action);
-      return;
-    }
-
-    String msg = "onReceive: " + intent + " app in background = "
-                 + !backgroundTracker().isForeground();
-    LOGGER.i(TAG, msg);
-    CrashlyticsUtils.log(Log.INFO, TAG, msg);
     NotificationService.startOnConnectivityChanged(context);
+  }
+
+  @NonNull
+  @Override
+  protected String getAssertAction()
+  {
+    return ConnectivityManager.CONNECTIVITY_ACTION;
   }
 }

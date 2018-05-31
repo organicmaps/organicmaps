@@ -4,15 +4,25 @@ import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-public class SystemDownloadCompletedReceiver extends BroadcastReceiver
+import com.mapswithme.maps.background.AbstractLogBroadcastReceiver;
+
+public class SystemDownloadCompletedReceiver extends AbstractLogBroadcastReceiver
 {
+  @NonNull
   @Override
-  public void onReceive(Context context, Intent intent)
+  protected String getAssertAction()
+  {
+    return DownloadManager.ACTION_DOWNLOAD_COMPLETE;
+  }
+
+  @Override
+  public void onReceiveInternal(@NonNull Context context, @Nullable Intent intent)
   {
     DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-    if (manager == null
-        || intent == null
+    if (manager == null || intent == null
         || !DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(intent.getAction()))
     {
       return;

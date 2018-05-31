@@ -3,6 +3,12 @@ package com.mapswithme.maps.downloader;
 import android.os.AsyncTask;
 import android.util.Base64;
 
+import com.mapswithme.util.Constants;
+import com.mapswithme.util.StringUtils;
+import com.mapswithme.util.Utils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
+
 import java.io.BufferedInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -13,12 +19,6 @@ import java.net.URL;
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-
-import com.mapswithme.util.Constants;
-import com.mapswithme.util.StringUtils;
-import com.mapswithme.util.Utils;
-import com.mapswithme.util.log.Logger;
-import com.mapswithme.util.log.LoggerFactory;
 
 @SuppressWarnings("unused")
 class ChunkTask extends AsyncTask<Void, byte[], Boolean>
@@ -176,7 +176,7 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
         os.write(mPostBody);
         os.flush();
         mPostBody = null;
-        Utils.closeStream(os);
+        Utils.closeSafely(os);
       }
 
       if (isCancelled())
@@ -262,7 +262,7 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
     if (ret < 0)
       mHttpErrorCode = IO_ERROR;
 
-    Utils.closeStream(stream);
+    Utils.closeSafely(stream);
 
     return (ret == 0);
   }

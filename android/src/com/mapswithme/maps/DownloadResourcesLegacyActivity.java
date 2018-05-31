@@ -786,8 +786,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
           LOGGER.w(TAG, "Attachment not found or io error: " + ex, ex);
         } finally
         {
-          Utils.closeStream(input);
-          Utils.closeStream(output);
+          Utils.closeSafely(input);
+          Utils.closeSafely(output);
         }
       }
       else

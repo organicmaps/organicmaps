@@ -64,20 +64,6 @@ public class Utils
 
   private Utils() {}
 
-  public static void closeStream(@Nullable Closeable stream)
-  {
-    if (stream != null)
-    {
-      try
-      {
-        stream.close();
-      } catch (final IOException e)
-      {
-        LOGGER.e(TAG, "Can't close stream", e);
-      }
-    }
-  }
-
   public static boolean isAmazonDevice()
   {
     return "Amazon".equalsIgnoreCase(Build.MANUFACTURER);
@@ -233,27 +219,30 @@ public class Utils
     }
   }
 
-  public static <T> T castTo(Object instance)
+  @NonNull
+  public static <T> T castTo(@NonNull Object instance)
   {
-    return (T)instance;
+    //noinspection unchecked
+    return (T) instance;
   }
 
-  public static void closeSafely(Closeable... closeable)
+  public static void closeSafely(@NonNull Closeable... closeable)
   {
-    for (Closeable each : closeable){
-      if (each != null){
+    for (Closeable each : closeable)
+    {
+      if (each != null)
+      {
         try
         {
           each.close();
         }
         catch (IOException e)
         {
-          LOGGER.e(TAG, "there's something wrong = " + e);
+          LOGGER.e(TAG, "Failed to close '" + each + "'" , e);
         }
       }
     }
   }
-
 
   public static void sendSupportMail(@NonNull Activity activity, @NonNull String subject)
   {

@@ -131,7 +131,7 @@ final class StorageUtils
       LOGGER.w(TAG, "Can't read file: " + file, e);
     } finally
     {
-      Utils.closeStream(reader);
+      Utils.closeSafely(reader);
     }
   }
 
@@ -210,8 +210,8 @@ final class StorageUtils
       }
     } finally
     {
-      Utils.closeStream(inputChannel);
-      Utils.closeStream(outputChannel);
+      Utils.closeSafely(inputChannel);
+      Utils.closeSafely(outputChannel);
     }
   }
 
