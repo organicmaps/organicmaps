@@ -27,7 +27,6 @@ import android.widget.TextView;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
-import com.mapswithme.util.Language;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -212,12 +211,7 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
       }
 
       button.setText(promo.getLabel());
-      button.setOnClickListener(
-          v ->
-          {
-            String locale = Language.nativeNormalize(Language.getDefaultLocale());
-            Utils.openUrl(getContext(), promo.getLink() + locale);
-          });
+      button.setOnClickListener(v -> Utils.openUrl(getContext(), promo.getLink()));
     }
 
     @Override
