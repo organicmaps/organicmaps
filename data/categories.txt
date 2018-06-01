@@ -1444,7 +1444,7 @@ uk:^Комп'ютерний магазин|комп'ютерна техніка|
 vi:^Cửa hàng máy tính
 zh-Hans:^电脑商店|商店
 zh-Hant:^電腦商店|電腦專賣店|購物
-el:^Κατάστημα πληροφορικής|κατάστημα
+el:^Κατάστημα πληροφορικής
 sk:^Obchod s výpočtovou technikou
 fa:فروشگاه کامپیوتر
 
@@ -1860,7 +1860,7 @@ uk:3^Метро|транспорт
 vi:3^Ngầm
 zh-Hans:^地铁|地铁|地铁|地铁|交通
 zh-Hant:1^地鐵|捷運|2地下鐵|運輸
-el:^Υπόγειος|μετρό|υπόγεια|μεταφορές
+el:^Μετρό|υπόγειος|ηλεκτρικός|σιδηρόδρομος|μεταφορές|συγκοινωνίες
 sk:3^Metro|podzemná doprava
 sw:^Reli ya chini
 fa:ایستگاه مترو
@@ -1881,7 +1881,7 @@ da:^Jernbaneoverskæring
 fi:^Tasoristeys
 hu:^Útátjáró
 fa:تقاطع هم سطح با راه اهن
-el:^Ισόπεδη σιδ/μική διάβαση
+el:^Ισόπεδη σιδηροδρομική διάβαση|Πασάγιο
 
 amenity-ferry_terminal|@transport
 en:3^Ferry|terminal|U+1F6A2|U+1F6A4|U+2693
@@ -2076,7 +2076,7 @@ uk:4^Оглядний майданчик|4місце огляду|туризм|�
 vi:^Điểm nhìn
 zh-Hans:1^观点|旅游|景点
 zh-Hant:1^視野|景觀|景點|觀光|3旅遊景點
-el:^Παρατηρητήριο|τουρισμός|αξιοθέατα
+el:^Θέα|ξάγναντο|τουρισμός|αξιοθέατα
 sk:3^Vyhliadka
 sw:^Genge|utalii
 fa:مناظرگردشگری
@@ -3536,7 +3536,7 @@ vi:Bưu điện
 zh-Hant:郵筒
 sk:poštový úrad
 fa:اداره پست
-el:Ταχυδρομείο
+
 
 amenity-waste_disposal
 en:^Dumpster|Trash|bin|garbage|waste disposal|U+1F6AE
@@ -3566,7 +3566,7 @@ uk:^Сміттєвий контейнер|сміття|смітник
 vi:^Xử lý chất thải|Rác
 zh-Hans:^垃圾
 zh-Hant:^垃圾|回收|回收場
-el:^Σιαχείριση απορριμάτων|σκουπίδια
+el:^Διαχείριση απορριμάτων|σκουπίδια
 he:^במכולה|הפשא
 sk:^Odpadky|kôš
 fa:زباله دانی
@@ -4892,7 +4892,7 @@ uk:^Стадіон|4спорт
 vi:^Sân vận động
 zh-Hans:^体育场
 zh-Hant:1^體育中心|2運動場|2體育館|體育|運動
-el:^Γήπεδο|στάδιο|Αθλητισμός
+el:^Γήπεδο|στάδιο|αθλητισμός|σπορ
 sk:^Štadión|4šport
 sw:^Kiwanja cha michezo
 fa:استادیوم
@@ -5313,7 +5313,7 @@ uk:3^СТО|3автомайстерня|автосервіс|ремонт авт
 vi:^Cửa hàng sửa chữa ô tô
 zh-Hans:3^汽车修理店|服务站
 zh-Hant:1^汽車維修|維修|汽車|修理
-el:^Συνεργείο αυτοκινήτων|Σταθμός επισκευής|αυτόματο|γκαράζ
+el:^Συνεργείο αυτοκινήτων|φανοποιείο|γκαράζ
 sk:3^Autoservis|autoopravovňa
 sw:^Fundi wa gari
 fa:تعمیرگاه ماشین
@@ -6327,7 +6327,7 @@ uk:^Магазин шин|магазин|крамниця
 vi:^Cửa hàng Lốp
 zh-Hans:^轮胎店|商店
 zh-Hant:^輪胎店|商店
-el:^Βουλκανιζατέρ|Κατάστημα ελαστικών|κατάστημα
+el:^Βουλκανιζατέρ|κατάστημα ελαστικών|πωλήσεις
 sk:^Obchod s pneumatikami
 fa:فروشگاه لاستیک
 
@@ -6713,7 +6713,7 @@ uk:^Магазин побутової хімії
 vi:^Cửa hàng Hóa chất
 zh-Hans:^药妆店
 zh-Hant:^藥妝店
-el:^Φαρμακείο
+el:^Χημικά προϊόντα|φαρμακείο
 sk:^Drogéria
 sw:^Duka la Kemikali na Dawa za Nyumbani
 fa:فروشگاه مواد شیمیایی
@@ -6812,7 +6812,7 @@ uk:^Туристичний офіс
 vi:^Văn Phòng Du Lịch
 zh-Hans:^旅游服务处
 zh-Hant:^旅遊辦事處
-el:^Ενημέρωση τουριστών
+el:^Ενημέρωση τουριστών|πληροφορίες
 sk:^Turistické informačné centrum
 fa:دفتر گردشگری
 
@@ -7674,7 +7674,7 @@ uk:^Шлагбаум
 vi:^Thanh Chắn
 zh-Hans:^水栅门
 zh-Hant:^遮斷機
-el:^Πόρτα ανελκυστήρα
+el:^Ανυψούμενη μπάρα 
 sk:^Závora
 fa:اسانسور
 
@@ -8280,7 +8280,7 @@ uk:^Апартаменти
 vi:^Căn hộ
 zh-Hans:^公寓
 zh-Hant:^公寓
-el:^Διαμερίσματα για ενοικίαση
+el:^Διαμερίσματα
 sk:^Apartmány
 fa:^اپارتمان|سوئیت
 
@@ -8978,7 +8978,7 @@ ar:^كشك الجرائد
 cs:^Novinový stánek
 da:^Avis-kiosk
 de:^Zeitungsstand
-el:^Εφημεριδοπώλης|πράκτορας εφημερίδων
+el:^Εφημεριδοπώλης|πρακτορείο εφημερίδων
 es:^Puesto de venta de periódicos
 fi:^Lehtikioski
 fr:^Kiosque à journaux
