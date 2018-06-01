@@ -31481,3 +31481,43 @@ fa = دوباره نپرس
   [tracks]
     en:one = %d track
     en:other = %d tracks
+
+  [subtittle_opt_out]
+    en = Tracking settings
+    ru = Настрокий сопровождения
+
+  [opt_out_flurry]
+    en = Statistic
+    ru = Статистика
+
+  [opt_out_mopub]
+    en = Personalised advertising
+    ru = Персонализированная реклама
+
+  [opt_out_fabric]
+    en = Crash report
+    ru = Отчеты об ошибках
+
+  [opt_out_fabric_description]
+    en = MAPS.ME use your data to improve your experience.
+    ru = MAPS.ME использует ваши данные для улучшения приложения.
+
+  [opt_out_pushwoosh]
+    en = Pushwoosh
+
+  [opt_out_appsflyer]
+    en = Appsflyer
+
+  [opt_out_help_ios]
+    en = Your iOS mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\niOS 9 or Higher\n\nGo to your Settings > Select Privacy > Select Advertising > Enable the “Limit Ad Tracking” setting
+
+  [opt_out_help_android]
+    en = Your Android mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android devices with OS 2.2 and up and Google Play Services version 4.0 and up:\nOpen your Google Settings app > Ads > Enable “Opt out of interest-based advertising”
+
+  [privacy_policy]
+    en = Privacy policy
+    ru = Политика конфиденциальности
+
+  [terms_of_use]
+    en = Terms of use
+    ru = Условия использования
