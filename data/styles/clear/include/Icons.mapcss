@@ -304,8 +304,20 @@ area[amenity=biergarten]
 {z-index: 2782;}
 
 node[sponsored=partner2],
-area[sponsored=partner2]
-{z-index: 2790;}
+area[sponsored=partner2],
+node[sponsored=partner4],
+area[sponsored=partner4],
+node[sponsored=partner6],
+area[sponsored=partner6],
+node[sponsored=partner7],
+area[sponsored=partner7],
+node[sponsored=partner8],
+area[sponsored=partner8],
+node[sponsored=partner9],
+area[sponsored=partner9],
+node[sponsored=partner10],
+area[sponsored=partner10]
+{z-index: 2792;}
 
 node[railway=halt],
 node[railway=station],
@@ -2616,7 +2628,7 @@ area|z14-[sponsored=partner2]
 
 node|z18-[sponsored=partner2],
 area|z18-[sponsored=partner2]
-{font-size: 11;}
+{icon-image: partner2-l.svg;font-size: 11;}
 
 /* Adidas */
 
@@ -2626,7 +2638,7 @@ area|z15-[sponsored=partner4]
 
 node|z18-[sponsored=partner4],
 area|z18-[sponsored=partner4]
-{font-size: 11;}
+{icon-image: partner4-l.svg;font-size: 11;}
 
 node|z15-[sponsored=partner6],
 area|z15-[sponsored=partner6]
@@ -2634,7 +2646,7 @@ area|z15-[sponsored=partner6]
 
 node|z18-[sponsored=partner6],
 area|z18-[sponsored=partner6]
-{font-size: 11;}
+{icon-image: partner6-l.svg;font-size: 11;}
 
 node|z15-[sponsored=partner7],
 area|z15-[sponsored=partner7]
@@ -2642,7 +2654,7 @@ area|z15-[sponsored=partner7]
 
 node|z18-[sponsored=partner7],
 area|z18-[sponsored=partner7]
-{font-size: 11;}
+{icon-image: partner7-l.svg;font-size: 11;}
 
 /* Rosinter */
 
@@ -2652,7 +2664,7 @@ area|z15-[sponsored=partner8]
 
 node|z18-[sponsored=partner8],
 area|z18-[sponsored=partner8]
-{font-size: 11;}
+{icon-image: partner8-l.svg;font-size: 11;}
 
 node|z15-[sponsored=partner9],
 area|z15-[sponsored=partner9]
@@ -2660,7 +2672,7 @@ area|z15-[sponsored=partner9]
 
 node|z18-[sponsored=partner9],
 area|z18-[sponsored=partner9]
-{font-size: 11;}
+{icon-image: partner9-l.svg;font-size: 11;}
 
 /* Sportmaster */
 
@@ -2670,7 +2682,7 @@ area|z15-[sponsored=partner10]
 
 node|z18-[sponsored=partner10],
 area|z18-[sponsored=partner10]
-{font-size: 11;}
+{icon-image: partner10-l.svg;font-size: 11;}
 
 /* Fifa */
 
@@ -2706,15 +2718,15 @@ area|z15-[event=fc2018][shop=gift]
 
 /* Subway Station */
 
-node|z13[event=fc2018][railway=station][transport=subway]
+node|z13[event=fc2018][railway=station]
 {icon-image: wfc_subway-s.svg;}
-node|z14[event=fc2018][railway=station][transport=subway]
+node|z14[event=fc2018][railway=station]
 {icon-image: wfc_subway-s.svg;}
-node|z15[event=fc2018][railway=station][transport=subway]
+node|z15[event=fc2018][railway=station]
 {icon-image: wfc_subway-m.svg;}
-node|z16[event=fc2018][railway=station][transport=subway]
+node|z16[event=fc2018][railway=station]
 {icon-image: wfc_subway-m.svg;}
-node|z17-[event=fc2018][railway=station][transport=subway]
+node|z17-[event=fc2018][railway=station]
 {icon-image: wfc_subway-m.svg;}
 
 node|z17-[event=fc2018][railway=subway_entrance]
@@ -2733,6 +2745,23 @@ area|z17[event=fc2018][railway=tram_stop]
 node|z18-[event=fc2018][railway=tram_stop],
 area|z18-[event=fc2018][railway=tram_stop]
 {icon-image: wfc_tram-m.svg;}
+
+/* Train Station */
+
+node|z11[event=fc2018][railway=halt]
+{icon-image: wfc_train-s.svg;icon-min-distance: 10;}
+node|z12[event=fc2018][railway=halt]
+{icon-image: wfc_train-s.svg;text-offset: 1;font-size: 9;}
+node|z13[event=fc2018][railway=halt]
+{icon-image: wfc_train-s.svg;text-offset: 1;font-size: 10;}
+node|z14[event=fc2018][railway=halt]
+{icon-image: wfc_train-s.svg;text-offset: 1;font-size: 11;text-halo-opacity: 0.7;}
+node|z15[event=fc2018][railway=halt]
+{icon-image: wfc_train-m.svg;text-offset: 1;font-size: 12;text-halo-opacity: 0.8;}
+node|z16[event=fc2018][railway=halt]
+{icon-image: wfc_train-m.svg;text-offset: 1;font-size: 13;text-halo-opacity: 0.8;}
+node|z17-[event=fc2018][railway=halt]
+{icon-image: wfc_train-m.svg;text-offset: 1;font-size: 13;text-halo-opacity: 0.9;}
 
 /* Bus Station */
 
