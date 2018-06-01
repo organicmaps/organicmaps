@@ -6,10 +6,9 @@ import android.webkit.WebView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
-import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.util.Utils;
 
-public class BaseWebViewMwmFragment extends BaseMwmFragment implements OnBackPressListener
+public class BaseWebViewMwmFragment extends BaseMwmFragment
 {
   @Override
   public boolean onBackPressed()
@@ -19,9 +18,8 @@ public class BaseWebViewMwmFragment extends BaseMwmFragment implements OnBackPre
     boolean goBackAllowed = (root = getView()) != null
                 && (webView = Utils.castTo(root.findViewById(getWebViewResId()))) != null
                 && webView.canGoBack();
-    if (goBackAllowed){
+    if (goBackAllowed)
       webView.goBack();
-    }
     return goBackAllowed;
   }
 

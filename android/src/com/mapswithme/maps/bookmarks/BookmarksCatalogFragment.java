@@ -1,5 +1,6 @@
 package com.mapswithme.maps.bookmarks;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +19,8 @@ import java.io.IOException;
 public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
 {
   public static final String EXTRA_BOOKMARKS_CATALOG_URL = "bookmarks_catalog_url";
+
+  @SuppressWarnings("NullableProblems")
   @NonNull
   private String mCatalogUrl;
 
@@ -25,19 +28,12 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    Bundle args = getArguments();
-    if ((args == null || (mCatalogUrl = args.getString(EXTRA_BOOKMARKS_CATALOG_URL)) == null)
-        && (mCatalogUrl = getActivity().getIntent()
-                                       .getStringExtra(EXTRA_BOOKMARKS_CATALOG_URL)) == null)
-    {
-      throw new IllegalArgumentException("Catalog url not found in bundle");
-    }
+    mCatalogUrl = getCatalogUrlOrThrow();
   }
 
   @Nullable
   @Override
-  public View onCreateView(LayoutInflater inflater,
-                           @Nullable ViewGroup container,
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.bookmarks_catalog_frag, container, false);
@@ -47,11 +43,28 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     return root;
   }
 
-  private void initWebView(WebView webView)
+  @SuppressLint("SetJavaScriptEnabled")
+  private void initWebView(@NonNull WebView webView)
   {
     webView.setWebViewClient(new WebViewBookmarksCatalogClient());
     final WebSettings webSettings = webView.getSettings();
     webSettings.setJavaScriptEnabled(true);
+  }
+
+  @NonNull
+  public String getCatalogUrlOrThrow()
+  {
+    Bundle args = getArguments();
+    String result = args != null ? args.getString(EXTRA_BOOKMARKS_CATALOG_URL) : null;
+
+    if (result == null)
+    {
+      result = getActivity().getIntent().getStringExtra(EXTRA_BOOKMARKS_CATALOG_URL);
+    }
+
+    if (result == null)
+      throw new IllegalArgumentException("Catalog url not found in bundle");
+    return result;
   }
 
   private static class WebViewBookmarksCatalogClient extends WebViewClient

@@ -225,12 +225,12 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
   @Override
   public void onBackPressed()
   {
-    FragmentManager manager = getSupportFragmentManager();
     if (getFragmentClass() == null)
     {
       super.onBackPressed();
       return;
     }
+    FragmentManager manager = getSupportFragmentManager();
     String name = getFragmentClass().getName();
     Fragment fragment = manager.findFragmentByTag(name);
 
@@ -240,15 +240,14 @@ public abstract class BaseMwmFragmentActivity extends AppCompatActivity
       return;
     }
 
-    boolean processed = onBackPressedInternal(fragment);
-    if (processed)
+    if (onBackPressedInternal(fragment))
     {
       return;
     }
     super.onBackPressed();
   }
 
-  protected boolean onBackPressedInternal(@NonNull @SuppressWarnings("unused") Fragment currentFragment)
+  protected boolean onBackPressedInternal(@NonNull Fragment currentFragment)
   {
     return false;
   }

@@ -7,7 +7,6 @@ import com.mapswithme.util.Utils;
 
 public class BaseMwmFragment extends Fragment implements OnBackPressListener
 {
-
   @Override
   public void onAttach(Context context)
   {
