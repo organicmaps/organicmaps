@@ -153,6 +153,9 @@ public enum Statistics
     public static final String DOWNLOADER_DIALOG_LATER = "Downloader_OnStartScreen_select_later";
     public static final String DOWNLOADER_DIALOG_HIDE = "Downloader_OnStartScreen_select_hide";
     public static final String DOWNLOADER_DIALOG_CANCEL = "Downloader_OnStartScreen_cancel_download";
+
+    public static final String SETTINGS_TRACKING_DETAILS = "Settings_Tracking_details";
+    public static final String SETTINGS_TRACKING_TOGGLE = "Settings_Tracking_toggle";
     static final String DOWNLOADER_DIALOG_ERROR = "Downloader_OnStartScreen_error";
 
     // bookmarks
@@ -398,6 +401,10 @@ public enum Statistics
   {
     public static final String BOOKING_COM = "Booking.Com";
     public static final String OSM = "OSM";
+    public static final String ON = "on";
+    public static final String OFF = "off";
+    public static final String CRASH_REPORTS = "crash_reports";
+    public static final String PERSONAL_ADS = "personal_ads";
     static final String SEARCH_BOOKING_COM = "Search.Booking.Com";
     static final String OPENTABLE = "OpenTable";
     static final String VIATOR = "Viator.Com";
@@ -781,10 +788,10 @@ public enum Statistics
         charging = "unknown";
         break;
       case CHARGING_STATUS_PLUGGED:
-        charging = "on";
+        charging = ParamValue.ON;
         break;
       case CHARGING_STATUS_UNPLUGGED:
-        charging = "off";
+        charging = ParamValue.OFF;
         break;
       default:
         charging = "unknown";
@@ -877,6 +884,21 @@ public enum Statistics
   {
     trackEvent(eventName, Statistics.params().add(PROVIDER, provider).get());
     MyTracker.trackEvent(eventName + "_" + provider);
+  }
+
+  public void trackSettingsToggle(boolean value)
+  {
+    trackEvent(EventName.SETTINGS_TRACKING_TOGGLE, Statistics.params()
+                                                             .add(TYPE, ParamValue.CRASH_REPORTS)
+                                                             .add(VALUE, value
+                                                                        ? ParamValue.ON
+                                                                        : ParamValue.OFF).get());
+  }
+
+  public void trackSettingsDetails()
+  {
+    trackEvent(EventName.SETTINGS_TRACKING_DETAILS,
+               Statistics.params().add(TYPE, ParamValue.PERSONAL_ADS).get());
   }
 
   @NonNull

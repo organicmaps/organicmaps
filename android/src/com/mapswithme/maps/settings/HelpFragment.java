@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.WebContainerDelegate;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.AlohaHelper;
@@ -20,7 +19,6 @@ import com.mapswithme.util.statistics.Statistics;
 
 public class HelpFragment extends BaseSettingsFragment
 {
-  private WebContainerDelegate mDelegate;
 
   @Override
   protected int getLayoutRes()
@@ -33,16 +31,7 @@ public class HelpFragment extends BaseSettingsFragment
   {
     View root = super.onCreateView(inflater, container, savedInstanceState);
 
-    mDelegate = new WebContainerDelegate(root, Constants.Url.FAQ)
-    {
-      @Override
-      protected void doStartActivity(Intent intent)
-      {
-        startActivity(intent);
-      }
-    };
-
-    TextView feedback = (TextView)root.findViewById(R.id.feedback);
+    TextView feedback = root.findViewById(R.id.feedback);
     feedback.setOnClickListener(new View.OnClickListener()
     {
       @Override

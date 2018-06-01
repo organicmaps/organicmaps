@@ -305,7 +305,22 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initLoggingEnabledPrefsCallbacks();
     initEmulationBadStorage();
     initUseMobileDataPrefsCallbacks();
+    initOptOut();
     updateTts();
+  }
+
+  private void initOptOut()
+  {
+    String key = getString(R.string.pref_opt_out_fabric_activated);
+    Preference pref = findPreference(key);
+    pref.setOnPreferenceChangeListener((preference, newValue) -> onToggleOptOut(newValue));
+  }
+
+  private boolean onToggleOptOut(Object newValue)
+  {
+    boolean isEnabled = (boolean) newValue;
+    Statistics.INSTANCE.trackSettingsToggle(isEnabled);
+    return true;
   }
 
   @Override

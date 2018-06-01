@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.MailTo;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -54,9 +55,9 @@ public abstract class WebContainerDelegate implements OnBackPressListener
     mWebView.loadUrl(url);
   }
 
-  public WebContainerDelegate(View frame, String url)
+  public WebContainerDelegate(@NonNull View frame, @NonNull String url)
   {
-    mWebView = (WebView) frame.findViewById(R.id.webview);
+    mWebView = frame.findViewById(R.id.webview);
     mProgress = frame.findViewById(R.id.progress);
     initWebView(url);
   }

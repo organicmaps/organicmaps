@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,9 +26,9 @@ import com.mapswithme.util.statistics.Statistics;
 public class AboutFragment extends BaseSettingsFragment
                         implements View.OnClickListener
 {
-  private void setupItem(@IdRes int id, boolean tint, View frame)
+  private void setupItem(@IdRes int id, boolean tint, @NonNull View frame)
   {
-    TextView view = (TextView) frame.findViewById(id);
+    TextView view = frame.findViewById(id);
     view.setOnClickListener(this);
     if (tint)
       Graphics.tint(view);
@@ -66,22 +67,19 @@ public class AboutFragment extends BaseSettingsFragment
     return root;
   }
 
-  private void openLink(String link)
+  private void openLink(@NonNull String link)
   {
-    Uri data = Uri.parse(link);
-    Intent intent = new Intent(Intent.ACTION_VIEW).setData(data)
-                                                  .addCategory(Intent.CATEGORY_BROWSABLE);
-    startActivity(intent);
+    Utils.openUrl(getActivity(), link);
   }
 
   private void onPrivacyPolicyClick()
   {
-    openLink(getString(R.string.privacy_policy_link));
+    openLink(Framework.nativeGetPrivacyPolicyLink());
   }
 
   private void onTermOfUseClick()
   {
-    openLink(getString(R.string.term_of_use_link));
+    openLink(Framework.nativeGetTermsOfUseLink());
   }
 
   @Override
