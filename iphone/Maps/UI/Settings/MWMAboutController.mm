@@ -77,7 +77,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   {
     [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatRate}];
     [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"rate"];
-    [UIApplication.sharedApplication rateVersionFrom:@"rate_menu_item"];
+    [UIApplication.sharedApplication rateApp];
   }
   else if (cell == self.copyrightCell)
   {

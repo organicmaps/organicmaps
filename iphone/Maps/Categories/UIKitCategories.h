@@ -66,7 +66,7 @@ static inline CGFloat LengthCGPoint(CGPoint point)
 
 @interface UIApplication (URLs)
 
-- (void)rateVersionFrom:(NSString *)launchPlaceName;
+- (void)rateApp;
 
 @end
 

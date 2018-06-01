@@ -116,7 +116,7 @@ static NSString * const kStatisticsEvent = @"Rate Alert";
         }];
   if (tag == 5)
   {
-    [UIApplication.sharedApplication rateVersionFrom:@"ios_pro_popup"];
+    [UIApplication.sharedApplication rateApp];
     [Alohalytics logEvent:kRateAlertEventName withValue:@"fiveStar"];
     [self close:^{
       auto ud = NSUserDefaults.standardUserDefaults;

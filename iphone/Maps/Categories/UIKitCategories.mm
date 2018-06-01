@@ -102,12 +102,9 @@
 
 @implementation UIApplication (URLs)
 
-- (void)rateVersionFrom:(NSString *)launchPlaceName
+- (void)rateApp
 {
-  NSString * urlString =
-      @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/"
-      @"viewContentsUserReviews?id=510623322&onlyLatestVersion=true&pageNumber=0&"
-      @"sortOrdering=1&type=Purple+Software";
+  NSString * urlString = @"https://itunes.apple.com/app/id510623322?action=write-review";
   NSURL * url = [NSURL URLWithString:urlString];
   [self openURL:url];
 }
