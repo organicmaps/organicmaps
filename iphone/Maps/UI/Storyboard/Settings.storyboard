@@ -1496,10 +1496,83 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="riF-80-ZWx">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="DXH-GS-aHR" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="327" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DXH-GS-aHR" id="hrz-tO-Flm">
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ads" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ane-Bd-4ya">
+                                                    <rect key="frame" x="16" y="14" width="307" height="15.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="opt_out_mopub"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Ane-Bd-4ya" firstAttribute="leading" secondItem="hrz-tO-Flm" secondAttribute="leading" constant="16" id="SU8-H0-9YS"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Ane-Bd-4ya" secondAttribute="bottom" constant="3.5" id="Y33-FE-uGt"/>
+                                                <constraint firstItem="Ane-Bd-4ya" firstAttribute="top" secondItem="hrz-tO-Flm" secondAttribute="topMargin" constant="3" id="bNB-dk-bye"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Ane-Bd-4ya" secondAttribute="trailing" constant="10" id="lNF-2N-TRD"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <segue destination="Vr8-QW-WhO" kind="show" id="U88-n3-d6K"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SettingsTableViewSwitchCell" id="6Fq-aj-irU" customClass="SettingsTableViewSwitchCell" customModule="maps_me" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="371" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Fq-aj-irU" id="nFM-EC-CZC">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send crash data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="vc4-e7-aiM">
+                                                    <rect key="frame" x="16" y="14" width="278" height="15.5"/>
+                                                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="0.0" maxX="-25" maxY="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8gZ-CB-BtW">
+                                                    <rect key="frame" x="302" y="6" width="51" height="31"/>
+                                                    <inset key="insetFor6xAndEarlier" minX="3" minY="-2" maxX="-3" maxY="2"/>
+                                                    <color key="onTintColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="8gZ-CB-BtW" firstAttribute="leading" secondItem="vc4-e7-aiM" secondAttribute="trailing" constant="8" id="FgO-m5-Zx3"/>
+                                                <constraint firstItem="vc4-e7-aiM" firstAttribute="top" secondItem="nFM-EC-CZC" secondAttribute="topMargin" constant="3" id="Lus-wb-DWd"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="vc4-e7-aiM" secondAttribute="bottom" constant="3.5" id="dLc-dl-3Ha"/>
+                                                <constraint firstItem="8gZ-CB-BtW" firstAttribute="centerY" secondItem="nFM-EC-CZC" secondAttribute="centerY" id="rWh-dF-W9A"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="8gZ-CB-BtW" secondAttribute="trailing" constant="8" id="usD-mM-g25"/>
+                                                <constraint firstItem="vc4-e7-aiM" firstAttribute="leading" secondItem="nFM-EC-CZC" secondAttribute="leading" constant="16" id="vyV-hm-lli"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="switchButton" destination="8gZ-CB-BtW" id="3c2-jk-RgL"/>
+                                            <outlet property="title" destination="vc4-e7-aiM" id="aEp-0l-GXy"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection id="Vce-Ld-skc">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="VXa-CM-OXP" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="327" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="451" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VXa-CM-OXP" id="Vot-vJ-3MU">
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
@@ -1535,7 +1608,9 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="adsCell" destination="DXH-GS-aHR" id="mDN-xH-33S"/>
                         <outlet property="copyrightCell" destination="VXa-CM-OXP" id="FpT-Rr-yha"/>
+                        <outlet property="crashlyticsCell" destination="6Fq-aj-irU" id="kYL-C6-PGc"/>
                         <outlet property="facebookCell" destination="AwY-rw-AMm" id="NUh-p9-2t4"/>
                         <outlet property="osmCell" destination="8n2-Bc-3lW" id="igH-Nf-uX5"/>
                         <outlet property="rateCell" destination="jhU-Ha-kE2" id="qi9-Y9-9BP"/>
@@ -1546,6 +1621,70 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X5h-rk-z46" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1881" y="-3103"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="JNg-xq-OFN">
+            <objects>
+                <viewController id="Vr8-QW-WhO" customClass="MWMViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cGc-6R-wWa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your iOS mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTV-6u-1B0">
+                                <rect key="frame" x="20" y="40" width="335" height="61"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="opt_out_help_ios_1"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iOS 9 or Higher" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YRz-ke-XdF">
+                                <rect key="frame" x="20" y="121" width="335" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="opt_out_help_ios_2"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Go to your Settings → Select Privacy → Select Advertising → Enable the “Limit Ad Tracking” setting" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OMh-3m-tmj">
+                                <rect key="frame" x="20" y="141.5" width="335" height="61"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular14"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackSecondaryText"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="opt_out_help_ios_3"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="OMh-3m-tmj" firstAttribute="leading" secondItem="YRz-ke-XdF" secondAttribute="leading" id="1uo-YJ-cfK"/>
+                            <constraint firstItem="YRz-ke-XdF" firstAttribute="leading" secondItem="FTV-6u-1B0" secondAttribute="leading" id="FQG-1X-NBJ"/>
+                            <constraint firstItem="YRz-ke-XdF" firstAttribute="trailing" secondItem="FTV-6u-1B0" secondAttribute="trailing" id="N2Q-GO-CTO"/>
+                            <constraint firstItem="OMh-3m-tmj" firstAttribute="top" secondItem="YRz-ke-XdF" secondAttribute="bottom" id="Nnf-Y8-W8G"/>
+                            <constraint firstItem="OMh-3m-tmj" firstAttribute="trailing" secondItem="YRz-ke-XdF" secondAttribute="trailing" id="OX9-3z-jPG"/>
+                            <constraint firstItem="FTV-6u-1B0" firstAttribute="leading" secondItem="Olo-Bm-ZYz" secondAttribute="leading" constant="20" id="QEQ-8n-xQw"/>
+                            <constraint firstItem="YRz-ke-XdF" firstAttribute="top" secondItem="FTV-6u-1B0" secondAttribute="bottom" constant="20" id="Wkv-Nb-J8z"/>
+                            <constraint firstItem="FTV-6u-1B0" firstAttribute="top" secondItem="Olo-Bm-ZYz" secondAttribute="top" constant="20" id="YHC-4q-RUb"/>
+                            <constraint firstItem="Olo-Bm-ZYz" firstAttribute="trailing" secondItem="FTV-6u-1B0" secondAttribute="trailing" constant="20" id="bIm-Sb-N7W"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Olo-Bm-ZYz"/>
+                    </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="localizedTitle" value="opt_out_mopub"/>
+                    </userDefinedRuntimeAttributes>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZAm-mj-EC2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2577" y="-3104"/>
         </scene>
         <!--AuthorizationLoginViewController-->
         <scene sceneID="Uoe-yB-Kdk">

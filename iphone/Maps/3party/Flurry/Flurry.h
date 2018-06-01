@@ -80,6 +80,8 @@ typedef enum {
  *  @see Flurry#startSession for details on session.
  *
  *  @param info A dictionary of session information: sessionID, apiKey
+ *  @note By default the callback is received on the global_queue with default priority. Optionally users can choose to receive on a specific queue by using
+ * + (void)setDelegate:(nonnull id<FlurryDelegate>)delegate withCallbackQueue:(dispatch_queue_t)flurryCallbackQueue;
  */
 - (void)flurrySessionDidCreateWithInfo:(NSDictionary*)info;
 
@@ -450,9 +452,25 @@ typedef enum {
  *
  
  */
-+ (void)setDelegate:(id<FlurryDelegate>)delegate;
++ (void)setDelegate:(nonnull id<FlurryDelegate>)delegate;
 
-
+/*!
+ *  @brief Set Flurry delegate for callback on session creation with a callback queue.
+ *  @since 8.4.4
+ *
+ * @code
+ *  - (BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+ {
+ // Optional Flurry startup methods
+ // If self implements protocol, FlurryDelegate
+ [Flurry setDelegate:self withCallbackQueue:queue];
+ // ....
+ }
+ * @endcode
+ *
+ 
+ */
++ (void)setDelegate:(nonnull id<FlurryDelegate>)delegate withCallbackQueue:(nonnull dispatch_queue_t)flurryCallbackQueue;
 #if !TARGET_OS_TV
 /*!
  *  @brief Pauses a Flurry session left running in background.
@@ -689,7 +707,7 @@ typedef enum {
 /*!
  *  @brief Records an app exception. Commonly used to catch unhandled exceptions.
  *  @since 2.7
- * 
+ *
  *  This method captures an exception for reporting to Flurry. We recommend adding an uncaught
  *  exception listener to capture any exceptions that occur during usage that is not
  *  anticipated by your app.
@@ -719,8 +737,7 @@ typedef enum {
 /*!
  *  @brief Records an app error.
  *  @since 2.7
- * 
- *  This method captures an error for reporting to Flurry.
+ *
  * 
  *  @see #logError:message:exception: for details on capturing exceptions.
  *
@@ -736,6 +753,78 @@ typedef enum {
  *  @param error The error object to report.
  */
 + (void)logError:(NSString *)errorID message:(NSString *)message error:(NSError *)error;
+
+/*!
+ *  @brief Records an app exception. Commonly used to catch unhandled exceptions.
+ *  @since 8.4.0
+ *
+ *  This method captures an exception for reporting to Flurry. We recommend adding an uncaught
+ *  exception listener to capture any exceptions that occur during usage that is not
+ *  anticipated by your app.
+ *
+ *  @see #logError:message:error:withParameters: for details on capturing errors.
+ *
+ *  @code
+ *  - (void) uncaughtExceptionHandler(NSException *exception)
+ {
+ NSDictionary* crashParameters =  [NSDictionary dictionaryWithObjectsAndKeys:@"AppVersion", @"3.2", nil];
+ [Flurry logError:@"Uncaught" message:@"Crash!" exception:exception withParameters:crashParameters];
+ }
+ 
+ - (void)applicationDidFinishLaunching:(UIApplication *)application
+ {
+ NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+ [Flurry startSession:@"YOUR_API_KEY"];
+ // ....
+ }
+ *  @endcode
+ *
+ *  @param errorID Name of the error.
+ *  @param message The message to associate with the error.
+ *  @param exception The exception object to report.
+ *  @param parameters Custom parameters associated with the exception
+ */
++ (void)logError:(NSString *)errorID message:(NSString *)message exception:(NSException *)exception withParameters:(NSDictionary*)parameters;
+
+/*!
+ *  @brief Records an app error.
+ *  @since 8.4.0
+ *  This method captures an error for reporting to Flurry.
+ *
+ *  @see #logError:message:exception:withParameters: for details on capturing exceptions.
+ *
+ *  @code
+ *  - (void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+ {
+ [Flurry logError:@"WebView No Load" message:[error localizedDescription] error:error];
+ }
+ *  @endcode
+ *
+ *  @param errorID Name of the error.
+ *  @param message The message to associate with the error.
+ *  @param error The error object to report.
+ *  @param parameters Custom parameters associated with the error
+ */
++ (void)logError:(NSString *)errorID message:(NSString *)message error:(NSError *)error withParameters:(NSDictionary*)parameters;
+
+/*!
+ *  @brief Leave a breadcrumb.
+ *  @since 8.4.0
+ *  This method captures breadcrumbs of 250 characters. The last 207 recorded
+ *  breadcrumbs are included in crash and error logs.
+ *  Breadcrumbs are reset at every application launch.
+ *
+ *  @code
+ *  - (void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+ {
+ [Flurry leaveBreadcrumb:@"WebView not loading"];
+ }
+ *  @endcode
+ *
+ *  @param breadcrumb string.
+ *
+ */
++ (void)leaveBreadcrumb:(NSString*)breadcrumb;
 
 /*!
  *  @brief Records a timed event specified by @c eventName.
@@ -1045,11 +1134,8 @@ typedef enum {
  *  @param verticalAccuracy The accuracy of the altitude value in meters.
  *
  */
-+ (void)setLatitude:(double)latitude
-             longitude:(double)longitude
-    horizontalAccuracy:(float)horizontalAccuracy
-      verticalAccuracy:(float)verticalAccuracy __attribute__((deprecated));
-;
++ (void)setLatitude:(double)latitude longitude:(double)longitude horizontalAccuracy:(float)horizontalAccuracy verticalAccuracy:(float)verticalAccuracy __attribute__ ((deprecated));;
+
 
 //@}
 
@@ -1065,8 +1151,7 @@ typedef enum {
  *  prompt users for location permission, we fetch the available location in device daemon.
  *
  *  @note Only the last location in cache is captured per session. \n
- *  Regardless of accuracy specified, the Flurry SDK will only report location at city level or
- higher. \n
+ *  Regardless of accuracy specified, the Flurry SDK will only report location at city level or higher. \n
  *  Location is aggregated across all users of your app and not available on a per user basis. \n
  *  This information should only be captured if it is germaine to the use of your app.
  *
@@ -1125,24 +1210,26 @@ typedef enum {
  *  @brief Set session to support background execution.
  *  @since 4.2.2
  *
- *  Use this method to enable reporting of errors and events when application is 
+ *  @deprecated since 8.4.0.
+ *
+ *  Use this method to enable reporting of errors and events when application is
  *  running in backgorund (such applications have  UIBackgroundModes in Info.plist).
- *  You should call #pauseBackgroundSession when appropriate in background mode to 
+ *  You should call #pauseBackgroundSession when appropriate in background mode to
  *  pause the session (for example when played song completed in background)
  *
  *  Default value is @c NO
  *
  *  @see #pauseBackgroundSession for details
  *
- *  @param setBackgroundSessionEnabled YES to enbale background support and 
+ *  @param setBackgroundSessionEnabled YES to enbale background support and
  *  continue log events and errors for running session.
  */
-+ (void)setBackgroundSessionEnabled:(BOOL)setBackgroundSessionEnabled;
++ (void)setBackgroundSessionEnabled:(BOOL)setBackgroundSessionEnabled __attribute__ ((deprecated));
 
 /*!
  *  @brief Enable custom event logging.
  *  @since 2.7
- *
+ * 
  *  @deprecated since 7.9.0.
  *  This method will be removed in a future version of the SDK.
  *
@@ -1151,19 +1238,20 @@ typedef enum {
  *  @param value YES to enable event logging, NO to stop custom logging.
  *
  */
-+ (void)setEventLoggingEnabled:(BOOL)value __attribute__((deprecated));
++ (void)setEventLoggingEnabled:(BOOL)value __attribute__ ((deprecated));
 
 #if !TARGET_OS_TV
 /*!
  *  @brief Enables Flurry Pulse
  *  @since 6.3.0
  *
+ *  @deprecated since 8.5.0.
  *  @note: Please see https://developer.yahoo.com/flurry-pulse/ for more details
  *
  *  @param value YES to enable event logging, NO to stop custom logging.
  *
  */
-+ (void)setPulseEnabled:(BOOL)value;
++ (void)setPulseEnabled:(BOOL)value __attribute__ ((deprecated));
 #endif
 
 
@@ -1199,8 +1287,7 @@ typedef enum {
  *  @note: Needs a 'required' dependency on StoreKit for this API to function correctly.
  *
  *  @param transaction an SKPaymentTransaction.
- *  @param statusCallback a callback gettign called when the status of  ID that is associated with
- * the event
+ *  @param statusCallback a callback gettign called when the status of  ID that is associated with the event
  *
  */
 + (void) logPaymentTransaction:(SKPaymentTransaction*)transaction statusCallback:(void(^)(FlurryTransactionRecordStatus))statusCallback;
@@ -1217,8 +1304,9 @@ typedef enum {
  *  @param value YES to enable transaction logging, NO to stop transaction logging.
  *
  */
-+ (void)setIAPReportingEnabled:(BOOL)value;
++ (void) setIAPReportingEnabled:(BOOL)value;
 #endif
+
 
 #if TARGET_OS_TV
 /*!
@@ -1259,4 +1347,15 @@ typedef enum {
 + (void)registerJSContextWithContext:(JSContext*)jscontext;
 #endif
 
+/*!
+ *  @brief Open privacy dashboard in Safari Browser async with a completion handler callback
+ *  @since 8.5.0
+ *
+ *  This method is used to open a web page of privacy dashboard in external browser for user to access and edit their data under the scope of GDPR, in the callback, you are able to check whether privacy dashboard is successfully opened, and apply fallback logics.
+ *  @note: Call this method after invoking #startSession:
+ *
+ *  @param completionHandler a callback getting called when SDK finishes the attempt to openURL the privacy dashboard, the success boolean provided for checks and fallbacks.
+ *
+ */
++ (void)openPrivacyDashboard:(void(^)(BOOL success))completionHandler;
 @end

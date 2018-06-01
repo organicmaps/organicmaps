@@ -71,7 +71,7 @@ void InitLocalizedStrings()
 void InitCrashTrackers()
 {
 #ifdef OMIM_PRODUCTION
-  if (![MWMSettings statisticsEnabled])
+  if ([MWMSettings crashReportingDisabled])
     return;
 
   NSString * fabricKey = @(CRASHLYTICS_IOS_KEY);

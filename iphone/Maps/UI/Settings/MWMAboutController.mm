@@ -9,7 +9,7 @@
 
 extern NSString * const kAlohalyticsTapEventKey;
 
-@interface MWMAboutController ()
+@interface MWMAboutController () <SettingsTableViewSwitchCellDelegate>
 
 @property(weak, nonatomic) IBOutlet UILabel * versionLabel;
 @property(weak, nonatomic) IBOutlet UILabel * dateLabel;
@@ -20,6 +20,8 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * osmCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * rateCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * copyrightCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * adsCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * crashlyticsCell;
 
 @property(nonatomic) IBOutlet UIView * headerView;
 
@@ -43,6 +45,8 @@ extern NSString * const kAlohalyticsTapEventKey;
 
   auto const dataVersion = GetFramework().GetCurrentDataVersion();
   self.dateLabel.text = [NSString stringWithFormat:L(@"date"), dataVersion];
+
+  [self.crashlyticsCell configWithDelegate:self title:L(@"opt_out_fabric") isOn:![MWMSettings crashReportingDisabled]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -87,6 +91,25 @@ extern NSString * const kAlohalyticsTapEventKey;
     aboutViewController.openInSafari = YES;
     [self.navigationController pushViewController:aboutViewController animated:YES];
   }
+}
+
+#pragma mark - Table view data source
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+  return section == 2 ? L(@"subtittle_opt_out") : nil;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+  return section == 2 ? L(@"opt_out_fabric_description") : nil;
+}
+
+#pragma mark - SettingsTableViewSwitchCellDelegate
+
+- (void)switchCell:(SettingsTableViewSwitchCell *)cell didChangeValue:(BOOL)value
+{
+  [MWMSettings setCrashReportingDisabled:!value];
 }
 
 @end

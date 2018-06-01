@@ -39,4 +39,7 @@
 + (BOOL)isTrackWarningAlertShown;
 + (void)setTrackWarningAlertShown:(BOOL)shown;
 
++ (BOOL)crashReportingDisabled;
++ (void)setCrashReportingDisabled:(BOOL)disabled;
+
 @end
