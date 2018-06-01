@@ -29,6 +29,20 @@ final class PlacePageButtons
   {{
     put(PartnerItem.PARTNER1.getIndex(), PartnerItem.PARTNER1);
     put(PartnerItem.PARTNER3.getIndex(), PartnerItem.PARTNER3);
+    put(PartnerItem.PARTNER4.getIndex(), PartnerItem.PARTNER4);
+    put(PartnerItem.PARTNER5.getIndex(), PartnerItem.PARTNER5);
+    put(PartnerItem.PARTNER6.getIndex(), PartnerItem.PARTNER6);
+    put(PartnerItem.PARTNER7.getIndex(), PartnerItem.PARTNER7);
+    put(PartnerItem.PARTNER8.getIndex(), PartnerItem.PARTNER8);
+    put(PartnerItem.PARTNER9.getIndex(), PartnerItem.PARTNER9);
+    put(PartnerItem.PARTNER10.getIndex(), PartnerItem.PARTNER10);
+    put(PartnerItem.PARTNER11.getIndex(), PartnerItem.PARTNER11);
+    put(PartnerItem.PARTNER12.getIndex(), PartnerItem.PARTNER12);
+    put(PartnerItem.PARTNER13.getIndex(), PartnerItem.PARTNER13);
+    put(PartnerItem.PARTNER14.getIndex(), PartnerItem.PARTNER14);
+    put(PartnerItem.PARTNER15.getIndex(), PartnerItem.PARTNER15);
+    put(PartnerItem.PARTNER16.getIndex(), PartnerItem.PARTNER16);
+    put(PartnerItem.PARTNER17.getIndex(), PartnerItem.PARTNER17);
   }};
 
   private final int mMaxButtons;
