@@ -21,8 +21,6 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 
-import com.flurry.android.FlurryAgent;
-import com.flurry.android.FlurryPrivacySession;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.mapswithme.maps.Framework;
@@ -42,7 +40,6 @@ import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.ThemeSwitcher;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
-import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.MytargetHelper;
@@ -59,8 +56,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
                                                              .getString(R.string.pref_tts_screen);
   private static final String TTS_INFO_LINK = MwmApplication.get()
                                                             .getString(R.string.tts_info_link);
-  private static final String TAG = SettingsPrefsFragment.class.getSimpleName() ;
-  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
 
   @NonNull
   private final StoragePathManager mPathManager = new StoragePathManager();

@@ -157,7 +157,7 @@ public class MwmApplication extends Application
     return !BuildConfig.FABRIC_API_KEY.startsWith("0000");
   }
 
-  private boolean isFabricActivated()
+  private boolean isFabricEnabled()
   {
     String prefKey = getResources().getString(R.string.pref_opt_out_fabric_activated);
     return mPrefs.getBoolean(prefKey, true);
@@ -311,7 +311,7 @@ public class MwmApplication extends Application
 
     Crashlytics core = new Crashlytics
         .Builder()
-        .core(new CrashlyticsCore.Builder().disabled(!isFabricActivated()).build())
+        .core(new CrashlyticsCore.Builder().disabled(!isFabricEnabled()).build())
         .build();
 
     Fabric.with(this, core, new CrashlyticsNdk());
