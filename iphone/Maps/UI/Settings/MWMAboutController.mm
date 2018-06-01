@@ -91,6 +91,11 @@ extern NSString * const kAlohalyticsTapEventKey;
     aboutViewController.openInSafari = YES;
     [self.navigationController pushViewController:aboutViewController animated:YES];
   }
+  else if (cell == self.adsCell)
+  {
+    [Statistics logEvent:@"Settings_Tracking_details"
+          withParameters:@{kStatType: @"personal_ads"}];
+  }
 }
 
 #pragma mark - Table view data source
@@ -109,7 +114,13 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (void)switchCell:(SettingsTableViewSwitchCell *)cell didChangeValue:(BOOL)value
 {
-  [MWMSettings setCrashReportingDisabled:!value];
+  if (cell == self.crashlyticsCell)
+  {
+    [Statistics logEvent:@"Settings_Tracking_toggle"
+          withParameters:@{kStatType: @"crash_reports",
+                           kStatValue: value ? @"on" : @"off"}];
+    [MWMSettings setCrashReportingDisabled:!value];
+  }
 }
 
 @end
