@@ -13,81 +13,80 @@
     android:layout_marginLeft="@dimen/margin_double_plus"
     android:layout_marginStart="@dimen/margin_double_plus"
     android:layout_gravity="center_vertical"/>
-  <LinearLayout
+  <ScrollView
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:layout_marginEnd="@dimen/margin_double_plus"
-    android:layout_marginRight="@dimen/margin_double_plus"
-    android:layout_marginLeft="@dimen/margin_base"
-    android:layout_marginStart="@dimen/margin_base"
-    android:orientation="vertical">
-    <FrameLayout
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1">
-      <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:layout_gravity="center">
-        <TextView
-          android:id="@+id/title"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="@dimen/margin_base"
-          android:textAppearance="@style/MwmTextAppearance.Title"
-          android:layout_gravity="center_horizontal"
-          android:fontFamily="@string/robotoMedium"
-          tools:text="Whats new feature!"/>
-
-        <TextView
-          android:id="@+id/subtitle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
-          android:gravity="center_horizontal"
-          tools:text="We\'ve made some cool stuff!\nSit down and be happy now, man."/>
-
-        <include layout="@layout/whats_new_promo_button"/>
-      </LinearLayout>
-    </FrameLayout>
-
+    android:layout_height="match_parent">
     <LinearLayout
-      android:id="@+id/switch_block"
-      android:layout_width="match_parent"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:minHeight="64dp"
-      android:orientation="horizontal"
-      android:gravity="center_vertical"
-      android:background="?clickableBackground">
+      android:layout_marginEnd="@dimen/margin_double_plus"
+      android:layout_marginRight="@dimen/margin_double_plus"
+      android:layout_marginLeft="@dimen/margin_base"
+      android:layout_marginStart="@dimen/margin_base"
+      android:orientation="vertical">
+      <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:gravity="center_horizontal"
+          android:layout_gravity="center">
+          <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_base"
+            android:textAppearance="@style/MwmTextAppearance.Title"
+            android:gravity="center_horizontal"
+            android:fontFamily="@string/robotoMedium"
+            tools:text="Whats new feature!"/>
+          <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/MwmTextAppearance.Body1.Secondary"
+            android:gravity="center_horizontal"
+            tools:text="We\'ve made some cool stuff!\nSit down and be happy now, man."/>
+          <include layout="@layout/whats_new_promo_button"/>
+        </LinearLayout>
+      </FrameLayout>
       <LinearLayout
-        android:layout_width="0dp"
+        android:id="@+id/switch_block"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
-        <TextView
-          android:id="@+id/switch_title"
+        android:minHeight="64dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="?clickableBackground">
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:orientation="vertical">
+          <TextView
+            android:id="@+id/switch_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/MwmTextAppearance.Body1"
+            android:singleLine="true"
+            tools:text="Switch block title"/>
+          <TextView
+            android:id="@+id/switch_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/MwmTextAppearance.Body3"
+            tools:text="Switch block subtitle"/>
+        </LinearLayout>
+        <android.support.v7.widget.SwitchCompat
+          android:id="@+id/switch_box"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textAppearance="@style/MwmTextAppearance.Body1"
-          android:singleLine="true"
-          tools:text="Switch block title"/>
-
-        <TextView
-          android:id="@+id/switch_subtitle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textAppearance="@style/MwmTextAppearance.Body3"
-          tools:text="Switch block subtitle"/>
+          android:checked="true"/>
       </LinearLayout>
-
-      <android.support.v7.widget.SwitchCompat
-        android:id="@+id/switch_box"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checked="true"/>
     </LinearLayout>
-  </LinearLayout>
+  </ScrollView>
 
 </LinearLayout>
