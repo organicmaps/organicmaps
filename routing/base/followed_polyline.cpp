@@ -106,38 +106,6 @@ void FollowedPolyline::Update()
 }
 
 template <class DistanceFn>
-Iter FollowedPolyline::GetClosestProjectionInInterval(m2::RectD const & posRect,
-                                                      DistanceFn const & distFn, size_t startIdx,
-                                                      size_t endIdx) const
-{
-  CHECK_LESS_OR_EQUAL(endIdx, m_segProj.size(), ());
-  CHECK_LESS_OR_EQUAL(startIdx, endIdx, ());
-
-  Iter res;
-  double minDist = numeric_limits<double>::max();
-
-  m2::PointD const currPos = posRect.Center();
-
-  for (size_t i = startIdx; i < endIdx; ++i)
-  {
-    m2::PointD const pt = m_segProj[i](currPos);
-
-    if (!posRect.IsPointInside(pt))
-      continue;
-
-    Iter it(pt, i);
-    double const dp = distFn(it);
-    if (dp < minDist)
-    {
-      res = it;
-      minDist = dp;
-    }
-  }
-
-  return res;
-}
-
-template <class DistanceFn>
 Iter FollowedPolyline::GetBestProjection(m2::RectD const & posRect,
                                          DistanceFn const & distFn) const
 {

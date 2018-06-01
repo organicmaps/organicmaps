@@ -77,11 +77,44 @@ public:
   Iter End() const;
   Iter GetIterToIndex(size_t index) const;
 
-private:
+  /// \brief Calculates projection of center of |posRect| to the polyline.
+  /// \param posRect Only projection inside the rect are considered.
+  /// \param distFn A method which is used to calculate the destination between points.
+  /// \param startIdx Start segment index in |m_segProj|.
+  /// \param endIdx The index after the last one in |m_segProj|.
+  /// \returns iterator which contains projection point and projection segment index.
   template <class DistanceFn>
   Iter GetClosestProjectionInInterval(m2::RectD const & posRect, DistanceFn const & distFn,
-                                      size_t startIdx, size_t endIdx) const;
+                                      size_t startIdx, size_t endIdx) const
+  {
+    CHECK_LESS_OR_EQUAL(endIdx, m_segProj.size(), ());
+    CHECK_LESS_OR_EQUAL(startIdx, endIdx, ());
 
+    Iter res;
+    double minDist = numeric_limits<double>::max();
+
+    m2::PointD const currPos = posRect.Center();
+
+    for (size_t i = startIdx; i < endIdx; ++i)
+    {
+      m2::PointD const pt = m_segProj[i](currPos);
+
+      if (!posRect.IsPointInside(pt))
+        continue;
+
+      Iter it(pt, i);
+      double const dp = distFn(it);
+      if (dp < minDist)
+      {
+        res = it;
+        minDist = dp;
+      }
+    }
+
+    return res;
+  }
+
+private:
   /// \returns iterator to the best projection of center of |posRect| to the |m_poly|.
   /// If there's a good projection of center of |posRect| to two closest segments of |m_poly|
   /// after |m_current| the iterator corresponding of the projection is returned.
