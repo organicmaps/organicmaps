@@ -11,10 +11,10 @@
 
 namespace
 {
-// If the difference of an value between two instances of GpsInfo is greater
+// If the difference of values between two instances of GpsInfo is greater
 // than the appropriate constant below the extrapolator will be switched off for
 // these two instances of GpsInfo.
-double constexpr kMaxExtrapolationSpeedMPS = 120.0;
+double constexpr kMaxExtrapolationSpeedMPS = 85.0;
 double constexpr kMaxExtrapolationDistMeters = 120.0;
 double constexpr kMaxExtrapolationTimeSeconds = 2.1;
 
@@ -53,7 +53,7 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1,
   location::GpsInfo result = gpsInfo2;
   LinearExtrapolator e(timeBetweenPointsMs, timeAfterPoint2Ms);
 
-  result.m_timestamp += timeAfterPoint2Ms;
+  result.m_timestamp += static_cast<double>(timeAfterPoint2Ms) / 1000.0;
   result.m_longitude = e.Extrapolate(gpsInfo1.m_longitude, gpsInfo2.m_longitude);
   result.m_latitude = e.Extrapolate(gpsInfo1.m_latitude, gpsInfo2.m_latitude);
   result.m_horizontalAccuracy = e.Extrapolate(gpsInfo1.m_horizontalAccuracy, gpsInfo2.m_horizontalAccuracy);
@@ -78,19 +78,22 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1,
 bool AreCoordsGoodForExtrapolation(location::GpsInfo const & beforeLastGpsInfo,
                                    location::GpsInfo const & lastGpsInfo)
 {
+  if (!beforeLastGpsInfo.IsValid() || !lastGpsInfo.IsValid())
+    return false;
+
   double const distM =
       ms::DistanceOnEarth(beforeLastGpsInfo.m_latitude, beforeLastGpsInfo.m_longitude,
                           lastGpsInfo.m_latitude, lastGpsInfo.m_longitude);
   double const timeS = lastGpsInfo.m_timestamp - beforeLastGpsInfo.m_timestamp;
 
-  // Note. |timeS| may be less than zero. (beforeLastGpsInfo.m_timestamp >= lastGpsInfo.m_timestamp)
-  // It may happen in rare cases because GpsInfo::m_timestamp is not monotonic generally.
+  // Note. |timeS| may be less than zero. (beforeLastGpsInfo.m_timestampS >= lastGpsInfo.m_timestampS)
+  // It may happen in rare cases because GpsInfo::m_timestampS is not monotonic generally.
   // Please see comment in declaration of class GpsInfo for details.
 
   // @TODO(bykoianko) Switching off extrapolation based on acceleration should be implemented.
   // Switching off extrapolation based on speed, distance and time.
-  return distM / timeS <= kMaxExtrapolationSpeedMPS && distM <= kMaxExtrapolationDistMeters &&
-         timeS <= kMaxExtrapolationTimeSeconds && timeS > 0;
+  return timeS > 0 && distM / timeS <= kMaxExtrapolationSpeedMPS &&
+         distM <= kMaxExtrapolationDistMeters && timeS <= kMaxExtrapolationTimeSeconds;
 }
 
 // Extrapolator ------------------------------------------------------------------------------------
@@ -122,22 +125,21 @@ void Extrapolator::Enable(bool enabled)
 void Extrapolator::ExtrapolatedLocationUpdate()
 {
   location::GpsInfo gpsInfo;
-  do
   {
     lock_guard<mutex> guard(m_mutex);
     uint64_t const extrapolationTimeMs = kExtrapolationPeriodMs * m_extrapolationCounter;
-    if (extrapolationTimeMs >= kMaxExtrapolationTimeMs || !m_lastGpsInfo.IsValid())
-      break;
-
-    if (DoesExtrapolationWork())
+    if (extrapolationTimeMs < kMaxExtrapolationTimeMs && m_lastGpsInfo.IsValid())
     {
-      gpsInfo = LinearExtrapolation(m_beforeLastGpsInfo, m_lastGpsInfo, extrapolationTimeMs);
-      break;
+      if (DoesExtrapolationWork())
+      {
+        gpsInfo = LinearExtrapolation(m_beforeLastGpsInfo, m_lastGpsInfo, extrapolationTimeMs);
+      }
+      else if (m_lastGpsInfo.IsValid())
+      {
+        gpsInfo = m_lastGpsInfo;
+      }
     }
-
-    if (m_lastGpsInfo.IsValid())
-      gpsInfo = m_lastGpsInfo;
-  } while (false);
+  }
 
   if (gpsInfo.IsValid())
   {
@@ -162,11 +164,8 @@ void Extrapolator::ExtrapolatedLocationUpdate()
 
 bool Extrapolator::DoesExtrapolationWork() const
 {
-  if (!m_isEnabled || m_extrapolationCounter == kExtrapolationCounterUndefined ||
-      !m_lastGpsInfo.IsValid() || !m_beforeLastGpsInfo.IsValid())
-  {
+  if (!m_isEnabled || m_extrapolationCounter == kExtrapolationCounterUndefined)
     return false;
-  }
 
   return AreCoordsGoodForExtrapolation(m_beforeLastGpsInfo, m_lastGpsInfo);
 }

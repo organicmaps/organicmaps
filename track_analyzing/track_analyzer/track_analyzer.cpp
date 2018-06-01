@@ -25,7 +25,7 @@ namespace
 
 DEFINE_string_ext(cmd, "",
                   "command:\n"
-                  "match - based on raw logs gathers points to tracks and matchs them to features\n"
+                  "match - based on raw logs gathers points to tracks and matches them to features\n"
                   "unmatched_tracks - based on raw logs gathers points to tracks "
                   "and save tracks to csv. Track points save as lat, log, timestamp in seconds\n"
                   "tracks - prints track statistics\n"

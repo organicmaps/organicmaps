@@ -43,7 +43,7 @@ namespace location
   {
   public:
     TLocationSource m_source = EUndefined;
-    /// \note |m_timestamp| is calculated based on platform methods which don't
+    /// @TODO(bykoianko) |m_timestamp| is calculated based on platform methods which don't
     /// guarantee that |m_timestamp| is monotonic. |m_monotonicTimeMs| should be added to
     /// class |GpsInfo|. This time should be calculated based on Location::getElapsedRealtimeNanos()
     /// method in case of Android. How to calculate such time in case of iOS should be

@@ -27,7 +27,7 @@
 // This tool is written to estimate quality of location extrapolation. To launch the benchmark
 // you need tracks in csv file with the format described below. To generate the csv file
 // you need to go through following steps:
-// * take logs form Trafim project production in gz files
+// * take logs from "trafin" project production in gz files
 // * extract them (gzip -d)
 // * run track_analyzer tool with unmatched_tracks command to generate csv
 //   (track_analyzer -cmd unmatched_tracks -in ./trafin_log.20180517-0000)
@@ -48,31 +48,24 @@ namespace
 {
 struct GpsPoint
 {
-  GpsPoint(double timestamp, double lat, double lon)
-      : m_timestamp(timestamp)
+  GpsPoint(double timestampS, double lat, double lon)
+      : m_timestampS(timestampS)
       , m_lat(lat)
       , m_lon(lon)
   {
   }
 
-  double m_timestamp;
+  double m_timestampS;
   // @TODO(bykoianko) Using LatLog type instead of two double should be considered.
   double m_lat;
   double m_lon;
 };
 
-class MathematicalExpectation
+class Expectation
 {
 public:
   void Add(double value)
   {
-    if (m_counter == 0)
-    {
-      m_averageValue = value;
-      ++m_counter;
-      return;
-    }
-
     m_averageValue = (m_averageValue * m_counter + value) / (m_counter + 1);
     ++m_counter;
   }
@@ -85,10 +78,10 @@ private:
   size_t m_counter = 0;
 };
 
-class MathematicalExpectationVec
+class ExpectationVec
 {
 public:
-  explicit MathematicalExpectationVec(size_t size) { m_mes.resize(size); }
+  explicit ExpectationVec(size_t size) { m_mes.resize(size); }
 
   void Add(vector<double> const & values)
   {
@@ -97,10 +90,10 @@ public:
       m_mes[i].Add(values[i]);
   }
 
-  vector<MathematicalExpectation> const & Get() const { return m_mes; }
+  vector<Expectation> const & Get() const { return m_mes; }
 
 private:
-  vector<MathematicalExpectation> m_mes;
+  vector<Expectation> m_mes;
 };
 
 using Track = vector<GpsPoint>;
@@ -130,9 +123,9 @@ bool GetUint64(stringstream & lineStream, uint64_t & result)
   return strings::to_uint64(strResult, result);
 }
 
-bool GetGpsPoint(stringstream & lineStream, uint64_t & timestamp, double & lat, double & lon)
+bool GetGpsPoint(stringstream & lineStream, uint64_t & timestampS, double & lat, double & lon)
 {
-  if (!GetUint64(lineStream, timestamp))
+  if (!GetUint64(lineStream, timestampS))
     return false;
   if (!GetDouble(lineStream, lat))
     return false;
@@ -180,10 +173,10 @@ bool Parse(string const & pathToCsv, Tracks & tracks)
 
 void GpsPointToGpsInfo(GpsPoint const gpsPoint, GpsInfo & gpsInfo)
 {
-  gpsInfo.m_timestamp = gpsPoint.m_timestamp;
+  gpsInfo.m_source = TLocationSource::EAppleNative;
+  gpsInfo.m_timestamp = gpsPoint.m_timestampS;
   gpsInfo.m_latitude = gpsPoint.m_lat;
   gpsInfo.m_longitude = gpsPoint.m_lon;
-
 }
 } // namespace
 
@@ -192,7 +185,7 @@ void GpsPointToGpsInfo(GpsPoint const gpsPoint, GpsInfo & gpsInfo)
 int main(int argc, char * argv[])
 {
   google::SetUsageMessage(
-      "Location extrapolation benchmark. Calculates mathematical expectation and dispersion for "
+      "Location extrapolation benchmark. Calculates expected value and variance for "
       "all extrapolation deviations from tracks passed in csv with with csv_path.");
   google::ParseCommandLineFlags(&argc, &argv, true);
 
@@ -229,17 +222,17 @@ int main(int argc, char * argv[])
   LOG(LINFO, ("General tracks statistics."
               "\n  Number of tracks:", tracks.size(),
               "\n  Number of track points:", trackPointNum,
-              "\n  Points per track in average:", trackPointNum / tracks.size(),
+              "\n  Average points per track:", trackPointNum / tracks.size(),
               "\n  Average track length:", trackLengths / tracks.size(), "meters"));
 
   // For all points of each track in |tracks| some extrapolations will be calculated.
   // The number of extrapolations depends on |Extrapolator::kExtrapolationPeriodMs|
   // and |Extrapolator::kMaxExtrapolationTimeMs| and equal for all points.
-  // Then mathematical expectation and dispersion each extrapolation will be printed.
+  // Then expected value and variance each extrapolation will be printed.
   auto const extrapolationNumber = static_cast<size_t>(Extrapolator::kMaxExtrapolationTimeMs /
                                                        Extrapolator::kExtrapolationPeriodMs);
-  MathematicalExpectationVec mes(extrapolationNumber);
-  MathematicalExpectationVec squareMes(extrapolationNumber);
+  ExpectationVec mes(extrapolationNumber);
+  ExpectationVec squareMes(extrapolationNumber);
   // Number of extrapolations which projections are calculated successfully for.
   size_t projectionCounter = 0;
   for (auto const & t : tracks)
@@ -277,8 +270,10 @@ int main(int argc, char * argv[])
 
         m2::RectD const posRect = MercatorBounds::MetresToXY(
             extrapolated.m_longitude, extrapolated.m_latitude, 100.0 /* half square in meters */);
-        // Note. One is deducted from polyline size because in GetClosestProjectionInInterval()
+        // Note 1. One is deducted from polyline size because in GetClosestProjectionInInterval()
         // is used segment indices but not point indices.
+        // Note 2. Calculating projection of the center of |posRect| to polyline segments which
+        // are inside of |posRect|.
         auto const & iter = followedPoly.GetClosestProjectionInInterval(
             posRect,
             [&extrapolatedMerc](FollowedPolyline::Iter const & it) {
@@ -318,13 +313,13 @@ int main(int argc, char * argv[])
               "  ", mes.Get()[0].GetCounter() * extrapolationNumber, "extrapolations is calculated.\n",
               "  Projection is calculated for", projectionCounter, "extrapolations."));
 
-  LOG(LINFO, ("Mathematical expectation for each extrapolation:"));
+  LOG(LINFO, ("Expected value for each extrapolation:"));
   for (size_t i = 0; i < extrapolationNumber; ++i)
   {
-    double const dispersion = squareMes.Get()[i].Get() - mes.Get()[i].Get() * mes.Get()[i].Get();
+    double const variance = squareMes.Get()[i].Get() - mes.Get()[i].Get() * mes.Get()[i].Get();
     LOG(LINFO, ("Extrapolation", i + 1, ",", Extrapolator::kExtrapolationPeriodMs * (i + 1),
-                "seconds after point two. Mathematical expectation =", mes.Get()[i].Get(),
-                "meters.", "Dispersion =", dispersion, ". Standard deviation =", sqrt(dispersion)));
+                "seconds after point two. Expected value =", mes.Get()[i].Get(),
+                "meters.", "Variance =", variance, ". Standard deviation =", sqrt(variance)));
   }
 
   return 0;

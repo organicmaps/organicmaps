@@ -228,8 +228,6 @@ void CmdTagsTable(string const & filepath, string const & trackExtension, String
       for (size_t trackIdx = 0; trackIdx < kv.second.size(); ++trackIdx)
       {
         MatchedTrack const & track = kv.second[trackIdx];
-        // Note. There's no need in tracks with length one point. CalcSpeedKMpH() used below
-        // requires |timeElapsed| is greater then zero. It's impossible if track length is one.
         if (track.size() <= 1)
           continue;
 

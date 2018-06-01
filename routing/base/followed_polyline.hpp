@@ -78,7 +78,7 @@ public:
   Iter GetIterToIndex(size_t index) const;
 
   /// \brief Calculates projection of center of |posRect| to the polyline.
-  /// \param posRect Only projection inside the rect are considered.
+  /// \param posRect Only projection inside the rect is considered.
   /// \param distFn A method which is used to calculate the destination between points.
   /// \param startIdx Start segment index in |m_segProj|.
   /// \param endIdx The index after the last one in |m_segProj|.

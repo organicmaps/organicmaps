@@ -25,7 +25,14 @@ class Extrapolator
 public:
   using ExtrapolatedLocationUpdateFn = std::function<void(location::GpsInfo const &)>;
 
+  // |kMaxExtrapolationTimeMs| is time in milliseconds showing how long location will be
+  // extrapolated after last location gotten from GPS.
   static uint64_t constexpr kMaxExtrapolationTimeMs = 1000;
+  // |kExtrapolationPeriodMs| is time in milliseconds showing how often location will be
+  // extrapolated. So if the last location was gotten from GPS at time X the next location
+  // will be emulated by Extrapolator at X + kExtrapolationPeriodMs.
+  // Then X + 2 * kExtrapolationPeriodMs and so on till
+  // X + n * kExtrapolationPeriodMs <= kMaxExtrapolationTimeMs.
   static uint64_t constexpr kExtrapolationPeriodMs = 200;
 
   /// \param update is a function which is called with params according to extrapolated position.
