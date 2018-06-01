@@ -15,12 +15,18 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1,
                                       location::GpsInfo const & gpsInfo2,
                                       uint64_t timeAfterPoint2Ms);
 
+bool AreCoordsGoodForExtrapolation(location::GpsInfo const & beforeLastGpsInfo,
+                                   location::GpsInfo const & lastGpsInfo);
+
 class Extrapolator
 {
   static uint64_t constexpr kExtrapolationCounterUndefined = std::numeric_limits<uint64_t>::max();
 
 public:
   using ExtrapolatedLocationUpdateFn = std::function<void(location::GpsInfo const &)>;
+
+  static uint64_t constexpr kMaxExtrapolationTimeMs = 1000;
+  static uint64_t constexpr kExtrapolationPeriodMs = 200;
 
   /// \param update is a function which is called with params according to extrapolated position.
   /// |update| will be called on gui thread.
@@ -34,7 +40,7 @@ public:
 private:
   /// \returns true if there's enough information for extrapolation and extrapolation is enabled.
   /// \note This method should be called only when |m_mutex| is locked.
-  bool DoesExtrapolationWork(uint64_t extrapolationTimeMs) const;
+  bool DoesExtrapolationWork() const;
   void ExtrapolatedLocationUpdate();
 
   bool m_isEnabled;
