@@ -1353,4 +1353,11 @@
 	<string name="bookmarks_groups_cached">Загруженные списки</string>
 	<string name="author_name_by_prefix">%s</string>
 	<string name="bookmarks_objects">объектов</string>
+	<string name="subtittle_opt_out">Настрокий сопровождения</string>
+	<string name="opt_out_flurry">Статистика</string>
+	<string name="opt_out_mopub">Персонализированная реклама</string>
+	<string name="opt_out_fabric">Отчеты об ошибках</string>
+	<string name="opt_out_fabric_description">MAPS.ME использует ваши данные для улучшения приложения.</string>
+	<string name="privacy_policy">Политика конфиденциальности</string>
+	<string name="terms_of_use">Условия использования</string>
 </resources>
