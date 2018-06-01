@@ -114,6 +114,13 @@ Platform::Platform()
 
 string Platform::UniqueClientId() const { return [Alohalytics installationId].UTF8String; }
 
+string Platform::MacAddress(bool md5Decoded) const
+{
+  // Not implemented.
+  UNUSED_VALUE(md5Decoded);
+  return {};
+}
+
 string Platform::DeviceName() const
 {
   return OMIM_OS_NAME;

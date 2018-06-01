@@ -28,6 +28,16 @@ std::string Platform::UniqueClientId() const
   return result;
 }
 
+string Platform::MacAddress(bool md5Decoded) const
+{
+  JNIEnv * env = jni::GetEnv();
+  static jmethodID const getMacAddressMethod = jni::GetStaticMethodID(env, g_utilsClazz, "getMacAddress",
+                                                                      "(Z)Ljava/lang/String;");
+  jstring const macAddr = static_cast<jstring>(env->CallStaticObjectMethod(g_utilsClazz, getMacAddressMethod,
+                                                                           static_cast<jboolean>(md5Decoded)));
+  return jni::ToNativeString(env, macAddr);
+}
+
 std::string Platform::GetMemoryInfo() const
 {
   JNIEnv * env = jni::GetEnv();

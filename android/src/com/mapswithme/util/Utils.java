@@ -10,6 +10,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.DimenRes;
@@ -40,8 +42,12 @@ import com.mapswithme.util.statistics.AlohaHelper;
 import java.io.Closeable;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.net.NetworkInterface;
+import java.security.MessageDigest;
 import java.text.NumberFormat;
+import java.util.Collections;
 import java.util.Currency;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -311,6 +317,77 @@ public class Utils
       return "";
 
     return installationId;
+  }
+
+  @NonNull
+  public static String getMacAddress(boolean md5Decoded)
+  {
+    final Context context = MwmApplication.get();
+    byte[] macBytes = null;
+    String address = "";
+    try
+    {
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+      {
+        WifiManager manager = (WifiManager) context.getApplicationContext().
+            getSystemService(Context.WIFI_SERVICE);
+        if (manager == null)
+          return "";
+        WifiInfo info = manager.getConnectionInfo();
+        address = info.getMacAddress();
+        macBytes = address.getBytes();
+      }
+      else
+      {
+        List<NetworkInterface> all = Collections.list(NetworkInterface.getNetworkInterfaces());
+        for (NetworkInterface nif : all)
+        {
+          if (!nif.getName().equalsIgnoreCase("wlan0"))
+            continue;
+
+          macBytes = nif.getHardwareAddress();
+          if (macBytes == null)
+            return "";
+
+          StringBuilder result = new StringBuilder();
+          for (int i = 0; i < macBytes.length; i++)
+          {
+            result.append(String.format("%02X", (0xFF & macBytes[i])));
+            if (i + 1 != macBytes.length)
+              result.append(":");
+          }
+          address = result.toString();
+        }
+      }
+    }
+    catch (Exception exc)
+    {
+      return "";
+    }
+    return md5Decoded ? decodeMD5(macBytes) : address;
+  }
+
+  @NonNull
+  private static String decodeMD5(@Nullable byte[] bytes)
+  {
+    if (bytes == null || bytes.length == 0)
+      return "";
+
+    try
+    {
+      MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+      digest.update(bytes);
+      byte[] messageDigest = digest.digest();
+
+      StringBuilder hexString = new StringBuilder();
+      for (int i = 0; i < messageDigest.length; i++)
+        hexString.append(String.format("%02X", (0xFF & messageDigest[i])));
+      return hexString.toString();
+    }
+    catch (Exception e)
+    {
+      return "";
+    }
   }
 
   public static boolean isAppInstalled(@NonNull Context context, @NonNull String packageName)

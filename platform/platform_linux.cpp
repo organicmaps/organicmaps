@@ -214,6 +214,13 @@ string Platform::UniqueClientId() const
   return "n0dbus0n0lsb00000000000000000000";
 }
 
+string Platform::MacAddress(bool md5Decoded) const
+{
+  // Not implemented.
+  UNUSED_VALUE(md5Decoded);
+  return {};
+}
+
 string Platform::DeviceName() const
 {
   return OMIM_OS_NAME;

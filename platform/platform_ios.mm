@@ -124,6 +124,13 @@ int Platform::PreCachingDepth() const { return 2; }
 
 string Platform::UniqueClientId() const { return [Alohalytics installationId].UTF8String; }
 
+string Platform::MacAddress(bool md5Decoded) const
+{
+  // Not implemented.
+  UNUSED_VALUE(md5Decoded);
+  return {};
+}
+
 string Platform::GetMemoryInfo() const
 {
   struct task_basic_info info;
