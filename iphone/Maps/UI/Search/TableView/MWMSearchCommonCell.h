@@ -1,6 +1,6 @@
 #import "MWMSearchCell.h"
 
-#include "search/everywhere_search_callback.hpp"
+#include "map/everywhere_search_callback.hpp"
 #include "search/result.hpp"
 
 @interface MWMSearchCommonCell : MWMSearchCell

@@ -238,6 +238,7 @@ void Results::Clear()
   m_results.clear();
   m_bookmarksResults.clear();
   m_status = Status::None;
+  m_hotelsClassif.Clear();
 }
 
 size_t Results::GetSuggestsCount() const
@@ -256,12 +257,6 @@ bookmarks::Results const & Results::GetBookmarksResults() const
   return m_bookmarksResults;
 }
 
-void Results::Swap(Results & rhs)
-{
-  m_results.swap(rhs.m_results);
-  m_bookmarksResults.swap(rhs.m_bookmarksResults);
-}
-
 void Results::InsertResult(vector<Result>::iterator where, Result && result)
 {
   ASSERT_LESS(m_results.size(), numeric_limits<int32_t>::max(), ());
@@ -274,6 +269,7 @@ void Results::InsertResult(vector<Result>::iterator where, Result && result)
   }
 
   result.SetPositionInResults(static_cast<int32_t>(distance(m_results.begin(), where)));
+  m_hotelsClassif.Add(result);
   m_results.insert(where, move(result));
 }
 

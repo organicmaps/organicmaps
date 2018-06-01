@@ -70,5 +70,7 @@ struct AvailabilityParams : public ParamsBase
   double m_minReviewScore = {};
   /// Limit to hotels with the given number(s) of stars. Supported values 1-5.
   Stars m_stars;
+  /// Only show rates that are deals of given types.
+  bool m_dealsOnly = false;
 };
 }  // namespace booking

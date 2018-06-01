@@ -1,5 +1,6 @@
 #pragma once
 #include "search/bookmarks/results.hpp"
+#include "search/hotels_classifier.hpp"
 #include "search/ranking_info.hpp"
 
 #include "indexer/feature_decl.hpp"
@@ -161,6 +162,12 @@ public:
   using Iter = std::vector<Result>::iterator;
   using ConstIter = std::vector<Result>::const_iterator;
 
+  enum class Type
+  {
+    Simple,
+    Hotels
+  };
+
   Results();
 
   bool IsEndMarker() const { return m_status != Status::None; }
@@ -205,14 +212,17 @@ public:
 
   bookmarks::Results const & GetBookmarksResults() const;
 
-  void Swap(Results & rhs);
-
   template <typename Fn>
   void SortBy(Fn && comparator)
   {
     sort(begin(), end(), std::forward<Fn>(comparator));
     for (int32_t i = 0; i < static_cast<int32_t>(GetCount()); ++i)
       operator[](i).SetPositionInResults(i);
+  }
+
+  Type GetType() const
+  {
+    return m_hotelsClassif.IsHotelResults() ? Type::Hotels : Type::Simple;
   }
 
 private:
@@ -232,6 +242,7 @@ private:
   std::vector<Result> m_results;
   bookmarks::Results m_bookmarksResults;
   Status m_status;
+  HotelsClassifier m_hotelsClassif;
 };
 
 struct AddressInfo

@@ -39,8 +39,6 @@ set(
   emitter.hpp
   engine.cpp
   engine.hpp
-  everywhere_search_callback.cpp
-  everywhere_search_callback.hpp
   feature_loader.cpp
   feature_loader.hpp
   feature_offset_match.hpp
@@ -154,8 +152,6 @@ set(
   types_skipper.hpp
   utils.cpp
   utils.hpp
-  viewport_search_callback.cpp
-  viewport_search_callback.hpp
 )
 
 add_library(${PROJECT_NAME} ${SRC})

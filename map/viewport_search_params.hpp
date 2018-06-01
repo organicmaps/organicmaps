@@ -20,7 +20,7 @@ struct ViewportSearchParams
   std::string m_query;
   std::string m_inputLocale;
   std::shared_ptr<hotels_filter::Rule> m_hotelsFilter;
-  booking::filter::Params m_bookingFilterParams;
+  booking::filter::Tasks m_bookingFilterTasks;
 
   OnStarted m_onStarted;
   OnCompleted m_onCompleted;

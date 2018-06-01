@@ -3125,10 +3125,11 @@ void Framework::SetSearchDisplacementModeEnabled(bool enabled)
   SetDisplacementMode(DisplacementModeManager::SLOT_INTERACTIVE_SEARCH, enabled /* show */);
 }
 
-void Framework::ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
+void Framework::ShowViewportSearchResults(bool clear, booking::filter::Types types,
+                                          search::Results::ConstIter begin,
                                           search::Results::ConstIter end)
 {
-  if (GetSearchAPI().GetSponsoredMode() != SearchAPI::SponsoredMode::Booking)
+  if (types.empty())
   {
     FillSearchResultsMarks(clear, begin, end);
     return;
@@ -3136,27 +3137,33 @@ void Framework::ShowViewportSearchResults(bool clear, search::Results::ConstIter
 
   search::Results results;
   results.AddResultsNoChecks(begin, end);
-
-  auto const fillCallback = [this, clear, results] (std::vector<FeatureID> featuresSorted)
+  for (auto const type : types)
   {
-    auto const postProcessing = [featuresSorted] (SearchMarkPoint & mark)
+    auto const fillCallback = [this, type, clear, results] (std::vector<FeatureID> featuresSorted)
     {
-      auto const & id = mark.GetFeatureID();
+      auto const postProcessing = [type, featuresSorted] (SearchMarkPoint & mark)
+      {
+        auto const & id = mark.GetFeatureID();
 
-      if (!id.IsValid())
-        return;
+        if (!id.IsValid())
+          return;
 
-      auto const isAvailable =
-        std::binary_search(featuresSorted.cbegin(), featuresSorted.cend(), id);
+        auto const found = std::binary_search(featuresSorted.cbegin(), featuresSorted.cend(), id);
 
-      mark.SetPreparing(!isAvailable);
+        using booking::filter::Type;
+
+        switch (type)
+        {
+        case Type::Deals: mark.SetSale(found); break;
+        case Type::Availability: mark.SetPreparing(!found); break;
+        }
+      };
+
+      FillSearchResultsMarks(clear, results.begin(), results.end(), postProcessing);
     };
 
-    FillSearchResultsMarks(clear, results.begin(), results.end(), postProcessing);
-  };
-
-  m_bookingFilterProcessor.GetFeaturesFromCache(booking::filter::Type::Availability, results,
-                                                fillCallback);
+    m_bookingFilterProcessor.GetFeaturesFromCache(type, results, fillCallback);
+  }
 }
 
 void Framework::ClearViewportSearchResults()
@@ -3401,46 +3408,70 @@ ugc::Reviews Framework::FilterUGCReviews(ugc::Reviews const & reviews) const
   return result;
 }
 
-void Framework::FilterSearchResultsOnBooking(booking::filter::Params const & filterParams,
+void Framework::FilterSearchResultsOnBooking(booking::filter::Tasks const & filterTasks,
                                              search::Results const & results, bool inViewport)
 {
   using namespace booking::filter;
 
-  auto const & apiParams = filterParams.m_apiParams;
-  auto const & cb = filterParams.m_callback;
-  ParamsInternal paramsInternal
+  TasksInternal tasksInternal;
+
+  for (auto const & task : filterTasks)
   {
-    apiParams,
-    [this, apiParams, cb, inViewport](search::Results const & results)
-    {
-      if (results.GetCount() == 0)
-        return;
+    auto const type = task.m_type;
+    auto const & apiParams = task.m_filterParams.m_apiParams;
+    auto const & cb = task.m_filterParams.m_callback;
 
-      std::vector<FeatureID> features;
-      for (auto const & r : results)
+    if (apiParams->IsEmpty())
+      continue;
+
+    ParamsInternal paramsInternal
       {
-        features.push_back(r.GetFeatureID());
-      }
-
-      std::sort(features.begin(), features.end());
-
-      if (inViewport)
-      {
-        GetPlatform().RunTask(Platform::Thread::Gui, [this, features]()
+        apiParams,
+        [this, type, apiParams, cb, inViewport](search::Results const & results)
         {
-          m_searchMarks.SetPreparingState(features, false /* isPreparing */);
-        });
-      }
+          if (results.GetCount() == 0)
+            return;
 
-      cb(apiParams, features);
-    }
-  };
+          std::vector<FeatureID> features;
+          for (auto const & r : results)
+          {
+            features.push_back(r.GetFeatureID());
+          }
 
-  m_bookingFilterProcessor.ApplyFilters(results, {{Type::Availability, std::move(paramsInternal)}});
+          std::sort(features.begin(), features.end());
+
+          if (inViewport)
+          {
+            GetPlatform().RunTask(Platform::Thread::Gui, [this, type, features]()
+            {
+              switch (type)
+              {
+              case Type::Deals:
+                m_searchMarks.SetSales(features, true /* hasSale */);
+                  break;
+              case Type::Availability:
+                m_searchMarks.SetPreparingState(features, false /* isPreparing */);
+                break;
+              }
+            });
+          }
+          cb(apiParams, features);
+        }
+      };
+
+    tasksInternal.emplace_back(type, move(paramsInternal));
+  }
+
+  m_bookingFilterProcessor.ApplyFilters(results, move(tasksInternal), filterTasks.GetMode());
 }
 
-void Framework::OnBookingAvailabilityParamsUpdate(std::shared_ptr<booking::ParamsBase> const & params)
+void Framework::OnBookingFilterParamsUpdate(booking::filter::Tasks const & filterTasks)
 {
-  m_bookingAvailabilityParams.Set(*params);
-  m_bookingFilterProcessor.OnParamsUpdated(booking::filter::Type::Availability, params);
+  for (auto const & task : filterTasks)
+  {
+    if (task.m_type == booking::filter::Type::Availability)
+      m_bookingAvailabilityParams.Set(*task.m_filterParams.m_apiParams);
+
+    m_bookingFilterProcessor.OnParamsUpdated(task.m_type, task.m_filterParams.m_apiParams);
+  }
 }

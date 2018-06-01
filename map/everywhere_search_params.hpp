@@ -1,8 +1,8 @@
 #pragma once
 
 #include "map/booking_filter_params.hpp"
+#include "map/everywhere_search_callback.hpp"
 
-#include "search/everywhere_search_callback.hpp"
 #include "search/hotels_filter.hpp"
 #include "search/result.hpp"
 
@@ -13,13 +13,24 @@
 
 namespace search
 {
+struct ProductInfo
+{
+  static auto constexpr kInvalidRating = kInvalidRatingValue;
+
+  bool m_isLocalAdsCustomer = false;
+  float m_ugcRating = kInvalidRating;
+};
+
 struct EverywhereSearchParams
 {
   std::string m_query;
   std::string m_inputLocale;
   std::shared_ptr<hotels_filter::Rule> m_hotelsFilter;
-  booking::filter::Params m_bookingFilterParams;
+  booking::filter::Tasks m_bookingFilterTasks;
 
-  EverywhereSearchCallback::OnResults m_onResults;
+  using OnResults =
+      std::function<void(Results const & results, std::vector<ProductInfo> const & productInfo)>;
+
+  OnResults m_onResults;
 };
 }  // namespace search

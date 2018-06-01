@@ -98,6 +98,9 @@ url::Params AvailabilityParams::Get(UrlFilter const & filter /* = {} */) const
   if (!m_stars.empty() && IsAcceptedByFilter(filter, "stars"))
     result.emplace_back("stars", strings::JoinStrings(m_stars, ','));
 
+  if (m_dealsOnly)
+    result.emplace_back("show_only_deals", "smart,lastm");
+
   return result;
 }
 
@@ -114,7 +117,8 @@ bool AvailabilityParams::Equals(ParamsBase const & rhs) const
 bool AvailabilityParams::Equals(AvailabilityParams const & rhs) const
 {
   return m_checkin == rhs.m_checkin && m_checkout == rhs.m_checkout && m_rooms == rhs.m_rooms &&
-         m_minReviewScore == rhs.m_minReviewScore && m_stars == rhs.m_stars;
+         m_minReviewScore == rhs.m_minReviewScore && m_stars == rhs.m_stars &&
+         m_dealsOnly == rhs.m_dealsOnly;
 }
 
 void AvailabilityParams::Set(ParamsBase const & src)

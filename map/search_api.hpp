@@ -2,14 +2,14 @@
 
 #include "map/booking_filter_params.hpp"
 #include "map/bookmark.hpp"
+#include "map/everywhere_search_callback.hpp"
+#include "map/viewport_search_callback.hpp"
 
 #include "search/downloader_search_callback.hpp"
 #include "search/engine.hpp"
-#include "search/everywhere_search_callback.hpp"
 #include "search/mode.hpp"
 #include "search/result.hpp"
 #include "search/search_params.hpp"
-#include "search/viewport_search_callback.hpp"
 
 #include "kml/type_utils.hpp"
 
@@ -45,12 +45,6 @@ class SearchAPI : public search::DownloaderSearchCallback::Delegate,
                   public search::ViewportSearchCallback::Delegate
 {
 public:
-  enum class SponsoredMode
-  {
-    None,
-    Booking
-  };
-
   struct Delegate
   {
     virtual ~Delegate() = default;
@@ -59,7 +53,8 @@ public:
 
     virtual void SetSearchDisplacementModeEnabled(bool /* enabled */) {}
 
-    virtual void ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
+    virtual void ShowViewportSearchResults(bool clear, booking::filter::Types types,
+                                           search::Results::ConstIter begin,
                                            search::Results::ConstIter end)
     {
     }
@@ -75,15 +70,12 @@ public:
 
     virtual double GetMinDistanceBetweenResults() const { return 0.0; };
 
-    virtual void FilterSearchResultsOnBooking(booking::filter::Params const & params,
+    virtual void FilterSearchResultsOnBooking(booking::filter::Tasks const & filterTasks,
                                               search::Results const & results, bool inViewport)
     {
     }
 
-    virtual void OnBookingAvailabilityParamsUpdate(
-        std::shared_ptr<booking::ParamsBase> const & params)
-    {
-    }
+    virtual void OnBookingFilterParamsUpdate(booking::filter::Tasks const & filterTasks) {}
 
     virtual search::ProductInfo GetProductInfo(search::Result const & result) const { return {}; };
   };
@@ -95,8 +87,6 @@ public:
   void OnViewportChanged(m2::RectD const & viewport);
 
   void LoadCitiesBoundaries() { m_engine.LoadCitiesBoundaries(); }
-
-  SponsoredMode GetSponsoredMode() const { return m_sponsoredMode; }
 
   // Search everywhere.
   bool SearchEverywhere(search::EverywhereSearchParams const & params);
@@ -129,9 +119,12 @@ public:
   void RunUITask(std::function<void()> fn) override;
   void SetHotelDisplacementMode() override;
   bool IsViewportSearchActive() const override;
-  void ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
+  void ShowViewportSearchResults(bool clear, booking::filter::Types types,
+                                 search::Results::ConstIter begin,
                                  search::Results::ConstIter end) override;
   search::ProductInfo GetProductInfo(search::Result const & result) const override;
+  void FilterSearchResultsOnBooking(booking::filter::Tasks const & filterTasks,
+                                    search::Results const & results, bool inViewport) override;
 
   void OnBookmarksCreated(std::vector<std::pair<kml::MarkId, kml::BookmarkData>> const & marks);
   void OnBookmarksUpdated(std::vector<std::pair<kml::MarkId, kml::BookmarkData>> const & marks);
@@ -153,9 +146,6 @@ private:
   bool QueryMayBeSkipped(search::SearchParams const & prevParams,
                          search::SearchParams const & currParams) const;
 
-  template <typename T>
-  void UpdateSponsoredMode(T const & searchParams);
-
   Index & m_index;
   storage::Storage const & m_storage;
   storage::CountryInfoGetter const & m_infoGetter;
@@ -170,8 +160,4 @@ private:
 
   m2::RectD m_viewport;
   bool m_isViewportInitialized = false;
-
-  SponsoredMode m_sponsoredMode = SponsoredMode::None;
 };
-
-std::string DebugPrint(SearchAPI::SponsoredMode mode);

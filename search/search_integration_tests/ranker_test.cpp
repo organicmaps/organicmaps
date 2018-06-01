@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "search/search_integration_tests/helpers.hpp"
+#include "search/search_tests_support/integration_tests_helpers.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
 
 #include "generator/generator_tests_support/test_feature.hpp"

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "map/api_mark_point.hpp"
+#include "map/booking_filter_params.hpp"
 #include "map/booking_filter_processor.hpp"
 #include "map/bookmark.hpp"
 #include "map/bookmark_manager.hpp"
@@ -341,7 +342,8 @@ public:
   // SearchAPI::Delegate overrides:
   void RunUITask(function<void()> fn) override;
   void SetSearchDisplacementModeEnabled(bool enabled) override;
-  void ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
+  void ShowViewportSearchResults(bool clear, booking::filter::Types types,
+                                 search::Results::ConstIter begin,
                                  search::Results::ConstIter end) override;
   void ClearViewportSearchResults() override;
   boost::optional<m2::PointD> GetCurrentPosition() const override;
@@ -841,10 +843,9 @@ private:
   ugc::Reviews FilterUGCReviews(ugc::Reviews const & reviews) const;
 
 public:
-  void FilterSearchResultsOnBooking(booking::filter::Params const & filterParams,
+  void FilterSearchResultsOnBooking(booking::filter::Tasks const & filterTasks,
                                     search::Results const & results, bool inViewport) override;
-  void OnBookingAvailabilityParamsUpdate(
-      std::shared_ptr<booking::ParamsBase> const & params) override;
+  void OnBookingFilterParamsUpdate(booking::filter::Tasks const & filterTasks) override;
 
 private:
   // m_discoveryManager must be bellow m_searchApi, m_viatorApi, m_localsApi

@@ -1,30 +1,53 @@
-#include "search/viewport_search_callback.hpp"
+#include "map/viewport_search_callback.hpp"
 
 #include "search/result.hpp"
 
 #include "base/assert.hpp"
 
+namespace
+{
+booking::filter::Types FillBookingFilterTypes(search::Results const & results,
+                                              booking::filter::Tasks const & tasks)
+{
+  using namespace booking::filter;
+  Types types;
+  for (auto const & task : tasks)
+  {
+    switch (task.m_type)
+    {
+    case Type::Deals:
+      if (results.GetType() == search::Results::Type::Hotels)
+        types.push_back(Type::Deals);
+      break;
+    case Type::Availability:
+      types.push_back(Type::Availability);
+      break;
+    }
+  }
+
+  return types;
+}
+}  // namespace
+
 namespace search
 {
-ViewportSearchCallback::ViewportSearchCallback(Delegate & delegate, OnResults const & onResults)
+ViewportSearchCallback::ViewportSearchCallback(Delegate & delegate,
+                                               booking::filter::Tasks const & bookingFilterTasks,
+                                               OnResults const & onResults)
   : m_delegate(delegate)
   , m_onResults(onResults)
-  , m_hotelsModeSet(false)
   , m_firstCall(true)
   , m_lastResultsSize(0)
+  , m_bookingFilterTasks(bookingFilterTasks)
 {
 }
 
 void ViewportSearchCallback::operator()(Results const & results)
 {
   ASSERT_LESS_OR_EQUAL(m_lastResultsSize, results.GetCount(), ());
-  m_hotelsClassif.Add(results.begin() + m_lastResultsSize, results.end());
 
-  if (!m_hotelsModeSet && m_hotelsClassif.IsHotelResults())
-  {
+  if (results.GetType() == Results::Type::Hotels)
     m_delegate.SetHotelDisplacementMode();
-    m_hotelsModeSet = true;
-  }
 
   // We need to clear old results and show a new bunch of results when
   // the search is completed normally (note that there may be empty
@@ -48,13 +71,20 @@ void ViewportSearchCallback::operator()(Results const & results)
     auto & delegate = m_delegate;
     bool const firstCall = m_firstCall;
 
+    auto const types = FillBookingFilterTypes(results, m_bookingFilterTasks);
+
     auto const lastResultsSize = m_lastResultsSize;
-    m_delegate.RunUITask([&delegate, firstCall, results, lastResultsSize]() {
+    m_delegate.RunUITask([&delegate, firstCall, types, results, lastResultsSize]() {
       if (!delegate.IsViewportSearchActive())
         return;
-      delegate.ShowViewportSearchResults(firstCall, results.begin() + lastResultsSize,
+      delegate.ShowViewportSearchResults(firstCall, types, results.begin() + lastResultsSize,
                                          results.end());
     });
+  }
+
+  if (results.IsEndedNormal() && results.GetType() == Results::Type::Hotels)
+  {
+    m_delegate.FilterSearchResultsOnBooking(m_bookingFilterTasks, results, true /* inViewport */);
   }
 
   m_lastResultsSize = results.GetCount();

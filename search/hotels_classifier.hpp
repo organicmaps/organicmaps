@@ -1,9 +1,11 @@
 #pragma once
 
-#include "search/result.hpp"
+#include <cstdint>
 
 namespace search
 {
+class Result;
+class Results;
 // A binary classifier that can be used in conjunction with search
 // engine to decide whether the majority of results are hotels or not.
 //
@@ -13,7 +15,9 @@ class HotelsClassifier
 public:
   static bool IsHotelResults(Results const & results);
 
-  void Add(Results::ConstIter begin, Results::ConstIter end);
+  void Add(Result const & result);
+  void Clear();
+
   bool IsHotelResults() const;
 
 private:

@@ -152,8 +152,6 @@ void SearchAPI::OnViewportChanged(m2::RectD const & viewport)
 
 bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
 {
-  UpdateSponsoredMode(params);
-
   SearchParams p;
   p.m_query = params.m_query;
   p.m_inputLocale = params.m_inputLocale;
@@ -168,28 +166,21 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
 
   p.m_onResults = EverywhereSearchCallback(
       static_cast<EverywhereSearchCallback::Delegate &>(*this),
+      params.m_bookingFilterTasks,
       [this, params](Results const & results, std::vector<ProductInfo> const & productInfo) {
         if (params.m_onResults)
           RunUITask([params, results, productInfo] {
             params.m_onResults(results, productInfo);
           });
-        if (results.IsEndedNormal() && m_sponsoredMode == SponsoredMode::Booking)
-        {
-          m_delegate.FilterSearchResultsOnBooking(params.m_bookingFilterParams, results,
-                                                  false /* inViewport */);
-        }
       });
 
-  if (m_sponsoredMode == SponsoredMode::Booking)
-    m_delegate.OnBookingAvailabilityParamsUpdate(params.m_bookingFilterParams.m_apiParams);
+  m_delegate.OnBookingFilterParamsUpdate(params.m_bookingFilterTasks);
 
   return Search(p, true /* forceSearch */);
 }
 
 bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
 {
-  UpdateSponsoredMode(params);
-
   SearchParams p;
   p.m_query = params.m_query;
   p.m_inputLocale = params.m_inputLocale;
@@ -209,18 +200,13 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
 
   p.m_onResults = ViewportSearchCallback(
       static_cast<ViewportSearchCallback::Delegate &>(*this),
+      params.m_bookingFilterTasks,
       [this, params](Results const & results) {
         if (results.IsEndMarker() && params.m_onCompleted)
           RunUITask([params, results] { params.m_onCompleted(results); });
-        if (results.IsEndedNormal() && m_sponsoredMode == SponsoredMode::Booking)
-        {
-          m_delegate.FilterSearchResultsOnBooking(params.m_bookingFilterParams, results,
-                                                  true /* inViewport */);
-        }
       });
 
-  if (m_sponsoredMode == SponsoredMode::Booking)
-    m_delegate.OnBookingAvailabilityParamsUpdate(params.m_bookingFilterParams.m_apiParams);
+  m_delegate.OnBookingFilterParamsUpdate(params.m_bookingFilterTasks);
 
   return Search(p, false /* forceSearch */);
 }
@@ -262,8 +248,6 @@ void SearchAPI::SearchForDiscovery(DiscoverySearchParams const & params)
 
 bool SearchAPI::SearchInDownloader(storage::DownloaderSearchParams const & params)
 {
-  m_sponsoredMode = SponsoredMode::None;
-
   SearchParams p;
   p.m_query = params.m_query;
   p.m_inputLocale = params.m_inputLocale;
@@ -283,8 +267,6 @@ bool SearchAPI::SearchInDownloader(storage::DownloaderSearchParams const & param
 
 bool SearchAPI::SearchInBookmarks(search::BookmarksSearchParams const & params)
 {
-  m_sponsoredMode = SponsoredMode::None;
-
   SearchParams p;
   p.m_query = params.m_query;
   p.m_position = m_delegate.GetCurrentPosition();
@@ -332,8 +314,6 @@ void SearchAPI::CancelSearch(Mode mode)
     m_delegate.SetSearchDisplacementModeEnabled(false /* enabled */);
   }
 
-  m_sponsoredMode = SponsoredMode::None;
-
   auto & intent = m_searchIntents[static_cast<size_t>(mode)];
   intent.m_params.Clear();
   CancelQuery(intent.m_handle);
@@ -357,15 +337,21 @@ bool SearchAPI::IsViewportSearchActive() const
   return !m_searchIntents[static_cast<size_t>(Mode::Viewport)].m_params.m_query.empty();
 }
 
-void SearchAPI::ShowViewportSearchResults(bool clear, Results::ConstIter begin,
-                                          Results::ConstIter end)
+void SearchAPI::ShowViewportSearchResults(bool clear, booking::filter::Types types,
+                                          Results::ConstIter begin, Results::ConstIter end)
 {
-  return m_delegate.ShowViewportSearchResults(clear, begin, end);
+  return m_delegate.ShowViewportSearchResults(clear, types, begin, end);
 }
 
 ProductInfo SearchAPI::GetProductInfo(Result const & result) const
 {
   return m_delegate.GetProductInfo(result);
+}
+
+void SearchAPI::FilterSearchResultsOnBooking(booking::filter::Tasks const & filterTasks,
+                                             search::Results const & results, bool inViewport)
+{
+  m_delegate.FilterSearchResultsOnBooking(filterTasks, results, inViewport);
 }
 
 void SearchAPI::OnBookmarksCreated(vector<pair<kml::MarkId, kml::BookmarkData>> const & marks)
@@ -460,21 +446,4 @@ bool SearchAPI::QueryMayBeSkipped(SearchParams const & prevParams,
     return false;
 
   return true;
-}
-
-template <typename T>
-void SearchAPI::UpdateSponsoredMode(T const & searchParams)
-{
-  m_sponsoredMode = SponsoredMode::None;
-  if (!searchParams.m_bookingFilterParams.IsEmpty())
-    m_sponsoredMode = SponsoredMode::Booking;
-}
-
-string DebugPrint(SearchAPI::SponsoredMode mode)
-{
-  switch (mode)
-  {
-  case SearchAPI::SponsoredMode::None: return "None";
-  case SearchAPI::SponsoredMode::Booking: return "Booking";
-  }
 }

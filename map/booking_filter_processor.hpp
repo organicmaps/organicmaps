@@ -25,24 +25,6 @@ class Api;
 
 namespace filter
 {
-enum class Type
-{
-  Deals,
-  Availability
-};
-
-struct FilterTask
-{
-  FilterTask(Type const type, ParamsInternal && filterParams)
-    : m_type(type)
-    , m_filterParams(std::move(filterParams))
-  {
-  }
-
-  Type const m_type;
-  ParamsInternal m_filterParams;
-};
-
 using FillSearchMarksCallback =
     platform::SafeCallback<void(std::vector<FeatureID> availableHotelsSorted)>;
 
@@ -51,7 +33,7 @@ class FilterProcessor : public FilterBase::Delegate
 public:
   FilterProcessor(Index const & index, booking::Api const & api);
 
-  void ApplyFilters(search::Results const & results, std::vector<FilterTask> && tasks);
+  void ApplyFilters(search::Results const & results, TasksInternal && tasks, ApplyMode const mode);
 
   void OnParamsUpdated(Type const type, std::shared_ptr<ParamsBase> const & params);
 
@@ -63,6 +45,8 @@ public:
   Api const & GetApi() const override;
 
 private:
+  void ApplyConsecutively(search::Results const & results, TasksInternal & tasks);
+  void ApplyIndependent(search::Results const & results, TasksInternal const & tasks);
   Index const & m_index;
   Api const & m_api;
 

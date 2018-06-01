@@ -14,6 +14,7 @@
 #include "map/everywhere_search_params.hpp"
 #include "map/viewport_search_params.hpp"
 
+#include <chrono>
 #include <utility>
 
 extern NSString * const kLuggageCategory;
@@ -101,15 +102,29 @@ using Observers = NSHashTable<Observer>;
       self.searchCount -= 1;
   };
 
-  m_everywhereParams.m_bookingFilterParams.m_callback =
+  auto & tasks = self->m_everywhereParams.m_bookingFilterTasks;
+  auto availabilityTaskIt = tasks.Find(booking::filter::Type::Availability);
+  if (availabilityTaskIt != tasks.end())
+  {
+    // TODO: implement callback for booking::filter::Type::Deals.
+    availabilityTaskIt->m_filterParams.m_callback =
       [self](shared_ptr<booking::ParamsBase> const & apiParams,
-             std::vector<FeatureID> const & sortedFeatures) {
-        auto const & p = self->m_everywhereParams.m_bookingFilterParams;
-        if (p.m_apiParams->IsEmpty() || !p.m_apiParams->Equals(*apiParams))
+             std::vector<FeatureID> const & sortedFeatures)
+      {
+        auto & t = self->m_everywhereParams.m_bookingFilterTasks;
+        auto const it = t.Find(booking::filter::Type::Availability);
+        
+        if (it == t.end())
           return;
+        
+        auto const & p = it->m_filterParams.m_apiParams;
+        if (p->IsEmpty() || !p->Equals(*apiParams))
+          return;
+        
         self->m_bookingAvailableFeatureIDs = sortedFeatures;
         [self onSearchResultsUpdated];
       };
+  }
 
   GetFramework().SearchEverywhere(m_everywhereParams);
   self.searchCount += 1;
@@ -134,10 +149,35 @@ using Observers = NSHashTable<Observer>;
   m_viewportParams.m_hotelsFilter = hotelsRules;
   m_everywhereParams.m_hotelsFilter = hotelsRules;
 
-  auto const availabilityParams =
+  auto availabilityParams =
       self.filter ? [self.filter availabilityParams] : booking::filter::Params();
-  m_viewportParams.m_bookingFilterParams = availabilityParams;
-  m_everywhereParams.m_bookingFilterParams = availabilityParams;
+  booking::filter::Tasks tasks;
+  if (availabilityParams.IsEmpty())
+  {
+    booking::AvailabilityParams params;
+    // Use tomorrow and day after tomorrow by default.
+    params.m_checkin = booking::AvailabilityParams::Clock::now() + std::chrono::hours(24);
+    params.m_checkout = booking::AvailabilityParams::Clock::now() + std::chrono::hours(48);
+    // Use two adults without children.
+    params.m_rooms.emplace_back(2, -1);
+    params.m_dealsOnly = true;
+    
+    booking::filter::Params dp(std::make_shared<booking::AvailabilityParams>(params), {});
+    tasks.EmplaceBack(booking::filter::Type::Deals, move(dp));
+  }
+  else
+  {
+    booking::AvailabilityParams dp;
+    dp.Set(*(availabilityParams.m_apiParams));
+    dp.m_dealsOnly = true;
+    booking::filter::Params dealsParams(std::make_shared<booking::AvailabilityParams>(dp), {});
+    
+    tasks.EmplaceBack(booking::filter::Type::Availability, move(availabilityParams));
+    tasks.EmplaceBack(booking::filter::Type::Deals, move(dealsParams));
+  }
+  
+  m_viewportParams.m_bookingFilterTasks = tasks;
+  m_everywhereParams.m_bookingFilterTasks = tasks;
 }
 
 - (void)update
@@ -263,9 +303,8 @@ using Observers = NSHashTable<Observer>;
   m_viewportResults.Clear();
 
   m_bookingAvailableFeatureIDs.clear();
-  auto const availabilityParams = booking::filter::Params();
-  m_viewportParams.m_bookingFilterParams = availabilityParams;
-  m_everywhereParams.m_bookingFilterParams = availabilityParams;
+  m_viewportParams.m_bookingFilterTasks.Clear();
+  m_everywhereParams.m_bookingFilterTasks.Clear();
 
   [self onSearchResultsUpdated];
 }
@@ -427,10 +466,8 @@ using Observers = NSHashTable<Observer>;
 
 - (BOOL)isHotelResults
 {
-  BOOL const isEverywhereHotelResults =
-      search::HotelsClassifier::IsHotelResults(m_everywhereResults);
-  BOOL const isViewportHotelResults = search::HotelsClassifier::IsHotelResults(m_viewportResults);
-  return isEverywhereHotelResults || isViewportHotelResults;
+  return m_everywhereResults.GetType() == search::Results::Type::Hotels ||
+         m_viewportResults.GetType() == search::Results::Type::Hotels;
 }
 
 @end

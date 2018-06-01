@@ -1,5 +1,8 @@
 #pragma once
 
+#include "map/booking_filter_params.hpp"
+#include "map/everywhere_search_params.hpp"
+
 #include "search/result.hpp"
 
 #include <functional>
@@ -7,13 +10,6 @@
 
 namespace search
 {
-struct ProductInfo
-{
-  static auto constexpr kInvalidRating = kInvalidRatingValue;
-
-  bool m_isLocalAdsCustomer = false;
-  float m_ugcRating = kInvalidRating;
-};
 // An on-results-callback that should be used for search over all
 // maps.
 //
@@ -27,20 +23,19 @@ public:
     virtual ~Delegate() = default;
 
     virtual ProductInfo GetProductInfo(Result const & result) const = 0;
+    virtual void FilterSearchResultsOnBooking(booking::filter::Tasks const & filterTasks,
+                                              search::Results const & results, bool inViewport) = 0;
   };
 
-  // The signature of the callback should be the same as EverywhereSaerchParams::OnResults, but
-  // EverywhereSaerchParams is located in map project and we do not need dependency.
-  using OnResults =
-      std::function<void(Results const & results, std::vector<ProductInfo> const & productInfo)>;
-
-  EverywhereSearchCallback(Delegate & delegate, OnResults onResults);
+  EverywhereSearchCallback(Delegate & delegate, booking::filter::Tasks const & bookingFilterTasks,
+                           EverywhereSearchParams::OnResults onResults);
 
   void operator()(Results const & results);
 
 private:
   Delegate & m_delegate;
-  OnResults m_onResults;
+  EverywhereSearchParams::OnResults m_onResults;
   std::vector<ProductInfo> m_productInfo;
+  booking::filter::Tasks m_bookingFilterTasks;
 };
 }  // namespace search

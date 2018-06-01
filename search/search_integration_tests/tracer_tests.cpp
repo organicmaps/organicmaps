@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "search/geocoder_context.hpp"
-#include "search/search_integration_tests/helpers.hpp"
+#include "search/search_tests_support/integration_tests_helpers.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
 #include "search/tracer.hpp"
 

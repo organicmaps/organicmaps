@@ -1,4 +1,4 @@
-#include "search/search_integration_tests/helpers.hpp"
+#include "search/search_tests_support/integration_tests_helpers.hpp"
 
 #include "storage/country_info_getter.hpp"
 
@@ -31,8 +31,7 @@ bool SearchTest::ResultsMatch(string const & query,
   return ResultsMatch(query, "en" /* locale */, rules);
 }
 
-bool SearchTest::ResultsMatch(string const & query,
-                              string const & locale,
+bool SearchTest::ResultsMatch(string const & query, string const & locale,
                               vector<shared_ptr<tests_support::MatchingRule>> const & rules)
 {
   tests_support::TestSearchRequest request(m_engine, query, locale, Mode::Everywhere, m_viewport);

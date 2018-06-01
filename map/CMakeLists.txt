@@ -44,6 +44,8 @@ set(
   displacement_mode_manager.hpp
   displayed_categories_modifiers.cpp
   displayed_categories_modifiers.hpp
+  everywhere_search_callback.cpp
+  everywhere_search_callback.hpp
   everywhere_search_params.hpp
   feature_vec_model.cpp
   feature_vec_model.hpp
@@ -102,10 +104,13 @@ set(
   user_mark.cpp
   user_mark.hpp
   viewport_search_params.hpp
+  viewport_search_callback.cpp
+  viewport_search_callback.hpp
 )
 
 add_library(${PROJECT_NAME} ${SRC})
 
+omim_add_test_subdirectory(map_integration_tests)
 omim_add_test_subdirectory(map_tests)
 omim_add_test_subdirectory(mwm_tests)
 omim_add_test_subdirectory(style_tests)

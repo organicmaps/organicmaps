@@ -15,32 +15,18 @@ FilterProcessor::FilterProcessor(Index const & index, booking::Api const & api)
   m_filters.emplace(Type::Availability, std::make_unique<AvailabilityFilter>(*this));
 }
 
-void FilterProcessor::ApplyFilters(search::Results const & results,
-                                   std::vector<FilterTask> && tasks)
+void FilterProcessor::ApplyFilters(search::Results const & results, TasksInternal && tasks,
+                                   ApplyMode const mode)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [this, results, tasks = std::move(tasks)]() mutable
+  GetPlatform().RunTask(Platform::Thread::File, [this, results, tasks = std::move(tasks), mode]() mutable
   {
     CHECK(!tasks.empty(), ());
 
-    // Run provided filters consecutively.
-    for (size_t i = tasks.size() - 1; i > 0; --i)
+    switch (mode)
     {
-      auto const & cb = tasks[i - 1].m_filterParams.m_callback;
-
-      tasks[i - 1].m_filterParams.m_callback =
-          [ this, cb, nextTask = std::move(tasks[i]) ](search::Results const & results) mutable
-      {
-        cb(results);
-        // Run the next filter with obtained results from the previous one.
-        // Post different task on the file thread to increase granularity.
-        GetPlatform().RunTask(Platform::Thread::File, [this, results, nextTask = std::move(nextTask)]()
-        {
-          m_filters.at(nextTask.m_type)->ApplyFilter(results, nextTask.m_filterParams);
-        });
-      };
+    case Independent: ApplyIndependent(results, tasks); break;
+    case Consecutively: ApplyConsecutively(results, tasks); break;
     }
-    // Run first filter.
-    m_filters.at(tasks.front().m_type)->ApplyFilter(results, tasks.front().m_filterParams);
   });
 }
 
@@ -75,6 +61,37 @@ Index const & FilterProcessor::GetIndex() const
 Api const & FilterProcessor::GetApi() const
 {
   return m_api;
+}
+
+void FilterProcessor::ApplyConsecutively(search::Results const & results, TasksInternal & tasks)
+{
+  // Run provided filters consecutively.
+  for (size_t i = tasks.size() - 1; i > 0; --i)
+  {
+    auto const & cb = tasks[i - 1].m_filterParams.m_callback;
+
+    tasks[i - 1].m_filterParams.m_callback =
+      [ this, cb, nextTask = std::move(tasks[i]) ](search::Results const & results) mutable
+      {
+        cb(results);
+        // Run the next filter with obtained results from the previous one.
+        // Post different task on the file thread to increase granularity.
+        GetPlatform().RunTask(Platform::Thread::File, [this, results, nextTask = std::move(nextTask)]()
+        {
+          m_filters.at(nextTask.m_type)->ApplyFilter(results, nextTask.m_filterParams);
+        });
+      };
+  }
+  // Run first filter.
+  m_filters.at(tasks.front().m_type)->ApplyFilter(results, tasks.front().m_filterParams);
+}
+
+void FilterProcessor::ApplyIndependent(search::Results const & results, TasksInternal const & tasks)
+{
+  for (auto const & task : tasks)
+  {
+    m_filters.at(task.m_type)->ApplyFilter(results, task.m_filterParams);
+  }
 }
 }  // namespace filter
 }  // namespace booking
