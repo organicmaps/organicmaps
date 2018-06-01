@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -60,7 +59,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
                                                              .getString(R.string.pref_tts_screen);
   private static final String TTS_INFO_LINK = MwmApplication.get()
                                                             .getString(R.string.tts_info_link);
-  private static final String TAG = "settings";
+  private static final String TAG = SettingsPrefsFragment.class.getSimpleName() ;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
 
   @NonNull
@@ -311,27 +310,7 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     initLoggingEnabledPrefsCallbacks();
     initEmulationBadStorage();
     initUseMobileDataPrefsCallbacks();
-    initOptOutBlock();
-
     updateTts();
-  }
-
-  private void initOptOutBlock()
-  {
-    initFlurryOptOut();
-  }
-
-  private void initFlurryOptOut()
-  {
-    initOptOutItem(R.string.pref_opt_out_flurry, new FlurryPrefClickListener());
-  }
-
-  private void initOptOutItem(@StringRes int id,
-                              @NonNull Preference.OnPreferenceClickListener listener) {
-    Preference pref = findPreference(getString(id));
-    if (pref == null)
-      return;
-    pref.setOnPreferenceClickListener(listener);
   }
 
   @Override
@@ -891,33 +870,5 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
   {
     super.onDetach();
     mPathManager.stopExternalStorageWatching();
-  }
-
-  private class FlurryPrefClickListener implements Preference.OnPreferenceClickListener
-  {
-    @Override
-    public boolean onPreferenceClick(Preference preference)
-    {
-      Context c = getContext().getApplicationContext();
-      MapsMeFlurryPrivacySession callback = new MapsMeFlurryPrivacySession();
-      final FlurryPrivacySession.Request request = new FlurryPrivacySession.Request(c, callback);
-      FlurryAgent.openPrivacyDashboard(request);
-      return true;
-    }
-
-    class MapsMeFlurryPrivacySession implements FlurryPrivacySession.Callback
-    {
-      @Override
-      public void success()
-      {
-        LOGGER.d(TAG, "Privacy Dashboard opened successfully");
-      }
-
-      @Override
-      public void failure()
-      {
-        LOGGER.d(TAG, "Opening Privacy Dashboard failed");
-      }
-    }
   }
 }

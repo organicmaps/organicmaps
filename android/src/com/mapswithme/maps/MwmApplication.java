@@ -132,6 +132,10 @@ public class MwmApplication extends Application
     return sSelf.mBackgroundTracker;
   }
 
+  /**
+   *
+   * Use {@link #prefs(Context)} instead.
+   */
   @Deprecated
   public synchronized static SharedPreferences prefs()
   {
@@ -141,10 +145,11 @@ public class MwmApplication extends Application
     return sSelf.mPrefs;
   }
 
-  public static SharedPreferences prefs(Context context)
+  @NonNull
+  public static SharedPreferences prefs(@NonNull Context context)
   {
-    String prefFile = context.getResources().getString(R.string.pref_file_name);
-    return context.getApplicationContext().getSharedPreferences(prefFile, MODE_PRIVATE);
+    String prefFile = context.getString(R.string.pref_file_name);
+    return context.getSharedPreferences(prefFile, MODE_PRIVATE);
   }
 
   public boolean isCrashlyticsEnabled()
@@ -296,13 +301,13 @@ public class MwmApplication extends Application
     nativeAddLocalization("wifi", getString(R.string.wifi));
   }
 
-  public boolean initCrashlytics()
+  public void initCrashlytics()
   {
     if (!isCrashlyticsEnabled())
-      return false;
+      return;
 
     if (isCrashlyticsInitialized())
-      return false;
+      return;
 
     Crashlytics core = new Crashlytics
         .Builder()
@@ -311,7 +316,7 @@ public class MwmApplication extends Application
 
     Fabric.with(this, core, new CrashlyticsNdk());
     nativeInitCrashlytics();
-    return mCrashlyticsInitialized = true;
+    mCrashlyticsInitialized = true;
   }
 
   public boolean isCrashlyticsInitialized()

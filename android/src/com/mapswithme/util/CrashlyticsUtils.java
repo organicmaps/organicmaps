@@ -27,9 +27,7 @@ public final class CrashlyticsUtils
   {
     MwmApplication app = MwmApplication.get();
     if (!app.isCrashlyticsEnabled())
-    {
       return false;
-    }
 
     if (!app.isCrashlyticsInitialized())
       app.initCrashlytics();

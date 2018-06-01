@@ -66,7 +66,6 @@
         android:enabled="false"
         android:summary="@string/recent_track_help_text"
         android:order="3"/>
-
     </android.support.v7.preference.PreferenceScreen>
     <Preference
       android:key="@string/pref_storage"
@@ -171,7 +170,6 @@
       android:title="@string/about"
       android:fragment="com.mapswithme.maps.settings.AboutFragment"
       android:order="2"/>
-
   </android.support.v7.preference.PreferenceCategory>
   <android.support.v7.preference.PreferenceCategory
     android:key="@string/pref_subtittle_opt_out"
@@ -184,10 +182,6 @@
         android:targetClass="com.mapswithme.maps.gdpr.MwmOptOutActivity"
         android:targetPackage="@string/app_id">
       </intent>
-    </Preference>
-    <Preference
-      android:key="@string/pref_opt_out_flurry"
-      android:title="@string/opt_out_flurry">
     </Preference>
     <SwitchPreferenceCompat
       android:key="@string/pref_opt_out_fabric_activated"
