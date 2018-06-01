@@ -14,9 +14,13 @@ omim_add_executable(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
-  platform
+  map
+  routing
   geometry
+  platform
+  coding
   base
+  stats_client
   gflags
   ${LIBZ}
 )
