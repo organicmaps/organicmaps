@@ -28003,24 +28003,24 @@ fa = دوباره نپرس
     ru = Магазин
 
   [sponsored_partner8_action]
-    en = -
-    ru = -
+    en = Special
+    ru = Акция
 
   [sponsored_partner9_action]
-    en = -
-    ru = -
+    en = Special
+    ru = Акция
 
   [sponsored_partner10_action]
-    en = -
-    ru = -
+    en = Store
+    ru = Магазин
 
   [sponsored_partner11_action]
     en = -
     ru = -
 
   [sponsored_partner12_action]
-    en = -
-    ru = -
+    en = Store
+    ru = Магазин
 
   [sponsored_partner13_action]
     en = -
@@ -31422,12 +31422,15 @@ fa = دوباره نپرس
     zh-Hant = 我同意接收有關MAPS.ME產品的最新消息
 
   [whats_new_localbiz_title]
+    en = Small business deserves attention
     ru = Малый бизнес заслуживает внимания
 
   [whats_new_localbiz_message]
-    ru = Локальные кафе, хостелы и магазинчики - именно они делают путешествия незабываемыми.\n\nОставьте заявку, и мы бесплатно оптимизируем страницу вашего бизнеса в MAPS.ME.
+    en = Family cafes, cozy hostels, unique stores – they are the special parts of our travels. We will optimize your page on the map free of charge so you will get noticed.
+    ru = Именно локальные кафе, хостелы и магазинчики делают путешествия незабываемыми. Мы бесплатно оптимизируем страницу вашего бизнеса в MAPS.ME, чтобы его заметили.
 
   [whats_new_order_button]
+    en = Leave a request
     ru = Оставить заявку
 
   [bookmarks_page_downloaded]
@@ -31499,8 +31502,8 @@ fa = دوباره نپرس
     ru = Отчеты об ошибках
 
   [opt_out_fabric_description]
-    en = MAPS.ME use your data to improve your experience.
-    ru = MAPS.ME использует ваши данные для улучшения приложения.
+    en = We may use your data to improve MAPS.ME experience. Changes will take effect after you restart the app.
+    ru = Мы можем использовать ваши данные, чтобы развивать и улучшать MAPS.ME. Изменения вступят в силу после перезапуска приложения.
 
   [opt_out_pushwoosh]
     en = Pushwoosh
@@ -31508,11 +31511,21 @@ fa = دوباره نپرس
   [opt_out_appsflyer]
     en = Appsflyer
 
-  [opt_out_help_ios]
-    en = Your iOS mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\niOS 9 or Higher\n\nGo to your Settings > Select Privacy > Select Advertising > Enable the “Limit Ad Tracking” setting
+  [opt_out_help_ios_1]
+    en = Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.
+    ru = Вы можете отказаться от получения целевой рекламы в настройках устройства.
+
+  [opt_out_help_ios_2]
+    en = iOS 9 or Higher
+    ru = iOS 9 или выше
+
+  [opt_out_help_ios_3]
+    en = Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting
+    ru = Откройте Настройки → Конфиденциальность → Реклама → Включите «Ограничение трекинга»
 
   [opt_out_help_android]
-    en = Your Android mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android devices with OS 2.2 and up and Google Play Services version 4.0 and up:\nOpen your Google Settings app > Ads > Enable “Opt out of interest-based advertising”
+    en = Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization
+    ru = Вы можете отказаться от получения целевой рекламы в настройках устройства.\nAndroid и Google Play Сервисы 4.0 и выше\n\nНастройки телефона → Google → Реклама → Отключить персонализацию рекламы\nили\nНастройки телефона → Google → Аккаунт Google → Конфиденциальность → Настройки реламных предпочтений → Персонализация рекламы
 
   [privacy_policy]
     en = Privacy policy
