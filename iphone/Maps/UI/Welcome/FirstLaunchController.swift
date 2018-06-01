@@ -64,9 +64,4 @@ final class FirstLaunchController: WelcomeViewController {
       break
     }
   }
-
-  override func close() {
-    super.close()
-    MWMFrameworkHelper.processFirstLaunch()
-  }
 }

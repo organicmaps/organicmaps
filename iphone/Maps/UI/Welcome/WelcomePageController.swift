@@ -98,6 +98,7 @@ final class WelcomePageController: UIPageViewController {
     view.removeFromSuperview()
     removeFromParentViewController()
     parentController.closePageController(self)
+    MWMFrameworkHelper.processFirstLaunch()
   }
 
   func show() {
