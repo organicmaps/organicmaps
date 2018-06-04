@@ -7,8 +7,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
+import com.mapswithme.maps.discovery.DiscoveryActivity;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.statistics.Statistics;
 
@@ -76,6 +78,7 @@ public class FilterActivity extends BaseMwmFragmentActivity
     Intent i = new Intent(action);
     i.putExtra(EXTRA_FILTER, filter);
     i.putExtra(EXTRA_FILTER_PARAMS, params);
+    i.putExtra(DiscoveryActivity.EXTRA_FILTER_SEARCH_QUERY, getString(R.string.hotel));
     setResult(Activity.RESULT_OK, i);
     finish();
   }

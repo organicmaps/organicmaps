@@ -194,19 +194,7 @@ public class FilterFragment extends BaseMwmToolbarFragment
     type.addItemDecoration(new TagItemDecoration(mTagsDecorator));
     mTypeAdapter = new HotelsTypeAdapter(this);
     type.setAdapter(mTypeAdapter);
-    root.findViewById(R.id.done).setOnClickListener(
-        v ->
-        {
-          if (mListener == null)
-            return;
-
-          HotelsFilter filter = populateFilter();
-          mListener.onFilterApply(filter, new BookingFilterParams(mCheckinDate.getTimeInMillis(),
-                                                                  mCheckoutDate.getTimeInMillis(),
-                                                                  BookingFilterParams.Room.DEFAULT));
-          Statistics.INSTANCE.trackFilterEvent(Statistics.EventName.SEARCH_FILTER_APPLY,
-                                               Statistics.EventParam.HOTEL);
-        });
+    root.findViewById(R.id.done).setOnClickListener(v -> onFilterClicked());
 
     Bundle args = getArguments();
     HotelsFilter filter = null;
@@ -220,6 +208,19 @@ public class FilterFragment extends BaseMwmToolbarFragment
     return root;
   }
 
+  private void onFilterClicked()
+  {
+    if (mListener == null)
+      return;
+
+    HotelsFilter filter = populateFilter();
+    mListener.onFilterApply(filter, new BookingFilterParams(mCheckinDate.getTimeInMillis(),
+                                                            mCheckoutDate.getTimeInMillis(),
+                                                            BookingFilterParams.Room.DEFAULT));
+    Statistics.INSTANCE.trackFilterEvent(Statistics.EventName.SEARCH_FILTER_APPLY,
+                                         Statistics.EventParam.HOTEL);
+  }
+
   @Override
   public void onActivityCreated(@Nullable Bundle savedInstanceState)
   {
@@ -231,42 +232,43 @@ public class FilterFragment extends BaseMwmToolbarFragment
   private void initDateViews(View root)
   {
     mCheckIn = root.findViewById(R.id.checkIn);
-    mCheckIn.setOnClickListener(
-        v ->
-        {
-          DatePickerDialog dialog =
-              new DatePickerDialog(getActivity(), mCheckinListener, mCheckinDate.get(Calendar.YEAR),
-                                   mCheckinDate.get(Calendar.MONTH),
-                                   mCheckinDate.get(Calendar.DAY_OF_MONTH));
-          dialog.getDatePicker().setMinDate(getMinDateForCheckin().getTimeInMillis());
-          dialog.getDatePicker().setMaxDate(getMaxDateForCheckin().getTimeInMillis());
-          dialog.show();
-          Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
-                                               new Pair<>(Statistics.EventParam.DATE,
-                                                          Statistics.ParamValue.CHECKIN));
-
-        });
+    mCheckIn.setOnClickListener(v -> onCheckInClicked());
     mCheckOut = root.findViewById(R.id.checkOut);
-    mCheckOut.setOnClickListener(
-        v ->
-        {
-          DatePickerDialog dialog
-              = new DatePickerDialog(getActivity(), mCheckoutListener,
-                                     mCheckoutDate.get(Calendar.YEAR),
-                                     mCheckoutDate.get(Calendar.MONTH),
-                                     mCheckoutDate.get(Calendar.DAY_OF_MONTH));
-
-          dialog.getDatePicker().setMinDate(getDayAfter(mCheckinDate).getTimeInMillis());
-          dialog.getDatePicker().setMaxDate(getMaxDateForCheckout(mCheckinDate).getTimeInMillis());
-          dialog.show();
-          Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
-                                               new Pair<>(Statistics.EventParam.DATE,
-                                                          Statistics.ParamValue.CHECKOUT));
-        });
+    mCheckOut.setOnClickListener(v -> onCheckOutClicked());
 
 
     mOfflineWarning = root.findViewById(R.id.offlineWarning);
     enableDateViewsIfConnected();
+  }
+
+  private void onCheckOutClicked()
+  {
+    DatePickerDialog dialog
+        = new DatePickerDialog(getActivity(), mCheckoutListener,
+                               mCheckoutDate.get(Calendar.YEAR),
+                               mCheckoutDate.get(Calendar.MONTH),
+                               mCheckoutDate.get(Calendar.DAY_OF_MONTH));
+
+    dialog.getDatePicker().setMinDate(getDayAfter(mCheckinDate).getTimeInMillis());
+    dialog.getDatePicker().setMaxDate(getMaxDateForCheckout(mCheckinDate).getTimeInMillis());
+    dialog.show();
+    Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
+                                         new Pair<>(Statistics.EventParam.DATE,
+                                                    Statistics.ParamValue.CHECKOUT));
+  }
+
+  private void onCheckInClicked()
+  {
+    DatePickerDialog dialog =
+        new DatePickerDialog(getActivity(), mCheckinListener, mCheckinDate.get(Calendar.YEAR),
+                             mCheckinDate.get(Calendar.MONTH),
+                             mCheckinDate.get(Calendar.DAY_OF_MONTH));
+    dialog.getDatePicker().setMinDate(getMinDateForCheckin().getTimeInMillis());
+    dialog.getDatePicker().setMaxDate(getMaxDateForCheckin().getTimeInMillis());
+    dialog.show();
+    Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
+                                         new Pair<>(Statistics.EventParam.DATE,
+                                                    Statistics.ParamValue.CHECKIN));
   }
 
   private void enableDateViewsIfConnected()
