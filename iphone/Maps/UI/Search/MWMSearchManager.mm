@@ -291,9 +291,12 @@ using Observers = NSHashTable<Observer>;
   [self.navigationController popToRootViewControllerAnimated:NO];
 
   self.actionBarState = MWMSearchManagerActionBarStateModeFilter;
-  [self animateConstraints:^{
-    self.actionBarViewBottom.priority = UILayoutPriorityDefaultHigh;
-  }];
+  if (!IPAD)
+  {
+    [self animateConstraints:^{
+      self.actionBarViewBottom.priority = UILayoutPriorityDefaultHigh;
+    }];
+  }
   auto const navigationManagerState = [MWMNavigationDashboardManager manager].state;
   [self viewHidden:navigationManagerState != MWMNavigationDashboardStateHidden];
   [MWMSearch setSearchOnMap:YES];
