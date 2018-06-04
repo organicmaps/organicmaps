@@ -2112,15 +2112,15 @@
 
 "sponsored_partner7_action" = "Store";
 
-"sponsored_partner8_action" = "-";
+"sponsored_partner8_action" = "Special";
 
-"sponsored_partner9_action" = "-";
+"sponsored_partner9_action" = "Special";
 
-"sponsored_partner10_action" = "-";
+"sponsored_partner10_action" = "Store";
 
 "sponsored_partner11_action" = "-";
 
-"sponsored_partner12_action" = "-";
+"sponsored_partner12_action" = "Store";
 
 "sponsored_partner13_action" = "-";
 
@@ -2330,6 +2330,12 @@
 
 "sign_agree_news_gdpr" = "Ik ga ermee akkoord dat ik het recentste nieuws over de producten van MAPS.ME zal ontvangen";
 
+"whats_new_localbiz_title" = "Small business deserves attention";
+
+"whats_new_localbiz_message" = "Family cafes, cozy hostels, unique stores – they are the special parts of our travels. We will optimize your page on the map free of charge so you will get noticed.";
+
+"whats_new_order_button" = "Leave a request";
+
 "bookmarks_page_downloaded" = "Downloaded";
 
 "bookmarks_page_my" = "My";
@@ -2358,15 +2364,19 @@
 
 "opt_out_fabric" = "Crash report";
 
-"opt_out_fabric_description" = "MAPS.ME use your data to improve your experience.";
+"opt_out_fabric_description" = "We may use your data to improve MAPS.ME experience. Changes will take effect after you restart the app.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
 "opt_out_appsflyer" = "Appsflyer";
 
-"opt_out_help_ios" = "Your iOS mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\niOS 9 or Higher\n\nGo to your Settings > Select Privacy > Select Advertising > Enable the “Limit Ad Tracking” setting";
+"opt_out_help_ios_1" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.";
 
-"opt_out_help_android" = "Your Android mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android devices with OS 2.2 and up and Google Play Services version 4.0 and up:\nOpen your Google Settings app > Ads > Enable “Opt out of interest-based advertising”";
+"opt_out_help_ios_2" = "iOS 9 or Higher";
+
+"opt_out_help_ios_3" = "Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting";
+
+"opt_out_help_android" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization";
 
 "privacy_policy" = "Privacy policy";
 

@@ -1222,11 +1222,11 @@
 	<string name="sponsored_partner5_action">Билеты</string>
 	<string name="sponsored_partner6_action">Магазин</string>
 	<string name="sponsored_partner7_action">Магазин</string>
-	<string name="sponsored_partner8_action">-</string>
-	<string name="sponsored_partner9_action">-</string>
-	<string name="sponsored_partner10_action">-</string>
+	<string name="sponsored_partner8_action">Акция</string>
+	<string name="sponsored_partner9_action">Акция</string>
+	<string name="sponsored_partner10_action">Магазин</string>
 	<string name="sponsored_partner11_action">-</string>
-	<string name="sponsored_partner12_action">-</string>
+	<string name="sponsored_partner12_action">Магазин</string>
 	<string name="sponsored_partner13_action">-</string>
 	<string name="sponsored_partner14_action">-</string>
 	<string name="sponsored_partner15_action">-</string>
@@ -1341,7 +1341,7 @@
 	<string name="sign_agree_tof_gdpr">Я согласен с &lt;a href="%s">Условиями использования&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Я согласен получать последние новости о MAPS.ME</string>
 	<string name="whats_new_localbiz_title">Малый бизнес заслуживает внимания</string>
-	<string name="whats_new_localbiz_message">Локальные кафе, хостелы и магазинчики - именно они делают путешествия незабываемыми.\n\nОставьте заявку, и мы бесплатно оптимизируем страницу вашего бизнеса в MAPS.ME.</string>
+	<string name="whats_new_localbiz_message">Именно локальные кафе, хостелы и магазинчики делают путешествия незабываемыми. Мы бесплатно оптимизируем страницу вашего бизнеса в MAPS.ME, чтобы его заметили.</string>
 	<string name="whats_new_order_button">Оставить заявку</string>
 	<string name="bookmarks_page_downloaded">Загруженные</string>
 	<string name="bookmarks_page_my">Мои</string>
@@ -1357,7 +1357,11 @@
 	<string name="opt_out_flurry">Статистика</string>
 	<string name="opt_out_mopub">Персонализированная реклама</string>
 	<string name="opt_out_fabric">Отчеты об ошибках</string>
-	<string name="opt_out_fabric_description">MAPS.ME использует ваши данные для улучшения приложения.</string>
+	<string name="opt_out_fabric_description">Мы можем использовать ваши данные, чтобы развивать и улучшать MAPS.ME. Изменения вступят в силу после перезапуска приложения.</string>
+	<string name="opt_out_help_ios_1">Вы можете отказаться от получения целевой рекламы в настройках устройства.</string>
+	<string name="opt_out_help_ios_2">iOS 9 или выше</string>
+	<string name="opt_out_help_ios_3">Откройте Настройки → Конфиденциальность → Реклама → Включите «Ограничение трекинга»</string>
+	<string name="opt_out_help_android">Вы можете отказаться от получения целевой рекламы в настройках устройства.\nAndroid и Google Play Сервисы 4.0 и выше\n\nНастройки телефона → Google → Реклама → Отключить персонализацию рекламы\nили\nНастройки телефона → Google → Аккаунт Google → Конфиденциальность → Настройки реламных предпочтений → Персонализация рекламы</string>
 	<string name="privacy_policy">Политика конфиденциальности</string>
 	<string name="terms_of_use">Условия использования</string>
 </resources>

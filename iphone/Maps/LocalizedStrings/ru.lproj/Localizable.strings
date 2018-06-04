@@ -2112,15 +2112,15 @@
 
 "sponsored_partner7_action" = "Магазин";
 
-"sponsored_partner8_action" = "-";
+"sponsored_partner8_action" = "Акция";
 
-"sponsored_partner9_action" = "-";
+"sponsored_partner9_action" = "Акция";
 
-"sponsored_partner10_action" = "-";
+"sponsored_partner10_action" = "Магазин";
 
 "sponsored_partner11_action" = "-";
 
-"sponsored_partner12_action" = "-";
+"sponsored_partner12_action" = "Магазин";
 
 "sponsored_partner13_action" = "-";
 
@@ -2332,7 +2332,7 @@
 
 "whats_new_localbiz_title" = "Малый бизнес заслуживает внимания";
 
-"whats_new_localbiz_message" = "Локальные кафе, хостелы и магазинчики - именно они делают путешествия незабываемыми.\n\nОставьте заявку, и мы бесплатно оптимизируем страницу вашего бизнеса в MAPS.ME.";
+"whats_new_localbiz_message" = "Именно локальные кафе, хостелы и магазинчики делают путешествия незабываемыми. Мы бесплатно оптимизируем страницу вашего бизнеса в MAPS.ME, чтобы его заметили.";
 
 "whats_new_order_button" = "Оставить заявку";
 
@@ -2364,15 +2364,19 @@
 
 "opt_out_fabric" = "Отчеты об ошибках";
 
-"opt_out_fabric_description" = "MAPS.ME использует ваши данные для улучшения приложения.";
+"opt_out_fabric_description" = "Мы можем использовать ваши данные, чтобы развивать и улучшать MAPS.ME. Изменения вступят в силу после перезапуска приложения.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
 "opt_out_appsflyer" = "Appsflyer";
 
-"opt_out_help_ios" = "Your iOS mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\niOS 9 or Higher\n\nGo to your Settings > Select Privacy > Select Advertising > Enable the “Limit Ad Tracking” setting";
+"opt_out_help_ios_1" = "Вы можете отказаться от получения целевой рекламы в настройках устройства.";
 
-"opt_out_help_android" = "Your Android mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android devices with OS 2.2 and up and Google Play Services version 4.0 and up:\nOpen your Google Settings app > Ads > Enable “Opt out of interest-based advertising”";
+"opt_out_help_ios_2" = "iOS 9 или выше";
+
+"opt_out_help_ios_3" = "Откройте Настройки → Конфиденциальность → Реклама → Включите «Ограничение трекинга»";
+
+"opt_out_help_android" = "Вы можете отказаться от получения целевой рекламы в настройках устройства.\nAndroid и Google Play Сервисы 4.0 и выше\n\nНастройки телефона → Google → Реклама → Отключить персонализацию рекламы\nили\nНастройки телефона → Google → Аккаунт Google → Конфиденциальность → Настройки реламных предпочтений → Персонализация рекламы";
 
 "privacy_policy" = "Политика конфиденциальности";
 
