@@ -337,6 +337,12 @@ bool SearchAPI::IsViewportSearchActive() const
   return !m_searchIntents[static_cast<size_t>(Mode::Viewport)].m_params.m_query.empty();
 }
 
+void SearchAPI::ShowViewportSearchResults(bool clear, Results::ConstIter begin,
+                                          Results::ConstIter end)
+{
+  return m_delegate.ShowViewportSearchResults(clear, begin, end);
+}
+
 void SearchAPI::ShowViewportSearchResults(bool clear, booking::filter::Types types,
                                           Results::ConstIter begin, Results::ConstIter end)
 {
@@ -348,10 +354,10 @@ ProductInfo SearchAPI::GetProductInfo(Result const & result) const
   return m_delegate.GetProductInfo(result);
 }
 
-void SearchAPI::FilterSearchResultsOnBooking(booking::filter::Tasks const & filterTasks,
-                                             search::Results const & results, bool inViewport)
+void SearchAPI::FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
+                                            search::Results const & results, bool inViewport)
 {
-  m_delegate.FilterSearchResultsOnBooking(filterTasks, results, inViewport);
+  m_delegate.FilterResultsForHotelsQuery(filterTasks, results, inViewport);
 }
 
 void SearchAPI::OnBookmarksCreated(vector<pair<kml::MarkId, kml::BookmarkData>> const & marks)

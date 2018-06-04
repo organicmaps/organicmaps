@@ -3,7 +3,7 @@
 #include "search/cities_boundaries_table.hpp"
 #include "search/features_layer_path_finder.hpp"
 #include "search/retrieval.hpp"
-#include "search/search_tests_support/integration_tests_helpers.hpp"
+#include "search/search_tests_support/helpers.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
 #include "search/token_range.hpp"

@@ -77,14 +77,23 @@ void ViewportSearchCallback::operator()(Results const & results)
     m_delegate.RunUITask([&delegate, firstCall, types, results, lastResultsSize]() {
       if (!delegate.IsViewportSearchActive())
         return;
-      delegate.ShowViewportSearchResults(firstCall, types, results.begin() + lastResultsSize,
-                                         results.end());
+
+      if (types.empty())
+      {
+        delegate.ShowViewportSearchResults(firstCall, results.begin() + lastResultsSize,
+                                           results.end());
+      }
+      else
+      {
+        delegate.ShowViewportSearchResults(firstCall, types, results.begin() + lastResultsSize,
+                                           results.end());
+      }
     });
   }
 
   if (results.IsEndedNormal() && results.GetType() == Results::Type::Hotels)
   {
-    m_delegate.FilterSearchResultsOnBooking(m_bookingFilterTasks, results, true /* inViewport */);
+    m_delegate.FilterResultsForHotelsQuery(m_bookingFilterTasks, results, true /* inViewport */);
   }
 
   m_lastResultsSize = results.GetCount();

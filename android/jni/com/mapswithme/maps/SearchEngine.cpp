@@ -528,11 +528,9 @@ public:
     }
     else
     {
-      // Use tomorrow and day after tomorrow by default.
-      result.m_checkin = booking::AvailabilityParams::Clock::now() + chrono::hours(24);
-      result.m_checkout = booking::AvailabilityParams::Clock::now() + chrono::hours(48);
-      // Use two adults without children.
-      result.m_rooms.emplace_back(2, -1);
+      result = g_framework->NativeFramework()->GetLastBookingAvailabilityParams();
+      if (result.IsEmpty())
+        result = booking::AvailabilityParams::MakeDefault();
     }
 
     result.m_dealsOnly = true;

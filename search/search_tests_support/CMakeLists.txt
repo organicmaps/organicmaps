@@ -2,8 +2,8 @@ project(search_tests_support)
 
 set(
   SRC
-  integration_tests_helpers.cpp
-  integration_tests_helpers.hpp
+  helpers.cpp
+  helpers.hpp
   test_results_matching.cpp
   test_results_matching.hpp
   test_search_engine.cpp

@@ -23,8 +23,8 @@ public:
     virtual ~Delegate() = default;
 
     virtual ProductInfo GetProductInfo(Result const & result) const = 0;
-    virtual void FilterSearchResultsOnBooking(booking::filter::Tasks const & filterTasks,
-                                              search::Results const & results, bool inViewport) = 0;
+    virtual void FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
+                                             search::Results const & results, bool inViewport) = 0;
   };
 
   EverywhereSearchCallback(Delegate & delegate, booking::filter::Tasks const & bookingFilterTasks,

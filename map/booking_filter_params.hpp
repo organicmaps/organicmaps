@@ -70,8 +70,12 @@ using TaskInternal = TaskImpl<ParamsInternal>;
 
 enum ApplyMode
 {
+  /// Apply filters independently on provided list of search results.
+  /// Every filter will be applied on own copy of search results.
   Independent,
-  Consecutively
+  /// Apply each filter one by one on provided list of search results.
+  /// All filters will be applied on joint copy of search results.
+  Consecutive
 };
 
 template <typename T>

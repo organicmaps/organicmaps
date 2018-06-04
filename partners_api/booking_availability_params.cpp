@@ -73,6 +73,19 @@ bool AvailabilityParams::Room::operator==(AvailabilityParams::Room const & rhs) 
   return !this->operator!=(rhs);
 }
 
+// static
+AvailabilityParams AvailabilityParams::MakeDefault()
+{
+  AvailabilityParams result;
+  // Use tomorrow and day after tomorrow by default.
+  result.m_checkin = Clock::now() + std::chrono::hours(24);
+  result.m_checkout = Clock::now() + std::chrono::hours(48);
+  // Use two adults without children.
+  result.m_rooms = {{2, Room::kNoChildren}};
+
+  return result;
+}
+
 url::Params AvailabilityParams::Get(UrlFilter const & filter /* = {} */) const
 {
   url::Params result;

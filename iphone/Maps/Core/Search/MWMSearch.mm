@@ -154,12 +154,9 @@ using Observers = NSHashTable<Observer>;
   booking::filter::Tasks tasks;
   if (availabilityParams.IsEmpty())
   {
-    booking::AvailabilityParams params;
-    // Use tomorrow and day after tomorrow by default.
-    params.m_checkin = booking::AvailabilityParams::Clock::now() + std::chrono::hours(24);
-    params.m_checkout = booking::AvailabilityParams::Clock::now() + std::chrono::hours(48);
-    // Use two adults without children.
-    params.m_rooms.emplace_back(2, -1);
+    auto params = GetFramework().GetLastBookingAvailabilityParams();
+    if (params.IsEmpty())
+      params = booking::AvailabilityParams::MakeDefault();
     params.m_dealsOnly = true;
     
     booking::filter::Params dp(std::make_shared<booking::AvailabilityParams>(params), {});

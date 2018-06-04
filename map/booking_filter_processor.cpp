@@ -24,8 +24,8 @@ void FilterProcessor::ApplyFilters(search::Results const & results, TasksInterna
 
     switch (mode)
     {
-    case Independent: ApplyIndependent(results, tasks); break;
-    case Consecutively: ApplyConsecutively(results, tasks); break;
+    case Independent: ApplyIndependently(results, tasks); break;
+    case Consecutive: ApplyConsecutively(results, tasks); break;
     }
   });
 }
@@ -71,7 +71,7 @@ void FilterProcessor::ApplyConsecutively(search::Results const & results, TasksI
     auto const & cb = tasks[i - 1].m_filterParams.m_callback;
 
     tasks[i - 1].m_filterParams.m_callback =
-      [ this, cb, nextTask = std::move(tasks[i]) ](search::Results const & results) mutable
+      [this, cb, nextTask = std::move(tasks[i])](search::Results const & results) mutable
       {
         cb(results);
         // Run the next filter with obtained results from the previous one.
@@ -82,16 +82,15 @@ void FilterProcessor::ApplyConsecutively(search::Results const & results, TasksI
         });
       };
   }
-  // Run first filter.
+  // Run the first filter.
   m_filters.at(tasks.front().m_type)->ApplyFilter(results, tasks.front().m_filterParams);
 }
 
-void FilterProcessor::ApplyIndependent(search::Results const & results, TasksInternal const & tasks)
+void FilterProcessor::ApplyIndependently(search::Results const & results,
+                                         TasksInternal const & tasks)
 {
   for (auto const & task : tasks)
-  {
     m_filters.at(task.m_type)->ApplyFilter(results, task.m_filterParams);
-  }
 }
 }  // namespace filter
 }  // namespace booking

@@ -1,4 +1,5 @@
 #include "search/hotels_classifier.hpp"
+
 #include "search/result.hpp"
 
 #include "std/cstdint.hpp"
@@ -9,11 +10,9 @@ namespace search
 bool HotelsClassifier::IsHotelResults(Results const & results)
 {
   HotelsClassifier classifier;
-  auto first = results.begin();
-  for (; first != results.end(); ++first)
-  {
-    classifier.Add(*first);
-  }
+  for ( auto const & r : results)
+    classifier.Add(r);
+
   return classifier.IsHotelResults();
 }
 

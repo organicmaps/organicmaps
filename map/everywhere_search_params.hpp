@@ -1,7 +1,6 @@
 #pragma once
 
 #include "map/booking_filter_params.hpp"
-#include "map/everywhere_search_callback.hpp"
 
 #include "search/hotels_filter.hpp"
 #include "search/result.hpp"

@@ -1,4 +1,4 @@
-#include "search/search_tests_support/integration_tests_helpers.hpp"
+#include "search/search_tests_support/helpers.hpp"
 
 #include "storage/country_info_getter.hpp"
 

@@ -164,7 +164,7 @@ public:
 
   enum class Type
   {
-    Simple,
+    Default,
     Hotels
   };
 
@@ -222,7 +222,7 @@ public:
 
   Type GetType() const
   {
-    return m_hotelsClassif.IsHotelResults() ? Type::Hotels : Type::Simple;
+    return m_hotelsClassif.IsHotelResults() ? Type::Hotels : Type::Default;
   }
 
 private:

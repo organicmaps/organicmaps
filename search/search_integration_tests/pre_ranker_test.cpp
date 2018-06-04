@@ -7,7 +7,7 @@
 #include "search/model.hpp"
 #include "search/pre_ranker.hpp"
 #include "search/ranker.hpp"
-#include "search/search_tests_support/integration_tests_helpers.hpp"
+#include "search/search_tests_support/helpers.hpp"
 #include "search/search_tests_support/test_search_engine.hpp"
 #include "search/suggest.hpp"
 

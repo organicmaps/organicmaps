@@ -53,6 +53,11 @@ public:
 
     virtual void SetSearchDisplacementModeEnabled(bool /* enabled */) {}
 
+    virtual void ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
+                                           search::Results::ConstIter end)
+    {
+    }
+
     virtual void ShowViewportSearchResults(bool clear, booking::filter::Types types,
                                            search::Results::ConstIter begin,
                                            search::Results::ConstIter end)
@@ -70,8 +75,8 @@ public:
 
     virtual double GetMinDistanceBetweenResults() const { return 0.0; };
 
-    virtual void FilterSearchResultsOnBooking(booking::filter::Tasks const & filterTasks,
-                                              search::Results const & results, bool inViewport)
+    virtual void FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
+                                             search::Results const & results, bool inViewport)
     {
     }
 
@@ -119,12 +124,14 @@ public:
   void RunUITask(std::function<void()> fn) override;
   void SetHotelDisplacementMode() override;
   bool IsViewportSearchActive() const override;
+  void ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
+                                 search::Results::ConstIter end) override;
   void ShowViewportSearchResults(bool clear, booking::filter::Types types,
                                  search::Results::ConstIter begin,
                                  search::Results::ConstIter end) override;
   search::ProductInfo GetProductInfo(search::Result const & result) const override;
-  void FilterSearchResultsOnBooking(booking::filter::Tasks const & filterTasks,
-                                    search::Results const & results, bool inViewport) override;
+  void FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
+                                   search::Results const & results, bool inViewport) override;
 
   void OnBookmarksCreated(std::vector<std::pair<kml::MarkId, kml::BookmarkData>> const & marks);
   void OnBookmarksUpdated(std::vector<std::pair<kml::MarkId, kml::BookmarkData>> const & marks);

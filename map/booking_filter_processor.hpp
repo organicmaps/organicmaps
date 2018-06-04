@@ -46,7 +46,7 @@ public:
 
 private:
   void ApplyConsecutively(search::Results const & results, TasksInternal & tasks);
-  void ApplyIndependent(search::Results const & results, TasksInternal const & tasks);
+  void ApplyIndependently(search::Results const & results, TasksInternal const & tasks);
   Index const & m_index;
   Api const & m_api;
 

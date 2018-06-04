@@ -43,6 +43,8 @@ struct AvailabilityParams : public ParamsBase
   using Rooms = std::vector<Room>;
   using Stars = std::vector<std::string>;
 
+  static AvailabilityParams MakeDefault();
+
   using UrlFilter = std::unordered_set<std::string>;
   base::url::Params Get(UrlFilter const & filter = {}) const;
 
@@ -70,7 +72,7 @@ struct AvailabilityParams : public ParamsBase
   double m_minReviewScore = {};
   /// Limit to hotels with the given number(s) of stars. Supported values 1-5.
   Stars m_stars;
-  /// Only show rates that are deals of given types.
+  /// Only show rates that are deals of types: smart, lastm.
   bool m_dealsOnly = false;
 };
 }  // namespace booking

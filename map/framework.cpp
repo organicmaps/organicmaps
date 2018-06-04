@@ -3125,15 +3125,17 @@ void Framework::SetSearchDisplacementModeEnabled(bool enabled)
   SetDisplacementMode(DisplacementModeManager::SLOT_INTERACTIVE_SEARCH, enabled /* show */);
 }
 
+void Framework::ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
+                                          search::Results::ConstIter end)
+{
+  FillSearchResultsMarks(clear, begin, end);
+}
+
 void Framework::ShowViewportSearchResults(bool clear, booking::filter::Types types,
                                           search::Results::ConstIter begin,
                                           search::Results::ConstIter end)
 {
-  if (types.empty())
-  {
-    FillSearchResultsMarks(clear, begin, end);
-    return;
-  }
+  ASSERT(!types.empty(), ());
 
   search::Results results;
   results.AddResultsNoChecks(begin, end);
@@ -3408,8 +3410,8 @@ ugc::Reviews Framework::FilterUGCReviews(ugc::Reviews const & reviews) const
   return result;
 }
 
-void Framework::FilterSearchResultsOnBooking(booking::filter::Tasks const & filterTasks,
-                                             search::Results const & results, bool inViewport)
+void Framework::FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
+                                            search::Results const & results, bool inViewport)
 {
   using namespace booking::filter;
 
@@ -3434,9 +3436,7 @@ void Framework::FilterSearchResultsOnBooking(booking::filter::Tasks const & filt
 
           std::vector<FeatureID> features;
           for (auto const & r : results)
-          {
             features.push_back(r.GetFeatureID());
-          }
 
           std::sort(features.begin(), features.end());
 
@@ -3448,7 +3448,7 @@ void Framework::FilterSearchResultsOnBooking(booking::filter::Tasks const & filt
               {
               case Type::Deals:
                 m_searchMarks.SetSales(features, true /* hasSale */);
-                  break;
+                break;
               case Type::Availability:
                 m_searchMarks.SetPreparingState(features, false /* isPreparing */);
                 break;
@@ -3474,4 +3474,9 @@ void Framework::OnBookingFilterParamsUpdate(booking::filter::Tasks const & filte
 
     m_bookingFilterProcessor.OnParamsUpdated(task.m_type, task.m_filterParams.m_apiParams);
   }
+}
+
+booking::AvailabilityParams Framework::GetLastBookingAvailabilityParams() const
+{
+  return m_bookingAvailabilityParams;
 }

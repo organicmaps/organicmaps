@@ -342,6 +342,8 @@ public:
   // SearchAPI::Delegate overrides:
   void RunUITask(function<void()> fn) override;
   void SetSearchDisplacementModeEnabled(bool enabled) override;
+  void ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
+                                 search::Results::ConstIter end) override;
   void ShowViewportSearchResults(bool clear, booking::filter::Types types,
                                  search::Results::ConstIter begin,
                                  search::Results::ConstIter end) override;
@@ -843,9 +845,11 @@ private:
   ugc::Reviews FilterUGCReviews(ugc::Reviews const & reviews) const;
 
 public:
-  void FilterSearchResultsOnBooking(booking::filter::Tasks const & filterTasks,
-                                    search::Results const & results, bool inViewport) override;
+  void FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
+                                   search::Results const & results, bool inViewport) override;
   void OnBookingFilterParamsUpdate(booking::filter::Tasks const & filterTasks) override;
+
+  booking::AvailabilityParams GetLastBookingAvailabilityParams() const;
 
 private:
   // m_discoveryManager must be bellow m_searchApi, m_viatorApi, m_localsApi
