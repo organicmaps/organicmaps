@@ -88,9 +88,42 @@ std::string MakeCampaignDownloadingURL(MwmSet::MwmId const & mwmId)
 
 std::string GetCustomIcon(FeatureType & featureType)
 {
-  auto const websiteStr = featureType.GetMetadata().Get(feature::Metadata::FMD_WEBSITE);
+  auto const & metadata = featureType.GetMetadata();
+  auto const websiteStr = metadata.Get(feature::Metadata::FMD_WEBSITE);
   if (websiteStr.find("burgerking") != std::string::npos)
     return "0_burger-king";
+
+  auto const bannerUrl = metadata.Get(feature::Metadata::FMD_BANNER_URL);
+  if (bannerUrl.find("adidas") != std::string::npos)
+  {
+    if (bannerUrl.find("originals") != std::string::npos)
+      return "partner6-l";
+    if (bannerUrl.find("deti") != std::string::npos)
+      return "partner7-l";
+    return "partner4-l";
+  }
+
+  if (websiteStr.find("costacoffee") != std::string::npos ||
+      bannerUrl.find("costa_coffee") != std::string::npos)
+  {
+    return "partner8-l";
+  }
+
+  if (websiteStr.find("tgifridays") != std::string::npos ||
+      bannerUrl.find("tgi_fridays") != std::string::npos)
+  {
+    return "partner9-l";
+  }
+
+  if (websiteStr.find("sportmaster") != std::string::npos ||
+      bannerUrl.find("sportmaster") != std::string::npos)
+  {
+    return "partner10-l";
+  }
+
+  if (bannerUrl.find("azbuka_vkusa") != std::string::npos)
+    return "partner12-l";
+
   return {};
 }
 
