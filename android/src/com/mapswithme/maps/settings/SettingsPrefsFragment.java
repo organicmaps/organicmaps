@@ -309,13 +309,6 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
     updateTts();
   }
 
-  private void initOptOut()
-  {
-    String key = getString(R.string.pref_opt_out_fabric_activated);
-    Preference pref = findPreference(key);
-    pref.setOnPreferenceChangeListener((preference, newValue) -> onToggleOptOut(newValue));
-  }
-
   private boolean onToggleOptOut(Object newValue)
   {
     boolean isEnabled = (boolean) newValue;
@@ -846,6 +839,15 @@ public class SettingsPrefsFragment extends BaseXmlSettingsFragment
         return true;
       }
     });
+  }
+
+  private void initOptOut()
+  {
+    String key = getString(R.string.pref_opt_out_fabric_activated);
+    Preference pref = findPreference(key);
+    if (pref == null)
+      return;
+    pref.setOnPreferenceChangeListener((preference, newValue) -> onToggleOptOut(newValue));
   }
 
   private void removePreference(@NonNull String categoryKey, @NonNull Preference preference)
