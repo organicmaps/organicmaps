@@ -243,7 +243,7 @@ BOOL gIsFirstMyPositionMode = YES;
 
   [self updateStatusBarStyle];
   GetFramework().InvalidateRendering();
-  [self showWelcomeScreenIfNeeded];
+  [self.welcomePageController show];
   [self showViralAlertIfNeeded];
   [self checkAuthorization];
 }
@@ -254,6 +254,7 @@ BOOL gIsFirstMyPositionMode = YES;
   self.view.clipsToBounds = YES;
   [self processMyPositionStateModeEvent:MWMMyPositionModePendingPosition];
   [MWMKeyboard addObserver:self];
+  self.welcomePageController = [MWMWelcomePageController controllerWithParent:self];
 }
 
 - (void)mwm_refreshUI
@@ -262,11 +263,6 @@ BOOL gIsFirstMyPositionMode = YES;
   [self.navigationController.navigationBar mwm_refreshUI];
   [self.controlsManager mwm_refreshUI];
   [self.downloadDialog mwm_refreshUI];
-}
-
-- (void)showWelcomeScreenIfNeeded
-{
-  self.welcomePageController = [MWMWelcomePageController controllerWithParent:self];
 }
 
 - (void)closePageController:(MWMWelcomePageController *)pageController

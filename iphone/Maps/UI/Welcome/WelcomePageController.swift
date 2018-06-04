@@ -61,7 +61,6 @@ final class WelcomePageController: UIPageViewController {
       controller.delegate = vc
     }
     vc.controllers = controllersToShow
-    vc.show()
     return vc
   }
 
@@ -101,7 +100,7 @@ final class WelcomePageController: UIPageViewController {
     MWMFrameworkHelper.processFirstLaunch()
   }
 
-  func show() {
+  @objc func show() {
     if let controller = currentController as? WelcomeViewController {
       Statistics.logEvent(kStatEventName(kStatWhatsNew, type(of: controller).key),
                           withParameters: [kStatAction: kStatOpen])
