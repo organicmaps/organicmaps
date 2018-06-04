@@ -167,7 +167,7 @@
       android:order="1"/>
     <Preference
       android:key="@string/pref_about"
-      android:title="@string/about"
+      android:title="@string/about_menu_title"
       android:fragment="com.mapswithme.maps.settings.AboutFragment"
       android:order="2"/>
   </android.support.v7.preference.PreferenceCategory>
