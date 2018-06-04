@@ -123,53 +123,53 @@ relation,1907261,sponsored=partner5
 
 # Costa Coffee
 
-node,2477830174,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,5643722713,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,2477830173,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,2701286445,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,5643722720,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,4386309386,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,5643722718,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,5643722692,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,5644454618,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,2030435661,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,4574126786,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,5643723646,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,2703036074,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,2477830169,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,2477830172,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,2477830167,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,2477830168,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,2477830171,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,2775416973,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,5643722702,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,4701733242,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,4248501417,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,5643722691,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
-node,4847104021,sponsored=partner8,https://localads.maps.me/redirects/costa_coffee
+node,2477830174,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,5643722713,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,2477830173,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,2701286445,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,5643722720,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,4386309386,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,5643722718,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,5643722692,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,5644454618,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,2030435661,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,4574126786,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,5643723646,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,2703036074,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,2477830169,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,2477830172,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,2477830167,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,2477830168,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,2477830171,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,2775416973,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,5643722702,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,4701733242,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,4248501417,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,5643722691,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
+node,4847104021,sponsored=partner8,banner_url=https://localads.maps.me/redirects/costa_coffee
 
 
 # TGI Fridays
 
-node,480803495,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
-node,5641681133,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
-node,524512022,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
-node,1538555418,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
-node,4111273695,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
-node,5641681134,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
-node,5644400576,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
-node,5641681135,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
-node,619248592,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
-node,5643723652,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
-node,2345363046,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
-node,4247950418,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
-node,5641681128,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
-node,5641681126,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
-node,5641681131,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
-node,3658494958,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
-node,3025611230,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
-node,3025611231,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
-node,4309729394,sponsored=partner9,https://localads.maps.me/redirects/tgi_fridays
+node,480803495,sponsored=partner9,banner_url=https://localads.maps.me/redirects/tgi_fridays
+node,5641681133,sponsored=partner9,banner_url=https://localads.maps.me/redirects/tgi_fridays
+node,524512022,sponsored=partner9,banner_url=https://localads.maps.me/redirects/tgi_fridays
+node,1538555418,sponsored=partner9,banner_url=https://localads.maps.me/redirects/tgi_fridays
+node,4111273695,sponsored=partner9,banner_url=https://localads.maps.me/redirects/tgi_fridays
+node,5641681134,sponsored=partner9,banner_url=https://localads.maps.me/redirects/tgi_fridays
+node,5644400576,sponsored=partner9,banner_url=https://localads.maps.me/redirects/tgi_fridays
+node,5641681135,sponsored=partner9,banner_url=https://localads.maps.me/redirects/tgi_fridays
+node,619248592,sponsored=partner9,banner_url=https://localads.maps.me/redirects/tgi_fridays
+node,5643723652,sponsored=partner9,banner_url=https://localads.maps.me/redirects/tgi_fridays
+node,2345363046,sponsored=partner9,banner_url=https://localads.maps.me/redirects/tgi_fridays
+node,4247950418,sponsored=partner9,banner_url=https://localads.maps.me/redirects/tgi_fridays
+node,5641681128,sponsored=partner9,banner_url=https://localads.maps.me/redirects/tgi_fridays
+node,5641681126,sponsored=partner9,banner_url=https://localads.maps.me/redirects/tgi_fridays
+node,5641681131,sponsored=partner9,banner_url=https://localads.maps.me/redirects/tgi_fridays
+node,3658494958,sponsored=partner9,banner_url=https://localads.maps.me/redirects/tgi_fridays
+node,3025611230,sponsored=partner9,banner_url=https://localads.maps.me/redirects/tgi_fridays
+node,3025611231,sponsored=partner9,banner_url=https://localads.maps.me/redirects/tgi_fridays
+node,4309729394,sponsored=partner9,banner_url=https://localads.maps.me/redirects/tgi_fridays
 
 
 # Sportmaster
