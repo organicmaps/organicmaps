@@ -1571,8 +1571,64 @@
                             </tableViewSection>
                             <tableViewSection id="Vce-Ld-skc">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="VXa-CM-OXP" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Phw-kU-YR4" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="451" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Phw-kU-YR4" id="aSD-aJ-PPx">
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Inh-j5-jJX">
+                                                    <rect key="frame" x="16" y="14" width="307" height="15.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="privacy_policy"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Inh-j5-jJX" secondAttribute="trailing" constant="10" id="2L2-Sg-uCC"/>
+                                                <constraint firstItem="Inh-j5-jJX" firstAttribute="top" secondItem="aSD-aJ-PPx" secondAttribute="topMargin" constant="3" id="Kav-yT-IpV"/>
+                                                <constraint firstItem="Inh-j5-jJX" firstAttribute="leading" secondItem="aSD-aJ-PPx" secondAttribute="leading" constant="16" id="YdO-HY-FdR"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Inh-j5-jJX" secondAttribute="bottom" constant="3.5" id="y0C-xe-9fz"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="HL5-l3-1jg" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="495" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HL5-l3-1jg" id="8Wj-Aa-vPE">
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Terms of Use" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VN8-6g-ffS">
+                                                    <rect key="frame" x="16" y="14" width="307" height="15.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="terms_of_use"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="VN8-6g-ffS" firstAttribute="top" secondItem="8Wj-Aa-vPE" secondAttribute="topMargin" constant="3" id="BSZ-5v-K65"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="VN8-6g-ffS" secondAttribute="trailing" constant="10" id="DO0-GM-jSo"/>
+                                                <constraint firstItem="VN8-6g-ffS" firstAttribute="leading" secondItem="8Wj-Aa-vPE" secondAttribute="leading" constant="16" id="G5m-YC-ccM"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="VN8-6g-ffS" secondAttribute="bottom" constant="3.5" id="Wdq-Cm-RA3"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="VXa-CM-OXP" customClass="SettingsTableViewLinkCell" customModule="maps_me" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="539" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VXa-CM-OXP" id="Vot-vJ-3MU">
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
@@ -1613,7 +1669,9 @@
                         <outlet property="crashlyticsCell" destination="6Fq-aj-irU" id="kYL-C6-PGc"/>
                         <outlet property="facebookCell" destination="AwY-rw-AMm" id="NUh-p9-2t4"/>
                         <outlet property="osmCell" destination="8n2-Bc-3lW" id="igH-Nf-uX5"/>
+                        <outlet property="privacyPolicyCell" destination="Phw-kU-YR4" id="een-ap-TWn"/>
                         <outlet property="rateCell" destination="jhU-Ha-kE2" id="qi9-Y9-9BP"/>
+                        <outlet property="termsOfUseCell" destination="HL5-l3-1jg" id="IAB-Aq-PTS"/>
                         <outlet property="twitterCell" destination="PYl-5B-hBB" id="mep-Pn-aCd"/>
                         <outlet property="websiteCell" destination="WfS-iR-EYh" id="ZHY-xI-uq1"/>
                     </connections>

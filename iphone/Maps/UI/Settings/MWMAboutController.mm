@@ -19,9 +19,11 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * twitterCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * osmCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * rateCell;
-@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * copyrightCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * adsCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * crashlyticsCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * privacyPolicyCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * termsOfUseCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * copyrightCell;
 
 @property(nonatomic) IBOutlet UIView * headerView;
 
@@ -78,6 +80,14 @@ extern NSString * const kAlohalyticsTapEventKey;
     [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatRate}];
     [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"rate"];
     [UIApplication.sharedApplication rateApp];
+  }
+  else if (cell == self.privacyPolicyCell)
+  {
+    [self openUrl:[NSURL URLWithString:@"https://legal.my.com/us/maps/privacy/"]];
+  }
+  else if (cell == self.termsOfUseCell)
+  {
+    [self openUrl:[NSURL URLWithString:@"https://legal.my.com/us/maps/tou/"]];
   }
   else if (cell == self.copyrightCell)
   {
