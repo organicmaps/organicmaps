@@ -387,7 +387,7 @@ android {
       minifyEnabled true
       shrinkResources true
       proguardFile('proguard-mwm.txt')
-      resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
+      resValue 'string', 'app_id', android.defaultConfig.applicationId
     }
 
     beta {
