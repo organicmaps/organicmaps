@@ -48,7 +48,8 @@ private:
   /// \returns true if there's enough information for extrapolation and extrapolation is enabled.
   /// \note This method should be called only when |m_mutex| is locked.
   bool DoesExtrapolationWork() const;
-  void ExtrapolatedLocationUpdate();
+  void ExtrapolatedLocationUpdate(uint64_t extrapolatedUpdateCounter);
+  void RunTaskOnBackgroundThread(bool delayed);
 
   bool m_isEnabled;
 
@@ -57,5 +58,11 @@ private:
   location::GpsInfo m_lastGpsInfo;
   location::GpsInfo m_beforeLastGpsInfo;
   uint64_t m_extrapolationCounter = kExtrapolationCounterUndefined;
+  // Number of calls Extrapolator::RunTaskOnBackgroundThread() method.
+  uint64_t m_extrapolatedUpdateCounter = 0;
+  // If |m_extrapolatedUpdateCounter| < |m_extrapolatedUpdateMinValid| when
+  // ExtrapolatedLocationUpdate() is called (on background thread)
+  // ExtrapolatedLocationUpdate() cancels its execution.
+  uint64_t m_extrapolatedUpdateMinValid = 0;
 };
 }  // namespace extrapolation

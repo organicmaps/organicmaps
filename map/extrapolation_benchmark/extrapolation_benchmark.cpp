@@ -173,6 +173,7 @@ bool Parse(string const & pathToCsv, Tracks & tracks)
 
 void GpsPointToGpsInfo(GpsPoint const gpsPoint, GpsInfo & gpsInfo)
 {
+  gpsInfo = {};
   gpsInfo.m_source = TLocationSource::EAppleNative;
   gpsInfo.m_timestamp = gpsPoint.m_timestampS;
   gpsInfo.m_latitude = gpsPoint.m_lat;
@@ -268,14 +269,17 @@ int main(int argc, char * argv[])
         GpsInfo const extrapolated = LinearExtrapolation(info1, info2, timeMs);
         m2::PointD const extrapolatedMerc = MercatorBounds::FromLatLon(extrapolated.m_latitude, extrapolated.m_longitude);
 
-        m2::RectD const posRect = MercatorBounds::MetresToXY(
+        // To generate |posSquare| the method below requires the size of half square in meters.
+        // This constant is chosen based on maximum value of GpsInfo::m_horizontalAccuracy
+        // which is used calculation of projection in production code.
+        m2::RectD const posSquare = MercatorBounds::MetresToXY(
             extrapolated.m_longitude, extrapolated.m_latitude, 100.0 /* half square in meters */);
         // Note 1. One is deducted from polyline size because in GetClosestProjectionInInterval()
         // is used segment indices but not point indices.
         // Note 2. Calculating projection of the center of |posRect| to polyline segments which
         // are inside of |posRect|.
         auto const & iter = followedPoly.GetClosestProjectionInInterval(
-            posRect,
+            posSquare,
             [&extrapolatedMerc](FollowedPolyline::Iter const & it) {
               return MercatorBounds::DistanceOnEarth(it.m_pt, extrapolatedMerc);
             },
