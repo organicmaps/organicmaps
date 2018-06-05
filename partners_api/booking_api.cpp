@@ -65,20 +65,42 @@ std::string FormatTime(system_clock::time_point p)
   return partners_api::FormatTime(p, "%Y-%m-%d");
 }
 
-string MakeApiUrlV1(string const & func, url::Params const & params)
+string MakeUrlForTesting(string const & func, url::Params const & params, string const & divider)
+{
+  ASSERT(!g_BookingUrlForTesting.empty(), ());
+
+  auto funcForTesting = func;
+  if (funcForTesting == "hotelAvailability")
+  {
+    auto const it = find_if(params.cbegin(), params.cend(), [](url::Param const & param)
+    {
+      return param.m_name == "show_only_deals";
+    });
+
+    if (it != params.cend())
+      funcForTesting = "deals";
+  }
+
+  return url::Make(g_BookingUrlForTesting + divider + funcForTesting, params);
+}
+
+string MakeApiUrlImpl(string const & baseUrl, string const & func, url::Params const & params,
+                      string const & divider)
 {
   if (!g_BookingUrlForTesting.empty())
-    return url::Make(g_BookingUrlForTesting + "." + func, params);
+    return MakeUrlForTesting(func, params, divider);
 
-  return url::Make(kBookingApiBaseUrlV1 + "." + func, params);
+  return url::Make(baseUrl + divider + func, params);
+}
+
+string MakeApiUrlV1(string const & func, url::Params const & params)
+{
+  return MakeApiUrlImpl(kBookingApiBaseUrlV1, func, params, ".");
 }
 
 string MakeApiUrlV2(string const & func, url::Params const & params)
 {
-  if (!g_BookingUrlForTesting.empty())
-    return url::Make(g_BookingUrlForTesting + "/" + func, params);
-
-  return url::Make(kBookingApiBaseUrlV2 + "/" + func, params);
+  return MakeApiUrlImpl(kBookingApiBaseUrlV2, func, params, "/");
 }
 
 void ClearHotelInfo(HotelInfo & info)

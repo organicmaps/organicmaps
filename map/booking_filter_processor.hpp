@@ -25,8 +25,23 @@ class Api;
 
 namespace filter
 {
+
+struct CachedResut
+{
+  CachedResut(Type type, std::vector<FeatureID> && featuresSorted)
+    : m_type(type)
+    , m_featuresSorted(featuresSorted)
+  {
+  }
+
+  Type m_type;
+  std::vector<FeatureID> m_featuresSorted;
+};
+
+using CachedResults = std::vector<CachedResut>;
+
 using FillSearchMarksCallback =
-    platform::SafeCallback<void(std::vector<FeatureID> availableHotelsSorted)>;
+    platform::SafeCallback<void(CachedResults results)>;
 
 class FilterProcessor : public FilterBase::Delegate
 {
@@ -37,7 +52,7 @@ public:
 
   void OnParamsUpdated(Type const type, std::shared_ptr<ParamsBase> const & params);
 
-  void GetFeaturesFromCache(Type const type, search::Results const & results,
+  void GetFeaturesFromCache(Types const & types, search::Results const & results,
                             FillSearchMarksCallback const & callback);
 
   // FilterInterface::Delegate overrides:

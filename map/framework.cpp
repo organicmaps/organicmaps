@@ -3135,37 +3135,40 @@ void Framework::ShowViewportSearchResults(bool clear, booking::filter::Types typ
                                           search::Results::ConstIter begin,
                                           search::Results::ConstIter end)
 {
+  using booking::filter::Type;
+  using booking::filter::CachedResults;
+
   ASSERT(!types.empty(), ());
 
   search::Results results;
   results.AddResultsNoChecks(begin, end);
-  for (auto const type : types)
+
+  auto const fillCallback = [this, clear, results](CachedResults filtersResults)
   {
-    auto const fillCallback = [this, type, clear, results] (std::vector<FeatureID> featuresSorted)
+    auto const postProcessing = [filtersResults = move(filtersResults)](SearchMarkPoint & mark)
     {
-      auto const postProcessing = [type, featuresSorted] (SearchMarkPoint & mark)
+      auto const & id = mark.GetFeatureID();
+
+      if (!id.IsValid())
+        return;
+
+      for (auto const filterResult : filtersResults)
       {
-        auto const & id = mark.GetFeatureID();
+        auto const found = std::binary_search(filterResult.m_featuresSorted.cbegin(),
+                                              filterResult.m_featuresSorted.cend(), id);
 
-        if (!id.IsValid())
-          return;
-
-        auto const found = std::binary_search(featuresSorted.cbegin(), featuresSorted.cend(), id);
-
-        using booking::filter::Type;
-
-        switch (type)
+        switch (filterResult.m_type)
         {
         case Type::Deals: mark.SetSale(found); break;
         case Type::Availability: mark.SetPreparing(!found); break;
         }
-      };
-
-      FillSearchResultsMarks(clear, results.begin(), results.end(), postProcessing);
+      }
     };
 
-    m_bookingFilterProcessor.GetFeaturesFromCache(type, results, fillCallback);
-  }
+    FillSearchResultsMarks(clear, results.begin(), results.end(), postProcessing);
+  };
+
+  m_bookingFilterProcessor.GetFeaturesFromCache(types, results, fillCallback);
 }
 
 void Framework::ClearViewportSearchResults()

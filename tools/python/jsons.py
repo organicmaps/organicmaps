@@ -208,6 +208,28 @@ HOTEL_AVAILABILITY = """
 }
 """
 
+HOTELS_WITH_DEALS = """
+{
+  "result": [
+    {
+      "hotel_currency_code": "EUR",
+      "hotel_id": 10622,
+      "price": 801
+    },
+    {
+      "hotel_currency_code": "USD",
+      "hotel_id": 10624,
+      "price": 802
+    },
+    {
+      "hotel_currency_code": "RUR",
+      "hotel_id": 10626,
+      "price": 803
+    }
+  ]
+}
+"""
+
 PARTNERS_MINPRICE = """
 [
     {

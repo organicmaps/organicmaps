@@ -40,16 +40,23 @@ void FilterProcessor::OnParamsUpdated(Type const type,
                         });
 }
 
-void FilterProcessor::GetFeaturesFromCache(Type const type, search::Results const & results,
+void FilterProcessor::GetFeaturesFromCache(Types const & types, search::Results const & results,
                                            FillSearchMarksCallback const & callback)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [this, type, results, callback]()
+  GetPlatform().RunTask(Platform::Thread::File, [this, types, results, callback]()
   {
-    std::vector<FeatureID> featuresSorted;
-    m_filters.at(type)->GetFeaturesFromCache(results, featuresSorted);
+    CachedResults cachedResults;
+    for (auto const type : types)
+    {
+      std::vector<FeatureID> featuresSorted;
+      m_filters.at(type)->GetFeaturesFromCache(results, featuresSorted);
 
-    ASSERT(std::is_sorted(featuresSorted.begin(), featuresSorted.end()), ());
-    callback(featuresSorted);
+      ASSERT(std::is_sorted(featuresSorted.begin(), featuresSorted.end()), ());
+
+      cachedResults.emplace_back(type, std::move(featuresSorted));
+    }
+
+    callback(std::move(cachedResults));
   });
 }
 

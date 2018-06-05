@@ -205,6 +205,8 @@ void AvailabilityFilter::UpdateParams(ParamsBase const & apiParams)
 void AvailabilityFilter::GetFeaturesFromCache(search::Results const & results,
                                               std::vector<FeatureID> & sortedResults)
 {
+  sortedResults.clear();
+
   std::vector<FeatureID> features;
 
   for (auto const & r : results)
