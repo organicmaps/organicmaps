@@ -5,6 +5,7 @@
 #include "platform/platform.hpp"
 
 #include "base/logging.hpp"
+#include "base/math.hpp"
 
 #include <chrono>
 #include <memory>
@@ -54,8 +55,8 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1,
   LinearExtrapolator e(timeBetweenPointsMs, timeAfterPoint2Ms);
 
   result.m_timestamp += static_cast<double>(timeAfterPoint2Ms) / 1000.0;
-  result.m_longitude = e.Extrapolate(gpsInfo1.m_longitude, gpsInfo2.m_longitude);
-  result.m_latitude = e.Extrapolate(gpsInfo1.m_latitude, gpsInfo2.m_latitude);
+  result.m_longitude = my::clamp(e.Extrapolate(gpsInfo1.m_longitude, gpsInfo2.m_longitude), -180.0, 180.0);
+  result.m_latitude = my::clamp(e.Extrapolate(gpsInfo1.m_latitude, gpsInfo2.m_latitude), -90.0, 90.0);
   result.m_horizontalAccuracy = e.Extrapolate(gpsInfo1.m_horizontalAccuracy, gpsInfo2.m_horizontalAccuracy);
   result.m_altitude = e.Extrapolate(gpsInfo1.m_altitude, gpsInfo2.m_altitude);
 
@@ -84,7 +85,33 @@ bool AreCoordsGoodForExtrapolation(location::GpsInfo const & beforeLastGpsInfo,
   double const distM =
       ms::DistanceOnEarth(beforeLastGpsInfo.m_latitude, beforeLastGpsInfo.m_longitude,
                           lastGpsInfo.m_latitude, lastGpsInfo.m_longitude);
+
   double const timeS = lastGpsInfo.m_timestamp - beforeLastGpsInfo.m_timestamp;
+  if (timeS <= 0.0)
+    return false;
+
+  // |maxDistAfterExtrapolationM| is maximum possible distance from |lastGpsInfo| to
+  // the furthest extrapolated point.
+  double const maxDistAfterExtrapolationM =
+      distM * (Extrapolator::kMaxExtrapolationTimeMs / 1000.0) / timeS;
+  // |maxDistForAllExtrapolationsM| is maximum possible distance from |lastGpsInfo| to
+  // all extrapolated points in any cases.
+  double const maxDistForAllExtrapolationsM = kMaxExtrapolationSpeedMPS / kMaxExtrapolationTimeSeconds;
+  double const distLastToMeridian180 = ms::DistanceOnEarth(
+      lastGpsInfo.m_latitude, lastGpsInfo.m_longitude, lastGpsInfo.m_latitude, 180.0 /* lon2Deg */);
+  // Switching off extrapolation if |lastGpsInfo| are so close to meridian 180 that extrapolated points
+  // may cross meridian 180 or if |beforeLastGpsInfo| and |lastGpsInfo| are located on
+  // different sides of meridian 180.
+  if (distLastToMeridian180 < maxDistAfterExtrapolationM ||
+      (distLastToMeridian180 < maxDistForAllExtrapolationsM &&
+       lastGpsInfo.m_longitude * beforeLastGpsInfo.m_longitude < 0.0) ||
+      ms::DistanceOnEarth(lastGpsInfo.m_latitude, lastGpsInfo.m_longitude, 90.0 /* lat2Deg */,
+                          lastGpsInfo.m_longitude) < maxDistAfterExtrapolationM ||
+      ms::DistanceOnEarth(lastGpsInfo.m_latitude, lastGpsInfo.m_longitude, -90.0 /* lat2Deg */,
+                          lastGpsInfo.m_longitude) < maxDistAfterExtrapolationM)
+  {
+    return false;
+  }
 
   // Note. |timeS| may be less than zero. (beforeLastGpsInfo.m_timestampS >= lastGpsInfo.m_timestampS)
   // It may happen in rare cases because GpsInfo::m_timestampS is not monotonic generally.
@@ -164,16 +191,17 @@ void Extrapolator::ExtrapolatedLocationUpdate(uint64_t extrapolatedUpdateCounter
 
 void Extrapolator::RunTaskOnBackgroundThread(bool delayed)
 {
+  uint64_t extrapolatedUpdateCounter = 0;
   {
     lock_guard<mutex> guard(m_mutex);
     ++m_extrapolatedUpdateCounter;
+    extrapolatedUpdateCounter = m_extrapolatedUpdateCounter;
   }
 
-  auto const extrapolatedUpdateCounter = m_extrapolatedUpdateCounter;
   if (delayed)
   {
-    auto constexpr kSExtrapolationPeriod = std::chrono::milliseconds(kExtrapolationPeriodMs);
-    GetPlatform().RunDelayedTask(Platform::Thread::Background, kSExtrapolationPeriod,
+    auto constexpr kExtrapolationPeriod = std::chrono::milliseconds(kExtrapolationPeriodMs);
+    GetPlatform().RunDelayedTask(Platform::Thread::Background, kExtrapolationPeriod,
                                  [this, extrapolatedUpdateCounter] {
                                    ExtrapolatedLocationUpdate(extrapolatedUpdateCounter);
                                  });

@@ -12,6 +12,7 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include <algorithm>
 #include <cmath>
 #include <cstdint>
 #include <fstream>
@@ -26,13 +27,8 @@
 
 // This tool is written to estimate quality of location extrapolation. To launch the benchmark
 // you need tracks in csv file with the format described below. To generate the csv file
-// you need to go through following steps:
-// * take logs from "trafin" project production in gz files
-// * extract them (gzip -d)
-// * run track_analyzer tool with unmatched_tracks command to generate csv
-//   (track_analyzer -cmd unmatched_tracks -in ./trafin_log.20180517-0000)
-// * run this tool with csv_path equal to path to the csv
-//   (extrapolation_benchmark -csv_path=trafin_log.20180517-0000.track.csv)
+// you need to run track_analyzer tool with unmatched_tracks command.
+// For example: extrapolation_benchmark -csv_path=trafin_log.20180517-0000.track.csv
 
 DEFINE_string(csv_path, "",
               "Path to csv file with user in following format: mwm id (string), aloha id (string), "
@@ -61,27 +57,27 @@ struct GpsPoint
   double m_lon;
 };
 
-class Expectation
+class MovingAverage
 {
 public:
   void Add(double value)
   {
-    m_averageValue = (m_averageValue * m_counter + value) / (m_counter + 1);
     ++m_counter;
+    m_movingAverage += (value - m_movingAverage) / m_counter;
   }
 
-  double Get() const { return m_averageValue; }
+  double Get() const { return m_movingAverage; }
   size_t GetCounter() const { return m_counter; }
 
 private:
-  double m_averageValue = 0.0;
+  double m_movingAverage = 0.0;
   size_t m_counter = 0;
 };
 
-class ExpectationVec
+class MovingAverageVec
 {
 public:
-  explicit ExpectationVec(size_t size) { m_mes.resize(size); }
+  explicit MovingAverageVec(size_t size) { m_mes.resize(size); }
 
   void Add(vector<double> const & values)
   {
@@ -90,16 +86,16 @@ public:
       m_mes[i].Add(values[i]);
   }
 
-  vector<Expectation> const & Get() const { return m_mes; }
+  vector<MovingAverage> const & Get() const { return m_mes; }
 
 private:
-  vector<Expectation> m_mes;
+  vector<MovingAverage> m_mes;
 };
 
 using Track = vector<GpsPoint>;
 using Tracks = vector<Track>;
 
-bool GetString(stringstream & lineStream, string & result)
+bool GetString(istringstream & lineStream, string & result)
 {
   if (!lineStream.good())
     return false;
@@ -107,7 +103,7 @@ bool GetString(stringstream & lineStream, string & result)
   return true;
 }
 
-bool GetDouble(stringstream & lineStream, double & result)
+bool GetDouble(istringstream & lineStream, double & result)
 {
   string strResult;
   if (!GetString(lineStream, strResult))
@@ -115,7 +111,7 @@ bool GetDouble(stringstream & lineStream, double & result)
   return strings::to_double(strResult, result);
 }
 
-bool GetUint64(stringstream & lineStream, uint64_t & result)
+bool GetUint64(istringstream & lineStream, uint64_t & result)
 {
   string strResult;
   if (!GetString(lineStream, strResult))
@@ -123,7 +119,7 @@ bool GetUint64(stringstream & lineStream, uint64_t & result)
   return strings::to_uint64(strResult, result);
 }
 
-bool GetGpsPoint(stringstream & lineStream, uint64_t & timestampS, double & lat, double & lon)
+bool GetGpsPoint(istringstream & lineStream, uint64_t & timestampS, double & lat, double & lon)
 {
   if (!GetUint64(lineStream, timestampS))
     return false;
@@ -146,11 +142,10 @@ bool Parse(string const & pathToCsv, Tracks & tracks)
   if (!csvStream.is_open())
     return false;
 
-  while (!csvStream.eof())
+  string line;
+  while (getline(csvStream, line))
   {
-    string line;
-    getline(csvStream, line);
-    stringstream lineStream(line);
+    istringstream lineStream(line);
     string dummy;
     GetString(lineStream, dummy); // mwm id
     GetString(lineStream, dummy); // aloha id
@@ -186,8 +181,8 @@ void GpsPointToGpsInfo(GpsPoint const gpsPoint, GpsInfo & gpsInfo)
 int main(int argc, char * argv[])
 {
   google::SetUsageMessage(
-      "Location extrapolation benchmark. Calculates expected value and variance for "
-      "all extrapolation deviations from tracks passed in csv with with csv_path.");
+      "Location extrapolation benchmark. Cumulative moving average, variance and standard "
+      "deviation for all extrapolation deviations from tracks passed in csv with with csv_path.");
   google::ParseCommandLineFlags(&argc, &argv, true);
 
   if (FLAGS_csv_path.empty())
@@ -229,11 +224,11 @@ int main(int argc, char * argv[])
   // For all points of each track in |tracks| some extrapolations will be calculated.
   // The number of extrapolations depends on |Extrapolator::kExtrapolationPeriodMs|
   // and |Extrapolator::kMaxExtrapolationTimeMs| and equal for all points.
-  // Then expected value and variance each extrapolation will be printed.
+  // Then cumulative moving average and variance each extrapolation will be printed.
   auto const extrapolationNumber = static_cast<size_t>(Extrapolator::kMaxExtrapolationTimeMs /
                                                        Extrapolator::kExtrapolationPeriodMs);
-  ExpectationVec mes(extrapolationNumber);
-  ExpectationVec squareMes(extrapolationNumber);
+  MovingAverageVec mes(extrapolationNumber);
+  MovingAverageVec squareMes(extrapolationNumber);
   // Number of extrapolations which projections are calculated successfully for.
   size_t projectionCounter = 0;
   for (auto const & t : tracks)
@@ -260,8 +255,8 @@ int main(int argc, char * argv[])
         break;
 
       vector<double> onePointDeviations;
-      vector<double> onePointDeviationsInSqare;
-      bool cannotFindClosestProjection = false;
+      vector<double> onePointDeviationsSquared;
+      bool canFindClosestProjection = true;
       for (size_t timeMs = Extrapolator::kExtrapolationPeriodMs;
            timeMs <= Extrapolator::kMaxExtrapolationTimeMs;
            timeMs += Extrapolator::kExtrapolationPeriodMs)
@@ -294,20 +289,20 @@ int main(int argc, char * argv[])
           // This situation is possible if |posRect| param of GetClosestProjectionInInterval()
           // method is too small and there is no segment in |followedPoly|
           // which is covered by this rect. It's a rare situation.
-          cannotFindClosestProjection = true;
+          canFindClosestProjection = false;
           break;
         }
 
         double const distFromPoly = MercatorBounds::DistanceOnEarth(iter.m_pt, extrapolatedMerc);
         onePointDeviations.push_back(distFromPoly);
-        onePointDeviationsInSqare.push_back(distFromPoly * distFromPoly);
+        onePointDeviationsSquared.push_back(distFromPoly * distFromPoly);
       }
 
-      if (!cannotFindClosestProjection)
+      if (canFindClosestProjection)
       {
         CHECK_EQUAL(onePointDeviations.size(), extrapolationNumber, ());
         mes.Add(onePointDeviations);
-        squareMes.Add(onePointDeviationsInSqare);
+        squareMes.Add(onePointDeviationsSquared);
       }
     }
   }
@@ -317,13 +312,13 @@ int main(int argc, char * argv[])
               "  ", mes.Get()[0].GetCounter() * extrapolationNumber, "extrapolations is calculated.\n",
               "  Projection is calculated for", projectionCounter, "extrapolations."));
 
-  LOG(LINFO, ("Expected value for each extrapolation:"));
+  LOG(LINFO, ("Cumulative moving average, variance and standard deviation for each extrapolation:"));
   for (size_t i = 0; i < extrapolationNumber; ++i)
   {
-    double const variance = squareMes.Get()[i].Get() - mes.Get()[i].Get() * mes.Get()[i].Get();
+    double const variance = squareMes.Get()[i].Get() - pow(mes.Get()[i].Get(), 2.0);
     LOG(LINFO, ("Extrapolation", i + 1, ",", Extrapolator::kExtrapolationPeriodMs * (i + 1),
-                "seconds after point two. Expected value =", mes.Get()[i].Get(),
-                "meters.", "Variance =", variance, ". Standard deviation =", sqrt(variance)));
+                "seconds after point two. Cumulative moving average =", mes.Get()[i].Get(),
+                "meters.", "Variance =", max(0.0, variance), ". Standard deviation =", sqrt(variance)));
   }
 
   return 0;
