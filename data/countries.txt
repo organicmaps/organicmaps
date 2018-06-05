@@ -1,6 +1,6 @@
 {
  "id": "Countries",
- "v": 180527,
+ "v": 180528,
  "g": [
   {
    "id": "Abkhazia",
@@ -562,7 +562,7 @@
     },
     {
      "id": "Austria_Lower Austria_Wien",
-     "s": 64097383,
+     "s": 64097378,
      "affiliations": [
       "\u00d6sterreich",
       "Nieder\u00f6sterreich",
@@ -786,7 +786,7 @@
     },
     {
      "id": "Australia_Sydney",
-     "s": 52285397,
+     "s": 52285508,
      "affiliations": [
       "Australia",
       "Australian Capital Territory",
@@ -1105,7 +1105,7 @@
     },
     {
      "id": "Belgium_Flemish Brabant",
-     "s": 45554618,
+     "s": 45554624,
      "affiliations": [
       "Belgi\u00eb - Belgique - Belgien",
       "R\u00e9gion de Bruxelles-Capitale - Brussels Hoofdstedelijk Gewest",
@@ -1130,7 +1130,7 @@
   },
   {
    "id": "Belize",
-   "s": 4390782,
+   "s": 4390945,
    "affiliations": [
     "Belize District",
     "Belize",
@@ -1595,7 +1595,7 @@
     },
     {
      "id": "Bulgaria_West",
-     "s": 50427867,
+     "s": 50427871,
      "affiliations": [
       "\u0411\u044a\u043b\u0433\u0430\u0440\u0438\u044f"
      ],
@@ -2506,7 +2506,7 @@
    "g": [
     {
      "id": "Colombia_North",
-     "s": 44905571,
+     "s": 44905573,
      "affiliations": [
       "Bol\u00edvar",
       "Antioquia",
@@ -2714,7 +2714,7 @@
   },
   {
    "id": "Cuba",
-   "s": 29285421,
+   "s": 29285422,
    "affiliations": [
     "Artemisa",
     "Ciego de \u00c1vila",
@@ -2752,7 +2752,7 @@
    "g": [
     {
      "id": "Czech_Praha",
-     "s": 24553797,
+     "s": 24553867,
      "affiliations": [
       "Praha",
       "\u010cesko"
@@ -3131,7 +3131,7 @@
     },
     {
      "id": "Chile_South",
-     "s": 68548160,
+     "s": 68548162,
      "affiliations": [
       "Chile",
       "IX Regi\u00f3n de la Araucan\u00eda",
@@ -3177,7 +3177,7 @@
     },
     {
      "id": "Ecuador_West",
-     "s": 31465585,
+     "s": 31465591,
      "affiliations": [
       "Bol\u00edvar",
       "Azuay",
@@ -3302,7 +3302,7 @@
    "g": [
     {
      "id": "Estonia_West",
-     "s": 30858221,
+     "s": 30858227,
      "affiliations": [
       "Eesti"
      ],
@@ -3880,7 +3880,7 @@
       },
       {
        "id": "France_Ile-de-France_Paris",
-       "s": 16071219,
+       "s": 16071221,
        "affiliations": [
         "France",
         "\u00cele-de-France"
@@ -4669,7 +4669,7 @@
    "g": [
     {
      "id": "Georgia",
-     "s": 33226510,
+     "s": 33226593,
      "affiliations": [
       "\u10d7\u10d1\u10d8\u10da\u10d8\u10e1\u10d8",
       "\u10d8\u10db\u10d4\u10e0\u10d4\u10d7\u10d8",
@@ -4781,7 +4781,7 @@
     },
     {
      "id": "Germany_Berlin",
-     "s": 47909144,
+     "s": 47909141,
      "affiliations": [
       "Berlin",
       "Deutschland"
@@ -5595,7 +5595,7 @@
     },
     {
      "id": "Hungary_Kozep-Magyarorszag",
-     "s": 34097962,
+     "s": 34097963,
      "affiliations": [
       "K\u00f6z\u00e9p-Magyarorsz\u00e1g",
       "Magyarorsz\u00e1g"
@@ -5608,7 +5608,7 @@
   },
   {
    "id": "Iceland",
-   "s": 28705812,
+   "s": 28705807,
    "affiliations": [
     "\u00cdsland"
    ],
@@ -5729,7 +5729,7 @@
     },
     {
      "id": "India_Goa",
-     "s": 2906769,
+     "s": 2906762,
      "affiliations": [
       "Goa",
       "India"
@@ -5751,7 +5751,7 @@
     },
     {
      "id": "India_Karnataka_South",
-     "s": 32762944,
+     "s": 32762949,
      "affiliations": [
       "India",
       "Karnataka"
@@ -6084,7 +6084,7 @@
     },
     {
      "id": "Indonesia_Nusa Tenggara",
-     "s": 65475255,
+     "s": 65475380,
      "affiliations": [
       "Bali",
       "Batas Dusun Muntigunung Induk",
@@ -6099,7 +6099,7 @@
     },
     {
      "id": "Indonesia_Jawa Timur",
-     "s": 57535723,
+     "s": 57535860,
      "affiliations": [
       "Indonesia",
       "Jawa Timur"
@@ -6217,7 +6217,7 @@
     },
     {
      "id": "Iraq_South",
-     "s": 21273045,
+     "s": 21273042,
      "affiliations": [
       "\u062c\u0645\u0647\u0648\u0631\u064a\u0629 \u0627\u0644\u0639\u0631\u0627\u0642",
       "\u0630\u064a \u0642\u0627\u0631",
@@ -6976,7 +6976,7 @@
       },
       {
        "id": "Italy_Veneto_Venezia",
-       "s": 19156255,
+       "s": 19156265,
        "affiliations": [
         "Italia",
         "Veneto"
@@ -7830,7 +7830,7 @@
   },
   {
    "id": "Laos",
-   "s": 21979680,
+   "s": 21979696,
    "affiliations": [
     "\u0e84\u0ecd\u0eb2\u0ea1\u0ec8\u0ea7\u0e99",
     "\u0e88\u0eb3\u0e9b\u0eb2\u0eaa\u0eb1\u0e81",
@@ -7857,7 +7857,7 @@
   },
   {
    "id": "Latvia",
-   "s": 53258585,
+   "s": 53258590,
    "affiliations": [
     "Latgale",
     "Latvija",
@@ -8469,7 +8469,7 @@
     },
     {
      "id": "Morocco_Doukkala-Abda",
-     "s": 18107868,
+     "s": 18107686,
      "affiliations": [
       "B\u00e9ni Mellal-Kh\u00e9nifra \u2d30\u2d62\u2d5c \u2d4e\u2d4d\u2d4d\u2d30\u2d4d-\u2d45\u2d4f\u2d49\u2d3c\u2d55\u2d30 \u0628\u0646\u064a \u0645\u0644\u0627\u0644-\u062e\u0646\u064a\u0641\u0631\u0629",
       "Casablanca-Settat \u2d5c\u2d49\u2d33\u2d4e\u2d49 \u2d5c\u2d53\u2d4e\u2d4d\u2d49\u2d4d\u2d5c-\u2d59\u2d5f\u2d5f\u2d30\u2d5c \u0627\u0644\u062f\u0627\u0631 \u0627\u0644\u0628\u064a\u0636\u0627\u0621-\u0633\u0637\u0627\u062a",
@@ -8518,7 +8518,7 @@
   },
   {
    "id": "Myanmar",
-   "s": 66047269,
+   "s": 66047432,
    "affiliations": [
     "Ayeyarwady",
     "Bago Region",
@@ -9129,7 +9129,7 @@
     },
     {
      "id": "China_Guangdong",
-     "s": 60974009,
+     "s": 60974341,
      "affiliations": [
       "\u4e2d\u56fd",
       "\u5e7f\u4e1c\u7701",
@@ -9540,7 +9540,7 @@
     },
     {
      "id": "Philippines_Visayas",
-     "s": 49115473,
+     "s": 49115474,
      "affiliations": [
       "Aklan",
       "Bohol",
@@ -9702,7 +9702,7 @@
     },
     {
      "id": "Poland_Masovian Voivodeship",
-     "s": 119748607,
+     "s": 119748585,
      "affiliations": [
       "Polska",
       "wojew\u00f3dztwo mazowieckie"
@@ -10083,7 +10083,7 @@
    "g": [
     {
      "id": "Crimea",
-     "s": 24665342,
+     "s": 24665758,
      "affiliations": [
       "\u0410\u0432\u0442\u043e\u043d\u043e\u043c\u043d\u0430 \u0420\u0435\u0441\u043f\u0443\u0431\u043b\u0456\u043a\u0430 \u041a\u0440\u0438\u043c",
       "\u0420\u043e\u0441\u0441\u0438\u044f",
@@ -10460,7 +10460,7 @@
     },
     {
      "id": "Russia_Krasnodar Krai_Adygeya",
-     "s": 39939017,
+     "s": 39939012,
      "affiliations": [
       "\u0410\u0434\u044b\u0433\u0435\u044f",
       "\u0420\u043e\u0441\u0441\u0438\u044f",
@@ -10581,7 +10581,7 @@
     },
     {
      "id": "Russia_Moscow Oblast_East",
-     "s": 56604269,
+     "s": 56604395,
      "affiliations": [
       "\u041c\u043e\u0441\u043a\u043e\u0432\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c",
       "\u0420\u043e\u0441\u0441\u0438\u044f",
@@ -10606,7 +10606,7 @@
     },
     {
      "id": "Russia_Moscow",
-     "s": 41545876,
+     "s": 60810595,
      "affiliations": [
       "\u041c\u043e\u0441\u043a\u043e\u0432\u0441\u043a\u0430\u044f \u043e\u0431\u043b\u0430\u0441\u0442\u044c",
       "\u0420\u043e\u0441\u0441\u0438\u044f",
@@ -10872,7 +10872,7 @@
     },
     {
      "id": "Russia_Saint Petersburg",
-     "s": 29987339,
+     "s": 42061380,
      "affiliations": [
       "\u0421\u0430\u043d\u043a\u0442-\u041f\u0435\u0442\u0435\u0440\u0431\u0443\u0440\u0433",
       "\u0420\u043e\u0441\u0441\u0438\u044f",
@@ -11354,7 +11354,7 @@
   },
   {
    "id": "Singapore",
-   "s": 11851216,
+   "s": 11851252,
    "affiliations": [
     "Johor",
     "Malaysia",
@@ -11536,7 +11536,7 @@
    "g": [
     {
      "id": "South Africa_Western Cape",
-     "s": 22344776,
+     "s": 22344914,
      "affiliations": [
       "Prince Edward Islands",
       "South Africa",
@@ -12413,7 +12413,7 @@
    "g": [
     {
      "id": "Thailand_North",
-     "s": 30138517,
+     "s": 30138516,
      "affiliations": [
       "\u0e08\u0e31\u0e07\u0e2b\u0e27\u0e31\u0e14\u0e1e\u0e30\u0e40\u0e22\u0e32",
       "\u0e1b\u0e23\u0e30\u0e40\u0e17\u0e28\u0e44\u0e17\u0e22",
@@ -12482,7 +12482,7 @@
     },
     {
      "id": "Thailand_South",
-     "s": 50293834,
+     "s": 50293900,
      "affiliations": [
       "\u0e08\u0e31\u0e07\u0e2b\u0e27\u0e31\u0e14\u0e0a\u0e38\u0e21\u0e1e\u0e23",
       "\u0e1b\u0e23\u0e30\u0e40\u0e17\u0e28\u0e44\u0e17\u0e22",
@@ -13303,7 +13303,7 @@
     },
     {
      "id": "Ukraine_Lviv Oblast",
-     "s": 26662460,
+     "s": 26662452,
      "affiliations": [
       "\u041b\u044c\u0432\u0456\u0432\u0441\u044c\u043a\u0430 \u043e\u0431\u043b\u0430\u0441\u0442\u044c",
       "\u0423\u043a\u0440\u0430\u0457\u043d\u0430"
@@ -13435,7 +13435,7 @@
     },
     {
      "id": "Crimea",
-     "s": 24665342,
+     "s": 24665758,
      "affiliations": [
       "\u0410\u0432\u0442\u043e\u043d\u043e\u043c\u043d\u0430 \u0420\u0435\u0441\u043f\u0443\u0431\u043b\u0456\u043a\u0430 \u041a\u0440\u0438\u043c",
       "\u0420\u043e\u0441\u0441\u0438\u044f",
@@ -13526,7 +13526,7 @@
     },
     {
      "id": "UK_England_Greater London",
-     "s": 43088826,
+     "s": 43088827,
      "affiliations": [
       "England",
       "United Kingdom"
@@ -15919,7 +15919,7 @@
   },
   {
    "id": "Vietnam",
-   "s": 50501128,
+   "s": 50501676,
    "affiliations": [
     "T\u1ec9nh H\u00e0 Nam",
     "T\u1ec9nh H\u00e0 T\u0129nh",
