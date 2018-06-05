@@ -8,6 +8,7 @@ import android.support.annotation.ArrayRes;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -271,6 +272,20 @@ public abstract class BaseNewsFragment extends BaseMwmDialogFragment
   {
     return (UiUtils.isTablet() ? super.getCustomTheme()
                                : getFullscreenTheme());
+  }
+
+  @StyleRes
+  @Override
+  protected int getFullscreenLightTheme()
+  {
+    return R.style.MwmTheme_DialogFragment_NoFullscreen;
+  }
+
+  @StyleRes
+  @Override
+  protected int getFullscreenDarkTheme()
+  {
+    return R.style.MwmTheme_DialogFragment_NoFullscreen_Night;
   }
 
   @Override

@@ -99,6 +99,11 @@
     <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
   </style>
 
+  <style name="MwmTheme.DialogFragment.NoFullscreen" parent="MwmTheme.DialogFragment.Fullscreen">
+    <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">false</item>
+    <item name="android:statusBarColor" tools:targetApi="lollipop">@color/bg_dialog_translucent</item>
+  </style>
+
   <style name="MwmTheme.DialogFragment.Fullscreen.Night" parent="Theme.AppCompat">
     <item name="colorPrimary">@color/bg_primary_night</item>
     <item name="android:colorPrimaryDark" tools:targetApi="lollipop">?statusBar</item>
@@ -112,6 +117,11 @@
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
     <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
     <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
+  </style>
+
+  <style name="MwmTheme.DialogFragment.NoFullscreen.Night" parent="MwmTheme.DialogFragment.Fullscreen.Night">
+    <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">false</item>
+    <item name="android:statusBarColor" tools:targetApi="lollipop">@color/bg_dialog_translucent</item>
   </style>
 
   <style name="MwmTheme.DialogFragment.Fullscreen.Translucent">
