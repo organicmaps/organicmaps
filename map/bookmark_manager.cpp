@@ -50,6 +50,7 @@ std::string const kLastBookmarkType = "LastBookmarkType";
 std::string const kLastEditedBookmarkColor = "LastBookmarkColor";
 std::string const kDefaultBookmarksFileName = "Bookmarks";
 std::string const kHotelsBookmarks = "Hotels";
+std::string const kBookmarkCloudSettingsParam = "BookmarkCloudParam";
 
 // Returns extension with a dot in a lower case.
 std::string GetFileExt(std::string const & filePath)
@@ -459,7 +460,7 @@ BookmarkManager::BookmarkManager(Callbacks && callbacks)
   : m_callbacks(std::move(callbacks))
   , m_changesTracker(*this)
   , m_needTeardown(false)
-  , m_bookmarkCloud(Cloud::CloudParams("bmc.json", "bookmarks", "BookmarkCloudParam",
+  , m_bookmarkCloud(Cloud::CloudParams("bmc.json", "bookmarks", std::string(kBookmarkCloudSettingsParam),
                                        GetBookmarksDirectory(), std::string(kKmbExtension),
                                        std::bind(&ConvertBeforeUploading, _1, _2),
                                        std::bind(&ConvertAfterDownloading, _1, _2)))
@@ -2416,3 +2417,11 @@ void BookmarkManager::EditSession::NotifyChanges()
 {
   m_bmManager.NotifyChanges();
 }
+
+namespace lightweight
+{
+bool IsBookmarksCloudEnabled()
+{
+  return Cloud::GetCloudState(kBookmarkCloudSettingsParam) == Cloud::State::Enabled;
+}
+}  // namespace lightweight

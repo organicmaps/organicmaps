@@ -535,3 +535,8 @@ private:
 
   DISALLOW_COPY_AND_MOVE(BookmarkManager);
 };
+
+namespace lightweight
+{
+bool IsBookmarksCloudEnabled();
+}  //namespace lightweight

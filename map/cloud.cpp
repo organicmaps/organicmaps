@@ -350,14 +350,7 @@ Cloud::Cloud(CloudParams && params)
   ASSERT(!m_params.m_restoredFileExtension.empty(), ());
   ASSERT(!m_params.m_restoringFolder.empty(), ());
 
-  int stateValue;
-  if (!settings::Get(m_params.m_settingsParamName, stateValue))
-  {
-    stateValue = static_cast<int>(State::Unknown);
-    settings::Set(m_params.m_settingsParamName, stateValue);
-  }
-
-  m_state = static_cast<State>(stateValue);
+  m_state = GetCloudState(m_params.m_settingsParamName);
   GetPlatform().RunTask(Platform::Thread::File, [this]() { ReadIndex(); });
 }
 
@@ -1558,4 +1551,16 @@ void Cloud::ApplyRestoredFiles(std::string const & dirPath, RestoredFilesCollect
     GetPlatform().RmDirRecursively(dirPath);
     FinishRestoring(SynchronizationResult::Success, {});
   });
+}
+
+//static
+Cloud::State Cloud::GetCloudState(std::string const & paramName)
+{
+  int stateValue;
+  if (!settings::Get(paramName, stateValue))
+  {
+    stateValue = static_cast<int>(State::Unknown);
+    settings::Set(paramName, stateValue);
+  }
+  return static_cast<State>(stateValue);
 }

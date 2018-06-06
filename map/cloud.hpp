@@ -282,6 +282,8 @@ public:
   
   void CancelRestoring();
 
+  static State GetCloudState(std::string const & paramName);
+
 private:
   struct RestoredFile
   {

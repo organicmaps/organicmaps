@@ -1,5 +1,6 @@
 #pragma once
 
+#include "map/bookmark_manager.hpp"
 #include "map/user.hpp"
 
 #include "ugc/storage.hpp"
@@ -16,6 +17,7 @@ enum RequestType
   REQUEST_TYPE_NUMBER_OF_UNSENT_UGC = 1u << 0,
   REQUEST_TYPE_USER_AUTH_STATUS = 1u << 1,
   REQUEST_TYPE_NUMBER_OF_UNSENT_EDITS = 1u << 2,
+  REQUEST_TYPE_BOOKMARKS_CLOUD_ENABLED = 1u << 3,
 };
 
 using RequestTypeMask = unsigned;
@@ -51,6 +53,12 @@ public:
       request ^= REQUEST_TYPE_NUMBER_OF_UNSENT_EDITS;
     }
 
+    if (request & REQUEST_TYPE_BOOKMARKS_CLOUD_ENABLED)
+    {
+      m_bookmarksCloudEnabled = IsBookmarksCloudEnabled();
+      request ^= REQUEST_TYPE_BOOKMARKS_CLOUD_ENABLED;
+    }
+
     CHECK_EQUAL(request, REQUEST_TYPE_EMPTY, ("Incorrect mask type:", request));
   }
 
@@ -62,6 +70,7 @@ private:
   bool m_userAuthStatus = false;
   size_t m_numberOfUnsentUGC = 0;
   size_t m_numberOfUnsentEdits = 0;
+  bool m_bookmarksCloudEnabled = false;
 };
 
 template<>
@@ -83,5 +92,12 @@ auto Framework::Get<REQUEST_TYPE_NUMBER_OF_UNSENT_EDITS>() const
 {
   ASSERT(m_request & REQUEST_TYPE_NUMBER_OF_UNSENT_EDITS, (m_request));
   return m_numberOfUnsentEdits;
+}
+
+template<>
+auto Framework::Get<REQUEST_TYPE_BOOKMARKS_CLOUD_ENABLED>() const
+{
+  ASSERT(m_request & REQUEST_TYPE_BOOKMARKS_CLOUD_ENABLED, (m_request));
+  return m_bookmarksCloudEnabled;
 }
 }  // namespace lightweight
