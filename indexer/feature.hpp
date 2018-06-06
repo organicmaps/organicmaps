@@ -50,6 +50,7 @@ public:
   //@}
 
   feature::EGeomType GetFeatureType() const;
+  FeatureParamsBase & GetParams() {return m_params;}
 
   inline uint8_t GetTypesCount() const
   {
@@ -123,6 +124,8 @@ public:
       f(m_types[i]);
   }
 
+  void SetTypes(uint32_t const (&types)[feature::kMaxTypesCount], uint32_t count);
+
 protected:
   /// @name Need for FeatureBuilder.
   //@{
@@ -166,31 +169,24 @@ public:
 
   /// @name Editor methods.
   //@{
-  /// Rewrites all but geometry and types.
-  /// Should be applied to existing features only (in mwm files).
-  void ApplyPatch(editor::XMLFeature const & xml);
   /// Apply changes from UI for edited or newly created features.
   /// Replaces all FeatureType's components.
   void ReplaceBy(osm::EditableMapObject const & ef);
 
-  /// @param serializeType if false, types are not serialized.
-  /// Useful for applying modifications to existing OSM features, to avoid ussues when someone
-  /// has changed a type in OSM, but our users uploaded invalid outdated type after modifying feature.
-  editor::XMLFeature ToXML(bool serializeType) const;
-  /// Creates new feature, including geometry and types.
-  /// @Note: only nodes (points) are supported at the moment.
-  bool FromXML(editor::XMLFeature const & xml);
+  StringUtf8Multilang const & GetNames() const;
+  void SetNames(StringUtf8Multilang const & newNames);
+  void SetMetadata(feature::Metadata const & newMetadata);
+
+  void UpdateHeader(bool commonParsed, bool metadataParsed);
+  bool UpdateMetadataValue(string const & key, string const & value);
+  void ForEachMetadataItem(bool skipSponsored,
+                           function<void(string const & tag, string const & value)> const & fn) const;
+
+  void SetCenter(m2::PointD const &pt);
   //@}
 
   inline void SetID(FeatureID const & id) { m_id = id; }
   inline FeatureID const & GetID() const { return m_id; }
-
-  /// @name Editor functions.
-  //@{
-  StringUtf8Multilang const & GetNames() const;
-  void SetNames(StringUtf8Multilang const & newNames);
-  void SetMetadata(feature::Metadata const & newMetadata);
-  //@}
 
   /// @name Parse functions. Do simple dispatching to m_pLoader.
   //@{

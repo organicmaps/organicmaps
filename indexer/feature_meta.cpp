@@ -165,7 +165,7 @@ void RegionData::AddPublicHoliday(int8_t month, int8_t offset)
 }  // namespace feature
 
 // Warning: exact osm tag keys should be returned for valid enum values.
-string DebugPrint(feature::Metadata::EType type)
+string ToString(feature::Metadata::EType type)
 {
   using feature::Metadata;
   switch (type)

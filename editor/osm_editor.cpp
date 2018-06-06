@@ -267,7 +267,7 @@ bool Editor::Save() const
     {
       FeatureTypeInfo const & fti = index.second;
       // TODO: Do we really need to serialize deleted features in full details? Looks like mwm ID and meta fields are enough.
-      XMLFeature xf = fti.m_feature.ToXML(true /*type serializing helps during migration*/);
+      XMLFeature xf = editor::ToXML(fti.m_feature, true /*type serializing helps during migration*/);
       xf.SetMWMFeatureIndex(index.first);
       if (!fti.m_street.empty())
         xf.SetTagValue(kAddrStreetTag, fti.m_street);
@@ -687,7 +687,7 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
           case FeatureStatus::Obsolete: continue;  // Obsolete features will be deleted by OSMers.
           case FeatureStatus::Created:
             {
-              XMLFeature feature = fti.m_feature.ToXML(true);
+              XMLFeature feature = editor::ToXML(fti.m_feature, true);
               if (!fti.m_street.empty())
                 feature.SetTagValue(kAddrStreetTag, fti.m_street);
               ourDebugFeatureString = DebugPrint(feature);
@@ -736,7 +736,7 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
             {
               // Do not serialize feature's type to avoid breaking OSM data.
               // TODO: Implement correct types matching when we support modifying existing feature types.
-              XMLFeature feature = fti.m_feature.ToXML(false);
+              XMLFeature feature = editor::ToXML(fti.m_feature, false);
               if (!fti.m_street.empty())
                 feature.SetTagValue(kAddrStreetTag, fti.m_street);
               ourDebugFeatureString = DebugPrint(feature);
@@ -866,7 +866,7 @@ bool Editor::FillFeatureInfo(FeatureStatus status, XMLFeature const & xml, Featu
 {
   if (status == FeatureStatus::Created)
   {
-    fti.m_feature.FromXML(xml);
+    editor::FromXML(xml, fti.m_feature);
   }
   else
   {
@@ -879,7 +879,7 @@ bool Editor::FillFeatureInfo(FeatureStatus status, XMLFeature const & xml, Featu
     }
 
     fti.m_feature = *originalFeaturePtr;
-    fti.m_feature.ApplyPatch(xml);
+    editor::ApplyPatch(xml, fti.m_feature);
   }
 
   fti.m_feature.SetID(fid);

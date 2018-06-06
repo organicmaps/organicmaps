@@ -108,7 +108,7 @@ void GenerateUploadedFeature(MwmSet::MwmId const & mwmId,
   FeatureType ft;
   editor.GetEditedFeature(emo.GetID().m_mwmId, emo.GetID().m_index, ft);
 
-  editor::XMLFeature xf = ft.ToXML(true);
+  editor::XMLFeature xf = editor::ToXML(ft, true);
   xf.SetMWMFeatureIndex(ft.GetID().m_index);
   xf.SetModificationTime(time(nullptr));
   xf.SetUploadTime(time(nullptr));

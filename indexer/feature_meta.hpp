@@ -226,4 +226,5 @@ public:
 }  // namespace feature
 
 // Prints types in osm-friendly format.
-string DebugPrint(feature::Metadata::EType type);
+string ToString(feature::Metadata::EType type);
+inline string DebugPrint(feature::Metadata::EType type) { return ToString(type); }

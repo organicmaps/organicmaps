@@ -1,5 +1,8 @@
 #include "editor/xml_feature.hpp"
 
+#include "indexer/classificator.hpp"
+#include "indexer/feature.hpp"
+
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
@@ -410,6 +413,131 @@ XMLFeature::Type XMLFeature::StringToType(string const & type)
     return Type::Relation;
 
   return Type::Unknown;
+}
+
+void ApplyPatch(XMLFeature const & xml, FeatureType & feature)
+{
+  xml.ForEachName([&feature](string const & lang, string const & name) {
+    feature.GetParams().name.AddString(lang, name);
+  });
+
+  string const house = xml.GetHouse();
+  if (!house.empty())
+    feature.GetParams().house.Set(house);
+
+  xml.ForEachTag([&feature](string const & k, string const & v) {
+    if (!feature.UpdateMetadataValue(k, v))
+      LOG(LWARNING, ("Patch feature has unknown tags", k, v));
+  });
+
+  // If types count are changed here, in ApplyPatch, new number of types should be passed
+  // instead of GetTypesCount().
+  // So we call UpdateHeader for recalc header and update parsed parts.
+  feature.UpdateHeader(true /* commonParsed */, true /* metadataParsed */);
+}
+
+XMLFeature ToXML(FeatureType const & fromFeature, bool serializeType)
+{
+  bool const isPoint = fromFeature.GetFeatureType() == feature::GEOM_POINT;
+  XMLFeature toFeature(isPoint ? XMLFeature::Type::Node : XMLFeature::Type::Way);
+
+  if (isPoint)
+  {
+    toFeature.SetCenter(fromFeature.GetCenter());
+  }
+  else
+  {
+    auto const & triangles = fromFeature.GetTriangesAsPoints(FeatureType::BEST_GEOMETRY);
+    toFeature.SetGeometry(begin(triangles), end(triangles));
+  }
+
+  fromFeature.ForEachName(
+      [&toFeature](uint8_t const & lang, string const & name) { toFeature.SetName(lang, name); });
+
+  string const house = fromFeature.GetHouseNumber();
+  if (!house.empty())
+    toFeature.SetHouse(house);
+
+  if (serializeType)
+  {
+    feature::TypesHolder th(fromFeature);
+    // TODO(mgsergio): Use correct sorting instead of SortBySpec based on the config.
+    th.SortBySpec();
+    // TODO(mgsergio): Either improve "OSM"-compatible serialization for more complex types,
+    // or save all our types directly, to restore and reuse them in migration of modified features.
+    for (uint32_t const type : th)
+    {
+      string const strType = classif().GetReadableObjectName(type);
+      strings::SimpleTokenizer iter(strType, "-");
+      string const k = *iter;
+      if (++iter)
+      {
+        // First (main) type is always stored as "k=amenity v=restaurant".
+        // Any other "k=amenity v=atm" is replaced by "k=atm v=yes".
+        if (toFeature.GetTagValue(k).empty())
+          toFeature.SetTagValue(k, *iter);
+        else
+          toFeature.SetTagValue(*iter, "yes");
+      }
+      else
+      {
+        // We're editing building, generic craft, shop, office, amenity etc.
+        // Skip it's serialization.
+        // TODO(mgsergio): Correcly serialize all types back and forth.
+        LOG(LDEBUG, ("Skipping type serialization:", k));
+      }
+    }
+  }
+
+  fromFeature.ForEachMetadataItem(true /* skipSponsored */,
+                                  [&toFeature](string const & tag, string const & value) {
+                                    toFeature.SetTagValue(tag, value);
+                                  });
+
+  return toFeature;
+}
+
+bool FromXML(XMLFeature const & xml, FeatureType & feature)
+{
+  ASSERT_EQUAL(XMLFeature::Type::Node, xml.GetType(),
+               ("At the moment only new nodes (points) can can be created."));
+  feature.SetCenter(xml.GetMercatorCenter());
+  xml.ForEachName([&feature](string const & lang, string const & name) {
+    feature.GetParams().name.AddString(lang, name);
+  });
+
+  string const house = xml.GetHouse();
+  if (!house.empty())
+    feature.GetParams().house.Set(house);
+
+  uint32_t typesCount = 0;
+  uint32_t types[feature::kMaxTypesCount];
+  xml.ForEachTag([&feature, &types, &typesCount](string const & k, string const & v) {
+    if (feature.UpdateMetadataValue(k, v))
+      return;
+
+    // Simple heuristics. It works if all our supported types for
+    // new features at data/editor.config
+    // are of one or two levels nesting (currently it's true).
+    Classificator & cl = classif();
+    uint32_t type = cl.GetTypeByPathSafe({k, v});
+    if (type == 0)
+      type = cl.GetTypeByPathSafe({k});  // building etc.
+    if (type == 0)
+      type = cl.GetTypeByPathSafe({"amenity", k});  // atm=yes, toilet=yes etc.
+
+    if (type && typesCount >= feature::kMaxTypesCount)
+      LOG(LERROR, ("Can't add type:", k, v, ". Types limit exceeded."));
+    else if (type)
+      types[typesCount++] = type;
+    else
+      LOG(LWARNING, ("Can't load/parse type:", k, v));
+  });
+
+  feature.SetTypes(types, typesCount);
+  feature.UpdateHeader(true /* commonParsed */, true /* metadataParsed */);
+
+  return typesCount > 0;
 }
 
 string DebugPrint(XMLFeature const & feature)

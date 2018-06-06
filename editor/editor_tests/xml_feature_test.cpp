@@ -2,6 +2,9 @@
 
 #include "editor/xml_feature.hpp"
 
+#include "indexer/classificator_loader.hpp"
+#include "indexer/feature.hpp"
+
 #include "geometry/mercator.hpp"
 
 #include "base/timer.hpp"
@@ -344,4 +347,34 @@ UNIT_TEST(XMLFeature_ApplyPatch)
     TEST_EQUAL(hasMainAndAltTag.GetTagValue("website"), "maps.me", ());
     TEST_EQUAL(hasMainAndAltTag.GetTagValue("url"), "mapswithme.com", ());
   }
+}
+
+UNIT_TEST(XMLFeature_FromXMLAndBackToXML)
+{
+  classificator::Load();
+
+  string const xmlNoTypeStr = R"(<?xml version="1.0"?>
+  <node lat="55.7978998" lon="37.474528" timestamp="2015-11-27T21:13:32Z">
+  <tag k="name" v="Gorki Park" />
+  <tag k="name:en" v="Gorki Park" />
+  <tag k="name:ru" v="Парк Горького" />
+  <tag k="addr:housenumber" v="10" />
+  </node>
+  )";
+
+  char const kTimestamp[] = "2015-11-27T21:13:32Z";
+
+  editor::XMLFeature xmlNoType(xmlNoTypeStr);
+  editor::XMLFeature xmlWithType = xmlNoType;
+  xmlWithType.SetTagValue("amenity", "atm");
+
+  FeatureType ft;
+  editor::FromXML(xmlWithType, ft);
+  auto fromFtWithType = editor::ToXML(ft, true);
+  fromFtWithType.SetAttribute("timestamp", kTimestamp);
+  TEST_EQUAL(fromFtWithType, xmlWithType, ());
+
+  auto fromFtWithoutType = editor::ToXML(ft, false);
+  fromFtWithoutType.SetAttribute("timestamp", kTimestamp);
+  TEST_EQUAL(fromFtWithoutType, xmlNoType, ());
 }
