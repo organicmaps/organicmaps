@@ -181,7 +181,8 @@ int main(int argc, char * argv[])
 {
   google::SetUsageMessage(
       "Location extrapolation benchmark. Cumulative moving average, variance and standard "
-      "deviation for all extrapolation deviations from tracks passed in csv with with csv_path.");
+      "deviation for all extrapolation deviations from tracks passed in comma separated csv with "
+      "csv_path.");
   google::ParseCommandLineFlags(&argc, &argv, true);
 
   if (FLAGS_csv_path.empty())
@@ -224,12 +225,12 @@ int main(int argc, char * argv[])
   // For all points of each track in |tracks| some extrapolations will be calculated.
   // The number of extrapolations depends on |Extrapolator::kExtrapolationPeriodMs|
   // and |Extrapolator::kMaxExtrapolationTimeMs| and equal for all points.
-  // Then cumulative moving average and variance each extrapolation will be printed.
+  // Then cumulative moving average and variance of each extrapolation will be printed.
   auto const extrapolationNumber = static_cast<size_t>(Extrapolator::kMaxExtrapolationTimeMs /
                                                        Extrapolator::kExtrapolationPeriodMs);
   MovingAverageVec mes(extrapolationNumber);
   MovingAverageVec squareMes(extrapolationNumber);
-  // Number of extrapolations which projections are calculated successfully for.
+  // Number of extrapolations for which projections are calculated successfully.
   size_t projectionCounter = 0;
   for (auto const & t : tracks)
   {
@@ -256,7 +257,7 @@ int main(int argc, char * argv[])
 
       vector<double> onePointDeviations;
       vector<double> onePointDeviationsSquared;
-      bool canFindClosestProjection = true;
+      bool projFound = true;
       for (size_t timeMs = Extrapolator::kExtrapolationPeriodMs;
            timeMs <= Extrapolator::kMaxExtrapolationTimeMs;
            timeMs += Extrapolator::kExtrapolationPeriodMs)
@@ -270,10 +271,8 @@ int main(int argc, char * argv[])
         // which is used calculation of projection in production code.
         m2::RectD const posSquare = MercatorBounds::MetresToXY(
             extrapolated.m_longitude, extrapolated.m_latitude, 100.0 /* half square in meters */);
-        // Note 1. One is deducted from polyline size because in GetClosestProjectionInInterval()
+        // One is deducted from polyline size because in GetClosestProjectionInInterval()
         // is used segment indices but not point indices.
-        // Note 2. Calculating projection of the center of |posRect| to polyline segments which
-        // are inside of |posRect|.
         auto const & iter = followedPoly.GetClosestProjectionInInterval(
             posSquare,
             [&extrapolatedMerc](FollowedPolyline::Iter const & it) {
@@ -290,7 +289,7 @@ int main(int argc, char * argv[])
           // This situation is possible if |posRect| param of GetClosestProjectionInInterval()
           // method is too small and there is no segment in |followedPoly|
           // which is covered by this rect. It's a rare situation.
-          canFindClosestProjection = false;
+          projFound = false;
           break;
         }
 
@@ -299,7 +298,7 @@ int main(int argc, char * argv[])
         onePointDeviationsSquared.push_back(distFromPoly * distFromPoly);
       }
 
-      if (canFindClosestProjection)
+      if (projFound)
       {
         CHECK_EQUAL(onePointDeviations.size(), extrapolationNumber, ());
         mes.Add(onePointDeviations);
@@ -321,7 +320,7 @@ int main(int argc, char * argv[])
     LOG(LINFO,
         ("Extrapolation", i + 1, ",", Extrapolator::kExtrapolationPeriodMs * (i + 1),
          "seconds after point two. Cumulative moving average =", mes.Get()[i].Get(), "meters.",
-         "Variance =", max(0.0, variance), ". Standard deviation =", sqrt(variance)));
+         "Variance =", max(0.0, variance), ". Standard deviation =", sqrt(max(0.0, variance))));
   }
 
   return 0;

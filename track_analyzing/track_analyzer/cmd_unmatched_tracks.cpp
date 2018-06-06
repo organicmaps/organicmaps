@@ -24,14 +24,15 @@ void CmdUnmatchedTracks(string const & logFile, string const & trackFileCsv)
   MwmToTracks mwmToTracks;
   ParseTracks(logFile, numMwmIds, storage, mwmToTracks);
 
+  string const sep = ",";
   ofstream ofs(trackFileCsv, std::ofstream::out);
   for (auto const & kv : mwmToTracks)
   {
     for (auto const & idTrack : kv.second)
     {
-      ofs << numMwmIds->GetFile(kv.first).GetName() << ", " << idTrack.first;
+      ofs << numMwmIds->GetFile(kv.first).GetName() << sep << idTrack.first;
       for (auto const & pnt : idTrack.second)
-        ofs << ", " << pnt.m_timestamp << ", " << pnt.m_latLon.lat << ", " << pnt.m_latLon.lon;
+        ofs << sep << pnt.m_timestamp << sep << pnt.m_latLon.lat << sep << pnt.m_latLon.lon;
       ofs << "\n";
     }
   }

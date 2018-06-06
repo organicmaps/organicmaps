@@ -64,10 +64,12 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1,
   result.m_altitude = e.Extrapolate(gpsInfo1.m_altitude, gpsInfo2.m_altitude);
 
   if (gpsInfo1.HasVerticalAccuracy() && gpsInfo2.HasVerticalAccuracy())
+  {
     result.m_verticalAccuracy =
         e.Extrapolate(gpsInfo1.m_verticalAccuracy, gpsInfo2.m_verticalAccuracy);
+  }
 
-  // @TODO(bykoianko) Now |result.m_bearing == gpsInfo2.m_bearing|.
+  // @TODO(bykoianko) Now |result.m_bearing| == |gpsInfo2.m_bearing|.
   // In case of |gpsInfo1.HasBearing() && gpsInfo2.HasBearing() == true|
   // consider finding an average value between |gpsInfo1.m_bearing| and |gpsInfo2.m_bearing|
   // taking into account that they are periodic. It's important to implement it
@@ -80,51 +82,50 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1,
   return result;
 }
 
-bool AreCoordsGoodForExtrapolation(location::GpsInfo const & beforeLastGpsInfo,
-                                   location::GpsInfo const & lastGpsInfo)
+bool AreCoordsGoodForExtrapolation(location::GpsInfo const & info1, location::GpsInfo const & info2)
 {
-  if (!beforeLastGpsInfo.IsValid() || !lastGpsInfo.IsValid())
+  if (!info1.IsValid() || !info2.IsValid())
     return false;
 
   double const distM =
-      ms::DistanceOnEarth(beforeLastGpsInfo.m_latitude, beforeLastGpsInfo.m_longitude,
-                          lastGpsInfo.m_latitude, lastGpsInfo.m_longitude);
+      ms::DistanceOnEarth(info1.m_latitude, info1.m_longitude,
+                          info2.m_latitude, info2.m_longitude);
 
-  double const timeS = lastGpsInfo.m_timestamp - beforeLastGpsInfo.m_timestamp;
+  double const timeS = info2.m_timestamp - info1.m_timestamp;
   if (timeS <= 0.0)
     return false;
 
-  // |maxDistAfterExtrapolationM| is maximum possible distance from |lastGpsInfo| to
+  // |maxDistAfterExtrapolationM| is maximum possible distance from |info2| to
   // the furthest extrapolated point.
   double const maxDistAfterExtrapolationM =
       distM * (Extrapolator::kMaxExtrapolationTimeMs / 1000.0) / timeS;
-  // |maxDistForAllExtrapolationsM| is maximum possible distance from |lastGpsInfo| to
+  // |maxDistForAllExtrapolationsM| is maximum possible distance from |info2| to
   // all extrapolated points in any cases.
   double const maxDistForAllExtrapolationsM =
       kMaxExtrapolationSpeedMPS / kMaxExtrapolationTimeSeconds;
-  double const distLastToMeridian180 = ms::DistanceOnEarth(
-      lastGpsInfo.m_latitude, lastGpsInfo.m_longitude, lastGpsInfo.m_latitude, 180.0 /* lon2Deg */);
-  // Switching off extrapolation if |lastGpsInfo| are so close to meridian 180 that extrapolated
-  // points may cross meridian 180 or if |beforeLastGpsInfo| and |lastGpsInfo| are located on
+  double const distLastGpsInfoToMeridian180 = ms::DistanceOnEarth(
+      info2.m_latitude, info2.m_longitude, info2.m_latitude, 180.0 /* lon2Deg */);
+  // Switching off extrapolation if |info2| are so close to meridian 180 that extrapolated
+  // points may cross meridian 180 or if |info1| and |info2| are located on
   // different sides of meridian 180.
-  if (distLastToMeridian180 < maxDistAfterExtrapolationM ||
-      (distLastToMeridian180 < maxDistForAllExtrapolationsM &&
-       lastGpsInfo.m_longitude * beforeLastGpsInfo.m_longitude < 0.0) ||
-      ms::DistanceOnEarth(lastGpsInfo.m_latitude, lastGpsInfo.m_longitude, 90.0 /* lat2Deg */,
-                          lastGpsInfo.m_longitude) < maxDistAfterExtrapolationM ||
-      ms::DistanceOnEarth(lastGpsInfo.m_latitude, lastGpsInfo.m_longitude, -90.0 /* lat2Deg */,
-                          lastGpsInfo.m_longitude) < maxDistAfterExtrapolationM)
+  if (distLastGpsInfoToMeridian180 < maxDistAfterExtrapolationM ||
+      (distLastGpsInfoToMeridian180 < maxDistForAllExtrapolationsM &&
+       info2.m_longitude * info1.m_longitude < 0.0) ||
+      ms::DistanceOnEarth(info2.m_latitude, info2.m_longitude, 90.0 /* lat2Deg */,
+                          info2.m_longitude) < maxDistAfterExtrapolationM ||
+      ms::DistanceOnEarth(info2.m_latitude, info2.m_longitude, -90.0 /* lat2Deg */,
+                          info2.m_longitude) < maxDistAfterExtrapolationM)
   {
     return false;
   }
 
-  // Note. |timeS| may be less than zero. (beforeLastGpsInfo.m_timestampS >=
-  // lastGpsInfo.m_timestampS) It may happen in rare cases because GpsInfo::m_timestampS is not
+  // Note. |timeS| may be less than zero. (info1.m_timestampS >=
+  // info2.m_timestampS) It may happen in rare cases because GpsInfo::m_timestampS is not
   // monotonic generally. Please see comment in declaration of class GpsInfo for details.
 
   // @TODO(bykoianko) Switching off extrapolation based on acceleration should be implemented.
   // Switching off extrapolation based on speed, distance and time.
-  return timeS > 0 && distM / timeS <= kMaxExtrapolationSpeedMPS &&
+  return distM / timeS <= kMaxExtrapolationSpeedMPS &&
          distM <= kMaxExtrapolationDistMeters && timeS <= kMaxExtrapolationTimeSeconds;
 }
 
@@ -141,9 +142,10 @@ void Extrapolator::OnLocationUpdate(location::GpsInfo const & gpsInfo)
     lock_guard<mutex> guard(m_mutex);
     m_beforeLastGpsInfo = m_lastGpsInfo;
     m_lastGpsInfo = gpsInfo;
-    m_extrapolationCounter = 0;
+    m_consecutiveRuns = 0;
     // Canceling all background tasks which are put to the queue before the task run in this method.
-    m_extrapolatedUpdateMinValid = m_extrapolatedUpdateCounter + 1;
+    ++m_locationUpdateCounter;
+    m_locationUpdateMinValid = m_locationUpdateCounter;
   }
   RunTaskOnBackgroundThread(false /* delayed */);
 }
@@ -154,16 +156,16 @@ void Extrapolator::Enable(bool enabled)
   m_isEnabled = enabled;
 }
 
-void Extrapolator::ExtrapolatedLocationUpdate(uint64_t extrapolatedUpdateCounter)
+void Extrapolator::ExtrapolatedLocationUpdate(uint64_t locationUpdateCounter)
 {
   location::GpsInfo gpsInfo;
   {
     lock_guard<mutex> guard(m_mutex);
-    // Canceling all calls of the method which were activated before |m_extrapolatedUpdateMinValid|.
-    if (extrapolatedUpdateCounter < m_extrapolatedUpdateMinValid)
+    // Canceling all calls of the method which were activated before |m_locationUpdateMinValid|.
+    if (locationUpdateCounter < m_locationUpdateMinValid)
       return;
 
-    uint64_t const extrapolationTimeMs = kExtrapolationPeriodMs * m_extrapolationCounter;
+    uint64_t const extrapolationTimeMs = kExtrapolationPeriodMs * m_consecutiveRuns;
     if (extrapolationTimeMs < kMaxExtrapolationTimeMs && m_lastGpsInfo.IsValid())
     {
       if (DoesExtrapolationWork())
@@ -185,8 +187,8 @@ void Extrapolator::ExtrapolatedLocationUpdate(uint64_t extrapolatedUpdateCounter
 
   {
     lock_guard<mutex> guard(m_mutex);
-    if (m_extrapolationCounter != kExtrapolationCounterUndefined)
-      ++m_extrapolationCounter;
+    if (m_consecutiveRuns != kExtrapolationCounterUndefined)
+      ++m_consecutiveRuns;
   }
 
   // Calling ExtrapolatedLocationUpdate() in |kExtrapolationPeriodMs| milliseconds.
@@ -195,31 +197,30 @@ void Extrapolator::ExtrapolatedLocationUpdate(uint64_t extrapolatedUpdateCounter
 
 void Extrapolator::RunTaskOnBackgroundThread(bool delayed)
 {
-  uint64_t extrapolatedUpdateCounter = 0;
+  uint64_t locationUpdateCounter = 0;
   {
     lock_guard<mutex> guard(m_mutex);
-    ++m_extrapolatedUpdateCounter;
-    extrapolatedUpdateCounter = m_extrapolatedUpdateCounter;
+    locationUpdateCounter = m_locationUpdateCounter;
   }
 
   if (delayed)
   {
     auto constexpr kExtrapolationPeriod = std::chrono::milliseconds(kExtrapolationPeriodMs);
     GetPlatform().RunDelayedTask(Platform::Thread::Background, kExtrapolationPeriod,
-                                 [this, extrapolatedUpdateCounter] {
-                                   ExtrapolatedLocationUpdate(extrapolatedUpdateCounter);
+                                 [this, locationUpdateCounter] {
+                                   ExtrapolatedLocationUpdate(locationUpdateCounter);
                                  });
     return;
   }
 
-  GetPlatform().RunTask(Platform::Thread::Background, [this, extrapolatedUpdateCounter] {
-    ExtrapolatedLocationUpdate(extrapolatedUpdateCounter);
+  GetPlatform().RunTask(Platform::Thread::Background, [this, locationUpdateCounter] {
+    ExtrapolatedLocationUpdate(locationUpdateCounter);
   });
 }
 
 bool Extrapolator::DoesExtrapolationWork() const
 {
-  if (!m_isEnabled || m_extrapolationCounter == kExtrapolationCounterUndefined)
+  if (!m_isEnabled || m_consecutiveRuns == kExtrapolationCounterUndefined)
     return false;
 
   return AreCoordsGoodForExtrapolation(m_beforeLastGpsInfo, m_lastGpsInfo);

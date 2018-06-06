@@ -26,8 +26,8 @@ namespace
 DEFINE_string_ext(cmd, "",
                   "command:\n"
                   "match - based on raw logs gathers points to tracks and matches them to "
-                  "features. To use the tool raw logs should be taken from \"trafin\" project "
-                  "production in gz files and extracted.\n"
+                  "features. To use the tool raw logs should be taken from \"trafin\" production "
+                  "project in gz files and extracted.\n"
                   "unmatched_tracks - based on raw logs gathers points to tracks\n"
                   "and save tracks to csv. Track points save as lat, log, timestamp in seconds\n"
                   "tracks - prints track statistics\n"

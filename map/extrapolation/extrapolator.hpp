@@ -10,14 +10,25 @@
 namespace extrapolation
 {
 /// \brief Returns extrapolated position after |point2| in |timeAfterPoint2Ms|.
-/// \note |timeAfterPoint2Ms| should be relevantly small (several seconds maximum).
+/// \note |timeAfterPoint2Ms| should be reasonably small (several seconds maximum).
 location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1,
                                       location::GpsInfo const & gpsInfo2,
                                       uint64_t timeAfterPoint2Ms);
 
-bool AreCoordsGoodForExtrapolation(location::GpsInfo const & beforeLastGpsInfo,
-                                   location::GpsInfo const & lastGpsInfo);
+/// \returns true if linear extrapolation based on |info1| and |info2| should be done.
+/// \param info1 location information about point gotten before last one.
+/// \param info2 the latest location information.
+bool AreCoordsGoodForExtrapolation(location::GpsInfo const & info1,
+                                   location::GpsInfo const & info2);
 
+/// \brief This class implements linear extrapolation based on methods LinearExtrapolation()
+/// and AreCoordsGoodForExtrapolation(). The idea implemented in this class is
+/// - OnLocationUpdate() should be called from gui thread when new data from gps is available.
+/// - When OnLocationUpdate() was called twice so that AreCoordsGoodForExtrapolation()
+///   returns true, extrapolation for this two location will be launched.
+/// - That means all obsolete extrapolation calls in background thread will be canceled by
+///   incrementing |m_locationUpdateMinValid|.
+/// - Several new extrapolations based on two previous locations will be generated.
 class Extrapolator
 {
   static uint64_t constexpr kExtrapolationCounterUndefined = std::numeric_limits<uint64_t>::max();
@@ -48,7 +59,7 @@ private:
   /// \returns true if there's enough information for extrapolation and extrapolation is enabled.
   /// \note This method should be called only when |m_mutex| is locked.
   bool DoesExtrapolationWork() const;
-  void ExtrapolatedLocationUpdate(uint64_t extrapolatedUpdateCounter);
+  void ExtrapolatedLocationUpdate(uint64_t locationUpdateCounter);
   void RunTaskOnBackgroundThread(bool delayed);
 
   bool m_isEnabled;
@@ -57,12 +68,14 @@ private:
   ExtrapolatedLocationUpdateFn m_extrapolatedLocationUpdate;
   location::GpsInfo m_lastGpsInfo;
   location::GpsInfo m_beforeLastGpsInfo;
-  uint64_t m_extrapolationCounter = kExtrapolationCounterUndefined;
-  // Number of calls Extrapolator::RunTaskOnBackgroundThread() method.
-  uint64_t m_extrapolatedUpdateCounter = 0;
-  // If |m_extrapolatedUpdateCounter| < |m_extrapolatedUpdateMinValid| when
+  uint64_t m_consecutiveRuns = kExtrapolationCounterUndefined;
+  // Number of calls Extrapolator::OnLocationUpdate() method. This way |m_locationUpdateCounter|
+  // reflects generation of extrapolations. That mean the next gps location is
+  // the next generation.
+  uint64_t m_locationUpdateCounter = 0;
+  // If |m_locationUpdateCounter| < |m_locationUpdateMinValid| when
   // ExtrapolatedLocationUpdate() is called (on background thread)
   // ExtrapolatedLocationUpdate() cancels its execution.
-  uint64_t m_extrapolatedUpdateMinValid = 0;
+  uint64_t m_locationUpdateMinValid = 0;
 };
 }  // namespace extrapolation
