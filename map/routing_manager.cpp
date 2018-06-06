@@ -565,7 +565,8 @@ void RoutingManager::FollowRoute()
     return;
 
   // Switching on the extrapolatior only for following mode in car and bicycle navigation.
-  m_extrapolator.Enable(m_currentRouterType == RouterType::Vehicle || m_currentRouterType == RouterType::Bicycle);
+  m_extrapolator.Enable(m_currentRouterType == RouterType::Vehicle ||
+                        m_currentRouterType == RouterType::Bicycle);
   m_delegate.OnRouteFollow(m_currentRouterType);
 
   HideRoutePoint(RouteMarkType::Start);
@@ -1246,8 +1247,8 @@ void RoutingManager::OnExtrapolatedLocationUpdate(location::GpsInfo const & info
     m_gpsInfoCache = make_unique<location::GpsInfo>(gpsInfo);
 
   auto routeMatchingInfo = GetRouteMatchingInfo(gpsInfo);
-  m_drapeEngine.SafeCall(&df::DrapeEngine::SetGpsInfo, gpsInfo,
-                         m_routingSession.IsNavigable(), routeMatchingInfo);
+  m_drapeEngine.SafeCall(&df::DrapeEngine::SetGpsInfo, gpsInfo, m_routingSession.IsNavigable(),
+                         routeMatchingInfo);
 
   if (IsTrackingReporterEnabled())
     m_trackingReporter.AddLocation(gpsInfo, m_routingSession.MatchTraffic(routeMatchingInfo));

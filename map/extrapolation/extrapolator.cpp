@@ -55,13 +55,17 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1,
   LinearExtrapolator e(timeBetweenPointsMs, timeAfterPoint2Ms);
 
   result.m_timestamp += static_cast<double>(timeAfterPoint2Ms) / 1000.0;
-  result.m_longitude = my::clamp(e.Extrapolate(gpsInfo1.m_longitude, gpsInfo2.m_longitude), -180.0, 180.0);
-  result.m_latitude = my::clamp(e.Extrapolate(gpsInfo1.m_latitude, gpsInfo2.m_latitude), -90.0, 90.0);
-  result.m_horizontalAccuracy = e.Extrapolate(gpsInfo1.m_horizontalAccuracy, gpsInfo2.m_horizontalAccuracy);
+  result.m_longitude =
+      my::clamp(e.Extrapolate(gpsInfo1.m_longitude, gpsInfo2.m_longitude), -180.0, 180.0);
+  result.m_latitude =
+      my::clamp(e.Extrapolate(gpsInfo1.m_latitude, gpsInfo2.m_latitude), -90.0, 90.0);
+  result.m_horizontalAccuracy =
+      e.Extrapolate(gpsInfo1.m_horizontalAccuracy, gpsInfo2.m_horizontalAccuracy);
   result.m_altitude = e.Extrapolate(gpsInfo1.m_altitude, gpsInfo2.m_altitude);
 
   if (gpsInfo1.HasVerticalAccuracy() && gpsInfo2.HasVerticalAccuracy())
-    result.m_verticalAccuracy = e.Extrapolate(gpsInfo1.m_verticalAccuracy, gpsInfo2.m_verticalAccuracy);
+    result.m_verticalAccuracy =
+        e.Extrapolate(gpsInfo1.m_verticalAccuracy, gpsInfo2.m_verticalAccuracy);
 
   // @TODO(bykoianko) Now |result.m_bearing == gpsInfo2.m_bearing|.
   // In case of |gpsInfo1.HasBearing() && gpsInfo2.HasBearing() == true|
@@ -96,11 +100,12 @@ bool AreCoordsGoodForExtrapolation(location::GpsInfo const & beforeLastGpsInfo,
       distM * (Extrapolator::kMaxExtrapolationTimeMs / 1000.0) / timeS;
   // |maxDistForAllExtrapolationsM| is maximum possible distance from |lastGpsInfo| to
   // all extrapolated points in any cases.
-  double const maxDistForAllExtrapolationsM = kMaxExtrapolationSpeedMPS / kMaxExtrapolationTimeSeconds;
+  double const maxDistForAllExtrapolationsM =
+      kMaxExtrapolationSpeedMPS / kMaxExtrapolationTimeSeconds;
   double const distLastToMeridian180 = ms::DistanceOnEarth(
       lastGpsInfo.m_latitude, lastGpsInfo.m_longitude, lastGpsInfo.m_latitude, 180.0 /* lon2Deg */);
-  // Switching off extrapolation if |lastGpsInfo| are so close to meridian 180 that extrapolated points
-  // may cross meridian 180 or if |beforeLastGpsInfo| and |lastGpsInfo| are located on
+  // Switching off extrapolation if |lastGpsInfo| are so close to meridian 180 that extrapolated
+  // points may cross meridian 180 or if |beforeLastGpsInfo| and |lastGpsInfo| are located on
   // different sides of meridian 180.
   if (distLastToMeridian180 < maxDistAfterExtrapolationM ||
       (distLastToMeridian180 < maxDistForAllExtrapolationsM &&
@@ -113,9 +118,9 @@ bool AreCoordsGoodForExtrapolation(location::GpsInfo const & beforeLastGpsInfo,
     return false;
   }
 
-  // Note. |timeS| may be less than zero. (beforeLastGpsInfo.m_timestampS >= lastGpsInfo.m_timestampS)
-  // It may happen in rare cases because GpsInfo::m_timestampS is not monotonic generally.
-  // Please see comment in declaration of class GpsInfo for details.
+  // Note. |timeS| may be less than zero. (beforeLastGpsInfo.m_timestampS >=
+  // lastGpsInfo.m_timestampS) It may happen in rare cases because GpsInfo::m_timestampS is not
+  // monotonic generally. Please see comment in declaration of class GpsInfo for details.
 
   // @TODO(bykoianko) Switching off extrapolation based on acceleration should be implemented.
   // Switching off extrapolation based on speed, distance and time.
@@ -174,9 +179,8 @@ void Extrapolator::ExtrapolatedLocationUpdate(uint64_t extrapolatedUpdateCounter
 
   if (gpsInfo.IsValid())
   {
-    GetPlatform().RunTask(Platform::Thread::Gui, [this, gpsInfo]() {
-      m_extrapolatedLocationUpdate(gpsInfo);
-    });
+    GetPlatform().RunTask(Platform::Thread::Gui,
+                          [this, gpsInfo]() { m_extrapolatedLocationUpdate(gpsInfo); });
   }
 
   {

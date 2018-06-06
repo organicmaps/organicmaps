@@ -17,7 +17,8 @@ void TestGpsInfo(GpsInfo const & tested, GpsInfo const & expected)
   TEST_EQUAL(tested.m_source, expected.m_source, ());
   TEST(my::AlmostEqualAbs(tested.m_latitude, expected.m_latitude, kEpsilon), ());
   TEST(my::AlmostEqualAbs(tested.m_longitude, expected.m_longitude, kEpsilon), ());
-  TEST(my::AlmostEqualAbs(tested.m_horizontalAccuracy, expected.m_horizontalAccuracy, kEpsilon), ());
+  TEST(my::AlmostEqualAbs(tested.m_horizontalAccuracy, expected.m_horizontalAccuracy, kEpsilon),
+       ());
   TEST(my::AlmostEqualAbs(tested.m_altitude, expected.m_altitude, kEpsilon), ());
   TEST(my::AlmostEqualAbs(tested.m_verticalAccuracy, expected.m_verticalAccuracy, kEpsilon), ());
   TEST(my::AlmostEqualAbs(tested.m_bearing, expected.m_bearing, kEpsilon), ());
@@ -127,32 +128,32 @@ UNIT_TEST(AreCoordsGoodForExtrapolation)
   }
   {
     GpsInfo const loc1 = GetGpsInfo(0.0 /* timestamp */, 10.0 /* lat */, -179.999997 /* lon */);
-    GpsInfo const loc2 = GetGpsInfo(1.0 /* timestamp */, 10.0 /* lat */, -179.999999  /* lon */);
+    GpsInfo const loc2 = GetGpsInfo(1.0 /* timestamp */, 10.0 /* lat */, -179.999999 /* lon */);
     TEST(!AreCoordsGoodForExtrapolation(loc1, loc2), ("Near meridian -180."));
   }
   {
     GpsInfo const loc1 = GetGpsInfo(0.0 /* timestamp */, 89.9997 /* lat */, -10.0 /* lon */);
-    GpsInfo const loc2 = GetGpsInfo(1.0 /* timestamp */, 89.9999 /* lat */, -10.0  /* lon */);
+    GpsInfo const loc2 = GetGpsInfo(1.0 /* timestamp */, 89.9999 /* lat */, -10.0 /* lon */);
     TEST(!AreCoordsGoodForExtrapolation(loc1, loc2), ("Close to North Pole."));
   }
   {
     GpsInfo const loc1 = GetGpsInfo(0.0 /* timestamp */, 89.9997 /* lat */, -10.0 /* lon */);
-    GpsInfo const loc2 = GetGpsInfo(1.0 /* timestamp */, 89.9998 /* lat */, -10.0  /* lon */);
+    GpsInfo const loc2 = GetGpsInfo(1.0 /* timestamp */, 89.9998 /* lat */, -10.0 /* lon */);
     TEST(AreCoordsGoodForExtrapolation(loc1, loc2), ("Close to North Pole but ok."));
   }
   {
     GpsInfo const loc1 = GetGpsInfo(0.0 /* timestamp */, -89.9997 /* lat */, -10.0 /* lon */);
-    GpsInfo const loc2 = GetGpsInfo(1.0 /* timestamp */, -89.9999 /* lat */, -10.0  /* lon */);
+    GpsInfo const loc2 = GetGpsInfo(1.0 /* timestamp */, -89.9999 /* lat */, -10.0 /* lon */);
     TEST(!AreCoordsGoodForExtrapolation(loc1, loc2), ("Close to South Pole."));
   }
   {
     GpsInfo const loc1 = GetGpsInfo(0.0 /* timestamp */, -89.9997 /* lat */, -10.0 /* lon */);
-    GpsInfo const loc2 = GetGpsInfo(1.0 /* timestamp */, -89.9998 /* lat */, -10.0  /* lon */);
+    GpsInfo const loc2 = GetGpsInfo(1.0 /* timestamp */, -89.9998 /* lat */, -10.0 /* lon */);
     TEST(AreCoordsGoodForExtrapolation(loc1, loc2), ("Close to South Pole but ok."));
   }
   {
     GpsInfo const loc1 = GetGpsInfo(0.0 /* timestamp */, 10.0 /* lat */, -179.999997 /* lon */);
-    GpsInfo const loc2 = GetGpsInfo(1.0 /* timestamp */, 10.0 /* lat */, -179.999998  /* lon */);
+    GpsInfo const loc2 = GetGpsInfo(1.0 /* timestamp */, 10.0 /* lat */, -179.999998 /* lon */);
     TEST(AreCoordsGoodForExtrapolation(loc1, loc2), ("Near meridian -180 but ok."));
   }
   {

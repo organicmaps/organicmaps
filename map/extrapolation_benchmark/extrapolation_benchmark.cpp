@@ -22,8 +22,8 @@
 #include <utility>
 #include <vector>
 
-#include "3party/gflags/src/gflags/gflags_declare.h"
 #include "3party/gflags/src/gflags/gflags.h"
+#include "3party/gflags/src/gflags/gflags_declare.h"
 
 // This tool is written to estimate quality of location extrapolation. To launch the benchmark
 // you need tracks in csv file with the format described below. To generate the csv file
@@ -45,9 +45,7 @@ namespace
 struct GpsPoint
 {
   GpsPoint(double timestampS, double lat, double lon)
-      : m_timestampS(timestampS)
-      , m_lat(lat)
-      , m_lon(lon)
+    : m_timestampS(timestampS), m_lat(lat), m_lon(lon)
   {
   }
 
@@ -132,8 +130,8 @@ bool GetGpsPoint(istringstream & lineStream, uint64_t & timestampS, double & lat
 /// \brief Fills |tracks| based on file |pathToCsv| content. File |pathToCsv| should be
 /// a text file with following lines:
 /// <Mwm name (country id)>, <Aloha id>,
-/// <Latitude of the first point>, <Longitude of the first point>, <Timestamp in seconds of the first point>,
-/// <Latitude of the second point> and so on.
+/// <Latitude of the first point>, <Longitude of the first point>, <Timestamp in seconds of the
+/// first point>, <Latitude of the second point> and so on.
 bool Parse(string const & pathToCsv, Tracks & tracks)
 {
   tracks.clear();
@@ -147,8 +145,8 @@ bool Parse(string const & pathToCsv, Tracks & tracks)
   {
     istringstream lineStream(line);
     string dummy;
-    GetString(lineStream, dummy); // mwm id
-    GetString(lineStream, dummy); // aloha id
+    GetString(lineStream, dummy);  // mwm id
+    GetString(lineStream, dummy);  // aloha id
 
     Track track;
     while (!lineStream.eof())
@@ -174,10 +172,11 @@ void GpsPointToGpsInfo(GpsPoint const gpsPoint, GpsInfo & gpsInfo)
   gpsInfo.m_latitude = gpsPoint.m_lat;
   gpsInfo.m_longitude = gpsPoint.m_lon;
 }
-} // namespace
+}  // namespace
 
-/// \brief This benchmark is written to estimate how LinearExtrapolation() extrapolates real users tracks.
-/// The idea behind the test is to measure the distance between extrapolated location and real track.
+/// \brief This benchmark is written to estimate how LinearExtrapolation() extrapolates real users
+/// tracks. The idea behind the test is to measure the distance between extrapolated location and
+/// real track.
 int main(int argc, char * argv[])
 {
   google::SetUsageMessage(
@@ -194,7 +193,8 @@ int main(int argc, char * argv[])
   Tracks tracks;
   if (!Parse(FLAGS_csv_path, tracks))
   {
-    LOG(LERROR, ("An error while parsing", FLAGS_csv_path, "file. Please check if it has a correct format."));
+    LOG(LERROR, ("An error while parsing", FLAGS_csv_path,
+                 "file. Please check if it has a correct format."));
     return -1;
   }
 
@@ -216,8 +216,8 @@ int main(int argc, char * argv[])
   }
 
   LOG(LINFO, ("General tracks statistics."
-              "\n  Number of tracks:", tracks.size(),
-              "\n  Number of track points:", trackPointNum,
+              "\n  Number of tracks:",
+              tracks.size(), "\n  Number of track points:", trackPointNum,
               "\n  Average points per track:", trackPointNum / tracks.size(),
               "\n  Average track length:", trackLengths / tracks.size(), "meters"));
 
@@ -262,7 +262,8 @@ int main(int argc, char * argv[])
            timeMs += Extrapolator::kExtrapolationPeriodMs)
       {
         GpsInfo const extrapolated = LinearExtrapolation(info1, info2, timeMs);
-        m2::PointD const extrapolatedMerc = MercatorBounds::FromLatLon(extrapolated.m_latitude, extrapolated.m_longitude);
+        m2::PointD const extrapolatedMerc =
+            MercatorBounds::FromLatLon(extrapolated.m_latitude, extrapolated.m_longitude);
 
         // To generate |posSquare| the method below requires the size of half square in meters.
         // This constant is chosen based on maximum value of GpsInfo::m_horizontalAccuracy
@@ -308,17 +309,19 @@ int main(int argc, char * argv[])
   }
 
   CHECK_GREATER(extrapolationNumber, 0, ());
-  LOG(LINFO, ("\n  Processed", mes.Get()[0].GetCounter(), "points.\n",
-              "  ", mes.Get()[0].GetCounter() * extrapolationNumber, "extrapolations is calculated.\n",
+  LOG(LINFO, ("\n  Processed", mes.Get()[0].GetCounter(), "points.\n", "  ",
+              mes.Get()[0].GetCounter() * extrapolationNumber, "extrapolations is calculated.\n",
               "  Projection is calculated for", projectionCounter, "extrapolations."));
 
-  LOG(LINFO, ("Cumulative moving average, variance and standard deviation for each extrapolation:"));
+  LOG(LINFO,
+      ("Cumulative moving average, variance and standard deviation for each extrapolation:"));
   for (size_t i = 0; i < extrapolationNumber; ++i)
   {
     double const variance = squareMes.Get()[i].Get() - pow(mes.Get()[i].Get(), 2.0);
-    LOG(LINFO, ("Extrapolation", i + 1, ",", Extrapolator::kExtrapolationPeriodMs * (i + 1),
-                "seconds after point two. Cumulative moving average =", mes.Get()[i].Get(),
-                "meters.", "Variance =", max(0.0, variance), ". Standard deviation =", sqrt(variance)));
+    LOG(LINFO,
+        ("Extrapolation", i + 1, ",", Extrapolator::kExtrapolationPeriodMs * (i + 1),
+         "seconds after point two. Cumulative moving average =", mes.Get()[i].Get(), "meters.",
+         "Variance =", max(0.0, variance), ". Standard deviation =", sqrt(variance)));
   }
 
   return 0;

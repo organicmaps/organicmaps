@@ -17,8 +17,8 @@ using namespace routing;
 using namespace std;
 using namespace storage;
 
-void ParseTracks(string const & logFile, shared_ptr<NumMwmIds> & numMwmIds,
-                 Storage & storage, MwmToTracks & mwmToTracks)
+void ParseTracks(string const & logFile, shared_ptr<NumMwmIds> & numMwmIds, Storage & storage,
+                 MwmToTracks & mwmToTracks)
 {
   storage.RegisterAllLocalMaps(false /* enableDiffs */);
   numMwmIds = CreateNumMwmIds(storage);

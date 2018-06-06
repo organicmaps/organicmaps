@@ -285,7 +285,7 @@ void Platform::RunThreads()
   ASSERT(!m_networkThread && !m_fileThread && !m_backgroundThread, ());
   m_networkThread = make_unique<base::WorkerThread>();
   m_fileThread = make_unique<base::WorkerThread>();
-  m_backgroundThread =  make_unique<base::WorkerThread>();
+  m_backgroundThread = make_unique<base::WorkerThread>();
 }
 
 string DebugPrint(Platform::EError err)
