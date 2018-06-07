@@ -13,6 +13,39 @@ from datetime import datetime
 # - Find feature ids in the 'dat' section, or find a way to read the 'offs' section
 
 
+class OsmIdCode:
+    NODE = 0x4000000000000000
+    WAY = 0x8000000000000000
+    RELATION = 0xC000000000000000
+    RESET = ~(NODE | WAY | RELATION)
+
+    @staticmethod
+    def is_node(code):
+        return code & OsmIdCode.NODE == OsmIdCode.NODE
+
+    @staticmethod
+    def is_way(code):
+        return code & OsmIdCode.WAY == OsmIdCode.WAY
+
+    @staticmethod
+    def is_relation(code):
+        return code & OsmIdCode.RELATION == OsmIdCode.RELATION
+
+    @staticmethod
+    def get_type(code):
+        if OsmIdCode.is_relation(code):
+            return 'r'
+        elif OsmIdCode.is_node(code):
+            return 'n'
+        elif OsmIdCode.is_way(code):
+            return 'w'
+        return None
+
+    @staticmethod
+    def get_id(code):
+        return code & OsmIdCode.RESET
+
+
 class MWM:
     # coding/multilang_utf8_string.cpp
     languages = ["default",
@@ -222,12 +255,6 @@ class MWM:
         AREA = 1 << 6
         POINT_EX = 3 << 5
 
-    class OsmIdCode:
-        NODE = 0x4000000000000000
-        WAY = 0x8000000000000000
-        RELATION = 0xC000000000000000
-        RESET = ~(NODE | WAY | RELATION)
-
     def iter_features(self, metadata=False):
         """Reads 'dat' section."""
         if not self.has_tag('dat'):
@@ -307,15 +334,10 @@ class MWM:
                 osmids = []
                 for i in range(count):
                     encid = self.read_uint(8)
-                    if encid & MWM.OsmIdCode.NODE == MWM.OsmIdCode.NODE:
-                        typ = 'n'
-                    elif encid & MWM.OsmIdCode.WAY == MWM.OsmIdCode.WAY:
-                        typ = 'w'
-                    elif encid & MWM.OsmIdCode.RELATION == MWM.OsmIdCode.RELATION:
-                        typ = 'r'
-                    else:
-                        typ = ''
-                    osmids.append('{0}{1}'.format(typ, encid & MWM.OsmIdCode.RESET))
+                    osmids.append('{0}{1}'.format(
+                        OsmIdCode.get_type(encid) or '',
+                        OsmIdCode.get_id(encid)
+                    ))
                 feature['osmIds'] = osmids
 
             if self.f.tell() > next_feature:
@@ -489,22 +511,11 @@ def read_varint(f):
     return zigzag_decode(read_varuint(f))
 
 
-NODE = 0x4000000000000000
-WAY = 0x8000000000000000
-RELATION = 0xC000000000000000
-RESET = ~(NODE | WAY | RELATION)
-
-
 def unpack_osmid(num):
-    if num & RELATION == RELATION:
-        typ = 'r'
-    elif num & WAY == WAY:
-        typ = 'w'
-    elif num & NODE == NODE:
-        typ = 'n'
-    else:
+    typ = OsmIdCode.get_type(num)
+    if typ is None:
         return None
-    return typ, num & RESET
+    return typ, OsmIdCode.get_id(num)
 
 
 # TODO(zverik, mgsergio): Move this to a separate module, cause it has nothing
