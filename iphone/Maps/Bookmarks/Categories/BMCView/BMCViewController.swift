@@ -35,7 +35,6 @@ final class BMCViewController: MWMViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = L("bookmarks")
     viewModel = BMCDefaultViewModel()
   }
 
@@ -101,7 +100,8 @@ final class BMCViewController: MWMViewController {
 
   private func openCategory(category: BMCCategory) {
     let bmViewController = BookmarksVC(category: category.identifier)!
-    navigationController!.pushViewController(bmViewController, animated: true)
+    MapViewController.topViewController().navigationController?.pushViewController(bmViewController,
+                                                                                   animated: true)
   }
 
   private func signup(anchor: UIView, onComplete: @escaping (Bool) -> Void) {
