@@ -124,6 +124,7 @@
     <item name="transitStepDivider">@drawable/dot_divider</item>
     <item name="filterPropertyBackground">@drawable/button_with_border</item>
     <item name="adChoicesIcon">@drawable/ic_ad_light</item>
+    <item name="saleIcon">@drawable/ic_deal_light</item>
   </style>
 
   <!-- Night theme -->
@@ -250,5 +251,6 @@
     <item name="transitStepDivider">@drawable/dot_divider_night</item>
     <item name="filterPropertyBackground">@drawable/button_with_border_night</item>
     <item name="adChoicesIcon">@drawable/ic_ad_dark</item>
+    <item name="saleIcon">@drawable/ic_deal_dark</item>
   </style>
 </resources>

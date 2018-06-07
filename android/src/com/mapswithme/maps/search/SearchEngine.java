@@ -14,7 +14,8 @@ import com.mapswithme.util.concurrency.UiThread;
 import java.io.UnsupportedEncodingException;
 
 public enum SearchEngine implements NativeSearchListener,
-                                    NativeMapSearchListener
+                                    NativeMapSearchListener,
+                                    NativeBookingFilterListener
 {
   INSTANCE;
 
@@ -69,13 +70,14 @@ public enum SearchEngine implements NativeSearchListener,
     // Dummy. Will be implemented soon.
   }
 
-  public void onFilterAvailableHotels(@Nullable FeatureId[] availableHotels)
+  @Override
+  public void onFilterHotels(@BookingFilter.Type int type, @Nullable FeatureId[] hotels)
   {
     UiThread.run(
         () ->
         {
           for (NativeBookingFilterListener listener : mHotelListeners)
-            listener.onFilterAvailableHotels(availableHotels);
+            listener.onFilterHotels(type, hotels);
           mHotelListeners.finishIterate();
         });
   }

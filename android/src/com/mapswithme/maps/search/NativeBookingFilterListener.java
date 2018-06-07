@@ -11,7 +11,8 @@ import com.mapswithme.maps.bookmarks.data.FeatureId;
 public interface NativeBookingFilterListener
 {
   /**
-   * @param availableHotels Array of available hotels feature ids.
+   * @param type Filter type which was applied.
+   * @param hotels Array of hotels that meet the requirements for the filter.
    */
-  void onFilterAvailableHotels(@Nullable FeatureId[] availableHotels);
+  void onFilterHotels(@BookingFilter.Type int type, @Nullable FeatureId[] hotels);
 }

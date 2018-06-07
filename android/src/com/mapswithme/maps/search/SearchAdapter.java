@@ -14,6 +14,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
   private final SearchFragment mSearchFragment;
   private SearchData[] mResults;
   @NonNull
-  private Set<FeatureId> mAvailableHotelIds = new HashSet<>();
+  private FilteredHotelIds mFilteredHotelIds = new FilteredHotelIds();
   private final Drawable mClosedMarkerBackground;
 
   static abstract class SearchDataViewHolder extends RecyclerView.ViewHolder
@@ -113,9 +114,28 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     abstract void processClick(SearchResult result, int order);
   }
 
+  private static class FilteredHotelIds
+  {
+    @NonNull
+    private SparseArray<Set<FeatureId>> mFilteredHotelIds =
+      new SparseArray<>();
+
+    void set(@BookingFilter.Type int type, @NonNull FeatureId[] hotelsId)
+    {
+      mFilteredHotelIds.put(type, new HashSet<>(Arrays.asList(hotelsId)));
+    }
+
+    boolean contains(@BookingFilter.Type int type, @NonNull FeatureId id)
+    {
+      Set<FeatureId>  ids = mFilteredHotelIds.get(type);
+
+      return ids != null && ids.contains(id);
+    }
+  }
+
   private class SuggestViewHolder extends BaseResultViewHolder
   {
-    SuggestViewHolder(View view)
+    SuggestViewHolder(@NonNull View view)
     {
       super(view);
     }
@@ -156,12 +176,20 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
   {
     @NonNull
     final View mFrame;
+    @NonNull
     final TextView mName;
+    @NonNull
     final View mClosedMarker;
+    @NonNull
     final TextView mDescription;
+    @NonNull
     final TextView mRegion;
+    @NonNull
     final TextView mDistance;
+    @NonNull
     final TextView mPriceCategory;
+    @NonNull
+    final View mSale;
 
     @Override
     int getTintAttr()
@@ -222,7 +250,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       return sb;
     }
 
-    ResultViewHolder(View view)
+    ResultViewHolder(@NonNull View view)
     {
       super(view);
       mFrame = view;
@@ -232,6 +260,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       mRegion = view.findViewById(R.id.region);
       mDistance = view.findViewById(R.id.distance);
       mPriceCategory = view.findViewById(R.id.price_category);
+      mSale = view.findViewById(R.id.sale);
 
       mClosedMarker.setBackgroundDrawable(mClosedMarkerBackground);
     }
@@ -250,12 +279,17 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
       // TODO: Support also "Open Now" mark.
       UiUtils.showIf(mResult.description.openNow == SearchResult.OPEN_NOW_NO, mClosedMarker);
       boolean isHotelAvailable = mResult.isHotel &&
-                                 mAvailableHotelIds.contains(mResult.description.featureId);
+                                 mFilteredHotelIds.contains(BookingFilter.TYPE_AVAILABILITY,
+                                                            mResult.description.featureId);
       UiUtils.setTextAndHideIfEmpty(mDescription, formatDescription(mResult, isHotelAvailable));
       UiUtils.setTextAndHideIfEmpty(mRegion, mResult.description.region);
       UiUtils.setTextAndHideIfEmpty(mDistance, mResult.description.distance);
       UiUtils.setTextAndHideIfEmpty(mPriceCategory, mResult.description.pricing);
 
+      boolean hasDeal = mResult.isHotel &&
+                        mFilteredHotelIds.contains(BookingFilter.TYPE_DEALS,
+                                                   mResult.description.featureId);
+      UiUtils.showIf(hasDeal, mSale);
     }
 
     private void setBackground()
@@ -282,7 +316,8 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     boolean needSpecificBackground()
     {
       return mResult.isHotel &&
-             mAvailableHotelIds.contains(mResult.description.featureId);
+             mFilteredHotelIds.contains(BookingFilter.TYPE_AVAILABILITY,
+                                        mResult.description.featureId);
     }
 
     @Override
@@ -294,7 +329,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
 
   private class LocalAdsCustomerViewHolder extends ResultViewHolder
   {
-    LocalAdsCustomerViewHolder(View view)
+    LocalAdsCustomerViewHolder(@NonNull View view)
     {
       super(view);
     }
@@ -396,10 +431,10 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     notifyDataSetChanged();
   }
 
-  void setAvailableHotels(@NonNull FeatureId[] mHotelsId)
+  void setFilteredHotels(@BookingFilter.Type int type,
+                         @NonNull FeatureId[] hotelsId)
   {
-    mAvailableHotelIds.clear();
-    mAvailableHotelIds.addAll(Arrays.asList(mHotelsId));
+    mFilteredHotelIds.set(type, hotelsId);
     notifyDataSetChanged();
   }
 }

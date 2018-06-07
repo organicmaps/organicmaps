@@ -688,12 +688,12 @@ public class SearchFragment extends BaseMwmFragment
   }
 
   @Override
-  public void onFilterAvailableHotels(@Nullable FeatureId[] availableHotels)
+  public void onFilterHotels(@BookingFilter.Type int type, @Nullable FeatureId[] hotels)
   {
-    if (availableHotels == null)
+    if (hotels == null)
       return;
 
-    mSearchAdapter.setAvailableHotels(availableHotels);
+    mSearchAdapter.setFilteredHotels(type, hotels);
   }
 
   @Override

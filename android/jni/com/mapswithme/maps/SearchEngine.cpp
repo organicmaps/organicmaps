@@ -260,7 +260,7 @@ jobject g_javaListener;
 jmethodID g_updateResultsId;
 jmethodID g_endResultsId;
 // Implements 'NativeBookingFilterListener' java interface.
-jmethodID g_onFilterAvailableHotelsId;
+jmethodID g_onFilterHotels;
 // Cached classes and methods to return results.
 jclass g_resultClass;
 jmethodID g_resultConstructor;
@@ -442,7 +442,8 @@ void OnBookingFilterAvailabilityResults(std::shared_ptr<booking::ParamsBase> con
   JNIEnv * env = jni::GetEnv();
   jni::TScopedLocalObjectArrayRef jResults(env,
                                            usermark_helper::ToFeatureIdArray(env, featuresSorted));
-  env->CallVoidMethod(g_javaListener, g_onFilterAvailableHotelsId, jResults.get());
+  env->CallVoidMethod(g_javaListener, g_onFilterHotels,
+                      static_cast<jint>(booking::filter::Type::Availability), jResults.get());
 }
 
 void OnBookingFilterDealsResults(std::shared_ptr<booking::ParamsBase> const & apiParams,
@@ -459,7 +460,11 @@ void OnBookingFilterDealsResults(std::shared_ptr<booking::ParamsBase> const & ap
 
   ASSERT(std::is_sorted(featuresSorted.cbegin(), featuresSorted.cend()), ());
 
-  // Dummy. Should be implemented soon.
+  JNIEnv * env = jni::GetEnv();
+  jni::TScopedLocalObjectArrayRef jResults(env,
+                                           usermark_helper::ToFeatureIdArray(env, featuresSorted));
+  env->CallVoidMethod(g_javaListener, g_onFilterHotels,
+                      static_cast<jint>(booking::filter::Type::Deals), jResults.get());
 }
 
 class BookingBuilder
@@ -628,8 +633,8 @@ extern "C"
     g_endBookmarksResultsId =
       jni::GetMethodID(env, g_javaListener, "onBookmarksResultsEnd", "([JJ)V");
 
-    g_onFilterAvailableHotelsId = jni::GetMethodID(env, g_javaListener, "onFilterAvailableHotels",
-                                                   "([Lcom/mapswithme/maps/bookmarks/data/FeatureId;)V");
+    g_onFilterHotels = jni::GetMethodID(env, g_javaListener, "onFilterHotels",
+                                                   "(I[Lcom/mapswithme/maps/bookmarks/data/FeatureId;)V");
 
     g_hotelsFilterBuilder.Init(env);
     g_bookingBuilder.Init(env);
