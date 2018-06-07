@@ -10,7 +10,7 @@ namespace search
 bool HotelsClassifier::IsHotelResults(Results const & results)
 {
   HotelsClassifier classifier;
-  for ( auto const & r : results)
+  for (auto const & r : results)
     classifier.Add(r);
 
   return classifier.IsHotelResults();
@@ -18,7 +18,9 @@ bool HotelsClassifier::IsHotelResults(Results const & results)
 
 void HotelsClassifier::Add(Result const & result)
 {
-  m_numHotels += result.m_metadata.m_isHotel;
+  if (result.m_metadata.m_isHotel)
+   ++m_numHotels;
+
   ++m_numResults;
 }
 

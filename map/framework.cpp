@@ -1559,12 +1559,13 @@ size_t Framework::ShowSearchResults(search::Results const & results)
 
 void Framework::FillSearchResultsMarks(bool clear, search::Results const & results)
 {
-  FillSearchResultsMarks(clear, results.begin(), results.end());
+  FillSearchResultsMarks(results.begin(), results.end(), clear,
+                         Framework::SearchMarkPostProcessing());
 }
 
-void Framework::FillSearchResultsMarks(bool clear, search::Results::ConstIter begin,
-                                       search::Results::ConstIter end,
-                                       SearchMarkPostProcessing fn /* = nullptr */)
+void Framework::FillSearchResultsMarks(search::Results::ConstIter begin,
+                                       search::Results::ConstIter end, bool clear,
+                                       SearchMarkPostProcessing fn)
 {
   auto editSession = GetBookmarkManager().GetEditSession();
   if (clear)
@@ -3125,15 +3126,16 @@ void Framework::SetSearchDisplacementModeEnabled(bool enabled)
   SetDisplacementMode(DisplacementModeManager::SLOT_INTERACTIVE_SEARCH, enabled /* show */);
 }
 
-void Framework::ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
-                                          search::Results::ConstIter end)
+void Framework::ShowViewportSearchResults(search::Results::ConstIter begin,
+                                          search::Results::ConstIter end, bool clear)
 {
-  FillSearchResultsMarks(clear, begin, end);
+  FillSearchResultsMarks(begin, end, clear,
+                         Framework::SearchMarkPostProcessing());
 }
 
-void Framework::ShowViewportSearchResults(bool clear, booking::filter::Types types,
-                                          search::Results::ConstIter begin,
-                                          search::Results::ConstIter end)
+void Framework::ShowViewportSearchResults(search::Results::ConstIter begin,
+                                          search::Results::ConstIter end, bool clear,
+                                          booking::filter::Types types)
 {
   using booking::filter::Type;
   using booking::filter::CachedResults;
@@ -3165,7 +3167,8 @@ void Framework::ShowViewportSearchResults(bool clear, booking::filter::Types typ
       }
     };
 
-    FillSearchResultsMarks(clear, results.begin(), results.end(), postProcessing);
+    FillSearchResultsMarks(results.begin(), results.end(), clear,
+                           postProcessing);
   };
 
   m_bookingFilterProcessor.GetFeaturesFromCache(types, results, fillCallback);
@@ -3462,10 +3465,10 @@ void Framework::FilterResultsForHotelsQuery(booking::filter::Tasks const & filte
         }
       };
 
-    tasksInternal.emplace_back(type, move(paramsInternal));
+    tasksInternal.emplace_back(type, std::move(paramsInternal));
   }
 
-  m_bookingFilterProcessor.ApplyFilters(results, move(tasksInternal), filterTasks.GetMode());
+  m_bookingFilterProcessor.ApplyFilters(results, std::move(tasksInternal), filterTasks.GetMode());
 }
 
 void Framework::OnBookingFilterParamsUpdate(booking::filter::Tasks const & filterTasks)

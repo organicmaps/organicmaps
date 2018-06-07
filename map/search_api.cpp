@@ -337,16 +337,16 @@ bool SearchAPI::IsViewportSearchActive() const
   return !m_searchIntents[static_cast<size_t>(Mode::Viewport)].m_params.m_query.empty();
 }
 
-void SearchAPI::ShowViewportSearchResults(bool clear, Results::ConstIter begin,
-                                          Results::ConstIter end)
+void SearchAPI::ShowViewportSearchResults(Results::ConstIter begin, Results::ConstIter end,
+                                          bool clear)
 {
-  return m_delegate.ShowViewportSearchResults(clear, begin, end);
+  return m_delegate.ShowViewportSearchResults(begin, end, clear);
 }
 
-void SearchAPI::ShowViewportSearchResults(bool clear, booking::filter::Types types,
-                                          Results::ConstIter begin, Results::ConstIter end)
+void SearchAPI::ShowViewportSearchResults(Results::ConstIter begin, Results::ConstIter end,
+                                          bool clear, booking::filter::Types types)
 {
-  return m_delegate.ShowViewportSearchResults(clear, types, begin, end);
+  return m_delegate.ShowViewportSearchResults(begin, end, clear, types);
 }
 
 ProductInfo SearchAPI::GetProductInfo(Result const & result) const

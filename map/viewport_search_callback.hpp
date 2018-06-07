@@ -24,10 +24,10 @@ public:
     virtual void RunUITask(std::function<void()> fn) = 0;
     virtual void SetHotelDisplacementMode() = 0;
     virtual bool IsViewportSearchActive() const = 0;
-    virtual void ShowViewportSearchResults(bool clear, Results::ConstIter begin,
-                                           Results::ConstIter end) = 0;
-    virtual void ShowViewportSearchResults(bool clear, booking::filter::Types types,
-                                           Results::ConstIter begin, Results::ConstIter end) = 0;
+    virtual void ShowViewportSearchResults(Results::ConstIter begin, Results::ConstIter end,
+                                           bool clear) = 0;
+    virtual void ShowViewportSearchResults(Results::ConstIter begin, Results::ConstIter end,
+                                           bool clear, booking::filter::Types types) = 0;
     virtual void FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
                                              search::Results const & results, bool inViewport) = 0;
   };

@@ -203,7 +203,7 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ProcessorSmoke)
 
   FilterProcessor processor(GetIndex(), GetApi());
   auto tasksCopy = tasks;
-  processor.ApplyFilters(results, std::move(tasksCopy), ApplyMode::Independent);
+  processor.ApplyFilters(results, std::move(tasksCopy), ApplicationMode::Independent);
 
   testing::Wait();
 
@@ -224,7 +224,7 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ProcessorSmoke)
     TEST_EQUAL(dealsResults[i].GetFeatureID(), expectedDealsResults[i].GetFeatureID(), ());
   }
 
-  processor.ApplyFilters(results, std::move(tasks), ApplyMode::Consecutive);
+  processor.ApplyFilters(results, std::move(tasks), ApplicationMode::Consecutive);
 
   testing::Wait();
 

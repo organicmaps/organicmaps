@@ -1,4 +1,5 @@
 #pragma once
+
 #include "search/bookmarks/results.hpp"
 #include "search/hotels_classifier.hpp"
 #include "search/ranking_info.hpp"

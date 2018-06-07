@@ -169,8 +169,8 @@ using Observers = NSHashTable<Observer>;
     dp.m_dealsOnly = true;
     booking::filter::Params dealsParams(std::make_shared<booking::AvailabilityParams>(dp), {});
     
-    tasks.EmplaceBack(booking::filter::Type::Availability, move(availabilityParams));
-    tasks.EmplaceBack(booking::filter::Type::Deals, move(dealsParams));
+    tasks.EmplaceBack(booking::filter::Type::Availability, std::move(availabilityParams));
+    tasks.EmplaceBack(booking::filter::Type::Deals, std::move(dealsParams));
   }
   
   m_viewportParams.m_bookingFilterTasks = tasks;

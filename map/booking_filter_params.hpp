@@ -7,6 +7,7 @@
 
 #include "indexer/feature_decl.hpp"
 
+#include <algorithm>
 #include <functional>
 #include <memory>
 #include <utility>
@@ -68,13 +69,13 @@ struct TaskImpl
 using Task = TaskImpl<Params>;
 using TaskInternal = TaskImpl<ParamsInternal>;
 
-enum ApplyMode
+enum ApplicationMode
 {
   /// Apply filters independently on provided list of search results.
-  /// Every filter will be applied on own copy of search results.
+  /// Every filter will be applied on its own copy of search results.
   Independent,
   /// Apply each filter one by one on provided list of search results.
-  /// All filters will be applied on joint copy of search results.
+  /// All filters will be applied on the same copy of search results.
   Consecutive
 };
 
@@ -86,7 +87,7 @@ public:
   using ConstIter = std::vector<Task>::const_iterator;
 
   TasksImpl() = default;
-  explicit TasksImpl(ApplyMode const mode) : m_applyMode(mode) {}
+  explicit TasksImpl(ApplicationMode const mode) : m_applyMode(mode) {}
 
   Iter begin() { return m_tasks.begin(); }
   Iter end() { return m_tasks.end(); }
@@ -95,7 +96,7 @@ public:
 
   Iter Find(Type const type)
   {
-    return find_if(m_tasks.begin(), m_tasks.end(),[type](Task const & task)
+    return std::find_if(m_tasks.begin(), m_tasks.end(),[type](Task const & task)
     {
       return task.m_type == type;
     });
@@ -103,7 +104,7 @@ public:
 
   ConstIter Find(Type const type) const
   {
-    return find_if(m_tasks.cbegin(), m_tasks.cend(),[type](Task const & task)
+    return std::find_if(m_tasks.cbegin(), m_tasks.cend(),[type](Task const & task)
     {
       return task.m_type == type;
     });
@@ -120,14 +121,14 @@ public:
     m_tasks.emplace_back(std::forward<Args>(args)...);
   }
 
-  ApplyMode GetMode() const
+  ApplicationMode GetMode() const
   {
     return m_applyMode;
   }
 
 private:
   std::vector<T> m_tasks;
-  ApplyMode m_applyMode = ApplyMode::Independent;
+  ApplicationMode m_applyMode = ApplicationMode::Independent;
 };
 
 using Tasks = TasksImpl<Task>;

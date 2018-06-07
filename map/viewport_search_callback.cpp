@@ -17,10 +17,10 @@ booking::filter::Types FillBookingFilterTypes(search::Results const & results,
     {
     case Type::Deals:
       if (results.GetType() == search::Results::Type::Hotels)
-        types.push_back(Type::Deals);
+        types.emplace_back(Type::Deals);
       break;
     case Type::Availability:
-      types.push_back(Type::Availability);
+      types.emplace_back(Type::Availability);
       break;
     }
   }
@@ -80,13 +80,13 @@ void ViewportSearchCallback::operator()(Results const & results)
 
       if (types.empty())
       {
-        delegate.ShowViewportSearchResults(firstCall, results.begin() + lastResultsSize,
-                                           results.end());
+        delegate.ShowViewportSearchResults(results.begin() + lastResultsSize, results.end(),
+                                           firstCall);
       }
       else
       {
-        delegate.ShowViewportSearchResults(firstCall, types, results.begin() + lastResultsSize,
-                                           results.end());
+        delegate.ShowViewportSearchResults(results.begin() + lastResultsSize, results.end(),
+                                           firstCall, types);
       }
     });
   }

@@ -342,11 +342,11 @@ public:
   // SearchAPI::Delegate overrides:
   void RunUITask(function<void()> fn) override;
   void SetSearchDisplacementModeEnabled(bool enabled) override;
-  void ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
-                                 search::Results::ConstIter end) override;
-  void ShowViewportSearchResults(bool clear, booking::filter::Types types,
-                                 search::Results::ConstIter begin,
-                                 search::Results::ConstIter end) override;
+  void ShowViewportSearchResults(search::Results::ConstIter begin,
+                                 search::Results::ConstIter end, bool clear) override;
+  void ShowViewportSearchResults(search::Results::ConstIter begin,
+                                 search::Results::ConstIter end, bool clear,
+                                 booking::filter::Types types) override;
   void ClearViewportSearchResults() override;
   boost::optional<m2::PointD> GetCurrentPosition() const override;
   bool ParseSearchQueryCommand(search::SearchParams const & params) override;
@@ -552,8 +552,8 @@ public:
   using SearchMarkPostProcessing = function<void(SearchMarkPoint & mark)>;
 
   void FillSearchResultsMarks(bool clear, search::Results const & results);
-  void FillSearchResultsMarks(bool clear, search::Results::ConstIter begin,
-                              search::Results::ConstIter end, SearchMarkPostProcessing fn = nullptr);
+  void FillSearchResultsMarks(search::Results::ConstIter begin, search::Results::ConstIter end,
+                                bool clear, SearchMarkPostProcessing fn = nullptr);
   list<TSearchRequest> const & GetLastSearchQueries() const { return m_searchQuerySaver.Get(); }
   void SaveSearchQuery(TSearchRequest const & query) { m_searchQuerySaver.Add(query); }
   void ClearSearchHistory() { m_searchQuerySaver.Clear(); }

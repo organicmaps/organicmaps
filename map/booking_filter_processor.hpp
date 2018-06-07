@@ -48,7 +48,8 @@ class FilterProcessor : public FilterBase::Delegate
 public:
   FilterProcessor(Index const & index, booking::Api const & api);
 
-  void ApplyFilters(search::Results const & results, TasksInternal && tasks, ApplyMode const mode);
+  void ApplyFilters(search::Results const & results, TasksInternal && tasks,
+                    ApplicationMode const mode);
 
   void OnParamsUpdated(Type const type, std::shared_ptr<ParamsBase> const & params);
 
@@ -62,6 +63,7 @@ public:
 private:
   void ApplyConsecutively(search::Results const & results, TasksInternal & tasks);
   void ApplyIndependently(search::Results const & results, TasksInternal const & tasks);
+
   Index const & m_index;
   Api const & m_api;
 

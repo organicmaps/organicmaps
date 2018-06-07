@@ -3,6 +3,7 @@
 #include "com/mapswithme/core/jni_helper.hpp"
 
 #include "map/everywhere_search_callback.hpp"
+
 #include "search/result.hpp"
 
 #include <vector>

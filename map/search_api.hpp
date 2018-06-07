@@ -53,14 +53,14 @@ public:
 
     virtual void SetSearchDisplacementModeEnabled(bool /* enabled */) {}
 
-    virtual void ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
-                                           search::Results::ConstIter end)
+    virtual void ShowViewportSearchResults(search::Results::ConstIter begin,
+                                           search::Results::ConstIter end, bool clear)
     {
     }
 
-    virtual void ShowViewportSearchResults(bool clear, booking::filter::Types types,
-                                           search::Results::ConstIter begin,
-                                           search::Results::ConstIter end)
+    virtual void ShowViewportSearchResults(search::Results::ConstIter begin,
+                                           search::Results::ConstIter end, bool clear,
+                                           booking::filter::Types types)
     {
     }
 
@@ -124,11 +124,11 @@ public:
   void RunUITask(std::function<void()> fn) override;
   void SetHotelDisplacementMode() override;
   bool IsViewportSearchActive() const override;
-  void ShowViewportSearchResults(bool clear, search::Results::ConstIter begin,
-                                 search::Results::ConstIter end) override;
-  void ShowViewportSearchResults(bool clear, booking::filter::Types types,
-                                 search::Results::ConstIter begin,
-                                 search::Results::ConstIter end) override;
+  void ShowViewportSearchResults(search::Results::ConstIter begin,
+                                 search::Results::ConstIter end, bool clear) override;
+  void ShowViewportSearchResults(search::Results::ConstIter begin,
+                                 search::Results::ConstIter end, bool clear,
+                                 booking::filter::Types types) override;
   search::ProductInfo GetProductInfo(search::Result const & result) const override;
   void FilterResultsForHotelsQuery(booking::filter::Tasks const & filterTasks,
                                    search::Results const & results, bool inViewport) override;

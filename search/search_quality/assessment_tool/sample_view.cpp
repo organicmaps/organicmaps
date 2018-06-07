@@ -259,7 +259,8 @@ void SampleView::ShowNonFoundResults(std::vector<search::Sample::Result> const &
 
 void SampleView::ShowFoundResultsMarks(search::Results::ConstIter begin, search::Results::ConstIter end)
 {
-  m_framework.FillSearchResultsMarks(false /* clear */, begin, end);
+  m_framework.FillSearchResultsMarks(begin, end, false,
+                                     Framework::SearchMarkPostProcessing());
 }
 
 void SampleView::ShowNonFoundResultsMarks(std::vector<search::Sample::Result> const & results,

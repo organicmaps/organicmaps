@@ -16,7 +16,7 @@ FilterProcessor::FilterProcessor(Index const & index, booking::Api const & api)
 }
 
 void FilterProcessor::ApplyFilters(search::Results const & results, TasksInternal && tasks,
-                                   ApplyMode const mode)
+                                   ApplicationMode const mode)
 {
   GetPlatform().RunTask(Platform::Thread::File, [this, results, tasks = std::move(tasks), mode]() mutable
   {

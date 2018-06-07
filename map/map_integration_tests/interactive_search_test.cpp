@@ -1,11 +1,11 @@
 #include "testing/testing.hpp"
 
+#include "map/viewport_search_callback.hpp"
+
 #include "search/mode.hpp"
 #include "search/search_tests_support/helpers.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
-
-#include "map/viewport_search_callback.hpp"
 
 #include "base/macros.hpp"
 
@@ -41,16 +41,16 @@ public:
 
   bool IsViewportSearchActive() const override { return true; }
 
-  void ShowViewportSearchResults(bool clear, Results::ConstIter begin,
-                                 Results::ConstIter end) override
+  void ShowViewportSearchResults(Results::ConstIter begin, Results::ConstIter end,
+                                 bool clear) override
   {
     if (clear)
       m_stats.m_numShownResults = 0;
     m_stats.m_numShownResults += distance(begin, end);
   }
 
-  void ShowViewportSearchResults(bool clear, booking::filter::Types types,
-                                 Results::ConstIter begin, Results::ConstIter end) override
+  void ShowViewportSearchResults(Results::ConstIter begin, Results::ConstIter end,
+                                 bool clear, booking::filter::Types types) override
   {
   }
 

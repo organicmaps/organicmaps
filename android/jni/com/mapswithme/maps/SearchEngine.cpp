@@ -425,7 +425,7 @@ void OnBookmarksSearchResults(search::BookmarksSearchParams::Results const & res
   env->CallVoidMethod(g_javaListener, method, jResults.get(), static_cast<jlong>(timestamp));
 }
 
-void OnBookingFilterAvailabilityResults(std::shared_ptr<booking::ParamsBase> const & apiParams,
+void OnBookingFilterAvailabilityResults(shared_ptr<booking::ParamsBase> const & apiParams,
                                         vector<FeatureID> const & featuresSorted)
 {
   auto const it = g_lastBookingFilterTasks.Find(booking::filter::Type::Availability);
@@ -437,7 +437,7 @@ void OnBookingFilterAvailabilityResults(std::shared_ptr<booking::ParamsBase> con
   if (!it->m_filterParams.m_apiParams->Equals(*apiParams))
     return;
 
-  ASSERT(std::is_sorted(featuresSorted.cbegin(), featuresSorted.cend()), ());
+  ASSERT(is_sorted(featuresSorted.cbegin(), featuresSorted.cend()), ());
 
   JNIEnv * env = jni::GetEnv();
   jni::TScopedLocalObjectArrayRef jResults(env,
@@ -446,7 +446,7 @@ void OnBookingFilterAvailabilityResults(std::shared_ptr<booking::ParamsBase> con
                       static_cast<jint>(booking::filter::Type::Availability), jResults.get());
 }
 
-void OnBookingFilterDealsResults(std::shared_ptr<booking::ParamsBase> const & apiParams,
+void OnBookingFilterDealsResults(shared_ptr<booking::ParamsBase> const & apiParams,
                                  vector<FeatureID> const & featuresSorted)
 {
   auto const it = g_lastBookingFilterTasks.Find(booking::filter::Type::Deals);
@@ -455,10 +455,10 @@ void OnBookingFilterDealsResults(std::shared_ptr<booking::ParamsBase> const & ap
     return;
 
   // Ignore obsolete booking filter results.
-  if (!it->m_filterParams.m_apiParams->Equals(*(apiParams)))
+  if (!it->m_filterParams.m_apiParams->Equals(*apiParams))
     return;
 
-  ASSERT(std::is_sorted(featuresSorted.cbegin(), featuresSorted.cend()), ());
+  ASSERT(is_sorted(featuresSorted.cbegin(), featuresSorted.cend()), ());
 
   JNIEnv * env = jni::GetEnv();
   jni::TScopedLocalObjectArrayRef jResults(env,
@@ -504,7 +504,7 @@ public:
 
     jobjectArray const jrooms =
         static_cast<jobjectArray>(env->GetObjectField(bookingFilterParams, m_roomsId));
-    ASSERT(jrooms, ("Rooms musn't be non-null!"));
+    ASSERT(jrooms, ("Rooms must be non-null!"));
 
     auto const length = static_cast<size_t>(env->GetArrayLength(jrooms));
     result.m_rooms.resize(length);
@@ -551,7 +551,7 @@ public:
 
     if (!availabilityParams.IsEmpty())
     {
-      booking::filter::Params p(std::make_shared<booking::AvailabilityParams>(availabilityParams),
+      booking::filter::Params p(make_shared<booking::AvailabilityParams>(availabilityParams),
                                 bind(&::OnBookingFilterAvailabilityResults, _1, _2));
 
       tasks.EmplaceBack(booking::filter::Type::Availability, move(p));
@@ -561,7 +561,7 @@ public:
 
     if (!dealsParams.IsEmpty())
     {
-      booking::filter::Params p(std::make_shared<booking::AvailabilityParams>(dealsParams),
+      booking::filter::Params p(make_shared<booking::AvailabilityParams>(dealsParams),
                                 bind(&::OnBookingFilterDealsResults, _1, _2));
 
       tasks.EmplaceBack(booking::filter::Type::Deals, move(p));
