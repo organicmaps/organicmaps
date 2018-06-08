@@ -5,6 +5,7 @@
 #include "indexer/ftypes_matcher.hpp"
 
 #include "base/macros.hpp"
+#include "base/math.hpp"
 
 #include <algorithm>
 
@@ -42,7 +43,13 @@ VehicleModel::VehicleModel(Classificator const & c, LimitsInitList const & featu
 
   size_t i = 0;
   for (auto const & v : featureTypeSurface)
-    m_surfaceFactors[i++] = {c.GetTypeByPath(vector<string>(v.m_types, v.m_types + 2)), v.m_speedFactor};
+  {
+    ASSERT_LESS_OR_EQUAL(v.m_speedFactor, 1.0, ());
+    ASSERT_GREATER_OR_EQUAL(v.m_speedFactor, 0.0, ());
+    double const speedFactor = my::clamp(v.m_speedFactor, 0.0, 1.0);
+    m_surfaceFactors[i++] = {c.GetTypeByPath(vector<string>(v.m_types, v.m_types + 2)),
+                             speedFactor};
+  }
 }
 
 void VehicleModel::SetAdditionalRoadTypes(Classificator const & c,
@@ -89,7 +96,7 @@ double VehicleModel::GetMinTypeSpeed(feature::TypesHolder const & types) const
     if (itFactor != m_surfaceFactors.cend())
       speedFactor = min(speedFactor, itFactor->m_factor);
   }
-  
+
   if (speed <= m_maxSpeedKMpH && speedFactor <= 1.0)
     return speed * speedFactor;
 
