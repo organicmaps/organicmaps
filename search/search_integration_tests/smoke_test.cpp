@@ -64,6 +64,30 @@ public:
   ~AlcoShop() override = default;
 };
 
+class SubwayStation : public TestPOI
+{
+public:
+  SubwayStation(m2::PointD const & center, string const & name, string const & lang)
+    : TestPOI(center, name, lang)
+  {
+    SetTypes({{"railway", "station", "subway"}});
+  }
+
+  ~SubwayStation() override = default;
+};
+
+class SubwayStationMoscow : public TestPOI
+{
+public:
+  SubwayStationMoscow(m2::PointD const & center, string const & name, string const & lang)
+    : TestPOI(center, name, lang)
+  {
+    SetTypes({{"railway", "station", "subway", "moscow"}});
+  }
+
+  ~SubwayStationMoscow() override = default;
+};
+
 UNIT_CLASS_TEST(SmokeTest, Smoke)
 {
   char const kCountryName[] = "BuzzTown";
@@ -94,6 +118,122 @@ UNIT_CLASS_TEST(SmokeTest, Smoke)
                     ExactMatch(id, brandyShop), ExactMatch(id, vodkaShop)};
     TEST(ResultsMatch("shop ", rules), ());
   }
+}
+
+UNIT_CLASS_TEST(SmokeTest, DeepCategoryTest)
+{
+  char const kCountryName[] = "Wonderland";
+
+  SubwayStation redStation(m2::PointD(0, 0), "red", "en");
+  SubwayStationMoscow blueStation(m2::PointD(1, 1), "blue", "en");
+
+  auto id = BuildMwm(kCountryName, feature::DataHeader::country, [&](TestMwmBuilder & builder) {
+    builder.Add(redStation);
+    builder.Add(blueStation);
+  });
+
+  SetViewport(m2::RectD(m2::PointD(0, 0), m2::PointD(1, 1)));
+  {
+    TRules rules = {ExactMatch(id, redStation), ExactMatch(id, blueStation)};
+    TEST(ResultsMatch("Subway ", rules), ());
+  }
+}
+
+UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
+{
+  // todo(@t.yan): fix some or delete category.
+  vector<vector<string>> const invisibleTags = {{"amenity", "driving_school"},
+                                                {"military", "bunker"},
+                                                {"waterway", "canal"},
+                                                {"waterway", "river"},
+                                                {"waterway", "riverbank"},
+                                                {"waterway", "stream"},
+                                                {"landuse", "basin"},
+                                                {"place", "county"},
+                                                {"place", "islet"},
+                                                {"power", "pole"},
+                                                {"highway", "footway"},
+                                                {"highway", "living_street"},
+                                                {"highway", "motorway"},
+                                                {"highway", "motorway_link"},
+                                                {"highway", "path"},
+                                                {"highway", "pedestrian"},
+                                                {"highway", "primary"},
+                                                {"highway", "primary_link"},
+                                                {"highway", "raceway"},
+                                                {"highway", "residential"},
+                                                {"highway", "road"},
+                                                {"highway", "secondary"},
+                                                {"highway", "secondary_link"},
+                                                {"highway", "service"},
+                                                {"highway", "steps"},
+                                                {"area:highway", "steps"},
+                                                {"highway", "tertiary"},
+                                                {"highway", "tertiary_link"},
+                                                {"highway", "track"},
+                                                {"highway", "traffic_signals"},
+                                                {"highway", "trunk"},
+                                                {"highway", "trunk_link"},
+                                                {"highway", "unclassified"},
+                                                {"man_made", "surveillance"},
+                                                {"man_made", "tower"},
+                                                {"man_made", "water_tower"},
+                                                {"man_made", "water_well"},
+                                                {"natural", "pond"},
+                                                {"natural", "tree"},
+                                                {"natural", "wood"}};
+  set<uint32_t> invisibleTypes;
+  for (auto const & tags : invisibleTags)
+    invisibleTypes.insert(classif().GetTypeByPath(tags));
+
+  // todo(@t.yan): fix some or delete category.
+  vector<vector<string>> const badTags = {{"building"},
+                                          {"building", "address"},
+                                          {"entrance"},
+                                          {"internet_access"},
+                                          {"internet_access", "wlan"},
+                                          {"office"},
+                                          {"shop"},
+                                          {"shop", "butcher"},
+                                          {"shop", "florist"},
+                                          {"shop", "greengrocer"},
+                                          {"shop", "optician"},
+                                          {"place", "continent"},
+                                          {"place", "region"},
+                                          {"event", "fc2018_city"},
+                                          {"sponsored", "holiday"},
+                                          {"railway", "level_crossing"},
+                                          {"highway", "rest_area"}};
+  set<uint32_t> badTypes;
+  for (auto const & tags : badTags)
+    badTypes.insert(classif().GetTypeByPath(tags));
+
+  auto const & holder = GetDefaultCategories();
+  auto testCategory = [&](uint32_t type, CategoriesHolder::Category const &) {
+    if (invisibleTypes.find(type) != invisibleTypes.end())
+      return;
+
+    if (badTypes.find(type) != badTypes.end())
+      return;
+
+    string const countryName = "Wonderland";
+
+    TestPOI poi(m2::PointD(1.0, 1.0), "poi", "en");
+    poi.SetTypes({strings::Tokenize(classif().GetFullObjectName(type), "|")});
+
+    auto id = BuildMwm(countryName, feature::DataHeader::country,
+                       [&](TestMwmBuilder & builder) { builder.Add(poi); });
+
+    SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(2.0, 2.0)));
+    {
+      TRules rules = {ExactMatch(id, poi)};
+      auto const query = holder.GetReadableFeatureType(type, CategoriesHolder::kEnglishCode) + " ";
+      TEST(ResultsMatch(query, rules), ());
+    }
+    DeregisterMap(countryName);
+  };
+
+  holder.ForEachTypeAndCategory(testCategory);
 }
 
 UNIT_CLASS_TEST(SmokeTest, NotPrefixFreeNames)

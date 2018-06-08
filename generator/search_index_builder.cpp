@@ -106,13 +106,24 @@ void GetCategoryTypes(CategoriesHolder const & categories, pair<int, int> const 
 
   for (uint32_t t : types)
   {
-    // Leave only 2 levels of types - for example, do not distinguish:
-    // highway-primary-bridge and highway-primary-tunnel
-    // or amenity-parking-fee and amenity-parking-underground-fee.
-    ftype::TruncValue(t, 2);
+    // Truncate |t| up to 2 levels and choose the best category match to find explicit category if
+    // any and not distinguish types like highway-primary-bridge and highway-primary-tunnel or
+    // amenity-parking-fee and amenity-parking-underground-fee if we do not have such explicit
+    // categories.
+
+    bool found = false;
+    for (uint8_t level = ftype::GetLevel(t); level >= 2; --level)
+    {
+      ftype::TruncValue(t, level);
+      if (categories.IsTypeExist(t))
+      {
+        found = true;
+        break;
+      }
+    }
 
     // Only categorized types will be added to index.
-    if (!categories.IsTypeExist(t))
+    if (!found)
       continue;
 
     // There are some special non-drawable types we plan to search on.

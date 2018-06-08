@@ -57,6 +57,20 @@ public:
     return id;
   }
 
+  void DeregisterMap(std::string const & name)
+  {
+    auto const file = platform::CountryFile(name);
+    auto it = find_if(
+        m_files.begin(), m_files.end(),
+        [&file](platform::LocalCountryFile const & f) { return f.GetCountryFile() == file; });
+    if (it == m_files.end())
+      return;
+
+    m_index.DeregisterMap(file);
+    Cleanup(*it);
+    m_files.erase(it);
+  }
+
   template <typename BuildFn>
   MwmSet::MwmId BuildWorld(BuildFn && fn)
   {
