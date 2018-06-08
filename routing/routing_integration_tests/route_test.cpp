@@ -401,4 +401,22 @@ namespace
     IRouter::ResultCode const result = routeResult.second;
     TEST_EQUAL(result, IRouter::NoError, ());
   }
+
+  // Test on decreasing speed factor on roads with bad cover.
+  UNIT_TEST(RussiaLenOblSpeedFactorsTest)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents<VehicleType::Car>(),
+        MercatorBounds::FromLatLon(60.23884, 29.71603), {0.0, 0.0},
+        MercatorBounds::FromLatLon(60.28975, 29.79399), 11618.1);
+  }
+
+  // Test on decreasing speed factor on roads with bad cover.
+  UNIT_TEST(RussiaMosOblSpeedFactorsTest)
+  {
+    integration::CalculateRouteAndTestRouteLength(
+        integration::GetVehicleComponents<VehicleType::Car>(),
+        MercatorBounds::FromLatLon(55.93843, 36.02782), {0., 0.},
+        MercatorBounds::FromLatLon(55.9375, 36.04195), 4819.1);
+  }
 }  // namespace
