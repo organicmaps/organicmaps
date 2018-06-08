@@ -66,9 +66,9 @@ private:
 
   static double MaxPedestrianTimeSec(double startToFinishDistanceM)
   {
-    // @todo(tatiana-kondakova) test and adjust constants.
-    // 25 min + 3 additional minutes per 1 km for now.
-    return 25 * 60 + (startToFinishDistanceM / 1000) * 3 * 60;
+    // @todo(bykoianko) test and adjust constants.
+    // 50 min + 3 additional minutes per 1 km for now.
+    return 50 * 60 + (startToFinishDistanceM / 1000) * 3 * 60;
   }
 
   RoadGeometry const & GetRealRoadGeometry(NumMwmId mwmId, uint32_t featureId);
