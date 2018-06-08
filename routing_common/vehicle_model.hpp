@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <functional>
 #include <initializer_list>
 #include <memory>
@@ -26,7 +27,7 @@ public:
     Unknown,
   };
 
-  virtual ~VehicleModelInterface() {}
+  virtual ~VehicleModelInterface() = default;
 
   /// @return Allowed speed in KMpH.
   /// 0 means that it's forbidden to move on this feature or it's not a road at all.
@@ -56,7 +57,7 @@ public:
 class VehicleModelFactoryInterface
 {
 public:
-  virtual ~VehicleModelFactoryInterface() {}
+  virtual ~VehicleModelFactoryInterface() = default;
   /// @return Default vehicle model which corresponds for all countrines,
   /// but it may be non optimal for some countries
   virtual std::shared_ptr<VehicleModelInterface> GetVehicleModel() const = 0;
@@ -71,9 +72,18 @@ class VehicleModel : public VehicleModelInterface
 public:
   struct FeatureTypeLimits final
   {
-    char const * m_types[2];      /// 2-arity road type
-    double m_speedKMpH;           /// max allowed speed on this road type
-    bool m_isPassThroughAllowed;  /// pass through this road type is allowed
+    char const * m_types[2];      // 2-arity road type
+    double m_speedKMpH;           // max allowed speed on this road type
+    bool m_isPassThroughAllowed;  // pass through this road type is allowed
+  };
+
+  // Structure for keeping surface tags: psurface|paved_good, psurface|paved_bad,
+  // psurface|unpaved_good and psurface|unpaved_bad.
+  struct FeatureTypeSurface
+  {
+    char const * m_types[2];      // 2-arity road type
+    double m_speedFactor;         // Factor (lowering) which reduces speed on feature in case of
+                                  // bad pavement. It should be from 0.0 to 1.0.
   };
 
   struct AdditionalRoadTags final
@@ -89,9 +99,11 @@ public:
     double m_speedKMpH = 0.0;
   };
 
-  typedef std::initializer_list<FeatureTypeLimits> InitListT;
+  typedef std::initializer_list<FeatureTypeLimits> LimitsInitList;
+  typedef std::initializer_list<FeatureTypeSurface> SurfaceInitList;
 
-  VehicleModel(Classificator const & c, InitListT const & featureTypeLimits);
+  VehicleModel(Classificator const & c, LimitsInitList const & featureTypeLimits,
+               SurfaceInitList const & featureTypeSurface);
 
   /// VehicleModelInterface overrides:
   double GetSpeed(FeatureType const & f) const override;
@@ -101,7 +113,7 @@ public:
   bool IsPassThroughAllowed(FeatureType const & f) const override;
 
 public:
-  /// @returns true if |m_types| or |m_addRoadTypes| contains |type| and false otherwise.
+  /// @returns true if |m_highwayTypes| or |m_addRoadTypes| contains |type| and false otherwise.
   bool IsRoadType(uint32_t type) const;
 
   template <class TList>
@@ -117,7 +129,7 @@ public:
 
   bool EqualsForTests(VehicleModel const & rhs) const
   {
-    return (m_types == rhs.m_types) &&
+    return (m_highwayTypes == rhs.m_highwayTypes) &&
            (m_addRoadTypes == rhs.m_addRoadTypes) &&
            (m_onewayType == rhs.m_onewayType);
   }
@@ -172,9 +184,19 @@ private:
     bool const m_isPassThroughAllowed;
   };
 
+  struct TypeFactor
+  {
+    uint32_t m_type = 0;
+    double m_factor = 1.0;
+  };
+
   std::vector<AdditionalRoadType>::const_iterator FindRoadType(uint32_t type) const;
 
-  std::unordered_map<uint32_t, RoadLimits> m_types;
+  std::unordered_map<uint32_t, RoadLimits> m_highwayTypes;
+  // Mapping surface types (psurface|paved_good, psurface|paved_bad, psurface|unpaved_good,
+  // psurface|unpaved_bad) to surface speed factors.
+  // Note. It's a vector (not map or unordered_map) because of perfomance reasons.
+  std::array<TypeFactor, 4> m_surfaceFactors;
 
   std::vector<AdditionalRoadType> m_addRoadTypes;
   uint32_t m_onewayType;
@@ -196,7 +218,7 @@ public:
       std::string const & country) const override;
 
 protected:
-  VehicleModelFactory(CountryParentNameGetterFn const & countryParentNameGetterFn);
+  explicit VehicleModelFactory(CountryParentNameGetterFn const & countryParentNameGetterFn);
   std::string GetParent(std::string const & country) const;
 
   std::unordered_map<std::string, std::shared_ptr<VehicleModelInterface>> m_models;

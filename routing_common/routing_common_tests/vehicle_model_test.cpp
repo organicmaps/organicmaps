@@ -10,7 +10,7 @@
 
 namespace
 {
-routing::VehicleModel::InitListT const s_testLimits = {
+routing::VehicleModel::LimitsInitList const s_testLimits = {
     {{"highway", "trunk"}, 150, true},
     {{"highway", "primary"}, 120, true},
     {{"highway", "secondary"}, 80, true},

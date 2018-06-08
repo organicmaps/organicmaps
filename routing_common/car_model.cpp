@@ -40,7 +40,7 @@ double constexpr kSpeedShuttleTrainKMpH = 25.0;
 double constexpr kSpeedPierKMpH = 10.0;
 double constexpr kSpeedOffroadKMpH = 10.0;
 
-VehicleModel::InitListT const g_carLimitsDefault =
+VehicleModel::LimitsInitList const g_carLimitsDefault =
 {
     {{"highway", "motorway"},       kSpeedMotorwayKMpH,      true /* passThroughAllowed */ },
     {{"highway", "motorway_link"},  kSpeedMotorwayLinkKMpH,  true},
@@ -66,7 +66,7 @@ VehicleModel::InitListT const g_carLimitsDefault =
     //{ {"highway", "construction"},   40 },
 };
 
-VehicleModel::InitListT const g_carLimitsNoPassThroughLivingStreet =
+VehicleModel::LimitsInitList const g_carLimitsNoPassThroughLivingStreet =
 {
     {{"highway", "motorway"},       kSpeedMotorwayKMpH,      true},
     {{"highway", "motorway_link"},  kSpeedMotorwayLinkKMpH,  true},
@@ -86,7 +86,7 @@ VehicleModel::InitListT const g_carLimitsNoPassThroughLivingStreet =
     {{"highway", "track"},          kSpeedTrackKMpH,         true},
 };
 
-VehicleModel::InitListT const g_carLimitsNoPassThroughLivingStreetAndService =
+VehicleModel::LimitsInitList const g_carLimitsNoPassThroughLivingStreetAndService =
 {
     {{"highway", "motorway"},       kSpeedMotorwayKMpH,      true},
     {{"highway", "motorway_link"},  kSpeedMotorwayLinkKMpH,  true},
@@ -106,17 +106,17 @@ VehicleModel::InitListT const g_carLimitsNoPassThroughLivingStreetAndService =
     {{"highway", "track"},          kSpeedTrackKMpH,         true},
 };
 
-VehicleModel::InitListT const g_carLimitsAustralia = g_carLimitsDefault;
+VehicleModel::LimitsInitList const g_carLimitsAustralia = g_carLimitsDefault;
 
-VehicleModel::InitListT const g_carLimitsAustria = g_carLimitsNoPassThroughLivingStreet;
+VehicleModel::LimitsInitList const g_carLimitsAustria = g_carLimitsNoPassThroughLivingStreet;
 
-VehicleModel::InitListT const g_carLimitsBelarus = g_carLimitsNoPassThroughLivingStreet;
+VehicleModel::LimitsInitList const g_carLimitsBelarus = g_carLimitsNoPassThroughLivingStreet;
 
-VehicleModel::InitListT const g_carLimitsBelgium = g_carLimitsDefault;
+VehicleModel::LimitsInitList const g_carLimitsBelgium = g_carLimitsDefault;
 
-VehicleModel::InitListT const g_carLimitsBrazil = g_carLimitsDefault;
+VehicleModel::LimitsInitList const g_carLimitsBrazil = g_carLimitsDefault;
 
-VehicleModel::InitListT const g_carLimitsDenmark =
+VehicleModel::LimitsInitList const g_carLimitsDenmark =
 {
     // No track
     {{"highway", "motorway"},       kSpeedMotorwayKMpH,      true},
@@ -136,11 +136,11 @@ VehicleModel::InitListT const g_carLimitsDenmark =
     {{"highway", "road"},           kSpeedRoadKMpH,          true},
 };
 
-VehicleModel::InitListT const g_carLimitsFrance = g_carLimitsDefault;
+VehicleModel::LimitsInitList const g_carLimitsFrance = g_carLimitsDefault;
 
-VehicleModel::InitListT const g_carLimitsFinland = g_carLimitsDefault;
+VehicleModel::LimitsInitList const g_carLimitsFinland = g_carLimitsDefault;
 
-VehicleModel::InitListT const g_carLimitsGermany = 
+VehicleModel::LimitsInitList const g_carLimitsGermany =
 {
     // No pass through track
     {{"highway", "motorway"},       kSpeedMotorwayKMpH,      true},
@@ -161,35 +161,35 @@ VehicleModel::InitListT const g_carLimitsGermany =
     {{"highway", "track"},          kSpeedTrackKMpH,         false},
 };
 
-VehicleModel::InitListT const g_carLimitsHungary = g_carLimitsNoPassThroughLivingStreet;
+VehicleModel::LimitsInitList const g_carLimitsHungary = g_carLimitsNoPassThroughLivingStreet;
 
-VehicleModel::InitListT const g_carLimitsIceland = g_carLimitsDefault;
+VehicleModel::LimitsInitList const g_carLimitsIceland = g_carLimitsDefault;
 
-VehicleModel::InitListT const g_carLimitsNetherlands = g_carLimitsDefault;
+VehicleModel::LimitsInitList const g_carLimitsNetherlands = g_carLimitsDefault;
 
-VehicleModel::InitListT const g_carLimitsNorway = g_carLimitsDefault;
+VehicleModel::LimitsInitList const g_carLimitsNorway = g_carLimitsDefault;
 
-VehicleModel::InitListT const g_carLimitsOman = g_carLimitsDefault;
+VehicleModel::LimitsInitList const g_carLimitsOman = g_carLimitsDefault;
 
-VehicleModel::InitListT const g_carLimitsPoland = g_carLimitsDefault;
+VehicleModel::LimitsInitList const g_carLimitsPoland = g_carLimitsDefault;
 
-VehicleModel::InitListT const g_carLimitsRomania = g_carLimitsNoPassThroughLivingStreet;
+VehicleModel::LimitsInitList const g_carLimitsRomania = g_carLimitsNoPassThroughLivingStreet;
 
-VehicleModel::InitListT const g_carLimitsRussia = g_carLimitsNoPassThroughLivingStreetAndService;
+VehicleModel::LimitsInitList const g_carLimitsRussia = g_carLimitsNoPassThroughLivingStreetAndService;
 
-VehicleModel::InitListT const g_carLimitsSlovakia = g_carLimitsNoPassThroughLivingStreet;
+VehicleModel::LimitsInitList const g_carLimitsSlovakia = g_carLimitsNoPassThroughLivingStreet;
 
-VehicleModel::InitListT const g_carLimitsSpain = g_carLimitsDefault;
+VehicleModel::LimitsInitList const g_carLimitsSpain = g_carLimitsDefault;
 
-VehicleModel::InitListT const g_carLimitsSwitzerland = g_carLimitsDefault;
+VehicleModel::LimitsInitList const g_carLimitsSwitzerland = g_carLimitsDefault;
 
-VehicleModel::InitListT const g_carLimitsTurkey = g_carLimitsDefault;
+VehicleModel::LimitsInitList const g_carLimitsTurkey = g_carLimitsDefault;
 
-VehicleModel::InitListT const g_carLimitsUkraine = g_carLimitsNoPassThroughLivingStreetAndService;
+VehicleModel::LimitsInitList const g_carLimitsUkraine = g_carLimitsNoPassThroughLivingStreetAndService;
 
-VehicleModel::InitListT const g_carLimitsUK = g_carLimitsDefault;
+VehicleModel::LimitsInitList const g_carLimitsUK = g_carLimitsDefault;
 
-VehicleModel::InitListT const g_carLimitsUS = g_carLimitsDefault;
+VehicleModel::LimitsInitList const g_carLimitsUS = g_carLimitsDefault;
 
 vector<VehicleModel::AdditionalRoadTags> const kAdditionalTags = {
     {{"route", "ferry", "motorcar"}, kSpeedFerryMotorcarKMpH},
@@ -200,19 +200,25 @@ vector<VehicleModel::AdditionalRoadTags> const kAdditionalTags = {
     {{"man_made", "pier"}, kSpeedPierKMpH},
 };
 
+VehicleModel::SurfaceInitList const g_carSurface = {
+    {{"psurface", "paved_good"}, 1.0},
+    {{"psurface", "paved_bad"}, 0.6},
+    {{"psurface", "unpaved_good"}, 0.8},
+    {{"psurface", "unpaved_bad"}, 0.4},
+};
 }  // namespace
 
 namespace routing
 {
 
 CarModel::CarModel()
-  : VehicleModel(classif(), g_carLimitsDefault)
+  : VehicleModel(classif(), g_carLimitsDefault, g_carSurface)
 {
   InitAdditionalRoadTypes();
 }
 
-CarModel::CarModel(VehicleModel::InitListT const & roadLimits)
-  : VehicleModel(classif(), roadLimits)
+CarModel::CarModel(VehicleModel::LimitsInitList const & roadLimits)
+  : VehicleModel(classif(), roadLimits, g_carSurface)
 {
   InitAdditionalRoadTypes();
 }
@@ -232,7 +238,7 @@ CarModel const & CarModel::AllLimitsInstance()
 }
 
 // static
-routing::VehicleModel::InitListT const & CarModel::GetLimits() { return g_carLimitsDefault; }
+routing::VehicleModel::LimitsInitList const & CarModel::GetLimits() { return g_carLimitsDefault; }
 // static
 vector<routing::VehicleModel::AdditionalRoadTags> const & CarModel::GetAdditionalTags()
 {

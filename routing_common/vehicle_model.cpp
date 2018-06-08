@@ -24,16 +24,25 @@ VehicleModel::RoadLimits::RoadLimits(double speedKMpH, bool isPassThroughAllowed
   CHECK_GREATER(m_speedKMpH, 0.0, ());
 }
 
-VehicleModel::VehicleModel(Classificator const & c, InitListT const & featureTypeLimits)
-  : m_maxSpeedKMpH(0),
-    m_onewayType(c.GetTypeByPath({ "hwtag", "oneway" }))
+VehicleModel::VehicleModel(Classificator const & c, LimitsInitList const & featureTypeLimits,
+                           SurfaceInitList const & featureTypeSurface)
+  : m_maxSpeedKMpH(0), m_onewayType(c.GetTypeByPath({"hwtag", "oneway"}))
 {
+  CHECK_EQUAL(m_surfaceFactors.size(), 4,
+              ("If you want to change the size of the container please take into account that it's "
+               "used with algorithm find() with linear complexity."));
+  CHECK_EQUAL(featureTypeSurface.size(), m_surfaceFactors.size(), ());
+
   for (auto const & v : featureTypeLimits)
   {
     m_maxSpeedKMpH = max(m_maxSpeedKMpH, v.m_speedKMpH);
-    m_types.emplace(c.GetTypeByPath(vector<string>(v.m_types, v.m_types + 2)),
-                    RoadLimits(v.m_speedKMpH, v.m_isPassThroughAllowed));
+    m_highwayTypes.emplace(c.GetTypeByPath(vector<string>(v.m_types, v.m_types + 2)),
+                           RoadLimits(v.m_speedKMpH, v.m_isPassThroughAllowed));
   }
+
+  size_t i = 0;
+  for (auto const & v : featureTypeSurface)
+    m_surfaceFactors[i++] = {c.GetTypeByPath(vector<string>(v.m_types, v.m_types + 2)), v.m_speedFactor};
 }
 
 void VehicleModel::SetAdditionalRoadTypes(Classificator const & c,
@@ -62,19 +71,27 @@ double VehicleModel::GetSpeed(FeatureType const & f) const
 double VehicleModel::GetMinTypeSpeed(feature::TypesHolder const & types) const
 {
   double speed = m_maxSpeedKMpH * 2;
+  // Decreasing speed factor based on road surface (cover).
+  double speedFactor = 1.0;
   for (uint32_t t : types)
   {
     uint32_t const type = ftypes::BaseChecker::PrepareToMatch(t, 2);
-    auto it = m_types.find(type);
-    if (it != m_types.end())
-      speed = min(speed, it->second.GetSpeedKMpH());
+    auto itHighway = m_highwayTypes.find(type);
+    if (itHighway != m_highwayTypes.end())
+      speed = min(speed, itHighway->second.GetSpeedKMpH());
 
     auto const addRoadInfoIter = FindRoadType(t);
     if (addRoadInfoIter != m_addRoadTypes.cend())
       speed = min(speed, addRoadInfoIter->m_speedKMpH);
+
+    auto const itFactor = find_if(m_surfaceFactors.cbegin(), m_surfaceFactors.cend(),
+                                  [t](TypeFactor const & v) { return v.m_type == t; });
+    if (itFactor != m_surfaceFactors.cend())
+      speedFactor = min(speedFactor, itFactor->m_factor);
   }
-  if (speed <= m_maxSpeedKMpH)
-    return speed;
+  
+  if (speed <= m_maxSpeedKMpH && speedFactor <= 1.0)
+    return speed * speedFactor;
 
   return 0.0 /* Speed */;
 }
@@ -129,8 +146,8 @@ bool VehicleModel::HasPassThroughType(feature::TypesHolder const & types) const
   for (uint32_t t : types)
   {
     uint32_t const type = ftypes::BaseChecker::PrepareToMatch(t, 2);
-    auto it = m_types.find(type);
-    if (it != m_types.end() && it->second.IsPassThroughAllowed())
+    auto it = m_highwayTypes.find(type);
+    if (it != m_highwayTypes.end() && it->second.IsPassThroughAllowed())
       return true;
   }
 
@@ -140,7 +157,7 @@ bool VehicleModel::HasPassThroughType(feature::TypesHolder const & types) const
 bool VehicleModel::IsRoadType(uint32_t type) const
 {
   return FindRoadType(type) != m_addRoadTypes.cend() ||
-         m_types.find(ftypes::BaseChecker::PrepareToMatch(type, 2)) != m_types.end();
+      m_highwayTypes.find(ftypes::BaseChecker::PrepareToMatch(type, 2)) != m_highwayTypes.end();
 }
 
 VehicleModelInterface::RoadAvailability VehicleModel::GetRoadAvailability(feature::TypesHolder const & /* types */) const

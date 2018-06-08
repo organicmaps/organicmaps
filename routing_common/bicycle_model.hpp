@@ -9,7 +9,7 @@ class BicycleModel : public VehicleModel
 {
 public:
   BicycleModel();
-  BicycleModel(VehicleModel::InitListT const & speedLimits);
+  BicycleModel(VehicleModel::LimitsInitList const & speedLimits);
 
   /// VehicleModelInterface overrides:
   bool IsOneWay(FeatureType const & f) const override;

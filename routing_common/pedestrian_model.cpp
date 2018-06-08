@@ -53,7 +53,7 @@ double constexpr kSpeedOffroadKMpH = 3.0;
 double constexpr kSpeedFerry = 1.0;
 
 // Default
-VehicleModel::InitListT const g_pedestrianLimitsDefault =
+VehicleModel::LimitsInitList const g_pedestrianLimitsDefault =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH,         true /* passThroughAllowed */ },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH,     true },
@@ -77,7 +77,7 @@ VehicleModel::InitListT const g_pedestrianLimitsDefault =
 };
 
 // All options available.
-VehicleModel::InitListT const g_pedestrianLimitsAll =
+VehicleModel::LimitsInitList const g_pedestrianLimitsAll =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH,         true },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH,     true },
@@ -103,7 +103,7 @@ VehicleModel::InitListT const g_pedestrianLimitsAll =
 };
 
 // Same as defaults except trunk and trunk link are not allowed.
-VehicleModel::InitListT const g_pedestrianLimitsNoTrunk =
+VehicleModel::LimitsInitList const g_pedestrianLimitsNoTrunk =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH,       true },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH,   true },
@@ -126,7 +126,7 @@ VehicleModel::InitListT const g_pedestrianLimitsNoTrunk =
 };
 
 // Same as defaults except cycleway is allowed.
-VehicleModel::InitListT const g_pedestrianLimitsCyclewayAllowed =
+VehicleModel::LimitsInitList const g_pedestrianLimitsCyclewayAllowed =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH,         true },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH,     true },
@@ -151,7 +151,7 @@ VehicleModel::InitListT const g_pedestrianLimitsCyclewayAllowed =
 };
 
 // Same as defaults except cycleway is allowed and trunk and trunk_link are not allowed.
-VehicleModel::InitListT const g_pedestrianLimitsCyclewayAllowedNoTrunk =
+VehicleModel::LimitsInitList const g_pedestrianLimitsCyclewayAllowedNoTrunk =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH,       true },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH,   true },
@@ -174,16 +174,16 @@ VehicleModel::InitListT const g_pedestrianLimitsCyclewayAllowedNoTrunk =
 };
 
 // Australia
-VehicleModel::InitListT const g_pedestrianLimitsAustralia = g_pedestrianLimitsAll;
+VehicleModel::LimitsInitList const g_pedestrianLimitsAustralia = g_pedestrianLimitsAll;
 
 // Austria
-VehicleModel::InitListT const g_pedestrianLimitsAustria = g_pedestrianLimitsNoTrunk;
+VehicleModel::LimitsInitList const g_pedestrianLimitsAustria = g_pedestrianLimitsNoTrunk;
 
 // Belarus
-VehicleModel::InitListT const g_pedestrianLimitsBelarus = g_pedestrianLimitsCyclewayAllowed;
+VehicleModel::LimitsInitList const g_pedestrianLimitsBelarus = g_pedestrianLimitsCyclewayAllowed;
 
 // Belgium
-VehicleModel::InitListT const g_pedestrianLimitsBelgium =
+VehicleModel::LimitsInitList const g_pedestrianLimitsBelgium =
 {
   // Trunk and trunk_link are not allowed
   // Bridleway and cycleway are allowed
@@ -209,73 +209,83 @@ VehicleModel::InitListT const g_pedestrianLimitsBelgium =
 };
 
 // Brazil
-VehicleModel::InitListT const g_pedestrianLimitsBrazil = g_pedestrianLimitsAll;
+VehicleModel::LimitsInitList const g_pedestrianLimitsBrazil = g_pedestrianLimitsAll;
 
 // Denmark
-VehicleModel::InitListT const g_pedestrianLimitsDenmark = g_pedestrianLimitsCyclewayAllowedNoTrunk;
+VehicleModel::LimitsInitList const g_pedestrianLimitsDenmark = g_pedestrianLimitsCyclewayAllowedNoTrunk;
 
 // France
-VehicleModel::InitListT const g_pedestrianLimitsFrance = g_pedestrianLimitsNoTrunk;
+VehicleModel::LimitsInitList const g_pedestrianLimitsFrance = g_pedestrianLimitsNoTrunk;
 
 // Finland
-VehicleModel::InitListT const g_pedestrianLimitsFinland = g_pedestrianLimitsCyclewayAllowed;
+VehicleModel::LimitsInitList const g_pedestrianLimitsFinland = g_pedestrianLimitsCyclewayAllowed;
 
 // Germany
-VehicleModel::InitListT const g_pedestrianLimitsGermany = g_pedestrianLimitsDefault;
+VehicleModel::LimitsInitList const g_pedestrianLimitsGermany = g_pedestrianLimitsDefault;
 
 // Hungary
-VehicleModel::InitListT const g_pedestrianLimitsHungary = g_pedestrianLimitsNoTrunk;
+VehicleModel::LimitsInitList const g_pedestrianLimitsHungary = g_pedestrianLimitsNoTrunk;
 
 // Iceland
-VehicleModel::InitListT const g_pedestrianLimitsIceland = g_pedestrianLimitsAll;
+VehicleModel::LimitsInitList const g_pedestrianLimitsIceland = g_pedestrianLimitsAll;
 
 // Netherlands
-VehicleModel::InitListT const g_pedestrianLimitsNetherlands = g_pedestrianLimitsCyclewayAllowedNoTrunk;
+VehicleModel::LimitsInitList const g_pedestrianLimitsNetherlands = g_pedestrianLimitsCyclewayAllowedNoTrunk;
 
 // Norway
-VehicleModel::InitListT const g_pedestrianLimitsNorway = g_pedestrianLimitsAll;
+VehicleModel::LimitsInitList const g_pedestrianLimitsNorway = g_pedestrianLimitsAll;
 
 // Oman
-VehicleModel::InitListT const g_pedestrianLimitsOman = g_pedestrianLimitsAll;
+VehicleModel::LimitsInitList const g_pedestrianLimitsOman = g_pedestrianLimitsAll;
 
 // Poland
-VehicleModel::InitListT const g_pedestrianLimitsPoland = g_pedestrianLimitsNoTrunk;
+VehicleModel::LimitsInitList const g_pedestrianLimitsPoland = g_pedestrianLimitsNoTrunk;
 
 // Romania
-VehicleModel::InitListT const g_pedestrianLimitsRomania = g_pedestrianLimitsNoTrunk;
+VehicleModel::LimitsInitList const g_pedestrianLimitsRomania = g_pedestrianLimitsNoTrunk;
 
 // Russian Federation
-VehicleModel::InitListT const g_pedestrianLimitsRussia = g_pedestrianLimitsCyclewayAllowed;
+VehicleModel::LimitsInitList const g_pedestrianLimitsRussia = g_pedestrianLimitsCyclewayAllowed;
 
 // Slovakia
-VehicleModel::InitListT const g_pedestrianLimitsSlovakia = g_pedestrianLimitsNoTrunk;
+VehicleModel::LimitsInitList const g_pedestrianLimitsSlovakia = g_pedestrianLimitsNoTrunk;
 
 // Spain
-VehicleModel::InitListT const g_pedestrianLimitsSpain = g_pedestrianLimitsNoTrunk;
+VehicleModel::LimitsInitList const g_pedestrianLimitsSpain = g_pedestrianLimitsNoTrunk;
 
 // Switzerland
-VehicleModel::InitListT const g_pedestrianLimitsSwitzerland = g_pedestrianLimitsNoTrunk;
+VehicleModel::LimitsInitList const g_pedestrianLimitsSwitzerland = g_pedestrianLimitsNoTrunk;
 
 // Turkey
-VehicleModel::InitListT const g_pedestrianLimitsTurkey = g_pedestrianLimitsAll;
+VehicleModel::LimitsInitList const g_pedestrianLimitsTurkey = g_pedestrianLimitsAll;
 
 // Ukraine
-VehicleModel::InitListT const g_pedestrianLimitsUkraine = g_pedestrianLimitsNoTrunk;
+VehicleModel::LimitsInitList const g_pedestrianLimitsUkraine = g_pedestrianLimitsNoTrunk;
 
 // United Kingdom
-VehicleModel::InitListT const g_pedestrianLimitsUK = g_pedestrianLimitsAll;
+VehicleModel::LimitsInitList const g_pedestrianLimitsUK = g_pedestrianLimitsAll;
 
 // United States of America
-VehicleModel::InitListT const g_pedestrianLimitsUS = g_pedestrianLimitsAll;
+VehicleModel::LimitsInitList const g_pedestrianLimitsUS = g_pedestrianLimitsAll;
 
+VehicleModel::SurfaceInitList const g_pedestrianSurface = {
+    {{"psurface", "paved_good"}, 1.0},
+    {{"psurface", "paved_bad"}, 1.0},
+    {{"psurface", "unpaved_good"}, 1.0},
+    {{"psurface", "unpaved_bad"}, 0.8},
+};
 }  // namespace
 
 namespace routing
 {
-PedestrianModel::PedestrianModel() : VehicleModel(classif(), g_pedestrianLimitsDefault) { Init(); }
+PedestrianModel::PedestrianModel()
+  : VehicleModel(classif(), g_pedestrianLimitsDefault, g_pedestrianSurface)
+{
+  Init();
+}
 
-PedestrianModel::PedestrianModel(VehicleModel::InitListT const & speedLimits)
-  : VehicleModel(classif(), speedLimits)
+PedestrianModel::PedestrianModel(VehicleModel::LimitsInitList const & speedLimits)
+  : VehicleModel(classif(), speedLimits, g_pedestrianSurface)
 {
   Init();
 }

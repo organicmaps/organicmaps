@@ -53,7 +53,7 @@ double constexpr kSpeedOffroadKMpH = 3.0;
 double constexpr kSpeedFerry = 3.0;
 
 // Default
-VehicleModel::InitListT const g_bicycleLimitsDefault =
+VehicleModel::LimitsInitList const g_bicycleLimitsDefault =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH,         true /* passThroughAllowed */ },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH,     true },
@@ -76,7 +76,7 @@ VehicleModel::InitListT const g_bicycleLimitsDefault =
 };
 
 // All options available.
-VehicleModel::InitListT const g_bicycleLimitsAll =
+VehicleModel::LimitsInitList const g_bicycleLimitsAll =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH,         true },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH,     true },
@@ -102,7 +102,7 @@ VehicleModel::InitListT const g_bicycleLimitsAll =
 };
 
 // Same as defaults except trunk and trunk_link are not allowed
-VehicleModel::InitListT const g_bicycleLimitsNoTrunk =
+VehicleModel::LimitsInitList const g_bicycleLimitsNoTrunk =
 {
   { {"highway", "primary"},        kSpeedPrimaryKMpH,       true },
   { {"highway", "primary_link"},   kSpeedPrimaryLinkKMpH,   true },
@@ -123,7 +123,7 @@ VehicleModel::InitListT const g_bicycleLimitsNoTrunk =
 };
 
 // Same as defaults except pedestrian is allowed
-VehicleModel::InitListT const g_bicycleLimitsPedestrianAllowed =
+VehicleModel::LimitsInitList const g_bicycleLimitsPedestrianAllowed =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH,         true },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH,     true },
@@ -147,7 +147,7 @@ VehicleModel::InitListT const g_bicycleLimitsPedestrianAllowed =
 };
 
 // Same as defaults except bridleway is allowed
-VehicleModel::InitListT const g_bicycleLimitsBridlewayAllowed =
+VehicleModel::LimitsInitList const g_bicycleLimitsBridlewayAllowed =
 {
   { {"highway", "trunk"},          kSpeedTrunkKMpH,         true },
   { {"highway", "trunk_link"},     kSpeedTrunkLinkKMpH,     true },
@@ -171,10 +171,10 @@ VehicleModel::InitListT const g_bicycleLimitsBridlewayAllowed =
 };
 
 // Australia
-VehicleModel::InitListT const g_bicycleLimitsAustralia = g_bicycleLimitsAll;
+VehicleModel::LimitsInitList const g_bicycleLimitsAustralia = g_bicycleLimitsAll;
 
 // Austria
-VehicleModel::InitListT const g_bicycleLimitsAustria =
+VehicleModel::LimitsInitList const g_bicycleLimitsAustria =
 {
   // No trunk, trunk_link, path
   { {"highway", "primary"},        kSpeedPrimaryKMpH,       true },
@@ -195,7 +195,7 @@ VehicleModel::InitListT const g_bicycleLimitsAustria =
 };
 
 // Belarus
-VehicleModel::InitListT const g_bicycleLimitsBelarus =
+VehicleModel::LimitsInitList const g_bicycleLimitsBelarus =
 {
   // Footway and pedestrian are allowed
   { {"highway", "trunk"},          kSpeedTrunkKMpH,         true },
@@ -221,7 +221,7 @@ VehicleModel::InitListT const g_bicycleLimitsBelarus =
 };
 
 // Belgium
-VehicleModel::InitListT const g_bicycleLimitsBelgium =
+VehicleModel::LimitsInitList const g_bicycleLimitsBelgium =
 {
   // No trunk, trunk_link
   // Pedestrian is allowed
@@ -245,7 +245,7 @@ VehicleModel::InitListT const g_bicycleLimitsBelgium =
 };
 
 // Brazil
-VehicleModel::InitListT const g_bicycleLimitsBrazil =
+VehicleModel::LimitsInitList const g_bicycleLimitsBrazil =
 {
   // Bridleway and fotway are allowed
   { {"highway", "trunk"},          kSpeedTrunkKMpH,         true },
@@ -271,10 +271,10 @@ VehicleModel::InitListT const g_bicycleLimitsBrazil =
 };
 
 // Denmark
-VehicleModel::InitListT const g_bicycleLimitsDenmark = g_bicycleLimitsNoTrunk;
+VehicleModel::LimitsInitList const g_bicycleLimitsDenmark = g_bicycleLimitsNoTrunk;
 
 // France
-VehicleModel::InitListT const g_bicycleLimitsFrance =
+VehicleModel::LimitsInitList const g_bicycleLimitsFrance =
 {
   // No trunk, trunk_link
   // Pedestrian is allowed
@@ -298,34 +298,34 @@ VehicleModel::InitListT const g_bicycleLimitsFrance =
 };
 
 // Finland
-VehicleModel::InitListT const g_bicycleLimitsFinland = g_bicycleLimitsPedestrianAllowed;
+VehicleModel::LimitsInitList const g_bicycleLimitsFinland = g_bicycleLimitsPedestrianAllowed;
 
 // Germany
-VehicleModel::InitListT const g_bicycleLimitsGermany = g_bicycleLimitsDefault;
+VehicleModel::LimitsInitList const g_bicycleLimitsGermany = g_bicycleLimitsDefault;
 
 // Hungary
-VehicleModel::InitListT const g_bicycleLimitsHungary = g_bicycleLimitsNoTrunk;
+VehicleModel::LimitsInitList const g_bicycleLimitsHungary = g_bicycleLimitsNoTrunk;
 
 // Iceland
-VehicleModel::InitListT const g_bicycleLimitsIceland = g_bicycleLimitsAll;
+VehicleModel::LimitsInitList const g_bicycleLimitsIceland = g_bicycleLimitsAll;
 
 // Netherlands
-VehicleModel::InitListT const g_bicycleLimitsNetherlands = g_bicycleLimitsNoTrunk;
+VehicleModel::LimitsInitList const g_bicycleLimitsNetherlands = g_bicycleLimitsNoTrunk;
 
 // Norway
-VehicleModel::InitListT const g_bicycleLimitsNorway = g_bicycleLimitsAll;
+VehicleModel::LimitsInitList const g_bicycleLimitsNorway = g_bicycleLimitsAll;
 
 // Oman
-VehicleModel::InitListT const g_bicycleLimitsOman = g_bicycleLimitsBridlewayAllowed;
+VehicleModel::LimitsInitList const g_bicycleLimitsOman = g_bicycleLimitsBridlewayAllowed;
 
 // Poland
-VehicleModel::InitListT const g_bicycleLimitsPoland = g_bicycleLimitsNoTrunk;
+VehicleModel::LimitsInitList const g_bicycleLimitsPoland = g_bicycleLimitsNoTrunk;
 
 // Romania
-VehicleModel::InitListT const g_bicycleLimitsRomania = g_bicycleLimitsNoTrunk;
+VehicleModel::LimitsInitList const g_bicycleLimitsRomania = g_bicycleLimitsNoTrunk;
 
 // Russian Federation
-VehicleModel::InitListT const g_bicycleLimitsRussia =
+VehicleModel::LimitsInitList const g_bicycleLimitsRussia =
 {
   // Footway and pedestrian are allowed
   // No pass through service and living_street
@@ -352,19 +352,19 @@ VehicleModel::InitListT const g_bicycleLimitsRussia =
 };
 
 // Slovakia
-VehicleModel::InitListT const g_bicycleLimitsSlovakia = g_bicycleLimitsNoTrunk;
+VehicleModel::LimitsInitList const g_bicycleLimitsSlovakia = g_bicycleLimitsNoTrunk;
 
 // Spain
-VehicleModel::InitListT const g_bicycleLimitsSpain = g_bicycleLimitsPedestrianAllowed;
+VehicleModel::LimitsInitList const g_bicycleLimitsSpain = g_bicycleLimitsPedestrianAllowed;
 
 // Switzerland
-VehicleModel::InitListT const g_bicycleLimitsSwitzerland = g_bicycleLimitsNoTrunk;
+VehicleModel::LimitsInitList const g_bicycleLimitsSwitzerland = g_bicycleLimitsNoTrunk;
 
 // Turkey
-VehicleModel::InitListT const g_bicycleLimitsTurkey = g_bicycleLimitsDefault;
+VehicleModel::LimitsInitList const g_bicycleLimitsTurkey = g_bicycleLimitsDefault;
 
 // Ukraine
-VehicleModel::InitListT const g_bicycleLimitsUkraine =
+VehicleModel::LimitsInitList const g_bicycleLimitsUkraine =
 {
   // No trunk
   // Footway and perestrian are allowed
@@ -390,10 +390,10 @@ VehicleModel::InitListT const g_bicycleLimitsUkraine =
 };
 
 // United Kingdom
-VehicleModel::InitListT const g_bicycleLimitsUK = g_bicycleLimitsBridlewayAllowed;
+VehicleModel::LimitsInitList const g_bicycleLimitsUK = g_bicycleLimitsBridlewayAllowed;
 
 // United States of America
-VehicleModel::InitListT const g_bicycleLimitsUS =
+VehicleModel::LimitsInitList const g_bicycleLimitsUS =
 {
   // Bridleway and pedesprian are allowed
   { {"highway", "trunk"},          kSpeedTrunkKMpH,         true },
@@ -418,14 +418,23 @@ VehicleModel::InitListT const g_bicycleLimitsUS =
   { {"highway", "platform"},       kSpeedPlatformKMpH,      true },
 };
 
+VehicleModel::SurfaceInitList const g_bicycleSurface = {
+    {{"psurface", "paved_good"}, 1.0},
+    {{"psurface", "paved_bad"}, 0.8},
+    {{"psurface", "unpaved_good"}, 1.0},
+    {{"psurface", "unpaved_bad"}, 0.6},
+};
 }  // namespace
 
 namespace routing
 {
-BicycleModel::BicycleModel() : VehicleModel(classif(), g_bicycleLimitsDefault) { Init(); }
+BicycleModel::BicycleModel() : VehicleModel(classif(), g_bicycleLimitsDefault, g_bicycleSurface)
+{
+  Init();
+}
 
-BicycleModel::BicycleModel(VehicleModel::InitListT const & speedLimits)
-  : VehicleModel(classif(), speedLimits)
+BicycleModel::BicycleModel(VehicleModel::LimitsInitList const & speedLimits)
+  : VehicleModel(classif(), speedLimits, g_bicycleSurface)
 {
   Init();
 }

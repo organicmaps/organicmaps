@@ -9,13 +9,13 @@ class CarModel : public VehicleModel
 {
 public:
   CarModel();
-  CarModel(VehicleModel::InitListT const & roadLimits);
+  CarModel(VehicleModel::LimitsInitList const & roadLimits);
 
   // VehicleModelInterface overrides
   double GetOffroadSpeed() const override;
 
   static CarModel const & AllLimitsInstance();
-  static InitListT const & GetLimits();
+  static LimitsInitList const & GetLimits();
   static std::vector<AdditionalRoadTags> const & GetAdditionalTags();
 
 private:
