@@ -8,20 +8,9 @@ import android.view.View;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.auth.TargetFragmentCallback;
-import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.widget.BookmarkBackupView;
 import com.mapswithme.util.UiUtils;
-
-/*public class BookmarkCategoriesFragment extends BaseMwmRecyclerFragment
-    implements EditTextDialogFragment.EditTextDialogInterface,
-               MenuItem.OnMenuItemClickListener,
-               RecyclerClickListener,
-               RecyclerLongClickListener,
-               BookmarkManager.BookmarksLoadingListener,
-               BookmarkManager.BookmarksSharingListener,
-               BookmarkCategoriesAdapter.CategoryListInterface,
-               KmlImportController.ImportKmlCallback,*/
 
 public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
     implements Authorizer.SocialAuthCallback, TargetFragmentCallback

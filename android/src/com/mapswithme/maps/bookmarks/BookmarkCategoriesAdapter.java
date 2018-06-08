@@ -147,11 +147,10 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
   private void bindAuthor(@NonNull CategoryViewHolder categoryHolder,
                           @NonNull BookmarkCategory category)
   {
-    CharSequence authorName = category.getAuthor() == null
+    BookmarkCategory.Author author = category.getAuthor();
+    CharSequence authorName = author == null
                               ? null
-                              : BookmarkCategory
-                                  .Author
-                                  .getRepresentation(getContext(), category.getAuthor());
+                              : BookmarkCategory.Author.getRepresentation(getContext(), author);
     categoryHolder.getAuthorName().setText(authorName);
   }
 
@@ -233,9 +232,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     public void onClick(View v)
     {
       if (mClickListener != null)
-      {
         mClickListener.onItemClick(v, mHolder.getEntity());
-      }
     }
   }
 
@@ -245,9 +242,7 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     public void onClick(View v)
     {
       if (mCategoryListCallback != null)
-      {
         mCategoryListCallback.onFooterClick();
-      }
     }
   }
 

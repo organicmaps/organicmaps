@@ -171,10 +171,8 @@ public class EditBookmarkFragment extends BaseMwmDialogFragment implements View.
     final int index = snapshot.indexOfOrThrow(mBookmarkCategory);
     args.putInt(ChooseBookmarkCategoryFragment.CATEGORY_POSITION, index);
     String className = ChooseBookmarkCategoryFragment.class.getName();
-    ChooseBookmarkCategoryFragment frag = (ChooseBookmarkCategoryFragment) Fragment.instantiate(
-        getActivity(),
-        className,
-        args);
+    ChooseBookmarkCategoryFragment frag =
+        (ChooseBookmarkCategoryFragment) Fragment.instantiate(getActivity(), className, args);
     frag.show(getChildFragmentManager(), null);
   }
 

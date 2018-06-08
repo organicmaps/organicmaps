@@ -86,7 +86,6 @@
         mapsme:layout_constraintTop_toBottomOf="@id/placeholder"
         android:textAppearance="@style/MwmTextAppearance.Body1.Light"/>
     </android.support.constraint.ConstraintLayout>
-
     <LinearLayout
       android:id="@+id/placeholder_loading"
       android:orientation="vertical"

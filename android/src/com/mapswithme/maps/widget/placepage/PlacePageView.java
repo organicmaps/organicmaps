@@ -450,8 +450,9 @@ public class PlacePageView extends RelativeLayout
 
     mButtons = new PlacePageButtons(this, ppButtons, new PlacePageButtons.ItemListener()
     {
-      @Override
-      public void onPrepareVisibleView(PlacePageButtons.PlacePageButton item, View frame, ImageView icon, TextView title)
+      public void onPrepareVisibleView(@NonNull PlacePageButtons.PlacePageButton item,
+                                       @NonNull View frame, @NonNull ImageView icon,
+                                       @NonNull TextView title)
       {
         int color;
 
@@ -686,14 +687,12 @@ public class PlacePageView extends RelativeLayout
   public boolean isEditableMapObject()
   {
     boolean isBookmark = MapObject.isOfType(MapObject.BOOKMARK, mMapObject);
-    return isBookmark
-           && BookmarkManager
-               .INSTANCE
-               .isEditableBookmark(Utils
-                                       .<Bookmark>castTo(mMapObject)
-                                       .getBookmarkId());
-  }
+    if (!isBookmark)
+      return false;
+    long id = Utils.<Bookmark>castTo(mMapObject).getBookmarkId();
+    return BookmarkManager.INSTANCE.isEditableBookmark(id);
 
+  }
   private void initHotelRatingView()
   {
     mHotelReview = findViewById(R.id.ll__place_hotel_rating);
@@ -2225,7 +2224,6 @@ public class PlacePageView extends RelativeLayout
                                         getActivity(),
                                         getActivity().getSupportFragmentManager(),
                                         PlacePageView.this);
-
     }
   }
 }

@@ -2,7 +2,6 @@
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="?clickableBackground"
@@ -71,6 +70,6 @@
     android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
     android:src="@drawable/ic_more"
-    android:background="?attr/selectableItemBackgroundBorderless"
+    android:background="?selectableItemBackgroundBorderless"
     android:tint="?secondary"/>
 </RelativeLayout>

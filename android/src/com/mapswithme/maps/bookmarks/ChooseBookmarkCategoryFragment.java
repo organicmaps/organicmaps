@@ -30,7 +30,7 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
 
   public interface Listener
   {
-    void onCategoryChanged(BookmarkCategory newCategory);
+    void onCategoryChanged(@NonNull BookmarkCategory newCategory);
   }
   private Listener mListener;
 
@@ -92,15 +92,16 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
   }
 
 
-  /*FIXME*/
   private void createCategory(@NonNull String name)
   {
-    final long categoryId = BookmarkManager.INSTANCE.createCategory(name);
+    BookmarkManager.INSTANCE.createCategory(name);
 
     List<BookmarkCategory> bookmarkCategories = mAdapter.getBookmarkCategories();
 
-    final int categoryPosition = bookmarkCategories.size() - 1;
+    if (bookmarkCategories.size() == 0)
+      throw new AssertionError("BookmarkCategories are empty");
 
+    final int categoryPosition = bookmarkCategories.size() - 1;
     mAdapter.chooseItem(categoryPosition);
 
     if (mListener != null)

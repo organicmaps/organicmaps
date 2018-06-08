@@ -16,6 +16,7 @@ public class CatalogBookmarkCategoriesAdapter extends BookmarkCategoriesAdapter
   }
 
   @Override
+  @NonNull
   public List<BookmarkCategory> getBookmarkCategories()
   {
     return BookmarkManager.INSTANCE.getCatalogCategoriesSnapshot().items();

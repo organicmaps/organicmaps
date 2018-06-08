@@ -219,7 +219,8 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
 
   private void importKml()
   {
-    if (mKmlImportController != null) mKmlImportController.importKml();
+    if (mKmlImportController != null)
+      mKmlImportController.importKml();
   }
 
   @Override
@@ -307,36 +308,36 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
 
   protected enum MenuItemClickProcessorWrapper
   {
-    SET_SHOW(R.id.set_show, setShow()),
-    SET_SHARE(R.id.set_share, setShare()),
-    SET_DELETE(R.id.set_delete, setDelete()),
-    SET_EDIT(R.id.set_edit, setEdit()),
-    SHOW_ON_MAP(R.id.show_on_map, setShow()),
-    SHARE_LIST(R.id.share_list, setShare()),
-    DELETE_LIST(R.id.delete_list, setDelete());
+    SET_SHOW(R.id.set_show, showAction()),
+    SET_SHARE(R.id.set_share, shareAction()),
+    SET_DELETE(R.id.set_delete, deleteAction()),
+    SET_EDIT(R.id.set_edit, editAction()),
+    SHOW_ON_MAP(R.id.show_on_map, showAction()),
+    SHARE_LIST(R.id.share_list, shareAction()),
+    DELETE_LIST(R.id.delete_list, deleteAction());
 
     @NonNull
-    private static MenuClickProcessorBase.SetEdit setEdit()
+    private static MenuClickProcessorBase.ShowAction showAction()
     {
-      return new MenuClickProcessorBase.SetEdit();
+      return new MenuClickProcessorBase.ShowAction();
     }
 
     @NonNull
-    private static MenuClickProcessorBase.SetDelete setDelete()
+    private static MenuClickProcessorBase.ShareAction shareAction()
     {
-      return new MenuClickProcessorBase.SetDelete();
+      return new MenuClickProcessorBase.ShareAction();
     }
 
     @NonNull
-    private static MenuClickProcessorBase.SetShare setShare()
+    private static MenuClickProcessorBase.DeleteAction deleteAction()
     {
-      return new MenuClickProcessorBase.SetShare();
+      return new MenuClickProcessorBase.DeleteAction();
     }
 
     @NonNull
-    private static MenuClickProcessorBase.SetShow setShow()
+    private static MenuClickProcessorBase.EditAction editAction()
     {
-      return new MenuClickProcessorBase.SetShow();
+      return new MenuClickProcessorBase.EditAction();
     }
 
     @IdRes
@@ -344,12 +345,11 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     @NonNull
     private MenuClickProcessorBase mInternalProcessor;
 
-    MenuItemClickProcessorWrapper(int id, @NonNull MenuClickProcessorBase processorBase)
+    MenuItemClickProcessorWrapper(@IdRes int id, @NonNull MenuClickProcessorBase processorBase)
     {
       mId = id;
       mInternalProcessor = processorBase;
     }
-
 
     @NonNull
     public static MenuItemClickProcessorWrapper getInstance(@IdRes int resId)
@@ -361,7 +361,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
           return each;
         }
       }
-      throw new IllegalArgumentException("enum value for res id = " + resId + " not found");
+      throw new IllegalArgumentException("Enum value for res id = " + resId + " not found");
     }
   }
 
@@ -370,7 +370,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     public abstract void process(@NonNull BaseBookmarkCategoriesFragment frag,
                                  @NonNull BookmarkCategory category);
 
-    protected static class SetShow extends MenuClickProcessorBase
+    protected static class ShowAction extends MenuClickProcessorBase
     {
       @Override
       public void process(@NonNull BaseBookmarkCategoriesFragment frag,
@@ -382,7 +382,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
       }
     }
 
-    protected static class SetShare extends MenuClickProcessorBase
+    protected static class ShareAction extends MenuClickProcessorBase
     {
       @Override
       public void process(@NonNull BaseBookmarkCategoriesFragment frag,
@@ -393,7 +393,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
       }
     }
 
-    protected static class SetDelete extends MenuClickProcessorBase
+    protected static class DeleteAction extends MenuClickProcessorBase
     {
       @Override
       public void process(@NonNull BaseBookmarkCategoriesFragment frag,
@@ -401,13 +401,11 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
       {
         BookmarkManager.INSTANCE.deleteCategory(category.getId());
         if (frag.getAdapter() != null)
-        {
           frag.getAdapter().notifyDataSetChanged();
-        }
       }
     }
 
-    protected static class SetEdit extends MenuClickProcessorBase
+    protected static class EditAction extends MenuClickProcessorBase
     {
       @Override
       public void process(@NonNull BaseBookmarkCategoriesFragment frag,

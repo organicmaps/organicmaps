@@ -33,7 +33,6 @@ public class Holders
 {
   static class GeneralViewHolder extends RecyclerView.ViewHolder
   {
-
     @NonNull
     private final TextView mText;
     @NonNull
@@ -86,15 +85,13 @@ public class Holders
       return mButton;
     }
 
-    void setAction(@NonNull HeaderAction action,
-                   @NonNull AdapterResourceProvider resProvider,
+    void setAction(@NonNull HeaderAction action, @NonNull AdapterResourceProvider resProvider,
                    final boolean showAll)
     {
       mButton.setText(showAll
                       ? resProvider.getHeaderBtn().getSelectModeText()
                       : resProvider.getHeaderBtn().getUnSelectModeText());
       mButton.setOnClickListener(new ToggleShowAllClickListener(action, showAll));
-
     }
 
     public interface HeaderAction

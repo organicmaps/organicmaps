@@ -1,4 +1,3 @@
-
 package com.mapswithme.maps.widget.placepage;
 
 import android.support.annotation.DrawableRes;
@@ -16,6 +15,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.ThemeUtils;
+import com.mapswithme.util.UiUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -75,14 +75,13 @@ public final class PlacePageButtons
       @DrawableRes
       private final int mDisabledStateResId;
 
-      public ImageResources(int enabledStateResId,
-                            int disabledStateResId)
+      public ImageResources(@DrawableRes int enabledStateResId, @DrawableRes int disabledStateResId)
       {
         mEnabledStateResId = enabledStateResId;
         mDisabledStateResId = disabledStateResId;
       }
 
-      public ImageResources(int enabledStateResId)
+      public ImageResources(@DrawableRes int enabledStateResId)
       {
         this(enabledStateResId, enabledStateResId);
       }
@@ -101,38 +100,59 @@ public final class PlacePageButtons
 
       public static class Stub extends ImageResources
       {
-        private static final int STUB_RES_ID = -1;
-
         public Stub()
         {
-          super(STUB_RES_ID);
+          super(UiUtils.NO_ID);
         }
 
         @Override
         public int getDisabledStateResId()
         {
-          throw new UnsupportedOperationException("not supported here");
+          throw new UnsupportedOperationException("Not supported here");
         }
 
         @Override
         public int getEnabledStateResId()
         {
-          throw new UnsupportedOperationException("not supported here");
+          throw new UnsupportedOperationException("Not supported here");
         }
       }
     }
   }
 
-  enum ButtonType
-  {
-    PARTNER1, PARTNER3, PARTNER4, PARTNER5, PARTNER6, PARTNER7,
-    PARTNER8, PARTNER9, PARTNER10, PARTNER11, PARTNER12, PARTNER13,
-    PARTNER14, PARTNER15, PARTNER16, PARTNER17,
-    BOOKING, BOOKING_SEARCH, OPENTABLE, BACK, BOOKMARK,
-    ROUTE_FROM, ROUTE_TO, ROUTE_ADD, ROUTE_REMOVE, SHARE, MORE, CALL
+  enum ButtonType {
+    PARTNER1,
+    PARTNER3,
+    PARTNER4,
+    PARTNER5,
+    PARTNER6,
+    PARTNER7,
+    PARTNER8,
+    PARTNER9,
+    PARTNER10,
+    PARTNER11,
+    PARTNER12,
+    PARTNER13,
+    PARTNER14,
+    PARTNER15,
+    PARTNER16,
+    PARTNER17,
+    BOOKING,
+    BOOKING_SEARCH,
+    OPENTABLE,
+    BACK,
+    BOOKMARK,
+    ROUTE_FROM,
+    ROUTE_TO,
+    ROUTE_ADD,
+    ROUTE_REMOVE,
+    SHARE,
+    MORE,
+    CALL
   }
 
-  enum PartnerItem implements PlacePageButtons.PlacePageButton {
+  enum PartnerItem implements PlacePageButtons.PlacePageButton
+  {
     PARTNER1(
         1,
         R.string.sponsored_partner1_action,
@@ -239,12 +259,9 @@ public final class PlacePageButtons
     @NonNull
     private final ButtonType mButtonType;
 
-    PartnerItem(
-        int index,
-        @StringRes int titleId,
-        @NonNull ImageResources iconId,
-        @DrawableRes int backgroundId,
-        @NonNull ButtonType buttonType) {
+    PartnerItem(int index, @StringRes int titleId, @NonNull ImageResources iconId,
+                @DrawableRes int backgroundId, @NonNull ButtonType buttonType)
+    {
       mIndex = index;
       mTitleId = titleId;
       mIconId = iconId;
@@ -252,84 +269,107 @@ public final class PlacePageButtons
       mButtonType = buttonType;
     }
 
-    public int getIndex() {
+    public int getIndex()
+    {
       return mIndex;
     }
 
     @StringRes
     @Override
-    public int getTitle() {
+    public int getTitle()
+    {
       return mTitleId;
     }
 
     @NonNull
     @Override
-    public ImageResources getIcon() {
+    public ImageResources getIcon()
+    {
       return mIconId;
     }
 
     @NonNull
     @Override
-    public ButtonType getType() {
+    public ButtonType getType()
+    {
       return mButtonType;
     }
 
     @DrawableRes
     @Override
-    public int getBackgroundResource() {
+    public int getBackgroundResource()
+    {
       return mBackgroundId;
     }
   }
 
-  enum Item implements PlacePageButtons.PlacePageButton {
-    BOOKING(R.string.book_button, new ImageResources(R.drawable.ic_booking), ButtonType.BOOKING) {
-      @DrawableRes
-      @Override
-      public int getBackgroundResource() {
-        return R.drawable.button_booking;
-      }
-    },
+  enum Item implements PlacePageButtons.PlacePageButton
+  {
+    BOOKING(
+        R.string.book_button,
+        new ImageResources(R.drawable.ic_booking),
+        ButtonType.BOOKING)
+        {
+          @DrawableRes
+          @Override
+          public int getBackgroundResource()
+          {
+            return R.drawable.button_booking;
+          }
+        },
 
     BOOKING_SEARCH(
         R.string.booking_search,
         new ImageResources(R.drawable.ic_menu_search),
-        ButtonType.BOOKING_SEARCH) {
-      @DrawableRes
-      @Override
-      public int getBackgroundResource() {
-        return R.drawable.button_booking;
-      }
-    },
+        ButtonType.BOOKING_SEARCH)
+        {
+          @DrawableRes
+          @Override
+          public int getBackgroundResource()
+          {
+            return R.drawable.button_booking;
+          }
+        },
 
     OPENTABLE(
-        R.string.book_button, new ImageResources(R.drawable.ic_opentable), ButtonType.OPENTABLE) {
-      @DrawableRes
-      @Override
-      public int getBackgroundResource() {
-        return R.drawable.button_opentable;
-      }
-    },
+        R.string.book_button,
+        new ImageResources(R.drawable.ic_opentable),
+        ButtonType.OPENTABLE)
+        {
+          @DrawableRes
+          @Override
+          public int getBackgroundResource()
+          {
+            return R.drawable.button_opentable;
+          }
+        },
 
     BACK(
         R.string.back,
-        /*FIXME*/
-        new ImageResources.Stub() {
+        new ImageResources.Stub()
+        {
           @Override
-          public int getEnabledStateResId() {
+          public int getEnabledStateResId()
+          {
             return ThemeUtils.getResource(MwmApplication.get(), android.R.attr.homeAsUpIndicator);
           }
-        } /**/,
+        },
         ButtonType.BACK),
 
     BOOKMARK(
-        R.string.bookmark, new ImageResources(R.drawable.ic_bookmarks_off), ButtonType.BOOKMARK),
+        R.string.bookmark,
+        new ImageResources(R.drawable.ic_bookmarks_off),
+        ButtonType.BOOKMARK),
 
     ROUTE_FROM(
         R.string.p2p_from_here,
         new ImageResources(R.drawable.ic_route_from),
         ButtonType.ROUTE_FROM),
 
-    ROUTE_TO(R.string.p2p_to_here, new ImageResources(R.drawable.ic_route_to), ButtonType.ROUTE_TO),
+    ROUTE_TO(
+        R.string.p2p_to_here,
+        new ImageResources(R.drawable.ic_route_to),
+        ButtonType.ROUTE_TO),
 
     ROUTE_ADD(
         R.string.placepage_add_stop,
@@ -341,26 +381,33 @@ public final class PlacePageButtons
         new ImageResources(R.drawable.ic_route_remove),
         ButtonType.ROUTE_REMOVE),
 
-    SHARE(R.string.share, new ImageResources(R.drawable.ic_share), ButtonType.SHARE),
+    SHARE(
+        R.string.share,
+        new ImageResources(R.drawable.ic_share),
+        ButtonType.SHARE),
 
     // Must not be used outside
     MORE(
-        R.string.placepage_more_button, new ImageResources(R.drawable.bs_ic_more), ButtonType.MORE),
+        R.string.placepage_more_button,
+        new ImageResources(R.drawable.bs_ic_more),
+        ButtonType.MORE),
 
     CALL(
         R.string.placepage_call_button,
         new ImageResources(R.drawable.ic_place_page_phone),
         ButtonType.CALL);
 
-    @StringRes private final int mTitleId;
+    @StringRes
+    private final int mTitleId;
 
-    @NonNull private final ImageResources mIconId;
+    @NonNull
+    private final ImageResources mIconId;
 
-    @NonNull private final ButtonType mButtonType;
+    @NonNull
+    private final ButtonType mButtonType;
 
-    Item(@StringRes int titleId,
-         @NonNull ImageResources iconId,
-         @NonNull ButtonType buttonType) {
+    Item(@StringRes int titleId, @NonNull ImageResources iconId, @NonNull ButtonType buttonType)
+    {
       mTitleId = titleId;
       mIconId = iconId;
       mButtonType = buttonType;
@@ -368,33 +415,38 @@ public final class PlacePageButtons
 
     @StringRes
     @Override
-    public int getTitle() {
+    public int getTitle()
+    {
       return mTitleId;
     }
 
     @NonNull
     @Override
-    public ImageResources getIcon() {
+    public ImageResources getIcon()
+    {
       return mIconId;
     }
 
     @NonNull
     @Override
-    public ButtonType getType() {
+    public ButtonType getType()
+    {
       return mButtonType;
     }
 
     @DrawableRes
     @Override
-    public int getBackgroundResource() {
+    public int getBackgroundResource()
+    {
       throw new UnsupportedOperationException("Not supported!");
     }
   }
 
   interface ItemListener
   {
-    void onPrepareVisibleView(PlacePageButtons.PlacePageButton item, View frame, ImageView icon, TextView title);
-    void onItemClick(PlacePageButtons.PlacePageButton item);
+    void onPrepareVisibleView(@NonNull PlacePageButton item, @NonNull View frame,
+                              @NonNull ImageView icon, @NonNull TextView title);
+    void onItemClick(PlacePageButton item);
   }
 
   PlacePageButtons(PlacePageView placePage, ViewGroup frame, ItemListener itemListener)
@@ -498,7 +550,8 @@ public final class PlacePageButtons
     bs.tint().show();
   }
 
-  private View createButton(final List<PlacePageButton> items, final PlacePageButton current)
+  private View createButton(@NonNull final List<PlacePageButton> items,
+                            @NonNull final PlacePageButton current)
   {
     LayoutInflater inflater = LayoutInflater.from(mPlacePage.getContext());
     View parent = inflater.inflate(R.layout.place_page_button, mFrame, false);
@@ -529,10 +582,13 @@ public final class PlacePageButtons
 
   private class ShowPopupClickListener implements View.OnClickListener
   {
+    @NonNull
     private final PlacePageButton mCurrent;
+    @NonNull
     private final List<PlacePageButton> mItems;
 
-    public ShowPopupClickListener(PlacePageButton current, List<PlacePageButton> items)
+    public ShowPopupClickListener(@NonNull PlacePageButton current,
+                                  @NonNull List<PlacePageButton> items)
     {
       mCurrent = current;
       mItems = items;

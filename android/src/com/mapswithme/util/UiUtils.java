@@ -44,6 +44,7 @@ import com.mapswithme.maps.R;
 public final class UiUtils
 {
   private static final int DEFAULT_TINT_COLOR = Color.parseColor("#20000000");
+  public static final int NO_ID = -1;
   private static float sScreenDensity;
 
   public static class SimpleAnimationListener implements AnimationListener
@@ -440,7 +441,7 @@ public final class UiUtils
     try
     {
       a = context.obtainStyledAttributes(new int[] {res});
-      return a.getResourceId(0, -1);
+      return a.getResourceId(0, NO_ID);
     }
     finally
     {

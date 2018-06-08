@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -25,7 +24,6 @@ import com.mapswithme.util.UiUtils;
 
 public class PlaceholderView extends FrameLayout
 {
-  public static final int STUB_VALUE_RES_ID = -1;
   @Nullable
   private ImageView mImage;
   @Nullable
@@ -92,17 +90,22 @@ public class PlaceholderView extends FrameLayout
     TypedArray attrsArray = null;
     try
     {
-      attrsArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.PlaceholderView, 0, 0);
-      mImgSrcDefault = attrsArray.getResourceId(R.styleable.PlaceholderView_imgSrcDefault, STUB_VALUE_RES_ID);
-      mTitleResIdDefault = attrsArray.getResourceId(R.styleable.PlaceholderView_titleDefault, STUB_VALUE_RES_ID);
-      mSubtitleResIdDefault = attrsArray.getResourceId(R.styleable.PlaceholderView_subTitleDefault, STUB_VALUE_RES_ID);
+      attrsArray =
+          context.getTheme().obtainStyledAttributes(attrs, R.styleable.PlaceholderView,0,0);
+      mImgSrcDefault = attrsArray.getResourceId(
+          R.styleable.PlaceholderView_imgSrcDefault,
+          UiUtils.NO_ID);
+      mTitleResIdDefault = attrsArray.getResourceId(
+          R.styleable.PlaceholderView_titleDefault,
+          UiUtils.NO_ID);
+      mSubtitleResIdDefault = attrsArray.getResourceId(
+          R.styleable.PlaceholderView_subTitleDefault,
+          UiUtils.NO_ID);
     }
     finally
     {
       if (attrsArray != null)
-      {
         attrsArray.recycle();
-      }
     }
   }
 
@@ -121,23 +124,23 @@ public class PlaceholderView extends FrameLayout
 
   private void setupDefaultContent()
   {
-    if (isDefaultValueAllowed(mImage, mImgSrcDefault))
+    if (isDefaultValueValid(mImage, mImgSrcDefault))
     {
       mImage.setImageResource(mImgSrcDefault);
     }
-    if (isDefaultValueAllowed(mTitle, mTitleResIdDefault))
+    if (isDefaultValueValid(mTitle, mTitleResIdDefault))
     {
-
       mTitle.setText(mTitleResIdDefault);
     }
-    if (isDefaultValueAllowed(mSubtitle, mSubtitleResIdDefault))
+    if (isDefaultValueValid(mSubtitle, mSubtitleResIdDefault))
     {
       mSubtitle.setText(mSubtitleResIdDefault);
     }
   }
 
-  private static boolean isDefaultValueAllowed(View view, int resId){
-    return view != null && resId != STUB_VALUE_RES_ID;
+  private static boolean isDefaultValueValid(View view, int defaultResId)
+  {
+    return view != null && defaultResId != UiUtils.NO_ID;
   }
 
   @Override

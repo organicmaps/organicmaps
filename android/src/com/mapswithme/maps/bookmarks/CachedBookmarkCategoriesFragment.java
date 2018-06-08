@@ -13,9 +13,8 @@ import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.UiUtils;
 
-public class CachedBookmarksFragment extends BaseBookmarkCategoriesFragment implements
-                                                                            BookmarkManager.BookmarksCatalogListener
-
+public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment implements
+                                                                                     BookmarkManager.BookmarksCatalogListener
 {
   @NonNull
   private ViewGroup mEmptyViewContainer;
@@ -68,15 +67,18 @@ public class CachedBookmarksFragment extends BaseBookmarkCategoriesFragment impl
   {
     super.updateLoadingPlaceholder();
     boolean showLoadingPlaceholder = BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress();
-    if (showLoadingPlaceholder){
+    if (showLoadingPlaceholder)
+    {
       mProgressContainer.setVisibility(View.VISIBLE);
       mPayloadContainer.setVisibility(View.GONE);
       mEmptyViewContainer.setVisibility(View.GONE);
-    } else {
-      mProgressContainer.setVisibility(View.GONE);
+    }
+    else
+    {
       boolean isEmptyAdapter = getAdapter().getItemCount() == 0;
-      mEmptyViewContainer.setVisibility(isEmptyAdapter ? View.VISIBLE : View.GONE);
+      UiUtils.showIf(isEmptyAdapter, mEmptyViewContainer);
       mPayloadContainer.setVisibility(isEmptyAdapter ? View.GONE : View.VISIBLE);
+      mProgressContainer.setVisibility(View.GONE);
     }
   }
 
@@ -131,16 +133,19 @@ public class CachedBookmarksFragment extends BaseBookmarkCategoriesFragment impl
   @Override
   public void onImportFinished(@NonNull String serverId, boolean successful)
   {
-    if (successful){
+    if (successful)
+    {
       mPayloadContainer.setVisibility(View.VISIBLE);
       mProgressContainer.setVisibility(View.GONE);
       mEmptyViewContainer.setVisibility(View.GONE);
       getAdapter().notifyDataSetChanged();
-    } else {
+    }
+    else
+    {
       boolean isEmptyAdapter = getAdapter().getItemCount() == 0;
       mProgressContainer.setVisibility(View.GONE);
       UiUtils.showIf(isEmptyAdapter, mEmptyViewContainer);
-      UiUtils.showIf(!isEmptyAdapter,mPayloadContainer);
+      mPayloadContainer.setVisibility(isEmptyAdapter ? View.GONE : View.VISIBLE);
     }
   }
 

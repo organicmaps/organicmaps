@@ -26,6 +26,7 @@ public abstract class BaseBookmarkCategoryAdapter<V extends RecyclerView.ViewHol
     return mContext;
   }
 
+  @NonNull
   public List<BookmarkCategory> getBookmarkCategories()
   {
     return BookmarkManager.INSTANCE.getOwnedCategoriesSnapshot().items();
@@ -37,12 +38,12 @@ public abstract class BaseBookmarkCategoryAdapter<V extends RecyclerView.ViewHol
     return getBookmarkCategories().size();
   }
 
+  @NonNull
   public BookmarkCategory getCategoryByPosition(int position)
   {
     List<BookmarkCategory> categories = getBookmarkCategories();
-    if (position < 0 || position > categories.size() - 1){
+    if (position < 0 || position > categories.size() - 1)
       throw new ArrayIndexOutOfBoundsException(position);
-    }
     return categories.get(position);
 
   }
