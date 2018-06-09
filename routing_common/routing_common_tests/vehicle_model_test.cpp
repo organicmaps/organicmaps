@@ -18,7 +18,14 @@ routing::VehicleModel::LimitsInitList const s_testLimits = {
     {{"highway", "service"}, 50, false},
 };
 
-class  VehicleModelTest
+routing::VehicleModel::SurfaceInitList const g_carSurface = {
+    {{"psurface", "paved_good"}, 0.8},
+    {{"psurface", "paved_bad"}, 0.4},
+    {{"psurface", "unpaved_good"}, 0.6},
+    {{"psurface", "unpaved_bad"}, 0.2},
+};
+
+class VehicleModelTest
 {
 public:
   VehicleModelTest() { classificator::Load(); }
@@ -31,7 +38,7 @@ class TestVehicleModel : public routing::VehicleModel
   friend void CheckSpeed(initializer_list<uint32_t> const & types, double expectedSpeed);
 
 public:
-  TestVehicleModel() : VehicleModel(classif(), s_testLimits) {}
+  TestVehicleModel() : VehicleModel(classif(), s_testLimits, g_carSurface) {}
 
   // We are not going to use offroad routing in these tests.
   double GetOffroadSpeed() const override { return 0.0; }
@@ -139,4 +146,24 @@ UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_PassThroughAllowed)
   CheckPassThroughAllowed({GetType("highway", "secondary")}, true);
   CheckPassThroughAllowed({GetType("highway", "primary")}, true);
   CheckPassThroughAllowed({GetType("highway", "service")}, false);
+}
+
+UNIT_CLASS_TEST(VehicleModelTest, VehicleModel_SpeedFactor)
+{
+  uint32_t const secondary = GetType("highway", "secondary");
+  uint32_t const residential = GetType("highway", "residential");
+  uint32_t const pavedGood = GetType("psurface", "paved_good");
+  uint32_t const pavedBad = GetType("psurface", "paved_bad");
+  uint32_t const unpavedGood = GetType("psurface", "unpaved_good");
+  uint32_t const unpavedBad = GetType("psurface", "unpaved_bad");
+
+  CheckSpeed({secondary, pavedGood}, 64.0);
+  CheckSpeed({secondary, pavedBad}, 32.0);
+  CheckSpeed({secondary, unpavedGood}, 48.0);
+  CheckSpeed({secondary, unpavedBad}, 16.0);
+
+  CheckSpeed({residential, pavedGood}, 40.0);
+  CheckSpeed({residential, pavedBad}, 20.0);
+  CheckSpeed({residential, unpavedGood}, 30.0);
+  CheckSpeed({residential, unpavedBad}, 10.0);
 }
