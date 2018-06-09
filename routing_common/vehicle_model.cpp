@@ -97,7 +97,8 @@ double VehicleModel::GetMinTypeSpeed(feature::TypesHolder const & types) const
       speedFactor = min(speedFactor, itFactor->m_factor);
   }
 
-  if (speed <= m_maxSpeedKMpH && speedFactor <= 1.0)
+  ASSERT_LESS_OR_EQUAL(speedFactor, 1.0, ());
+  if (speed <= m_maxSpeedKMpH)
     return speed * speedFactor;
 
   return 0.0 /* Speed */;

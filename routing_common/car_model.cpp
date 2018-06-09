@@ -202,9 +202,9 @@ vector<VehicleModel::AdditionalRoadTags> const kAdditionalTags = {
 
 VehicleModel::SurfaceInitList const g_carSurface = {
     {{"psurface", "paved_good"}, 1.0},
-    {{"psurface", "paved_bad"}, 0.6},
+    {{"psurface", "paved_bad"}, 0.5},
     {{"psurface", "unpaved_good"}, 0.8},
-    {{"psurface", "unpaved_bad"}, 0.4},
+    {{"psurface", "unpaved_bad"}, 0.3},
 };
 }  // namespace
 

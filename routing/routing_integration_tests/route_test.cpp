@@ -402,7 +402,7 @@ namespace
     TEST_EQUAL(result, IRouter::NoError, ());
   }
 
-  // Test on decreasing speed factor on roads with bad cover.
+  // Test of decreasing speed factor on roads with bad cover.
   UNIT_TEST(RussiaLenOblSpeedFactorsTest)
   {
     integration::CalculateRouteAndTestRouteLength(
@@ -411,7 +411,7 @@ namespace
         MercatorBounds::FromLatLon(60.28975, 29.79399), 11618.1);
   }
 
-  // Test on decreasing speed factor on roads with bad cover.
+  // Test of decreasing speed factor on roads with bad cover.
   UNIT_TEST(RussiaMosOblSpeedFactorsTest)
   {
     integration::CalculateRouteAndTestRouteLength(

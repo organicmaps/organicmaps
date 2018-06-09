@@ -422,7 +422,7 @@ VehicleModel::SurfaceInitList const g_bicycleSurface = {
     {{"psurface", "paved_good"}, 1.0},
     {{"psurface", "paved_bad"}, 0.8},
     {{"psurface", "unpaved_good"}, 1.0},
-    {{"psurface", "unpaved_bad"}, 0.6},
+    {{"psurface", "unpaved_bad"}, 0.3},
 };
 }  // namespace
 
