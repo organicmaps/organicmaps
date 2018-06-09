@@ -81,9 +81,9 @@ public:
   // psurface|unpaved_good and psurface|unpaved_bad.
   struct FeatureTypeSurface
   {
-    char const * m_types[2];      // 2-arity road type
-    double m_speedFactor;         // Factor (lowering) which reduces speed on feature in case of
-                                  // bad pavement. It should be from 0.0 to 1.0.
+    char const * m_types[2];  // 2-arity road type
+    double m_speedFactor;     // Factor (lowering) which reduces speed on feature in case of
+                              // bad pavement. It should be from 0.0 to 1.0.
   };
 
   struct AdditionalRoadTags final
@@ -129,8 +129,7 @@ public:
 
   bool EqualsForTests(VehicleModel const & rhs) const
   {
-    return (m_highwayTypes == rhs.m_highwayTypes) &&
-           (m_addRoadTypes == rhs.m_addRoadTypes) &&
+    return (m_highwayTypes == rhs.m_highwayTypes) && (m_addRoadTypes == rhs.m_addRoadTypes) &&
            (m_onewayType == rhs.m_onewayType);
   }
 

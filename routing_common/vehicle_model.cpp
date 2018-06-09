@@ -165,7 +165,7 @@ bool VehicleModel::HasPassThroughType(feature::TypesHolder const & types) const
 bool VehicleModel::IsRoadType(uint32_t type) const
 {
   return FindRoadType(type) != m_addRoadTypes.cend() ||
-      m_highwayTypes.find(ftypes::BaseChecker::PrepareToMatch(type, 2)) != m_highwayTypes.end();
+         m_highwayTypes.find(ftypes::BaseChecker::PrepareToMatch(type, 2)) != m_highwayTypes.end();
 }
 
 VehicleModelInterface::RoadAvailability VehicleModel::GetRoadAvailability(feature::TypesHolder const & /* types */) const
