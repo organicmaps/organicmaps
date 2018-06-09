@@ -82,7 +82,7 @@ public:
   struct FeatureTypeSurface
   {
     char const * m_types[2];  // 2-arity road type
-    double m_speedFactor;     // Factor (lowering) which reduces speed on feature in case of
+    double m_speedFactor;     // Factor which reduces speed on feature in case of
                               // bad pavement. It should be from 0.0 to 1.0.
   };
 

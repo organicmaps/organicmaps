@@ -83,8 +83,8 @@ double VehicleModel::GetMinTypeSpeed(feature::TypesHolder const & types) const
   for (uint32_t t : types)
   {
     uint32_t const type = ftypes::BaseChecker::PrepareToMatch(t, 2);
-    auto itHighway = m_highwayTypes.find(type);
-    if (itHighway != m_highwayTypes.end())
+    auto const itHighway = m_highwayTypes.find(type);
+    if (itHighway != m_highwayTypes.cend())
       speed = min(speed, itHighway->second.GetSpeedKMpH());
 
     auto const addRoadInfoIter = FindRoadType(t);
