@@ -201,7 +201,7 @@ UNIT_TEST(RussiaTaganrogSyzranov10k3ToTruseE)
   integration::CalculateRouteAndTestRouteLength(
       integration::GetVehicleComponents<VehicleType::Pedestrian>(),
       MercatorBounds::FromLatLon(47.2183, 38.8634), {0., 0.},
-      MercatorBounds::FromLatLon(47.2048, 38.9441), 7463.);
+      MercatorBounds::FromLatLon(47.2048, 38.9441), 7994.0);
 }
 
 UNIT_TEST(RussiaTaganrogSyzranov10k3ToLazo5k2)
