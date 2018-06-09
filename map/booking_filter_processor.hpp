@@ -26,9 +26,9 @@ class Api;
 namespace filter
 {
 
-struct CachedResut
+struct CachedResult
 {
-  CachedResut(Type type, std::vector<FeatureID> && featuresSorted)
+  CachedResult(Type type, std::vector<FeatureID> && featuresSorted)
     : m_type(type)
     , m_featuresSorted(featuresSorted)
   {
@@ -38,7 +38,7 @@ struct CachedResut
   std::vector<FeatureID> m_featuresSorted;
 };
 
-using CachedResults = std::vector<CachedResut>;
+using CachedResults = std::vector<CachedResult>;
 
 using FillSearchMarksCallback =
     platform::SafeCallback<void(CachedResults results)>;

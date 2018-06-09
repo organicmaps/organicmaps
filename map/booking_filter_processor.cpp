@@ -72,7 +72,6 @@ Api const & FilterProcessor::GetApi() const
 
 void FilterProcessor::ApplyConsecutively(search::Results const & results, TasksInternal & tasks)
 {
-  // Run provided filters consecutively.
   for (size_t i = tasks.size() - 1; i > 0; --i)
   {
     auto const & cb = tasks[i - 1].m_filterParams.m_callback;

@@ -41,7 +41,7 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
   private final SearchFragment mSearchFragment;
   private SearchData[] mResults;
   @NonNull
-  private FilteredHotelIds mFilteredHotelIds = new FilteredHotelIds();
+  private final FilteredHotelIds mFilteredHotelIds = new FilteredHotelIds();
   private final Drawable mClosedMarkerBackground;
 
   static abstract class SearchDataViewHolder extends RecyclerView.ViewHolder
@@ -117,10 +117,9 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
   private static class FilteredHotelIds
   {
     @NonNull
-    private SparseArray<Set<FeatureId>> mFilteredHotelIds =
-      new SparseArray<>();
+    private final SparseArray<Set<FeatureId>> mFilteredHotelIds = new SparseArray<>();
 
-    void set(@BookingFilter.Type int type, @NonNull FeatureId[] hotelsId)
+    void put(@BookingFilter.Type int type, @NonNull FeatureId[] hotelsId)
     {
       mFilteredHotelIds.put(type, new HashSet<>(Arrays.asList(hotelsId)));
     }
@@ -431,10 +430,9 @@ class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchDataViewHol
     notifyDataSetChanged();
   }
 
-  void setFilteredHotels(@BookingFilter.Type int type,
-                         @NonNull FeatureId[] hotelsId)
+  void setFilteredHotels(@BookingFilter.Type int type, @NonNull FeatureId[] hotelsId)
   {
-    mFilteredHotelIds.set(type, hotelsId);
+    mFilteredHotelIds.put(type, hotelsId);
     notifyDataSetChanged();
   }
 }
