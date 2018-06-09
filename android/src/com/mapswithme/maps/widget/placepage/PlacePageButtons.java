@@ -23,8 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.mapswithme.maps.widget.placepage.PlacePageButtons.PARTNERS_ITEMS;
-
 public final class PlacePageButtons
 {
   private static final Map<Integer, PartnerItem> PARTNERS_ITEMS = new HashMap<Integer, PartnerItem>()

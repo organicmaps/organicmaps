@@ -13,7 +13,7 @@ import com.mapswithme.maps.widget.BookmarkBackupView;
 import com.mapswithme.util.UiUtils;
 
 public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
-    implements Authorizer.SocialAuthCallback, TargetFragmentCallback
+    implements TargetFragmentCallback
 {
   @Nullable
   private BookmarkBackupController mBackupController;

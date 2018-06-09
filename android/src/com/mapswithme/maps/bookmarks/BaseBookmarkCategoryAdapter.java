@@ -29,7 +29,7 @@ public abstract class BaseBookmarkCategoryAdapter<V extends RecyclerView.ViewHol
   @NonNull
   public List<BookmarkCategory> getBookmarkCategories()
   {
-    return BookmarkManager.INSTANCE.getOwnedCategoriesSnapshot().items();
+    return BookmarkManager.INSTANCE.getOwnedCategoriesSnapshot().getItems();
   }
 
   @Override

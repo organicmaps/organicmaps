@@ -36,7 +36,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
-    View root = inflater.inflate(R.layout.bookmarks_catalog_frag, container, false);
+    View root = inflater.inflate(R.layout.fragment_bookmarks_catalog, container, false);
     WebView webView = root.findViewById(getWebViewResId());
     initWebView(webView);
     webView.loadUrl(mCatalogUrl);
@@ -84,8 +84,8 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
 
     private boolean requestArchive(@NonNull WebView view, @NonNull String url) throws IOException
     {
-/*      BookmarksDownloadManager dm = BookmarksDownloadManager.from(view.getContext());
-      dm.enqueueRequest(url);*/
+      BookmarksDownloadManager dm = BookmarksDownloadManager.from(view.getContext());
+      dm.enqueueRequest(url);
       return true;
     }
   }

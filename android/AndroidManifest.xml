@@ -236,11 +236,9 @@
         android:configChanges="orientation|screenLayout|screenSize"
         android:label="@string/app_name"/>
 
-<!--
     <activity
       android:name="com.mapswithme.maps.bookmarks.BookmarksCatalogActivity"
       android:label="@string/routes_and_bookmarks"/>
--->
 
     <activity-alias
       android:name="com.mapswithme.maps.DownloadResourcesActivity"

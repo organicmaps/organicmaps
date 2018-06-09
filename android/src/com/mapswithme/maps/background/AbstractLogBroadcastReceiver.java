@@ -32,6 +32,8 @@ public abstract class AbstractLogBroadcastReceiver extends BroadcastReceiver
                  + !backgroundTracker().isForeground();
     LOGGER.i(getTag(), msg);
     CrashlyticsUtils.log(Log.INFO, getTag(), msg);
+    assert intent != null;
+    onReceiveInternal(context, intent);
   }
 
   @NonNull

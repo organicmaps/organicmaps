@@ -14,7 +14,7 @@ public enum BookmarksPageFactory
         @Override
         public Fragment instantiateFragment()
         {
-          return new CachedBookmarksFragment();
+          return new CachedBookmarkCategoriesFragment();
         }
 
         @Override

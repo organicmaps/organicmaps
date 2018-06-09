@@ -89,7 +89,7 @@ bool IsBadCharForPath(strings::UniChar const & c)
 }
 
 bool IsValidFilterType(BookmarkManager::CategoryFilterType const filter,
-                       bool const fromCatalog) const
+                       bool const fromCatalog)
 {
   switch (filter)
   {
