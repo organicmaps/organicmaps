@@ -217,7 +217,7 @@ public class Utils
   @NonNull
   public static <T> T castTo(@NonNull Object instance)
   {
-    //noinspection unchecked
+    // Noinspection unchecked
     return (T) instance;
   }
 

@@ -19,15 +19,11 @@ public class SystemDownloadCompletedReceiver extends AbstractLogBroadcastReceive
   }
 
   @Override
-  public void onReceiveInternal(@NonNull Context context, @Nullable Intent intent)
+  public void onReceiveInternal(@NonNull Context context, @NonNull Intent intent)
   {
     DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-    if (manager == null || intent == null
-        || !DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(intent.getAction()))
-    {
+    if (manager == null)
       return;
-    }
-
     intent.setClass(context, SystemDownloadCompletedService.class);
     context.startService(intent);
   }

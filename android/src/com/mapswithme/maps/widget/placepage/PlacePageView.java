@@ -687,12 +687,14 @@ public class PlacePageView extends RelativeLayout
   public boolean isEditableMapObject()
   {
     boolean isBookmark = MapObject.isOfType(MapObject.BOOKMARK, mMapObject);
-    if (!isBookmark)
-      return false;
-    long id = Utils.<Bookmark>castTo(mMapObject).getBookmarkId();
-    return BookmarkManager.INSTANCE.isEditableBookmark(id);
-
+    if (isBookmark)
+    {
+      long id = Utils.<Bookmark>castTo(mMapObject).getBookmarkId();
+      return BookmarkManager.INSTANCE.isEditableBookmark(id);
+    }
+    return true;
   }
+
   private void initHotelRatingView()
   {
     mHotelReview = findViewById(R.id.ll__place_hotel_rating);

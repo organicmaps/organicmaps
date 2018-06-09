@@ -5,13 +5,11 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical">
-
   <android.support.design.widget.TabLayout
     android:id="@+id/sliding_tabs_layout"
     style="@style/MwmWidget.TabLayout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/tabs_height"/>
-
   <FrameLayout
     android:foreground="@drawable/shadow_top"
     android:layout_width="match_parent"

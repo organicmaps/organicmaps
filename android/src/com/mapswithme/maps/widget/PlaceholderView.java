@@ -91,7 +91,7 @@ public class PlaceholderView extends FrameLayout
     try
     {
       attrsArray =
-          context.getTheme().obtainStyledAttributes(attrs, R.styleable.PlaceholderView,0,0);
+          context.getTheme().obtainStyledAttributes(attrs, R.styleable.PlaceholderView, 0, 0);
       mImgSrcDefault = attrsArray.getResourceId(
           R.styleable.PlaceholderView_imgSrcDefault,
           UiUtils.NO_ID);
