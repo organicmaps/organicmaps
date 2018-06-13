@@ -28,7 +28,9 @@ void SweepNearbyResults(double eps, set<FeatureID> const & prevEmit, vector<PreR
   for (size_t i = 0; i < results.size(); ++i)
   {
     auto const & p = results[i].GetInfo().m_center;
-    uint8_t const priority = prevEmit.count(results[i].GetId()) ? 1 : 0;
+    uint8_t const rank = results[i].GetInfo().m_rank;
+    uint8_t const prevCount = prevEmit.count(results[i].GetId()) ? 1 : 0;
+    uint8_t const priority = max(rank, prevCount);
     sweeper.Add(p.x, p.y, i, priority);
   }
 
