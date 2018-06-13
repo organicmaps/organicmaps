@@ -349,15 +349,18 @@ void SaveBookmarkExtendedData(KmlWriter::WriterWrapper & writer, BookmarkData co
   SaveLocalizableString(writer, bookmarkData.m_name, "name", kIndent6);
   SaveLocalizableString(writer, bookmarkData.m_description, "description", kIndent6);
 
-  std::vector<std::string> types;
-  types.reserve(bookmarkData.m_featureTypes.size());
-  auto const & c = classif();
-  if (!c.HasTypesMapping())
-    MYTHROW(SerializerKml::SerializeException, ("Types mapping is not loaded."));
-  for (auto const & t : bookmarkData.m_featureTypes)
-    types.push_back(c.GetReadableObjectName(c.GetTypeForIndex(t)));
+  if (!bookmarkData.m_featureTypes.empty())
+  {
+    std::vector<std::string> types;
+    types.reserve(bookmarkData.m_featureTypes.size());
+    auto const & c = classif();
+    if (!c.HasTypesMapping())
+      MYTHROW(SerializerKml::SerializeException, ("Types mapping is not loaded."));
+    for (auto const & t : bookmarkData.m_featureTypes)
+      types.push_back(c.GetReadableObjectName(c.GetTypeForIndex(t)));
 
-  SaveStringsArray(writer, types, "featureTypes", kIndent6);
+    SaveStringsArray(writer, types, "featureTypes", kIndent6);
+  }
 
   if (!bookmarkData.m_customName.empty())
     SaveLocalizableString(writer, bookmarkData.m_customName, "customName", kIndent6);
