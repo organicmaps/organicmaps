@@ -20,8 +20,8 @@ omim_link_libraries(
   search
   storage
   stats_client
-  indexer
   editor
+  indexer
   platform
   mwm_diff
   bsdiff
