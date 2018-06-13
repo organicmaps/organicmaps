@@ -240,8 +240,8 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
   });
 
   m_routingSession.SetReadyCallbacks(
-      [this](Route const & route, IRouter::ResultCode code) { OnBuildRouteReady(route, code); },
-      [this](Route const & route, IRouter::ResultCode code) { OnRebuildRouteReady(route, code); });
+      [this](Route const & route, RouterResultCode code) { OnBuildRouteReady(route, code); },
+      [this](Route const & route, RouterResultCode code) { OnRebuildRouteReady(route, code); });
 
   m_routingSession.SetCheckpointCallback([this](size_t passedCheckpointIdx)
   {
@@ -271,13 +271,13 @@ void RoutingManager::SetBookmarkManager(BookmarkManager * bmManager)
   m_bmManager = bmManager;
 }
 
-void RoutingManager::OnBuildRouteReady(Route const & route, IRouter::ResultCode code)
+void RoutingManager::OnBuildRouteReady(Route const & route, RouterResultCode code)
 {
   // Hide preview.
   HidePreviewSegments();
 
   storage::TCountriesVec absentCountries;
-  if (code == IRouter::NoError)
+  if (code == RouterResultCode::NoError)
   {
     InsertRoute(route);
     m_drapeEngine.SafeCall(&df::DrapeEngine::StopLocationFollow);
@@ -296,18 +296,18 @@ void RoutingManager::OnBuildRouteReady(Route const & route, IRouter::ResultCode 
   {
     absentCountries.assign(route.GetAbsentCountries().begin(), route.GetAbsentCountries().end());
 
-    if (code != IRouter::NeedMoreMaps)
+    if (code != RouterResultCode::NeedMoreMaps)
       RemoveRoute(true /* deactivateFollowing */);
   }
   CallRouteBuilded(code, absentCountries);
 }
 
-void RoutingManager::OnRebuildRouteReady(Route const & route, IRouter::ResultCode code)
+void RoutingManager::OnRebuildRouteReady(Route const & route, RouterResultCode code)
 {
   // Hide preview.
   HidePreviewSegments();
 
-  if (code != IRouter::NoError)
+  if (code != RouterResultCode::NoError)
     return;
 
   InsertRoute(route);
@@ -774,7 +774,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
   auto routePoints = GetRoutePoints();
   if (routePoints.size() < 2)
   {
-    CallRouteBuilded(IRouter::Cancelled, storage::TCountriesVec());
+    CallRouteBuilded(RouterResultCode::Cancelled, storage::TCountriesVec());
     CloseRouting(false /* remove route points */);
     return;
   }
@@ -788,7 +788,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
     auto const & myPosition = m_bmManager->MyPositionMark();
     if (!myPosition.HasPosition())
     {
-      CallRouteBuilded(IRouter::NoCurrentPosition, storage::TCountriesVec());
+      CallRouteBuilded(RouterResultCode::NoCurrentPosition, storage::TCountriesVec());
       return;
     }
     p.m_position = myPosition.GetPivot();
@@ -802,7 +802,7 @@ void RoutingManager::BuildRoute(uint32_t timeoutSec)
     {
       if (routePoints[i].m_position.EqualDxDy(routePoints[j].m_position, kEps))
       {
-        CallRouteBuilded(IRouter::Cancelled, storage::TCountriesVec());
+        CallRouteBuilded(RouterResultCode::Cancelled, storage::TCountriesVec());
         CloseRouting(false /* remove route points */);
         return;
       }
@@ -897,13 +897,13 @@ void RoutingManager::CheckLocationForRouting(location::GpsInfo const & info)
   {
     m_routingSession.RebuildRoute(
         MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude),
-        [this](Route const & route, IRouter::ResultCode code) { OnRebuildRouteReady(route, code); },
+        [this](Route const & route, RouterResultCode code) { OnRebuildRouteReady(route, code); },
         0 /* timeoutSec */, RoutingSession::State::RouteRebuilding,
         true /* adjustToPrevRoute */);
   }
 }
 
-void RoutingManager::CallRouteBuilded(IRouter::ResultCode code,
+void RoutingManager::CallRouteBuilded(RouterResultCode code,
                                       storage::TCountriesVec const & absentCountries)
 {
   m_routingCallback(code, absentCountries);

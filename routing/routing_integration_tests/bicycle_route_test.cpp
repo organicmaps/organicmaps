@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "routing/routing_callbacks.hpp"
+
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
 #include "geometry/mercator.hpp"
@@ -60,8 +62,8 @@ UNIT_TEST(NetherlandsAmsterdamBicycleYes)
                                   MercatorBounds::FromLatLon(52.33853, 5.08941));
 
   Route const & route = *routeResult.first;
-  IRouter::ResultCode const result = routeResult.second;
-  TEST_EQUAL(result, IRouter::NoError, ());
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
   TEST(my::AlmostEqualAbs(route.GetTotalTimeSec(), 357.0, 1.0), ());
 }
 
@@ -90,7 +92,7 @@ UNIT_TEST(RussiaMoscowNoServicePassThrough)
         integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Bicycle>(),
                                     MercatorBounds::FromLatLon(55.66230, 37.63214), {0., 0.},
                                     MercatorBounds::FromLatLon(55.68895, 37.70286));
-  TEST_EQUAL(route.second, IRouter::RouteNotFound, ());
+  TEST_EQUAL(route.second, RouterResultCode::RouteNotFound, ());
 }
 
 UNIT_TEST(RussiaKerchStraitFerryRoute)

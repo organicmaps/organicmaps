@@ -11,6 +11,8 @@
 
 #include "storage/index.hpp"
 
+#include "routing/routing_callbacks.hpp"
+
 #include "indexer/editable_map_object.hpp"
 
 #include "platform/settings.hpp"
@@ -43,7 +45,7 @@ DrawWidget::DrawWidget(Framework & framework, bool apiOpenGLES3, QWidget * paren
       [](bool /* switchFullScreenMode */) {});  // Empty deactivation listener.
 
   m_framework.GetRoutingManager().SetRouteBuildingListener(
-      [](routing::IRouter::ResultCode, storage::TCountriesVec const &) {});
+      [](routing::RouterResultCode, storage::TCountriesVec const &) {});
 
   m_framework.GetRoutingManager().SetRouteRecommendationListener(
     [this](RoutingManager::Recommendation r)

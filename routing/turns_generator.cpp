@@ -509,7 +509,7 @@ bool GetNextRoutePointIndex(IRoutingResult const & result, RoutePointIndex const
   return true;
 }
 
-IRouter::ResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds const & numMwmIds,
+RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds const & numMwmIds,
                                        RouterDelegate const & delegate,
                                        vector<Junction> & junctions, Route::TTurns & turnsDir,
                                        Route::TStreets & streets, vector<Segment> & segments)
@@ -517,7 +517,7 @@ IRouter::ResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds 
   LOG(LDEBUG, ("Shortest th length:", result.GetPathLength()));
 
   if (delegate.IsCancelled())
-    return IRouter::Cancelled;
+    return RouterResultCode::Cancelled;
   // Annotate turns.
   size_t skipTurnSegments = 0;
   auto const & loadedSegments = result.GetSegments();
@@ -580,7 +580,7 @@ IRouter::ResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds 
     junctions.push_back(junctions.front());
 
   if (junctions.size() < 2)
-    return IRouter::ResultCode::RouteNotFound;
+    return RouterResultCode::RouteNotFound;
 
   junctions.front() = result.GetStartPoint();
   junctions.back() = result.GetEndPoint();
@@ -596,7 +596,7 @@ IRouter::ResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds 
                  t.m_targetName, "exit:", t.m_exitNum));
   }
 #endif
-  return IRouter::ResultCode::NoError;
+  return RouterResultCode::NoError;
 }
 
 double CalculateMercatorDistanceAlongPath(uint32_t startPointIndex, uint32_t endPointIndex,

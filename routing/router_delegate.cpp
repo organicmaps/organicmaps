@@ -14,12 +14,12 @@ RouterDelegate::RouterDelegate()
   m_pointCallback = DefaultPointFn;
 }
 
-void RouterDelegate::SetProgressCallback(TProgressCallback const & progressCallback)
+void RouterDelegate::SetProgressCallback(ProgressCallback const & progressCallback)
 {
   m_progressCallback = progressCallback ? progressCallback : DefaultProgressFn;
 }
 
-void RouterDelegate::SetPointCheckCallback(TPointCheckCallback const & pointCallback)
+void RouterDelegate::SetPointCheckCallback(PointCheckCallback const & pointCallback)
 {
   m_pointCallback = pointCallback ? pointCallback : DefaultPointFn;
 }

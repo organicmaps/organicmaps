@@ -10,6 +10,7 @@
 #include "routing/features_road_graph.hpp"
 #include "routing/joint.hpp"
 #include "routing/router.hpp"
+#include "routing/routing_callbacks.hpp"
 #include "routing/segmented_route.hpp"
 #include "routing/world_graph.hpp"
 
@@ -71,21 +72,21 @@ public:
 
   // IRouter overrides:
   std::string GetName() const override { return m_name; }
-  ResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
-                            bool adjustToPrevRoute, RouterDelegate const & delegate,
-                            Route & route) override;
+  RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
+                                  bool adjustToPrevRoute, RouterDelegate const & delegate,
+                                  Route & route) override;
 
 private:
-  IRouter::ResultCode DoCalculateRoute(Checkpoints const & checkpoints,
-                                       m2::PointD const & startDirection,
-                                       RouterDelegate const & delegate, Route & route);
-  IRouter::ResultCode CalculateSubroute(Checkpoints const & checkpoints, size_t subrouteIdx,
-                                        RouterDelegate const & delegate, IndexGraphStarter & graph,
-                                        std::vector<Segment> & subroute);
+  RouterResultCode DoCalculateRoute(Checkpoints const & checkpoints,
+                                    m2::PointD const & startDirection,
+                                    RouterDelegate const & delegate, Route & route);
+  RouterResultCode CalculateSubroute(Checkpoints const & checkpoints, size_t subrouteIdx,
+                                     RouterDelegate const & delegate, IndexGraphStarter & graph,
+                                     std::vector<Segment> & subroute);
 
-  IRouter::ResultCode AdjustRoute(Checkpoints const & checkpoints,
-                                  m2::PointD const & startDirection,
-                                  RouterDelegate const & delegate, Route & route);
+  RouterResultCode AdjustRoute(Checkpoints const & checkpoints,
+                               m2::PointD const & startDirection,
+                               RouterDelegate const & delegate, Route & route);
 
   std::unique_ptr<WorldGraph> MakeWorldGraph();
 
@@ -104,31 +105,31 @@ private:
 
   // Input route may contains 'leaps': shortcut edges from mwm border enter to exit.
   // ProcessLeaps replaces each leap with calculated route through mwm.
-  IRouter::ResultCode ProcessLeaps(std::vector<Segment> const & input,
+  RouterResultCode ProcessLeaps(std::vector<Segment> const & input,
                                    RouterDelegate const & delegate, WorldGraph::Mode prevMode,
                                    IndexGraphStarter & starter, std::vector<Segment> & output);
-  IRouter::ResultCode RedressRoute(std::vector<Segment> const & segments,
-                                   RouterDelegate const & delegate, IndexGraphStarter & starter,
-                                   Route & route) const;
+  RouterResultCode RedressRoute(std::vector<Segment> const & segments,
+                                RouterDelegate const & delegate, IndexGraphStarter & starter,
+                                Route & route) const;
 
   bool AreMwmsNear(std::set<NumMwmId> const & mwmIds) const;
   bool DoesTransitSectionExist(NumMwmId numMwmId) const;
-  IRouter::ResultCode ConvertTransitResult(std::set<NumMwmId> const & mwmIds,
-                                           IRouter::ResultCode resultCode) const;
+  RouterResultCode ConvertTransitResult(std::set<NumMwmId> const & mwmIds,
+                                        RouterResultCode resultCode) const;
 
   template <typename Graph>
-  IRouter::ResultCode ConvertResult(typename AStarAlgorithm<Graph>::Result result) const
+  RouterResultCode ConvertResult(typename AStarAlgorithm<Graph>::Result result) const
   {
     switch (result)
     {
-    case AStarAlgorithm<Graph>::Result::NoPath: return IRouter::RouteNotFound;
-    case AStarAlgorithm<Graph>::Result::Cancelled: return IRouter::Cancelled;
-    case AStarAlgorithm<Graph>::Result::OK: return IRouter::NoError;
+    case AStarAlgorithm<Graph>::Result::NoPath: return RouterResultCode::RouteNotFound;
+    case AStarAlgorithm<Graph>::Result::Cancelled: return RouterResultCode::Cancelled;
+    case AStarAlgorithm<Graph>::Result::OK: return RouterResultCode::NoError;
     }
   }
 
   template <typename Graph>
-  IRouter::ResultCode FindPath(
+  RouterResultCode FindPath(
       typename AStarAlgorithm<Graph>::Params & params, std::set<NumMwmId> const & mwmIds,
       RoutingResult<typename Graph::Vertex, typename Graph::Weight> & routingResult) const
   {

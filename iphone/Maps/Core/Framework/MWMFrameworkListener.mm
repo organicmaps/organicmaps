@@ -97,7 +97,7 @@ void loopWrappers(Observers * observers, TLoopBlock block)
   Observers * observers = self.routeBuildingObservers;
   auto & rm = GetFramework().GetRoutingManager();
   rm.SetRouteBuildingListener(
-      [observers](IRouter::ResultCode code, TCountriesVec const & absentCountries) {
+      [observers](RouterResultCode code, TCountriesVec const & absentCountries) {
         loopWrappers(observers, [code, absentCountries](TRouteBuildingObserver observer) {
           [observer processRouteBuilderEvent:code countries:absentCountries];
         });

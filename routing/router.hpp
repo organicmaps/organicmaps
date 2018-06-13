@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/routing_callbacks.hpp"
 #include "routing/checkpoints.hpp"
 #include "routing/route.hpp"
 #include "routing/router_delegate.hpp"
@@ -40,30 +41,6 @@ std::string DebugPrint(RouterType type);
 class IRouter
 {
 public:
-  /// Routing possible statuses enumeration.
-  /// \warning  this enum has JNI mirror!
-  /// \see android/src/com/mapswithme/maps/routing/ResultCodesHelper.java
-  // TODO(gardster): Please check what items become obsolete now
-  enum ResultCode // TODO(mgsergio) enum class
-  {
-    NoError = 0,
-    Cancelled = 1,
-    NoCurrentPosition = 2,
-    InconsistentMWMandRoute = 3,
-    RouteFileNotExist = 4,
-    StartPointNotFound = 5,
-    EndPointNotFound = 6,
-    PointsInDifferentMWM = 7,
-    RouteNotFound = 8,
-    NeedMoreMaps = 9,
-    InternalError = 10,
-    FileTooOld = 11,
-    IntermediatePointNotFound = 12,
-    TransitRouteNotFoundNoNetwork = 13,
-    TransitRouteNotFoundTooLongPedestrian = 14,
-    RouteNotFoundRedressRouteError = 15,
-  };
-
   virtual ~IRouter() {}
 
   /// Return unique name of a router implementation.
@@ -84,9 +61,9 @@ public:
   /// @param route result route
   /// @return ResultCode error code or NoError if route was initialised
   /// @see Cancellable
-  virtual ResultCode CalculateRoute(Checkpoints const & checkpoints,
-                                    m2::PointD const & startDirection, bool adjust,
-                                    RouterDelegate const & delegate, Route & route) = 0;
+  virtual RouterResultCode CalculateRoute(Checkpoints const & checkpoints,
+                                          m2::PointD const & startDirection, bool adjust,
+                                          RouterDelegate const & delegate, Route & route) = 0;
 };
 
 }  // namespace routing

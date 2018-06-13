@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "routing/routing_callbacks.hpp"
+
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
 #include "routing/route.hpp"
@@ -15,8 +17,8 @@ UNIT_TEST(RussiaMoscowSevTushinoParkBicycleWayTurnTest)
                                   MercatorBounds::FromLatLon(55.8719, 37.4464));
 
   Route const & route = *routeResult.first;
-  IRouter::ResultCode const result = routeResult.second;
-  TEST_EQUAL(result, IRouter::NoError, ());
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
 
   integration::TestTurnCount(route, 5 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestOneOfDirections(
@@ -39,8 +41,8 @@ UNIT_TEST(RussiaMoscowGerPanfilovtsev22BicycleWayTurnTest)
                                   MercatorBounds::FromLatLon(55.85717, 37.41052));
 
   Route const & route = *routeResult.first;
-  IRouter::ResultCode const result = routeResult.second;
-  TEST_EQUAL(result, IRouter::NoError, ());
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
 
   integration::TestTurnCount(route, 2 /* expectedTurnCount */);
 
@@ -56,8 +58,8 @@ UNIT_TEST(RussiaMoscowSalameiNerisPossibleTurnCorrectionBicycleWayTurnTest)
                                   MercatorBounds::FromLatLon(55.85364, 37.37318));
 
   Route const & route = *routeResult.first;
-  IRouter::ResultCode const result = routeResult.second;
-  TEST_EQUAL(result, IRouter::NoError, ());
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
 
   integration::TestTurnCount(route, 3 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
@@ -73,8 +75,8 @@ UNIT_TEST(RussiaMoscowSalameiNerisNoUTurnBicycleWayTurnTest)
                                   MercatorBounds::FromLatLon(55.85765, 37.36793));
 
   Route const & route = *routeResult.first;
-  IRouter::ResultCode const result = routeResult.second;
-  TEST_EQUAL(result, IRouter::NoError, ());
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
 
   integration::TestTurnCount(route, 4 /* expectedTurnCount */);
   integration::GetNthTurn(route, 0).TestValid().TestDirection(CarDirection::TurnRight);
@@ -89,8 +91,8 @@ UNIT_TEST(RussiaMoscowSevTushinoParkBicycleOnePointOnewayRoadTurnTest)
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetVehicleComponents<VehicleType::Bicycle>(), point, {0.0, 0.0}, point);
 
-  IRouter::ResultCode const result = routeResult.second;
-  TEST_EQUAL(result, IRouter::IRouter::NoError, ());
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
 }
 
 UNIT_TEST(RussiaMoscowSevTushinoParkBicycleOnePointTwowayRoadTurnTest)
@@ -99,8 +101,8 @@ UNIT_TEST(RussiaMoscowSevTushinoParkBicycleOnePointTwowayRoadTurnTest)
   TRouteResult const routeResult = integration::CalculateRoute(
       integration::GetVehicleComponents<VehicleType::Bicycle>(), point, {0.0, 0.0}, point);
 
-  IRouter::ResultCode const result = routeResult.second;
-  TEST_EQUAL(result, IRouter::IRouter::NoError, ());
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
 }
 
 UNIT_TEST(RussiaMoscowTatishchevaOnewayCarRoadTurnTest)
@@ -111,8 +113,8 @@ UNIT_TEST(RussiaMoscowTatishchevaOnewayCarRoadTurnTest)
                                   MercatorBounds::FromLatLon(55.71532, 37.61571));
 
   Route const & route = *routeResult.first;
-  IRouter::ResultCode const result = routeResult.second;
-  TEST_EQUAL(result, IRouter::NoError, ());
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
 
   integration::TestTurnCount(route, 4 /* expectedTurnCount */);
 
@@ -132,8 +134,8 @@ UNIT_TEST(RussiaMoscowSvobodiOnewayBicycleWayTurnTest)
                                   MercatorBounds::FromLatLon(55.87362, 37.43853));
 
   Route const & route = *routeResult.first;
-  IRouter::ResultCode const result = routeResult.second;
-  TEST_EQUAL(result, IRouter::NoError, ());
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
 
   integration::TestTurnCount(route, 6 /* expectedTurnCount */);
 

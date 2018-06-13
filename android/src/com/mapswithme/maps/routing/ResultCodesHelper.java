@@ -13,7 +13,7 @@ import java.util.List;
 
 class ResultCodesHelper
 {
-  // Codes correspond to native routing::IRouter::ResultCode in routing/router.hpp
+  // Codes correspond to native routing::RouterResultCode in routing/routing_callbacks.hpp
   static final int NO_ERROR = 0;
   static final int CANCELLED = 1;
   static final int NO_POSITION = 2;

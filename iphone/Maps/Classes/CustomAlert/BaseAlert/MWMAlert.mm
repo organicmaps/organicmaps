@@ -53,7 +53,7 @@
 }
 
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(storage::TCountriesVec const &)countries
-                                            code:(routing::IRouter::ResultCode)code
+                                            code:(routing::RouterResultCode)code
                                      cancelBlock:(MWMVoidBlock)cancelBlock
                                    downloadBlock:(MWMDownloadBlock)downloadBlock
                            downloadCompleteBlock:(MWMVoidBlock)downloadCompleteBlock
@@ -65,26 +65,26 @@
                                        downloadCompleteBlock:downloadCompleteBlock];
 }
 
-+ (MWMAlert *)alert:(routing::IRouter::ResultCode)type
++ (MWMAlert *)alert:(routing::RouterResultCode)type
 {
   switch (type)
   {
-  case routing::IRouter::NoCurrentPosition: return [MWMDefaultAlert noCurrentPositionAlert];
-  case routing::IRouter::StartPointNotFound: return [MWMDefaultAlert startPointNotFoundAlert];
-  case routing::IRouter::EndPointNotFound: return [MWMDefaultAlert endPointNotFoundAlert];
-  case routing::IRouter::PointsInDifferentMWM: return [MWMDefaultAlert pointsInDifferentMWMAlert];
-  case routing::IRouter::TransitRouteNotFoundNoNetwork: return [MWMDefaultAlert routeNotFoundNoPublicTransportAlert];
-  case routing::IRouter::TransitRouteNotFoundTooLongPedestrian: return [MWMDefaultAlert routeNotFoundTooLongPedestrianAlert];
-  case routing::IRouter::RouteNotFoundRedressRouteError:
-  case routing::IRouter::RouteNotFound:
-  case routing::IRouter::InconsistentMWMandRoute: return [MWMDefaultAlert routeNotFoundAlert];
-  case routing::IRouter::RouteFileNotExist:
-  case routing::IRouter::FileTooOld: return [MWMDefaultAlert routeFileNotExistAlert];
-  case routing::IRouter::InternalError: return [MWMDefaultAlert internalRoutingErrorAlert];
-  case routing::IRouter::Cancelled:
-  case routing::IRouter::NoError:
-  case routing::IRouter::NeedMoreMaps: return nil;
-  case routing::IRouter::IntermediatePointNotFound: return [MWMDefaultAlert intermediatePointNotFoundAlert];
+  case routing::RouterResultCode::NoCurrentPosition: return [MWMDefaultAlert noCurrentPositionAlert];
+  case routing::RouterResultCode::StartPointNotFound: return [MWMDefaultAlert startPointNotFoundAlert];
+  case routing::RouterResultCode::EndPointNotFound: return [MWMDefaultAlert endPointNotFoundAlert];
+  case routing::RouterResultCode::PointsInDifferentMWM: return [MWMDefaultAlert pointsInDifferentMWMAlert];
+  case routing::RouterResultCode::TransitRouteNotFoundNoNetwork: return [MWMDefaultAlert routeNotFoundNoPublicTransportAlert];
+  case routing::RouterResultCode::TransitRouteNotFoundTooLongPedestrian: return [MWMDefaultAlert routeNotFoundTooLongPedestrianAlert];
+  case routing::RouterResultCode::RouteNotFoundRedressRouteError:
+  case routing::RouterResultCode::RouteNotFound:
+  case routing::RouterResultCode::InconsistentMWMandRoute: return [MWMDefaultAlert routeNotFoundAlert];
+  case routing::RouterResultCode::RouteFileNotExist:
+  case routing::RouterResultCode::FileTooOld: return [MWMDefaultAlert routeFileNotExistAlert];
+  case routing::RouterResultCode::InternalError: return [MWMDefaultAlert internalRoutingErrorAlert];
+  case routing::RouterResultCode::Cancelled:
+  case routing::RouterResultCode::NoError:
+  case routing::RouterResultCode::NeedMoreMaps: return nil;
+  case routing::RouterResultCode::IntermediatePointNotFound: return [MWMDefaultAlert intermediatePointNotFoundAlert];
   }
 }
 

@@ -2,6 +2,7 @@
 
 #include "routing/route.hpp"
 #include "routing/router.hpp"
+#include "routing/routing_callbacks.hpp"
 #include "routing/routing_helpers.hpp"
 #include "routing/routing_session.hpp"
 
@@ -21,19 +22,19 @@ class DummyRouter : public IRouter
 {
 private:
   Route & m_route;
-  ResultCode m_code;
+  RouterResultCode m_code;
   size_t & m_buildCount;
 
 public:
-  DummyRouter(Route & route, ResultCode code, size_t & buildCounter)
+  DummyRouter(Route & route, RouterResultCode code, size_t & buildCounter)
     : m_route(route), m_code(code), m_buildCount(buildCounter)
   {
   }
   string GetName() const override { return "dummy"; }
   void ClearState() override {}
-  ResultCode CalculateRoute(Checkpoints const & /* checkpoints */,
-                            m2::PointD const & /* startDirection */, bool /* adjust */,
-                            RouterDelegate const & /* delegate */, Route & route) override
+  RouterResultCode CalculateRoute(Checkpoints const & /* checkpoints */,
+                                  m2::PointD const & /* startDirection */, bool /* adjust */,
+                                  RouterDelegate const & /* delegate */, Route & route) override
   {
     ++m_buildCount;
     route = m_route;
@@ -99,10 +100,11 @@ UNIT_TEST(TestRouteBuilding)
   Route masterRoute("dummy", routePoints.begin(), routePoints.end());
   size_t counter = 0;
   TimedSignal timedSignal;
-  unique_ptr<DummyRouter> router = make_unique<DummyRouter>(masterRoute, DummyRouter::NoError, counter);
+  unique_ptr<DummyRouter> router =
+      make_unique<DummyRouter>(masterRoute, RouterResultCode::NoError, counter);
   session.SetRouter(move(router), nullptr);
   session.SetReadyCallbacks(
-      [&timedSignal](Route const &, IRouter::ResultCode) { timedSignal.Signal(); }, nullptr);
+      [&timedSignal](Route const &, RouterResultCode) { timedSignal.Signal(); }, nullptr);
   session.BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
   // Manual check of the routeBuilded mutex to avoid spurious results.
   auto const time = steady_clock::now() + kRouteBuildingMaxDuration;
@@ -120,13 +122,14 @@ UNIT_TEST(TestRouteRebuilding)
   FillSubroutesInfo(masterRoute);
 
   size_t counter = 0;
-  unique_ptr<DummyRouter> router = make_unique<DummyRouter>(masterRoute, DummyRouter::NoError, counter);
+  unique_ptr<DummyRouter> router =
+      make_unique<DummyRouter>(masterRoute, RouterResultCode::NoError, counter);
   session.SetRouter(move(router), nullptr);
 
   // Go along the route.
   TimedSignal alongTimedSignal;
   session.SetReadyCallbacks(
-      [&alongTimedSignal](Route const &, IRouter::ResultCode) { alongTimedSignal.Signal(); },
+      [&alongTimedSignal](Route const &, RouterResultCode) { alongTimedSignal.Signal(); },
       nullptr);
   session.BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
   // Manual check of the routeBuilded mutex to avoid spurious results.
@@ -152,7 +155,7 @@ UNIT_TEST(TestRouteRebuilding)
   counter = 0;
   TimedSignal oppositeTimedSignal;
   session.SetReadyCallbacks(
-      [&oppositeTimedSignal](Route const &, IRouter::ResultCode) { oppositeTimedSignal.Signal(); },
+      [&oppositeTimedSignal](Route const &, RouterResultCode) { oppositeTimedSignal.Signal(); },
       nullptr);
   session.BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
   TEST(oppositeTimedSignal.WaitUntil(time), ("Route was not built."));
@@ -177,13 +180,14 @@ UNIT_TEST(TestFollowRouteFlagPersistence)
   FillSubroutesInfo(masterRoute);
 
   size_t counter = 0;
-  unique_ptr<DummyRouter> router = make_unique<DummyRouter>(masterRoute, DummyRouter::NoError, counter);
+  unique_ptr<DummyRouter> router =
+      make_unique<DummyRouter>(masterRoute, RouterResultCode::NoError, counter);
   session.SetRouter(move(router), nullptr);
 
   // Go along the route.
   TimedSignal alongTimedSignal;
   session.SetReadyCallbacks(
-      [&alongTimedSignal](Route const &, IRouter::ResultCode) { alongTimedSignal.Signal(); },
+      [&alongTimedSignal](Route const &, RouterResultCode) { alongTimedSignal.Signal(); },
       nullptr);
   session.BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
   // Manual check of the routeBuilded mutex to avoid spurious results.
@@ -214,7 +218,7 @@ UNIT_TEST(TestFollowRouteFlagPersistence)
   counter = 0;
   TimedSignal oppositeTimedSignal;
   session.SetReadyCallbacks(
-      [&oppositeTimedSignal](Route const &, IRouter::ResultCode) { oppositeTimedSignal.Signal(); },
+      [&oppositeTimedSignal](Route const &, RouterResultCode) { oppositeTimedSignal.Signal(); },
       nullptr);
   session.BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
   TEST(oppositeTimedSignal.WaitUntil(time), ("Route was not built."));
@@ -236,7 +240,7 @@ UNIT_TEST(TestFollowRouteFlagPersistence)
   TimedSignal rebuildTimedSignal;
   session.RebuildRoute(
       kTestRoute.front(),
-      [&rebuildTimedSignal](Route const &, IRouter::ResultCode) { rebuildTimedSignal.Signal(); }, 0,
+      [&rebuildTimedSignal](Route const &, RouterResultCode) { rebuildTimedSignal.Signal(); }, 0,
       RoutingSession::State::RouteBuilding, false /* adjust */);
   TEST(rebuildTimedSignal.WaitUntil(time), ("Route was not built."));
   TEST(session.IsFollowing(), ());
@@ -252,7 +256,8 @@ UNIT_TEST(TestFollowRoutePercentTest)
   FillSubroutesInfo(masterRoute);
 
   size_t counter = 0;
-  unique_ptr<DummyRouter> router = make_unique<DummyRouter>(masterRoute, DummyRouter::NoError, counter);
+  unique_ptr<DummyRouter> router =
+      make_unique<DummyRouter>(masterRoute, RouterResultCode::NoError, counter);
   session.SetRouter(move(router), nullptr);
 
   // Get completion percent of unexisted route.
@@ -260,7 +265,7 @@ UNIT_TEST(TestFollowRoutePercentTest)
   // Go along the route.
   TimedSignal alongTimedSignal;
   session.SetReadyCallbacks(
-      [&alongTimedSignal](Route const &, IRouter::ResultCode) { alongTimedSignal.Signal(); },
+      [&alongTimedSignal](Route const &, RouterResultCode) { alongTimedSignal.Signal(); },
       nullptr);
   session.BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
   // Manual check of the routeBuilded mutex to avoid spurious results.

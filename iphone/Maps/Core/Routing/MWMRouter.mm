@@ -585,13 +585,13 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 
 #pragma mark - MWMFrameworkRouteBuilderObserver
 
-- (void)processRouteBuilderEvent:(routing::IRouter::ResultCode)code
+- (void)processRouteBuilderEvent:(routing::RouterResultCode)code
                        countries:(storage::TCountriesVec const &)absentCountries
 {
   MWMMapViewControlsManager * mapViewControlsManager = [MWMMapViewControlsManager manager];
   switch (code)
   {
-  case routing::IRouter::ResultCode::NoError:
+  case routing::RouterResultCode::NoError:
   {
     GetFramework().DeactivateMapSelection(true);
 
@@ -607,28 +607,28 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
     [self updateFollowingInfo];
     break;
   }
-  case routing::IRouter::RouteFileNotExist:
-  case routing::IRouter::InconsistentMWMandRoute:
-  case routing::IRouter::NeedMoreMaps:
-  case routing::IRouter::FileTooOld:
-  case routing::IRouter::RouteNotFound:
+  case routing::RouterResultCode::RouteFileNotExist:
+  case routing::RouterResultCode::InconsistentMWMandRoute:
+  case routing::RouterResultCode::NeedMoreMaps:
+  case routing::RouterResultCode::FileTooOld:
+  case routing::RouterResultCode::RouteNotFound:
     if ([MWMRouter isTaxi])
       return;
     [self presentDownloaderAlert:code countries:absentCountries];
     [[MWMNavigationDashboardManager manager] onRouteError:L(@"routing_planning_error")];
     break;
-  case routing::IRouter::Cancelled:
+  case routing::RouterResultCode::Cancelled:
     [mapViewControlsManager onRoutePrepare];
     break;
-  case routing::IRouter::StartPointNotFound:
-  case routing::IRouter::EndPointNotFound:
-  case routing::IRouter::NoCurrentPosition:
-  case routing::IRouter::PointsInDifferentMWM:
-  case routing::IRouter::InternalError:
-  case routing::IRouter::IntermediatePointNotFound:
-  case routing::IRouter::TransitRouteNotFoundNoNetwork:
-  case routing::IRouter::TransitRouteNotFoundTooLongPedestrian:
-  case routing::IRouter::RouteNotFoundRedressRouteError:
+  case routing::RouterResultCode::StartPointNotFound:
+  case routing::RouterResultCode::EndPointNotFound:
+  case routing::RouterResultCode::NoCurrentPosition:
+  case routing::RouterResultCode::PointsInDifferentMWM:
+  case routing::RouterResultCode::InternalError:
+  case routing::RouterResultCode::IntermediatePointNotFound:
+  case routing::RouterResultCode::TransitRouteNotFoundNoNetwork:
+  case routing::RouterResultCode::TransitRouteNotFoundTooLongPedestrian:
+  case routing::RouterResultCode::RouteNotFoundRedressRouteError:
     if ([MWMRouter isTaxi])
       return;
     [[MWMAlertViewController activeAlertController] presentAlert:code];
@@ -657,7 +657,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 
 #pragma mark - Alerts
 
-- (void)presentDownloaderAlert:(routing::IRouter::ResultCode)code
+- (void)presentDownloaderAlert:(routing::RouterResultCode)code
                      countries:(storage::TCountriesVec const &)countries
 {
   MWMAlertViewController * activeAlertController = [MWMAlertViewController activeAlertController];
@@ -674,7 +674,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
     [activeAlertController presentDownloaderAlertWithCountries:countries
         code:code
         cancelBlock:^{
-          if (code != routing::IRouter::NeedMoreMaps)
+          if (code != routing::RouterResultCode::NeedMoreMaps)
             [MWMRouter stopRouting];
         }
         downloadBlock:^(storage::TCountriesVec const & downloadCountries, MWMVoidBlock onSuccess) {

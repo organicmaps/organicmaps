@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/async_router.hpp"
+#include "routing/routing_callbacks.hpp"
 #include "routing/route.hpp"
 #include "routing/router.hpp"
 #include "routing/turns.hpp"
@@ -75,16 +76,10 @@ public:
    * RouteFinished -> RouteNotReady       // start new route
    */
 
-  using RoutingStatisticsCallback = function<void(map<string, string> const &)>;
-  using ReadyCallback = function<void(Route const &, IRouter::ResultCode)>;
-  using ProgressCallback = function<void(float)>;
-  using CheckpointCallback = function<void(size_t passedCheckpointIdx)>;
-  using RouteCallback = function<void(Route const &)>;
-
   RoutingSession();
 
   void Init(RoutingStatisticsCallback const & routingStatisticsFn,
-            RouterDelegate::TPointCheckCallback const & pointCheckCallback);
+            PointCheckCallback const & pointCheckCallback);
 
   void SetRouter(unique_ptr<IRouter> && router, unique_ptr<OnlineAbsentCountriesFetcher> && fetcher);
 
@@ -187,11 +182,11 @@ private:
     {
     }
 
-    void operator()(Route & route, IRouter::ResultCode e);
+    void operator()(Route & route, RouterResultCode e);
   };
 
   // Should be called with locked m_routingSessionMutex.
-  void AssignRoute(Route & route, IRouter::ResultCode e);
+  void AssignRoute(Route & route, RouterResultCode e);
 
   /// Returns a nearest speed camera record on your way and distance to it.
   /// Returns kInvalidSpeedCameraDistance if there is no cameras on your way.

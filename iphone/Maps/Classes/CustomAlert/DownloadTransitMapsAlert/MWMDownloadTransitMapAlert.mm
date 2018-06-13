@@ -57,7 +57,7 @@ CGFloat const kAnimationDuration = .05;
 }
 
 + (instancetype)downloaderAlertWithMaps:(storage::TCountriesVec const &)countries
-                                   code:(routing::IRouter::ResultCode)code
+                                   code:(routing::RouterResultCode)code
                             cancelBlock:(MWMVoidBlock)cancelBlock
                           downloadBlock:(MWMDownloadBlock)downloadBlock
                   downloadCompleteBlock:(MWMVoidBlock)downloadCompleteBlock
@@ -66,17 +66,17 @@ CGFloat const kAnimationDuration = .05;
   MWMDownloadTransitMapAlert * alert = [self alertWithCountries:countries];
   switch (code)
   {
-    case routing::IRouter::InconsistentMWMandRoute:
-    case routing::IRouter::RouteNotFound:
-    case routing::IRouter::RouteFileNotExist:
+    case routing::RouterResultCode::InconsistentMWMandRoute:
+    case routing::RouterResultCode::RouteNotFound:
+    case routing::RouterResultCode::RouteFileNotExist:
       alert.titleLabel.localizedText = @"dialog_routing_download_files";
       alert.messageLabel.localizedText = @"dialog_routing_download_and_update_all";
       break;
-    case routing::IRouter::FileTooOld:
+    case routing::RouterResultCode::FileTooOld:
       alert.titleLabel.localizedText = @"dialog_routing_download_files";
       alert.messageLabel.localizedText = @"dialog_routing_download_and_update_maps";
       break;
-    case routing::IRouter::NeedMoreMaps:
+    case routing::RouterResultCode::NeedMoreMaps:
       alert.titleLabel.localizedText = @"dialog_routing_download_and_build_cross_route";
       alert.messageLabel.localizedText = @"dialog_routing_download_cross_route";
       break;

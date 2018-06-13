@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "routing/routing_callbacks.hpp"
+
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
 #include "geometry/mercator.hpp"
@@ -396,8 +398,8 @@ UNIT_TEST(RussiaZgradPanfilovskyUndergroundCrossing)
                                   MercatorBounds::FromLatLon(55.98419, 37.17938));
 
   Route const & route = *routeResult.first;
-  IRouter::ResultCode const result = routeResult.second;
-  TEST_EQUAL(result, IRouter::NoError, ());
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
 
   vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
@@ -416,8 +418,8 @@ UNIT_TEST(RussiaMoscowHydroprojectBridgeCrossing)
                                   MercatorBounds::FromLatLon(55.80884, 37.50668));
 
   Route const & route = *routeResult.first;
-  IRouter::ResultCode const result = routeResult.second;
-  TEST_EQUAL(result, IRouter::NoError, ());
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
 
   vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
@@ -436,8 +438,8 @@ UNIT_TEST(BelarusMinskRenaissanceHotelUndergroundCross)
                                   MercatorBounds::FromLatLon(53.89262, 27.52838));
 
   Route const & route = *routeResult.first;
-  IRouter::ResultCode const result = routeResult.second;
-  TEST_EQUAL(result, IRouter::NoError, ());
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
 
   vector<turns::TurnItem> t;
   route.GetTurnsForTesting(t);
@@ -471,8 +473,8 @@ UNIT_TEST(RussiaMoscowSevTushinoParkPedestrianOnePointTurnTest)
       integration::GetVehicleComponents<VehicleType::Pedestrian>(), point, {0.0, 0.0}, point);
 
   Route const & route = *routeResult.first;
-  IRouter::ResultCode const result = routeResult.second;
-  TEST_EQUAL(result, IRouter::NoError, ());
+  RouterResultCode const result = routeResult.second;
+  TEST_EQUAL(result, RouterResultCode::NoError, ());
   integration::TestTurnCount(route, 0 /* expectedTurnCount */);
   integration::TestRouteLength(route, 0.0);
 }

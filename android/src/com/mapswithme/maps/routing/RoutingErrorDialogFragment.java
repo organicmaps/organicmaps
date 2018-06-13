@@ -18,7 +18,7 @@ import com.mapswithme.util.UiUtils;
 
 public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
 {
-  private static final String EXTRA_RESULT_CODE = "ResultCode";
+  private static final String EXTRA_RESULT_CODE = "RouterResultCode";
 
   private int mResultCode;
   private String mMessage;

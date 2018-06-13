@@ -13,6 +13,7 @@
 #include "routing/online_cross_fetcher.hpp"
 #include "routing/route.hpp"
 #include "routing/router_delegate.hpp"
+#include "routing/routing_callbacks.hpp"
 
 #include "indexer/index.hpp"
 
@@ -170,7 +171,7 @@ namespace integration
   {
     RouterDelegate delegate;
     shared_ptr<Route> route(new Route("mapsme"));
-    IRouter::ResultCode result = routerComponents.GetRouter().CalculateRoute(
+    RouterResultCode result = routerComponents.GetRouter().CalculateRoute(
         Checkpoints(startPoint, finalPoint), startDirection, false /* adjust */, delegate, *route);
     ASSERT(route, ());
     return TRouteResult(route, result);
@@ -236,8 +237,8 @@ namespace integration
   {
     TRouteResult routeResult =
         CalculateRoute(routerComponents, startPoint, startDirection, finalPoint);
-    IRouter::ResultCode const result = routeResult.second;
-    TEST_EQUAL(result, IRouter::NoError, ());
+    RouterResultCode const result = routeResult.second;
+    TEST_EQUAL(result, RouterResultCode::NoError, ());
     TestRouteLength(*routeResult.first, expectedRouteMeters, relativeError);
   }
 

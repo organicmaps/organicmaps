@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "routing/routing_callbacks.hpp"
+
 #include "routing/routing_integration_tests/routing_test_tools.hpp"
 
 #include "geometry/mercator.hpp"
@@ -98,14 +100,14 @@ namespace
         integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                     MercatorBounds::FromLatLon(45.34123, 36.67679), {0., 0.},
                                     MercatorBounds::FromLatLon(45.36479, 36.62194));
-    TEST_EQUAL(route.second, IRouter::NoError, ());
+    TEST_EQUAL(route.second, RouterResultCode::NoError, ());
     CHECK(route.first, ());
     integration::TestRoutePointsNumber(*route.first, kExpectedPointsNumber);
     // And backward case
     route = integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                         MercatorBounds::FromLatLon(45.36479, 36.62194), {0., 0.},
                                         MercatorBounds::FromLatLon(45.34123, 36.67679));
-    TEST_EQUAL(route.second, IRouter::NoError, ());
+    TEST_EQUAL(route.second, RouterResultCode::NoError, ());
     CHECK(route.first, ());
     integration::TestRoutePointsNumber(*route.first, kExpectedPointsNumber);
   }
@@ -118,14 +120,14 @@ namespace
         integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                     MercatorBounds::FromLatLon(46.16255, -63.81643), {0., 0.},
                                     MercatorBounds::FromLatLon(46.25401, -63.70213));
-    TEST_EQUAL(route.second, IRouter::NoError, ());
+    TEST_EQUAL(route.second, RouterResultCode::NoError, ());
     CHECK(route.first, ());
     integration::TestRoutePointsNumber(*route.first, kExpectedPointsNumber);
     // And backward case
     route = integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                         MercatorBounds::FromLatLon(46.25401, -63.70213), {0., 0.},
                                         MercatorBounds::FromLatLon(46.16255, -63.81643));
-    TEST_EQUAL(route.second, IRouter::NoError, ());
+    TEST_EQUAL(route.second, RouterResultCode::NoError, ());
     CHECK(route.first, ());
     integration::TestRoutePointsNumber(*route.first, kExpectedPointsNumber);
   }
@@ -314,8 +316,8 @@ namespace
                                     MercatorBounds::FromLatLon(54.7998, 32.05489), {0., 0.},
                                     MercatorBounds::FromLatLon(55.753, 37.60169));
 
-    IRouter::ResultCode const result = routeResult.second;
-    TEST_EQUAL(result, IRouter::NoError, ());
+    RouterResultCode const result = routeResult.second;
+    TEST_EQUAL(result, RouterResultCode::NoError, ());
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
@@ -328,8 +330,8 @@ namespace
         integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                     MercatorBounds::FromLatLon(55.7971, 37.53804), {0., 0.},
                                     MercatorBounds::FromLatLon(55.8579, 37.40990));
-    IRouter::ResultCode const result = routeResult.second;
-    TEST_EQUAL(result, IRouter::NoError, ());
+    RouterResultCode const result = routeResult.second;
+    TEST_EQUAL(result, RouterResultCode::NoError, ());
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
@@ -343,8 +345,8 @@ namespace
                                     MercatorBounds::FromLatLon(55.7971, 37.53804), {0., 0.},
                                     MercatorBounds::FromLatLon(55.8579, 37.40990));
 
-    IRouter::ResultCode const result = routeResult.second;
-    TEST_EQUAL(result, IRouter::NoError, ());
+    RouterResultCode const result = routeResult.second;
+    TEST_EQUAL(result, RouterResultCode::NoError, ());
 
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
@@ -362,8 +364,8 @@ namespace
         integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                     MercatorBounds::FromLatLon(34.0739, -115.3212), {0.0, 0.0},
                                     MercatorBounds::FromLatLon(34.0928, -115.5930));
-    IRouter::ResultCode const result = routeResult.second;
-    TEST_EQUAL(result, IRouter::NoError, ());
+    RouterResultCode const result = routeResult.second;
+    TEST_EQUAL(result, RouterResultCode::NoError, ());
     CHECK(routeResult.first, ());
     Route const & route = *routeResult.first;
     TEST_LESS(route.GetTotalTimeSec(), numeric_limits<double >::max() / 2.0, ());
@@ -376,8 +378,8 @@ namespace
         integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                     MercatorBounds::FromLatLon(48.47831, -123.32749), {0.0, 0.0},
                                     MercatorBounds::FromLatLon(49.26242, -123.11553));
-    IRouter::ResultCode const result = routeResult.second;
-    TEST_EQUAL(result, IRouter::NoError, ());
+    RouterResultCode const result = routeResult.second;
+    TEST_EQUAL(result, RouterResultCode::NoError, ());
   }
 
   // Test on the route with the finish near zero length edge.
@@ -387,8 +389,8 @@ namespace
         integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                     MercatorBounds::FromLatLon(53.08279, 25.30036), {0.0, 0.0},
                                     MercatorBounds::FromLatLon(53.09443, 25.34356));
-    IRouter::ResultCode const result = routeResult.second;
-    TEST_EQUAL(result, IRouter::NoError, ());
+    RouterResultCode const result = routeResult.second;
+    TEST_EQUAL(result, RouterResultCode::NoError, ());
   }
 
   // Test on the route with the start near zero length edge.
@@ -398,8 +400,8 @@ namespace
         integration::CalculateRoute(integration::GetVehicleComponents<VehicleType::Car>(),
                                     MercatorBounds::FromLatLon(53.09422, 25.34411), {0.0, 0.0},
                                     MercatorBounds::FromLatLon(53.09271, 25.3467));
-    IRouter::ResultCode const result = routeResult.second;
-    TEST_EQUAL(result, IRouter::NoError, ());
+    RouterResultCode const result = routeResult.second;
+    TEST_EQUAL(result, RouterResultCode::NoError, ());
   }
 
   // Test of decreasing speed factor on roads with bad cover.

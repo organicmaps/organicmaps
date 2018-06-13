@@ -5,6 +5,7 @@
 #include "map/transit/transit_display.hpp"
 #include "map/transit/transit_reader.hpp"
 
+#include "routing/routing_callbacks.hpp"
 #include "routing/route.hpp"
 #include "routing/routing_session.hpp"
 
@@ -92,8 +93,7 @@ public:
   };
 
   using RouteBuildingCallback =
-      std::function<void(routing::IRouter::ResultCode, storage::TCountriesVec const &)>;
-  using RouteProgressCallback = std::function<void(float)>;
+      std::function<void(routing::RouterResultCode, storage::TCountriesVec const &)>;
 
   enum class Recommendation
   {
@@ -133,7 +133,7 @@ public:
     m_routingCallback = buildingCallback;
   }
   /// See warning above.
-  void SetRouteProgressListener(RouteProgressCallback const & progressCallback)
+  void SetRouteProgressListener(routing::ProgressCallback const & progressCallback)
   {
     m_routingSession.SetProgressCallback(progressCallback);
   }
@@ -204,10 +204,10 @@ public:
   void RemoveRoute(bool deactivateFollowing);
 
   void CheckLocationForRouting(location::GpsInfo const & info);
-  void CallRouteBuilded(routing::IRouter::ResultCode code,
+  void CallRouteBuilded(routing::RouterResultCode code,
                         storage::TCountriesVec const & absentCountries);
-  void OnBuildRouteReady(routing::Route const & route, routing::IRouter::ResultCode code);
-  void OnRebuildRouteReady(routing::Route const & route, routing::IRouter::ResultCode code);
+  void OnBuildRouteReady(routing::Route const & route, routing::RouterResultCode code);
+  void OnRebuildRouteReady(routing::Route const & route, routing::RouterResultCode code);
   void OnRoutePointPassed(RouteMarkType type, size_t intermediateIndex);
   void OnLocationUpdate(location::GpsInfo & info);
   void SetAllowSendingPoints(bool isAllowed)

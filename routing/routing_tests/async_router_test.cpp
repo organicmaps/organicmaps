@@ -2,6 +2,7 @@
 
 #include "routing/async_router.hpp"
 #include "routing/router.hpp"
+#include "routing/routing_callbacks.hpp"
 #include "routing/online_absent_fetcher.hpp"
 
 #include "geometry/point2d.hpp"
@@ -16,21 +17,19 @@
 using namespace routing;
 using namespace std::placeholders;
 
-using ResultCode = routing::IRouter::ResultCode;
-
 namespace
 {
 class DummyRouter : public IRouter
 {
-  ResultCode m_result;
+  RouterResultCode m_result;
   vector<string> m_absent;
 
 public:
-  DummyRouter(ResultCode code, vector<string> const & absent) : m_result(code), m_absent(absent) {}
+  DummyRouter(RouterResultCode code, vector<string> const & absent) : m_result(code), m_absent(absent) {}
   
   // IRouter overrides:
   string GetName() const override { return "Dummy"; }
-  ResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
+  RouterResultCode CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & startDirection,
                             bool adjustToPrevRoute, RouterDelegate const & delegate,
                             Route & route) override
   {
@@ -59,7 +58,7 @@ void DummyStatisticsCallback(map<string, string> const &) {}
 
 struct DummyResultCallback
 {
-  vector<ResultCode> m_codes;
+  vector<RouterResultCode> m_codes;
   vector<vector<string>> m_absent;
   condition_variable m_cv;
   mutex m_lock;
@@ -68,7 +67,7 @@ struct DummyResultCallback
 
   DummyResultCallback(uint32_t expectedCalls) : m_expected(expectedCalls), m_called(0) {}
 
-  void operator()(Route & route, ResultCode code)
+  void operator()(Route & route, RouterResultCode code)
   {
     m_codes.push_back(code);
     auto const & absent = route.GetAbsentCountries();
@@ -93,7 +92,7 @@ UNIT_TEST(NeedMoreMapsSignalTest)
 {
   vector<string> const absentData({"test1", "test2"});
   unique_ptr<IOnlineFetcher> fetcher(new DummyFetcher(absentData));
-  unique_ptr<IRouter> router(new DummyRouter(ResultCode::NoError, {}));
+  unique_ptr<IRouter> router(new DummyRouter(RouterResultCode::NoError, {}));
   DummyResultCallback resultCallback(2 /* expectedCalls */);
   AsyncRouter async(DummyStatisticsCallback, nullptr /* pointCheckCallback */);
   async.SetRouter(move(router), move(fetcher));
@@ -103,8 +102,8 @@ UNIT_TEST(NeedMoreMapsSignalTest)
   resultCallback.WaitFinish();
 
   TEST_EQUAL(resultCallback.m_codes.size(), 2, ());
-  TEST_EQUAL(resultCallback.m_codes[0], ResultCode::NoError, ());
-  TEST_EQUAL(resultCallback.m_codes[1], ResultCode::NeedMoreMaps, ());
+  TEST_EQUAL(resultCallback.m_codes[0], RouterResultCode::NoError, ());
+  TEST_EQUAL(resultCallback.m_codes[1], RouterResultCode::NeedMoreMaps, ());
   TEST_EQUAL(resultCallback.m_absent.size(), 2, ());
   TEST(resultCallback.m_absent[0].empty(), ());
   TEST_EQUAL(resultCallback.m_absent[1].size(), 2, ());
@@ -114,7 +113,7 @@ UNIT_TEST(NeedMoreMapsSignalTest)
 UNIT_TEST(StandartAsyncFogTest)
 {
   unique_ptr<IOnlineFetcher> fetcher(new DummyFetcher({}));
-  unique_ptr<IRouter> router(new DummyRouter(ResultCode::NoError, {}));
+  unique_ptr<IRouter> router(new DummyRouter(RouterResultCode::NoError, {}));
   DummyResultCallback resultCallback(1 /* expectedCalls */);
   AsyncRouter async(DummyStatisticsCallback, nullptr /* pointCheckCallback */);
   async.SetRouter(move(router), move(fetcher));
@@ -124,7 +123,7 @@ UNIT_TEST(StandartAsyncFogTest)
   resultCallback.WaitFinish();
 
   TEST_EQUAL(resultCallback.m_codes.size(), 1, ());
-  TEST_EQUAL(resultCallback.m_codes[0], ResultCode::NoError, ());
+  TEST_EQUAL(resultCallback.m_codes[0], RouterResultCode::NoError, ());
   TEST_EQUAL(resultCallback.m_absent.size(), 1, ());
   TEST(resultCallback.m_absent[0].empty(), ());
 }

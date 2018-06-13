@@ -1151,8 +1151,11 @@ JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetRoutingListener(JNIEnv * env, jclass, jobject listener)
 {
   CHECK(g_framework, ("Framework isn't created yet!"));
+  auto rf = jni::make_global_ref(listener);
   frm()->GetRoutingManager().SetRouteBuildingListener(
-      bind(&CallRoutingListener, jni::make_global_ref(listener), _1, _2));
+      [rf](routing::RouterResultCode e, storage::TCountriesVec const & v) {
+        CallRoutingListener(rf, static_cast<int>(e), v);
+      });
 }
 
 JNIEXPORT void JNICALL

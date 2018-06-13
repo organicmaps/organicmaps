@@ -74,7 +74,7 @@ RoutingSession::RoutingSession()
 }
 
 void RoutingSession::Init(RoutingStatisticsCallback const & routingStatisticsFn,
-                          RouterDelegate::TPointCheckCallback const & pointCheckCallback)
+                          PointCheckCallback const & pointCheckCallback)
 {
   threads::MutexGuard guard(m_routingSessionMutex);
   ASSERT(m_router == nullptr, ());
@@ -134,13 +134,13 @@ m2::PointD RoutingSession::GetEndPoint() const
   return m_checkpoints.GetFinish();
 }
 
-void RoutingSession::DoReadyCallback::operator()(Route & route, IRouter::ResultCode e)
+void RoutingSession::DoReadyCallback::operator()(Route & route, RouterResultCode e)
 {
   threads::MutexGuard guard(m_routeSessionMutexInner);
 
   ASSERT(m_rs.m_route, ());
 
-  if (e != IRouter::NeedMoreMaps)
+  if (e != RouterResultCode::NeedMoreMaps)
   {
     m_rs.AssignRoute(route, e);
   }
@@ -505,16 +505,16 @@ void RoutingSession::GenerateTurnNotifications(vector<string> & turnNotification
     m_turnNotificationsMgr.GenerateTurnNotifications(turns, turnNotifications);
 }
 
-void RoutingSession::AssignRoute(Route & route, IRouter::ResultCode e)
+void RoutingSession::AssignRoute(Route & route, RouterResultCode e)
 {
-  if (e != IRouter::Cancelled)
+  if (e != RouterResultCode::Cancelled)
   {
     if (route.IsValid())
       SetState(RouteNotStarted);
     else
       SetState(RoutingNotActive);
 
-    if (e != IRouter::NoError)
+    if (e != RouterResultCode::NoError)
       SetState(RouteNotReady);
   }
   else

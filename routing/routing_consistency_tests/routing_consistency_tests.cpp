@@ -85,7 +85,7 @@ public:
   {
     m_components.GetRouter().ClearState();
     auto const result = integration::CalculateRoute(m_components, record.start, m2::PointD::Zero(), record.stop);
-    if (result.second != IRouter::NoError)
+    if (result.second != RouterResultCode::NoError)
     {
       LOG(LINFO, ("Can't build the route. Code:", result.second));
       return false;

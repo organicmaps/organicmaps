@@ -19,34 +19,6 @@ namespace routing
 
 namespace
 {
-
-string ToString(IRouter::ResultCode code)
-{
-  switch (code)
-  {
-  case IRouter::NoError: return "NoError";
-  case IRouter::Cancelled: return "Cancelled";
-  case IRouter::NoCurrentPosition: return "NoCurrentPosition";
-  case IRouter::InconsistentMWMandRoute: return "InconsistentMWMandRoute";
-  case IRouter::RouteFileNotExist: return "RouteFileNotExist";
-  case IRouter::StartPointNotFound: return "StartPointNotFound";
-  case IRouter::EndPointNotFound: return "EndPointNotFound";
-  case IRouter::PointsInDifferentMWM: return "PointsInDifferentMWM";
-  case IRouter::RouteNotFound: return "RouteNotFound";
-  case IRouter::InternalError: return "InternalError";
-  case IRouter::NeedMoreMaps: return "NeedMoreMaps";
-  case IRouter::FileTooOld: return "FileTooOld";
-  case IRouter::IntermediatePointNotFound: return "IntermediatePointNotFound";
-  case IRouter::TransitRouteNotFoundNoNetwork: return "TransitRouteNotFoundNoNetwork";
-  case IRouter::TransitRouteNotFoundTooLongPedestrian: return "TransitRouteNotFoundTooLongPedestrian";
-  case IRouter::RouteNotFoundRedressRouteError: return "RouteNotFoundRedressRouteError";
-  }
-
-  string const result = "Unknown IRouter::ResultCode:" + to_string(static_cast<int>(code));
-  ASSERT(false, (result));
-  return result;
-}
-
 map<string, string> PrepareStatisticsData(string const & routerName,
                                           m2::PointD const & startPoint, m2::PointD const & startDirection,
                                           m2::PointD const & finalPoint)
@@ -69,8 +41,8 @@ map<string, string> PrepareStatisticsData(string const & routerName,
 // ----------------------------------------------------------------------------------------------------------------------------
 
 AsyncRouter::RouterDelegateProxy::RouterDelegateProxy(TReadyCallback const & onReady,
-                                                      RouterDelegate::TPointCheckCallback const & onPointCheck,
-                                                      RouterDelegate::TProgressCallback const & onProgress,
+                                                      PointCheckCallback const & onPointCheck,
+                                                      ProgressCallback const & onProgress,
                                                       uint32_t timeoutSec)
   : m_onReady(onReady), m_onPointCheck(onPointCheck), m_onProgress(onProgress)
 {
@@ -80,7 +52,7 @@ AsyncRouter::RouterDelegateProxy::RouterDelegateProxy(TReadyCallback const & onR
   m_delegate.SetTimeout(timeoutSec);
 }
 
-void AsyncRouter::RouterDelegateProxy::OnReady(Route & route, IRouter::ResultCode resultCode)
+void AsyncRouter::RouterDelegateProxy::OnReady(Route & route, RouterResultCode resultCode)
 {
   if (!m_onReady)
     return;
@@ -124,8 +96,8 @@ void AsyncRouter::RouterDelegateProxy::OnPointCheck(m2::PointD const & pt)
 
 // ----------------------------------------------------------------------------------------------------------------------------
 
-AsyncRouter::AsyncRouter(TRoutingStatisticsCallback const & routingStatisticsCallback,
-                         RouterDelegate::TPointCheckCallback const & pointCheckCallback)
+AsyncRouter::AsyncRouter(RoutingStatisticsCallback const & routingStatisticsCallback,
+                         PointCheckCallback const & pointCheckCallback)
     : m_threadExit(false), m_hasRequest(false), m_clearState(false),
       m_routingStatisticsCallback(routingStatisticsCallback),
       m_pointCheckCallback(pointCheckCallback)
@@ -159,7 +131,7 @@ void AsyncRouter::SetRouter(unique_ptr<IRouter> && router, unique_ptr<IOnlineFet
 
 void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction,
                                  bool adjustToPrevRoute, TReadyCallback const & readyCallback,
-                                 RouterDelegate::TProgressCallback const & progressCallback,
+                                 ProgressCallback const & progressCallback,
                                  uint32_t timeoutSec)
 {
   unique_lock<mutex> ul(m_guard);
@@ -186,58 +158,58 @@ void AsyncRouter::ClearState()
   ResetDelegate();
 }
 
-void AsyncRouter::LogCode(IRouter::ResultCode code, double const elapsedSec)
+void AsyncRouter::LogCode(RouterResultCode code, double const elapsedSec)
 {
   switch (code)
   {
-    case IRouter::StartPointNotFound:
+    case RouterResultCode::StartPointNotFound:
       LOG(LWARNING, ("Can't find start or end node"));
       break;
-    case IRouter::EndPointNotFound:
+    case RouterResultCode::EndPointNotFound:
       LOG(LWARNING, ("Can't find end point node"));
       break;
-    case IRouter::PointsInDifferentMWM:
+    case RouterResultCode::PointsInDifferentMWM:
       LOG(LWARNING, ("Points are in different MWMs"));
       break;
-    case IRouter::RouteNotFound:
+    case RouterResultCode::RouteNotFound:
       LOG(LWARNING, ("Route not found"));
       break;
-    case IRouter::RouteFileNotExist:
+    case RouterResultCode::RouteFileNotExist:
       LOG(LWARNING, ("There is no routing file"));
       break;
-    case IRouter::NeedMoreMaps:
+    case RouterResultCode::NeedMoreMaps:
       LOG(LINFO,
           ("Routing can find a better way with additional maps, elapsed seconds:", elapsedSec));
       break;
-    case IRouter::Cancelled:
+    case RouterResultCode::Cancelled:
       LOG(LINFO, ("Route calculation cancelled, elapsed seconds:", elapsedSec));
       break;
-    case IRouter::NoError:
+    case RouterResultCode::NoError:
       LOG(LINFO, ("Route found, elapsed seconds:", elapsedSec));
       break;
-    case IRouter::NoCurrentPosition:
+    case RouterResultCode::NoCurrentPosition:
       LOG(LINFO, ("No current position"));
       break;
-    case IRouter::InconsistentMWMandRoute:
+    case RouterResultCode::InconsistentMWMandRoute:
       LOG(LINFO, ("Inconsistent mwm and route"));
       break;
-    case IRouter::InternalError:
+    case RouterResultCode::InternalError:
       LOG(LINFO, ("Internal error"));
       break;
-    case IRouter::FileTooOld:
+    case RouterResultCode::FileTooOld:
       LOG(LINFO, ("File too old"));
       break;
-    case IRouter::IntermediatePointNotFound:
+    case RouterResultCode::IntermediatePointNotFound:
       LOG(LWARNING, ("Can't find intermediate point node"));
       break;
-    case IRouter::TransitRouteNotFoundNoNetwork:
+    case RouterResultCode::TransitRouteNotFoundNoNetwork:
       LOG(LWARNING, ("No transit route is found because there's no transit network in the mwm of "
                      "the route point"));
       break;
-    case IRouter::TransitRouteNotFoundTooLongPedestrian:
+    case RouterResultCode::TransitRouteNotFoundTooLongPedestrian:
       LOG(LWARNING, ("No transit route is found because pedestrian way is too long"));
       break;
-    case IRouter::RouteNotFoundRedressRouteError:
+    case RouterResultCode::RouteNotFoundRedressRouteError:
       LOG(LWARNING, ("Route not found because of a redress route error"));
       break;
   }
@@ -307,7 +279,7 @@ void AsyncRouter::CalculateRoute()
   }
 
   Route route(router->GetName());
-  IRouter::ResultCode code;
+  RouterResultCode code;
 
   my::Timer timer;
   double elapsedSec = 0.0;
@@ -329,7 +301,7 @@ void AsyncRouter::CalculateRoute()
   }
   catch (RootException const & e)
   {
-    code = IRouter::InternalError;
+    code = RouterResultCode::InternalError;
     LOG(LERROR, ("Exception happened while calculating route:", e.Msg()));
     SendStatistics(checkpoints.GetStart(), startDirection, checkpoints.GetFinish(), e.Msg());
     delegate->OnReady(route, code);
@@ -340,10 +312,10 @@ void AsyncRouter::CalculateRoute()
                  elapsedSec);
 
   // Draw route without waiting network latency.
-  if (code == IRouter::NoError)
+  if (code == RouterResultCode::NoError)
     delegate->OnReady(route, code);
 
-  bool const needFetchAbsent = (code != IRouter::Cancelled);
+  bool const needFetchAbsent = (code != RouterResultCode::Cancelled);
 
   // Check online response if we have.
   vector<string> absent;
@@ -354,20 +326,20 @@ void AsyncRouter::CalculateRoute()
       route.AddAbsentCountry(country);
   }
 
-  if (!absent.empty() && code == IRouter::NoError)
-    code = IRouter::NeedMoreMaps;
+  if (!absent.empty() && code == RouterResultCode::NoError)
+    code = RouterResultCode::NeedMoreMaps;
 
   elapsedSec = timer.ElapsedSeconds(); // routing time + absents fetch time
   LogCode(code, elapsedSec);
 
   // Call callback only if we have some new data.
-  if (code != IRouter::NoError)
+  if (code != RouterResultCode::NoError)
     delegate->OnReady(route, code);
 }
 
 void AsyncRouter::SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,
                                  m2::PointD const & finalPoint,
-                                 IRouter::ResultCode resultCode,
+                                 RouterResultCode resultCode,
                                  Route const & route,
                                  double elapsedSec)
 {
@@ -375,10 +347,10 @@ void AsyncRouter::SendStatistics(m2::PointD const & startPoint, m2::PointD const
     return;
 
   map<string, string> statistics = PrepareStatisticsData(m_router->GetName(), startPoint, startDirection, finalPoint);
-  statistics.emplace("result", ToString(resultCode));
+  statistics.emplace("result", DebugPrint(resultCode));
   statistics.emplace("elapsed", strings::to_string(elapsedSec));
 
-  if (IRouter::NoError == resultCode)
+  if (RouterResultCode::NoError == resultCode)
     statistics.emplace("distance", strings::to_string(route.GetTotalDistanceMeters()));
 
   m_routingStatisticsCallback(statistics);

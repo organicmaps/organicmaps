@@ -1,6 +1,7 @@
 #pragma once
 
 #include "routing/loaded_path_segment.hpp"
+#include "routing/routing_callbacks.hpp"
 #include "routing/routing_result_graph.hpp"
 #include "routing/route.hpp"
 #include "routing/router.hpp"
@@ -93,7 +94,7 @@ bool GetNextRoutePointIndex(IRoutingResult const & result, RoutePointIndex const
  * \param segments route segments.
  * \return routing operation result code.
  */
-IRouter::ResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds const & numMwmIds,
+RouterResultCode MakeTurnAnnotation(IRoutingResult const & result, NumMwmIds const & numMwmIds,
                                        RouterDelegate const & delegate, std::vector<Junction> & points,
                                        Route::TTurns & turnsDir, Route::TStreets & streets,
                                        std::vector<Segment> & segments);

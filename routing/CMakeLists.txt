@@ -90,6 +90,7 @@ set(
   router.hpp
   router_delegate.cpp
   router_delegate.hpp
+  routing_callbacks.hpp
   routing_exceptions.hpp
   routing_helpers.cpp
   routing_helpers.hpp

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "routing/routing_callbacks.hpp"
 #include "routing/checkpoints.hpp"
 #include "routing/online_absent_fetcher.hpp"
 #include "routing/route.hpp"
@@ -23,14 +24,14 @@ class AsyncRouter final
 {
 public:
   /// Callback takes ownership of passed route.
-  using TReadyCallback = function<void(Route &, IRouter::ResultCode)>;
+  using TReadyCallback = function<void(Route &, RouterResultCode)>;
 
   /// Callback on routing statistics
-  using TRoutingStatisticsCallback = function<void(map<string, string> const &)>;
+//  using TRoutingStatisticsCallback = function<void(map<string, string> const &)>;
 
   /// AsyncRouter is a wrapper class to run routing routines in the different thread
-  AsyncRouter(TRoutingStatisticsCallback const & routingStatisticsCallback,
-              RouterDelegate::TPointCheckCallback const & pointCheckCallback);
+  AsyncRouter(RoutingStatisticsCallback const & routingStatisticsCallback,
+              PointCheckCallback const & pointCheckCallback);
   ~AsyncRouter();
 
   /// Sets a synchronous router, current route calculation will be cancelled
@@ -49,7 +50,7 @@ public:
   /// @param timeoutSec timeout to cancel routing. 0 is infinity.
   void CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction,
                       bool adjustToPrevRoute, TReadyCallback const & readyCallback,
-                      RouterDelegate::TProgressCallback const & progressCallback,
+                      ProgressCallback const & progressCallback,
                       uint32_t timeoutSec);
 
   /// Interrupt routing and clear buffers
@@ -67,25 +68,25 @@ private:
   /// These functions are called to send statistics about the routing
   void SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,
                       m2::PointD const & finalPoint,
-                      IRouter::ResultCode resultCode,
+                      RouterResultCode resultCode,
                       Route const & route,
                       double elapsedSec);
   void SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,
                       m2::PointD const & finalPoint,
                       string const & exceptionMessage);
 
-  void LogCode(IRouter::ResultCode code, double const elapsedSec);
+  void LogCode(RouterResultCode code, double const elapsedSec);
 
   /// Blocks callbacks when routing has been cancelled
   class RouterDelegateProxy
   {
   public:
     RouterDelegateProxy(TReadyCallback const & onReady,
-                        RouterDelegate::TPointCheckCallback const & onPointCheck,
-                        RouterDelegate::TProgressCallback const & onProgress,
+                        PointCheckCallback const & onPointCheck,
+                        ProgressCallback const & onProgress,
                         uint32_t timeoutSec);
 
-    void OnReady(Route & route, IRouter::ResultCode resultCode);
+    void OnReady(Route & route, RouterResultCode resultCode);
     void Cancel();
 
     RouterDelegate const & GetDelegate() const { return m_delegate; }
@@ -96,8 +97,8 @@ private:
 
     mutex m_guard;
     TReadyCallback const m_onReady;
-    RouterDelegate::TPointCheckCallback const m_onPointCheck;
-    RouterDelegate::TProgressCallback const m_onProgress;
+    PointCheckCallback const m_onPointCheck;
+    ProgressCallback const m_onProgress;
     RouterDelegate m_delegate;
   };
 
@@ -119,8 +120,8 @@ private:
   shared_ptr<IOnlineFetcher> m_absentFetcher;
   shared_ptr<IRouter> m_router;
 
-  TRoutingStatisticsCallback const m_routingStatisticsCallback;
-  RouterDelegate::TPointCheckCallback const m_pointCheckCallback;
+  RoutingStatisticsCallback const m_routingStatisticsCallback;
+  PointCheckCallback const m_pointCheckCallback;
 };
 
 }  // namespace routing
