@@ -427,7 +427,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 + (BOOL)areAllCategoriesInvisible
 {
-  return GetFramework().GetBookmarkManager().AreAllCategoriesInvisible();
+  return GetFramework().GetBookmarkManager().AreAllCategoriesInvisible(BookmarkManager::CategoryFilterType::All);
 }
 
 + (void)setNotificationsEnabled:(BOOL)enabled
