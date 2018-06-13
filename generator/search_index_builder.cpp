@@ -444,7 +444,7 @@ bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild)
       {
         FilesContainerW writeContainer(readContainer.GetFileName(), FileWriter::OP_WRITE_EXISTING);
         FileWriter writer = writeContainer.GetWriter(SEARCH_INDEX_FILE_TAG);
-        rw_ops::Reverse(FileReader(indexFilePath), writer);
+        rw_ops::Reverse(FileReader(indexFilePath, true /* with exceptions */), writer);
       }
 
       {

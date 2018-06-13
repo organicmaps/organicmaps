@@ -43,7 +43,7 @@ bool ForEachOsmId2FeatureId(std::string const & path, ToDo && toDo)
   gen::OsmID2FeatureID mapping;
   try
   {
-    FileReader reader(path);
+    FileReader reader(path, true /* with exceptions */);
     NonOwningReaderSource source(reader);
     mapping.Read(source);
   }

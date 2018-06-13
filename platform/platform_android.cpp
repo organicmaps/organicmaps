@@ -151,7 +151,7 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & 
     {
       string const path = m_writableDir + file;
       if (IsFileExistsByFullPath(path))
-        return make_unique<FileReader>(path, logPageSize, logPageCount);
+        return make_unique<FileReader>(path, true /* withExceptions */, logPageSize, logPageCount);
       break;
     }
 
@@ -159,13 +159,13 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & 
     {
       string const path = m_settingsDir + file;
       if (IsFileExistsByFullPath(path))
-        return make_unique<FileReader>(path, logPageSize, logPageCount);
+        return make_unique<FileReader>(path, true /* withExceptions */, logPageSize, logPageCount);
       break;
     }
 
     case FULL_PATH:
       if (IsFileExistsByFullPath(file))
-        return make_unique<FileReader>(file, logPageSize, logPageCount);
+        return make_unique<FileReader>(file, true /* withExceptions */, logPageSize, logPageCount);
       break;
 
     case RESOURCE:

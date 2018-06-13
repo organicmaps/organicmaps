@@ -74,7 +74,9 @@ void Platform::RunOnGuiThread(TFunctor const & fn)
 ModelReader * Platform::GetReader(string const & file, string const & searchScope) const
 {
   return new FileReader(ReadPathForFile(file, searchScope),
-                        READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
+                        true /* withExceptions */
+                        READER_CHUNK_LOG_SIZE,
+                        READER_CHUNK_LOG_COUNT);
 }
 
 void Platform::GetFilesByRegExp(string const & directory, string const & regexp, FilesList & res)

@@ -83,15 +83,15 @@ void ChunksDownloadStrategy::SaveChunks(int64_t fileSize, string const & fName)
   (void)FileWriter::DeleteFileX(fName);
 }
 
-int64_t ChunksDownloadStrategy::LoadOrInitChunks( string const & fName,
-                                                  int64_t fileSize, int64_t chunkSize)
+int64_t ChunksDownloadStrategy::LoadOrInitChunks(string const & fName, int64_t fileSize,
+                                                 int64_t chunkSize)
 {
   ASSERT ( fileSize > 0, () );
   ASSERT ( chunkSize > 0, () );
 
   try
   {
-    FileReader r(fName);
+    FileReader r(fName, true /* with exceptions */);
     ReaderSource<FileReader> src(r);
 
     int64_t const readedSize = ReadVarInt<int64_t>(src);

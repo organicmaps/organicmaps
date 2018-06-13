@@ -74,7 +74,7 @@ public:
   {
     try
     {
-      FileReader reader(filename);
+      FileReader reader(filename, true /* with exceptions */);
       NonOwningReaderSource src(reader);
       Read(src);
     }

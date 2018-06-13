@@ -194,7 +194,7 @@ void Storage::Load()
   auto const indexFilePath = GetIndexFilePath();
   try
   {
-    FileReader r(indexFilePath);
+    FileReader r(indexFilePath, true /* with exceptions */);
     r.ReadAsString(data);
   }
   catch (FileReader::Exception const & exception)
@@ -424,7 +424,7 @@ size_t GetNumberOfUnsentUGC()
   string data;
   try
   {
-    FileReader r(indexFilePath);
+    FileReader r(indexFilePath, true /* with exceptions */);
     r.ReadAsString(data);
   }
   catch (FileReader::Exception const & exception)

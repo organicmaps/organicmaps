@@ -181,7 +181,7 @@ bool DeserializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable
 
   try
   {
-    FileReader reader(path);
+    FileReader reader(path, true /* with exceptions */);
     NonOwningReaderSource source(reader);
 
     double precision;

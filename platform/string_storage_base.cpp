@@ -24,7 +24,7 @@ StringStorageBase::StringStorageBase(string const & path) : m_path(path)
   try
   {
     LOG(LINFO, ("Settings path:", m_path));
-    ReaderStreamBuf buffer(make_unique<FileReader>(m_path));
+    ReaderStreamBuf buffer(make_unique<FileReader>(m_path, true /* withExceptions */));
     istream stream(&buffer);
 
     string line;

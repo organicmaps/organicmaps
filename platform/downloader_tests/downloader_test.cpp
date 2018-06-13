@@ -336,7 +336,7 @@ namespace
   {
     try
     {
-      FileReader f(file);
+      FileReader f(file, true /* withExceptions */);
       string s;
       f.ReadAsString(s);
       return s;
