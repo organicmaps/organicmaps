@@ -94,8 +94,8 @@ int64_t ChunksDownloadStrategy::LoadOrInitChunks(string const & fName, int64_t f
     FileReader r(fName, true /* with exceptions */);
     ReaderSource<FileReader> src(r);
 
-    int64_t const readedSize = ReadVarInt<int64_t>(src);
-    if (readedSize == fileSize)
+    int64_t const readSize = ReadVarInt<int64_t>(src);
+    if (readSize == fileSize)
     {
       // Load chunks.
       uint64_t const size = src.Size();
@@ -119,7 +119,7 @@ int64_t ChunksDownloadStrategy::LoadOrInitChunks(string const & fName, int64_t f
       return downloadedSize;
     }
   }
-  catch (RootException const & e)
+  catch (FileReader::Exception const & e)
   {
     // Usually - file not exists or Reader::Exception.
     LOG(LDEBUG, (e.Msg()));
