@@ -75,6 +75,8 @@
 		6715565120BF0F47002BA3B4 /* libeditor_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6715564120BF0267002BA3B4 /* libeditor_tests_support.a */; };
 		6715565420BF0F87002BA3B4 /* new_feature_categories.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6715565220BF0F86002BA3B4 /* new_feature_categories.cpp */; };
 		6715565520BF0F87002BA3B4 /* new_feature_categories.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6715565320BF0F87002BA3B4 /* new_feature_categories.hpp */; };
+		675B562720D2706000A521D2 /* editable_feature_source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675B562520D2706000A521D2 /* editable_feature_source.cpp */; };
+		675B562820D2706000A521D2 /* editable_feature_source.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675B562620D2706000A521D2 /* editable_feature_source.hpp */; };
 		F60F02EE1C92CBF1003A0AF6 /* editor_notes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F60F02EC1C92CBF1003A0AF6 /* editor_notes.cpp */; };
 		F60F02EF1C92CBF1003A0AF6 /* editor_notes.hpp in Headers */ = {isa = PBXBuildFile; fileRef = F60F02ED1C92CBF1003A0AF6 /* editor_notes.hpp */; };
 /* End PBXBuildFile section */
@@ -153,6 +155,8 @@
 		6715564120BF0267002BA3B4 /* libeditor_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libeditor_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6715565220BF0F86002BA3B4 /* new_feature_categories.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = new_feature_categories.cpp; sourceTree = "<group>"; };
 		6715565320BF0F87002BA3B4 /* new_feature_categories.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = new_feature_categories.hpp; sourceTree = "<group>"; };
+		675B562520D2706000A521D2 /* editable_feature_source.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = editable_feature_source.cpp; sourceTree = "<group>"; };
+		675B562620D2706000A521D2 /* editable_feature_source.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = editable_feature_source.hpp; sourceTree = "<group>"; };
 		F60F02EC1C92CBF1003A0AF6 /* editor_notes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = editor_notes.cpp; sourceTree = "<group>"; };
 		F60F02ED1C92CBF1003A0AF6 /* editor_notes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = editor_notes.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -213,7 +217,7 @@
 				3496AC041DC204B700C5DDBA /* editor.config */,
 				34F5586E1DBF49B200A4FC11 /* common-debug.xcconfig */,
 				34F5586F1DBF49B200A4FC11 /* common-release.xcconfig */,
-				341138731C15AE02002E3B3E /* Editor */,
+				341138731C15AE02002E3B3E /* editor */,
 				3496ABD01DC2032800C5DDBA /* editor_tests */,
 				6715560B20BF00C8002BA3B4 /* editor_tests_support */,
 				3496ABEA1DC2041800C5DDBA /* Frameworks */,
@@ -231,7 +235,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		341138731C15AE02002E3B3E /* Editor */ = {
+		341138731C15AE02002E3B3E /* editor */ = {
 			isa = PBXGroup;
 			children = (
 				340DC8271C4E71E500EAA2CC /* changeset_wrapper.cpp */,
@@ -265,8 +269,10 @@
 				347C71261C295B1100BE9208 /* xml_feature.cpp */,
 				347C71271C295B1100BE9208 /* xml_feature.hpp */,
 				34583BBE1C8854C100F94664 /* yes_no_unknown.hpp */,
+				675B562520D2706000A521D2 /* editable_feature_source.cpp */,
+				675B562620D2706000A521D2 /* editable_feature_source.hpp */,
 			);
-			name = Editor;
+			name = editor;
 			path = ../../editor;
 			sourceTree = SOURCE_ROOT;
 		};
@@ -348,6 +354,7 @@
 				6715560520BEC332002BA3B4 /* osm_editor.hpp in Headers */,
 				3D3058751D707DBE004AC712 /* config_loader.hpp in Headers */,
 				34527C521C89B1770015050E /* editor_config.hpp in Headers */,
+				675B562820D2706000A521D2 /* editable_feature_source.hpp in Headers */,
 				6715565520BF0F87002BA3B4 /* new_feature_categories.hpp in Headers */,
 				6715560820BEC332002BA3B4 /* edits_migration.hpp in Headers */,
 				3D052487200F62EE00F24998 /* feature_matcher.hpp in Headers */,
@@ -490,6 +497,7 @@
 				34527C511C89B1770015050E /* editor_config.cpp in Sources */,
 				34FFB34C1C316A7600BFF6C3 /* server_api.cpp in Sources */,
 				3D05248C200F630000F24998 /* match_by_geometry_test.cpp in Sources */,
+				675B562720D2706000A521D2 /* editable_feature_source.cpp in Sources */,
 				F60F02EE1C92CBF1003A0AF6 /* editor_notes.cpp in Sources */,
 				6715565420BF0F87002BA3B4 /* new_feature_categories.cpp in Sources */,
 			);

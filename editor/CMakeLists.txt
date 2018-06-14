@@ -6,6 +6,8 @@ set(
   changeset_wrapper.hpp
   config_loader.cpp
   config_loader.hpp
+  editable_feature_source.cpp
+  editable_feature_source.hpp
   editor_config.cpp
   editor_config.hpp
   editor_notes.cpp
