@@ -128,7 +128,7 @@ unique_ptr<FeatureType> Index::FeaturesLoaderGuard::GetOriginalOrEditedFeatureBy
   if (!m_handle.IsAlive())
     return {};
 
-  ASSERT_NOT_EQUAL(m_editor.GetFeatureStatus(m_handle.GetId(), index), osm::Editor::FeatureStatus::Created, ());
+  ASSERT_NOT_EQUAL(m_editor.GetFeatureStatus(m_handle.GetId(), index), datasource::FeatureStatus::Created, ());
   if (!GetFeatureByIndex(index, *feature))
     return {};
 
@@ -141,7 +141,7 @@ bool Index::FeaturesLoaderGuard::GetFeatureByIndex(uint32_t index, FeatureType &
     return false;
 
   MwmId const & id = m_handle.GetId();
-  ASSERT_NOT_EQUAL(osm::Editor::FeatureStatus::Deleted, m_editor.GetFeatureStatus(id, index),
+  ASSERT_NOT_EQUAL(datasource::FeatureStatus::Deleted, m_editor.GetFeatureStatus(id, index),
                    ("Deleted feature was cached. It should not be here. Please review your code."));
   if (m_editor.Instance().GetEditedFeature(id, index, ft))
     return true;

@@ -4,6 +4,7 @@
 #include "indexer/feature.hpp"
 #include "indexer/feature_covering.hpp"
 #include "indexer/features_offsets_table.hpp"
+#include "indexer/feature_source.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/scale_index.hpp"
@@ -140,16 +141,16 @@ private:
                 FeatureType feature;
                 switch (m_editor.GetFeatureStatus(mwmID, index))
                 {
-                case osm::Editor::FeatureStatus::Deleted:
-                case osm::Editor::FeatureStatus::Obsolete:
+                  case datasource::FeatureStatus::Deleted:
+                  case datasource::FeatureStatus::Obsolete:
                   return;
-                case osm::Editor::FeatureStatus::Modified:
+                  case datasource::FeatureStatus::Modified:
                   VERIFY(m_editor.GetEditedFeature(mwmID, index, feature), ());
                   m_f(feature);
                   return;
-                case osm::Editor::FeatureStatus::Created:
+                  case datasource::FeatureStatus::Created:
                   CHECK(false, ("Created features index should be generated."));
-                case osm::Editor::FeatureStatus::Untouched: break;
+                  case datasource::FeatureStatus::Untouched: break;
                 }
 
                 fv.GetByIndex(index, feature);
@@ -202,7 +203,7 @@ private:
           index.ForEachInIntervalAndScale(
               [&](uint32_t index)
               {
-                if (osm::Editor::FeatureStatus::Deleted !=
+                if (datasource::FeatureStatus::Deleted !=
                         m_editor.GetFeatureStatus(mwmID, index) &&
                     checkUnique(index))
                   m_f(FeatureID(mwmID, index));
@@ -259,11 +260,11 @@ public:
                                            pValue->m_table.get());
         do
         {
-          osm::Editor::FeatureStatus const fts = editor.GetFeatureStatus(id, fidIter->m_index);
-          ASSERT_NOT_EQUAL(osm::Editor::FeatureStatus::Deleted, fts,
+          datasource::FeatureStatus const fts = editor.GetFeatureStatus(id, fidIter->m_index);
+          ASSERT_NOT_EQUAL(datasource::FeatureStatus::Deleted, fts,
                            ("Deleted feature was cached. It should not be here. Please review your code."));
           FeatureType featureType;
-          if (fts == osm::Editor::FeatureStatus::Modified || fts == osm::Editor::FeatureStatus::Created)
+          if (fts == datasource::FeatureStatus::Modified || fts == datasource::FeatureStatus::Created)
           {
             VERIFY(editor.GetEditedFeature(id, fidIter->m_index, featureType), ());
           }

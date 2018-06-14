@@ -158,7 +158,7 @@ public:
   void SetPartnerIndex(int index);
 
   /// Feature status
-  void SetFeatureStatus(osm::Editor::FeatureStatus const status) { m_featureStatus = status; }
+  void SetFeatureStatus(datasource::FeatureStatus const status) { m_featureStatus = status; }
 
   /// Banner
   bool HasBanner() const;
@@ -280,7 +280,7 @@ private:
   SponsoredType m_sponsoredType = SponsoredType::None;
 
   /// Feature status
-  osm::Editor::FeatureStatus m_featureStatus = osm::Editor::FeatureStatus::Untouched;
+  datasource::FeatureStatus m_featureStatus = datasource::FeatureStatus::Untouched;
 
   /// Sponsored feature urls.
   std::string m_sponsoredUrl;

@@ -67,22 +67,22 @@ constexpr char const * kMatchedFeatureIsEmpty = "Matched feature has no tags";
 
 struct XmlSection
 {
-  XmlSection(osm::Editor::FeatureStatus status, std::string const & sectionName)
+  XmlSection(datasource::FeatureStatus status, std::string const & sectionName)
     : m_status(status)
     , m_sectionName(sectionName)
   {
   }
 
-  osm::Editor::FeatureStatus m_status = osm::Editor::FeatureStatus::Untouched;
+  datasource::FeatureStatus m_status = datasource::FeatureStatus::Untouched;
   std::string m_sectionName;
 };
 
 array<XmlSection, 4> const kXmlSections =
 {{
-   {osm::Editor::FeatureStatus::Deleted, kDeleteSection},
-   {osm::Editor::FeatureStatus::Modified, kModifySection},
-   {osm::Editor::FeatureStatus::Obsolete, kObsoleteSection},
-   {osm::Editor::FeatureStatus::Created, kCreateSection}
+   {datasource::FeatureStatus::Deleted, kDeleteSection},
+   {datasource::FeatureStatus::Modified, kModifySection},
+   {datasource::FeatureStatus::Obsolete, kObsoleteSection},
+   {datasource::FeatureStatus::Created, kCreateSection}
 }};
 
 struct LogHelper
@@ -95,15 +95,15 @@ struct LogHelper
                 m_deleted, "deleted and", m_obsolete, "obsolete features."));
   }
 
-  void OnStatus(osm::Editor::FeatureStatus status)
+  void OnStatus(datasource::FeatureStatus status)
   {
     switch (status)
     {
-    case osm::Editor::FeatureStatus::Deleted: ++m_deleted; break;
-    case osm::Editor::FeatureStatus::Modified: ++m_modified; break;
-    case osm::Editor::FeatureStatus::Obsolete: ++m_obsolete; break;
-    case osm::Editor::FeatureStatus::Created: ++m_created; break;
-    case osm::Editor::FeatureStatus::Untouched: ASSERT(false, ());
+    case datasource::FeatureStatus::Deleted: ++m_deleted; break;
+    case datasource::FeatureStatus::Modified: ++m_modified; break;
+    case datasource::FeatureStatus::Obsolete: ++m_obsolete; break;
+    case datasource::FeatureStatus::Created: ++m_created; break;
+    case datasource::FeatureStatus::Untouched: ASSERT(false, ());
     }
   }
 
@@ -283,11 +283,11 @@ bool Editor::Save() const
       }
       switch (fti.m_status)
       {
-      case FeatureStatus::Deleted: VERIFY(xf.AttachToParentNode(deleted), ()); break;
-      case FeatureStatus::Modified: VERIFY(xf.AttachToParentNode(modified), ()); break;
-      case FeatureStatus::Created: VERIFY(xf.AttachToParentNode(created), ()); break;
-      case FeatureStatus::Obsolete: VERIFY(xf.AttachToParentNode(obsolete), ()); break;
-      case FeatureStatus::Untouched: CHECK(false, ("Not edited features shouldn't be here."));
+      case datasource::FeatureStatus::Deleted: VERIFY(xf.AttachToParentNode(deleted), ()); break;
+      case datasource::FeatureStatus::Modified: VERIFY(xf.AttachToParentNode(modified), ()); break;
+      case datasource::FeatureStatus::Created: VERIFY(xf.AttachToParentNode(created), ()); break;
+      case datasource::FeatureStatus::Obsolete: VERIFY(xf.AttachToParentNode(obsolete), ()); break;
+      case datasource::FeatureStatus::Untouched: CHECK(false, ("Not edited features shouldn't be here."));
       }
     }
   }
@@ -321,20 +321,20 @@ void Editor::OnMapDeregistered(platform::LocalCountryFile const & localFile)
   }
 }
 
-Editor::FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t index) const
+datasource::FeatureStatus Editor::GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t index) const
 {
   // Most popular case optimization.
   if (m_features.empty())
-    return FeatureStatus::Untouched;
+    return datasource::FeatureStatus::Untouched;
 
   auto const * featureInfo = GetFeatureTypeInfo(mwmId, index);
   if (featureInfo == nullptr)
-    return FeatureStatus::Untouched;
+    return datasource::FeatureStatus::Untouched;
 
   return featureInfo->m_status;
 }
 
-Editor::FeatureStatus Editor::GetFeatureStatus(FeatureID const & fid) const
+datasource::FeatureStatus Editor::GetFeatureStatus(FeatureID const & fid) const
 {
   return GetFeatureStatus(fid.m_mwmId, fid.m_index);
 }
@@ -352,14 +352,14 @@ void Editor::DeleteFeature(FeatureID const & fid)
   {
     auto const f = mwm->second.find(fid.m_index);
     // Created feature is deleted by removing all traces of it.
-    if (f != mwm->second.end() && f->second.m_status == FeatureStatus::Created)
+    if (f != mwm->second.end() && f->second.m_status == datasource::FeatureStatus::Created)
     {
       mwm->second.erase(f);
       return;
     }
   }
 
-  MarkFeatureWithStatus(fid, FeatureStatus::Deleted);
+  MarkFeatureWithStatus(fid, datasource::FeatureStatus::Deleted);
 
   // TODO(AlexZ): Synchronize Save call/make it on a separate thread.
   Save();
@@ -390,16 +390,16 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
   FeatureTypeInfo fti;
 
   auto const featureStatus = GetFeatureStatus(fid.m_mwmId, fid.m_index);
-  ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Obsolete, ("Obsolete feature cannot be modified."));
-  ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Deleted, ("Unexpected feature status."));
+  ASSERT_NOT_EQUAL(featureStatus, datasource::FeatureStatus::Obsolete, ("Obsolete feature cannot be modified."));
+  ASSERT_NOT_EQUAL(featureStatus, datasource::FeatureStatus::Deleted, ("Unexpected feature status."));
 
   bool const wasCreatedByUser = IsCreatedFeature(fid);
   if (wasCreatedByUser)
   {
-    fti.m_status = FeatureStatus::Created;
+    fti.m_status = datasource::FeatureStatus::Created;
     fti.m_feature.ReplaceBy(emo);
 
-    if (featureStatus == FeatureStatus::Created)
+    if (featureStatus == datasource::FeatureStatus::Created)
     {
       auto const & editedFeatureInfo = m_features[fid.m_mwmId][fid.m_index];
       if (AreFeaturesEqualButStreet(fti.m_feature, editedFeatureInfo.m_feature) &&
@@ -419,7 +419,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
       return SaveResult::SavingError;
     }
 
-    fti.m_feature = featureStatus == FeatureStatus::Untouched
+    fti.m_feature = featureStatus == datasource::FeatureStatus::Untouched
         ? *originalFeaturePtr
         : m_features[fid.m_mwmId][fid.m_index].m_feature;
     fti.m_feature.ReplaceBy(emo);
@@ -427,7 +427,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
         AreFeaturesEqualButStreet(fti.m_feature, *originalFeaturePtr) &&
         emo.GetStreet().m_defaultName == GetOriginalFeatureStreet(fti.m_feature);
 
-    if (featureStatus != FeatureStatus::Untouched)
+    if (featureStatus != datasource::FeatureStatus::Untouched)
     {
       // A feature was modified and equals to the one in editor.
       auto const & editedFeatureInfo = m_features[fid.m_mwmId][fid.m_index];
@@ -459,7 +459,7 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
       return NothingWasChanged;
     }
 
-    fti.m_status = FeatureStatus::Modified;
+    fti.m_status = datasource::FeatureStatus::Modified;
   }
 
   // TODO: What if local client time is absolutely wrong?
@@ -498,7 +498,7 @@ void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
   for (auto const & index : mwmFound->second)
   {
     FeatureTypeInfo const & ftInfo = index.second;
-    if (ftInfo.m_status == FeatureStatus::Created &&
+    if (ftInfo.m_status == datasource::FeatureStatus::Created &&
         rect.IsPointInside(ftInfo.m_feature.GetCenter()))
       f(FeatureID(id, index.first));
   }
@@ -518,7 +518,7 @@ void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
   for (auto & index : mwmFound->second)
   {
     FeatureTypeInfo & ftInfo = index.second;
-    if (ftInfo.m_status == FeatureStatus::Created &&
+    if (ftInfo.m_status == datasource::FeatureStatus::Created &&
         rect.IsPointInside(ftInfo.m_feature.GetCenter()))
       f(ftInfo.m_feature);
   }
@@ -550,7 +550,7 @@ bool Editor::GetEditedFeatureStreet(FeatureID const & fid, string & outFeatureSt
   return true;
 }
 
-vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId, FeatureStatus status) const
+vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId, datasource::FeatureStatus status) const
 {
   vector<uint32_t> features;
   auto const matchedMwm = m_features.find(mwmId);
@@ -570,14 +570,14 @@ EditableProperties Editor::GetEditableProperties(FeatureType const & feature) co
   ASSERT(version::IsSingleMwm(feature.GetID().m_mwmId.GetInfo()->m_version.GetVersion()),
          ("Edit mode should be available only on new data"));
 
-  ASSERT(GetFeatureStatus(feature.GetID()) != FeatureStatus::Obsolete,
+  ASSERT(GetFeatureStatus(feature.GetID()) != datasource::FeatureStatus::Obsolete,
          ("Edit mode should not be available on obsolete features"));
 
   // TODO(mgsergio): Check if feature is in the area where editing is disabled in the config.
   auto editableProperties = GetEditablePropertiesForTypes(feature::TypesHolder(feature));
 
   // Disable opening hours editing if opening hours cannot be parsed.
-  if (GetFeatureStatus(feature.GetID()) != FeatureStatus::Created)
+  if (GetFeatureStatus(feature.GetID()) != datasource::FeatureStatus::Created)
   {
     auto const originalFeaturePtr = GetOriginalFeature(feature.GetID());
     if (!originalFeaturePtr)
@@ -683,9 +683,9 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
         {
           switch (fti.m_status)
           {
-          case FeatureStatus::Untouched: CHECK(false, ("It's impossible.")); continue;
-          case FeatureStatus::Obsolete: continue;  // Obsolete features will be deleted by OSMers.
-          case FeatureStatus::Created:
+          case datasource::FeatureStatus::Untouched: CHECK(false, ("It's impossible.")); continue;
+          case datasource::FeatureStatus::Obsolete: continue;  // Obsolete features will be deleted by OSMers.
+          case datasource::FeatureStatus::Created:
             {
               XMLFeature feature = editor::ToXML(fti.m_feature, true);
               if (!fti.m_street.empty())
@@ -732,7 +732,7 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
             }
             break;
 
-          case FeatureStatus::Modified:
+          case datasource::FeatureStatus::Modified:
             {
               // Do not serialize feature's type to avoid breaking OSM data.
               // TODO: Implement correct types matching when we support modifying existing feature types.
@@ -768,7 +768,7 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
             }
             break;
 
-          case FeatureStatus::Deleted:
+          case datasource::FeatureStatus::Deleted:
             auto const originalFeaturePtr = GetOriginalFeature(fti.m_feature.GetID());
             if (!originalFeaturePtr)
             {
@@ -861,10 +861,10 @@ void Editor::SaveUploadedInformation(FeatureTypeInfo const & fromUploader)
   Save();
 }
 
-bool Editor::FillFeatureInfo(FeatureStatus status, XMLFeature const & xml, FeatureID const & fid,
+bool Editor::FillFeatureInfo(datasource::FeatureStatus status, XMLFeature const & xml, FeatureID const & fid,
                              FeatureTypeInfo & fti) const
 {
-  if (status == FeatureStatus::Created)
+  if (status == datasource::FeatureStatus::Created)
   {
     editor::FromXML(xml, fti.m_feature);
   }
@@ -953,13 +953,13 @@ void Editor::Invalidate()
 bool Editor::MarkFeatureAsObsolete(FeatureID const & fid)
 {
   auto const featureStatus = GetFeatureStatus(fid);
-  if (featureStatus != FeatureStatus::Untouched && featureStatus != FeatureStatus::Modified)
+  if (featureStatus != datasource::FeatureStatus::Untouched && featureStatus != datasource::FeatureStatus::Modified)
   {
     ASSERT(false, ("Only untouched and modified features can be made obsolete"));
     return false;
   }
 
-  MarkFeatureWithStatus(fid, FeatureStatus::Obsolete);
+  MarkFeatureWithStatus(fid, datasource::FeatureStatus::Obsolete);
 
   Invalidate();
   return Save();
@@ -1013,7 +1013,7 @@ FeatureID Editor::GenerateNewFeatureId(MwmSet::MwmId const & id) const
     // Scan all already created features and choose next available ID.
     for (auto const & feature : found->second)
     {
-      if (feature.second.m_status == FeatureStatus::Created && featureIndex <= feature.first)
+      if (feature.second.m_status == datasource::FeatureStatus::Created && featureIndex <= feature.first)
         featureIndex = feature.first + 1;
     }
   }
@@ -1055,7 +1055,7 @@ void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
     case NoteProblemType::PlaceDoesNotExist:
     {
       sstr << kPlaceDoesNotExistMessage << endl;
-      auto const isCreated = GetFeatureStatus(fid) == FeatureStatus::Created;
+      auto const isCreated = GetFeatureStatus(fid) == datasource::FeatureStatus::Created;
       auto const createdAndUploaded = (isCreated && IsFeatureUploaded(fid.m_mwmId, fid.m_index));
       CHECK(!isCreated || createdAndUploaded, ());
 
@@ -1093,7 +1093,7 @@ void Editor::UploadNotes(string const & key, string const & secret)
   m_notes->Upload(OsmOAuth::ServerAuth({key, secret}));
 }
 
-void Editor::MarkFeatureWithStatus(FeatureID const & fid, FeatureStatus status)
+void Editor::MarkFeatureWithStatus(FeatureID const & fid, datasource::FeatureStatus status)
 {
   auto & fti = m_features[fid.m_mwmId][fid.m_index];
 
@@ -1152,7 +1152,7 @@ void Editor::ForEachFeatureAtPoint(FeatureTypeFn && fn, m2::PointD const & point
 }
 
 FeatureID Editor::GetFeatureIdByXmlFeature(XMLFeature const & xml, MwmSet::MwmId const & mwmId,
-                                           FeatureStatus status, bool needMigrate) const
+                                           datasource::FeatureStatus status, bool needMigrate) const
 {
   ForEachFeaturesNearByFn forEach = [this](FeatureTypeFn && fn, m2::PointD const & point)
   {
@@ -1207,18 +1207,6 @@ void Editor::LoadMwmEdits(xml_node const & mwm, MwmSet::MwmId const & mwmId, boo
       }
     }
   }
-}
-
-string DebugPrint(Editor::FeatureStatus fs)
-{
-  switch (fs)
-  {
-  case Editor::FeatureStatus::Untouched: return "Untouched";
-  case Editor::FeatureStatus::Deleted: return "Deleted";
-  case Editor::FeatureStatus::Obsolete: return "Obsolete";
-  case Editor::FeatureStatus::Modified: return "Modified";
-  case Editor::FeatureStatus::Created: return "Created";
-  };
 }
 
 const char * const Editor::kPlaceDoesNotExistMessage = "The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground.";

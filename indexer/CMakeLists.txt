@@ -63,6 +63,8 @@ set(
   feature_meta.cpp
   feature_meta.hpp
   feature_processor.hpp
+  feature_source.cpp
+  feature_source.hpp
   feature_utils.cpp
   feature_utils.hpp
   feature_visibility.cpp

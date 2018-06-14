@@ -41,8 +41,8 @@ bool Info::ShouldShowAddPlace() const
 bool Info::ShouldShowUGC() const
 {
   return ftraits::UGC::IsUGCAvailable(m_sortedTypes) &&
-         (m_featureStatus == osm::Editor::FeatureStatus::Untouched ||
-          m_featureStatus == osm::Editor::FeatureStatus::Modified);
+         (m_featureStatus == datasource::FeatureStatus::Untouched ||
+          m_featureStatus == datasource::FeatureStatus::Modified);
 }
 
 void Info::SetFromFeatureType(FeatureType const & ft)

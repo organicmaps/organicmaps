@@ -802,7 +802,7 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
 {
   using place_page::SponsoredType;
   auto const featureStatus = osm::Editor::Instance().GetFeatureStatus(ft.GetID());
-  ASSERT_NOT_EQUAL(featureStatus, osm::Editor::FeatureStatus::Deleted,
+  ASSERT_NOT_EQUAL(featureStatus, datasource::FeatureStatus::Deleted,
                    ("Deleted features cannot be selected from UI."));
   info.SetFeatureStatus(featureStatus);
 
@@ -881,7 +881,7 @@ void Framework::FillInfoFromFeatureType(FeatureType const & ft, place_page::Info
 
   auto const mwmInfo = ft.GetID().m_mwmId.GetInfo();
   bool const isMapVersionEditable = mwmInfo && mwmInfo->m_version.IsEditableMap();
-  bool const canEditOrAdd = featureStatus != osm::Editor::FeatureStatus::Obsolete && CanEditMap() &&
+  bool const canEditOrAdd = featureStatus != datasource::FeatureStatus::Obsolete && CanEditMap() &&
                             !info.IsNotEditableSponsored() && isMapVersionEditable;
   info.SetCanEditOrAdd(canEditOrAdd);
 
@@ -2782,7 +2782,7 @@ void SetStreet(search::ReverseGeocoder const & coder, Index const & index,
 {
   auto const & editor = osm::Editor::Instance();
 
-  if (editor.GetFeatureStatus(emo.GetID()) == osm::Editor::FeatureStatus::Created)
+  if (editor.GetFeatureStatus(emo.GetID()) == datasource::FeatureStatus::Created)
   {
     string street;
     VERIFY(editor.GetEditedFeatureStreet(emo.GetID(), street), ("Feature is in editor."));
@@ -3086,7 +3086,7 @@ bool Framework::RollBackChanges(FeatureID const & fid)
   auto const rolledBack = editor.RollBackChanges(fid);
   if (rolledBack)
   {
-    if (status == osm::Editor::FeatureStatus::Created)
+    if (status == datasource::FeatureStatus::Created)
       DeactivateMapSelection(true /* notifyUI */);
     else
       UpdatePlacePageInfoForCurrentSelection();

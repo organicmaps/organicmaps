@@ -10,6 +10,7 @@
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_meta.hpp"
+#include "indexer/feature_source.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -68,17 +69,6 @@ public:
   };
   using TFinishUploadCallback = function<void(UploadResult)>;
 
-  enum class FeatureStatus
-  {
-    Untouched,  // The feature hasn't been saved in the editor.
-    Deleted,    // The feature has been marked as deleted.
-    Obsolete,   // The feature has been marked for deletion via note.
-    Modified,   // The feature has been saved in the editor and differs from the original one.
-    Created     // The feature was created by a user and has been saved in the editor.
-                // Note: If a feature was created by a user but hasn't been saved in the editor yet
-                // its status is Untouched.
-  };
-
   static Editor & Instance();
 
   inline void SetDelegate(unique_ptr<Delegate> delegate) { m_delegate = move(delegate); }
@@ -118,8 +108,8 @@ public:
   // TODO(mgsergio): Unify feature functions signatures.
 
   /// Easy way to check if a feature was deleted, modified, created or not changed at all.
-  FeatureStatus GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t index) const;
-  FeatureStatus GetFeatureStatus(FeatureID const & fid) const;
+  datasource::FeatureStatus GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t index) const;
+  datasource::FeatureStatus GetFeatureStatus(FeatureID const & fid) const;
 
   /// @returns true if a feature was uploaded to osm.
   bool IsFeatureUploaded(MwmSet::MwmId const & mwmId, uint32_t index) const;
@@ -137,7 +127,7 @@ public:
   bool GetEditedFeatureStreet(FeatureID const & fid, string & outFeatureStreet) const;
 
   /// @returns sorted features indices with specified status.
-  vector<uint32_t> GetFeaturesByStatus(MwmSet::MwmId const & mwmId, FeatureStatus status) const;
+  vector<uint32_t> GetFeaturesByStatus(MwmSet::MwmId const & mwmId, datasource::FeatureStatus status) const;
 
   enum SaveResult
   {
@@ -217,7 +207,7 @@ private:
 
   struct FeatureTypeInfo
   {
-    FeatureStatus m_status;
+    datasource::FeatureStatus m_status;
     // TODO(AlexZ): Integrate EditableMapObject class into an editor instead of FeatureType.
     FeatureType m_feature;
     /// If not empty contains Feature's addr:street, edited by user.
@@ -229,14 +219,14 @@ private:
     string m_uploadError;
   };
 
-  bool FillFeatureInfo(FeatureStatus status, editor::XMLFeature const & xml, FeatureID const & fid,
+  bool FillFeatureInfo(datasource::FeatureStatus status, editor::XMLFeature const & xml, FeatureID const & fid,
                        FeatureTypeInfo & fti) const;
   /// @returns pointer to m_features[id][index] if exists, nullptr otherwise.
   FeatureTypeInfo const * GetFeatureTypeInfo(MwmSet::MwmId const & mwmId, uint32_t index) const;
   FeatureTypeInfo * GetFeatureTypeInfo(MwmSet::MwmId const & mwmId, uint32_t index);
   void SaveUploadedInformation(FeatureTypeInfo const & fromUploader);
 
-  void MarkFeatureWithStatus(FeatureID const & fid, FeatureStatus status);
+  void MarkFeatureWithStatus(FeatureID const & fid, datasource::FeatureStatus status);
 
   // These methods are just checked wrappers around Delegate.
   MwmSet::MwmId GetMwmIdByMapName(string const & name);
@@ -244,7 +234,7 @@ private:
   string GetOriginalFeatureStreet(FeatureType & ft) const;
   void ForEachFeatureAtPoint(FeatureTypeFn && fn, m2::PointD const & point) const;
   FeatureID GetFeatureIdByXmlFeature(editor::XMLFeature const & xml, MwmSet::MwmId const & mwmId,
-                                     FeatureStatus status, bool needMigrate) const;
+                                     datasource::FeatureStatus status, bool needMigrate) const;
   void LoadMwmEdits(pugi::xml_node const & mwm, MwmSet::MwmId const & mwmId, bool needMigrate);
 
   // TODO(AlexZ): Synchronize multithread access.
@@ -267,7 +257,4 @@ private:
 
   unique_ptr<editor::StorageBase> m_storage;
 };  // class Editor
-
-string DebugPrint(Editor::FeatureStatus fs);
-
 }  // namespace osm

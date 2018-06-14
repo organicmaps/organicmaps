@@ -3,6 +3,8 @@
 #include "search/house_to_street_table.hpp"
 #include "search/lazy_centers_table.hpp"
 
+#include "editor/osm_editor.hpp"
+
 #include "indexer/features_vector.hpp"
 #include "indexer/index.hpp"
 #include "indexer/scale_index.hpp"
@@ -37,7 +39,7 @@ public:
                      {
                        // TODO: Optimize deleted checks by getting vector of deleted indexes from
                        // the Editor.
-                       if (GetEditedStatus(index) != osm::Editor::FeatureStatus::Deleted)
+                       if (GetEditedStatus(index) != datasource::FeatureStatus::Deleted)
                          fn(index);
                      });
   }
@@ -80,7 +82,7 @@ public:
   MwmValue & m_value;
 
 private:
-  osm::Editor::FeatureStatus GetEditedStatus(uint32_t index) const
+  datasource::FeatureStatus GetEditedStatus(uint32_t index) const
   {
     return osm::Editor::Instance().GetFeatureStatus(GetId(), index);
   }

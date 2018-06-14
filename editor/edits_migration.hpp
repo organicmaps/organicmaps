@@ -19,6 +19,6 @@ using TGenerateIDFn = function<FeatureID()>;
 /// of a found feature, thows MigrationError if migration fails.
 FeatureID MigrateFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach,
                               XMLFeature const & xml,
-                              osm::Editor::FeatureStatus const featureStatus,
+                              datasource::FeatureStatus const featureStatus,
                               TGenerateIDFn const & generateID);
 }  // namespace editor

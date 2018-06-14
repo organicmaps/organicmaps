@@ -70,9 +70,9 @@ public:
   EditedFeaturesHolder(MwmSet::MwmId const & id) : m_id(id)
   {
     auto & editor = Editor::Instance();
-    m_deleted = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Deleted);
-    m_modified = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Modified);
-    m_created = editor.GetFeaturesByStatus(id, Editor::FeatureStatus::Created);
+    m_deleted = editor.GetFeaturesByStatus(id, datasource::FeatureStatus::Deleted);
+    m_modified = editor.GetFeaturesByStatus(id, datasource::FeatureStatus::Modified);
+    m_created = editor.GetFeaturesByStatus(id, datasource::FeatureStatus::Created);
   }
 
   bool ModifiedOrDeleted(uint32_t featureIndex) const

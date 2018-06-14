@@ -24,14 +24,14 @@ bool MwmContext::GetFeature(uint32_t index, FeatureType & ft) const
 {
   switch (GetEditedStatus(index))
   {
-  case osm::Editor::FeatureStatus::Deleted:
-  case osm::Editor::FeatureStatus::Obsolete:
+  case datasource::FeatureStatus::Deleted:
+  case datasource::FeatureStatus::Obsolete:
     return false;
-  case osm::Editor::FeatureStatus::Modified:
-  case osm::Editor::FeatureStatus::Created:
+  case datasource::FeatureStatus::Modified:
+  case datasource::FeatureStatus::Created:
     VERIFY(osm::Editor::Instance().GetEditedFeature(GetId(), index, ft), ());
     return true;
-  case osm::Editor::FeatureStatus::Untouched:
+  case datasource::FeatureStatus::Untouched:
     m_vector.GetByIndex(index, ft);
     ft.SetID(FeatureID(GetId(), index));
     return true;

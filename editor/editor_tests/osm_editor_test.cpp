@@ -346,29 +346,29 @@ void EditorTest::GetFeatureStatusTest()
 
   ForEachCafeAtPoint(m_index, m2::PointD(1.0, 1.0), [&editor](FeatureType & ft)
   {
-    TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), osm::Editor::FeatureStatus::Untouched, ());
+    TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), datasource::FeatureStatus::Untouched, ());
 
     osm::EditableMapObject emo;
     FillEditableMapObject(editor, ft, emo);
     emo.SetBuildingLevels("1");
     TEST_EQUAL(editor.SaveEditedFeature(emo), osm::Editor::SaveResult::SavedSuccessfully, ());
 
-    TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), osm::Editor::FeatureStatus::Modified, ());
+    TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), datasource::FeatureStatus::Modified, ());
     editor.MarkFeatureAsObsolete(emo.GetID());
-    TEST_EQUAL(editor.GetFeatureStatus(emo.GetID()), osm::Editor::FeatureStatus::Obsolete, ());
+    TEST_EQUAL(editor.GetFeatureStatus(emo.GetID()), datasource::FeatureStatus::Obsolete, ());
   });
 
   ForEachCafeAtPoint(m_index, m2::PointD(2.0, 2.0), [&editor](FeatureType & ft)
   {
-    TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), osm::Editor::FeatureStatus::Untouched, ());
+    TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), datasource::FeatureStatus::Untouched, ());
     editor.DeleteFeature(ft.GetID());
-    TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), osm::Editor::FeatureStatus::Deleted, ());
+    TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), datasource::FeatureStatus::Deleted, ());
   });
 
   osm::EditableMapObject emo;
   CreateCafeAtPoint({1.5, 1.5}, mwmId, emo);
 
-  TEST_EQUAL(editor.GetFeatureStatus(emo.GetID()), osm::Editor::FeatureStatus::Created, ());
+  TEST_EQUAL(editor.GetFeatureStatus(emo.GetID()), datasource::FeatureStatus::Created, ());
 }
 
 void EditorTest::IsFeatureUploadedTest()
@@ -420,12 +420,12 @@ void EditorTest::DeleteFeatureTest()
   editor.GetEditedFeature(emo.GetID().m_mwmId, emo.GetID().m_index, ft);
   editor.DeleteFeature(ft.GetID());
 
-  TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), osm::Editor::FeatureStatus::Untouched, ());
+  TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), datasource::FeatureStatus::Untouched, ());
 
   ForEachCafeAtPoint(m_index, m2::PointD(1.0, 1.0), [&editor](FeatureType & ft)
   {
     editor.DeleteFeature(ft.GetID());
-    TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), osm::Editor::FeatureStatus::Deleted, ());
+    TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), datasource::FeatureStatus::Deleted, ());
   });
 }
 
@@ -455,7 +455,7 @@ void EditorTest::GetFeaturesByStatusTest()
 
   {
     MwmSet::MwmId mwmId;
-    auto const features = editor.GetFeaturesByStatus(mwmId, osm::Editor::FeatureStatus::Untouched);
+    auto const features = editor.GetFeaturesByStatus(mwmId, datasource::FeatureStatus::Untouched);
     TEST(features.empty(), ());
   }
 
@@ -500,10 +500,10 @@ void EditorTest::GetFeaturesByStatusTest()
   CreateCafeAtPoint({4.0, 4.0}, mwmId, emo);
   createdId = emo.GetID();
 
-  auto const modified = editor.GetFeaturesByStatus(mwmId, osm::Editor::FeatureStatus::Modified);
-  auto const deleted = editor.GetFeaturesByStatus(mwmId, osm::Editor::FeatureStatus::Deleted);
-  auto const obsolete = editor.GetFeaturesByStatus(mwmId, osm::Editor::FeatureStatus::Obsolete);
-  auto const created = editor.GetFeaturesByStatus(mwmId, osm::Editor::FeatureStatus::Created);
+  auto const modified = editor.GetFeaturesByStatus(mwmId, datasource::FeatureStatus::Modified);
+  auto const deleted = editor.GetFeaturesByStatus(mwmId, datasource::FeatureStatus::Deleted);
+  auto const obsolete = editor.GetFeaturesByStatus(mwmId, datasource::FeatureStatus::Obsolete);
+  auto const created = editor.GetFeaturesByStatus(mwmId, datasource::FeatureStatus::Created);
 
   TEST_EQUAL(modified.size(), 1, ());
   TEST_EQUAL(deleted.size(), 1, ());
@@ -811,14 +811,14 @@ void EditorTest::CreateNoteTest()
 
     auto notes = editor.m_notes->GetNotes();
     TEST_NOT_EQUAL(notes.front().m_note.find(osm::Editor::kPlaceDoesNotExistMessage), string::npos, ());
-    TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), osm::Editor::FeatureStatus::Obsolete, ());
+    TEST_EQUAL(editor.GetFeatureStatus(ft.GetID()), datasource::FeatureStatus::Obsolete, ());
   });
 
   ForEachCafeAtPoint(m_index, m2::PointD(2.0, 2.0), [&editor, &createAndCheckNote](FeatureType & ft)
   {
     createAndCheckNote(ft.GetID(), {2.0, 2.0}, osm::Editor::NoteProblemType::General);
 
-    TEST_NOT_EQUAL(editor.GetFeatureStatus(ft.GetID()), osm::Editor::FeatureStatus::Obsolete, ());
+    TEST_NOT_EQUAL(editor.GetFeatureStatus(ft.GetID()), datasource::FeatureStatus::Obsolete, ());
     auto notes = editor.m_notes->GetNotes();
     TEST_EQUAL(notes.front().m_note.find(osm::Editor::kPlaceDoesNotExistMessage), string::npos, ());
   });
@@ -978,26 +978,26 @@ void EditorTest::SaveEditedFeatureTest()
 
   editor.CreatePoint(classif().GetTypeByPath({"amenity", "cafe"}), {4.0, 4.0}, mwmId, emo);
   emo.SetHouseNumber("12");
-  TEST_EQUAL(editor.GetFeatureStatus(emo.GetID()), osm::Editor::FeatureStatus::Untouched, ());
+  TEST_EQUAL(editor.GetFeatureStatus(emo.GetID()), datasource::FeatureStatus::Untouched, ());
   TEST_EQUAL(editor.SaveEditedFeature(emo), osm::Editor::SaveResult::SavedSuccessfully, ());
-  TEST_EQUAL(editor.GetFeatureStatus(emo.GetID()), osm::Editor::FeatureStatus::Created, ());
+  TEST_EQUAL(editor.GetFeatureStatus(emo.GetID()), datasource::FeatureStatus::Created, ());
   TEST_EQUAL(editor.SaveEditedFeature(emo), osm::Editor::SaveResult::NothingWasChanged, ());
-  TEST_EQUAL(editor.GetFeatureStatus(emo.GetID()), osm::Editor::FeatureStatus::Created, ());
+  TEST_EQUAL(editor.GetFeatureStatus(emo.GetID()), datasource::FeatureStatus::Created, ());
 
   ForEachCafeAtPoint(m_index, m2::PointD(1.0, 1.0), [&editor](FeatureType & ft)
   {
     osm::EditableMapObject emo;
     FillEditableMapObject(editor, ft, emo);
     TEST_EQUAL(editor.SaveEditedFeature(emo), osm::Editor::SaveResult::NothingWasChanged, ());
-    TEST_EQUAL(editor.GetFeatureStatus(emo.GetID()), osm::Editor::FeatureStatus::Untouched, ());
+    TEST_EQUAL(editor.GetFeatureStatus(emo.GetID()), datasource::FeatureStatus::Untouched, ());
     emo.SetHouseNumber("4a");
     TEST_EQUAL(editor.SaveEditedFeature(emo), osm::Editor::SaveResult::SavedSuccessfully, ());
-    TEST_EQUAL(editor.GetFeatureStatus(emo.GetID()), osm::Editor::FeatureStatus::Modified, ());
+    TEST_EQUAL(editor.GetFeatureStatus(emo.GetID()), datasource::FeatureStatus::Modified, ());
     TEST_EQUAL(editor.SaveEditedFeature(emo), osm::Editor::SaveResult::NothingWasChanged, ());
-    TEST_EQUAL(editor.GetFeatureStatus(emo.GetID()), osm::Editor::FeatureStatus::Modified, ());
+    TEST_EQUAL(editor.GetFeatureStatus(emo.GetID()), datasource::FeatureStatus::Modified, ());
     emo.SetHouseNumber("");
     TEST_EQUAL(editor.SaveEditedFeature(emo), osm::Editor::SaveResult::SavedSuccessfully, ());
-    TEST_EQUAL(editor.GetFeatureStatus(emo.GetID()), osm::Editor::FeatureStatus::Untouched, ());
+    TEST_EQUAL(editor.GetFeatureStatus(emo.GetID()), datasource::FeatureStatus::Untouched, ());
   });
 }
 

@@ -200,6 +200,8 @@
 		6758AED21BB4413000C26E27 /* drules_selector_parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6758AECE1BB4413000C26E27 /* drules_selector_parser.hpp */; };
 		6758AED31BB4413000C26E27 /* drules_selector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6758AECF1BB4413000C26E27 /* drules_selector.cpp */; };
 		6758AED41BB4413000C26E27 /* drules_selector.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6758AED01BB4413000C26E27 /* drules_selector.hpp */; };
+		675B562320D25C9800A521D2 /* feature_source.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675B562120D25C9800A521D2 /* feature_source.cpp */; };
+		675B562420D25C9800A521D2 /* feature_source.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 675B562220D25C9800A521D2 /* feature_source.hpp */; };
 		67BC92F31D21476500A4A378 /* string_set.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67BC92EF1D21476500A4A378 /* string_set.hpp */; };
 		67BC92F41D21476500A4A378 /* string_slice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67BC92F01D21476500A4A378 /* string_slice.cpp */; };
 		67BC92F51D21476500A4A378 /* string_slice.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 67BC92F11D21476500A4A378 /* string_slice.hpp */; };
@@ -426,6 +428,8 @@
 		6758AECE1BB4413000C26E27 /* drules_selector_parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drules_selector_parser.hpp; sourceTree = "<group>"; };
 		6758AECF1BB4413000C26E27 /* drules_selector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = drules_selector.cpp; sourceTree = "<group>"; };
 		6758AED01BB4413000C26E27 /* drules_selector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drules_selector.hpp; sourceTree = "<group>"; };
+		675B562120D25C9800A521D2 /* feature_source.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = feature_source.cpp; sourceTree = "<group>"; };
+		675B562220D25C9800A521D2 /* feature_source.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = feature_source.hpp; sourceTree = "<group>"; };
 		67BC92EF1D21476500A4A378 /* string_set.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = string_set.hpp; sourceTree = "<group>"; };
 		67BC92F01D21476500A4A378 /* string_slice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = string_slice.cpp; sourceTree = "<group>"; };
 		67BC92F11D21476500A4A378 /* string_slice.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = string_slice.hpp; sourceTree = "<group>"; };
@@ -709,6 +713,8 @@
 				6726C1CF1A49DAAC005EEA39 /* feature_meta.cpp */,
 				6726C1D01A49DAAC005EEA39 /* feature_meta.hpp */,
 				675340CC1A3F540F00A0A8C3 /* feature_processor.hpp */,
+				675B562120D25C9800A521D2 /* feature_source.cpp */,
+				675B562220D25C9800A521D2 /* feature_source.hpp */,
 				675340CD1A3F540F00A0A8C3 /* feature_utils.cpp */,
 				675340CE1A3F540F00A0A8C3 /* feature_utils.hpp */,
 				675340CF1A3F540F00A0A8C3 /* feature_visibility.cpp */,
@@ -849,6 +855,7 @@
 				3D0AEAFB1FBAF9E900AD042B /* test_with_classificator.hpp in Headers */,
 				6753412F1A3F540F00A0A8C3 /* index_builder.hpp in Headers */,
 				456E1B1A1F90E5B7009C32E1 /* ftypes_sponsored.hpp in Headers */,
+				675B562420D25C9800A521D2 /* feature_source.hpp in Headers */,
 				675341411A3F540F00A0A8C3 /* scales.hpp in Headers */,
 				675341321A3F540F00A0A8C3 /* interval_index_builder.hpp in Headers */,
 				40009062201F5CB000963E18 /* cell_value_pair.hpp in Headers */,
@@ -1087,6 +1094,7 @@
 				67BC92F41D21476500A4A378 /* string_slice.cpp in Sources */,
 				675341071A3F540F00A0A8C3 /* data_factory.cpp in Sources */,
 				34583BCB1C88552100F94664 /* map_object.cpp in Sources */,
+				675B562320D25C9800A521D2 /* feature_source.cpp in Sources */,
 				6753412E1A3F540F00A0A8C3 /* index_builder.cpp in Sources */,
 				675341011A3F540F00A0A8C3 /* classificator_loader.cpp in Sources */,
 				456E1B191F90E5B7009C32E1 /* ftypes_sponsored.cpp in Sources */,

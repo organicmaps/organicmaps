@@ -16,7 +16,7 @@ namespace editor
 {
 FeatureID MigrateNodeFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach,
                                   XMLFeature const & xml,
-                                  osm::Editor::FeatureStatus const featureStatus,
+                                  datasource::FeatureStatus const featureStatus,
                                   TGenerateIDFn const & generateID)
 {
   unique_ptr<FeatureType> feature;
@@ -32,9 +32,9 @@ FeatureID MigrateNodeFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach
       },
       MercatorBounds::FromLatLon(xml.GetCenter()));
 
-  if (!feature && featureStatus != osm::Editor::FeatureStatus::Created)
+  if (!feature && featureStatus != datasource::FeatureStatus::Created)
     MYTHROW(MigrationError, ("No pointed features returned."));
-  if (featureStatus == osm::Editor::FeatureStatus::Created)
+  if (featureStatus == datasource::FeatureStatus::Created)
     return generateID();
 
   if (count > 1)
@@ -47,7 +47,7 @@ FeatureID MigrateNodeFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach
 
 FeatureID MigrateWayOrRelatonFeatureIndex(
     osm::Editor::ForEachFeaturesNearByFn & forEach, XMLFeature const & xml,
-    osm::Editor::FeatureStatus const /* Unused for now (we don't create/delete area features)*/,
+    datasource::FeatureStatus const /* Unused for now (we don't create/delete area features)*/,
     TGenerateIDFn const & /*Unused for the same reason*/)
 {
   unique_ptr<FeatureType> feature;
@@ -104,7 +104,7 @@ FeatureID MigrateWayOrRelatonFeatureIndex(
 
 FeatureID MigrateFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach,
                               XMLFeature const & xml,
-                              osm::Editor::FeatureStatus const featureStatus,
+                              datasource::FeatureStatus const featureStatus,
                               TGenerateIDFn const & generateID)
 {
   switch (xml.GetType())

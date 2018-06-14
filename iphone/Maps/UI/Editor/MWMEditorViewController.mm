@@ -167,7 +167,7 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
 @property(nonatomic) MWMEditorAdditionalNamesHeader * additionalNamesHeader;
 @property(nonatomic) MWMEditorNotesFooter * notesFooter;
 @property(copy, nonatomic) NSString * note;
-@property(nonatomic) osm::Editor::FeatureStatus featureStatus;
+@property(nonatomic) datasource::FeatureStatus featureStatus;
 @property(nonatomic) BOOL isFeatureUploaded;
 
 @property(nonatomic) BOOL showAdditionalNames;
@@ -661,20 +661,20 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
   {
     MWMButtonCell * tCell = static_cast<MWMButtonCell *>(cell);
 
-    auto title = ^NSString *(osm::Editor::FeatureStatus s, BOOL isUploaded)
+    auto title = ^NSString *(datasource::FeatureStatus s, BOOL isUploaded)
     {
       if (isUploaded)
         return L(@"editor_place_doesnt_exist");
       switch (s)
       {
-      case osm::Editor::FeatureStatus::Untouched: return L(@"editor_place_doesnt_exist");
-      case osm::Editor::FeatureStatus::Deleted:
-      case osm::Editor::FeatureStatus::Obsolete:  // TODO(Vlad): Either make a valid button or
+      case datasource::FeatureStatus::Untouched: return L(@"editor_place_doesnt_exist");
+      case datasource::FeatureStatus::Deleted:
+      case datasource::FeatureStatus::Obsolete:  // TODO(Vlad): Either make a valid button or
                                                   // disable it.
         NSAssert(false, @"Incorrect feature status!");
         return L(@"editor_place_doesnt_exist");
-      case osm::Editor::FeatureStatus::Modified: return L(@"editor_reset_edits_button");
-      case osm::Editor::FeatureStatus::Created: return L(@"editor_remove_place_button");
+      case datasource::FeatureStatus::Modified: return L(@"editor_reset_edits_button");
+      case datasource::FeatureStatus::Created: return L(@"editor_remove_place_button");
       }
     };
 
@@ -996,23 +996,23 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
   {
     switch (self.featureStatus)
     {
-    case osm::Editor::FeatureStatus::Untouched: placeDoesntExistAction(); break;
-    case osm::Editor::FeatureStatus::Modified:
+    case datasource::FeatureStatus::Untouched: placeDoesntExistAction(); break;
+    case datasource::FeatureStatus::Modified:
     {
       [self.alertController presentResetChangesAlertWithBlock:^{
         revertAction(NO);
       }];
       break;
     }
-    case osm::Editor::FeatureStatus::Created:
+    case datasource::FeatureStatus::Created:
     {
       [self.alertController presentDeleteFeatureAlertWithBlock:^{
         revertAction(YES);
       }];
       break;
     }
-    case osm::Editor::FeatureStatus::Deleted: break;
-    case osm::Editor::FeatureStatus::Obsolete: break;
+    case datasource::FeatureStatus::Deleted: break;
+    case datasource::FeatureStatus::Obsolete: break;
     }
   }
 }
