@@ -503,12 +503,18 @@ void Processor::InitParams(QueryParams & params) const
     params.GetTypeIndices(i).push_back(index);
   };
   auto const tokenSlice = QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix);
+  vector<uint32_t> types;
   bool const isCategorialRequest =
-      IsCategorialRequest(tokenSlice, GetCategoryLocales(), m_categories);
+      FillCategories(tokenSlice, GetCategoryLocales(), m_categories, types);
   params.SetCategorialRequest(isCategorialRequest);
   if (isCategorialRequest)
   {
-    ForEachCategoryType(tokenSlice, addCategorySynonyms);
+    for (auto const type : types)
+    {
+      uint32_t const index = c.GetIndexForType(type);
+      for (size_t i = 0; i < tokenSlice.Size(); ++i)
+        params.GetTypeIndices(i).push_back(index);
+    }
   }
   else
   {

@@ -459,8 +459,7 @@ void Geocoder::SetParamsForCategorialSearch(Params const & params)
   m_tokenRequests.clear();
   m_prefixTokenRequest.Clear();
 
-  ASSERT_EQUAL(m_params.GetNumTokens(), 1, ());
-  ASSERT(!m_params.IsPrefixToken(0), ());
+  ASSERT(!m_params.LastTokenIsPrefix(), ());
 
   LOG(LDEBUG, (static_cast<QueryParams const &>(m_params)));
 }
@@ -782,12 +781,11 @@ void Geocoder::MatchCategories(BaseContext & ctx, bool aroundPivot)
     if (!GetTypeInGeocoding(ctx, featureId, type))
       return;
 
-    EmitResult(ctx, m_context->GetId(), featureId, type, TokenRange(0, 1), nullptr /* geoParts */,
+    EmitResult(ctx, m_context->GetId(), featureId, type, TokenRange(0, ctx.m_numTokens), nullptr /* geoParts */,
                true /* allTokensUsed */);
   };
 
-  // By now there's only one token and zero prefix tokens.
-  // Its features have been retrieved from the search index
+  // Features have been retrieved from the search index
   // using the exact (non-fuzzy) matching and intersected
   // with viewport, if needed. Every such feature is relevant.
   features.ForEach(emit);

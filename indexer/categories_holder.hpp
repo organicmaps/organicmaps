@@ -100,6 +100,16 @@ public:
   }
 
   template <class ToDo>
+  void ForEachNameAndType(ToDo && toDo) const
+  {
+    for (auto const & p : m_type2cat)
+    {
+      for (auto const & synonym : p.second->m_synonyms)
+        toDo(synonym, p.first);
+    }
+  }
+
+  template <class ToDo>
   void ForEachNameByType(uint32_t type, ToDo && toDo) const
   {
     auto it = m_type2cat.find(type);

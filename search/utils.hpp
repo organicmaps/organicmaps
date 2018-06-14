@@ -77,31 +77,41 @@ void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, Locales const & loc
   }
 }
 
-// Returns whether the request specified by |slice| is categorial
-// in any of the |locales|. We expect that categorial requests should
+// Returns |true| and fills |types| if request specified by |slice| is categorial
+// in any of the |locales| and |false| otherwise. We expect that categorial requests should
 // mostly arise from clicking on a category button in the UI.
 // It is assumed that typing a word that matches a category's name
 // and a space after it means that no errors were made.
 template <typename T>
-bool IsCategorialRequest(QuerySliceOnRawStrings<T> const & slice, Locales const & locales,
-                         CategoriesHolder const & catHolder)
+bool FillCategories(QuerySliceOnRawStrings<T> const & slice, Locales const & locales,
+                    CategoriesHolder const & catHolder, std::vector<uint32_t> & types)
 {
-  if (slice.Size() != 1 || slice.HasPrefixToken())
+  types.clear();
+  if (slice.HasPrefixToken())
     return false;
 
-  bool found = false;
-  auto token = slice.Get(0);
-  catHolder.ForEachName([&](CategoriesHolder::Category::Name const & categorySynonym) {
-    if (!locales.Contains(static_cast<uint64_t>(categorySynonym.m_locale)))
-      return;
+  catHolder.ForEachNameAndType(
+      [&](CategoriesHolder::Category::Name const & categorySynonym, uint32_t type) {
+        if (!locales.Contains(static_cast<uint64_t>(categorySynonym.m_locale)))
+          return;
 
-    if (token != search::NormalizeAndSimplifyString(categorySynonym.m_name))
-      return;
+        std::vector<QueryParams::String> categoryTokens;
+        SplitUniString(search::NormalizeAndSimplifyString(categorySynonym.m_name),
+                       MakeBackInsertFunctor(categoryTokens), search::Delimiters());
 
-    found = true;
-  });
+        if (slice.Size() != categoryTokens.size())
+          return;
 
-  return found;
+        for (size_t i = 0; i < slice.Size(); ++i)
+        {
+          if (slice.Get(i) != categoryTokens[i])
+            return;
+        }
+
+        types.push_back(type);
+      });
+
+  return !types.empty();
 }
 
 MwmSet::MwmHandle FindWorld(Index const &index,

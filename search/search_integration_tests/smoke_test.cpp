@@ -194,16 +194,10 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
                                           {"internet_access", "wlan"},
                                           {"office"},
                                           {"shop"},
-                                          {"shop", "butcher"},
-                                          {"shop", "florist"},
-                                          {"shop", "greengrocer"},
-                                          {"shop", "optician"},
                                           {"place", "continent"},
                                           {"place", "region"},
                                           {"event", "fc2018_city"},
-                                          {"sponsored", "holiday"},
-                                          {"railway", "level_crossing"},
-                                          {"highway", "rest_area"}};
+                                          {"sponsored", "holiday"}};
   set<uint32_t> badTypes;
   for (auto const & tags : badTags)
     badTypes.insert(classif().GetTypeByPath(tags));
