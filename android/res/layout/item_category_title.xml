@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView
-    android:id="@+id/text"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/height_item_oneline"
-    android:gravity="left|center_vertical"
-    android:paddingLeft="@dimen/margin_base"
-    android:paddingTop="@dimen/margin_half"
-    android:textAppearance="@style/MwmTextAppearance.Body3"
-    android:text="@string/bookmarks"/>
+  android:id="@+id/text"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/height_item_oneline"
+  android:gravity="left|center_vertical"
+  android:paddingLeft="@dimen/margin_base"
+  android:paddingTop="@dimen/margin_half"
+  android:background="@color/bookmarks_list_item_bg"
+  android:fontFamily="@string/robotoMedium"
+  tools:targetApi="JELLY_BEAN"
+  android:textAppearance="@style/MwmTextAppearance.Body3"
+  android:text="@string/bookmarks"/>

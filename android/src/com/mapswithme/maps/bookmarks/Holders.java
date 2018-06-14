@@ -1,5 +1,6 @@
 package com.mapswithme.maps.bookmarks;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.support.annotation.IntDef;
@@ -7,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.PluralsRes;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -197,62 +199,89 @@ public class Holders
   {
     static final int SECTION_TRACKS = 0;
     static final int SECTION_BMKS = 1;
+    static final int SECTION_DESC = 2;
 
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({ SECTION_TRACKS, SECTION_BMKS })
+    @IntDef({ SECTION_TRACKS, SECTION_BMKS, SECTION_DESC})
     public @interface Section {}
 
-    final long mCategoryId;
+    @NonNull
+    final BookmarkCategory mCategory;
     @NonNull
     private final View mView;
 
-    BaseBookmarkHolder(@NonNull View itemView, long categoryId)
+    BaseBookmarkHolder(@NonNull View itemView, @NonNull BookmarkCategory category)
     {
       super(itemView);
-      mCategoryId = categoryId;
+      mCategory = category;
       mView = itemView;
     }
 
     abstract void bind(int position);
 
-    static boolean isSectionEmpty(long categoryId, @Section int section)
+    static boolean isSectionEmpty(BookmarkCategory category, @Section int section)
     {
       switch (section)
       {
         case SECTION_TRACKS:
-          return BookmarkManager.INSTANCE.getTracksCount(categoryId) == 0;
+          return category.getTracksCount() == 0;
         case SECTION_BMKS:
-          return BookmarkManager.INSTANCE.getBookmarksCount(categoryId) == 0;
+          return category.getBookmarksCount() == 0;
+        case SECTION_DESC:
+          return TextUtils.isEmpty(category.getDescription()) && TextUtils.isEmpty(category.getAnnotation());
         default:
           throw new IllegalArgumentException("There is no section with index " + section);
       }
     }
 
-    static int getSectionForPosition(long categoryId, int position)
+    static int getSectionForPosition(BookmarkCategory category, int position)
     {
-      if (position == getTracksSectionPosition(categoryId))
+      if (position == getDescSectionPosition(category))
+        return SECTION_DESC;
+      if (position == getTracksSectionPosition(category))
         return SECTION_TRACKS;
-      if (position == getBookmarksSectionPosition(categoryId))
+      if (position == getBookmarksSectionPosition(category))
         return SECTION_BMKS;
 
       throw new IllegalArgumentException("There is no section in position " + position);
     }
 
-    static int getTracksSectionPosition(long categoryId)
+    static int getDescSectionPosition(BookmarkCategory category)
     {
-      if (isSectionEmpty(categoryId, SECTION_TRACKS))
+      if (isSectionEmpty(category, SECTION_DESC))
         return -1;
 
       return 0;
     }
 
-    static int getBookmarksSectionPosition(long categoryId)
+    static int getTracksSectionPosition(BookmarkCategory category)
     {
-      if (isSectionEmpty(categoryId, SECTION_BMKS))
+      if (isSectionEmpty(category, SECTION_TRACKS))
         return -1;
 
-      return BookmarkManager.INSTANCE.getTracksCount(categoryId)
-             + (isSectionEmpty(categoryId, SECTION_TRACKS) ? 0 : 1);
+      return getDescItemCount(category);
+    }
+
+    static int getBookmarksSectionPosition(BookmarkCategory category)
+    {
+      if (isSectionEmpty(category, SECTION_BMKS))
+        return -1;
+
+      int beforeCurrentSectionItemsCount = getTracksSectionPosition(category);
+      return (beforeCurrentSectionItemsCount == -1
+              ? getDescItemCount(category)
+              : beforeCurrentSectionItemsCount)
+             + getTrackItemCount(category);
+    }
+
+    private static int getTrackItemCount(BookmarkCategory category)
+    {
+      return category.getTracksCount() + (isSectionEmpty(category, SECTION_TRACKS) ? 0 : 1);
+    }
+
+    static int getDescItemCount(BookmarkCategory category)
+    {
+      return isSectionEmpty(category, SECTION_DESC) ? 0 : /* section header */  1 + /* non empty desc */ 1;
     }
 
     void setOnClickListener(@Nullable RecyclerClickListener listener)
@@ -265,11 +294,14 @@ public class Holders
 
     void setOnLongClickListener(@Nullable RecyclerLongClickListener listener)
     {
-      mView.setOnLongClickListener(v -> {
-        if (listener != null)
-          listener.onLongItemClick(v, getAdapterPosition());
-        return true;
-      });
+      mView.setOnLongClickListener(v -> onOpenActionMenu(v, listener));
+    }
+
+    boolean onOpenActionMenu(View v, @Nullable RecyclerLongClickListener listener)
+    {
+      if (listener != null)
+        listener.onLongItemClick(v, getAdapterPosition());
+      return true;
     }
   }
 
@@ -281,21 +313,31 @@ public class Holders
     private final TextView mName;
     @NonNull
     private final TextView mDistance;
+    @NonNull
+    private final View mMore;
 
-    BookmarkViewHolder(@NonNull View itemView, long categoryId)
+    BookmarkViewHolder(@NonNull View itemView, BookmarkCategory categoryId)
     {
       super(itemView, categoryId);
       mIcon = itemView.findViewById(R.id.iv__bookmark_color);
       mName = itemView.findViewById(R.id.tv__bookmark_name);
       mDistance = itemView.findViewById(R.id.tv__bookmark_distance);
+      mMore = itemView.findViewById(R.id.more);
+    }
+
+    @Override
+    void setOnLongClickListener(@Nullable RecyclerLongClickListener listener)
+    {
+      super.setOnLongClickListener(listener);
+      mMore.setOnClickListener(v -> onOpenActionMenu(v, listener));
     }
 
     @Override
     void bind(int position)
     {
-      int pos = calculateBookmarkPosition(mCategoryId, position);
-      final long bookmarkId = BookmarkManager.INSTANCE.getBookmarkIdByPosition(mCategoryId, pos);
-      BookmarkInfo bookmark = new BookmarkInfo(mCategoryId, bookmarkId);
+      int pos = calculateBookmarkPosition(mCategory, position);
+      final long bookmarkId = BookmarkManager.INSTANCE.getBookmarkIdByPosition(mCategory.getId(), pos);
+      BookmarkInfo bookmark = new BookmarkInfo(mCategory.getId(), bookmarkId);
       mName.setText(bookmark.getTitle());
       final Location loc = LocationHelper.INSTANCE.getSavedLocation();
       if (loc != null)
@@ -309,12 +351,13 @@ public class Holders
       mIcon.setImageResource(bookmark.getIcon().getSelectedResId());
     }
 
-    static int calculateBookmarkPosition(long categoryId, int position)
+    static int calculateBookmarkPosition(BookmarkCategory category, int position)
     {
       // Since bookmarks are always below tracks and header we should take it into account
       // during the bookmark's position calculation.
-      return position - 1 - (isSectionEmpty(categoryId, SECTION_TRACKS)
-                                ? 0 : BookmarkManager.INSTANCE.getTracksCount(categoryId) + 1);
+      return position - 1
+             - (isSectionEmpty(category, SECTION_TRACKS) ? 0 : category.getTracksCount() + 1)
+             - getDescItemCount(category);
     }
   }
 
@@ -327,7 +370,7 @@ public class Holders
     @NonNull
     private final TextView mDistance;
 
-    TrackViewHolder(@NonNull View itemView, long categoryId)
+    TrackViewHolder(@NonNull View itemView, BookmarkCategory categoryId)
     {
       super(itemView, categoryId);
       mIcon = itemView.findViewById(R.id.iv__bookmark_color);
@@ -338,7 +381,7 @@ public class Holders
     @Override
     void bind(int position)
     {
-      final long trackId = BookmarkManager.INSTANCE.getTrackIdByPosition(mCategoryId,
+      final long trackId = BookmarkManager.INSTANCE.getTrackIdByPosition(mCategory.getId(),
                                                                          position - 1);
       Track track = BookmarkManager.INSTANCE.getTrack(trackId);
       mName.setText(track.getName());
@@ -358,7 +401,7 @@ public class Holders
     @NonNull
     private final TextView mView;
 
-    SectionViewHolder(@NonNull TextView itemView, long categoryId)
+    SectionViewHolder(@NonNull TextView itemView, BookmarkCategory categoryId)
     {
       super(itemView, categoryId);
       mView = itemView;
@@ -367,7 +410,7 @@ public class Holders
     @Override
     void bind(int position)
     {
-      final int sectionIndex = getSectionForPosition(mCategoryId, position);
+      final int sectionIndex = getSectionForPosition(mCategory, position);
       mView.setText(getSections().get(sectionIndex));
       mView.setText(getSections().get(sectionIndex));
     }
@@ -377,7 +420,39 @@ public class Holders
       final List<String> sections = new ArrayList<>();
       sections.add(mView.getContext().getString(R.string.tracks));
       sections.add(mView.getContext().getString(R.string.bookmarks));
+      sections.add(mView.getContext().getString(R.string.description));
       return sections;
+    }
+  }
+
+  static class DescriptionViewHolder extends BaseBookmarkHolder
+  {
+    @NonNull
+    private final TextView mContentView;
+    @NonNull
+    private final TextView mTitle;
+    @NonNull
+    private final TextView mAuthor;
+
+    DescriptionViewHolder(@NonNull View itemView, @NonNull BookmarkCategory category)
+    {
+      super(itemView, category);
+      mContentView = itemView.findViewById(R.id.description);
+      mTitle = itemView.findViewById(R.id.title);
+      mAuthor = itemView.findViewById(R.id.author);
+    }
+
+    @Override
+    void bind(int position)
+    {
+      mTitle.setText(mCategory.getName());
+      mContentView.setText(mCategory.getDescription());
+      BookmarkCategory.Author author = mCategory.getAuthor();
+      Context c = itemView.getContext();
+      CharSequence authorName = author == null
+                                ? null
+                                : BookmarkCategory.Author.getRepresentation(c, author);
+      mAuthor.setText(authorName);
     }
   }
 }

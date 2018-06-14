@@ -283,10 +283,13 @@ public enum BookmarkManager
 
   /**
    * @return total count - tracks + bookmarks
+   * @param catId
+   * should be used BookmarkCategory.size() - without JNI method call overhead
    */
-  public int getCategorySize(long catId)
+  @Deprecated
+  public int getCategorySize(BookmarkCategory catId)
   {
-    return nativeGetBookmarksCount(catId) + nativeGetTracksCount(catId);
+    return nativeGetBookmarksCount(catId.getId()) + nativeGetTracksCount(catId.getId());
   }
 
   public int getCategoriesCount() { return nativeGetCategoriesCount(); }

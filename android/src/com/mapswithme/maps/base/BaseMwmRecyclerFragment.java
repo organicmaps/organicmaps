@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.widget.PlaceholderView;
+import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
@@ -80,6 +81,9 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
     LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
     manager.setSmoothScrollbarEnabled(true);
     mRecycler.setLayoutManager(manager);
+    RecyclerView.ItemDecoration decor = ItemDecoratorFactory
+        .createDefaultDecorator(getContext(), LinearLayoutManager.VERTICAL);
+    mRecycler.addItemDecoration(decor);
     mRecycler.setAdapter(createAdapter());
 
     mPlaceholder = view.findViewById(R.id.placeholder);

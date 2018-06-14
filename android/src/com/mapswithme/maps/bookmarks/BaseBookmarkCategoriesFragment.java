@@ -270,8 +270,14 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   @Override
   public void onItemClick(View v, BookmarkCategory category)
   {
-    startActivity(new Intent(getActivity(), BookmarkListActivity.class)
-                      .putExtra(BookmarksListFragment.EXTRA_CATEGORY, category));
+    startActivity(makeBookmarksListIntent(category));
+  }
+
+  @NonNull
+  private Intent makeBookmarksListIntent(BookmarkCategory category)
+  {
+    return new Intent(getActivity(), BookmarkListActivity.class)
+                      .putExtra(BookmarksListFragment.EXTRA_CATEGORY, category);
   }
 
   @Override

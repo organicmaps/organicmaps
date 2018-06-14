@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/share_message"
+        android:title="@string/share_by_message"
+        android:icon="@drawable/ic_share_message"/>
+
+  <item android:id="@+id/share_email"
+        android:title="@string/share_by_email"
+        android:icon="@drawable/ic_share_email"/>
+
+  <item android:id="@+id/share"
+        android:title="@string/share"
+        android:icon="@drawable/ic_share"/>
+</menu>

@@ -45,6 +45,7 @@ public final class UiUtils
 {
   private static final int DEFAULT_TINT_COLOR = Color.parseColor("#20000000");
   public static final int NO_ID = -1;
+  public static final String PHRASE_SEPARATOR = " • ";
   private static float sScreenDensity;
 
   public static class SimpleAnimationListener implements AnimationListener

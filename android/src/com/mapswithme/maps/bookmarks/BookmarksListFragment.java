@@ -53,7 +53,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
   @Override
   protected RecyclerView.Adapter createAdapter()
   {
-    return new BookmarkListAdapter(getActivity(), mCategory.getId());
+    return new BookmarkListAdapter(mCategory);
   }
 
   @Override
@@ -133,6 +133,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
       switch (adapter.getItemViewType(position))
       {
         case BookmarkListAdapter.TYPE_SECTION:
+        case BookmarkListAdapter.TYPE_DESC:
           return;
         case BookmarkListAdapter.TYPE_BOOKMARK:
           final Bookmark bookmark = (Bookmark) adapter.getItem(position);
@@ -159,18 +160,20 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
       return;
 
     mSelectedPosition = position;
-    final Object item = adapter.getItem(mSelectedPosition);
     int type = adapter.getItemViewType(mSelectedPosition);
 
     switch (type)
     {
       case BookmarkListAdapter.TYPE_SECTION:
+      case BookmarkListAdapter.TYPE_DESC:
         // Do nothing here?
         break;
 
       case BookmarkListAdapter.TYPE_BOOKMARK:
-        BottomSheetHelper.Builder bs = BottomSheetHelper.create(getActivity(), ((Bookmark) item).getTitle())
-                                                        .sheet(R.menu.menu_bookmarks)
+        final Bookmark bookmark = (Bookmark) adapter.getItem(mSelectedPosition);
+        int menuResId = isCatalogCategory() ? R.menu.menu_bookmarks_catalog : R.menu.menu_bookmarks;
+        BottomSheetHelper.Builder bs = BottomSheetHelper.create(getActivity(), bookmark.getTitle())
+                                                        .sheet(menuResId)
                                                         .listener(this);
         if (!ShareOption.SMS.isSupported(getActivity()))
           bs.getMenu().removeItem(R.id.share_message);
@@ -182,14 +185,15 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
         break;
 
       case BookmarkListAdapter.TYPE_TRACK:
-        BottomSheetHelper.create(getActivity(), ((Track) item).getName())
+        final Track track = (Track) adapter.getItem(mSelectedPosition);
+        BottomSheetHelper.create(getActivity(), track.getName())
                          .sheet(Menu.NONE, R.drawable.ic_delete, R.string.delete)
                          .listener(new MenuItem.OnMenuItemClickListener()
                          {
                            @Override
                            public boolean onMenuItemClick(MenuItem menuItem)
                            {
-                             BookmarkManager.INSTANCE.deleteTrack(((Track) item).getTrackId());
+                             BookmarkManager.INSTANCE.deleteTrack(track.getTrackId());
                              adapter.notifyDataSetChanged();
                              return false;
                            }
@@ -250,7 +254,14 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
   @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
   {
+    if (isCatalogCategory())
+      return;
     inflater.inflate(R.menu.option_menu_bookmarks, menu);
+  }
+
+  private boolean isCatalogCategory()
+  {
+    return mCategory.getType() == BookmarkCategory.Type.CATALOG;
   }
 
   @Override

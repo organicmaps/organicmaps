@@ -14,6 +14,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
 import static com.mapswithme.maps.bookmarks.Holders.CategoryViewHolder;
 import static com.mapswithme.maps.bookmarks.Holders.HeaderViewHolder;
+import static com.mapswithme.util.UiUtils.PHRASE_SEPARATOR;
 
 public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<RecyclerView.ViewHolder>
 {
@@ -151,8 +152,14 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     BookmarkCategory.Author author = category.getAuthor();
     CharSequence authorName = author == null
                               ? null
-                              : BookmarkCategory.Author.getRepresentation(getContext(), author);
+                              : getAuthorRepresentation(author);
     categoryHolder.getAuthorName().setText(authorName);
+  }
+
+  @NonNull
+  private String getAuthorRepresentation(@NonNull BookmarkCategory.Author author)
+  {
+    return PHRASE_SEPARATOR + BookmarkCategory.Author.getRepresentation(getContext(), author);
   }
 
   @Override
