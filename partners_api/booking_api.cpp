@@ -348,7 +348,7 @@ bool RawApi::HotelAvailability(AvailabilityParams const & params, string & resul
 string Api::GetBookHotelUrl(string const & baseUrl) const
 {
   ASSERT(!baseUrl.empty(), ());
-  return GetDescriptionUrl(baseUrl) + "#availability";
+  return GetDescriptionUrl(baseUrl);
 }
 
 string Api::GetDeepLink(string const & hotelId) const
