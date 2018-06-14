@@ -280,6 +280,11 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
                       .putExtra(BookmarksListFragment.EXTRA_CATEGORY, category);
   }
 
+  protected void onShareActionSelected(@NonNull BookmarkCategory category)
+  {
+    SharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(getActivity(), category.getId());
+  }
+
   @Override
   public void onItemLongClick(View v, BookmarkCategory category)
   {
@@ -394,8 +399,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
       public void process(@NonNull BaseBookmarkCategoriesFragment frag,
                           @NonNull BookmarkCategory category)
       {
-        SharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(frag.getActivity(),
-                                                                 category.getId());
+        frag.onShareActionSelected(category);
       }
     }
 

@@ -12,6 +12,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.sharing.TargetUtils;
 
 public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment implements
                                                                                      BookmarkManager.BookmarksCatalogListener
@@ -54,6 +55,17 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
   public void onFooterClick()
   {
     openBookmarksCatalogScreen();
+  }
+
+  @Override
+  protected void onShareActionSelected(@NonNull BookmarkCategory category)
+  {
+    String deepLink = BookmarkManager.INSTANCE.getCatalogDeeplink(category.getId());
+    Intent intent = new Intent(Intent.ACTION_SEND)
+        .setType(TargetUtils.TYPE_TEXT_PLAIN)
+        .putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name))
+        .putExtra(Intent.EXTRA_TEXT, deepLink);
+    startActivity(Intent.createChooser(intent, getString(R.string.share)));
   }
 
   @Override
