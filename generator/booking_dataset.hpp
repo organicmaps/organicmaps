@@ -61,7 +61,7 @@ struct BookingHotel
   std::string m_translations;
 };
 
-ostream & operator<<(ostream & s, BookingHotel const & h);
+std::ostream & operator<<(std::ostream & s, BookingHotel const & h);
 
 NEWTYPE_SIMPLE_OUTPUT(BookingHotel::ObjectId);
 using BookingDataset = SponsoredDataset<BookingHotel>;

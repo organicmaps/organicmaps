@@ -1,13 +1,12 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 
+#include "indexer/editable_map_object.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_loader_base.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
-
-#include "editor/osm_editor.hpp"
 
 #include "platform/preferred_languages.hpp"
 

@@ -161,7 +161,7 @@ private:
   map<MwmSet::MwmId, CacheEntry> m_mwmCache;
 
   bool m_isRunning;
-  condition_variable m_condition;
+  std::condition_variable m_condition;
 
   vector<MwmSet::MwmId> m_lastDrapeMwmsByRect;
   set<MwmSet::MwmId> m_activeDrapeMwms;

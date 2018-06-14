@@ -8,8 +8,6 @@
 
 #include "base/buffer_vector.hpp"
 
-#include "editor/xml_feature.hpp"
-
 #include "std/iterator.hpp"
 #include "std/string.hpp"
 #include "std/utility.hpp"

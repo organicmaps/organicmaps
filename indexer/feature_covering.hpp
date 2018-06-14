@@ -107,6 +107,8 @@ class CoveringGetter
 public:
   CoveringGetter(m2::RectD const & r, CoveringMode mode) : m_rect(r), m_mode(mode) {}
 
+  inline m2::RectD const & GetRect() const { return m_rect; }
+
   template <int DEPTH_LEVELS>
   Intervals const & Get(int scale)
   {

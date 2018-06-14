@@ -53,7 +53,7 @@ struct OpentableRestaurant
   // string m_translations;
 };
 
-ostream & operator<<(ostream & s, OpentableRestaurant const & r);
+std::ostream & operator<<(std::ostream & s, OpentableRestaurant const & r);
 
 NEWTYPE_SIMPLE_OUTPUT(OpentableRestaurant::ObjectId);
 using OpentableDataset = SponsoredDataset<OpentableRestaurant>;

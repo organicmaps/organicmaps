@@ -36,6 +36,7 @@
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 #include "base/osm_id.hpp"
+#include "base/timer.hpp"
 
 #include <algorithm>
 #include <cstdint>
