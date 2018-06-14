@@ -624,7 +624,7 @@
 	<string name="routing_planning_error">Routenplanung fehlgeschlagen</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Ankunft: %s</string>
-	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Zum Erstellen einer Route müssen Sie alle Karten herunterladen und aktualisieren, auf der die Route liegt.</string>
 	<string name="rate_alert_title">Gefällt Ihnen die App?</string>
 	<string name="rate_alert_default_message">Danke, dass Sie MAPS.ME nutzen. Bitte bewerten Sie die App. Ihre Rückmeldung hilft uns, besser zu werden.</string>

@@ -995,7 +995,7 @@
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Sosire: %s";
 
-/* Text for routing::IRouter::FileTooOld dialog. */
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Pentru a crea o rută, vă rugăm să descărcați și să actualizați toate hărțile de pe parcursul rutei.";
 
 "rate_alert_title" = "Vă place aplicația?";

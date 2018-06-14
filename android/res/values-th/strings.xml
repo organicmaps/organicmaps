@@ -616,7 +616,7 @@
 	<string name="routing_planning_error">การวางแผนเส้นทางล้มเหลว</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">มาถึง: %s</string>
-	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">เพื่อสร้างเส้นทาง โปรดดาวน์โหลดและอัปเดตแผนที่ทั้งหมดตลอดเส้นทาง</string>
 	<string name="rate_alert_title">ชอบแอปหรือไม่?</string>
 	<string name="rate_alert_default_message">ขอบพระคุณสำหรับการใช้ MAPS.ME โปรดให้คะแนนแอป ข้อเสนอแนะของคุณจะช่วยทำให้เราทำได้ดียิ่งขึ้น</string>

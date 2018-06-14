@@ -618,7 +618,7 @@
 	<string name="routing_planning_error">路線計劃失敗</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">抵達:%s</string>
-	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">要建立路線，請下載並更新所有沿線的地圖。</string>
 	<string name="rate_alert_title">喜歡這個應用程式嗎？</string>
 	<string name="rate_alert_default_message">感謝您使用 MAPS.ME。請評價此應用程式。您的回饋幫助我們改善我們的產品。</string>

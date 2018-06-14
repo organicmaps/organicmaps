@@ -995,7 +995,7 @@
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Kedatangan: %s";
 
-/* Text for routing::IRouter::FileTooOld dialog. */
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Untuk membuat rute, silakan unduh dan perbarui semua peta sepanjang rute.";
 
 "rate_alert_title" = "Suka aplikasi ini?";

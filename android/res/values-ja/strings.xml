@@ -609,7 +609,7 @@
 	<string name="routing_planning_error">ルート検索に失敗</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">到着予定: %s</string>
-	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">ルートを作成するには、ルートの通過する地図を全てダウンロード・アップデートしてください。</string>
 	<string name="rate_alert_title">このアプリが好きですか?</string>
 	<string name="rate_alert_default_message">MAPS.MEをご使用いただきありがとうございます。アプリの評価をお願いいたします。皆様からのフィードバックはアプリの改善に役立つものです。</string>

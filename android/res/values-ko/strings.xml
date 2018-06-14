@@ -606,7 +606,7 @@
 	<string name="routing_planning_error">경로 계획 실패</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">도착: %s</string>
-	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">경로를 만들려면, 경로를 따라 모든 지도를 다운로드하고 업데이트하십시오.</string>
 	<string name="rate_alert_title">앱을 좋아하나요?</string>
 	<string name="rate_alert_default_message">MAPS.ME를 사용해 주셔서 감사합니다. 이 앱을 평가해 주십시오. 당신의 피드백은 이 앱을 더 낫게 만드는데 도움을 줍니다.</string>

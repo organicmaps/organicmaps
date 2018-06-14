@@ -611,7 +611,7 @@
 	<string name="routing_planning_error">Falhou o Planeamento da Rota</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Chegada: %s</string>
-	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Para criar uma rota, por favor, baixe e atualize todos os mapas ao longo do trajeto.</string>
 	<string name="rate_alert_title">Gosta do aplicativo?</string>
 	<string name="rate_alert_default_message">Obrigado por usar MAPS.ME. Por favor, classifique o aplicativo. Seu feedback nos ajuda a melhorar.</string>

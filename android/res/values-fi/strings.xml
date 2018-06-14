@@ -610,7 +610,7 @@
 	<string name="routing_planning_error">Reitin suunnittelu epäonnistui</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Saavut: %s</string>
-	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Lataa ja päivitä kaikki kartat reitin varrella luodaksesi reitin.</string>
 	<string name="rate_alert_title">Pidätkö sovelluksesta?</string>
 	<string name="rate_alert_default_message">Kiitos kun käytät MAPS.ME:tä. Voisitko myös arvostella sovelluksen? Palautteesi avulla tulemme vielä paremmiksi.</string>

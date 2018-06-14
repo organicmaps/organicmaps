@@ -995,7 +995,7 @@
 /* Arrive routing message in navigation view */
 "routing_arrive" = "Aankomst: %s";
 
-/* Text for routing::IRouter::FileTooOld dialog. */
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "Om een route te maken, download en update alle kaarten rondom de route.";
 
 "rate_alert_title" = "Vindt u de app leuk?";

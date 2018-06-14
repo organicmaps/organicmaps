@@ -995,7 +995,7 @@
 /* Arrive routing message in navigation view */
 "routing_arrive" = "抵達:%s";
 
-/* Text for routing::IRouter::FileTooOld dialog. */
+/* Text for routing::RouterResultCode::FileTooOld dialog. */
 "dialog_routing_download_and_update_maps" = "要创建路线，请下载并更新所有沿路线的地图。";
 
 "rate_alert_title" = "喜欢这个应用吗？";

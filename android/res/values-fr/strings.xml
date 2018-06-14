@@ -621,7 +621,7 @@
 	<string name="routing_planning_error">La planification de l\'itinéraire a échoué</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Arrivée: %s</string>
-	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Pour créer un trajet, veuillez télécharger et mettre à jour toutes les cartes concernant ce trajet.</string>
 	<string name="rate_alert_title">Vous aimez l’application ?</string>
 	<string name="rate_alert_default_message">Merci d’avoir utilisé MAPS.ME. Pourriez-vous, s’il vous plaît, noter cette application ? Vos commentaires nous aideront à nous améliorer.</string>

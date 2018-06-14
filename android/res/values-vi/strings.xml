@@ -610,7 +610,7 @@
 	<string name="routing_planning_error">Không thể Lập Lộ trình</string>
 	<!-- Arrive routing message in navigation view -->
 	<string name="routing_arrive">Đến: %s</string>
-	<!-- Text for routing::IRouter::FileTooOld dialog. -->
+	<!-- Text for routing::RouterResultCode::FileTooOld dialog. -->
 	<string name="dialog_routing_download_and_update_maps">Để tạo đường đi, vui lòng tải về và cập nhật tất cả bản đồ dọc theo tuyến đường.</string>
 	<string name="rate_alert_title">Bạn thích ứng dụng chứ?</string>
 	<string name="rate_alert_default_message">Cám ơn bạn đã sử dụng MAPS.ME. Vui lòng đánh giá ứng dụng. Phản hồi của bạn giúp chúng tôi trở nên tốt hơn.</string>
