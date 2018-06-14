@@ -134,6 +134,8 @@
 		675345A81A40535E00A0A8C3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 675345A71A40535E00A0A8C3 /* Cocoa.framework */; };
 		67534C421A4097D000A0A8C3 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67534C411A4097D000A0A8C3 /* OpenGL.framework */; };
 		67534D271A40AA4300A0A8C3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67534D261A40AA4300A0A8C3 /* CoreLocation.framework */; };
+		675B561E20D15BC300A521D2 /* libopen_location_code.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675B561D20D15BC300A521D2 /* libopen_location_code.a */; };
+		675B562020D15BEF00A521D2 /* libkml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 675B561F20D15BEF00A521D2 /* libkml.a */; };
 		677A2DEB1C0DDDBE00635A00 /* resources-default in Resources */ = {isa = PBXBuildFile; fileRef = 677A2DE71C0DDD7C00635A00 /* resources-default */; };
 		67A461A71C2172C400B18739 /* 07_roboto_medium.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 67A461A61C2172C400B18739 /* 07_roboto_medium.ttf */; };
 		67E8DC931BBC1D3F0053C5BA /* libagg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67E8DC911BBC1D3F0053C5BA /* libagg.a */; };
@@ -357,6 +359,8 @@
 		675345A71A40535E00A0A8C3 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		67534C411A4097D000A0A8C3 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		67534D261A40AA4300A0A8C3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		675B561D20D15BC300A521D2 /* libopen_location_code.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libopen_location_code.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		675B561F20D15BEF00A521D2 /* libkml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libkml.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		677A2DE71C0DDD7C00635A00 /* resources-default */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "resources-default"; sourceTree = "<group>"; };
 		67A461A61C2172C400B18739 /* 07_roboto_medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 07_roboto_medium.ttf; sourceTree = "<group>"; };
 		67E8DC911BBC1D3F0053C5BA /* libagg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libagg.a; path = "../../../omim-xcode-build/Debug/libagg.a"; sourceTree = "<group>"; };
@@ -369,6 +373,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				675B562020D15BEF00A521D2 /* libkml.a in Frameworks */,
+				675B561E20D15BC300A521D2 /* libopen_location_code.a in Frameworks */,
 				34EF6F8020246E0B00838CBC /* libtransit.a in Frameworks */,
 				34E42EEF20236EA500DF8315 /* Alamofire.framework in Frameworks */,
 				348FE6891F7BBF9300AAA4AF /* libbsdiff.a in Frameworks */,
@@ -425,6 +431,8 @@
 		3475E0DC1DBF5772004C7E69 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				675B561F20D15BEF00A521D2 /* libkml.a */,
+				675B561D20D15BC300A521D2 /* libopen_location_code.a */,
 				34EF6F8120246E0B00838CBC /* libtransit.a */,
 				34E42EEE20236EA400DF8315 /* Alamofire.framework */,
 				348FE68A1F7BBF9300AAA4AF /* libbsdiff.a */,
@@ -830,6 +838,7 @@
 					"$(OMIM_ROOT)/3party/glm",
 					"$(DERIVED_FILE_DIR)",
 					"$(OMIM_ROOT)/3party/gflags/src",
+					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				SUPPORTED_PLATFORMS = macosx;
@@ -858,6 +867,7 @@
 					"$(OMIM_ROOT)/3party/glm",
 					"$(DERIVED_FILE_DIR)",
 					"$(OMIM_ROOT)/3party/gflags/src",
+					"$(OMIM_ROOT)/3party/jansson/src",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				SUPPORTED_PLATFORMS = macosx;
