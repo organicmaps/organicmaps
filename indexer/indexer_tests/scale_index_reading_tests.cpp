@@ -52,8 +52,8 @@ public:
     vector<uint32_t> indices;
     for (auto const & interval : covering.Get<RectId::DEPTH_LEVELS>(scale))
     {
-      index.ForEachInIntervalAndScale([&](uint32_t index) { indices.push_back(index); },
-                                      interval.first, interval.second, scale);
+      index.ForEachInIntervalAndScale(interval.first, interval.second, scale,
+                                      [&](uint32_t index) { indices.push_back(index); });
     }
 
     Index::FeaturesLoaderGuard loader(m_index, id);

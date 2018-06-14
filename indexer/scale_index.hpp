@@ -52,14 +52,13 @@ public:
       m_IndexForScale.push_back(factory.CreateIndex(treesReader.SubReader(i)));
   }
 
-  template <typename F>
-  void ForEachInIntervalAndScale(F const & f, uint64_t beg, uint64_t end, int scale) const
+  void ForEachInIntervalAndScale(uint64_t beg, uint64_t end, int scale, std::function<void(uint32_t)> const & fn) const
   {
     auto const scaleBucket = BucketByScale(scale);
     if (scaleBucket < m_IndexForScale.size())
     {
       for (size_t i = 0; i <= scaleBucket; ++i)
-        m_IndexForScale[i]->ForEach(f, beg, end);
+        m_IndexForScale[i]->ForEach(fn, beg, end);
     }
   }
 

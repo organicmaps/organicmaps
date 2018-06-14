@@ -91,7 +91,7 @@ private:
 
         for (auto const & i : intervals)
         {
-          index.ForEachInIntervalAndScale(
+          index.ForEachInIntervalAndScale(i.first, i.second, scale,
               [&](uint32_t index)
               {
                 if (!checkUnique(index))
@@ -115,8 +115,7 @@ private:
                 fv.GetByIndex(index, feature);
                 feature.SetID(FeatureID(mwmID, index));
                 m_f(feature);
-              },
-              i.first, i.second, scale);
+              });
         }
       }
     }
@@ -159,15 +158,14 @@ private:
 
         for (auto const & i : intervals)
         {
-          index.ForEachInIntervalAndScale(
+          index.ForEachInIntervalAndScale(i.first, i.second, scale,
               [&](uint32_t index)
               {
                 if (datasource::FeatureStatus::Deleted !=
                         m_editor.GetFeatureStatus(mwmID, index) &&
                     checkUnique(index))
                   m_f(FeatureID(mwmID, index));
-              },
-              i.first, i.second, scale);
+              });
         }
       }
     }
