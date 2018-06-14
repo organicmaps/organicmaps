@@ -11960,7 +11960,7 @@ fa = دوباره نپرس
     fa = ورود به: %s
 
   [dialog_routing_download_and_update_maps]
-    comment = Text for routing::IRouter::FileTooOld dialog.
+    comment = Text for routing::RouterResultCode::FileTooOld dialog.
     tags = ios, android
     en = Download and update all map along the projected path to calculate route.
     ru = Для построения маршрута загрузите и обновите все карты по пути следования.
