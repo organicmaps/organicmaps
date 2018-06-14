@@ -3,9 +3,10 @@
 #include "drape/glIncludes.hpp"
 #include "drape/oglcontext.hpp"
 
+#include <atomic>
+
 namespace android
 {
-
 class AndroidOGLContext : public dp::OGLContext
 {
 public:
@@ -18,6 +19,8 @@ public:
   void present() override;
   void setDefaultFramebuffer() override;
   void setRenderingEnabled(bool enabled) override;
+  void setPresentAvailable(bool available) override;
+  bool validate() override;
 
   void setSurface(EGLSurface surface);
   void resetSurface();
@@ -33,6 +36,7 @@ private:
   EGLSurface m_surface;
   EGLDisplay m_display;
   // @}
-};
 
+  std::atomic<bool> m_presentAvailable;
+};
 }  // namespace android

@@ -15,12 +15,11 @@ public:
                 iosOGLContext * contextToShareWith, bool needBuffers = false);
   ~iosOGLContext();
 
-  virtual void makeCurrent();
-  virtual void present();
-  virtual void setDefaultFramebuffer();
-  virtual void resize(int w, int h);
-  
-  void setPresentAvailable(bool available);
+  void makeCurrent() override;
+  void present() override;
+  void setDefaultFramebuffer() override;
+  void resize(int w, int h) override;
+  void setPresentAvailable(bool available) override;
 
 private:
   dp::ApiVersion m_apiVersion;

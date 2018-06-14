@@ -22,7 +22,7 @@ public:
   
   void waitForInitialization(dp::OGLContext * context) override;
   
-  void setPresentAvailable(bool available);
+  void setPresentAvailable(bool available) override;
 
 private:
   CAEAGLLayer * m_layer;

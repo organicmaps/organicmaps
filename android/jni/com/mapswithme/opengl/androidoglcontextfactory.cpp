@@ -274,6 +274,12 @@ bool AndroidOGLContextFactory::isUploadContextCreated() const
   return m_uploadContext != nullptr;
 }
 
+void AndroidOGLContextFactory::setPresentAvailable(bool available)
+{
+  if (m_drawContext != nullptr)
+    m_drawContext->setPresentAvailable(available);
+}
+
 bool AndroidOGLContextFactory::createWindowSurface()
 {
   EGLConfig configs[kMaxConfigCount];
@@ -341,5 +347,4 @@ bool AndroidOGLContextFactory::createPixelbufferSurface()
 
   return true;
 }
-
 }  // namespace android

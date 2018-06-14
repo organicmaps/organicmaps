@@ -1922,83 +1922,95 @@ void FrontendRenderer::Routine::Do()
   double frameTime = 0.0;
   bool modelViewChanged = true;
   bool viewportChanged = true;
+  bool invalidContext = false;
 
   dp::OGLContext * context = m_renderer.m_contextFactory->getDrawContext();
 
   while (!IsCancelled())
   {
-    ScreenBase modelView = m_renderer.ProcessEvents(modelViewChanged, viewportChanged);
-    if (viewportChanged)
-      m_renderer.OnResize(modelView);
-
-    // Check for a frame is active.
-    bool isActiveFrame = modelViewChanged || viewportChanged;
-
-    if (isActiveFrame)
-      m_renderer.PrepareScene(modelView);
-
-    isActiveFrame |= m_renderer.m_myPositionController->IsWaitingForTimers();
-    isActiveFrame |= m_renderer.m_texMng->UpdateDynamicTextures();
-    m_renderer.m_routeRenderer->UpdatePreview(modelView);
-
-    m_renderer.RenderScene(modelView);
-
-    if (modelViewChanged || m_renderer.m_forceUpdateScene || m_renderer.m_forceUpdateUserMarks)
-      m_renderer.UpdateScene(modelView);
-
-    isActiveFrame |= InterpolationHolder::Instance().Advance(frameTime);
-    AnimationSystem::Instance().Advance(frameTime);
-
-    isActiveFrame |= m_renderer.m_userEventStream.IsWaitingForActionCompletion();
-
-    if (isActiveFrame)
-      activityTimer.Reset();
-
-    bool isValidFrameTime = true;
-    if (activityTimer.ElapsedSeconds() > kMaxInactiveSeconds)
+    if (context->validate())
     {
-      // Process a message or wait for a message.
-      // IsRenderingEnabled() can return false in case of rendering disabling and we must prevent
-      // possibility of infinity waiting in ProcessSingleMessage.
-      m_renderer.ProcessSingleMessage(m_renderer.IsRenderingEnabled());
-      activityTimer.Reset();
+      invalidContext = false;
+      ScreenBase modelView = m_renderer.ProcessEvents(modelViewChanged, viewportChanged);
+      if (viewportChanged)
+        m_renderer.OnResize(modelView);
+
+      // Check for a frame is active.
+      bool isActiveFrame = modelViewChanged || viewportChanged;
+
+      if (isActiveFrame)
+        m_renderer.PrepareScene(modelView);
+
+      isActiveFrame |= m_renderer.m_myPositionController->IsWaitingForTimers();
+      isActiveFrame |= m_renderer.m_texMng->UpdateDynamicTextures();
+      m_renderer.m_routeRenderer->UpdatePreview(modelView);
+
+      m_renderer.RenderScene(modelView);
+
+      if (modelViewChanged || m_renderer.m_forceUpdateScene || m_renderer.m_forceUpdateUserMarks)
+        m_renderer.UpdateScene(modelView);
+
+      isActiveFrame |= InterpolationHolder::Instance().Advance(frameTime);
+      AnimationSystem::Instance().Advance(frameTime);
+
+      isActiveFrame |= m_renderer.m_userEventStream.IsWaitingForActionCompletion();
+
+      if (isActiveFrame)
+        activityTimer.Reset();
+
+      bool isValidFrameTime = true;
+      if (activityTimer.ElapsedSeconds() > kMaxInactiveSeconds)
+      {
+        // Process a message or wait for a message.
+        // IsRenderingEnabled() can return false in case of rendering disabling and we must prevent
+        // possibility of infinity waiting in ProcessSingleMessage.
+        m_renderer.ProcessSingleMessage(m_renderer.IsRenderingEnabled());
+        activityTimer.Reset();
+        timer.Reset();
+        isValidFrameTime = false;
+      }
+      else
+      {
+        double availableTime = kVSyncInterval - timer.ElapsedSeconds();
+        do
+        {
+          if (!m_renderer.ProcessSingleMessage(false /* waitForMessage */))
+            break;
+
+          activityTimer.Reset();
+          availableTime = kVSyncInterval - timer.ElapsedSeconds();
+        }
+        while (availableTime > 0.0);
+      }
+
+      context->present();
+      frameTime = timer.ElapsedSeconds();
       timer.Reset();
-      isValidFrameTime = false;
+
+      // Limit fps in following mode.
+      double constexpr kFrameTime = 1.0 / 30.0;
+      if (isValidFrameTime && frameTime < kFrameTime &&
+          m_renderer.m_myPositionController->IsRouteFollowingActive())
+      {
+        auto const ms = static_cast<uint32_t>((kFrameTime - frameTime) * 1000);
+        std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+      }
+
+      if (m_renderer.m_overlaysTracker->IsValid() &&
+        showOverlaysEventsTimer.ElapsedSeconds() > kShowOverlaysEventsPeriod)
+      {
+        m_renderer.CollectShowOverlaysEvents();
+        showOverlaysEventsTimer.Reset();
+      }
     }
     else
     {
-      double availableTime = kVSyncInterval - timer.ElapsedSeconds();
-      do
+      if (!invalidContext)
       {
-        if (!m_renderer.ProcessSingleMessage(false /* waitForMessage */))
-          break;
-
-        activityTimer.Reset();
-        availableTime = kVSyncInterval - timer.ElapsedSeconds();
+        LOG(LINFO, ("Invalid context. Rendering is stopped."));
+        invalidContext = true;
       }
-      while (availableTime > 0.0);
     }
-
-    context->present();
-    frameTime = timer.ElapsedSeconds();
-    timer.Reset();
-
-    // Limit fps in following mode.
-    double constexpr kFrameTime = 1.0 / 30.0;
-    if (isValidFrameTime &&
-        m_renderer.m_myPositionController->IsRouteFollowingActive() && frameTime < kFrameTime)
-    {
-      uint32_t const ms = static_cast<uint32_t>((kFrameTime - frameTime) * 1000);
-      std::this_thread::sleep_for(std::chrono::milliseconds(ms));
-    }
-
-    if (m_renderer.m_overlaysTracker->IsValid() &&
-        showOverlaysEventsTimer.ElapsedSeconds() > kShowOverlaysEventsPeriod)
-    {
-      m_renderer.CollectShowOverlaysEvents();
-      showOverlaysEventsTimer.Reset();
-    }
-
     m_renderer.CheckRenderingEnabled();
   }
 

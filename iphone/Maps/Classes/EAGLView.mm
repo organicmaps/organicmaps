@@ -174,7 +174,7 @@ double getExactDPI(double contentScaleFactor)
 
 - (void)setPresentAvailable:(BOOL)available
 {
-  m_factory->CastFactory<iosOGLContextFactory>()->setPresentAvailable(available);
+  m_factory->setPresentAvailable(available);
 }
 
 - (MWMMapWidgets *)widgetsManager

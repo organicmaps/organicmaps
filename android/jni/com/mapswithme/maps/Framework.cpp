@@ -183,7 +183,10 @@ void Framework::Resize(int w, int h)
 
 void Framework::DetachSurface(bool destroyContext)
 {
-  LOG(LINFO, ("Detach surface."));
+  LOG(LINFO, ("Detach surface started. destroyContext =", destroyContext));
+  ASSERT(m_contextFactory != nullptr, ());
+  m_contextFactory->setPresentAvailable(false);
+
   if (destroyContext)
   {
     LOG(LINFO, ("Destroy context."));
@@ -193,14 +196,14 @@ void Framework::DetachSurface(bool destroyContext)
   }
   m_work.SetRenderingDisabled(destroyContext);
 
-  ASSERT(m_contextFactory != nullptr, ());
   AndroidOGLContextFactory * factory = m_contextFactory->CastFactory<AndroidOGLContextFactory>();
   factory->ResetSurface();
+  LOG(LINFO, ("Detach surface finished."));
 }
 
 bool Framework::AttachSurface(JNIEnv * env, jobject jSurface)
 {
-  LOG(LINFO, ("Attach surface."));
+  LOG(LINFO, ("Attach surface started."));
 
   ASSERT(m_contextFactory != nullptr, ());
   AndroidOGLContextFactory * factory = m_contextFactory->CastFactory<AndroidOGLContextFactory>();
@@ -214,6 +217,7 @@ bool Framework::AttachSurface(JNIEnv * env, jobject jSurface)
 
   ASSERT(!m_guiPositions.empty(), ("GUI elements must be set-up before engine is created"));
 
+  m_contextFactory->setPresentAvailable(true);
   m_work.SetRenderingEnabled(factory);
 
   if (m_isContextDestroyed)
@@ -224,6 +228,8 @@ bool Framework::AttachSurface(JNIEnv * env, jobject jSurface)
 
     m_work.EnterForeground();
   }
+
+  LOG(LINFO, ("Attach surface finished."));
 
   return true;
 }

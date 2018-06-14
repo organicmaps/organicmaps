@@ -557,10 +557,11 @@ void BackendRenderer::Routine::Do()
 {
   LOG(LINFO, ("Start routine."));
   m_renderer.OnContextCreate();
-
+  dp::OGLContext * context = m_renderer.m_contextFactory->getResourcesUploadContext();
   while (!IsCancelled())
   {
-    m_renderer.ProcessSingleMessage();
+    if (context->validate())
+      m_renderer.ProcessSingleMessage();
     m_renderer.CheckRenderingEnabled();
   }
 

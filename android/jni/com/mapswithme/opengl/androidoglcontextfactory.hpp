@@ -8,7 +8,6 @@
 
 namespace android
 {
-
 class AndroidOGLContextFactory : public dp::OGLContextFactory
 {
 public:
@@ -17,10 +16,11 @@ public:
 
   bool IsValid() const;
 
-  virtual dp::OGLContext * getDrawContext();
-  virtual dp::OGLContext * getResourcesUploadContext();
-  virtual bool isDrawContextCreated() const;
-  virtual bool isUploadContextCreated() const;
+  dp::OGLContext * getDrawContext() override;
+  dp::OGLContext * getResourcesUploadContext() override;
+  bool isDrawContextCreated() const override;
+  bool isUploadContextCreated() const override;
+  void setPresentAvailable(bool available) override;
 
   void SetSurface(JNIEnv * env, jobject jsurface);
   void ResetSurface();
@@ -54,5 +54,4 @@ private:
   bool m_windowSurfaceValid;
   bool m_supportedES3;
 };
-
 }  // namespace android
