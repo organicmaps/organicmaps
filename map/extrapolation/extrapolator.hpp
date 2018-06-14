@@ -38,7 +38,7 @@ public:
 
   // |kMaxExtrapolationTimeMs| is time in milliseconds showing how long location will be
   // extrapolated after last location gotten from GPS.
-  static uint64_t constexpr kMaxExtrapolationTimeMs = 1000;
+  static uint64_t constexpr kMaxExtrapolationTimeMs = 2000;
   // |kExtrapolationPeriodMs| is time in milliseconds showing how often location will be
   // extrapolated. So if the last location was obtained from GPS at time X the next location
   // will be emulated by Extrapolator at time X + kExtrapolationPeriodMs.

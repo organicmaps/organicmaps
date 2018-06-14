@@ -15,8 +15,8 @@ namespace
 // If the difference of values between two instances of GpsInfo is greater
 // than the appropriate constant below the extrapolator will be switched off for
 // these two instances of GpsInfo.
-double constexpr kMaxExtrapolationSpeedMPS = 85.0;
-double constexpr kMaxExtrapolationDistMeters = 120.0;
+double constexpr kMaxExtrapolationSpeedMPS = 75.0;
+double constexpr kMaxExtrapolationDistMeters = 100.0;
 double constexpr kMaxExtrapolationTimeSeconds = 2.1;
 
 class LinearExtrapolator
@@ -62,12 +62,6 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1,
   result.m_horizontalAccuracy =
       e.Extrapolate(gpsInfo1.m_horizontalAccuracy, gpsInfo2.m_horizontalAccuracy);
   result.m_altitude = e.Extrapolate(gpsInfo1.m_altitude, gpsInfo2.m_altitude);
-
-  if (gpsInfo1.HasVerticalAccuracy() && gpsInfo2.HasVerticalAccuracy())
-  {
-    result.m_verticalAccuracy =
-        e.Extrapolate(gpsInfo1.m_verticalAccuracy, gpsInfo2.m_verticalAccuracy);
-  }
 
   // @TODO(bykoianko) Now |result.m_bearing| == |gpsInfo2.m_bearing|.
   // In case of |gpsInfo1.HasBearing() && gpsInfo2.HasBearing() == true|

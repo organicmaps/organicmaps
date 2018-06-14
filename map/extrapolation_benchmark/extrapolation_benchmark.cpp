@@ -276,6 +276,7 @@ int main(int argc, char * argv[])
         auto const & iter = followedPoly.GetClosestProjectionInInterval(
             posSquare,
             [&extrapolatedMerc](FollowedPolyline::Iter const & it) {
+              ASSERT(it.IsValid(), ());
               return MercatorBounds::DistanceOnEarth(it.m_pt, extrapolatedMerc);
             },
             0 /* start segment index */, followedPoly.GetPolyline().GetSize() - 1);
