@@ -157,7 +157,7 @@ std::list<local_ads::Event> ReadEvents(std::string const & fileName)
   
   try
   {
-    FileReader reader(fileName, true /* withExceptions */);
+    FileReader reader(fileName, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
     ReaderSource<FileReader> src(reader);
     ReadPackedData(src, [&result](local_ads::Statistics::PackedData && data,
                                   std::string const & countryId, int64_t mwmVersion,
@@ -464,7 +464,8 @@ void Statistics::ExtractMetadata(std::string const & fileName)
     int64_t mwmVersion;
     Timestamp baseTimestamp;
     {
-      FileReader reader(fileName, true /* withExceptions */);
+      FileReader reader(fileName, FileReader::kDefaultLogPageSize,
+                        FileReader::kDefaultLogPageCount);
       ReaderSource<FileReader> src(reader);
       ReadMetadata(src, countryId, mwmVersion, baseTimestamp);
     }
@@ -492,7 +493,8 @@ void Statistics::BalanceMemory()
   uint64_t totalSize = 0;
   for (auto const & metadata : m_metadataCache)
   {
-    FileReader reader(metadata.second.m_fileName);
+    FileReader reader(metadata.second.m_fileName, FileReader::kDefaultLogPageSize,
+                      FileReader::kDefaultLogPageCount);
     sizeInBytes[metadata.first] = reader.Size();
     totalSize += reader.Size();
   }

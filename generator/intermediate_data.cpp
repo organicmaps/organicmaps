@@ -56,7 +56,10 @@ namespace generator
 namespace cache
 {
 // IndexFileReader ---------------------------------------------------------------------------------
-IndexFileReader::IndexFileReader(string const & name) : m_fileReader(name.c_str()) {}
+IndexFileReader::IndexFileReader(string const & name)
+  : m_fileReader(name.c_str(), FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount)
+{
+}
 
 void IndexFileReader::ReadAll()
 {
@@ -117,7 +120,10 @@ void IndexFileWriter::Add(Key k, Value const & v)
 
 // OSMElementCacheReader ---------------------------------------------------------------------------
 OSMElementCacheReader::OSMElementCacheReader(string const & name, bool preload)
-  : m_fileReader(name), m_offsets(name + OFFSET_EXT), m_name(name), m_preload(preload)
+  : m_fileReader(name, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount)
+  , m_offsets(name + OFFSET_EXT)
+  , m_name(name)
+  , m_preload(preload)
 {
   if (!m_preload)
     return;
@@ -171,7 +177,8 @@ void RawFilePointStorageWriter::AddPoint(uint64_t id, double lat, double lon)
 
 // RawMemPointStorageReader ------------------------------------------------------------------------
 RawMemPointStorageReader::RawMemPointStorageReader(string const & name)
-  : m_fileReader(name), m_data(kMaxNodesInOSM)
+  : m_fileReader(name, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount)
+  , m_data(kMaxNodesInOSM)
 {
   static_assert(sizeof(size_t) == 8, "This code is only for 64-bit architectures");
   m_fileReader.Read(0, m_data.data(), m_data.size() * sizeof(LatLon));
@@ -210,7 +217,8 @@ void RawMemPointStorageWriter::AddPoint(uint64_t id, double lat, double lon)
 
 // MapFilePointStorageReader -----------------------------------------------------------------------
 MapFilePointStorageReader::MapFilePointStorageReader(string const & name)
-  : m_fileReader(name + kShortExtension)
+  : m_fileReader(name + kShortExtension, FileReader::kDefaultLogPageSize,
+                 FileReader::kDefaultLogPageCount)
 {
   LOG(LINFO, ("Nodes reading is started"));
 

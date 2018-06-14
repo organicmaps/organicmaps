@@ -161,7 +161,8 @@ void IndexScales(feature::DataHeader const & header, TFeaturesVector const & fea
     }
   }
 
-  FileReader reader(cellsToFeatureAllBucketsFile);
+  FileReader reader(cellsToFeatureAllBucketsFile, FileReader::kDefaultLogPageSize,
+                    FileReader::kDefaultLogPageCount);
   DDVector<CellFeatureBucketTuple, FileReader, uint64_t> cellsToFeaturesAllBuckets(reader);
 
   VarSerialVectorWriter<TWriter> recordWriter(writer, bucketsCount);
@@ -182,7 +183,8 @@ void IndexScales(feature::DataHeader const & header, TFeaturesVector const & fea
     }
 
     {
-      FileReader reader(cellsToFeatureFile);
+      FileReader reader(cellsToFeatureFile, FileReader::kDefaultLogPageSize,
+                        FileReader::kDefaultLogPageCount);
       DDVector<CellFeatureBucketTuple::CellFeaturePair, FileReader, uint64_t> cellsToFeatures(
           reader);
       SubWriter<TWriter> subWriter(writer);

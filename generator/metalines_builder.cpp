@@ -194,7 +194,8 @@ bool WriteMetalinesSection(std::string const & mwmPath, std::string const & meta
   if (!routing::ParseOsmIdToFeatureIdMapping(osmIdsToFeatureIdsPath, osmIdToFeatureId))
     return false;
 
-  FileReader reader(metalinesPath);
+  FileReader reader(metalinesPath, FileReader::kDefaultLogPageSize,
+                    FileReader::kDefaultLogPageCount);
   ReaderSource<FileReader> src(reader);
   std::vector<uint8_t> buffer;
   MemWriter<std::vector<uint8_t>> memWriter(buffer);

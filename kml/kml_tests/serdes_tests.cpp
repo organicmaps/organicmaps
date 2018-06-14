@@ -518,7 +518,7 @@ UNIT_TEST(Kml_Deserialization_Text_File)
   try
   {
     kml::DeserializerKml des(dataFromFile);
-    FileReader reader(kmlFile, true /* with exceptions */);
+    FileReader reader(kmlFile, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
     des.Deserialize(reader);
   }
   catch (FileReader::Exception const & exc)
@@ -555,7 +555,7 @@ UNIT_TEST(Kml_Deserialization_Bin_File)
   try
   {
     kml::binary::DeserializerKml des(dataFromFile);
-    FileReader reader(kmbFile, true /* with exceptions */);
+    FileReader reader(kmbFile, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
     des.Deserialize(reader);
   }
   catch (FileReader::Exception const & exc)
@@ -596,7 +596,7 @@ UNIT_TEST(Kml_Serialization_Bin_File)
   try
   {
     kml::binary::DeserializerKml des(dataFromFile);
-    FileReader reader(kmbFile, true /* with exceptions */);
+    FileReader reader(kmbFile, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
     des.Deserialize(reader);
   }
   catch (FileReader::Exception const & exc)
@@ -647,7 +647,7 @@ UNIT_TEST(Kml_Serialization_Text_File)
   try
   {
     kml::DeserializerKml des(dataFromFile);
-    FileReader reader(kmlFile, true /* with exceptions */);
+    FileReader reader(kmlFile, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
     des.Deserialize(reader);
   }
   catch (FileReader::Exception const & exc)

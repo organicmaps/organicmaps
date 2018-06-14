@@ -19,7 +19,10 @@ void CreateAndTestZip(string const & filePath, string const & zipPath)
 
   ZipFileReader::FileListT files;
   ZipFileReader::FilesList(zipPath, files);
-  TEST_EQUAL(files[0].second, FileReader(filePath).Size(), ());
+  TEST_EQUAL(files[0].second,
+             FileReader(filePath, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount)
+                 .Size(),
+             ());
 
   string const unzippedFile = "unzipped.tmp";
   ZipFileReader::UnzipFile(zipPath, files[0].first, unzippedFile);

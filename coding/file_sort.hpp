@@ -63,7 +63,8 @@ public:
     // Write output.
     {
       m_pTmpWriter.reset();
-      FileReader reader(m_TmpFileName);
+      FileReader reader(m_TmpFileName, FileReader::kDefaultLogPageSize,
+                        FileReader::kDefaultLogPageCount);
       ItemIndexPairGreater fGreater(m_Less);
       PriorityQueueType q(fGreater);
       for (uint32_t i = 0; i < m_ItemCount; i += m_BufferCapacity)

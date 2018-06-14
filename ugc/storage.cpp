@@ -40,7 +40,8 @@ bool GetUGCFileSize(uint64_t & size)
 {
   try
   {
-    FileReader reader(GetUGCFilePath(), true /* with exceptions */);
+    FileReader reader(GetUGCFilePath(), FileReader::kDefaultLogPageSize,
+                      FileReader::kDefaultLogPageCount);
     size = reader.Size();
   }
   catch (RootException const &)
@@ -165,7 +166,7 @@ UGCUpdate Storage::GetUGCUpdate(FeatureID const & id) const
   auto const ugcFilePath = GetUGCFilePath();
   try
   {
-    FileReader r(ugcFilePath, true /* withExceptions */);
+    FileReader r(ugcFilePath, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
     r.Read(offset, buf.data(), size);
   }
   catch (FileReader::Exception const & exception)
@@ -194,7 +195,7 @@ void Storage::Load()
   auto const indexFilePath = GetIndexFilePath();
   try
   {
-    FileReader r(indexFilePath, true /* with exceptions */);
+    FileReader r(indexFilePath, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
     r.ReadAsString(data);
   }
   catch (FileReader::Exception const & exception)
@@ -240,7 +241,7 @@ void Storage::Defragmentation()
 
   try
   {
-    FileReader r(ugcFilePath, true /* withExceptions */);
+    FileReader r(ugcFilePath, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
     FileWriter w(tmpUGCFilePath, FileWriter::Op::OP_APPEND);
     uint64_t actualOffset = 0;
     for (size_t i = 0; i < indexesSize; ++i)
@@ -287,7 +288,7 @@ string Storage::GetUGCToSend() const
   auto array = my::NewJSONArray();
   auto const indexesSize = m_UGCIndexes.size();
   auto const ugcFilePath = GetUGCFilePath();
-  FileReader r(ugcFilePath, true /* withExceptions */);
+  FileReader r(ugcFilePath, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
   vector<uint8_t> buf;
   for (size_t i = 0; i < indexesSize; ++i)
   {
@@ -424,7 +425,7 @@ size_t GetNumberOfUnsentUGC()
   string data;
   try
   {
-    FileReader r(indexFilePath, true /* with exceptions */);
+    FileReader r(indexFilePath, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
     r.ReadAsString(data);
   }
   catch (FileReader::Exception const & exception)

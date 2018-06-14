@@ -82,7 +82,8 @@ private:
 
 FileGeometryLoader::FileGeometryLoader(string const & fileName,
                                        shared_ptr<VehicleModelInterface> vehicleModel)
-  : m_featuresVector(FilesContainerR(make_unique<FileReader>(fileName)))
+  : m_featuresVector(FilesContainerR(make_unique<FileReader>(
+        fileName, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount)))
   , m_vehicleModel(vehicleModel)
 {
   CHECK(m_vehicleModel, ());

@@ -257,7 +257,9 @@ std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType
   std::unique_ptr<kml::FileData> kmlData;
   try
   {
-    kmlData = LoadKmlData(FileReader(file, true /* withExceptions */), fileType);
+    kmlData = LoadKmlData(
+        FileReader(file, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount),
+        fileType);
   }
   catch (std::exception const & e)
   {

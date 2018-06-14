@@ -24,7 +24,8 @@ StringStorageBase::StringStorageBase(string const & path) : m_path(path)
   try
   {
     LOG(LINFO, ("Settings path:", m_path));
-    ReaderStreamBuf buffer(make_unique<FileReader>(m_path, true /* withExceptions */));
+    ReaderStreamBuf buffer(make_unique<FileReader>(m_path, FileReader::kDefaultLogPageSize,
+                                                   FileReader::kDefaultLogPageCount));
     istream stream(&buffer);
 
     string line;

@@ -175,13 +175,15 @@ UNIT_TEST(ZipExtract)
   string s;
   ZipFileReader::UnzipFile(ZIPFILE, files[0].first, OUTFILE);
   {
-    FileReader(OUTFILE).ReadAsString(s);
+    FileReader(OUTFILE, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount)
+        .ReadAsString(s);
   }
   TEST_EQUAL(s, "aaaaaaaaaa\x0A", ());
   // OUTFILE should be rewritten correctly in the next lines
   ZipFileReader::UnzipFile(ZIPFILE, files[1].first, OUTFILE);
   {
-    FileReader(OUTFILE).ReadAsString(s);
+    FileReader(OUTFILE, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount)
+        .ReadAsString(s);
   }
   TEST_EQUAL(s, "Holalala\x0A", ());
   FileWriter::DeleteFileX(OUTFILE);

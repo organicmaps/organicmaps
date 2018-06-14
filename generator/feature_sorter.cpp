@@ -326,7 +326,8 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
 
   // store sorted features
   {
-    FileReader reader(srcFilePath);
+    FileReader reader(srcFilePath, FileReader::kDefaultLogPageSize,
+                      FileReader::kDefaultLogPageCount);
 
     bool const isWorld = (mapType != DataHeader::country);
 

@@ -49,7 +49,8 @@ public:
   void LoadWaterGeometry(std::string const & rawGeometryFileName)
   {
     LOG_SHORT(LINFO, ("Loading water geometry:", rawGeometryFileName));
-    FileReader reader(rawGeometryFileName);
+    FileReader reader(rawGeometryFileName, FileReader::kDefaultLogPageSize,
+                      FileReader::kDefaultLogPageCount);
     ReaderSource<FileReader> file(reader);
 
     size_t total = 0;

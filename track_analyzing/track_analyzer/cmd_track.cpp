@@ -13,6 +13,7 @@
 #include "storage/storage.hpp"
 
 #include "coding/file_name_utils.hpp"
+#include "coding/file_reader.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -35,7 +36,8 @@ void CmdTrack(string const & trackFile, string const & mwmName, string const & u
   string const mwmFile = GetCurrentVersionMwmFile(storage, mwmName);
   shared_ptr<VehicleModelInterface> vehicleModel =
       CarModelFactory({}).GetVehicleModelForCountry(mwmName);
-  FeaturesVectorTest featuresVector(FilesContainerR(make_unique<FileReader>(mwmFile)));
+  FeaturesVectorTest featuresVector(FilesContainerR(make_unique<FileReader>(
+      mwmFile, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount)));
   Geometry geometry(GeometryLoader::CreateFromFile(mwmFile, vehicleModel));
 
   uint64_t const duration =

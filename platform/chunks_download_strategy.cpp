@@ -91,7 +91,7 @@ int64_t ChunksDownloadStrategy::LoadOrInitChunks(string const & fName, int64_t f
 
   try
   {
-    FileReader r(fName, true /* with exceptions */);
+    FileReader r(fName, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
     ReaderSource<FileReader> src(r);
 
     int64_t const readSize = ReadVarInt<int64_t>(src);

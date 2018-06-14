@@ -15,6 +15,7 @@
 #include "storage/storage.hpp"
 
 #include "coding/file_name_utils.hpp"
+#include "coding/file_reader.hpp"
 
 #include <iostream>
 
@@ -168,7 +169,8 @@ class MatchedTrackPointToMoveType final
 {
 public:
   MatchedTrackPointToMoveType(string const & mwmFile)
-    : m_featuresVector(FilesContainerR(make_unique<FileReader>(mwmFile)))
+    : m_featuresVector(FilesContainerR(make_unique<FileReader>(
+          mwmFile, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount)))
   {
   }
 

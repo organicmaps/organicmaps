@@ -211,7 +211,7 @@ FilesMappingContainer::~FilesMappingContainer()
 void FilesMappingContainer::Open(string const & fName)
 {
   {
-    FileReader reader(fName);
+    FileReader reader(fName, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
     ReadInfo(reader);
   }
 
@@ -242,7 +242,8 @@ FileReader FilesMappingContainer::GetReader(Tag const & tag) const
   Info const * p = GetInfo(tag);
   if (!p)
     MYTHROW(Reader::OpenException, ("Can't find section:", m_name, tag));
-  return FileReader(m_name).SubReader(p->m_offset, p->m_size);
+  return FileReader(m_name, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount)
+      .SubReader(p->m_offset, p->m_size);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -307,7 +308,7 @@ void FilesContainerW::Open(FileWriter::Op op)
   case FileWriter::OP_WRITE_EXISTING:
     {
       // read an existing service info
-      FileReader reader(m_name);
+      FileReader reader(m_name, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
       ReadInfo(reader);
     }
 
@@ -350,7 +351,8 @@ FilesContainerW::~FilesContainerW()
 uint64_t FilesContainerW::SaveCurrentSize()
 {
   ASSERT(!m_bFinished, ());
-  uint64_t const curr = FileReader(m_name).Size();
+  uint64_t const curr =
+      FileReader(m_name, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount).Size();
   if (!m_info.empty())
     m_info.back().m_size = curr - m_info.back().m_offset;
   return curr;
@@ -426,7 +428,9 @@ FileWriter FilesContainerW::GetWriter(Tag const & tag)
 
 void FilesContainerW::Write(string const & fPath, Tag const & tag)
 {
-  Write(ModelReaderPtr(make_unique<FileReader>(fPath)), tag);
+  Write(ModelReaderPtr(make_unique<FileReader>(fPath, FileReader::kDefaultLogPageSize,
+                                               FileReader::kDefaultLogPageCount)),
+        tag);
 }
 
 void FilesContainerW::Write(ModelReaderPtr reader, Tag const & tag)

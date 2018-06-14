@@ -195,7 +195,8 @@ namespace feature
   {
     using TValue = FeatureIndexValue;
 
-    FilesContainerR container(make_unique<FileReader>(fPath));
+    FilesContainerR container(make_unique<FileReader>(fPath, FileReader::kDefaultLogPageSize,
+                                                      FileReader::kDefaultLogPageCount));
     feature::DataHeader header(container);
     serial::GeometryCodingParams codingParams(
         trie::GetGeometryCodingParams(header.GetDefGeometryCodingParams()));

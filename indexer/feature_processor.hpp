@@ -23,6 +23,8 @@ void ForEachFromDat(ModelReaderPtr reader, ToDo && toDo)
   template <class ToDo>
   void ForEachFromDat(string const & fPath, ToDo && toDo)
   {
-    ForEachFromDat(make_unique<FileReader>(fPath), toDo);
+    ForEachFromDat(make_unique<FileReader>(fPath, FileReader::kDefaultLogPageSize,
+                                           FileReader::kDefaultLogPageCount),
+                   toDo);
   }
 }
