@@ -28,6 +28,8 @@ extern char const * const kRoutingTransitDiscovered;
 extern char const * const kEditorAddDiscovered;
 extern char const * const kEditorEditDiscovered;
 extern char const * const kTrafficDiscovered;
+extern char const * const kDiscoveryButtonDiscovered;
+extern char const * const kBookHotelOnBookingComDiscovered;
 
 // Events.
 extern char const * const kDownloaderMapActionFinished;

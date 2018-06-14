@@ -67,6 +67,7 @@ public:
 private:
   jobject m_functorProcessObject = nullptr;
   jmethodID m_sendPushWooshTagsMethod = nullptr;
+  jmethodID m_sendAppsFlyerTagsMethod = nullptr;
   jmethodID m_myTrackerTrackMethod = nullptr;
   AndroidSecureStorage m_secureStorage;
 

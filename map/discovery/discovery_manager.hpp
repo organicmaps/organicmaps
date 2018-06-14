@@ -10,6 +10,7 @@
 #include "partners_api/locals_api.hpp"
 #include "partners_api/viator_api.hpp"
 
+#include "platform/marketing_service.hpp"
 #include "platform/platform.hpp"
 
 #include "indexer/index.hpp"
@@ -58,6 +59,8 @@ public:
   template <typename ResultCallback>
   uint32_t Discover(Params && params, ResultCallback const & onResult, ErrorCalback const & onError)
   {
+    GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kDiscoveryButtonDiscovered);
+
     uint32_t const requestId = ++m_requestCounter;
     CHECK_THREAD_CHECKER(m_threadChecker, ());
     auto const & types = params.m_itemTypes;

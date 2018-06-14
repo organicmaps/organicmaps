@@ -29,6 +29,7 @@ import com.mapswithme.maps.traffic.TrafficManager;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Counters;
+import com.mapswithme.util.KeyValue;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.ThemeSwitcher;
@@ -48,6 +49,7 @@ import ru.mail.libnotify.api.NotificationFactory;
 import ru.mail.notify.core.api.BackgroundAwakeMode;
 import ru.mail.notify.core.api.NetworkSyncMode;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class MwmApplication extends Application
@@ -395,6 +397,15 @@ public class MwmApplication extends Application
                                     null /* conversionDataListener */);
     AppsFlyerLib.getInstance().setDebugLog(BuildConfig.DEBUG);
     AppsFlyerLib.getInstance().startTracking(this);
+  }
+
+  @SuppressWarnings("unused")
+  void sendAppsFlyerTags(@NonNull String tag, @NonNull KeyValue[] params)
+  {
+    HashMap<String, Object> paramsMap = new HashMap<>();
+    for (KeyValue p : params)
+      paramsMap.put(p.mKey, p.mValue);
+    AppsFlyerLib.getInstance().trackEvent(this, tag, paramsMap);
   }
 
   @SuppressWarnings("unused")

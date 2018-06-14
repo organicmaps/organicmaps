@@ -2200,6 +2200,7 @@ void Framework::OnTapEvent(TapEvent const & tapEvent)
 
       if (info.GetSponsoredType() == SponsoredType::Booking)
       {
+        GetPlatform().GetMarketingService().SendPushWooshTag(marketing::kBookHotelOnBookingComDiscovered);
         GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kPlacepageHotelBook,
                                                                {{"provider", "booking.com"}});
       }

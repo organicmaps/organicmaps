@@ -138,8 +138,12 @@ void Platform::Initialize(JNIEnv * env, jobject functorProcessObject, jstring ap
 {
   m_functorProcessObject = env->NewGlobalRef(functorProcessObject);
   jclass const functorProcessClass = env->GetObjectClass(functorProcessObject);
-  m_sendPushWooshTagsMethod = env->GetMethodID(functorProcessClass, "sendPushWooshTags", "(Ljava/lang/String;[Ljava/lang/String;)V");
-  m_myTrackerTrackMethod = env->GetStaticMethodID(g_myTrackerClazz, "trackEvent", "(Ljava/lang/String;)Z");
+  m_sendPushWooshTagsMethod = env->GetMethodID(functorProcessClass, "sendPushWooshTags",
+      "(Ljava/lang/String;[Ljava/lang/String;)V");
+  m_sendAppsFlyerTagsMethod = env->GetMethodID(functorProcessClass, "sendAppsFlyerTags",
+      "(Ljava/lang/String;[Lcom/mapswithme/util/KeyValue;)V");
+  m_myTrackerTrackMethod = env->GetStaticMethodID(g_myTrackerClazz, "trackEvent",
+      "(Ljava/lang/String;)Z");
 
   m_guiThread = my::make_unique<GuiThread>(m_functorProcessObject);
 
@@ -241,7 +245,8 @@ void Platform::SendPushWooshTag(std::string const & tag, std::vector<std::string
                       jni::TScopedLocalObjectArrayRef(env, jni::ToJavaStringArray(env, values)).get());
 }
 
-void Platform::SendMarketingEvent(std::string const & tag, std::map<std::string, std::string> const & params)
+void Platform::SendMarketingEvent(std::string const & tag,
+                                  std::map<std::string, std::string> const & params)
 {
   ASSERT(m_myTrackerTrackMethod, ());
 
@@ -251,7 +256,13 @@ void Platform::SendMarketingEvent(std::string const & tag, std::map<std::string,
     eventData.append("_" + item.first + "_" + item.second);
 
   env->CallStaticBooleanMethod(g_myTrackerClazz, m_myTrackerTrackMethod,
-                            jni::TScopedLocalRef(env, jni::ToJavaString(env, eventData)).get());
+                               jni::TScopedLocalRef(env, jni::ToJavaString(env, eventData)).get());
+
+  ASSERT(m_functorProcessObject, ());
+  ASSERT(m_sendAppsFlyerTagsMethod, ());
+  env->CallVoidMethod(m_functorProcessObject, m_sendAppsFlyerTagsMethod,
+                      jni::TScopedLocalRef(env, jni::ToJavaString(env, tag)).get(),
+                      jni::TScopedLocalObjectArrayRef(env, jni::ToKeyValueArray(env, params)).get());
 }
 
 void Platform::SetGuiThread(unique_ptr<base::TaskLoop> guiThread)
