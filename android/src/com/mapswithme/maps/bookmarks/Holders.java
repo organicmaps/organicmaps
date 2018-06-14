@@ -428,7 +428,7 @@ public class Holders
   static class DescriptionViewHolder extends BaseBookmarkHolder
   {
     @NonNull
-    private final TextView mContentView;
+    private final ExpandableTextView mContentView;
     @NonNull
     private final TextView mTitle;
     @NonNull
@@ -438,6 +438,14 @@ public class Holders
     {
       super(itemView, category);
       mContentView = itemView.findViewById(R.id.description);
+      mContentView.setOnButtonClickListener(new View.OnClickListener()
+      {
+        @Override
+        public void onClick(View v)
+        {
+          mContentView.setText(category.getDescription());
+        }
+      });
       mTitle = itemView.findViewById(R.id.title);
       mAuthor = itemView.findViewById(R.id.author);
     }
@@ -446,7 +454,7 @@ public class Holders
     void bind(int position)
     {
       mTitle.setText(mCategory.getName());
-      mContentView.setText(mCategory.getDescription());
+      mContentView.setText(mCategory.getAnnotation());
       BookmarkCategory.Author author = mCategory.getAuthor();
       Context c = itemView.getContext();
       CharSequence authorName = author == null
