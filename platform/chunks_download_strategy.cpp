@@ -121,7 +121,6 @@ int64_t ChunksDownloadStrategy::LoadOrInitChunks(string const & fName, int64_t f
   }
   catch (FileReader::Exception const & e)
   {
-    // Usually - file not exists or Reader::Exception.
     LOG(LDEBUG, (e.Msg()));
   }
 

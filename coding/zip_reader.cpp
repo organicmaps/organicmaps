@@ -42,8 +42,7 @@ private:
 
 ZipFileReader::ZipFileReader(string const & container, string const & file, uint32_t logPageSize,
                              uint32_t logPageCount)
-  : FileReader(container, true /* withExceptions */, logPageSize, logPageCount)
-  , m_uncompressedFileSize(0)
+  : FileReader(container, logPageSize, logPageCount), m_uncompressedFileSize(0)
 {
   unzFile zip = unzOpen64(container.c_str());
   if (!zip)

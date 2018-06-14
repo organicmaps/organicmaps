@@ -115,8 +115,8 @@ bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
 
 unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & searchScope) const
 {
-  return make_unique<FileReader>(ReadPathForFile(file, searchScope), true /* withExceptions */,
-                                 READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
+  return make_unique<FileReader>(ReadPathForFile(file, searchScope), READER_CHUNK_LOG_SIZE,
+                                 READER_CHUNK_LOG_COUNT);
 }
 
 int Platform::VideoMemoryLimit() const { return 8 * 1024 * 1024; }
