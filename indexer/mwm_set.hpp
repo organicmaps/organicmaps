@@ -9,6 +9,9 @@
 #include "base/macros.hpp"
 
 #include "indexer/feature_meta.hpp"
+#include "indexer/data_factory.hpp"
+#include "indexer/features_offsets_table.hpp"
+
 
 #include "std/atomic.hpp"
 #include "std/deque.hpp"
@@ -86,6 +89,23 @@ protected:
   platform::LocalCountryFile m_file;  ///< Path to the mwm file.
   atomic<Status> m_status;            ///< Current country status.
   uint32_t m_numRefs;                 ///< Number of active handles.
+};
+
+class MwmInfoEx : public MwmInfo
+{
+private:
+  friend class Index;
+  friend class MwmValue;
+
+  // weak_ptr is needed here to access offsets table in already
+  // instantiated MwmValue-s for the MWM, including MwmValues in the
+  // MwmSet's cache. We can't use shared_ptr because of offsets table
+  // must be removed as soon as the last corresponding MwmValue is
+  // destroyed. Also, note that this value must be used and modified
+  // only in MwmValue::SetTable() method, which, in turn, is called
+  // only in the MwmSet critical section, protected by a lock.  So,
+  // there's an implicit synchronization on this field.
+  std::weak_ptr<feature::FeaturesOffsetsTable> m_table;
 };
 
 class MwmSet
@@ -368,7 +388,32 @@ protected:
 
 private:
   base::ObserverListSafe<Observer> m_observers;
-};
+}; // class MwmSet
+
+class MwmValue : public MwmSet::MwmValueBase
+{
+public:
+  FilesContainerR const m_cont;
+  IndexFactory m_factory;
+  platform::LocalCountryFile const m_file;
+
+  std::shared_ptr<feature::FeaturesOffsetsTable> m_table;
+
+  explicit MwmValue(platform::LocalCountryFile const & localFile);
+  void SetTable(MwmInfoEx & info);
+
+  inline feature::DataHeader const & GetHeader() const { return m_factory.GetHeader(); }
+  inline feature::RegionData const & GetRegionData() const { return m_factory.GetRegionData(); }
+  inline version::MwmVersion const & GetMwmVersion() const { return m_factory.GetMwmVersion(); }
+  inline std::string const & GetCountryFileName() const
+  {
+    return m_file.GetCountryFile().GetName();
+  }
+
+  inline bool HasSearchIndex() { return m_cont.IsExist(SEARCH_INDEX_FILE_TAG); }
+  inline bool HasGeometryIndex() { return m_cont.IsExist(INDEX_FILE_TAG); }
+}; // class MwmValue
+
 
 string DebugPrint(MwmSet::RegResult result);
 string DebugPrint(MwmSet::Event::Type type);

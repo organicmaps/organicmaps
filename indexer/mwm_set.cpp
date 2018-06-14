@@ -3,6 +3,8 @@
 
 #include "coding/reader.hpp"
 
+#include "platform/local_country_file_utils.hpp"
+
 #include "base/assert.hpp"
 #include "base/exception.hpp"
 #include "base/logging.hpp"
@@ -405,6 +407,35 @@ void MwmSet::ClearCache(MwmId const & id)
   };
   ClearCacheImpl(RemoveIfKeepValid(m_cache.begin(), m_cache.end(), sameId), m_cache.end());
 }
+
+//////////////////////////////////////////////////////////////////////////////////
+// MwmValue implementation
+//////////////////////////////////////////////////////////////////////////////////
+using namespace std;
+
+MwmValue::MwmValue(LocalCountryFile const & localFile)
+: m_cont(platform::GetCountryReader(localFile, MapOptions::Map)), m_file(localFile)
+{
+  m_factory.Load(m_cont);
+}
+
+void MwmValue::SetTable(MwmInfoEx & info)
+{
+  auto const version = GetHeader().GetFormat();
+  if (version < version::Format::v5)
+    return;
+
+  m_table = info.m_table.lock();
+  if (!m_table)
+  {
+    if (version == version::Format::v5)
+      m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(m_file, m_cont);
+    else
+      m_table = feature::FeaturesOffsetsTable::Load(m_cont);
+    info.m_table = m_table;
+  }
+}
+
 
 string DebugPrint(MwmSet::RegResult result)
 {

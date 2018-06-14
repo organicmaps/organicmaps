@@ -1,44 +1,9 @@
 #include "indexer/index.hpp"
 
-#include "platform/local_country_file_utils.hpp"
-
-#include "indexer/rank_table.hpp"
-
-#include "coding/file_name_utils.hpp"
-#include "coding/internal/file_data.hpp"
-
 #include "base/logging.hpp"
 
 using platform::CountryFile;
 using platform::LocalCountryFile;
-
-//////////////////////////////////////////////////////////////////////////////////
-// MwmValue implementation
-//////////////////////////////////////////////////////////////////////////////////
-using namespace std;
-
-MwmValue::MwmValue(LocalCountryFile const & localFile)
-  : m_cont(platform::GetCountryReader(localFile, MapOptions::Map)), m_file(localFile)
-{
-  m_factory.Load(m_cont);
-}
-
-void MwmValue::SetTable(MwmInfoEx & info)
-{
-  auto const version = GetHeader().GetFormat();
-  if (version < version::Format::v5)
-    return;
-
-  m_table = info.m_table.lock();
-  if (!m_table)
-  {
-    if (version == version::Format::v5)
-      m_table = feature::FeaturesOffsetsTable::CreateIfNotExistsAndLoad(m_file, m_cont);
-    else
-      m_table = feature::FeaturesOffsetsTable::Load(m_cont);
-    info.m_table = m_table;
-  }
-}
 
 //////////////////////////////////////////////////////////////////////////////////
 // Index implementation
