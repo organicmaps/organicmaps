@@ -59,6 +59,6 @@ set(
   region2d/boost_concept.hpp
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})
 
 omim_add_test_subdirectory(geometry_tests)

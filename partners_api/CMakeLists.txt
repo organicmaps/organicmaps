@@ -49,6 +49,6 @@ set(
   yandex_api.hpp
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})
 
 omim_add_test_subdirectory(partners_api_tests)

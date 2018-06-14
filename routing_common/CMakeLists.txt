@@ -17,5 +17,5 @@ set(
   vehicle_model.hpp
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})
 omim_add_test_subdirectory(routing_common_tests)

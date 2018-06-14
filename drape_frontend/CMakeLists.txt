@@ -220,7 +220,7 @@ set(
   visual_params.hpp
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})
 
 set(
   DRAPE_SHADERS_SRC

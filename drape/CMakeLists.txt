@@ -134,6 +134,6 @@ if (PLATFORM_IPHONE)
   )
 endif()
 
-add_library(${PROJECT_NAME} ${DRAPE_COMMON_SRC} ${SRC})
+omim_add_library(${PROJECT_NAME} ${DRAPE_COMMON_SRC} ${SRC})
 
 omim_add_test_subdirectory(drape_tests)

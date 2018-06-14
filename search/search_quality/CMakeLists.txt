@@ -11,7 +11,7 @@ set(SRC
   sample.hpp
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})
 
 if (NOT SKIP_DESKTOP)
   add_subdirectory(assessment_tool)

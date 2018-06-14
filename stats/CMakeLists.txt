@@ -44,7 +44,7 @@ elseif(${PLATFORM_ANDROID})
 
 endif()
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})
 
 if (${PLATFORM_IPHONE} OR ${PLATFORM_MAC})
   target_compile_options(${PROJECT_NAME} PUBLIC "-fobjc-arc")

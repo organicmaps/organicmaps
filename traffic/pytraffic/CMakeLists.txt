@@ -5,7 +5,7 @@ set(
   bindings.cpp
 )
 
-add_library(${PROJECT_NAME} MODULE ${SRC})
+omim_add_library(${PROJECT_NAME} MODULE ${SRC})
 
 if (PLATFORM_MAC)
   omim_link_libraries(

@@ -108,7 +108,7 @@ set(
   viewport_search_callback.hpp
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})
 
 omim_add_test_subdirectory(map_integration_tests)
 omim_add_test_subdirectory(map_tests)

@@ -26,4 +26,4 @@ set(
   spinner.hpp
 )
 
-add_library(${PROJECT_NAME} ${SRC} ${RESOURCES})
+omim_add_library(${PROJECT_NAME} ${SRC} ${RESOURCES})

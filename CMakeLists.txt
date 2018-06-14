@@ -64,6 +64,15 @@ option(USE_TSAN "Enable Thread Sanitizer" OFF)
 option(PYBINDINGS "Create makefiles for building python bindings" OFF)
 option(SKIP_DESKTOP "Skip building of desktop application" OFF)
 option(BUILD_MAPSHOT "Build mapshot tool" OFF)
+option(USE_PCH "Use precompiled headers" OFF)
+
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  set(PCH_EXTENSION "pch")
+endif()
+
+if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+  set(PCH_EXTENSION "gch")
+endif()
 
 if (PLATFORM_LINUX)
   option(USE_PPROF "Enable Google Profiler" OFF)
@@ -210,6 +219,15 @@ if (USE_TSAN)
   add_compile_options(
     "-fsanitize=thread"
     "-fno-omit-frame-pointer"
+  )
+endif()
+
+if (USE_PCH)
+  message("Precompiled headers are ON")
+  set(OMIM_PCH_TARGET_NAME "omim_pch")
+  add_precompiled_headers(
+    ${OMIM_ROOT}/precompiled_headers.hpp
+    ${OMIM_PCH_TARGET_NAME}
   )
 endif()
 

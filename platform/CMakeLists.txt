@@ -136,7 +136,7 @@ endif()
 
 add_subdirectory(platform_tests_support)
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})
 
 if (APPLE)
   target_compile_options(${PROJECT_NAME} PUBLIC "-fobjc-arc")

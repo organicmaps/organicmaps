@@ -13,7 +13,7 @@ set(
   visitors.hpp
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})
 
 omim_add_pybindings_subdirectory(pykmlib)
 omim_add_test_subdirectory(kml_tests)

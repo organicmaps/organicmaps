@@ -14,5 +14,5 @@ set(
   utils.hpp
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})
 add_subdirectory(track_analyzer)

@@ -23,5 +23,5 @@ set(
   types.hpp
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})
 omim_add_test_subdirectory(ugc_tests)

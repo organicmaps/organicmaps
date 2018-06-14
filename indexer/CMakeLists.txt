@@ -135,7 +135,7 @@ set(
 
 file(COPY ${OTHER_FILES} DESTINATION ${CMAKE_BINARY_DIR})
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})
 
 omim_add_test_subdirectory(indexer_tests_support)
 omim_add_test_subdirectory(indexer_tests)

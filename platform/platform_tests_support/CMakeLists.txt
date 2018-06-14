@@ -14,4 +14,4 @@ set(
   writable_dir_changer.hpp
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})

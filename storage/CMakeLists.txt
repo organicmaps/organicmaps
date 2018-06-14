@@ -44,7 +44,7 @@ set(
   storage_helpers.hpp
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})
 
 omim_add_test_subdirectory(storage_tests)
 omim_add_test_subdirectory(storage_integration_tests)

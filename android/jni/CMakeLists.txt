@@ -88,7 +88,7 @@ set(
   com/mapswithme/util/statistics/PushwooshHelper.cpp
 )
 
-add_library(mapswithme SHARED ${SRC})
+omim_add_library(mapswithme SHARED ${SRC})
 
 target_link_libraries(
   mapswithme
