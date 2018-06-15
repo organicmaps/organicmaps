@@ -65,12 +65,14 @@ UNIT_TEST(NetherlandsAmsterdamBicycleYes)
   TEST(my::AlmostEqualAbs(route.GetTotalTimeSec(), 357.0, 1.0), ());
 }
 
-UNIT_TEST(NetherlandsAmsterdamSingelStOnewayBicycleNo)
+// This test on tag cycleway=opposite for a streets which have oneway=yes.
+// It means bicycles may go in the both directions.
+UNIT_TEST(NetherlandsAmsterdamSingelStCyclewayOpposite)
 {
   CalculateRouteAndTestRouteLength(
       GetVehicleComponents<VehicleType::Bicycle>(),
-      MercatorBounds::FromLatLon(52.3785, 4.89407), {0., 0.},
-      MercatorBounds::FromLatLon(52.37462, 4.88983), 519.0);
+      MercatorBounds::FromLatLon(52.37571, 4.88591), {0., 0.},
+      MercatorBounds::FromLatLon(52.37736, 4.88744), 212.8);
 }
 
 UNIT_TEST(RussiaMoscowKashirskoe16ToCapLongRoute)
