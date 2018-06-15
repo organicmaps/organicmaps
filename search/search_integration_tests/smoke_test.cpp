@@ -187,17 +187,10 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
     invisibleTypes.insert(classif().GetTypeByPath(tags));
 
   // todo(@t.yan): fix some or delete category.
-  vector<vector<string>> const badTags = {{"building"},
-                                          {"building", "address"},
-                                          {"entrance"},
-                                          {"internet_access"},
-                                          {"internet_access", "wlan"},
-                                          {"office"},
-                                          {"shop"},
-                                          {"place", "continent"},
-                                          {"place", "region"},
-                                          {"event", "fc2018_city"},
-                                          {"sponsored", "holiday"}};
+  vector<vector<string>> const badTags = {{"building", "address"},  {"entrance"},
+                                          {"internet_access"},      {"internet_access", "wlan"},
+                                          {"place", "continent"},   {"place", "region"},
+                                          {"event", "fc2018_city"}, {"sponsored", "holiday"}};
   set<uint32_t> badTypes;
   for (auto const & tags : badTags)
     badTypes.insert(classif().GetTypeByPath(tags));

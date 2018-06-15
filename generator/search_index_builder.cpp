@@ -111,19 +111,15 @@ void GetCategoryTypes(CategoriesHolder const & categories, pair<int, int> const 
     // amenity-parking-fee and amenity-parking-underground-fee if we do not have such explicit
     // categories.
 
-    bool found = false;
     for (uint8_t level = ftype::GetLevel(t); level >= 2; --level)
     {
       ftype::TruncValue(t, level);
       if (categories.IsTypeExist(t))
-      {
-        found = true;
         break;
-      }
     }
 
     // Only categorized types will be added to index.
-    if (!found)
+    if (!categories.IsTypeExist(t))
       continue;
 
     // There are some special non-drawable types we plan to search on.
