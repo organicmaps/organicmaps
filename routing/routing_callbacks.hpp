@@ -71,7 +71,7 @@ inline std::string DebugPrint(RouterResultCode code)
   case RouterResultCode::RouteNotFoundRedressRouteError: return "RouteNotFoundRedressRouteError";
   }
 
-  std::string const result = "Unknown RouterResultCode:" + std::to_string(static_cast<int>(code));
+  std::string const result = "Unknown RouterResultCode: " + std::to_string(static_cast<int>(code));
   ASSERT(false, (result));
   return result;
 }
