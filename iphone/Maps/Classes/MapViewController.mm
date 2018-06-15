@@ -359,7 +359,7 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)openBookmarks
 {
   BMCViewController * bookmarks = [[BMCViewController alloc] init];
-  MWMViewController * catalog = [[MWMViewController alloc] init];
+  DownloadedBookmarksViewController * catalog = [[DownloadedBookmarksViewController alloc] init];
   bookmarks.title = L(@"bookmarks_page_my");
   catalog.title = L(@"bookmarks_page_downloaded");
 

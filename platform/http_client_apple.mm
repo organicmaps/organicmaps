@@ -26,16 +26,7 @@ SOFTWARE.
 #error This file must be compiled with ARC. Either turn on ARC for the project or use -fobjc-arc flag
 #endif
 
-#import <Foundation/NSString.h>
-#import <Foundation/NSURL.h>
-#import <Foundation/NSURLError.h>
-#import <Foundation/NSData.h>
-#import <Foundation/NSStream.h>
-#import <Foundation/NSURLRequest.h>
-#import <Foundation/NSURLResponse.h>
-#import <Foundation/NSURLConnection.h>
-#import <Foundation/NSError.h>
-#import <Foundation/NSFileManager.h>
+#import <Foundation/Foundation.h>
 
 #include <TargetConditionals.h> // TARGET_OS_IPHONE
 #if (TARGET_OS_IPHONE > 0)  // Works for all iOS devices, including iPad.
@@ -45,6 +36,59 @@ extern NSString * gBrowserUserAgent;
 #include "platform/http_client.hpp"
 
 #include "base/logging.hpp"
+
+@interface Connection: NSObject<NSURLSessionDelegate>
++ (nullable NSData *)sendSynchronousRequest:(NSURLRequest *)request
+                          returningResponse:(NSURLResponse **)response
+                                      error:(NSError **)error;
+@end
+
+@implementation Connection
+
++ (NSData *)sendSynchronousRequest:(NSURLRequest *)request
+                 returningResponse:(NSURLResponse *__autoreleasing *)response
+                             error:(NSError *__autoreleasing *)error {
+  Connection * connection = [[Connection alloc] init];
+  return [connection sendSynchronousRequest:request returningResponse:response error:error];
+}
+
+- (NSData *)sendSynchronousRequest:(NSURLRequest *)request
+                 returningResponse:(NSURLResponse *__autoreleasing *)response
+                             error:(NSError *__autoreleasing *)error {
+  NSURLSession * session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
+                                                        delegate:self
+                                                   delegateQueue:nil];
+  __block NSData * resultData = nil;
+  __block NSURLResponse * resultResponse = nil;
+  __block NSError * resultError = nil;
+
+  dispatch_group_t group = dispatch_group_create();
+  dispatch_group_enter(group);
+  [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data,
+                                                            NSURLResponse * _Nullable response,
+                                                            NSError * _Nullable error) {
+    resultData = data;
+    resultResponse = response;
+    resultError = error;
+    dispatch_group_leave(group);
+  }] resume];
+
+  dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+  *response = resultResponse;
+  *error = resultError;
+  return resultData;
+}
+
+#if DEBUG
+- (void)URLSession:(NSURLSession *)session
+didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
+ completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition,
+                             NSURLCredential * _Nullable credential))completionHandler {
+  NSURLCredential * credential = [[NSURLCredential alloc] initWithTrust:[challenge protectionSpace].serverTrust];
+  completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+}
+#endif
+@end
 
 namespace platform
 {
@@ -93,7 +137,7 @@ bool HttpClient::RunHttpRequest()
 
   NSHTTPURLResponse * response = nil;
   NSError * err = nil;
-  NSData * url_data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
+  NSData * url_data = [Connection sendSynchronousRequest:request returningResponse:&response error:&err];
 
   m_headers.clear();
 

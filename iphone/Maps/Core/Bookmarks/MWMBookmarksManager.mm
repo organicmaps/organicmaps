@@ -31,11 +31,60 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 }
 }  // namespace
 
+@interface CatalogObserver : NSObject
+@property (copy, nonatomic) NSString * categoryId;
+@property (copy, nonatomic) void(^progressBlock)();
+@property (copy, nonatomic) void(^completionBlock)(NSError * error);
+- (void)onDownloadStart;
+- (void)onDownloadCompleteSuccessful:(BOOL)success;
+- (void)onImportStart;
+- (void)onImportCompleteSuccessful:(BOOL)success;
+@end
+@implementation CatalogObserver
+
+- (void)onDownloadStart
+{
+  if (self.progressBlock)
+    self.progressBlock();
+}
+
+- (void)onDownloadCompleteSuccessful:(BOOL)success
+{
+  if (success)
+  {
+    if (self.progressBlock)
+      self.progressBlock();
+  }
+  else
+  {
+    if (self.completionBlock)
+      self.completionBlock([[NSError alloc] init]);
+  }
+}
+
+- (void)onImportStart
+{
+  if (self.progressBlock)
+    self.progressBlock();
+}
+
+- (void)onImportCompleteSuccessful:(BOOL)success
+{
+  if (self.completionBlock) {
+    NSError * error = success ? nil : [[NSError alloc] init];
+    self.completionBlock(error);
+  }
+}
+
+@end
+
 @interface MWMBookmarksManager ()
 
 @property(nonatomic) Observers * observers;
 @property(nonatomic) BOOL areBookmarksLoaded;
 @property(nonatomic) NSURL * shareCategoryURL;
+
+@property(nonatomic) NSMutableDictionary * catalogObservers;
 
 @end
 
@@ -439,6 +488,59 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 + (BOOL)areNotificationsEnabled
 {
   return GetFramework().GetBookmarkManager().AreNotificationsEnabled();
+}
+
++ (NSURL * _Nullable )catalogFrontendUrl {
+  NSString *urlString = @(GetFramework().GetBookmarkManager().GetCatalogFrontendUrl().c_str());
+  return urlString ? [NSURL URLWithString:urlString] : nil;
+}
+
++ (void)downloadItemWithId:(NSString *)itemId name:(NSString *)name completion:(void (^)(NSError * error))completion {
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    [MWMBookmarksManager manager].catalogObservers = [NSMutableDictionary dictionary];
+    auto onDownloadStarted = [](std::string const & catId)
+    {
+      CatalogObserver *observer = [MWMBookmarksManager manager].catalogObservers[@(catId.c_str())];
+      if (observer)
+        [observer onDownloadStart];
+    };
+    auto onDownloadFinished = [](std::string const & catId, platform::RemoteFile::Result const & result)
+    {
+      CatalogObserver *observer = [MWMBookmarksManager manager].catalogObservers[@(catId.c_str())];
+      if (observer)
+      {
+        [observer onDownloadCompleteSuccessful:result.m_status == platform::RemoteFile::Status::Ok];
+        if (result.m_status != platform::RemoteFile::Status::Ok) {
+          [[MWMBookmarksManager manager].catalogObservers removeObjectForKey:observer.categoryId];
+        }
+      }
+    };
+    auto onImportStarted = [](std::string const & catId)
+    {
+      CatalogObserver *observer = [MWMBookmarksManager manager].catalogObservers[@(catId.c_str())];
+      if (observer)
+        [observer onImportStart];
+    };
+    auto onImportFinished = [](std::string const & catId, bool successful)
+    {
+      CatalogObserver *observer = [MWMBookmarksManager manager].catalogObservers[@(catId.c_str())];
+      if (observer)
+      {
+        [observer onImportCompleteSuccessful:successful];
+        [[MWMBookmarksManager manager].catalogObservers removeObjectForKey:observer.categoryId];
+      }
+    };
+    GetFramework().GetBookmarkManager().SetCatalogHandlers(std::move(onDownloadStarted),
+                                                           std::move(onDownloadFinished),
+                                                           std::move(onImportStarted),
+                                                           std::move(onImportFinished));
+  });
+  CatalogObserver *observer = [[CatalogObserver alloc] init];
+  observer.categoryId = itemId;
+  observer.completionBlock = completion;
+  [[MWMBookmarksManager manager].catalogObservers setObject:observer forKey:itemId];
+  GetFramework().GetBookmarkManager().DownloadFromCatalogAndImport(itemId.UTF8String, name.UTF8String);
 }
 
 @end

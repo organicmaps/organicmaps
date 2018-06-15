@@ -44,6 +44,11 @@
 + (void)applyRestoring;
 + (void)cancelRestoring;
 
++ (NSURL * _Nullable)catalogFrontendUrl;
++ (void)downloadItemWithId:(NSString * _Nonnull)itemId
+                      name:(NSString * _Nonnull)name
+                completion:(void (^_Nullable)(NSError * _Nullable error))completion;
+
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));
 - (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +manager instead")));

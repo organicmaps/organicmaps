@@ -465,6 +465,9 @@
 		6B653B951C7F2DE4007BEFC5 /* cuisine-strings in Resources */ = {isa = PBXBuildFile; fileRef = 6B653B931C7F2DE4007BEFC5 /* cuisine-strings */; };
 		6B9978361C89A316003B8AA0 /* editor.config in Resources */ = {isa = PBXBuildFile; fileRef = 6B9978341C89A316003B8AA0 /* editor.config */; };
 		A630D1EA207CA95900976DEA /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = A630D1E8207CA95900976DEA /* Localizable.stringsdict */; };
+		B32FE74020D2844600EF7446 /* DownloadedBookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32FE73E20D2844600EF7446 /* DownloadedBookmarksViewController.swift */; };
+		B32FE74120D2844600EF7446 /* DownloadedBookmarksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B32FE73F20D2844600EF7446 /* DownloadedBookmarksViewController.xib */; };
+		B32FE74320D2B09600EF7446 /* CatalogWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32FE74220D2B09600EF7446 /* CatalogWebViewController.swift */; };
 		BB25B1A71FB32767007276FA /* transit_colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = BB25B1A51FB32767007276FA /* transit_colors.txt */; };
 		BB7626B61E85599C0031D71C /* icudt57l.dat in Resources */ = {isa = PBXBuildFile; fileRef = BB7626B41E8559980031D71C /* icudt57l.dat */; };
 		EBDA7B7820B370B40054165B /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDA7B7320B3576D0054165B /* GoogleMobileAds.framework */; };
@@ -1381,6 +1384,9 @@
 		A630D204207CAA3400976DEA /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = vi; path = vi.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		A630D205207CAA3A00976DEA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		A630D206207CAA5800976DEA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
+		B32FE73E20D2844600EF7446 /* DownloadedBookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedBookmarksViewController.swift; sourceTree = "<group>"; };
+		B32FE73F20D2844600EF7446 /* DownloadedBookmarksViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadedBookmarksViewController.xib; sourceTree = "<group>"; };
+		B32FE74220D2B09600EF7446 /* CatalogWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogWebViewController.swift; sourceTree = "<group>"; };
 		BB25B1A51FB32767007276FA /* transit_colors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = transit_colors.txt; path = ../../data/transit_colors.txt; sourceTree = "<group>"; };
 		BB7626B41E8559980031D71C /* icudt57l.dat */ = {isa = PBXFileReference; lastKnownFileType = file; name = icudt57l.dat; path = ../../data/icudt57l.dat; sourceTree = "<group>"; };
 		EBDA7B7320B3576D0054165B /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = MoPubSDK/AdNetworkSupport/AdMob/SDK/GoogleMobileAds.framework; sourceTree = "<group>"; };
@@ -3124,6 +3130,16 @@
 			name = "Custom Views";
 			sourceTree = "<group>";
 		};
+		B32FE73D20D283D600EF7446 /* Catalog */ = {
+			isa = PBXGroup;
+			children = (
+				B32FE73E20D2844600EF7446 /* DownloadedBookmarksViewController.swift */,
+				B32FE73F20D2844600EF7446 /* DownloadedBookmarksViewController.xib */,
+				B32FE74220D2B09600EF7446 /* CatalogWebViewController.swift */,
+			);
+			path = Catalog;
+			sourceTree = "<group>";
+		};
 		F607C18B1C047FCA00B53A87 /* Segue */ = {
 			isa = PBXGroup;
 			children = (
@@ -4060,6 +4076,7 @@
 		FA36B8011540388B004560CC /* Bookmarks */ = {
 			isa = PBXGroup;
 			children = (
+				B32FE73D20D283D600EF7446 /* Catalog */,
 				FA36B80515403A4F004560CC /* BookmarksVC.h */,
 				FA36B80615403A4F004560CC /* BookmarksVC.mm */,
 				3404F4A02028A6C00090E401 /* Categories */,
@@ -4385,6 +4402,7 @@
 				3404F49E2028A2430090E401 /* BMCActionsCreateCell.xib in Resources */,
 				6741A9551BF340DE002C974C /* resources-xxhdpi_dark in Resources */,
 				340E1EF51E2F614400CE49BF /* SearchFilters.storyboard in Resources */,
+				B32FE74120D2844600EF7446 /* DownloadedBookmarksViewController.xib in Resources */,
 				F682249F1E5B105900BC1C18 /* PPHotelDescriptionCell.xib in Resources */,
 				340E1EF81E2F614400CE49BF /* Settings.storyboard in Resources */,
 				6741A9421BF340DE002C974C /* sound-strings in Resources */,
@@ -4538,6 +4556,7 @@
 				F6E2FDE01E097BA00083EBEC /* MWMEditorViewController.mm in Sources */,
 				F69739DC1FD6ECCE00FDA07D /* DiscoveryLocalExpertCell.swift in Sources */,
 				6741A9C01BF340DE002C974C /* MWMTextView.mm in Sources */,
+				B32FE74320D2B09600EF7446 /* CatalogWebViewController.swift in Sources */,
 				F6E2FDB61E097BA00083EBEC /* MWMEditorAdditionalNamesHeader.mm in Sources */,
 				F6E2FDC81E097BA00083EBEC /* MWMEditorNotesFooter.mm in Sources */,
 				F6E2FD651E097BA00083EBEC /* MWMMapDownloaderPlaceTableViewCell.mm in Sources */,
@@ -4753,6 +4772,7 @@
 				F655C027207278300048A241 /* DiscoveryMoreCell.swift in Sources */,
 				F6E2FEC41E097BA00083EBEC /* MWMSearchFilterPresentationController.mm in Sources */,
 				34AB66621FC5AA330078E451 /* TransportTransitSeparator.swift in Sources */,
+				B32FE74020D2844600EF7446 /* DownloadedBookmarksViewController.swift in Sources */,
 				340416541E7C09C200E2B6D6 /* PhotoScalingView.swift in Sources */,
 				4767CDA820AB401000BD8166 /* LinkTextView.swift in Sources */,
 				34763EE71F2F392300F4D2D3 /* MWMTextToSpeech.mm in Sources */,

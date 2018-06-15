@@ -1,7 +1,8 @@
+#import <WebKit/WebKit.h>
 #import "MWMViewController.h"
 #import "MWMTypes.h"
 
-@interface WebViewController : MWMViewController <UIWebViewDelegate>
+@interface WebViewController : MWMViewController <WKNavigationDelegate>
 
 @property (nonatomic) NSURL * m_url;
 @property (copy, nonatomic) NSString * m_htmlText;

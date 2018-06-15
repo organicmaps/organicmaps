@@ -58,7 +58,9 @@
   UIView * view = self.view;
   view.backgroundColor = UIColor.whiteColor;
 
-  UIWebView * webView = [[UIWebView alloc] initWithFrame:{}];
+  WKWebViewConfiguration * configuration = [[WKWebViewConfiguration alloc] init];
+  WKWebView * webView = [[WKWebView alloc] initWithFrame:{} configuration:configuration];
+  webView.navigationDelegate = self;
   [view addSubview:webView];
 
   webView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -82,7 +84,6 @@
   [webView.trailingAnchor constraintEqualToAnchor:trailingAnchor].active = YES;
 
   webView.backgroundColor = UIColor.whiteColor;
-  webView.delegate = self;
 
   if (self.m_htmlText)
     [webView loadHTMLString:self.m_htmlText baseURL:self.m_url];
@@ -103,8 +104,8 @@
   [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (BOOL)webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType
-{
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+  NSURLRequest * inRequest = navigationAction.request;
   if ([inRequest.URL.host isEqualToString:@"localhost"])
   {
     auto query = inRequest.URL.query;
@@ -114,23 +115,37 @@
       ASSERT(false, ("Incorrect query:", query.UTF8String));
       [self pop];
       self.onFailure();
-      return NO;
+      decisionHandler(WKNavigationActionPolicyCancel);
+      return;
     }
 
     [self pop];
     self.onSuccess(components[1]);
-    return NO;
+    decisionHandler(WKNavigationActionPolicyCancel);
+    return;
   }
 
-  if (self.openInSafari && inType == UIWebViewNavigationTypeLinkClicked
+  if (self.openInSafari && navigationAction.navigationType == WKNavigationTypeLinkActivated
       && ![inRequest.URL.scheme isEqualToString:@"applewebdata"]) // do not try to open local links in Safari
   {
     NSURL * url = [inRequest URL];
     [UIApplication.sharedApplication openURL:url];
-    return NO;
+    decisionHandler(WKNavigationActionPolicyCancel);
+    return;
   }
 
-  return YES;
+  decisionHandler(WKNavigationActionPolicyAllow);
+  return;
 }
+
+#if DEBUG
+- (void)webView:(WKWebView *)webView
+didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition,
+                            NSURLCredential * _Nullable credential))completionHandler {
+  NSURLCredential * credential = [[NSURLCredential alloc] initWithTrust:[challenge protectionSpace].serverTrust];
+  completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+}
+#endif
 
 @end
