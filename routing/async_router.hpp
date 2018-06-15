@@ -1,11 +1,11 @@
 #pragma once
 
-#include "routing/routing_callbacks.hpp"
 #include "routing/checkpoints.hpp"
 #include "routing/online_absent_fetcher.hpp"
 #include "routing/route.hpp"
 #include "routing/router.hpp"
 #include "routing/router_delegate.hpp"
+#include "routing/routing_callbacks.hpp"
 
 #include "base/thread.hpp"
 
@@ -23,12 +23,6 @@ namespace routing
 class AsyncRouter final
 {
 public:
-  /// Callback takes ownership of passed route.
-  using TReadyCallback = function<void(Route &, RouterResultCode)>;
-
-  /// Callback on routing statistics
-//  using TRoutingStatisticsCallback = function<void(map<string, string> const &)>;
-
   /// AsyncRouter is a wrapper class to run routing routines in the different thread
   AsyncRouter(RoutingStatisticsCallback const & routingStatisticsCallback,
               PointCheckCallback const & pointCheckCallback);
@@ -49,7 +43,7 @@ public:
   /// @param progressCallback function to update the router progress
   /// @param timeoutSec timeout to cancel routing. 0 is infinity.
   void CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction,
-                      bool adjustToPrevRoute, TReadyCallback const & readyCallback,
+                      bool adjustToPrevRoute, ReadyCallbackOwnership const & readyCallback,
                       ProgressCallback const & progressCallback,
                       uint32_t timeoutSec);
 
@@ -81,7 +75,7 @@ private:
   class RouterDelegateProxy
   {
   public:
-    RouterDelegateProxy(TReadyCallback const & onReady,
+    RouterDelegateProxy(ReadyCallbackOwnership const & onReady,
                         PointCheckCallback const & onPointCheck,
                         ProgressCallback const & onProgress,
                         uint32_t timeoutSec);
@@ -96,7 +90,7 @@ private:
     void OnPointCheck(m2::PointD const & pt);
 
     mutex m_guard;
-    TReadyCallback const m_onReady;
+    ReadyCallbackOwnership const m_onReady;
     PointCheckCallback const m_onPointCheck;
     ProgressCallback const m_onProgress;
     RouterDelegate m_delegate;

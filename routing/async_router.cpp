@@ -40,7 +40,7 @@ map<string, string> PrepareStatisticsData(string const & routerName,
 
 // ----------------------------------------------------------------------------------------------------------------------------
 
-AsyncRouter::RouterDelegateProxy::RouterDelegateProxy(TReadyCallback const & onReady,
+AsyncRouter::RouterDelegateProxy::RouterDelegateProxy(ReadyCallbackOwnership const & onReady,
                                                       PointCheckCallback const & onPointCheck,
                                                       ProgressCallback const & onProgress,
                                                       uint32_t timeoutSec)
@@ -130,7 +130,7 @@ void AsyncRouter::SetRouter(unique_ptr<IRouter> && router, unique_ptr<IOnlineFet
 }
 
 void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction,
-                                 bool adjustToPrevRoute, TReadyCallback const & readyCallback,
+                                 bool adjustToPrevRoute, ReadyCallbackOwnership const & readyCallback,
                                  ProgressCallback const & progressCallback,
                                  uint32_t timeoutSec)
 {
