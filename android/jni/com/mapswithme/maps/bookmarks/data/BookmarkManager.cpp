@@ -685,7 +685,6 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetBookmarkCategor
                        auto const bookmarksCount = manager.GetUserMarkIds(data.m_id).size();
                        auto const isVisible = manager.IsVisible(data.m_id);
 
-
                        return env->NewObject(g_bookmarkCategoryClass,
                                              g_bookmarkCategoryConstructor,
                                              static_cast<jlong>(data.m_id),

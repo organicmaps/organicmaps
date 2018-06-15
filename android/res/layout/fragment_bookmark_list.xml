@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView
+<android.support.constraint.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:id="@+id/recycler"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"/>
+  android:layout_height="match_parent"
+  xmlns:mapsme="http://schemas.android.com/apk/res-auto">
+  <android.support.v7.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recycler"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+  <com.mapswithme.maps.widget.PlaceholderView
+    android:id="@+id/placeholder"
+    mapsme:layout_constraintBottom_toBottomOf="parent"
+    mapsme:layout_constraintTop_toTopOf="parent"
+    mapsme:layout_constraintLeft_toLeftOf="parent"
+    mapsme:layout_constraintRight_toRightOf="parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/margin_double_and_half"
+    android:paddingRight="@dimen/margin_double_and_half"
+    android:paddingTop="@dimen/placeholder_margin_top"
+    mapsme:imgSrcDefault="@drawable/img_empty_bookmarks"
+    mapsme:titleDefault="@string/empty_bookmarks_list_title"
+    mapsme:subTitleDefault="@string/empty_bookmarks_list_subtitle"/>
+
+</android.support.constraint.ConstraintLayout>
+

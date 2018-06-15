@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.PluralsRes;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
+import android.text.StaticLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
@@ -268,9 +270,8 @@ public class Holders
         return -1;
 
       int beforeCurrentSectionItemsCount = getTracksSectionPosition(category);
-      return (beforeCurrentSectionItemsCount == -1
-              ? getDescItemCount(category)
-              : beforeCurrentSectionItemsCount)
+      return (beforeCurrentSectionItemsCount == -1 ? getDescItemCount(category)
+                                                   : beforeCurrentSectionItemsCount)
              + getTrackItemCount(category);
     }
 
@@ -370,9 +371,9 @@ public class Holders
     @NonNull
     private final TextView mDistance;
 
-    TrackViewHolder(@NonNull View itemView, BookmarkCategory categoryId)
+    TrackViewHolder(@NonNull View itemView, @NonNull BookmarkCategory category)
     {
-      super(itemView, categoryId);
+      super(itemView, category);
       mIcon = itemView.findViewById(R.id.iv__bookmark_color);
       mName = itemView.findViewById(R.id.tv__bookmark_name);
       mDistance = itemView.findViewById(R.id.tv__bookmark_distance);
@@ -401,9 +402,9 @@ public class Holders
     @NonNull
     private final TextView mView;
 
-    SectionViewHolder(@NonNull TextView itemView, BookmarkCategory categoryId)
+    SectionViewHolder(@NonNull TextView itemView, @NonNull BookmarkCategory category)
     {
-      super(itemView, categoryId);
+      super(itemView, category);
       mView = itemView;
     }
 
@@ -411,7 +412,6 @@ public class Holders
     void bind(int position)
     {
       final int sectionIndex = getSectionForPosition(mCategory, position);
-      mView.setText(getSections().get(sectionIndex));
       mView.setText(getSections().get(sectionIndex));
     }
 
@@ -427,40 +427,75 @@ public class Holders
 
   static class DescriptionViewHolder extends BaseBookmarkHolder
   {
-    @NonNull
-    private final ExpandableTextView mContentView;
+    static final float SPACING_MULTIPLE = 1.0f;
+    static final float SPACING_ADD = 0.0f;
     @NonNull
     private final TextView mTitle;
     @NonNull
     private final TextView mAuthor;
+    @NonNull
+    private final TextView mDescText;
+    @NonNull
+    private final View mMoreBtn;
 
     DescriptionViewHolder(@NonNull View itemView, @NonNull BookmarkCategory category)
     {
       super(itemView, category);
-      mContentView = itemView.findViewById(R.id.description);
-      mContentView.setOnButtonClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          mContentView.setText(category.getDescription());
-        }
-      });
+      mDescText = itemView.findViewById(R.id.text);
+      mMoreBtn = itemView.findViewById(R.id.more_btn);
+      mMoreBtn.setOnClickListener(this::onMoreBtnClicked);
       mTitle = itemView.findViewById(R.id.title);
       mAuthor = itemView.findViewById(R.id.author);
+    }
+
+    private void onMoreBtnClicked(View v)
+    {
+      int lineCount = calcLineCount(mDescText, mCategory.getDescription());
+      mDescText.setLines(lineCount);
+      mDescText.setText(mCategory.getDescription());
+      v.setVisibility(View.GONE);
     }
 
     @Override
     void bind(int position)
     {
       mTitle.setText(mCategory.getName());
-      mContentView.setText(mCategory.getAnnotation());
+      bindAuthor();
+      bindDescriptionIfEmpty();
+    }
+
+    private void bindDescriptionIfEmpty()
+    {
+      if (TextUtils.isEmpty(mDescText.getText()))
+      {
+        String desc = TextUtils.isEmpty(mCategory.getAnnotation())
+                         ? mCategory.getDescription()
+                         : mCategory.getAnnotation();
+        mDescText.setText(desc);
+      }
+    }
+
+    private void bindAuthor()
+    {
       BookmarkCategory.Author author = mCategory.getAuthor();
       Context c = itemView.getContext();
       CharSequence authorName = author == null
                                 ? null
                                 : BookmarkCategory.Author.getRepresentation(c, author);
       mAuthor.setText(authorName);
+    }
+
+    private static int calcLineCount(@NonNull TextView textView, @NonNull String src)
+    {
+      StaticLayout staticLayout = new StaticLayout(src,
+                                                   textView.getPaint(),
+                                                   textView.getWidth(),
+                                                   Layout.Alignment.ALIGN_NORMAL,
+                                                   SPACING_MULTIPLE,
+                                                   SPACING_ADD,
+                                                   true);
+
+      return staticLayout.getLineCount();
     }
   }
 }

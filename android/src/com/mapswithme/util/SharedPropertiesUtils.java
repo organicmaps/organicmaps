@@ -1,5 +1,6 @@
 package com.mapswithme.util;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -15,8 +16,15 @@ public final class SharedPropertiesUtils
   private static final String PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING = "ShowEmulateBadStorageSetting";
   private static final String PREFS_BACKUP_WIDGET_EXPANDED = "BackupWidgetExpanded";
   private static final String PREFS_WHATS_NEW_TITLE_CONCATENATION = "WhatsNewTitleConcatenation";
+  private static final String PREFS_CATALOG_CATEGORIES_HEADER_CLOSED = "catalog_categories_header_closed";
   private static final SharedPreferences PREFS
       = PreferenceManager.getDefaultSharedPreferences(MwmApplication.get());
+
+  //Utils class
+  private SharedPropertiesUtils()
+  {
+    throw new IllegalStateException("Try instantiate utility class SharedPropertiesUtils");
+  }
 
   public static boolean isShowcaseSwitchedOnLocal()
   {
@@ -71,9 +79,17 @@ public final class SharedPropertiesUtils
     PREFS.edit().putString(PREFS_WHATS_NEW_TITLE_CONCATENATION, concatenation).apply();
   }
 
-  //Utils class
-  private SharedPropertiesUtils()
+  public static boolean isCatalogCategoriesHeaderClosed(Context context)
   {
-    throw new IllegalStateException("Try instantiate utility class SharedPropertiesUtils");
+    return MwmApplication.prefs(context)
+                         .getBoolean(PREFS_CATALOG_CATEGORIES_HEADER_CLOSED, false);
+  }
+
+  public static void setCatalogCategoriesHeaderClosed(Context context, boolean value)
+  {
+    MwmApplication.prefs(context)
+                  .edit()
+                  .putBoolean(PREFS_CATALOG_CATEGORIES_HEADER_CLOSED, value)
+                  .apply();
   }
 }

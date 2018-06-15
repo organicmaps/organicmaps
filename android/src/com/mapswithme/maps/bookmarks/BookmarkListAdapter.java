@@ -153,7 +153,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   public Object getItem(int position)
   {
     if (getItemViewType(position) == TYPE_DESC)
-      throw new UnsupportedOperationException("Not supported here!");
+      throw new UnsupportedOperationException("Not supported here! Position = " + position);
 
     if (getItemViewType(position) == TYPE_TRACK)
     {

@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.util.SharedPropertiesUtils;
+import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.TargetUtils;
 
@@ -35,7 +37,8 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
     downloadBtn.setOnClickListener(new DownloadRoutesClickListener());
     View closeHeaderBtn = root.findViewById(R.id.header_close);
     closeHeaderBtn.setOnClickListener(new CloseHeaderClickListener());
-
+    boolean isClosed = SharedPropertiesUtils.isCatalogCategoriesHeaderClosed(getContext());
+    closeHeaderBtn.setVisibility(isClosed ? View.GONE : View.VISIBLE);
     return root;
   }
 
@@ -168,6 +171,7 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
     {
       View header = mPayloadContainer.findViewById(R.id.header);
       header.setVisibility(View.GONE);
+      SharedPropertiesUtils.setCatalogCategoriesHeaderClosed(getContext(), true);
     }
   }
 

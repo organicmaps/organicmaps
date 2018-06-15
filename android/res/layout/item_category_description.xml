@@ -17,30 +17,26 @@
     android:textAppearance="@style/MwmTextAppearance.Body3"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/>
-
-  <com.mapswithme.maps.bookmarks.ExpandableTextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
+  <LinearLayout
+    android:orientation="vertical"
     app:layout_constraintTop_toBottomOf="@id/author"
-    android:id="@+id/description"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    expandableTextView:maxCollapsedLines="4"
-    expandableTextView:animDuration="200">
+    android:layout_height="wrap_content">
     <TextView
-      android:id="@+id/expandable_text"
-      app:layout_constraintTop_toBottomOf="@id/author"
+      android:id="@+id/text"
       android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:lines="3"
+      android:ellipsize="end"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>
     <TextView
-      android:id="@id/expand_collapse"
+      android:id="@+id/more_btn"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="left|bottom"
       android:gravity="left|top"
       android:textColor="?attr/colorAccent"
-      android:text="...more"
+      android:text="@string/more"
       android:background="@android:color/transparent"/>
-  </com.mapswithme.maps.bookmarks.ExpandableTextView>
+  </LinearLayout>
 </android.support.constraint.ConstraintLayout>

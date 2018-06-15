@@ -28,6 +28,7 @@ import com.mapswithme.maps.widget.placepage.Sponsored;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 import com.mapswithme.util.BottomSheetHelper;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 
@@ -69,6 +70,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
     super.onViewCreated(view, savedInstanceState);
     configureAdapter();
     setHasOptionsMenu(true);
+    boolean isEmptyDataSet = getAdapter().getItemCount() == 0;
+    getRecyclerView().setVisibility(isEmptyDataSet ? View.GONE : View.VISIBLE);
+    showPlaceholder(isEmptyDataSet);
     ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
     if (bar != null)
       bar.setTitle(mCategory.getName());

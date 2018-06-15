@@ -1398,4 +1398,5 @@
 	<string name="button_layer_got_it">Got it</string>
 	<string name="bookmarks_empty_list_title">This list is empty</string>
 	<string name="bookmarks_empty_list_message">To add a bookmark, tap a place on the map and then tap the star icon</string>
+	<string name="more">…more</string>
 </resources>
