@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -14,7 +16,7 @@ import android.webkit.WebViewClient;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseWebViewMwmFragment;
 
-import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
 {
@@ -24,11 +26,34 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   @NonNull
   private String mCatalogUrl;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private WebViewBookmarksCatalogClient mWebViewClient;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private WebView mWebView;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mRetryBtn;
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private View mProgressView;
+
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
     mCatalogUrl = getCatalogUrlOrThrow();
+  }
+
+  @Override
+  public void onDestroyView()
+  {
+    super.onDestroyView();
+    mWebViewClient.clear();
   }
 
   @Nullable
@@ -37,17 +62,30 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
                            @Nullable Bundle savedInstanceState)
   {
     View root = inflater.inflate(R.layout.fragment_bookmarks_catalog, container, false);
-    WebView webView = root.findViewById(getWebViewResId());
-    initWebView(webView);
-    webView.loadUrl(mCatalogUrl);
+    mWebView = root.findViewById(getWebViewResId());
+    mRetryBtn = root.findViewById(R.id.retry_btn);
+    mProgressView = root.findViewById(R.id.progress);
+    initWebView(mWebView);
+    mRetryBtn.setOnClickListener(v -> onRetryClick());
+    mWebView.loadUrl(mCatalogUrl);
     return root;
+  }
+
+  private void onRetryClick()
+  {
+    mWebViewClient.retry();
+    mRetryBtn.setVisibility(View.GONE);
+    mProgressView.setVisibility(View.VISIBLE);
+    mWebView.loadUrl(mCatalogUrl);
   }
 
   @SuppressLint("SetJavaScriptEnabled")
   private void initWebView(@NonNull WebView webView)
   {
-    webView.setWebViewClient(new WebViewBookmarksCatalogClient());
+    mWebViewClient = new WebViewBookmarksCatalogClient(this);
+    webView.setWebViewClient(mWebViewClient);
     final WebSettings webSettings = webView.getSettings();
+    webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
     webSettings.setJavaScriptEnabled(true);
   }
 
@@ -69,24 +107,67 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
 
   private static class WebViewBookmarksCatalogClient extends WebViewClient
   {
+    @NonNull
+    private final WeakReference<BookmarksCatalogFragment> mReference;
+
+    @Nullable
+    private WebResourceError mError;
+
+    public WebViewBookmarksCatalogClient(@NonNull BookmarksCatalogFragment frag)
+    {
+      mReference = new WeakReference<>(frag);
+    }
+
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url)
     {
-      try
-      {
-        return requestArchive(view, url);
-      }
-      catch (IOException e)
-      {
-        return super.shouldOverrideUrlLoading(view, url);
-      }
+      return requestArchive(view, url);
     }
 
-    private boolean requestArchive(@NonNull WebView view, @NonNull String url) throws IOException
+    @Override
+    public void onPageFinished(WebView view, String url)
+    {
+      super.onPageFinished(view, url);
+      BookmarksCatalogFragment frag;
+      if ((frag = mReference.get()) == null || mError != null)
+      {
+        return;
+      }
+
+      frag.mWebView.setVisibility(View.VISIBLE);
+      frag.mProgressView.setVisibility(View.GONE);
+      frag.mRetryBtn.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error)
+    {
+      super.onReceivedError(view, request, error);
+      mError = error;
+      BookmarksCatalogFragment frag;
+      if ((frag = mReference.get()) == null)
+        return;
+
+      frag.mWebView.setVisibility(View.GONE);
+      frag.mProgressView.setVisibility(View.GONE);
+      frag.mRetryBtn.setVisibility(View.VISIBLE);
+    }
+
+    private void retry()
+    {
+      mError = null;
+    }
+
+    private boolean requestArchive(@NonNull WebView view, @NonNull String url)
     {
       BookmarksDownloadManager dm = BookmarksDownloadManager.from(view.getContext());
       dm.enqueueRequest(url);
       return true;
+    }
+
+    public void clear()
+    {
+      mReference.clear();
     }
   }
 }

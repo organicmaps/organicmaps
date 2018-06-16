@@ -83,6 +83,7 @@
     <item name="android:paddingTop">@dimen/margin_half_plus</item>
     <item name="android:paddingBottom">@dimen/margin_half_plus</item>
     <item name="textAllCaps">true</item>
+    <item name="android:gravity">center</item>
   </style>
 
   <style name="MwmWidget.Button.Ghost">

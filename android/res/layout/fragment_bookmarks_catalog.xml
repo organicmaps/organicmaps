@@ -1,7 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WebView
+<android.support.constraint.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:id="@+id/webview"
+  android:layout_height="match_parent"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
-</WebView>
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+  <WebView
+    android:id="@+id/webview"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+  </WebView>
+
+  <ProgressBar
+    android:id="@+id/progress"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    android:minWidth="@dimen/search_progress_size"
+    android:minHeight="@dimen/search_progress_size"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
+
+  <Button
+    android:id="@+id/retry_btn"
+    android:layout_marginLeft="@dimen/margin_double"
+    android:layout_marginRight="@dimen/margin_double"
+    android:visibility="gone"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    android:text="@string/downloader_retry"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+</android.support.constraint.ConstraintLayout>
