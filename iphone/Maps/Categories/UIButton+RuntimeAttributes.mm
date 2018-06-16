@@ -72,6 +72,18 @@
   return objc_getAssociatedObject(self, @selector(backgroundSelectedColorName));
 }
 
+- (void)setTintColorName:(NSString *)colorName
+{
+  objc_setAssociatedObject(self, @selector(tintColorName), colorName,
+                           OBJC_ASSOCIATION_COPY_NONATOMIC);
+  [self setTintColor:[UIColor colorWithName:colorName]];
+}
+
+- (NSString *)tintColorName
+{
+  return objc_getAssociatedObject(self, @selector(tintColorName));
+}
+
 - (void)setBackgroundColor:(UIColor *)color forState:(UIControlState)state
 {
   [self setBackgroundColor:UIColor.clearColor];

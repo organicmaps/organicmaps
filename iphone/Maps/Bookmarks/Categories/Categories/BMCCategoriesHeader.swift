@@ -2,7 +2,7 @@ protocol BMCCategoriesHeaderDelegate {
   func visibilityAction(isShowAll: Bool)
 }
 
-final class BMCCategoriesHeader: UIView {
+final class BMCCategoriesHeader: UITableViewHeaderFooterView {
   @IBOutlet private weak var label: UILabel! {
     didSet {
       label.font = .bold14()
@@ -27,9 +27,9 @@ final class BMCCategoriesHeader: UIView {
     }
   }
 
-  var delegate: BMCCategoriesHeaderDelegate!
+  var delegate: BMCCategoriesHeaderDelegate?
 
   @IBAction private func buttonAction() {
-    delegate.visibilityAction(isShowAll: isShowAll)
+    delegate?.visibilityAction(isShowAll: isShowAll)
   }
 }

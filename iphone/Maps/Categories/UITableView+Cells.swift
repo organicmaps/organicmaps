@@ -30,4 +30,12 @@ extension UITableView {
   func dequeueReusableCell<Cell>(cell: Cell.Type, indexPath: IndexPath) -> Cell where Cell: UITableViewCell {
     return dequeueReusableCell(withIdentifier: toString(cell), for: indexPath) as! Cell
   }
+
+  func registerNibForHeaderFooterView<View>(_ view: View.Type) where View: UIView {
+    register(UINib(view), forHeaderFooterViewReuseIdentifier: toString(view))
+  }
+
+  func dequeueReusableHeaderFooterView<View>(_ view: View.Type) -> View where View: UIView {
+    return dequeueReusableHeaderFooterView(withIdentifier: toString(view)) as! View
+  }
 }

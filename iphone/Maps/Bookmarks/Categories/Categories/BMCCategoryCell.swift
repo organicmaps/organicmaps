@@ -36,20 +36,20 @@ final class BMCCategoryCell: MWMTableViewCell {
     }
   }
 
-  private var delegate: BMCCategoryCellDelegate!
+  private var delegate: BMCCategoryCellDelegate?
 
-  func config(category: BMCCategory, delegate: BMCCategoryCellDelegate) -> UITableViewCell {
+  func config(category: BMCCategory, delegate: BMCCategoryCellDelegate?) -> UITableViewCell {
     self.category = category
     self.delegate = delegate
     return self
   }
 
   @IBAction private func visibilityAction() {
-    delegate.visibilityAction(category: category)
+    delegate?.visibilityAction(category: category)
   }
 
   @IBAction private func moreAction() {
-    delegate.moreAction(category: category, anchor: more)
+    delegate?.moreAction(category: category, anchor: more)
   }
 }
 

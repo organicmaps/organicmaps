@@ -15,18 +15,13 @@ final class BMCViewController: MWMViewController {
         BMCActionsCreateCell.self,
         BMCNotificationsCell.self,
       ])
+      tableView.registerNibForHeaderFooterView(BMCCategoriesHeader.self)
     }
   }
 
   @IBOutlet private var permissionsHeader: BMCPermissionsHeader! {
     didSet {
       permissionsHeader.delegate = self
-    }
-  }
-
-  @IBOutlet private var categoriesHeader: BMCCategoriesHeader! {
-    didSet {
-      categoriesHeader.delegate = self
     }
   }
 
@@ -249,7 +244,9 @@ extension BMCViewController: UITableViewDelegate {
     switch viewModel.sectionType(section: section) {
     case .permissions: return permissionsHeader
     case .categories:
+      let categoriesHeader = tableView.dequeueReusableHeaderFooterView(BMCCategoriesHeader.self)
       categoriesHeader.isShowAll = viewModel.areAllCategoriesInvisible()
+      categoriesHeader.delegate = self
       return categoriesHeader
     case .actions: return actionsHeader
     case .notifications: return notificationsHeader
@@ -292,6 +289,7 @@ extension BMCViewController: BMCPermissionsCellDelegate {
 extension BMCViewController: BMCCategoryCellDelegate {
   func visibilityAction(category: BMCCategory) {
     viewModel.updateCategoryVisibility(category: category)
+    let categoriesHeader = tableView.headerView(forSection: viewModel.sectionIndex(section: .categories)) as! BMCCategoriesHeader
     categoriesHeader.isShowAll = viewModel.areAllCategoriesInvisible()
   }
 
@@ -320,6 +318,7 @@ extension BMCViewController: BMCPermissionsHeaderDelegate {
 extension BMCViewController: BMCCategoriesHeaderDelegate {
   func visibilityAction(isShowAll: Bool) {
     viewModel.updateAllCategoriesVisibility(isShowAll: isShowAll)
+    let categoriesHeader = tableView.headerView(forSection: viewModel.sectionIndex(section: .categories)) as! BMCCategoriesHeader
     categoriesHeader.isShowAll = viewModel.areAllCategoriesInvisible()
   }
 }

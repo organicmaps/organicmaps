@@ -1,4 +1,5 @@
 #import "MWMBookmarksManager.h"
+#import "MWMCatalogCategory+Convenience.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
@@ -541,6 +542,27 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   observer.completionBlock = completion;
   [[MWMBookmarksManager manager].catalogObservers setObject:observer forKey:itemId];
   GetFramework().GetBookmarkManager().DownloadFromCatalogAndImport(itemId.UTF8String, name.UTF8String);
+}
+
++ (BOOL)isCategoryFromCatalog:(MWMMarkGroupID)groupId {
+  return GetFramework().GetBookmarkManager().IsCategoryFromCatalog(groupId);
+}
+
++ (NSArray<MWMCatalogCategory *> *)categoriesFromCatalog {
+  NSMutableArray * result = [NSMutableArray array];
+  MWMGroupIDCollection categoryIds = [self groupsIdList];
+  [categoryIds enumerateObjectsUsingBlock:^(NSNumber  * categoryId, NSUInteger idx, BOOL * stop) {
+    MWMMarkGroupID catId = categoryId.unsignedIntValue;
+    if ([self isCategoryFromCatalog:catId])
+    {
+      kml::CategoryData categoryData = GetFramework().GetBookmarkManager().GetCategoryData(categoryId.unsignedIntValue);
+      UInt64 bookmarksCount = [self getCategoryMarksCount:catId] + [self getCategoryTracksCount:catId];
+      MWMCatalogCategory *category = [[MWMCatalogCategory alloc] initWithCategoryData:categoryData
+                                                                       bookmarksCount:bookmarksCount];
+      [result addObject:category];
+    }
+  }];
+  return [result copy];
 }
 
 @end

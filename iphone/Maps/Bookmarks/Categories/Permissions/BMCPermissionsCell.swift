@@ -15,7 +15,7 @@ final class BMCPermissionsCell: MWMTableViewCell {
       button.setTitleColor(UIColor.whitePrimaryText(), for: .normal)
       button.setTitleColor(UIColor.whitePrimaryTextHighlighted(), for: .highlighted)
       button.setBackgroundColor(.linkBlue(), for: .normal)
-      button.titleLabel?.font = .regular14()
+      button.titleLabel?.font = .medium14()
       button.layer.cornerRadius = 6
       button.clipsToBounds = true
     }

@@ -10,6 +10,8 @@
 - (NSString *)backgroundHighlightedColorName;
 - (void)setBackgroundSelectedColorName:(NSString *)colorName;
 - (NSString *)backgroundSelectedColorName;
+- (void)setTintColorName:(NSString *)colorName;
+- (NSString *)tintColorName;
 
 - (void)setBackgroundColor:(UIColor *)color forState:(UIControlState)state;
 

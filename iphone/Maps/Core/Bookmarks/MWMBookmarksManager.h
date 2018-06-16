@@ -1,6 +1,8 @@
 #import "MWMBookmarksObserver.h"
 #import "MWMTypes.h"
 
+@class MWMCatalogCategory;
+
 @interface MWMBookmarksManager : NSObject
 
 + (void)addObserver:(id<MWMBookmarksObserver>)observer;
@@ -48,6 +50,8 @@
 + (void)downloadItemWithId:(NSString * _Nonnull)itemId
                       name:(NSString * _Nonnull)name
                 completion:(void (^_Nullable)(NSError * _Nullable error))completion;
++ (BOOL)isCategoryFromCatalog:(MWMMarkGroupID)groupId;
++ (NSArray<MWMCatalogCategory *> * _Nonnull)categoriesFromCatalog;
 
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));

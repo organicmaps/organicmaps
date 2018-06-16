@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="CatalogCategoryCell" customModule="maps_me" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TYb-q4-3hJ" customClass="Checkmark" customModule="maps_me" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="56" height="60"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="56" id="gNZ-kZ-bfY"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="offImage" value="radioBtnOff"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="onImage" value="radioBtnOn"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="onVisibleChanged:" destination="KGk-i7-Jjw" eventType="valueChanged" id="phf-eN-eSI"/>
+                        </connections>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gp-G7-fer">
+                        <rect key="frame" x="56" y="8" width="208" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DlK-AV-gvk">
+                        <rect key="frame" x="56" y="33" width="208" height="19"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uym-iO-PUK">
+                        <rect key="frame" x="264" y="0.0" width="56" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="56" id="MHu-fs-l19"/>
+                        </constraints>
+                        <state key="normal" image="ic24PxMore"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="tintColorName" value="blackSecondaryText"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="onMoreButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="SQV-hf-5f6"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="DlK-AV-gvk" firstAttribute="leading" secondItem="TYb-q4-3hJ" secondAttribute="trailing" id="6iy-4T-op1"/>
+                    <constraint firstItem="Uym-iO-PUK" firstAttribute="leading" secondItem="DlK-AV-gvk" secondAttribute="trailing" id="C2c-q6-XLQ"/>
+                    <constraint firstItem="TYb-q4-3hJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="KIN-eE-1dv"/>
+                    <constraint firstAttribute="bottom" secondItem="TYb-q4-3hJ" secondAttribute="bottom" constant="-0.5" id="Mfy-Hf-GCo"/>
+                    <constraint firstAttribute="bottom" secondItem="Uym-iO-PUK" secondAttribute="bottom" constant="-0.5" id="QfH-v8-SbY"/>
+                    <constraint firstItem="Uym-iO-PUK" firstAttribute="leading" secondItem="9gp-G7-fer" secondAttribute="trailing" id="VOq-lS-OVx"/>
+                    <constraint firstItem="9gp-G7-fer" firstAttribute="leading" secondItem="TYb-q4-3hJ" secondAttribute="trailing" id="Xme-W9-A4y"/>
+                    <constraint firstAttribute="trailing" secondItem="Uym-iO-PUK" secondAttribute="trailing" id="bQT-gf-HGR"/>
+                    <constraint firstItem="DlK-AV-gvk" firstAttribute="top" secondItem="9gp-G7-fer" secondAttribute="bottom" constant="4" id="bqJ-pJ-fN2"/>
+                    <constraint firstItem="Uym-iO-PUK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="hhn-Df-SPi"/>
+                    <constraint firstItem="9gp-G7-fer" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="hs7-rh-zCp"/>
+                    <constraint firstAttribute="bottom" secondItem="DlK-AV-gvk" secondAttribute="bottom" constant="8" id="kL6-qB-Ltr"/>
+                    <constraint firstItem="TYb-q4-3hJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="tbN-ht-fVP"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="moreButton" destination="Uym-iO-PUK" id="4r9-6m-ydT"/>
+                <outlet property="subtitleLabel" destination="DlK-AV-gvk" id="lLy-5A-oCH"/>
+                <outlet property="titleLabel" destination="9gp-G7-fer" id="Ubj-0i-YWi"/>
+                <outlet property="visibleCheckmark" destination="TYb-q4-3hJ" id="EdR-5o-6bz"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic24PxMore" width="24" height="24"/>
+        <image name="radioBtnOff" width="22" height="22"/>
+        <image name="radioBtnOn" width="22" height="22"/>
+    </resources>
+</document>

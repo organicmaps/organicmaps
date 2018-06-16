@@ -73,9 +73,9 @@ class Checkmark: UIControl {
     switch contentHorizontalAlignment {
     case .right: fallthrough
     case .trailing:
-      left = bounds.width - imageView.width
+      left = floor(bounds.width - imageView.width)
     case .center:
-      left = floor(bounds.width - width) / 2
+      left = floor((bounds.width - width) / 2)
     case .fill:
       width = bounds.width
     default:
@@ -86,9 +86,9 @@ class Checkmark: UIControl {
     case .top:
       top = 0
     case .bottom:
-      top = bounds.height - height
+      top = floor(bounds.height - height)
     case .center:
-      top = floor(bounds.height - height) / 2
+      top = floor((bounds.height - height) / 2)
     case .fill:
       height = bounds.height
     }
