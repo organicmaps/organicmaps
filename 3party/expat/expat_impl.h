@@ -303,12 +303,15 @@ public:
 
   // @cmember Enable/Disable unknown encoding handler
 
+// disabled because it causes compile errors with gcc 7
+#if 0
   void EnableUnknownEncodingHandler (bool fEnable = true)
   {
     assert (m_p != NULL);
     XML_SetUnknownEncodingHandler (m_p,
       fEnable ? UnknownEncodingHandler : NULL);
   }
+#endif
 
   // @cmember Enable/Disable start namespace handler
 
