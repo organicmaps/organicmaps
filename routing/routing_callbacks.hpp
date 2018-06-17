@@ -8,6 +8,7 @@
 #include <functional>
 #include <map>
 #include <string>
+#include <vector>
 
 namespace routing
 {
@@ -37,6 +38,7 @@ enum class RouterResultCode
   RouteNotFoundRedressRouteError = 15,
 };
 
+using AbsentCountryCallback = std::function<void(uint64_t, std::vector<std::string> const &)>;
 using CheckpointCallback = std::function<void(size_t passedCheckpointIdx)>;
 using ProgressCallback = std::function<void(float)>;
 // @TODO(bykoianko) ReadyCallback and ReadyCallbackOwnership callbacks should be gathered

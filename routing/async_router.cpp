@@ -257,6 +257,7 @@ void AsyncRouter::CalculateRoute()
   bool adjustToPrevRoute = false;
   shared_ptr<IOnlineFetcher> absentFetcher;
   shared_ptr<IRouter> router;
+  uint64_t routeCounter = m_routeCounter;
 
   {
     unique_lock<mutex> ul(m_guard);
@@ -276,9 +277,10 @@ void AsyncRouter::CalculateRoute()
     delegate = m_delegate;
     router = m_router;
     absentFetcher = m_absentFetcher;
+    routeCounter = ++m_routeCounter;
   }
 
-  Route route(router->GetName());
+  Route route(router->GetName(), routeCounter);
   RouterResultCode code;
 
   my::Timer timer;

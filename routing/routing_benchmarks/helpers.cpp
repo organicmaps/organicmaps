@@ -34,7 +34,7 @@ void TestRouter(routing::IRouter & router, m2::PointD const & startPos,
 {
   routing::RouterDelegate delegate;
   LOG(LINFO, ("Calculating routing ...", router.GetName()));
-  routing::Route route("");
+  routing::Route route("", 0 /* route id */);
   my::Timer timer;
   auto const resultCode = router.CalculateRoute(routing::Checkpoints(startPos, finalPos),
                                                 m2::PointD::Zero() /* startDirection */,
@@ -105,14 +105,14 @@ RoutingTest::RoutingTest(routing::IRoadGraph::Mode mode, set<string> const & nee
 void RoutingTest::TestRouters(m2::PointD const & startPos, m2::PointD const & finalPos)
 {
   // Find route by A*-bidirectional algorithm.
-  routing::Route routeFoundByAstarBidirectional("");
+  routing::Route routeFoundByAstarBidirectional("", 0 /* route id */);
   {
     auto router = CreateRouter("test-astar-bidirectional");
     TestRouter(*router, startPos, finalPos, routeFoundByAstarBidirectional);
   }
 
   // Find route by A* algorithm.
-  routing::Route routeFoundByAstar("");
+  routing::Route routeFoundByAstar("", 0 /* route id */);
   {
     auto router = CreateRouter("test-astar");
     TestRouter(*router, startPos, finalPos, routeFoundByAstar);

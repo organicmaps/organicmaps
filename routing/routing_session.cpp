@@ -62,7 +62,8 @@ void FormatDistance(double dist, string & value, string & suffix)
 
 RoutingSession::RoutingSession()
   : m_router(nullptr)
-  , m_route(make_shared<Route>(string()))
+    // @TODO |m_route| should be unique_prt<Route> and should be nullptr here.
+  , m_route(make_shared<Route>(string(), 0))
   , m_state(RoutingNotActive)
   , m_isFollowing(false)
   , m_lastWarnedSpeedCameraIndex(0)
@@ -160,7 +161,8 @@ void RoutingSession::RemoveRoute()
   m_moveAwayCounter = 0;
   m_turnNotificationsMgr.Reset();
 
-  m_route = make_shared<Route>(string());
+  // @TODO |m_route| should be unique_prt<Route> and should be nullptr here.
+  m_route = make_shared<Route>(string(), 0);
 }
 
 void RoutingSession::RebuildRouteOnTrafficUpdate()

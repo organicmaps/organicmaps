@@ -156,16 +156,21 @@ public:
     SubrouteUid const m_id = kInvalidSubrouteId;
   };
 
-  explicit Route(std::string const & router)
-    : m_router(router), m_routingSettings(GetRoutingSettings(VehicleType::Car)) {}
-
-  template <class TIter>
-  Route(std::string const & router, TIter beg, TIter end)
-    : m_router(router), m_routingSettings(GetRoutingSettings(VehicleType::Car)), m_poly(beg, end)
+  explicit Route(std::string const & router, uint64_t routeId)
+    : m_router(router), m_routingSettings(GetRoutingSettings(VehicleType::Car)), m_routeId(routeId)
   {
   }
 
-  Route(std::string const & router, std::vector<m2::PointD> const & points,
+  template <class TIter>
+  Route(std::string const & router, TIter beg, TIter end, uint64_t routeId)
+    : m_router(router)
+    , m_routingSettings(GetRoutingSettings(VehicleType::Car))
+    , m_poly(beg, end)
+    , m_routeId(routeId)
+  {
+  }
+
+  Route(std::string const & router, std::vector<m2::PointD> const & points, uint64_t routeId,
         std::string const & name = std::string());
 
   void Swap(Route & rhs);
@@ -317,6 +322,7 @@ public:
   traffic::SpeedGroup GetTraffic(size_t segmentIdx) const;
 
   void GetTurnsForTesting(std::vector<turns::TurnItem> & turns) const;
+  bool IsRouteId(uint64_t routeId) const { return routeId == m_routeId; }
 
 private:
   friend std::string DebugPrint(Route const & r);
@@ -347,5 +353,7 @@ private:
   SubrouteUid m_subrouteUid = kInvalidSubrouteId;
   size_t m_currentSubrouteIdx = 0;
   std::vector<SubrouteAttrs> m_subrouteAttrs;
+  // Route identifier. It's unique within single program session.
+  uint64_t m_routeId = 0;
 };
 } // namespace routing

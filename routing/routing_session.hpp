@@ -208,6 +208,7 @@ private:
 
 private:
   unique_ptr<AsyncRouter> m_router;
+  // @TODO |m_route| should be unique_prt<Route> and may be nullptr.
   shared_ptr<Route> m_route;
   State m_state;
   bool m_isFollowing;

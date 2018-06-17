@@ -170,7 +170,7 @@ namespace integration
                               m2::PointD const & finalPoint)
   {
     RouterDelegate delegate;
-    shared_ptr<Route> route(new Route("mapsme"));
+    shared_ptr<Route> route = make_shared<Route>("mapsme", 0 /* route id */);
     RouterResultCode result = routerComponents.GetRouter().CalculateRoute(
         Checkpoints(startPoint, finalPoint), startDirection, false /* adjust */, delegate, *route);
     ASSERT(route, ());

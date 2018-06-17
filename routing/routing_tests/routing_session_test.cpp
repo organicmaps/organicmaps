@@ -97,7 +97,7 @@ UNIT_TEST(TestRouteBuilding)
   RoutingSession session;
   session.Init(nullptr, nullptr);
   vector<m2::PointD> routePoints = kTestRoute;
-  Route masterRoute("dummy", routePoints.begin(), routePoints.end());
+  Route masterRoute("dummy", routePoints.begin(), routePoints.end(), 0 /* route id */);
   size_t counter = 0;
   TimedSignal timedSignal;
   unique_ptr<DummyRouter> router =
@@ -118,7 +118,7 @@ UNIT_TEST(TestRouteRebuilding)
   RoutingSession session;
   session.Init(nullptr, nullptr);
   vector<m2::PointD> routePoints = kTestRoute;
-  Route masterRoute("dummy", routePoints.begin(), routePoints.end());
+  Route masterRoute("dummy", routePoints.begin(), routePoints.end(), 0 /* route id */);
   FillSubroutesInfo(masterRoute);
 
   size_t counter = 0;
@@ -176,7 +176,7 @@ UNIT_TEST(TestFollowRouteFlagPersistence)
   RoutingSession session;
   session.Init(nullptr, nullptr);
   vector<m2::PointD> routePoints = kTestRoute;
-  Route masterRoute("dummy", routePoints.begin(), routePoints.end());
+  Route masterRoute("dummy", routePoints.begin(), routePoints.end(), 0 /* route id */);
   FillSubroutesInfo(masterRoute);
 
   size_t counter = 0;
@@ -252,7 +252,7 @@ UNIT_TEST(TestFollowRoutePercentTest)
   RoutingSession session;
   session.Init(nullptr, nullptr);
   vector<m2::PointD> routePoints = kTestRoute;
-  Route masterRoute("dummy", routePoints.begin(), routePoints.end());
+  Route masterRoute("dummy", routePoints.begin(), routePoints.end(), 0 /* route id */);
   FillSubroutesInfo(masterRoute);
 
   size_t counter = 0;

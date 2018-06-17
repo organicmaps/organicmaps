@@ -33,7 +33,8 @@ public:
                             bool adjustToPrevRoute, RouterDelegate const & delegate,
                             Route & route) override
   {
-    route = Route("dummy", checkpoints.GetPoints().cbegin(), checkpoints.GetPoints().cend());
+    route = Route("dummy", checkpoints.GetPoints().cbegin(), checkpoints.GetPoints().cend(),
+                  0 /* route id */);
 
     for (auto const & absent : m_absent)
       route.AddAbsentCountry(absent);

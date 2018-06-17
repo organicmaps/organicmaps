@@ -9,6 +9,7 @@
 
 #include "base/thread.hpp"
 
+#include "std/cstdint.hpp"
 #include "std/condition_variable.hpp"
 #include "std/map.hpp"
 #include "std/mutex.hpp"
@@ -116,6 +117,7 @@ private:
 
   RoutingStatisticsCallback const m_routingStatisticsCallback;
   PointCheckCallback const m_pointCheckCallback;
+  uint64_t m_routeCounter = 0;
 };
 
 }  // namespace routing
