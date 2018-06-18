@@ -93,7 +93,6 @@ import com.mapswithme.maps.widget.placepage.BasePlacePageAnimationController;
 import com.mapswithme.maps.widget.placepage.PlacePageView;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.Animations;
-import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.Counters;
 import com.mapswithme.util.DialogUtils;
 import com.mapswithme.util.InputUtils;
@@ -423,11 +422,14 @@ public class MwmActivity extends BaseMwmFragmentActivity
     startActivity(new Intent(this, BookmarkCategoriesActivity.class));
   }
 
-  private void showSearchIfExist(@NonNull Intent data)
+  private void showTabletSearch(@Nullable Intent data, @NonNull String query)
   {
-    String query = data.getStringExtra(DiscoveryActivity.EXTRA_FILTER_SEARCH_QUERY);
-    if (TextUtils.isEmpty(query))
+    if (mFilterController == null || data == null)
       return;
+
+    BookingFilterParams params = data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
+    HotelsFilter filter = data.getParcelableExtra(FilterActivity.EXTRA_FILTER);
+    mFilterController.setFilterAndParams(filter, params);
 
     showSearch(query);
   }
@@ -1095,11 +1097,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
         handleDiscoveryResult(data);
         break;
       case FilterActivity.REQ_CODE_FILTER:
-        onActionShowFiltersSelected(data);
-        break;
       case REQ_CODE_SHOW_SIMILAR_HOTELS:
-        if (mSearchController != null)
-          mSearchController.setQuery(getString(R.string.hotel));
+        if (mIsTabletLayout)
+        {
+          showTabletSearch(data, getString(R.string.hotel));
+          return;
+        }
         handleFilterResult(data);
         break;
     }
@@ -1130,30 +1133,22 @@ public class MwmActivity extends BaseMwmFragmentActivity
         break;
 
       case DiscoveryActivity.ACTION_SHOW_FILTER_RESULTS:
-        String query = data.getStringExtra(DiscoveryActivity.EXTRA_FILTER_SEARCH_QUERY);
-        if (TextUtils.isEmpty(query))
-          return;
-
-        if (mSearchController != null)
-          mSearchController.setQuery(query);
-
         handleFilterResult(data);
         break;
     }
-  }
-
-  private void onActionShowFiltersSelected(@NonNull Intent data)
-  {
-    if (mIsTabletLayout)
-      showSearchIfExist(data);
-    else
-      handleFilterResult(data);
   }
 
   private void handleFilterResult(@Nullable Intent data)
   {
     if (data == null || mFilterController == null)
       return;
+
+    String query = data.getStringExtra(DiscoveryActivity.EXTRA_FILTER_SEARCH_QUERY);
+    if (TextUtils.isEmpty(query))
+      query = getString(R.string.hotel);
+
+    if (mSearchController != null)
+      mSearchController.setQuery(query);
 
     BookingFilterParams params = data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
     mFilterController.setFilterAndParams(data.getParcelableExtra(FilterActivity.EXTRA_FILTER),
