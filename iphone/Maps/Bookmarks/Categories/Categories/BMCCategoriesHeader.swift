@@ -1,5 +1,5 @@
 protocol BMCCategoriesHeaderDelegate {
-  func visibilityAction(isShowAll: Bool)
+  func visibilityAction(_ categoriesHeader: BMCCategoriesHeader)
 }
 
 final class BMCCategoriesHeader: UITableViewHeaderFooterView {
@@ -30,6 +30,6 @@ final class BMCCategoriesHeader: UITableViewHeaderFooterView {
   var delegate: BMCCategoriesHeaderDelegate?
 
   @IBAction private func buttonAction() {
-    delegate?.visibilityAction(isShowAll: isShowAll)
+    delegate?.visibilityAction(self)
   }
 }

@@ -316,9 +316,8 @@ extension BMCViewController: BMCPermissionsHeaderDelegate {
 }
 
 extension BMCViewController: BMCCategoriesHeaderDelegate {
-  func visibilityAction(isShowAll: Bool) {
-    viewModel.updateAllCategoriesVisibility(isShowAll: isShowAll)
-    let categoriesHeader = tableView.headerView(forSection: viewModel.sectionIndex(section: .categories)) as! BMCCategoriesHeader
+  func visibilityAction(_ categoriesHeader: BMCCategoriesHeader) {
+    viewModel.updateAllCategoriesVisibility(isShowAll: categoriesHeader.isShowAll)
     categoriesHeader.isShowAll = viewModel.areAllCategoriesInvisible()
   }
 }

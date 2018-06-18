@@ -1,4 +1,11 @@
+protocol CatalogCategoryCellDelegate {
+  func cell(_ cell: CatalogCategoryCell, didCheck visible: Bool)
+  func cell(_ cell: CatalogCategoryCell, didPress moreButton: UIButton)
+}
+
 class CatalogCategoryCell: UITableViewCell {
+
+  var delegate: CatalogCategoryCellDelegate?
 
   @IBOutlet weak var visibleCheckmark: Checkmark! {
     didSet {
@@ -21,13 +28,17 @@ class CatalogCategoryCell: UITableViewCell {
   @IBOutlet weak var moreButton: UIButton!
 
   @IBAction func onVisibleChanged(_ sender: Checkmark) {
-  }
-  @IBAction func onMoreButton(_ sender: UIButton) {
+    delegate?.cell(self, didCheck: sender.isChecked)
   }
 
-  func update(with category: MWMCatalogCategory) {
+  @IBAction func onMoreButton(_ sender: UIButton) {
+    delegate?.cell(self, didPress: sender)
+  }
+
+  func update(with category: MWMCatalogCategory, delegate: CatalogCategoryCellDelegate?) {
     titleLabel.text = category.title
     subtitleLabel.text = "\(category.bookmarksCount) places • by \(category.author ?? "")"
     visibleCheckmark.isChecked = category.isVisible
+    self.delegate = delegate
   }
 }

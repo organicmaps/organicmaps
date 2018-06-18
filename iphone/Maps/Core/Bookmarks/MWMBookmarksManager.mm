@@ -263,7 +263,10 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   auto const & list = GetFramework().GetBookmarkManager().GetBmGroupsIdList();
   NSMutableArray<NSNumber *> * collection = @[].mutableCopy;
   for (auto const & groupId : list)
-    [collection addObject:@(groupId)];
+  {
+    if (!GetFramework().GetBookmarkManager().IsCategoryFromCatalog(groupId))
+      [collection addObject:@(groupId)];
+  }
   return collection.copy;
 }
 
@@ -491,12 +494,21 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   return GetFramework().GetBookmarkManager().AreNotificationsEnabled();
 }
 
-+ (NSURL * _Nullable )catalogFrontendUrl {
++ (NSURL * _Nullable )catalogFrontendUrl
+{
   NSString *urlString = @(GetFramework().GetBookmarkManager().GetCatalogFrontendUrl().c_str());
   return urlString ? [NSURL URLWithString:urlString] : nil;
 }
 
-+ (void)downloadItemWithId:(NSString *)itemId name:(NSString *)name completion:(void (^)(NSError * error))completion {
++ (NSURL * _Nullable)sharingUrlForCategoryId:(MWMMarkGroupID)groupId
+{
+  NSString *urlString = @(GetFramework().GetBookmarkManager().GetCategoryCatalogDeeplink(groupId).c_str());
+  return urlString ? [NSURL URLWithString:urlString] : nil;
+}
+
+
++ (void)downloadItemWithId:(NSString *)itemId name:(NSString *)name completion:(void (^)(NSError * error))completion
+{
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     [MWMBookmarksManager manager].catalogObservers = [NSMutableDictionary dictionary];
@@ -544,24 +556,26 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   GetFramework().GetBookmarkManager().DownloadFromCatalogAndImport(itemId.UTF8String, name.UTF8String);
 }
 
-+ (BOOL)isCategoryFromCatalog:(MWMMarkGroupID)groupId {
++ (BOOL)isCategoryFromCatalog:(MWMMarkGroupID)groupId
+{
   return GetFramework().GetBookmarkManager().IsCategoryFromCatalog(groupId);
 }
 
-+ (NSArray<MWMCatalogCategory *> *)categoriesFromCatalog {
++ (NSArray<MWMCatalogCategory *> *)categoriesFromCatalog
+{
   NSMutableArray * result = [NSMutableArray array];
-  MWMGroupIDCollection categoryIds = [self groupsIdList];
-  [categoryIds enumerateObjectsUsingBlock:^(NSNumber  * categoryId, NSUInteger idx, BOOL * stop) {
-    MWMMarkGroupID catId = categoryId.unsignedIntValue;
-    if ([self isCategoryFromCatalog:catId])
+  auto const & list = GetFramework().GetBookmarkManager().GetBmGroupsIdList();
+  for (auto const & groupId : list)
+  {
+    if ([self isCategoryFromCatalog:groupId])
     {
-      kml::CategoryData categoryData = GetFramework().GetBookmarkManager().GetCategoryData(categoryId.unsignedIntValue);
-      UInt64 bookmarksCount = [self getCategoryMarksCount:catId] + [self getCategoryTracksCount:catId];
+      kml::CategoryData categoryData = GetFramework().GetBookmarkManager().GetCategoryData(groupId);
+      UInt64 bookmarksCount = [self getCategoryMarksCount:groupId] + [self getCategoryTracksCount:groupId];
       MWMCatalogCategory *category = [[MWMCatalogCategory alloc] initWithCategoryData:categoryData
                                                                        bookmarksCount:bookmarksCount];
       [result addObject:category];
     }
-  }];
+  }
   return [result copy];
 }
 

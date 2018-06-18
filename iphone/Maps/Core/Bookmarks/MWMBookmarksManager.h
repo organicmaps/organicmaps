@@ -47,6 +47,7 @@
 + (void)cancelRestoring;
 
 + (NSURL * _Nullable)catalogFrontendUrl;
++ (NSURL * _Nullable)sharingUrlForCategoryId:(MWMMarkGroupID)groupId;
 + (void)downloadItemWithId:(NSString * _Nonnull)itemId
                       name:(NSString * _Nonnull)name
                 completion:(void (^_Nullable)(NSError * _Nullable error))completion;

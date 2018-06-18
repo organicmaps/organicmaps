@@ -11,7 +11,7 @@
 + (instancetype)shareControllerForURL:(NSURL *)url
                               message:(NSString *)message
                     completionHandler:
-                        (UIActivityViewControllerCompletionWithItemsHandler)completionHandler;
+                        (_Nullable UIActivityViewControllerCompletionWithItemsHandler)completionHandler;
 
 - (void)presentInParentViewController:(UIViewController *)parentVC anchorView:(UIView *)anchorView;
 
