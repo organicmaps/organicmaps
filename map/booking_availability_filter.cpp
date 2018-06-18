@@ -4,14 +4,17 @@
 
 #include "partners_api/booking_api.hpp"
 
+#include "editor/editable_data_source.hpp"
+
 #include "indexer/feature_decl.hpp"
-#include "indexer/index.hpp"
 
 #include "platform/platform.hpp"
 
 #include <algorithm>
 #include <utility>
 #include <vector>
+
+using LoaderGuard = EditableDataSource::FeaturesLoaderGuard;
 
 using namespace booking::filter;
 
@@ -85,7 +88,7 @@ void FillResults(HotelToResults && hotelToResults, std::vector<std::string> cons
   }
 }
 
-void PrepareData(Index const & index, search::Results const & results,
+void PrepareData(DataSourceBase const & index, search::Results const & results,
                  HotelToResults & hotelToResults, availability::Cache & cache,
                  booking::AvailabilityParams & p)
 {
@@ -103,12 +106,12 @@ void PrepareData(Index const & index, search::Results const & results,
   std::sort(features.begin(), features.end());
 
   MwmSet::MwmId mwmId;
-  std::unique_ptr<Index::FeaturesLoaderGuard> guard;
+  std::unique_ptr<LoaderGuard> guard;
   for (auto const & featureId : features)
   {
     if (mwmId != featureId.m_mwmId)
     {
-      guard = my::make_unique<Index::FeaturesLoaderGuard>(index, featureId.m_mwmId);
+      guard = my::make_unique<LoaderGuard>(index, featureId.m_mwmId);
       mwmId = featureId.m_mwmId;
     }
 
@@ -220,13 +223,13 @@ void AvailabilityFilter::GetFeaturesFromCache(search::Results const & results,
   std::sort(features.begin(), features.end());
 
   MwmSet::MwmId mwmId;
-  std::unique_ptr<Index::FeaturesLoaderGuard> guard;
+  std::unique_ptr<LoaderGuard> guard;
   for (auto const & featureId : features)
   {
     if (mwmId != featureId.m_mwmId)
     {
       guard =
-          my::make_unique<Index::FeaturesLoaderGuard>(GetDelegate().GetIndex(), featureId.m_mwmId);
+          my::make_unique<LoaderGuard>(GetDelegate().GetIndex(), featureId.m_mwmId);
       mwmId = featureId.m_mwmId;
     }
 

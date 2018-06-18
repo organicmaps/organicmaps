@@ -11,7 +11,7 @@
 #include <string>
 #include <vector>
 
-class Index;
+class DataSourceBase;
 class FeatureType;
 struct FeatureID;
 
@@ -39,7 +39,7 @@ public:
     uint32_t m_featureId = 0;
   };
 
-  explicit Storage(Index const & index) : m_index(index) {}
+  explicit Storage(DataSourceBase const & index) : m_index(index) {}
 
   UGCUpdate GetUGCUpdate(FeatureID const & id) const;
 
@@ -67,7 +67,7 @@ private:
   uint64_t UGCSizeAtIndex(size_t const indexPosition) const;
   std::unique_ptr<FeatureType> GetFeature(FeatureID const & id) const;
 
-  Index const & m_index;
+  DataSourceBase const & m_index;
   std::vector<UGCIndex> m_UGCIndexes;
   size_t m_numberOfDeleted = 0;
 };

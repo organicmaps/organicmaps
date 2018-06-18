@@ -13,7 +13,7 @@
 #include "std/string.hpp"
 #include "std/queue.hpp"
 
-class Index;
+class DataSourceBase;
 
 namespace search
 {
@@ -237,7 +237,7 @@ class HouseDetector
   double GetApprLengthMeters(int index) const;
 
 public:
-  HouseDetector(Index const & index);
+  HouseDetector(DataSourceBase const & index);
   ~HouseDetector();
 
   int LoadStreets(vector<FeatureID> const & ids);

@@ -6,6 +6,8 @@
 
 #include "storage/country_info_getter.hpp"
 
+#include "base/stl_helpers.hpp"
+
 using namespace routing;
 
 namespace openlr

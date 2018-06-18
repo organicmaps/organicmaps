@@ -5,9 +5,9 @@
 #include "search/dummy_rank_table.hpp"
 #include "search/mwm_context.hpp"
 
+#include "indexer/data_source.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/index.hpp"
 
 #include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
@@ -206,7 +206,7 @@ void LocalityFinder::Holder::Clear()
 }
 
 // LocalityFinder ----------------------------------------------------------------------------------
-LocalityFinder::LocalityFinder(Index const & index, CitiesBoundariesTable const & boundariesTable,
+LocalityFinder::LocalityFinder(DataSourceBase const & index, CitiesBoundariesTable const & boundariesTable,
                                VillagesCache & villagesCache)
   : m_index(index)
   , m_boundariesTable(boundariesTable)

@@ -3,7 +3,7 @@
 #include "routing/road_graph.hpp"
 
 #include "indexer/classificator_loader.hpp"
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 
 #include "storage/country_parent_getter.hpp"
 
@@ -58,7 +58,7 @@ int32_t const kMinNumThreads = 1;
 int32_t const kMaxNumThreads = 128;
 int32_t const kHandleAllSegments = -1;
 
-void LoadIndexes(std::string const & pathToMWMFolder, std::vector<Index> & indexes)
+void LoadIndexes(std::string const & pathToMWMFolder, std::vector<DataSource> & indexes)
 {
   CHECK(Platform::IsDirectory(pathToMWMFolder), (pathToMWMFolder, "must be a directory."));
 
@@ -259,7 +259,7 @@ int main(int argc, char * argv[])
 
   auto const numThreads = static_cast<uint32_t>(FLAGS_num_threads);
 
-  std::vector<Index> indexes(numThreads);
+  std::vector<DataSource> indexes(numThreads);
   LoadIndexes(FLAGS_mwms_path, indexes);
 
   OpenLRDecoder decoder(indexes, storage::CountryParentGetter(FLAGS_countries_filename,

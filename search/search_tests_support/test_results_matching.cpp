@@ -2,8 +2,8 @@
 
 #include "generator/generator_tests_support/test_feature.hpp"
 
+#include "indexer/data_source.hpp"
 #include "indexer/feature_decl.hpp"
-#include "indexer/index.hpp"
 
 #include <sstream>
 
@@ -62,7 +62,7 @@ string AlternativesMatchingRule::ToString() const
   return os.str();
 }
 
-bool MatchResults(Index const & index, vector<shared_ptr<MatchingRule>> rules,
+bool MatchResults(DataSourceBase const & index, vector<shared_ptr<MatchingRule>> rules,
                   vector<search::Result> const & actual)
 {
   vector<FeatureID> resultIds;
@@ -100,18 +100,18 @@ bool MatchResults(Index const & index, vector<shared_ptr<MatchingRule>> rules,
   return false;
 }
 
-bool MatchResults(Index const & index, vector<shared_ptr<MatchingRule>> rules,
+bool MatchResults(DataSourceBase const & index, vector<shared_ptr<MatchingRule>> rules,
                   search::Results const & actual)
 {
   vector<search::Result> const results(actual.begin(), actual.end());
   return MatchResults(index, rules, results);
 }
 
-bool ResultMatches(Index const & index, shared_ptr<MatchingRule> rule,
+bool ResultMatches(DataSourceBase const & index, shared_ptr<MatchingRule> rule,
                    search::Result const & result)
 {
   bool matches = false;
-  index.ReadFeature([&](FeatureType & ft) { matches = rule->Matches(ft); }, result.GetFeatureID());
+  index.ReadFeature([&](FeatureType const & ft) { matches = rule->Matches(ft); }, result.GetFeatureID());
   return matches;
 }
 

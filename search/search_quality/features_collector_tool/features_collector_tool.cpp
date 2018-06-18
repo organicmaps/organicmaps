@@ -8,7 +8,7 @@
 #include "search/search_tests_support/test_search_request.hpp"
 
 #include "indexer/classificator_loader.hpp"
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/index.hpp"
@@ -152,7 +152,7 @@ int main(int argc, char * argv[])
   }
 
   classificator::Load();
-  Index index;
+  DataSource index;
 
   vector<platform::LocalCountryFile> mwms;
   platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* the latest version */,

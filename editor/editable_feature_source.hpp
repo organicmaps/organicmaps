@@ -1,22 +1,24 @@
 #pragma once
 
+#include "indexer/feature.hpp"
 #include "indexer/feature_source.hpp"
+#include "indexer/mwm_set.hpp"
 
-namespace datasource
-{
-class EditableFeatureSource : public FeatureSource
+#include "geometry/rect2d.hpp"
+
+#include <cstdint>
+#include <functional>
+
+class EditableFeatureSource final : public FeatureSource
 {
 public:
-  EditableFeatureSource(MwmSet::MwmHandle const & handle) : FeatureSource(handle) {}
+  explicit EditableFeatureSource(MwmSet::MwmHandle const & handle) : FeatureSource(handle) {}
 
+  // FeatureSource overrides:
   FeatureStatus GetFeatureStatus(uint32_t index) const override;
-
   bool GetModifiedFeature(uint32_t index, FeatureType & feature) const override;
-
   void ForEachInRectAndScale(m2::RectD const & rect, int scale,
-                             std::function<void(FeatureID const &)> const & fn) override;
+                             std::function<void(FeatureID const &)> const & fn) const override;
   void ForEachInRectAndScale(m2::RectD const & rect, int scale,
-                             std::function<void(FeatureType &)> const & fn) override;
-
+                             std::function<void(FeatureType &)> const & fn) const override;
 };  // class EditableFeatureSource
-}  // namespace datasource

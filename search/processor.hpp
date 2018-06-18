@@ -17,7 +17,6 @@
 #include "search/token_slice.hpp"
 #include "search/utils.hpp"
 
-#include "indexer/index.hpp"
 #include "indexer/string_slice.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
@@ -36,6 +35,7 @@
 
 class FeatureType;
 class CategoriesHolder;
+class DataSourceBase;
 
 namespace coding
 {
@@ -63,7 +63,7 @@ public:
   static double const kMinViewportRadiusM;
   static double const kMaxViewportRadiusM;
 
-  Processor(Index const & index, CategoriesHolder const & categories,
+  Processor(DataSourceBase const & index, CategoriesHolder const & categories,
             std::vector<Suggest> const & suggests, storage::CountryInfoGetter const & infoGetter);
 
   void SetViewport(m2::RectD const & viewport);

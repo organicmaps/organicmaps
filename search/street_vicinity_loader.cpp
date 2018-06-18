@@ -3,7 +3,6 @@
 #include "indexer/cell_id.hpp"
 #include "indexer/feature_covering.hpp"
 #include "indexer/feature_decl.hpp"
-#include "indexer/index.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"

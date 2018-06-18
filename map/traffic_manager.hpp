@@ -11,7 +11,6 @@
 #include "geometry/polyline2d.hpp"
 #include "geometry/screenbase.hpp"
 
-#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "base/thread.hpp"
@@ -19,6 +18,7 @@
 #include "std/algorithm.hpp"
 #include "std/atomic.hpp"
 #include "std/chrono.hpp"
+#include "std/condition_variable.hpp"
 #include "std/map.hpp"
 #include "std/mutex.hpp"
 #include "std/set.hpp"
@@ -161,7 +161,7 @@ private:
   map<MwmSet::MwmId, CacheEntry> m_mwmCache;
 
   bool m_isRunning;
-  std::condition_variable m_condition;
+  condition_variable m_condition;
 
   vector<MwmSet::MwmId> m_lastDrapeMwmsByRect;
   set<MwmSet::MwmId> m_activeDrapeMwms;

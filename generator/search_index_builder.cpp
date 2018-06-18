@@ -8,13 +8,13 @@
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/index.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 #include "indexer/trie_builder.hpp"
@@ -323,7 +323,7 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer)
   uint32_t address = 0, missing = 0;
   map<size_t, size_t> bounds;
 
-  Index mwmIndex;
+  DataSource mwmIndex;
   /// @ todo Make some better solution, or legalize MakeTemporary.
   auto const res = mwmIndex.RegisterMap(platform::LocalCountryFile::MakeTemporary(container.GetFileName()));
   ASSERT_EQUAL(res.second, MwmSet::RegResult::Success, ());

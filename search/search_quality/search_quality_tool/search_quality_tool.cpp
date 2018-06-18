@@ -2,7 +2,7 @@
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_header.hpp"
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "geometry/mercator.hpp"
@@ -197,7 +197,7 @@ void Split(string const & s, char delim, vector<string> & parts)
 
 // Returns the position of the result that is expected to be found by geocoder completeness
 // tests in the |result| vector or -1 if it does not occur there.
-int FindResult(Index & index, string const & mwmName, uint32_t const featureId, double const lat,
+int FindResult(DataSourceBase & index, string const & mwmName, uint32_t const featureId, double const lat,
                double const lon, vector<Result> const & results)
 {
   CHECK_LESS_OR_EQUAL(results.size(), numeric_limits<int>::max(), ());
@@ -279,7 +279,7 @@ void ParseCompletenessQuery(string & s, CompletenessQuery & q)
 // from |path|, executes them against the |engine| with viewport set to |viewport|
 // and reports the number of queries whose expected result is among the returned results.
 // Exact feature id is expected, but a close enough (lat, lon) is good too.
-void CheckCompleteness(string const & path, m2::RectD const & viewport, Index & index,
+void CheckCompleteness(string const & path, m2::RectD const & viewport, DataSourceBase & index,
                        TestSearchEngine & engine)
 {
   my::ScopedLogAbortLevelChanger const logAbortLevel(LCRITICAL);
@@ -379,7 +379,7 @@ int main(int argc, char * argv[])
   params.m_locale = FLAGS_locale;
   params.m_numThreads = FLAGS_num_threads;
 
-  Index index;
+  DataSource index;
 
   vector<platform::LocalCountryFile> mwms;
   if (!FLAGS_mwm_list_path.empty())

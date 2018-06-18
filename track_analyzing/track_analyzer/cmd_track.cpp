@@ -17,6 +17,8 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/timer.hpp"
+
 using namespace routing;
 using namespace std;
 

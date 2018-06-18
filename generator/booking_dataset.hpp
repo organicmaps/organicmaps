@@ -7,6 +7,7 @@
 #include "base/newtype.hpp"
 
 #include <limits>
+#include <ostream>
 #include <string>
 
 namespace generator

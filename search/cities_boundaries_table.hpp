@@ -12,7 +12,7 @@
 #include <utility>
 #include <vector>
 
-class Index;
+class DataSourceBase;
 
 namespace feature
 {
@@ -58,7 +58,7 @@ public:
     double m_eps = 0.0;
   };
 
-  explicit CitiesBoundariesTable(Index const & index) : m_index(index) {}
+  explicit CitiesBoundariesTable(DataSourceBase const & index) : m_index(index) {}
 
   bool Load();
 
@@ -69,7 +69,7 @@ public:
   bool Get(uint32_t fid, Boundaries & bs) const;
 
 private:
-  Index const & m_index;
+  DataSourceBase const & m_index;
   MwmSet::MwmId m_mwmId;
   std::unordered_map<uint32_t, std::vector<indexer::CityBoundary>> m_table;
   double m_eps = 0.0;

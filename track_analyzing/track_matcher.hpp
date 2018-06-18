@@ -7,7 +7,7 @@
 
 #include "routing_common/num_mwm_id.hpp"
 
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 
 #include <storage/storage.hpp>
 
@@ -57,7 +57,7 @@ private:
     DataPoint const & GetDataPoint() const { return m_dataPoint; }
     routing::Segment const & GetSegment() const { return m_segment; }
     bool HasCandidates() const { return !m_candidates.empty(); }
-    void FillCandidatesWithNearbySegments(Index const & index, routing::IndexGraph const & graph,
+    void FillCandidatesWithNearbySegments(DataSourceBase const & index, routing::IndexGraph const & graph,
                                           routing::VehicleModelInterface const & vehicleModel,
                                           routing::NumMwmId mwmId);
     void FillCandidates(Step const & previousStep, routing::IndexGraph & graph);
@@ -75,7 +75,7 @@ private:
   };
 
   routing::NumMwmId const m_mwmId;
-  Index m_index;
+  DataSource m_index;
   std::shared_ptr<routing::VehicleModelInterface> m_vehicleModel;
   std::unique_ptr<routing::IndexGraph> m_graph;
   uint64_t m_tracksCount = 0;

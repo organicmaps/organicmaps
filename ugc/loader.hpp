@@ -9,7 +9,7 @@
 #include <memory>
 #include <mutex>
 
-class Index;
+class DataSourceBase;
 struct FeatureID;
 
 namespace ugc
@@ -18,7 +18,7 @@ namespace ugc
 class Loader
 {
 public:
-  Loader(Index const & index);
+  Loader(DataSourceBase const & index);
   UGC GetUGC(FeatureID const & featureId);
 
 private:
@@ -30,7 +30,7 @@ private:
 
   using EntryPtr = std::shared_ptr<Entry>;
 
-  Index const & m_index;
+  DataSourceBase const & m_index;
   std::map<MwmSet::MwmId, EntryPtr> m_deserializers;
   std::mutex m_mutex;
 };

@@ -2,6 +2,8 @@
 
 #include "openlr/stats.hpp"
 
+#include "indexer/data_source.hpp"
+
 #include "base/exception.hpp"
 
 #include <cstdint>
@@ -9,8 +11,6 @@
 #include <string>
 #include <unordered_set>
 #include <vector>
-
-class Index;
 
 namespace openlr
 {
@@ -40,7 +40,7 @@ public:
     bool const m_multipointsOnly;
   };
 
-  OpenLRDecoder(std::vector<Index> const & indexes,
+  OpenLRDecoder(std::vector<DataSource> const & indexes,
                 CountryParentNameGetter const & countryParentNameGetter);
 
   // Maps partner segments to mwm paths. |segments| should be sorted by partner id.
@@ -55,7 +55,7 @@ private:
   void Decode(std::vector<LinearSegment> const & segments, uint32_t const numThreads,
               std::vector<DecodedPath> & paths);
 
-  std::vector<Index> const & m_indexes;
+  std::vector<DataSource> const & m_indexes;
   CountryParentNameGetter m_countryParentNameGetter;
 };
 }  // namespace openlr

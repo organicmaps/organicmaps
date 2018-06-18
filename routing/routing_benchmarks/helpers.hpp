@@ -12,7 +12,7 @@
 
 #include "traffic/traffic_cache.hpp"
 
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -42,7 +42,7 @@ protected:
                        std::vector<std::pair<routing::Edge, routing::Junction>> & edges);
 
   routing::IRoadGraph::Mode const m_mode;
-  Index m_index;
+  DataSource m_index;
   traffic::TrafficCache m_trafficCache;
 
   std::vector<platform::LocalCountryFile> m_localFiles;

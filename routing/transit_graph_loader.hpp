@@ -6,9 +6,9 @@
 
 #include "routing_common/num_mwm_id.hpp"
 
-#include "indexer/index.hpp"
-
 #include <memory>
+
+class DataSourceBase;
 
 namespace routing
 {
@@ -20,7 +20,7 @@ public:
   virtual TransitGraph & GetTransitGraph(NumMwmId mwmId, IndexGraph & indexGraph) = 0;
   virtual void Clear() = 0;
 
-  static std::unique_ptr<TransitGraphLoader> Create(Index & index,
+  static std::unique_ptr<TransitGraphLoader> Create(DataSourceBase & index,
                                                     std::shared_ptr<NumMwmIds> numMwmIds,
                                                     std::shared_ptr<EdgeEstimator> estimator);
 };

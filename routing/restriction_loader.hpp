@@ -3,12 +3,12 @@
 #include "routing/index_graph.hpp"
 #include "routing/restrictions_serialization.hpp"
 
-#include "indexer/index.hpp"
-
 #include "coding/file_container.hpp"
 
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
+
+class MwmValue;
 
 namespace routing
 {

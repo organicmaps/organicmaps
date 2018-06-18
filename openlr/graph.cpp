@@ -1,6 +1,6 @@
 #include "openlr/graph.hpp"
 
-#include "indexer/index.hpp"
+class DataSourceBase;
 
 using namespace routing;
 
@@ -30,7 +30,7 @@ void GetRegularEdges(Junction const & junction, IRoadGraph const & graph,
 }
 }  // namespace
 
-Graph::Graph(Index const & index, shared_ptr<CarModelFactory> carModelFactory)
+Graph::Graph(DataSourceBase const & index, shared_ptr<CarModelFactory> carModelFactory)
   : m_graph(index, IRoadGraph::Mode::ObeyOnewayTag, carModelFactory)
 {
 }

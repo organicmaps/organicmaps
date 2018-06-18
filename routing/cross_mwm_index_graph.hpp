@@ -14,7 +14,7 @@
 #include "coding/file_container.hpp"
 #include "coding/reader.hpp"
 
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 
 #include <map>
 #include <memory>
@@ -66,7 +66,7 @@ class CrossMwmIndexGraph final
 public:
   using ReaderSourceFile = ReaderSource<FilesContainerR::TReader>;
 
-  CrossMwmIndexGraph(Index & index, std::shared_ptr<NumMwmIds> numMwmIds, VehicleType vehicleType)
+  CrossMwmIndexGraph(DataSourceBase & index, std::shared_ptr<NumMwmIds> numMwmIds, VehicleType vehicleType)
     : m_index(index), m_numMwmIds(numMwmIds), m_vehicleType(vehicleType)
   {
   }
@@ -193,7 +193,7 @@ private:
     return it->second;
   }
 
-  Index & m_index;
+  DataSourceBase & m_index;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   VehicleType m_vehicleType;
 

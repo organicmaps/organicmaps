@@ -7,14 +7,14 @@
 #include "std/map.hpp"
 #include "std/vector.hpp"
 
-class Index;
+class DataSourceBase;
 
 namespace search
 {
 class NestedRectsCache
 {
 public:
-  explicit NestedRectsCache(Index const & index);
+  explicit NestedRectsCache(DataSourceBase const & index);
 
   void SetPosition(m2::PointD const & position, int scale);
 
@@ -37,7 +37,7 @@ private:
 
   void Update();
 
-  Index const & m_index;
+  DataSourceBase const & m_index;
   int m_scale;
   m2::PointD m_position;
   bool m_valid;

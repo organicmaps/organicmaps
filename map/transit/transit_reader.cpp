@@ -2,6 +2,7 @@
 
 #include "transit/transit_graph_data.hpp"
 
+#include "indexer/data_source.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"
 #include "indexer/feature_algo.hpp"
@@ -14,8 +15,11 @@
 
 #include "base/stl_add.hpp"
 
+#include <chrono>
+
 using namespace routing;
 using namespace std;
+using namespace std::chrono;
 
 namespace
 {
@@ -131,7 +135,7 @@ unique_ptr<TransitDisplayInfo> && ReadTransitTask::GetTransitInfo()
   return move(m_transitInfo);
 }
 
-TransitReadManager::TransitReadManager(Index & index, TReadFeaturesFn const & readFeaturesFn,
+TransitReadManager::TransitReadManager(DataSourceBase & index, TReadFeaturesFn const & readFeaturesFn,
                                        GetMwmsByRectFn const & getMwmsByRectFn)
   : m_index(index)
   , m_readFeaturesFn(readFeaturesFn)

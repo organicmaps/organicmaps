@@ -6,7 +6,7 @@
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
 #include "indexer/classificator_loader.hpp"
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
@@ -65,7 +65,7 @@ void RoughJunctionsInPath(openlr::Path & p)
     e = RoughEdgeJunctions(e);
 }
 
-void TestSerializeDeserialize(openlr::Path const & path, Index const & index)
+void TestSerializeDeserialize(openlr::Path const & path, DataSource const & index)
 {
   pugi::xml_document doc;
   openlr::PathToXML(path, doc);
@@ -133,14 +133,14 @@ void WithRoad(vector<m2::PointD> const & points, Func && fn)
     builder.Add(TestRoad(points, "Interstate 60", "en"));
   }
 
-  Index index;
+  DataSource index;
   auto const regResult = index.RegisterMap(country);
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
 
   MwmSet::MwmHandle mwmHandle = index.GetMwmHandleById(regResult.first);
   TEST(mwmHandle.IsAlive(), ());
 
-  Index::FeaturesLoaderGuard const guard(index, regResult.first);
+  DataSource::FeaturesLoaderGuard const guard(index, regResult.first);
   FeatureType road;
   TEST(guard.GetFeatureByIndex(0, road), ());
   road.ParseEverything();
@@ -151,7 +151,7 @@ void WithRoad(vector<m2::PointD> const & points, Func && fn)
 UNIT_TEST(MakePath_Test)
 {
   std::vector<m2::PointD> const points{{0, 0}, {0, 1}, {1, 0}, {1, 1}};
-  WithRoad(points, [&points](Index const & index, FeatureType & road) {
+  WithRoad(points, [&points](DataSource const & index, FeatureType & road) {
     auto const & id = road.GetID();
     {
       openlr::Path const expected{
@@ -182,7 +182,7 @@ UNIT_TEST(MakePath_Test)
 
 UNIT_TEST(PathSerializeDeserialize_Test)
 {
-  WithRoad({{0, 0}, {0, 1}, {1, 0}, {1, 1}}, [](Index const & index, FeatureType & road) {
+  WithRoad({{0, 0}, {0, 1}, {1, 0}, {1, 1}}, [](DataSource const & index, FeatureType & road) {
     {
       auto const path = MakePath(road, true /* forward */);
       TestSerializeDeserialize(path, index);
@@ -197,7 +197,7 @@ UNIT_TEST(PathSerializeDeserialize_Test)
 UNIT_TEST(GetPoints_Test)
 {
   vector<m2::PointD> const points{{0, 0}, {0, 1}, {1, 0}, {1, 1}};
-  WithRoad(points, [&points](Index const &, FeatureType & road) {
+  WithRoad(points, [&points](DataSource const &, FeatureType & road) {
     {
       auto path = MakePath(road, true /* forward */);
       // RoughJunctionsInPath(path);

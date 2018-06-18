@@ -1,10 +1,9 @@
 #include "testing/testing.hpp"
 
-#include "indexer/ftypes_matcher.hpp"
-
-#include "indexer/index.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
+#include "indexer/data_source.hpp"
+#include "indexer/ftypes_matcher.hpp"
 
 #include "base/logging.hpp"
 

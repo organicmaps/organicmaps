@@ -1,9 +1,9 @@
 #include "testing/testing.hpp"
 
-#include "indexer/index.hpp"
-#include "indexer/index_builder.hpp"
 #include "indexer/classificator_loader.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/features_vector.hpp"
+#include "indexer/index_builder.hpp"
 #include "indexer/scales.hpp"
 
 #include "defines.hpp"
@@ -52,12 +52,11 @@ UNIT_TEST(BuildIndexTest)
 
   {
     // Check that index actually works.
-    Index index;
+    DataSource index;
     UNUSED_VALUE(index.Register(platform::LocalCountryFile::MakeForTesting("build_index_test")));
 
     // Make sure that index is actually parsed.
-    NoopFunctor fn;
-    index.ForEachInScale(fn, 15);
+    index.ForEachInScale([](FeatureType &) { return; }, 15);
   }
 
   // Clean after the test.

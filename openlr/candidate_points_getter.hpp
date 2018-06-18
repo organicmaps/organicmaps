@@ -3,7 +3,7 @@
 #include "openlr/graph.hpp"
 #include "openlr/stats.hpp"
 
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -17,7 +17,7 @@ class CandidatePointsGetter
 {
 public:
   CandidatePointsGetter(size_t const maxJunctionCandidates, size_t const maxProjectionCandidates,
-                        Index const & index, Graph & graph)
+                        DataSourceBase const & index, Graph & graph)
     : m_maxJunctionCandidates(maxJunctionCandidates)
     , m_maxProjectionCandidates(maxProjectionCandidates)
     , m_index(index)
@@ -38,7 +38,7 @@ private:
   size_t const m_maxJunctionCandidates;
   size_t const m_maxProjectionCandidates;
 
-  Index const & m_index;
+  DataSourceBase const & m_index;
   Graph & m_graph;
 };
 }  // namespace openlr

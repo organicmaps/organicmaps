@@ -5,10 +5,10 @@
 #include "indexer/altitude_loader.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/feature_altitude.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_processor.hpp"
-#include "indexer/index.hpp"
 
 #include "routing/routing_helpers.hpp"
 
@@ -43,7 +43,7 @@ LocalCountryFile GetLocalCountryFileByCountryId(CountryFile const & country)
 void TestAltitudeOfAllMwmFeatures(string const & countryId, TAltitude const altitudeLowerBoundMeters,
                                   TAltitude const altitudeUpperBoundMeters)
 {
-  Index index;
+  DataSource index;
 
   LocalCountryFile const country = GetLocalCountryFileByCountryId(CountryFile(countryId));
   TEST_NOT_EQUAL(country, LocalCountryFile(), ());

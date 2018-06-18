@@ -229,7 +229,7 @@ public:
 
 private:
   Framework & m_framework;
-  Index const & m_index;
+  DataSourceBase const & m_index;
   routing::FeaturesRoadGraph m_roadGraph;
 };
 }  // namespace

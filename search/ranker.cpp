@@ -9,6 +9,8 @@
 #include "search/token_slice.hpp"
 #include "search/utils.hpp"
 
+#include "editor/editable_data_source.hpp"
+
 #include "indexer/feature_algo.hpp"
 #include "indexer/search_string_utils.hpp"
 
@@ -207,17 +209,18 @@ private:
 
 class RankerResultMaker
 {
+  using LoaderGuard = EditableDataSource::FeaturesLoaderGuard;
   Ranker & m_ranker;
-  Index const & m_index;
+  DataSourceBase const & m_index;
   Geocoder::Params const & m_params;
   storage::CountryInfoGetter const & m_infoGetter;
 
-  unique_ptr<Index::FeaturesLoaderGuard> m_loader;
+  unique_ptr<LoaderGuard> m_loader;
 
   bool LoadFeature(FeatureID const & id, FeatureType & ft)
   {
     if (!m_loader || m_loader->GetId() != id.m_mwmId)
-      m_loader = make_unique<Index::FeaturesLoaderGuard>(m_index, id.m_mwmId);
+      m_loader = make_unique<LoaderGuard>(m_index, id.m_mwmId);
     if (!m_loader->GetFeatureByIndex(id.m_index, ft))
       return false;
 
@@ -328,7 +331,7 @@ class RankerResultMaker
   }
 
 public:
-  RankerResultMaker(Ranker & ranker, Index const & index,
+  RankerResultMaker(Ranker & ranker, DataSourceBase const & index,
                     storage::CountryInfoGetter const & infoGetter, Geocoder::Params const & params)
     : m_ranker(ranker), m_index(index), m_params(params), m_infoGetter(infoGetter)
   {
@@ -355,7 +358,7 @@ public:
   }
 };
 
-Ranker::Ranker(Index const & index, CitiesBoundariesTable const & boundariesTable,
+Ranker::Ranker(DataSourceBase const & index, CitiesBoundariesTable const & boundariesTable,
                storage::CountryInfoGetter const & infoGetter, KeywordLangMatcher & keywordsScorer,
                Emitter & emitter, CategoriesHolder const & categories,
                vector<Suggest> const & suggests, VillagesCache & villagesCache,

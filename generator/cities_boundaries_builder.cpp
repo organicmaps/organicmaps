@@ -9,8 +9,8 @@
 
 #include "indexer/cities_boundaries_serdes.hpp"
 #include "indexer/city_boundary.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/feature_processor.hpp"
-#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "platform/local_country_file.hpp"
@@ -67,7 +67,7 @@ bool ParseFeatureIdToTestIdMapping(string const & path, map<uint32_t, vector<uin
 
 CBV GetLocalities(string const & dataPath)
 {
-  Index index;
+  DataSource index;
   auto const result = index.Register(platform::LocalCountryFile::MakeTemporary(dataPath));
   CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ("Can't register", dataPath));
 

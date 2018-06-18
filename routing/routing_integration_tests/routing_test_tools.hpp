@@ -51,7 +51,7 @@ shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(vector<LocalCountryFile
 
 unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter();
 
-unique_ptr<IndexRouter> CreateVehicleRouter(Index & index,
+unique_ptr<IndexRouter> CreateVehicleRouter(DataSourceBase & index,
                                             storage::CountryInfoGetter const & infoGetter,
                                             traffic::TrafficCache const & trafficCache,
                                             vector<LocalCountryFile> const & localFiles,

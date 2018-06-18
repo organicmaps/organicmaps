@@ -17,7 +17,7 @@
 #include <boost/optional.hpp>
 
 class Framework;
-class Index;
+class DataSourceBase;
 
 namespace search
 {
@@ -64,7 +64,7 @@ private:
   void ForAnyMatchingEntry(Context & context, FeatureID const & id, Fn && fn);
 
   Framework & m_framework;
-  Index const & m_index;
+  DataSourceBase const & m_index;
   search::FeatureLoader m_loader;
 
   ContextList m_contexts;

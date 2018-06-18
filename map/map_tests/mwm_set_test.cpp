@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
@@ -41,12 +41,12 @@ UNIT_TEST(MwmSet_FileSystemErrors)
   };
   MY_SCOPE_GUARD(restoreGuard, restoreFn);
 
-  Index index;
+  DataSource index;
   auto p = index.RegisterMap(localFile);
-  TEST_EQUAL(p.second, Index::RegResult::Success, ());
+  TEST_EQUAL(p.second, DataSource::RegResult::Success, ());
 
   // Registering should pass ok.
-  TEST(index.GetMwmIdByCountryFile(file) != Index::MwmId(), ());
+  TEST(index.GetMwmIdByCountryFile(file) != DataSource::MwmId(), ());
 
   // Getting handle causes feature offsets index building which should fail
   // because of write permissions.

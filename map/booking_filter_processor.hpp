@@ -12,7 +12,7 @@
 #include <unordered_map>
 #include <vector>
 
-class Index;
+class DataSourceBase;
 
 namespace search
 {
@@ -46,7 +46,7 @@ using FillSearchMarksCallback =
 class FilterProcessor : public FilterBase::Delegate
 {
 public:
-  FilterProcessor(Index const & index, booking::Api const & api);
+  FilterProcessor(DataSourceBase const & index, booking::Api const & api);
 
   void ApplyFilters(search::Results const & results, TasksInternal && tasks,
                     ApplicationMode const mode);
@@ -57,14 +57,14 @@ public:
                             FillSearchMarksCallback const & callback);
 
   // FilterInterface::Delegate overrides:
-  Index const & GetIndex() const override;
+  DataSourceBase const & GetIndex() const override;
   Api const & GetApi() const override;
 
 private:
   void ApplyConsecutively(search::Results const & results, TasksInternal & tasks);
   void ApplyIndependently(search::Results const & results, TasksInternal const & tasks);
 
-  Index const & m_index;
+  DataSourceBase const & m_index;
   Api const & m_api;
 
   std::unordered_map<Type, FilterPtr> m_filters;

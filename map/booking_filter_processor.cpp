@@ -7,7 +7,7 @@ namespace booking
 {
 namespace filter
 {
-FilterProcessor::FilterProcessor(Index const & index, booking::Api const & api)
+FilterProcessor::FilterProcessor(DataSourceBase const & index, booking::Api const & api)
   : m_index(index)
   , m_api(api)
 {
@@ -60,7 +60,7 @@ void FilterProcessor::GetFeaturesFromCache(Types const & types, search::Results 
   });
 }
 
-Index const & FilterProcessor::GetIndex() const
+DataSourceBase const & FilterProcessor::GetIndex() const
 {
   return m_index;
 }

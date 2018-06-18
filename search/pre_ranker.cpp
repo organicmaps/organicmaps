@@ -4,6 +4,7 @@
 #include "search/lazy_centers_table.hpp"
 #include "search/pre_ranking_info.hpp"
 
+#include "indexer/data_source.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/rank_table.hpp"
 #include "indexer/scales.hpp"
@@ -44,7 +45,7 @@ void SweepNearbyResults(double eps, set<FeatureID> const & prevEmit, vector<PreR
 }
 }  // namespace
 
-PreRanker::PreRanker(Index const & index, Ranker & ranker)
+PreRanker::PreRanker(DataSourceBase const & index, Ranker & ranker)
   : m_index(index), m_ranker(ranker), m_pivotFeatures(index)
 {
 }

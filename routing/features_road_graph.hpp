@@ -6,7 +6,6 @@
 
 #include "indexer/altitude_loader.hpp"
 #include "indexer/feature_data.hpp"
-#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "geometry/point2d.hpp"
@@ -17,7 +16,7 @@
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
-class Index;
+class DataSourceBase;
 class FeatureType;
 
 namespace routing
@@ -64,7 +63,7 @@ private:
   };
 
 public:
-  FeaturesRoadGraph(Index const & index, IRoadGraph::Mode mode,
+  FeaturesRoadGraph(DataSourceBase const & index, IRoadGraph::Mode mode,
                     shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory);
 
   static int GetStreetReadScale();
@@ -90,7 +89,7 @@ private:
   struct Value
   {
     Value() = default;
-    Value(Index const & index, MwmSet::MwmHandle handle);
+    Value(DataSourceBase const & index, MwmSet::MwmHandle handle);
 
     bool IsAlive() const { return m_mwmHandle.IsAlive(); }
 
@@ -113,7 +112,7 @@ private:
 
   Value const & LockMwm(MwmSet::MwmId const & mwmId) const;
 
-  Index const & m_index;
+  DataSourceBase const & m_index;
   IRoadGraph::Mode const m_mode;
   mutable RoadInfoCache m_cache;
   mutable CrossCountryVehicleModel m_vehicleModel;

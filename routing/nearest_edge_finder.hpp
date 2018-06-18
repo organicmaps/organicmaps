@@ -8,7 +8,6 @@
 
 #include "indexer/feature_altitude.hpp"
 #include "indexer/feature_decl.hpp"
-#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include <cstdint>

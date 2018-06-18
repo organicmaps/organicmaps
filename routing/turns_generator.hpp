@@ -20,7 +20,7 @@
 #include <vector>
 
 struct PathData;
-class Index;
+class DataSourceBase;
 
 namespace ftypes
 {

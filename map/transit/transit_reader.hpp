@@ -6,8 +6,8 @@
 
 #include "geometry/screenbase.hpp"
 
+#include "indexer/data_source.hpp"
 #include "indexer/feature_decl.hpp"
-#include "indexer/index.hpp"
 
 #include "base/thread.hpp"
 #include "base/thread_pool.hpp"
@@ -23,13 +23,15 @@
 #include <string>
 #include <vector>
 
+class DataSourceBase;
+
 using FeatureCallback = std::function<void (FeatureType const &)>;
 using TReadFeaturesFn = std::function<void (FeatureCallback const & , std::vector<FeatureID> const &)>;
 
 class ReadTransitTask: public threads::IRoutine
 {
 public:
-  ReadTransitTask(Index & index,
+  ReadTransitTask(DataSourceBase & index,
                   TReadFeaturesFn const & readFeaturesFn)
     : m_index(index), m_readFeaturesFn(readFeaturesFn)
   {}
@@ -63,7 +65,7 @@ private:
     }
   };
 
-  Index & m_index;
+  DataSourceBase & m_index;
   TReadFeaturesFn m_readFeaturesFn;
 
   uint64_t m_id = 0;
@@ -81,7 +83,7 @@ public:
   using GetMwmsByRectFn = function<vector<MwmSet::MwmId>(m2::RectD const &)>;
 
 
-  TransitReadManager(Index & index, TReadFeaturesFn const & readFeaturesFn,
+  TransitReadManager(DataSourceBase & index, TReadFeaturesFn const & readFeaturesFn,
                      GetMwmsByRectFn const & getMwmsByRectFn);
   ~TransitReadManager();
 
@@ -111,7 +113,7 @@ private:
   uint64_t m_nextTasksGroupId = 0;
   std::map<uint64_t, size_t> m_tasksGroups;
 
-  Index & m_index;
+  DataSourceBase & m_index;
   TReadFeaturesFn m_readFeaturesFn;
 
   df::DrapeEngineSafePtr m_drapeEngine;

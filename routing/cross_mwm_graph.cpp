@@ -2,6 +2,7 @@
 #include "routing/routing_exceptions.hpp"
 #include "routing/transit_graph.hpp"
 
+#include "indexer/data_source.hpp"
 #include "indexer/scales.hpp"
 
 #include "geometry/mercator.hpp"
@@ -49,7 +50,7 @@ CrossMwmGraph::CrossMwmGraph(shared_ptr<NumMwmIds> numMwmIds,
                              shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
                              shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
                              VehicleType vehicleType, CourntryRectFn const & countryRectFn,
-                             Index & index)
+                             DataSourceBase & index)
   : m_index(index)
   , m_numMwmIds(numMwmIds)
   , m_numMwmTree(numMwmTree)

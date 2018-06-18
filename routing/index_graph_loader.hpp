@@ -7,9 +7,10 @@
 #include "routing_common/num_mwm_id.hpp"
 #include "routing_common/vehicle_model.hpp"
 
-#include "indexer/index.hpp"
-
 #include <memory>
+
+class MwmValue;
+class DataSourceBase;
 
 namespace routing
 {
@@ -25,7 +26,7 @@ public:
   static std::unique_ptr<IndexGraphLoader> Create(
       VehicleType vehicleType, bool loadAltitudes, std::shared_ptr<NumMwmIds> numMwmIds,
       std::shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
-      std::shared_ptr<EdgeEstimator> estimator, Index & index);
+      std::shared_ptr<EdgeEstimator> estimator, DataSourceBase & index);
 };
 
 void DeserializeIndexGraph(MwmValue const & mwmValue, VehicleType vehicleType, IndexGraph & graph);

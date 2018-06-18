@@ -2,9 +2,9 @@
 
 #include "indexer/indexer_tests_support/test_with_classificator.hpp"
 
-#include "indexer/data_header.hpp"
-#include "indexer/index.hpp"
 #include "indexer/classificator_loader.hpp"
+#include "indexer/data_header.hpp"
+#include "indexer/data_source.hpp"
 
 #include "search/categories_cache.hpp"
 #include "search/locality_finder.hpp"
@@ -22,7 +22,7 @@ class LocalityFinderTest : public indexer::tests_support::TestWithClassificator
 {
   platform::LocalCountryFile m_worldFile;
 
-  Index m_index;
+  DataSource m_index;
 
   ::base::Cancellable m_cancellable;
   search::VillagesCache m_villagesCache;

@@ -4,12 +4,13 @@
 #include "indexer/features_vector.hpp"
 #include "indexer/mwm_set.hpp"
 
+#include "geometry/rect2d.hpp"
+
+#include <cstdint>
 #include <functional>
 #include <memory>
 #include <string>
 
-namespace datasource
-{
 enum class FeatureStatus
 {
   Untouched,  // The feature hasn't been saved in the editor.
@@ -27,25 +28,25 @@ inline std::string DebugPrint(FeatureStatus fs) { return ToString(fs); }
 class FeatureSource
 {
 public:
-  FeatureSource(MwmSet::MwmHandle const & handle);
+  explicit FeatureSource(MwmSet::MwmHandle const & handle);
+  virtual ~FeatureSource() {}
 
   size_t GetNumFeatures() const;
 
   bool GetOriginalFeature(uint32_t index, FeatureType & feature) const;
 
-  inline FeatureID GetFeatureId(uint32_t index) const { return FeatureID(m_handle.GetId(), index); }
+  FeatureID GetFeatureId(uint32_t index) const { return FeatureID(m_handle.GetId(), index); }
 
   virtual FeatureStatus GetFeatureStatus(uint32_t index) const;
 
   virtual bool GetModifiedFeature(uint32_t index, FeatureType & feature) const;
 
   virtual void ForEachInRectAndScale(m2::RectD const & rect, int scale,
-                                     std::function<void(FeatureID const &)> const & fn);
+                                     std::function<void(FeatureID const &)> const & fn) const;
   virtual void ForEachInRectAndScale(m2::RectD const & rect, int scale,
-                                     std::function<void(FeatureType &)> const & fn);
+                                     std::function<void(FeatureType &)> const & fn) const;
 
 protected:
   MwmSet::MwmHandle const & m_handle;
   std::unique_ptr<FeaturesVector> m_vector;
 };  // class FeatureSource
-}  // namespace datasource

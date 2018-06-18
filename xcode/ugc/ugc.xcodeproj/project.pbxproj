@@ -19,6 +19,24 @@
 		670E7BA51EF980B300A8E9ED /* libcoding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7BA41EF980B300A8E9ED /* libcoding.a */; };
 		670E7BCC1EFA66DD00A8E9ED /* libugc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6F8E3A41EF83D7600F2DE8F /* libugc.a */; };
 		670E7BD31EFA774800A8E9ED /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 670E7BD21EFA774800A8E9ED /* libjansson.a */; };
+		671ED39620D4064800D4317E /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671ED39220D4064800D4317E /* utils.cpp */; };
+		671ED39720D4064800D4317E /* storage_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671ED39420D4064800D4317E /* storage_tests.cpp */; };
+		671ED39820D4064800D4317E /* serdes_binary_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671ED39520D4064800D4317E /* serdes_binary_tests.cpp */; };
+		671ED39A20D406E600D4317E /* libgeometry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671ED39920D406E600D4317E /* libgeometry.a */; };
+		671ED39C20D406E600D4317E /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671ED39B20D406E600D4317E /* libicu.a */; };
+		671ED39E20D4072200D4317E /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671ED39D20D4072200D4317E /* libgenerator_tests_support.a */; };
+		671ED3A020D4072200D4317E /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671ED39F20D4072200D4317E /* libprotobuf.a */; };
+		671ED3A220D4075E00D4317E /* libeditor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671ED3A120D4075E00D4317E /* libeditor.a */; };
+		671ED3A420D4075E00D4317E /* libgenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671ED3A320D4075E00D4317E /* libgenerator.a */; };
+		671ED3A620D4075E00D4317E /* libstorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671ED3A520D4075E00D4317E /* libstorage.a */; };
+		671ED3A820D407AE00D4317E /* libpugixml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671ED3A720D407AE00D4317E /* libpugixml.a */; };
+		671ED3AA20D407AE00D4317E /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671ED3A920D407AE00D4317E /* libsearch.a */; };
+		671ED3AC20D407E700D4317E /* liboauthcpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671ED3AB20D407E700D4317E /* liboauthcpp.a */; };
+		671ED3AE20D407E700D4317E /* libopening_hours.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671ED3AD20D407E700D4317E /* libopening_hours.a */; };
+		671ED3B020D407E700D4317E /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671ED3AF20D407E700D4317E /* librouting_common.a */; };
+		671ED3B220D407E700D4317E /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671ED3B120D407E700D4317E /* librouting.a */; };
+		671ED3B420D407FB00D4317E /* libtess2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671ED3B320D407FB00D4317E /* libtess2.a */; };
+		671ED3B620D4081400D4317E /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671ED3B520D4081400D4317E /* libsuccinct.a */; };
 		F6150E221EF90040000B955D /* api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6150E1F1EF90040000B955D /* api.cpp */; };
 		F6150E5D1EFAAB45000B955D /* storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6150E5B1EFAAB45000B955D /* storage.cpp */; };
 /* End PBXBuildFile section */
@@ -56,6 +74,25 @@
 		670E7BA61EF980E900A8E9ED /* serdes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serdes.hpp; sourceTree = "<group>"; };
 		670E7BD01EFA6D7400A8E9ED /* serdes_json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = serdes_json.hpp; sourceTree = "<group>"; };
 		670E7BD21EFA774800A8E9ED /* libjansson.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjansson.a; path = "../../../../Library/Developer/Xcode/DerivedData/omim-gzleizqujktwggdwiejzkgjrsgvp/Build/Products/Debug/libjansson.a"; sourceTree = "<group>"; };
+		671ED39220D4064800D4317E /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
+		671ED39320D4064800D4317E /* utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = utils.hpp; sourceTree = "<group>"; };
+		671ED39420D4064800D4317E /* storage_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage_tests.cpp; sourceTree = "<group>"; };
+		671ED39520D4064800D4317E /* serdes_binary_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = serdes_binary_tests.cpp; sourceTree = "<group>"; };
+		671ED39920D406E600D4317E /* libgeometry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgeometry.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		671ED39B20D406E600D4317E /* libicu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libicu.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		671ED39D20D4072200D4317E /* libgenerator_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		671ED39F20D4072200D4317E /* libprotobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libprotobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		671ED3A120D4075E00D4317E /* libeditor.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libeditor.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		671ED3A320D4075E00D4317E /* libgenerator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libgenerator.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		671ED3A520D4075E00D4317E /* libstorage.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libstorage.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		671ED3A720D407AE00D4317E /* libpugixml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libpugixml.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		671ED3A920D407AE00D4317E /* libsearch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsearch.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		671ED3AB20D407E700D4317E /* liboauthcpp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = liboauthcpp.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		671ED3AD20D407E700D4317E /* libopening_hours.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libopening_hours.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		671ED3AF20D407E700D4317E /* librouting_common.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = librouting_common.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		671ED3B120D407E700D4317E /* librouting.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = librouting.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		671ED3B320D407FB00D4317E /* libtess2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libtess2.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		671ED3B520D4081400D4317E /* libsuccinct.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libsuccinct.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6150E1F1EF90040000B955D /* api.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api.cpp; sourceTree = "<group>"; };
 		F6150E201EF90040000B955D /* api.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = api.hpp; sourceTree = "<group>"; };
 		F6150E211EF90040000B955D /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
@@ -71,6 +108,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				671ED3B620D4081400D4317E /* libsuccinct.a in Frameworks */,
+				671ED3B420D407FB00D4317E /* libtess2.a in Frameworks */,
+				671ED3AC20D407E700D4317E /* liboauthcpp.a in Frameworks */,
+				671ED3AE20D407E700D4317E /* libopening_hours.a in Frameworks */,
+				671ED3B020D407E700D4317E /* librouting_common.a in Frameworks */,
+				671ED3B220D407E700D4317E /* librouting.a in Frameworks */,
+				671ED3A820D407AE00D4317E /* libpugixml.a in Frameworks */,
+				671ED3AA20D407AE00D4317E /* libsearch.a in Frameworks */,
+				671ED3A220D4075E00D4317E /* libeditor.a in Frameworks */,
+				671ED3A420D4075E00D4317E /* libgenerator.a in Frameworks */,
+				671ED3A620D4075E00D4317E /* libstorage.a in Frameworks */,
+				671ED39E20D4072200D4317E /* libgenerator_tests_support.a in Frameworks */,
+				671ED3A020D4072200D4317E /* libprotobuf.a in Frameworks */,
+				671ED39A20D406E600D4317E /* libgeometry.a in Frameworks */,
+				671ED39C20D406E600D4317E /* libicu.a in Frameworks */,
 				670E7BD31EFA774800A8E9ED /* libjansson.a in Frameworks */,
 				670E7BCC1EFA66DD00A8E9ED /* libugc.a in Frameworks */,
 				670E7BA51EF980B300A8E9ED /* libcoding.a in Frameworks */,
@@ -108,6 +160,10 @@
 		670E7B931EF97CBA00A8E9ED /* ugc_tests */ = {
 			isa = PBXGroup;
 			children = (
+				671ED39520D4064800D4317E /* serdes_binary_tests.cpp */,
+				671ED39420D4064800D4317E /* storage_tests.cpp */,
+				671ED39220D4064800D4317E /* utils.cpp */,
+				671ED39320D4064800D4317E /* utils.hpp */,
 				670E7B961EF97D0E00A8E9ED /* testingmain.cpp */,
 				670E7B941EF97CE700A8E9ED /* serdes_tests.cpp */,
 			);
@@ -157,6 +213,21 @@
 		F6F8E3B31EF83DB600F2DE8F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				671ED3B520D4081400D4317E /* libsuccinct.a */,
+				671ED3B320D407FB00D4317E /* libtess2.a */,
+				671ED3AB20D407E700D4317E /* liboauthcpp.a */,
+				671ED3AD20D407E700D4317E /* libopening_hours.a */,
+				671ED3AF20D407E700D4317E /* librouting_common.a */,
+				671ED3B120D407E700D4317E /* librouting.a */,
+				671ED3A720D407AE00D4317E /* libpugixml.a */,
+				671ED3A920D407AE00D4317E /* libsearch.a */,
+				671ED3A120D4075E00D4317E /* libeditor.a */,
+				671ED3A320D4075E00D4317E /* libgenerator.a */,
+				671ED3A520D4075E00D4317E /* libstorage.a */,
+				671ED39D20D4072200D4317E /* libgenerator_tests_support.a */,
+				671ED39F20D4072200D4317E /* libprotobuf.a */,
+				671ED39920D406E600D4317E /* libgeometry.a */,
+				671ED39B20D406E600D4317E /* libicu.a */,
 				670E7BD21EFA774800A8E9ED /* libjansson.a */,
 				670E7BA41EF980B300A8E9ED /* libcoding.a */,
 				670E7BA21EF980A600A8E9ED /* libz.tbd */,
@@ -258,6 +329,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				671ED39620D4064800D4317E /* utils.cpp in Sources */,
+				671ED39820D4064800D4317E /* serdes_binary_tests.cpp in Sources */,
+				671ED39720D4064800D4317E /* storage_tests.cpp in Sources */,
 				670E7B981EF97D1000A8E9ED /* serdes_tests.cpp in Sources */,
 				670E7B991EF97D1600A8E9ED /* testingmain.cpp in Sources */,
 			);

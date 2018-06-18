@@ -3,7 +3,7 @@
 #include "search/reverse_geocoder.hpp"
 
 #include "indexer/classificator_loader.hpp"
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/search_string_utils.hpp"
 
 
@@ -33,7 +33,7 @@ UNIT_TEST(ReverseGeocoder_Smoke)
 
   LocalCountryFile file = LocalCountryFile::MakeForTesting("minsk-pass");
 
-  Index index;
+  DataSource index;
   TEST_EQUAL(index.RegisterMap(file).second, MwmSet::RegResult::Success, ());
 
   ReverseGeocoder coder(index);

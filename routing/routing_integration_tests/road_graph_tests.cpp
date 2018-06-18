@@ -5,8 +5,8 @@
 #include "geometry/point2d.hpp"
 
 #include "indexer/classificator_loader.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/feature_altitude.hpp"
-#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "routing_common/car_model.hpp"
@@ -31,7 +31,7 @@ UNIT_TEST(FakeEdgesCombinatorialExplosion)
   GetAllLocalFiles(localFiles);
   TEST(!localFiles.empty(), ());
 
-  Index index;
+  DataSource index;
   for (auto const & file : localFiles)
   {
     auto const result = index.Register(file);

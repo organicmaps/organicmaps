@@ -10,6 +10,7 @@
 
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_processor.hpp"
 #include "indexer/map_object.hpp"
@@ -177,7 +178,7 @@ class Processor
   search::LocalityFinder m_finder;
 
 public:
-  Processor(Index const & index)
+  Processor(DataSourceBase const & index)
     : m_geocoder(index)
     , m_boundariesTable(index)
     , m_villagesCache(m_cancellable)
@@ -323,7 +324,7 @@ int main(int argc, char ** argv)
   classificator::Load();
   classif().SortClassificator();
 
-  Index index;
+  DataSource index;
   vector<platform::LocalCountryFile> mwms;
   platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* the latest version */,
                                        mwms);
@@ -352,7 +353,7 @@ int main(int argc, char ** argv)
     map<uint32_t, osm::Id> featureIdToOsmId;
     ParseFeatureIdToOsmIdMapping(osmToFeatureFile, featureIdToOsmId);
     MwmSet::MwmId mwmId(mwmInfo);
-    Index::FeaturesLoaderGuard loader(index, mwmId);
+    DataSource::FeaturesLoaderGuard loader(index, mwmId);
     for (uint32_t ftIndex = 0; ftIndex < loader.GetNumFeatures(); ftIndex++)
     {
       FeatureType ft;

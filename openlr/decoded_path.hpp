@@ -11,7 +11,7 @@
 
 #include "3party/pugixml/src/pugixml.hpp"
 
-class Index;
+class DataSourceBase;
 
 namespace openlr
 {
@@ -33,7 +33,7 @@ struct DecodedPath
 void WriteAsMappingForSpark(std::string const & fileName, std::vector<DecodedPath> const & paths);
 void WriteAsMappingForSpark(std::ostream & ost, std::vector<DecodedPath> const & paths);
 
-void PathFromXML(pugi::xml_node const & node, Index const & index, Path & path);
+void PathFromXML(pugi::xml_node const & node, DataSourceBase const & index, Path & path);
 void PathToXML(Path const & path, pugi::xml_node & node);
 }  // namespace openlr
 

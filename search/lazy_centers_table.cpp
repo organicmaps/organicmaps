@@ -1,6 +1,6 @@
 #include "search/lazy_centers_table.hpp"
 
-#include "indexer/index.hpp"
+#include "indexer/mwm_set.hpp"
 
 #include "defines.hpp"
 

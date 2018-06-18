@@ -2,10 +2,11 @@
 
 #include "search/mwm_context.hpp"
 
+#include "indexer/data_source.hpp"
+
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/index.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/search_string_utils.hpp"
 
@@ -23,7 +24,7 @@ int constexpr kQueryScale = scales::GetUpperScale();
 size_t constexpr kMaxNumTriesToApproxAddress = 10;
 } // namespace
 
-ReverseGeocoder::ReverseGeocoder(Index const & index) : m_index(index) {}
+ReverseGeocoder::ReverseGeocoder(DataSourceBase const & index) : m_index(index) {}
 
 void ReverseGeocoder::GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD const & center,
                                        vector<Street> & streets) const

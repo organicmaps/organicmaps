@@ -10,7 +10,7 @@
 namespace generator
 {
 // SingleMwmIndex ---------------------------------------------------------------------------------
-SingleMwmIndex::SingleMwmIndex(std::string const & mwmPath)
+SingleMwmDataSource::SingleMwmDataSource(std::string const & mwmPath)
 {
   m_countryFile = platform::LocalCountryFile::MakeTemporary(mwmPath);
   m_countryFile.SyncWithDisk();
@@ -24,7 +24,7 @@ SingleMwmIndex::SingleMwmIndex(std::string const & mwmPath)
   m_mwmId = result.first;
 }
 
-void LoadIndex(Index & index)
+void LoadIndex(DataSourceBase & index)
 {
   vector<platform::LocalCountryFile> localFiles;
 

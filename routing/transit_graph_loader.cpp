@@ -7,6 +7,7 @@
 #include "transit/transit_serdes.hpp"
 #include "transit/transit_types.hpp"
 
+#include "indexer/data_source.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "platform/country_file.hpp"
@@ -26,7 +27,7 @@ namespace routing
 class TransitGraphLoaderImpl : public TransitGraphLoader
 {
 public:
-  TransitGraphLoaderImpl(Index & index, shared_ptr<NumMwmIds> numMwmIds,
+  TransitGraphLoaderImpl(DataSourceBase & index, shared_ptr<NumMwmIds> numMwmIds,
                          shared_ptr<EdgeEstimator> estimator);
 
   // TransitGraphLoader overrides.
@@ -38,13 +39,13 @@ public:
 private:
   unique_ptr<TransitGraph> CreateTransitGraph(NumMwmId mwmId, IndexGraph & indexGraph) const;
 
-  Index & m_index;
+  DataSourceBase & m_index;
   shared_ptr<NumMwmIds> m_numMwmIds;
   shared_ptr<EdgeEstimator> m_estimator;
   unordered_map<NumMwmId, unique_ptr<TransitGraph>> m_graphs;
 };
 
-TransitGraphLoaderImpl::TransitGraphLoaderImpl(Index & index, shared_ptr<NumMwmIds> numMwmIds,
+TransitGraphLoaderImpl::TransitGraphLoaderImpl(DataSourceBase & index, shared_ptr<NumMwmIds> numMwmIds,
                                                shared_ptr<EdgeEstimator> estimator)
   : m_index(index), m_numMwmIds(numMwmIds), m_estimator(estimator)
 {
@@ -100,7 +101,7 @@ unique_ptr<TransitGraph> TransitGraphLoaderImpl::CreateTransitGraph(NumMwmId num
 }
 
 // static
-unique_ptr<TransitGraphLoader> TransitGraphLoader::Create(Index & index,
+unique_ptr<TransitGraphLoader> TransitGraphLoader::Create(DataSourceBase & index,
                                                           shared_ptr<NumMwmIds> numMwmIds,
                                                           shared_ptr<EdgeEstimator> estimator)
 {

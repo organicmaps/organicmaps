@@ -26,6 +26,7 @@
 
 #include "transit/transit_speed_limits.hpp"
 
+#include "indexer/data_source.hpp"
 #include "indexer/feature_altitude.hpp"
 
 #include "geometry/distance.hpp"
@@ -100,7 +101,7 @@ shared_ptr<VehicleModelFactoryInterface> CreateVehicleModelFactory(
 }
 
 unique_ptr<IDirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType,
-                                                     shared_ptr<NumMwmIds> numMwmIds, Index & index)
+                                                     shared_ptr<NumMwmIds> numMwmIds, DataSourceBase & index)
 {
   switch (vehicleType)
   {
@@ -153,7 +154,7 @@ bool MwmHasRoutingData(version::MwmTraits const & traits)
   return traits.HasRoutingIndex() && traits.HasCrossMwmSection();
 }
 
-void GetOutdatedMwms(Index & index, vector<string> & outdatedMwms)
+void GetOutdatedMwms(DataSourceBase & index, vector<string> & outdatedMwms)
 {
   outdatedMwms.clear();
   vector<shared_ptr<MwmInfo>> infos;
@@ -273,7 +274,7 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
                          CountryParentNameGetterFn const & countryParentNameGetterFn,
                          TCountryFileFn const & countryFileFn, CourntryRectFn const & countryRectFn,
                          shared_ptr<NumMwmIds> numMwmIds, unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
-                         traffic::TrafficCache const & trafficCache, Index & index)
+                         traffic::TrafficCache const & trafficCache, DataSourceBase & index)
   : m_vehicleType(vehicleType)
   , m_loadAltitudes(loadAltitudes)
   , m_name("astar-bidirectional-" + ToString(m_vehicleType))

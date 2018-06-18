@@ -4,8 +4,8 @@
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_header.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/index.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/search_string_utils.hpp"
 
@@ -187,7 +187,7 @@ UNIT_TEST(HS_StreetsMerge)
 {
   classificator::Load();
 
-  Index index;
+  DataSource index;
   LocalCountryFile localFile(LocalCountryFile::MakeForTesting("minsk-pass"));
   // Clean indexes to avoid jenkins errors.
   platform::CountryIndexes::DeleteFromDisk(localFile);
@@ -200,7 +200,7 @@ UNIT_TEST(HS_StreetsMerge)
     search::HouseDetector houser(index);
     StreetIDsByName toDo;
     toDo.streetNames.push_back("улица Володарского");
-    index.ForEachInScale(toDo, scales::GetUpperScale());
+    index.ForEachInScale([&toDo](FeatureType & ft) { toDo(ft); }, scales::GetUpperScale());
     houser.LoadStreets(toDo.GetFeatureIDs());
     TEST_EQUAL(houser.MergeStreets(), 1, ());
   }
@@ -209,8 +209,9 @@ UNIT_TEST(HS_StreetsMerge)
     search::HouseDetector houser(index);
     StreetIDsByName toDo;
     toDo.streetNames.push_back("Московская улица");
-    index.ForEachInScale(toDo, scales::GetUpperScale());
+    index.ForEachInScale([&toDo](FeatureType & ft) { toDo(ft); }, scales::GetUpperScale());
     houser.LoadStreets(toDo.GetFeatureIDs());
+    TEST_GREATER_OR_EQUAL(houser.MergeStreets(), 1, ());
     TEST_LESS_OR_EQUAL(houser.MergeStreets(), 3, ());
   }
 
@@ -219,8 +220,9 @@ UNIT_TEST(HS_StreetsMerge)
     StreetIDsByName toDo;
     toDo.streetNames.push_back("проспект Независимости");
     toDo.streetNames.push_back("Московская улица");
-    index.ForEachInScale(toDo, scales::GetUpperScale());
+    index.ForEachInScale([&toDo](FeatureType & ft) { toDo(ft); }, scales::GetUpperScale());
     houser.LoadStreets(toDo.GetFeatureIDs());
+    TEST_GREATER_OR_EQUAL(houser.MergeStreets(), 1, ());
     TEST_LESS_OR_EQUAL(houser.MergeStreets(), 5, ());
   }
 
@@ -232,8 +234,9 @@ UNIT_TEST(HS_StreetsMerge)
     toDo.streetNames.push_back("Вишнёвый переулок");
     toDo.streetNames.push_back("Студенческий переулок");
     toDo.streetNames.push_back("Полоцкий переулок");
-    index.ForEachInScale(toDo, scales::GetUpperScale());
+    index.ForEachInScale([&toDo](FeatureType & ft) { toDo(ft); }, scales::GetUpperScale());
     houser.LoadStreets(toDo.GetFeatureIDs());
+    TEST_GREATER_OR_EQUAL(houser.MergeStreets(), 1, ());
     TEST_LESS_OR_EQUAL(houser.MergeStreets(), 8, ());
   }
 
@@ -244,8 +247,9 @@ UNIT_TEST(HS_StreetsMerge)
     toDo.streetNames.push_back("Московская улица");
     toDo.streetNames.push_back("улица Кирова");
     toDo.streetNames.push_back("улица Городской Вал");
-    index.ForEachInScale(toDo, scales::GetUpperScale());
+    index.ForEachInScale([&toDo](FeatureType & ft) { toDo(ft); }, scales::GetUpperScale());
     houser.LoadStreets(toDo.GetFeatureIDs());
+    TEST_GREATER_OR_EQUAL(houser.MergeStreets(), 1, ());
     TEST_LESS_OR_EQUAL(houser.MergeStreets(), 10, ());
   }
 }
@@ -253,14 +257,14 @@ UNIT_TEST(HS_StreetsMerge)
 namespace
 {
 
-m2::PointD FindHouse(Index & index, vector<string> const & streets,
+m2::PointD FindHouse(DataSourceBase & index, vector<string> const & streets,
                      string const & houseName, double offset)
 {
   search::HouseDetector houser(index);
 
   StreetIDsByName toDo;
   toDo.streetNames = streets;
-  index.ForEachInScale(toDo, scales::GetUpperScale());
+  index.ForEachInScale([&toDo](FeatureType & ft) { toDo(ft); }, scales::GetUpperScale());
 
   if (houser.LoadStreets(toDo.GetFeatureIDs()) > 0)
     TEST_GREATER(houser.MergeStreets(), 0, ());
@@ -280,7 +284,7 @@ UNIT_TEST(HS_FindHouseSmoke)
 {
   classificator::Load();
 
-  Index index;
+  DataSource index;
   auto const p = index.Register(LocalCountryFile::MakeForTesting("minsk-pass"));
   TEST(p.first.IsAlive(), ());
   TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
@@ -381,7 +385,7 @@ UNIT_TEST(HS_MWMSearch)
     return;
   }
 
-  Index index;
+  DataSource index;
   auto p = index.Register(LocalCountryFile::MakeForTesting(country));
   if (p.second != MwmSet::RegResult::Success)
   {

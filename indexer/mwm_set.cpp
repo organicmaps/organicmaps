@@ -408,13 +408,10 @@ void MwmSet::ClearCache(MwmId const & id)
   ClearCacheImpl(RemoveIfKeepValid(m_cache.begin(), m_cache.end(), sameId), m_cache.end());
 }
 
-//////////////////////////////////////////////////////////////////////////////////
-// MwmValue implementation
-//////////////////////////////////////////////////////////////////////////////////
-using namespace std;
+// MwmValue ----------------------------------------------------------------------------------------
 
 MwmValue::MwmValue(LocalCountryFile const & localFile)
-: m_cont(platform::GetCountryReader(localFile, MapOptions::Map)), m_file(localFile)
+  : m_cont(platform::GetCountryReader(localFile, MapOptions::Map)), m_file(localFile)
 {
   m_factory.Load(m_cont);
 }
@@ -435,7 +432,6 @@ void MwmValue::SetTable(MwmInfoEx & info)
     info.m_table = m_table;
   }
 }
-
 
 string DebugPrint(MwmSet::RegResult result)
 {

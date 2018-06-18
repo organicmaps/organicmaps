@@ -9,13 +9,17 @@
 #include "traffic/speed_groups.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
+#include "indexer/features_vector.hpp"
 
 #include "storage/routing_helpers.hpp"
 #include "storage/storage.hpp"
 
 #include "coding/file_name_utils.hpp"
 #include "coding/file_reader.hpp"
+
+#include "base/timer.hpp"
 
 #include <iostream>
 

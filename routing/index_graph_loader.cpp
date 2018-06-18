@@ -5,6 +5,8 @@
 #include "routing/road_access_serialization.hpp"
 #include "routing/routing_exceptions.hpp"
 
+#include "indexer/data_source.hpp"
+
 #include "coding/file_container.hpp"
 
 #include "base/assert.hpp"
@@ -20,7 +22,7 @@ class IndexGraphLoaderImpl final : public IndexGraphLoader
 public:
   IndexGraphLoaderImpl(VehicleType vehicleType, bool loadAltitudes, shared_ptr<NumMwmIds> numMwmIds,
                        shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
-                       shared_ptr<EdgeEstimator> estimator, Index & index);
+                       shared_ptr<EdgeEstimator> estimator, DataSourceBase & index);
 
   // IndexGraphLoader overrides:
   Geometry & GetGeometry(NumMwmId numMwmId) override;
@@ -39,7 +41,7 @@ private:
 
   VehicleType m_vehicleType;
   bool m_loadAltitudes;
-  Index & m_index;
+  DataSourceBase & m_index;
   shared_ptr<NumMwmIds> m_numMwmIds;
   shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
   shared_ptr<EdgeEstimator> m_estimator;
@@ -49,7 +51,7 @@ private:
 IndexGraphLoaderImpl::IndexGraphLoaderImpl(
     VehicleType vehicleType, bool loadAltitudes, shared_ptr<NumMwmIds> numMwmIds,
     shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
-    shared_ptr<EdgeEstimator> estimator, Index & index)
+    shared_ptr<EdgeEstimator> estimator, DataSourceBase & index)
   : m_vehicleType(vehicleType)
   , m_loadAltitudes(loadAltitudes)
   , m_index(index)
@@ -147,7 +149,7 @@ namespace routing
 unique_ptr<IndexGraphLoader> IndexGraphLoader::Create(
     VehicleType vehicleType, bool loadAltitudes, shared_ptr<NumMwmIds> numMwmIds,
     shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory, shared_ptr<EdgeEstimator> estimator,
-    Index & index)
+    DataSourceBase & index)
 {
   return make_unique<IndexGraphLoaderImpl>(vehicleType, loadAltitudes, numMwmIds, vehicleModelFactory,
                                            estimator, index);

@@ -1,6 +1,6 @@
 #include "openlr/decoded_path.hpp"
 
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 
 #include "platform/country_file.hpp"
 
@@ -45,7 +45,7 @@ void LatLonFromXML(pugi::xml_node const & node, ms::LatLon & latLon)
   latLon.lon = node.child("lon").text().as_double();
 }
 
-void FeatureIdFromXML(pugi::xml_node const & node, Index const & index, FeatureID & fid)
+void FeatureIdFromXML(pugi::xml_node const & node, DataSourceBase const & index, FeatureID & fid)
 {
   THROW_IF_NODE_IS_EMPTY(node, openlr::DecodedPathLoadError, ("Can't parse CountryName"));
   auto const countryName = node.child("CountryName").text().as_string();
@@ -109,7 +109,7 @@ void WriteAsMappingForSpark(std::ostream & ost, std::vector<DecodedPath> const &
   }
 }
 
-void PathFromXML(pugi::xml_node const & node, Index const & index, Path & p)
+void PathFromXML(pugi::xml_node const & node, DataSourceBase const & index, Path & p)
 {
   auto const edges = node.select_nodes("RoadEdge");
   for (auto const xmlE : edges)

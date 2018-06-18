@@ -2,11 +2,12 @@
 
 #include "search/dummy_rank_table.hpp"
 
+#include "indexer/data_source.hpp"
 #include "indexer/rank_table.hpp"
 
 namespace search
 {
-RankTable const & RankTableCache::Get(Index & index, TId const & mwmId)
+RankTable const & RankTableCache::Get(DataSourceBase & index, TId const & mwmId)
 {
   auto const it = m_ranks.find(TKey(mwmId));
   if (it != m_ranks.end())

@@ -41,7 +41,7 @@ namespace routing
 class NumMwmIds;
 }
 
-class Index;
+class DataSourceBase;
 
 struct RoutePointInfo
 {
@@ -67,7 +67,7 @@ public:
 
   struct Callbacks
   {
-    using IndexGetterFn = std::function<Index &()>;
+    using IndexGetterFn = std::function<DataSourceBase &()>;
     using CountryInfoGetterFn = std::function<storage::CountryInfoGetter &()>;
     using CountryParentNameGetterFn = std::function<std::string(std::string const &)>;
     using GetStringsBundleFn = std::function<StringsBundle const &()>;

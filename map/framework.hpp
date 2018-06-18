@@ -35,7 +35,8 @@
 #include "editor/user_stats.hpp"
 
 #include "indexer/data_header.hpp"
-#include "indexer/index_helpers.hpp"
+#include "indexer/data_source.hpp"
+#include "indexer/data_source_helpers.hpp"
 #include "indexer/map_style.hpp"
 
 #include "search/city_finder.hpp"
@@ -310,7 +311,7 @@ public:
   storage::CountryInfoGetter & GetCountryInfoGetter() { return *m_infoGetter; }
   StorageDownloadingPolicy & GetDownloadingPolicy() { return m_storageDownloadingPolicy; }
 
-  Index const & GetIndex() const { return m_model.GetIndex(); }
+  DataSourceBase const & GetIndex() const { return m_model.GetIndex(); }
 
   SearchAPI & GetSearchAPI();
   SearchAPI const & GetSearchAPI() const;

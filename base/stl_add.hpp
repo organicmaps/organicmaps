@@ -161,13 +161,6 @@ void DeleteRange(TContainer & cont, TDeletor const & deletor)
   (void)GetRangeDeletor(cont, deletor)();
 }
 
-struct NoopFunctor
-{
-  template <typename T> void operator () (T const &) const
-  {
-  }
-};
-
 struct IdFunctor
 {
   template <typename T> inline T operator () (T const & x) const

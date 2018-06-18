@@ -4,7 +4,7 @@
 
 #include "search/city_finder.hpp"
 
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 
 #include "geometry/latlon.hpp"
 
@@ -50,7 +50,7 @@ public:
 
 private:
   SponsoredObjectStorage<ViatorCity> m_storage;
-  Index m_index;
+  DataSource m_index;
   std::unique_ptr<search::CityFinder> m_cityFinder;
 };
 }  // namespace generator

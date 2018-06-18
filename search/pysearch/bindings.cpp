@@ -4,6 +4,7 @@
 #include "search/tracer.hpp"
 
 #include "indexer/classificator_loader.hpp"
+#include "indexer/data_source.hpp"
 
 #include "storage/country.hpp"
 #include "storage/country_info_getter.hpp"
@@ -185,7 +186,7 @@ struct Context
 {
   Context() : m_engine(m_index, CreateCountryInfoGetter(), search::Engine::Params{}) {}
 
-  Index m_index;
+  DataSource m_index;
   search::tests_support::TestSearchEngine m_engine;
 };
 

@@ -4,6 +4,8 @@
 
 #include "search/reverse_geocoder.hpp"
 
+#include "indexer/data_source.hpp"
+
 #include "geometry/latlon.hpp"
 #include "geometry/mercator.hpp"
 
@@ -32,7 +34,7 @@ public:
   }
 
 private:
-  Index m_index;
+  DataSource m_index;
   std::unique_ptr<search::ReverseGeocoder> m_coder;
 };
 

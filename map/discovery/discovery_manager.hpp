@@ -13,8 +13,6 @@
 #include "platform/marketing_service.hpp"
 #include "platform/platform.hpp"
 
-#include "indexer/index.hpp"
-
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
@@ -24,6 +22,8 @@
 #include <string>
 #include <utility>
 #include <vector>
+
+class DataSourceBase;
 
 namespace discovery
 {
@@ -54,7 +54,7 @@ public:
 
   using ErrorCalback = std::function<void(uint32_t const requestId, ItemType const type)>;
 
-  Manager(Index const & index, search::CityFinder & cityFinder, APIs const & apis);
+  Manager(DataSourceBase const & index, search::CityFinder & cityFinder, APIs const & apis);
 
   template <typename ResultCallback>
   uint32_t Discover(Params && params, ResultCallback const & onResult, ErrorCalback const & onError)
@@ -153,7 +153,7 @@ private:
   static search::DiscoverySearchParams GetSearchParams(Manager::Params const & params, ItemType const type);
   std::string GetCityViatorId(m2::PointD const & point) const;
 
-  Index const & m_index;
+  DataSourceBase const & m_index;
   search::CityFinder & m_cityFinder;
   SearchAPI & m_searchApi;
   viator::Api const & m_viatorApi;

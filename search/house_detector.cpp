@@ -294,7 +294,7 @@ void Street::SortHousesProjection()
   sort(m_houses.begin(), m_houses.end(), &LessStreetDistance);
 }
 
-HouseDetector::HouseDetector(Index const & index)
+HouseDetector::HouseDetector(DataSourceBase const & index)
   : m_loader(index), m_streetNum(0)
 {
   // default value for conversions
@@ -670,8 +670,9 @@ void HouseDetector::ReadHouses(Street * st)
   //offsetMeters = max(HN_MIN_READ_OFFSET_M, min(GetApprLengthMeters(st->m_number) / 2, offsetMeters));
 
   ProjectionOnStreetCalculator calc(st->m_points);
-  m_loader.ForEachInRect(st->GetLimitRect(m_houseOffsetM),
-                         bind(&HouseDetector::ReadHouse<ProjectionOnStreetCalculator>, this, _1, st, ref(calc)));
+  m_loader.ForEachInRect(st->GetLimitRect(m_houseOffsetM), [this, &st, &calc](FeatureType & ft) {
+    ReadHouse<ProjectionOnStreetCalculator>(ft, st, calc);
+  });
 
   st->m_length = st->GetLength();
   st->SortHousesProjection();

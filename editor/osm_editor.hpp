@@ -36,8 +36,6 @@ namespace editor
 class XMLFeature;
 }
 
-class Index;
-
 namespace osm
 {
 class Editor final : public MwmSet::Observer
@@ -108,8 +106,8 @@ public:
   // TODO(mgsergio): Unify feature functions signatures.
 
   /// Easy way to check if a feature was deleted, modified, created or not changed at all.
-  datasource::FeatureStatus GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t index) const;
-  datasource::FeatureStatus GetFeatureStatus(FeatureID const & fid) const;
+  FeatureStatus GetFeatureStatus(MwmSet::MwmId const & mwmId, uint32_t index) const;
+  FeatureStatus GetFeatureStatus(FeatureID const & fid) const;
 
   /// @returns true if a feature was uploaded to osm.
   bool IsFeatureUploaded(MwmSet::MwmId const & mwmId, uint32_t index) const;
@@ -127,7 +125,7 @@ public:
   bool GetEditedFeatureStreet(FeatureID const & fid, string & outFeatureStreet) const;
 
   /// @returns sorted features indices with specified status.
-  vector<uint32_t> GetFeaturesByStatus(MwmSet::MwmId const & mwmId, datasource::FeatureStatus status) const;
+  vector<uint32_t> GetFeaturesByStatus(MwmSet::MwmId const & mwmId, FeatureStatus status) const;
 
   enum SaveResult
   {
@@ -207,7 +205,7 @@ private:
 
   struct FeatureTypeInfo
   {
-    datasource::FeatureStatus m_status;
+    FeatureStatus m_status;
     // TODO(AlexZ): Integrate EditableMapObject class into an editor instead of FeatureType.
     FeatureType m_feature;
     /// If not empty contains Feature's addr:street, edited by user.
@@ -219,14 +217,14 @@ private:
     string m_uploadError;
   };
 
-  bool FillFeatureInfo(datasource::FeatureStatus status, editor::XMLFeature const & xml, FeatureID const & fid,
+  bool FillFeatureInfo(FeatureStatus status, editor::XMLFeature const & xml, FeatureID const & fid,
                        FeatureTypeInfo & fti) const;
   /// @returns pointer to m_features[id][index] if exists, nullptr otherwise.
   FeatureTypeInfo const * GetFeatureTypeInfo(MwmSet::MwmId const & mwmId, uint32_t index) const;
   FeatureTypeInfo * GetFeatureTypeInfo(MwmSet::MwmId const & mwmId, uint32_t index);
   void SaveUploadedInformation(FeatureTypeInfo const & fromUploader);
 
-  void MarkFeatureWithStatus(FeatureID const & fid, datasource::FeatureStatus status);
+  void MarkFeatureWithStatus(FeatureID const & fid, FeatureStatus status);
 
   // These methods are just checked wrappers around Delegate.
   MwmSet::MwmId GetMwmIdByMapName(string const & name);
@@ -234,7 +232,7 @@ private:
   string GetOriginalFeatureStreet(FeatureType & ft) const;
   void ForEachFeatureAtPoint(FeatureTypeFn && fn, m2::PointD const & point) const;
   FeatureID GetFeatureIdByXmlFeature(editor::XMLFeature const & xml, MwmSet::MwmId const & mwmId,
-                                     datasource::FeatureStatus status, bool needMigrate) const;
+                                     FeatureStatus status, bool needMigrate) const;
   void LoadMwmEdits(pugi::xml_node const & mwm, MwmSet::MwmId const & mwmId, bool needMigrate);
 
   // TODO(AlexZ): Synchronize multithread access.

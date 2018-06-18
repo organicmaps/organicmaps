@@ -14,6 +14,7 @@
 
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_meta.hpp"
+#include "indexer/feature_source.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/map_object.hpp"
 
@@ -158,7 +159,7 @@ public:
   void SetPartnerIndex(int index);
 
   /// Feature status
-  void SetFeatureStatus(datasource::FeatureStatus const status) { m_featureStatus = status; }
+  void SetFeatureStatus(FeatureStatus const status) { m_featureStatus = status; }
 
   /// Banner
   bool HasBanner() const;
@@ -280,7 +281,7 @@ private:
   SponsoredType m_sponsoredType = SponsoredType::None;
 
   /// Feature status
-  datasource::FeatureStatus m_featureStatus = datasource::FeatureStatus::Untouched;
+  FeatureStatus m_featureStatus = FeatureStatus::Untouched;
 
   /// Sponsored feature urls.
   std::string m_sponsoredUrl;

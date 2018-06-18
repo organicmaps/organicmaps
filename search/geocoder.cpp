@@ -14,10 +14,10 @@
 #include "search/utils.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/index.hpp"
 #include "indexer/postcodes_matcher.hpp"
 #include "indexer/rank_table.hpp"
 #include "indexer/search_delimiters.hpp"
@@ -336,7 +336,7 @@ size_t OrderCountries(m2::RectD const & pivot, vector<shared_ptr<MwmInfo>> & inf
 }  // namespace
 
 // Geocoder::Geocoder ------------------------------------------------------------------------------
-Geocoder::Geocoder(Index const & index, storage::CountryInfoGetter const & infoGetter,
+Geocoder::Geocoder(DataSourceBase const & index, storage::CountryInfoGetter const & infoGetter,
                    CategoriesHolder const & categories, PreRanker & preRanker,
                    VillagesCache & villagesCache, ::base::Cancellable const & cancellable)
   : m_index(index)

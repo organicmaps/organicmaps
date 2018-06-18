@@ -5,8 +5,8 @@
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
 #include "indexer/data_header.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
-#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "platform/country_file.hpp"
@@ -88,7 +88,7 @@ protected:
 
   virtual void OnMwmBuilt(MwmInfo const & /* info */) {}
 
-  Index m_index;
+  DataSource m_index;
   std::vector<platform::LocalCountryFile> m_files;
 };
 }  // namespace tests_support

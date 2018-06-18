@@ -1,6 +1,6 @@
 #include "search/house_to_street_table.hpp"
 
-#include "indexer/index.hpp"
+#include "indexer/mwm_set.hpp"
 
 #include "platform/mwm_traits.hpp"
 

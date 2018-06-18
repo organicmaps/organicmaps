@@ -14,7 +14,7 @@
 
 #include "std/vector.hpp"
 
-class Index;
+class DataSourceBase;
 
 namespace routing
 {

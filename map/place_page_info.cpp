@@ -8,6 +8,7 @@
 
 #include "editor/osm_editor.hpp"
 
+#include "indexer/feature_source.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/ftypes_sponsored.hpp"
 
@@ -41,8 +42,8 @@ bool Info::ShouldShowAddPlace() const
 bool Info::ShouldShowUGC() const
 {
   return ftraits::UGC::IsUGCAvailable(m_sortedTypes) &&
-         (m_featureStatus == datasource::FeatureStatus::Untouched ||
-          m_featureStatus == datasource::FeatureStatus::Modified);
+         (m_featureStatus == FeatureStatus::Untouched ||
+          m_featureStatus == FeatureStatus::Modified);
 }
 
 void Info::SetFromFeatureType(FeatureType const & ft)

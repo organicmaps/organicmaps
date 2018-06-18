@@ -18,7 +18,6 @@
 #include "storage/storage.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/index.hpp"
 
 #include <atomic>
 #include <functional>

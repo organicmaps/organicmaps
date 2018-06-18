@@ -1,7 +1,8 @@
 #pragma once
 
+#include "editor/editable_data_source.hpp"
+
 #include "indexer/data_header.hpp"
-#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -30,7 +31,7 @@ class FeaturesFetcher : public MwmSet::Observer
   private:
     m2::RectD m_rect;
 
-    Index m_multiIndex;
+    EditableDataSource m_multiIndex;
 
     TMapDeregisteredCallback m_onMapDeregistered;
 
@@ -71,16 +72,16 @@ class FeaturesFetcher : public MwmSet::Observer
 
     /// @name Features enumeration.
     //@{
-    template <class ToDo>
-    void ForEachFeature(m2::RectD const & rect, ToDo && toDo, int scale) const
+    void ForEachFeature(m2::RectD const & rect, std::function<void(FeatureType &)> const & fn,
+                        int scale) const
     {
-      m_multiIndex.ForEachInRect(toDo, rect, scale);
+      m_multiIndex.ForEachInRect(fn, rect, scale);
     }
 
-    template <class ToDo>
-    void ForEachFeatureID(m2::RectD const & rect, ToDo & toDo, int scale) const
+    void ForEachFeatureID(m2::RectD const & rect, std::function<void(FeatureID const &)> const & fn,
+                          int scale) const
     {
-      m_multiIndex.ForEachFeatureIDInRect(toDo, rect, scale);
+      m_multiIndex.ForEachFeatureIDInRect(fn, rect, scale);
     }
 
     template <class ToDo>
@@ -90,8 +91,8 @@ class FeaturesFetcher : public MwmSet::Observer
     }
     //@}
 
-    Index const & GetIndex() const { return m_multiIndex; }
-    Index & GetIndex() { return m_multiIndex; }
+    DataSourceBase const & GetIndex() const { return m_multiIndex; }
+    DataSourceBase & GetIndex() { return m_multiIndex; }
     m2::RectD GetWorldRect() const;
   };
 }

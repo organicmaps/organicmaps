@@ -8,6 +8,8 @@
 
 #include "coding/file_name_utils.hpp"
 
+#include "geometry/mercator.hpp"
+
 #include <cstdint>
 
 using namespace routing;

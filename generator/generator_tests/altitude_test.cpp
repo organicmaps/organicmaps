@@ -9,8 +9,8 @@
 
 #include "indexer/altitude_loader.hpp"
 #include "indexer/classificator_loader.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/feature_processor.hpp"
-#include "indexer/index.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -131,7 +131,7 @@ void BuildMwmWithoutAltitudes(vector<TPoint3DList> const & roads, LocalCountryFi
     builder.Add(generator::tests_support::TestStreet(ExtractPoints(geom3D), std::string(), std::string()));
 }
 
-void TestAltitudes(Index const & index, MwmSet::MwmId const & mwmId, std::string const & mwmPath,
+void TestAltitudes(DataSourceBase const & index, MwmSet::MwmId const & mwmId, std::string const & mwmPath,
                    bool hasAltitudeExpected, AltitudeGetter & expectedAltitudes)
 {
   AltitudeLoader loader(index, mwmId);
@@ -181,7 +181,7 @@ void TestAltitudesBuilding(vector<TPoint3DList> const & roads, bool hasAltitudeE
   BuildRoadAltitudes(mwmPath, altitudeGetter);
 
   // Reading from mwm and testing altitude information.
-  Index index;
+  DataSource index;
   auto const regResult = index.RegisterMap(country);
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
 

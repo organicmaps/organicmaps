@@ -9,8 +9,6 @@
 #include "routing_common/num_mwm_id.hpp"
 #include "routing_common/vehicle_model.hpp"
 
-#include "indexer/index.hpp"
-
 #include "geometry/tree4d.hpp"
 
 #include "base/math.hpp"
@@ -21,6 +19,8 @@
 #include <string>
 #include <utility>
 #include <vector>
+
+class DataSourceBase;
 
 namespace routing
 {
@@ -37,7 +37,7 @@ public:
 
   CrossMwmGraph(std::shared_ptr<NumMwmIds> numMwmIds, shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
                 std::shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory, VehicleType vehicleType,
-                CourntryRectFn const & countryRectFn, Index & index);
+                CourntryRectFn const & countryRectFn, DataSourceBase & index);
 
   /// \brief Transition segment is a segment which is crossed by mwm border. That means
   /// start and finish of such segment have to lie in different mwms. If a segment is
@@ -148,7 +148,7 @@ private:
   void DeserializeTransitions(std::vector<NumMwmId> const & mwmIds);
   void DeserializeTransitTransitions(std::vector<NumMwmId> const & mwmIds);
 
-  Index & m_index;
+  DataSourceBase & m_index;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   std::shared_ptr<m4::Tree<NumMwmId>> m_numMwmTree;
   std::shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;

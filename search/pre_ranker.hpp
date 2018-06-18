@@ -4,8 +4,6 @@
 #include "search/nested_rects_cache.hpp"
 #include "search/ranker.hpp"
 
-#include "indexer/index.hpp"
-
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
@@ -17,6 +15,8 @@
 #include "std/set.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
+
+class DataSourceBase;
 
 namespace search
 {
@@ -50,7 +50,7 @@ public:
     bool m_viewportSearch = false;
   };
 
-  PreRanker(Index const & index, Ranker & ranker);
+  PreRanker(DataSourceBase const & index, Ranker & ranker);
 
   void Init(Params const & params);
 
@@ -89,7 +89,7 @@ public:
 private:
   void FilterForViewportSearch();
 
-  Index const & m_index;
+  DataSourceBase const & m_index;
   Ranker & m_ranker;
   vector<PreRankerResult> m_results;
   Params m_params;

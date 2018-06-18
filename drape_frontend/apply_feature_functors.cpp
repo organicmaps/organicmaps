@@ -15,6 +15,7 @@
 
 #include "indexer/drawing_rules.hpp"
 #include "indexer/drules_include.hpp"
+#include "indexer/feature_source.hpp"
 #include "indexer/map_style_reader.hpp"
 #include "indexer/road_shields_parser.hpp"
 
@@ -503,8 +504,8 @@ void ApplyPointFeature::operator()(m2::PointD const & point, bool hasArea, bool 
   m_hasArea = hasArea;
   m_isUGC = isUGC;
   auto const featureStatus = editor.GetFeatureStatus(m_id);
-  m_createdByEditor = featureStatus == datasource::FeatureStatus::Created;
-  m_obsoleteInEditor = featureStatus == datasource::FeatureStatus::Obsolete;
+  m_createdByEditor = featureStatus == FeatureStatus::Created;
+  m_obsoleteInEditor = featureStatus == FeatureStatus::Obsolete;
   m_centerPoint = point;
 }
 

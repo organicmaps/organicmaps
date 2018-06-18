@@ -8,13 +8,13 @@
 #include "search/search_trie.hpp"
 #include "search/token_slice.hpp"
 
-#include "editor/osm_editor.hpp"
+#include "editor/editable_data_source.hpp"
 
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_data.hpp"
-#include "indexer/index.hpp"
+#include "indexer/feature_source.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
@@ -70,9 +70,9 @@ public:
   EditedFeaturesHolder(MwmSet::MwmId const & id) : m_id(id)
   {
     auto & editor = Editor::Instance();
-    m_deleted = editor.GetFeaturesByStatus(id, datasource::FeatureStatus::Deleted);
-    m_modified = editor.GetFeaturesByStatus(id, datasource::FeatureStatus::Modified);
-    m_created = editor.GetFeaturesByStatus(id, datasource::FeatureStatus::Created);
+    m_deleted = editor.GetFeaturesByStatus(id, FeatureStatus::Deleted);
+    m_modified = editor.GetFeaturesByStatus(id, FeatureStatus::Modified);
+    m_created = editor.GetFeaturesByStatus(id, FeatureStatus::Created);
   }
 
   bool ModifiedOrDeleted(uint32_t featureIndex) const

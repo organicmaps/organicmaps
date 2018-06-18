@@ -56,6 +56,8 @@
 		670E7BC11EF983E600A8E9ED /* region_meta.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D51BC4E1D5E512500F1FA8D /* region_meta.cpp */; };
 		670E7BCA1EF9C29A00A8E9ED /* ugc_translator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670E7BC81EF9C29A00A8E9ED /* ugc_translator.cpp */; };
 		670E7BCB1EF9C29A00A8E9ED /* ugc_translator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670E7BC91EF9C29A00A8E9ED /* ugc_translator.hpp */; };
+		671ED3CE20D40ABB00D4317E /* routing_helpers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 671ED3CC20D40ABA00D4317E /* routing_helpers.cpp */; };
+		671ED3CF20D40ABB00D4317E /* routing_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 671ED3CD20D40ABB00D4317E /* routing_helpers.hpp */; };
 		6726C1D51A4AFEF4005EEA39 /* osm2meta.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6726C1D31A4AFEF4005EEA39 /* osm2meta.cpp */; };
 		6726C1D61A4AFEF4005EEA39 /* osm2meta.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6726C1D41A4AFEF4005EEA39 /* osm2meta.hpp */; };
 		6753405C1A3F2A7400A0A8C3 /* borders_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 675340291A3F2A7400A0A8C3 /* borders_generator.cpp */; };
@@ -171,6 +173,8 @@
 		670E7BB01EF9812B00A8E9ED /* ugc_db.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ugc_db.hpp; sourceTree = "<group>"; };
 		670E7BC81EF9C29A00A8E9ED /* ugc_translator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ugc_translator.cpp; sourceTree = "<group>"; };
 		670E7BC91EF9C29A00A8E9ED /* ugc_translator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ugc_translator.hpp; sourceTree = "<group>"; };
+		671ED3CC20D40ABA00D4317E /* routing_helpers.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = routing_helpers.cpp; sourceTree = "<group>"; };
+		671ED3CD20D40ABB00D4317E /* routing_helpers.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = routing_helpers.hpp; sourceTree = "<group>"; };
 		6726C1D31A4AFEF4005EEA39 /* osm2meta.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm2meta.cpp; sourceTree = "<group>"; };
 		6726C1D41A4AFEF4005EEA39 /* osm2meta.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm2meta.hpp; sourceTree = "<group>"; };
 		6753401B1A3F2A1B00A0A8C3 /* libgenerator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgenerator.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -395,6 +399,8 @@
 		67BC92D71D1A9E6A00A4A378 /* generator_tests_support */ = {
 			isa = PBXGroup;
 			children = (
+				671ED3CC20D40ABA00D4317E /* routing_helpers.cpp */,
+				671ED3CD20D40ABB00D4317E /* routing_helpers.hpp */,
 				67BC92D81D1A9E9800A4A378 /* test_feature.cpp */,
 				67BC92D91D1A9E9800A4A378 /* test_feature.hpp */,
 				67BC92DA1D1A9E9800A4A378 /* test_mwm_builder.cpp */,
@@ -477,6 +483,7 @@
 			files = (
 				67BC92E51D1A9ED800A4A378 /* test_mwm_builder.hpp in Headers */,
 				67BC92E31D1A9ED800A4A378 /* test_feature.hpp in Headers */,
+				671ED3CF20D40ABB00D4317E /* routing_helpers.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -615,6 +622,7 @@
 			files = (
 				67BC92E21D1A9ED800A4A378 /* test_feature.cpp in Sources */,
 				67BC92E41D1A9ED800A4A378 /* test_mwm_builder.cpp in Sources */,
+				671ED3CE20D40ABB00D4317E /* routing_helpers.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

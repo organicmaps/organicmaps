@@ -1,6 +1,6 @@
 #include "search/utils.hpp"
 
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 
 #include <cctype>
 
@@ -42,7 +42,7 @@ strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s)
   return strings::LevenshteinDFA(s, 1 /* prefixSize */, kAllowedMisprints, GetMaxErrorsForToken(s));
 }
 
-MwmSet::MwmHandle FindWorld(Index const & index, vector<shared_ptr<MwmInfo>> const & infos)
+MwmSet::MwmHandle FindWorld(DataSourceBase const & index, vector<shared_ptr<MwmInfo>> const & infos)
 {
   MwmSet::MwmHandle handle;
   for (auto const & info : infos)
@@ -56,7 +56,7 @@ MwmSet::MwmHandle FindWorld(Index const & index, vector<shared_ptr<MwmInfo>> con
   return handle;
 }
 
-MwmSet::MwmHandle FindWorld(Index const & index)
+MwmSet::MwmHandle FindWorld(DataSourceBase const & index)
 {
   vector<shared_ptr<MwmInfo>> infos;
   index.GetMwmsInfo(infos);

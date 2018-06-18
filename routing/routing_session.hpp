@@ -7,8 +7,6 @@
 #include "routing/turns.hpp"
 #include "routing/turns_notification_manager.hpp"
 
-#include "indexer/index.hpp"
-
 #include "traffic/speed_groups.hpp"
 #include "traffic/traffic_cache.hpp"
 #include "traffic/traffic_info.hpp"
@@ -26,6 +24,8 @@
 #include "std/map.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
+
+class DataSourceBase;
 
 namespace location
 {
@@ -120,7 +120,7 @@ public:
   bool GetRouteAltitudesAndDistancesM(vector<double> & routeSegDistanceM,
                                       feature::TAltitudes & routeAltitudesM) const;
 
-  State OnLocationPositionChanged(location::GpsInfo const & info, Index const & index);
+  State OnLocationPositionChanged(location::GpsInfo const & info, DataSourceBase const & index);
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
   void MatchLocationToRoute(location::GpsInfo & location,
@@ -191,7 +191,7 @@ private:
   /// Returns a nearest speed camera record on your way and distance to it.
   /// Returns kInvalidSpeedCameraDistance if there is no cameras on your way.
   // Should be called with locked m_routingSessionMutex.
-  double GetDistanceToCurrentCamM(SpeedCameraRestriction & camera, Index const & index);
+  double GetDistanceToCurrentCamM(SpeedCameraRestriction & camera, DataSourceBase const & index);
 
   /// RemoveRoute removes m_route and resets route attributes (m_state, m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();

@@ -17,7 +17,6 @@
 #include "routing_common/num_mwm_id.hpp"
 #include "routing_common/vehicle_model.hpp"
 
-#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "geometry/tree4d.hpp"
@@ -28,6 +27,8 @@
 #include <set>
 #include <string>
 #include <vector>
+
+class DataSourceBase;
 
 namespace routing
 {
@@ -64,7 +65,7 @@ public:
   IndexRouter(VehicleType vehicleType, bool loadAltitudes, CountryParentNameGetterFn const & countryParentNameGetterFn,
               TCountryFileFn const & countryFileFn, CourntryRectFn const & countryRectFn,
               shared_ptr<NumMwmIds> numMwmIds, unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
-              traffic::TrafficCache const & trafficCache, Index & index);
+              traffic::TrafficCache const & trafficCache, DataSourceBase & index);
 
   std::unique_ptr<WorldGraph> MakeSingleMwmWorldGraph();
   bool FindBestSegment(m2::PointD const & point, m2::PointD const & direction,
@@ -146,7 +147,7 @@ private:
   VehicleType m_vehicleType;
   bool m_loadAltitudes;
   std::string const m_name;
-  Index & m_index;
+  DataSourceBase & m_index;
   std::shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
 
   TCountryFileFn const m_countryFileFn;

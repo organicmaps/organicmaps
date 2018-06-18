@@ -2,6 +2,8 @@
 
 #include "routing/routing_exceptions.hpp"
 
+#include "editor/editable_data_source.hpp"
+
 #include "indexer/altitude_loader.hpp"
 
 #include "geometry/mercator.hpp"
@@ -23,7 +25,7 @@ size_t constexpr kRoadsCacheSize = 5000;
 class GeometryLoaderImpl final : public GeometryLoader
 {
 public:
-  GeometryLoaderImpl(Index const & index, MwmSet::MwmHandle const & handle,
+  GeometryLoaderImpl(DataSourceBase const & index, MwmSet::MwmHandle const & handle,
                      shared_ptr<VehicleModelInterface> vehicleModel, bool loadAltitudes);
 
   // GeometryLoader overrides:
@@ -31,13 +33,13 @@ public:
 
 private:
   shared_ptr<VehicleModelInterface> m_vehicleModel;
-  Index::FeaturesLoaderGuard m_guard;
+  EditableDataSource::FeaturesLoaderGuard m_guard;
   string const m_country;
   feature::AltitudeLoader m_altitudeLoader;
   bool const m_loadAltitudes;
 };
 
-GeometryLoaderImpl::GeometryLoaderImpl(Index const & index, MwmSet::MwmHandle const & handle,
+GeometryLoaderImpl::GeometryLoaderImpl(DataSourceBase const & index, MwmSet::MwmHandle const & handle,
                                        shared_ptr<VehicleModelInterface> vehicleModel, bool loadAltitudes)
   : m_vehicleModel(move(vehicleModel))
   , m_guard(index, handle.GetId())
@@ -159,7 +161,7 @@ RoadGeometry const & Geometry::GetRoad(uint32_t featureId)
 }
 
 // static
-unique_ptr<GeometryLoader> GeometryLoader::Create(Index const & index,
+unique_ptr<GeometryLoader> GeometryLoader::Create(DataSourceBase const & index,
                                                   MwmSet::MwmHandle const & handle,
                                                   shared_ptr<VehicleModelInterface> vehicleModel,
                                                   bool loadAltitudes)

@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "indexer/data_header.hpp"
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "coding/file_name_utils.hpp"
@@ -86,7 +86,7 @@ protected:
     events.emplace_back(forward<TArgs>(args)...);
   }
 
-  Index m_index;
+  DataSource m_index;
   vector<MwmSet::Event> m_expected;
   vector<MwmSet::Event> m_actual;
 };
@@ -97,8 +97,7 @@ UNIT_CLASS_TEST(IndexTest, Parse)
   UNUSED_VALUE(m_index.RegisterMap(platform::LocalCountryFile::MakeForTesting("minsk-pass")));
 
   // Make sure that index is actually parsed.
-  NoopFunctor fn;
-  m_index.ForEachInScale(fn, 15);
+  m_index.ForEachInScale([](FeatureType &) { return; }, 15);
 }
 
 UNIT_CLASS_TEST(IndexTest, StatusNotifications)

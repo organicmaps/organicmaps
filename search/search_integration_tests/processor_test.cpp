@@ -13,9 +13,10 @@
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
+#include "editor/editable_data_source.hpp"
+
 #include "indexer/feature.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/index.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
@@ -604,7 +605,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
     while (!features->GetBit(index))
       ++index;
 
-    Index::FeaturesLoaderGuard loader(m_index, countryId);
+    EditableDataSource::FeaturesLoaderGuard loader(m_index, countryId);
     FeatureType ft;
     TEST(loader.GetFeatureByIndex(::base::checked_cast<uint32_t>(index), ft), ());
 
@@ -701,7 +702,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
     TEST(ResultsMatch(request->Results(), rules), ());
     for (auto const & result : request->Results())
     {
-      Index::FeaturesLoaderGuard loader(m_index, wonderlandId);
+      EditableDataSource::FeaturesLoaderGuard loader(m_index, wonderlandId);
       FeatureType ft;
       TEST(loader.GetFeatureByIndex(result.GetFeatureID().m_index, ft), ());
 

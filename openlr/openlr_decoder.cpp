@@ -18,7 +18,7 @@
 #include "routing_common/car_model.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 
 #include "storage/country_info_getter.hpp"
 
@@ -79,9 +79,9 @@ struct alignas(kCacheLineSize) Stats
   uint32_t m_routesHandled = 0;
 };
 
-bool IsRealVertex(m2::PointD const & p, FeatureID const & fid, Index const & index)
+bool IsRealVertex(m2::PointD const & p, FeatureID const & fid, DataSource const & index)
 {
-  Index::FeaturesLoaderGuard g(index, fid.m_mwmId);
+  DataSource::FeaturesLoaderGuard g(index, fid.m_mwmId);
   auto const ft = g.GetOriginalFeatureByIndex(fid.m_index);
   bool matched = false;
   ft->ForEachPoint(
@@ -93,7 +93,7 @@ bool IsRealVertex(m2::PointD const & p, FeatureID const & fid, Index const & ind
   return matched;
 };
 
-void ExpandFake(Graph::EdgeVector & path, Graph::EdgeVector::iterator edgeIt, Index const & index,
+void ExpandFake(Graph::EdgeVector & path, Graph::EdgeVector::iterator edgeIt, DataSource const & index,
                 Graph & g)
 {
   if (!edgeIt->IsFake())
@@ -128,7 +128,7 @@ void ExpandFake(Graph::EdgeVector & path, Graph::EdgeVector::iterator edgeIt, In
     path.erase(edgeIt);
 };
 
-void ExpandFakes(Index const & index, Graph & g, Graph::EdgeVector & path)
+void ExpandFakes(DataSource const & index, Graph & g, Graph::EdgeVector & path)
 {
   ASSERT(!path.empty(), ());
 
@@ -189,7 +189,7 @@ void CopyWithoutOffsets(InputIterator const start, InputIterator const stop, Out
 class SegmentsDecoderV1
 {
 public:
-  SegmentsDecoderV1(Index const & index, unique_ptr<CarModelFactory> cmf)
+  SegmentsDecoderV1(DataSourceBase const & index, unique_ptr<CarModelFactory> cmf)
     : m_roadGraph(index, IRoadGraph::Mode::ObeyOnewayTag, move(cmf))
     , m_infoGetter(index)
     , m_router(m_roadGraph, m_infoGetter)
@@ -258,7 +258,7 @@ private:
 class SegmentsDecoderV2
 {
 public:
-  SegmentsDecoderV2(Index const & index, unique_ptr<CarModelFactory> cmf)
+  SegmentsDecoderV2(DataSource const & index, unique_ptr<CarModelFactory> cmf)
     : m_index(index), m_graph(index, move(cmf)), m_infoGetter(index)
   {
   }
@@ -336,7 +336,7 @@ public:
   }
 
 private:
-  Index const & m_index;
+  DataSource const & m_index;
   Graph m_graph;
   RoadInfoGetter m_infoGetter;
 };
@@ -378,7 +378,7 @@ bool OpenLRDecoder::SegmentsFilter::Matches(LinearSegment const & segment) const
 }
 
 // OpenLRDecoder -----------------------------------------------------------------------------
-OpenLRDecoder::OpenLRDecoder(vector<Index> const & indexes,
+OpenLRDecoder::OpenLRDecoder(vector<DataSource> const & indexes,
                              CountryParentNameGetter const & countryParentNameGetter)
   : m_indexes(indexes), m_countryParentNameGetter(countryParentNameGetter)
 {
@@ -400,7 +400,7 @@ template <typename Decoder, typename Stats>
 void OpenLRDecoder::Decode(vector<LinearSegment> const & segments,
                            uint32_t const numThreads, vector<DecodedPath> & paths)
 {
-  auto const worker = [&segments, &paths, numThreads, this](size_t threadNum, Index const & index,
+  auto const worker = [&segments, &paths, numThreads, this](size_t threadNum, DataSource const & index,
                                                             Stats & stat) {
     size_t constexpr kBatchSize = GetOptimalBatchSize();
     size_t constexpr kProgressFrequency = 100;

@@ -155,8 +155,10 @@
 		6715564120BF0267002BA3B4 /* libeditor_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libeditor_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6715565220BF0F86002BA3B4 /* new_feature_categories.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = new_feature_categories.cpp; sourceTree = "<group>"; };
 		6715565320BF0F87002BA3B4 /* new_feature_categories.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = new_feature_categories.hpp; sourceTree = "<group>"; };
+		671ED37220D3B65100D4317E /* editable_data_source.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = editable_data_source.hpp; sourceTree = "<group>"; };
 		675B562520D2706000A521D2 /* editable_feature_source.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = editable_feature_source.cpp; sourceTree = "<group>"; };
 		675B562620D2706000A521D2 /* editable_feature_source.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = editable_feature_source.hpp; sourceTree = "<group>"; };
+		67A7F0D520DBF00400937412 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F60F02EC1C92CBF1003A0AF6 /* editor_notes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = editor_notes.cpp; sourceTree = "<group>"; };
 		F60F02ED1C92CBF1003A0AF6 /* editor_notes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = editor_notes.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -173,6 +175,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67A7F0D620DBF00400937412 /* CoreLocation.framework in Frameworks */,
 				6715565120BF0F47002BA3B4 /* libeditor_tests_support.a in Frameworks */,
 				6715560020BDC741002BA3B4 /* libsuccinct.a in Frameworks */,
 				671555FE20BDC728002BA3B4 /* librouting_common.a in Frameworks */,
@@ -242,6 +245,9 @@
 				340DC8281C4E71E500EAA2CC /* changeset_wrapper.hpp */,
 				3D3058721D707DBE004AC712 /* config_loader.cpp */,
 				3D3058731D707DBE004AC712 /* config_loader.hpp */,
+				671ED37220D3B65100D4317E /* editable_data_source.hpp */,
+				675B562520D2706000A521D2 /* editable_feature_source.cpp */,
+				675B562620D2706000A521D2 /* editable_feature_source.hpp */,
 				34527C4F1C89B1770015050E /* editor_config.cpp */,
 				34527C501C89B1770015050E /* editor_config.hpp */,
 				F60F02EC1C92CBF1003A0AF6 /* editor_notes.cpp */,
@@ -269,8 +275,6 @@
 				347C71261C295B1100BE9208 /* xml_feature.cpp */,
 				347C71271C295B1100BE9208 /* xml_feature.hpp */,
 				34583BBE1C8854C100F94664 /* yes_no_unknown.hpp */,
-				675B562520D2706000A521D2 /* editable_feature_source.cpp */,
-				675B562620D2706000A521D2 /* editable_feature_source.hpp */,
 			);
 			name = editor;
 			path = ../../editor;
@@ -300,6 +304,7 @@
 		3496ABEA1DC2041800C5DDBA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				67A7F0D520DBF00400937412 /* CoreLocation.framework */,
 				671555FF20BDC741002BA3B4 /* libsuccinct.a */,
 				671555FD20BDC728002BA3B4 /* librouting_common.a */,
 				671555F920BDC6FA002BA3B4 /* librouting.a */,

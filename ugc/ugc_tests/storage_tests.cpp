@@ -9,11 +9,12 @@
 
 #include "storage/country_info_getter.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "coding/file_name_utils.hpp"
@@ -100,7 +101,7 @@ public:
     return FeatureIdForPoint(mercator, ftypes::IsRailwayStationChecker::Instance());
   }
 
-  Index & GetIndex() { return m_index; }
+  DataSourceBase & GetIndex() { return m_index; }
 
   ~MwmBuilder()
   {
@@ -162,7 +163,7 @@ private:
     map.DeleteFromDisk(MapOptions::Map);
   }
 
-  Index m_index;
+  DataSource m_index;
   storage::CountryInfoGetterForTesting m_infoGetter;
   platform::LocalCountryFile m_testMwm;
 };

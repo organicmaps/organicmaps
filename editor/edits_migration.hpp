@@ -4,6 +4,7 @@
 #include "editor/xml_feature.hpp"
 
 #include "indexer/feature_decl.hpp"
+#include "indexer/feature_source.hpp"
 
 #include "base/exception.hpp"
 
@@ -19,6 +20,6 @@ using TGenerateIDFn = function<FeatureID()>;
 /// of a found feature, thows MigrationError if migration fails.
 FeatureID MigrateFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach,
                               XMLFeature const & xml,
-                              datasource::FeatureStatus const featureStatus,
+                              FeatureStatus const featureStatus,
                               TGenerateIDFn const & generateID);
 }  // namespace editor

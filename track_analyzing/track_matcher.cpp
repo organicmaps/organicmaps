@@ -10,6 +10,8 @@
 
 #include <geometry/distance.hpp>
 
+#include <base/stl_helpers.hpp>
+
 using namespace routing;
 using namespace std;
 using namespace track_analyzing;
@@ -130,7 +132,7 @@ TrackMatcher::Step::Step(DataPoint const & dataPoint)
 }
 
 void TrackMatcher::Step::FillCandidatesWithNearbySegments(
-    Index const & index, IndexGraph const & graph, VehicleModelInterface const & vehicleModel,
+    DataSourceBase const & index, IndexGraph const & graph, VehicleModelInterface const & vehicleModel,
     NumMwmId mwmId)
 {
   index.ForEachInRect(

@@ -23,7 +23,7 @@
 #include <utility>
 #include <vector>
 
-class Index;
+class DataSourceBase;
 
 namespace storage
 {
@@ -90,7 +90,7 @@ public:
   };
 
   // Doesn't take ownership of index and categories.
-  Engine(Index & index, CategoriesHolder const & categories,
+  Engine(DataSourceBase & index, CategoriesHolder const & categories,
          storage::CountryInfoGetter const & infoGetter, Params const & params);
   ~Engine();
 

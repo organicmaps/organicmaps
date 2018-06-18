@@ -6,7 +6,6 @@
 #include "routing_common/vehicle_model.hpp"
 
 #include "indexer/feature_altitude.hpp"
-#include "indexer/index.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -16,6 +15,8 @@
 #include <cstdint>
 #include <memory>
 #include <string>
+
+class DataSourceBase;
 
 namespace routing
 {
@@ -78,7 +79,7 @@ public:
   virtual void Load(uint32_t featureId, RoadGeometry & road) = 0;
 
   // handle should be alive: it is caller responsibility to check it.
-  static std::unique_ptr<GeometryLoader> Create(Index const & index,
+  static std::unique_ptr<GeometryLoader> Create(DataSourceBase const & index,
                                                 MwmSet::MwmHandle const & handle,
                                                 std::shared_ptr<VehicleModelInterface> vehicleModel,
                                                 bool loadAltitudes);

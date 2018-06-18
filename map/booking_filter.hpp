@@ -7,7 +7,7 @@
 #include <memory>
 
 struct FeatureID;
-class Index;
+class DataSourceBase;
 
 namespace search
 {
@@ -28,7 +28,7 @@ public:
   public:
     virtual ~Delegate() = default;
 
-    virtual Index const & GetIndex() const = 0;
+    virtual DataSourceBase const & GetIndex() const = 0;
     virtual Api const & GetApi() const = 0;
   };
 

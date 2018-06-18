@@ -2,7 +2,7 @@
 
 #include "search/ranking_info.hpp"
 
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
@@ -19,7 +19,7 @@ namespace
 double const kPositionToleranceMeters = 15.0;
 }  // namespace
 
-NestedRectsCache::NestedRectsCache(Index const & index)
+NestedRectsCache::NestedRectsCache(DataSourceBase const & index)
   : m_index(index), m_scale(0), m_position(0, 0), m_valid(false)
 {
 }

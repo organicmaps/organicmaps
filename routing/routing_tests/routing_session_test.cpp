@@ -114,7 +114,7 @@ UNIT_TEST(TestRouteBuilding)
 
 UNIT_TEST(TestRouteRebuilding)
 {
-  Index index;
+  DataSource index;
   RoutingSession session;
   session.Init(nullptr, nullptr);
   vector<m2::PointD> routePoints = kTestRoute;
@@ -172,7 +172,7 @@ UNIT_TEST(TestRouteRebuilding)
 
 UNIT_TEST(TestFollowRouteFlagPersistence)
 {
-  Index index;
+  DataSource index;
   RoutingSession session;
   session.Init(nullptr, nullptr);
   vector<m2::PointD> routePoints = kTestRoute;
@@ -248,7 +248,7 @@ UNIT_TEST(TestFollowRouteFlagPersistence)
 
 UNIT_TEST(TestFollowRoutePercentTest)
 {
-  Index index;
+  DataSource index;
   RoutingSession session;
   session.Init(nullptr, nullptr);
   vector<m2::PointD> routePoints = kTestRoute;

@@ -6,7 +6,7 @@ using namespace std;
 
 namespace search
 {
-CityFinder::CityFinder(Index const & index)
+CityFinder::CityFinder(DataSourceBase const & index)
     : m_unusedBoundaries(index)
     , m_unusedCache(m_cancellable)
     , m_finder(index, m_unusedBoundaries, m_unusedCache)

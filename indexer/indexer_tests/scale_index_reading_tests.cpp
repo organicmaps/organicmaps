@@ -8,9 +8,9 @@
 #include "indexer/cell_id.hpp"
 #include "indexer/data_factory.hpp"
 #include "indexer/data_header.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_covering.hpp"
-#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/scale_index.hpp"
 
@@ -56,7 +56,7 @@ public:
                                       [&](uint32_t index) { indices.push_back(index); });
     }
 
-    Index::FeaturesLoaderGuard loader(m_index, id);
+    DataSource::FeaturesLoaderGuard loader(m_index, id);
 
     Names names;
     for (auto const & index : indices)

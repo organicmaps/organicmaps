@@ -2,11 +2,12 @@
 #include "ugc/serdes.hpp"
 #include "ugc/serdes_json.hpp"
 
+#include "editor/editable_data_source.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_decl.hpp"
 #include "indexer/ftraits.hpp"
-#include "indexer/index.hpp"
 
 #include "platform/platform.hpp"
 
@@ -394,7 +395,7 @@ uint64_t Storage::UGCSizeAtIndex(size_t const indexPosition) const
 unique_ptr<FeatureType> Storage::GetFeature(FeatureID const & id) const
 {
   CHECK(id.IsValid(), ());
-  Index::FeaturesLoaderGuard guard(m_index, id.m_mwmId);
+  EditableDataSource::FeaturesLoaderGuard guard(m_index, id.m_mwmId);
   auto feature = guard.GetOriginalOrEditedFeatureByIndex(id.m_index);
   feature->ParseGeometry(FeatureType::BEST_GEOMETRY);
   if (feature->GetFeatureType() == feature::EGeomType::GEOM_AREA)

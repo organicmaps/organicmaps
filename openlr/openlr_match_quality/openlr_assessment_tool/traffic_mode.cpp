@@ -2,7 +2,7 @@
 
 #include "openlr/openlr_model_xml.hpp"
 
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/scales.hpp"
 
 #include "base/scope_guard.hpp"
@@ -103,7 +103,7 @@ namespace openlr
 {
 // TrafficMode -------------------------------------------------------------------------------------
 TrafficMode::TrafficMode(std::string const & dataFileName,
-                         Index const & index,
+                         DataSourceBase const & index,
                          std::unique_ptr<TrafficDrawerDelegateBase> drawerDelegate,
                          std::unique_ptr<PointsControllerDelegateBase> pointsDelegate,
                          QObject * parent)

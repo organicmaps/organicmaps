@@ -1,6 +1,7 @@
 #include "search/mwm_context.hpp"
 
 #include "indexer/cell_id.hpp"
+#include "indexer/feature_source.hpp"
 
 namespace search
 {
@@ -24,14 +25,14 @@ bool MwmContext::GetFeature(uint32_t index, FeatureType & ft) const
 {
   switch (GetEditedStatus(index))
   {
-  case datasource::FeatureStatus::Deleted:
-  case datasource::FeatureStatus::Obsolete:
+  case FeatureStatus::Deleted:
+  case FeatureStatus::Obsolete:
     return false;
-  case datasource::FeatureStatus::Modified:
-  case datasource::FeatureStatus::Created:
+  case FeatureStatus::Modified:
+  case FeatureStatus::Created:
     VERIFY(osm::Editor::Instance().GetEditedFeature(GetId(), index, ft), ());
     return true;
-  case datasource::FeatureStatus::Untouched:
+  case FeatureStatus::Untouched:
     m_vector.GetByIndex(index, ft);
     ft.SetID(FeatureID(GetId(), index));
     return true;

@@ -38,7 +38,7 @@
 using namespace generator::tests_support;
 using namespace search::tests_support;
 
-class Index;
+class DataSourceBase;
 
 namespace storage
 {
@@ -52,7 +52,7 @@ namespace
 class TestRanker : public Ranker
 {
 public:
-  TestRanker(Index & index, storage::CountryInfoGetter & infoGetter,
+  TestRanker(DataSourceBase & index, storage::CountryInfoGetter & infoGetter,
              CitiesBoundariesTable const & boundariesTable, KeywordLangMatcher & keywordsScorer,
              Emitter & emitter, vector<Suggest> const & suggests, VillagesCache & villagesCache,
              ::base::Cancellable const & cancellable, vector<PreRankerResult> & results)

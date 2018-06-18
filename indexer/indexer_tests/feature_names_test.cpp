@@ -1,8 +1,8 @@
 #include "testing/testing.hpp"
 
+#include "indexer/data_source.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/features_vector.hpp"
-#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "platform/local_country_file.hpp"

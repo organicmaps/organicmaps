@@ -129,7 +129,7 @@ void DrawFrame(Framework & framework,
 
   int const upperScale = scales::GetUpperScale();
 
-  framework.GetIndex().ForEachInRect(doDraw, selectRect, min(upperScale, drawScale));
+  framework.GetIndex().ForEachInRect([&doDraw](FeatureType & ft) { doDraw(ft); }, selectRect, min(upperScale, drawScale));
 
   cpuDrawer->Flush();
   //cpuDrawer->DrawMyPosition(screen.GtoP(center));

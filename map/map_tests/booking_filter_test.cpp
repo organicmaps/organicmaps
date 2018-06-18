@@ -12,6 +12,7 @@
 
 #include "search/result.hpp"
 
+#include "indexer/data_source.hpp"
 #include "indexer/feature_meta.hpp"
 
 #include "storage/country_info_getter.hpp"
@@ -28,7 +29,7 @@ class TestMwmEnvironment : public indexer::tests_support::TestWithCustomMwms,
                            public FilterBase::Delegate
 {
 public:
-  Index const & GetIndex() const override { return m_index; }
+  DataSourceBase const & GetIndex() const override { return m_index; }
 
   booking::Api const & GetApi() const override { return m_api; }
 

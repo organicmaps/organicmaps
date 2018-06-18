@@ -1,15 +1,17 @@
 #pragma once
 
+#include "map/feature_vec_model.hpp"
+
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
-#include "platform/local_country_file_utils.hpp"
-
-#include "storage/country_info_getter.hpp"
+#include "editor/editable_data_source.hpp"
 
 #include "indexer/mwm_set.hpp"
 
-#include "map/feature_vec_model.hpp"
+#include "storage/country_info_getter.hpp"
+
+#include "platform/local_country_file_utils.hpp"
 
 namespace editor
 {
@@ -77,7 +79,7 @@ private:
   void Cleanup(platform::LocalCountryFile const & map);
   bool RemoveMwm(MwmSet::MwmId const & mwmId);
 
-  Index m_index;
+  EditableDataSource m_index;
   storage::CountryInfoGetterForTesting m_infoGetter;
   vector<platform::LocalCountryFile> m_mwmFiles;
 };

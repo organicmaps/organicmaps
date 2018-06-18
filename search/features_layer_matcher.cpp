@@ -13,7 +13,7 @@ namespace search
 /// even if there is no exact street written for this house.
 int constexpr kMaxApproxStreetDistanceM = 100;
 
-FeaturesLayerMatcher::FeaturesLayerMatcher(Index const & index,
+FeaturesLayerMatcher::FeaturesLayerMatcher(DataSourceBase const & index,
                                            ::base::Cancellable const & cancellable)
   : m_context(nullptr)
   , m_postcodes(nullptr)

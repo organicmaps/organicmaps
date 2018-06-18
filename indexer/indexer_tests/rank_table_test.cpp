@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "indexer/classificator_loader.hpp"
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/rank_table.hpp"
 
@@ -97,7 +97,7 @@ UNIT_TEST(RankTableBuilder_EndToEnd)
     search::RankTableBuilder::Create(ranks, wcont);
   }
 
-  Index index;
+  DataSource index;
   auto regResult = index.RegisterMap(localFile);
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
 

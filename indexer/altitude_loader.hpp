@@ -1,6 +1,5 @@
 #pragma once
 #include "indexer/feature_altitude.hpp"
-#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "coding/memory_region.hpp"
@@ -11,12 +10,14 @@
 
 #include "3party/succinct/rs_bit_vector.hpp"
 
+class DataSourceBase;
+
 namespace feature
 {
 class AltitudeLoader
 {
 public:
-  AltitudeLoader(Index const & index, MwmSet::MwmId const & mwmId);
+  AltitudeLoader(DataSourceBase const & index, MwmSet::MwmId const & mwmId);
 
   /// \returns altitude of feature with |featureId|. All items of the returned vector are valid
   /// or the returned vector is empty.

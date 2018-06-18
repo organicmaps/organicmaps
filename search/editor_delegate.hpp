@@ -2,14 +2,14 @@
 
 #include "editor/osm_editor.hpp"
 
-class Index;
+class DataSourceBase;
 
 namespace search
 {
 class EditorDelegate : public osm::Editor::Delegate
 {
 public:
-  EditorDelegate(Index const & index);
+  EditorDelegate(DataSourceBase const & index);
 
   // osm::Editor::Delegate overrides:
   MwmSet::MwmId GetMwmIdByMapName(string const & name) const override;
@@ -19,6 +19,6 @@ public:
                              m2::PointD const & point) const override;
 
 private:
-  Index const & m_index;
+  DataSourceBase const & m_index;
 };
 }  // namespace search

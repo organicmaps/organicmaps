@@ -35,7 +35,7 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
-class Index;
+class DataSourceBase;
 
 namespace search
 {
@@ -61,7 +61,7 @@ public:
   static int constexpr kBuildingRadiusMeters = 50;
   static int constexpr kStreetRadiusMeters = 100;
 
-  FeaturesLayerMatcher(Index const & index, ::base::Cancellable const & cancellable);
+  FeaturesLayerMatcher(DataSourceBase const & index, ::base::Cancellable const & cancellable);
   void SetContext(MwmContext * context);
   void SetPostcodes(CBV const * postcodes);
 

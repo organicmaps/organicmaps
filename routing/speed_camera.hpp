@@ -4,11 +4,11 @@
 
 #include "std/cstdint.hpp"
 
-class Index;
+class DataSourceBase;
 
 namespace routing
 {
 extern uint8_t const kNoSpeedCamera;
 
-uint8_t CheckCameraInPoint(m2::PointD const & point, Index const & index);
+uint8_t CheckCameraInPoint(m2::PointD const & point, DataSourceBase const & index);
 }  // namespace routing

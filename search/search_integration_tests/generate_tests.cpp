@@ -9,9 +9,9 @@
 #include "generator/osm_element.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_data.hpp"
-#include "indexer/index.hpp"
 
 #include "platform/local_country_file.hpp"
 
@@ -64,7 +64,7 @@ UNIT_CLASS_TEST(GenerateTest, GenerateDeprecatedTypes)
     MakeFeature(builder, {"shop", "estate_agent"}, {2, 2});
   }
 
-  Index index;
+  DataSource index;
   TEST_EQUAL(index.Register(file).second, MwmSet::RegResult::Success, ());
 
   // New types.

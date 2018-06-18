@@ -1,11 +1,12 @@
-#include "indexer/index_helpers.hpp"
-#include "indexer/index.hpp"
+#include "indexer/data_source_helpers.hpp"
+
+#include "indexer/data_source.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/scales.hpp"
 
 namespace indexer
 {
-void ForEachFeatureAtPoint(Index const & index, function<void(FeatureType &)> && fn, m2::PointD const & mercator, double toleranceInMeters)
+void ForEachFeatureAtPoint(DataSourceBase const & index, function<void(FeatureType &)> && fn, m2::PointD const & mercator, double toleranceInMeters)
 {
   double constexpr kSelectRectWidthInMeters = 1.1;
   double constexpr kMetersToLinearFeature = 3;

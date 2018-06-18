@@ -5,9 +5,12 @@
 
 #include "editor/osm_editor.hpp"
 
+#include "indexer/feature_covering.hpp"
+#include "indexer/feature_source.hpp"
 #include "indexer/features_vector.hpp"
-#include "indexer/index.hpp"
+#include "indexer/mwm_set.hpp"
 #include "indexer/scale_index.hpp"
+#include "indexer/unique_index.hpp"
 
 #include "base/macros.hpp"
 
@@ -22,7 +25,7 @@ namespace search
 void CoverRect(m2::RectD const & rect, int scale, covering::Intervals & result);
 
 /// @todo Move this class into "index" library and make it more generic.
-/// Now it duplicates "Index" functionality.
+/// Now it duplicates "DataSourceBase" functionality.
 class MwmContext
 {
 public:
@@ -39,7 +42,7 @@ public:
                      {
                        // TODO: Optimize deleted checks by getting vector of deleted indexes from
                        // the Editor.
-                       if (GetEditedStatus(index) != datasource::FeatureStatus::Deleted)
+                       if (GetEditedStatus(index) != FeatureStatus::Deleted)
                          fn(index);
                      });
   }
@@ -82,7 +85,7 @@ public:
   MwmValue & m_value;
 
 private:
-  datasource::FeatureStatus GetEditedStatus(uint32_t index) const
+  FeatureStatus GetEditedStatus(uint32_t index) const
   {
     return osm::Editor::Instance().GetFeatureStatus(GetId(), index);
   }

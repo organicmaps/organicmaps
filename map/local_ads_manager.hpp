@@ -10,8 +10,8 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
+#include "indexer/feature.hpp"
 #include "indexer/ftypes_mapping.hpp"
-#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "base/thread.hpp"
@@ -24,6 +24,8 @@
 #include <set>
 #include <string>
 #include <vector>
+
+class DataSourceBase;
 
 namespace feature
 {

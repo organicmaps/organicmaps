@@ -3,6 +3,7 @@
 #include "editor/feature_matcher.hpp"
 
 #include "indexer/feature.hpp"
+#include "indexer/feature_source.hpp"
 
 #include "geometry/algorithm.hpp"
 #include "geometry/mercator.hpp"
@@ -16,13 +17,13 @@ namespace editor
 {
 FeatureID MigrateNodeFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach,
                                   XMLFeature const & xml,
-                                  datasource::FeatureStatus const featureStatus,
+                                  FeatureStatus const featureStatus,
                                   TGenerateIDFn const & generateID)
 {
   unique_ptr<FeatureType> feature;
   auto count = 0;
   forEach(
-      [&feature, &xml, &count](FeatureType const & ft)
+      [&feature, &count](FeatureType const & ft)
       {
         if (ft.GetFeatureType() != feature::GEOM_POINT)
           return;
@@ -32,9 +33,9 @@ FeatureID MigrateNodeFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach
       },
       MercatorBounds::FromLatLon(xml.GetCenter()));
 
-  if (!feature && featureStatus != datasource::FeatureStatus::Created)
+  if (!feature && featureStatus != FeatureStatus::Created)
     MYTHROW(MigrationError, ("No pointed features returned."));
-  if (featureStatus == datasource::FeatureStatus::Created)
+  if (featureStatus == FeatureStatus::Created)
     return generateID();
 
   if (count > 1)
@@ -47,7 +48,7 @@ FeatureID MigrateNodeFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach
 
 FeatureID MigrateWayOrRelatonFeatureIndex(
     osm::Editor::ForEachFeaturesNearByFn & forEach, XMLFeature const & xml,
-    datasource::FeatureStatus const /* Unused for now (we don't create/delete area features)*/,
+    FeatureStatus const /* Unused for now (we don't create/delete area features)*/,
     TGenerateIDFn const & /*Unused for the same reason*/)
 {
   unique_ptr<FeatureType> feature;
@@ -62,7 +63,7 @@ FeatureID MigrateWayOrRelatonFeatureIndex(
   auto const someFeaturePoint = geometry[0];
 
   forEach(
-      [&feature, &xml, &geometry, &count, &bestScore](FeatureType const & ft)
+      [&feature, &geometry, &count, &bestScore](FeatureType const & ft)
       {
         if (ft.GetFeatureType() != feature::GEOM_AREA)
           return;
@@ -104,7 +105,7 @@ FeatureID MigrateWayOrRelatonFeatureIndex(
 
 FeatureID MigrateFeatureIndex(osm::Editor::ForEachFeaturesNearByFn & forEach,
                               XMLFeature const & xml,
-                              datasource::FeatureStatus const featureStatus,
+                              FeatureStatus const featureStatus,
                               TGenerateIDFn const & generateID)
 {
   switch (xml.GetType())

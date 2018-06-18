@@ -15,7 +15,7 @@
 #include "routing/router_delegate.hpp"
 #include "routing/routing_callbacks.hpp"
 
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 
 #include "storage/country_parent_getter.hpp"
 
@@ -41,7 +41,7 @@ using namespace routing;
 using namespace routing_test;
 
 using TRouterFactory =
-    function<unique_ptr<IRouter>(Index & index, TCountryFileFn const & countryFileFn,
+    function<unique_ptr<IRouter>(DataSourceBase & index, TCountryFileFn const & countryFileFn,
                                  shared_ptr<NumMwmIds> numMwmIds)>;
 
 namespace
@@ -85,7 +85,7 @@ namespace integration
     return storage::CountryInfoReader::CreateCountryInfoReader(platform);
   }
 
-  unique_ptr<IndexRouter> CreateVehicleRouter(Index & index,
+  unique_ptr<IndexRouter> CreateVehicleRouter(DataSourceBase & index,
                                               storage::CountryInfoGetter const & infoGetter,
                                               traffic::TrafficCache const & trafficCache,
                                               vector<LocalCountryFile> const & localFiles,
@@ -120,7 +120,7 @@ namespace integration
     return indexRouter;
   }
 
-  unique_ptr<IRouter> CreateAStarRouter(Index & index,
+  unique_ptr<IRouter> CreateAStarRouter(DataSourceBase & index,
                                         storage::CountryInfoGetter const & infoGetter,
                                         vector<LocalCountryFile> const & localFiles,
                                         TRouterFactory const & routerFactory)

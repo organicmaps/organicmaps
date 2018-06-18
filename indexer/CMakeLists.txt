@@ -30,6 +30,10 @@ set(
   data_factory.hpp
   data_header.cpp
   data_header.hpp
+  data_source.cpp
+  data_source.hpp
+  data_source_helpers.cpp
+  data_source_helpers.hpp
   drawing_rule_def.cpp
   drawing_rule_def.hpp
   drawing_rules.cpp
@@ -82,10 +86,6 @@ set(
   ftypes_sponsored.hpp
   index_builder.cpp
   index_builder.hpp
-  index_helpers.cpp
-  index_helpers.hpp
-  index.cpp
-  index.hpp
   interval_index_builder.hpp
   interval_index.hpp
   locality_index.hpp

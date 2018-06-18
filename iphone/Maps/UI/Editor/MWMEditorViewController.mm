@@ -27,6 +27,8 @@
 
 #include "editor/osm_editor.hpp"
 
+#include "indexer/feature_source.hpp"
+
 namespace
 {
 NSString * const kAdditionalNamesEditorSegue = @"Editor2AdditionalNamesEditorSegue";
@@ -167,7 +169,7 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
 @property(nonatomic) MWMEditorAdditionalNamesHeader * additionalNamesHeader;
 @property(nonatomic) MWMEditorNotesFooter * notesFooter;
 @property(copy, nonatomic) NSString * note;
-@property(nonatomic) datasource::FeatureStatus featureStatus;
+@property(nonatomic) FeatureStatus featureStatus;
 @property(nonatomic) BOOL isFeatureUploaded;
 
 @property(nonatomic) BOOL showAdditionalNames;
@@ -661,20 +663,19 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
   {
     MWMButtonCell * tCell = static_cast<MWMButtonCell *>(cell);
 
-    auto title = ^NSString *(datasource::FeatureStatus s, BOOL isUploaded)
+    auto title = ^NSString *(FeatureStatus s, BOOL isUploaded)
     {
       if (isUploaded)
         return L(@"editor_place_doesnt_exist");
       switch (s)
       {
-      case datasource::FeatureStatus::Untouched: return L(@"editor_place_doesnt_exist");
-      case datasource::FeatureStatus::Deleted:
-      case datasource::FeatureStatus::Obsolete:  // TODO(Vlad): Either make a valid button or
-                                                  // disable it.
+      case FeatureStatus::Untouched: return L(@"editor_place_doesnt_exist");
+      case FeatureStatus::Deleted:
+      case FeatureStatus::Obsolete:  // TODO(Vlad): Either make a valid button or disable it.
         NSAssert(false, @"Incorrect feature status!");
         return L(@"editor_place_doesnt_exist");
-      case datasource::FeatureStatus::Modified: return L(@"editor_reset_edits_button");
-      case datasource::FeatureStatus::Created: return L(@"editor_remove_place_button");
+      case FeatureStatus::Modified: return L(@"editor_reset_edits_button");
+      case FeatureStatus::Created: return L(@"editor_remove_place_button");
       }
     };
 
@@ -996,23 +997,23 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
   {
     switch (self.featureStatus)
     {
-    case datasource::FeatureStatus::Untouched: placeDoesntExistAction(); break;
-    case datasource::FeatureStatus::Modified:
+    case FeatureStatus::Untouched: placeDoesntExistAction(); break;
+    case FeatureStatus::Modified:
     {
       [self.alertController presentResetChangesAlertWithBlock:^{
         revertAction(NO);
       }];
       break;
     }
-    case datasource::FeatureStatus::Created:
+    case FeatureStatus::Created:
     {
       [self.alertController presentDeleteFeatureAlertWithBlock:^{
         revertAction(YES);
       }];
       break;
     }
-    case datasource::FeatureStatus::Deleted: break;
-    case datasource::FeatureStatus::Obsolete: break;
+    case FeatureStatus::Deleted: break;
+    case FeatureStatus::Obsolete: break;
     }
   }
 }
@@ -1093,7 +1094,7 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
     [ud synchronize];
     [self onSave];
   }];
-  
+
   return YES;
 }
 

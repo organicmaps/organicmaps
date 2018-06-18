@@ -4,9 +4,10 @@
 
 #include "routing_common/vehicle_model.hpp"
 
+#include "editor/editable_data_source.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/index.hpp"
 #include "indexer/scales.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
@@ -29,7 +30,7 @@ double constexpr kMwmCrossingNodeEqualityRadiusMeters = 100.0;
 
 double GetRoadCrossingRadiusMeters() { return kMwmRoadCrossingRadiusMeters; }
 
-FeaturesRoadGraph::Value::Value(Index const & index, MwmSet::MwmHandle handle)
+FeaturesRoadGraph::Value::Value(DataSourceBase const & index, MwmSet::MwmHandle handle)
   : m_mwmHandle(move(handle))
 {
   if (!m_mwmHandle.IsAlive())
@@ -110,7 +111,7 @@ void FeaturesRoadGraph::RoadInfoCache::Clear()
 {
   m_cache.clear();
 }
-FeaturesRoadGraph::FeaturesRoadGraph(Index const & index, IRoadGraph::Mode mode,
+FeaturesRoadGraph::FeaturesRoadGraph(DataSourceBase const & index, IRoadGraph::Mode mode,
                                      shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory)
   : m_index(index), m_mode(mode), m_vehicleModel(vehicleModelFactory)
 {
@@ -204,7 +205,7 @@ void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t coun
 void FeaturesRoadGraph::GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const
 {
   FeatureType ft;
-  Index::FeaturesLoaderGuard loader(m_index, featureId.m_mwmId);
+  EditableDataSource::FeaturesLoaderGuard loader(m_index, featureId.m_mwmId);
   if (!loader.GetFeatureByIndex(featureId.m_index, ft))
     return;
 
@@ -305,7 +306,7 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
 
   FeatureType ft;
 
-  Index::FeaturesLoaderGuard loader(m_index, featureId.m_mwmId);
+  EditableDataSource::FeaturesLoaderGuard loader(m_index, featureId.m_mwmId);
 
   if (!loader.GetFeatureByIndex(featureId.m_index, ft))
     return ri;

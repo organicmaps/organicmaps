@@ -18,13 +18,13 @@
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_covering.hpp"
 #include "indexer/feature_data.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/features_vector.hpp"
-#include "indexer/index.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
@@ -141,7 +141,7 @@ size_t const Processor::kPreResultsCount = 200;
 double const Processor::kMinViewportRadiusM = 5.0 * 1000;
 double const Processor::kMaxViewportRadiusM = 50.0 * 1000;
 
-Processor::Processor(Index const & index, CategoriesHolder const & categories,
+Processor::Processor(DataSourceBase const & index, CategoriesHolder const & categories,
                      vector<Suggest> const & suggests,
                      storage::CountryInfoGetter const & infoGetter)
   : m_categories(categories)

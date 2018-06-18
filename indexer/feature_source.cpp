@@ -1,9 +1,7 @@
 #include "indexer/feature_source.hpp"
 
-#include "indexer/index.hpp"
+using namespace std;
 
-namespace datasource
-{
 string ToString(FeatureStatus fs)
 {
   switch (fs)
@@ -55,12 +53,11 @@ bool FeatureSource::GetModifiedFeature(uint32_t index, FeatureType & feature) co
 }
 
 void FeatureSource::ForEachInRectAndScale(m2::RectD const & rect, int scale,
-                                          std::function<void(FeatureID const &)> const & fn)
+                                          function<void(FeatureID const &)> const & fn) const
 {
 }
 
 void FeatureSource::ForEachInRectAndScale(m2::RectD const & rect, int scale,
-                                          std::function<void(FeatureType &)> const & fn)
+                                          function<void(FeatureType &)> const & fn) const
 {
 }
-}  // namespace datasource

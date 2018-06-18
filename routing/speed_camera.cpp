@@ -1,8 +1,8 @@
 #include "routing/speed_camera.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/index.hpp"
 #include "indexer/scales.hpp"
 
 #include "coding/read_write_utils.hpp"
@@ -37,7 +37,7 @@ uint8_t ReadCameraRestriction(FeatureType & ft)
   return 0;
 }
 
-uint8_t CheckCameraInPoint(m2::PointD const & point, Index const & index)
+uint8_t CheckCameraInPoint(m2::PointD const & point, DataSourceBase const & index)
 {
   uint32_t speedLimit = kNoSpeedCamera;
 

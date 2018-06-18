@@ -2,13 +2,14 @@
 
 #include "search/reverse_geocoder.hpp"
 
+#include "editor/editable_data_source.hpp"
+
+#include "indexer/data_source_helpers.hpp"
 #include "indexer/feature_decl.hpp"
-#include "indexer/index.hpp"
-#include "indexer/index_helpers.hpp"
 
 namespace search
 {
-EditorDelegate::EditorDelegate(Index const & index) : m_index(index) {}
+EditorDelegate::EditorDelegate(DataSourceBase const & index) : m_index(index) {}
 
 MwmSet::MwmId EditorDelegate::GetMwmIdByMapName(string const & name) const
 {
@@ -17,7 +18,7 @@ MwmSet::MwmId EditorDelegate::GetMwmIdByMapName(string const & name) const
 
 unique_ptr<FeatureType> EditorDelegate::GetOriginalFeature(FeatureID const & fid) const
 {
-  Index::FeaturesLoaderGuard guard(m_index, fid.m_mwmId);
+  EditableDataSource::FeaturesLoaderGuard guard(m_index, fid.m_mwmId);
   auto feature = guard.GetOriginalFeatureByIndex(fid.m_index);
   if (feature)
     feature->ParseEverything();

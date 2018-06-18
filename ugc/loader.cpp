@@ -1,13 +1,13 @@
 #include "ugc/loader.hpp"
 
+#include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
-#include "indexer/index.hpp"
 
 #include "defines.hpp"
 
 namespace ugc
 {
-Loader::Loader(Index const & index) : m_index(index) {}
+Loader::Loader(DataSourceBase const & index) : m_index(index) {}
 
 UGC Loader::GetUGC(FeatureID const & featureId)
 {
