@@ -1,0 +1,6 @@
+<svg width="32" height="32" viewBox="0 0 32 32">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="16" cy="16" r="16" fill="#fff" fill-opacity=".4"/>
+    <circle cx="16" cy="16" r="15" fill="#381159"/>
+  </g>
+</svg>
