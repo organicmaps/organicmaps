@@ -207,6 +207,8 @@ public:
                         storage::TCountriesVec const & absentCountries);
   void OnBuildRouteReady(routing::Route const & route, routing::RouterResultCode code);
   void OnRebuildRouteReady(routing::Route const & route, routing::RouterResultCode code);
+  void OnNeedMoreMaps(uint64_t routeId, std::vector<std::string> const & absentCountries);
+  void OnRemoveRoute(routing::RouterResultCode code);
   void OnRoutePointPassed(RouteMarkType type, size_t intermediateIndex);
   void OnLocationUpdate(location::GpsInfo const & info);
   void SetAllowSendingPoints(bool isAllowed)

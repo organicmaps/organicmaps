@@ -243,7 +243,11 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
 
   m_routingSession.SetReadyCallbacks(
       [this](Route const & route, RouterResultCode code) { OnBuildRouteReady(route, code); },
-      [this](Route const & route, RouterResultCode code) { OnRebuildRouteReady(route, code); });
+      [this](Route const & route, RouterResultCode code) { OnRebuildRouteReady(route, code); },
+      [this](uint64_t routeId, vector<string> const & absentCountries) {
+        OnNeedMoreMaps(routeId, absentCountries);
+      },
+      [this](RouterResultCode code) { OnRemoveRoute(code); });
 
   m_routingSession.SetCheckpointCallback([this](size_t passedCheckpointIdx)
   {
@@ -280,38 +284,30 @@ void RoutingManager::SetTransitManager(TransitReadManager * transitManager)
 
 void RoutingManager::OnBuildRouteReady(Route const & route, RouterResultCode code)
 {
-  // Hide preview.
+  // @TODO(bykoianko) Remove |code| from callback signature.
+  CHECK_EQUAL(code, RouterResultCode::NoError, ());
   HidePreviewSegments();
 
+  InsertRoute(route);
+  m_drapeEngine.SafeCall(&df::DrapeEngine::StopLocationFollow);
+
+  // Validate route (in case of bicycle routing it can be invalid).
+  ASSERT(route.IsValid(), ());
+  if (route.IsValid())
+  {
+    m2::RectD routeRect = route.GetPoly().GetLimitRect();
+    routeRect.Scale(kRouteScaleMultiplier);
+    m_drapeEngine.SafeCall(&df::DrapeEngine::SetModelViewRect, routeRect,
+                           true /* applyRotation */, -1 /* zoom */, true /* isAnim */);
+  }
+
   storage::TCountriesVec absentCountries;
-  if (code == RouterResultCode::NoError)
-  {
-    InsertRoute(route);
-    m_drapeEngine.SafeCall(&df::DrapeEngine::StopLocationFollow);
-
-    // Validate route (in case of bicycle routing it can be invalid).
-    ASSERT(route.IsValid(), ());
-    if (route.IsValid())
-    {
-      m2::RectD routeRect = route.GetPoly().GetLimitRect();
-      routeRect.Scale(kRouteScaleMultiplier);
-      m_drapeEngine.SafeCall(&df::DrapeEngine::SetModelViewRect, routeRect,
-                             true /* applyRotation */, -1 /* zoom */, true /* isAnim */);
-    }
-  }
-  else
-  {
-    absentCountries.assign(route.GetAbsentCountries().begin(), route.GetAbsentCountries().end());
-
-    if (code != RouterResultCode::NeedMoreMaps)
-      RemoveRoute(true /* deactivateFollowing */);
-  }
+  absentCountries.assign(route.GetAbsentCountries().begin(), route.GetAbsentCountries().end());
   CallRouteBuilded(code, absentCountries);
 }
 
 void RoutingManager::OnRebuildRouteReady(Route const & route, RouterResultCode code)
 {
-  // Hide preview.
   HidePreviewSegments();
 
   if (code != RouterResultCode::NoError)
@@ -319,6 +315,22 @@ void RoutingManager::OnRebuildRouteReady(Route const & route, RouterResultCode c
 
   InsertRoute(route);
   CallRouteBuilded(code, storage::TCountriesVec());
+}
+
+void RoutingManager::OnNeedMoreMaps(uint64_t routeId, vector<string> const & absentCountries)
+{
+  // @TODO(bykoianko) If |m_routingSession.IsRouteId(routeId)| or if |m_routingSession::m_route|
+  // was not removed lines below should be executed. It should be done
+  // when |m_routingSession::m_route| will be implemented as unique_ptr<Route>.
+  HidePreviewSegments();
+  CallRouteBuilded(RouterResultCode::NeedMoreMaps, absentCountries);
+}
+
+void RoutingManager::OnRemoveRoute(routing::RouterResultCode code)
+{
+  HidePreviewSegments();
+  RemoveRoute(true /* deactivateFollowing */);
+  CallRouteBuilded(code, vector<string>());
 }
 
 void RoutingManager::OnRoutePointPassed(RouteMarkType type, size_t intermediateIndex)
@@ -914,8 +926,8 @@ void RoutingManager::CheckLocationForRouting(location::GpsInfo const & info)
     m_routingSession.RebuildRoute(
         MercatorBounds::FromLatLon(info.m_latitude, info.m_longitude),
         [this](Route const & route, RouterResultCode code) { OnRebuildRouteReady(route, code); },
-        0 /* timeoutSec */, RoutingSession::State::RouteRebuilding,
-        true /* adjustToPrevRoute */);
+        nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */, 0 /* timeoutSec */,
+        RoutingSession::State::RouteRebuilding, true /* adjustToPrevRoute */);
   }
 }
 

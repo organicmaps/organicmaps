@@ -88,7 +88,9 @@ public:
   void BuildRoute(Checkpoints const & checkpoints,
                   uint32_t timeoutSec);
   void RebuildRoute(m2::PointD const & startPoint, ReadyCallback const & readyCallback,
-                    uint32_t timeoutSec, State routeRebuildingState, bool adjustToPrevRoute);
+                    NeedMoreMapsCallback const & needMoreMapsCallback,
+                    RemoveRouteCallback const & removeRouteCallback, uint32_t timeoutSec,
+                    State routeRebuildingState, bool adjustToPrevRoute);
 
   m2::PointD GetStartPoint() const;
   m2::PointD GetEndPoint() const;
@@ -113,6 +115,7 @@ public:
   /// \returns true if altitude information along |m_route| is available and
   /// false otherwise.
   bool HasRouteAltitude() const;
+  bool IsRouteId(uint64_t routeId) const;
 
   /// \brief copies distance from route beginning to ends of route segments in meters and
   /// route altitude information to |routeSegDistanceM| and |routeAltitudes|.
@@ -144,7 +147,9 @@ public:
 
   void SetRoutingSettings(RoutingSettings const & routingSettings);
   void SetReadyCallbacks(ReadyCallback const & buildReadyCallback,
-                         ReadyCallback const & rebuildReadyCallback);
+                         ReadyCallback const & rebuildReadyCallback,
+                         NeedMoreMapsCallback const & needMoreMapsCallback,
+                         RemoveRouteCallback const & removeRouteCallback);
   void SetProgressCallback(ProgressCallback const & progressCallback);
   void SetCheckpointCallback(CheckpointCallback const & checkpointCallback);
 
@@ -244,6 +249,8 @@ private:
 
   ReadyCallback m_buildReadyCallback;
   ReadyCallback m_rebuildReadyCallback;
+  NeedMoreMapsCallback m_needMoreMapsCallback;
+  RemoveRouteCallback m_removeRouteCallback;
   ProgressCallback m_progressCallback;
   CheckpointCallback m_checkpointCallback;
 

@@ -64,6 +64,7 @@ void Route::Swap(Route & rhs)
   swap(m_subrouteUid, rhs.m_subrouteUid);
   swap(m_currentSubrouteIdx, rhs.m_currentSubrouteIdx);
   m_subrouteAttrs.swap(rhs.m_subrouteAttrs);
+  swap(m_routeId, rhs.m_routeId);
 }
 
 void Route::AddAbsentCountry(string const & name)

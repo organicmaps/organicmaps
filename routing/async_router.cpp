@@ -41,10 +41,16 @@ map<string, string> PrepareStatisticsData(string const & routerName,
 // ----------------------------------------------------------------------------------------------------------------------------
 
 AsyncRouter::RouterDelegateProxy::RouterDelegateProxy(ReadyCallbackOwnership const & onReady,
+                                                      NeedMoreMapsCallback const & m_onNeedMoreMaps,
+                                                      RemoveRouteCallback const & removeRoute,
                                                       PointCheckCallback const & onPointCheck,
                                                       ProgressCallback const & onProgress,
                                                       uint32_t timeoutSec)
-  : m_onReady(onReady), m_onPointCheck(onPointCheck), m_onProgress(onProgress)
+  : m_onReady(onReady)
+  , m_onNeedMoreMaps(m_onNeedMoreMaps)
+  , m_removeRoute(removeRoute)
+  , m_onPointCheck(onPointCheck)
+  , m_onProgress(onProgress)
 {
   m_delegate.Reset();
   m_delegate.SetPointCheckCallback(bind(&RouterDelegateProxy::OnPointCheck, this, _1));
@@ -62,6 +68,31 @@ void AsyncRouter::RouterDelegateProxy::OnReady(Route & route, RouterResultCode r
       return;
   }
   m_onReady(route, resultCode);
+}
+
+void AsyncRouter::RouterDelegateProxy::OnNeedMoreMaps(uint64_t routeId,
+                                                      vector<string> const & absentCounties)
+{
+  if (!m_onNeedMoreMaps)
+    return;
+  {
+    lock_guard<mutex> l(m_guard);
+    if (m_delegate.IsCancelled())
+      return;
+  }
+  m_onNeedMoreMaps(routeId, absentCounties);
+}
+
+void AsyncRouter::RouterDelegateProxy::OnRemoveRoute(RouterResultCode resultCode)
+{
+  if (!m_removeRoute)
+    return;
+  {
+    lock_guard<mutex> l(m_guard);
+    if (m_delegate.IsCancelled())
+      return;
+  }
+  m_removeRoute(resultCode);
 }
 
 void AsyncRouter::RouterDelegateProxy::Cancel()
@@ -131,6 +162,8 @@ void AsyncRouter::SetRouter(unique_ptr<IRouter> && router, unique_ptr<IOnlineFet
 
 void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction,
                                  bool adjustToPrevRoute, ReadyCallbackOwnership const & readyCallback,
+                                 NeedMoreMapsCallback const & needMoreMapsCallback,
+                                 RemoveRouteCallback const & removeRouteCallback,
                                  ProgressCallback const & progressCallback,
                                  uint32_t timeoutSec)
 {
@@ -142,7 +175,8 @@ void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD con
 
   ResetDelegate();
 
-  m_delegate = make_shared<RouterDelegateProxy>(readyCallback, m_pointCheckCallback, progressCallback, timeoutSec);
+  m_delegate = make_shared<RouterDelegateProxy>(readyCallback, needMoreMapsCallback, removeRouteCallback,
+                                                m_pointCheckCallback, progressCallback, timeoutSec);
 
   m_hasRequest = true;
   m_threadCondVar.notify_one();
@@ -257,7 +291,7 @@ void AsyncRouter::CalculateRoute()
   bool adjustToPrevRoute = false;
   shared_ptr<IOnlineFetcher> absentFetcher;
   shared_ptr<IRouter> router;
-  uint64_t routeCounter = m_routeCounter;
+  uint64_t routeId = m_routeCounter;
 
   {
     unique_lock<mutex> ul(m_guard);
@@ -277,10 +311,10 @@ void AsyncRouter::CalculateRoute()
     delegate = m_delegate;
     router = m_router;
     absentFetcher = m_absentFetcher;
-    routeCounter = ++m_routeCounter;
+    routeId = ++m_routeCounter;
   }
 
-  Route route(router->GetName(), routeCounter);
+  Route route(router->GetName(), routeId);
   RouterResultCode code;
 
   my::Timer timer;
@@ -322,11 +356,7 @@ void AsyncRouter::CalculateRoute()
   // Check online response if we have.
   vector<string> absent;
   if (absentFetcher && needFetchAbsent)
-  {
     absentFetcher->GetAbsentCountries(absent);
-    for (string const & country : absent)
-      route.AddAbsentCountry(country);
-  }
 
   if (!absent.empty() && code == RouterResultCode::NoError)
     code = RouterResultCode::NeedMoreMaps;
@@ -336,7 +366,12 @@ void AsyncRouter::CalculateRoute()
 
   // Call callback only if we have some new data.
   if (code != RouterResultCode::NoError)
-    delegate->OnReady(route, code);
+  {
+    if (code == RouterResultCode::NeedMoreMaps)
+      delegate->OnNeedMoreMaps(routeId, absent);
+    else
+      delegate->OnRemoveRoute(code);
+  }
 }
 
 void AsyncRouter::SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,

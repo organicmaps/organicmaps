@@ -10,6 +10,7 @@
 #include "base/timer.hpp"
 
 #include "std/condition_variable.hpp"
+#include "std/cstdint.hpp"
 #include "std/mutex.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
@@ -68,11 +69,31 @@ struct DummyResultCallback
 
   DummyResultCallback(uint32_t expectedCalls) : m_expected(expectedCalls), m_called(0) {}
 
+  // ReadyCallbackOwnership callback
   void operator()(Route & route, RouterResultCode code)
   {
     m_codes.push_back(code);
     auto const & absent = route.GetAbsentCountries();
     m_absent.emplace_back(absent.begin(), absent.end());
+    TestAndNotifyReadyCallbacks();
+  }
+
+  // NeedMoreMapsCallback callback
+  void operator()(uint64_t routeId, vector<string> const & absent)
+  {
+    m_codes.push_back(RouterResultCode::NeedMoreMaps);
+    m_absent.emplace_back(absent.begin(), absent.end());
+    TestAndNotifyReadyCallbacks();
+  }
+
+  void WaitFinish()
+  {
+    unique_lock<mutex> lk(m_lock);
+    return m_cv.wait(lk, [this] { return m_called == m_expected; });
+  }
+
+  void TestAndNotifyReadyCallbacks()
+  {
     {
       lock_guard<mutex> calledLock(m_lock);
       ++m_called;
@@ -80,12 +101,6 @@ struct DummyResultCallback
                          ("The result callback called more times than expected."));
     }
     m_cv.notify_all();
-  }
-
-  void WaitFinish()
-  {
-    unique_lock<mutex> lk(m_lock);
-    return m_cv.wait(lk, [this] { return m_called == m_expected; });
   }
 };
 
@@ -98,7 +113,9 @@ UNIT_TEST(NeedMoreMapsSignalTest)
   AsyncRouter async(DummyStatisticsCallback, nullptr /* pointCheckCallback */);
   async.SetRouter(move(router), move(fetcher));
   async.CalculateRoute(Checkpoints({1, 2} /* start */, {5, 6} /* finish */), {3, 4}, false,
-                       bind(ref(resultCallback), _1, _2), nullptr, 0);
+                       bind(ref(resultCallback), _1, _2) /* readyCallback */,
+                       bind(ref(resultCallback), _1, _2) /* needMoreMapsCallback */,
+                       nullptr /* removeRouteCallback */, nullptr /* progressCallback */, 0);
 
   resultCallback.WaitFinish();
 
@@ -119,7 +136,8 @@ UNIT_TEST(StandartAsyncFogTest)
   AsyncRouter async(DummyStatisticsCallback, nullptr /* pointCheckCallback */);
   async.SetRouter(move(router), move(fetcher));
   async.CalculateRoute(Checkpoints({1, 2} /* start */, {5, 6} /* finish */), {3, 4}, false,
-                       bind(ref(resultCallback), _1, _2), nullptr, 0);
+                       bind(ref(resultCallback), _1, _2), nullptr /* needMoreMapsCallback */,
+                       nullptr /* progressCallback */, nullptr /* removeRouteCallback */, 0);
 
   resultCallback.WaitFinish();
 

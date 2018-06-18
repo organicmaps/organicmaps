@@ -104,7 +104,8 @@ UNIT_TEST(TestRouteBuilding)
       make_unique<DummyRouter>(masterRoute, RouterResultCode::NoError, counter);
   session.SetRouter(move(router), nullptr);
   session.SetReadyCallbacks(
-      [&timedSignal](Route const &, RouterResultCode) { timedSignal.Signal(); }, nullptr);
+      [&timedSignal](Route const &, RouterResultCode) { timedSignal.Signal(); },
+      nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
   session.BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
   // Manual check of the routeBuilded mutex to avoid spurious results.
   auto const time = steady_clock::now() + kRouteBuildingMaxDuration;
@@ -130,7 +131,7 @@ UNIT_TEST(TestRouteRebuilding)
   TimedSignal alongTimedSignal;
   session.SetReadyCallbacks(
       [&alongTimedSignal](Route const &, RouterResultCode) { alongTimedSignal.Signal(); },
-      nullptr);
+      nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
   session.BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
   // Manual check of the routeBuilded mutex to avoid spurious results.
   auto time = steady_clock::now() + kRouteBuildingMaxDuration;
@@ -156,7 +157,7 @@ UNIT_TEST(TestRouteRebuilding)
   TimedSignal oppositeTimedSignal;
   session.SetReadyCallbacks(
       [&oppositeTimedSignal](Route const &, RouterResultCode) { oppositeTimedSignal.Signal(); },
-      nullptr);
+      nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
   session.BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
   TEST(oppositeTimedSignal.WaitUntil(time), ("Route was not built."));
 
@@ -188,7 +189,7 @@ UNIT_TEST(TestFollowRouteFlagPersistence)
   TimedSignal alongTimedSignal;
   session.SetReadyCallbacks(
       [&alongTimedSignal](Route const &, RouterResultCode) { alongTimedSignal.Signal(); },
-      nullptr);
+      nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
   session.BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
   // Manual check of the routeBuilded mutex to avoid spurious results.
   auto time = steady_clock::now() + kRouteBuildingMaxDuration;
@@ -219,7 +220,7 @@ UNIT_TEST(TestFollowRouteFlagPersistence)
   TimedSignal oppositeTimedSignal;
   session.SetReadyCallbacks(
       [&oppositeTimedSignal](Route const &, RouterResultCode) { oppositeTimedSignal.Signal(); },
-      nullptr);
+      nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
   session.BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
   TEST(oppositeTimedSignal.WaitUntil(time), ("Route was not built."));
 
@@ -240,8 +241,9 @@ UNIT_TEST(TestFollowRouteFlagPersistence)
   TimedSignal rebuildTimedSignal;
   session.RebuildRoute(
       kTestRoute.front(),
-      [&rebuildTimedSignal](Route const &, RouterResultCode) { rebuildTimedSignal.Signal(); }, 0,
-      RoutingSession::State::RouteBuilding, false /* adjust */);
+      [&rebuildTimedSignal](Route const &, RouterResultCode) { rebuildTimedSignal.Signal(); },
+      nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */, 0, RoutingSession::State::RouteBuilding,
+      false /* adjust */);
   TEST(rebuildTimedSignal.WaitUntil(time), ("Route was not built."));
   TEST(session.IsFollowing(), ());
 }
@@ -266,7 +268,7 @@ UNIT_TEST(TestFollowRoutePercentTest)
   TimedSignal alongTimedSignal;
   session.SetReadyCallbacks(
       [&alongTimedSignal](Route const &, RouterResultCode) { alongTimedSignal.Signal(); },
-      nullptr);
+      nullptr /* rebuildReadyCallback */, nullptr /* needMoreMapsCallback */, nullptr /* removeRouteCallback */);
   session.BuildRoute(Checkpoints(kTestRoute.front(), kTestRoute.back()), 0);
   // Manual check of the routeBuilded mutex to avoid spurious results.
   auto time = steady_clock::now() + kRouteBuildingMaxDuration;
@@ -289,7 +291,6 @@ UNIT_TEST(TestFollowRoutePercentTest)
   info.m_latitude = 2.;
   session.OnLocationPositionChanged(info, dataSource);
   TEST(my::AlmostEqualAbs(session.GetCompletionPercent(), 33.3, 0.5), ());
-
 
   info.m_longitude = 0.;
   info.m_latitude = 3.;

@@ -43,8 +43,13 @@ public:
   /// @param readyCallback function to return routing result
   /// @param progressCallback function to update the router progress
   /// @param timeoutSec timeout to cancel routing. 0 is infinity.
+  // @TODO(bykoianko) Gather |readyCallback| with passing ownership of unique_ptr,
+  // |needMoreMapsCallback| and |removeRouteCallback| to one delegate. No need to add
+  // |progressCallback| to the delegate.
   void CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction,
                       bool adjustToPrevRoute, ReadyCallbackOwnership const & readyCallback,
+                      NeedMoreMapsCallback const & needMoreMapsCallback,
+                      RemoveRouteCallback const & removeRouteCallback,
                       ProgressCallback const & progressCallback,
                       uint32_t timeoutSec);
 
@@ -77,11 +82,15 @@ private:
   {
   public:
     RouterDelegateProxy(ReadyCallbackOwnership const & onReady,
+                        NeedMoreMapsCallback const & onNeedMoreMaps,
+                        RemoveRouteCallback const & removeRoute,
                         PointCheckCallback const & onPointCheck,
                         ProgressCallback const & onProgress,
                         uint32_t timeoutSec);
 
     void OnReady(Route & route, RouterResultCode resultCode);
+    void OnNeedMoreMaps(uint64_t routeId, std::vector<std::string> const & absentCounties);
+    void OnRemoveRoute(RouterResultCode resultCode);
     void Cancel();
 
     RouterDelegate const & GetDelegate() const { return m_delegate; }
@@ -92,6 +101,10 @@ private:
 
     mutex m_guard;
     ReadyCallbackOwnership const m_onReady;
+    // |m_onNeedMoreMaps| may be called after |m_onReady| if there's a faster route,
+    // but it's necessary to load some more maps to build it.
+    NeedMoreMapsCallback const m_onNeedMoreMaps;
+    RemoveRouteCallback const m_removeRoute;
     PointCheckCallback const m_onPointCheck;
     ProgressCallback const m_onProgress;
     RouterDelegate m_delegate;

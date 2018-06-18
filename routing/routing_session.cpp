@@ -94,13 +94,16 @@ void RoutingSession::BuildRoute(Checkpoints const & checkpoints,
     m_routingRebuildCount = -1; // -1 for the first rebuild.
   }
 
-  RebuildRoute(checkpoints.GetStart(), m_buildReadyCallback, timeoutSec, RouteBuilding,
-               false /* adjust */);
+  RebuildRoute(checkpoints.GetStart(), m_buildReadyCallback, m_needMoreMapsCallback,
+               m_removeRouteCallback, timeoutSec, RouteBuilding, false /* adjust */);
 }
 
 void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
-                                  ReadyCallback const & readyCallback, uint32_t timeoutSec,
-                                  State routeRebuildingState, bool adjustToPrevRoute)
+                                  ReadyCallback const & readyCallback,
+                                  NeedMoreMapsCallback const & needMoreMapsCallback,
+                                  RemoveRouteCallback const & removeRouteCallback,
+                                  uint32_t timeoutSec, State routeRebuildingState,
+                                  bool adjustToPrevRoute)
 {
   {
     // @TODO(bykoianko) After moving all routing callbacks to single thread this guard can be
@@ -120,7 +123,7 @@ void RoutingSession::RebuildRoute(m2::PointD const & startPoint,
   // (callback param isn't captured by value).
   m_router->CalculateRoute(m_checkpoints, m_currentDirection, adjustToPrevRoute,
                            DoReadyCallback(*this, readyCallback, m_routingSessionMutex),
-                           m_progressCallback, timeoutSec);
+                           needMoreMapsCallback, removeRouteCallback, m_progressCallback, timeoutSec);
 }
 
 m2::PointD RoutingSession::GetStartPoint() const
@@ -194,7 +197,8 @@ void RoutingSession::RebuildRouteOnTrafficUpdate()
     m_router->ClearState();
   }
 
-  RebuildRoute(startPoint, m_rebuildReadyCallback, 0 /* timeoutSec */,
+  RebuildRoute(startPoint, m_rebuildReadyCallback, nullptr /* needMoreMapsCallback */,
+               nullptr /* removeRouteCallback */, 0 /* timeoutSec */,
                routing::RoutingSession::State::RouteRebuilding, false /* adjustToPrevRoute */);
 }
 
@@ -600,7 +604,9 @@ void RoutingSession::SetRoutingSettings(RoutingSettings const & routingSettings)
 }
 
 void RoutingSession::SetReadyCallbacks(ReadyCallback const & buildReadyCallback,
-                                       ReadyCallback const & rebuildReadyCallback)
+                                       ReadyCallback const & rebuildReadyCallback,
+                                       NeedMoreMapsCallback const & needMoreMapsCallback,
+                                       RemoveRouteCallback const & removeRouteCallback)
 {
   m_buildReadyCallback = buildReadyCallback;
   // m_rebuildReadyCallback used from multiple threads but it's the only place we write m_rebuildReadyCallback
@@ -611,6 +617,8 @@ void RoutingSession::SetReadyCallbacks(ReadyCallback const & buildReadyCallback,
   //      variable cause we need pass it to RebuildRoute and do not want to execute route rebuild with mutex.
   // But it'll make code worse and will not improve safety.
   m_rebuildReadyCallback = rebuildReadyCallback;
+  m_needMoreMapsCallback = needMoreMapsCallback;
+  m_removeRouteCallback = removeRouteCallback;
 }
 
 void RoutingSession::SetProgressCallback(ProgressCallback const & progressCallback)
@@ -727,6 +735,12 @@ bool RoutingSession::HasRouteAltitude() const
   threads::MutexGuard guard(m_routingSessionMutex);
   ASSERT(m_route, ());
   return m_route->HaveAltitudes();
+}
+
+bool RoutingSession::IsRouteId(uint64_t routeId) const
+{
+  threads::MutexGuard guard(m_routingSessionMutex);
+  return m_route->IsRouteId(routeId);
 }
 
 bool RoutingSession::GetRouteAltitudesAndDistancesM(vector<double> & routeSegDistanceM,
