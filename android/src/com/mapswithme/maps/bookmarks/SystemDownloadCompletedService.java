@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
+import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.Error;
@@ -24,6 +25,16 @@ public class SystemDownloadCompletedService extends IntentService
   public SystemDownloadCompletedService()
   {
     super("GetFileMetaDataService");
+  }
+
+  @Override
+  public void onCreate()
+  {
+    super.onCreate();
+    MwmApplication app = (MwmApplication) getApplication();
+    if (app.arePlatformAndCoreInitialized())
+      return;
+    app.initCore();
   }
 
   @Override
