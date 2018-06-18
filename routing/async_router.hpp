@@ -43,9 +43,8 @@ public:
   /// @param readyCallback function to return routing result
   /// @param progressCallback function to update the router progress
   /// @param timeoutSec timeout to cancel routing. 0 is infinity.
-  // @TODO(bykoianko) Gather |readyCallback| with passing ownership of unique_ptr,
-  // |needMoreMapsCallback| and |removeRouteCallback| to one delegate. No need to add
-  // |progressCallback| to the delegate.
+  // @TODO(bykoianko) Gather |readyCallback|, |needMoreMapsCallback| and |removeRouteCallback|
+  // to one delegate. No need to add |progressCallback| to the delegate.
   void CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction,
                       bool adjustToPrevRoute, ReadyCallbackOwnership const & readyCallback,
                       NeedMoreMapsCallback const & needMoreMapsCallback,
@@ -88,7 +87,7 @@ private:
                         ProgressCallback const & onProgress,
                         uint32_t timeoutSec);
 
-    void OnReady(Route & route, RouterResultCode resultCode);
+    void OnReady(unique_ptr<Route> route, RouterResultCode resultCode);
     void OnNeedMoreMaps(uint64_t routeId, std::vector<std::string> const & absentCounties);
     void OnRemoveRoute(RouterResultCode resultCode);
     void Cancel();
@@ -101,8 +100,9 @@ private:
 
     mutex m_guard;
     ReadyCallbackOwnership const m_onReady;
-    // |m_onNeedMoreMaps| may be called after |m_onReady| if there's a faster route,
-    // but it's necessary to load some more maps to build it.
+    // |m_onNeedMoreMaps| may be called after |m_onReady| if
+    // - it's possible to build route only if to load some maps
+    // - there's a faster route, but it's necessary to load some more maps to build it
     NeedMoreMapsCallback const m_onNeedMoreMaps;
     RemoveRouteCallback const m_removeRoute;
     PointCheckCallback const m_onPointCheck;

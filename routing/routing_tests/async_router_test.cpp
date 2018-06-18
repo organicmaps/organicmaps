@@ -13,6 +13,7 @@
 #include "std/cstdint.hpp"
 #include "std/mutex.hpp"
 #include "std/string.hpp"
+#include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
 using namespace routing;
@@ -67,13 +68,14 @@ struct DummyResultCallback
   uint32_t const m_expected;
   uint32_t m_called;
 
-  DummyResultCallback(uint32_t expectedCalls) : m_expected(expectedCalls), m_called(0) {}
+  explicit DummyResultCallback(uint32_t expectedCalls) : m_expected(expectedCalls), m_called(0) {}
 
   // ReadyCallbackOwnership callback
-  void operator()(Route & route, RouterResultCode code)
+  void operator()(unique_ptr<Route> route, RouterResultCode code)
   {
+    CHECK(route, ());
     m_codes.push_back(code);
-    auto const & absent = route.GetAbsentCountries();
+    auto const & absent = route->GetAbsentCountries();
     m_absent.emplace_back(absent.begin(), absent.end());
     TestAndNotifyReadyCallbacks();
   }

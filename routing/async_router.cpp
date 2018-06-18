@@ -10,6 +10,7 @@
 #include "base/timer.hpp"
 
 #include "std/functional.hpp"
+#include "std/utility.hpp"
 
 using namespace std;
 using namespace std::placeholders;
@@ -58,7 +59,7 @@ AsyncRouter::RouterDelegateProxy::RouterDelegateProxy(ReadyCallbackOwnership con
   m_delegate.SetTimeout(timeoutSec);
 }
 
-void AsyncRouter::RouterDelegateProxy::OnReady(Route & route, RouterResultCode resultCode)
+void AsyncRouter::RouterDelegateProxy::OnReady(unique_ptr<Route> route, RouterResultCode resultCode)
 {
   if (!m_onReady)
     return;
@@ -67,7 +68,7 @@ void AsyncRouter::RouterDelegateProxy::OnReady(Route & route, RouterResultCode r
     if (m_delegate.IsCancelled())
       return;
   }
-  m_onReady(route, resultCode);
+  m_onReady(move(route), resultCode);
 }
 
 void AsyncRouter::RouterDelegateProxy::OnNeedMoreMaps(uint64_t routeId,
@@ -314,7 +315,7 @@ void AsyncRouter::CalculateRoute()
     routeId = ++m_routeCounter;
   }
 
-  Route route(router->GetName(), routeId);
+  unique_ptr<Route> route = make_unique<Route>(router->GetName(), routeId);
   RouterResultCode code;
 
   my::Timer timer;
@@ -330,7 +331,7 @@ void AsyncRouter::CalculateRoute()
 
     // Run basic request.
     code = router->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute,
-                                  delegate->GetDelegate(), route);
+                                  delegate->GetDelegate(), *route);
 
     elapsedSec = timer.ElapsedSeconds(); // routing time
     LogCode(code, elapsedSec);
@@ -340,16 +341,16 @@ void AsyncRouter::CalculateRoute()
     code = RouterResultCode::InternalError;
     LOG(LERROR, ("Exception happened while calculating route:", e.Msg()));
     SendStatistics(checkpoints.GetStart(), startDirection, checkpoints.GetFinish(), e.Msg());
-    delegate->OnReady(route, code);
+    delegate->OnReady(move(route), code);
     return;
   }
 
-  SendStatistics(checkpoints.GetStart(), startDirection, checkpoints.GetFinish(), code, route,
+  SendStatistics(checkpoints.GetStart(), startDirection, checkpoints.GetFinish(), code, *route,
                  elapsedSec);
 
   // Draw route without waiting network latency.
   if (code == RouterResultCode::NoError)
-    delegate->OnReady(route, code);
+    delegate->OnReady(move(route), code);
 
   bool const needFetchAbsent = (code != RouterResultCode::Cancelled);
 

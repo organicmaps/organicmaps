@@ -189,7 +189,7 @@ private:
     {
     }
 
-    void operator()(Route & route, RouterResultCode e);
+    void operator()(unique_ptr<Route> route, RouterResultCode e);
   };
 
   // Should be called with locked m_routingSessionMutex.

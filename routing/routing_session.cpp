@@ -137,12 +137,13 @@ m2::PointD RoutingSession::GetEndPoint() const
   return m_checkpoints.GetFinish();
 }
 
-void RoutingSession::DoReadyCallback::operator()(Route & route, RouterResultCode e)
+void RoutingSession::DoReadyCallback::operator()(unique_ptr<Route> route, RouterResultCode e)
 {
   threads::MutexGuard guard(m_routeSessionMutexInner);
 
   ASSERT(m_rs.m_route, ());
-  m_rs.AssignRoute(route, e);
+  // @TODO(bykoianko) Move |route| to m_rs.AssignRoute() method.
+  m_rs.AssignRoute(*route, e);
   m_callback(*m_rs.m_route, e);
 }
 
