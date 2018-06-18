@@ -470,7 +470,7 @@ da:2^Bar|øl|pub|drink
 nl:2^Bar|2pub|2café|bier|drinken
 fi:2^Baari
 fr:2^Bar|2pub|bière|boisson
-de:2^Bar|2Pub|Kneipe|Bier
+de:2^Bar|2Pub|Kneipe|Bier|Trinken|Gaststätte|Bars und Kneipen|Brauhaus|Cocktail-Lounge
 hu:2^Bár|2kocsma|sör|ital|élelmiszer
 id:2^Bar|2pub|minuman
 it:2^Bar|2birra|pub|mangiare
@@ -535,7 +535,7 @@ da:3^Café|restaurant
 nl:3^Tearoom|3brasserie|3café|3restaurant
 fi:2^Kahvila
 fr:3^Café|3restaurant|3resto
-de:3^Café|3Restaurant|Kaffee
+de:3^Café|3Restaurant|Kaffee|Bistro|Mittagessen|Kaffeehaus|Kaffeebar|Kaffee|Kantine|Cafeteria|Esszimmer|Speiselokal|Buffet
 hu:3^Kávézó|3étterem|3élelmiszer
 id:3^Kafe|3restoran
 it:3^Caffè|3ristorante|pasto|mangiare
@@ -568,7 +568,7 @@ da:4^Fastfood|restaurant|café|takeaway
 nl:4^Fast food|3frituur|fritkot|3restaurant|afhaaleten
 fi:3^Pikaruokala
 fr:4^Restauration rapide|3restaurant|3café|à emporter|3resto
-de:4^Fast-Food|Takeaway|Restaurant|Café|Pizzeria
+de:4^Fast-Food|Takeaway|Restaurant|Café|Pizzeria|Imbiss|Essen zum Mitnehmen|Junkfood
 hu:4^Gyorsétterem|3étterem|3kávézó|3élelmiszer
 id:^Cepat saji|3restoran
 it:4^Fast food|takeaway|caffè|ristorante|pasto|mangiare
@@ -600,7 +600,7 @@ da:3^Restaurant|café
 nl:3^Restaurant|3café
 fi:3^Ravintola
 fr:3^Restaurant|3café|3resto
-de:3^Restaurant|3Café|Gasthaus|Gaststube
+de:3^Restaurant|3Café|Gasthaus|Gaststube|Imbiss|Speiselokal|Mahlzeiten|Mittagessen|Abendessen|Gastwirtschaft|Buffet
 hu:3^Étterem|3kávézó|3élelmiszer
 id:^Restoran|3kafe
 it:3^Ristorante|3caffè|mangiare
@@ -746,7 +746,7 @@ da:^Døgnbutik|døgnkiosk|kiosk
 nl:^Buurtwinkel|kruidenier
 fi:^Lähikauppa
 fr:^Supérette
-de:^Gemischtwarenladen
+de:^Gemischtwarenladen|Verbauchermarkt|Lebensmittelhändler|Lebensmittelhandlung|Supermarkt|Lebensmittelgeschäft|Lebensmittelmarkt
 hu:^Csemegebolt|ábécé
 id:^Mini market
 it:^Minimarket
@@ -811,7 +811,7 @@ da:^Mobiltelefonbutik|elektronikforretning
 nl:^Mobiele telefoonwinkel|elektronicawinkel
 fi:^Elektroniikkakauppa
 fr:^Magasin de téléphonie|magasin d'électronique
-de:^Handyladen|Eletronikgeschäft
+de:^Handyladen|Eletronikgeschäft|Funktelefone|Mobiltelefone
 hu:^Mobiltelefon üzlet|elektronikai szaküzlet
 id:^Toko telepon
 it:^Negozio di telefonia mobile|negozio di elettronica
@@ -844,7 +844,7 @@ da:^Blomsterbutik|blomsterforretning|blomsterhandel|blomsterhandler
 nl:^Bloemist|bloemenwinkel
 fi:^Floristi|kukkakauppa
 fr:^Fleuriste
-de:^Florist|Blumengeschäft|Blumenladen|2Laden
+de:^Florist|Blumengeschäft|Blumenladen|2Laden|Blumenhändler|Blumen|Gestecke|taggleiche Blumen|Blumenstrauß
 hu:^Virágos|virágbolt
 id:^Tukang bunga|toko bunga
 it:^Fiorista|fioraio
@@ -1004,7 +1004,7 @@ da:^Skobutik
 nl:^Schoenenwinkel|schoenwinkel
 fi:^Kenkäkauppa
 fr:^Magasin de chaussures
-de:^Schuhgeschäft|Schuhladen|2Laden
+de:^Schuhgeschäft|Schuhladen|2Laden|Schuhe|Schuhladen|Fußbekleidung|Schuhhandlung
 hu:^Cipőbolt
 id:^Toko sepatu
 it:^Negozio di scarpe
@@ -1164,7 +1164,7 @@ da:^Gavebutik|souvenirbutik
 nl:^Cadeauwinkel
 fi:^Lahjatavaraliike
 fr:^Boutique de souvenirs
-de:^Geschenkladen|Geschenke|2Laden
+de:^Geschenkladen|Geschenke|2Laden|Geschenkartikelladen|Andenkenladen|Andenken|Präsente
 hu:^Ajándékbolt
 id:^Toko hadiah
 it:^Negozio di regali
@@ -1196,7 +1196,7 @@ da:^Skønhedssalon
 nl:^Schoonheidssalon
 fi:^Kauneushoitola
 fr:^Salon de beauté|Institut de beauté
-de:^Schönheitssalon|Schönheitsshop
+de:^Schönheitssalon|Schönheitsshop|Kosmetiker|Friseur|Frisör|Haarschnitt|Kosmetikstudio|Friseursalon|Kosmetiksalon|Nagelstudio|Färbung
 hu:^Szépségszalon
 id:^Salon kecantikan
 it:^Estetista|Salone di bellezza
@@ -1327,7 +1327,7 @@ da:^Indkøbscenter|butikscenter|storcenter|center
 nl:^Het winkelcentrum
 fi:^Ostoskeskus
 fr:^Le centre commercial
-de:^Das Einkaufszentrum
+de:^Einkaufszentrum|Ladenstraße|Einkaufsgalerie|Einkaufen|Einkaufspassage|Kaufhalle|Vergnügungszentrum|Einzelhandel
 hu:^A pláza
 id:^Mall
 it:^Il centro commerciale
@@ -1361,7 +1361,7 @@ da:^Stormagasin|varehus
 nl:^Warenhuis
 fi:^Tavaratalo
 fr:^Grand magasin
-de:^Kaufhaus
+de:^Kaufhaus|Einkaufen|Einkaufszentrum|Einkaufspassage
 hu:^Áruház
 id:^Toko serba ada
 it:^Grandi magazzini|centro commerciale
@@ -1457,7 +1457,7 @@ da:^Slikbutik|slikforretning|konfektureforretning|slik|konfekt
 nl:^Banketbakker|snoepwinkel
 fi:^Makeiskauppa
 fr:^Pâtisserie|confiserie
-de:^Süßwarengeschäft
+de:^Süßwarengeschäft|Süßigkeiten|Süßwaren|Süßwarenladen|Konditorei|Kiosk|Gebäck|Süßwarengeschäft|Konfiserie
 hu:^Cukrászüzlet|édességbolt
 id:^Penganan|manisan
 it:^Pasticceria|drogheria
@@ -1583,7 +1583,7 @@ da:^Tøjbutik|tøjforretning|tøj
 nl:^Kledingwinkel|4kleding
 fi:^Vaatekauppa
 fr:^Boutique de vêtements|4vêtements
-de:^Bekleidungsgeschäft|Kleidung|Laden
+de:^Bekleidungsgeschäft|Kleidung|Laden|Bekleidung|Kleidungsgeschäft|Kleiderladen|Kleidung|Einkaufen
 hu:^Ruhabolt|4ruhák
 id:^Toko baju
 it:^Negozio di abbigliamento
@@ -2413,7 +2413,7 @@ da:2^Museum|attraktioner
 nl:2^Museum|attractie
 fi:3^Museo
 fr:2^Musée|attraction|tourisme
-de:2^Museum
+de:2^Museum|Attraktion|Tourismus|Ausstellung|Galerie|Sehenswürdigkeit|Touristenattraktion
 hu:2^Múzeum|túrizmus|látványosság
 id:3^Museum
 it:2^Museo
@@ -2710,7 +2710,7 @@ da:4^Cykeludlejning|udlejning|cykel
 nl:4^Fietsverhuur|2huur
 fi:^Polkupyöränvuokraus
 fr:^Location de vélos|vélo|bicyclette|3location
-de:3^Fahrradverleih|Fahrrad|Velo|3Verleih
+de:3^Fahrradverleih|Fahrrad|Velo|3Verleih|Radfahren|Fahrradvermietung|Radverleih
 hu:4^Kerékpárkölcsönző|kerékpár|3bérlet
 id:^Penyewaan Sepeda
 it:^Noleggio biciclette|4bicicletta|bici|3noleggio
@@ -2740,7 +2740,7 @@ ru:^Каршеринг|аренда машин|аренда
 ar:^مشاركة السيارة|تقاسم السيارة
 cs:^Sdílení aut
 da:^Delebiler
-de:^Carsharing
+de:^Carsharing|Car-Sharing|Auto|teilen|Fahrgemeinschaft|Carsharing-Dienste|Auto teilen|Mitfahrzentrale
 el:^Παραχώρηση αυτοκινήτου
 es:^Compartir coche
 fi:^Autojen yhteiskäyttö
@@ -2775,7 +2775,7 @@ da:4^Biludlejning|bil
 nl:3^Autoverhuur|autodelen|auto|huur
 fi:^Autovuokraamo
 fr:4^Location de voitures|auto|loueur|location|partage
-de:3^Autoverleih|Mietauto|Auto|Fahrzeug Mieten|Verleih
+de:3^Autoverleih|Mietauto|Auto|Fahrzeug Mieten|Verleih|KFZ-Vermietung|Fahrzeugvermietung
 hu:3^Gépkocsi-kölcsönző|kocsi|bérlet
 id:^Rental mobil
 it:3^Noleggio di automobili|noleggio
@@ -2874,7 +2874,7 @@ da:3^Natklub|dans|danseklub
 nl:3^Discotheek|3disco|dansen
 fi:^Yökerho
 fr:3^Discothèque|3boîte de nuit|danse
-de:3^Nachtclub|Nachtklub
+de:3^Nachtclub|Nachtklub|Disko|Tanzen|Club|Nachtlokal|Nachtbar
 hu:3^Éjszakai mulató|3diszkó|tánc
 id:^Kelab malam
 it:3^Night club
@@ -3164,7 +3164,7 @@ cs:klinika|pohotovost|zdravotnické centrum|3lékař|doktor
 da:sygehus
 nl:kliniek|hospitaal|tandarts|3dokter
 fr:clinique|3médecin|3docteur
-de:Spital|3Arzt|Doktor|medizinische Einrichtung|Gesundheitswesen
+de:Spital|3Arzt|Doktor|medizinische Einrichtung|Gesundheitswesen|Ambulanz|medizinisches Zentrum|Gesundheitsdienstleistungen|Erste Hilfe
 hu:klinika|3orvos
 ja:クリニック|医師|医者|ドクター|救急|診療
 ko:의사|의사가
@@ -3191,7 +3191,7 @@ da:^Klinik|hospital
 nl:^Kliniek|ziekenhuis
 fi:^Klinikka|sairaala
 fr:^Clinique|hôpital
-de:^Klinik|Krankenhaus
+de:^Klinik|Krankenhaus|Ambulanz|Krankenhaus|Arzt|Diagnostik|Gesundheitsdienstleistungen|Doktor
 hu:^Klinika|kórház|szanatórium
 id:^Klinik|rumah sakit
 it:^Clinica|ospedale
@@ -3319,7 +3319,7 @@ da:4^Børnehave
 nl:^Kleuterschool
 fi:^Päiväkoti
 fr:^Maternelle|garderie
-de:^Kindergarten|Kinderkrippe|Krippe
+de:^Kindergarten|Kinderkrippe|Krippe|Tagesstätte|Hort|Kinderbetreuung|Kinderbetreuungseinrichtung|Vorschule
 hu:^Óvoda
 id:^Taman kanak-kanak
 it:^Scuola materna
@@ -4711,7 +4711,7 @@ da:^Gæstehus|gæstehjem|hostel
 nl:^Gasthuis|B&B|bed and breakfast|hostel
 fi:^Majatalo
 fr:^Maison d'hôtes|auberge de jeunesse
-de:^Gästehaus|Wohnheim|Unterkunft
+de:^Gästehaus|Wohnheim|Unterkunft|Herberge
 hu:^Vendégház|hotel
 id:^Wisma tamu
 it:^Guest house|albergo|ostello
@@ -4776,7 +4776,7 @@ da:^Bjerg logi|hotel
 nl:3^Berghut|alpenhut|hotel
 fi:^Vuorimajoitus|hotelli
 fr:^Hôtel de montagne|hôtel|auberge de jeunesse|cabane alpine
-de:4^Berghütte|Almhütte|Berghotel|Hotel|Unterkunft
+de:4^Berghütte|Almhütte|Berghotel|Hotel|Unterkunft|Bergunterkunft|Herberge|Lager
 hu:^Hegyi menedék|kabin|hotel|szálloda
 id:^Penginapan di pegunungan|hotel
 it:^Hotel di montagna|baita|capanna|capanna di montagna|capanna alpina|hotel
@@ -4873,7 +4873,7 @@ da:^Stadium|sport
 nl:^Stadium|4sport
 fi:^Stadion
 fr:^Stade|4sport
-de:^Stadion|4Sport
+de:^Stadion|4Sport|Olympiastadion|Sportstadion|Sportkomplex|Arena
 hu:^Stadion|4sport
 id:^Stadion
 it:^Stadio|4sport
@@ -5294,7 +5294,7 @@ da:3^Garage|3bilværksted|service station
 nl:3^Auto reparatie|auto|wagen
 fi:^Autokorjaamo
 fr:3^Réparation d'automobiles|3garage|4station service|voiture|auto
-de:3^Autowerkstatt|Kfz|Auto
+de:3^Autowerkstatt|Kfz|Auto|Reparaturwerkstatt|Auto|Werkstatt
 hu:3^Gépkocsi szervíz|4javítóműhely|kocsi
 id:^Bengkel mobil
 it:3^Riparazione auto|auto|macchina|3automobile|vettura
@@ -5391,7 +5391,7 @@ da:^Kontor|firma|virksomhed
 nl:^Kantoor|ambt
 fi:^Toimisto
 fr:^Bureau|compagnie
-de:^Büro|Amt
+de:^Büro|Amt|Unternehmen|Agentur|Dienststelle|Firma|Geschäft|Gesellschaft
 hu:^Hivatal|cég
 id:^Kantor
 it:^Ufficio
@@ -5488,7 +5488,7 @@ da:^Advokatkontor
 nl:^Advocatenkantoor
 fi:^Lakitoimisto
 fr:^Cabinet d'avocat
-de:^Anwaltsbüro|Anwaltskanzlei
+de:^Anwaltsbüro|Anwaltskanzlei|Anwalt|Rechtsanwalt|Jurist|Gerichtsanwalt|Rechtsbeistand|Rechtsberater|Verteidiger
 hu:^Ügyvédi iroda
 id:^Kantor pengacara
 it:^Studio legale
@@ -5550,7 +5550,7 @@ da:^Bryggeri
 nl:^Brouwerij
 fi:^Panimo
 fr:^Brasserie
-de:^Brauerei|Brauhaus
+de:^Brauerei|Brauhaus|Hausbrauerei|Bier|Bierausschank|Hausbräu
 hu:^Sörfőzde|söröző
 id:^Toko minuman
 it:^Birrificio
@@ -6213,7 +6213,7 @@ da:^Rejsebureau|rundrejser
 nl:^Reisagentschap|reizen
 fi:^Matkatoimisto
 fr:^Agence de voyages|Voyages organisés
-de:^Reisebüro|Touren
+de:^Reisebüro|Touren|Rundreisen|Reiseagentur|Ausflüge|Reisen|Reisevermittlung|Urlaub|Reisevermittler|Touristeninformation|Last-Minute-Tour
 hu:^Utazási iroda|kirándulások
 id:^Agen Perjalanan Wisata|tur
 it:^Agenzia viaggi|tour
@@ -6566,7 +6566,7 @@ da:^Trænings- og motionscenter|fitnesscenter
 nl:^Fitnesscentrum|sportschool
 fi:^Kuntosali
 fr:^Centre fitness|salle de gym
-de:^Fitnessstudio
+de:^Fitnessstudio|Fitnesscenter|Turnhalle|Fitness|Training|Fitnessraum|Fitnessclub|Gesundheitsclub|Trainingsraum
 hu:^Fitnesz-terem
 id:^Pusat kebugaran|senam
 it:^Centro benessere|palestra
@@ -6598,7 +6598,7 @@ da:^Sauna
 nl:^Sauna
 fi:^Sauna
 fr:^Sauna
-de:^Sauna
+de:^Sauna|Schwitzbad|Schwitzhütte|Dampfbad|Dampfsauna|Saunakabine
 hu:^Szauna
 id:^Sauna
 it:^Sauna
@@ -6662,7 +6662,7 @@ da:^Dækreparation
 nl:^Bandenreparatie
 fi:^Rengashuolto
 fr:^Réparation de pneus
-de:^Reifenservice
+de:^Reifenservice|Reifenreparatur|Reifeninstandsetzung|Reifen|Pneu|Pannenreparatur|Reifenpannenreparatur|Pneureparatur|Reifenpannenbehebung|Reifenersatz
 hu:^Gumiszerviz
 id:^Tambal ban
 it:^Gommista
@@ -7206,7 +7206,7 @@ da:^Billetkontor
 nl:^Kaartjesverkoop
 fi:^Lippumyymälä
 fr:^Billetterie
-de:^Fahrkartenschalter
+de:^Fahrkartenschalter|Fahrkartengeschäft|Fahrkarten|Fahrkartenzentrum|Fahrkartenausgabe|Reisecenter|Kassenschalter|Fahrkartenagentur|Fahrkartenhäuschen|Zahlschalter
 hu:^Jegyiroda
 id:^Tempat penjualan karcis
 it:^Biglietteria
@@ -8911,7 +8911,7 @@ ru:^Массажный салон|массаж|спа|спа-салон|сало
 ar:^قاعة تدليك
 cs:^Masážní salon
 da:^Massageklinik
-de:^Massagesalon
+de:^Massagesalon|Wellness-Center|Massagezentrum|Massagetherapie|Massageanwendungen|Massagecenter|Wellnessbehandlung|Wellnessanwendungen
 el:^Αίθουσα μασάζ
 es:^Salón de masajes
 fi:^Hierontahuone
