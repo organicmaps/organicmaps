@@ -1407,3 +1407,1290 @@ lon=12.5755757
 name=LuggageHero @ Voraz Restaurant and Café
 sponsored=partner2
 website=https://app.luggagehero.com/shop-details/58d8f4c1baffa63ae8a50f9d
+
+
+# Megafon
+
+sponsored=partner18
+lat=46.88620614666
+lon=142.73358102322
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Хватит отключать
+
+sponsored=partner18
+lat=46.88620614666
+lon=142.73223455429
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Мобильный интернет в роуминге
+
+sponsored=partner19
+lat=46.88620614666
+lon=142.73088808537
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Оставайся в сети с «Роуминг, гудбай!» от МегаФона
+
+sponsored=partner20
+lat=46.88701270017
+lon=142.72377222642
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=55.00944322083
+lon=82.66681372583
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=55.0008016426
+lon=82.67261867185
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Будь своим везде
+
+sponsored=partner18
+lat=55.00137667633
+lon=82.67129299879
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=С опцией «Роуминг, гудбай!»
+
+sponsored=partner19
+lat=55.0019517018
+lon=82.66996732573
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Общайся по домашнему тарифу всего за 299 р. в день
+
+sponsored=partner18
+lat=57.17884750325
+lon=65.37625138167
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Сэкономь за границей
+
+sponsored=partner18
+lat=57.17948845235
+lon=65.3749608779
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=На общении в роуминге
+
+sponsored=partner19
+lat=57.18012939033
+lon=65.37367037413
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=«Роуминг, гудбай!» за 299 руб./день
+
+sponsored=partner20
+lat=57.18145099532
+lon=65.34904807538
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=61.66335826102
+lon=50.85090368718
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner18
+lat=61.66496465706
+lon=50.84951921394
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Будь своим везде
+
+sponsored=partner18
+lat=61.66465592855
+lon=50.85026332581
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=С опцией «Роуминг, гудбай!»
+
+sponsored=partner19
+lat=61.66442790754
+lon=50.85081290791
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Общайся по домашнему тарифу всего за 299 р. в день
+
+sponsored=partner18
+lat=60.95027618044
+lon=76.50616764348
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Сэкономь за границей
+
+sponsored=partner18
+lat=60.95043278218
+lon=76.5042829299
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=На общении в роуминге
+
+sponsored=partner19
+lat=60.95058938314
+lon=76.50239821631
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=«Роуминг, гудбай!» за 299 руб./день
+
+sponsored=partner20
+lat=60.9511985703
+lon=76.49487912118
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=53.51272994863
+lon=50.15769480586
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+lat=53.51202816044
+lon=50.15326379657
+
+sponsored=partner18
+lat=53.50720630619
+lon=50.13361829784
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Сэкономь за границей
+
+sponsored=partner18
+lat=53.50762577579
+lon=50.13492820502
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=На общении в роуминге
+
+sponsored=partner19
+lat=53.50804524123
+lon=50.13623811219
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=«Роуминг, гудбай!» за 299 руб./день
+
+sponsored=partner20
+lat=54.95759611227
+lon=73.31623345345
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner18
+lat=54.95996945294
+lon=73.34381239526
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Сэкономь за границей
+
+sponsored=partner18
+lat=54.95910692304
+lon=73.34318156719
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=На общении в роуминге
+
+sponsored=partner19
+lat=54.95824437462
+lon=73.34255073913
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=«Роуминг, гудбай!» за 299 руб./день
+
+sponsored=partner18
+lat=56.76066302119
+lon=60.78013515615
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Будь своим везде
+
+sponsored=partner18
+lat=56.7607922997
+lon=60.78184421539
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=С опцией «Роуминг, гудбай!»
+
+sponsored=partner19
+lat=56.76092157776
+lon=60.78355327463
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Общайся по домашнему тарифу всего за 299 р. в день
+
+sponsored=partner20
+lat=52.27275476153
+lon=104.35584246844
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=52.26853564026
+lon=104.34640259375
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Хватит отключать
+
+sponsored=partner18
+lat=52.26920460211
+lon=104.34742567777
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Мобильный интернет в роуминге
+
+sponsored=partner19
+lat=52.26987355387
+lon=104.3484487618
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Оставайся в сети с «Роуминг, гудбай!» от МегаФона
+
+sponsored=partner20
+lat=51.81248194002
+lon=39.22585308015
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=51.80275545285
+lon=39.21313661072
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Сэкономь за границей
+
+sponsored=partner18
+lat=51.80344032461
+lon=39.21411033153
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=На общении в роуминге
+
+sponsored=partner19
+lat=51.80412518597
+lon=39.21508405235
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=«Роуминг, гудбай!» за 299 руб./день
+
+sponsored=partner20
+lat=46.28724336691
+lon=48.00028681487
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=46.29716068129
+lon=48.00293220532
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Хватит отключать
+
+sponsored=partner18
+lat=46.29644721522
+lon=48.00207849026
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Мобильный интернет в роуминге
+
+sponsored=partner19
+lat=46.29573373985
+lon=48.0012247752
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Оставайся в сети с «Роуминг, гудбай!» от МегаФона
+
+sponsored=partner20
+lat=45.03317564931
+lon=39.13967906892
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=45.03103830479
+lon=39.13068006157
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Будь своим везде
+
+sponsored=partner18
+lat=45.03133697918
+lon=39.13163243651
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=С опцией «Роуминг, гудбай!»
+
+sponsored=partner19
+lat=45.03163565201
+lon=39.13258481146
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Общайся по домашнему тарифу всего за 299 р. в день
+
+sponsored=partner20
+lat=56.21850262494
+lon=43.78977119386
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner18
+lat=56.23329415336
+lon=43.80667160472
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Хватит отключать
+
+sponsored=partner18
+lat=56.23244452427
+lon=43.80708213329
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Мобильный интернет в роуминге
+
+sponsored=partner19
+lat=56.23159487633
+lon=43.80749266187
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Оставайся в сети с «Роуминг, гудбай!» от МегаФона
+
+sponsored=partner18
+lat=55.59966874709
+lon=37.3091402154
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Будь своим везде
+
+sponsored=partner18
+lat=55.60035065946
+lon=37.30800385952
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=С опцией «Роуминг, гудбай!»
+
+sponsored=partner19
+lat=55.60103255997
+lon=37.30686750364
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Общайся по домашнему тарифу всего за 299 р. в день
+
+sponsored=partner20
+lat=55.60779937214
+lon=49.30016576707
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner18
+lat=55.63024467274
+lon=49.28978412466
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Хватит отключать
+
+sponsored=partner18
+lat=55.62932852051
+lon=49.28992505551
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Мобильный интернет в роуминге
+
+sponsored=partner19
+lat=55.62841234685
+lon=49.29006598636
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Оставайся в сети с «Роуминг, гудбай!» от МегаФона
+
+sponsored=partner20
+lat=59.91419505808
+lon=150.73216974199
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+lat=59.9140848022
+lon=150.73125242651
+
+sponsored=partner18
+lat=59.91281331704
+lon=150.77595390453
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Будь своим везде
+
+sponsored=partner18
+lat=59.9131355135
+lon=150.77422140956
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=С опцией «Роуминг, гудбай!»
+
+sponsored=partner19
+lat=59.91345770684
+lon=150.77248891459
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Общайся по домашнему тарифу всего за 299 р. в день
+
+sponsored=partner18
+lat=51.78002215167
+lon=55.4196191648
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Хватит отключать
+
+sponsored=partner18
+lat=51.78019107623
+lon=55.42113836288
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Мобильный интернет в роуминге
+
+sponsored=partner19
+lat=51.78036000017
+lon=55.42265756097
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Оставайся в сети с «Роуминг, гудбай!» от МегаФона
+
+sponsored=partner20
+lat=51.79146712296
+lon=55.45672595233
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=56.18072224671
+lon=92.48373090684
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=56.16573325817
+lon=92.59547103704
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Сэкономь за границей
+
+sponsored=partner18
+lat=56.16536970478
+lon=92.59388919353
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=На общении в роуминге
+
+sponsored=partner19
+lat=56.16500614795
+lon=92.59230735003
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=«Роуминг, гудбай!» за 299 руб./день
+
+sponsored=partner20
+lat=62.08763944929
+lon=129.75037514627
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=62.07666336168
+lon=129.74363257193
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Сэкономь за границей
+
+sponsored=partner18
+lat=62.0775930293
+lon=129.74362130642
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=На общении в роуминге
+
+sponsored=partner19
+lat=62.07852266846
+lon=129.74361004091
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=«Роуминг, гудбай!» за 299 руб./день
+
+sponsored=partner20
+lat=43.44800805596
+lon=39.94081735075
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=43.44225580949
+lon=39.92469877009
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Хватит отключать
+
+sponsored=partner18
+lat=43.44300335031
+lon=39.92549655676
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Мобильный интернет в роуминге
+
+sponsored=partner19
+lat=43.4437508819
+lon=39.92629434343
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Оставайся в сети с «Роуминг, гудбай!» от МегаФона
+
+sponsored=partner20
+lat=45.00275980469
+lon=37.34045862615
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=45.00539944474
+lon=37.32862590321
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Будь своим везде
+
+sponsored=partner18
+lat=45.00541867096
+lon=37.32997653722
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=С опцией «Роуминг, гудбай!»
+
+sponsored=partner19
+lat=45.00543789716
+lon=37.33132717124
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Общайся по домашнему тарифу всего за 299 р. в день
+
+sponsored=partner18
+lat=55.93603158001
+lon=37.4052049831
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Сэкономь за границей
+
+sponsored=partner18
+lat=55.93687074393
+lon=37.40579722166
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=На общении в роуминге
+
+sponsored=partner19
+lat=55.93770988966
+lon=37.40638946022
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=«Роуминг, гудбай!» за 299 руб./день
+
+sponsored=partner20
+lat=50.42209503742
+lon=127.40768819779
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner18
+lat=50.38941134454
+lon=127.4554791032
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Будь своим везде
+
+sponsored=partner18
+lat=50.38998407004
+lon=127.45438809872
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=С опцией «Роуминг, гудбай!»
+
+sponsored=partner19
+lat=50.39055678863
+lon=127.45329709423
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Общайся по домашнему тарифу всего за 299 р. в день
+
+sponsored=partner20
+lat=42.82068638327
+lon=47.65595823258
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=42.83376503536
+lon=47.65230718849
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Сэкономь за границей
+
+sponsored=partner18
+lat=42.83287889995
+lon=47.65282269001
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=На общении в роуминге
+
+sponsored=partner19
+lat=42.83199275184
+lon=47.65333819153
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=«Роуминг, гудбай!» за 299 руб./день
+
+sponsored=partner20
+lat=44.21757776919
+lon=43.08831989229
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner18
+lat=44.20784734362
+lon=43.09798734108
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Будь своим везде
+
+sponsored=partner18
+lat=44.20809608428
+lon=43.0966830039
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=С опцией «Роуминг, гудбай!»
+
+sponsored=partner19
+lat=44.20834482388
+lon=43.09537866673
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Общайся по домашнему тарифу всего за 299 р. в день
+
+sponsored=partner20
+lat=48.7920933413
+lon=44.35602306783
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner18
+lat=48.76591754908
+lon=44.41281744862
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Сэкономь за границей
+
+sponsored=partner18
+lat=48.76636247526
+lon=44.41156085014
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=На общении в роуминге
+
+sponsored=partner19
+lat=48.76680739749
+lon=44.41030425165
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=«Роуминг, гудбай!» за 299 руб./день
+
+sponsored=partner20
+lat=59.80029157051
+lon=30.27148603857
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner18
+lat=59.79196990411
+lon=30.31386860054
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Сэкономь за границей
+
+sponsored=partner18
+lat=59.79225211874
+lon=30.31204102278
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=На общении в роуминге
+
+sponsored=partner19
+lat=59.79253433099
+lon=30.31021344502
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=«Роуминг, гудбай!» за 299 руб./день
+
+sponsored=partner20
+lat=57.91980549923
+lon=56.01988791883
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=57.94995803196
+lon=56.0936533338
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Сэкономь за границей
+
+sponsored=partner18
+lat=57.94960869501
+lon=56.09201784611
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=На общении в роуминге
+
+sponsored=partner19
+lat=57.94925935466
+lon=56.09038235843
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=«Роуминг, гудбай!» за 299 руб./день
+
+sponsored=partner20
+lat=53.36091850778
+lon=83.54602575034
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=53.35030432365
+lon=83.61765664053
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Хватит отключать
+
+sponsored=partner18
+lat=53.3504072486
+lon=83.61607964516
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Мобильный интернет в роуминге
+
+sponsored=partner19
+lat=53.35051017329
+lon=83.61450264978
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Оставайся в сети с «Роуминг, гудбай!» от МегаФона
+
+sponsored=partner20
+lat=52.02045433393
+lon=113.30810665548
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=52.01002658807
+lon=113.30305466479
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Сэкономь за границей
+
+sponsored=partner18
+lat=52.01097243162
+lon=113.30343420982
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=На общении в роуминге
+
+sponsored=partner19
+lat=52.01191825519
+lon=113.30381375485
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=«Роуминг, гудбай!» за 299 руб./день
+
+sponsored=partner20
+lat=61.34025286496
+lon=73.40957164228
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner18
+lat=61.30308927149
+lon=73.38851511442
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Сэкономь за границей
+
+sponsored=partner18
+lat=61.30406595858
+lon=73.38888640881
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=На общении в роуминге
+
+sponsored=partner19
+lat=61.30504261526
+lon=73.38925770319
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=«Роуминг, гудбай!» за 299 руб./день
+
+sponsored=partner18
+lat=55.47748443286
+lon=37.85032630661
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Хватит отключать
+
+sponsored=partner18
+lat=55.4765794487
+lon=37.85046453953
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Мобильный интернет в роуминге
+
+sponsored=partner19
+lat=55.47567444375
+lon=37.85060277245
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Оставайся в сети с «Роуминг, гудбай!» от МегаФона
+
+sponsored=partner20
+lat=54.88343927949
+lon=20.58634578645
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner18
+lat=54.84896543841
+lon=20.56829615408
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Сэкономь за границей
+
+sponsored=partner18
+lat=54.84981125586
+lon=20.56873972893
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=На общении в роуминге
+
+sponsored=partner19
+lat=54.85065705558
+lon=20.56918330378
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=«Роуминг, гудбай!» за 299 руб./день
+
+sponsored=partner20
+lat=43.20194398577
+lon=44.60433125228
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner18
+lat=43.18894100013
+lon=44.5959419766
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Будь своим везде
+
+sponsored=partner18
+lat=43.18987738205
+lon=44.59593053341
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=С опцией «Роуминг, гудбай!»
+
+sponsored=partner19
+lat=43.19081374962
+lon=44.59591909022
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Общайся по домашнему тарифу всего за 299 р. в день
+
+sponsored=partner20
+lat=51.55812973323
+lon=46.03139519155
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=51.55694446324
+lon=46.03573153073
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Будь своим везде
+
+sponsored=partner18
+lat=51.55714118979
+lon=46.03465942527
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=С опцией «Роуминг, гудбай!»
+
+sponsored=partner19
+lat=51.55735644159
+lon=46.03348635687
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Общайся по домашнему тарифу всего за 299 р. в день
+
+sponsored=partner20
+lat=48.5271568739
+lon=135.17272352099
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=48.51898917207
+lon=135.15973679313
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Сэкономь за границей
+
+sponsored=partner18
+lat=48.51966732105
+lon=135.16067500591
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=На общении в роуминге
+
+sponsored=partner19
+lat=48.52034546097
+lon=135.1616132187
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=«Роуминг, гудбай!» за 299 руб./день
+
+sponsored=partner20
+lat=68.78459609818
+lon=32.75862335622
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=68.81658131445
+lon=32.96816746795
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Хватит отключать
+
+sponsored=partner18
+lat=68.81657848036
+lon=32.96549673557
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Мобильный интернет в роуминге
+
+sponsored=partner19
+lat=68.81657564626
+lon=32.9628260032
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Оставайся в сети с «Роуминг, гудбай!» от МегаФона
+
+sponsored=partner20
+lat=54.56597875574
+lon=55.8834493053
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner18
+lat=54.61116272436
+lon=55.92140801548
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Сэкономь за границей
+
+sponsored=partner18
+lat=54.61031095227
+lon=55.92076412201
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=На общении в роуминге
+
+sponsored=partner19
+lat=54.60945916236
+lon=55.92012022854
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=«Роуминг, гудбай!» за 299 руб./день
+
+sponsored=partner20
+lat=55.29786223004
+lon=61.51401221216
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=55.26481541701
+lon=61.5024558133
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Хватит отключать
+
+sponsored=partner18
+lat=55.2657240299
+lon=61.50295610905
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Мобильный интернет в роуминге
+
+sponsored=partner19
+lat=55.26663262202
+lon=61.5034564048
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Оставайся в сети с «Роуминг, гудбай!» от МегаФона
+
+sponsored=partner20
+lat=43.39627787461
+lon=132.16460465848
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=43.35573987875
+lon=132.07475446995
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Хватит отключать
+
+sponsored=partner18
+lat=43.35530113406
+lon=132.07587714672
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Мобильный интернет в роуминге
+
+sponsored=partner19
+lat=43.3548623862
+lon=132.07699982348
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Оставайся в сети с «Роуминг, гудбай!» от МегаФона
+
+sponsored=partner20
+lat=55.56453879925
+lon=52.10186451405
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=55.57200276209
+lon=52.13294706826
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Сэкономь за границей
+
+sponsored=partner18
+lat=55.57133320468
+lon=52.13216534615
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=На общении в роуминге
+
+sponsored=partner19
+lat=55.57066363587
+lon=52.13138362403
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=«Роуминг, гудбай!» за 299 руб./день
+
+sponsored=partner20
+lat=53.16930232158
+lon=158.42554449767
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner18
+lat=53.14370634793
+lon=158.51564287807
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Хватит отключать
+
+sponsored=partner18
+lat=53.14423504602
+lon=158.51430398941
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Мобильный интернет в роуминге
+
+sponsored=partner19
+lat=53.14476373761
+lon=158.51296510075
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Оставайся в сети с «Роуминг, гудбай!» от МегаФона
+
+sponsored=partner20
+lat=47.4885171308
+lon=39.92818414629
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner18
+lat=47.49947256337
+lon=39.95943743033
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=Будь своим везде
+
+sponsored=partner18
+lat=47.49888711709
+lon=39.95824090004
+banner_url=https://localads.maps.me/redirects/megafon_green
+name=С опцией «Роуминг, гудбай!»
+
+sponsored=partner19
+lat=47.49830166428
+lon=39.95704436975
+banner_url=https://localads.maps.me/redirects/megafon_purple
+name=Общайся по домашнему тарифу всего за 299 р. в день
+
+sponsored=partner20
+lat=50.2875398436
+lon=127.5408357355
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=57.14585299217
+lon=65.52341043413
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=51.6400376155
+lon=39.25827026099
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=59.91972217177
+lon=30.32851248711
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=48.49649518743
+lon=135.07333427399
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=55.74348743822
+lon=37.56700604886
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=54.74807292415
+lon=55.94771504134
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=42.98715987603
+lon=47.50437318742
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=54.93921262325
+lon=73.38584750623
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=53.35090515225
+lon=83.75710487098
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=47.21880115969
+lon=39.69015150994
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=45.01829965004
+lon=38.98801892728
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=46.36023829201
+lon=48.05904060334
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=56.32174284632
+lon=43.94578456342
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=51.54212644993
+lon=45.99914699525
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=59.95568843513
+lon=30.35726576775
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=54.69435395081
+lon=20.49862682283
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=55.79444200967
+lon=37.58788436383
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=53.18601273994
+lon=50.12087076634
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=43.59125132375
+lon=39.72809671819
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=44.95020599928
+lon=37.31798707902
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=51.67137080447
+lon=39.17708247632
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=59.93217531078
+lon=30.43958007753
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=43.11133615014
+lon=131.88172548741
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=45.05428962451
+lon=38.98651420802
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=51.67984684282
+lon=39.20683353871
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=48.71282231165
+lon=44.51403200358
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=43.03771883789
+lon=44.68828439444
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=58.00479800439
+lon=56.18185043067
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=55.77655039219
+lon=37.65716582268
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=53.74659493643
+lon=87.11807906091
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=55.03616631247
+lon=82.89592265546
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=60.95316767526
+lon=76.60844385087
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=61.28992168893
+lon=73.32422911584
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=55.61769145518
+lon=51.80988728464
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=52.28256344116
+lon=104.25988912314
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=55.79362475316
+lon=37.6325887388
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=44.21270253768
+lon=43.14132570684
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=56.85857216359
+lon=60.60371875226
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=55.14094596515
+lon=61.41558587015
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=61.65787829371
+lon=50.7916134569
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=55.7879894266
+lon=49.10027414292
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день
+
+sponsored=partner20
+lat=52.02815691701
+lon=113.49553942412
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=51.77656837194
+lon=55.07506638497
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Скажи роумингу гудбай!
+
+sponsored=partner20
+lat=46.95722311955
+lon=142.72606014669
+banner_url=https://localads.maps.me/redirects/megafon_airport
+name=Подготовь свой смартфон к путешествию с опцией «Роуминг, гудбай!» за 299 р./день

@@ -982,3 +982,21 @@ node,5151927425,sponsored=partner3,banner_url=https://burgerking.ru/maps.me/?utm
 node,5151927007,sponsored=partner3,banner_url=https://burgerking.ru/maps.me/?utm_source=mapsme&utm_campaign=button
 node,5151927012,sponsored=partner3,banner_url=https://burgerking.ru/maps.me/?utm_source=mapsme&utm_campaign=button
 node,3837097721,sponsored=partner3,banner_url=https://burgerking.ru/maps.me/?utm_source=mapsme&utm_campaign=button
+
+
+# Megafon at airports
+
+node,3712583937,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
+node,4476251491,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
+node,3014385158,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
+node,5499257621,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
+
+# Railway stations
+node,4535342189,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
+node,4646518494,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
+node,4400926398,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
+node,4241941480,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
+node,5209087822,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
+node,1051501783,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
+node,2548281036,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
+node,3050031346,sponsored=partner20,banner_url=https://localads.maps.me/redirects/megafon_airport,name=Скажи роумингу гудбай!
