@@ -62,8 +62,7 @@ void FormatDistance(double dist, string & value, string & suffix)
 
 RoutingSession::RoutingSession()
   : m_router(nullptr)
-    // @TODO |m_route| should be unique_prt<Route> and should be nullptr here.
-  , m_route(make_shared<Route>(string(), 0))
+  , m_route(make_unique<Route>(string(), 0))
   , m_state(RoutingNotActive)
   , m_isFollowing(false)
   , m_lastWarnedSpeedCameraIndex(0)
@@ -143,17 +142,7 @@ void RoutingSession::DoReadyCallback::operator()(Route & route, RouterResultCode
   threads::MutexGuard guard(m_routeSessionMutexInner);
 
   ASSERT(m_rs.m_route, ());
-
-  if (e != RouterResultCode::NeedMoreMaps)
-  {
-    m_rs.AssignRoute(route, e);
-  }
-  else
-  {
-    for (string const & country : route.GetAbsentCountries())
-      m_rs.m_route->AddAbsentCountry(country);
-  }
-
+  m_rs.AssignRoute(route, e);
   m_callback(*m_rs.m_route, e);
 }
 
@@ -164,8 +153,7 @@ void RoutingSession::RemoveRoute()
   m_moveAwayCounter = 0;
   m_turnNotificationsMgr.Reset();
 
-  // @TODO |m_route| should be unique_prt<Route> and should be nullptr here.
-  m_route = make_shared<Route>(string(), 0);
+  m_route = make_unique<Route>(string(), 0);
 }
 
 void RoutingSession::RebuildRouteOnTrafficUpdate()

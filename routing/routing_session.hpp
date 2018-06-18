@@ -175,6 +175,8 @@ public:
   void CopyTraffic(std::map<MwmSet::MwmId, std::shared_ptr<traffic::TrafficInfo::Coloring>> & trafficColoring) const override;
 
 private:
+  // @TODO(bykoianko) This class should be removed when all methods RoutingSession and
+  // all routing callbacks are called from ui thread.
   struct DoReadyCallback
   {
     RoutingSession & m_rs;
@@ -213,8 +215,7 @@ private:
 
 private:
   unique_ptr<AsyncRouter> m_router;
-  // @TODO |m_route| should be unique_prt<Route> and may be nullptr.
-  shared_ptr<Route> m_route;
+  unique_ptr<Route> m_route;
   State m_state;
   bool m_isFollowing;
   Checkpoints m_checkpoints;
