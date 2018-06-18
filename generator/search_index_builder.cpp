@@ -101,9 +101,6 @@ public:
 void GetCategoryTypes(CategoriesHolder const & categories, pair<int, int> const & scaleRange,
                       feature::TypesHolder const & types, vector<uint32_t> & result)
 {
-  Classificator const & c = classif();
-  auto const & invisibleChecker = ftypes::IsInvisibleIndexedChecker::Instance();
-
   for (uint32_t t : types)
   {
     // Truncate |t| up to 2 levels and choose the best category match to find explicit category if
@@ -122,23 +119,13 @@ void GetCategoryTypes(CategoriesHolder const & categories, pair<int, int> const 
     if (!categories.IsTypeExist(t))
       continue;
 
-    // There are some special non-drawable types we plan to search on.
-    if (invisibleChecker.IsMatched(t))
-    {
-      result.push_back(t);
-      continue;
-    }
+    // Drawable scale must be normalized to indexer scales.
+    auto indexedRange = scaleRange;
+    if (scaleRange.second == scales::GetUpperScale())
+      indexedRange.second = scales::GetUpperStyleScale();
 
     // Index only those types that are visible.
-    pair<int, int> r = feature::GetDrawableScaleRange(t);
-    CHECK_LESS_OR_EQUAL(r.first, r.second, (c.GetReadableObjectName(t)));
-
-    // Drawable scale must be normalized to indexer scales.
-    r.second = min(r.second, scales::GetUpperScale());
-    r.first = min(r.first, r.second);
-    CHECK(r.first != -1, (c.GetReadableObjectName(t)));
-
-    if (r.second >= scaleRange.first && r.first <= scaleRange.second)
+    if (feature::IsVisibleInRange(t, indexedRange))
       result.push_back(t);
   }
 }

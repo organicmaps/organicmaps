@@ -581,10 +581,10 @@ bool FeatureBuilder1::IsDrawableInRange(int lowScale, int highScale) const
     FeatureBase const fb = GetFeatureBase();
 
     while (lowScale <= highScale)
+    {
       if (feature::IsDrawableForIndex(fb, lowScale++))
         return true;
-
-    return RequireGeometryInIndex(fb);
+    }
   }
 
   return false;

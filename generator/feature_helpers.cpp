@@ -29,7 +29,7 @@ void CalculateMidPoints::operator()(FeatureBuilder1 const & ft, uint64_t pos)
 
   /// May be invisible if it's small area object with [0-9] scales.
   /// @todo Probably, we need to keep that objects if 9 scale (as we do in 17 scale).
-  if (minScale != -1 || feature::RequireGeometryInIndex(ft.GetFeatureBase()))
+  if (minScale != -1)
   {
     uint64_t const order = (static_cast<uint64_t>(minScale) << 59) | (pointAsInt64 >> 5);
     m_vec.push_back(make_pair(order, pos));

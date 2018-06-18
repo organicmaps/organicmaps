@@ -219,7 +219,6 @@ namespace
 
   /// Add here all exception classificator types: needed for algorithms,
   /// but don't have drawing rules.
-  /// See also ftypes_matcher.cpp, IsInvisibleIndexedChecker.
   bool TypeAlwaysExists(uint32_t type, EGeomType g = GEOM_UNDEFINED)
   {
     if (!classif().IsTypeValid(type))
@@ -262,18 +261,6 @@ namespace
 
     return false;
   }
-}
-
-bool RequireGeometryInIndex(FeatureBase const & f)
-{
-  TypesHolder const types(f);
-
-  for (uint32_t t : types)
-  {
-    if (HasRoutingExceptionType(t))
-      return true;
-  }
-  return false;
 }
 
 bool IsDrawableAny(uint32_t type)
@@ -321,8 +308,10 @@ bool IsDrawableForIndexClassifOnly(FeatureBase const & f, int level)
 
   IsDrawableChecker doCheck(level);
   for (uint32_t t : types)
-    if (c.ProcessObjects(t, doCheck))
+  {
+    if (TypeAlwaysExists(t) || c.ProcessObjects(t, doCheck))
       return true;
+  }
 
   return false;
 }
@@ -431,6 +420,22 @@ pair<int, int> GetDrawableScaleRange(TypesHolder const & types)
     AddRange(res, GetDrawableScaleRange(t));
 
   return (res.first > res.second ? make_pair(-1, -1) : res);
+}
+
+bool IsVisibleInRange(uint32_t type, pair<int, int> const & scaleRange)
+{
+  CHECK_LESS_OR_EQUAL(scaleRange.first, scaleRange.second, (scaleRange));
+  if (TypeAlwaysExists(type))
+    return true;
+
+  Classificator const & c = classif();
+  for (int scale = scaleRange.first; scale <= scaleRange.second; ++scale)
+  {
+    IsDrawableChecker doCheck(scale);
+    if (c.ProcessObjects(type, doCheck))
+      return true;
+  }
+  return false;
 }
 
 namespace

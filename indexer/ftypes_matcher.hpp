@@ -205,14 +205,6 @@ public:
   DECLARE_CHECKER_INSTANCE(IsFoodChecker);
 };
 
-// Checks for types that are not drawable, but searchable.
-class IsInvisibleIndexedChecker : public BaseChecker
-{
-  IsInvisibleIndexedChecker();
-public:
-  DECLARE_CHECKER_INSTANCE(IsInvisibleIndexedChecker);
-};
-
 class IsCityChecker : public BaseChecker
 {
   IsCityChecker();

@@ -186,21 +186,22 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
   for (auto const & tags : invisibleTags)
     invisibleTypes.insert(classif().GetTypeByPath(tags));
 
-  // todo(@t.yan): fix some or delete category.
-  vector<vector<string>> const badTags = {{"building", "address"},  {"entrance"},
-                                          {"internet_access"},      {"internet_access", "wlan"},
-                                          {"place", "continent"},   {"place", "region"},
-                                          {"event", "fc2018_city"}, {"sponsored", "holiday"}};
-  set<uint32_t> badTypes;
-  for (auto const & tags : badTags)
-    badTypes.insert(classif().GetTypeByPath(tags));
+  vector<vector<string>> const notSupportedTags = {// Not visible because excluded by TypesSkipper.
+                                                   {"building", "address"},
+                                                   {"entrance"},
+                                                   // Not visible for country scale range.
+                                                   {"place", "continent"},
+                                                   {"place", "region"}};
+  set<uint32_t> notSupportedTypes;
+  for (auto const & tags : notSupportedTags)
+    notSupportedTypes.insert(classif().GetTypeByPath(tags));
 
   auto const & holder = GetDefaultCategories();
   auto testCategory = [&](uint32_t type, CategoriesHolder::Category const &) {
     if (invisibleTypes.find(type) != invisibleTypes.end())
       return;
 
-    if (badTypes.find(type) != badTypes.end())
+    if (notSupportedTypes.find(type) != notSupportedTypes.end())
       return;
 
     string const countryName = "Wonderland";
