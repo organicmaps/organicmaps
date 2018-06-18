@@ -39,165 +39,8 @@
 
 using namespace std;
 
-SourceReader::SourceReader()
-: m_file(unique_ptr<istream, Deleter>(&cin, Deleter(false)))
-{
-  LOG_SHORT(LINFO, ("Reading OSM data from stdin"));
-}
-
-SourceReader::SourceReader(string const & filename)
-: m_file(unique_ptr<istream, Deleter>(new ifstream(filename), Deleter()))
-{
-  CHECK(static_cast<ifstream *>(m_file.get())->is_open() , ("Can't open file:", filename));
-  LOG_SHORT(LINFO, ("Reading OSM data from", filename));
-}
-
-SourceReader::SourceReader(istringstream & stream)
-: m_file(unique_ptr<istream, Deleter>(&stream, Deleter(false)))
-{
-  LOG_SHORT(LINFO, ("Reading OSM data from memory"));
-}
-
-uint64_t SourceReader::Read(char * buffer, uint64_t bufferSize)
-{
-  m_file->read(buffer, bufferSize);
-  return m_file->gcount();
-}
-
 namespace
 {
-template <class TNodesHolder, cache::EMode TMode>
-class IntermediateData
-{
-  using TReader = cache::OSMElementCache<TMode>;
-
-  using TFile = conditional_t<TMode == cache::EMode::Write, FileWriter, FileReader>;
-
-  using TKey = uint64_t;
-  static_assert(is_integral<TKey>::value, "TKey is not integral type");
-
-  using TIndex = cache::detail::IndexFile<TFile, TKey>;
-
-  TNodesHolder & m_nodes;
-
-  TReader m_ways;
-  TReader m_relations;
-
-  TIndex m_nodeToRelations;
-  TIndex m_wayToRelations;
-
-  template <class TElement, class ToDo>
-  struct ElementProcessorBase
-  {
-  protected:
-    TReader & m_reader;
-    ToDo & m_toDo;
-
-  public:
-    ElementProcessorBase(TReader & reader, ToDo & toDo) : m_reader(reader), m_toDo(toDo) {}
-
-    bool operator()(uint64_t id)
-    {
-      TElement e;
-      return m_reader.Read(id, e) ? m_toDo(id, e) : false;
-    }
-  };
-
-  template <class ToDo>
-  struct RelationProcessor : public ElementProcessorBase<RelationElement, ToDo>
-  {
-    using TBase = ElementProcessorBase<RelationElement, ToDo>;
-
-    RelationProcessor(TReader & reader, ToDo & toDo) : TBase(reader, toDo) {}
-  };
-
-  template <class ToDo>
-  struct CachedRelationProcessor : public RelationProcessor<ToDo>
-  {
-    using TBase = RelationProcessor<ToDo>;
-
-    CachedRelationProcessor(TReader & rels, ToDo & toDo) : TBase(rels, toDo) {}
-    bool operator()(uint64_t id) { return this->m_toDo(id, this->m_reader); }
-  };
-
-  template <class TIndex, class TContainer>
-  static void AddToIndex(TIndex & index, TKey relationId, TContainer const & values)
-  {
-    for (auto const & v : values)
-      index.Add(v.first, relationId);
-  }
-
-public:
-  IntermediateData(TNodesHolder & nodes, feature::GenerateInfo & info)
-  : m_nodes(nodes)
-  , m_ways(info.GetIntermediateFileName(WAYS_FILE, ""), info.m_preloadCache)
-  , m_relations(info.GetIntermediateFileName(RELATIONS_FILE, ""), info.m_preloadCache)
-  , m_nodeToRelations(info.GetIntermediateFileName(NODES_FILE, ID2REL_EXT))
-  , m_wayToRelations(info.GetIntermediateFileName(WAYS_FILE,ID2REL_EXT))
-  {
-  }
-
-  void AddNode(TKey id, double lat, double lng) { m_nodes.AddPoint(id, lat, lng); }
-  bool GetNode(TKey id, double & lat, double & lng) { return m_nodes.GetPoint(id, lat, lng); }
-
-  void AddWay(TKey id, WayElement const & e) { m_ways.Write(id, e); }
-  bool GetWay(TKey id, WayElement & e) { return m_ways.Read(id, e); }
-
-  void AddRelation(TKey id, RelationElement const & e)
-  {
-    string const & relationType = e.GetType();
-    if (!(relationType == "multipolygon" || relationType == "route" || relationType == "boundary" ||
-          relationType == "associatedStreet" || relationType == "building" ||
-          relationType == "restriction"))
-    {
-      return;
-    }
-
-    m_relations.Write(id, e);
-    AddToIndex(m_nodeToRelations, id, e.nodes);
-    AddToIndex(m_wayToRelations, id, e.ways);
-  }
-
-  template <class ToDo>
-  void ForEachRelationByWay(TKey id, ToDo && toDo)
-  {
-    RelationProcessor<ToDo> processor(m_relations, toDo);
-    m_wayToRelations.ForEachByKey(id, processor);
-  }
-
-  template <class ToDo>
-  void ForEachRelationByNodeCached(TKey id, ToDo && toDo)
-  {
-    CachedRelationProcessor<ToDo> processor(m_relations, toDo);
-    m_nodeToRelations.ForEachByKey(id, processor);
-  }
-
-  template <class ToDo>
-  void ForEachRelationByWayCached(TKey id, ToDo && toDo)
-  {
-    CachedRelationProcessor<ToDo> processor(m_relations, toDo);
-    m_wayToRelations.ForEachByKey(id, processor);
-  }
-
-  void SaveIndex()
-  {
-    m_ways.SaveOffsets();
-    m_relations.SaveOffsets();
-
-    m_nodeToRelations.WriteAll();
-    m_wayToRelations.WriteAll();
-  }
-
-  void LoadIndex()
-  {
-    m_ways.LoadOffsets();
-    m_relations.LoadOffsets();
-
-    m_nodeToRelations.ReadAll();
-    m_wayToRelations.ReadAll();
-  }
-};
-
 /// Used to make a "good" node for a highway graph with OSRM for low zooms.
 class Place
 {
@@ -272,7 +115,7 @@ private:
   double m_thresholdM;
 };
 
-class MainFeaturesEmitter : public EmitterBase
+class MainFeaturesEmitter : public generator::EmitterBase
 {
   using TWorldGenerator = WorldMapGenerator<feature::FeaturesCollector>;
   using TCountriesGenerator = CountryMapGenerator<feature::Polygonizer<feature::FeaturesCollector>>;
@@ -579,8 +422,36 @@ private:
     }
   }
 };
-}  // anonymous namespace
+}  // namespace
 
+namespace generator
+{
+// SourceReader ------------------------------------------------------------------------------------
+SourceReader::SourceReader() : m_file(unique_ptr<istream, Deleter>(&cin, Deleter(false)))
+{
+  LOG_SHORT(LINFO, ("Reading OSM data from stdin"));
+}
+
+SourceReader::SourceReader(string const & filename)
+  : m_file(unique_ptr<istream, Deleter>(new ifstream(filename), Deleter()))
+{
+  CHECK(static_cast<ifstream *>(m_file.get())->is_open(), ("Can't open file:", filename));
+  LOG_SHORT(LINFO, ("Reading OSM data from", filename));
+}
+
+SourceReader::SourceReader(istringstream & stream)
+  : m_file(unique_ptr<istream, Deleter>(&stream, Deleter(false)))
+{
+  LOG_SHORT(LINFO, ("Reading OSM data from memory"));
+}
+
+uint64_t SourceReader::Read(char * buffer, uint64_t bufferSize)
+{
+  m_file->read(buffer, bufferSize);
+  return m_file->gcount();
+}
+
+// Functions ---------------------------------------------------------------------------------------
 unique_ptr<EmitterBase> MakeMainFeatureEmitter(feature::GenerateInfo const & info)
 {
   LOG(LINFO, ("Processing booking data from", info.m_bookingDatafileName, "done."));
@@ -669,21 +540,20 @@ void BuildIntermediateDataFromO5M(SourceReader & stream, TCache & cache, TownsDu
 
 void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *)> processor)
 {
-  using TType = osm::O5MSource::EntityType;
+  using Type = osm::O5MSource::EntityType;
 
   osm::O5MSource dataset([&stream](uint8_t * buffer, size_t size)
   {
     return stream.Read(reinterpret_cast<char *>(buffer), size);
   });
 
-  auto translate = [](TType t) -> OsmElement::EntityType
-  {
+  auto translate = [](Type t) -> OsmElement::EntityType {
     switch (t)
     {
-      case TType::Node: return OsmElement::EntityType::Node;
-      case TType::Way: return OsmElement::EntityType::Way;
-      case TType::Relation: return OsmElement::EntityType::Relation;
-      default: return OsmElement::EntityType::Unknown;
+    case Type::Node: return OsmElement::EntityType::Node;
+    case Type::Way: return OsmElement::EntityType::Way;
+    case Type::Relation: return OsmElement::EntityType::Relation;
+    default: return OsmElement::EntityType::Unknown;
     }
   };
 
@@ -694,21 +564,21 @@ void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *
 
     switch (em.type)
     {
-      case TType::Node:
+      case Type::Node:
       {
         p.type = OsmElement::EntityType::Node;
         p.lat = em.lat;
         p.lon = em.lon;
         break;
       }
-      case TType::Way:
+      case Type::Way:
       {
         p.type = OsmElement::EntityType::Way;
         for (uint64_t nd : em.Nodes())
           p.AddNd(nd);
         break;
       }
-      case TType::Relation:
+      case Type::Relation:
       {
         p.type = OsmElement::EntityType::Relation;
         for (auto const & member : em.Members())
@@ -731,15 +601,15 @@ void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *
 
 using PreEmit = function<bool(OsmElement *)>;
 
-template <class TNodesHolder>
+template <class NodesHolder>
 bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter,
                           PreEmit const & preEmit)
 {
   try
   {
-    TNodesHolder nodes(info.GetIntermediateFileName(NODES_FILE, ""));
+    NodesHolder nodes(info.GetIntermediateFileName(NODES_FILE, ""));
 
-    using TDataCache = IntermediateData<TNodesHolder, cache::EMode::Read>;
+    using TDataCache = cache::IntermediateDataReader<NodesHolder>;
     TDataCache cache(nodes, info);
     cache.LoadIndex();
 
@@ -784,14 +654,13 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter,
   return true;
 }
 
-template <class TNodesHolder>
+template <class NodesHolder>
 bool GenerateIntermediateDataImpl(feature::GenerateInfo & info)
 {
   try
   {
-    TNodesHolder nodes(info.GetIntermediateFileName(NODES_FILE, ""));
-    using TDataCache = IntermediateData<TNodesHolder, cache::EMode::Write>;
-    TDataCache cache(nodes, info);
+    NodesHolder nodes(info.GetIntermediateFileName(NODES_FILE, ""));
+    cache::IntermediateDataWriter<NodesHolder> cache(nodes, info);
     TownsDumper towns;
 
     SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
@@ -810,11 +679,11 @@ bool GenerateIntermediateDataImpl(feature::GenerateInfo & info)
 
     cache.SaveIndex();
     towns.Dump(info.GetIntermediateFileName(TOWNS_FILE, ""));
-    LOG(LINFO, ("Added points count = ", nodes.GetProcessedPoint()));
+    LOG(LINFO, ("Added points count =", nodes.GetNumProcessedPoints()));
   }
   catch (Writer::Exception const & e)
   {
-    LOG(LCRITICAL, ("Error with file ", e.what()));
+    LOG(LCRITICAL, ("Error with file:", e.what()));
   }
   return true;
 }
@@ -824,11 +693,11 @@ bool GenerateRaw(feature::GenerateInfo & info, std::unique_ptr<EmitterBase> emit
   switch (info.m_nodeStorageType)
   {
     case feature::GenerateInfo::NodeStorageType::File:
-      return GenerateFeaturesImpl<cache::RawFilePointStorage<cache::EMode::Read>>(info, *emitter, preEmit);
+      return GenerateFeaturesImpl<cache::RawFilePointStorageMmapReader>(info, *emitter, preEmit);
     case feature::GenerateInfo::NodeStorageType::Index:
-      return GenerateFeaturesImpl<cache::MapFilePointStorage<cache::EMode::Read>>(info, *emitter, preEmit);
+      return GenerateFeaturesImpl<cache::MapFilePointStorageReader>(info, *emitter, preEmit);
     case feature::GenerateInfo::NodeStorageType::Memory:
-      return GenerateFeaturesImpl<cache::RawMemPointStorage<cache::EMode::Read>>(info, *emitter, preEmit);
+      return GenerateFeaturesImpl<cache::RawMemPointStorageReader>(info, *emitter, preEmit);
   }
   return false;
 }
@@ -904,11 +773,12 @@ bool GenerateIntermediateData(feature::GenerateInfo & info)
   switch (info.m_nodeStorageType)
   {
     case feature::GenerateInfo::NodeStorageType::File:
-      return GenerateIntermediateDataImpl<cache::RawFilePointStorage<cache::EMode::Write>>(info);
+      return GenerateIntermediateDataImpl<cache::RawFilePointStorageWriter>(info);
     case feature::GenerateInfo::NodeStorageType::Index:
-      return GenerateIntermediateDataImpl<cache::MapFilePointStorage<cache::EMode::Write>>(info);
+      return GenerateIntermediateDataImpl<cache::MapFilePointStorageWriter>(info);
     case feature::GenerateInfo::NodeStorageType::Memory:
-      return GenerateIntermediateDataImpl<cache::RawMemPointStorage<cache::EMode::Write>>(info);
+      return GenerateIntermediateDataImpl<cache::RawMemPointStorageWriter>(info);
   }
   return false;
 }
+}  // namespace generator

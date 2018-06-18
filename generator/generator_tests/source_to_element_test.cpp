@@ -1,12 +1,19 @@
 #include "testing/testing.hpp"
 
-#include "coding/parse_xml.hpp"
-#include "generator/osm_source.hpp"
+#include "generator/generator_tests/source_data.hpp"
 #include "generator/osm_element.hpp"
+#include "generator/osm_source.hpp"
 
+#include "coding/parse_xml.hpp"
+
+#include <cstddef>
+#include <iostream>
 #include <iterator>
+#include <sstream>
+#include <string>
+#include <vector>
 
-#include "source_data.hpp"
+using namespace generator;
 
 UNIT_TEST(Source_To_Element_create_from_xml_test)
 {

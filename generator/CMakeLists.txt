@@ -39,6 +39,7 @@ set(SRC
   gen_mwm_info.hpp
   generate_info.hpp
   geometry_holder.hpp
+  intermediate_data.cpp
   intermediate_data.hpp
   intermediate_elements.hpp
   locality_sorter.cpp

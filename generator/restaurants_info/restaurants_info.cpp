@@ -25,7 +25,7 @@ DEFINE_string(out, "", "Output file path");
 
 namespace
 {
-class Emitter : public EmitterBase
+class Emitter : public generator::EmitterBase
 {
 public:
   Emitter(std::vector<FeatureBuilder1> & features)
@@ -138,11 +138,10 @@ int main(int argc, char * argv[])
   classificator::Load();
 
   auto info = GetGenerateInfo();
-  GenerateIntermediateData(info);
+  generator::GenerateIntermediateData(info);
 
   std::vector<FeatureBuilder1> features;
-  GenerateFeatures(info, [&features](feature::GenerateInfo const & /* info */)
-  {
+  generator::GenerateFeatures(info, [&features](feature::GenerateInfo const & /* info */) {
     return my::make_unique<Emitter>(features);
   });
 
