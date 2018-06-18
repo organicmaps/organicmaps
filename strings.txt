@@ -28030,17 +28030,17 @@ fa = دوباره نپرس
     en = -
     ru = -
 
-  [sponsored_partner15_action]
-    en = -
-    ru = -
+  [sponsored_partner18_action]
+    en = Lifehack
+    ru = Лайфхак
   
-  [sponsored_partner16_action]
-    en = -
-    ru = -
+  [sponsored_partner19_action]
+    en = Lifehack
+    ru = Лайфхак
 
-  [sponsored_partner17_action]
-    en = -
-    ru = -
+  [sponsored_partner20_action]
+    en = Lifehack
+    ru = Лайфхак
 
   [whats_new_ugc_title]
     en = Ratings and reviews
@@ -31470,8 +31470,10 @@ fa = دوباره نپرس
     ru = %s
 
   [bookmarks_objects]
-    en = objects
-    ru = объектов
+    en:one = %s object
+    en:other = %s objects
+    ru:one = %s объект
+    ru:other = %s объектов
 
   [objects]
     en:one = %d object
@@ -31534,3 +31536,31 @@ fa = دوباره نپرس
   [terms_of_use]
     en = Terms of use
     ru = Условия использования
+
+  [backup_notification_failed]
+    ru = Резервное копирование меток было приостановлено. Войдите, чтобы включить резервное копирование.
+
+  [banner_megafon_banner_message]
+    ru = Скажи международному роумингу гудбай!
+
+  [banner_megafon_banner_button]
+    ru = Гудбай!
+
+  [button_layer_traffic]
+    ru = Пробки
+
+  [button_layer_subway]
+    ru = Метро
+
+  [layers_title]
+    ru = Слои карты
+
+  [layers_message]
+    ru = Включайте слои на карте для отображения дорожной обстановки, схемы метро или другой полезной информации
+
+  [button_layer_got_it]
+    en = Got it
+    ru = Понятно
+
+  [subway_data_unavailable]
+    ru = Карта метро недоступна
