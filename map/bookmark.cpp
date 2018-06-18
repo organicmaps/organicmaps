@@ -260,7 +260,7 @@ bool BookmarkCategory::IsCategoryFromCatalog() const
 std::string BookmarkCategory::GetCatalogDeeplink() const
 {
   std::ostringstream ss;
-  ss << "mapsme://dlink.maps.me/catalogue?id=" << m_serverId << "&name=" << UrlEncode(GetName());
+  ss << "https://dlink.maps.me/catalogue?id=" << m_serverId << "&name=" << UrlEncode(GetName());
   return ss.str();
 }
 

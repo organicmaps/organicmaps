@@ -40,8 +40,11 @@ public:
 
   Result Download(std::string const & filePath) const;
 
+  using StartDownloadingHandler = std::function<void(std::string const & filePath)>;
   using ResultHandler = std::function<void(Result &&, std::string const & filePath)>;
-  void DownloadAsync(std::string const & filePath, ResultHandler && handler) const;
+  void DownloadAsync(std::string const & filePath,
+                     StartDownloadingHandler && startDownloadingHandler,
+                     ResultHandler && resultHandler) const;
 
 private:
   std::string const m_url;

@@ -1470,6 +1470,9 @@ void BookmarkManager::CreateCategories(KMLDataCollection && dataCollection, bool
     auto & fileData = *data.second;
     auto & categoryData = fileData.m_categoryData;
 
+    if (FromCatalog(fileData))
+      m_bookmarkCatalog.RegisterDownloadedId(fileData.m_serverId);
+
     if (!UserMarkIdStorage::Instance().CheckIds(fileData) || HasDuplicatedIds(fileData))
     {
       //TODO: notify subscribers(like search subsystem). This KML could have been indexed.
@@ -2085,8 +2088,6 @@ void BookmarkManager::ImportDownloadedFromCatalog(std::string const & id, std::s
 
         CreateCategories(std::move(*collection));
 
-        m_bookmarkCatalog.RegisterDownloadedId(id);
-
         if (m_onCatalogImportFinished)
           m_onCatalogImportFinished(id, true /* successful */);
       });
@@ -2097,16 +2098,6 @@ void BookmarkManager::ImportDownloadedFromCatalog(std::string const & id, std::s
         m_onCatalogImportFinished(id, false /* successful */);
     }
   });
-}
-
-size_t BookmarkManager::GetDownloadingFromCatalogCount() const
-{
-  return m_bookmarkCatalog.GetDownloadingCount();
-}
-
-std::vector<std::string> BookmarkManager::GetDownloadingFromCatalogNames() const
-{
-  return m_bookmarkCatalog.GetDownloadingNames();
 }
 
 bool BookmarkManager::IsCategoryFromCatalog(kml::MarkGroupId categoryId) const
@@ -2126,14 +2117,10 @@ std::string BookmarkManager::GetCategoryCatalogDeeplink(kml::MarkGroupId categor
   return cat->GetCatalogDeeplink();
 }
 
-std::string BookmarkManager::GetCatalogDownloadUrl(std::string const & serverId) const
+BookmarkCatalog const & BookmarkManager::GetCatalog() const
 {
-  return m_bookmarkCatalog.GetCatalogDownloadUrl(serverId);
-}
-
-std::string BookmarkManager::GetCatalogFrontendUrl() const
-{
-  return m_bookmarkCatalog.GetCatalogFrontendUrl();
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  return m_bookmarkCatalog;
 }
 
 void BookmarkManager::EnableTestMode(bool enable)

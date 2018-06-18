@@ -646,7 +646,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCatalogDownload
         JNIEnv * env, jobject, jstring serverId)
 {
   auto & bm = frm()->GetBookmarkManager();
-  return ToJavaString(env, bm.GetCatalogDownloadUrl(ToNativeString(env, serverId)));
+  return ToJavaString(env, bm.GetCatalog().GetDownloadUrl(ToNativeString(env, serverId)));
 }
 
 JNIEXPORT jstring JNICALL
@@ -654,7 +654,7 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeGetCatalogFrontend
         JNIEnv * env, jobject)
 {
   auto & bm = frm()->GetBookmarkManager();
-  return ToJavaString(env, bm.GetCatalogFrontendUrl());
+  return ToJavaString(env, bm.GetCatalog().GetFrontendUrl());
 }
 
 JNIEXPORT jboolean JNICALL

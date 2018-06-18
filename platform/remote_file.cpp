@@ -21,6 +21,9 @@ RemoteFile::RemoteFile(std::string url, bool allowRedirection)
 
 RemoteFile::Result RemoteFile::Download(std::string const & filePath) const
 {
+  if (m_url.empty())
+    return {m_url, Status::NetworkError, "Empty URL"};
+
   platform::HttpClient request(m_url);
   request.SetTimeout(kRequestTimeoutInSec);
   if (request.RunHttpRequest())
@@ -60,15 +63,21 @@ RemoteFile::Result RemoteFile::Download(std::string const & filePath) const
   return {m_url, Status::NetworkError, "Unspecified network error"};
 }
 
-void RemoteFile::DownloadAsync(std::string const & filePath, ResultHandler && handler) const
+void RemoteFile::DownloadAsync(std::string const & filePath,
+                               StartDownloadingHandler && startDownloadingHandler,
+                               ResultHandler && resultHandler) const
 {
   RemoteFile remoteFile = *this;
   GetPlatform().RunTask(Platform::Thread::Network,
-                        [filePath, remoteFile = std::move(remoteFile), handler = std::move(handler)]()
+                        [filePath, remoteFile = std::move(remoteFile),
+                         startDownloadingHandler = std::move(startDownloadingHandler),
+                         resultHandler = std::move(resultHandler)]
   {
+    if (startDownloadingHandler)
+      startDownloadingHandler(filePath);
     auto result = remoteFile.Download(filePath);
-    if (handler)
-      handler(std::move(result), filePath);
+    if (resultHandler)
+      resultHandler(std::move(result), filePath);
   });
 }
 }  // namespace platform

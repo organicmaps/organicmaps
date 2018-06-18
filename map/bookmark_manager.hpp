@@ -294,12 +294,9 @@ public:
                           OnCatalogImportFinishedHandler && onCatalogImportFinished);
   void DownloadFromCatalogAndImport(std::string const & id, std::string const & name);
   void ImportDownloadedFromCatalog(std::string const & id, std::string const & filePath);
-  size_t GetDownloadingFromCatalogCount() const;
-  std::vector<std::string> GetDownloadingFromCatalogNames() const;
   bool IsCategoryFromCatalog(kml::MarkGroupId categoryId) const;
   std::string GetCategoryCatalogDeeplink(kml::MarkGroupId categoryId) const;
-  std::string GetCatalogDownloadUrl(std::string const & serverId) const;
-  std::string GetCatalogFrontendUrl() const;
+  BookmarkCatalog const & GetCatalog() const;
 
   /// These functions are public for unit tests only. You shouldn't call them from client code.
   void EnableTestMode(bool enable);

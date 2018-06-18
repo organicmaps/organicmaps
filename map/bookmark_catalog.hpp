@@ -15,15 +15,17 @@ public:
 
   void RegisterDownloadedId(std::string const & id);
   void UnregisterDownloadedId(std::string const & id);
-
   void Download(std::string const & id, std::string const & name,
                 std::function<void()> && startHandler,
                 platform::RemoteFile::ResultHandler && finishHandler);
+
+  bool IsDownloading(std::string const & id) const;
+  bool HasDownloaded(std::string const & id) const;
   size_t GetDownloadingCount() const { return m_downloadingIds.size(); }
   std::vector<std::string> GetDownloadingNames() const;
 
-  std::string GetCatalogDownloadUrl(std::string const & serverId) const;
-  std::string GetCatalogFrontendUrl() const;
+  std::string GetDownloadUrl(std::string const & serverId) const;
+  std::string GetFrontendUrl() const;
 
 private:
   std::map<std::string, std::string> m_downloadingIds;
