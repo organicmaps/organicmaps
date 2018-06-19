@@ -31584,3 +31584,7 @@ fa = دوباره نپرس
   [bookmarks_empty_list_message]
     en = To add a bookmark, tap a place on the map and then tap the star icon
     ru = Чтобы добавить новую метку, нажмите на значок звездочки в карточке объекта
+
+  [category_desc_more]
+    en = …more
+
