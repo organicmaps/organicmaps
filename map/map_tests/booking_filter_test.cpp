@@ -35,7 +35,7 @@ public:
 protected:
   TestMwmEnvironment()
   {
-    booking::SetBookingUrlForTesting("http://localhost:34568/booking/min_price");
+    booking::SetBookingUrlForTesting("http://localhost:34568/booking");
   }
 
   ~TestMwmEnvironment()

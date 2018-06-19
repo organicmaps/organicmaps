@@ -16,8 +16,11 @@
 #include "platform/preferred_languages.hpp"
 
 #include "partners_api/booking_api.hpp"
+#include "partners_api/booking_block_params.hpp"
 
 #include "3party/opening_hours/opening_hours.hpp"
+
+#include <string>
 
 using namespace place_page;
 
@@ -579,16 +582,19 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     std::string const currency = self.currencyFormatter.currencyCode.UTF8String;
 
     auto const func = [self, label, currency](std::string const & hotelId,
-                                              std::string const & minPrice,
-                                              std::string const & priceCurrency) {
-      if (currency != priceCurrency)
+                                              booking::Blocks const & blocks) {
+      if (currency != blocks.m_currency)
         return;
 
       NSNumberFormatter * decimalFormatter = [[NSNumberFormatter alloc] init];
       decimalFormatter.numberStyle = NSNumberFormatterDecimalStyle;
 
+      auto const price = blocks.m_totalMinPrice == booking::BlockInfo::kIncorrectPrice
+                             ? ""
+                             : std::to_string(blocks.m_totalMinPrice);
+
       NSNumber * currencyNumber = [decimalFormatter
-          numberFromString:[@(minPrice.c_str())
+          numberFromString:[@(price.c_str())
                                stringByReplacingOccurrencesOfString:@"."
                                                          withString:decimalFormatter
                                                                         .decimalSeparator]];
@@ -601,7 +607,10 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
       });
     };
 
-    api->GetMinPrice(self.sponsoredId.UTF8String, currency, func);
+    auto params = booking::BlockParams::MakeDefault();
+    params.m_hotelId = self.sponsoredId.UTF8String;
+    params.m_currency = currency;
+    api->GetBlockAvailability(params, func);
   });
 }
 

@@ -1,9 +1,12 @@
-#include "Framework.hpp"
+#include "com/mapswithme/maps/Framework.hpp"
 
 #include "com/mapswithme/core/jni_helper.hpp"
 #include "com/mapswithme/platform/Platform.hpp"
+
 #include "map/place_page_info.hpp"
+
 #include "partners_api/booking_api.hpp"
+#include "partners_api/booking_block_params.hpp"
 
 #include <chrono>
 #include <functional>
@@ -142,16 +145,21 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_nativ
   g_lastRequestedHotelId = hotelId;
 
   std::string const code = jni::ToNativeString(env, currencyCode);
-
+  auto params = booking::BlockParams::MakeDefault();
+  params.m_hotelId = hotelId;
+  params.m_currency = code;
   g_framework->RequestBookingMinPrice(
-      env, policy, hotelId, code,
-      [](std::string const hotelId, std::string const price, std::string const currency) {
+      env, policy, params, [](std::string const & hotelId, booking::Blocks const & blocks) {
         if (g_lastRequestedHotelId != hotelId)
           return;
 
         JNIEnv * env = jni::GetEnv();
-        env->CallStaticVoidMethod(g_sponsoredClass, g_priceCallback, jni::ToJavaString(env, hotelId),
-                                  jni::ToJavaString(env, price), jni::ToJavaString(env, currency));
+        auto const price = blocks.m_totalMinPrice == BlockInfo::kIncorrectPrice
+                               ? ""
+                               : std::to_string(blocks.m_totalMinPrice);
+        env->CallStaticVoidMethod(g_sponsoredClass, g_priceCallback,
+                                  jni::ToJavaString(env, hotelId), jni::ToJavaString(env, price),
+                                  jni::ToJavaString(env, blocks.m_currency));
       });
 }
 

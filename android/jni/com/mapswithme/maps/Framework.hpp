@@ -16,6 +16,7 @@
 
 #include "local_ads/event.hpp"
 
+#include "partners_api/booking_api.hpp"
 #include "partners_api/locals_api.hpp"
 
 #include "platform/country_defines.hpp"
@@ -38,6 +39,11 @@ struct FeatureID;
 namespace search
 {
 struct EverywhereSearchParams;
+}
+
+namespace booking
+{
+struct BlockParams;
 }
 
 namespace android
@@ -175,9 +181,8 @@ namespace android
 
     void SetPlacePageInfo(place_page::Info const & info);
     place_page::Info & GetPlacePageInfo();
-    void RequestBookingMinPrice(JNIEnv * env, jobject policy, 
-                                std::string const & hotelId, std::string const & currency,
-                                booking::GetMinPriceCallback const & callback);
+    void RequestBookingMinPrice(JNIEnv * env, jobject policy, booking::BlockParams const & params,
+                                booking::BlockAvailabilityCallback const & callback);
     void RequestBookingInfo(JNIEnv * env, jobject policy, 
                             std::string const & hotelId, std::string const & lang,
                             booking::GetHotelInfoCallback const & callback);

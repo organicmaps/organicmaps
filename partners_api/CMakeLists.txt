@@ -13,6 +13,8 @@ set(
   booking_api.hpp
   booking_availability_params.cpp
   booking_availability_params.hpp
+  booking_block_params.cpp
+  booking_block_params.hpp
   booking_params_base.hpp
   facebook_ads.cpp
   facebook_ads.hpp

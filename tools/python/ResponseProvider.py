@@ -141,10 +141,9 @@ class ResponseProvider:
                 "/id": self.my_id,
                 "/partners/time": self.partners_time,
                 "/partners/price": self.partners_price,
-                "/booking/min_price": self.partners_minprice,
-                "/booking/min_price.getHotelAvailability": self.partners_minprice,
-                "/booking/min_price/hotelAvailability": self.partners_hotel_availability,
-                "/booking/min_price/deals": self.partners_hotels_with_deals,
+                "/booking/hotelAvailability": self.partners_hotel_availability,
+                "/booking/deals": self.partners_hotels_with_deals,
+                "/booking/blockAvailability": self.partners_block_availability,
                 "/partners/taxi_info": self.partners_yandex_taxi_info,
                 "/partners/get-offers-in-bbox/": self.partners_rent_nearby,
                 "/partners/CalculateByCoords": self.partners_calculate_by_coords,
@@ -222,15 +221,14 @@ class ResponseProvider:
     def partners_price(self):
         return Payload(jsons.PARTNERS_PRICE)
 
-
-    def partners_minprice(self):
-        return Payload(jsons.PARTNERS_MINPRICE)
-
     def partners_hotel_availability(self):
         return Payload(jsons.HOTEL_AVAILABILITY)
 
     def partners_hotels_with_deals(self):
         return Payload(jsons.HOTELS_WITH_DEALS)
+
+    def partners_block_availability(self):
+        return Payload(jsons.BLOCK_AVAILABILITY)
 
     def partners_yandex_taxi_info(self):
         return Payload(jsons.PARTNERS_TAXI_INFO)

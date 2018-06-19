@@ -230,29 +230,67 @@ HOTELS_WITH_DEALS = """
 }
 """
 
-PARTNERS_MINPRICE = """
-[
+BLOCK_AVAILABILITY = """
+{
+  "result": [
     {
-        "hotel_id":"0000000",
-        "currency_code":"USD",
-        "max_price":"5000.00",
-        "ranking":1,
-        "min_price":"250.00",
-        "available_rooms":37,
-        "other_currency": [
-            {
-                "currency_code":"RUB",
-                "max_price":"250000.00",
-                "min_price":"15000.00"
-            },
-            {
-                "currency_code":"ISK",
-                "max_price":"500000.00",
-                "min_price":"30000.00"
+      "direct_payment": true,
+      "checkin": "2018-06-16",
+      "hotel_id": 61394,
+      "block": [
+        {
+          "room_description": "Более просторные апартаменты-студио с кухней открытой планировки, телевизором с плоским экраном и бесплатным Wi-Fi.По запросу предоставляется DVD-плеер.",
+          "taxes": "НДС в размере 7 % , городской налог в размере 5 % ",
+          "rack_rate": {
+            "currency": "EUR",
+            "price": 0,
+            "other_currency": {
+              "currency": "RUB",
+              "price": 0
             }
-        ]
+          },
+          "block_id": "6139409_116589412_2_1_0",
+          "max_occupancy": 2,
+          "refundable": false,
+          "breakfast_included": true,
+          "is_smart_deal": false,
+          "incremental_price": [
+            {
+              "other_currency": {
+                "currency": "RUB",
+                "price": 8405.46
+              },
+              "price": 116,
+              "currency": "EUR"
+            }
+          ],
+          "photos": [
+            {
+              "url_original": "https://q-xx.bstatic.com/images/hotel/max500/437/43793388.jpg",
+              "photo_id": 43793388,
+              "url_max300": "https://q-xx.bstatic.com/images/hotel/max300/437/43793388.jpg",
+              "url_square60": "https://q-xx.bstatic.com/images/hotel/square60/437/43793388.jpg"
+            }
+          ],
+          "deposit_required": false,
+          "name": "Синьо Студио 1 - Стоимость не возвращается",
+          "is_last_minute_deal": false,
+          "min_price": {
+            "other_currency": {
+              "currency": "RUB",
+              "price": 8405.46
+            },
+            "price": 116,
+            "currency": "EUR"
+          },
+          "refundable_until": "",
+          "room_id": 6139409
+        }
+      ],
+      "checkout": "2018-06-17"
     }
-]
+  ]
+}
 """
 
 PARTNERS_TAXI_INFO = """

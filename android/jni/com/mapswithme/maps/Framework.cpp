@@ -11,6 +11,7 @@
 
 #include "partners_api/ads_engine.hpp"
 #include "partners_api/banner.hpp"
+#include "partners_api/booking_block_params.hpp"
 #include "partners_api/mopub_ads.hpp"
 #include "partners_api/megafon_countries.hpp"
 
@@ -507,12 +508,12 @@ place_page::Info & Framework::GetPlacePageInfo()
 }
 
 void Framework::RequestBookingMinPrice(JNIEnv * env, jobject policy,
-                                       string const & hotelId, string const & currencyCode,
-                                       booking::GetMinPriceCallback const & callback)
+                                       booking::BlockParams const & params,
+                                       booking::BlockAvailabilityCallback const & callback)
 {
   auto const bookingApi = m_work.GetBookingApi(ToNativeNetworkPolicy(env, policy));
   if (bookingApi)
-    bookingApi->GetMinPrice(hotelId, currencyCode, callback);
+    bookingApi->GetBlockAvailability(params, callback);
 }
 
 void Framework::RequestBookingInfo(JNIEnv * env, jobject policy,

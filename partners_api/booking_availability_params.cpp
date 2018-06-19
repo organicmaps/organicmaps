@@ -1,5 +1,4 @@
 #include "partners_api/booking_availability_params.hpp"
-#include "partners_api/utils.hpp"
 
 #include "base/string_utils.hpp"
 
@@ -9,11 +8,6 @@ using namespace base;
 
 namespace
 {
-std::string FormatTime(booking::AvailabilityParams::Time p)
-{
-  return partners_api::FormatTime(p, "%Y-%m-%d");
-}
-
 bool IsAcceptedByFilter(booking::AvailabilityParams::UrlFilter const & filter,
                         std::string const & value)
 {

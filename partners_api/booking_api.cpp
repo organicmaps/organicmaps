@@ -30,7 +30,7 @@ using namespace std::chrono;
 namespace
 {
 string const kBookingApiBaseUrlV1 = "https://distribution-xml.booking.com/json/bookings";
-string const kBookingApiBaseUrlV2 = "https://distribution-xml.booking.com/2.0/json/";
+string const kBookingApiBaseUrlV2 = "https://distribution-xml.booking.com/2.0/json";
 string const kExtendedHotelInfoBaseUrl = "https://hotels.maps.me/getDescription";
 string const kPhotoOriginalUrl = "http://aff.bstatic.com/images/hotel/max500/";
 string const kPhotoSmallUrl = "http://aff.bstatic.com/images/hotel/max300/";
@@ -231,42 +231,122 @@ void FillHotelInfo(string const & src, HotelInfo & info)
   info.m_reviews = ParseReviews(reviewsArray);
 }
 
-void FillPriceAndCurrency(string const & src, string const & currency, string & minPrice,
-                          string & priceCurrency)
+void FillPriceAndCurrency(json_t * src, string const & currency, BlockInfo & result)
 {
-  my::Json root(src.c_str());
-  if (!json_is_array(root.get()))
-    MYTHROW(my::Json::Exception, ("The answer must contain a json array."));
-  size_t const rootSize = json_array_size(root.get());
+  FromJSONObject(src, "currency", result.m_currency);
+  FromJSONObject(src, "price", result.m_minPrice);
 
-  if (rootSize == 0)
-    return;
-
-  // Read default hotel price and currency.
-  auto obj = json_array_get(root.get(), 0);
-  FromJSONObject(obj, "min_price", minPrice);
-  FromJSONObject(obj, "currency_code", priceCurrency);
-
-  if (currency.empty() || priceCurrency == currency)
+  if (currency.empty() || result.m_currency == currency)
     return;
 
   // Try to get price in requested currency.
-  json_t * arr = json_object_get(obj, "other_currency");
-  if (arr == nullptr || !json_is_array(arr))
+  json_t * other = json_object_get(src, "other_currency");
+  if (!json_is_object(other))
     return;
 
-  size_t sz = json_array_size(arr);
-  string code;
+  string otherCurrency;
+  FromJSONObject(other, "currency", otherCurrency);
+  if (otherCurrency == currency)
+  {
+    result.m_currency = otherCurrency;
+    FromJSONObject(other, "price", result.m_minPrice);
+    return;
+  }
+}
+
+BlockInfo MakeBlock(json_t * src, string const & currency)
+{
+  BlockInfo result;
+
+  FromJSONObject(src, "block_id", result.m_blockId);
+  FromJSONObject(src, "name", result.m_name);
+  FromJSONObject(src, "room_description", result.m_description);
+  FromJSONObject(src, "max_occupancy", result.m_maxOccupancy);
+  FromJSONObject(src, "breakfast_included", result.m_breakfastIncluded);
+  FromJSONObject(src, "deposit_required", result.m_depositRequired);
+
+  auto minPriceRoot = json_object_get(src, "min_price");
+  if (!json_is_object(minPriceRoot))
+    MYTHROW(my::Json::Exception, ("The min_price must contain a json object."));
+
+  FillPriceAndCurrency(minPriceRoot, currency, result);
+
+  auto photosArray = json_object_get(src, "photos");
+  size_t sz = json_array_size(photosArray);
+  string photoUrl;
   for (size_t i = 0; i < sz; ++i)
   {
-    auto el = json_array_get(arr, i);
-    FromJSONObject(el, "currency_code", code);
-    if (code == currency)
+    auto photoItem = json_array_get(photosArray, i);
+    FromJSONObject(photoItem, "url_original", photoUrl);
+    result.m_photos.emplace_back(photoUrl);
+  }
+
+  Deals deals;
+  bool lastMinuteDeal = false;
+  FromJSONObjectOptionalField(src, "is_last_minute_deal", lastMinuteDeal);
+  if (lastMinuteDeal)
+  {
+    deals.m_types.emplace_back(Deals::Type::LastMinute);
+    FromJSONObject(src, "last_minute_deal_percentage", deals.m_discount);
+  }
+  bool smartDeal = false;
+  FromJSONObjectOptionalField(src, "is_smart_deal", smartDeal);
+  if (smartDeal)
+    deals.m_types.emplace_back(Deals::Type::Smart);
+
+  string refundableUntil;
+  auto refundableUntilObject = json_object_get(src, "refundable_until");
+  if (json_is_string(refundableUntilObject))
+  {
+    FromJSON(refundableUntilObject, refundableUntil);
+
+    if (!refundableUntil.empty())
     {
-      priceCurrency = code;
-      FromJSONObject(el, "min_price", minPrice);
-      break;
+      istringstream ss(refundableUntil);
+      tm t = {};
+      ss >> base::get_time(&t, "%Y-%m-%d %H:%M:%S");
+      if (ss.fail())
+        LOG(LWARNING, ("Incorrect refundable_until date =", refundableUntil));
+      else
+        result.m_refundableUntil = system_clock::from_time_t(mktime(&t));
     }
+  }
+
+  return result;
+}
+
+void FillBlocks(string const & src, string const & currency, Blocks & blocks)
+{
+  my::Json root(src.c_str());
+  if (!json_is_object(root.get()))
+    MYTHROW(my::Json::Exception, ("The answer must contain a json object."));
+
+  auto rootArray = json_object_get(root.get(), "result");
+  if (!json_is_array(rootArray))
+    MYTHROW(my::Json::Exception, ("The \"result\" field must contain a json array."));
+
+  size_t const rootSize = json_array_size(rootArray);
+  ASSERT_LESS(rootSize, 2, ("Several hotels is not supported in this method"));
+  if (rootSize == 0)
+    return;
+
+  auto rootItem = json_array_get(rootArray, 0);
+  if (!json_is_object(rootItem))
+    MYTHROW(my::Json::Exception, ("The root item must contain a json object."));
+
+  auto blocksArray = json_object_get(rootItem, "block");
+  if (!json_is_array(blocksArray))
+    MYTHROW(my::Json::Exception, ("The \"block\" field must contain a json array."));
+
+  size_t const blocksSize = json_array_size(blocksArray);
+  for (size_t i = 0; i < blocksSize; ++i)
+  {
+    auto block = json_array_get(blocksArray, i);
+
+    if (!json_is_object(block))
+      MYTHROW(my::Json::Exception, ("The block item must contain a json object."));
+
+    blocks.Add(MakeBlock(block, currency));
   }
 }
 
@@ -345,6 +425,14 @@ bool RawApi::HotelAvailability(AvailabilityParams const & params, string & resul
   return RunSimpleHttpRequest(true, url, result);
 }
 
+// static
+bool RawApi::BlockAvailability(BlockParams const & params, string & result)
+{
+  string url = MakeApiUrlV2("blockAvailability", params.Get());
+
+  return RunSimpleHttpRequest(true, url, result);
+}
+
 string Api::GetBookHotelUrl(string const & baseUrl) const
 {
   ASSERT(!baseUrl.empty(), ());
@@ -407,31 +495,29 @@ string Api::ApplyAvailabilityParams(string const & url, AvailabilityParams const
   return ApplyAvailabilityParamsUniversal(url, params);
 }
 
-void Api::GetMinPrice(string const & hotelId, string const & currency,
-                      GetMinPriceCallback const & fn) const
+void Api::GetBlockAvailability(BlockParams const & params,
+                               BlockAvailabilityCallback const & fn) const
 {
-  GetPlatform().RunTask(Platform::Thread::Network, [hotelId, currency, fn]()
+  GetPlatform().RunTask(Platform::Thread::Network, [params, fn]()
   {
-    string minPrice;
-    string priceCurrency;
     string httpResult;
-    if (!RawApi::GetHotelAvailability(hotelId, currency, httpResult))
+    if (!RawApi::BlockAvailability(params, httpResult))
     {
-      fn(hotelId, minPrice, priceCurrency);
+      fn(params.m_hotelId, {});
       return;
     }
 
+    Blocks blocks;
     try
     {
-      FillPriceAndCurrency(httpResult, currency, minPrice, priceCurrency);
+      FillBlocks(httpResult, params.m_currency, blocks);
     }
     catch (my::Json::Exception const & e)
     {
       LOG(LERROR, (e.Msg()));
-      minPrice.clear();
-      priceCurrency.clear();
+      blocks = {};
     }
-    fn(hotelId, minPrice, priceCurrency);
+    fn(params.m_hotelId, blocks);
   });
 }
 
@@ -456,7 +542,7 @@ void Api::GetHotelInfo(string const & hotelId, string const & lang,
     }
     catch (my::Json::Exception const & e)
     {
-      LOG(LERROR, ("Failed to parse json:", hotelId, result, e.what()));
+      LOG(LINFO, ("Failed to parse json:", hotelId, result, e.what()));
       ClearHotelInfo(info);
     }
 

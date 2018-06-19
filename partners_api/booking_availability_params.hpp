@@ -37,8 +37,6 @@ struct AvailabilityParams : public ParamsBase
     int8_t m_ageOfChild = kNoChildren;
   };
 
-  using Clock = std::chrono::system_clock;
-  using Time = Clock::time_point;
   using Hotels = std::vector<std::string>;
   using Rooms = std::vector<Room>;
   using Stars = std::vector<std::string>;
