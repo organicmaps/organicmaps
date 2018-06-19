@@ -20,24 +20,56 @@
 
 namespace storage
 {
-// This class allows users to get information about country by point
-// or by name.
-//
-// *NOTE* This class is thread-safe.
-class CountryInfoGetter
+class CountryInfoGetterBase
 {
 public:
   // Identifier of a region (index in m_countries array).
   using TRegionId = size_t;
   using TRegionIdSet = std::vector<TRegionId>;
 
-  CountryInfoGetter(bool isSingleMwm) : m_isSingleMwm(isSingleMwm) {}
-  virtual ~CountryInfoGetter() = default;
+  CountryInfoGetterBase(bool isSingleMwm) : m_isSingleMwm(isSingleMwm) {}
+  virtual ~CountryInfoGetterBase() = default;
 
   // Returns country file name without an extension for a country |pt|
   // belongs to. If there is no such country, returns an empty
   // string.
   TCountryId GetRegionCountryId(m2::PointD const & pt) const;
+
+  // Returns true when |pt| belongs to at least one of the specified
+  // |regions|.
+  bool IsBelongToRegions(m2::PointD const & pt, TRegionIdSet const & regions) const;
+
+  // Returns true if there're at least one region with id equals to
+  // |countryId|.
+  bool IsBelongToRegions(TCountryId const & countryId, TRegionIdSet const & regions) const;
+
+  void RegionIdsToCountryIds(TRegionIdSet const & regions, TCountriesVec & countries) const;
+
+protected:
+  // Returns identifier of a first country containing |pt|.
+  TRegionId FindFirstCountry(m2::PointD const & pt) const;
+
+  // Returns true when |pt| belongs to a country identified by |id|.
+  virtual bool IsBelongToRegionImpl(size_t id, m2::PointD const & pt) const = 0;
+
+  // @TODO(bykoianko): consider to get rid of m_countryIndex.
+  // The possibility should be considered.
+  // List of all known countries.
+  std::vector<CountryDef> m_countries;
+  // m_isSingleMwm == true if the system is currently working with single (small) mwms
+  // and false otherwise.
+  // @TODO(bykoianko) Init m_isSingleMwm correctly.
+  bool m_isSingleMwm;
+};
+
+// This class allows users to get information about country by point
+// or by name.
+//
+// *NOTE* This class is thread-safe.
+class CountryInfoGetter : public CountryInfoGetterBase
+{
+public:
+  CountryInfoGetter(bool isSingleMwm) : CountryInfoGetterBase(isSingleMwm) {}
 
   // Returns vector of countries file names without an extension for
   // countries belong to |rect|. |rough| provides fast rough result
@@ -73,27 +105,13 @@ public:
   // Returns identifiers for all regions matching to correspondent |affiliation|.
   virtual void GetMatchedRegions(string const & affiliation, TRegionIdSet & regions) const;
 
-  // Returns true when |pt| belongs to at least one of the specified
-  // |regions|.
-  bool IsBelongToRegions(m2::PointD const & pt, TRegionIdSet const & regions) const;
-
-  // Returns true if there're at least one region with id equals to
-  // |countryId|.
-  bool IsBelongToRegions(TCountryId const & countryId, TRegionIdSet const & regions) const;
-
-  void RegionIdsToCountryIds(TRegionIdSet const & regions, TCountriesVec & countries) const;
-
   // Clears regions cache.
   inline void ClearCaches() const { ClearCachesImpl(); }
 
   void InitAffiliationsInfo(TMappingAffiliations const * affiliations);
 
 protected:
-  CountryInfoGetter() = default;
-
-  // Returns identifier of a first country containing |pt|.
-  TRegionId FindFirstCountry(m2::PointD const & pt) const;
-
+  CountryInfoGetter() : CountryInfoGetterBase(true) {};
   // Invokes |toDo| on each country whose name starts with |prefix|.
   template <typename ToDo>
   void ForEachCountry(string const & prefix, ToDo && toDo) const;
@@ -101,19 +119,11 @@ protected:
   // Clears regions cache.
   virtual void ClearCachesImpl() const = 0;
 
-  // Returns true when |pt| belongs to a country identified by |id|.
-  virtual bool IsBelongToRegionImpl(size_t id, m2::PointD const & pt) const = 0;
-
   // Returns true when |rect| intersects a country identified by |id|.
   virtual bool IsIntersectedByRegionImpl(size_t id, m2::RectD const & rect) const = 0;
 
   // Returns true when the distance from |pt| to country identified by |id| less then |distance|.
   virtual bool IsCloseEnough(size_t id, m2::PointD const & pt, double distance) = 0;
-
-  // @TODO(bykoianko): consider to get rid of m_countryIndex.
-  // The possibility should be considered.
-  // List of all known countries.
-  std::vector<CountryDef> m_countries;
   // Maps all leaf country id (file names) to their indices in m_countries.
   std::unordered_map<TCountryId, TRegionId> m_countryIndex;
 
@@ -121,11 +131,6 @@ protected:
 
   // Maps country file name without an extension to a country info.
   std::map<std::string, CountryInfo> m_id2info;
-
-  // m_isSingleMwm == true if the system is currently working with single (small) mwms
-  // and false otherwise.
-  // @TODO(bykoianko) Init m_isSingleMwm correctly.
-  bool m_isSingleMwm;
 };
 
 // This class reads info about countries from polygons file and

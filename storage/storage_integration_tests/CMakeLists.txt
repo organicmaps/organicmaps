@@ -5,6 +5,7 @@ add_definitions("-DOMIM_UNIT_TEST_WITH_QT_EVENT_LOOP")
 
 set(
   SRC
+  lightweight_matching_tests.cpp
   migrate_tests.cpp
   storage_3levels_tests.cpp
   storage_downloading_tests.cpp

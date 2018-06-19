@@ -17,6 +17,9 @@
 		34B093261C61F9BA0066F4C3 /* app_store.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34B093211C61F9BA0066F4C3 /* app_store.hpp */; };
 		34C9BCFC1C6CCF85000DC38D /* country_name_getter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34C9BCFA1C6CCF85000DC38D /* country_name_getter.cpp */; };
 		34C9BCFD1C6CCF85000DC38D /* country_name_getter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 34C9BCFB1C6CCF85000DC38D /* country_name_getter.hpp */; };
+		3DCD414620D80C0900143533 /* country_info_reader_light.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DCD414420D80C0800143533 /* country_info_reader_light.hpp */; };
+		3DCD414720D80C0900143533 /* country_info_reader_light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCD414520D80C0900143533 /* country_info_reader_light.cpp */; };
+		3DCD414920D80C1B00143533 /* lightweight_matching_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DCD414820D80C1B00143533 /* lightweight_matching_tests.cpp */; };
 		401ECED41F56C50900DFDF76 /* country_parent_getter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 401ECED21F56C50900DFDF76 /* country_parent_getter.cpp */; };
 		401ECED51F56C50900DFDF76 /* country_parent_getter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 401ECED31F56C50900DFDF76 /* country_parent_getter.hpp */; };
 		4586D0C71F48126A00DF9CE5 /* diff_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4586D0C51F48126A00DF9CE5 /* diff_manager.cpp */; };
@@ -198,6 +201,9 @@
 		34C9BCFB1C6CCF85000DC38D /* country_name_getter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_name_getter.hpp; sourceTree = "<group>"; };
 		34F5584A1DBF2FC000A4FC11 /* common-debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		34F5584B1DBF2FC000A4FC11 /* common-release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+		3DCD414420D80C0800143533 /* country_info_reader_light.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_info_reader_light.hpp; sourceTree = "<group>"; };
+		3DCD414520D80C0900143533 /* country_info_reader_light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_info_reader_light.cpp; sourceTree = "<group>"; };
+		3DCD414820D80C1B00143533 /* lightweight_matching_tests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lightweight_matching_tests.cpp; sourceTree = "<group>"; };
 		401ECED21F56C50900DFDF76 /* country_parent_getter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = country_parent_getter.cpp; sourceTree = "<group>"; };
 		401ECED31F56C50900DFDF76 /* country_parent_getter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = country_parent_getter.hpp; sourceTree = "<group>"; };
 		4586D0C51F48126A00DF9CE5 /* diff_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = diff_manager.cpp; path = diff_scheme/diff_manager.cpp; sourceTree = "<group>"; };
@@ -504,6 +510,7 @@
 		672480071C60CE3D00EDE56A /* storage_integration_tests */ = {
 			isa = PBXGroup;
 			children = (
+				3DCD414820D80C1B00143533 /* lightweight_matching_tests.cpp */,
 				67239C941CBBDB0E00C530A8 /* download_calc_size_test.cpp */,
 				56D8CB971CAC17A80003F420 /* test_defines.cpp */,
 				56D8CB981CAC17A80003F420 /* test_defines.hpp */,
@@ -546,6 +553,8 @@
 		675342E21A3F59EF00A0A8C3 /* storage */ = {
 			isa = PBXGroup;
 			children = (
+				3DCD414520D80C0900143533 /* country_info_reader_light.cpp */,
+				3DCD414420D80C0800143533 /* country_info_reader_light.hpp */,
 				F6BC312A2034366100F677FE /* pinger.cpp */,
 				F6BC31292034366100F677FE /* pinger.hpp */,
 				56D0E47F1F8E40340084B18C /* routing_helpers.cpp */,
@@ -640,6 +649,7 @@
 				6753430F1A3F5A2600A0A8C3 /* country.hpp in Headers */,
 				34B093261C61F9BA0066F4C3 /* app_store.hpp in Headers */,
 				F6BC312B2034366100F677FE /* pinger.hpp in Headers */,
+				3DCD414620D80C0900143533 /* country_info_reader_light.hpp in Headers */,
 				6753430A1A3F5A2600A0A8C3 /* country_decl.hpp in Headers */,
 				678338D61C723B1A00FD6263 /* helpers.hpp in Headers */,
 				67247FCF1C60BA8A00EDE56A /* fake_map_files_downloader.hpp in Headers */,
@@ -822,10 +832,12 @@
 				675343091A3F5A2600A0A8C3 /* country_decl.cpp in Sources */,
 				674125211B4C05FA00A3E828 /* queued_country.cpp in Sources */,
 				F68CC5BE1F38B967007527C7 /* diff_scheme_checker.cpp in Sources */,
+				3DCD414720D80C0900143533 /* country_info_reader_light.cpp in Sources */,
 				6753431A1A3F5A2600A0A8C3 /* storage.cpp in Sources */,
 				675343161A3F5A2600A0A8C3 /* index.cpp in Sources */,
 				678338D51C723B1A00FD6263 /* helpers.cpp in Sources */,
 				674125231B4C05FA00A3E828 /* storage_defines.cpp in Sources */,
+				3DCD414920D80C1B00143533 /* lightweight_matching_tests.cpp in Sources */,
 				67BE1DC51CD2180D00572709 /* downloading_policy.cpp in Sources */,
 				678338D41C723B1A00FD6263 /* country_name_getter_test.cpp in Sources */,
 				F6BC312C2034366100F677FE /* pinger.cpp in Sources */,

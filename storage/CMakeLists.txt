@@ -13,6 +13,8 @@ set(
   country_info_getter.hpp
   country_name_getter.cpp
   country_name_getter.hpp
+  country_info_reader_light.cpp
+  country_info_reader_light.hpp
   country_parent_getter.cpp
   country_parent_getter.hpp
   country_polygon.hpp

@@ -50,13 +50,59 @@ private:
 };
 }  // namespace
 
-// CountryInfoGetter -------------------------------------------------------------------------------
-TCountryId CountryInfoGetter::GetRegionCountryId(m2::PointD const & pt) const
+// CountryInfoGetterBase ---------------------------------------------------------------------------------
+TCountryId CountryInfoGetterBase::GetRegionCountryId(m2::PointD const & pt) const
 {
   TRegionId const id = FindFirstCountry(pt);
   return id != kInvalidId ? m_countries[id].m_countryId : kInvalidCountryId;
 }
 
+bool CountryInfoGetterBase::IsBelongToRegions(m2::PointD const & pt,
+                                              TRegionIdSet const & regions) const
+{
+  for (auto const & id : regions)
+  {
+    if (m_countries[id].m_rect.IsPointInside(pt) && IsBelongToRegionImpl(id, pt))
+      return true;
+  }
+  return false;
+}
+
+bool CountryInfoGetterBase::IsBelongToRegions(TCountryId const & countryId,
+                                              TRegionIdSet const & regions) const
+{
+  for (auto const & id : regions)
+  {
+    if (m_countries[id].m_countryId == countryId)
+      return true;
+  }
+  return false;
+}
+
+void CountryInfoGetterBase::RegionIdsToCountryIds(TRegionIdSet const & regions,
+                                                  TCountriesVec & countries) const
+{
+  for (auto const & id : regions)
+    countries.push_back(m_countries[id].m_countryId);
+}
+
+CountryInfoGetterBase::TRegionId CountryInfoGetterBase::FindFirstCountry(m2::PointD const & pt) const
+{
+  for (size_t id = 0; id < m_countries.size(); ++id)
+  {
+    if (m_countries[id].m_rect.IsPointInside(pt) && IsBelongToRegionImpl(id, pt))
+      return id;
+  }
+
+  ms::LatLon const latLon = MercatorBounds::ToLatLon(pt);
+  alohalytics::LogEvent(m_isSingleMwm
+                            ? "Small mwm case. CountryInfoGetter could not find any mwm by point."
+                            : "Big mwm case. CountryInfoGetter could not find any mwm by point.",
+                        alohalytics::Location::FromLatLon(latLon.lat, latLon.lon));
+  return kInvalidId;
+}
+
+// CountryInfoGetter -------------------------------------------------------------------------------
 vector<TCountryId> CountryInfoGetter::GetRegionsCountryIdByRect(m2::RectD const & rect, bool rough) const
 {
   size_t constexpr kAverageSize = 10;
@@ -149,52 +195,12 @@ void CountryInfoGetter::GetMatchedRegions(string const & affiliation, TRegionIdS
       regions.push_back(i);
   }
 }
-
-bool CountryInfoGetter::IsBelongToRegions(m2::PointD const & pt, TRegionIdSet const & regions) const
-{
-  for (auto const & id : regions)
-  {
-    if (m_countries[id].m_rect.IsPointInside(pt) && IsBelongToRegionImpl(id, pt))
-      return true;
-  }
-  return false;
-}
-
-bool CountryInfoGetter::IsBelongToRegions(TCountryId const & countryId, TRegionIdSet const & regions) const
-{
-  for (auto const & id : regions)
-  {
-    if (m_countries[id].m_countryId == countryId)
-      return true;
-  }
-  return false;
-}
-
-void CountryInfoGetter::RegionIdsToCountryIds(TRegionIdSet const & regions, TCountriesVec & countries) const
-{
-  for (auto const & id : regions)
-    countries.push_back(m_countries[id].m_countryId);
-}
   
 void CountryInfoGetter::InitAffiliationsInfo(TMappingAffiliations const * affiliations)
 {
   m_affiliations = affiliations;
 }
 
-CountryInfoGetter::TRegionId CountryInfoGetter::FindFirstCountry(m2::PointD const & pt) const
-{
-  for (size_t id = 0; id < m_countries.size(); ++id)
-  {
-    if (m_countries[id].m_rect.IsPointInside(pt) && IsBelongToRegionImpl(id, pt))
-      return id;
-  }
-
-  ms::LatLon const latLon = MercatorBounds::ToLatLon(pt);
-  alohalytics::LogEvent(m_isSingleMwm ? "Small mwm case. CountryInfoGetter could not find any mwm by point."
-                                      : "Big mwm case. CountryInfoGetter could not find any mwm by point.",
-                        alohalytics::Location::FromLatLon(latLon.lat, latLon.lon));
-  return kInvalidId;
-}
 
 template <typename ToDo>
 void CountryInfoGetter::ForEachCountry(string const & prefix, ToDo && toDo) const
