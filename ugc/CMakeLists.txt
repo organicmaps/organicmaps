@@ -14,6 +14,8 @@ set(
   binary/serdes.hpp
   binary/ugc_holder.hpp
   binary/visitors.hpp
+  index_migration/utility.cpp
+  index_migration/utility.hpp
   loader.cpp
   loader.hpp
   serdes.hpp

@@ -11,6 +11,8 @@
 
 #include <cmath>
 #include <cstdint>
+#include <unordered_map>
+#include <utility>
 #include <vector>
 
 namespace ugc
@@ -82,11 +84,26 @@ public:
   }
 
   template <typename T>
-  void operator()(vector<T> const & vs, char const * /* name */ = nullptr)
+  void operator()(std::vector<T> const & vs, char const * /* name */ = nullptr)
   {
     VisitVarUint(static_cast<uint32_t>(vs.size()));
     for (auto const & v : vs)
       (*this)(v);
+  }
+
+  template <typename T, typename U>
+  void operator()(std::pair<T, U> const & p, char const * /* name */ = nullptr)
+  {
+    (*this)(p.first);
+    (*this)(p.second);
+  }
+
+  template <typename T, typename U>
+  void operator()(std::unordered_map<T, U> const & m, char const * /* name */ = nullptr)
+  {
+    VisitVarUint(static_cast<uint32_t>(m.size()));
+    for (auto const & p : m)
+      (*this)(p);
   }
 
   template <typename R>
@@ -170,12 +187,32 @@ public:
   }
 
   template <typename T>
-  void operator()(vector<T> & vs, char const * /* name */ = nullptr)
+  void operator()(std::vector<T> & vs, char const * /* name */ = nullptr)
   {
     auto const size = DesVarUint<uint32_t>();
     vs.resize(size);
     for (auto & v : vs)
       (*this)(v);
+  }
+
+  template <typename T, typename U>
+  void operator()(std::pair<T, U> & p, char const * /* name */ = nullptr)
+  {
+    (*this)(p.first);
+    (*this)(p.second);
+  }
+
+  template <typename T, typename U>
+  void operator()(std::unordered_map<T, U> & m, char const * /* name */ = nullptr)
+  {
+    auto const size = DesVarUint<uint32_t>();
+    m.reserve(size);
+    for (int i = 0; i < size; ++i)
+    {
+      std::pair<T, U> p;
+      (*this)(p);
+      m.emplace(p.first, p.second);
+    }
   }
 
   template <typename R>

@@ -8,7 +8,17 @@
 
 #include <cstdint>
 #include <cstdlib>
+#include <type_traits>
 #include <vector>
+
+namespace
+{
+template <typename T>
+using EnableIfEnum = std::enable_if_t<std::is_enum<T>::value>;
+
+template <typename T>
+using EnableIfNotEnum = std::enable_if_t<!std::is_enum<T>::value>;
+}  // namespace
 
 namespace ugc
 {
@@ -45,15 +55,6 @@ public:
     (*this)(ToDaysSinceEpoch(t), name);
   }
 
-  void operator()(Sentiment sentiment, char const * name = nullptr)
-  {
-    switch (sentiment)
-    {
-    case Sentiment::Negative: return (*this)(false, name);
-    case Sentiment::Positive: return (*this)(true, name);
-    }
-  }
-
   template <typename T>
   void operator()(vector<T> const & vs, char const * name = nullptr)
   {
@@ -63,10 +64,16 @@ public:
     });
   }
 
-  template <typename R>
+  template <typename R, EnableIfNotEnum<R> * = nullptr>
   void operator()(R const & r, char const * name = nullptr)
   {
     NewScopeWith(my::NewJSONObject(), name, [this, &r] { r.Visit(*this); });
+  }
+
+  template <typename T, EnableIfEnum<T> * = nullptr>
+  void operator()(T const & t, char const * name = nullptr)
+  {
+    (*this)(static_cast<std::underlying_type_t<T>>(t), name);
   }
 
   void VisitRating(float const f, char const * name = nullptr)
@@ -101,6 +108,12 @@ public:
     (*this)(pt.y, y);
   }
 
+  template <typename Optional>
+  void operator()(Optional const & opt, Optional const &, char const * name = nullptr)
+  {
+    (*this)(opt, name);
+  }
+
 private:
   template <typename Fn>
   void NewScopeWith(my::JSONPtr json_object, char const * name, Fn && fn)
@@ -128,9 +141,10 @@ class DeserializerJsonV0
 public:
   DECLARE_EXCEPTION(Exception, RootException);
 
-  template <typename Source,
-            typename std::enable_if<
-              !std::is_convertible<Source, std::string>::value, Source>::type * = nullptr>
+  template <typename T>
+  using EnableIfNotConvertibleToString = std::enable_if_t<!std::is_convertible<T, std::string>::value>;
+
+  template <typename Source, EnableIfNotConvertibleToString<Source> * = nullptr>
   explicit DeserializerJsonV0(Source & source)
   {
     std::string src(source.Size(), '\0');
@@ -169,13 +183,6 @@ public:
     t = FromDaysSinceEpoch(d);
   }
 
-  void operator()(Sentiment & sentiment, char const * name = nullptr)
-  {
-    bool s = false;
-    FromJSONObject(m_json, name, s);
-    sentiment = s ? Sentiment::Positive : Sentiment::Negative;
-  }
-
   template <typename T>
   void operator()(vector<T> & vs, char const * name = nullptr)
   {
@@ -196,12 +203,21 @@ public:
     RestoreContext(context);
   }
 
-  template <typename R>
+  template <typename R, EnableIfNotEnum<R> * = nullptr>
   void operator()(R & r, char const * name = nullptr)
   {
     json_t * context = SaveContext(name);
     r.Visit(*this);
     RestoreContext(context);
+  }
+
+  template <typename T, EnableIfEnum<T> * = nullptr>
+  void operator()(T & t, char const * name = nullptr)
+  {
+    using UndelyingType = std::underlying_type_t<T>;
+    UndelyingType res;
+    FromJSONObject(m_json, name, res);
+    t = static_cast<T>(res);
   }
 
   void VisitRating(float & f, char const * name = nullptr)
@@ -236,6 +252,19 @@ public:
   {
     FromJSONObject(m_json, x, pt.x);
     FromJSONObject(m_json, y, pt.y);
+  }
+
+  template <typename Optional>
+  void operator()(Optional & opt, Optional const & defaultValue, char const * name = nullptr)
+  {
+    auto json = my::GetJSONOptionalField(m_json, name);
+    if (!json)
+    {
+      opt = defaultValue;
+      return;
+    }
+
+    (*this)(opt, name);
   }
 
 private:

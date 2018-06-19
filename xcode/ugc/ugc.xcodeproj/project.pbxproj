@@ -39,6 +39,7 @@
 		671ED3B620D4081400D4317E /* libsuccinct.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671ED3B520D4081400D4317E /* libsuccinct.a */; };
 		F6150E221EF90040000B955D /* api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6150E1F1EF90040000B955D /* api.cpp */; };
 		F6150E5D1EFAAB45000B955D /* storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6150E5B1EFAAB45000B955D /* storage.cpp */; };
+		F63EE67620D3F6B40025CC27 /* utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F63EE67520D3F6B30025CC27 /* utility.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -98,6 +99,8 @@
 		F6150E211EF90040000B955D /* types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
 		F6150E5B1EFAAB45000B955D /* storage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = storage.cpp; sourceTree = "<group>"; };
 		F6150E5C1EFAAB45000B955D /* storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = storage.hpp; sourceTree = "<group>"; };
+		F63EE67420D3F6B30025CC27 /* utility.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = utility.hpp; sourceTree = "<group>"; };
+		F63EE67520D3F6B30025CC27 /* utility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utility.cpp; sourceTree = "<group>"; };
 		F6F8E3A41EF83D7600F2DE8F /* libugc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libugc.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6F8E3B81EF83DF200F2DE8F /* common-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		F6F8E3B91EF83DF200F2DE8F /* common-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
@@ -171,6 +174,15 @@
 			path = ../../ugc/ugc_tests;
 			sourceTree = "<group>";
 		};
+		F63EE67320D3F6B30025CC27 /* index_migration */ = {
+			isa = PBXGroup;
+			children = (
+				F63EE67420D3F6B30025CC27 /* utility.hpp */,
+				F63EE67520D3F6B30025CC27 /* utility.cpp */,
+			);
+			path = index_migration;
+			sourceTree = "<group>";
+		};
 		F6F8E39B1EF83D7600F2DE8F = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +207,7 @@
 		F6F8E3A61EF83D7600F2DE8F /* ugc */ = {
 			isa = PBXGroup;
 			children = (
+				F63EE67320D3F6B30025CC27 /* index_migration */,
 				3D74EF171F8B90B00081202C /* binary */,
 				3D74EF021F86840C0081202C /* loader.cpp */,
 				3D74EF031F86840C0081202C /* loader.hpp */,
@@ -342,6 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6150E221EF90040000B955D /* api.cpp in Sources */,
+				F63EE67620D3F6B40025CC27 /* utility.cpp in Sources */,
 				3D74EF1E1F8B94EA0081202C /* serdes.cpp in Sources */,
 				3D74EF041F86840C0081202C /* loader.cpp in Sources */,
 				F6150E5D1EFAAB45000B955D /* storage.cpp in Sources */,

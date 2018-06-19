@@ -314,7 +314,8 @@ UNIT_CLASS_TEST(StorageTest, ContentTest)
   ToJSONObject(*embeddedNode.get(), "data_version", lastIndex.m_dataVersion);
   ToJSONObject(*embeddedNode.get(), "mwm_name", lastIndex.m_mwmName);
   ToJSONObject(*embeddedNode.get(), "feature_id", lastIndex.m_featureId);
-  ToJSONObject(*embeddedNode.get(), "feature_type", classif().GetReadableObjectName(lastIndex.m_matchingType));
+  auto const & c = classif();
+  ToJSONObject(*embeddedNode.get(), "feature_type", c.GetReadableObjectName(c.GetTypeForIndex(lastIndex.m_matchingType)));
   ToJSONObject(*ugcNode.get(), "feature", *embeddedNode.release());
 
   auto array = my::NewJSONArray();

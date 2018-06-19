@@ -63,7 +63,7 @@ void Pinger::Ping(vector<string> const & urls, Pinger::Pong const & pong)
   {
     base::WorkerThread t(size);
     for (size_t i = 0; i < size; ++i)
-      t.Push([ url = urls[i], &readyUrls, i ] { DoPing(url, i, readyUrls); });
+      t.Push([url = urls[i], &readyUrls, i] { DoPing(url, i, readyUrls); });
 
     t.Shutdown(base::WorkerThread::Exit::ExecPending);
   }

@@ -1,4 +1,5 @@
 #include "ugc/storage.hpp"
+#include "ugc/index_migration/utility.hpp"
 #include "ugc/serdes.hpp"
 #include "ugc/serdes_json.hpp"
 
@@ -16,13 +17,13 @@
 #include "coding/file_writer.hpp"
 #include "coding/internal/file_data.hpp"
 
+#include "base/stl_helpers.hpp"
+
 #include <algorithm>
 #include <utility>
 
 #include "3party/jansson/myjansson.hpp"
 
-namespace ugc
-{
 using namespace std;
 
 namespace
@@ -44,7 +45,7 @@ bool GetUGCFileSize(uint64_t & size)
     FileReader reader(GetUGCFilePath());
     size = reader.Size();
   }
-  catch (RootException const &)
+  catch (FileReader::Exception const &)
   {
     return false;
   }
@@ -52,16 +53,16 @@ bool GetUGCFileSize(uint64_t & size)
   return true;
 }
 
-void DeserializeUGCIndex(string const & jsonData, vector<Storage::UGCIndex> & res)
+void DeserializeIndexes(string const & jsonData, ugc::UpdateIndexes & res)
 {
   if (jsonData.empty())
     return;
 
-  DeserializerJsonV0 des(jsonData);
+  ugc::DeserializerJsonV0 des(jsonData);
   des(res);
 }
 
-string SerializeUGCIndex(vector<Storage::UGCIndex> const & indexes)
+string SerializeIndexes(ugc::UpdateIndexes const & indexes)
 {
   if (indexes.empty())
     return string();
@@ -72,7 +73,7 @@ string SerializeUGCIndex(vector<Storage::UGCIndex> const & indexes)
     string data;
     {
       Sink sink(data);
-      SerializerJson<Sink> ser(sink);
+      ugc::SerializerJson<Sink> ser(sink);
       ser(index);
     }
 
@@ -85,21 +86,23 @@ string SerializeUGCIndex(vector<Storage::UGCIndex> const & indexes)
 }
 
 template <typename UGCUpdate>
-Storage::SettingResult SetGenericUGCUpdate(
-    vector<Storage::UGCIndex> & indexes, size_t & numberOfDeleted, FeatureID const & id,
-    UGCUpdate const & ugc,
-    FeatureType const & featureType,
-    Version const version = Version::Latest)
+ugc::Storage::SettingResult SetGenericUGCUpdate(UGCUpdate const & ugc,
+                                                FeatureType const & featureType,
+                                                FeatureID const & id,
+                                                ugc::UpdateIndexes & indexes,
+                                                size_t & numberOfDeleted,
+                                                ugc::Version const version = ugc::Version::Latest)
 {
   if (!ugc.IsValid())
-    return Storage::SettingResult::InvalidUGC;
+    return ugc::Storage::SettingResult::InvalidUGC;
 
   auto const mercator = feature::GetCenter(featureType);
   feature::TypesHolder th(featureType);
   th.SortBySpec();
   auto const optMatchingType = ftraits::UGC::GetType(th);
   CHECK(optMatchingType, ());
-  auto const type = th.GetBestType();
+  auto const & c = classif();
+  auto const type = c.GetIndexForType(th.GetBestType());
   for (auto & index : indexes)
   {
     if (type == index.m_type && mercator == index.m_mercator && !index.m_deleted)
@@ -110,18 +113,19 @@ Storage::SettingResult SetGenericUGCUpdate(
     }
   }
 
-  Storage::UGCIndex index;
+  ugc::UpdateIndex index;
   uint64_t offset;
   if (!GetUGCFileSize(offset))
     offset = 0;
 
   index.m_mercator = mercator;
   index.m_type = type;
-  index.m_matchingType = *optMatchingType;
+  index.m_matchingType = c.GetIndexForType(*optMatchingType);
   index.m_mwmName = id.GetMwmName();
   index.m_dataVersion = id.GetMwmVersion();
   index.m_featureId = id.m_index;
   index.m_offset = offset;
+  index.m_version = ugc::IndexVersion::Latest;
 
   auto const ugcFilePath = GetUGCFilePath();
   try
@@ -132,35 +136,38 @@ Storage::SettingResult SetGenericUGCUpdate(
   catch (FileWriter::Exception const & exception)
   {
     LOG(LERROR, ("Exception while writing file:", ugcFilePath, "reason:", exception.what()));
-    return Storage::SettingResult::WritingError;
+    return ugc::Storage::SettingResult::WritingError;
   }
 
   indexes.emplace_back(move(index));
-  return Storage::SettingResult::Success;
+  return ugc::Storage::SettingResult::Success;
 }
 }  // namespace
 
+namespace ugc
+{
 UGCUpdate Storage::GetUGCUpdate(FeatureID const & id) const
 {
-  if (m_UGCIndexes.empty())
+  if (m_indexes.empty())
     return {};
 
   auto const feature = GetFeature(id);
   auto const mercator = feature::GetCenter(*feature);
   feature::TypesHolder th(*feature);
   th.SortBySpec();
-  auto const type = th.GetBestType();
+  auto const & c = classif();
+  auto const type = c.GetIndexForType(th.GetBestType());
 
   auto const index = find_if(
-      m_UGCIndexes.begin(), m_UGCIndexes.end(), [type, &mercator](UGCIndex const & index) -> bool {
+      m_indexes.begin(), m_indexes.end(), [type, &mercator](UpdateIndex const & index) -> bool {
         return type == index.m_type && mercator == index.m_mercator && !index.m_deleted;
       });
 
-  if (index == m_UGCIndexes.end())
+  if (index == m_indexes.end())
     return {};
 
   auto const offset = index->m_offset;
-  auto const size = static_cast<size_t>(UGCSizeAtIndex(distance(m_UGCIndexes.begin(), index)));
+  auto const size = static_cast<size_t>(UGCSizeAtIndex(distance(m_indexes.begin(), index)));
   vector<uint8_t> buf;
   buf.resize(size);
   auto const ugcFilePath = GetUGCFilePath();
@@ -185,8 +192,7 @@ UGCUpdate Storage::GetUGCUpdate(FeatureID const & id) const
 Storage::SettingResult Storage::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc)
 {
   auto const feature = GetFeature(id);
-  return SetGenericUGCUpdate(m_UGCIndexes, m_numberOfDeleted, id, ugc,
-                             *feature);
+  return SetGenericUGCUpdate(ugc, *feature, id, m_indexes, m_numberOfDeleted, Version::V1);
 }
 
 void Storage::Load()
@@ -204,20 +210,45 @@ void Storage::Load()
     return;
   }
 
-  DeserializeUGCIndex(data, m_UGCIndexes);
-  for (auto const & i : m_UGCIndexes)
+  CHECK(!data.empty(), ());
+  DeserializeIndexes(data, m_indexes);
+  if (m_indexes.empty())
+    return;
+
+  for (auto const & i : m_indexes)
   {
     if (i.m_deleted)
       ++m_numberOfDeleted;
   }
-}
 
-void Storage::SaveIndex() const
-{
-  if (m_UGCIndexes.empty())
+  // We assume there is no situation when indexes from different version are stored in the vector
+  if (m_indexes.front().m_version == IndexVersion::Latest)
     return;
 
-  auto const jsonData = SerializeUGCIndex(m_UGCIndexes);
+  switch (migration::Migrate(m_indexes))
+  {
+  case migration::Result::Failure:
+    LOG(LWARNING, ("Index migration failed"));
+    break;
+  case migration::Result::Success:
+    LOG(LINFO, ("Index migration successful"));
+    auto const newPath = indexFilePath + ".v0";
+    my::RenameFileX(indexFilePath, newPath);
+    if (!SaveIndex())
+    {
+      my::RenameFileX(newPath, indexFilePath);
+      LOG(LWARNING, ("Saving index file after indexes migration failed"));
+    }
+    break;
+  }
+}
+
+bool Storage::SaveIndex() const
+{
+  if (m_indexes.empty())
+    return false;
+
+  auto const jsonData = SerializeIndexes(m_indexes);
   auto const indexFilePath = GetIndexFilePath();
   try
   {
@@ -227,12 +258,15 @@ void Storage::SaveIndex() const
   catch (FileWriter::Exception const & exception)
   {
     LOG(LERROR, ("Exception while writing file:", indexFilePath, "reason:", exception.what()));
+    return false;
   }
+
+  return true;
 }
 
 void Storage::Defragmentation()
 {
-  auto const indexesSize = m_UGCIndexes.size();
+  auto const indexesSize = m_indexes.size();
   if (m_numberOfDeleted < indexesSize / 2)
     return;
 
@@ -246,7 +280,7 @@ void Storage::Defragmentation()
     uint64_t actualOffset = 0;
     for (size_t i = 0; i < indexesSize; ++i)
     {
-      auto & index = m_UGCIndexes[i];
+      auto & index = m_indexes[i];
       if (index.m_deleted)
         continue;
 
@@ -271,9 +305,7 @@ void Storage::Defragmentation()
     return;
   }
 
-  m_UGCIndexes.erase(remove_if(m_UGCIndexes.begin(), m_UGCIndexes.end(),
-                               [](UGCIndex const & i) -> bool { return i.m_deleted; }), m_UGCIndexes.end());
-
+  my::EraseIf(m_indexes, [](UpdateIndex const & i) -> bool { return i.m_deleted; });
   CHECK(my::DeleteFileX(ugcFilePath), ());
   CHECK(my::RenameFileX(tmpUGCFilePath, ugcFilePath), ());
 
@@ -282,18 +314,18 @@ void Storage::Defragmentation()
 
 string Storage::GetUGCToSend() const
 {
-  if (m_UGCIndexes.empty())
+  if (m_indexes.empty())
     return string();
 
   auto array = my::NewJSONArray();
-  auto const indexesSize = m_UGCIndexes.size();
+  auto const indexesSize = m_indexes.size();
   auto const ugcFilePath = GetUGCFilePath();
   FileReader r(ugcFilePath);
   vector<uint8_t> buf;
   for (size_t i = 0; i < indexesSize; ++i)
   {
     buf.clear();
-    auto const & index = m_UGCIndexes[i];
+    auto const & index = m_indexes[i];
     if (index.m_synchronized || index.m_deleted)
       continue;
 
@@ -327,7 +359,9 @@ string Storage::GetUGCToSend() const
     ToJSONObject(*embeddedNode.get(), "data_version", index.m_dataVersion);
     ToJSONObject(*embeddedNode.get(), "mwm_name", index.m_mwmName);
     ToJSONObject(*embeddedNode.get(), "feature_id", index.m_featureId);
-    ToJSONObject(*embeddedNode.get(), "feature_type", classif().GetReadableObjectName(index.m_matchingType));
+    auto const & c = classif();
+    ToJSONObject(*embeddedNode.get(), "feature_type",
+                 c.GetReadableObjectName(c.GetTypeForIndex(index.m_matchingType)));
     ToJSONObject(*serializedUgc.get(), "feature", *embeddedNode.release());
     json_array_append_new(array.get(), serializedUgc.get_deep_copy());
   }
@@ -345,7 +379,7 @@ string Storage::GetUGCToSend() const
 size_t Storage::GetNumberOfUnsynchronized() const
 {
   size_t numberOfUnsynchronized = 0;
-  for (auto const & i : m_UGCIndexes)
+  for (auto const & i : m_indexes)
   {
     if (!i.m_deleted && !i.m_synchronized)
       ++numberOfUnsynchronized;
@@ -355,11 +389,11 @@ size_t Storage::GetNumberOfUnsynchronized() const
 
 void Storage::MarkAllAsSynchronized()
 {
-  if (m_UGCIndexes.empty())
+  if (m_indexes.empty())
     return;
 
   size_t numberOfUnsynchronized = 0;
-  for (auto & index : m_UGCIndexes)
+  for (auto & index : m_indexes)
   {
     if (!index.m_synchronized)
     {
@@ -378,15 +412,15 @@ void Storage::MarkAllAsSynchronized()
 
 uint64_t Storage::UGCSizeAtIndex(size_t const indexPosition) const
 {
-  CHECK(!m_UGCIndexes.empty(), ());
-  auto const indexesSize = m_UGCIndexes.size();
+  CHECK(!m_indexes.empty(), ());
+  auto const indexesSize = m_indexes.size();
   CHECK_LESS(indexPosition, indexesSize, ());
-  auto const indexOffset = m_UGCIndexes[indexPosition].m_offset;
+  auto const indexOffset = m_indexes[indexPosition].m_offset;
   uint64_t nextOffset;
   if (indexPosition == indexesSize - 1)
     CHECK(GetUGCFileSize(nextOffset), ());
   else
-    nextOffset = m_UGCIndexes[indexPosition + 1].m_offset;
+    nextOffset = m_indexes[indexPosition + 1].m_offset;
 
   CHECK_GREATER(nextOffset, indexOffset, ());
   return nextOffset - indexOffset;
@@ -409,8 +443,7 @@ Storage::SettingResult Storage::SetUGCUpdateForTesting(FeatureID const & id,
                                                        v0::UGCUpdate const & ugc)
 {
   auto const feature = GetFeature(id);
-  return SetGenericUGCUpdate(m_UGCIndexes, m_numberOfDeleted, id, ugc,
-                             *feature, Version::V0);
+  return SetGenericUGCUpdate(ugc, *feature, id, m_indexes, m_numberOfDeleted, Version::V0);
 }
 }  // namespace ugc
 
@@ -418,7 +451,7 @@ namespace lightweight
 {
 size_t GetNumberOfUnsentUGC()
 {
-  auto const indexFilePath = ugc::GetIndexFilePath();
+  auto const indexFilePath = GetIndexFilePath();
   if (!Platform::IsFileExistsByFullPath(indexFilePath))
     return 0;
 
@@ -434,8 +467,8 @@ size_t GetNumberOfUnsentUGC()
     return 0;
   }
 
-  vector<ugc::Storage::UGCIndex> index;
-  ugc::DeserializeUGCIndex(data, index);
+  ugc::UpdateIndexes index;
+  DeserializeIndexes(data, index);
   size_t number = 0;
   for (auto const & i : index)
   {

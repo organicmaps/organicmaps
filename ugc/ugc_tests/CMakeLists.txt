@@ -11,6 +11,14 @@ set(
   utils.hpp
 )
 
+if (UGC_MIGRATION)
+  set(
+    SRC
+    ${SRC}
+    migration/generate_migration_files.cpp
+  )
+endif()
+
 omim_add_test(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
