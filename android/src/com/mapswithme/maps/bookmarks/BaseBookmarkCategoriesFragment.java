@@ -274,7 +274,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   }
 
   @NonNull
-  private Intent makeBookmarksListIntent(BookmarkCategory category)
+  private Intent makeBookmarksListIntent(@NonNull BookmarkCategory category)
   {
     return new Intent(getActivity(), BookmarkListActivity.class)
                       .putExtra(BookmarksListFragment.EXTRA_CATEGORY, category);

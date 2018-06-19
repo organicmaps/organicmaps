@@ -33,10 +33,10 @@
       android:id="@+id/more_btn"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_gravity="left|bottom"
-      android:gravity="left|top"
+      android:layout_gravity="start|bottom"
+      android:gravity="start|top"
       android:textColor="?attr/colorAccent"
-      android:text="@string/more"
+      android:text="@string/category_desc_more"
       android:background="@android:color/transparent"/>
   </LinearLayout>
 </android.support.constraint.ConstraintLayout>

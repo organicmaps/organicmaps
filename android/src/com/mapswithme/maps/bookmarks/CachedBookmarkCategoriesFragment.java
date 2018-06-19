@@ -12,17 +12,19 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.SharedPropertiesUtils;
-import com.mapswithme.util.StorageUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.TargetUtils;
 
 public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment implements
                                                                                      BookmarkManager.BookmarksCatalogListener
 {
+  @SuppressWarnings("NullableProblems")
   @NonNull
   private ViewGroup mEmptyViewContainer;
+  @SuppressWarnings("NullableProblems")
   @NonNull
   private View mPayloadContainer;
+  @SuppressWarnings("NullableProblems")
   @NonNull
   private View mProgressContainer;
 
@@ -38,7 +40,7 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
     View closeHeaderBtn = root.findViewById(R.id.header_close);
     closeHeaderBtn.setOnClickListener(new CloseHeaderClickListener());
     boolean isClosed = SharedPropertiesUtils.isCatalogCategoriesHeaderClosed(getContext());
-    closeHeaderBtn.setVisibility(isClosed ? View.GONE : View.VISIBLE);
+    UiUtils.showIf(!isClosed, closeHeaderBtn);
     return root;
   }
 

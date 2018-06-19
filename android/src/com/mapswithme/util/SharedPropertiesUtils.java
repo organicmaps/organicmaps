@@ -16,7 +16,7 @@ public final class SharedPropertiesUtils
   private static final String PREFS_SHOW_EMULATE_BAD_STORAGE_SETTING = "ShowEmulateBadStorageSetting";
   private static final String PREFS_BACKUP_WIDGET_EXPANDED = "BackupWidgetExpanded";
   private static final String PREFS_WHATS_NEW_TITLE_CONCATENATION = "WhatsNewTitleConcatenation";
-  private static final String PREFS_CATALOG_CATEGORIES_HEADER_CLOSED = "catalog_categories_header_closed";
+  private static final String PREFS_CATALOG_CATEGORIES_HEADER_CLOSED = "CatalogCategoriesHeaderClosed";
   private static final SharedPreferences PREFS
       = PreferenceManager.getDefaultSharedPreferences(MwmApplication.get());
 
@@ -79,13 +79,13 @@ public final class SharedPropertiesUtils
     PREFS.edit().putString(PREFS_WHATS_NEW_TITLE_CONCATENATION, concatenation).apply();
   }
 
-  public static boolean isCatalogCategoriesHeaderClosed(Context context)
+  public static boolean isCatalogCategoriesHeaderClosed(@NonNull Context context)
   {
     return MwmApplication.prefs(context)
                          .getBoolean(PREFS_CATALOG_CATEGORIES_HEADER_CLOSED, false);
   }
 
-  public static void setCatalogCategoriesHeaderClosed(Context context, boolean value)
+  public static void setCatalogCategoriesHeaderClosed(@NonNull Context context, boolean value)
   {
     MwmApplication.prefs(context)
                   .edit()

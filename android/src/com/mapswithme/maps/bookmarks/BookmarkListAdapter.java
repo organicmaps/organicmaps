@@ -1,6 +1,7 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.location.Location;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import static com.mapswithme.maps.bookmarks.Holders.BookmarkViewHolder.calculate
 
 public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookmarkHolder>
 {
+  @NonNull
   private final BookmarkCategory mCategory;
 
   // view types
@@ -50,7 +52,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   @Nullable
   private RecyclerClickListener mClickListener;
 
-  BookmarkListAdapter(BookmarkCategory category)
+  BookmarkListAdapter(@NonNull BookmarkCategory category)
   {
     mCategory = category;
   }

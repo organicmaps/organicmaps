@@ -152,14 +152,15 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     BookmarkCategory.Author author = category.getAuthor();
     CharSequence authorName = author == null
                               ? null
-                              : getAuthorRepresentation(author);
+                              : getAuthorRepresentation(author, getContext());
     categoryHolder.getAuthorName().setText(authorName);
   }
 
   @NonNull
-  private String getAuthorRepresentation(@NonNull BookmarkCategory.Author author)
+  private static String getAuthorRepresentation(@NonNull BookmarkCategory.Author author,
+                                                @NonNull Context context)
   {
-    return PHRASE_SEPARATOR + BookmarkCategory.Author.getRepresentation(getContext(), author);
+    return PHRASE_SEPARATOR + BookmarkCategory.Author.getRepresentation(context, author);
   }
 
   @Override

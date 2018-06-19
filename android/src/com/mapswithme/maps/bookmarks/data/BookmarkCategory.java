@@ -280,7 +280,9 @@ public class BookmarkCategory implements Parcelable
     PRIVATE(BookmarksPageFactory.PRIVATE, FilterStrategy.PredicativeStrategy.makePrivateInstance()),
     CATALOG(BookmarksPageFactory.CATALOG, FilterStrategy.PredicativeStrategy.makeCatalogInstance());
 
+    @NonNull
     private BookmarksPageFactory mFactory;
+    @NonNull
     private FilterStrategy mFilterStrategy;
 
     Type(@NonNull BookmarksPageFactory pageFactory, @NonNull FilterStrategy filterStrategy)

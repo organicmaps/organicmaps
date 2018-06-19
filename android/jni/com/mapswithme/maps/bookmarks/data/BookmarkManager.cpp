@@ -81,7 +81,8 @@ void PrepareClassRefs(JNIEnv * env)
 //                          boolean fromCatalog,
 //                          boolean isVisible)
   g_bookmarkCategoryConstructor =
-    jni::GetConstructorID(env, g_bookmarkCategoryClass, "(JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZ)V");
+    jni::GetConstructorID(env, g_bookmarkCategoryClass, "(JLjava/lang/String;Ljava/lang/String;"
+      "Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;IIZZ)V");
 }
 
 void OnAsyncLoadingStarted(JNIEnv * env)

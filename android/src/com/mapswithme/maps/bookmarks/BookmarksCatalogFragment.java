@@ -15,6 +15,7 @@ import android.webkit.WebViewClient;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseWebViewMwmFragment;
+import com.mapswithme.util.UiUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -90,7 +91,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   }
 
   @NonNull
-  public String getCatalogUrlOrThrow()
+  private String getCatalogUrlOrThrow()
   {
     Bundle args = getArguments();
     String result = args != null ? args.getString(EXTRA_BOOKMARKS_CATALOG_URL) : null;
@@ -113,7 +114,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     @Nullable
     private WebResourceError mError;
 
-    public WebViewBookmarksCatalogClient(@NonNull BookmarksCatalogFragment frag)
+    WebViewBookmarksCatalogClient(@NonNull BookmarksCatalogFragment frag)
     {
       mReference = new WeakReference<>(frag);
     }
@@ -134,9 +135,8 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
         return;
       }
 
-      frag.mWebView.setVisibility(View.VISIBLE);
-      frag.mProgressView.setVisibility(View.GONE);
-      frag.mRetryBtn.setVisibility(View.GONE);
+      UiUtils.show(frag.mWebView);
+      UiUtils.hide(frag.mProgressView, frag.mRetryBtn);
     }
 
     @Override
@@ -148,9 +148,8 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       if ((frag = mReference.get()) == null)
         return;
 
-      frag.mWebView.setVisibility(View.GONE);
-      frag.mProgressView.setVisibility(View.GONE);
-      frag.mRetryBtn.setVisibility(View.VISIBLE);
+      UiUtils.show(frag.mRetryBtn);
+      UiUtils.hide(frag.mWebView, frag.mProgressView);
     }
 
     private void retry()

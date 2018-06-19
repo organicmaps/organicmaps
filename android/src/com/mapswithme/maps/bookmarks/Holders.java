@@ -221,7 +221,7 @@ public class Holders
 
     abstract void bind(int position);
 
-    static boolean isSectionEmpty(BookmarkCategory category, @Section int section)
+    static boolean isSectionEmpty(@NonNull BookmarkCategory category, @Section int section)
     {
       switch (section)
       {
@@ -236,7 +236,7 @@ public class Holders
       }
     }
 
-    static int getSectionForPosition(BookmarkCategory category, int position)
+    static int getSectionForPosition(@NonNull BookmarkCategory category, int position)
     {
       if (position == getDescSectionPosition(category))
         return SECTION_DESC;
@@ -248,39 +248,40 @@ public class Holders
       throw new IllegalArgumentException("There is no section in position " + position);
     }
 
-    static int getDescSectionPosition(BookmarkCategory category)
+    static int getDescSectionPosition(@NonNull BookmarkCategory category)
     {
       if (isSectionEmpty(category, SECTION_DESC))
-        return -1;
+        return RecyclerView.NO_POSITION;
 
       return 0;
     }
 
-    static int getTracksSectionPosition(BookmarkCategory category)
+    static int getTracksSectionPosition(@NonNull BookmarkCategory category)
     {
       if (isSectionEmpty(category, SECTION_TRACKS))
-        return -1;
+        return RecyclerView.NO_POSITION;
 
       return getDescItemCount(category);
     }
 
-    static int getBookmarksSectionPosition(BookmarkCategory category)
+    static int getBookmarksSectionPosition(@NonNull BookmarkCategory category)
     {
       if (isSectionEmpty(category, SECTION_BMKS))
-        return -1;
+        return RecyclerView.NO_POSITION;
 
       int beforeCurrentSectionItemsCount = getTracksSectionPosition(category);
-      return (beforeCurrentSectionItemsCount == -1 ? getDescItemCount(category)
-                                                   : beforeCurrentSectionItemsCount)
+      return (beforeCurrentSectionItemsCount == RecyclerView.NO_POSITION
+              ? getDescItemCount(category)
+              : beforeCurrentSectionItemsCount)
              + getTrackItemCount(category);
     }
 
-    private static int getTrackItemCount(BookmarkCategory category)
+    private static int getTrackItemCount(@NonNull BookmarkCategory category)
     {
       return category.getTracksCount() + (isSectionEmpty(category, SECTION_TRACKS) ? 0 : 1);
     }
 
-    static int getDescItemCount(BookmarkCategory category)
+    static int getDescItemCount(@NonNull BookmarkCategory category)
     {
       return isSectionEmpty(category, SECTION_DESC) ? 0 : /* section header */  1 + /* non empty desc */ 1;
     }
@@ -298,7 +299,7 @@ public class Holders
       mView.setOnLongClickListener(v -> onOpenActionMenu(v, listener));
     }
 
-    boolean onOpenActionMenu(View v, @Nullable RecyclerLongClickListener listener)
+    boolean onOpenActionMenu(@NonNull View v, @Nullable RecyclerLongClickListener listener)
     {
       if (listener != null)
         listener.onLongItemClick(v, getAdapterPosition());
@@ -317,9 +318,9 @@ public class Holders
     @NonNull
     private final View mMore;
 
-    BookmarkViewHolder(@NonNull View itemView, BookmarkCategory categoryId)
+    BookmarkViewHolder(@NonNull View itemView, @NonNull BookmarkCategory category)
     {
-      super(itemView, categoryId);
+      super(itemView, category);
       mIcon = itemView.findViewById(R.id.iv__bookmark_color);
       mName = itemView.findViewById(R.id.tv__bookmark_name);
       mDistance = itemView.findViewById(R.id.tv__bookmark_distance);
@@ -352,7 +353,7 @@ public class Holders
       mIcon.setImageResource(bookmark.getIcon().getSelectedResId());
     }
 
-    static int calculateBookmarkPosition(BookmarkCategory category, int position)
+    static int calculateBookmarkPosition(@NonNull BookmarkCategory category, int position)
     {
       // Since bookmarks are always below tracks and header we should take it into account
       // during the bookmark's position calculation.
@@ -448,7 +449,7 @@ public class Holders
       mAuthor = itemView.findViewById(R.id.author);
     }
 
-    private void onMoreBtnClicked(View v)
+    private void onMoreBtnClicked(@NonNull View v)
     {
       int lineCount = calcLineCount(mDescText, mCategory.getDescription());
       mDescText.setLines(lineCount);

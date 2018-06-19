@@ -21,8 +21,6 @@
     android:paddingRight="@dimen/margin_double_and_half"
     android:paddingTop="@dimen/placeholder_margin_top"
     mapsme:imgSrcDefault="@drawable/img_empty_bookmarks"
-    mapsme:titleDefault="@string/empty_bookmarks_list_title"
-    mapsme:subTitleDefault="@string/empty_bookmarks_list_subtitle"/>
-
+    mapsme:titleDefault="@string/bookmarks_empty_list_title"
+    mapsme:subTitleDefault="@string/bookmarks_empty_list_message"/>
 </android.support.constraint.ConstraintLayout>
-
