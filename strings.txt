@@ -28030,6 +28030,18 @@ fa = دوباره نپرس
     en = -
     ru = -
 
+  [sponsored_partner15_action]
+    en = -
+    ru = -
+  
+  [sponsored_partner16_action]
+    en = -
+    ru = -
+
+  [sponsored_partner17_action]
+    en = -
+    ru = -
+
   [sponsored_partner18_action]
     en = Lifehack
     ru = Лайфхак
