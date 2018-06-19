@@ -43,6 +43,9 @@ public final class PlacePageButtons
     put(PartnerItem.PARTNER15.getIndex(), PartnerItem.PARTNER15);
     put(PartnerItem.PARTNER16.getIndex(), PartnerItem.PARTNER16);
     put(PartnerItem.PARTNER17.getIndex(), PartnerItem.PARTNER17);
+    put(PartnerItem.PARTNER18.getIndex(), PartnerItem.PARTNER18);
+    put(PartnerItem.PARTNER19.getIndex(), PartnerItem.PARTNER19);
+    put(PartnerItem.PARTNER20.getIndex(), PartnerItem.PARTNER20);
   }};
 
   private final int mMaxButtons;
@@ -135,6 +138,9 @@ public final class PlacePageButtons
     PARTNER15,
     PARTNER16,
     PARTNER17,
+    PARTNER18,
+    PARTNER19,
+    PARTNER20,
     BOOKING,
     BOOKING_SEARCH,
     OPENTABLE,
@@ -246,7 +252,25 @@ public final class PlacePageButtons
         R.string.sponsored_partner17_action,
         new ImageResources(R.drawable.ic_24px_logo_partner17),
         R.drawable.button_partner17,
-        ButtonType.PARTNER17);
+        ButtonType.PARTNER17),
+    PARTNER18(
+        18,
+        R.string.sponsored_partner18_action,
+        new ImageResources(R.drawable.ic_24px_logo_partner18),
+        R.drawable.button_partner18,
+        ButtonType.PARTNER18),
+    PARTNER19(
+        19,
+        R.string.sponsored_partner19_action,
+        new ImageResources(R.drawable.ic_24px_logo_partner19),
+        R.drawable.button_partner19,
+        ButtonType.PARTNER19),
+    PARTNER20(
+        20,
+        R.string.sponsored_partner20_action,
+        new ImageResources(R.drawable.ic_24px_logo_partner20),
+        R.drawable.button_partner20,
+        ButtonType.PARTNER20);
 
     private final int mIndex;
     @StringRes

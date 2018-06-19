@@ -76,6 +76,12 @@
 + (UIColor *)partner16TextColor;
 + (UIColor *)partner17Background;
 + (UIColor *)partner17TextColor;
++ (UIColor *)partner18Background;
++ (UIColor *)partner18TextColor;
++ (UIColor *)partner19Background;
++ (UIColor *)partner19TextColor;
++ (UIColor *)partner20Background;
++ (UIColor *)partner20TextColor;
 
 + (UIColor *)colorWithName:(NSString *)colorName;
 

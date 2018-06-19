@@ -32,6 +32,12 @@ std::vector<PartnerInfo> const kPartners = {
     PartnerInfo(15, "Menza", true /* m_hasButton */),
     PartnerInfo(16, "YanPrimus", true /* m_hasButton */),
     PartnerInfo(17, "GinNo", true /* m_hasButton */),
+    PartnerInfo(18, "MegafonGreenDot", true /* m_hasButton */,
+                "https://localads.maps.me/redirects/megafon_green"),
+    PartnerInfo(19, "MegafonPurpleDot", true /* m_hasButton */,
+                "https://localads.maps.me/redirects/megafon_purple"),
+    PartnerInfo(20, "Megafon", true /* m_hasButton */,
+                "https://localads.maps.me/redirects/megafon_airport"),
 };
 
 namespace

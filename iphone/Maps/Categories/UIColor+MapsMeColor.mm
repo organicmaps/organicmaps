@@ -498,6 +498,36 @@ UIColor * color(SEL cmd)
   return UIColor.whiteColor;
 }
 
++ (UIColor *)partner18Background
+{
+  return [UIColor colorWithRed:scaled(0) green:scaled(185) blue:scaled(86) alpha:alpha100];
+}
+
++ (UIColor *)partner18TextColor
+{
+  return UIColor.whiteColor;
+}
+
++ (UIColor *)partner19Background
+{
+  return [UIColor colorWithRed:scaled(87) green:scaled(26) blue:scaled(140) alpha:alpha100];
+}
+
++ (UIColor *)partner19TextColor
+{
+  return UIColor.whiteColor;
+}
+
++ (UIColor *)partner20Background
+{
+  return [UIColor colorWithRed:scaled(87) green:scaled(26) blue:scaled(140) alpha:alpha100];
+}
+
++ (UIColor *)partner20TextColor
+{
+  return UIColor.whiteColor;
+}
+
 + (UIColor *)bannerBackground
 {
   return color(_cmd);

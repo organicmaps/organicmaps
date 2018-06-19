@@ -477,6 +477,9 @@ public class PlacePageView extends RelativeLayout
           case PARTNER15:
           case PARTNER16:
           case PARTNER17:
+          case PARTNER18:
+          case PARTNER19:
+          case PARTNER20:
             frame.setBackgroundResource(item.getBackgroundResource());
             color = Color.WHITE;
             break;
@@ -599,6 +602,9 @@ public class PlacePageView extends RelativeLayout
         case PARTNER15:
         case PARTNER16:
         case PARTNER17:
+        case PARTNER18:
+        case PARTNER19:
+        case PARTNER20:
           onSponsoredClick(true /* book */, false);
           break;
 

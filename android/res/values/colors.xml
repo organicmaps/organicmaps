@@ -195,6 +195,12 @@
   <color name="bg_brand_partner16_pressed">#FF000000</color>
   <color name="bg_brand_partner17">#FF000000</color>
   <color name="bg_brand_partner17_pressed">#FF000000</color>
+  <color name="bg_brand_partner18">#FF00B956</color>
+  <color name="bg_brand_partner18_pressed">#FF00B956</color>
+  <color name="bg_brand_partner19">#FF571A8C</color>
+  <color name="bg_brand_partner19_pressed">#FF571A8C</color>
+  <color name="bg_brand_partner20">#FF571A8C</color>
+  <color name="bg_brand_partner20_pressed">#FF571A8C</color>
 
   <!-- Banner colors -->
   <color name="bg_banner_color">#FFFDFFE6</color>
