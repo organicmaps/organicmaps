@@ -212,7 +212,7 @@ public class PlaceholderView extends FrameLayout
       int[] location = new int[2];
       getLocationOnScreen(location);
       ViewGroup.LayoutParams lp = getLayoutParams();
-      lp.height = height - insets.getSystemWindowInsetBottom() - location[1];
+      lp.height = height - insets.getStableInsetBottom() - location[1];
       setLayoutParams(lp);
       return insets;
     }
