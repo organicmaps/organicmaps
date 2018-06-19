@@ -436,4 +436,6 @@ public class Framework
 
   @NonNull
   public static native String nativeMoPubInitializationBannerId();
+
+  public static native boolean nativeHasMegafonDownloaderBanner(@NonNull String mwmId);
 }

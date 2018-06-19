@@ -22,6 +22,8 @@ set(
   locals_api.hpp
   maxim_api.cpp
   maxim_api.hpp
+  megafon_countries.cpp
+  megafon_countries.hpp
   mopub_ads.cpp
   mopub_ads.hpp
   opentable_api.cpp

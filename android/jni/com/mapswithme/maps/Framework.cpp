@@ -12,6 +12,7 @@
 #include "partners_api/ads_engine.hpp"
 #include "partners_api/banner.hpp"
 #include "partners_api/mopub_ads.hpp"
+#include "partners_api/megafon_countries.hpp"
 
 #include "storage/storage_helpers.hpp"
 
@@ -1628,5 +1629,13 @@ JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_Framework_nativeMoPubInitializationBannerId(JNIEnv * env, jclass)
 {
   return jni::ToJavaString(env, ads::Mopub::InitializationBannerId());
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeHasMegafonDownloaderBanner(JNIEnv * env, jclass,
+                                                                    jstring mwmId)
+{
+  return static_cast<jboolean>(ads::HasMegafonDownloaderBanner(frm()->GetStorage(),
+                                                               jni::ToNativeString(env, mwmId)));
 }
 }  // extern "C"
