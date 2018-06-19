@@ -20,7 +20,6 @@
 + (void)setCategory:(MWMMarkGroupID)groupId name:(NSString *)name;
 + (BOOL)isCategoryVisible:(MWMMarkGroupID)groupId;
 + (void)setCategory:(MWMMarkGroupID)groupId isVisible:(BOOL)isVisible;
-+ (void)setAllCategoriesVisible:(BOOL)isVisible;
 + (void)deleteCategory:(MWMMarkGroupID)groupId;
 
 + (void)deleteBookmark:(MWMMarkID)bookmarkId;
@@ -36,8 +35,6 @@
 
 + (NSUInteger)filesCountForConversion;
 + (void)convertAll;
-
-+ (BOOL)areAllCategoriesInvisible;
 
 + (void)setNotificationsEnabled:(BOOL)enabled;
 + (BOOL)areNotificationsEnabled;

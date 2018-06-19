@@ -73,7 +73,7 @@ UIColor * backgroundColorForPartner(int partnerIndex)
 
 @implementation MWMActionBarButton
 
-- (void)configButton:(BOOL)isSelected
+- (void)configButton:(BOOL)isSelected disabled:(BOOL)isDisabled
 {
   self.label.text = titleForButton(self.type, self.partnerIndex, isSelected);
   self.extraBackground.hidden = YES;
@@ -157,19 +157,21 @@ UIColor * backgroundColorForPartner(int partnerIndex)
       self.backgroundColor = backgroundColorForPartner(self.partnerIndex);
       break;
   }
+  self.button.enabled = !isDisabled;
 }
 
 + (MWMActionBarButton *)buttonWithDelegate:(id<MWMActionBarButtonDelegate>)delegate
                                 buttonType:(EButton)type
                               partnerIndex:(int)partnerIndex
                                 isSelected:(BOOL)isSelected
+                                isDisabled:(BOOL)isDisabled
 {
   MWMActionBarButton * button =
       [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   button.delegate = delegate;
   button.type = type;
   button.partnerIndex = partnerIndex;
-  [button configButton:isSelected];
+  [button configButton:isSelected disabled:isDisabled];
   return button;
 }
 
@@ -201,6 +203,7 @@ UIColor * backgroundColorForPartner(int partnerIndex)
   [btn setImage:[UIImage imageNamed:@"ic_bookmarks_off"] forState:UIControlStateNormal];
   [btn setImage:[UIImage imageNamed:@"ic_bookmarks_on"] forState:UIControlStateSelected];
   [btn setImage:[UIImage imageNamed:@"ic_bookmarks_on"] forState:UIControlStateHighlighted];
+  [btn setImage:[UIImage imageNamed:@"ic_bookmarks_on"] forState:UIControlStateDisabled];
 
   [self setBookmarkSelected:isSelected];
 

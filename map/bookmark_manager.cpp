@@ -1784,47 +1784,6 @@ bool BookmarkManager::IsUsedCategoryName(std::string const & name) const
   return false;
 }
 
-bool BookmarkManager::AreAllCategoriesVisible(CategoryFilterType const filter) const
-{
-  return CheckVisibility(filter, true /* isVisible */);
-}
-
-bool BookmarkManager::AreAllCategoriesInvisible(CategoryFilterType const filter) const
-{
-  return CheckVisibility(filter, false /* isVisible */);
-}
-
-bool BookmarkManager::CheckVisibility(BookmarkManager::CategoryFilterType const filter,
-                                      bool isVisible) const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  for (auto const & category : m_categories)
-  {
-    auto const fromCatalog = IsCategoryFromCatalog(category.first);
-    if (!IsValidFilterType(filter, fromCatalog))
-      continue;
-    if (category.second->IsVisible() != isVisible)
-      return false;
-  }
-
-  return true;
-}
-
-void BookmarkManager::SetAllCategoriesVisibility(BookmarkManager::CategoryFilterType const filter,
-                                                 bool visible)
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  auto session = GetEditSession();
-
-  for (auto & c : m_categories)
-  {
-    auto const fromCatalog = IsCategoryFromCatalog(c.first);
-    if (!IsValidFilterType(filter, fromCatalog))
-      continue;
-    c.second->SetIsVisible(visible);
-  }
-}
-
 bool BookmarkManager::CanConvert() const
 {
   // The conversion available only after successful migration.

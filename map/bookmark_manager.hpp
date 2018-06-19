@@ -258,9 +258,6 @@ public:
   bool IsEditableCategory(kml::MarkGroupId groupId) const;
 
   bool IsUsedCategoryName(std::string const & name) const;
-  bool AreAllCategoriesVisible(CategoryFilterType const filter) const;
-  bool AreAllCategoriesInvisible(CategoryFilterType const filter) const;
-  void SetAllCategoriesVisibility(CategoryFilterType const filter, bool visible);
 
   // Return number of files for the conversion to the binary format.
   size_t GetKmlFilesCountForConversion() const;

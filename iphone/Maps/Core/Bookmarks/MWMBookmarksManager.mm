@@ -307,12 +307,6 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   GetFramework().GetBookmarkManager().GetEditSession().SetIsVisible(groupId, isVisible);
 }
 
-+ (void)setAllCategoriesVisible:(BOOL)isVisible
-{
-  GetFramework().GetBookmarkManager().SetAllCategoriesVisibility(BookmarkManager::CategoryFilterType::All,
-                                                                 isVisible);
-}
-
 + (void)deleteCategory:(MWMMarkGroupID)groupId
 {
   GetFramework().GetBookmarkManager().GetEditSession().DeleteBmCategory(groupId);
@@ -479,11 +473,6 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   [[UIViewController topViewController] presentViewController:alert animated:YES completion:nil];
 }
 
-+ (BOOL)areAllCategoriesInvisible
-{
-  return GetFramework().GetBookmarkManager().AreAllCategoriesInvisible(BookmarkManager::CategoryFilterType::All);
-}
-
 + (void)setNotificationsEnabled:(BOOL)enabled
 {
   GetFramework().GetBookmarkManager().SetNotificationsEnabled(enabled);
@@ -496,7 +485,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 + (NSURL * _Nullable )catalogFrontendUrl
 {
-  NSString *urlString = @(GetFramework().GetBookmarkManager().GetCatalogFrontendUrl().c_str());
+  NSString *urlString = @(GetFramework().GetBookmarkManager().GetCatalog().GetFrontendUrl().c_str());
   return urlString ? [NSURL URLWithString:urlString] : nil;
 }
 

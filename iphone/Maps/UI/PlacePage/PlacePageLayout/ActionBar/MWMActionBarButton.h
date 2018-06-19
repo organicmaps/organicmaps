@@ -31,7 +31,8 @@ NSString * titleForButton(EButton type, int partnerIndex, BOOL isSelected);
 + (MWMActionBarButton *)buttonWithDelegate:(id<MWMActionBarButtonDelegate>)delegate
                                 buttonType:(EButton)type
                               partnerIndex:(int)partnerIndex
-                                isSelected:(BOOL)isSelected;
+                                isSelected:(BOOL)isSelected
+                                isDisabled:(BOOL)isDisabled;
 
 - (EButton)type;
 - (MWMCircularProgress *)mapDownloadProgress;

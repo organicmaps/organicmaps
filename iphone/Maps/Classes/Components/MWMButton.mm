@@ -112,6 +112,17 @@ namespace
   }
 }
 
+- (void)setEnabled:(BOOL)enabled {
+  [super setEnabled:enabled];
+  if (!enabled) {
+    self.tintColor = [UIColor lightGrayColor];
+  }
+  else
+  {
+    [self setDefaultTintColor];
+  }
+}
+
 - (void)setDefaultTintColor
 {
   switch (self.coloring)

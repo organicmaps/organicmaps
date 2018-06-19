@@ -10,6 +10,7 @@
 }
 
 @property (copy, nonatomic) NSString * category;
+@property (copy, nonatomic) MWMGroupIDCollection groupIds;
 @property (weak, nonatomic) id<MWMSelectSetDelegate> delegate;
 
 @end
@@ -36,6 +37,13 @@
   NSAssert(self.category, @"Category can't be nil!");
   NSAssert(self.delegate, @"Delegate can't be nil!");
   self.title = L(@"bookmark_sets");
+  [self reloadData];
+
+}
+
+- (void)reloadData {
+  self.groupIds = [MWMBookmarksManager groupsIdList];
+  [self.tableView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -49,7 +57,7 @@
   if (section == 0)
     return 1;
 
-  return GetFramework().GetBookmarkManager().GetBmGroupsIdList().size();
+  return self.groupIds.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -64,7 +72,7 @@
   else
   {
     auto & bmManager = GetFramework().GetBookmarkManager();
-    auto categoryId = bmManager.GetBmGroupsIdList()[indexPath.row];
+    auto categoryId = [self.groupIds[indexPath.row] unsignedLongLongValue];
     if (bmManager.HasBmCategory(categoryId))
       cell.textLabel.text = @(bmManager.GetCategoryName(categoryId).c_str());
 
@@ -80,7 +88,7 @@
 {
   m_categoryId = categoryId;
   self.category = @(GetFramework().GetBookmarkManager().GetCategoryName(categoryId).c_str());
-  [self.tableView reloadData];
+  [self reloadData];
   [self.delegate didSelectCategory:self.category withCategoryId:categoryId];
 }
 
@@ -104,7 +112,7 @@
   }
   else
   {
-    auto categoryId = GetFramework().GetBookmarkManager().GetBmGroupsIdList()[indexPath.row];
+    auto categoryId = [self.groupIds[indexPath.row] unsignedLongLongValue];;
     [self moveBookmarkToSetWithCategoryId:categoryId];
     [self.delegate didSelectCategory:self.category withCategoryId:categoryId];
     [self backTap];

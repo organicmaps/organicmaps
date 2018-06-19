@@ -284,7 +284,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     return 0;
   switch (data.sections[section])
   {
-  case Sections::Bookmark: return 1;
+  case Sections::Bookmark: return data.isFromCatalog ? 0 : 1;
   case Sections::Preview: return data.previewRows.size();
   case Sections::SpecialProjects: return data.specialProjectRows.size();
   case Sections::Metainfo: return data.metainfoRows.size();
