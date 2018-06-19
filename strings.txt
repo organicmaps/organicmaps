@@ -31551,24 +31551,31 @@ fa = دوباره نپرس
 
   [backup_notification_failed]
     ru = Резервное копирование меток было приостановлено. Войдите, чтобы включить резервное копирование.
+    en = Backing up your bookmarks has been suspended. Log in to turn backup on. 
 
   [banner_megafon_banner_message]
     ru = Скажи международному роумингу гудбай!
+    en = Say goodbye to internation roaming! 
 
   [banner_megafon_banner_button]
     ru = Гудбай!
+    en = Goodbye!
 
   [button_layer_traffic]
     ru = Пробки
+    en = Traffic
 
   [button_layer_subway]
     ru = Метро
+    en = Subway
 
   [layers_title]
     ru = Слои карты
+    en = Map layers
 
   [layers_message]
     ru = Включайте слои на карте для отображения дорожной обстановки, схемы метро или другой полезной информации
+    en = Use map layers to display the traffic situation, underground map or other useful information
 
   [button_layer_got_it]
     en = Got it
@@ -31576,6 +31583,7 @@ fa = دوباره نپرس
 
   [subway_data_unavailable]
     ru = Карта метро недоступна
+    en = Subway map is unavailable
 
   [bookmarks_empty_list_title]
     en = This list is empty
@@ -31596,4 +31604,3 @@ fa = دوباره نپرس
   [subtitle_error_downloading_bookmarks]
     en = Bookmarks were not downloaded
     ru = Метки не были загружены
-
