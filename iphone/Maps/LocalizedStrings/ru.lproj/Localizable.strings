@@ -2407,3 +2407,5 @@
 "bookmarks_empty_list_title" = "Список пустой";
 
 "bookmarks_empty_list_message" = "Чтобы добавить новую метку, нажмите на значок звездочки в карточке объекта";
+
+"category_desc_more" = "…more";
