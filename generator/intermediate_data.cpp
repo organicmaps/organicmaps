@@ -1,8 +1,9 @@
 #include "generator/intermediate_data.hpp"
 
-#include <exception>
+#include <new>
 #include <string>
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 
 #include "defines.hpp"
@@ -13,25 +14,35 @@ namespace
 {
 size_t const kFlushCount = 1024;
 double const kValueOrder = 1e7;
+string const kShortExtension = ".short";
+
+// An estimation.
+// OSM had around 4.1 billion nodes on 2017-11-08,
+// see https://wiki.openstreetmap.org/wiki/Stats
+size_t const kMaxNodesInOSM = size_t{1} << 33;
 
 void ToLatLon(double lat, double lon, generator::cache::LatLon & ll)
 {
   int64_t const lat64 = lat * kValueOrder;
   int64_t const lon64 = lon * kValueOrder;
 
-  ll.lat = static_cast<int32_t>(lat64);
-  ll.lon = static_cast<int32_t>(lon64);
-  CHECK_EQUAL(static_cast<int64_t>(ll.lat), lat64, ("Latitude is out of 32bit boundary!"));
-  CHECK_EQUAL(static_cast<int64_t>(ll.lon), lon64, ("Longtitude is out of 32bit boundary!"));
+  CHECK(
+      lat64 >= std::numeric_limits<int32_t>::min() && lat64 <= std::numeric_limits<int32_t>::max(),
+      ("Latitude is out of 32bit boundary:", lat64));
+  CHECK(
+      lon64 >= std::numeric_limits<int32_t>::min() && lon64 <= std::numeric_limits<int32_t>::max(),
+      ("Longitude is out of 32bit boundary:", lon64));
+  ll.m_lat = static_cast<int32_t>(lat64);
+  ll.m_lon = static_cast<int32_t>(lon64);
 }
 
 bool FromLatLon(generator::cache::LatLon const & ll, double & lat, double & lon)
 {
   // Assume that a valid coordinate is not (0, 0).
-  if (ll.lat != 0.0 || ll.lon != 0.0)
+  if (ll.m_lat != 0.0 || ll.m_lon != 0.0)
   {
-    lat = static_cast<double>(ll.lat) / kValueOrder;
-    lon = static_cast<double>(ll.lon) / kValueOrder;
+    lat = static_cast<double>(ll.m_lat) / kValueOrder;
+    lon = static_cast<double>(ll.m_lon) / kValueOrder;
     return true;
   }
   lat = 0.0;
@@ -61,7 +72,7 @@ void IndexFileReader::ReadAll()
   {
     m_elements.resize(base::checked_cast<size_t>(fileSize / sizeof(Element)));
   }
-  catch (exception const &)  // bad_alloc
+  catch (std::bad_alloc const &)
   {
     LOG(LCRITICAL, ("Insufficient memory for required offset map"));
   }
@@ -138,12 +149,14 @@ bool RawFilePointStorageMmapReader::GetPoint(uint64_t id, double & lat, double &
 
   bool ret = FromLatLon(ll, lat, lon);
   if (!ret)
-    LOG(LERROR, ("Node with id =", id, " not found!"));
+    LOG(LERROR, ("Node with id =", id, "not found!"));
   return ret;
 }
 
 // RawFilePointStorageWriter -----------------------------------------------------------------------
-RawFilePointStorageWriter::RawFilePointStorageWriter(string const & name) : m_fileWriter(name) {}
+RawFilePointStorageWriter::RawFilePointStorageWriter(string const & name) : m_fileWriter(name)
+{
+}
 
 void RawFilePointStorageWriter::AddPoint(uint64_t id, double lat, double lon)
 {
@@ -158,8 +171,9 @@ void RawFilePointStorageWriter::AddPoint(uint64_t id, double lat, double lon)
 
 // RawMemPointStorageReader ------------------------------------------------------------------------
 RawMemPointStorageReader::RawMemPointStorageReader(string const & name)
-  : m_fileReader(name), m_data(static_cast<size_t>(1) << 33)
+  : m_fileReader(name), m_data(kMaxNodesInOSM)
 {
+  static_assert(sizeof(size_t) == 8, "This code is only for 64-bit architectures");
   m_fileReader.Read(0, m_data.data(), m_data.size() * sizeof(LatLon));
 }
 
@@ -168,13 +182,13 @@ bool RawMemPointStorageReader::GetPoint(uint64_t id, double & lat, double & lon)
   LatLon const & ll = m_data[id];
   bool ret = FromLatLon(ll, lat, lon);
   if (!ret)
-    LOG(LERROR, ("Node with id =", id, " not found!"));
+    LOG(LERROR, ("Node with id =", id, "not found!"));
   return ret;
 }
 
 // RawMemPointStorageWriter ------------------------------------------------------------------------
 RawMemPointStorageWriter::RawMemPointStorageWriter(string const & name)
-  : m_fileWriter(name), m_data(static_cast<size_t>(1) << 33)
+  : m_fileWriter(name), m_data(kMaxNodesInOSM)
 {
 }
 
@@ -196,21 +210,23 @@ void RawMemPointStorageWriter::AddPoint(uint64_t id, double lat, double lon)
 
 // MapFilePointStorageReader -----------------------------------------------------------------------
 MapFilePointStorageReader::MapFilePointStorageReader(string const & name)
-  : m_fileReader(name + ".short")
+  : m_fileReader(name + kShortExtension)
 {
   LOG(LINFO, ("Nodes reading is started"));
 
   uint64_t const count = m_fileReader.Size();
 
   uint64_t pos = 0;
+  LatLonPos llp;
+  LatLon ll;
   while (pos < count)
   {
-    LatLonPos ll;
-    m_fileReader.Read(pos, &ll, sizeof(ll));
+    m_fileReader.Read(pos, &llp, sizeof(llp));
+    pos += sizeof(llp);
 
-    m_map.emplace(make_pair(ll.pos, make_pair(ll.lat, ll.lon)));
-
-    pos += sizeof(ll);
+    ll.m_lat = llp.m_lat;
+    ll.m_lon = llp.m_lon;
+    m_map.emplace(llp.m_pos, ll);
   }
 
   LOG(LINFO, ("Nodes reading is finished"));
@@ -218,17 +234,21 @@ MapFilePointStorageReader::MapFilePointStorageReader(string const & name)
 
 bool MapFilePointStorageReader::GetPoint(uint64_t id, double & lat, double & lon) const
 {
-  auto i = m_map.find(id);
-  if (i == m_map.end())
+  auto const i = m_map.find(id);
+  if (i == m_map.cend())
     return false;
-  lat = static_cast<double>(i->second.first) / kValueOrder;
-  lon = static_cast<double>(i->second.second) / kValueOrder;
-  return true;
+  bool ret = FromLatLon(i->second, lat, lon);
+  if (!ret)
+  {
+    LOG(LERROR, ("Inconsistent MapFilePointStorageReader. Node with id =", id,
+                 "must exist but was not found"));
+  }
+  return ret;
 }
 
 // MapFilePointStorageWriter -----------------------------------------------------------------------
 MapFilePointStorageWriter::MapFilePointStorageWriter(string const & name)
-  : m_fileWriter(name + ".short")
+  : m_fileWriter(name + kShortExtension)
 {
 }
 
@@ -238,9 +258,9 @@ void MapFilePointStorageWriter::AddPoint(uint64_t id, double lat, double lon)
   ToLatLon(lat, lon, ll);
 
   LatLonPos llp;
-  llp.pos = id;
-  llp.lat = ll.lat;
-  llp.lon = ll.lon;
+  llp.m_pos = id;
+  llp.m_lat = ll.m_lat;
+  llp.m_lon = ll.m_lon;
 
   m_fileWriter.Write(&llp, sizeof(llp));
 

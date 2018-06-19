@@ -8,12 +8,14 @@
 #include "coding/file_writer.hpp"
 #include "coding/mmap_reader.hpp"
 
+#include "base/assert.hpp"
 #include "base/logging.hpp"
 
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <limits>
+#include <string>
 #include <type_traits>
 #include <unordered_map>
 #include <utility>
@@ -28,24 +30,27 @@ namespace generator
 namespace cache
 {
 using Key = uint64_t;
+static_assert(is_integral<Key>::value, "Key must be an integral type");
 
 // Used to store all world nodes inside temporary index file.
 // To find node by id, just calculate offset inside index file:
 // offset_in_file = sizeof(LatLon) * node_ID
 struct LatLon
 {
-  int32_t lat;
-  int32_t lon;
+  int32_t m_lat = 0;
+  int32_t m_lon = 0;
 };
 static_assert(sizeof(LatLon) == 8, "Invalid structure size");
+static_assert(std::is_trivially_copyable<LatLon>::value, "");
 
 struct LatLonPos
 {
-  uint64_t pos;
-  int32_t lat;
-  int32_t lon;
+  uint64_t m_pos = 0;
+  int32_t m_lat = 0;
+  int32_t m_lon = 0;
 };
 static_assert(sizeof(LatLonPos) == 16, "Invalid structure size");
+static_assert(std::is_trivially_copyable<LatLonPos>::value, "");
 
 class IndexFileReader
 {
@@ -70,7 +75,6 @@ public:
   }
 
 private:
-  static_assert(is_integral<Key>::value, "Key must be an integral type");
   using Element = std::pair<Key, Value>;
 
   struct ElementComparator
@@ -150,7 +154,7 @@ protected:
 class OSMElementCacheWriter
 {
 public:
-  OSMElementCacheWriter(std::string const & name, bool preload = false);
+  explicit OSMElementCacheWriter(std::string const & name, bool preload = false);
 
   template <typename Value>
   void Write(Key id, Value const & value)
@@ -163,7 +167,6 @@ public:
 
     ASSERT_LESS(m_data.size(), std::numeric_limits<uint32_t>::max(), ());
     uint32_t sz = static_cast<uint32_t>(m_data.size());
-    // ?!
     m_fileWriter.Write(&sz, sizeof(sz));
     m_fileWriter.Write(m_data.data(), sz);
   }
@@ -195,7 +198,7 @@ public:
   explicit RawFilePointStorageWriter(std::string const & name);
 
   void AddPoint(uint64_t id, double lat, double lon);
-  uint64_t GetNumProcessedPoints() { return m_numProcessedPoints; }
+  uint64_t GetNumProcessedPoints() const { return m_numProcessedPoints; }
 
 private:
   FileWriter m_fileWriter;
@@ -222,7 +225,7 @@ public:
   ~RawMemPointStorageWriter();
 
   void AddPoint(uint64_t id, double lat, double lon);
-  uint64_t GetNumProcessedPoints() { return m_numProcessedPoints; }
+  uint64_t GetNumProcessedPoints() const { return m_numProcessedPoints; }
 
 private:
   FileWriter m_fileWriter;
@@ -239,7 +242,7 @@ public:
 
 private:
   FileReader m_fileReader;
-  std::unordered_map<uint64_t, std::pair<int32_t, int32_t>> m_map;
+  std::unordered_map<uint64_t, LatLon> m_map;
 };
 
 class MapFilePointStorageWriter
@@ -248,11 +251,10 @@ public:
   explicit MapFilePointStorageWriter(std::string const & name);
 
   void AddPoint(uint64_t id, double lat, double lon);
-  uint64_t GetNumProcessedPoints() { return m_numProcessedPoints; }
+  uint64_t GetNumProcessedPoints() const { return m_numProcessedPoints; }
 
 private:
   FileWriter m_fileWriter;
-  std::unordered_map<uint64_t, std::pair<int32_t, int32_t>> m_map;
   uint64_t m_numProcessedPoints = 0;
 };
 
@@ -275,21 +277,21 @@ public:
   template <class ToDo>
   void ForEachRelationByWay(Key id, ToDo && toDo)
   {
-    RelationProcessor<ToDo> processor(m_relations, toDo);
+    RelationProcessor<ToDo> processor(m_relations, std::forward<ToDo>(toDo));
     m_wayToRelations.ForEachByKey(id, processor);
   }
 
   template <class ToDo>
   void ForEachRelationByWayCached(Key id, ToDo && toDo)
   {
-    CachedRelationProcessor<ToDo> processor(m_relations, toDo);
+    CachedRelationProcessor<ToDo> processor(m_relations, std::forward<ToDo>(toDo));
     m_wayToRelations.ForEachByKey(id, processor);
   }
 
   template <class ToDo>
   void ForEachRelationByNodeCached(Key id, ToDo && toDo)
   {
-    CachedRelationProcessor<ToDo> processor(m_relations, toDo);
+    CachedRelationProcessor<ToDo> processor(m_relations, std::forward<ToDo>(toDo));
     m_nodeToRelations.ForEachByKey(id, processor);
   }
 
