@@ -2126,11 +2126,11 @@
 
 "sponsored_partner14_action" = "-";
 
-"sponsored_partner15_action" = "-";
+"sponsored_partner18_action" = "Lifehack";
 
-"sponsored_partner16_action" = "-";
+"sponsored_partner19_action" = "Lifehack";
 
-"sponsored_partner17_action" = "-";
+"sponsored_partner20_action" = "Lifehack";
 
 "whats_new_ugc_title" = "Notes et revues";
 
@@ -2354,8 +2354,6 @@
 
 "author_name_by_prefix" = "by %s";
 
-"bookmarks_objects" = "objects";
-
 "subtittle_opt_out" = "Tracking settings";
 
 "opt_out_flurry" = "Statistic";
@@ -2381,3 +2379,9 @@
 "privacy_policy" = "Privacy policy";
 
 "terms_of_use" = "Terms of use";
+
+"button_layer_got_it" = "Got it";
+
+"bookmarks_empty_list_title" = "This list is empty";
+
+"bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";

@@ -64,6 +64,23 @@
     </dict>
   </dict>
 
+  <key>bookmarks_objects</key>
+  <dict>
+    <key>NSStringLocalizedFormatKey</key>
+    <string>%#@value@</string>
+    <key>value</key>
+    <dict>
+      <key>NSStringFormatSpecTypeKey</key>
+      <string>NSStringPluralRuleType</string>
+      <key>NSStringFormatValueTypeKey</key>
+      <string>d</string>
+      <key>one</key>
+      <string>%s объект</string>
+      <key>other</key>
+      <string>%s объектов</string>
+    </dict>
+  </dict>
+
   <key>objects</key>
   <dict>
     <key>NSStringLocalizedFormatKey</key>

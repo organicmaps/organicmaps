@@ -1241,9 +1241,9 @@
 	<string name="sponsored_partner12_action">Store</string>
 	<string name="sponsored_partner13_action">-</string>
 	<string name="sponsored_partner14_action">-</string>
-	<string name="sponsored_partner15_action">-</string>
-	<string name="sponsored_partner16_action">-</string>
-	<string name="sponsored_partner17_action">-</string>
+	<string name="sponsored_partner18_action">Lifehack</string>
+	<string name="sponsored_partner19_action">Lifehack</string>
+	<string name="sponsored_partner20_action">Lifehack</string>
 	<string name="whats_new_ugc_title">Ratings and reviews</string>
 	<string name="whats_new_ugc_message">You can now leave ratings and reviews even offline! Don\'t forget to update your maps so you can see the changes.</string>
 	<string name="dialog_error_storage_title">Storage access problem</string>
@@ -1363,7 +1363,10 @@
 	<string name="downloader_download_routers">Download bookmarks</string>
 	<string name="bookmarks_groups_cached">Downloaded lists</string>
 	<string name="author_name_by_prefix">by %s</string>
-	<string name="bookmarks_objects">objects</string>
+	<plurals name="bookmarks_objects">
+	  <item quantity="one">%s object</item>
+	  <item quantity="other">%s objects</item>
+	</plurals>
 	<plurals name="objects">
 	  <item quantity="one">%d object</item>
 	  <item quantity="other">%d objects</item>
@@ -1389,4 +1392,7 @@
 	<string name="opt_out_help_android">Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info &amp; privacy → Ads Settings → Ads Personalization</string>
 	<string name="privacy_policy">Privacy policy</string>
 	<string name="terms_of_use">Terms of use</string>
+	<string name="button_layer_got_it">Got it</string>
+	<string name="bookmarks_empty_list_title">This list is empty</string>
+	<string name="bookmarks_empty_list_message">To add a bookmark, tap a place on the map and then tap the star icon</string>
 </resources>

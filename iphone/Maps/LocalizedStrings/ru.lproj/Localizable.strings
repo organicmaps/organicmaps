@@ -2126,11 +2126,11 @@
 
 "sponsored_partner14_action" = "-";
 
-"sponsored_partner15_action" = "-";
+"sponsored_partner18_action" = "Лайфхак";
 
-"sponsored_partner16_action" = "-";
+"sponsored_partner19_action" = "Лайфхак";
 
-"sponsored_partner17_action" = "-";
+"sponsored_partner20_action" = "Лайфхак";
 
 "whats_new_ugc_title" = "Оценки и отзывы";
 
@@ -2354,8 +2354,6 @@
 
 "author_name_by_prefix" = "%s";
 
-"bookmarks_objects" = "объектов";
-
 "subtittle_opt_out" = "Настрокий сопровождения";
 
 "opt_out_flurry" = "Статистика";
@@ -2381,3 +2379,25 @@
 "privacy_policy" = "Политика конфиденциальности";
 
 "terms_of_use" = "Условия использования";
+
+"backup_notification_failed" = "Резервное копирование меток было приостановлено. Войдите, чтобы включить резервное копирование.";
+
+"banner_megafon_banner_message" = "Скажи международному роумингу гудбай!";
+
+"banner_megafon_banner_button" = "Гудбай!";
+
+"button_layer_traffic" = "Пробки";
+
+"button_layer_subway" = "Метро";
+
+"layers_title" = "Слои карты";
+
+"layers_message" = "Включайте слои на карте для отображения дорожной обстановки, схемы метро или другой полезной информации";
+
+"button_layer_got_it" = "Понятно";
+
+"subway_data_unavailable" = "Карта метро недоступна";
+
+"bookmarks_empty_list_title" = "Список пустой";
+
+"bookmarks_empty_list_message" = "Чтобы добавить новую метку, нажмите на значок звездочки в карточке объекта";
