@@ -59,8 +59,6 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1,
       my::clamp(e.Extrapolate(gpsInfo1.m_longitude, gpsInfo2.m_longitude), -180.0, 180.0);
   result.m_latitude =
       my::clamp(e.Extrapolate(gpsInfo1.m_latitude, gpsInfo2.m_latitude), -90.0, 90.0);
-  result.m_horizontalAccuracy =
-      e.Extrapolate(gpsInfo1.m_horizontalAccuracy, gpsInfo2.m_horizontalAccuracy);
   result.m_altitude = e.Extrapolate(gpsInfo1.m_altitude, gpsInfo2.m_altitude);
 
   // @TODO(bykoianko) Now |result.m_bearing| == |gpsInfo2.m_bearing|.
@@ -96,7 +94,7 @@ bool AreCoordsGoodForExtrapolation(location::GpsInfo const & info1, location::Gp
   // |maxDistForAllExtrapolationsM| is maximum possible distance from |info2| to
   // all extrapolated points in any cases.
   double const maxDistForAllExtrapolationsM =
-      kMaxExtrapolationSpeedMPS / kMaxExtrapolationTimeSeconds;
+      kMaxExtrapolationSpeedMPS * kMaxExtrapolationTimeSeconds;
   double const distLastGpsInfoToMeridian180 = ms::DistanceOnEarth(
       info2.m_latitude, info2.m_longitude, info2.m_latitude, 180.0 /* lon2Deg */);
   // Switching off extrapolation if |info2| are so close to meridian 180 that extrapolated

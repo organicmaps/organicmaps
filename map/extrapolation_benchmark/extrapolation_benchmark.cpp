@@ -266,11 +266,11 @@ int main(int argc, char * argv[])
         m2::PointD const extrapolatedMerc =
             MercatorBounds::FromLatLon(extrapolated.m_latitude, extrapolated.m_longitude);
 
-        // To generate |posSquare| the method below requires the size of half square in meters.
-        // This constant is chosen based on maximum value of GpsInfo::m_horizontalAccuracy
+        double const kHalfSquareSide = 100.0;
+        // |kHalfSquareSide| is chosen based on maximum value of GpsInfo::m_horizontalAccuracy
         // which is used calculation of projection in production code.
         m2::RectD const posSquare = MercatorBounds::MetresToXY(
-            extrapolated.m_longitude, extrapolated.m_latitude, 100.0 /* half square in meters */);
+            extrapolated.m_longitude, extrapolated.m_latitude, kHalfSquareSide);
         // One is deducted from polyline size because in GetClosestProjectionInInterval()
         // is used segment indices but not point indices.
         auto const & iter = followedPoly.GetClosestProjectionInInterval(
