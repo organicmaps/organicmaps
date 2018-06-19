@@ -62,4 +62,9 @@ bool HasMegafonDownloaderBanner(storage::Storage const & storage, std::string co
   }
   return false;
 }
+
+std::string GetMegafonDownloaderBannerUrl()
+{
+  return "https://localads.maps.me/redirects/megafon_downloader";
+}
 }  // namespace ads

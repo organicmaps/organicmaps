@@ -1638,4 +1638,10 @@ Java_com_mapswithme_maps_Framework_nativeHasMegafonDownloaderBanner(JNIEnv * env
   return static_cast<jboolean>(ads::HasMegafonDownloaderBanner(frm()->GetStorage(),
                                                                jni::ToNativeString(env, mwmId)));
 }
+
+JNIEXPORT jstring JNICALL
+Java_com_mapswithme_maps_Framework_nativeGetMegafonDownloaderBannerUrl(JNIEnv * env, jclass)
+{
+  return jni::ToJavaString(env, ads::GetMegafonDownloaderBannerUrl());
+}
 }  // extern "C"
