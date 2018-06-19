@@ -214,10 +214,24 @@ int AndroidOGLContextFactory::GetHeight() const
   return m_surfaceHeight;
 }
 
-void AndroidOGLContextFactory::UpdateSurfaceSize()
+void AndroidOGLContextFactory::UpdateSurfaceSize(int w, int h)
 {
   ASSERT(IsValid(), ());
-  QuerySurfaceSize();
+  if ((m_surfaceWidth != w && m_surfaceWidth != h) ||
+      (m_surfaceHeight != w && m_surfaceHeight != h))
+  {
+    LOG(LINFO, ("Surface size changed and must be re-queried."));
+    if (!QuerySurfaceSize())
+    {
+      m_surfaceWidth = w;
+      m_surfaceHeight = h;
+    }
+  }
+  else
+  {
+    m_surfaceWidth = w;
+    m_surfaceHeight = h;
+  }
 }
 
 bool AndroidOGLContextFactory::QuerySurfaceSize()

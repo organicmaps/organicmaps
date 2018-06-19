@@ -27,7 +27,7 @@ public:
 
   int GetWidth() const;
   int GetHeight() const;
-  void UpdateSurfaceSize();
+  void UpdateSurfaceSize(int w, int h);
 
   bool IsSupportedOpenGLES3() const { return m_supportedES3; }
 

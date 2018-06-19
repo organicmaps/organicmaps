@@ -174,7 +174,7 @@ bool Framework::IsDrapeEngineCreated()
 
 void Framework::Resize(int w, int h)
 {
-  m_contextFactory->CastFactory<AndroidOGLContextFactory>()->UpdateSurfaceSize();
+  m_contextFactory->CastFactory<AndroidOGLContextFactory>()->UpdateSurfaceSize(w, h);
   m_work.OnSize(w, h);
 
   //TODO: remove after correct visible rect calculation.
