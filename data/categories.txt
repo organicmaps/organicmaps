@@ -2636,8 +2636,8 @@ sw:^Machimbo ya kihistoria|kivutio|utalii
 fa:سایت باستان شناسی
 
 leisure-dog_park
-en:3^Dog area
-de:4^Hundezone
+en:3^Dog area|Dog park
+de:4^Hundezone|Hundeauslaufzone
 
 leisure-garden|@tourism
 en:2^Garden
