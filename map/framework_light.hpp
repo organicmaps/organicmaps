@@ -24,7 +24,7 @@ enum RequestType
   REQUEST_TYPE_USER_AUTH_STATUS = 1u << 1,
   REQUEST_TYPE_NUMBER_OF_UNSENT_EDITS = 1u << 2,
   REQUEST_TYPE_BOOKMARKS_CLOUD_ENABLED = 1u << 3,
-  // Be careful to use this flag. Loading with this flag can produces a hard pressure on the disk
+  // Be careful to use this flag. Loading with this flag can produce a hard pressure on the disk
   // and takes much time.  For example it takes ~50ms on LG Nexus 5, ~100ms on Samsung A5, ~200ms on
   // Fly IQ4403.
   REQUEST_TYPE_LOCATION = 1u << 4,

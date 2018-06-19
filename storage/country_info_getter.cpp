@@ -50,7 +50,7 @@ private:
 };
 }  // namespace
 
-// CountryInfoGetterBase ---------------------------------------------------------------------------------
+// CountryInfoGetterBase ---------------------------------------------------------------------------
 TCountryId CountryInfoGetterBase::GetRegionCountryId(m2::PointD const & pt) const
 {
   TRegionId const id = FindFirstCountry(pt);
@@ -94,11 +94,6 @@ CountryInfoGetterBase::TRegionId CountryInfoGetterBase::FindFirstCountry(m2::Poi
       return id;
   }
 
-  ms::LatLon const latLon = MercatorBounds::ToLatLon(pt);
-  alohalytics::LogEvent(m_isSingleMwm
-                            ? "Small mwm case. CountryInfoGetter could not find any mwm by point."
-                            : "Big mwm case. CountryInfoGetter could not find any mwm by point.",
-                        alohalytics::Location::FromLatLon(latLon.lat, latLon.lon));
   return kInvalidId;
 }
 

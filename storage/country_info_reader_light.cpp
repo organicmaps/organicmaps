@@ -21,6 +21,8 @@
 #include <utility>
 #include <vector>
 
+#include "defines.hpp"
+
 namespace lightweight
 {
 CountryInfoReader::CountryInfoReader()

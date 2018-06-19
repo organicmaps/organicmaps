@@ -13,7 +13,7 @@ using namespace lightweight;
 
 namespace
 {
-double constexpr kStepInMercator = 1;  // 1 mercator ~= 9602.84 meters
+double constexpr kStepInMercator = 1;
 
 struct PointAndCountry
 {
@@ -42,13 +42,7 @@ UNIT_CLASS_TEST(CountryInfoReader, LightweightMatching)
     }
   }
 
-  {
-    m2::PointD ptFrom = {MercatorBounds::minX, MercatorBounds::minY};
-    m2::PointD ptTo = {MercatorBounds::minX + kStepInMercator, MercatorBounds::minY};
-    auto const stepSizeInMeters = MercatorBounds::DistanceOnEarth(ptFrom, ptTo);
-    LOG(LINFO, ("The dataset is generated. Dataset size:", dataset.size(),
-                ". The step is:", stepSizeInMeters, "meters"));
-  }
+  LOG(LINFO, ("The dataset is generated. Dataset size:", dataset.size()));
 
   for (auto const & sample : dataset)
   {
