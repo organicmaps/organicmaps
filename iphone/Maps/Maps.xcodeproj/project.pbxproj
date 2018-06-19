@@ -484,6 +484,17 @@
 		F62607FD207B790300176C5A /* SpinnerAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F62607FC207B790300176C5A /* SpinnerAlert.swift */; };
 		F62607FF207B83C400176C5A /* MWMSpinnerAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = F62607FE207B83C400176C5A /* MWMSpinnerAlert.xib */; };
 		F626D52F1C3E83F800C17D15 /* MWMTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = F626D52D1C3E6CAA00C17D15 /* MWMTableViewCell.mm */; };
+		F62B612520D91973008A8186 /* 171117.bin in Resources */ = {isa = PBXBuildFile; fileRef = F62B611620D9150C008A8186 /* 171117.bin */; };
+		F62B612620D91973008A8186 /* 171208.bin in Resources */ = {isa = PBXBuildFile; fileRef = F62B611520D9150C008A8186 /* 171208.bin */; };
+		F62B612720D91973008A8186 /* 180110.bin in Resources */ = {isa = PBXBuildFile; fileRef = F62B611120D9150A008A8186 /* 180110.bin */; };
+		F62B612820D91973008A8186 /* 180126.bin in Resources */ = {isa = PBXBuildFile; fileRef = F62B611020D9150A008A8186 /* 180126.bin */; };
+		F62B612920D91973008A8186 /* 180209.bin in Resources */ = {isa = PBXBuildFile; fileRef = F62B611220D9150B008A8186 /* 180209.bin */; };
+		F62B612A20D91973008A8186 /* 180316.bin in Resources */ = {isa = PBXBuildFile; fileRef = F62B611720D9150C008A8186 /* 180316.bin */; };
+		F62B612B20D91973008A8186 /* 180417.bin in Resources */ = {isa = PBXBuildFile; fileRef = F62B611820D9150D008A8186 /* 180417.bin */; };
+		F62B612C20D91973008A8186 /* 180513.bin in Resources */ = {isa = PBXBuildFile; fileRef = F62B611920D9150D008A8186 /* 180513.bin */; };
+		F62B612D20D91973008A8186 /* 180527.bin in Resources */ = {isa = PBXBuildFile; fileRef = F62B611420D9150B008A8186 /* 180527.bin */; };
+		F62B612E20D91973008A8186 /* 180528.bin in Resources */ = {isa = PBXBuildFile; fileRef = F62B611320D9150B008A8186 /* 180528.bin */; };
+		F62B612F20D91973008A8186 /* 171020.bin in Resources */ = {isa = PBXBuildFile; fileRef = F62B610E20D914B3008A8186 /* 171020.bin */; };
 		F6381BF61CD12045004CA943 /* LocaleTranslator.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6381BF41CD12045004CA943 /* LocaleTranslator.mm */; };
 		F63AF5061EA6162400A1DB98 /* FilterTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63AF5041EA6162400A1DB98 /* FilterTypeCell.swift */; };
 		F63AF50B1EA6213F00A1DB98 /* FilterRatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63AF5091EA6213F00A1DB98 /* FilterRatingCell.swift */; };
@@ -1408,6 +1419,17 @@
 		F62607FE207B83C400176C5A /* MWMSpinnerAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMSpinnerAlert.xib; sourceTree = "<group>"; };
 		F626D52C1C3E6CAA00C17D15 /* MWMTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMTableViewCell.h; sourceTree = "<group>"; };
 		F626D52D1C3E6CAA00C17D15 /* MWMTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMTableViewCell.mm; sourceTree = "<group>"; };
+		F62B610E20D914B3008A8186 /* 171020.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = 171020.bin; path = ../../data/ugc_migration/171020.bin; sourceTree = "<group>"; };
+		F62B611020D9150A008A8186 /* 180126.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = 180126.bin; path = ../../data/ugc_migration/180126.bin; sourceTree = "<group>"; };
+		F62B611120D9150A008A8186 /* 180110.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = 180110.bin; path = ../../data/ugc_migration/180110.bin; sourceTree = "<group>"; };
+		F62B611220D9150B008A8186 /* 180209.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = 180209.bin; path = ../../data/ugc_migration/180209.bin; sourceTree = "<group>"; };
+		F62B611320D9150B008A8186 /* 180528.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = 180528.bin; path = ../../data/ugc_migration/180528.bin; sourceTree = "<group>"; };
+		F62B611420D9150B008A8186 /* 180527.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = 180527.bin; path = ../../data/ugc_migration/180527.bin; sourceTree = "<group>"; };
+		F62B611520D9150C008A8186 /* 171208.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = 171208.bin; path = ../../data/ugc_migration/171208.bin; sourceTree = "<group>"; };
+		F62B611620D9150C008A8186 /* 171117.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = 171117.bin; path = ../../data/ugc_migration/171117.bin; sourceTree = "<group>"; };
+		F62B611720D9150C008A8186 /* 180316.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = 180316.bin; path = ../../data/ugc_migration/180316.bin; sourceTree = "<group>"; };
+		F62B611820D9150D008A8186 /* 180417.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = 180417.bin; path = ../../data/ugc_migration/180417.bin; sourceTree = "<group>"; };
+		F62B611920D9150D008A8186 /* 180513.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; name = 180513.bin; path = ../../data/ugc_migration/180513.bin; sourceTree = "<group>"; };
 		F63774E61B59375E00BCF54D /* MWMRoutingDisclaimerAlert.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MWMRoutingDisclaimerAlert.xib; sourceTree = "<group>"; };
 		F63774E81B59376F00BCF54D /* MWMRoutingDisclaimerAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMRoutingDisclaimerAlert.h; sourceTree = "<group>"; };
 		F63774E91B59376F00BCF54D /* MWMRoutingDisclaimerAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMRoutingDisclaimerAlert.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1416,6 +1438,17 @@
 		F63AF5091EA6213F00A1DB98 /* FilterRatingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterRatingCell.swift; sourceTree = "<group>"; };
 		F63AF50D1EA6215100A1DB98 /* FilterPriceCategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterPriceCategoryCell.swift; sourceTree = "<group>"; };
 		F63AF5111EA6250F00A1DB98 /* FilterCollectionHolderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCollectionHolderCell.swift; sourceTree = "<group>"; };
+		F63EE67920D409230025CC27 /* 180126.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = 180126.bin; sourceTree = "<group>"; };
+		F63EE67A20D409230025CC27 /* 180110.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = 180110.bin; sourceTree = "<group>"; };
+		F63EE67B20D409240025CC27 /* 180209.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = 180209.bin; sourceTree = "<group>"; };
+		F63EE67C20D409250025CC27 /* 171020.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = 171020.bin; sourceTree = "<group>"; };
+		F63EE67D20D409260025CC27 /* 180527.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = 180527.bin; sourceTree = "<group>"; };
+		F63EE67E20D409270025CC27 /* 171208.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = 171208.bin; sourceTree = "<group>"; };
+		F63EE67F20D409270025CC27 /* 171117.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = 171117.bin; sourceTree = "<group>"; };
+		F63EE68020D409280025CC27 /* 180316.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = 180316.bin; sourceTree = "<group>"; };
+		F63EE68120D409290025CC27 /* 180417.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = 180417.bin; sourceTree = "<group>"; };
+		F63EE68220D409290025CC27 /* 180513.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = 180513.bin; sourceTree = "<group>"; };
+		F63EE68D20D4113C0025CC27 /* 180528.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = 180528.bin; sourceTree = "<group>"; };
 		F642D1221F0F9D1D005E3C25 /* ugc_types.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = ugc_types.csv; path = ../../data/ugc_types.csv; sourceTree = "<group>"; };
 		F64D9C9D1C899C350063FA30 /* MWMEditorViralAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWMEditorViralAlert.h; sourceTree = "<group>"; };
 		F64D9C9E1C899C350063FA30 /* MWMEditorViralAlert.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MWMEditorViralAlert.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1931,6 +1964,17 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F62B611620D9150C008A8186 /* 171117.bin */,
+				F62B611520D9150C008A8186 /* 171208.bin */,
+				F62B611120D9150A008A8186 /* 180110.bin */,
+				F62B611020D9150A008A8186 /* 180126.bin */,
+				F62B611220D9150B008A8186 /* 180209.bin */,
+				F62B611720D9150C008A8186 /* 180316.bin */,
+				F62B611820D9150D008A8186 /* 180417.bin */,
+				F62B611920D9150D008A8186 /* 180513.bin */,
+				F62B611420D9150B008A8186 /* 180527.bin */,
+				F62B611320D9150B008A8186 /* 180528.bin */,
+				F62B610E20D914B3008A8186 /* 171020.bin */,
 				34D7DB77204ED3DD0041D015 /* maps.me dbg.entitlements */,
 				345E8F4D1F83976800A826CC /* GoogleService-Info.plist */,
 				34BBD6451F8264980070CA50 /* GoogleSignIn.bundle */,
@@ -3946,6 +3990,17 @@
 		FA065FC61286143F00FEA989 /* External Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F63EE68D20D4113C0025CC27 /* 180528.bin */,
+				F63EE67C20D409250025CC27 /* 171020.bin */,
+				F63EE67F20D409270025CC27 /* 171117.bin */,
+				F63EE67E20D409270025CC27 /* 171208.bin */,
+				F63EE67A20D409230025CC27 /* 180110.bin */,
+				F63EE67920D409230025CC27 /* 180126.bin */,
+				F63EE67B20D409240025CC27 /* 180209.bin */,
+				F63EE68020D409280025CC27 /* 180316.bin */,
+				F63EE68120D409290025CC27 /* 180417.bin */,
+				F63EE68220D409290025CC27 /* 180513.bin */,
+				F63EE67D20D409260025CC27 /* 180527.bin */,
 				EEA615E5134C4968003A9827 /* 01_dejavusans.ttf */,
 				9DF04B231B71010E00DACAF1 /* 02_droidsans-fallback.ttf */,
 				EEA615E7134C4968003A9827 /* 03_jomolhari-id-a3d.ttf */,
@@ -4158,6 +4213,7 @@
 				34AB66141FC5AA320078E451 /* MWMNavigationInfoView.xib in Resources */,
 				F6E2FEBB1E097BA00083EBEC /* _MWMPPPTitle.xib in Resources */,
 				F61757E91FC72CDE000AD0D0 /* DiscoverySpinnerCell.xib in Resources */,
+				F62B612E20D91973008A8186 /* 180528.bin in Resources */,
 				340E1EEC1E2F614400CE49BF /* Authorization.storyboard in Resources */,
 				6741A95C1BF340DE002C974C /* categories.txt in Resources */,
 				6741A9451BF340DE002C974C /* classificator.txt in Resources */,
@@ -4166,6 +4222,7 @@
 				4A300ED51C6DCFD400140018 /* countries-strings in Resources */,
 				6741A9491BF340DE002C974C /* countries.txt in Resources */,
 				671182E61C7F0DDD00CB8177 /* countries_obsolete.txt in Resources */,
+				F62B612920D91973008A8186 /* 180209.bin in Resources */,
 				6B653B951C7F2DE4007BEFC5 /* cuisine-strings in Resources */,
 				347752931F7251C7000D46A3 /* UGCAddReviewTextCell.xib in Resources */,
 				6741A9871BF340DE002C974C /* drules_proto_clear.bin in Resources */,
@@ -4176,6 +4233,7 @@
 				6741A9501BF340DE002C974C /* fonts_whitelist.txt in Resources */,
 				34F73FA31E08300E00AC1FD6 /* Images.xcassets in Resources */,
 				34F73F9C1E082FF800AC1FD6 /* InfoPlist.strings in Resources */,
+				F62B612620D91973008A8186 /* 171208.bin in Resources */,
 				F6664C161E645A4100E703C2 /* MWMPPReviewCell.xib in Resources */,
 				340E1EEF1E2F614400CE49BF /* LaunchScreen.storyboard in Resources */,
 				34F73F9F1E082FF800AC1FD6 /* Localizable.strings in Resources */,
@@ -4189,6 +4247,7 @@
 				34EE25A61EFA6AD400F870AB /* ViatorElement.xib in Resources */,
 				F6E2FD951E097BA00083EBEC /* MWMBookmarkColorViewController.xib in Resources */,
 				F6E2FD9B1E097BA00083EBEC /* MWMBookmarkTitleCell.xib in Resources */,
+				F62B612C20D91973008A8186 /* 180513.bin in Resources */,
 				4501B1942077C35A001B9173 /* resources-xxxhdpi_clear in Resources */,
 				349D1AD21E2E325B004A2006 /* MWMBottomMenuCollectionViewLandscapeCell.xib in Resources */,
 				3467CEB7202C6FA900D3C670 /* BMCNotificationsCell.xib in Resources */,
@@ -4210,6 +4269,7 @@
 				34D3B02D1E389D05004100F9 /* MWMEditorAdditionalNameTableViewCell.xib in Resources */,
 				34D3B0331E389D05004100F9 /* MWMEditorCategoryCell.xib in Resources */,
 				F6E2FDCB1E097BA00083EBEC /* MWMEditorNotesFooter.xib in Resources */,
+				F62B612720D91973008A8186 /* 180110.bin in Resources */,
 				34D3B0391E389D05004100F9 /* MWMEditorSelectTableViewCell.xib in Resources */,
 				34AB663B1FC5AA330078E451 /* RouteManagerViewController.xib in Resources */,
 				34D3B03F1E389D05004100F9 /* MWMEditorSwitchTableViewCell.xib in Resources */,
@@ -4258,13 +4318,16 @@
 				F6FE3C3C1CC5106500A73196 /* MWMPlaceDoesntExistAlert.xib in Resources */,
 				F6E2FE581E097BA00083EBEC /* MWMPlacePageActionBar.xib in Resources */,
 				F6E407D41FC4722F001F7821 /* MWMDiscoveryController.xib in Resources */,
+				F62B612F20D91973008A8186 /* 171020.bin in Resources */,
 				F6E2FE6A1E097BA00083EBEC /* MWMPlacePageButtonCell.xib in Resources */,
 				F6E2FE8B1E097BA00083EBEC /* MWMPlacePageInfoCell.xib in Resources */,
 				F6E2FE8E1E097BA00083EBEC /* MWMPlacePageLinkCell.xib in Resources */,
+				F62B612D20D91973008A8186 /* 180527.bin in Resources */,
 				F6E2FE7F1E097BA00083EBEC /* MWMPlacePageOpeningHoursCell.xib in Resources */,
 				34AB66711FC5AA330078E451 /* TransportTransitTrain.xib in Resources */,
 				34BBD6471F82649D0070CA50 /* GoogleSignIn.bundle in Resources */,
 				F6E2FE851E097BA00083EBEC /* MWMPlacePageOpeningHoursWeekDayView.xib in Resources */,
+				F62B612A20D91973008A8186 /* 180316.bin in Resources */,
 				F6E2FE941E097BA00083EBEC /* PlacePageTaxiCell.xib in Resources */,
 				F6E2FEA61E097BA00083EBEC /* MWMPPView.xib in Resources */,
 				6741A9811BF340DE002C974C /* MWMRateAlert.xib in Resources */,
@@ -4279,7 +4342,9 @@
 				F6E2FEE81E097BA00083EBEC /* MWMSearchNoResults.xib in Resources */,
 				346225921DDC5FBA001E8752 /* MWMSearchNoResultsAlert.xib in Resources */,
 				34AB660E1FC5AA320078E451 /* NavigationControlView.xib in Resources */,
+				F62B612B20D91973008A8186 /* 180417.bin in Resources */,
 				F6E2FF391E097BA00083EBEC /* MWMSearchSuggestionCell.xib in Resources */,
+				F62B612820D91973008A8186 /* 180126.bin in Resources */,
 				F6E2FF1B1E097BA00083EBEC /* MWMSearchTabbedCollectionViewCell.xib in Resources */,
 				F6E2FF211E097BA00083EBEC /* MWMSearchTabbedViewController.xib in Resources */,
 				34AB66231FC5AA330078E451 /* MWMiPadRoutePreview.xib in Resources */,
@@ -4324,6 +4389,7 @@
 				340E1EF81E2F614400CE49BF /* Settings.storyboard in Resources */,
 				6741A9421BF340DE002C974C /* sound-strings in Resources */,
 				F69018BD1E9F7CB600B3C10B /* MWMAutoupdateController.xib in Resources */,
+				F62B612520D91973008A8186 /* 171117.bin in Resources */,
 				34BBD6681F8273350070CA50 /* AuthorizationViewController.xib in Resources */,
 				6741A97D1BF340DE002C974C /* synonyms.txt in Resources */,
 				34E50DF31F6FCC41008EED49 /* UGCYourReviewCell.xib in Resources */,
