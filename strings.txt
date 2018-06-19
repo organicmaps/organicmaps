@@ -31564,3 +31564,11 @@ fa = دوباره نپرس
 
   [subway_data_unavailable]
     ru = Карта метро недоступна
+
+  [bookmarks_empty_list_title]
+    en = This list is empty
+    ru = Список пустой
+
+  [bookmarks_empty_list_message]
+    en = To add a bookmark, tap a place on the map and then tap the star icon
+    ru = Чтобы добавить новую метку, нажмите на значок звездочки в карточке объекта
