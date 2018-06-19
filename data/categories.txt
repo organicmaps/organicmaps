@@ -2637,7 +2637,12 @@ fa:سایت باستان شناسی
 
 leisure-dog_park
 en:3^Dog area|Dog park
+cs:3^Psí hřiště
 de:4^Hundezone|Hundeauslaufzone
+fi:Koirapuisto
+he:גינת כלבים
+ja:ドッグラン
+ms:Taman anjing
 
 leisure-garden|@tourism
 en:2^Garden
