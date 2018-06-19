@@ -31438,7 +31438,7 @@ fa = دوباره نپرس
     ru = Малый бизнес заслуживает внимания
 
   [whats_new_localbiz_message]
-    en = Family cafes, cozy hostels, unique stores – they are the special parts of our travels. We will optimize your page on the map free of charge so you will get noticed.
+    en = It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.
     ru = Именно локальные кафе, хостелы и магазинчики делают путешествия незабываемыми. Мы бесплатно оптимизируем страницу вашего бизнеса в MAPS.ME, чтобы его заметили.
 
   [whats_new_order_button]
@@ -31501,7 +31501,7 @@ fa = دوباره نپرس
 
   [subtittle_opt_out]
     en = Tracking settings
-    ru = Настрокий сопровождения
+    ru = Настройки сопровождения
 
   [opt_out_flurry]
     en = Statistic
@@ -31551,11 +31551,11 @@ fa = دوباره نپرس
 
   [backup_notification_failed]
     ru = Резервное копирование меток было приостановлено. Войдите, чтобы включить резервное копирование.
-    en = Backing up your bookmarks has been suspended. Log in to turn backup on. 
+    en = Backing up your bookmarks has been suspended. Log in to turn it back on. 
 
   [banner_megafon_banner_message]
     ru = Скажи международному роумингу гудбай!
-    en = Say goodbye to internation roaming! 
+    en = Say goodbye to international roaming! 
 
   [banner_megafon_banner_button]
     ru = Гудбай!
@@ -31575,7 +31575,7 @@ fa = دوباره نپرس
 
   [layers_message]
     ru = Включайте слои на карте для отображения дорожной обстановки, схемы метро или другой полезной информации
-    en = Use map layers to display the traffic situation, underground map or other useful information
+    en = Use map layers to display the traffic, subway map, and other useful information
 
   [button_layer_got_it]
     en = Got it
