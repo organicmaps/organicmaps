@@ -30,11 +30,10 @@ using namespace std;
 namespace
 {
 void TestRouter(routing::IRouter & router, m2::PointD const & startPos,
-                m2::PointD const & finalPos, routing::Route & foundRoute)
+                m2::PointD const & finalPos, routing::Route & route)
 {
   routing::RouterDelegate delegate;
   LOG(LINFO, ("Calculating routing ...", router.GetName()));
-  routing::Route route("", 0 /* route id */);
   my::Timer timer;
   auto const resultCode = router.CalculateRoute(routing::Checkpoints(startPos, finalPos),
                                                 m2::PointD::Zero() /* startDirection */,
@@ -48,7 +47,6 @@ void TestRouter(routing::IRouter & router, m2::PointD const & startPos,
   LOG(LINFO, ("Route polyline size:", route.GetPoly().GetSize()));
   LOG(LINFO, ("Route distance, meters:", route.GetTotalDistanceMeters()));
   LOG(LINFO, ("Elapsed, seconds:", elapsedSec));
-  foundRoute.Swap(route);
 }
 
 m2::PointD GetPointOnEdge(routing::Edge const & e, double posAlong)

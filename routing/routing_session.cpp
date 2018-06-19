@@ -142,8 +142,7 @@ void RoutingSession::DoReadyCallback::operator()(unique_ptr<Route> route, Router
   threads::MutexGuard guard(m_routeSessionMutexInner);
 
   ASSERT(m_rs.m_route, ());
-  // @TODO(bykoianko) Move |route| to m_rs.AssignRoute() method.
-  m_rs.AssignRoute(*route, e);
+  m_rs.AssignRoute(move(route), e);
   m_callback(*m_rs.m_route, e);
 }
 
@@ -501,11 +500,11 @@ void RoutingSession::GenerateTurnNotifications(vector<string> & turnNotification
     m_turnNotificationsMgr.GenerateTurnNotifications(turns, turnNotifications);
 }
 
-void RoutingSession::AssignRoute(Route & route, RouterResultCode e)
+void RoutingSession::AssignRoute(unique_ptr<Route> route, RouterResultCode e)
 {
   if (e != RouterResultCode::Cancelled)
   {
-    if (route.IsValid())
+    if (route->IsValid())
       SetState(RouteNotStarted);
     else
       SetState(RoutingNotActive);
@@ -520,8 +519,8 @@ void RoutingSession::AssignRoute(Route & route, RouterResultCode e)
 
   ASSERT(m_route, ());
 
-  route.SetRoutingSettings(m_routingSettings);
-  m_route->Swap(route);
+  route->SetRoutingSettings(m_routingSettings);
+  m_route = move(route);
   m_lastWarnedSpeedCameraIndex = 0;
   m_lastCheckedSpeedCameraIndex = 0;
   m_lastFoundCamera = SpeedCameraRestriction();

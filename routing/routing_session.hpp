@@ -193,7 +193,7 @@ private:
   };
 
   // Should be called with locked m_routingSessionMutex.
-  void AssignRoute(Route & route, RouterResultCode e);
+  void AssignRoute(unique_ptr<Route> route, RouterResultCode e);
 
   /// Returns a nearest speed camera record on your way and distance to it.
   /// Returns kInvalidSpeedCameraDistance if there is no cameras on your way.

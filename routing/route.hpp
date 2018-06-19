@@ -173,8 +173,6 @@ public:
   Route(std::string const & router, std::vector<m2::PointD> const & points, uint64_t routeId,
         std::string const & name = std::string());
 
-  void Swap(Route & rhs);
-
   template <class TIter> void SetGeometry(TIter beg, TIter end)
   {
     if (beg == end)
