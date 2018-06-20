@@ -122,7 +122,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
 
     adapter.startLocationUpdate();
     adapter.setOnClickListener(this);
-    adapter.setOnLongClickListener(this);
+    adapter.setOnLongClickListener(isCatalogCategory() ? null : this);
   }
 
   @Override

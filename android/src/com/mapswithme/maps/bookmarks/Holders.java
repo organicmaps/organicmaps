@@ -315,8 +315,6 @@ public class Holders
     private final TextView mName;
     @NonNull
     private final TextView mDistance;
-    @NonNull
-    private final View mMore;
 
     BookmarkViewHolder(@NonNull View itemView, @NonNull BookmarkCategory category)
     {
@@ -324,14 +322,12 @@ public class Holders
       mIcon = itemView.findViewById(R.id.iv__bookmark_color);
       mName = itemView.findViewById(R.id.tv__bookmark_name);
       mDistance = itemView.findViewById(R.id.tv__bookmark_distance);
-      mMore = itemView.findViewById(R.id.more);
     }
 
     @Override
     void setOnLongClickListener(@Nullable RecyclerLongClickListener listener)
     {
       super.setOnLongClickListener(listener);
-      mMore.setOnClickListener(v -> onOpenActionMenu(v, listener));
     }
 
     @Override
@@ -452,7 +448,7 @@ public class Holders
     private void onMoreBtnClicked(@NonNull View v)
     {
       int lineCount = calcLineCount(mDescText, mCategory.getDescription());
-      mDescText.setLines(lineCount);
+      mDescText.setMaxLines(lineCount);
       mDescText.setText(mCategory.getDescription());
       v.setVisibility(View.GONE);
     }

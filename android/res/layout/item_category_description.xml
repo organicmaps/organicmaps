@@ -25,7 +25,7 @@
     <TextView
       android:id="@+id/text"
       android:textAppearance="@style/MwmTextAppearance.Body3"
-      android:lines="3"
+      android:maxLines="2"
       android:ellipsize="end"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>

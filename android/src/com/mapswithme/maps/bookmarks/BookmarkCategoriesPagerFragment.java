@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
+import com.mapswithme.util.SharedPropertiesUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,17 +36,42 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
     TabLayout tabLayout = root.findViewById(R.id.sliding_tabs_layout);
 
     FragmentManager fm = getActivity().getSupportFragmentManager();
-    BookmarksPagerAdapter adapter = new BookmarksPagerAdapter(getContext(),
-                                                              fm,
-                                                              prepareAdapterDataSet());
+    List<BookmarksPageFactory> dataSet = getAdapterDataSet();
+    BookmarksPagerAdapter adapter = new BookmarksPagerAdapter(getContext(), fm, dataSet);
     viewPager.setAdapter(adapter);
+
+    int lastVisibleScreen = SharedPropertiesUtils.getLastVisibleBookmarkCategoriesPage(getActivity());
+    viewPager.setCurrentItem(lastVisibleScreen);
     tabLayout.setupWithViewPager(viewPager);
+    viewPager.addOnPageChangeListener(new PageChangeListener());
+
     return root;
   }
 
   @NonNull
-  private static List<BookmarksPageFactory> prepareAdapterDataSet()
+  private static List<BookmarksPageFactory> getAdapterDataSet()
   {
     return Arrays.asList(BookmarksPageFactory.PRIVATE, BookmarksPageFactory.CATALOG);
+  }
+
+  private class PageChangeListener implements ViewPager.OnPageChangeListener
+  {
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+    {
+
+    }
+
+    @Override
+    public void onPageSelected(int position)
+    {
+      SharedPropertiesUtils.setLastVisibleBookmarkCategoriesPage(getActivity(), position);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state)
+    {
+
+    }
   }
 }

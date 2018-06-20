@@ -4,7 +4,6 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:minHeight="@dimen/height_item_oneline"
-  android:gravity="center"
   android:background="?clickableBackground">
 
   <ImageView
@@ -17,28 +16,14 @@
     android:layout_marginRight="@dimen/margin_base"
     android:layout_alignParentStart="true"/>
 
-  <ImageView
-    android:id="@+id/more"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:minHeight="@dimen/height_item_edit_bookmark"
-    android:paddingRight="@dimen/margin_base"
-    android:paddingEnd="@dimen/margin_base"
-    android:paddingLeft="@dimen/margin_double"
-    android:paddingStart="@dimen/margin_double"
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentRight="true"
-    android:layout_centerVertical="true"
-    android:src="@drawable/ic_more"
-    android:background="?selectableItemBackgroundBorderless"
-    android:tint="?secondary"/>
-
   <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:weightSum="2"
     android:orientation="vertical"
     android:layout_centerVertical="true"
+    android:paddingRight="@dimen/margin_base"
+    android:paddingEnd="@dimen/margin_base"
     android:layout_toRightOf="@id/iv__bookmark_color"
     android:layout_toEndOf="@id/iv__bookmark_color"
     android:layout_marginRight="@dimen/margin_base"

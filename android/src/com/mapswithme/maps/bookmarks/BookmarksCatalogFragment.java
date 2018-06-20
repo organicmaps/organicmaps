@@ -122,7 +122,14 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url)
     {
-      return requestArchive(view, url);
+      try
+      {
+        return requestArchive(view, url);
+      }
+      catch (BookmarksDownloadManager.UnprocessedUrlException e)
+      {
+        return false;
+      }
     }
 
     @Override
@@ -157,7 +164,8 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       mError = null;
     }
 
-    private boolean requestArchive(@NonNull WebView view, @NonNull String url)
+    private boolean requestArchive(@NonNull WebView view,
+                                   @NonNull String url) throws BookmarksDownloadManager.UnprocessedUrlException
     {
       BookmarksDownloadManager dm = BookmarksDownloadManager.from(view.getContext());
       dm.enqueueRequest(url);

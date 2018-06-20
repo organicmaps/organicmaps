@@ -17,6 +17,7 @@ public final class SharedPropertiesUtils
   private static final String PREFS_BACKUP_WIDGET_EXPANDED = "BackupWidgetExpanded";
   private static final String PREFS_WHATS_NEW_TITLE_CONCATENATION = "WhatsNewTitleConcatenation";
   private static final String PREFS_CATALOG_CATEGORIES_HEADER_CLOSED = "CatalogCategoriesHeaderClosed";
+  private static final String PREFS_BOOKMARK_CATEGORIES_LAST_VISIBLE_PAGE = "BookmarkCategoriesLastVisiblePage";
   private static final SharedPreferences PREFS
       = PreferenceManager.getDefaultSharedPreferences(MwmApplication.get());
 
@@ -90,6 +91,20 @@ public final class SharedPropertiesUtils
     MwmApplication.prefs(context)
                   .edit()
                   .putBoolean(PREFS_CATALOG_CATEGORIES_HEADER_CLOSED, value)
+                  .apply();
+  }
+
+  public static int getLastVisibleBookmarkCategoriesPage(@NonNull Context context)
+  {
+    return MwmApplication.prefs(context)
+                         .getInt(PREFS_BOOKMARK_CATEGORIES_LAST_VISIBLE_PAGE, 0);
+  }
+
+  public static void setLastVisibleBookmarkCategoriesPage(@NonNull Context context, int lastVisibleScreenIndex)
+  {
+    MwmApplication.prefs(context)
+                  .edit()
+                  .putInt(PREFS_BOOKMARK_CATEGORIES_LAST_VISIBLE_PAGE, lastVisibleScreenIndex)
                   .apply();
   }
 }

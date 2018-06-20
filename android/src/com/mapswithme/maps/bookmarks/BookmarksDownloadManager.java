@@ -9,8 +9,6 @@ import android.util.Pair;
 
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
-import java.util.Set;
-
 public class BookmarksDownloadManager
 {
   private static final String QUERY_PARAM_ID_KEY = "id";
@@ -24,17 +22,19 @@ public class BookmarksDownloadManager
     mContext = context.getApplicationContext();
   }
 
-  public long enqueueRequest(@NonNull String url)
+  public long enqueueRequest(@NonNull String url) throws UnprocessedUrlException
   {
+    Pair<Uri, Uri> uriPair = prepareUriPair(url);
+
     DownloadManager downloadManager =
         (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
+
     if (downloadManager == null)
     {
       throw new NullPointerException(
           "Download manager is null, failed to download url = " + url);
     }
 
-    Pair<Uri, Uri> uriPair = prepareUriPair(url);
     Uri srcUri = uriPair.first;
     Uri dstUri = uriPair.second;
 
@@ -55,12 +55,12 @@ public class BookmarksDownloadManager
   }
 
   @NonNull
-  private static Pair<Uri, Uri> prepareUriPair(@NonNull String url)
+  private static Pair<Uri, Uri> prepareUriPair(@NonNull String url) throws UnprocessedUrlException
   {
     Uri srcUri = Uri.parse(url);
     String fileId = srcUri.getQueryParameter(QUERY_PARAM_ID_KEY);
     if (TextUtils.isEmpty(fileId))
-      throw new IllegalArgumentException("File id not found");
+      throw new UnprocessedUrlException("File id not found");
 
     String downloadUrl = BookmarkManager.INSTANCE.getCatalogDownloadUrl(fileId);
     Uri.Builder builder = Uri.parse(downloadUrl).buildUpon();
@@ -77,5 +77,13 @@ public class BookmarksDownloadManager
   public static BookmarksDownloadManager from(@NonNull Context context)
   {
     return new BookmarksDownloadManager(context);
+  }
+
+  public static class UnprocessedUrlException extends Exception
+  {
+    UnprocessedUrlException(@NonNull String msg)
+    {
+      super(msg);
+    }
   }
 }
