@@ -131,6 +131,10 @@ private:
   void CollectLines(TransitDisplayInfo const & transitDisplayInfo, MwmSchemeData & scheme);
 
   void CollectShapes(TransitDisplayInfo const & transitDisplayInfo, MwmSchemeData & scheme);
+  void FindShapes(routing::transit::StopId stop1Id, routing::transit::StopId stop2Id,
+                  routing::transit::LineId lineId,
+                  std::vector<routing::transit::LineId> const & sameLines,
+                  TransitDisplayInfo const & transitDisplayInfo, MwmSchemeData & scheme);
   void AddShape(TransitDisplayInfo const & transitDisplayInfo, routing::transit::StopId stop1Id,
                 routing::transit::StopId stop2Id, routing::transit::LineId lineId, MwmSchemeData & scheme);
 

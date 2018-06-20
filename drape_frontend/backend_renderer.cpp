@@ -464,10 +464,10 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::EnableTransitScheme:
     {
       ref_ptr<EnableTransitSchemeMessage> msg = message;
-      if (!msg->Enable())
+      if (!msg->IsEnabled())
         m_transitBuilder->Clear();
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<EnableTransitSchemeMessage>(msg->Enable()),
+                                make_unique_dp<EnableTransitSchemeMessage>(msg->IsEnabled()),
                                 MessagePriority::Normal);
       break;
     }
@@ -668,35 +668,35 @@ void BackendRenderer::FlushGeometry(TileKey const & key, dp::GLState const & sta
 void BackendRenderer::FlushTransitRenderData(TransitRenderData && renderData)
 {
   m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                            make_unique_dp<FlushTransitSchemeMessage>(move(renderData)),
+                            make_unique_dp<FlushTransitSchemeMessage>(std::move(renderData)),
                             MessagePriority::Normal);
 }
 
 void BackendRenderer::FlushTransitMarkersRenderData(TransitRenderData && renderData)
 {
   m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                            make_unique_dp<FlushTransitMarkersMessage>(move(renderData)),
+                            make_unique_dp<FlushTransitMarkersMessage>(std::move(renderData)),
                             MessagePriority::Normal);
 }
 
 void BackendRenderer::FlushTransitTextRenderData(TransitRenderData && renderData)
 {
   m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                            make_unique_dp<FlushTransitTextMessage>(move(renderData)),
+                            make_unique_dp<FlushTransitTextMessage>(std::move(renderData)),
                             MessagePriority::Normal);
 }
 
 void BackendRenderer::FlushTransitStubsRenderData(TransitRenderData && renderData)
 {
   m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                            make_unique_dp<FlushTransitStubsMessage>(move(renderData)),
+                            make_unique_dp<FlushTransitStubsMessage>(std::move(renderData)),
                             MessagePriority::Normal);
 }
 
 void BackendRenderer::FlushTrafficRenderData(TrafficRenderData && renderData)
 {
   m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                            make_unique_dp<FlushTrafficDataMessage>(move(renderData)),
+                            make_unique_dp<FlushTrafficDataMessage>(std::move(renderData)),
                             MessagePriority::Normal);
 }
 

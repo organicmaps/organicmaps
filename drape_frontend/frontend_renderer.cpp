@@ -776,7 +776,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::EnableTransitScheme:
     {
       ref_ptr<EnableTransitSchemeMessage > msg = message;
-      if (!msg->Enable())
+      if (!msg->IsEnabled())
         m_transitSchemeRenderer->ClearGLDependentResources();
       break;
     }

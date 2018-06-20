@@ -25,14 +25,13 @@ using namespace std;
 
 namespace df
 {
-
 std::vector<float> const kTransitLinesWidthInPixel =
-  {
-    // 1   2     3     4     5     6     7     8     9    10
-    1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
-    //11  12    13    14    15    16    17    18    19     20
-    1.5f, 1.8f, 2.2f, 2.8f, 3.2f, 3.8f, 4.8f, 5.2f, 5.8f, 5.8f
-  };
+{
+  // 1   2     3     4     5     6     7     8     9    10
+  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+  //11  12    13    14    15    16    17    18    19     20
+  1.5f, 1.8f, 2.2f, 2.8f, 3.2f, 3.8f, 4.8f, 5.2f, 5.8f, 5.8f
+};
 
 namespace
 {
@@ -128,7 +127,8 @@ struct TitleInfo
   dp::Anchor m_anchor = dp::Left;
 };
 
-std::vector<TitleInfo> PlaceTitles(StopNodeParams const & stopParams, float textSize, ref_ptr<dp::TextureManager> textures)
+std::vector<TitleInfo> PlaceTitles(StopNodeParams const & stopParams, float textSize,
+                                   ref_ptr<dp::TextureManager> textures)
 {
   std::vector<TitleInfo> titles;
   for (auto const & stopInfo : stopParams.m_stopsInfo)
@@ -237,6 +237,31 @@ void FillStopParams(TransitDisplayInfo const & transitDisplayInfo, MwmSet::MwmId
     info.m_name = title;
     info.m_lines.insert(lineId);
   }
+}
+
+bool FindLongerPath(routing::transit::StopId stop1Id, routing::transit::StopId stop2Id,
+                    std::vector<routing::transit::StopId> const & sameStops, size_t & stop1Ind, size_t & stop2Ind)
+{
+  stop1Ind = std::numeric_limits<size_t>::max();
+  stop2Ind = std::numeric_limits<size_t>::max();
+
+  for (size_t stopInd = 0; stopInd < sameStops.size(); ++stopInd)
+  {
+    if (sameStops[stopInd] == stop1Id)
+      stop1Ind = stopInd;
+    else if (sameStops[stopInd] == stop2Id)
+      stop2Ind = stopInd;
+  }
+
+  if (stop1Ind < sameStops.size() || stop2Ind < sameStops.size())
+  {
+    if (stop1Ind > stop2Ind)
+      swap(stop1Ind, stop2Ind);
+
+    if (stop1Ind < sameStops.size() && stop2Ind < sameStops.size() && stop2Ind - stop1Ind > 1)
+      return true;
+  }
+  return false;
 }
 }  // namespace
 
@@ -358,60 +383,46 @@ void TransitSchemeBuilder::CollectShapes(TransitDisplayInfo const & transitDispl
     auto const & stopsRanges = line.second.GetStopIds();
     for (auto const & stops : stopsRanges)
     {
-      for (size_t i = 0; i < stops.size(); ++i)
-      {
-        if (i + 1 < stops.size())
-        {
-          bool shapeAdded = false;
-
-          auto const & sameLines = roads[roadId];
-          for (auto const & sameLineId : sameLines)
-          {
-            if (sameLineId == lineId)
-              continue;
-
-            auto const & sameLine = transitDisplayInfo.m_lines.at(sameLineId);
-            auto const & sameStopsRanges = sameLine.GetStopIds();
-            for (auto const & sameStops : sameStopsRanges)
-            {
-              size_t stop1Ind = std::numeric_limits<size_t>::max();
-              size_t stop2Ind = std::numeric_limits<size_t>::max();
-
-              for (size_t stopInd = 0; stopInd < sameStops.size(); ++stopInd)
-              {
-                if (sameStops[stopInd] == stops[i])
-                  stop1Ind = stopInd;
-                else if (sameStops[stopInd] == stops[i + 1])
-                  stop2Ind = stopInd;
-              }
-
-              if (stop1Ind < sameStops.size() || stop2Ind < sameStops.size())
-              {
-                if (stop1Ind > stop2Ind)
-                  swap(stop1Ind, stop2Ind);
-
-                if (stop1Ind < sameStops.size() && stop2Ind < sameStops.size() && stop2Ind - stop1Ind > 1)
-                {
-                  for (size_t stopInd = stop1Ind; stopInd < stop2Ind; ++stopInd)
-                  {
-                    shapeAdded = true;
-                    AddShape(transitDisplayInfo, sameStops[stopInd], sameStops[stopInd + 1], lineId, scheme);
-                  }
-                }
-                break;
-              }
-            }
-
-            if (shapeAdded)
-              break;
-          }
-
-          if (!shapeAdded)
-            AddShape(transitDisplayInfo, stops[i], stops[i + 1], lineId, scheme);
-        }
-      }
+      for (size_t i = 1; i < stops.size(); ++i)
+        FindShapes(stops[i - 1], stops[i], lineId, roads[roadId], transitDisplayInfo, scheme);
     }
   }
+}
+
+void TransitSchemeBuilder::FindShapes(routing::transit::StopId stop1Id, routing::transit::StopId stop2Id,
+                                      routing::transit::LineId lineId,
+                                      std::vector<routing::transit::LineId> const & sameLines,
+                                      TransitDisplayInfo const & transitDisplayInfo, MwmSchemeData & scheme)
+{
+  bool shapeAdded = false;
+
+  for (auto const & sameLineId : sameLines)
+  {
+    if (sameLineId == lineId)
+      continue;
+
+    auto const & sameLine = transitDisplayInfo.m_lines.at(sameLineId);
+    auto const & sameStopsRanges = sameLine.GetStopIds();
+    for (auto const & sameStops : sameStopsRanges)
+    {
+      size_t stop1Ind;
+      size_t stop2Ind;
+      if (FindLongerPath(stop1Id, stop2Id, sameStops, stop1Ind, stop2Ind))
+      {
+        shapeAdded = true;
+        for (size_t stopInd = stop1Ind; stopInd < stop2Ind; ++stopInd)
+          AddShape(transitDisplayInfo, sameStops[stopInd], sameStops[stopInd + 1], lineId, scheme);
+      }
+      if (stop1Ind < sameStops.size() || stop2Ind < sameStops.size())
+        break;
+    }
+
+    if (shapeAdded)
+      break;
+  }
+
+  if (!shapeAdded)
+    AddShape(transitDisplayInfo, stop1Id, stop2Id, lineId, scheme);
 }
 
 void TransitSchemeBuilder::AddShape(TransitDisplayInfo const & transitDisplayInfo,
@@ -442,13 +453,12 @@ void TransitSchemeBuilder::AddShape(TransitDisplayInfo const & transitDisplayInf
     it = transitDisplayInfo.m_shapes.find(shapeId);
   }
 
-  // TODO: check
   if (it == transitDisplayInfo.m_shapes.end())
     return;
 
   ASSERT(it != transitDisplayInfo.m_shapes.end(), ());
 
-  auto itScheme = scheme.m_shapes.find(shapeId);
+  auto const itScheme = scheme.m_shapes.find(shapeId);
   if (itScheme == scheme.m_shapes.end())
   {
     auto const & polyline = transitDisplayInfo.m_shapes.at(it->first).GetPolyline();
@@ -461,11 +471,15 @@ void TransitSchemeBuilder::AddShape(TransitDisplayInfo const & transitDisplayInf
   else
   {
     for (auto id : itScheme->second.m_forwardLines)
+    {
       if (GetRouteId(id) == GetRouteId(lineId))
         return;
+    }
     for (auto id : itScheme->second.m_backwardLines)
+    {
       if (GetRouteId(id) == GetRouteId(lineId))
         return;
+    }
 
     if (isForward)
       itScheme->second.m_forwardLines.push_back(lineId);
@@ -559,27 +573,28 @@ void TransitSchemeBuilder::GenerateStops(MwmSet::MwmId const & mwmId, ref_ptr<dp
 {
   MwmSchemeData const & scheme = m_schemes[mwmId];
 
+  auto const flusher = [this, &mwmId, &scheme](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
+  {
+    TransitRenderData renderData(state, m_recacheId, mwmId, scheme.m_pivot);
+    renderData.m_buckets.emplace_back(std::move(b));
+    if (state.GetProgramIndex() == gpu::TRANSIT_MARKER_PROGRAM)
+    {
+      m_flushMarkersRenderDataFn(std::move(renderData));
+    }
+    else if (state.GetProgramIndex() == gpu::TEXT_OUTLINED_PROGRAM)
+    {
+      m_flushTextRenderDataFn(std::move(renderData));
+    }
+    else
+    {
+      m_flushStubsRenderDataFn(std::move(renderData));
+    }
+  };
+
   uint32_t const kBatchSize = 5000;
   dp::Batcher batcher(kBatchSize, kBatchSize);
   {
-    dp::SessionGuard guard(batcher,
-                           [this, &mwmId, &scheme](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
-                           {
-                             TransitRenderData renderData(state, m_recacheId, mwmId, scheme.m_pivot);
-                             renderData.m_buckets.emplace_back(std::move(b));
-                             if (state.GetProgramIndex() == gpu::TRANSIT_MARKER_PROGRAM)
-                             {
-                               m_flushMarkersRenderDataFn(std::move(renderData));
-                             }
-                             else if (state.GetProgramIndex() == gpu::TEXT_OUTLINED_PROGRAM)
-                             {
-                               m_flushTextRenderDataFn(std::move(renderData));
-                             }
-                             else
-                             {
-                               m_flushStubsRenderDataFn(std::move(renderData));
-                             }
-                           });
+    dp::SessionGuard guard(batcher, flusher);
 
     float const kStopScale = 2.5f;
     float const kTransferScale = 3.0f;
@@ -634,8 +649,7 @@ void TransitSchemeBuilder::GenerateStop(StopNodeParams const & params, m2::Point
                                         std::map<routing::transit::LineId, LineParams> const & lines,
                                         dp::Batcher & batcher)
 {
-  bool severalRoads = params.m_stopsInfo.size() > 1;
-
+  bool const severalRoads = params.m_stopsInfo.size() > 1;
   if (severalRoads)
   {
     GenerateTransfer(params, pivot, batcher);
@@ -765,7 +779,7 @@ void TransitSchemeBuilder::GenerateLine(std::vector<m2::PointD> const & path, m2
 
   for (size_t i = 1; i < path.size(); ++i)
   {
-    if (path[i].EqualDxDy(path[i - 1], 1.0E-5))
+    if (path[i].EqualDxDy(path[i - 1], 1.0e-5))
       continue;
 
     SchemeSegment segment;

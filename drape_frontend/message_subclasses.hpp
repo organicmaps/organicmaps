@@ -1023,16 +1023,16 @@ private:
 class EnableTransitSchemeMessage : public Message
 {
 public:
-  explicit EnableTransitSchemeMessage(bool enable)
-    : m_enable(enable)
+  explicit EnableTransitSchemeMessage(bool isEnabled)
+    : m_isEnabled(isEnabled)
   {}
 
   Type GetType() const override { return Message::EnableTransitScheme; }
 
-  bool Enable() { return m_enable; }
+  bool IsEnabled() { return m_isEnabled; }
 
 private:
-  bool m_enable = false;
+  bool m_isEnabled = false;
 };
 
 class ClearTransitSchemeDataMessage : public Message
@@ -1060,7 +1060,7 @@ public:
 
   Type GetType() const override { return Message::UpdateTransitScheme; }
 
-  TransitDisplayInfos & GetTransitDisplayInfos() { return m_transitInfos; }
+  TransitDisplayInfos const & GetTransitDisplayInfos() { return m_transitInfos; }
   std::vector<MwmSet::MwmId> const & GetVisibleMwms() const { return m_visibleMwms; }
 
 private:

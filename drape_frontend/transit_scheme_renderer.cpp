@@ -8,11 +8,12 @@
 #include "drape/overlay_tree.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
+#include <algorithm>
+
 namespace df
 {
 namespace
 {
-
 float CalculateHalfWidth(ScreenBase const & screen)
 {
   double zoom = 0.0;
@@ -50,7 +51,7 @@ void TransitSchemeRenderer::ClearRenderData(MwmSet::MwmId const & mwmId, std::ve
 {
   auto removePredicate = [&mwmId](TransitRenderData const & data) { return data.m_mwmId == mwmId; };
 
-  renderData.erase(remove_if(renderData.begin(), renderData.end(), removePredicate),
+  renderData.erase(std::remove_if(renderData.begin(), renderData.end(), removePredicate),
                    renderData.end());
 }
 
@@ -176,10 +177,10 @@ void TransitSchemeRenderer::RenderMarkers(ScreenBase const & screen, ref_ptr<dp:
     dp::UniformValuesStorage uniforms = commonUniforms;
     math::Matrix<float, 4, 4> mv = screen.GetModelView(renderData.m_pivot, kShapeCoordScalar);
     uniforms.SetMatrix4x4Value("modelView", mv.m_data);
-    uniforms.SetFloatValue("u_lineHalfWidth", pixelHalfWidth);
-    uniforms.SetFloatValue("u_angleCosSin",
+    uniforms.SetFloatValue("u_params",
                            static_cast<float>(cos(screen.GetAngle())),
-                           static_cast<float>(sin(screen.GetAngle())));
+                           static_cast<float>(sin(screen.GetAngle())),
+                           pixelHalfWidth);
     dp::ApplyUniforms(uniforms, program);
 
     for (auto const & bucket : renderData.m_buckets)
