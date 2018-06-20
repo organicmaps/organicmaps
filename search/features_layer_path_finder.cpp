@@ -9,6 +9,12 @@
 #include "base/cancellable.hpp"
 #include "base/stl_helpers.hpp"
 
+#include <cstdint>
+#include <deque>
+#include <unordered_map>
+
+using namespace std;
+
 namespace search
 {
 // static
@@ -16,7 +22,7 @@ FeaturesLayerPathFinder::Mode FeaturesLayerPathFinder::m_mode = MODE_AUTO;
 
 namespace
 {
-using TParentGraph = unordered_map<uint32_t, uint32_t>;
+using ParentGraph = deque<unordered_map<uint32_t, uint32_t>>;
 
 // This function tries to estimate amount of work needed to perform an
 // intersection pass on a sequence of layers.
@@ -48,22 +54,25 @@ uint64_t CalcBottomUpPassCost(vector<FeaturesLayer const *> const & layers)
   return CalcPassCost(layers.begin(), layers.end());
 }
 
-bool GetPath(uint32_t id, vector<FeaturesLayer const *> const & layers, TParentGraph const & parent,
+bool GetPath(uint32_t id, vector<FeaturesLayer const *> const & layers, ParentGraph const & parent,
              IntersectionResult & result)
 {
   result.Clear();
+  if (layers.size() != parent.size() + 1)
+    return false;
 
   size_t level = 0;
-  TParentGraph::const_iterator it;
-  do
+  for (auto parentGraphLayer = parent.crbegin(); parentGraphLayer != parent.crend();
+       ++parentGraphLayer, ++level)
   {
     result.Set(layers[level]->m_type, id);
-    ++level;
-    it = parent.find(id);
-    if (it != parent.cend())
-      id = it->second;
-  } while (level < layers.size() && it != parent.cend());
-  return level == layers.size();
+    auto const it = parentGraphLayer->find(id);
+    if (it == parentGraphLayer->cend())
+      return false;
+    id = it->second;
+  }
+  result.Set(layers[level]->m_type, id);
+  return true;
 }
 
 bool MayHaveDelayedFeatures(FeaturesLayer const & layer)
@@ -112,9 +121,10 @@ void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
   vector<uint32_t> reachable = *(layers.back()->m_sortedFeatures);
   vector<uint32_t> buffer;
 
-  TParentGraph parent;
+  ParentGraph parentGraph;
 
   auto addEdge = [&](uint32_t childFeature, uint32_t parentFeature) {
+    auto & parent = parentGraph.back();
     if (parent.find(childFeature) != parent.end())
       return;
     parent[childFeature] = parentFeature;
@@ -125,6 +135,7 @@ void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
   {
     BailIfCancelled(m_cancellable);
 
+    parentGraph.emplace_back();
     FeaturesLayer parent(*layers[i]);
     if (i != layers.size() - 1)
       my::SortUnique(reachable);
@@ -147,7 +158,7 @@ void FeaturesLayerPathFinder::FindReachableVerticesTopDown(
   IntersectionResult result;
   for (auto const & id : lowestLevel)
   {
-    if (GetPath(id, layers, parent, result))
+    if (GetPath(id, layers, parentGraph, result))
       results.push_back(result);
   }
 }
@@ -161,7 +172,7 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
   vector<uint32_t> reachable = *(layers.front()->m_sortedFeatures);
   vector<uint32_t> buffer;
 
-  TParentGraph parent;
+  ParentGraph parentGraph;
 
   // It is possible that there are delayed features on the lowest level.
   // We do not know about them until the matcher has been called, so
@@ -174,6 +185,7 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
   bool first = true;
 
   auto addEdge = [&](uint32_t childFeature, uint32_t parentFeature) {
+    auto & parent = parentGraph.front();
     if (parent.find(childFeature) != parent.end())
       return;
     parent[childFeature] = parentFeature;
@@ -187,6 +199,7 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
   {
     BailIfCancelled(m_cancellable);
 
+    parentGraph.emplace_front();
     FeaturesLayer child(*layers[i]);
     if (i != 0)
       my::SortUnique(reachable);
@@ -208,7 +221,7 @@ void FeaturesLayerPathFinder::FindReachableVerticesBottomUp(
   IntersectionResult result;
   for (auto const & id : lowestLevel)
   {
-    if (GetPath(id, layers, parent, result))
+    if (GetPath(id, layers, parentGraph, result))
       results.push_back(result);
   }
 }
