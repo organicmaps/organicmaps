@@ -161,8 +161,6 @@
 		5687625F1F6A9B18002C22A6 /* transit_generator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = transit_generator.hpp; sourceTree = "<group>"; };
 		670B84BA1A8CDB0000CE4492 /* osm_source.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = osm_source.cpp; sourceTree = "<group>"; };
 		670B84BB1A8CDB0000CE4492 /* osm_source.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = osm_source.hpp; sourceTree = "<group>"; };
-		670E7BA71EF9812B00A8E9ED /* kml_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = kml_parser.cpp; sourceTree = "<group>"; };
-		670E7BA81EF9812B00A8E9ED /* kml_parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = kml_parser.hpp; sourceTree = "<group>"; };
 		670E7BA91EF9812B00A8E9ED /* metalines_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = metalines_builder.cpp; sourceTree = "<group>"; };
 		670E7BAA1EF9812B00A8E9ED /* metalines_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = metalines_builder.hpp; sourceTree = "<group>"; };
 		670E7BAB1EF9812B00A8E9ED /* road_access_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = road_access_generator.cpp; sourceTree = "<group>"; };
@@ -332,8 +330,6 @@
 				675340411A3F2A7400A0A8C3 /* generate_info.hpp */,
 				675340311A3F2A7400A0A8C3 /* intermediate_data.hpp */,
 				675340451A3F2A7400A0A8C3 /* intermediate_elements.hpp */,
-				670E7BA71EF9812B00A8E9ED /* kml_parser.cpp */,
-				670E7BA81EF9812B00A8E9ED /* kml_parser.hpp */,
 				670E7BA91EF9812B00A8E9ED /* metalines_builder.cpp */,
 				670E7BAA1EF9812B00A8E9ED /* metalines_builder.hpp */,
 				34F5587E1DBF4C9600A4FC11 /* opentable_dataset.cpp */,
