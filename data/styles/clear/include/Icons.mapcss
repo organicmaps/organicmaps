@@ -1527,7 +1527,6 @@ line|z16-[barrier=bollard],
 line|z16-[barrier=entrance],
 line|z16-[barrier=gate],
 line|z16-[barrier=stile],
-line|z16-[power=tower],
 node|z16-[amenity=nightclub],
 area|z16-[amenity=nightclub],
 node|z16-[amenity=bank],
@@ -1961,8 +1960,10 @@ line|z16-[barrier=bollard],
 line|z16-[barrier=entrance],
 line|z16-[barrier=gate],
 line|z16-[barrier=stile],
-line|z16-[power=tower]
 {icon-image: dot-m.svg;font-size: 11;}
+
+line|z16-[power=tower]
+{icon-image: dot-m.svg;}
 
 node|z16-[amenity=taxi],
 area|z16-[amenity=taxi]
