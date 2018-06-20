@@ -21,7 +21,7 @@ namespace
     }
 
     {
-      FileReader reader(tmpFile, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+      FileReader reader(tmpFile);
       buffer.clear();
       MemWriter<vector<char> > writer(buffer);
       rw_ops::Reverse(reader, writer);
@@ -64,7 +64,7 @@ UNIT_TEST(Reverse_Smoke)
   {
     {
       FillRandFile(tmpFile, 10 * 1024 + 527);
-      FileReader reader(tmpFile, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+      FileReader reader(tmpFile);
 
       vector<char> buffer;
       GetReverseForReaderAndTmpFile(reader, buffer);

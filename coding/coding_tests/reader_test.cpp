@@ -30,8 +30,7 @@ UNIT_TEST(FileReaderSmokeTest)
   }
 
   {
-    FileReader fileReader("reader_test_tmp.dat", FileReader::kDefaultLogPageSize,
-                          FileReader::kDefaultLogPageCount);
+    FileReader fileReader("reader_test_tmp.dat");
     TestReader(fileReader);
   }
   FileWriter::DeleteFileX("reader_test_tmp.dat");
@@ -48,9 +47,7 @@ UNIT_TEST(BufferReaderSmokeTest)
     writer.Write(&data[0], data.size());
   }
 
-  BufferReader r2(FileReader("reader_test_tmp.dat", FileReader::kDefaultLogPageSize,
-                             FileReader::kDefaultLogPageCount),
-                  7);
+  BufferReader r2(FileReader("reader_test_tmp.dat"), 7);
   TestReader(r2);
   FileWriter::DeleteFileX("reader_test_tmp.dat");
 }
@@ -66,8 +63,7 @@ UNIT_TEST(FileReaderNonExistentFileTest)
 {
   try
   {
-    FileReader reader("skjhfaxniauiuq2bmnszmn093sklsd", FileReader::kDefaultLogPageSize,
-                      FileReader::kDefaultLogPageCount);
+    FileReader reader("skjhfaxniauiuq2bmnszmn093sklsd");
     TEST(false, ("Exception should be thrown!"));
   }
   catch (FileReader::OpenException &)
@@ -85,8 +81,7 @@ UNIT_TEST(FileReaderReadAsText)
 
   {
     string text;
-    FileReader(fName, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount)
-        .ReadAsString(text);
+    FileReader(fName).ReadAsString(text);
     TEST_EQUAL(text, fName, ());
   }
 
@@ -104,8 +99,7 @@ UNIT_TEST(ReaderStreamBuf)
   }
 
   {
-    ReaderStreamBuf buffer(make_unique<FileReader>(name, FileReader::kDefaultLogPageSize,
-                                                   FileReader::kDefaultLogPageCount));
+    ReaderStreamBuf buffer(make_unique<FileReader>(name));
     istream s(&buffer);
 
     std::string str;

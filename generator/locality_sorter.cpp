@@ -210,7 +210,7 @@ bool GenerateLocalityDataImpl(FeaturesCollector & collector, NeedSerialize const
       // Sort features by their middle point.
       midPoints.Sort();
 
-      FileReader reader(file, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+      FileReader reader(file);
       for (auto const & point : midPoints.GetVector())
       {
         ReaderSource<FileReader> src(reader);

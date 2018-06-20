@@ -74,8 +74,7 @@ public:
   {
     try
     {
-      FileReader reader(filename, FileReader::kDefaultLogPageSize,
-                        FileReader::kDefaultLogPageCount);
+      FileReader reader(filename);
       NonOwningReaderSource src(reader);
       Read(src);
     }

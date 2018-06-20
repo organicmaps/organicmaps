@@ -284,7 +284,7 @@ namespace feature
   template <class ToDo>
   void ForEachFromDatRawFormat(std::string const & fName, ToDo && toDo)
   {
-    FileReader reader(fName, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+    FileReader reader(fName);
     ReaderSource<FileReader> src(reader);
 
     uint64_t currPos = 0;

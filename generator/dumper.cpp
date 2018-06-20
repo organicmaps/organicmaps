@@ -19,6 +19,8 @@
 #include <map>
 #include <vector>
 
+#include "defines.hpp"
+
 using namespace std;
 
 namespace
@@ -195,8 +197,7 @@ namespace feature
   {
     using TValue = FeatureIndexValue;
 
-    FilesContainerR container(make_unique<FileReader>(fPath, FileReader::kDefaultLogPageSize,
-                                                      FileReader::kDefaultLogPageCount));
+    FilesContainerR container(make_unique<FileReader>(fPath));
     feature::DataHeader header(container);
     serial::GeometryCodingParams codingParams(
         trie::GetGeometryCodingParams(header.GetDefGeometryCodingParams()));

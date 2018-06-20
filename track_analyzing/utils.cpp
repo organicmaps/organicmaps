@@ -52,7 +52,7 @@ double CalcSpeedKMpH(double meters, uint64_t secondsElapsed)
 void ReadTracks(shared_ptr<NumMwmIds> numMwmIds, string const & filename,
                 MwmToMatchedTracks & mwmToMatchedTracks)
 {
-  FileReader reader(filename, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+  FileReader reader(filename);
   ReaderSource<FileReader> src(reader);
   MwmToMatchedTracksSerializer serializer(numMwmIds);
   serializer.Deserialize(mwmToMatchedTracks, src);

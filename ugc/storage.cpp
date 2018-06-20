@@ -40,8 +40,7 @@ bool GetUGCFileSize(uint64_t & size)
 {
   try
   {
-    FileReader reader(GetUGCFilePath(), FileReader::kDefaultLogPageSize,
-                      FileReader::kDefaultLogPageCount);
+    FileReader reader(GetUGCFilePath());
     size = reader.Size();
   }
   catch (RootException const &)
@@ -166,7 +165,7 @@ UGCUpdate Storage::GetUGCUpdate(FeatureID const & id) const
   auto const ugcFilePath = GetUGCFilePath();
   try
   {
-    FileReader r(ugcFilePath, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+    FileReader r(ugcFilePath);
     r.Read(offset, buf.data(), size);
   }
   catch (FileReader::Exception const & exception)
@@ -195,7 +194,7 @@ void Storage::Load()
   auto const indexFilePath = GetIndexFilePath();
   try
   {
-    FileReader r(indexFilePath, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+    FileReader r(indexFilePath);
     r.ReadAsString(data);
   }
   catch (FileReader::Exception const & exception)
@@ -241,7 +240,7 @@ void Storage::Defragmentation()
 
   try
   {
-    FileReader r(ugcFilePath, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+    FileReader r(ugcFilePath);
     FileWriter w(tmpUGCFilePath, FileWriter::Op::OP_APPEND);
     uint64_t actualOffset = 0;
     for (size_t i = 0; i < indexesSize; ++i)
@@ -288,7 +287,7 @@ string Storage::GetUGCToSend() const
   auto array = my::NewJSONArray();
   auto const indexesSize = m_UGCIndexes.size();
   auto const ugcFilePath = GetUGCFilePath();
-  FileReader r(ugcFilePath, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+  FileReader r(ugcFilePath);
   vector<uint8_t> buf;
   for (size_t i = 0; i < indexesSize; ++i)
   {
@@ -425,7 +424,7 @@ size_t GetNumberOfUnsentUGC()
   string data;
   try
   {
-    FileReader r(indexFilePath, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+    FileReader r(indexFilePath);
     r.ReadAsString(data);
   }
   catch (FileReader::Exception const & exception)

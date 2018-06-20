@@ -15,6 +15,9 @@ using namespace std;
 
 namespace
 {
+uint32_t const kDefaultLogPageSize = 10;
+uint32_t const kDefaultLogPageCount = 4;
+
 class FileDataWithCachedSize : public my::FileData
 {
   using base_t = my::FileData;
@@ -31,11 +34,6 @@ private:
   uint64_t m_Size;
 };
 }  // namespace
-
-// static
-const uint32_t FileReader::kDefaultLogPageSize = 10;
-// static
-const uint32_t FileReader::kDefaultLogPageCount = 4;
 
 class FileReader::FileReaderData
 {
@@ -78,6 +76,11 @@ private:
 #endif
 };
 
+FileReader::FileReader(std::string const & fileName)
+  : FileReader(fileName, kDefaultLogPageSize, kDefaultLogPageCount)
+{
+}
+
 FileReader::FileReader(string const & fileName, uint32_t logPageSize, uint32_t logPageCount)
   : BaseType(fileName)
   , m_logPageSize(logPageSize)
@@ -85,7 +88,8 @@ FileReader::FileReader(string const & fileName, uint32_t logPageSize, uint32_t l
   , m_fileData(new FileReaderData(fileName, logPageSize, logPageCount))
   , m_offset(0)
   , m_size(m_fileData->Size())
-{}
+{
+}
 
 FileReader::FileReader(FileReader const & reader, uint64_t offset, uint64_t size,
                        uint32_t logPageSize, uint32_t logPageCount)
@@ -95,7 +99,8 @@ FileReader::FileReader(FileReader const & reader, uint64_t offset, uint64_t size
   , m_fileData(reader.m_fileData)
   , m_offset(offset)
   , m_size(size)
-{}
+{
+}
 
 void FileReader::Read(uint64_t pos, void * p, size_t size) const
 {

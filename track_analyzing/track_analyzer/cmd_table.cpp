@@ -169,8 +169,7 @@ class MatchedTrackPointToMoveType final
 {
 public:
   MatchedTrackPointToMoveType(string const & mwmFile)
-    : m_featuresVector(FilesContainerR(make_unique<FileReader>(
-          mwmFile, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount)))
+    : m_featuresVector(FilesContainerR(make_unique<FileReader>(mwmFile)))
   {
   }
 

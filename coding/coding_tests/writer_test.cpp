@@ -50,7 +50,7 @@ UNIT_TEST(FileWriter_Smoke)
   }
   vector<char> s;
   {
-    FileReader reader(fileName, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+    FileReader reader(fileName);
     s.resize(reader.Size());
     reader.Read(0, &s[0], reader.Size());
   }
@@ -85,7 +85,7 @@ UNIT_TEST(SubWriter_FileWriter_Smoke)
   }
   vector<char> s;
   {
-    FileReader reader(fileName, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+    FileReader reader(fileName);
     s.resize(reader.Size());
     reader.Read(0, &s[0], reader.Size());
   }
@@ -101,13 +101,13 @@ UNIT_TEST(FileWriter_DeleteFile)
     writer.Write("123", 3);
   }
   {
-    FileReader reader(fileName, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+    FileReader reader(fileName);
     TEST_EQUAL(reader.Size(), 3, ());
   }
   FileWriter::DeleteFileX(fileName);
   try
   {
-    FileReader reader(fileName, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+    FileReader reader(fileName);
     TEST(false, ("Exception should be thrown!"));
   }
   catch (FileReader::OpenException & )
@@ -127,7 +127,7 @@ UNIT_TEST(FileWriter_AppendAndOpenExisting)
     writer.Write("abcd", 4);
   }
   {
-    FileReader reader(fileName, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+    FileReader reader(fileName);
     TEST_EQUAL(reader.Size(), 4, ());
     string s(static_cast<uint32_t>(reader.Size()), 0);
     reader.Read(0, &s[0], s.size());
@@ -138,7 +138,7 @@ UNIT_TEST(FileWriter_AppendAndOpenExisting)
     writer.Write("123", 3);
   }
   {
-    FileReader reader(fileName, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+    FileReader reader(fileName);
     TEST_EQUAL(reader.Size(), 3, ());
   }
   {
@@ -146,7 +146,7 @@ UNIT_TEST(FileWriter_AppendAndOpenExisting)
     writer.Write("4", 1);
   }
   {
-    FileReader reader(fileName, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+    FileReader reader(fileName);
     TEST_EQUAL(reader.Size(), 4, ());
     string s(static_cast<uint32_t>(reader.Size()), 0);
     reader.Read(0, &s[0], s.size());
@@ -158,7 +158,7 @@ UNIT_TEST(FileWriter_AppendAndOpenExisting)
     writer.Write("56", 2);
   }
   {
-    FileReader reader(fileName, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+    FileReader reader(fileName);
     TEST_EQUAL(reader.Size(), 4, ());
     string s(static_cast<uint32_t>(reader.Size()), 0);
     reader.Read(0, &s[0], 4);
@@ -219,7 +219,7 @@ UNIT_TEST(FileWriter_Chunks)
     WriteTestData2(fileWriter);
   }
   {
-    FileReader r(TEST_FILE, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+    FileReader r(TEST_FILE);
     ReadTestData(r);
   }
   FileWriter::DeleteFileX(TEST_FILE);

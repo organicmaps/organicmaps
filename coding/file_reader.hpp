@@ -15,10 +15,8 @@
 class FileReader : public ModelReader
 {
 public:
-  static const uint32_t kDefaultLogPageSize;
-  static const uint32_t kDefaultLogPageCount;
-
-  explicit FileReader(std::string const & fileName, uint32_t logPageSize, uint32_t logPageCount);
+  explicit FileReader(std::string const & fileName);
+  FileReader(std::string const & fileName, uint32_t logPageSize, uint32_t logPageCount);
 
   class FileReaderData;
 

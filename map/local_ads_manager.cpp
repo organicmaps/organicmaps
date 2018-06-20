@@ -518,8 +518,7 @@ void LocalAdsManager::ReadCampaignFile(std::string const & campaignFile)
   std::lock_guard<std::mutex> lock(m_campaignsMutex);
   try
   {
-    FileReader reader(campaignFile, FileReader::kDefaultLogPageSize,
-                      FileReader::kDefaultLogPageCount);
+    FileReader reader(campaignFile);
     ReaderSource<FileReader> src(reader);
     while (src.Size() > 0)
     {

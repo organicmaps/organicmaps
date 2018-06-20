@@ -241,10 +241,7 @@ UNIT_CLASS_TEST(Runner, Bookmarks_ExportKML)
   TEST_EQUAL(bmManager.GetBmGroupsIdList().size(), 0, ());
 
   BookmarkManager::KMLDataCollection kmlDataCollection2;
-  kmlDataCollection2.emplace_back("",
-                                  LoadKmlData(FileReader(fileName, FileReader::kDefaultLogPageSize,
-                                                         FileReader::kDefaultLogPageCount),
-                                              GetActiveKmlFileType()));
+  kmlDataCollection2.emplace_back("", LoadKmlData(FileReader(fileName), GetActiveKmlFileType()));
   TEST(kmlDataCollection2.back().second, ());
 
   bmManager.CreateCategories(std::move(kmlDataCollection2), false /* autoSave */);

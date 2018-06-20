@@ -47,8 +47,7 @@ void BuildLocalityIndex(ObjectsVector const & objects, Writer & writer,
     sorter.SortAndFinish();
   }
 
-  FileReader reader(cellsToValueFile, FileReader::kDefaultLogPageSize,
-                    FileReader::kDefaultLogPageCount);
+  FileReader reader(cellsToValueFile);
   DDVector<CellValuePair<uint64_t>, FileReader, uint64_t> cellsToValue(reader);
 
   {

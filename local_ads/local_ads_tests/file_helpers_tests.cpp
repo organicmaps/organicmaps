@@ -22,8 +22,7 @@ UNIT_TEST(LocalAdsHelpers_Read_Write_Country_Name)
 
   string result;
   {
-    FileReader reader(testFile.GetFullPath(), FileReader::kDefaultLogPageSize,
-                      FileReader::kDefaultLogPageCount);
+    FileReader reader(testFile.GetFullPath());
     ReaderSource<FileReader> src(reader);
     result = ReadCountryName(src);
   }
@@ -45,8 +44,7 @@ UNIT_TEST(LocalAdsHelpers_Read_Write_Timestamp)
   local_ads::Timestamp resultInHours;
   local_ads::Timestamp resultInSeconds;
   {
-    FileReader reader(testFile.GetFullPath(), FileReader::kDefaultLogPageSize,
-                      FileReader::kDefaultLogPageCount);
+    FileReader reader(testFile.GetFullPath());
     ReaderSource<FileReader> src(reader);
     resultInHours = ReadTimestamp<chrono::hours>(src);
     resultInSeconds = ReadTimestamp<chrono::seconds>(src);
@@ -68,8 +66,7 @@ UNIT_TEST(LocalAdsHelpers_Read_Write_RawData)
 
   vector<uint8_t> result;
   {
-    FileReader reader(testFile.GetFullPath(), FileReader::kDefaultLogPageSize,
-                      FileReader::kDefaultLogPageCount);
+    FileReader reader(testFile.GetFullPath());
     ReaderSource<FileReader> src(reader);
     result = ReadRawData(src);
   }

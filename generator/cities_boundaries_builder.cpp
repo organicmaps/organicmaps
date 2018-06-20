@@ -181,7 +181,7 @@ bool DeserializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable
 
   try
   {
-    FileReader reader(path, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+    FileReader reader(path);
     NonOwningReaderSource source(reader);
 
     double precision;

@@ -304,7 +304,7 @@ Cloud::SnapshotResponseData ReadSnapshotFile(std::string const & filename)
   std::string jsonStr;
   try
   {
-    FileReader r(filename, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+    FileReader r(filename);
     r.ReadAsString(jsonStr);
   }
   catch (FileReader::Exception const & exception)
@@ -458,7 +458,7 @@ bool Cloud::ReadIndex()
   std::string jsonStr;
   try
   {
-    FileReader r(indexFilePath, FileReader::kDefaultLogPageSize, FileReader::kDefaultLogPageCount);
+    FileReader r(indexFilePath);
     r.ReadAsString(jsonStr);
   }
   catch (FileReader::Exception const & exception)

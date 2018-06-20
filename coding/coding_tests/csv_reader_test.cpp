@@ -25,8 +25,7 @@ UNIT_TEST(CSVReaderSmoke)
 {
   auto const fileName = "test.csv";
   ScopedFile sf(fileName, kCSV1);
-  FileReader fileReader(sf.GetFullPath(), FileReader::kDefaultLogPageSize,
-                        FileReader::kDefaultLogPageCount);
+  FileReader fileReader(sf.GetFullPath());
   CSVReader reader;
   reader.Read(fileReader, [](File const & file) {
     TEST_EQUAL(file.size(), 1, ());
@@ -50,8 +49,7 @@ UNIT_TEST(CSVReaderCustomDelimiter)
 {
   auto const fileName = "test.csv";
   ScopedFile sf(fileName, kCSV2);
-  FileReader fileReader(sf.GetFullPath(), FileReader::kDefaultLogPageSize,
-                        FileReader::kDefaultLogPageCount);
+  FileReader fileReader(sf.GetFullPath());
   CSVReader reader;
   CSVReader::Params p;
   p.m_readHeader = true;
@@ -69,8 +67,7 @@ UNIT_TEST(CSVReaderEmptyFile)
 {
   auto const fileName = "test.csv";
   ScopedFile sf(fileName, kCSV2);
-  FileReader fileReader(sf.GetFullPath(), FileReader::kDefaultLogPageSize,
-                        FileReader::kDefaultLogPageCount);
+  FileReader fileReader(sf.GetFullPath());
 
   CSVReader reader;
   reader.Read(fileReader, [](File const & file) { TEST_EQUAL(file.size(), 0, ()); });

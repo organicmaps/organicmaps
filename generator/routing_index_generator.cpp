@@ -110,7 +110,8 @@ public:
 
   void ProcessAllFeatures(string const & filename)
   {
-    feature::ForEachFromDat(filename, bind(&Processor::ProcessFeature, this, _1, _2));
+    feature::ForEachFromDat(filename, bind(&Processor::ProcessFeature, this, std::placeholders::_1,
+                                           std::placeholders::_2));
   }
 
   void BuildGraph(IndexGraph & graph) const

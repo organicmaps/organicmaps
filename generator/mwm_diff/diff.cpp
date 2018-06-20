@@ -86,10 +86,8 @@ bool MakeDiff(string const & oldMwmPath, string const & newMwmPath, string const
 {
   try
   {
-    FileReader oldReader(oldMwmPath, FileReader::kDefaultLogPageSize,
-                         FileReader::kDefaultLogPageCount);
-    FileReader newReader(newMwmPath, FileReader::kDefaultLogPageSize,
-                         FileReader::kDefaultLogPageCount);
+    FileReader oldReader(oldMwmPath);
+    FileReader newReader(newMwmPath);
     FileWriter diffFileWriter(diffPath);
 
     switch (VERSION_LATEST)
@@ -118,11 +116,9 @@ bool ApplyDiff(string const & oldMwmPath, string const & newMwmPath, string cons
 {
   try
   {
-    FileReader oldReader(oldMwmPath, FileReader::kDefaultLogPageSize,
-                         FileReader::kDefaultLogPageCount);
+    FileReader oldReader(oldMwmPath);
     FileWriter newWriter(newMwmPath);
-    FileReader diffFileReader(diffPath, FileReader::kDefaultLogPageSize,
-                              FileReader::kDefaultLogPageCount);
+    FileReader diffFileReader(diffPath);
 
     ReaderSource<FileReader> diffFileSource(diffFileReader);
     auto const version = ReadPrimitiveFromSource<uint32_t>(diffFileSource);
