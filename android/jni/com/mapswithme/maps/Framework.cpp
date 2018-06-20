@@ -508,12 +508,12 @@ place_page::Info & Framework::GetPlacePageInfo()
 }
 
 void Framework::RequestBookingMinPrice(JNIEnv * env, jobject policy,
-                                       booking::BlockParams const & params,
+                                       booking::BlockParams && params,
                                        booking::BlockAvailabilityCallback const & callback)
 {
   auto const bookingApi = m_work.GetBookingApi(ToNativeNetworkPolicy(env, policy));
   if (bookingApi)
-    bookingApi->GetBlockAvailability(params, callback);
+    bookingApi->GetBlockAvailability(move(params), callback);
 }
 
 void Framework::RequestBookingInfo(JNIEnv * env, jobject policy,

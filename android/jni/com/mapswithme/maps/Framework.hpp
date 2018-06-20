@@ -181,7 +181,7 @@ namespace android
 
     void SetPlacePageInfo(place_page::Info const & info);
     place_page::Info & GetPlacePageInfo();
-    void RequestBookingMinPrice(JNIEnv * env, jobject policy, booking::BlockParams const & params,
+    void RequestBookingMinPrice(JNIEnv * env, jobject policy, booking::BlockParams && params,
                                 booking::BlockAvailabilityCallback const & callback);
     void RequestBookingInfo(JNIEnv * env, jobject policy, 
                             std::string const & hotelId, std::string const & lang,

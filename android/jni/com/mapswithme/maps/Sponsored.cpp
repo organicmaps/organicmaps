@@ -10,6 +10,7 @@
 
 #include <chrono>
 #include <functional>
+#include <utility>
 
 namespace
 {
@@ -149,7 +150,8 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_nativ
   params.m_hotelId = hotelId;
   params.m_currency = code;
   g_framework->RequestBookingMinPrice(
-      env, policy, params, [](std::string const & hotelId, booking::Blocks const & blocks) {
+      env, policy, std::move(params),
+      [](std::string const & hotelId, booking::Blocks const & blocks) {
         if (g_lastRequestedHotelId != hotelId)
           return;
 

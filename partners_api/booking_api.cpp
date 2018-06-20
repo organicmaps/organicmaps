@@ -240,7 +240,7 @@ void FillPriceAndCurrency(json_t * src, string const & currency, BlockInfo & res
     return;
 
   // Try to get price in requested currency.
-  json_t * other = json_object_get(src, "other_currency");
+  auto other = json_object_get(src, "other_currency");
   if (!json_is_object(other))
     return;
 
@@ -281,7 +281,7 @@ BlockInfo MakeBlock(json_t * src, string const & currency)
     result.m_photos.emplace_back(photoUrl);
   }
 
-  Deals deals;
+  auto & deals = result.m_deals;
   bool lastMinuteDeal = false;
   FromJSONObjectOptionalField(src, "is_last_minute_deal", lastMinuteDeal);
   if (lastMinuteDeal)
@@ -495,10 +495,10 @@ string Api::ApplyAvailabilityParams(string const & url, AvailabilityParams const
   return ApplyAvailabilityParamsUniversal(url, params);
 }
 
-void Api::GetBlockAvailability(BlockParams const & params,
+void Api::GetBlockAvailability(BlockParams && params,
                                BlockAvailabilityCallback const & fn) const
 {
-  GetPlatform().RunTask(Platform::Thread::Network, [params, fn]()
+  GetPlatform().RunTask(Platform::Thread::Network, [params = move(params), fn]()
   {
     string httpResult;
     if (!RawApi::BlockAvailability(params, httpResult))

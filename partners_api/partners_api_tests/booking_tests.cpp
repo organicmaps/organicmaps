@@ -5,6 +5,7 @@
 #include "partners_api/booking_api.hpp"
 
 #include <chrono>
+#include <utility>
 
 using namespace partners_api;
 using namespace booking;
@@ -57,15 +58,15 @@ UNIT_TEST(Booking_HotelAvailability)
 
 UNIT_CLASS_TEST(AsyncGuiThreadBooking, Booking_GetBlockAvailability)
 {
-  auto params = BlockParams::MakeDefault();
-  params.m_hotelId = "0";  // Internal hotel id for testing.
   Api api;
   {
-    double price = std::numeric_limits<double>::max();
+    auto params = BlockParams::MakeDefault();
+    params.m_hotelId = "0";  // Internal hotel id for testing.
+    auto price = BlockInfo::kIncorrectPrice;
     string currency;
     string hotelId;
-    api.GetBlockAvailability(params, [&hotelId, &price, &currency](std::string const & id,
-                                                                   Blocks const & blocks)
+    api.GetBlockAvailability(std::move(params), [&hotelId, &price, &currency](std::string const & id,
+                                                                              Blocks const & blocks)
     {
       hotelId = id;
       price = blocks.m_totalMinPrice;
@@ -87,8 +88,8 @@ UNIT_CLASS_TEST(AsyncGuiThreadBooking, Booking_GetBlockAvailability)
     double price = std::numeric_limits<double>::max();
     string currency;
     string hotelId;
-    api.GetBlockAvailability(params, [&hotelId, &price, &currency](std::string const & id,
-                                                                   Blocks const & blocks)
+    api.GetBlockAvailability(std::move(params), [&hotelId, &price, &currency](std::string const & id,
+                                                                              Blocks const & blocks)
     {
       hotelId = id;
       price = blocks.m_totalMinPrice;

@@ -135,7 +135,7 @@ public:
 
   /// Real-time information methods (used for retrieving rapidly changing information).
   /// These methods send requests directly to Booking.
-  void GetBlockAvailability(BlockParams const & params, BlockAvailabilityCallback const & fn) const;
+  void GetBlockAvailability(BlockParams && params, BlockAvailabilityCallback const & fn) const;
 
   /// NOTE: callback will be called on the network thread.
   void GetHotelAvailability(AvailabilityParams const & params,

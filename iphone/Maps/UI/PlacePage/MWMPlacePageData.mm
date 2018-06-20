@@ -21,6 +21,7 @@
 #include "3party/opening_hours/opening_hours.hpp"
 
 #include <string>
+#include <utility>
 
 using namespace place_page;
 
@@ -610,7 +611,7 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
     auto params = booking::BlockParams::MakeDefault();
     params.m_hotelId = self.sponsoredId.UTF8String;
     params.m_currency = currency;
-    api->GetBlockAvailability(params, func);
+    api->GetBlockAvailability(std::move(params), func);
   });
 }
 
