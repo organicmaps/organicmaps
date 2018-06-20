@@ -31,64 +31,88 @@ bool TransitSchemeRenderer::HasRenderData(int zoomLevel) const
   return !m_renderData.empty() && zoomLevel >= kTransitSchemeMinZoomLevel;
 }
 
-void TransitSchemeRenderer::ClearGLDependentResources()
+void TransitSchemeRenderer::ClearGLDependentResources(ref_ptr<dp::OverlayTree> tree)
 {
+  if (tree)
+  {
+    RemoveOverlay(tree, m_textRenderData);
+    RemoveOverlay(tree, m_colorSymbolRenderData);
+  }
+
   m_renderData.clear();
   m_markersRenderData.clear();
   m_textRenderData.clear();
   m_colorSymbolRenderData.clear();
 }
 
-void TransitSchemeRenderer::Clear(MwmSet::MwmId const & mwmId)
+void TransitSchemeRenderer::Clear(MwmSet::MwmId const & mwmId, ref_ptr<dp::OverlayTree> tree)
 {
-  ClearRenderData(mwmId, m_renderData);
-  ClearRenderData(mwmId, m_markersRenderData);
-  ClearRenderData(mwmId, m_textRenderData);
-  ClearRenderData(mwmId, m_colorSymbolRenderData);
+  ClearRenderData(mwmId, nullptr /* tree */, m_renderData);
+  ClearRenderData(mwmId, nullptr /* tree */, m_markersRenderData);
+  ClearRenderData(mwmId, tree, m_textRenderData);
+  ClearRenderData(mwmId, tree, m_colorSymbolRenderData);
 }
 
-void TransitSchemeRenderer::ClearRenderData(MwmSet::MwmId const & mwmId, std::vector<TransitRenderData> & renderData)
+void TransitSchemeRenderer::ClearRenderData(MwmSet::MwmId const & mwmId, ref_ptr<dp::OverlayTree> tree,
+                                            std::vector<TransitRenderData> & renderData)
 {
   auto removePredicate = [&mwmId](TransitRenderData const & data) { return data.m_mwmId == mwmId; };
+  ClearRenderData(removePredicate, tree, renderData);
+}
 
-  renderData.erase(std::remove_if(renderData.begin(), renderData.end(), removePredicate),
+void TransitSchemeRenderer::ClearRenderData(TRemovePredicate const & predicate, ref_ptr<dp::OverlayTree> tree,
+                                            std::vector<TransitRenderData> & renderData)
+{
+  if (tree)
+  {
+    for (auto & data : renderData)
+    {
+      if (predicate(data))
+      {
+        for (auto const & bucket : data.m_buckets)
+          bucket->RemoveOverlayHandles(tree);
+      }
+    }
+  }
+
+  renderData.erase(std::remove_if(renderData.begin(), renderData.end(), predicate),
                    renderData.end());
 }
 
-void TransitSchemeRenderer::AddRenderData(ref_ptr<dp::GpuProgramManager> mng,
+void TransitSchemeRenderer::AddRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
                                           TransitRenderData && renderData)
 {
-  PrepareRenderData(mng, m_renderData, renderData);
+  PrepareRenderData(mng, tree, m_renderData, renderData);
 }
 
-void TransitSchemeRenderer::AddMarkersRenderData(ref_ptr<dp::GpuProgramManager> mng,
+void TransitSchemeRenderer::AddMarkersRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
                                                  TransitRenderData && renderData)
 {
-  PrepareRenderData(mng, m_markersRenderData, renderData);
+  PrepareRenderData(mng, tree, m_markersRenderData, renderData);
 }
 
-void TransitSchemeRenderer::AddTextRenderData(ref_ptr<dp::GpuProgramManager> mng,
+void TransitSchemeRenderer::AddTextRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
                                               TransitRenderData && renderData)
 {
-  PrepareRenderData(mng, m_textRenderData, renderData);
+  PrepareRenderData(mng, tree, m_textRenderData, renderData);
 }
 
-void TransitSchemeRenderer::AddStubsRenderData(ref_ptr<dp::GpuProgramManager> mng,
+void TransitSchemeRenderer::AddStubsRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
                                                TransitRenderData && renderData)
 {
-  PrepareRenderData(mng, m_colorSymbolRenderData, renderData);
+  PrepareRenderData(mng, tree, m_colorSymbolRenderData, renderData);
 }
 
-void TransitSchemeRenderer::PrepareRenderData(ref_ptr<dp::GpuProgramManager> mng,
+void TransitSchemeRenderer::PrepareRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
                                               std::vector<TransitRenderData> & currentRenderData,
                                               TransitRenderData & newRenderData)
 {
   // Remove obsolete render data.
-  currentRenderData.erase(remove_if(currentRenderData.begin(), currentRenderData.end(),
-                                    [this, &newRenderData](TransitRenderData const & rd)
-                                    {
-                                      return rd.m_mwmId == newRenderData.m_mwmId && rd.m_recacheId < m_lastRecacheId;
-                                    }), currentRenderData.end());
+  auto const removePredicate = [this, &newRenderData](TransitRenderData const & rd)
+  {
+    return rd.m_mwmId == newRenderData.m_mwmId && rd.m_recacheId < m_lastRecacheId;
+  };
+  ClearRenderData(removePredicate, tree, currentRenderData);
 
   m_lastRecacheId = max(m_lastRecacheId, newRenderData.m_recacheId);
 
@@ -139,6 +163,15 @@ void TransitSchemeRenderer::CollectOverlays(ref_ptr<dp::OverlayTree> tree, Scree
       else
         bucket->Update(modelView);
     }
+  }
+}
+
+void TransitSchemeRenderer::RemoveOverlay(ref_ptr<dp::OverlayTree> tree, std::vector<TransitRenderData> & renderData)
+{
+  for (auto & data : renderData)
+  {
+    for (auto const & bucket : data.m_buckets)
+      bucket->RemoveOverlayHandles(tree);
   }
 }
 

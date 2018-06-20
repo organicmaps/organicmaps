@@ -8,17 +8,24 @@
 
 #include "geometry/screenbase.hpp"
 
+#include <functional>
+
 namespace df
 {
 class PostprocessRenderer;
+class OverlayTree;
 
 class TransitSchemeRenderer
 {
 public:
-  void AddRenderData(ref_ptr<dp::GpuProgramManager> mng, TransitRenderData && renderData);
-  void AddMarkersRenderData(ref_ptr<dp::GpuProgramManager> mng, TransitRenderData && renderData);
-  void AddTextRenderData(ref_ptr<dp::GpuProgramManager> mng, TransitRenderData && renderData);
-  void AddStubsRenderData(ref_ptr<dp::GpuProgramManager> mng, TransitRenderData && renderData);
+  void AddRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
+                     TransitRenderData && renderData);
+  void AddMarkersRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
+                            TransitRenderData && renderData);
+  void AddTextRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
+                         TransitRenderData && renderData);
+  void AddStubsRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
+                          TransitRenderData && renderData);
 
   bool HasRenderData(int zoomLevel) const;
 
@@ -29,15 +36,23 @@ public:
 
   void CollectOverlays(ref_ptr<dp::OverlayTree> tree, ScreenBase const & modelView);
 
-  void ClearGLDependentResources();
 
-  void Clear(MwmSet::MwmId const & mwmId);
+  void ClearGLDependentResources(ref_ptr<dp::OverlayTree> tree);
+
+  void Clear(MwmSet::MwmId const & mwmId, ref_ptr<dp::OverlayTree> tree);
 
 private:
-  void PrepareRenderData(ref_ptr<dp::GpuProgramManager> mng, std::vector<TransitRenderData> & currentRenderData,
+  void PrepareRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
+                         std::vector<TransitRenderData> & currentRenderData,
                          TransitRenderData & newRenderData);
-  void ClearRenderData(MwmSet::MwmId const & mwmId, std::vector<TransitRenderData> & renderData);
+  void ClearRenderData(MwmSet::MwmId const & mwmId, ref_ptr<dp::OverlayTree> tree,
+                       std::vector<TransitRenderData> & renderData);
 
+  using TRemovePredicate = std::function<bool(TransitRenderData const &)>;
+  void ClearRenderData(TRemovePredicate const & predicate, ref_ptr<dp::OverlayTree> tree,
+                       std::vector<TransitRenderData> & renderData);
+
+  void RemoveOverlay(ref_ptr<dp::OverlayTree> tree, std::vector<TransitRenderData> & renderData);
   void CollectOverlays(ref_ptr<dp::OverlayTree> tree, ScreenBase const & modelView,
                        std::vector<TransitRenderData> & renderData);
 
