@@ -21,8 +21,6 @@ public:
   explicit FileReader(std::string const & fileName);
   FileReader(std::string const & fileName, uint32_t logPageSize, uint32_t logPageCount);
 
-  class FileReaderData;
-
   // Reader overrides:
   uint64_t Size() const override { return m_size; }
   void Read(uint64_t pos, void * p, size_t size) const override;
@@ -32,17 +30,19 @@ public:
   uint64_t GetOffset() const { return m_offset; }
 
 protected:
-  // Throws an exception if a (pos, size) read would result in an out-of-bounds access.
-  void CheckPosAndSize(uint64_t pos, uint64_t size) const;
-
   // Used in special derived readers.
   void SetOffsetAndSize(uint64_t offset, uint64_t size);
 
 private:
   using BaseType = ModelReader;
 
+  class FileReaderData;
+
   FileReader(FileReader const & reader, uint64_t offset, uint64_t size, uint32_t logPageSize,
              uint32_t logPageCount);
+
+  // Throws an exception if a (pos, size) read would result in an out-of-bounds access.
+  void CheckPosAndSize(uint64_t pos, uint64_t size) const;
 
   uint32_t m_logPageSize;
   uint32_t m_logPageCount;

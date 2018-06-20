@@ -1,10 +1,12 @@
 #include "coding/file_container.hpp"
-#include "coding/read_write_utils.hpp"
-#include "coding/write_to_sink.hpp"
-#include "coding/internal/file_data.hpp"
 
-#include "std/cstring.hpp"
-#include "std/sstream.hpp"
+#include "coding/internal/file_data.hpp"
+#include "coding/read_write_utils.hpp"
+#include "coding/varint.hpp"
+#include "coding/write_to_sink.hpp"
+
+#include <cstring>
+#include <sstream>
 
 #ifndef OMIM_OS_WINDOWS
   #include <stdio.h>
@@ -21,6 +23,8 @@
 #endif
 
 #include <errno.h>
+
+using namespace std;
 
 template <class TSource, class InfoT> void Read(TSource & src, InfoT & i)
 {
@@ -290,14 +294,14 @@ void FilesMappingContainer::Handle::Reset()
 /////////////////////////////////////////////////////////////////////////////
 
 FilesContainerW::FilesContainerW(string const & fName, FileWriter::Op op)
-: m_name(fName), m_bFinished(false)
+  : m_name(fName), m_finished(false)
 {
   Open(op);
 }
 
 void FilesContainerW::Open(FileWriter::Op op)
 {
-  m_bNeedRewrite = true;
+  m_needRewrite = true;
 
   switch (op)
   {
@@ -338,18 +342,18 @@ void FilesContainerW::StartNew()
   FileWriter writer(m_name);
   uint64_t skip = 0;
   writer.Write(&skip, sizeof(skip));
-  m_bNeedRewrite = false;
+  m_needRewrite = false;
 }
 
 FilesContainerW::~FilesContainerW()
 {
-  if (!m_bFinished)
+  if (!m_finished)
     Finish();
 }
 
 uint64_t FilesContainerW::SaveCurrentSize()
 {
-  ASSERT(!m_bFinished, ());
+  ASSERT(!m_finished, ());
   uint64_t const curr = FileReader(m_name).Size();
   if (!m_info.empty())
     m_info.back().m_size = curr - m_info.back().m_offset;
@@ -380,7 +384,7 @@ void FilesContainerW::DeleteSection(Tag const & tag)
 
 FileWriter FilesContainerW::GetWriter(Tag const & tag)
 {
-  ASSERT(!m_bFinished, ());
+  ASSERT(!m_finished, ());
 
   InfoContainer::const_iterator it = find_if(m_info.begin(), m_info.end(), EqualTag(tag));
   if (it != m_info.end())
@@ -392,7 +396,7 @@ FileWriter FilesContainerW::GetWriter(Tag const & tag)
       if (m_info.empty())
         StartNew();
       else
-        m_bNeedRewrite = true;
+        m_needRewrite = true;
     }
     else
     {
@@ -400,9 +404,9 @@ FileWriter FilesContainerW::GetWriter(Tag const & tag)
     }
   }
 
-  if (m_bNeedRewrite)
+  if (m_needRewrite)
   {
-    m_bNeedRewrite = false;
+    m_needRewrite = false;
     ASSERT(!m_info.empty(), ());
 
     uint64_t const curr = m_info.back().m_offset + m_info.back().m_size;
@@ -451,7 +455,7 @@ void FilesContainerW::Write(vector<uint8_t> const & buffer, Tag const & tag)
 
 void FilesContainerW::Finish()
 {
-  ASSERT(!m_bFinished, ());
+  ASSERT(!m_finished, ());
 
   uint64_t const curr = SaveCurrentSize();
 
@@ -464,5 +468,5 @@ void FilesContainerW::Finish()
 
   rw::Write(writer, m_info);
 
-  m_bFinished = true;
+  m_finished = true;
 }

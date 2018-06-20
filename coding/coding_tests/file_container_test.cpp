@@ -240,7 +240,7 @@ UNIT_TEST(FilesMappingContainer_MoveHandle)
   class HandleWrapper
   {
   public:
-    HandleWrapper(FilesMappingContainer::Handle&& handle) : m_handle(move(handle))
+    HandleWrapper(FilesMappingContainer::Handle && handle) : m_handle(std::move(handle))
     {
       TEST(m_handle.IsValid(), ());
     }
@@ -266,16 +266,15 @@ UNIT_TEST(FilesMappingContainer_MoveHandle)
     FilesMappingContainer::Handle h1 = cont.Map(tagName);
     TEST(h1.IsValid(), ());
 
-    FilesMappingContainer::Handle h2(move(h1));
+    FilesMappingContainer::Handle h2(std::move(h1));
     TEST(h2.IsValid(), ());
     TEST(!h1.IsValid(), ());
 
     for (int i = 0; i < kNumMapTests; ++i)
     {
       FilesMappingContainer::Handle parent_handle = cont.Map(tagName);
-      HandleWrapper tmp(move(parent_handle));
+      HandleWrapper tmp(std::move(parent_handle));
     }
-
   }
 }
 

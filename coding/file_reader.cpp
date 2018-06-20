@@ -3,6 +3,8 @@
 #include "coding/reader_cache.hpp"
 #include "coding/internal/file_data.hpp"
 
+#include "base/logging.hpp"
+
 #ifndef LOG_FILE_READER_STATS
 #define LOG_FILE_READER_STATS 0
 #endif // LOG_FILE_READER_STATS
@@ -51,7 +53,7 @@ public:
   ~FileReaderData()
   {
 #if LOG_FILE_READER_STATS
-    LOG(LINFO, ("FileReader", GetName(), m_readerCache.GetStatsStr()));
+    LOG(LINFO, ("FileReader", m_fileData.GetName(), m_readerCache.GetStatsStr()));
 #endif
   }
 
@@ -62,7 +64,7 @@ public:
 #if LOG_FILE_READER_STATS
     if (((++m_readCallCount) & LOG_FILE_READER_EVERY_N_READS_MASK) == 0)
     {
-      LOG(LINFO, ("FileReader", GetName(), m_readerCache.GetStatsStr()));
+      LOG(LINFO, ("FileReader", m_fileData.GetName(), m_readerCache.GetStatsStr()));
     }
 #endif
 
