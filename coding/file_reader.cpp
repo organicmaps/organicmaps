@@ -15,9 +15,6 @@ using namespace std;
 
 namespace
 {
-uint32_t const kDefaultLogPageSize = 10;
-uint32_t const kDefaultLogPageCount = 4;
-
 class FileDataWithCachedSize : public my::FileData
 {
   using base_t = my::FileData;
@@ -34,6 +31,11 @@ private:
   uint64_t m_Size;
 };
 }  // namespace
+
+// static
+uint32_t const FileReader::kDefaultLogPageSize = 10;
+// static
+uint32_t const FileReader::kDefaultLogPageCount = 4;
 
 class FileReader::FileReaderData
 {
