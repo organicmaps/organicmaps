@@ -36,7 +36,7 @@
                     <rect key="frame" x="16" y="16" width="343" height="44"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="44" id="I5l-6h-e83"/>
+                        <constraint firstAttribute="height" priority="750" constant="44" id="I5l-6h-e83"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                     <state key="normal" title="DOWNLOAD BOOKMARKS">
@@ -70,11 +70,11 @@
             <point key="canvasLocation" x="483" y="492"/>
         </view>
         <view contentMode="scaleToFill" id="EF0-Bq-c6F">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="347"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="349"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_empty_bookmarks" translatesAutoresizingMaskIntoConstraints="NO" id="ahy-M3-meH">
-                    <rect key="frame" x="87" y="40" width="200" height="200"/>
+                    <rect key="frame" x="87.5" y="40" width="200" height="200"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Download new places" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13b-uj-bGK">
                     <rect key="frame" x="16" y="256" width="343" height="24"/>
@@ -85,8 +85,8 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="cached_bookmarks_placeholder_title"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1gY-vv-QfN">
-                    <rect key="frame" x="16" y="288" width="343" height="50.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1gY-vv-QfN">
+                    <rect key="frame" x="16" y="288" width="343" height="53"/>
                     <string key="text">Press the button to download thousands of intresting places and routes created by MAPS.ME users. You will need the internet connection.</string>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="0.0" alpha="0.53735017123287676" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -110,7 +110,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="jiO-QA-gWD"/>
-            <point key="canvasLocation" x="450.5" y="157.5"/>
+            <point key="canvasLocation" x="450.5" y="158.5"/>
         </view>
     </objects>
     <resources>

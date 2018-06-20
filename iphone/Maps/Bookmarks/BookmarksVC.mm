@@ -5,6 +5,7 @@
 #import "MWMLocationHelpers.h"
 #import "MWMLocationObserver.h"
 #import "MWMSearchManager.h"
+#import "MWMCategoryInfoCell.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"
@@ -18,8 +19,9 @@
 
 #define EMPTY_SECTION -666
 
-@interface BookmarksVC() <MWMLocationObserver>
+@interface BookmarksVC() <MWMLocationObserver, MWMCategoryInfoCellDelegate>
 {
+  int m_infoSection;
   int m_trackSection;
   int m_bookmarkSection;
   int m_numberOfSections;
@@ -68,7 +70,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  if (section == 0)
+  if (section == m_infoSection)
     return 1;
   else if (section == m_trackSection)
     return GetFramework().GetBookmarkManager().GetTrackIds(m_categoryId).size();
@@ -78,16 +80,10 @@
     return 0;
 }
 
-- (void)onVisibilitySwitched:(UISwitch *)sender
-{
-  [Statistics logEvent:kStatEventName(kStatBookmarks, kStatToggleVisibility)
-                   withParameters:@{kStatValue : sender.on ? kStatVisible : kStatHidden}];
-  auto & bmManager = GetFramework().GetBookmarkManager();
-  bmManager.GetEditSession().SetIsVisible(m_categoryId, sender.on);
-}
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+  if (section == m_infoSection)
+    return L(@"placepage_place_description");
   if (section == m_trackSection)
     return L(@"tracks");
   if (section == m_bookmarkSection)
@@ -105,22 +101,19 @@
 
   UITableViewCell * cell = nil;
   // First section, contains info about current set
-  if (indexPath.section == 0)
+  if (indexPath.section == m_infoSection)
   {
-    cell = [tableView dequeueReusableCellWithIdentifier:@"BookmarksVCSetVisibilityCell"];
-    if (!cell)
-    {
-      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"BookmarksVCSetVisibilityCell"];
-      cell.textLabel.text = L(@"visible");
-      cell.accessoryView = [[UISwitch alloc] init];
-      cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    UISwitch * sw = (UISwitch *)cell.accessoryView;
-    sw.on = bmManager.IsVisible(m_categoryId);
-    sw.onTintColor = [UIColor linkBlue];
-    [sw addTarget:self action:@selector(onVisibilitySwitched:) forControlEvents:UIControlEventValueChanged];
+    cell = [tableView dequeueReusableCellWithCellClass:MWMCategoryInfoCell.class indexPath:indexPath];
+    MWMCategoryInfoCell * infoCell = (MWMCategoryInfoCell * )cell;
+    NSString * title = @(bmManager.GetCategoryName(m_categoryId).c_str());
+    auto categoryData = bmManager.GetCategoryData(m_categoryId);
+    NSString * author = [NSString stringWithCoreFormat:L(@"author_name_by_prefix")
+                                             arguments:@[@(categoryData.m_authorName.c_str())]];
+    NSString * info = @(kml::GetDefaultStr(categoryData.m_description).c_str());
+    NSString * shortInfo = @(kml::GetDefaultStr(categoryData.m_annotation).c_str());
+    [infoCell updateWithTitle:title author:author info:info shortInfo:shortInfo];
+    infoCell.delegate = self;
   }
-
   else if (indexPath.section == m_trackSection)
   {
     cell = [tableView dequeueReusableCellWithIdentifier:@"TrackCell"];
@@ -187,15 +180,7 @@
   auto & bmManager = f.GetBookmarkManager();
   bool const categoryExists = bmManager.HasBmCategory(m_categoryId);
   ASSERT(categoryExists, ("Nonexistent category"));
-  if (indexPath.section == 0)
-  {
-    if (indexPath.row == 0)
-    {
-      // Edit name
-      // @TODO
-    }
-  }
-  else if (indexPath.section == m_trackSection)
+  if (indexPath.section == m_trackSection)
   {
     if (categoryExists)
     {
@@ -230,7 +215,8 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  if (indexPath.section == m_trackSection || indexPath.section == m_bookmarkSection)
+  if (!GetFramework().GetBookmarkManager().IsCategoryFromCatalog(m_categoryId) &&
+      (indexPath.section == m_trackSection || indexPath.section == m_bookmarkSection))
     return YES;
   return NO;
 }
@@ -271,6 +257,28 @@
   }
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+  UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+
+  header.textLabel.textColor = [UIColor blackSecondaryText];
+  header.textLabel.font = [UIFont medium14];
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  if (indexPath.section == m_infoSection)
+    return nil;
+  return indexPath;
+}
+
+#pragma mark - MWMCategoryInfoCellDelegate
+
+- (void)categoryInfoCellDidPressMore:(MWMCategoryInfoCell *)cell {
+  [self.tableView beginUpdates];
+  cell.expanded = YES;
+  [self.tableView endUpdates];
+}
+
 #pragma mark - MWMLocationObserver
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info
@@ -302,13 +310,19 @@
 //*********** End of Location manager callbacks ********************
 //******************************************************************
 
+- (void)viewDidLoad {
+  [super viewDidLoad];
+
+  [self.tableView registerWithCellClass:MWMCategoryInfoCell.class];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
   [MWMLocationManager addObserver:self];
 
   // Display Edit button only if table is not empty
   auto & bmManager = GetFramework().GetBookmarkManager();
-  if (bmManager.HasBmCategory(m_categoryId)
+  if (bmManager.HasBmCategory(m_categoryId) && !bmManager.IsCategoryFromCatalog(m_categoryId)
     && (bmManager.GetUserMarkIds(m_categoryId).size() + bmManager.GetTrackIds(m_categoryId).size()))
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
   else
@@ -350,16 +364,11 @@
 
 - (void)calculateSections
 {
-  int index = 1;
+  int index = 0;
   auto & bmManager = GetFramework().GetBookmarkManager();
-  if (bmManager.GetTrackIds(m_categoryId).size())
-    m_trackSection = index++;
-  else
-    m_trackSection = EMPTY_SECTION;
-  if (bmManager.GetUserMarkIds(m_categoryId).size())
-    m_bookmarkSection = index++;
-  else
-    m_bookmarkSection = EMPTY_SECTION;
+  m_infoSection = bmManager.IsCategoryFromCatalog(m_categoryId) ? index++ : EMPTY_SECTION;
+  m_trackSection = bmManager.GetTrackIds(m_categoryId).size() ? index++ : EMPTY_SECTION;
+  m_bookmarkSection = bmManager.GetUserMarkIds(m_categoryId).size() ? index ++ : EMPTY_SECTION;
   m_numberOfSections = index;
 }
 

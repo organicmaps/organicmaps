@@ -48,6 +48,15 @@ class DownloadedBookmarksViewController: UITableViewController {
     return headerView
   }
 
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
+    let category = dataSource.category(at: indexPath.row)
+    if let bmViewController = BookmarksVC(category: category.categoryId) {
+      MapViewController.topViewController().navigationController?.pushViewController(bmViewController,
+                                                                                   animated: true)
+    }
+  }
+
   @IBAction func onDownloadBookmarks(_ sender: Any) {
     if let url = MWMBookmarksManager.catalogFrontendUrl(),
       let webViewController = CatalogWebViewController(url: url, andTitleOrNil: L("routes_and_bookmarks")) {
