@@ -1,6 +1,7 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,9 +13,11 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseWebViewMwmFragment;
+import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.UiUtils;
 
 import java.lang.ref.WeakReference;
@@ -43,11 +46,30 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   @NonNull
   private View mProgressView;
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private ImportCategoryListener mImportCategoryListener;
+
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
     mCatalogUrl = getCatalogUrlOrThrow();
+    mImportCategoryListener = new ImportCategoryListener(getContext());
+  }
+
+  @Override
+  public void onStart()
+  {
+    super.onStart();
+    BookmarkManager.INSTANCE.addCatalogListener(mImportCategoryListener);
+  }
+
+  @Override
+  public void onStop()
+  {
+    super.onStop();
+    BookmarkManager.INSTANCE.removeCatalogListener(mImportCategoryListener);
   }
 
   @Override
@@ -175,6 +197,33 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     public void clear()
     {
       mReference.clear();
+    }
+  }
+
+  private static class ImportCategoryListener implements BookmarkManager.BookmarksCatalogListener
+  {
+    @NonNull
+    private final Context mContext;
+
+    ImportCategoryListener(@NonNull Context context)
+    {
+      mContext = context.getApplicationContext();
+    }
+
+    @Override
+    public void onImportStarted(@NonNull String serverId)
+    {
+
+    }
+
+    @Override
+    public void onImportFinished(@NonNull String serverId, boolean successful)
+    {
+      if (successful)
+      {
+        Toast.makeText(mContext,
+                       R.string.bookmarks_webview_success_toast , Toast.LENGTH_SHORT).show();
+      }
     }
   }
 }
