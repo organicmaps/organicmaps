@@ -731,4 +731,20 @@ public enum BookmarkManager
      */
     void onImportFinished(@NonNull String serverId, boolean successful);
   }
+
+  public static class DefaultBookmarksCatalogListener implements BookmarksCatalogListener
+  {
+
+    @Override
+    public void onImportStarted(@NonNull String serverId)
+    {
+      /* do noting by default */
+    }
+
+    @Override
+    public void onImportFinished(@NonNull String serverId, boolean successful)
+    {
+      /* do noting by default */
+    }
+  }
 }

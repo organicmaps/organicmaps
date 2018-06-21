@@ -56,6 +56,7 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
                                                : Editor.nativeSearchFeatureCategories(query, Language.getKeyboardLocale()));
   }
 
+  @NonNull
   @Override
   protected FeatureCategoryAdapter createAdapter()
   {

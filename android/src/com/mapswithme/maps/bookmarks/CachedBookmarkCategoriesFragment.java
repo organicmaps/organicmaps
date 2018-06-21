@@ -50,6 +50,7 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
     return R.layout.fragment_catalog_bookmark_categories;
   }
 
+  @NonNull
   @Override
   protected CatalogBookmarkCategoriesAdapter createAdapter()
   {

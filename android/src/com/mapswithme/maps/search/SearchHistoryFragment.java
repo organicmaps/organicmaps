@@ -23,6 +23,7 @@ public class SearchHistoryFragment extends BaseMwmRecyclerFragment<SearchHistory
     UiUtils.showIf(getAdapter() != null && getAdapter().getItemCount() == 0, mPlaceHolder);
   }
 
+  @NonNull
   @Override
   protected SearchHistoryAdapter createAdapter()
   {

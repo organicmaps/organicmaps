@@ -79,7 +79,7 @@ public class BookmarksDownloadManager
     return new BookmarksDownloadManager(context);
   }
 
-  public static class UnprocessedUrlException extends Exception
+  static class UnprocessedUrlException extends Exception
   {
     UnprocessedUrlException(@NonNull String msg)
     {

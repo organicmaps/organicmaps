@@ -4,7 +4,11 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:minHeight="@dimen/height_item_oneline"
-  android:background="?clickableBackground">
+  android:background="?clickableBackground"
+  android:paddingRight="@dimen/margin_base"
+  android:paddingEnd="@dimen/margin_base"
+  android:paddingLeft="@dimen/margin_base"
+  android:paddingStart="@dimen/margin_base">
 
   <ImageView
     android:id="@+id/iv__bookmark_color"
@@ -12,9 +16,9 @@
     android:layout_height="wrap_content"
     android:layout_alignParentLeft="true"
     android:layout_centerVertical="true"
-    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_alignParentStart="true"
     android:layout_marginRight="@dimen/margin_base"
-    android:layout_alignParentStart="true"/>
+    android:layout_marginEnd="@dimen/margin_base"/>
 
   <LinearLayout
     android:layout_width="wrap_content"
@@ -22,12 +26,8 @@
     android:weightSum="2"
     android:orientation="vertical"
     android:layout_centerVertical="true"
-    android:paddingRight="@dimen/margin_base"
-    android:paddingEnd="@dimen/margin_base"
     android:layout_toRightOf="@id/iv__bookmark_color"
     android:layout_toEndOf="@id/iv__bookmark_color"
-    android:layout_marginRight="@dimen/margin_base"
-    android:layout_marginEnd="@dimen/margin_base"
     android:layout_toLeftOf="@id/more"
     android:layout_toStartOf="@id/more">
     <TextView

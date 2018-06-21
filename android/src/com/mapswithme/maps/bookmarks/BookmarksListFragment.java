@@ -51,6 +51,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     mCategory = getArguments().getParcelable(EXTRA_CATEGORY);
   }
 
+  @NonNull
   @Override
   protected BookmarkListAdapter createAdapter()
   {

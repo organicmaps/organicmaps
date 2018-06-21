@@ -9,6 +9,7 @@ public class CuisineFragment extends BaseMwmRecyclerFragment<CuisineAdapter>
 {
   private CuisineAdapter mAdapter;
 
+  @NonNull
   @Override
   protected CuisineAdapter createAdapter()
   {

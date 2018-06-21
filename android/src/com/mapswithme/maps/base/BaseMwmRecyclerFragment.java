@@ -35,6 +35,7 @@ public abstract class BaseMwmRecyclerFragment<T extends RecyclerView.Adapter> ex
   @NonNull
   private T mAdapter;
 
+  @NonNull
   protected abstract T createAdapter();
 
   @LayoutRes

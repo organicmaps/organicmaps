@@ -100,11 +100,11 @@ public final class SharedPropertiesUtils
                          .getInt(PREFS_BOOKMARK_CATEGORIES_LAST_VISIBLE_PAGE, 0);
   }
 
-  public static void setLastVisibleBookmarkCategoriesPage(@NonNull Context context, int lastVisibleScreenIndex)
+  public static void setLastVisibleBookmarkCategoriesPage(@NonNull Context context, int pageIndex)
   {
     MwmApplication.prefs(context)
                   .edit()
-                  .putInt(PREFS_BOOKMARK_CATEGORIES_LAST_VISIBLE_PAGE, lastVisibleScreenIndex)
+                  .putInt(PREFS_BOOKMARK_CATEGORIES_LAST_VISIBLE_PAGE, pageIndex)
                   .apply();
   }
 }

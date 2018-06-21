@@ -52,6 +52,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     return R.layout.fragment_bookmark_categories;
   }
 
+  @NonNull
   @Override
   protected BookmarkCategoriesAdapter createAdapter()
   {
@@ -249,7 +250,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   }
 
   @Override
-  public void onItemClick(View v, BookmarkCategory category)
+  public void onItemClick(@NonNull View v, @NonNull BookmarkCategory category)
   {
     startActivity(makeBookmarksListIntent(category));
   }
@@ -278,7 +279,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     return R.id.set_delete;
   }
 
-  private void onSaveText(String text)
+  private void onSaveText(@NonNull String text)
   {
     if (mCategoryEditor != null)
       mCategoryEditor.commit(text);

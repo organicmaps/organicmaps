@@ -40,6 +40,7 @@ public class StreetFragment extends BaseMwmRecyclerFragment<StreetAdapter>
     Editor.nativeSetStreet(getStreet());
   }
 
+  @NonNull
   @Override
   protected StreetAdapter createAdapter()
   {

@@ -190,6 +190,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapte
     return R.layout.fragment_downloader;
   }
 
+  @NonNull
   @Override
   protected DownloaderAdapter createAdapter()
   {

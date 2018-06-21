@@ -31,7 +31,7 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                            @Nullable Bundle savedInstanceState)
   {
-    View root = inflater.inflate(R.layout.fragment_bookmark_categories_pager, null);
+    View root = inflater.inflate(R.layout.fragment_bookmark_categories_pager, container, false);
     ViewPager viewPager = root.findViewById(R.id.viewpager);
     TabLayout tabLayout = root.findViewById(R.id.sliding_tabs_layout);
 
@@ -54,24 +54,12 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
     return Arrays.asList(BookmarksPageFactory.PRIVATE, BookmarksPageFactory.CATALOG);
   }
 
-  private class PageChangeListener implements ViewPager.OnPageChangeListener
+  private class PageChangeListener extends ViewPager.SimpleOnPageChangeListener
   {
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
-    {
-
-    }
-
     @Override
     public void onPageSelected(int position)
     {
       SharedPropertiesUtils.setLastVisibleBookmarkCategoriesPage(getActivity(), position);
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state)
-    {
-
     }
   }
 }

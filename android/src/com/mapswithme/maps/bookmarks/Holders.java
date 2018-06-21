@@ -138,7 +138,7 @@ public class Holders
     View mMore;
     @NonNull
     TextView mAuthorName;
-    @NonNull
+    @Nullable
     private BookmarkCategory mEntity;
 
     CategoryViewHolder(@NonNull View root)
@@ -187,6 +187,8 @@ public class Holders
     @NonNull
     public BookmarkCategory getEntity()
     {
+      if (mEntity == null)
+        throw new AssertionError("BookmarkCategory is null");
       return mEntity;
     }
 
