@@ -1,7 +1,7 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseWebViewMwmFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.util.DialogUtils;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.UiUtils;
 
@@ -56,7 +57,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   {
     super.onCreate(savedInstanceState);
     mCatalogUrl = getCatalogUrlOrThrow();
-    mImportCategoryListener = new ImportCategoryListener(getContext());
+    mImportCategoryListener = new ImportCategoryListener(this);
   }
 
   @Override
@@ -70,6 +71,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   public void onStop()
   {
     super.onStop();
+    mImportCategoryListener.clear();
     BookmarkManager.INSTANCE.removeCatalogListener(mImportCategoryListener);
   }
 
@@ -207,19 +209,45 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
 
   private static class ImportCategoryListener extends BookmarkManager.DefaultBookmarksCatalogListener
   {
-    @NonNull
-    private final Context mContext;
+    @Nullable
+    private BookmarksCatalogFragment mFragment;
 
-    ImportCategoryListener(@NonNull Context context)
+    ImportCategoryListener(@NonNull BookmarksCatalogFragment fragment)
     {
-      mContext = context.getApplicationContext();
+      mFragment = fragment;
     }
 
     @Override
     public void onImportFinished(@NonNull String serverId, boolean successful)
     {
+      if (mFragment == null)
+      {
+        return;
+      }
+
       if (successful)
-        Toast.makeText(mContext, R.string.bookmarks_webview_success_toast, Toast.LENGTH_SHORT).show();
+      {
+        Toast.makeText(mFragment.getContext(), R.string.bookmarks_webview_success_toast,
+                       Toast.LENGTH_SHORT).show();
+      }
+      else
+      {
+        DialogUtils.showAlertDialog(mFragment.getActivity(),
+                                    R.string.title_error_downloading_bookmarks,
+                                    R.string.subtitle_error_downloading_bookmarks,
+                                    android.R.string.ok,
+                                    (dialog, which) -> onOkClicked(dialog));
+      }
+    }
+
+    private void onOkClicked(DialogInterface dialog)
+    {
+      dialog.dismiss();
+    }
+
+    public void clear()
+    {
+      mFragment = null;
     }
   }
 }
