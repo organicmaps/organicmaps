@@ -214,8 +214,8 @@ public:
   template <typename T, EnableIfEnum<T> * = nullptr>
   void operator()(T & t, char const * name = nullptr)
   {
-    using UndelyingType = std::underlying_type_t<T>;
-    UndelyingType res;
+    using UnderlyingType = std::underlying_type_t<T>;
+    UnderlyingType res;
     FromJSONObject(m_json, name, res);
     t = static_cast<T>(res);
   }

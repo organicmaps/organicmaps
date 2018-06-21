@@ -64,7 +64,6 @@ option(USE_TSAN "Enable Thread Sanitizer" OFF)
 option(PYBINDINGS "Create makefiles for building python bindings" OFF)
 option(SKIP_DESKTOP "Skip building of desktop application" OFF)
 option(BUILD_MAPSHOT "Build mapshot tool" OFF)
-option(UGC_MIGRATION "Build migration file for ugc" OFF)
 option(USE_PCH "Use precompiled headers" OFF)
 
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")

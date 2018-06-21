@@ -20,6 +20,7 @@
 #include "coding/file_name_utils.hpp"
 #include "coding/internal/file_data.hpp"
 #include "coding/writer.hpp"
+#include "coding/zlib.hpp"
 
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
@@ -441,14 +442,27 @@ UNIT_CLASS_TEST(StorageTest, GetNumberOfUnsentSeparately)
 
 UNIT_TEST(UGC_IndexMigrationFromV0ToV1Smoke)
 {
+  auto & p = GetPlatform();
+  auto const version = "v0";
+  auto const indexFileName = "index.json";
+  auto const folder = my::JoinPath(p.WritableDir(), "ugc_migration", "test_index", version);
+  auto const indexFilePath = my::JoinPath(folder, indexFileName);
+  {
+    using Inflate = coding::ZLib::Inflate;
+    auto const r = p.GetReader(my::JoinPath(folder, "index.gz"));
+    string data;
+    r->ReadAsString(data);
+    Inflate inflate(Inflate::Format::GZip);
+    string index;
+    inflate(data.data(), data.size(), back_inserter(index));
+    FileWriter w(indexFilePath);
+    w.Write(index.data(), index.size());
+  }
+
   auto & builder = MwmBuilder::Builder();
   builder.Build({});
-  auto const versionString = "v0";
-  auto const indexFileName = "index.json";
-  auto const indexFilePath = my::JoinPath(GetPlatform().WritableDir(), "ugc_migration", "test_index", versionString,
-                                          indexFileName);
-  auto const v0IndexFilePath = indexFilePath + "." + versionString;
 
+  auto const v0IndexFilePath = indexFilePath + "." + version;
   Storage s(builder.GetIndex());
   s.LoadForTesting(indexFilePath);
   uint64_t migratedIndexFileSize = 0;
@@ -465,5 +479,5 @@ UNIT_TEST(UGC_IndexMigrationFromV0ToV1Smoke)
   }
 
   my::DeleteFileX(indexFilePath);
-  my::RenameFileX(v0IndexFilePath, indexFilePath);
+  my::DeleteFileX(v0IndexFilePath);
 }

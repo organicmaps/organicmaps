@@ -2,6 +2,8 @@ project(ugc_tests)
 
 include_directories(${OMIM_ROOT}/3party/jansson/src)
 
+option(UGC_MIGRATION "Build migration file for ugc" OFF)
+
 set(
   SRC
   serdes_binary_tests.cpp
@@ -17,6 +19,8 @@ if (UGC_MIGRATION)
     ${SRC}
     migration/generate_migration_files.cpp
   )
+
+  message("Generating files for UGC index migration")
 endif()
 
 omim_add_test(${PROJECT_NAME} ${SRC})

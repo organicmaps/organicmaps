@@ -81,6 +81,10 @@ namespace migration
 {
 Result Migrate(UpdateIndexes & source)
 {
+  CHECK(!source.empty(), ());
+  if (source.front().m_version == IndexVersion::Latest)
+    return Result::UpToDate;
+
   auto const result = MigrateFromV0ToV1(source);
   return result ? Result::Success : Result::Failure;
 }

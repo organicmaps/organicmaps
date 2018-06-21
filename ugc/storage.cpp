@@ -24,6 +24,8 @@
 
 #include "3party/jansson/myjansson.hpp"
 
+#include <boost/optional/optional.hpp>
+
 using namespace std;
 
 namespace
@@ -215,8 +217,14 @@ void Storage::Load()
   if (m_indexes.empty())
     return;
 
+  boost::optional<IndexVersion> version;
   for (auto const & i : m_indexes)
   {
+    if (!version)
+      version = i.m_version;
+    else
+      CHECK_EQUAL(static_cast<uint8_t>(*version), static_cast<uint8_t>(i.m_version), ("Inconsistent index"));
+
     if (i.m_deleted)
       ++m_numberOfDeleted;
   }
@@ -226,12 +234,13 @@ void Storage::Load()
 
 void Storage::Migrate(string const & indexFilePath)
 {
-  // We assume there is no situation when indexes from different versions are stored in the vector.
-  if (m_indexes.front().m_version == IndexVersion::Latest)
+  if (m_indexes.empty())
     return;
 
   switch (migration::Migrate(m_indexes))
   {
+  case migration::Result::UpToDate:
+     break;
   case migration::Result::Failure:
     LOG(LWARNING, ("Index migration failed"));
     break;

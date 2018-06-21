@@ -8,8 +8,9 @@ namespace migration
 {
 enum class Result
 {
+  UpToDate,
   Failure,
-  Success,
+  Success
 };
 
 Result Migrate(UpdateIndexes & source);

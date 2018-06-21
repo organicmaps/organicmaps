@@ -16,7 +16,7 @@ namespace ugc
 class Storage
 {
 public:
-  explicit Storage(Index const & index) : m_index(index) {}
+  explicit Storage(DataSourceBase const & index) : m_index(index) {}
 
   UGCUpdate GetUGCUpdate(FeatureID const & id) const;
 
@@ -46,7 +46,7 @@ private:
   std::unique_ptr<FeatureType> GetFeature(FeatureID const & id) const;
   void Migrate(std::string const & indexFilePath);
 
-  Index const & m_index;
+  DataSourceBase const & m_index;
   UpdateIndexes m_indexes;
   size_t m_numberOfDeleted = 0;
 };
