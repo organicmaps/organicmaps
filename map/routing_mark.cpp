@@ -11,9 +11,10 @@ static std::string const kRouteMarkPrimaryTextOutline = "RouteMarkPrimaryTextOut
 static std::string const kRouteMarkSecondaryText = "RouteMarkSecondaryText";
 static std::string const kRouteMarkSecondaryTextOutline = "RouteMarkSecondaryTextOutline";
 
-// TODO(@darina) Use separate colors.
-static std::string const kTransitMarkText = "RouteMarkPrimaryText";
-static std::string const kTransitMarkTextOutline = "RouteMarkPrimaryTextOutline";
+static std::string const kTransitMarkPrimaryText = "TransitMarkPrimaryText";
+static std::string const kTransitMarkPrimaryTextOutline = "TransitMarkPrimaryTextOutline";
+static std::string const kTransitMarkSecondaryText = "TransitMarkSecondaryText";
+static std::string const kTransitMarkSecondaryTextOutline = "TransitMarkSecondaryTextOutline";
 
 float const kRouteMarkPrimaryTextSize = 11.0f;
 float const kRouteMarkSecondaryTextSize = 10.0f;
@@ -504,10 +505,10 @@ drape_ptr<df::UserPointMark::SymbolNameZoomInfo> TransitMark::GetSymbolNames() c
 void TransitMark::GetDefaultTransitTitle(dp::TitleDecl & titleDecl)
 {
   titleDecl = dp::TitleDecl();
-  titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(kTransitMarkText);
-  titleDecl.m_primaryTextFont.m_outlineColor = df::GetColorConstant(kTransitMarkTextOutline);
+  titleDecl.m_primaryTextFont.m_color = df::GetColorConstant(kTransitMarkPrimaryText);
+  titleDecl.m_primaryTextFont.m_outlineColor = df::GetColorConstant(kTransitMarkPrimaryTextOutline);
   titleDecl.m_primaryTextFont.m_size = kTransitMarkTextSize;
-  titleDecl.m_secondaryTextFont.m_color = df::GetColorConstant(kTransitMarkText);
-  titleDecl.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(kTransitMarkTextOutline);
+  titleDecl.m_secondaryTextFont.m_color = df::GetColorConstant(kTransitMarkSecondaryText);
+  titleDecl.m_secondaryTextFont.m_outlineColor = df::GetColorConstant(kTransitMarkSecondaryTextOutline);
   titleDecl.m_secondaryTextFont.m_size = kTransitMarkTextSize;
 }

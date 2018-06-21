@@ -44,11 +44,11 @@ float const kOuterMarkerDepth = kBaseMarkerDepth + 0.5f;
 float const kInnerMarkerDepth = kBaseMarkerDepth + 1.0f;
 uint32_t const kTransitOverlayIndex = 1000;
 
-// TODO(@darina) Use separate colors.
-std::string const kTransitMarkText = "RouteMarkPrimaryText";
-std::string const kTransitMarkTextOutline = "RouteMarkPrimaryTextOutline";
-std::string const kTransitTransferOuterColor = "RouteMarkPrimaryText";
-std::string const kTransitStopInnerColor = "RouteMarkPrimaryTextOutline";
+std::string const kTransitMarkText = "TransitMarkPrimaryText";
+std::string const kTransitMarkTextOutline = "TransitMarkPrimaryTextOutline";
+std::string const kTransitTransferOuterColor = "TransitTransferOuterMarker";
+std::string const kTransitTransferInnerColor = "TransitTransferInnerMarker";
+std::string const kTransitStopInnerColor = "TransitStopInnerMarker";
 
 float const kTransitMarkTextSize = 12.0f;
 
@@ -622,7 +622,7 @@ void TransitSchemeBuilder::GenerateTransfer(StopNodeParams const & params, m2::P
   float const kInnerScale = 1.0f;
   float const kOuterScale = 1.5f;
   auto const outerColor = GetColorConstant(kTransitTransferOuterColor);
-  auto const innerColor = GetColorConstant(kTransitStopInnerColor);
+  auto const innerColor = GetColorConstant(kTransitTransferInnerColor);
 
   float const widthLinesCount = maxLinesCount > 3 ? 1.6f : 1.0f;
   float const innerScale = maxLinesCount == 1 ? 1.4f : kInnerScale;

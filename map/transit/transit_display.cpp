@@ -318,7 +318,7 @@ void TransitRouteDisplay::ProcessSubroute(vector<RouteSegment> const & segments,
 
       if (marker.m_colors.size() > 1)
       {
-        marker.m_innerColor = df::kTransitOutlineColor;
+        marker.m_innerColor = df::kTransitStopInnerMarkerColor;
         marker.m_up = (currentDir - lastDir).Normalize();
         if (m2::CrossProduct(marker.m_up, -lastDir) < 0)
           marker.m_up = -marker.m_up;
