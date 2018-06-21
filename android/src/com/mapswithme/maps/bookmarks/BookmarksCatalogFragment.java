@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.auth.BaseWebViewMwmFragment;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
+import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.UiUtils;
 
 import java.lang.ref.WeakReference;
@@ -179,6 +180,10 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
 
       UiUtils.show(frag.mRetryBtn);
       UiUtils.hide(frag.mWebView, frag.mProgressView);
+      if (ConnectionState.isConnected())
+        return;
+      Toast.makeText(frag.getContext(), R.string.common_check_internet_connection_dialog_title, Toast.LENGTH_SHORT)
+           .show();
     }
 
     private void retry()

@@ -69,8 +69,8 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
     String deepLink = BookmarkManager.INSTANCE.getCatalogDeeplink(category.getId());
     Intent intent = new Intent(Intent.ACTION_SEND)
         .setType(TargetUtils.TYPE_TEXT_PLAIN)
-        .putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name))
-        .putExtra(Intent.EXTRA_TEXT, deepLink);
+        .putExtra(Intent.EXTRA_SUBJECT, deepLink)
+        .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_bookmarks_email_body));
     startActivity(Intent.createChooser(intent, getString(R.string.share)));
   }
 

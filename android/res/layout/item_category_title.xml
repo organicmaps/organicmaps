@@ -11,6 +11,7 @@
   android:fontFamily="@string/robotoMedium"
   android:text="@string/bookmarks"
   tools:targetApi="jelly_bean"
+  android:background="@color/bookmarks_list_item_bg"
   android:paddingEnd="@dimen/margin_base"
   android:paddingRight="@dimen/margin_base"
   android:paddingStart="@dimen/margin_base"

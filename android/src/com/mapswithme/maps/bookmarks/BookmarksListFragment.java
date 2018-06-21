@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +26,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.widget.placepage.EditBookmarkFragment;
 import com.mapswithme.maps.widget.placepage.Sponsored;
+import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 import com.mapswithme.util.BottomSheetHelper;
@@ -77,6 +79,14 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
     if (bar != null)
       bar.setTitle(mCategory.getName());
+    addRecyclerDecor();
+  }
+
+  private void addRecyclerDecor()
+  {
+    RecyclerView.ItemDecoration decor = ItemDecoratorFactory
+        .createDefaultDecorator(getContext(), LinearLayoutManager.VERTICAL);
+    getRecyclerView().addItemDecoration(decor);
   }
 
   @Override

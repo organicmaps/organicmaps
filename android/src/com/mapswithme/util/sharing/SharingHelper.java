@@ -44,6 +44,7 @@ public enum SharingHelper
   private static final String TAG = SharingHelper.class.getSimpleName();
   private static final String PREFS_STORAGE = "sharing";
   private static final String PREFS_KEY_ITEMS = "items";
+  private static final String KMZ_MIME_TYPE = "application/vnd.google-earth.kmz";
 
   private final SharedPreferences mPrefs
       = MwmApplication.get().getSharedPreferences(PREFS_STORAGE, Context.MODE_PRIVATE);
@@ -206,14 +207,13 @@ public enum SharingHelper
   }
 
   private static void shareBookmarksCategory(@NonNull Activity context,
-                                            @NonNull BookmarkSharingResult result)
+                                             @NonNull BookmarkSharingResult result)
   {
     switch (result.getCode())
     {
       case BookmarkSharingResult.SUCCESS:
         String name = new File(result.getSharingPath()).getName();
-        shareOutside(new LocalFileShareable(context, result.getSharingPath(),
-                                            "application/vnd.google-earth.kmz")
+        shareOutside(new LocalFileShareable(context, result.getSharingPath(), KMZ_MIME_TYPE)
                          .setText(context.getString(R.string.share_bookmarks_email_body))
                          .setSubject(R.string.share_bookmarks_email_subject));
         break;

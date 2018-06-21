@@ -441,10 +441,13 @@ public class Holders
     {
       super(itemView, category);
       mDescText = itemView.findViewById(R.id.text);
-      mMoreBtn = itemView.findViewById(R.id.more_btn);
-      mMoreBtn.setOnClickListener(this::onMoreBtnClicked);
       mTitle = itemView.findViewById(R.id.title);
       mAuthor = itemView.findViewById(R.id.author);
+
+      mMoreBtn = itemView.findViewById(R.id.more_btn);
+      boolean isEmptyDesc = TextUtils.isEmpty(category.getDescription());
+      UiUtils.hideIf(isEmptyDesc, mMoreBtn);
+      mMoreBtn.setOnClickListener(this::onMoreBtnClicked);
     }
 
     private void onMoreBtnClicked(@NonNull View v)
