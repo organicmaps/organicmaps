@@ -293,7 +293,7 @@
     <activity
         android:name="com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity"
         android:configChanges="orientation|screenLayout|screenSize"
-        android:label="@string/bookmark_sets"
+        android:label="@string/bookmarks"
         android:parentActivityName="com.mapswithme.maps.MwmActivity"
         android:windowSoftInputMode="adjustResize">
       <!-- The meta-data element is needed for versions lower than 4.1 -->
