@@ -24422,7 +24422,7 @@ cont {
     symbol {
       name: "speedcam-s"
       apply_for_type: 1
-      priority: 16974
+      priority: 16977
     }
   }
   element {
@@ -24430,7 +24430,7 @@ cont {
     symbol {
       name: "speedcam-s"
       apply_for_type: 1
-      priority: 16974
+      priority: 16977
     }
   }
   element {
@@ -24438,7 +24438,7 @@ cont {
     symbol {
       name: "speedcam-s"
       apply_for_type: 1
-      priority: 16974
+      priority: 16977
     }
   }
   element {
@@ -24446,7 +24446,7 @@ cont {
     symbol {
       name: "speedcam-s"
       apply_for_type: 1
-      priority: 16974
+      priority: 16977
     }
   }
   element {
@@ -24454,7 +24454,7 @@ cont {
     symbol {
       name: "speedcam-s"
       apply_for_type: 1
-      priority: 16974
+      priority: 16977
     }
   }
   element {
@@ -24462,7 +24462,7 @@ cont {
     symbol {
       name: "speedcam-s"
       apply_for_type: 1
-      priority: 16974
+      priority: 16977
     }
   }
 }
@@ -68048,7 +68048,7 @@ cont {
         height: 9
         color: 4495803
       }
-      priority: 16923
+      priority: 16931
     }
   }
   element {
@@ -68058,7 +68058,7 @@ cont {
         height: 9
         color: 4495803
       }
-      priority: 16923
+      priority: 16931
     }
   }
   element {
@@ -68068,7 +68068,7 @@ cont {
         height: 9
         color: 4495803
       }
-      priority: 16923
+      priority: 16931
     }
   }
   element {
@@ -68078,7 +68078,7 @@ cont {
         height: 9
         color: 4495803
       }
-      priority: 16923
+      priority: 16931
     }
   }
   element {
@@ -68088,7 +68088,7 @@ cont {
         height: 9
         color: 4495803
       }
-      priority: 16923
+      priority: 16931
     }
   }
   element {
@@ -68098,7 +68098,7 @@ cont {
         height: 9
         color: 4495803
       }
-      priority: 16923
+      priority: 16931
     }
   }
 }
@@ -68635,7 +68635,7 @@ cont {
         height: 9
         color: 4495803
       }
-      priority: 16923
+      priority: 16931
     }
   }
   element {
@@ -68645,7 +68645,7 @@ cont {
         height: 9
         color: 4495803
       }
-      priority: 16923
+      priority: 16931
     }
   }
   element {
@@ -68655,7 +68655,7 @@ cont {
         height: 9
         color: 4495803
       }
-      priority: 16923
+      priority: 16931
     }
   }
   element {
@@ -68665,7 +68665,7 @@ cont {
         height: 9
         color: 4495803
       }
-      priority: 16923
+      priority: 16931
     }
   }
   element {
@@ -68675,7 +68675,7 @@ cont {
         height: 9
         color: 4495803
       }
-      priority: 16923
+      priority: 16931
     }
   }
   element {
@@ -68685,7 +68685,7 @@ cont {
         height: 9
         color: 4495803
       }
-      priority: 16923
+      priority: 16931
     }
   }
   element {
@@ -68695,7 +68695,7 @@ cont {
         height: 9
         color: 4495803
       }
-      priority: 16923
+      priority: 16931
     }
   }
   element {
@@ -68705,7 +68705,7 @@ cont {
         height: 9
         color: 4495803
       }
-      priority: 16923
+      priority: 16931
     }
   }
 }
