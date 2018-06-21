@@ -51,8 +51,12 @@ storage::TCountriesVec const kCountries = {
 };
 }  // namespace
 
-bool HasMegafonDownloaderBanner(storage::Storage const & storage, std::string const & mwmId)
+bool HasMegafonDownloaderBanner(storage::Storage const & storage, std::string const & mwmId,
+                                std::string const & currentLocale)
 {
+  if (currentLocale.find("ru") == std::string::npos)
+    return false;
+
   storage::TCountriesVec countries;
   storage.GetTopmostNodesFor(mwmId, countries);
   for (auto const & c : countries)
