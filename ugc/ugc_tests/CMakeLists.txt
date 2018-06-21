@@ -4,8 +4,8 @@ include_directories(${OMIM_ROOT}/3party/jansson/src)
 
 set(
   SRC
-  serdes_tests.cpp
   serdes_binary_tests.cpp
+  serdes_tests.cpp
   storage_tests.cpp
   utils.cpp
   utils.hpp

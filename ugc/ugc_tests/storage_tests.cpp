@@ -438,3 +438,32 @@ UNIT_CLASS_TEST(StorageTest, GetNumberOfUnsentSeparately)
   TEST_EQUAL(lightweight::GetNumberOfUnsentUGC(), 0, ());
   TEST(DeleteIndexFile(), ());
 }
+
+UNIT_TEST(UGC_IndexMigrationFromV0ToV1Smoke)
+{
+  auto & builder = MwmBuilder::Builder();
+  builder.Build({});
+  auto const versionString = "v0";
+  auto const indexFileName = "index.json";
+  auto const indexFilePath = my::JoinPath(GetPlatform().WritableDir(), "ugc_migration", "test_index", versionString,
+                                          indexFileName);
+  auto const v0IndexFilePath = indexFilePath + "." + versionString;
+
+  Storage s(builder.GetIndex());
+  s.LoadForTesting(indexFilePath);
+  uint64_t migratedIndexFileSize = 0;
+  uint64_t v0IndexFileSize = 0;
+  TEST(my::GetFileSize(indexFilePath, migratedIndexFileSize), ());
+  TEST(my::GetFileSize(v0IndexFilePath, v0IndexFileSize), ());
+  TEST_GREATER(migratedIndexFileSize, 0, ());
+  TEST_GREATER(v0IndexFileSize, 0, ());
+  auto const & indexes = s.GetIndexesForTesting();
+  for (auto const & i : indexes)
+  {
+    TEST_EQUAL(static_cast<uint8_t>(i.m_version), static_cast<uint8_t>(IndexVersion::Latest), ());
+    TEST(!i.m_synchronized, ());
+  }
+
+  my::DeleteFileX(indexFilePath);
+  my::RenameFileX(v0IndexFilePath, indexFilePath);
+}

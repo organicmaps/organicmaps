@@ -28,7 +28,7 @@ public:
   };
 
   SettingResult SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc);
-  bool SaveIndex() const;
+  bool SaveIndex(std::string const & pathToTargetFile = "") const;
   std::string GetUGCToSend() const;
   void MarkAllAsSynchronized();
   void Defragmentation();
@@ -39,10 +39,12 @@ public:
   UpdateIndexes const & GetIndexesForTesting() const { return m_indexes; }
   size_t GetNumberOfDeletedForTesting() const { return m_numberOfDeleted; }
   SettingResult SetUGCUpdateForTesting(FeatureID const & id, v0::UGCUpdate const & ugc);
+  void LoadForTesting(std::string const & testIndexFilePath);
 
 private:
   uint64_t UGCSizeAtIndex(size_t const indexPosition) const;
   std::unique_ptr<FeatureType> GetFeature(FeatureID const & id) const;
+  void Migrate(std::string const & indexFilePath);
 
   Index const & m_index;
   UpdateIndexes m_indexes;

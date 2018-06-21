@@ -88,10 +88,9 @@ string SerializeIndexes(ugc::UpdateIndexes const & indexes)
 template <typename UGCUpdate>
 ugc::Storage::SettingResult SetGenericUGCUpdate(UGCUpdate const & ugc,
                                                 FeatureType const & featureType,
-                                                FeatureID const & id,
                                                 ugc::UpdateIndexes & indexes,
                                                 size_t & numberOfDeleted,
-                                                ugc::Version const version = ugc::Version::Latest)
+                                                ugc::Version const version)
 {
   if (!ugc.IsValid())
     return ugc::Storage::SettingResult::InvalidUGC;
@@ -118,6 +117,7 @@ ugc::Storage::SettingResult SetGenericUGCUpdate(UGCUpdate const & ugc,
   if (!GetUGCFileSize(offset))
     offset = 0;
 
+  auto const & id = featureType.GetID();
   index.m_mercator = mercator;
   index.m_type = type;
   index.m_matchingType = c.GetIndexForType(*optMatchingType);
@@ -192,7 +192,7 @@ UGCUpdate Storage::GetUGCUpdate(FeatureID const & id) const
 Storage::SettingResult Storage::SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc)
 {
   auto const feature = GetFeature(id);
-  return SetGenericUGCUpdate(ugc, *feature, id, m_indexes, m_numberOfDeleted, Version::V1);
+  return SetGenericUGCUpdate(ugc, *feature, m_indexes, m_numberOfDeleted, Version::V1);
 }
 
 void Storage::Load()
@@ -221,7 +221,12 @@ void Storage::Load()
       ++m_numberOfDeleted;
   }
 
-  // We assume there is no situation when indexes from different version are stored in the vector
+  Migrate(indexFilePath);
+}
+
+void Storage::Migrate(string const & indexFilePath)
+{
+  // We assume there is no situation when indexes from different versions are stored in the vector.
   if (m_indexes.front().m_version == IndexVersion::Latest)
     return;
 
@@ -234,7 +239,7 @@ void Storage::Load()
     LOG(LINFO, ("Index migration successful"));
     auto const newPath = indexFilePath + ".v0";
     my::RenameFileX(indexFilePath, newPath);
-    if (!SaveIndex())
+    if (!SaveIndex(indexFilePath))
     {
       my::RenameFileX(newPath, indexFilePath);
       LOG(LWARNING, ("Saving index file after indexes migration failed"));
@@ -243,13 +248,13 @@ void Storage::Load()
   }
 }
 
-bool Storage::SaveIndex() const
+bool Storage::SaveIndex(std::string const & pathToTargetFile /* = "" */) const
 {
   if (m_indexes.empty())
     return false;
 
+  auto const indexFilePath = pathToTargetFile.empty() ? GetIndexFilePath() : pathToTargetFile;
   auto const jsonData = SerializeIndexes(m_indexes);
-  auto const indexFilePath = GetIndexFilePath();
   try
   {
     FileWriter w(indexFilePath);
@@ -443,7 +448,26 @@ Storage::SettingResult Storage::SetUGCUpdateForTesting(FeatureID const & id,
                                                        v0::UGCUpdate const & ugc)
 {
   auto const feature = GetFeature(id);
-  return SetGenericUGCUpdate(ugc, *feature, id, m_indexes, m_numberOfDeleted, Version::V0);
+  return SetGenericUGCUpdate(ugc, *feature, m_indexes, m_numberOfDeleted, Version::V0);
+}
+
+void Storage::LoadForTesting(std::string const & testIndexFilePath)
+{
+  string data;
+  try
+  {
+    FileReader r(testIndexFilePath);
+    r.ReadAsString(data);
+  }
+  catch (FileReader::Exception const & exception)
+  {
+    LOG(LWARNING, (exception.what()));
+    return;
+  }
+
+  CHECK(!data.empty(), ());
+  DeserializeIndexes(data, m_indexes);
+  Migrate(testIndexFilePath);
 }
 }  // namespace ugc
 
