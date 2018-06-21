@@ -24,19 +24,17 @@ struct TransitRenderData
   uint32_t m_recacheId;
   MwmSet::MwmId m_mwmId;
   m2::PointD m_pivot;
-  std::vector<drape_ptr<dp::RenderBucket>> m_buckets;
+  drape_ptr<dp::RenderBucket> m_bucket;
 
-  TransitRenderData(dp::GLState const & state, uint32_t recacheId, MwmSet::MwmId const & mwmId, m2::PointD const pivot)
+  TransitRenderData(dp::GLState const & state, uint32_t recacheId, MwmSet::MwmId const & mwmId, m2::PointD const pivot,
+                    drape_ptr<dp::RenderBucket> && bucket)
     : m_state(state)
     , m_recacheId(recacheId)
     , m_mwmId(mwmId)
     , m_pivot(pivot)
+    , m_bucket(std::move(bucket))
   {}
-  TransitRenderData(TransitRenderData &&) = default;
-  TransitRenderData & operator=(TransitRenderData &&) = default;
 };
-
-using TTransitRenderData = std::vector<TransitRenderData>;
 
 struct LineParams
 {

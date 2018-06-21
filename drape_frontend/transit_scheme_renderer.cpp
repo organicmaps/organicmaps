@@ -35,8 +35,8 @@ void TransitSchemeRenderer::ClearGLDependentResources(ref_ptr<dp::OverlayTree> t
 {
   if (tree)
   {
-    RemoveOverlay(tree, m_textRenderData);
-    RemoveOverlay(tree, m_colorSymbolRenderData);
+    RemoveOverlays(tree, m_textRenderData);
+    RemoveOverlays(tree, m_colorSymbolRenderData);
   }
 
   m_renderData.clear();
@@ -68,10 +68,7 @@ void TransitSchemeRenderer::ClearRenderData(TRemovePredicate const & predicate, 
     for (auto & data : renderData)
     {
       if (predicate(data))
-      {
-        for (auto const & bucket : data.m_buckets)
-          bucket->RemoveOverlayHandles(tree);
-      }
+        data.m_bucket->RemoveOverlayHandles(tree);
     }
   }
 
@@ -82,30 +79,30 @@ void TransitSchemeRenderer::ClearRenderData(TRemovePredicate const & predicate, 
 void TransitSchemeRenderer::AddRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
                                           TransitRenderData && renderData)
 {
-  PrepareRenderData(mng, tree, m_renderData, renderData);
+  PrepareRenderData(mng, tree, m_renderData, std::move(renderData));
 }
 
 void TransitSchemeRenderer::AddMarkersRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
                                                  TransitRenderData && renderData)
 {
-  PrepareRenderData(mng, tree, m_markersRenderData, renderData);
+  PrepareRenderData(mng, tree, m_markersRenderData, std::move(renderData));
 }
 
 void TransitSchemeRenderer::AddTextRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
                                               TransitRenderData && renderData)
 {
-  PrepareRenderData(mng, tree, m_textRenderData, renderData);
+  PrepareRenderData(mng, tree, m_textRenderData, std::move(renderData));
 }
 
 void TransitSchemeRenderer::AddStubsRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
                                                TransitRenderData && renderData)
 {
-  PrepareRenderData(mng, tree, m_colorSymbolRenderData, renderData);
+  PrepareRenderData(mng, tree, m_colorSymbolRenderData, std::move(renderData));
 }
 
 void TransitSchemeRenderer::PrepareRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
                                               std::vector<TransitRenderData> & currentRenderData,
-                                              TransitRenderData & newRenderData)
+                                              TransitRenderData && newRenderData)
 {
   // Remove obsolete render data.
   auto const removePredicate = [this, &newRenderData](TransitRenderData const & rd)
@@ -117,13 +114,11 @@ void TransitSchemeRenderer::PrepareRenderData(ref_ptr<dp::GpuProgramManager> mng
   m_lastRecacheId = max(m_lastRecacheId, newRenderData.m_recacheId);
 
   // Add new render data.
-  currentRenderData.emplace_back(std::move(newRenderData));
-  TransitRenderData & rd = currentRenderData.back();
-
-  ref_ptr<dp::GpuProgram> program = mng->GetProgram(rd.m_state.GetProgramIndex());
+  ref_ptr<dp::GpuProgram> program = mng->GetProgram(newRenderData.m_state.GetProgramIndex());
   program->Bind();
-  for (auto const & bucket : rd.m_buckets)
-    bucket->GetBuffer()->Build(program);
+  newRenderData.m_bucket->GetBuffer()->Build(program);
+
+  currentRenderData.emplace_back(std::move(newRenderData));
 }
 
 void TransitSchemeRenderer::RenderTransit(ScreenBase const & screen, int zoomLevel,
@@ -156,23 +151,17 @@ void TransitSchemeRenderer::CollectOverlays(ref_ptr<dp::OverlayTree> tree, Scree
 {
   for (auto & data : renderData)
   {
-    for (auto const & bucket : data.m_buckets)
-    {
-      if (tree->IsNeedUpdate())
-        bucket->CollectOverlayHandles(tree);
-      else
-        bucket->Update(modelView);
-    }
+    if (tree->IsNeedUpdate())
+      data.m_bucket->CollectOverlayHandles(tree);
+    else
+      data.m_bucket->Update(modelView);
   }
 }
 
-void TransitSchemeRenderer::RemoveOverlay(ref_ptr<dp::OverlayTree> tree, std::vector<TransitRenderData> & renderData)
+void TransitSchemeRenderer::RemoveOverlays(ref_ptr<dp::OverlayTree> tree, std::vector<TransitRenderData> & renderData)
 {
   for (auto & data : renderData)
-  {
-    for (auto const & bucket : data.m_buckets)
-      bucket->RemoveOverlayHandles(tree);
-  }
+    data.m_bucket->RemoveOverlayHandles(tree);
 }
 
 void TransitSchemeRenderer::RenderLines(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
@@ -192,8 +181,7 @@ void TransitSchemeRenderer::RenderLines(ScreenBase const & screen, ref_ptr<dp::G
     uniforms.SetFloatValue("u_lineHalfWidth", pixelHalfWidth);
     dp::ApplyUniforms(uniforms, program);
 
-    for (auto const & bucket : renderData.m_buckets)
-      bucket->Render(false /* draw as line */);
+    renderData.m_bucket->Render(false /* draw as line */);
   }
 }
 
@@ -216,8 +204,7 @@ void TransitSchemeRenderer::RenderMarkers(ScreenBase const & screen, ref_ptr<dp:
                            pixelHalfWidth);
     dp::ApplyUniforms(uniforms, program);
 
-    for (auto const & bucket : renderData.m_buckets)
-      bucket->Render(false /* draw as line */);
+    renderData.m_bucket->Render(false /* draw as line */);
   }
 }
 
@@ -240,18 +227,15 @@ void TransitSchemeRenderer::RenderText(ScreenBase const & screen, ref_ptr<dp::Gp
     uniforms.SetFloatValue("u_isOutlinePass", 1.0f);
     dp::ApplyUniforms(uniforms, program);
 
-    for (auto const & bucket : renderData.m_buckets)
-      bucket->Render(false /* draw as line */);
+    renderData.m_bucket->Render(false /* draw as line */);
 
     uniforms.SetFloatValue("u_contrastGamma", params.m_contrast, params.m_gamma);
     uniforms.SetFloatValue("u_isOutlinePass", 0.0f);
     dp::ApplyUniforms(uniforms, program);
 
-    for (auto const & bucket : renderData.m_buckets)
-      bucket->Render(false /* draw as line */);
+    renderData.m_bucket->Render(false /* draw as line */);
 
-    for (auto const & bucket : renderData.m_buckets)
-      bucket->RenderDebug(screen);
+    renderData.m_bucket->RenderDebug(screen);
   }
 }
 
@@ -271,11 +255,9 @@ void TransitSchemeRenderer::RenderStubs(ScreenBase const & screen, ref_ptr<dp::G
     dp::ApplyUniforms(uniforms, program);
 
     GLFunctions::glEnable(gl_const::GLDepthTest);
-    for (auto const & bucket : renderData.m_buckets)
-      bucket->Render(false /* draw as line */);
+    renderData.m_bucket->Render(false /* draw as line */);
 
-    for (auto const & bucket : renderData.m_buckets)
-      bucket->RenderDebug(screen);
+    renderData.m_bucket->RenderDebug(screen);
   }
 }
 }  // namespace df

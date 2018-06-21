@@ -256,7 +256,7 @@ bool FindLongerPath(routing::transit::StopId stop1Id, routing::transit::StopId s
   if (stop1Ind < sameStops.size() || stop2Ind < sameStops.size())
   {
     if (stop1Ind > stop2Ind)
-      swap(stop1Ind, stop2Ind);
+      std::swap(stop1Ind, stop2Ind);
 
     if (stop1Ind < sameStops.size() && stop2Ind < sameStops.size() && stop2Ind - stop1Ind > 1)
       return true;
@@ -523,15 +523,13 @@ void TransitSchemeBuilder::GenerateShapes(MwmSet::MwmId const & mwmId)
 {
   MwmSchemeData const & scheme = m_schemes[mwmId];
 
-  auto const state = CreateGLState(gpu::TRANSIT_PROGRAM, RenderState::TransitSchemeLayer);
-  TransitRenderData renderData(state, m_recacheId, mwmId, scheme.m_pivot);
-
   uint32_t const kBatchSize = 5000;
   dp::Batcher batcher(kBatchSize, kBatchSize);
   {
-    dp::SessionGuard guard(batcher, [&renderData](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
+    dp::SessionGuard guard(batcher, [this, &mwmId, &scheme](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
     {
-      renderData.m_buckets.push_back(std::move(b));
+      TransitRenderData renderData(state, m_recacheId, mwmId, scheme.m_pivot, std::move(b));
+      m_flushRenderDataFn(std::move(renderData));
     });
 
     for (auto const & shape : scheme.m_shapes)
@@ -566,7 +564,6 @@ void TransitSchemeBuilder::GenerateShapes(MwmSet::MwmId const & mwmId)
       }
     }
   }
-  m_flushRenderDataFn(std::move(renderData));
 }
 
 void TransitSchemeBuilder::GenerateStops(MwmSet::MwmId const & mwmId, ref_ptr<dp::TextureManager> textures)
@@ -575,20 +572,13 @@ void TransitSchemeBuilder::GenerateStops(MwmSet::MwmId const & mwmId, ref_ptr<dp
 
   auto const flusher = [this, &mwmId, &scheme](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
   {
-    TransitRenderData renderData(state, m_recacheId, mwmId, scheme.m_pivot);
-    renderData.m_buckets.emplace_back(std::move(b));
+    TransitRenderData renderData(state, m_recacheId, mwmId, scheme.m_pivot, std::move(b));
     if (state.GetProgramIndex() == gpu::TRANSIT_MARKER_PROGRAM)
-    {
       m_flushMarkersRenderDataFn(std::move(renderData));
-    }
     else if (state.GetProgramIndex() == gpu::TEXT_OUTLINED_PROGRAM)
-    {
       m_flushTextRenderDataFn(std::move(renderData));
-    }
     else
-    {
       m_flushStubsRenderDataFn(std::move(renderData));
-    }
   };
 
   uint32_t const kBatchSize = 5000;

@@ -44,7 +44,7 @@ public:
 private:
   void PrepareRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
                          std::vector<TransitRenderData> & currentRenderData,
-                         TransitRenderData & newRenderData);
+                         TransitRenderData && newRenderData);
   void ClearRenderData(MwmSet::MwmId const & mwmId, ref_ptr<dp::OverlayTree> tree,
                        std::vector<TransitRenderData> & renderData);
 
@@ -52,7 +52,7 @@ private:
   void ClearRenderData(TRemovePredicate const & predicate, ref_ptr<dp::OverlayTree> tree,
                        std::vector<TransitRenderData> & renderData);
 
-  void RemoveOverlay(ref_ptr<dp::OverlayTree> tree, std::vector<TransitRenderData> & renderData);
+  void RemoveOverlays(ref_ptr<dp::OverlayTree> tree, std::vector<TransitRenderData> & renderData);
   void CollectOverlays(ref_ptr<dp::OverlayTree> tree, ScreenBase const & modelView,
                        std::vector<TransitRenderData> & renderData);
 
