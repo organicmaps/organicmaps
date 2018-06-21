@@ -75,6 +75,13 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
   }
 
   @Override
+  protected void onDeleteActionSelected(@NonNull BookmarkCategory category)
+  {
+    super.onDeleteActionSelected(category);
+    updateLoadingPlaceholder();
+  }
+
+  @Override
   protected int getDeleteMenuItemResId()
   {
     return R.id.delete_list;

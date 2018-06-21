@@ -159,7 +159,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
       .setIcon(item.isVisible() ? R.drawable.ic_hide : R.drawable.ic_show)
       .setTitle(item.isVisible() ? R.string.hide : R.string.show);
 
-    final boolean deleteIsPossible = getAdapter().getBookmarkCategories().size() > 1;
+    final boolean deleteIsPossible = getAdapter().getBookmarkCategories().size() > 1 || mSelectedCategory.isFromCatalog();
     bs.getItemById(getDeleteMenuItemResId())
       .setVisible(deleteIsPossible)
       .setEnabled(deleteIsPossible);
@@ -265,6 +265,12 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   protected void onShareActionSelected(@NonNull BookmarkCategory category)
   {
     SharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(getActivity(), category.getId());
+  }
+
+  protected void onDeleteActionSelected(@NonNull BookmarkCategory category)
+  {
+    BookmarkManager.INSTANCE.deleteCategory(category.getId());
+    getAdapter().notifyDataSetChanged();
   }
 
   @Override
@@ -398,8 +404,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
       public void process(@NonNull BaseBookmarkCategoriesFragment frag,
                           @NonNull BookmarkCategory category)
       {
-        BookmarkManager.INSTANCE.deleteCategory(category.getId());
-        frag.getAdapter().notifyDataSetChanged();
+        frag.onDeleteActionSelected(category);
       }
     }
 
