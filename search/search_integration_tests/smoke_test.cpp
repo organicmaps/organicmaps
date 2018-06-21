@@ -267,5 +267,29 @@ UNIT_CLASS_TEST(SmokeTest, NoDefaultNameTest)
   SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
   TEST(ResultsMatch("Wonderland", {ExactMatch(worldId, wonderland)}), ());
 }
+
+UNIT_CLASS_TEST(SmokeTest, PoiWithAddress)
+{
+  char const kCountryName[] = "Wonderland";
+  TestStreet mainStreet({m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0), m2::PointD(2.0, 2.0)},
+                        "Main Street", "en");
+  TestCafe cafe(m2::PointD(1.0, 1.0), "Starbucks", "en");
+  cafe.SetStreet(mainStreet);
+  cafe.SetHouseNumber("27");
+
+  auto id = BuildMwm(kCountryName, feature::DataHeader::country, [&](TestMwmBuilder & builder) {
+    builder.Add(mainStreet);
+    builder.Add(cafe);
+  });
+
+  SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(2.0, 2.0)));
+  {
+    TRules rules = {ExactMatch(id, cafe)};
+    TEST(ResultsMatch("Starbucks ", rules), ());
+    TEST(ResultsMatch("Main street 27 ", rules), ());
+    TEST(ResultsMatch("Main street 27 Starbucks ", rules), ());
+    TEST(ResultsMatch("Starbucks Main street 27 ", rules), ());
+  }
+}
 }  // namespace
 }  // namespace search
