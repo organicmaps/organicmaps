@@ -7,11 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 
-public class SearchCategoriesFragment extends BaseMwmRecyclerFragment
+public class SearchCategoriesFragment extends BaseMwmRecyclerFragment<CategoriesAdapter>
                                    implements CategoriesAdapter.OnCategorySelectedListener
 {
   @Override
-  protected RecyclerView.Adapter createAdapter()
+  protected CategoriesAdapter createAdapter()
   {
     return new CategoriesAdapter(this);
   }

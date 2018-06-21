@@ -12,7 +12,7 @@ import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.editor.data.HoursMinutes;
 import com.mapswithme.maps.editor.data.Timetable;
 
-public class SimpleTimetableFragment extends BaseMwmRecyclerFragment
+public class SimpleTimetableFragment extends BaseMwmRecyclerFragment<SimpleTimetableAdapter>
                                   implements TimetableFragment.TimetableProvider,
                                              HoursMinutesPickerFragment.OnPickListener
 {
@@ -26,7 +26,7 @@ public class SimpleTimetableFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  protected RecyclerView.Adapter createAdapter()
+  protected SimpleTimetableAdapter createAdapter()
   {
     mAdapter = new SimpleTimetableAdapter(this);
     if (mInitTts != null)

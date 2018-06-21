@@ -32,7 +32,7 @@ import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.ShareOption;
 import com.mapswithme.util.sharing.SharingHelper;
 
-public class BookmarksListFragment extends BaseMwmRecyclerFragment
+public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListAdapter>
     implements RecyclerLongClickListener, RecyclerClickListener,
                MenuItem.OnMenuItemClickListener,
                BookmarkManager.BookmarksSharingListener
@@ -52,7 +52,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  protected RecyclerView.Adapter createAdapter()
+  protected BookmarkListAdapter createAdapter()
   {
     return new BookmarkListAdapter(mCategory);
   }
@@ -89,9 +89,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
   public void onResume()
   {
     super.onResume();
-    BookmarkListAdapter adapter = (BookmarkListAdapter) getAdapter();
-    if (adapter == null)
-      return;
+    BookmarkListAdapter adapter = getAdapter();
 
     adapter.startLocationUpdate();
     adapter.notifyDataSetChanged();
@@ -102,9 +100,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
   {
     super.onPause();
 
-    BookmarkListAdapter adapter = (BookmarkListAdapter) getAdapter();
-    if (adapter != null)
-      adapter.stopLocationUpdate();
+    BookmarkListAdapter adapter = getAdapter();
+    adapter.stopLocationUpdate();
   }
 
   @Override
@@ -116,9 +113,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
 
   private void configureAdapter()
   {
-    BookmarkListAdapter adapter = (BookmarkListAdapter) getAdapter();
-    if (adapter == null)
-      return;
+    BookmarkListAdapter adapter = getAdapter();
 
     adapter.startLocationUpdate();
     adapter.setOnClickListener(this);
@@ -130,26 +125,23 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
   {
     final Intent i = new Intent(getActivity(), MwmActivity.class);
 
-    BookmarkListAdapter adapter = (BookmarkListAdapter) getAdapter();
+    BookmarkListAdapter adapter = getAdapter();
 
-    if (adapter != null)
+    switch (adapter.getItemViewType(position))
     {
-      switch (adapter.getItemViewType(position))
-      {
-        case BookmarkListAdapter.TYPE_SECTION:
-        case BookmarkListAdapter.TYPE_DESC:
-          return;
-        case BookmarkListAdapter.TYPE_BOOKMARK:
-          final Bookmark bookmark = (Bookmark) adapter.getItem(position);
-          i.putExtra(MwmActivity.EXTRA_TASK,
-                     new MwmActivity.ShowBookmarkTask(bookmark.getCategoryId(), bookmark.getBookmarkId()));
-          break;
-        case BookmarkListAdapter.TYPE_TRACK:
-          final Track track = (Track) adapter.getItem(position);
-          i.putExtra(MwmActivity.EXTRA_TASK,
-                     new MwmActivity.ShowTrackTask(track.getCategoryId(), track.getTrackId()));
-          break;
-      }
+      case BookmarkListAdapter.TYPE_SECTION:
+      case BookmarkListAdapter.TYPE_DESC:
+        return;
+      case BookmarkListAdapter.TYPE_BOOKMARK:
+        final Bookmark bookmark = (Bookmark) adapter.getItem(position);
+        i.putExtra(MwmActivity.EXTRA_TASK,
+                   new MwmActivity.ShowBookmarkTask(bookmark.getCategoryId(), bookmark.getBookmarkId()));
+        break;
+      case BookmarkListAdapter.TYPE_TRACK:
+        final Track track = (Track) adapter.getItem(position);
+        i.putExtra(MwmActivity.EXTRA_TASK,
+                   new MwmActivity.ShowTrackTask(track.getCategoryId(), track.getTrackId()));
+        break;
     }
 
     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -159,9 +151,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
   @Override
   public void onLongItemClick(View v, int position)
   {
-    BookmarkListAdapter adapter = (BookmarkListAdapter) getAdapter();
-    if (adapter == null)
-      return;
+    BookmarkListAdapter adapter = getAdapter();
 
     mSelectedPosition = position;
     int type = adapter.getItemViewType(mSelectedPosition);
@@ -215,9 +205,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment
   @Override
   public boolean onMenuItemClick(MenuItem menuItem)
   {
-    BookmarkListAdapter adapter = (BookmarkListAdapter) getAdapter();
-    if (adapter == null)
-      return false;
+    BookmarkListAdapter adapter = getAdapter();
 
     Bookmark item = (Bookmark) adapter.getItem(mSelectedPosition);
 

@@ -5,12 +5,12 @@ import android.support.v7.widget.RecyclerView;
 
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 
-public class CuisineFragment extends BaseMwmRecyclerFragment
+public class CuisineFragment extends BaseMwmRecyclerFragment<CuisineAdapter>
 {
   private CuisineAdapter mAdapter;
 
   @Override
-  protected RecyclerView.Adapter createAdapter()
+  protected CuisineAdapter createAdapter()
   {
     mAdapter = new CuisineAdapter();
     return mAdapter;

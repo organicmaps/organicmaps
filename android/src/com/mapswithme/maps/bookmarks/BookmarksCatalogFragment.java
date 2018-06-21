@@ -200,7 +200,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     }
   }
 
-  private static class ImportCategoryListener implements BookmarkManager.BookmarksCatalogListener
+  private static class ImportCategoryListener extends BookmarkManager.DefaultBookmarksCatalogListener
   {
     @NonNull
     private final Context mContext;
@@ -211,19 +211,10 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     }
 
     @Override
-    public void onImportStarted(@NonNull String serverId)
-    {
-
-    }
-
-    @Override
     public void onImportFinished(@NonNull String serverId, boolean successful)
     {
       if (successful)
-      {
-        Toast.makeText(mContext,
-                       R.string.bookmarks_webview_success_toast , Toast.LENGTH_SHORT).show();
-      }
+        Toast.makeText(mContext, R.string.bookmarks_webview_success_toast, Toast.LENGTH_SHORT).show();
     }
   }
 }

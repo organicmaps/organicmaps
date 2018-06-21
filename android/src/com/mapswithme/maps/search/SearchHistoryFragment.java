@@ -14,7 +14,7 @@ import com.mapswithme.maps.widget.PlaceholderView;
 import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.util.UiUtils;
 
-public class SearchHistoryFragment extends BaseMwmRecyclerFragment
+public class SearchHistoryFragment extends BaseMwmRecyclerFragment<SearchHistoryAdapter>
 {
   private PlaceholderView mPlaceHolder;
 
@@ -24,7 +24,7 @@ public class SearchHistoryFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  protected RecyclerView.Adapter createAdapter()
+  protected SearchHistoryAdapter createAdapter()
   {
     return new SearchHistoryAdapter(((SearchToolbarController.Container) getParentFragment()).getController());
   }

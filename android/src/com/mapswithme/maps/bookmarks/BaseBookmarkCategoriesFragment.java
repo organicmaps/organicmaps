@@ -24,7 +24,7 @@ import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.SharingHelper;
 
-public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFragment
+public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFragment<BookmarkCategoriesAdapter>
     implements EditTextDialogFragment.EditTextDialogInterface,
                MenuItem.OnMenuItemClickListener,
                BookmarkManager.BookmarksLoadingListener,
@@ -53,17 +53,9 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   }
 
   @Override
-  protected RecyclerView.Adapter createAdapter()
+  protected BookmarkCategoriesAdapter createAdapter()
   {
     return new BookmarkCategoriesAdapter(getActivity());
-  }
-
-  @Nullable
-  @Override
-  protected BookmarkCategoriesAdapter getAdapter()
-  {
-    RecyclerView.Adapter adapter = super.getAdapter();
-    return adapter != null ? (BookmarkCategoriesAdapter) adapter : null;
   }
 
   @CallSuper
@@ -73,12 +65,9 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     super.onViewCreated(view, savedInstanceState);
 
     onPrepareControllers(view);
-    if (getAdapter() != null)
-    {
-      getAdapter().setOnClickListener(this);
-      getAdapter().setOnLongClickListener(this);
-      getAdapter().setCategoryListCallback(this);
-    }
+    getAdapter().setOnClickListener(this);
+    getAdapter().setOnLongClickListener(this);
+    getAdapter().setCategoryListCallback(this);
 
     RecyclerView rw = getRecyclerView();
     if (rw == null) return;
@@ -130,8 +119,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   {
     super.onResume();
     updateLoadingPlaceholder();
-    if (getAdapter() != null)
-      getAdapter().notifyDataSetChanged();
+    getAdapter().notifyDataSetChanged();
     if (!BookmarkManager.INSTANCE.isAsyncBookmarksLoadingInProgress())
       mImportKmlTask.run();
   }
@@ -206,8 +194,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   public void onBookmarksLoadingFinished()
   {
     updateLoadingPlaceholder();
-    if (getAdapter() != null)
-      getAdapter().notifyDataSetChanged();
+    getAdapter().notifyDataSetChanged();
     mImportKmlTask.run();
   }
 
@@ -244,20 +231,14 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   @Override
   public void onFinishKmlImport()
   {
-    if (getAdapter() != null) getAdapter().notifyDataSetChanged();
+    getAdapter().notifyDataSetChanged();
   }
 
   @NonNull
   @Override
   public EditTextDialogFragment.OnTextSaveListener getSaveTextListener()
   {
-    return text -> {
-      if (mCategoryEditor != null)
-        mCategoryEditor.commit(text);
-
-      if (getAdapter() != null)
-        getAdapter().notifyDataSetChanged();
-    };
+    return this::onSaveText;
   }
 
   @NonNull
@@ -295,6 +276,14 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   protected int getDeleteMenuItemResId()
   {
     return R.id.set_delete;
+  }
+
+  private void onSaveText(String text)
+  {
+    if (mCategoryEditor != null)
+      mCategoryEditor.commit(text);
+
+    getAdapter().notifyDataSetChanged();
   }
 
   interface CategoryEditor
@@ -388,8 +377,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
                           @NonNull BookmarkCategory category)
       {
         BookmarkManager.INSTANCE.toggleCategoryVisibility(category.getId());
-        if (frag.getAdapter() != null)
-          frag.getAdapter().notifyDataSetChanged();
+        frag.getAdapter().notifyDataSetChanged();
       }
     }
 
@@ -410,8 +398,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
                           @NonNull BookmarkCategory category)
       {
         BookmarkManager.INSTANCE.deleteCategory(category.getId());
-        if (frag.getAdapter() != null)
-          frag.getAdapter().notifyDataSetChanged();
+        frag.getAdapter().notifyDataSetChanged();
       }
     }
 

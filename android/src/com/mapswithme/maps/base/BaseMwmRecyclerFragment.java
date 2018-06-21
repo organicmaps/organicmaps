@@ -20,25 +20,33 @@ import com.mapswithme.maps.widget.recycler.ItemDecoratorFactory;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
-public abstract class BaseMwmRecyclerFragment extends Fragment
+public abstract class BaseMwmRecyclerFragment<T extends RecyclerView.Adapter> extends Fragment
 {
   private Toolbar mToolbar;
-  @Nullable
+
+  @SuppressWarnings("NullableProblems")
+  @NonNull
   private RecyclerView mRecycler;
+
   @Nullable
   private PlaceholderView mPlaceholder;
 
-  protected abstract RecyclerView.Adapter createAdapter();
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private T mAdapter;
 
-  protected @LayoutRes int getLayoutRes()
+  protected abstract T createAdapter();
+
+  @LayoutRes
+  protected int getLayoutRes()
   {
     return R.layout.fragment_recycler;
   }
 
-  @Nullable
-  protected RecyclerView.Adapter getAdapter()
+  @NonNull
+  protected T getAdapter()
   {
-    return mRecycler != null ? mRecycler.getAdapter() : null;
+    return mAdapter;
   }
 
   @Override
@@ -60,21 +68,14 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
   {
     super.onViewCreated(view, savedInstanceState);
 
-    mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+    mToolbar = view.findViewById(R.id.toolbar);
     if (mToolbar != null)
     {
       UiUtils.showHomeUpButton(mToolbar);
-      mToolbar.setNavigationOnClickListener(new View.OnClickListener()
-      {
-        @Override
-        public void onClick(View v)
-        {
-          Utils.navigateToParent(getActivity());
-        }
-      });
+      mToolbar.setNavigationOnClickListener(v -> Utils.navigateToParent(getActivity()));
     }
 
-    mRecycler = (RecyclerView) view.findViewById(R.id.recycler);
+    mRecycler = view.findViewById(R.id.recycler);
     if (mRecycler == null)
       throw new IllegalStateException("RecyclerView not found in layout");
 
@@ -84,7 +85,8 @@ public abstract class BaseMwmRecyclerFragment extends Fragment
     RecyclerView.ItemDecoration decor = ItemDecoratorFactory
         .createDefaultDecorator(getContext(), LinearLayoutManager.VERTICAL);
     mRecycler.addItemDecoration(decor);
-    mRecycler.setAdapter(createAdapter());
+    mAdapter = createAdapter();
+    mRecycler.setAdapter(mAdapter);
 
     mPlaceholder = view.findViewById(R.id.placeholder);
     setupPlaceholder(mPlaceholder);

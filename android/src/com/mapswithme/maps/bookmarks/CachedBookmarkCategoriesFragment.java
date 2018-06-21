@@ -51,7 +51,7 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
   }
 
   @Override
-  protected RecyclerView.Adapter createAdapter()
+  protected CatalogBookmarkCategoriesAdapter createAdapter()
   {
     return new CatalogBookmarkCategoriesAdapter(getContext());
   }

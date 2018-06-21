@@ -14,7 +14,7 @@ import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.maps.editor.data.LocalizedStreet;
 
-public class StreetFragment extends BaseMwmRecyclerFragment
+public class StreetFragment extends BaseMwmRecyclerFragment<StreetAdapter>
     implements EditTextDialogFragment.EditTextDialogInterface
 {
   private LocalizedStreet mSelectedString;
@@ -41,7 +41,7 @@ public class StreetFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  protected RecyclerView.Adapter createAdapter()
+  protected StreetAdapter createAdapter()
   {
     return new StreetAdapter(this, Editor.nativeGetNearbyStreets(), mSelectedString);
   }

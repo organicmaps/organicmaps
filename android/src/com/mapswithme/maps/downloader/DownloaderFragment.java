@@ -19,7 +19,7 @@ import com.mapswithme.maps.widget.PlaceholderView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DownloaderFragment extends BaseMwmRecyclerFragment
+public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapter>
                              implements OnBackPressListener
 {
   private DownloaderToolbarController mToolbarController;
@@ -191,7 +191,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
   }
 
   @Override
-  protected RecyclerView.Adapter createAdapter()
+  protected DownloaderAdapter createAdapter()
   {
     if (mAdapter == null)
       mAdapter = new DownloaderAdapter(this);
@@ -206,8 +206,8 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     mToolbarController.onActivityResult(requestCode, resultCode, data);
   }
 
+  @NonNull
   @Override
-  @Nullable
   public DownloaderAdapter getAdapter()
   {
     return mAdapter;
