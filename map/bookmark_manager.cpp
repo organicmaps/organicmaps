@@ -1804,12 +1804,19 @@ bool BookmarkManager::CheckVisibility(BookmarkManager::CategoryFilterType const 
   return true;
 }
 
-void BookmarkManager::SetAllCategoriesVisibility(bool visible)
+void BookmarkManager::SetAllCategoriesVisibility(BookmarkManager::CategoryFilterType const filter,
+                                                 bool visible)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   auto session = GetEditSession();
+
   for (auto & c : m_categories)
+  {
+    auto const fromCatalog = IsCategoryFromCatalog(c.first);
+    if (!IsValidFilterType(filter, fromCatalog))
+      continue;
     c.second->SetIsVisible(visible);
+  }
 }
 
 bool BookmarkManager::CanConvert() const

@@ -438,7 +438,6 @@ public enum BookmarkManager
 
   public boolean areAllCategoriesVisible(BookmarkCategory.Type type)
   {
-
     return nativeAreAllCategoriesVisible(type.ordinal());
   }
 
@@ -459,7 +458,7 @@ public enum BookmarkManager
 
   public void setAllCategoriesVisibility(boolean visible)
   {
-    nativeSetAllCategoriesVisibility(visible);
+    nativeSetAllCategoriesVisibility(visible, BookmarkCategory.Type.PRIVATE.ordinal());
   }
 
   public int getKmlFilesCountForConversion()
@@ -625,7 +624,7 @@ public enum BookmarkManager
 
   private static native boolean nativeAreAllCategoriesInvisible(int type);
 
-  private static native void nativeSetAllCategoriesVisibility(boolean visible);
+  private static native void nativeSetAllCategoriesVisibility(boolean visible, int type);
 
   private static native int nativeGetKmlFilesCountForConversion();
 

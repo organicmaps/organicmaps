@@ -552,9 +552,10 @@ Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeAreAllCategoriesVi
 
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_bookmarks_data_BookmarkManager_nativeSetAllCategoriesVisibility(
-        JNIEnv * env, jobject thiz, jboolean visible)
+        JNIEnv * env, jobject thiz, jboolean visible, jint type)
 {
-  frm()->GetBookmarkManager().SetAllCategoriesVisibility(static_cast<bool>(visible));
+  auto const filter = static_cast<BookmarkManager::CategoryFilterType>(type);
+  frm()->GetBookmarkManager().SetAllCategoriesVisibility(filter, static_cast<bool>(visible));
 }
 
 JNIEXPORT jint JNICALL
