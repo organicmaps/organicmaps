@@ -91,7 +91,7 @@ UNIT_TEST(LessBy)
 
     std::vector<Value> v = {{2, 2}, {0, 4}, {3, 1}, {4, 0}, {1, 3}};
     std::sort(v.begin(), v.end(), my::LessBy(&Value::first));
-    for (size_t i = 0; i < v.size(); ++i)
+    for (int i = 0; i < static_cast<int>(v.size()); ++i)
       TEST_EQUAL(i, v[i].first, ());
 
     std::vector<Value const *> pv;
@@ -99,7 +99,7 @@ UNIT_TEST(LessBy)
       pv.push_back(&p);
 
     std::sort(pv.begin(), pv.end(), my::LessBy(&Value::second));
-    for (size_t i = 0; i < pv.size(); ++i)
+    for (int i = 0; i < static_cast<int>(pv.size()); ++i)
       TEST_EQUAL(i, pv[i]->second, ());
   }
 

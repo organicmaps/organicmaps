@@ -8,6 +8,7 @@
 #include <set>
 #include <sstream>
 #include <vector>
+#include <iterator>
 
 namespace strings
 {
@@ -200,7 +201,9 @@ LevenshteinDFA::LevenshteinDFA(UniString const & s, size_t prefixSize,
   m_alphabet.assign(s.begin(), s.end());
   CHECK_LESS_OR_EQUAL(prefixSize, s.size(), ());
 
-  for (auto it = s.begin(); std::distance(it, s.begin()) < prefixSize; ++it)
+  auto pSize = static_cast<typename std::iterator_traits<
+          UniString::iterator>::difference_type>(prefixSize);
+  for (auto it = s.begin(); std::distance(it, s.begin()) < pSize; ++it)
   {
     for (auto const & misprints : prefixMisprints)
     {

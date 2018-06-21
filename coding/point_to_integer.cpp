@@ -7,8 +7,9 @@ int64_t PointToInt64Obsolete(double x, double y, uint32_t coordBits)
 {
   int64_t const res = static_cast<int64_t>(PointUToUint64Obsolete(PointDToPointU(x, y, coordBits)));
 
-  ASSERT_LESS_OR_EQUAL(res, 3ULL << 2 * POINT_COORD_BITS, ());
   ASSERT_GREATER_OR_EQUAL(res, 0, ("Highest bits of (ix, iy) are not used, so res should be > 0."));
+  ASSERT_LESS_OR_EQUAL(static_cast<uint64_t>(res),
+                       static_cast<uint64_t>(3ULL << 2 * POINT_COORD_BITS), ());
   return res;
 }
 
@@ -19,7 +20,9 @@ int64_t PointToInt64Obsolete(m2::PointD const & pt, uint32_t coordBits)
 
 m2::PointD Int64ToPointObsolete(int64_t v, uint32_t coordBits)
 {
-  ASSERT_LESS_OR_EQUAL(v, 3ULL << 2 * POINT_COORD_BITS, ());
+  ASSERT_GREATER_OR_EQUAL(v, 0, ("Highest bits of (ix, iy) are not used, so res should be > 0."));
+  ASSERT_LESS_OR_EQUAL(static_cast<uint64_t>(v),
+                       static_cast<uint64_t>(3ULL << 2 * POINT_COORD_BITS), ());
   return PointUToPointD(Uint64ToPointUObsolete(static_cast<uint64_t>(v)), coordBits);
 }
 

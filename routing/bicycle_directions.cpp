@@ -345,7 +345,8 @@ void BicycleDirectionsEngine::FillPathSegmentsAndAdjacentEdgesMap(
       continue;
     }
 
-    CHECK_EQUAL(prevJunctions.size(), abs(static_cast<int32_t>(inSegId - startSegId)) + 1, ());
+    CHECK_EQUAL(prevJunctions.size(), static_cast<typename vector<Junction>::size_type>(
+                    abs(static_cast<int32_t>(inSegId - startSegId)) + 1), ());
 
     prevJunctions.push_back(currJunction);
 

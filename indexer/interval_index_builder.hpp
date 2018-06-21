@@ -10,6 +10,7 @@
 #include "base/logging.hpp"
 #include "std/vector.hpp"
 
+#include <limits>
 // +------------------------------+
 // |            Header            |
 // +------------------------------+
@@ -140,8 +141,7 @@ public:
     for (CellIdValueIter it = beg; it != end; ++it)
     {
       CHECK_LESS(it->GetCell(), 1ULL << keyBits, ());
-      // We use static_cast<int64_t>(value) in BuildLeaves to store values difference as VarInt.
-      CHECK_EQUAL(it->GetValue(), static_cast<int64_t>(it->GetValue()), ());
+      CHECK_LESS_OR_EQUAL(it->GetValue(), std::numeric_limits<int64_t>::max(), ());
     }
 
     return true;

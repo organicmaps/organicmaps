@@ -763,7 +763,7 @@ RouterResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
                                          [lastMwmId](Segment const & s) { return s.GetMwmId() == lastMwmId; });
   auto const finishLeapStart = distance(input.begin(), finishLeapStartIt);
 
-  for (size_t i = 0; i <= finishLeapStart; ++i)
+  for (vector<Segment>::difference_type i = 0; i <= finishLeapStart; ++i)
   {
     auto const & current = input[i];
 
@@ -780,7 +780,7 @@ RouterResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
     {
       bool const isStartLeap = i == 0;
       i = isStartLeap ? startLeapEnd : input.size() - 1;
-      CHECK_LESS(i, input.size(), ());
+      CHECK_LESS(static_cast<vector<Segment>::size_type>(i), input.size(), ());
       auto const & next = input[i];
 
       // First start-to-mwm-exit and last mwm-enter-to-finish leaps need special processing.
@@ -807,7 +807,7 @@ RouterResultCode IndexRouter::ProcessLeaps(vector<Segment> const & input,
     else
     {
       ++i;
-      CHECK_LESS(i, input.size(), ());
+      CHECK_LESS(static_cast<vector<Segment>::size_type>(i), input.size(), ());
       auto const & next = input[i];
 
       CHECK(!IndexGraphStarter::IsFakeSegment(current), ());
