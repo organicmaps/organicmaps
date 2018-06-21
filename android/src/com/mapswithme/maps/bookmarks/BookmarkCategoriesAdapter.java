@@ -215,14 +215,14 @@ public class BookmarkCategoriesAdapter extends BaseBookmarkCategoryAdapter<Recyc
     @Override
     public void onHideAll()
     {
-      BookmarkManager.INSTANCE.setAllCategoriesVisibility(false);
+      BookmarkManager.INSTANCE.setAllCategoriesVisibility(false, mType);
       notifyDataSetChanged();
     }
 
     @Override
     public void onShowAll()
     {
-      BookmarkManager.INSTANCE.setAllCategoriesVisibility(true);
+      BookmarkManager.INSTANCE.setAllCategoriesVisibility(true, mType);
       notifyDataSetChanged();
     }
   }
