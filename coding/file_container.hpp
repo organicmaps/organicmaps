@@ -30,6 +30,12 @@ public:
     return GetInfo(tag) != 0;
   }
 
+  template <typename ToDo>
+  void ForEachTag(ToDo && toDo) const
+  {
+    std::for_each(m_info.begin(), m_info.end(), std::forward<ToDo>(toDo));
+  }
+
 protected:
   struct Info
   {
@@ -40,10 +46,6 @@ protected:
     Info() {}
     Info(Tag const & tag, uint64_t offset) : m_tag(tag), m_offset(offset) {}
   };
-
-  friend std::string DebugPrint(Info const & info);
-
-  Info const * GetInfo(Tag const & tag) const;
 
   struct LessInfo
   {
@@ -97,18 +99,15 @@ protected:
     Tag const & m_tag;
   };
 
+  friend std::string DebugPrint(Info const & info);
+
+  Info const * GetInfo(Tag const & tag) const;
+
+  template <typename Reader>
+  void ReadInfo(Reader & reader);
+
   using InfoContainer = std::vector<Info>;
   InfoContainer m_info;
-
-  template <typename ReaderT>
-  void ReadInfo(ReaderT & reader);
-
-public:
-  template <typename ToDo>
-  void ForEachTag(ToDo && toDo) const
-  {
-    std::for_each(m_info.begin(), m_info.end(), std::forward<ToDo>(toDo));
-  }
 };
 
 class FilesContainerR : public FilesContainerBase
@@ -143,8 +142,6 @@ namespace detail
 {
 class MappedFile
 {
-  DISALLOW_COPY(MappedFile);
-
 public:
   MappedFile() = default;
   ~MappedFile() { Close(); }
@@ -154,23 +151,16 @@ public:
 
   class Handle
   {
-    DISALLOW_COPY(Handle);
-
-    void Reset();
-
   public:
-    Handle()
-      : m_base(0), m_origBase(0), m_size(0), m_origSize(0)
-    {
-    }
+    Handle() = default;
+
     Handle(char const * base, char const * alignBase, uint64_t size, uint64_t origSize)
       : m_base(base), m_origBase(alignBase), m_size(size), m_origSize(origSize)
     {
     }
-    Handle(Handle && h) : Handle()
-    {
-      Assign(std::move(h));
-    }
+
+    Handle(Handle && h) { Assign(std::move(h)); }
+
     ~Handle();
 
     void Assign(Handle && h);
@@ -195,10 +185,14 @@ public:
     }
 
   private:
-    char const * m_base;
-    char const * m_origBase;
-    uint64_t m_size;
-    uint64_t m_origSize;
+    void Reset();
+
+    char const * m_base = nullptr;
+    char const * m_origBase = nullptr;
+    uint64_t m_size = 0;
+    uint64_t m_origSize = 0;
+
+    DISALLOW_COPY(Handle);
   };
 
   Handle Map(uint64_t offset, uint64_t size, std::string const & tag) const;
@@ -210,6 +204,8 @@ private:
 #else
   int m_fd = -1;
 #endif
+
+  DISALLOW_COPY(MappedFile);
 };
 } // namespace detail
 

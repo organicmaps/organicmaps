@@ -26,7 +26,8 @@
 
 using namespace std;
 
-template <class TSource, class InfoT> void Read(TSource & src, InfoT & i)
+template <typename Source, typename Info>
+void Read(Source & src, Info & i)
 {
   rw::Read(src, i.m_tag);
 
@@ -34,7 +35,8 @@ template <class TSource, class InfoT> void Read(TSource & src, InfoT & i)
   i.m_size = ReadVarUint<uint64_t>(src);
 }
 
-template <class TSink, class InfoT> void Write(TSink & sink, InfoT const & i)
+template <typename Sink, typename Info>
+void Write(Sink & sink, Info const & i)
 {
   rw::Write(sink, i.m_tag);
 
@@ -53,12 +55,12 @@ string DebugPrint(FilesContainerBase::Info const & info)
 // FilesContainerBase
 /////////////////////////////////////////////////////////////////////////////
 
-template <class ReaderT>
-void FilesContainerBase::ReadInfo(ReaderT & reader)
+template <typename Reader>
+void FilesContainerBase::ReadInfo(Reader & reader)
 {
   uint64_t offset = ReadPrimitiveFromPos<uint64_t>(reader, 0);
 
-  ReaderSource<ReaderT> src(reader);
+  ReaderSource<Reader> src(reader);
   src.Skip(offset);
 
   rw::Read(src, m_info);

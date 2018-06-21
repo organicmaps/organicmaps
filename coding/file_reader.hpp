@@ -34,8 +34,6 @@ protected:
   void SetOffsetAndSize(uint64_t offset, uint64_t size);
 
 private:
-  using BaseType = ModelReader;
-
   class FileReaderData;
 
   FileReader(FileReader const & reader, uint64_t offset, uint64_t size, uint32_t logPageSize,

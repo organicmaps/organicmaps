@@ -49,6 +49,7 @@ using namespace feature;
 using namespace platform;
 using namespace routing;
 using namespace std;
+using namespace std::placeholders;
 
 namespace
 {
@@ -110,8 +111,7 @@ public:
 
   void ProcessAllFeatures(string const & filename)
   {
-    feature::ForEachFromDat(filename, bind(&Processor::ProcessFeature, this, std::placeholders::_1,
-                                           std::placeholders::_2));
+    feature::ForEachFromDat(filename, bind(&Processor::ProcessFeature, this, _1, _2));
   }
 
   void BuildGraph(IndexGraph & graph) const

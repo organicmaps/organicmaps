@@ -19,11 +19,9 @@ namespace
 {
 class FileDataWithCachedSize : public my::FileData
 {
-  using base_t = my::FileData;
-
 public:
   explicit FileDataWithCachedSize(string const & fileName)
-    : base_t(fileName, FileData::OP_READ), m_Size(FileData::Size())
+    : my::FileData(fileName, FileData::OP_READ), m_Size(FileData::Size())
   {
   }
 
@@ -86,7 +84,7 @@ FileReader::FileReader(std::string const & fileName)
 }
 
 FileReader::FileReader(string const & fileName, uint32_t logPageSize, uint32_t logPageCount)
-  : BaseType(fileName)
+  : ModelReader(fileName)
   , m_logPageSize(logPageSize)
   , m_logPageCount(logPageCount)
   , m_fileData(new FileReaderData(fileName, logPageSize, logPageCount))
@@ -97,7 +95,7 @@ FileReader::FileReader(string const & fileName, uint32_t logPageSize, uint32_t l
 
 FileReader::FileReader(FileReader const & reader, uint64_t offset, uint64_t size,
                        uint32_t logPageSize, uint32_t logPageCount)
-  : BaseType(reader.GetName())
+  : ModelReader(reader.GetName())
   , m_logPageSize(logPageSize)
   , m_logPageCount(logPageCount)
   , m_fileData(reader.m_fileData)
