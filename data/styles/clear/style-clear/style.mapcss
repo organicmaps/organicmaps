@@ -86,6 +86,13 @@ colors
   RouteMarkPrimaryTextOutline-color: #FFFFFF;
   RouteMarkSecondaryText-color: #000000;
   RouteMarkSecondaryTextOutline-color: #FFFFFF;
+  TransitMarkPrimaryText-color: #000000;
+  TransitMarkPrimaryTextOutline-color: #FFFFFF;
+  TransitMarkSecondaryText-color: #000000;
+  TransitMarkSecondaryTextOutline-color: #FFFFFF;
+  TransitTransferOuterMarker-color: #000000;
+  TransitTransferInnerMarker-color: #FFFFFF;
+  TransitStopInnerMarker-color: #FFFFFF;
   LocalAdsPrimaryText-color: #000000;
   LocalAdsPrimaryTextOutline-color: #FFFFFF;
   LocalAdsSecondaryText-color: #000000;
