@@ -48,8 +48,6 @@ using namespace std;
 
 namespace
 {
-//#define SHOW_ROUTE_DEBUG_MARKS
-
 char const kRouterTypeKey[] = "router";
 
 double const kRouteScaleMultiplier = 1.5;
@@ -229,17 +227,19 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
     GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kRoutingCalculatingRoute, {});
   };
 
-  m_routingSession.Init(routingStatisticsFn, [this](m2::PointD const & pt)
-  {
-    UNUSED_VALUE(this);
+  m_routingSession.Init(routingStatisticsFn,
 #ifdef SHOW_ROUTE_DEBUG_MARKS
-    if (m_bmManager == nullptr)
-      return;
-    auto editSession = m_bmManager->GetEditSession();
-    editSession.SetIsVisible(UserMark::Type::DEBUG_MARK, true);
-    editSession.CreateUserMark<DebugMarkPoint>(pt);
+                        [this](m2::PointD const & pt) {
+                          if (m_bmManager == nullptr)
+                            return;
+                          auto editSession = m_bmManager->GetEditSession();
+                          editSession.SetIsVisible(UserMark::Type::DEBUG_MARK, true);
+                          editSession.CreateUserMark<DebugMarkPoint>(pt);
+                        }
+#else
+                        nullptr
 #endif
-  });
+  );
 
   m_routingSession.SetReadyCallbacks(
       [this](Route const & route, RouterResultCode code) { OnBuildRouteReady(route, code); },

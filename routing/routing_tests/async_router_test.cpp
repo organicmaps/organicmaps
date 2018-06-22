@@ -7,6 +7,8 @@
 
 #include "geometry/point2d.hpp"
 
+#include "platform/platform.hpp"
+
 #include "base/timer.hpp"
 
 #include "std/condition_variable.hpp"
@@ -71,7 +73,7 @@ struct DummyResultCallback
   explicit DummyResultCallback(uint32_t expectedCalls) : m_expected(expectedCalls), m_called(0) {}
 
   // ReadyCallbackOwnership callback
-  void operator()(unique_ptr<Route> route, RouterResultCode code)
+  void operator()(shared_ptr<Route> route, RouterResultCode code)
   {
     CHECK(route, ());
     m_codes.push_back(code);
@@ -130,7 +132,7 @@ UNIT_TEST(NeedMoreMapsSignalTest)
   TEST_EQUAL(resultCallback.m_absent[1], absentData, ());
 }
 
-UNIT_TEST(StandartAsyncFogTest)
+UNIT_TEST(StandardAsyncFogTest)
 {
   unique_ptr<IOnlineFetcher> fetcher(new DummyFetcher({}));
   unique_ptr<IRouter> router(new DummyRouter(RouterResultCode::NoError, {}));

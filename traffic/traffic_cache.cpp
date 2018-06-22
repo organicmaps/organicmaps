@@ -4,9 +4,9 @@ namespace traffic
 {
 using namespace std;
 
-void TrafficCache::Set(MwmSet::MwmId const & mwmId, TrafficInfo::Coloring && coloring)
+void TrafficCache::Set(MwmSet::MwmId const & mwmId, shared_ptr<TrafficInfo::Coloring> coloring)
 {
-  m_trafficColoring[mwmId] = make_shared<TrafficInfo::Coloring>(move(coloring));
+  m_trafficColoring[mwmId] = coloring;
 }
 
 void TrafficCache::Remove(MwmSet::MwmId const & mwmId) { m_trafficColoring.erase(mwmId); }

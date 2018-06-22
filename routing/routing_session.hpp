@@ -18,6 +18,7 @@
 #include "geometry/polyline2d.hpp"
 
 #include "base/mutex.hpp"
+#include "base/thread_checker.hpp"
 
 #include "std/functional.hpp"
 #include "std/limits.hpp"
@@ -43,6 +44,9 @@ struct SpeedCameraRestriction
   SpeedCameraRestriction() : m_index(0), m_maxSpeedKmH(numeric_limits<uint8_t>::max()) {}
 };
 
+/// \breaf This class is responsible for the route built in the program.
+/// \note All method of this class should be called from ui thread if there's no
+/// a special note near a method.
 class RoutingSession : public traffic::TrafficObserver, public traffic::TrafficCache
 {
   friend void UnitTest_TestFollowRoutePercentTest();
@@ -167,7 +171,9 @@ public:
 
   // RoutingObserver overrides:
   void OnTrafficInfoClear() override;
+  /// \note. This method may be called from any thread.
   void OnTrafficInfoAdded(traffic::TrafficInfo && info) override;
+  /// \note. This method may be called from any thread.
   void OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId) override;
 
   // TrafficCache overrides:
@@ -181,19 +187,17 @@ private:
   {
     RoutingSession & m_rs;
     ReadyCallback m_callback;
-    threads::Mutex & m_routeSessionMutexInner;
 
-    DoReadyCallback(RoutingSession & rs, ReadyCallback const & cb,
-                    threads::Mutex & routeSessionMutex)
-        : m_rs(rs), m_callback(cb), m_routeSessionMutexInner(routeSessionMutex)
+    DoReadyCallback(RoutingSession & rs, ReadyCallback const & cb)
+        : m_rs(rs), m_callback(cb)
     {
     }
 
-    void operator()(unique_ptr<Route> route, RouterResultCode e);
+    void operator()(shared_ptr<Route> route, RouterResultCode e);
   };
 
   // Should be called with locked m_routingSessionMutex.
-  void AssignRoute(unique_ptr<Route> route, RouterResultCode e);
+  void AssignRoute(shared_ptr<Route> route, RouterResultCode e);
 
   /// Returns a nearest speed camera record on your way and distance to it.
   /// Returns kInvalidSpeedCameraDistance if there is no cameras on your way.
@@ -215,7 +219,7 @@ private:
 
 private:
   unique_ptr<AsyncRouter> m_router;
-  unique_ptr<Route> m_route;
+  shared_ptr<Route> m_route;
   State m_state;
   bool m_isFollowing;
   Checkpoints m_checkpoints;
@@ -228,9 +232,6 @@ private:
   /// This field is mutable because it's modified in a constant getter. Note that the notification
   /// about camera will be sent at most once.
   mutable bool m_speedWarningSignal;
-
-  /// |m_routingSessionMutex| should be used for access to all members of RoutingSession class.
-  mutable threads::Mutex m_routingSessionMutex;
 
   /// Current position metrics to check for RouteNeedRebuild state.
   double m_lastDistance;
@@ -261,6 +262,8 @@ private:
   // Rerouting count
   int m_routingRebuildCount;
   mutable double m_lastCompletionPercent;
+
+  DECLARE_THREAD_CHECKER(m_threadChecker);
 };
 
 void FormatDistance(double dist, string & value, string & suffix);

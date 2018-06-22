@@ -122,34 +122,36 @@ public class RoutingController implements TaxiManager.TaxiListener
     public void onRoutingEvent(final int resultCode, @Nullable final String[] missingMaps)
     {
       mLogger.d(TAG, "onRoutingEvent(resultCode: " + resultCode + ")");
-      UiThread.run(() -> {
-        mLastResultCode = resultCode;
-        mLastMissingMaps = missingMaps;
-        mContainsCachedResult = true;
+      mLastResultCode = resultCode;
+      mLastMissingMaps = missingMaps;
+      mContainsCachedResult = true;
 
-        if (mLastResultCode == ResultCodesHelper.NO_ERROR
-            || ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
-        {
-          mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
-          if (mLastRouterType == Framework.ROUTER_TYPE_TRANSIT)
-            mCachedTransitRouteInfo = Framework.nativeGetTransitRouteInfo();
-          setBuildState(BuildState.BUILT);
-          mLastBuildProgress = 100;
-          if (mContainer != null)
-            mContainer.onBuiltRoute();
-        }
+      if (mLastResultCode == ResultCodesHelper.NO_ERROR
+        || ResultCodesHelper.isMoreMapsNeeded(mLastResultCode))
+      {
+        mCachedRoutingInfo = Framework.nativeGetRouteFollowingInfo();
+        if (mLastRouterType == Framework.ROUTER_TYPE_TRANSIT)
+          mCachedTransitRouteInfo = Framework.nativeGetTransitRouteInfo();
+        setBuildState(BuildState.BUILT);
+        mLastBuildProgress = 100;
+        if (mContainer != null)
+          mContainer.onBuiltRoute();
+      }
 
-        processRoutingEvent();
-      });
+      processRoutingEvent();
     }
   };
 
   @SuppressWarnings("FieldCanBeLocal")
-  private final Framework.RoutingProgressListener mRoutingProgressListener =
-    progress -> UiThread.run(() -> {
+  private final Framework.RoutingProgressListener mRoutingProgressListener = new Framework.RoutingProgressListener()
+  {
+    @Override
+    public void onRouteBuildingProgress(float progress)
+    {
       mLastBuildProgress = (int) progress;
       updateProgress();
-    });
+    }
+  };
 
   @SuppressWarnings("FieldCanBeLocal")
   private final Framework.RoutingRecommendationListener mRoutingRecommendationListener =

@@ -22,7 +22,7 @@ public:
       const;
 
 protected:
-  void Set(MwmSet::MwmId const & mwmId, TrafficInfo::Coloring && mwmIdAndColoring);
+  void Set(MwmSet::MwmId const & mwmId, std::shared_ptr<TrafficInfo::Coloring> coloring);
   void Remove(MwmSet::MwmId const & mwmId);
   void Clear();
 

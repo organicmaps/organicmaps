@@ -44,7 +44,7 @@ using NeedMoreMapsCallback = std::function<void(uint64_t, std::vector<std::strin
 using PointCheckCallback = std::function<void(m2::PointD const &)>;
 using ProgressCallback = std::function<void(float)>;
 using ReadyCallback = std::function<void(Route const &, RouterResultCode)>;
-using ReadyCallbackOwnership = std::function<void(std::unique_ptr<Route>, RouterResultCode)>;
+using ReadyCallbackOwnership = std::function<void(std::shared_ptr<Route>, RouterResultCode)>;
 using RemoveRouteCallback = std::function<void(RouterResultCode)>;
 using RouteCallback = std::function<void(Route const &)>;
 using RoutingStatisticsCallback = std::function<void(std::map<std::string, std::string> const &)>;
@@ -75,4 +75,7 @@ inline std::string DebugPrint(RouterResultCode code)
   ASSERT(false, (result));
   return result;
 }
+
+// This define should be set to see the spread of A* waves on the map.
+// #define SHOW_ROUTE_DEBUG_MARKS
 }  // namespace routing

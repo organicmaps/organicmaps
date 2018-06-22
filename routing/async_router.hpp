@@ -7,6 +7,8 @@
 #include "routing/router_delegate.hpp"
 #include "routing/routing_callbacks.hpp"
 
+#include "platform/platform.hpp"
+
 #include "base/thread.hpp"
 
 #include "std/cstdint.hpp"
@@ -16,6 +18,7 @@
 #include "std/shared_ptr.hpp"
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
+#include "std/utility.hpp"
 
 namespace routing
 {
@@ -61,19 +64,7 @@ private:
 
   /// This function is called in worker thread
   void CalculateRoute();
-
   void ResetDelegate();
-
-  /// These functions are called to send statistics about the routing
-  void SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,
-                      m2::PointD const & finalPoint,
-                      RouterResultCode resultCode,
-                      Route const & route,
-                      double elapsedSec);
-  void SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,
-                      m2::PointD const & finalPoint,
-                      string const & exceptionMessage);
-
   void LogCode(RouterResultCode code, double const elapsedSec);
 
   /// Blocks callbacks when routing has been cancelled
@@ -87,8 +78,8 @@ private:
                         ProgressCallback const & onProgress,
                         uint32_t timeoutSec);
 
-    void OnReady(unique_ptr<Route> route, RouterResultCode resultCode);
-    void OnNeedMoreMaps(uint64_t routeId, std::vector<std::string> const & absentCounties);
+    void OnReady(shared_ptr<Route> route, RouterResultCode resultCode);
+    void OnNeedMoreMaps(uint64_t routeId, vector<std::string> const & absentCounties);
     void OnRemoveRoute(RouterResultCode resultCode);
     void Cancel();
 
@@ -99,8 +90,8 @@ private:
     void OnPointCheck(m2::PointD const & pt);
 
     mutex m_guard;
-    ReadyCallbackOwnership const m_onReady;
-    // |m_onNeedMoreMaps| may be called after |m_onReady| if
+    ReadyCallbackOwnership const m_onReadyOwnership;
+    // |m_onNeedMoreMaps| may be called after |m_onReadyOwnership| if
     // - it's possible to build route only if to load some maps
     // - there's a faster route, but it's necessary to load some more maps to build it
     NeedMoreMapsCallback const m_onNeedMoreMaps;
@@ -109,6 +100,15 @@ private:
     ProgressCallback const m_onProgress;
     RouterDelegate m_delegate;
   };
+
+  void RunOnReadyOnGuiThread(shared_ptr<RouterDelegateProxy> delegate, shared_ptr<Route> route,
+                             RouterResultCode code);
+
+  template <typename Task>
+  void RunOnGuiThread(Task && task)
+  {
+    GetPlatform().RunTask(Platform::Thread::Gui, std::forward<Task>(task));
+  }
 
 private:
   mutex m_guard;
