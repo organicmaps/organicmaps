@@ -2408,4 +2408,8 @@
 
 "bookmarks_empty_list_message" = "Чтобы добавить новую метку, нажмите на значок звездочки в карточке объекта";
 
-"category_desc_more" = "…more";
+"category_desc_more" = "…еще";
+
+"title_error_downloading_bookmarks" = "Произошла ошибка";
+
+"subtitle_error_downloading_bookmarks" = "Метки не были загружены";

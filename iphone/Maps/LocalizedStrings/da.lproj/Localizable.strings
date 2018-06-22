@@ -2393,3 +2393,7 @@
 "bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";
 
 "category_desc_more" = "…more";
+
+"title_error_downloading_bookmarks" = "An error occured";
+
+"subtitle_error_downloading_bookmarks" = "Bookmarks were not downloaded";

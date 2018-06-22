@@ -1399,4 +1399,6 @@
 	<string name="bookmarks_empty_list_title">This list is empty</string>
 	<string name="bookmarks_empty_list_message">To add a bookmark, tap a place on the map and then tap the star icon</string>
 	<string name="category_desc_more">…more</string>
+	<string name="title_error_downloading_bookmarks">An error occured</string>
+	<string name="subtitle_error_downloading_bookmarks">Bookmarks were not downloaded</string>
 </resources>

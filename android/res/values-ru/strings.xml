@@ -1381,4 +1381,7 @@
 	<string name="subway_data_unavailable">Карта метро недоступна</string>
 	<string name="bookmarks_empty_list_title">Список пустой</string>
 	<string name="bookmarks_empty_list_message">Чтобы добавить новую метку, нажмите на значок звездочки в карточке объекта</string>
+	<string name="category_desc_more">…еще</string>
+	<string name="title_error_downloading_bookmarks">Произошла ошибка</string>
+	<string name="subtitle_error_downloading_bookmarks">Метки не были загружены</string>
 </resources>
