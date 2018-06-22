@@ -31587,4 +31587,13 @@ fa = دوباره نپرس
 
   [category_desc_more]
     en = …more
+    ru = …еще
+
+  [title_error_downloading_bookmarks]
+    en = An error occured
+    ru = Произошла ошибка
+
+  [subtitle_error_downloading_bookmarks]
+    en = Bookmarks were not downloaded
+    ru = Метки не были загружены
 
