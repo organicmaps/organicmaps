@@ -4,7 +4,6 @@
 #import "MWMEditorViewController.h"
 #import "MWMKeyboard.h"
 #import "MWMTableViewCell.h"
-#import "MWMToast.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 #import "UIViewController+Navigation.h"
@@ -96,8 +95,6 @@ string locale()
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-  if ([MWMToast affectsStatusBar])
-    return [MWMToast preferredStatusBarStyle];
   setStatusBarBackgroundColor(UIColor.clearColor);
   return UIStatusBarStyleLightContent;
 }

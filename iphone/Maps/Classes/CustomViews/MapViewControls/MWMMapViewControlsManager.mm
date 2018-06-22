@@ -7,7 +7,6 @@
 #import "MWMPlacePageProtocol.h"
 #import "MWMSearchManager.h"
 #import "MWMSideButtons.h"
-#import "MWMToast.h"
 #import "MWMTrafficButtonViewController.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
@@ -65,9 +64,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-  if ([MWMToast affectsStatusBar])
-    return [MWMToast preferredStatusBarStyle];
-
   BOOL const isSearchUnderStatusBar = (self.searchManager.state != MWMSearchManagerStateHidden);
   BOOL const isNavigationUnderStatusBar =
       self.navigationManager.state != MWMNavigationDashboardStateHidden &&

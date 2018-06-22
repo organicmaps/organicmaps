@@ -15,7 +15,6 @@
 #import "MWMMyTarget.h"
 #import "MWMSegue.h"
 #import "MWMStorage.h"
-#import "MWMToast.h"
 #import "SwiftBridge.h"
 #import "UIViewController+Navigation.h"
 
@@ -708,8 +707,6 @@ using namespace storage;
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-  if ([MWMToast affectsStatusBar])
-    return [MWMToast preferredStatusBarStyle];
   setStatusBarBackgroundColor(UIColor.clearColor);
   return UIStatusBarStyleLightContent;
 }

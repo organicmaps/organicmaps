@@ -1,5 +1,6 @@
 #import "MWMBookmarksManager.h"
 #import "MWMCatalogCategory+Convenience.h"
+#import "MWMCatalogObserver.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
@@ -32,60 +33,13 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 }
 }  // namespace
 
-@interface CatalogObserver : NSObject
-@property (copy, nonatomic) NSString * categoryId;
-@property (copy, nonatomic) void(^progressBlock)();
-@property (copy, nonatomic) void(^completionBlock)(NSError * error);
-- (void)onDownloadStart;
-- (void)onDownloadCompleteSuccessful:(BOOL)success;
-- (void)onImportStart;
-- (void)onImportCompleteSuccessful:(BOOL)success;
-@end
-@implementation CatalogObserver
-
-- (void)onDownloadStart
-{
-  if (self.progressBlock)
-    self.progressBlock();
-}
-
-- (void)onDownloadCompleteSuccessful:(BOOL)success
-{
-  if (success)
-  {
-    if (self.progressBlock)
-      self.progressBlock();
-  }
-  else
-  {
-    if (self.completionBlock)
-      self.completionBlock([[NSError alloc] init]);
-  }
-}
-
-- (void)onImportStart
-{
-  if (self.progressBlock)
-    self.progressBlock();
-}
-
-- (void)onImportCompleteSuccessful:(BOOL)success
-{
-  if (self.completionBlock) {
-    NSError * error = success ? nil : [[NSError alloc] init];
-    self.completionBlock(error);
-  }
-}
-
-@end
-
 @interface MWMBookmarksManager ()
 
 @property(nonatomic) Observers * observers;
 @property(nonatomic) BOOL areBookmarksLoaded;
 @property(nonatomic) NSURL * shareCategoryURL;
 
-@property(nonatomic) NSMutableDictionary * catalogObservers;
+@property(nonatomic) NSMutableDictionary<NSString *, MWMCatalogObserver*> * catalogObservers;
 
 @end
 
@@ -495,24 +449,26 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   return urlString ? [NSURL URLWithString:urlString] : nil;
 }
 
-
-+ (void)downloadItemWithId:(NSString *)itemId name:(NSString *)name completion:(void (^)(NSError * error))completion
++ (void)downloadItemWithId:(NSString *)itemId
+                      name:(NSString *)name
+                  progress:(void (^)(MWMCategoryProgress progress))progress
+                completion:(void (^)(NSError * error))completion
 {
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     [MWMBookmarksManager manager].catalogObservers = [NSMutableDictionary dictionary];
     auto onDownloadStarted = [](std::string const & catId)
     {
-      CatalogObserver *observer = [MWMBookmarksManager manager].catalogObservers[@(catId.c_str())];
+      auto observer = [MWMBookmarksManager manager].catalogObservers[@(catId.c_str())];
       if (observer)
         [observer onDownloadStart];
     };
     auto onDownloadFinished = [](std::string const & catId, platform::RemoteFile::Result const & result)
     {
-      CatalogObserver *observer = [MWMBookmarksManager manager].catalogObservers[@(catId.c_str())];
+      auto observer = [MWMBookmarksManager manager].catalogObservers[@(catId.c_str())];
       if (observer)
       {
-        [observer onDownloadCompleteSuccessful:result.m_status == platform::RemoteFile::Status::Ok];
+        [observer onDownloadComplete:result.m_status];
         if (result.m_status != platform::RemoteFile::Status::Ok) {
           [[MWMBookmarksManager manager].catalogObservers removeObjectForKey:observer.categoryId];
         }
@@ -520,13 +476,13 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
     };
     auto onImportStarted = [](std::string const & catId)
     {
-      CatalogObserver *observer = [MWMBookmarksManager manager].catalogObservers[@(catId.c_str())];
+      auto observer = [MWMBookmarksManager manager].catalogObservers[@(catId.c_str())];
       if (observer)
         [observer onImportStart];
     };
     auto onImportFinished = [](std::string const & catId, bool successful)
     {
-      CatalogObserver *observer = [MWMBookmarksManager manager].catalogObservers[@(catId.c_str())];
+      auto observer = [MWMBookmarksManager manager].catalogObservers[@(catId.c_str())];
       if (observer)
       {
         [observer onImportCompleteSuccessful:successful];
@@ -538,8 +494,9 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
                                                            std::move(onImportStarted),
                                                            std::move(onImportFinished));
   });
-  CatalogObserver *observer = [[CatalogObserver alloc] init];
+  auto *observer = [[MWMCatalogObserver alloc] init];
   observer.categoryId = itemId;
+  observer.progressBlock = progress;
   observer.completionBlock = completion;
   [[MWMBookmarksManager manager].catalogObservers setObject:observer forKey:itemId];
   GetFramework().GetBookmarkManager().DownloadFromCatalogAndImport(itemId.UTF8String, name.UTF8String);
@@ -560,12 +517,17 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
     {
       kml::CategoryData categoryData = GetFramework().GetBookmarkManager().GetCategoryData(groupId);
       UInt64 bookmarksCount = [self getCategoryMarksCount:groupId] + [self getCategoryTracksCount:groupId];
-      MWMCatalogCategory *category = [[MWMCatalogCategory alloc] initWithCategoryData:categoryData
+      MWMCatalogCategory * category = [[MWMCatalogCategory alloc] initWithCategoryData:categoryData
                                                                        bookmarksCount:bookmarksCount];
       [result addObject:category];
     }
   }
   return [result copy];
+}
+
++ (NSInteger)getCatalogDownloadsCount
+{
+  return GetFramework().GetBookmarkManager().GetCatalog().GetDownloadingCount();
 }
 
 @end

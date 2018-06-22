@@ -1,4 +1,4 @@
-class DownloadedBookmarksViewController: UITableViewController {
+class DownloadedBookmarksViewController: MWMTableViewController {
 
   @IBOutlet var topView: UIView!
   @IBOutlet var bottomView: UIView!
@@ -58,6 +58,10 @@ class DownloadedBookmarksViewController: UITableViewController {
   }
 
   @IBAction func onDownloadBookmarks(_ sender: Any) {
+    if MWMPlatform.networkConnectionType() == .none {
+      MWMAlertViewController.activeAlert().presentNoConnectionAlert();
+      return
+    }
     if let url = MWMBookmarksManager.catalogFrontendUrl(),
       let webViewController = CatalogWebViewController(url: url, andTitleOrNil: L("routes_and_bookmarks")) {
       MapViewController.topViewController().navigationController?.pushViewController(webViewController,

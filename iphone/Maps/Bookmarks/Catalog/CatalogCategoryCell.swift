@@ -3,7 +3,7 @@ protocol CatalogCategoryCellDelegate {
   func cell(_ cell: CatalogCategoryCell, didPress moreButton: UIButton)
 }
 
-class CatalogCategoryCell: UITableViewCell {
+class CatalogCategoryCell: MWMTableViewCell {
 
   var delegate: CatalogCategoryCellDelegate?
 

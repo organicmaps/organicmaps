@@ -1,4 +1,4 @@
-#import <UIKit/UIKit.h>
+#import "MWMTableViewCell.h"
 
 @class MWMCategoryInfoCell;
 
@@ -6,7 +6,7 @@
 - (void)categoryInfoCellDidPressMore:(MWMCategoryInfoCell *)cell;
 @end
 
-@interface MWMCategoryInfoCell : UITableViewCell
+@interface MWMCategoryInfoCell : MWMTableViewCell
 @property (nonatomic) BOOL expanded;
 @property (weak, nonatomic) id<MWMCategoryInfoCellDelegate> delegate;
 

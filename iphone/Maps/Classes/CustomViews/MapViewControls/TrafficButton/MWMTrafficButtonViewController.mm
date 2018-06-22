@@ -4,7 +4,6 @@
 #import "MWMCommon.h"
 #import "MWMMapViewControlsCommon.h"
 #import "MWMMapViewControlsManager.h"
-#import "MWMToast.h"
 #import "MWMTrafficManager.h"
 #import "MapViewController.h"
 #import "SwiftBridge.h"
@@ -119,7 +118,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
   case MWMTrafficManagerStateOutdated: btn.imageName = @"btn_traffic_outdated"; break;
   case MWMTrafficManagerStateNoData:
     btn.imageName = @"btn_traffic_on";
-    [MWMToast showWithText:L(@"traffic_data_unavailable")];
+    [[MWMToast toastWithText:L(@"traffic_data_unavailable")] show];
     break;
   case MWMTrafficManagerStateNetworkError:
     btn.imageName = @"btn_traffic_off";
@@ -128,11 +127,11 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
     break;
   case MWMTrafficManagerStateExpiredData:
     btn.imageName = @"btn_traffic_on";
-    [MWMToast showWithText:L(@"traffic_update_maps_text")];
+    [[MWMToast toastWithText:L(@"traffic_update_maps_text")] show];
     break;
   case MWMTrafficManagerStateExpiredApp:
     btn.imageName = @"btn_traffic_on";
-    [MWMToast showWithText:L(@"traffic_update_app_message")];
+    [[MWMToast toastWithText:L(@"traffic_update_app_message")] show];
     break;
   }
 }

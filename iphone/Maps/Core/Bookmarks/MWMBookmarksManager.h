@@ -1,5 +1,6 @@
 #import "MWMBookmarksObserver.h"
 #import "MWMTypes.h"
+#import "MWMCatalogCommon.h"
 
 @class MWMCatalogCategory;
 
@@ -47,9 +48,11 @@
 + (NSURL * _Nullable)sharingUrlForCategoryId:(MWMMarkGroupID)groupId;
 + (void)downloadItemWithId:(NSString * _Nonnull)itemId
                       name:(NSString * _Nonnull)name
-                completion:(void (^_Nullable)(NSError * _Nullable error))completion;
+                  progress:(void (^ _Nullable)(MWMCategoryProgress progress))progress
+                completion:(void (^ _Nullable)(NSError * _Nullable error))completion;
 + (BOOL)isCategoryFromCatalog:(MWMMarkGroupID)groupId;
 + (NSArray<MWMCatalogCategory *> * _Nonnull)categoriesFromCatalog;
++ (NSInteger)getCatalogDownloadsCount;
 
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));
