@@ -2,6 +2,7 @@
 #pragma once
 
 #include "base/stl_helpers.hpp"
+#include "base/assert.hpp"
 
 #include <algorithm>
 #include <cstring>
@@ -14,10 +15,9 @@
 #include <type_traits>
 #include <vector>
 
-using TReadFunc = std::function<size_t(uint8_t *, size_t)>;
-
-namespace
+namespace osm
 {
+using TReadFunc = std::function<size_t(uint8_t *, size_t)>;
 
 class StreamBuffer
 {
@@ -108,10 +108,7 @@ private:
     m_position = m_buffer.begin();
   }
 };
-}  // anonymous namespace
 
-namespace osm
-{
 
 class O5MSource
 {
