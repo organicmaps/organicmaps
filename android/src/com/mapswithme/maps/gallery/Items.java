@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.discovery.Popularity;
 import com.mapswithme.maps.search.SearchResult;
 
 import static com.mapswithme.maps.gallery.Constants.TYPE_MORE;
@@ -173,6 +174,12 @@ public class Items
         return null;
 
       return mResult.description.featureType;
+    }
+
+    @NonNull
+    public Popularity getPopularity()
+    {
+      return mResult.getPopularity();
     }
   }
 

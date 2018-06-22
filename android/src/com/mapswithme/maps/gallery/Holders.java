@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.mapswithme.HotelUtils;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.discovery.Popularity;
 import com.mapswithme.maps.ugc.Impress;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.maps.widget.RatingView;
@@ -226,6 +227,10 @@ public class Holders
     private final TextView mSubtitle;
     @NonNull
     private final TextView mDistance;
+    @NonNull
+    private final RatingView mNumberRating;
+    @NonNull
+    private final RatingView mPopularTagRating;
 
     public SearchViewHolder(@NonNull View itemView, @NonNull List<Items.SearchItem> items,
                             @NonNull GalleryAdapter<?, Items.SearchItem> adapter)
@@ -234,6 +239,8 @@ public class Holders
       mTitle = itemView.findViewById(R.id.title);
       mSubtitle = itemView.findViewById(R.id.subtitle);
       mDistance = itemView.findViewById(R.id.distance);
+      mNumberRating = itemView.findViewById(R.id.counter_rating_view);
+      mPopularTagRating = itemView.findViewById(R.id.popular_rating_view);
     }
 
     @Override
@@ -243,6 +250,11 @@ public class Holders
       UiUtils.setTextAndHideIfEmpty(mTitle, item.getTitle());
       UiUtils.setTextAndHideIfEmpty(mSubtitle, item.getSubtitle());
       UiUtils.setTextAndHideIfEmpty(mDistance, item.getDistance());
+      UiUtils.showIf(item.getPopularity() == Popularity.POPULAR, mPopularTagRating);
+
+      float rating = item.getRating();
+      Impress impress = Impress.values()[UGC.nativeToImpress(rating)];
+      mNumberRating.setRating(impress, UGC.nativeFormatRating(rating));
     }
   }
 
@@ -309,9 +321,9 @@ public class Holders
     @NonNull
     TextView mTitle;
     @NonNull
-    protected List<I> mItems;
+    protected final List<I> mItems;
     @NonNull
-    GalleryAdapter<?, I> mAdapter;
+    final GalleryAdapter<?, I> mAdapter;
 
     BaseViewHolder(@NonNull View itemView, @NonNull List<I> items,
                              @NonNull GalleryAdapter<?, I> adapter)

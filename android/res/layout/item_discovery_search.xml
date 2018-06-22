@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_height="wrap_content"
   android:layout_width="wrap_content"
@@ -42,6 +43,51 @@
           style="@style/MwmWidget.Discovery.Item.Subtitle"
           android:textAppearance="@style/MwmTextAppearance.Body3"
           tools:text="Attraction"/>
+
+        <LinearLayout
+          android:id="@+id/rating_container"
+          android:orientation="horizontal"
+          android:layout_width="match_parent"
+          android:layout_marginTop="@dimen/margin_quarter"
+          android:layout_height="wrap_content">
+          <com.mapswithme.maps.widget.RatingView
+            android:id="@+id/counter_rating_view"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/rating_view_height_small"
+            android:layout_marginTop="@dimen/margin_eighth"
+            android:layout_marginBottom="@dimen/margin_half"
+            android:layout_marginStart="@dimen/margin_half"
+            android:layout_marginLeft="@dimen/margin_half"
+            android:paddingLeft="@dimen/margin_quarter_plus"
+            android:paddingStart="@dimen/margin_quarter_plus"
+            android:paddingRight="@dimen/margin_quarter_plus"
+            android:paddingEnd="@dimen/margin_quarter_plus"
+            android:paddingTop="@dimen/margin_quarter"
+            android:paddingBottom="@dimen/margin_quarter"
+            android:layout_gravity="center_horizontal|start"
+            android:textSize="@dimen/text_size_body_4"
+            tools:visibility="visible"/>
+          <com.mapswithme.maps.widget.RatingView
+            android:id="@+id/popular_rating_view"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/rating_view_height_small"
+            android:layout_marginTop="@dimen/margin_eighth"
+            android:layout_marginBottom="@dimen/margin_half"
+            android:layout_marginStart="@dimen/margin_half"
+            android:layout_marginLeft="@dimen/margin_half"
+            android:paddingLeft="@dimen/margin_quarter_plus"
+            android:paddingStart="@dimen/margin_quarter_plus"
+            android:paddingRight="@dimen/margin_quarter_plus"
+            android:paddingEnd="@dimen/margin_quarter_plus"
+            android:paddingTop="@dimen/margin_quarter"
+            android:paddingBottom="@dimen/margin_quarter"
+            android:layout_gravity="center_horizontal|start"
+            android:textSize="@dimen/text_size_body_4"
+            android:text="@string/editor_add_select_category_popular_subtitle"
+            app:rating="popular"
+            tools:visibility="visible"/>
+        </LinearLayout>
+
         <TextView
           android:id="@+id/distance"
           android:layout_marginTop="@dimen/margin_eighth"

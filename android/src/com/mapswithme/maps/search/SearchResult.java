@@ -1,6 +1,9 @@
 package com.mapswithme.maps.search;
 
+import android.support.annotation.NonNull;
+
 import com.mapswithme.maps.bookmarks.data.FeatureId;
+import com.mapswithme.maps.discovery.Popularity;
 
 import static com.mapswithme.maps.search.SearchResultTypes.TYPE_LOCAL_ADS_CUSTOMER;
 import static com.mapswithme.maps.search.SearchResultTypes.TYPE_RESULT;
@@ -59,6 +62,8 @@ public class SearchResult implements SearchData
   public final int[] highlightRanges;
 
   public final boolean isHotel;
+  @NonNull
+  private final Popularity mPopularity;
 
   public SearchResult(String name, String suggestion, double lat, double lon, int[] highlightRanges)
   {
@@ -71,10 +76,11 @@ public class SearchResult implements SearchData
     this.type = TYPE_SUGGEST;
 
     this.highlightRanges = highlightRanges;
+    mPopularity = Popularity.NOT_POPULAR;
   }
 
   public SearchResult(String name, Description description, double lat, double lon, int[] highlightRanges,
-                      boolean isHotel, boolean isLocalAdsCustomer)
+                      boolean isHotel, boolean isLocalAdsCustomer, int popularity)
   {
     this.type = isLocalAdsCustomer ? TYPE_LOCAL_ADS_CUSTOMER : TYPE_RESULT;
     this.name = name;
@@ -84,11 +90,18 @@ public class SearchResult implements SearchData
     this.lon = lon;
     this.description = description;
     this.highlightRanges = highlightRanges;
+    mPopularity = Popularity.makeInstance(popularity);
   }
 
   @Override
   public int getItemViewType()
   {
     return type;
+  }
+
+  @NonNull
+  public Popularity getPopularity()
+  {
+    return mPopularity;
   }
 }

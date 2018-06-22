@@ -48,7 +48,7 @@
         <com.mapswithme.maps.widget.RatingView
           android:id="@+id/ratingView"
           android:layout_width="wrap_content"
-          android:layout_marginTop="@dimen/margin_eighth"
+          android:layout_marginTop="@dimen/margin_quarter"
           android:layout_marginBottom="@dimen/margin_half"
           android:layout_height="@dimen/rating_view_height_small"
           android:layout_marginStart="@dimen/margin_half"
