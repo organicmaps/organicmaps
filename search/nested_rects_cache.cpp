@@ -82,8 +82,7 @@ double NestedRectsCache::GetRadiusMeters(RectScale scale)
   case RECT_SCALE_LARGE: return 2500.0;
   case RECT_SCALE_COUNT: return 5000.0;
   }
-
-  INCORRECT_VALUE_IN_THE_SWITCH();
+  CHECK_SWITCH();
 }
 
 void NestedRectsCache::Update()

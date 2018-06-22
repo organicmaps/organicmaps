@@ -310,8 +310,7 @@ string DebugPrint(IRoadGraph::Mode mode)
     case IRoadGraph::Mode::ObeyOnewayTag: return "ObeyOnewayTag";
     case IRoadGraph::Mode::IgnoreOnewayTag: return "IgnoreOnewayTag";
   }
-
-  INCORRECT_VALUE_IN_THE_SWITCH();
+  CHECK_SWITCH();
 }
 
 IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH,

@@ -26,8 +26,7 @@ inline std::string DebugPrint(KmlFileType fileType)
   case KmlFileType::Text: return "Text";
   case KmlFileType::Binary: return "Binary";
   }
-
-  INCORRECT_VALUE_IN_THE_SWITCH();
+  CHECK_SWITCH();
 }
 
 std::unique_ptr<kml::FileData> LoadKmlFile(std::string const & file, KmlFileType fileType);

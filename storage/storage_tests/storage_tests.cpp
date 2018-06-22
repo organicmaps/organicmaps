@@ -1437,12 +1437,12 @@ UNIT_TEST(StorageTest_GetUpdateInfoSingleMwm)
   storage.GetUpdateInfo("OutdatedCountry1", updateInfo);
   TEST_EQUAL(updateInfo.m_numberOfMwmFilesToUpdate, 1, ());
   TEST_EQUAL(updateInfo.m_totalUpdateSizeInBytes, 50, ());
-  TEST_EQUAL(updateInfo.m_sizeDifference, static_cast<int64_t>(50 - country1Size), ());
+  TEST_EQUAL(updateInfo.m_sizeDifference, 50 - static_cast<int64_t>(country1Size), ());
 
   storage.GetUpdateInfo("OutdatedCountry2", updateInfo);
   TEST_EQUAL(updateInfo.m_numberOfMwmFilesToUpdate, 1, ());
   TEST_EQUAL(updateInfo.m_totalUpdateSizeInBytes, 1000, ());
-  TEST_EQUAL(updateInfo.m_sizeDifference, static_cast<int64_t>(1000 - country2Size), ());
+  TEST_EQUAL(updateInfo.m_sizeDifference, 1000 - static_cast<int64_t>(country2Size), ());
 
   storage.GetUpdateInfo("Abkhazia", updateInfo);
   TEST_EQUAL(updateInfo.m_numberOfMwmFilesToUpdate, 0, ());
@@ -1460,7 +1460,7 @@ UNIT_TEST(StorageTest_GetUpdateInfoSingleMwm)
   TEST_EQUAL(updateInfo.m_numberOfMwmFilesToUpdate, 2, ());
   TEST_EQUAL(updateInfo.m_totalUpdateSizeInBytes, 1050, ());
   TEST_EQUAL(updateInfo.m_sizeDifference,
-             static_cast<int64_t>((1000 + 50) - (country1Size + country2Size)), ());
+             (1000 + 50) - static_cast<int64_t>((country1Size + country2Size)), ());
 }
 #endif  // defined(OMIM_OS_DESKTOP)
 

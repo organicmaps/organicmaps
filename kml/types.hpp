@@ -43,8 +43,7 @@ inline std::string DebugPrint(PredefinedColor color)
     case PredefinedColor::Orange: return "Orange";
     case PredefinedColor::Count: return {};
   }
-
-  INCORRECT_VALUE_IN_THE_SWITCH();
+  CHECK_SWITCH();
 }
 
 enum class AccessRules : uint8_t
@@ -63,8 +62,7 @@ inline std::string DebugPrint(AccessRules accessRules)
     case AccessRules::Public: return "Public";
     case AccessRules::Count: return {};
   }
-
-  INCORRECT_VALUE_IN_THE_SWITCH();
+  CHECK_SWITCH();
 }
 
 enum class BookmarkIcon : uint16_t
@@ -120,8 +118,7 @@ inline std::string DebugPrint(BookmarkIcon icon)
     case BookmarkIcon::Water: return "Water";
     case BookmarkIcon::Count: return {};
   }
-
-  INCORRECT_VALUE_IN_THE_SWITCH();
+  CHECK_SWITCH();
 }
 
 struct ColorData

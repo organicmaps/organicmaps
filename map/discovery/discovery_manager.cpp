@@ -17,7 +17,7 @@ std::string GetQuery(discovery::ItemType const type)
   case discovery::ItemType::Viator: ASSERT(false, ()); return "";
   }
 
-  INCORRECT_VALUE_IN_THE_SWITCH();
+  CHECK_SWITCH();
 }
 }  // namespace
 

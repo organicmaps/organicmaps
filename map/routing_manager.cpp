@@ -207,8 +207,7 @@ VehicleType GetVehicleType(RouterType routerType)
   case RouterType::Transit: return VehicleType::Transit;
   case RouterType::Count: CHECK(false, ("Invalid type", routerType)); return VehicleType::Count;
   }
-
-  INCORRECT_VALUE_IN_THE_SWITCH();
+  CHECK_SWITCH();
 }
 }  // namespace
 
@@ -1039,9 +1038,7 @@ bool RoutingManager::IsTrackingReporterEnabled() const
     return false;
 
   bool enableTracking = true;
-  if (!settings::Get(tracking::Reporter::kEnableTrackingKey, enableTracking))
-      LOG(LWARNING, ("Unable to read settings:",
-                     tracking::Reporter::kEnableTrackingKey));
+  settings::TryGet(tracking::Reporter::kEnableTrackingKey, enableTracking);
 
   return enableTracking;
 }

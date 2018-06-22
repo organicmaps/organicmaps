@@ -1924,8 +1924,7 @@ void Framework::SetupMeasurementSystem()
   GetPlatform().SetupMeasurementSystem();
 
   auto units = measurement_utils::Units::Metric;
-  if (!settings::Get(settings::kMeasurementUnits, units))
-      LOG(LWARNING, ("Unable to read settings:", settings::kMeasurementUnits));
+  settings::TryGet(settings::kMeasurementUnits, units);
 
   m_routingManager.SetTurnNotificationsUnits(units);
 }

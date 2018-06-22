@@ -20,6 +20,7 @@
 
 #include <chrono>
 #include <cmath>
+#include <cstdint>
 
 #ifdef DEBUG
 #define TEST_CALL(action) if (m_testFn) m_testFn(action)

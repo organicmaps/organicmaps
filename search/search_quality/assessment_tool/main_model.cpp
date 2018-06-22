@@ -193,8 +193,7 @@ void MainModel::OnNonFoundResultSelected(int index)
   auto const & results = context.m_nonFoundResults;
 
   CHECK_GREATER_OR_EQUAL(index, 0, ());
-  CHECK_LESS(static_cast<decltype(context.m_nonFoundResults)::size_type>(index),
-             results.size(), ());
+  CHECK_LESS(static_cast<size_t>(index), results.size(), ());
   m_view->MoveViewportToResult(results[index]);
 }
 

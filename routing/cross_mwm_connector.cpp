@@ -13,8 +13,7 @@ std::string DebugPrint(WeightsLoadState state)
   case WeightsLoadState::NotExists: return "NotExists";
   case WeightsLoadState::Loaded: return "Loaded";
   }
-
-  INCORRECT_VALUE_IN_THE_SWITCH();
+  CHECK_SWITCH();
 }
 }  // namespace connector
 }  // namespace routing

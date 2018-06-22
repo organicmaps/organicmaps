@@ -193,7 +193,7 @@ bool Results::AddResult(Result && result)
 
   if (result.IsSuggest())
   {
-    auto d = distance(m_results.begin(), it);
+    auto const d = distance(m_results.begin(), it);
     if (d >= static_cast<decltype(d)>(kMaxNumSuggests))
       return false;
 

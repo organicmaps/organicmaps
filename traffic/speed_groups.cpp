@@ -34,7 +34,6 @@ string DebugPrint(SpeedGroup const & group)
   case SpeedGroup::Unknown: return "Unknown";
   case SpeedGroup::Count: return "Count";
   }
-
-  INCORRECT_VALUE_IN_THE_SWITCH();
+  CHECK_SWITCH();
 }
 }  // namespace traffic

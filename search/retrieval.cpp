@@ -374,7 +374,6 @@ unique_ptr<coding::CompressedBitVector> Retrieval::Retrieve(Args &&... args) con
     return r(*m_root1, m_context, m_cancellable, forward<Args>(args)...);
   }
   }
-
-  INCORRECT_VALUE_IN_THE_SWITCH();
+  CHECK_SWITCH();
 }
 }  // namespace search

@@ -57,7 +57,7 @@ KeywordMatcher::Score KeywordMatcher::CalcScore(strings::UniString const * token
   int8_t prevTokenMatchDistance = 0;
   bool prefixMatched = true;
 
-  for (decltype(m_keywords)::size_type i = 0; i < m_keywords.size(); ++i)
+  for (size_t i = 0; i < m_keywords.size(); ++i)
   {
     for (size_t j = 0; j < count && !isQueryTokenMatched[i]; ++j)
     {

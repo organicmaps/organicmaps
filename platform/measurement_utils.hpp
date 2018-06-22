@@ -19,8 +19,7 @@ inline string DebugPrint(Units units)
   case Units::Imperial: return "Units::Imperial";
   case Units::Metric: return "Units::Metric";
   }
-
-  INCORRECT_VALUE_IN_THE_SWITCH();
+  CHECK_SWITCH();
 }
 
 inline double MetersToMiles(double m) { return m * 0.000621371192; }

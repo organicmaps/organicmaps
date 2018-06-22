@@ -467,7 +467,6 @@ string DebugPrint(CountryIndexes::Index index)
     case CountryIndexes::Index::Offsets:
       return "Offsets";
   }
-
-  INCORRECT_VALUE_IN_THE_SWITCH();
+  CHECK_SWITCH();
 }
 }  // namespace platform

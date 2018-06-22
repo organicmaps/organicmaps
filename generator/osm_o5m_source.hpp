@@ -1,8 +1,8 @@
 // See O5M Format definition at https://wiki.openstreetmap.org/wiki/O5m
 #pragma once
 
-#include "base/stl_helpers.hpp"
 #include "base/assert.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 #include <cstring>

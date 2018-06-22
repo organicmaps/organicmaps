@@ -26,7 +26,6 @@ RoutingSettings GetRoutingSettings(VehicleType vehicleType)
     CHECK(false, ("Can't create GetRoutingSettings for", vehicleType));
     return {};
   }
-
-  INCORRECT_VALUE_IN_THE_SWITCH();
+  CHECK_SWITCH();
 }
 }  // namespace routing

@@ -207,7 +207,7 @@ public:
   {
     auto const size = DesVarUint<uint32_t>();
     m.reserve(size);
-    for (int i = 0; i < size; ++i)
+    for (size_t i = 0; i < size; ++i)
     {
       std::pair<T, U> p;
       (*this)(p);

@@ -68,8 +68,7 @@ std::string AuthenticationUrl(std::string const & socialToken,
     return ss.str();
   }
   }
-
-  INCORRECT_VALUE_IN_THE_SWITCH();
+  CHECK_SWITCH();
 }
 
 std::string UserDetailsUrl()

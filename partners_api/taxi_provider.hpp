@@ -82,8 +82,7 @@ inline std::string DebugPrint(Provider::Type type)
   case Provider::Type::Maxim: return "Maxim";
   case Provider::Type::Count: ASSERT(false, ()); return "";
   }
-
-  INCORRECT_VALUE_IN_THE_SWITCH();
+  CHECK_SWITCH();
 }
 
 inline std::string DebugPrint(ErrorCode code)
@@ -93,8 +92,7 @@ inline std::string DebugPrint(ErrorCode code)
   case ErrorCode::NoProducts: return "NoProducts";
   case ErrorCode::RemoteError: return "RemoteError";
   }
-
-  INCORRECT_VALUE_IN_THE_SWITCH();
+  CHECK_SWITCH();
 }
 
 inline std::string DebugPrint(ProviderError error)

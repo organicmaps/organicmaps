@@ -166,8 +166,7 @@ public:
     case TStrings::Status::Prefix: return isPrefix;
     case TStrings::Status::Full: return true;
     }
-
-    INCORRECT_VALUE_IN_THE_SWITCH();
+    CHECK_SWITCH();
   }
 
 private:
@@ -238,8 +237,7 @@ public:
     case TPatterns::Status::Prefix: return true;
     case TPatterns::Status::Full: return true;
     }
-
-    INCORRECT_VALUE_IN_THE_SWITCH();
+    CHECK_SWITCH();
   }
 
 private:
@@ -254,8 +252,7 @@ private:
     case 'U': return Token::TYPE_BUILDING_PART_OR_LETTER;
     default: CHECK(false, ("Unexpected character:", c)); return Token::TYPE_SEPARATOR;
     }
-
-    INCORRECT_VALUE_IN_THE_SWITCH();
+    CHECK_SWITCH();
   }
 
   static Token::Type TokenToType(Token const & token) { return token.m_type; }

@@ -225,8 +225,7 @@ double RulerHelper::CalcMetresDiff(double value)
   auto conversionFn = &Identity;
 
   auto units = measurement_utils::Units::Metric;
-  if (!settings::Get(settings::kMeasurementUnits, units))
-      LOG(LWARNING, ("Unable to read settings:", settings::kMeasurementUnits));
+  settings::TryGet(settings::kMeasurementUnits, units);
 
   if (units == measurement_utils::Units::Imperial)
   {
