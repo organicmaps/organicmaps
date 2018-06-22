@@ -2764,27 +2764,15 @@ area|z18-[sponsored=partner12]
 
 node|z14-[sponsored=partner18],
 area|z14-[sponsored=partner18]
-{icon-image: partner18-l.svg;}
-
-node|z18-[sponsored=partner18],
-area|z18-[sponsored=partner18]
-{icon-image: partner18-l.svg;text-optional: true;}
+{icon-image: partner18-l.svg;text: none;}
 
 node|z14-[sponsored=partner19],
 area|z14-[sponsored=partner19]
-{icon-image: partner19-l.svg;}
-
-node|z18-[sponsored=partner19],
-area|z18-[sponsored=partner19]
-{icon-image: partner19-l.svg;text-optional: true;}
+{icon-image: partner19-l.svg;text: none;}
 
 node|z15-[sponsored=partner20],
 area|z15-[sponsored=partner20]
-{icon-image: partner20-l.svg;font-size: 10;text: name;text-color: @poi_label;text-offset: 1;}
-
-node|z18-[sponsored=partner20],
-area|z18-[sponsored=partner20]
-{icon-image: partner20-l.svg;font-size: 11;text-optional: true;}
+{icon-image: partner20-l.svg;text: none;}
 
 /* Fifa */
 
