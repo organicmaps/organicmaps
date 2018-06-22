@@ -352,7 +352,7 @@ UNIT_TEST(FindPathManhattan)
 // Roads                                          y:
 //
 //  fast road R0              * - * - *           -1
-//                          /           \
+//                          ↗           ↘
 //  slow road R1    * - -  *  - - * - -  * - - *   0
 //                        J0            J1
 //
