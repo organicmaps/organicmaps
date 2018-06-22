@@ -56,10 +56,13 @@ void MarketingService::ProcessFirstLaunch()
     kRoutingP2PBicycleDiscovered, kRoutingP2PTaxiDiscovered,
     kRoutingVehicleDiscovered, kRoutingPedestrianDiscovered,
     kRoutingBicycleDiscovered, kRoutingTaxiDiscovered,
+    kRoutingP2PTransitDiscovered, kRoutingTransitDiscovered,
 
     kEditorAddDiscovered, kEditorEditDiscovered,
 
-    kTrafficDiscovered
+    kTrafficDiscovered,
+    kDiscoveryButtonDiscovered,
+    kBookHotelOnBookingComDiscovered
   };
 
   for (auto const & tag : tags)
