@@ -51,6 +51,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.bookmarks.data.Metadata;
+import com.mapswithme.maps.discovery.ItemType;
 import com.mapswithme.maps.downloader.CountryItem;
 import com.mapswithme.maps.downloader.DownloaderStatusIcon;
 import com.mapswithme.maps.downloader.MapManager;
@@ -305,7 +306,8 @@ public class PlacePageView extends RelativeLayout
   public PlacePageView(Context context, AttributeSet attrs, int defStyleAttr)
   {
     super(context, attrs);
-    mDefaultGalleryItemListener = new BaseItemSelectedListener<>((Activity) context);
+    Activity activity = (Activity) context;
+    mDefaultGalleryItemListener = new BaseItemSelectedListener<>(activity, ItemType.VIATOR);
     mIsLatLonDms = MwmApplication.prefs().getBoolean(PREF_USE_DMS, false);
     mGalleryAdapter = new com.mapswithme.maps.widget.placepage.GalleryAdapter(context);
     mMarginBase = (int) getResources().getDimension(R.dimen.margin_base);
@@ -915,10 +917,13 @@ public class PlacePageView extends RelativeLayout
     }
     else
     {
-      ItemSelectedListener<Items.ViatorItem> listener
-          = createSponsoredProductItemListener(GalleryType.VIATOR);
-      mRvSponsoredProducts.setAdapter(Factory.createViatorAdapter(products, cityUrl, listener,
-                                                                  GalleryPlacement.PLACEPAGE));
+      ItemSelectedListener<Items.ViatorItem> listener =
+          createSponsoredProductItemListener(GalleryType.VIATOR, ItemType.VIATOR);
+
+      com.mapswithme.maps.gallery.GalleryAdapter adapter =
+          Factory.createViatorAdapter(products, cityUrl, listener, GalleryPlacement.PLACEPAGE);
+
+      mRvSponsoredProducts.setAdapter(adapter);
     }
   }
 
@@ -2194,20 +2199,20 @@ public class PlacePageView extends RelativeLayout
     }
   }
 
-  private <Item extends Items.Item> ItemSelectedListener<Item>
-  createSponsoredProductItemListener(final @NonNull GalleryType type)
+  private <I extends Items.Item> ItemSelectedListener<I> createSponsoredProductItemListener(@NonNull GalleryType type,
+                                                                                            @NonNull ItemType itemType)
   {
-    return new BaseItemSelectedListener<Item>(getActivity())
+    return new BaseItemSelectedListener<I>(getActivity(), itemType)
     {
       @Override
-      public void onItemSelected(@NonNull Item item, int position)
+      public void onItemSelected(@NonNull I item, int position)
       {
         super.onItemSelected(item, position);
         Statistics.INSTANCE.trackGalleryProductItemSelected(type, PLACEPAGE, position, EXTERNAL);
       }
 
       @Override
-      public void onMoreItemSelected(@NonNull Item item)
+      public void onMoreItemSelected(@NonNull I item)
       {
         super.onMoreItemSelected(item);
         Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED, type,

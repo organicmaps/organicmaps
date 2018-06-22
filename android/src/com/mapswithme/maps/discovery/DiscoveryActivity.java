@@ -9,6 +9,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.gallery.Items;
 import com.mapswithme.maps.search.FilterActivity;
 
 public class DiscoveryActivity extends BaseMwmFragmentActivity
@@ -50,6 +51,16 @@ public class DiscoveryActivity extends BaseMwmFragmentActivity
   public void onShowFilter()
   {
     FilterActivity.startForResult(this, null, null, FilterActivity.REQ_CODE_FILTER);
+  }
+
+  @Override
+  public void onShowSimilarObjects(@NonNull Items.SearchItem item, @NonNull ItemType type)
+  {
+    Intent intent = new Intent()
+        .setAction(ACTION_SHOW_FILTER_RESULTS)
+        .putExtra(EXTRA_FILTER_SEARCH_QUERY, getString(type.getSearchCategory()));
+    setResult(Activity.RESULT_OK, intent);
+    finish();
   }
 
   private void setResult(@NonNull MapObject object, @NonNull Intent intent)

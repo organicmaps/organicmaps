@@ -24,6 +24,7 @@ import com.mapswithme.maps.activity.CustomNavigateUpListener;
 import com.mapswithme.maps.base.BaseMwmToolbarFragment;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.gallery.GalleryAdapter;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
 import com.mapswithme.maps.gallery.impl.BaseItemSelectedListener;
@@ -49,7 +50,7 @@ import static com.mapswithme.util.statistics.GalleryType.SEARCH_ATTRACTIONS;
 import static com.mapswithme.util.statistics.GalleryType.SEARCH_HOTELS;
 import static com.mapswithme.util.statistics.GalleryType.SEARCH_RESTAURANTS;
 
-public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallback
+public class DiscoveryFragment extends BaseMwmToolbarFragment implements DiscoveryResultReceiver
 {
   private static final int ITEMS_COUNT = 5;
   private static final int[] ITEM_TYPES = { DiscoveryParams.ITEM_TYPE_HOTELS,
@@ -233,10 +234,12 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   {
     updateViewsVisibility(results, R.id.attractionsTitle, R.id.attractions);
     ItemSelectedListener<Items.SearchItem> listener = new SearchBasedListener(this,
-                                                                              SEARCH_ATTRACTIONS);
-    getGallery(R.id.attractions).setAdapter(Factory.createSearchBasedAdapter(results, listener,
-                                                                             SEARCH_ATTRACTIONS,
-                                                                             DISCOVERY));
+                                                                              SEARCH_ATTRACTIONS,
+                                                                              ItemType.ATTRACTIONS);
+    RecyclerView gallery = getGallery(R.id.attractions);
+    GalleryAdapter adapter = Factory.createSearchBasedAdapter(results, listener, SEARCH_ATTRACTIONS,
+                                                              DISCOVERY, new Items.MoreSearchItem());
+    gallery.setAdapter(adapter);
   }
 
   @MainThread
@@ -245,10 +248,11 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   {
     updateViewsVisibility(results, R.id.eatAndDrinkTitle, R.id.food);
     ItemSelectedListener<Items.SearchItem> listener = new SearchBasedListener(this,
-                                                                              SEARCH_RESTAURANTS);
-    getGallery(R.id.food).setAdapter(Factory.createSearchBasedAdapter(results, listener,
-                                                                      SEARCH_RESTAURANTS,
-                                                                      DISCOVERY));
+                                                                              SEARCH_RESTAURANTS,
+                                                                              ItemType.CAFES);
+    RecyclerView gallery = getGallery(R.id.food);
+    gallery.setAdapter(Factory.createSearchBasedAdapter(results, listener, SEARCH_RESTAURANTS,
+                                                        DISCOVERY, new Items.MoreSearchItem()));
   }
 
   @Override
@@ -256,9 +260,10 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   {
     updateViewsVisibility(results, R.id.hotelsTitle, R.id.hotels);
     ItemSelectedListener<Items.SearchItem> listener = new HotelListener(this);
-    getGallery(R.id.hotels).setAdapter(Factory.createHotelAdapter(results, listener,
-                                                                  SEARCH_HOTELS,
-                                                                  DISCOVERY));
+    GalleryAdapter adapter = Factory.createHotelAdapter(results, listener, SEARCH_HOTELS,
+                                                        DISCOVERY);
+    RecyclerView gallery = getGallery(R.id.hotels);
+    gallery.setAdapter(adapter);
   }
 
   @MainThread
@@ -267,10 +272,13 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   {
     updateViewsVisibility(experts, R.id.localGuidesTitle, R.id.localGuides);
     String url = DiscoveryManager.nativeGetLocalExpertsUrl();
+
     ItemSelectedListener<Items.LocalExpertItem> listener
-        = createOnlineProductItemListener(LOCAL_EXPERTS);
-    getGallery(R.id.localGuides).setAdapter(Factory.createLocalExpertsAdapter(experts, url, listener,
-                                                                              DISCOVERY));
+        = createOnlineProductItemListener(LOCAL_EXPERTS, ItemType.LOCAL_EXPERTS);
+
+    RecyclerView gallery = getGallery(R.id.localGuides);
+    GalleryAdapter adapter = Factory.createLocalExpertsAdapter(experts, url, listener, DISCOVERY);
+    gallery.setAdapter(adapter);
   }
 
   @Override
@@ -335,6 +343,12 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     mDiscoveryListener.onRouteToDiscoveredObject(createMapObject(item));
   }
 
+  private void showSimilarItems(@NonNull Items.SearchItem item, @NonNull ItemType type)
+  {
+    if (mDiscoveryListener != null)
+      mDiscoveryListener.onShowSimilarObjects(item, type);
+  }
+
   private void showOnMap(@NonNull Items.SearchItem item)
   {
     if (mDiscoveryListener != null)
@@ -372,23 +386,24 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     };
   }
 
-  private <Item extends Items.Item> ItemSelectedListener<Item> createOnlineProductItemListener
-      (final @NonNull GalleryType type)
+  private <I extends Items.Item> ItemSelectedListener<I> createOnlineProductItemListener(@NonNull GalleryType galleryType,
+                                                                                         @NonNull ItemType itemType)
   {
-    return new BaseItemSelectedListener<Item>(getActivity())
+    return new BaseItemSelectedListener<I>(getActivity(), itemType)
     {
       @Override
-      public void onItemSelected(@NonNull Item item, int position)
+      public void onItemSelected(@NonNull I item, int position)
       {
         super.onItemSelected(item, position);
-        Statistics.INSTANCE.trackGalleryProductItemSelected(type, DISCOVERY, position, EXTERNAL);
+        Statistics.INSTANCE.trackGalleryProductItemSelected(galleryType, DISCOVERY, position, EXTERNAL);
       }
 
       @Override
-      public void onMoreItemSelected(@NonNull Item item)
+      public void onMoreItemSelected(@NonNull I item)
       {
         super.onMoreItemSelected(item);
-        Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED, type,
+        Statistics.INSTANCE.trackGalleryEvent(Statistics.EventName.PP_SPONSOR_MORE_SELECTED,
+                                              galleryType,
                                               DISCOVERY);
       }
     };
@@ -398,7 +413,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   {
     private ViatorOfflineSelectedListener(@NonNull Activity context)
     {
-      super(context);
+      super(context, ItemType.VIATOR);
     }
 
     @Override
@@ -412,14 +427,23 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   {
     @NonNull
     private final DiscoveryFragment mFragment;
+
     @NonNull
     private final GalleryType mType;
 
-    private SearchBasedListener(@NonNull DiscoveryFragment fragment, @NonNull GalleryType type)
+    private SearchBasedListener(@NonNull DiscoveryFragment fragment,
+                                @NonNull GalleryType galleryType,
+                                @NonNull ItemType itemType)
     {
-      super(fragment.getActivity());
+      super(fragment.getActivity(), itemType);
       mFragment = fragment;
-      mType = type;
+      mType = galleryType;
+    }
+
+    @Override
+    public void onMoreItemSelected(@NonNull Items.SearchItem item)
+    {
+      mFragment.showSimilarItems(item, getType());
     }
 
     @Override
@@ -450,7 +474,7 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
   {
     private HotelListener(@NonNull DiscoveryFragment fragment)
     {
-      super(fragment, SEARCH_HOTELS);
+      super(fragment, SEARCH_HOTELS, ItemType.HOTELS);
     }
 
     @Override
@@ -466,5 +490,6 @@ public class DiscoveryFragment extends BaseMwmToolbarFragment implements UICallb
     void onRouteToDiscoveredObject(@NonNull MapObject object);
     void onShowDiscoveredObject(@NonNull MapObject object);
     void onShowFilter();
+    void onShowSimilarObjects(@NonNull Items.SearchItem item, @NonNull ItemType type);
   }
 }

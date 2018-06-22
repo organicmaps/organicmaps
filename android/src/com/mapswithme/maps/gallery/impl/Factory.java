@@ -22,8 +22,8 @@ import static com.mapswithme.util.statistics.GalleryType.VIATOR;
 public class Factory
 {
   @NonNull
-  public static GalleryAdapter createViatorLoadingAdapter
-      (@Nullable String cityUrl, @Nullable ItemSelectedListener<Items.Item> listener)
+  public static GalleryAdapter createViatorLoadingAdapter(
+      @Nullable String cityUrl, @Nullable ItemSelectedListener<Items.Item> listener)
   {
     return new GalleryAdapter<>(new ViatorLoadingAdapterStrategy(cityUrl), listener);
   }
@@ -60,10 +60,11 @@ public class Factory
                                                         @Nullable ItemSelectedListener<Items
                                                             .SearchItem> listener,
                                                         @NonNull GalleryType type,
-                                                        @NonNull GalleryPlacement placement)
+                                                        @NonNull GalleryPlacement placement,
+                                                        @Nullable Items.MoreSearchItem item)
   {
     trackProductGalleryShownOrError(results, type, OFFLINE, placement);
-    return new GalleryAdapter<>(new SearchBasedAdapterStrategy(results), listener);
+    return new GalleryAdapter<>(new SearchBasedAdapterStrategy(results, item), listener);
   }
 
   @NonNull

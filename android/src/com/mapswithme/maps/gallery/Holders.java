@@ -104,8 +104,8 @@ public class Holders
   public static class SearchMoreHolder extends GenericMoreHolder<Items.SearchItem>
   {
 
-    public SearchMoreHolder(@NonNull View itemView, @NonNull List<Items.SearchItem> items, @NonNull
-        GalleryAdapter<?, Items.SearchItem> adapter)
+    public SearchMoreHolder(@NonNull View itemView, @NonNull List<Items.SearchItem> items,
+                            @NonNull GalleryAdapter<?, Items.SearchItem> adapter)
     {
       super(itemView, items, adapter);
     }

@@ -3,6 +3,7 @@ package com.mapswithme.maps.gallery.impl;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 
+import com.mapswithme.maps.discovery.ItemType;
 import com.mapswithme.maps.gallery.ItemSelectedListener;
 import com.mapswithme.maps.gallery.Items;
 import com.mapswithme.util.Utils;
@@ -13,15 +14,25 @@ public class BaseItemSelectedListener<I extends Items.Item>
   @NonNull
   private final Activity mContext;
 
-  public BaseItemSelectedListener(@NonNull Activity context)
+  @NonNull
+  private final ItemType mType;
+
+  public BaseItemSelectedListener(@NonNull Activity context, @NonNull ItemType type)
   {
     mContext = context;
+    mType = type;
   }
 
   @NonNull
   protected Activity getContext()
   {
     return mContext;
+  }
+
+  @NonNull
+  protected ItemType getType()
+  {
+    return mType;
   }
 
   @Override

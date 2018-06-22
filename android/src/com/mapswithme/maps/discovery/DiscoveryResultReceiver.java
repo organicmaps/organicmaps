@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.search.SearchResult;
 
-public interface UICallback
+public interface DiscoveryResultReceiver
 {
   @MainThread
   void onHotelsReceived(@NonNull SearchResult[] results);

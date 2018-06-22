@@ -19,7 +19,7 @@ enum DiscoveryManager
   private static final String TAG = DiscoveryManager.class.getSimpleName();
   private static final EnumSet<ItemType> AGGREGATE_EMPTY_RESULTS = EnumSet.noneOf(ItemType.class);
   @Nullable
-  private UICallback mCallback;
+  private DiscoveryResultReceiver mCallback;
   private int mRequestedTypesCount;
 
 
@@ -35,30 +35,24 @@ enum DiscoveryManager
   @SuppressLint("SwitchIntDef")
   @MainThread
   private void onResultReceived(final @NonNull SearchResult[] results,
-                                final @DiscoveryParams.ItemType int type)
+                                final @DiscoveryParams.ItemType int typeIndex)
   {
-    notifyUiWithCheck(results, ItemType.values()[type], new Action()
+
+    if (typeIndex >= ItemType.values().length)
     {
-      @Override
-      public void run(@NonNull UICallback callback)
-      {
-        switch (type)
-        {
-          case DiscoveryParams.ITEM_TYPE_ATTRACTIONS:
-            callback.onAttractionsReceived(results);
-            break;
-          case DiscoveryParams.ITEM_TYPE_CAFES:
-            callback.onCafesReceived(results);
-            break;
-          case DiscoveryParams.ITEM_TYPE_HOTELS:
-            callback.onHotelsReceived(results);
-            break;
-          default:
-            throw new AssertionError("Unsupported discovery item type " +
-                                     "'" + type + "' for search results!");
-        }
-      }
-    });
+      throw new AssertionError("Unsupported discovery item type " +
+                               "'" + typeIndex + "' for search results!");
+
+    }
+    ItemType type = ItemType.values()[typeIndex];
+    notifyUiWithCheck(results, type, callback -> onResultReceivedSafely(callback, type, results));
+  }
+
+  private void onResultReceivedSafely(@NonNull DiscoveryResultReceiver callback,
+                                      @NonNull ItemType type,
+                                      @NonNull SearchResult[] results)
+  {
+    type.onResultReceived(callback, results);
   }
 
   // Called from JNI.
@@ -109,7 +103,7 @@ enum DiscoveryManager
     return mRequestedTypesCount == AGGREGATE_EMPTY_RESULTS.size();
   }
 
-  void attach(@NonNull UICallback callback)
+  void attach(@NonNull DiscoveryResultReceiver callback)
   {
     LOGGER.d(TAG, "attach callback: " + callback);
     mCallback = callback;
@@ -131,6 +125,6 @@ enum DiscoveryManager
 
   interface Action
   {
-    void run(@NonNull UICallback callback);
+    void run(@NonNull DiscoveryResultReceiver callback);
   }
 }

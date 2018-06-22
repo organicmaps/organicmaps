@@ -48,6 +48,7 @@ import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.discovery.DiscoveryActivity;
 import com.mapswithme.maps.discovery.DiscoveryFragment;
+import com.mapswithme.maps.discovery.ItemType;
 import com.mapswithme.maps.downloader.DownloaderActivity;
 import com.mapswithme.maps.downloader.DownloaderFragment;
 import com.mapswithme.maps.downloader.MapManager;
@@ -58,6 +59,7 @@ import com.mapswithme.maps.editor.EditorActivity;
 import com.mapswithme.maps.editor.EditorHostFragment;
 import com.mapswithme.maps.editor.FeatureCategoryActivity;
 import com.mapswithme.maps.editor.ReportFragment;
+import com.mapswithme.maps.gallery.Items;
 import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.routing.NavigationController;
@@ -1103,7 +1105,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
           showTabletSearch(data, getString(R.string.hotel));
           return;
         }
-        handleFilterResult(data);
+        onFilterResultReceived(data);
         break;
     }
   }
@@ -1133,28 +1135,32 @@ public class MwmActivity extends BaseMwmFragmentActivity
         break;
 
       case DiscoveryActivity.ACTION_SHOW_FILTER_RESULTS:
-        handleFilterResult(data);
+        onFilterResultReceived(data);
         break;
     }
   }
 
-  private void handleFilterResult(@Nullable Intent data)
+  private void onFilterResultReceived(@Nullable Intent data)
   {
     if (data == null || mFilterController == null)
       return;
 
-    String query = data.getStringExtra(DiscoveryActivity.EXTRA_FILTER_SEARCH_QUERY);
-    if (TextUtils.isEmpty(query))
-      query = getString(R.string.hotel);
-
-    if (mSearchController != null)
-      mSearchController.setQuery(query);
+    setupSearchQuery(data);
 
     BookingFilterParams params = data.getParcelableExtra(FilterActivity.EXTRA_FILTER_PARAMS);
     mFilterController.setFilterAndParams(data.getParcelableExtra(FilterActivity.EXTRA_FILTER),
                                          params);
     mFilterController.updateFilterButtonVisibility(params != null);
     runSearch();
+  }
+
+  private void setupSearchQuery(@NonNull Intent data)
+  {
+    if (mSearchController == null)
+      return;
+
+    String query = data.getStringExtra(DiscoveryActivity.EXTRA_FILTER_SEARCH_QUERY);
+    mSearchController.setQuery(TextUtils.isEmpty(query) ? getString(R.string.hotel) : query);
   }
 
   @Override
@@ -1183,6 +1189,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     FilterActivity.startForResult(MwmActivity.this, null, null,
                                   FilterActivity.REQ_CODE_FILTER);
+  }
+
+  @Override
+  public void onShowSimilarObjects(@NonNull Items.SearchItem item, @NonNull ItemType type)
+  {
+    String query = getString(type.getSearchCategory());
+    showSearch(query);
   }
 
   public void onSearchSimilarHotels(@Nullable HotelsFilter filter)

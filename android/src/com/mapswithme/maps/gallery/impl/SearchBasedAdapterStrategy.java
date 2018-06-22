@@ -18,9 +18,9 @@ import java.util.List;
 
 class SearchBasedAdapterStrategy extends RegularAdapterStrategy<Items.SearchItem>
 {
-  SearchBasedAdapterStrategy(@NonNull SearchResult[] results)
+  SearchBasedAdapterStrategy(@NonNull SearchResult[] results, @Nullable Items.SearchItem moreItem)
   {
-    this(convertItems(results), null);
+    this(convertItems(results), moreItem);
   }
 
   private SearchBasedAdapterStrategy(@NonNull List<Items.SearchItem> items,
@@ -41,10 +41,12 @@ class SearchBasedAdapterStrategy extends RegularAdapterStrategy<Items.SearchItem
 
   @NonNull
   @Override
-  protected final Holders.BaseViewHolder<Items.SearchItem> createMoreProductsViewHolder
-      (@NonNull ViewGroup parent, int viewType, @NonNull GalleryAdapter<?, Items.SearchItem> adapter)
+  protected Holders.BaseViewHolder<Items.SearchItem> createMoreProductsViewHolder(
+      @NonNull ViewGroup parent, int viewType, @NonNull GalleryAdapter<?, Items.SearchItem> adapter)
   {
-    throw new UnsupportedOperationException("More item is not supported yet for this strategy!");
+    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_search_more, parent,
+                                                                 false);
+    return new Holders.SearchMoreHolder(view, mItems, adapter);
   }
 
   @NonNull
