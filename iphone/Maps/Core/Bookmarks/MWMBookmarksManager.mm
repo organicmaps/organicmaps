@@ -261,6 +261,16 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   GetFramework().GetBookmarkManager().GetEditSession().SetIsVisible(groupId, isVisible);
 }
 
++ (void)setUserCategoriesVisible:(BOOL)isVisible {
+  GetFramework().GetBookmarkManager()
+  .SetAllCategoriesVisibility(BookmarkManager::CategoryFilterType::Private, isVisible);
+}
+
++ (void)setCatalogCategoriesVisible:(BOOL)isVisible {
+  GetFramework().GetBookmarkManager()
+  .SetAllCategoriesVisibility(BookmarkManager::CategoryFilterType::Public, isVisible);
+}
+
 + (void)deleteCategory:(MWMMarkGroupID)groupId
 {
   GetFramework().GetBookmarkManager().GetEditSession().DeleteBmCategory(groupId);

@@ -46,15 +46,17 @@ extern NSString * gBrowserUserAgent;
 @implementation Connection
 
 + (NSData *)sendSynchronousRequest:(NSURLRequest *)request
-                 returningResponse:(NSURLResponse *__autoreleasing *)response
-                             error:(NSError *__autoreleasing *)error {
+                 returningResponse:(NSURLResponse * __autoreleasing *)response
+                             error:(NSError * __autoreleasing *)error
+{
   Connection * connection = [[Connection alloc] init];
   return [connection sendSynchronousRequest:request returningResponse:response error:error];
 }
 
 - (NSData *)sendSynchronousRequest:(NSURLRequest *)request
-                 returningResponse:(NSURLResponse *__autoreleasing *)response
-                             error:(NSError *__autoreleasing *)error {
+                 returningResponse:(NSURLResponse * __autoreleasing *)response
+                             error:(NSError * __autoreleasing *)error
+{
   NSURLSession * session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]
                                                         delegate:self
                                                    delegateQueue:nil];
@@ -66,7 +68,8 @@ extern NSString * gBrowserUserAgent;
   dispatch_group_enter(group);
   [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data,
                                                             NSURLResponse * _Nullable response,
-                                                            NSError * _Nullable error) {
+                                                            NSError * _Nullable error)
+  {
     resultData = data;
     resultResponse = response;
     resultError = error;
@@ -83,7 +86,8 @@ extern NSString * gBrowserUserAgent;
 - (void)URLSession:(NSURLSession *)session
 didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
  completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition,
-                             NSURLCredential * _Nullable credential))completionHandler {
+                             NSURLCredential * _Nullable credential))completionHandler
+{
   NSURLCredential * credential = [[NSURLCredential alloc] initWithTrust:[challenge protectionSpace].serverTrust];
   completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
 }

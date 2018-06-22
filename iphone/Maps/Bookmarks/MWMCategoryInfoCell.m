@@ -5,8 +5,8 @@
 @property (weak, nonatomic) IBOutlet UILabel * titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel * authorLabel;
 @property (weak, nonatomic) IBOutlet UILabel * infoLabel;
-@property (weak, nonatomic) IBOutlet UIButton *moreButton;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *infoToBottomConstraint;
+@property (weak, nonatomic) IBOutlet UIButton * moreButton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint * infoToBottomConstraint;
 
 @property (copy, nonatomic) NSString * info;
 @property (copy, nonatomic) NSString * shortInfo;
@@ -15,7 +15,8 @@
 
 @implementation MWMCategoryInfoCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
   [super awakeFromNib];
 
   self.titleLabel.text = nil;

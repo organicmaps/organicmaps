@@ -21,6 +21,8 @@
 + (void)setCategory:(MWMMarkGroupID)groupId name:(NSString *)name;
 + (BOOL)isCategoryVisible:(MWMMarkGroupID)groupId;
 + (void)setCategory:(MWMMarkGroupID)groupId isVisible:(BOOL)isVisible;
++ (void)setUserCategoriesVisible:(BOOL)isVisible;
++ (void)setCatalogCategoriesVisible:(BOOL)isVisible;
 + (void)deleteCategory:(MWMMarkGroupID)groupId;
 
 + (void)deleteBookmark:(MWMMarkID)bookmarkId;

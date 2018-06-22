@@ -16,8 +16,8 @@ class DownloadedBookmarksDataSource {
     set {
       categories.forEach {
         $0.isVisible = newValue
-        MWMBookmarksManager.setCategory($0.categoryId, isVisible: newValue)
       }
+      MWMBookmarksManager.setCatalogCategoriesVisible(newValue)
     }
   }
 

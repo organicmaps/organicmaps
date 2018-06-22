@@ -41,7 +41,8 @@
 
 }
 
-- (void)reloadData {
+- (void)reloadData
+{
   self.groupIds = [MWMBookmarksManager groupsIdList];
   [self.tableView reloadData];
 }

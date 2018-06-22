@@ -117,7 +117,7 @@ extension BMCDefaultViewModel: BMCViewModel {
     }
   }
 
-  func areAllCategoriesInvisible() -> Bool {
+  func areAllCategoriesVisible() -> Bool {
     var result = true;
     categories.forEach { if !$0.isVisible { result = false } }
     return result
@@ -126,8 +126,8 @@ extension BMCDefaultViewModel: BMCViewModel {
   func updateAllCategoriesVisibility(isShowAll: Bool) {
     categories.forEach {
       $0.isVisible = isShowAll
-      BM.setCategory($0.identifier, isVisible: isShowAll)
     }
+    BM.setUserCategoriesVisible(isShowAll)
   }
 
   func updateCategoryVisibility(category: BMCCategory) {

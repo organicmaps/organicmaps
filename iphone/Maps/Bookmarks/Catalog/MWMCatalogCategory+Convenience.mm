@@ -2,7 +2,8 @@
 
 @implementation MWMCatalogCategory (Convenience)
 
-- (instancetype)initWithCategoryData:(kml::CategoryData &)categoryData bookmarksCount:(UInt64)count {
+- (instancetype)initWithCategoryData:(kml::CategoryData &)categoryData bookmarksCount:(UInt64)count
+{
   self = [self init];
 
   if (self)

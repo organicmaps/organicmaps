@@ -736,7 +736,8 @@ NSString * const kUserDefaultsLatLonAsDMSKey = @"UserDefaultsLatLonAsDMS";
   return m_info.GetBookmarkCategoryId();
 }
 
-- (BOOL)isFromCatalog {
+- (BOOL)isFromCatalog
+{
   return self.isBookmark && [MWMBookmarksManager isCategoryFromCatalog:self.bookmarkCategoryId];
 }
 

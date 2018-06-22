@@ -10,5 +10,4 @@
 @property (nonatomic) NSInteger bookmarksCount;
 @property (nonatomic, getter=isVisible) BOOL visible;
 
-
 @end

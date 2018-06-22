@@ -104,7 +104,7 @@
   if (indexPath.section == m_infoSection)
   {
     cell = [tableView dequeueReusableCellWithCellClass:MWMCategoryInfoCell.class indexPath:indexPath];
-    MWMCategoryInfoCell * infoCell = (MWMCategoryInfoCell * )cell;
+    MWMCategoryInfoCell * infoCell = (MWMCategoryInfoCell *)cell;
     NSString * title = @(bmManager.GetCategoryName(m_categoryId).c_str());
     auto categoryData = bmManager.GetCategoryData(m_categoryId);
     NSString * author = [NSString stringWithCoreFormat:L(@"author_name_by_prefix")
@@ -257,7 +257,8 @@
   }
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
   UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
 
   header.textLabel.textColor = [UIColor blackSecondaryText];
@@ -273,7 +274,8 @@
 
 #pragma mark - MWMCategoryInfoCellDelegate
 
-- (void)categoryInfoCellDidPressMore:(MWMCategoryInfoCell *)cell {
+- (void)categoryInfoCellDidPressMore:(MWMCategoryInfoCell *)cell
+{
   [self.tableView beginUpdates];
   cell.expanded = YES;
   [self.tableView endUpdates];
@@ -310,7 +312,8 @@
 //*********** End of Location manager callbacks ********************
 //******************************************************************
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
   [super viewDidLoad];
 
   [self.tableView registerWithCellClass:MWMCategoryInfoCell.class];
