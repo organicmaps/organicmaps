@@ -7,6 +7,7 @@
 #include "base/math.hpp"
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
+#include "base/logging.hpp"
 
 #include "std/cstring.hpp"
 #include "std/iomanip.hpp"
@@ -55,7 +56,8 @@ bool FormatDistanceImpl(double m, string & res,
 bool FormatDistance(double m, string & res)
 {
   auto units = Units::Metric;
-  UNUSED_VALUE(Get(settings::kMeasurementUnits, units));
+  if (!Get(settings::kMeasurementUnits, units))
+      LOG(LWARNING, ("Unable to read settings:", settings::kMeasurementUnits));
 
   /// @todo Put string units resources.
   switch (units)
@@ -165,7 +167,8 @@ void FormatMercator(m2::PointD const & mercator, string & lat, string & lon, int
 string FormatAltitude(double altitudeInMeters)
 {
   Units units = Units::Metric;
-  UNUSED_VALUE(Get(settings::kMeasurementUnits, units));
+  if (!Get(settings::kMeasurementUnits, units))
+      LOG(LWARNING, ("Unable to read settings:", settings::kMeasurementUnits));
 
   ostringstream ss;
   ss << fixed << setprecision(0);
@@ -182,7 +185,8 @@ string FormatAltitude(double altitudeInMeters)
 string FormatSpeedWithDeviceUnits(double metersPerSecond)
 {
   auto units = Units::Metric;
-  UNUSED_VALUE(Get(settings::kMeasurementUnits, units));
+  if (!Get(settings::kMeasurementUnits, units))
+      LOG(LWARNING, ("Unable to read settings:", settings::kMeasurementUnits));
   return FormatSpeedWithUnits(metersPerSecond, units);
 }
 

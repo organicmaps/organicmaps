@@ -124,7 +124,9 @@ MainWindow::MainWindow(Framework & framework, bool apiOpenGLES3, QString const &
 #ifndef NO_DOWNLOADER
   // Show intro dialog if necessary
   bool bShow = true;
-  (void)settings::Get("ShowWelcome", bShow);
+  const string showWelcome = "ShowWelcome";
+  if (!settings::Get(showWelcome, bShow))
+    LOG(LWARNING, ("Unable to read settings:", showWelcome));
 
   if (bShow)
   {

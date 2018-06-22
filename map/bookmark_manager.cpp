@@ -346,7 +346,10 @@ bool MigrateIfNeeded()
   {
     auto const newBookmarksDir = GetBookmarksDirectory();
     if (!GetPlatform().IsFileExistsByFullPath(newBookmarksDir))
-      UNUSED_VALUE(GetPlatform().MkDirChecked(newBookmarksDir));
+    {
+      if(!GetPlatform().MkDirChecked(newBookmarksDir))
+          LOG(LWARNING, ("Could not create directory:", newBookmarksDir));
+    }
     OnMigrationSuccess(0 /* originalCount */, 0 /* convertedCount */);
     return true;
   }
@@ -896,7 +899,9 @@ void BookmarkManager::SaveState() const
 
 void BookmarkManager::LoadState()
 {
-  UNUSED_VALUE(settings::Get(kLastEditedBookmarkCategory, m_lastCategoryUrl));
+  if(!settings::Get(kLastEditedBookmarkCategory, m_lastCategoryUrl))
+      LOG(LWARNING, ("Unable to read settings:", kLastEditedBookmarkCategory));
+
   uint32_t color;
   if (settings::Get(kLastEditedBookmarkColor, color) &&
       color > static_cast<uint32_t>(kml::PredefinedColor::None) &&

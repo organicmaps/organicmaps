@@ -57,7 +57,8 @@ GpsTrackFilter::GpsTrackFilter()
   , m_countLastInfo(0)
   , m_countAcceptedInfo(0)
 {
-  UNUSED_VALUE(settings::Get(kMinHorizontalAccuracyKey, m_minAccuracy));
+  if (!settings::Get(kMinHorizontalAccuracyKey, m_minAccuracy))
+      LOG(LWARNING, ("Unable to read settings:", kMinHorizontalAccuracyKey));
 }
 
 void GpsTrackFilter::Process(vector<location::GpsInfo> const & inPoints,

@@ -1039,7 +1039,10 @@ bool RoutingManager::IsTrackingReporterEnabled() const
     return false;
 
   bool enableTracking = true;
-  UNUSED_VALUE(settings::Get(tracking::Reporter::kEnableTrackingKey, enableTracking));
+  if (!settings::Get(tracking::Reporter::kEnableTrackingKey, enableTracking))
+      LOG(LWARNING, ("Unable to read settings:",
+                     tracking::Reporter::kEnableTrackingKey));
+
   return enableTracking;
 }
 
