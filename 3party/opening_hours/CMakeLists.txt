@@ -12,6 +12,8 @@ add_compile_options(
 )
 
 add_clang_compile_options("-Wno-unused-local-typedef")
+add_gcc_compile_options("-Wno-unused-local-typedef")
+add_gcc_compile_options("-Wno-return-type")
 
 set(
   SRC

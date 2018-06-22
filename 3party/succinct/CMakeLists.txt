@@ -5,6 +5,7 @@ add_definitions(-DLTC_NO_ROLC)
 include_directories(src/headers)
 
 add_clang_compile_options("-Wno-unused-local-typedef")
+add_gcc_compile_options("-Wno-unused-local-typedef")
 
 set(
   SRC

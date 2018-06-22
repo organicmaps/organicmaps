@@ -162,6 +162,12 @@ function(add_clang_compile_options)
   endif()
 endfunction()
 
+function(add_gcc_compile_options)
+  if (CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+    add_compile_options(${ARGV})
+  endif()
+endfunction()
+
 function(export_directory_flags filename)
   get_directory_property(include_directories INCLUDE_DIRECTORIES)
   get_directory_property(definitions COMPILE_DEFINITIONS)
