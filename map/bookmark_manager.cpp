@@ -2094,8 +2094,12 @@ void BookmarkManager::ImportDownloadedFromCatalog(std::string const & id, std::s
     }
     else
     {
-      if (m_onCatalogImportFinished)
-        m_onCatalogImportFinished(id, false /* successful */);
+      GetPlatform().RunTask(Platform::Thread::Gui, [this, id]
+      {
+        m_bookmarkCatalog.UnregisterDownloadedId(id);
+        if (m_onCatalogImportFinished)
+          m_onCatalogImportFinished(id, false /* successful */);
+      });
     }
   });
 }

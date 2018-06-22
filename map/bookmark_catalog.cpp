@@ -89,11 +89,20 @@ void BookmarkCatalog::Download(std::string const & id, std::string const & name,
   {
     if (startHandler)
       startHandler();
-  }, [finishHandler = std::move(finishHandler)] (platform::RemoteFile::Result && result,
-                                                 std::string const & filePath)
+  }, [this, id, finishHandler = std::move(finishHandler)] (platform::RemoteFile::Result && result,
+                                                           std::string const & filePath) mutable
   {
-    if (finishHandler)
-      finishHandler(std::move(result), filePath);
+    GetPlatform().RunTask(Platform::Thread::Gui, [this, id, result = std::move(result), filePath,
+                                                  finishHandler = std::move(finishHandler)]() mutable
+    {
+      if (result.m_status == platform::RemoteFile::Status::Ok)
+        RegisterDownloadedId(id);
+      else
+        m_downloadingIds.erase(id);
+
+      if (finishHandler)
+        finishHandler(std::move(result), filePath);
+    });
   });
 }
 
