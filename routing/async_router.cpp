@@ -439,7 +439,7 @@ void AsyncRouter::CalculateRoute()
   if (code != RouterResultCode::NoError)
   {
     if (code == RouterResultCode::NeedMoreMaps)
-       RunOnGuiThread([delegate, routeId, absent]() { delegate->OnNeedMoreMaps(routeId, absent); });
+      RunOnGuiThread([delegate, routeId, absent]() { delegate->OnNeedMoreMaps(routeId, absent); });
     else
       RunOnGuiThread([delegate, code]() { delegate->OnRemoveRoute(code); });
   }

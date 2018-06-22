@@ -189,13 +189,13 @@ bool RoutingSession::IsActive() const
 bool RoutingSession::IsNavigable() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return IsNavigableImpl();
+  return (m_state == RouteNotStarted || m_state == OnRoute || m_state == RouteFinished);
 }
 
 bool RoutingSession::IsBuilt() const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return (IsNavigableImpl() || m_state == RouteNeedRebuild);
+  return (IsNavigable() || m_state == RouteNeedRebuild);
 }
 
 bool RoutingSession::IsBuilding() const
@@ -247,12 +247,6 @@ bool RoutingSession::IsFollowing() const
 }
 
 void RoutingSession::Reset()
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  ResetImpl();
-}
-
-void RoutingSession::ResetImpl()
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_router != nullptr, ());
@@ -378,7 +372,7 @@ void RoutingSession::GetRouteFollowingInfo(FollowingInfo & info) const
     return;
   }
 
-  if (!IsNavigableImpl())
+  if (!IsNavigable())
   {
     info = FollowingInfo();
     FormatDistance(m_route->GetTotalDistanceMeters(), info.m_distToTarget, info.m_targetUnitsSuffix);
@@ -484,7 +478,7 @@ void RoutingSession::GenerateTurnNotifications(vector<string> & turnNotification
   if (!m_routingSettings.m_soundDirection)
     return;
 
-  if (!m_route->IsValid() || !IsNavigableImpl())
+  if (!m_route->IsValid() || !IsNavigable())
     return;
 
   vector<turns::TurnItemDist> turns;
@@ -524,7 +518,7 @@ void RoutingSession::SetRouter(unique_ptr<IRouter> && router,
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_router != nullptr, ());
-  ResetImpl();
+  Reset();
   m_router->SetRouter(move(router), move(fetcher));
 }
 
@@ -685,7 +679,7 @@ double RoutingSession::GetDistanceToCurrentCamM(SpeedCameraRestriction & camera,
   return kInvalidSpeedCameraDistance;
 }
 
-void RoutingSession::ProtectedCall(RouteCallback const & callback) const
+void RoutingSession::RouteCall(RouteCallback const & callback) const
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   CHECK(m_route, ());

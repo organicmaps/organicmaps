@@ -986,7 +986,7 @@ void RoutingManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine, bool is3dAl
       // In case of the engine reinitialization recover route.
       if (IsRoutingActive())
       {
-        m_routingSession.ProtectedCall([this](Route const & route) { InsertRoute(route); });
+        m_routingSession.RouteCall([this](Route const & route) { InsertRoute(route); });
 
         if (is3dAllowed && m_routingSession.IsFollowing())
           m_drapeEngine.SafeCall(&df::DrapeEngine::EnablePerspective);

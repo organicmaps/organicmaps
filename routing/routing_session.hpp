@@ -17,7 +17,6 @@
 #include "geometry/point2d.hpp"
 #include "geometry/polyline2d.hpp"
 
-#include "base/mutex.hpp"
 #include "base/thread_checker.hpp"
 
 #include "std/functional.hpp"
@@ -167,7 +166,7 @@ public:
 
   void EmitCloseRoutingEvent() const;
 
-  void ProtectedCall(RouteCallback const & callback) const;
+  void RouteCall(RouteCallback const & callback) const;
 
   // RoutingObserver overrides:
   void OnTrafficInfoClear() override;
@@ -181,8 +180,6 @@ public:
   void CopyTraffic(std::map<MwmSet::MwmId, std::shared_ptr<traffic::TrafficInfo::Coloring>> & trafficColoring) const override;
 
 private:
-  // @TODO(bykoianko) This class should be removed when all methods RoutingSession and
-  // all routing callbacks are called from ui thread.
   struct DoReadyCallback
   {
     RoutingSession & m_rs;
@@ -196,26 +193,18 @@ private:
     void operator()(shared_ptr<Route> route, RouterResultCode e);
   };
 
-  // Should be called with locked m_routingSessionMutex.
   void AssignRoute(shared_ptr<Route> route, RouterResultCode e);
 
   /// Returns a nearest speed camera record on your way and distance to it.
   /// Returns kInvalidSpeedCameraDistance if there is no cameras on your way.
-  // Should be called with locked m_routingSessionMutex.
   double GetDistanceToCurrentCamM(SpeedCameraRestriction & camera, DataSource const & dataSource);
 
   /// RemoveRoute removes m_route and resets route attributes (m_state, m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();
   void RebuildRouteOnTrafficUpdate();
 
-  // Should be called with locked m_routingSessionMutex.
-  void ResetImpl();
-  // Should be called with locked m_routingSessionMutex.
   double GetCompletionPercent() const;
-  // Should be called with locked m_routingSessionMutex.
   void PassCheckpoints();
-  // Should be called with locked m_routingSessionMutex.
-  bool IsNavigableImpl() const { return (m_state == RouteNotStarted || m_state == OnRoute || m_state == RouteFinished); }
 
 private:
   unique_ptr<AsyncRouter> m_router;
