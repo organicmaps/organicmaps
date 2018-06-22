@@ -223,8 +223,6 @@ bool GenerateChartByPoints(uint32_t width, uint32_t height, vector<m2::PointD> c
   using TBlender = BlendAdaptor<agg::rgba8, agg::order_rgba>;
   using TPixelFormat = agg::pixfmt_custom_blend_rgba<TBlender, agg::rendering_buffer>;
   using TBaseRenderer = agg::renderer_base<TPixelFormat>;
-  using TPrimitivesRenderer = agg::renderer_primitives<TBaseRenderer>;
-  using TSolidRenderer = agg::renderer_scanline_aa_solid<TBaseRenderer>;
   using TPath = agg::poly_container_adaptor<vector<m2::PointD>>;
   using TStroke = agg::conv_stroke<TPath>;
 
