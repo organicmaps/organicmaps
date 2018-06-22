@@ -159,7 +159,9 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
       .setIcon(item.isVisible() ? R.drawable.ic_hide : R.drawable.ic_show)
       .setTitle(item.isVisible() ? R.string.hide : R.string.show);
 
-    final boolean deleteIsPossible = getAdapter().getBookmarkCategories().size() > 1 || mSelectedCategory.isFromCatalog();
+    boolean isMultipleItems = getAdapter().getBookmarkCategories().size() > 1;
+    boolean fromCatalog = mSelectedCategory.isFromCatalog();
+    final boolean deleteIsPossible = isMultipleItems || fromCatalog;
     bs.getItemById(getDeleteMenuItemResId())
       .setVisible(deleteIsPossible)
       .setEnabled(deleteIsPossible);
@@ -267,6 +269,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     SharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(getActivity(), category.getId());
   }
 
+  @CallSuper
   protected void onDeleteActionSelected(@NonNull BookmarkCategory category)
   {
     BookmarkManager.INSTANCE.deleteCategory(category.getId());
@@ -274,7 +277,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
   }
 
   @Override
-  public void onItemLongClick(View v, BookmarkCategory category)
+  public void onItemLongClick(@NonNull View v, @NonNull BookmarkCategory category)
   {
     showBottomMenu(category);
   }

@@ -1,7 +1,6 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -64,6 +63,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   public void onStart()
   {
     super.onStart();
+    mImportCategoryListener.attach(this);
     BookmarkManager.INSTANCE.addCatalogListener(mImportCategoryListener);
   }
 
@@ -71,7 +71,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
   public void onStop()
   {
     super.onStop();
-    mImportCategoryListener.clear();
+    mImportCategoryListener.detach();
     BookmarkManager.INSTANCE.removeCatalogListener(mImportCategoryListener);
   }
 
@@ -229,25 +229,21 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       {
         Toast.makeText(mFragment.getContext(), R.string.bookmarks_webview_success_toast,
                        Toast.LENGTH_SHORT).show();
+        return;
       }
-      else
-      {
-        DialogUtils.showAlertDialog(mFragment.getActivity(),
-                                    R.string.title_error_downloading_bookmarks,
-                                    R.string.subtitle_error_downloading_bookmarks,
-                                    android.R.string.ok,
-                                    (dialog, which) -> onOkClicked(dialog));
-      }
+      DialogUtils.showAlertDialog(mFragment.getActivity(),
+                                  R.string.title_error_downloading_bookmarks,
+                                  R.string.subtitle_error_downloading_bookmarks);
     }
 
-    private void onOkClicked(DialogInterface dialog)
-    {
-      dialog.dismiss();
-    }
-
-    public void clear()
+    public void detach()
     {
       mFragment = null;
+    }
+
+    public void attach(@NonNull BookmarksCatalogFragment fragment)
+    {
+      mFragment = fragment;
     }
   }
 }
