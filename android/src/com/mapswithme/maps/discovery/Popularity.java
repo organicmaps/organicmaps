@@ -10,8 +10,8 @@ public enum Popularity
   @NonNull
   public static Popularity makeInstance(int index)
   {
-    if (index >= Popularity.values().length)
-      return Popularity.NOT_POPULAR;
+    if (index < 0 || index >= Popularity.values().length)
+      throw new AssertionError("Not found enum value for index = " + index);
 
     return Popularity.values()[index];
   }
