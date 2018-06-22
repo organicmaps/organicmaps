@@ -67,11 +67,11 @@ bool ParseFeatureIdToTestIdMapping(string const & path, map<uint32_t, vector<uin
 
 CBV GetLocalities(string const & dataPath)
 {
-  DataSource index;
-  auto const result = index.Register(platform::LocalCountryFile::MakeTemporary(dataPath));
+  DataSource dataSource;
+  auto const result = dataSource.Register(platform::LocalCountryFile::MakeTemporary(dataPath));
   CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ("Can't register", dataPath));
 
-  search::MwmContext context(index.GetMwmHandleById(result.first));
+  search::MwmContext context(dataSource.GetMwmHandleById(result.first));
   return search::CategoriesCache(LocalitiesSource{}, base::Cancellable{}).Get(context);
 }
 

@@ -63,7 +63,7 @@ private:
   };
 
 public:
-  FeaturesRoadGraph(DataSourceBase const & index, IRoadGraph::Mode mode,
+  FeaturesRoadGraph(DataSourceBase const & dataSource, IRoadGraph::Mode mode,
                     shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory);
 
   static int GetStreetReadScale();
@@ -89,7 +89,7 @@ private:
   struct Value
   {
     Value() = default;
-    Value(DataSourceBase const & index, MwmSet::MwmHandle handle);
+    Value(DataSourceBase const & dataSource, MwmSet::MwmHandle handle);
 
     bool IsAlive() const { return m_mwmHandle.IsAlive(); }
 
@@ -112,7 +112,7 @@ private:
 
   Value const & LockMwm(MwmSet::MwmId const & mwmId) const;
 
-  DataSourceBase const & m_index;
+  DataSourceBase const & m_dataSource;
   IRoadGraph::Mode const m_mode;
   mutable RoadInfoCache m_cache;
   mutable CrossCountryVehicleModel m_vehicleModel;

@@ -28,7 +28,7 @@ public:
   public:
     virtual ~Delegate() = default;
 
-    virtual DataSourceBase const & GetIndex() const = 0;
+    virtual DataSourceBase const & GetDataSource() const = 0;
     virtual Api const & GetApi() const = 0;
   };
 

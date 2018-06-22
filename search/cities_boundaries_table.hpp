@@ -58,7 +58,7 @@ public:
     double m_eps = 0.0;
   };
 
-  explicit CitiesBoundariesTable(DataSourceBase const & index) : m_index(index) {}
+  explicit CitiesBoundariesTable(DataSourceBase const & dataSource) : m_dataSource(dataSource) {}
 
   bool Load();
 
@@ -69,7 +69,7 @@ public:
   bool Get(uint32_t fid, Boundaries & bs) const;
 
 private:
-  DataSourceBase const & m_index;
+  DataSourceBase const & m_dataSource;
   MwmSet::MwmId m_mwmId;
   std::unordered_map<uint32_t, std::vector<indexer::CityBoundary>> m_table;
   double m_eps = 0.0;

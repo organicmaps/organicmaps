@@ -64,7 +64,7 @@ private:
   void ForAnyMatchingEntry(Context & context, FeatureID const & id, Fn && fn);
 
   Framework & m_framework;
-  DataSourceBase const & m_index;
+  DataSourceBase const & m_dataSource;
   search::FeatureLoader m_loader;
 
   ContextList m_contexts;

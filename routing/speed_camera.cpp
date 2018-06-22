@@ -37,12 +37,11 @@ uint8_t ReadCameraRestriction(FeatureType & ft)
   return 0;
 }
 
-uint8_t CheckCameraInPoint(m2::PointD const & point, DataSourceBase const & index)
+uint8_t CheckCameraInPoint(m2::PointD const & point, DataSourceBase const & dataSource)
 {
   uint32_t speedLimit = kNoSpeedCamera;
 
-  auto const f = [&point, &speedLimit](FeatureType & ft)
-  {
+  auto const f = [&point, &speedLimit](FeatureType & ft) {
     if (ft.GetFeatureType() != feature::GEOM_POINT)
       return;
 
@@ -55,10 +54,9 @@ uint8_t CheckCameraInPoint(m2::PointD const & point, DataSourceBase const & inde
       speedLimit = ReadCameraRestriction(ft);
   };
 
-  index.ForEachInRect(f,
-                      MercatorBounds::RectByCenterXYAndSizeInMeters(point,
-                                                                    kCameraCheckRadiusMeters),
-                      scales::GetUpperScale());
+  dataSource.ForEachInRect(
+      f, MercatorBounds::RectByCenterXYAndSizeInMeters(point, kCameraCheckRadiusMeters),
+      scales::GetUpperScale());
   return speedLimit;
 }
 }  // namespace routing

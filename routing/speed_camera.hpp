@@ -10,5 +10,5 @@ namespace routing
 {
 extern uint8_t const kNoSpeedCamera;
 
-uint8_t CheckCameraInPoint(m2::PointD const & point, DataSourceBase const & index);
+uint8_t CheckCameraInPoint(m2::PointD const & point, DataSourceBase const & dataSource);
 }  // namespace routing

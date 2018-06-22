@@ -89,8 +89,8 @@ public:
     size_t m_numThreads;
   };
 
-  // Doesn't take ownership of index and categories.
-  Engine(DataSourceBase & index, CategoriesHolder const & categories,
+  // Doesn't take ownership of dataSource and categories.
+  Engine(DataSourceBase & dataSource, CategoriesHolder const & categories,
          storage::CountryInfoGetter const & infoGetter, Params const & params);
   ~Engine();
 

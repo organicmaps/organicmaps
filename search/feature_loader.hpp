@@ -19,7 +19,7 @@ namespace search
 class FeatureLoader
 {
 public:
-  explicit FeatureLoader(DataSourceBase const & index);
+  explicit FeatureLoader(DataSourceBase const & dataSource);
 
   WARN_UNUSED_RESULT bool Load(FeatureID const & id, FeatureType & ft);
 
@@ -28,11 +28,11 @@ public:
   void ForEachInRect(m2::RectD const & rect, std::function<void(FeatureType &)> const & fn)
   {
     ASSERT(m_checker.CalledOnOriginalThread(), ());
-    m_index.ForEachInRect(fn, rect, scales::GetUpperScale());
+    m_dataSource.ForEachInRect(fn, rect, scales::GetUpperScale());
   }
 
 private:
-  DataSourceBase const & m_index;
+  DataSourceBase const & m_dataSource;
   std::unique_ptr<EditableDataSource::FeaturesLoaderGuard> m_guard;
 
   ThreadChecker m_checker;

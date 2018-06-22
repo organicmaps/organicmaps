@@ -13,7 +13,7 @@ namespace search
 {
 SearchTest::SearchTest()
   : m_scopedLog(LDEBUG)
-  , m_engine(m_index, make_unique<storage::CountryInfoGetterForTesting>(), Engine::Params{})
+  , m_engine(m_dataSource, make_unique<storage::CountryInfoGetterForTesting>(), Engine::Params{})
 {
   SetViewport(MercatorBounds::FullRect());
 }
@@ -36,7 +36,7 @@ bool SearchTest::ResultsMatch(string const & query, string const & locale,
 {
   tests_support::TestSearchRequest request(m_engine, query, locale, Mode::Everywhere, m_viewport);
   request.Run();
-  return MatchResults(m_index, rules, request.Results());
+  return MatchResults(m_dataSource, rules, request.Results());
 }
 
 bool SearchTest::ResultsMatch(string const & query, Mode mode,
@@ -44,12 +44,12 @@ bool SearchTest::ResultsMatch(string const & query, Mode mode,
 {
   tests_support::TestSearchRequest request(m_engine, query, "en", mode, m_viewport);
   request.Run();
-  return MatchResults(m_index, rules, request.Results());
+  return MatchResults(m_dataSource, rules, request.Results());
 }
 
 bool SearchTest::ResultsMatch(vector<search::Result> const & results, TRules const & rules)
 {
-  return MatchResults(m_index, rules, results);
+  return MatchResults(m_dataSource, rules, results);
 }
 
 bool SearchTest::ResultsMatch(SearchParams const & params, TRules const & rules)
@@ -61,7 +61,7 @@ bool SearchTest::ResultsMatch(SearchParams const & params, TRules const & rules)
 
 bool SearchTest::ResultMatches(search::Result const & result, TRule const & rule)
 {
-  return tests_support::ResultMatches(m_index, rule, result);
+  return tests_support::ResultMatches(m_dataSource, rule, result);
 }
 
 unique_ptr<tests_support::TestSearchRequest> SearchTest::MakeRequest(
@@ -84,7 +84,7 @@ size_t SearchTest::CountFeatures(m2::RectD const & rect)
 {
   size_t count = 0;
   auto counter = [&count](const FeatureType & /* ft */) { ++count; };
-  m_index.ForEachInRect(counter, rect, scales::GetUpperScale());
+  m_dataSource.ForEachInRect(counter, rect, scales::GetUpperScale());
   return count;
 }
 

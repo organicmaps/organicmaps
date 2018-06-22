@@ -25,7 +25,7 @@ size_t constexpr kRoadsCacheSize = 5000;
 class GeometryLoaderImpl final : public GeometryLoader
 {
 public:
-  GeometryLoaderImpl(DataSourceBase const & index, MwmSet::MwmHandle const & handle,
+  GeometryLoaderImpl(DataSourceBase const & dataSource, MwmSet::MwmHandle const & handle,
                      shared_ptr<VehicleModelInterface> vehicleModel, bool loadAltitudes);
 
   // GeometryLoader overrides:
@@ -39,12 +39,12 @@ private:
   bool const m_loadAltitudes;
 };
 
-GeometryLoaderImpl::GeometryLoaderImpl(DataSourceBase const & index, MwmSet::MwmHandle const & handle,
+GeometryLoaderImpl::GeometryLoaderImpl(DataSourceBase const & dataSource, MwmSet::MwmHandle const & handle,
                                        shared_ptr<VehicleModelInterface> vehicleModel, bool loadAltitudes)
   : m_vehicleModel(move(vehicleModel))
-  , m_guard(index, handle.GetId())
+  , m_guard(dataSource, handle.GetId())
   , m_country(handle.GetInfo()->GetCountryName())
-  , m_altitudeLoader(index, handle.GetId())
+  , m_altitudeLoader(dataSource, handle.GetId())
   , m_loadAltitudes(loadAltitudes)
 {
   CHECK(handle.IsAlive(), ());
@@ -161,13 +161,13 @@ RoadGeometry const & Geometry::GetRoad(uint32_t featureId)
 }
 
 // static
-unique_ptr<GeometryLoader> GeometryLoader::Create(DataSourceBase const & index,
+unique_ptr<GeometryLoader> GeometryLoader::Create(DataSourceBase const & dataSource,
                                                   MwmSet::MwmHandle const & handle,
                                                   shared_ptr<VehicleModelInterface> vehicleModel,
                                                   bool loadAltitudes)
 {
   CHECK(handle.IsAlive(), ());
-  return make_unique<GeometryLoaderImpl>(index, handle, vehicleModel, loadAltitudes);
+  return make_unique<GeometryLoaderImpl>(dataSource, handle, vehicleModel, loadAltitudes);
 }
 
 // static

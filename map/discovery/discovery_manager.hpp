@@ -54,7 +54,7 @@ public:
 
   using ErrorCalback = std::function<void(uint32_t const requestId, ItemType const type)>;
 
-  Manager(DataSourceBase const & index, search::CityFinder & cityFinder, APIs const & apis);
+  Manager(DataSourceBase const & dataSource, search::CityFinder & cityFinder, APIs const & apis);
 
   template <typename ResultCallback>
   uint32_t Discover(Params && params, ResultCallback const & onResult, ErrorCalback const & onError)
@@ -153,7 +153,7 @@ private:
   static search::DiscoverySearchParams GetSearchParams(Manager::Params const & params, ItemType const type);
   std::string GetCityViatorId(m2::PointD const & point) const;
 
-  DataSourceBase const & m_index;
+  DataSourceBase const & m_dataSource;
   search::CityFinder & m_cityFinder;
   SearchAPI & m_searchApi;
   viator::Api const & m_viatorApi;

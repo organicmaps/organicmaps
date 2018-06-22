@@ -12,15 +12,15 @@ namespace search
 {
 namespace tests_support
 {
-TestSearchEngine::TestSearchEngine(DataSourceBase & index, unique_ptr<storage::CountryInfoGetter> infoGetter,
+TestSearchEngine::TestSearchEngine(DataSourceBase & dataSource, unique_ptr<storage::CountryInfoGetter> infoGetter,
                                    Engine::Params const & params)
-  : m_infoGetter(move(infoGetter)), m_engine(index, GetDefaultCategories(), *m_infoGetter, params)
+  : m_infoGetter(move(infoGetter)), m_engine(dataSource, GetDefaultCategories(), *m_infoGetter, params)
 {
 }
 
-TestSearchEngine::TestSearchEngine(DataSourceBase & index, Engine::Params const & params)
+TestSearchEngine::TestSearchEngine(DataSourceBase & dataSource, Engine::Params const & params)
   : m_infoGetter(storage::CountryInfoReader::CreateCountryInfoReader(GetPlatform()))
-  , m_engine(index, GetDefaultCategories(), *m_infoGetter, params)
+  , m_engine(dataSource, GetDefaultCategories(), *m_infoGetter, params)
 {
 }
 

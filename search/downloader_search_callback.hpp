@@ -30,7 +30,7 @@ public:
     virtual void RunUITask(std::function<void()> fn) = 0;
   };
 
-  DownloaderSearchCallback(Delegate & delegate, DataSourceBase const & index,
+  DownloaderSearchCallback(Delegate & delegate, DataSourceBase const & dataSource,
                            storage::CountryInfoGetter const & infoGetter,
                            storage::Storage const & storage,
                            storage::DownloaderSearchParams params);
@@ -39,7 +39,7 @@ public:
 
 private:
   Delegate & m_delegate;
-  DataSourceBase const & m_index;
+  DataSourceBase const & m_dataSource;
   storage::CountryInfoGetter const & m_infoGetter;
   storage::Storage const & m_storage;
   storage::DownloaderSearchParams m_params;

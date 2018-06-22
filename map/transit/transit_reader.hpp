@@ -31,9 +31,9 @@ using TReadFeaturesFn = std::function<void (FeatureCallback const & , std::vecto
 class ReadTransitTask: public threads::IRoutine
 {
 public:
-  ReadTransitTask(DataSourceBase & index,
+  ReadTransitTask(DataSourceBase & dataSource,
                   TReadFeaturesFn const & readFeaturesFn)
-    : m_index(index), m_readFeaturesFn(readFeaturesFn)
+    : m_dataSource(dataSource), m_readFeaturesFn(readFeaturesFn)
   {}
 
   void Init(uint64_t id, MwmSet::MwmId const & mwmId,
@@ -65,7 +65,7 @@ private:
     }
   };
 
-  DataSourceBase & m_index;
+  DataSourceBase & m_dataSource;
   TReadFeaturesFn m_readFeaturesFn;
 
   uint64_t m_id = 0;
@@ -83,7 +83,7 @@ public:
   using GetMwmsByRectFn = function<vector<MwmSet::MwmId>(m2::RectD const &)>;
 
 
-  TransitReadManager(DataSourceBase & index, TReadFeaturesFn const & readFeaturesFn,
+  TransitReadManager(DataSourceBase & dataSource, TReadFeaturesFn const & readFeaturesFn,
                      GetMwmsByRectFn const & getMwmsByRectFn);
   ~TransitReadManager();
 
@@ -113,7 +113,7 @@ private:
   uint64_t m_nextTasksGroupId = 0;
   std::map<uint64_t, size_t> m_tasksGroups;
 
-  DataSourceBase & m_index;
+  DataSourceBase & m_dataSource;
   TReadFeaturesFn m_readFeaturesFn;
 
   df::DrapeEngineSafePtr m_drapeEngine;

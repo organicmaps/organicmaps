@@ -31,14 +31,14 @@ UNIT_TEST(FakeEdgesCombinatorialExplosion)
   GetAllLocalFiles(localFiles);
   TEST(!localFiles.empty(), ());
 
-  DataSource index;
+  DataSource dataSource;
   for (auto const & file : localFiles)
   {
-    auto const result = index.Register(file);
+    auto const result = dataSource.Register(file);
     TEST_EQUAL(result.second, MwmSet::RegResult::Success, ());
   }
 
-  FeaturesRoadGraph graph(index, IRoadGraph::Mode::ObeyOnewayTag,
+  FeaturesRoadGraph graph(dataSource, IRoadGraph::Mode::ObeyOnewayTag,
                           make_shared<CarModelFactory>(CountryParentNameGetterFn()));
   Junction const j(m2::PointD(MercatorBounds::FromLatLon(50.73208, -1.21279)), feature::kDefaultAltitudeMeters);
   std::vector<std::pair<routing::Edge, routing::Junction>> sourceVicinity;

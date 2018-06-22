@@ -27,7 +27,7 @@ namespace routing
 class TransitGraphLoaderImpl : public TransitGraphLoader
 {
 public:
-  TransitGraphLoaderImpl(DataSourceBase & index, shared_ptr<NumMwmIds> numMwmIds,
+  TransitGraphLoaderImpl(DataSourceBase & dataSource, shared_ptr<NumMwmIds> numMwmIds,
                          shared_ptr<EdgeEstimator> estimator);
 
   // TransitGraphLoader overrides.
@@ -39,15 +39,15 @@ public:
 private:
   unique_ptr<TransitGraph> CreateTransitGraph(NumMwmId mwmId, IndexGraph & indexGraph) const;
 
-  DataSourceBase & m_index;
+  DataSourceBase & m_dataSource;
   shared_ptr<NumMwmIds> m_numMwmIds;
   shared_ptr<EdgeEstimator> m_estimator;
   unordered_map<NumMwmId, unique_ptr<TransitGraph>> m_graphs;
 };
 
-TransitGraphLoaderImpl::TransitGraphLoaderImpl(DataSourceBase & index, shared_ptr<NumMwmIds> numMwmIds,
+TransitGraphLoaderImpl::TransitGraphLoaderImpl(DataSourceBase & dataSource, shared_ptr<NumMwmIds> numMwmIds,
                                                shared_ptr<EdgeEstimator> estimator)
-  : m_index(index), m_numMwmIds(numMwmIds), m_estimator(estimator)
+  : m_dataSource(dataSource), m_numMwmIds(numMwmIds), m_estimator(estimator)
 {
 }
 
@@ -68,7 +68,7 @@ unique_ptr<TransitGraph> TransitGraphLoaderImpl::CreateTransitGraph(NumMwmId num
                                                                     IndexGraph & indexGraph) const
 {
   platform::CountryFile const & file = m_numMwmIds->GetFile(numMwmId);
-  MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(file);
+  MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(file);
   if (!handle.IsAlive())
     MYTHROW(RoutingException, ("Can't get mwm handle for", file));
 
@@ -101,11 +101,11 @@ unique_ptr<TransitGraph> TransitGraphLoaderImpl::CreateTransitGraph(NumMwmId num
 }
 
 // static
-unique_ptr<TransitGraphLoader> TransitGraphLoader::Create(DataSourceBase & index,
+unique_ptr<TransitGraphLoader> TransitGraphLoader::Create(DataSourceBase & dataSource,
                                                           shared_ptr<NumMwmIds> numMwmIds,
                                                           shared_ptr<EdgeEstimator> estimator)
 {
-  return my::make_unique<TransitGraphLoaderImpl>(index, numMwmIds, estimator);
+  return my::make_unique<TransitGraphLoaderImpl>(dataSource, numMwmIds, estimator);
 }
 
 }  // namespace routing

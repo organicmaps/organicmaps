@@ -45,8 +45,8 @@ void SweepNearbyResults(double eps, set<FeatureID> const & prevEmit, vector<PreR
 }
 }  // namespace
 
-PreRanker::PreRanker(DataSourceBase const & index, Ranker & ranker)
-  : m_index(index), m_ranker(ranker), m_pivotFeatures(index)
+PreRanker::PreRanker(DataSourceBase const & dataSource, Ranker & ranker)
+  : m_dataSource(dataSource), m_ranker(ranker), m_pivotFeatures(dataSource)
 {
 }
 
@@ -81,7 +81,7 @@ void PreRanker::FillMissingFieldsInPreResults()
     if (id.m_mwmId != mwmId)
     {
       mwmId = id.m_mwmId;
-      mwmHandle = m_index.GetMwmHandleById(mwmId);
+      mwmHandle = m_dataSource.GetMwmHandleById(mwmId);
       ranks.reset();
       centers.reset();
       if (mwmHandle.IsAlive())

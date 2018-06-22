@@ -141,19 +141,19 @@ size_t const Processor::kPreResultsCount = 200;
 double const Processor::kMinViewportRadiusM = 5.0 * 1000;
 double const Processor::kMaxViewportRadiusM = 50.0 * 1000;
 
-Processor::Processor(DataSourceBase const & index, CategoriesHolder const & categories,
+Processor::Processor(DataSourceBase const & dataSource, CategoriesHolder const & categories,
                      vector<Suggest> const & suggests,
                      storage::CountryInfoGetter const & infoGetter)
   : m_categories(categories)
   , m_infoGetter(infoGetter)
   , m_position(0, 0)
   , m_villagesCache(static_cast<::base::Cancellable const &>(*this))
-  , m_citiesBoundaries(index)
+  , m_citiesBoundaries(dataSource)
   , m_keywordsScorer(LanguageTier::LANGUAGE_TIER_COUNT)
-  , m_ranker(index, m_citiesBoundaries, infoGetter, m_keywordsScorer, m_emitter, categories,
+  , m_ranker(dataSource, m_citiesBoundaries, infoGetter, m_keywordsScorer, m_emitter, categories,
              suggests, m_villagesCache, static_cast<::base::Cancellable const &>(*this))
-  , m_preRanker(index, m_ranker)
-  , m_geocoder(index, infoGetter, categories, m_preRanker, m_villagesCache,
+  , m_preRanker(dataSource, m_ranker)
+  , m_geocoder(dataSource, infoGetter, categories, m_preRanker, m_villagesCache,
                static_cast<::base::Cancellable const &>(*this))
   , m_bookmarksProcessor(m_emitter, static_cast<::base::Cancellable const &>(*this))
 {

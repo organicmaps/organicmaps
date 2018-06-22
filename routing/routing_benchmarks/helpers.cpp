@@ -81,11 +81,11 @@ RoutingTest::RoutingTest(routing::IRoadGraph::Mode mode, set<string> const & nee
     if (m_neededMaps.count(name) == 0)
       continue;
 
-    UNUSED_VALUE(m_index.RegisterMap(localFile));
+    UNUSED_VALUE(m_dataSource.RegisterMap(localFile));
 
     auto const & countryFile = localFile.GetCountryFile();
-    TEST(m_index.IsLoaded(countryFile), ());
-    MwmSet::MwmId const id = m_index.GetMwmIdByCountryFile(countryFile);
+    TEST(m_dataSource.IsLoaded(countryFile), ());
+    MwmSet::MwmId const id = m_dataSource.GetMwmIdByCountryFile(countryFile);
     TEST(id.IsAlive(), ());
 
     registeredMaps.insert(name);
@@ -153,13 +153,13 @@ unique_ptr<routing::IRouter> RoutingTest::CreateRouter(string const & name)
   }
 
   unique_ptr<routing::IRouter> router = integration::CreateVehicleRouter(
-      m_index, *m_cig, m_trafficCache, neededLocalFiles, routing::VehicleType::Pedestrian);
+      m_dataSource, *m_cig, m_trafficCache, neededLocalFiles, routing::VehicleType::Pedestrian);
   return router;
 }
 
 void RoutingTest::GetNearestEdges(m2::PointD const & pt,
                                   vector<pair<routing::Edge, routing::Junction>> & edges)
 {
-  routing::FeaturesRoadGraph graph(m_index, m_mode, CreateModelFactory());
+  routing::FeaturesRoadGraph graph(m_dataSource, m_mode, CreateModelFactory());
   graph.FindClosestEdges(pt, 1 /* count */, edges);
 }

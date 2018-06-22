@@ -46,7 +46,7 @@ using FillSearchMarksCallback =
 class FilterProcessor : public FilterBase::Delegate
 {
 public:
-  FilterProcessor(DataSourceBase const & index, booking::Api const & api);
+  FilterProcessor(DataSourceBase const & dataSource, booking::Api const & api);
 
   void ApplyFilters(search::Results const & results, TasksInternal && tasks,
                     ApplicationMode const mode);
@@ -57,14 +57,14 @@ public:
                             FillSearchMarksCallback const & callback);
 
   // FilterInterface::Delegate overrides:
-  DataSourceBase const & GetIndex() const override;
+  DataSourceBase const & GetDataSource() const override;
   Api const & GetApi() const override;
 
 private:
   void ApplyConsecutively(search::Results const & results, TasksInternal & tasks);
   void ApplyIndependently(search::Results const & results, TasksInternal const & tasks);
 
-  DataSourceBase const & m_index;
+  DataSourceBase const & m_dataSource;
   Api const & m_api;
 
   std::unordered_map<Type, FilterPtr> m_filters;

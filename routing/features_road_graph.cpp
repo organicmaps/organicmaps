@@ -30,13 +30,13 @@ double constexpr kMwmCrossingNodeEqualityRadiusMeters = 100.0;
 
 double GetRoadCrossingRadiusMeters() { return kMwmRoadCrossingRadiusMeters; }
 
-FeaturesRoadGraph::Value::Value(DataSourceBase const & index, MwmSet::MwmHandle handle)
+FeaturesRoadGraph::Value::Value(DataSourceBase const & dataSource, MwmSet::MwmHandle handle)
   : m_mwmHandle(move(handle))
 {
   if (!m_mwmHandle.IsAlive())
     return;
 
-  m_altitudeLoader = make_unique<feature::AltitudeLoader>(index, m_mwmHandle.GetId());
+  m_altitudeLoader = make_unique<feature::AltitudeLoader>(dataSource, m_mwmHandle.GetId());
 }
 
 FeaturesRoadGraph::CrossCountryVehicleModel::CrossCountryVehicleModel(
@@ -111,9 +111,9 @@ void FeaturesRoadGraph::RoadInfoCache::Clear()
 {
   m_cache.clear();
 }
-FeaturesRoadGraph::FeaturesRoadGraph(DataSourceBase const & index, IRoadGraph::Mode mode,
+FeaturesRoadGraph::FeaturesRoadGraph(DataSourceBase const & dataSource, IRoadGraph::Mode mode,
                                      shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory)
-  : m_index(index), m_mode(mode), m_vehicleModel(vehicleModelFactory)
+  : m_dataSource(dataSource), m_mode(mode), m_vehicleModel(vehicleModelFactory)
 {
 }
 
@@ -171,7 +171,7 @@ void FeaturesRoadGraph::ForEachFeatureClosestToCross(m2::PointD const & cross,
 {
   CrossFeaturesLoader featuresLoader(*this, edgesLoader);
   m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(cross, kMwmRoadCrossingRadiusMeters);
-  m_index.ForEachInRect(featuresLoader, rect, GetStreetReadScale());
+  m_dataSource.ForEachInRect(featuresLoader, rect, GetStreetReadScale());
 }
 
 void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t count,
@@ -195,7 +195,7 @@ void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t coun
     finder.AddInformationSource(featureId, roadInfo);
   };
 
-  m_index.ForEachInRect(
+  m_dataSource.ForEachInRect(
       f, MercatorBounds::RectByCenterXYAndSizeInMeters(point, kMwmCrossingNodeEqualityRadiusMeters),
       GetStreetReadScale());
 
@@ -205,7 +205,7 @@ void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t coun
 void FeaturesRoadGraph::GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const
 {
   FeatureType ft;
-  EditableDataSource::FeaturesLoaderGuard loader(m_index, featureId.m_mwmId);
+  EditableDataSource::FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId);
   if (!loader.GetFeatureByIndex(featureId.m_index, ft))
     return;
 
@@ -236,7 +236,7 @@ void FeaturesRoadGraph::GetJunctionTypes(Junction const & junction, feature::Typ
   };
 
   m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(cross, kMwmRoadCrossingRadiusMeters);
-  m_index.ForEachInRect(f, rect, GetStreetReadScale());
+  m_dataSource.ForEachInRect(f, rect, GetStreetReadScale());
 }
 
 IRoadGraph::Mode FeaturesRoadGraph::GetMode() const
@@ -306,7 +306,7 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
 
   FeatureType ft;
 
-  EditableDataSource::FeaturesLoaderGuard loader(m_index, featureId.m_mwmId);
+  EditableDataSource::FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId);
 
   if (!loader.GetFeatureByIndex(featureId.m_index, ft))
     return ri;
@@ -341,7 +341,7 @@ FeaturesRoadGraph::Value const & FeaturesRoadGraph::LockMwm(MwmSet::MwmId const 
   if (itr != m_mwmLocks.end())
     return itr->second;
 
-  return m_mwmLocks.insert(make_pair(move(mwmId), Value(m_index, m_index.GetMwmHandleById(mwmId))))
+  return m_mwmLocks.insert(make_pair(move(mwmId), Value(m_dataSource, m_dataSource.GetMwmHandleById(mwmId))))
       .first->second;
 }
 }  // namespace routing

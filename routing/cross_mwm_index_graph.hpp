@@ -66,8 +66,8 @@ class CrossMwmIndexGraph final
 public:
   using ReaderSourceFile = ReaderSource<FilesContainerR::TReader>;
 
-  CrossMwmIndexGraph(DataSourceBase & index, std::shared_ptr<NumMwmIds> numMwmIds, VehicleType vehicleType)
-    : m_index(index), m_numMwmIds(numMwmIds), m_vehicleType(vehicleType)
+  CrossMwmIndexGraph(DataSourceBase & dataSource, std::shared_ptr<NumMwmIds> numMwmIds, VehicleType vehicleType)
+    : m_dataSource(dataSource), m_numMwmIds(numMwmIds), m_vehicleType(vehicleType)
   {
   }
 
@@ -172,7 +172,7 @@ private:
   template <typename Fn>
   CrossMwmConnector<CrossMwmId> const & Deserialize(NumMwmId numMwmId, Fn && fn)
   {
-    MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(m_numMwmIds->GetFile(numMwmId));
+    MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(m_numMwmIds->GetFile(numMwmId));
     if (!handle.IsAlive())
       MYTHROW(RoutingException, ("Mwm", m_numMwmIds->GetFile(numMwmId), "cannot be loaded."));
 
@@ -193,7 +193,7 @@ private:
     return it->second;
   }
 
-  DataSourceBase & m_index;
+  DataSourceBase & m_dataSource;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   VehicleType m_vehicleType;
 

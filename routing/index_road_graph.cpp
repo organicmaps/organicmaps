@@ -13,8 +13,8 @@ namespace routing
 {
 IndexRoadGraph::IndexRoadGraph(shared_ptr<NumMwmIds> numMwmIds, IndexGraphStarter & starter,
                                vector<Segment> const & segments, vector<Junction> const & junctions,
-                               DataSourceBase & index)
-  : m_index(index), m_numMwmIds(numMwmIds), m_starter(starter), m_segments(segments)
+                               DataSourceBase & dataSource)
+  : m_dataSource(dataSource), m_numMwmIds(numMwmIds), m_starter(starter), m_segments(segments)
 {
   //    j0     j1     j2     j3
   //    *--s0--*--s1--*--s2--*
@@ -60,7 +60,7 @@ void IndexRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & type
 
   FeatureID const featureId = edge.GetFeatureId();
   FeatureType ft;
-  EditableDataSource::FeaturesLoaderGuard loader(m_index, featureId.m_mwmId);
+  EditableDataSource::FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId);
   if (!loader.GetFeatureByIndex(featureId.m_index, ft))
   {
     LOG(LERROR, ("Can't load types for feature", featureId));
@@ -92,7 +92,7 @@ void IndexRoadGraph::GetRouteEdges(TEdgeVector & edges) const
       if (m_starter.ConvertToReal(real))
       {
         platform::CountryFile const & file = m_numMwmIds->GetFile(real.GetMwmId());
-        MwmSet::MwmId const mwmId = m_index.GetMwmIdByCountryFile(file);
+        MwmSet::MwmId const mwmId = m_dataSource.GetMwmIdByCountryFile(file);
         edges.push_back(Edge::MakeFakeWithRealPart(FeatureID(mwmId, real.GetFeatureId()),
                                                    real.IsForward(), real.GetSegmentIdx(),
                                                    junctionFrom, junctionTo));
@@ -105,7 +105,7 @@ void IndexRoadGraph::GetRouteEdges(TEdgeVector & edges) const
     else
     {
       platform::CountryFile const & file = m_numMwmIds->GetFile(segment.GetMwmId());
-      MwmSet::MwmId const mwmId = m_index.GetMwmIdByCountryFile(file);
+      MwmSet::MwmId const mwmId = m_dataSource.GetMwmIdByCountryFile(file);
       edges.push_back(Edge::MakeReal(FeatureID(mwmId, segment.GetFeatureId()), segment.IsForward(),
                                      segment.GetSegmentIdx(), junctionFrom, junctionTo));
     }
@@ -137,7 +137,7 @@ void IndexRoadGraph::GetEdges(Junction const & junction, bool isOutgoing, TEdgeV
       continue;
 
     platform::CountryFile const & file = m_numMwmIds->GetFile(segment.GetMwmId());
-    MwmSet::MwmId const mwmId = m_index.GetMwmIdByCountryFile(file);
+    MwmSet::MwmId const mwmId = m_dataSource.GetMwmIdByCountryFile(file);
 
     edges.push_back(Edge::MakeReal(FeatureID(mwmId, segment.GetFeatureId()), segment.IsForward(),
                                    segment.GetSegmentIdx(),

@@ -31,7 +31,7 @@ class FeaturesFetcher : public MwmSet::Observer
   private:
     m2::RectD m_rect;
 
-    EditableDataSource m_multiIndex;
+    EditableDataSource m_dataSource;
 
     TMapDeregisteredCallback m_onMapDeregistered;
 
@@ -60,7 +60,7 @@ class FeaturesFetcher : public MwmSet::Observer
 
     inline bool IsLoaded(string const & countryFileName) const
     {
-      return m_multiIndex.IsLoaded(platform::CountryFile(countryFileName));
+      return m_dataSource.IsLoaded(platform::CountryFile(countryFileName));
     }
 
     // MwmSet::Observer overrides:
@@ -75,24 +75,24 @@ class FeaturesFetcher : public MwmSet::Observer
     void ForEachFeature(m2::RectD const & rect, std::function<void(FeatureType &)> const & fn,
                         int scale) const
     {
-      m_multiIndex.ForEachInRect(fn, rect, scale);
+      m_dataSource.ForEachInRect(fn, rect, scale);
     }
 
     void ForEachFeatureID(m2::RectD const & rect, std::function<void(FeatureID const &)> const & fn,
                           int scale) const
     {
-      m_multiIndex.ForEachFeatureIDInRect(fn, rect, scale);
+      m_dataSource.ForEachFeatureIDInRect(fn, rect, scale);
     }
 
     template <class ToDo>
     void ReadFeatures(ToDo & toDo, vector<FeatureID> const & features) const
     {
-      m_multiIndex.ReadFeatures(toDo, features);
+      m_dataSource.ReadFeatures(toDo, features);
     }
     //@}
 
-    DataSourceBase const & GetIndex() const { return m_multiIndex; }
-    DataSourceBase & GetIndex() { return m_multiIndex; }
+    DataSourceBase const & GetDataSource() const { return m_dataSource; }
+    DataSourceBase & GetDataSource() { return m_dataSource; }
     m2::RectD GetWorldRect() const;
   };
 }

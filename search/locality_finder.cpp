@@ -206,9 +206,9 @@ void LocalityFinder::Holder::Clear()
 }
 
 // LocalityFinder ----------------------------------------------------------------------------------
-LocalityFinder::LocalityFinder(DataSourceBase const & index, CitiesBoundariesTable const & boundariesTable,
+LocalityFinder::LocalityFinder(DataSourceBase const & dataSource, CitiesBoundariesTable const & boundariesTable,
                                VillagesCache & villagesCache)
-  : m_index(index)
+  : m_dataSource(dataSource)
   , m_boundariesTable(boundariesTable)
   , m_villagesCache(villagesCache)
   , m_cities(kMaxCityRadiusMeters)
@@ -237,7 +237,7 @@ void LocalityFinder::LoadVicinity(m2::PointD const & p, bool loadCities, bool lo
   if (loadCities)
   {
     m2::RectD const crect = m_cities.GetDRect(p);
-    auto handle = m_index.GetMwmHandleById(m_worldId);
+    auto handle = m_dataSource.GetMwmHandleById(m_worldId);
     if (handle.IsAlive())
     {
       auto const & value = *handle.GetValue<MwmValue>();
@@ -258,7 +258,7 @@ void LocalityFinder::LoadVicinity(m2::PointD const & p, bool loadCities, bool lo
   {
     m2::RectD const vrect = m_villages.GetDRect(p);
     m_maps.ForEachInRect(m2::RectD(p, p), [&](MwmSet::MwmId const & id) {
-      auto handle = m_index.GetMwmHandleById(id);
+      auto handle = m_dataSource.GetMwmHandleById(id);
       if (!handle.IsAlive())
         return;
 
@@ -278,7 +278,7 @@ void LocalityFinder::UpdateMaps()
     return;
 
   vector<shared_ptr<MwmInfo>> mwmsInfo;
-  m_index.GetMwmsInfo(mwmsInfo);
+  m_dataSource.GetMwmsInfo(mwmsInfo);
   for (auto const & info : mwmsInfo)
   {
     MwmSet::MwmId id(info);

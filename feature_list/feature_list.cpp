@@ -178,11 +178,11 @@ class Processor
   search::LocalityFinder m_finder;
 
 public:
-  Processor(DataSourceBase const & index)
-    : m_geocoder(index)
-    , m_boundariesTable(index)
+  Processor(DataSourceBase const & dataSource)
+    : m_geocoder(dataSource)
+    , m_boundariesTable(dataSource)
     , m_villagesCache(m_cancellable)
-    , m_finder(index, m_boundariesTable, m_villagesCache)
+    , m_finder(dataSource, m_boundariesTable, m_villagesCache)
   {
     m_boundariesTable.Load();
   }
@@ -324,23 +324,23 @@ int main(int argc, char ** argv)
   classificator::Load();
   classif().SortClassificator();
 
-  DataSource index;
+  DataSource dataSource;
   vector<platform::LocalCountryFile> mwms;
   platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* the latest version */,
                                        mwms);
   for (auto & mwm : mwms)
   {
     mwm.SyncWithDisk();
-    auto const & p = index.RegisterMap(mwm);
+    auto const & p = dataSource.RegisterMap(mwm);
     CHECK_EQUAL(MwmSet::RegResult::Success, p.second, ("Could not register map", mwm));
     MwmSet::MwmId const & id = p.first;
     CHECK(id.IsAlive(), ("Mwm is not alive?", mwm));
   }
 
-  Processor doProcess(index);
+  Processor doProcess(dataSource);
   PrintHeader();
   vector<shared_ptr<MwmInfo>> mwmInfos;
-  index.GetMwmsInfo(mwmInfos);
+  dataSource.GetMwmsInfo(mwmInfos);
   for (auto const & mwmInfo : mwmInfos)
   {
     if (mwmInfo->GetType() != MwmInfo::COUNTRY)
@@ -353,7 +353,7 @@ int main(int argc, char ** argv)
     map<uint32_t, osm::Id> featureIdToOsmId;
     ParseFeatureIdToOsmIdMapping(osmToFeatureFile, featureIdToOsmId);
     MwmSet::MwmId mwmId(mwmInfo);
-    DataSource::FeaturesLoaderGuard loader(index, mwmId);
+    DataSource::FeaturesLoaderGuard loader(dataSource, mwmId);
     for (uint32_t ftIndex = 0; ftIndex < loader.GetNumFeatures(); ftIndex++)
     {
       FeatureType ft;

@@ -9,7 +9,7 @@ namespace search
 class EditorDelegate : public osm::Editor::Delegate
 {
 public:
-  EditorDelegate(DataSourceBase const & index);
+  EditorDelegate(DataSourceBase const & dataSource);
 
   // osm::Editor::Delegate overrides:
   MwmSet::MwmId GetMwmIdByMapName(string const & name) const override;
@@ -19,6 +19,6 @@ public:
                              m2::PointD const & point) const override;
 
 private:
-  DataSourceBase const & m_index;
+  DataSourceBase const & m_dataSource;
 };
 }  // namespace search

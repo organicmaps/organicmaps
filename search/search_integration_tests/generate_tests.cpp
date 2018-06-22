@@ -63,8 +63,8 @@ UNIT_CLASS_TEST(GenerateTest, GenerateDeprecatedTypes)
     MakeFeature(builder, {"shop", "estate_agent"}, {2, 2});
   }
 
-  DataSource index;
-  TEST_EQUAL(index.Register(file).second, MwmSet::RegResult::Success, ());
+  DataSource dataSource;
+  TEST_EQUAL(dataSource.Register(file).second, MwmSet::RegResult::Success, ());
 
   // New types.
   StringIL arr[] = {{"shop"}, {"office"}};
@@ -79,7 +79,7 @@ UNIT_CLASS_TEST(GenerateTest, GenerateDeprecatedTypes)
     ++count;
     ft.ForEachType([&](uint32_t t) { TEST(types.count(t) > 0, (cl.GetReadableObjectName(t))); });
   };
-  index.ForEachInScale(fn, scales::GetUpperScale());
+  dataSource.ForEachInScale(fn, scales::GetUpperScale());
 
   TEST_EQUAL(count, 3, ());
 

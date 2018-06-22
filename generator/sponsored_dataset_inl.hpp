@@ -20,8 +20,8 @@ class AddressMatcher
 public:
   AddressMatcher()
   {
-    LoadIndex(m_index);
-    m_coder = make_unique<search::ReverseGeocoder>(m_index);
+    LoadDataSource(m_dataSource);
+    m_coder = make_unique<search::ReverseGeocoder>(m_dataSource);
   }
 
   template <typename SponsoredObject>
@@ -34,7 +34,7 @@ public:
   }
 
 private:
-  DataSource m_index;
+  DataSource m_dataSource;
   std::unique_ptr<search::ReverseGeocoder> m_coder;
 };
 

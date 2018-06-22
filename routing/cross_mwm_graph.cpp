@@ -50,14 +50,14 @@ CrossMwmGraph::CrossMwmGraph(shared_ptr<NumMwmIds> numMwmIds,
                              shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
                              shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
                              VehicleType vehicleType, CourntryRectFn const & countryRectFn,
-                             DataSourceBase & index)
-  : m_index(index)
+                             DataSourceBase & dataSource)
+  : m_dataSource(dataSource)
   , m_numMwmIds(numMwmIds)
   , m_numMwmTree(numMwmTree)
   , m_vehicleModelFactory(vehicleModelFactory)
   , m_countryRectFn(countryRectFn)
-  , m_crossMwmIndexGraph(index, numMwmIds, vehicleType)
-  , m_crossMwmTransitGraph(index, numMwmIds, VehicleType::Transit)
+  , m_crossMwmIndexGraph(dataSource, numMwmIds, vehicleType)
+  , m_crossMwmTransitGraph(dataSource, numMwmIds, VehicleType::Transit)
 {
   CHECK(m_numMwmIds, ());
   CHECK(m_vehicleModelFactory, ());
@@ -200,7 +200,7 @@ void CrossMwmGraph::GetTwins(Segment const & s, bool isOutgoing, vector<Segment>
         FindBestTwins(s.GetMwmId(), isOutgoing, ft, p, minDistSegs, twins);
       };
 
-      m_index.ForEachInRect(
+      m_dataSource.ForEachInRect(
         findBestTwins, MercatorBounds::RectByCenterXYAndSizeInMeters(p, kTransitionEqualityDistM),
         scales::GetUpperScale());
 
@@ -258,7 +258,7 @@ TransitionPoints CrossMwmGraph::GetTransitionPoints(Segment const & s, bool isOu
 CrossMwmGraph::MwmStatus CrossMwmGraph::GetMwmStatus(NumMwmId numMwmId,
                                                      string const & sectionName) const
 {
-  MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(m_numMwmIds->GetFile(numMwmId));
+  MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(m_numMwmIds->GetFile(numMwmId));
   if (!handle.IsAlive())
     return MwmStatus::NotLoaded;
 

@@ -52,11 +52,11 @@ UNIT_TEST(BuildIndexTest)
 
   {
     // Check that index actually works.
-    DataSource index;
-    UNUSED_VALUE(index.Register(platform::LocalCountryFile::MakeForTesting("build_index_test")));
+    DataSource dataSource;
+    UNUSED_VALUE(dataSource.Register(platform::LocalCountryFile::MakeForTesting("build_index_test")));
 
     // Make sure that index is actually parsed.
-    index.ForEachInScale([](FeatureType &) { return; }, 15);
+    dataSource.ForEachInScale([](FeatureType &) { return; }, 15);
   }
 
   // Clean after the test.

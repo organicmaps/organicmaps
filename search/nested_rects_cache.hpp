@@ -14,7 +14,7 @@ namespace search
 class NestedRectsCache
 {
 public:
-  explicit NestedRectsCache(DataSourceBase const & index);
+  explicit NestedRectsCache(DataSourceBase const & dataSource);
 
   void SetPosition(m2::PointD const & position, int scale);
 
@@ -37,7 +37,7 @@ private:
 
   void Update();
 
-  DataSourceBase const & m_index;
+  DataSourceBase const & m_dataSource;
   int m_scale;
   m2::PointD m_position;
   bool m_valid;

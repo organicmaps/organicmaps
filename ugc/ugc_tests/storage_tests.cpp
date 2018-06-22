@@ -102,7 +102,7 @@ public:
     return FeatureIdForPoint(mercator, ftypes::IsRailwayStationChecker::Instance());
   }
 
-  DataSourceBase & GetIndex() { return m_index; }
+  DataSourceBase & GetDataSource() { return m_dataSource; }
 
   ~MwmBuilder()
   {
@@ -129,7 +129,7 @@ private:
       fn(builder);
     }
 
-    auto result = m_index.RegisterMap(m_testMwm);
+    auto result = m_dataSource.RegisterMap(m_testMwm);
     CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ());
 
     auto const & id = result.first;
@@ -152,19 +152,19 @@ private:
       if (checker(featureType))
         id = featureType.GetID();
     };
-    m_index.ForEachInRect(fn, rect, scales::GetUpperScale());
+    m_dataSource.ForEachInRect(fn, rect, scales::GetUpperScale());
     CHECK(id.IsValid(), ());
     return id;
   }
 
   void Cleanup(platform::LocalCountryFile const & map)
   {
-    m_index.DeregisterMap(map.GetCountryFile());
+    m_dataSource.DeregisterMap(map.GetCountryFile());
     platform::CountryIndexes::DeleteFromDisk(map);
     map.DeleteFromDisk(MapOptions::Map);
   }
 
-  DataSource m_index;
+  DataSource m_dataSource;
   storage::CountryInfoGetterForTesting m_infoGetter;
   platform::LocalCountryFile m_testMwm;
 };
@@ -188,7 +188,7 @@ UNIT_CLASS_TEST(StorageTest, Smoke)
   builder.Build({TestCafe(point)});
   auto const id = builder.FeatureIdForCafeAtPoint(point);
   auto const original = MakeTestUGCUpdate(Time(chrono::hours(24 * 300)));
-  Storage storage(builder.GetIndex());
+  Storage storage(builder.GetDataSource());
   storage.Load();
   TEST_EQUAL(storage.SetUGCUpdate(id, original), Storage::SettingResult::Success, ());
   auto const actual = storage.GetUGCUpdate(id);
@@ -210,7 +210,7 @@ UNIT_CLASS_TEST(StorageTest, DuplicatesAndDefragmentationSmoke)
   auto const second = MakeTestUGCUpdate(Time(chrono::hours(24 * 100)));
   auto const third = MakeTestUGCUpdate(Time(chrono::hours(24 * 300)));
   auto const last = MakeTestUGCUpdate(Time(chrono::hours(24 * 100)));
-  Storage storage(builder.GetIndex());
+  Storage storage(builder.GetDataSource());
   storage.Load();
   TEST_EQUAL(storage.SetUGCUpdate(cafeId, first), Storage::SettingResult::Success, ());
   TEST_EQUAL(storage.SetUGCUpdate(cafeId, second), Storage::SettingResult::Success, ());
@@ -236,7 +236,7 @@ UNIT_CLASS_TEST(StorageTest, DifferentTypes)
   auto const railwayId = builder.FeatureIdForRailwayAtPoint(point);
   auto const cafeUGC = MakeTestUGCUpdate(Time(chrono::hours(24 * 10)));
   auto const railwayUGC = MakeTestUGCUpdate(Time(chrono::hours(24 * 300)));
-  Storage storage(builder.GetIndex());
+  Storage storage(builder.GetDataSource());
   storage.Load();
   TEST_EQUAL(storage.SetUGCUpdate(cafeId, cafeUGC), Storage::SettingResult::Success, ());
   TEST_EQUAL(storage.SetUGCUpdate(railwayId, railwayUGC), Storage::SettingResult::Success, ());
@@ -256,14 +256,14 @@ UNIT_CLASS_TEST(StorageTest, LoadIndex)
   auto const railwayUGC = MakeTestUGCUpdate(Time(chrono::hours(24 * 300)));
 
   {
-    Storage storage(builder.GetIndex());
+    Storage storage(builder.GetDataSource());
     storage.Load();
     TEST_EQUAL(storage.SetUGCUpdate(cafeId, cafeUGC), Storage::SettingResult::Success, ());
     TEST_EQUAL(storage.SetUGCUpdate(railwayId, railwayUGC), Storage::SettingResult::Success, ());
     storage.SaveIndex();
   }
 
-  Storage storage(builder.GetIndex());
+  Storage storage(builder.GetDataSource());
   storage.Load();
   auto const & indexArray = storage.GetIndexesForTesting();
   TEST_EQUAL(indexArray.size(), 2, ());
@@ -286,7 +286,7 @@ UNIT_CLASS_TEST(StorageTest, ContentTest)
   auto const cafeId = builder.FeatureIdForCafeAtPoint(cafePoint);
   auto const oldUGC = MakeTestUGCUpdate(Time(chrono::hours(24 * 10)));
   auto const newUGC = MakeTestUGCUpdate(Time(chrono::hours(24 * 300)));
-  Storage storage(builder.GetIndex());
+  Storage storage(builder.GetDataSource());
   storage.Load();
   TEST_EQUAL(storage.SetUGCUpdate(cafeId, oldUGC), Storage::SettingResult::Success, ());
   TEST_EQUAL(storage.SetUGCUpdate(cafeId, newUGC), Storage::SettingResult::Success, ());
@@ -338,7 +338,7 @@ UNIT_CLASS_TEST(StorageTest, InvalidUGC)
   m2::PointD const cafePoint(1.0, 1.0);
   builder.Build({TestCafe(cafePoint)});
   auto const cafeId = builder.FeatureIdForCafeAtPoint(cafePoint);
-  Storage storage(builder.GetIndex());
+  Storage storage(builder.GetDataSource());
   storage.Load();
 
   UGCUpdate first;
@@ -364,7 +364,7 @@ UNIT_CLASS_TEST(StorageTest, DifferentUGCVersions)
   m2::PointD const secondPoint(2.0, 2.0);
   builder.Build({TestCafe(firstPoint), TestCafe(secondPoint)});
 
-  Storage storage(builder.GetIndex());
+  Storage storage(builder.GetDataSource());
   storage.Load();
 
   auto const firstId = builder.FeatureIdForCafeAtPoint(firstPoint);
@@ -389,13 +389,13 @@ UNIT_CLASS_TEST(StorageTest, NumberOfUnsynchronized)
   auto const cafeUGC = MakeTestUGCUpdate(Time(chrono::hours(24 * 10)));
 
   {
-    Storage storage(builder.GetIndex());
+    Storage storage(builder.GetDataSource());
     storage.Load();
     TEST_EQUAL(storage.SetUGCUpdate(cafeId, cafeUGC), Storage::SettingResult::Success, ());
     storage.SaveIndex();
   }
 
-  Storage storage(builder.GetIndex());
+  Storage storage(builder.GetDataSource());
   storage.Load();
   TEST_EQUAL(storage.GetNumberOfUnsynchronized(), 1, ());
 
@@ -419,7 +419,7 @@ UNIT_CLASS_TEST(StorageTest, GetNumberOfUnsentSeparately)
   auto const cafeUGC = MakeTestUGCUpdate(Time(chrono::hours(24 * 10)));
 
   {
-    Storage storage(builder.GetIndex());
+    Storage storage(builder.GetDataSource());
     storage.Load();
     TEST_EQUAL(storage.SetUGCUpdate(cafeId, cafeUGC), Storage::SettingResult::Success, ());
     storage.SaveIndex();
@@ -429,7 +429,7 @@ UNIT_CLASS_TEST(StorageTest, GetNumberOfUnsentSeparately)
   TEST_EQUAL(lightweight::GetNumberOfUnsentUGC(), 1, ());
 
   {
-    Storage storage(builder.GetIndex());
+    Storage storage(builder.GetDataSource());
     storage.Load();
     storage.MarkAllAsSynchronized();
     TEST_EQUAL(storage.GetNumberOfUnsynchronized(), 0, ());
@@ -463,7 +463,7 @@ UNIT_TEST(UGC_IndexMigrationFromV0ToV1Smoke)
   builder.Build({});
 
   auto const v0IndexFilePath = indexFilePath + "." + version;
-  Storage s(builder.GetIndex());
+  Storage s(builder.GetDataSource());
   s.LoadForTesting(indexFilePath);
   uint64_t migratedIndexFileSize = 0;
   uint64_t v0IndexFileSize = 0;

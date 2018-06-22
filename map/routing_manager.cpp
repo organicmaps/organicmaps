@@ -364,8 +364,8 @@ RouterType RoutingManager::GetLastUsedRouter() const
 
 void RoutingManager::SetRouterImpl(RouterType type)
 {
-  auto const indexGetterFn = m_callbacks.m_indexGetter;
-  CHECK(indexGetterFn, ("Type:", type));
+  auto const dataSourceGetterFn = m_callbacks.m_dataSourceGetter;
+  CHECK(dataSourceGetterFn, ("Type:", type));
 
   VehicleType const vehicleType = GetVehicleType(type);
 
@@ -380,10 +380,10 @@ void RoutingManager::SetRouterImpl(RouterType type)
   auto numMwmIds = make_shared<NumMwmIds>();
   m_delegate.RegisterCountryFilesOnRoute(numMwmIds);
 
-  auto & index = m_callbacks.m_indexGetter();
+  auto & dataSource = m_callbacks.m_dataSourceGetter();
 
   auto localFileChecker = [this](string const & countryFile) -> bool {
-    MwmSet::MwmId const mwmId = m_callbacks.m_indexGetter().GetMwmIdByCountryFile(
+    MwmSet::MwmId const mwmId = m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(
       platform::CountryFile(countryFile));
     if (!mwmId.IsAlive())
       return false;
@@ -399,7 +399,7 @@ void RoutingManager::SetRouterImpl(RouterType type)
   auto router = make_unique<IndexRouter>(vehicleType, m_loadAltitudes, m_callbacks.m_countryParentNameGetterFn,
                                          countryFileGetter, getMwmRectByName, numMwmIds,
                                          MakeNumMwmTree(*numMwmIds, m_callbacks.m_countryInfoGetter()),
-                                         m_routingSession, index);
+                                         m_routingSession, dataSource);
 
   m_routingSession.SetRoutingSettings(GetRoutingSettings(vehicleType));
   m_routingSession.SetRouter(move(router), move(fetcher));
@@ -455,7 +455,7 @@ void RoutingManager::InsertRoute(Route const & route)
     m_delegate.RegisterCountryFilesOnRoute(numMwmIds);
     auto getMwmId = [this, numMwmIds](routing::NumMwmId numMwmId)
     {
-      return m_callbacks.m_indexGetter().GetMwmIdByCountryFile(numMwmIds->GetFile(numMwmId));
+      return m_callbacks.m_dataSourceGetter().GetMwmIdByCountryFile(numMwmIds->GetFile(numMwmId));
     };
     transitRouteDisplay = make_shared<TransitRouteDisplay>(*m_transitReadManager, getMwmId,
                                                            m_callbacks.m_stringsBundleGetter,
@@ -904,10 +904,10 @@ void RoutingManager::CheckLocationForRouting(location::GpsInfo const & info)
   if (!IsRoutingActive())
     return;
 
-  auto const featureIndexGetterFn = m_callbacks.m_indexGetter;
-  ASSERT(featureIndexGetterFn, ());
+  auto const featureDataSourceGetterFn = m_callbacks.m_dataSourceGetter;
+  ASSERT(featureDataSourceGetterFn, ());
   RoutingSession::State const state =
-      m_routingSession.OnLocationPositionChanged(info, featureIndexGetterFn());
+      m_routingSession.OnLocationPositionChanged(info, featureDataSourceGetterFn());
   if (state == RoutingSession::RouteNeedRebuild)
   {
     m_routingSession.RebuildRoute(

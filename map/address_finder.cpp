@@ -460,7 +460,7 @@ search::AddressInfo Framework::GetAddressInfoAtPoint(m2::PointD const & pt) cons
 
   search::AddressInfo info;
 
-  search::ReverseGeocoder const coder(m_model.GetIndex());
+  search::ReverseGeocoder const coder(m_model.GetDataSource());
   search::ReverseGeocoder::Address addr;
   coder.GetNearbyAddress(pt, addr);
 
@@ -492,7 +492,7 @@ search::AddressInfo Framework::GetFeatureAddressInfo(FeatureType & ft) const
   // @TODO(vng): Temporarily commented - it's slow and not used in UI.
   //GetLocality(pt, info);
 
-  search::ReverseGeocoder const coder(m_model.GetIndex());
+  search::ReverseGeocoder const coder(m_model.GetDataSource());
   search::ReverseGeocoder::Address addr;
   if (coder.GetExactAddress(ft, addr))
   {

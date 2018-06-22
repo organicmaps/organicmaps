@@ -51,7 +51,7 @@ shared_ptr<model::FeaturesFetcher> CreateFeaturesFetcher(vector<LocalCountryFile
 
 unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter();
 
-unique_ptr<IndexRouter> CreateVehicleRouter(DataSourceBase & index,
+unique_ptr<IndexRouter> CreateVehicleRouter(DataSourceBase & dataSource,
                                             storage::CountryInfoGetter const & infoGetter,
                                             traffic::TrafficCache const & trafficCache,
                                             vector<LocalCountryFile> const & localFiles,
@@ -81,7 +81,7 @@ class VehicleRouterComponents : public IRouterComponents
 public:
   VehicleRouterComponents(vector<LocalCountryFile> const & localFiles, VehicleType vehicleType)
     : IRouterComponents(localFiles)
-    , m_indexRouter(CreateVehicleRouter(m_featuresFetcher->GetIndex(), *m_infoGetter, m_trafficCache,
+    , m_indexRouter(CreateVehicleRouter(m_featuresFetcher->GetDataSource(), *m_infoGetter, m_trafficCache,
                                         localFiles, vehicleType))
   {
   }

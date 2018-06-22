@@ -41,20 +41,20 @@ UNIT_TEST(MwmSet_FileSystemErrors)
   };
   MY_SCOPE_GUARD(restoreGuard, restoreFn);
 
-  DataSource index;
-  auto p = index.RegisterMap(localFile);
+  DataSource dataSource;
+  auto p = dataSource.RegisterMap(localFile);
   TEST_EQUAL(p.second, DataSource::RegResult::Success, ());
 
   // Registering should pass ok.
-  TEST(index.GetMwmIdByCountryFile(file) != DataSource::MwmId(), ());
+  TEST(dataSource.GetMwmIdByCountryFile(file) != DataSource::MwmId(), ());
 
   // Getting handle causes feature offsets index building which should fail
   // because of write permissions.
-  TEST(!index.GetMwmHandleById(p.first).IsAlive(), ());
+  TEST(!dataSource.GetMwmHandleById(p.first).IsAlive(), ());
 
   // Map is automatically deregistered after the fail.
   vector<shared_ptr<MwmInfo>> infos;
-  index.GetMwmsInfo(infos);
+  dataSource.GetMwmsInfo(infos);
   TEST(infos.empty(), ());
 }
 #endif

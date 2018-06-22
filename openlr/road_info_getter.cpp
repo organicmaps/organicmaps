@@ -10,7 +10,10 @@
 
 namespace openlr
 {
-RoadInfoGetter::RoadInfoGetter(DataSourceBase const & index) : m_index(index), m_c(classif()) {}
+RoadInfoGetter::RoadInfoGetter(DataSourceBase const & dataSource)
+  : m_dataSource(dataSource), m_c(classif())
+{
+}
 
 RoadInfoGetter::RoadInfo RoadInfoGetter::Get(FeatureID const & fid)
 {
@@ -18,7 +21,7 @@ RoadInfoGetter::RoadInfo RoadInfoGetter::Get(FeatureID const & fid)
   if (it != end(m_cache))
     return it->second;
 
-  DataSource::FeaturesLoaderGuard g(m_index, fid.m_mwmId);
+  DataSource::FeaturesLoaderGuard g(m_dataSource, fid.m_mwmId);
   FeatureType ft;
   CHECK(g.GetOriginalFeatureByIndex(fid.m_index, ft), ());
 

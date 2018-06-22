@@ -184,9 +184,9 @@ unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter()
 
 struct Context
 {
-  Context() : m_engine(m_index, CreateCountryInfoGetter(), search::Engine::Params{}) {}
+  Context() : m_engine(m_dataSource, CreateCountryInfoGetter(), search::Engine::Params{}) {}
 
-  DataSource m_index;
+  DataSource m_dataSource;
   search::tests_support::TestSearchEngine m_engine;
 };
 
@@ -200,7 +200,7 @@ struct SearchEngineProxy
     for (auto & mwm : mwms)
     {
       mwm.SyncWithDisk();
-      m_context->m_index.RegisterMap(mwm);
+      m_context->m_dataSource.RegisterMap(mwm);
     }
   }
 

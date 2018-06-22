@@ -359,21 +359,21 @@ Framework::Framework(FrameworkParams const & params)
   , m_storage(platform::migrate::NeedMigrate() ? COUNTRIES_OBSOLETE_FILE : COUNTRIES_FILE)
   , m_enabledDiffs(params.m_enableDiffs)
   , m_isRenderingEnabled(true)
-  , m_transitManager(m_model.GetIndex(),
+  , m_transitManager(m_model.GetDataSource(),
                      [this](FeatureCallback const & fn, vector<FeatureID> const & features) {
                        return m_model.ReadFeatures(fn, features);
                      },
                      bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
   , m_routingManager(
         RoutingManager::Callbacks(
-            [this]() -> DataSourceBase & { return m_model.GetIndex(); },
+            [this]() -> DataSourceBase & { return m_model.GetDataSource(); },
             [this]() -> storage::CountryInfoGetter & { return GetCountryInfoGetter(); },
             [this](string const & id) -> string { return m_storage.GetParentIdFor(id); },
             [this]() -> StringsBundle const & { return m_stringsBundle; }),
         static_cast<RoutingManager::Delegate &>(*this))
   , m_trafficManager(bind(&Framework::GetMwmsByRect, this, _1, false /* rough */),
                      kMaxTrafficCacheSizeBytes, m_routingManager.RoutingSession())
-  , m_bookingFilterProcessor(m_model.GetIndex(), *m_bookingApi)
+  , m_bookingFilterProcessor(m_model.GetDataSource(), *m_bookingApi)
   , m_displacementModeManager([this](bool show) {
     int const mode = show ? dp::displacement::kHotelMode : dp::displacement::kDefaultMode;
     if (m_drapeEngine != nullptr)
@@ -473,11 +473,11 @@ Framework::Framework(FrameworkParams const & params)
 
   osm::Editor & editor = osm::Editor::Instance();
 
-  editor.SetDelegate(make_unique<search::EditorDelegate>(m_model.GetIndex()));
+  editor.SetDelegate(make_unique<search::EditorDelegate>(m_model.GetDataSource()));
   editor.SetInvalidateFn([this](){ InvalidateRect(GetCurrentViewport()); });
   editor.LoadEdits();
 
-  m_model.GetIndex().AddObserver(editor);
+  m_model.GetDataSource().AddObserver(editor);
 
   LOG(LINFO, ("Editor initialized"));
 
@@ -622,7 +622,7 @@ void Framework::OnMapDeregistered(platform::LocalCountryFile const & localFile)
   else
     GetPlatform().RunTask(Platform::Thread::Gui, action);
 
-  auto const mwmId = m_model.GetIndex().GetMwmIdByCountryFile(localFile.GetCountryFile());
+  auto const mwmId = m_model.GetDataSource().GetMwmIdByCountryFile(localFile.GetCountryFile());
   m_trafficManager.OnMwmDeregistered(mwmId);
   m_transitManager.OnMwmDeregistered(mwmId);
 }
@@ -636,7 +636,7 @@ bool Framework::HasUnsavedEdits(storage::TCountryId const & countryId)
     if (groupNode)
       return;
     hasUnsavedChanges |= osm::Editor::Instance().HaveMapEditsToUpload(
-          m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(fileName)));
+          m_model.GetDataSource().GetMwmIdByCountryFile(platform::CountryFile(fileName)));
   };
   GetStorage().ForEachInSubtree(countryId, forEachInSubtree);
   return hasUnsavedChanges;
@@ -744,7 +744,7 @@ void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) 
     return;
   }
 
-  EditableDataSource::FeaturesLoaderGuard const guard(m_model.GetIndex(), fid.m_mwmId);
+  EditableDataSource::FeaturesLoaderGuard const guard(m_model.GetDataSource(), fid.m_mwmId);
   FeatureType ft;
   if (!guard.GetFeatureByIndex(fid.m_index, ft))
   {
@@ -1324,7 +1324,7 @@ void Framework::InitUGC()
 {
   ASSERT(!m_ugcApi.get(), ("InitUGC() must be called only once."));
 
-  m_ugcApi = make_unique<ugc::Api>(m_model.GetIndex(), [this](size_t numberOfUnsynchronized) {
+  m_ugcApi = make_unique<ugc::Api>(m_model.GetDataSource(), [this](size_t numberOfUnsynchronized) {
     if (numberOfUnsynchronized == 0)
       return;
 
@@ -1341,7 +1341,7 @@ void Framework::InitSearchAPI()
   try
   {
     m_searchAPI =
-        make_unique<SearchAPI>(m_model.GetIndex(), m_storage, *m_infoGetter,
+        make_unique<SearchAPI>(m_model.GetDataSource(), m_storage, *m_infoGetter,
                                static_cast<SearchAPI::Delegate &>(*this));
   }
   catch (RootException const & e)
@@ -1357,7 +1357,7 @@ void Framework::InitDiscoveryManager()
 
   discovery::Manager::APIs const apis(*m_searchAPI.get(), *m_viatorApi.get(), *m_localsApi.get());
   m_discoveryManager =
-      make_unique<discovery::Manager>(m_model.GetIndex(), *m_cityFinder.get(), apis);
+      make_unique<discovery::Manager>(m_model.GetDataSource(), *m_cityFinder.get(), apis);
 }
 
 void Framework::InitTransliteration()
@@ -2043,7 +2043,7 @@ unique_ptr<FeatureType> Framework::GetFeatureAtPoint(m2::PointD const & mercator
 {
   unique_ptr<FeatureType> poi, line, area;
   uint32_t const coastlineType = classif().GetCoastType();
-  indexer::ForEachFeatureAtPoint(m_model.GetIndex(), [&, coastlineType](FeatureType & ft)
+  indexer::ForEachFeatureAtPoint(m_model.GetDataSource(), [&, coastlineType](FeatureType & ft)
   {
     // TODO @alexz
     // remove manual parsing after refactoring with usermarks'll be finished
@@ -2077,7 +2077,7 @@ bool Framework::GetFeatureByID(FeatureID const & fid, FeatureType & ft) const
 {
   ASSERT(fid.IsValid(), ());
 
-  EditableDataSource::FeaturesLoaderGuard guard(m_model.GetIndex(), fid.m_mwmId);
+  EditableDataSource::FeaturesLoaderGuard guard(m_model.GetDataSource(), fid.m_mwmId);
   if (!guard.GetFeatureByIndex(fid.m_index, ft))
     return false;
 
@@ -2598,7 +2598,7 @@ vector<m2::TriangleD> Framework::GetSelectedFeatureTriangles() const
   if (!m_selectedFeature.IsValid())
     return triangles;
 
-  EditableDataSource::FeaturesLoaderGuard const guard(m_model.GetIndex(), m_selectedFeature.m_mwmId);
+  EditableDataSource::FeaturesLoaderGuard const guard(m_model.GetDataSource(), m_selectedFeature.m_mwmId);
   FeatureType ft;
   if (!guard.GetFeatureByIndex(m_selectedFeature.m_index, ft))
     return triangles;
@@ -2732,10 +2732,10 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
 
 namespace
 {
-WARN_UNUSED_RESULT bool LocalizeStreet(DataSourceBase const & index, FeatureID const & fid,
+WARN_UNUSED_RESULT bool LocalizeStreet(DataSourceBase const & dataSource, FeatureID const & fid,
                                        osm::LocalizedStreet & result)
 {
-  EditableDataSource::FeaturesLoaderGuard g(index, fid.m_mwmId);
+  EditableDataSource::FeaturesLoaderGuard g(dataSource, fid.m_mwmId);
   FeatureType ft;
   if (!g.GetFeatureByIndex(fid.m_index, ft))
     return false;
@@ -2748,7 +2748,7 @@ WARN_UNUSED_RESULT bool LocalizeStreet(DataSourceBase const & index, FeatureID c
 }
 
 vector<osm::LocalizedStreet> TakeSomeStreetsAndLocalize(
-    vector<search::ReverseGeocoder::Street> const & streets, DataSourceBase const & index)
+    vector<search::ReverseGeocoder::Street> const & streets, DataSourceBase const & dataSource)
 
 {
   vector<osm::LocalizedStreet> results;
@@ -2767,7 +2767,7 @@ vector<osm::LocalizedStreet> TakeSomeStreetsAndLocalize(
       continue;
 
     osm::LocalizedStreet ls;
-    if (!LocalizeStreet(index, street.m_id, ls))
+    if (!LocalizeStreet(dataSource, street.m_id, ls))
       continue;
 
     results.emplace_back(move(ls));
@@ -2777,7 +2777,7 @@ vector<osm::LocalizedStreet> TakeSomeStreetsAndLocalize(
   return results;
 }
 
-void SetStreet(search::ReverseGeocoder const & coder, DataSourceBase const & index,
+void SetStreet(search::ReverseGeocoder const & coder, DataSourceBase const & dataSource,
                FeatureType & ft, osm::EditableMapObject & emo)
 {
   auto const & editor = osm::Editor::Instance();
@@ -2802,7 +2802,7 @@ void SetStreet(search::ReverseGeocoder const & coder, DataSourceBase const & ind
   if (!featureIsInEditor && featureHasStreetInMwm)
     street = streetsPool[featureStreetIndex].m_name;
 
-  auto localizedStreets = TakeSomeStreetsAndLocalize(streetsPool, index);
+  auto localizedStreets = TakeSomeStreetsAndLocalize(streetsPool, dataSource);
 
   if (!street.empty())
   {
@@ -2815,7 +2815,7 @@ void SetStreet(search::ReverseGeocoder const & coder, DataSourceBase const & ind
     if (it != end(streetsPool))
     {
       osm::LocalizedStreet ls;
-      if (!LocalizeStreet(index, it->m_id, ls))
+      if (!LocalizeStreet(dataSource, it->m_id, ls))
         ls.m_defaultName = street;
 
       emo.SetStreet(ls);
@@ -2844,7 +2844,7 @@ void SetStreet(search::ReverseGeocoder const & coder, DataSourceBase const & ind
   emo.SetNearbyStreets(move(localizedStreets));
 }
 
-void SetHostingBuildingAddress(FeatureID const & hostingBuildingFid, DataSourceBase const & index,
+void SetHostingBuildingAddress(FeatureID const & hostingBuildingFid, DataSourceBase const & dataSource,
                                search::ReverseGeocoder const & coder, osm::EditableMapObject & emo)
 {
   if (!hostingBuildingFid.IsValid())
@@ -2852,7 +2852,7 @@ void SetHostingBuildingAddress(FeatureID const & hostingBuildingFid, DataSourceB
 
   FeatureType hostingBuildingFeature;
 
-  EditableDataSource::FeaturesLoaderGuard g(index, hostingBuildingFid.m_mwmId);
+  EditableDataSource::FeaturesLoaderGuard g(dataSource, hostingBuildingFid.m_mwmId);
   if (!g.GetFeatureByIndex(hostingBuildingFid.m_index, hostingBuildingFeature))
     return;
 
@@ -2877,22 +2877,22 @@ bool Framework::CreateMapObject(m2::PointD const & mercator, uint32_t const feat
                                 osm::EditableMapObject & emo) const
 {
   emo = {};
-  auto const & index = m_model.GetIndex();
-  MwmSet::MwmId const mwmId = index.GetMwmIdByCountryFile(
+  auto const & dataSource = m_model.GetDataSource();
+  MwmSet::MwmId const mwmId = dataSource.GetMwmIdByCountryFile(
         platform::CountryFile(m_infoGetter->GetRegionCountryId(mercator)));
   if (!mwmId.IsAlive())
     return false;
 
   GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kEditorAddStart, {});
 
-  search::ReverseGeocoder const coder(m_model.GetIndex());
+  search::ReverseGeocoder const coder(m_model.GetDataSource());
   vector<search::ReverseGeocoder::Street> streets;
 
   coder.GetNearbyStreets(mwmId, mercator, streets);
-  emo.SetNearbyStreets(TakeSomeStreetsAndLocalize(streets, m_model.GetIndex()));
+  emo.SetNearbyStreets(TakeSomeStreetsAndLocalize(streets, m_model.GetDataSource()));
 
   // TODO(mgsergio): Check emo is a poi. For now it is the only option.
-  SetHostingBuildingAddress(FindBuildingAtPoint(mercator), index, coder, emo);
+  SetHostingBuildingAddress(FindBuildingAtPoint(mercator), dataSource, coder, emo);
 
   return osm::Editor::Instance().CreatePoint(featureType, mercator, mwmId, emo);
 }
@@ -2914,15 +2914,15 @@ bool Framework::GetEditableMapObject(FeatureID const & fid, osm::EditableMapObje
   auto const & editor = osm::Editor::Instance();
   emo.SetEditableProperties(editor.GetEditableProperties(ft));
 
-  auto const & index = m_model.GetIndex();
-  search::ReverseGeocoder const coder(index);
-  SetStreet(coder, index, ft, emo);
+  auto const & dataSource = m_model.GetDataSource();
+  search::ReverseGeocoder const coder(dataSource);
+  SetStreet(coder, dataSource, ft, emo);
 
   if (!ftypes::IsBuildingChecker::Instance()(ft) &&
       (emo.GetHouseNumber().empty() || emo.GetStreet().m_defaultName.empty()))
   {
     SetHostingBuildingAddress(FindBuildingAtPoint(feature::GetCenter(ft)),
-                              index, coder, emo);
+                              dataSource, coder, emo);
   }
 
   return true;
@@ -2946,7 +2946,7 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
   {
     auto const isCreatedFeature = editor.IsCreatedFeature(emo.GetID());
 
-    EditableDataSource::FeaturesLoaderGuard g(m_model.GetIndex(), emo.GetID().m_mwmId);
+    EditableDataSource::FeaturesLoaderGuard g(m_model.GetDataSource(), emo.GetID().m_mwmId);
     FeatureType originalFeature;
     if (!isCreatedFeature)
     {
@@ -2974,7 +2974,7 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
     issueLatLon = MercatorBounds::ToLatLon(feature::GetCenter(hostingBuildingFeature));
 
     search::ReverseGeocoder::Address hostingBuildingAddress;
-    search::ReverseGeocoder const coder(m_model.GetIndex());
+    search::ReverseGeocoder const coder(m_model.GetDataSource());
     // The is no address to take from a hosting building. Fallback to simple saving.
     if (!coder.GetExactAddress(hostingBuildingFeature, hostingBuildingAddress))
       break;
@@ -3274,7 +3274,7 @@ vector<MwmSet::MwmId> Framework::GetMwmsByRect(m2::RectD const & rect, bool roug
 
 MwmSet::MwmId Framework::GetMwmIdByName(string const & name) const
 {
-  return m_model.GetIndex().GetMwmIdByCountryFile(platform::CountryFile(name));
+  return m_model.GetDataSource().GetMwmIdByCountryFile(platform::CountryFile(name));
 }
 
 void Framework::ReadFeatures(function<void(FeatureType const &)> const & reader,
@@ -3316,7 +3316,7 @@ void Framework::InitCityFinder()
 {
   ASSERT(!m_cityFinder, ());
 
-  m_cityFinder = make_unique<search::CityFinder>(m_model.GetIndex());
+  m_cityFinder = make_unique<search::CityFinder>(m_model.GetDataSource());
 }
 
 void Framework::InitTaxiEngine()
@@ -3357,7 +3357,7 @@ void Framework::InjectViator(place_page::Info & info)
     return;
 
   auto const & country = GetStorage().CountryByCountryId(info.GetCountryId());
-  auto const mwmId = m_model.GetIndex().GetMwmIdByCountryFile(country.GetFile());
+  auto const mwmId = m_model.GetDataSource().GetMwmIdByCountryFile(country.GetFile());
 
   if (!mwmId.IsAlive() || !mwmId.GetInfo()->IsRegistered())
     return;
@@ -3367,7 +3367,7 @@ void Framework::InjectViator(place_page::Info & info)
   static double constexpr kSearchRadiusM = 3.0;
   m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(point, kSearchRadiusM);
 
-  m_model.GetIndex().ForEachInRectForMWM(
+  m_model.GetDataSource().ForEachInRectForMWM(
       [&info](FeatureType & ft) {
         if (ft.GetFeatureType() != feature::EGeomType::GEOM_POINT || info.IsSponsored() ||
             !ftypes::IsViatorChecker::Instance()(ft))

@@ -21,7 +21,7 @@ public:
   // TODO (@milchakov): consider to reuse locality finder from search
   // engine.  Otherwise, CityFinder won't benefit from approximated
   // cities boundaries.
-  explicit CityFinder(DataSourceBase const & index);
+  explicit CityFinder(DataSourceBase const & dataSource);
 
   std::string GetCityName(m2::PointD const & p, int8_t lang);
   FeatureID GetCityFeatureID(m2::PointD const & p);

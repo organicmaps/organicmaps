@@ -19,8 +19,8 @@ namespace
 double const kPositionToleranceMeters = 15.0;
 }  // namespace
 
-NestedRectsCache::NestedRectsCache(DataSourceBase const & index)
-  : m_index(index), m_scale(0), m_position(0, 0), m_valid(false)
+NestedRectsCache::NestedRectsCache(DataSourceBase const & dataSource)
+  : m_dataSource(dataSource), m_scale(0), m_position(0, 0), m_valid(false)
 {
 }
 
@@ -107,7 +107,7 @@ void NestedRectsCache::Update()
       }
       lastFeatures->push_back(id.m_index);
     };
-    m_index.ForEachFeatureIDInRect(addId, rect, m_scale);
+    m_dataSource.ForEachFeatureIDInRect(addId, rect, m_scale);
     for (auto & kv : bucket)
       sort(kv.second.begin(), kv.second.end());
   }

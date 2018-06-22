@@ -587,7 +587,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
 
   // Tests that postcode is added to the search index.
   {
-    MwmContext context(m_index.GetMwmHandleById(countryId));
+    MwmContext context(m_dataSource.GetMwmHandleById(countryId));
     ::base::Cancellable cancellable;
 
     QueryParams params;
@@ -605,7 +605,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
     while (!features->GetBit(index))
       ++index;
 
-    EditableDataSource::FeaturesLoaderGuard loader(m_index, countryId);
+    EditableDataSource::FeaturesLoaderGuard loader(m_dataSource, countryId);
     FeatureType ft;
     TEST(loader.GetFeatureByIndex(::base::checked_cast<uint32_t>(index), ft), ());
 
@@ -702,7 +702,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
     TEST(ResultsMatch(request->Results(), rules), ());
     for (auto const & result : request->Results())
     {
-      EditableDataSource::FeaturesLoaderGuard loader(m_index, wonderlandId);
+      EditableDataSource::FeaturesLoaderGuard loader(m_dataSource, wonderlandId);
       FeatureType ft;
       TEST(loader.GetFeatureByIndex(result.GetFeatureID().m_index, ft), ());
 
@@ -1141,7 +1141,7 @@ UNIT_CLASS_TEST(ProcessorTest, CityBoundaryLoad)
     TEST(ResultsMatch("moscow", "en", rules), ());
   }
 
-  CitiesBoundariesTable table(m_index);
+  CitiesBoundariesTable table(m_dataSource);
   TEST(table.Load(), ());
   TEST(table.Has(0 /* fid */), ());
   TEST(!table.Has(10 /* fid */), ());

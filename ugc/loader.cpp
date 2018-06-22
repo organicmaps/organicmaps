@@ -7,11 +7,11 @@
 
 namespace ugc
 {
-Loader::Loader(DataSourceBase const & index) : m_index(index) {}
+Loader::Loader(DataSourceBase const & dataSource) : m_dataSource(dataSource) {}
 
 UGC Loader::GetUGC(FeatureID const & featureId)
 {
-  auto const handle = m_index.GetMwmHandleById(featureId.m_mwmId);
+  auto const handle = m_dataSource.GetMwmHandleById(featureId.m_mwmId);
 
   if (!handle.IsAlive())
     return {};

@@ -50,7 +50,7 @@ public:
     bool m_viewportSearch = false;
   };
 
-  PreRanker(DataSourceBase const & index, Ranker & ranker);
+  PreRanker(DataSourceBase const & dataSource, Ranker & ranker);
 
   void Init(Params const & params);
 
@@ -89,7 +89,7 @@ public:
 private:
   void FilterForViewportSearch();
 
-  DataSourceBase const & m_index;
+  DataSourceBase const & m_dataSource;
   Ranker & m_ranker;
   vector<PreRankerResult> m_results;
   Params m_params;

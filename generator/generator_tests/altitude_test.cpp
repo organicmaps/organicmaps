@@ -131,10 +131,10 @@ void BuildMwmWithoutAltitudes(vector<TPoint3DList> const & roads, LocalCountryFi
     builder.Add(generator::tests_support::TestStreet(ExtractPoints(geom3D), std::string(), std::string()));
 }
 
-void TestAltitudes(DataSourceBase const & index, MwmSet::MwmId const & mwmId, std::string const & mwmPath,
+void TestAltitudes(DataSourceBase const & dataSource, MwmSet::MwmId const & mwmId, std::string const & mwmPath,
                    bool hasAltitudeExpected, AltitudeGetter & expectedAltitudes)
 {
-  AltitudeLoader loader(index, mwmId);
+  AltitudeLoader loader(dataSource, mwmId);
   TEST_EQUAL(loader.HasAltitudes(), hasAltitudeExpected, ());
 
   auto processor = [&expectedAltitudes, &loader](FeatureType const & f, uint32_t const & id)
@@ -181,11 +181,11 @@ void TestAltitudesBuilding(vector<TPoint3DList> const & roads, bool hasAltitudeE
   BuildRoadAltitudes(mwmPath, altitudeGetter);
 
   // Reading from mwm and testing altitude information.
-  DataSource index;
-  auto const regResult = index.RegisterMap(country);
+  DataSource dataSource;
+  auto const regResult = dataSource.RegisterMap(country);
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
 
-  TestAltitudes(index, regResult.first /* mwmId */, mwmPath, hasAltitudeExpected, altitudeGetter);
+  TestAltitudes(dataSource, regResult.first /* mwmId */, mwmPath, hasAltitudeExpected, altitudeGetter);
 }
 
 void TestBuildingAllFeaturesHaveAltitude(vector<TPoint3DList> const & roads, bool hasAltitudeExpected)

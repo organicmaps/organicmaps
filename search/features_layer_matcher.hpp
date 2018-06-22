@@ -61,7 +61,7 @@ public:
   static int constexpr kBuildingRadiusMeters = 50;
   static int constexpr kStreetRadiusMeters = 100;
 
-  FeaturesLayerMatcher(DataSourceBase const & index, ::base::Cancellable const & cancellable);
+  FeaturesLayerMatcher(DataSourceBase const & dataSource, ::base::Cancellable const & cancellable);
   void SetContext(MwmContext * context);
   void SetPostcodes(CBV const * postcodes);
 

@@ -10,6 +10,7 @@ set(
   centers_table_test.cpp
   checker_test.cpp
   cities_boundaries_serdes_tests.cpp
+  data_source_test.cpp
   drules_selector_parser_test.cpp
   editable_map_object_test.cpp
   feature_metadata_test.cpp
@@ -17,7 +18,6 @@ set(
   features_offsets_table_test.cpp
   features_vector_test.cpp
   index_builder_test.cpp
-  index_test.cpp
   interval_index_test.cpp
   locality_index_test.cpp
   mwm_set_test.cpp

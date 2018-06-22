@@ -22,7 +22,7 @@ class LocalityFinderTest : public generator::tests_support::TestWithClassificato
 {
   platform::LocalCountryFile m_worldFile;
 
-  DataSource m_index;
+  DataSource m_dataSource;
 
   ::base::Cancellable m_cancellable;
   search::VillagesCache m_villagesCache;
@@ -34,14 +34,14 @@ class LocalityFinderTest : public generator::tests_support::TestWithClassificato
 public:
   LocalityFinderTest()
     : m_villagesCache(m_cancellable)
-    , m_boundariesTable(m_index)
-    , m_finder(m_index, m_boundariesTable, m_villagesCache)
+    , m_boundariesTable(m_dataSource)
+    , m_finder(m_dataSource, m_boundariesTable, m_villagesCache)
   {
     m_worldFile = platform::LocalCountryFile::MakeForTesting("World");
 
     try
     {
-      auto const p = m_index.Register(m_worldFile);
+      auto const p = m_dataSource.Register(m_worldFile);
       TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
 
       MwmSet::MwmId const & id = p.first;

@@ -29,7 +29,7 @@ class RankTableCache
 public:
   RankTableCache() = default;
 
-  RankTable const & Get(DataSourceBase & index, TId const & mwmId);
+  RankTable const & Get(DataSourceBase & dataSource, TId const & mwmId);
 
   void Remove(TId const & id);
   void Clear();

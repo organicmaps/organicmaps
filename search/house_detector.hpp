@@ -237,7 +237,7 @@ class HouseDetector
   double GetApprLengthMeters(int index) const;
 
 public:
-  HouseDetector(DataSourceBase const & index);
+  HouseDetector(DataSourceBase const & dataSource);
   ~HouseDetector();
 
   int LoadStreets(vector<FeatureID> const & ids);

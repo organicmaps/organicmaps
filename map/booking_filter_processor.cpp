@@ -7,8 +7,8 @@ namespace booking
 {
 namespace filter
 {
-FilterProcessor::FilterProcessor(DataSourceBase const & index, booking::Api const & api)
-  : m_index(index)
+FilterProcessor::FilterProcessor(DataSourceBase const & dataSource, booking::Api const & api)
+  : m_dataSource(dataSource)
   , m_api(api)
 {
   m_filters.emplace(Type::Deals, std::make_unique<AvailabilityFilter>(*this));
@@ -60,9 +60,9 @@ void FilterProcessor::GetFeaturesFromCache(Types const & types, search::Results 
   });
 }
 
-DataSourceBase const & FilterProcessor::GetIndex() const
+DataSourceBase const & FilterProcessor::GetDataSource() const
 {
-  return m_index;
+  return m_dataSource;
 }
 
 Api const & FilterProcessor::GetApi() const

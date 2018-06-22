@@ -32,7 +32,7 @@ bool CitiesBoundariesTable::Boundaries::HasPoint(m2::PointD const & p) const
 // CitiesBoundariesTable ---------------------------------------------------------------------------
 bool CitiesBoundariesTable::Load()
 {
-  auto handle = FindWorld(m_index);
+  auto handle = FindWorld(m_dataSource);
   if (!handle.IsAlive())
   {
     LOG(LWARNING, ("Can't find World map file."));

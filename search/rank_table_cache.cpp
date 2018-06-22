@@ -7,13 +7,13 @@
 
 namespace search
 {
-RankTable const & RankTableCache::Get(DataSourceBase & index, TId const & mwmId)
+RankTable const & RankTableCache::Get(DataSourceBase & dataSource, TId const & mwmId)
 {
   auto const it = m_ranks.find(TKey(mwmId));
   if (it != m_ranks.end())
     return *it->second;
 
-  TKey handle(index.GetMwmHandleById(mwmId));
+  TKey handle(dataSource.GetMwmHandleById(mwmId));
   auto table = RankTable::Load(handle.GetValue<MwmValue>()->m_cont);
   if (!table)
     table.reset(new DummyRankTable());

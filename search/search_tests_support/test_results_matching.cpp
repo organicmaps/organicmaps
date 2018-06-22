@@ -62,7 +62,7 @@ string AlternativesMatchingRule::ToString() const
   return os.str();
 }
 
-bool MatchResults(DataSourceBase const & index, vector<shared_ptr<MatchingRule>> rules,
+bool MatchResults(DataSourceBase const & dataSource, vector<shared_ptr<MatchingRule>> rules,
                   vector<search::Result> const & actual)
 {
   vector<FeatureID> resultIds;
@@ -83,7 +83,7 @@ bool MatchResults(DataSourceBase const & index, vector<shared_ptr<MatchingRule>>
     }
     unexpected.push_back(DebugPrint(feature) + " from " + DebugPrint(feature.GetID().m_mwmId));
   };
-  index.ReadFeatures(removeMatched, resultIds);
+  dataSource.ReadFeatures(removeMatched, resultIds);
 
   if (rules.empty() && unexpected.empty())
     return true;
@@ -100,18 +100,18 @@ bool MatchResults(DataSourceBase const & index, vector<shared_ptr<MatchingRule>>
   return false;
 }
 
-bool MatchResults(DataSourceBase const & index, vector<shared_ptr<MatchingRule>> rules,
+bool MatchResults(DataSourceBase const & dataSource, vector<shared_ptr<MatchingRule>> rules,
                   search::Results const & actual)
 {
   vector<search::Result> const results(actual.begin(), actual.end());
-  return MatchResults(index, rules, results);
+  return MatchResults(dataSource, rules, results);
 }
 
-bool ResultMatches(DataSourceBase const & index, shared_ptr<MatchingRule> rule,
+bool ResultMatches(DataSourceBase const & dataSource, shared_ptr<MatchingRule> rule,
                    search::Result const & result)
 {
   bool matches = false;
-  index.ReadFeature([&](FeatureType const & ft) { matches = rule->Matches(ft); }, result.GetFeatureID());
+  dataSource.ReadFeature([&](FeatureType const & ft) { matches = rule->Matches(ft); }, result.GetFeatureID());
   return matches;
 }
 

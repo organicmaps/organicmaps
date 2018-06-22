@@ -56,8 +56,8 @@ ostream & operator<<(ostream & s, ViatorCity const & h)
 ViatorDataset::ViatorDataset(std::string const & dataPath)
   : m_storage(3000.0 /* distanceLimitMeters */, 3 /* maxSelectedElements */)
 {
-  LoadIndex(m_index);
-  m_cityFinder = make_unique<search::CityFinder>(m_index);
+  LoadDataSource(m_dataSource);
+  m_cityFinder = make_unique<search::CityFinder>(m_dataSource);
 
   m_storage.LoadData(dataPath);
 }

@@ -30,8 +30,8 @@ void GetRegularEdges(Junction const & junction, IRoadGraph const & graph,
 }
 }  // namespace
 
-Graph::Graph(DataSourceBase const & index, shared_ptr<CarModelFactory> carModelFactory)
-  : m_graph(index, IRoadGraph::Mode::ObeyOnewayTag, carModelFactory)
+Graph::Graph(DataSourceBase const & dataSource, shared_ptr<CarModelFactory> carModelFactory)
+  : m_graph(dataSource, IRoadGraph::Mode::ObeyOnewayTag, carModelFactory)
 {
 }
 

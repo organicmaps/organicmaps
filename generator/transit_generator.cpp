@@ -72,7 +72,7 @@ void CalculateBestPedestrianSegments(string const & mwmPath, TCountryId const & 
                                      GraphData & graphData)
 {
   // Creating IndexRouter.
-  SingleMwmDataSource index(mwmPath);
+  SingleMwmDataSource dataSource(mwmPath);
 
   auto infoGetter = storage::CountryInfoReader::CreateCountryInfoReader(GetPlatform());
   CHECK(infoGetter, ());
@@ -86,15 +86,15 @@ void CalculateBestPedestrianSegments(string const & mwmPath, TCountryId const & 
     return infoGetter->GetLimitRectForLeaf(c);
   };
 
-  CHECK_EQUAL(index.GetMwmId().GetInfo()->GetType(), MwmInfo::COUNTRY, ());
+  CHECK_EQUAL(dataSource.GetMwmId().GetInfo()->GetType(), MwmInfo::COUNTRY, ());
   auto numMwmIds = make_shared<NumMwmIds>();
   numMwmIds->RegisterFile(CountryFile(countryId));
 
-  // Note. |indexRouter| is valid while |index| is valid.
+  // Note. |indexRouter| is valid while |dataSource| is valid.
   IndexRouter indexRouter(VehicleType::Pedestrian, false /* load altitudes */,
                           CountryParentNameGetterFn(), countryFileGetter, getMwmRectByName,
                           numMwmIds, MakeNumMwmTree(*numMwmIds, *infoGetter),
-                          traffic::TrafficCache(), index.GetIndex());
+                          traffic::TrafficCache(), dataSource.GetDataSource());
   auto worldGraph = indexRouter.MakeSingleMwmWorldGraph();
 
   // Looking for the best segment for every gate.

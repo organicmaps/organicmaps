@@ -87,7 +87,7 @@ public:
     shared_ptr<Tracer> m_tracer;
   };
 
-  Geocoder(DataSourceBase const & index, storage::CountryInfoGetter const & infoGetter,
+  Geocoder(DataSourceBase const & dataSource, storage::CountryInfoGetter const & infoGetter,
            CategoriesHolder const & categories, PreRanker & preRanker,
            VillagesCache & villagesCache, ::base::Cancellable const & cancellable);
   ~Geocoder();
@@ -239,7 +239,7 @@ private:
   WARN_UNUSED_RESULT bool GetTypeInGeocoding(BaseContext const & ctx, uint32_t featureId,
                                              Model::Type & type);
 
-  DataSourceBase const & m_index;
+  DataSourceBase const & m_dataSource;
   storage::CountryInfoGetter const & m_infoGetter;
   CategoriesHolder const & m_categories;
 

@@ -9,8 +9,8 @@ using namespace ugc;
 
 namespace ugc
 {
-Api::Api(DataSourceBase const & index, NumberOfUnsynchronizedCallback const & callback)
-  : m_storage(index), m_loader(index)
+Api::Api(DataSourceBase const & dataSource, NumberOfUnsynchronizedCallback const & callback)
+  : m_storage(dataSource), m_loader(dataSource)
 {
   m_thread.Push([this, callback] {
     m_storage.Load();

@@ -124,8 +124,8 @@ class PointsControllerDelegate : public PointsControllerDelegateBase
 public:
   PointsControllerDelegate(Framework & framework)
     : m_framework(framework)
-    , m_index(framework.GetIndex())
-    , m_roadGraph(m_index, routing::IRoadGraph::Mode::ObeyOnewayTag,
+    , m_dataSource(framework.GetDataSource())
+    , m_roadGraph(m_dataSource, routing::IRoadGraph::Mode::ObeyOnewayTag,
                   make_unique<routing::CarModelFactory>(storage::CountryParentGetter{}))
   {
   }
@@ -157,7 +157,7 @@ public:
       ft.ForEachPoint(pushPoint, scales::GetUpperScale());
     };
 
-    m_index.ForEachInRect(pushFeaturePoints, rect, scales::GetUpperScale());
+    m_dataSource.ForEachInRect(pushFeaturePoints, rect, scales::GetUpperScale());
     return points;
   }
 
@@ -168,7 +168,7 @@ public:
 
     std::vector<FeaturePoint> points;
     m2::PointD pointOnFt;
-    indexer::ForEachFeatureAtPoint(m_index, [&points, &p, &pointOnFt](FeatureType & ft) {
+    indexer::ForEachFeatureAtPoint(m_dataSource, [&points, &p, &pointOnFt](FeatureType & ft) {
         if (ft.GetFeatureType() != feature::GEOM_LINE)
           return;
 
@@ -229,7 +229,7 @@ public:
 
 private:
   Framework & m_framework;
-  DataSourceBase const & m_index;
+  DataSourceBase const & m_dataSource;
   routing::FeaturesRoadGraph m_roadGraph;
 };
 }  // namespace
@@ -309,7 +309,7 @@ MainWindow::MainWindow(Framework & framework)
 void MainWindow::CreateTrafficPanel(string const & dataFilePath)
 {
   m_trafficMode = new TrafficMode(dataFilePath,
-                                  m_framework.GetIndex(),
+                                  m_framework.GetDataSource(),
                                   make_unique<TrafficDrawerDelegate>(m_framework),
                                   make_unique<PointsControllerDelegate>(m_framework));
 

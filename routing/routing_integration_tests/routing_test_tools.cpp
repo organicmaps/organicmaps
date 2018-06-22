@@ -41,7 +41,7 @@ using namespace routing;
 using namespace routing_test;
 
 using TRouterFactory =
-    function<unique_ptr<IRouter>(DataSourceBase & index, TCountryFileFn const & countryFileFn,
+    function<unique_ptr<IRouter>(DataSourceBase & dataSource, TCountryFileFn const & countryFileFn,
                                  shared_ptr<NumMwmIds> numMwmIds)>;
 
 namespace
@@ -85,7 +85,7 @@ namespace integration
     return storage::CountryInfoReader::CreateCountryInfoReader(platform);
   }
 
-  unique_ptr<IndexRouter> CreateVehicleRouter(DataSourceBase & index,
+  unique_ptr<IndexRouter> CreateVehicleRouter(DataSourceBase & dataSource,
                                               storage::CountryInfoGetter const & infoGetter,
                                               traffic::TrafficCache const & trafficCache,
                                               vector<LocalCountryFile> const & localFiles,
@@ -103,7 +103,7 @@ namespace integration
     for (auto const & f : localFiles)
     {
       auto const & countryFile = f.GetCountryFile();
-      auto const mwmId = index.GetMwmIdByCountryFile(countryFile);
+      auto const mwmId = dataSource.GetMwmIdByCountryFile(countryFile);
       CHECK(mwmId.IsAlive(), ());
       if (mwmId.GetInfo()->GetType() == MwmInfo::COUNTRY && countryFile.GetName() != "minsk-pass")
         numMwmIds->RegisterFile(countryFile);
@@ -115,12 +115,12 @@ namespace integration
     auto indexRouter = make_unique<IndexRouter>(vehicleType, false /* load altitudes*/,
                                                 *countryParentGetter, countryFileGetter,
                                                 getMwmRectByName, numMwmIds,
-                                                MakeNumMwmTree(*numMwmIds, infoGetter), trafficCache, index);
+                                                MakeNumMwmTree(*numMwmIds, infoGetter), trafficCache, dataSource);
 
     return indexRouter;
   }
 
-  unique_ptr<IRouter> CreateAStarRouter(DataSourceBase & index,
+  unique_ptr<IRouter> CreateAStarRouter(DataSourceBase & dataSource,
                                         storage::CountryInfoGetter const & infoGetter,
                                         vector<LocalCountryFile> const & localFiles,
                                         TRouterFactory const & routerFactory)
@@ -136,7 +136,7 @@ namespace integration
     for (auto const & file : localFiles)
       numMwmIds->RegisterFile(file.GetCountryFile());
 
-    unique_ptr<IRouter> router = routerFactory(index, countryFileGetter, numMwmIds);
+    unique_ptr<IRouter> router = routerFactory(dataSource, countryFileGetter, numMwmIds);
     return unique_ptr<IRouter>(move(router));
   }
 

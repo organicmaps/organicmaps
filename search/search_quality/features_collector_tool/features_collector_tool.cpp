@@ -152,7 +152,7 @@ int main(int argc, char * argv[])
   }
 
   classificator::Load();
-  DataSource index;
+  DataSource dataSource;
 
   vector<platform::LocalCountryFile> mwms;
   platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* the latest version */,
@@ -160,13 +160,13 @@ int main(int argc, char * argv[])
   for (auto & mwm : mwms)
   {
     mwm.SyncWithDisk();
-    index.RegisterMap(mwm);
+    dataSource.RegisterMap(mwm);
   }
 
-  TestSearchEngine engine(index, move(infoGetter), Engine::Params{});
+  TestSearchEngine engine(dataSource, move(infoGetter), Engine::Params{});
 
   vector<Stats> stats(samples.size());
-  FeatureLoader loader(index);
+  FeatureLoader loader(dataSource);
   Matcher matcher(loader);
 
   cout << "SampleId,";

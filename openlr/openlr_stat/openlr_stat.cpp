@@ -58,7 +58,7 @@ int32_t const kMinNumThreads = 1;
 int32_t const kMaxNumThreads = 128;
 int32_t const kHandleAllSegments = -1;
 
-void LoadIndexes(std::string const & pathToMWMFolder, std::vector<DataSource> & indexes)
+void LoadDataSources(std::string const & pathToMWMFolder, std::vector<DataSource> & dataSources)
 {
   CHECK(Platform::IsDirectory(pathToMWMFolder), (pathToMWMFolder, "must be a directory."));
 
@@ -67,8 +67,8 @@ void LoadIndexes(std::string const & pathToMWMFolder, std::vector<DataSource> & 
 
   CHECK(!files.empty(), (pathToMWMFolder, "Contains no .mwm files."));
 
-  size_t const numIndexes = indexes.size();
-  std::vector<uint64_t> numCountries(numIndexes);
+  size_t const numDataSources = dataSources.size();
+  std::vector<uint64_t> numCountries(numDataSources);
 
   for (auto const & fileName : files)
   {
@@ -82,9 +82,9 @@ void LoadIndexes(std::string const & pathToMWMFolder, std::vector<DataSource> & 
     try
     {
       localFile.SyncWithDisk();
-      for (size_t i = 0; i < numIndexes; ++i)
+      for (size_t i = 0; i < numDataSources; ++i)
       {
-        auto const result = indexes[i].RegisterMap(localFile);
+        auto const result = dataSources[i].RegisterMap(localFile);
         CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ("Can't register mwm:", localFile));
 
         auto const & info = result.first.GetInfo();
@@ -98,7 +98,7 @@ void LoadIndexes(std::string const & pathToMWMFolder, std::vector<DataSource> & 
     }
   }
 
-  for (size_t i = 0; i < numIndexes; ++i)
+  for (size_t i = 0; i < numDataSources; ++i)
   {
     if (numCountries[i] == 0)
       LOG(LWARNING, ("No countries for thread", i));
@@ -259,10 +259,10 @@ int main(int argc, char * argv[])
 
   auto const numThreads = static_cast<uint32_t>(FLAGS_num_threads);
 
-  std::vector<DataSource> indexes(numThreads);
-  LoadIndexes(FLAGS_mwms_path, indexes);
+  std::vector<DataSource> dataSources(numThreads);
+  LoadDataSources(FLAGS_mwms_path, dataSources);
 
-  OpenLRDecoder decoder(indexes, storage::CountryParentGetter(FLAGS_countries_filename,
+  OpenLRDecoder decoder(dataSources, storage::CountryParentGetter(FLAGS_countries_filename,
                                                               GetPlatform().ResourcesDir()));
 
   pugi::xml_document document;

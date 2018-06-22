@@ -211,7 +211,7 @@ class RankerResultMaker
 {
   using LoaderGuard = EditableDataSource::FeaturesLoaderGuard;
   Ranker & m_ranker;
-  DataSourceBase const & m_index;
+  DataSourceBase const & m_dataSource;
   Geocoder::Params const & m_params;
   storage::CountryInfoGetter const & m_infoGetter;
 
@@ -220,7 +220,7 @@ class RankerResultMaker
   bool LoadFeature(FeatureID const & id, FeatureType & ft)
   {
     if (!m_loader || m_loader->GetId() != id.m_mwmId)
-      m_loader = make_unique<LoaderGuard>(m_index, id.m_mwmId);
+      m_loader = make_unique<LoaderGuard>(m_dataSource, id.m_mwmId);
     if (!m_loader->GetFeatureByIndex(id.m_index, ft))
       return false;
 
@@ -331,9 +331,9 @@ class RankerResultMaker
   }
 
 public:
-  RankerResultMaker(Ranker & ranker, DataSourceBase const & index,
+  RankerResultMaker(Ranker & ranker, DataSourceBase const & dataSource,
                     storage::CountryInfoGetter const & infoGetter, Geocoder::Params const & params)
-    : m_ranker(ranker), m_index(index), m_params(params), m_infoGetter(infoGetter)
+    : m_ranker(ranker), m_dataSource(dataSource), m_params(params), m_infoGetter(infoGetter)
   {
   }
 
@@ -358,16 +358,16 @@ public:
   }
 };
 
-Ranker::Ranker(DataSourceBase const & index, CitiesBoundariesTable const & boundariesTable,
+Ranker::Ranker(DataSourceBase const & dataSource, CitiesBoundariesTable const & boundariesTable,
                storage::CountryInfoGetter const & infoGetter, KeywordLangMatcher & keywordsScorer,
                Emitter & emitter, CategoriesHolder const & categories,
                vector<Suggest> const & suggests, VillagesCache & villagesCache,
                ::base::Cancellable const & cancellable)
-  : m_reverseGeocoder(index)
+  : m_reverseGeocoder(dataSource)
   , m_cancellable(cancellable)
   , m_keywordsScorer(keywordsScorer)
-  , m_localities(index, boundariesTable, villagesCache)
-  , m_index(index)
+  , m_localities(dataSource, boundariesTable, villagesCache)
+  , m_dataSource(dataSource)
   , m_infoGetter(infoGetter)
   , m_emitter(emitter)
   , m_categories(categories)
@@ -542,7 +542,7 @@ void Ranker::LoadCountriesTree() { m_regionInfoGetter.LoadCountriesTree(); }
 void Ranker::MakeRankerResults(Geocoder::Params const & geocoderParams,
                                vector<RankerResult> & results)
 {
-  RankerResultMaker maker(*this, m_index, m_infoGetter, geocoderParams);
+  RankerResultMaker maker(*this, m_dataSource, m_infoGetter, geocoderParams);
   for (auto const & r : m_preRankerResults)
   {
     auto p = maker(r);

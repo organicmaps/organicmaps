@@ -29,7 +29,7 @@ class TestMwmEnvironment : public TestWithCustomMwms,
                            public FilterBase::Delegate
 {
 public:
-  DataSourceBase const & GetIndex() const override { return m_index; }
+  DataSourceBase const & GetDataSource() const override { return m_dataSource; }
 
   booking::Api const & GetApi() const override { return m_api; }
 
@@ -85,7 +85,7 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_AvailabilitySmoke)
   search::Results results;
   results.AddResult({"suggest for testing", "suggest for testing"});
   search::Results expectedResults;
-  m_index.ForEachInRect(
+  m_dataSource.ForEachInRect(
       [&results, &expectedResults](FeatureType & ft) {
         search::Result::Metadata metadata;
         metadata.m_isSponsoredHotel = true;
@@ -158,7 +158,7 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ProcessorSmoke)
   search::Results expectedAvailabilityResults;
   search::Results expectedDealsResults;
   search::Results expectedAvailableWithDeals;
-  m_index.ForEachInRect(
+  m_dataSource.ForEachInRect(
     [&](FeatureType & ft) {
       search::Result::Metadata metadata;
       metadata.m_isSponsoredHotel = true;
@@ -202,7 +202,7 @@ UNIT_CLASS_TEST(TestMwmEnvironment, BookingFilter_ProcessorSmoke)
 
   tasks.emplace_back(Type::Deals, std::move(dealsParams));
 
-  FilterProcessor processor(GetIndex(), GetApi());
+  FilterProcessor processor(GetDataSource(), GetApi());
   auto tasksCopy = tasks;
   processor.ApplyFilters(results, std::move(tasksCopy), ApplicationMode::Independent);
 

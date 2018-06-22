@@ -81,7 +81,7 @@ namespace android
     Framework();
 
     storage::Storage & GetStorage();
-    DataSourceBase const & GetIndex();
+    DataSourceBase const & GetDataSource();
 
     void ShowNode(storage::TCountryId const & countryId, bool zoomToDownloadButton);
 

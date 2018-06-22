@@ -59,14 +59,14 @@ TrackMatcher::TrackMatcher(storage::Storage const & storage, NumMwmId mwmId,
 {
   auto localCountryFile = storage.GetLatestLocalFile(countryFile);
   CHECK(localCountryFile, ("Can't find latest country file for", countryFile.GetName()));
-  auto registerResult = m_index.Register(*localCountryFile);
+  auto registerResult = m_dataSource.Register(*localCountryFile);
   CHECK_EQUAL(registerResult.second, MwmSet::RegResult::Success,
               ("Can't register mwm", countryFile.GetName()));
 
-  MwmSet::MwmHandle const handle = m_index.GetMwmHandleByCountryFile(countryFile);
+  MwmSet::MwmHandle const handle = m_dataSource.GetMwmHandleByCountryFile(countryFile);
   m_graph = make_unique<IndexGraph>(
       make_shared<Geometry>(
-          GeometryLoader::Create(m_index, handle, m_vehicleModel, false /* loadAltitudes */)),
+          GeometryLoader::Create(m_dataSource, handle, m_vehicleModel, false /* loadAltitudes */)),
       EdgeEstimator::Create(VehicleType::Car, *m_vehicleModel, nullptr /* trafficStash */));
 
   DeserializeIndexGraph(*handle.GetValue<MwmValue>(), VehicleType::Car, *m_graph);
@@ -85,7 +85,7 @@ void TrackMatcher::MatchTrack(vector<DataPoint> const & track, vector<MatchedTra
   {
     for (; trackBegin < steps.size(); ++trackBegin)
     {
-      steps[trackBegin].FillCandidatesWithNearbySegments(m_index, *m_graph, *m_vehicleModel,
+      steps[trackBegin].FillCandidatesWithNearbySegments(m_dataSource, *m_graph, *m_vehicleModel,
                                                          m_mwmId);
       if (steps[trackBegin].HasCandidates())
         break;
@@ -132,10 +132,10 @@ TrackMatcher::Step::Step(DataPoint const & dataPoint)
 }
 
 void TrackMatcher::Step::FillCandidatesWithNearbySegments(
-    DataSourceBase const & index, IndexGraph const & graph, VehicleModelInterface const & vehicleModel,
+    DataSourceBase const & dataSource, IndexGraph const & graph, VehicleModelInterface const & vehicleModel,
     NumMwmId mwmId)
 {
-  index.ForEachInRect(
+  dataSource.ForEachInRect(
       [&](FeatureType const & ft) {
         if (!ft.GetID().IsValid())
           return;

@@ -103,12 +103,12 @@ namespace openlr
 {
 // TrafficMode -------------------------------------------------------------------------------------
 TrafficMode::TrafficMode(std::string const & dataFileName,
-                         DataSourceBase const & index,
+                         DataSourceBase const & dataSource,
                          std::unique_ptr<TrafficDrawerDelegateBase> drawerDelegate,
                          std::unique_ptr<PointsControllerDelegateBase> pointsDelegate,
                          QObject * parent)
   : QAbstractTableModel(parent)
-  , m_index(index)
+  , m_dataSource(dataSource)
   , m_drawerDelegate(move(drawerDelegate))
   , m_pointsDelegate(move(pointsDelegate))
 {
@@ -146,11 +146,11 @@ TrafficMode::TrafficMode(std::string const & dataFileName,
         MYTHROW(TrafficModeError, ("An error occured while parsing: can't parse segment"));
 
       if (auto const route = xmlSegment.child("Route"))
-        openlr::PathFromXML(route, m_index, matchedPath);
+        openlr::PathFromXML(route, m_dataSource, matchedPath);
       if (auto const route = xmlSegment.child("FakeRoute"))
-        openlr::PathFromXML(route, m_index, fakePath);
+        openlr::PathFromXML(route, m_dataSource, fakePath);
       if (auto const route = xmlSegment.child("GoldenRoute"))
-        openlr::PathFromXML(route, m_index, goldenPath);
+        openlr::PathFromXML(route, m_dataSource, goldenPath);
 
       m_segments.emplace_back(segment, matchedPath, fakePath, goldenPath, partnerSegmentXML);
       if (auto const status = xmlSegment.child("Ignored"))

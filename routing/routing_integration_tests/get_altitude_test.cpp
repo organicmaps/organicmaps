@@ -43,18 +43,18 @@ LocalCountryFile GetLocalCountryFileByCountryId(CountryFile const & country)
 void TestAltitudeOfAllMwmFeatures(string const & countryId, TAltitude const altitudeLowerBoundMeters,
                                   TAltitude const altitudeUpperBoundMeters)
 {
-  DataSource index;
+  DataSource dataSource;
 
   LocalCountryFile const country = GetLocalCountryFileByCountryId(CountryFile(countryId));
   TEST_NOT_EQUAL(country, LocalCountryFile(), ());
   TEST_NOT_EQUAL(country.GetFiles(), MapOptions::Nothing, (country));
 
-  pair<MwmSet::MwmId, MwmSet::RegResult> const regResult = index.RegisterMap(country);
+  pair<MwmSet::MwmId, MwmSet::RegResult> const regResult = dataSource.RegisterMap(country);
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
   TEST(regResult.first.IsAlive(), ());
 
   unique_ptr<AltitudeLoader> altitudeLoader =
-      make_unique<AltitudeLoader>(index, regResult.first /* mwmId */);
+      make_unique<AltitudeLoader>(dataSource, regResult.first /* mwmId */);
 
   classificator::Load();
   classif().SortClassificator();

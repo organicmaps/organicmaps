@@ -97,8 +97,8 @@ UNIT_TEST(RankTableBuilder_EndToEnd)
     search::RankTableBuilder::Create(ranks, wcont);
   }
 
-  DataSource index;
-  auto regResult = index.RegisterMap(localFile);
+  DataSource dataSource;
+  auto regResult = dataSource.RegisterMap(localFile);
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
 
   TestTable(ranks, mapPath);

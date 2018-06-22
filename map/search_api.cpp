@@ -116,13 +116,13 @@ private:
 };
 }  // namespace
 
-SearchAPI::SearchAPI(DataSourceBase & index, storage::Storage const & storage,
+SearchAPI::SearchAPI(DataSourceBase & dataSource, storage::Storage const & storage,
                      storage::CountryInfoGetter const & infoGetter, Delegate & delegate)
-  : m_index(index)
+  : m_dataSource(dataSource)
   , m_storage(storage)
   , m_infoGetter(infoGetter)
   , m_delegate(delegate)
-  , m_engine(m_index, GetDefaultCategories(), m_infoGetter,
+  , m_engine(m_dataSource, GetDefaultCategories(), m_infoGetter,
              Engine::Params(languages::GetCurrentTwine() /* locale */, 1 /* params.m_numThreads */))
 {
 }
@@ -260,7 +260,7 @@ bool SearchAPI::SearchInDownloader(storage::DownloaderSearchParams const & param
   p.m_needHighlighting = false;
 
   p.m_onResults = DownloaderSearchCallback(static_cast<DownloaderSearchCallback::Delegate &>(*this),
-                                           m_index, m_infoGetter, m_storage, params);
+                                           m_dataSource, m_infoGetter, m_storage, params);
 
   return Search(p, true /* forceSearch */);
 }

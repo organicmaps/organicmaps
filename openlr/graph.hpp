@@ -24,7 +24,7 @@ public:
   using EdgeVector = routing::FeaturesRoadGraph::TEdgeVector;
   using Junction = routing::Junction;
 
-  Graph(DataSourceBase const & index, std::shared_ptr<routing::CarModelFactory> carModelFactory);
+  Graph(DataSourceBase const & dataSource, std::shared_ptr<routing::CarModelFactory> carModelFactory);
 
   // Appends edges such as that edge.GetStartJunction() == junction to the |edges|.
   void GetOutgoingEdges(routing::Junction const & junction, EdgeVector & edges);

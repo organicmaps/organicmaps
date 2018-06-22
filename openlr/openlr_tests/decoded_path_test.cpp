@@ -65,13 +65,13 @@ void RoughJunctionsInPath(openlr::Path & p)
     e = RoughEdgeJunctions(e);
 }
 
-void TestSerializeDeserialize(openlr::Path const & path, DataSource const & index)
+void TestSerializeDeserialize(openlr::Path const & path, DataSource const & dataSource)
 {
   pugi::xml_document doc;
   openlr::PathToXML(path, doc);
 
   openlr::Path restoredPath;
-  openlr::PathFromXML(doc, index, restoredPath);
+  openlr::PathFromXML(doc, dataSource, restoredPath);
 
   // Fix MercatorBounds::From/ToLatLon floating point error
   // for we could use TEST_EQUAL on result.
@@ -133,25 +133,25 @@ void WithRoad(vector<m2::PointD> const & points, Func && fn)
     builder.Add(TestRoad(points, "Interstate 60", "en"));
   }
 
-  DataSource index;
-  auto const regResult = index.RegisterMap(country);
+  DataSource dataSource;
+  auto const regResult = dataSource.RegisterMap(country);
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
 
-  MwmSet::MwmHandle mwmHandle = index.GetMwmHandleById(regResult.first);
+  MwmSet::MwmHandle mwmHandle = dataSource.GetMwmHandleById(regResult.first);
   TEST(mwmHandle.IsAlive(), ());
 
-  DataSource::FeaturesLoaderGuard const guard(index, regResult.first);
+  DataSource::FeaturesLoaderGuard const guard(dataSource, regResult.first);
   FeatureType road;
   TEST(guard.GetFeatureByIndex(0, road), ());
   road.ParseEverything();
 
-  fn(index, road);
+  fn(dataSource, road);
 }
 
 UNIT_TEST(MakePath_Test)
 {
   std::vector<m2::PointD> const points{{0, 0}, {0, 1}, {1, 0}, {1, 1}};
-  WithRoad(points, [&points](DataSource const & index, FeatureType & road) {
+  WithRoad(points, [&points](DataSource const & dataSource, FeatureType & road) {
     auto const & id = road.GetID();
     {
       openlr::Path const expected{
@@ -182,14 +182,14 @@ UNIT_TEST(MakePath_Test)
 
 UNIT_TEST(PathSerializeDeserialize_Test)
 {
-  WithRoad({{0, 0}, {0, 1}, {1, 0}, {1, 1}}, [](DataSource const & index, FeatureType & road) {
+  WithRoad({{0, 0}, {0, 1}, {1, 0}, {1, 1}}, [](DataSource const & dataSource, FeatureType & road) {
     {
       auto const path = MakePath(road, true /* forward */);
-      TestSerializeDeserialize(path, index);
+      TestSerializeDeserialize(path, dataSource);
     }
     {
       auto const path = MakePath(road, false /* forward */);
-      TestSerializeDeserialize(path, index);
+      TestSerializeDeserialize(path, dataSource);
     }
   });
 }

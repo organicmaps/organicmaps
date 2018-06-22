@@ -158,8 +158,8 @@ bool BicycleDirectionsEngine::AdjacentEdges::IsAlmostEqual(AdjacentEdges const &
 }
 
 // BicycleDirectionsEngine ------------------------------------------------------------------------
-BicycleDirectionsEngine::BicycleDirectionsEngine(DataSourceBase const & index, shared_ptr<NumMwmIds> numMwmIds)
-  : m_index(index), m_numMwmIds(numMwmIds)
+BicycleDirectionsEngine::BicycleDirectionsEngine(DataSourceBase const & dataSource, shared_ptr<NumMwmIds> numMwmIds)
+  : m_dataSource(dataSource), m_numMwmIds(numMwmIds)
 {
   CHECK(m_numMwmIds, ());
 }
@@ -213,7 +213,7 @@ bool BicycleDirectionsEngine::Generate(IndexRoadGraph const & graph, vector<Junc
 EditableDataSource::FeaturesLoaderGuard & BicycleDirectionsEngine::GetLoader(MwmSet::MwmId const & id)
 {
   if (!m_loader || id != m_loader->GetId())
-    m_loader = make_unique<EditableDataSource::FeaturesLoaderGuard>(m_index, id);
+    m_loader = make_unique<EditableDataSource::FeaturesLoaderGuard>(m_dataSource, id);
   return *m_loader;
 }
 

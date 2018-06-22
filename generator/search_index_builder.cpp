@@ -323,11 +323,11 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer)
   uint32_t address = 0, missing = 0;
   map<size_t, size_t> bounds;
 
-  DataSource mwmIndex;
+  DataSource dataSource;
   /// @ todo Make some better solution, or legalize MakeTemporary.
-  auto const res = mwmIndex.RegisterMap(platform::LocalCountryFile::MakeTemporary(container.GetFileName()));
+  auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(container.GetFileName()));
   ASSERT_EQUAL(res.second, MwmSet::RegResult::Success, ());
-  search::ReverseGeocoder rgc(mwmIndex);
+  search::ReverseGeocoder rgc(dataSource);
 
   {
     FixedBitsDDVector<3, FileReader>::Builder<Writer> building2Street(writer);

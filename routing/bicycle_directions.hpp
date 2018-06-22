@@ -28,7 +28,7 @@ public:
 
   using AdjacentEdgesMap = std::map<SegmentRange, AdjacentEdges>;
 
-  BicycleDirectionsEngine(DataSourceBase const & index, std::shared_ptr<NumMwmIds> numMwmIds);
+  BicycleDirectionsEngine(DataSourceBase const & dataSource, std::shared_ptr<NumMwmIds> numMwmIds);
 
   // IDirectionsEngine override:
   bool Generate(IndexRoadGraph const & graph, vector<Junction> const & path,
@@ -56,7 +56,7 @@ private:
 
   AdjacentEdgesMap m_adjacentEdges;
   TUnpackedPathSegments m_pathSegments;
-  DataSourceBase const & m_index;
+  DataSourceBase const & m_dataSource;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   std::unique_ptr<EditableDataSource::FeaturesLoaderGuard> m_loader;
 };

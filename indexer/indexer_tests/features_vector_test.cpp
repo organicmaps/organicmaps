@@ -50,12 +50,12 @@ UNIT_TEST(FeaturesVectorTest_ParseMetadata)
 
   LocalCountryFile localFile = LocalCountryFile::MakeForTesting(kCountryName);
 
-  DataSource index;
-  auto result = index.RegisterMap(localFile);
+  DataSource dataSource;
+  auto result = dataSource.RegisterMap(localFile);
   TEST_EQUAL(result.second, MwmSet::RegResult::Success, ());
 
   auto const & id = result.first;
-  MwmSet::MwmHandle handle = index.GetMwmHandleById(id);
+  MwmSet::MwmHandle handle = dataSource.GetMwmHandleById(id);
   TEST(handle.IsAlive(), ());
 
   auto const * value = handle.GetValue<MwmValue>();

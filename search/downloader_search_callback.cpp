@@ -35,12 +35,12 @@ bool GetGroupCountryIdFromFeature(storage::Storage const & storage, FeatureType 
 
 namespace search
 {
-DownloaderSearchCallback::DownloaderSearchCallback(Delegate & delegate, DataSourceBase const & index,
+DownloaderSearchCallback::DownloaderSearchCallback(Delegate & delegate, DataSourceBase const & dataSource,
                                                    storage::CountryInfoGetter const & infoGetter,
                                                    storage::Storage const & storage,
                                                    storage::DownloaderSearchParams params)
   : m_delegate(delegate)
-  , m_index(index)
+  , m_dataSource(dataSource)
   , m_infoGetter(infoGetter)
   , m_storage(storage)
   , m_params(move(params))
@@ -60,7 +60,7 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
     if (result.GetResultType() != search::Result::Type::LatLon)
     {
       FeatureID const & fid = result.GetFeatureID();
-      EditableDataSource::FeaturesLoaderGuard loader(m_index, fid.m_mwmId);
+      EditableDataSource::FeaturesLoaderGuard loader(m_dataSource, fid.m_mwmId);
       FeatureType ft;
       if (!loader.GetFeatureByIndex(fid.m_index, ft))
       {

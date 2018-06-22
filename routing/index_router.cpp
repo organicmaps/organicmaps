@@ -101,7 +101,7 @@ shared_ptr<VehicleModelFactoryInterface> CreateVehicleModelFactory(
 }
 
 unique_ptr<IDirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType,
-                                                     shared_ptr<NumMwmIds> numMwmIds, DataSourceBase & index)
+                                                     shared_ptr<NumMwmIds> numMwmIds, DataSourceBase & dataSource)
 {
   switch (vehicleType)
   {
@@ -110,7 +110,7 @@ unique_ptr<IDirectionsEngine> CreateDirectionsEngine(VehicleType vehicleType,
   case VehicleType::Bicycle:
   // @TODO Bicycle turn generation engine is used now. It's ok for the time being.
   // But later a special car turn generation engine should be implemented.
-  case VehicleType::Car: return make_unique<BicycleDirectionsEngine>(index, numMwmIds);
+  case VehicleType::Car: return make_unique<BicycleDirectionsEngine>(dataSource, numMwmIds);
   case VehicleType::Count:
     CHECK(false, ("Can't create DirectionsEngine for", vehicleType));
     return nullptr;
@@ -154,11 +154,11 @@ bool MwmHasRoutingData(version::MwmTraits const & traits)
   return traits.HasRoutingIndex() && traits.HasCrossMwmSection();
 }
 
-void GetOutdatedMwms(DataSourceBase & index, vector<string> & outdatedMwms)
+void GetOutdatedMwms(DataSourceBase & dataSource, vector<string> & outdatedMwms)
 {
   outdatedMwms.clear();
   vector<shared_ptr<MwmInfo>> infos;
-  index.GetMwmsInfo(infos);
+  dataSource.GetMwmsInfo(infos);
 
   for (auto const & info : infos)
   {
@@ -274,18 +274,18 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
                          CountryParentNameGetterFn const & countryParentNameGetterFn,
                          TCountryFileFn const & countryFileFn, CourntryRectFn const & countryRectFn,
                          shared_ptr<NumMwmIds> numMwmIds, unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
-                         traffic::TrafficCache const & trafficCache, DataSourceBase & index)
+                         traffic::TrafficCache const & trafficCache, DataSourceBase & dataSource)
   : m_vehicleType(vehicleType)
   , m_loadAltitudes(loadAltitudes)
   , m_name("astar-bidirectional-" + ToString(m_vehicleType))
-  , m_index(index)
+  , m_dataSource(dataSource)
   , m_vehicleModelFactory(CreateVehicleModelFactory(m_vehicleType, countryParentNameGetterFn))
   , m_countryFileFn(countryFileFn)
   , m_countryRectFn(countryRectFn)
   , m_numMwmIds(move(numMwmIds))
   , m_numMwmTree(move(numMwmTree))
   , m_trafficStash(CreateTrafficStash(m_vehicleType, m_numMwmIds, trafficCache))
-  , m_roadGraph(m_index,
+  , m_roadGraph(m_dataSource,
                 vehicleType == VehicleType::Pedestrian || vehicleType == VehicleType::Transit
                     ? IRoadGraph::Mode::IgnoreOnewayTag
                     : IRoadGraph::Mode::ObeyOnewayTag,
@@ -293,7 +293,7 @@ IndexRouter::IndexRouter(VehicleType vehicleType, bool loadAltitudes,
   , m_estimator(EdgeEstimator::Create(
         m_vehicleType, CalcMaxSpeed(*m_numMwmIds, *m_vehicleModelFactory, m_vehicleType),
         CalcOffroadSpeed(*m_vehicleModelFactory), m_trafficStash))
-  , m_directionsEngine(CreateDirectionsEngine(m_vehicleType, m_numMwmIds, m_index))
+  , m_directionsEngine(CreateDirectionsEngine(m_vehicleType, m_numMwmIds, m_dataSource))
 {
   CHECK(!m_name.empty(), ());
   CHECK(m_numMwmIds, ());
@@ -325,7 +325,7 @@ RouterResultCode IndexRouter::CalculateRoute(Checkpoints const & checkpoints,
                                              RouterDelegate const & delegate, Route & route)
 {
   vector<string> outdatedMwms;
-  GetOutdatedMwms(m_index, outdatedMwms);
+  GetOutdatedMwms(m_dataSource, outdatedMwms);
 
   if (!outdatedMwms.empty())
   {
@@ -385,7 +385,7 @@ RouterResultCode IndexRouter::DoCalculateRoute(Checkpoints const & checkpoints,
     }
 
     auto const country = platform::CountryFile(countryName);
-    if (!m_index.IsLoaded(country))
+    if (!m_dataSource.IsLoaded(country))
       route.AddAbsentCountry(country.GetName());
   }
 
@@ -664,16 +664,16 @@ unique_ptr<WorldGraph> IndexRouter::MakeWorldGraph()
   auto crossMwmGraph = make_unique<CrossMwmGraph>(
       m_numMwmIds, m_numMwmTree, m_vehicleModelFactory,
       m_vehicleType == VehicleType::Transit ? VehicleType::Pedestrian : m_vehicleType,
-      m_countryRectFn, m_index);
+      m_countryRectFn, m_dataSource);
   auto indexGraphLoader = IndexGraphLoader::Create(
       m_vehicleType == VehicleType::Transit ? VehicleType::Pedestrian : m_vehicleType,
-      m_loadAltitudes, m_numMwmIds, m_vehicleModelFactory, m_estimator, m_index);
+      m_loadAltitudes, m_numMwmIds, m_vehicleModelFactory, m_estimator, m_dataSource);
   if (m_vehicleType != VehicleType::Transit)
   {
     return make_unique<SingleVehicleWorldGraph>(move(crossMwmGraph), move(indexGraphLoader),
                                                 m_estimator);
   }
-  auto transitGraphLoader = TransitGraphLoader::Create(m_index, m_numMwmIds, m_estimator);
+  auto transitGraphLoader = TransitGraphLoader::Create(m_dataSource, m_numMwmIds, m_estimator);
   return make_unique<TransitWorldGraph>(move(crossMwmGraph), move(indexGraphLoader),
                                         move(transitGraphLoader), m_estimator);
 }
@@ -683,7 +683,7 @@ bool IndexRouter::FindBestSegment(m2::PointD const & point, m2::PointD const & d
                                   bool & bestSegmentIsAlmostCodirectional) const
 {
   auto const file = platform::CountryFile(m_countryFileFn(point));
-  MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(file);
+  MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(file);
   if (!handle.IsAlive())
     MYTHROW(MwmIsNotAliveException, ("Can't get mwm handle for", file));
 
@@ -853,7 +853,7 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
   for (size_t i = 0; i < numPoints; ++i)
     junctions.emplace_back(starter.GetRouteJunction(segments, i));
 
-  IndexRoadGraph roadGraph(m_numMwmIds, starter, segments, junctions, m_index);
+  IndexRoadGraph roadGraph(m_numMwmIds, starter, segments, junctions, m_dataSource);
   starter.GetGraph().SetMode(WorldGraph::Mode::NoLeaps);
 
   Route::TTimes times;
@@ -905,7 +905,7 @@ bool IndexRouter::DoesTransitSectionExist(NumMwmId numMwmId) const
   CHECK(m_numMwmIds, ());
   platform::CountryFile const & file = m_numMwmIds->GetFile(numMwmId);
 
-  MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(file);
+  MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(file);
   if (!handle.IsAlive())
     MYTHROW(RoutingException, ("Can't get mwm handle for", file));
 

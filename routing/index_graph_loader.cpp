@@ -22,7 +22,7 @@ class IndexGraphLoaderImpl final : public IndexGraphLoader
 public:
   IndexGraphLoaderImpl(VehicleType vehicleType, bool loadAltitudes, shared_ptr<NumMwmIds> numMwmIds,
                        shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
-                       shared_ptr<EdgeEstimator> estimator, DataSourceBase & index);
+                       shared_ptr<EdgeEstimator> estimator, DataSourceBase & dataSource);
 
   // IndexGraphLoader overrides:
   Geometry & GetGeometry(NumMwmId numMwmId) override;
@@ -41,7 +41,7 @@ private:
 
   VehicleType m_vehicleType;
   bool m_loadAltitudes;
-  DataSourceBase & m_index;
+  DataSourceBase & m_dataSource;
   shared_ptr<NumMwmIds> m_numMwmIds;
   shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
   shared_ptr<EdgeEstimator> m_estimator;
@@ -51,10 +51,10 @@ private:
 IndexGraphLoaderImpl::IndexGraphLoaderImpl(
     VehicleType vehicleType, bool loadAltitudes, shared_ptr<NumMwmIds> numMwmIds,
     shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
-    shared_ptr<EdgeEstimator> estimator, DataSourceBase & index)
+    shared_ptr<EdgeEstimator> estimator, DataSourceBase & dataSource)
   : m_vehicleType(vehicleType)
   , m_loadAltitudes(loadAltitudes)
-  , m_index(index)
+  , m_dataSource(dataSource)
   , m_numMwmIds(numMwmIds)
   , m_vehicleModelFactory(vehicleModelFactory)
   , m_estimator(estimator)
@@ -88,7 +88,7 @@ IndexGraph & IndexGraphLoaderImpl::GetIndexGraph(NumMwmId numMwmId)
 IndexGraphLoaderImpl::GeometryIndexGraph & IndexGraphLoaderImpl::CreateGeometry(NumMwmId numMwmId)
 {
   platform::CountryFile const & file = m_numMwmIds->GetFile(numMwmId);
-  MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(file);
+  MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(file);
   if (!handle.IsAlive())
     MYTHROW(RoutingException, ("Can't get mwm handle for", file));
 
@@ -97,7 +97,7 @@ IndexGraphLoaderImpl::GeometryIndexGraph & IndexGraphLoaderImpl::CreateGeometry(
 
   auto & graph = m_graphs[numMwmId];
   graph.m_geometry =
-      make_shared<Geometry>(GeometryLoader::Create(m_index, handle, vehicleModel, m_loadAltitudes));
+      make_shared<Geometry>(GeometryLoader::Create(m_dataSource, handle, vehicleModel, m_loadAltitudes));
   return graph;
 }
 
@@ -106,7 +106,7 @@ IndexGraphLoaderImpl::GeometryIndexGraph & IndexGraphLoaderImpl::CreateIndexGrap
 {
   CHECK(graph.m_geometry, ());
   platform::CountryFile const & file = m_numMwmIds->GetFile(numMwmId);
-  MwmSet::MwmHandle handle = m_index.GetMwmHandleByCountryFile(file);
+  MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(file);
   if (!handle.IsAlive())
     MYTHROW(RoutingException, ("Can't get mwm handle for", file));
 
@@ -149,10 +149,10 @@ namespace routing
 unique_ptr<IndexGraphLoader> IndexGraphLoader::Create(
     VehicleType vehicleType, bool loadAltitudes, shared_ptr<NumMwmIds> numMwmIds,
     shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory, shared_ptr<EdgeEstimator> estimator,
-    DataSourceBase & index)
+    DataSourceBase & dataSource)
 {
   return make_unique<IndexGraphLoaderImpl>(vehicleType, loadAltitudes, numMwmIds, vehicleModelFactory,
-                                           estimator, index);
+                                           estimator, dataSource);
 }
 
 void DeserializeIndexGraph(MwmValue const & mwmValue, VehicleType vehicleType, IndexGraph & graph)

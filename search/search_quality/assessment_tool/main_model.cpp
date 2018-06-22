@@ -30,8 +30,8 @@ using namespace std;
 // MainModel ---------------------------------------------------------------------------------------
 MainModel::MainModel(Framework & framework)
   : m_framework(framework)
-  , m_index(m_framework.GetIndex())
-  , m_loader(m_index)
+  , m_dataSource(m_framework.GetDataSource())
+  , m_loader(m_dataSource)
   , m_contexts(
         [this](size_t sampleIndex, Edits::Update const & update) {
           OnUpdate(View::ResultType::Found, sampleIndex, update);
@@ -147,7 +147,7 @@ void MainModel::OnSampleSelected(int index)
       if (results.IsEndedNormal())
       {
         // Can't use m_loader here due to thread-safety issues.
-        search::FeatureLoader loader(m_index);
+        search::FeatureLoader loader(m_dataSource);
         search::Matcher matcher(loader);
 
         vector<search::Result> const actual(results.begin(), results.end());

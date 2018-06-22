@@ -23,7 +23,7 @@ class TestWithCustomMwms : public generator::tests_support::TestWithCustomMwms
 public:
   TestWithCustomMwms()
   {
-    editor::tests_support::SetUpEditorForTesting(my::make_unique<EditorDelegate>(m_index));
+    editor::tests_support::SetUpEditorForTesting(my::make_unique<EditorDelegate>(m_dataSource));
   }
 
   ~TestWithCustomMwms() override { editor::tests_support::TearDownEditorForTesting(); }
@@ -31,7 +31,7 @@ public:
   template <typename EditorFn>
   void EditFeature(FeatureID const & id, EditorFn && fn)
   {
-    EditableDataSource::FeaturesLoaderGuard loader(m_index, id.m_mwmId);
+    EditableDataSource::FeaturesLoaderGuard loader(m_dataSource, id.m_mwmId);
     FeatureType ft;
     CHECK(loader.GetFeatureByIndex(id.m_index, ft), ());
     editor::tests_support::EditFeature(ft, std::forward<EditorFn>(fn));

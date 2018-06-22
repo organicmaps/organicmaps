@@ -29,7 +29,7 @@ protected:
     shared_ptr<routing::NumMwmIds> numMwmIds) override
   {
     unique_ptr<routing::IDirectionsEngine> engine(new routing::BicycleDirectionsEngine(
-        m_index, numMwmIds));
+        m_dataSource, numMwmIds));
     return engine;
   }
 

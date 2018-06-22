@@ -22,7 +22,6 @@
 #include <QAbstractTableModel>
 #include <Qt>
 
-class Index;
 class QItemSelection;
 class Selection;
 
@@ -69,7 +68,7 @@ class TrafficMode : public QAbstractTableModel
 public:
   // TODO(mgsergio): Check we are on the right mwm. I.e. right mwm version and everything.
   TrafficMode(std::string const & dataFileName,
-              DataSourceBase const & index,
+              DataSourceBase const & dataSource,
               std::unique_ptr<TrafficDrawerDelegateBase> drawerDelegate,
               std::unique_ptr<PointsControllerDelegateBase> pointsDelegate,
               QObject * parent = Q_NULLPTR);
@@ -115,7 +114,7 @@ private:
   void HandlePoint(m2::PointD clickPoint, Qt::MouseButton const button);
   bool StartBuildingPathChecks() const;
 
-  DataSourceBase const & m_index;
+  DataSourceBase const & m_dataSource;
   std::vector<SegmentCorrespondence> m_segments;
   // Non-owning pointer to an element of m_segments.
   SegmentCorrespondence * m_currentSegment = nullptr;

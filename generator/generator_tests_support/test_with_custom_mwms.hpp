@@ -47,7 +47,7 @@ public:
       fn(builder);
     }
 
-    auto result = m_index.RegisterMap(file);
+    auto result = m_dataSource.RegisterMap(file);
     CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ());
 
     auto const id = result.first;
@@ -66,7 +66,7 @@ public:
     if (it == m_files.end())
       return;
 
-    m_index.DeregisterMap(file);
+    m_dataSource.DeregisterMap(file);
     Cleanup(*it);
     m_files.erase(it);
   }
@@ -88,7 +88,7 @@ protected:
 
   virtual void OnMwmBuilt(MwmInfo const & /* info */) {}
 
-  EditableDataSource m_index;
+  EditableDataSource m_dataSource;
   std::vector<platform::LocalCountryFile> m_files;
 };
 }  // namespace tests_support

@@ -114,7 +114,7 @@ bool FillCategories(QuerySliceOnRawStrings<T> const & slice, Locales const & loc
   return !types.empty();
 }
 
-MwmSet::MwmHandle FindWorld(DataSourceBase const &index,
+MwmSet::MwmHandle FindWorld(DataSourceBase const & dataSource,
                             std::vector<std::shared_ptr<MwmInfo>> const &infos);
-MwmSet::MwmHandle FindWorld(DataSourceBase const & index);
+MwmSet::MwmHandle FindWorld(DataSourceBase const & dataSource);
 }  // namespace search

@@ -294,8 +294,8 @@ void Street::SortHousesProjection()
   sort(m_houses.begin(), m_houses.end(), &LessStreetDistance);
 }
 
-HouseDetector::HouseDetector(DataSourceBase const & index)
-  : m_loader(index), m_streetNum(0)
+HouseDetector::HouseDetector(DataSourceBase const & dataSource)
+  : m_loader(dataSource), m_streetNum(0)
 {
   // default value for conversions
   SetMetres2Mercator(360.0 / 40.0E06);

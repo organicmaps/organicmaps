@@ -45,11 +45,11 @@ void LatLonFromXML(pugi::xml_node const & node, ms::LatLon & latLon)
   latLon.lon = node.child("lon").text().as_double();
 }
 
-void FeatureIdFromXML(pugi::xml_node const & node, DataSourceBase const & index, FeatureID & fid)
+void FeatureIdFromXML(pugi::xml_node const & node, DataSourceBase const & dataSource, FeatureID & fid)
 {
   THROW_IF_NODE_IS_EMPTY(node, openlr::DecodedPathLoadError, ("Can't parse CountryName"));
   auto const countryName = node.child("CountryName").text().as_string();
-  fid.m_mwmId = index.GetMwmIdByCountryFile(platform::CountryFile(countryName));
+  fid.m_mwmId = dataSource.GetMwmIdByCountryFile(platform::CountryFile(countryName));
   CHECK(fid.m_mwmId.IsAlive(), ("Can't get mwm id for country", countryName));
   fid.m_index = node.child("Index").text().as_uint();
 }
@@ -109,7 +109,7 @@ void WriteAsMappingForSpark(std::ostream & ost, std::vector<DecodedPath> const &
   }
 }
 
-void PathFromXML(pugi::xml_node const & node, DataSourceBase const & index, Path & p)
+void PathFromXML(pugi::xml_node const & node, DataSourceBase const & dataSource, Path & p)
 {
   auto const edges = node.select_nodes("RoadEdge");
   for (auto const xmlE : edges)
@@ -117,7 +117,7 @@ void PathFromXML(pugi::xml_node const & node, DataSourceBase const & index, Path
     auto e = xmlE.node();
 
     FeatureID fid;
-    FeatureIdFromXML(e.child("FeatureID"), index, fid);
+    FeatureIdFromXML(e.child("FeatureID"), dataSource, fid);
 
     auto const isForward = IsForwardFromXML(e.child("IsForward"));
     auto const segmentId = SegmentIdFromXML(e.child("SegmentId"));

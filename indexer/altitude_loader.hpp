@@ -17,7 +17,7 @@ namespace feature
 class AltitudeLoader
 {
 public:
-  AltitudeLoader(DataSourceBase const & index, MwmSet::MwmId const & mwmId);
+  AltitudeLoader(DataSourceBase const & dataSource, MwmSet::MwmId const & mwmId);
 
   /// \returns altitude of feature with |featureId|. All items of the returned vector are valid
   /// or the returned vector is empty.

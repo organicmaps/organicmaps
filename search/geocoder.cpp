@@ -336,10 +336,10 @@ size_t OrderCountries(m2::RectD const & pivot, vector<shared_ptr<MwmInfo>> & inf
 }  // namespace
 
 // Geocoder::Geocoder ------------------------------------------------------------------------------
-Geocoder::Geocoder(DataSourceBase const & index, storage::CountryInfoGetter const & infoGetter,
+Geocoder::Geocoder(DataSourceBase const & dataSource, storage::CountryInfoGetter const & infoGetter,
                    CategoriesHolder const & categories, PreRanker & preRanker,
                    VillagesCache & villagesCache, ::base::Cancellable const & cancellable)
-  : m_index(index)
+  : m_dataSource(dataSource)
   , m_infoGetter(infoGetter)
   , m_categories(categories)
   , m_streetsCache(cancellable)
@@ -414,7 +414,7 @@ void Geocoder::GoEverywhere()
     return;
 
   vector<shared_ptr<MwmInfo>> infos;
-  m_index.GetMwmsInfo(infos);
+  m_dataSource.GetMwmsInfo(infos);
 
   GoImpl(infos, false /* inViewport */);
 }
@@ -425,7 +425,7 @@ void Geocoder::GoInViewport()
     return;
 
   vector<shared_ptr<MwmInfo>> infos;
-  m_index.GetMwmsInfo(infos);
+  m_dataSource.GetMwmsInfo(infos);
 
   my::EraseIf(infos, [this](shared_ptr<MwmInfo> const & info)
               {
@@ -473,7 +473,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
     m_cities.clear();
     for (auto & regions : m_regions)
       regions.clear();
-    MwmSet::MwmHandle handle = FindWorld(m_index, infos);
+    MwmSet::MwmHandle handle = FindWorld(m_dataSource, infos);
     if (handle.IsAlive())
     {
       auto & value = *handle.GetValue<MwmValue>();
@@ -525,7 +525,7 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
     {
       it = m_matchersCache
                .insert(make_pair(m_context->GetId(),
-                                 my::make_unique<FeaturesLayerMatcher>(m_index, m_cancellable)))
+                                 my::make_unique<FeaturesLayerMatcher>(m_dataSource, m_cancellable)))
                .first;
     }
     m_matcher = it->second.get();
@@ -754,7 +754,7 @@ void Geocoder::ForEachCountry(vector<shared_ptr<MwmInfo>> const & infos, TFn && 
     if (info->GetType() == MwmInfo::COUNTRY && m_params.m_mode == Mode::Downloader)
       continue;
 
-    auto handle = m_index.GetMwmHandleById(MwmSet::MwmId(info));
+    auto handle = m_dataSource.GetMwmHandleById(MwmSet::MwmId(info));
     if (!handle.IsAlive())
       continue;
     auto & value = *handle.GetValue<MwmValue>();

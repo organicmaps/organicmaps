@@ -79,7 +79,7 @@ public:
     size_t m_limit = 0;
   };
 
-  Ranker(DataSourceBase const & index, CitiesBoundariesTable const & boundariesTable,
+  Ranker(DataSourceBase const & dataSource, CitiesBoundariesTable const & boundariesTable,
          storage::CountryInfoGetter const & infoGetter, KeywordLangMatcher & keywordsScorer,
          Emitter & emitter, CategoriesHolder const & categories,
          std::vector<Suggest> const & suggests, VillagesCache & villagesCache,
@@ -134,7 +134,7 @@ private:
   int8_t m_localeCode;
   RegionInfoGetter m_regionInfoGetter;
 
-  DataSourceBase const & m_index;
+  DataSourceBase const & m_dataSource;
   storage::CountryInfoGetter const & m_infoGetter;
   Emitter & m_emitter;
   CategoriesHolder const & m_categories;

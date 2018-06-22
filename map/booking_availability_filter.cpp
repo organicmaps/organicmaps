@@ -88,7 +88,7 @@ void FillResults(HotelToResults && hotelToResults, std::vector<std::string> cons
   }
 }
 
-void PrepareData(DataSourceBase const & index, search::Results const & results,
+void PrepareData(DataSourceBase const & dataSource, search::Results const & results,
                  HotelToResults & hotelToResults, availability::Cache & cache,
                  booking::AvailabilityParams & p)
 {
@@ -111,7 +111,7 @@ void PrepareData(DataSourceBase const & index, search::Results const & results,
   {
     if (mwmId != featureId.m_mwmId)
     {
-      guard = my::make_unique<LoaderGuard>(index, featureId.m_mwmId);
+      guard = my::make_unique<LoaderGuard>(dataSource, featureId.m_mwmId);
       mwmId = featureId.m_mwmId;
     }
 
@@ -164,7 +164,7 @@ void AvailabilityFilter::ApplyFilter(search::Results const & results,
   m_apiParams.m_hotelIds.clear();
 
   HotelToResults hotelToResults;
-  PrepareData(GetDelegate().GetIndex(), results, hotelToResults, *m_cache, m_apiParams);
+  PrepareData(GetDelegate().GetDataSource(), results, hotelToResults, *m_cache, m_apiParams);
 
   if (m_apiParams.m_hotelIds.empty())
   {
@@ -229,7 +229,7 @@ void AvailabilityFilter::GetFeaturesFromCache(search::Results const & results,
     if (mwmId != featureId.m_mwmId)
     {
       guard =
-          my::make_unique<LoaderGuard>(GetDelegate().GetIndex(), featureId.m_mwmId);
+          my::make_unique<LoaderGuard>(GetDelegate().GetDataSource(), featureId.m_mwmId);
       mwmId = featureId.m_mwmId;
     }
 

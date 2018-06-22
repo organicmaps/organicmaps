@@ -52,11 +52,11 @@ namespace
 class TestRanker : public Ranker
 {
 public:
-  TestRanker(DataSourceBase & index, storage::CountryInfoGetter & infoGetter,
+  TestRanker(DataSourceBase & dataSource, storage::CountryInfoGetter & infoGetter,
              CitiesBoundariesTable const & boundariesTable, KeywordLangMatcher & keywordsScorer,
              Emitter & emitter, vector<Suggest> const & suggests, VillagesCache & villagesCache,
              ::base::Cancellable const & cancellable, vector<PreRankerResult> & results)
-    : Ranker(index, boundariesTable, infoGetter, keywordsScorer, emitter, GetDefaultCategories(),
+    : Ranker(dataSource, boundariesTable, infoGetter, keywordsScorer, emitter, GetDefaultCategories(),
              suggests, villagesCache, cancellable)
     , m_results(results)
   {
@@ -122,13 +122,13 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
 
   vector<PreRankerResult> results;
   Emitter emitter;
-  CitiesBoundariesTable boundariesTable(m_index);
+  CitiesBoundariesTable boundariesTable(m_dataSource);
   VillagesCache villagesCache(m_cancellable);
   KeywordLangMatcher keywordsScorer(0 /* maxLanguageTiers */);
-  TestRanker ranker(m_index, m_engine.GetCountryInfoGetter(), boundariesTable, keywordsScorer,
+  TestRanker ranker(m_dataSource, m_engine.GetCountryInfoGetter(), boundariesTable, keywordsScorer,
                     emitter, m_suggests, villagesCache, m_cancellable, results);
 
-  PreRanker preRanker(m_index, ranker);
+  PreRanker preRanker(m_dataSource, ranker);
   PreRanker::Params params;
   params.m_viewport = kViewport;
   params.m_accuratePivotCenter = kPivot;

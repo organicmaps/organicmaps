@@ -61,7 +61,7 @@ class SearchAPITest : public generator::tests_support::TestWithCustomMwms
 public:
   SearchAPITest()
     : m_infoGetter(CountryInfoReader::CreateCountryInfoReader(GetPlatform()))
-    , m_api(m_index, m_storage, *m_infoGetter, m_delegate)
+    , m_api(m_dataSource, m_storage, *m_infoGetter, m_delegate)
   {
   }
 
@@ -107,7 +107,7 @@ UNIT_CLASS_TEST(SearchAPITest, MultipleViewportsRequests)
     if (stage == 0)
     {
       Rules const rules = {ExactMatch(id, cafe1), ExactMatch(id, cafe2)};
-      TEST(MatchResults(m_index, rules, results), ());
+      TEST(MatchResults(m_dataSource, rules, results), ());
 
       promise0.set_value();
     }
@@ -115,7 +115,7 @@ UNIT_CLASS_TEST(SearchAPITest, MultipleViewportsRequests)
     {
       TEST_EQUAL(stage, 1, ());
       Rules const rules = {ExactMatch(id, cafe3), ExactMatch(id, cafe4)};
-      TEST(MatchResults(m_index, rules, results), ());
+      TEST(MatchResults(m_dataSource, rules, results), ());
 
       promise1.set_value();
     }

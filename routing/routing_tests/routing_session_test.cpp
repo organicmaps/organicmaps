@@ -114,7 +114,7 @@ UNIT_TEST(TestRouteBuilding)
 
 UNIT_TEST(TestRouteRebuilding)
 {
-  DataSource index;
+  DataSource dataSource;
   RoutingSession session;
   session.Init(nullptr, nullptr);
   vector<m2::PointD> routePoints = kTestRoute;
@@ -144,7 +144,7 @@ UNIT_TEST(TestRouteRebuilding)
   RoutingSession::State code;
   while (info.m_latitude < kTestRoute.back().y)
   {
-    code = session.OnLocationPositionChanged(info, index);
+    code = session.OnLocationPositionChanged(info, dataSource);
     TEST_EQUAL(code, RoutingSession::State::OnRoute, ());
     info.m_latitude += 0.01;
   }
@@ -164,7 +164,7 @@ UNIT_TEST(TestRouteRebuilding)
   info.m_latitude = 1.;
   for (size_t i = 0; i < 10; ++i)
   {
-    code = session.OnLocationPositionChanged(info, index);
+    code = session.OnLocationPositionChanged(info, dataSource);
     info.m_latitude -= 0.1;
   }
   TEST_EQUAL(code, RoutingSession::State::RouteNeedRebuild, ());
@@ -172,7 +172,7 @@ UNIT_TEST(TestRouteRebuilding)
 
 UNIT_TEST(TestFollowRouteFlagPersistence)
 {
-  DataSource index;
+  DataSource dataSource;
   RoutingSession session;
   session.Init(nullptr, nullptr);
   vector<m2::PointD> routePoints = kTestRoute;
@@ -206,7 +206,7 @@ UNIT_TEST(TestFollowRouteFlagPersistence)
   RoutingSession::State code;
   while (info.m_latitude < kTestRoute.back().y)
   {
-    session.OnLocationPositionChanged(info, index);
+    session.OnLocationPositionChanged(info, dataSource);
     TEST(session.IsOnRoute() , ());
     TEST(session.IsFollowing(), ());
     info.m_latitude += 0.01;
@@ -231,7 +231,7 @@ UNIT_TEST(TestFollowRouteFlagPersistence)
   info.m_latitude = 1.;
   for (size_t i = 0; i < 10; ++i)
   {
-    code = session.OnLocationPositionChanged(info, index);
+    code = session.OnLocationPositionChanged(info, dataSource);
     info.m_latitude -= 0.1;
   }
   TEST_EQUAL(code, RoutingSession::State::RouteNeedRebuild, ());
@@ -248,7 +248,7 @@ UNIT_TEST(TestFollowRouteFlagPersistence)
 
 UNIT_TEST(TestFollowRoutePercentTest)
 {
-  DataSource index;
+  DataSource dataSource;
   RoutingSession session;
   session.Init(nullptr, nullptr);
   vector<m2::PointD> routePoints = kTestRoute;
@@ -282,23 +282,23 @@ UNIT_TEST(TestFollowRoutePercentTest)
   // Go through the route.
   info.m_longitude = 0.;
   info.m_latitude = 1.;
-  session.OnLocationPositionChanged(info, index);
+  session.OnLocationPositionChanged(info, dataSource);
   TEST(my::AlmostEqualAbs(session.GetCompletionPercent(), 0., 0.5), ());
 
   info.m_longitude = 0.;
   info.m_latitude = 2.;
-  session.OnLocationPositionChanged(info, index);
+  session.OnLocationPositionChanged(info, dataSource);
   TEST(my::AlmostEqualAbs(session.GetCompletionPercent(), 33.3, 0.5), ());
 
 
   info.m_longitude = 0.;
   info.m_latitude = 3.;
-  session.OnLocationPositionChanged(info, index);
+  session.OnLocationPositionChanged(info, dataSource);
   TEST(my::AlmostEqualAbs(session.GetCompletionPercent(), 66.6, 0.5), ());
 
   info.m_longitude = 0.;
   info.m_latitude = 3.99;
-  session.OnLocationPositionChanged(info, index);
+  session.OnLocationPositionChanged(info, dataSource);
   TEST(my::AlmostEqualAbs(session.GetCompletionPercent(), 100., 0.5), ());
 }
 }  // namespace routing

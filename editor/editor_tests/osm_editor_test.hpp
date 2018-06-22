@@ -62,7 +62,7 @@ private:
       fn(builder);
     }
 
-    auto result = m_index.RegisterMap(file);
+    auto result = m_dataSource.RegisterMap(file);
     CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ());
 
     auto const & id = result.first;
@@ -79,7 +79,7 @@ private:
   void Cleanup(platform::LocalCountryFile const & map);
   bool RemoveMwm(MwmSet::MwmId const & mwmId);
 
-  EditableDataSource m_index;
+  EditableDataSource m_dataSource;
   storage::CountryInfoGetterForTesting m_infoGetter;
   vector<platform::LocalCountryFile> m_mwmFiles;
 };

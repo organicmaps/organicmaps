@@ -58,7 +58,7 @@ void ReadTransitTask::Init(uint64_t id, MwmSet::MwmId const & mwmId,
 
 void ReadTransitTask::Do()
 {
-  MwmSet::MwmHandle handle = m_index.GetMwmHandleById(m_mwmId);
+  MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleById(m_mwmId);
   if (!handle.IsAlive())
   {
     // It's possible that mwm handle is not alive because mwm may be removed after
@@ -137,9 +137,9 @@ unique_ptr<TransitDisplayInfo> && ReadTransitTask::GetTransitInfo()
   return move(m_transitInfo);
 }
 
-TransitReadManager::TransitReadManager(DataSourceBase & index, TReadFeaturesFn const & readFeaturesFn,
+TransitReadManager::TransitReadManager(DataSourceBase & dataSource, TReadFeaturesFn const & readFeaturesFn,
                                        GetMwmsByRectFn const & getMwmsByRectFn)
-  : m_index(index)
+  : m_dataSource(dataSource)
   , m_readFeaturesFn(readFeaturesFn)
   , m_getMwmsByRectFn(getMwmsByRectFn)
 {
@@ -303,7 +303,7 @@ bool TransitReadManager::GetTransitDisplayInfo(TransitDisplayInfos & transitDisp
   for (auto & mwmTransitPair : transitDisplayInfos)
   {
     auto const & mwmId = mwmTransitPair.first;
-    auto task = my::make_unique<ReadTransitTask>(m_index, m_readFeaturesFn);
+    auto task = my::make_unique<ReadTransitTask>(m_dataSource, m_readFeaturesFn);
     task->Init(groupId, mwmId, move(mwmTransitPair.second));
     transitTasks[mwmId] = move(task);
   }

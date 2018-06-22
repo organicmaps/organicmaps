@@ -285,7 +285,7 @@ void RoutingSession::ResetImpl()
 }
 
 RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & info,
-                                                                DataSourceBase const & index)
+                                                                DataSourceBase const & dataSource)
 {
   threads::MutexGuard guard(m_routingSessionMutex);
   ASSERT(m_state != RoutingNotActive, ());
@@ -328,7 +328,7 @@ RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & 
         double const warningDistanceM = max(kSpeedCameraMinimalWarningMeters,
                                             info.m_speed * kSpeedCameraWarningSeconds);
         SpeedCameraRestriction cam(0, 0);
-        double const camDistance = GetDistanceToCurrentCamM(cam, index);
+        double const camDistance = GetDistanceToCurrentCamM(cam, dataSource);
         if (kInvalidSpeedCameraDistance != camDistance && camDistance < warningDistanceM)
         {
           if (cam.m_index > m_lastWarnedSpeedCameraIndex && info.m_speed > cam.m_maxSpeedKmH * kKmHToMps)
@@ -663,7 +663,7 @@ string RoutingSession::GetTurnNotificationsLocale() const
   return m_turnNotificationsMgr.GetLocale();
 }
 
-double RoutingSession::GetDistanceToCurrentCamM(SpeedCameraRestriction & camera, DataSourceBase const & index)
+double RoutingSession::GetDistanceToCurrentCamM(SpeedCameraRestriction & camera, DataSourceBase const & dataSource)
 {
   ASSERT(m_route, ());
 
@@ -679,7 +679,7 @@ double RoutingSession::GetDistanceToCurrentCamM(SpeedCameraRestriction & camera,
   size_t const upperBound = min(m_poly.GetPolyline().GetSize(), currentIndex + kSpeedCameraLookAheadCount);
   for (m_lastCheckedSpeedCameraIndex = currentIndex; m_lastCheckedSpeedCameraIndex < upperBound; ++m_lastCheckedSpeedCameraIndex)
   {
-    uint8_t speed = CheckCameraInPoint(m_poly.GetPolyline().GetPoint(m_lastCheckedSpeedCameraIndex), index);
+    uint8_t speed = CheckCameraInPoint(m_poly.GetPolyline().GetPoint(m_lastCheckedSpeedCameraIndex), dataSource);
     if (speed != kNoSpeedCamera)
     {
       camera = SpeedCameraRestriction(static_cast<uint32_t>(m_lastCheckedSpeedCameraIndex), speed);

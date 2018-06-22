@@ -18,7 +18,7 @@ namespace ugc
 class Loader
 {
 public:
-  Loader(DataSourceBase const & index);
+  Loader(DataSourceBase const & dataSource);
   UGC GetUGC(FeatureID const & featureId);
 
 private:
@@ -30,7 +30,7 @@ private:
 
   using EntryPtr = std::shared_ptr<Entry>;
 
-  DataSourceBase const & m_index;
+  DataSourceBase const & m_dataSource;
   std::map<MwmSet::MwmId, EntryPtr> m_deserializers;
   std::mutex m_mutex;
 };

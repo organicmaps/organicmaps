@@ -79,9 +79,9 @@ struct alignas(kCacheLineSize) Stats
   uint32_t m_routesHandled = 0;
 };
 
-bool IsRealVertex(m2::PointD const & p, FeatureID const & fid, DataSource const & index)
+bool IsRealVertex(m2::PointD const & p, FeatureID const & fid, DataSource const & dataSource)
 {
-  DataSource::FeaturesLoaderGuard g(index, fid.m_mwmId);
+  DataSource::FeaturesLoaderGuard g(dataSource, fid.m_mwmId);
   auto const ft = g.GetOriginalFeatureByIndex(fid.m_index);
   bool matched = false;
   ft->ForEachPoint(
@@ -93,20 +93,20 @@ bool IsRealVertex(m2::PointD const & p, FeatureID const & fid, DataSource const 
   return matched;
 };
 
-void ExpandFake(Graph::EdgeVector & path, Graph::EdgeVector::iterator edgeIt, DataSource const & index,
+void ExpandFake(Graph::EdgeVector & path, Graph::EdgeVector::iterator edgeIt, DataSource const & dataSource,
                 Graph & g)
 {
   if (!edgeIt->IsFake())
     return;
 
   Graph::EdgeVector edges;
-  if (IsRealVertex(edgeIt->GetStartPoint(), edgeIt->GetFeatureId(), index))
+  if (IsRealVertex(edgeIt->GetStartPoint(), edgeIt->GetFeatureId(), dataSource))
   {
     g.GetRegularOutgoingEdges(edgeIt->GetStartJunction(), edges);
   }
   else
   {
-    ASSERT(IsRealVertex(edgeIt->GetEndPoint(), edgeIt->GetFeatureId(), index), ());
+    ASSERT(IsRealVertex(edgeIt->GetEndPoint(), edgeIt->GetFeatureId(), dataSource), ());
     g.GetRegularIngoingEdges(edgeIt->GetEndJunction(), edges);
   }
 
@@ -128,14 +128,14 @@ void ExpandFake(Graph::EdgeVector & path, Graph::EdgeVector::iterator edgeIt, Da
     path.erase(edgeIt);
 };
 
-void ExpandFakes(DataSource const & index, Graph & g, Graph::EdgeVector & path)
+void ExpandFakes(DataSource const & dataSource, Graph & g, Graph::EdgeVector & path)
 {
   ASSERT(!path.empty(), ());
 
-  ExpandFake(path, begin(path), index, g);
+  ExpandFake(path, begin(path), dataSource, g);
   if (path.empty())
     return;
-  ExpandFake(path, --end(path), index, g);
+  ExpandFake(path, --end(path), dataSource, g);
 }
 
 // Returns an iterator pointing to the first edge that should not be cut off.
@@ -189,9 +189,9 @@ void CopyWithoutOffsets(InputIterator const start, InputIterator const stop, Out
 class SegmentsDecoderV1
 {
 public:
-  SegmentsDecoderV1(DataSourceBase const & index, unique_ptr<CarModelFactory> cmf)
-    : m_roadGraph(index, IRoadGraph::Mode::ObeyOnewayTag, move(cmf))
-    , m_infoGetter(index)
+  SegmentsDecoderV1(DataSourceBase const & dataSource, unique_ptr<CarModelFactory> cmf)
+    : m_roadGraph(dataSource, IRoadGraph::Mode::ObeyOnewayTag, move(cmf))
+    , m_infoGetter(dataSource)
     , m_router(m_roadGraph, m_infoGetter)
   {
   }
@@ -258,8 +258,8 @@ private:
 class SegmentsDecoderV2
 {
 public:
-  SegmentsDecoderV2(DataSource const & index, unique_ptr<CarModelFactory> cmf)
-    : m_index(index), m_graph(index, move(cmf)), m_infoGetter(index)
+  SegmentsDecoderV2(DataSource const & dataSource, unique_ptr<CarModelFactory> cmf)
+    : m_dataSource(dataSource), m_graph(dataSource, move(cmf)), m_infoGetter(dataSource)
   {
   }
 
@@ -279,7 +279,7 @@ public:
     lineCandidates.reserve(points.size());
     LOG(LDEBUG, ("Decoding segment:", segment.m_segmentId, "with", points.size(), "points"));
 
-    CandidatePointsGetter pointsGetter(kMaxJunctionCandidates, kMaxProjectionCandidates, m_index,
+    CandidatePointsGetter pointsGetter(kMaxJunctionCandidates, kMaxProjectionCandidates, m_dataSource,
                                        m_graph);
     CandidatePathsGetter pathsGetter(pointsGetter, m_graph, m_infoGetter, stat);
 
@@ -320,7 +320,7 @@ public:
       return false;
     }
 
-    ExpandFakes(m_index, m_graph, route);
+    ExpandFakes(m_dataSource, m_graph, route);
     ASSERT(none_of(begin(route), end(route), mem_fn(&Graph::Edge::IsFake)), (segment.m_segmentId));
     CopyWithoutOffsets(begin(route), end(route), back_inserter(path.m_path), positiveOffsetM,
                        negativeOffsetM);
@@ -336,7 +336,7 @@ public:
   }
 
 private:
-  DataSource const & m_index;
+  DataSource const & m_dataSource;
   Graph m_graph;
   RoadInfoGetter m_infoGetter;
 };
@@ -378,9 +378,9 @@ bool OpenLRDecoder::SegmentsFilter::Matches(LinearSegment const & segment) const
 }
 
 // OpenLRDecoder -----------------------------------------------------------------------------
-OpenLRDecoder::OpenLRDecoder(vector<DataSource> const & indexes,
+OpenLRDecoder::OpenLRDecoder(vector<DataSource> const & dataSources,
                              CountryParentNameGetter const & countryParentNameGetter)
-  : m_indexes(indexes), m_countryParentNameGetter(countryParentNameGetter)
+  : m_dataSources(dataSources), m_countryParentNameGetter(countryParentNameGetter)
 {
 }
 
@@ -400,14 +400,14 @@ template <typename Decoder, typename Stats>
 void OpenLRDecoder::Decode(vector<LinearSegment> const & segments,
                            uint32_t const numThreads, vector<DecodedPath> & paths)
 {
-  auto const worker = [&segments, &paths, numThreads, this](size_t threadNum, DataSource const & index,
+  auto const worker = [&segments, &paths, numThreads, this](size_t threadNum, DataSource const & dataSource,
                                                             Stats & stat) {
     size_t constexpr kBatchSize = GetOptimalBatchSize();
     size_t constexpr kProgressFrequency = 100;
 
     size_t const numSegments = segments.size();
 
-    Decoder decoder(index, make_unique<CarModelFactory>(m_countryParentNameGetter));
+    Decoder decoder(dataSource, make_unique<CarModelFactory>(m_countryParentNameGetter));
     my::Timer timer;
     for (size_t i = threadNum * kBatchSize; i < numSegments; i += numThreads * kBatchSize)
     {
@@ -430,9 +430,9 @@ void OpenLRDecoder::Decode(vector<LinearSegment> const & segments,
   vector<Stats> stats(numThreads);
   vector<thread> workers;
   for (size_t i = 1; i < numThreads; ++i)
-    workers.emplace_back(worker, i, ref(m_indexes[i]), ref(stats[i]));
+    workers.emplace_back(worker, i, ref(m_dataSources[i]), ref(stats[i]));
 
-  worker(0 /* threadNum */, m_indexes[0], stats[0]);
+  worker(0 /* threadNum */, m_dataSources[0], stats[0]);
   for (auto & worker : workers)
     worker.join();
 

@@ -42,24 +42,24 @@ strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s)
   return strings::LevenshteinDFA(s, 1 /* prefixSize */, kAllowedMisprints, GetMaxErrorsForToken(s));
 }
 
-MwmSet::MwmHandle FindWorld(DataSourceBase const & index, vector<shared_ptr<MwmInfo>> const & infos)
+MwmSet::MwmHandle FindWorld(DataSourceBase const & dataSource, vector<shared_ptr<MwmInfo>> const & infos)
 {
   MwmSet::MwmHandle handle;
   for (auto const & info : infos)
   {
     if (info->GetType() == MwmInfo::WORLD)
     {
-      handle = index.GetMwmHandleById(MwmSet::MwmId(info));
+      handle = dataSource.GetMwmHandleById(MwmSet::MwmId(info));
       break;
     }
   }
   return handle;
 }
 
-MwmSet::MwmHandle FindWorld(DataSourceBase const & index)
+MwmSet::MwmHandle FindWorld(DataSourceBase const & dataSource)
 {
   vector<shared_ptr<MwmInfo>> infos;
-  index.GetMwmsInfo(infos);
-  return FindWorld(index, infos);
+  dataSource.GetMwmsInfo(infos);
+  return FindWorld(dataSource, infos);
 }
 }  // namespace search

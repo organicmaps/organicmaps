@@ -237,8 +237,8 @@ public:
   class FeaturesLoaderGuard
   {
   public:
-    FeaturesLoaderGuard(DataSourceBase const & index, MwmId const & id)
-      : m_handle(index.GetMwmHandleById(id)), m_source(m_handle)
+    FeaturesLoaderGuard(DataSourceBase const & dataSource, MwmId const & id)
+      : m_handle(dataSource.GetMwmHandleById(id)), m_source(m_handle)
     {
     }
 

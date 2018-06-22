@@ -311,7 +311,7 @@ public:
   storage::CountryInfoGetter & GetCountryInfoGetter() { return *m_infoGetter; }
   StorageDownloadingPolicy & GetDownloadingPolicy() { return m_storageDownloadingPolicy; }
 
-  DataSourceBase const & GetIndex() const { return m_model.GetIndex(); }
+  DataSourceBase const & GetDataSource() const { return m_model.GetDataSource(); }
 
   SearchAPI & GetSearchAPI();
   SearchAPI const & GetSearchAPI() const;
@@ -679,7 +679,7 @@ public:
   template <typename TFn>
   void ForEachFeatureAtPoint(TFn && fn, m2::PointD const & mercator) const
   {
-    indexer::ForEachFeatureAtPoint(m_model.GetIndex(), fn, mercator, 0.0);
+    indexer::ForEachFeatureAtPoint(m_model.GetDataSource(), fn, mercator, 0.0);
   }
   /// Set parse to false if you don't need all feature fields ready.
   /// TODO(AlexZ): Refactor code which uses this method to get rid of it.

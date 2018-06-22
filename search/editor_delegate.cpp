@@ -9,16 +9,16 @@
 
 namespace search
 {
-EditorDelegate::EditorDelegate(DataSourceBase const & index) : m_index(index) {}
+EditorDelegate::EditorDelegate(DataSourceBase const & dataSource) : m_dataSource(dataSource) {}
 
 MwmSet::MwmId EditorDelegate::GetMwmIdByMapName(string const & name) const
 {
-  return m_index.GetMwmIdByCountryFile(platform::CountryFile(name));
+  return m_dataSource.GetMwmIdByCountryFile(platform::CountryFile(name));
 }
 
 unique_ptr<FeatureType> EditorDelegate::GetOriginalFeature(FeatureID const & fid) const
 {
-  EditableDataSource::FeaturesLoaderGuard guard(m_index, fid.m_mwmId);
+  EditableDataSource::FeaturesLoaderGuard guard(m_dataSource, fid.m_mwmId);
   auto feature = guard.GetOriginalFeatureByIndex(fid.m_index);
   if (feature)
     feature->ParseEverything();
@@ -28,7 +28,7 @@ unique_ptr<FeatureType> EditorDelegate::GetOriginalFeature(FeatureID const & fid
 
 string EditorDelegate::GetOriginalFeatureStreet(FeatureType & ft) const
 {
-  search::ReverseGeocoder const coder(m_index);
+  search::ReverseGeocoder const coder(m_dataSource);
   auto const streets = coder.GetNearbyFeatureStreets(ft);
   if (streets.second < streets.first.size())
     return streets.first[streets.second].m_name;
@@ -39,6 +39,6 @@ void EditorDelegate::ForEachFeatureAtPoint(osm::Editor::FeatureTypeFn && fn,
                                            m2::PointD const & point) const
 {
   auto const kToleranceMeters = 1e-2;
-  indexer::ForEachFeatureAtPoint(m_index, move(fn), point, kToleranceMeters);
+  indexer::ForEachFeatureAtPoint(m_dataSource, move(fn), point, kToleranceMeters);
 }
 }  // namespace search

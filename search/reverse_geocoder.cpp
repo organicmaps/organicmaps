@@ -24,7 +24,7 @@ int constexpr kQueryScale = scales::GetUpperScale();
 size_t constexpr kMaxNumTriesToApproxAddress = 10;
 } // namespace
 
-ReverseGeocoder::ReverseGeocoder(DataSourceBase const & index) : m_index(index) {}
+ReverseGeocoder::ReverseGeocoder(DataSourceBase const & dataSource) : m_dataSource(dataSource) {}
 
 void ReverseGeocoder::GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD const & center,
                                        vector<Street> & streets) const
@@ -48,7 +48,7 @@ void ReverseGeocoder::GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD cons
     streets.emplace_back(ft.GetID(), feature::GetMinDistanceMeters(ft, center), name);
   };
 
-  MwmSet::MwmHandle mwmHandle = m_index.GetMwmHandleById(id);
+  MwmSet::MwmHandle mwmHandle = m_dataSource.GetMwmHandleById(id);
   if (mwmHandle.IsAlive())
   {
     search::MwmContext(move(mwmHandle)).ForEachFeature(rect, addStreet);
@@ -102,7 +102,7 @@ ReverseGeocoder::GetNearbyFeatureStreets(FeatureType & ft) const
 
   GetNearbyStreets(ft, result.first);
 
-  HouseTable table(m_index);
+  HouseTable table(m_dataSource);
   if (!table.Get(ft.GetID(), result.second))
     result.second = numeric_limits<uint32_t>::max();
 
@@ -114,7 +114,7 @@ void ReverseGeocoder::GetNearbyAddress(m2::PointD const & center, Address & addr
   vector<Building> buildings;
   GetNearbyBuildings(center, buildings);
 
-  HouseTable table(m_index);
+  HouseTable table(m_dataSource);
   size_t triesCount = 0;
 
   for (auto const & b : buildings)
@@ -130,7 +130,7 @@ bool ReverseGeocoder::GetExactAddress(FeatureType const & ft, Address & addr) co
 {
   if (ft.GetHouseNumber().empty())
     return false;
-  HouseTable table(m_index);
+  HouseTable table(m_dataSource);
   return GetNearbyAddress(table, FromFeature(ft, 0.0 /* distMeters */), addr);
 }
 
@@ -174,7 +174,7 @@ void ReverseGeocoder::GetNearbyBuildings(m2::PointD const & center, vector<Build
       buildings.push_back(FromFeature(ft, feature::GetMinDistanceMeters(ft, center)));
   };
 
-  m_index.ForEachInRect(addBuilding, rect, kQueryScale);
+  m_dataSource.ForEachInRect(addBuilding, rect, kQueryScale);
   sort(buildings.begin(), buildings.end(), my::LessBy(&Building::m_distanceMeters));
 }
 
@@ -194,7 +194,7 @@ bool ReverseGeocoder::HouseTable::Get(FeatureID const & fid, uint32_t & streetIn
 {
   if (!m_table || m_handle.GetId() != fid.m_mwmId)
   {
-    m_handle = m_index.GetMwmHandleById(fid.m_mwmId);
+    m_handle = m_dataSource.GetMwmHandleById(fid.m_mwmId);
     if (!m_handle.IsAlive())
     {
       LOG(LWARNING, ("MWM", fid, "is dead"));

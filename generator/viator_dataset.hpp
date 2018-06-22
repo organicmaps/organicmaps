@@ -50,7 +50,7 @@ public:
 
 private:
   SponsoredObjectStorage<ViatorCity> m_storage;
-  DataSource m_index;
+  DataSource m_dataSource;
   std::unique_ptr<search::CityFinder> m_cityFinder;
 };
 }  // namespace generator

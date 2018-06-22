@@ -21,8 +21,8 @@ std::string GetQuery(discovery::ItemType const type)
 
 namespace discovery
 {
-Manager::Manager(DataSourceBase const & index, search::CityFinder & cityFinder, APIs const & apis)
-  : m_index(index)
+Manager::Manager(DataSourceBase const & dataSource, search::CityFinder & cityFinder, APIs const & apis)
+  : m_dataSource(dataSource)
   , m_cityFinder(cityFinder)
   , m_searchApi(apis.m_search)
   , m_viatorApi(apis.m_viator)
@@ -67,7 +67,7 @@ std::string Manager::GetCityViatorId(m2::PointD const & point) const
   if (!fid.IsValid())
     return {};
 
-  EditableDataSource::FeaturesLoaderGuard const guard(m_index, fid.m_mwmId);
+  EditableDataSource::FeaturesLoaderGuard const guard(m_dataSource, fid.m_mwmId);
   FeatureType ft;
   if (!guard.GetFeatureByIndex(fid.m_index, ft))
   {

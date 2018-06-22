@@ -28,7 +28,7 @@ public:
     FormOfWay m_fow = FormOfWay::NotAValue;
   };
 
-  RoadInfoGetter(DataSourceBase const & index);
+  RoadInfoGetter(DataSourceBase const & dataSource);
 
   RoadInfo Get(FeatureID const & fid);
 
@@ -36,7 +36,7 @@ public:
   FunctionalRoadClass GetFunctionalRoadClass(feature::TypesHolder const & types) const;
   FormOfWay GetFormOfWay(feature::TypesHolder const & types) const;
 
-  DataSourceBase const & m_index;
+  DataSourceBase const & m_dataSource;
   Classificator const & m_c;
 
   TrunkChecker const m_trunkChecker;

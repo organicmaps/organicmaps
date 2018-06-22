@@ -22,20 +22,20 @@ namespace generator
 class SingleMwmDataSource
 {
 public:
-  /// \param mwmPath is a path to mwm which should be registerd in Index.
+  /// \param mwmPath is a path to mwm which should be registerd in DataSource.
   explicit SingleMwmDataSource(std::string const & mwmPath);
 
-  DataSourceBase & GetIndex() { return m_index; }
+  DataSourceBase & GetDataSource() { return m_dataSource; }
   std::string GetPath(MapOptions file) const { return m_countryFile.GetPath(file); }
   MwmSet::MwmId const & GetMwmId() const { return m_mwmId; }
 
 private:
-  DataSource m_index;
+  DataSource m_dataSource;
   platform::LocalCountryFile m_countryFile;
   MwmSet::MwmId m_mwmId;
 };
 
-void LoadIndex(DataSourceBase & index);
+void LoadDataSource(DataSourceBase & dataSource);
 
 template <typename ToDo>
 bool ForEachOsmId2FeatureId(std::string const & path, ToDo && toDo)

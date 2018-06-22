@@ -33,8 +33,8 @@ public:
     auto const version = static_cast<int64_t>(jversion);
     auto const index = static_cast<uint32_t>(jindex);
 
-    auto const & ix = g_framework->GetIndex();
-    auto const id = ix.GetMwmIdByCountryFile(platform::CountryFile(countryName));
+    auto const & ds = g_framework->GetDataSource();
+    auto const id = ds.GetMwmIdByCountryFile(platform::CountryFile(countryName));
     return FeatureID(id, index);
   }
 
