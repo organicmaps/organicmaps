@@ -16,6 +16,7 @@
 #include "defines.hpp"
 
 #include <algorithm>
+#include <set>
 #include <vector>
 
 namespace
@@ -25,7 +26,7 @@ double const kPointEqualityEps = 1e-7;
 struct MetalineData
 {
   std::vector<FeatureID> m_features;
-  std::vector<bool> m_directions;
+  std::set<FeatureID> m_reversed;
 };
 
 std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
@@ -45,9 +46,12 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
         for (auto i = ReadVarUint<uint32_t>(src); i > 0; --i)
         {
           auto const fid = ReadVarInt<int32_t>(src);
-          data.m_features.emplace_back(mwmId, static_cast<uint32_t>(std::abs(fid)));
-          data.m_directions.push_back(fid > 0);
+          FeatureID const featureId(mwmId, static_cast<uint32_t>(std::abs(fid)));
+          data.m_features.emplace_back(featureId);
+          if (fid <= 0)
+            data.m_reversed.insert(featureId);
         }
+        std::sort(data.m_features.begin(), data.m_features.end());
         model.push_back(std::move(data));
       }
     }
@@ -150,7 +154,7 @@ void ReadMetalineTask::Run()
         failed = true;
         return;
       }
-      if (!metaline.m_directions[curIndex])
+      if (metaline.m_reversed.find(ft.GetID()) != metaline.m_reversed.cend())
         std::reverse(featurePoints.begin(), featurePoints.end());
 
       points.push_back(std::move(featurePoints));

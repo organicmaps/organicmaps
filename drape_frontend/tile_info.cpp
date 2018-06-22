@@ -13,6 +13,7 @@
 #include "base/scope_guard.hpp"
 #include "base/logging.hpp"
 
+#include <algorithm>
 #include <functional>
 
 using namespace std::placeholders;
@@ -69,6 +70,7 @@ void TileInfo::ReadFeatures(MapDataProvider const & model)
 
   if (!m_featureInfo.empty())
   {
+    std::sort(m_featureInfo.begin(), m_featureInfo.end());
     auto const deviceLang = StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm());
     RuleDrawer drawer(std::bind(&TileInfo::InitStylist, this, deviceLang, _1, _2),
                       std::bind(&TileInfo::IsCancelled, this),

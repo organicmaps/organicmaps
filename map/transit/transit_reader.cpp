@@ -15,6 +15,7 @@
 
 #include "base/stl_add.hpp"
 
+#include <algorithm>
 #include <chrono>
 
 using namespace routing;
@@ -100,6 +101,7 @@ void ReadTransitTask::Do()
   vector<FeatureID> features;
   for (auto & id : m_transitInfo->m_features)
     features.push_back(id.first);
+  sort(features.begin(), features.end());
 
   m_readFeaturesFn([this](FeatureType const & ft)
   {
