@@ -203,8 +203,9 @@ include_directories(
   ${CMAKE_HOME_DIRECTORY}
   ${Qt5Core_INCLUDE_DIRS}
   ${Qt5Network_INCLUDE_DIRS}
-  ${Boost_INCLUDE_DIRS}
 )
+
+include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
