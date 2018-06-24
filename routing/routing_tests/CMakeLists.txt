@@ -28,6 +28,7 @@ set(
   routing_algorithm.hpp
   routing_helpers_tests.cpp
   routing_session_test.cpp
+  tools.hpp
   turns_generator_test.cpp
   turns_sound_test.cpp
   turns_tts_text_tests.cpp

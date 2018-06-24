@@ -1,5 +1,7 @@
 #include "testing/testing.hpp"
 
+#include "routing/routing_tests/tools.hpp"
+
 #include "routing/async_router.hpp"
 #include "routing/router.hpp"
 #include "routing/routing_callbacks.hpp"
@@ -108,7 +110,7 @@ struct DummyResultCallback
   }
 };
 
-UNIT_TEST(NeedMoreMapsSignalTest)
+UNIT_CLASS_TEST(AsyncGuiThreadTest, NeedMoreMapsSignalTest)
 {
   vector<string> const absentData({"test1", "test2"});
   unique_ptr<IOnlineFetcher> fetcher(new DummyFetcher(absentData));
@@ -132,7 +134,7 @@ UNIT_TEST(NeedMoreMapsSignalTest)
   TEST_EQUAL(resultCallback.m_absent[1], absentData, ());
 }
 
-UNIT_TEST(StandardAsyncFogTest)
+UNIT_CLASS_TEST(AsyncGuiThreadTest, StandardAsyncFogTest)
 {
   unique_ptr<IOnlineFetcher> fetcher(new DummyFetcher({}));
   unique_ptr<IRouter> router(new DummyRouter(RouterResultCode::NoError, {}));

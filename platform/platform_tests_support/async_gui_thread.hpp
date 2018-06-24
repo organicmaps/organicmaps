@@ -6,7 +6,9 @@
 #include "base/stl_add.hpp"
 #include "base/worker_thread.hpp"
 
-namespace partners_api
+namespace platform
+{
+namespace tests_support
 {
 class AsyncGuiThread
 {
@@ -24,4 +26,5 @@ public:
 private:
   Platform::ThreadRunner m_runner;
 };
-}  // namespace partners_api
+}  // namespace tests_support
+}  // namespace platform

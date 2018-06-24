@@ -1,7 +1,5 @@
 #include "testing/testing.hpp"
 
-#include "partners_api/partners_api_tests/async_gui_thread.hpp"
-
 #include "partners_api/viator_api.hpp"
 
 #include <algorithm>
@@ -10,8 +8,6 @@
 #include <vector>
 
 #include "3party/jansson/myjansson.hpp"
-
-using namespace partners_api;
 
 namespace
 {

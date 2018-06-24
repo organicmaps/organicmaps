@@ -338,8 +338,8 @@ void AsyncRouter::ThreadFunc()
 
 void AsyncRouter::CalculateRoute()
 {
-  shared_ptr<RouterDelegateProxy> delegate;
   Checkpoints checkpoints;
+  shared_ptr<RouterDelegateProxy> delegate;
   m2::PointD startDirection;
   bool adjustToPrevRoute = false;
   shared_ptr<IOnlineFetcher> absentFetcher;

@@ -48,7 +48,7 @@ struct SpeedCameraRestriction
 /// a special note near a method.
 class RoutingSession : public traffic::TrafficObserver, public traffic::TrafficCache
 {
-  friend void UnitTest_TestFollowRoutePercentTest();
+  friend struct UnitClass_AsyncGuiThreadTestWithRoutingSession_TestFollowRoutePercentTest;
 
 public:
   enum State

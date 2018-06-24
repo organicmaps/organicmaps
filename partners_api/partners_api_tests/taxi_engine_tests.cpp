@@ -1,11 +1,11 @@
 #include "testing/testing.hpp"
 
-#include "partners_api/partners_api_tests/async_gui_thread.hpp"
-
 #include "partners_api/maxim_api.hpp"
 #include "partners_api/taxi_engine.hpp"
 #include "partners_api/uber_api.hpp"
 #include "partners_api/yandex_api.hpp"
+
+#include "platform/platform_tests_support/async_gui_thread.hpp"
 
 #include "platform/gui_thread.hpp"
 
@@ -15,7 +15,7 @@
 #include "base/stl_add.hpp"
 #include "base/worker_thread.hpp"
 
-using namespace partners_api;
+using namespace platform::tests_support;
 
 namespace
 {

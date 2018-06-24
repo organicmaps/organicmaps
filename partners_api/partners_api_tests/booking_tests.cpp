@@ -1,13 +1,13 @@
 #include "testing/testing.hpp"
 
-#include "partners_api/partners_api_tests/async_gui_thread.hpp"
-
 #include "partners_api/booking_api.hpp"
+
+#include "platform/platform_tests_support/async_gui_thread.hpp"
 
 #include <chrono>
 #include <utility>
 
-using namespace partners_api;
+using namespace platform::tests_support;
 using namespace booking;
 
 namespace
