@@ -6,6 +6,7 @@
 
 #include <map>
 #include <memory>
+#include <mutex>
 
 namespace traffic
 {
@@ -15,8 +16,6 @@ public:
   TrafficCache() : m_trafficColoring() {}
   virtual ~TrafficCache() = default;
 
-  virtual shared_ptr<traffic::TrafficInfo::Coloring> GetTrafficInfo(
-      MwmSet::MwmId const & mwmId) const;
   virtual void CopyTraffic(
       std::map<MwmSet::MwmId, std::shared_ptr<traffic::TrafficInfo::Coloring>> & trafficColoring)
       const;
@@ -27,6 +26,7 @@ protected:
   void Clear();
 
 private:
+  std::mutex m_mutex;
   std::map<MwmSet::MwmId, std::shared_ptr<traffic::TrafficInfo::Coloring>> m_trafficColoring;
 };
 }  // namespace traffic

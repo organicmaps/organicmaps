@@ -770,17 +770,8 @@ void RoutingSession::OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId)
   });
 }
 
-shared_ptr<TrafficInfo::Coloring> RoutingSession::GetTrafficInfo(MwmSet::MwmId const & mwmId) const
-{
-  CHECK_THREAD_CHECKER(m_threadChecker, ());
-  return TrafficCache::GetTrafficInfo(mwmId);
-}
-
 void RoutingSession::CopyTraffic(std::map<MwmSet::MwmId, std::shared_ptr<traffic::TrafficInfo::Coloring>> & trafficColoring) const
 {
-  // @TODO(bykoianko) Should be called form gui thread before CalculateRoute() to prepare
-  // traffic jams for routing.
-//  CHECK_THREAD_CHECKER(m_threadChecker, ());
   TrafficCache::CopyTraffic(trafficColoring);
 }
 

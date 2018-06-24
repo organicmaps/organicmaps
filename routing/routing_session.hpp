@@ -170,13 +170,14 @@ public:
 
   // RoutingObserver overrides:
   void OnTrafficInfoClear() override;
-  /// \note. This method may be called from any thread.
+  /// \note. This method may be called from any thread because it touches class data on gui thread.
   void OnTrafficInfoAdded(traffic::TrafficInfo && info) override;
-  /// \note. This method may be called from any thread.
+  /// \note. This method may be called from any thread because it touches class data on gui thread.
   void OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId) override;
 
   // TrafficCache overrides:
-  shared_ptr<traffic::TrafficInfo::Coloring> GetTrafficInfo(MwmSet::MwmId const & mwmId) const override;
+  /// \note. This method may be called from any thread because it touches only data
+  /// protected by mutex in TrafficCache class.
   void CopyTraffic(std::map<MwmSet::MwmId, std::shared_ptr<traffic::TrafficInfo::Coloring>> & trafficColoring) const override;
 
 private:
