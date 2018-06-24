@@ -11,14 +11,13 @@
 
 #include "base/thread.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/condition_variable.hpp"
-#include "std/map.hpp"
-#include "std/mutex.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/utility.hpp"
+#include <condition_variable>
+#include <cstdint>
+#include <map>
+#include <memory>
+#include <mutex>
+#include <string>
+#include <utility>
 
 namespace routing
 {
@@ -35,7 +34,7 @@ public:
   /// Sets a synchronous router, current route calculation will be cancelled
   /// @param router pointer to a router implementation
   /// @param fetcher pointer to a online fetcher
-  void SetRouter(unique_ptr<IRouter> && router, unique_ptr<IOnlineFetcher> && fetcher);
+  void SetRouter(std::unique_ptr<IRouter> && router, std::unique_ptr<IOnlineFetcher> && fetcher);
 
   /// Main method to calulate new route from startPt to finalPt with start direction
   /// Processed result will be passed to callback. Callback will called at GUI thread.
@@ -78,7 +77,7 @@ private:
                         ProgressCallback const & onProgress,
                         uint32_t timeoutSec);
 
-    void OnReady(shared_ptr<Route> route, RouterResultCode resultCode);
+    void OnReady(std::shared_ptr<Route> route, RouterResultCode resultCode);
     void OnNeedMoreMaps(uint64_t routeId, vector<std::string> const & absentCounties);
     void OnRemoveRoute(RouterResultCode resultCode);
     void Cancel();
@@ -89,7 +88,7 @@ private:
     void OnProgress(float progress);
     void OnPointCheck(m2::PointD const & pt);
 
-    mutex m_guard;
+    std::mutex m_guard;
     ReadyCallbackOwnership const m_onReadyOwnership;
     // |m_onNeedMoreMaps| may be called after |m_onReadyOwnership| if
     // - it's possible to build route only if to load some maps
@@ -111,11 +110,11 @@ private:
   }
 
 private:
-  mutex m_guard;
+  std::mutex m_guard;
 
   /// Thread which executes routing calculation
   threads::SimpleThread m_thread;
-  condition_variable m_threadCondVar;
+  std::condition_variable m_threadCondVar;
   bool m_threadExit;
   bool m_hasRequest;
 
@@ -124,13 +123,12 @@ private:
   Checkpoints m_checkpoints;
   m2::PointD m_startDirection = m2::PointD::Zero();
   bool m_adjustToPrevRoute = false;
-  shared_ptr<RouterDelegateProxy> m_delegate;
-  shared_ptr<IOnlineFetcher> m_absentFetcher;
-  shared_ptr<IRouter> m_router;
+  std::shared_ptr<RouterDelegateProxy> m_delegate;
+  std::shared_ptr<IOnlineFetcher> m_absentFetcher;
+  std::shared_ptr<IRouter> m_router;
 
   RoutingStatisticsCallback const m_routingStatisticsCallback;
   PointCheckCallback const m_pointCheckCallback;
   uint64_t m_routeCounter = 0;
 };
-
 }  // namespace routing

@@ -13,15 +13,16 @@
 
 #include "base/timer.hpp"
 
-#include "std/condition_variable.hpp"
-#include "std/cstdint.hpp"
-#include "std/mutex.hpp"
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/vector.hpp"
+#include <condition_variable>
+#include <cstdint>
+#include <memory>
+#include <mutex>
+#include <string>
+#include <vector>
 
 using namespace routing;
 using namespace std::placeholders;
+using namespace std;
 
 namespace
 {

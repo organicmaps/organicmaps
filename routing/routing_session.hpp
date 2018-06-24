@@ -19,11 +19,11 @@
 
 #include "base/thread_checker.hpp"
 
-#include "std/functional.hpp"
-#include "std/limits.hpp"
-#include "std/map.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/unique_ptr.hpp"
+#include <cstdint>
+#include <functional>
+#include <limits>
+#include <map>
+#include <memory>
 
 class DataSource;
 
@@ -40,7 +40,7 @@ struct SpeedCameraRestriction
   uint8_t m_maxSpeedKmH;  // Maximum speed allowed by the camera.
 
   SpeedCameraRestriction(size_t index, uint8_t maxSpeed) : m_index(index), m_maxSpeedKmH(maxSpeed) {}
-  SpeedCameraRestriction() : m_index(0), m_maxSpeedKmH(numeric_limits<uint8_t>::max()) {}
+  SpeedCameraRestriction() : m_index(0), m_maxSpeedKmH(std::numeric_limits<uint8_t>::max()) {}
 };
 
 /// \breaf This class is responsible for the route built in the program.
@@ -123,7 +123,7 @@ public:
   /// \brief copies distance from route beginning to ends of route segments in meters and
   /// route altitude information to |routeSegDistanceM| and |routeAltitudes|.
   /// \returns true if there is valid route information. If the route is not valid returns false.
-  bool GetRouteAltitudesAndDistancesM(vector<double> & routeSegDistanceM,
+  bool GetRouteAltitudesAndDistancesM(std::vector<double> & routeSegDistanceM,
                                       feature::TAltitudes & routeAltitudesM) const;
 
   State OnLocationPositionChanged(location::GpsInfo const & info, DataSource const & dataSource);
@@ -160,9 +160,9 @@ public:
   void EnableTurnNotifications(bool enable);
   bool AreTurnNotificationsEnabled() const;
   void SetTurnNotificationsUnits(measurement_utils::Units const units);
-  void SetTurnNotificationsLocale(string const & locale);
-  string GetTurnNotificationsLocale() const;
-  void GenerateTurnNotifications(vector<string> & turnNotifications);
+  void SetTurnNotificationsLocale(std::string const & locale);
+  std::string GetTurnNotificationsLocale() const;
+  void GenerateTurnNotifications(std::vector<string> & turnNotifications);
 
   void EmitCloseRoutingEvent() const;
 
@@ -178,7 +178,8 @@ public:
   // TrafficCache overrides:
   /// \note. This method may be called from any thread because it touches only data
   /// protected by mutex in TrafficCache class.
-  void CopyTraffic(std::map<MwmSet::MwmId, std::shared_ptr<traffic::TrafficInfo::Coloring>> & trafficColoring) const override;
+  void CopyTraffic(std::map<MwmSet::MwmId, std::shared_ptr<traffic::TrafficInfo::Coloring>> &
+                       trafficColoring) const override;
 
 private:
   struct DoReadyCallback
@@ -191,10 +192,10 @@ private:
     {
     }
 
-    void operator()(shared_ptr<Route> route, RouterResultCode e);
+    void operator()(std::shared_ptr<Route> route, RouterResultCode e);
   };
 
-  void AssignRoute(shared_ptr<Route> route, RouterResultCode e);
+  void AssignRoute(std::shared_ptr<Route> route, RouterResultCode e);
 
   /// Returns a nearest speed camera record on your way and distance to it.
   /// Returns kInvalidSpeedCameraDistance if there is no cameras on your way.
@@ -208,8 +209,8 @@ private:
   void PassCheckpoints();
 
 private:
-  unique_ptr<AsyncRouter> m_router;
-  shared_ptr<Route> m_route;
+  std::unique_ptr<AsyncRouter> m_router;
+  std::shared_ptr<Route> m_route;
   State m_state;
   bool m_isFollowing;
   Checkpoints m_checkpoints;
@@ -256,7 +257,7 @@ private:
   DECLARE_THREAD_CHECKER(m_threadChecker);
 };
 
-void FormatDistance(double dist, string & value, string & suffix);
+void FormatDistance(double dist, std::string & value, std::string & suffix);
 
-string DebugPrint(RoutingSession::State state);
+std::string DebugPrint(RoutingSession::State state);
 }  // namespace routing

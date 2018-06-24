@@ -10,11 +10,12 @@
 
 #include "coding/internal/file_data.hpp"
 
-#include "std/utility.hpp"
+#include <utility>
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
 using namespace location;
+using namespace std;
 using namespace traffic;
 
 namespace
@@ -770,7 +771,8 @@ void RoutingSession::OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId)
   });
 }
 
-void RoutingSession::CopyTraffic(std::map<MwmSet::MwmId, std::shared_ptr<traffic::TrafficInfo::Coloring>> & trafficColoring) const
+void RoutingSession::CopyTraffic(
+    map<MwmSet::MwmId, shared_ptr<traffic::TrafficInfo::Coloring>> & trafficColoring) const
 {
   TrafficCache::CopyTraffic(trafficColoring);
 }

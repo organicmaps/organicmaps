@@ -12,14 +12,19 @@
 
 #include "base/logging.hpp"
 
-#include "std/chrono.hpp"
-#include "std/mutex.hpp"
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/vector.hpp"
+#include <chrono>
+#include <memory>
+#include <mutex>
+#include <string>
+#include <vector>
 
 namespace routing
 {
+using namespace std;
+
+using chrono::seconds;
+using chrono::steady_clock;
+
 // Simple router. It returns route given to him on creation.
 class DummyRouter : public IRouter
 {

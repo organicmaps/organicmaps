@@ -7,15 +7,13 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
-#include "std/functional.hpp"
-#include "std/utility.hpp"
+#include <functional>
 
 using namespace std;
 using namespace std::placeholders;
 
 namespace routing
 {
-
 namespace
 {
 map<string, string> PrepareStatisticsData(string const & routerName,
