@@ -127,6 +127,8 @@ private:
     case AStarAlgorithm<Graph>::Result::Cancelled: return RouterResultCode::Cancelled;
     case AStarAlgorithm<Graph>::Result::OK: return RouterResultCode::NoError;
     }
+
+    INCORRECT_VALUE_IN_THE_SWITCH();
   }
 
   template <typename Graph>

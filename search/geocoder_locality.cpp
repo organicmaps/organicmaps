@@ -13,6 +13,8 @@ Model::Type Region::ToModelType(Type type)
   case Region::TYPE_COUNTRY: return Model::TYPE_COUNTRY;
   case Region::TYPE_COUNT: return Model::TYPE_COUNT;
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 std::string DebugPrint(Locality const & locality)

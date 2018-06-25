@@ -61,6 +61,8 @@ string DebugPrint(LineIntersector::Result::Type type)
   case Type::One: return "One";
   case Type::Infinity: return "Infinity";
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 string DebugPrint(LineIntersector::Result const & result)

@@ -24,6 +24,8 @@ BaseContext::TokenType BaseContext::FromModelType(Model::Type type)
   case Model::TYPE_COUNTRY: return TOKEN_TYPE_COUNTRY;
   case Model::TYPE_COUNT: return TOKEN_TYPE_COUNT;
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 // static
@@ -35,6 +37,8 @@ BaseContext::TokenType BaseContext::FromRegionType(Region::Type type)
   case Region::TYPE_COUNTRY: return TOKEN_TYPE_COUNTRY;
   case Region::TYPE_COUNT: return TOKEN_TYPE_COUNT;
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 size_t BaseContext::SkipUsedTokens(size_t curToken) const
@@ -97,5 +101,7 @@ string DebugPrint(BaseContext::TokenType type)
   case BaseContext::TOKEN_TYPE_POSTCODE: return "POSTCODE";
   case BaseContext::TOKEN_TYPE_COUNT: return "COUNT";
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 }  // namespace search

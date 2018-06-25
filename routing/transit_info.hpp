@@ -149,5 +149,7 @@ inline std::string DebugPrint(TransitInfo::Type type)
   case TransitInfo::Type::Edge: return "Edge";
   case TransitInfo::Type::Transfer: return "Transfer";
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 }  // namespace routing

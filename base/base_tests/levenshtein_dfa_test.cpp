@@ -42,6 +42,8 @@ string DebugPrint(Status status)
   case Status::Rejects: return "Rejects";
   case Status::Intermediate: return "Intermediate";
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 string DebugPrint(Result const & result)

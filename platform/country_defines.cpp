@@ -38,4 +38,6 @@ string DebugPrint(MapOptions options)
     case MapOptions::Diff:
       return "Diff";
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }

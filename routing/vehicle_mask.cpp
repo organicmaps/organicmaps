@@ -19,6 +19,8 @@ string DebugPrint(VehicleType vehicleType)
   case VehicleType::Transit: return "Transit";
   case VehicleType::Count: return "Count";
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 string ToString(VehicleType vehicleType) { return DebugPrint(vehicleType); }

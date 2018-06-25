@@ -259,6 +259,8 @@ ParsedMapApi::ParsingResult ParsedMapApi::Parse(Uri const & uri)
       return ParsingResult::Lead;
     }
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 bool ParsedMapApi::RouteKeyValue(string const & key, string const & value, vector<string> & pattern)

@@ -122,6 +122,8 @@ std::string GetStyleForPredefinedColor(PredefinedColor color)
   case PredefinedColor::Count:
     return {};
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
   
 BookmarkIcon GetIcon(std::string const & iconName)

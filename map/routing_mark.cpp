@@ -102,6 +102,8 @@ uint16_t RouteMarkPoint::GetPriority() const
       }
     }
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 uint32_t RouteMarkPoint::GetIndex() const
@@ -112,6 +114,8 @@ uint32_t RouteMarkPoint::GetIndex() const
     case RouteMarkType::Finish: return 1;
     case RouteMarkType::Intermediate: return static_cast<uint32_t >(m_markData.m_intermediateIndex + 2);
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 void RouteMarkPoint::SetMarkData(RouteMarkData && data)

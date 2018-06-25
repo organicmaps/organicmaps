@@ -207,6 +207,8 @@ VehicleType GetVehicleType(RouterType routerType)
   case RouterType::Transit: return VehicleType::Transit;
   case RouterType::Count: CHECK(false, ("Invalid type", routerType)); return VehicleType::Count;
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 }  // namespace
 

@@ -19,6 +19,8 @@ string DebugPrint(feature::EGeomType type)
   case EGeomType::GEOM_LINE: return "GEOM_LINE";
   case EGeomType::GEOM_AREA: return "GEOM_AREA";
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 // static

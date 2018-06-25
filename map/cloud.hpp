@@ -391,6 +391,8 @@ inline std::string DebugPrint(Cloud::SynchronizationType type)
   case Cloud::SynchronizationType::Backup: return "Backup";
   case Cloud::SynchronizationType::Restore: return "Restore";
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 inline std::string DebugPrint(Cloud::SynchronizationResult result)
@@ -404,6 +406,8 @@ inline std::string DebugPrint(Cloud::SynchronizationResult result)
   case Cloud::SynchronizationResult::UserInterrupted: return "UserInterrupted";
   case Cloud::SynchronizationResult::InvalidCall: return "InvalidCall";
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 inline std::string DebugPrint(Cloud::RestoringRequestResult result)
@@ -414,4 +418,6 @@ inline std::string DebugPrint(Cloud::RestoringRequestResult result)
   case Cloud::RestoringRequestResult::NoBackup: return "NoBackup";
   case Cloud::RestoringRequestResult::NotEnoughDiskSpace: return "NotEnoughDiskSpace";
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }

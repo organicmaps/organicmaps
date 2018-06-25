@@ -802,5 +802,7 @@ string DebugPrint(RoutingSession::State state)
   case RoutingSession::RouteNoFollowing: return "RouteNoFollowing";
   case RoutingSession::RouteRebuilding: return "RouteRebuilding";
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 }  // namespace routing

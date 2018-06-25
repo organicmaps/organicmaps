@@ -36,6 +36,8 @@ std::string GetBookmarkIconType(kml::BookmarkIcon const & icon)
     ASSERT(false, ("Invalid bookmark icon type"));
     return {};
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 }  // namespace
 
@@ -105,6 +107,8 @@ df::ColorConstant Bookmark::GetColorConstant() const
     case kml::PredefinedColor::Count:
       return "BookmarkRed";
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 bool Bookmark::HasCreationAnimation() const

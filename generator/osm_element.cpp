@@ -28,6 +28,8 @@ std::string DebugPrint(OsmElement::EntityType e)
     case OsmElement::EntityType::Member:
       return "member";
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 

@@ -1,5 +1,7 @@
 #include "storage/storage_defines.hpp"
 
+#include "base/assert.hpp"
+
 #include <sstream>
 
 using namespace std;
@@ -32,6 +34,8 @@ string DebugPrint(Status status)
   case Status::EOutOfMemFailed:
     return "OutOfMemFailed"s;
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 string DebugPrint(NodeStatus status)
@@ -57,6 +61,8 @@ string DebugPrint(NodeStatus status)
   case NodeStatus::Partly:
     return "Partly"s;
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 string DebugPrint(NodeErrorCode status)
@@ -72,6 +78,8 @@ string DebugPrint(NodeErrorCode status)
   case NodeErrorCode::NoInetConnection:
     return "NoInetConnection"s;
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 StatusAndError ParseStatus(Status innerStatus)
@@ -99,6 +107,8 @@ StatusAndError ParseStatus(Status innerStatus)
   case Status::EOutOfMemFailed:
     return StatusAndError(NodeStatus::Error, NodeErrorCode::OutOfMemFailed);
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 string DebugPrint(StatusAndError statusAndError)

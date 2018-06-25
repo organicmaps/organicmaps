@@ -357,6 +357,8 @@ char const * IsHotelChecker::GetHotelTypeTag(Type type)
   case Type::Resort: return "resort";
   case Type::Count: CHECK(false, ("Can't get hotel type tag")); return "";
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 IsWifiChecker::IsWifiChecker()

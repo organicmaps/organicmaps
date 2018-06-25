@@ -306,6 +306,8 @@ string DebugPrint(Platform::EError err)
   case Platform::ERR_IO_ERROR: return "An I/O error occurred.";
   case Platform::ERR_UNKNOWN: return "Unknown";
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 string DebugPrint(Platform::ChargingStatus status)
@@ -316,4 +318,6 @@ string DebugPrint(Platform::ChargingStatus status)
   case Platform::ChargingStatus::Plugged: return "Plugged";
   case Platform::ChargingStatus::Unplugged: return "Unplugged";
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }

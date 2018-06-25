@@ -27,6 +27,8 @@ inline string DebugPrint(EPlaceState state)
     case EPlaceState::CloseSoon:
       return "EPlaceState::CloseSoon";
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 inline EPlaceState PlaceStateCheck(string const & openingHours, time_t timestamp)

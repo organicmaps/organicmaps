@@ -63,6 +63,8 @@ bool FormatDistance(double m, string & res)
   case Units::Imperial: return FormatDistanceImpl(m, res, " mi", " ft", 1609.344, 0.3048);
   case Units::Metric: return FormatDistanceImpl(m, res, " km", " m", 1000.0, 1.0);
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 
@@ -209,6 +211,8 @@ string FormatSpeedUnits(Units units)
   case Units::Imperial: return "mph";
   case Units::Metric: return "km/h";
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 bool OSMDistanceToMeters(string const & osmRawValue, double & outMeters)

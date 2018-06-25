@@ -400,6 +400,8 @@ string XMLFeature::TypeToString(Type type)
   case Type::Way: return kWayType;
   case Type::Relation: return kRelationType;
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 
 // static

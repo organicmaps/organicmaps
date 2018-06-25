@@ -180,6 +180,8 @@ public:
     case connector::WeightsLoadState::NotExists:
     case connector::WeightsLoadState::Loaded: return true;
     }
+
+    INCORRECT_VALUE_IN_THE_SWITCH();
   }
 
   template <typename CalcWeight>

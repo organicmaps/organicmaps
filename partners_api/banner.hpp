@@ -32,5 +32,7 @@ inline std::string DebugPrint(Banner::Type type)
   case Banner::Type::Mopub: return "Mopub";
   case Banner::Type::Google: return "Google";
   }
+
+  INCORRECT_VALUE_IN_THE_SWITCH();
 }
 }  // namespace ads
