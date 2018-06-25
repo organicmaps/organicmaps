@@ -10,8 +10,11 @@
 
 #include "base/macros.hpp"
 
-#include "std/string.hpp"
-#include "std/queue.hpp"
+#include <map>
+#include <queue>
+#include <string>
+#include <utility>
+#include <vector>
 
 class DataSourceBase;
 
@@ -19,34 +22,30 @@ namespace search
 {
 struct ParsedNumber
 {
-  string m_fullN;
-  int m_startN, m_endN;
-
 public:
   /// @todo Pass correct "American" notation flag.
-  ParsedNumber(string const & number, bool american = false);
+  ParsedNumber(std::string const & number, bool american = false);
 
-  inline string const & GetNumber() const { return m_fullN; }
-  inline bool IsOdd() const { return (m_startN % 2 == 1); }
-  inline int GetIntNumber() const { return m_startN; }
+  std::string const & GetNumber() const { return m_fullN; }
+  bool IsOdd() const { return (m_startN % 2 == 1); }
+  int GetIntNumber() const { return m_startN; }
 
   bool IsIntersect(ParsedNumber const & number, int offset = 0) const;
+
+private:
+  std::string m_fullN;
+  int m_startN;
+  int m_endN;
 };
 
 class House
 {
-  ParsedNumber m_number;
-  m2::PointD m_point;
-
 public:
-  House(string const & number, m2::PointD const & point)
-    : m_number(number), m_point(point)
-  {
-  }
+  House(std::string const & number, m2::PointD const & point) : m_number(number), m_point(point) {}
 
-  inline string const & GetNumber() const { return m_number.GetNumber(); }
-  inline int GetIntNumber() const { return m_number.GetIntNumber(); }
-  inline m2::PointD const & GetPosition() const { return m_point; }
+  std::string const & GetNumber() const { return m_number.GetNumber(); }
+  int GetIntNumber() const { return m_number.GetIntNumber(); }
+  m2::PointD const & GetPosition() const { return m_point; }
 
   /// @return \n
   /// -1 - no match;
@@ -55,22 +54,19 @@ public:
   ///  2 - integer number match.
   int GetMatch(ParsedNumber const & number) const;
   bool GetNearbyMatch(ParsedNumber const & number) const;
+
+private:
+  ParsedNumber m_number;
+  m2::PointD m_point;
 };
 
 // NOTE: DO NOT DELETE instances of this class by a pointer/reference
 // to ProjectionOnStreet, because both classes have non-virtual destructors.
 struct HouseProjection : public ProjectionOnStreet
 {
-  House const * m_house;
-
-  /// Distance in mercator, from street beginning to projection on street
-  double m_streetDistance;
-
-  inline bool IsOdd() const { return (m_house->GetIntNumber() % 2 == 1); }
-
   struct LessDistance
   {
-    bool operator() (HouseProjection const * p1, HouseProjection const * p2) const
+    bool operator()(HouseProjection const * p1, HouseProjection const * p2) const
     {
       return p1->m_distMeters < p2->m_distMeters;
     }
@@ -78,28 +74,26 @@ struct HouseProjection : public ProjectionOnStreet
 
   class EqualHouse
   {
-    House const * m_house;
   public:
     EqualHouse(House const * h) : m_house(h) {}
     bool operator() (HouseProjection const * p) const { return m_house == p->m_house; }
+
+  private:
+    House const * m_house;
   };
+
+  bool IsOdd() const { return (m_house->GetIntNumber() % 2 == 1); }
+
+  House const * m_house;
+
+  /// Distance in mercator, from street beginning to projection on street
+  double m_streetDistance;
 };
 
 // many features combines to street
 class Street
 {
-  string m_name;
-  string m_processedName;
-
 public:
-  void SetName(string const & name);
-
-  vector<m2::PointD> m_points;
-  vector<HouseProjection> m_houses;
-  double m_length;      /// Length in mercator
-  int m_number;         /// Some ordered number after merging
-  bool m_housesRead;
-
   Street() : m_length(0.0), m_number(-1), m_housesRead(false) {}
 
   void Reverse();
@@ -112,29 +106,34 @@ public:
 
   double GetPrefixLength(size_t numSegs) const;
 
-  inline static bool IsSameStreets(Street const * s1, Street const * s2)
+  static bool IsSameStreets(Street const * s1, Street const * s2)
   {
     return s1->m_processedName == s2->m_processedName;
   }
 
-  inline string const & GetDbgName() const { return m_processedName; }
-  inline string const & GetName() const { return m_name; }
+  void SetName(std::string const & name);
+  std::string const & GetDbgName() const { return m_processedName; }
+  std::string const & GetName() const { return m_name; }
+
+  std::vector<m2::PointD> m_points;
+  std::vector<HouseProjection> m_houses;
+  double m_length;  /// Length in mercator
+  int m_number;     /// Some ordered number after merging
+  bool m_housesRead;
+
+private:
+  std::string m_name;
+  std::string m_processedName;
 };
 
 class MergedStreet
 {
-  double m_length;
 public:
-  deque<Street *> m_cont;
-
-  MergedStreet() : m_length(0.0) {}
-
-  string const & GetDbgName() const;
-  string const & GetName() const;
-  bool IsHousesRead() const;
-  void FinishReadingHouses();
-
-  HouseProjection const * GetHousePivot(bool isOdd, bool & sign) const;
+  struct Index
+  {
+    size_t s, h;
+    Index() : s(0), h(0) {}
+  };
 
   struct GreaterLength
   {
@@ -144,113 +143,116 @@ public:
     }
   };
 
-  inline void Swap(MergedStreet & s)
+  MergedStreet() : m_length(0.0) {}
+
+  std::string const & GetDbgName() const;
+  std::string const & GetName() const;
+  bool IsHousesRead() const;
+  void FinishReadingHouses();
+
+  HouseProjection const * GetHousePivot(bool isOdd, bool & sign) const;
+
+  void Swap(MergedStreet & s)
   {
     m_cont.swap(s.m_cont);
     std::swap(m_length, s.m_length);
   }
 
-public:
-  struct Index
-  {
-    size_t s, h;
-    Index() : s(0), h(0) {}
-  };
-
-  inline Index Begin() const
+  Index Begin() const
   {
     Index i;
     Next(i);
     return i;
   }
-  inline void Inc(Index & i) const
+
+  void Inc(Index & i) const
   {
     ++i.h;
     Next(i);
   }
-  inline bool IsEnd(Index const & i) const
-  {
-    return i.s == m_cont.size();
-  }
-  inline HouseProjection const & Get(Index const & i) const
+
+  bool IsEnd(Index const & i) const { return i.s == m_cont.size(); }
+
+  HouseProjection const & Get(Index const & i) const
   {
     ASSERT(!IsEnd(i), ());
     return m_cont[i.s]->m_houses[i.h];
   }
 
+  std::deque<Street *> m_cont;
+
 private:
   void Erase(Index & i);
   void Next(Index & i) const;
-};
 
-inline void swap(MergedStreet & s1, MergedStreet & s2)
-{
-  s1.Swap(s2);
-}
+  double m_length;
+};
 
 struct HouseResult
 {
-  House const * m_house;
-  MergedStreet const * m_street;
-
   HouseResult(House const * house, MergedStreet const * street) : m_house(house), m_street(street)
   {
   }
 
-  inline bool operator<(HouseResult const & a) const { return m_house < a.m_house; }
-  inline bool operator==(HouseResult const & a) const { return m_house == a.m_house; }
+  bool operator<(HouseResult const & a) const { return m_house < a.m_house; }
+  bool operator==(HouseResult const & a) const { return m_house == a.m_house; }
 
   m2::PointD const & GetOrg() const { return m_house->GetPosition(); }
-};
 
-inline string DebugPrint(HouseResult const & r)
-{
-  return r.m_house->GetNumber() + ", " + r.m_street->GetName();
-}
+  House const * m_house;
+  MergedStreet const * m_street;
+};
 
 class HouseDetector
 {
-  FeatureLoader m_loader;
+public:
+  using StreetMap = std::map<FeatureID, Street *>;
+  using HouseMap = std::map<FeatureID, House *>;
+  using StreetPtr = std::pair<Street *, bool>;
 
-  typedef map<FeatureID, Street *> StreetMapT;
-  StreetMapT m_id2st;
-  typedef map<FeatureID, House *> HouseMapT;
-  HouseMapT m_id2house;
+  static int const DEFAULT_OFFSET_M = 200;
 
-  vector<pair<m2::PointD, Street *> > m_end2st;
-  vector<MergedStreet> m_streets;
+  HouseDetector(DataSourceBase const & dataSource);
+  ~HouseDetector();
 
-  double m_metres2Mercator;
-  int m_streetNum;
-  double m_houseOffsetM;
+  int LoadStreets(std::vector<FeatureID> const & ids);
+  /// @return number of different joined streets.
+  int MergeStreets();
 
-  typedef pair<Street *, bool> StreetPtr;
+  void ReadAllHouses(double offsetMeters = DEFAULT_OFFSET_M);
+
+  void GetHouseForName(std::string const & houseNumber, std::vector<HouseResult> & res);
+
+  void ClearCaches();
+  void ClearUnusedStreets(std::vector<FeatureID> const & ids);
+
+private:
   StreetPtr FindConnection(Street const * st, bool beg) const;
+
   void MergeStreets(Street * st);
 
-  template <class ProjectionCalcT>
-  void ReadHouse(FeatureType const & f, Street * st, ProjectionCalcT & calc);
+  template <typename ProjectionCalculator>
+  void ReadHouse(FeatureType const & f, Street * st, ProjectionCalculator & calc);
+
   void ReadHouses(Street * st);
 
   void SetMetres2Mercator(double factor);
 
   double GetApprLengthMeters(int index) const;
 
-public:
-  HouseDetector(DataSourceBase const & dataSource);
-  ~HouseDetector();
+  FeatureLoader m_loader;
 
-  int LoadStreets(vector<FeatureID> const & ids);
-  /// @return number of different joined streets.
-  int MergeStreets();
+  StreetMap m_id2st;
+  HouseMap m_id2house;
 
-  static int const DEFAULT_OFFSET_M = 200;
-  void ReadAllHouses(double offsetMeters = DEFAULT_OFFSET_M);
+  std::vector<pair<m2::PointD, Street *>> m_end2st;
+  std::vector<MergedStreet> m_streets;
 
-  void GetHouseForName(string const & houseNumber, vector<HouseResult> & res);
-
-  void ClearCaches();
-  void ClearUnusedStreets(vector<FeatureID> const & ids);
+  double m_metres2Mercator;
+  int m_streetNum;
+  double m_houseOffsetM;
 };
 
-}
+std::string DebugPrint(HouseProjection const & p);
+std::string DebugPrint(HouseResult const & r);
+}  // namespace search
