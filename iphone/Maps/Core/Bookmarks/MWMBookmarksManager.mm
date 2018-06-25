@@ -540,4 +540,14 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   return GetFramework().GetBookmarkManager().GetCatalog().GetDownloadingCount();
 }
 
++ (BOOL)isCategoryDownloading:(NSString *)itemId
+{
+  return GetFramework().GetBookmarkManager().GetCatalog().IsDownloading(itemId.UTF8String);
+}
+
++ (BOOL)hasCategoryDownloaded:(NSString *)itemId
+{
+  return GetFramework().GetBookmarkManager().GetCatalog().HasDownloaded(itemId.UTF8String);
+}
+
 @end

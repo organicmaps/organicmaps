@@ -86,6 +86,16 @@ class CatalogWebViewController: WebViewController {
       }
     })
 
+    if MWMBookmarksManager.isCategoryDownloading(id) {
+      //TODO: add alert
+      return
+    }
+
+    if MWMBookmarksManager.hasCategoryDownloaded(id) {
+      //TODO: add alert
+      return
+    }
+
     MWMBookmarksManager.downloadItem(withId: id, name: name, progress: { (progress) in
       self.updateProgress()
     }) { (error) in
@@ -112,8 +122,8 @@ class CatalogWebViewController: WebViewController {
       } else {
         Toast.toast(withText: L("bookmarks_webview_success_toast")).show()
       }
+      self.updateProgress()
     }
-    self.updateProgress()
   }
 
   private func showDiskError() {
@@ -134,7 +144,8 @@ class CatalogWebViewController: WebViewController {
   }
 
   private func showImportError() {
-    // TODO: add import error alert
+    MWMAlertViewController.activeAlert().presentInfoAlert(L("title_error_downloading_bookmarks"),
+                                                          text: L("subtitle_error_downloading_bookmarks"))
   }
 
   private func updateProgress() {

@@ -358,19 +358,8 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)openMigration { [self performSegueWithIdentifier:kMigrationSegue sender:self]; }
 - (void)openBookmarks
 {
-  BMCViewController * bookmarks = [[BMCViewController alloc] init];
-  DownloadedBookmarksViewController * catalog = [[DownloadedBookmarksViewController alloc] init];
-  bookmarks.title = L(@"bookmarks_page_my");
-  catalog.title = L(@"bookmarks_page_downloaded");
-
-  MWMTabViewController * tvc = [[MWMTabViewController alloc] init];
-  tvc.title = L(@"bookmarks");
-  tvc.tabView.barTintColor = [UIColor primary];
-  tvc.tabView.tintColor = [UIColor white];
-  tvc.tabView.headerTextAttributes = @{NSForegroundColorAttributeName: [UIColor whitePrimaryText],
-                                       NSFontAttributeName: [UIFont medium14]};
-  tvc.viewControllers = @[bookmarks, catalog];
-  [self.navigationController pushViewController:tvc animated:YES];
+  [self.navigationController pushViewController:[[MWMBookmarksTabViewController alloc] init]
+                                       animated:YES];
 }
 
 - (void)openMapsDownloader:(MWMMapDownloaderMode)mode

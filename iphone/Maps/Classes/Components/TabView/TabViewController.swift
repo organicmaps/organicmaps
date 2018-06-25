@@ -1,8 +1,13 @@
-@objcMembers
-@objc(MWMTabViewController)
 class TabViewController: MWMViewController {
-  var viewControllers: [UIViewController] = []
-  var selectedIndex = 0
+  var viewControllers: [UIViewController] = [] {
+    didSet {
+      viewControllers.forEach {
+        self.addChildViewController($0)
+        $0.didMove(toParentViewController: self)
+      }
+    }
+  }
+
   var tabView: TabView {
     get {
       return view as! TabView
@@ -13,15 +18,6 @@ class TabViewController: MWMViewController {
     let v = TabView()
     v.dataSource = self
     view = v
-  }
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-
-    viewControllers.forEach { (vc) in
-      self.addChildViewController(vc)
-      vc.didMove(toParentViewController: self)
-    }
   }
 }
 

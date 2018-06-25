@@ -55,6 +55,8 @@
 + (BOOL)isCategoryFromCatalog:(MWMMarkGroupID)groupId;
 + (NSArray<MWMCatalogCategory *> * _Nonnull)categoriesFromCatalog;
 + (NSInteger)getCatalogDownloadsCount;
++ (BOOL)isCategoryDownloading:(NSString * _Nonnull)itemId;
++ (BOOL)hasCategoryDownloaded:(NSString * _Nonnull)itemId;
 
 - (instancetype)init __attribute__((unavailable("call +manager instead")));
 - (instancetype)copy __attribute__((unavailable("call +manager instead")));

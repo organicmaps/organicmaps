@@ -75,7 +75,8 @@ class TabView: UIView {
   private let slidingView = UIView()
   private var slidingViewLeft: NSLayoutConstraint!
   private var slidingViewWidth: NSLayoutConstraint!
-  private var pageCount = 0
+  private lazy var pageCount = { return self.dataSource?.numberOfPages(in: self) ?? 0; }()
+  var selectedIndex = -1
 
   weak var dataSource: TabViewDataSource?
 
@@ -191,17 +192,16 @@ class TabView: UIView {
     slidingView.addConstraint(slidingViewWidth)
   }
 
-  override func willMove(toSuperview newSuperview: UIView?) {
-    super.willMove(toSuperview: newSuperview)
-    pageCount = dataSource?.numberOfPages(in: self) ?? 0
-  }
-
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    slidingViewWidth.constant = bounds.width / CGFloat(pageCount)
+    slidingViewWidth.constant = pageCount > 0 ? bounds.width / CGFloat(pageCount) : 0
     tabsLayout.invalidateLayout()
     tabsContentLayout.invalidateLayout()
+    tabsContentCollectionView.layoutIfNeeded()
+    if selectedIndex >= 0 {
+      tabsContentCollectionView.scrollToItem(at: IndexPath(item: selectedIndex, section: 0), at: .left, animated: false)
+    }
   }
 }
 
@@ -237,8 +237,13 @@ extension TabView : UICollectionViewDelegateFlowLayout {
     slidingViewLeft.constant = scrollOffset * bounds.width
   }
 
+  func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    selectedIndex = Int(round(scrollView.contentOffset.x / scrollView.bounds.width))
+  }
+
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     if (collectionView == tabsCollectionView) {
+      selectedIndex = indexPath.item
       tabsContentCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
     }
   }

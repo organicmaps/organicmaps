@@ -470,6 +470,7 @@
 		B33D21AD20DA515800BAD749 /* MWMCategoryInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33D21AB20DA515800BAD749 /* MWMCategoryInfoCell.xib */; };
 		B33D21AF20DAF9F000BAD749 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D21AE20DAF9F000BAD749 /* Toast.swift */; };
 		B33D21B220DBCC5E00BAD749 /* MWMCatalogObserver.mm in Sources */ = {isa = PBXBuildFile; fileRef = B33D21B120DBCC5D00BAD749 /* MWMCatalogObserver.mm */; };
+		B33D21B820E130D000BAD749 /* BookmarksTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D21B720E130D000BAD749 /* BookmarksTabViewController.swift */; };
 		B366130420D5D9BC00E7DC3E /* MWMCatalogCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = B366130320D5D9BC00E7DC3E /* MWMCatalogCategory.m */; };
 		B366130720D5DD2300E7DC3E /* MWMCatalogCategory+Convenience.mm in Sources */ = {isa = PBXBuildFile; fileRef = B366130620D5DD2300E7DC3E /* MWMCatalogCategory+Convenience.mm */; };
 		B366130A20D5E2E000E7DC3E /* CatalogCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B366130820D5E2E000E7DC3E /* CatalogCategoryCell.swift */; };
@@ -1399,6 +1400,7 @@
 		B33D21B020DBCC5D00BAD749 /* MWMCatalogObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCatalogObserver.h; sourceTree = "<group>"; };
 		B33D21B120DBCC5D00BAD749 /* MWMCatalogObserver.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCatalogObserver.mm; sourceTree = "<group>"; };
 		B33D21B320DBF3EB00BAD749 /* MWMCatalogCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCatalogCommon.h; sourceTree = "<group>"; };
+		B33D21B720E130D000BAD749 /* BookmarksTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksTabViewController.swift; sourceTree = "<group>"; };
 		B366130220D5D9BC00E7DC3E /* MWMCatalogCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCatalogCategory.h; sourceTree = "<group>"; };
 		B366130320D5D9BC00E7DC3E /* MWMCatalogCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMCatalogCategory.m; sourceTree = "<group>"; };
 		B366130520D5DD2300E7DC3E /* MWMCatalogCategory+Convenience.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWMCatalogCategory+Convenience.h"; sourceTree = "<group>"; };
@@ -4114,6 +4116,7 @@
 				3404F4A02028A6C00090E401 /* Categories */,
 				FA054610155C465E001F4E37 /* SelectSetVC.h */,
 				FA054611155C465E001F4E37 /* SelectSetVC.mm */,
+				B33D21B720E130D000BAD749 /* BookmarksTabViewController.swift */,
 			);
 			path = Bookmarks;
 			sourceTree = "<group>";
@@ -4721,6 +4724,7 @@
 				34BBD65C1F826FD30070CA50 /* AuthorizationiPhonePresentationController.swift in Sources */,
 				56C74C391C74A3BC00B71B9F /* MWMInputEmailValidator.mm in Sources */,
 				6741A9F51BF340DE002C974C /* BookmarksVC.mm in Sources */,
+				B33D21B820E130D000BAD749 /* BookmarksTabViewController.swift in Sources */,
 				3404754A1E081A4600C92850 /* AppInfo.mm in Sources */,
 				34AB662F1FC5AA330078E451 /* RouteManageriPhonePresentationController.swift in Sources */,
 				34AB66201FC5AA330078E451 /* RouteStartButton.swift in Sources */,

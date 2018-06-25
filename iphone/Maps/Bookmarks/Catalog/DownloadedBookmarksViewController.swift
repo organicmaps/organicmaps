@@ -1,16 +1,14 @@
-class DownloadedBookmarksViewController: MWMTableViewController {
+class DownloadedBookmarksViewController: MWMViewController {
 
-  @IBOutlet var topView: UIView!
   @IBOutlet var bottomView: UIView!
-
+  @IBOutlet weak var noDataView: UIView!
+  @IBOutlet weak var tableView: UITableView!
+  
   let dataSource = DownloadedBookmarksDataSource()
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    if dataSource.categoriesCount == 0 {
-      tableView.tableHeaderView = topView
-    }
     tableView.tableFooterView = bottomView
     tableView.registerNib(cell: CatalogCategoryCell.self)
     tableView.registerNibForHeaderFooterView(BMCCategoriesHeader.self)
@@ -20,41 +18,8 @@ class DownloadedBookmarksViewController: MWMTableViewController {
     super.viewWillAppear(animated)
 
     dataSource.reload()
+    noDataView.isHidden = dataSource.categoriesCount > 0
     tableView.reloadData()
-  }
-
-  override func numberOfSections(in tableView: UITableView) -> Int {
-    return dataSource.categoriesCount > 0 ? 1 : 0
-  }
-
-  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return dataSource.categoriesCount
-  }
-
-  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(cell: CatalogCategoryCell.self, indexPath: indexPath)
-    cell.update(with: dataSource.category(at: indexPath.row), delegate: self)
-    return cell
-  }
-
-  override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return 48
-  }
-
-  override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    let headerView = tableView.dequeueReusableHeaderFooterView(BMCCategoriesHeader.self)
-    headerView.isShowAll = !dataSource.allCategoriesVisible
-    headerView.delegate = self
-    return headerView
-  }
-
-  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: true)
-    let category = dataSource.category(at: indexPath.row)
-    if let bmViewController = BookmarksVC(category: category.categoryId) {
-      MapViewController.topViewController().navigationController?.pushViewController(bmViewController,
-                                                                                   animated: true)
-    }
   }
 
   @IBAction func onDownloadBookmarks(_ sender: Any) {
@@ -85,12 +50,51 @@ class DownloadedBookmarksViewController: MWMTableViewController {
   }
 
   private func deleteCategory(at index: Int) {
-    self.dataSource.deleteCategory(at: index)
-    if self.dataSource.categoriesCount > 0 {
-      self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+    dataSource.deleteCategory(at: index)
+    if dataSource.categoriesCount > 0 {
+      tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
     } else {
-      self.tableView.tableHeaderView = self.topView
-      self.tableView.reloadData()
+      noDataView.isHidden = false
+      tableView.reloadData()
+    }
+  }
+}
+
+extension DownloadedBookmarksViewController: UITableViewDataSource {
+  func numberOfSections(in tableView: UITableView) -> Int {
+    return dataSource.categoriesCount > 0 ? 1 : 0
+  }
+
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return dataSource.categoriesCount
+  }
+
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(cell: CatalogCategoryCell.self, indexPath: indexPath)
+    cell.update(with: dataSource.category(at: indexPath.row), delegate: self)
+    return cell
+  }
+}
+
+extension DownloadedBookmarksViewController: UITableViewDelegate {
+
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return 48
+  }
+
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let headerView = tableView.dequeueReusableHeaderFooterView(BMCCategoriesHeader.self)
+    headerView.isShowAll = !dataSource.allCategoriesVisible
+    headerView.delegate = self
+    return headerView
+  }
+
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
+    let category = dataSource.category(at: indexPath.row)
+    if let bmViewController = BookmarksVC(category: category.categoryId) {
+      MapViewController.topViewController().navigationController?.pushViewController(bmViewController,
+                                                                                     animated: true)
     }
   }
 }
