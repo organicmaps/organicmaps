@@ -255,6 +255,11 @@ LocalAdsManager & Framework::GetLocalAdsManager()
   return m_localAdsManager;
 }
 
+TransitReadManager & Framework::GetTransitManager()
+{
+  return m_transitManager;
+}
+
 void Framework::OnUserPositionChanged(m2::PointD const & position, bool hasPosition)
 {
   GetBookmarkManager().MyPositionMark().SetUserPosition(position, hasPosition);
@@ -1775,6 +1780,9 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
 
   InvalidateUserMarks();
 
+  bool const transitSchemeEnabled = LoadTransitSchemeEnabled();
+  m_transitManager.EnableTransitSchemeMode(transitSchemeEnabled);
+
   benchmark::RunGraphicsBenchmark(this);
 }
 
@@ -2538,15 +2546,13 @@ void Framework::SaveAutoZoom(bool allowAutoZoom)
 void Framework::EnableTransitScheme(bool enable)
 {
   m_transitManager.EnableTransitSchemeMode(enable);
-  if (m_drapeEngine != nullptr)
-    m_drapeEngine->EnableTransitScheme(enable);
 }
 
 bool Framework::LoadTransitSchemeEnabled()
 {
   bool enabled;
   if (!settings::Get(kTransitSchemeEnabledKey, enabled))
-    enabled = true;
+    enabled = false;
   return enabled;
 }
 

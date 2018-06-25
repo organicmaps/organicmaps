@@ -176,6 +176,7 @@ void TransitReadManager::SetDrapeEngine(ref_ptr<df::DrapeEngine> engine)
 
 void TransitReadManager::EnableTransitSchemeMode(bool enable)
 {
+  ChangeState(enable ? TransitSchemeState::Enabled : TransitSchemeState::Disabled);
   if (m_isSchemeMode == enable)
     return;
   m_isSchemeMode = enable;
@@ -190,6 +191,7 @@ void TransitReadManager::EnableTransitSchemeMode(bool enable)
   {
     Invalidate();
   }
+  m_drapeEngine.SafeCall(&df::DrapeEngine::EnableTransitScheme, enable);
 }
 
 void TransitReadManager::UpdateViewport(ScreenBase const & screen)
@@ -242,9 +244,19 @@ void TransitReadManager::UpdateViewport(ScreenBase const & screen)
       }
     }
     ShrinkCacheToAllowableSize();
-    m_drapeEngine.SafeCall(&df::DrapeEngine::UpdateTransitScheme,
-                           std::move(displayInfos), mwms);
+    m_drapeEngine.SafeCall(&df::DrapeEngine::UpdateTransitScheme, std::move(displayInfos), mwms);
   }
+
+  bool hasData = false;
+  for (auto const & mwmId : m_lastActiveMwms)
+  {
+    if (m_mwmCache.at(mwmId).m_isLoaded)
+    {
+      hasData = true;
+      break;
+    }
+  }
+  ChangeState(hasData ? TransitSchemeState::Enabled : TransitSchemeState::NoData);
 }
 
 void TransitReadManager::ClearCache(MwmSet::MwmId const & mwmId)
@@ -260,6 +272,7 @@ void TransitReadManager::ClearCache(MwmSet::MwmId const & mwmId)
 void TransitReadManager::OnMwmDeregistered(MwmSet::MwmId const & mwmId)
 {
   ClearCache(mwmId);
+  Invalidate();
 }
 
 void TransitReadManager::Invalidate()
@@ -342,4 +355,18 @@ void TransitReadManager::OnTaskCompleted(threads::IRoutine * task)
 
   if (--m_tasksGroups[t->GetId()] == 0)
     m_event.notify_all();
+}
+
+void TransitReadManager::SetStateListener(TransitStateChangedFn const & onStateChangedFn)
+{
+  m_onStateChangedFn = onStateChangedFn;
+}
+
+void TransitReadManager::ChangeState(TransitSchemeState newState)
+{
+  if (m_state == newState)
+    return;
+  m_state = newState;
+  if (m_onStateChangedFn)
+    m_onStateChangedFn(newState);
 }

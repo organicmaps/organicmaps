@@ -80,8 +80,15 @@ private:
 class TransitReadManager
 {
 public:
-  using GetMwmsByRectFn = function<vector<MwmSet::MwmId>(m2::RectD const &)>;
+  enum class TransitSchemeState
+  {
+    Disabled,
+    Enabled,
+    NoData,
+  };
 
+  using GetMwmsByRectFn = function<vector<MwmSet::MwmId>(m2::RectD const &)>;
+  using TransitStateChangedFn = function<void(TransitSchemeState)>;
 
   TransitReadManager(DataSourceBase & dataSource, TReadFeaturesFn const & readFeaturesFn,
                      GetMwmsByRectFn const & getMwmsByRectFn);
@@ -91,6 +98,7 @@ public:
   void Stop();
 
   void SetDrapeEngine(ref_ptr<df::DrapeEngine> engine);
+  void SetStateListener(TransitStateChangedFn const & onStateChangedFn);
 
   bool GetTransitDisplayInfo(TransitDisplayInfos & transitDisplayInfos);
 
@@ -102,6 +110,7 @@ public:
 private:
   void OnTaskCompleted(threads::IRoutine * task);
 
+  void ChangeState(TransitSchemeState newState);
   void ShrinkCacheToAllowableSize();
   void ClearCache(MwmSet::MwmId const & mwmId);
 
@@ -117,6 +126,9 @@ private:
   TReadFeaturesFn m_readFeaturesFn;
 
   df::DrapeEngineSafePtr m_drapeEngine;
+
+  TransitSchemeState m_state = TransitSchemeState::Disabled;
+  TransitStateChangedFn m_onStateChangedFn;
 
   struct CacheEntry
   {

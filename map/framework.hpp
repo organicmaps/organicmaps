@@ -747,13 +747,17 @@ public:
 
   LocalAdsManager & GetLocalAdsManager();
 
+  TransitReadManager & GetTransitManager();
+
   bool LoadTrafficEnabled();
   void SaveTrafficEnabled(bool trafficEnabled);
 
   bool LoadTrafficSimplifiedColors();
   void SaveTrafficSimplifiedColors(bool simplified);
 
+  // TODO: Enable transit scheme via transit manager.
   void EnableTransitScheme(bool enable);
+
   bool LoadTransitSchemeEnabled();
   void SaveTransitSchemeEnabled(bool enabled);
 
