@@ -162,12 +162,15 @@ android {
     multiDexKeepFile file('multidex-config.txt')
 
     externalNativeBuild {
+      def pchFlag = 'OFF'
+      if (project.hasProperty('pch')) pchFlag = 'ON'
+
       cmake {
         cppFlags '-fexceptions', '-frtti', '-m32'
         cFlags '-ffunction-sections', '-fdata-sections',
                '-Wno-extern-c-compat', '-m32'
         arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static',
-                  "-DOS=$osName", '-DSKIP_TESTS=ON', '-DUSE_PCH=ON'
+                  "-DOS=$osName", '-DSKIP_TESTS=ON', "-DUSE_PCH=$pchFlag"
       }
     }
 
