@@ -40653,6 +40653,96 @@ cont {
   }
 }
 cont {
+  name: "sponsored-partner18"
+  element {
+    scale: 14
+    symbol {
+      name: "partner18-l"
+      priority: 16724
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "partner18-l"
+      priority: 16724
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "partner18-l"
+      priority: 16724
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "partner18-l"
+      priority: 16724
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "partner18-l"
+      priority: 16724
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "partner18-l"
+      priority: 16724
+    }
+  }
+}
+cont {
+  name: "sponsored-partner19"
+  element {
+    scale: 14
+    symbol {
+      name: "partner19-l"
+      priority: 16724
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "partner19-l"
+      priority: 16724
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "partner19-l"
+      priority: 16724
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "partner19-l"
+      priority: 16724
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "partner19-l"
+      priority: 16724
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "partner19-l"
+      priority: 16724
+    }
+  }
+}
+cont {
   name: "sponsored-partner2"
   element {
     scale: 14
@@ -40742,6 +40832,44 @@ cont {
         offset_y: 1
       }
       priority: 15724
+    }
+  }
+}
+cont {
+  name: "sponsored-partner20"
+  element {
+    scale: 15
+    symbol {
+      name: "partner20-l"
+      priority: 16724
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "partner20-l"
+      priority: 16724
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "partner20-l"
+      priority: 16724
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "partner20-l"
+      priority: 16724
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "partner20-l"
+      priority: 16724
     }
   }
 }
