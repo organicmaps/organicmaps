@@ -256,7 +256,8 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
 
 + (void)setAllCategoriesVisible:(BOOL)isVisible
 {
-  GetFramework().GetBookmarkManager().SetAllCategoriesVisibility(isVisible);
+  GetFramework().GetBookmarkManager().SetAllCategoriesVisibility(BookmarkManager::CategoryFilterType::All,
+                                                                 isVisible);
 }
 
 + (void)deleteCategory:(MWMMarkGroupID)groupId
