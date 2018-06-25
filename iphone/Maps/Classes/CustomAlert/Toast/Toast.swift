@@ -1,5 +1,6 @@
 @objc(MWMToast)
-class Toast: NSObject {
+@objcMembers
+final class Toast: NSObject {
 
   private var blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
 
@@ -32,11 +33,11 @@ class Toast: NSObject {
                                                                        views: views))
   }
 
-  @objc func show() {
+  func show() {
     show(in: UIApplication.shared.keyWindow)
   }
 
-  @objc func show(in view: UIView?) {
+  func show(in view: UIView?) {
     guard let v = view else { return }
     blurView.translatesAutoresizingMaskIntoConstraints = false
     v.addSubview(blurView)

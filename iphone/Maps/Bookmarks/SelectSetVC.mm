@@ -38,7 +38,6 @@
   NSAssert(self.delegate, @"Delegate can't be nil!");
   self.title = L(@"bookmark_sets");
   [self reloadData];
-
 }
 
 - (void)reloadData
@@ -72,8 +71,8 @@
   }
   else
   {
-    auto & bmManager = GetFramework().GetBookmarkManager();
-    auto categoryId = [self.groupIds[indexPath.row] unsignedLongLongValue];
+    auto const & bmManager = GetFramework().GetBookmarkManager();
+    auto const categoryId = [self.groupIds[indexPath.row] unsignedLongLongValue];
     if (bmManager.HasBmCategory(categoryId))
       cell.textLabel.text = @(bmManager.GetCategoryName(categoryId).c_str());
 
@@ -113,7 +112,7 @@
   }
   else
   {
-    auto categoryId = [self.groupIds[indexPath.row] unsignedLongLongValue];;
+    auto const categoryId = [self.groupIds[indexPath.row] unsignedLongLongValue];;
     [self moveBookmarkToSetWithCategoryId:categoryId];
     [self.delegate didSelectCategory:self.category withCategoryId:categoryId];
     [self backTap];

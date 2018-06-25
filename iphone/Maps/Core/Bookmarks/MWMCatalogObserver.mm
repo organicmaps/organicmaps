@@ -11,12 +11,12 @@
 - (void)onDownloadComplete:(platform::RemoteFile::Status)status
 {
   MWMCategoryDownloadStatus downloadStatus;
-  switch (status) {
+  switch (status)
+  {
     case platform::RemoteFile::Status::Ok:
       if (self.progressBlock)
         self.progressBlock(MWMCategoryProgressDownloadFinished);
       return;
-      break;
     case platform::RemoteFile::Status::Forbidden:
       downloadStatus = MWMCategoryDownloadStatusForbidden;
       break;

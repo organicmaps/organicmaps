@@ -466,7 +466,7 @@
 		B32FE74020D2844600EF7446 /* DownloadedBookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32FE73E20D2844600EF7446 /* DownloadedBookmarksViewController.swift */; };
 		B32FE74120D2844600EF7446 /* DownloadedBookmarksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B32FE73F20D2844600EF7446 /* DownloadedBookmarksViewController.xib */; };
 		B32FE74320D2B09600EF7446 /* CatalogWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32FE74220D2B09600EF7446 /* CatalogWebViewController.swift */; };
-		B33D21AC20DA515800BAD749 /* MWMCategoryInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B33D21AA20DA515800BAD749 /* MWMCategoryInfoCell.m */; };
+		B33D21AC20DA515800BAD749 /* MWMCategoryInfoCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = B33D21AA20DA515800BAD749 /* MWMCategoryInfoCell.mm */; };
 		B33D21AD20DA515800BAD749 /* MWMCategoryInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33D21AB20DA515800BAD749 /* MWMCategoryInfoCell.xib */; };
 		B33D21AF20DAF9F000BAD749 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D21AE20DAF9F000BAD749 /* Toast.swift */; };
 		B33D21B220DBCC5E00BAD749 /* MWMCatalogObserver.mm in Sources */ = {isa = PBXBuildFile; fileRef = B33D21B120DBCC5D00BAD749 /* MWMCatalogObserver.mm */; };
@@ -1394,7 +1394,7 @@
 		B32FE73F20D2844600EF7446 /* DownloadedBookmarksViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DownloadedBookmarksViewController.xib; sourceTree = "<group>"; };
 		B32FE74220D2B09600EF7446 /* CatalogWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogWebViewController.swift; sourceTree = "<group>"; };
 		B33D21A920DA515800BAD749 /* MWMCategoryInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCategoryInfoCell.h; sourceTree = "<group>"; };
-		B33D21AA20DA515800BAD749 /* MWMCategoryInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWMCategoryInfoCell.m; sourceTree = "<group>"; };
+		B33D21AA20DA515800BAD749 /* MWMCategoryInfoCell.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MWMCategoryInfoCell.mm; sourceTree = "<group>"; };
 		B33D21AB20DA515800BAD749 /* MWMCategoryInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MWMCategoryInfoCell.xib; sourceTree = "<group>"; };
 		B33D21AE20DAF9F000BAD749 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		B33D21B020DBCC5D00BAD749 /* MWMCatalogObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWMCatalogObserver.h; sourceTree = "<group>"; };
@@ -4111,7 +4111,7 @@
 				FA36B80515403A4F004560CC /* BookmarksVC.h */,
 				FA36B80615403A4F004560CC /* BookmarksVC.mm */,
 				B33D21A920DA515800BAD749 /* MWMCategoryInfoCell.h */,
-				B33D21AA20DA515800BAD749 /* MWMCategoryInfoCell.m */,
+				B33D21AA20DA515800BAD749 /* MWMCategoryInfoCell.mm */,
 				B33D21AB20DA515800BAD749 /* MWMCategoryInfoCell.xib */,
 				3404F4A02028A6C00090E401 /* Categories */,
 				FA054610155C465E001F4E37 /* SelectSetVC.h */,
@@ -4616,7 +4616,7 @@
 				F6E2FF631E097BA00083EBEC /* MWMTTSLanguageViewController.mm in Sources */,
 				342EE4121C43DAA7009F6A49 /* MWMAuthorizationWebViewLoginViewController.mm in Sources */,
 				34AB667D1FC5AA330078E451 /* MWMRoutePreview.mm in Sources */,
-				B33D21AC20DA515800BAD749 /* MWMCategoryInfoCell.m in Sources */,
+				B33D21AC20DA515800BAD749 /* MWMCategoryInfoCell.mm in Sources */,
 				34845DAF1E1649F6003D55B9 /* DownloaderNoResultsEmbedViewController.swift in Sources */,
 				F6791B141C43DF0B007A8A6E /* MWMStartButton.mm in Sources */,
 				F6E2FEDF1E097BA00083EBEC /* MWMSearchManager+Layout.mm in Sources */,

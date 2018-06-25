@@ -1,4 +1,4 @@
-class CatalogWebViewController: WebViewController {
+final class CatalogWebViewController: WebViewController {
 
   let progressView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
   let progressImageView = UIImageView(image: #imageLiteral(resourceName: "ic_24px_spinner"))
@@ -63,28 +63,27 @@ class CatalogWebViewController: WebViewController {
   override func webView(_ webView: WKWebView,
                         decidePolicyFor navigationAction: WKNavigationAction,
                         decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-    if let url = navigationAction.request.url {
-      if url.scheme == "mapsme" {
-        processDeeplink(url)
-        decisionHandler(.cancel)
-        return
-      }
+    guard let url = navigationAction.request.url, url.scheme == "mapsme" else {
+      super.webView(webView, decidePolicyFor: navigationAction, decisionHandler: decisionHandler)
+      return
     }
-    super.webView(webView, decidePolicyFor: navigationAction, decisionHandler: decisionHandler)
+
+    processDeeplink(url)
+    decisionHandler(.cancel);
   }
 
   func processDeeplink(_ url: URL) {
     let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
     var id = ""
     var name = ""
-    components?.queryItems?.forEach({ (item) in
-      if (item.name == "name") {
-        name = item.value ?? ""
+    components?.queryItems?.forEach {
+      if $0.name == "name" {
+        name = $0.value ?? ""
       }
-      if (item.name == "id") {
-        id = item.value ?? ""
+      if $0.name == "id" {
+        id = $0.value ?? ""
       }
-    })
+    }
 
     if MWMBookmarksManager.isCategoryDownloading(id) {
       //TODO: add alert
@@ -96,33 +95,39 @@ class CatalogWebViewController: WebViewController {
       return
     }
 
-    MWMBookmarksManager.downloadItem(withId: id, name: name, progress: { (progress) in
-      self.updateProgress()
-    }) { (error) in
+    MWMBookmarksManager.downloadItem(withId: id, name: name, progress: { [weak self] (progress) in
+      self?.updateProgress()
+    }) { [weak self] (error) in
       if let error = error as NSError? {
         if error.code == kCategoryDownloadFailedCode {
-          guard let statusCode = error.userInfo[kCategoryDownloadStatusKey] as? NSNumber else { return }
-          guard let status = MWMCategoryDownloadStatus(rawValue: statusCode.intValue) else { return }
+          guard let statusCode = error.userInfo[kCategoryDownloadStatusKey] as? NSNumber else {
+            assertionFailure()
+            return
+          }
+          guard let status = MWMCategoryDownloadStatus(rawValue: statusCode.intValue) else {
+            assertionFailure()
+            return
+          }
           switch (status) {
           case .forbidden:
             fallthrough
           case .notFound:
-            self.showServerError(url)
+            self?.showServerError(url)
             break
           case .networkError:
-            self.showNetworkError()
+            self?.showNetworkError()
             break
           case .diskError:
-            self.showDiskError()
+            self?.showDiskError()
             break
           }
         } else if error.code == kCategoryImportFailedCode {
-          self.showImportError()
+          self?.showImportError()
         }
       } else {
         Toast.toast(withText: L("bookmarks_webview_success_toast")).show()
       }
-      self.updateProgress()
+      self?.updateProgress()
     }
   }
 

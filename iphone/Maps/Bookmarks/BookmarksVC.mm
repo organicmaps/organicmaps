@@ -104,15 +104,9 @@
   if (indexPath.section == m_infoSection)
   {
     cell = [tableView dequeueReusableCellWithCellClass:MWMCategoryInfoCell.class indexPath:indexPath];
-    MWMCategoryInfoCell * infoCell = (MWMCategoryInfoCell *)cell;
-    NSString * title = @(bmManager.GetCategoryName(m_categoryId).c_str());
-    auto categoryData = bmManager.GetCategoryData(m_categoryId);
-    NSString * author = [NSString stringWithCoreFormat:L(@"author_name_by_prefix")
-                                             arguments:@[@(categoryData.m_authorName.c_str())]];
-    NSString * info = @(kml::GetDefaultStr(categoryData.m_description).c_str());
-    NSString * shortInfo = @(kml::GetDefaultStr(categoryData.m_annotation).c_str());
-    [infoCell updateWithTitle:title author:author info:info shortInfo:shortInfo];
-    infoCell.delegate = self;
+    auto infoCell = (MWMCategoryInfoCell *)cell;
+    auto const & categoryData = bmManager.GetCategoryData(m_categoryId);
+    [infoCell updateWithCategoryData:categoryData delegate:self];
   }
   else if (indexPath.section == m_trackSection)
   {
@@ -259,17 +253,9 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
-  UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-
+  UITableViewHeaderFooterView * header = (UITableViewHeaderFooterView *)view;
   header.textLabel.textColor = [UIColor blackSecondaryText];
   header.textLabel.font = [UIFont medium14];
-}
-
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-  if (indexPath.section == m_infoSection)
-    return nil;
-  return indexPath;
 }
 
 #pragma mark - MWMCategoryInfoCellDelegate
@@ -315,7 +301,6 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
-
   [self.tableView registerWithCellClass:MWMCategoryInfoCell.class];
 }
 

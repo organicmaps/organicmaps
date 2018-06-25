@@ -1,5 +1,3 @@
-#import <Foundation/Foundation.h>
-
 @interface MWMCatalogCategory : NSObject
 
 @property (nonatomic) MWMMarkGroupID categoryId;
@@ -8,6 +6,6 @@
 @property (copy, nonatomic) NSString * annotation;
 @property (copy, nonatomic) NSString * detailedAnnotation;
 @property (nonatomic) NSInteger bookmarksCount;
-@property (nonatomic, getter=isVisible) BOOL visible;
+@property (nonatomic) BOOL visible;
 
 @end

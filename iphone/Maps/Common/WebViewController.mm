@@ -58,8 +58,7 @@
   UIView * view = self.view;
   view.backgroundColor = UIColor.whiteColor;
 
-  WKWebViewConfiguration * configuration = [[WKWebViewConfiguration alloc] init];
-  WKWebView * webView = [[WKWebView alloc] initWithFrame:{} configuration:configuration];
+  WKWebView * webView = [[WKWebView alloc] initWithFrame:{}];
   webView.navigationDelegate = self;
   [view addSubview:webView];
 
@@ -135,7 +134,6 @@
   }
 
   decisionHandler(WKNavigationActionPolicyAllow);
-  return;
 }
 
 #if DEBUG

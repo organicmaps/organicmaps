@@ -20,3 +20,7 @@ static NSInteger const kCategoryDownloadFailedCode = -10;
 static NSInteger const kCategoryImportFailedCode = -11;
 
 static NSString * const kCategoryDownloadStatusKey = @"kCategoryDownloadStatusKey";
+
+typedef void (^ProgressBlock)(MWMCategoryProgress progress);
+typedef void (^CompletionBlock)(NSError * error);
+

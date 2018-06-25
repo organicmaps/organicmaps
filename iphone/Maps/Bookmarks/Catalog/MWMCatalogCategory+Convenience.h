@@ -3,6 +3,6 @@
 
 @interface MWMCatalogCategory (Convenience)
 
-- (instancetype)initWithCategoryData:(kml::CategoryData &)categoryData bookmarksCount:(UInt64)count;
+- (instancetype)initWithCategoryData:(kml::CategoryData const &)categoryData bookmarksCount:(uint64_t)count;
 
 @end

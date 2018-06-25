@@ -1,5 +1,5 @@
 @objc(MWMBookmarksTabViewController)
-class BookmarksTabViewController: TabViewController {
+final class BookmarksTabViewController: TabViewController {
   private static let selectedIndexKey = "BookmarksTabViewController_selectedIndexKey"
   private var selectedIndex: Int {
     get {

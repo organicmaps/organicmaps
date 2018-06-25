@@ -116,13 +116,9 @@ namespace
 {
   [super setEnabled:enabled];
   if (!enabled)
-  {
     self.tintColor = [UIColor lightGrayColor];
-  }
   else
-  {
     [self setDefaultTintColor];
-  }
 }
 
 - (void)setDefaultTintColor

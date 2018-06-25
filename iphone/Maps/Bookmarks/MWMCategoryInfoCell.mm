@@ -1,4 +1,5 @@
 #import "MWMCategoryInfoCell.h"
+#import "SwiftBridge.h"
 
 @interface MWMCategoryInfoCell()
 
@@ -18,7 +19,6 @@
 - (void)awakeFromNib
 {
   [super awakeFromNib];
-
   self.titleLabel.text = nil;
   self.authorLabel.text = nil;
   self.infoLabel.text = nil;
@@ -36,13 +36,15 @@
   self.moreButton.hidden = expanded;
 }
 
-- (void)updateWithTitle:(NSString *)title
-                 author:(NSString *)author
-                   info:(NSString *)info
-               shortInfo:(NSString *)shortInfo
+- (void)updateWithCategoryData:(const kml::CategoryData &)data
+                      delegate:(id<MWMCategoryInfoCellDelegate>)delegate
 {
-  self.titleLabel.text = title;
-  self.authorLabel.text = author;
+  self.delegate = delegate;
+  self.titleLabel.text = @(kml::GetDefaultStr(data.m_name).c_str());
+  self.authorLabel.text = [NSString stringWithCoreFormat:L(@"author_name_by_prefix")
+                                           arguments:@[@(data.m_authorName.c_str())]];
+  NSString * info = @(kml::GetDefaultStr(data.m_description).c_str());
+  NSString * shortInfo = @(kml::GetDefaultStr(data.m_annotation).c_str());
   if (info.length > 0 && shortInfo.length > 0)
   {
     self.info = info;
@@ -63,7 +65,6 @@
 - (void)prepareForReuse
 {
   [super prepareForReuse];
-
   self.titleLabel.text = nil;
   self.authorLabel.text = nil;
   self.infoLabel.text = nil;

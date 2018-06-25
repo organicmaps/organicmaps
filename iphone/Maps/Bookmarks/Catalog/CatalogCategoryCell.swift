@@ -1,11 +1,11 @@
-protocol CatalogCategoryCellDelegate {
+protocol CatalogCategoryCellDelegate : AnyObject {
   func cell(_ cell: CatalogCategoryCell, didCheck visible: Bool)
   func cell(_ cell: CatalogCategoryCell, didPress moreButton: UIButton)
 }
 
-class CatalogCategoryCell: MWMTableViewCell {
+final class CatalogCategoryCell: MWMTableViewCell {
 
-  var delegate: CatalogCategoryCellDelegate?
+  weak var delegate: CatalogCategoryCellDelegate?
 
   @IBOutlet weak var visibleCheckmark: Checkmark! {
     didSet {
@@ -38,7 +38,7 @@ class CatalogCategoryCell: MWMTableViewCell {
   func update(with category: MWMCatalogCategory, delegate: CatalogCategoryCellDelegate?) {
     titleLabel.text = category.title
     subtitleLabel.text = "\(category.bookmarksCount) places • by \(category.author ?? "")"
-    visibleCheckmark.isChecked = category.isVisible
+    visibleCheckmark.isChecked = category.visible
     self.delegate = delegate
   }
 }

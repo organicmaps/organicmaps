@@ -8,7 +8,6 @@ class DownloadedBookmarksViewController: MWMViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
     tableView.tableFooterView = bottomView
     tableView.registerNib(cell: CatalogCategoryCell.self)
     tableView.registerNibForHeaderFooterView(BMCCategoriesHeader.self)
@@ -16,8 +15,7 @@ class DownloadedBookmarksViewController: MWMViewController {
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-
-    dataSource.reload()
+    dataSource.reloadData()
     noDataView.isHidden = dataSource.categoriesCount > 0
     tableView.reloadData()
   }
@@ -27,29 +25,38 @@ class DownloadedBookmarksViewController: MWMViewController {
       MWMAlertViewController.activeAlert().presentNoConnectionAlert();
       return
     }
-    if let url = MWMBookmarksManager.catalogFrontendUrl(),
-      let webViewController = CatalogWebViewController(url: url, andTitleOrNil: L("routes_and_bookmarks")) {
-      MapViewController.topViewController().navigationController?.pushViewController(webViewController,
-                                                                                     animated: true)
+    guard let url = MWMBookmarksManager.catalogFrontendUrl(),
+      let webViewController = CatalogWebViewController(url: url,
+                                                       andTitleOrNil: L("routes_and_bookmarks")) else {
+        assertionFailure()
+        return
     }
+    MapViewController.topViewController().navigationController?.pushViewController(webViewController,
+                                                                                   animated: true)
   }
 
   private func setCategoryVisible(_ visible: Bool, at index: Int) {
     dataSource.setCategory(visible: visible, at: index)
     let categoriesHeader = tableView.headerView(forSection: 0) as! BMCCategoriesHeader
-    categoriesHeader.isShowAll = !dataSource.allCategoriesVisible
+    categoriesHeader.isShowAll = dataSource.allCategoriesHidden
   }
 
   private func shareCategory(at index: Int) {
     let category = dataSource.category(at: index)
-    if let url = MWMBookmarksManager.sharingUrl(forCategoryId: category.categoryId) {
-      let message = L("share_bookmarks_email_body")
-      let shareController = MWMActivityViewController.share(for: url, message: message)
-      shareController?.present(inParentViewController: self, anchorView: nil)
+    guard let url = MWMBookmarksManager.sharingUrl(forCategoryId: category.categoryId) else {
+      assertionFailure()
+      return
     }
+    let message = L("share_bookmarks_email_body")
+    let shareController = MWMActivityViewController.share(for: url, message: message)
+    shareController?.present(inParentViewController: self, anchorView: nil)
   }
 
   private func deleteCategory(at index: Int) {
+    guard index >= 0 && index < dataSource.categoriesCount else {
+      assertionFailure()
+      return
+    }
     dataSource.deleteCategory(at: index)
     if dataSource.categoriesCount > 0 {
       tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
@@ -61,10 +68,6 @@ class DownloadedBookmarksViewController: MWMViewController {
 }
 
 extension DownloadedBookmarksViewController: UITableViewDataSource {
-  func numberOfSections(in tableView: UITableView) -> Int {
-    return dataSource.categoriesCount > 0 ? 1 : 0
-  }
-
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return dataSource.categoriesCount
   }
@@ -84,7 +87,7 @@ extension DownloadedBookmarksViewController: UITableViewDelegate {
 
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let headerView = tableView.dequeueReusableHeaderFooterView(BMCCategoriesHeader.self)
-    headerView.isShowAll = !dataSource.allCategoriesVisible
+    headerView.isShowAll = dataSource.allCategoriesHidden
     headerView.delegate = self
     return headerView
   }
@@ -115,9 +118,9 @@ extension DownloadedBookmarksViewController: CatalogCategoryCellDelegate {
         ppc.sourceRect = moreButton.bounds
       }
 
-      let showHide = L(category.isVisible ? "hide" : "show").capitalized
+      let showHide = L(category.visible ? "hide" : "show").capitalized
       actionSheet.addAction(UIAlertAction(title: showHide, style: .default, handler: { _ in
-        self.setCategoryVisible(!category.isVisible, at: indexPath.row)
+        self.setCategoryVisible(!category.visible, at: indexPath.row)
         self.tableView.reloadRows(at: [indexPath], with: .none)
       }))
 
@@ -141,8 +144,7 @@ extension DownloadedBookmarksViewController: CatalogCategoryCellDelegate {
 
 extension DownloadedBookmarksViewController: BMCCategoriesHeaderDelegate {
   func visibilityAction(_ categoriesHeader: BMCCategoriesHeader) {
-    let showAll = categoriesHeader.isShowAll
-    dataSource.allCategoriesVisible = showAll
+    dataSource.allCategoriesHidden = !dataSource.allCategoriesHidden
     tableView.reloadData()
   }
 }

@@ -447,22 +447,22 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
   return GetFramework().GetBookmarkManager().AreNotificationsEnabled();
 }
 
-+ (NSURL * _Nullable )catalogFrontendUrl
++ (NSURL *)catalogFrontendUrl
 {
-  NSString *urlString = @(GetFramework().GetBookmarkManager().GetCatalog().GetFrontendUrl().c_str());
+  NSString * urlString = @(GetFramework().GetBookmarkManager().GetCatalog().GetFrontendUrl().c_str());
   return urlString ? [NSURL URLWithString:urlString] : nil;
 }
 
-+ (NSURL * _Nullable)sharingUrlForCategoryId:(MWMMarkGroupID)groupId
++ (NSURL *)sharingUrlForCategoryId:(MWMMarkGroupID)groupId
 {
-  NSString *urlString = @(GetFramework().GetBookmarkManager().GetCategoryCatalogDeeplink(groupId).c_str());
+  NSString * urlString = @(GetFramework().GetBookmarkManager().GetCategoryCatalogDeeplink(groupId).c_str());
   return urlString ? [NSURL URLWithString:urlString] : nil;
 }
 
 + (void)downloadItemWithId:(NSString *)itemId
                       name:(NSString *)name
-                  progress:(void (^)(MWMCategoryProgress progress))progress
-                completion:(void (^)(NSError * error))completion
+                  progress:(ProgressBlock)progress
+                completion:(CompletionBlock)completion
 {
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
@@ -504,7 +504,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
                                                            std::move(onImportStarted),
                                                            std::move(onImportFinished));
   });
-  auto *observer = [[MWMCatalogObserver alloc] init];
+  auto observer = [[MWMCatalogObserver alloc] init];
   observer.categoryId = itemId;
   observer.progressBlock = progress;
   observer.completionBlock = completion;
@@ -526,7 +526,7 @@ NSString * const CloudErrorToString(Cloud::SynchronizationResult result)
     if ([self isCategoryFromCatalog:groupId])
     {
       kml::CategoryData categoryData = GetFramework().GetBookmarkManager().GetCategoryData(groupId);
-      UInt64 bookmarksCount = [self getCategoryMarksCount:groupId] + [self getCategoryTracksCount:groupId];
+      uint64_t bookmarksCount = [self getCategoryMarksCount:groupId] + [self getCategoryTracksCount:groupId];
       MWMCatalogCategory * category = [[MWMCatalogCategory alloc] initWithCategoryData:categoryData
                                                                        bookmarksCount:bookmarksCount];
       [result addObject:category];

@@ -27,9 +27,9 @@ final class BMCCategoriesHeader: UITableViewHeaderFooterView {
     }
   }
 
-  var delegate: BMCCategoriesHeaderDelegate?
+  var delegate: BMCCategoriesHeaderDelegate!
 
   @IBAction private func buttonAction() {
-    delegate?.visibilityAction(self)
+    delegate.visibilityAction(self)
   }
 }

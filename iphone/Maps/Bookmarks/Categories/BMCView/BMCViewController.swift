@@ -245,7 +245,7 @@ extension BMCViewController: UITableViewDelegate {
     case .permissions: return permissionsHeader
     case .categories:
       let categoriesHeader = tableView.dequeueReusableHeaderFooterView(BMCCategoriesHeader.self)
-      categoriesHeader.isShowAll = !viewModel.areAllCategoriesVisible()
+      categoriesHeader.isShowAll = viewModel.areAllCategoriesHidden()
       categoriesHeader.delegate = self
       return categoriesHeader
     case .actions: return actionsHeader
@@ -290,7 +290,7 @@ extension BMCViewController: BMCCategoryCellDelegate {
   func visibilityAction(category: BMCCategory) {
     viewModel.updateCategoryVisibility(category: category)
     let categoriesHeader = tableView.headerView(forSection: viewModel.sectionIndex(section: .categories)) as! BMCCategoriesHeader
-    categoriesHeader.isShowAll = !viewModel.areAllCategoriesVisible()
+    categoriesHeader.isShowAll = viewModel.areAllCategoriesHidden()
   }
 
   func moreAction(category: BMCCategory, anchor: UIView) {
@@ -318,6 +318,6 @@ extension BMCViewController: BMCPermissionsHeaderDelegate {
 extension BMCViewController: BMCCategoriesHeaderDelegate {
   func visibilityAction(_ categoriesHeader: BMCCategoriesHeader) {
     viewModel.updateAllCategoriesVisibility(isShowAll: categoriesHeader.isShowAll)
-    categoriesHeader.isShowAll = !viewModel.areAllCategoriesVisible()
+    categoriesHeader.isShowAll = viewModel.areAllCategoriesHidden()
   }
 }

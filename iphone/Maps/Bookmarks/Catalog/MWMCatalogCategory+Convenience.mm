@@ -2,10 +2,9 @@
 
 @implementation MWMCatalogCategory (Convenience)
 
-- (instancetype)initWithCategoryData:(kml::CategoryData &)categoryData bookmarksCount:(UInt64)count
+- (instancetype)initWithCategoryData:(kml::CategoryData const &)categoryData bookmarksCount:(uint64_t)count
 {
   self = [self init];
-
   if (self)
   {
     self.categoryId = categoryData.m_id;
@@ -16,6 +15,7 @@
     self.annotation = @(kml::GetDefaultStr(categoryData.m_annotation).c_str());
     self.detailedAnnotation = @(kml::GetDefaultStr(categoryData.m_description).c_str());
   }
+  
   return self;
 }
 

@@ -117,9 +117,9 @@ extension BMCDefaultViewModel: BMCViewModel {
     }
   }
 
-  func areAllCategoriesVisible() -> Bool {
+  func areAllCategoriesHidden() -> Bool {
     var result = true;
-    categories.forEach { if !$0.isVisible { result = false } }
+    categories.forEach { if $0.isVisible { result = false } }
     return result
   }
 
