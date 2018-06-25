@@ -1,8 +1,7 @@
 #include "testing/testing.hpp"
 
-#include "indexer/indexer_tests_support/test_with_classificator.hpp"
-
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
+#include "generator/generator_tests_support/test_with_classificator.hpp"
 
 #include "generator/feature_builder.hpp"
 #include "generator/osm2type.hpp"
@@ -25,7 +24,7 @@ using namespace std;
 
 namespace
 {
-class GenerateTest : public indexer::tests_support::TestWithClassificator
+class GenerateTest : public TestWithClassificator
 {
 public:
   void MakeFeature(TestMwmBuilder & builder, pair<string, string> const & tag,

@@ -2,8 +2,7 @@
 
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
-
-#include "indexer/indexer_tests_support/test_with_custom_mwms.hpp"
+#include "generator/generator_tests_support/test_with_custom_mwms.hpp"
 
 #include "indexer/cell_id.hpp"
 #include "indexer/data_factory.hpp"
@@ -32,7 +31,6 @@
 #include <vector>
 
 using namespace generator::tests_support;
-using namespace indexer::tests_support;
 using namespace indexer;
 using namespace std;
 

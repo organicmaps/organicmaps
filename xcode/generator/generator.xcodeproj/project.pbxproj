@@ -22,6 +22,10 @@
 		3933ED0E20D7FD4E000B1526 /* intermediate_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3933ED0D20D7FD4E000B1526 /* intermediate_data.cpp */; };
 		39B2B9781FB468CC00AB85A1 /* cities_boundaries_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39B2B9761FB468CC00AB85A1 /* cities_boundaries_builder.cpp */; };
 		39B2B9791FB468CC00AB85A1 /* cities_boundaries_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39B2B9771FB468CC00AB85A1 /* cities_boundaries_builder.hpp */; };
+		39F7E3AA20E1023400DA7A14 /* test_with_classificator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39F7E3A520E1022E00DA7A14 /* test_with_classificator.cpp */; };
+		39F7E3AB20E1023400DA7A14 /* test_with_classificator.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39F7E3A420E1022E00DA7A14 /* test_with_classificator.hpp */; };
+		39F7E3AC20E1023400DA7A14 /* test_with_custom_mwms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39F7E3A320E1022E00DA7A14 /* test_with_custom_mwms.cpp */; };
+		39F7E3AD20E1023400DA7A14 /* test_with_custom_mwms.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 39F7E3A220E1022E00DA7A14 /* test_with_custom_mwms.hpp */; };
 		3D51BC481D5E50F700F1FA8D /* centers_table_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D51BC461D5E50F700F1FA8D /* centers_table_builder.cpp */; };
 		3D51BC491D5E50F700F1FA8D /* centers_table_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D51BC471D5E50F700F1FA8D /* centers_table_builder.hpp */; };
 		3D51BC521D5E512500F1FA8D /* altitude_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D51BC4A1D5E512500F1FA8D /* altitude_generator.cpp */; };
@@ -139,6 +143,10 @@
 		3933ED0D20D7FD4E000B1526 /* intermediate_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = intermediate_data.cpp; sourceTree = "<group>"; };
 		39B2B9761FB468CC00AB85A1 /* cities_boundaries_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cities_boundaries_builder.cpp; sourceTree = "<group>"; };
 		39B2B9771FB468CC00AB85A1 /* cities_boundaries_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cities_boundaries_builder.hpp; sourceTree = "<group>"; };
+		39F7E3A220E1022E00DA7A14 /* test_with_custom_mwms.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test_with_custom_mwms.hpp; sourceTree = "<group>"; };
+		39F7E3A320E1022E00DA7A14 /* test_with_custom_mwms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_with_custom_mwms.cpp; sourceTree = "<group>"; };
+		39F7E3A420E1022E00DA7A14 /* test_with_classificator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test_with_classificator.hpp; sourceTree = "<group>"; };
+		39F7E3A520E1022E00DA7A14 /* test_with_classificator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_with_classificator.cpp; sourceTree = "<group>"; };
 		3D51BC461D5E50F700F1FA8D /* centers_table_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = centers_table_builder.cpp; sourceTree = "<group>"; };
 		3D51BC471D5E50F700F1FA8D /* centers_table_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = centers_table_builder.hpp; sourceTree = "<group>"; };
 		3D51BC4A1D5E512500F1FA8D /* altitude_generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = altitude_generator.cpp; sourceTree = "<group>"; };
@@ -399,6 +407,10 @@
 		67BC92D71D1A9E6A00A4A378 /* generator_tests_support */ = {
 			isa = PBXGroup;
 			children = (
+				39F7E3A520E1022E00DA7A14 /* test_with_classificator.cpp */,
+				39F7E3A420E1022E00DA7A14 /* test_with_classificator.hpp */,
+				39F7E3A320E1022E00DA7A14 /* test_with_custom_mwms.cpp */,
+				39F7E3A220E1022E00DA7A14 /* test_with_custom_mwms.hpp */,
 				671ED3CC20D40ABA00D4317E /* routing_helpers.cpp */,
 				671ED3CD20D40ABB00D4317E /* routing_helpers.hpp */,
 				67BC92D81D1A9E9800A4A378 /* test_feature.cpp */,
@@ -483,6 +495,8 @@
 			files = (
 				67BC92E51D1A9ED800A4A378 /* test_mwm_builder.hpp in Headers */,
 				67BC92E31D1A9ED800A4A378 /* test_feature.hpp in Headers */,
+				39F7E3AD20E1023400DA7A14 /* test_with_custom_mwms.hpp in Headers */,
+				39F7E3AB20E1023400DA7A14 /* test_with_classificator.hpp in Headers */,
 				671ED3CF20D40ABB00D4317E /* routing_helpers.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -621,6 +635,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				67BC92E21D1A9ED800A4A378 /* test_feature.cpp in Sources */,
+				39F7E3AA20E1023400DA7A14 /* test_with_classificator.cpp in Sources */,
+				39F7E3AC20E1023400DA7A14 /* test_with_custom_mwms.cpp in Sources */,
 				67BC92E41D1A9ED800A4A378 /* test_mwm_builder.cpp in Sources */,
 				671ED3CE20D40ABB00D4317E /* routing_helpers.cpp in Sources */,
 			);

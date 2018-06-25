@@ -43,7 +43,6 @@ omim_link_libraries(
   ${PROJECT_NAME}
   generator_tests_support
   search_tests_support
-  indexer_tests_support
   platform_tests_support
   generator
   search

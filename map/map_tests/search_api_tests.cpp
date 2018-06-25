@@ -56,7 +56,7 @@ public:
   void RunUITask(function<void()> fn) override { fn(); }
 };
 
-class SearchAPITest : public TestWithCustomMwms
+class SearchAPITest : public generator::tests_support::TestWithCustomMwms
 {
 public:
   SearchAPITest()

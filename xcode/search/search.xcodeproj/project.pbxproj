@@ -136,7 +136,6 @@
 		39B2B9571FB4621D00AB85A1 /* downloader_search_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39B2B93D1FB461F800AB85A1 /* downloader_search_test.cpp */; };
 		39B2B9581FB4621D00AB85A1 /* generate_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39B2B93C1FB461F800AB85A1 /* generate_tests.cpp */; };
 		39B2B95C1FB4624800AB85A1 /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B2B95D1FB4624800AB85A1 /* libgenerator_tests_support.a */; };
-		39B2B95E1FB4625A00AB85A1 /* libindexer_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B2B95F1FB4625A00AB85A1 /* libindexer_tests_support.a */; };
 		39B2B9601FB4627600AB85A1 /* libgenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B2B9611FB4627600AB85A1 /* libgenerator.a */; };
 		39B2B9621FB4629A00AB85A1 /* librouting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B2B9631FB4629A00AB85A1 /* librouting.a */; };
 		39B2B9641FB462B100AB85A1 /* librouting_common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B2B9651FB462B100AB85A1 /* librouting_common.a */; };
@@ -152,7 +151,6 @@
 		39BBC1401F9FD683009D1687 /* point_rect_matcher_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39BBC13F1F9FD683009D1687 /* point_rect_matcher_tests.cpp */; };
 		39BBC1421F9FD68C009D1687 /* highlighting_tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39BBC1411F9FD68C009D1687 /* highlighting_tests.cpp */; };
 		3D0AEB021FBB102C00AD042B /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEB041FBB102C00AD042B /* libgenerator_tests_support.a */; };
-		3D0AEB031FBB102C00AD042B /* libindexer_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEB051FBB102C00AD042B /* libindexer_tests_support.a */; };
 		3DA5722B20C1956D007BDE27 /* integration_tests_helpers.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA5722920C1956D007BDE27 /* integration_tests_helpers.hpp */; };
 		3DFEBF761EF2D55800317D5C /* city_finder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DFEBF751EF2D55800317D5C /* city_finder.hpp */; };
 		453C623B2004BABE00467120 /* region_info_getter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 453C62392004BABE00467120 /* region_info_getter.hpp */; };
@@ -555,7 +553,6 @@
 				39B2B9641FB462B100AB85A1 /* librouting_common.a in Frameworks */,
 				39B2B9621FB4629A00AB85A1 /* librouting.a in Frameworks */,
 				39B2B9601FB4627600AB85A1 /* libgenerator.a in Frameworks */,
-				39B2B95E1FB4625A00AB85A1 /* libindexer_tests_support.a in Frameworks */,
 				39AEF87C1FB45E1600943FC9 /* libsearch_tests_support.a in Frameworks */,
 				39B2B95C1FB4624800AB85A1 /* libgenerator_tests_support.a in Frameworks */,
 			);
@@ -568,7 +565,6 @@
 				671ED3D220D7AA0400D4317E /* libstorage.a in Frameworks */,
 				67935E7420D14D07002996B0 /* CoreLocation.framework in Frameworks */,
 				3D0AEB021FBB102C00AD042B /* libgenerator_tests_support.a in Frameworks */,
-				3D0AEB031FBB102C00AD042B /* libindexer_tests_support.a in Frameworks */,
 				34F558491DBF2EC700A4FC11 /* libz.tbd in Frameworks */,
 				39AEF8471FB45C8900943FC9 /* libicu.a in Frameworks */,
 				34F558471DBF2E8100A4FC11 /* libsuccinct.a in Frameworks */,

@@ -3,7 +3,7 @@
 #include "editor/editable_data_source.hpp"
 #include "editor/editor_tests_support/helpers.hpp"
 
-#include "indexer/indexer_tests_support/test_with_custom_mwms.hpp"
+#include "generator/generator_tests_support/test_with_custom_mwms.hpp"
 
 #include "search/editor_delegate.hpp"
 
@@ -18,7 +18,7 @@ namespace search
 {
 namespace tests_support
 {
-class TestWithCustomMwms : public indexer::tests_support::TestWithCustomMwms
+class TestWithCustomMwms : public generator::tests_support::TestWithCustomMwms
 {
 public:
   TestWithCustomMwms()

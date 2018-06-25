@@ -23,7 +23,6 @@ omim_link_libraries(
   editor_tests_support
   platform_tests_support
   generator_tests_support
-  indexer_tests_support
   generator
   routing
   routing_common

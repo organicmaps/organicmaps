@@ -1,10 +1,10 @@
-#include "indexer/indexer_tests_support/test_with_custom_mwms.hpp"
+#include "generator/generator_tests_support/test_with_custom_mwms.hpp"
 
 #include "platform/local_country_file_utils.hpp"
 
 #include "base/stl_add.hpp"
 
-namespace indexer
+namespace generator
 {
 namespace tests_support
 {
@@ -21,4 +21,4 @@ void TestWithCustomMwms::Cleanup(platform::LocalCountryFile const & file)
   file.DeleteFromDisk(MapOptions::Map);
 }
 }  // namespace tests_support
-}  // namespace indexer
+}  // namespace generator

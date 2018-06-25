@@ -1,11 +1,11 @@
 #pragma once
 
-#include "indexer/indexer_tests_support/test_with_classificator.hpp"
-
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
+#include "generator/generator_tests_support/test_with_classificator.hpp"
+
+#include "editor/editable_data_source.hpp"
 
 #include "indexer/data_header.hpp"
-#include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/mwm_set.hpp"
 
@@ -19,7 +19,7 @@
 #include <utility>
 #include <vector>
 
-namespace indexer
+namespace generator
 {
 namespace tests_support
 {
@@ -88,8 +88,8 @@ protected:
 
   virtual void OnMwmBuilt(MwmInfo const & /* info */) {}
 
-  DataSource m_index;
+  EditableDataSource m_index;
   std::vector<platform::LocalCountryFile> m_files;
 };
 }  // namespace tests_support
-}  // namespace indexer
+}  // namespace generator

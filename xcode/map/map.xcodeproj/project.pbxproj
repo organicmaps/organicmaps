@@ -22,7 +22,6 @@
 		34DDA1811DBE5DF40088A609 /* libpartners_api.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DDA17F1DBE5DF40088A609 /* libpartners_api.a */; };
 		34DDA1821DBE5DF40088A609 /* libtracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34DDA1801DBE5DF40088A609 /* libtracking.a */; };
 		3D0AEAFC1FBB0FF400AD042B /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEAFF1FBB0FF400AD042B /* libgenerator_tests_support.a */; };
-		3D0AEAFD1FBB0FF400AD042B /* libindexer_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEB001FBB0FF400AD042B /* libindexer_tests_support.a */; };
 		3D0AEAFE1FBB0FF400AD042B /* libsearch_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0AEB011FBB0FF400AD042B /* libsearch_tests_support.a */; };
 		3D47B2931F054BC5000828D2 /* taxi_delegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D47B2901F054BC5000828D2 /* taxi_delegate.cpp */; };
 		3D47B2941F054BC5000828D2 /* taxi_delegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D47B2911F054BC5000828D2 /* taxi_delegate.hpp */; };
@@ -482,7 +481,6 @@
 				56EE14D51FE80EBD0036F20C /* libmwm_diff.a in Frameworks */,
 				56EE14D31FE80E900036F20C /* libtransit.a in Frameworks */,
 				3D0AEAFC1FBB0FF400AD042B /* libgenerator_tests_support.a in Frameworks */,
-				3D0AEAFD1FBB0FF400AD042B /* libindexer_tests_support.a in Frameworks */,
 				3D0AEAFE1FBB0FF400AD042B /* libsearch_tests_support.a in Frameworks */,
 				F6C269F91F16174E00EB6519 /* libugc.a in Frameworks */,
 				45D287671E966E3400587F05 /* liblocal_ads.a in Frameworks */,

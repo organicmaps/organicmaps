@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "indexer/indexer_tests_support/test_with_classificator.hpp"
+#include "generator/generator_tests_support/test_with_classificator.hpp"
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_header.hpp"
@@ -18,7 +18,7 @@
 
 namespace
 {
-class LocalityFinderTest : public indexer::tests_support::TestWithClassificator
+class LocalityFinderTest : public generator::tests_support::TestWithClassificator
 {
   platform::LocalCountryFile m_worldFile;
 

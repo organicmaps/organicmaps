@@ -1,7 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "generator/generator_tests_support/test_feature.hpp"
-#include "indexer/indexer_tests_support/test_with_custom_mwms.hpp"
+#include "generator/generator_tests_support/test_with_custom_mwms.hpp"
 
 #include "map/booking_availability_filter.hpp"
 #include "map/booking_filter_processor.hpp"
@@ -25,7 +25,7 @@ using namespace generator::tests_support;
 
 namespace
 {
-class TestMwmEnvironment : public indexer::tests_support::TestWithCustomMwms,
+class TestMwmEnvironment : public TestWithCustomMwms,
                            public FilterBase::Delegate
 {
 public:

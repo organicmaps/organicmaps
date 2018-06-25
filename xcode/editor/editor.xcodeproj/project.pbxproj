@@ -57,7 +57,6 @@
 		671555EA20BDC649002BA3B4 /* libicu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671555E920BDC649002BA3B4 /* libicu.a */; };
 		671555EC20BDC649002BA3B4 /* libjansson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671555EB20BDC649002BA3B4 /* libjansson.a */; };
 		671555EE20BDC649002BA3B4 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671555ED20BDC649002BA3B4 /* libprotobuf.a */; };
-		671555F020BDC68A002BA3B4 /* libindexer_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671555EF20BDC68A002BA3B4 /* libindexer_tests_support.a */; };
 		671555F220BDC690002BA3B4 /* libgenerator_tests_support.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671555F120BDC690002BA3B4 /* libgenerator_tests_support.a */; };
 		671555F420BDC6D1002BA3B4 /* libgenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671555F320BDC6D1002BA3B4 /* libgenerator.a */; };
 		671555F620BDC6D1002BA3B4 /* libsearch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 671555F520BDC6D1002BA3B4 /* libsearch.a */; };
@@ -175,7 +174,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67A7F0D620DBF00400937412 /* CoreLocation.framework in Frameworks */,
 				6715565120BF0F47002BA3B4 /* libeditor_tests_support.a in Frameworks */,
 				6715560020BDC741002BA3B4 /* libsuccinct.a in Frameworks */,
 				671555FE20BDC728002BA3B4 /* librouting_common.a in Frameworks */,
@@ -185,7 +183,6 @@
 				671555F620BDC6D1002BA3B4 /* libsearch.a in Frameworks */,
 				671555F820BDC6D1002BA3B4 /* libstorage.a in Frameworks */,
 				671555F220BDC690002BA3B4 /* libgenerator_tests_support.a in Frameworks */,
-				671555F020BDC68A002BA3B4 /* libindexer_tests_support.a in Frameworks */,
 				671555EA20BDC649002BA3B4 /* libicu.a in Frameworks */,
 				671555EC20BDC649002BA3B4 /* libjansson.a in Frameworks */,
 				671555EE20BDC649002BA3B4 /* libprotobuf.a in Frameworks */,
