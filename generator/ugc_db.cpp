@@ -21,7 +21,7 @@ namespace generator
 static int callback(void * results_ptr, int argc, char ** argv, char ** azColName)
 {
   Results & results = *reinterpret_cast<Results *>(results_ptr);
-  for (size_t i = 0; i < argc; i++)
+  for (int i = 0; i < argc; i++)
   {
     if (results.empty)
       results.empty = false;

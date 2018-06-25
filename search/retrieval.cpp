@@ -367,14 +367,13 @@ unique_ptr<coding::CompressedBitVector> Retrieval::Retrieve(Args &&... args) con
     ASSERT(m_root0, ());
     return r(*m_root0, m_context, m_cancellable, forward<Args>(args)...);
   }
-  break;
   case version::MwmTraits::SearchIndexFormat::CompressedBitVector:
   {
     R<FeatureIndexValue> r;
     ASSERT(m_root1, ());
     return r(*m_root1, m_context, m_cancellable, forward<Args>(args)...);
   }
-  break;
   }
+  CHECK_SWITCH();
 }
 }  // namespace search

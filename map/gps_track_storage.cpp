@@ -171,7 +171,8 @@ void GpsTrackStorage::Append(vector<TItem> const & items)
     TruncFile();
 
   // Write position must be after last item position
-  ASSERT_EQUAL(m_stream.tellp(), GetItemOffset(m_itemCount), ());
+  ASSERT_EQUAL(m_stream.tellp(), static_cast<typename fstream::pos_type>(
+                   GetItemOffset(m_itemCount)), ());
 
   vector<char> buff(min(kItemBlockSize, items.size()) * kPointSize);
   for (size_t i = 0; i < items.size();)
@@ -212,7 +213,8 @@ void GpsTrackStorage::Clear()
     MYTHROW(WriteException, ("File:", m_filePath));
 
   // Write position is set to the first item in the file
-  ASSERT_EQUAL(m_stream.tellp(), GetItemOffset(0), ());
+  ASSERT_EQUAL(m_stream.tellp(), static_cast<typename fstream::pos_type>(
+                   GetItemOffset(0)), ());
 }
 
 void GpsTrackStorage::ForEach(std::function<bool(TItem const & item)> const & fn)
@@ -308,7 +310,8 @@ void GpsTrackStorage::TruncFile()
   m_itemCount = newItemCount;
 
   // Write position must be after last item position (end of file)
-  ASSERT_EQUAL(m_stream.tellp(), GetItemOffset(m_itemCount), ());
+  ASSERT_EQUAL(m_stream.tellp(), static_cast<typename fstream::pos_type>(
+                   GetItemOffset(m_itemCount)), ());
 }
 
 size_t GpsTrackStorage::GetFirstItemIndex() const

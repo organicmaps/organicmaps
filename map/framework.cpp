@@ -1932,7 +1932,7 @@ void Framework::SetupMeasurementSystem()
   GetPlatform().SetupMeasurementSystem();
 
   auto units = measurement_utils::Units::Metric;
-  UNUSED_VALUE(settings::Get(settings::kMeasurementUnits, units));
+  settings::TryGet(settings::kMeasurementUnits, units);
 
   m_routingManager.SetTurnNotificationsUnits(units);
 }

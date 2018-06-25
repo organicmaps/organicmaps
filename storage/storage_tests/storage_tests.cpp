@@ -337,12 +337,14 @@ protected:
 
     LOG(LINFO, (m_countryFile, "downloading progress:", progress));
 
-    TEST_GREATER(progress.first, m_bytesDownloaded, (m_countryFile));
+    TEST_GREATER(progress.first, static_cast<
+                 decltype(progress.first)>(m_bytesDownloaded), (m_countryFile));
     m_bytesDownloaded = progress.first;
     TEST_LESS_OR_EQUAL(m_bytesDownloaded, m_totalBytesToDownload, (m_countryFile));
 
     TLocalAndRemoteSize localAndRemoteSize = m_storage.CountrySizeInBytes(m_countryId, m_files);
-    TEST_EQUAL(m_totalBytesToDownload, localAndRemoteSize.second, (m_countryFile));
+    TEST_EQUAL(static_cast<decltype(localAndRemoteSize.second)>(m_totalBytesToDownload),
+               localAndRemoteSize.second, (m_countryFile));
   }
 
   Storage & m_storage;
@@ -1435,12 +1437,12 @@ UNIT_TEST(StorageTest_GetUpdateInfoSingleMwm)
   storage.GetUpdateInfo("OutdatedCountry1", updateInfo);
   TEST_EQUAL(updateInfo.m_numberOfMwmFilesToUpdate, 1, ());
   TEST_EQUAL(updateInfo.m_totalUpdateSizeInBytes, 50, ());
-  TEST_EQUAL(updateInfo.m_sizeDifference, 50 - country1Size, ());
+  TEST_EQUAL(updateInfo.m_sizeDifference, 50 - static_cast<int64_t>(country1Size), ());
 
   storage.GetUpdateInfo("OutdatedCountry2", updateInfo);
   TEST_EQUAL(updateInfo.m_numberOfMwmFilesToUpdate, 1, ());
   TEST_EQUAL(updateInfo.m_totalUpdateSizeInBytes, 1000, ());
-  TEST_EQUAL(updateInfo.m_sizeDifference, 1000 - country2Size, ());
+  TEST_EQUAL(updateInfo.m_sizeDifference, 1000 - static_cast<int64_t>(country2Size), ());
 
   storage.GetUpdateInfo("Abkhazia", updateInfo);
   TEST_EQUAL(updateInfo.m_numberOfMwmFilesToUpdate, 0, ());
@@ -1457,7 +1459,8 @@ UNIT_TEST(StorageTest_GetUpdateInfoSingleMwm)
   storage.GetUpdateInfo(storage.GetRootId(), updateInfo);
   TEST_EQUAL(updateInfo.m_numberOfMwmFilesToUpdate, 2, ());
   TEST_EQUAL(updateInfo.m_totalUpdateSizeInBytes, 1050, ());
-  TEST_EQUAL(updateInfo.m_sizeDifference, (1000 + 50) - (country1Size + country2Size), ());
+  TEST_EQUAL(updateInfo.m_sizeDifference,
+             (1000 + 50) - static_cast<int64_t>((country1Size + country2Size)), ());
 }
 #endif  // defined(OMIM_OS_DESKTOP)
 

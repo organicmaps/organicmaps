@@ -91,3 +91,10 @@ namespace my
 #define ASSERT_GREATER(X, Y, msg)
 #define ASSERT_GREATER_OR_EQUAL(X, Y, msg)
 #endif
+
+// The macro that causes the warning to be ignored: control reaches end of
+// non-void function.
+#define CHECK_SWITCH() do { \
+  CHECK(false, ("Incorrect value in the switch statment")); \
+  std::abort(); \
+} while(false)

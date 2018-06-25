@@ -1,6 +1,7 @@
 // See O5M Format definition at https://wiki.openstreetmap.org/wiki/O5m
 #pragma once
 
+#include "base/assert.hpp"
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
@@ -14,10 +15,9 @@
 #include <type_traits>
 #include <vector>
 
-using TReadFunc = std::function<size_t(uint8_t *, size_t)>;
-
-namespace
+namespace osm
 {
+using TReadFunc = std::function<size_t(uint8_t *, size_t)>;
 
 class StreamBuffer
 {
@@ -108,10 +108,7 @@ private:
     m_position = m_buffer.begin();
   }
 };
-}  // anonymous namespace
 
-namespace osm
-{
 
 class O5MSource
 {

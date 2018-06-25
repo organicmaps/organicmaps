@@ -57,9 +57,9 @@ KeywordMatcher::Score KeywordMatcher::CalcScore(strings::UniString const * token
   int8_t prevTokenMatchDistance = 0;
   bool prefixMatched = true;
 
-  for (int i = 0; i < m_keywords.size(); ++i)
+  for (size_t i = 0; i < m_keywords.size(); ++i)
   {
-    for (int j = 0; j < count && !isQueryTokenMatched[i]; ++j)
+    for (size_t j = 0; j < count && !isQueryTokenMatched[i]; ++j)
     {
       if (!isNameTokenMatched[j] && m_keywords[i] == tokens[j])
       {
@@ -74,7 +74,7 @@ KeywordMatcher::Score KeywordMatcher::CalcScore(strings::UniString const * token
   if (!m_prefix.empty())
   {
     prefixMatched = false;
-    for (int j = 0; j < count && !prefixMatched; ++j)
+    for (size_t j = 0; j < count && !prefixMatched; ++j)
     {
       if (!isNameTokenMatched[j] &&
           strings::StartsWith(tokens[j].begin(), tokens[j].end(), m_prefix.begin(), m_prefix.end()))

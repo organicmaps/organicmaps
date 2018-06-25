@@ -86,4 +86,5 @@ string DebugPrint(UserMark::Type type)
   case UserMark::Type::USER_MARK_TYPES_COUNT: return "USER_MARK_TYPES_COUNT";
   case UserMark::Type::USER_MARK_TYPES_COUNT_MAX: return "USER_MARK_TYPES_COUNT_MAX";
   }
+  CHECK_SWITCH();
 }

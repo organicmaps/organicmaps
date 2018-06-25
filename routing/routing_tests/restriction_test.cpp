@@ -217,13 +217,13 @@ UNIT_CLASS_TEST(RestrictionTest, TriangularGraph_RestrictionNoF5F2RestrictionOnl
 //   F4
 //   |
 // 2 *
-//   | \
+//   | ╲
 //   F0  F2
-//   |     \
+//   |     ╲
 // 1 *       *
-//   |         \
+//   |         ╲
 //   F0         F2
-//   |             \
+//   |             ╲
 // 0 *---F1--*--F1--*--F3---* Start
 //   0       1      2       3
 // Note. All features are two setments and two-way.

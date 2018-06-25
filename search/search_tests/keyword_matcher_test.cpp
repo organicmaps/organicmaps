@@ -260,7 +260,9 @@ string GetManyTokens(string tokenPrefix, int tokenCount, bool countForward = tru
 UNIT_TEST(KeywordMatcher_QueryTooLong)
 {
   static_assert(kMaxNumTokens >= 2, "");
-  for (int queryLength = kMaxNumTokens - 2; queryLength <= kMaxNumTokens + 2; ++queryLength)
+  int const minLength = kMaxNumTokens - 2;
+  int const maxLength = kMaxNumTokens + 2;
+  for (int queryLength = minLength; queryLength <= maxLength; ++queryLength)
   {
     string const query = GetManyTokens("Q", queryLength);
     string const queryWithPrefix = query + " Prefix";

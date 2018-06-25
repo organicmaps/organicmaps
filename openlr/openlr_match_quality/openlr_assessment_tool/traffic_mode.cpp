@@ -241,7 +241,7 @@ void TrafficMode::OnItemSelected(QItemSelection const & selected, QItemSelection
 
   auto const row = selected.front().top();
 
-  CHECK_LESS(row, m_segments.size(), ());
+  CHECK_LESS(static_cast<size_t>(row), m_segments.size(), ());
   m_currentSegment = &m_segments[row];
 
   auto const & partnerSegment = m_currentSegment->GetPartnerSegment();

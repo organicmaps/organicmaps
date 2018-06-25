@@ -16,6 +16,8 @@ std::string GetQuery(discovery::ItemType const type)
   case discovery::ItemType::LocalExperts:
   case discovery::ItemType::Viator: ASSERT(false, ()); return "";
   }
+
+  CHECK_SWITCH();
 }
 }  // namespace
 

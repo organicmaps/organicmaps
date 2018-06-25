@@ -9,6 +9,10 @@ endif ()
 add_compile_options("-Wall")
 
 add_clang_compile_options("-Wno-unused-function")
+add_gcc_compile_options(
+  "-Wno-pointer-to-int-cast"
+  "-Wno-unused-function"
+)
 
 include_directories(include)
 

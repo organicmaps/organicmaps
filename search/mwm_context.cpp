@@ -37,6 +37,7 @@ bool MwmContext::GetFeature(uint32_t index, FeatureType & ft) const
     ft.SetID(FeatureID(GetId(), index));
     return true;
   }
+  CHECK_SWITCH();
 }
 
 bool MwmContext::GetStreetIndex(uint32_t houseId, uint32_t & streetId)

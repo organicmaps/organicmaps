@@ -68,12 +68,12 @@ UNIT_TEST(ParticalUploadDataTest)
 {
   size_t const kPart1Size = 3 * 30;
   float part1Data[kPart1Size];
-  for (int i = 0; i < kPart1Size; ++i)
+  for (size_t i = 0; i < kPart1Size; ++i)
     part1Data[i] = (float)i;
 
   size_t const kPart2Size = 3 * 100;
   float part2Data[kPart2Size];
-  for (int i = 0; i < kPart2Size; ++i)
+  for (size_t i = 0; i < kPart2Size; ++i)
     part2Data[i] = (float)i;
 
   unique_ptr<DataBuffer> buffer(new DataBuffer(3 * sizeof(float), 100));

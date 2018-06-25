@@ -2,6 +2,8 @@
 
 #include "3party/opening_hours/opening_hours.hpp"
 
+#include "base/assert.hpp"
+
 #include "std/chrono.hpp"
 
 namespace osm
@@ -27,6 +29,7 @@ inline string DebugPrint(EPlaceState state)
     case EPlaceState::CloseSoon:
       return "EPlaceState::CloseSoon";
   }
+  CHECK_SWITCH();
 }
 
 inline EPlaceState PlaceStateCheck(string const & openingHours, time_t timestamp)

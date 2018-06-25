@@ -214,6 +214,7 @@ shared_ptr<EdgeEstimator> EdgeEstimator::Create(VehicleType vehicleType, double 
     CHECK(false, ("Can't create EdgeEstimator for", vehicleType));
     return nullptr;
   }
+  CHECK_SWITCH();
 }
 
 // static

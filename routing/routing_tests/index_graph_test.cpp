@@ -309,8 +309,8 @@ UNIT_TEST(FindPathManhattan)
               ? finish.m_projections[0].m_segment.GetFeatureId()
               : finish.m_projections[0].m_segment.GetFeatureId() - kCitySize;
 
-      if (start.m_projections[0].m_segment.GetFeatureId() < kCitySize ==
-          finish.m_projections[0].m_segment.GetFeatureId() < kCitySize)
+      if ((start.m_projections[0].m_segment.GetFeatureId() < kCitySize) ==
+          (finish.m_projections[0].m_segment.GetFeatureId() < kCitySize))
       {
         uint32_t segDelta = AbsDelta(start.m_projections[0].m_segment.GetSegmentIdx(),
                                      finish.m_projections[0].m_segment.GetSegmentIdx());
@@ -352,7 +352,7 @@ UNIT_TEST(FindPathManhattan)
 // Roads                                          y:
 //
 //  fast road R0              * - * - *           -1
-//                          /           \
+//                          ╱           ╲
 //  slow road R1    * - -  *  - - * - -  * - - *   0
 //                        J0            J1
 //

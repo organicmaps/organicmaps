@@ -59,6 +59,7 @@ inline std::string DebugPrint(Storage::SettingResult const & result)
   case Storage::SettingResult::InvalidUGC: return "Invalid UGC";
   case Storage::SettingResult::WritingError: return "Writing Error";
   }
+  CHECK_SWITCH();
 }
 }  // namespace ugc
 

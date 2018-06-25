@@ -169,8 +169,9 @@ void CoverSpiral(m2::RectD rect, int maxDepth, vector<CellId> & result)
   };
 
   auto const coordsAreValid = [](pair<int32_t, int32_t> const & xy) {
-    return xy.first >= 0 && xy.second >= 0 && xy.first <= CellId::MAX_COORD &&
-           xy.second <= CellId::MAX_COORD;
+    return xy.first >= 0 && xy.second >= 0 &&
+           static_cast<decltype(CellId::MAX_COORD)>(xy.first) <= CellId::MAX_COORD &&
+           static_cast<decltype(CellId::MAX_COORD)>(xy.second) <= CellId::MAX_COORD;
   };
 
   m2::RectD coveredRect;

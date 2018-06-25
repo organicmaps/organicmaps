@@ -1,14 +1,20 @@
 #pragma once
+
 #include "indexer/interval_index.hpp"
+
 #include "coding/byte_stream.hpp"
 #include "coding/endianness.hpp"
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
+
 #include "base/assert.hpp"
 #include "base/base.hpp"
 #include "base/bits.hpp"
 #include "base/logging.hpp"
-#include "std/vector.hpp"
+
+#include <cstdint>
+#include <limits>
+#include <vector>
 
 // +------------------------------+
 // |            Header            |
@@ -66,15 +72,15 @@ public:
     WriteZeroesToSink(writer, 4 * (m_Levels + 2));
     uint64_t const afterHeaderPos = writer.Pos();
 
-    vector<uint32_t> levelOffset;
+    std::vector<uint32_t> levelOffset;
     {
-      vector<uint32_t> offsets;
+      std::vector<uint32_t> offsets;
       levelOffset.push_back(static_cast<uint32_t>(writer.Pos()));
       BuildLeaves(writer, beg, end, offsets);
       levelOffset.push_back(static_cast<uint32_t>(writer.Pos()));
       for (int i = 1; i <= static_cast<int>(m_Levels); ++i)
       {
-        vector<uint32_t> nextOffsets;
+        std::vector<uint32_t> nextOffsets;
         BuildLevel(writer, beg, end, i, &offsets[0], &offsets[0] + offsets.size(), nextOffsets);
         nextOffsets.swap(offsets);
         levelOffset.push_back(static_cast<uint32_t>(writer.Pos()));
@@ -141,7 +147,7 @@ public:
     {
       CHECK_LESS(it->GetCell(), 1ULL << keyBits, ());
       // We use static_cast<int64_t>(value) in BuildLeaves to store values difference as VarInt.
-      CHECK_EQUAL(it->GetValue(), static_cast<int64_t>(it->GetValue()), ());
+      CHECK_LESS_OR_EQUAL(it->GetValue(), static_cast<uint64_t>(std::numeric_limits<int64_t>::max()), ());
     }
 
     return true;
@@ -150,10 +156,10 @@ public:
   template <class SinkT>
   uint32_t WriteNode(SinkT & sink, uint32_t offset, uint32_t * childSizes)
   {
-    vector<uint8_t> bitmapSerial, listSerial;
+    std::vector<uint8_t> bitmapSerial, listSerial;
     bitmapSerial.reserve(1024);
     listSerial.reserve(1024);
-    PushBackByteSink<vector<uint8_t> > bitmapSink(bitmapSerial), listSink(listSerial);
+    PushBackByteSink<std::vector<uint8_t> > bitmapSink(bitmapSerial), listSink(listSerial);
     WriteBitmapNode(bitmapSink, offset, childSizes);
     WriteListNode(listSink, offset, childSizes);
     if (bitmapSerial.size() <= listSerial.size())
@@ -173,12 +179,12 @@ public:
   template <class Writer, typename CellIdValueIter>
   void BuildLevel(Writer & writer, CellIdValueIter const & beg, CellIdValueIter const & end,
                   int level, uint32_t const * childSizesBeg, uint32_t const * childSizesEnd,
-                  vector<uint32_t> & sizes)
+                  std::vector<uint32_t> & sizes)
   {
     UNUSED_VALUE(childSizesEnd);
     ASSERT_GREATER(level, 0, ());
     uint32_t const skipBits = m_LeafBytes * 8 + (level - 1) * m_BitsPerLevel;
-    vector<uint32_t> expandedSizes(1 << m_BitsPerLevel);
+    std::vector<uint32_t> expandedSizes(1 << m_BitsPerLevel);
     uint64_t prevKey = static_cast<uint64_t>(-1);
     uint32_t childOffset = 0;
     uint32_t nextChildOffset = 0;
@@ -206,7 +212,7 @@ public:
 
   template <class Writer, typename CellIdValueIter>
   void BuildLeaves(Writer & writer, CellIdValueIter const & beg, CellIdValueIter const & end,
-                   vector<uint32_t> & sizes)
+                   std::vector<uint32_t> & sizes)
   {
     using Value = typename CellIdValueIter::value_type::ValueType;
 

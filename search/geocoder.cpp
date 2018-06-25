@@ -1414,6 +1414,7 @@ CBV Geocoder::RetrieveGeometryFeatures(MwmContext const & context, m2::RectD con
   case RECT_ID_LOCALITY: return m_localityRectsCache.Get(context, rect, m_params.GetScale());
   case RECT_ID_COUNT: ASSERT(false, ("Invalid RectId.")); return CBV();
   }
+  CHECK_SWITCH();
 }
 
 bool Geocoder::GetTypeInGeocoding(BaseContext const & ctx, uint32_t featureId, Model::Type & type)

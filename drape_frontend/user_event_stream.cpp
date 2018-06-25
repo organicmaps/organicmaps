@@ -20,6 +20,7 @@
 
 #include <chrono>
 #include <cmath>
+#include <cstdint>
 
 #ifdef DEBUG
 #define TEST_CALL(action) if (m_testFn) m_testFn(action)
@@ -1018,8 +1019,9 @@ bool UserEventStream::EndDrag(Touch const & t, bool cancelled)
 
   CheckAutoRotate();
 
-  if (!cancelled && m_kineticScrollEnabled && m_scroller.IsActive() &&
-      m_kineticTimer.TimeElapsedAs<std::chrono::milliseconds>().count() >= kKineticDelayMs)
+  auto const ms = static_cast<uint64_t>(
+              m_kineticTimer.TimeElapsedAs<std::chrono::milliseconds>().count());
+  if (!cancelled && m_kineticScrollEnabled && m_scroller.IsActive() && ms >= kKineticDelayMs)
   {
     drape_ptr<Animation> anim = m_scroller.CreateKineticAnimation(m_navigator.Screen());
     if (anim != nullptr)
@@ -1108,7 +1110,8 @@ void UserEventStream::DetectShortTap(Touch const & touch)
   if (DetectForceTap(touch))
     return;
 
-  auto const ms = m_touchTimer.TimeElapsedAs<std::chrono::milliseconds>().count();
+  auto const ms = static_cast<uint64_t>(
+              m_touchTimer.TimeElapsedAs<std::chrono::milliseconds>().count());
   if (ms > kDoubleTapPauseMs)
   {
     m_state = STATE_EMPTY;
@@ -1124,7 +1127,8 @@ void UserEventStream::DetectLongTap(Touch const & touch)
   if (DetectForceTap(touch))
     return;
 
-  auto const ms = m_touchTimer.TimeElapsedAs<std::chrono::milliseconds>().count();
+  auto const ms = static_cast<uint64_t>(
+              m_touchTimer.TimeElapsedAs<std::chrono::milliseconds>().count());
   if (ms > kLongTouchMs)
   {
     TEST_CALL(LONG_TAP_DETECTED);
@@ -1136,7 +1140,8 @@ void UserEventStream::DetectLongTap(Touch const & touch)
 
 bool UserEventStream::DetectDoubleTap(Touch const & touch)
 {
-  auto const ms = m_touchTimer.TimeElapsedAs<std::chrono::milliseconds>().count();
+  auto const ms = static_cast<uint64_t>(
+              m_touchTimer.TimeElapsedAs<std::chrono::milliseconds>().count());
   if (m_state != STATE_WAIT_DOUBLE_TAP || ms > kDoubleTapPauseMs)
     return false;
 

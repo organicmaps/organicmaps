@@ -290,7 +290,8 @@ public:
     {
       // Check that resume information is correct with existing file.
       uint64_t size;
-      if (my::GetFileSize(filePath + DOWNLOADING_FILE_EXTENSION, size) && size <= fileSize)
+      if (my::GetFileSize(filePath + DOWNLOADING_FILE_EXTENSION, size) &&
+              size <= static_cast<uint64_t>(fileSize))
         openMode = FileWriter::OP_WRITE_EXISTING;
       else
         m_strategy.InitChunks(fileSize, chunkSize);

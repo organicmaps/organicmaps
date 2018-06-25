@@ -250,7 +250,7 @@ public:
   {
     ASSERT_GREATER(v, 0, ());
     ASSERT(0 < depth && depth <= DEPTH_LEVELS, (v, depth));
-    ASSERT_LESS_OR_EQUAL(v, TreeSizeForDepth(depth), ());
+    ASSERT_LESS_OR_EQUAL(static_cast<uint64_t>(v), TreeSizeForDepth(depth), ());
     uint64_t bits = 0;
     int level = 0;
     --v;
@@ -258,7 +258,7 @@ public:
     {
       bits <<= 2;
       ++level;
-      uint64_t subtreeSize = TreeSizeForDepth(depth - level);
+      int64_t subtreeSize = static_cast<int64_t>(TreeSizeForDepth(depth - level));
       for (--v; v >= subtreeSize; v -= subtreeSize)
         ++bits;
     }

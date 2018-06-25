@@ -377,7 +377,8 @@ private:
     /// Correct fix would be injection into ForEachInIntervalAndScale, so deleted features will
     /// never
     /// be emitted and used in other code.
-    UNUSED_VALUE(m_context->GetFeature(id, ft));
+    if (!m_context->GetFeature(id, ft))
+        LOG(LWARNING, ("GetFeature() returned false."));
   }
 
   MwmContext * m_context;

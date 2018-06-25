@@ -155,14 +155,16 @@ public:
             DstIterT const dstBeg, DstIterT const dstEnd,
             PatchCoderT & patchCoder)
   {
-    if (srcEnd - srcBeg < m_BlockSize || dstEnd - dstBeg < m_BlockSize)
+    if (srcEnd - srcBeg < static_cast<decltype(srcEnd - srcBeg)>(m_BlockSize) ||
+        dstEnd - dstBeg < static_cast<decltype(dstEnd - dstBeg)>(m_BlockSize))
     {
       m_FineGrainedDiff.Diff(srcBeg, srcEnd, dstBeg, dstEnd, patchCoder);
       return;
     }
     HasherT hasher;
     HashPosMultiMapT srcHashes;
-    for (SrcIterT src = srcBeg; srcEnd - src >= m_BlockSize; src += m_BlockSize)
+    for (SrcIterT src = srcBeg; srcEnd - src >= static_cast<decltype(srcEnd - src)>(m_BlockSize);
+         src += m_BlockSize)
       srcHashes.insert(HashPosMultiMapValue(hasher.Init(src, m_BlockSize), src - srcBeg));
     SrcIterT srcLastDiff = srcBeg;
     DstIterT dst = dstBeg, dstNext = dstBeg + m_BlockSize, dstLastDiff = dstBeg;
@@ -187,7 +189,7 @@ public:
           patchCoder.Copy(m_BlockSize);
           srcLastDiff = srcBeg + srcBlockEqualPos + m_BlockSize;
           dst = dstLastDiff = dstNext;
-          if (dstEnd - dstNext < m_BlockSize)
+          if (dstEnd - dstNext < static_cast<decltype(dstEnd - dstNext)>(m_BlockSize))
             break;
           dstNext = dst + m_BlockSize;
           h = hasher.Init(dst, m_BlockSize);

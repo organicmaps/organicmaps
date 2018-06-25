@@ -68,6 +68,7 @@ std::string AuthenticationUrl(std::string const & socialToken,
     return ss.str();
   }
   }
+  CHECK_SWITCH();
 }
 
 std::string UserDetailsUrl()

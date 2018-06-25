@@ -448,6 +448,7 @@ string DebugPrint(MwmSet::RegResult result)
     case MwmSet::RegResult::UnsupportedFileFormat:
       return "UnsupportedFileFormat";
   }
+  CHECK_SWITCH();
 }
 
 string DebugPrint(MwmSet::Event::Type type)

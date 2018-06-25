@@ -64,6 +64,7 @@ public:
     case TStringSet::Status::Prefix: return isPrefix;
     case TStringSet::Status::Full: return true;
     }
+    CHECK_SWITCH();
   }
 
   inline size_t GetMaxNumTokensInPostcode() const { return m_maxNumTokensInPostcode; }

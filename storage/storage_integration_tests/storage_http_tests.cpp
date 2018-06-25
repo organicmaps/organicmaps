@@ -102,8 +102,10 @@ UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadNodeAndDeleteNode)
     NodeAttrs nodeAttrs;
     m_storage.GetNodeAttrs(countryId, nodeAttrs);
 
-    TEST_EQUAL(mapSize.first, nodeAttrs.m_downloadingProgress.first, (countryId));
-    TEST_EQUAL(mapSize.second, nodeAttrs.m_downloadingProgress.second, (countryId));
+    TEST_EQUAL(static_cast<int64_t>(mapSize.first),
+               nodeAttrs.m_downloadingProgress.first, (countryId));
+    TEST_EQUAL(static_cast<int64_t>(mapSize.second),
+               nodeAttrs.m_downloadingProgress.second, (countryId));
     TEST_EQUAL(countryId, kCountryId, (countryId));
   };
 
@@ -142,8 +144,10 @@ UNIT_CLASS_TEST(StorageHttpTest, StorageDownloadAndDeleteDisputedNode)
     NodeAttrs nodeAttrs;
     m_storage.GetNodeAttrs(countryId, nodeAttrs);
 
-    TEST_EQUAL(mapSize.first, nodeAttrs.m_downloadingProgress.first, (countryId));
-    TEST_EQUAL(mapSize.second, nodeAttrs.m_downloadingProgress.second, (countryId));
+    TEST_EQUAL(static_cast<int64_t>(mapSize.first),
+               nodeAttrs.m_downloadingProgress.first, (countryId));
+    TEST_EQUAL(static_cast<int64_t>(mapSize.second),
+               nodeAttrs.m_downloadingProgress.second, (countryId));
   };
 
   InitStorage(m_storage, UpdateWithoutChecks, progressFunction);

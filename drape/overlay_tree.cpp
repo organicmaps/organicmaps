@@ -104,7 +104,7 @@ bool OverlayTree::Frame()
   }
 
   m_frameCounter++;
-  if (m_frameCounter >= m_frameUpdatePeriod)
+  if (m_frameCounter >= static_cast<int>(m_frameUpdatePeriod))
     m_frameCounter = kInvalidFrame;
 
   return IsNeedUpdate();

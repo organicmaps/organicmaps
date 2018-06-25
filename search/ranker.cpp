@@ -145,6 +145,7 @@ ftypes::Type GetLocalityIndex(feature::TypesHolder const & types)
   case VILLAGE: return NONE;
   case LOCALITY_COUNT: return type;
   }
+  CHECK_SWITCH();
 }
 
 // TODO: Format street and house number according to local country's rules.
@@ -430,6 +431,7 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
     case RankerResult::Type::TYPE_LATLON: return Result(r.GetCenter(), name, address);
     }
     ASSERT(false, ("Bad RankerResult type:", static_cast<size_t>(r.GetResultType())));
+    CHECK_SWITCH();
   };
 
   auto res = mk(rankerResult);

@@ -180,6 +180,7 @@ public:
     case connector::WeightsLoadState::NotExists:
     case connector::WeightsLoadState::Loaded: return true;
     }
+    CHECK_SWITCH();
   }
 
   template <typename CalcWeight>

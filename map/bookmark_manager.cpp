@@ -97,6 +97,7 @@ bool IsValidFilterType(BookmarkManager::CategoryFilterType const filter,
   case BookmarkManager::CategoryFilterType::Public: return fromCatalog;
   case BookmarkManager::CategoryFilterType::Private: return !fromCatalog;
   }
+  CHECK_SWITCH();
 }
 
 class FindMarkFunctor
@@ -343,8 +344,12 @@ bool MigrateIfNeeded()
   if (files.empty())
   {
     auto const newBookmarksDir = GetBookmarksDirectory();
-    if (!GetPlatform().IsFileExistsByFullPath(newBookmarksDir))
-      UNUSED_VALUE(GetPlatform().MkDirChecked(newBookmarksDir));
+    if (!GetPlatform().IsFileExistsByFullPath(newBookmarksDir) &&
+        !GetPlatform().MkDirChecked(newBookmarksDir))
+    {
+      LOG(LWARNING, ("Could not create directory:", newBookmarksDir));
+      return false;
+    }
     OnMigrationSuccess(0 /* originalCount */, 0 /* convertedCount */);
     return true;
   }
@@ -894,7 +899,8 @@ void BookmarkManager::SaveState() const
 
 void BookmarkManager::LoadState()
 {
-  UNUSED_VALUE(settings::Get(kLastEditedBookmarkCategory, m_lastCategoryUrl));
+  settings::TryGet(kLastEditedBookmarkCategory, m_lastCategoryUrl);
+
   uint32_t color;
   if (settings::Get(kLastEditedBookmarkColor, color) &&
       color > static_cast<uint32_t>(kml::PredefinedColor::None) &&

@@ -35,6 +35,14 @@ WARN_UNUSED_RESULT bool Get(string const & key, Value & outValue)
   string strVal;
   return StringStorage::Instance().GetValue(key, strVal) && FromString(strVal, outValue);
 }
+
+template <class Value>
+void TryGet(string const & key, Value & outValue)
+{
+    bool unused = Get(key, outValue);
+    UNUSED_VALUE(unused);
+}
+
 /// Automatically saves setting to external file
 template <class Value>
 void Set(string const & key, Value const & value)

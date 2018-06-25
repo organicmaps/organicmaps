@@ -19,6 +19,7 @@ int ToInt(ZLib::Deflate::Level level)
   case Level::BestCompression: return Z_BEST_COMPRESSION;
   case Level::DefaultCompression: return Z_DEFAULT_COMPRESSION;
   }
+  CHECK_SWITCH();
 }
 }  // namespace
 

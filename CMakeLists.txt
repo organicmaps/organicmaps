@@ -203,8 +203,9 @@ include_directories(
   ${CMAKE_HOME_DIRECTORY}
   ${Qt5Core_INCLUDE_DIRS}
   ${Qt5Network_INCLUDE_DIRS}
-  ${Boost_INCLUDE_DIRS}
 )
+
+include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
@@ -260,6 +261,8 @@ add_compile_options(
 )
 
 add_clang_compile_options("-Wshorten-64-to-32")
+add_clang_cpp_compile_options("-Wno-noexcept-type")
+add_gcc_cpp_compile_options("-Wno-noexcept-type")
 
 add_subdirectory(base)
 add_subdirectory(coding)
