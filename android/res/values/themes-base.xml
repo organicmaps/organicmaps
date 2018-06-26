@@ -21,7 +21,6 @@
     <item name="cardFrame">@drawable/card_frame</item>
     <item name="cardBackground">@color/bg_cards</item>
     <item name="fullscreenDialogTheme">@style/MwmTheme.DialogFragment.Fullscreen</item>
-    <item name="android:buttonStyle">@style/MwmWidget.Button.Primary</item>
     <item name="colorPrimary">@color/bg_primary</item>
     <item name="colorControlNormal">?secondary</item>
     <item name="colorAccent">@color/base_accent</item>
@@ -143,7 +142,6 @@
     <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoRegular</item>
     <item name="android:colorBackgroundCacheHint">@null</item>
     <item name="android:windowActionBarOverlay">true</item>
-    <item name="android:buttonStyle">@style/MwmWidget.Button.Primary</item>
     <item name="clickableBackground">?selectableItemBackground</item>
     <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
 

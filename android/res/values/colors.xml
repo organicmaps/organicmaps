@@ -198,9 +198,9 @@
   <color name="bg_brand_partner18">#FF00B956</color>
   <color name="bg_brand_partner18_pressed">#FF00B956</color>
   <color name="bg_brand_partner19">#FF571A8C</color>
-  <color name="bg_brand_partner19_pressed">#FF571A8C</color>
-  <color name="bg_brand_partner20">#FF571A8C</color>
-  <color name="bg_brand_partner20_pressed">#FF571A8C</color>
+  <color name="bg_brand_partner19_pressed">#FF450F4F</color>
+  <color name="bg_brand_partner20">@color/bg_brand_partner19</color>
+  <color name="bg_brand_partner20_pressed">@color/bg_brand_partner19_pressed</color>
 
   <!-- Banner colors -->
   <color name="bg_banner_color">#FFFDFFE6</color>
@@ -214,6 +214,8 @@
   <color name="banner_action_btn_start_anim_night">#FF888A82</color>
   <color name="banner_action_btn_end_anim">#FFD9D2C3</color>
   <color name="banner_action_btn_end_anim_night">#FF71736C</color>
+  <color name="megafon_button">@color/bg_brand_partner19</color>
+  <color name="megafon_button_pressed">@color/bg_brand_partner19_pressed</color>
 
   <!-- Rating colors -->
   <color name="rating_excellent">#43A047</color>
