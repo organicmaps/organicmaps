@@ -1,3 +1,4 @@
+#import <SafariServices/SafariServices.h>
 #import "MWMMapDownloadDialog.h"
 #import "CLLocation+Mercator.h"
 #import "MWMAlertViewController.h"
@@ -19,6 +20,8 @@
 
 #include "platform/local_country_file_utils.hpp"
 
+#include "partners_api/megafon_countries.hpp"
+
 namespace
 {
 CGSize constexpr kInitialDialogSize = {200, 200};
@@ -37,6 +40,16 @@ BOOL canAutoDownload(storage::TCountryId const & countryId)
     return NO;
   return !platform::migrate::NeedMigrate();
 }
+
+BOOL shouldShowBanner(std::string const & mwmId)
+{
+  return ads::HasMegafonDownloaderBanner(GetFramework().GetStorage(), mwmId, languages::GetCurrentNorm());
+}
+
+NSString * getBannerURL()
+{
+  return @(ads::GetMegafonDownloaderBannerUrl().c_str());
+}
 }  // namespace
 
 using namespace storage;
@@ -48,6 +61,9 @@ using namespace storage;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * nodeTopOffset;
 @property(weak, nonatomic) IBOutlet UIButton * downloadButton;
 @property(weak, nonatomic) IBOutlet UIView * progressWrapper;
+@property(weak, nonatomic) IBOutlet UIView * bannerView;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * bannerHiddenConstraint;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * bannerVisibleConstraint;
 
 @property(weak, nonatomic) MapViewController * controller;
 
@@ -236,6 +252,7 @@ using namespace storage;
 
 - (void)showDownloadRequest
 {
+  [self hideBanner];
   self.downloadButton.hidden = NO;
   self.progressWrapper.hidden = YES;
   [self addToSuperview];
@@ -243,6 +260,7 @@ using namespace storage;
 
 - (void)showDownloading:(CGFloat)progress
 {
+  [self showBannerIfNeeded];
   self.nodeSize.textColor = [UIColor blackSecondaryText];
   self.nodeSize.text = [NSString stringWithFormat:@"%@ %@%%", L(@"downloader_downloading"),
                                                   @(static_cast<NSUInteger>(progress * 100))];
@@ -254,6 +272,7 @@ using namespace storage;
 
 - (void)showInQueue
 {
+  [self showBannerIfNeeded];
   self.nodeSize.textColor = [UIColor blackSecondaryText];
   self.nodeSize.text = L(@"downloader_queued");
   self.downloadButton.hidden = YES;
@@ -269,6 +288,23 @@ using namespace storage;
     [self removeFromSuperview];
   else
     [self configDialog];
+}
+
+- (void)showBannerIfNeeded
+{
+  if (shouldShowBanner(m_countryId))
+  {
+    self.bannerHiddenConstraint.active = NO;
+    self.bannerVisibleConstraint.active = YES;
+    self.bannerView.hidden = NO;
+  }
+}
+
+- (void)hideBanner
+{
+  self.bannerHiddenConstraint.active = YES;
+  self.bannerVisibleConstraint.active = NO;
+  self.bannerView.hidden = YES;
 }
 
 #pragma mark - MWMFrameworkStorageObserver
@@ -316,6 +352,13 @@ using namespace storage;
 }
 
 #pragma mark - Actions
+
+- (IBAction)bannerAction
+{
+  NSURL * bannerURL = [NSURL URLWithString:getBannerURL()];
+  SFSafariViewController * safari = [[SFSafariViewController alloc] initWithURL:bannerURL];
+  [self.controller presentViewController:safari animated:YES completion:nil];
+}
 
 - (IBAction)downloadAction
 {

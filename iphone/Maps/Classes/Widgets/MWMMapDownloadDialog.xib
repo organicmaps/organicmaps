@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment version="2304" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue</string>
-            <string>HelveticaNeue-Medium</string>
-        </array>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="I6H-BQ-1TG" customClass="MWMMapDownloadDialog">
-            <rect key="frame" x="0.0" y="0.0" width="200" height="196"/>
+            <rect key="frame" x="0.0" y="0.0" width="200" height="195"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Россия" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQf-xO-gh1">
-                    <rect key="frame" x="10" y="20" width="180" height="26"/>
+                    <rect key="frame" x="10" y="20" width="180" height="25"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -33,7 +27,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="260" verticalCompressionResistancePriority="751" text="Доминиканская республика" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vMH-GY-Vm2">
-                    <rect key="frame" x="10" y="48" width="180" height="47"/>
+                    <rect key="frame" x="10" y="47" width="180" height="47"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -43,7 +37,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="260" text="16 МБ" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vU4-G9-kcd">
-                    <rect key="frame" x="10" y="103" width="180" height="17"/>
+                    <rect key="frame" x="10" y="102" width="180" height="17"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -52,8 +46,8 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="medium14"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iyV-Rb-bea" propertyAccessControl="all">
-                    <rect key="frame" x="20" y="132" width="160" height="44"/>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iyV-Rb-bea">
+                    <rect key="frame" x="20" y="131" width="160" height="44"/>
                     <color key="backgroundColor" red="0.1176470588" green="0.58823529409999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="i64-mO-Txs"/>
@@ -78,11 +72,74 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="usc-Cm-gmg" userLabel="ProgressViewWrapper">
-                    <rect key="frame" x="84" y="138" width="32" height="32"/>
+                    <rect key="frame" x="84" y="137" width="32" height="32"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="32" id="LiD-Zk-ocz"/>
                         <constraint firstAttribute="height" constant="32" id="jrx-nU-VSG"/>
+                    </constraints>
+                </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gtz-YD-7lc">
+                    <rect key="frame" x="0.0" y="90.5" width="200" height="104.5"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5CG-EC-3w9">
+                            <rect key="frame" x="16" y="1" width="168" height="1"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.11847174657534247" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="vwI-d2-CG4"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="ic_brand_megafon_green" translatesAutoresizingMaskIntoConstraints="NO" id="cpd-0S-ypw">
+                            <rect key="frame" x="16" y="20.5" width="24" height="24"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Скажи международному роумингу гудбай!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOF-jZ-z6j">
+                            <rect key="frame" x="48" y="11" width="136" height="43"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" white="0.0" alpha="0.87165560787671237" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="banner_megafon_banner_message"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XYl-hi-f4K">
+                            <rect key="frame" x="16" y="66" width="168" height="28"/>
+                            <color key="backgroundColor" red="0.34136284722222221" green="0.10091145833333333" blue="0.55075412326388884" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="28" id="jWy-r0-8Jh"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                            <state key="normal" title="Гудбай!">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="14"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="banner_megafon_banner_button"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="bannerAction" destination="I6H-BQ-1TG" eventType="touchUpInside" id="fjH-NF-Q9V"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="mOF-jZ-z6j" secondAttribute="trailing" constant="16" id="4bB-EL-FM0"/>
+                        <constraint firstItem="mOF-jZ-z6j" firstAttribute="leading" secondItem="cpd-0S-ypw" secondAttribute="trailing" constant="8" id="7hm-pf-QAs"/>
+                        <constraint firstItem="5CG-EC-3w9" firstAttribute="top" secondItem="Gtz-YD-7lc" secondAttribute="top" constant="1" id="82S-wp-01c"/>
+                        <constraint firstAttribute="trailing" secondItem="5CG-EC-3w9" secondAttribute="trailing" constant="16" id="8aL-a8-Hha"/>
+                        <constraint firstAttribute="trailing" secondItem="XYl-hi-f4K" secondAttribute="trailing" constant="16" id="QrG-D0-CSc"/>
+                        <constraint firstItem="cpd-0S-ypw" firstAttribute="centerY" secondItem="mOF-jZ-z6j" secondAttribute="centerY" id="WHm-C2-ahh"/>
+                        <constraint firstItem="cpd-0S-ypw" firstAttribute="leading" secondItem="Gtz-YD-7lc" secondAttribute="leading" constant="16" id="f4n-1Q-XwO"/>
+                        <constraint firstItem="5CG-EC-3w9" firstAttribute="leading" secondItem="Gtz-YD-7lc" secondAttribute="leading" constant="16" id="fNg-Kc-fag"/>
+                        <constraint firstItem="mOF-jZ-z6j" firstAttribute="top" secondItem="Gtz-YD-7lc" secondAttribute="top" constant="11" id="mCE-R9-8ff"/>
+                        <constraint firstItem="XYl-hi-f4K" firstAttribute="top" secondItem="mOF-jZ-z6j" secondAttribute="bottom" constant="12" id="pTl-Je-0vO"/>
+                        <constraint firstItem="XYl-hi-f4K" firstAttribute="leading" secondItem="Gtz-YD-7lc" secondAttribute="leading" constant="16" id="sGX-iR-Knj"/>
+                        <constraint firstAttribute="bottom" secondItem="XYl-hi-f4K" secondAttribute="bottom" constant="10.5" id="txm-4L-YWk"/>
                     </constraints>
                 </view>
             </subviews>
@@ -98,11 +155,15 @@
                 <constraint firstItem="vU4-G9-kcd" firstAttribute="leading" secondItem="I6H-BQ-1TG" secondAttribute="leading" constant="10" id="REP-8b-3rF"/>
                 <constraint firstItem="vU4-G9-kcd" firstAttribute="top" secondItem="vMH-GY-Vm2" secondAttribute="bottom" constant="8" id="S4i-o8-W4I"/>
                 <constraint firstItem="iyV-Rb-bea" firstAttribute="top" secondItem="vU4-G9-kcd" secondAttribute="bottom" constant="12" id="VN6-NK-qgb"/>
+                <constraint firstItem="REG-N0-yuL" firstAttribute="bottom" secondItem="Gtz-YD-7lc" secondAttribute="bottom" id="VU2-TP-1yL"/>
                 <constraint firstItem="iyV-Rb-bea" firstAttribute="leading" secondItem="I6H-BQ-1TG" secondAttribute="leading" constant="20" id="atf-Me-rzF"/>
                 <constraint firstAttribute="trailing" secondItem="GQf-xO-gh1" secondAttribute="trailing" constant="10" id="fk3-dL-ayj"/>
                 <constraint firstAttribute="trailing" secondItem="vMH-GY-Vm2" secondAttribute="trailing" constant="10" id="hg5-RI-ugS"/>
                 <constraint firstItem="vMH-GY-Vm2" firstAttribute="leading" secondItem="I6H-BQ-1TG" secondAttribute="leading" constant="10" id="jH6-er-pmN"/>
+                <constraint firstItem="REG-N0-yuL" firstAttribute="trailing" secondItem="Gtz-YD-7lc" secondAttribute="trailing" id="pWS-Cs-9hs"/>
                 <constraint firstItem="usc-Cm-gmg" firstAttribute="centerY" secondItem="iyV-Rb-bea" secondAttribute="centerY" id="pxa-11-yUj"/>
+                <constraint firstItem="Gtz-YD-7lc" firstAttribute="leading" secondItem="REG-N0-yuL" secondAttribute="leading" id="tvu-3d-Mrf"/>
+                <constraint firstItem="Gtz-YD-7lc" firstAttribute="top" secondItem="usc-Cm-gmg" secondAttribute="bottom" priority="500" constant="16" id="zec-WI-uhq"/>
                 <constraint firstAttribute="trailing" secondItem="vU4-G9-kcd" secondAttribute="trailing" constant="10" id="zl8-cq-RDc"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -124,8 +185,17 @@
                     <size key="value" width="0.0" height="1"/>
                 </userDefinedRuntimeAttribute>
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
             </userDefinedRuntimeAttributes>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="zec-WI-uhq"/>
+                </mask>
+            </variation>
             <connections>
+                <outlet property="bannerHiddenConstraint" destination="HSh-rd-XIZ" id="k8L-UZ-Wo2"/>
+                <outlet property="bannerView" destination="Gtz-YD-7lc" id="GTa-nc-Gah"/>
+                <outlet property="bannerVisibleConstraint" destination="zec-WI-uhq" id="0ao-J2-tQO"/>
                 <outlet property="downloadButton" destination="iyV-Rb-bea" id="6fy-CY-zos"/>
                 <outlet property="node" destination="vMH-GY-Vm2" id="LJq-UU-a3U"/>
                 <outlet property="nodeSize" destination="vU4-G9-kcd" id="DMJ-NW-mxf"/>
@@ -133,7 +203,10 @@
                 <outlet property="parentNode" destination="GQf-xO-gh1" id="gWT-r0-LTv"/>
                 <outlet property="progressWrapper" destination="usc-Cm-gmg" id="NTd-bU-rDE"/>
             </connections>
-            <point key="canvasLocation" x="359" y="463"/>
+            <point key="canvasLocation" x="352" y="531.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="ic_brand_megafon_green" width="24" height="24"/>
+    </resources>
 </document>
