@@ -431,6 +431,11 @@ void Framework::SetTrafficStateListener(TrafficManager::TrafficStateChangedFn co
   m_onTrafficStateChangedFn = fn;
 }
 
+bool Framework::IsTrafficEnabled()
+{
+  return m_work.GetTrafficManager().IsEnabled();
+}
+
 void Framework::EnableTraffic()
 {
   m_work.GetTrafficManager().SetEnabled(true);
@@ -1409,6 +1414,24 @@ Java_com_mapswithme_maps_Framework_nativeSetAutoZoomEnabled(JNIEnv * env, jclass
   bool const autoZoomEnabled = static_cast<bool>(enabled);
   frm()->SaveAutoZoom(autoZoomEnabled);
   frm()->AllowAutoZoom(autoZoomEnabled);
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSetTransitSchemeEnabled(JNIEnv * env, jclass, jboolean enabled)
+{
+  frm()->EnableTransitScheme(static_cast<bool>(enabled));
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_Framework_nativeIsTransitSchemeEnabled(JNIEnv * env, jclass)
+{
+  return static_cast<jboolean>(frm()->LoadTransitSchemeEnabled());
+}
+
+JNIEXPORT void JNICALL
+Java_com_mapswithme_maps_Framework_nativeSaveSettingSchemeEnabled(JNIEnv * env, jclass, jboolean enabled)
+{
+  frm()->SaveTransitSchemeEnabled(static_cast<bool>(enabled));
 }
 
 JNIEXPORT jboolean JNICALL

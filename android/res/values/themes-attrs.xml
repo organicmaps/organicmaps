@@ -101,10 +101,12 @@
     <attr name="filterPropertyBackground" format="reference"/>
     <attr name="adChoicesIcon" format="reference"/>
     <attr name="saleIcon" format="reference"/>
+    <attr name="toggleLayerBtn" format="reference"></attr>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">
     <attr name="nav_background" format="reference"/>
+    <attr name="nav_bg_subway" format="reference"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.Downloader">

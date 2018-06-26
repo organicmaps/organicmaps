@@ -1,30 +1,29 @@
 package com.mapswithme.maps.traffic.widget;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.traffic.TrafficManager;
 
-public class TrafficButtonController implements TrafficManager.TrafficCallback
+public class TrafficMapLayerBtnController implements TrafficManager.TrafficCallback
 {
   @NonNull
-  private final TrafficButton mButton;
+  private final TrafficMapLayerButton mButton;
   @NonNull
-  private final Activity mActivity;
+  private final AppCompatActivity mActivity;
   @Nullable
   private Dialog mDialog;
 
-  public TrafficButtonController(@NonNull TrafficButton button, @NonNull Activity activity)
+  public TrafficMapLayerBtnController(@NonNull TrafficMapLayerButton button,
+                                      @NonNull AppCompatActivity activity)
   {
     mButton = button;
-    mButton.setClickListener(new OnTrafficClickListener());
     mActivity = activity;
   }
 
@@ -108,14 +107,5 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
     mButton.turnOn();
     if (notify)
       Toast.makeText(mActivity, R.string.traffic_update_app, Toast.LENGTH_SHORT).show();
-  }
-
-  private class OnTrafficClickListener implements View.OnClickListener
-  {
-    @Override
-    public void onClick(View v)
-    {
-      TrafficManager.INSTANCE.toggle();
-    }
   }
 }

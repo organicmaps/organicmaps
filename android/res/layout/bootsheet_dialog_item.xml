@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="wrap_content"
+  android:gravity="center"
+  android:layout_height="match_parent">
+  <ImageButton
+    android:id="@+id/item_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/margin_double_plus"
+    android:minWidth="@dimen/margin_double_plus"
+    android:background="@drawable/traffic_subway_btn_bg"
+    android:layout_gravity="center"/>
+  <TextView
+    android:id="@+id/name"
+    android:textAppearance="@style/MwmTextAppearance.Body5"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
+</LinearLayout>

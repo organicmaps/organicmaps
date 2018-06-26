@@ -165,6 +165,7 @@ namespace android
     void SwitchMyPositionNextMode();
 
     void SetTrafficStateListener(TrafficManager::TrafficStateChangedFn const & fn);
+    bool IsTrafficEnabled();
     void EnableTraffic();
     void DisableTraffic();
 

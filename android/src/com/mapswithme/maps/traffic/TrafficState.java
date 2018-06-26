@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-final class TrafficState
+public final class TrafficState
 {
   interface StateChangeListener
   {
@@ -38,6 +38,7 @@ final class TrafficState
   static native void nativeRemoveListener();
   static native void nativeEnable();
   static native void nativeDisable();
+  static native boolean nativeIsEnabled();
 
   private TrafficState() {}
 

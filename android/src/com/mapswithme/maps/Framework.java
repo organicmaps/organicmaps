@@ -376,6 +376,12 @@ public class Framework
 
   public static native void nativeSetAutoZoomEnabled(boolean enabled);
 
+  public static native void nativeSetTransitSchemeEnabled(boolean enabled);
+
+  public static native void nativeSaveSettingSchemeEnabled(boolean enabled);
+
+  public static native boolean nativeIsTransitSchemeEnabled();
+
   @NonNull
   public static native MapObject nativeDeleteBookmarkFromMapObject();
 

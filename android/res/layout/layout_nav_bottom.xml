@@ -69,8 +69,16 @@
       android:layout_width="0dp"
       android:layout_height="@dimen/nav_icon_size"
       android:scaleType="center"
-      android:src="@drawable/ic_setting_traffic_on"
       android:background="?selectableItemBackgroundBorderless"/>
+
+    <ImageView
+      android:id="@+id/subway"
+      android:layout_weight="0.2"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/nav_icon_size"
+      android:scaleType="center"
+      android:visibility="gone"
+      android:background="?attr/nav_bg_subway"/>
 
     <ImageView
       android:id="@+id/settings"

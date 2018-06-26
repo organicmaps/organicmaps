@@ -33,6 +33,13 @@ Java_com_mapswithme_maps_traffic_TrafficState_nativeEnable(JNIEnv * env, jclass 
   g_framework->EnableTraffic();
 }
 
+JNIEXPORT jboolean JNICALL
+Java_com_mapswithme_maps_traffic_TrafficState_nativeIsEnabled(JNIEnv * env, jclass clazz)
+{
+  CHECK(g_framework, ("Framework isn't created yet!"));
+  return static_cast<jboolean>(g_framework->IsTrafficEnabled());
+}
+
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_traffic_TrafficState_nativeDisable(JNIEnv * env, jclass clazz)
 {

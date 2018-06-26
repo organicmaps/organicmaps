@@ -25,6 +25,7 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.sound.TtsPlayer;
+import com.mapswithme.maps.subway.SubwayManager;
 import com.mapswithme.maps.traffic.TrafficManager;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Config;
@@ -62,6 +63,7 @@ public class MwmApplication extends Application
   private static MwmApplication sSelf;
   private SharedPreferences mPrefs;
   private AppBackgroundTracker mBackgroundTracker;
+  private SubwayManager mSubwayManager;
 
   private boolean mFrameworkInitialized;
   private boolean mPlatformInitialized;
@@ -117,6 +119,11 @@ public class MwmApplication extends Application
           Statistics.INSTANCE.trackColdStartupInfo();
         }
       };
+
+  public SubwayManager getSubwayManager()
+  {
+    return mSubwayManager;
+  }
 
   public MwmApplication()
   {
@@ -186,6 +193,7 @@ public class MwmApplication extends Application
 
     mBackgroundTracker = new AppBackgroundTracker();
     mBackgroundTracker.addListener(mVisibleAppLaunchListener);
+    mSubwayManager = new SubwayManager();
   }
 
   private void initCoreIndependentSdks()

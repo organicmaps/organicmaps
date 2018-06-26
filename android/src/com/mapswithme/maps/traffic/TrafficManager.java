@@ -1,8 +1,11 @@
 package com.mapswithme.maps.traffic;
 
+import android.support.annotation.DrawableRes;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 
+import com.mapswithme.maps.R;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -44,7 +47,7 @@ public enum TrafficManager
       disable();
   }
 
-  private void enable()
+  public void enable()
   {
     mLogger.d(mTag, "Enable traffic");
     TrafficState.nativeEnable();
@@ -61,8 +64,7 @@ public enum TrafficManager
   public boolean isEnabled()
   {
     checkInitialization();
-
-    return mState != TrafficState.DISABLED;
+    return TrafficState.nativeIsEnabled();
   }
 
   public void attach(@NonNull TrafficCallback callback)
@@ -74,7 +76,6 @@ public enum TrafficManager
       throw new IllegalStateException("A callback '" + callback
                                       + "' is already attached. Check that the 'detachAll' method was called.");
     }
-
     mLogger.d(mTag, "Attach callback '" + callback + "'");
     mCallbacks.add(callback);
     postPendingState();
@@ -105,6 +106,35 @@ public enum TrafficManager
   {
     if (!mInitialized)
       throw new AssertionError("Traffic manager is not initialized!");
+  }
+
+  @DrawableRes
+  public int getIconRes()
+  {
+    return isEnabled() ? getEnabledStateIcon() : getDisabledStateIcon();
+  }
+
+  private int getEnabledStateIcon()
+  {
+    return R.drawable.ic_traffic_on;
+  }
+
+  private int getDisabledStateIcon()
+  {
+    return ThemeUtils.isNightTheme()
+           ? R.drawable.ic_traffic_menu_dark_off
+           : R.drawable.ic_traffic_menu_light_off;
+  }
+
+  public void setEnabled(boolean enabled)
+  {
+    if (isEnabled() == enabled)
+      return;
+
+    if (enabled)
+      enable();
+    else
+      disable();
   }
 
   private class TrafficStateListener implements TrafficState.StateChangeListener

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:drawable="@drawable/traffic_subway_btn_bg_selected" android:state_selected="true"/>
+  <item android:drawable="@drawable/traffic_subway_bg_default"/>
+</selector>

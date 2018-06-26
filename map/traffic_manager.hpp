@@ -67,6 +67,7 @@ public:
   void SetCurrentDataVersion(int64_t dataVersion);
 
   void SetEnabled(bool enabled);
+  bool IsEnabled() const;
 
   void UpdateViewport(ScreenBase const & screen);
   void UpdateMyPosition(MyPosition const & myPosition);
@@ -127,7 +128,6 @@ private:
   void ChangeState(TrafficState newState);
 
   bool IsInvalidState() const;
-  bool IsEnabled() const;
 
   void UniteActiveMwms(set<MwmSet::MwmId> & activeMwms) const;
 

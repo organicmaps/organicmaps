@@ -58,13 +58,12 @@ public class Utils
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = "Utils";
 
-  public interface Proc<T>
-  {
-    void invoke(@NonNull T param);
-  }
-
   private Utils() {}
 
+  public static boolean isLollipopOrLater()
+  {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+  }
   public static boolean isAmazonDevice()
   {
     return "Amazon".equalsIgnoreCase(Build.MANUFACTURER);
@@ -676,6 +675,12 @@ public class Utils
 
   public enum PartnerAppOpenMode
   {
-    None, Direct, Indirect
+    None, Direct, Indirect;
+  }
+
+  public interface Proc<T>
+  {
+    void invoke(@NonNull T param);
+
   }
 }
