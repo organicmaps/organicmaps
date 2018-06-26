@@ -97,7 +97,7 @@ UNIT_TEST(RankTableBuilder_EndToEnd)
     search::RankTableBuilder::Create(ranks, wcont);
   }
 
-  DataSource dataSource(FeatureSourceFactory::Get());
+  FrozenDataSource dataSource;
   auto regResult = dataSource.RegisterMap(localFile);
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
 

@@ -29,10 +29,7 @@ namespace
 class DataSourceTest : public MwmSet::Observer
 {
 public:
-  DataSourceTest() : m_dataSource(FeatureSourceFactory::Get())
-  {
-    TEST(m_dataSource.AddObserver(*this), ());
-  }
+  DataSourceTest() { TEST(m_dataSource.AddObserver(*this), ()); }
 
   ~DataSourceTest() override { TEST(m_dataSource.RemoveObserver(*this), ()); }
 
@@ -90,7 +87,7 @@ protected:
     events.emplace_back(forward<TArgs>(args)...);
   }
 
-  DataSource m_dataSource;
+  FrozenDataSource m_dataSource;
   vector<MwmSet::Event> m_expected;
   vector<MwmSet::Event> m_actual;
 };

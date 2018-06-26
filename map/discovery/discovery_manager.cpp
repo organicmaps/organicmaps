@@ -1,6 +1,6 @@
 #include "map/discovery/discovery_manager.hpp"
 
-#include "editor/editable_feature_source.hpp"
+#include "editor/editable_data_source.hpp"
 
 #include "indexer/data_source.hpp"
 
@@ -71,8 +71,7 @@ std::string Manager::GetCityViatorId(m2::PointD const & point) const
   if (!fid.IsValid())
     return {};
 
-  DataSource::FeaturesLoaderGuard const guard(m_dataSource, fid.m_mwmId,
-                                              EditableFeatureSourceFactory::Get());
+  EditableFeaturesLoaderGuard const guard(m_dataSource, fid.m_mwmId);
   FeatureType ft;
   if (!guard.GetFeatureByIndex(fid.m_index, ft))
   {

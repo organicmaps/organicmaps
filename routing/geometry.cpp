@@ -2,10 +2,9 @@
 
 #include "routing/routing_exceptions.hpp"
 
-#include "editor/editable_feature_source.hpp"
+#include "editor/editable_data_source.hpp"
 
 #include "indexer/altitude_loader.hpp"
-#include "indexer/data_source.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -34,7 +33,7 @@ public:
 
 private:
   shared_ptr<VehicleModelInterface> m_vehicleModel;
-  DataSource::FeaturesLoaderGuard m_guard;
+  EditableFeaturesLoaderGuard m_guard;
   string const m_country;
   feature::AltitudeLoader m_altitudeLoader;
   bool const m_loadAltitudes;
@@ -45,7 +44,7 @@ GeometryLoaderImpl::GeometryLoaderImpl(DataSource const & dataSource,
                                        shared_ptr<VehicleModelInterface> vehicleModel,
                                        bool loadAltitudes)
   : m_vehicleModel(move(vehicleModel))
-  , m_guard(dataSource, handle.GetId(), EditableFeatureSourceFactory::Get())
+  , m_guard(dataSource, handle.GetId())
   , m_country(handle.GetInfo()->GetCountryName())
   , m_altitudeLoader(dataSource, handle.GetId())
   , m_loadAltitudes(loadAltitudes)

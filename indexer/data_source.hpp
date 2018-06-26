@@ -14,7 +14,6 @@
 
 #include "base/macros.hpp"
 
-#include <algorithm>
 #include <cstdint>
 #include <functional>
 #include <memory>
@@ -57,7 +56,6 @@ public:
     std::unique_ptr<FeatureSource> m_source;
   };
 
-  explicit DataSource(FeatureSourceFactory const & factory) : m_factory(factory) {}
   ~DataSource() override = default;
 
   /// Registers a new map.
@@ -87,6 +85,8 @@ protected:
   using ReaderCallback = std::function<void(MwmSet::MwmHandle const & handle,
                                             covering::CoveringGetter & cov, int scale)>;
 
+  explicit DataSource(FeatureSourceFactory const & factory) : m_factory(factory) {}
+
   void ForEachInIntervals(ReaderCallback const & fn, covering::CoveringMode mode,
                           m2::RectD const & rect, int scale) const;
 
@@ -98,3 +98,19 @@ private:
   FeatureSourceFactory const & m_factory;
 };
 
+// DataSource which operates with features from mwm file and does not support features creation
+// deletion or modification.
+class FrozenDataSource : public DataSource
+{
+public:
+  FrozenDataSource() : DataSource(FeatureSourceFactory::Get()) {}
+};
+
+class FrozenFeaturesLoaderGuard : public DataSource::FeaturesLoaderGuard
+{
+public:
+  FrozenFeaturesLoaderGuard(DataSource const & dataSource, DataSource::MwmId const & id)
+    : DataSource::FeaturesLoaderGuard(dataSource, id, FeatureSourceFactory::Get())
+  {
+  }
+};

@@ -59,7 +59,7 @@ int32_t const kMaxNumThreads = 128;
 int32_t const kHandleAllSegments = -1;
 
 void LoadDataSources(std::string const & pathToMWMFolder,
-                     std::vector<std::unique_ptr<DataSource>> & dataSources)
+                     std::vector<FrozenDataSource> & dataSources)
 {
   CHECK(Platform::IsDirectory(pathToMWMFolder), (pathToMWMFolder, "must be a directory."));
 
@@ -85,7 +85,7 @@ void LoadDataSources(std::string const & pathToMWMFolder,
       localFile.SyncWithDisk();
       for (size_t i = 0; i < numDataSources; ++i)
       {
-        auto const result = dataSources[i]->RegisterMap(localFile);
+        auto const result = dataSources[i].RegisterMap(localFile);
         CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ("Can't register mwm:", localFile));
 
         auto const & info = result.first.GetInfo();
@@ -260,9 +260,7 @@ int main(int argc, char * argv[])
 
   auto const numThreads = static_cast<uint32_t>(FLAGS_num_threads);
 
-  std::vector<std::unique_ptr<DataSource>> dataSources(numThreads);
-  for (size_t i = 0; i < numThreads; ++i)
-    dataSources.push_back(std::make_unique<DataSource>(FeatureSourceFactory::Get()));
+  std::vector<FrozenDataSource> dataSources(numThreads);
 
   LoadDataSources(FLAGS_mwms_path, dataSources);
 

@@ -323,7 +323,7 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer)
   uint32_t address = 0, missing = 0;
   map<size_t, size_t> bounds;
 
-  DataSource dataSource(FeatureSourceFactory::Get());
+  FrozenDataSource dataSource;
   /// @ todo Make some better solution, or legalize MakeTemporary.
   auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(container.GetFileName()));
   ASSERT_EQUAL(res.second, MwmSet::RegResult::Success, ());

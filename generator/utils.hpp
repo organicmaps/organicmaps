@@ -30,7 +30,7 @@ public:
   MwmSet::MwmId const & GetMwmId() const { return m_mwmId; }
 
 private:
-  DataSource m_dataSource;
+  FrozenDataSource m_dataSource;
   platform::LocalCountryFile m_countryFile;
   MwmSet::MwmId m_mwmId;
 };

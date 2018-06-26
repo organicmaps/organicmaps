@@ -324,7 +324,7 @@ int main(int argc, char ** argv)
   classificator::Load();
   classif().SortClassificator();
 
-  DataSource dataSource(FeatureSourceFactory::Get());
+  FrozenDataSource dataSource;
   vector<platform::LocalCountryFile> mwms;
   platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* the latest version */,
                                        mwms);
@@ -353,7 +353,7 @@ int main(int argc, char ** argv)
     map<uint32_t, osm::Id> featureIdToOsmId;
     ParseFeatureIdToOsmIdMapping(osmToFeatureFile, featureIdToOsmId);
     MwmSet::MwmId mwmId(mwmInfo);
-    DataSource::FeaturesLoaderGuard loader(dataSource, mwmId, FeatureSourceFactory::Get());
+    FrozenFeaturesLoaderGuard loader(dataSource, mwmId);
     for (uint32_t ftIndex = 0; ftIndex < loader.GetNumFeatures(); ftIndex++)
     {
       FeatureType ft;

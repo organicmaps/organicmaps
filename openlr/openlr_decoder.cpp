@@ -81,7 +81,7 @@ struct alignas(kCacheLineSize) Stats
 
 bool IsRealVertex(m2::PointD const & p, FeatureID const & fid, DataSource const & dataSource)
 {
-  DataSource::FeaturesLoaderGuard g(dataSource, fid.m_mwmId, FeatureSourceFactory::Get());
+  FrozenFeaturesLoaderGuard g(dataSource, fid.m_mwmId);
   auto const ft = g.GetOriginalFeatureByIndex(fid.m_index);
   bool matched = false;
   ft->ForEachPoint(
@@ -378,7 +378,7 @@ bool OpenLRDecoder::SegmentsFilter::Matches(LinearSegment const & segment) const
 }
 
 // OpenLRDecoder -----------------------------------------------------------------------------
-OpenLRDecoder::OpenLRDecoder(vector<unique_ptr<DataSource>> const & dataSources,
+OpenLRDecoder::OpenLRDecoder(vector<FrozenDataSource> const & dataSources,
                              CountryParentNameGetter const & countryParentNameGetter)
   : m_dataSources(dataSources), m_countryParentNameGetter(countryParentNameGetter)
 {
@@ -430,9 +430,9 @@ void OpenLRDecoder::Decode(vector<LinearSegment> const & segments,
   vector<Stats> stats(numThreads);
   vector<thread> workers;
   for (size_t i = 1; i < numThreads; ++i)
-    workers.emplace_back(worker, i, ref(*m_dataSources[i]), ref(stats[i]));
+    workers.emplace_back(worker, i, ref(m_dataSources[i]), ref(stats[i]));
 
-  worker(0 /* threadNum */, *m_dataSources[0], stats[0]);
+  worker(0 /* threadNum */, m_dataSources[0], stats[0]);
   for (auto & worker : workers)
     worker.join();
 

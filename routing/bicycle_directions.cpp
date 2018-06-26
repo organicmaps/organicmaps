@@ -12,7 +12,7 @@
 
 #include "routing_common/car_model.hpp"
 
-#include "editor/editable_feature_source.hpp"
+#include "editor/editable_data_source.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
@@ -214,8 +214,7 @@ bool BicycleDirectionsEngine::Generate(IndexRoadGraph const & graph, vector<Junc
 DataSource::FeaturesLoaderGuard & BicycleDirectionsEngine::GetLoader(MwmSet::MwmId const & id)
 {
   if (!m_loader || id != m_loader->GetId())
-    m_loader = make_unique<DataSource::FeaturesLoaderGuard>(m_dataSource, id,
-                                                            EditableFeatureSourceFactory::Get());
+    m_loader = make_unique<EditableFeaturesLoaderGuard>(m_dataSource, id);
   return *m_loader;
 }
 

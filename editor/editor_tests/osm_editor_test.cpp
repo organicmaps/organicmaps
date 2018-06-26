@@ -1,6 +1,5 @@
 #include "testing/testing.hpp"
 
-#include "editor/editable_feature_source.hpp"
 #include "editor/editor_storage.hpp"
 #include "editor/editor_tests/osm_editor_test.hpp"
 #include "editor/editor_tests_support/helpers.hpp"
@@ -137,7 +136,7 @@ namespace editor
 {
 namespace testing
 {
-EditorTest::EditorTest() : m_dataSource(EditableFeatureSourceFactory::Get())
+EditorTest::EditorTest()
 {
   try
   {

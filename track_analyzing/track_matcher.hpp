@@ -76,7 +76,7 @@ private:
   };
 
   routing::NumMwmId const m_mwmId;
-  DataSource m_dataSource;
+  FrozenDataSource m_dataSource;
   std::shared_ptr<routing::VehicleModelInterface> m_vehicleModel;
   std::unique_ptr<routing::IndexGraph> m_graph;
   uint64_t m_tracksCount = 0;

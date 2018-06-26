@@ -42,7 +42,7 @@ protected:
                        std::vector<std::pair<routing::Edge, routing::Junction>> & edges);
 
   routing::IRoadGraph::Mode const m_mode;
-  DataSource m_dataSource;
+  FrozenDataSource m_dataSource;
   traffic::TrafficCache m_trafficCache;
 
   std::vector<platform::LocalCountryFile> m_localFiles;

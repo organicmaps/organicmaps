@@ -2,7 +2,7 @@
 
 #include "search/result.hpp"
 
-#include "editor/editable_feature_source.hpp"
+#include "editor/editable_data_source.hpp"
 
 #include "indexer/data_source.hpp"
 
@@ -63,8 +63,7 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
     if (result.GetResultType() != search::Result::Type::LatLon)
     {
       FeatureID const & fid = result.GetFeatureID();
-      DataSource::FeaturesLoaderGuard loader(m_dataSource, fid.m_mwmId,
-                                             EditableFeatureSourceFactory::Get());
+      EditableFeaturesLoaderGuard loader(m_dataSource, fid.m_mwmId);
       FeatureType ft;
       if (!loader.GetFeatureByIndex(fid.m_index, ft))
       {

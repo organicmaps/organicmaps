@@ -182,7 +182,7 @@ void TestAltitudesBuilding(vector<TPoint3DList> const & roads, bool hasAltitudeE
   BuildRoadAltitudes(mwmPath, altitudeGetter);
 
   // Reading from mwm and testing altitude information.
-  DataSource dataSource(FeatureSourceFactory::Get());
+  FrozenDataSource dataSource;
   auto const regResult = dataSource.RegisterMap(country);
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
 

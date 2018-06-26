@@ -38,4 +38,7 @@ public:
   {
     return std::make_unique<EditableFeatureSource>(handle);
   }
+
+protected:
+  EditableFeatureSourceFactory() = default;
 };

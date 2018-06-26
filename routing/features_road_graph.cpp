@@ -4,10 +4,9 @@
 
 #include "routing_common/vehicle_model.hpp"
 
-#include "editor/editable_feature_source.hpp"
+#include "editor/editable_data_source.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/data_source.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
@@ -206,8 +205,7 @@ void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t coun
 void FeaturesRoadGraph::GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const
 {
   FeatureType ft;
-  DataSource::FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId,
-                                         EditableFeatureSourceFactory::Get());
+  EditableFeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId);
   if (!loader.GetFeatureByIndex(featureId.m_index, ft))
     return;
 
@@ -308,8 +306,7 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
 
   FeatureType ft;
 
-  DataSource::FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId,
-                                         EditableFeatureSourceFactory::Get());
+  EditableFeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId);
 
   if (!loader.GetFeatureByIndex(featureId.m_index, ft))
     return ri;

@@ -9,7 +9,7 @@
 #include "search/token_slice.hpp"
 #include "search/utils.hpp"
 
-#include "editor/editable_feature_source.hpp"
+#include "editor/editable_data_source.hpp"
 
 #include "indexer/data_source.hpp"
 #include "indexer/feature_algo.hpp"
@@ -211,18 +211,18 @@ private:
 
 class RankerResultMaker
 {
+  using LoaderGuard = EditableFeaturesLoaderGuard;
   Ranker & m_ranker;
   DataSource const & m_dataSource;
   Geocoder::Params const & m_params;
   storage::CountryInfoGetter const & m_infoGetter;
 
-  unique_ptr<DataSource::FeaturesLoaderGuard> m_loader;
+  unique_ptr<LoaderGuard> m_loader;
 
   bool LoadFeature(FeatureID const & id, FeatureType & ft)
   {
     if (!m_loader || m_loader->GetId() != id.m_mwmId)
-      m_loader = make_unique<DataSource::FeaturesLoaderGuard>(m_dataSource, id.m_mwmId,
-                                                              EditableFeatureSourceFactory::Get());
+      m_loader = make_unique<LoaderGuard>(m_dataSource, id.m_mwmId);
     if (!m_loader->GetFeatureByIndex(id.m_index, ft))
       return false;
 

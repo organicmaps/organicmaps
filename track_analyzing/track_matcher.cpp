@@ -54,8 +54,7 @@ namespace track_analyzing
 // TrackMatcher ------------------------------------------------------------------------------------
 TrackMatcher::TrackMatcher(storage::Storage const & storage, NumMwmId mwmId,
                            platform::CountryFile const & countryFile)
-  : m_dataSource(FeatureSourceFactory::Get())
-  , m_mwmId(mwmId)
+  : m_mwmId(mwmId)
   , m_vehicleModel(CarModelFactory({}).GetVehicleModelForCountry(countryFile.GetName()))
 {
   auto localCountryFile = storage.GetLatestLocalFile(countryFile);

@@ -111,7 +111,7 @@ public:
   }
 
 private:
-  MwmBuilder() : m_dataSource(FeatureSourceFactory::Get()) { classificator::Load(); }
+  MwmBuilder() { classificator::Load(); }
 
   MwmSet::MwmId BuildMwm(BuilderFn const & fn)
   {
@@ -161,7 +161,7 @@ private:
     map.DeleteFromDisk(MapOptions::Map);
   }
 
-  DataSource m_dataSource;
+  FrozenDataSource m_dataSource;
   storage::CountryInfoGetterForTesting m_infoGetter;
   platform::LocalCountryFile m_testMwm;
 };

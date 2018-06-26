@@ -1,6 +1,6 @@
 #include "search/feature_loader.hpp"
 
-#include "editor/editable_feature_source.hpp"
+#include "editor/editable_data_source.hpp"
 
 #include "indexer/feature_decl.hpp"
 
@@ -16,8 +16,7 @@ bool FeatureLoader::Load(FeatureID const & id, FeatureType & ft)
 
   auto const & mwmId = id.m_mwmId;
   if (!m_guard || m_guard->GetId() != mwmId)
-    m_guard = my::make_unique<DataSource::FeaturesLoaderGuard>(m_dataSource, mwmId,
-                                                               EditableFeatureSourceFactory::Get());
+    m_guard = my::make_unique<EditableFeaturesLoaderGuard>(m_dataSource, mwmId);
   return m_guard->GetFeatureByIndex(id.m_index, ft);
 }
 

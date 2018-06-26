@@ -2,6 +2,7 @@
 
 #include "base/logging.hpp"
 
+#include <algorithm>
 #include <limits>
 #include <type_traits>
 
@@ -102,8 +103,7 @@ private:
 };
 }  //  namespace
 
-//------------------------- DataSource::FeaturesLoaderGuard ----------------------
-
+// DataSource::FeaturesLoaderGuard ---------------------------------------------------------
 string DataSource::FeaturesLoaderGuard::GetCountryFileName() const
 {
   if (!m_handle.IsAlive())
@@ -144,7 +144,6 @@ unique_ptr<FeatureType> DataSource::FeaturesLoaderGuard::GetOriginalOrEditedFeat
   return {};
 }
 
-/// Everyone, except Editor core, should use this method.
 WARN_UNUSED_RESULT bool DataSource::FeaturesLoaderGuard::GetFeatureByIndex(uint32_t index,
                                                                            FeatureType & ft) const
 {
@@ -158,15 +157,13 @@ WARN_UNUSED_RESULT bool DataSource::FeaturesLoaderGuard::GetFeatureByIndex(uint3
   return GetOriginalFeatureByIndex(index, ft);
 }
 
-/// Editor core only method, to get 'untouched', original version of feature.
 WARN_UNUSED_RESULT bool DataSource::FeaturesLoaderGuard::GetOriginalFeatureByIndex(
     uint32_t index, FeatureType & ft) const
 {
   return m_handle.IsAlive() ? m_source->GetOriginalFeature(index, ft) : false;
 }
 
-//---------------- DataSource -----------------------------------------------
-
+// DataSource ----------------------------------------------------------------------------------
 unique_ptr<MwmInfo> DataSource::CreateInfo(platform::LocalCountryFile const & localFile) const
 {
   MwmValue value(localFile);

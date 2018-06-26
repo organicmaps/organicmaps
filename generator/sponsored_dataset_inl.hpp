@@ -18,7 +18,7 @@ namespace generator
 class AddressMatcher
 {
 public:
-  AddressMatcher() : m_dataSource(FeatureSourceFactory::Get())
+  AddressMatcher()
   {
     LoadDataSource(m_dataSource);
     m_coder = make_unique<search::ReverseGeocoder>(m_dataSource);
@@ -34,7 +34,7 @@ public:
   }
 
 private:
-  DataSource m_dataSource;
+  FrozenDataSource m_dataSource;
   std::unique_ptr<search::ReverseGeocoder> m_coder;
 };
 

@@ -65,4 +65,7 @@ public:
   {
     return std::make_unique<FeatureSource>(handle);
   }
+
+protected:
+  FeatureSourceFactory() = default;
 };
