@@ -25,7 +25,7 @@
 
 #include <boost/optional.hpp>
 
-class DataSourceBase;
+class DataSource;
 
 namespace search
 {
@@ -87,7 +87,7 @@ public:
     virtual search::ProductInfo GetProductInfo(search::Result const & result) const { return {}; };
   };
 
-  SearchAPI(DataSourceBase & dataSource, storage::Storage const & storage,
+  SearchAPI(DataSource & dataSource, storage::Storage const & storage,
             storage::CountryInfoGetter const & infoGetter, Delegate & delegate);
   virtual ~SearchAPI() = default;
 
@@ -155,7 +155,7 @@ private:
   bool QueryMayBeSkipped(search::SearchParams const & prevParams,
                          search::SearchParams const & currParams) const;
 
-  DataSourceBase & m_dataSource;
+  DataSource & m_dataSource;
   storage::Storage const & m_storage;
   storage::CountryInfoGetter const & m_infoGetter;
   Delegate & m_delegate;

@@ -16,7 +16,7 @@
 #include <utility>
 #include <vector>
 
-class DataSourceBase;
+class DataSource;
 
 namespace search
 {
@@ -212,7 +212,7 @@ public:
 
   static int const DEFAULT_OFFSET_M = 200;
 
-  HouseDetector(DataSourceBase const & dataSource);
+  HouseDetector(DataSource const & dataSource);
   ~HouseDetector();
 
   int LoadStreets(std::vector<FeatureID> const & ids);

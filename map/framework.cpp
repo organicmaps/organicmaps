@@ -39,11 +39,12 @@
 
 #include "drape/constants.hpp"
 
-#include "editor/editable_data_source.hpp"
+#include "editor/editable_feature_source.hpp"
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/drawing_rules.hpp"
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
@@ -371,7 +372,7 @@ Framework::Framework(FrameworkParams const & params)
                      bind(&Framework::GetMwmsByRect, this, _1, false /* rough */))
   , m_routingManager(
         RoutingManager::Callbacks(
-            [this]() -> DataSourceBase & { return m_model.GetDataSource(); },
+            [this]() -> DataSource & { return m_model.GetDataSource(); },
             [this]() -> storage::CountryInfoGetter & { return GetCountryInfoGetter(); },
             [this](string const & id) -> string { return m_storage.GetParentIdFor(id); },
             [this]() -> StringsBundle const & { return m_stringsBundle; }),
@@ -749,7 +750,8 @@ void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) 
     return;
   }
 
-  EditableDataSource::FeaturesLoaderGuard const guard(m_model.GetDataSource(), fid.m_mwmId);
+  DataSource::FeaturesLoaderGuard const guard(m_model.GetDataSource(), fid.m_mwmId,
+                                              EditableFeatureSourceFactory());
   FeatureType ft;
   if (!guard.GetFeatureByIndex(fid.m_index, ft))
   {
@@ -2085,7 +2087,8 @@ bool Framework::GetFeatureByID(FeatureID const & fid, FeatureType & ft) const
 {
   ASSERT(fid.IsValid(), ());
 
-  EditableDataSource::FeaturesLoaderGuard guard(m_model.GetDataSource(), fid.m_mwmId);
+  DataSource::FeaturesLoaderGuard guard(m_model.GetDataSource(), fid.m_mwmId,
+                                        EditableFeatureSourceFactory());
   if (!guard.GetFeatureByIndex(fid.m_index, ft))
     return false;
 
@@ -2604,7 +2607,8 @@ vector<m2::TriangleD> Framework::GetSelectedFeatureTriangles() const
   if (!m_selectedFeature.IsValid())
     return triangles;
 
-  EditableDataSource::FeaturesLoaderGuard const guard(m_model.GetDataSource(), m_selectedFeature.m_mwmId);
+  DataSource::FeaturesLoaderGuard const guard(m_model.GetDataSource(), m_selectedFeature.m_mwmId,
+                                              EditableFeatureSourceFactory());
   FeatureType ft;
   if (!guard.GetFeatureByIndex(m_selectedFeature.m_index, ft))
     return triangles;
@@ -2738,10 +2742,10 @@ bool Framework::ParseEditorDebugCommand(search::SearchParams const & params)
 
 namespace
 {
-WARN_UNUSED_RESULT bool LocalizeStreet(DataSourceBase const & dataSource, FeatureID const & fid,
+WARN_UNUSED_RESULT bool LocalizeStreet(DataSource const & dataSource, FeatureID const & fid,
                                        osm::LocalizedStreet & result)
 {
-  EditableDataSource::FeaturesLoaderGuard g(dataSource, fid.m_mwmId);
+  DataSource::FeaturesLoaderGuard g(dataSource, fid.m_mwmId, EditableFeatureSourceFactory());
   FeatureType ft;
   if (!g.GetFeatureByIndex(fid.m_index, ft))
     return false;
@@ -2754,7 +2758,7 @@ WARN_UNUSED_RESULT bool LocalizeStreet(DataSourceBase const & dataSource, Featur
 }
 
 vector<osm::LocalizedStreet> TakeSomeStreetsAndLocalize(
-    vector<search::ReverseGeocoder::Street> const & streets, DataSourceBase const & dataSource)
+    vector<search::ReverseGeocoder::Street> const & streets, DataSource const & dataSource)
 
 {
   vector<osm::LocalizedStreet> results;
@@ -2783,7 +2787,7 @@ vector<osm::LocalizedStreet> TakeSomeStreetsAndLocalize(
   return results;
 }
 
-void SetStreet(search::ReverseGeocoder const & coder, DataSourceBase const & dataSource,
+void SetStreet(search::ReverseGeocoder const & coder, DataSource const & dataSource,
                FeatureType & ft, osm::EditableMapObject & emo)
 {
   auto const & editor = osm::Editor::Instance();
@@ -2850,7 +2854,7 @@ void SetStreet(search::ReverseGeocoder const & coder, DataSourceBase const & dat
   emo.SetNearbyStreets(move(localizedStreets));
 }
 
-void SetHostingBuildingAddress(FeatureID const & hostingBuildingFid, DataSourceBase const & dataSource,
+void SetHostingBuildingAddress(FeatureID const & hostingBuildingFid, DataSource const & dataSource,
                                search::ReverseGeocoder const & coder, osm::EditableMapObject & emo)
 {
   if (!hostingBuildingFid.IsValid())
@@ -2858,7 +2862,8 @@ void SetHostingBuildingAddress(FeatureID const & hostingBuildingFid, DataSourceB
 
   FeatureType hostingBuildingFeature;
 
-  EditableDataSource::FeaturesLoaderGuard g(dataSource, hostingBuildingFid.m_mwmId);
+  DataSource::FeaturesLoaderGuard g(dataSource, hostingBuildingFid.m_mwmId,
+                                    EditableFeatureSourceFactory());
   if (!g.GetFeatureByIndex(hostingBuildingFid.m_index, hostingBuildingFeature))
     return;
 
@@ -2952,7 +2957,8 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
   {
     auto const isCreatedFeature = editor.IsCreatedFeature(emo.GetID());
 
-    EditableDataSource::FeaturesLoaderGuard g(m_model.GetDataSource(), emo.GetID().m_mwmId);
+    DataSource::FeaturesLoaderGuard g(m_model.GetDataSource(), emo.GetID().m_mwmId,
+                                      EditableFeatureSourceFactory());
     FeatureType originalFeature;
     if (!isCreatedFeature)
     {

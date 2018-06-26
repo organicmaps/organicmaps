@@ -37,7 +37,7 @@ uint8_t ReadCameraRestriction(FeatureType & ft)
   return 0;
 }
 
-uint8_t CheckCameraInPoint(m2::PointD const & point, DataSourceBase const & dataSource)
+uint8_t CheckCameraInPoint(m2::PointD const & point, DataSource const & dataSource)
 {
   uint32_t speedLimit = kNoSpeedCamera;
 

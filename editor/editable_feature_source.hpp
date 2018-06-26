@@ -8,6 +8,7 @@
 
 #include <cstdint>
 #include <functional>
+#include <memory>
 
 class EditableFeatureSource final : public FeatureSource
 {
@@ -21,4 +22,14 @@ public:
                              std::function<void(FeatureID const &)> const & fn) const override;
   void ForEachInRectAndScale(m2::RectD const & rect, int scale,
                              std::function<void(FeatureType &)> const & fn) const override;
-};  // class EditableFeatureSource
+};
+
+class EditableFeatureSourceFactory : public FeatureSourceFactory
+{
+public:
+  // FeatureSourceFactory overrides:
+  std::unique_ptr<FeatureSource> operator()(MwmSet::MwmHandle const & handle) const override
+  {
+    return std::make_unique<EditableFeatureSource>(handle);
+  }
+};

@@ -92,7 +92,7 @@ Engine::Params::Params(string const & locale, size_t numThreads)
 }
 
 // Engine ------------------------------------------------------------------------------------------
-Engine::Engine(DataSourceBase & dataSource, CategoriesHolder const & categories,
+Engine::Engine(DataSource & dataSource, CategoriesHolder const & categories,
                storage::CountryInfoGetter const & infoGetter, Params const & params)
   : m_shutdown(false)
 {

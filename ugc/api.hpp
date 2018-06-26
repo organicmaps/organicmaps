@@ -10,7 +10,7 @@
 
 #include <functional>
 
-class DataSourceBase;
+class DataSource;
 struct FeatureID;
 
 namespace ugc
@@ -24,7 +24,7 @@ public:
   using OnResultCallback = platform::SafeCallback<void(Storage::SettingResult const result)>;
   using NumberOfUnsynchronizedCallback = std::function<void(size_t number)>;
 
-  Api(DataSourceBase const & dataSource, NumberOfUnsynchronizedCallback const & callback);
+  Api(DataSource const & dataSource, NumberOfUnsynchronizedCallback const & callback);
 
   void GetUGC(FeatureID const & id, UGCCallbackUnsafe const & callback);
   void SetUGCUpdate(FeatureID const & id, UGCUpdate const & ugc,

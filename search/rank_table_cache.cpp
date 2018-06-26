@@ -7,7 +7,7 @@
 
 namespace search
 {
-RankTable const & RankTableCache::Get(DataSourceBase & dataSource, TId const & mwmId)
+RankTable const & RankTableCache::Get(DataSource & dataSource, TId const & mwmId)
 {
   auto const it = m_ranks.find(TKey(mwmId));
   if (it != m_ranks.end())

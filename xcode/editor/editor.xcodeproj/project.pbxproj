@@ -154,7 +154,6 @@
 		6715564120BF0267002BA3B4 /* libeditor_tests_support.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libeditor_tests_support.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6715565220BF0F86002BA3B4 /* new_feature_categories.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = new_feature_categories.cpp; sourceTree = "<group>"; };
 		6715565320BF0F87002BA3B4 /* new_feature_categories.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = new_feature_categories.hpp; sourceTree = "<group>"; };
-		671ED37220D3B65100D4317E /* editable_data_source.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = editable_data_source.hpp; sourceTree = "<group>"; };
 		675B562520D2706000A521D2 /* editable_feature_source.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = editable_feature_source.cpp; sourceTree = "<group>"; };
 		675B562620D2706000A521D2 /* editable_feature_source.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = editable_feature_source.hpp; sourceTree = "<group>"; };
 		67A7F0D520DBF00400937412 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -242,7 +241,6 @@
 				340DC8281C4E71E500EAA2CC /* changeset_wrapper.hpp */,
 				3D3058721D707DBE004AC712 /* config_loader.cpp */,
 				3D3058731D707DBE004AC712 /* config_loader.hpp */,
-				671ED37220D3B65100D4317E /* editable_data_source.hpp */,
 				675B562520D2706000A521D2 /* editable_feature_source.cpp */,
 				675B562620D2706000A521D2 /* editable_feature_source.hpp */,
 				34527C4F1C89B1770015050E /* editor_config.cpp */,

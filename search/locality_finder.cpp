@@ -206,7 +206,8 @@ void LocalityFinder::Holder::Clear()
 }
 
 // LocalityFinder ----------------------------------------------------------------------------------
-LocalityFinder::LocalityFinder(DataSourceBase const & dataSource, CitiesBoundariesTable const & boundariesTable,
+LocalityFinder::LocalityFinder(DataSource const & dataSource,
+                               CitiesBoundariesTable const & boundariesTable,
                                VillagesCache & villagesCache)
   : m_dataSource(dataSource)
   , m_boundariesTable(boundariesTable)

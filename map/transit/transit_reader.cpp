@@ -137,11 +137,10 @@ unique_ptr<TransitDisplayInfo> && ReadTransitTask::GetTransitInfo()
   return move(m_transitInfo);
 }
 
-TransitReadManager::TransitReadManager(DataSourceBase & dataSource, TReadFeaturesFn const & readFeaturesFn,
+TransitReadManager::TransitReadManager(DataSource & dataSource,
+                                       TReadFeaturesFn const & readFeaturesFn,
                                        GetMwmsByRectFn const & getMwmsByRectFn)
-  : m_dataSource(dataSource)
-  , m_readFeaturesFn(readFeaturesFn)
-  , m_getMwmsByRectFn(getMwmsByRectFn)
+  : m_dataSource(dataSource), m_readFeaturesFn(readFeaturesFn), m_getMwmsByRectFn(getMwmsByRectFn)
 {
   Start();
 }

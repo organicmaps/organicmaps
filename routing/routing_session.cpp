@@ -285,7 +285,7 @@ void RoutingSession::ResetImpl()
 }
 
 RoutingSession::State RoutingSession::OnLocationPositionChanged(GpsInfo const & info,
-                                                                DataSourceBase const & dataSource)
+                                                                DataSource const & dataSource)
 {
   threads::MutexGuard guard(m_routingSessionMutex);
   ASSERT(m_state != RoutingNotActive, ());
@@ -663,7 +663,8 @@ string RoutingSession::GetTurnNotificationsLocale() const
   return m_turnNotificationsMgr.GetLocale();
 }
 
-double RoutingSession::GetDistanceToCurrentCamM(SpeedCameraRestriction & camera, DataSourceBase const & dataSource)
+double RoutingSession::GetDistanceToCurrentCamM(SpeedCameraRestriction & camera,
+                                                DataSource const & dataSource)
 {
   ASSERT(m_route, ());
 

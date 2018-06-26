@@ -3,9 +3,10 @@
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 #include "generator/generator_tests_support/test_with_classificator.hpp"
 
-#include "editor/editable_data_source.hpp"
+#include "editor/editable_feature_source.hpp"
 
 #include "indexer/data_header.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/mwm_set.hpp"
 
@@ -26,6 +27,7 @@ namespace tests_support
 class TestWithCustomMwms : public TestWithClassificator
 {
 public:
+  TestWithCustomMwms() : m_dataSource(make_unique<EditableFeatureSourceFactory>()) {}
   ~TestWithCustomMwms() override;
 
   // Creates a physical country file on a disk, which will be removed
@@ -88,7 +90,7 @@ protected:
 
   virtual void OnMwmBuilt(MwmInfo const & /* info */) {}
 
-  EditableDataSource m_dataSource;
+  DataSource m_dataSource;
   std::vector<platform::LocalCountryFile> m_files;
 };
 }  // namespace tests_support

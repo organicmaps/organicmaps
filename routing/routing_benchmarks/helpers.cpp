@@ -63,7 +63,10 @@ m2::PointD GetPointOnEdge(routing::Edge const & e, double posAlong)
 }  // namespace
 
 RoutingTest::RoutingTest(routing::IRoadGraph::Mode mode, set<string> const & neededMaps)
-  : m_mode(mode), m_neededMaps(neededMaps), m_numMwmIds(my::make_unique<routing::NumMwmIds>())
+  : m_mode(mode)
+  , m_dataSource(make_unique<FeatureSourceFactory>())
+  , m_neededMaps(neededMaps)
+  , m_numMwmIds(my::make_unique<routing::NumMwmIds>())
 {
   classificator::Load();
 

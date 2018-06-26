@@ -7,7 +7,7 @@
 
 #include "routing_common/num_mwm_id.hpp"
 
-#include "editor/editable_data_source.hpp"
+#include "indexer/data_source.hpp"
 
 #include <map>
 #include <memory>
@@ -28,7 +28,7 @@ public:
 
   using AdjacentEdgesMap = std::map<SegmentRange, AdjacentEdges>;
 
-  BicycleDirectionsEngine(DataSourceBase const & dataSource, std::shared_ptr<NumMwmIds> numMwmIds);
+  BicycleDirectionsEngine(DataSource const & dataSource, std::shared_ptr<NumMwmIds> numMwmIds);
 
   // IDirectionsEngine override:
   bool Generate(IndexRoadGraph const & graph, vector<Junction> const & path,
@@ -37,7 +37,7 @@ public:
                 vector<Segment> & segments) override;
 
 private:
-  EditableDataSource::FeaturesLoaderGuard & GetLoader(MwmSet::MwmId const & id);
+  DataSource::FeaturesLoaderGuard & GetLoader(MwmSet::MwmId const & id);
   void LoadPathAttributes(FeatureID const & featureId, LoadedPathSegment & pathSegment);
   void GetSegmentRangeAndAdjacentEdges(IRoadGraph::TEdgeVector const & outgoingEdges,
                                        Edge const & inEdge, uint32_t startSegId, uint32_t endSegId,
@@ -56,8 +56,8 @@ private:
 
   AdjacentEdgesMap m_adjacentEdges;
   TUnpackedPathSegments m_pathSegments;
-  DataSourceBase const & m_dataSource;
+  DataSource const & m_dataSource;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
-  std::unique_ptr<EditableDataSource::FeaturesLoaderGuard> m_loader;
+  std::unique_ptr<DataSource::FeaturesLoaderGuard> m_loader;
 };
 }  // namespace routing

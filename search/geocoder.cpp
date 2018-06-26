@@ -336,7 +336,7 @@ size_t OrderCountries(m2::RectD const & pivot, vector<shared_ptr<MwmInfo>> & inf
 }  // namespace
 
 // Geocoder::Geocoder ------------------------------------------------------------------------------
-Geocoder::Geocoder(DataSourceBase const & dataSource, storage::CountryInfoGetter const & infoGetter,
+Geocoder::Geocoder(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter,
                    CategoriesHolder const & categories, PreRanker & preRanker,
                    VillagesCache & villagesCache, ::base::Cancellable const & cancellable)
   : m_dataSource(dataSource)

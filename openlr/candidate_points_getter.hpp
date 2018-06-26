@@ -17,7 +17,7 @@ class CandidatePointsGetter
 {
 public:
   CandidatePointsGetter(size_t const maxJunctionCandidates, size_t const maxProjectionCandidates,
-                        DataSourceBase const & dataSource, Graph & graph)
+                        DataSource const & dataSource, Graph & graph)
     : m_maxJunctionCandidates(maxJunctionCandidates)
     , m_maxProjectionCandidates(maxProjectionCandidates)
     , m_dataSource(dataSource)
@@ -38,7 +38,7 @@ private:
   size_t const m_maxJunctionCandidates;
   size_t const m_maxProjectionCandidates;
 
-  DataSourceBase const & m_dataSource;
+  DataSource const & m_dataSource;
   Graph & m_graph;
 };
 }  // namespace openlr

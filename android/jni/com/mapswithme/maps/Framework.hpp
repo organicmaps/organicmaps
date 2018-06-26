@@ -33,7 +33,7 @@
 #include <memory>
 #include <mutex>
 
-class DataSourceBase;
+class DataSource;
 struct FeatureID;
 
 namespace search
@@ -81,7 +81,7 @@ namespace android
     Framework();
 
     storage::Storage & GetStorage();
-    DataSourceBase const & GetDataSource();
+    DataSource const & GetDataSource();
 
     void ShowNode(storage::TCountryId const & countryId, bool zoomToDownloadButton);
 

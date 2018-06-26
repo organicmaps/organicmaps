@@ -50,7 +50,7 @@ CrossMwmGraph::CrossMwmGraph(shared_ptr<NumMwmIds> numMwmIds,
                              shared_ptr<m4::Tree<NumMwmId>> numMwmTree,
                              shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
                              VehicleType vehicleType, CourntryRectFn const & countryRectFn,
-                             DataSourceBase & dataSource)
+                             DataSource & dataSource)
   : m_dataSource(dataSource)
   , m_numMwmIds(numMwmIds)
   , m_numMwmTree(numMwmTree)

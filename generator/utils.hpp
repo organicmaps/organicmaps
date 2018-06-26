@@ -18,14 +18,14 @@
 
 namespace generator
 {
-/// \brief This class is wrapper around |DataSourceBase| if only one mwm is registered in DataSourceBase.
+/// \brief This class is wrapper around |DataSource| if only one mwm is registered in DataSource.
 class SingleMwmDataSource
 {
 public:
   /// \param mwmPath is a path to mwm which should be registerd in DataSource.
   explicit SingleMwmDataSource(std::string const & mwmPath);
 
-  DataSourceBase & GetDataSource() { return m_dataSource; }
+  DataSource & GetDataSource() { return m_dataSource; }
   std::string GetPath(MapOptions file) const { return m_countryFile.GetPath(file); }
   MwmSet::MwmId const & GetMwmId() const { return m_mwmId; }
 
@@ -35,7 +35,7 @@ private:
   MwmSet::MwmId m_mwmId;
 };
 
-void LoadDataSource(DataSourceBase & dataSource);
+void LoadDataSource(DataSource & dataSource);
 
 template <typename ToDo>
 bool ForEachOsmId2FeatureId(std::string const & path, ToDo && toDo)

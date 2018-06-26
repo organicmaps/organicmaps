@@ -16,6 +16,10 @@
 
 #include "base/cancellable.hpp"
 
+#include <memory>
+
+using namespace std;
+
 namespace
 {
 class LocalityFinderTest : public generator::tests_support::TestWithClassificator
@@ -33,7 +37,8 @@ class LocalityFinderTest : public generator::tests_support::TestWithClassificato
 
 public:
   LocalityFinderTest()
-    : m_villagesCache(m_cancellable)
+    : m_dataSource(make_unique<FeatureSourceFactory>())
+    , m_villagesCache(m_cancellable)
     , m_boundariesTable(m_dataSource)
     , m_finder(m_dataSource, m_boundariesTable, m_villagesCache)
   {

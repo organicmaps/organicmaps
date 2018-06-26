@@ -62,7 +62,7 @@ string AlternativesMatchingRule::ToString() const
   return os.str();
 }
 
-bool MatchResults(DataSourceBase const & dataSource, vector<shared_ptr<MatchingRule>> rules,
+bool MatchResults(DataSource const & dataSource, vector<shared_ptr<MatchingRule>> rules,
                   vector<search::Result> const & actual)
 {
   vector<FeatureID> resultIds;
@@ -100,14 +100,14 @@ bool MatchResults(DataSourceBase const & dataSource, vector<shared_ptr<MatchingR
   return false;
 }
 
-bool MatchResults(DataSourceBase const & dataSource, vector<shared_ptr<MatchingRule>> rules,
+bool MatchResults(DataSource const & dataSource, vector<shared_ptr<MatchingRule>> rules,
                   search::Results const & actual)
 {
   vector<search::Result> const results(actual.begin(), actual.end());
   return MatchResults(dataSource, rules, results);
 }
 
-bool ResultMatches(DataSourceBase const & dataSource, shared_ptr<MatchingRule> rule,
+bool ResultMatches(DataSource const & dataSource, shared_ptr<MatchingRule> rule,
                    search::Result const & result)
 {
   bool matches = false;

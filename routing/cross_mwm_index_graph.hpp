@@ -66,7 +66,8 @@ class CrossMwmIndexGraph final
 public:
   using ReaderSourceFile = ReaderSource<FilesContainerR::TReader>;
 
-  CrossMwmIndexGraph(DataSourceBase & dataSource, std::shared_ptr<NumMwmIds> numMwmIds, VehicleType vehicleType)
+  CrossMwmIndexGraph(DataSource & dataSource, std::shared_ptr<NumMwmIds> numMwmIds,
+                     VehicleType vehicleType)
     : m_dataSource(dataSource), m_numMwmIds(numMwmIds), m_vehicleType(vehicleType)
   {
   }
@@ -193,7 +194,7 @@ private:
     return it->second;
   }
 
-  DataSourceBase & m_dataSource;
+  DataSource & m_dataSource;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   VehicleType m_vehicleType;
 

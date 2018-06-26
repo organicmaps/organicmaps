@@ -2,6 +2,7 @@
 
 #include "indexer/data_header.hpp"
 #include "indexer/data_source.hpp"
+#include "indexer/feature_source.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "coding/file_name_utils.hpp"
@@ -28,7 +29,10 @@ namespace
 class DataSourceTest : public MwmSet::Observer
 {
 public:
-  DataSourceTest() { TEST(m_dataSource.AddObserver(*this), ()); }
+  DataSourceTest() : m_dataSource(make_unique<FeatureSourceFactory>())
+  {
+    TEST(m_dataSource.AddObserver(*this), ());
+  }
 
   ~DataSourceTest() override { TEST(m_dataSource.RemoveObserver(*this), ()); }
 

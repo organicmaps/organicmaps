@@ -29,7 +29,7 @@
 class MwmInfo
 {
 public:
-  friend class DataSourceBase;
+  friend class DataSource;
   friend class MwmSet;
 
   enum MwmTypeT
@@ -91,7 +91,7 @@ protected:
 class MwmInfoEx : public MwmInfo
 {
 private:
-  friend class DataSourceBase;
+  friend class DataSource;
   friend class MwmValue;
 
   // weak_ptr is needed here to access offsets table in already
@@ -315,7 +315,7 @@ public:
   MwmHandle GetMwmHandleById(MwmId const & id);
 
   /// Now this function looks like workaround, but it allows to avoid ugly const_cast everywhere..
-  /// Client code usually holds const reference to DataSourceBase, but implementation is non-const.
+  /// Client code usually holds const reference to DataSource, but implementation is non-const.
   /// @todo Actually, we need to define, is this behaviour (getting Handle) const or non-const.
   MwmHandle GetMwmHandleById(MwmId const & id) const
   {

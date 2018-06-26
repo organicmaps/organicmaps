@@ -45,7 +45,7 @@ void SweepNearbyResults(double eps, set<FeatureID> const & prevEmit, vector<PreR
 }
 }  // namespace
 
-PreRanker::PreRanker(DataSourceBase const & dataSource, Ranker & ranker)
+PreRanker::PreRanker(DataSource const & dataSource, Ranker & ranker)
   : m_dataSource(dataSource), m_ranker(ranker), m_pivotFeatures(dataSource)
 {
 }

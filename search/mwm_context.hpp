@@ -25,7 +25,7 @@ namespace search
 void CoverRect(m2::RectD const & rect, int scale, covering::Intervals & result);
 
 /// @todo Move this class into "index" library and make it more generic.
-/// Now it duplicates "DataSourceBase" functionality.
+/// Now it duplicates "DataSource" functionality.
 class MwmContext
 {
 public:

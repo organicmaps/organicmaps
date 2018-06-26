@@ -2,7 +2,9 @@
 
 #include "search/result.hpp"
 
-#include "editor/editable_data_source.hpp"
+#include "editor/editable_feature_source.hpp"
+
+#include "indexer/data_source.hpp"
 
 #include "storage/country_info_getter.hpp"
 #include "storage/storage.hpp"
@@ -35,7 +37,8 @@ bool GetGroupCountryIdFromFeature(storage::Storage const & storage, FeatureType 
 
 namespace search
 {
-DownloaderSearchCallback::DownloaderSearchCallback(Delegate & delegate, DataSourceBase const & dataSource,
+DownloaderSearchCallback::DownloaderSearchCallback(Delegate & delegate,
+                                                   DataSource const & dataSource,
                                                    storage::CountryInfoGetter const & infoGetter,
                                                    storage::Storage const & storage,
                                                    storage::DownloaderSearchParams params)
@@ -60,7 +63,8 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
     if (result.GetResultType() != search::Result::Type::LatLon)
     {
       FeatureID const & fid = result.GetFeatureID();
-      EditableDataSource::FeaturesLoaderGuard loader(m_dataSource, fid.m_mwmId);
+      DataSource::FeaturesLoaderGuard loader(m_dataSource, fid.m_mwmId,
+                                             EditableFeatureSourceFactory());
       FeatureType ft;
       if (!loader.GetFeatureByIndex(fid.m_index, ft))
       {

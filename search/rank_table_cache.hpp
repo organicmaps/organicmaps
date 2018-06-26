@@ -7,7 +7,7 @@
 #include "std/map.hpp"
 #include "std/unique_ptr.hpp"
 
-class DataSourceBase;
+class DataSource;
 
 namespace search
 {
@@ -29,7 +29,7 @@ class RankTableCache
 public:
   RankTableCache() = default;
 
-  RankTable const & Get(DataSourceBase & dataSource, TId const & mwmId);
+  RankTable const & Get(DataSource & dataSource, TId const & mwmId);
 
   void Remove(TId const & id);
   void Clear();

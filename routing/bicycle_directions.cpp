@@ -12,7 +12,7 @@
 
 #include "routing_common/car_model.hpp"
 
-#include "editor/editable_data_source.hpp"
+#include "editor/editable_feature_source.hpp"
 
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
@@ -158,7 +158,8 @@ bool BicycleDirectionsEngine::AdjacentEdges::IsAlmostEqual(AdjacentEdges const &
 }
 
 // BicycleDirectionsEngine ------------------------------------------------------------------------
-BicycleDirectionsEngine::BicycleDirectionsEngine(DataSourceBase const & dataSource, shared_ptr<NumMwmIds> numMwmIds)
+BicycleDirectionsEngine::BicycleDirectionsEngine(DataSource const & dataSource,
+                                                 shared_ptr<NumMwmIds> numMwmIds)
   : m_dataSource(dataSource), m_numMwmIds(numMwmIds)
 {
   CHECK(m_numMwmIds, ());
@@ -210,10 +211,11 @@ bool BicycleDirectionsEngine::Generate(IndexRoadGraph const & graph, vector<Junc
   return true;
 }
 
-EditableDataSource::FeaturesLoaderGuard & BicycleDirectionsEngine::GetLoader(MwmSet::MwmId const & id)
+DataSource::FeaturesLoaderGuard & BicycleDirectionsEngine::GetLoader(MwmSet::MwmId const & id)
 {
   if (!m_loader || id != m_loader->GetId())
-    m_loader = make_unique<EditableDataSource::FeaturesLoaderGuard>(m_dataSource, id);
+    m_loader = make_unique<DataSource::FeaturesLoaderGuard>(m_dataSource, id,
+                                                            EditableFeatureSourceFactory());
   return *m_loader;
 }
 

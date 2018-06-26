@@ -1,7 +1,5 @@
 #include "openlr/graph.hpp"
 
-class DataSourceBase;
-
 using namespace routing;
 
 namespace openlr
@@ -30,7 +28,7 @@ void GetRegularEdges(Junction const & junction, IRoadGraph const & graph,
 }
 }  // namespace
 
-Graph::Graph(DataSourceBase const & dataSource, shared_ptr<CarModelFactory> carModelFactory)
+Graph::Graph(DataSource const & dataSource, shared_ptr<CarModelFactory> carModelFactory)
   : m_graph(dataSource, IRoadGraph::Mode::ObeyOnewayTag, carModelFactory)
 {
 }

@@ -20,7 +20,7 @@
 #include <unordered_set>
 #include <utility>
 
-class DataSourceBase;
+class DataSource;
 
 namespace search
 {
@@ -100,7 +100,7 @@ public:
     DISALLOW_COPY_AND_MOVE(Holder);
   };
 
-  LocalityFinder(DataSourceBase const & dataSource, CitiesBoundariesTable const & boundaries,
+  LocalityFinder(DataSource const & dataSource, CitiesBoundariesTable const & boundaries,
                  VillagesCache & villagesCache);
 
   template <typename Fn>
@@ -125,7 +125,7 @@ private:
   void LoadVicinity(m2::PointD const & p, bool loadCities, bool loadVillages);
   void UpdateMaps();
 
-  DataSourceBase const & m_dataSource;
+  DataSource const & m_dataSource;
   CitiesBoundariesTable const & m_boundariesTable;
   VillagesCache & m_villagesCache;
 

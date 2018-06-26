@@ -4,11 +4,11 @@
 
 #include "std/function.hpp"
 
-class DataSourceBase;
+class DataSource;
 class FeatureType;
 
 namespace indexer
 {
-void ForEachFeatureAtPoint(DataSourceBase const & dataSource, function<void(FeatureType &)> && fn,
+void ForEachFeatureAtPoint(DataSource const & dataSource, function<void(FeatureType &)> && fn,
                            m2::PointD const & mercator, double toleranceInMeters = 0.0);
 }

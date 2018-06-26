@@ -114,7 +114,7 @@ UNIT_TEST(TestRouteBuilding)
 
 UNIT_TEST(TestRouteRebuilding)
 {
-  DataSource dataSource;
+  DataSource dataSource(make_unique<FeatureSourceFactory>());
   RoutingSession session;
   session.Init(nullptr, nullptr);
   vector<m2::PointD> routePoints = kTestRoute;
@@ -172,7 +172,7 @@ UNIT_TEST(TestRouteRebuilding)
 
 UNIT_TEST(TestFollowRouteFlagPersistence)
 {
-  DataSource dataSource;
+  DataSource dataSource(make_unique<FeatureSourceFactory>());
   RoutingSession session;
   session.Init(nullptr, nullptr);
   vector<m2::PointD> routePoints = kTestRoute;
@@ -248,7 +248,7 @@ UNIT_TEST(TestFollowRouteFlagPersistence)
 
 UNIT_TEST(TestFollowRoutePercentTest)
 {
-  DataSource dataSource;
+  DataSource dataSource(make_unique<FeatureSourceFactory>());
   RoutingSession session;
   session.Init(nullptr, nullptr);
   vector<m2::PointD> routePoints = kTestRoute;

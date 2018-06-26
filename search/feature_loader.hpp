@@ -1,7 +1,6 @@
 #pragma once
 
-#include "editor/editable_data_source.hpp"
-
+#include "indexer/data_source.hpp"
 #include "indexer/scales.hpp"
 
 #include "base/assert.hpp"
@@ -19,7 +18,7 @@ namespace search
 class FeatureLoader
 {
 public:
-  explicit FeatureLoader(DataSourceBase const & dataSource);
+  explicit FeatureLoader(DataSource const & dataSource);
 
   WARN_UNUSED_RESULT bool Load(FeatureID const & id, FeatureType & ft);
 
@@ -32,8 +31,8 @@ public:
   }
 
 private:
-  DataSourceBase const & m_dataSource;
-  std::unique_ptr<EditableDataSource::FeaturesLoaderGuard> m_guard;
+  DataSource const & m_dataSource;
+  std::unique_ptr<DataSource::FeaturesLoaderGuard> m_guard;
 
   ThreadChecker m_checker;
 };

@@ -751,7 +751,7 @@ void Street::Reverse()
 
 void Street::SortHousesProjection() { sort(m_houses.begin(), m_houses.end(), &LessStreetDistance); }
 
-HouseDetector::HouseDetector(DataSourceBase const & dataSource)
+HouseDetector::HouseDetector(DataSource const & dataSource)
   : m_loader(dataSource), m_streetNum(0)
 {
   // default value for conversions

@@ -311,7 +311,7 @@ public:
   storage::CountryInfoGetter & GetCountryInfoGetter() { return *m_infoGetter; }
   StorageDownloadingPolicy & GetDownloadingPolicy() { return m_storageDownloadingPolicy; }
 
-  DataSourceBase const & GetDataSource() const { return m_model.GetDataSource(); }
+  DataSource const & GetDataSource() const { return m_model.GetDataSource(); }
 
   SearchAPI & GetSearchAPI();
   SearchAPI const & GetSearchAPI() const;

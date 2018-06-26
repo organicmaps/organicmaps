@@ -20,7 +20,7 @@
 #include <memory>
 #include <vector>
 
-class DataSourceBase;
+class DataSource;
 class MwmInfo;
 
 namespace search
@@ -114,7 +114,7 @@ bool FillCategories(QuerySliceOnRawStrings<T> const & slice, Locales const & loc
   return !types.empty();
 }
 
-MwmSet::MwmHandle FindWorld(DataSourceBase const & dataSource,
-                            std::vector<std::shared_ptr<MwmInfo>> const &infos);
-MwmSet::MwmHandle FindWorld(DataSourceBase const & dataSource);
+MwmSet::MwmHandle FindWorld(DataSource const & dataSource,
+                            std::vector<std::shared_ptr<MwmInfo>> const & infos);
+MwmSet::MwmHandle FindWorld(DataSource const & dataSource);
 }  // namespace search

@@ -5,8 +5,7 @@
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
-#include "editor/editable_data_source.hpp"
-
+#include "indexer/data_source.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "storage/country_info_getter.hpp"
@@ -79,7 +78,7 @@ private:
   void Cleanup(platform::LocalCountryFile const & map);
   bool RemoveMwm(MwmSet::MwmId const & mwmId);
 
-  EditableDataSource m_dataSource;
+  DataSource m_dataSource;
   storage::CountryInfoGetterForTesting m_infoGetter;
   vector<platform::LocalCountryFile> m_mwmFiles;
 };

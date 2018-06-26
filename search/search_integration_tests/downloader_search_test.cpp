@@ -26,7 +26,7 @@ using namespace generator::tests_support;
 using namespace search::tests_support;
 using namespace std;
 
-class DataSourceBase;
+class DataSource;
 
 namespace search
 {
@@ -106,7 +106,7 @@ public:
 class DownloaderSearchRequest : public TestSearchRequest, public TestDelegate
 {
 public:
-  DownloaderSearchRequest(DataSourceBase & dataSource, TestSearchEngine & engine, string const & query)
+  DownloaderSearchRequest(DataSource & dataSource, TestSearchEngine & engine, string const & query)
     : TestSearchRequest(engine, MakeSearchParams(query))
     , m_storage(kCountriesTxt, make_unique<TestMapFilesDownloader>())
     , m_downloaderCallback(static_cast<DownloaderSearchCallback::Delegate &>(*this), dataSource,

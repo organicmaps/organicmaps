@@ -42,7 +42,8 @@ strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s)
   return strings::LevenshteinDFA(s, 1 /* prefixSize */, kAllowedMisprints, GetMaxErrorsForToken(s));
 }
 
-MwmSet::MwmHandle FindWorld(DataSourceBase const & dataSource, vector<shared_ptr<MwmInfo>> const & infos)
+MwmSet::MwmHandle FindWorld(DataSource const & dataSource,
+                            vector<shared_ptr<MwmInfo>> const & infos)
 {
   MwmSet::MwmHandle handle;
   for (auto const & info : infos)
@@ -56,7 +57,7 @@ MwmSet::MwmHandle FindWorld(DataSourceBase const & dataSource, vector<shared_ptr
   return handle;
 }
 
-MwmSet::MwmHandle FindWorld(DataSourceBase const & dataSource)
+MwmSet::MwmHandle FindWorld(DataSource const & dataSource)
 {
   vector<shared_ptr<MwmInfo>> infos;
   dataSource.GetMwmsInfo(infos);

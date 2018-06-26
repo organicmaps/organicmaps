@@ -116,7 +116,7 @@ private:
 };
 }  // namespace
 
-SearchAPI::SearchAPI(DataSourceBase & dataSource, storage::Storage const & storage,
+SearchAPI::SearchAPI(DataSource & dataSource, storage::Storage const & storage,
                      storage::CountryInfoGetter const & infoGetter, Delegate & delegate)
   : m_dataSource(dataSource)
   , m_storage(storage)

@@ -7,7 +7,7 @@
 #include <memory>
 #include <string>
 
-class DataSourceBase;
+class DataSource;
 class FeatureType;
 struct FeatureID;
 
@@ -16,7 +16,7 @@ namespace ugc
 class Storage
 {
 public:
-  explicit Storage(DataSourceBase const & dataSource) : m_dataSource(dataSource) {}
+  explicit Storage(DataSource const & dataSource) : m_dataSource(dataSource) {}
 
   UGCUpdate GetUGCUpdate(FeatureID const & id) const;
 
@@ -46,7 +46,7 @@ private:
   std::unique_ptr<FeatureType> GetFeature(FeatureID const & id) const;
   void Migrate(std::string const & indexFilePath);
 
-  DataSourceBase const & m_dataSource;
+  DataSource const & m_dataSource;
   UpdateIndexes m_indexes;
   size_t m_numberOfDeleted = 0;
 };

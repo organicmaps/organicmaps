@@ -28,7 +28,7 @@
 #include <string>
 #include <vector>
 
-class DataSourceBase;
+class DataSource;
 
 namespace routing
 {
@@ -62,10 +62,11 @@ public:
     m2::PointD const m_direction;
   };
 
-  IndexRouter(VehicleType vehicleType, bool loadAltitudes, CountryParentNameGetterFn const & countryParentNameGetterFn,
+  IndexRouter(VehicleType vehicleType, bool loadAltitudes,
+              CountryParentNameGetterFn const & countryParentNameGetterFn,
               TCountryFileFn const & countryFileFn, CourntryRectFn const & countryRectFn,
               shared_ptr<NumMwmIds> numMwmIds, unique_ptr<m4::Tree<NumMwmId>> numMwmTree,
-              traffic::TrafficCache const & trafficCache, DataSourceBase & dataSource);
+              traffic::TrafficCache const & trafficCache, DataSource & dataSource);
 
   std::unique_ptr<WorldGraph> MakeSingleMwmWorldGraph();
   bool FindBestSegment(m2::PointD const & point, m2::PointD const & direction,
@@ -148,7 +149,7 @@ private:
   VehicleType m_vehicleType;
   bool m_loadAltitudes;
   std::string const m_name;
-  DataSourceBase & m_dataSource;
+  DataSource & m_dataSource;
   std::shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
 
   TCountryFileFn const m_countryFileFn;

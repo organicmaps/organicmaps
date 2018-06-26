@@ -1,5 +1,7 @@
 #include "map/feature_vec_model.hpp"
 
+#include "editor/editable_feature_source.hpp"
+
 #include "platform/platform.hpp"
 
 #include "indexer/cell_coverer.hpp"
@@ -16,7 +18,7 @@ using platform::LocalCountryFile;
 
 namespace model
 {
-FeaturesFetcher::FeaturesFetcher()
+FeaturesFetcher::FeaturesFetcher() : m_dataSource(make_unique<EditableFeatureSourceFactory>())
 {
   m_dataSource.AddObserver(*this);
 }

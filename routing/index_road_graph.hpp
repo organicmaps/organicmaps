@@ -19,7 +19,7 @@ class IndexRoadGraph : public RoadGraphBase
 public:
   IndexRoadGraph(std::shared_ptr<NumMwmIds> numMwmIds, IndexGraphStarter & starter,
                  std::vector<Segment> const & segments, std::vector<Junction> const & junctions,
-                 DataSourceBase & dataSource);
+                 DataSource & dataSource);
 
   // IRoadGraphBase overrides:
   virtual void GetOutgoingEdges(Junction const & junction, TEdgeVector & edges) const override;
@@ -35,7 +35,7 @@ private:
   void GetEdges(Junction const & junction, bool isOutgoing, TEdgeVector & edges) const;
   std::vector<Segment> const & GetSegments(Junction const & junction, bool isOutgoing) const;
 
-  DataSourceBase & m_dataSource;
+  DataSource & m_dataSource;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
   IndexGraphStarter & m_starter;
   std::vector<Segment> m_segments;

@@ -50,3 +50,13 @@ protected:
   MwmSet::MwmHandle const & m_handle;
   std::unique_ptr<FeaturesVector> m_vector;
 };  // class FeatureSource
+
+class FeatureSourceFactory
+{
+public:
+  virtual ~FeatureSourceFactory() = default;
+  virtual std::unique_ptr<FeatureSource> operator()(MwmSet::MwmHandle const & handle) const
+  {
+    return std::make_unique<FeatureSource>(handle);
+  }
+};

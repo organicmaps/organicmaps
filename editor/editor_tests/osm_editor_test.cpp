@@ -1,5 +1,6 @@
 #include "testing/testing.hpp"
 
+#include "editor/editable_feature_source.hpp"
 #include "editor/editor_storage.hpp"
 #include "editor/editor_tests/osm_editor_test.hpp"
 #include "editor/editor_tests_support/helpers.hpp"
@@ -53,7 +54,7 @@ public:
 };
 
 template <typename TFn>
-void ForEachCafeAtPoint(DataSourceBase & dataSource, m2::PointD const & mercator, TFn && fn)
+void ForEachCafeAtPoint(DataSource & dataSource, m2::PointD const & mercator, TFn && fn)
 {
   m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(mercator, 0.2 /* rect width */);
 
@@ -136,7 +137,7 @@ namespace editor
 {
 namespace testing
 {
-EditorTest::EditorTest()
+EditorTest::EditorTest() : m_dataSource(make_unique<EditableFeatureSourceFactory>())
 {
   try
   {

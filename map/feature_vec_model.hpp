@@ -1,8 +1,7 @@
 #pragma once
 
-#include "editor/editable_data_source.hpp"
-
 #include "indexer/data_header.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -31,7 +30,7 @@ class FeaturesFetcher : public MwmSet::Observer
   private:
     m2::RectD m_rect;
 
-    EditableDataSource m_dataSource;
+    DataSource m_dataSource;
 
     TMapDeregisteredCallback m_onMapDeregistered;
 
@@ -91,8 +90,8 @@ class FeaturesFetcher : public MwmSet::Observer
     }
     //@}
 
-    DataSourceBase const & GetDataSource() const { return m_dataSource; }
-    DataSourceBase & GetDataSource() { return m_dataSource; }
+    DataSource const & GetDataSource() const { return m_dataSource; }
+    DataSource & GetDataSource() { return m_dataSource; }
     m2::RectD GetWorldRect() const;
   };
 }

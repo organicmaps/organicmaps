@@ -22,7 +22,7 @@ class IndexGraphLoaderImpl final : public IndexGraphLoader
 public:
   IndexGraphLoaderImpl(VehicleType vehicleType, bool loadAltitudes, shared_ptr<NumMwmIds> numMwmIds,
                        shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
-                       shared_ptr<EdgeEstimator> estimator, DataSourceBase & dataSource);
+                       shared_ptr<EdgeEstimator> estimator, DataSource & dataSource);
 
   // IndexGraphLoader overrides:
   Geometry & GetGeometry(NumMwmId numMwmId) override;
@@ -41,7 +41,7 @@ private:
 
   VehicleType m_vehicleType;
   bool m_loadAltitudes;
-  DataSourceBase & m_dataSource;
+  DataSource & m_dataSource;
   shared_ptr<NumMwmIds> m_numMwmIds;
   shared_ptr<VehicleModelFactoryInterface> m_vehicleModelFactory;
   shared_ptr<EdgeEstimator> m_estimator;
@@ -51,7 +51,7 @@ private:
 IndexGraphLoaderImpl::IndexGraphLoaderImpl(
     VehicleType vehicleType, bool loadAltitudes, shared_ptr<NumMwmIds> numMwmIds,
     shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
-    shared_ptr<EdgeEstimator> estimator, DataSourceBase & dataSource)
+    shared_ptr<EdgeEstimator> estimator, DataSource & dataSource)
   : m_vehicleType(vehicleType)
   , m_loadAltitudes(loadAltitudes)
   , m_dataSource(dataSource)
@@ -148,8 +148,8 @@ namespace routing
 // static
 unique_ptr<IndexGraphLoader> IndexGraphLoader::Create(
     VehicleType vehicleType, bool loadAltitudes, shared_ptr<NumMwmIds> numMwmIds,
-    shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory, shared_ptr<EdgeEstimator> estimator,
-    DataSourceBase & dataSource)
+    shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory,
+    shared_ptr<EdgeEstimator> estimator, DataSource & dataSource)
 {
   return make_unique<IndexGraphLoaderImpl>(vehicleType, loadAltitudes, numMwmIds, vehicleModelFactory,
                                            estimator, dataSource);

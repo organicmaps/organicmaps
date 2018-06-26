@@ -1,6 +1,6 @@
 #pragma once
 
-#include "editor/editable_data_source.hpp"
+#include "editor/editable_feature_source.hpp"
 #include "editor/editor_tests_support/helpers.hpp"
 
 #include "generator/generator_tests_support/test_with_custom_mwms.hpp"
@@ -31,7 +31,8 @@ public:
   template <typename EditorFn>
   void EditFeature(FeatureID const & id, EditorFn && fn)
   {
-    EditableDataSource::FeaturesLoaderGuard loader(m_dataSource, id.m_mwmId);
+    DataSource::FeaturesLoaderGuard loader(m_dataSource, id.m_mwmId,
+                                           EditableFeatureSourceFactory());
     FeatureType ft;
     CHECK(loader.GetFeatureByIndex(id.m_index, ft), ());
     editor::tests_support::EditFeature(ft, std::forward<EditorFn>(fn));

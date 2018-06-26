@@ -29,7 +29,7 @@ class TestMwmEnvironment : public TestWithCustomMwms,
                            public FilterBase::Delegate
 {
 public:
-  DataSourceBase const & GetDataSource() const override { return m_dataSource; }
+  DataSource const & GetDataSource() const override { return m_dataSource; }
 
   booking::Api const & GetApi() const override { return m_api; }
 

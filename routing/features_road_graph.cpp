@@ -4,9 +4,10 @@
 
 #include "routing_common/vehicle_model.hpp"
 
-#include "editor/editable_data_source.hpp"
+#include "editor/editable_feature_source.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/scales.hpp"
 
@@ -30,7 +31,7 @@ double constexpr kMwmCrossingNodeEqualityRadiusMeters = 100.0;
 
 double GetRoadCrossingRadiusMeters() { return kMwmRoadCrossingRadiusMeters; }
 
-FeaturesRoadGraph::Value::Value(DataSourceBase const & dataSource, MwmSet::MwmHandle handle)
+FeaturesRoadGraph::Value::Value(DataSource const & dataSource, MwmSet::MwmHandle handle)
   : m_mwmHandle(move(handle))
 {
   if (!m_mwmHandle.IsAlive())
@@ -111,7 +112,7 @@ void FeaturesRoadGraph::RoadInfoCache::Clear()
 {
   m_cache.clear();
 }
-FeaturesRoadGraph::FeaturesRoadGraph(DataSourceBase const & dataSource, IRoadGraph::Mode mode,
+FeaturesRoadGraph::FeaturesRoadGraph(DataSource const & dataSource, IRoadGraph::Mode mode,
                                      shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory)
   : m_dataSource(dataSource), m_mode(mode), m_vehicleModel(vehicleModelFactory)
 {
@@ -205,7 +206,8 @@ void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t coun
 void FeaturesRoadGraph::GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const
 {
   FeatureType ft;
-  EditableDataSource::FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId);
+  DataSource::FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId,
+                                         EditableFeatureSourceFactory());
   if (!loader.GetFeatureByIndex(featureId.m_index, ft))
     return;
 
@@ -306,7 +308,8 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
 
   FeatureType ft;
 
-  EditableDataSource::FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId);
+  DataSource::FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId,
+                                         EditableFeatureSourceFactory());
 
   if (!loader.GetFeatureByIndex(featureId.m_index, ft))
     return ri;

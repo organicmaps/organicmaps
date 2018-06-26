@@ -27,7 +27,7 @@ namespace routing
 class TransitGraphLoaderImpl : public TransitGraphLoader
 {
 public:
-  TransitGraphLoaderImpl(DataSourceBase & dataSource, shared_ptr<NumMwmIds> numMwmIds,
+  TransitGraphLoaderImpl(DataSource & dataSource, shared_ptr<NumMwmIds> numMwmIds,
                          shared_ptr<EdgeEstimator> estimator);
 
   // TransitGraphLoader overrides.
@@ -39,13 +39,14 @@ public:
 private:
   unique_ptr<TransitGraph> CreateTransitGraph(NumMwmId mwmId, IndexGraph & indexGraph) const;
 
-  DataSourceBase & m_dataSource;
+  DataSource & m_dataSource;
   shared_ptr<NumMwmIds> m_numMwmIds;
   shared_ptr<EdgeEstimator> m_estimator;
   unordered_map<NumMwmId, unique_ptr<TransitGraph>> m_graphs;
 };
 
-TransitGraphLoaderImpl::TransitGraphLoaderImpl(DataSourceBase & dataSource, shared_ptr<NumMwmIds> numMwmIds,
+TransitGraphLoaderImpl::TransitGraphLoaderImpl(DataSource & dataSource,
+                                               shared_ptr<NumMwmIds> numMwmIds,
                                                shared_ptr<EdgeEstimator> estimator)
   : m_dataSource(dataSource), m_numMwmIds(numMwmIds), m_estimator(estimator)
 {
@@ -101,7 +102,7 @@ unique_ptr<TransitGraph> TransitGraphLoaderImpl::CreateTransitGraph(NumMwmId num
 }
 
 // static
-unique_ptr<TransitGraphLoader> TransitGraphLoader::Create(DataSourceBase & dataSource,
+unique_ptr<TransitGraphLoader> TransitGraphLoader::Create(DataSource & dataSource,
                                                           shared_ptr<NumMwmIds> numMwmIds,
                                                           shared_ptr<EdgeEstimator> estimator)
 {

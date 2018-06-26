@@ -16,7 +16,7 @@
 #include <memory>
 #include <string>
 
-class DataSourceBase;
+class DataSource;
 
 namespace routing
 {
@@ -79,7 +79,7 @@ public:
   virtual void Load(uint32_t featureId, RoadGeometry & road) = 0;
 
   // handle should be alive: it is caller responsibility to check it.
-  static std::unique_ptr<GeometryLoader> Create(DataSourceBase const & dataSource,
+  static std::unique_ptr<GeometryLoader> Create(DataSource const & dataSource,
                                                 MwmSet::MwmHandle const & handle,
                                                 std::shared_ptr<VehicleModelInterface> vehicleModel,
                                                 bool loadAltitudes);

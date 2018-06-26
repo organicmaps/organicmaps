@@ -2,9 +2,10 @@
 
 #include "routing/routing_exceptions.hpp"
 
-#include "editor/editable_data_source.hpp"
+#include "editor/editable_feature_source.hpp"
 
 #include "indexer/altitude_loader.hpp"
+#include "indexer/data_source.hpp"
 
 #include "geometry/mercator.hpp"
 
@@ -25,7 +26,7 @@ size_t constexpr kRoadsCacheSize = 5000;
 class GeometryLoaderImpl final : public GeometryLoader
 {
 public:
-  GeometryLoaderImpl(DataSourceBase const & dataSource, MwmSet::MwmHandle const & handle,
+  GeometryLoaderImpl(DataSource const & dataSource, MwmSet::MwmHandle const & handle,
                      shared_ptr<VehicleModelInterface> vehicleModel, bool loadAltitudes);
 
   // GeometryLoader overrides:
@@ -33,16 +34,18 @@ public:
 
 private:
   shared_ptr<VehicleModelInterface> m_vehicleModel;
-  EditableDataSource::FeaturesLoaderGuard m_guard;
+  DataSource::FeaturesLoaderGuard m_guard;
   string const m_country;
   feature::AltitudeLoader m_altitudeLoader;
   bool const m_loadAltitudes;
 };
 
-GeometryLoaderImpl::GeometryLoaderImpl(DataSourceBase const & dataSource, MwmSet::MwmHandle const & handle,
-                                       shared_ptr<VehicleModelInterface> vehicleModel, bool loadAltitudes)
+GeometryLoaderImpl::GeometryLoaderImpl(DataSource const & dataSource,
+                                       MwmSet::MwmHandle const & handle,
+                                       shared_ptr<VehicleModelInterface> vehicleModel,
+                                       bool loadAltitudes)
   : m_vehicleModel(move(vehicleModel))
-  , m_guard(dataSource, handle.GetId())
+  , m_guard(dataSource, handle.GetId(), EditableFeatureSourceFactory())
   , m_country(handle.GetInfo()->GetCountryName())
   , m_altitudeLoader(dataSource, handle.GetId())
   , m_loadAltitudes(loadAltitudes)
@@ -161,7 +164,7 @@ RoadGeometry const & Geometry::GetRoad(uint32_t featureId)
 }
 
 // static
-unique_ptr<GeometryLoader> GeometryLoader::Create(DataSourceBase const & dataSource,
+unique_ptr<GeometryLoader> GeometryLoader::Create(DataSource const & dataSource,
                                                   MwmSet::MwmHandle const & handle,
                                                   shared_ptr<VehicleModelInterface> vehicleModel,
                                                   bool loadAltitudes)

@@ -3,7 +3,7 @@
 #include "routing/routing_exceptions.hpp"
 #include "routing/transit_graph.hpp"
 
-#include "editor/editable_data_source.hpp"
+#include "editor/editable_feature_source.hpp"
 
 #include <cstdint>
 
@@ -13,7 +13,7 @@ namespace routing
 {
 IndexRoadGraph::IndexRoadGraph(shared_ptr<NumMwmIds> numMwmIds, IndexGraphStarter & starter,
                                vector<Segment> const & segments, vector<Junction> const & junctions,
-                               DataSourceBase & dataSource)
+                               DataSource & dataSource)
   : m_dataSource(dataSource), m_numMwmIds(numMwmIds), m_starter(starter), m_segments(segments)
 {
   //    j0     j1     j2     j3
@@ -60,7 +60,8 @@ void IndexRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & type
 
   FeatureID const featureId = edge.GetFeatureId();
   FeatureType ft;
-  EditableDataSource::FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId);
+  DataSource::FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId,
+                                         EditableFeatureSourceFactory());
   if (!loader.GetFeatureByIndex(featureId.m_index, ft))
   {
     LOG(LERROR, ("Can't load types for feature", featureId));

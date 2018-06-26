@@ -1,6 +1,8 @@
 #include "map/discovery/discovery_manager.hpp"
 
-#include "editor/editable_data_source.hpp"
+#include "editor/editable_feature_source.hpp"
+
+#include "indexer/data_source.hpp"
 
 #include <sstream>
 
@@ -23,7 +25,7 @@ std::string GetQuery(discovery::ItemType const type)
 
 namespace discovery
 {
-Manager::Manager(DataSourceBase const & dataSource, search::CityFinder & cityFinder, APIs const & apis)
+Manager::Manager(DataSource const & dataSource, search::CityFinder & cityFinder, APIs const & apis)
   : m_dataSource(dataSource)
   , m_cityFinder(cityFinder)
   , m_searchApi(apis.m_search)
@@ -69,7 +71,8 @@ std::string Manager::GetCityViatorId(m2::PointD const & point) const
   if (!fid.IsValid())
     return {};
 
-  EditableDataSource::FeaturesLoaderGuard const guard(m_dataSource, fid.m_mwmId);
+  DataSource::FeaturesLoaderGuard const guard(m_dataSource, fid.m_mwmId,
+                                              EditableFeatureSourceFactory());
   FeatureType ft;
   if (!guard.GetFeatureByIndex(fid.m_index, ft))
   {

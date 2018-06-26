@@ -11,6 +11,7 @@ namespace generator
 {
 // SingleMwmDataSource -----------------------------------------------------------------------------
 SingleMwmDataSource::SingleMwmDataSource(std::string const & mwmPath)
+  : m_dataSource(make_unique<FeatureSourceFactory>())
 {
   m_countryFile = platform::LocalCountryFile::MakeTemporary(mwmPath);
   m_countryFile.SyncWithDisk();
@@ -24,7 +25,7 @@ SingleMwmDataSource::SingleMwmDataSource(std::string const & mwmPath)
   m_mwmId = result.first;
 }
 
-void LoadDataSource(DataSourceBase & dataSource)
+void LoadDataSource(DataSource & dataSource)
 {
   vector<platform::LocalCountryFile> localFiles;
 

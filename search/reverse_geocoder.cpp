@@ -24,7 +24,7 @@ int constexpr kQueryScale = scales::GetUpperScale();
 size_t constexpr kMaxNumTriesToApproxAddress = 10;
 } // namespace
 
-ReverseGeocoder::ReverseGeocoder(DataSourceBase const & dataSource) : m_dataSource(dataSource) {}
+ReverseGeocoder::ReverseGeocoder(DataSource const & dataSource) : m_dataSource(dataSource) {}
 
 void ReverseGeocoder::GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD const & center,
                                        vector<Street> & streets) const

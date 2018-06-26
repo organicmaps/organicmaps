@@ -31,7 +31,7 @@ void LoadAndMap(size_t dataSize, ReaderSource<FilesContainerR::TReader> & src, T
 
 namespace feature
 {
-AltitudeLoader::AltitudeLoader(DataSourceBase const & dataSource, MwmSet::MwmId const & mwmId)
+AltitudeLoader::AltitudeLoader(DataSource const & dataSource, MwmSet::MwmId const & mwmId)
   : m_handle(dataSource.GetMwmHandleById(mwmId))
 {
   if (!m_handle.IsAlive())

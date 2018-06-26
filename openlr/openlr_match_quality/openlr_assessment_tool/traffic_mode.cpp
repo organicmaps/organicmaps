@@ -102,8 +102,7 @@ void RoadPointCandidate::SetActivePoint(FeatureID const & fid)
 namespace openlr
 {
 // TrafficMode -------------------------------------------------------------------------------------
-TrafficMode::TrafficMode(std::string const & dataFileName,
-                         DataSourceBase const & dataSource,
+TrafficMode::TrafficMode(std::string const & dataFileName, DataSource const & dataSource,
                          std::unique_ptr<TrafficDrawerDelegateBase> drawerDelegate,
                          std::unique_ptr<PointsControllerDelegateBase> pointsDelegate,
                          QObject * parent)

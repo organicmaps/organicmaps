@@ -35,7 +35,7 @@
 
 class FeatureType;
 class CategoriesHolder;
-class DataSourceBase;
+class DataSource;
 
 namespace coding
 {
@@ -63,7 +63,7 @@ public:
   static double const kMinViewportRadiusM;
   static double const kMaxViewportRadiusM;
 
-  Processor(DataSourceBase const & dataSource, CategoriesHolder const & categories,
+  Processor(DataSource const & dataSource, CategoriesHolder const & categories,
             std::vector<Suggest> const & suggests, storage::CountryInfoGetter const & infoGetter);
 
   void SetViewport(m2::RectD const & viewport);

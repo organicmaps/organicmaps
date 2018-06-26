@@ -16,7 +16,7 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
-class DataSourceBase;
+class DataSource;
 
 namespace search
 {
@@ -50,7 +50,7 @@ public:
     bool m_viewportSearch = false;
   };
 
-  PreRanker(DataSourceBase const & dataSource, Ranker & ranker);
+  PreRanker(DataSource const & dataSource, Ranker & ranker);
 
   void Init(Params const & params);
 
@@ -89,7 +89,7 @@ public:
 private:
   void FilterForViewportSearch();
 
-  DataSourceBase const & m_dataSource;
+  DataSource const & m_dataSource;
   Ranker & m_ranker;
   vector<PreRankerResult> m_results;
   Params m_params;

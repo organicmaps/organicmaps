@@ -187,7 +187,7 @@ UNIT_TEST(HS_StreetsMerge)
 {
   classificator::Load();
 
-  DataSource dataSource;
+  DataSource dataSource(make_unique<FeatureSourceFactory>());
   LocalCountryFile localFile(LocalCountryFile::MakeForTesting("minsk-pass"));
   // Clean indexes to avoid jenkins errors.
   platform::CountryIndexes::DeleteFromDisk(localFile);
@@ -256,8 +256,7 @@ UNIT_TEST(HS_StreetsMerge)
 
 namespace
 {
-
-m2::PointD FindHouse(DataSourceBase & dataSource, vector<string> const & streets,
+m2::PointD FindHouse(DataSource & dataSource, vector<string> const & streets,
                      string const & houseName, double offset)
 {
   search::HouseDetector houser(dataSource);
@@ -284,7 +283,7 @@ UNIT_TEST(HS_FindHouseSmoke)
 {
   classificator::Load();
 
-  DataSource dataSource;
+  DataSource dataSource(make_unique<FeatureSourceFactory>());
   auto const p = dataSource.Register(LocalCountryFile::MakeForTesting("minsk-pass"));
   TEST(p.first.IsAlive(), ());
   TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
@@ -385,7 +384,7 @@ UNIT_TEST(HS_MWMSearch)
     return;
   }
 
-  DataSource dataSource;
+  DataSource dataSource(make_unique<FeatureSourceFactory>());
   auto p = dataSource.Register(LocalCountryFile::MakeForTesting(country));
   if (p.second != MwmSet::RegResult::Success)
   {

@@ -25,7 +25,7 @@
 #include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
 
-class DataSourceBase;
+class DataSource;
 
 namespace location
 {
@@ -120,7 +120,7 @@ public:
   bool GetRouteAltitudesAndDistancesM(vector<double> & routeSegDistanceM,
                                       feature::TAltitudes & routeAltitudesM) const;
 
-  State OnLocationPositionChanged(location::GpsInfo const & info, DataSourceBase const & dataSource);
+  State OnLocationPositionChanged(location::GpsInfo const & info, DataSource const & dataSource);
   void GetRouteFollowingInfo(location::FollowingInfo & info) const;
 
   void MatchLocationToRoute(location::GpsInfo & location,
@@ -191,7 +191,7 @@ private:
   /// Returns a nearest speed camera record on your way and distance to it.
   /// Returns kInvalidSpeedCameraDistance if there is no cameras on your way.
   // Should be called with locked m_routingSessionMutex.
-  double GetDistanceToCurrentCamM(SpeedCameraRestriction & camera, DataSourceBase const & dataSource);
+  double GetDistanceToCurrentCamM(SpeedCameraRestriction & camera, DataSource const & dataSource);
 
   /// RemoveRoute removes m_route and resets route attributes (m_state, m_lastDistance, m_moveAwayCounter).
   void RemoveRoute();

@@ -7,7 +7,7 @@
 
 namespace ugc
 {
-Loader::Loader(DataSourceBase const & dataSource) : m_dataSource(dataSource) {}
+Loader::Loader(DataSource const & dataSource) : m_dataSource(dataSource) {}
 
 UGC Loader::GetUGC(FeatureID const & featureId)
 {

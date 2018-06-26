@@ -284,7 +284,7 @@ Storage & Framework::GetStorage()
   return m_work.GetStorage();
 }
 
-DataSourceBase const & Framework::GetDataSource() { return m_work.GetDataSource(); }
+DataSource const & Framework::GetDataSource() { return m_work.GetDataSource(); }
 
 void Framework::ShowNode(TCountryId const & idx, bool zoomToDownloadButton)
 {

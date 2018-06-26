@@ -31,7 +31,7 @@ UNIT_TEST(FakeEdgesCombinatorialExplosion)
   GetAllLocalFiles(localFiles);
   TEST(!localFiles.empty(), ());
 
-  DataSource dataSource;
+  DataSource dataSource(make_unique<FeatureSourceFactory>());
   for (auto const & file : localFiles)
   {
     auto const result = dataSource.Register(file);

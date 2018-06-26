@@ -13,8 +13,9 @@
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
-#include "editor/editable_data_source.hpp"
+#include "editor/editable_feature_source.hpp"
 
+#include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/ftypes_matcher.hpp"
 
@@ -605,7 +606,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
     while (!features->GetBit(index))
       ++index;
 
-    EditableDataSource::FeaturesLoaderGuard loader(m_dataSource, countryId);
+    DataSource::FeaturesLoaderGuard loader(m_dataSource, countryId, EditableFeatureSourceFactory());
     FeatureType ft;
     TEST(loader.GetFeatureByIndex(::base::checked_cast<uint32_t>(index), ft), ());
 
@@ -702,7 +703,8 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
     TEST(ResultsMatch(request->Results(), rules), ());
     for (auto const & result : request->Results())
     {
-      EditableDataSource::FeaturesLoaderGuard loader(m_dataSource, wonderlandId);
+      DataSource::FeaturesLoaderGuard loader(m_dataSource, wonderlandId,
+                                             EditableFeatureSourceFactory());
       FeatureType ft;
       TEST(loader.GetFeatureByIndex(result.GetFeatureID().m_index, ft), ());
 

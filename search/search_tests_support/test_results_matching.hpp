@@ -11,7 +11,7 @@
 #include <vector>
 
 class FeatureType;
-class DataSourceBase;
+class DataSource;
 
 namespace generator
 {
@@ -74,11 +74,11 @@ std::shared_ptr<MatchingRule> AlternativesMatch(TArgs &&... args)
   return std::make_shared<AlternativesMatchingRule>(std::forward<TArgs>(args)...);
 }
 
-bool MatchResults(DataSourceBase const & dataSource, std::vector<std::shared_ptr<MatchingRule>> rules,
+bool MatchResults(DataSource const & dataSource, std::vector<std::shared_ptr<MatchingRule>> rules,
                   std::vector<search::Result> const & actual);
-bool MatchResults(DataSourceBase const & dataSource, std::vector<std::shared_ptr<MatchingRule>> rules,
+bool MatchResults(DataSource const & dataSource, std::vector<std::shared_ptr<MatchingRule>> rules,
                   search::Results const & actual);
-bool ResultMatches(DataSourceBase const & dataSource, std::shared_ptr<MatchingRule> rule,
+bool ResultMatches(DataSource const & dataSource, std::shared_ptr<MatchingRule> rule,
                    search::Result const & result);
 
 std::string DebugPrint(MatchingRule const & rule);

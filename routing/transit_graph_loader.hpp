@@ -8,7 +8,7 @@
 
 #include <memory>
 
-class DataSourceBase;
+class DataSource;
 
 namespace routing
 {
@@ -20,7 +20,7 @@ public:
   virtual TransitGraph & GetTransitGraph(NumMwmId mwmId, IndexGraph & indexGraph) = 0;
   virtual void Clear() = 0;
 
-  static std::unique_ptr<TransitGraphLoader> Create(DataSourceBase & dataSource,
+  static std::unique_ptr<TransitGraphLoader> Create(DataSource & dataSource,
                                                     std::shared_ptr<NumMwmIds> numMwmIds,
                                                     std::shared_ptr<EdgeEstimator> estimator);
 };

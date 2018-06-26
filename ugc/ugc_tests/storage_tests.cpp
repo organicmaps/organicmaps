@@ -102,7 +102,7 @@ public:
     return FeatureIdForPoint(mercator, ftypes::IsRailwayStationChecker::Instance());
   }
 
-  DataSourceBase & GetDataSource() { return m_dataSource; }
+  DataSource & GetDataSource() { return m_dataSource; }
 
   ~MwmBuilder()
   {
@@ -111,10 +111,7 @@ public:
   }
 
 private:
-  MwmBuilder()
-  {
-    classificator::Load();
-  }
+  MwmBuilder() : m_dataSource(make_unique<FeatureSourceFactory>()) { classificator::Load(); }
 
   MwmSet::MwmId BuildMwm(BuilderFn const & fn)
   {

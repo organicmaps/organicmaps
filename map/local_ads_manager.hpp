@@ -25,8 +25,6 @@
 #include <string>
 #include <vector>
 
-class DataSourceBase;
-
 namespace feature
 {
 class TypesHolder;

@@ -54,7 +54,8 @@ namespace track_analyzing
 // TrackMatcher ------------------------------------------------------------------------------------
 TrackMatcher::TrackMatcher(storage::Storage const & storage, NumMwmId mwmId,
                            platform::CountryFile const & countryFile)
-  : m_mwmId(mwmId)
+  : m_dataSource(make_unique<FeatureSourceFactory>())
+  , m_mwmId(mwmId)
   , m_vehicleModel(CarModelFactory({}).GetVehicleModelForCountry(countryFile.GetName()))
 {
   auto localCountryFile = storage.GetLatestLocalFile(countryFile);
@@ -132,8 +133,8 @@ TrackMatcher::Step::Step(DataPoint const & dataPoint)
 }
 
 void TrackMatcher::Step::FillCandidatesWithNearbySegments(
-    DataSourceBase const & dataSource, IndexGraph const & graph, VehicleModelInterface const & vehicleModel,
-    NumMwmId mwmId)
+    DataSource const & dataSource, IndexGraph const & graph,
+    VehicleModelInterface const & vehicleModel, NumMwmId mwmId)
 {
   dataSource.ForEachInRect(
       [&](FeatureType const & ft) {

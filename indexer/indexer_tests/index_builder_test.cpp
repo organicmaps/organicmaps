@@ -52,7 +52,7 @@ UNIT_TEST(BuildIndexTest)
 
   {
     // Check that index actually works.
-    DataSource dataSource;
+    DataSource dataSource(make_unique<FeatureSourceFactory>());
     UNUSED_VALUE(dataSource.Register(platform::LocalCountryFile::MakeForTesting("build_index_test")));
 
     // Make sure that index is actually parsed.
