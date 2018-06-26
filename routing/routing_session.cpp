@@ -716,6 +716,12 @@ bool RoutingSession::IsRouteId(uint64_t routeId) const
   return m_route->IsRouteId(routeId);
 }
 
+bool RoutingSession::IsRouteValid() const
+{
+  CHECK_THREAD_CHECKER(m_threadChecker, ());
+  return m_route && m_route->IsValid();
+}
+
 bool RoutingSession::GetRouteAltitudesAndDistancesM(vector<double> & routeSegDistanceM,
                                                     feature::TAltitudes & routeAltitudesM) const
 {
@@ -765,8 +771,7 @@ void RoutingSession::OnTrafficInfoRemoved(MwmSet::MwmId const & mwmId)
   });
 }
 
-void RoutingSession::CopyTraffic(
-    map<MwmSet::MwmId, shared_ptr<traffic::TrafficInfo::Coloring>> & trafficColoring) const
+void RoutingSession::CopyTraffic(traffic::AllMwmTrafficInfo & trafficColoring) const
 {
   TrafficCache::CopyTraffic(trafficColoring);
 }

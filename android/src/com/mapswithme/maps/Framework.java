@@ -3,6 +3,7 @@ package com.mapswithme.maps;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.support.annotation.IntDef;
+import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
@@ -110,12 +111,14 @@ public class Framework
   @SuppressWarnings("unused")
   public interface RoutingListener
   {
+    @MainThread
     void onRoutingEvent(int resultCode, String[] missingMaps);
   }
 
   @SuppressWarnings("unused")
   public interface RoutingProgressListener
   {
+    @MainThread
     void onRouteBuildingProgress(float progress);
   }
 

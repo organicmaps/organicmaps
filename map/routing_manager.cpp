@@ -301,9 +301,7 @@ void RoutingManager::OnBuildRouteReady(Route const & route, RouterResultCode cod
                            true /* applyRotation */, -1 /* zoom */, true /* isAnim */);
   }
 
-  storage::TCountriesVec absentCountries;
-  absentCountries.assign(route.GetAbsentCountries().begin(), route.GetAbsentCountries().end());
-  CallRouteBuilded(code, absentCountries);
+  CallRouteBuilded(code, storage::TCountriesVec());
 }
 
 void RoutingManager::OnRebuildRouteReady(Route const & route, RouterResultCode code)
@@ -319,9 +317,11 @@ void RoutingManager::OnRebuildRouteReady(Route const & route, RouterResultCode c
 
 void RoutingManager::OnNeedMoreMaps(uint64_t routeId, vector<string> const & absentCountries)
 {
-  // @TODO(bykoianko) If |m_routingSession.IsRouteId(routeId)| or if |m_routingSession::m_route|
-  // was not removed lines below should be executed. It should be done
-  // when |m_routingSession::m_route| will be implemented as unique_ptr<Route>.
+  // No need to inform user about maps needed for the route if the method is called
+  // when RoutingSession contains a new route.
+  if (m_routingSession.IsRouteValid() && !m_routingSession.IsRouteId(routeId))
+    return;
+
   HidePreviewSegments();
   CallRouteBuilded(RouterResultCode::NeedMoreMaps, absentCountries);
 }

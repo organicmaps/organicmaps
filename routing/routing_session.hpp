@@ -120,6 +120,7 @@ public:
   /// false otherwise.
   bool HasRouteAltitude() const;
   bool IsRouteId(uint64_t routeId) const;
+  bool IsRouteValid() const;
 
   /// \brief copies distance from route beginning to ends of route segments in meters and
   /// route altitude information to |routeSegDistanceM| and |routeAltitudes|.
@@ -179,8 +180,7 @@ public:
   // TrafficCache overrides:
   /// \note. This method may be called from any thread because it touches only data
   /// protected by mutex in TrafficCache class.
-  void CopyTraffic(std::map<MwmSet::MwmId, std::shared_ptr<traffic::TrafficInfo::Coloring>> &
-                       trafficColoring) const override;
+  void CopyTraffic(traffic::AllMwmTrafficInfo & trafficColoring) const override;
 
 private:
   struct DoReadyCallback

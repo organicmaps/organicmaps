@@ -104,7 +104,7 @@ public:
     m_estimator = CreateEstimatorForCar(m_trafficStash);
   }
 
-  void SetTrafficColoring(shared_ptr<TrafficInfo::Coloring> coloring)
+  void SetTrafficColoring(shared_ptr<TrafficInfo::Coloring const> coloring)
   {
     m_trafficStash->SetColoring(kTestNumMwmId, coloring);
   }
@@ -136,10 +136,10 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_EmptyTrafficColoring)
 // Route through XX graph with SpeedGroup::G0 on F3.
 UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3)
 {
-  TrafficInfo::Coloring coloring = {
+  TrafficInfo::Coloring const coloring = {
       {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
        SpeedGroup::G0}};
-  SetTrafficColoring(make_shared<TrafficInfo::Coloring>(coloring));
+  SetTrafficColoring(make_shared<TrafficInfo::Coloring const>(coloring));
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
   auto const start =
@@ -153,10 +153,10 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3)
 // Route through XX graph with SpeedGroup::TempBlock on F3.
 UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_TempBlockonF3)
 {
-  TrafficInfo::Coloring coloring = {
+  TrafficInfo::Coloring const coloring = {
       {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
        SpeedGroup::TempBlock}};
-  SetTrafficColoring(make_shared<TrafficInfo::Coloring>(coloring));
+  SetTrafficColoring(make_shared<TrafficInfo::Coloring const>(coloring));
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
   auto const start =
@@ -170,10 +170,10 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_TempBlockonF3)
 // Route through XX graph with SpeedGroup::G0 in reverse direction on F3.
 UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3ReverseDir)
 {
-  TrafficInfo::Coloring coloring = {
+  TrafficInfo::Coloring const coloring = {
       {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kReverseDirection},
        SpeedGroup::G0}};
-  SetTrafficColoring(make_shared<TrafficInfo::Coloring>(coloring));
+  SetTrafficColoring(make_shared<TrafficInfo::Coloring const>(coloring));
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
   auto const start =
@@ -187,7 +187,7 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3ReverseDir)
 // Route through XX graph SpeedGroup::G1 on F3 and F6, SpeedGroup::G4 on F8 and F4.
 UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3andF6andG4onF8andF4)
 {
-  TrafficInfo::Coloring coloring = {
+  TrafficInfo::Coloring const coloring = {
       {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
        SpeedGroup::G0},
       {{6 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
@@ -196,7 +196,7 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_G0onF3andF6andG4onF8andF4)
        SpeedGroup::G4},
       {{7 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
        SpeedGroup::G4}};
-  SetTrafficColoring(make_shared<TrafficInfo::Coloring>(coloring));
+  SetTrafficColoring(make_shared<TrafficInfo::Coloring const>(coloring));
 
   unique_ptr<WorldGraph> graph = BuildXXGraph(GetEstimator());
   auto const start =
@@ -224,17 +224,17 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_ChangingTraffic)
   }
 
   // Heavy traffic (SpeedGroup::G0) on F3.
-  TrafficInfo::Coloring coloringHeavyF3 = {
+  TrafficInfo::Coloring const coloringHeavyF3 = {
       {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
        SpeedGroup::G0}};
-  SetTrafficColoring(make_shared<TrafficInfo::Coloring>(coloringHeavyF3));
+  SetTrafficColoring(make_shared<TrafficInfo::Coloring const>(coloringHeavyF3));
   {
     vector<m2::PointD> const heavyF3Geom = {{2 /* x */, -1 /* y */}, {2, 0}, {3, 0}, {3, 1}, {2, 2}, {3, 3}};
     TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, heavyF3Geom);
   }
 
   // Overloading traffic jam on F3. Middle traffic (SpeedGroup::G3) on F1, F3, F4, F7 and F8.
-  TrafficInfo::Coloring coloringMiddleF1F3F4F7F8 = {
+  TrafficInfo::Coloring const coloringMiddleF1F3F4F7F8 = {
       {{1 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
        SpeedGroup::G3},
       {{3 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
@@ -245,7 +245,7 @@ UNIT_CLASS_TEST(ApplyingTrafficTest, XXGraph_ChangingTraffic)
        SpeedGroup::G3},
       {{8 /* feature id */, 0 /* segment id */, TrafficInfo::RoadSegmentId::kForwardDirection},
        SpeedGroup::G3}};
-  SetTrafficColoring(make_shared<TrafficInfo::Coloring>(coloringMiddleF1F3F4F7F8));
+  SetTrafficColoring(make_shared<TrafficInfo::Coloring const>(coloringMiddleF1F3F4F7F8));
   {
     TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, noTrafficGeom);
   }

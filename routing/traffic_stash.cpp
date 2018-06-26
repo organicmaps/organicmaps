@@ -31,7 +31,7 @@ traffic::SpeedGroup TrafficStash::GetSpeedGroup(Segment const & segment) const
 }
 
 void TrafficStash::SetColoring(NumMwmId numMwmId,
-                               std::shared_ptr<traffic::TrafficInfo::Coloring> coloring)
+                               std::shared_ptr<const traffic::TrafficInfo::Coloring> coloring)
 {
   m_mwmToTraffic[numMwmId] = coloring;
 }
@@ -43,7 +43,7 @@ bool TrafficStash::Has(NumMwmId numMwmId) const
 
 void TrafficStash::CopyTraffic()
 {
-  std::map<MwmSet::MwmId, std::shared_ptr<traffic::TrafficInfo::Coloring>> copy;
+  traffic::AllMwmTrafficInfo copy;
   m_source.CopyTraffic(copy);
   for (auto const & kv : copy)
   {

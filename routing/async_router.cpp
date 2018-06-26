@@ -424,6 +424,7 @@ void AsyncRouter::CalculateRoute()
   vector<string> absent;
   if (absentFetcher && needFetchAbsent)
     absentFetcher->GetAbsentCountries(absent);
+  absent.insert(absent.end(), route->GetAbsentCountries().cbegin(), route->GetAbsentCountries().cend());
 
   if (!absent.empty() && code == RouterResultCode::NoError)
     code = RouterResultCode::NeedMoreMaps;
