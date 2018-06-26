@@ -72,7 +72,7 @@ private:
   public:
     RouterDelegateProxy(ReadyCallbackOwnership const & onReady,
                         NeedMoreMapsCallback const & onNeedMoreMaps,
-                        RemoveRouteCallback const & removeRoute,
+                        RemoveRouteCallback const & onRemoveRoute,
                         PointCheckCallback const & onPointCheck,
                         ProgressCallback const & onProgress,
                         uint32_t timeoutSec);
@@ -94,20 +94,11 @@ private:
     // - it's possible to build route only if to load some maps
     // - there's a faster route, but it's necessary to load some more maps to build it
     NeedMoreMapsCallback const m_onNeedMoreMaps;
-    RemoveRouteCallback const m_removeRoute;
+    RemoveRouteCallback const m_onRemoveRoute;
     PointCheckCallback const m_onPointCheck;
     ProgressCallback const m_onProgress;
     RouterDelegate m_delegate;
   };
-
-  void RunOnReadyOnGuiThread(shared_ptr<RouterDelegateProxy> delegate, shared_ptr<Route> route,
-                             RouterResultCode code);
-
-  template <typename Task>
-  void RunOnGuiThread(Task && task)
-  {
-    GetPlatform().RunTask(Platform::Thread::Gui, std::forward<Task>(task));
-  }
 
 private:
   std::mutex m_guard;

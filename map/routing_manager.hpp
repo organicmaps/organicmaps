@@ -129,7 +129,7 @@ public:
 
   void SetRouteBuildingListener(RouteBuildingCallback const & buildingCallback)
   {
-    m_routingCallback = buildingCallback;
+    m_routingBuildingCallback = buildingCallback;
   }
   /// See warning above.
   void SetRouteProgressListener(routing::ProgressCallback const & progressCallback)
@@ -284,7 +284,7 @@ private:
 
   void OnExtrapolatedLocationUpdate(location::GpsInfo const & info);
 
-  RouteBuildingCallback m_routingCallback = nullptr;
+  RouteBuildingCallback m_routingBuildingCallback = nullptr;
   RouteRecommendCallback m_routeRecommendCallback = nullptr;
   Callbacks m_callbacks;
   df::DrapeEngineSafePtr m_drapeEngine;

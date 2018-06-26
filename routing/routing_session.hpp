@@ -84,7 +84,8 @@ public:
   void Init(RoutingStatisticsCallback const & routingStatisticsFn,
             PointCheckCallback const & pointCheckCallback);
 
-  void SetRouter(unique_ptr<IRouter> && router, unique_ptr<OnlineAbsentCountriesFetcher> && fetcher);
+  void SetRouter(std::unique_ptr<IRouter> && router,
+                 std::unique_ptr<OnlineAbsentCountriesFetcher> && fetcher);
 
   /// @param[in] checkpoints in mercator
   /// @param[in] timeoutSec timeout in seconds, if zero then there is no timeout
@@ -149,10 +150,10 @@ public:
   bool EnableFollowMode();
 
   void SetRoutingSettings(RoutingSettings const & routingSettings);
-  void SetReadyCallbacks(ReadyCallback const & buildReadyCallback,
-                         ReadyCallback const & rebuildReadyCallback,
-                         NeedMoreMapsCallback const & needMoreMapsCallback,
-                         RemoveRouteCallback const & removeRouteCallback);
+  void SetRoutingCallbacks(ReadyCallback const & buildReadyCallback,
+                           ReadyCallback const & rebuildReadyCallback,
+                           NeedMoreMapsCallback const & needMoreMapsCallback,
+                           RemoveRouteCallback const & removeRouteCallback);
   void SetProgressCallback(ProgressCallback const & progressCallback);
   void SetCheckpointCallback(CheckpointCallback const & checkpointCallback);
 
@@ -162,7 +163,7 @@ public:
   void SetTurnNotificationsUnits(measurement_utils::Units const units);
   void SetTurnNotificationsLocale(std::string const & locale);
   std::string GetTurnNotificationsLocale() const;
-  void GenerateTurnNotifications(std::vector<string> & turnNotifications);
+  void GenerateTurnNotifications(std::vector<std::string> & turnNotifications);
 
   void EmitCloseRoutingEvent() const;
 
@@ -225,8 +226,8 @@ private:
   mutable bool m_speedWarningSignal;
 
   /// Current position metrics to check for RouteNeedRebuild state.
-  double m_lastDistance;
-  int m_moveAwayCounter;
+  double m_lastDistance = 0.0;
+  int m_moveAwayCounter = 0;
   m2::PointD m_lastGoodPosition;
   // |m_currentDirection| is a vector from the position before last good position to last good position.
   m2::PointD m_currentDirection;
@@ -249,10 +250,10 @@ private:
 
   // Statistics parameters
   // Passed distance on route including reroutes
-  double m_passedDistanceOnRouteMeters;
+  double m_passedDistanceOnRouteMeters = 0.0;
   // Rerouting count
-  int m_routingRebuildCount;
-  mutable double m_lastCompletionPercent;
+  int m_routingRebuildCount = -1; // -1 for the first rebuild called in BuildRoute().
+  mutable double m_lastCompletionPercent = 0.0;
 
   DECLARE_THREAD_CHECKER(m_threadChecker);
 };

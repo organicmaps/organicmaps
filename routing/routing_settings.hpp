@@ -12,6 +12,13 @@ namespace routing
 /// For example, route matching properties, rerouting properties and so on.
 struct RoutingSettings
 {
+  friend RoutingSettings GetRoutingSettings(VehicleType vehicleType);
+
+private:
+  RoutingSettings(bool matchRoute, bool soundDirection, double matchingThresholdM,
+                  bool keepPedestrianInfo, bool showTurnAfterNext, bool speedCameraWarning);
+
+public:
   /// \brief if m_matchRoute is equal to true the bearing follows the
   /// route direction if the current position is matched to the route.
   /// If m_matchRoute is equal to false GPS bearing is used while

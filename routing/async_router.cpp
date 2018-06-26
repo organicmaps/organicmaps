@@ -69,14 +69,14 @@ void SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirec
 // ----------------------------------------------------------------------------------------------------------------------------
 
 AsyncRouter::RouterDelegateProxy::RouterDelegateProxy(ReadyCallbackOwnership const & onReady,
-                                                      NeedMoreMapsCallback const & m_onNeedMoreMaps,
-                                                      RemoveRouteCallback const & removeRoute,
+                                                      NeedMoreMapsCallback const & onNeedMoreMaps,
+                                                      RemoveRouteCallback const & onRemoveRoute,
                                                       PointCheckCallback const & onPointCheck,
                                                       ProgressCallback const & onProgress,
                                                       uint32_t timeoutSec)
   : m_onReadyOwnership(onReady)
-  , m_onNeedMoreMaps(m_onNeedMoreMaps)
-  , m_removeRoute(removeRoute)
+  , m_onNeedMoreMaps(onNeedMoreMaps)
+  , m_onRemoveRoute(onRemoveRoute)
   , m_onPointCheck(onPointCheck)
   , m_onProgress(onProgress)
 {
@@ -113,14 +113,14 @@ void AsyncRouter::RouterDelegateProxy::OnNeedMoreMaps(uint64_t routeId,
 
 void AsyncRouter::RouterDelegateProxy::OnRemoveRoute(RouterResultCode resultCode)
 {
-  if (!m_removeRoute)
+  if (!m_onRemoveRoute)
     return;
   {
     lock_guard<mutex> l(m_guard);
     if (m_delegate.IsCancelled())
       return;
   }
-  m_removeRoute(resultCode);
+  m_onRemoveRoute(resultCode);
 }
 
 void AsyncRouter::RouterDelegateProxy::Cancel()
@@ -294,12 +294,6 @@ void AsyncRouter::LogCode(RouterResultCode code, double const elapsedSec)
   }
 }
 
-void AsyncRouter::RunOnReadyOnGuiThread(shared_ptr<RouterDelegateProxy> delegate,
-                                        shared_ptr<Route> route, RouterResultCode code)
-{
-  RunOnGuiThread([delegate, route, code]() {delegate->OnReady(route, code);});
-}
-
 void AsyncRouter::ResetDelegate()
 {
   if (m_delegate)
@@ -342,8 +336,8 @@ void AsyncRouter::CalculateRoute()
   bool adjustToPrevRoute = false;
   shared_ptr<IOnlineFetcher> absentFetcher;
   shared_ptr<IRouter> router;
-  uint64_t routeId = m_routeCounter;
-  RoutingStatisticsCallback routingStatisticsCallback = nullptr;
+  uint64_t routeId = 0;
+  RoutingStatisticsCallback routingStatisticsCallback;
   string routerName;
 
   {
@@ -365,7 +359,6 @@ void AsyncRouter::CalculateRoute()
     router = m_router;
     absentFetcher = m_absentFetcher;
     routeId = ++m_routeCounter;
-
     routingStatisticsCallback = m_routingStatisticsCallback;
     routerName = router->GetName();
   }
@@ -395,29 +388,34 @@ void AsyncRouter::CalculateRoute()
   {
     code = RouterResultCode::InternalError;
     LOG(LERROR, ("Exception happened while calculating route:", e.Msg()));
-    RunOnGuiThread([checkpoints, startDirection, e, routingStatisticsCallback, routerName]() {
+    GetPlatform().RunTask(Platform::Thread::Gui, [checkpoints, startDirection, e,
+                                                  routingStatisticsCallback, routerName]() {
       SendStatistics(checkpoints.GetStart(), startDirection, checkpoints.GetFinish(), e.Msg(),
                      routingStatisticsCallback, routerName);
     });
+
     // Note. After call of this method |route| should be used only on ui thread.
     // And |route| should stop using on routing background thread, in this method.
-    RunOnReadyOnGuiThread(delegate, route, code);
+    GetPlatform().RunTask(Platform::Thread::Gui,
+                          [delegate, route, code]() { delegate->OnReady(route, code); });
     return;
   }
 
   double const routeLengthM = route->GetTotalDistanceMeters();
-  RunOnGuiThread([checkpoints, startDirection, code, routeLengthM, elapsedSec,
-                    routingStatisticsCallback, routerName]() {
-    SendStatistics(checkpoints.GetStart(), startDirection, checkpoints.GetFinish(), code,
-                   routeLengthM, elapsedSec, routingStatisticsCallback, routerName);
-  });
+  GetPlatform().RunTask(
+      Platform::Thread::Gui, [checkpoints, startDirection, code, routeLengthM, elapsedSec,
+                              routingStatisticsCallback, routerName]() {
+        SendStatistics(checkpoints.GetStart(), startDirection, checkpoints.GetFinish(), code,
+                       routeLengthM, elapsedSec, routingStatisticsCallback, routerName);
+      });
 
   // Draw route without waiting network latency.
   if (code == RouterResultCode::NoError)
   {
     // Note. After call of this method |route| should be used only on ui thread.
     // And |route| should stop using on routing background thread, in this method.
-    RunOnReadyOnGuiThread(delegate, route, code);
+    GetPlatform().RunTask(Platform::Thread::Gui,
+                          [delegate, route, code]() { delegate->OnReady(route, code); });
   }
 
   bool const needFetchAbsent = (code != RouterResultCode::Cancelled);
@@ -437,9 +435,16 @@ void AsyncRouter::CalculateRoute()
   if (code != RouterResultCode::NoError)
   {
     if (code == RouterResultCode::NeedMoreMaps)
-      RunOnGuiThread([delegate, routeId, absent]() { delegate->OnNeedMoreMaps(routeId, absent); });
+    {
+      GetPlatform().RunTask(Platform::Thread::Gui, [delegate, routeId, absent]() {
+        delegate->OnNeedMoreMaps(routeId, absent);
+      });
+    }
     else
-      RunOnGuiThread([delegate, code]() { delegate->OnRemoveRoute(code); });
+    {
+      GetPlatform().RunTask(Platform::Thread::Gui,
+                            [delegate, code]() { delegate->OnRemoveRoute(code); });
+    }
   }
 }
 }  // namespace routing

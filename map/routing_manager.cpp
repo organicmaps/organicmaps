@@ -241,7 +241,7 @@ RoutingManager::RoutingManager(Callbacks && callbacks, Delegate & delegate)
 #endif
   );
 
-  m_routingSession.SetReadyCallbacks(
+  m_routingSession.SetRoutingCallbacks(
       [this](Route const & route, RouterResultCode code) { OnBuildRouteReady(route, code); },
       [this](Route const & route, RouterResultCode code) { OnRebuildRouteReady(route, code); },
       [this](uint64_t routeId, vector<string> const & absentCountries) {
@@ -934,7 +934,7 @@ void RoutingManager::CheckLocationForRouting(location::GpsInfo const & info)
 void RoutingManager::CallRouteBuilded(RouterResultCode code,
                                       storage::TCountriesVec const & absentCountries)
 {
-  m_routingCallback(code, absentCountries);
+  m_routingBuildingCallback(code, absentCountries);
 }
 
 void RoutingManager::MatchLocationToRoute(location::GpsInfo & location,

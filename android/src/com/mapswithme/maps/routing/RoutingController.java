@@ -118,6 +118,7 @@ public class RoutingController implements TaxiManager.TaxiListener
   @SuppressWarnings("FieldCanBeLocal")
   private final Framework.RoutingListener mRoutingListener = new Framework.RoutingListener()
   {
+    @MainThread
     @Override
     public void onRoutingEvent(final int resultCode, @Nullable final String[] missingMaps)
     {
@@ -145,6 +146,7 @@ public class RoutingController implements TaxiManager.TaxiListener
   @SuppressWarnings("FieldCanBeLocal")
   private final Framework.RoutingProgressListener mRoutingProgressListener = new Framework.RoutingProgressListener()
   {
+    @MainThread
     @Override
     public void onRouteBuildingProgress(float progress)
     {

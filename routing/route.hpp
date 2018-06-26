@@ -156,7 +156,7 @@ public:
     SubrouteUid const m_id = kInvalidSubrouteId;
   };
 
-  explicit Route(std::string const & router, uint64_t routeId)
+  Route(std::string const & router, uint64_t routeId)
     : m_router(router), m_routingSettings(GetRoutingSettings(VehicleType::Car)), m_routeId(routeId)
   {
   }

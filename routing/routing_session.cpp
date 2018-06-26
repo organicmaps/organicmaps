@@ -63,12 +63,13 @@ void FormatDistance(double dist, string & value, string & suffix)
 
 RoutingSession::RoutingSession()
   : m_router(nullptr)
-  , m_route(make_unique<Route>(string(), 0))
+  , m_route(make_unique<Route>(string() /* router */, 0 /* route id */))
   , m_state(RoutingNotActive)
   , m_isFollowing(false)
   , m_lastWarnedSpeedCameraIndex(0)
   , m_lastCheckedSpeedCameraIndex(0)
   , m_speedWarningSignal(false)
+  , m_routingSettings(GetRoutingSettings(VehicleType::Car))
   , m_passedDistanceOnRouteMeters(0.0)
   , m_lastCompletionPercent(0.0)
 {
@@ -146,7 +147,7 @@ void RoutingSession::RemoveRoute()
   m_moveAwayCounter = 0;
   m_turnNotificationsMgr.Reset();
 
-  m_route = make_unique<Route>(string(), 0);
+  m_route = make_unique<Route>(string() /* router */, 0 /* route id */);
 }
 
 void RoutingSession::RebuildRouteOnTrafficUpdate()
@@ -578,20 +579,13 @@ void RoutingSession::SetRoutingSettings(RoutingSettings const & routingSettings)
   m_routingSettings = routingSettings;
 }
 
-void RoutingSession::SetReadyCallbacks(ReadyCallback const & buildReadyCallback,
-                                       ReadyCallback const & rebuildReadyCallback,
-                                       NeedMoreMapsCallback const & needMoreMapsCallback,
-                                       RemoveRouteCallback const & removeRouteCallback)
+void RoutingSession::SetRoutingCallbacks(ReadyCallback const & buildReadyCallback,
+                                         ReadyCallback const & rebuildReadyCallback,
+                                         NeedMoreMapsCallback const & needMoreMapsCallback,
+                                         RemoveRouteCallback const & removeRouteCallback)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   m_buildReadyCallback = buildReadyCallback;
-  // m_rebuildReadyCallback used from multiple threads but it's the only place we write m_rebuildReadyCallback
-  // and this method is called from RoutingManager constructor before it can be used from any other place.
-  // We can use mutex
-  //   1) here to protect m_rebuildReadyCallback
-  //   2) and inside BuldRoute & RebuildRouteOnTrafficUpdate to safely copy m_rebuildReadyCallback to temporary
-  //      variable cause we need pass it to RebuildRoute and do not want to execute route rebuild with mutex.
-  // But it'll make code worse and will not improve safety.
   m_rebuildReadyCallback = rebuildReadyCallback;
   m_needMoreMapsCallback = needMoreMapsCallback;
   m_removeRouteCallback = removeRouteCallback;

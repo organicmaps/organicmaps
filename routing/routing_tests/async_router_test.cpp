@@ -64,7 +64,7 @@ public:
 
 void DummyStatisticsCallback(map<string, string> const &) {}
 
-struct DummyResultCallback
+struct DummyRoutingCallbacks
 {
   vector<RouterResultCode> m_codes;
   vector<vector<string>> m_absent;
@@ -73,7 +73,7 @@ struct DummyResultCallback
   uint32_t const m_expected;
   uint32_t m_called;
 
-  explicit DummyResultCallback(uint32_t expectedCalls) : m_expected(expectedCalls), m_called(0) {}
+  explicit DummyRoutingCallbacks(uint32_t expectedCalls) : m_expected(expectedCalls), m_called(0) {}
 
   // ReadyCallbackOwnership callback
   void operator()(shared_ptr<Route> route, RouterResultCode code)
@@ -116,7 +116,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTest, NeedMoreMapsSignalTest)
   vector<string> const absentData({"test1", "test2"});
   unique_ptr<IOnlineFetcher> fetcher(new DummyFetcher(absentData));
   unique_ptr<IRouter> router(new DummyRouter(RouterResultCode::NoError, {}));
-  DummyResultCallback resultCallback(2 /* expectedCalls */);
+  DummyRoutingCallbacks resultCallback(2 /* expectedCalls */);
   AsyncRouter async(DummyStatisticsCallback, nullptr /* pointCheckCallback */);
   async.SetRouter(move(router), move(fetcher));
   async.CalculateRoute(Checkpoints({1, 2} /* start */, {5, 6} /* finish */), {3, 4}, false,
@@ -139,7 +139,7 @@ UNIT_CLASS_TEST(AsyncGuiThreadTest, StandardAsyncFogTest)
 {
   unique_ptr<IOnlineFetcher> fetcher(new DummyFetcher({}));
   unique_ptr<IRouter> router(new DummyRouter(RouterResultCode::NoError, {}));
-  DummyResultCallback resultCallback(1 /* expectedCalls */);
+  DummyRoutingCallbacks resultCallback(1 /* expectedCalls */);
   AsyncRouter async(DummyStatisticsCallback, nullptr /* pointCheckCallback */);
   async.SetRouter(move(router), move(fetcher));
   async.CalculateRoute(Checkpoints({1, 2} /* start */, {5, 6} /* finish */), {3, 4}, false,

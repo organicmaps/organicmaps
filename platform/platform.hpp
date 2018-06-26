@@ -281,6 +281,10 @@ public:
   MarketingService & GetMarketingService() { return m_marketingService; }
   platform::SecureStorage & GetSecureStorage() { return m_secureStorage; }
 
+  /// \brief Placing an executable object |task| on a queue of |thread|. Then the object will be
+  /// executed on |thread|.
+  /// \note |task| cannot be moved in case of |Thread::Gui|. This way unique_ptr cannot be used
+  /// in |task|. Use shared_ptr instead.
   template <typename Task>
   void RunTask(Thread thread, Task && task)
   {
