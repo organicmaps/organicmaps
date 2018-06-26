@@ -261,8 +261,10 @@ add_compile_options(
 )
 
 add_clang_compile_options("-Wshorten-64-to-32")
-add_clang_cpp_compile_options("-Wno-noexcept-type")
-add_gcc_cpp_compile_options("-Wno-noexcept-type")
+if (CMAKE_CXX_COMPILER_ID MATCHES "GNU" AND
+    CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 7.0)
+  add_gcc_cpp_compile_options("-Wno-noexcept-type")
+endif()
 
 add_subdirectory(base)
 add_subdirectory(coding)
