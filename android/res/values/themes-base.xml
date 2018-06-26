@@ -25,6 +25,7 @@
     <item name="colorPrimary">@color/bg_primary</item>
     <item name="colorControlNormal">?secondary</item>
     <item name="colorAccent">@color/base_accent</item>
+    <item name="colorControlHighlight">@color/white_38</item>
     <item name="panel">@color/bg_panel</item>
     <item name="sidePanel">@color/bg_side_panel</item>
     <item name="iconTint">@color/icon_tint</item>
@@ -62,7 +63,7 @@
     <item name="redButtonTextColor">@color/button_red_text</item>
     <item name="redButtonTextColorDisabled">@color/button_red_text_disabled</item>
 
-    <item name="primaryButtonBackground">@drawable/button_primary</item>
+    <item name="primaryButtonBackground">@drawable/button_accent</item>
     <item name="reviewButtonBackground">@drawable/button_leave_review</item>
 
     <item name="circleAccent">@drawable/circle_accent</item>
@@ -155,6 +156,7 @@
     <item name="colorPrimary">@color/bg_primary_night</item>
     <item name="colorControlNormal">?secondary</item>
     <item name="colorAccent">@color/base_accent_night</item>
+    <item name="colorControlHighlight">@color/white_24</item>
     <item name="panel">@color/bg_panel_night</item>
     <item name="sidePanel">@color/bg_side_panel_night</item>
     <item name="iconTint">@color/icon_tint_night</item>
@@ -192,7 +194,7 @@
     <item name="redButtonTextColor">@color/button_red_text</item>
     <item name="redButtonTextColorDisabled">@color/button_red_text_disabled</item>
 
-    <item name="primaryButtonBackground">@drawable/button_primary_night</item>
+    <item name="primaryButtonBackground">@drawable/button_accent_night</item>
     <item name="reviewButtonBackground">@drawable/button_leave_review_night</item>
 
     <item name="circleAccent">@drawable/circle_accent_night</item>
