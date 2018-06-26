@@ -444,7 +444,8 @@ uint64_t Storage::UGCSizeAtIndex(size_t const indexPosition) const
 unique_ptr<FeatureType> Storage::GetFeature(FeatureID const & id) const
 {
   CHECK(id.IsValid(), ());
-  DataSource::FeaturesLoaderGuard guard(m_dataSource, id.m_mwmId, EditableFeatureSourceFactory());
+  DataSource::FeaturesLoaderGuard guard(m_dataSource, id.m_mwmId,
+                                        EditableFeatureSourceFactory::Get());
   auto feature = guard.GetOriginalOrEditedFeatureByIndex(id.m_index);
   feature->ParseGeometry(FeatureType::BEST_GEOMETRY);
   if (feature->GetFeatureType() == feature::EGeomType::GEOM_AREA)

@@ -137,7 +137,7 @@ namespace editor
 {
 namespace testing
 {
-EditorTest::EditorTest() : m_dataSource(make_unique<EditableFeatureSourceFactory>())
+EditorTest::EditorTest() : m_dataSource(EditableFeatureSourceFactory::Get())
 {
   try
   {

@@ -207,7 +207,7 @@ void FeaturesRoadGraph::GetFeatureTypes(FeatureID const & featureId, feature::Ty
 {
   FeatureType ft;
   DataSource::FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId,
-                                         EditableFeatureSourceFactory());
+                                         EditableFeatureSourceFactory::Get());
   if (!loader.GetFeatureByIndex(featureId.m_index, ft))
     return;
 
@@ -309,7 +309,7 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
   FeatureType ft;
 
   DataSource::FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId,
-                                         EditableFeatureSourceFactory());
+                                         EditableFeatureSourceFactory::Get());
 
   if (!loader.GetFeatureByIndex(featureId.m_index, ft))
     return ri;

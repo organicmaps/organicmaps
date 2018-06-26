@@ -30,11 +30,6 @@ public:
   using FeatureCallback = std::function<void(FeatureType &)>;
   using FeatureIdCallback = std::function<void(FeatureID const &)>;
 
-  explicit DataSource(std::unique_ptr<FeatureSourceFactory> factory) : m_factory(std::move(factory))
-  {
-  }
-  ~DataSource() override = default;
-
   /// Guard for loading features from particular MWM by demand.
   /// @note This guard is suitable when mwm is loaded.
   class FeaturesLoaderGuard
@@ -61,6 +56,9 @@ public:
     MwmHandle m_handle;
     std::unique_ptr<FeatureSource> m_source;
   };
+
+  explicit DataSource(FeatureSourceFactory const & factory) : m_factory(factory) {}
+  ~DataSource() override = default;
 
   /// Registers a new map.
   std::pair<MwmId, RegResult> RegisterMap(platform::LocalCountryFile const & localFile);
@@ -97,6 +95,6 @@ protected:
   std::unique_ptr<MwmValueBase> CreateValue(MwmInfo & info) const override;
 
 private:
-  std::unique_ptr<FeatureSourceFactory> m_factory;
+  FeatureSourceFactory const & m_factory;
 };
 

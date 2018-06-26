@@ -33,7 +33,7 @@ UNIT_TEST(ReverseGeocoder_Smoke)
 
   LocalCountryFile file = LocalCountryFile::MakeForTesting("minsk-pass");
 
-  DataSource dataSource(make_unique<FeatureSourceFactory>());
+  DataSource dataSource(FeatureSourceFactory::Get());
   TEST_EQUAL(dataSource.RegisterMap(file).second, MwmSet::RegResult::Success, ());
 
   ReverseGeocoder coder(dataSource);

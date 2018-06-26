@@ -111,7 +111,7 @@ public:
   }
 
 private:
-  MwmBuilder() : m_dataSource(make_unique<FeatureSourceFactory>()) { classificator::Load(); }
+  MwmBuilder() : m_dataSource(FeatureSourceFactory::Get()) { classificator::Load(); }
 
   MwmSet::MwmId BuildMwm(BuilderFn const & fn)
   {

@@ -222,7 +222,7 @@ class RankerResultMaker
   {
     if (!m_loader || m_loader->GetId() != id.m_mwmId)
       m_loader = make_unique<DataSource::FeaturesLoaderGuard>(m_dataSource, id.m_mwmId,
-                                                              EditableFeatureSourceFactory());
+                                                              EditableFeatureSourceFactory::Get());
     if (!m_loader->GetFeatureByIndex(id.m_index, ft))
       return false;
 

@@ -64,7 +64,7 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
     {
       FeatureID const & fid = result.GetFeatureID();
       DataSource::FeaturesLoaderGuard loader(m_dataSource, fid.m_mwmId,
-                                             EditableFeatureSourceFactory());
+                                             EditableFeatureSourceFactory::Get());
       FeatureType ft;
       if (!loader.GetFeatureByIndex(fid.m_index, ft))
       {

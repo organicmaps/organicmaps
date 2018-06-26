@@ -72,7 +72,7 @@ std::string Manager::GetCityViatorId(m2::PointD const & point) const
     return {};
 
   DataSource::FeaturesLoaderGuard const guard(m_dataSource, fid.m_mwmId,
-                                              EditableFeatureSourceFactory());
+                                              EditableFeatureSourceFactory::Get());
   FeatureType ft;
   if (!guard.GetFeatureByIndex(fid.m_index, ft))
   {

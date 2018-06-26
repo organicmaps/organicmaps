@@ -262,7 +262,7 @@ int main(int argc, char * argv[])
 
   std::vector<std::unique_ptr<DataSource>> dataSources(numThreads);
   for (size_t i = 0; i < numThreads; ++i)
-    dataSources.push_back(std::make_unique<DataSource>(std::make_unique<FeatureSourceFactory>()));
+    dataSources.push_back(std::make_unique<DataSource>(FeatureSourceFactory::Get()));
 
   LoadDataSources(FLAGS_mwms_path, dataSources);
 

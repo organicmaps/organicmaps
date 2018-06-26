@@ -379,7 +379,7 @@ int main(int argc, char * argv[])
   params.m_locale = FLAGS_locale;
   params.m_numThreads = FLAGS_num_threads;
 
-  DataSource dataSource(make_unique<FeatureSourceFactory>());
+  DataSource dataSource(FeatureSourceFactory::Get());
 
   vector<platform::LocalCountryFile> mwms;
   if (!FLAGS_mwm_list_path.empty())

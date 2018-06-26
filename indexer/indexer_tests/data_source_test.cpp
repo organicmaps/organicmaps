@@ -29,7 +29,7 @@ namespace
 class DataSourceTest : public MwmSet::Observer
 {
 public:
-  DataSourceTest() : m_dataSource(make_unique<FeatureSourceFactory>())
+  DataSourceTest() : m_dataSource(FeatureSourceFactory::Get())
   {
     TEST(m_dataSource.AddObserver(*this), ());
   }

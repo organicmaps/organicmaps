@@ -67,7 +67,7 @@ bool ParseFeatureIdToTestIdMapping(string const & path, map<uint32_t, vector<uin
 
 CBV GetLocalities(string const & dataPath)
 {
-  DataSource dataSource(make_unique<FeatureSourceFactory>());
+  DataSource dataSource(FeatureSourceFactory::Get());
   auto const result = dataSource.Register(platform::LocalCountryFile::MakeTemporary(dataPath));
   CHECK_EQUAL(result.second, MwmSet::RegResult::Success, ("Can't register", dataPath));
 

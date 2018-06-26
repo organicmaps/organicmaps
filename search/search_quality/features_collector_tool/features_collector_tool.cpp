@@ -152,7 +152,7 @@ int main(int argc, char * argv[])
   }
 
   classificator::Load();
-  DataSource dataSource(make_unique<FeatureSourceFactory>());
+  DataSource dataSource(FeatureSourceFactory::Get());
 
   vector<platform::LocalCountryFile> mwms;
   platform::FindAllLocalMapsAndCleanup(numeric_limits<int64_t>::max() /* the latest version */,

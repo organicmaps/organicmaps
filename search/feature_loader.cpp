@@ -17,7 +17,7 @@ bool FeatureLoader::Load(FeatureID const & id, FeatureType & ft)
   auto const & mwmId = id.m_mwmId;
   if (!m_guard || m_guard->GetId() != mwmId)
     m_guard = my::make_unique<DataSource::FeaturesLoaderGuard>(m_dataSource, mwmId,
-                                                               EditableFeatureSourceFactory());
+                                                               EditableFeatureSourceFactory::Get());
   return m_guard->GetFeatureByIndex(id.m_index, ft);
 }
 

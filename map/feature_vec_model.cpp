@@ -18,7 +18,7 @@ using platform::LocalCountryFile;
 
 namespace model
 {
-FeaturesFetcher::FeaturesFetcher() : m_dataSource(make_unique<EditableFeatureSourceFactory>())
+FeaturesFetcher::FeaturesFetcher() : m_dataSource(EditableFeatureSourceFactory::Get())
 {
   m_dataSource.AddObserver(*this);
 }

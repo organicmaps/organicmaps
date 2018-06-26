@@ -55,6 +55,12 @@ class FeatureSourceFactory
 {
 public:
   virtual ~FeatureSourceFactory() = default;
+  static FeatureSourceFactory const & Get()
+  {
+    static FeatureSourceFactory const factory;
+    return factory;
+  }
+
   virtual std::unique_ptr<FeatureSource> operator()(MwmSet::MwmHandle const & handle) const
   {
     return std::make_unique<FeatureSource>(handle);

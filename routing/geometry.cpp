@@ -45,7 +45,7 @@ GeometryLoaderImpl::GeometryLoaderImpl(DataSource const & dataSource,
                                        shared_ptr<VehicleModelInterface> vehicleModel,
                                        bool loadAltitudes)
   : m_vehicleModel(move(vehicleModel))
-  , m_guard(dataSource, handle.GetId(), EditableFeatureSourceFactory())
+  , m_guard(dataSource, handle.GetId(), EditableFeatureSourceFactory::Get())
   , m_country(handle.GetInfo()->GetCountryName())
   , m_altitudeLoader(dataSource, handle.GetId())
   , m_loadAltitudes(loadAltitudes)

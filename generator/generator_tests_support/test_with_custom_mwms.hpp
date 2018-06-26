@@ -27,7 +27,7 @@ namespace tests_support
 class TestWithCustomMwms : public TestWithClassificator
 {
 public:
-  TestWithCustomMwms() : m_dataSource(make_unique<EditableFeatureSourceFactory>()) {}
+  TestWithCustomMwms() : m_dataSource(EditableFeatureSourceFactory::Get()) {}
   ~TestWithCustomMwms() override;
 
   // Creates a physical country file on a disk, which will be removed

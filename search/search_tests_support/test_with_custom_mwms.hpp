@@ -32,7 +32,7 @@ public:
   void EditFeature(FeatureID const & id, EditorFn && fn)
   {
     DataSource::FeaturesLoaderGuard loader(m_dataSource, id.m_mwmId,
-                                           EditableFeatureSourceFactory());
+                                           EditableFeatureSourceFactory::Get());
     FeatureType ft;
     CHECK(loader.GetFeatureByIndex(id.m_index, ft), ());
     editor::tests_support::EditFeature(ft, std::forward<EditorFn>(fn));

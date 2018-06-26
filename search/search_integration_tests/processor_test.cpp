@@ -606,7 +606,8 @@ UNIT_CLASS_TEST(ProcessorTest, TestPostcodes)
     while (!features->GetBit(index))
       ++index;
 
-    DataSource::FeaturesLoaderGuard loader(m_dataSource, countryId, EditableFeatureSourceFactory());
+    DataSource::FeaturesLoaderGuard loader(m_dataSource, countryId,
+                                           EditableFeatureSourceFactory::Get());
     FeatureType ft;
     TEST(loader.GetFeatureByIndex(::base::checked_cast<uint32_t>(index), ft), ());
 
@@ -704,7 +705,7 @@ UNIT_CLASS_TEST(ProcessorTest, TestCategories)
     for (auto const & result : request->Results())
     {
       DataSource::FeaturesLoaderGuard loader(m_dataSource, wonderlandId,
-                                             EditableFeatureSourceFactory());
+                                             EditableFeatureSourceFactory::Get());
       FeatureType ft;
       TEST(loader.GetFeatureByIndex(result.GetFeatureID().m_index, ft), ());
 

@@ -21,7 +21,7 @@ RoadInfoGetter::RoadInfo RoadInfoGetter::Get(FeatureID const & fid)
   if (it != end(m_cache))
     return it->second;
 
-  DataSource::FeaturesLoaderGuard g(m_dataSource, fid.m_mwmId, FeatureSourceFactory());
+  DataSource::FeaturesLoaderGuard g(m_dataSource, fid.m_mwmId, FeatureSourceFactory::Get());
   FeatureType ft;
   CHECK(g.GetOriginalFeatureByIndex(fid.m_index, ft), ());
 

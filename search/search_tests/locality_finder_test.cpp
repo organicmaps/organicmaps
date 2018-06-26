@@ -37,7 +37,7 @@ class LocalityFinderTest : public generator::tests_support::TestWithClassificato
 
 public:
   LocalityFinderTest()
-    : m_dataSource(make_unique<FeatureSourceFactory>())
+    : m_dataSource(FeatureSourceFactory::Get())
     , m_villagesCache(m_cancellable)
     , m_boundariesTable(m_dataSource)
     , m_finder(m_dataSource, m_boundariesTable, m_villagesCache)

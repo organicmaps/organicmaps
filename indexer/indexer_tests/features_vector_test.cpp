@@ -50,7 +50,7 @@ UNIT_TEST(FeaturesVectorTest_ParseMetadata)
 
   LocalCountryFile localFile = LocalCountryFile::MakeForTesting(kCountryName);
 
-  DataSource dataSource(make_unique<FeatureSourceFactory>());
+  DataSource dataSource(FeatureSourceFactory::Get());
   auto result = dataSource.RegisterMap(localFile);
   TEST_EQUAL(result.second, MwmSet::RegResult::Success, ());
 

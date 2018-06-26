@@ -64,7 +64,7 @@ m2::PointD GetPointOnEdge(routing::Edge const & e, double posAlong)
 
 RoutingTest::RoutingTest(routing::IRoadGraph::Mode mode, set<string> const & neededMaps)
   : m_mode(mode)
-  , m_dataSource(make_unique<FeatureSourceFactory>())
+  , m_dataSource(FeatureSourceFactory::Get())
   , m_neededMaps(neededMaps)
   , m_numMwmIds(my::make_unique<routing::NumMwmIds>())
 {

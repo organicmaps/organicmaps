@@ -133,14 +133,15 @@ void WithRoad(vector<m2::PointD> const & points, Func && fn)
     builder.Add(TestRoad(points, "Interstate 60", "en"));
   }
 
-  DataSource dataSource(make_unique<FeatureSourceFactory>());
+  DataSource dataSource(FeatureSourceFactory::Get());
   auto const regResult = dataSource.RegisterMap(country);
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
 
   MwmSet::MwmHandle mwmHandle = dataSource.GetMwmHandleById(regResult.first);
   TEST(mwmHandle.IsAlive(), ());
 
-  DataSource::FeaturesLoaderGuard const guard(dataSource, regResult.first, FeatureSourceFactory());
+  DataSource::FeaturesLoaderGuard const guard(dataSource, regResult.first,
+                                              FeatureSourceFactory::Get());
   FeatureType road;
   TEST(guard.GetFeatureByIndex(0, road), ());
   road.ParseEverything();

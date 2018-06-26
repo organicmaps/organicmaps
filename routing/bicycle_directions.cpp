@@ -215,7 +215,7 @@ DataSource::FeaturesLoaderGuard & BicycleDirectionsEngine::GetLoader(MwmSet::Mwm
 {
   if (!m_loader || id != m_loader->GetId())
     m_loader = make_unique<DataSource::FeaturesLoaderGuard>(m_dataSource, id,
-                                                            EditableFeatureSourceFactory());
+                                                            EditableFeatureSourceFactory::Get());
   return *m_loader;
 }
 

@@ -113,7 +113,7 @@ void PrepareData(DataSource const & dataSource, search::Results const & results,
     if (mwmId != featureId.m_mwmId)
     {
       guard = my::make_unique<LoaderGuard>(dataSource, featureId.m_mwmId,
-                                           EditableFeatureSourceFactory());
+                                           EditableFeatureSourceFactory::Get());
       mwmId = featureId.m_mwmId;
     }
 
@@ -231,7 +231,7 @@ void AvailabilityFilter::GetFeaturesFromCache(search::Results const & results,
     if (mwmId != featureId.m_mwmId)
     {
       guard = my::make_unique<LoaderGuard>(GetDelegate().GetDataSource(), featureId.m_mwmId,
-                                           EditableFeatureSourceFactory());
+                                           EditableFeatureSourceFactory::Get());
       mwmId = featureId.m_mwmId;
     }
 

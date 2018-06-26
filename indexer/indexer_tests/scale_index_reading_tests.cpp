@@ -54,7 +54,7 @@ public:
                                       [&](uint32_t index) { indices.push_back(index); });
     }
 
-    DataSource::FeaturesLoaderGuard loader(m_dataSource, id, FeatureSourceFactory());
+    DataSource::FeaturesLoaderGuard loader(m_dataSource, id, FeatureSourceFactory::Get());
 
     Names names;
     for (auto const & index : indices)
