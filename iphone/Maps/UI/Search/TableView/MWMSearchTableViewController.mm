@@ -88,8 +88,9 @@
                                indexPath:indexPath]);
     auto const & result = [MWMSearch resultWithContainerIndex:containerIndex];
     auto const isBookingAvailable = [MWMSearch isBookingAvailableWithContainerIndex:containerIndex];
+    auto const isDealAvailable = [MWMSearch isDealAvailableWithContainerIndex:containerIndex];
     auto const & productInfo = [MWMSearch productInfoWithContainerIndex:containerIndex];
-    [cell config:result isAvailable:isBookingAvailable productInfo:productInfo];
+    [cell config:result isAvailable:isBookingAvailable isHotOffer:isDealAvailable productInfo:productInfo];
     return cell;
   }
   case MWMSearchItemTypeMopub:

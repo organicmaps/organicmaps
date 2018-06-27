@@ -54,7 +54,7 @@ using Observers = NSHashTable<Observer>;
   search::ViewportSearchParams m_viewportParams;
   search::Results m_everywhereResults;
   search::Results m_viewportResults;
-  std::vector<FeatureID> m_bookingAvailableFeatureIDs;
+  std::unordered_map<booking::filter::Type, std::vector<FeatureID>> m_filterResults;
   std::vector<search::ProductInfo> m_productInfo;
 }
 
@@ -81,6 +81,31 @@ using Observers = NSHashTable<Observer>;
   return self;
 }
 
+- (void)enableCallbackFor:(booking::filter::Type const)filterType {
+  auto & tasks = self->m_everywhereParams.m_bookingFilterTasks;
+  auto availabilityTaskIt = tasks.Find(filterType);
+  if (availabilityTaskIt != tasks.end())
+  {
+    availabilityTaskIt->m_filterParams.m_callback =
+    [self, filterType](shared_ptr<booking::ParamsBase> const & apiParams,
+                        std::vector<FeatureID> const & sortedFeatures)
+    {
+      auto & t = self->m_everywhereParams.m_bookingFilterTasks;
+      auto const it = t.Find(filterType);
+
+      if (it == t.end())
+        return;
+
+      auto const & p = it->m_filterParams.m_apiParams;
+      if (p->IsEmpty() || !p->Equals(*apiParams))
+        return;
+
+      self->m_filterResults[filterType] = sortedFeatures;
+      [self onSearchResultsUpdated];
+    };
+  }
+}
+
 - (void)searchEverywhere
 {
   self.lastSearchTimestamp += 1;
@@ -102,29 +127,8 @@ using Observers = NSHashTable<Observer>;
       self.searchCount -= 1;
   };
 
-  auto & tasks = self->m_everywhereParams.m_bookingFilterTasks;
-  auto availabilityTaskIt = tasks.Find(booking::filter::Type::Availability);
-  if (availabilityTaskIt != tasks.end())
-  {
-    // TODO: implement callback for booking::filter::Type::Deals.
-    availabilityTaskIt->m_filterParams.m_callback =
-      [self](shared_ptr<booking::ParamsBase> const & apiParams,
-             std::vector<FeatureID> const & sortedFeatures)
-      {
-        auto & t = self->m_everywhereParams.m_bookingFilterTasks;
-        auto const it = t.Find(booking::filter::Type::Availability);
-        
-        if (it == t.end())
-          return;
-        
-        auto const & p = it->m_filterParams.m_apiParams;
-        if (p->IsEmpty() || !p->Equals(*apiParams))
-          return;
-        
-        self->m_bookingAvailableFeatureIDs = sortedFeatures;
-        [self onSearchResultsUpdated];
-      };
-  }
+  [self enableCallbackFor:booking::filter::Type::Availability];
+  [self enableCallbackFor:booking::filter::Type::Deals];
 
   GetFramework().SearchEverywhere(m_everywhereParams);
   self.searchCount += 1;
@@ -266,15 +270,23 @@ using Observers = NSHashTable<Observer>;
   return [[MWMSearch manager].banners bannerAtIndex:index];
 }
 
-+ (BOOL)isBookingAvailableWithContainerIndex:(NSUInteger)index
++ (BOOL)isFeatureAt:(NSUInteger)index in:(std::vector<FeatureID> const &)array
 {
   auto const & result = [self resultWithContainerIndex:index];
   if (result.GetResultType() != search::Result::Type::Feature)
     return NO;
   auto const & resultFeatureID = result.GetFeatureID();
-  auto const & bookingAvailableIDs = [MWMSearch manager]->m_bookingAvailableFeatureIDs;
-  return std::binary_search(bookingAvailableIDs.begin(), bookingAvailableIDs.end(),
-                            resultFeatureID);
+  return std::binary_search(array.begin(), array.end(), resultFeatureID);
+}
+
++ (BOOL)isBookingAvailableWithContainerIndex:(NSUInteger)index
+{
+  return [self isFeatureAt:index in:[MWMSearch manager]->m_filterResults[booking::filter::Type::Availability]];
+}
+
++ (BOOL)isDealAvailableWithContainerIndex:(NSUInteger)index
+{
+  return [self isFeatureAt:index in:[MWMSearch manager]->m_filterResults[booking::filter::Type::Deals]];
 }
 
 + (MWMSearchItemType)resultTypeWithRow:(NSUInteger)row
@@ -299,7 +311,7 @@ using Observers = NSHashTable<Observer>;
   m_everywhereResults.Clear();
   m_viewportResults.Clear();
 
-  m_bookingAvailableFeatureIDs.clear();
+  m_filterResults.clear();
   m_viewportParams.m_bookingFilterTasks.Clear();
   m_everywhereParams.m_bookingFilterTasks.Clear();
 

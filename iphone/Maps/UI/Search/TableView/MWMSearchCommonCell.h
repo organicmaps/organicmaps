@@ -8,6 +8,7 @@
 
 - (void)config:(search::Result const &)result
     isAvailable:(BOOL)isAvailable
+    isHotOffer:(BOOL)isHotOffer
     productInfo:(search::ProductInfo const &)productInfo;
 
 @end

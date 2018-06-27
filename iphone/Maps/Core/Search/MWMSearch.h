@@ -31,6 +31,7 @@ struct HotelParams;
 + (search::ProductInfo const &)productInfoWithContainerIndex:(NSUInteger)index;
 + (id<MWMBanner>)adWithContainerIndex:(NSUInteger)index;
 + (BOOL)isBookingAvailableWithContainerIndex:(NSUInteger)index;
++ (BOOL)isDealAvailableWithContainerIndex:(NSUInteger)index;
 
 + (void)update;
 + (void)clear;

@@ -25,6 +25,8 @@
 @property(weak, nonatomic) IBOutlet UIView * availableView;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * availableTypeOffset;
 @property(weak, nonatomic) IBOutlet UIView * sideAvailableMarker;
+@property(weak, nonatomic) IBOutlet UIImageView * hotOfferImageView;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * priceOffset;
 
 @end
 
@@ -32,6 +34,7 @@
 
 - (void)config:(search::Result const &)result
     isAvailable:(BOOL)isAvailable
+    isHotOffer:(BOOL)isHotOffer
     productInfo:(search::ProductInfo const &)productInfo
 {
   [super config:result];
@@ -58,6 +61,8 @@
   self.availableTypeOffset.priority = UILayoutPriorityDefaultHigh;
   self.availableView.hidden = !isAvailable;
   self.sideAvailableMarker.hidden = !isAvailable;
+  self.hotOfferImageView.hidden = !isHotOffer;
+  self.priceOffset.priority = isHotOffer ? UILayoutPriorityDefaultLow : UILayoutPriorityDefaultHigh;
 
   NSUInteger const starsCount = result.GetStarsCount();
   NSString * cuisine = @(result.GetCuisine().c_str());
