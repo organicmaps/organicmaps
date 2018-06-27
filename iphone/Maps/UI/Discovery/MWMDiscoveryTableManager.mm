@@ -343,7 +343,7 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
 {
   auto const count = self.model().GetItemsCount(collectionView.itemType);
   auto type = collectionView.itemType;
-  if (type == ItemType::Hotels || type == ItemType::LocalExperts)
+  if (type != ItemType::Viator)
     return count > 0 ? count + 1 : 0;
 
   return count;
@@ -361,6 +361,14 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
   case ItemType::Attractions:
   case ItemType::Cafes:
   {
+    if (indexPath.row == model.GetItemsCount(type))
+    {
+      Class cls = [MWMDiscoveryMoreCell class];
+      auto cell = static_cast<MWMDiscoveryMoreCell *>([collectionView
+                                                       dequeueReusableCellWithCellClass:cls
+                                                       indexPath:indexPath]);
+      return cell;
+    }
     Class cls = [MWMDiscoverySearchCell class];
     auto cell = static_cast<MWMDiscoverySearchCell *>(
         [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);

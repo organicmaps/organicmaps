@@ -168,11 +168,19 @@ struct Callback
     dest = kStatExternal;
     break;
   case ItemType::Attractions:
-    [self showSearchResult:m_model.GetAttractionAt(index)];
+    if (index == m_model.GetItemsCount(type))
+      [self searchTourism];
+    else
+      [self showSearchResult:m_model.GetAttractionAt(index)];
+
     dest = kStatPlacePage;
     break;
   case ItemType::Cafes:
-    [self showSearchResult:m_model.GetCafeAt(index)];
+    if (index == m_model.GetItemsCount(type))
+      [self searchFood];
+    else
+      [self showSearchResult:m_model.GetCafeAt(index)];
+      
     dest = kStatPlacePage;
     break;
   case ItemType::Hotels:
@@ -209,6 +217,20 @@ struct Callback
                          searchTextOnMap:[L(@"booking_hotel") stringByAppendingString:@" "]
                          forInputLocale:[NSLocale currentLocale].localeIdentifier];
                       }];
+}
+
+- (void)searchFood
+{
+  [self.navigationController popViewControllerAnimated:YES];
+  [MWMMapViewControlsManager.manager searchTextOnMap:[L(@"food") stringByAppendingString:@" "]
+                                      forInputLocale:[NSLocale currentLocale].localeIdentifier];
+}
+
+- (void)searchTourism
+{
+  [self.navigationController popViewControllerAnimated:YES];
+  [MWMMapViewControlsManager.manager searchTextOnMap:[L(@"tourism") stringByAppendingString:@" "]
+                                      forInputLocale:[NSLocale currentLocale].localeIdentifier];
 }
 
 - (void)routeToItem:(ItemType const)type atIndex:(size_t const)index

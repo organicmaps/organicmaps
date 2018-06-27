@@ -41,6 +41,7 @@ final class DiscoverySearchCollectionHolderCell: DiscoveryCollectionHolder {
   private func config(text: String) {
     header.text = text
     collectionView.register(cellClass: DiscoverySearchCell.self)
+    collectionView.register(cellClass: DiscoveryMoreCell.self)
   }
 }
 
