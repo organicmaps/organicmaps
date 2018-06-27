@@ -53,7 +53,7 @@ ref_ptr<GpuProgram> GpuProgramManager::GetProgram(int index)
                                   Shader::Type::FragmentShader);
 
   auto const textureSlotsCount = std::max(m_minTextureSlotsCount, programInfo.m_textureSlotsCount);
-  drape_ptr<GpuProgram> program = make_unique_dp<GpuProgram>(index, vertexShader, fragmentShader,
+  drape_ptr<GpuProgram> program = make_unique_dp<GpuProgram>("", vertexShader, fragmentShader,
                                                              textureSlotsCount);
   ref_ptr<GpuProgram> result = make_ref(program);
   m_programs.emplace(index, move(program));
@@ -67,7 +67,7 @@ ref_ptr<Shader> GpuProgramManager::GetShader(int index, string const & source, S
   if (it != m_shaders.end())
     return make_ref(it->second);
 
-  drape_ptr<Shader> shader = make_unique_dp<Shader>(source, m_globalDefines, t);
+  drape_ptr<Shader> shader = make_unique_dp<Shader>("", source, m_globalDefines, t);
   ref_ptr<Shader> result = make_ref(shader);
   m_shaders.emplace(index, move(shader));
   return result;

@@ -1,15 +1,16 @@
 #pragma once
 
-#include "drape/pointers.hpp"
+#include "drape/glsl_types.hpp"
 #include "drape/gpu_program.hpp"
+#include "drape/pointers.hpp"
 
-#include "std/string.hpp"
-#include "std/shared_array.hpp"
-#include "std/cstring.hpp"
+#include <boost/shared_array.hpp>
+
+#include <cstring>
+#include <string>
 
 namespace dp
 {
-
 class UniformValue
 {
 public:
@@ -20,19 +21,19 @@ public:
     Matrix4x4
   };
 
-  explicit UniformValue(string const & name, int32_t v);
-  explicit UniformValue(string const & name, int32_t v1, int32_t v2);
-  explicit UniformValue(string const & name, int32_t v1, int32_t v2, int32_t v3);
-  explicit UniformValue(string const & name, int32_t v1, int32_t v2, int32_t v3, int32_t v4);
+  explicit UniformValue(std::string const & name, int32_t v);
+  explicit UniformValue(std::string const & name, int32_t v1, int32_t v2);
+  explicit UniformValue(std::string const & name, int32_t v1, int32_t v2, int32_t v3);
+  explicit UniformValue(std::string const & name, int32_t v1, int32_t v2, int32_t v3, int32_t v4);
 
-  explicit UniformValue(string const & name, float v);
-  explicit UniformValue(string const & name, float v1, float v2);
-  explicit UniformValue(string const & name, float v1, float v2, float v3);
-  explicit UniformValue(string const & name, float v1, float v2, float v3, float v4);
+  explicit UniformValue(std::string const & name, float v);
+  explicit UniformValue(std::string const & name, float v1, float v2);
+  explicit UniformValue(std::string const & name, float v1, float v2, float v3);
+  explicit UniformValue(std::string const & name, float v1, float v2, float v3, float v4);
 
-  explicit UniformValue(string const & name, float const * matrixValue);
+  explicit UniformValue(std::string const & name, float const * matrixValue);
 
-  string const & GetName() const;
+  std::string const & GetName() const;
   Type GetType() const;
   size_t GetComponentCount() const;
 
@@ -49,6 +50,16 @@ public:
   void SetMatrix4x4Value(float const * matrixValue);
 
   void Apply(ref_ptr<GpuProgram> program) const;
+
+  static void ApplyRaw(int8_t location, glsl::mat4 const & m);
+  static void ApplyRaw(int8_t location, float f);
+  static void ApplyRaw(int8_t location, glsl::vec2 const & v);
+  static void ApplyRaw(int8_t location, glsl::vec3 const & v);
+  static void ApplyRaw(int8_t location, glsl::vec4 const & v);
+  static void ApplyRaw(int8_t location, int i);
+  static void ApplyRaw(int8_t location, glsl::ivec2 const & v);
+  static void ApplyRaw(int8_t location, glsl::ivec3 const & v);
+  static void ApplyRaw(int8_t location, glsl::ivec4 const & v);
 
   bool operator<(UniformValue const & other) const
   {
@@ -79,11 +90,10 @@ private:
   }
 
 private:
-  string m_name;
+  std::string m_name;
   Type m_type;
   size_t m_componentCount;
 
-  shared_array<uint8_t> m_values;
+  boost::shared_array<uint8_t> m_values;
 };
-
-} // namespace dp
+}  // namespace dp

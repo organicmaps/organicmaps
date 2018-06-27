@@ -117,6 +117,8 @@ extern const glConst GLIntVec4;
 
 extern const glConst GLFloatMat4;
 
+extern const glConst GLSampler2D;
+
 /// Blend Functions
 extern const glConst GLAddBlend;
 extern const glConst GLSubstractBlend;

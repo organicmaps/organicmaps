@@ -107,6 +107,7 @@ target_link_libraries(
   routing_common
   transit
   drape_frontend
+  shaders
   search
   storage
   ugc

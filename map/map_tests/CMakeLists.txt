@@ -35,6 +35,7 @@ omim_link_libraries(
   generator
   map
   drape_frontend
+  shaders
   drape
   routing
   traffic

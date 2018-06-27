@@ -192,6 +192,8 @@ const glConst GLIntVec4             = GL_INT_VEC4;
 
 const glConst GLFloatMat4           = GL_FLOAT_MAT4;
 
+const glConst GLSampler2D           = GL_SAMPLER_2D;
+
 const glConst GLAddBlend            = GL_FUNC_ADD;
 const glConst GLSubstractBlend      = GL_FUNC_SUBTRACT;
 const glConst GLReverseSubstrBlend  = GL_FUNC_REVERSE_SUBTRACT;

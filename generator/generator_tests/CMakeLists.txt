@@ -36,6 +36,7 @@ omim_link_libraries(
   platform_tests_support
   generator
   drape_frontend
+  shaders
   map
   routing
   search

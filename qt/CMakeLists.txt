@@ -61,6 +61,7 @@ omim_link_libraries(
   qt_common
   map
   drape_frontend
+  shaders
   routing
   search
   storage

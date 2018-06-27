@@ -26,7 +26,7 @@ struct GpuProgramInfo
 class GpuProgramGetter
 {
 public:
-  virtual ~GpuProgramGetter() {}
+  virtual ~GpuProgramGetter() = default;
   virtual gpu::GpuProgramInfo const & GetProgramInfo(int program) const = 0;
 };
 }  // namespace gpu

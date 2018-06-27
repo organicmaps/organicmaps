@@ -11,7 +11,6 @@ execute_process(
 
 include_directories(
   .
-  watch
   ${OMIM_ROOT}/3party/protobuf/protobuf/src
   ${OMIM_ROOT}/3party/expat/lib
   ${OMIM_ROOT}/3party/freetype/include
@@ -299,6 +298,6 @@ set(
   shaders/user_mark.vsh.glsl
   shaders/user_mark_billboard.vsh.glsl
 )
-add_custom_target(shaders SOURCES ${DRAPE_SHADERS_SRC})
+add_custom_target(df_shaders SOURCES ${DRAPE_SHADERS_SRC})
 
 omim_add_test_subdirectory(drape_frontend_tests)

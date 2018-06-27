@@ -26,6 +26,7 @@ omim_link_libraries(
   platform_tests_support
   generator_tests_support
   drape_frontend
+  shaders
   map
   traffic
   storage

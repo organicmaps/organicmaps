@@ -23,6 +23,7 @@ omim_link_libraries(
   platform_tests_support
   map
   drape_frontend
+  shaders
   routing
   routing_common
   transit

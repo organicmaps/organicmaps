@@ -18,6 +18,7 @@ omim_link_libraries(
   map
   software_renderer
   drape_frontend
+  shaders
   routing
   search
   storage

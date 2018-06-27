@@ -260,6 +260,9 @@
       location = "container:drape_frontend/drape_frontend.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:shaders/shaders.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "container:editor/editor.xcodeproj">
    </FileRef>
    <FileRef

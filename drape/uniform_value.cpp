@@ -1,14 +1,12 @@
 #include "drape/uniform_value.hpp"
 #include "drape/glfunctions.hpp"
+
 #include "base/assert.hpp"
-#include "std/cstring.hpp"
 
 namespace dp
 {
-
 namespace
 {
-
 template<typename T>
 void CopyValues(T * dstPointer, T * values, size_t valuesCount)
 {
@@ -58,12 +56,11 @@ void ApplyFloat(int8_t location, float const * pointer, size_t componentCount)
   }
 }
 
-void ApplyMatrix(uint8_t location, float const * matrix)
+void ApplyMatrix(int8_t location, float const * matrix)
 {
   GLFunctions::glUniformMatrix4x4Value(location, matrix);
 }
-
-} // namespace
+}  // namespace
 
 UniformValue::UniformValue(string const & name, int32_t v)
   : m_name(name)
@@ -232,7 +229,7 @@ void UniformValue::SetMatrix4x4Value(float const * matrixValue)
 
 void UniformValue::Apply(ref_ptr<GpuProgram> program) const
 {
-  int8_t location = program->GetUniformLocation(m_name);
+  auto const location = program->GetUniformLocation(m_name);
   if (location == -1)
     return;
 
@@ -252,9 +249,63 @@ void UniformValue::Apply(ref_ptr<GpuProgram> program) const
   }
 }
 
+// static
+void UniformValue::ApplyRaw(int8_t location, glsl::mat4 const & m)
+{
+  ASSERT_GREATER_OR_EQUAL(location, 0, ());
+  ApplyMatrix(location, glsl::value_ptr(m));
+}
+
+// static
+void UniformValue::ApplyRaw(int8_t location, float f)
+{
+  ApplyFloat(location, &f, 1);
+}
+
+// static
+void UniformValue::ApplyRaw(int8_t location, glsl::vec2 const & v)
+{
+  ApplyFloat(location, glsl::value_ptr(v), 2);
+}
+
+// static
+void UniformValue::ApplyRaw(int8_t location, glsl::vec3 const & v)
+{
+  ApplyFloat(location, glsl::value_ptr(v), 3);
+}
+
+// static
+void UniformValue::ApplyRaw(int8_t location, glsl::vec4 const & v)
+{
+  ApplyFloat(location, glsl::value_ptr(v), 4);
+}
+
+// static
+void UniformValue::ApplyRaw(int8_t location, int i)
+{
+  ApplyInt(location, &i, 1);
+}
+
+// static
+void UniformValue::ApplyRaw(int8_t location, glsl::ivec2 const & v)
+{
+  ApplyInt(location, glsl::value_ptr(v), 2);
+}
+
+// static
+void UniformValue::ApplyRaw(int8_t location, glsl::ivec3 const & v)
+{
+  ApplyInt(location, glsl::value_ptr(v), 3);
+}
+
+// static
+void UniformValue::ApplyRaw(int8_t location, glsl::ivec4 const & v)
+{
+  ApplyInt(location, glsl::value_ptr(v), 4);
+}
+
 void UniformValue::Allocate(size_t byteCount)
 {
   m_values.reset(new uint8_t[byteCount]);
 }
-
-} // namespace dp
+}  // namespace dp

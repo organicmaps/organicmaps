@@ -16,14 +16,16 @@ glConst ConvertType(Shader::Type t)
 }
 }  // namespace
 
-Shader::Shader(std::string const & shaderSource, std::string const & defines, Type type)
-  : m_glID(0)
+Shader::Shader(std::string const & shaderName, std::string const & shaderSource,
+               std::string const & defines, Type type)
+  : m_shaderName(shaderName)
+  , m_glID(0)
 {
   m_glID = GLFunctions::glCreateShader(ConvertType(type));
   GLFunctions::glShaderSource(m_glID, shaderSource, defines);
   std::string errorLog;
   bool const result = GLFunctions::glCompileShader(m_glID, errorLog);
-  CHECK(result, ("Shader compile error : ", errorLog));
+  CHECK(result, (m_shaderName, "> Shader compile error : ", errorLog));
 }
 
 Shader::~Shader()

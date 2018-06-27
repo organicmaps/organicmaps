@@ -7,9 +7,11 @@
 
 namespace dp
 {
-GpuProgram::GpuProgram(int programIndex, ref_ptr<Shader> vertexShader,
-                       ref_ptr<Shader> fragmentShader, uint8_t textureSlotsCount)
-  : m_vertexShader(vertexShader)
+GpuProgram::GpuProgram(std::string const & programName,
+                       ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader,
+                       uint8_t textureSlotsCount)
+  : m_programName(programName)
+  , m_vertexShader(vertexShader)
   , m_fragmentShader(fragmentShader)
   , m_textureSlotsCount(textureSlotsCount)
 {
@@ -19,7 +21,7 @@ GpuProgram::GpuProgram(int programIndex, ref_ptr<Shader> vertexShader,
 
   string errorLog;
   if (!GLFunctions::glLinkProgram(m_programID, errorLog))
-    LOG(LERROR, ("Program ", m_programID, " link error = ", errorLog));
+    LOG(LERROR, ("Program ", programName, " link error = ", errorLog));
 
   // On Tegra3 glGetActiveUniform isn't work if you detach shaders after linking.
   LoadUniformLocations();
@@ -75,19 +77,55 @@ int8_t GpuProgram::GetUniformLocation(std::string const & uniformName) const
   if (it == m_uniforms.end())
     return -1;
 
-  return it->second;
+  return it->second.m_location;
+}
+
+glConst GpuProgram::GetUniformType(std::string const & uniformName) const
+{
+  auto const it = m_uniforms.find(uniformName);
+  if (it == m_uniforms.end())
+    return -1;
+
+  return it->second.m_type;
+}
+
+GpuProgram::UniformsInfo const & GpuProgram::GetUniformsInfo() const
+{
+  return m_uniforms;
 }
 
 void GpuProgram::LoadUniformLocations()
 {
-  int32_t uniformsCount = GLFunctions::glGetProgramiv(m_programID, gl_const::GLActiveUniforms);
-  for (int32_t i = 0; i < uniformsCount; ++i)
+  auto const uniformsCount = GLFunctions::glGetProgramiv(m_programID, gl_const::GLActiveUniforms);
+  for (int i = 0; i < uniformsCount; ++i)
   {
     int32_t size = 0;
-    glConst type = gl_const::GLFloatVec4;
+    UniformInfo info;
     std::string name;
-    GLFunctions::glGetActiveUniform(m_programID, i, &size, &type, name);
-    m_uniforms[name] = GLFunctions::glGetUniformLocation(m_programID, name);
+    GLFunctions::glGetActiveUniform(m_programID, static_cast<uint32_t>(i), &size, &info.m_type, name);
+    if (info.m_type != gl_const::GLFloatType && info.m_type != gl_const::GLFloatVec2 &&
+        info.m_type != gl_const::GLFloatVec3 && info.m_type != gl_const::GLFloatVec4 &&
+        info.m_type != gl_const::GLIntType && info.m_type != gl_const::GLIntVec2 &&
+        info.m_type != gl_const::GLIntVec3 && info.m_type != gl_const::GLIntVec4 &&
+        info.m_type != gl_const::GLFloatMat4 && info.m_type != gl_const::GLSampler2D)
+    {
+      CHECK(false, ("Used uniform has unsupported type. Program =", m_programName, "Type =", info.m_type));
+    }
+
+    info.m_location = GLFunctions::glGetUniformLocation(m_programID, name);
+    m_uniforms[name] = std::move(info);
   }
+  m_numericUniformsCount = CalculateNumericUniformsCount();
+}
+
+uint32_t GpuProgram::CalculateNumericUniformsCount() const
+{
+  uint32_t counter = 0;
+  for (auto const & u : m_uniforms)
+  {
+    if (u.second.m_type != gl_const::GLSampler2D)
+      counter++;
+  }
+  return counter;
 }
 }  // namespace dp
