@@ -8,23 +8,8 @@ import com.mapswithme.maps.traffic.TrafficItem;
 
 public enum Mode
 {
-  TRAFFIC(new TrafficItem())
-      {
-        @Override
-        public void toggleLayerBtn(@NonNull AppCompatActivity activity, boolean isLayerEnabled)
-        {
-
-        }
-      },
-
-  SUBWAY(new SubwayItem())
-      {
-        @Override
-        public void toggleLayerBtn(@NonNull AppCompatActivity activity, boolean isLayerEnabled)
-        {
-
-        }
-      };
+  TRAFFIC(new TrafficItem()),
+  SUBWAY(new SubwayItem());
 
   @NonNull
   private final BottomSheetItem mItem;
@@ -39,6 +24,4 @@ public enum Mode
   {
     return mItem;
   }
-
-  public abstract void toggleLayerBtn(@NonNull AppCompatActivity activity, boolean isLayerEnabled);
 }

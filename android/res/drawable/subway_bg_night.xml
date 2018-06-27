@@ -5,5 +5,4 @@
   <item android:drawable="@drawable/subway_bg_night_pressed" android:state_pressed="true"/>
   <item android:drawable="@drawable/subway_bg_night_selected" android:state_selected="true"/>
   <item android:drawable="@drawable/subway_bg_night_default"/>
-
 </selector>

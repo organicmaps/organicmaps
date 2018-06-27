@@ -11,17 +11,17 @@ import android.widget.Toast;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.traffic.TrafficManager;
 
-public class TrafficMapLayerBtnController implements TrafficManager.TrafficCallback
+public class TrafficButtonController implements TrafficManager.TrafficCallback
 {
   @NonNull
-  private final TrafficMapLayerButton mButton;
+  private final TrafficButton mButton;
   @NonNull
   private final AppCompatActivity mActivity;
   @Nullable
   private Dialog mDialog;
 
-  public TrafficMapLayerBtnController(@NonNull TrafficMapLayerButton button,
-                                      @NonNull AppCompatActivity activity)
+  public TrafficButtonController(@NonNull TrafficButton button,
+                                 @NonNull AppCompatActivity activity)
   {
     mButton = button;
     mActivity = activity;

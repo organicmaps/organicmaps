@@ -116,7 +116,7 @@ public enum TrafficManager
 
   private int getEnabledStateIcon()
   {
-    return R.drawable.ic_traffic_on;
+    return R.drawable.ic_traffic_menu_on;
   }
 
   private int getDisabledStateIcon()

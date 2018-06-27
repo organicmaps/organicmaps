@@ -13,11 +13,8 @@ class SubwayItem implements BottomSheetItem
   @Override
   public void onSelected(@NonNull MwmActivity activity)
   {
-    SubwayManager subway = SubwayManager.from(activity);
-    subway.toggle();
-    if (subway.isEnabled())
-      TrafficManager.INSTANCE.setEnabled(false);
-
+    SubwayManager.from(activity).toggle();
+    TrafficManager.INSTANCE.setEnabled(false);
     activity.onSubwayModeSelected();
   }
 
@@ -30,7 +27,7 @@ class SubwayItem implements BottomSheetItem
   @Override
   public int getTitleResId()
   {
-    return R.string.about;
+    return R.string.button_layer_subway;
   }
 
   @Override

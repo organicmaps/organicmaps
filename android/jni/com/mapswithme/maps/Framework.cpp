@@ -93,6 +93,7 @@ Framework::Framework()
   , m_isChoosePositionMode(false)
 {
   m_work.GetTrafficManager().SetStateListener(bind(&Framework::TrafficStateChanged, this, _1));
+  m_work.GetTransitManager().SetStateListener(bind(&Framework::TransitSchemeStateChanged, this, _1));
 }
 
 void Framework::OnLocationError(int errorCode)
@@ -134,6 +135,12 @@ void Framework::TrafficStateChanged(TrafficManager::TrafficState state)
 {
   if (m_onTrafficStateChangedFn)
     m_onTrafficStateChangedFn(state);
+}
+
+void Framework::TransitSchemeStateChanged(TransitReadManager::TransitSchemeState state)
+{
+  if (m_onTransitStateChangedFn)
+    m_onTransitStateChangedFn(state);
 }
 
 bool Framework::CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
@@ -429,6 +436,11 @@ void Framework::ShowTrack(kml::TrackId track)
 void Framework::SetTrafficStateListener(TrafficManager::TrafficStateChangedFn const & fn)
 {
   m_onTrafficStateChangedFn = fn;
+}
+
+void Framework::SetTransitSchemeListener(TransitReadManager::TransitStateChangedFn const & function)
+{
+  m_onTransitStateChangedFn = function;
 }
 
 bool Framework::IsTrafficEnabled()
@@ -1419,7 +1431,7 @@ Java_com_mapswithme_maps_Framework_nativeSetAutoZoomEnabled(JNIEnv * env, jclass
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_Framework_nativeSetTransitSchemeEnabled(JNIEnv * env, jclass, jboolean enabled)
 {
-  frm()->EnableTransitScheme(static_cast<bool>(enabled));
+  frm()->GetTransitManager().EnableTransitSchemeMode(static_cast<bool>(enabled));
 }
 
 JNIEXPORT jboolean JNICALL

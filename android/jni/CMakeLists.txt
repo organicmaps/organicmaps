@@ -63,6 +63,7 @@ set(
   com/mapswithme/maps/taxi/TaxiManager.cpp
   com/mapswithme/maps/TrackRecorder.cpp
   com/mapswithme/maps/TrafficState.cpp
+  com/mapswithme/maps/subway/SubwayManager.cpp
   com/mapswithme/maps/ugc/UGC.cpp
   com/mapswithme/maps/UserMarkHelper.cpp
   com/mapswithme/maps/viator/Viator.cpp

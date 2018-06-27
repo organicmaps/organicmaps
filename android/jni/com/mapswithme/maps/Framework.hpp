@@ -64,6 +64,7 @@ namespace android
     std::map<gui::EWidget, gui::Position> m_guiPositions;
 
     void TrafficStateChanged(TrafficManager::TrafficState state);
+    void TransitSchemeStateChanged(TransitReadManager::TransitSchemeState state);
 
     void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);
 
@@ -72,6 +73,7 @@ namespace android
     bool m_isCurrentModeInitialized;
 
     TrafficManager::TrafficStateChangedFn m_onTrafficStateChangedFn;
+    TransitReadManager::TransitStateChangedFn m_onTransitStateChangedFn;
 
     bool m_isChoosePositionMode;
 
@@ -165,6 +167,7 @@ namespace android
     void SwitchMyPositionNextMode();
 
     void SetTrafficStateListener(TrafficManager::TrafficStateChangedFn const & fn);
+    void SetTransitSchemeListener(TransitReadManager::TransitStateChangedFn const & fn);
     bool IsTrafficEnabled();
     void EnableTraffic();
     void DisableTraffic();

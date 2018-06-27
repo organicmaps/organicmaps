@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageButton;
@@ -17,21 +15,20 @@ import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
 
-public class TrafficMapLayerButton
+public class TrafficButton
 {
   @NonNull
   private final AnimationDrawable mLoadingAnim;
   @NonNull
-  private final ImageButton mTraffic;
+  private final ImageButton mButton;
 
-  public TrafficMapLayerButton(@NonNull ImageButton trafficBtn)
+  public TrafficButton(@NonNull ImageButton trafficBtn)
   {
-    mTraffic = trafficBtn;
+    mButton = trafficBtn;
     mLoadingAnim = getLoadingAnim(trafficBtn);
 
     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) trafficBtn.getLayoutParams();
     params.setMargins(0, UiUtils.getStatusBarHeight(trafficBtn.getContext()), 0, 0);
-    trafficBtn.setVisibility(View.GONE);
   }
 
   @NonNull
@@ -48,66 +45,66 @@ public class TrafficMapLayerButton
   void turnOff()
   {
     stopWaitingAnimation();
-    mTraffic.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.ic_traffic_off_night
-                                                        : R.drawable.ic_traffic_off);
+    mButton.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.ic_traffic_off_night
+                                                       : R.drawable.ic_traffic_off);
   }
 
   void turnOn()
   {
     stopWaitingAnimation();
-    mTraffic.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.ic_traffic_on_night
-                                                        : R.drawable.ic_traffic_on);
+    mButton.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.ic_traffic_on_night
+                                                       : R.drawable.ic_traffic_on);
   }
 
   void markAsOutdated()
   {
     stopWaitingAnimation();
-    mTraffic.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.ic_traffic_outdated_night
-                                                        : R.drawable.ic_traffic_outdated);
+    mButton.setImageResource(ThemeUtils.isNightTheme() ? R.drawable.ic_traffic_outdated_night
+                                                       : R.drawable.ic_traffic_outdated);
   }
 
   void startWaitingAnimation()
   {
-    mTraffic.setImageDrawable(mLoadingAnim);
-    AnimationDrawable anim = (AnimationDrawable) mTraffic.getDrawable();
+    mButton.setImageDrawable(mLoadingAnim);
+    AnimationDrawable anim = (AnimationDrawable) mButton.getDrawable();
     anim.start();
   }
 
   private void stopWaitingAnimation()
   {
-    Drawable drawable = mTraffic.getDrawable();
+    Drawable drawable = mButton.getDrawable();
     if (drawable instanceof AnimationDrawable)
     {
       AnimationDrawable animation = (AnimationDrawable) drawable;
       animation.stop();
-      mTraffic.setImageDrawable(null);
+      mButton.setImageDrawable(null);
     }
   }
 
   public void setOffset(int offsetX, int offsetY)
   {
-    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mTraffic.getLayoutParams();
+    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mButton.getLayoutParams();
     params.setMargins(offsetX, offsetY, 0, 0);
-    mTraffic.requestLayout();
+    mButton.requestLayout();
   }
 
   public void show()
   {
-    Animations.appearSliding(mTraffic, Animations.LEFT, null);
+    Animations.appearSliding(mButton, Animations.LEFT, null);
   }
 
   public void hide()
   {
-    Animations.disappearSliding(mTraffic, Animations.LEFT, null);
+    Animations.disappearSliding(mButton, Animations.LEFT, null);
   }
 
   public void hideImmediately()
   {
-    mTraffic.setVisibility(View.GONE);
+    mButton.setVisibility(View.GONE);
   }
 
   public void showImmediately()
   {
-    mTraffic.setVisibility(View.VISIBLE);
+    mButton.setVisibility(View.VISIBLE);
   }
 }

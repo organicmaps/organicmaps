@@ -19,7 +19,6 @@
     android:paddingStart="@dimen/margin_base"
     android:paddingRight="@dimen/margin_base"
     android:paddingEnd="@dimen/margin_base"
-    app:layout_constraintHorizontal_weight="1"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintRight_toRightOf="parent"
     android:background="?attr/selectableItemBackgroundBorderless"/>
@@ -37,7 +36,7 @@
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintRight_toLeftOf="@id/сlose_btn"
     android:visibility="visible"
-    android:text="@string/edit"
+    android:text="@string/layers_title"
     android:textAppearance="?android:attr/textAppearanceMedium"/>
   <android.support.v7.widget.RecyclerView
     android:id="@+id/recycler"

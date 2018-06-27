@@ -63,6 +63,8 @@ public class MwmApplication extends Application
   private static MwmApplication sSelf;
   private SharedPreferences mPrefs;
   private AppBackgroundTracker mBackgroundTracker;
+  @SuppressWarnings("NullableProblems")
+  @NonNull
   private SubwayManager mSubwayManager;
 
   private boolean mFrameworkInitialized;
@@ -120,6 +122,7 @@ public class MwmApplication extends Application
         }
       };
 
+  @NonNull
   public SubwayManager getSubwayManager()
   {
     return mSubwayManager;
@@ -193,7 +196,7 @@ public class MwmApplication extends Application
 
     mBackgroundTracker = new AppBackgroundTracker();
     mBackgroundTracker.addListener(mVisibleAppLaunchListener);
-    mSubwayManager = new SubwayManager();
+    mSubwayManager = new SubwayManager(this);
   }
 
   private void initCoreIndependentSdks()

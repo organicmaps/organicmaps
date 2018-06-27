@@ -20,10 +20,7 @@ public class TrafficItem implements BottomSheetItem
   public void onSelected(@NonNull MwmActivity activity)
   {
     TrafficManager.INSTANCE.toggle();
-    SubwayManager subway = SubwayManager.from(activity);
-    if (subway.isEnabled())
-      subway.setEnabled(false);
-
+    SubwayManager.from(activity).setEnabled(false);
     activity.onTrafficModeSelected();
   }
 
@@ -36,6 +33,6 @@ public class TrafficItem implements BottomSheetItem
   @Override
   public int getTitleResId()
   {
-    return R.string.about;
+    return R.string.button_layer_traffic;
   }
 }

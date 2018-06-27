@@ -4,7 +4,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -23,8 +25,9 @@ import com.mapswithme.maps.bookmarks.OnItemClickListener;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
-public class SubwayTrafficToggleDialogFragment extends android.support.v4.app.DialogFragment implements OnItemClickListener<Mode>
+public class ToggleMapLayerDialog extends DialogFragment implements OnItemClickListener<Mode>
 {
   @NonNull
   @SuppressWarnings("NullableProblems")
@@ -40,7 +43,7 @@ public class SubwayTrafficToggleDialogFragment extends android.support.v4.app.Di
   {
     BottomSheetDialog dialog = new BottomSheetDialog(getActivity());
     LayoutInflater inflater = getActivity().getLayoutInflater();
-    mRoot = inflater.inflate(R.layout.fragment_subway_traffic_toggle, null, false);
+    mRoot = inflater.inflate(R.layout.fragment_toggle_map_layer, null, false);
     dialog.setContentView(mRoot);
     initChildren();
     return dialog;
@@ -48,9 +51,18 @@ public class SubwayTrafficToggleDialogFragment extends android.support.v4.app.Di
 
   private void initChildren()
   {
+    initCloseBtn();
+    initRecycler();
+  }
+
+  private void initCloseBtn()
+  {
     View closeBtn = mRoot.findViewById(R.id.сlose_btn);
     closeBtn.setOnClickListener(v -> dismiss());
+  }
 
+  private void initRecycler()
+  {
     RecyclerView recycler = mRoot.findViewById(R.id.recycler);
     RecyclerView.LayoutManager layoutManager = new SpanningLinearLayoutManager(getContext(),
                                                                                LinearLayoutManager.HORIZONTAL,
@@ -60,9 +72,17 @@ public class SubwayTrafficToggleDialogFragment extends android.support.v4.app.Di
     recycler.setAdapter(mAdapter);
   }
 
-  public static void show(AppCompatActivity activity)
+  @Override
+  public void onItemClick(@NonNull View v, @NonNull Mode item)
   {
-    SubwayTrafficToggleDialogFragment frag = new SubwayTrafficToggleDialogFragment();
+    MwmActivity activity = (MwmActivity) getActivity();
+    item.getItem().onSelected(activity);
+    mAdapter.notifyDataSetChanged();
+  }
+
+  public static void show(@NonNull AppCompatActivity activity)
+  {
+    ToggleMapLayerDialog frag = new ToggleMapLayerDialog();
     String tag = frag.getClass().getCanonicalName();
     FragmentManager fm = activity.getSupportFragmentManager();
 
@@ -72,13 +92,6 @@ public class SubwayTrafficToggleDialogFragment extends android.support.v4.app.Di
 
     frag.show(fm, tag);
     fm.executePendingTransactions();
-  }
-
-  @Override
-  public void onItemClick(@NonNull View v, @NonNull Mode item)
-  {
-    item.getItem().onSelected((MwmActivity)getActivity());
-    mAdapter.notifyDataSetChanged();
   }
 
   private static class ModeAdapter extends RecyclerView.Adapter<ModeHolder>
@@ -120,7 +133,6 @@ public class SubwayTrafficToggleDialogFragment extends android.support.v4.app.Di
       return mModes.size();
     }
   }
-
   private static class ModeHolder extends RecyclerView.ViewHolder
   {
     @NonNull
@@ -129,10 +141,10 @@ public class SubwayTrafficToggleDialogFragment extends android.support.v4.app.Di
     private final OnItemClickListener<Mode> mListener;
     @NonNull
     private final TextView mTitle;
-    @NonNull
+    @Nullable
     private Mode mItem;
 
-    public ModeHolder(@NonNull View root, @NonNull OnItemClickListener<Mode> listener)
+    ModeHolder(@NonNull View root, @NonNull OnItemClickListener<Mode> listener)
     {
       super(root);
       mButton = root.findViewById(R.id.item_btn);
@@ -141,9 +153,15 @@ public class SubwayTrafficToggleDialogFragment extends android.support.v4.app.Di
       mButton.setOnClickListener(this::onItemClicked);
     }
 
-    private void onItemClicked(View v)
+    @NonNull
+    public Mode getItem()
     {
-      mListener.onItemClick(v, mItem);
+      return Objects.requireNonNull(mItem);
+    }
+
+    private void onItemClicked(@NonNull View v)
+    {
+      mListener.onItemClick(v, getItem());
     }
   }
 }

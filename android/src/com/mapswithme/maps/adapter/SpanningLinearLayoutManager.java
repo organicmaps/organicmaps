@@ -1,6 +1,7 @@
 package com.mapswithme.maps.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -8,18 +9,19 @@ import android.view.ViewGroup;
 
 public class SpanningLinearLayoutManager extends LinearLayoutManager
 {
-  public SpanningLinearLayoutManager(Context context)
+  public SpanningLinearLayoutManager(@NonNull Context context)
   {
     super(context);
   }
 
-  public SpanningLinearLayoutManager(Context context, int orientation, boolean reverseLayout)
+  public SpanningLinearLayoutManager(@NonNull Context context, int orientation, boolean reverseLayout)
   {
     super(context, orientation, reverseLayout);
   }
 
-  public SpanningLinearLayoutManager(Context context, AttributeSet attrs, int defStyleAttr, int
-      defStyleRes)
+  public SpanningLinearLayoutManager(@NonNull Context context,
+                                     @NonNull AttributeSet attrs,
+                                     int defStyleAttr, int defStyleRes)
   {
     super(context, attrs, defStyleAttr, defStyleRes);
   }
@@ -31,24 +33,25 @@ public class SpanningLinearLayoutManager extends LinearLayoutManager
   }
 
   @Override
-  public RecyclerView.LayoutParams generateLayoutParams(Context c, AttributeSet attrs)
+  public RecyclerView.LayoutParams generateLayoutParams(@NonNull Context c,
+                                                        @NonNull AttributeSet attrs)
   {
     return spanLayoutSize(super.generateLayoutParams(c, attrs));
   }
 
   @Override
-  public RecyclerView.LayoutParams generateLayoutParams(ViewGroup.LayoutParams lp)
+  public RecyclerView.LayoutParams generateLayoutParams(@NonNull ViewGroup.LayoutParams lp)
   {
     return spanLayoutSize(super.generateLayoutParams(lp));
   }
 
   @Override
-  public boolean checkLayoutParams(RecyclerView.LayoutParams lp)
+  public boolean checkLayoutParams(@NonNull RecyclerView.LayoutParams lp)
   {
     return super.checkLayoutParams(lp);
   }
 
-  private RecyclerView.LayoutParams spanLayoutSize(RecyclerView.LayoutParams layoutParams)
+  private RecyclerView.LayoutParams spanLayoutSize(@NonNull RecyclerView.LayoutParams layoutParams)
   {
     if (getOrientation() == HORIZONTAL)
     {
