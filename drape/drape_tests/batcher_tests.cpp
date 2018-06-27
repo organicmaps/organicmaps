@@ -4,7 +4,6 @@
 #include "drape/drape_tests/glmock_functions.hpp"
 #include "drape/drape_tests/memory_comparer.hpp"
 #include "drape/glconstants.hpp"
-#include "drape/gpu_program_manager.hpp"
 #include "drape/index_storage.hpp"
 #include "drape/vertex_array_buffer.hpp"
 

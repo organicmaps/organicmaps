@@ -33,13 +33,13 @@ LayerRenderer::~LayerRenderer()
   DestroyRenderers();
 }
 
-void LayerRenderer::Build(ref_ptr<dp::GpuProgramManager> mng)
+void LayerRenderer::Build(ref_ptr<gpu::ProgramManager> mng)
 {
   for (auto & r : m_renderers)
     r.second->Build(mng);
 }
 
-void LayerRenderer::Render(ref_ptr<dp::GpuProgramManager> mng, bool routingActive,
+void LayerRenderer::Render(ref_ptr<gpu::ProgramManager> mng, bool routingActive,
                            ScreenBase const & screen)
 {
   if (HasWidget(gui::WIDGET_RULER))

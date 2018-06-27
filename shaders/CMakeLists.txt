@@ -23,6 +23,8 @@ set(
   gl_program_pool.hpp
   gl_shaders.cpp
   gl_shaders.hpp
+  program_manager.cpp
+  program_manager.hpp
   program_params.cpp
   program_params.hpp
   program_pool.hpp

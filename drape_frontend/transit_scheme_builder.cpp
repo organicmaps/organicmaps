@@ -5,11 +5,12 @@
 #include "drape_frontend/line_shape_helper.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/render_state.hpp"
-#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/text_layout.hpp"
 #include "drape_frontend/text_shape.hpp"
 #include "drape_frontend/visual_params.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/batcher.hpp"
 #include "drape/glsl_func.hpp"
@@ -20,8 +21,6 @@
 #include "base/string_utils.hpp"
 
 using namespace std;
-
-#define TRANSIT_SCHEME_DEBUG_INFO
 
 namespace df
 {
@@ -574,9 +573,9 @@ void TransitSchemeBuilder::GenerateStops(MwmSet::MwmId const & mwmId, ref_ptr<dp
   auto const flusher = [this, &mwmId, &scheme](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
   {
     TransitRenderData renderData(state, m_recacheId, mwmId, scheme.m_pivot, std::move(b));
-    if (state.GetProgramIndex() == gpu::TRANSIT_MARKER_PROGRAM)
+    if (state.GetProgram<gpu::Program>() == gpu::Program::TransitMarker)
       m_flushMarkersRenderDataFn(std::move(renderData));
-    else if (state.GetProgramIndex() == gpu::TEXT_OUTLINED_PROGRAM)
+    else if (state.GetProgram<gpu::Program>() == gpu::Program::TextOutlined)
       m_flushTextRenderDataFn(std::move(renderData));
     else
       m_flushStubsRenderDataFn(std::move(renderData));
@@ -756,7 +755,7 @@ void TransitSchemeBuilder::GenerateMarker(m2::PointD const & pt, m2::PointD widt
 
   dp::AttributeProvider provider(1 /* stream count */, static_cast<uint32_t>(geometry.size()));
   provider.InitStream(0 /* stream index */, GetTransitStaticBindingInfo(), make_ref(geometry.data()));
-  auto state = CreateGLState(gpu::TRANSIT_MARKER_PROGRAM, RenderState::TransitSchemeLayer);
+  auto state = CreateGLState(gpu::Program::TransitMarker, RenderState::TransitSchemeLayer);
   batcher.InsertTriangleList(state, make_ref(&provider));
 }
 
@@ -811,7 +810,7 @@ void TransitSchemeBuilder::GenerateLine(std::vector<m2::PointD> const & path, m2
 
   dp::AttributeProvider provider(1 /* stream count */, static_cast<uint32_t>(geometry.size()));
   provider.InitStream(0 /* stream index */, GetTransitStaticBindingInfo(), make_ref(geometry.data()));
-  auto state = CreateGLState(gpu::TRANSIT_PROGRAM, RenderState::TransitSchemeLayer);
+  auto state = CreateGLState(gpu::Program::Transit, RenderState::TransitSchemeLayer);
   batcher.InsertTriangleList(state, make_ref(&provider));
 }
 }  // namespace df

@@ -1,17 +1,17 @@
 #include "drape_frontend/selection_shape.hpp"
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/map_shape.hpp"
-#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/visual_params.hpp"
+
+#include "shaders/program_manager.hpp"
 
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
 #include "drape/binding_info.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
-#include "drape/gpu_program_manager.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/uniform_values_storage.hpp"
 
@@ -29,8 +29,7 @@ struct Vertex
   Vertex(glsl::vec2 const & normal, glsl::vec2 const & texCoord)
     : m_normal(normal)
     , m_texCoord(texCoord)
-  {
-  }
+  {}
 
   glsl::vec2 m_normal;
   glsl::vec2 m_texCoord;
@@ -55,7 +54,7 @@ dp::BindingInfo GetBindingInfo()
 
   return info;
 }
-} //  namespace
+}  // namespace
 
 SelectionShape::SelectionShape(ref_ptr<dp::TextureManager> mng)
   : m_position(m2::PointD::Zero())
@@ -63,19 +62,19 @@ SelectionShape::SelectionShape(ref_ptr<dp::TextureManager> mng)
   , m_animation(false, 0.25)
   , m_selectedObject(OBJECT_EMPTY)
 {
-  int const TriangleCount = 40;
-  int const VertexCount = 3 * TriangleCount;
-  float const etalonSector = math::twicePi / static_cast<double>(TriangleCount);
+  size_t constexpr kTriangleCount = 40;
+  size_t constexpr kVertexCount = 3 * kTriangleCount;
+  auto const etalonSector = static_cast<float>(math::twicePi / kTriangleCount);
 
   dp::TextureManager::ColorRegion color;
   mng->GetColorRegion(df::GetColorConstant(df::kSelectionColor), color);
   glsl::vec2 colorCoord = glsl::ToVec2(color.GetTexRect().Center());
 
-  buffer_vector<Vertex, TriangleCount> buffer;
+  buffer_vector<Vertex, kTriangleCount> buffer;
 
   glsl::vec2 startNormal(0.0f, 1.0f);
 
-  for (size_t i = 0; i < TriangleCount + 1; ++i)
+  for (size_t i = 0; i < kTriangleCount + 1; ++i)
   {
     glsl::vec2 normal = glsl::rotate(startNormal, i * etalonSector);
     glsl::vec2 nextNormal = glsl::rotate(startNormal, (i + 1) * etalonSector);
@@ -85,20 +84,20 @@ SelectionShape::SelectionShape(ref_ptr<dp::TextureManager> mng)
     buffer.emplace_back(nextNormal, colorCoord);
   }
 
-  auto state = CreateGLState(gpu::ACCURACY_PROGRAM, RenderState::OverlayLayer);
+  auto state = CreateGLState(gpu::Program::Accuracy, RenderState::OverlayLayer);
   state.SetColorTexture(color.GetTexture());
 
   {
-    dp::Batcher batcher(TriangleCount * dp::Batcher::IndexPerTriangle, VertexCount);
+    dp::Batcher batcher(kTriangleCount * dp::Batcher::IndexPerTriangle, kVertexCount);
     dp::SessionGuard guard(batcher, [this](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
     {
-      drape_ptr<dp::RenderBucket> bucket = move(b);
+      drape_ptr<dp::RenderBucket> bucket = std::move(b);
       ASSERT(bucket->GetOverlayHandlesCount() == 0, ());
       m_renderNode = make_unique_dp<RenderNode>(state, bucket->MoveBuffer());
     });
 
-    dp::AttributeProvider provider(1 /*stream count*/, VertexCount);
-    provider.InitStream(0 /*stream index*/, GetBindingInfo(), make_ref(buffer.data()));
+    dp::AttributeProvider provider(1 /* stream count */, kVertexCount);
+    provider.InitStream(0 /* stream index */, GetBindingInfo(), make_ref(buffer.data()));
 
     batcher.InsertTriangleList(state, make_ref(&provider), nullptr);
   }
@@ -141,7 +140,7 @@ bool SelectionShape::IsVisible(ScreenBase const & screen, m2::PointD & pxPos) co
   return false;
 }
 
-void SelectionShape::Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp::GpuProgramManager> mng,
+void SelectionShape::Render(ScreenBase const & screen, int zoomLevel, ref_ptr<gpu::ProgramManager> mng,
                             dp::UniformValuesStorage const & commonUniforms)
 {
   ShowHideAnimation::EState state = m_animation.GetState();
@@ -151,7 +150,7 @@ void SelectionShape::Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp
     dp::UniformValuesStorage uniforms = commonUniforms;
     TileKey const key = GetTileKeyByPoint(m_position, ClipTileZoomByMaxDataZoom(zoomLevel));
     math::Matrix<float, 4, 4> mv = key.GetTileBasedModelView(screen);
-    uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+    uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
 
     m2::PointD const pos = MapShape::ConvertToLocal(m_position, key.GetGlobalRect().Center(), kShapeCoordScalar);
     uniforms.SetFloatValue("u_position", pos.x, pos.y, -m_positionZ);
@@ -161,7 +160,7 @@ void SelectionShape::Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp
     {
       m2::PointD const pt1 = screen.GtoP(m_position);
       m2::PointD const pt2(pt1.x + 1, pt1.y);
-      float const scale = screen.PtoP3d(pt2).x - screen.PtoP3d(pt1).x;
+      auto const scale = static_cast<float>(screen.PtoP3d(pt2).x - screen.PtoP3d(pt1).x);
       accuracy /= scale;
     }
     uniforms.SetFloatValue("u_accuracy", accuracy);
@@ -174,5 +173,4 @@ SelectionShape::ESelectedObject SelectionShape::GetSelectedObject() const
 {
   return m_selectedObject;
 }
-
-} // namespace df
+}  // namespace df

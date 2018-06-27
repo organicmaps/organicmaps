@@ -1,9 +1,10 @@
 #include "drape_frontend/route_shape.hpp"
 #include "drape_frontend/line_shape_helper.hpp"
-#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/traffic_generator.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
@@ -489,7 +490,7 @@ void RouteShape::CacheRouteArrows(ref_ptr<dp::TextureManager> mng, m2::PolylineD
   TArrowGeometryBuffer joinsGeometry;
   dp::TextureManager::SymbolRegion region;
   GetArrowTextureRegion(mng, region);
-  auto state = CreateGLState(gpu::ROUTE_ARROW_PROGRAM, RenderState::GeometryLayer);
+  auto state = CreateGLState(gpu::Program::RouteArrow, RenderState::GeometryLayer);
   state.SetColorTexture(region.GetTexture());
 
   // Generate arrow geometry.
@@ -566,7 +567,7 @@ drape_ptr<df::SubrouteData> RouteShape::CacheRoute(dp::DrapeID subrouteId, Subro
                   geometry, joinsGeometry);
 
   auto state = CreateGLState(subroute->m_style[styleIndex].m_pattern.m_isDashed ?
-                             gpu::ROUTE_DASH_PROGRAM : gpu::ROUTE_PROGRAM, RenderState::GeometryLayer);
+                             gpu::Program::RouteDash : gpu::Program::Route, RenderState::GeometryLayer);
   state.SetColorTexture(textures->GetSymbolsTexture());
 
   BatchGeometry(state, make_ref(geometry.data()), static_cast<uint32_t>(geometry.size()),
@@ -594,7 +595,7 @@ drape_ptr<df::SubrouteMarkersData> RouteShape::CacheMarkers(dp::DrapeID subroute
   if (geometry.empty())
     return nullptr;
 
-  auto state = CreateGLState(gpu::ROUTE_MARKER_PROGRAM, RenderState::GeometryLayer);
+  auto state = CreateGLState(gpu::Program::RouteMarker, RenderState::GeometryLayer);
   state.SetColorTexture(textures->GetSymbolsTexture());
 
   // Batching.

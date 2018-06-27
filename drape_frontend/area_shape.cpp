@@ -1,6 +1,7 @@
 #include "drape_frontend/area_shape.hpp"
 #include "drape_frontend/render_state.hpp"
-#include "drape_frontend/shader_def.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
@@ -12,14 +13,14 @@
 #include "base/buffer_vector.hpp"
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
 
 namespace df
 {
 AreaShape::AreaShape(vector<m2::PointD> && triangleList, BuildingOutline && buildingOutline,
                      AreaViewParams const & params)
-  : m_vertexes(move(triangleList))
-  , m_buildingOutline(move(buildingOutline))
+  : m_vertexes(std::move(triangleList))
+  , m_buildingOutline(std::move(buildingOutline))
   , m_params(params)
 {}
 
@@ -54,11 +55,12 @@ void AreaShape::DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorU
   vertexes.resize(m_vertexes.size());
   transform(m_vertexes.begin(), m_vertexes.end(), vertexes.begin(), [&uv, this](m2::PointD const & vertex)
   {
-    return gpu::AreaVertex(glsl::vec3(glsl::ToVec2(ConvertToLocal(m2::PointD(vertex), m_params.m_tileCenter, kShapeCoordScalar)),
-                                      m_params.m_depth), uv);
+    return gpu::AreaVertex(
+      glsl::vec3(glsl::ToVec2(ConvertToLocal(m2::PointD(vertex), m_params.m_tileCenter, kShapeCoordScalar)),
+                 m_params.m_depth), uv);
   });
 
-  auto state = CreateGLState(gpu::AREA_PROGRAM, RenderState::GeometryLayer);
+  auto state = CreateGLState(gpu::Program::Area, RenderState::GeometryLayer);
   state.SetColorTexture(texture);
 
   dp::AttributeProvider provider(1, static_cast<uint32_t>(vertexes.size()));
@@ -70,7 +72,7 @@ void AreaShape::DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorU
   {
     glsl::vec2 const ouv = glsl::ToVec2(outlineUv);
 
-    vector<gpu::AreaVertex> vertices;
+    std::vector<gpu::AreaVertex> vertices;
     vertices.reserve(m_buildingOutline.m_vertices.size());
     for (size_t i = 0; i < m_buildingOutline.m_vertices.size(); i++)
     {
@@ -79,7 +81,7 @@ void AreaShape::DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorU
       vertices.emplace_back(gpu::AreaVertex(glsl::vec3(pos, m_params.m_depth), ouv));
     }
 
-    auto outlineState = CreateGLState(gpu::AREA_OUTLINE_PROGRAM, RenderState::GeometryLayer);
+    auto outlineState = CreateGLState(gpu::Program::AreaOutline, RenderState::GeometryLayer);
     outlineState.SetColorTexture(texture);
     outlineState.SetDrawAsLine(true);
 
@@ -112,7 +114,7 @@ void AreaShape::DrawHatchingArea(ref_ptr<dp::Batcher> batcher, m2::PointD const 
     vertexes[i].m_maskTexCoord.y = static_cast<float>(maxV * (m_vertexes[i].y - bbox.minY()) / bbox.SizeY());
   }
 
-  auto state = CreateGLState(gpu::HATCHING_AREA_PROGRAM, RenderState::GeometryLayer);
+  auto state = CreateGLState(gpu::Program::HatchingArea, RenderState::GeometryLayer);
   state.SetColorTexture(texture);
   state.SetMaskTexture(hatchingTexture);
   state.SetTextureFilter(gl_const::GLLinear);
@@ -130,7 +132,7 @@ void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colo
 
   glsl::vec2 const uv = glsl::ToVec2(colorUv);
 
-  vector<gpu::Area3dVertex> vertexes;
+  std::vector<gpu::Area3dVertex> vertexes;
   vertexes.reserve(m_vertexes.size() + m_buildingOutline.m_normals.size() * 6);
 
   for (size_t i = 0; i < m_buildingOutline.m_normals.size(); i++)
@@ -160,7 +162,7 @@ void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colo
     vertexes.emplace_back(gpu::Area3dVertex(glsl::vec3(pt, -m_params.m_posZ), normal, uv));
   }
 
-  auto state = CreateGLState(gpu::AREA_3D_PROGRAM, RenderState::Geometry3dLayer);
+  auto state = CreateGLState(gpu::Program::Area3d, RenderState::Geometry3dLayer);
   state.SetColorTexture(texture);
   state.SetBlending(dp::Blending(false /* isEnabled */));
 
@@ -173,12 +175,12 @@ void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colo
   {
     glsl::vec2 const ouv = glsl::ToVec2(outlineUv);
 
-    auto outlineState = CreateGLState(gpu::AREA_3D_OUTLINE_PROGRAM, RenderState::Geometry3dLayer);
+    auto outlineState = CreateGLState(gpu::Program::Area3dOutline, RenderState::Geometry3dLayer);
     outlineState.SetColorTexture(texture);
     outlineState.SetBlending(dp::Blending(false /* isEnabled */));
     outlineState.SetDrawAsLine(true);
 
-    vector<gpu::AreaVertex> vertices;
+    std::vector<gpu::AreaVertex> vertices;
     vertices.reserve(m_buildingOutline.m_vertices.size());
     for (size_t i = 0; i < m_buildingOutline.m_vertices.size(); i++)
     {

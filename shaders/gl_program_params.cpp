@@ -13,7 +13,7 @@ namespace
 struct UniformsGuard
 {
   template <typename ParamsType>
-  explicit UniformsGuard(ref_ptr<dp::GpuProgram> program, ParamsType const &)
+  UniformsGuard(ref_ptr<dp::GpuProgram> program, ParamsType const &)
     : m_program(program)
   {
     ASSERT_EQUAL(ParamsType::GetName(), ProgramParams::GetBoundParamsName(program),

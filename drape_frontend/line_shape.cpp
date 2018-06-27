@@ -1,7 +1,8 @@
 #include "drape_frontend/line_shape.hpp"
 
 #include "drape_frontend/line_shape_helper.hpp"
-#include "drape_frontend/shader_def.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
@@ -17,10 +18,8 @@
 
 namespace df
 {
-
 namespace
 {
-
 class TextureCoordGenerator
 {
 public:
@@ -129,7 +128,7 @@ public:
 
   float GetSide(bool isLeft) const
   {
-    return isLeft ? 1.0 : -1.0;
+    return isLeft ? 1.0f : -1.0f;
   }
 
 protected:
@@ -138,8 +137,6 @@ protected:
 
   TGeometryBuffer m_geometry;
   TGeometryBuffer m_joinGeom;
-
-  vector<glsl::vec2> m_normalBuffer;
 
   BaseBuilderParams m_params;
   glsl::vec2 const m_colorCoord;
@@ -179,7 +176,7 @@ public:
 
   dp::GLState GetState() override
   {
-    auto state = CreateGLState(gpu::LINE_PROGRAM, m_params.m_depthLayer);
+    auto state = CreateGLState(gpu::Program::Line, m_params.m_depthLayer);
     state.SetColorTexture(m_params.m_color.GetTexture());
     return state;
   }
@@ -208,7 +205,7 @@ public:
     if (m_params.m_cap == dp::ButtCap)
       return TBase::GetCapState();
 
-    auto state = CreateGLState(gpu::CAP_JOIN_PROGRAM, m_params.m_depthLayer);
+    auto state = CreateGLState(gpu::Program::CapJoin, m_params.m_depthLayer);
     state.SetColorTexture(m_params.m_color.GetTexture());
     state.SetDepthFunction(gl_const::GLLess);
     return state;
@@ -279,7 +276,7 @@ public:
 
   dp::GLState GetState() override
   {
-    auto state = CreateGLState(gpu::AREA_OUTLINE_PROGRAM, m_params.m_depthLayer);
+    auto state = CreateGLState(gpu::Program::AreaOutline, m_params.m_depthLayer);
     state.SetColorTexture(m_params.m_color.GetTexture());
     state.SetDrawAsLine(true);
     state.SetLineWidth(m_lineWidth);
@@ -322,7 +319,7 @@ public:
 
   dp::GLState GetState() override
   {
-    auto state = CreateGLState(gpu::DASHED_LINE_PROGRAM, m_params.m_depthLayer);
+    auto state = CreateGLState(gpu::Program::DashedLine, m_params.m_depthLayer);
     state.SetColorTexture(m_params.m_color.GetTexture());
     state.SetMaskTexture(m_texCoordGen.GetRegion().GetTexture());
     return state;
@@ -340,7 +337,7 @@ private:
   float const m_baseGtoPScale;
 };
 
-} // namespace
+}  // namespace
 
 LineShape::LineShape(m2::SharedSpline const & spline, LineViewParams const & params)
   : m_params(params)
@@ -570,6 +567,5 @@ void LineShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
     batcher->InsertLineStrip(state, make_ref(&provider));
   }
 }
-
-} // namespace df
+}  // namespace df
 

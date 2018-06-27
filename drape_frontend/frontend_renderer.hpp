@@ -22,7 +22,8 @@
 #include "drape_frontend/transit_scheme_renderer.hpp"
 #include "drape_frontend/user_event_stream.hpp"
 
-#include "drape/gpu_program_manager.hpp"
+#include "shaders/program_manager.hpp"
+
 #include "drape/overlay_tree.hpp"
 #include "drape/pointers.hpp"
 #include "drape/uniform_values_storage.hpp"
@@ -250,7 +251,7 @@ private:
 
   void CheckAndRunFirstLaunchAnimation();
 
-  drape_ptr<dp::GpuProgramManager> m_gpuProgramManager;
+  drape_ptr<gpu::ProgramManager> m_gpuProgramManager;
 
   std::array<RenderLayer, RenderState::LayersCount> m_layers;
 

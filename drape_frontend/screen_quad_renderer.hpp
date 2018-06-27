@@ -1,5 +1,7 @@
 #pragma once
 
+#include "shaders/programs.hpp"
+
 #include "drape/pointers.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -9,16 +11,20 @@
 namespace dp
 {
 class GpuProgram;
-class GpuProgramManager;
 }  // namespace dp
+
+namespace gpu
+{
+class ProgramManager;
+}  // namespace gpu
 
 namespace df
 {
 class RendererContext
 {
 public:
-  virtual ~RendererContext() {}
-  virtual int GetGpuProgram() const = 0;
+  virtual ~RendererContext() = default;
+  virtual gpu::Program GetGpuProgram() const = 0;
   virtual void PreRender(ref_ptr<dp::GpuProgram> prg) {}
   virtual void PostRender() {}
 protected:
@@ -39,8 +45,8 @@ public:
   bool IsInitialized() const { return m_bufferId != 0; }
   m2::RectF const & GetTextureRect() const { return m_textureRect; }
 
-  void Render(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<RendererContext> context);
-  void RenderTexture(ref_ptr<dp::GpuProgramManager> mng, uint32_t textureId, float opacity);
+  void Render(ref_ptr<gpu::ProgramManager> mng, ref_ptr<RendererContext> context);
+  void RenderTexture(ref_ptr<gpu::ProgramManager> mng, uint32_t textureId, float opacity);
 
 private:
   void Build(ref_ptr<dp::GpuProgram> prg);

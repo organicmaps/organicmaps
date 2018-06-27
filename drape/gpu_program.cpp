@@ -5,21 +5,21 @@
 
 #include "base/logging.hpp"
 
+#include <set>
+
 namespace dp
 {
 GpuProgram::GpuProgram(std::string const & programName,
-                       ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader,
-                       uint8_t textureSlotsCount)
+                       ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader)
   : m_programName(programName)
   , m_vertexShader(vertexShader)
   , m_fragmentShader(fragmentShader)
-  , m_textureSlotsCount(textureSlotsCount)
 {
   m_programID = GLFunctions::glCreateProgram();
   GLFunctions::glAttachShader(m_programID, m_vertexShader->GetID());
   GLFunctions::glAttachShader(m_programID, m_fragmentShader->GetID());
 
-  string errorLog;
+  std::string errorLog;
   if (!GLFunctions::glLinkProgram(m_programID, errorLog))
     LOG(LERROR, ("Program ", programName, " link error = ", errorLog));
 
@@ -96,6 +96,11 @@ GpuProgram::UniformsInfo const & GpuProgram::GetUniformsInfo() const
 
 void GpuProgram::LoadUniformLocations()
 {
+  static std::set<glConst> const kSupportedTypes = {
+      gl_const::GLFloatType, gl_const::GLFloatVec2, gl_const::GLFloatVec3, gl_const::GLFloatVec4,
+      gl_const::GLIntType,   gl_const::GLIntVec2,   gl_const::GLIntVec3,   gl_const::GLIntVec4,
+      gl_const::GLFloatMat4, gl_const::GLSampler2D};
+
   auto const uniformsCount = GLFunctions::glGetProgramiv(m_programID, gl_const::GLActiveUniforms);
   for (int i = 0; i < uniformsCount; ++i)
   {
@@ -103,19 +108,14 @@ void GpuProgram::LoadUniformLocations()
     UniformInfo info;
     std::string name;
     GLFunctions::glGetActiveUniform(m_programID, static_cast<uint32_t>(i), &size, &info.m_type, name);
-    if (info.m_type != gl_const::GLFloatType && info.m_type != gl_const::GLFloatVec2 &&
-        info.m_type != gl_const::GLFloatVec3 && info.m_type != gl_const::GLFloatVec4 &&
-        info.m_type != gl_const::GLIntType && info.m_type != gl_const::GLIntVec2 &&
-        info.m_type != gl_const::GLIntVec3 && info.m_type != gl_const::GLIntVec4 &&
-        info.m_type != gl_const::GLFloatMat4 && info.m_type != gl_const::GLSampler2D)
-    {
-      CHECK(false, ("Used uniform has unsupported type. Program =", m_programName, "Type =", info.m_type));
-    }
+    CHECK(kSupportedTypes.find(info.m_type) != kSupportedTypes.cend(),
+          ("Used uniform has unsupported type. Program =", m_programName, "Type =", info.m_type));
 
     info.m_location = GLFunctions::glGetUniformLocation(m_programID, name);
     m_uniforms[name] = std::move(info);
   }
   m_numericUniformsCount = CalculateNumericUniformsCount();
+  m_textureSlotsCount = static_cast<uint8_t>(m_uniforms.size() - m_numericUniformsCount);
 }
 
 uint32_t GpuProgram::CalculateNumericUniformsCount() const

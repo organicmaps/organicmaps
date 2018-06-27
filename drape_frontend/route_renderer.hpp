@@ -3,8 +3,9 @@
 #include "drape_frontend/circles_pack_shape.hpp"
 #include "drape_frontend/route_builder.hpp"
 
+#include "shaders/program_manager.hpp"
+
 #include "drape/drape_global.hpp"
-#include "drape/gpu_program_manager.hpp"
 #include "drape/pointers.hpp"
 
 #include "geometry/screenbase.hpp"
@@ -55,22 +56,22 @@ public:
 
   void UpdateRoute(ScreenBase const & screen, CacheRouteArrowsCallback const & callback);
 
-  void RenderRoute(ScreenBase const & screen, bool trafficShown, ref_ptr<dp::GpuProgramManager> mng,
+  void RenderRoute(ScreenBase const & screen, bool trafficShown, ref_ptr<gpu::ProgramManager> mng,
                    dp::UniformValuesStorage const & commonUniforms);
 
-  void AddSubrouteData(drape_ptr<SubrouteData> && subrouteData, ref_ptr<dp::GpuProgramManager> mng);
+  void AddSubrouteData(drape_ptr<SubrouteData> && subrouteData, ref_ptr<gpu::ProgramManager> mng);
   Subroutes const & GetSubroutes() const;
 
   void RemoveSubrouteData(dp::DrapeID subrouteId);
 
   void AddSubrouteArrowsData(drape_ptr<SubrouteArrowsData> && subrouteArrowsData,
-                             ref_ptr<dp::GpuProgramManager> mng);
+                             ref_ptr<gpu::ProgramManager> mng);
 
   void AddSubrouteMarkersData(drape_ptr<SubrouteMarkersData> && subrouteMarkersData,
-                              ref_ptr<dp::GpuProgramManager> mng);
+                              ref_ptr<gpu::ProgramManager> mng);
 
   void AddPreviewRenderData(drape_ptr<CirclesPackRenderData> && renderData,
-                            ref_ptr<dp::GpuProgramManager> mng);
+                            ref_ptr<gpu::ProgramManager> mng);
 
   void UpdatePreview(ScreenBase const & screen);
 
@@ -91,15 +92,15 @@ public:
 
 private:
   void RenderSubroute(SubrouteInfo const & subrouteInfo, size_t subrouteDataIndex,
-                      ScreenBase const & screen, bool trafficShown, ref_ptr<dp::GpuProgramManager> mng,
+                      ScreenBase const & screen, bool trafficShown, ref_ptr<gpu::ProgramManager> mng,
                       dp::UniformValuesStorage const & commonUniforms);
   void RenderSubrouteArrows(SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
-                            ref_ptr<dp::GpuProgramManager> mng,
+                            ref_ptr<gpu::ProgramManager> mng,
                             dp::UniformValuesStorage const & commonUniforms);
   void RenderSubrouteMarkers(SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
-                             ref_ptr<dp::GpuProgramManager> mng,
+                             ref_ptr<gpu::ProgramManager> mng,
                              dp::UniformValuesStorage const & commonUniforms);
-  void RenderPreviewData(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+  void RenderPreviewData(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                          dp::UniformValuesStorage const & commonUniforms);
   void ClearPreviewHandles();
   CirclesPackHandle * GetPreviewHandle(size_t & index);

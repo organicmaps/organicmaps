@@ -1,12 +1,12 @@
 #include "drape_frontend/screen_quad_renderer.hpp"
 #include "drape_frontend/render_state.hpp"
-#include "drape_frontend/shader_def.hpp"
+
+#include "shaders/program_manager.hpp"
 
 #include "drape/data_buffer.hpp"
 #include "drape/glconstants.hpp"
 #include "drape/glextensions_list.hpp"
 #include "drape/glfunctions.hpp"
-#include "drape/gpu_program_manager.hpp"
 #include "drape/uniform_values_storage.hpp"
 
 #include <vector>
@@ -18,7 +18,7 @@ namespace
 class TextureRendererContext : public RendererContext
 {
 public:
-  int GetGpuProgram() const override { return gpu::SCREEN_QUAD_PROGRAM; }
+  gpu::Program GetGpuProgram() const override { return gpu::Program::ScreenQuad; }
 
   void PreRender(ref_ptr<dp::GpuProgram> prg) override
   {
@@ -110,7 +110,7 @@ void ScreenQuadRenderer::Build(ref_ptr<dp::GpuProgram> prg)
   GLFunctions::glBindBuffer(0, gl_const::GLArrayBuffer);
 }
 
-void ScreenQuadRenderer::Render(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<RendererContext> context)
+void ScreenQuadRenderer::Render(ref_ptr<gpu::ProgramManager> mng, ref_ptr<RendererContext> context)
 {
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(context->GetGpuProgram());
   prg->Bind();
@@ -141,7 +141,7 @@ void ScreenQuadRenderer::Render(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<Rend
     GLFunctions::glBindVertexArray(0);
 }
 
-void ScreenQuadRenderer::RenderTexture(ref_ptr<dp::GpuProgramManager> mng, uint32_t textureId,
+void ScreenQuadRenderer::RenderTexture(ref_ptr<gpu::ProgramManager> mng, uint32_t textureId,
                                        float opacity)
 {
   ASSERT(dynamic_cast<TextureRendererContext *>(m_textureRendererContext.get()) != nullptr, ());

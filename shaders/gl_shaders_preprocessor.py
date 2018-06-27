@@ -206,26 +206,6 @@ def write_gles3_shader(output_file, shader_file, shader_dir, shaders_library):
         write_shader_body(output_file, shader_file, shader_dir, shaders_library, True)
 
 
-def calc_texture_slots(vertex_shader_file, fragment_shader_file, shader_dir):
-    slots = set()
-    for line in open(os.path.join(shader_dir, vertex_shader_file)):
-        line = line.replace(" ", "")
-        if line.find("uniformsampler") != -1:
-            slots.add(line)
-    is_inside_workaround = False;
-    for line in open(os.path.join(shader_dir, fragment_shader_file)):
-        line = line.replace(" ", "")  
-        if line.find("#ifdefSAMSUNG_GOOGLE_NEXUS") != -1:
-            is_inside_workaround = True;
-            continue;
-        if is_inside_workaround and line.find("#endif"):
-            is_inside_workaround = False;
-            continue;
-        if not is_inside_workaround and line.find("uniformsampler") != -1:
-            slots.add(line)
-    return len(slots)
-
-
 def write_gpu_programs_map(file, programs_def, source_prefix):
     for program in programs_def.keys():
         vertex_shader = programs_def[program][0]
@@ -233,10 +213,9 @@ def write_gpu_programs_map(file, programs_def, source_prefix):
 
         fragment_shader = programs_def[program][1]
         fragment_source_name = source_prefix + format_shader_source_name(fragment_shader)
-        texture_slots = calc_texture_slots(vertex_shader, fragment_shader, shader_dir)
 
-        file.write("      GLProgramInfo(\"%s\", \"%s\", %s, %s, %d),\n" % (
-            vertex_source_name, fragment_source_name, vertex_source_name, fragment_source_name, texture_slots))
+        file.write("      GLProgramInfo(\"%s\", \"%s\", %s, %s),\n" % (
+            vertex_source_name, fragment_source_name, vertex_source_name, fragment_source_name))
 
 
 def write_implementation_file(programs_def, shader_index, shader_dir, impl_file, def_file, generation_dir,

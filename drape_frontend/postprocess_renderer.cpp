@@ -1,10 +1,10 @@
 #include "drape_frontend/postprocess_renderer.hpp"
 #include "drape_frontend/render_state.hpp"
 #include "drape_frontend/screen_quad_renderer.hpp"
-#include "drape_frontend/shader_def.hpp"
+
+#include "shaders/program_manager.hpp"
 
 #include "drape/glfunctions.hpp"
-#include "drape/gpu_program_manager.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/uniform_values_storage.hpp"
 
@@ -32,7 +32,7 @@ protected:
 class EdgesRendererContext : public SMAABaseRendererContext
 {
 public:
-  int GetGpuProgram() const override { return gpu::SMAA_EDGES_PROGRAM; }
+  gpu::Program GetGpuProgram() const override { return gpu::Program::SmaaEdges; }
 
   void PreRender(ref_ptr<dp::GpuProgram> prg) override
   {
@@ -60,7 +60,7 @@ protected:
 class BlendingWeightRendererContext : public SMAABaseRendererContext
 {
 public:
-  int GetGpuProgram() const override { return gpu::SMAA_BLENDING_WEIGHT_PROGRAM; }
+  gpu::Program GetGpuProgram() const override { return gpu::Program::SmaaBlendingWeight; }
 
   void PreRender(ref_ptr<dp::GpuProgram> prg) override
   {
@@ -103,7 +103,7 @@ private:
 class SMAAFinalRendererContext : public SMAABaseRendererContext
 {
 public:
-  int GetGpuProgram() const override { return gpu::SMAA_FINAL_PROGRAM; }
+  gpu::Program GetGpuProgram() const override { return gpu::Program::SmaaFinal; }
 
   void PreRender(ref_ptr<dp::GpuProgram> prg) override
   {
@@ -144,7 +144,7 @@ private:
 void InitFramebuffer(drape_ptr<dp::Framebuffer> & framebuffer, uint32_t width, uint32_t height)
 {
   if (framebuffer == nullptr)
-    framebuffer.reset(new dp::Framebuffer(gl_const::GLRGBA, true /* stencilEnabled */));
+    framebuffer = make_unique_dp<dp::Framebuffer>(gl_const::GLRGBA, true /* stencilEnabled */);
   framebuffer->SetSize(width, height);
 }
 
@@ -153,7 +153,7 @@ void InitFramebuffer(drape_ptr<dp::Framebuffer> & framebuffer, uint32_t colorFor
                      uint32_t width, uint32_t height)
 {
   if (framebuffer == nullptr)
-    framebuffer.reset(new dp::Framebuffer(colorFormat));
+    framebuffer = make_unique_dp<dp::Framebuffer>(colorFormat);
   framebuffer->SetDepthStencilRef(depthStencilRef);
   framebuffer->SetSize(width, height);
 }
@@ -239,8 +239,8 @@ bool PostprocessRenderer::IsEnabled() const
 
 void PostprocessRenderer::SetEffectEnabled(Effect effect, bool enabled)
 {
-  uint32_t const oldValue = m_effects;
-  uint32_t const effectMask = static_cast<uint32_t>(effect);
+  auto const oldValue = m_effects;
+  auto const effectMask = static_cast<uint32_t>(effect);
   m_effects = (m_effects & ~effectMask) | (enabled ? effectMask : 0);
 
   if (m_width != 0 && m_height != 0 && oldValue != m_effects)
@@ -276,9 +276,9 @@ void PostprocessRenderer::BeginFrame()
   GLFunctions::glDisable(gl_const::GLStencilTest);
 }
 
-void PostprocessRenderer::EndFrame(ref_ptr<dp::GpuProgramManager> gpuProgramManager)
+void PostprocessRenderer::EndFrame(ref_ptr<gpu::ProgramManager> gpuProgramManager)
 {
-  if (!IsEnabled() && !m_frameStarted)
+  if (!IsEnabled() || !m_frameStarted)
     return;
 
   bool wasPostEffect = false;

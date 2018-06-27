@@ -120,7 +120,7 @@ void TestShaders(dp::ApiVersion apiVersion, std::string const & defines,
 std::string GetCompilerPath(std::string const & compilerName)
 {
   Platform & platform = GetPlatform();
-  std::string compilerPath = my::JoinFoldersToPath({"./data", kCompilersDir}, compilerName);
+  std::string compilerPath = my::JoinFoldersToPath(kCompilersDir, compilerName);
   if (platform.IsFileExistsByFullPath(compilerPath))
     return compilerPath;
   

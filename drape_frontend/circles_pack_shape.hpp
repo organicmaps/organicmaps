@@ -25,7 +25,8 @@ struct CirclesPackRenderData
   dp::GLState m_state;
   drape_ptr<dp::RenderBucket> m_bucket;
   CirclesPackRenderData()
-    : m_pointsCount(0), m_state(CreateGLState(0, RenderState::OverlayLayer))
+    : m_pointsCount(0)
+    , m_state(CreateGLState(gpu::Program::CirclePoint, RenderState::OverlayLayer))
   {}
 };
 
@@ -48,7 +49,7 @@ class CirclesPackHandle : public dp::OverlayHandle
   using TBase = dp::OverlayHandle;
 
 public:
-  CirclesPackHandle(size_t pointsCount);
+  explicit CirclesPackHandle(size_t pointsCount);
   void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const override;
   bool Update(ScreenBase const & screen) override;
   m2::RectD GetPixelRect(ScreenBase const & screen, bool perspective) const override;

@@ -1,8 +1,9 @@
 #include "drape_frontend/colored_symbol_shape.hpp"
 
 #include "drape_frontend/render_state.hpp"
-#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/visual_params.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
@@ -296,8 +297,8 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher,
     }
     handle->SetOverlayRank(m_params.m_startOverlayRank);
   }
-  auto state = CreateGLState(gpu::COLORED_SYMBOL_PROGRAM, m_params.m_depthLayer);
-  state.SetProgram3dIndex(gpu::COLORED_SYMBOL_BILLBOARD_PROGRAM);
+  auto state = CreateGLState(gpu::Program::ColoredSymbol, m_params.m_depthLayer);
+  state.SetProgram3d(gpu::Program::ColoredSymbolBillboard);
   state.SetColorTexture(colorRegion.GetTexture());
   state.SetDepthFunction(gl_const::GLLess);
 

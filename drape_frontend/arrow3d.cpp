@@ -1,15 +1,15 @@
 #include "drape_frontend/arrow3d.hpp"
 
 #include "drape_frontend/color_constants.hpp"
-#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/visual_params.hpp"
+
+#include "shaders/program_manager.hpp"
 
 #include "drape/glconstants.hpp"
 #include "drape/glextensions_list.hpp"
 #include "drape/glfunctions.hpp"
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
-#include "drape/gpu_program_manager.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/uniform_values_storage.hpp"
 
@@ -20,7 +20,6 @@
 
 namespace df
 {
-
 double const kArrowSize = 12.0;
 double const kArrow3dScaleMin = 1.0;
 double const kArrow3dScaleMax = 2.2;
@@ -36,7 +35,7 @@ df::ColorConstant const kArrow3DColor = "Arrow3D";
 df::ColorConstant const kArrow3DOutlineColor = "Arrow3DOutline";
 
 Arrow3d::Arrow3d()
-  : m_state(CreateGLState(gpu::ARROW_3D_PROGRAM, RenderState::OverlayLayer))
+  : m_state(CreateGLState(gpu::Program::Arrow3d, RenderState::OverlayLayer))
 {
   m_vertices = {
     0.0f, 0.0f, -1.0f, 1.0f,    -1.2f, -1.0f, 0.0f, 1.0f,   0.0f, 2.0f, 0.0f, 1.0f,
@@ -134,7 +133,7 @@ void Arrow3d::SetPositionObsolete(bool obsolete)
   m_obsoletePosition = obsolete;
 }
 
-void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng, bool routingMode)
+void Arrow3d::Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng, bool routingMode)
 {
   if (!m_isInitialized)
   {
@@ -145,7 +144,7 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> m
   // Render shadow.
   if (screen.isPerspective())
   {
-    ref_ptr<dp::GpuProgram> shadowProgram = mng->GetProgram(gpu::ARROW_3D_SHADOW_PROGRAM);
+    ref_ptr<dp::GpuProgram> shadowProgram = mng->GetProgram(gpu::Program::Arrow3dShadow);
     RenderArrow(screen, shadowProgram, df::GetColorConstant(df::kArrow3DShadowColor), 0.05f /* dz */,
                 routingMode ? kOutlineScale : 1.0f /* scaleFactor */, false /* hasNormals */);
   }
@@ -156,14 +155,14 @@ void Arrow3d::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> m
   if (routingMode)
   {
     dp::Color const outlineColor = df::GetColorConstant(df::kArrow3DOutlineColor);
-    ref_ptr<dp::GpuProgram> outlineProgram = mng->GetProgram(gpu::ARROW_3D_OUTLINE_PROGRAM);
+    ref_ptr<dp::GpuProgram> outlineProgram = mng->GetProgram(gpu::Program::Arrow3dOutline);
     RenderArrow(screen, outlineProgram,
                 dp::Color(outlineColor.GetRed(), outlineColor.GetGreen(), outlineColor.GetBlue(), color.GetAlpha()),
                 0.0f /* dz */, kOutlineScale /* scaleFactor */, false /* hasNormals */);
   }
 
   // Render arrow.
-  ref_ptr<dp::GpuProgram> arrowProgram = mng->GetProgram(gpu::ARROW_3D_PROGRAM);
+  ref_ptr<dp::GpuProgram> arrowProgram = mng->GetProgram(gpu::Program::Arrow3d);
   RenderArrow(screen, arrowProgram, color, 0.0f /* dz */, 1.0f /* scaleFactor */, true /* hasNormals */);
 
   arrowProgram->Unbind();
@@ -245,5 +244,4 @@ math::Matrix<float, 4, 4> Arrow3d::CalculateTransform(ScreenBase const & screen,
 
   return modelTransform;
 }
-
 }  // namespace df

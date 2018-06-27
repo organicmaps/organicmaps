@@ -10,6 +10,7 @@
 
 #include <cstring>
 #include <memory>
+#include <vector>
 
 namespace
 {
@@ -33,32 +34,31 @@ private:
 
 void RunTestLoop(char const * testName, RenderFunction && fn, bool autoExit)
 {
-  auto buf = new char[strlen(testName) + 1];
-  MY_SCOPE_GUARD(argvFreeFun, [&buf](){ delete [] buf; });
-  strcpy(buf, testName);
+  std::vector<char> buf(strlen(testName) + 1);
+  strcpy(buf.data(), testName);
+  char * raw = buf.data();
 
   int argc = 1;
-  QApplication app(argc, &buf);
+  QApplication app(argc, &raw);
   if (autoExit)
     QTimer::singleShot(3000, &app, SLOT(quit()));
 
-  auto widget = new MyWidget(std::move(fn));
+  auto widget = std::make_unique<MyWidget>(std::move(fn));
   widget->setWindowTitle(testName);
   widget->show();
 
   app.exec();
-  delete widget;
 }
 
 void RunTestInOpenGLOffscreenEnvironment(char const * testName, bool apiOpenGLES3,
                                          TestFunction const & fn)
 {
-  auto buf = new char[strlen(testName) + 1];
-  MY_SCOPE_GUARD(argvFreeFun, [&buf](){ delete [] buf; });
-  strcpy(buf, testName);
+  std::vector<char> buf(strlen(testName) + 1);
+  strcpy(buf.data(), testName);
+  char * raw = buf.data();
 
   int argc = 1;
-  QApplication app(argc, &buf);
+  QApplication app(argc, &raw);
 
   QSurfaceFormat fmt;
   fmt.setAlphaBufferSize(8);

@@ -1,6 +1,7 @@
 #include "drape_frontend/gui/watermark.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
-#include "drape_frontend/shader_def.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/glsl_func.hpp"
 #include "drape/utils/vertex_decl.hpp"
@@ -56,7 +57,7 @@ public:
     if (IsVisible())
     {
       m_uniforms.SetMatrix4x4Value(
-        "modelView", value_ptr(transpose(translate(mat4(), vec3(m_pivot + m_offset, 0.0)))));
+        "u_modelView", value_ptr(transpose(translate(mat4(), vec3(m_pivot + m_offset, 0.0)))));
       m_uniforms.SetFloatValue("u_opacity", 1.0);
     }
     return true;
@@ -82,7 +83,7 @@ drape_ptr<ShapeRenderer> Watermark::Draw(m2::PointF & size, ref_ptr<dp::TextureM
     WatermarkVertex(glsl::vec2(halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom()))
   };
 
-  auto state = df::CreateGLState(gpu::TEXTURING_GUI_PROGRAM, df::RenderState::GuiLayer);
+  auto state = df::CreateGLState(gpu::Program::TexturingGui, df::RenderState::GuiLayer);
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider provider(1 /* streamCount */, 4 /* vertexCount */);

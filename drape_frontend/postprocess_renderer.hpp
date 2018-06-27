@@ -3,11 +3,17 @@
 #include "drape/framebuffer.hpp"
 #include "drape/pointers.hpp"
 
+#include <cstdint>
+
 namespace dp
 {
-class GpuProgramManager;
 class Texture;
 }  // namespace dp
+
+namespace gpu
+{
+class ProgramManager;
+}  // namespace gpu
 
 namespace df
 {
@@ -44,7 +50,7 @@ public:
   void OnFramebufferFallback();
 
   void BeginFrame();
-  void EndFrame(ref_ptr<dp::GpuProgramManager> gpuProgramManager);
+  void EndFrame(ref_ptr<gpu::ProgramManager> gpuProgramManager);
 
   void EnableWritingToStencil() const;
   void DisableWritingToStencil() const;
@@ -75,7 +81,7 @@ private:
 class StencilWriterGuard
 {
 public:
-  StencilWriterGuard(ref_ptr<PostprocessRenderer> renderer);
+  explicit StencilWriterGuard(ref_ptr<PostprocessRenderer> renderer);
   ~StencilWriterGuard();
 private:
   ref_ptr<PostprocessRenderer> const m_renderer;

@@ -1,8 +1,9 @@
 #include "drape_frontend/route_renderer.hpp"
 #include "drape_frontend/message_subclasses.hpp"
-#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/glsl_func.hpp"
 #include "drape/utils/projection.hpp"
@@ -212,10 +213,10 @@ std::vector<ArrowBorders> CalculateArrowBorders(ScreenBase const & screen, float
   return newArrowBorders;
 }
 
-void BuildBuckets(RouteRenderProperty const & renderProperty, ref_ptr<dp::GpuProgramManager> mng)
+void BuildBuckets(RouteRenderProperty const & renderProperty, ref_ptr<gpu::ProgramManager> mng)
 {
   for (auto const & bucket : renderProperty.m_buckets)
-    bucket->GetBuffer()->Build(mng->GetProgram(renderProperty.m_state.GetProgramIndex()));
+    bucket->GetBuffer()->Build(mng->GetProgram(renderProperty.m_state.GetProgram<gpu::Program>()));
 }
 
 RouteRenderer::Subroutes::iterator FindSubroute(RouteRenderer::Subroutes & subroutes,
@@ -380,7 +381,7 @@ dp::Color RouteRenderer::GetMaskColor(RouteType routeType, double baseDistance,
 
 void RouteRenderer::RenderSubroute(SubrouteInfo const & subrouteInfo, size_t subrouteDataIndex,
                                    ScreenBase const & screen, bool trafficShown,
-                                   ref_ptr<dp::GpuProgramManager> mng,
+                                   ref_ptr<gpu::ProgramManager> mng,
                                    dp::UniformValuesStorage const & commonUniforms)
 {
   ASSERT_LESS(subrouteDataIndex, subrouteInfo.m_subrouteData.size(), ());
@@ -410,7 +411,7 @@ void RouteRenderer::RenderSubroute(SubrouteInfo const & subrouteInfo, size_t sub
   // Set up uniforms.
   dp::UniformValuesStorage uniforms = commonUniforms;
   math::Matrix<float, 4, 4> mv = screen.GetModelView(subrouteData->m_pivot, kShapeCoordScalar);
-  uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+  uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
 
   glsl::vec4 const color = glsl::ToVec4(df::GetColorConstant(style.m_color));
   uniforms.SetFloatValue("u_color", color.r, color.g, color.b, color.a);
@@ -438,7 +439,7 @@ void RouteRenderer::RenderSubroute(SubrouteInfo const & subrouteInfo, size_t sub
 
   // Set up shaders and apply uniforms.
   ref_ptr<dp::GpuProgram> prg = mng->GetProgram(style.m_pattern.m_isDashed ?
-                                                gpu::ROUTE_DASH_PROGRAM : gpu::ROUTE_PROGRAM);
+                                                gpu::Program::RouteDash : gpu::Program::Route);
   prg->Bind();
   dp::ApplyState(state, prg);
   dp::ApplyUniforms(uniforms, prg);
@@ -450,7 +451,7 @@ void RouteRenderer::RenderSubroute(SubrouteInfo const & subrouteInfo, size_t sub
 
 void RouteRenderer::RenderSubrouteArrows(SubrouteInfo const & subrouteInfo,
                                          ScreenBase const & screen,
-                                         ref_ptr<dp::GpuProgramManager> mng,
+                                         ref_ptr<gpu::ProgramManager> mng,
                                          dp::UniformValuesStorage const & commonUniforms)
 {
   if (subrouteInfo.m_arrowsData == nullptr ||
@@ -467,7 +468,7 @@ void RouteRenderer::RenderSubrouteArrows(SubrouteInfo const & subrouteInfo,
   dp::UniformValuesStorage uniforms = commonUniforms;
   math::Matrix<float, 4, 4> mv = screen.GetModelView(subrouteInfo.m_arrowsData->m_pivot,
                                                      kShapeCoordScalar);
-  uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+  uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
   auto const arrowHalfWidth = static_cast<float>(currentHalfWidth * kArrowHeightFactor);
   uniforms.SetFloatValue("u_arrowHalfWidth", arrowHalfWidth);
   uniforms.SetFloatValue("u_opacity", 1.0f);
@@ -477,7 +478,7 @@ void RouteRenderer::RenderSubrouteArrows(SubrouteInfo const & subrouteInfo,
                                                          true /* arrows */));
   uniforms.SetFloatValue("u_maskColor", maskColor.r, maskColor.g, maskColor.b, maskColor.a);
 
-  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::ROUTE_ARROW_PROGRAM);
+  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::Program::RouteArrow);
   prg->Bind();
   dp::ApplyState(state, prg);
   dp::ApplyUniforms(uniforms, prg);
@@ -486,7 +487,7 @@ void RouteRenderer::RenderSubrouteArrows(SubrouteInfo const & subrouteInfo,
 }
 
 void RouteRenderer::RenderSubrouteMarkers(SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
-                                          ref_ptr<dp::GpuProgramManager> mng,
+                                          ref_ptr<gpu::ProgramManager> mng,
                                           dp::UniformValuesStorage const & commonUniforms)
 {
   if (subrouteInfo.m_markersData == nullptr ||
@@ -507,8 +508,8 @@ void RouteRenderer::RenderSubrouteMarkers(SubrouteInfo const & subrouteInfo, Scr
   dp::UniformValuesStorage uniforms = commonUniforms;
   math::Matrix<float, 4, 4> mv = screen.GetModelView(subrouteInfo.m_markersData->m_pivot,
                                                      kShapeCoordScalar);
-  uniforms.SetMatrix4x4Value("modelView", mv.m_data);
-  uniforms.SetFloatValue("u_routeParams", currentHalfWidth, dist);
+  uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
+  uniforms.SetFloatValue("u_routeParams", currentHalfWidth, dist, 0.0f, 0.0f);
   uniforms.SetFloatValue("u_opacity", 1.0f);
   uniforms.SetFloatValue("u_angleCosSin",
                          static_cast<float>(cos(screen.GetAngle())),
@@ -519,7 +520,7 @@ void RouteRenderer::RenderSubrouteMarkers(SubrouteInfo const & subrouteInfo, Scr
                                                          false /* arrows */));
   uniforms.SetFloatValue("u_maskColor", maskColor.r, maskColor.g, maskColor.b, maskColor.a);
 
-  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::ROUTE_MARKER_PROGRAM);
+  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(gpu::Program::RouteMarker);
   prg->Bind();
   dp::ApplyState(state, prg);
   dp::ApplyUniforms(uniforms, prg);
@@ -527,7 +528,7 @@ void RouteRenderer::RenderSubrouteMarkers(SubrouteInfo const & subrouteInfo, Scr
     bucket->Render(state.GetDrawAsLine());
 }
 
-void RouteRenderer::RenderPreviewData(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+void RouteRenderer::RenderPreviewData(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                                       dp::UniformValuesStorage const & commonUniforms)
 {
   if (m_waitForPreviewRenderData || m_previewSegments.empty() || m_previewRenderData.empty())
@@ -535,9 +536,9 @@ void RouteRenderer::RenderPreviewData(ScreenBase const & screen, ref_ptr<dp::Gpu
 
   dp::UniformValuesStorage uniforms = commonUniforms;
   math::Matrix<float, 4, 4> mv = screen.GetModelView(m_previewPivot, kShapeCoordScalar);
-  uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+  uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
   uniforms.SetFloatValue("u_opacity", 1.0f);
-  ref_ptr<dp::GpuProgram> program = mng->GetProgram(gpu::CIRCLE_POINT_PROGRAM);
+  ref_ptr<dp::GpuProgram> program = mng->GetProgram(gpu::Program::CirclePoint);
   program->Bind();
 
   dp::GLState const & state = m_previewRenderData.front()->m_state;
@@ -553,7 +554,7 @@ void RouteRenderer::RenderPreviewData(ScreenBase const & screen, ref_ptr<dp::Gpu
 }
 
 void RouteRenderer::RenderRoute(ScreenBase const & screen, bool trafficShown,
-                                ref_ptr<dp::GpuProgramManager> mng,
+                                ref_ptr<gpu::ProgramManager> mng,
                                 dp::UniformValuesStorage const & commonUniforms)
 {
   for (auto const & subroute : m_subroutes)
@@ -574,7 +575,7 @@ void RouteRenderer::RenderRoute(ScreenBase const & screen, bool trafficShown,
 }
 
 void RouteRenderer::AddSubrouteData(drape_ptr<SubrouteData> && subrouteData,
-                                    ref_ptr<dp::GpuProgramManager> mng)
+                                    ref_ptr<gpu::ProgramManager> mng)
 {
   auto const it = FindSubroute(m_subroutes, subrouteData->m_subrouteId);
   if (it != m_subroutes.end())
@@ -623,7 +624,7 @@ void RouteRenderer::AddSubrouteData(drape_ptr<SubrouteData> && subrouteData,
 }
 
 void RouteRenderer::AddSubrouteArrowsData(drape_ptr<SubrouteArrowsData> && routeArrowsData,
-                                          ref_ptr<dp::GpuProgramManager> mng)
+                                          ref_ptr<gpu::ProgramManager> mng)
 {
   auto const it = FindSubroute(m_subroutes, routeArrowsData->m_subrouteId);
   if (it != m_subroutes.end())
@@ -634,7 +635,7 @@ void RouteRenderer::AddSubrouteArrowsData(drape_ptr<SubrouteArrowsData> && route
 }
 
 void RouteRenderer::AddSubrouteMarkersData(drape_ptr<SubrouteMarkersData> && subrouteMarkersData,
-                                           ref_ptr<dp::GpuProgramManager> mng)
+                                           ref_ptr<gpu::ProgramManager> mng)
 {
   auto const it = FindSubroute(m_subroutes, subrouteMarkersData->m_subrouteId);
   if (it != m_subroutes.end())
@@ -657,10 +658,10 @@ void RouteRenderer::RemoveSubrouteData(dp::DrapeID subrouteId)
 }
 
 void RouteRenderer::AddPreviewRenderData(drape_ptr<CirclesPackRenderData> && renderData,
-                                         ref_ptr<dp::GpuProgramManager> mng)
+                                         ref_ptr<gpu::ProgramManager> mng)
 {
   drape_ptr<CirclesPackRenderData> data = std::move(renderData);
-  ref_ptr<dp::GpuProgram> program = mng->GetProgram(gpu::CIRCLE_POINT_PROGRAM);
+  ref_ptr<dp::GpuProgram> program = mng->GetProgram(gpu::Program::CirclePoint);
   program->Bind();
   data->m_bucket->GetBuffer()->Build(program);
   m_previewRenderData.push_back(std::move(data));

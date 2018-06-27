@@ -17,7 +17,7 @@ class ProgramParams
 {
 public:
   static void Init();
-  static void Uninit();
+  static void Destroy();
   static std::string GetBoundParamsName(ref_ptr<dp::GpuProgram> program);
 
 private:

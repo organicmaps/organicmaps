@@ -1,9 +1,10 @@
 #include "drape_frontend/gps_track_renderer.hpp"
 #include "drape_frontend/color_constants.hpp"
 #include "drape_frontend/map_shape.hpp"
-#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/glsl_func.hpp"
 #include "drape/vertex_array_buffer.hpp"
@@ -78,11 +79,11 @@ GpsTrackRenderer::GpsTrackRenderer(TRenderDataRequestFn const & dataRequestFn)
   m_handlesCache.reserve(8);
 }
 
-void GpsTrackRenderer::AddRenderData(ref_ptr<dp::GpuProgramManager> mng,
+void GpsTrackRenderer::AddRenderData(ref_ptr<gpu::ProgramManager> mng,
                                      drape_ptr<CirclesPackRenderData> && renderData)
 {
   drape_ptr<CirclesPackRenderData> data = std::move(renderData);
-  ref_ptr<dp::GpuProgram> program = mng->GetProgram(gpu::CIRCLE_POINT_PROGRAM);
+  ref_ptr<dp::GpuProgram> program = mng->GetProgram(gpu::Program::CirclePoint);
   program->Bind();
   data->m_bucket->GetBuffer()->Build(program);
   m_renderData.push_back(std::move(data));
@@ -190,7 +191,7 @@ dp::Color GpsTrackRenderer::GetColorBySpeed(double speed) const
 }
 
 void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
-                                   ref_ptr<dp::GpuProgramManager> mng,
+                                   ref_ptr<gpu::ProgramManager> mng,
                                    dp::UniformValuesStorage const & commonUniforms)
 {
   if (zoomLevel < kMinVisibleZoomLevel)
@@ -302,9 +303,9 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
   // Render points.
   dp::UniformValuesStorage uniforms = commonUniforms;
   math::Matrix<float, 4, 4> mv = screen.GetModelView(m_pivot, kShapeCoordScalar);
-  uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+  uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
   uniforms.SetFloatValue("u_opacity", 1.0f);
-  ref_ptr<dp::GpuProgram> program = mng->GetProgram(gpu::CIRCLE_POINT_PROGRAM);
+  ref_ptr<dp::GpuProgram> program = mng->GetProgram(gpu::Program::CirclePoint);
   program->Bind();
 
   ASSERT_GREATER(m_renderData.size(), 0, ());

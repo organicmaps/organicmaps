@@ -160,7 +160,7 @@ struct RouteRenderProperty
   dp::GLState m_state;
   std::vector<drape_ptr<dp::RenderBucket>> m_buckets;
   RouteRenderProperty()
-    : m_state(CreateGLState(0, RenderState::GeometryLayer))
+    : m_state(CreateGLState(gpu::Program::Route, RenderState::GeometryLayer))
   {}
 };
 

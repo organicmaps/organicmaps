@@ -1,7 +1,8 @@
 #include "drape_frontend/traffic_renderer.hpp"
 #include "drape_frontend/color_constants.hpp"
-#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/visual_params.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/glsl_func.hpp"
 #include "drape/support_manager.hpp"
@@ -90,7 +91,7 @@ float CalculateHalfWidth(ScreenBase const & screen, RoadClass const & roadClass,
 }
 }  // namespace
 
-void TrafficRenderer::AddRenderData(ref_ptr<dp::GpuProgramManager> mng, TrafficRenderData && renderData)
+void TrafficRenderer::AddRenderData(ref_ptr<gpu::ProgramManager> mng, TrafficRenderData && renderData)
 {
   // Remove obsolete render data.
   TileKey const tileKey(renderData.m_tileKey);
@@ -103,7 +104,7 @@ void TrafficRenderer::AddRenderData(ref_ptr<dp::GpuProgramManager> mng, TrafficR
   m_renderData.emplace_back(move(renderData));
   TrafficRenderData & rd = m_renderData.back();
 
-  ref_ptr<dp::GpuProgram> program = mng->GetProgram(rd.m_state.GetProgramIndex());
+  auto program = mng->GetProgram(rd.m_state.GetProgram<gpu::Program>());
   program->Bind();
   rd.m_bucket->GetBuffer()->Build(program);
 }
@@ -131,7 +132,7 @@ void TrafficRenderer::OnGeometryReady(int currentZoomLevel)
 }
 
 void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, float opacity,
-                                    ref_ptr<dp::GpuProgramManager> mng,
+                                    ref_ptr<gpu::ProgramManager> mng,
                                     dp::UniformValuesStorage const & commonUniforms)
 {
   if (m_renderData.empty() || zoomLevel < kRoadClass0ZoomLevel)
@@ -145,13 +146,13 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, fl
   {
     if (renderData.m_state.GetDrawAsLine())
     {
-      ref_ptr<dp::GpuProgram> program = mng->GetProgram(renderData.m_state.GetProgramIndex());
+      auto program = mng->GetProgram(renderData.m_state.GetProgram<gpu::Program>());
       program->Bind();
       dp::ApplyState(renderData.m_state, program);
 
       dp::UniformValuesStorage uniforms = commonUniforms;
       math::Matrix<float, 4, 4> const mv = renderData.m_tileKey.GetTileBasedModelView(screen);
-      uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+      uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
       uniforms.SetFloatValue("u_opacity", opacity);
       dp::ApplyUniforms(uniforms, program);
 
@@ -190,13 +191,13 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, fl
       if (fabs(leftPixelHalfWidth) < kEps && fabs(rightPixelHalfWidth) < kEps)
         continue;
 
-      ref_ptr<dp::GpuProgram> program = mng->GetProgram(renderData.m_state.GetProgramIndex());
+      ref_ptr<dp::GpuProgram> program = mng->GetProgram(renderData.m_state.GetProgram<gpu::Program>());
       program->Bind();
       dp::ApplyState(renderData.m_state, program);
 
       dp::UniformValuesStorage uniforms = commonUniforms;
       math::Matrix<float, 4, 4> const mv = renderData.m_tileKey.GetTileBasedModelView(screen);
-      uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+      uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
       uniforms.SetFloatValue("u_opacity", opacity);
       uniforms.SetFloatValue("u_outline", outline);
       uniforms.SetFloatValue("u_lightArrowColor", lightArrowColor.GetRedF(),

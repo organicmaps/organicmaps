@@ -1,5 +1,7 @@
 #pragma once
 
+#include "shaders/programs.hpp"
+
 #include "drape/glstate.hpp"
 #include "drape/pointers.hpp"
 
@@ -44,5 +46,5 @@ public:
 };
 
 extern RenderState::DepthLayer GetDepthLayer(dp::GLState const & state);
-extern dp::GLState CreateGLState(int gpuProgramIndex, RenderState::DepthLayer depthLayer);
+extern dp::GLState CreateGLState(gpu::Program program, RenderState::DepthLayer depthLayer);
 }  // namespace df

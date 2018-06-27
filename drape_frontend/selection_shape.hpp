@@ -9,16 +9,17 @@
 
 namespace dp
 {
-
-class GpuProgramManager;
 class UniformValuesStorage;
 class TextureManager;
+}  // namespace dp
 
-}
+namespace gpu
+{
+class ProgramManager;
+}  // namespace gpu
 
 namespace df
 {
-
 class SelectionShape
 {
 public:
@@ -30,21 +31,18 @@ public:
     OBJECT_MY_POSITION
   };
 
-  SelectionShape(ref_ptr<dp::TextureManager> mng);
+  explicit SelectionShape(ref_ptr<dp::TextureManager> mng);
 
   void SetPosition(m2::PointD const & position) { m_position = position; }
   void Show(ESelectedObject obj, m2::PointD const & position, double positionZ, bool isAnimate);
   void Hide();
-  void Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp::GpuProgramManager> mng,
+  void Render(ScreenBase const & screen, int zoomLevel, ref_ptr<gpu::ProgramManager> mng,
               dp::UniformValuesStorage const & commonUniforms);
 
   bool IsVisible(ScreenBase const & screen, m2::PointD & pxPos) const;
   double GetRadius() const { return m_radius; }
 
   ESelectedObject GetSelectedObject() const;
-
-private:
-  double GetCurrentRadius() const;
 
 private:
   m2::PointD m_position;
@@ -56,5 +54,4 @@ private:
   drape_ptr<RenderNode> m_renderNode;
   ValueMapping<float> m_mapping;
 };
-
-} // namespace df
+}  // namespace df

@@ -1,6 +1,7 @@
 #include "drape_frontend/render_group.hpp"
-#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/visual_params.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/debug_rect_renderer.hpp"
 #include "drape/vertex_array_buffer.hpp"
@@ -9,6 +10,7 @@
 
 #include "base/stl_add.hpp"
 
+#include <algorithm>
 #include <sstream>
 #include <utility>
 
@@ -101,24 +103,23 @@ void RenderGroup::Render(ScreenBase const & screen)
   // Set tile-based model-view matrix.
   {
     math::Matrix<float, 4, 4> mv = GetTileKey().GetTileBasedModelView(screen);
-    m_uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+    m_uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
   }
 
-  int const programIndex = m_state.GetProgramIndex();
-  int const program3dIndex = m_state.GetProgram3dIndex();
+  auto const program = m_state.GetProgram<gpu::Program>();
+  auto const program3d = m_state.GetProgram3d<gpu::Program>();
 
+  // TODO: hide GLDepthTest under the state.
   if (IsOverlay())
   {
-    if (programIndex == gpu::COLORED_SYMBOL_PROGRAM ||
-        programIndex == gpu::COLORED_SYMBOL_BILLBOARD_PROGRAM)
+    if (program == gpu::Program::ColoredSymbol || program3d == gpu::Program::ColoredSymbolBillboard)
       GLFunctions::glEnable(gl_const::GLDepthTest);
     else
       GLFunctions::glDisable(gl_const::GLDepthTest);
   }
 
   auto const & params = df::VisualParams::Instance().GetGlyphVisualParams();
-  if (programIndex == gpu::TEXT_OUTLINED_PROGRAM ||
-      program3dIndex == gpu::TEXT_OUTLINED_BILLBOARD_PROGRAM)
+  if (program == gpu::Program::TextOutlined || program3d == gpu::Program::TextOutlinedBillboard)
   {
     m_uniforms.SetFloatValue("u_contrastGamma", params.m_outlineContrast, params.m_outlineGamma);
     m_uniforms.SetFloatValue("u_isOutlinePass", 1.0f);
@@ -133,8 +134,7 @@ void RenderGroup::Render(ScreenBase const & screen)
     for(auto & renderBucket : m_renderBuckets)
       renderBucket->Render(m_state.GetDrawAsLine());
   }
-  else if (programIndex == gpu::TEXT_PROGRAM ||
-           program3dIndex == gpu::TEXT_BILLBOARD_PROGRAM)
+  else if (program == gpu::Program::Text || program3d == gpu::Program::TextBillboard)
   {
     m_uniforms.SetFloatValue("u_contrastGamma", params.m_contrast, params.m_gamma);
     dp::ApplyUniforms(m_uniforms, shader);
@@ -187,7 +187,7 @@ bool RenderGroup::UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, r
     if (!visibleBucket)
     {
       m_renderBuckets[i]->RemoveOverlayHandles(tree);
-      swap(m_renderBuckets[i], m_renderBuckets.back());
+      std::swap(m_renderBuckets[i], m_renderBuckets.back());
       m_renderBuckets.pop_back();
     }
     else
@@ -222,10 +222,12 @@ bool RenderGroupComparator::operator()(drape_ptr<RenderGroup> const & l, drape_p
 UserMarkRenderGroup::UserMarkRenderGroup(dp::GLState const & state, TileKey const & tileKey)
   : TBase(state, tileKey)
 {
-  if (state.GetProgramIndex() == gpu::BOOKMARK_ANIM_PROGRAM ||
-      state.GetProgram3dIndex() == gpu::BOOKMARK_ANIM_BILLBOARD_PROGRAM)
+  auto const program = state.GetProgram<gpu::Program>();
+  auto const program3d = state.GetProgram3d<gpu::Program>();
+
+  if (program == gpu::Program::BookmarkAnim || program3d == gpu::Program::BookmarkAnimBillboard)
   {
-    m_animation = make_unique<OpacityAnimation>(0.25 /*duration*/, 0.0 /* minValue */, 1.0 /* maxValue*/);
+    m_animation = make_unique<OpacityAnimation>(0.25 /* duration */, 0.0 /* minValue */, 1.0 /* maxValue */);
     m_mapping.AddRangePoint(0.6f, 1.3f);
     m_mapping.AddRangePoint(0.85f, 0.8f);
     m_mapping.AddRangePoint(1.0f, 1.0f);
@@ -246,7 +248,7 @@ void UserMarkRenderGroup::UpdateAnimation()
 
 bool UserMarkRenderGroup::IsUserPoint() const
 {
-  return m_state.GetProgramIndex() != gpu::LINE_PROGRAM;
+  return m_state.GetProgram<gpu::Program>() != gpu::Program::Line;
 }
 
 std::string DebugPrint(RenderGroup const & group)

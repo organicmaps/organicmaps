@@ -3,9 +3,10 @@
 #include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/render_state.hpp"
 
+#include "shaders/program_manager.hpp"
+
 #include "drape/batcher.hpp"
 #include "drape/glsl_types.hpp"
-#include "drape/gpu_program_manager.hpp"
 #include "drape/overlay_handle.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/vertex_array_buffer.hpp"
@@ -64,7 +65,7 @@ struct ShapeControl
 
   struct ShapeInfo
   {
-    ShapeInfo() : m_state(df::CreateGLState(0, df::RenderState::GuiLayer)) {}
+    ShapeInfo() : m_state(df::CreateGLState(gpu::Program::TexturingGui, df::RenderState::GuiLayer)) {}
     ShapeInfo(dp::GLState const & state, drape_ptr<dp::VertexArrayBuffer> && buffer,
               drape_ptr<Handle> && handle);
 
@@ -87,8 +88,8 @@ public:
 
   ~ShapeRenderer();
 
-  void Build(ref_ptr<dp::GpuProgramManager> mng);
-  void Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng);
+  void Build(ref_ptr<gpu::ProgramManager> mng);
+  void Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng);
   void AddShape(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket);
   void AddShapeControl(ShapeControl && control);
 
@@ -98,7 +99,6 @@ public:
   ref_ptr<Handle> FindHandle(FeatureID const & id);
 
 private:
-  friend void ArrangeShapes(ref_ptr<ShapeRenderer>, ShapeRenderer::TShapeControlEditFn const &);
   void ForEachShapeControl(TShapeControlEditFn const & fn);
 
   using TShapeInfoEditFn = std::function<void(ShapeControl::ShapeInfo &)>;
@@ -107,9 +107,6 @@ private:
 private:
   std::vector<ShapeControl> m_shapes;
 };
-
-void ArrangeShapes(ref_ptr<ShapeRenderer> renderer,
-                   ShapeRenderer::TShapeControlEditFn const & fn);
 
 class Shape
 {

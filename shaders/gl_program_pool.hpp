@@ -20,8 +20,7 @@ public:
 
   drape_ptr<dp::GpuProgram> Get(Program program) override;
 
-  void SetDefines(std::string const & defines) override;
-  void SetMinTextureSlotsCount(uint8_t slotsCount) override;
+  void SetDefines(std::string const & defines);
 
 private:
   ref_ptr<dp::Shader> GetShader(std::string const & name, std::string const & source,
@@ -33,6 +32,5 @@ private:
   using Shaders = std::map<std::string, drape_ptr<dp::Shader>>;
   Shaders m_shaders;
   std::string m_defines;
-  uint8_t m_minTextureSlotsCount = 0;
 };
 }  // namespace gpu

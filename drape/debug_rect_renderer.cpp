@@ -2,7 +2,8 @@
 
 #include "drape/glextensions_list.hpp"
 #include "drape/glfunctions.hpp"
-#include "drape/gpu_program_manager.hpp"
+
+#include <array>
 
 namespace dp
 {
@@ -10,8 +11,8 @@ namespace
 {
 m2::PointF PixelPointToScreenSpace(ScreenBase const & screen, m2::PointF const & pt)
 {
-  float const szX = static_cast<float>(screen.PixelRectIn3d().SizeX());
-  float const szY = static_cast<float>(screen.PixelRectIn3d().SizeY());
+  auto const szX = static_cast<float>(screen.PixelRectIn3d().SizeX());
+  auto const szY = static_cast<float>(screen.PixelRectIn3d().SizeY());
   return m2::PointF(pt.x / szX - 0.5f, -pt.y / szY + 0.5f) * 2.0f;
 }
 }  // namespace
@@ -34,7 +35,7 @@ DebugRectRenderer::~DebugRectRenderer()
   ASSERT_EQUAL(m_vertexBuffer, 0, ());
 }
 
-void DebugRectRenderer::Init(ref_ptr<dp::GpuProgramManager> mng, int programId)
+void DebugRectRenderer::Init(ref_ptr<dp::GpuProgram> program)
 {
   if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
   {
@@ -44,7 +45,7 @@ void DebugRectRenderer::Init(ref_ptr<dp::GpuProgramManager> mng, int programId)
 
   m_vertexBuffer = GLFunctions::glGenBuffer();
   GLFunctions::glBindBuffer(m_vertexBuffer, gl_const::GLArrayBuffer);
-  m_program = mng->GetProgram(programId);
+  m_program = program;
   int8_t attributeLocation = m_program->GetAttributeLocation("a_position");
   ASSERT_NOT_EQUAL(attributeLocation, -1, ());
   GLFunctions::glEnableVertexAttribute(attributeLocation);
@@ -98,7 +99,7 @@ void DebugRectRenderer::DrawRect(ScreenBase const & screen, m2::RectF const & re
   if (m_VAO != 0)
     GLFunctions::glBindVertexArray(m_VAO);
 
-  array<m2::PointF, 5> vertices;
+  std::array<m2::PointF, 5> vertices;
   vertices[0] = PixelPointToScreenSpace(screen, rect.LeftBottom());
   vertices[1] = PixelPointToScreenSpace(screen, rect.LeftTop());
   vertices[2] = PixelPointToScreenSpace(screen, rect.RightTop());
@@ -141,7 +142,7 @@ void DebugRectRenderer::DrawArrow(ScreenBase const & screen,
   if (m_VAO != 0)
     GLFunctions::glBindVertexArray(m_VAO);
 
-  array<m2::PointF, 5> vertices;
+  std::array<m2::PointF, 5> vertices;
   m2::PointF const dir = (data.m_arrowEnd - data.m_arrowStart).Normalize();
   m2::PointF const side = m2::PointF(-dir.y, dir.x);
   vertices[0] = PixelPointToScreenSpace(screen, data.m_arrowStart);

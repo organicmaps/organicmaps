@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4563158720E2630E0076E9DB /* macos in Resources */ = {isa = PBXBuildFile; fileRef = 4563158620E2630D0076E9DB /* macos */; };
+		4561ADF520E378CB0096BC12 /* program_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4561ADF320E378CB0096BC12 /* program_manager.cpp */; };
+		4561ADF920E37A6F0096BC12 /* shaders_compiler in Resources */ = {isa = PBXBuildFile; fileRef = 4561ADF820E37A6F0096BC12 /* shaders_compiler */; };
 		4566608A20E256240085E8C1 /* program_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4566608020E256230085E8C1 /* program_params.cpp */; };
 		4566608B20E256240085E8C1 /* gl_shaders.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4566608220E256230085E8C1 /* gl_shaders.cpp */; };
 		4566608C20E256240085E8C1 /* gl_program_params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4566608420E256230085E8C1 /* gl_program_params.cpp */; };
@@ -42,7 +43,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4563158620E2630D0076E9DB /* macos */ = {isa = PBXFileReference; lastKnownFileType = folder; name = macos; path = ../../data/shaders_compiler/macos; sourceTree = "<group>"; };
+		4561ADF320E378CB0096BC12 /* program_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = program_manager.cpp; sourceTree = "<group>"; };
+		4561ADF420E378CB0096BC12 /* program_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = program_manager.hpp; sourceTree = "<group>"; };
+		4561ADF820E37A6F0096BC12 /* shaders_compiler */ = {isa = PBXFileReference; lastKnownFileType = folder; name = shaders_compiler; path = ../../tools/shaders_compiler; sourceTree = "<group>"; };
 		4566606E20E254060085E8C1 /* libshaders.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libshaders.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4566607B20E254A60085E8C1 /* common-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
 		4566607C20E254A60085E8C1 /* common-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
@@ -206,6 +209,8 @@
 				4566608520E256230085E8C1 /* gl_program_pool.hpp */,
 				4566608220E256230085E8C1 /* gl_shaders.cpp */,
 				4566608820E256230085E8C1 /* gl_shaders.hpp */,
+				4561ADF320E378CB0096BC12 /* program_manager.cpp */,
+				4561ADF420E378CB0096BC12 /* program_manager.hpp */,
 				4566608020E256230085E8C1 /* program_params.cpp */,
 				4566608920E256240085E8C1 /* program_params.hpp */,
 				4566608120E256230085E8C1 /* program_pool.hpp */,
@@ -325,7 +330,7 @@
 		4566610B20E261020085E8C1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4563158620E2630D0076E9DB /* macos */,
+				4561ADF820E37A6F0096BC12 /* shaders_compiler */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -409,7 +414,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4563158720E2630E0076E9DB /* macos in Resources */,
+				4561ADF920E37A6F0096BC12 /* shaders_compiler in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,6 +443,7 @@
 			files = (
 				4566608A20E256240085E8C1 /* program_params.cpp in Sources */,
 				4566608B20E256240085E8C1 /* gl_shaders.cpp in Sources */,
+				4561ADF520E378CB0096BC12 /* program_manager.cpp in Sources */,
 				4566608C20E256240085E8C1 /* gl_program_params.cpp in Sources */,
 				4566608D20E256240085E8C1 /* gl_program_pool.cpp in Sources */,
 			);

@@ -1,11 +1,11 @@
 project(shaders_tests)
 
 execute_process(
-  COMMAND rm -rf ${OMIM_ROOT}/data/shaders_compiler
+  COMMAND rm -rf ${CMAKE_BINARY_DIR}/shaders_compiler
 )
 
 execute_process(
-  COMMAND cp -r ${OMIM_ROOT}/tools/shaders_compiler ${OMIM_ROOT}/data
+  COMMAND cp -r ${OMIM_ROOT}/tools/shaders_compiler ${CMAKE_BINARY_DIR}/shaders_compiler
 )
 
 set(

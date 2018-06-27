@@ -522,7 +522,7 @@ bool MyPositionController::UpdateViewportWithAutoZoom()
 }
 
 void MyPositionController::Render(ScreenBase const & screen, int zoomLevel,
-                                  ref_ptr<dp::GpuProgramManager> mng,
+                                  ref_ptr<gpu::ProgramManager> mng,
                                   dp::UniformValuesStorage const & commonUniforms)
 {
   if (IsWaitingForLocation())

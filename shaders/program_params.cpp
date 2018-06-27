@@ -22,7 +22,7 @@ void ProgramParams::Init()
 }
 
 // static
-void ProgramParams::Uninit()
+void ProgramParams::Destroy()
 {
   m_boundParams.clear();
 }

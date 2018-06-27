@@ -1,6 +1,7 @@
 #include "drape_frontend/gui/choose_position_mark.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
-#include "drape_frontend/shader_def.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/utils/vertex_decl.hpp"
 
@@ -58,7 +59,7 @@ drape_ptr<ShapeRenderer> ChoosePositionMark::Draw(ref_ptr<dp::TextureManager> te
     ChoosePositionMarkVertex(glsl::vec2(halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom()))
   };
 
-  auto state = df::CreateGLState(gpu::TEXTURING_GUI_PROGRAM, df::RenderState::GuiLayer);
+  auto state = df::CreateGLState(gpu::Program::TexturingGui, df::RenderState::GuiLayer);
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider provider(1 /*streamCount*/, 4 /*vertexCount*/);

@@ -1,7 +1,8 @@
 #include "drape_frontend/gui/gui_text.hpp"
 
-#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/visual_params.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "base/string_utils.hpp"
 #include "base/stl_add.hpp"
@@ -104,7 +105,7 @@ dp::BindingInfo const & StaticLabel::Vertex::GetBindingInfo()
 }
 
 StaticLabel::LabelResult::LabelResult()
-  : m_state(df::CreateGLState(gpu::TEXT_OUTLINED_GUI_PROGRAM, df::RenderState::GuiLayer))
+  : m_state(df::CreateGLState(gpu::Program::TextOutlinedGui, df::RenderState::GuiLayer))
 {}
 
 char const * StaticLabel::DefaultDelim = "\n";
@@ -283,7 +284,7 @@ dp::BindingInfo const & MutableLabel::DynamicVertex::GetBindingInfo()
 }
 
 MutableLabel::PrecacheResult::PrecacheResult()
-  : m_state(df::CreateGLState(gpu::TEXT_OUTLINED_GUI_PROGRAM, df::RenderState::GuiLayer))
+  : m_state(df::CreateGLState(gpu::Program::TextOutlinedGui, df::RenderState::GuiLayer))
 {}
 
 MutableLabel::MutableLabel(dp::Anchor anchor)

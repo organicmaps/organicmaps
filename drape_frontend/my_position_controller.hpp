@@ -4,7 +4,8 @@
 #include "drape_frontend/drape_hints.hpp"
 #include "drape_frontend/my_position.hpp"
 
-#include "drape/gpu_program_manager.hpp"
+#include "shaders/program_manager.hpp"
+
 #include "drape/uniform_values_storage.hpp"
 
 #include "platform/location.hpp"
@@ -115,7 +116,7 @@ public:
   void OnLocationUpdate(location::GpsInfo const & info, bool isNavigable, ScreenBase const & screen);
   void OnCompassUpdate(location::CompassInfo const & info, ScreenBase const & screen);
 
-  void Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp::GpuProgramManager> mng,
+  void Render(ScreenBase const & screen, int zoomLevel, ref_ptr<gpu::ProgramManager> mng,
               dp::UniformValuesStorage const & commonUniforms);
 
   bool IsRotationAvailable() const { return m_isDirectionAssigned; }

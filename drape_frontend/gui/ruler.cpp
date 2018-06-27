@@ -4,7 +4,8 @@
 #include "drape_frontend/gui/drape_gui.hpp"
 #include "drape_frontend/gui/gui_text.hpp"
 #include "drape_frontend/gui/ruler_helper.hpp"
-#include "drape_frontend/shader_def.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
@@ -212,7 +213,7 @@ void Ruler::DrawRuler(m2::PointF & size, ShapeControl & control, ref_ptr<dp::Tex
   data.push_back(RulerVertex(glsl::vec2(0.0, h), normals[1], texCoord));
   data.push_back(RulerVertex(glsl::vec2(0.0, -h), normals[1], texCoord));
 
-  auto state = df::CreateGLState(gpu::RULER_PROGRAM, df::RenderState::GuiLayer);
+  auto state = df::CreateGLState(gpu::Program::Ruler, df::RenderState::GuiLayer);
   state.SetColorTexture(reg.GetTexture());
 
   dp::AttributeProvider provider(1, 4);

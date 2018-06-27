@@ -2,11 +2,12 @@
 
 #include "drape_frontend/line_shape_helper.hpp"
 #include "drape_frontend/map_shape.hpp"
-#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/traffic_renderer.hpp"
 #include "drape_frontend/visual_params.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/attribute_provider.hpp"
 #include "drape/glsl_func.hpp"
@@ -16,9 +17,7 @@
 
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
-
-#include <functional>
+#include <algorithm>
 
 using namespace std::placeholders;
 
@@ -27,7 +26,7 @@ namespace df
 namespace
 {
 // Values of the following arrays are based on traffic-arrow texture.
-static array<float, static_cast<size_t>(traffic::SpeedGroup::Count)> kCoordVOffsets =
+static std::array<float, static_cast<size_t>(traffic::SpeedGroup::Count)> kCoordVOffsets =
 {{
   0.75f,  // G0
   0.75f,  // G1
@@ -39,7 +38,7 @@ static array<float, static_cast<size_t>(traffic::SpeedGroup::Count)> kCoordVOffs
   0.0f,   // Unknown
 }};
 
-static array<float, static_cast<size_t>(traffic::SpeedGroup::Count)> kMinCoordU =
+static std::array<float, static_cast<size_t>(traffic::SpeedGroup::Count)> kMinCoordU =
 {{
   0.15f,  // G0
   0.15f,  // G1
@@ -60,7 +59,7 @@ dp::BindingInfo const & GetTrafficStaticBindingInfo()
     filler.FillDecl<TrafficStaticVertex::TPosition>("a_position");
     filler.FillDecl<TrafficStaticVertex::TNormal>("a_normal");
     filler.FillDecl<TrafficStaticVertex::TTexCoord>("a_colorTexCoord");
-    s_info.reset(new dp::BindingInfo(filler.m_info));
+    s_info = std::make_unique<dp::BindingInfo>(filler.m_info);
   }
   return *s_info;
 }
@@ -73,21 +72,21 @@ dp::BindingInfo const & GetTrafficLineStaticBindingInfo()
     dp::BindingFiller<TrafficLineStaticVertex> filler(2);
     filler.FillDecl<TrafficLineStaticVertex::TPosition>("a_position");
     filler.FillDecl<TrafficLineStaticVertex::TTexCoord>("a_colorTexCoord");
-    s_info.reset(new dp::BindingInfo(filler.m_info));
+    s_info = std::make_unique<dp::BindingInfo>(filler.m_info);
   }
   return *s_info;
 }
 
 void SubmitStaticVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, float side,
                         float offsetFromStart, glsl::vec4 const & texCoord,
-                        vector<TrafficStaticVertex> & staticGeom)
+                        std::vector<TrafficStaticVertex> & staticGeom)
 {
   staticGeom.emplace_back(pivot, TrafficStaticVertex::TNormal(normal, side, offsetFromStart), texCoord);
 }
 
-void GenerateCapTriangles(glsl::vec3 const & pivot, vector<glsl::vec2> const & normals,
+void GenerateCapTriangles(glsl::vec3 const & pivot, std::vector<glsl::vec2> const & normals,
                           dp::TextureManager::ColorRegion const & colorRegion,
-                          vector<TrafficStaticVertex> & staticGeometry)
+                          std::vector<TrafficStaticVertex> & staticGeometry)
 {
   float const kEps = 1e-5;
   glsl::vec4 const uv = glsl::vec4(glsl::ToVec2(colorRegion.GetTexRect().Center()), 0.0f, 0.0f);
@@ -102,8 +101,7 @@ void GenerateCapTriangles(glsl::vec3 const & pivot, vector<glsl::vec2> const & n
                        glsl::length(normals[3 * j + 2]) < kEps ? 0.0f : 1.0f, 0.0f, uv, staticGeometry);
   }
 }
-
-} // namespace
+}  // namespace
 
 bool TrafficGenerator::m_simplifiedColorScheme = true;
 
@@ -132,18 +130,18 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
   ASSERT(m_colorsCacheValid, ());
   auto const texture = m_colorsCache[static_cast<size_t>(traffic::SpeedGroup::G0)].GetTexture();
 
-  auto state = CreateGLState(gpu::TRAFFIC_PROGRAM, RenderState::GeometryLayer);
+  auto state = CreateGLState(gpu::Program::Traffic, RenderState::GeometryLayer);
   state.SetColorTexture(texture);
   state.SetMaskTexture(textures->GetTrafficArrowTexture());
 
-  auto lineState = CreateGLState(gpu::TRAFFIC_LINE_PROGRAM, RenderState::GeometryLayer);
+  auto lineState = CreateGLState(gpu::Program::TrafficLine, RenderState::GeometryLayer);
   lineState.SetColorTexture(texture);
   lineState.SetDrawAsLine(true);
 
-  static vector<RoadClass> const kRoadClasses = {RoadClass::Class0, RoadClass::Class1,
-                                                 RoadClass::Class2};
+  static std::vector<RoadClass> const kRoadClasses = {RoadClass::Class0, RoadClass::Class1,
+                                                      RoadClass::Class2};
   static float const kDepths[] = {2.0f, 1.0f, 0.0f};
-  static vector<int> const kGenerateCapsZoomLevel = {14, 14, 16};
+  static std::vector<int> const kGenerateCapsZoomLevel = {14, 14, 16};
 
   for (auto geomIt = geom.begin(); geomIt != geom.end(); ++geomIt)
   {
@@ -179,7 +177,7 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
           int width = 0;
           if (TrafficRenderer::CanBeRenderedAsLine(g.m_roadClass, tileKey.m_zoomLevel, width))
           {
-            vector<TrafficLineStaticVertex> staticGeometry;
+            std::vector<TrafficLineStaticVertex> staticGeometry;
             GenerateLineSegment(colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(), depth,
                                 staticGeometry);
             if (staticGeometry.empty())
@@ -194,7 +192,7 @@ void TrafficGenerator::FlushSegmentsGeometry(TileKey const & tileKey, TrafficSeg
           }
           else
           {
-            vector<TrafficStaticVertex> staticGeometry;
+            std::vector<TrafficStaticVertex> staticGeometry;
             bool const generateCaps =
                 (tileKey.m_zoomLevel > kGenerateCapsZoomLevel[static_cast<uint32_t>(g.m_roadClass)]);
             GenerateSegment(colorRegion, g.m_polyline, tileKey.GetGlobalRect().Center(),
@@ -243,19 +241,19 @@ void TrafficGenerator::FlushGeometry(TrafficBatcherKey const & key, dp::GLState 
                                      drape_ptr<dp::RenderBucket> && buffer)
 {
   TrafficRenderData renderData(state);
-  renderData.m_bucket = move(buffer);
+  renderData.m_bucket = std::move(buffer);
   renderData.m_mwmId = key.m_mwmId;
   renderData.m_tileKey = key.m_tileKey;
   renderData.m_roadClass = key.m_roadClass;
-  m_flushRenderDataFn(move(renderData));
+  m_flushRenderDataFn(std::move(renderData));
 }
 
 void TrafficGenerator::GenerateSegment(dp::TextureManager::ColorRegion const & colorRegion,
                                        m2::PolylineD const & polyline, m2::PointD const & tileCenter,
                                        bool generateCaps, float depth, float vOffset, float minU,
-                                       vector<TrafficStaticVertex> & staticGeometry)
+                                       std::vector<TrafficStaticVertex> & staticGeometry)
 {
-  vector<m2::PointD> const & path = polyline.GetPoints();
+  auto const & path = polyline.GetPoints();
   ASSERT_GREATER(path.size(), 1, ());
 
   size_t const kAverageSize = path.size() * 4;
@@ -308,7 +306,7 @@ void TrafficGenerator::GenerateSegment(dp::TextureManager::ColorRegion const & c
   if (generateCaps && firstFilled)
   {
     int const kSegmentsCount = 4;
-    vector<glsl::vec2> normals;
+    std::vector<glsl::vec2> normals;
     normals.reserve(kAverageCapSize);
     GenerateCapNormals(dp::RoundCap, firstLeftNormal, firstRightNormal, -firstTangent,
                        1.0f, true /* isStart */, normals, kSegmentsCount);
@@ -323,9 +321,9 @@ void TrafficGenerator::GenerateSegment(dp::TextureManager::ColorRegion const & c
 
 void TrafficGenerator::GenerateLineSegment(dp::TextureManager::ColorRegion const & colorRegion,
                                            m2::PolylineD const & polyline, m2::PointD const & tileCenter,
-                                           float depth, vector<TrafficLineStaticVertex> & staticGeometry)
+                                           float depth, std::vector<TrafficLineStaticVertex> & staticGeometry)
 {
-  vector<m2::PointD> const & path = polyline.GetPoints();
+  auto const & path = polyline.GetPoints();
   ASSERT_GREATER(path.size(), 1, ());
 
   size_t const kAverageSize = path.size();
@@ -358,8 +356,8 @@ traffic::SpeedGroup TrafficGenerator::CheckColorsSimplification(traffic::SpeedGr
 // static
 df::ColorConstant TrafficGenerator::GetColorBySpeedGroup(traffic::SpeedGroup speedGroup, bool route)
 {
-  size_t constexpr kSpeedGroupsCount = static_cast<size_t>(traffic::SpeedGroup::Count);
-  static array<df::ColorConstant, kSpeedGroupsCount> const kColorMap
+  auto constexpr kSpeedGroupsCount = static_cast<size_t>(traffic::SpeedGroup::Count);
+  static std::array<df::ColorConstant, kSpeedGroupsCount> const kColorMap
   {{
     "TrafficG0",
     "TrafficG1",
@@ -371,7 +369,7 @@ df::ColorConstant TrafficGenerator::GetColorBySpeedGroup(traffic::SpeedGroup spe
     "TrafficUnknown",
   }};
 
-  static array<df::ColorConstant, kSpeedGroupsCount> const kColorMapRoute
+  static std::array<df::ColorConstant, kSpeedGroupsCount> const kColorMapRoute
   {{
     "RouteTrafficG0",
     "RouteTrafficG1",
@@ -383,14 +381,14 @@ df::ColorConstant TrafficGenerator::GetColorBySpeedGroup(traffic::SpeedGroup spe
     "TrafficUnknown",
   }};
 
-  size_t const index = static_cast<size_t>(CheckColorsSimplification(speedGroup));
+  auto const index = static_cast<size_t>(CheckColorsSimplification(speedGroup));
   ASSERT_LESS(index, kSpeedGroupsCount, ());
   return route ? kColorMapRoute[index] : kColorMap[index];
 }
 
 void TrafficGenerator::FillColorsCache(ref_ptr<dp::TextureManager> textures)
 {
-  size_t constexpr kSpeedGroupsCount = static_cast<size_t>(traffic::SpeedGroup::Count);
+  auto constexpr kSpeedGroupsCount = static_cast<size_t>(traffic::SpeedGroup::Count);
   if (!m_colorsCacheValid)
   {
     for (size_t i = 0; i < kSpeedGroupsCount; i++)
@@ -403,5 +401,4 @@ void TrafficGenerator::FillColorsCache(ref_ptr<dp::TextureManager> textures)
     m_colorsCacheValid = true;
   }
 }
-
-} // namespace df
+}  // namespace df

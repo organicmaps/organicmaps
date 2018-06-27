@@ -10,9 +10,10 @@
 #include "drape_frontend/scenario_manager.hpp"
 #include "drape_frontend/screen_operations.hpp"
 #include "drape_frontend/screen_quad_renderer.hpp"
-#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/visual_params.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/debug_rect_renderer.hpp"
 #include "drape/framebuffer.hpp"
@@ -119,7 +120,6 @@ struct RemoveTilePredicate
 
 FrontendRenderer::FrontendRenderer(Params && params)
   : BaseRenderer(ThreadsCommutator::RenderThread, params)
-  , m_gpuProgramManager(new dp::GpuProgramManager())
   , m_trafficRenderer(new TrafficRenderer())
   , m_transitSchemeRenderer(new TransitSchemeRenderer())
   , m_drapeApiRenderer(new DrapeApiRenderer())
@@ -1054,8 +1054,8 @@ void FrontendRenderer::AddToRenderGroup(dp::GLState const & state,
   }
 
   drape_ptr<TRenderGroup> group = make_unique_dp<TRenderGroup>(state, newTile);
-  ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
-  ref_ptr<dp::GpuProgram> program3d = m_gpuProgramManager->GetProgram(state.GetProgram3dIndex());
+  auto program = m_gpuProgramManager->GetProgram(state.GetProgram<gpu::Program>());
+  auto program3d = m_gpuProgramManager->GetProgram(state.GetProgram3d<gpu::Program>());
   group->SetRenderParams(program, program3d, make_ref(&m_generalUniforms));
   group->AddBucket(std::move(renderBucket));
 
@@ -1420,7 +1420,7 @@ void FrontendRenderer::RenderTransitBackground()
   m_texMng->GetColorRegion(df::GetColorConstant(kTransitBackgroundColor), region);
   if (!m_transitBackground->IsInitialized())
   {
-    auto prg = m_gpuProgramManager->GetProgram(gpu::SCREEN_QUAD_PROGRAM);
+    auto prg = m_gpuProgramManager->GetProgram(gpu::Program::ScreenQuad);
     m_transitBackground->SetTextureRect(region.GetTexRect(), prg);
   }
   m_transitBackground->RenderTexture(make_ref(m_gpuProgramManager),
@@ -1497,8 +1497,8 @@ void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
 
 void FrontendRenderer::PrepareBucket(dp::GLState const & state, drape_ptr<dp::RenderBucket> & bucket)
 {
-  ref_ptr<dp::GpuProgram> program = m_gpuProgramManager->GetProgram(state.GetProgramIndex());
-  ref_ptr<dp::GpuProgram> program3d = m_gpuProgramManager->GetProgram(state.GetProgram3dIndex());
+  auto program = m_gpuProgramManager->GetProgram(state.GetProgram<gpu::Program>());
+  auto program3d = m_gpuProgramManager->GetProgram(state.GetProgram3d<gpu::Program>());
   bool const isPerspective = m_userEventStream.GetCurrentScreen().isPerspective();
   if (isPerspective)
     program3d->Bind();
@@ -1575,12 +1575,12 @@ void FrontendRenderer::RefreshProjection(ScreenBase const & screen)
 {
   std::array<float, 16> m;
   dp::MakeProjection(m, 0.0f, screen.GetWidth(), screen.GetHeight(), 0.0f);
-  m_generalUniforms.SetMatrix4x4Value("projection", m.data());
+  m_generalUniforms.SetMatrix4x4Value("u_projection", m.data());
 }
 
 void FrontendRenderer::RefreshZScale(ScreenBase const & screen)
 {
-  m_generalUniforms.SetFloatValue("zScale", static_cast<float>(screen.GetZScale()));
+  m_generalUniforms.SetFloatValue("u_zScale", static_cast<float>(screen.GetZScale()));
 }
 
 void FrontendRenderer::RefreshPivotTransform(ScreenBase const & screen)
@@ -1588,19 +1588,19 @@ void FrontendRenderer::RefreshPivotTransform(ScreenBase const & screen)
   if (screen.isPerspective())
   {
     math::Matrix<float, 4, 4> transform(screen.Pto3dMatrix());
-    m_generalUniforms.SetMatrix4x4Value("pivotTransform", transform.m_data);
+    m_generalUniforms.SetMatrix4x4Value("u_pivotTransform", transform.m_data);
   }
   else if (m_isIsometry)
   {
     math::Matrix<float, 4, 4> transform(math::Identity<float, 4>());
     transform(2, 1) = -1.0f / static_cast<float>(tan(kIsometryAngle));
     transform(2, 2) = 1.0f / screen.GetHeight();
-    m_generalUniforms.SetMatrix4x4Value("pivotTransform", transform.m_data);
+    m_generalUniforms.SetMatrix4x4Value("u_pivotTransform", transform.m_data);
   }
   else
   {
     math::Matrix<float, 4, 4> transform(math::Identity<float, 4>());
-    m_generalUniforms.SetMatrix4x4Value("pivotTransform", transform.m_data);
+    m_generalUniforms.SetMatrix4x4Value("u_pivotTransform", transform.m_data);
   }
 }
 
@@ -1951,13 +1951,13 @@ void FrontendRenderer::OnContextCreate()
 
   dp::SupportManager::Instance().Init();
 
-  m_gpuProgramManager = make_unique_dp<dp::GpuProgramManager>();
-  m_gpuProgramManager->Init(make_unique_dp<gpu::ShaderMapper>(m_apiVersion));
+  m_gpuProgramManager = make_unique_dp<gpu::ProgramManager>();
+  m_gpuProgramManager->Init(m_apiVersion);
 
   dp::BlendingParams blendingParams;
   blendingParams.Apply();
 
-  dp::DebugRectRenderer::Instance().Init(make_ref(m_gpuProgramManager), gpu::DEBUG_RECT_PROGRAM);
+  dp::DebugRectRenderer::Instance().Init(m_gpuProgramManager->GetProgram(gpu::Program::DebugRect));
 #ifdef RENDER_DEBUG_DISPLACEMENT
   dp::DebugRectRenderer::Instance().SetEnabled(true);
 #endif

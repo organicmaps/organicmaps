@@ -2,32 +2,29 @@
 
 #include "drape_frontend/drape_api_builder.hpp"
 
-#include "drape/gpu_program_manager.hpp"
+#include "shaders/program_manager.hpp"
 
 #include "geometry/screenbase.hpp"
 
-#include "std/vector.hpp"
-#include "std/string.hpp"
+#include <string>
+#include <vector>
 
 namespace df
 {
-
 class DrapeApiRenderer
 {
 public:
   DrapeApiRenderer() = default;
 
-  void AddRenderProperties(ref_ptr<dp::GpuProgramManager> mng,
-                           vector<drape_ptr<DrapeApiRenderProperty>> && properties);
-
+  void AddRenderProperties(ref_ptr<gpu::ProgramManager> mng,
+                           std::vector<drape_ptr<DrapeApiRenderProperty>> && properties);
   void RemoveRenderProperty(string const & id);
   void Clear();
 
-  void Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+  void Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
               dp::UniformValuesStorage const & commonUniforms);
 
 private:
-  vector<drape_ptr<DrapeApiRenderProperty>> m_properties;
+  std::vector<drape_ptr<DrapeApiRenderProperty>> m_properties;
 };
-
-} // namespace df
+}  // namespace df

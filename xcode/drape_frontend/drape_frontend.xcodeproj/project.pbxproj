@@ -59,8 +59,6 @@
 		45B4B8CC1CF5C16B00A54761 /* screen_animations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45B4B8C81CF5C16B00A54761 /* screen_animations.hpp */; };
 		45B4B8CD1CF5C16B00A54761 /* screen_operations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B4B8C91CF5C16B00A54761 /* screen_operations.cpp */; };
 		45B4B8CE1CF5C16B00A54761 /* screen_operations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45B4B8CA1CF5C16B00A54761 /* screen_operations.hpp */; };
-		45BB025D1EB8BE5200FE5C0C /* shader_def.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45BB025B1EB8BE5200FE5C0C /* shader_def.cpp */; };
-		45BB025E1EB8BE5200FE5C0C /* shader_def.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45BB025C1EB8BE5200FE5C0C /* shader_def.hpp */; };
 		56BF56DA1C7608C0006DD7CB /* choose_position_mark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56BF56D81C7608C0006DD7CB /* choose_position_mark.cpp */; };
 		56BF56DB1C7608C0006DD7CB /* choose_position_mark.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56BF56D91C7608C0006DD7CB /* choose_position_mark.hpp */; };
 		56D545661C74A44900E3719C /* overlay_batcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D545641C74A44900E3719C /* overlay_batcher.cpp */; };
@@ -330,8 +328,6 @@
 		45BB02581EB8BE2B00FE5C0C /* traffic.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = traffic.vsh.glsl; path = shaders/traffic.vsh.glsl; sourceTree = "<group>"; };
 		45BB02591EB8BE2B00FE5C0C /* user_mark_billboard.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = user_mark_billboard.vsh.glsl; path = shaders/user_mark_billboard.vsh.glsl; sourceTree = "<group>"; };
 		45BB025A1EB8BE2B00FE5C0C /* user_mark.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = user_mark.vsh.glsl; path = shaders/user_mark.vsh.glsl; sourceTree = "<group>"; };
-		45BB025B1EB8BE5200FE5C0C /* shader_def.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shader_def.cpp; sourceTree = "<group>"; };
-		45BB025C1EB8BE5200FE5C0C /* shader_def.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = shader_def.hpp; sourceTree = "<group>"; };
 		56BF56D81C7608C0006DD7CB /* choose_position_mark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = choose_position_mark.cpp; sourceTree = "<group>"; };
 		56BF56D91C7608C0006DD7CB /* choose_position_mark.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = choose_position_mark.hpp; sourceTree = "<group>"; };
 		56D545641C74A44900E3719C /* overlay_batcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = overlay_batcher.cpp; sourceTree = "<group>"; };
@@ -603,8 +599,6 @@
 				BB7D67CF1F34A62C002FD122 /* custom_features_context.hpp */,
 				456B3F971ED464FE009B3D1F /* postprocess_renderer.cpp */,
 				456B3F981ED464FE009B3D1F /* postprocess_renderer.hpp */,
-				45BB025B1EB8BE5200FE5C0C /* shader_def.cpp */,
-				45BB025C1EB8BE5200FE5C0C /* shader_def.hpp */,
 				45BB02221EB8BE1400FE5C0C /* shaders */,
 				672D24981E892768004BB7B1 /* overlays_tracker.cpp */,
 				672D24991E892768004BB7B1 /* overlays_tracker.hpp */,
@@ -878,7 +872,6 @@
 				452FE5C41EB2004F00EE470C /* screen_quad_renderer.hpp in Headers */,
 				452C9EDB1CEDCF3200A55E57 /* interpolators.hpp in Headers */,
 				670948171BDF9C39005014C0 /* interpolation_holder.hpp in Headers */,
-				45BB025E1EB8BE5200FE5C0C /* shader_def.hpp in Headers */,
 				670947FD1BDF9BF5005014C0 /* base_renderer.hpp in Headers */,
 				BB59CED820BF6E46008A9ADF /* transit_scheme_builder.hpp in Headers */,
 				670947D51BDF9BE1005014C0 /* tile_utils.hpp in Headers */,
@@ -932,7 +925,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6709473E1BDF9B82005014C0 /* Build configuration list for PBXNativeTarget "drape_frontend" */;
 			buildPhases = (
-				3451C6681EF3E86A00C718BB /* ShellScript */,
 				670947361BDF9B82005014C0 /* Sources */,
 				670947371BDF9B82005014C0 /* Frameworks */,
 				670947381BDF9B82005014C0 /* Headers */,
@@ -976,22 +968,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		3451C6681EF3E86A00C718BB /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "python ${SRCROOT}/../../tools/autobuild/shader_preprocessor.py ${SRCROOT}/../../drape_frontend/shaders shader_index.txt shaders_lib.glsl ${SRCROOT}/../../drape_frontend shader_def";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		670947361BDF9B82005014C0 /* Sources */ = {
@@ -1047,7 +1023,6 @@
 				670947A91BDF9BE1005014C0 /* path_symbol_shape.cpp in Sources */,
 				670947FA1BDF9BF5005014C0 /* backend_renderer.cpp in Sources */,
 				45A3781E20B324E6005FBDBB /* watermark.cpp in Sources */,
-				45BB025D1EB8BE5200FE5C0C /* shader_def.cpp in Sources */,
 				670948451BDF9C48005014C0 /* gui_text.cpp in Sources */,
 				EB2B78031EEDD439002697B6 /* read_metaline_task.cpp in Sources */,
 				670948141BDF9C39005014C0 /* base_interpolator.cpp in Sources */,

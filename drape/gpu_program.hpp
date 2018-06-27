@@ -14,8 +14,7 @@ class GpuProgram
 {
 public:
   GpuProgram(std::string const & programName,
-             ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader,
-             uint8_t textureSlotsCount);
+             ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader);
   ~GpuProgram();
 
   std::string const & GetName() const { return m_programName; }
@@ -49,7 +48,7 @@ private:
   ref_ptr<Shader> m_fragmentShader;
 
   UniformsInfo m_uniforms;
-  uint8_t const m_textureSlotsCount;
+  uint8_t m_textureSlotsCount = 0;
   uint32_t m_numericUniformsCount = 0;
 };
 }  // namespace dp

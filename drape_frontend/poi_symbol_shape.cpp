@@ -1,6 +1,7 @@
 #include "drape_frontend/poi_symbol_shape.hpp"
 #include "drape_frontend/color_constants.hpp"
-#include "drape_frontend/shader_def.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
@@ -66,8 +67,8 @@ void Batch<SV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && han
         glsl::vec2(texRect.maxX(), texRect.minY()) },
   };
 
-  auto state = df::CreateGLState(gpu::TEXTURING_PROGRAM, params.m_depthLayer);
-  state.SetProgram3dIndex(gpu::TEXTURING_BILLBOARD_PROGRAM);
+  auto state = df::CreateGLState(gpu::Program::Texturing, params.m_depthLayer);
+  state.SetProgram3d(gpu::Program::TexturingBillboard);
   state.SetColorTexture(symbolRegion.GetTexture());
   state.SetTextureFilter(gl_const::GLNearest);
 
@@ -99,8 +100,8 @@ void Batch<MV>(ref_ptr<dp::Batcher> batcher, drape_ptr<dp::OverlayHandle> && han
         glsl::vec2(texRect.maxX(), texRect.minY()), maskColorCoords },
   };
 
-  auto state = df::CreateGLState(gpu::MASKED_TEXTURING_PROGRAM, params.m_depthLayer);
-  state.SetProgram3dIndex(gpu::MASKED_TEXTURING_BILLBOARD_PROGRAM);
+  auto state = df::CreateGLState(gpu::Program::MaskedTexturing, params.m_depthLayer);
+  state.SetProgram3d(gpu::Program::MaskedTexturingBillboard);
   state.SetColorTexture(symbolRegion.GetTexture());
   state.SetMaskTexture(colorRegion.GetTexture()); // Here mask is a color.
   state.SetTextureFilter(gl_const::GLNearest);

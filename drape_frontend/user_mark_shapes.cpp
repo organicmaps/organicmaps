@@ -4,11 +4,12 @@
 #include "drape_frontend/line_shape.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/poi_symbol_shape.hpp"
-#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/text_shape.hpp"
 #include "drape_frontend/tile_utils.hpp"
 #include "drape_frontend/visual_params.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/utils/vertex_decl.hpp"
 #include "drape/attribute_provider.hpp"
@@ -403,10 +404,10 @@ void CacheUserMarks(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
 
   if (!buffer.empty())
   {
-    auto state = CreateGLState(isAnimated ? gpu::BOOKMARK_ANIM_PROGRAM
-                                          : gpu::BOOKMARK_PROGRAM, depthLayer);
-    state.SetProgram3dIndex(isAnimated ? gpu::BOOKMARK_ANIM_BILLBOARD_PROGRAM
-                                       : gpu::BOOKMARK_BILLBOARD_PROGRAM);
+    auto state = CreateGLState(isAnimated ? gpu::Program::BookmarkAnim
+                                          : gpu::Program::Bookmark, depthLayer);
+    state.SetProgram3d(isAnimated ? gpu::Program::BookmarkAnimBillboard
+                                  : gpu::Program::BookmarkBillboard);
     state.SetColorTexture(region.GetTexture());
     state.SetTextureFilter(gl_const::GLNearest);
 

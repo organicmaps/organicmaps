@@ -1,37 +1,39 @@
-#include "render_node.hpp"
+#include "drape_frontend/render_node.hpp"
+
+#include "shaders/program_manager.hpp"
 
 #include "drape/vertex_array_buffer.hpp"
-#include "drape/gpu_program_manager.hpp"
+
+#include <utility>
 
 namespace df
 {
 RenderNode::RenderNode(dp::GLState const & state, drape_ptr<dp::VertexArrayBuffer> && buffer)
   : m_state(state)
-  , m_buffer(move(buffer))
-  , m_isBuilded(false)
+  , m_buffer(std::move(buffer))
 {}
 
-void RenderNode::Render(ref_ptr<dp::GpuProgramManager> mng, dp::UniformValuesStorage const & uniforms,
+void RenderNode::Render(ref_ptr<gpu::ProgramManager> mng, dp::UniformValuesStorage const & uniforms,
                         dp::IndicesRange const & range)
 {
   Apply(mng, uniforms);
   m_buffer->RenderRange(m_state.GetDrawAsLine(), range);
 }
 
-void RenderNode::Render(ref_ptr<dp::GpuProgramManager> mng, dp::UniformValuesStorage const & uniforms)
+void RenderNode::Render(ref_ptr<gpu::ProgramManager> mng, dp::UniformValuesStorage const & uniforms)
 {
   Apply(mng, uniforms);
   m_buffer->Render(m_state.GetDrawAsLine());
 }
 
-void RenderNode::Apply(ref_ptr<dp::GpuProgramManager> mng, dp::UniformValuesStorage const & uniforms)
+void RenderNode::Apply(ref_ptr<gpu::ProgramManager> mng, dp::UniformValuesStorage const & uniforms)
 {
-  ref_ptr<dp::GpuProgram> prg = mng->GetProgram(m_state.GetProgramIndex());
+  auto prg = mng->GetProgram(m_state.GetProgram<gpu::Program>());
   prg->Bind();
-  if (!m_isBuilded)
+  if (!m_isBuilt)
   {
     m_buffer->Build(prg);
-    m_isBuilded = true;
+    m_isBuilt = true;
   }
 
   dp::ApplyState(m_state, prg);

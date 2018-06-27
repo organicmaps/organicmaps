@@ -3,7 +3,8 @@
 #include "drape_frontend/traffic_generator.hpp"
 #include "drape_frontend/tile_utils.hpp"
 
-#include "drape/gpu_program_manager.hpp"
+#include "shaders/program_manager.hpp"
+
 #include "drape/pointers.hpp"
 #include "drape/uniform_values_storage.hpp"
 
@@ -19,11 +20,11 @@ class TrafficRenderer final
 public:
   TrafficRenderer() = default;
 
-  void AddRenderData(ref_ptr<dp::GpuProgramManager> mng,
+  void AddRenderData(ref_ptr<gpu::ProgramManager> mng,
                      TrafficRenderData && renderData);
 
   void RenderTraffic(ScreenBase const & screen, int zoomLevel, float opacity,
-                     ref_ptr<dp::GpuProgramManager> mng,
+                     ref_ptr<gpu::ProgramManager> mng,
                      dp::UniformValuesStorage const & commonUniforms);
 
   bool HasRenderData() const { return !m_renderData.empty(); }

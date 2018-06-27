@@ -1,9 +1,10 @@
 #include "drape_frontend/transit_scheme_renderer.hpp"
 
 #include "drape_frontend/postprocess_renderer.hpp"
-#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/overlay_tree.hpp"
 #include "drape/vertex_array_buffer.hpp"
@@ -76,31 +77,31 @@ void TransitSchemeRenderer::ClearRenderData(TRemovePredicate const & predicate, 
                    renderData.end());
 }
 
-void TransitSchemeRenderer::AddRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
+void TransitSchemeRenderer::AddRenderData(ref_ptr<gpu::ProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
                                           TransitRenderData && renderData)
 {
   PrepareRenderData(mng, tree, m_renderData, std::move(renderData));
 }
 
-void TransitSchemeRenderer::AddMarkersRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
+void TransitSchemeRenderer::AddMarkersRenderData(ref_ptr<gpu::ProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
                                                  TransitRenderData && renderData)
 {
   PrepareRenderData(mng, tree, m_markersRenderData, std::move(renderData));
 }
 
-void TransitSchemeRenderer::AddTextRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
+void TransitSchemeRenderer::AddTextRenderData(ref_ptr<gpu::ProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
                                               TransitRenderData && renderData)
 {
   PrepareRenderData(mng, tree, m_textRenderData, std::move(renderData));
 }
 
-void TransitSchemeRenderer::AddStubsRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
+void TransitSchemeRenderer::AddStubsRenderData(ref_ptr<gpu::ProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
                                                TransitRenderData && renderData)
 {
   PrepareRenderData(mng, tree, m_colorSymbolRenderData, std::move(renderData));
 }
 
-void TransitSchemeRenderer::PrepareRenderData(ref_ptr<dp::GpuProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
+void TransitSchemeRenderer::PrepareRenderData(ref_ptr<gpu::ProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
                                               std::vector<TransitRenderData> & currentRenderData,
                                               TransitRenderData && newRenderData)
 {
@@ -114,7 +115,7 @@ void TransitSchemeRenderer::PrepareRenderData(ref_ptr<dp::GpuProgramManager> mng
   m_lastRecacheId = max(m_lastRecacheId, newRenderData.m_recacheId);
 
   // Add new render data.
-  ref_ptr<dp::GpuProgram> program = mng->GetProgram(newRenderData.m_state.GetProgramIndex());
+  auto program = mng->GetProgram(newRenderData.m_state.GetProgram<gpu::Program>());
   program->Bind();
   newRenderData.m_bucket->GetBuffer()->Build(program);
 
@@ -122,7 +123,7 @@ void TransitSchemeRenderer::PrepareRenderData(ref_ptr<dp::GpuProgramManager> mng
 }
 
 void TransitSchemeRenderer::RenderTransit(ScreenBase const & screen, int zoomLevel,
-                                          ref_ptr<dp::GpuProgramManager> mng,
+                                          ref_ptr<gpu::ProgramManager> mng,
                                           ref_ptr<PostprocessRenderer> postprocessRenderer,
                                           dp::UniformValuesStorage const & commonUniforms)
 {
@@ -164,19 +165,19 @@ void TransitSchemeRenderer::RemoveOverlays(ref_ptr<dp::OverlayTree> tree, std::v
     data.m_bucket->RemoveOverlayHandles(tree);
 }
 
-void TransitSchemeRenderer::RenderLines(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+void TransitSchemeRenderer::RenderLines(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                                         dp::UniformValuesStorage const & commonUniforms, float pixelHalfWidth)
 {
   GLFunctions::glDisable(gl_const::GLDepthTest);
   for (auto & renderData : m_renderData)
   {
-    ref_ptr<dp::GpuProgram> program = mng->GetProgram(renderData.m_state.GetProgramIndex());
+    ref_ptr<dp::GpuProgram> program = mng->GetProgram(renderData.m_state.GetProgram<gpu::Program>());
     program->Bind();
     dp::ApplyState(renderData.m_state, program);
 
     dp::UniformValuesStorage uniforms = commonUniforms;
     math::Matrix<float, 4, 4> mv = screen.GetModelView(renderData.m_pivot, kShapeCoordScalar);
-    uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+    uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
 
     uniforms.SetFloatValue("u_lineHalfWidth", pixelHalfWidth);
     dp::ApplyUniforms(uniforms, program);
@@ -185,19 +186,19 @@ void TransitSchemeRenderer::RenderLines(ScreenBase const & screen, ref_ptr<dp::G
   }
 }
 
-void TransitSchemeRenderer::RenderMarkers(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+void TransitSchemeRenderer::RenderMarkers(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                                           dp::UniformValuesStorage const & commonUniforms, float pixelHalfWidth)
 {
   GLFunctions::glEnable(gl_const::GLDepthTest);
   for (auto & renderData : m_markersRenderData)
   {
-    ref_ptr<dp::GpuProgram> program = mng->GetProgram(renderData.m_state.GetProgramIndex());
+    auto program = mng->GetProgram(renderData.m_state.GetProgram<gpu::Program>());
     program->Bind();
     dp::ApplyState(renderData.m_state, program);
 
     dp::UniformValuesStorage uniforms = commonUniforms;
     math::Matrix<float, 4, 4> mv = screen.GetModelView(renderData.m_pivot, kShapeCoordScalar);
-    uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+    uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
     uniforms.SetFloatValue("u_params",
                            static_cast<float>(cos(screen.GetAngle())),
                            static_cast<float>(sin(screen.GetAngle())),
@@ -208,19 +209,19 @@ void TransitSchemeRenderer::RenderMarkers(ScreenBase const & screen, ref_ptr<dp:
   }
 }
 
-void TransitSchemeRenderer::RenderText(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+void TransitSchemeRenderer::RenderText(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                                        dp::UniformValuesStorage const & commonUniforms)
 {
   auto const & params = df::VisualParams::Instance().GetGlyphVisualParams();
   for (auto & renderData : m_textRenderData)
   {
-    ref_ptr<dp::GpuProgram> program = mng->GetProgram(renderData.m_state.GetProgramIndex());
+    ref_ptr<dp::GpuProgram> program = mng->GetProgram(renderData.m_state.GetProgram<gpu::Program>());
     program->Bind();
     dp::ApplyState(renderData.m_state, program);
 
     dp::UniformValuesStorage uniforms = commonUniforms;
     math::Matrix<float, 4, 4> mv = screen.GetModelView(renderData.m_pivot, kShapeCoordScalar);
-    uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+    uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
     uniforms.SetFloatValue("u_opacity", 1.0);
 
     uniforms.SetFloatValue("u_contrastGamma", params.m_outlineContrast, params.m_outlineGamma);
@@ -239,18 +240,18 @@ void TransitSchemeRenderer::RenderText(ScreenBase const & screen, ref_ptr<dp::Gp
   }
 }
 
-void TransitSchemeRenderer::RenderStubs(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
+void TransitSchemeRenderer::RenderStubs(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                                         dp::UniformValuesStorage const & commonUniforms)
 {
   for (auto & renderData : m_colorSymbolRenderData)
   {
-    ref_ptr<dp::GpuProgram> program = mng->GetProgram(renderData.m_state.GetProgramIndex());
+    auto program = mng->GetProgram(renderData.m_state.GetProgram<gpu::Program>());
     program->Bind();
     dp::ApplyState(renderData.m_state, program);
 
     dp::UniformValuesStorage uniforms = commonUniforms;
     math::Matrix<float, 4, 4> mv = screen.GetModelView(renderData.m_pivot, kShapeCoordScalar);
-    uniforms.SetMatrix4x4Value("modelView", mv.m_data);
+    uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
     uniforms.SetFloatValue("u_opacity", 1.0);
     dp::ApplyUniforms(uniforms, program);
 

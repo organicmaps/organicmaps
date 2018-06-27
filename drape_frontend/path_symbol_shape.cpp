@@ -1,7 +1,8 @@
 #include "drape_frontend/path_symbol_shape.hpp"
 #include "drape_frontend/render_state.hpp"
-#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/visual_params.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/utils/vertex_decl.hpp"
 #include "drape/glsl_types.hpp"
@@ -13,13 +14,11 @@
 
 namespace df
 {
-
 PathSymbolShape::PathSymbolShape(m2::SharedSpline const & spline,
                                  PathSymbolViewParams const & params)
   : m_params(params)
   , m_spline(spline)
-{
-}
+{}
 
 void PathSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
@@ -36,7 +35,7 @@ void PathSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureMana
   m2::Spline::iterator splineIter = m_spline.CreateIterator();
   double pToGScale = 1.0 / m_params.m_baseGtoPScale;
   splineIter.Advance(m_params.m_offset * pToGScale);
-  float step = m_params.m_step * pToGScale;
+  auto const step = static_cast<float>(m_params.m_step * pToGScale);
   glsl::vec2 dummy(0.0, 0.0);
   while (!splineIter.BeginAgain())
   {
@@ -54,12 +53,11 @@ void PathSymbolShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureMana
   if (buffer.empty())
     return;
 
-  auto state = CreateGLState(gpu::PATH_SYMBOL_LINE, RenderState::GeometryLayer);
+  auto state = CreateGLState(gpu::Program::PathSymbol, RenderState::GeometryLayer);
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider provider(1, static_cast<uint32_t>(buffer.size()));
   provider.InitStream(0, gpu::SolidTexturingVertex::GetBindingInfo(), make_ref(buffer.data()));
   batcher->InsertListOfStrip(state, make_ref(&provider), 4);
 }
-
-}
+}  // namespace df

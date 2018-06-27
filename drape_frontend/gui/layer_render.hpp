@@ -3,7 +3,8 @@
 #include "drape_frontend/gui/skin.hpp"
 #include "drape_frontend/gui/shape.hpp"
 
-#include "drape/gpu_program_manager.hpp"
+#include "shaders/program_manager.hpp"
+
 #include "drape/texture_manager.hpp"
 
 #include "geometry/screenbase.hpp"
@@ -20,8 +21,8 @@ public:
   LayerRenderer() = default;
   ~LayerRenderer();
 
-  void Build(ref_ptr<dp::GpuProgramManager> mng);
-  void Render(ref_ptr<dp::GpuProgramManager> mng, bool routingActive,
+  void Build(ref_ptr<gpu::ProgramManager> mng);
+  void Render(ref_ptr<gpu::ProgramManager> mng, bool routingActive,
               ScreenBase const & screen);
   void Merge(ref_ptr<LayerRenderer> other);
   void SetLayout(gui::TWidgetsLayoutInfo const & info);

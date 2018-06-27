@@ -1,6 +1,6 @@
 #pragma once
 
-#include "drape/gpu_program_manager.hpp"
+#include "drape/gpu_program.hpp"
 #include "drape/overlay_tree.hpp"
 #include "drape/pointers.hpp"
 
@@ -13,12 +13,11 @@
 
 namespace dp
 {
-
 class DebugRectRenderer
 {
 public:
   static DebugRectRenderer & Instance();
-  void Init(ref_ptr<dp::GpuProgramManager> mng, int programId);
+  void Init(ref_ptr<dp::GpuProgram> program);
   void Destroy();
 
   bool IsEnabled() const;
@@ -36,6 +35,5 @@ private:
   ref_ptr<dp::GpuProgram> m_program;
   bool m_isEnabled;
 };
-
-} // namespace dp
+}  // namespace dp
 

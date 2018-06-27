@@ -17,7 +17,6 @@ namespace dp { class OverlayTree; }
 
 namespace df
 {
-
 class BaseRenderGroup
 {
 public:

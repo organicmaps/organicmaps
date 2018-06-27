@@ -1,9 +1,10 @@
 #include "drape_frontend/text_shape.hpp"
 #include "drape_frontend/render_state.hpp"
-#include "drape_frontend/shader_def.hpp"
 #include "drape_frontend/text_handle.hpp"
 #include "drape_frontend/text_layout.hpp"
 #include "drape_frontend/visual_params.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/utils/vertex_decl.hpp"
 #include "drape/attribute_provider.hpp"
@@ -313,8 +314,8 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
   layout.CacheStaticGeometry(color, staticBuffer);
 
   bool const isNonSdfText = layout.GetFixedHeight() > 0;
-  auto state = CreateGLState(isNonSdfText ? gpu::TEXT_FIXED_PROGRAM : gpu::TEXT_PROGRAM, m_params.m_depthLayer);
-  state.SetProgram3dIndex(isNonSdfText ? gpu::TEXT_FIXED_BILLBOARD_PROGRAM : gpu::TEXT_BILLBOARD_PROGRAM);
+  auto state = CreateGLState(isNonSdfText ? gpu::Program::TextFixed : gpu::Program::Text, m_params.m_depthLayer);
+  state.SetProgram3d(isNonSdfText ? gpu::Program::TextFixedBillboard : gpu::Program::TextBillboard);
 
   ASSERT(color.GetTexture() == outline.GetTexture(), ());
   state.SetColorTexture(color.GetTexture());
@@ -377,8 +378,8 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
   layout.CacheDynamicGeometry(finalOffset, dynamicBuffer);
   layout.CacheStaticGeometry(color, outline, staticBuffer);
 
-  auto state = CreateGLState(gpu::TEXT_OUTLINED_PROGRAM, m_params.m_depthLayer);
-  state.SetProgram3dIndex(gpu::TEXT_OUTLINED_BILLBOARD_PROGRAM);
+  auto state = CreateGLState(gpu::Program::TextOutlined, m_params.m_depthLayer);
+  state.SetProgram3d(gpu::Program::TextOutlinedBillboard);
   ASSERT(color.GetTexture() == outline.GetTexture(), ());
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout.GetMaskTexture());

@@ -40,8 +40,8 @@ RenderState::DepthLayer GetDepthLayer(dp::GLState const & state)
   return state.GetRenderState<RenderState>()->GetDepthLayer();
 }
 
-dp::GLState CreateGLState(int gpuProgramIndex, RenderState::DepthLayer depthLayer)
+dp::GLState CreateGLState(gpu::Program program, RenderState::DepthLayer depthLayer)
 {
-  return dp::GLState(gpuProgramIndex, RenderStateFactory::Get(depthLayer));
+  return dp::GLState(program, RenderStateFactory::Get(depthLayer));
 }
 }  // namespace df

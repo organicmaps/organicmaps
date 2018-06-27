@@ -2,7 +2,8 @@
 
 #include "drape_frontend/animation/show_hide_animation.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
-#include "drape_frontend/shader_def.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
@@ -73,7 +74,7 @@ public:
       glsl::mat4 r = glsl::rotate(glsl::mat4(), angle, glsl::vec3(0.0, 0.0, 1.0));
       glsl::mat4 m = glsl::translate(glsl::mat4(), glsl::vec3(m_pivot, 0.0));
       m = glsl::transpose(m * r);
-      m_uniforms.SetMatrix4x4Value("modelView", glsl::value_ptr(m));
+      m_uniforms.SetMatrix4x4Value("u_modelView", glsl::value_ptr(m));
       m_uniforms.SetFloatValue("u_opacity", static_cast<float>(m_animation.GetT()));
     }
 
@@ -106,7 +107,7 @@ drape_ptr<ShapeRenderer> Compass::Draw(m2::PointF & compassSize, ref_ptr<dp::Tex
     CompassVertex(glsl::vec2(halfSize.x, -halfSize.y), glsl::ToVec2(texRect.RightBottom()))
   };
 
-  auto state = df::CreateGLState(gpu::TEXTURING_GUI_PROGRAM, df::RenderState::GuiLayer);
+  auto state = df::CreateGLState(gpu::Program::TexturingGui, df::RenderState::GuiLayer);
   state.SetColorTexture(region.GetTexture());
 
   dp::AttributeProvider provider(1, 4);

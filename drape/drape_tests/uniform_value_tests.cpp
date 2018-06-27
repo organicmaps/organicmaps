@@ -152,7 +152,7 @@ UNIT_TEST(UniformValueTest)
   drape_ptr<Shader> fs = make_unique_dp<Shader>("", "void main() { gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0); }",
                                                 "", Shader::Type::FragmentShader);
 
-  drape_ptr<GpuProgram> program = make_unique_dp<GpuProgram>("", make_ref(vs), make_ref(fs), 0);
+  drape_ptr<GpuProgram> program = make_unique_dp<GpuProgram>("", make_ref(vs), make_ref(fs));
 
   program->Bind();
 

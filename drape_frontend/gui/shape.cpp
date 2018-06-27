@@ -8,6 +8,7 @@
 #include "base/logging.hpp"
 
 #include <algorithm>
+#include <array>
 
 namespace gui
 {
@@ -23,7 +24,7 @@ bool Handle::Update(ScreenBase const & screen)
 
   if (IsVisible())
   {
-    m_uniforms.SetMatrix4x4Value("modelView",
+    m_uniforms.SetMatrix4x4Value("u_modelView",
                                  value_ptr(transpose(translate(mat4(), vec3(m_pivot, 0.0)))));
     m_uniforms.SetFloatValue("u_opacity", 1.0);
 
@@ -44,7 +45,7 @@ m2::RectD Handle::GetPixelRect(ScreenBase const & screen, bool perspective) cons
 {
   // There is no need to check intersection of gui elements.
   UNUSED_VALUE(perspective);
-  return m2::RectD();
+  return {};
 }
 
 void Handle::GetPixelShape(ScreenBase const & screen, bool perspective,
@@ -80,22 +81,23 @@ ShapeRenderer::~ShapeRenderer()
   ForEachShapeInfo([](ShapeControl::ShapeInfo & info) { info.Destroy(); });
 }
 
-void ShapeRenderer::Build(ref_ptr<dp::GpuProgramManager> mng)
+void ShapeRenderer::Build(ref_ptr<gpu::ProgramManager> mng)
 {
   ForEachShapeInfo([mng](ShapeControl::ShapeInfo & info) mutable
   {
-    info.m_buffer->Build(mng->GetProgram(info.m_state.GetProgramIndex()));
+    info.m_buffer->Build(mng->GetProgram(info.m_state.GetProgram<gpu::Program>()));
   });
 }
 
-void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng)
+void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng)
 {
-  array<float, 16> m;
+  std::array<float, 16> m;
   m2::RectD const & pxRect = screen.PixelRectIn3d();
-  dp::MakeProjection(m, 0.0f, pxRect.SizeX(), pxRect.SizeY(), 0.0f);
+  dp::MakeProjection(m, 0.0f, static_cast<float>(pxRect.SizeX()),
+                     static_cast<float>(pxRect.SizeY()), 0.0f);
 
   dp::UniformValuesStorage uniformStorage;
-  uniformStorage.SetMatrix4x4Value("projection", m.data());
+  uniformStorage.SetMatrix4x4Value("u_projection", m.data());
 
   ForEachShapeInfo([&uniformStorage, &screen, mng](ShapeControl::ShapeInfo & info) mutable
   {
@@ -105,7 +107,7 @@ void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMana
     if (!info.m_handle->IsVisible())
       return;
 
-    ref_ptr<dp::GpuProgram> prg = mng->GetProgram(info.m_state.GetProgramIndex());
+    ref_ptr<dp::GpuProgram> prg = mng->GetProgram(info.m_state.GetProgram<gpu::Program>());
     prg->Bind();
     dp::ApplyState(info.m_state, prg);
     dp::ApplyUniforms(info.m_handle->GetUniforms(), prg);
@@ -125,7 +127,7 @@ void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<dp::GpuProgramMana
 
 void ShapeRenderer::AddShape(dp::GLState const & state, drape_ptr<dp::RenderBucket> && bucket)
 {
-  m_shapes.push_back(ShapeControl());
+  m_shapes.emplace_back(ShapeControl());
   m_shapes.back().AddShape(state, std::move(bucket));
 }
 
@@ -201,15 +203,10 @@ void ShapeControl::AddShape(dp::GLState const & state, drape_ptr<dp::RenderBucke
   drape_ptr<dp::OverlayHandle> handle = bucket->PopOverlayHandle();
   ASSERT(dynamic_cast<Handle *>(handle.get()) != nullptr, ());
 
-  m_shapesInfo.push_back(ShapeInfo());
+  m_shapesInfo.emplace_back(ShapeInfo());
   ShapeInfo & info = m_shapesInfo.back();
   info.m_state = state;
   info.m_buffer = bucket->MoveBuffer();
   info.m_handle = drape_ptr<Handle>(static_cast<Handle *>(handle.release()));
-}
-
-void ArrangeShapes(ref_ptr<ShapeRenderer> renderer, ShapeRenderer::TShapeControlEditFn const & fn)
-{
-  renderer->ForEachShapeControl(fn);
 }
 }  // namespace gui

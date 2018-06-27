@@ -21,7 +21,7 @@ GLProgramPool::GLProgramPool(dp::ApiVersion apiVersion)
 
 GLProgramPool::~GLProgramPool()
 {
-  ProgramParams::Uninit();
+  ProgramParams::Destroy();
 }
 
 drape_ptr<dp::GpuProgram> GLProgramPool::Get(Program program)
@@ -32,19 +32,13 @@ drape_ptr<dp::GpuProgram> GLProgramPool::Get(Program program)
   auto fragmentShader = GetShader(programInfo.m_fragmentShaderName, programInfo.m_fragmentShaderSource,
                                   dp::Shader::Type::FragmentShader);
 
-  auto const textureSlotsCount = std::max(m_minTextureSlotsCount, programInfo.m_textureSlotsCount);
   auto const name = DebugPrint(program);
-  return make_unique_dp<dp::GpuProgram>(name, vertexShader, fragmentShader, textureSlotsCount);
+  return make_unique_dp<dp::GpuProgram>(name, vertexShader, fragmentShader);
 }
 
 void GLProgramPool::SetDefines(std::string const & defines)
 {
   m_defines = defines;
-}
-
-void GLProgramPool::SetMinTextureSlotsCount(uint8_t slotsCount)
-{
-  m_minTextureSlotsCount = slotsCount;
 }
 
 ref_ptr<dp::Shader> GLProgramPool::GetShader(std::string const & name, std::string const & source,
