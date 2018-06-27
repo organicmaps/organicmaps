@@ -35,20 +35,18 @@ array<string, 11> const kVersions{{"171020",
                                    "180527",
                                    "180528"}};
 
-string const kUGCMigrationDirName = "ugc_migration";
 string const kClassificatorFileName = "classificator.gz";
 string const kTypesFileName = "types.gz";
 string const kBinFileExtension = ".bin";
 
 string GetUGCDirPath()
 {
-  return my::JoinPath(GetPlatform().WritableDir(), kUGCMigrationDirName);
+  return my::JoinPath(GetPlatform().WritableDir(), "ugc_migration");
 }
 
 void LoadClassificatorTypesForVersion(string const & version)
 {
-  auto const ugcDirPath = GetUGCDirPath();
-  auto const folderPath = my::JoinPath(ugcDirPath, version);
+  auto const folderPath = my::JoinPath("ugc_migration_supported_files", version);
   auto const & p = GetPlatform();
 
   using Inflate = coding::ZLib::Inflate;

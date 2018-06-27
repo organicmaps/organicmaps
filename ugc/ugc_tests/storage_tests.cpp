@@ -442,7 +442,7 @@ UNIT_TEST(UGC_IndexMigrationFromV0ToV1Smoke)
   auto & p = GetPlatform();
   auto const version = "v0";
   auto const indexFileName = "index.json";
-  auto const folder = my::JoinPath(p.WritableDir(), "ugc_migration", "test_index", version);
+  auto const folder = my::JoinPath(p.WritableDir(), "ugc_migration_supported_files", "test_index", version);
   auto const indexFilePath = my::JoinPath(folder, indexFileName);
   {
     using Inflate = coding::ZLib::Inflate;
