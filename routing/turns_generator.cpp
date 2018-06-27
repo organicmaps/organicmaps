@@ -343,9 +343,7 @@ m2::PointD GetPointForTurn(IRoutingResult const & result, size_t outgoingSegment
   ASSERT_LESS(index.m_segmentIndex, segments.size(), ());
   RoutePointIndex nextIndex;
 
-  vector<Junction> const & path = segments[index.m_segmentIndex].m_path;
-  ASSERT(!path.empty(), ());
-
+  ASSERT(!segments[index.m_segmentIndex].m_path.empty(), ());
   m2::PointD point = GetPointByIndex(segments, index);
   m2::PointD nextPoint;
   size_t count = 0;
