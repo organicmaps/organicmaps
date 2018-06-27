@@ -2,7 +2,7 @@ varying vec2 v_halfLength;
 
 uniform float u_opacity;
 #ifdef ENABLE_VTF
-varying lowp vec4 v_color;
+varying LOW_P vec4 v_color;
 #else
 uniform sampler2D u_colorTex;
 varying vec2 v_colorTexCoord;
@@ -13,9 +13,9 @@ const float aaPixelsCount = 2.5;
 void main()
 {
 #ifdef ENABLE_VTF
-  lowp vec4 color = v_color;
+  LOW_P vec4 color = v_color;
 #else
-  lowp vec4 color = texture2D(u_colorTex, v_colorTexCoord);
+  LOW_P vec4 color = texture2D(u_colorTex, v_colorTexCoord);
 #endif
   color.a *= u_opacity;
   

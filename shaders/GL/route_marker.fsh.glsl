@@ -6,7 +6,7 @@
 uniform sampler2D u_colorTex;
 #endif
 
-uniform vec2 u_routeParams;
+uniform vec4 u_routeParams;
 uniform vec4 u_maskColor;
 uniform float u_opacity;
 

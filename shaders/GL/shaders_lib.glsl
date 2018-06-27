@@ -1,7 +1,7 @@
 // This is a library of functions which we are use in our shaders.
 // Common (DO NOT modify this comment, it marks up block of common functions).
 
-// Scale factor in shape's coordinates transformation from tile's coordinate
+// Scale factor in shape's coordinates transformation from tile's coorinate
 // system.
 const float kShapeCoordScalar = 1000.0;
 

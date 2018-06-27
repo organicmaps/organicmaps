@@ -1,7 +1,7 @@
 varying vec2 v_maskTexCoord;
 
 #ifdef ENABLE_VTF
-varying lowp vec4 v_color;
+varying LOW_P vec4 v_color;
 #else
 varying vec2 v_colorTexCoord;
 uniform sampler2D u_colorTex;
@@ -14,9 +14,9 @@ uniform vec2 u_contrastGamma;
 void main()
 {
 #ifdef ENABLE_VTF
-  lowp vec4 glyphColor = v_color;
+  LOW_P vec4 glyphColor = v_color;
 #else
-  lowp vec4 glyphColor = texture2D(u_colorTex, v_colorTexCoord);
+  LOW_P vec4 glyphColor = texture2D(u_colorTex, v_colorTexCoord);
 #endif
 #ifdef GLES3
   float alpha = texture2D(u_maskTex, v_maskTexCoord).r;

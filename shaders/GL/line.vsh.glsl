@@ -2,13 +2,13 @@ attribute vec3 a_position;
 attribute vec3 a_normal;
 attribute vec2 a_colorTexCoord;
 
-uniform mat4 modelView;
-uniform mat4 projection;
-uniform mat4 pivotTransform;
+uniform mat4 u_modelView;
+uniform mat4 u_projection;
+uniform mat4 u_pivotTransform;
 
 #ifdef ENABLE_VTF
 uniform sampler2D u_colorTex;
-varying lowp vec4 v_color;
+varying LOW_P vec4 v_color;
 #else
 varying vec2 v_colorTexCoord;
 #endif
@@ -19,11 +19,11 @@ void main()
 {
   vec2 normal = a_normal.xy;
   float halfWidth = length(normal);
-  vec2 transformedAxisPos = (vec4(a_position.xy, 0.0, 1.0) * modelView).xy;
+  vec2 transformedAxisPos = (vec4(a_position.xy, 0.0, 1.0) * u_modelView).xy;
   if (halfWidth != 0.0)
   {
     transformedAxisPos = calcLineTransformedAxisPos(transformedAxisPos, a_position.xy + normal,
-                                                    modelView, halfWidth);
+                                                    u_modelView, halfWidth);
   }
 
 #ifdef ENABLE_VTF
@@ -32,6 +32,6 @@ void main()
   v_colorTexCoord = a_colorTexCoord;
 #endif
   v_halfLength = vec2(sign(a_normal.z) * halfWidth, abs(a_normal.z));
-  vec4 pos = vec4(transformedAxisPos, a_position.z, 1.0) * projection;
-  gl_Position = applyPivotTransform(pos, pivotTransform, 0.0);
+  vec4 pos = vec4(transformedAxisPos, a_position.z, 1.0) * u_projection;
+  gl_Position = applyPivotTransform(pos, u_pivotTransform, 0.0);
 }

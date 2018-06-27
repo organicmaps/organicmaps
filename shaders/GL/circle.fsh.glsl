@@ -1,6 +1,6 @@
 uniform float u_opacity;
 #ifdef ENABLE_VTF
-varying lowp vec4 v_color;
+varying LOW_P vec4 v_color;
 #else
 uniform sampler2D u_colorTex;
 varying vec2 v_colorTexCoords;
@@ -13,9 +13,9 @@ const float aaPixelsCount = 2.5;
 void main()
 {
 #ifdef ENABLE_VTF
-  lowp vec4 finalColor = v_color;
+  LOW_P vec4 finalColor = v_color;
 #else
-  lowp vec4 finalColor = texture2D(u_colorTex, v_colorTexCoords);
+  LOW_P vec4 finalColor = texture2D(u_colorTex, v_colorTexCoords);
 #endif
 
   float smallRadius = v_radius.z - aaPixelsCount;
