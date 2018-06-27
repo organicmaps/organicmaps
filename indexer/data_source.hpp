@@ -85,7 +85,7 @@ protected:
   using ReaderCallback = std::function<void(MwmSet::MwmHandle const & handle,
                                             covering::CoveringGetter & cov, int scale)>;
 
-  explicit DataSource(FeatureSourceFactory const & factory) : m_factory(factory) {}
+  explicit DataSource(std::unique_ptr<FeatureSourceFactory> factory) : m_factory(std::move(factory)) {}
 
   void ForEachInIntervals(ReaderCallback const & fn, covering::CoveringMode mode,
                           m2::RectD const & rect, int scale) const;
@@ -95,7 +95,7 @@ protected:
   std::unique_ptr<MwmValueBase> CreateValue(MwmInfo & info) const override;
 
 private:
-  FeatureSourceFactory const & m_factory;
+  std::unique_ptr<FeatureSourceFactory> m_factory;
 };
 
 // DataSource which operates with features from mwm file and does not support features creation
@@ -103,14 +103,14 @@ private:
 class FrozenDataSource : public DataSource
 {
 public:
-  FrozenDataSource() : DataSource(FeatureSourceFactory::Get()) {}
+  FrozenDataSource() : DataSource(std::make_unique<FeatureSourceFactory>()) {}
 };
 
 class FrozenFeaturesLoaderGuard : public DataSource::FeaturesLoaderGuard
 {
 public:
   FrozenFeaturesLoaderGuard(DataSource const & dataSource, DataSource::MwmId const & id)
-    : DataSource::FeaturesLoaderGuard(dataSource, id, FeatureSourceFactory::Get())
+    : DataSource::FeaturesLoaderGuard(dataSource, id, FeatureSourceFactory())
   {
   }
 };

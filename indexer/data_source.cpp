@@ -238,19 +238,19 @@ void DataSource::ForEachInIntervals(ReaderCallback const & fn, covering::Coverin
 void DataSource::ForEachFeatureIDInRect(FeatureIdCallback const & f, m2::RectD const & rect,
                                         int scale) const
 {
-  ReadMWMFunctor<FeatureID const> readFunctor(f, m_factory);
+  ReadMWMFunctor<FeatureID const> readFunctor(f, *m_factory);
   ForEachInIntervals(readFunctor, covering::LowLevelsOnly, rect, scale);
 }
 
 void DataSource::ForEachInRect(FeatureCallback const & f, m2::RectD const & rect, int scale) const
 {
-  ReadMWMFunctor<FeatureType> readFunctor(f, m_factory);
+  ReadMWMFunctor<FeatureType> readFunctor(f, *m_factory);
   ForEachInIntervals(readFunctor, covering::ViewportWithLowLevels, rect, scale);
 }
 
 void DataSource::ForEachInScale(FeatureCallback const & f, int scale) const
 {
-  ReadMWMFunctor<FeatureType> readFunctor(f, m_factory);
+  ReadMWMFunctor<FeatureType> readFunctor(f, *m_factory);
   ForEachInIntervals(readFunctor, covering::FullCover, m2::RectD::GetInfiniteRect(), scale);
 }
 
@@ -261,7 +261,7 @@ void DataSource::ForEachInRectForMWM(FeatureCallback const & f, m2::RectD const 
   if (handle.IsAlive())
   {
     covering::CoveringGetter cov(rect, covering::ViewportWithLowLevels);
-    ReadMWMFunctor<FeatureType> readFunctor(f, m_factory);
+    ReadMWMFunctor<FeatureType> readFunctor(f, *m_factory);
     readFunctor(handle, cov, scale);
   }
 }
@@ -280,7 +280,7 @@ void DataSource::ReadFeatures(FeatureConstCallback const & fn,
     if (handle.IsAlive())
     {
       // Prepare features reading.
-      auto src = m_factory(handle);
+      auto src = (*m_factory)(handle);
       do
       {
         auto const fts = src->GetFeatureStatus(fidIter->m_index);
