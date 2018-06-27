@@ -1,15 +1,14 @@
 package com.mapswithme.maps.downloader;
 
 import android.location.Location;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.List;
-import java.util.Locale;
-
+import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.background.Notifier;
@@ -20,7 +19,11 @@ import com.mapswithme.util.Config;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.util.List;
+import java.util.Locale;
 
 public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 {
@@ -36,6 +39,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
 
   private int mStorageSubscriptionSlot;
 
+  @Nullable
   private CountryItem mCurrentCountry;
 
   private final MapManager.StorageCallback mStorageCallback = new MapManager.StorageCallback()
@@ -167,6 +171,7 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
     }
 
     UiUtils.showIf(showFrame, mFrame);
+    updateBannerVisibility();
   }
 
   public OnmapDownloader(MwmActivity activity)
@@ -229,7 +234,26 @@ public class OnmapDownloader implements MwmActivity.LeftAnimationTrackListener
           }
         });
       }
+     });
+
+    mFrame.findViewById(R.id.banner_button).setOnClickListener(v -> {
+      Utils.openUrl(mActivity, Framework.nativeGetMegafonDownloaderBannerUrl());
     });
+  }
+
+  private void updateBannerVisibility()
+  {
+    if (mCurrentCountry == null || TextUtils.isEmpty(mCurrentCountry.id))
+      return;
+
+    if (!Framework.nativeHasMegafonDownloaderBanner(mCurrentCountry.id))
+      return;
+
+    boolean enqueued = mCurrentCountry.status == CountryItem.STATUS_ENQUEUED;
+    boolean progress = mCurrentCountry.status == CountryItem.STATUS_PROGRESS;
+    boolean applying = mCurrentCountry.status == CountryItem.STATUS_APPLYING;
+
+    UiUtils.showIf(enqueued || progress || applying, mFrame, R.id.banner);
   }
 
   @Override
