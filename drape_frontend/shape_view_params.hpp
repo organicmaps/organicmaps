@@ -33,7 +33,8 @@ enum class SpecialDisplacement
   None,
   SpecialMode,
   UserMark,
-  HouseNumber
+  HouseNumber,
+  TransitScheme
 };
 
 struct CommonOverlayViewParams : public CommonViewParams

@@ -155,8 +155,11 @@ drape_ptr<dp::OverlayHandle> PoiSymbolShape::CreateOverlayHandle(m2::PointF cons
                                                                          true /* isBillboard */);
   handle->SetPivotZ(m_params.m_posZ);
   handle->SetExtendingSize(m_params.m_extendingSize);
-  if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
-    handle->SetUserMarkOverlay(true);
+  if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark ||
+      m_params.m_specialDisplacement == SpecialDisplacement::TransitScheme)
+  {
+    handle->SetSpecialLayerOverlay(true);
+  }
   handle->SetOverlayRank(m_params.m_startOverlayRank);
   return handle;
 }
@@ -168,8 +171,11 @@ uint64_t PoiSymbolShape::GetOverlayPriority() const
     return dp::kPriorityMaskAll;
 
   // Special displacement mode.
-  if (m_params.m_specialDisplacement == SpecialDisplacement::SpecialMode)
+  if (m_params.m_specialDisplacement == SpecialDisplacement::SpecialMode ||
+      m_params.m_specialDisplacement == SpecialDisplacement::TransitScheme)
+  {
     return dp::CalculateSpecialModePriority(m_params.m_specialPriority);
+  }
 
   if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
     return dp::CalculateUserMarkPriority(m_params.m_minVisibleScale, m_params.m_specialPriority);

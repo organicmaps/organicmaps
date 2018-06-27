@@ -148,8 +148,8 @@ public:
   void SetDisplayFlag(bool display) { m_displayFlag = display; }
   bool GetDisplayFlag() const { return m_displayFlag; }
 
-  void SetUserMarkOverlay(bool isUserMarkOverlay) { m_isUserMarkOverlay = isUserMarkOverlay; }
-  bool IsUserMarkOverlay() const { return m_isUserMarkOverlay; }
+  void SetSpecialLayerOverlay(bool isSpecialLayerOverlay) { m_isSpecialLayerOverlay = isSpecialLayerOverlay; }
+  bool IsSpecialLayerOverlay() const { return m_isSpecialLayerOverlay; }
 
 #ifdef DEBUG_OVERLAYS_OUTPUT
   virtual std::string GetOverlayDebugInfo() { return ""; }
@@ -194,7 +194,7 @@ private:
   mutable bool m_extendedRectDirty;
 
   bool m_isReady = false;
-  bool m_isUserMarkOverlay = false;
+  bool m_isSpecialLayerOverlay = false;
   bool m_displayFlag = false;
 };
 

@@ -42,7 +42,8 @@ float const kBaseTitleDepth = 400.0f;
 
 float const kOuterMarkerDepth = kBaseMarkerDepth + 0.5f;
 float const kInnerMarkerDepth = kBaseMarkerDepth + 1.0f;
-uint32_t const kTransitOverlayIndex = 1000;
+uint32_t const kTransitStubOverlayIndex = 1000;
+uint32_t const kTransitOverlayIndex = 1001;
 
 std::string const kTransitMarkText = "TransitMarkPrimaryText";
 std::string const kTransitMarkTextOutline = "TransitMarkPrimaryTextOutline";
@@ -675,8 +676,13 @@ void TransitSchemeBuilder::GenerateTitles(StopNodeParams const & stopParams, m2:
     return;
 
   auto const featureId = stopParams.m_stopsInfo.begin()->second.m_featureId;
+
   auto priority = static_cast<uint16_t>(stopParams.m_isTransfer ? Priority::TransferMin : Priority::StopMin);
-  priority += static_cast<uint16_t>(stopParams.m_stopsInfo.size());
+  auto const finalStationPriorityInc = static_cast<uint16_t>(stopParams.m_shapesInfo.size() == 1 ? 2 : 0);
+  priority += static_cast<uint16_t>(stopParams.m_stopsInfo.size()) + finalStationPriorityInc;
+
+  ASSERT_LESS_OR_EQUAL(priority, static_cast<uint16_t>(stopParams.m_isTransfer ? Priority::TransferMax
+                                                                               : Priority::StopMax), ());
 
   dp::TitleDecl titleDecl;
   titleDecl.m_primaryOptional = true;
@@ -695,9 +701,9 @@ void TransitSchemeBuilder::GenerateTitles(StopNodeParams const & stopParams, m2:
     textParams.m_titleDecl.m_anchor = title.m_anchor;
     textParams.m_depth = kBaseTitleDepth;
     textParams.m_depthLayer = RenderState::TransitSchemeLayer;
-    textParams.m_specialDisplacement = SpecialDisplacement::SpecialMode;
+    textParams.m_specialDisplacement = SpecialDisplacement::TransitScheme;
     textParams.m_specialPriority = priority;
-    textParams.m_startOverlayRank = dp::OverlayRank1;
+    textParams.m_startOverlayRank = dp::OverlayRank0;
 
     TextShape(stopParams.m_pivot, textParams, TileKey(), markerSizes, title.m_offset, dp::Center, kTransitOverlayIndex)
       .Draw(&batcher, textures);
@@ -710,11 +716,11 @@ void TransitSchemeBuilder::GenerateTitles(StopNodeParams const & stopParams, m2:
   colorParams.m_tileCenter = pivot;
   colorParams.m_depth = kBaseTitleDepth;
   colorParams.m_depthLayer = RenderState::TransitSchemeLayer;
-  colorParams.m_specialDisplacement = SpecialDisplacement::SpecialMode;
-  colorParams.m_specialPriority = priority;
+  colorParams.m_specialDisplacement = SpecialDisplacement::TransitScheme;
+  colorParams.m_specialPriority = static_cast<uint16_t>(Priority::Stub);
   colorParams.m_startOverlayRank = dp::OverlayRank0;
 
-  ColoredSymbolShape(stopParams.m_pivot, colorParams, TileKey(), kTransitOverlayIndex, markerSizes)
+  ColoredSymbolShape(stopParams.m_pivot, colorParams, TileKey(), kTransitStubOverlayIndex, markerSizes)
     .Draw(&batcher, textures);
 }
 

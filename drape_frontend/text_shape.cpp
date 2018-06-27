@@ -348,8 +348,11 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
   handle->SetOverlayRank(isPrimary ? m_params.m_startOverlayRank : m_params.m_startOverlayRank + 1);
 
   handle->SetExtendingSize(m_params.m_extendingSize);
-  if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
-    handle->SetUserMarkOverlay(true);
+  if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark ||
+      m_params.m_specialDisplacement == SpecialDisplacement::TransitScheme)
+  {
+    handle->SetSpecialLayerOverlay(true);
+  }
 
   dp::AttributeProvider provider(2, static_cast<uint32_t>(staticBuffer.size()));
   provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
@@ -405,8 +408,11 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
   handle->SetOverlayRank(isPrimary ? m_params.m_startOverlayRank : m_params.m_startOverlayRank + 1);
 
   handle->SetExtendingSize(m_params.m_extendingSize);
-  if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
-    handle->SetUserMarkOverlay(true);
+  if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark ||
+      m_params.m_specialDisplacement == SpecialDisplacement::TransitScheme)
+  {
+    handle->SetSpecialLayerOverlay(true);
+  }
 
   dp::AttributeProvider provider(2, static_cast<uint32_t>(staticBuffer.size()));
   provider.InitStream(0, gpu::TextOutlinedStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
@@ -422,8 +428,11 @@ uint64_t TextShape::GetOverlayPriority() const
     return dp::kPriorityMaskAll;
 
   // Special displacement mode.
-  if (m_params.m_specialDisplacement == SpecialDisplacement::SpecialMode)
+  if (m_params.m_specialDisplacement == SpecialDisplacement::SpecialMode ||
+      m_params.m_specialDisplacement == SpecialDisplacement::TransitScheme)
+  {
     return dp::CalculateSpecialModePriority(m_params.m_specialPriority);
+  }
 
   if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
     return dp::CalculateUserMarkPriority(m_params.m_minVisibleScale, m_params.m_specialPriority);

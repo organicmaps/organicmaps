@@ -86,7 +86,8 @@ public:
   enum class Priority: uint16_t
   {
     Default = 0,
-    StopMin = 1,
+    Stub = 1,
+    StopMin = 2,
     StopMax = 30,
     TransferMin = 31,
     TransferMax = 60

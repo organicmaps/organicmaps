@@ -289,8 +289,11 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher,
                                                 debugName, true /* isBillboard */);
     }
 
-    if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
-      handle->SetUserMarkOverlay(true);
+    if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark ||
+        m_params.m_specialDisplacement == SpecialDisplacement::TransitScheme)
+    {
+      handle->SetSpecialLayerOverlay(true);
+    }
     handle->SetOverlayRank(m_params.m_startOverlayRank);
   }
   auto state = CreateGLState(gpu::COLORED_SYMBOL_PROGRAM, m_params.m_depthLayer);
@@ -306,8 +309,11 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher,
 uint64_t ColoredSymbolShape::GetOverlayPriority() const
 {
   // Special displacement mode.
-  if (m_params.m_specialDisplacement == SpecialDisplacement::SpecialMode)
+  if (m_params.m_specialDisplacement == SpecialDisplacement::SpecialMode ||
+      m_params.m_specialDisplacement == SpecialDisplacement::TransitScheme)
+  {
     return dp::CalculateSpecialModePriority(m_params.m_specialPriority);
+  }
 
   if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
     return dp::CalculateUserMarkPriority(m_params.m_minVisibleScale, m_params.m_specialPriority);
