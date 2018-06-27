@@ -1,6 +1,9 @@
 #import "MWMTableViewCell.h"
 
-#include "Framework.h"
+namespace kml
+{
+struct CategoryData;
+}
 
 @class MWMCategoryInfoCell;
 
@@ -13,7 +16,6 @@
 @interface MWMCategoryInfoCell : MWMTableViewCell
 
 @property (nonatomic) BOOL expanded;
-@property (weak, nonatomic) id<MWMCategoryInfoCellDelegate> delegate;
 
 - (void)updateWithCategoryData:(kml::CategoryData const &)data
                       delegate:(id<MWMCategoryInfoCellDelegate>)delegate;

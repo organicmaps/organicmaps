@@ -1,6 +1,9 @@
 #import "MWMCategoryInfoCell.h"
 #import "SwiftBridge.h"
 
+#include "kml/types.hpp"
+#include "kml/type_utils.hpp"
+
 @interface MWMCategoryInfoCell()
 
 @property (weak, nonatomic) IBOutlet UILabel * titleLabel;
@@ -11,6 +14,7 @@
 
 @property (copy, nonatomic) NSString * info;
 @property (copy, nonatomic) NSString * shortInfo;
+@property (weak, nonatomic) id<MWMCategoryInfoCellDelegate> delegate;
 
 @end
 
@@ -36,15 +40,15 @@
   self.moreButton.hidden = expanded;
 }
 
-- (void)updateWithCategoryData:(const kml::CategoryData &)data
+- (void)updateWithCategoryData:(kml::CategoryData const &)data
                       delegate:(id<MWMCategoryInfoCellDelegate>)delegate
 {
   self.delegate = delegate;
   self.titleLabel.text = @(kml::GetDefaultStr(data.m_name).c_str());
   self.authorLabel.text = [NSString stringWithCoreFormat:L(@"author_name_by_prefix")
-                                           arguments:@[@(data.m_authorName.c_str())]];
-  NSString * info = @(kml::GetDefaultStr(data.m_description).c_str());
-  NSString * shortInfo = @(kml::GetDefaultStr(data.m_annotation).c_str());
+                                               arguments:@[@(data.m_authorName.c_str())]];
+  auto info = @(kml::GetDefaultStr(data.m_description).c_str());
+  auto shortInfo = @(kml::GetDefaultStr(data.m_annotation).c_str());
   if (info.length > 0 && shortInfo.length > 0)
   {
     self.info = info;
