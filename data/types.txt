@@ -1223,3 +1223,15 @@ sponsored|partner17
 sponsored|partner18
 sponsored|partner19
 sponsored|partner20
+place|square
+tourism|artwork|architecture
+tourism|artwork|sculpture
+tourism|artwork|statue
+tourism|artwork|painting
+historic|memorial|sculpture
+historic|memorial|statue
+historic|memorial|plaque
+historic|castle|defensive
+historic|castle|stately
+tourism|attraction|animal
+tourism|attraction|specified

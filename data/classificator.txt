@@ -371,10 +371,17 @@ world  +
         archaeological_site  -
         battlefield  -
         boundary_stone  -
-        castle  -
+        castle  +
+            defensive  -
+            stately  -
+            {}
         citywalls  -
         fort  -
-        memorial  -
+        memorial  +
+            plaque  -
+            sculpture  -
+            statue  -
+            {}
         monument  -
         museum  -
         ruins  -
@@ -627,6 +634,7 @@ world  +
         ocean  -
         region  -
         sea  -
+        square  -
         state  +
             USA  -
             {}
@@ -918,8 +926,16 @@ world  +
     tourism  +
         alpine_hut  -
         apartment  -
-        artwork  -
-        attraction  -
+        artwork  +
+            architecture  -
+            painting  -
+            sculpture  -
+            statue  -
+            {}
+        attraction  +
+            animal  -
+            specified  -
+            {}
         camp_site  -
         caravan_site  -
         chalet  -

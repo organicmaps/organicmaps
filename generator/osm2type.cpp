@@ -537,6 +537,53 @@ namespace ftype
         break;
       }
     }
+
+    // Merge attraction and memorial types to predefined set of values
+    p->UpdateTag("artwork_type", [](string & value) {
+      if (value.empty())
+        return;
+      if (value == "mural" || value == "graffiti" || value == "azulejo" || value == "tilework")
+        value = "painting";
+      else if (value == "stone" || value == "installation")
+        value = "sculpture";
+      else if (value == "bust")
+        value = "statue";
+    });
+
+    string const & memorialType = p->GetTag("memorial:type");
+    p->UpdateTag("memorial", [&memorialType](string & value) {
+      if (value.empty()) {
+        if (memorialType.empty())
+          return;
+        else
+          value = memorialType;
+      }
+
+      if (value == "blue_plaque" || value == "stolperstein")
+        value = "plaque";
+      else if (value == "war_memorial" || value == "stele" || value == "obelisk" ||
+               value == "stone" || value == "cross")
+        value = "sculpture";
+      else if (value == "bust" || value == "person")
+        value = "statue";
+    });
+
+    p->UpdateTag("castle_type", [](string & value) {
+      if (value.empty())
+        return;
+      if (value == "fortress" || value == "kremlin" || value == "castrum" ||
+          value == "shiro" || value == "citadel")
+        value = "defensive";
+      else if (value == "manor" || value == "palace")
+        value = "stately";
+    });
+
+    p->UpdateTag("attraction", [](string & value) {
+      // "specified" is a special value which means we have the "attraction" tag,
+      // but its value is not "animal".
+      if (!value.empty() && value != "animal")
+        value = "specified";
+    });
   }
 
   void PostprocessElement(OsmElement * p, FeatureParams & params)
