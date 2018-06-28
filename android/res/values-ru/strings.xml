@@ -1359,7 +1359,7 @@
 	  <item quantity="one">%s объект</item>
 	  <item quantity="other">%s объектов</item>
 	</plurals>
-	<string name="subtittle_opt_out">Настрокий сопровождения</string>
+	<string name="subtittle_opt_out">Настройки сопровождения</string>
 	<string name="opt_out_flurry">Статистика</string>
 	<string name="opt_out_mopub">Персонализированная реклама</string>
 	<string name="opt_out_fabric">Отчеты об ошибках</string>

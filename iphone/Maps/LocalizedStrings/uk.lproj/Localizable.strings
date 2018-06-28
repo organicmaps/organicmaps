@@ -2338,7 +2338,7 @@
 
 "whats_new_localbiz_title" = "Small business deserves attention";
 
-"whats_new_localbiz_message" = "Family cafes, cozy hostels, unique stores – they are the special parts of our travels. We will optimize your page on the map free of charge so you will get noticed.";
+"whats_new_localbiz_message" = "It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.";
 
 "whats_new_order_button" = "Leave a request";
 
@@ -2386,7 +2386,23 @@
 
 "terms_of_use" = "Terms of use";
 
+"backup_notification_failed" = "Backing up your bookmarks has been suspended. Log in to turn it back on.";
+
+"banner_megafon_banner_message" = "Say goodbye to international roaming!";
+
+"banner_megafon_banner_button" = "Goodbye!";
+
+"button_layer_traffic" = "Traffic";
+
+"button_layer_subway" = "Subway";
+
+"layers_title" = "Map layers";
+
+"layers_message" = "Use map layers to display the traffic, subway map, and other useful information";
+
 "button_layer_got_it" = "Got it";
+
+"subway_data_unavailable" = "Subway map is unavailable";
 
 "bookmarks_empty_list_title" = "This list is empty";
 

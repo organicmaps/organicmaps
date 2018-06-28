@@ -1355,7 +1355,7 @@
 	<string name="sign_agree_tof_gdpr">I agree to the &lt;a href="%s">Terms of Use&lt;/a></string>
 	<string name="sign_agree_news_gdpr">I agree to receive the latest news about MAPS.ME products</string>
 	<string name="whats_new_localbiz_title">Small business deserves attention</string>
-	<string name="whats_new_localbiz_message">Family cafes, cozy hostels, unique stores – they are the special parts of our travels. We will optimize your page on the map free of charge so you will get noticed.</string>
+	<string name="whats_new_localbiz_message">It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.</string>
 	<string name="whats_new_order_button">Leave a request</string>
 	<string name="bookmarks_page_downloaded">Downloaded</string>
 	<string name="bookmarks_page_my">My</string>
@@ -1395,7 +1395,15 @@
 	<string name="opt_out_help_android">Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info &amp; privacy → Ads Settings → Ads Personalization</string>
 	<string name="privacy_policy">Privacy policy</string>
 	<string name="terms_of_use">Terms of use</string>
+	<string name="backup_notification_failed">Backing up your bookmarks has been suspended. Log in to turn it back on.</string>
+	<string name="banner_megafon_banner_message">Say goodbye to international roaming!</string>
+	<string name="banner_megafon_banner_button">Goodbye!</string>
+	<string name="button_layer_traffic">Traffic</string>
+	<string name="button_layer_subway">Subway</string>
+	<string name="layers_title">Map layers</string>
+	<string name="layers_message">Use map layers to display the traffic, subway map, and other useful information</string>
 	<string name="button_layer_got_it">Got it</string>
+	<string name="subway_data_unavailable">Subway map is unavailable</string>
 	<string name="bookmarks_empty_list_title">This list is empty</string>
 	<string name="bookmarks_empty_list_message">To add a bookmark, tap a place on the map and then tap the star icon</string>
 	<string name="category_desc_more">…more</string>
