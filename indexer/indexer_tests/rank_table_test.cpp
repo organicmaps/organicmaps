@@ -66,7 +66,7 @@ UNIT_TEST(RankTableBuilder_Smoke)
 
   {
     FilesContainerW wcont(kTestCont);
-    search::RankTableBuilder::Create(ranks, wcont);
+    search::RankTableBuilder::Create(ranks, wcont, RANKS_FILE_TAG);
   }
 
   TestTable(ranks, kTestCont);
@@ -89,12 +89,12 @@ UNIT_TEST(RankTableBuilder_EndToEnd)
   vector<uint8_t> ranks;
   {
     FilesContainerR rcont(mapPath);
-    search::RankTableBuilder::CalcSearchRanks(rcont, ranks);
+    search::SearchRanksTableBuilder::CalcSearchRanks(rcont, ranks);
   }
 
   {
     FilesContainerW wcont(mapPath, FileWriter::OP_WRITE_EXISTING);
-    search::RankTableBuilder::Create(ranks, wcont);
+    search::RankTableBuilder::Create(ranks, wcont, RANKS_FILE_TAG);
   }
 
   FrozenDataSource dataSource;
@@ -112,7 +112,7 @@ UNIT_TEST(RankTableBuilder_WrongEndianness)
   vector<uint8_t> ranks = {0, 1, 2, 3, 4};
   {
     FilesContainerW wcont(kTestFile);
-    search::RankTableBuilder::Create(ranks, wcont);
+    search::RankTableBuilder::Create(ranks, wcont, RANKS_FILE_TAG);
   }
 
   // Load rank table in host endianness.
@@ -152,7 +152,7 @@ UNIT_TEST(RankTableBuilder_WrongEndianness)
   }
 
   // Try to re-create rank table in test file.
-  TEST(search::RankTableBuilder::CreateIfNotExists(kTestFile), ());
+  TEST(search::SearchRanksTableBuilder::CreateIfNotExists(kTestFile), ());
 
   // Try to load and map rank table - both methods should work now.
   TestTable(ranks, kTestFile);

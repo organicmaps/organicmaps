@@ -140,7 +140,7 @@ void TestMwmBuilder::Finish()
   CHECK(indexer::BuildCentersTableFromDataFile(path, true /* forceRebuild */),
         ("Can't build centers table."));
 
-  CHECK(search::RankTableBuilder::CreateIfNotExists(path), ());
+  CHECK(search::SearchRanksTableBuilder::CreateIfNotExists(path), ());
 
   if (!m_languages.empty())
     CHECK(WriteRegionDataForTests(path, m_languages), ());

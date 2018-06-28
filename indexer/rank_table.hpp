@@ -88,6 +88,16 @@ public:
 class RankTableBuilder
 {
 public:
+  // Force creation of a rank table from array of ranks. Existing rank
+  // table is removed (if any). Note that |wcont| must be instantiated
+  // as FileWriter::OP_WRITE_EXISTING.
+  static void Create(std::vector<uint8_t> const & ranks, FilesContainerW & wcont,
+                     std::string const & sectionName);
+};
+
+class SearchRanksTableBuilder
+{
+public:
   // Calculates search ranks for all features in an mwm.
   static void CalcSearchRanks(FilesContainerR & rcont, std::vector<uint8_t> & ranks);
 
@@ -102,10 +112,5 @@ public:
   // or already exists and has correct format.
   static bool CreateIfNotExists(platform::LocalCountryFile const & localFile) noexcept;
   static bool CreateIfNotExists(std::string const & mapPath) noexcept;
-
-  // Force creation of a rank table from array of ranks. Existing rank
-  // table is removed (if any). Note that |wcont| must be instantiated
-  // as FileWriter::OP_WRITE_EXISTING.
-  static void Create(std::vector<uint8_t> const & ranks, FilesContainerW & wcont);
 };
 }  // namespace search
