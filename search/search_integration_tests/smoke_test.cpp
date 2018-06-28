@@ -187,6 +187,13 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
     invisibleTypes.insert(classif().GetTypeByPath(tags));
 
   vector<vector<string>> const notSupportedTags = {// Not visible because excluded by TypesSkipper.
+                                                   {"barrier", "block"},
+                                                   {"barrier", "bollard"},
+                                                   {"barrier", "entrance"},
+                                                   {"barrier", "gate"},
+                                                   {"barrier", "lift_gate"},
+                                                   {"barrier", "stile"},
+                                                   {"barrier", "toll_booth"},
                                                    {"building", "address"},
                                                    {"entrance"},
                                                    // Not visible for country scale range.
@@ -201,8 +208,9 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
     if (invisibleTypes.find(type) != invisibleTypes.end())
       return;
 
+    bool categoryIsSearchable = true;
     if (notSupportedTypes.find(type) != notSupportedTypes.end())
-      return;
+      categoryIsSearchable = false;
 
     string const countryName = "Wonderland";
 
@@ -216,7 +224,7 @@ UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
     {
       TRules rules = {ExactMatch(id, poi)};
       auto const query = holder.GetReadableFeatureType(type, CategoriesHolder::kEnglishCode) + " ";
-      TEST(ResultsMatch(query, rules), ());
+      TEST(ResultsMatch(query, categoryIsSearchable ? rules : TRules{}), ());
     }
     DeregisterMap(countryName);
   };
