@@ -486,7 +486,7 @@ bool Editor::RollBackChanges(FeatureID const & fid)
 }
 
 void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
-                                             TFeatureIndexFunctor const & f, m2::RectD const & rect,
+                                             FeatureIndexFunctor const & f, m2::RectD const & rect,
                                              int /*scale*/)
 {
   auto const mwmFound = m_features.find(id);
@@ -625,8 +625,8 @@ bool Editor::HaveMapEditsToUpload(MwmSet::MwmId const & mwmId) const
   return false;
 }
 
-void Editor::UploadChanges(string const & key, string const & secret, TChangesetTags tags,
-                           TFinishUploadCallback callBack)
+void Editor::UploadChanges(string const & key, string const & secret, ChangesetTags tags,
+                           FinishUploadCallback callBack)
 {
   if (m_notes->NotUploadedNotesCount())
     UploadNotes(key, secret);
@@ -640,7 +640,7 @@ void Editor::UploadChanges(string const & key, string const & secret, TChangeset
   alohalytics::LogEvent("Editor_DataSync_started");
 
   // TODO(AlexZ): features access should be synchronized.
-  auto const upload = [this](string key, string secret, TChangesetTags tags, TFinishUploadCallback callBack)
+  auto const upload = [this](string key, string secret, ChangesetTags tags, FinishUploadCallback callBack)
   {
     // This lambda was designed to start after app goes into background. But for cases when user is immediately
     // coming back to the app we work with a copy, because 'for' loops below can take a significant amount of time.

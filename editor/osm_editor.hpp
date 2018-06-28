@@ -65,7 +65,7 @@ public:
     Error,
     NothingToUpload
   };
-  using TFinishUploadCallback = function<void(UploadResult)>;
+  using FinishUploadCallback = function<void(UploadResult)>;
 
   static Editor & Instance();
 
@@ -92,8 +92,8 @@ public:
 
   void OnMapDeregistered(platform::LocalCountryFile const & localFile) override;
 
-  using TFeatureIndexFunctor = function<void(uint32_t)>;
-  void ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id, TFeatureIndexFunctor const & f,
+  using FeatureIndexFunctor = function<void(uint32_t)>;
+  void ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id, FeatureIndexFunctor const & f,
                                        m2::RectD const & rect, int scale);
 
   // TODO(mgsergio): Unify feature functions signatures.
@@ -140,11 +140,11 @@ public:
   bool HaveMapEditsOrNotesToUpload() const;
   bool HaveMapEditsToUpload(MwmSet::MwmId const & mwmId) const;
   bool HaveMapEditsToUpload() const;
-  using TChangesetTags = map<string, string>;
+  using ChangesetTags = map<string, string>;
   /// Tries to upload all local changes to OSM server in a separate thread.
   /// @param[in] tags should provide additional information about client to use in changeset.
-  void UploadChanges(string const & key, string const & secret, TChangesetTags tags,
-                     TFinishUploadCallback callBack = TFinishUploadCallback());
+  void UploadChanges(string const & key, string const & secret, ChangesetTags tags,
+                     FinishUploadCallback callBack = FinishUploadCallback());
   // TODO(mgsergio): Test new types from new config but with old classificator (where these types are absent).
   // Editor should silently ignore all types in config which are unknown to him.
   NewFeatureCategories GetNewFeatureCategories() const;
