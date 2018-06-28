@@ -99,28 +99,28 @@ void MyPosition::SetPositionObsolete(bool obsolete)
 
 void MyPosition::RenderAccuracy(ScreenBase const & screen, int zoomLevel,
                                 ref_ptr<gpu::ProgramManager> mng,
-                                dp::UniformValuesStorage const & commonUniforms)
+                                FrameValues const & frameValues)
 {
-  dp::UniformValuesStorage uniforms = commonUniforms;
   m2::PointD accuracyPoint(m_position.x + m_accuracy, m_position.y);
   auto const pixelAccuracy =
     static_cast<float>((screen.GtoP(accuracyPoint) - screen.GtoP(m2::PointD(m_position))).Length());
 
+  gpu::ShapesProgramParams params;
+  frameValues.SetTo(params);
   TileKey const key = GetTileKeyByPoint(m2::PointD(m_position), ClipTileZoomByMaxDataZoom(zoomLevel));
   math::Matrix<float, 4, 4> mv = key.GetTileBasedModelView(screen);
-  uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
+  params.m_modelView = glsl::make_mat4(mv.m_data);
 
   auto const pos = static_cast<m2::PointF>(
     MapShape::ConvertToLocal(m2::PointD(m_position), key.GetGlobalRect().Center(), kShapeCoordScalar));
-  uniforms.SetFloatValue("u_position", pos.x, pos.y, 0.0f);
-  uniforms.SetFloatValue("u_accuracy", pixelAccuracy);
-  uniforms.SetFloatValue("u_opacity", 1.0f);
-  RenderPart(mng, uniforms, MyPositionAccuracy);
+  params.m_position = glsl::vec3(pos.x, pos.y, 0.0f);
+  params.m_accuracy = pixelAccuracy;
+  RenderPart(mng, params, MyPositionAccuracy);
 }
 
 void MyPosition::RenderMyPosition(ScreenBase const & screen, int zoomLevel,
                                   ref_ptr<gpu::ProgramManager> mng,
-                                  dp::UniformValuesStorage const & commonUniforms)
+                                  FrameValues const & frameValues)
 {
   if (m_showAzimuth)
   {
@@ -130,17 +130,17 @@ void MyPosition::RenderMyPosition(ScreenBase const & screen, int zoomLevel,
   }
   else
   {
-    dp::UniformValuesStorage uniforms = commonUniforms;
+    gpu::ShapesProgramParams params;
+    frameValues.SetTo(params);
     TileKey const key = GetTileKeyByPoint(m2::PointD(m_position), ClipTileZoomByMaxDataZoom(zoomLevel));
     math::Matrix<float, 4, 4> mv = key.GetTileBasedModelView(screen);
-    uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
+    params.m_modelView = glsl::make_mat4(mv.m_data);
 
     auto const pos = static_cast<m2::PointF>(
       MapShape::ConvertToLocal(m2::PointD(m_position), key.GetGlobalRect().Center(), kShapeCoordScalar));
-    uniforms.SetFloatValue("u_position", pos.x, pos.y, dp::depth::kMyPositionMarkDepth);
-    uniforms.SetFloatValue("u_azimut", -(m_azimuth + static_cast<float>(screen.GetAngle())));
-    uniforms.SetFloatValue("u_opacity", 1.0);
-    RenderPart(mng, uniforms, MyPositionPoint);
+    params.m_position = glsl::vec3(pos.x, pos.y, dp::depth::kMyPositionMarkDepth);
+    params.m_azimut = -(m_azimuth + static_cast<float>(screen.GetAngle()));
+    RenderPart(mng, params, MyPositionPoint);
   }
 }
 
@@ -243,10 +243,10 @@ void MyPosition::CachePointPosition(ref_ptr<dp::TextureManager> mng)
 }
 
 void MyPosition::RenderPart(ref_ptr<gpu::ProgramManager> mng,
-                            dp::UniformValuesStorage const & uniforms,
-                            MyPosition::EMyPositionPart part)
+                            gpu::ShapesProgramParams const & params,
+                            EMyPositionPart part)
 {
   TPart const & p = m_parts[part];
-  m_nodes[p.second].Render(mng, uniforms, p.first);
+  m_nodes[p.second].Render(mng, params, p.first);
 }
 }  // namespace df

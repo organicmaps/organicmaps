@@ -7,6 +7,7 @@
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/base_renderer.hpp"
 #include "drape_frontend/drape_api_renderer.hpp"
+#include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/gps_track_renderer.hpp"
 #include "drape_frontend/my_position_controller.hpp"
 #include "drape_frontend/navigator.hpp"
@@ -26,7 +27,6 @@
 
 #include "drape/overlay_tree.hpp"
 #include "drape/pointers.hpp"
-#include "drape/uniform_values_storage.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
 #include "platform/location.hpp"
@@ -268,7 +268,7 @@ private:
 
   drape_ptr<dp::OverlayTree> m_overlayTree;
 
-  dp::UniformValuesStorage m_generalUniforms;
+  FrameValues m_frameValues;
 
   bool m_enablePerspectiveInNavigation;
   bool m_enable3dBuildings;

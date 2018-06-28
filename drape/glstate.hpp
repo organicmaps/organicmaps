@@ -4,7 +4,6 @@
 #include "drape/gpu_program.hpp"
 #include "drape/pointers.hpp"
 #include "drape/texture.hpp"
-#include "drape/uniform_values_storage.hpp"
 
 #include "base/assert.hpp"
 
@@ -120,7 +119,6 @@ private:
   static uint8_t m_usedSlots;
 };
 
-void ApplyUniforms(UniformValuesStorage const & uniforms, ref_ptr<GpuProgram> program);
 void ApplyState(GLState const & state, ref_ptr<GpuProgram> program);
 void ApplyBlending(GLState const & state);
 }  // namespace dp

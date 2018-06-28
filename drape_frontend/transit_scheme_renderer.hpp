@@ -1,11 +1,11 @@
 #pragma once
 
+#include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/transit_scheme_builder.hpp"
 
 #include "shaders/program_manager.hpp"
 
 #include "drape/pointers.hpp"
-#include "drape/uniform_values_storage.hpp"
 
 #include "geometry/screenbase.hpp"
 
@@ -25,7 +25,7 @@ public:
 
   void RenderTransit(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                      ref_ptr<PostprocessRenderer> postprocessRenderer,
-                     dp::UniformValuesStorage const & commonUniforms);
+                     FrameValues const & frameValues);
 
   void CollectOverlays(ref_ptr<dp::OverlayTree> tree, ScreenBase const & modelView);
 
@@ -50,15 +50,15 @@ private:
                        std::vector<TransitRenderData> & renderData);
 
   void RenderLines(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
-                   dp::UniformValuesStorage const & commonUniforms, float pixelHalfWidth);
+                   FrameValues const & frameValues, float pixelHalfWidth);
   void RenderLinesCaps(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
-                       dp::UniformValuesStorage const & commonUniforms, float pixelHalfWidth);
+                       FrameValues const & frameValues, float pixelHalfWidth);
   void RenderMarkers(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
-                     dp::UniformValuesStorage const & commonUniforms, float pixelHalfWidth);
+                     FrameValues const & frameValues, float pixelHalfWidth);
   void RenderText(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
-                  dp::UniformValuesStorage const & commonUniforms);
+                  FrameValues const & frameValues);
   void RenderStubs(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
-                   dp::UniformValuesStorage const & commonUniforms);
+                   FrameValues const & frameValues);
 
   bool HasRenderData() const;
 

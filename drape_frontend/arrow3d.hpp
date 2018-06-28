@@ -41,8 +41,9 @@ private:
   void Build();
   math::Matrix<float, 4, 4> CalculateTransform(ScreenBase const & screen, float dz,
                                                float scaleFactor) const;
-  void RenderArrow(ScreenBase const & screen, ref_ptr<dp::GpuProgram> program,
-                   dp::Color const & color, float dz, float scaleFactor, bool hasNormals);
+  void RenderArrow(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
+                   gpu::Program program, dp::Color const & color, float dz, float scaleFactor,
+                   bool hasNormals);
 
   m2::PointD m_position;
   double m_azimuth = 0.0;

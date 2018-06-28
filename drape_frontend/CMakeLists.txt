@@ -77,6 +77,7 @@ set(
   drape_measurer.hpp
   engine_context.cpp
   engine_context.hpp
+  frame_values.hpp
   frontend_renderer.cpp
   frontend_renderer.hpp
   gps_track_point.hpp
@@ -151,7 +152,6 @@ set(
   read_mwm_task.hpp
   render_group.cpp
   render_group.hpp
-  render_node.cpp
   render_node.hpp
   render_state.cpp
   render_state.hpp

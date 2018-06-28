@@ -7,7 +7,6 @@
 #include "drape/glconstants.hpp"
 #include "drape/glextensions_list.hpp"
 #include "drape/glfunctions.hpp"
-#include "drape/uniform_values_storage.hpp"
 
 #include <vector>
 
@@ -20,14 +19,14 @@ class TextureRendererContext : public RendererContext
 public:
   gpu::Program GetGpuProgram() const override { return gpu::Program::ScreenQuad; }
 
-  void PreRender(ref_ptr<dp::GpuProgram> prg) override
+  void PreRender(ref_ptr<gpu::ProgramManager> mng) override
   {
+    auto prg = mng->GetProgram(GetGpuProgram());
+
     BindTexture(m_textureId, prg, "u_colorTex", 0 /* slotIndex */,
                 gl_const::GLLinear, gl_const::GLClampToEdge);
 
-    dp::UniformValuesStorage uniforms;
-    uniforms.SetFloatValue("u_opacity", m_opacity);
-    dp::ApplyUniforms(uniforms, prg);
+    mng->GetParamsSetter()->Apply(prg, m_params);
 
     GLFunctions::glDisable(gl_const::GLDepthTest);
     GLFunctions::glEnable(gl_const::GLBlending);
@@ -42,12 +41,12 @@ public:
   void SetParams(uint32_t textureId, float opacity)
   {
     m_textureId = textureId;
-    m_opacity = opacity;
+    m_params.m_opacity = opacity;
   }
 
 private:
   uint32_t m_textureId = 0;
-  float m_opacity = 1.0f;
+  gpu::ScreenQuadProgramParams m_params;
 };
 }  // namespace
 
@@ -130,7 +129,7 @@ void ScreenQuadRenderer::Render(ref_ptr<gpu::ProgramManager> mng, ref_ptr<Render
   GLFunctions::glVertexAttributePointer(m_attributeTexCoord, 2, gl_const::GLFloatType, false,
                                         sizeof(float) * 4, sizeof(float) * 2);
 
-  context->PreRender(prg);
+  context->PreRender(mng);
   GLFunctions::glDrawArrays(gl_const::GLTriangleStrip, 0, 4);
   context->PostRender();
 

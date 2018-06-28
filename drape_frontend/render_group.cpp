@@ -1,7 +1,7 @@
 #include "drape_frontend/render_group.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "shaders/programs.hpp"
+#include "shaders/program_manager.hpp"
 
 #include "drape/debug_rect_renderer.hpp"
 #include "drape/vertex_array_buffer.hpp"
@@ -16,28 +16,9 @@
 
 namespace df
 {
-void BaseRenderGroup::SetRenderParams(ref_ptr<dp::GpuProgram> shader, ref_ptr<dp::GpuProgram> shader3d,
-                                      ref_ptr<dp::UniformValuesStorage> generalUniforms)
-{
-  m_shader = shader;
-  m_shader3d = shader3d;
-  m_generalUniforms = generalUniforms;
-}
-
 void BaseRenderGroup::UpdateAnimation()
 {
-  m_uniforms.SetFloatValue("u_opacity", 1.0);
-}
-
-void BaseRenderGroup::Render(const ScreenBase & screen)
-{
-  ref_ptr<dp::GpuProgram> shader = screen.isPerspective() ? m_shader3d : m_shader;
-  ASSERT(shader != nullptr, ());
-  ASSERT(m_generalUniforms != nullptr, ());
-
-  shader->Bind();
-  dp::ApplyState(m_state, shader);
-  dp::ApplyUniforms(*(m_generalUniforms.get()), shader);
+  m_params.m_opacity = 1.0f;
 }
 
 RenderGroup::RenderGroup(dp::GLState const & state, df::TileKey const & tileKey)
@@ -53,8 +34,6 @@ RenderGroup::~RenderGroup()
 
 void RenderGroup::Update(ScreenBase const & modelView)
 {
-  ASSERT(m_shader != nullptr, ());
-  ASSERT(m_generalUniforms != nullptr, ());
   for (auto & renderBucket : m_renderBuckets)
     renderBucket->Update(modelView);
 }
@@ -64,8 +43,6 @@ void RenderGroup::CollectOverlay(ref_ptr<dp::OverlayTree> tree)
   if (CanBeDeleted())
     return;
 
-  ASSERT(m_shader != nullptr, ());
-  ASSERT(m_generalUniforms != nullptr, ());
   for (auto & renderBucket : m_renderBuckets)
     renderBucket->CollectOverlayHandles(tree);
 }
@@ -92,19 +69,17 @@ void RenderGroup::SetOverlayVisibility(bool isVisible)
     renderBucket->SetOverlayVisibility(isVisible);
 }
 
-void RenderGroup::Render(ScreenBase const & screen)
+void RenderGroup::Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
+                         FrameValues const & frameValues)
 {
-  BaseRenderGroup::Render(screen);
+  auto programPtr = mng->GetProgram(screen.isPerspective() ? m_state.GetProgram3d<gpu::Program>()
+                                                           : m_state.GetProgram<gpu::Program>());
+  ASSERT(programPtr != nullptr, ());
+  programPtr->Bind();
+  dp::ApplyState(m_state, programPtr);
 
-  ref_ptr<dp::GpuProgram> shader = screen.isPerspective() ? m_shader3d : m_shader;
   for(auto & renderBucket : m_renderBuckets)
-    renderBucket->GetBuffer()->Build(shader);
-
-  // Set tile-based model-view matrix.
-  {
-    math::Matrix<float, 4, 4> mv = GetTileKey().GetTileBasedModelView(screen);
-    m_uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
-  }
+    renderBucket->GetBuffer()->Build(programPtr);
 
   auto const program = m_state.GetProgram<gpu::Program>();
   auto const program3d = m_state.GetProgram3d<gpu::Program>();
@@ -118,33 +93,43 @@ void RenderGroup::Render(ScreenBase const & screen)
       GLFunctions::glDisable(gl_const::GLDepthTest);
   }
 
-  auto const & params = df::VisualParams::Instance().GetGlyphVisualParams();
+  // Set frame values to group's params.
+  frameValues.SetTo(m_params);
+
+  // Set tile-based model-view matrix.
+  {
+    math::Matrix<float, 4, 4> mv = GetTileKey().GetTileBasedModelView(screen);
+    m_params.m_modelView = glsl::make_mat4(mv.m_data);
+  }
+
+  auto const & glyphParams = df::VisualParams::Instance().GetGlyphVisualParams();
   if (program == gpu::Program::TextOutlined || program3d == gpu::Program::TextOutlinedBillboard)
   {
-    m_uniforms.SetFloatValue("u_contrastGamma", params.m_outlineContrast, params.m_outlineGamma);
-    m_uniforms.SetFloatValue("u_isOutlinePass", 1.0f);
-    dp::ApplyUniforms(m_uniforms, shader);
+    m_params.m_contrastGamma = glsl::vec2(glyphParams.m_outlineContrast, glyphParams.m_outlineGamma);
+    m_params.m_isOutlinePass = 1.0f;
 
+    mng->GetParamsSetter()->Apply(programPtr, m_params);
     for(auto & renderBucket : m_renderBuckets)
       renderBucket->Render(m_state.GetDrawAsLine());
 
-    m_uniforms.SetFloatValue("u_contrastGamma", params.m_contrast, params.m_gamma);
-    m_uniforms.SetFloatValue("u_isOutlinePass", 0.0f);
-    dp::ApplyUniforms(m_uniforms, shader);
+    m_params.m_contrastGamma = glsl::vec2(glyphParams.m_contrast, glyphParams.m_gamma);
+    m_params.m_isOutlinePass = 0.0f;
+
+    mng->GetParamsSetter()->Apply(programPtr, m_params);
     for(auto & renderBucket : m_renderBuckets)
       renderBucket->Render(m_state.GetDrawAsLine());
   }
   else if (program == gpu::Program::Text || program3d == gpu::Program::TextBillboard)
   {
-    m_uniforms.SetFloatValue("u_contrastGamma", params.m_contrast, params.m_gamma);
-    dp::ApplyUniforms(m_uniforms, shader);
+    m_params.m_contrastGamma = glsl::vec2(glyphParams.m_contrast, glyphParams.m_gamma);
+
+    mng->GetParamsSetter()->Apply(programPtr, m_params);
     for(auto & renderBucket : m_renderBuckets)
       renderBucket->Render(m_state.GetDrawAsLine());
   }
   else
   {
-    dp::ApplyUniforms(m_uniforms, shader);
-
+    mng->GetParamsSetter()->Apply(programPtr, m_params);
     for(drape_ptr<dp::RenderBucket> & renderBucket : m_renderBuckets)
       renderBucket->Render(m_state.GetDrawAsLine());
   }
@@ -237,13 +222,12 @@ UserMarkRenderGroup::UserMarkRenderGroup(dp::GLState const & state, TileKey cons
 void UserMarkRenderGroup::UpdateAnimation()
 {
   BaseRenderGroup::UpdateAnimation();
-  float interpolation = 1.0f;
+  m_params.m_interpolation = 1.0f;
   if (m_animation)
   {
     auto const t = static_cast<float>(m_animation->GetOpacity());
-    interpolation = m_mapping.GetValue(t);
+    m_params.m_interpolation = m_mapping.GetValue(t);
   }
-  m_uniforms.SetFloatValue("u_interpolation", interpolation);
 }
 
 bool UserMarkRenderGroup::IsUserPoint() const

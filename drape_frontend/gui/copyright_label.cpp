@@ -58,8 +58,7 @@ public:
       SetIsVisible(false);
     }
 
-    m_uniforms.SetFloatValue("u_opacity", static_cast<float>(m_animation->GetOpacity()));
-
+    m_params.m_opacity = static_cast<float>(m_animation->GetOpacity());
     return true;
   }
 

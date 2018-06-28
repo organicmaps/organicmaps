@@ -59,6 +59,7 @@
 		45B4B8CC1CF5C16B00A54761 /* screen_animations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45B4B8C81CF5C16B00A54761 /* screen_animations.hpp */; };
 		45B4B8CD1CF5C16B00A54761 /* screen_operations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 45B4B8C91CF5C16B00A54761 /* screen_operations.cpp */; };
 		45B4B8CE1CF5C16B00A54761 /* screen_operations.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45B4B8CA1CF5C16B00A54761 /* screen_operations.hpp */; };
+		45BE604E20E504FC00A456AE /* frame_values.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 45BE604D20E504FC00A456AE /* frame_values.hpp */; };
 		56BF56DA1C7608C0006DD7CB /* choose_position_mark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56BF56D81C7608C0006DD7CB /* choose_position_mark.cpp */; };
 		56BF56DB1C7608C0006DD7CB /* choose_position_mark.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 56BF56D91C7608C0006DD7CB /* choose_position_mark.hpp */; };
 		56D545661C74A44900E3719C /* overlay_batcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 56D545641C74A44900E3719C /* overlay_batcher.cpp */; };
@@ -95,7 +96,6 @@
 		670947B21BDF9BE1005014C0 /* read_mwm_task.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947631BDF9BE0005014C0 /* read_mwm_task.hpp */; };
 		670947B31BDF9BE1005014C0 /* render_group.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947641BDF9BE0005014C0 /* render_group.cpp */; };
 		670947B41BDF9BE1005014C0 /* render_group.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947651BDF9BE0005014C0 /* render_group.hpp */; };
-		670947B51BDF9BE1005014C0 /* render_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947661BDF9BE0005014C0 /* render_node.cpp */; };
 		670947B61BDF9BE1005014C0 /* render_node.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947671BDF9BE0005014C0 /* render_node.hpp */; };
 		670947B71BDF9BE1005014C0 /* route_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 670947681BDF9BE0005014C0 /* route_builder.cpp */; };
 		670947B81BDF9BE1005014C0 /* route_builder.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 670947691BDF9BE0005014C0 /* route_builder.hpp */; };
@@ -328,6 +328,7 @@
 		45BB02581EB8BE2B00FE5C0C /* traffic.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = traffic.vsh.glsl; path = shaders/traffic.vsh.glsl; sourceTree = "<group>"; };
 		45BB02591EB8BE2B00FE5C0C /* user_mark_billboard.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = user_mark_billboard.vsh.glsl; path = shaders/user_mark_billboard.vsh.glsl; sourceTree = "<group>"; };
 		45BB025A1EB8BE2B00FE5C0C /* user_mark.vsh.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = user_mark.vsh.glsl; path = shaders/user_mark.vsh.glsl; sourceTree = "<group>"; };
+		45BE604D20E504FC00A456AE /* frame_values.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = frame_values.hpp; sourceTree = "<group>"; };
 		56BF56D81C7608C0006DD7CB /* choose_position_mark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = choose_position_mark.cpp; sourceTree = "<group>"; };
 		56BF56D91C7608C0006DD7CB /* choose_position_mark.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = choose_position_mark.hpp; sourceTree = "<group>"; };
 		56D545641C74A44900E3719C /* overlay_batcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = overlay_batcher.cpp; sourceTree = "<group>"; };
@@ -366,7 +367,6 @@
 		670947631BDF9BE0005014C0 /* read_mwm_task.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = read_mwm_task.hpp; sourceTree = "<group>"; };
 		670947641BDF9BE0005014C0 /* render_group.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = render_group.cpp; sourceTree = "<group>"; };
 		670947651BDF9BE0005014C0 /* render_group.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = render_group.hpp; sourceTree = "<group>"; };
-		670947661BDF9BE0005014C0 /* render_node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = render_node.cpp; sourceTree = "<group>"; };
 		670947671BDF9BE0005014C0 /* render_node.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = render_node.hpp; sourceTree = "<group>"; };
 		670947681BDF9BE0005014C0 /* route_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = route_builder.cpp; sourceTree = "<group>"; };
 		670947691BDF9BE0005014C0 /* route_builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = route_builder.hpp; sourceTree = "<group>"; };
@@ -583,6 +583,7 @@
 		670947411BDF9B99005014C0 /* drape_frontend */ = {
 			isa = PBXGroup;
 			children = (
+				45BE604D20E504FC00A456AE /* frame_values.hpp */,
 				BB59CED120BF6E46008A9ADF /* transit_scheme_builder.cpp */,
 				BB59CED420BF6E46008A9ADF /* transit_scheme_builder.hpp */,
 				BB59CED220BF6E46008A9ADF /* transit_scheme_renderer.cpp */,
@@ -695,7 +696,6 @@
 				670947631BDF9BE0005014C0 /* read_mwm_task.hpp */,
 				670947641BDF9BE0005014C0 /* render_group.cpp */,
 				670947651BDF9BE0005014C0 /* render_group.hpp */,
-				670947661BDF9BE0005014C0 /* render_node.cpp */,
 				670947671BDF9BE0005014C0 /* render_node.hpp */,
 				670947681BDF9BE0005014C0 /* route_builder.cpp */,
 				670947691BDF9BE0005014C0 /* route_builder.hpp */,
@@ -908,6 +908,7 @@
 				453FEDAD1F34C257005C1BB4 /* render_state.hpp in Headers */,
 				6743D36E1C3A9F090095054B /* arrow3d.hpp in Headers */,
 				670947B81BDF9BE1005014C0 /* route_builder.hpp in Headers */,
+				45BE604E20E504FC00A456AE /* frame_values.hpp in Headers */,
 				45B4B8CC1CF5C16B00A54761 /* screen_animations.hpp in Headers */,
 				670948151BDF9C39005014C0 /* base_interpolator.hpp in Headers */,
 				BB035F701E3A2AAE00519962 /* drape_measurer.hpp in Headers */,
@@ -1028,7 +1029,6 @@
 				670948141BDF9C39005014C0 /* base_interpolator.cpp in Sources */,
 				670948491BDF9C48005014C0 /* ruler_helper.cpp in Sources */,
 				670947E41BDF9BEC005014C0 /* engine_context.cpp in Sources */,
-				670947B51BDF9BE1005014C0 /* render_node.cpp in Sources */,
 				EB2B77FF1EEDD418002697B6 /* metaline_manager.cpp in Sources */,
 				670947AF1BDF9BE1005014C0 /* read_manager.cpp in Sources */,
 				670947941BDF9BE1005014C0 /* line_shape_helper.cpp in Sources */,

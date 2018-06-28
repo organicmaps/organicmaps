@@ -22,7 +22,7 @@ public:
   Handle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot,
          m2::PointF const & size = m2::PointF::Zero());
 
-  dp::UniformValuesStorage const & GetUniforms() const { return m_uniforms; }
+  gpu::GuiProgramParams const & GetParams() const { return m_params; }
 
   bool Update(ScreenBase const & screen) override;
 
@@ -39,7 +39,7 @@ public:
   virtual void SetPivot(glsl::vec2 const & pivot) { m_pivot = pivot; }
 
 protected:
-  dp::UniformValuesStorage m_uniforms;
+  gpu::GuiProgramParams m_params;
   glsl::vec2 m_pivot;
   mutable m2::PointF m_size;
 };

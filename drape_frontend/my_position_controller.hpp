@@ -1,12 +1,11 @@
 #pragma once
 
 #include "drape_frontend/animation/animation.hpp"
+#include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/drape_hints.hpp"
 #include "drape_frontend/my_position.hpp"
 
 #include "shaders/program_manager.hpp"
-
-#include "drape/uniform_values_storage.hpp"
 
 #include "platform/location.hpp"
 
@@ -117,7 +116,7 @@ public:
   void OnCompassUpdate(location::CompassInfo const & info, ScreenBase const & screen);
 
   void Render(ScreenBase const & screen, int zoomLevel, ref_ptr<gpu::ProgramManager> mng,
-              dp::UniformValuesStorage const & commonUniforms);
+              FrameValues const & frameValues);
 
   bool IsRotationAvailable() const { return m_isDirectionAssigned; }
   bool IsInRouting() const { return m_isInRouting; }

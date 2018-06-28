@@ -147,7 +147,7 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, GuiProgramPar
   Parameter::CheckApply(guard, "u_length", params.m_length);
 }
 
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, AccuracyProgramParams const & params)
+void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, ShapesProgramParams const & params)
 {
   UniformsGuard guard(program, params);
 
@@ -158,18 +158,7 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, AccuracyProgr
   Parameter::CheckApply(guard, "u_accuracy", params.m_accuracy);
   Parameter::CheckApply(guard, "u_zScale", params.m_zScale);
   Parameter::CheckApply(guard, "u_opacity", params.m_opacity);
-}
-
-void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, MyPositionProgramParams const & params)
-{
-  UniformsGuard guard(program, params);
-
-  Parameter::CheckApply(guard, "u_modelView", params.m_modelView);
-  Parameter::CheckApply(guard, "u_projection", params.m_projection);
-  Parameter::CheckApply(guard, "u_pivotTransform", params.m_pivotTransform);
-  Parameter::CheckApply(guard, "u_position", params.m_position);
   Parameter::CheckApply(guard, "u_azimut", params.m_azimut);
-  Parameter::CheckApply(guard, "u_opacity", params.m_opacity);
 }
 
 void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, Arrow3dProgramParams const & params)

@@ -132,8 +132,7 @@ void TrafficRenderer::OnGeometryReady(int currentZoomLevel)
 }
 
 void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, float opacity,
-                                    ref_ptr<gpu::ProgramManager> mng,
-                                    dp::UniformValuesStorage const & commonUniforms)
+                                    ref_ptr<gpu::ProgramManager> mng, FrameValues const & frameValues)
 {
   if (m_renderData.empty() || zoomLevel < kRoadClass0ZoomLevel)
     return;
@@ -150,12 +149,12 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, fl
       program->Bind();
       dp::ApplyState(renderData.m_state, program);
 
-      dp::UniformValuesStorage uniforms = commonUniforms;
+      gpu::TrafficProgramParams params;
+      frameValues.SetTo(params);
       math::Matrix<float, 4, 4> const mv = renderData.m_tileKey.GetTileBasedModelView(screen);
-      uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
-      uniforms.SetFloatValue("u_opacity", opacity);
-      dp::ApplyUniforms(uniforms, program);
-
+      params.m_modelView = glsl::make_mat4(mv.m_data);
+      params.m_opacity = opacity;
+      mng->GetParamsSetter()->Apply(program, params);
       renderData.m_bucket->Render(true /* draw as line */);
     }
     else
@@ -195,21 +194,18 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, fl
       program->Bind();
       dp::ApplyState(renderData.m_state, program);
 
-      dp::UniformValuesStorage uniforms = commonUniforms;
+      gpu::TrafficProgramParams params;
+      frameValues.SetTo(params);
       math::Matrix<float, 4, 4> const mv = renderData.m_tileKey.GetTileBasedModelView(screen);
-      uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
-      uniforms.SetFloatValue("u_opacity", opacity);
-      uniforms.SetFloatValue("u_outline", outline);
-      uniforms.SetFloatValue("u_lightArrowColor", lightArrowColor.GetRedF(),
-                             lightArrowColor.GetGreenF(), lightArrowColor.GetBlueF());
-      uniforms.SetFloatValue("u_darkArrowColor", darkArrowColor.GetRedF(),
-                             darkArrowColor.GetGreenF(), darkArrowColor.GetBlueF());
-      uniforms.SetFloatValue("u_outlineColor", outlineColor.GetRedF(), outlineColor.GetGreenF(),
-                             outlineColor.GetBlueF());
-      uniforms.SetFloatValue("u_trafficParams", leftPixelHalfWidth, rightPixelHalfWidth,
-                             invLeftPixelLength,
-                             zoomLevel >= minVisibleArrowZoomLevel ? 1.0f : 0.0f);
-      dp::ApplyUniforms(uniforms, program);
+      params.m_modelView = glsl::make_mat4(mv.m_data);
+      params.m_opacity = opacity;
+      params.m_outline = outline;
+      params.m_lightArrowColor = glsl::ToVec3(lightArrowColor);
+      params.m_darkArrowColor = glsl::ToVec3(darkArrowColor);
+      params.m_outlineColor = glsl::ToVec3(outlineColor);
+      params.m_trafficParams = glsl::vec4(leftPixelHalfWidth, rightPixelHalfWidth, invLeftPixelLength,
+                                          zoomLevel >= minVisibleArrowZoomLevel ? 1.0f : 0.0f);
+      mng->GetParamsSetter()->Apply(program, params);
 
       renderData.m_bucket->Render(false /* draw as line */);
     }

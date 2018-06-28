@@ -2,8 +2,11 @@
 
 #include "drape_frontend/animation/opacity_animation.hpp"
 #include "drape_frontend/animation/value_mapping.hpp"
+#include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/render_state.hpp"
 #include "drape_frontend/tile_utils.hpp"
+
+#include "shaders/program_params.hpp"
 
 #include "drape/pointers.hpp"
 #include "drape/render_bucket.hpp"
@@ -14,6 +17,7 @@
 
 class ScreenBase;
 namespace dp { class OverlayTree; }
+namespace gpu { class ProgramManager; }
 
 namespace df
 {
@@ -25,24 +29,18 @@ public:
     , m_tileKey(tileKey)
   {}
 
-  virtual ~BaseRenderGroup() {}
-
-  void SetRenderParams(ref_ptr<dp::GpuProgram> shader, ref_ptr<dp::GpuProgram> shader3d,
-                       ref_ptr<dp::UniformValuesStorage> generalUniforms);
+  virtual ~BaseRenderGroup() = default;
 
   dp::GLState const & GetState() const { return m_state; }
   TileKey const & GetTileKey() const { return m_tileKey; }
-  dp::UniformValuesStorage const & GetUniforms() const { return m_uniforms; }
 
   virtual void UpdateAnimation();
-  virtual void Render(ScreenBase const & screen);
+  virtual void Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
+                      FrameValues const & frameValues) = 0;
 
 protected:
   dp::GLState m_state;
-  ref_ptr<dp::GpuProgram> m_shader;
-  ref_ptr<dp::GpuProgram> m_shader3d;
-  dp::UniformValuesStorage m_uniforms;
-  ref_ptr<dp::UniformValuesStorage> m_generalUniforms;
+  gpu::MapProgramParams m_params;
 
 private:
   TileKey m_tileKey;
@@ -61,7 +59,8 @@ public:
   bool HasOverlayHandles() const;
   void RemoveOverlay(ref_ptr<dp::OverlayTree> tree);
   void SetOverlayVisibility(bool isVisible);
-  void Render(ScreenBase const & screen) override;
+  void Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
+              FrameValues const & frameValues) override;
 
   void AddBucket(drape_ptr<dp::RenderBucket> && bucket);
 
@@ -71,7 +70,8 @@ public:
   bool IsPendingOnDelete() const { return m_pendingOnDelete; }
   bool CanBeDeleted() const { return m_canBeDeleted; }
 
-  bool UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom, ref_ptr<dp::OverlayTree> tree);
+  bool UpdateCanBeDeletedStatus(bool canBeDeleted, int currentZoom,
+                                ref_ptr<dp::OverlayTree> tree);
 
   bool IsOverlay() const;
   bool IsUserMark() const;

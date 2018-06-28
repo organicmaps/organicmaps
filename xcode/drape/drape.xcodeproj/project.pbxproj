@@ -98,8 +98,6 @@
 		6729A5AB1A69213A007D5872 /* texture.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6729A5571A69213A007D5872 /* texture.hpp */; };
 		6729A5AC1A69213A007D5872 /* uniform_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6729A5581A69213A007D5872 /* uniform_value.cpp */; };
 		6729A5AD1A69213A007D5872 /* uniform_value.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6729A5591A69213A007D5872 /* uniform_value.hpp */; };
-		6729A5AE1A69213A007D5872 /* uniform_values_storage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6729A55A1A69213A007D5872 /* uniform_values_storage.cpp */; };
-		6729A5AF1A69213A007D5872 /* uniform_values_storage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6729A55B1A69213A007D5872 /* uniform_values_storage.hpp */; };
 		6729A5B21A69213A007D5872 /* vertex_decl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6729A55F1A69213A007D5872 /* vertex_decl.cpp */; };
 		6729A5B31A69213A007D5872 /* vertex_decl.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 6729A5601A69213A007D5872 /* vertex_decl.hpp */; };
 		6729A5B41A69213A007D5872 /* vertex_array_buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6729A5611A69213A007D5872 /* vertex_array_buffer.cpp */; };
@@ -206,8 +204,6 @@
 		6729A5571A69213A007D5872 /* texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = texture.hpp; sourceTree = "<group>"; };
 		6729A5581A69213A007D5872 /* uniform_value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uniform_value.cpp; sourceTree = "<group>"; };
 		6729A5591A69213A007D5872 /* uniform_value.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = uniform_value.hpp; sourceTree = "<group>"; };
-		6729A55A1A69213A007D5872 /* uniform_values_storage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = uniform_values_storage.cpp; sourceTree = "<group>"; };
-		6729A55B1A69213A007D5872 /* uniform_values_storage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = uniform_values_storage.hpp; sourceTree = "<group>"; };
 		6729A55F1A69213A007D5872 /* vertex_decl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertex_decl.cpp; sourceTree = "<group>"; };
 		6729A5601A69213A007D5872 /* vertex_decl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vertex_decl.hpp; sourceTree = "<group>"; };
 		6729A5611A69213A007D5872 /* vertex_array_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertex_array_buffer.cpp; sourceTree = "<group>"; };
@@ -342,8 +338,6 @@
 				6729A5571A69213A007D5872 /* texture.hpp */,
 				6729A5581A69213A007D5872 /* uniform_value.cpp */,
 				6729A5591A69213A007D5872 /* uniform_value.hpp */,
-				6729A55A1A69213A007D5872 /* uniform_values_storage.cpp */,
-				6729A55B1A69213A007D5872 /* uniform_values_storage.hpp */,
 				6729A55C1A69213A007D5872 /* utils */,
 				6729A5611A69213A007D5872 /* vertex_array_buffer.cpp */,
 				6729A5621A69213A007D5872 /* vertex_array_buffer.hpp */,
@@ -403,7 +397,6 @@
 				6729A5B31A69213A007D5872 /* vertex_decl.hpp in Headers */,
 				6729A5721A69213A007D5872 /* cpu_buffer.hpp in Headers */,
 				6729A5AD1A69213A007D5872 /* uniform_value.hpp in Headers */,
-				6729A5AF1A69213A007D5872 /* uniform_values_storage.hpp in Headers */,
 				6729A5951A69213A007D5872 /* overlay_handle.hpp in Headers */,
 				6729A57E1A69213A007D5872 /* glfunctions.hpp in Headers */,
 				45201E951CE605B1008A4842 /* constants.hpp in Headers */,
@@ -530,7 +523,6 @@
 				6729A5B41A69213A007D5872 /* vertex_array_buffer.cpp in Sources */,
 				6729A5B21A69213A007D5872 /* vertex_decl.cpp in Sources */,
 				6729A5A81A69213A007D5872 /* texture_of_colors.cpp in Sources */,
-				6729A5AE1A69213A007D5872 /* uniform_values_storage.cpp in Sources */,
 				6729A5AC1A69213A007D5872 /* uniform_value.cpp in Sources */,
 				6729A5961A69213A007D5872 /* overlay_tree.cpp in Sources */,
 				6729A5651A69213A007D5872 /* attribute_provider.cpp in Sources */,

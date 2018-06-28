@@ -192,7 +192,7 @@ dp::Color GpsTrackRenderer::GetColorBySpeed(double speed) const
 
 void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
                                    ref_ptr<gpu::ProgramManager> mng,
-                                   dp::UniformValuesStorage const & commonUniforms)
+                                   FrameValues const & frameValues)
 {
   if (zoomLevel < kMinVisibleZoomLevel)
     return;
@@ -301,17 +301,17 @@ void GpsTrackRenderer::RenderTrack(ScreenBase const & screen, int zoomLevel,
   ASSERT_LESS_OR_EQUAL(m_renderData.size(), m_handlesCache.size(), ());
 
   // Render points.
-  dp::UniformValuesStorage uniforms = commonUniforms;
+  gpu::MapProgramParams params;
+  frameValues.SetTo(params);
   math::Matrix<float, 4, 4> mv = screen.GetModelView(m_pivot, kShapeCoordScalar);
-  uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
-  uniforms.SetFloatValue("u_opacity", 1.0f);
+  params.m_modelView = glsl::make_mat4(mv.m_data);
   ref_ptr<dp::GpuProgram> program = mng->GetProgram(gpu::Program::CirclePoint);
   program->Bind();
 
   ASSERT_GREATER(m_renderData.size(), 0, ());
   dp::GLState const & state = m_renderData.front()->m_state;
   dp::ApplyState(state, program);
-  dp::ApplyUniforms(uniforms, program);
+  mng->GetParamsSetter()->Apply(program, params);
 
   for (size_t i = 0; i < m_renderData.size(); i++)
   {

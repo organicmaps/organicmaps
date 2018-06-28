@@ -101,8 +101,6 @@ set(
   ${DRAPE_ROOT}/texture_of_colors.hpp
   ${DRAPE_ROOT}/uniform_value.cpp
   ${DRAPE_ROOT}/uniform_value.hpp
-  ${DRAPE_ROOT}/uniform_values_storage.cpp
-  ${DRAPE_ROOT}/uniform_values_storage.hpp
   ${DRAPE_ROOT}/utils/glyph_usage_tracker.cpp
   ${DRAPE_ROOT}/utils/glyph_usage_tracker.hpp
   ${DRAPE_ROOT}/utils/gpu_mem_tracker.cpp

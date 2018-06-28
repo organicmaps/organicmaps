@@ -78,12 +78,11 @@ void mock_glGetActiveUniform(uint32_t programID, uint32_t index, int32_t * size,
 
 UNIT_TEST(UniformValueTest)
 {
-  uint32_t const VertexShaderID = 1;
-  uint32_t const FragmentShaderID = 2;
-  uint32_t const ProgramID = 2;
-
-  int32_t const positionLoc = 10;
-  int32_t const modelViewLoc = 11;
+  uint32_t constexpr VertexShaderID = 1;
+  uint32_t constexpr FragmentShaderID = 2;
+  uint32_t constexpr ProgramID = 2;
+  int32_t constexpr positionLoc = 10;
+  int32_t constexpr modelViewLoc = 11;
 
   float matrix[16] =
   {
@@ -156,48 +155,21 @@ UNIT_TEST(UniformValueTest)
 
   program->Bind();
 
-  {
-    UniformValue v("position0", 1);
-    v.Apply(make_ref(program));
-  }
+  UniformValue::ApplyRaw(positionLoc, 1);
 
-  {
-    UniformValue v("position1", 1, 2);
-    v.Apply(make_ref(program));
-  }
+  UniformValue::ApplyRaw(positionLoc, glsl::ivec2(1, 2));
 
-  {
-    UniformValue v("position2", 1, 2, 3);
-    v.Apply(make_ref(program));
-  }
+  UniformValue::ApplyRaw(positionLoc, glsl::ivec3(1, 2, 3));
 
-  {
-    UniformValue v("position3", 1, 2, 3, 4);
-    v.Apply(make_ref(program));
-  }
+  UniformValue::ApplyRaw(positionLoc, glsl::ivec4(1, 2, 3, 4));
 
-  {
-    UniformValue v("position4", 1.0f);
-    v.Apply(make_ref(program));
-  }
+  UniformValue::ApplyRaw(positionLoc, 1.0f);
 
-  {
-    UniformValue v("position5", 1.0f, 2.0f);
-    v.Apply(make_ref(program));
-  }
+  UniformValue::ApplyRaw(positionLoc, glsl::vec2(1.0f, 2.0f));
 
-  {
-    UniformValue v("position6", 1.0f, 2.0f, 3.0f);
-    v.Apply(make_ref(program));
-  }
+  UniformValue::ApplyRaw(positionLoc, glsl::vec3(1.0f, 2.0f, 3.0f));
 
-  {
-    UniformValue v("position7", 1.0f, 2.0f, 3.0f, 4.0f);
-    v.Apply(make_ref(program));
-  }
+  UniformValue::ApplyRaw(positionLoc, glsl::vec4(1.0f, 2.0f, 3.0f, 4.0f));
 
-  {
-    UniformValue v("viewModel", matrix);
-    v.Apply(make_ref(program));
-  }
+  UniformValue::ApplyRaw(modelViewLoc, glsl::make_mat4(matrix));
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "drape_frontend/circles_pack_shape.hpp"
+#include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/route_builder.hpp"
 
 #include "shaders/program_manager.hpp"
@@ -57,7 +58,7 @@ public:
   void UpdateRoute(ScreenBase const & screen, CacheRouteArrowsCallback const & callback);
 
   void RenderRoute(ScreenBase const & screen, bool trafficShown, ref_ptr<gpu::ProgramManager> mng,
-                   dp::UniformValuesStorage const & commonUniforms);
+                   FrameValues const & frameValues);
 
   void AddSubrouteData(drape_ptr<SubrouteData> && subrouteData, ref_ptr<gpu::ProgramManager> mng);
   Subroutes const & GetSubroutes() const;
@@ -93,15 +94,14 @@ public:
 private:
   void RenderSubroute(SubrouteInfo const & subrouteInfo, size_t subrouteDataIndex,
                       ScreenBase const & screen, bool trafficShown, ref_ptr<gpu::ProgramManager> mng,
-                      dp::UniformValuesStorage const & commonUniforms);
+                      FrameValues const & frameValues);
   void RenderSubrouteArrows(SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
                             ref_ptr<gpu::ProgramManager> mng,
-                            dp::UniformValuesStorage const & commonUniforms);
+                            FrameValues const & frameValues);
   void RenderSubrouteMarkers(SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
-                             ref_ptr<gpu::ProgramManager> mng,
-                             dp::UniformValuesStorage const & commonUniforms);
+                             ref_ptr<gpu::ProgramManager> mng, FrameValues const & frameValues);
   void RenderPreviewData(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
-                         dp::UniformValuesStorage const & commonUniforms);
+                         FrameValues const & frameValues);
   void ClearPreviewHandles();
   CirclesPackHandle * GetPreviewHandle(size_t & index);
   dp::Color GetMaskColor(RouteType routeType, double baseDistance, bool arrows) const;

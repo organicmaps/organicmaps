@@ -1,8 +1,9 @@
 #pragma once
 
-#include "animation/show_hide_animation.hpp"
-#include "animation/value_mapping.hpp"
-#include "render_node.hpp"
+#include "drape_frontend/animation/show_hide_animation.hpp"
+#include "drape_frontend/animation/value_mapping.hpp"
+#include "drape_frontend/frame_values.hpp"
+#include "drape_frontend/render_node.hpp"
 
 #include "geometry/point2d.hpp"
 #include "geometry/screenbase.hpp"
@@ -37,7 +38,7 @@ public:
   void Show(ESelectedObject obj, m2::PointD const & position, double positionZ, bool isAnimate);
   void Hide();
   void Render(ScreenBase const & screen, int zoomLevel, ref_ptr<gpu::ProgramManager> mng,
-              dp::UniformValuesStorage const & commonUniforms);
+              FrameValues const & frameValues);
 
   bool IsVisible(ScreenBase const & screen, m2::PointD & pxPos) const;
   double GetRadius() const { return m_radius; }

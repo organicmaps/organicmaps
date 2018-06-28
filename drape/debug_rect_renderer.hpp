@@ -7,6 +7,8 @@
 #include "geometry/rect2d.hpp"
 #include "geometry/screenbase.hpp"
 
+#include <functional>
+
 #ifdef BUILD_DESIGNER
 #define RENDER_DEBUG_RECTS
 #endif // BUILD_DESIGNER
@@ -17,7 +19,10 @@ class DebugRectRenderer
 {
 public:
   static DebugRectRenderer & Instance();
-  void Init(ref_ptr<dp::GpuProgram> program);
+
+  using ParamsSetter = std::function<void(ref_ptr<dp::GpuProgram> program, dp::Color const & color)>;
+
+  void Init(ref_ptr<dp::GpuProgram> program, ParamsSetter && paramsSetter);
   void Destroy();
 
   bool IsEnabled() const;
@@ -30,6 +35,7 @@ private:
   DebugRectRenderer();
   ~DebugRectRenderer();
 
+  ParamsSetter m_paramsSetter;
   uint32_t m_VAO;
   uint32_t m_vertexBuffer;
   ref_ptr<dp::GpuProgram> m_program;

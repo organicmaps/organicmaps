@@ -1028,9 +1028,6 @@ void FrontendRenderer::AddToRenderGroup(dp::GLState const & state,
   }
 
   drape_ptr<TRenderGroup> group = make_unique_dp<TRenderGroup>(state, newTile);
-  auto program = m_gpuProgramManager->GetProgram(state.GetProgram<gpu::Program>());
-  auto program3d = m_gpuProgramManager->GetProgram(state.GetProgram3d<gpu::Program>());
-  group->SetRenderParams(program, program3d, make_ref(&m_generalUniforms));
   group->AddBucket(std::move(renderBucket));
 
   layer.m_renderGroups.push_back(move(group));
@@ -1225,12 +1222,12 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
       ASSERT(m_myPositionController->IsModeHasPosition(), ());
       m_selectionShape->SetPosition(m_myPositionController->Position());
       m_selectionShape->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
-                               m_generalUniforms);
+                               m_frameValues);
     }
     else if (selectedObject == SelectionShape::OBJECT_POI)
     {
       m_selectionShape->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
-                               m_generalUniforms);
+                               m_frameValues);
     }
   }
 
@@ -1241,13 +1238,13 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
   }
 
   m_gpsTrackRenderer->RenderTrack(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
-                                  m_generalUniforms);
+                                  m_frameValues);
 
   if (m_selectionShape != nullptr &&
     m_selectionShape->GetSelectedObject() == SelectionShape::OBJECT_USER_MARK)
   {
     m_selectionShape->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
-                             m_generalUniforms);
+                             m_frameValues);
   }
 
   if (HasTransitRouteData())
@@ -1265,9 +1262,9 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView)
     RenderTransitSchemeLayer(modelView);
 
   m_myPositionController->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
-                                 m_generalUniforms);
+                                 m_frameValues);
 
-  m_drapeApiRenderer->Render(modelView, make_ref(m_gpuProgramManager), m_generalUniforms);
+  m_drapeApiRenderer->Render(modelView, make_ref(m_gpuProgramManager), m_frameValues);
 
   if (m_guiRenderer != nullptr)
   {
@@ -1365,7 +1362,7 @@ void FrontendRenderer::RenderTransitSchemeLayer(ScreenBase const & modelView)
   {
     RenderTransitBackground();
     m_transitSchemeRenderer->RenderTransit(modelView, make_ref(m_gpuProgramManager),
-                                           make_ref(m_postprocessRenderer), m_generalUniforms);
+                                           make_ref(m_postprocessRenderer), m_frameValues);
   }
   GLFunctions::glDisable(gl_const::GLDepthTest);
 }
@@ -1377,7 +1374,7 @@ void FrontendRenderer::RenderTrafficLayer(ScreenBase const & modelView)
   if (m_trafficRenderer->HasRenderData())
   {
     m_trafficRenderer->RenderTraffic(modelView, m_currentZoomLevel, 1.0f /* opacity */,
-                                     make_ref(m_gpuProgramManager), m_generalUniforms);
+                                     make_ref(m_gpuProgramManager), m_frameValues);
   }
   GLFunctions::glDisable(gl_const::GLDepthTest);
 }
@@ -1408,7 +1405,7 @@ void FrontendRenderer::RenderRouteLayer(ScreenBase const & modelView)
   GLFunctions::glClear(gl_const::GLDepthBit);
   GLFunctions::glEnable(gl_const::GLDepthTest);
   m_routeRenderer->RenderRoute(modelView, m_trafficRenderer->HasRenderData(),
-                               make_ref(m_gpuProgramManager), m_generalUniforms);
+                               make_ref(m_gpuProgramManager), m_frameValues);
   GLFunctions::glDisable(gl_const::GLDepthTest);
 }
 
@@ -1491,12 +1488,12 @@ void FrontendRenderer::MergeBuckets()
 
   m_mergeBucketsCounter = 0;
 
-  auto mergeFn = [](RenderLayer & layer, bool isPerspective)
+  auto mergeFn = [this](RenderLayer & layer, bool isPerspective)
   {
     if (layer.m_renderGroups.empty())
       return;
 
-    using TGroupMap = map<MergedGroupKey, std::vector<drape_ptr<RenderGroup>>>;
+    using TGroupMap = std::map<MergedGroupKey, std::vector<drape_ptr<RenderGroup>>>;
     TGroupMap forMerge;
 
     std::vector<drape_ptr<RenderGroup>> newGroups;
@@ -1521,12 +1518,12 @@ void FrontendRenderer::MergeBuckets()
       }
     }
 
-    for (TGroupMap::value_type & node : forMerge)
+    for (auto & node : forMerge)
     {
       if (node.second.size() < 2)
         newGroups.emplace_back(std::move(node.second.front()));
       else
-        BatchMergeHelper::MergeBatches(node.second, newGroups, isPerspective);
+        BatchMergeHelper::MergeBatches(make_ref(m_gpuProgramManager), isPerspective, node.second, newGroups);
     }
 
     layer.m_renderGroups = std::move(newGroups);
@@ -1541,19 +1538,19 @@ void FrontendRenderer::MergeBuckets()
 void FrontendRenderer::RenderSingleGroup(ScreenBase const & modelView, ref_ptr<BaseRenderGroup> group)
 {
   group->UpdateAnimation();
-  group->Render(modelView);
+  group->Render(modelView, make_ref(m_gpuProgramManager), m_frameValues);
 }
 
 void FrontendRenderer::RefreshProjection(ScreenBase const & screen)
 {
   std::array<float, 16> m;
   dp::MakeProjection(m, 0.0f, screen.GetWidth(), screen.GetHeight(), 0.0f);
-  m_generalUniforms.SetMatrix4x4Value("u_projection", m.data());
+  m_frameValues.m_projection = glsl::make_mat4(m.data());
 }
 
 void FrontendRenderer::RefreshZScale(ScreenBase const & screen)
 {
-  m_generalUniforms.SetFloatValue("u_zScale", static_cast<float>(screen.GetZScale()));
+  m_frameValues.m_zScale = static_cast<float>(screen.GetZScale());
 }
 
 void FrontendRenderer::RefreshPivotTransform(ScreenBase const & screen)
@@ -1561,19 +1558,19 @@ void FrontendRenderer::RefreshPivotTransform(ScreenBase const & screen)
   if (screen.isPerspective())
   {
     math::Matrix<float, 4, 4> transform(screen.Pto3dMatrix());
-    m_generalUniforms.SetMatrix4x4Value("u_pivotTransform", transform.m_data);
+    m_frameValues.m_pivotTransform = glsl::make_mat4(transform.m_data);
   }
   else if (m_isIsometry)
   {
     math::Matrix<float, 4, 4> transform(math::Identity<float, 4>());
     transform(2, 1) = -1.0f / static_cast<float>(tan(kIsometryAngle));
     transform(2, 2) = 1.0f / screen.GetHeight();
-    m_generalUniforms.SetMatrix4x4Value("u_pivotTransform", transform.m_data);
+    m_frameValues.m_pivotTransform = glsl::make_mat4(transform.m_data);
   }
   else
   {
     math::Matrix<float, 4, 4> transform(math::Identity<float, 4>());
-    m_generalUniforms.SetMatrix4x4Value("u_pivotTransform", transform.m_data);
+    m_frameValues.m_pivotTransform = glsl::make_mat4(transform.m_data);
   }
 }
 
@@ -1930,13 +1927,21 @@ void FrontendRenderer::OnContextCreate()
   dp::BlendingParams blendingParams;
   blendingParams.Apply();
 
-  dp::DebugRectRenderer::Instance().Init(m_gpuProgramManager->GetProgram(gpu::Program::DebugRect));
+  // TODO: think on redesigning DebugRectRenderer to eliminate functor.
+  dp::DebugRectRenderer::Instance().Init(m_gpuProgramManager->GetProgram(gpu::Program::DebugRect),
+    [this](ref_ptr<dp::GpuProgram> program, dp::Color const & color)
+  {
+    gpu::DebugRectProgramParams params;
+    params.m_color = glsl::ToVec4(color);
+    m_gpuProgramManager->GetParamsSetter()->Apply(program, params);
+  });
+
 #ifdef RENDER_DEBUG_DISPLACEMENT
   dp::DebugRectRenderer::Instance().SetEnabled(true);
 #endif
 
   // Resources recovering.
-  m_screenQuadRenderer.reset(new ScreenQuadRenderer());
+  m_screenQuadRenderer = make_unique_dp<ScreenQuadRenderer>();
 
   m_postprocessRenderer->Init([context]() { context->setDefaultFramebuffer(); });
   m_postprocessRenderer->SetEnabled(m_apiVersion == dp::ApiVersion::OpenGLES3);
@@ -1945,13 +1950,13 @@ void FrontendRenderer::OnContextCreate()
     m_postprocessRenderer->SetEffectEnabled(PostprocessRenderer::Antialiasing, true);
 #endif
 
-  m_buildingsFramebuffer.reset(new dp::Framebuffer(gl_const::GLRGBA, false /* stencilEnabled */));
+  m_buildingsFramebuffer = make_unique_dp<dp::Framebuffer>(gl_const::GLRGBA, false /* stencilEnabled */);
   m_buildingsFramebuffer->SetFramebufferFallback([this]()
   {
     m_postprocessRenderer->OnFramebufferFallback();
   });
 
-  m_transitBackground.reset(new ScreenQuadRenderer());
+  m_transitBackground = make_unique_dp<ScreenQuadRenderer>();
 }
 
 FrontendRenderer::Routine::Routine(FrontendRenderer & renderer) : m_renderer(renderer) {}

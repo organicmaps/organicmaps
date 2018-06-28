@@ -152,7 +152,7 @@ struct GuiProgramParams
     Program::Ruler)
 };
 
-struct AccuracyProgramParams
+struct ShapesProgramParams
 {
   glsl::mat4 m_modelView;
   glsl::mat4 m_projection;
@@ -161,20 +161,11 @@ struct AccuracyProgramParams
   float m_accuracy = 0.0;
   float m_zScale = 1.0f;
   float m_opacity = 1.0f;
-
-  BIND_PROGRAMS(AccuracyProgramParams, Program::Accuracy)
-};
-
-struct MyPositionProgramParams
-{
-  glsl::mat4 m_modelView;
-  glsl::mat4 m_projection;
-  glsl::mat4 m_pivotTransform;
-  glsl::vec3 m_position;
   float m_azimut = 0.0;
-  float m_opacity = 1.0f;
 
-  BIND_PROGRAMS(MyPositionProgramParams, Program::MyPosition)
+  BIND_PROGRAMS(AccuracyProgramParams,
+    Program::Accuracy,
+    Program::MyPosition)
 };
 
 struct Arrow3dProgramParams
@@ -221,8 +212,7 @@ public:
   virtual void Apply(ref_ptr<dp::GpuProgram> program, TrafficProgramParams const & params) = 0;
   virtual void Apply(ref_ptr<dp::GpuProgram> program, TransitProgramParams const & params) = 0;
   virtual void Apply(ref_ptr<dp::GpuProgram> program, GuiProgramParams const & params) = 0;
-  virtual void Apply(ref_ptr<dp::GpuProgram> program, AccuracyProgramParams const & params) = 0;
-  virtual void Apply(ref_ptr<dp::GpuProgram> program, MyPositionProgramParams const & params) = 0;
+  virtual void Apply(ref_ptr<dp::GpuProgram> program, ShapesProgramParams const & params) = 0;
   virtual void Apply(ref_ptr<dp::GpuProgram> program, Arrow3dProgramParams const & params) = 0;
   virtual void Apply(ref_ptr<dp::GpuProgram> program, DebugRectProgramParams const & params) = 0;
   virtual void Apply(ref_ptr<dp::GpuProgram> program, ScreenQuadProgramParams const & params) = 0;

@@ -56,9 +56,8 @@ public:
 
     if (IsVisible())
     {
-      m_uniforms.SetMatrix4x4Value(
-        "u_modelView", value_ptr(transpose(translate(mat4(), vec3(m_pivot + m_offset, 0.0)))));
-      m_uniforms.SetFloatValue("u_opacity", 1.0);
+      m_params.m_modelView = transpose(translate(mat4(), vec3(m_pivot + m_offset, 0.0)));
+      m_params.m_opacity = 1.0f;
     }
     return true;
   }

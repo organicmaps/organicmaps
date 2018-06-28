@@ -116,20 +116,6 @@ bool GLState::operator!=(GLState const & other) const
   return !operator==(other);
 }
 
-namespace
-{
-struct UniformApplier
-{
-  ref_ptr<GpuProgram> m_program;
-
-  void operator()(UniformValue const & value) const
-  {
-    ASSERT(m_program != nullptr, ());
-    value.Apply(m_program);
-  }
-};
-}  // namespace
-
 uint8_t TextureState::m_usedSlots = 0;
 
 void TextureState::ApplyTextures(GLState const & state, ref_ptr<GpuProgram> program)
@@ -162,14 +148,6 @@ void TextureState::ApplyTextures(GLState const & state, ref_ptr<GpuProgram> prog
 uint8_t TextureState::GetLastUsedSlots()
 {
   return m_usedSlots;
-}
-
-void ApplyUniforms(UniformValuesStorage const & uniforms, ref_ptr<GpuProgram> program)
-{
-  static UniformApplier applier;
-  applier.m_program = program;
-  uniforms.ForeachValue(applier);
-  applier.m_program = nullptr;
 }
 
 void ApplyBlending(GLState const & state)

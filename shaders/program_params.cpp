@@ -13,8 +13,7 @@ void ProgramParams::Init()
   TrafficProgramParams::BindPrograms(m_boundParams);
   TransitProgramParams::BindPrograms(m_boundParams);
   GuiProgramParams::BindPrograms(m_boundParams);
-  AccuracyProgramParams::BindPrograms(m_boundParams);
-  MyPositionProgramParams::BindPrograms(m_boundParams);
+  ShapesProgramParams::BindPrograms(m_boundParams);
   Arrow3dProgramParams::BindPrograms(m_boundParams);
   DebugRectProgramParams::BindPrograms(m_boundParams);
   ScreenQuadProgramParams::BindPrograms(m_boundParams);

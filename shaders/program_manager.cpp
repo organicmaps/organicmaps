@@ -7,6 +7,7 @@
 #include "base/logging.hpp"
 
 #include "std/target_os.hpp"
+#include "gl_program_params.hpp"
 
 #include <algorithm>
 
@@ -37,6 +38,8 @@ void ProgramManager::Init(dp::ApiVersion apiVersion)
     m_pool = make_unique_dp<GLProgramPool>(apiVersion);
     ref_ptr<GLProgramPool> pool = make_ref(m_pool);
     pool->SetDefines(globalDefines);
+
+    m_paramsSetter = make_unique_dp<GLProgramParamsSetter>();
   }
   else
   {
@@ -52,5 +55,10 @@ ref_ptr<dp::GpuProgram> ProgramManager::GetProgram(Program program)
 
   programPtr = m_pool->Get(program);
   return make_ref(programPtr);
+}
+
+ref_ptr<ProgramParamsSetter> ProgramManager::GetParamsSetter() const
+{
+  return make_ref(m_paramsSetter);
 }
 }  // namespace gpu

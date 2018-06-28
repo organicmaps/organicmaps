@@ -24,13 +24,11 @@ bool Handle::Update(ScreenBase const & screen)
 
   if (IsVisible())
   {
-    m_uniforms.SetMatrix4x4Value("u_modelView",
-                                 value_ptr(transpose(translate(mat4(), vec3(m_pivot, 0.0)))));
-    m_uniforms.SetFloatValue("u_opacity", 1.0);
-
+    m_params.m_modelView = transpose(translate(mat4(), vec3(m_pivot, 0.0)));
     auto const & params = df::VisualParams::Instance().GetGlyphVisualParams();
-    m_uniforms.SetFloatValue("u_contrastGamma", params.m_guiContrast, params.m_guiGamma);
-    m_uniforms.SetFloatValue("u_isOutlinePass", 0.0f);
+    m_params.m_contrastGamma = glsl::vec2(params.m_guiContrast, params.m_guiGamma);
+    m_params.m_isOutlinePass = 0.0f;
+    m_params.m_opacity = 1.0f;
   }
 
   return true;
@@ -91,15 +89,13 @@ void ShapeRenderer::Build(ref_ptr<gpu::ProgramManager> mng)
 
 void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng)
 {
-  std::array<float, 16> m;
+  std::array<float, 16> m = {};
   m2::RectD const & pxRect = screen.PixelRectIn3d();
   dp::MakeProjection(m, 0.0f, static_cast<float>(pxRect.SizeX()),
                      static_cast<float>(pxRect.SizeY()), 0.0f);
+  glsl::mat4 const projection = glsl::make_mat4(m.data());
 
-  dp::UniformValuesStorage uniformStorage;
-  uniformStorage.SetMatrix4x4Value("u_projection", m.data());
-
-  ForEachShapeInfo([&uniformStorage, &screen, mng](ShapeControl::ShapeInfo & info) mutable
+  ForEachShapeInfo([&projection, &screen, mng](ShapeControl::ShapeInfo & info) mutable
   {
     if (!info.m_handle->Update(screen))
       return;
@@ -110,8 +106,10 @@ void ShapeRenderer::Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManage
     ref_ptr<dp::GpuProgram> prg = mng->GetProgram(info.m_state.GetProgram<gpu::Program>());
     prg->Bind();
     dp::ApplyState(info.m_state, prg);
-    dp::ApplyUniforms(info.m_handle->GetUniforms(), prg);
-    dp::ApplyUniforms(uniformStorage, prg);
+
+    auto params = info.m_handle->GetParams();
+    params.m_projection = projection;
+    mng->GetParamsSetter()->Apply(prg, params);
 
     if (info.m_handle->HasDynamicAttributes())
     {

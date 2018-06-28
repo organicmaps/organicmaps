@@ -6,7 +6,6 @@
 
 #include "drape/glfunctions.hpp"
 #include "drape/texture_manager.hpp"
-#include "drape/uniform_values_storage.hpp"
 
 #include "base/assert.hpp"
 
@@ -17,16 +16,12 @@ namespace
 class SMAABaseRendererContext : public RendererContext
 {
 protected:
-  void ApplyFramebufferMetrics(ref_ptr<dp::GpuProgram> prg)
+  void ApplyParameters(ref_ptr<gpu::ProgramManager> mng, ref_ptr<dp::GpuProgram> prg)
   {
-    dp::UniformValuesStorage uniforms;
-    uniforms.SetFloatValue("u_framebufferMetrics", 1.0f / m_width, 1.0f / m_height,
-                           m_width, m_height);
-    dp::ApplyUniforms(uniforms, prg);
+    mng->GetParamsSetter()->Apply(prg, m_params);
   }
 
-  float m_width = 1.0f;
-  float m_height = 1.0f;
+  gpu::SMAAProgramParams m_params;
 };
 
 class EdgesRendererContext : public SMAABaseRendererContext
@@ -34,13 +29,15 @@ class EdgesRendererContext : public SMAABaseRendererContext
 public:
   gpu::Program GetGpuProgram() const override { return gpu::Program::SmaaEdges; }
 
-  void PreRender(ref_ptr<dp::GpuProgram> prg) override
+  void PreRender(ref_ptr<gpu::ProgramManager> mng) override
   {
+    auto prg = mng->GetProgram(GetGpuProgram());
+
     GLFunctions::glClear(gl_const::GLColorBit);
 
     BindTexture(m_textureId, prg, "u_colorTex", 0 /* slotIndex */,
                 gl_const::GLLinear, gl_const::GLClampToEdge);
-    ApplyFramebufferMetrics(prg);
+    ApplyParameters(mng, prg);
 
     GLFunctions::glDisable(gl_const::GLDepthTest);
     GLFunctions::glDisable(gl_const::GLBlending);
@@ -49,8 +46,9 @@ public:
   void SetParams(uint32_t textureId, uint32_t width, uint32_t height)
   {
     m_textureId = textureId;
-    m_width = static_cast<float>(width);
-    m_height = static_cast<float>(height);
+    m_params.m_framebufferMetrics = glsl::vec4(1.0f / width, 1.0f / height,
+                                               static_cast<float>(width),
+                                               static_cast<float>(height));
   }
 
 protected:
@@ -62,8 +60,10 @@ class BlendingWeightRendererContext : public SMAABaseRendererContext
 public:
   gpu::Program GetGpuProgram() const override { return gpu::Program::SmaaBlendingWeight; }
 
-  void PreRender(ref_ptr<dp::GpuProgram> prg) override
+  void PreRender(ref_ptr<gpu::ProgramManager> mng) override
   {
+    auto prg = mng->GetProgram(GetGpuProgram());
+
     GLFunctions::glClear(gl_const::GLColorBit);
 
     BindTexture(m_edgesTextureId, prg, "u_colorTex", 0 /* slotIndex */,
@@ -72,7 +72,7 @@ public:
                 gl_const::GLLinear, gl_const::GLClampToEdge);
     BindTexture(m_searchTextureId, prg, "u_smaaSearch", 2 /* slotIndex */,
                 gl_const::GLLinear, gl_const::GLClampToEdge);
-    ApplyFramebufferMetrics(prg);
+    ApplyParameters(mng, prg);
 
     GLFunctions::glDisable(gl_const::GLDepthTest);
     GLFunctions::glDisable(gl_const::GLBlending);
@@ -90,8 +90,9 @@ public:
     m_edgesTextureId = edgesTextureId;
     m_areaTextureId = areaTextureId;
     m_searchTextureId = searchTextureId;
-    m_width = static_cast<float>(width);
-    m_height = static_cast<float>(height);
+    m_params.m_framebufferMetrics = glsl::vec4(1.0f / width, 1.0f / height,
+                                               static_cast<float>(width),
+                                               static_cast<float>(height));
   }
 
 private:
@@ -105,15 +106,17 @@ class SMAAFinalRendererContext : public SMAABaseRendererContext
 public:
   gpu::Program GetGpuProgram() const override { return gpu::Program::SmaaFinal; }
 
-  void PreRender(ref_ptr<dp::GpuProgram> prg) override
+  void PreRender(ref_ptr<gpu::ProgramManager> mng) override
   {
+    auto prg = mng->GetProgram(GetGpuProgram());
+
     GLFunctions::glClear(gl_const::GLColorBit);
 
     BindTexture(m_colorTextureId, prg, "u_colorTex", 0 /* slotIndex */,
                 gl_const::GLLinear, gl_const::GLClampToEdge);
     BindTexture(m_blendingWeightTextureId, prg, "u_blendingWeightTex", 1 /* slotIndex */,
                 gl_const::GLLinear, gl_const::GLClampToEdge);
-    ApplyFramebufferMetrics(prg);
+    ApplyParameters(mng, prg);
 
     GLFunctions::glDisable(gl_const::GLDepthTest);
     GLFunctions::glDisable(gl_const::GLBlending);
@@ -132,8 +135,9 @@ public:
   {
     m_colorTextureId = colorTextureId;
     m_blendingWeightTextureId = blendingWeightTextureId;
-    m_width = static_cast<float>(width);
-    m_height = static_cast<float>(height);
+    m_params.m_framebufferMetrics = glsl::vec4(1.0f / width, 1.0f / height,
+                                               static_cast<float>(width),
+                                               static_cast<float>(height));
   }
 
 private:

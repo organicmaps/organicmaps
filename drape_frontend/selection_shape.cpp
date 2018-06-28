@@ -13,7 +13,6 @@
 #include "drape/glsl_func.hpp"
 #include "drape/glsl_types.hpp"
 #include "drape/texture_manager.hpp"
-#include "drape/uniform_values_storage.hpp"
 
 #include "indexer/map_style_reader.hpp"
 
@@ -141,19 +140,20 @@ bool SelectionShape::IsVisible(ScreenBase const & screen, m2::PointD & pxPos) co
 }
 
 void SelectionShape::Render(ScreenBase const & screen, int zoomLevel, ref_ptr<gpu::ProgramManager> mng,
-                            dp::UniformValuesStorage const & commonUniforms)
+                            FrameValues const & frameValues)
 {
   ShowHideAnimation::EState state = m_animation.GetState();
   if (state == ShowHideAnimation::STATE_VISIBLE ||
       state == ShowHideAnimation::STATE_SHOW_DIRECTION)
   {
-    dp::UniformValuesStorage uniforms = commonUniforms;
+    gpu::ShapesProgramParams params;
+    frameValues.SetTo(params);
     TileKey const key = GetTileKeyByPoint(m_position, ClipTileZoomByMaxDataZoom(zoomLevel));
     math::Matrix<float, 4, 4> mv = key.GetTileBasedModelView(screen);
-    uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
+    params.m_modelView = glsl::make_mat4(mv.m_data);
 
     m2::PointD const pos = MapShape::ConvertToLocal(m_position, key.GetGlobalRect().Center(), kShapeCoordScalar);
-    uniforms.SetFloatValue("u_position", pos.x, pos.y, -m_positionZ);
+    params.m_position = glsl::vec3(pos.x, pos.y, -m_positionZ);
 
     float accuracy = m_mapping.GetValue(m_animation.GetT());
     if (screen.isPerspective())
@@ -163,9 +163,8 @@ void SelectionShape::Render(ScreenBase const & screen, int zoomLevel, ref_ptr<gp
       auto const scale = static_cast<float>(screen.PtoP3d(pt2).x - screen.PtoP3d(pt1).x);
       accuracy /= scale;
     }
-    uniforms.SetFloatValue("u_accuracy", accuracy);
-    uniforms.SetFloatValue("u_opacity", 1.0f);
-    m_renderNode->Render(mng, uniforms);
+    params.m_accuracy = accuracy;
+    m_renderNode->Render(mng, params);
   }
 }
 

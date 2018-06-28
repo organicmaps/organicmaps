@@ -4,8 +4,6 @@
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "shaders/programs.hpp"
-
 #include "drape/overlay_tree.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
@@ -131,7 +129,7 @@ void TransitSchemeRenderer::PrepareRenderData(ref_ptr<gpu::ProgramManager> mng, 
 
 void TransitSchemeRenderer::RenderTransit(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                                           ref_ptr<PostprocessRenderer> postprocessRenderer,
-                                          dp::UniformValuesStorage const & commonUniforms)
+                                          FrameValues const & frameValues)
 {
   auto const zoomLevel = GetDrawTileScale(screen);
   if (!IsSchemeVisible(zoomLevel) || !HasRenderData())
@@ -139,15 +137,15 @@ void TransitSchemeRenderer::RenderTransit(ScreenBase const & screen, ref_ptr<gpu
 
   float const pixelHalfWidth = CalculateHalfWidth(screen);
 
-  RenderLinesCaps(screen, mng, commonUniforms, pixelHalfWidth);
-  RenderLines(screen, mng, commonUniforms, pixelHalfWidth);
-  RenderMarkers(screen, mng, commonUniforms, pixelHalfWidth);
+  RenderLinesCaps(screen, mng, frameValues, pixelHalfWidth);
+  RenderLines(screen, mng, frameValues, pixelHalfWidth);
+  RenderMarkers(screen, mng, frameValues, pixelHalfWidth);
   {
     StencilWriterGuard guard(postprocessRenderer);
-    RenderText(screen, mng, commonUniforms);
+    RenderText(screen, mng, frameValues);
   }
   // Render only for debug purpose.
-  //RenderStubs(screen, mng, commonUniforms);
+  //RenderStubs(screen, mng, frameValues);
 }
 
 void TransitSchemeRenderer::CollectOverlays(ref_ptr<dp::OverlayTree> tree, ScreenBase const & modelView)
@@ -175,7 +173,7 @@ void TransitSchemeRenderer::RemoveOverlays(ref_ptr<dp::OverlayTree> tree, std::v
 }
 
 void TransitSchemeRenderer::RenderLinesCaps(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
-                                            dp::UniformValuesStorage const & commonUniforms, float pixelHalfWidth)
+                                            FrameValues const & frameValues, float pixelHalfWidth)
 {
   GLFunctions::glEnable(gl_const::GLDepthTest);
   GLFunctions::glClear(gl_const::GLDepthBit);
@@ -185,20 +183,20 @@ void TransitSchemeRenderer::RenderLinesCaps(ScreenBase const & screen, ref_ptr<g
     program->Bind();
     dp::ApplyState(renderData.m_state, program);
 
-    dp::UniformValuesStorage uniforms = commonUniforms;
+    gpu::TransitProgramParams params;
+    frameValues.SetTo(params);
     math::Matrix<float, 4, 4> mv = screen.GetModelView(renderData.m_pivot, kShapeCoordScalar);
-    uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
-
-    uniforms.SetFloatValue("u_lineHalfWidth", pixelHalfWidth);
-    uniforms.SetFloatValue("u_maxRadius", kTransitLineHalfWidth);
-    dp::ApplyUniforms(uniforms, program);
+    params.m_modelView = glsl::make_mat4(mv.m_data);
+    params.m_lineHalfWidth = pixelHalfWidth;
+    params.m_maxRadius = kTransitLineHalfWidth;
+    mng->GetParamsSetter()->Apply(program, params);
 
     renderData.m_bucket->Render(false /* draw as line */);
   }
 }
 
 void TransitSchemeRenderer::RenderLines(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
-                                        dp::UniformValuesStorage const & commonUniforms, float pixelHalfWidth)
+                                        FrameValues const & frameValues, float pixelHalfWidth)
 {
   GLFunctions::glEnable(gl_const::GLDepthTest);
   for (auto & renderData : m_linesRenderData)
@@ -207,19 +205,19 @@ void TransitSchemeRenderer::RenderLines(ScreenBase const & screen, ref_ptr<gpu::
     program->Bind();
     dp::ApplyState(renderData.m_state, program);
 
-    dp::UniformValuesStorage uniforms = commonUniforms;
+    gpu::TransitProgramParams params;
+    frameValues.SetTo(params);
     math::Matrix<float, 4, 4> mv = screen.GetModelView(renderData.m_pivot, kShapeCoordScalar);
-    uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
-
-    uniforms.SetFloatValue("u_lineHalfWidth", pixelHalfWidth);
-    dp::ApplyUniforms(uniforms, program);
+    params.m_modelView = glsl::make_mat4(mv.m_data);
+    params.m_lineHalfWidth = pixelHalfWidth;
+    mng->GetParamsSetter()->Apply(program, params);
 
     renderData.m_bucket->Render(false /* draw as line */);
   }
 }
 
 void TransitSchemeRenderer::RenderMarkers(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
-                                          dp::UniformValuesStorage const & commonUniforms, float pixelHalfWidth)
+                                          FrameValues const & frameValues, float pixelHalfWidth)
 {
   GLFunctions::glEnable(gl_const::GLDepthTest);
   GLFunctions::glClear(gl_const::GLDepthBit);
@@ -229,44 +227,43 @@ void TransitSchemeRenderer::RenderMarkers(ScreenBase const & screen, ref_ptr<gpu
     program->Bind();
     dp::ApplyState(renderData.m_state, program);
 
-    dp::UniformValuesStorage uniforms = commonUniforms;
+    gpu::TransitProgramParams params;
+    frameValues.SetTo(params);
     math::Matrix<float, 4, 4> mv = screen.GetModelView(renderData.m_pivot, kShapeCoordScalar);
-    uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
-    uniforms.SetFloatValue("u_params",
-                           static_cast<float>(cos(screen.GetAngle())),
-                           static_cast<float>(sin(screen.GetAngle())),
-                           pixelHalfWidth);
-    dp::ApplyUniforms(uniforms, program);
+    params.m_modelView = glsl::make_mat4(mv.m_data);
+    params.m_params = glsl::vec3(static_cast<float>(cos(screen.GetAngle())),
+                                 static_cast<float>(sin(screen.GetAngle())),
+                                 pixelHalfWidth);
+    mng->GetParamsSetter()->Apply(program, params);
 
     renderData.m_bucket->Render(false /* draw as line */);
   }
 }
 
 void TransitSchemeRenderer::RenderText(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
-                                       dp::UniformValuesStorage const & commonUniforms)
+                                       FrameValues const & frameValues)
 {
   GLFunctions::glDisable(gl_const::GLDepthTest);
-  auto const & params = df::VisualParams::Instance().GetGlyphVisualParams();
+  auto const & glyphParams = df::VisualParams::Instance().GetGlyphVisualParams();
   for (auto & renderData : m_textRenderData)
   {
     ref_ptr<dp::GpuProgram> program = mng->GetProgram(renderData.m_state.GetProgram<gpu::Program>());
     program->Bind();
     dp::ApplyState(renderData.m_state, program);
 
-    dp::UniformValuesStorage uniforms = commonUniforms;
+    gpu::MapProgramParams params;
+    frameValues.SetTo(params);
     math::Matrix<float, 4, 4> mv = screen.GetModelView(renderData.m_pivot, kShapeCoordScalar);
-    uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
-    uniforms.SetFloatValue("u_opacity", 1.0);
-
-    uniforms.SetFloatValue("u_contrastGamma", params.m_outlineContrast, params.m_outlineGamma);
-    uniforms.SetFloatValue("u_isOutlinePass", 1.0f);
-    dp::ApplyUniforms(uniforms, program);
+    params.m_modelView = glsl::make_mat4(mv.m_data);
+    params.m_contrastGamma = glsl::vec2(glyphParams.m_outlineContrast, glyphParams.m_outlineGamma);
+    params.m_isOutlinePass = 1.0f;
+    mng->GetParamsSetter()->Apply(program, params);
 
     renderData.m_bucket->Render(false /* draw as line */);
 
-    uniforms.SetFloatValue("u_contrastGamma", params.m_contrast, params.m_gamma);
-    uniforms.SetFloatValue("u_isOutlinePass", 0.0f);
-    dp::ApplyUniforms(uniforms, program);
+    params.m_contrastGamma = glsl::vec2(glyphParams.m_contrast, glyphParams.m_gamma);
+    params.m_isOutlinePass = 0.0f;
+    mng->GetParamsSetter()->Apply(program, params);
 
     renderData.m_bucket->Render(false /* draw as line */);
 
@@ -275,7 +272,7 @@ void TransitSchemeRenderer::RenderText(ScreenBase const & screen, ref_ptr<gpu::P
 }
 
 void TransitSchemeRenderer::RenderStubs(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
-                                        dp::UniformValuesStorage const & commonUniforms)
+                                        FrameValues const & frameValues)
 {
   for (auto & renderData : m_colorSymbolRenderData)
   {
@@ -283,11 +280,11 @@ void TransitSchemeRenderer::RenderStubs(ScreenBase const & screen, ref_ptr<gpu::
     program->Bind();
     dp::ApplyState(renderData.m_state, program);
 
-    dp::UniformValuesStorage uniforms = commonUniforms;
+    gpu::MapProgramParams params;
+    frameValues.SetTo(params);
     math::Matrix<float, 4, 4> mv = screen.GetModelView(renderData.m_pivot, kShapeCoordScalar);
-    uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
-    uniforms.SetFloatValue("u_opacity", 1.0);
-    dp::ApplyUniforms(uniforms, program);
+    params.m_modelView = glsl::make_mat4(mv.m_data);
+    mng->GetParamsSetter()->Apply(program, params);
 
     GLFunctions::glEnable(gl_const::GLDepthTest);
     renderData.m_bucket->Render(false /* draw as line */);

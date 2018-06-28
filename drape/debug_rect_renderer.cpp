@@ -35,8 +35,9 @@ DebugRectRenderer::~DebugRectRenderer()
   ASSERT_EQUAL(m_vertexBuffer, 0, ());
 }
 
-void DebugRectRenderer::Init(ref_ptr<dp::GpuProgram> program)
+void DebugRectRenderer::Init(ref_ptr<dp::GpuProgram> program, ParamsSetter && paramsSetter)
 {
+  m_paramsSetter = std::move(paramsSetter);
   if (dp::GLExtensionsList::Instance().IsSupported(dp::GLExtensionsList::VertexArrayObject))
   {
     m_VAO = GLFunctions::glGenVertexArray();
@@ -110,10 +111,8 @@ void DebugRectRenderer::DrawRect(ScreenBase const & screen, m2::RectF const & re
                             static_cast<uint32_t>(vertices.size() * sizeof(vertices[0])),
                             vertices.data(), gl_const::GLStaticDraw);
 
-  int8_t const location = m_program->GetUniformLocation("u_color");
-  if (location >= 0)
-    GLFunctions::glUniformValuef(location, color.GetRedF(), color.GetGreenF(),
-                                 color.GetBlueF(), color.GetAlphaF());
+  if (m_paramsSetter)
+    m_paramsSetter(m_program, color);
 
   GLFunctions::glDrawArrays(gl_const::GLLineStrip, 0, static_cast<uint32_t>(vertices.size()));
 
@@ -155,10 +154,8 @@ void DebugRectRenderer::DrawArrow(ScreenBase const & screen,
                             static_cast<uint32_t>(vertices.size() * sizeof(vertices[0])),
                             vertices.data(), gl_const::GLStaticDraw);
 
-  int8_t const location = m_program->GetUniformLocation("u_color");
-  if (location >= 0)
-    GLFunctions::glUniformValuef(location, data.m_arrowColor.GetRedF(), data.m_arrowColor.GetGreenF(),
-                                 data.m_arrowColor.GetBlueF(), data.m_arrowColor.GetAlphaF());
+  if (m_paramsSetter)
+    m_paramsSetter(m_program, data.m_arrowColor);
 
   GLFunctions::glDrawArrays(gl_const::GLLineStrip, 0, static_cast<uint32_t>(vertices.size()));
 

@@ -14,8 +14,7 @@ public:
   void Apply(ref_ptr<dp::GpuProgram> program, TrafficProgramParams const & params) override;
   void Apply(ref_ptr<dp::GpuProgram> program, TransitProgramParams const & params) override;
   void Apply(ref_ptr<dp::GpuProgram> program, GuiProgramParams const & params) override;
-  void Apply(ref_ptr<dp::GpuProgram> program, AccuracyProgramParams const & params) override;
-  void Apply(ref_ptr<dp::GpuProgram> program, MyPositionProgramParams const & params) override;
+  void Apply(ref_ptr<dp::GpuProgram> program, ShapesProgramParams const & params) override;
   void Apply(ref_ptr<dp::GpuProgram> program, Arrow3dProgramParams const & params) override;
   void Apply(ref_ptr<dp::GpuProgram> program, DebugRectProgramParams const & params) override;
   void Apply(ref_ptr<dp::GpuProgram> program, ScreenQuadProgramParams const & params) override;

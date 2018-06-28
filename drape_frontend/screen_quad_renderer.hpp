@@ -25,7 +25,7 @@ class RendererContext
 public:
   virtual ~RendererContext() = default;
   virtual gpu::Program GetGpuProgram() const = 0;
-  virtual void PreRender(ref_ptr<dp::GpuProgram> prg) {}
+  virtual void PreRender(ref_ptr<gpu::ProgramManager> mng) {}
   virtual void PostRender() {}
 protected:
   void BindTexture(uint32_t textureId, ref_ptr<dp::GpuProgram> prg,

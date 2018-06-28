@@ -2,8 +2,6 @@
 #include "drape_frontend/shape_view_params.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "shaders/programs.hpp"
-
 #include "drape/overlay_handle.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
@@ -44,12 +42,12 @@ void DrapeApiRenderer::Clear()
 }
 
 void DrapeApiRenderer::Render(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
-                              dp::UniformValuesStorage const & commonUniforms)
+                              FrameValues const & frameValues)
 {
   if (m_properties.empty())
     return;
 
-  auto const & params = df::VisualParams::Instance().GetGlyphVisualParams();
+  auto const & glyphParams = df::VisualParams::Instance().GetGlyphVisualParams();
   for (auto const & property : m_properties)
   {
     math::Matrix<float, 4, 4> const mv = screen.GetModelView(property->m_center, kShapeCoordScalar);
@@ -59,15 +57,22 @@ void DrapeApiRenderer::Render(ScreenBase const & screen, ref_ptr<gpu::ProgramMan
       program->Bind();
       dp::ApplyState(bucket.first, program);
 
-      dp::UniformValuesStorage uniforms = commonUniforms;
-      uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
-      uniforms.SetFloatValue("u_opacity", 1.0f);
       if (bucket.first.GetProgram<gpu::Program>() == gpu::Program::TextOutlinedGui)
       {
-        uniforms.SetFloatValue("u_contrastGamma", params.m_guiContrast, params.m_guiGamma);
-        uniforms.SetFloatValue("u_isOutlinePass", 0.0f);
+        gpu::GuiProgramParams params;
+        frameValues.SetTo(params);
+        params.m_modelView = glsl::make_mat4(mv.m_data);
+        params.m_contrastGamma = glsl::vec2(glyphParams.m_guiContrast, glyphParams.m_guiGamma);
+        params.m_isOutlinePass = 0.0f;
+        mng->GetParamsSetter()->Apply(program, params);
       }
-      dp::ApplyUniforms(uniforms, program);
+      else
+      {
+        gpu::MapProgramParams params;
+        frameValues.SetTo(params);
+        params.m_modelView = glsl::make_mat4(mv.m_data);
+        mng->GetParamsSetter()->Apply(program, params);
+      }
 
       bucket.second->Render(bucket.first.GetDrawAsLine());
     }

@@ -1,12 +1,12 @@
 #pragma once
 
 #include "drape_frontend/circles_pack_shape.hpp"
+#include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/gps_track_point.hpp"
 
 #include "shaders/program_manager.hpp"
 
 #include "drape/pointers.hpp"
-#include "drape/uniform_values_storage.hpp"
 
 #include "geometry/screenbase.hpp"
 #include "geometry/spline.hpp"
@@ -31,7 +31,7 @@ public:
 
   void RenderTrack(ScreenBase const & screen, int zoomLevel,
                    ref_ptr<gpu::ProgramManager> mng,
-                   dp::UniformValuesStorage const & commonUniforms);
+                   FrameValues const & frameValues);
 
   void Update();
   void Clear();

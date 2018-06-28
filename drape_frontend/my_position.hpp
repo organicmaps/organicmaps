@@ -1,6 +1,7 @@
 #pragma once
 
 #include "drape_frontend/arrow3d.hpp"
+#include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/render_node.hpp"
 #include "drape_frontend/render_state.hpp"
 
@@ -8,7 +9,6 @@
 
 #include "drape/batcher.hpp"
 #include "drape/texture_manager.hpp"
-#include "drape/uniform_values_storage.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
 #include "geometry/screenbase.hpp"
@@ -33,11 +33,11 @@ public:
 
   void RenderAccuracy(ScreenBase const & screen, int zoomLevel,
                       ref_ptr<gpu::ProgramManager> mng,
-                      dp::UniformValuesStorage const & commonUniforms);
+                      FrameValues const & frameValues);
 
   void RenderMyPosition(ScreenBase const & screen, int zoomLevel,
                         ref_ptr<gpu::ProgramManager> mng,
-                        dp::UniformValuesStorage const & commonUniforms);
+                        FrameValues const & frameValues);
 
 private:
   void CacheAccuracySector(ref_ptr<dp::TextureManager> mng);
@@ -51,7 +51,7 @@ private:
   };
 
   void RenderPart(ref_ptr<gpu::ProgramManager> mng,
-                  dp::UniformValuesStorage const & uniforms,
+                  gpu::ShapesProgramParams const & params,
                   EMyPositionPart part);
 
   void CacheSymbol(dp::TextureManager::SymbolRegion const & symbol,

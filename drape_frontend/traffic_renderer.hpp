@@ -1,12 +1,12 @@
 #pragma once
 
+#include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/traffic_generator.hpp"
 #include "drape_frontend/tile_utils.hpp"
 
 #include "shaders/program_manager.hpp"
 
 #include "drape/pointers.hpp"
-#include "drape/uniform_values_storage.hpp"
 
 #include "geometry/screenbase.hpp"
 #include "geometry/spline.hpp"
@@ -24,8 +24,7 @@ public:
                      TrafficRenderData && renderData);
 
   void RenderTraffic(ScreenBase const & screen, int zoomLevel, float opacity,
-                     ref_ptr<gpu::ProgramManager> mng,
-                     dp::UniformValuesStorage const & commonUniforms);
+                     ref_ptr<gpu::ProgramManager> mng, FrameValues const & frameValues);
 
   bool HasRenderData() const { return !m_renderData.empty(); }
 

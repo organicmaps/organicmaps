@@ -1,12 +1,16 @@
-#include "batch_merge_helper.hpp"
+#include "drape_frontend/batch_merge_helper.hpp"
+
+#include "shaders/program_manager.hpp"
 
 #include "drape/glextensions_list.hpp"
 #include "drape/render_bucket.hpp"
 #include "drape/vertex_array_buffer.hpp"
 
+#include <cstring>
+#include <utility>
+
 namespace df
 {
-
 void ReadBufferData(void * dst, glConst target, uint32_t size)
 {
 #ifdef OMIM_OS_DESKTOP
@@ -22,15 +26,15 @@ struct NotSupported32BitIndex{};
 struct Supported32BitIndex{};
 
 template<typename TSupported>
-void TransformIndeces(void * pointer, uint32_t count, uint32_t offset)
+void TransformIndices(void * pointer, uint32_t count, uint32_t offset)
 {
   ASSERT(false, ());
 }
 
 template<>
-void TransformIndeces<Supported32BitIndex>(void * pointer, uint32_t count, uint32_t offset)
+void TransformIndices<Supported32BitIndex>(void * pointer, uint32_t count, uint32_t offset)
 {
-  uint32_t * indexPtr = reinterpret_cast<uint32_t *>(pointer);
+  auto indexPtr = reinterpret_cast<uint32_t *>(pointer);
   for (uint32_t i = 0; i < count; ++i)
   {
     *indexPtr += offset;
@@ -39,10 +43,10 @@ void TransformIndeces<Supported32BitIndex>(void * pointer, uint32_t count, uint3
 }
 
 template<>
-void TransformIndeces<NotSupported32BitIndex>(void * pointer, uint32_t count, uint32_t offset)
+void TransformIndices<NotSupported32BitIndex>(void * pointer, uint32_t count, uint32_t offset)
 {
-  uint16_t * indexPtr = reinterpret_cast<uint16_t *>(pointer);
-  uint16_t indexOffset = static_cast<uint16_t>(offset);
+  auto indexPtr = reinterpret_cast<uint16_t *>(pointer);
+  auto const indexOffset = static_cast<uint16_t>(offset);
   for (uint32_t i = 0; i < count; ++i)
   {
     *indexPtr += indexOffset;
@@ -60,19 +64,19 @@ bool BatchMergeHelper::IsMergeSupported()
 #endif
 }
 
-void BatchMergeHelper::MergeBatches(vector<drape_ptr<RenderGroup>> & batches,
-                                    vector<drape_ptr<RenderGroup>> & mergedBatches,
-                                    bool isPerspective)
+void BatchMergeHelper::MergeBatches(ref_ptr<gpu::ProgramManager> mng, bool isPerspective,
+                                    std::vector<drape_ptr<RenderGroup>> & batches,
+                                    std::vector<drape_ptr<RenderGroup>> & mergedBatches)
 {
   ASSERT(!batches.empty(), ());
   if (batches.size() < 2)
   {
-    mergedBatches.emplace_back(move(batches.front()));
+    mergedBatches.emplace_back(std::move(batches.front()));
     return;
   }
 
-  uint32_t const kIndexBufferSize = 30000;
-  uint32_t const kVertexBufferSize = 20000;
+  uint32_t constexpr kIndexBufferSize = 30000;
+  uint32_t constexpr kVertexBufferSize = 20000;
 
   using TBuffer = dp::VertexArrayBuffer;
   using TBucket = dp::RenderBucket;
@@ -84,19 +88,17 @@ void BatchMergeHelper::MergeBatches(vector<drape_ptr<RenderGroup>> & batches,
 
     ref_ptr<RenderGroup> oldGroup = make_ref(batches.front());
     drape_ptr<RenderGroup> newGroup = make_unique_dp<RenderGroup>(oldGroup->GetState(), oldGroup->GetTileKey());
-    newGroup->m_shader = oldGroup->m_shader;
-    newGroup->m_shader3d = oldGroup->m_shader3d;
-    newGroup->m_uniforms = oldGroup->m_uniforms;
-    newGroup->m_generalUniforms = oldGroup->m_generalUniforms;
-    newGroup->AddBucket(move(bucket));
+    newGroup->m_params = oldGroup->m_params;
+    newGroup->AddBucket(std::move(bucket));
 
     buffer->Preflush();
-    if (isPerspective)
-      newGroup->m_shader3d->Bind();
-    else
-      newGroup->m_shader->Bind();
-    buffer->Build(isPerspective ? newGroup->m_shader3d : newGroup->m_shader);
-    mergedBatches.push_back(move(newGroup));
+
+    auto programPtr = mng->GetProgram(isPerspective ? newGroup->GetState().GetProgram3d<gpu::Program>()
+                                                    : newGroup->GetState().GetProgram<gpu::Program>());
+    ASSERT(programPtr != nullptr, ());
+    programPtr->Bind();
+    buffer->Build(programPtr);
+    mergedBatches.push_back(std::move(newGroup));
   };
 
   auto allocateFn = [=](drape_ptr<TBucket> & bucket, ref_ptr<TBuffer> & buffer)
@@ -129,9 +131,9 @@ void BatchMergeHelper::MergeBatches(vector<drape_ptr<RenderGroup>> & batches,
 
   vector<uint8_t> rawDataBuffer;
 
-  for (drape_ptr<RenderGroup> const & group : batches)
+  for (auto const & group : batches)
   {
-    for (drape_ptr<TBucket> const & b : group->m_renderBuckets)
+    for (auto const & b : group->m_renderBuckets)
     {
       ASSERT(b->m_overlay.empty(), ());
       ref_ptr<TBuffer> buffer = b->GetBuffer();
@@ -141,25 +143,21 @@ void BatchMergeHelper::MergeBatches(vector<drape_ptr<RenderGroup>> & batches,
       if (newBuffer->GetAvailableIndexCount() < vertexCount ||
           newBuffer->GetAvailableVertexCount() < indexCount)
       {
-        flushFn(move(bucket), newBuffer);
+        flushFn(std::move(bucket), newBuffer);
         allocateFn(bucket, newBuffer);
       }
 
       bucket->SetFeatureMinZoom(b->GetMinZoom());
 
-      uint32_t indexOffset = newBuffer->GetStartIndexValue();
+      auto const indexOffset = newBuffer->GetStartIndexValue();
 
       for (auto const & vboNode : buffer->m_staticBuffers)
-      {
         copyVertecesFn(vboNode, rawDataBuffer, newBuffer);
-      }
 
       for (auto const & vboNode : buffer->m_dynamicBuffers)
-      {
         copyVertecesFn(vboNode, rawDataBuffer, newBuffer);
-      }
 
-      uint32_t indexByteCount = indexCount * dp::IndexStorage::SizeOfIndex();
+      auto const indexByteCount = indexCount * dp::IndexStorage::SizeOfIndex();
       if (rawDataBuffer.size() < indexByteCount)
         rawDataBuffer.resize(indexByteCount);
 
@@ -168,9 +166,9 @@ void BatchMergeHelper::MergeBatches(vector<drape_ptr<RenderGroup>> & batches,
       GLFunctions::glUnmapBuffer(gl_const::GLElementArrayBuffer);
 
       if (dp::IndexStorage::IsSupported32bit())
-        TransformIndeces<Supported32BitIndex>(rawDataBuffer.data(), indexCount, indexOffset);
+        TransformIndices<Supported32BitIndex>(rawDataBuffer.data(), indexCount, indexOffset);
       else
-        TransformIndeces<NotSupported32BitIndex>(rawDataBuffer.data(), indexCount, indexOffset);
+        TransformIndices<NotSupported32BitIndex>(rawDataBuffer.data(), indexCount, indexOffset);
 
       newBuffer->UploadIndexes(rawDataBuffer.data(), indexCount);
     }
@@ -178,9 +176,8 @@ void BatchMergeHelper::MergeBatches(vector<drape_ptr<RenderGroup>> & batches,
 
   if (newBuffer->GetIndexCount() > 0)
   {
-    flushFn(move(bucket), newBuffer);
+    flushFn(std::move(bucket), newBuffer);
     allocateFn(bucket, newBuffer);
   }
 }
-
-}
+}  // namespace df
