@@ -33,7 +33,7 @@ public:
 
 private:
   shared_ptr<VehicleModelInterface> m_vehicleModel;
-  EditableFeaturesLoaderGuard m_guard;
+  FeaturesLoaderGuard m_guard;
   string const m_country;
   feature::AltitudeLoader m_altitudeLoader;
   bool const m_loadAltitudes;

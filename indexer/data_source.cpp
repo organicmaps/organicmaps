@@ -103,8 +103,8 @@ private:
 };
 }  //  namespace
 
-// DataSource::FeaturesLoaderGuard ---------------------------------------------------------
-string DataSource::FeaturesLoaderGuard::GetCountryFileName() const
+// FeaturesLoaderGuard ---------------------------------------------------------------------
+string FeaturesLoaderGuard::GetCountryFileName() const
 {
   if (!m_handle.IsAlive())
     return string();
@@ -112,7 +112,7 @@ string DataSource::FeaturesLoaderGuard::GetCountryFileName() const
   return m_handle.GetValue<MwmValue>()->GetCountryFileName();
 }
 
-bool DataSource::FeaturesLoaderGuard::IsWorld() const
+bool FeaturesLoaderGuard::IsWorld() const
 {
   if (!m_handle.IsAlive())
     return false;
@@ -120,8 +120,7 @@ bool DataSource::FeaturesLoaderGuard::IsWorld() const
   return m_handle.GetValue<MwmValue>()->GetHeader().GetType() == feature::DataHeader::world;
 }
 
-unique_ptr<FeatureType> DataSource::FeaturesLoaderGuard::GetOriginalFeatureByIndex(
-    uint32_t index) const
+unique_ptr<FeatureType> FeaturesLoaderGuard::GetOriginalFeatureByIndex(uint32_t index) const
 {
   auto feature = make_unique<FeatureType>();
   if (GetOriginalFeatureByIndex(index, *feature))
@@ -130,8 +129,7 @@ unique_ptr<FeatureType> DataSource::FeaturesLoaderGuard::GetOriginalFeatureByInd
   return {};
 }
 
-unique_ptr<FeatureType> DataSource::FeaturesLoaderGuard::GetOriginalOrEditedFeatureByIndex(
-    uint32_t index) const
+unique_ptr<FeatureType> FeaturesLoaderGuard::GetOriginalOrEditedFeatureByIndex(uint32_t index) const
 {
   auto feature = make_unique<FeatureType>();
   if (!m_handle.IsAlive())
@@ -144,8 +142,8 @@ unique_ptr<FeatureType> DataSource::FeaturesLoaderGuard::GetOriginalOrEditedFeat
   return {};
 }
 
-WARN_UNUSED_RESULT bool DataSource::FeaturesLoaderGuard::GetFeatureByIndex(uint32_t index,
-                                                                           FeatureType & ft) const
+WARN_UNUSED_RESULT bool FeaturesLoaderGuard::GetFeatureByIndex(uint32_t index,
+                                                               FeatureType & ft) const
 {
   if (!m_handle.IsAlive())
     return false;
@@ -157,8 +155,8 @@ WARN_UNUSED_RESULT bool DataSource::FeaturesLoaderGuard::GetFeatureByIndex(uint3
   return GetOriginalFeatureByIndex(index, ft);
 }
 
-WARN_UNUSED_RESULT bool DataSource::FeaturesLoaderGuard::GetOriginalFeatureByIndex(
-    uint32_t index, FeatureType & ft) const
+WARN_UNUSED_RESULT bool FeaturesLoaderGuard::GetOriginalFeatureByIndex(uint32_t index,
+                                                                       FeatureType & ft) const
 {
   return m_handle.IsAlive() ? m_source->GetOriginalFeature(index, ft) : false;
 }

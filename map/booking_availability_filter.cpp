@@ -15,8 +15,6 @@
 #include <utility>
 #include <vector>
 
-using LoaderGuard = EditableFeaturesLoaderGuard;
-
 using namespace booking::filter;
 
 namespace
@@ -107,12 +105,12 @@ void PrepareData(DataSource const & dataSource, search::Results const & results,
   std::sort(features.begin(), features.end());
 
   MwmSet::MwmId mwmId;
-  std::unique_ptr<LoaderGuard> guard;
+  std::unique_ptr<FeaturesLoaderGuard> guard;
   for (auto const & featureId : features)
   {
     if (mwmId != featureId.m_mwmId)
     {
-      guard = my::make_unique<LoaderGuard>(dataSource, featureId.m_mwmId);
+      guard = my::make_unique<FeaturesLoaderGuard>(dataSource, featureId.m_mwmId);
       mwmId = featureId.m_mwmId;
     }
 
@@ -224,12 +222,12 @@ void AvailabilityFilter::GetFeaturesFromCache(search::Results const & results,
   std::sort(features.begin(), features.end());
 
   MwmSet::MwmId mwmId;
-  std::unique_ptr<LoaderGuard> guard;
+  std::unique_ptr<FeaturesLoaderGuard> guard;
   for (auto const & featureId : features)
   {
     if (mwmId != featureId.m_mwmId)
     {
-      guard = my::make_unique<LoaderGuard>(GetDelegate().GetDataSource(), featureId.m_mwmId);
+      guard = my::make_unique<FeaturesLoaderGuard>(GetDelegate().GetDataSource(), featureId.m_mwmId);
       mwmId = featureId.m_mwmId;
     }
 

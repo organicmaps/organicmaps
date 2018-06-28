@@ -211,10 +211,10 @@ bool BicycleDirectionsEngine::Generate(IndexRoadGraph const & graph, vector<Junc
   return true;
 }
 
-DataSource::FeaturesLoaderGuard & BicycleDirectionsEngine::GetLoader(MwmSet::MwmId const & id)
+FeaturesLoaderGuard & BicycleDirectionsEngine::GetLoader(MwmSet::MwmId const & id)
 {
   if (!m_loader || id != m_loader->GetId())
-    m_loader = make_unique<EditableFeaturesLoaderGuard>(m_dataSource, id);
+    m_loader = make_unique<FeaturesLoaderGuard>(m_dataSource, id);
   return *m_loader;
 }
 

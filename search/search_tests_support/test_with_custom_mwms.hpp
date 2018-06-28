@@ -31,7 +31,7 @@ public:
   template <typename EditorFn>
   void EditFeature(FeatureID const & id, EditorFn && fn)
   {
-    EditableFeaturesLoaderGuard loader(m_dataSource, id.m_mwmId);
+    FeaturesLoaderGuard loader(m_dataSource, id.m_mwmId);
     FeatureType ft;
     CHECK(loader.GetFeatureByIndex(id.m_index, ft), ());
     editor::tests_support::EditFeature(ft, std::forward<EditorFn>(fn));

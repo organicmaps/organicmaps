@@ -749,7 +749,7 @@ void Framework::FillFeatureInfo(FeatureID const & fid, place_page::Info & info) 
     return;
   }
 
-  EditableFeaturesLoaderGuard const guard(m_model.GetDataSource(), fid.m_mwmId);
+  FeaturesLoaderGuard const guard(m_model.GetDataSource(), fid.m_mwmId);
   FeatureType ft;
   if (!guard.GetFeatureByIndex(fid.m_index, ft))
   {
@@ -2085,7 +2085,7 @@ bool Framework::GetFeatureByID(FeatureID const & fid, FeatureType & ft) const
 {
   ASSERT(fid.IsValid(), ());
 
-  EditableFeaturesLoaderGuard guard(m_model.GetDataSource(), fid.m_mwmId);
+  FeaturesLoaderGuard guard(m_model.GetDataSource(), fid.m_mwmId);
   if (!guard.GetFeatureByIndex(fid.m_index, ft))
     return false;
 
@@ -2604,7 +2604,7 @@ vector<m2::TriangleD> Framework::GetSelectedFeatureTriangles() const
   if (!m_selectedFeature.IsValid())
     return triangles;
 
-  EditableFeaturesLoaderGuard const guard(m_model.GetDataSource(), m_selectedFeature.m_mwmId);
+  FeaturesLoaderGuard const guard(m_model.GetDataSource(), m_selectedFeature.m_mwmId);
   FeatureType ft;
   if (!guard.GetFeatureByIndex(m_selectedFeature.m_index, ft))
     return triangles;
@@ -2741,7 +2741,7 @@ namespace
 WARN_UNUSED_RESULT bool LocalizeStreet(DataSource const & dataSource, FeatureID const & fid,
                                        osm::LocalizedStreet & result)
 {
-  EditableFeaturesLoaderGuard g(dataSource, fid.m_mwmId);
+  FeaturesLoaderGuard g(dataSource, fid.m_mwmId);
   FeatureType ft;
   if (!g.GetFeatureByIndex(fid.m_index, ft))
     return false;
@@ -2858,7 +2858,7 @@ void SetHostingBuildingAddress(FeatureID const & hostingBuildingFid, DataSource 
 
   FeatureType hostingBuildingFeature;
 
-  EditableFeaturesLoaderGuard g(dataSource, hostingBuildingFid.m_mwmId);
+  FeaturesLoaderGuard g(dataSource, hostingBuildingFid.m_mwmId);
   if (!g.GetFeatureByIndex(hostingBuildingFid.m_index, hostingBuildingFeature))
     return;
 
@@ -2952,7 +2952,7 @@ osm::Editor::SaveResult Framework::SaveEditedMapObject(osm::EditableMapObject em
   {
     auto const isCreatedFeature = editor.IsCreatedFeature(emo.GetID());
 
-    EditableFeaturesLoaderGuard g(m_model.GetDataSource(), emo.GetID().m_mwmId);
+    FeaturesLoaderGuard g(m_model.GetDataSource(), emo.GetID().m_mwmId);
     FeatureType originalFeature;
     if (!isCreatedFeature)
     {

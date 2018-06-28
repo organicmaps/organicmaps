@@ -81,7 +81,7 @@ struct alignas(kCacheLineSize) Stats
 
 bool IsRealVertex(m2::PointD const & p, FeatureID const & fid, DataSource const & dataSource)
 {
-  FrozenFeaturesLoaderGuard g(dataSource, fid.m_mwmId);
+  FeaturesLoaderGuard g(dataSource, fid.m_mwmId);
   auto const ft = g.GetOriginalFeatureByIndex(fid.m_index);
   bool matched = false;
   ft->ForEachPoint(

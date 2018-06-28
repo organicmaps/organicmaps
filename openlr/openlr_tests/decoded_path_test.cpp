@@ -140,7 +140,7 @@ void WithRoad(vector<m2::PointD> const & points, Func && fn)
   MwmSet::MwmHandle mwmHandle = dataSource.GetMwmHandleById(regResult.first);
   TEST(mwmHandle.IsAlive(), ());
 
-  FrozenFeaturesLoaderGuard const guard(dataSource, regResult.first);
+  FeaturesLoaderGuard const guard(dataSource, regResult.first);
   FeatureType road;
   TEST(guard.GetFeatureByIndex(0, road), ());
   road.ParseEverything();

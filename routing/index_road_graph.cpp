@@ -60,7 +60,7 @@ void IndexRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & type
 
   FeatureID const featureId = edge.GetFeatureId();
   FeatureType ft;
-  EditableFeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId);
+  FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId);
   if (!loader.GetFeatureByIndex(featureId.m_index, ft))
   {
     LOG(LERROR, ("Can't load types for feature", featureId));

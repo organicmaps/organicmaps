@@ -18,7 +18,7 @@ MwmSet::MwmId EditorDelegate::GetMwmIdByMapName(string const & name) const
 
 unique_ptr<FeatureType> EditorDelegate::GetOriginalFeature(FeatureID const & fid) const
 {
-  EditableFeaturesLoaderGuard guard(m_dataSource, fid.m_mwmId);
+  FeaturesLoaderGuard guard(m_dataSource, fid.m_mwmId);
   auto feature = guard.GetOriginalFeatureByIndex(fid.m_index);
   if (feature)
     feature->ParseEverything();

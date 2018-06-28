@@ -29,33 +29,6 @@ public:
   using FeatureCallback = std::function<void(FeatureType &)>;
   using FeatureIdCallback = std::function<void(FeatureID const &)>;
 
-  /// Guard for loading features from particular MWM by demand.
-  /// @note This guard is suitable when mwm is loaded.
-  class FeaturesLoaderGuard
-  {
-  public:
-    FeaturesLoaderGuard(DataSource const & dataSource, MwmId const & id,
-                        FeatureSourceFactory const & factory)
-      : m_handle(dataSource.GetMwmHandleById(id)), m_source(factory(m_handle))
-    {
-    }
-
-    MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
-    std::string GetCountryFileName() const;
-    bool IsWorld() const;
-    std::unique_ptr<FeatureType> GetOriginalFeatureByIndex(uint32_t index) const;
-    std::unique_ptr<FeatureType> GetOriginalOrEditedFeatureByIndex(uint32_t index) const;
-    /// Everyone, except Editor core, should use this method.
-    WARN_UNUSED_RESULT bool GetFeatureByIndex(uint32_t index, FeatureType & ft) const;
-    /// Editor core only method, to get 'untouched', original version of feature.
-    WARN_UNUSED_RESULT bool GetOriginalFeatureByIndex(uint32_t index, FeatureType & ft) const;
-    size_t GetNumFeatures() const { return m_source->GetNumFeatures(); }
-
-  private:
-    MwmHandle m_handle;
-    std::unique_ptr<FeatureSource> m_source;
-  };
-
   ~DataSource() override = default;
 
   /// Registers a new map.
@@ -95,6 +68,8 @@ protected:
   std::unique_ptr<MwmValueBase> CreateValue(MwmInfo & info) const override;
 
 private:
+  friend class FeaturesLoaderGuard;
+
   std::unique_ptr<FeatureSourceFactory> m_factory;
 };
 
@@ -106,11 +81,28 @@ public:
   FrozenDataSource() : DataSource(std::make_unique<FeatureSourceFactory>()) {}
 };
 
-class FrozenFeaturesLoaderGuard : public DataSource::FeaturesLoaderGuard
+/// Guard for loading features from particular MWM by demand.
+/// @note This guard is suitable when mwm is loaded.
+class FeaturesLoaderGuard
 {
 public:
-  FrozenFeaturesLoaderGuard(DataSource const & dataSource, DataSource::MwmId const & id)
-    : DataSource::FeaturesLoaderGuard(dataSource, id, FeatureSourceFactory())
+  FeaturesLoaderGuard(DataSource const & dataSource, DataSource::MwmId const & id)
+    : m_handle(dataSource.GetMwmHandleById(id)), m_source((*dataSource.m_factory)(m_handle))
   {
   }
+
+  MwmSet::MwmId const & GetId() const { return m_handle.GetId(); }
+  std::string GetCountryFileName() const;
+  bool IsWorld() const;
+  std::unique_ptr<FeatureType> GetOriginalFeatureByIndex(uint32_t index) const;
+  std::unique_ptr<FeatureType> GetOriginalOrEditedFeatureByIndex(uint32_t index) const;
+  /// Everyone, except Editor core, should use this method.
+  WARN_UNUSED_RESULT bool GetFeatureByIndex(uint32_t index, FeatureType & ft) const;
+  /// Editor core only method, to get 'untouched', original version of feature.
+  WARN_UNUSED_RESULT bool GetOriginalFeatureByIndex(uint32_t index, FeatureType & ft) const;
+  size_t GetNumFeatures() const { return m_source->GetNumFeatures(); }
+
+private:
+  DataSource::MwmHandle m_handle;
+  std::unique_ptr<FeatureSource> m_source;
 };

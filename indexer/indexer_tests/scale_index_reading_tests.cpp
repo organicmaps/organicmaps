@@ -54,7 +54,7 @@ public:
                                       [&](uint32_t index) { indices.push_back(index); });
     }
 
-    FrozenFeaturesLoaderGuard loader(m_dataSource, id);
+    FeaturesLoaderGuard loader(m_dataSource, id);
 
     Names names;
     for (auto const & index : indices)

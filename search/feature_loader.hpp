@@ -32,7 +32,7 @@ public:
 
 private:
   DataSource const & m_dataSource;
-  std::unique_ptr<DataSource::FeaturesLoaderGuard> m_guard;
+  std::unique_ptr<FeaturesLoaderGuard> m_guard;
 
   ThreadChecker m_checker;
 };

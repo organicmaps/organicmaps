@@ -39,7 +39,7 @@ public:
                 vector<Segment> & segments) override;
 
 private:
-  DataSource::FeaturesLoaderGuard & GetLoader(MwmSet::MwmId const & id);
+  FeaturesLoaderGuard & GetLoader(MwmSet::MwmId const & id);
   void LoadPathAttributes(FeatureID const & featureId, LoadedPathSegment & pathSegment);
   void GetSegmentRangeAndAdjacentEdges(IRoadGraph::TEdgeVector const & outgoingEdges,
                                        Edge const & inEdge, uint32_t startSegId, uint32_t endSegId,
@@ -60,6 +60,6 @@ private:
   TUnpackedPathSegments m_pathSegments;
   DataSource const & m_dataSource;
   std::shared_ptr<NumMwmIds> m_numMwmIds;
-  std::unique_ptr<DataSource::FeaturesLoaderGuard> m_loader;
+  std::unique_ptr<FeaturesLoaderGuard> m_loader;
 };
 }  // namespace routing

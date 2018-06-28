@@ -443,7 +443,7 @@ uint64_t Storage::UGCSizeAtIndex(size_t const indexPosition) const
 unique_ptr<FeatureType> Storage::GetFeature(FeatureID const & id) const
 {
   CHECK(id.IsValid(), ());
-  EditableFeaturesLoaderGuard guard(m_dataSource, id.m_mwmId);
+  FeaturesLoaderGuard guard(m_dataSource, id.m_mwmId);
   auto feature = guard.GetOriginalOrEditedFeatureByIndex(id.m_index);
   feature->ParseGeometry(FeatureType::BEST_GEOMETRY);
   if (feature->GetFeatureType() == feature::EGeomType::GEOM_AREA)

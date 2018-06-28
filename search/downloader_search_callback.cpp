@@ -63,7 +63,7 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
     if (result.GetResultType() != search::Result::Type::LatLon)
     {
       FeatureID const & fid = result.GetFeatureID();
-      EditableFeaturesLoaderGuard loader(m_dataSource, fid.m_mwmId);
+      FeaturesLoaderGuard loader(m_dataSource, fid.m_mwmId);
       FeatureType ft;
       if (!loader.GetFeatureByIndex(fid.m_index, ft))
       {
