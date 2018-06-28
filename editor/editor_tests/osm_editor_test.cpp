@@ -117,16 +117,13 @@ void GenerateUploadedFeature(MwmSet::MwmId const & mwmId,
   xf.AttachToParentNode(created);
 }
 
-template <typename T>
 uint32_t CountFeaturesInRect(MwmSet::MwmId const & mwmId, m2::RectD const & rect)
 {
   auto & editor = osm::Editor::Instance();
   int unused = 0;
   uint32_t counter = 0;
-  editor.ForEachFeatureInMwmRectAndScale(mwmId, [&counter](T const & ft)
-  {
-    ++counter;
-  }, rect, unused);
+  editor.ForEachFeatureInMwmRectAndScale(mwmId, [&counter](uint32_t index) { ++counter; }, rect,
+                                         unused);
 
   return counter;
 }
@@ -769,13 +766,9 @@ void EditorTest::ForEachFeatureInMwmRectAndScaleTest()
     CreateCafeAtPoint({22.0, 22.0}, mwmId, emo);
   }
 
-  TEST_EQUAL(CountFeaturesInRect<FeatureType>(mwmId, {0.0, 0.0, 2.0, 2.0}), 0, ());
-  TEST_EQUAL(CountFeaturesInRect<FeatureType>(mwmId, {9.0, 9.0, 21.0, 21.0}), 2, ());
-  TEST_EQUAL(CountFeaturesInRect<FeatureType>(mwmId, {9.0, 9.0, 23.0, 23.0}), 3, ());
-
-  TEST_EQUAL(CountFeaturesInRect<FeatureID>(mwmId, {0.0, 0.0, 2.0, 2.0}), 0, ());
-  TEST_EQUAL(CountFeaturesInRect<FeatureID>(mwmId, {9.0, 9.0, 21.0, 21.0}), 2, ());
-  TEST_EQUAL(CountFeaturesInRect<FeatureID>(mwmId, {9.0, 9.0, 23.0, 23.0}), 3, ());
+  TEST_EQUAL(CountFeaturesInRect(mwmId, {0.0, 0.0, 2.0, 2.0}), 0, ());
+  TEST_EQUAL(CountFeaturesInRect(mwmId, {9.0, 9.0, 21.0, 21.0}), 2, ());
+  TEST_EQUAL(CountFeaturesInRect(mwmId, {9.0, 9.0, 23.0, 23.0}), 3, ());
 }
 
 void EditorTest::CreateNoteTest()

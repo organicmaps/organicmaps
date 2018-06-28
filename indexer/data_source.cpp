@@ -4,7 +4,6 @@
 
 #include <algorithm>
 #include <limits>
-#include <type_traits>
 
 using platform::CountryFile;
 using platform::LocalCountryFile;
@@ -12,64 +11,29 @@ using namespace std;
 
 namespace
 {
-template <typename Element>
 class ReadMWMFunctor
 {
 public:
-  using Fn = function<void(Element &)>;
+  using Fn = function<void(uint32_t, FeatureSource & src)>;
 
-  ReadMWMFunctor(Fn const & fn, FeatureSourceFactory const & factory) : m_fn(fn), m_factory(factory)
+  ReadMWMFunctor(FeatureSourceFactory const & factory, Fn const & fn) : m_factory(factory), m_fn(fn)
   {
   }
 
-  template <typename T>
-  enable_if_t<is_same<T, FeatureID const>::value> ProcessElement(FeatureSource & src,
-                                                                 uint32_t index) const
-  {
-    if (FeatureStatus::Deleted == src.GetFeatureStatus(index))
-      return;
-
-    m_fn(src.GetFeatureId(index));
-  }
-
-  template <typename T>
-  enable_if_t<is_same<T, FeatureType>::value> ProcessElement(FeatureSource & src,
-                                                             uint32_t index) const
-  {
-    FeatureType feature;
-    switch (src.GetFeatureStatus(index))
-    {
-    case FeatureStatus::Created: CHECK(false, ("Created features index should be generated."));
-    case FeatureStatus::Deleted:
-    case FeatureStatus::Obsolete: return;
-    case FeatureStatus::Modified:
-    {
-      VERIFY(src.GetModifiedFeature(index, feature), ());
-      break;
-    }
-    case FeatureStatus::Untouched:
-    {
-      src.GetOriginalFeature(index, feature);
-      break;
-    }
-    }
-    m_fn(feature);
-  }
-
-  // Reads features visible at |scale| covered by |cov| from mwm and applies |m_fn| to it.
+  // Reads features visible at |scale| covered by |cov| from mwm and applies |m_fn| to them.
   // Feature reading process consists of two steps: untouched (original) features reading and
   // touched (created, edited etc.) features reading.
   void operator()(MwmSet::MwmHandle const & handle, covering::CoveringGetter & cov, int scale) const
   {
     auto src = m_factory(handle);
 
-    MwmValue const * pValue = handle.GetValue<MwmValue>();
-    if (pValue)
+    MwmValue const * mwmValue = handle.GetValue<MwmValue>();
+    if (mwmValue)
     {
       // Untouched (original) features reading. Applies covering |cov| to geometry index, gets
       // feature ids from it, gets untouched features by ids from |src| and applies |m_fn| by
       // ProcessElement.
-      feature::DataHeader const & header = pValue->GetHeader();
+      feature::DataHeader const & header = mwmValue->GetHeader();
       CheckUniqueIndexes checkUnique(header.GetFormat() >= version::Format::v5);
 
       // In case of WorldCoasts we should pass correct scale in ForEachInIntervalAndScale.
@@ -79,7 +43,7 @@ public:
 
       // Use last coding scale for covering (see index_builder.cpp).
       covering::Intervals const & intervals = cov.Get<RectId::DEPTH_LEVELS>(lastScale);
-      ScaleIndex<ModelReaderPtr> index(pValue->m_cont.GetReader(INDEX_FILE_TAG), pValue->m_factory);
+      ScaleIndex<ModelReaderPtr> index(mwmValue->m_cont.GetReader(INDEX_FILE_TAG), mwmValue->m_factory);
 
       // iterate through intervals
       for (auto const & i : intervals)
@@ -87,20 +51,43 @@ public:
         index.ForEachInIntervalAndScale(i.first, i.second, scale, [&](uint32_t index) {
           if (!checkUnique(index))
             return;
-          ProcessElement<Element>(*src, index);
+          m_fn(index, *src);
         });
       }
     }
     // Check created features container.
     // Need to do it on a per-mwm basis, because Drape relies on features in a sorted order.
     // Touched (created, edited) features reading.
-    src->ForEachInRectAndScale(cov.GetRect(), scale, m_fn);
+    auto f = [&](uint32_t i) { m_fn(i, *src); };
+    src->ForEachInRectAndScale(cov.GetRect(), scale, f);
   }
 
 private:
-  Fn m_fn;
   FeatureSourceFactory const & m_factory;
+  Fn m_fn;
 };
+
+void ReadFeatureType(function<void(FeatureType &)> const & fn, FeatureSource & src, uint32_t index)
+{
+  FeatureType feature;
+  switch (src.GetFeatureStatus(index))
+  {
+  case FeatureStatus::Created: CHECK(false, ("Created features index should be generated."));
+  case FeatureStatus::Deleted:
+  case FeatureStatus::Obsolete: return;
+  case FeatureStatus::Modified:
+  {
+    VERIFY(src.GetModifiedFeature(index, feature), ());
+    break;
+  }
+  case FeatureStatus::Untouched:
+  {
+    src.GetOriginalFeature(index, feature);
+    break;
+  }
+  }
+  fn(feature);
+}
 }  //  namespace
 
 // FeaturesLoaderGuard ---------------------------------------------------------------------
@@ -236,19 +223,31 @@ void DataSource::ForEachInIntervals(ReaderCallback const & fn, covering::Coverin
 void DataSource::ForEachFeatureIDInRect(FeatureIdCallback const & f, m2::RectD const & rect,
                                         int scale) const
 {
-  ReadMWMFunctor<FeatureID const> readFunctor(f, *m_factory);
+  auto readFeatureId = [&f](uint32_t index, FeatureSource & src) {
+    if (src.GetFeatureStatus(index) != FeatureStatus::Deleted)
+      f(src.GetFeatureId(index));
+  };
+
+  ReadMWMFunctor readFunctor(*m_factory, readFeatureId);
   ForEachInIntervals(readFunctor, covering::LowLevelsOnly, rect, scale);
 }
 
 void DataSource::ForEachInRect(FeatureCallback const & f, m2::RectD const & rect, int scale) const
 {
-  ReadMWMFunctor<FeatureType> readFunctor(f, *m_factory);
+  auto readFeatureType = [&f](uint32_t index, FeatureSource & src) {
+    ReadFeatureType(f, src, index);
+  };
+  ReadMWMFunctor readFunctor(*m_factory, readFeatureType);
   ForEachInIntervals(readFunctor, covering::ViewportWithLowLevels, rect, scale);
 }
 
 void DataSource::ForEachInScale(FeatureCallback const & f, int scale) const
 {
-  ReadMWMFunctor<FeatureType> readFunctor(f, *m_factory);
+  auto readFeatureType = [&f](uint32_t index, FeatureSource & src) {
+    ReadFeatureType(f, src, index);
+  };
+
+  ReadMWMFunctor readFunctor(*m_factory, readFeatureType);
   ForEachInIntervals(readFunctor, covering::FullCover, m2::RectD::GetInfiniteRect(), scale);
 }
 
@@ -259,7 +258,10 @@ void DataSource::ForEachInRectForMWM(FeatureCallback const & f, m2::RectD const 
   if (handle.IsAlive())
   {
     covering::CoveringGetter cov(rect, covering::ViewportWithLowLevels);
-    ReadMWMFunctor<FeatureType> readFunctor(f, *m_factory);
+    auto readFeatureType = [&f](uint32_t index, FeatureSource & src) {
+      ReadFeatureType(f, src, index);
+    };
+    ReadMWMFunctor readFunctor(*m_factory, readFeatureType);
     readFunctor(handle, cov, scale);
   }
 }

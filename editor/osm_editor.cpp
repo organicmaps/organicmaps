@@ -486,8 +486,7 @@ bool Editor::RollBackChanges(FeatureID const & fid)
 }
 
 void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
-                                             TFeatureIDFunctor const & f,
-                                             m2::RectD const & rect,
+                                             TFeatureIndexFunctor const & f, m2::RectD const & rect,
                                              int /*scale*/)
 {
   auto const mwmFound = m_features.find(id);
@@ -501,27 +500,7 @@ void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
     FeatureTypeInfo const & ftInfo = index.second;
     if (ftInfo.m_status == FeatureStatus::Created &&
         rect.IsPointInside(ftInfo.m_feature.GetCenter()))
-      f(FeatureID(id, index.first));
-  }
-}
-
-void Editor::ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
-                                             TFeatureTypeFunctor const & f,
-                                             m2::RectD const & rect,
-                                             int /*scale*/)
-{
-  auto mwmFound = m_features.find(id);
-  if (mwmFound == m_features.end())
-    return;
-
-  // TODO(AlexZ): Check that features are visible at this scale.
-  // Process only new (created) features.
-  for (auto & index : mwmFound->second)
-  {
-    FeatureTypeInfo & ftInfo = index.second;
-    if (ftInfo.m_status == FeatureStatus::Created &&
-        rect.IsPointInside(ftInfo.m_feature.GetCenter()))
-      f(ftInfo.m_feature);
+      f(index.first);
   }
 }
 

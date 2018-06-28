@@ -92,16 +92,9 @@ public:
 
   void OnMapDeregistered(platform::LocalCountryFile const & localFile) override;
 
-  using TFeatureIDFunctor = function<void(FeatureID const &)>;
-  void ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
-                                       TFeatureIDFunctor const & f,
-                                       m2::RectD const & rect,
-                                       int scale);
-  using TFeatureTypeFunctor = function<void(FeatureType &)>;
-  void ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id,
-                                       TFeatureTypeFunctor const & f,
-                                       m2::RectD const & rect,
-                                       int scale);
+  using TFeatureIndexFunctor = function<void(uint32_t)>;
+  void ForEachFeatureInMwmRectAndScale(MwmSet::MwmId const & id, TFeatureIndexFunctor const & f,
+                                       m2::RectD const & rect, int scale);
 
   // TODO(mgsergio): Unify feature functions signatures.
 
