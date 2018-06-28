@@ -225,7 +225,4 @@
   <color name="rating_horrible">#E53935</color>
   <color name="rating_none">#FF888A82</color>
   <color name="rating_coming_soon">#FF1E96F0</color>
-  <color name="bookmarks_list_item_bg">#1E000000</color>
-  <color name="subway_traffic_btn_bg_disabled">#f5f5f5</color>
-
 </resources>

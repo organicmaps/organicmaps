@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-  xmlns:tools="http://schemas.android.com/tools"
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
-  android:paddingTop="4dp"
-  android:paddingBottom="4dp"
+  android:background="?attr/cardBackground"
+  android:paddingTop="@dimen/margin_quarter"
+  android:paddingBottom="@dimen/margin_quarter"
   android:layout_width="match_parent"
   android:layout_height="wrap_content">
   <ImageView
@@ -42,7 +42,7 @@
     android:id="@+id/recycler"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:minHeight="@dimen/subway_traffic_frame_height"
+    android:minHeight="@dimen/toggle_map_layer_frame_height"
     android:paddingLeft="@dimen/margin_base"
     android:paddingStart="@dimen/margin_base"
     android:paddingRight="@dimen/margin_base"
@@ -52,7 +52,7 @@
 
   <View
     app:layout_constraintBottom_toTopOf="@id/recycler"
-    android:background="@color/bookmarks_list_item_bg"
+    android:background="?android:attr/listDivider"
     android:layout_width="match_parent"
     android:layout_height="@dimen/divider_height"/>
 </android.support.constraint.ConstraintLayout>

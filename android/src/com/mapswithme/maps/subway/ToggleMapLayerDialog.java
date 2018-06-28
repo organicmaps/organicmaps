@@ -12,22 +12,24 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.adapter.BottomSheetItem;
 import com.mapswithme.maps.adapter.SpanningLinearLayoutManager;
 import com.mapswithme.maps.bookmarks.OnItemClickListener;
+import com.mapswithme.maps.traffic.widget.OnTrafficModeSelectListener;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class ToggleMapLayerDialog extends DialogFragment implements OnItemClickListener<Mode>
+public class ToggleMapLayerDialog extends DialogFragment
 {
   @NonNull
   @SuppressWarnings("NullableProblems")
@@ -68,16 +70,22 @@ public class ToggleMapLayerDialog extends DialogFragment implements OnItemClickL
                                                                                LinearLayoutManager.HORIZONTAL,
                                                                                false);
     recycler.setLayoutManager(layoutManager);
-    mAdapter = new ModeAdapter(Arrays.asList(Mode.values()), this);
+    mAdapter = new ModeAdapter(createItems());
     recycler.setAdapter(mAdapter);
   }
 
-  @Override
-  public void onItemClick(@NonNull View v, @NonNull Mode item)
+  @NonNull
+  private List<Pair<BottomSheetItem, OnItemClickListener<BottomSheetItem>>> createItems()
   {
-    MwmActivity activity = (MwmActivity) getActivity();
-    item.getItem().onSelected(activity);
-    mAdapter.notifyDataSetChanged();
+    SubwayItemClickListener subwayListener = new SubwayItemClickListener();
+    Pair<BottomSheetItem, OnItemClickListener<BottomSheetItem>> subway
+        = new Pair<>(BottomSheetItem.Subway.makeInstance(), subwayListener);
+
+    TrafficItemClickListener trafficListener = new TrafficItemClickListener();
+    Pair<BottomSheetItem, OnItemClickListener<BottomSheetItem>> traffic
+        = new Pair<>(BottomSheetItem.Traffic.makeInstance(), trafficListener);
+
+    return Arrays.asList(subway, traffic);
   }
 
   public static void show(@NonNull AppCompatActivity activity)
@@ -97,40 +105,42 @@ public class ToggleMapLayerDialog extends DialogFragment implements OnItemClickL
   private static class ModeAdapter extends RecyclerView.Adapter<ModeHolder>
   {
     @NonNull
-    private final List<Mode> mModes;
-    @NonNull
-    private final OnItemClickListener<Mode> mListener;
+    private final List<Pair<BottomSheetItem, OnItemClickListener<BottomSheetItem>>> mItems;
 
-    private ModeAdapter(@NonNull List<Mode> modes,
-                        @NonNull OnItemClickListener<Mode> listener)
+    private ModeAdapter(@NonNull List<Pair<BottomSheetItem, OnItemClickListener<BottomSheetItem>>> modes)
     {
-      mModes = modes;
-      mListener = listener;
+      mItems = modes;
     }
 
     @Override
     public ModeHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
       LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-      View root = inflater.inflate(R.layout.bootsheet_dialog_item, parent, false);
-      return new ModeHolder(root, mListener);
+      View root = inflater.inflate(R.layout.item_bottomsheet_dialog, parent, false);
+      return new ModeHolder(root);
     }
 
     @Override
     public void onBindViewHolder(ModeHolder holder, int position)
     {
       Context context = holder.itemView.getContext();
-      Mode mode = mModes.get(position);
-      holder.mItem = mode;
-      holder.mButton.setSelected(mode.getItem().isSelected(context));
-      holder.mButton.setImageResource(mode.getItem().getDrawableResId(context));
-      holder.mTitle.setText(mode.getItem().getTitleResId());
+      Pair<BottomSheetItem, OnItemClickListener<BottomSheetItem>> pair = mItems.get(position);
+      BottomSheetItem item = pair.first;
+      holder.mItem = item;
+
+      boolean isEnabled = item.getMode().isEnabled(context);
+
+      holder.mButton.setSelected(isEnabled);
+      holder.mTitle.setText(item.getTitle());
+      holder.mButton.setImageResource(isEnabled ? item.getEnabledStateDrawable()
+                                                : item.getDisabledStateDrawable());
+      holder.mListener = pair.second;
     }
 
     @Override
     public int getItemCount()
     {
-      return mModes.size();
+      return mItems.size();
     }
   }
   private static class ModeHolder extends RecyclerView.ViewHolder
@@ -138,30 +148,67 @@ public class ToggleMapLayerDialog extends DialogFragment implements OnItemClickL
     @NonNull
     private final ImageButton mButton;
     @NonNull
-    private final OnItemClickListener<Mode> mListener;
-    @NonNull
     private final TextView mTitle;
     @Nullable
-    private Mode mItem;
+    private BottomSheetItem mItem;
+    @Nullable
+    private OnItemClickListener<BottomSheetItem> mListener;
 
-    ModeHolder(@NonNull View root, @NonNull OnItemClickListener<Mode> listener)
+    ModeHolder(@NonNull View root)
     {
       super(root);
-      mButton = root.findViewById(R.id.item_btn);
+      mButton = root.findViewById(R.id.btn);
       mTitle = root.findViewById(R.id.name);
-      mListener = listener;
       mButton.setOnClickListener(this::onItemClicked);
     }
 
     @NonNull
-    public Mode getItem()
+    public BottomSheetItem getItem()
     {
       return Objects.requireNonNull(mItem);
     }
 
+    @NonNull
+    public OnItemClickListener<BottomSheetItem> getListener()
+    {
+      return Objects.requireNonNull(mListener);
+    }
+
     private void onItemClicked(@NonNull View v)
     {
-      mListener.onItemClick(v, getItem());
+      getListener().onItemClick(v, getItem());
+    }
+  }
+
+  private abstract class DefaultClickListener implements OnItemClickListener<BottomSheetItem>
+  {
+    @Override
+    public final void onItemClick(@NonNull View v, @NonNull BottomSheetItem item)
+    {
+      onItemClickInternal(v, item);
+      mAdapter.notifyDataSetChanged();
+    }
+
+    abstract void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item);
+  }
+
+  private class SubwayItemClickListener extends DefaultClickListener
+  {
+    @Override
+    void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
+    {
+      OnSubwayModeSelectListener listener = (OnSubwayModeSelectListener) getActivity();
+      listener.onSubwayModeSelected();
+    }
+  }
+
+  private class TrafficItemClickListener extends DefaultClickListener
+  {
+    @Override
+    void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
+    {
+      OnTrafficModeSelectListener listener = (OnTrafficModeSelectListener) getActivity();
+      listener.onTrafficModeSelected();
     }
   }
 }

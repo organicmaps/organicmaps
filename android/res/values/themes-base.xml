@@ -126,7 +126,7 @@
     <item name="filterPropertyBackground">@drawable/button_with_border</item>
     <item name="adChoicesIcon">@drawable/ic_ad_light</item>
     <item name="saleIcon">@drawable/ic_deal_light</item>
-    <item name="nav_bg_subway">@drawable/subway_bg_light</item>
+    <item name="nav_bg_subway">@drawable/bg_subway_light</item>
   </style>
 
   <!-- Night theme -->
@@ -256,6 +256,6 @@
     <item name="filterPropertyBackground">@drawable/button_with_border_night</item>
     <item name="adChoicesIcon">@drawable/ic_ad_dark</item>
     <item name="saleIcon">@drawable/ic_deal_dark</item>
-    <item name="nav_bg_subway">@drawable/subway_bg_night</item>
+    <item name="nav_bg_subway">@drawable/bg_subway_night</item>
   </style>
 </resources>

@@ -6,15 +6,16 @@
   android:gravity="center"
   android:layout_height="match_parent">
   <ImageButton
-    android:id="@+id/item_btn"
+    android:id="@+id/btn"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:minHeight="@dimen/margin_double_plus"
     android:minWidth="@dimen/margin_double_plus"
-    android:background="@drawable/traffic_subway_btn_bg"
+    android:background="@drawable/bg_toggle_map_layer_btn"
     android:layout_gravity="center"/>
   <TextView
     android:id="@+id/name"
+    android:layout_marginTop="@dimen/margin_quarter"
     android:textAppearance="@style/MwmTextAppearance.Body5"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"/>

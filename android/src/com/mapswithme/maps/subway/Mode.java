@@ -1,27 +1,28 @@
 package com.mapswithme.maps.subway;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 
-import com.mapswithme.maps.adapter.BottomSheetItem;
-import com.mapswithme.maps.traffic.TrafficItem;
+import com.mapswithme.maps.traffic.TrafficManager;
 
 public enum Mode
 {
-  TRAFFIC(new TrafficItem()),
-  SUBWAY(new SubwayItem());
+  TRAFFIC
+      {
+        @Override
+        public boolean isEnabled(@NonNull Context context)
+        {
+          return TrafficManager.INSTANCE.isEnabled();
+        }
+      },
+  SUBWAY
+      {
+        @Override
+        public boolean isEnabled(@NonNull Context context)
+        {
+          return SubwayManager.from(context).isEnabled();
+        }
+      };
 
-  @NonNull
-  private final BottomSheetItem mItem;
-
-  Mode(@NonNull BottomSheetItem item)
-  {
-    mItem = item;
-  }
-
-  @NonNull
-  public BottomSheetItem getItem()
-  {
-    return mItem;
-  }
+  public abstract boolean isEnabled(@NonNull Context context);
 }

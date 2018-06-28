@@ -1,11 +1,8 @@
 package com.mapswithme.maps.traffic;
 
-import android.support.annotation.DrawableRes;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 
-import com.mapswithme.maps.R;
-import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
@@ -106,24 +103,6 @@ public enum TrafficManager
   {
     if (!mInitialized)
       throw new AssertionError("Traffic manager is not initialized!");
-  }
-
-  @DrawableRes
-  public int getIconRes()
-  {
-    return isEnabled() ? getEnabledStateIcon() : getDisabledStateIcon();
-  }
-
-  private int getEnabledStateIcon()
-  {
-    return R.drawable.ic_traffic_menu_on;
-  }
-
-  private int getDisabledStateIcon()
-  {
-    return ThemeUtils.isNightTheme()
-           ? R.drawable.ic_traffic_menu_dark_off
-           : R.drawable.ic_traffic_menu_light_off;
   }
 
   public void setEnabled(boolean enabled)

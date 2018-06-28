@@ -52,24 +52,6 @@ public class SubwayManager
     nativeRemoveListener(listener);
   }
 
-  @DrawableRes
-  public int getIconRes()
-  {
-    return isEnabled() ? getEnabledStateIcon() : getDisabledStateIcon();
-  }
-
-  private int getEnabledStateIcon()
-  {
-    return R.drawable.ic_subway_menu_on;
-  }
-
-  private int getDisabledStateIcon()
-  {
-    return ThemeUtils.isNightTheme()
-           ? R.drawable.ic_subway_menu_dark_off
-           : R.drawable.ic_subway_menu_light_off;
-  }
-
   @NonNull
   public static SubwayManager from(@NonNull Context context)
   {
