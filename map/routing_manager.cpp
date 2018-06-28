@@ -1000,19 +1000,25 @@ bool RoutingManager::HasRouteAltitude() const
   return m_loadAltitudes && m_routingSession.HasRouteAltitude();
 }
 
+bool RoutingManager::GetRouteAltitudesAndDistancesM(vector<double> & segDistanceM,
+                                                    feature::TAltitudes & altitudes) const
+{
+  if (!m_routingSession.GetRouteAltitudesAndDistancesM(segDistanceM, altitudes))
+    return false;
+
+  segDistanceM.insert(segDistanceM.begin(), 0.0);
+  return true;
+}
+
 bool RoutingManager::GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
+                                                feature::TAltitudes const & altitudes,
+                                                vector<double> const & segDistance,
                                                 vector<uint8_t> & imageRGBAData,
                                                 int32_t & minRouteAltitude,
                                                 int32_t & maxRouteAltitude,
                                                 measurement_utils::Units & altitudeUnits) const
 {
-  feature::TAltitudes altitudes;
-  vector<double> segDistance;
-
-  if (!m_routingSession.GetRouteAltitudesAndDistancesM(segDistance, altitudes))
-    return false;
-  segDistance.insert(segDistance.begin(), 0.0);
-
+  CHECK_EQUAL(altitudes.size(), segDistance.size(), ());
   if (altitudes.empty())
     return false;
 

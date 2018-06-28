@@ -19,7 +19,11 @@
 
 #include "Framework.h"
 
+#include "indexer/feature_altitude.hpp"
+
 #include "platform/local_country_file_utils.hpp"
+
+#include <vector>
 
 using namespace routing;
 
@@ -517,21 +521,17 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 
 + (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageHeightBlock)block
 {
-  auto router = self.router;
-  // @TODO The method below is implemented on render renderAltitudeImagesQueue to prevent ui thread
-  // from heavy methods. On the other hand some of calls of the method should be done on ui thread.
-  // This method should be rewritten to perform on renderAltitudeImagesQueue only the heavest
-  // functions. Or all the method should be done on ui thread.
-  dispatch_async(router.renderAltitudeImagesQueue, ^{
+  if (![self hasRouteAltitude])
+    return;
+
+  auto segDistanceM = make_shared<std::vector<double>>(std::vector<double>());
+  auto altitudes = make_shared<feature::TAltitudes>(feature::TAltitudes());
+  if (!GetFramework().GetRoutingManager().GetRouteAltitudesAndDistancesM(*segDistanceM, *altitudes))
+    return;
+
+  // Note. |segDistanceM| and |altitudes| should not be used in the method after line below.
+  dispatch_async(self.router.renderAltitudeImagesQueue, [=] () {
     auto router = self.router;
-
-    bool hasAltitude = false;
-    dispatch_sync(dispatch_get_main_queue(), [self, &hasAltitude]{
-      hasAltitude = [self hasRouteAltitude];
-    });
-    if (!hasAltitude)
-      return;
-
     CGFloat const screenScale = [UIScreen mainScreen].scale;
     CGSize const scaledSize = {size.width * screenScale, size.height * screenScale};
     CHECK_GREATER_OR_EQUAL(scaledSize.width, 0.0, ());
@@ -550,12 +550,12 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
       int32_t maxRouteAltitude = 0;
       measurement_utils::Units units = measurement_utils::Units::Metric;
       bool result = false;
-      dispatch_sync(dispatch_get_main_queue(), [&] {
-        result = GetFramework().GetRoutingManager().GenerateRouteAltitudeChart(width, height,
-                                                                               imageRGBAData,
-                                                                               minRouteAltitude,
-                                                                               maxRouteAltitude, units);
-      });
+      result = GetFramework().GetRoutingManager().GenerateRouteAltitudeChart(width, height,
+                                                                             *altitudes,
+                                                                             *segDistanceM,
+                                                                             imageRGBAData,
+                                                                             minRouteAltitude,
+                                                                             maxRouteAltitude, units);
 
       if (!result)
         return;

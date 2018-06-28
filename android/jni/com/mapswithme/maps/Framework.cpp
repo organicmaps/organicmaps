@@ -27,6 +27,8 @@
 
 #include "geometry/angles.hpp"
 
+#include "indexer/feature_altitude.hpp"
+
 #include "platform/country_file.hpp"
 #include "platform/local_country_file.hpp"
 #include "platform/local_country_file_utils.hpp"
@@ -43,6 +45,7 @@
 
 #include <memory>
 #include <utility>
+#include <vector>
 
 using namespace std;
 using namespace std::placeholders;
@@ -1103,12 +1106,21 @@ Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv *
   ::Framework * fr = frm();
   ASSERT(fr, ());
 
+  feature::TAltitudes altitudes;
+  vector<double> segDistanceM;
+  if (!fr->GetRoutingManager().GetRouteAltitudesAndDistancesM(segDistanceM, altitudes))
+  {
+    LOG(LWARNING, ("Can't get distance to route points and altitude."));
+    return nullptr;
+  }
+
   vector<uint8_t> imageRGBAData;
   int32_t minRouteAltitude = 0;
   int32_t maxRouteAltitude = 0;
   measurement_utils::Units units = measurement_utils::Units::Metric;
   if (!fr->GetRoutingManager().GenerateRouteAltitudeChart(
-          width, height, imageRGBAData, minRouteAltitude, maxRouteAltitude, units))
+        width, height, altitudes, segDistanceM, imageRGBAData,
+        minRouteAltitude, maxRouteAltitude, units))
   {
     LOG(LWARNING, ("Can't generate route altitude image."));
     return nullptr;
