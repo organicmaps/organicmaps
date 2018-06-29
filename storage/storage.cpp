@@ -628,7 +628,6 @@ void Storage::DownloadNextCountryFromQueue()
       !PreparePlaceForCountryFiles(GetCurrentDataVersion(), m_dataDir, GetCountryFile(countryId)))
   {
     OnMapDownloadFinished(countryId, false /* success */, queuedCountry.GetInitOptions());
-    DownloadNextCountryFromQueue();
     return;
   }
 
@@ -2019,5 +2018,6 @@ void Storage::OnDownloadFailed(TCountryId const & countryId)
   if (it != m_queue.end())
     PopFromQueue(it);
   NotifyStatusChangedForHierarchy(countryId);
+  DownloadNextCountryFromQueue();
 }
 }  // namespace storage
