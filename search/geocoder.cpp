@@ -145,7 +145,7 @@ private:
   {
     if (m_table)
       return;
-    m_table = search::RankTable::Load(m_value.m_cont);
+    m_table = search::RankTable::Load(m_value.m_cont, RANKS_FILE_TAG);
     if (!m_table)
       m_table = make_unique<search::DummyRankTable>();
   }

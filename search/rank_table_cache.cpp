@@ -14,7 +14,7 @@ RankTable const & RankTableCache::Get(DataSource & dataSource, TId const & mwmId
     return *it->second;
 
   TKey handle(dataSource.GetMwmHandleById(mwmId));
-  auto table = RankTable::Load(handle.GetValue<MwmValue>()->m_cont);
+  auto table = RankTable::Load(handle.GetValue<MwmValue>()->m_cont, RANKS_FILE_TAG);
   if (!table)
     table.reset(new DummyRankTable());
 

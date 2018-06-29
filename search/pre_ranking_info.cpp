@@ -18,6 +18,7 @@ std::string DebugPrint(PreRankingInfo const & info)
     os << "m_tokenRange[" << DebugPrint(type) << "]:" << DebugPrint(info.m_tokenRange[i]) << ",";
   }
   os << "m_rank:" << static_cast<int>(info.m_rank) << ",";
+  os << "m_popularity:" << static_cast<int>(info.m_popularity) << ",";
   os << "m_type:" << info.m_type;
   os << "]";
   return os.str();

@@ -243,7 +243,7 @@ void LocalityFinder::LoadVicinity(m2::PointD const & p, bool loadCities, bool lo
     {
       auto const & value = *handle.GetValue<MwmValue>();
       if (!m_ranks)
-        m_ranks = RankTable::Load(value.m_cont);
+        m_ranks = RankTable::Load(value.m_cont, RANKS_FILE_TAG);
       if (!m_ranks)
         m_ranks = make_unique<DummyRankTable>();
 

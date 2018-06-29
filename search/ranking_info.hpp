@@ -23,6 +23,9 @@ struct RankingInfo
   // Rank of the feature.
   uint8_t m_rank = 0;
 
+  // Popularity rank of the feature.
+  uint8_t m_popularity = 0;
+
   // Score for the feature's name.
   NameScore m_nameScore = NAME_SCORE_ZERO;
 

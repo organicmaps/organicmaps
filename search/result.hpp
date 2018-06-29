@@ -246,6 +246,8 @@ private:
   HotelsClassifier m_hotelsClassif;
 };
 
+std::string DebugPrint(search::Results const & results);
+
 struct AddressInfo
 {
   enum class Type { Default, SearchResult };

@@ -287,7 +287,7 @@ unique_ptr<RankTable> CreateRankTableIfNotExists(FilesContainerR & rcont)
   if (!table)
   {
     vector<uint8_t> ranks;
-    SearchRanksTableBuilder::CalcSearchRanks(rcont, ranks);
+    SearchRankTableBuilder::CalcSearchRanks(rcont, ranks);
     table = make_unique<RankTableV0>(ranks);
   }
 
@@ -296,19 +296,19 @@ unique_ptr<RankTable> CreateRankTableIfNotExists(FilesContainerR & rcont)
 }  // namespace
 
 // static
-unique_ptr<RankTable> RankTable::Load(FilesContainerR const & rcont)
+unique_ptr<RankTable> RankTable::Load(FilesContainerR const & rcont, string const & sectionName)
 {
-  return LoadRankTable(GetMemoryRegionForTag(rcont, RANKS_FILE_TAG));
+  return LoadRankTable(GetMemoryRegionForTag(rcont, sectionName));
 }
 
 // static
-unique_ptr<RankTable> RankTable::Load(FilesMappingContainer const & mcont)
+unique_ptr<RankTable> RankTable::Load(FilesMappingContainer const & mcont, string const & sectionName)
 {
-  return LoadRankTable(GetMemoryRegionForTag(mcont, RANKS_FILE_TAG));
+  return LoadRankTable(GetMemoryRegionForTag(mcont, sectionName));
 }
 
 // static
-void SearchRanksTableBuilder::CalcSearchRanks(FilesContainerR & rcont, vector<uint8_t> & ranks)
+void SearchRankTableBuilder::CalcSearchRanks(FilesContainerR & rcont, vector<uint8_t> & ranks)
 {
   feature::DataHeader header(rcont);
   FeaturesVector featuresVector(rcont, header, nullptr /* features offsets table */);
@@ -320,7 +320,7 @@ void SearchRanksTableBuilder::CalcSearchRanks(FilesContainerR & rcont, vector<ui
 }
 
 // static
-bool SearchRanksTableBuilder::CreateIfNotExists(platform::LocalCountryFile const & localFile) noexcept
+bool SearchRankTableBuilder::CreateIfNotExists(platform::LocalCountryFile const & localFile) noexcept
 {
   try
   {
@@ -351,7 +351,7 @@ bool SearchRanksTableBuilder::CreateIfNotExists(platform::LocalCountryFile const
 }
 
 // static
-bool SearchRanksTableBuilder::CreateIfNotExists(string const & mapPath) noexcept
+bool SearchRankTableBuilder::CreateIfNotExists(string const & mapPath) noexcept
 {
   try
   {

@@ -48,6 +48,7 @@ void RankingInfo::PrintCSVHeader(ostream & os)
 {
   os << "DistanceToPivot"
      << ",Rank"
+     << ",Popularity"
      << ",NameScore"
      << ",ErrorsMade"
      << ",SearchType"
@@ -62,6 +63,7 @@ string DebugPrint(RankingInfo const & info)
   os << "RankingInfo [";
   os << "m_distanceToPivot:" << info.m_distanceToPivot << ",";
   os << "m_rank:" << static_cast<int>(info.m_rank) << ",";
+  os << "m_popularity:" << static_cast<int>(info.m_popularity) << ",";
   os << "m_nameScore:" << DebugPrint(info.m_nameScore) << ",";
   os << "m_errorsMade:" << DebugPrint(info.m_errorsMade) << ",";
   os << "m_type:" << DebugPrint(info.m_type) << ",";
@@ -77,6 +79,7 @@ void RankingInfo::ToCSV(ostream & os) const
   os << fixed;
   os << m_distanceToPivot << ",";
   os << static_cast<int>(m_rank) << ",";
+  os << static_cast<int>(m_popularity) << ",";
   os << DebugPrint(m_nameScore) << ",";
   os << GetErrorsMade() << ",";
   os << DebugPrint(m_type) << ",";

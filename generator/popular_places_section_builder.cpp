@@ -110,7 +110,7 @@ bool BuildPopularPlacesMwmSection(std::string const & srcFilename, std::string c
     return true;
 
   FilesContainerW cont(mwmFile, FileWriter::OP_WRITE_EXISTING);
-  search::RankTableBuilder::Create(content, cont, POPULAR_PLACES_FILE_TAG);
+  search::RankTableBuilder::Create(content, cont, POPULARITY_RANKS_FILE_TAG);
   return true;
 }
 }  // namespace generator

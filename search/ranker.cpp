@@ -259,6 +259,7 @@ class RankerResultMaker
 
     info.m_distanceToPivot = MercatorBounds::DistanceOnEarth(center, pivot);
     info.m_rank = preInfo.m_rank;
+    info.m_popularity = preInfo.m_popularity;
     info.m_type = preInfo.m_type;
     info.m_allTokensUsed = preInfo.m_allTokensUsed;
 

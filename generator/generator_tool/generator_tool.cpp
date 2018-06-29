@@ -388,7 +388,7 @@ int main(int argc, char ** argv)
         LOG(LCRITICAL, ("Error generating search index."));
 
       LOG(LINFO, ("Generating rank table for", datFile));
-      if (!search::SearchRanksTableBuilder::CreateIfNotExists(datFile))
+      if (!search::SearchRankTableBuilder::CreateIfNotExists(datFile))
         LOG(LCRITICAL, ("Error generating rank table."));
 
       LOG(LINFO, ("Generating centers table for", datFile));

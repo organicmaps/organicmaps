@@ -71,6 +71,7 @@ void PreRanker::FillMissingFieldsInPreResults()
   MwmSet::MwmId mwmId;
   MwmSet::MwmHandle mwmHandle;
   unique_ptr<RankTable> ranks = make_unique<DummyRankTable>();
+  unique_ptr<RankTable> popularityRanks = make_unique<DummyRankTable>();
   unique_ptr<LazyCentersTable> centers;
 
   m_pivotFeatures.SetPosition(m_params.m_accuratePivotCenter, m_params.m_scale);
@@ -86,7 +87,9 @@ void PreRanker::FillMissingFieldsInPreResults()
       centers.reset();
       if (mwmHandle.IsAlive())
       {
-        ranks = RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont);
+        ranks = RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont, RANKS_FILE_TAG);
+        popularityRanks = RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont,
+                                          POPULARITY_RANKS_FILE_TAG);
         centers = make_unique<LazyCentersTable>(*mwmHandle.GetValue<MwmValue>());
       }
       if (!ranks)
@@ -94,6 +97,8 @@ void PreRanker::FillMissingFieldsInPreResults()
     }
 
     info.m_rank = ranks->Get(id.m_index);
+    if (popularityRanks)
+      info.m_popularity = popularityRanks->Get(id.m_index);
 
     m2::PointD center;
     if (centers && centers->Get(id.m_index, center))

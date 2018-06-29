@@ -37,7 +37,7 @@ void TestTable(vector<uint8_t> const & ranks, string const & path)
   // Tries to load table via file read.
   {
     FilesContainerR rcont(path);
-    auto table = search::RankTable::Load(rcont);
+    auto table = search::RankTable::Load(rcont, RANKS_FILE_TAG);
     TEST(table, ());
     TestTable(ranks, *table);
   }
@@ -45,7 +45,7 @@ void TestTable(vector<uint8_t> const & ranks, string const & path)
   // Tries to load table via file mapping.
   {
     FilesMappingContainer mcont(path);
-    auto table = search::RankTable::Load(mcont);
+    auto table = search::RankTable::Load(mcont, RANKS_FILE_TAG);
     TEST(table, ());
     TestTable(ranks, *table);
   }
@@ -89,7 +89,7 @@ UNIT_TEST(RankTableBuilder_EndToEnd)
   vector<uint8_t> ranks;
   {
     FilesContainerR rcont(mapPath);
-    search::SearchRanksTableBuilder::CalcSearchRanks(rcont, ranks);
+    search::SearchRankTableBuilder::CalcSearchRanks(rcont, ranks);
   }
 
   {
@@ -119,7 +119,7 @@ UNIT_TEST(RankTableBuilder_WrongEndianness)
   unique_ptr<search::RankTable> table;
   {
     FilesContainerR rcont(kTestFile);
-    table = search::RankTable::Load(rcont);
+    table = search::RankTable::Load(rcont, RANKS_FILE_TAG);
     TEST(table.get(), ());
     TestTable(ranks, *table);
   }
@@ -139,7 +139,7 @@ UNIT_TEST(RankTableBuilder_WrongEndianness)
   // Try to load rank table from opposite endianness.
   {
     FilesContainerR rcont(kTestFile);
-    auto table = search::RankTable::Load(rcont);
+    auto table = search::RankTable::Load(rcont, RANKS_FILE_TAG);
     TEST(table.get(), ());
     TestTable(ranks, *table);
   }
@@ -147,12 +147,12 @@ UNIT_TEST(RankTableBuilder_WrongEndianness)
   // It's impossible to map rank table from opposite endianness.
   {
     FilesMappingContainer mcont(kTestFile);
-    auto table = search::RankTable::Load(mcont);
+    auto table = search::RankTable::Load(mcont, RANKS_FILE_TAG);
     TEST(!table.get(), ());
   }
 
   // Try to re-create rank table in test file.
-  TEST(search::SearchRanksTableBuilder::CreateIfNotExists(kTestFile), ());
+  TEST(search::SearchRankTableBuilder::CreateIfNotExists(kTestFile), ());
 
   // Try to load and map rank table - both methods should work now.
   TestTable(ranks, kTestFile);
