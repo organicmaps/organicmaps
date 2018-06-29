@@ -18,7 +18,8 @@ struct DiscoverySearchParams
   enum class SortingType
   {
     None,
-    HotelRating
+    HotelRating,
+    Popularity
   };
 
   struct HotelRatingComparator
@@ -26,6 +27,18 @@ struct DiscoverySearchParams
     bool operator()(Result const & lhs, Result const & rhs) const
     {
       return lhs.m_metadata.m_hotelRating > rhs.m_metadata.m_hotelRating;
+    }
+  };
+
+  struct PopularityComparator
+  {
+    bool operator()(Result const & lhs, Result const & rhs) const
+    {
+      // Move results without names to the end.
+      if (lhs.GetString().empty())
+        return false;
+
+      return lhs.GetRankingInfo().m_popularity > rhs.GetRankingInfo().m_popularity;
     }
   };
 

@@ -240,6 +240,13 @@ void SearchAPI::SearchForDiscovery(DiscoverySearchParams const & params)
       params.m_onResults(r);
       break;
     }
+    case DiscoverySearchParams::SortingType::Popularity:
+    {
+      Results r(results);
+      r.SortBy(DiscoverySearchParams::PopularityComparator());
+      params.m_onResults(r);
+      break;
+    }
     }
   };
 

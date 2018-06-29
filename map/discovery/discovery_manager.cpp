@@ -42,8 +42,12 @@ search::DiscoverySearchParams Manager::GetSearchParams(Manager::Params const & p
   p.m_viewport = params.m_viewport;
   p.m_position = params.m_viewportCenter;
   p.m_itemsCount = params.m_itemsCount;
+
+  using Sorting = search::DiscoverySearchParams::SortingType;
   if (type == ItemType::Hotels)
-    p.m_sortingType = search::DiscoverySearchParams::SortingType::HotelRating;
+    p.m_sortingType = Sorting::HotelRating;
+  else if (type == ItemType::Attractions || type == ItemType::Cafes)
+    p.m_sortingType = Sorting::Popularity;
 
   return p;
 }
