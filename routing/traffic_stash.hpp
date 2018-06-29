@@ -50,7 +50,7 @@ private:
   void Clear() { m_mwmToTraffic.clear(); }
 
   traffic::TrafficCache const & m_source;
-  shared_ptr<NumMwmIds> m_numMwmIds;
+  std::shared_ptr<NumMwmIds> m_numMwmIds;
   std::unordered_map<NumMwmId, std::shared_ptr<const traffic::TrafficInfo::Coloring>> m_mwmToTraffic;
 };
 }  // namespace routing

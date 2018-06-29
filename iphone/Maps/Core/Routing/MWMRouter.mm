@@ -23,6 +23,8 @@
 
 #include "platform/local_country_file_utils.hpp"
 
+#include <cstdint>
+#include <memory>
 #include <vector>
 
 using namespace routing;
@@ -524,8 +526,8 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   if (![self hasRouteAltitude])
     return;
 
-  auto segDistanceM = make_shared<std::vector<double>>(std::vector<double>());
-  auto altitudes = make_shared<feature::TAltitudes>(feature::TAltitudes());
+  auto segDistanceM = std::make_shared<std::vector<double>>(std::vector<double>());
+  auto altitudes = std::make_shared<feature::TAltitudes>(feature::TAltitudes());
   if (!GetFramework().GetRoutingManager().GetRouteAltitudesAndDistancesM(*segDistanceM, *altitudes))
     return;
 
@@ -549,16 +551,16 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
       int32_t minRouteAltitude = 0;
       int32_t maxRouteAltitude = 0;
       measurement_utils::Units units = measurement_utils::Units::Metric;
-      bool result = false;
-      result = GetFramework().GetRoutingManager().GenerateRouteAltitudeChart(width, height,
-                                                                             *altitudes,
-                                                                             *segDistanceM,
-                                                                             imageRGBAData,
-                                                                             minRouteAltitude,
-                                                                             maxRouteAltitude, units);
-
-      if (!result)
+ 
+      if(!GetFramework().GetRoutingManager().GenerateRouteAltitudeChart(width, height,
+                                                                        *altitudes,
+                                                                        *segDistanceM,
+                                                                        imageRGBAData,
+                                                                        minRouteAltitude,
+                                                                        maxRouteAltitude, units))
+      {
         return;
+      }
 
       if (imageRGBAData.empty())
         return;
