@@ -1,27 +1,28 @@
-package com.mapswithme.maps.traffic.widget;
+package com.mapswithme.maps.maplayer.traffic.widget;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.traffic.TrafficManager;
+import com.mapswithme.maps.maplayer.MapLayerController;
+import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 
-public class TrafficButtonController implements TrafficManager.TrafficCallback
+public class TrafficButtonController implements TrafficManager.TrafficCallback, MapLayerController
 {
   @NonNull
   private final TrafficButton mButton;
   @NonNull
-  private final AppCompatActivity mActivity;
+  private final Activity mActivity;
   @Nullable
   private Dialog mDialog;
 
   public TrafficButtonController(@NonNull TrafficButton button,
-                                 @NonNull AppCompatActivity activity)
+                                 @NonNull Activity activity)
   {
     mButton = button;
     mActivity = activity;
@@ -30,13 +31,67 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
   @Override
   public void onEnabled()
   {
+    turnOn();
+  }
+
+  @Override
+  public void turnOn()
+  {
     mButton.turnOn();
+  }
+
+  @Override
+  public void hideImmediately()
+  {
+    mButton.hideImmediately();
+  }
+
+  @Override
+  public void adjust(int offsetX, int offsetY)
+  {
+    mButton.setOffset(offsetX, offsetY);
+  }
+
+  @Override
+  public void attachCore()
+  {
+    TrafficManager.INSTANCE.attach(this);
+  }
+
+  @Override
+  public void detachCore()
+  {
+    destroy();
   }
 
   @Override
   public void onDisabled()
   {
+    turnOff();
+  }
+
+  @Override
+  public void turnOff()
+  {
     mButton.turnOff();
+  }
+
+  @Override
+  public void show()
+  {
+    mButton.show();
+  }
+
+  @Override
+  public void showImmediately()
+  {
+    mButton.showImmediately();
+  }
+
+  @Override
+  public void hide()
+  {
+    mButton.hide();
   }
 
   @Override
@@ -54,7 +109,7 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
   @Override
   public void onNoData(boolean notify)
   {
-    mButton.turnOn();
+    turnOn();
     if (notify)
       Toast.makeText(mActivity, R.string.traffic_data_unavailable, Toast.LENGTH_SHORT).show();
   }
@@ -72,7 +127,7 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
           @Override
           public void onClick(DialogInterface dialog, int which)
           {
-            TrafficManager.INSTANCE.disable();
+            TrafficManager.INSTANCE.setEnabled(false);
           }
         })
         .setCancelable(true)
@@ -81,7 +136,7 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
           @Override
           public void onCancel(DialogInterface dialog)
           {
-            TrafficManager.INSTANCE.disable();
+            TrafficManager.INSTANCE.setEnabled(false);
           }
         });
     mDialog = builder.show();
@@ -96,7 +151,7 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
   @Override
   public void onExpiredData(boolean notify)
   {
-    mButton.turnOn();
+    turnOn();
     if (notify)
       Toast.makeText(mActivity, R.string.traffic_update_maps_text, Toast.LENGTH_SHORT).show();
   }
@@ -104,7 +159,7 @@ public class TrafficButtonController implements TrafficManager.TrafficCallback
   @Override
   public void onExpiredApp(boolean notify)
   {
-    mButton.turnOn();
+    turnOn();
     if (notify)
       Toast.makeText(mActivity, R.string.traffic_update_app, Toast.LENGTH_SHORT).show();
   }

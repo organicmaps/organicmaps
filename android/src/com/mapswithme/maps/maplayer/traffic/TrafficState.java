@@ -1,4 +1,4 @@
-package com.mapswithme.maps.traffic;
+package com.mapswithme.maps.maplayer.traffic;
 
 import android.support.annotation.IntDef;
 import android.support.annotation.MainThread;
@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-public final class TrafficState
+final class TrafficState
 {
   interface StateChangeListener
   {

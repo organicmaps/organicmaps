@@ -1,4 +1,4 @@
-package com.mapswithme.maps.adapter;
+package com.mapswithme.maps.widget.recycler;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

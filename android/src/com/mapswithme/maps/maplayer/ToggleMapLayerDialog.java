@@ -1,4 +1,4 @@
-package com.mapswithme.maps.subway;
+package com.mapswithme.maps.maplayer;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -20,10 +20,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.adapter.BottomSheetItem;
-import com.mapswithme.maps.adapter.SpanningLinearLayoutManager;
+import com.mapswithme.maps.maplayer.subway.OnSubwayModeSelectListener;
+import com.mapswithme.maps.widget.recycler.SpanningLinearLayoutManager;
 import com.mapswithme.maps.bookmarks.OnItemClickListener;
-import com.mapswithme.maps.traffic.widget.OnTrafficModeSelectListener;
+import com.mapswithme.maps.maplayer.traffic.widget.OnTrafficModeSelectListener;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,10 +31,6 @@ import java.util.Objects;
 
 public class ToggleMapLayerDialog extends DialogFragment
 {
-  @NonNull
-  @SuppressWarnings("NullableProblems")
-  private View mRoot;
-
   @NonNull
   @SuppressWarnings("NullableProblems")
   private ModeAdapter mAdapter;
@@ -45,27 +41,27 @@ public class ToggleMapLayerDialog extends DialogFragment
   {
     BottomSheetDialog dialog = new BottomSheetDialog(getActivity());
     LayoutInflater inflater = getActivity().getLayoutInflater();
-    mRoot = inflater.inflate(R.layout.fragment_toggle_map_layer, null, false);
-    dialog.setContentView(mRoot);
-    initChildren();
+    View root = inflater.inflate(R.layout.fragment_toggle_map_layer, null, false);
+    dialog.setContentView(root);
+    initChildren(root);
     return dialog;
   }
 
-  private void initChildren()
+  private void initChildren(@NonNull View root)
   {
-    initCloseBtn();
-    initRecycler();
+    initCloseBtn(root);
+    initRecycler(root);
   }
 
-  private void initCloseBtn()
+  private void initCloseBtn(@NonNull View root)
   {
-    View closeBtn = mRoot.findViewById(R.id.сlose_btn);
+    View closeBtn = root.findViewById(R.id.сlose_btn);
     closeBtn.setOnClickListener(v -> dismiss());
   }
 
-  private void initRecycler()
+  private void initRecycler(@NonNull View root)
   {
-    RecyclerView recycler = mRoot.findViewById(R.id.recycler);
+    RecyclerView recycler = root.findViewById(R.id.recycler);
     RecyclerView.LayoutManager layoutManager = new SpanningLinearLayoutManager(getContext(),
                                                                                LinearLayoutManager.HORIZONTAL,
                                                                                false);
@@ -79,13 +75,13 @@ public class ToggleMapLayerDialog extends DialogFragment
   {
     SubwayItemClickListener subwayListener = new SubwayItemClickListener();
     Pair<BottomSheetItem, OnItemClickListener<BottomSheetItem>> subway
-        = new Pair<>(BottomSheetItem.Subway.makeInstance(), subwayListener);
+        = new Pair<>(BottomSheetItem.Subway.makeInstance(getContext()), subwayListener);
 
     TrafficItemClickListener trafficListener = new TrafficItemClickListener();
     Pair<BottomSheetItem, OnItemClickListener<BottomSheetItem>> traffic
-        = new Pair<>(BottomSheetItem.Traffic.makeInstance(), trafficListener);
+        = new Pair<>(BottomSheetItem.Traffic.makeInstance(getContext()), trafficListener);
 
-    return Arrays.asList(subway, traffic);
+    return Arrays.asList(traffic, subway);
   }
 
   public static void show(@NonNull AppCompatActivity activity)
@@ -185,6 +181,7 @@ public class ToggleMapLayerDialog extends DialogFragment
     @Override
     public final void onItemClick(@NonNull View v, @NonNull BottomSheetItem item)
     {
+      item.getMode().toggle(getContext());
       onItemClickInternal(v, item);
       mAdapter.notifyDataSetChanged();
     }

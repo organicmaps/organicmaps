@@ -1,4 +1,4 @@
-package com.mapswithme.maps.traffic;
+package com.mapswithme.maps.maplayer.traffic;
 
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
@@ -38,19 +38,19 @@ public enum TrafficManager
   {
     checkInitialization();
 
-    if (mState == TrafficState.DISABLED)
-      enable();
-    else
+    if (isEnabled())
       disable();
+    else
+      enable();
   }
 
-  public void enable()
+  private void enable()
   {
     mLogger.d(mTag, "Enable traffic");
     TrafficState.nativeEnable();
   }
 
-  public void disable()
+  private void disable()
   {
     checkInitialization();
 
@@ -107,6 +107,8 @@ public enum TrafficManager
 
   public void setEnabled(boolean enabled)
   {
+    checkInitialization();
+
     if (isEnabled() == enabled)
       return;
 

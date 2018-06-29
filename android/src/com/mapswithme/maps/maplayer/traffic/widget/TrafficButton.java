@@ -1,4 +1,4 @@
-package com.mapswithme.maps.traffic.widget;
+package com.mapswithme.maps.maplayer.traffic.widget;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -106,5 +106,10 @@ public class TrafficButton
   public void showImmediately()
   {
     mButton.setVisibility(View.VISIBLE);
+  }
+
+  public void setOnclickListener(View.OnClickListener onclickListener)
+  {
+    mButton.setOnClickListener(onclickListener);
   }
 }

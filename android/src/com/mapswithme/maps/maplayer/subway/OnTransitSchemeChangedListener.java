@@ -1,4 +1,4 @@
-package com.mapswithme.maps.subway;
+package com.mapswithme.maps.maplayer.subway;
 
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;

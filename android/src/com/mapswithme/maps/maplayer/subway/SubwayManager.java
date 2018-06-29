@@ -1,13 +1,10 @@
-package com.mapswithme.maps.subway;
+package com.mapswithme.maps.maplayer.subway;
 
 import android.content.Context;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.R;
-import com.mapswithme.util.ThemeUtils;
 
 public class SubwayManager
 {
@@ -23,11 +20,6 @@ public class SubwayManager
     if (isEnabled == isEnabled())
       return;
 
-    if (isEnabled)
-      addSchemeChangedListener(mSchemeChangedListener);
-    else
-      removeSchemeChangedListener(mSchemeChangedListener);
-
     Framework.nativeSetTransitSchemeEnabled(isEnabled);
     Framework.nativeSaveSettingSchemeEnabled(isEnabled);
   }
@@ -42,14 +34,14 @@ public class SubwayManager
     setEnabled(!isEnabled());
   }
 
-  public void addSchemeChangedListener(@NonNull OnTransitSchemeChangedListener listener)
+  public void initialize()
   {
-    nativeAddListener(listener);
+    registryListener();
   }
 
-  public void removeSchemeChangedListener(@NonNull OnTransitSchemeChangedListener listener)
+  private void registryListener()
   {
-    nativeRemoveListener(listener);
+    nativeAddListener(mSchemeChangedListener);
   }
 
   @NonNull
@@ -58,7 +50,7 @@ public class SubwayManager
     MwmApplication app = (MwmApplication) context.getApplicationContext();
     return app.getSubwayManager();
   }
-
   private static native void nativeAddListener(@NonNull OnTransitSchemeChangedListener listener);
+
   private static native void nativeRemoveListener(@NonNull OnTransitSchemeChangedListener listener);
 }

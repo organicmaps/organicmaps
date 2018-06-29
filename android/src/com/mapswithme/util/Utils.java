@@ -681,6 +681,5 @@ public class Utils
   public interface Proc<T>
   {
     void invoke(@NonNull T param);
-
   }
 }

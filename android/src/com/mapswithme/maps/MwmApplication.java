@@ -25,8 +25,8 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.location.TrackRecorder;
 import com.mapswithme.maps.routing.RoutingController;
 import com.mapswithme.maps.sound.TtsPlayer;
-import com.mapswithme.maps.subway.SubwayManager;
-import com.mapswithme.maps.traffic.TrafficManager;
+import com.mapswithme.maps.maplayer.subway.SubwayManager;
+import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.ugc.UGC;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.Counters;
@@ -301,6 +301,7 @@ public class MwmApplication extends Application
     LocationHelper.INSTANCE.initialize();
     RoutingController.get().initialize();
     TrafficManager.INSTANCE.initialize();
+    SubwayManager.from(this).initialize();
     mFrameworkInitialized = true;
   }
 

@@ -1,4 +1,4 @@
-package com.mapswithme.maps.traffic.widget;
+package com.mapswithme.maps.maplayer.traffic.widget;
 
 public interface OnTrafficModeSelectListener
 {

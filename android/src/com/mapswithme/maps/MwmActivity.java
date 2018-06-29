@@ -45,6 +45,7 @@ import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.maplayer.MapLayerCompositeController;
 import com.mapswithme.maps.discovery.DiscoveryActivity;
 import com.mapswithme.maps.discovery.DiscoveryFragment;
 import com.mapswithme.maps.discovery.ItemType;
@@ -81,15 +82,13 @@ import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
-import com.mapswithme.maps.subway.OnSubwayModeSelectListener;
-import com.mapswithme.maps.subway.SubwayManager;
-import com.mapswithme.maps.subway.ToggleMapLayerDialog;
+import com.mapswithme.maps.maplayer.Mode;
+import com.mapswithme.maps.maplayer.subway.OnSubwayModeSelectListener;
 import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.taxi.TaxiManager;
-import com.mapswithme.maps.traffic.TrafficManager;
-import com.mapswithme.maps.traffic.widget.OnTrafficModeSelectListener;
-import com.mapswithme.maps.traffic.widget.TrafficButton;
-import com.mapswithme.maps.traffic.widget.TrafficButtonController;
+import com.mapswithme.maps.maplayer.traffic.TrafficManager;
+import com.mapswithme.maps.maplayer.traffic.widget.OnTrafficModeSelectListener;
+import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
 import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.menu.BaseMenu;
 import com.mapswithme.maps.widget.menu.MainMenu;
@@ -182,10 +181,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @NonNull
   private View mPositionChooser;
 
-  @SuppressWarnings("NullableProblems")
-  @NonNull
-  private ImageButton mSubwayBtn;
-
   private RoutingPlanInplaceController mRoutingPlanInplaceController;
 
   @Nullable
@@ -199,12 +194,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   @Nullable
   private MyPositionButton mNavMyPosition;
-  private TrafficButton mTraffic;
   @Nullable
   private NavigationButtonsAnimationController mNavAnimationController;
-  @Nullable
-  private TrafficButtonController mTrafficButtonController;
-
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private MapLayerCompositeController mToggleMapLayerController;
   @Nullable
   private SearchFilterController mFilterController;
 
@@ -234,42 +228,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
   @Override
   public void onSubwayModeSelected()
   {
-    if (isOptionalMapLayerEnabled())
-    {
-      mTraffic.hideImmediately();
-      mSubwayBtn.setVisibility(View.VISIBLE);
-      mSubwayBtn.setSelected(true);
-      return;
-    }
-    onResetOptionalMapLayers();
+    mToggleMapLayerController.toggleMode(Mode.SUBWAY);
   }
 
   @Override
   public void onTrafficModeSelected()
   {
-    if (isOptionalMapLayerEnabled())
-    {
-      mTraffic.showImmediately();
-      mSubwayBtn.setSelected(false);
-      mSubwayBtn.setVisibility(View.GONE);
-      return;
-    }
-    onResetOptionalMapLayers();
-  }
-
-  private void onResetOptionalMapLayers()
-  {
-    SubwayManager.from(getApplicationContext()).setEnabled(false);
-    TrafficManager.INSTANCE.setEnabled(false);
-    mTraffic.hideImmediately();
-    mSubwayBtn.setVisibility(View.VISIBLE);
-    mSubwayBtn.setSelected(false);
-  }
-
-  private boolean isOptionalMapLayerEnabled()
-  {
-    return SubwayManager.from(getApplicationContext()).isEnabled()
-           || TrafficManager.INSTANCE.isEnabled();
+    mToggleMapLayerController.toggleMode(Mode.TRAFFIC);
   }
 
   public interface LeftAnimationTrackListener
@@ -768,33 +733,17 @@ public class MwmActivity extends BaseMwmFragmentActivity
     View myPosition = frame.findViewById(R.id.my_position);
     mNavMyPosition = new MyPositionButton(myPosition, mOnMyPositionClickListener);
 
-    initToggleMapLayerBtn(frame);
+    initToggleMapLayerController(frame);
     mNavAnimationController = new NavigationButtonsAnimationController(
         zoomIn, zoomOut, myPosition, getWindow().getDecorView().getRootView(), this);
   }
 
-  private void initToggleMapLayerBtn(@NonNull View frame)
-  {
-    initTrafficBtn(frame);
-    initSubwayBtn(frame);
-    showToggleMapLayerBtn();
-  }
-
-  private void initTrafficBtn(@NonNull View frame)
+  private void initToggleMapLayerController(@NonNull View frame)
   {
     ImageButton trafficBtn = frame.findViewById(R.id.traffic);
-    trafficBtn.setOnClickListener(new OpenBottomDialogClickListener());
-    mTraffic = new TrafficButton(trafficBtn);
-    mTrafficButtonController = new TrafficButtonController(mTraffic, this);
-  }
-
-  private void initSubwayBtn(@NonNull View frame)
-  {
-    mSubwayBtn = frame.findViewById(R.id.subway);
-    SubwayManager subway = SubwayManager.from(this);
-    mSubwayBtn.setSelected(subway.isEnabled());
-    mSubwayBtn.setOnClickListener(new OpenBottomDialogClickListener());
-    UiUtils.addStatusBarOffset(mSubwayBtn);
+    TrafficButton traffic = new TrafficButton(trafficBtn);
+    View subway = frame.findViewById(R.id.subway);
+    mToggleMapLayerController = new MapLayerCompositeController(traffic, subway, this);
   }
 
   public boolean closePlacePage()
@@ -1421,8 +1370,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     RoutingController.get().attach(this);
     if (MapFragment.nativeIsEngineCreated())
       LocationHelper.INSTANCE.attach(this);
-    if (mTrafficButtonController != null)
-      TrafficManager.INSTANCE.attach(mTrafficButtonController);
+    mToggleMapLayerController.attachCore();
     if (mNavigationController != null)
       TrafficManager.INSTANCE.attach(mNavigationController);
     mPlacePage.onActivityStarted();
@@ -1437,8 +1385,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
     LocationHelper.INSTANCE.detach(!isFinishing());
     RoutingController.get().detach();
     TrafficManager.INSTANCE.detachAll();
-    if (mTrafficButtonController != null)
-      mTrafficButtonController.destroy();
+    mToggleMapLayerController.detachCore();
     mPlacePage.onActivityStopped();
   }
 
@@ -1633,7 +1580,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         mNavAnimationController.disappearZoomButtons();
       if (mNavMyPosition != null)
         mNavMyPosition.hide();
-      mTraffic.hide();
+      mToggleMapLayerController.hide();
     }
     else
     {
@@ -1650,7 +1597,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
   {
     appearMenuFrame(menu);
     showNavMyPositionBtn();
-    showToggleMapLayerBtn();
+    mToggleMapLayerController.applyLastActiveMode();
   }
 
   private void showNavMyPositionBtn()
@@ -1669,26 +1616,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
         adjustBottomWidgets(0);
       }
     });
-  }
-
-  private void showToggleMapLayerBtn()
-  {
-    if (TrafficManager.INSTANCE.isEnabled())
-      showTrafficBtn();
-    else
-      showSubwayBtn();
-  }
-
-  private void showSubwayBtn()
-  {
-    Animations.appearSliding(mSubwayBtn, Animations.LEFT, null);
-    mTraffic.hideImmediately();
-  }
-
-  private void showTrafficBtn()
-  {
-    mTraffic.show();
-    mSubwayBtn.setVisibility(View.GONE);
   }
 
   @Override
@@ -2171,7 +2098,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void adjustTraffic(int offsetX, int offsetY)
   {
-    mTraffic.setOffset(offsetX, offsetY);
+    mToggleMapLayerController.adjust(offsetX, offsetY);
   }
 
   @Override
@@ -2390,7 +2317,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
         && (RoutingController.get().isPlanning() || RoutingController.get().isNavigating()))
     {
       if (UiUtils.isLandscape(this))
-        mTraffic.hide();
+        mToggleMapLayerController.hide();
       else
         mNavigationController.fadeOutSearchButtons();
     }
@@ -2728,20 +2655,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
       }
 
       myPositionClick();
-    }
-  }
-
-  private class OpenBottomDialogClickListener implements View.OnClickListener
-  {
-    @Override
-    public void onClick(View v)
-    {
-      if (isOptionalMapLayerEnabled())
-      {
-        onResetOptionalMapLayers();
-        return;
-      }
-      ToggleMapLayerDialog.show(MwmActivity.this);
     }
   }
 }

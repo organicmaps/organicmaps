@@ -81,4 +81,7 @@
     <attr name="titleDefault" format="reference"/>
     <attr name="subTitleDefault" format="reference"/>
   </declare-styleable>
+
+  <attr name="trafficMenuDisabled" format="reference"/>
+  <attr name="subwayMenuDisabled" format="reference"/>
 </resources>

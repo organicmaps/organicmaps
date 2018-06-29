@@ -48,7 +48,7 @@ public final class UiUtils
   public static final String PHRASE_SEPARATOR = " • ";
   private static float sScreenDensity;
 
-  public static void addStatusBarOffset(View view)
+  public static void addStatusBarOffset(@NonNull View view)
   {
     ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
     params.setMargins(0, UiUtils.getStatusBarHeight(view.getContext()), 0, 0);
