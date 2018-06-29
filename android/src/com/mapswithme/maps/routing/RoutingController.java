@@ -79,6 +79,7 @@ public class RoutingController implements TaxiManager.TaxiListener
     void onAddedStop();
     void onRemovedStop();
     void onBuiltRoute();
+    boolean isSubwayEnabled();
 
     /**
      * @param progress progress to be displayed.
@@ -428,16 +429,14 @@ public class RoutingController implements TaxiManager.TaxiListener
     }
 
     if (startPoint != null && endPoint != null)
-      mLastRouterType = Framework.nativeGetBestRouter(startPoint.getLat(),
-                                                      startPoint.getLon(),
-                                                      endPoint.getLat(),
-                                                      endPoint.getLon());
+      mLastRouterType = Framework.nativeGetBestRouter(startPoint.getLat(), startPoint.getLon(),
+                                                      endPoint.getLat(), endPoint.getLon());
   }
 
   private boolean isSubwayEnabled()
   {
     FragmentActivity activity = mContainer == null ? null : mContainer.getActivity();
-    return activity != null && SubwayManager.from(activity).isEnabled();
+    return activity != null && mContainer.isSubwayEnabled();
   }
 
   public void prepare(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint,

@@ -192,17 +192,17 @@ public class MapLayerCompositeController implements MapLayerController
   public void turnOn(@NonNull Mode mode)
   {
     ControllerAndMode entry = findModeMapLayerController(mode);
+    entry.mMode.setEnabled(mActivity, true);
     entry.mController.turnOn();
     entry.mController.showImmediately();
-    entry.mMode.setEnabled(mActivity, true);
   }
 
   public void turnOff(@NonNull Mode mode)
   {
     ControllerAndMode entry = findModeMapLayerController(mode);
+    entry.mMode.setEnabled(mActivity, false);
     entry.mController.turnOff();
     entry.mController.hideImmediately();
-    entry.mMode.setEnabled(mActivity, false);
   }
 
   @NonNull

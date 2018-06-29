@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/coordinator"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:placePage="http://schemas.android.com/apk/res-auto"
@@ -83,3 +88,4 @@
     placePage:docked="true"
     tools:ignore="UnknownIdInLayout"/>
 </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

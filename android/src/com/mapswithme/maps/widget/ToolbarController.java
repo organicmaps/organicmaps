@@ -2,7 +2,6 @@ package com.mapswithme.maps.widget;
 
 import android.app.Activity;
 import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -74,12 +73,6 @@ public class ToolbarController
   {
     mToolbar.setTitle(title);
     return this;
-  }
-
-  @NonNull
-  protected Activity getActivity()
-  {
-    return mActivity;
   }
 
   public Toolbar getToolbar()

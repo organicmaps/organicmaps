@@ -62,6 +62,7 @@ import com.mapswithme.maps.editor.ReportFragment;
 import com.mapswithme.maps.gallery.Items;
 import com.mapswithme.maps.location.CompassData;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.routing.NavigationController;
 import com.mapswithme.maps.routing.RoutePointInfo;
 import com.mapswithme.maps.routing.RoutingBottomMenuListener;
@@ -83,11 +84,11 @@ import com.mapswithme.maps.settings.StoragePathManager;
 import com.mapswithme.maps.settings.UnitLocale;
 import com.mapswithme.maps.sound.TtsPlayer;
 import com.mapswithme.maps.maplayer.Mode;
-import com.mapswithme.maps.maplayer.subway.OnSubwayModeSelectListener;
+import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
 import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.taxi.TaxiManager;
 import com.mapswithme.maps.maplayer.traffic.TrafficManager;
-import com.mapswithme.maps.maplayer.traffic.widget.OnTrafficModeSelectListener;
+import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
 import com.mapswithme.maps.widget.FadeView;
 import com.mapswithme.maps.widget.menu.BaseMenu;
@@ -137,8 +138,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
                                  BookmarkManager.BookmarksLoadingListener,
                                  DiscoveryFragment.DiscoveryListener,
                                  FloatingSearchToolbarController.SearchToolbarListener,
-                                 OnTrafficModeSelectListener,
-                                 OnSubwayModeSelectListener
+                                 OnTrafficLayerToggleListener,
+                                 OnSubwayLayerToggleListener
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = MwmActivity.class.getSimpleName();
@@ -226,18 +227,19 @@ public class MwmActivity extends BaseMwmFragmentActivity
   private final OnClickListener mOnMyPositionClickListener = new CurrentPositionClickListener();
 
   @Override
-  public void onSubwayModeSelected()
+  public void onSubwayLayerSelected()
   {
     mToggleMapLayerController.toggleMode(Mode.SUBWAY);
   }
 
   @Override
-  public void onTrafficModeSelected()
+  public void onTrafficLayerSelected()
   {
     mToggleMapLayerController.toggleMode(Mode.TRAFFIC);
   }
 
-  public void resetSubwayLayer()
+  @Override
+  public void onSubwayLayerDeleted()
   {
     mToggleMapLayerController.turnOff(Mode.SUBWAY);
   }
@@ -2239,6 +2241,12 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
     if (mNavigationController != null)
       mNavigationController.resetSearchWheel();
+  }
+
+  @Override
+  public boolean isSubwayEnabled()
+  {
+    return SubwayManager.from(this).isEnabled();
   }
 
   private void updateSearchBar()

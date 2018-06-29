@@ -2,9 +2,11 @@ package com.mapswithme.maps.maplayer;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -20,10 +22,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.maplayer.subway.OnSubwayModeSelectListener;
+import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
 import com.mapswithme.maps.widget.recycler.SpanningLinearLayoutManager;
 import com.mapswithme.maps.bookmarks.OnItemClickListener;
-import com.mapswithme.maps.maplayer.traffic.widget.OnTrafficModeSelectListener;
+import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,9 +44,18 @@ public class ToggleMapLayerDialog extends DialogFragment
     BottomSheetDialog dialog = new BottomSheetDialog(getActivity());
     LayoutInflater inflater = getActivity().getLayoutInflater();
     View root = inflater.inflate(R.layout.fragment_toggle_map_layer, null, false);
+    dialog.setOnShowListener(this::onShow);
     dialog.setContentView(root);
     initChildren(root);
     return dialog;
+  }
+
+  private void onShow(@NonNull DialogInterface dialogInterface)
+  {
+    BottomSheetDialog dialog = (BottomSheetDialog) dialogInterface;
+    View bottomSheet = dialog.findViewById(android.support.design.R.id.design_bottom_sheet);
+    BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
   }
 
   private void initChildren(@NonNull View root)
@@ -95,7 +106,6 @@ public class ToggleMapLayerDialog extends DialogFragment
       fm.beginTransaction().remove(oldInstance).commit();
 
     frag.show(fm, tag);
-    fm.executePendingTransactions();
   }
 
   private static class ModeAdapter extends RecyclerView.Adapter<ModeHolder>
@@ -194,8 +204,8 @@ public class ToggleMapLayerDialog extends DialogFragment
     @Override
     void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
     {
-      OnSubwayModeSelectListener listener = (OnSubwayModeSelectListener) getActivity();
-      listener.onSubwayModeSelected();
+      OnSubwayLayerToggleListener listener = (OnSubwayLayerToggleListener) getActivity();
+      listener.onSubwayLayerSelected();
     }
   }
 
@@ -204,8 +214,8 @@ public class ToggleMapLayerDialog extends DialogFragment
     @Override
     void onItemClickInternal(@NonNull View v, @NonNull BottomSheetItem item)
     {
-      OnTrafficModeSelectListener listener = (OnTrafficModeSelectListener) getActivity();
-      listener.onTrafficModeSelected();
+      OnTrafficLayerToggleListener listener = (OnTrafficLayerToggleListener) getActivity();
+      listener.onTrafficLayerSelected();
     }
   }
 }
