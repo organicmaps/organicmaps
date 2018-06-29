@@ -64,9 +64,21 @@ public class MapLayerCompositeController implements MapLayerController
 
     boolean enabled = mode.isEnabled(mActivity);
     if (enabled)
+    {
       turnOn();
+    }
     else
+    {
       turnOff();
+      turnInitialMode();
+    }
+  }
+
+  private void turnInitialMode()
+  {
+    mMasterEntry.mController.hideImmediately();
+    mMasterEntry = mChildrenEntries.iterator().next();
+    mMasterEntry.mController.showImmediately();
   }
 
   public void applyLastActiveMode()
