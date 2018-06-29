@@ -115,7 +115,7 @@ CGFloat const kPinDiameter = 18.0f;
     return nil;
 
   UITableViewCell * cell = nil;
-  switch (m_sections.at(indexPath.row))
+  switch (m_sections.at(indexPath.section))
   {
   case Section::Info:
   {
