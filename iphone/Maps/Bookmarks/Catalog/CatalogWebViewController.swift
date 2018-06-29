@@ -1,9 +1,24 @@
+@objc(MWMCatalogWebViewController)
 final class CatalogWebViewController: WebViewController {
 
   let progressView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
   let progressImageView = UIImageView(image: #imageLiteral(resourceName: "ic_24px_spinner"))
   let numberOfTasksLabel = UILabel()
-  
+  var deeplink: URL?
+
+  @objc init() {
+    super.init(url: MWMBookmarksManager.catalogFrontendUrl(), andTitleOrNil: L("routes_and_bookmarks"))
+  }
+
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  @objc convenience init(_ deeplinkURL: URL) {
+    self.init()
+    deeplink = deeplinkURL
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -58,6 +73,13 @@ final class CatalogWebViewController: WebViewController {
                                                        views: views))
     rotateProgress()
     updateProgress()
+  }
+
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    if let deeplink = deeplink {
+      processDeeplink(deeplink)
+    }
   }
 
   override func webView(_ webView: WKWebView,

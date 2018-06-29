@@ -210,7 +210,21 @@ using namespace osm_auth_ios;
     switch (parsingType)
     {
     case ParsedMapApi::ParsingResult::Incorrect:
-      LOG(LWARNING, ("Incorrect parsing result for url:", url));
+      if ([m_mwmURL rangeOfString:@"catalog"].location != NSNotFound)
+      {
+        auto navController = self.mapViewController.navigationController;
+        [navController popToRootViewControllerAnimated:NO];
+        auto bookmarks = [[MWMBookmarksTabViewController alloc] init];
+        bookmarks.activeTab = ActiveTabCatalog;
+        auto url = [[NSURL alloc] initWithString:m_mwmURL];
+        auto catalog = [[MWMCatalogWebViewController alloc] init:url];
+        [navController pushViewController:bookmarks animated:NO];
+        [navController pushViewController:catalog animated:NO];
+      }
+      else
+      {
+        LOG(LWARNING, ("Incorrect parsing result for url:", url));
+      }
       break;
     case ParsedMapApi::ParsingResult::Route:
     {

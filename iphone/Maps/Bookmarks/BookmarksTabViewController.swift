@@ -1,12 +1,16 @@
 @objc(MWMBookmarksTabViewController)
 final class BookmarksTabViewController: TabViewController {
+  @objc enum ActiveTab: Int {
+    case user = 0
+    case catalog
+  }
+
   private static let selectedIndexKey = "BookmarksTabViewController_selectedIndexKey"
-  private var selectedIndex: Int {
-    get {
-      return UserDefaults.standard.integer(forKey: BookmarksTabViewController.selectedIndexKey)
-    }
-    set {
-      UserDefaults.standard.set(newValue, forKey: BookmarksTabViewController.selectedIndexKey)
+
+  @objc public var activeTab: ActiveTab = ActiveTab.init(rawValue:
+    UserDefaults.standard.integer(forKey: BookmarksTabViewController.selectedIndexKey)) ?? .user {
+    didSet {
+      UserDefaults.standard.set(activeTab.rawValue, forKey: BookmarksTabViewController.selectedIndexKey)
     }
   }
 
@@ -24,11 +28,11 @@ final class BookmarksTabViewController: TabViewController {
     tabView.tintColor = .white()
     tabView.headerTextAttributes = [.foregroundColor: UIColor.whitePrimaryText(),
                                     .font: UIFont.medium14()]
-    tabView.selectedIndex = selectedIndex
+    tabView.selectedIndex = activeTab.rawValue
   }
 
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
-    selectedIndex = tabView.selectedIndex
+    activeTab = ActiveTab.init(rawValue: tabView.selectedIndex) ?? .user
   }
 }

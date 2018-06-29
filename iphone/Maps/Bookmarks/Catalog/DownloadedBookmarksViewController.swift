@@ -25,12 +25,7 @@ class DownloadedBookmarksViewController: MWMViewController {
       MWMAlertViewController.activeAlert().presentNoConnectionAlert();
       return
     }
-    guard let url = MWMBookmarksManager.catalogFrontendUrl(),
-      let webViewController = CatalogWebViewController(url: url,
-                                                       andTitleOrNil: L("routes_and_bookmarks")) else {
-        assertionFailure()
-        return
-    }
+    let webViewController = CatalogWebViewController()
     MapViewController.topViewController().navigationController?.pushViewController(webViewController,
                                                                                    animated: true)
   }
@@ -124,10 +119,11 @@ extension DownloadedBookmarksViewController: CatalogCategoryCellDelegate {
         self.tableView.reloadRows(at: [indexPath], with: .none)
       }))
 
-      let share = L("share").capitalized
-      actionSheet.addAction(UIAlertAction(title: share, style: .default, handler: { _ in
-        self.shareCategory(at: indexPath.row)
-      }))
+      // TODO: uncomment once the correct deeplink generation is implemented
+//      let share = L("share").capitalized
+//      actionSheet.addAction(UIAlertAction(title: share, style: .default, handler: { _ in
+//        self.shareCategory(at: indexPath.row)
+//      }))
 
       let delete = L("delete").capitalized
       let deleteAction = UIAlertAction(title: delete, style: .destructive, handler: { _ in
