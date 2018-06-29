@@ -62,6 +62,8 @@ set(SRC
   osm_translator.hpp
   osm_xml_source.hpp
   polygonizer.hpp
+  popular_places_section_builder.cpp
+  popular_places_section_builder.hpp
   region_meta.cpp
   region_meta.hpp
   restriction_collector.cpp

@@ -11,6 +11,7 @@
 #include "generator/locality_sorter.hpp"
 #include "generator/metalines_builder.hpp"
 #include "generator/osm_source.hpp"
+#include "generator/popular_places_section_builder.hpp"
 #include "generator/restriction_generator.hpp"
 #include "generator/road_access_generator.hpp"
 #include "generator/routing_index_generator.hpp"
@@ -128,6 +129,8 @@ DEFINE_string(viator_data, "", "Path to viator data in .tsv format.");
 
 // UGC
 DEFINE_string(ugc_data, "", "Input UGC source database file name");
+// Pipular places
+DEFINE_string(popular_places_data, "", "Input Popular Places source file name");
 
 // Printing stuff.
 DEFINE_bool(calc_statistics, false, "Calculate feature statistics for specified mwm bucket files.");
@@ -219,7 +222,8 @@ int main(int argc, char ** argv)
       FLAGS_calc_statistics || FLAGS_type_statistics || FLAGS_dump_types || FLAGS_dump_prefixes ||
       FLAGS_dump_feature_names != "" || FLAGS_check_mwm || FLAGS_srtm_path != "" ||
       FLAGS_make_routing_index || FLAGS_make_cross_mwm || FLAGS_make_transit_cross_mwm ||
-      FLAGS_generate_traffic_keys || FLAGS_transit_path != "" || FLAGS_ugc_data != "")
+      FLAGS_generate_traffic_keys || FLAGS_transit_path != "" || FLAGS_ugc_data != "" ||
+      FLAGS_popular_places_data != "")
   {
     classificator::Load();
     classif().SortClassificator();
@@ -454,6 +458,14 @@ int main(int argc, char ** argv)
       if (!BuildUgcMwmSection(FLAGS_ugc_data, datFile, osmToFeatureFilename))
       {
         LOG(LCRITICAL, ("Error generating UGC mwm section."));
+      }
+    }
+
+    if (!FLAGS_popular_places_data.empty())
+    {
+      if (!BuildPopularPlacesMwmSection(FLAGS_popular_places_data, datFile, osmToFeatureFilename))
+      {
+        LOG(LCRITICAL, ("Error generating popular places mwm section."));
       }
     }
 
