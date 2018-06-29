@@ -31,9 +31,7 @@ namespace
 // Prepend several bytes to serialized indexes in order to check the relative offsets.
 size_t const kSkip = 10;
 
-template <typename Token>
-void Serdes(MemTextIndex<Token> & memIndex, MemTextIndex<Token> & deserializedMemIndex,
-            vector<uint8_t> & buf)
+void Serdes(MemTextIndex & memIndex, MemTextIndex & deserializedMemIndex, vector<uint8_t> & buf)
 {
   buf.clear();
   {
@@ -62,14 +60,14 @@ namespace search
 {
 UNIT_TEST(TextIndex_Smoke)
 {
-  using Token = string;
+  using Token = base::Token;
 
   vector<Token> const docsCollection = {
       "a b c",
       "a c",
   };
 
-  MemTextIndex<Token> memIndex;
+  MemTextIndex memIndex;
 
   for (size_t docId = 0; docId < docsCollection.size(); ++docId)
   {
@@ -82,7 +80,7 @@ UNIT_TEST(TextIndex_Smoke)
   }
 
   vector<uint8_t> indexData;
-  MemTextIndex<Token> deserializedMemIndex;
+  MemTextIndex deserializedMemIndex;
   Serdes(memIndex, deserializedMemIndex, indexData);
 
   for (auto const & index : {memIndex, deserializedMemIndex})
@@ -98,7 +96,7 @@ UNIT_TEST(TextIndex_Smoke)
     copy_n(indexData.begin() + kSkip, indexData.size() - kSkip, back_inserter(contents));
     ScopedFile file("text_index_tmp", contents);
     FileReader fileReader(file.GetFullPath());
-    TextIndexReader<Token> textIndexReader(fileReader);
+    TextIndexReader textIndexReader(fileReader);
     TestForEach(textIndexReader, "a", {0, 1});
     TestForEach(textIndexReader, "b", {0});
     TestForEach(textIndexReader, "c", {0, 1});
@@ -108,29 +106,27 @@ UNIT_TEST(TextIndex_Smoke)
 
 UNIT_TEST(TextIndex_UniString)
 {
-  using Token = strings::UniString;
-
   vector<std::string> const docsCollectionUtf8s = {
       "â b ç",
       "â ç",
   };
-  vector<Token> const docsCollection(
+  vector<strings::UniString> const docsCollection(
       make_transform_iterator(docsCollectionUtf8s.begin(), &strings::MakeUniString),
       make_transform_iterator(docsCollectionUtf8s.end(), &strings::MakeUniString));
 
-  MemTextIndex<Token> memIndex;
+  MemTextIndex memIndex;
 
   for (size_t docId = 0; docId < docsCollection.size(); ++docId)
   {
-    auto addToIndex = [&](Token const & token) {
-      memIndex.AddPosting(token, static_cast<uint32_t>(docId));
+    auto addToIndex = [&](strings::UniString const & token) {
+      memIndex.AddPosting(strings::ToUtf8(token), static_cast<uint32_t>(docId));
     };
     auto delims = [](strings::UniChar const & c) { return c == ' '; };
     SplitUniString(docsCollection[docId], addToIndex, delims);
   }
 
   vector<uint8_t> indexData;
-  MemTextIndex<Token> deserializedMemIndex;
+  MemTextIndex deserializedMemIndex;
   Serdes(memIndex, deserializedMemIndex, indexData);
 
   for (auto const & index : {memIndex, deserializedMemIndex})

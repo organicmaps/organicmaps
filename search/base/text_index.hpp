@@ -45,6 +45,7 @@ namespace search
 {
 namespace base
 {
+using Token = std::string;
 using Posting = uint32_t;
 
 enum class TextIndexVersion : uint8_t
@@ -97,7 +98,6 @@ struct TextIndexHeader
 
 // The dictionary contains all tokens that are present
 // in the text index.
-template <typename Token>
 class TextIndexDictionary
 {
 public:
@@ -194,7 +194,6 @@ private:
   std::vector<Token> m_tokens;
 };
 
-template <typename Token>
 class MemTextIndex
 {
 public:
@@ -215,6 +214,13 @@ public:
       return;
     for (auto const p : it->second)
       fn(p);
+  }
+
+  template <typename Fn>
+  void ForEachPosting(strings::UniString const & token, Fn && fn) const
+  {
+    auto const utf8s = strings::ToUtf8(token);
+    ForEachPosting(std::move(utf8s), std::forward<Fn>(fn));
   }
 
   template <typename Sink>
@@ -358,11 +364,10 @@ private:
   }
 
   std::map<Token, std::vector<Posting>> m_postingsByToken;
-  TextIndexDictionary<Token> m_dictionary;
+  TextIndexDictionary m_dictionary;
 };
 
 // A reader class for on-demand reading of postings lists from disk.
-template <typename Token>
 class TextIndexReader
 {
 public:
@@ -406,9 +411,16 @@ public:
     }
   }
 
+  template <typename Fn>
+  void ForEachPosting(strings::UniString const & token, Fn && fn) const
+  {
+    auto const utf8s = strings::ToUtf8(token);
+    ForEachPosting(std::move(utf8s), std::forward<Fn>(fn));
+  }
+
 private:
   FileReader m_fileReader;
-  TextIndexDictionary<Token> m_dictionary;
+  TextIndexDictionary m_dictionary;
   std::vector<uint32_t> m_postingsStarts;
 };
 
