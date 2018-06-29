@@ -1,4 +1,4 @@
-#include "search/base/text_index.hpp"
+#include "search/base/text_index/text_index.hpp"
 
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
@@ -9,9 +9,6 @@ namespace search
 {
 namespace base
 {
-// static
-string const TextIndexHeader::kHeaderMagic = "mapsmetextidx";
-
 string DebugPrint(TextIndexVersion const & version)
 {
   switch (version)

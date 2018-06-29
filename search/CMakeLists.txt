@@ -7,8 +7,14 @@ set(
   approximate_string_match.hpp
   base/inverted_list.hpp
   base/mem_search_index.hpp
-  base/text_index.cpp
-  base/text_index.hpp
+  base/text_index/dictionary.hpp
+  base/text_index/header.cpp
+  base/text_index/header.hpp
+  base/text_index/mem.cpp
+  base/text_index/mem.hpp
+  base/text_index/reader.hpp
+  base/text_index/text_index.cpp
+  base/text_index/text_index.hpp
   bookmarks/data.cpp
   bookmarks/data.hpp
   bookmarks/processor.cpp

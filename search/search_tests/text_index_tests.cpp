@@ -1,6 +1,8 @@
 #include "testing/testing.hpp"
 
-#include "search/base/text_index.hpp"
+#include "search/base/text_index/mem.hpp"
+#include "search/base/text_index/reader.hpp"
+#include "search/base/text_index/text_index.hpp"
 
 #include "indexer/search_string_utils.hpp"
 
