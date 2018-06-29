@@ -15,7 +15,7 @@ static void TransitSchemeStateChanged(TransitReadManager::TransitSchemeState sta
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_subway_SubwayManager_nativeAddListener(JNIEnv *env, jclass clazz, jobject listener)
+Java_com_mapswithme_maps_maplayer_subway_SubwayManager_nativeAddListener(JNIEnv *env, jclass clazz, jobject listener)
 {
   CHECK(g_framework, ("Framework isn't created yet!"));
   g_framework->SetTransitSchemeListener(std::bind(&TransitSchemeStateChanged,
@@ -24,7 +24,7 @@ Java_com_mapswithme_maps_subway_SubwayManager_nativeAddListener(JNIEnv *env, jcl
 }
 
 JNIEXPORT void JNICALL
-Java_com_mapswithme_maps_subway_SubwayManager_nativeRemoveListener(JNIEnv * env, jclass clazz)
+Java_com_mapswithme_maps_maplayer_subway_SubwayManager_nativeRemoveListener(JNIEnv * env, jclass clazz)
 {
   CHECK(g_framework, ("Framework isn't created yet!"));
   g_framework->SetTransitSchemeListener(TransitReadManager::TransitStateChangedFn());
