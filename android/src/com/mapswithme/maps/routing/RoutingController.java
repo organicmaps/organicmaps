@@ -23,6 +23,7 @@ import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.taxi.TaxiInfoError;
 import com.mapswithme.maps.taxi.TaxiManager;
@@ -413,10 +414,30 @@ public class RoutingController implements TaxiManager.TaxiListener
       return;
     }
 
-    if (startPoint != null && endPoint != null)
-      mLastRouterType = Framework.nativeGetBestRouter(startPoint.getLat(), startPoint.getLon(),
-                                                      endPoint.getLat(), endPoint.getLon());
+    initLastRouteType(startPoint, endPoint, fromApi);
     prepare(startPoint, endPoint, mLastRouterType, fromApi);
+  }
+
+  private void initLastRouteType(@Nullable MapObject startPoint, @Nullable MapObject endPoint,
+                                 boolean fromApi)
+  {
+    if (isSubwayEnabled() && !fromApi)
+    {
+      mLastRouterType = Framework.ROUTER_TYPE_TRANSIT;
+      return;
+    }
+
+    if (startPoint != null && endPoint != null)
+      mLastRouterType = Framework.nativeGetBestRouter(startPoint.getLat(),
+                                                      startPoint.getLon(),
+                                                      endPoint.getLat(),
+                                                      endPoint.getLon());
+  }
+
+  private boolean isSubwayEnabled()
+  {
+    FragmentActivity activity = mContainer == null ? null : mContainer.getActivity();
+    return activity != null && SubwayManager.from(activity).isEnabled();
   }
 
   public void prepare(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint,

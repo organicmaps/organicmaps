@@ -237,6 +237,11 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mToggleMapLayerController.toggleMode(Mode.TRAFFIC);
   }
 
+  public void resetSubwayLayer()
+  {
+    mToggleMapLayerController.turnOff(Mode.SUBWAY);
+  }
+
   public interface LeftAnimationTrackListener
   {
     void onTrackStarted(boolean collapsed);

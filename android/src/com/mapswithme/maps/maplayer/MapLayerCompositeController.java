@@ -44,11 +44,11 @@ public class MapLayerCompositeController implements MapLayerController
     subway.setOnClickListener(dialogClickListener);
     SubwayMapLayerController subwayMapLayerController = new SubwayMapLayerController(subway);
 
-    ControllerAndMode subwayPair = new ControllerAndMode(Mode.SUBWAY, subwayMapLayerController);
-    ControllerAndMode trafficPair = new ControllerAndMode(Mode.TRAFFIC, trafficButtonController);
+    ControllerAndMode subwayEntry = new ControllerAndMode(Mode.SUBWAY, subwayMapLayerController);
+    ControllerAndMode trafficEntry = new ControllerAndMode(Mode.TRAFFIC, trafficButtonController);
     Set<ControllerAndMode> entries = new LinkedHashSet<>();
-    entries.add(subwayPair);
-    entries.add(trafficPair);
+    entries.add(subwayEntry);
+    entries.add(trafficEntry);
     return Collections.unmodifiableSet(entries);
   }
 
@@ -187,6 +187,34 @@ public class MapLayerCompositeController implements MapLayerController
   private void showDialog()
   {
     ToggleMapLayerDialog.show(mActivity);
+  }
+
+  public void turnOn(@NonNull Mode mode)
+  {
+    ControllerAndMode entry = findModeMapLayerController(mode);
+    entry.mController.turnOn();
+    entry.mController.showImmediately();
+    entry.mMode.setEnabled(mActivity, true);
+  }
+
+  public void turnOff(@NonNull Mode mode)
+  {
+    ControllerAndMode entry = findModeMapLayerController(mode);
+    entry.mController.turnOff();
+    entry.mController.hideImmediately();
+    entry.mMode.setEnabled(mActivity, false);
+  }
+
+  @NonNull
+  private ControllerAndMode findModeMapLayerController(@NonNull Mode mode)
+  {
+    for (ControllerAndMode each : mChildrenEntries)
+    {
+      if (each.mMode == mode)
+        return each;
+    }
+
+    throw new IllegalArgumentException("Mode not found : " + mode);
   }
 
   private static class ControllerAndMode
