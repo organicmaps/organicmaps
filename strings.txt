@@ -31604,3 +31604,27 @@ fa = دوباره نپرس
   [subtitle_error_downloading_bookmarks]
     en = Bookmarks were not downloaded
     ru = Метки не были загружены
+
+  [whats_new_bookmarks_catalog_title]
+    en = MAPS.ME now has a route library
+    ru = В MAPS.ME появился каталог маршрутов
+
+  [whats_new_bookmarks_catalog_message]
+    en = Hundreds of detailed routes all around the world: where to go, what to see, where to eat.
+    ru = Десятки подробных маршрутов по всем миру: куда сходить, что посмотреть, где поесть.
+
+  [whats_new_popularity_label_title]
+    en = Popular locations nearby
+    ru = Популярное поблизости
+
+  [whats_new_popularity_label_message]
+    en = The What to Do section will help you find the most popular places in the city.
+    ru = Раздел «Чем заняться» поможет найти самые популярные места в городе.
+
+  [whats_new_hot_offers_title]
+    en = Attractive offers from hotels
+    ru = Выгодные предложения отелей
+
+  [whats_new_hot_offers_message]
+    en = You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.
+    ru = Ищите их с помощью категории «Отели» в поиске. Предложения будут обозначены значком процента на карте и в списке.
