@@ -101,16 +101,20 @@ template <typename Token>
 class TextIndexDictionary
 {
 public:
-  bool GetTokenId(Token const & token, uint32_t & id) const
+  bool GetTokenId(Token const & token, size_t & id) const
   {
     auto const it = std::lower_bound(m_tokens.cbegin(), m_tokens.cend(), token);
     if (it == m_tokens.cend() || *it != token)
       return false;
-    id = static_cast<uint32_t>(std::distance(m_tokens.cbegin(), it));
+    id = ::base::checked_cast<size_t>(std::distance(m_tokens.cbegin(), it));
     return true;
   }
 
-  void SetTokens(std::vector<Token> && tokens) { m_tokens = std::move(tokens); }
+  void SetTokens(std::vector<Token> && tokens)
+  {
+    ASSERT(std::is_sorted(tokens.begin(), tokens.end()), ());
+    m_tokens = std::move(tokens);
+  }
   std::vector<Token> const & GetTokens() const { return m_tokens; }
 
   template <typename Sink>
@@ -145,7 +149,7 @@ public:
   }
 
   template <typename Source>
-  void Deserialize(Source & source, TextIndexHeader header)
+  void Deserialize(Source & source, TextIndexHeader const & header)
   {
     auto const startPos = source.Pos();
 
@@ -362,10 +366,10 @@ template <typename Token>
 class TextIndexReader
 {
 public:
-  TextIndexReader(FileReader const & fileReader) : m_fileReader(fileReader)
+  explicit TextIndexReader(FileReader const & fileReader) : m_fileReader(fileReader)
   {
-    ReaderSource<FileReader> headerSource(m_fileReader);
     TextIndexHeader header;
+    ReaderSource<FileReader> headerSource(m_fileReader);
     header.Deserialize(headerSource);
 
     uint64_t const dictStart = header.m_dictPositionsOffset;
@@ -386,16 +390,13 @@ public:
   template <typename Fn>
   void ForEachPosting(Token const & token, Fn && fn) const
   {
-    uint32_t tokenId = 0;
+    size_t tokenId = 0;
     if (!m_dictionary.GetTokenId(token, tokenId))
       return;
     CHECK_LESS(tokenId + 1, m_postingsStarts.size(), ());
 
-    uint64_t const allPostingsStart = m_header.m_postingsListsOffset;
-    uint64_t const tokenPostingsStart = allPostingsStart + m_postingsStarts[tokenId];
-    uint64_t const tokenPostingsEnd = allPostingsStart + m_postingsStarts[tokenId + 1];
-    ReaderSource<FileReader> source(
-        m_fileReader.SubReader(tokenPostingsStart, tokenPostingsEnd - tokenPostingsStart));
+    ReaderSource<FileReader> source(m_fileReader.SubReader(
+        m_postingsStarts[tokenId], m_postingsStarts[tokenId + 1] - m_postingsStarts[tokenId]));
 
     uint32_t last = 0;
     while (source.Size() > 0)
@@ -407,7 +408,6 @@ public:
 
 private:
   FileReader m_fileReader;
-  TextIndexHeader m_header;
   TextIndexDictionary<Token> m_dictionary;
   std::vector<uint32_t> m_postingsStarts;
 };
