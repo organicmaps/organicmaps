@@ -243,7 +243,7 @@ void UserMarkRenderGroup::UpdateAnimation()
     auto const t = static_cast<float>(m_animation->GetOpacity());
     interplationT = m_mapping.GetValue(t);
   }
-  m_uniforms.SetFloatValue("u_interpolationT", interplationT);
+  m_uniforms.SetFloatValue("u_interpolation", interplationT);
 }
 
 bool UserMarkRenderGroup::IsUserPoint() const
