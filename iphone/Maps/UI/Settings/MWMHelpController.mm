@@ -42,12 +42,12 @@ NSString * const kiOSEmail = @"ios@maps.me";
     NSString * path = [NSBundle.mainBundle pathForResource:@"faq" ofType:@"html"];
     html = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     self.aboutViewController =
-        [[WebViewController alloc] initWithHtml:html baseUrl:nil andTitleOrNil:nil];
+        [[WebViewController alloc] initWithHtml:html baseUrl:nil title:nil];
   }
   else
   {
     NSURL * url = [NSURL URLWithString:@"https://support.maps.me"];
-    self.aboutViewController = [[WebViewController alloc] initWithUrl:url andTitleOrNil:nil];
+    self.aboutViewController = [[WebViewController alloc] initWithUrl:url title:nil];
   }
 
   self.aboutViewController.openInSafari = NO;

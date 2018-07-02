@@ -11,7 +11,7 @@
 
 @implementation WebViewController
 
-- (id)initWithUrl:(NSURL *)url andTitleOrNil:(NSString *)title
+- (id)initWithUrl:(NSURL *)url title:(NSString *)title
 {
   self = [super initWithNibName:nil bundle:nil];
   if (self)
@@ -23,7 +23,7 @@
   return self;
 }
 
-- (id)initWithHtml:(NSString *)htmlText baseUrl:(NSURL *)url andTitleOrNil:(NSString *)title
+- (id)initWithHtml:(NSString *)htmlText baseUrl:(NSURL *)url title:(NSString *)title
 {
   self = [super initWithNibName:nil bundle:nil];
   if (self)

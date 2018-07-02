@@ -7,7 +7,7 @@ final class CatalogWebViewController: WebViewController {
   var deeplink: URL?
 
   @objc init() {
-    super.init(url: MWMBookmarksManager.catalogFrontendUrl(), andTitleOrNil: L("routes_and_bookmarks"))
+    super.init(url: MWMBookmarksManager.catalogFrontendUrl()!, title: L("routes_and_bookmarks"))!
   }
 
   required init?(coder aDecoder: NSCoder) {

@@ -98,7 +98,7 @@ extern NSString * const kAlohalyticsTapEventKey;
     NSString * s = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
     NSString * text = [NSString stringWithFormat:@"%@\n%@", self.versionLabel.text, s];
     WebViewController * aboutViewController =
-        [[WebViewController alloc] initWithHtml:text baseUrl:nil andTitleOrNil:L(@"copyright")];
+        [[WebViewController alloc] initWithHtml:text baseUrl:nil title:L(@"copyright")];
     aboutViewController.openInSafari = YES;
     [self.navigationController pushViewController:aboutViewController animated:YES];
   }

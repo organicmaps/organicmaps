@@ -197,7 +197,7 @@ using namespace locale_translator;
     WebViewController * vc =
         [[WebViewController alloc] initWithHtml:html
                                         baseUrl:baseURL
-                                  andTitleOrNil:L(@"pref_tts_how_to_set_up_voice")];
+                                          title:L(@"pref_tts_how_to_set_up_voice")];
     [self.navigationController pushViewController:vc animated:YES];
   }
 }
