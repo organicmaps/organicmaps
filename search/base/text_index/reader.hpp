@@ -69,6 +69,8 @@ public:
     ForEachPosting(std::move(utf8s), std::forward<Fn>(fn));
   }
 
+  TextIndexDictionary const & GetDictionary() const { return m_dictionary; }
+
 private:
   FileReader m_fileReader;
   TextIndexDictionary m_dictionary;

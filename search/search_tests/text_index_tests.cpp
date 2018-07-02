@@ -1,6 +1,7 @@
 #include "testing/testing.hpp"
 
 #include "search/base/text_index/mem.hpp"
+#include "search/base/text_index/merger.hpp"
 #include "search/base/text_index/reader.hpp"
 #include "search/base/text_index/text_index.hpp"
 
@@ -8,6 +9,7 @@
 
 #include "platform/platform_tests_support/scoped_file.hpp"
 
+#include "coding/file_writer.hpp"
 #include "coding/reader.hpp"
 #include "coding/write_to_sink.hpp"
 #include "coding/writer.hpp"
@@ -33,6 +35,23 @@ namespace
 // Prepend several bytes to serialized indexes in order to check the relative offsets.
 size_t const kSkip = 10;
 
+search::base::MemTextIndex BuildMemTextIndex(vector<string> const & docsCollection)
+{
+  MemTextIndex memIndex;
+
+  for (size_t docId = 0; docId < docsCollection.size(); ++docId)
+  {
+    strings::SimpleTokenizer tok(docsCollection[docId], " ");
+    while (tok)
+    {
+      memIndex.AddPosting(*tok, static_cast<uint32_t>(docId));
+      ++tok;
+    }
+  }
+
+  return memIndex;
+}
+
 void Serdes(MemTextIndex & memIndex, MemTextIndex & deserializedMemIndex, vector<uint8_t> & buf)
 {
   buf.clear();
@@ -54,7 +73,7 @@ void TestForEach(Index const & index, Token const & token, vector<uint32_t> cons
 {
   vector<uint32_t> actual;
   index.ForEachPosting(token, MakeBackInsertFunctor(actual));
-  TEST_EQUAL(actual, expected, ());
+  TEST_EQUAL(actual, expected, (token));
 };
 }  // namespace
 
@@ -69,17 +88,7 @@ UNIT_TEST(TextIndex_Smoke)
       "a c",
   };
 
-  MemTextIndex memIndex;
-
-  for (size_t docId = 0; docId < docsCollection.size(); ++docId)
-  {
-    strings::SimpleTokenizer tok(docsCollection[docId], " ");
-    while (tok)
-    {
-      memIndex.AddPosting(*tok, static_cast<uint32_t>(docId));
-      ++tok;
-    }
-  }
+  auto memIndex = BuildMemTextIndex(docsCollection);
 
   vector<uint8_t> indexData;
   MemTextIndex deserializedMemIndex;
@@ -137,6 +146,62 @@ UNIT_TEST(TextIndex_UniString)
     TestForEach(index, strings::MakeUniString("â"), {0, 1});
     TestForEach(index, strings::MakeUniString("b"), {0});
     TestForEach(index, strings::MakeUniString("ç"), {0, 1});
+  }
+}
+
+UNIT_TEST(TextIndex_Merging)
+{
+  using Token = base::Token;
+
+  // todo(@m) Arrays? docsCollection[i]
+  vector<Token> const docsCollection1 = {
+      "a b c",
+      "",
+      "d",
+  };
+  vector<Token> const docsCollection2 = {
+      "",
+      "a c",
+      "e",
+  };
+
+  auto memIndex1 = BuildMemTextIndex(docsCollection1);
+  vector<uint8_t> indexData1;
+  MemTextIndex deserializedMemIndex1;
+  Serdes(memIndex1, deserializedMemIndex1, indexData1);
+
+  auto memIndex2 = BuildMemTextIndex(docsCollection2);
+  vector<uint8_t> indexData2;
+  MemTextIndex deserializedMemIndex2;
+  Serdes(memIndex2, deserializedMemIndex2, indexData2);
+
+  {
+    string contents1;
+    copy_n(indexData1.begin() + kSkip, indexData1.size() - kSkip, back_inserter(contents1));
+    ScopedFile file1("text_index_tmp1", contents1);
+    FileReader fileReader1(file1.GetFullPath());
+    TextIndexReader textIndexReader1(fileReader1);
+
+    string contents2;
+    copy_n(indexData2.begin() + kSkip, indexData2.size() - kSkip, back_inserter(contents2));
+    ScopedFile file2("text_index_tmp2", contents2);
+    FileReader fileReader2(file2.GetFullPath());
+    TextIndexReader textIndexReader2(fileReader2);
+
+    ScopedFile file3("text_index_tmp3", ScopedFile::Mode::Create);
+    {
+      FileWriter fileWriter(file3.GetFullPath());
+      TextIndexMerger::Merge(textIndexReader1, textIndexReader2, fileWriter);
+    }
+
+    FileReader fileReader3(file3.GetFullPath());
+    TextIndexReader textIndexReader3(fileReader3);
+    TestForEach(textIndexReader3, "a", {0, 1});
+    TestForEach(textIndexReader3, "b", {0});
+    TestForEach(textIndexReader3, "c", {0, 1});
+    TestForEach(textIndexReader3, "x", {});
+    TestForEach(textIndexReader3, "d", {2});
+    TestForEach(textIndexReader3, "e", {2});
   }
 }
 }  // namespace search

@@ -2,14 +2,15 @@
 
 #include "search/base/text_index/dictionary.hpp"
 #include "search/base/text_index/header.hpp"
+#include "search/base/text_index/postings.hpp"
 #include "search/base/text_index/text_index.hpp"
+#include "search/base/text_index/utils.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 #include "coding/write_to_sink.hpp"
 
 #include "base/assert.hpp"
-#include "base/checked_cast.hpp"
 #include "base/string_utils.hpp"
 
 #include <algorithm>
@@ -84,11 +85,34 @@ public:
   }
 
 private:
-  template <typename Sink>
-  static uint32_t RelativePos(Sink & sink, uint64_t startPos)
+  class MemPostingsFetcher : public PostingsFetcher
   {
-    return ::base::checked_cast<uint32_t>(sink.Pos() - startPos);
-  }
+  public:
+    MemPostingsFetcher(std::map<Token, std::vector<Posting>> const & postingsByToken)
+    {
+      // todo(@m) An unnecessary copy?
+      m_postings.reserve(postingsByToken.size());
+      for (auto const & entry : postingsByToken)
+        m_postings.emplace_back(entry.second);
+    }
+
+    // PostingsFetcher overrides:
+    bool GetPostingsForNextToken(std::vector<uint32_t> & postings)
+    {
+      CHECK_LESS_OR_EQUAL(m_tokenId, m_postings.size(), ());
+      if (m_tokenId == m_postings.size())
+        return false;
+      postings.swap(m_postings[m_tokenId++]);
+      return true;
+    }
+
+  private:
+    std::vector<std::vector<uint32_t>> m_postings;
+    // Index of the next token to be processed. The
+    // copy of the postings list in |m_postings| is not guaranteed
+    // to be valid after it's been processed.
+    size_t m_tokenId = 0;
+  };
 
   void SortPostings();
 
@@ -110,41 +134,8 @@ private:
   template <typename Sink>
   void SerializePostingsLists(Sink & sink, TextIndexHeader & header, uint64_t startPos) const
   {
-    header.m_postingsStartsOffset = RelativePos(sink, startPos);
-    // An uint32_t for each 32-bit offset and an uint32_t for the dummy entry at the end.
-    WriteZeroesToSink(sink, sizeof(uint32_t) * (header.m_numTokens + 1));
-
-    header.m_postingsListsOffset = RelativePos(sink, startPos);
-
-    std::vector<uint32_t> postingsStarts;
-    postingsStarts.reserve(header.m_numTokens);
-    for (auto const & entry : m_postingsByToken)
-    {
-      auto const & postings = entry.second;
-
-      postingsStarts.emplace_back(RelativePos(sink, startPos));
-
-      uint32_t last = 0;
-      for (auto const p : postings)
-      {
-        CHECK(last == 0 || last < p, (last, p));
-        uint32_t const delta = p - last;
-        WriteVarUint(sink, delta);
-        last = p;
-      }
-    }
-    // One more for convenience.
-    postingsStarts.emplace_back(RelativePos(sink, startPos));
-
-    {
-      uint64_t const savedPos = sink.Pos();
-      sink.Seek(startPos + header.m_postingsStartsOffset);
-      for (uint32_t const s : postingsStarts)
-        WriteToSink(sink, s);
-
-      CHECK_EQUAL(sink.Pos(), startPos + header.m_postingsListsOffset, ());
-      sink.Seek(savedPos);
-    }
+    MemPostingsFetcher fetcher(m_postingsByToken);
+    WritePostings(sink, startPos, header, fetcher);
   }
 
   template <typename Source>
