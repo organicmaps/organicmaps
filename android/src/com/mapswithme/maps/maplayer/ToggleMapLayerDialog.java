@@ -18,14 +18,14 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
-import com.mapswithme.maps.widget.recycler.SpanningLinearLayoutManager;
 import com.mapswithme.maps.bookmarks.OnItemClickListener;
+import com.mapswithme.maps.maplayer.subway.OnSubwayLayerToggleListener;
 import com.mapswithme.maps.maplayer.traffic.OnTrafficLayerToggleListener;
+import com.mapswithme.maps.widget.recycler.SpanningLinearLayoutManager;
 
 import java.util.Arrays;
 import java.util.List;
@@ -54,8 +54,8 @@ public class ToggleMapLayerDialog extends DialogFragment
   {
     BottomSheetDialog dialog = (BottomSheetDialog) dialogInterface;
     View bottomSheet = dialog.findViewById(android.support.design.R.id.design_bottom_sheet);
-    BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+    BottomSheetBehavior behavior = BottomSheetBehavior.from(Objects.requireNonNull(bottomSheet));
+    behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
   }
 
   private void initChildren(@NonNull View root)
@@ -152,7 +152,7 @@ public class ToggleMapLayerDialog extends DialogFragment
   private static class ModeHolder extends RecyclerView.ViewHolder
   {
     @NonNull
-    private final ImageButton mButton;
+    private final ImageView mButton;
     @NonNull
     private final TextView mTitle;
     @Nullable

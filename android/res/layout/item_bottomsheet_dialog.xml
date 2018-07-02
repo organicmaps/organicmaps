@@ -11,7 +11,7 @@
     android:layout_height="wrap_content"
     android:minHeight="@dimen/margin_double_plus"
     android:minWidth="@dimen/margin_double_plus"
-    android:background="@drawable/bg_toggle_map_layer_btn"
+    android:background="?attr/toggleMapLayerBtnBg"
     android:layout_gravity="center"/>
   <TextView
     android:id="@+id/name"

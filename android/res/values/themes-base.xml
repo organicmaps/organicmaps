@@ -129,6 +129,7 @@
     <item name="nav_bg_subway">@drawable/bg_subway_light</item>
     <item name="trafficMenuDisabled">@drawable/ic_traffic_menu_light_off</item>
     <item name="subwayMenuDisabled">@drawable/ic_subway_menu_light_off</item>
+    <item name="toggleMapLayerBtnBg">@drawable/bg_toggle_map_layer_btn</item>
   </style>
 
   <!-- Night theme -->
@@ -261,5 +262,6 @@
     <item name="nav_bg_subway">@drawable/bg_subway_night</item>
     <item name="trafficMenuDisabled">@drawable/ic_traffic_menu_dark_off</item>
     <item name="subwayMenuDisabled">@drawable/ic_subway_menu_dark_off</item>
+    <item name="toggleMapLayerBtnBg">@drawable/bg_toggle_map_layer_btn_dark</item>
   </style>
 </resources>

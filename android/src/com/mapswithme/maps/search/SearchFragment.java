@@ -90,7 +90,7 @@ public class SearchFragment extends BaseMwmFragment
   {
     public ToolbarController(View root)
     {
-      super(root, SearchFragment.this.getActivity());
+      super(root, getActivity());
     }
 
     @Override

@@ -23,7 +23,6 @@ import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
 import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.maplayer.subway.SubwayManager;
 import com.mapswithme.maps.taxi.TaxiInfo;
 import com.mapswithme.maps.taxi.TaxiInfoError;
 import com.mapswithme.maps.taxi.TaxiManager;
@@ -435,8 +434,7 @@ public class RoutingController implements TaxiManager.TaxiListener
 
   private boolean isSubwayEnabled()
   {
-    FragmentActivity activity = mContainer == null ? null : mContainer.getActivity();
-    return activity != null && mContainer.isSubwayEnabled();
+    return mContainer != null && mContainer.isSubwayEnabled();
   }
 
   public void prepare(final @Nullable MapObject startPoint, final @Nullable MapObject endPoint,
