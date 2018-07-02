@@ -82,6 +82,7 @@ public:
   void OnEnterBackground();
 
   void SetSimplifiedColorScheme(bool simplified);
+  bool HasSimplifiedColorScheme() const { return m_hasSimplifiedColorScheme; }
 
 private:
   struct CacheEntry
@@ -154,6 +155,8 @@ private:
 
   atomic<TrafficState> m_state;
   TrafficStateChangedFn m_onStateChangedFn;
+
+  bool m_hasSimplifiedColorScheme = true;
 
   size_t m_maxCacheSizeBytes;
   size_t m_currentCacheSizeBytes = 0;

@@ -560,6 +560,7 @@ void TrafficManager::Resume()
 
 void TrafficManager::SetSimplifiedColorScheme(bool simplified)
 {
+  m_hasSimplifiedColorScheme = simplified;
   m_drapeEngine.SafeCall(&df::DrapeEngine::SetSimplifiedTrafficColors, simplified);
 }
 

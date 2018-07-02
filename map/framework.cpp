@@ -487,6 +487,8 @@ Framework::Framework(FrameworkParams const & params)
   LOG(LINFO, ("Editor initialized"));
 
   m_trafficManager.SetCurrentDataVersion(m_storage.GetCurrentDataVersion());
+  m_trafficManager.SetSimplifiedColorScheme(LoadTrafficSimplifiedColors());
+  m_trafficManager.SetEnabled(LoadTrafficEnabled());
 
   m_adsEngine = make_unique<ads::Engine>();
 
@@ -1725,11 +1727,8 @@ void Framework::CreateDrapeEngine(ref_ptr<dp::OGLContextFactory> contextFactory,
   Load3dMode(allow3d, allow3dBuildings);
 
   bool const isAutozoomEnabled = LoadAutoZoom();
-  bool const trafficEnabled = LoadTrafficEnabled();
-  m_trafficManager.SetEnabled(trafficEnabled);
-  bool const simplifiedTrafficColors = LoadTrafficSimplifiedColors();
-  m_trafficManager.SetSimplifiedColorScheme(simplifiedTrafficColors);
-
+  bool const trafficEnabled = m_trafficManager.IsEnabled();
+  bool const simplifiedTrafficColors = m_trafficManager.HasSimplifiedColorScheme();
   double const fontsScaleFactor = LoadLargeFontsSize() ? kLargeFontsScaleFactor : 1.0;
 
   df::DrapeEngine::Params p(
