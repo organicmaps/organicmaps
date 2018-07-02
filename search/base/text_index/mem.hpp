@@ -17,6 +17,7 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace search
@@ -83,6 +84,12 @@ public:
   }
 
 private:
+  template <typename Sink>
+  static uint32_t RelativePos(Sink & sink, uint64_t startPos)
+  {
+    return ::base::checked_cast<uint32_t>(sink.Pos() - startPos);
+  }
+
   void SortPostings();
 
   void BuildDictionary();
@@ -164,12 +171,6 @@ private:
 
       m_postingsByToken.emplace(tokens[i], postings);
     }
-  }
-
-  template <typename Sink>
-  static uint32_t RelativePos(Sink & sink, uint64_t startPos)
-  {
-    return ::base::checked_cast<uint32_t>(sink.Pos() - startPos);
   }
 
   std::map<Token, std::vector<Posting>> m_postingsByToken;
