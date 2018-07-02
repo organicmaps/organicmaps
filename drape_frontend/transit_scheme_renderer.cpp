@@ -180,6 +180,7 @@ void TransitSchemeRenderer::RenderLines(ScreenBase const & screen, ref_ptr<gpu::
     uniforms.SetMatrix4x4Value("u_modelView", mv.m_data);
 
     uniforms.SetFloatValue("u_lineHalfWidth", pixelHalfWidth);
+    uniforms.SetFloatValue("u_maxRadius", kTransitLineHalfWidth);
     dp::ApplyUniforms(uniforms, program);
 
     renderData.m_bucket->Render(false /* draw as line */);

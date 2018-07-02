@@ -15,6 +15,7 @@
 namespace df
 {
 int constexpr kTransitSchemeMinZoomLevel = 10;
+float constexpr kTransitLineHalfWidth = 0.8f;
 
 extern std::vector<float> const kTransitLinesWidthInPixel;
 
@@ -154,7 +155,7 @@ private:
                       ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher);
 
   void GenerateLine(std::vector<m2::PointD> const & path, m2::PointD const & pivot, dp::Color const & colorConst,
-                    float lineOffset, float lineHalfWidth, float depth, dp::Batcher & batcher);
+                    float lineOffset, float halfWidth, float depth, dp::Batcher & batcher);
 
   using TransitSchemes = std::map<MwmSet::MwmId, MwmSchemeData>;
   TransitSchemes m_schemes;

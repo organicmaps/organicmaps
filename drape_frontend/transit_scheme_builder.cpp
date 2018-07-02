@@ -52,14 +52,14 @@ std::string const kTransitStopInnerColor = "TransitStopInnerMarker";
 
 float const kTransitMarkTextSize = 12.0f;
 
-struct TransitLineStaticVertex
+struct TransitStaticVertex
 {
   using TPosition = glsl::vec3;
   using TNormal = glsl::vec4;
   using TColor = glsl::vec4;
 
-  TransitLineStaticVertex() = default;
-  TransitLineStaticVertex(TPosition const & position, TNormal const & normal,
+  TransitStaticVertex() = default;
+  TransitStaticVertex(TPosition const & position, TNormal const & normal,
                           TColor const & color)
     : m_position(position), m_normal(normal), m_color(color) {}
 
@@ -76,41 +76,50 @@ struct SchemeSegment
   glsl::vec2 m_leftNormal;
   glsl::vec2 m_rightNormal;
 };
-using TGeometryBuffer = std::vector<TransitLineStaticVertex>;
+using TGeometryBuffer = std::vector<TransitStaticVertex>;
 
 dp::BindingInfo const & GetTransitStaticBindingInfo()
 {
   static unique_ptr<dp::BindingInfo> s_info;
   if (s_info == nullptr)
   {
-    dp::BindingFiller<TransitLineStaticVertex> filler(3);
-    filler.FillDecl<TransitLineStaticVertex::TPosition>("a_position");
-    filler.FillDecl<TransitLineStaticVertex::TNormal>("a_normal");
-    filler.FillDecl<TransitLineStaticVertex::TColor>("a_color");
+    dp::BindingFiller<TransitStaticVertex> filler(3);
+    filler.FillDecl<TransitStaticVertex::TPosition>("a_position");
+    filler.FillDecl<TransitStaticVertex::TNormal>("a_normal");
+    filler.FillDecl<TransitStaticVertex::TColor>("a_color");
     s_info.reset(new dp::BindingInfo(filler.m_info));
   }
   return *s_info;
 }
 
-void SubmitStaticVertex(glsl::vec3 const & pivot, glsl::vec2 const & normal, float side,
-                        glsl::vec4 const & color, TGeometryBuffer & geometry)
+void GenerateLineCaps(std::vector<SchemeSegment> const & segments, glsl::vec4 const & color,
+                      float lineOffset, float halfWidth, float depth, dp::Batcher & batcher)
 {
-  geometry.emplace_back(pivot, TransitLineStaticVertex::TNormal(normal, side, 0.0), color);
-}
+  using TV = TransitStaticVertex;
 
-void GenerateJoinsTriangles(glsl::vec3 const & pivot,
-                            std::vector<glsl::vec2> const & normals,
-                            glsl::vec2 const & offset,
-                            glsl::vec4 const & color,
-                            TGeometryBuffer & joinsGeometry)
-{
-  size_t const trianglesCount = normals.size() / 3;
-  for (size_t j = 0; j < trianglesCount; j++)
+  TGeometryBuffer geometry;
+  geometry.reserve(segments.size() * 3);
+
+  for (auto const & segment : segments)
   {
-    SubmitStaticVertex(pivot, normals[3 * j] + offset, 1.0f, color, joinsGeometry);
-    SubmitStaticVertex(pivot, normals[3 * j + 1] + offset, 1.0f, color, joinsGeometry);
-    SubmitStaticVertex(pivot, normals[3 * j + 2] + offset, 1.0f, color, joinsGeometry);
+    // Here we use an equilateral triangle to render a circle (incircle of a triangle).
+    static float const kSqrt3 = sqrt(3.0f);
+    auto const offset = lineOffset * segment.m_rightNormal;
+    auto const pivot = glsl::vec3(segment.m_p2, depth);
+
+    auto const n1 = glsl::vec2(-2.0 * halfWidth, -halfWidth);
+    auto const n2 = glsl::vec2(2.0 * halfWidth, -halfWidth);
+    auto const n3 = glsl::vec2(0.0f, (2.0f * kSqrt3 - 1.0f) * halfWidth);
+
+    geometry.emplace_back(pivot, TV::TNormal(-offset, n1), color);
+    geometry.emplace_back(pivot, TV::TNormal(-offset, n2), color);
+    geometry.emplace_back(pivot, TV::TNormal(-offset, n3), color);
   }
+
+  dp::AttributeProvider provider(1 /* stream count */, static_cast<uint32_t>(geometry.size()));
+  provider.InitStream(0 /* stream index */, GetTransitStaticBindingInfo(), make_ref(geometry.data()));
+  auto state = CreateGLState(gpu::Program::TransitCircle, RenderState::TransitSchemeLayer);
+  batcher.InsertTriangleList(state, make_ref(&provider));
 }
 
 struct TitleInfo
@@ -537,7 +546,6 @@ void TransitSchemeBuilder::GenerateShapes(MwmSet::MwmId const & mwmId)
       auto const linesCount = shape.second.m_forwardLines.size() + shape.second.m_backwardLines.size();
       auto shapeOffset = -static_cast<float>(linesCount / 2) * 2.0f - 1.0f * static_cast<float>(linesCount % 2) + 1.0f;
       auto const shapeOffsetIncrement = 2.0f;
-      auto const lineHalfWidth = 0.8f;
 
       std::vector<std::pair<dp::Color, routing::transit::LineId>> coloredLines;
       for (auto lineId : shape.second.m_forwardLines)
@@ -559,7 +567,8 @@ void TransitSchemeBuilder::GenerateShapes(MwmSet::MwmId const & mwmId)
         auto const & lineId = coloredLine.second;
         auto const depth = scheme.m_lines.at(lineId).m_depth;
 
-        GenerateLine(shape.second.m_polyline, scheme.m_pivot, colorConst, shapeOffset, lineHalfWidth, depth, batcher);
+        GenerateLine(shape.second.m_polyline, scheme.m_pivot, colorConst, shapeOffset,
+                     kTransitLineHalfWidth, depth, batcher);
         shapeOffset += shapeOffsetIncrement;
       }
     }
@@ -728,7 +737,7 @@ void TransitSchemeBuilder::GenerateMarker(m2::PointD const & pt, m2::PointD widt
                                           float scaleWidth, float scaleHeight,
                                           float depth, dp::Color const & color, dp::Batcher & batcher)
 {
-  using TV = TransitLineStaticVertex;
+  using TV = TransitStaticVertex;
 
   scaleWidth = (scaleWidth - 1.0f) / linesCountWidth + 1.0f;
   scaleHeight = (scaleHeight - 1.0f) / linesCountHeight + 1.0f;
@@ -760,9 +769,11 @@ void TransitSchemeBuilder::GenerateMarker(m2::PointD const & pt, m2::PointD widt
 }
 
 void TransitSchemeBuilder::GenerateLine(std::vector<m2::PointD> const & path, m2::PointD const & pivot,
-                                        dp::Color const & colorConst, float lineOffset, float lineHalfWidth,
+                                        dp::Color const & colorConst, float lineOffset, float halfWidth,
                                         float depth, dp::Batcher & batcher)
 {
+  using TV = TransitStaticVertex;
+
   TGeometryBuffer geometry;
   auto const color = glsl::vec4(colorConst.GetRedF(), colorConst.GetGreenF(), colorConst.GetBlueF(), 1.0f /* alpha */);
   size_t const kAverageSize = path.size() * 6;
@@ -787,30 +798,21 @@ void TransitSchemeBuilder::GenerateLine(std::vector<m2::PointD> const & path, m2
     auto const endPivot = glsl::vec3(segment.m_p2, depth);
     auto const offset = lineOffset * segment.m_rightNormal;
 
-    SubmitStaticVertex(startPivot, segment.m_rightNormal * lineHalfWidth - offset, -lineHalfWidth, color, geometry);
-    SubmitStaticVertex(startPivot, segment.m_leftNormal * lineHalfWidth - offset, lineHalfWidth, color, geometry);
-    SubmitStaticVertex(endPivot, segment.m_rightNormal * lineHalfWidth - offset, -lineHalfWidth, color, geometry);
-    SubmitStaticVertex(endPivot, segment.m_rightNormal * lineHalfWidth - offset, -lineHalfWidth, color, geometry);
-    SubmitStaticVertex(startPivot, segment.m_leftNormal * lineHalfWidth - offset, lineHalfWidth, color, geometry);
-    SubmitStaticVertex(endPivot, segment.m_leftNormal * lineHalfWidth - offset, lineHalfWidth, color, geometry);
+    geometry.emplace_back(startPivot, TV::TNormal(segment.m_rightNormal * halfWidth - offset, -halfWidth, 0.0), color);
+    geometry.emplace_back(startPivot, TV::TNormal(segment.m_leftNormal * halfWidth - offset, halfWidth, 0.0), color);
+    geometry.emplace_back(endPivot, TV::TNormal(segment.m_rightNormal * halfWidth - offset, -halfWidth, 0.0), color);
+    geometry.emplace_back(endPivot, TV::TNormal(segment.m_rightNormal * halfWidth - offset, -halfWidth, 0.0), color);
+    geometry.emplace_back(startPivot, TV::TNormal(segment.m_leftNormal * halfWidth - offset, halfWidth, 0.0), color);
+    geometry.emplace_back(endPivot, TV::TNormal(segment.m_leftNormal * halfWidth - offset, halfWidth, 0.0), color);
 
     segments.emplace_back(std::move(segment));
-  }
-
-  for (size_t i = 0; i < segments.size(); ++i)
-  {
-    int const kSegmentsCount = 4;
-    vector<glsl::vec2> normals;
-    normals.reserve(kAverageCapSize);
-    GenerateCapNormals(dp::RoundCap, segments[i].m_leftNormal, segments[i].m_rightNormal, segments[i].m_tangent,
-                       lineHalfWidth, false /* isStart */, normals, kSegmentsCount);
-    GenerateJoinsTriangles(glsl::vec3(segments[i].m_p2, depth), normals, -lineOffset * segments[i].m_rightNormal,
-                           color, geometry);
   }
 
   dp::AttributeProvider provider(1 /* stream count */, static_cast<uint32_t>(geometry.size()));
   provider.InitStream(0 /* stream index */, GetTransitStaticBindingInfo(), make_ref(geometry.data()));
   auto state = CreateGLState(gpu::Program::Transit, RenderState::TransitSchemeLayer);
   batcher.InsertTriangleList(state, make_ref(&provider));
+
+  GenerateLineCaps(segments, color, lineOffset, halfWidth, depth, batcher);
 }
 }  // namespace df

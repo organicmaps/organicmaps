@@ -13,6 +13,7 @@ Area3d area3d.vsh.glsl texturing3d.fsh.glsl
 Area3dOutline area3d_outline.vsh.glsl solid_color.fsh.glsl
 Line line.vsh.glsl line.fsh.glsl
 CapJoin circle.vsh.glsl circle.fsh.glsl
+TransitCircle transit_circle.vsh.glsl transit_circle.fsh.glsl
 DashedLine dashed_line.vsh.glsl dashed_line.fsh.glsl
 PathSymbol path_symbol.vsh.glsl texturing.fsh.glsl
 HatchingArea hatching_area.vsh.glsl hatching_area.fsh.glsl

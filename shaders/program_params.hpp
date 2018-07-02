@@ -128,9 +128,11 @@ struct TransitProgramParams
   glsl::mat4 m_pivotTransform;
   glsl::vec3 m_params;
   float m_lineHalfWidth = 0.0f;
+  float m_maxRadius = 0.0f;
 
   BIND_PROGRAMS(TransitProgramParams,
     Program::Transit,
+    Program::TransitCircle,
     Program::TransitMarker)
 };
 

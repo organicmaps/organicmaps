@@ -129,6 +129,7 @@ void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, TransitProgra
   Parameter::CheckApply(guard, "u_pivotTransform", params.m_pivotTransform);
   Parameter::CheckApply(guard, "u_params", params.m_params);
   Parameter::CheckApply(guard, "u_lineHalfWidth", params.m_lineHalfWidth);
+  Parameter::CheckApply(guard, "u_maxRadius", params.m_maxRadius);
 }
 
 void GLProgramParamsSetter::Apply(ref_ptr<dp::GpuProgram> program, GuiProgramParams const & params)

@@ -98,10 +98,12 @@ set(
   GL/traffic.vsh.glsl
   GL/traffic_line.fsh.glsl
   GL/traffic_line.vsh.glsl
-  GL/transit_marker.fsh.glsl
-  GL/transit_marker.vsh.glsl
   GL/transit.fsh.glsl
   GL/transit.vsh.glsl
+  GL/transit_circle.fsh.glsl
+  GL/transit_circle.vsh.glsl
+  GL/transit_marker.fsh.glsl
+  GL/transit_marker.vsh.glsl
   GL/user_mark.fsh.glsl
   GL/user_mark.vsh.glsl
   GL/user_mark_billboard.vsh.glsl

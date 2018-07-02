@@ -237,13 +237,13 @@ UserMarkRenderGroup::UserMarkRenderGroup(dp::GLState const & state, TileKey cons
 void UserMarkRenderGroup::UpdateAnimation()
 {
   BaseRenderGroup::UpdateAnimation();
-  float interplationT = 1.0f;
+  float interpolation = 1.0f;
   if (m_animation)
   {
     auto const t = static_cast<float>(m_animation->GetOpacity());
-    interplationT = m_mapping.GetValue(t);
+    interpolation = m_mapping.GetValue(t);
   }
-  m_uniforms.SetFloatValue("u_interpolation", interplationT);
+  m_uniforms.SetFloatValue("u_interpolation", interpolation);
 }
 
 bool UserMarkRenderGroup::IsUserPoint() const

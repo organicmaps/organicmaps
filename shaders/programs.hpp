@@ -24,6 +24,7 @@ enum class Program
   Area3dOutline,
   Line,
   CapJoin,
+  TransitCircle,
   DashedLine,
   PathSymbol,
   HatchingArea,
@@ -79,6 +80,7 @@ inline std::string DebugPrint(Program p)
   case Program::Area3dOutline: return "Area3dOutline";
   case Program::Line: return "Line";
   case Program::CapJoin: return "CapJoin";
+  case Program::TransitCircle: return "TransitCircle";
   case Program::DashedLine: return "DashedLine";
   case Program::PathSymbol: return "PathSymbol";
   case Program::HatchingArea: return "HatchingArea";
