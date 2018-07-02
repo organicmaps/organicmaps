@@ -311,7 +311,7 @@ private:
   struct ElementProcessorBase
   {
   protected:
-    CacheReader m_reader;
+    CacheReader & m_reader;
     ToDo & m_toDo;
 
   public:
