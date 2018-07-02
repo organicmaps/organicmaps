@@ -12,6 +12,7 @@
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/scales.hpp"
 
 #include "coding/file_name_utils.hpp"
@@ -554,6 +555,23 @@ Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bm, kml::MarkGro
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kBookmarksBookmarkAction,
                                                          {{"action", "create"}});
+
+  auto const & c = classif();
+  CHECK(c.HasTypesMapping(), ());
+  std::stringstream ss;
+  for (size_t i = 0; i < bm.m_featureTypes.size(); ++i)
+  {
+    ss << c.GetReadableObjectName(c.GetTypeForIndex(bm.m_featureTypes[i]));
+    if (i + 1 < bm.m_featureTypes.size())
+      ss << ",";
+  }
+  auto const latLon = MercatorBounds::ToLatLon(bm.m_point);
+  alohalytics::TStringMap details{
+    {"action", "create"},
+    {"lat", strings::to_string(latLon.lat)},
+    {"lon", strings::to_string(latLon.lon)},
+    {"tags", ss.str()}};
+  alohalytics::Stats::Instance().LogEvent("Bookmarks_Bookmark_action", details);
 
   bm.m_timestamp = std::chrono::system_clock::now();
   bm.m_viewportScale = static_cast<uint8_t>(df::GetZoomLevel(m_viewport.GetScale()));
