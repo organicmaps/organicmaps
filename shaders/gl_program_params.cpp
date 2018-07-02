@@ -15,18 +15,20 @@ struct UniformsGuard
   template <typename ParamsType>
   UniformsGuard(ref_ptr<dp::GpuProgram> program, ParamsType const &)
     : m_program(program)
+    , m_paramsName(ParamsType::GetName())
   {
-    ASSERT_EQUAL(ParamsType::GetName(), ProgramParams::GetBoundParamsName(program),
-                 ("Mismatched program and parameters"));
+    ASSERT_EQUAL(m_paramsName, ProgramParams::GetBoundParamsName(program),
+                 ("Mismatched program and parameters", m_program->GetName()));
   }
 
   ~UniformsGuard()
   {
     auto const uniformsCount = m_program->GetNumericUniformsCount();
-    CHECK_EQUAL(m_counter, uniformsCount, ("Not all numeric uniforms are set up"));
+    CHECK_EQUAL(m_counter, uniformsCount, ("Not all numeric uniforms are set up", m_program->GetName(), m_paramsName));
   }
 
   ref_ptr<dp::GpuProgram> m_program;
+  std::string const m_paramsName;
   uint32_t m_counter = 0;
 };
 
