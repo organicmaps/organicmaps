@@ -257,9 +257,9 @@ unique_ptr<RankTable> CreateRankTableIfNotExists(FilesContainerR & rcont)
 {
   unique_ptr<RankTable> table;
 
-  if (rcont.IsExist(RANKS_FILE_TAG))
+  if (rcont.IsExist(SEARCH_RANKS_FILE_TAG))
   {
-    switch (CheckEndianness(rcont.GetReader(RANKS_FILE_TAG)))
+    switch (CheckEndianness(rcont.GetReader(SEARCH_RANKS_FILE_TAG)))
     {
     case CheckResult::CorruptedHeader:
     {
@@ -270,7 +270,7 @@ unique_ptr<RankTable> CreateRankTableIfNotExists(FilesContainerR & rcont)
     {
       // Try to copy whole serialized data and instantiate table via
       // reverse mapping.
-      auto region = GetMemoryRegionForTag(rcont, RANKS_FILE_TAG);
+      auto region = GetMemoryRegionForTag(rcont, SEARCH_RANKS_FILE_TAG);
       table = LoadRankTable(move(region));
       break;
     }
@@ -339,7 +339,7 @@ bool SearchRankTableBuilder::CreateIfNotExists(platform::LocalCountryFile const 
     }
 
     if (table)
-      SerializeRankTable(*table, mapPath, RANKS_FILE_TAG);
+      SerializeRankTable(*table, mapPath, SEARCH_RANKS_FILE_TAG);
 
     return true;
   }
@@ -362,7 +362,7 @@ bool SearchRankTableBuilder::CreateIfNotExists(string const & mapPath) noexcept
     }
 
     if (table)
-      SerializeRankTable(*table, mapPath, RANKS_FILE_TAG);
+      SerializeRankTable(*table, mapPath, SEARCH_RANKS_FILE_TAG);
 
     return true;
   }

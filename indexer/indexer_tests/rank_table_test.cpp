@@ -37,7 +37,7 @@ void TestTable(vector<uint8_t> const & ranks, string const & path)
   // Tries to load table via file read.
   {
     FilesContainerR rcont(path);
-    auto table = search::RankTable::Load(rcont, RANKS_FILE_TAG);
+    auto table = search::RankTable::Load(rcont, SEARCH_RANKS_FILE_TAG);
     TEST(table, ());
     TestTable(ranks, *table);
   }
@@ -45,7 +45,7 @@ void TestTable(vector<uint8_t> const & ranks, string const & path)
   // Tries to load table via file mapping.
   {
     FilesMappingContainer mcont(path);
-    auto table = search::RankTable::Load(mcont, RANKS_FILE_TAG);
+    auto table = search::RankTable::Load(mcont, SEARCH_RANKS_FILE_TAG);
     TEST(table, ());
     TestTable(ranks, *table);
   }
@@ -66,7 +66,7 @@ UNIT_TEST(RankTableBuilder_Smoke)
 
   {
     FilesContainerW wcont(kTestCont);
-    search::RankTableBuilder::Create(ranks, wcont, RANKS_FILE_TAG);
+    search::RankTableBuilder::Create(ranks, wcont, SEARCH_RANKS_FILE_TAG);
   }
 
   TestTable(ranks, kTestCont);
@@ -94,7 +94,7 @@ UNIT_TEST(RankTableBuilder_EndToEnd)
 
   {
     FilesContainerW wcont(mapPath, FileWriter::OP_WRITE_EXISTING);
-    search::RankTableBuilder::Create(ranks, wcont, RANKS_FILE_TAG);
+    search::RankTableBuilder::Create(ranks, wcont, SEARCH_RANKS_FILE_TAG);
   }
 
   FrozenDataSource dataSource;
@@ -112,14 +112,14 @@ UNIT_TEST(RankTableBuilder_WrongEndianness)
   vector<uint8_t> ranks = {0, 1, 2, 3, 4};
   {
     FilesContainerW wcont(kTestFile);
-    search::RankTableBuilder::Create(ranks, wcont, RANKS_FILE_TAG);
+    search::RankTableBuilder::Create(ranks, wcont, SEARCH_RANKS_FILE_TAG);
   }
 
   // Load rank table in host endianness.
   unique_ptr<search::RankTable> table;
   {
     FilesContainerR rcont(kTestFile);
-    table = search::RankTable::Load(rcont, RANKS_FILE_TAG);
+    table = search::RankTable::Load(rcont, SEARCH_RANKS_FILE_TAG);
     TEST(table.get(), ());
     TestTable(ranks, *table);
   }
@@ -133,13 +133,13 @@ UNIT_TEST(RankTableBuilder_WrongEndianness)
     }
 
     FilesContainerW wcont(kTestFile);
-    wcont.Write(data, RANKS_FILE_TAG);
+    wcont.Write(data, SEARCH_RANKS_FILE_TAG);
   }
 
   // Try to load rank table from opposite endianness.
   {
     FilesContainerR rcont(kTestFile);
-    auto table = search::RankTable::Load(rcont, RANKS_FILE_TAG);
+    auto table = search::RankTable::Load(rcont, SEARCH_RANKS_FILE_TAG);
     TEST(table.get(), ());
     TestTable(ranks, *table);
   }
@@ -147,7 +147,7 @@ UNIT_TEST(RankTableBuilder_WrongEndianness)
   // It's impossible to map rank table from opposite endianness.
   {
     FilesMappingContainer mcont(kTestFile);
-    auto table = search::RankTable::Load(mcont, RANKS_FILE_TAG);
+    auto table = search::RankTable::Load(mcont, SEARCH_RANKS_FILE_TAG);
     TEST(!table.get(), ());
   }
 

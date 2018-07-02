@@ -87,7 +87,7 @@ void PreRanker::FillMissingFieldsInPreResults()
       centers.reset();
       if (mwmHandle.IsAlive())
       {
-        ranks = RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont, RANKS_FILE_TAG);
+        ranks = RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont, SEARCH_RANKS_FILE_TAG);
         popularityRanks = RankTable::Load(mwmHandle.GetValue<MwmValue>()->m_cont,
                                           POPULARITY_RANKS_FILE_TAG);
         centers = make_unique<LazyCentersTable>(*mwmHandle.GetValue<MwmValue>());
