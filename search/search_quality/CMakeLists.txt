@@ -21,5 +21,6 @@ endif()
 
 add_subdirectory(booking_dataset_generator)
 add_subdirectory(features_collector_tool)
+add_subdirectory(samples_generation_tool)
 add_subdirectory(search_quality_tool)
 omim_add_test_subdirectory(search_quality_tests)
