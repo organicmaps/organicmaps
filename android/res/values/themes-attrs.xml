@@ -97,6 +97,7 @@
     <attr name="ratingButtonBackground" format="reference"/>
     <attr name="reviewButtonBackground" format="reference"/>
     <attr name="transitPedestrianBackground" format="color"/>
+    <attr name="colorBtnHighlight" format="color"/>
     <attr name="transitStepDivider" format="reference"/>
     <attr name="filterPropertyBackground" format="reference"/>
     <attr name="adChoicesIcon" format="reference"/>
