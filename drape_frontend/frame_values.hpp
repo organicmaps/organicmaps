@@ -10,7 +10,7 @@
 namespace df
 {
 #define DECLARE_SETTER(name, field) \
-template<typename T> struct Has##name \
+template<typename T> struct Check##name \
 { \
 private: \
   static void Detect(...); \
@@ -19,14 +19,14 @@ public: \
   static constexpr bool Value = !std::is_same<void, decltype(Detect(std::declval<T>()))>::value; \
 }; \
 template <typename ParamsType> \
-std::enable_if_t<Has##name<ParamsType>::Value> \
-Set##name(ParamsType & params) const \
+std::enable_if_t<Check##name<ParamsType>::Value> \
+name(ParamsType & params) const \
 { \
   params.field = field; \
 } \
 template <typename ParamsType> \
-std::enable_if_t<!Has##name<ParamsType>::Value> \
-Set##name(ParamsType & params) const {}
+std::enable_if_t<!Check##name<ParamsType>::Value> \
+name(ParamsType & params) const {}
 
 
 struct FrameValues
@@ -44,8 +44,8 @@ struct FrameValues
   }
 
 private:
-  DECLARE_SETTER(Projection, m_projection)
-  DECLARE_SETTER(PivotTransform, m_pivotTransform)
-  DECLARE_SETTER(ZScale, m_zScale)
+  DECLARE_SETTER(SetProjection, m_projection)
+  DECLARE_SETTER(SetPivotTransform, m_pivotTransform)
+  DECLARE_SETTER(SetZScale, m_zScale)
 };
 }  // namespace df
