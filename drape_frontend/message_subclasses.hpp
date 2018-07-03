@@ -1053,19 +1053,16 @@ private:
 class UpdateTransitSchemeMessage : public Message
 {
 public:
-  UpdateTransitSchemeMessage(TransitDisplayInfos && transitInfos,
-                             std::vector<MwmSet::MwmId> const & visibleMwms)
-    : m_transitInfos(move(transitInfos)), m_visibleMwms(visibleMwms)
+  UpdateTransitSchemeMessage(TransitDisplayInfos && transitInfos)
+    : m_transitInfos(move(transitInfos))
   {}
 
   Type GetType() const override { return Message::UpdateTransitScheme; }
 
   TransitDisplayInfos const & GetTransitDisplayInfos() { return m_transitInfos; }
-  std::vector<MwmSet::MwmId> const & GetVisibleMwms() const { return m_visibleMwms; }
 
 private:
   TransitDisplayInfos m_transitInfos;
-  std::vector<MwmSet::MwmId> m_visibleMwms;
 };
 
 class RegenerateTransitMessage : public Message

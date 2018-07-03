@@ -436,7 +436,6 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::UpdateTransitScheme:
     {
       ref_ptr<UpdateTransitSchemeMessage> msg = message;
-      m_transitBuilder->SetVisibleMwms(msg->GetVisibleMwms());
       m_transitBuilder->UpdateSchemes(msg->GetTransitDisplayInfos(), m_texMng);
       break;
     }

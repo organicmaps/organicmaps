@@ -141,7 +141,6 @@ private:
   };
 
   GetMwmsByRectFn m_getMwmsByRectFn;
-  std::vector<MwmSet::MwmId> m_lastVisibleMwms;
   std::set<MwmSet::MwmId> m_lastActiveMwms;
   std::map<MwmSet::MwmId, CacheEntry> m_mwmCache;
   size_t m_cacheSize = 0;

@@ -21,10 +21,9 @@ class TransitSchemeRenderer
 public:
   void AddRenderData(ref_ptr<gpu::ProgramManager> mng, ref_ptr<dp::OverlayTree> tree, TransitRenderData && renderData);
 
-  bool HasRenderData(int zoomLevel) const;
+  bool IsSchemeVisible(int zoomLevel) const;
 
-  void RenderTransit(ScreenBase const & screen, int zoomLevel,
-                     ref_ptr<gpu::ProgramManager> mng,
+  void RenderTransit(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                      ref_ptr<PostprocessRenderer> postprocessRenderer,
                      dp::UniformValuesStorage const & commonUniforms);
 
@@ -60,6 +59,8 @@ private:
                   dp::UniformValuesStorage const & commonUniforms);
   void RenderStubs(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                    dp::UniformValuesStorage const & commonUniforms);
+
+  bool HasRenderData() const;
 
   uint32_t m_lastRecacheId = 0;
   std::vector<TransitRenderData> m_linesRenderData;

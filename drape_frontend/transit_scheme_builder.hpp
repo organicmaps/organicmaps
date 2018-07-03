@@ -111,8 +111,6 @@ public:
     : m_flushRenderDataFn(flushFn)
   {}
 
-  void SetVisibleMwms(std::vector<MwmSet::MwmId> const & visibleMwms);
-
   void UpdateSchemes(TransitDisplayInfos const & transitDisplayInfos, ref_ptr<dp::TextureManager> textures);
   void RebuildSchemes(ref_ptr<dp::TextureManager> textures);
 
@@ -167,7 +165,6 @@ private:
 
   using TransitSchemes = std::map<MwmSet::MwmId, MwmSchemeData>;
   TransitSchemes m_schemes;
-  std::vector<MwmSet::MwmId> m_visibleMwms;
 
   TFlushRenderDataFn m_flushRenderDataFn;
 

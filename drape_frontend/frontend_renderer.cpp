@@ -753,6 +753,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::EnableTransitScheme:
     {
       ref_ptr<EnableTransitSchemeMessage > msg = message;
+      m_transitSchemeEnabled = msg->IsEnabled();
       if (!msg->IsEnabled())
         m_transitSchemeRenderer->ClearGLDependentResources(make_ref(m_overlayTree));
       break;
@@ -1360,11 +1361,10 @@ void FrontendRenderer::RenderTransitSchemeLayer(ScreenBase const & modelView)
 {
   GLFunctions::glClear(gl_const::GLDepthBit);
   GLFunctions::glEnable(gl_const::GLDepthTest);
-  if (m_transitSchemeRenderer->HasRenderData(m_currentZoomLevel))
+  if (m_transitSchemeEnabled && m_transitSchemeRenderer->IsSchemeVisible(m_currentZoomLevel))
   {
     RenderTransitBackground();
-    GLFunctions::glEnable(gl_const::GLDepthTest);
-    m_transitSchemeRenderer->RenderTransit(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
+    m_transitSchemeRenderer->RenderTransit(modelView, make_ref(m_gpuProgramManager),
                                            make_ref(m_postprocessRenderer), m_generalUniforms);
   }
   GLFunctions::glDisable(gl_const::GLDepthTest);
@@ -1463,7 +1463,7 @@ void FrontendRenderer::BuildOverlayTree(ScreenBase const & modelView)
     for (drape_ptr<RenderGroup> & group : overlay.m_renderGroups)
       UpdateOverlayTree(modelView, group);
   }
-  if (m_transitSchemeRenderer->HasRenderData(m_currentZoomLevel) && !HasTransitRouteData())
+  if (m_transitSchemeRenderer->IsSchemeVisible(m_currentZoomLevel) && !HasTransitRouteData())
     m_transitSchemeRenderer->CollectOverlays(make_ref(m_overlayTree), modelView);
   EndUpdateOverlayTree();
 }

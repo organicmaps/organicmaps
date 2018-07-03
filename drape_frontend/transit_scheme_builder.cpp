@@ -274,11 +274,6 @@ bool FindLongerPath(routing::transit::StopId stop1Id, routing::transit::StopId s
 }
 }  // namespace
 
-void TransitSchemeBuilder::SetVisibleMwms(std::vector<MwmSet::MwmId> const & visibleMwms)
-{
-  m_visibleMwms = visibleMwms;
-}
-
 void TransitSchemeBuilder::UpdateSchemes(TransitDisplayInfos const & transitDisplayInfos,
                                          ref_ptr<dp::TextureManager> textures)
 {

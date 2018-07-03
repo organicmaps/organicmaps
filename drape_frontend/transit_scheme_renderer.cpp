@@ -27,9 +27,15 @@ float CalculateHalfWidth(ScreenBase const & screen)
 }
 }  // namespace
 
-bool TransitSchemeRenderer::HasRenderData(int zoomLevel) const
+bool TransitSchemeRenderer::IsSchemeVisible(int zoomLevel) const
 {
-  return !m_linesRenderData.empty() && zoomLevel >= kTransitSchemeMinZoomLevel;
+  return zoomLevel >= kTransitSchemeMinZoomLevel;
+}
+
+bool TransitSchemeRenderer::HasRenderData() const
+{
+  return !m_linesRenderData.empty() || !m_linesCapsRenderData.empty() || !m_markersRenderData.empty() ||
+    !m_textRenderData.empty() || !m_colorSymbolRenderData.empty();
 }
 
 void TransitSchemeRenderer::ClearGLDependentResources(ref_ptr<dp::OverlayTree> tree)
@@ -123,12 +129,12 @@ void TransitSchemeRenderer::PrepareRenderData(ref_ptr<gpu::ProgramManager> mng, 
   currentRenderData.emplace_back(std::move(newRenderData));
 }
 
-void TransitSchemeRenderer::RenderTransit(ScreenBase const & screen, int zoomLevel,
-                                          ref_ptr<gpu::ProgramManager> mng,
+void TransitSchemeRenderer::RenderTransit(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                                           ref_ptr<PostprocessRenderer> postprocessRenderer,
                                           dp::UniformValuesStorage const & commonUniforms)
 {
-  if (!HasRenderData(zoomLevel))
+  auto const zoomLevel = GetDrawTileScale(screen);
+  if (!IsSchemeVisible(zoomLevel) || !HasRenderData())
     return;
 
   float const pixelHalfWidth = CalculateHalfWidth(screen);

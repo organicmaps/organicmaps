@@ -318,6 +318,7 @@ private:
   bool m_needRestoreSize;
 
   bool m_trafficEnabled;
+  bool m_transitSchemeEnabled = false;
 
   drape_ptr<OverlaysTracker> m_overlaysTracker;
   OverlaysShowStatsCallback m_overlaysShowStatsCallback;

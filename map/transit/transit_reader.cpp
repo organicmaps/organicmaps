@@ -181,7 +181,6 @@ void TransitReadManager::EnableTransitSchemeMode(bool enable)
   m_isSchemeMode = enable;
   if (!m_isSchemeMode)
   {
-    m_lastVisibleMwms.clear();
     m_lastActiveMwms.clear();
     m_mwmCache.clear();
     m_cacheSize = 0;
@@ -200,18 +199,18 @@ void TransitReadManager::UpdateViewport(ScreenBase const & screen)
   if (!m_isSchemeMode)
     return;
 
-  if (df::GetZoomLevel(screen.GetScale()) < kMinSchemeZoomLevel)
+  if (df::GetDrawTileScale(screen) < kMinSchemeZoomLevel)
+  {
+    ChangeState(TransitSchemeState::Enabled);
     return;
+  }
 
   auto mwms = m_getMwmsByRectFn(screen.ClipRect());
-  if (m_lastVisibleMwms == mwms)
-    return;
 
-  m_lastVisibleMwms = mwms;
   m_lastActiveMwms.clear();
-
   auto const currentTime = steady_clock::now();
-  TransitDisplayInfos displayInfos;
+
+  TransitDisplayInfos newTransitData;
   for (auto const & mwmId : mwms)
   {
     if (!mwmId.IsAlive())
@@ -220,7 +219,7 @@ void TransitReadManager::UpdateViewport(ScreenBase const & screen)
     auto it = m_mwmCache.find(mwmId);
     if (it == m_mwmCache.end())
     {
-      displayInfos[mwmId] = {};
+      newTransitData[mwmId] = {};
       m_mwmCache.insert(make_pair(mwmId, CacheEntry(currentTime)));
     }
     else
@@ -228,25 +227,37 @@ void TransitReadManager::UpdateViewport(ScreenBase const & screen)
       it->second.m_lastActiveTime = currentTime;
     }
   }
-  GetTransitDisplayInfo(displayInfos);
-  if (!displayInfos.empty())
-  {
-    for (auto const & transitInfo : displayInfos)
-    {
-      if (transitInfo.second != nullptr)
-      {
-        auto it = m_mwmCache.find(transitInfo.first);
-        it->second.m_isLoaded = true;
-        it->second.m_dataSize = CalculateCacheSize(*transitInfo.second);
-        m_cacheSize += it->second.m_dataSize;
 
-      }
+  if (!newTransitData.empty())
+  {
+    GetTransitDisplayInfo(newTransitData);
+
+    TransitDisplayInfos validTransitData;
+    for (auto & transitDataItem : newTransitData)
+    {
+      auto & transitInfo = transitDataItem.second;
+      if (!transitInfo || transitInfo->m_lines.empty())
+        continue;
+
+      auto it = m_mwmCache.find(transitDataItem.first);
+
+      it->second.m_isLoaded = true;
+
+      auto const dataSize = CalculateCacheSize(*transitInfo);
+      it->second.m_dataSize = dataSize;
+      m_cacheSize += dataSize;
+
+      validTransitData[transitDataItem.first] = std::move(transitInfo);
     }
-    ShrinkCacheToAllowableSize();
-    m_drapeEngine.SafeCall(&df::DrapeEngine::UpdateTransitScheme, std::move(displayInfos), mwms);
+
+    if (!validTransitData.empty())
+    {
+      ShrinkCacheToAllowableSize();
+      m_drapeEngine.SafeCall(&df::DrapeEngine::UpdateTransitScheme, std::move(validTransitData));
+    }
   }
 
-  bool hasData = false;
+  bool hasData = m_lastActiveMwms.empty();
   for (auto const & mwmId : m_lastActiveMwms)
   {
     if (m_mwmCache.at(mwmId).m_isLoaded)
@@ -278,8 +289,6 @@ void TransitReadManager::Invalidate()
 {
   if (!m_isSchemeMode)
     return;
-
-  m_lastVisibleMwms.clear();
 
   if (m_currentModelView.second)
     UpdateViewport(m_currentModelView.first);

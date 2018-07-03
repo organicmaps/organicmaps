@@ -749,12 +749,10 @@ void DrapeEngine::ClearTransitSchemeCache(MwmSet::MwmId const & mwmId)
                                   MessagePriority::Normal);
 }
 
-void DrapeEngine::UpdateTransitScheme(TransitDisplayInfos && transitDisplayInfos,
-                                      std::vector<MwmSet::MwmId> const & visibleMwms)
+void DrapeEngine::UpdateTransitScheme(TransitDisplayInfos && transitDisplayInfos)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
-                                  make_unique_dp<UpdateTransitSchemeMessage>(std::move(transitDisplayInfos),
-                                                                             visibleMwms),
+                                  make_unique_dp<UpdateTransitSchemeMessage>(std::move(transitDisplayInfos)),
                                   MessagePriority::Normal);
 }
 
