@@ -10,6 +10,7 @@ import com.mapswithme.maps.auth.Authorizer;
 import com.mapswithme.maps.auth.TargetFragmentCallback;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.widget.BookmarkBackupView;
+import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.UiUtils;
 
 public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
@@ -62,5 +63,12 @@ public class BookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment
   public boolean isTargetAdded()
   {
     return isAdded();
+  }
+
+  @Override
+  protected void prepareBottomMenuItems(@NonNull BottomSheetHelper.Builder builder)
+  {
+    boolean isMultipleItems = getAdapter().getBookmarkCategories().size() > 1;
+    setEnableForMenuItem(R.id.set_delete, builder, isMultipleItems);
   }
 }

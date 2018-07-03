@@ -149,7 +149,7 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     showBottomMenuInternal(item);
   }
 
-  protected void showBottomMenuInternal(@NonNull BookmarkCategory item)
+  private void showBottomMenuInternal(@NonNull BookmarkCategory item)
   {
     BottomSheetHelper.Builder bs = BottomSheetHelper.create(getActivity(), item.getName())
                                                     .sheet(getCategoryMenuResId())
@@ -159,15 +159,12 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
       .setIcon(item.isVisible() ? R.drawable.ic_hide : R.drawable.ic_show)
       .setTitle(item.isVisible() ? R.string.hide : R.string.show);
 
-    boolean isMultipleItems = getAdapter().getBookmarkCategories().size() > 1;
-    boolean fromCatalog = mSelectedCategory.isFromCatalog();
-    final boolean deleteIsPossible = isMultipleItems || fromCatalog;
-    bs.getItemById(getDeleteMenuItemResId())
-      .setVisible(deleteIsPossible)
-      .setEnabled(deleteIsPossible);
+    prepareBottomMenuItems(bs);
 
     bs.tint().show();
   }
+
+  protected abstract void prepareBottomMenuItems(@NonNull BottomSheetHelper.Builder builder);
 
   @MenuRes
   protected int getCategoryMenuResId()
@@ -282,10 +279,12 @@ public abstract class BaseBookmarkCategoriesFragment extends BaseMwmRecyclerFrag
     showBottomMenu(category);
   }
 
-  @IdRes
-  protected int getDeleteMenuItemResId()
+  static void setEnableForMenuItem(@IdRes int id, @NonNull BottomSheetHelper.Builder builder,
+                                   boolean enable)
   {
-    return R.id.set_delete;
+    builder.getItemById(id)
+           .setVisible(enable)
+           .setEnabled(enable);
   }
 
   private void onSaveText(@NonNull String text)
