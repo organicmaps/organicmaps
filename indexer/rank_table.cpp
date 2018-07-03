@@ -170,7 +170,7 @@ private:
 // Following two functions create a rank section and serialize |table|
 // to it. If there was an old section with ranks, these functions
 // overwrite it.
-void SerializeRankTable(RankTable & table, FilesContainerW & wcont, std::string const & sectionName)
+void SerializeRankTable(RankTable & table, FilesContainerW & wcont, string const & sectionName)
 {
   if (wcont.IsExist(sectionName))
     wcont.DeleteSection(sectionName);
@@ -186,7 +186,7 @@ void SerializeRankTable(RankTable & table, FilesContainerW & wcont, std::string 
   wcont.Finish();
 }
 
-void SerializeRankTable(RankTable & table, string const & mapPath, std::string const & sectionName)
+void SerializeRankTable(RankTable & table, string const & mapPath, string const & sectionName)
 {
   FilesContainerW wcont(mapPath, FileWriter::OP_WRITE_EXISTING);
   SerializeRankTable(table, wcont, sectionName);
@@ -253,7 +253,7 @@ uint8_t CalcSearchRank(FeatureType const & ft)
 // Creates rank table if it does not exists in |rcont| or has wrong
 // endianness. Otherwise (table exists and has correct format) returns
 // null.
-unique_ptr<RankTable> CreateRankTableIfNotExists(FilesContainerR & rcont)
+unique_ptr<RankTable> CreateSearchRankTableIfNotExists(FilesContainerR & rcont)
 {
   unique_ptr<RankTable> table;
 
@@ -335,7 +335,7 @@ bool SearchRankTableBuilder::CreateIfNotExists(platform::LocalCountryFile const 
       mapPath = reader.GetName();
 
       FilesContainerR rcont(reader);
-      table = CreateRankTableIfNotExists(rcont);
+      table = CreateSearchRankTableIfNotExists(rcont);
     }
 
     if (table)
@@ -358,7 +358,7 @@ bool SearchRankTableBuilder::CreateIfNotExists(string const & mapPath) noexcept
     unique_ptr<RankTable> table;
     {
       FilesContainerR rcont(mapPath);
-      table = CreateRankTableIfNotExists(rcont);
+      table = CreateSearchRankTableIfNotExists(rcont);
     }
 
     if (table)
@@ -375,7 +375,7 @@ bool SearchRankTableBuilder::CreateIfNotExists(string const & mapPath) noexcept
 
 // static
 void RankTableBuilder::Create(vector<uint8_t> const & ranks, FilesContainerW & wcont,
-                              std::string const & sectionName)
+                              string const & sectionName)
 {
   RankTableV0 table(ranks);
   SerializeRankTable(table, wcont, sectionName);

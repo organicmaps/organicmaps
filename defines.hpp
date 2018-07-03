@@ -40,7 +40,7 @@
 #define CROSS_MWM_FILE_TAG "cross_mwm"
 #define FEATURE_OFFSETS_FILE_TAG "offs"
 #define SEARCH_RANKS_FILE_TAG "ranks"
-#define POPULARITY_RANKS_FILE_TAG "popularity_ranks"
+#define POPULARITY_RANKS_FILE_TAG "popularity"
 #define REGION_INFO_FILE_TAG "rgninfo"
 #define METALINES_FILE_TAG "metalines"
 // Temporary addresses section that is used in search index generation.

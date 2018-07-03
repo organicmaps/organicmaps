@@ -274,7 +274,7 @@ void Results::InsertResult(vector<Result>::iterator where, Result && result)
   m_results.insert(where, move(result));
 }
 
-std::string DebugPrint(search::Results const & results)
+string DebugPrint(search::Results const & results)
 {
   return ::my::impl::DebugPrintSequence(results.begin(), results.end());
 }

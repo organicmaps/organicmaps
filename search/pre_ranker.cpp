@@ -94,11 +94,12 @@ void PreRanker::FillMissingFieldsInPreResults()
       }
       if (!ranks)
         ranks = make_unique<DummyRankTable>();
+      if (!popularityRanks)
+        popularityRanks = make_unique<DummyRankTable>();
     }
 
     info.m_rank = ranks->Get(id.m_index);
-    if (popularityRanks)
-      info.m_popularity = popularityRanks->Get(id.m_index);
+    info.m_popularity = popularityRanks->Get(id.m_index);
 
     m2::PointD center;
     if (centers && centers->Get(id.m_index, center))

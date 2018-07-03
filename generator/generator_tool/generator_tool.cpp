@@ -127,9 +127,7 @@ DEFINE_string(booking_data, "", "Path to booking data in .tsv format.");
 DEFINE_string(opentable_data, "", "Path to opentable data in .tsv format.");
 DEFINE_string(viator_data, "", "Path to viator data in .tsv format.");
 
-// UGC
 DEFINE_string(ugc_data, "", "Input UGC source database file name");
-// Pipular places
 DEFINE_string(popular_places_data, "", "Input Popular Places source file name");
 
 // Printing stuff.

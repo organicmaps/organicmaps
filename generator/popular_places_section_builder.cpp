@@ -2,6 +2,7 @@
 
 #include "generator/gen_mwm_info.hpp"
 #include "generator/ugc_translator.hpp"
+#include "generator/utils.hpp"
 
 #include "ugc/binary/index_ugc.hpp"
 #include "ugc/binary/serdes.hpp"
@@ -14,8 +15,11 @@
 #include "base/osm_id.hpp"
 #include "base/string_utils.hpp"
 
+#include <cstdint>
+#include <limits>
 #include <unordered_map>
 #include <utility>
+#include <vector>
 
 namespace
 {
@@ -50,13 +54,14 @@ void LoadPopularPlaces(std::string const & srcFilename, PopularPlaces & places)
     if (popularityIndex > std::numeric_limits<PopularityIndex>::max())
     {
       LOG(LERROR, ("The popularity index value is higher than max supported value:", srcFilename,
-        "parsed row:", row));
+                   "parsed row:", row));
       return;
     }
-    osm::Id id(osmId);
-    auto const result = places.emplace(id, static_cast<PopularityIndex>(popularityIndex));
 
-    if (result.second == false)
+    osm::Id id(osmId);
+    auto const result = places.emplace(std::move(id), static_cast<PopularityIndex>(popularityIndex));
+
+    if (!result.second)
     {
       LOG(LERROR, ("Popular place duplication in file:", srcFilename, "parsed row:", row));
       return;
@@ -74,27 +79,28 @@ bool BuildPopularPlacesMwmSection(std::string const & srcFilename, std::string c
 
   LOG(LINFO, ("Build Popular Places section"));
 
-  gen::OsmID2FeatureID osmIdsToFeatureIds;
-  if (!osmIdsToFeatureIds.ReadFromFile(osmToFeatureFilename))
-    return false;
-
-  std::unordered_map<uint32_t, osm::Id> featureToOsmId;
-  osmIdsToFeatureIds.ForEach([&featureToOsmId](gen::OsmID2FeatureID::ValueT const & p) {
-    featureToOsmId.emplace(p.second /* feature id */, p.first /* osm id */);
-  });
+  std::unordered_map<uint32_t, osm::Id> featureIdToOsmId;
+  ForEachOsmId2FeatureId(osmToFeatureFilename,
+                         [&featureIdToOsmId](osm::Id const & osmId, uint32_t fId)
+                         {
+                           featureIdToOsmId.emplace(fId, osmId);
+                         });
 
   PopularPlaces places;
   LoadPopularPlaces(srcFilename, places);
 
   bool popularPlaceFound = false;
 
-  std::vector<uint8_t> content;
-  feature::ForEachFromDat(mwmFile, [&](FeatureType const & f, uint32_t featureId) {
-    auto const it = featureToOsmId.find(featureId);
-    CHECK(it != featureToOsmId.cend(),
+  std::vector<PopularityIndex> content;
+  feature::ForEachFromDat(mwmFile, [&](FeatureType const & f, uint32_t featureId)
+  {
+    ASSERT_EQUAL(content.size(), featureId, ());
+
+    auto const it = featureIdToOsmId.find(featureId);
+    CHECK(it != featureIdToOsmId.cend(),
           ("FeatureID", featureId, "is not found in", osmToFeatureFilename));
 
-    uint32_t rank = 0;
+    PopularityIndex rank = 0;
     auto const placesIt = places.find(it->second);
 
     if (placesIt != places.cend())

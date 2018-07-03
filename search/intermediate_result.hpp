@@ -34,7 +34,7 @@ public:
   static bool LessRank(PreRankerResult const & r1, PreRankerResult const & r2);
   static bool LessDistance(PreRankerResult const & r1, PreRankerResult const & r2);
 
-  FeatureID GetId() const { return m_id; }
+  FeatureID const & GetId() const { return m_id; }
   double GetDistance() const { return m_info.m_distanceToPivot; }
   uint8_t GetRank() const { return m_info.m_rank; }
   uint8_t GetPopularity() const { return m_info.m_popularity; }
