@@ -1384,4 +1384,10 @@
 	<string name="category_desc_more">…еще</string>
 	<string name="title_error_downloading_bookmarks">Произошла ошибка</string>
 	<string name="subtitle_error_downloading_bookmarks">Метки не были загружены</string>
+	<string name="whats_new_bookmarks_catalog_title">В MAPS.ME появился каталог маршрутов</string>
+	<string name="whats_new_bookmarks_catalog_message">Десятки подробных маршрутов по всем миру: куда сходить, что посмотреть, где поесть.</string>
+	<string name="whats_new_popularity_label_title">Популярное поблизости</string>
+	<string name="whats_new_popularity_label_message">Раздел «Чем заняться» поможет найти самые популярные места в городе.</string>
+	<string name="whats_new_hot_offers_title">Выгодные предложения отелей</string>
+	<string name="whats_new_hot_offers_message">Ищите их с помощью категории «Отели» в поиске. Предложения будут обозначены значком процента на карте и в списке.</string>
 </resources>

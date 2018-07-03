@@ -2413,3 +2413,15 @@
 "title_error_downloading_bookmarks" = "Произошла ошибка";
 
 "subtitle_error_downloading_bookmarks" = "Метки не были загружены";
+
+"whats_new_bookmarks_catalog_title" = "В MAPS.ME появился каталог маршрутов";
+
+"whats_new_bookmarks_catalog_message" = "Десятки подробных маршрутов по всем миру: куда сходить, что посмотреть, где поесть.";
+
+"whats_new_popularity_label_title" = "Популярное поблизости";
+
+"whats_new_popularity_label_message" = "Раздел «Чем заняться» поможет найти самые популярные места в городе.";
+
+"whats_new_hot_offers_title" = "Выгодные предложения отелей";
+
+"whats_new_hot_offers_message" = "Ищите их с помощью категории «Отели» в поиске. Предложения будут обозначены значком процента на карте и в списке.";
