@@ -50,7 +50,7 @@ std::string const kTransitTransferOuterColor = "TransitTransferOuterMarker";
 std::string const kTransitTransferInnerColor = "TransitTransferInnerMarker";
 std::string const kTransitStopInnerColor = "TransitStopInnerMarker";
 
-float const kTransitMarkTextSize = 12.0f;
+float const kTransitMarkTextSize = 11.0f;
 
 struct TransitStaticVertex
 {
@@ -279,7 +279,8 @@ void TransitSchemeBuilder::SetVisibleMwms(std::vector<MwmSet::MwmId> const & vis
   m_visibleMwms = visibleMwms;
 }
 
-void TransitSchemeBuilder::UpdateScheme(TransitDisplayInfos const & transitDisplayInfos)
+void TransitSchemeBuilder::UpdateSchemes(TransitDisplayInfos const & transitDisplayInfos,
+                                         ref_ptr<dp::TextureManager> textures)
 {
   for (auto const & mwmInfo : transitDisplayInfos)
   {
@@ -296,6 +297,7 @@ void TransitSchemeBuilder::UpdateScheme(TransitDisplayInfos const & transitDispl
     CollectShapes(transitDisplayInfo, scheme);
 
     PrepareScheme(scheme);
+    BuildScheme(mwmId, textures);
   }
 }
 
@@ -309,16 +311,19 @@ void TransitSchemeBuilder::Clear(MwmSet::MwmId const & mwmId)
   m_schemes.erase(mwmId);
 }
 
-void TransitSchemeBuilder::BuildScheme(ref_ptr<dp::TextureManager> textures)
+void TransitSchemeBuilder::RebuildSchemes(ref_ptr<dp::TextureManager> textures)
 {
+  for (auto const & mwmScheme : m_schemes)
+    BuildScheme(mwmScheme.first, textures);
+}
+
+void TransitSchemeBuilder::BuildScheme(MwmSet::MwmId const & mwmId, ref_ptr<dp::TextureManager> textures)
+{
+  if (m_schemes.find(mwmId) == m_schemes.end())
+    return;
   ++m_recacheId;
-  for (auto const & mwmId : m_visibleMwms)
-  {
-    if (m_schemes.find(mwmId) == m_schemes.end())
-      continue;
-    GenerateShapes(mwmId);
-    GenerateStops(mwmId, textures);
-  }
+  GenerateShapes(mwmId);
+  GenerateStops(mwmId, textures);
 }
 
 void TransitSchemeBuilder::CollectStops(TransitDisplayInfo const & transitDisplayInfo,
@@ -537,7 +542,10 @@ void TransitSchemeBuilder::GenerateShapes(MwmSet::MwmId const & mwmId)
   {
     dp::SessionGuard guard(batcher, [this, &mwmId, &scheme](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
     {
-      TransitRenderData renderData(state, m_recacheId, mwmId, scheme.m_pivot, std::move(b));
+      TransitRenderData::Type type = TransitRenderData::Type::Lines;
+      if (state.GetProgram<gpu::Program>() == gpu::Program::TransitCircle)
+        type = TransitRenderData::Type::LinesCaps;
+      TransitRenderData renderData(type, state, m_recacheId, mwmId, scheme.m_pivot, std::move(b));
       m_flushRenderDataFn(std::move(renderData));
     });
 
@@ -581,13 +589,14 @@ void TransitSchemeBuilder::GenerateStops(MwmSet::MwmId const & mwmId, ref_ptr<dp
 
   auto const flusher = [this, &mwmId, &scheme](dp::GLState const & state, drape_ptr<dp::RenderBucket> && b)
   {
-    TransitRenderData renderData(state, m_recacheId, mwmId, scheme.m_pivot, std::move(b));
+    TransitRenderData::Type type = TransitRenderData::Type::Stubs;
     if (state.GetProgram<gpu::Program>() == gpu::Program::TransitMarker)
-      m_flushMarkersRenderDataFn(std::move(renderData));
+      type = TransitRenderData::Type::Markers;
     else if (state.GetProgram<gpu::Program>() == gpu::Program::TextOutlined)
-      m_flushTextRenderDataFn(std::move(renderData));
-    else
-      m_flushStubsRenderDataFn(std::move(renderData));
+      type = TransitRenderData::Type::Text;
+
+    TransitRenderData renderData(type, state, m_recacheId, mwmId, scheme.m_pivot, std::move(b));
+    m_flushRenderDataFn(std::move(renderData));
   };
 
   uint32_t const kBatchSize = 5000;

@@ -471,33 +471,6 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::FlushTransitMarkers:
-    {
-      ref_ptr<FlushTransitMarkersMessage > msg = message;
-      auto renderData = msg->AcceptRenderData();
-      m_transitSchemeRenderer->AddMarkersRenderData(make_ref(m_gpuProgramManager), make_ref(m_overlayTree),
-                                                    std::move(renderData));
-      break;
-    }
-
-  case Message::FlushTransitText:
-    {
-      ref_ptr<FlushTransitTextMessage > msg = message;
-      auto renderData = msg->AcceptRenderData();
-      m_transitSchemeRenderer->AddTextRenderData(make_ref(m_gpuProgramManager), make_ref(m_overlayTree),
-                                                 std::move(renderData));
-      break;
-    }
-
-  case Message::FlushTransitStubs:
-    {
-      ref_ptr<FlushTransitTextMessage > msg = message;
-      auto renderData = msg->AcceptRenderData();
-      m_transitSchemeRenderer->AddStubsRenderData(make_ref(m_gpuProgramManager), make_ref(m_overlayTree),
-                                                  std::move(renderData));
-      break;
-    }
-
   case Message::FlushSubrouteArrows:
     {
       ref_ptr<FlushSubrouteArrowsMessage> msg = message;

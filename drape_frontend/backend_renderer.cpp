@@ -32,10 +32,7 @@ BackendRenderer::BackendRenderer(Params && params)
   , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model,
                                               params.m_allow3dBuildings, params.m_trafficEnabled,
                                               std::move(params.m_isUGCFn)))
-  , m_transitBuilder(make_unique_dp<TransitSchemeBuilder>(bind(&BackendRenderer::FlushTransitRenderData, this, _1),
-                                                          bind(&BackendRenderer::FlushTransitMarkersRenderData, this, _1),
-                                                          bind(&BackendRenderer::FlushTransitTextRenderData, this, _1),
-                                                          bind(&BackendRenderer::FlushTransitStubsRenderData, this, _1)))
+  , m_transitBuilder(make_unique_dp<TransitSchemeBuilder>(bind(&BackendRenderer::FlushTransitRenderData, this, _1)))
   , m_trafficGenerator(make_unique_dp<TrafficGenerator>(bind(&BackendRenderer::FlushTrafficRenderData, this, _1)))
   , m_userMarkGenerator(make_unique_dp<UserMarkGenerator>(bind(&BackendRenderer::FlushUserMarksRenderData, this, _1)))
   , m_requestedTiles(params.m_requestedTiles)
@@ -339,7 +336,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       m_texMng->OnSwitchMapStyle();
       RecacheMapShapes();
       m_trafficGenerator->InvalidateTexturesCache();
-      m_transitBuilder->BuildScheme(m_texMng);
+      m_transitBuilder->RebuildSchemes(m_texMng);
       break;
     }
 
@@ -440,14 +437,13 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<UpdateTransitSchemeMessage> msg = message;
       m_transitBuilder->SetVisibleMwms(msg->GetVisibleMwms());
-      m_transitBuilder->UpdateScheme(msg->GetTransitDisplayInfos());
-      m_transitBuilder->BuildScheme(m_texMng);
+      m_transitBuilder->UpdateSchemes(msg->GetTransitDisplayInfos(), m_texMng);
       break;
     }
 
   case Message::RegenerateTransitScheme:
     {
-      m_transitBuilder->BuildScheme(m_texMng);
+      m_transitBuilder->RebuildSchemes(m_texMng);
       break;
     }
 
@@ -669,27 +665,6 @@ void BackendRenderer::FlushTransitRenderData(TransitRenderData && renderData)
 {
   m_commutator->PostMessage(ThreadsCommutator::RenderThread,
                             make_unique_dp<FlushTransitSchemeMessage>(std::move(renderData)),
-                            MessagePriority::Normal);
-}
-
-void BackendRenderer::FlushTransitMarkersRenderData(TransitRenderData && renderData)
-{
-  m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                            make_unique_dp<FlushTransitMarkersMessage>(std::move(renderData)),
-                            MessagePriority::Normal);
-}
-
-void BackendRenderer::FlushTransitTextRenderData(TransitRenderData && renderData)
-{
-  m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                            make_unique_dp<FlushTransitTextMessage>(std::move(renderData)),
-                            MessagePriority::Normal);
-}
-
-void BackendRenderer::FlushTransitStubsRenderData(TransitRenderData && renderData)
-{
-  m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                            make_unique_dp<FlushTransitStubsMessage>(std::move(renderData)),
                             MessagePriority::Normal);
 }
 

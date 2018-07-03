@@ -21,15 +21,26 @@ extern std::vector<float> const kTransitLinesWidthInPixel;
 
 struct TransitRenderData
 {
+  enum class Type
+  {
+    LinesCaps,
+    Lines,
+    Markers,
+    Text,
+    Stubs
+  };
+
+  Type m_type;
   dp::GLState m_state;
   uint32_t m_recacheId;
   MwmSet::MwmId m_mwmId;
   m2::PointD m_pivot;
   drape_ptr<dp::RenderBucket> m_bucket;
 
-  TransitRenderData(dp::GLState const & state, uint32_t recacheId, MwmSet::MwmId const & mwmId, m2::PointD const pivot,
-                    drape_ptr<dp::RenderBucket> && bucket)
-    : m_state(state)
+  TransitRenderData(Type type, dp::GLState const & state, uint32_t recacheId, MwmSet::MwmId const & mwmId,
+                    m2::PointD const pivot, drape_ptr<dp::RenderBucket> && bucket)
+    : m_type(type)
+    , m_state(state)
     , m_recacheId(recacheId)
     , m_mwmId(mwmId)
     , m_pivot(pivot)
@@ -96,20 +107,14 @@ public:
 
   using TFlushRenderDataFn = function<void (TransitRenderData && renderData)>;
 
-  TransitSchemeBuilder(TFlushRenderDataFn const & flushFn,
-                       TFlushRenderDataFn const & flushMarkersFn,
-                       TFlushRenderDataFn const & flushTextFn,
-                       TFlushRenderDataFn const & flushStubsFn)
+  TransitSchemeBuilder(TFlushRenderDataFn const & flushFn)
     : m_flushRenderDataFn(flushFn)
-    , m_flushMarkersRenderDataFn(flushMarkersFn)
-    , m_flushTextRenderDataFn(flushTextFn)
-    , m_flushStubsRenderDataFn(flushStubsFn)
   {}
 
   void SetVisibleMwms(std::vector<MwmSet::MwmId> const & visibleMwms);
 
-  void UpdateScheme(TransitDisplayInfos const & transitDisplayInfos);
-  void BuildScheme(ref_ptr<dp::TextureManager> textures);
+  void UpdateSchemes(TransitDisplayInfos const & transitDisplayInfos, ref_ptr<dp::TextureManager> textures);
+  void RebuildSchemes(ref_ptr<dp::TextureManager> textures);
 
   void Clear();
   void Clear(MwmSet::MwmId const & mwmId);
@@ -124,6 +129,8 @@ private:
     std::map<routing::transit::StopId, StopNodeParams> m_stops;
     std::map<routing::transit::TransferId, StopNodeParams> m_transfers;
   };
+
+  void BuildScheme(MwmSet::MwmId const & mwmId, ref_ptr<dp::TextureManager> textures);
 
   void CollectStops(TransitDisplayInfo const & transitDisplayInfo,
                     MwmSet::MwmId const & mwmId, MwmSchemeData & scheme);
@@ -162,9 +169,6 @@ private:
   std::vector<MwmSet::MwmId> m_visibleMwms;
 
   TFlushRenderDataFn m_flushRenderDataFn;
-  TFlushRenderDataFn m_flushMarkersRenderDataFn;
-  TFlushRenderDataFn m_flushTextRenderDataFn;
-  TFlushRenderDataFn m_flushStubsRenderDataFn;
 
   uint32_t m_recacheId = 0;
 };

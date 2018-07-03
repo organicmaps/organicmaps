@@ -1077,15 +1077,6 @@ public:
 using FlushTransitSchemeMessage = FlushRenderDataMessage<TransitRenderData,
                                                          Message::FlushTransitScheme>;
 
-using FlushTransitMarkersMessage = FlushRenderDataMessage<TransitRenderData,
-                                                          Message::FlushTransitMarkers>;
-
-using FlushTransitTextMessage = FlushRenderDataMessage<TransitRenderData,
-                                                       Message::FlushTransitText>;
-
-using FlushTransitStubsMessage = FlushRenderDataMessage<TransitRenderData,
-                                                        Message::FlushTransitStubs>;
-
 class DrapeApiAddLinesMessage : public Message
 {
 public:

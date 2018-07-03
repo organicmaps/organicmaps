@@ -19,14 +19,7 @@ class OverlayTree;
 class TransitSchemeRenderer
 {
 public:
-  void AddRenderData(ref_ptr<gpu::ProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
-                     TransitRenderData && renderData);
-  void AddMarkersRenderData(ref_ptr<gpu::ProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
-                            TransitRenderData && renderData);
-  void AddTextRenderData(ref_ptr<gpu::ProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
-                         TransitRenderData && renderData);
-  void AddStubsRenderData(ref_ptr<gpu::ProgramManager> mng, ref_ptr<dp::OverlayTree> tree,
-                          TransitRenderData && renderData);
+  void AddRenderData(ref_ptr<gpu::ProgramManager> mng, ref_ptr<dp::OverlayTree> tree, TransitRenderData && renderData);
 
   bool HasRenderData(int zoomLevel) const;
 
@@ -59,6 +52,8 @@ private:
 
   void RenderLines(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                    dp::UniformValuesStorage const & commonUniforms, float pixelHalfWidth);
+  void RenderLinesCaps(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
+                       dp::UniformValuesStorage const & commonUniforms, float pixelHalfWidth);
   void RenderMarkers(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
                      dp::UniformValuesStorage const & commonUniforms, float pixelHalfWidth);
   void RenderText(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
@@ -67,7 +62,8 @@ private:
                    dp::UniformValuesStorage const & commonUniforms);
 
   uint32_t m_lastRecacheId = 0;
-  std::vector<TransitRenderData> m_renderData;
+  std::vector<TransitRenderData> m_linesRenderData;
+  std::vector<TransitRenderData> m_linesCapsRenderData;
   std::vector<TransitRenderData> m_markersRenderData;
   std::vector<TransitRenderData> m_textRenderData;
   std::vector<TransitRenderData> m_colorSymbolRenderData;
