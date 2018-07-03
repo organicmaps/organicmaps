@@ -27,6 +27,7 @@
     android:layout_marginLeft="@dimen/margin_double"
     android:layout_marginRight="@dimen/margin_double"
     android:visibility="gone"
+    style="@style/MwmWidget.Button.Primary"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
