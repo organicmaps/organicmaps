@@ -140,7 +140,8 @@ void TransitSchemeRenderer::RenderTransit(ScreenBase const & screen, int zoomLev
     StencilWriterGuard guard(postprocessRenderer);
     RenderText(screen, mng, commonUniforms);
   }
-  RenderStubs(screen, mng, commonUniforms);
+  // Render only for debug purpose.
+  //RenderStubs(screen, mng, commonUniforms);
 }
 
 void TransitSchemeRenderer::CollectOverlays(ref_ptr<dp::OverlayTree> tree, ScreenBase const & modelView)

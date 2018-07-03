@@ -158,8 +158,9 @@ private:
   void GenerateStop(StopNodeParams const & params, m2::PointD const & pivot,
                     std::map<routing::transit::LineId, LineParams> const & lines, dp::Batcher & batcher);
 
-  void GenerateTitles(StopNodeParams const & params, m2::PointD const & pivot, vector<m2::PointF> const & markerSizes,
-                      ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher);
+  void GenerateTitles(StopNodeParams const & params, m2::PointD const & pivot,
+                      std::vector<m2::PointF> const & markerSizes, ref_ptr<dp::TextureManager> textures,
+                      dp::Batcher & batcher);
 
   void GenerateLine(std::vector<m2::PointD> const & path, m2::PointD const & pivot, dp::Color const & colorConst,
                     float lineOffset, float halfWidth, float depth, dp::Batcher & batcher);

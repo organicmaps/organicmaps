@@ -683,7 +683,7 @@ void TransitSchemeBuilder::GenerateStop(StopNodeParams const & params, m2::Point
 }
 
 void TransitSchemeBuilder::GenerateTitles(StopNodeParams const & stopParams, m2::PointD const & pivot,
-                                          vector<m2::PointF> const & markerSizes,
+                                          std::vector<m2::PointF> const & markerSizes,
                                           ref_ptr<dp::TextureManager> textures, dp::Batcher & batcher)
 {
   auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
@@ -700,6 +700,11 @@ void TransitSchemeBuilder::GenerateTitles(StopNodeParams const & stopParams, m2:
 
   ASSERT_LESS_OR_EQUAL(priority, static_cast<uint16_t>(stopParams.m_isTransfer ? Priority::TransferMax
                                                                                : Priority::StopMax), ());
+
+  std::vector<m2::PointF> symbolSizes;
+  symbolSizes.reserve(markerSizes.size());
+  for (auto const & sz : markerSizes)
+    symbolSizes.push_back(sz * 1.1f);
 
   dp::TitleDecl titleDecl;
   titleDecl.m_primaryOptional = true;
@@ -722,7 +727,7 @@ void TransitSchemeBuilder::GenerateTitles(StopNodeParams const & stopParams, m2:
     textParams.m_specialPriority = priority;
     textParams.m_startOverlayRank = dp::OverlayRank0;
 
-    TextShape(stopParams.m_pivot, textParams, TileKey(), markerSizes, title.m_offset, dp::Center, kTransitOverlayIndex)
+    TextShape(stopParams.m_pivot, textParams, TileKey(), symbolSizes, title.m_offset, dp::Center, kTransitOverlayIndex)
       .Draw(&batcher, textures);
   }
 
