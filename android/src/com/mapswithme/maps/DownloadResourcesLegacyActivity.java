@@ -94,6 +94,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     void onFinish(int errorCode);
   }
 
+  @NonNull
   private final IntentProcessor[] mIntentProcessors = {
       new GeoIntentProcessor(),
       new HttpGe0IntentProcessor(),
@@ -101,7 +102,8 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       new MapsWithMeIntentProcessor(),
       new GoogleMapsIntentProcessor(),
       new OldLeadUrlIntentProcessor(),
-      new DeepLinkIntentProcessor(),
+      new BookmarkCatalogueIntentProcessor(),
+      new OldCoreLinkAdapterProcessor(),
       new OpenCountryTaskProcessor(),
       new KmzKmlProcessor(),
       new ShowOnMapProcessor(),
@@ -509,13 +511,13 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private class GeoIntentProcessor implements IntentProcessor
   {
     @Override
-    public boolean isSupported(Intent intent)
+    public boolean isSupported(@NonNull Intent intent)
     {
       return (intent.getData() != null && "geo".equals(intent.getScheme()));
     }
 
     @Override
-    public boolean process(Intent intent)
+    public boolean process(@NonNull Intent intent)
     {
       final String url = intent.getData().toString();
       LOGGER.i(TAG, "Query = " + url);
@@ -528,13 +530,13 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private class Ge0IntentProcessor implements IntentProcessor
   {
     @Override
-    public boolean isSupported(Intent intent)
+    public boolean isSupported(@NonNull Intent intent)
     {
       return (intent.getData() != null && "ge0".equals(intent.getScheme()));
     }
 
     @Override
-    public boolean process(Intent intent)
+    public boolean process(@NonNull Intent intent)
     {
       final String url = intent.getData().toString();
       LOGGER.i(TAG, "URL = " + url);
@@ -547,7 +549,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private class HttpGe0IntentProcessor implements IntentProcessor
   {
     @Override
-    public boolean isSupported(Intent intent)
+    public boolean isSupported(@NonNull Intent intent)
     {
       if ("http".equalsIgnoreCase(intent.getScheme()))
       {
@@ -560,7 +562,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     }
 
     @Override
-    public boolean process(Intent intent)
+    public boolean process(@NonNull Intent intent)
     {
       final Uri data = intent.getData();
       LOGGER.i(TAG, "URL = " + data.toString());
@@ -578,13 +580,13 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private class MapsWithMeIntentProcessor implements IntentProcessor
   {
     @Override
-    public boolean isSupported(Intent intent)
+    public boolean isSupported(@NonNull Intent intent)
     {
       return Const.ACTION_MWM_REQUEST.equals(intent.getAction());
     }
 
     @Override
-    public boolean process(final Intent intent)
+    public boolean process(@NonNull final Intent intent)
     {
       final String apiUrl = intent.getStringExtra(Const.EXTRA_URL);
       org.alohalytics.Statistics.logEvent("MapsWithMeIntentProcessor::process", apiUrl == null ? "null" : apiUrl);
@@ -608,14 +610,14 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private class GoogleMapsIntentProcessor implements IntentProcessor
   {
     @Override
-    public boolean isSupported(Intent intent)
+    public boolean isSupported(@NonNull Intent intent)
     {
       final Uri data = intent.getData();
       return (data != null && "maps.google.com".equals(data.getHost()));
     }
 
     @Override
-    public boolean process(Intent intent)
+    public boolean process(@NonNull Intent intent)
     {
       final String url = intent.getData().toString();
       LOGGER.i(TAG, "URL = " + url);
@@ -628,7 +630,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
   private class OldLeadUrlIntentProcessor implements IntentProcessor
   {
     @Override
-    public boolean isSupported(Intent intent)
+    public boolean isSupported(@NonNull Intent intent)
     {
       final Uri data = intent.getData();
 
@@ -644,7 +646,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     }
 
     @Override
-    public boolean process(Intent intent)
+    public boolean process(@NonNull Intent intent)
     {
       final String url = intent.getData().toString();
       LOGGER.i(TAG, "URL = " + url);
@@ -654,15 +656,53 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     }
   }
 
-  private class DeepLinkIntentProcessor implements IntentProcessor
+  private class BookmarkCatalogueIntentProcessor extends DlinkIntentProcessor
   {
-    private static final String SCHEME_HTTP = "http";
-    private static final String SCHEME_HTTPS = "https";
-    private static final String HOST = "dlink.maps.me";
+    @Override
+    boolean isLinkSupported(@NonNull Intent intent, @NonNull Uri data)
+    {
+      return "/catalogue".equals(data.getPath());
+    }
+
+    @NonNull
+    @Override
+    MapTask createMapTask(@NonNull String url)
+    {
+      return new MwmActivity.ImportBookmarkCatalogueTask(url);
+    }
+  }
+
+  private class OldCoreLinkAdapterProcessor extends DlinkIntentProcessor
+  {
     private static final String SCHEME_CORE = "mapsme";
 
     @Override
-    public boolean isSupported(Intent intent)
+    protected boolean isLinkSupported(@NonNull Intent intent, @NonNull Uri data)
+    {
+      return true;
+    }
+
+    @NonNull
+    @Override
+    protected MapTask createMapTask(@NonNull String url)
+    {
+      // Transform deeplink to the core expected format,
+      // i.e https://host/path?query -> mapsme://path?query.
+      url = url.replace(SCHEME_HTTPS, SCHEME_CORE)
+               .replace(HOST, "");
+
+      LOGGER.i(TAG, "MAPSME URL = " + url);
+      return new OpenUrlTask(url);
+    }
+  }
+
+  private abstract class DlinkIntentProcessor implements IntentProcessor
+  {
+    static final String SCHEME_HTTPS = "https";
+    static final String HOST = "dlink.maps.me";
+
+    @Override
+    public final boolean isSupported(@NonNull Intent intent)
     {
       final Uri data = intent.getData();
 
@@ -671,40 +711,41 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
       String scheme = intent.getScheme();
       String host = data.getHost();
-      if (TextUtils.isEmpty(scheme) || TextUtils.isEmpty(host))
-        return false;
 
-      return (scheme.equals(SCHEME_HTTP) || scheme.equals(SCHEME_HTTPS)) && HOST.equals(host);
+      return SCHEME_HTTPS.equals(scheme) && HOST.equals(host) && isLinkSupported(intent, data);
     }
 
+    abstract boolean isLinkSupported(@NonNull Intent intent, @NonNull Uri data);
+
     @Override
-    public boolean process(Intent intent)
+    public final boolean process(@NonNull Intent intent)
     {
+      final Uri data = intent.getData();
+      if (data == null)
+        return false;
+
       String url = intent.getData().toString();
       LOGGER.i(TAG, "HTTP deeplink = " + url);
-      // Transform deeplink to the core expected format,
-      // i.e http(s)://host/path?query -> mapsme://path?query.
-      url = url.replace(SCHEME_HTTPS, SCHEME_CORE)
-               .replace(SCHEME_HTTP, SCHEME_CORE)
-               .replace(HOST, "");
 
-      LOGGER.i(TAG, "MAPSME URL = " + url);
-      mMapTaskToForward = new OpenUrlTask(url);
+      mMapTaskToForward = createMapTask(url);
       org.alohalytics.Statistics.logEvent(this.getClass().getSimpleName() + "::process", url);
       return true;
     }
+
+    @NonNull
+    abstract MapTask createMapTask(@NonNull String url);
   }
 
   private class OpenCountryTaskProcessor implements IntentProcessor
   {
     @Override
-    public boolean isSupported(Intent intent)
+    public boolean isSupported(@NonNull Intent intent)
     {
       return intent.hasExtra(EXTRA_COUNTRY);
     }
 
     @Override
-    public boolean process(Intent intent)
+    public boolean process(@NonNull Intent intent)
     {
       String countryId = intent.getStringExtra(EXTRA_COUNTRY);
 
@@ -721,14 +762,14 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     private Uri mData;
 
     @Override
-    public boolean isSupported(Intent intent)
+    public boolean isSupported(@NonNull Intent intent)
     {
       mData = intent.getData();
       return mData != null;
     }
 
     @Override
-    public boolean process(Intent intent)
+    public boolean process(@NonNull Intent intent)
     {
       ThreadPool.getStorage().execute(new Runnable()
       {
@@ -830,13 +871,13 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     private static final String EXTRA_LON = "lon";
 
     @Override
-    public boolean isSupported(Intent intent)
+    public boolean isSupported(@NonNull Intent intent)
     {
       return ACTION_SHOW_ON_MAP.equals(intent.getAction());
     }
 
     @Override
-    public boolean process(Intent intent)
+    public boolean process(@NonNull Intent intent)
     {
       if (!intent.hasExtra(EXTRA_LAT) || !intent.hasExtra(EXTRA_LON))
         return false;
@@ -861,13 +902,13 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     private static final String EXTRA_ROUTER = "router";
 
     @Override
-    public boolean isSupported(Intent intent)
+    public boolean isSupported(@NonNull Intent intent)
     {
       return ACTION_BUILD_ROUTE.equals(intent.getAction());
     }
 
     @Override
-    public boolean process(Intent intent)
+    public boolean process(@NonNull Intent intent)
     {
       if (!intent.hasExtra(EXTRA_LAT_TO) || !intent.hasExtra(EXTRA_LON_TO))
         return false;

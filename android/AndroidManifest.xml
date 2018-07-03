@@ -176,6 +176,11 @@
         <data
           android:host="dlink.maps.me"
           android:scheme="http"/>
+
+        <data
+          android:host="dlink.maps.me"
+          android:scheme="https"
+          android:path="/catalogue"/>
       </intent-filter>
 
       <!-- API CALL -->

@@ -22,6 +22,7 @@ public class BookmarksDownloadManager
     mContext = context.getApplicationContext();
   }
 
+  @SuppressWarnings("UnusedReturnValue")
   public long enqueueRequest(@NonNull String url) throws UnprocessedUrlException
   {
     Pair<Uri, Uri> uriPair = prepareUriPair(url);
@@ -79,8 +80,10 @@ public class BookmarksDownloadManager
     return new BookmarksDownloadManager(context);
   }
 
-  static class UnprocessedUrlException extends Exception
+  public static class UnprocessedUrlException extends Exception
   {
+    private static final long serialVersionUID = -8641309036628295064L;
+
     UnprocessedUrlException(@NonNull String msg)
     {
       super(msg);
