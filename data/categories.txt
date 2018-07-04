@@ -234,27 +234,27 @@ sk:^Hotel
 fa:هتل
 
 @tourism
-en:^Sights|Attractions|3Tourism
-ru:^Достопримечательность|Туризм
+en:Attractions|3Tourism|Sights
+ru:Туризм|Достопримечательность
 ar:سياحة
 cs:Pamětihodnost
 da:Turisme|Seværdigheder|3sightseeing
 nl:Toerisme
 fi:Nähtävyydet
-fr:^Sites touristiques|Tourisme|Attraction
-de:^Sehenswürdigkeit|Attraktion|Tourismus|Touristenattraktion
-hu:^Látnivaló|Túrizmus
+fr:Tourisme|Attraction|Sites touristiques
+de:Attraktion|Tourismus|Touristenattraktion|Sehenswürdigkeit
+hu:Túrizmus|Látnivaló
 id:Pemandangan
 it:Turistico
 ja:観光
 ko:관광
 nb:Severdigheter
-pl:Osobliwości miasta|Atrakcje turystyczne
-pt:^Vistas|Turismo
-pt-BR:^Turismo|Atração
+pl:Osobliwości miasta|Atrakcje turystyczne|Turystyka|zwiedzanie
+pt:Turismo|Vistas
+pt-BR:Atração|Turismo
 ro:Obiective turistice
 es:Turismo
-sv:^Sevärdheter|Attraktion|Turism
+sv:Attraktion|Turism|Sevärdheter
 th:สถานที่ท่องเที่ยว
 tr:Görülecek yerler
 uk:Пам’ятні місця
@@ -1965,14 +1965,14 @@ it:3^Municipio
 ja:1^役場|1公会堂|1町役場
 ko:1^시청사
 nb:3^Rådhus
-pl:3^Ratusz|turystyka
+pl:3^Ratusz
 pt:3^Prefeitura
 pt-BR:3^Prefeitura|atração
 ro:3^Primărie
 es:3^Ayuntamiento
-sv:3^Rådhus|3turism
+sv:3^Rådhus
 th:3^ศาลากลางจังหวัด|การท่องเที่ยว
-tr:3^Belediye binası|3turizm
+tr:3^Belediye binası
 uk:3^Ратуша|3туризм|пам’ятні місця
 vi:3^Trung tâm thành phố
 zh-Hans:1^市政厅|旅游|景点
@@ -1998,14 +1998,14 @@ it:3^Attrattiva|3turistico
 ja:1^アトラクション|観光スポット|観光|名所|観光名所
 ko:1^관광 명소|관 광|명소|관광
 nb:3^Attraksjon|severdigheter
-pl:4^Atrakcje|zwiedzanie|turystyka|osobliwości miasta
+pl:4^Atrakcje|zwiedzanie|osobliwości miasta
 pt:3^Atração|turismo|vistas
 pt-BR:3^Atração turística|turismo|atração
 ro:3^Punct de atracție|obiective turistice
 es:3^Atracción turística|3turismo
 sv:3^Attraktion|3turism|3sevärdheter
 th:3^การท่องเที่ยว|แหล่งท่องเที่ยว|สถานที่ท่องเที่ยว
-tr:3^Cazibe merkezleri|3turizm|3görülecek yerler
+tr:3^Cazibe merkezleri|3görülecek yerler
 uk:3^Пам’ятка|визначна річ|3туризм|пам’ятні місця
 vi:3^Hấp dẫn|diểm tham quan
 zh-Hans:1^景点|旅游|景点
@@ -2031,7 +2031,7 @@ it:3^Opere d'arte
 ja:1^イラスト|1芸術作品
 ko:1^작품
 nb:^Kunstverk
-pl:3^Rzeźba|turystyka
+pl:3^Rzeźba
 pt:3^Artwork
 pt-BR:3^Obra de arte|3instalação artística|atração
 ro:3^Turism
@@ -2069,10 +2069,10 @@ pt:4^Ponto de vista
 pt-BR:4^Mirante|miradouro|atração
 ro:3^Punct de vedere
 es:3^Vista panorámica
-sv:4^Utsiktsplats|turism
+sv:4^Utsiktsplats
 th:3^จุดชมวิว|การท่องเที่ยว
-tr:3^Bakış|3turizm
-uk:4^Оглядний майданчик|4місце огляду|туризм|пам’ятка|пам’ятні місця
+tr:3^Bakış
+uk:4^Оглядний майданчик|4місце огляду|пам’ятка|пам’ятні місця
 vi:^Điểm nhìn
 zh-Hans:1^观点|旅游|景点
 zh-Hant:1^視野|景觀|景點|觀光|3旅遊景點
@@ -2171,7 +2171,7 @@ es:4^Lugar de culto|templo
 sv:4^Plats för tillbedjan|gudstjänstplats|helgedom|3tempel
 th:2^สถานที่ประกอบพิธีกรรม
 tr:4^Ibadet yerleri|3tapınak
-uk:3^Храм|пам’ятка|алтарь|мавзолей|пам’ятні місця
+uk:3^Храм|пам’ятка|алтарь|пам’ятні місця
 vi:^Chùa
 zh-Hans:1^礼拜场所|庙|景点
 zh-Hant:1^寺廟|1禱告|寺|禪寺|旅遊景點
@@ -2406,7 +2406,7 @@ fa:معبد طاوی
 
 tourism-museum|@tourism
 en:2^Museum|U+1F3A8|exhibition|gallery|tourist attraction
-ru:2^Музей|билеты|билеты музей|музей билеты|выставка|выставочный зал|экспозиция|галерея
+ru:2^Музей|билеты музей|музей билеты|выставка|выставочный зал|экспозиция|галерея
 ar:^متحف|أماكن جذابة|سياحة|مناظر
 cs:2^Muzeum|zajímavost
 da:2^Museum
@@ -2420,14 +2420,14 @@ it:2^Museo
 ja:1^博物館|美術館
 ko:1^박물관
 nb:3^Museum
-pl:2^Muzeum|turystyka|zwiedzanie
+pl:2^Muzeum|zwiedzanie
 pt:2^Museu
 pt-BR:2^Museu|atração
 ro:3^Muzeu
 es:2^Museo
 sv:2^Museum
 th:2^พิพิธภัณฑ์|แหล่งท่องเที่ยว|การท่องเที่ยว
-tr:2^Müze|cazibe merkezleri|turizm
+tr:2^Müze|cazibe merkezleri
 uk:2^Музей|пам'ятка|туризм|пам’ятні місця
 vi:3^Bảo tàng
 zh-Hans:^博物馆|景点
@@ -2472,7 +2472,7 @@ fa:ابشار
 
 historic-archaeological_site|@tourism
 en:^Archaeological Site
-ru:^Раскопки
+ru:^Раскопки|археология|археологические раскопки
 ar:^موقع أثري|أماكن جذابة|سياحة|مناظر
 cs:^Vykopávky|zajímavost
 da:^Arkæologisk sted
@@ -2493,7 +2493,7 @@ ro:^Sit arheologic
 es:^Yacimiento arqueológico
 sv:^Arkeologisk plats|fornminne
 th:^โบราณสถาน|แหล่งท่องเที่ยว|การท่องเที่ยว
-tr:^Arkeolojik alan|cazibe merkezleri|turizm
+tr:^Arkeolojik alan|cazibe merkezleri
 uk:^Розкопки|історична пам'ятка|туризм|пам’ятні місця
 vi:^Điểm khảo cổ
 zh-Hans:^考古遗址|旅游|景点
@@ -2504,8 +2504,8 @@ sw:^Machimbo ya kihistoria|kivutio|utalii
 fa:سایت باستان شناسی
 
 historic-castle|@tourism
-en:^Castle|U+1F3EF|U+1F3F0|U+1F451|U+1F478
-ru:^Замок
+en:^Castle|Palace|Fortress|U+1F3EF|U+1F3F0|U+1F451|U+1F478
+ru:^Замок|Дворец|Крепость|Кремль
 ar:^قلعة|سياحة|أماكن جذابة|مناظر
 cs:^Zámek|zajímavost
 da:^Slot|borg
@@ -2519,14 +2519,14 @@ it:^Castello
 ja:^城|お城|砦|城砦
 ko:^대저택
 nb:^Slott
-pl:3^Zamek|turystyka|zwiedzanie
+pl:3^Zamek
 pt:^Castelo
 pt-BR:^Castelo|atração
 ro:^Castel
 es:^Castillo
 sv:^Slott
 th:^ปราสาท|การท่องเที่ยว
-tr:^Kale|cazibe merkezleri|turizm
+tr:^Kale|cazibe merkezleri
 uk:^Замок|фортеця|мури|туризм|пам'ятка|пам’ятні місця
 vi:^Pháo đài
 zh-Hans:^城堡|景点|旅游
@@ -2559,7 +2559,7 @@ ro:3^Comemorare
 es:^Memorial
 sv:3^Minnesmärke|monument
 th:^ที่ระลึก
-tr:^Anıt|abide|cazibe merkezleri|turizm
+tr:^Anıt|abide|cazibe merkezleri
 uk:^Меморіал|монумент|пам'ятка|туризм|статуя|пам'ятник|пам’ятні місця
 vi:3^Đài tưởng niệm
 zh-Hans:^纪念馆|景点
@@ -2571,7 +2571,7 @@ fa:یادبود تاریخی
 
 historic-monument|@tourism
 en:^Monument|U+1F5FD|U+1F5FF
-ru:^Монумент|мавзолей|арка
+ru:^Монумент
 ar:^صرح|معالم|سياحة|مناظر
 cs:^Zajímavost|pomník|památka
 da:^Monument
@@ -2592,7 +2592,7 @@ ro:^Monument
 es:^Monumento
 sv:^Monument
 th:3^อนุสาวรีย์|การท่องเที่ยว
-tr:^Abide|cazibe merkezleri|turizm
+tr:^Abide|cazibe merkezleri
 uk:^Пам'ятник|монумент|статуя|пам'ятка|туризм|пам’ятні місця
 vi:^Tượng đài
 zh-Hans:^纪念碑|景点
@@ -2618,14 +2618,14 @@ it:^Rovine
 ja:1^古跡|古蹟|廃墟|城址|城跡
 ko:1^유적
 nb:^Ruiner
-pl:3^Ruiny|turystyka
+pl:3^Ruiny
 pt:^Ruínas
 pt-BR:^Ruínas|atração
 ro:^Ruine
 es:^Ruinas
 sv:^Ruiner
 th:^ซากปรักหักพัง|การท่องเที่ยว
-tr:^Harabeler|cazibe merkezleri|turizm
+tr:^Harabeler|cazibe merkezleri
 uk:^Руїни|розвалини|древність|історична пам'ятка|туризм|пам’ятні місця
 vi:^Phế tích
 zh-Hans:^废墟|景点
@@ -2636,12 +2636,12 @@ sw:^Maeneo ya kale|jengo la kale|chakavu
 fa:خرابه های تاریخی
 
 historic-ship|@tourism
-en:Ship
-ru:Корабль
+en:^Ship|boat
+ru:^Корабль|судно|лодка
 
 historic-tomb|@tourism
-en:Tomb
-ru:Гробница|Склеп
+en:^Tomb|grave|memorial
+ru:^Гробница|склеп|захоронение|могила|кладбище
 
 leisure-dog_park
 en:3^Dog area|Dog park
@@ -9185,16 +9185,16 @@ zh-Hans:^荒野小屋
 zh-Hant:^山屋
 
 tourism-gallery|@tourism
-en:Gallery
-ru:Галерея|Музей
+en:^Gallery|museum
+ru:^Галерея|музей|картины|картинная галерея
 
 tourism-theme_park|@tourism
-en:Theme park|Amusement park
-ru:Парк развлечений|Парк аттракционов|Тематический парк
-fr:Parc d'attractions|Parc de loisirs
-es:Parque de atracciones
-fi:Huvipuisto
-pt:Parque de diversão
+en:^Theme park|Amusement park
+ru:^Парк развлечений|Парк аттракционов|Тематический парк
+fr:^Parc d'attractions|Parc de loisirs
+es:^Parque de atracciones
+fi:^Huvipuisto
+pt:^Parque de diversão
 
 sponsored-holiday
 en:^Christmas or New Year Celebrations
