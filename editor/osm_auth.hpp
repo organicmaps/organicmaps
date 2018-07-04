@@ -116,7 +116,7 @@ private:
   /// Key and secret to sign every OAuth request.
   TKeySecret m_tokenKeySecret;
 
-  SessionID FetchSessionId(string const & subUrl = "/login") const;
+  SessionID FetchSessionId(string const & subUrl = "/login", string const & cookies = "") const;
   /// Log a user out.
   void LogoutUser(SessionID const & sid) const;
   /// Signs a user id using login and password.
@@ -126,7 +126,7 @@ private:
   /// @returns false if the social token is invalid.
   bool LoginSocial(string const & callbackPart, string const & socialToken, SessionID const & sid) const;
   /// @returns non-empty string with oauth_verifier value.
-  string SendAuthRequest(string const & requestTokenKey, SessionID const & sid) const;
+  string SendAuthRequest(string const & requestTokenKey, SessionID const & lastSid) const;
   /// @returns valid key and secret or throws otherwise.
   TRequestToken FetchRequestToken() const;
   TKeySecret FetchAccessToken(SessionID const & sid) const;

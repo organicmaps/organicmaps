@@ -118,10 +118,11 @@ TKeySecret const & OsmOAuth::GetKeySecret() const noexcept { return m_tokenKeySe
 bool OsmOAuth::IsAuthorized() const noexcept{ return IsValid(m_tokenKeySecret); }
 
 // Opens a login page and extract a cookie and a secret token.
-OsmOAuth::SessionID OsmOAuth::FetchSessionId(string const & subUrl) const
+OsmOAuth::SessionID OsmOAuth::FetchSessionId(string const & subUrl, string const & cookies) const
 {
-  string const url = m_baseUrl + subUrl + "?cookie_test=true";
+  string const url = m_baseUrl + subUrl + (cookies.empty() ? "?cookie_test=true" : "");
   HttpClient request(url);
+  request.SetCookies(cookies);
   if (!request.RunHttpRequest())
     MYTHROW(NetworkError, ("FetchSessionId Network error while connecting to", url));
   if (request.WasRedirected())
@@ -203,8 +204,11 @@ bool OsmOAuth::LoginSocial(string const & callbackPart, string const & socialTok
 }
 
 // Fakes a buttons press to automatically accept requested permissions.
-string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const & sid) const
+string OsmOAuth::SendAuthRequest(string const & requestTokenKey, SessionID const & lastSid) const
 {
+  // We have to get a new CSRF token, using existing cookies to open the correct page.
+  SessionID const & sid =
+      FetchSessionId("/oauth/authorize?oauth_token=" + requestTokenKey, lastSid.m_cookies);
   map<string, string> const params =
   {
     {"oauth_token", requestTokenKey},
