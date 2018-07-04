@@ -39,14 +39,14 @@ bool DownloadFile(string const & url,
 {
   using namespace downloader;
 
-  HttpRequest::StatusT httpStatus;
+  HttpRequest::Status httpStatus;
   bool finished = false;
 
   unique_ptr<HttpRequest> request(HttpRequest::GetFile({url}, filePath, fileSize,
                                   [&](HttpRequest & request)
   {
-    HttpRequest::StatusT const s = request.Status();
-    if (s == HttpRequest::EFailed || s == HttpRequest::ECompleted)
+    HttpRequest::Status const s = request.GetStatus();
+    if (s != HttpRequest::Status::InProgress)
     {
       httpStatus = s;
       finished = true;
@@ -56,7 +56,7 @@ bool DownloadFile(string const & url,
 
   testing::RunEventLoop();
 
-  return httpStatus == HttpRequest::ECompleted;
+  return httpStatus == HttpRequest::Status::Completed;
 }
 
 string GetCountriesTxtWebUrl(string const version)

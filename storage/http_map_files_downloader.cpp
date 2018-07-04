@@ -15,12 +15,12 @@ class ErrorHttpRequest : public downloader::HttpRequest
   string m_filePath;
 public:
   ErrorHttpRequest(string const & filePath)
-  : HttpRequest(CallbackT(), CallbackT()), m_filePath(filePath)
+  : HttpRequest(Callback(), Callback()), m_filePath(filePath)
   {
-    m_status = EFailed;
+    m_status = Status::Failed;
   }
 
-  virtual string const & Data() const { return m_filePath; }
+  virtual string const & GetData() const { return m_filePath; }
 };
 }  // anonymous namespace
 
@@ -61,7 +61,7 @@ MapFilesDownloader::TProgress HttpMapFilesDownloader::GetDownloadingProgress()
 {
   CHECK_THREAD_CHECKER(m_checker, ());
   ASSERT(nullptr != m_request, ());
-  return m_request->Progress();
+  return m_request->GetProgress();
 }
 
 bool HttpMapFilesDownloader::IsIdle()
@@ -89,14 +89,13 @@ void HttpMapFilesDownloader::OnMapFileDownloaded(TFileDownloadedCallback const &
                                                  downloader::HttpRequest & request)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
-  bool const success = request.Status() != downloader::HttpRequest::EFailed;
-  onDownloaded(success, request.Progress());
+  onDownloaded(request.GetStatus(), request.GetProgress());
 }
 
 void HttpMapFilesDownloader::OnMapFileDownloadingProgress(
     TDownloadingProgressCallback const & onProgress, downloader::HttpRequest & request)
 {
   CHECK_THREAD_CHECKER(m_checker, ());
-  onProgress(request.Progress());
+  onProgress(request.GetProgress());
 }
 }  // namespace storage

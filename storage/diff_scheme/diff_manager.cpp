@@ -137,6 +137,13 @@ void Manager::RemoveAppliedDiffs()
     m_status = Status::NotAvailable;
 }
 
+void Manager::AbortDiffScheme()
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  m_status = Status::NotAvailable;
+  m_diffs.clear();
+}
+
 bool Manager::IsPossibleToAutoupdate() const
 {
   std::lock_guard<std::mutex> lock(m_mutex);

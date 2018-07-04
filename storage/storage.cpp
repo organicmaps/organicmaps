@@ -627,7 +627,7 @@ void Storage::DownloadNextCountryFromQueue()
   if (stopDownload ||
       !PreparePlaceForCountryFiles(GetCurrentDataVersion(), m_dataDir, GetCountryFile(countryId)))
   {
-    OnMapDownloadFinished(countryId, false /* success */, queuedCountry.GetInitOptions());
+    OnMapDownloadFinished(countryId, HttpRequest::Status::Failed, queuedCountry.GetInitOptions());
     return;
   }
 
@@ -663,7 +663,8 @@ void Storage::DownloadNextFile(QueuedCountry const & country)
   // switch to next file.
   if (isDownloadedDiff || p.GetFileSizeByFullPath(readyFilePath, size))
   {
-    OnMapFileDownloadFinished(true /* success */, MapFilesDownloader::TProgress(size, size));
+    OnMapFileDownloadFinished(HttpRequest::Status::Completed,
+                              MapFilesDownloader::TProgress(size, size));
     return;
   }
 
@@ -744,7 +745,7 @@ void Storage::Unsubscribe(int slotId)
   }
 }
 
-void Storage::OnMapFileDownloadFinished(bool success,
+void Storage::OnMapFileDownloadFinished(HttpRequest::Status status,
                                         MapFilesDownloader::TProgress const & progress)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
@@ -752,6 +753,7 @@ void Storage::OnMapFileDownloadFinished(bool success,
   if (m_queue.empty())
     return;
 
+  bool const success = status == HttpRequest::Status::Completed;
   QueuedCountry & queuedCountry = m_queue.front();
   TCountryId const countryId = queuedCountry.GetCountryId();
 
@@ -773,7 +775,7 @@ void Storage::OnMapFileDownloadFinished(bool success,
                                                          std::string(nowStr));
   }
 
-  OnMapDownloadFinished(countryId, success, queuedCountry.GetInitOptions());
+  OnMapDownloadFinished(countryId, status, queuedCountry.GetInitOptions());
 }
 
 void Storage::ReportProgress(TCountryId const & countryId, MapFilesDownloader::TProgress const & p)
@@ -959,7 +961,7 @@ void Storage::RegisterDownloadedFiles(TCountryId const & countryId, MapOptions o
   fn(true);
 }
 
-void Storage::OnMapDownloadFinished(TCountryId const & countryId, bool success, MapOptions options)
+void Storage::OnMapDownloadFinished(TCountryId const & countryId, HttpRequest::Status status, MapOptions options)
 {
   CHECK_THREAD_CHECKER(m_threadChecker, ());
   ASSERT(m_didDownload != nullptr, ("Storage::Init wasn't called"));
@@ -969,14 +971,20 @@ void Storage::OnMapDownloadFinished(TCountryId const & countryId, bool success, 
   alohalytics::LogEvent(
       "$OnMapDownloadFinished",
       alohalytics::TStringMap({{"name", countryId},
-                               {"status", success ? "ok" : "failed"},
+                               {"status", status == HttpRequest::Status::Completed ? "ok" : "failed"},
                                {"version", strings::to_string(GetCurrentDataVersion())},
                                {"option", DebugPrint(options)}}));
   GetPlatform().GetMarketingService().SendMarketingEvent(marketing::kDownloaderMapActionFinished,
                                                          {{"action", "download"}});
 
-  if (!success)
+  if (status != HttpRequest::Status::Completed)
   {
+    if (status == HttpRequest::Status::FileNotFound && options == MapOptions::Diff)
+    {
+      m_diffManager.AbortDiffScheme();
+      NotifyStatusChanged(GetRootId());
+    }
+
     OnDownloadFailed(countryId);
     return;
   }

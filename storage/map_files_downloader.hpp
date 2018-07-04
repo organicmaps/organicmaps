@@ -1,5 +1,7 @@
 #pragma once
 
+#include "platform/http_request.hpp"
+
 #include "std/function.hpp"
 #include "std/string.hpp"
 
@@ -16,7 +18,7 @@ public:
   // Denotes bytes downloaded and total number of bytes.
   using TProgress = pair<int64_t, int64_t>;
 
-  using TFileDownloadedCallback = function<void(bool success, TProgress const & progress)>;
+  using TFileDownloadedCallback = function<void(downloader::HttpRequest::Status status, TProgress const & progress)>;
   using TDownloadingProgressCallback = function<void(TProgress const & progress)>;
   using TServersListCallback = function<void(vector<string> & urls)>;
 

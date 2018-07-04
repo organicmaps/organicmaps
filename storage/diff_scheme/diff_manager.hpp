@@ -38,6 +38,7 @@ public:
   bool IsPossibleToAutoupdate() const;
   bool HasDiffFor(storage::TCountryId const & countryId) const;
   void RemoveAppliedDiffs();
+  void AbortDiffScheme();
 
   Status GetStatus() const;
 

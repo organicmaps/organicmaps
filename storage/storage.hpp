@@ -271,7 +271,8 @@ private:
 
   /// Called on the main thread by MapFilesDownloader when
   /// downloading of a map file succeeds/fails.
-  void OnMapFileDownloadFinished(bool success, MapFilesDownloader::TProgress const & progress);
+  void OnMapFileDownloadFinished(downloader::HttpRequest::Status status,
+                                 MapFilesDownloader::TProgress const & progress);
 
   /// Periodically called on the main thread by MapFilesDownloader
   /// during the downloading process.
@@ -279,7 +280,9 @@ private:
 
   void RegisterDownloadedFiles(TCountryId const & countryId, MapOptions files);
 
-  void OnMapDownloadFinished(TCountryId const & countryId, bool success, MapOptions files);
+  void OnMapDownloadFinished(TCountryId const & countryId,
+                             downloader::HttpRequest::Status status,
+                             MapOptions files);
 
   /// Initiates downloading of the next file from the queue.
   void DownloadNextFile(QueuedCountry const & country);

@@ -1,5 +1,6 @@
-#import "http_thread_apple.h"
+#import "platform/http_thread_apple.h"
 
+#include "platform/http_request.hpp"
 #include "platform/http_thread_callback.hpp"
 #include "platform/platform.hpp"
 
@@ -115,7 +116,8 @@ static id<DownloadIndicatorProtocol> downloadIndicator = nil;
       ("Canceling because of redirect from", redirectResponse.URL.absoluteString.UTF8String, "to",
        request.URL.absoluteString.UTF8String));
   [connection cancel];
-  m_callback->OnFinish(-3, m_begRange, m_endRange);
+  m_callback->OnFinish(static_cast<NSHTTPURLResponse *>(redirectResponse).statusCode,
+                                    m_begRange, m_endRange);
   return nil;
 }
 
@@ -150,7 +152,7 @@ static id<DownloadIndicatorProtocol> downloadIndicator = nil;
     {
       LOG(LWARNING, ("Received invalid HTTP status code, canceling download", statusCode));
       [m_connection cancel];
-      m_callback->OnFinish(-4, m_begRange, m_endRange);
+      m_callback->OnFinish(statusCode, m_begRange, m_endRange);
       return;
     }
     else if (m_expectedSize > 0)
@@ -167,16 +169,17 @@ static id<DownloadIndicatorProtocol> downloadIndicator = nil;
         LOG(LWARNING, ("Canceling download - server replied with invalid size",
                        sizeOnServer, "!=", m_expectedSize));
         [m_connection cancel];
-        m_callback->OnFinish(-2, m_begRange, m_endRange);
+        m_callback->OnFinish(downloader::non_http_error_code::kInconsistentFileSize, m_begRange, m_endRange);
         return;
       }
     }
   }
   else
-  { // in theory, we should never be here
-    LOG(LWARNING, ("Invalid non-http response, aborting request"));
+  {
+    // In theory, we should never be here.
+    ASSERT(false, ("Invalid non-http response, aborting request"));
     [m_connection cancel];
-    m_callback->OnFinish(-1, m_begRange, m_endRange);
+    m_callback->OnFinish(downloader::non_http_error_code::kNonHttpResponse, m_begRange, m_endRange);
   }
 }
 
@@ -188,7 +191,7 @@ static id<DownloadIndicatorProtocol> downloadIndicator = nil;
   if(!m_callback->OnWrite(m_begRange + m_downloadedBytes - length, [data bytes], length))
   {
     [m_connection cancel];
-    m_callback->OnFinish(-1, m_begRange, m_endRange);
+    m_callback->OnFinish(downloader::non_http_error_code::kWriteException, m_begRange, m_endRange);
   }
 }
 
