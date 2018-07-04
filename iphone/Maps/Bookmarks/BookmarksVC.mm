@@ -227,7 +227,7 @@ CGFloat const kPinDiameter = 18.0f;
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
   auto const s = m_sections.at(indexPath.section);
-  return GetFramework().GetBookmarkManager().IsCategoryFromCatalog(m_categoryId) && s != Section::Info;
+  return !GetFramework().GetBookmarkManager().IsCategoryFromCatalog(m_categoryId) && s != Section::Info;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
