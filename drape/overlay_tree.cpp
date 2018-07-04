@@ -115,13 +115,14 @@ bool OverlayTree::IsNeedUpdate() const
   return m_frameCounter == kInvalidFrame;
 }
 
-void OverlayTree::StartOverlayPlacing(ScreenBase const & screen)
+void OverlayTree::StartOverlayPlacing(ScreenBase const & screen, int zoomLevel)
 {
   ASSERT(IsNeedUpdate(), ());
   TBase::Clear();
   m_handlesCache.clear();
   m_traits.SetModelView(screen);
   m_displacementInfo.clear();
+  m_zoomLevel = zoomLevel;
 }
 
 void OverlayTree::Remove(ref_ptr<OverlayHandle> handle)
@@ -140,6 +141,10 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
   ScreenBase const & modelView = GetModelView();
 
   handle->SetIsVisible(false);
+
+  if (m_zoomLevel < handle->GetMinVisibleScale())
+    return;
+
   handle->SetCachingEnable(true);
 
   // Skip duplicates.

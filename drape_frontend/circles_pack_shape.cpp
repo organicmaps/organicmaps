@@ -58,7 +58,7 @@ dp::BindingInfo const & GetCirclesPackDynamicBindingInfo()
 }  // namespace
 
 CirclesPackHandle::CirclesPackHandle(size_t pointsCount)
-  : OverlayHandle(FeatureID(), dp::Anchor::Center, 0, false)
+  : OverlayHandle(FeatureID(), dp::Anchor::Center, 0 /* priority */, 1 /* minVisibleScale */, false)
   , m_needUpdate(false)
 {
   m_buffer.resize(pointsCount * dp::Batcher::VertexPerQuad);

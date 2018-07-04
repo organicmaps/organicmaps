@@ -30,8 +30,9 @@ public:
                      glsl::vec2 const & pxSize, glsl::vec2 const & offset,
                      uint64_t priority, int fixedHeight,
                      ref_ptr<dp::TextureManager> textureManager, bool isOptional,
-                     gpu::TTextDynamicVertexBuffer && normals, bool isBillboard = false)
-    : TextHandle(id, text, anchor, priority, fixedHeight, textureManager, std::move(normals), isBillboard)
+                     gpu::TTextDynamicVertexBuffer && normals, int minVisibleScale, bool isBillboard)
+    : TextHandle(id, text, anchor, priority, fixedHeight, textureManager, std::move(normals), minVisibleScale,
+                 isBillboard)
     , m_pivot(glsl::ToPoint(pivot))
     , m_offset(glsl::ToPoint(offset))
     , m_size(glsl::ToPoint(pxSize))
@@ -340,6 +341,7 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
                                                                             textures,
                                                                             isOptional,
                                                                             std::move(dynamicBuffer),
+                                                                            m_params.m_minVisibleScale,
                                                                             true);
   if (m_symbolSizes.size() > 1)
     handle->SetDynamicSymbolSizes(layout, m_symbolSizes, m_symbolAnchor);
@@ -400,6 +402,7 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
                                                                             textures,
                                                                             isOptional,
                                                                             std::move(dynamicBuffer),
+                                                                            m_params.m_minVisibleScale,
                                                                             true);
   if (m_symbolSizes.size() > 1)
     handle->SetDynamicSymbolSizes(layout, m_symbolSizes, m_symbolAnchor);

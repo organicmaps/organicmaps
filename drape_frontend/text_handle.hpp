@@ -21,13 +21,13 @@ public:
   TextHandle(dp::OverlayID const & id, strings::UniString const & text,
              dp::Anchor anchor, uint64_t priority, int fixedHeight,
              ref_ptr<dp::TextureManager> textureManager,
-             bool isBillboard = false);
+             int minVisibleScale, bool isBillboard);
 
   TextHandle(dp::OverlayID const & id, strings::UniString const & text,
              dp::Anchor anchor, uint64_t priority, int fixedHeight,
              ref_ptr<dp::TextureManager> textureManager,
              gpu::TTextDynamicVertexBuffer && normals,
-             bool IsBillboard = false);
+             int minVisibleScale, bool IsBillboard);
 
   bool Update(ScreenBase const & screen) override;
 

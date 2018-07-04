@@ -64,7 +64,7 @@ public:
   bool Frame();
   bool IsNeedUpdate() const;
 
-  void StartOverlayPlacing(ScreenBase const & screen);
+  void StartOverlayPlacing(ScreenBase const & screen, int zoomLevel);
   void Add(ref_ptr<OverlayHandle> handle);
   void Remove(ref_ptr<OverlayHandle> handle);
   void EndOverlayPlacing();
@@ -117,5 +117,6 @@ private:
 
   HandlesCache m_displacers;
   uint32_t m_frameUpdatePeriod;
+  int m_zoomLevel = 1;
 };
 }  // namespace dp

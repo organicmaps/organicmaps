@@ -157,7 +157,7 @@ drape_ptr<dp::OverlayHandle> PathTextShape::CreateOverlayHandle(uint32_t textInd
   auto const priority = GetOverlayPriority(textIndex, layout->GetText().size());
   return make_unique_dp<PathTextHandle>(overlayId, m_context, m_params.m_depth,
                                         textIndex, priority, layout->GetFixedHeight(),
-                                        textures, true /* isBillboard */);
+                                        textures, m_params.m_minVisibleScale, true /* isBillboard */);
 }
 
 void PathTextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const

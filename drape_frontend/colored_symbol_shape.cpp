@@ -48,8 +48,9 @@ public:
   DynamicSquareHandle(dp::OverlayID const & id, dp::Anchor anchor, m2::PointD const & gbPivot,
                       std::vector<m2::PointF> const & pxSizes, m2::PointD const & pxOffset,
                       uint64_t priority, bool isBound, std::string const & debugStr,
-                      bool isBillboard)
-    : TBase(id, anchor, gbPivot, m2::PointD::Zero(), pxOffset, priority, isBound, debugStr, isBillboard)
+                      int minVisibleScale, bool isBillboard)
+    : TBase(id, anchor, gbPivot, m2::PointD::Zero(), pxOffset, priority, isBound, debugStr, minVisibleScale,
+            isBillboard)
     , m_pxSizes(pxSizes)
   {
     ASSERT_GREATER(pxSizes.size(), 0, ());
@@ -281,13 +282,13 @@ void ColoredSymbolShape::Draw(ref_ptr<dp::Batcher> batcher,
     {
       handle = make_unique_dp<DynamicSquareHandle>(overlayId, m_params.m_anchor, m_point, m_overlaySizes,
                                                    m2::PointD(m_params.m_offset), GetOverlayPriority(), true /* isBound */,
-                                                   debugName, true /* isBillboard */);
+                                                   debugName, m_params.m_minVisibleScale, true /* isBillboard */);
     }
     else
     {
       handle = make_unique_dp<dp::SquareHandle>(overlayId, m_params.m_anchor, m_point, m2::PointD(pixelSize),
                                                 m2::PointD(m_params.m_offset), GetOverlayPriority(), true /* isBound */,
-                                                debugName, true /* isBillboard */);
+                                                debugName, m_params.m_minVisibleScale, true /* isBillboard */);
     }
 
     if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark ||

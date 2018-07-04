@@ -13,7 +13,7 @@
 namespace gui
 {
 Handle::Handle(uint32_t id, dp::Anchor anchor, m2::PointF const & pivot, m2::PointF const & size)
-  : dp::OverlayHandle(FeatureID(MwmSet::MwmId(), id), anchor, 0, false)
+  : dp::OverlayHandle(FeatureID(MwmSet::MwmId(), id), anchor, 0 /* priority */, 1 /* minVisibleScale */, false)
   , m_pivot(glsl::ToVec2(pivot))
   , m_size(size)
 {}

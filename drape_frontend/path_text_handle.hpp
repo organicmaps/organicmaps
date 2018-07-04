@@ -52,7 +52,7 @@ public:
                  float depth, uint32_t textIndex,
                  uint64_t priority, int fixedHeight,
                  ref_ptr<dp::TextureManager> textureManager,
-                 bool isBillboard);
+                 int minVisibleScale, bool isBillboard);
 
   void BeforeUpdate() override;
   bool Update(ScreenBase const & screen) override;

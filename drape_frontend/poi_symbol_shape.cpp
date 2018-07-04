@@ -153,6 +153,7 @@ drape_ptr<dp::OverlayHandle> PoiSymbolShape::CreateOverlayHandle(m2::PointF cons
                                                                          GetOverlayPriority(),
                                                                          true /* isBound */,
                                                                          m_params.m_symbolName,
+                                                                         m_params.m_minVisibleScale,
                                                                          true /* isBillboard */);
   handle->SetPivotZ(m_params.m_posZ);
   handle->SetExtendingSize(m_params.m_extendingSize);

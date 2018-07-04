@@ -28,13 +28,14 @@ private:
 };
 
 OverlayHandle::OverlayHandle(OverlayID const & id, dp::Anchor anchor,
-                             uint64_t priority, bool isBillboard)
+                             uint64_t priority, int minVisibleScale, bool isBillboard)
   : m_id(id)
   , m_anchor(anchor)
   , m_priority(priority)
   , m_overlayRank(OverlayRank0)
   , m_extendingSize(0.0)
   , m_pivotZ(0.0)
+  , m_minVisibleScale(minVisibleScale)
   , m_isBillboard(isBillboard)
   , m_isVisible(false)
   , m_enableCaching(false)
@@ -57,6 +58,11 @@ bool OverlayHandle::IsVisible() const
 void OverlayHandle::SetIsVisible(bool isVisible)
 {
   m_isVisible = isVisible;
+}
+
+int OverlayHandle::GetMinVisibleScale() const
+{
+  return m_minVisibleScale;
 }
 
 bool OverlayHandle::IsBillboard() const
@@ -204,8 +210,8 @@ m2::RectD OverlayHandle::GetPixelRectPerspective(ScreenBase const & screen) cons
 SquareHandle::SquareHandle(OverlayID const & id, dp::Anchor anchor, m2::PointD const & gbPivot,
                            m2::PointD const & pxSize, m2::PointD const & pxOffset,
                            uint64_t priority, bool isBound, std::string const & debugStr,
-                           bool isBillboard)
-  : TBase(id, anchor, priority, isBillboard)
+                           int minVisibleScale, bool isBillboard)
+  : TBase(id, anchor, priority, minVisibleScale, isBillboard)
   , m_pxHalfSize(pxSize.x / 2.0, pxSize.y / 2.0)
   , m_gbPivot(gbPivot)
   , m_pxOffset(pxOffset)

@@ -1147,7 +1147,7 @@ void FrontendRenderer::ProcessSelection(ref_ptr<SelectObjectMessage> msg)
 void FrontendRenderer::BeginUpdateOverlayTree(ScreenBase const & modelView)
 {
   if (m_overlayTree->Frame())
-    m_overlayTree->StartOverlayPlacing(modelView);
+    m_overlayTree->StartOverlayPlacing(modelView, m_currentZoomLevel);
 }
 
 void FrontendRenderer::UpdateOverlayTree(ScreenBase const & modelView, drape_ptr<RenderGroup> & renderGroup)
