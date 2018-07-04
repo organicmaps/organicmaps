@@ -19,7 +19,6 @@ import java.util.List;
 
 public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
 {
-
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
@@ -39,13 +38,21 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
     List<BookmarksPageFactory> dataSet = getAdapterDataSet();
     BookmarksPagerAdapter adapter = new BookmarksPagerAdapter(getContext(), fm, dataSet);
     viewPager.setAdapter(adapter);
-
-    int lastVisibleScreen = SharedPropertiesUtils.getLastVisibleBookmarkCategoriesPage(getActivity());
-    viewPager.setCurrentItem(lastVisibleScreen);
+    viewPager.setCurrentItem(getInitialPage());
     tabLayout.setupWithViewPager(viewPager);
     viewPager.addOnPageChangeListener(new PageChangeListener());
 
     return root;
+  }
+
+  @Constants.CategoriesPage
+  private int getInitialPage()
+  {
+    Bundle args = getArguments();
+    if (args == null || !args.containsKey(Constants.ARG_CATEGORIES_PAGE))
+      return SharedPropertiesUtils.getLastVisibleBookmarkCategoriesPage(getActivity());
+
+    return args.getInt(Constants.ARG_CATEGORIES_PAGE);
   }
 
   @NonNull

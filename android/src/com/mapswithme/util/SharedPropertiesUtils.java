@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.Constants;
 
 import static com.mapswithme.util.Config.KEY_PREF_STATISTICS;
 
@@ -100,7 +101,8 @@ public final class SharedPropertiesUtils
                          .getInt(PREFS_BOOKMARK_CATEGORIES_LAST_VISIBLE_PAGE, 0);
   }
 
-  public static void setLastVisibleBookmarkCategoriesPage(@NonNull Context context, int pageIndex)
+  public static void setLastVisibleBookmarkCategoriesPage(@NonNull Context context,
+                                                          @Constants.CategoriesPage int pageIndex)
   {
     MwmApplication.prefs(context)
                   .edit()

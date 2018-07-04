@@ -1,5 +1,8 @@
 package com.mapswithme.maps.bookmarks;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
@@ -12,6 +15,16 @@ import com.mapswithme.util.ThemeUtils;
 
 public class BookmarkCategoriesActivity extends BaseToolbarActivity
 {
+
+  public static void start(@NonNull Context context, @Constants.CategoriesPage int categoriesPage)
+  {
+    Intent intent = new Intent(context, BookmarkCategoriesActivity.class);
+    Bundle args = new Bundle();
+    args.putInt(Constants.ARG_CATEGORIES_PAGE, categoriesPage);
+    intent.putExtras(args);
+    context.startActivity(intent);
+  }
+
   @CallSuper
   @Override
   public void onResume()

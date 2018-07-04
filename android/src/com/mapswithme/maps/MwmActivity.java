@@ -43,6 +43,7 @@ import com.mapswithme.maps.base.BaseMwmFragmentActivity;
 import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.BookmarksDownloadManager;
+import com.mapswithme.maps.bookmarks.Constants;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.FeatureId;
 import com.mapswithme.maps.bookmarks.data.MapObject;
@@ -1738,6 +1739,7 @@ public class MwmActivity extends BaseMwmFragmentActivity
       try
       {
         BookmarksDownloadManager.from(target).enqueueRequest(mUrl);
+        BookmarkCategoriesActivity.start(target, Constants.CATEGORIES_PAGE_CATALOG);
       }
       catch (BookmarksDownloadManager.UnprocessedUrlException e)
       {

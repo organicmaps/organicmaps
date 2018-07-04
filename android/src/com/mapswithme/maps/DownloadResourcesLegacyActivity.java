@@ -658,10 +658,12 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
 
   private class BookmarkCatalogueIntentProcessor extends DlinkIntentProcessor
   {
+    private static final String PATH = "/catalogue";
+
     @Override
-    boolean isLinkSupported(@NonNull Intent intent, @NonNull Uri data)
+    boolean isLinkSupported(@NonNull Uri data)
     {
-      return "/catalogue".equals(data.getPath());
+      return PATH.equals(data.getPath());
     }
 
     @NonNull
@@ -677,7 +679,7 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     private static final String SCHEME_CORE = "mapsme";
 
     @Override
-    protected boolean isLinkSupported(@NonNull Intent intent, @NonNull Uri data)
+    protected boolean isLinkSupported(@NonNull Uri data)
     {
       return true;
     }
@@ -687,12 +689,14 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
     protected MapTask createMapTask(@NonNull String url)
     {
       // Transform deeplink to the core expected format,
-      // i.e https://host/path?query -> mapsme://path?query.
-      url = url.replace(SCHEME_HTTPS, SCHEME_CORE)
-               .replace(HOST, "");
-
-      LOGGER.i(TAG, "MAPSME URL = " + url);
-      return new OpenUrlTask(url);
+      // i.e https://host/path?query -> mapsme:///path?query.
+      Uri uri = Uri.parse(url);
+      Uri.Builder builder = uri.buildUpon();
+      builder.scheme(SCHEME_CORE)
+             .authority("");
+      Uri coreUri = builder.build();
+      LOGGER.i(TAG, "MAPSME URL = " + coreUri);
+      return new OpenUrlTask(coreUri.toString());
     }
   }
 
@@ -712,10 +716,10 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       String scheme = intent.getScheme();
       String host = data.getHost();
 
-      return SCHEME_HTTPS.equals(scheme) && HOST.equals(host) && isLinkSupported(intent, data);
+      return SCHEME_HTTPS.equals(scheme) && HOST.equals(host) && isLinkSupported(data);
     }
 
-    abstract boolean isLinkSupported(@NonNull Intent intent, @NonNull Uri data);
+    abstract boolean isLinkSupported(@NonNull Uri data);
 
     @Override
     public final boolean process(@NonNull Intent intent)
