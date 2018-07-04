@@ -2,10 +2,8 @@ package com.mapswithme.maps.maplayer.subway;
 
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.R;
 import com.mapswithme.maps.content.AbstractContextualListener;
 
 public interface OnTransitSchemeChangedListener
@@ -29,10 +27,7 @@ public interface OnTransitSchemeChangedListener
         return;
 
       TransitSchemeState state = TransitSchemeState.makeInstance(index);
-      if (state != TransitSchemeState.NO_DATA)
-        return;
-
-      Toast.makeText(app, R.string.subway_data_unavailable, Toast.LENGTH_SHORT).show();
+      state.onReceived(app);
     }
   }
 }

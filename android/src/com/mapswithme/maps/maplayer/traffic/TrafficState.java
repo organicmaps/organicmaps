@@ -4,8 +4,11 @@ import android.support.annotation.IntDef;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 
+import com.mapswithme.util.statistics.Statistics;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.List;
 
 final class TrafficState
 {
@@ -24,14 +27,16 @@ final class TrafficState
 
   // These values should correspond to
   // TrafficManager::TrafficState enum (from map/traffic_manager.hpp)
-  static final int DISABLED = 0;
-  static final int ENABLED = 1;
-  static final int WAITING_DATA = 2;
-  static final int OUTDATED = 3;
-  static final int NO_DATA = 4;
-  static final int NETWORK_ERROR = 5;
-  static final int EXPIRED_DATA = 6;
-  static final int EXPIRED_APP = 7;
+  private static final int DISABLED = 0;
+  private static final int ENABLED = 1;
+  private static final int WAITING_DATA = 2;
+  private static final int OUTDATED = 3;
+  private static final int NO_DATA = 4;
+  private static final int NETWORK_ERROR = 5;
+  private static final int EXPIRED_DATA = 6;
+  private static final int EXPIRED_APP = 7;
+
+  private TrafficState() {}
 
   @MainThread
   static native void nativeSetListener(@NonNull StateChangeListener listener);
@@ -40,38 +45,120 @@ final class TrafficState
   static native void nativeDisable();
   static native boolean nativeIsEnabled();
 
-  private TrafficState() {}
-
-  static String nameOf(int state)
+  public enum Type
   {
-    switch (state)
+    DISABLED
+        {
+          @Override
+          protected void onReceivedInternal(@NonNull TrafficManager.TrafficCallback param,
+                                            @NonNull Type lastPostedState)
+          {
+            param.onDisabled();
+          }
+        },
+    ENABLED(Statistics.ParamValue.SUCCESS)
+        {
+          @Override
+          protected void onReceivedInternal(@NonNull TrafficManager.TrafficCallback param,
+                                            @NonNull Type lastPostedState)
+          {
+            param.onEnabled();
+          }
+        },
+
+    WAITING_DATA
+        {
+          @Override
+          protected void onReceivedInternal(@NonNull TrafficManager.TrafficCallback param,
+                                            @NonNull Type lastPostedState)
+          {
+            param.onWaitingData();
+          }
+        },
+    OUTDATED
+        {
+          @Override
+          protected void onReceivedInternal(@NonNull TrafficManager.TrafficCallback param,
+                                            @NonNull Type lastPostedState)
+          {
+            param.onOutdated();
+          }
+        },
+    NO_DATA(Statistics.ParamValue.UNAVAILABLE)
+        {
+          @Override
+          protected void onReceivedInternal(@NonNull TrafficManager.TrafficCallback param,
+                                            @NonNull Type lastPostedState)
+          {
+            param.onNoData(lastPostedState != NO_DATA);
+          }
+        },
+    NETWORK_ERROR(Statistics.ParamValue.ERROR)
+        {
+          @Override
+          protected void onReceivedInternal(@NonNull TrafficManager.TrafficCallback param,
+                                            @NonNull Type lastPostedState)
+          {
+            param.onNetworkError();
+          }
+        },
+    EXPIRED_DATA
+        {
+          @Override
+          protected void onReceivedInternal(@NonNull TrafficManager.TrafficCallback param,
+                                            @NonNull Type lastPostedState)
+          {
+            param.onExpiredData(lastPostedState != EXPIRED_DATA);
+          }
+        },
+    EXPIRED_APP
+        {
+          @Override
+          protected void onReceivedInternal(@NonNull TrafficManager.TrafficCallback param,
+                                            @NonNull Type lastPostedState)
+          {
+            param.onExpiredApp(lastPostedState != EXPIRED_APP);
+          }
+        };
+
+    @NonNull
+    private final String mAnalyticsParamName;
+
+    Type()
     {
-      case DISABLED:
-        return "DISABLED";
-
-      case ENABLED:
-        return "ENABLED";
-
-      case WAITING_DATA:
-        return "WAITING_DATA";
-
-      case OUTDATED:
-        return "OUTDATED";
-
-      case NO_DATA:
-        return "NO_DATA";
-
-      case NETWORK_ERROR:
-        return "NETWORK_ERROR";
-
-      case EXPIRED_DATA:
-        return "EXPIRED_DATA";
-
-      case EXPIRED_APP:
-        return "EXPIRED_APP";
-
-      default:
-        return "Unknown: " + state;
+      mAnalyticsParamName = name();
     }
+
+    Type(@NonNull String analyticsParamName)
+    {
+      mAnalyticsParamName = analyticsParamName;
+    }
+
+    @NonNull
+    private String getAnalyticsParamName()
+    {
+      return mAnalyticsParamName;
+    }
+
+    public void onReceived(@NonNull List<TrafficManager.TrafficCallback> trafficCallbacks,
+                           @NonNull Type lastPostedState)
+    {
+      for (TrafficManager.TrafficCallback callback : trafficCallbacks)
+      {
+        onReceivedInternal(callback, lastPostedState);
+        Statistics.INSTANCE.trackTrafficEvent(getAnalyticsParamName());
+      }
+    }
+
+    protected abstract void onReceivedInternal(@NonNull TrafficManager.TrafficCallback param,
+                                               @NonNull Type lastPostedState);
+  }
+
+  public static Type getType(int index)
+  {
+    if (index < 0 || index >= Type.values().length)
+      throw new IllegalArgumentException("Not found value for index = " + index);
+
+    return Type.values()[index];
   }
 }

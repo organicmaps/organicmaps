@@ -3,7 +3,6 @@ package com.mapswithme.maps.maplayer.traffic;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 
-import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
@@ -17,14 +16,16 @@ public enum TrafficManager
   private final String mTag = TrafficManager.class.getSimpleName();
   @NonNull
   private final Logger mLogger = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.TRAFFIC);
+
   @NonNull
   private final TrafficState.StateChangeListener mStateChangeListener = new TrafficStateListener();
-  @TrafficState.Value
-  private int mState = TrafficState.DISABLED;
-  @TrafficState.Value
-  private int mLastPostedState = mState;
+
+  @NonNull
+  private TrafficState.Type mState = TrafficState.Type.DISABLED;
+
   @NonNull
   private final List<TrafficCallback> mCallbacks = new ArrayList<>();
+
   private boolean mInitialized = false;
 
   public void initialize()
@@ -80,7 +81,7 @@ public enum TrafficManager
 
   private void postPendingState()
   {
-    mStateChangeListener.onTrafficStateChanged(mState);
+    mStateChangeListener.onTrafficStateChanged(mState.ordinal());
   }
 
   public void detachAll()
@@ -124,61 +125,12 @@ public enum TrafficManager
     @MainThread
     public void onTrafficStateChanged(@TrafficState.Value int state)
     {
-      mLogger.d(mTag, "onTrafficStateChanged current state = " + TrafficState.nameOf(mState)
-                + " new value = " + TrafficState.nameOf(state));
-      mState = state;
+      TrafficState.Type newTrafficState = TrafficState.getType(state);
+      mLogger.d(mTag, "onTrafficStateChanged current state = " + mState
+                      + " new value = " + newTrafficState);
 
-      iterateOverCallbacks(new Utils.Proc<TrafficCallback>()
-      {
-        @Override
-        public void invoke(@NonNull TrafficCallback callback)
-        {
-          switch (mState)
-          {
-            case TrafficState.DISABLED:
-              callback.onDisabled();
-              break;
-
-            case TrafficState.ENABLED:
-              callback.onEnabled();
-              break;
-
-            case TrafficState.WAITING_DATA:
-              callback.onWaitingData();
-              break;
-
-            case TrafficState.NO_DATA:
-              callback.onNoData(mLastPostedState != mState);
-              break;
-
-            case TrafficState.OUTDATED:
-              callback.onOutdated();
-              break;
-
-            case TrafficState.NETWORK_ERROR:
-              callback.onNetworkError();
-              break;
-
-            case TrafficState.EXPIRED_DATA:
-                callback.onExpiredData(mLastPostedState != mState);
-              break;
-
-            case TrafficState.EXPIRED_APP:
-                callback.onExpiredApp(mLastPostedState != mState);
-              break;
-
-            default:
-              throw new IllegalArgumentException("Unsupported traffic state: " + mState);
-          }
-          mLastPostedState = mState;
-        }
-      });
-    }
-
-    private void iterateOverCallbacks(@NonNull Utils.Proc<TrafficCallback> proc)
-    {
-      for (TrafficCallback callback : mCallbacks)
-        proc.invoke(callback);
+      newTrafficState.onReceived(mCallbacks, mState);
+      mState = newTrafficState;
     }
   }
 
