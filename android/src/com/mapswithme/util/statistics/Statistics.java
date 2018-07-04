@@ -310,9 +310,7 @@ public enum Statistics
     public static class Settings
     {
       public static final String WEB_SITE = "Setings. Go to website";
-      public static final String WEB_BLOG = "Setings. Go to blog";
       public static final String FEEDBACK_GENERAL = "Send general feedback to android@maps.me";
-      public static final String SUBSCRIBE = "Settings. Subscribed";
       public static final String REPORT_BUG = "Settings. Bug reported";
       public static final String RATE = "Settings. Rate app called";
       public static final String TELL_FRIEND = "Settings. Tell to friend";

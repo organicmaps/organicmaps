@@ -22,9 +22,7 @@ public class AlohaHelper
   public static class Settings
   {
     public static final String WEB_SITE = "webSite";
-    public static final String WEB_BLOG = "webBlog";
     public static final String FEEDBACK_GENERAL = "generalFeedback";
-    public static final String MAIL_SUBSCRIBE = "subscribeToNews";
     public static final String REPORT_BUG = "reportABug";
     public static final String RATE = "rate";
     public static final String TELL_FRIEND = "tellFriend";
