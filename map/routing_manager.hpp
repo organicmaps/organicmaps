@@ -225,16 +225,16 @@ public:
   /// false otherwise.
   bool HasRouteAltitude() const;
 
-  /// \brief Fills altitude of current route points and distance form the beginning in meters
-  /// of the route point.
-  bool GetRouteAltitudesAndDistancesM(vector<double> & segDistanceM,
+  /// \brief Fills altitude of current route points and distance in meters form the beginning
+  /// of the route point based on the route in RoutingSession.
+  bool GetRouteAltitudesAndDistancesM(std::vector<double> & routePointDistanceM,
                                       feature::TAltitudes & altitudes) const;
 
   /// \brief Generates 4 bytes per point image (RGBA) and put the data to |imageRGBAData|.
   /// \param width is width of chart shall be generated in pixels.
   /// \param height is height of chart shall be generated in pixels.
   /// \param altitudes route points altitude.
-  /// \param segDistance distance in meters from route beginning to end of segments.
+  /// \param routePointDistanceM distance in meters from route beginning to route points.
   /// \param imageRGBAData is bits of result image in RGBA.
   /// \param minRouteAltitude is min altitude along the route in altitudeUnits.
   /// \param maxRouteAltitude is max altitude along the route in altitudeUnits.
@@ -246,7 +246,7 @@ public:
   /// could return false if route was deleted or rebuilt between the calls.
   bool GenerateRouteAltitudeChart(uint32_t width, uint32_t height,
                                   feature::TAltitudes const & altitudes,
-                                  vector<double> const & segDistance,
+                                  std::vector<double> const & routePointDistanceM,
                                   std::vector<uint8_t> & imageRGBAData, int32_t & minRouteAltitude,
                                   int32_t & maxRouteAltitude,
                                   measurement_utils::Units & altitudeUnits) const;

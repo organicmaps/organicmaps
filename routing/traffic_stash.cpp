@@ -3,7 +3,6 @@
 #include "base/checked_cast.hpp"
 
 #include <map>
-#include <utility>
 
 namespace routing
 {
