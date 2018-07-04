@@ -8,21 +8,6 @@ import com.mapswithme.maps.R;
 
 public enum BookmarksPageFactory
 {
-  CATALOG(new AdapterResourceProvider.Catalog())
-      {
-        @NonNull
-        @Override
-        public Fragment instantiateFragment()
-        {
-          return new CachedBookmarkCategoriesFragment();
-        }
-
-        @Override
-        public int getTitle()
-        {
-          return R.string.bookmarks_page_downloaded;
-        }
-      },
   PRIVATE
       {
         @NonNull
@@ -36,6 +21,21 @@ public enum BookmarksPageFactory
         public int getTitle()
         {
           return R.string.bookmarks_page_my;
+        }
+      },
+  CATALOG(new AdapterResourceProvider.Catalog())
+      {
+        @NonNull
+        @Override
+        public Fragment instantiateFragment()
+        {
+          return new CachedBookmarkCategoriesFragment();
+        }
+
+        @Override
+        public int getTitle()
+        {
+          return R.string.bookmarks_page_downloaded;
         }
       };
 

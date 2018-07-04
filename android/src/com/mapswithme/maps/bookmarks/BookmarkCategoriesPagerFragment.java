@@ -19,6 +19,8 @@ import java.util.List;
 
 public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
 {
+  final static String ARG_CATEGORIES_PAGE = "arg_categories_page";
+
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
@@ -38,27 +40,30 @@ public class BookmarkCategoriesPagerFragment extends BaseMwmFragment
     List<BookmarksPageFactory> dataSet = getAdapterDataSet();
     BookmarksPagerAdapter adapter = new BookmarksPagerAdapter(getContext(), fm, dataSet);
     viewPager.setAdapter(adapter);
-    viewPager.setCurrentItem(getInitialPage());
+    viewPager.setCurrentItem(saveAndGetInitialPage());
     tabLayout.setupWithViewPager(viewPager);
     viewPager.addOnPageChangeListener(new PageChangeListener());
 
     return root;
   }
 
-  @Constants.CategoriesPage
-  private int getInitialPage()
+  private int saveAndGetInitialPage()
   {
     Bundle args = getArguments();
-    if (args == null || !args.containsKey(Constants.ARG_CATEGORIES_PAGE))
-      return SharedPropertiesUtils.getLastVisibleBookmarkCategoriesPage(getActivity());
+    if (args != null && args.containsKey(ARG_CATEGORIES_PAGE))
+    {
+      int page = args.getInt(ARG_CATEGORIES_PAGE);
+      SharedPropertiesUtils.setLastVisibleBookmarkCategoriesPage(getActivity(), page);
+      return page;
+    }
 
-    return args.getInt(Constants.ARG_CATEGORIES_PAGE);
+    return SharedPropertiesUtils.getLastVisibleBookmarkCategoriesPage(getActivity());
   }
 
   @NonNull
   private static List<BookmarksPageFactory> getAdapterDataSet()
   {
-    return Arrays.asList(BookmarksPageFactory.PRIVATE, BookmarksPageFactory.CATALOG);
+    return Arrays.asList(BookmarksPageFactory.values());
   }
 
   private class PageChangeListener extends ViewPager.SimpleOnPageChangeListener

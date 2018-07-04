@@ -691,10 +691,9 @@ public class DownloadResourcesLegacyActivity extends BaseMwmFragmentActivity
       // Transform deeplink to the core expected format,
       // i.e https://host/path?query -> mapsme:///path?query.
       Uri uri = Uri.parse(url);
-      Uri.Builder builder = uri.buildUpon();
-      builder.scheme(SCHEME_CORE)
-             .authority("");
-      Uri coreUri = builder.build();
+      Uri coreUri = uri.buildUpon()
+                       .scheme(SCHEME_CORE)
+                       .authority("").build();
       LOGGER.i(TAG, "MAPSME URL = " + coreUri);
       return new OpenUrlTask(coreUri.toString());
     }

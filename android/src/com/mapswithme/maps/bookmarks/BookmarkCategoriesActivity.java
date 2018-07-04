@@ -16,11 +16,11 @@ import com.mapswithme.util.ThemeUtils;
 public class BookmarkCategoriesActivity extends BaseToolbarActivity
 {
 
-  public static void start(@NonNull Context context, @Constants.CategoriesPage int categoriesPage)
+  public static void start(@NonNull Context context, int initialPage)
   {
     Intent intent = new Intent(context, BookmarkCategoriesActivity.class);
     Bundle args = new Bundle();
-    args.putInt(Constants.ARG_CATEGORIES_PAGE, categoriesPage);
+    args.putInt(BookmarkCategoriesPagerFragment.ARG_CATEGORIES_PAGE, initialPage);
     intent.putExtras(args);
     context.startActivity(intent);
   }
