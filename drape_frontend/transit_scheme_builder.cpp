@@ -24,6 +24,8 @@ using namespace std;
 
 namespace df
 {
+int const kTransitSchemeMinZoomLevel = 10;
+float const kTransitLineHalfWidth = 0.8f;
 std::vector<float> const kTransitLinesWidthInPixel =
 {
   // 1   2     3     4     5     6     7     8     9    10
@@ -34,15 +36,19 @@ std::vector<float> const kTransitLinesWidthInPixel =
 
 namespace
 {
-float const kBaseLineDepth = 0.0f;
-float const kDepthPerLine = 1.0f;
-float const kBaseMarkerDepth = 300.0f;
-float const kBaseTitleDepth = 400.0f;
+float constexpr kBaseLineDepth = 0.0f;
+float constexpr kDepthPerLine = 1.0f;
+float constexpr kBaseMarkerDepth = 300.0f;
+float constexpr kBaseTitleDepth = 400.0f;
+int constexpr kFinalStationMinZoomLevel = 10;
+int constexpr kTransferMinZoomLevel = 11;
+int constexpr kStopMinZoomLevel = 12;
+uint16_t constexpr kFinalStationPriorityInc = 2;
 
-float const kOuterMarkerDepth = kBaseMarkerDepth + 0.5f;
-float const kInnerMarkerDepth = kBaseMarkerDepth + 1.0f;
-uint32_t const kTransitStubOverlayIndex = 1000;
-uint32_t const kTransitOverlayIndex = 1001;
+float constexpr kOuterMarkerDepth = kBaseMarkerDepth + 0.5f;
+float constexpr kInnerMarkerDepth = kBaseMarkerDepth + 1.0f;
+uint32_t constexpr kTransitStubOverlayIndex = 1000;
+uint32_t constexpr kTransitOverlayIndex = 1001;
 
 std::string const kTransitMarkText = "TransitMarkPrimaryText";
 std::string const kTransitMarkTextOutline = "TransitMarkPrimaryTextOutline";
@@ -690,8 +696,16 @@ void TransitSchemeBuilder::GenerateTitles(StopNodeParams const & stopParams, m2:
   auto const featureId = stopParams.m_stopsInfo.begin()->second.m_featureId;
 
   auto priority = static_cast<uint16_t>(stopParams.m_isTransfer ? Priority::TransferMin : Priority::StopMin);
-  auto const finalStationPriorityInc = static_cast<uint16_t>(stopParams.m_shapesInfo.size() == 1 ? 2 : 0);
-  priority += static_cast<uint16_t>(stopParams.m_stopsInfo.size()) + finalStationPriorityInc;
+  priority += static_cast<uint16_t>(stopParams.m_stopsInfo.size());
+
+  auto minVisibleScale = stopParams.m_isTransfer ? kTransferMinZoomLevel : kStopMinZoomLevel;
+
+  bool const isFinalStation = stopParams.m_shapesInfo.size() == 1;
+  if (isFinalStation)
+  {
+    minVisibleScale = std::min(minVisibleScale, kFinalStationMinZoomLevel);
+    priority += kFinalStationPriorityInc;
+  }
 
   ASSERT_LESS_OR_EQUAL(priority, static_cast<uint16_t>(stopParams.m_isTransfer ? Priority::TransferMax
                                                                                : Priority::StopMax), ());
@@ -721,6 +735,7 @@ void TransitSchemeBuilder::GenerateTitles(StopNodeParams const & stopParams, m2:
     textParams.m_specialDisplacement = SpecialDisplacement::TransitScheme;
     textParams.m_specialPriority = priority;
     textParams.m_startOverlayRank = dp::OverlayRank0;
+    textParams.m_minVisibleScale = minVisibleScale;
 
     TextShape(stopParams.m_pivot, textParams, TileKey(), symbolSizes, title.m_offset, dp::Center, kTransitOverlayIndex)
       .Draw(&batcher, textures);

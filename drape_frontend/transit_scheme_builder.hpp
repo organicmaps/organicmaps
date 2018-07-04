@@ -14,9 +14,8 @@
 
 namespace df
 {
-int constexpr kTransitSchemeMinZoomLevel = 10;
-float constexpr kTransitLineHalfWidth = 0.8f;
-
+extern int const kTransitSchemeMinZoomLevel;
+extern float const kTransitLineHalfWidth;
 extern std::vector<float> const kTransitLinesWidthInPixel;
 
 struct TransitRenderData
