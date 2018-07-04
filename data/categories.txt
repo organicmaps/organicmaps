@@ -234,27 +234,27 @@ sk:^Hotel
 fa:هتل
 
 @tourism
-en:Sights
-ru:Достопримечательность
+en:^Sights|Attractions|3Tourism
+ru:^Достопримечательность|Туризм
 ar:سياحة
 cs:Pamětihodnost
-da:Turisme|Seværdigheder
+da:Turisme|Seværdigheder|3sightseeing
 nl:Toerisme
 fi:Nähtävyydet
-fr:Site touristique
-de:Sehenswürdigkeit
-hu:Látnivaló
+fr:^Sites touristiques|Tourisme|Attraction
+de:^Sehenswürdigkeit|Attraktion|Tourismus|Touristenattraktion
+hu:^Látnivaló|Túrizmus
 id:Pemandangan
 it:Turistico
 ja:観光
 ko:관광
 nb:Severdigheter
 pl:Osobliwości miasta|Atrakcje turystyczne
-pt:Vistas
-pt-BR:Turismo
+pt:^Vistas|Turismo
+pt-BR:^Turismo|Atração
 ro:Obiective turistice
 es:Turismo
-sv:Sevärdheter
+sv:^Sevärdheter|Attraktion|Turism
 th:สถานที่ท่องเที่ยว
 tr:Görülecek yerler
 uk:Пам’ятні місця
@@ -1950,14 +1950,14 @@ sw:^Teksi|usafiri
 fa:^تاکسی|اژانس
 
 amenity-townhall|@tourism
-en:3^Town Hall|3tourism
-ru:3^Ратуша|3туризм|достопримечательность
+en:3^Town Hall
+ru:3^Ратуша
 ar:^مبنى البلدية|مناظر|سياحة
 cs:3^Radnice
-da:3^Rådhus|3sightseeing
+da:3^Rådhus
 nl:3^Gemeentehuis
 fi:^Kaupungintalo
-fr:3^Mairie|3tourisme
+fr:3^Mairie
 de:3^Rathaus
 hu:3^Városháza
 id:3^Balai kota
@@ -1966,7 +1966,7 @@ ja:1^役場|1公会堂|1町役場
 ko:1^시청사
 nb:3^Rådhus
 pl:3^Ratusz|turystyka
-pt:3^Prefeitura|turismo
+pt:3^Prefeitura
 pt-BR:3^Prefeitura|atração
 ro:3^Primărie
 es:3^Ayuntamiento
@@ -1982,15 +1982,15 @@ sk:3^Radnica|3pamiatka
 sw:^Ukumbi|utalii
 fa:شهرداری
 
-tourism-attraction
-en:3^Attraction|3tourism|3sights|U+1F3A0|U+1F3A1|U+1F3A2|U+1F3AA
-ru:4^Достопримечательность|3туризм|3аттракцион
+tourism-attraction|@tourism
+en:3^Attraction|U+1F3A0|U+1F3A1|U+1F3A2|U+1F3AA
+ru:4^Достопримечательность|3аттракцион
 ar:^أماكن جذابة|سياحة|مناظر
 cs:3^Atrakce|3pamětihodnost|3zajímavost
 da:3^Attraktioner|3turisme|3sightseeing|3seværdigheder
 nl:3^Attractie|3toerisme
 fi:3^Nähtävyys
-fr:3^Attraction|3tourisme|3site touristique
+fr:3^Attraction|3site touristique
 de:3^Attraktion|3Sehenswürdigkeit
 hu:3^Látnivaló|3kirándulás|3látványosság
 id:3^Atraksi|pemandangan
@@ -2016,14 +2016,14 @@ sw:^Kivutio|utalii
 fa:جاذبه گردشگری
 
 tourism-artwork|@tourism
-en:3^Artwork|3tourism|U+1F3A8
-ru:3^Произведение искусства|3туризм|3скульптура|достопримечательность
+en:3^Artwork|U+1F3A8
+ru:3^Произведение искусства|3скульптура
 ar:^عمل فني|سياحة
 cs:3^Umělecké dílo
-da:3^Kunstværk|3sightseeing
+da:3^Kunstværk
 nl:3^Kunstwerk
 fi:^Taideteos
-fr:3^Œuvre|3oeuvre|3art|3tourisme
+fr:3^Œuvre|3oeuvre|3art
 de:3^Kunstwerk
 hu:3^Szobor|Műalkotás
 id:3^Pariwisata
@@ -2032,7 +2032,7 @@ ja:1^イラスト|1芸術作品
 ko:1^작품
 nb:^Kunstverk
 pl:3^Rzeźba|turystyka
-pt:3^Artwork|turismo
+pt:3^Artwork
 pt-BR:3^Obra de arte|3instalação artística|atração
 ro:3^Turism
 es:3^Obras de arte
@@ -2049,23 +2049,23 @@ sw:^Kazi ya kisanaa|utalii
 fa:اثارهنری
 
 tourism-viewpoint|@tourism
-en:4^Viewpoint|tourism
-ru:4^Обзорная площадка|туризм|достопримечательность
+en:4^Viewpoint
+ru:4^Обзорная площадка
 ar:^أماكن مشاهدة سياحية|سياحة|مناظر
 cs:3^Vyhlídka|zajímavost
 da:^Udsigtspunkt|sightseeing
 nl:4^Uitzicht|panorama
 fi:3^Näköalatasanne
-fr:4^Belvédère|4point de vue|4panorama|tourisme
+fr:4^Belvédère|4point de vue|4panorama
 de:3^Panorama|Ausblick|Aussichtspunkt
-hu:4^Kilátó|kirándulás|látványosság|túrizmus
+hu:4^Kilátó|kirándulás|látványosság
 id:^Titik pandang
 it:3^Panorama
 ja:1^観光スポット|見どころ|名所|観光名所
 ko:1^관점|관 광|명소
 nb:3^Utsiktspunkt
 pl:3^Punkt widokowy|widok|krajobraz
-pt:4^Ponto de vista|turismo
+pt:4^Ponto de vista
 pt-BR:4^Mirante|miradouro|atração
 ro:3^Punct de vedere
 es:3^Vista panorámica
@@ -2083,7 +2083,7 @@ fa:مناظرگردشگری
 
 tourism-information|@tourism
 en:4^Tourist Information|4information|U+1F481
-ru:4^Туринформация|информация|достопримечательность
+ru:4^Туринформация|информация
 ar:^معلومات سياحية|معلومات|سياحة|مناظر
 cs:4^Infocentrum|4turistické informace|Íčko
 da:4^Turistinformation|turistinformation|4information
@@ -2149,7 +2149,7 @@ fa:مکان پیک نیک
 
 amenity-place_of_worship|@tourism
 en:4^Place of Worship|3temple|U+1F64F
-ru:3^Храм|достопримечательность
+ru:3^Храм
 ar:1^مكان عبادة|معبد
 cs:4^Posvátné místo|3chrám
 da:3^Tempel|3kultsted
@@ -2182,7 +2182,7 @@ fa:معبد
 
 amenity-place_of_worship-christian|@tourism
 en:^Church|place of worship|temple|U+1F64F|U+26EA|U+271D|U+2626
-ru:^Храм|костел|церковь|собор|достопримечательность
+ru:^Храм|костел|церковь|собор
 ar:^كنيسة|مكان عبادة|معبد
 cs:^Chrám|kostel|posvátné místo
 da:^Kirke|tempel|kultsted
@@ -2214,7 +2214,7 @@ fa:کلیسا
 
 amenity-place_of_worship-muslim|@tourism
 en:^Mosque|tekke|place of worship|temple|U+1F64F|U+262A|U+1F54B|U+1F54C|U+262A
-ru:^Мечеть|храм|достопримечательность
+ru:^Мечеть|храм
 ar:^مسجد|جامع|مكان عبادة|مسلم|معبد
 cs:^Mešita|chrám|posvátné místo
 da:^Moske|tempel|kultsted
@@ -2246,7 +2246,7 @@ fa:مسجد
 
 amenity-place_of_worship-buddhist|@tourism
 en:^Temple|place of worship|U+1F64F|U+26EA|U+2638
-ru:^Храм|достопримечательность
+ru:^Храм
 ar:^معبد بوذي|مكان عبادة|بوذا|معبد
 cs:^Chrám|posvátné místo
 da:^Tempel|kultsted
@@ -2278,7 +2278,7 @@ fa:معبد بودا
 
 amenity-place_of_worship-hindu|@tourism
 en:^Temple|place of worship|U+1F64F|U+1F549
-ru:^Храм|достопримечательность
+ru:^Храм
 ar:^معبد هندوسي|مكان عبادة|معبد
 cs:^Chrám|posvátné místo
 da:^Tempel|kultsted
@@ -2310,7 +2310,7 @@ fa:معبد هندو
 
 amenity-place_of_worship-shinto|@tourism
 en:^Shrine|place of worship|temple|U+1F64F|U+26E9
-ru:^Святилище|храм|достопримечательность
+ru:^Святилище|храм
 ar:^معبد شنتو|مكان عبادة|معبد
 cs:^Posvátné místo|chrám
 da:^Helligdom|tempel|kultsted
@@ -2342,7 +2342,7 @@ fa:معبد شنتو
 
 amenity-place_of_worship-jewish|@tourism
 en:^Synagogue|place of worship|temple|U+1F64F|U+1F54D|U+2721
-ru:^Синагога|храм|достопримечательность
+ru:^Синагога|храм
 ar:^معبد يهودي|مكان عبادة|معبد
 cs:^Synagoga|chrám|posvátné místo
 da:^Synagoge|tempel|kultsted
@@ -2374,7 +2374,7 @@ fa:کنیسه
 
 amenity-place_of_worship-taoist|@tourism
 en:^Temple|place of worship|U+1F64F|U+262F
-ru:^Храм|достопримечательность
+ru:^Храм
 ar:^معبد طاوي|مكان عبادة|معبد
 cs:^Chrám|posvátné místo
 da:^Tempel|kultsted
@@ -2405,27 +2405,27 @@ sk:^Chrám|svätyňa|posvätné miesto
 fa:معبد طاوی
 
 tourism-museum|@tourism
-en:2^Museum|attraction|tourism|U+1F3A8|exhibition|gallery|sight|tourist attraction
-ru:2^Музей|билеты|билеты музей|музей билеты|достопримечательность|выставка|выставочный зал|экспозиция|галерея
+en:2^Museum|U+1F3A8|exhibition|gallery|tourist attraction
+ru:2^Музей|билеты|билеты музей|музей билеты|выставка|выставочный зал|экспозиция|галерея
 ar:^متحف|أماكن جذابة|سياحة|مناظر
 cs:2^Muzeum|zajímavost
-da:2^Museum|attraktioner
+da:2^Museum
 nl:2^Museum|attractie
 fi:3^Museo
-fr:2^Musée|attraction|tourisme
-de:2^Museum|Attraktion|Tourismus|Ausstellung|Galerie|Sehenswürdigkeit|Touristenattraktion
-hu:2^Múzeum|túrizmus|látványosság
+fr:2^Musée
+de:2^Museum|Ausstellung|Galerie|Sehenswürdigkeit
+hu:2^Múzeum|látványosság
 id:3^Museum
 it:2^Museo
 ja:1^博物館|美術館
 ko:1^박물관
 nb:3^Museum
 pl:2^Muzeum|turystyka|zwiedzanie
-pt:2^Museu|turismo
-pt-BR:2^Museu|turismo|atração
+pt:2^Museu
+pt-BR:2^Museu|atração
 ro:3^Muzeu
 es:2^Museo
-sv:2^Museum|attraktion|tursim
+sv:2^Museum
 th:2^พิพิธภัณฑ์|แหล่งท่องเที่ยว|การท่องเที่ยว
 tr:2^Müze|cazibe merkezleri|turizm
 uk:2^Музей|пам'ятка|туризм|пам’ятні місця
@@ -2439,7 +2439,7 @@ fa:موزه
 
 waterway-waterfall|@tourism
 en:2^Waterfall
-ru:2^Водопад|достопримечательность
+ru:2^Водопад
 ar:^شلال|مناظر|سياحة
 cs:2^Vodopád|zajímavost
 da:2^Vandfald
@@ -2455,7 +2455,7 @@ ko:1^폭포
 nb:3^Foss
 pl:2^Wodospad
 pt:2^Cachoeira
-pt-BR:2^Cachoeira|atração|turismo
+pt-BR:2^Cachoeira
 ro:3^Cascadă
 es:3^Cascada
 sv:2^Vattenfall
@@ -2470,28 +2470,94 @@ sk:2^Vodopád
 sw:^Maporomoko ya maji
 fa:ابشار
 
+historic-archaeological_site|@tourism
+en:^Archaeological Site
+ru:^Раскопки
+ar:^موقع أثري|أماكن جذابة|سياحة|مناظر
+cs:^Vykopávky|zajímavost
+da:^Arkæologisk sted
+nl:^Archeologische site|opgravingen|attractie
+fi:^Arkeologinen kohde
+fr:^Site archéologique
+de:^Ausgrabungen
+hu:^Ásatás|látványosság
+id:^Situs arkeologi
+it:^Sito archeologico
+ja:1^考古遺跡|発掘|発掘現場|考古学|遺跡
+ko:1^발굴
+nb:^Arkeologisk område
+pl:5^Odkrywka archeologiczna|wykopaliska
+pt:^Sítio arqueológico
+pt-BR:^Sítio arqueológico|atração
+ro:^Sit arheologic
+es:^Yacimiento arqueológico
+sv:^Arkeologisk plats|fornminne
+th:^โบราณสถาน|แหล่งท่องเที่ยว|การท่องเที่ยว
+tr:^Arkeolojik alan|cazibe merkezleri|turizm
+uk:^Розкопки|історична пам'ятка|туризм|пам’ятні місця
+vi:^Điểm khảo cổ
+zh-Hans:^考古遗址|旅游|景点
+zh-Hant:1^考古遺址|考古|遺址|古蹟|歷史|旅遊景點
+el:^Αρχαιολογικός χώρος|θέαμα|τουρισμός|αξιοθέατα
+sk:^Vykopávky
+sw:^Machimbo ya kihistoria|kivutio|utalii
+fa:سایت باستان شناسی
+
+historic-castle|@tourism
+en:^Castle|U+1F3EF|U+1F3F0|U+1F451|U+1F478
+ru:^Замок
+ar:^قلعة|سياحة|أماكن جذابة|مناظر
+cs:^Zámek|zajímavost
+da:^Slot|borg
+nl:^Kasteel|burcht|attractie
+fi:^Linna
+fr:^Château
+de:^Burg|Schloss|Festung
+hu:^Kastély|látványosság
+id:^Kastel
+it:^Castello
+ja:^城|お城|砦|城砦
+ko:^대저택
+nb:^Slott
+pl:3^Zamek|turystyka|zwiedzanie
+pt:^Castelo
+pt-BR:^Castelo|atração
+ro:^Castel
+es:^Castillo
+sv:^Slott
+th:^ปราสาท|การท่องเที่ยว
+tr:^Kale|cazibe merkezleri|turizm
+uk:^Замок|фортеця|мури|туризм|пам'ятка|пам’ятні місця
+vi:^Pháo đài
+zh-Hans:^城堡|景点|旅游
+zh-Hant:^城堡|堡|古蹟|歷史|旅遊景點
+el:^Κάστρο|θέαμα|τουρισμός|αξιοθέατα
+sk:^Zámok|atrakcia
+sw:^Ngome|kivutio|utalii
+fa:قلعه تاریخی
+
 historic-memorial|@tourism
-en:^Memorial|monument|attraction|tourism|U+1F5FC|U+1F5FD|U+1F5FF
-ru:^Памятник|мемориал|достопримечательность|туризм
+en:^Memorial|monument|U+1F5FC|U+1F5FD|U+1F5FF
+ru:^Памятник|мемориал
 ar:^نصب تذكاري|معالم|آثار|أماكن جذابة|سياحة
 cs:^Pomník|památka|zajímavost
 da:^Mindesmærke|mindesten
 nl:^Gedenkteken|monument|attractie
 fi:3^Muistomerkki
-fr:^Mémorial|monument|attraction|tourisme
+fr:^Mémorial|monument|attraction
 de:^Denkmal|Gedenkstätte
-hu:3^Emlékmű|túrizmus|látványosság
+hu:3^Emlékmű|látványosság
 id:3^Tugu peringatan
 it:^Memoriale|monumento
 ja:^追悼|1記念碑|追悼碑
 ko:1^기념비
 nb:3^Minnesmerke
 pl:3^Pomnik
-pt:^Memorial|monumento|turismo
+pt:^Memorial|monumento
 pt-BR:^Memorial|monumento|atração
 ro:3^Comemorare
 es:^Memorial
-sv:3^Minnesmärke|monument|attraktion|turism
+sv:3^Minnesmärke|monument
 th:^ที่ระลึก
 tr:^Anıt|abide|cazibe merkezleri|turizm
 uk:^Меморіал|монумент|пам'ятка|туризм|статуя|пам'ятник|пам’ятні місця
@@ -2504,27 +2570,27 @@ sw:^Makumbusho|kumbukumbu ya kihistoria|kivutio|utalii
 fa:یادبود تاریخی
 
 historic-monument|@tourism
-en:^Monument|attraction|tourism|U+1F5FD|U+1F5FF
-ru:^Монумент|мавзолей|арка|достопримечательность|туризм
+en:^Monument|U+1F5FD|U+1F5FF
+ru:^Монумент|мавзолей|арка
 ar:^صرح|معالم|سياحة|مناظر
 cs:^Zajímavost|pomník|památka
 da:^Monument
 nl:^Monument|attractie
 fi:^Monumentti
-fr:^Monument|attraction|tourisme
+fr:^Monument|attraction
 de:^Monument|Denkmal
-hu:^Műemlék|Szobor|túrizmus|látványosság
+hu:^Műemlék|Szobor|látványosság
 id:^Monumen
 it:^Monumento
 ja:1^記念碑
 ko:1^기념탑
 nb:^Monument
 pl:3^Monument
-pt:^Monumento|turismo
+pt:^Monumento
 pt-BR:^Monumento|atração
 ro:^Monument
 es:^Monumento
-sv:^Monument|attraktion|tursim
+sv:^Monument
 th:3^อนุสาวรีย์|การท่องเที่ยว
 tr:^Abide|cazibe merkezleri|turizm
 uk:^Пам'ятник|монумент|статуя|пам'ятка|туризм|пам’ятні місця
@@ -2537,27 +2603,27 @@ sw:^Makumbusho|kivutio|utalii
 fa:بنای تاریخی
 
 historic-ruins|@tourism
-en:^Ruins|attraction|tourism|U+1F5FF
-ru:^Руины|развалины|достопримечательность|туризм
+en:^Ruins|U+1F5FF
+ru:^Руины|развалины
 ar:^آثار|أماكن جذابة|مناظر|سياحة
 cs:^Ruiny|zřícenina
 da:^Ruiner|bunker
 nl:^Ruïne|attractie
 fi:^Rauniot
-fr:^Ruines|attraction|tourisme
+fr:^Ruines|attraction
 de:^Ruinen
-hu:^Romok|túrizmus|látványosság
+hu:^Romok|látványosság
 id:^Reruntuhan
 it:^Rovine
 ja:1^古跡|古蹟|廃墟|城址|城跡
 ko:1^유적
 nb:^Ruiner
 pl:3^Ruiny|turystyka
-pt:^Ruínas|turismo
+pt:^Ruínas
 pt-BR:^Ruínas|atração
 ro:^Ruine
 es:^Ruinas
-sv:^Ruiner|attraktion|turism
+sv:^Ruiner
 th:^ซากปรักหักพัง|การท่องเที่ยว
 tr:^Harabeler|cazibe merkezleri|turizm
 uk:^Руїни|розвалини|древність|історична пам'ятка|туризм|пам’ятні місця
@@ -2569,71 +2635,13 @@ sk:^Zrúcanina|ruiny
 sw:^Maeneo ya kale|jengo la kale|chakavu
 fa:خرابه های تاریخی
 
-historic-castle|@tourism
-en:^Castle|attraction|tourism|U+1F3EF|U+1F3F0|U+1F451|U+1F478
-ru:^Замок|достопримечательность|туризм
-ar:^قلعة|سياحة|أماكن جذابة|مناظر
-cs:^Zámek|zajímavost
-da:^Slot|borg
-nl:^Kasteel|burcht|attractie
-fi:^Linna
-fr:^Château|attraction|tourisme
-de:^Burg|Schloss|Festung
-hu:^Kastély|túrizmus|látványosság
-id:^Kastel
-it:^Castello
-ja:^城|お城|砦|城砦
-ko:^대저택
-nb:^Slott
-pl:3^Zamek|turystyka|zwiedzanie
-pt:^Castelo|turismo
-pt-BR:^Castelo|atração
-ro:^Castel
-es:^Castillo
-sv:^Slott|attraktion|turism
-th:^ปราสาท|การท่องเที่ยว
-tr:^Kale|cazibe merkezleri|turizm
-uk:^Замок|фортеця|мури|туризм|пам'ятка|пам’ятні місця
-vi:^Pháo đài
-zh-Hans:^城堡|景点|旅游
-zh-Hant:^城堡|堡|古蹟|歷史|旅遊景點
-el:^Κάστρο|θέαμα|τουρισμός|αξιοθέατα
-sk:^Zámok|atrakcia
-sw:^Ngome|kivutio|utalii
-fa:قلعه تاریخی
+historic-ship|@tourism
+en:Ship
+ru:Корабль
 
-historic-archaeological_site|@tourism
-en:^Archaeological Site|attraction|tourism
-ru:^Раскопки|достопримечательность|туризм
-ar:^موقع أثري|أماكن جذابة|سياحة|مناظر
-cs:^Vykopávky|zajímavost
-da:^Arkæologisk sted
-nl:^Archeologische site|opgravingen|attractie
-fi:^Arkeologinen kohde
-fr:^Site archéologique|attraction|tourisme
-de:^Ausgrabungen
-hu:^Ásatás|túrizmus|látványosság
-id:^Situs arkeologi
-it:^Sito archeologico
-ja:1^考古遺跡|発掘|発掘現場|考古学|遺跡
-ko:1^발굴
-nb:^Arkeologisk område
-pl:5^Odkrywka archeologiczna|wykopaliska
-pt:^Sítio arqueológico|turismo
-pt-BR:^Sítio arqueológico|atração
-ro:^Sit arheologic
-es:^Yacimiento arqueológico
-sv:^Arkeologisk plats|fornminne|attraktion|turism
-th:^โบราณสถาน|แหล่งท่องเที่ยว|การท่องเที่ยว
-tr:^Arkeolojik alan|cazibe merkezleri|turizm
-uk:^Розкопки|історична пам'ятка|туризм|пам’ятні місця
-vi:^Điểm khảo cổ
-zh-Hans:^考古遗址|旅游|景点
-zh-Hant:1^考古遺址|考古|遺址|古蹟|歷史|旅遊景點
-el:^Αρχαιολογικός χώρος|θέαμα|τουρισμός|αξιοθέατα
-sk:^Vykopávky
-sw:^Machimbo ya kihistoria|kivutio|utalii
-fa:سایت باستان شناسی
+historic-tomb|@tourism
+en:Tomb
+ru:Гробница|Склеп
 
 leisure-dog_park
 en:3^Dog area|Dog park
@@ -2646,7 +2654,7 @@ ja:ドッグラン
 
 leisure-garden|@tourism
 en:2^Garden
-ru:2^Сад|достопримечательность
+ru:2^Сад
 ar:^بستان|مناظر|سياحة
 cs:2^Zahrada|zajímavost
 da:2^Have
@@ -4389,7 +4397,7 @@ sk:^Cesta
 sw:^Jia
 fa:مسیر
 
-highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-pedestrian|highway-unclassified|highway-motorway_link|highway-motorway
+highway-pedestrian|highway-primary|highway-primary_link|highway-residential|highway-secondary|highway-secondary_link|highway-tertiary|highway-tertiary_link|highway-service|highway-road|highway-track|highway-trunk|highway-trunk_link|highway-living_street|highway-unclassified|highway-motorway_link|highway-motorway
 en:^Street|st|str|ave|road|rd
 ru:^Улица|переулок|проезд|тракт|проспект|ул
 ar:^شارع|طريق
@@ -4618,7 +4626,7 @@ sk:^Les
 sw:^Msitu
 fa:جنگل
 
-leisure-park
+leisure-park|@tourism
 en:^Park|U+1F332|U+1F333|U+1F60C
 ru:^Парк
 ar:^حديقة
@@ -6119,7 +6127,7 @@ el:^Κάμερα ταχύτητας|ραντάρ
 sk:^Rýchlostná kamera
 fa:دوربین سرعت سنج
 
-man_made-lighthouse
+man_made-lighthouse|@tourism
 en:^Lighthouse
 ru:^Маяк
 ar:^منارة
@@ -6230,8 +6238,8 @@ ja:^旅行会社|ツアー
 ko:^여행사|투어
 nb:^Reisebyrå|rundreiser
 pl:^Agencja turystyczna|wycieczki
-pt:^Agência de viagem|turismo
-pt-BR:Agência de viagem|turismo
+pt:^Agência de viagem
+pt-BR:Agência de viagem
 ro:^Agenție de voiaj|tururi
 es:^Agencia de viajes|viajes
 sv:^Resebyrå|rundturer
@@ -7783,7 +7791,7 @@ el:^Είσοδος
 sk:^Vstup
 fa:ورودی
 
-leisure-water_park
+leisure-water_park|@tourism
 en:^Water Park
 ru:^Аквапарк
 ar:^ملاهي مائية
@@ -9175,6 +9183,18 @@ uk:^Хибара
 vi:^Nhà tạm trú
 zh-Hans:^荒野小屋
 zh-Hant:^山屋
+
+tourism-gallery|@tourism
+en:Gallery
+ru:Галерея|Музей
+
+tourism-theme_park|@tourism
+en:Theme park|Amusement park
+ru:Парк развлечений|Парк аттракционов|Тематический парк
+fr:Parc d'attractions|Parc de loisirs
+es:Parque de atracciones
+fi:Huvipuisto
+pt:Parque de diversão
 
 sponsored-holiday
 en:^Christmas or New Year Celebrations
