@@ -147,6 +147,7 @@ copy_resources(
   resources-default
   resources-mdpi_clear
   cuisine-strings
+  taxi_places
   eula.html
 
   categories.txt
