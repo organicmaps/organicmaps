@@ -21,7 +21,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 @SuppressWarnings("unused")
-class ChunkTask extends AsyncTask<Void, byte[], Boolean>
+class ChunkTask extends AsyncTask<Void, byte[], Integer>
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.DOWNLOADER);
   private static final String TAG = "ChunkTask";
@@ -36,13 +36,13 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
   private byte[] mPostBody;
   private final String mUserAgent;
 
-  private static final int NOT_SET = -1;
-  private static final int IO_ERROR = -2;
-  private static final int INVALID_URL = -3;
-  private static final int WRITE_ERROR = -4;
-  private static final int FILE_SIZE_CHECK_FAILED = -5;
+  private static final int IO_EXCEPTION = -1;
+  private static final int WRITE_EXCEPTION = -2;
+  private static final int INCONSISTENT_FILE_SIZE = -3;
+  private static final int NON_HTTP_RESPONSE = -4;
+  private static final int INVALID_URL = -5;
+  private static final int CANCELLED = -6;
 
-  private int mHttpErrorCode = NOT_SET;
   private long mDownloadedBytes;
 
   private static final Executor sExecutors = Executors.newFixedThreadPool(4);
@@ -68,7 +68,7 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
   }
 
   @Override
-  protected void onPostExecute(Boolean success)
+  protected void onPostExecute(Integer httpOrErrorCode)
   {
     //Log.i(TAG, "Writing chunk " + getChunkID());
 
@@ -78,7 +78,7 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
     // start activity when no connection is present.
 
     if (!isCancelled())
-      nativeOnFinish(mHttpCallbackID, success ? 200 : mHttpErrorCode, mBeg, mEnd);
+      nativeOnFinish(mHttpCallbackID, httpOrErrorCode, mBeg, mEnd);
   }
 
   @Override
@@ -93,7 +93,7 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
       {
         // Cancel downloading and notify about error.
         cancel(false);
-        nativeOnFinish(mHttpCallbackID, WRITE_ERROR, mBeg, mEnd);
+        nativeOnFinish(mHttpCallbackID, WRITE_EXCEPTION, mBeg, mEnd);
       }
     }
   }
@@ -123,7 +123,7 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
   }
 
   @Override
-  protected Boolean doInBackground(Void... p)
+  protected Integer doInBackground(Void... p)
   {
     //Log.i(TAG, "Start downloading chunk " + getChunkID());
 
@@ -139,7 +139,7 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
       urlConnection = (HttpURLConnection) url.openConnection();
 
       if (isCancelled())
-        return false;
+        return CANCELLED;
 
       urlConnection.setUseCaches(false);
       urlConnection.setConnectTimeout(TIMEOUT_IN_SECONDS * 1000);
@@ -180,9 +180,12 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
       }
 
       if (isCancelled())
-        return false;
+        return CANCELLED;
 
       final int err = urlConnection.getResponseCode();
+      if (err == HttpURLConnection.HTTP_NOT_FOUND)
+        return err;
+
       // @TODO We can handle redirect (301, 302 and 307) here and display redirected page to user,
       // to avoid situation when downloading is always failed by "unknown" reason
       // When we didn't ask for chunks, code should be 200
@@ -191,11 +194,10 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
       if ((isChunk && err != HttpURLConnection.HTTP_PARTIAL) || (!isChunk && err != HttpURLConnection.HTTP_OK))
       {
         // we've set error code so client should be notified about the error
-        mHttpErrorCode = FILE_SIZE_CHECK_FAILED;
         LOGGER.w(TAG, "Error for " + urlConnection.getURL() +
                    ": Server replied with code " + err +
                    ", aborting download. " + Utils.mapPrettyPrint(requestParams));
-        return false;
+        return INCONSISTENT_FILE_SIZE;
       }
 
       // Check for content size - are we downloading requested file or some router's garbage?
@@ -209,11 +211,10 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
         if (contentLength != mExpectedFileSize)
         {
           // we've set error code so client should be notified about the error
-          mHttpErrorCode = FILE_SIZE_CHECK_FAILED;
           LOGGER.w(TAG, "Error for " + urlConnection.getURL() +
                      ": Invalid file size received (" + contentLength + ") while expecting " + mExpectedFileSize +
                      ". Aborting download.");
-          return false;
+          return INCONSISTENT_FILE_SIZE;
         }
         // @TODO Else display received web page to user - router is redirecting us to some page
       }
@@ -222,30 +223,24 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
     } catch (final MalformedURLException ex)
     {
       LOGGER.e(TAG, "Invalid url: " + mUrl, ex);
-
-      mHttpErrorCode = INVALID_URL;
-      return false;
+      return INVALID_URL;
     } catch (final IOException ex)
     {
       LOGGER.d(TAG, "IOException in doInBackground for URL: " + mUrl, ex);
-
-      mHttpErrorCode = IO_ERROR;
-      return false;
+      return IO_EXCEPTION;
     } finally
     {
       if (urlConnection != null)
         urlConnection.disconnect();
-      else
-        mHttpErrorCode = IO_ERROR;
     }
   }
 
-  private boolean downloadFromStream(InputStream stream)
+  private Integer downloadFromStream(InputStream stream)
   {
     // Because of timeouts in InputStream.read (for bad connection),
     // try to introduce dynamic buffer size to read in one query.
     final int arrSize[] = {64, 32, 1};
-    int ret = -1;
+    int ret = IO_EXCEPTION;
 
     for (int size : arrSize)
     {
@@ -259,18 +254,11 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
       }
     }
 
-    if (ret < 0)
-      mHttpErrorCode = IO_ERROR;
-
     Utils.closeSafely(stream);
-
-    return (ret == 0);
+    return ret;
   }
 
   /**
-   * @return 0 - download successful;
-   * 1 - download canceled;
-   * -1 - some error occurred;
    * @throws IOException
    */
   private int downloadFromStreamImpl(InputStream stream, int bufferSize) throws IOException
@@ -281,7 +269,7 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
     while ((readBytes = stream.read(tempBuf)) > 0)
     {
       if (isCancelled())
-        return 1;
+        return CANCELLED;
 
       final byte[] chunk = new byte[readBytes];
       System.arraycopy(tempBuf, 0, chunk, 0, readBytes);
@@ -290,7 +278,7 @@ class ChunkTask extends AsyncTask<Void, byte[], Boolean>
     }
 
     // -1 - means the end of the stream (success), else - some error occurred
-    return (readBytes == -1 ? 0 : -1);
+    return (readBytes == -1 ? HttpURLConnection.HTTP_OK : IO_EXCEPTION);
   }
 
   private static native boolean nativeOnWrite(long httpCallbackID, long beg, byte[] data, long size);

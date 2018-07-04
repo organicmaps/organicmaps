@@ -55,7 +55,7 @@ static std::shared_ptr<HttpRequest> g_currentRequest;
 
 extern "C"
 {
-  using TCallback = HttpRequest::CallbackT;
+  using Callback = HttpRequest::Callback;
 
   static int HasSpaceForFiles(Platform & pl, std::string const & sdcardPath, size_t fileSize)
   {
@@ -143,11 +143,11 @@ extern "C"
 
   static void DownloadFileFinished(std::shared_ptr<jobject> obj, HttpRequest const & req)
   {
-    HttpRequest::StatusT const status = req.Status();
-    ASSERT_NOT_EQUAL(status, HttpRequest::EInProgress, ());
+    auto const status = req.GetStatus();
+    ASSERT_NOT_EQUAL(status, HttpRequest::Status::InProgress, ());
 
     int errorCode = ERR_DOWNLOAD_ERROR;
-    if (status == HttpRequest::ECompleted)
+    if (status == HttpRequest::Status::Completed)
       errorCode = ERR_DOWNLOAD_SUCCESS;
 
     g_currentRequest.reset();
@@ -175,10 +175,10 @@ extern "C"
 
     JNIEnv * env = jni::GetEnv();
     static jmethodID methodID = jni::GetMethodID(env, *listener, "onProgress", "(I)V");
-    env->CallVoidMethod(*listener, methodID, static_cast<jint>(g_totalDownloadedBytes + req.Progress().first));
+    env->CallVoidMethod(*listener, methodID, static_cast<jint>(g_totalDownloadedBytes + req.GetProgress().first));
   }
 
-  static void DownloadURLListFinished(HttpRequest const & req, TCallback const & onFinish, TCallback const & onProgress)
+  static void DownloadURLListFinished(HttpRequest const & req, Callback const & onFinish, Callback const & onProgress)
   {
     FileToDownload & curFile = g_filesToDownload.back();
 
@@ -206,8 +206,8 @@ extern "C"
 
     LOG(LDEBUG, ("downloading", curFile.m_fileName, "sized", curFile.m_fileSize, "bytes"));
 
-    TCallback onFinish(std::bind(&DownloadFileFinished, jni::make_global_ref(listener), _1));
-    TCallback onProgress(std::bind(&DownloadFileProgress, jni::make_global_ref(listener), _1));
+    Callback onFinish(std::bind(&DownloadFileFinished, jni::make_global_ref(listener), _1));
+    Callback onProgress(std::bind(&DownloadFileProgress, jni::make_global_ref(listener), _1));
 
     g_currentRequest.reset(HttpRequest::PostJson(GetPlatform().ResourcesMetaServerUrl(), curFile.m_fileName,
                                                  std::bind(&DownloadURLListFinished, _1, onFinish, onProgress)));
