@@ -48,12 +48,6 @@
                 android:drawableLeft="@drawable/ic_website"
                 android:drawableStart="@drawable/ic_website"/>
 
-      <TextView android:id="@+id/blog"
-                style="@style/MwmWidget.TextView.Item"
-                android:text="@string/blog"
-                android:drawableLeft="@drawable/ic_blog"
-                android:drawableStart="@drawable/ic_blog"/>
-
       <TextView android:id="@+id/facebook"
                 style="@style/MwmWidget.TextView.Item"
                 android:text="@string/facebook"
@@ -65,12 +59,6 @@
                 android:text="@string/twitter"
                 android:drawableLeft="@drawable/ic_twitter"
                 android:drawableStart="@drawable/ic_twitter"/>
-
-      <TextView android:id="@+id/subscribe"
-                style="@style/MwmWidget.TextView.Item"
-                android:text="@string/subscribe_to_news"
-                android:drawableLeft="@drawable/ic_subscribe"
-                android:drawableStart="@drawable/ic_subscribe"/>
 
       <View android:layout_width="match_parent"
             android:layout_height="1dp"

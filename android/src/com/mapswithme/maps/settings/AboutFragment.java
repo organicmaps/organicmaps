@@ -52,10 +52,8 @@ public class AboutFragment extends BaseSettingsFragment
         .setText(getString(R.string.data_version, Framework.nativeGetDataVersion()));
 
     setupItem(R.id.web, true, root);
-    setupItem(R.id.blog, true, root);
     setupItem(R.id.facebook, false, root);
     setupItem(R.id.twitter, false, root);
-    setupItem(R.id.subscribe, true, root);
     setupItem(R.id.rate, true, root);
     setupItem(R.id.share, true, root);
     setupItem(R.id.copyright, false, root);
@@ -95,12 +93,6 @@ public class AboutFragment extends BaseSettingsFragment
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.WEB_SITE)));
         break;
 
-      case R.id.blog:
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.WEB_BLOG);
-        AlohaHelper.logClick(AlohaHelper.Settings.WEB_BLOG);
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.Url.WEB_BLOG)));
-        break;
-
       case R.id.facebook:
         Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.FACEBOOK);
         AlohaHelper.logClick(AlohaHelper.Settings.FACEBOOK);
@@ -111,15 +103,6 @@ public class AboutFragment extends BaseSettingsFragment
         Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.TWITTER);
         AlohaHelper.logClick(AlohaHelper.Settings.TWITTER);
         Utils.showTwitterPage(getActivity());
-        break;
-
-      case R.id.subscribe:
-        Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.SUBSCRIBE);
-        AlohaHelper.logClick(AlohaHelper.Settings.MAIL_SUBSCRIBE);
-        startActivity(new Intent(Intent.ACTION_SENDTO)
-                          .setData(Utils.buildMailUri(Constants.Email.SUBSCRIBE,
-                                                      getString(R.string.subscribe_me_subject),
-                                                      getString(R.string.subscribe_me_body))));
         break;
 
       case R.id.rate:
