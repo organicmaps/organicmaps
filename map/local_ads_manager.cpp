@@ -139,6 +139,9 @@ CampaignData ParseCampaign(std::vector<uint8_t> const & rawData, MwmSet::MwmId c
   for (local_ads::Campaign const & campaign : campaigns)
   {
     FeatureID featureId(mwmId, campaign.m_featureId);
+    if (!featureId.IsValid())
+      continue;
+
     if (campaign.m_priority == kHiddenFeaturePriority)
     {
       data.insert(std::make_pair(featureId, nullptr));
