@@ -14,7 +14,6 @@
 
 namespace dp
 {
-
 class RenderBucket;
 class AttributeProvider;
 class OverlayHandle;

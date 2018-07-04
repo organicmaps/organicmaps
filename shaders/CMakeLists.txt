@@ -96,6 +96,8 @@ set(
   GL/texturing_gui.vsh.glsl
   GL/traffic.fsh.glsl
   GL/traffic.vsh.glsl
+  GL/traffic_circle.fsh.glsl
+  GL/traffic_circle.vsh.glsl
   GL/traffic_line.fsh.glsl
   GL/traffic_line.vsh.glsl
   GL/transit.fsh.glsl

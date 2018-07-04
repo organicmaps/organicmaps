@@ -43,6 +43,7 @@ TextBillboard text_billboard.vsh.glsl text.fsh.glsl
 TextFixedBillboard text_billboard.vsh.glsl text_fixed.fsh.glsl
 Traffic traffic.vsh.glsl traffic.fsh.glsl
 TrafficLine traffic_line.vsh.glsl traffic_line.fsh.glsl
+TrafficCircle traffic_circle.vsh.glsl traffic_circle.fsh.glsl
 SmaaEdges smaa_edges.vsh.glsl smaa_edges.fsh.glsl
 SmaaBlendingWeight smaa_blending_weight.vsh.glsl smaa_blending_weight.fsh.glsl
 SmaaFinal smaa_final.vsh.glsl smaa_final.fsh.glsl

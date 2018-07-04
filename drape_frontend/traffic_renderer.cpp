@@ -95,37 +95,40 @@ void TrafficRenderer::AddRenderData(ref_ptr<gpu::ProgramManager> mng, TrafficRen
 {
   // Remove obsolete render data.
   TileKey const tileKey(renderData.m_tileKey);
-  m_renderData.erase(remove_if(m_renderData.begin(), m_renderData.end(), [&tileKey](TrafficRenderData const & rd)
+  m_renderData.erase(std::remove_if(m_renderData.begin(), m_renderData.end(),
+                                    [&tileKey](TrafficRenderData const & rd)
   {
     return tileKey == rd.m_tileKey && rd.m_tileKey.m_generation < tileKey.m_generation;
   }), m_renderData.end());
 
   // Add new render data.
-  m_renderData.emplace_back(move(renderData));
+  m_renderData.emplace_back(std::move(renderData));
   TrafficRenderData & rd = m_renderData.back();
 
   auto program = mng->GetProgram(rd.m_state.GetProgram<gpu::Program>());
   program->Bind();
   rd.m_bucket->GetBuffer()->Build(program);
+
+  std::sort(m_renderData.begin(), m_renderData.end());
 }
 
 void TrafficRenderer::OnUpdateViewport(CoverageResult const & coverage, int currentZoomLevel,
                                        buffer_vector<TileKey, 8> const & tilesToDelete)
 {
-  m_renderData.erase(remove_if(m_renderData.begin(), m_renderData.end(),
-                               [&coverage, &currentZoomLevel, &tilesToDelete](TrafficRenderData const & rd)
+  m_renderData.erase(std::remove_if(m_renderData.begin(), m_renderData.end(),
+                                    [&coverage, &currentZoomLevel, &tilesToDelete](TrafficRenderData const & rd)
   {
     return rd.m_tileKey.m_zoomLevel == currentZoomLevel &&
            (rd.m_tileKey.m_x < coverage.m_minTileX || rd.m_tileKey.m_x >= coverage.m_maxTileX ||
            rd.m_tileKey.m_y < coverage.m_minTileY || rd.m_tileKey.m_y >= coverage.m_maxTileY ||
-           find(tilesToDelete.begin(), tilesToDelete.end(), rd.m_tileKey) != tilesToDelete.end());
+           std::find(tilesToDelete.begin(), tilesToDelete.end(), rd.m_tileKey) != tilesToDelete.end());
   }), m_renderData.end());
 }
 
 void TrafficRenderer::OnGeometryReady(int currentZoomLevel)
 {
-  m_renderData.erase(remove_if(m_renderData.begin(), m_renderData.end(),
-                               [&currentZoomLevel](TrafficRenderData const & rd)
+  m_renderData.erase(std::remove_if(m_renderData.begin(), m_renderData.end(),
+                                    [&currentZoomLevel](TrafficRenderData const & rd)
   {
     return rd.m_tileKey.m_zoomLevel != currentZoomLevel;
   }), m_renderData.end());
@@ -159,6 +162,31 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, fl
     }
     else
     {
+      auto const program = renderData.m_state.GetProgram<gpu::Program>();
+      if (program == gpu::Program::TrafficCircle)
+      {
+        ref_ptr<dp::GpuProgram> programPtr = mng->GetProgram(program);
+        programPtr->Bind();
+        dp::ApplyState(renderData.m_state, programPtr);
+
+        gpu::TrafficProgramParams params;
+        frameValues.SetTo(params);
+        math::Matrix<float, 4, 4> const mv = renderData.m_tileKey.GetTileBasedModelView(screen);
+        params.m_modelView = glsl::make_mat4(mv.m_data);
+        params.m_opacity = opacity;
+        // Here we reinterpret light/dark colors as left/right sizes by road classes.
+        params.m_lightArrowColor = glsl::vec3(CalculateHalfWidth(screen, RoadClass::Class0, true /* left */),
+                                              CalculateHalfWidth(screen, RoadClass::Class1, true /* left */),
+                                              CalculateHalfWidth(screen, RoadClass::Class2, true /* left */));
+        params.m_darkArrowColor = glsl::vec3(CalculateHalfWidth(screen, RoadClass::Class0, false /* left */),
+                                             CalculateHalfWidth(screen, RoadClass::Class1, false /* left */),
+                                             CalculateHalfWidth(screen, RoadClass::Class2, false /* left */));
+        mng->GetParamsSetter()->Apply(programPtr, params);
+
+        renderData.m_bucket->Render(false /* draw as line */);
+        continue;
+      }
+
       // Filter by road class.
       int minVisibleArrowZoomLevel = kMinVisibleArrowZoomLevel;
       float outline = 0.0f;
@@ -190,9 +218,9 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, fl
       if (fabs(leftPixelHalfWidth) < kEps && fabs(rightPixelHalfWidth) < kEps)
         continue;
 
-      ref_ptr<dp::GpuProgram> program = mng->GetProgram(renderData.m_state.GetProgram<gpu::Program>());
-      program->Bind();
-      dp::ApplyState(renderData.m_state, program);
+      ref_ptr<dp::GpuProgram> programPtr = mng->GetProgram(program);
+      programPtr->Bind();
+      dp::ApplyState(renderData.m_state, programPtr);
 
       gpu::TrafficProgramParams params;
       frameValues.SetTo(params);
@@ -205,7 +233,7 @@ void TrafficRenderer::RenderTraffic(ScreenBase const & screen, int zoomLevel, fl
       params.m_outlineColor = glsl::ToVec3(outlineColor);
       params.m_trafficParams = glsl::vec4(leftPixelHalfWidth, rightPixelHalfWidth, invLeftPixelLength,
                                           zoomLevel >= minVisibleArrowZoomLevel ? 1.0f : 0.0f);
-      mng->GetParamsSetter()->Apply(program, params);
+      mng->GetParamsSetter()->Apply(programPtr, params);
 
       renderData.m_bucket->Render(false /* draw as line */);
     }
@@ -221,8 +249,8 @@ void TrafficRenderer::Clear(MwmSet::MwmId const & mwmId)
 {
   auto removePredicate = [&mwmId](TrafficRenderData const & data) { return data.m_mwmId == mwmId; };
 
-  m_renderData.erase(remove_if(m_renderData.begin(), m_renderData.end(), removePredicate),
-                     m_renderData.end());
+  m_renderData.erase(std::remove_if(m_renderData.begin(), m_renderData.end(), removePredicate),
+                                    m_renderData.end());
 }
 
 // static

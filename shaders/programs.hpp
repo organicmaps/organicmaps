@@ -54,6 +54,7 @@ enum class Program
   TextFixedBillboard,
   Traffic,
   TrafficLine,
+  TrafficCircle,
   SmaaEdges,
   SmaaBlendingWeight,
   SmaaFinal,
@@ -110,6 +111,7 @@ inline std::string DebugPrint(Program p)
   case Program::TextFixedBillboard: return "TextFixedBillboard";
   case Program::Traffic: return "Traffic";
   case Program::TrafficLine: return "TrafficLine";
+  case Program::TrafficCircle: return "TrafficCircle";
   case Program::SmaaEdges: return "SmaaEdges";
   case Program::SmaaBlendingWeight: return "SmaaBlendingWeight";
   case Program::SmaaFinal: return "SmaaFinal";

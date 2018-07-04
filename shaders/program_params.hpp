@@ -118,7 +118,8 @@ struct TrafficProgramParams
 
   BIND_PROGRAMS(TrafficProgramParams,
     Program::Traffic,
-    Program::TrafficLine)
+    Program::TrafficLine,
+    Program::TrafficCircle)
 };
 
 struct TransitProgramParams
@@ -163,7 +164,7 @@ struct ShapesProgramParams
   float m_opacity = 1.0f;
   float m_azimut = 0.0;
 
-  BIND_PROGRAMS(AccuracyProgramParams,
+  BIND_PROGRAMS(ShapesProgramParams,
     Program::Accuracy,
     Program::MyPosition)
 };
