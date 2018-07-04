@@ -11,8 +11,8 @@ BlockParams BlockParams::MakeDefault()
 {
   BlockParams result;
   // Use tomorrow and day after tomorrow by default.
-  result.m_checkin = Clock::now() + std::chrono::hours(24);
-  result.m_checkout = Clock::now() + std::chrono::hours(48);
+  result.m_checkin = Clock::now();
+  result.m_checkout = Clock::now() + std::chrono::hours(24);
   // Information about sales by default.
   result.m_extras = {"deal_smart", "deal_lastm", "photos"};
 

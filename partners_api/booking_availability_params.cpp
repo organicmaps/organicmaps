@@ -72,8 +72,8 @@ AvailabilityParams AvailabilityParams::MakeDefault()
 {
   AvailabilityParams result;
   // Use tomorrow and day after tomorrow by default.
-  result.m_checkin = Clock::now() + std::chrono::hours(24);
-  result.m_checkout = Clock::now() + std::chrono::hours(48);
+  result.m_checkin = Clock::now();
+  result.m_checkout = Clock::now() + std::chrono::hours(24);
   // Use two adults without children.
   result.m_rooms = {{2, Room::kNoChildren}};
 
