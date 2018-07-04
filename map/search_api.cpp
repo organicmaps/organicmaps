@@ -21,6 +21,7 @@
 #include <algorithm>
 #include <iterator>
 #include <string>
+#include <utility>
 #include <type_traits>
 
 using namespace search;
@@ -31,6 +32,7 @@ namespace
 using BookmarkIdDoc = pair<bookmarks::Id, bookmarks::Doc>;
 
 double const kDistEqualQueryMeters = 100.0;
+size_t const kDefaultNumResultsForDiscovery = 100;
 
 // Cancels search query by |handle|.
 void CancelQuery(weak_ptr<ProcessorHandle> & handle)
@@ -114,6 +116,16 @@ private:
   BookmarksSearchParams::Status m_status = BookmarksSearchParams::Status::InProgress;
   OnResults m_onResults;
 };
+
+Results TrimResults(Results && results, size_t const maxCount)
+{
+  if (results.GetCount() <= maxCount)
+    return results;
+
+  Results r;
+  r.AddResultsNoChecks(results.begin(), results.begin() + maxCount);
+  return r;
+}
 }  // namespace
 
 SearchAPI::SearchAPI(DataSource & dataSource, storage::Storage const & storage,
@@ -217,13 +229,17 @@ void SearchAPI::SearchForDiscovery(DiscoverySearchParams const & params)
   CHECK(!params.m_query.empty(), ());
   CHECK_GREATER(params.m_itemsCount, 0, ());
 
+  auto const resultsCount = params.m_sortingType == DiscoverySearchParams::SortingType::None
+                            ? params.m_itemsCount
+                            : kDefaultNumResultsForDiscovery;
+
   SearchParams p;
   p.m_query = params.m_query;
   p.m_inputLocale = "en";
   p.m_viewport = params.m_viewport;
   p.m_position = params.m_position;
-  p.m_maxNumResults = params.m_itemsCount;
-  p.m_mode = search::Mode::Viewport;
+  p.m_maxNumResults = resultsCount;
+  p.m_mode = search::Mode::Everywhere;
   p.m_onResults = [params](Results const & results) {
     if (!results.IsEndMarker())
       return;
@@ -237,14 +253,14 @@ void SearchAPI::SearchForDiscovery(DiscoverySearchParams const & params)
     {
       Results r(results);
       r.SortBy(DiscoverySearchParams::HotelRatingComparator());
-      params.m_onResults(r);
+      params.m_onResults(TrimResults(move(r), params.m_itemsCount));
       break;
     }
     case DiscoverySearchParams::SortingType::Popularity:
     {
       Results r(results);
       r.SortBy(DiscoverySearchParams::PopularityComparator());
-      params.m_onResults(r);
+      params.m_onResults(TrimResults(move(r), params.m_itemsCount));
       break;
     }
     }
