@@ -260,7 +260,7 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
       return;
 
     // 1. Save downloaded chunks if some error occured.
-    if (m_status == Status::Failed)
+    if (m_status == Status::Failed || m_status == Status::FileNotFound)
       SaveResumeChunks();
 
     // 2. Free file handle.
