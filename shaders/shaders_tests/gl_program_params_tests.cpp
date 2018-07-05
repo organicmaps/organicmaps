@@ -76,22 +76,13 @@ UNIT_TEST(GuiProgramParams_Test)
                                       std::bind(&TestProgramParams<gpu::GuiProgramParams>, _1));
 }
 
-UNIT_TEST(AccuracyProgramParams_Test)
+UNIT_TEST(ShapesProgramParams_Test)
 {
-  RunTestInOpenGLOffscreenEnvironment("AccuracyProgramParams_Test", false /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::AccuracyProgramParams>, _1));
+  RunTestInOpenGLOffscreenEnvironment("ShapesProgramParams_Test", false /* apiOpenGLES3 */,
+                                      std::bind(&TestProgramParams<gpu::ShapesProgramParams>, _1));
 
-  RunTestInOpenGLOffscreenEnvironment("AccuracyProgramParams_Test", true /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::AccuracyProgramParams>, _1));
-}
-
-UNIT_TEST(MyPositionProgramParams_Test)
-{
-  RunTestInOpenGLOffscreenEnvironment("MyPositionProgramParams_Test", false /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::MyPositionProgramParams>, _1));
-
-  RunTestInOpenGLOffscreenEnvironment("MyPositionProgramParams_Test", true /* apiOpenGLES3 */,
-                                      std::bind(&TestProgramParams<gpu::MyPositionProgramParams>, _1));
+  RunTestInOpenGLOffscreenEnvironment("ShapesProgramParams_Test", true /* apiOpenGLES3 */,
+                                      std::bind(&TestProgramParams<gpu::ShapesProgramParams>, _1));
 }
 
 UNIT_TEST(Arrow3dProgramParams_Test)
