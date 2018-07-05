@@ -44,12 +44,11 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
 @property(nonatomic) MWMBottomMenuState restoreState;
 @property(nonatomic) MWMDimBackground * dimBackground;
-@property(nonatomic, readonly) NSUInteger additionalButtonsCount;
 @property(weak, nonatomic) IBOutlet MWMButton * searchButton;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * mainButtonsHeight;
 @property(weak, nonatomic) IBOutlet UICollectionView * additionalButtons;
 @property(weak, nonatomic) IBOutlet UIView * downloadBadge;
-@property(weak, nonatomic) MapViewController * controller;
+@property(weak, nonatomic) MapViewController * mapViewController;
 @property(weak, nonatomic) id<MWMBottomMenuControllerProtocol> delegate;
 
 @end
@@ -73,7 +72,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   self = [super init];
   if (self)
   {
-    _controller = controller;
+    _mapViewController = controller;
     _delegate = delegate;
     [controller addChildViewController:self];
     [controller.view addSubview:self.view];
@@ -240,7 +239,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatSettings}];
   self.state = self.restoreState;
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"settingsAndMore"];
-  [self.controller performSegueWithIdentifier:@"Map2Settings" sender:nil];
+  [self.mapViewController performSegueWithIdentifier:@"Map2Settings" sender:nil];
 }
 
 - (void)menuActionShareLocation
@@ -263,7 +262,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
       (MWMBottomMenuCollectionViewCell *)[self.additionalButtons cellForItemAtIndexPath:cellIndex];
   MWMActivityViewController * shareVC =
       [MWMActivityViewController shareControllerForMyPosition:coord];
-  [shareVC presentInParentViewController:self.controller anchorView:cell.icon];
+  [shareVC presentInParentViewController:self.mapViewController anchorView:cell.icon];
 }
 
 - (IBAction)point2PointButtonTouchUpInside:(UIButton *)sender
@@ -298,7 +297,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 
   network_policy::CallPartnersApi([self](auto const & canUseNetwork) {
     auto discovery = [MWMDiscoveryController instanceWithConnection:canUseNetwork.CanUse()];
-    [self.controller.navigationController pushViewController:discovery animated:YES];
+    [self.mapViewController.navigationController pushViewController:discovery animated:YES];
   });
 }
 
@@ -307,7 +306,7 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
   [Statistics logEvent:kStatMenu withParameters:@{kStatButton : kStatBookmarks}];
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"bookmarks"];
   self.state = MWMBottomMenuStateInactive;
-  [self.controller openBookmarks];
+  [self.mapViewController openBookmarks];
 }
 
 - (IBAction)menuButtonTouchUpInside
@@ -366,15 +365,14 @@ typedef NS_ENUM(NSUInteger, MWMBottomMenuViewCell) {
 - (void)setState:(MWMBottomMenuState)state
 {
   dispatch_async(dispatch_get_main_queue(), ^{
-    [self.controller setNeedsStatusBarAppearanceUpdate];
+    [self.mapViewController setNeedsStatusBarAppearanceUpdate];
   });
-  MWMBottomMenuView * view = self.menuView;
   BOOL const menuActive = (state == MWMBottomMenuStateActive);
   if (menuActive)
-    [self.controller.view bringSubviewToFront:view];
+    [self.mapViewController.view bringSubviewToFront:self.menuView];
 
   [self.dimBackground setVisible:menuActive completion:nil];
-  view.state = state;
+  self.menuView.state = state;
   [self updateBadgeVisible:[[MapsAppDelegate theApp] badgeNumber] != 0];
 }
 

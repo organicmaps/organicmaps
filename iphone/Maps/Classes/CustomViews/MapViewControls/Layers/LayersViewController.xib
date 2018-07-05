@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LayersViewController" customModule="maps_me" customModuleProvider="target">
+            <connections>
+                <outlet property="subwayButton" destination="beC-fv-00o" id="f2i-0Z-ic5"/>
+                <outlet property="trafficButton" destination="1Ig-dd-0gQ" id="V0v-ga-XL3"/>
+                <outlet property="view" destination="UpL-Ks-9sI" id="d7h-RV-vHz"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="UpL-Ks-9sI">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="154"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vCh-dj-TS1">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Yi-ES-lgc">
+                            <rect key="frame" x="16" y="47" width="343" height="1"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.1222216109" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="EIs-1H-8tP"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="blackDividers"/>
+                            </userDefinedRuntimeAttributes>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Map Layers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kii-gP-WiK">
+                            <rect key="frame" x="16" y="12" width="109" height="24"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="colorName" value="blackPrimaryText"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="layers_title"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="5Yi-ES-lgc" firstAttribute="leading" secondItem="vCh-dj-TS1" secondAttribute="leading" constant="16" id="AuQ-iD-BHe"/>
+                        <constraint firstItem="Kii-gP-WiK" firstAttribute="leading" secondItem="vCh-dj-TS1" secondAttribute="leading" constant="16" id="I8c-q0-X6L"/>
+                        <constraint firstAttribute="trailing" secondItem="5Yi-ES-lgc" secondAttribute="trailing" constant="16" id="YQZ-oH-PQU"/>
+                        <constraint firstAttribute="height" constant="48" id="ccJ-Tt-Gwm"/>
+                        <constraint firstAttribute="bottom" secondItem="5Yi-ES-lgc" secondAttribute="bottom" id="fJ1-gp-h1e"/>
+                        <constraint firstItem="Kii-gP-WiK" firstAttribute="centerY" secondItem="vCh-dj-TS1" secondAttribute="centerY" id="jnD-8O-SSU"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBL-Bk-1MS">
+                    <rect key="frame" x="16" y="48" width="171.5" height="107"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ig-dd-0gQ" customClass="VerticallyAlignedButton" customModule="maps_me" customModuleProvider="target">
+                            <rect key="frame" x="19.5" y="33.5" width="133" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <state key="normal" title="Traffic" image="btn_menu_traffic_off_light">
+                                <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="button_layer_traffic"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onTrafficButton:" destination="-1" eventType="touchUpInside" id="JS4-WB-z4Y"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="1Ig-dd-0gQ" firstAttribute="centerY" secondItem="aBL-Bk-1MS" secondAttribute="centerY" id="8zN-sU-LDI"/>
+                        <constraint firstItem="1Ig-dd-0gQ" firstAttribute="centerX" secondItem="aBL-Bk-1MS" secondAttribute="centerX" id="Par-LR-kSw"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F9J-as-uLu">
+                    <rect key="frame" x="187.5" y="48" width="171.5" height="107"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beC-fv-00o" customClass="VerticallyAlignedButton" customModule="maps_me" customModuleProvider="target">
+                            <rect key="frame" x="15.5" y="33" width="140" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                            <state key="normal" title="Subway" image="btn_menu_subway_off_light">
+                                <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="button_layer_subway"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onSubwayButton:" destination="-1" eventType="touchUpInside" id="b8q-1N-aS9"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="beC-fv-00o" firstAttribute="centerY" secondItem="F9J-as-uLu" secondAttribute="centerY" id="0NW-p4-wAv"/>
+                        <constraint firstItem="beC-fv-00o" firstAttribute="centerX" secondItem="F9J-as-uLu" secondAttribute="centerX" id="w6i-i1-e7F"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="Rhj-gh-MIj" firstAttribute="trailing" secondItem="F9J-as-uLu" secondAttribute="trailing" constant="16" id="7k6-Uo-iCn"/>
+                <constraint firstItem="vCh-dj-TS1" firstAttribute="leading" secondItem="Rhj-gh-MIj" secondAttribute="leading" id="AoD-Oo-vQU"/>
+                <constraint firstItem="F9J-as-uLu" firstAttribute="width" secondItem="aBL-Bk-1MS" secondAttribute="width" id="E8a-0d-0da"/>
+                <constraint firstItem="aBL-Bk-1MS" firstAttribute="bottom" secondItem="Rhj-gh-MIj" secondAttribute="bottom" constant="1" id="Fwx-RG-4vN"/>
+                <constraint firstItem="F9J-as-uLu" firstAttribute="leading" secondItem="aBL-Bk-1MS" secondAttribute="trailing" id="Ghy-t8-lgr"/>
+                <constraint firstItem="F9J-as-uLu" firstAttribute="top" secondItem="vCh-dj-TS1" secondAttribute="bottom" id="KJS-jN-jfH"/>
+                <constraint firstItem="vCh-dj-TS1" firstAttribute="top" secondItem="Rhj-gh-MIj" secondAttribute="top" id="cU1-3C-ACk"/>
+                <constraint firstItem="F9J-as-uLu" firstAttribute="bottom" secondItem="Rhj-gh-MIj" secondAttribute="bottom" constant="1" id="dmK-OW-wHn"/>
+                <constraint firstItem="Rhj-gh-MIj" firstAttribute="trailing" secondItem="vCh-dj-TS1" secondAttribute="trailing" id="gVb-IK-pdD"/>
+                <constraint firstItem="aBL-Bk-1MS" firstAttribute="leading" secondItem="Rhj-gh-MIj" secondAttribute="leading" constant="16" id="mSQ-bh-xmA"/>
+                <constraint firstItem="aBL-Bk-1MS" firstAttribute="top" secondItem="vCh-dj-TS1" secondAttribute="bottom" id="spb-XJ-7BY"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="Rhj-gh-MIj"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="33.5" y="-237"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="btn_menu_subway_off_light" width="40" height="40"/>
+        <image name="btn_menu_traffic_off_light" width="40" height="40"/>
+    </resources>
+</document>

@@ -37,7 +37,6 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 @property(nonatomic) NSLayoutConstraint * topOffset;
 @property(nonatomic) NSLayoutConstraint * leftOffset;
 @property(nonatomic) CGRect availableArea;
-
 @end
 
 @implementation MWMTrafficButtonViewController
@@ -106,39 +105,61 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 
   // Traffic state machine: https://confluence.mail.ru/pages/viewpage.action?pageId=103680959
   [iv stopAnimating];
-  switch ([MWMTrafficManager state])
+  if ([MWMTrafficManager trafficEnabled])
   {
-  case MWMTrafficManagerStateDisabled: btn.imageName = @"btn_traffic_off"; break;
-  case MWMTrafficManagerStateEnabled: btn.imageName = @"btn_traffic_on"; break;
-  case MWMTrafficManagerStateWaitingData:
-    iv.animationImages = imagesWithName(@"btn_traffic_update");
-    iv.animationDuration = 0.8;
-    [iv startAnimating];
-    break;
-  case MWMTrafficManagerStateOutdated: btn.imageName = @"btn_traffic_outdated"; break;
-  case MWMTrafficManagerStateNoData:
-    btn.imageName = @"btn_traffic_on";
-    [[MWMToast toastWithText:L(@"traffic_data_unavailable")] show];
-    break;
-  case MWMTrafficManagerStateNetworkError:
-    btn.imageName = @"btn_traffic_off";
-    [MWMTrafficManager enableTraffic:NO];
-    [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
-    break;
-  case MWMTrafficManagerStateExpiredData:
-    btn.imageName = @"btn_traffic_on";
-    [[MWMToast toastWithText:L(@"traffic_update_maps_text")] show];
-    break;
-  case MWMTrafficManagerStateExpiredApp:
-    btn.imageName = @"btn_traffic_on";
-    [[MWMToast toastWithText:L(@"traffic_update_app_message")] show];
-    break;
+    switch ([MWMTrafficManager trafficState])
+    {
+    case MWMTrafficManagerStateDisabled: btn.imageName = @"btn_traffic_off"; break;
+      case MWMTrafficManagerStateEnabled: btn.imageName = @"btn_traffic_on"; break;
+      case MWMTrafficManagerStateWaitingData:
+        iv.animationImages = imagesWithName(@"btn_traffic_update");
+        iv.animationDuration = 0.8;
+        [iv startAnimating];
+        break;
+      case MWMTrafficManagerStateOutdated: btn.imageName = @"btn_traffic_outdated"; break;
+      case MWMTrafficManagerStateNoData:
+        btn.imageName = @"btn_traffic_on";
+        [[MWMToast toastWithText:L(@"traffic_data_unavailable")] show];
+        break;
+      case MWMTrafficManagerStateNetworkError:
+        btn.imageName = @"btn_traffic_off";
+        [MWMTrafficManager enableTraffic:NO];
+        [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
+        break;
+      case MWMTrafficManagerStateExpiredData:
+        btn.imageName = @"btn_traffic_on";
+        [[MWMToast toastWithText:L(@"traffic_update_maps_text")] show];
+        break;
+      case MWMTrafficManagerStateExpiredApp:
+        btn.imageName = @"btn_traffic_on";
+        [[MWMToast toastWithText:L(@"traffic_update_app_message")] show];
+        break;
+      }
+  }
+  else if ([MWMTrafficManager transitEnabled])
+  {
+    btn.imageName = @"btn_subway_on";
+    if ([MWMTrafficManager transitState] == MWMTransitManagerStateNoData)
+      [[MWMToast toastWithText:L(@"subway_data_unavailable")] show];
+  }
+  else
+  {
+    btn.imageName = @"btn_layers";
   }
 }
 
 - (IBAction)buttonTouchUpInside
 {
-  [MWMTrafficManager enableTraffic:[MWMTrafficManager state] == MWMTrafficManagerStateDisabled];
+  if ([MWMTrafficManager trafficEnabled])
+    [MWMTrafficManager enableTraffic:NO];
+  else if ([MWMTrafficManager transitEnabled])
+    [MWMTrafficManager enableTransit:NO];
+  else
+  {
+    auto layersVC = [[LayersViewController alloc] init];
+    layersVC.modalPresentationStyle = UIModalPresentationCustom;
+    [[MapViewController controller] presentViewController:layersVC animated:YES completion:nil];
+  }
 }
 
 + (void)updateAvailableArea:(CGRect)frame
@@ -153,4 +174,5 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 #pragma mark - MWMTrafficManagerObserver
 
 - (void)onTrafficStateUpdated { [self refreshAppearance]; }
+- (void)onTransitStateUpdated { [self refreshAppearance]; }
 @end

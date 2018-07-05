@@ -22,6 +22,7 @@ final class Toast: NSObject {
     label.frame = blurView.contentView.bounds
     label.translatesAutoresizingMaskIntoConstraints = false
     blurView.contentView.addSubview(label)
+    blurView.isUserInteractionEnabled = false
     let views = ["label" : label]
     blurView.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[label]-8-|",
                                                                        options: [],
@@ -46,7 +47,7 @@ final class Toast: NSObject {
                                                     options: [],
                                                     metrics: [:],
                                                     views: views))
-    v.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[bv]-30-|",
+    v.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[bv]-50-|",
                                                     options: [],
                                                     metrics: [:],
                                                     views: views))

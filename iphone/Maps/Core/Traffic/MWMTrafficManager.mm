@@ -12,7 +12,8 @@ using Observers = NSHashTable<Observer>;
 
 @property(nonatomic) Observers * observers;
 
-@property(nonatomic) TrafficManager::TrafficState state;
+@property(nonatomic) TrafficManager::TrafficState trafficState;
+@property(nonatomic) TransitReadManager::TransitSchemeState transitState;
 
 @end
 
@@ -38,9 +39,17 @@ using Observers = NSHashTable<Observer>;
     _observers = [Observers weakObjectsHashTable];
     auto & m = GetFramework().GetTrafficManager();
     m.SetStateListener([self](TrafficManager::TrafficState state) {
-      self.state = state;
+      self.trafficState = state;
       for (Observer observer in self.observers)
         [observer onTrafficStateUpdated];
+    });
+    GetFramework().GetTransitManager().SetStateListener([self](TransitReadManager::TransitSchemeState state) {
+      self.transitState = state;
+      for (Observer observer in self.observers)
+      {
+        if ([observer respondsToSelector:@selector(onTransitStateUpdated)])
+          [observer onTransitStateUpdated];
+      }
     });
   }
   return self;
@@ -58,26 +67,57 @@ using Observers = NSHashTable<Observer>;
   [[MWMTrafficManager manager].observers removeObject:observer];
 }
 
-+ (MWMTrafficManagerState)state
++ (MWMTrafficManagerState)trafficState
 {
-  switch ([MWMTrafficManager manager].state)
+  switch ([MWMTrafficManager manager].trafficState)
   {
-  case TrafficManager::TrafficState::Disabled: return MWMTrafficManagerStateDisabled;
-  case TrafficManager::TrafficState::Enabled: return MWMTrafficManagerStateEnabled;
-  case TrafficManager::TrafficState::WaitingData: return MWMTrafficManagerStateWaitingData;
-  case TrafficManager::TrafficState::Outdated: return MWMTrafficManagerStateOutdated;
-  case TrafficManager::TrafficState::NoData: return MWMTrafficManagerStateNoData;
-  case TrafficManager::TrafficState::NetworkError: return MWMTrafficManagerStateNetworkError;
-  case TrafficManager::TrafficState::ExpiredData: return MWMTrafficManagerStateExpiredData;
-  case TrafficManager::TrafficState::ExpiredApp: return MWMTrafficManagerStateExpiredApp;
+    case TrafficManager::TrafficState::Disabled: return MWMTrafficManagerStateDisabled;
+    case TrafficManager::TrafficState::Enabled: return MWMTrafficManagerStateEnabled;
+    case TrafficManager::TrafficState::WaitingData: return MWMTrafficManagerStateWaitingData;
+    case TrafficManager::TrafficState::Outdated: return MWMTrafficManagerStateOutdated;
+    case TrafficManager::TrafficState::NoData: return MWMTrafficManagerStateNoData;
+    case TrafficManager::TrafficState::NetworkError: return MWMTrafficManagerStateNetworkError;
+    case TrafficManager::TrafficState::ExpiredData: return MWMTrafficManagerStateExpiredData;
+    case TrafficManager::TrafficState::ExpiredApp: return MWMTrafficManagerStateExpiredApp;
   }
+}
+
++ (MWMTransitManagerState)transitState
+{
+  switch ([MWMTrafficManager manager].transitState)
+  {
+    case TransitReadManager::TransitSchemeState::Disabled: return MWMTransitManagerStateDisabled;
+    case TransitReadManager::TransitSchemeState::Enabled: return MWMTransitManagerStateEnabled;
+    case TransitReadManager::TransitSchemeState::NoData: return MWMTransitManagerStateNoData;
+  }
+}
+
++ (BOOL)trafficEnabled
+{
+  return [MWMTrafficManager manager].trafficState != TrafficManager::TrafficState::Disabled;
+}
+
++ (BOOL)transitEnabled
+{
+  return [MWMTrafficManager manager].transitState != TransitReadManager::TransitSchemeState::Disabled;
 }
 
 + (void)enableTraffic:(BOOL)enable
 {
+  if (enable)
+    [self enableTransit:!enable];
   auto & f = GetFramework();
   f.GetTrafficManager().SetEnabled(enable);
   f.SaveTrafficEnabled(enable);
+}
+
++ (void)enableTransit:(BOOL)enable
+{
+  if (enable)
+    [self enableTraffic:!enable];
+  auto & f = GetFramework();
+  f.GetTransitManager().EnableTransitSchemeMode(enable);
+  f.SaveTransitSchemeEnabled(enable);
 }
 
 @end
