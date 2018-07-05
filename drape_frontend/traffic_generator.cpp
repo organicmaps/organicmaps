@@ -306,9 +306,9 @@ void TrafficGenerator::GenerateSegment(RoadClass roadClass,
   auto const & path = polyline.GetPoints();
   ASSERT_GREATER(path.size(), 1, ());
 
-  size_t const kAverageSize = path.size() * 4;
+  size_t const kAverageSize = (path.size() - 1) * 6;
   staticGeometry.reserve(staticGeometry.size() + kAverageSize);
-  circlesGeometry.reserve(circlesGeometry.size() + (path.size() + 1) * 3);
+  circlesGeometry.reserve(circlesGeometry.size() + path.size() * 3);
 
   // Build geometry.
   glsl::vec2 lastPoint, lastRightNormal;
