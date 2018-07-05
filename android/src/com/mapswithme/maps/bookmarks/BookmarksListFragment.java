@@ -180,12 +180,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
         BottomSheetHelper.Builder bs = BottomSheetHelper.create(getActivity(), bookmark.getTitle())
                                                         .sheet(menuResId)
                                                         .listener(this);
-        if (!ShareOption.SMS.isSupported(getActivity()))
-          bs.getMenu().removeItem(R.id.share_message);
-
-        if (!ShareOption.EMAIL.isSupported(getActivity()))
-          bs.getMenu().removeItem(R.id.share_email);
-
         bs.tint().show();
         break;
 
@@ -222,14 +216,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
     switch (menuItem.getItemId())
     {
-    case R.id.share_message:
-      ShareOption.SMS.shareMapObject(getActivity(), item, Sponsored.nativeGetCurrent());
-      break;
-
-    case R.id.share_email:
-      ShareOption.EMAIL.shareMapObject(getActivity(), item, Sponsored.nativeGetCurrent());
-      break;
-
     case R.id.share:
       ShareOption.ANY.shareMapObject(getActivity(), item, Sponsored.nativeGetCurrent());
       break;

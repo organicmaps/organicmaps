@@ -16,8 +16,6 @@ import com.mapswithme.util.statistics.Statistics;
 
 public abstract class ShareOption
 {
-  public static final SmsShareOption SMS = new SmsShareOption();
-  public static final EmailShareOption EMAIL = new EmailShareOption();
   public static final AnyShareOption ANY = new AnyShareOption();
 
   @StringRes
