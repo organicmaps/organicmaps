@@ -718,9 +718,3 @@ area|z15[aeroway=terminal]
 { text: name; font-size: 9; fill-opacity: 0.8; text-color: @building_label; text-position: center;}
 area|z16-[aeroway=terminal]
 {text: name; font-size: 9; fill-opacity: 1; text-color: @building_label; text-position: center;}
-
-
-node|z6-[sponsored=viator]
-{icon-image: viator-star-l.svg;text: name; font-size: 10;text-offset: 1; z-index: 17000;}
-node|z6-[sponsored=viator]::int_name
-{icon-image: viator-star-l.svg;text: int_name; font-size: 9;text-offset: 1; z-index: 17000;}
