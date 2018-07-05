@@ -42,4 +42,10 @@ public class BookmarksPagerAdapter extends FragmentStatePagerAdapter
   {
     return mFactories.size();
   }
+
+  @NonNull
+  public BookmarksPageFactory getItemFactory(int position)
+  {
+    return mFactories.get(position);
+  }
 }

@@ -14,6 +14,7 @@ import com.mapswithme.util.BottomSheetHelper;
 import com.mapswithme.util.SharedPropertiesUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.sharing.TargetUtils;
+import com.mapswithme.util.statistics.Statistics;
 
 public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFragment implements
                                                                                      BookmarkManager.BookmarksCatalogListener
@@ -127,6 +128,7 @@ public class CachedBookmarkCategoriesFragment extends BaseBookmarkCategoriesFrag
         .putExtra(BookmarksCatalogFragment.EXTRA_BOOKMARKS_CATALOG_URL,
                   getCatalogUrl());
     getActivity().startActivity(intent);
+    Statistics.INSTANCE.trackOpenCatalogScreen();
   }
 
   @NonNull

@@ -8,7 +8,7 @@ import com.mapswithme.maps.R;
 
 public enum BookmarksPageFactory
 {
-  PRIVATE
+  PRIVATE(new Analytics(Constants.ANALYTICS_NAME_MY))
       {
         @NonNull
         @Override
@@ -23,7 +23,7 @@ public enum BookmarksPageFactory
           return R.string.bookmarks_page_my;
         }
       },
-  CATALOG(new AdapterResourceProvider.Catalog())
+  CATALOG(new Analytics(Constants.ANALYTICS_NAME_DOWNLOADED), new AdapterResourceProvider.Catalog())
       {
         @NonNull
         @Override
@@ -40,22 +40,31 @@ public enum BookmarksPageFactory
       };
 
   @NonNull
-  private AdapterResourceProvider mResProvider;
+  private final AdapterResourceProvider mResProvider;
+  @NonNull
+  private final Analytics mAnalytics;
 
-  BookmarksPageFactory(@NonNull AdapterResourceProvider resourceProvider)
+  BookmarksPageFactory(@NonNull Analytics analytics, @NonNull AdapterResourceProvider provider)
   {
-    mResProvider = resourceProvider;
+    mAnalytics = analytics;
+    mResProvider = provider;
   }
 
-  BookmarksPageFactory()
+  BookmarksPageFactory(Analytics analytics)
   {
-    this(new AdapterResourceProvider.Default());
+    this(analytics, new AdapterResourceProvider.Default());
   }
 
   @NonNull
   public AdapterResourceProvider getResProvider()
   {
     return mResProvider;
+  }
+
+  @NonNull
+  public Analytics getAnalytics()
+  {
+    return mAnalytics;
   }
 
   public static BookmarksPageFactory get(String value)
@@ -78,4 +87,26 @@ public enum BookmarksPageFactory
 
   public abstract int getTitle();
 
+  public static class Analytics
+  {
+    @NonNull
+    private final String mName;
+
+    private Analytics(@NonNull String name)
+    {
+      mName = name;
+    }
+
+    @NonNull
+    public String getName()
+    {
+      return mName;
+    }
+  }
+
+  private static class Constants
+  {
+    private static final String ANALYTICS_NAME_MY = "my";
+    private static final String ANALYTICS_NAME_DOWNLOADED = "downloaded";
+  }
 }
