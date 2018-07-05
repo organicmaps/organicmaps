@@ -17984,6 +17984,206 @@ cont {
   }
 }
 cont {
+  name: "historic-castle-defensive"
+  element {
+    scale: 12
+    symbol {
+      name: "remains-m"
+      priority: 16839
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "remains-m"
+      priority: 16839
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "remains-m"
+      priority: 16839
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "remains-m"
+      priority: 16839
+      min_distance: 5
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15839
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "remains-m"
+      priority: 16839
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15839
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "remains-m"
+      priority: 16839
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15839
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "remains-m"
+      priority: 16839
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15839
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "remains-m"
+      priority: 16839
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15839
+    }
+  }
+}
+cont {
+  name: "historic-castle-stately"
+  element {
+    scale: 12
+    symbol {
+      name: "remains-m"
+      priority: 16839
+    }
+  }
+  element {
+    scale: 13
+    symbol {
+      name: "remains-m"
+      priority: 16839
+    }
+  }
+  element {
+    scale: 14
+    symbol {
+      name: "remains-m"
+      priority: 16839
+    }
+  }
+  element {
+    scale: 15
+    symbol {
+      name: "remains-m"
+      priority: 16839
+      min_distance: 5
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15839
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "remains-m"
+      priority: 16839
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15839
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "remains-m"
+      priority: 16839
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15839
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "remains-m"
+      priority: 16839
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15839
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "remains-m"
+      priority: 16839
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15839
+    }
+  }
+}
+cont {
   name: "historic-fort"
   element {
     scale: 12
@@ -18085,6 +18285,255 @@ cont {
 }
 cont {
   name: "historic-memorial"
+  element {
+    scale: 15
+    symbol {
+      name: "monument-m"
+      priority: 16781
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "monument-m"
+      priority: 16781
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "monument-m"
+      priority: 16781
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "monument-m"
+      priority: 16781
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "monument-m"
+      priority: 16781
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+}
+cont {
+  name: "historic-memorial-plaque"
+  element {
+    scale: 15
+    symbol {
+      name: "monument-m"
+      priority: 16781
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "monument-m"
+      priority: 16781
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "monument-m"
+      priority: 16781
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "monument-m"
+      priority: 16781
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "monument-m"
+      priority: 16781
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+}
+cont {
+  name: "historic-memorial-sculpture"
+  element {
+    scale: 15
+    symbol {
+      name: "monument-m"
+      priority: 16781
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "monument-m"
+      priority: 16781
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "monument-m"
+      priority: 16781
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "monument-m"
+      priority: 16781
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "monument-m"
+      priority: 16781
+      min_distance: 12
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+}
+cont {
+  name: "historic-memorial-statue"
   element {
     scale: 15
     symbol {
@@ -40962,7 +41411,525 @@ cont {
   }
 }
 cont {
+  name: "tourism-artwork-architecture"
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 28
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+}
+cont {
+  name: "tourism-artwork-painting"
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 28
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+}
+cont {
+  name: "tourism-artwork-sculpture"
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 28
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+}
+cont {
+  name: "tourism-artwork-statue"
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 8
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 28
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-m"
+      apply_for_type: 1
+      priority: 16770
+      min_distance: 24
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15770
+    }
+  }
+}
+cont {
   name: "tourism-attraction"
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      priority: 16781
+      min_distance: 36
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      priority: 16781
+      min_distance: 36
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-m"
+      priority: 16781
+      min_distance: 36
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-m"
+      priority: 16781
+      min_distance: 36
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-m"
+      priority: 16781
+      min_distance: 36
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+}
+cont {
+  name: "tourism-attraction-animal"
+  element {
+    scale: 15
+    symbol {
+      name: "tourism-m"
+      priority: 16781
+      min_distance: 36
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 16
+    symbol {
+      name: "tourism-m"
+      priority: 16781
+      min_distance: 36
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 17
+    symbol {
+      name: "tourism-m"
+      priority: 16781
+      min_distance: 36
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 18
+    symbol {
+      name: "tourism-m"
+      priority: 16781
+      min_distance: 36
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+  element {
+    scale: 19
+    symbol {
+      name: "tourism-m"
+      priority: 16781
+      min_distance: 36
+    }
+    caption {
+      primary {
+        height: 10
+        color: 4473924
+        offset_y: 1
+      }
+      priority: 15781
+    }
+  }
+}
+cont {
+  name: "tourism-attraction-specified"
   element {
     scale: 15
     symbol {
