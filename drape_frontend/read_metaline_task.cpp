@@ -16,6 +16,7 @@
 #include "defines.hpp"
 
 #include <algorithm>
+#include <map>
 #include <set>
 #include <vector>
 
@@ -51,8 +52,8 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
           if (fid <= 0)
             data.m_reversed.insert(featureId);
         }
-        std::sort(data.m_features.begin(), data.m_features.end());
-        model.push_back(std::move(data));
+        if (!data.m_features.empty())
+          model.push_back(std::move(data));
       }
     }
     return model;
@@ -63,17 +64,58 @@ std::vector<MetalineData> ReadMetalinesFromFile(MwmSet::MwmId const & mwmId)
   }
 }
 
-std::vector<m2::PointD> MergePoints(std::vector<std::vector<m2::PointD>> const & points)
+std::map<FeatureID, std::vector<m2::PointD>> ReadPoints(df::MapDataProvider & model,
+                                                        MetalineData const & metaline)
+{
+  bool failed = false;
+  auto features = metaline.m_features;
+  std::sort(features.begin(), features.end());
+
+  std::map<FeatureID, std::vector<m2::PointD>> result;
+  model.ReadFeatures([&metaline, &failed, &result](FeatureType const & ft)
+  {
+    if (failed)
+      return;
+
+    std::vector<m2::PointD> featurePoints;
+    featurePoints.reserve(5);
+    ft.ForEachPoint([&featurePoints](m2::PointD const & pt)
+    {
+      if (featurePoints.empty() || !featurePoints.back().EqualDxDy(pt, kPointEqualityEps))
+        featurePoints.push_back(pt);
+    }, scales::GetUpperScale());
+
+    if (featurePoints.size() < 2)
+    {
+      failed = true;
+      return;
+    }
+    if (metaline.m_reversed.find(ft.GetID()) != metaline.m_reversed.cend())
+      std::reverse(featurePoints.begin(), featurePoints.end());
+
+    result.insert(std::make_pair(ft.GetID(), std::move(featurePoints)));
+  }, features);
+
+  if (failed)
+    return {};
+
+  return result;
+};
+
+std::vector<m2::PointD> MergePoints(std::map<FeatureID, std::vector<m2::PointD>> const & points,
+                                    std::vector<FeatureID> const & featuresOrder)
 {
   size_t sz = 0;
   for (auto const & p : points)
-    sz += p.size();
+    sz += p.second.size();
 
   std::vector<m2::PointD> result;
   result.reserve(sz);
-  for (size_t i = 0; i < points.size(); i++)
+  for (auto const & f : featuresOrder)
   {
-    for (auto const & pt : points[i])
+    auto const it = points.find(f);
+    ASSERT(it != points.cend(), ());
+    for (auto const & pt : it->second)
     {
       if (result.empty() || !result.back().EqualDxDy(pt, kPointEqualityEps))
         result.push_back(pt);
@@ -130,41 +172,11 @@ void ReadMetalineTask::Run()
     if (failed)
       continue;
 
-    size_t curIndex = 0;
-    std::vector<std::vector<m2::PointD>> points;
-    points.reserve(5);
-    m_model.ReadFeatures([&metaline, &failed, &curIndex, &points](FeatureType const & ft)
-    {
-      if (failed)
-        return;
-      if (ft.GetID() != metaline.m_features[curIndex])
-      {
-        failed = true;
-        return;
-      }
-      std::vector<m2::PointD> featurePoints;
-      featurePoints.reserve(5);
-      ft.ForEachPoint([&featurePoints](m2::PointD const & pt)
-      {
-        if (featurePoints.empty() || !featurePoints.back().EqualDxDy(pt, kPointEqualityEps))
-          featurePoints.push_back(pt);
-      }, scales::GetUpperScale());
-      if (featurePoints.size() < 2)
-      {
-        failed = true;
-        return;
-      }
-      if (metaline.m_reversed.find(ft.GetID()) != metaline.m_reversed.cend())
-        std::reverse(featurePoints.begin(), featurePoints.end());
-
-      points.push_back(std::move(featurePoints));
-      curIndex++;
-    }, metaline.m_features);
-
-    if (failed || points.empty())
+    auto const points = ReadPoints(m_model, metaline);
+    if (points.size() != metaline.m_features.size())
       continue;
 
-    std::vector<m2::PointD> const mergedPoints = MergePoints(points);
+    std::vector<m2::PointD> const mergedPoints = MergePoints(points, metaline.m_features);
     if (mergedPoints.empty())
       continue;
 
