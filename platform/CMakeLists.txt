@@ -142,4 +142,8 @@ if (APPLE)
   target_compile_options(${PROJECT_NAME} PUBLIC "-fobjc-arc")
 endif()
 
+if (PLATFORM_LINUX)
+  link_qt5_network(${PROJECT_NAME})
+endif()
+
 omim_add_test_subdirectory(platform_tests)
