@@ -21,7 +21,7 @@ public enum TrafficManager
   private final TrafficState.StateChangeListener mStateChangeListener = new TrafficStateListener();
 
   @NonNull
-  private TrafficState.Type mState = TrafficState.Type.DISABLED;
+  private TrafficState mState = TrafficState.DISABLED;
 
   @NonNull
   private final List<TrafficCallback> mCallbacks = new ArrayList<>();
@@ -123,13 +123,13 @@ public enum TrafficManager
   {
     @Override
     @MainThread
-    public void onTrafficStateChanged(@TrafficState.Value int state)
+    public void onTrafficStateChanged(int index)
     {
-      TrafficState.Type newTrafficState = TrafficState.getType(state);
+      TrafficState newTrafficState = TrafficState.values()[index];
       mLogger.d(mTag, "onTrafficStateChanged current state = " + mState
                       + " new value = " + newTrafficState);
 
-      newTrafficState.onReceived(mCallbacks, mState);
+      newTrafficState.activate(mCallbacks, mState);
       mState = newTrafficState;
     }
   }

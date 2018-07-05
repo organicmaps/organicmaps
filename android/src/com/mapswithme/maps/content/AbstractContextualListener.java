@@ -1,31 +1,23 @@
 package com.mapswithme.maps.content;
 
+import android.app.Application;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
-import com.mapswithme.maps.MwmApplication;
-
-import java.lang.ref.WeakReference;
 
 public class AbstractContextualListener
 {
   @NonNull
-  private final WeakReference<MwmApplication> mApp;
+  private final Application mApp;
 
-  public AbstractContextualListener(@NonNull MwmApplication app)
+  public AbstractContextualListener(@NonNull Application app)
   {
-    mApp = new WeakReference<>(app);
+    mApp = app;
   }
 
   @NonNull
-  private WeakReference<MwmApplication> getAppReference()
+  public Context getContext()
   {
     return mApp;
-  }
-
-  @Nullable
-  public MwmApplication getApp()
-  {
-    return getAppReference().get();
   }
 }

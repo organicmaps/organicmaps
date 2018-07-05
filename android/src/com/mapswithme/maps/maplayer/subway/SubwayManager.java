@@ -1,5 +1,6 @@
 package com.mapswithme.maps.maplayer.subway;
 
+import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
@@ -11,7 +12,7 @@ public class SubwayManager
   @NonNull
   private final OnTransitSchemeChangedListener mSchemeChangedListener;
 
-  public SubwayManager(@NonNull MwmApplication application) {
+  public SubwayManager(@NonNull Application application) {
     mSchemeChangedListener = new OnTransitSchemeChangedListener.Default(application);
   }
 
@@ -36,10 +37,10 @@ public class SubwayManager
 
   public void initialize()
   {
-    registryListener();
+    registerListener();
   }
 
-  private void registryListener()
+  private void registerListener()
   {
     nativeAddListener(mSchemeChangedListener);
   }

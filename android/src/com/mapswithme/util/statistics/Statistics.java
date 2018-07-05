@@ -306,7 +306,7 @@ public enum Statistics
     public static final String UGC_AUTH_DECLINED = "UGC_Auth_declined";
     public static final String UGC_AUTH_EXTERNAL_REQUEST_SUCCESS = "UGC_Auth_external_request_success";
     public static final String UGC_AUTH_ERROR = "UGC_Auth_error";
-    public static final String MAP_LAYER = "Map_Layers_activate";
+    public static final String MAP_LAYERS_ACTIVATE = "Map_Layers_activate";
 
     public static class Settings
     {
@@ -393,7 +393,6 @@ public enum Statistics
     public static final String PRICE_CATEGORY = "price_category";
     public static final String DATE = "date";
     static final String HAS_AUTH = "has_auth";
-    public static final String NAME_LOWER_CASE = "name";
     public static final String STATUS = "status";
 
     private EventParam() {}
@@ -443,7 +442,6 @@ public enum Statistics
     static final String TRAFFIC = "traffic";
     public static final String SUCCESS = "success";
     public static final String UNAVAILABLE = "unavailable";
-    public static final String ERROR = "error";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -651,9 +649,9 @@ public enum Statistics
 
   private void trackMapLayerEvent(@NonNull String eventName, @NonNull String status)
   {
-    ParameterBuilder builder = new ParameterBuilder().add(EventParam.NAME_LOWER_CASE, eventName)
-                                                     .add(EventParam.STATUS, status);
-    trackEvent(EventName.MAP_LAYER, builder);
+    ParameterBuilder builder = params().add(EventParam.NAME, eventName)
+                                       .add(EventParam.STATUS, status);
+    trackEvent(EventName.MAP_LAYERS_ACTIVATE, builder);
   }
 
   public void trackEditorSuccess(boolean newObject)
