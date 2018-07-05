@@ -26,7 +26,7 @@ import static com.mapswithme.maps.bookmarks.Holders.BaseBookmarkHolder.getDescSe
 import static com.mapswithme.maps.bookmarks.Holders.BaseBookmarkHolder.getTracksSectionPosition;
 import static com.mapswithme.maps.bookmarks.Holders.BaseBookmarkHolder.isSectionEmpty;
 import static com.mapswithme.maps.bookmarks.Holders.BookmarkViewHolder.calculateBookmarkPosition;
-import static com.mapswithme.maps.bookmarks.Holders.BookmarkViewHolder.calculateTrackPosition;
+import static com.mapswithme.maps.bookmarks.Holders.BaseBookmarkHolder.calculateTrackPosition;
 
 public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookmarkHolder>
 {
