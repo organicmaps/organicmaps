@@ -1107,8 +1107,8 @@ Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv *
   ASSERT(fr, ());
 
   feature::TAltitudes altitudes;
-  vector<double> segDistanceM;
-  if (!fr->GetRoutingManager().GetRouteAltitudesAndDistancesM(segDistanceM, altitudes))
+  vector<double> routePointDistanceM;
+  if (!fr->GetRoutingManager().GetRouteAltitudesAndDistancesM(routePointDistanceM, altitudes))
   {
     LOG(LWARNING, ("Can't get distance to route points and altitude."));
     return nullptr;
@@ -1119,7 +1119,7 @@ Java_com_mapswithme_maps_Framework_nativeGenerateRouteAltitudeChartBits(JNIEnv *
   int32_t maxRouteAltitude = 0;
   measurement_utils::Units units = measurement_utils::Units::Metric;
   if (!fr->GetRoutingManager().GenerateRouteAltitudeChart(
-        width, height, altitudes, segDistanceM, imageRGBAData,
+        width, height, altitudes, routePointDistanceM, imageRGBAData,
         minRouteAltitude, maxRouteAltitude, units))
   {
     LOG(LWARNING, ("Can't generate route altitude image."));

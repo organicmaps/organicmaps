@@ -526,12 +526,12 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
   if (![self hasRouteAltitude])
     return;
 
-  auto segDistanceM = std::make_shared<std::vector<double>>(std::vector<double>());
+  auto routePointDistanceM = std::make_shared<std::vector<double>>(std::vector<double>());
   auto altitudes = std::make_shared<feature::TAltitudes>(feature::TAltitudes());
-  if (!GetFramework().GetRoutingManager().GetRouteAltitudesAndDistancesM(*segDistanceM, *altitudes))
+  if (!GetFramework().GetRoutingManager().GetRouteAltitudesAndDistancesM(*routePointDistanceM, *altitudes))
     return;
 
-  // Note. |segDistanceM| and |altitudes| should not be used in the method after line below.
+  // Note. |routePointDistanceM| and |altitudes| should not be used in the method after line below.
   dispatch_async(self.router.renderAltitudeImagesQueue, [=] () {
     auto router = self.router;
     CGFloat const screenScale = [UIScreen mainScreen].scale;
@@ -554,7 +554,7 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
  
       if(!GetFramework().GetRoutingManager().GenerateRouteAltitudeChart(width, height,
                                                                         *altitudes,
-                                                                        *segDistanceM,
+                                                                        *routePointDistanceM,
                                                                         imageRGBAData,
                                                                         minRouteAltitude,
                                                                         maxRouteAltitude, units))
