@@ -3,6 +3,7 @@ final class UGCAddReviewController: MWMTableViewController {
   typealias Model = UGCReviewModel
 
   weak var textCell: UGCAddReviewTextCell?
+  var reviewPosted = false
 
   enum Sections {
     case ratings
@@ -34,10 +35,11 @@ final class UGCAddReviewController: MWMTableViewController {
     configTableView()
   }
 
-  override func backTap() {
-    guard let nc = navigationController else { return }
-    Statistics.logEvent(kStatUGCReviewCancel)
-    nc.popToRootViewController(animated: true)
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    if isMovingFromParentViewController && !reviewPosted {
+      Statistics.logEvent(kStatUGCReviewCancel)
+    }
   }
 
   private func configNavBar() {
@@ -59,6 +61,7 @@ final class UGCAddReviewController: MWMTableViewController {
       return
     }
     Statistics.logEvent(kStatUGCReviewSuccess)
+    reviewPosted = true
     model.text = text
     onSave(model)
     guard let nc = navigationController else { return }

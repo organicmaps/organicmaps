@@ -656,6 +656,10 @@ using namespace osm_auth_ios;
   navigationBar.titleTextAttributes = [self navigationBarTextAttributes];
   navigationBar.translucent = NO;
   navigationBar.shadowImage = [UIImage new];
+  auto backImage = [[UIImage imageNamed:@"ic_nav_bar_back_sys"]
+                    imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+  navigationBar.backIndicatorImage = backImage;
+  navigationBar.backIndicatorTransitionMaskImage = backImage;
 }
 
 + (void)customizeAppearance

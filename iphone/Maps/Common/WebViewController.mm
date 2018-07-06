@@ -6,6 +6,7 @@
 
 @property(copy, nonatomic) MWMVoidBlock onFailure;
 @property(copy, nonatomic) MWMStringBlock onSuccess;
+@property(nonatomic) BOOL authorized;
 
 @end
 
@@ -90,11 +91,10 @@
     [webView loadRequest:[NSURLRequest requestWithURL:self.m_url]];
 }
 
-- (void)backTap
+- (void)viewDidDisappear:(BOOL)animated
 {
-  [self pop];
-
-  if (self.onFailure)
+  [super viewDidDisappear:animated];
+  if (self.isMovingFromParentViewController && !self.authorized && self.onFailure)
     self.onFailure();
 }
 
@@ -113,11 +113,11 @@
     {
       ASSERT(false, ("Incorrect query:", query.UTF8String));
       [self pop];
-      self.onFailure();
       decisionHandler(WKNavigationActionPolicyCancel);
       return;
     }
 
+    self.authorized = YES;
     [self pop];
     self.onSuccess(components[1]);
     decisionHandler(WKNavigationActionPolicyCancel);

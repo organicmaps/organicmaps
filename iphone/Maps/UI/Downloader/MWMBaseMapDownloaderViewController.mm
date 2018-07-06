@@ -136,19 +136,6 @@ using namespace storage;
 
 - (void)configMyTarget { [MWMMyTarget manager].delegate = self; }
 
-- (void)backTap
-{
-  UINavigationController * navVC = self.navigationController;
-  NSArray<UIViewController *> * viewControllers = navVC.viewControllers;
-  NSInteger const viewControllersCount = viewControllers.count;
-  NSInteger const prevVCIndex = viewControllersCount - 2;
-  Class const migrationClass = [MWMMigrationViewController class];
-  if (prevVCIndex < 0 || [viewControllers[prevVCIndex] isKindOfClass:migrationClass])
-    [navVC popToRootViewControllerAnimated:YES];
-  else
-    [super backTap];
-}
-
 - (void)notifyParentController
 {
   NSArray<MWMViewController *> * viewControllers = [self.navigationController viewControllers];

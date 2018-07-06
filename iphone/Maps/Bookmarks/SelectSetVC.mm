@@ -112,10 +112,10 @@
   }
   else
   {
-    auto const categoryId = [self.groupIds[indexPath.row] unsignedLongLongValue];;
+    auto const categoryId = [self.groupIds[indexPath.row] unsignedLongLongValue];
     [self moveBookmarkToSetWithCategoryId:categoryId];
     [self.delegate didSelectCategory:self.category withCategoryId:categoryId];
-    [self backTap];
+    [self goBack];
   }
 }
 

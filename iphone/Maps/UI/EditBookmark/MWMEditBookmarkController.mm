@@ -72,7 +72,6 @@ enum RowInMetaInfo
 
 - (void)configNavBar
 {
-  [self showBackButton];
   self.title = L(@"bookmark").capitalizedString;
   self.navigationItem.rightBarButtonItem =
   [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
@@ -113,7 +112,7 @@ enum RowInMetaInfo
     bookmark->SetCustomName(self.cachedTitle.UTF8String);
   
   f.UpdatePlacePageInfoForCurrentSelection();
-  [self backTap];
+  [self goBack];
 }
 
 #pragma mark - UITableView
@@ -253,7 +252,7 @@ enum RowInMetaInfo
 {
   [self.data updateBookmarkStatus:NO];
   GetFramework().UpdatePlacePageInfoForCurrentSelection();
-  [self backTap];
+  [self goBack];
 }
 
 #pragma mark - MWMNoteCellDelegate

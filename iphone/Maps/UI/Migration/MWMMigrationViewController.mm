@@ -8,11 +8,6 @@
 
 #include "Framework.h"
 
-namespace
-{
-NSString * const kDownloaderSegue = @"Migration2MapDownloaderSegue";
-} // namespace
-
 using namespace storage;
 
 @interface MWMStorage ()
@@ -68,7 +63,14 @@ using namespace storage;
   auto migrate = ^
   {
     GetFramework().Migrate(!limited);
-    [self performSegueWithIdentifier:kDownloaderSegue sender:self];
+    MWMMapDownloaderViewController * dvc = [self.storyboard
+                                            instantiateViewControllerWithIdentifier:@"MWMMapDownloaderViewController"];
+    [dvc setParentCountryId:@(GetFramework().GetStorage().GetRootId().c_str())
+                       mode:MWMMapDownloaderModeDownloaded];
+    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+    [viewControllers removeLastObject];
+    [viewControllers addObject:dvc];
+    [self.navigationController setViewControllers:viewControllers animated:YES];
     [Statistics logEvent:kStatDownloaderMigrationCompleted];
   };
 
@@ -163,18 +165,6 @@ using namespace storage;
 {
   GetFramework().GetStorage().GetPrefetchStorage()->CancelDownloadNode(m_countryId);
   [self setState:MWMMigrationViewState::Default];
-}
-
-#pragma mark - Segue
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-  if ([segue.identifier isEqualToString:kDownloaderSegue])
-  {
-    MWMMapDownloaderViewController * dvc = segue.destinationViewController;
-    [dvc setParentCountryId:@(GetFramework().GetStorage().GetRootId().c_str())
-                       mode:MWMMapDownloaderModeDownloaded];
-  }
 }
 
 #pragma mark - Actions

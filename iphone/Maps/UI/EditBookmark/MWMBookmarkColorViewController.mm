@@ -76,7 +76,7 @@ array<kml::PredefinedColor, 8> const kBookmarkColorsVariant
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatChangeBookmarkColor)
                    withParameters:@{kStatValue : ios_bookmark_ui_helper::LocalizedTitleForBookmarkColor(bookmarkColor)}];
   [self.delegate didSelectColor:bookmarkColor];
-  [self backTap];
+  [self goBack];
 }
 
 @end

@@ -34,16 +34,6 @@ CGFloat constexpr kButtonExtraWidth = 16.0;
   return [@[ [self negativeSpacer] ] arrayByAddingObjectsFromArray:items];
 }
 
-- (UIBarButtonItem *)backButton
-{
-  return [self buttonWithImage:[UIImage imageNamed:@"ic_nav_bar_back"] action:@selector(backTap)];
-}
-
-- (void)showBackButton
-{
-  self.navigationItem.leftBarButtonItems = [self alignedNavBarButtonItems:@[ [self backButton] ]];
-}
-
-- (void)backTap { [self.navigationController popViewControllerAnimated:YES]; }
+- (void)goBack { [self.navigationController popViewControllerAnimated:YES]; }
 
 @end

@@ -194,6 +194,13 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
   self.featureStatus = osm::Editor::Instance().GetFeatureStatus(fid.m_mwmId, fid.m_index);
   self.isFeatureUploaded = osm::Editor::Instance().IsFeatureUploaded(fid.m_mwmId, fid.m_index);
   m_newAdditionalLanguages.clear();
+  if (self.isCreating)
+  {
+    self.navigationItem.leftBarButtonItem =
+    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                  target:self
+                                                  action:@selector(onCancel)];
+  }
 }
 
 - (void)setFeatureToEdit:(FeatureID const &)fid
@@ -226,27 +233,9 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
                                                     action:@selector(onSave)];
 }
 
-- (void)backTap
+- (void)onCancel
 {
-  if (self.isCreating)
-    [self.navigationController popToRootViewControllerAnimated:YES];
-  else
-    [super backTap];
-}
-
-- (void)showBackButton
-{
-  if (self.isCreating)
-  {
-    self.navigationItem.leftBarButtonItem =
-        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                      target:self
-                                                      action:@selector(backTap)];
-  }
-  else
-  {
-    [super showBackButton];
-  }
+  [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark - Actions
@@ -969,7 +958,7 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
                 atLocation:location];
       GetFramework().CreateNote(self->m_mapObject, osm::Editor::NoteProblemType::PlaceDoesNotExist,
                                 additional);
-      [self backTap];
+      [self goBack];
       [self showDropDown];
     }];
   };
@@ -986,7 +975,7 @@ void registerCellsForTableView(vector<MWMEditorCellType> const & cells, UITableV
       NSAssert(false, @"We shouldn't call this if we can't roll back!");
 
     f.PokeSearchInViewport();
-    [self backTap];
+    [self goBack];
   };
 
   if (self.isFeatureUploaded)
