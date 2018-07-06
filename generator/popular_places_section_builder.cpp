@@ -96,17 +96,18 @@ bool BuildPopularPlacesMwmSection(std::string const & srcFilename, std::string c
   {
     ASSERT_EQUAL(content.size(), featureId, ());
 
-    auto const it = featureIdToOsmId.find(featureId);
-    CHECK(it != featureIdToOsmId.cend(),
-          ("FeatureID", featureId, "is not found in", osmToFeatureFilename));
-
     PopularityIndex rank = 0;
-    auto const placesIt = places.find(it->second);
-
-    if (placesIt != places.cend())
+    auto const it = featureIdToOsmId.find(featureId);
+    // Non-OSM features (coastlines, sponsored objects) are not used.
+    if (it != featureIdToOsmId.cend())
     {
-      popularPlaceFound = true;
-      rank = placesIt->second;
+      auto const placesIt = places.find(it->second);
+
+      if (placesIt != places.cend())
+      {
+        popularPlaceFound = true;
+        rank = placesIt->second;
+      }
     }
 
     content.emplace_back(rank);
