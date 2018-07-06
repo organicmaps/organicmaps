@@ -260,11 +260,10 @@ bool ApplyScale(m2::PointD const & pixelScaleCenter, double factor, ScreenBase &
 
   if (!CheckMaxScale(tmp))
   {
-    // Set scale value slightly less than upper bound, to get closest valid zoom.
-    auto const correctedScale = GetScale((scales::GetUpperStyleScale() + 1) * 0.995);
-    tmp.SetScale(correctedScale);
-    if (!CheckMaxScale(tmp))
+    auto const maxScale = GetTileBasedScale(scales::GetUpperStyleScale() + 0.42);
+    if (maxScale > screen.GetScale() && CheckMaxScale(screen))
       return false;
+    tmp.SetScale(maxScale);
   }
 
   // re-checking the borders, as we might violate them a bit (don't know why).

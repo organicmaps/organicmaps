@@ -92,5 +92,6 @@ float InterpolateByZoomLevels(int index, float lerpCoef, std::vector<float> cons
 m2::PointF InterpolateByZoomLevels(int index, float lerpCoef, std::vector<m2::PointF> const & values);
 double GetNormalizedZoomLevel(double scale, int minZoom = 1);
 double GetScale(double zoomLevel);
+double GetTileBasedScale(double zoomLevel);
 
 } // namespace df

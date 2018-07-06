@@ -233,6 +233,15 @@ m2::RectD GetRectForDrawScale(double drawScale, m2::PointD const & center)
   return GetRectForDrawScale(my::rounds(drawScale), center);
 }
 
+double GetTileBasedScale(double zoomLevel)
+{
+  VisualParams const & p = VisualParams::Instance();
+  auto const factor = pow(2.0, zoomLevel);
+  auto const len = (MercatorBounds::maxX - MercatorBounds::minX) / factor;
+  auto const pxLen = static_cast<double>(p.GetTileSize());
+  return len / pxLen;
+}
+
 uint32_t CalculateTileSize(uint32_t screenWidth, uint32_t screenHeight)
 {
   uint32_t const maxSz = max(screenWidth, screenHeight);
