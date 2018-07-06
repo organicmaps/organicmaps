@@ -1250,4 +1250,43 @@ class FinishTexturesInitializationMessage : public Message
 public:
   Type GetType() const override { return Message::FinishTexturesInitialization; }
 };
+
+class ShowDebugInfoMessage : public Message
+{
+public:
+  explicit ShowDebugInfoMessage(bool shown)
+    : m_shown(shown)
+  {}
+
+  Type GetType() const override { return Message::ShowDebugInfo; }
+  bool IsShown() const { return m_shown; }
+
+private:
+  bool const m_shown;
+};
+
+class NotifyRenderThreadMessage : public Message
+{
+public:
+  using Functor = std::function<void(uint64_t notifyId)>;
+  NotifyRenderThreadMessage(Functor const & functor, uint64_t notifyId)
+    : m_functor(functor)
+    , m_notifyId(notifyId)
+  {}
+
+  // We can not notify render threads without active OpenGL context.
+  bool IsGLContextDependent() const override { return true; }
+
+  Type GetType() const override { return Message::NotifyRenderThread; }
+
+  void InvokeFunctor()
+  {
+    if (m_functor)
+      m_functor(m_notifyId);
+  }
+
+private:
+  Functor m_functor;
+  uint64_t const m_notifyId;
+};
 }  // namespace df

@@ -42,7 +42,7 @@ public class MapFragment extends BaseMwmFragment
   private static final int WIDGET_RULER = 0x01;
   private static final int WIDGET_COMPASS = 0x02;
   private static final int WIDGET_COPYRIGHT = 0x04;
-  private static final int WIDGET_SCALE_LABEL = 0x08;
+  private static final int WIDGET_SCALE_FPS_LABEL = 0x08;
   private static final int WIDGET_WATERMARK = 0x10;
 
   // Should correspond to dp::Anchor from drape_global.hpp
@@ -95,13 +95,10 @@ public class MapFragment extends BaseMwmFragment
     setupRuler(0, false);
     setupWatermark(0, false);
 
-    if (BuildConfig.DEBUG)
-    {
-      nativeSetupWidget(WIDGET_SCALE_LABEL,
-                        UiUtils.dimen(R.dimen.margin_base),
-                        UiUtils.dimen(R.dimen.margin_base),
-                        ANCHOR_LEFT_TOP);
-    }
+    nativeSetupWidget(WIDGET_SCALE_FPS_LABEL,
+                      UiUtils.dimen(R.dimen.margin_base),
+                      UiUtils.dimen(R.dimen.margin_base),
+                      ANCHOR_LEFT_TOP);
 
     setupCompass(UiUtils.getCompassYOffset(getContext()), false);
   }

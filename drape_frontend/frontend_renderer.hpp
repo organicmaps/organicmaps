@@ -48,6 +48,7 @@ class RenderBucket;
 
 namespace df
 {
+class DrapeNotifier;
 class ScenarioManager;
 class ScreenQuadRenderer;
 class SelectionShape;
@@ -201,7 +202,7 @@ private:
   void CorrectGlobalScalePoint(m2::PointD & pt) const override;
   void OnScaleEnded() override;
   void OnAnimatedScaleEnded() override;
-  void OnTouchMapAction() override;
+  void OnTouchMapAction(TouchEvent::ETouchType touchType) override;
   bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport,
                             m2::PointD & gOffset) override;
 
@@ -250,6 +251,8 @@ private:
   void CollectShowOverlaysEvents();
 
   void CheckAndRunFirstLaunchAnimation();
+
+  void ScheduleOverlayCollecting();
 
   drape_ptr<gpu::ProgramManager> m_gpuProgramManager;
 
@@ -336,6 +339,8 @@ private:
 
   bool m_finishTexturesInitialization = false;
   drape_ptr<ScreenQuadRenderer> m_transitBackground;
+
+  drape_ptr<DrapeNotifier> m_notifier;
 
 #ifdef DEBUG
   bool m_isTeardowned;

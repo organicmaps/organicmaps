@@ -67,8 +67,8 @@ private:
                         ref_ptr<dp::TextureManager> textures);
   m2::PointF CacheCopyright(Position const & position, ref_ptr<LayerRenderer> renderer,
                             ref_ptr<dp::TextureManager> textures);
-  m2::PointF CacheScaleLabel(Position const & position, ref_ptr<LayerRenderer> renderer,
-                             ref_ptr<dp::TextureManager> textures);
+  m2::PointF CacheScaleFpsLabel(Position const & position, ref_ptr<LayerRenderer> renderer,
+                                ref_ptr<dp::TextureManager> textures);
   m2::PointF CacheWatermark(Position const & position, ref_ptr<LayerRenderer> renderer,
                             ref_ptr<dp::TextureManager> textures);
 };

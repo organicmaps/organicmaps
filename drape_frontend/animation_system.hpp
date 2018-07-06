@@ -60,7 +60,7 @@ public:
     return nullptr;
   }
 
-  void Advance(double elapsedSeconds);
+  bool Advance(double elapsedSeconds);
 
   ScreenBase const & GetLastScreen() { return m_lastScreen; }
   void SaveAnimationResult(Animation const & animation);

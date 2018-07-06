@@ -58,11 +58,12 @@ class OverlayTree : public m4::Tree<ref_ptr<OverlayHandle>, detail::OverlayTrait
 public:
   using HandlesCache = std::unordered_set<ref_ptr<OverlayHandle>, detail::OverlayHasher>;
 
-  OverlayTree(double visualScale);
+  explicit OverlayTree(double visualScale);
 
   void Clear();
   bool Frame();
   bool IsNeedUpdate() const;
+  void InvalidateOnNextFrame();
 
   void StartOverlayPlacing(ScreenBase const & screen, int zoomLevel);
   void Add(ref_ptr<OverlayHandle> handle);

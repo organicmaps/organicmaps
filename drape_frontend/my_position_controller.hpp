@@ -5,6 +5,8 @@
 #include "drape_frontend/drape_hints.hpp"
 #include "drape_frontend/my_position.hpp"
 
+#include "drape/pointers.hpp"
+
 #include "shaders/program_manager.hpp"
 
 #include "platform/location.hpp"
@@ -13,11 +15,14 @@
 
 #include "base/timer.hpp"
 
+#include <cstdint>
 #include <functional>
 
 namespace df
 {
 using TAnimationCreator = std::function<drape_ptr<Animation>(ref_ptr<Animation>)>;
+
+class DrapeNotifier;
 
 class MyPositionController
 {
@@ -66,7 +71,7 @@ public:
     location::TMyPositionModeChanged m_myPositionModeCallback;
   };
 
-  explicit MyPositionController(Params && params);
+  MyPositionController(Params && params, ref_ptr<DrapeNotifier> notifier);
 
   void UpdatePosition();
   void OnUpdateScreen(ScreenBase const & screen);
@@ -88,7 +93,7 @@ public:
 
   void Rotated();
 
-  void ResetRoutingNotFollowTimer();
+  void ResetRoutingNotFollowTimer(bool blockTimer = false);
   void ResetBlockAutoZoomTimer();
 
   void CorrectScalePoint(m2::PointD & pt) const;
@@ -111,7 +116,6 @@ public:
   void SetTimeInBackground(double time);
 
   void OnCompassTapped();
-
   void OnLocationUpdate(location::GpsInfo const & info, bool isNavigable, ScreenBase const & screen);
   void OnCompassUpdate(location::CompassInfo const & info, ScreenBase const & screen);
 
@@ -121,7 +125,6 @@ public:
   bool IsRotationAvailable() const { return m_isDirectionAssigned; }
   bool IsInRouting() const { return m_isInRouting; }
   bool IsRouteFollowingActive() const;
-  bool IsWaitingForTimers() const;
   bool IsModeChangeViewport() const;
 
   bool IsWaitingForLocation() const;
@@ -154,7 +157,13 @@ private:
   bool AlmostCurrentPosition(m2::PointD const & pos) const;
   bool AlmostCurrentAzimut(double azimut) const;
 
-private:
+  void CheckIsWaitingForLocation();
+  void CheckNotFollowRouting();
+  void CheckBlockAutoZoom();
+  void CheckUpdateLocation();
+
+  ref_ptr<DrapeNotifier> m_notifier;
+
   location::EMyPositionMode m_mode;
   location::EMyPositionMode m_desiredInitMode;
   location::TMyPositionModeChanged m_modeChangeCallback;
@@ -183,6 +192,7 @@ private:
   my::Timer m_lastGPSBearing;
   my::Timer m_pendingTimer;
   my::Timer m_routingNotFollowTimer;
+  bool m_blockRoutingNotFollowTimer = false;
   my::Timer m_blockAutoZoomTimer;
   my::Timer m_updateLocationTimer;
   double m_lastLocationTimestamp;
@@ -206,5 +216,10 @@ private:
   bool m_needBlockAutoZoom;
 
   bool m_notFollowAfterPending;
+
+  uint64_t m_locationWaitingNotifyId;
+  uint64_t m_routingNotFollowNotifyId;
+  uint64_t m_blockAutoZoomNotifyId;
+  uint64_t m_updateLocationNotifyId;
 };
 }  // namespace df

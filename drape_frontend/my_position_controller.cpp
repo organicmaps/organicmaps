@@ -1,9 +1,11 @@
 #include "drape_frontend/my_position_controller.hpp"
+
+#include "drape_frontend/animation/arrow_animation.hpp"
 #include "drape_frontend/animation_system.hpp"
 #include "drape_frontend/animation_utils.hpp"
-#include "drape_frontend/visual_params.hpp"
+#include "drape_frontend/drape_notifier.hpp"
 #include "drape_frontend/user_event_stream.hpp"
-#include "drape_frontend/animation/arrow_animation.hpp"
+#include "drape_frontend/visual_params.hpp"
 
 #include "indexer/scales.hpp"
 
@@ -14,6 +16,7 @@
 #include "3party/Alohalytics/src/alohalytics.h"
 
 #include <algorithm>
+#include <chrono>
 #include <string>
 #include <vector>
 #include <utility>
@@ -123,8 +126,9 @@ double CalculateZoomBySpeed(double speed, bool isPerspectiveAllowed)
 }
 }  // namespace
 
-MyPositionController::MyPositionController(Params && params)
-  : m_mode(location::PendingPosition)
+MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifier> notifier)
+  : m_notifier(notifier)
+  , m_mode(location::PendingPosition)
   , m_desiredInitMode(params.m_initMode)
   , m_modeChangeCallback(std::move(params.m_myPositionModeCallback))
   , m_hints(params.m_hints)
@@ -154,6 +158,10 @@ MyPositionController::MyPositionController(Params && params)
   , m_positionIsObsolete(false)
   , m_needBlockAutoZoom(false)
   , m_notFollowAfterPending(false)
+  , m_locationWaitingNotifyId(DrapeNotifier::kInvalidId)
+  , m_routingNotFollowNotifyId(DrapeNotifier::kInvalidId)
+  , m_blockAutoZoomNotifyId(DrapeNotifier::kInvalidId)
+  , m_updateLocationNotifyId(DrapeNotifier::kInvalidId)
 {
   if (m_hints.m_isFirstLaunch)
   {
@@ -261,10 +269,14 @@ void MyPositionController::Rotated()
     m_wasRotationInScaling = true;
 }
 
-void MyPositionController::ResetRoutingNotFollowTimer()
+void MyPositionController::ResetRoutingNotFollowTimer(bool blockTimer)
 {
   if (m_isInRouting)
+  {
     m_routingNotFollowTimer.Reset();
+    m_blockRoutingNotFollowTimer = blockTimer;
+    m_routingNotFollowNotifyId = DrapeNotifier::kInvalidId;
+  }
 }
 
 void MyPositionController::ResetBlockAutoZoomTimer()
@@ -273,6 +285,7 @@ void MyPositionController::ResetBlockAutoZoomTimer()
   {
     m_needBlockAutoZoom = true;
     m_blockAutoZoomTimer.Reset();
+    m_blockAutoZoomNotifyId = DrapeNotifier::kInvalidId;
   }
 }
 
@@ -326,6 +339,7 @@ void MyPositionController::NextMode(ScreenBase const & screen)
   if (m_mode == location::NotFollowNoPosition)
   {
     m_pendingTimer.Reset();
+    m_locationWaitingNotifyId = DrapeNotifier::kInvalidId;
     ChangeMode(location::PendingPosition);
     return;
   }
@@ -408,8 +422,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   if (m_notFollowAfterPending && m_mode == location::PendingPosition)
   {
     ChangeMode(location::NotFollow);
-    if (m_isInRouting)
-      m_routingNotFollowTimer.Reset();
+    ResetRoutingNotFollowTimer();
     m_notFollowAfterPending = false;
   }
   else if (!m_isPositionAssigned)
@@ -471,6 +484,7 @@ void MyPositionController::OnLocationUpdate(location::GpsInfo const & info, bool
   {
     m_lastLocationTimestamp = info.m_timestamp;
     m_updateLocationTimer.Reset();
+    m_updateLocationNotifyId = DrapeNotifier::kInvalidId;
   }
 }
 
@@ -525,34 +539,13 @@ void MyPositionController::Render(ScreenBase const & screen, int zoomLevel,
                                   ref_ptr<gpu::ProgramManager> mng,
                                   FrameValues const & frameValues)
 {
-  if (IsWaitingForLocation())
-  {
-    if (m_pendingTimer.ElapsedSeconds() >= kMaxPendingLocationTimeSec)
-      ChangeMode(location::NotFollowNoPosition);
-  }
-
-  if (IsInRouting() && m_mode == location::NotFollow &&
-      m_routingNotFollowTimer.ElapsedSeconds() >= kMaxNotFollowRoutingTimeSec)
-  {
-    ChangeMode(location::FollowAndRotate);
-    UpdateViewport(kDoNotChangeZoom);
-  }
+  CheckIsWaitingForLocation();
+  CheckNotFollowRouting();
 
   if (m_shape != nullptr && IsVisible() && IsModeHasPosition())
   {
-    if (m_needBlockAutoZoom &&
-        m_blockAutoZoomTimer.ElapsedSeconds() >= kMaxBlockAutoZoomTimeSec)
-    {
-      m_needBlockAutoZoom = false;
-      m_isDirtyAutoZoom = true;
-    }
-
-    if (!m_positionIsObsolete &&
-        m_updateLocationTimer.ElapsedSeconds() >= kMaxUpdateLocationInvervalSec)
-    {
-      m_positionIsObsolete = true;
-      m_autoScale2d = m_autoScale3d = kUnknownAutoZoom;
-    }
+    CheckBlockAutoZoom();
+    CheckUpdateLocation();
 
     if ((m_isDirtyViewport || m_isDirtyAutoZoom) && !m_needBlockAnimation)
     {
@@ -621,11 +614,6 @@ bool MyPositionController::IsWaitingForLocation() const
   return m_mode == location::PendingPosition;
 }
 
-bool MyPositionController::IsWaitingForTimers() const
-{
-  return IsWaitingForLocation() || (IsInRouting() && m_mode == location::NotFollow);
-}
-
 void MyPositionController::StopLocationFollow()
 {
   if (m_mode == location::Follow || m_mode == location::FollowAndRotate)
@@ -634,9 +622,8 @@ void MyPositionController::StopLocationFollow()
 
   if (m_mode == location::PendingPosition)
     m_notFollowAfterPending = true;
-  
-  if (m_isInRouting)
-    m_routingNotFollowTimer.Reset();
+
+  ResetRoutingNotFollowTimer();
 }
 
 void MyPositionController::SetTimeInBackground(double time)
@@ -816,7 +803,6 @@ void MyPositionController::ActivateRouting(int zoomLevel, bool enableAutoZoom)
   if (!m_isInRouting)
   {
     m_isInRouting = true;
-    m_routingNotFollowTimer.Reset();
     m_enableAutoZoomInRouting = enableAutoZoom;
 
     ChangeMode(location::FollowAndRotate);
@@ -826,7 +812,7 @@ void MyPositionController::ActivateRouting(int zoomLevel, bool enableAutoZoom)
                     {
                       UpdateViewport(kDoNotChangeZoom);
                     });
-
+    ResetRoutingNotFollowTimer();
   }
 }
 
@@ -842,4 +828,71 @@ void MyPositionController::DeactivateRouting()
     ChangeModelView(m_position, 0.0, m_visiblePixelRect.Center(), kDoNotChangeZoom);
   }
 }
+
+// This code schedules the execution of checkFunction on FR after timeout. Additionally
+// there is the protection from multiple scheduling.
+#define CHECK_ON_TIMEOUT(id, timeout, checkFunction) \
+  if (id == DrapeNotifier::kInvalidId) \
+  { \
+    id = m_notifier->Notify(ThreadsCommutator::RenderThread, \
+                            std::chrono::seconds(static_cast<uint32_t>(timeout)), false /* repeating */, \
+                            [this](uint64_t notifyId) \
+    { \
+      if (notifyId != id) \
+        return; \
+      checkFunction(); \
+      id = DrapeNotifier::kInvalidId; \
+    }); \
+  }
+
+void MyPositionController::CheckIsWaitingForLocation()
+{
+  if (IsWaitingForLocation())
+  {
+    CHECK_ON_TIMEOUT(m_locationWaitingNotifyId, kMaxPendingLocationTimeSec, CheckIsWaitingForLocation);
+    if (m_pendingTimer.ElapsedSeconds() >= kMaxPendingLocationTimeSec)
+      ChangeMode(location::NotFollowNoPosition);
+  }
+}
+
+void MyPositionController::CheckNotFollowRouting()
+{
+  if (!m_blockRoutingNotFollowTimer && IsInRouting() && m_mode == location::NotFollow)
+  {
+    CHECK_ON_TIMEOUT(m_routingNotFollowNotifyId, kMaxNotFollowRoutingTimeSec, CheckNotFollowRouting);
+    if (m_routingNotFollowTimer.ElapsedSeconds() >= kMaxNotFollowRoutingTimeSec)
+    {
+      ChangeMode(location::FollowAndRotate);
+      UpdateViewport(kDoNotChangeZoom);
+    }
+  }
+}
+
+void MyPositionController::CheckBlockAutoZoom()
+{
+  if (m_needBlockAutoZoom)
+  {
+    CHECK_ON_TIMEOUT(m_blockAutoZoomNotifyId, kMaxBlockAutoZoomTimeSec, CheckBlockAutoZoom);
+    if (m_blockAutoZoomTimer.ElapsedSeconds() >= kMaxBlockAutoZoomTimeSec)
+    {
+      m_needBlockAutoZoom = false;
+      m_isDirtyAutoZoom = true;
+    }
+  }
+}
+
+void MyPositionController::CheckUpdateLocation()
+{
+  if (!m_positionIsObsolete)
+  {
+    CHECK_ON_TIMEOUT(m_updateLocationNotifyId, kMaxUpdateLocationInvervalSec, CheckUpdateLocation);
+    if (m_updateLocationTimer.ElapsedSeconds() >= kMaxUpdateLocationInvervalSec)
+    {
+      m_positionIsObsolete = true;
+      m_autoScale2d = m_autoScale3d = kUnknownAutoZoom;
+    }
+  }
+}
+
+#undef CHECK_ON_TIMEOUT
 }  // namespace df

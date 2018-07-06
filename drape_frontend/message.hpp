@@ -2,7 +2,6 @@
 
 namespace df
 {
-
 class Message
 {
 public:
@@ -91,12 +90,11 @@ public:
     ClearTransitSchemeData,
     RegenerateTransitScheme,
     FlushTransitScheme,
-    FlushTransitMarkers,
-    FlushTransitText,
-    FlushTransitStubs,
+    ShowDebugInfo,
+    NotifyRenderThread
   };
 
-  virtual ~Message() {}
+  virtual ~Message() = default;
   virtual Type GetType() const { return Unknown; }
   virtual bool IsGLContextDependent() const { return false; }
 };
@@ -116,5 +114,4 @@ enum class MessagePriority
   // This priority allows to process messages after any other messages in queue.
   Low
 };
-
-} // namespace df
+}  // namespace df

@@ -76,6 +76,22 @@ public:
     return result;
   }
 
+  template <typename Task>
+  static ResultPtr RunDelayed(base::WorkerThread::Duration const & duration, Task && t)
+  {
+    ResultPtr result(new Result(Instance().GetNextId()));
+    bool const success = Instance().m_workerThread.PushDelayed(duration, [result, t]() mutable
+    {
+      t();
+      Instance().Notify(result->Finish());
+    });
+
+    if (!success)
+      return {};
+
+    return result;
+  }
+
 private:
   static DrapeRoutine & Instance()
   {

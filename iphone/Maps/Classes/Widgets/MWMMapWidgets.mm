@@ -26,9 +26,7 @@
   m_skin->Resize(p.m_surfaceWidth, p.m_surfaceHeight);
   m_skin->ForEach(
       [&p](gui::EWidget widget, gui::Position const & pos) { p.m_widgetsInitInfo[widget] = pos; });
-#ifdef DEBUG
-  p.m_widgetsInitInfo[gui::WIDGET_SCALE_LABEL] = gui::Position(dp::LeftBottom);
-#endif
+  p.m_widgetsInitInfo[gui::WIDGET_SCALE_FPS_LABEL] = gui::Position(dp::LeftBottom);
 }
 
 - (void)resize:(CGSize)size
@@ -62,7 +60,7 @@
     case gui::WIDGET_WATERMARK:
     case gui::WIDGET_COPYRIGHT: pivot += rulerOffset; break;
     case gui::WIDGET_COMPASS: pivot += compassOffset; break;
-    case gui::WIDGET_SCALE_LABEL:
+    case gui::WIDGET_SCALE_FPS_LABEL:
     case gui::WIDGET_CHOOSE_POSITION_MARK: break;
     }
     layout[w] = pivot;

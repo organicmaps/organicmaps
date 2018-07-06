@@ -254,8 +254,14 @@ void TextureManager::Release()
 
 bool TextureManager::UpdateDynamicTextures()
 {
+  // For some reasons OpenGL can not update textures immediately.
+  // Here we use some timeout to allow to do it.
+  double const kUploadTimeoutInSeconds = 2.0;
+
   if (!HasAsyncRoutines() && m_nothingToUpload.test_and_set())
-    return false;
+    return m_uploadTimer.ElapsedSeconds() < kUploadTimeoutInSeconds;
+
+  m_uploadTimer.Reset();
 
   m_colorTexture->UpdateState();
   m_stipplePenTexture->UpdateState();

@@ -36,7 +36,7 @@ public:
   void CorrectScalePoint(m2::PointD & pt1, m2::PointD & pt2) const override {}
   void CorrectGlobalScalePoint(m2::PointD & pt) const override {}
   void OnScaleEnded() override {}
-  void OnTouchMapAction() override {}
+  void OnTouchMapAction(TouchEvent::ETouchType touchType) override {}
   void OnAnimatedScaleEnded() override {}
   bool OnNewVisibleViewport(m2::RectD const & oldViewport, m2::RectD const & newViewport,
                             m2::PointD & gOffset) override

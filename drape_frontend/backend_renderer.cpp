@@ -539,6 +539,13 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::NotifyRenderThread:
+    {
+      ref_ptr<NotifyRenderThreadMessage> msg = message;
+      msg->InvokeFunctor();
+      break;
+    }
+
   default:
     ASSERT(false, ());
     break;

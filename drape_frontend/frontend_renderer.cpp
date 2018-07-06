@@ -3,6 +3,7 @@
 #include "drape_frontend/animation_system.hpp"
 #include "drape_frontend/batch_merge_helper.hpp"
 #include "drape_frontend/drape_measurer.hpp"
+#include "drape_frontend/drape_notifier.hpp"
 #include "drape_frontend/gui/drape_gui.hpp"
 #include "drape_frontend/gui/ruler_helper.hpp"
 #include "drape_frontend/message_subclasses.hpp"
@@ -146,6 +147,7 @@ FrontendRenderer::FrontendRenderer(Params && params)
 #ifdef SCENARIO_ENABLE
   , m_scenarioManager(new ScenarioManager(this))
 #endif
+  , m_notifier(make_unique_dp<DrapeNotifier>(params.m_commutator))
 {
 #ifdef DEBUG
   m_isTeardowned = false;
@@ -170,7 +172,8 @@ FrontendRenderer::FrontendRenderer(Params && params)
                               MessagePriority::Normal);
   });
 
-  m_myPositionController = make_unique_dp<MyPositionController>(std::move(params.m_myPositionParams));
+  m_myPositionController = make_unique_dp<MyPositionController>(
+      std::move(params.m_myPositionParams), make_ref(m_notifier));
 
 #ifndef OMIM_OS_IPHONE_SIMULATOR
   for (auto const & effect : params.m_enabledEffects)
@@ -869,6 +872,20 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<FinishTexturesInitializationMessage> msg = message;
       m_finishTexturesInitialization = true;
+      break;
+    }
+
+  case Message::ShowDebugInfo:
+    {
+      ref_ptr<ShowDebugInfoMessage> msg = message;
+      gui::DrapeGui::Instance().GetScaleFpsHelper().SetVisible(msg->IsShown());
+      break;
+    }
+
+  case Message::NotifyRenderThread:
+    {
+      ref_ptr<NotifyRenderThreadMessage> msg = message;
+      msg->InvokeFunctor();
       break;
     }
 
@@ -1603,6 +1620,7 @@ void FrontendRenderer::ResolveZoomLevel(ScreenBase const & screen)
 {
   int const prevZoomLevel = m_currentZoomLevel;
   m_currentZoomLevel = GetDrawTileScale(screen);
+  gui::DrapeGui::Instance().GetScaleFpsHelper().SetScale(m_currentZoomLevel);
 
   if (prevZoomLevel != m_currentZoomLevel)
     UpdateCanBeDeletedStatus();
@@ -1741,9 +1759,12 @@ void FrontendRenderer::OnAnimatedScaleEnded()
   m_firstLaunchAnimationInterrupted = true;
 }
 
-void FrontendRenderer::OnTouchMapAction()
+void FrontendRenderer::OnTouchMapAction(TouchEvent::ETouchType touchType)
 {
-  m_myPositionController->ResetRoutingNotFollowTimer();
+  // Here we block timer on start of touch actions. Timer will be unblocked on
+  // the completion of touch actions. It helps to prevent the creation of redundant checks.
+  auto const blockTimer = (touchType == TouchEvent::TOUCH_DOWN || touchType == TouchEvent::TOUCH_MOVE);
+  m_myPositionController->ResetRoutingNotFollowTimer(blockTimer);
 }
 bool FrontendRenderer::OnNewVisibleViewport(m2::RectD const & oldViewport,
                                             m2::RectD const & newViewport, m2::PointD & gOffset)
@@ -1971,25 +1992,28 @@ void FrontendRenderer::Routine::Do()
 
   m_renderer.OnContextCreate();
 
-  double const kMaxInactiveSeconds = 2.0;
-  double const kShowOverlaysEventsPeriod = 5.0;
-
   my::Timer timer;
-  my::Timer activityTimer;
-  my::Timer showOverlaysEventsTimer;
-
   double frameTime = 0.0;
   bool modelViewChanged = true;
   bool viewportChanged = true;
   bool invalidContext = false;
+  uint32_t inactiveFramesCounter = 0;
 
   dp::OGLContext * context = m_renderer.m_contextFactory->getDrawContext();
+
+#ifdef DEBUG
+  gui::DrapeGui::Instance().GetScaleFpsHelper().SetVisible(true);
+#endif
+
+  m_renderer.ScheduleOverlayCollecting();
 
   while (!IsCancelled())
   {
     if (context->validate())
     {
       invalidContext = false;
+      timer.Reset();
+
       ScreenBase modelView = m_renderer.ProcessEvents(modelViewChanged, viewportChanged);
       if (viewportChanged)
         m_renderer.OnResize(modelView);
@@ -2000,70 +2024,74 @@ void FrontendRenderer::Routine::Do()
       if (isActiveFrame)
         m_renderer.PrepareScene(modelView);
 
-      isActiveFrame |= m_renderer.m_myPositionController->IsWaitingForTimers();
       isActiveFrame |= m_renderer.m_texMng->UpdateDynamicTextures();
       m_renderer.m_routeRenderer->UpdatePreview(modelView);
 
       m_renderer.RenderScene(modelView);
 
-      if (modelViewChanged || m_renderer.m_forceUpdateScene || m_renderer.m_forceUpdateUserMarks)
+      auto const hasForceUpdate = m_renderer.m_forceUpdateScene || m_renderer.m_forceUpdateUserMarks;
+      isActiveFrame |= hasForceUpdate;
+
+      if (modelViewChanged || hasForceUpdate)
         m_renderer.UpdateScene(modelView);
 
       isActiveFrame |= InterpolationHolder::Instance().Advance(frameTime);
-      AnimationSystem::Instance().Advance(frameTime);
-
+      isActiveFrame |= AnimationSystem::Instance().Advance(frameTime);
       isActiveFrame |= m_renderer.m_userEventStream.IsWaitingForActionCompletion();
 
-      if (isActiveFrame)
-        activityTimer.Reset();
+      // On the first inactive frame we invalidate overlay tree.
+      if (!isActiveFrame)
+      {
+        if (inactiveFramesCounter == 0)
+          m_renderer.m_overlayTree->InvalidateOnNextFrame();
+        inactiveFramesCounter++;
+      }
+      else
+      {
+        inactiveFramesCounter = 0;
+      }
 
-      bool isValidFrameTime = true;
-      if (activityTimer.ElapsedSeconds() > kMaxInactiveSeconds)
+      bool const canSuspend = inactiveFramesCounter > 2;
+      if (canSuspend)
       {
         // Process a message or wait for a message.
         // IsRenderingEnabled() can return false in case of rendering disabling and we must prevent
         // possibility of infinity waiting in ProcessSingleMessage.
         m_renderer.ProcessSingleMessage(m_renderer.IsRenderingEnabled());
-        activityTimer.Reset();
         timer.Reset();
-        isValidFrameTime = false;
+        inactiveFramesCounter = 0;
       }
       else
       {
-        double availableTime = kVSyncInterval - timer.ElapsedSeconds();
+        auto availableTime = kVSyncInterval - timer.ElapsedSeconds();
         do
         {
           if (!m_renderer.ProcessSingleMessage(false /* waitForMessage */))
             break;
-
-          activityTimer.Reset();
+          inactiveFramesCounter = 0;
           availableTime = kVSyncInterval - timer.ElapsedSeconds();
         }
         while (availableTime > 0.0);
       }
 
       context->present();
-      frameTime = timer.ElapsedSeconds();
-      timer.Reset();
 
       // Limit fps in following mode.
       double constexpr kFrameTime = 1.0 / 30.0;
-      if (isValidFrameTime && frameTime < kFrameTime &&
+      auto const ft = timer.ElapsedSeconds();
+      if (!canSuspend && ft < kFrameTime &&
           m_renderer.m_myPositionController->IsRouteFollowingActive())
       {
-        auto const ms = static_cast<uint32_t>((kFrameTime - frameTime) * 1000);
+        auto const ms = static_cast<uint32_t>((kFrameTime - ft) * 1000);
         std::this_thread::sleep_for(std::chrono::milliseconds(ms));
       }
 
-      if (m_renderer.m_overlaysTracker->IsValid() &&
-        showOverlaysEventsTimer.ElapsedSeconds() > kShowOverlaysEventsPeriod)
-      {
-        m_renderer.CollectShowOverlaysEvents();
-        showOverlaysEventsTimer.Reset();
-      }
+      frameTime = timer.ElapsedSeconds();
+      gui::DrapeGui::Instance().GetScaleFpsHelper().SetFrameTime(frameTime, inactiveFramesCounter < 1);
     }
     else
     {
+      inactiveFramesCounter = 0;
       if (!invalidContext)
       {
         LOG(LINFO, ("Invalid context. Rendering is stopped."));
@@ -2234,6 +2262,17 @@ void FrontendRenderer::CheckAndRunFirstLaunchAnimation()
   m2::PointD const pos =  m_myPositionController->GetDrawablePosition();
   AddUserEvent(make_unique_dp<SetCenterEvent>(pos, kDesiredZoomLevel, true /* isAnim */,
                                               false /* trackVisibleViewport */));
+}
+
+void FrontendRenderer::ScheduleOverlayCollecting()
+{
+  auto const kCollectingEventsPeriod = std::chrono::seconds(10);
+  m_notifier->Notify(ThreadsCommutator::RenderThread, kCollectingEventsPeriod,
+                     true /* repeating */, [this](uint64_t)
+  {
+    if (m_overlaysTracker->IsValid())
+      CollectShowOverlaysEvents();
+  });
 }
 
 void FrontendRenderer::RenderLayer::Sort(ref_ptr<dp::OverlayTree> overlayTree)

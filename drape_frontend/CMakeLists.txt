@@ -73,6 +73,8 @@ set(
   drape_engine.hpp
   drape_engine_safe_ptr.hpp
   drape_hints.hpp
+  drape_notifier.cpp
+  drape_notifier.hpp
   drape_measurer.cpp
   drape_measurer.hpp
   engine_context.cpp
@@ -101,6 +103,7 @@ set(
   gui/ruler.hpp
   gui/ruler_helper.cpp
   gui/ruler_helper.hpp
+  gui/scale_fps_helper.hpp
   gui/shape.cpp
   gui/shape.hpp
   gui/skin.cpp

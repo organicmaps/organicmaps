@@ -1,7 +1,8 @@
 #pragma once
 
-#include "skin.hpp"
-#include "compass.hpp"
+#include "drape_frontend/gui/compass.hpp"
+#include "drape_frontend/gui/scale_fps_helper.hpp"
+#include "drape_frontend/gui/skin.hpp"
 
 #include "storage/index.hpp"
 #include "storage/storage_defines.hpp"
@@ -39,12 +40,13 @@ public:
   void ConnectOnCompassTappedHandler(Shape::TTapHandler const & handler);
   void CallOnCompassTappedHandler();
 
+  ScaleFpsHelper & GetScaleFpsHelper() { return m_scaleFpsHelper; }
+  ScaleFpsHelper const & GetScaleFpsHelper() const { return m_scaleFpsHelper; }
+
 private:
   DrapeGui();
-
   RulerHelper & GetRulerHelperImpl();
 
-private:
   struct Impl;
   std::unique_ptr<Impl> m_impl;
   bool m_isCopyrightActive = true;
@@ -53,5 +55,6 @@ private:
   m2::PointF m_surfaceSize;
   mutable std::mutex m_surfaceSizeMutex;
   bool m_inUserAction = false;
+  ScaleFpsHelper m_scaleFpsHelper;
 };
 }  // namespace gui

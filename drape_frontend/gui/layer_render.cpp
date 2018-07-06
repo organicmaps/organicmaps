@@ -154,11 +154,11 @@ bool LayerRenderer::HasWidget(EWidget widget) const
 
 namespace
 {
-class ScaleLabelHandle : public MutableLabelHandle
+class ScaleFpsLabelHandle : public MutableLabelHandle
 {
   using TBase = MutableLabelHandle;
 public:
-  ScaleLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> textures)
+  ScaleFpsLabelHandle(uint32_t id, ref_ptr<dp::TextureManager> textures)
     : TBase(id, dp::LeftBottom, m2::PointF::Zero(), textures), m_scale(0)
   {
     SetIsVisible(true);
@@ -166,11 +166,20 @@ public:
 
   bool Update(ScreenBase const & screen) override
   {
-    int const newScale = df::GetDrawTileScale(screen);
-    if (m_scale != newScale)
+    auto & helper = gui::DrapeGui::Instance().GetScaleFpsHelper();
+    if (!helper.IsVisible())
+      return false;
+
+    if (m_scale != helper.GetScale() || m_fps != helper.GetFps() || m_isPaused != helper.IsPaused())
     {
-      m_scale = newScale;
-      SetContent("Scale : " + strings::to_string(m_scale));
+      m_scale = helper.GetScale();
+      m_fps = helper.GetFps();
+      m_isPaused = helper.IsPaused();
+      std::stringstream ss;
+      ss << "Scale: " << m_scale << " / FPS: " << m_fps;
+      if (m_isPaused)
+        ss << " (PAUSED)";
+      SetContent(ss.str());
     }
 
     auto const vs = static_cast<float>(df::VisualParams::Instance().GetVisualScale());
@@ -181,7 +190,9 @@ public:
   }
 
 private:
-  int m_scale;
+  int m_scale = 1;
+  uint32_t m_fps = 0;
+  bool m_isPaused = false;
 };
 }  // namespace
 
@@ -194,7 +205,7 @@ drape_ptr<LayerRenderer> LayerCacher::RecacheWidgets(TWidgetsInitInfo const & in
       std::make_pair(WIDGET_COMPASS, std::bind(&LayerCacher::CacheCompass, this, _1, _2, _3)),
       std::make_pair(WIDGET_RULER, std::bind(&LayerCacher::CacheRuler, this, _1, _2, _3)),
       std::make_pair(WIDGET_COPYRIGHT, std::bind(&LayerCacher::CacheCopyright, this, _1, _2, _3)),
-      std::make_pair(WIDGET_SCALE_LABEL, std::bind(&LayerCacher::CacheScaleLabel, this, _1, _2, _3)),
+      std::make_pair(WIDGET_SCALE_FPS_LABEL, std::bind(&LayerCacher::CacheScaleFpsLabel, this, _1, _2, _3)),
       std::make_pair(WIDGET_WATERMARK, std::bind(&LayerCacher::CacheWatermark, this, _1, _2, _3))};
 
   drape_ptr<LayerRenderer> renderer = make_unique_dp<LayerRenderer>();
@@ -349,25 +360,25 @@ m2::PointF LayerCacher::CacheCopyright(Position const & position, ref_ptr<LayerR
   return size;
 }
 
-m2::PointF LayerCacher::CacheScaleLabel(Position const & position, ref_ptr<LayerRenderer> renderer,
-                                        ref_ptr<dp::TextureManager> textures)
+m2::PointF LayerCacher::CacheScaleFpsLabel(Position const & position, ref_ptr<LayerRenderer> renderer,
+                                           ref_ptr<dp::TextureManager> textures)
 {
   MutableLabelDrawer::Params params;
-  params.m_alphabet = "Scale: 1234567890";
-  params.m_maxLength = 10;
+  params.m_alphabet = "FPSAUEDcale: 1234567890/()";
+  params.m_maxLength = 30;
   params.m_anchor = position.m_anchor;
   params.m_font = DrapeGui::GetGuiTextFont();
   params.m_pivot = position.m_pixelPivot;
   params.m_handleCreator = [textures](dp::Anchor, m2::PointF const &)
   {
-    return make_unique_dp<ScaleLabelHandle>(EGuiHandle::GuiHandleScaleLabel, textures);
+    return make_unique_dp<ScaleFpsLabelHandle>(EGuiHandle::GuiHandleScaleLabel, textures);
   };
 
   drape_ptr<ShapeRenderer> scaleRenderer = make_unique_dp<ShapeRenderer>();
   m2::PointF size = MutableLabelDrawer::Draw(params, textures,
     std::bind(&ShapeRenderer::AddShape, scaleRenderer.get(), _1, _2));
 
-  renderer->AddShapeRenderer(WIDGET_SCALE_LABEL, std::move(scaleRenderer));
+  renderer->AddShapeRenderer(WIDGET_SCALE_FPS_LABEL, std::move(scaleRenderer));
   return size;
 }
 

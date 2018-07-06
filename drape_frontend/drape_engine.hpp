@@ -224,6 +224,8 @@ public:
 
   void RunFirstLaunchAnimation();
 
+  void ShowDebugInfo(bool shown);
+
 private:
   void AddUserEvent(drape_ptr<UserEvent> && e);
   void PostUserEvent(drape_ptr<UserEvent> && e);

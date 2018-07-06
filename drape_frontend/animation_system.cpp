@@ -346,10 +346,10 @@ void AnimationSystem::FinishObjectAnimations(Animation::Object object, bool rewi
                    rewind, finishAll);
 }
 
-void AnimationSystem::Advance(double elapsedSeconds)
+bool AnimationSystem::Advance(double elapsedSeconds)
 {
   if (m_animationChain.empty())
-    return;
+    return false;
 
   TAnimationList finishedAnimations;
   TAnimationList & frontList = *(m_animationChain.front());
@@ -373,6 +373,8 @@ void AnimationSystem::Advance(double elapsedSeconds)
   }
   if (frontList.empty())
     StartNextAnimations();
+
+  return true;
 }
 
 #ifdef DEBUG_ANIMATIONS

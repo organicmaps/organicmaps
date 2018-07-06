@@ -78,7 +78,7 @@ OverlayTree::OverlayTree(double visualScale)
 
 void OverlayTree::Clear()
 {
-  m_frameCounter = kInvalidFrame;
+  InvalidateOnNextFrame();
   TBase::Clear();
   m_handlesCache.clear();
   for (auto & handles : m_handles)
@@ -105,7 +105,7 @@ bool OverlayTree::Frame()
 
   m_frameCounter++;
   if (m_frameCounter >= static_cast<int>(m_frameUpdatePeriod))
-    m_frameCounter = kInvalidFrame;
+    InvalidateOnNextFrame();
 
   return IsNeedUpdate();
 }
@@ -113,6 +113,11 @@ bool OverlayTree::Frame()
 bool OverlayTree::IsNeedUpdate() const
 {
   return m_frameCounter == kInvalidFrame;
+}
+
+void OverlayTree::InvalidateOnNextFrame()
+{
+  m_frameCounter = kInvalidFrame;
 }
 
 void OverlayTree::StartOverlayPlacing(ScreenBase const & screen, int zoomLevel)
@@ -131,7 +136,7 @@ void OverlayTree::Remove(ref_ptr<OverlayHandle> handle)
     return;
 
   if (m_handlesCache.find(handle) != m_handlesCache.end())
-    m_frameCounter = kInvalidFrame;
+    InvalidateOnNextFrame();
 }
 
 void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
@@ -154,7 +159,7 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
   // Skip not-ready handles.
   if (!handle->Update(modelView))
   {
-    m_frameCounter = kInvalidFrame;
+    InvalidateOnNextFrame();
     handle->SetReady(false);
     return;
   }
@@ -435,7 +440,7 @@ void OverlayTree::SetDisplacementEnabled(bool enabled)
   if (m_isDisplacementEnabled == enabled)
     return;
   m_isDisplacementEnabled = enabled;
-  m_frameCounter = kInvalidFrame;
+  InvalidateOnNextFrame();
 }
 
 void OverlayTree::SetSelectedFeature(FeatureID const & featureID)

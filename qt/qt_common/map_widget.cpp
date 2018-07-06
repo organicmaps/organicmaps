@@ -95,7 +95,7 @@ void MapWidget::CreateEngine()
   m_skin->ForEach(
       [&p](gui::EWidget widget, gui::Position const & pos) { p.m_widgetsInitInfo[widget] = pos; });
 
-  p.m_widgetsInitInfo[gui::WIDGET_SCALE_LABEL] = gui::Position(dp::LeftBottom);
+  p.m_widgetsInitInfo[gui::WIDGET_SCALE_FPS_LABEL] = gui::Position(dp::LeftBottom);
 
   m_framework.CreateDrapeEngine(make_ref(m_contextFactory), std::move(p));
   m_framework.SetViewportListener([this](ScreenBase const & /* screen */) {

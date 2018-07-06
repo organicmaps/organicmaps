@@ -703,7 +703,7 @@ bool UserEventStream::ProcessTouch(TouchEvent const & touch)
 bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
 {
   if (m_listener)
-    m_listener->OnTouchMapAction();
+    m_listener->OnTouchMapAction(TouchEvent::TOUCH_DOWN);
 
   size_t touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;
@@ -771,7 +771,7 @@ bool UserEventStream::CheckDrag(array<Touch, 2> const & touches, double threshol
 bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
 {
   if (m_listener)
-    m_listener->OnTouchMapAction();
+    m_listener->OnTouchMapAction(TouchEvent::TOUCH_MOVE);
 
   double const kDragThreshold = pow(VisualParams::Instance().GetDragThreshold(), 2);
   size_t touchCount = GetValidTouchesCount(touches);
@@ -855,7 +855,7 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
 bool UserEventStream::TouchCancel(array<Touch, 2> const & touches)
 {
   if (m_listener)
-    m_listener->OnTouchMapAction();
+    m_listener->OnTouchMapAction(TouchEvent::TOUCH_CANCEL);
 
   size_t touchCount = GetValidTouchesCount(touches);
   UNUSED_VALUE(touchCount);
@@ -899,7 +899,7 @@ bool UserEventStream::TouchCancel(array<Touch, 2> const & touches)
 bool UserEventStream::TouchUp(array<Touch, 2> const & touches)
 {
   if (m_listener)
-    m_listener->OnTouchMapAction();
+    m_listener->OnTouchMapAction(TouchEvent::TOUCH_UP);
 
   size_t touchCount = GetValidTouchesCount(touches);
   bool isMapTouch = true;

@@ -8,6 +8,7 @@
 #include "drape/font_texture.hpp"
 
 #include "base/string_utils.hpp"
+#include "base/timer.hpp"
 
 #include <atomic>
 #include <list>
@@ -251,6 +252,7 @@ private:
   buffer_vector<GlyphGroup, 64> m_glyphGroups;
   buffer_vector<HybridGlyphGroup, 4> m_hybridGlyphGroups;
 
+  my::Timer m_uploadTimer;
   std::atomic_flag m_nothingToUpload;
   std::mutex m_calcGlyphsMutex;
 };
