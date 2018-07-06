@@ -11,6 +11,15 @@ final class LayersViewController: MWMViewController {
     }
   }
 
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    MWMTrafficManager.add(self)
+  }
+
+  deinit {
+    MWMTrafficManager.remove(self)
+  }
+
   override var transitioningDelegate: UIViewControllerTransitioningDelegate? {
     get { return ModalTransitioning() }
     set { }
@@ -34,5 +43,39 @@ final class LayersViewController: MWMViewController {
 
   @IBAction func onSubwayButton(_ sender: UIButton) {
     MWMTrafficManager.enableTransit(!MWMTrafficManager.transitEnabled())
+  }
+}
+
+extension LayersViewController: MWMTrafficManagerObserver {
+  func onTrafficStateUpdated() {
+    updateTrafficButton()
+    var statusString: String = ""
+    switch MWMTrafficManager.trafficState() {
+    case .enabled:
+      statusString = "success"
+    case .noData:
+      statusString = "unavailable"
+    case .networkError:
+      statusString = "error"
+    default:
+      statusString = ""
+    }
+    Statistics.logEvent("Map_Layers_activate", withParameters: ["name" : "traffic",
+                                                                "status" : statusString])
+  }
+
+  func onTransitStateUpdated() {
+    updateSubwayButton()
+    var statusString: String = ""
+    switch MWMTrafficManager.transitState() {
+    case .enabled:
+      statusString = "success"
+    case .noData:
+      statusString = "unavailable"
+    default:
+      statusString = ""
+    }
+    Statistics.logEvent("Map_Layers_activate", withParameters: ["name" : "subway",
+                                                                "status" : statusString])
   }
 }
