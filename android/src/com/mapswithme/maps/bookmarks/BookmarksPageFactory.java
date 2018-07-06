@@ -5,10 +5,12 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
 import com.mapswithme.maps.R;
+import com.mapswithme.util.statistics.Analytics;
+import com.mapswithme.util.statistics.Statistics;
 
 public enum BookmarksPageFactory
 {
-  PRIVATE(new Analytics(Constants.ANALYTICS_NAME_MY))
+  PRIVATE(new Analytics(Statistics.ParamValue.MY))
       {
         @NonNull
         @Override
@@ -23,7 +25,7 @@ public enum BookmarksPageFactory
           return R.string.bookmarks_page_my;
         }
       },
-  CATALOG(new Analytics(Constants.ANALYTICS_NAME_DOWNLOADED), new AdapterResourceProvider.Catalog())
+  CATALOG(new Analytics(Statistics.ParamValue.DOWNLOADED), new AdapterResourceProvider.Catalog())
       {
         @NonNull
         @Override
@@ -87,26 +89,4 @@ public enum BookmarksPageFactory
 
   public abstract int getTitle();
 
-  public static class Analytics
-  {
-    @NonNull
-    private final String mName;
-
-    private Analytics(@NonNull String name)
-    {
-      mName = name;
-    }
-
-    @NonNull
-    public String getName()
-    {
-      return mName;
-    }
-  }
-
-  private static class Constants
-  {
-    private static final String ANALYTICS_NAME_MY = "my";
-    private static final String ANALYTICS_NAME_DOWNLOADED = "downloaded";
-  }
 }

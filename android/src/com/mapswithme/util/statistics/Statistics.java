@@ -176,6 +176,9 @@ public enum Statistics
     public static final String BM_RESTORE_PROPOSAL_CANCEL = "Bookmarks_RestoreProposal_cancel";
     public static final String BM_RESTORE_PROPOSAL_SUCCESS = "Bookmarks_RestoreProposal_success";
     static final String BM_RESTORE_PROPOSAL_ERROR = "Bookmarks_RestoreProposal_error";
+    static final String BM_TAB_CLICK = "Bookmarks_Tab_click";
+    private static final String BM_DOWNLOADED_CATALOGUE_OPEN = "Bookmarks_Downloaded_Catalogue_open";
+    private static final String BM_DOWNLOADED_CATALOGUE_ERROR = "Bookmarks_Downloaded_Catalogue_error";
 
     // search
     public static final String SEARCH_CAT_CLICKED = "Search. Category clicked";
@@ -308,9 +311,6 @@ public enum Statistics
     public static final String UGC_AUTH_EXTERNAL_REQUEST_SUCCESS = "UGC_Auth_external_request_success";
     public static final String UGC_AUTH_ERROR = "UGC_Auth_error";
     public static final String MAP_LAYERS_ACTIVATE = "Map_Layers_activate";
-    public static final String BOOKMARKS_TAB_CLICK = "Bookmarks_Tab_click";
-    private static final String BOOKMARKS_DOWNLOADED_CATALOGUE_OPEN = "Bookmarks_Downloaded_Catalogue_open";
-    private static final String BOOKMARKS_DOWNLOADED_CATALOGUE_ERROR = "Bookmarks_Downloaded_Catalogue_error";
 
     public static class Settings
     {
@@ -443,6 +443,8 @@ public enum Statistics
     static final String BACKUP = "backup";
     static final String RESTORE = "restore";
     public static final String NO_INTERNET = "no_internet";
+    public static final String MY = "my";
+    public static final String DOWNLOADED = "downloaded";
     static final String SUBWAY = "subway";
     static final String TRAFFIC = "traffic";
     public static final String SUCCESS = "success";
@@ -747,19 +749,19 @@ public enum Statistics
 
   public void trackBookmarksTabEvent(@NonNull String param)
   {
-    ParameterBuilder params = new ParameterBuilder().add(EventParam.VALUE, param);
-    trackEvent(EventName.BOOKMARKS_TAB_CLICK, params);
+    ParameterBuilder params = params().add(EventParam.VALUE, param);
+    trackEvent(EventName.BM_TAB_CLICK, params);
   }
 
   public void trackOpenCatalogScreen()
   {
-    trackEvent(EventName.BOOKMARKS_DOWNLOADED_CATALOGUE_OPEN, Collections.emptyMap());
+    trackEvent(EventName.BM_DOWNLOADED_CATALOGUE_OPEN, Collections.emptyMap());
   }
 
   public void trackDownloadCatalogError(@NonNull String value)
   {
-    ParameterBuilder params = new ParameterBuilder().add(EventParam.ERROR, value);
-    trackEvent(EventName.BOOKMARKS_DOWNLOADED_CATALOGUE_ERROR, params);
+    ParameterBuilder params = params().add(EventParam.ERROR, value);
+    trackEvent(EventName.BM_DOWNLOADED_CATALOGUE_ERROR, params);
   }
 
   public void trackPPBanner(@NonNull String eventName, @NonNull MwmNativeAd ad, @BannerState int state)
