@@ -137,6 +137,7 @@ public class ToggleMapLayerDialog extends DialogFragment
       boolean isEnabled = item.getMode().isEnabled(context);
 
       holder.mButton.setSelected(isEnabled);
+      holder.mTitle.setSelected(isEnabled);
       holder.mTitle.setText(item.getTitle());
       holder.mButton.setImageResource(isEnabled ? item.getEnabledStateDrawable()
                                                 : item.getDisabledStateDrawable());

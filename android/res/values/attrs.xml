@@ -85,4 +85,5 @@
 
   <attr name="trafficMenuDisabled" format="reference"/>
   <attr name="subwayMenuDisabled" format="reference"/>
+  <attr name="accentTextColorSelector" format="color"/>
 </resources>

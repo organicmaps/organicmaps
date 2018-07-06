@@ -203,6 +203,7 @@ public class MapLayerCompositeController implements MapLayerController
     entry.mMode.setEnabled(mActivity, false);
     entry.mController.turnOff();
     entry.mController.hideImmediately();
+    turnInitialMode();
   }
 
   @NonNull

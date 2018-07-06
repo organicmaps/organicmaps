@@ -37,7 +37,7 @@
     app:layout_constraintRight_toLeftOf="@id/сlose_btn"
     android:visibility="visible"
     android:text="@string/layers_title"
-    android:textAppearance="?android:attr/textAppearanceMedium"/>
+    android:textAppearance="@style/MwmTextAppearance.Body2"/>
   <android.support.v7.widget.RecyclerView
     android:id="@+id/recycler"
     android:layout_height="wrap_content"
