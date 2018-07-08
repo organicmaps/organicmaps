@@ -107,13 +107,12 @@ final class CatalogWebViewController: WebViewController {
       }
     }
 
-    if MWMBookmarksManager.isCategoryDownloading(id) {
-      //TODO: add alert
-      return
-    }
-
-    if MWMBookmarksManager.hasCategoryDownloaded(id) {
-      //TODO: add alert
+    if MWMBookmarksManager.isCategoryDownloading(id) || MWMBookmarksManager.hasCategoryDownloaded(id) {
+      MWMAlertViewController.activeAlert().presentDefaultAlert(withTitle: L("error_already_downloaded"),
+                                                               message: nil,
+                                                               rightButtonTitle: L("ok"),
+                                                               leftButtonTitle: nil,
+                                                               rightButtonAction: nil)
       return
     }
 

@@ -7,7 +7,7 @@ final class BMCPermissionsHeader: UIView {
 
   @IBOutlet private weak var label: UILabel! {
     didSet {
-      label.font = .bold14()
+      label.font = .medium14()
       label.textColor = .blackSecondaryText()
       label.text = L("settings_backup_bookmarks").uppercased()
     }

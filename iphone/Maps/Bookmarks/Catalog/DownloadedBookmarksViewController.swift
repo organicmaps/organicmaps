@@ -3,11 +3,30 @@ class DownloadedBookmarksViewController: MWMViewController {
   @IBOutlet var bottomView: UIView!
   @IBOutlet weak var noDataView: UIView!
   @IBOutlet weak var tableView: UITableView!
-  
+  @IBOutlet weak var bottomViewTitleLabel: UILabel! {
+    didSet {
+      bottomViewTitleLabel.text = L("cached_bookmarks_placeholder_title").uppercased()
+    }
+  }
+
+  @IBOutlet weak var bottomViewDownloadButton: UIButton! {
+    didSet {
+      bottomViewDownloadButton.setTitle(L("downloader_download_routers").uppercased(), for: .normal)
+    }
+  }
+
+  @IBOutlet weak var noDataViewDownloadButton: UIButton! {
+    didSet {
+      noDataViewDownloadButton.setTitle(L("downloader_download_routers").uppercased(), for: .normal)
+    }
+  }
+
   let dataSource = DownloadedBookmarksDataSource()
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    tableView.backgroundColor = UIColor.pressBackground()
+    tableView.separatorColor = UIColor.blackDividers()
     tableView.tableFooterView = bottomView
     tableView.registerNib(cell: CatalogCategoryCell.self)
     tableView.registerNibForHeaderFooterView(BMCCategoriesHeader.self)
@@ -18,6 +37,16 @@ class DownloadedBookmarksViewController: MWMViewController {
     dataSource.reloadData()
     noDataView.isHidden = dataSource.categoriesCount > 0
     tableView.reloadData()
+  }
+
+  override func viewWillLayoutSubviews() {
+    super.viewWillLayoutSubviews()
+    var f = bottomView.frame
+    let s = bottomView.systemLayoutSizeFitting(CGSize(width: tableView.width, height: 1),
+                                               withHorizontalFittingPriority: .required,
+                                               verticalFittingPriority: .defaultLow)
+    f.size = s
+    bottomView.frame = f
   }
 
   @IBAction func onDownloadBookmarks(_ sender: Any) {
