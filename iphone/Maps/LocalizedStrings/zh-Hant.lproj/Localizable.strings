@@ -2427,3 +2427,5 @@
 "whats_new_hot_offers_message" = "使用搜索中的“酒店”類別來尋找它們報價將在地圖和列表中以百分比圖標來表示。";
 
 "error_already_downloaded" = "This list has already been downloaded";
+
+"popular_place" = "Popular";

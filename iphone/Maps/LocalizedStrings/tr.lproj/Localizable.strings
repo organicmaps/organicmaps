@@ -2427,3 +2427,5 @@
 "whats_new_hot_offers_message" = "Arama bölümündeki Oteller kategorisini kullanarak ilgi çekici teklifleri bulabilirsiniz. Otel teklifleri, haritada ve arama sonuçlarında bir yüzdelik sembolü ile işaretlenir.";
 
 "error_already_downloaded" = "This list has already been downloaded";
+
+"popular_place" = "Popular";

@@ -2427,3 +2427,5 @@
 "whats_new_hot_offers_message" = "Шукайте їх за допомогою категорії «Готелі» в пошуку. Пропозиції будуть позначені значком відсотка на карті й у списку.";
 
 "error_already_downloaded" = "This list has already been downloaded";
+
+"popular_place" = "Popular";

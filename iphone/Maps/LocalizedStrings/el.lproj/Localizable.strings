@@ -2427,3 +2427,5 @@
 "whats_new_hot_offers_message" = "Μπορείτε να τα ψάξετε χρησιμοποιώντας την κατηγορία Ξενοδοχεία στην αναζήτηση. Οι προσφορές θα σημειώνονται με το σύμβολο επί τοις εκατό στο χάρτη και στα αποτελέσματα της αναζήτησης.";
 
 "error_already_downloaded" = "This list has already been downloaded";
+
+"popular_place" = "Popular";

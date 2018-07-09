@@ -2427,3 +2427,5 @@
 "whats_new_hot_offers_message" = "Vous pouvez les rechercher en utilisant la catégorie «Hôtels» dans la recherche. Les offres seront marquées par le symbole du pourcentage sur la carte et dans les résultats de la recherche.";
 
 "error_already_downloaded" = "This list has already been downloaded";
+
+"popular_place" = "Popular";

@@ -2427,3 +2427,5 @@
 "whats_new_hot_offers_message" = "Puoi cercarli utilizzando la categoria Alberghi nella ricerca. Le offerte saranno contrassegnate dal simbolo percentuale sulla mappa e nei risultati della ricerca.";
 
 "error_already_downloaded" = "This list has already been downloaded";
+
+"popular_place" = "Popular";

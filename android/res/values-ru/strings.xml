@@ -1407,4 +1407,5 @@
 	<string name="whats_new_hot_offers_title">Выгодные предложения отелей</string>
 	<string name="whats_new_hot_offers_message">Ищите их с помощью категории «Отели» в поиске. Предложения будут обозначены значком процента на карте и в списке.</string>
 	<string name="error_already_downloaded">Этот список уже был загружен</string>
+	<string name="popular_place">Популярно</string>
 </resources>

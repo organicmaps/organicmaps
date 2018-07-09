@@ -1416,4 +1416,5 @@
 	<string name="whats_new_hot_offers_title">Attractive offers from hotels</string>
 	<string name="whats_new_hot_offers_message">You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.</string>
 	<string name="error_already_downloaded">This list has already been downloaded</string>
+	<string name="popular_place">Popular</string>
 </resources>
