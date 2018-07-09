@@ -32929,3 +32929,8 @@ fa = دوباره نپرس
   [error_already_downloaded]
     en = This list has already been downloaded
     ru = Этот список уже был загружен
+
+  [popular_place]
+    en = Popular
+    ru = Популярно
+
