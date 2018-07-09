@@ -210,7 +210,7 @@ public class Holders
     public @interface Section {}
 
     @NonNull
-    final BookmarkCategory mCategory;
+    BookmarkCategory mCategory;
     @NonNull
     private final View mView;
 

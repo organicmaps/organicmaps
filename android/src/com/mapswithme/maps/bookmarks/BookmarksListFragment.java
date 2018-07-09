@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
+import com.mapswithme.maps.bookmarks.data.AbstractCategoriesSnapshot;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
@@ -42,6 +43,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   public static final String TAG = BookmarksListFragment.class.getSimpleName();
   public static final String EXTRA_CATEGORY = "bookmark_category";
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
   private BookmarkCategory mCategory;
   private int mSelectedPosition;
 
@@ -50,7 +53,18 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mCategory = getArguments().getParcelable(EXTRA_CATEGORY);
+    mCategory = getCategoryOrThrow();
+  }
+
+  @NonNull
+  private BookmarkCategory getCategoryOrThrow()
+  {
+    Bundle args = getArguments();
+    BookmarkCategory category;
+    if (args == null || ((category = args.getParcelable(EXTRA_CATEGORY))) == null)
+      throw new IllegalArgumentException("Category not exist in bundle");
+
+    return category;
   }
 
   @NonNull
@@ -126,6 +140,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   {
     BookmarkListAdapter adapter = getAdapter();
 
+    adapter.registerAdapterDataObserver(new CategoryDataObserver());
     adapter.startLocationUpdate();
     adapter.setOnClickListener(this);
     adapter.setOnLongClickListener(isCatalogCategory() ? null : this);
@@ -263,5 +278,19 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  private class CategoryDataObserver extends RecyclerView.AdapterDataObserver
+  {
+    @Override
+    public void onChanged()
+    {
+      super.onChanged();
+      AbstractCategoriesSnapshot.Default snapshot =
+          BookmarkManager.INSTANCE.getCategoriesSnapshot(mCategory.getType().getFilterStrategy());
+
+      int index = snapshot.indexOfOrThrow(mCategory);
+      getAdapter().updateCategory(snapshot.getItems().get(index));
+    }
   }
 }

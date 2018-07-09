@@ -31,7 +31,7 @@ import static com.mapswithme.maps.bookmarks.Holders.BaseBookmarkHolder.calculate
 public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookmarkHolder>
 {
   @NonNull
-  private final BookmarkCategory mCategory;
+  private BookmarkCategory mCategory;
 
   // view types
   static final int TYPE_TRACK = 0;
@@ -114,6 +114,7 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   @Override
   public void onBindViewHolder(Holders.BaseBookmarkHolder holder, int position)
   {
+    holder.mCategory = mCategory;
     holder.bind(position);
   }
 
@@ -170,5 +171,10 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
       final long bookmarkId = BookmarkManager.INSTANCE.getBookmarkIdByPosition(mCategory.getId(), pos);
       return BookmarkManager.INSTANCE.getBookmark(bookmarkId);
     }
+  }
+
+  public void updateCategory(@NonNull BookmarkCategory category)
+  {
+    mCategory = category;
   }
 }
