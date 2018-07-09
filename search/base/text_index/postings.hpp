@@ -5,7 +5,10 @@
 #include "search/base/text_index/utils.hpp"
 
 #include "coding/varint.hpp"
+#include "coding/write_to_sink.hpp"
 
+#include <cstdint>
+#include <functional>
 #include <vector>
 
 namespace search
@@ -20,11 +23,21 @@ struct TextIndexHeader;
 class PostingsFetcher
 {
 public:
-  // Returns true and fills |postings| with the postings list of the next token
-  // when there is one.
-  // Returns false if the underlying source is exhausted, i.e. there are
-  // no more tokens left.
-  virtual bool GetPostingsForNextToken(std::vector<uint32_t> & postings) = 0;
+  using Fn = std::function<void(uint32_t)>;
+
+  virtual ~PostingsFetcher() = default;
+
+  // Returns true when there are tokens left in the fetcher and false otherwise.
+  virtual bool IsValid() const = 0;
+
+  // Advances fetcher to the next token.
+  virtual void Advance() = 0;
+
+  // Calls |fn| for every posting for the current token. Initially,
+  // current token is the first token and then calls to Advance
+  // may be used to process the next token until the underlying
+  // source of the tokens is exhausted and the fetcher is no longer valid.
+  virtual void ForEachPosting(Fn const & fn) const = 0;
 };
 
 // Fetches the postings list one by one from |fetcher| and writes them
@@ -44,20 +57,21 @@ void WritePostings(Sink & sink, uint64_t startPos, TextIndexHeader & header,
 
   std::vector<uint32_t> postingsStarts;
   postingsStarts.reserve(header.m_numTokens);
-
-  // todo(@m) s/uint32_t/Posting/ ?
-  std::vector<uint32_t> postings;
-  while (fetcher.GetPostingsForNextToken(postings))
   {
-    postingsStarts.emplace_back(RelativePos(sink, startPos));
-
-    uint32_t last = 0;
-    for (auto const p : postings)
-    {
+    uint32_t last;
+    // todo(@m) s/uint32_t/Posting/ ?
+    auto writePostings = [&](uint32_t p) {
       CHECK(last == 0 || last < p, (last, p));
       uint32_t const delta = p - last;
       WriteVarUint(sink, delta);
       last = p;
+    };
+    while (fetcher.IsValid())
+    {
+      postingsStarts.emplace_back(RelativePos(sink, startPos));
+      last = 0;
+      fetcher.ForEachPosting(writePostings);
+      fetcher.Advance();
     }
   }
   // One more for convenience.

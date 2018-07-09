@@ -1,5 +1,6 @@
 #pragma once
 
+#include "search/base/text_index/dictionary.hpp"
 #include "search/base/text_index/text_index.hpp"
 
 #include "coding/file_reader.hpp"

@@ -14,6 +14,8 @@
 #include "base/stl_helpers.hpp"
 
 #include <algorithm>
+#include <cstdint>
+#include <iterator>
 #include <utility>
 #include <vector>
 
@@ -30,45 +32,67 @@ public:
                             TextIndexReader const & index2)
     : m_dict(dict), m_index1(index1), m_index2(index2)
   {
+    ReadPostings();
   }
 
   // PostingsFetcher overrides:
-  bool GetPostingsForNextToken(std::vector<uint32_t> & postings)
+  bool IsValid() const override
   {
-    postings.clear();
+    auto const & tokens = m_dict.GetTokens();
+    CHECK_LESS_OR_EQUAL(m_tokenId, tokens.size(), ());
+    return m_tokenId < tokens.size();
+  }
 
+  void Advance() override
+  {
     auto const & tokens = m_dict.GetTokens();
     CHECK_LESS_OR_EQUAL(m_tokenId, tokens.size(), ());
     if (m_tokenId == tokens.size())
-      return false;
+      return;
 
-    m_index1.ForEachPosting(tokens[m_tokenId], MakeBackInsertFunctor(postings));
-    m_index2.ForEachPosting(tokens[m_tokenId], MakeBackInsertFunctor(postings));
-    my::SortUnique(postings);
     ++m_tokenId;
-    return true;
+    ReadPostings();
+  }
+
+  void ForEachPosting(Fn const & fn) const override
+  {
+    CHECK(IsValid(), ());
+    for (uint32_t p : m_postings)
+      fn(p);
   }
 
 private:
+  // Reads postings for the current token.
+  void ReadPostings()
+  {
+    m_postings.clear();
+    if (!IsValid())
+      return;
+
+    auto const & tokens = m_dict.GetTokens();
+    m_index1.ForEachPosting(tokens[m_tokenId], MakeBackInsertFunctor(m_postings));
+    m_index2.ForEachPosting(tokens[m_tokenId], MakeBackInsertFunctor(m_postings));
+    my::SortUnique(m_postings);
+  }
+
   TextIndexDictionary const & m_dict;
   TextIndexReader const & m_index1;
   TextIndexReader const & m_index2;
   // Index of the next token from |m_dict| to be processed.
   size_t m_tokenId = 0;
+  vector<uint32_t> m_postings;
 };
 
 TextIndexDictionary MergeDictionaries(TextIndexDictionary const & dict1,
                                       TextIndexDictionary const & dict2)
 {
-  vector<Token> commonTokens = dict1.GetTokens();
-  for (auto const & token : dict2.GetTokens())
-  {
-    size_t dummy;
-    if (!dict1.GetTokenId(token, dummy))
-      commonTokens.emplace_back(token);
-  }
+  vector<Token> commonTokens;
+  auto const & ts1 = dict1.GetTokens();
+  auto const & ts2 = dict2.GetTokens();
+  merge(ts1.begin(), ts1.end(), ts2.begin(), ts2.end(), back_inserter(commonTokens));
+  ASSERT(is_sorted(commonTokens.begin(), commonTokens.end()), ());
+  commonTokens.erase(unique(commonTokens.begin(), commonTokens.end()), commonTokens.end());
 
-  sort(commonTokens.begin(), commonTokens.end());
   TextIndexDictionary dict;
   dict.SetTokens(move(commonTokens));
   return dict;

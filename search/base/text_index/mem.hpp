@@ -8,7 +8,6 @@
 
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
-#include "coding/write_to_sink.hpp"
 
 #include "base/assert.hpp"
 #include "base/string_utils.hpp"
@@ -88,30 +87,31 @@ private:
   class MemPostingsFetcher : public PostingsFetcher
   {
   public:
-    MemPostingsFetcher(std::map<Token, std::vector<Posting>> const & postingsByToken)
+    explicit MemPostingsFetcher(std::map<Token, std::vector<Posting>> const & postingsByToken)
+      : m_postingsByToken(postingsByToken), m_it(m_postingsByToken.begin())
     {
-      // todo(@m) An unnecessary copy?
-      m_postings.reserve(postingsByToken.size());
-      for (auto const & entry : postingsByToken)
-        m_postings.emplace_back(entry.second);
     }
 
     // PostingsFetcher overrides:
-    bool GetPostingsForNextToken(std::vector<uint32_t> & postings)
+    bool IsValid() const override { return m_it != m_postingsByToken.end(); }
+
+    void Advance() override
     {
-      CHECK_LESS_OR_EQUAL(m_tokenId, m_postings.size(), ());
-      if (m_tokenId == m_postings.size())
-        return false;
-      postings.swap(m_postings[m_tokenId++]);
-      return true;
+      if (m_it != m_postingsByToken.end())
+        ++m_it;
+    }
+
+    void ForEachPosting(Fn const & fn) const override
+    {
+      CHECK(IsValid(), ());
+      for (uint32_t p : m_it->second)
+        fn(p);
     }
 
   private:
-    std::vector<std::vector<uint32_t>> m_postings;
-    // Index of the next token to be processed. The
-    // copy of the postings list in |m_postings| is not guaranteed
-    // to be valid after it's been processed.
-    size_t m_tokenId = 0;
+    std::map<Token, std::vector<Posting>> const & m_postingsByToken;
+    // Iterator to the current token that will be processed when ForEachPosting is called.
+    std::map<Token, std::vector<Posting>>::const_iterator m_it;
   };
 
   void SortPostings();
