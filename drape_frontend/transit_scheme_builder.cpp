@@ -29,9 +29,9 @@ float const kTransitLineHalfWidth = 0.8f;
 std::vector<float> const kTransitLinesWidthInPixel =
 {
   // 1   2     3     4     5     6     7     8     9    10
-  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+  1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.25f,
   //11  12    13    14    15    16    17    18    19     20
-  1.5f, 1.8f, 2.2f, 2.8f, 3.2f, 3.8f, 4.8f, 5.2f, 5.8f, 5.8f
+  1.65f, 2.0f, 2.5f, 3.0f, 3.5f, 4.3f, 5.0f, 5.5f, 5.8f, 5.8f
 };
 
 namespace

@@ -34,15 +34,15 @@ std::vector<float> const kLeftWidthInPixel =
   // 1   2     3     4     5     6     7     8     9    10
   0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f, 0.5f,
   //11   12    13   14    15    16    17   18     19    20
-  0.5f, 0.5f, 0.5f, 0.5f, 0.7f, 2.5f, 3.0f, 4.0f, 4.0f, 4.0f
+  0.5f, 0.5f, 0.5f, 0.6f, 1.6f, 2.7f, 3.5f, 4.0f, 4.0f, 4.0f
 };
 
 std::vector<float> const kRightWidthInPixel =
 {
   // 1   2     3     4     5     6     7     8     9    10
-  2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 3.0f, 3.0f,
+  2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.5f, 3.0f, 3.0f,
   //11  12    13    14    15    16    17    18    19     20
-  3.0f, 3.0f, 4.0f, 4.0f, 3.8f, 2.5f, 3.0f, 4.0f, 4.0f, 4.0f
+  3.0f, 3.5f, 4.0f, 3.9f, 3.2f, 2.7f, 3.5f, 4.0f, 4.0f, 4.0f
 };
 
 std::vector<float> const kRoadClass1WidthScalar =
@@ -50,7 +50,7 @@ std::vector<float> const kRoadClass1WidthScalar =
   // 1   2     3     4     5     6     7     8     9    10
   0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.3,
   //11  12    13    14    15    16    17    18    19     20
-  0.3, 0.3f, 0.4f, 0.5f, 0.6f, 0.6f, 1.0f, 1.0f, 1.0f, 1.0f
+  0.3, 0.35f, 0.45f, 0.55f, 0.6f, 0.8f, 1.0f, 1.0f, 1.0f, 1.0f
 };
 
 std::vector<float> const kRoadClass2WidthScalar =
@@ -58,7 +58,7 @@ std::vector<float> const kRoadClass2WidthScalar =
   // 1   2     3     4     5     6     7     8     9     10
   0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.3f,
   //11  12    13    14    15     16   17    18    19    20
-  0.3f, 0.3f, 0.3f, 0.3f, 0.5f, 0.5f, 0.5f, 0.8f, 0.9f, 1.0f
+  0.3f, 0.3f, 0.3f, 0.4f, 0.5f, 0.5f, 0.65f, 0.85f, 0.95f, 1.0f
 };
 
 std::vector<float> const kTwoWayOffsetInPixel =
@@ -66,7 +66,7 @@ std::vector<float> const kTwoWayOffsetInPixel =
   // 1   2     3     4     5     6     7     8     9     10
   0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
   //11  12    13    14    15     16   17    18    19    20
-  0.0f, 0.5f, 0.5f, 0.5f, 1.0f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f
+  0.0f, 0.5f, 0.5f, 0.75f, 1.7f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f
 };
 
 std::vector<int> const kLineDrawerRoadClass1 = {12, 13, 14};

@@ -35,9 +35,9 @@ namespace
 std::vector<float> const kPreviewPointRadiusInPixel =
 {
   // 1   2     3     4     5     6     7     8     9     10
-  0.8f, 0.8f, 0.8f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f,
+  0.8f, 0.8f, 2.0f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 2.5f,
   //11   12    13    14    15    16    17    18    19     20
-  2.5f, 2.5f, 2.5f, 2.5f, 2.5f, 3.5f, 4.5f, 4.5f, 4.5f, 5.5f
+  2.5f, 2.5f, 2.5f, 2.5f, 3.0f, 4.0f, 4.5f, 4.5f, 5.0f, 5.5f
 };
 
 int const kArrowAppearingZoomLevel = 14;
