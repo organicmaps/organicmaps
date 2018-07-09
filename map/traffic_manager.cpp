@@ -222,7 +222,7 @@ void TrafficManager::UpdateViewport(ScreenBase const & screen)
   if (!IsEnabled() || IsInvalidState() || m_isPaused)
     return;
 
-  if (df::GetZoomLevel(screen.GetScale()) < df::kRoadClass0ZoomLevel)
+  if (df::GetTileBasedZoomLevel(screen.GetScale()) < df::kRoadClass0ZoomLevel)
     return;
 
   // Request traffic.

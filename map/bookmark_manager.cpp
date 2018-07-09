@@ -574,7 +574,7 @@ Bookmark * BookmarkManager::CreateBookmark(kml::BookmarkData && bm, kml::MarkGro
   alohalytics::Stats::Instance().LogEvent("Bookmarks_Bookmark_action", details);
 
   bm.m_timestamp = std::chrono::system_clock::now();
-  bm.m_viewportScale = static_cast<uint8_t>(df::GetZoomLevel(m_viewport.GetScale()));
+  bm.m_viewportScale = static_cast<uint8_t>(df::GetTileBasedZoomLevel(m_viewport.GetScale()));
 
   auto * bookmark = CreateBookmark(std::move(bm));
   bookmark->Attach(groupId);

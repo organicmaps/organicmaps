@@ -316,7 +316,7 @@ void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
 {
   auto const connectionStatus = GetPlatform().ConnectionStatus();
   if (kServerUrl.empty() || connectionStatus == Platform::EConnectionType::CONNECTION_NONE ||
-      df::GetZoomLevel(screen.GetScale()) < kRequestMinZoomLevel)
+      df::GetTileBasedZoomLevel(screen.GetScale()) < kRequestMinZoomLevel)
   {
     return;
   }
