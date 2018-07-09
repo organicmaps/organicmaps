@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1DA7908820762CEB008BDD6B /* libopen_location_code.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DA7908920762CEB008BDD6B /* libopen_location_code.a */; };
+		1DFA2F6A20D3B57400FB2C66 /* UIColor+PartnerColor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1DFA2F6920D3B57400FB2C66 /* UIColor+PartnerColor.mm */; };
 		3404163C1E7BDFE000E2B6D6 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3404163A1E7BDFE000E2B6D6 /* PhotosViewController.swift */; };
 		340416441E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416421E7BED3900E2B6D6 /* PhotosTransitionAnimator.swift */; };
 		340416481E7BF28E00E2B6D6 /* UIView+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340416461E7BF28E00E2B6D6 /* UIView+Snapshot.swift */; };
@@ -723,6 +724,9 @@
 		1D3623250D0F684500981E51 /* MapsAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = MapsAppDelegate.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		1DA7908720762B6F008BDD6B /* libopen_location_code.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libopen_location_code.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DA7908920762CEB008BDD6B /* libopen_location_code.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libopen_location_code.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DFA2F6820D3B52F00FB2C66 /* UIColor+PartnerColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+PartnerColor.h"; sourceTree = "<group>"; };
+		1DFA2F6920D3B57400FB2C66 /* UIColor+PartnerColor.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; lineEnding = 0; path = "UIColor+PartnerColor.mm"; sourceTree = "<group>"; };
+		1DFA2F6E20D3CA9200FB2C66 /* UIColorRoutines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIColorRoutines.h; sourceTree = "<group>"; };
 		28A0AB4B0D9B1048005BE974 /* Maps_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Maps_Prefix.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		29B97316FDCFA39411CA2CEA /* main.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = main.mm; sourceTree = "<group>"; };
 		3404163A1E7BDFE000E2B6D6 /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
@@ -2413,6 +2417,9 @@
 				3454D7A21E07F045004AF2AD /* UIButton+RuntimeAttributes.h */,
 				3454D7A31E07F045004AF2AD /* UIButton+RuntimeAttributes.mm */,
 				34D3AFF41E37A36A004100F9 /* UICollectionView+Cells.swift */,
+				1DFA2F6E20D3CA9200FB2C66 /* UIColorRoutines.h */,
+				1DFA2F6820D3B52F00FB2C66 /* UIColor+PartnerColor.h */,
+				1DFA2F6920D3B57400FB2C66 /* UIColor+PartnerColor.mm */,
 				3454D7A41E07F045004AF2AD /* UIColor+MapsMeColor.h */,
 				3454D7A51E07F045004AF2AD /* UIColor+MapsMeColor.mm */,
 				3488B0181E9D0B230068AFD8 /* UIColor+Modifications.swift */,
@@ -4624,6 +4631,7 @@
 				349D1AD81E2E325C004A2006 /* MWMBottomMenuLayout.mm in Sources */,
 				F6E2FEBE1E097BA00083EBEC /* MWMPPPreviewLayoutHelper.mm in Sources */,
 				3454D7E01E07F045004AF2AD /* UITextField+RuntimeAttributes.mm in Sources */,
+				1DFA2F6A20D3B57400FB2C66 /* UIColor+PartnerColor.mm in Sources */,
 				347BFA901F27909200E5531F /* MenuArea.swift in Sources */,
 				343E75981E5B1EE20041226A /* MWMCollectionViewController.mm in Sources */,
 				B3E3B50220D485FA00DA8C13 /* DownloadedBookmarksDataSource.swift in Sources */,
