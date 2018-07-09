@@ -26,6 +26,62 @@
     <attr name="progress" format="integer"/>
   </declare-styleable>
 
+  <declare-styleable name="RatingView">
+    <attr name="android:textSize"/>
+    <attr name="android:text"/>
+    <attr name="rating" format="enum">
+      <enum name="none" value="0" />
+      <enum name="horrible" value="1"/>
+      <enum name="bad" value="2"/>
+      <enum name="normal" value="3"/>
+      <enum name="good" value="4"/>
+      <enum name="excellent" value="5"/>
+      <enum name="coming_soon" value="6"/>
+    </attr>
+    <attr name="drawSmile" format="boolean"/>
+  </declare-styleable>
+
+  <declare-styleable name="TransitStepView">
+    <attr name="android:textSize"/>
+    <attr name="android:textColor"/>
+    <attr name="android:text"/>
+    <attr name="android:drawable"/>
+  </declare-styleable>
+
+  <declare-styleable name="GoogleAds" >
+    <attr name="colorLocation" format="string"/>
+    <attr name="fontSizeLocation" format="string"/>
+    <attr name="clickToCall" format="string"/>
+    <attr name="location" format="string"/>
+    <attr name="sellerRatings" format="string"/>
+    <attr name="siteLinks" format="string"/>
+    <attr name="number" format="string"/>
+    <attr name="fontSizeAnnotation" format="string"/>
+    <attr name="fontSizeAttribution" format="string"/>
+    <attr name="fontSizeDescription" format="string"/>
+    <attr name="fontSizeDomainLink" format="string"/>
+    <attr name="fontSizeTitle" format="string"/>
+    <attr name="colorAdBorder" format="string"/>
+    <attr name="colorAnnotation" format="string"/>
+    <attr name="colorAttribution" format="string"/>
+    <attr name="colorBackground" format="string"/>
+    <attr name="colorDomainLink" format="string"/>
+    <attr name="colorText" format="string"/>
+    <attr name="colorTitleLink" format="string"/>
+    <attr name="attributionSpacingBelow" format="string"/>
+    <attr name="noTitleUnderline" format="string"/>
+    <attr name="titleBold" format="string"/>
+  </declare-styleable>
+
   <bool name="isTablet">false</bool>
   <bool name="tabletLayout">false</bool>
+
+  <declare-styleable name="PlaceholderView">
+    <attr name="imgSrcDefault" format="reference"/>
+    <attr name="titleDefault" format="reference"/>
+    <attr name="subTitleDefault" format="reference"/>
+  </declare-styleable>
+
+  <attr name="trafficMenuDisabled" format="reference"/>
+  <attr name="subwayMenuDisabled" format="reference"/>
 </resources>

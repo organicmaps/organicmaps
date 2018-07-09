@@ -97,15 +97,18 @@
 
         char* my_buffer2 = static_cast<char*>(0U);
 
+#ifndef BOOST_NO_EXCEPTIONS
         try
         {
+#endif
           my_buffer2 = new char[v + 3];
+#ifndef BOOST_NO_EXCEPTIONS
         }
         catch(const std::bad_alloc&)
         {
           BOOST_THROW_EXCEPTION(std::runtime_error("Formatting of boost::float128_t failed while allocating memory."));
         }
-
+#endif
         const int v2 = ::quadmath_snprintf(my_buffer2,
                                             v + 3,
                                             my_format_string,

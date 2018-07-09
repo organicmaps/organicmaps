@@ -51,6 +51,11 @@
     [[[UINib alloc] init:[self class] bundle:nil] instantiateWithOwner:self options:nil];
     [parentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [parentView addSubview:self.rootView];
+    self.rootView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.rootView.topAnchor constraintEqualToAnchor:parentView.topAnchor].active = YES;
+    [self.rootView.bottomAnchor constraintEqualToAnchor:parentView.bottomAnchor].active = YES;
+    [self.rootView.leadingAnchor constraintEqualToAnchor:parentView.leadingAnchor].active = YES;
+    [self.rootView.trailingAnchor constraintEqualToAnchor:parentView.trailingAnchor].active = YES;
     self.state = MWMCircularProgressStateNormal;
   }
   return self;
@@ -74,7 +79,8 @@
   [self.rootView setSpinnerBackgroundColor:backgroundColor];
 }
 
-- (void)setImageName:(nonnull NSString *)imageName forStates:(MWMCircularProgressStateVec const &)states
+- (void)setImageName:(nullable NSString *)imageName
+           forStates:(MWMCircularProgressStateVec const &)states
 {
   for (auto const & state : states)
     [self.rootView setImageName:imageName forState:state];
@@ -106,6 +112,11 @@
 }
 
 #pragma mark - Actions
+
+- (void)setCancelButtonHidden
+{
+  self.rootView.buttonView.hidden = YES;
+}
 
 - (IBAction)buttonTouchUpInside:(UIButton *)sender { [self.delegate progressButtonPressed:self]; }
 #pragma mark - Properties

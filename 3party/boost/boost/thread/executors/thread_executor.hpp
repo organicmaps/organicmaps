@@ -17,6 +17,7 @@
 #include <boost/thread/thread_only.hpp>
 #include <boost/thread/scoped_thread.hpp>
 #include <boost/thread/csbl/vector.hpp>
+#include <boost/thread/concurrent_queues/queue_op_status.hpp>
 
 #include <boost/config/abi_prefix.hpp>
 

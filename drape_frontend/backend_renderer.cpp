@@ -2,19 +2,20 @@
 
 #include "drape_frontend/backend_renderer.hpp"
 #include "drape_frontend/batchers_pool.hpp"
+#include "drape_frontend/circles_pack_shape.hpp"
 #include "drape_frontend/drape_api_builder.hpp"
 #include "drape_frontend/drape_measurer.hpp"
-#include "drape_frontend/gps_track_shape.hpp"
 #include "drape_frontend/map_shape.hpp"
 #include "drape_frontend/message_subclasses.hpp"
+#include "drape_frontend/metaline_manager.hpp"
 #include "drape_frontend/read_manager.hpp"
 #include "drape_frontend/route_builder.hpp"
 #include "drape_frontend/user_mark_shapes.hpp"
 #include "drape_frontend/visual_params.hpp"
 
-#include "indexer/scales.hpp"
-
 #include "drape/texture_manager.hpp"
+
+#include "indexer/scales.hpp"
 
 #include "platform/platform.hpp"
 
@@ -25,14 +26,18 @@
 namespace df
 {
 
-BackendRenderer::BackendRenderer(Params const & params)
+BackendRenderer::BackendRenderer(Params && params)
   : BaseRenderer(ThreadsCommutator::ResourceUploadThread, params)
   , m_model(params.m_model)
   , m_readManager(make_unique_dp<ReadManager>(params.m_commutator, m_model,
-                                              params.m_allow3dBuildings, params.m_trafficEnabled))
+                                              params.m_allow3dBuildings, params.m_trafficEnabled,
+                                              std::move(params.m_isUGCFn)))
+  , m_transitBuilder(make_unique_dp<TransitSchemeBuilder>(bind(&BackendRenderer::FlushTransitRenderData, this, _1)))
   , m_trafficGenerator(make_unique_dp<TrafficGenerator>(bind(&BackendRenderer::FlushTrafficRenderData, this, _1)))
+  , m_userMarkGenerator(make_unique_dp<UserMarkGenerator>(bind(&BackendRenderer::FlushUserMarksRenderData, this, _1)))
   , m_requestedTiles(params.m_requestedTiles)
   , m_updateCurrentCountryFn(params.m_updateCurrentCountryFn)
+  , m_metalineManager(make_unique_dp<MetalineManager>(params.m_commutator, m_model))
 {
 #ifdef DEBUG
   m_isTeardowned = false;
@@ -42,20 +47,20 @@ BackendRenderer::BackendRenderer(Params const & params)
 
   ASSERT(m_updateCurrentCountryFn != nullptr, ());
 
-  m_routeBuilder = make_unique_dp<RouteBuilder>([this](drape_ptr<RouteData> && routeData)
+  m_routeBuilder = make_unique_dp<RouteBuilder>([this](drape_ptr<SubrouteData> && subrouteData)
   {
     m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                              make_unique_dp<FlushRouteMessage>(move(routeData)),
+                              make_unique_dp<FlushSubrouteMessage>(std::move(subrouteData)),
                               MessagePriority::Normal);
-  }, [this](drape_ptr<RouteSignData> && routeSignData)
+  }, [this](drape_ptr<SubrouteArrowsData> && subrouteArrowsData)
   {
     m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                              make_unique_dp<FlushRouteSignMessage>(move(routeSignData)),
+                              make_unique_dp<FlushSubrouteArrowsMessage>(std::move(subrouteArrowsData)),
                               MessagePriority::Normal);
-  }, [this](drape_ptr<RouteArrowsData> && routeArrowsData)
+  }, [this](drape_ptr<SubrouteMarkersData> && subrouteMarkersData)
   {
     m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                              make_unique_dp<FlushRouteArrowsMessage>(move(routeArrowsData)),
+                              make_unique_dp<FlushSubrouteMarkersMessage>(std::move(subrouteMarkersData)),
                               MessagePriority::Normal);
   });
 
@@ -87,7 +92,7 @@ void BackendRenderer::RecacheGui(gui::TWidgetsInitInfo const & initInfo, bool ne
   m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(outputMsg), MessagePriority::Normal);
 }
 
-#ifdef RENRER_DEBUG_INFO_LABELS
+#ifdef RENDER_DEBUG_INFO_LABELS
 void BackendRenderer::RecacheDebugLabels()
 {
   drape_ptr<gui::LayerRenderer> layerRenderer = m_guiCacher.RecacheDebugLabels(m_texMng);
@@ -114,9 +119,11 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       {
         ScreenBase screen;
         bool have3dBuildings;
-        bool needRegenerateTraffic;
-        m_requestedTiles->GetParams(screen, have3dBuildings, needRegenerateTraffic);
-        m_readManager->UpdateCoverage(screen, have3dBuildings, needRegenerateTraffic, tiles, m_texMng);
+        bool forceRequest;
+        bool forceUserMarksRequest;
+        m_requestedTiles->GetParams(screen, have3dBuildings, forceRequest, forceUserMarksRequest);
+        m_readManager->UpdateCoverage(screen, have3dBuildings, forceRequest, forceUserMarksRequest,
+                                      tiles, m_texMng, make_ref(m_metalineManager));
         m_updateCurrentCountryFn(screen.ClipRect().Center(), (*tiles.begin()).m_zoomLevel);
       }
       break;
@@ -125,8 +132,8 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::InvalidateReadManagerRect:
     {
       ref_ptr<InvalidateReadManagerRectMessage> msg = message;
-      if (msg->NeedInvalidateAll())
-        m_readManager->InvalidateAll();
+      if (msg->NeedRestartReading())
+        m_readManager->Restart();
       else
         m_readManager->Invalidate(msg->GetTilesForInvalidate());
       break;
@@ -143,7 +150,7 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<GuiRecacheMessage> msg = message;
       RecacheGui(msg->GetInitInfo(), msg->NeedResetOldGui());
 
-#ifdef RENRER_DEBUG_INFO_LABELS
+#ifdef RENDER_DEBUG_INFO_LABELS
       RecacheDebugLabels();
 #endif
       break;
@@ -175,8 +182,14 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::FinishTileRead:
     {
       ref_ptr<FinishTileReadMessage> msg = message;
+      if (msg->NeedForceUpdateUserMarks())
+      {
+        for (auto const & tileKey : msg->GetTiles())
+          m_userMarkGenerator->GenerateUserMarksGeometry(tileKey, m_texMng);
+      }
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<FinishTileReadMessage>(msg->MoveTiles()),
+                                make_unique_dp<FinishTileReadMessage>(msg->MoveTiles(),
+                                                                      msg->NeedForceUpdateUserMarks()),
                                 MessagePriority::Normal);
       break;
     }
@@ -185,12 +198,9 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       TOverlaysRenderData overlays;
       overlays.swap(m_overlays);
-      if (!overlays.empty())
-      {
-        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<FlushOverlaysMessage>(move(overlays)),
-                                  MessagePriority::Normal);
-      }
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<FlushOverlaysMessage>(move(overlays)),
+                                MessagePriority::Normal);
       break;
     }
 
@@ -253,77 +263,92 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
-  case Message::UpdateUserMarkLayer:
+  case Message::ChangeUserMarkGroupVisibility:
     {
-      ref_ptr<UpdateUserMarkLayerMessage> msg = message;
-
-      UserMarksProvider const * marksProvider = msg->StartProcess();
-      if (marksProvider->IsDirty())
-      {
-        size_t const layerId = msg->GetLayerId();
-        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<ClearUserMarkLayerMessage>(layerId),
-                                  MessagePriority::Normal);
-
-        TUserMarkShapes shapes = CacheUserMarks(marksProvider, m_texMng);
-        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                  make_unique_dp<FlushUserMarksMessage>(layerId, move(shapes)),
-                                  MessagePriority::Normal);
-      }
-      msg->EndProcess();
+      ref_ptr<ChangeUserMarkGroupVisibilityMessage> msg = message;
+      m_userMarkGenerator->SetGroupVisibility(msg->GetGroupId(), msg->IsVisible());
       break;
     }
 
-  case Message::AddRoute:
+  case Message::UpdateUserMarks:
     {
-      ref_ptr<AddRouteMessage> msg = message;
-      m_routeBuilder->Build(msg->GetRoutePolyline(), msg->GetTurns(), msg->GetColor(),
-                            msg->GetTraffic(), msg->GetPattern(), m_texMng, msg->GetRecacheId());
+      ref_ptr<UpdateUserMarksMessage> msg = message;
+      m_userMarkGenerator->SetRemovedUserMarks(msg->AcceptRemovedIds());
+      m_userMarkGenerator->SetUserMarks(msg->AcceptMarkRenderParams());
+      m_userMarkGenerator->SetUserLines(msg->AcceptLineRenderParams());
+      m_userMarkGenerator->SetCreatedUserMarks(msg->AcceptCreatedIds());
       break;
     }
 
-  case Message::CacheRouteSign:
+  case Message::UpdateUserMarkGroup:
     {
-      ref_ptr<CacheRouteSignMessage> msg = message;
-      m_routeBuilder->BuildSign(msg->GetPosition(), msg->IsStart(), msg->IsValid(), m_texMng, msg->GetRecacheId());
+      ref_ptr<UpdateUserMarkGroupMessage> msg = message;
+      kml::MarkGroupId const groupId = msg->GetGroupId();
+      m_userMarkGenerator->SetGroup(groupId, msg->AcceptIds());
       break;
     }
 
-  case Message::CacheRouteArrows:
+  case Message::ClearUserMarkGroup:
     {
-      ref_ptr<CacheRouteArrowsMessage> msg = message;
-      m_routeBuilder->BuildArrows(msg->GetRouteIndex(), msg->GetBorders(), m_texMng, msg->GetRecacheId());
+      ref_ptr<ClearUserMarkGroupMessage> msg = message;
+      m_userMarkGenerator->RemoveGroup(msg->GetGroupId());
       break;
     }
 
-  case Message::RemoveRoute:
+  case Message::InvalidateUserMarks:
     {
-      ref_ptr<RemoveRouteMessage> msg = message;
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<InvalidateUserMarksMessage>(),
+                                MessagePriority::Normal);
+      break;
+    }
+  case Message::AddSubroute:
+    {
+      ref_ptr<AddSubrouteMessage> msg = message;
+      m_routeBuilder->Build(msg->GetSubrouteId(), msg->GetSubroute(), m_texMng,
+                            msg->GetRecacheId());
+      break;
+    }
+
+  case Message::CacheSubrouteArrows:
+    {
+      ref_ptr<CacheSubrouteArrowsMessage> msg = message;
+      m_routeBuilder->BuildArrows(msg->GetSubrouteId(), msg->GetBorders(), m_texMng,
+                                  msg->GetRecacheId());
+      break;
+    }
+
+  case Message::RemoveSubroute:
+    {
+      ref_ptr<RemoveSubrouteMessage> msg = message;
       m_routeBuilder->ClearRouteCache();
       // We have to resend the message to FR, because it guaranties that
-      // RemoveRouteMessage will be processed after FlushRouteMessage.
+      // RemoveSubroute will be processed after FlushSubrouteMessage.
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<RemoveRouteMessage>(msg->NeedDeactivateFollowing()),
+                                make_unique_dp<RemoveSubrouteMessage>(
+                                  msg->GetSegmentId(), msg->NeedDeactivateFollowing()),
                                 MessagePriority::Normal);
       break;
     }
 
-  case Message::InvalidateTextures:
+  case Message::SwitchMapStyle:
     {
-      m_texMng->Invalidate(VisualParams::Instance().GetResourcePostfix());
+      m_texMng->OnSwitchMapStyle();
       RecacheMapShapes();
       m_trafficGenerator->InvalidateTexturesCache();
+      m_transitBuilder->RebuildSchemes(m_texMng);
       break;
     }
 
-  case Message::CacheGpsTrackPoints:
+  case Message::CacheCirclesPack:
     {
-      ref_ptr<CacheGpsTrackPointsMessage> msg = message;
-      drape_ptr<GpsTrackRenderData> data = make_unique_dp<GpsTrackRenderData>();
+      ref_ptr<CacheCirclesPackMessage> msg = message;
+      drape_ptr<CirclesPackRenderData> data = make_unique_dp<CirclesPackRenderData>();
       data->m_pointsCount = msg->GetPointsCount();
-      GpsTrackShape::Draw(m_texMng, *data.get());
+      CirclesPackShape::Draw(m_texMng, *data.get());
       m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                                make_unique_dp<FlushGpsTrackPointsMessage>(move(data)),
+                                make_unique_dp<FlushCirclesPackMessage>(
+                                  std::move(data), msg->GetDestination()),
                                 MessagePriority::Normal);
       break;
     }
@@ -340,14 +365,14 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       ref_ptr<RequestSymbolsSizeMessage> msg = message;
       auto const & symbols = msg->GetSymbols();
 
-      vector<m2::PointF> sizes(symbols.size());
-      for (size_t i = 0; i < symbols.size(); i++)
+      RequestSymbolsSizeMessage::Sizes sizes;
+      for (auto const & s : symbols)
       {
         dp::TextureManager::SymbolRegion region;
-        m_texMng->GetSymbolRegion(symbols[i], region);
-        sizes[i] = region.GetPixelSize();
+        m_texMng->GetSymbolRegion(s, region);
+        sizes.insert(std::make_pair(s, region.GetPixelSize()));
       }
-      msg->InvokeCallback(sizes);
+      msg->InvokeCallback(std::move(sizes));
 
       break;
     }
@@ -408,6 +433,39 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::UpdateTransitScheme:
+    {
+      ref_ptr<UpdateTransitSchemeMessage> msg = message;
+      m_transitBuilder->UpdateSchemes(msg->GetTransitDisplayInfos(), m_texMng);
+      break;
+    }
+
+  case Message::RegenerateTransitScheme:
+    {
+      m_transitBuilder->RebuildSchemes(m_texMng);
+      break;
+    }
+
+  case Message::ClearTransitSchemeData:
+    {
+      ref_ptr<ClearTransitSchemeDataMessage> msg = message;
+      m_transitBuilder->Clear(msg->GetMwmId());
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<ClearTransitSchemeDataMessage>(msg->GetMwmId()),
+                                MessagePriority::Normal);
+      break;
+    }
+
+  case Message::EnableTransitScheme:
+    {
+      ref_ptr<EnableTransitSchemeMessage> msg = message;
+      if (!msg->IsEnabled())
+        m_transitBuilder->Clear();
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<EnableTransitSchemeMessage>(msg->IsEnabled()),
+                                MessagePriority::Normal);
+      break;
+    }
   case Message::DrapeApiAddLines:
     {
       ref_ptr<DrapeApiAddLinesMessage> msg = message;
@@ -428,6 +486,59 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::SetCustomFeatures:
+    {
+      ref_ptr<SetCustomFeaturesMessage> msg = message;
+      m_readManager->SetCustomFeatures(msg->AcceptFeatures());
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<SetTrackedFeaturesMessage>(
+                                  m_readManager->GetCustomFeaturesArray()),
+                                MessagePriority::Normal);
+      break;
+    }
+
+  case Message::RemoveCustomFeatures:
+    {
+      ref_ptr<RemoveCustomFeaturesMessage> msg = message;
+      bool changed = false;
+      if (msg->NeedRemoveAll())
+        changed = m_readManager->RemoveAllCustomFeatures();
+      else
+        changed = m_readManager->RemoveCustomFeatures(msg->GetMwmId());
+
+      if (changed)
+      {
+        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<SetTrackedFeaturesMessage>(
+                                    m_readManager->GetCustomFeaturesArray()),
+                                  MessagePriority::Normal);
+      }
+      break;
+    }
+
+  case Message::SetDisplacementMode:
+    {
+      ref_ptr<SetDisplacementModeMessage> msg = message;
+      m_readManager->SetDisplacementMode(msg->GetMode());
+      if (m_readManager->IsModeChanged())
+      {
+        m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<SetDisplacementModeMessage>(msg->GetMode()),
+                                  MessagePriority::Normal);
+      }
+      break;
+    }
+
+  case Message::EnableUGCRendering:
+    {
+      ref_ptr<EnableUGCRenderingMessage> msg = message;
+      m_readManager->EnableUGCRendering(msg->IsEnabled());
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<EnableUGCRenderingMessage>(msg->IsEnabled()),
+                                MessagePriority::Normal);
+      break;
+    }
+
   default:
     ASSERT(false, ());
     break;
@@ -439,6 +550,7 @@ void BackendRenderer::ReleaseResources()
   m_readManager->Stop();
 
   m_readManager.reset();
+  m_metalineManager.reset();
   m_batchersPool.reset();
   m_routeBuilder.reset();
   m_overlays.clear();
@@ -451,19 +563,22 @@ void BackendRenderer::ReleaseResources()
 void BackendRenderer::OnContextCreate()
 {
   LOG(LINFO, ("On context create."));
-  m_contextFactory->waitForInitialization();
-  m_contextFactory->getResourcesUploadContext()->makeCurrent();
+  dp::OGLContext * context = m_contextFactory->getResourcesUploadContext();
+  m_contextFactory->waitForInitialization(context);
+  context->makeCurrent();
 
-  GLFunctions::Init();
+  GLFunctions::Init(m_apiVersion);
 
+  m_readManager->Start();
   InitGLDependentResource();
 }
 
 void BackendRenderer::OnContextDestroy()
 {
   LOG(LINFO, ("On context destroy."));
-  m_readManager->InvalidateAll();
+  m_readManager->Stop();
   m_batchersPool.reset();
+  m_metalineManager->Stop();
   m_texMng->Release();
   m_overlays.clear();
   m_trafficGenerator->ClearGLDependentResources();
@@ -477,10 +592,11 @@ void BackendRenderer::Routine::Do()
 {
   LOG(LINFO, ("Start routine."));
   m_renderer.OnContextCreate();
-
+  dp::OGLContext * context = m_renderer.m_contextFactory->getResourcesUploadContext();
   while (!IsCancelled())
   {
-    m_renderer.ProcessSingleMessage();
+    if (context->validate())
+      m_renderer.ProcessSingleMessage();
     m_renderer.CheckRenderingEnabled();
   }
 
@@ -490,7 +606,7 @@ void BackendRenderer::Routine::Do()
 void BackendRenderer::InitGLDependentResource()
 {
   uint32_t constexpr kBatchSize = 5000;
-  m_batchersPool = make_unique_dp<BatchersPool<TileKey, TileKeyStrictComparator>>(ReadManager::ReadCount(),
+  m_batchersPool = make_unique_dp<BatchersPool<TileKey, TileKeyStrictComparator>>(kReadingThreadsCount,
                                                bind(&BackendRenderer::FlushGeometry, this, _1, _2, _3),
                                                kBatchSize, kBatchSize);
   m_trafficGenerator->Init();
@@ -498,8 +614,13 @@ void BackendRenderer::InitGLDependentResource()
   dp::TextureManager::Params params;
   params.m_resPostfix = VisualParams::Instance().GetResourcePostfix();
   params.m_visualScale = df::VisualParams::Instance().GetVisualScale();
+#ifdef BUILD_DESIGNER
+  params.m_colors = "colors_design.txt";
+  params.m_patterns = "patterns_design.txt";
+#else
   params.m_colors = "colors.txt";
   params.m_patterns = "patterns.txt";
+#endif // BUILD_DESIGNER
   params.m_glyphMngParams.m_uniBlocks = "unicode_blocks.txt";
   params.m_glyphMngParams.m_whitelist = "fonts_whitelist.txt";
   params.m_glyphMngParams.m_blacklist = "fonts_blacklist.txt";
@@ -508,18 +629,30 @@ void BackendRenderer::InitGLDependentResource()
   GetPlatform().GetFontNames(params.m_glyphMngParams.m_fonts);
 
   m_texMng->Init(params);
+
+  // Send some textures to frontend renderer.
+  drape_ptr<PostprocessStaticTextures> textures = make_unique_dp<PostprocessStaticTextures>();
+  textures->m_smaaAreaTexture = m_texMng->GetSMAAAreaTexture();
+  textures->m_smaaSearchTexture = m_texMng->GetSMAASearchTexture();
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                            make_unique_dp<SetPostprocessStaticTexturesMessage>(std::move(textures)),
+                            MessagePriority::Normal);
+
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                            make_unique_dp<FinishTexturesInitializationMessage>(),
+                            MessagePriority::Normal);
 }
 
 void BackendRenderer::RecacheMapShapes()
 {
   auto msg = make_unique_dp<MapShapesMessage>(make_unique_dp<MyPosition>(m_texMng),
                                               make_unique_dp<SelectionShape>(m_texMng));
-
   GLFunctions::glFlush();
-  m_commutator->PostMessage(ThreadsCommutator::RenderThread, move(msg), MessagePriority::High);
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread, std::move(msg), MessagePriority::Normal);
 }
 
-void BackendRenderer::FlushGeometry(TileKey const & key, dp::GLState const & state, drape_ptr<dp::RenderBucket> && buffer)
+void BackendRenderer::FlushGeometry(TileKey const & key, dp::GLState const & state,
+                                    drape_ptr<dp::RenderBucket> && buffer)
 {
   GLFunctions::glFlush();
   m_commutator->PostMessage(ThreadsCommutator::RenderThread,
@@ -527,10 +660,24 @@ void BackendRenderer::FlushGeometry(TileKey const & key, dp::GLState const & sta
                             MessagePriority::Normal);
 }
 
+void BackendRenderer::FlushTransitRenderData(TransitRenderData && renderData)
+{
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                            make_unique_dp<FlushTransitSchemeMessage>(std::move(renderData)),
+                            MessagePriority::Normal);
+}
+
 void BackendRenderer::FlushTrafficRenderData(TrafficRenderData && renderData)
 {
   m_commutator->PostMessage(ThreadsCommutator::RenderThread,
-                            make_unique_dp<FlushTrafficDataMessage>(move(renderData)),
+                            make_unique_dp<FlushTrafficDataMessage>(std::move(renderData)),
+                            MessagePriority::Normal);
+}
+
+void BackendRenderer::FlushUserMarksRenderData(TUserMarksRenderData && renderData)
+{
+  m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                            make_unique_dp<FlushUserMarksMessage>(std::move(renderData)),
                             MessagePriority::Normal);
 }
 

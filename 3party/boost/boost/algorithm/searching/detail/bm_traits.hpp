@@ -79,7 +79,7 @@ namespace boost { namespace algorithm { namespace detail {
         skip_map skip_;
         const value_type k_default_value;
     public:
-        skip_table ( std::size_t patSize, value_type default_value ) : k_default_value ( default_value ) {
+        skip_table ( std::size_t /*patSize*/, value_type default_value ) : k_default_value ( default_value ) {
             std::fill_n ( skip_.begin(), skip_.size(), default_value );
             }
         

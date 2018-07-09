@@ -160,7 +160,7 @@ inline void load(
         ar.template get_helper<shared_ptr_helper<boost::shared_ptr> >(
             shared_ptr_helper_id
         );
-    h.reset(t,r);
+    h.reset(t,r);    
 }
 #endif
 

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="@dimen/luggage_product_height"
+  android:orientation="vertical"
+  android:gravity="center_horizontal">
+  <ProgressBar
+    android:id="@+id/pb__progress"
+    android:layout_width="@dimen/margin_base_plus"
+    android:layout_height="@dimen/margin_base_plus"
+    android:layout_marginTop="@dimen/margin_half_plus"/>
+  <TextView
+    android:id="@+id/tv__title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_double_plus"
+    android:layout_marginLeft="@dimen/margin_half_plus"
+    android:layout_marginRight="@dimen/margin_half_plus"
+    android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
+    android:fontFamily="@string/robotoMedium"
+    android:maxLines="1"
+    android:ellipsize="end"
+    tools:text="Проверенное жильё"
+    tools:targetApi="jelly_bean"/>
+  <TextView
+    android:id="@+id/tv__subtitle"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:layout_marginTop="@dimen/margin_quarter"
+    android:layout_marginLeft="@dimen/margin_half_plus"
+    android:layout_marginRight="@dimen/margin_half_plus"
+    android:textAppearance="@style/MwmTextAppearance.Body4"
+    android:ellipsize="end"
+    android:gravity="center_horizontal"
+    tools:text="Узнай сколько стоят квартиры в этом доме"/>
+  <TextView
+    android:id="@+id/button"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/luggage_details_height"
+    android:textAppearance="@style/MwmTextAppearance.Button"
+    android:textSize="@dimen/text_size_caption"
+    android:fontFamily="@string/robotoMedium"
+    android:gravity="center"
+    android:background="?windowBackgroundForced"
+    android:text="@string/preloader_viator_button"
+    tools:targetApi="jelly_bean"/>
+</LinearLayout>

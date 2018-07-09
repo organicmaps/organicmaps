@@ -1,12 +1,16 @@
-#include "Framework.hpp"
+#include "com/mapswithme/maps/Framework.hpp"
 
-#include "../core/jni_helper.hpp"
-#include "../platform/Platform.hpp"
+#include "com/mapswithme/core/jni_helper.hpp"
+#include "com/mapswithme/platform/Platform.hpp"
+
 #include "map/place_page_info.hpp"
-#include "partners_api/booking_api.hpp"
 
-#include "std/bind.hpp"
-#include "std/chrono.hpp"
+#include "partners_api/booking_api.hpp"
+#include "partners_api/booking_block_params.hpp"
+
+#include <chrono>
+#include <functional>
+#include <utility>
 
 namespace
 {
@@ -26,7 +30,7 @@ jmethodID g_hotelInfoConstructor;
 jmethodID g_sponsoredClassConstructor;
 jmethodID g_priceCallback;
 jmethodID g_infoCallback;
-string g_lastRequestedHotelId;
+std::string g_lastRequestedHotelId;
 
 void PrepareClassRefs(JNIEnv * env, jclass sponsoredClass)
 {
@@ -61,7 +65,8 @@ void PrepareClassRefs(JNIEnv * env, jclass sponsoredClass)
   // Sponsored(String rating, String price, String urlBook, String urlDescription)
   g_sponsoredClassConstructor = jni::GetConstructorID(
       env, g_sponsoredClass,
-      "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V");
+      "(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
+      "Ljava/lang/String;IILjava/lang/String;)V");
   // static void onPriceReceived(final String id, final String price, final String currency)
   g_priceCallback =
       jni::GetStaticMethodID(env, g_sponsoredClass, "onPriceReceived",
@@ -98,7 +103,7 @@ jobjectArray ToReviewsArray(JNIEnv * env, vector<HotelReview> const & reviews)
                           [](JNIEnv * env, HotelReview const & item) {
                             return env->NewObject(
                                 g_reviewClass, g_reviewConstructor,
-                                time_point_cast<milliseconds>(item.m_date).time_since_epoch().count(),
+                                std::chrono::time_point_cast<std::chrono::milliseconds>(item.m_date).time_since_epoch().count(),
                                 item.m_score, jni::ToJavaString(env, item.m_author),
                                 jni::ToJavaString(env, item.m_pros), jni::ToJavaString(env, item.m_cons));
                           });
@@ -117,13 +122,18 @@ JNIEXPORT jobject JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_na
   if (!ppInfo.IsSponsored())
     return nullptr;
 
+  std::string rating = place_page::rating::GetRatingFormatted(ppInfo.GetRatingRawValue());
   return env->NewObject(g_sponsoredClass, g_sponsoredClassConstructor,
-                        jni::ToJavaString(env, ppInfo.GetRatingFormatted()),
+                        jni::ToJavaString(env, rating),
+                        static_cast<jint>(place_page::rating::GetImpress(ppInfo.GetRatingRawValue())),
                         jni::ToJavaString(env, ppInfo.GetApproximatePricing()),
                         jni::ToJavaString(env, ppInfo.GetSponsoredUrl()),
+                        jni::ToJavaString(env, ppInfo.GetSponsoredDeepLink()),
                         jni::ToJavaString(env, ppInfo.GetSponsoredDescriptionUrl()),
                         jni::ToJavaString(env, ppInfo.GetSponsoredReviewUrl()),
-                        (jint)ppInfo.m_sponsoredType);
+                        static_cast<jint>(ppInfo.GetSponsoredType()),
+                        static_cast<jint>(ppInfo.GetPartnerIndex()),
+                        jni::ToJavaString(env, ppInfo.GetPartnerName()));
 }
 
 // static void nativeRequestPrice(String id, String currencyCode);
@@ -132,22 +142,27 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_nativ
 {
   PrepareClassRefs(env, clazz);
 
-  string const hotelId = jni::ToNativeString(env, id);
+  std::string const hotelId = jni::ToNativeString(env, id);
   g_lastRequestedHotelId = hotelId;
 
-  string const code = jni::ToNativeString(env, currencyCode);
-
-  g_framework->RequestBookingMinPrice(env, policy, hotelId, code,
-    [](string const & hotelId, string const & price, string const & currency) {
-      GetPlatform().RunOnGuiThread([hotelId, price, currency]() {
+  std::string const code = jni::ToNativeString(env, currencyCode);
+  auto params = booking::BlockParams::MakeDefault();
+  params.m_hotelId = hotelId;
+  params.m_currency = code;
+  g_framework->RequestBookingMinPrice(
+      env, policy, std::move(params),
+      [](std::string const & hotelId, booking::Blocks const & blocks) {
         if (g_lastRequestedHotelId != hotelId)
           return;
 
         JNIEnv * env = jni::GetEnv();
-        env->CallStaticVoidMethod(g_sponsoredClass, g_priceCallback, jni::ToJavaString(env, hotelId),
-                                  jni::ToJavaString(env, price), jni::ToJavaString(env, currency));
+        auto const price = blocks.m_totalMinPrice == BlockInfo::kIncorrectPrice
+                               ? ""
+                               : std::to_string(blocks.m_totalMinPrice);
+        env->CallStaticVoidMethod(g_sponsoredClass, g_priceCallback,
+                                  jni::ToJavaString(env, hotelId), jni::ToJavaString(env, price),
+                                  jni::ToJavaString(env, blocks.m_currency));
       });
-  });
 }
 
 // static void nativeRequestInfo(String id, String locale);
@@ -156,30 +171,28 @@ JNIEXPORT void JNICALL Java_com_mapswithme_maps_widget_placepage_Sponsored_nativ
 {
   PrepareClassRefs(env, clazz);
 
-  string const hotelId = jni::ToNativeString(env, id);
+  std::string const hotelId = jni::ToNativeString(env, id);
   g_lastRequestedHotelId = hotelId;
 
-  string code = jni::ToNativeString(env, locale);
+  std::string code = jni::ToNativeString(env, locale);
 
   if (code.size() > 2)  // 2 - number of characters in country code
     code.resize(2);
 
-  g_framework->RequestBookingInfo(env, policy, hotelId, code, [hotelId](HotelInfo const & hotelInfo) {
-    GetPlatform().RunOnGuiThread([hotelId, hotelInfo]() {
-      if (g_lastRequestedHotelId != hotelId)
-          return;
-      JNIEnv * env = jni::GetEnv();
+  g_framework->RequestBookingInfo(env, policy, hotelId, code, [hotelId](HotelInfo const hotelInfo) {
+    if (g_lastRequestedHotelId != hotelId)
+      return;
+    JNIEnv * env = jni::GetEnv();
 
-      auto description = jni::ToJavaString(env, hotelInfo.m_description);
-      auto photos = ToPhotosArray(env, hotelInfo.m_photos);
-      auto facilities = ToFacilitiesArray(env, hotelInfo.m_facilities);
-      auto reviews = ToReviewsArray(env, hotelInfo.m_reviews);
-      auto nearby = env->NewObjectArray(0, g_nearbyObjectClass, 0);
-      jlong reviewsCount = static_cast<jlong>(hotelInfo.m_scoreCount);
-      env->CallStaticVoidMethod(g_sponsoredClass, g_infoCallback, jni::ToJavaString(env, hotelId),
-                                env->NewObject(g_hotelInfoClass, g_hotelInfoConstructor, description,
-                                               photos, facilities, reviews, nearby, reviewsCount));
-    });
+    auto description = jni::ToJavaString(env, hotelInfo.m_description);
+    auto photos = ToPhotosArray(env, hotelInfo.m_photos);
+    auto facilities = ToFacilitiesArray(env, hotelInfo.m_facilities);
+    auto reviews = ToReviewsArray(env, hotelInfo.m_reviews);
+    auto nearby = env->NewObjectArray(0, g_nearbyObjectClass, 0);
+    jlong reviewsCount = static_cast<jlong>(hotelInfo.m_scoreCount);
+    env->CallStaticVoidMethod(g_sponsoredClass, g_infoCallback, jni::ToJavaString(env, hotelId),
+                              env->NewObject(g_hotelInfoClass, g_hotelInfoConstructor, description,
+                                             photos, facilities, reviews, nearby, reviewsCount));
   });
 }
 }  // extern "C"

@@ -3,6 +3,7 @@ package com.mapswithme.maps.search;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import static com.mapswithme.maps.search.HotelsFilter.Op.FIELD_RATING;
 
@@ -12,6 +13,7 @@ public class HotelsFilter implements Parcelable
   public final static int TYPE_AND = 0;
   public final static int TYPE_OR = 1;
   public final static int TYPE_OP = 2;
+  public final static int TYPE_ONE_OF = 3;
 
   public final int mType;
 
@@ -112,6 +114,36 @@ public class HotelsFilter implements Parcelable
     }
   }
 
+  public static class OneOf extends HotelsFilter
+  {
+    @NonNull
+    public final HotelType mType;
+    @Nullable
+    public final OneOf mTile;
+
+    public OneOf(@NonNull HotelType type, @Nullable OneOf tile)
+    {
+      super(TYPE_ONE_OF);
+      mType = type;
+      mTile = tile;
+    }
+
+    public OneOf(Parcel source)
+    {
+      super(TYPE_ONE_OF);
+      mType = source.readParcelable(HotelType.class.getClassLoader());
+      mTile = source.readParcelable(HotelsFilter.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+      super.writeToParcel(dest, flags);
+      dest.writeParcelable(mType, flags);
+      dest.writeParcelable(mTile, flags);
+    }
+  }
+
   public static class RatingFilter extends Op
   {
     public final float mValue;
@@ -186,6 +218,9 @@ public class HotelsFilter implements Parcelable
     if (type == TYPE_OR)
       return new Or(source);
 
+    if (type == TYPE_ONE_OF)
+      return new OneOf(source);
+
     int field = source.readInt();
     if (field == FIELD_RATING)
       return new RatingFilter(source);
@@ -207,4 +242,79 @@ public class HotelsFilter implements Parcelable
       return new HotelsFilter[size];
     }
   };
+
+  public static class HotelType implements Parcelable
+  {
+    final int mType;
+    @NonNull
+    final String mTag;
+
+    HotelType(int type, @NonNull String tag)
+    {
+      mType = type;
+      mTag = tag;
+    }
+
+    protected HotelType(Parcel in)
+    {
+      mType = in.readInt();
+      mTag = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+      dest.writeInt(mType);
+      dest.writeString(mTag);
+    }
+
+    @Override
+    public int describeContents()
+    {
+      return 0;
+    }
+
+    public int getType()
+    {
+      return mType;
+    }
+
+    @NonNull
+    public String getTag()
+    {
+      return mTag;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+
+      HotelType type = (HotelType) o;
+
+      return mType == type.mType;
+    }
+
+    @Override
+    public int hashCode()
+    {
+      return mType;
+    }
+
+    public static final Creator<HotelType> CREATOR = new Creator<HotelType>()
+    {
+      @Override
+      public HotelType createFromParcel(Parcel in)
+      {
+        return new HotelType(in);
+      }
+
+      @Override
+      public HotelType[] newArray(int size)
+      {
+        return new HotelType[size];
+      }
+    };
+  }
 }

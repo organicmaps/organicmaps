@@ -1051,7 +1051,7 @@ struct sequenced
 template<typename SuperMeta,typename TagList>
 inline boost::mpl::true_* boost_foreach_is_noncopyable(
   boost::multi_index::detail::sequenced_index<SuperMeta,TagList>*&,
-  boost::foreach::tag)
+  boost_foreach_argument_dependent_lookup_hack)
 {
   return 0;
 }

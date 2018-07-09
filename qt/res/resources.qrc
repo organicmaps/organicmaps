@@ -7,14 +7,23 @@
         <file>right.png</file>
         <file>world.png</file>
         <file>download.png</file>
-        <file>plus.png</file>
-        <file>minus.png</file>
         <file>location-search.png</file>
         <file>location.png</file>
         <file>select.png</file>
         <file>selectmode.png</file>
         <file>clear.png</file>
         <file>traffic.png</file>
+        <file>point-finish.png</file>
+        <file>point-intermediate.png</file>
+        <file>point-start.png</file>
+        <file>clear-route.png</file>
+        <file>routing.png</file>
+        <file>run.png</file>
+        <file>bug.png</file>
+        <file>chart.png</file>
+        <file>test.png</file>
+        <file>geom.png</file>
+        <file>phonepack.png</file>
     </qresource>
     <qresource prefix="/ui">
         <file>logo.png</file>

@@ -25,6 +25,33 @@
   self.selectedBackgroundView.backgroundColor = [UIColor pressBackground];
 }
 
+- (void)addSubview:(UIView *)view
+{
+  [super addSubview:view];
+  if (self.isSeparatorHidden)
+    [self hideSeparators];
+}
+
+- (void)setIsSeparatorHidden:(BOOL)isSeparatorHidden
+{
+  _isSeparatorHidden = isSeparatorHidden;
+  if (isSeparatorHidden)
+    [self hideSeparators];
+}
+
+- (void)hideSeparators
+{
+  for (UIView * view in self.subviews)
+    view.hidden = [[[view class] className] isEqualToString:@"_UITableViewCellSeparatorView"];
+}
+
+- (void)layoutSubviews
+{
+  [super layoutSubviews];
+  if (self.isSeparatorHidden)
+    [self hideSeparators];
+}
+
 @end
 
 @implementation MWMTableViewSubtitleCell

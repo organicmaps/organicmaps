@@ -1,41 +1,21 @@
 #include "routing/async_router.hpp"
 
-#include "platform/platform.hpp"
+#include "geometry/mercator.hpp"
 
 #include "base/logging.hpp"
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
-#include "geometry/mercator.hpp"
+#include <functional>
+
+using namespace std;
+using namespace std::placeholders;
 
 namespace routing
 {
-
 namespace
 {
-
-string ToString(IRouter::ResultCode code)
-{
-  switch (code)
-  {
-  case IRouter::NoError: return "NoError";
-  case IRouter::Cancelled: return "Cancelled";
-  case IRouter::NoCurrentPosition: return "NoCurrentPosition";
-  case IRouter::InconsistentMWMandRoute: return "InconsistentMWMandRoute";
-  case IRouter::RouteFileNotExist: return "RouteFileNotExist";
-  case IRouter::StartPointNotFound: return "StartPointNotFound";
-  case IRouter::EndPointNotFound: return "EndPointNotFound";
-  case IRouter::PointsInDifferentMWM: return "PointsInDifferentMWM";
-  case IRouter::RouteNotFound: return "RouteNotFound";
-  case IRouter::InternalError: return "InternalError";
-  case IRouter::NeedMoreMaps: return "NeedMoreMaps";
-  case IRouter::FileTooOld: return "FileTooOld";
-  }
-  ASSERT(false, ());
-  return "Routing result code case error.";
-}
-
 map<string, string> PrepareStatisticsData(string const & routerName,
                                           m2::PointD const & startPoint, m2::PointD const & startDirection,
                                           m2::PointD const & finalPoint)
@@ -53,15 +33,52 @@ map<string, string> PrepareStatisticsData(string const & routerName,
           {"finalLat", strings::to_string_dac(MercatorBounds::YToLat(finalPoint.y), precision)}};
 }
 
+void SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,
+                    m2::PointD const & finalPoint, RouterResultCode resultCode, double routeLenM,
+                    double elapsedSec, RoutingStatisticsCallback const & routingStatisticsCallback,
+                    string const & routerName)
+{
+  if (nullptr == routingStatisticsCallback)
+    return;
+
+  map<string, string> statistics = PrepareStatisticsData(routerName, startPoint, startDirection, finalPoint);
+  statistics.emplace("result", DebugPrint(resultCode));
+  statistics.emplace("elapsed", strings::to_string(elapsedSec));
+
+  if (RouterResultCode::NoError == resultCode)
+    statistics.emplace("distance", strings::to_string(routeLenM));
+
+  routingStatisticsCallback(statistics);
+}
+
+void SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,
+                    m2::PointD const & finalPoint, string const & exceptionMessage,
+                    RoutingStatisticsCallback const & routingStatisticsCallback,
+                    string const & routerName)
+{
+  if (nullptr == routingStatisticsCallback)
+    return;
+
+  map<string, string> statistics = PrepareStatisticsData(routerName, startPoint, startDirection, finalPoint);
+  statistics.emplace("exception", exceptionMessage);
+
+  routingStatisticsCallback(statistics);
+}
 }  // namespace
 
 // ----------------------------------------------------------------------------------------------------------------------------
 
-AsyncRouter::RouterDelegateProxy::RouterDelegateProxy(TReadyCallback const & onReady,
-                                                      RouterDelegate::TPointCheckCallback const & onPointCheck,
-                                                      RouterDelegate::TProgressCallback const & onProgress,
+AsyncRouter::RouterDelegateProxy::RouterDelegateProxy(ReadyCallbackOwnership const & onReady,
+                                                      NeedMoreMapsCallback const & onNeedMoreMaps,
+                                                      RemoveRouteCallback const & onRemoveRoute,
+                                                      PointCheckCallback const & onPointCheck,
+                                                      ProgressCallback const & onProgress,
                                                       uint32_t timeoutSec)
-  : m_onReady(onReady), m_onPointCheck(onPointCheck), m_onProgress(onProgress)
+  : m_onReadyOwnership(onReady)
+  , m_onNeedMoreMaps(onNeedMoreMaps)
+  , m_onRemoveRoute(onRemoveRoute)
+  , m_onPointCheck(onPointCheck)
+  , m_onProgress(onProgress)
 {
   m_delegate.Reset();
   m_delegate.SetPointCheckCallback(bind(&RouterDelegateProxy::OnPointCheck, this, _1));
@@ -69,16 +86,41 @@ AsyncRouter::RouterDelegateProxy::RouterDelegateProxy(TReadyCallback const & onR
   m_delegate.SetTimeout(timeoutSec);
 }
 
-void AsyncRouter::RouterDelegateProxy::OnReady(Route & route, IRouter::ResultCode resultCode)
+void AsyncRouter::RouterDelegateProxy::OnReady(shared_ptr<Route> route, RouterResultCode resultCode)
 {
-  if (!m_onReady)
+  if (!m_onReadyOwnership)
     return;
   {
     lock_guard<mutex> l(m_guard);
     if (m_delegate.IsCancelled())
       return;
   }
-  m_onReady(route, resultCode);
+  m_onReadyOwnership(move(route), resultCode);
+}
+
+void AsyncRouter::RouterDelegateProxy::OnNeedMoreMaps(uint64_t routeId,
+                                                      vector<string> const & absentCounties)
+{
+  if (!m_onNeedMoreMaps)
+    return;
+  {
+    lock_guard<mutex> l(m_guard);
+    if (m_delegate.IsCancelled())
+      return;
+  }
+  m_onNeedMoreMaps(routeId, absentCounties);
+}
+
+void AsyncRouter::RouterDelegateProxy::OnRemoveRoute(RouterResultCode resultCode)
+{
+  if (!m_onRemoveRoute)
+    return;
+  {
+    lock_guard<mutex> l(m_guard);
+    if (m_delegate.IsCancelled())
+      return;
+  }
+  m_onRemoveRoute(resultCode);
 }
 
 void AsyncRouter::RouterDelegateProxy::Cancel()
@@ -89,35 +131,52 @@ void AsyncRouter::RouterDelegateProxy::Cancel()
 
 void AsyncRouter::RouterDelegateProxy::OnProgress(float progress)
 {
-  if (!m_onProgress)
-    return;
+  ProgressCallback onProgress = nullptr;
+
   {
     lock_guard<mutex> l(m_guard);
+    if (!m_onProgress)
+      return;
+
     if (m_delegate.IsCancelled())
       return;
+
+    onProgress = m_onProgress;
+    GetPlatform().RunTask(Platform::Thread::Gui, [onProgress, progress]() {
+      onProgress(progress);
+    });
   }
-  m_onProgress(progress);
 }
 
 void AsyncRouter::RouterDelegateProxy::OnPointCheck(m2::PointD const & pt)
 {
-  if (!m_onPointCheck)
-    return;
+#ifdef SHOW_ROUTE_DEBUG_MARKS
+  PointCheckCallback onPointCheck = nullptr;
+  m2::PointD point;
   {
     lock_guard<mutex> l(m_guard);
+    CHECK(m_onPointCheck, ());
+
     if (m_delegate.IsCancelled())
       return;
+
+    onPointCheck = m_onPointCheck;
+    point = pt;
   }
-  m_onPointCheck(pt);
+
+  GetPlatform().RunTask(Platform::Thread::Gui, [onPointCheck, point]() { onPointCheck(point); });
+#endif
 }
 
-// ----------------------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------
 
-AsyncRouter::AsyncRouter(TRoutingStatisticsCallback const & routingStatisticsCallback,
-                         RouterDelegate::TPointCheckCallback const & pointCheckCallback)
-    : m_threadExit(false), m_hasRequest(false), m_clearState(false),
-      m_routingStatisticsCallback(routingStatisticsCallback),
-      m_pointCheckCallback(pointCheckCallback)
+AsyncRouter::AsyncRouter(RoutingStatisticsCallback const & routingStatisticsCallback,
+                         PointCheckCallback const & pointCheckCallback)
+  : m_threadExit(false)
+  , m_hasRequest(false)
+  , m_clearState(false)
+  , m_routingStatisticsCallback(routingStatisticsCallback)
+  , m_pointCheckCallback(pointCheckCallback)
 {
   m_thread = threads::SimpleThread(&AsyncRouter::ThreadFunc, this);
 }
@@ -146,20 +205,23 @@ void AsyncRouter::SetRouter(unique_ptr<IRouter> && router, unique_ptr<IOnlineFet
   m_absentFetcher = move(fetcher);
 }
 
-void AsyncRouter::CalculateRoute(m2::PointD const & startPoint, m2::PointD const & direction,
-                                 m2::PointD const & finalPoint, TReadyCallback const & readyCallback,
-                                 RouterDelegate::TProgressCallback const & progressCallback,
+void AsyncRouter::CalculateRoute(Checkpoints const & checkpoints, m2::PointD const & direction,
+                                 bool adjustToPrevRoute, ReadyCallbackOwnership const & readyCallback,
+                                 NeedMoreMapsCallback const & needMoreMapsCallback,
+                                 RemoveRouteCallback const & removeRouteCallback,
+                                 ProgressCallback const & progressCallback,
                                  uint32_t timeoutSec)
 {
   unique_lock<mutex> ul(m_guard);
 
-  m_startPoint = startPoint;
+  m_checkpoints = checkpoints;
   m_startDirection = direction;
-  m_finalPoint = finalPoint;
+  m_adjustToPrevRoute = adjustToPrevRoute;
 
   ResetDelegate();
 
-  m_delegate = make_shared<RouterDelegateProxy>(readyCallback, m_pointCheckCallback, progressCallback, timeoutSec);
+  m_delegate = make_shared<RouterDelegateProxy>(readyCallback, needMoreMapsCallback, removeRouteCallback,
+                                                m_pointCheckCallback, progressCallback, timeoutSec);
 
   m_hasRequest = true;
   m_threadCondVar.notify_one();
@@ -175,46 +237,59 @@ void AsyncRouter::ClearState()
   ResetDelegate();
 }
 
-void AsyncRouter::LogCode(IRouter::ResultCode code, double const elapsedSec)
+void AsyncRouter::LogCode(RouterResultCode code, double const elapsedSec)
 {
   switch (code)
   {
-    case IRouter::StartPointNotFound:
+    case RouterResultCode::StartPointNotFound:
       LOG(LWARNING, ("Can't find start or end node"));
       break;
-    case IRouter::EndPointNotFound:
+    case RouterResultCode::EndPointNotFound:
       LOG(LWARNING, ("Can't find end point node"));
       break;
-    case IRouter::PointsInDifferentMWM:
+    case RouterResultCode::PointsInDifferentMWM:
       LOG(LWARNING, ("Points are in different MWMs"));
       break;
-    case IRouter::RouteNotFound:
+    case RouterResultCode::RouteNotFound:
       LOG(LWARNING, ("Route not found"));
       break;
-    case IRouter::RouteFileNotExist:
+    case RouterResultCode::RouteFileNotExist:
       LOG(LWARNING, ("There is no routing file"));
       break;
-    case IRouter::NeedMoreMaps:
+    case RouterResultCode::NeedMoreMaps:
       LOG(LINFO,
           ("Routing can find a better way with additional maps, elapsed seconds:", elapsedSec));
       break;
-    case IRouter::Cancelled:
+    case RouterResultCode::Cancelled:
       LOG(LINFO, ("Route calculation cancelled, elapsed seconds:", elapsedSec));
       break;
-    case IRouter::NoError:
+    case RouterResultCode::NoError:
       LOG(LINFO, ("Route found, elapsed seconds:", elapsedSec));
       break;
-    case IRouter::NoCurrentPosition:
+    case RouterResultCode::NoCurrentPosition:
       LOG(LINFO, ("No current position"));
       break;
-    case IRouter::InconsistentMWMandRoute:
+    case RouterResultCode::InconsistentMWMandRoute:
       LOG(LINFO, ("Inconsistent mwm and route"));
       break;
-    case IRouter::InternalError:
+    case RouterResultCode::InternalError:
       LOG(LINFO, ("Internal error"));
       break;
-    case IRouter::FileTooOld:
+    case RouterResultCode::FileTooOld:
       LOG(LINFO, ("File too old"));
+      break;
+    case RouterResultCode::IntermediatePointNotFound:
+      LOG(LWARNING, ("Can't find intermediate point node"));
+      break;
+    case RouterResultCode::TransitRouteNotFoundNoNetwork:
+      LOG(LWARNING, ("No transit route is found because there's no transit network in the mwm of "
+                     "the route point"));
+      break;
+    case RouterResultCode::TransitRouteNotFoundTooLongPedestrian:
+      LOG(LWARNING, ("No transit route is found because pedestrian way is too long"));
+      break;
+    case RouterResultCode::RouteNotFoundRedressRouteError:
+      LOG(LWARNING, ("Route not found because of a redress route error"));
       break;
   }
 }
@@ -255,10 +330,15 @@ void AsyncRouter::ThreadFunc()
 
 void AsyncRouter::CalculateRoute()
 {
+  Checkpoints checkpoints;
   shared_ptr<RouterDelegateProxy> delegate;
-  m2::PointD startPoint, finalPoint, startDirection;
+  m2::PointD startDirection;
+  bool adjustToPrevRoute = false;
   shared_ptr<IOnlineFetcher> absentFetcher;
   shared_ptr<IRouter> router;
+  uint64_t routeId = 0;
+  RoutingStatisticsCallback routingStatisticsCallback;
+  string routerName;
 
   {
     unique_lock<mutex> ul(m_guard);
@@ -272,100 +352,100 @@ void AsyncRouter::CalculateRoute()
     if (!m_delegate)
       return;
 
-    startPoint = m_startPoint;
-    finalPoint = m_finalPoint;
+    checkpoints = m_checkpoints;
     startDirection = m_startDirection;
+    adjustToPrevRoute = m_adjustToPrevRoute;
     delegate = m_delegate;
     router = m_router;
     absentFetcher = m_absentFetcher;
+    routeId = ++m_routeCounter;
+    routingStatisticsCallback = m_routingStatisticsCallback;
+    routerName = router->GetName();
   }
 
-  Route route(router->GetName());
-  IRouter::ResultCode code;
+  shared_ptr<Route> route = make_shared<Route>(router->GetName(), routeId);
+  RouterResultCode code;
 
   my::Timer timer;
   double elapsedSec = 0.0;
 
   try
   {
-    LOG(LDEBUG, ("Calculating the route from", startPoint, "to", finalPoint, "startDirection", startDirection));
+    LOG(LINFO, ("Calculating the route. checkpoints:", checkpoints, "startDirection:",
+                startDirection, "router name:", router->GetName()));
 
     if (absentFetcher)
-      absentFetcher->GenerateRequest(startPoint, finalPoint);
+      absentFetcher->GenerateRequest(checkpoints);
 
     // Run basic request.
-    code = router->CalculateRoute(startPoint, startDirection, finalPoint, delegate->GetDelegate(), route);
+    code = router->CalculateRoute(checkpoints, startDirection, adjustToPrevRoute,
+                                  delegate->GetDelegate(), *route);
 
     elapsedSec = timer.ElapsedSeconds(); // routing time
     LogCode(code, elapsedSec);
   }
   catch (RootException const & e)
   {
-    code = IRouter::InternalError;
+    code = RouterResultCode::InternalError;
     LOG(LERROR, ("Exception happened while calculating route:", e.Msg()));
-    SendStatistics(startPoint, startDirection, finalPoint, e.Msg());
-    delegate->OnReady(route, code);
+    GetPlatform().RunTask(Platform::Thread::Gui, [checkpoints, startDirection, e,
+                                                  routingStatisticsCallback, routerName]() {
+      SendStatistics(checkpoints.GetStart(), startDirection, checkpoints.GetFinish(), e.Msg(),
+                     routingStatisticsCallback, routerName);
+    });
+
+    // Note. After call of this method |route| should be used only on ui thread.
+    // And |route| should stop using on routing background thread, in this method.
+    GetPlatform().RunTask(Platform::Thread::Gui,
+                          [delegate, route, code]() { delegate->OnReady(route, code); });
     return;
   }
 
-  SendStatistics(startPoint, startDirection, finalPoint, code, route, elapsedSec);
+  double const routeLengthM = route->GetTotalDistanceMeters();
+  GetPlatform().RunTask(
+      Platform::Thread::Gui, [checkpoints, startDirection, code, routeLengthM, elapsedSec,
+                              routingStatisticsCallback, routerName]() {
+        SendStatistics(checkpoints.GetStart(), startDirection, checkpoints.GetFinish(), code,
+                       routeLengthM, elapsedSec, routingStatisticsCallback, routerName);
+      });
 
   // Draw route without waiting network latency.
-  if (code == IRouter::NoError)
-    delegate->OnReady(route, code);
+  if (code == RouterResultCode::NoError)
+  {
+    // Note. After call of this method |route| should be used only on ui thread.
+    // And |route| should stop using on routing background thread, in this method.
+    GetPlatform().RunTask(Platform::Thread::Gui,
+                          [delegate, route, code]() { delegate->OnReady(route, code); });
+  }
 
-  bool const needFetchAbsent = (code != IRouter::Cancelled);
+  bool const needFetchAbsent = (code != RouterResultCode::Cancelled);
 
   // Check online response if we have.
   vector<string> absent;
   if (absentFetcher && needFetchAbsent)
-  {
     absentFetcher->GetAbsentCountries(absent);
-    for (string const & country : absent)
-      route.AddAbsentCountry(country);
-  }
+  absent.insert(absent.end(), route->GetAbsentCountries().cbegin(), route->GetAbsentCountries().cend());
 
-  if (!absent.empty() && code == IRouter::NoError)
-    code = IRouter::NeedMoreMaps;
+  if (!absent.empty() && code == RouterResultCode::NoError)
+    code = RouterResultCode::NeedMoreMaps;
 
   elapsedSec = timer.ElapsedSeconds(); // routing time + absents fetch time
   LogCode(code, elapsedSec);
 
   // Call callback only if we have some new data.
-  if (code != IRouter::NoError)
-    delegate->OnReady(route, code);
+  if (code != RouterResultCode::NoError)
+  {
+    if (code == RouterResultCode::NeedMoreMaps)
+    {
+      GetPlatform().RunTask(Platform::Thread::Gui, [delegate, routeId, absent]() {
+        delegate->OnNeedMoreMaps(routeId, absent);
+      });
+    }
+    else
+    {
+      GetPlatform().RunTask(Platform::Thread::Gui,
+                            [delegate, code]() { delegate->OnRemoveRoute(code); });
+    }
+  }
 }
-
-void AsyncRouter::SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,
-                                 m2::PointD const & finalPoint,
-                                 IRouter::ResultCode resultCode,
-                                 Route const & route,
-                                 double elapsedSec)
-{
-  if (nullptr == m_routingStatisticsCallback)
-    return;
-
-  map<string, string> statistics = PrepareStatisticsData(m_router->GetName(), startPoint, startDirection, finalPoint);
-  statistics.emplace("result", ToString(resultCode));
-  statistics.emplace("elapsed", strings::to_string(elapsedSec));
-
-  if (IRouter::NoError == resultCode)
-    statistics.emplace("distance", strings::to_string(route.GetTotalDistanceMeters()));
-
-  m_routingStatisticsCallback(statistics);
-}
-
-void AsyncRouter::SendStatistics(m2::PointD const & startPoint, m2::PointD const & startDirection,
-                                 m2::PointD const & finalPoint,
-                                 string const & exceptionMessage)
-{
-  if (nullptr == m_routingStatisticsCallback)
-    return;
-
-  map<string, string> statistics = PrepareStatisticsData(m_router->GetName(), startPoint, startDirection, finalPoint);
-  statistics.emplace("exception", exceptionMessage);
-
-  m_routingStatisticsCallback(statistics);
-}
-
 }  // namespace routing

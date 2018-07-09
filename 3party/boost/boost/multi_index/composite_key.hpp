@@ -729,7 +729,7 @@ inline bool operator==(
   typedef std::tuple<Values...>                      key_tuple;
   typedef typename detail::cons_stdtuple_ctor<
     key_tuple>::result_type                          cons_key_tuple;
-
+  
   BOOST_STATIC_ASSERT(
     static_cast<std::size_t>(tuples::length<key_extractor_tuple>::value)==
     std::tuple_size<key_tuple>::value);
@@ -842,7 +842,7 @@ inline bool operator<(
   typedef std::tuple<Values...>                      key_tuple;
   typedef typename detail::cons_stdtuple_ctor<
     key_tuple>::result_type                          cons_key_tuple;
-
+  
   return detail::compare_ckey_cval<
     key_extractor_tuple,value_type,
     cons_key_tuple,detail::generic_operator_less_tuple
@@ -861,7 +861,7 @@ inline bool operator<(
   typedef std::tuple<Values...>                      key_tuple;
   typedef typename detail::cons_stdtuple_ctor<
     key_tuple>::result_type                          cons_key_tuple;
-
+  
   return detail::compare_ckey_cval<
     key_extractor_tuple,value_type,
     cons_key_tuple,detail::generic_operator_less_tuple

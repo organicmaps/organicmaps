@@ -1,0 +1,17 @@
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__local_ad"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  tools:visibility="visible">
+  <include layout="@layout/divider_horizontal"/>
+  <TextView
+    android:id="@+id/tv__local_ad"
+    style="@style/PlacePageMetadataText.Button"
+    android:height="@dimen/height_block_base"
+    android:background="?clickableBackground"
+    android:gravity="center"
+    android:text="@string/placepage_add_place_button"/>
+</LinearLayout>

@@ -52,4 +52,18 @@
    #define BOOST_MOVE_MSVC_AUTO_MOVE_RETURN_BUG
 #endif
 
+#if defined(BOOST_MOVE_DISABLE_FORCEINLINE)
+   #define BOOST_MOVE_FORCEINLINE inline
+#elif defined(BOOST_MOVE_FORCEINLINE_IS_BOOST_FORCELINE)
+   #define BOOST_MOVE_FORCEINLINE BOOST_FORCEINLINE
+#elif defined(BOOST_MSVC) && defined(_DEBUG)
+   //"__forceinline" and MSVC seems to have some bugs in debug mode
+   #define BOOST_MOVE_FORCEINLINE inline
+#elif defined(__GNUC__) && ((__GNUC__ < 4) || (__GNUC__ == 4 && (__GNUC_MINOR__ < 5)))
+   //Older GCCs have problems with forceinline
+   #define BOOST_MOVE_FORCEINLINE inline
+#else
+   #define BOOST_MOVE_FORCEINLINE BOOST_FORCEINLINE
+#endif
+
 #endif   //#ifndef BOOST_MOVE_DETAIL_WORKAROUND_HPP

@@ -72,7 +72,7 @@ inline void append_no_dups_or_spikes(Range& range, Point const& point,
         << geometry::get<0>(point) << ", " << geometry::get<1>(point) << ")"
         << std::endl;
 #endif
-    // The code below thies condition checks all spikes/dups
+    // The code below this condition checks all spikes/dups
     // for geometries >= 3 points.
     // So we have to check the first potential duplicate differently
     if (boost::size(range) == 1

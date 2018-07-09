@@ -11,42 +11,49 @@ set(
   SRC
   bicycle_route_test.cpp
   bicycle_turn_test.cpp
-  cross_section_tests.cpp
   get_altitude_test.cpp
   online_cross_tests.cpp
-  osrm_route_test.cpp
-  osrm_street_names_test.cpp
-  osrm_turn_test.cpp
   pedestrian_route_test.cpp
+  road_graph_tests.cpp
+  route_test.cpp
   routing_test_tools.cpp
   routing_test_tools.hpp
+  street_names_test.cpp
+  turn_test.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
+  editor_tests_support
   map
   routing
   search
   storage
-  indexer
-  editor
+  mwm_diff
   traffic
   routing_common
+  transit
+  kml
+  editor
+  indexer
   platform
   oauthcpp
   geometry
   coding
   base
-  osrm
   jansson
   protobuf
+  bsdiff
   succinct
   stats_client
   pugixml
   opening_hours
+  icu
+  agg
   ${LIBZ}
 )
 
 link_qt5_core(${PROJECT_NAME})
+link_qt5_network(${PROJECT_NAME})

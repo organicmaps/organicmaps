@@ -7,9 +7,9 @@
 
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/set.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <set>
+#include <vector>
 
 #include "3party/opening_hours/opening_hours.hpp"
 
@@ -72,10 +72,10 @@ jobject JavaTimetable(JNIEnv * env, jobject workingHours, jobject closedHours, b
 jobject JavaTimetable(JNIEnv * env, TimeTable const & tt)
 {
   auto const excludeSpans = tt.GetExcludeTime();
-  set<Weekday> weekdays = tt.GetOpeningDays();
-  vector<int> weekdaysVector;
+  std::set<Weekday> weekdays = tt.GetOpeningDays();
+  std::vector<int> weekdaysVector;
   weekdaysVector.reserve(weekdays.size());
-  transform(weekdays.begin(), weekdays.end(), back_inserter(weekdaysVector), [](Weekday weekday)
+  std::transform(weekdays.begin(), weekdays.end(), std::back_inserter(weekdaysVector), [](Weekday weekday)
   {
     return static_cast<int>(weekday);
   });
@@ -283,7 +283,7 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_mapswithme_maps_editor_OpeningHours_nativeTimetablesFromString(JNIEnv * env, jclass clazz, jstring jSource)
 {
   TimeTableSet tts;
-  string const source = jni::ToNativeString(env, jSource);
+  std::string const source = jni::ToNativeString(env, jSource);
   if (!source.empty()  && MakeTimeTableSet(OpeningHours(source), tts))
     return JavaTimetables(env, tts);
 
@@ -294,7 +294,7 @@ JNIEXPORT jstring JNICALL
 Java_com_mapswithme_maps_editor_OpeningHours_nativeTimetablesToString(JNIEnv * env, jclass clazz, jobjectArray jTts)
 {
   TimeTableSet tts = NativeTimetableSet(env, jTts);
-  stringstream sstr;
+  std::stringstream sstr;
   sstr << MakeOpeningHours(tts).GetRule();
   return jni::ToJavaString(env, sstr.str());
 }

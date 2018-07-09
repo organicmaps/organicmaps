@@ -1,42 +1,56 @@
 #include "testing/testing.hpp"
 
-#include "search/search_integration_tests/helpers.hpp"
-
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
+#include "generator/generator_tests_support/test_with_classificator.hpp"
 
 #include "generator/feature_builder.hpp"
-#include "generator/osm_element.hpp"
 #include "generator/osm2type.hpp"
+#include "generator/osm_element.hpp"
 
 #include "indexer/classificator.hpp"
-#include "indexer/feature_data.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
-#include "indexer/index.hpp"
+#include "indexer/feature_data.hpp"
 
 #include "platform/local_country_file.hpp"
 
-using namespace search;
+#include <cstdint>
+#include <set>
+#include <string>
+#include <utility>
+
 using namespace generator::tests_support;
+using namespace std;
 
 namespace
 {
-void MakeFeature(TestMwmBuilder & builder, pair<string, string> const & tag, m2::PointD const & pt)
+class GenerateTest : public TestWithClassificator
 {
-  OsmElement e;
-  e.AddTag(tag.first, tag.second);
+public:
+  void MakeFeature(TestMwmBuilder & builder, pair<string, string> const & tag,
+                   m2::PointD const & pt)
+  {
+    OsmElement e;
+    e.AddTag(tag.first, tag.second);
 
-  FeatureParams params;
-  ftype::GetNameAndType(&e, params);
-  params.AddName("en", "xxx");
+    FeatureParams params;
+    ftype::GetNameAndType(&e, params);
+    params.AddName("en", "xxx");
 
-  FeatureBuilder1 fb;
-  fb.SetParams(params);
-  fb.SetCenter(pt);
+    FeatureBuilder1 fb;
+    fb.SetParams(params);
+    fb.SetCenter(pt);
+    fb.GetMetadataForTesting().Set(feature::Metadata::FMD_TEST_ID, strings::to_string(m_lastId));
+    ++m_lastId;
 
-  TEST(builder.Add(fb), (fb));
-}
+    TEST(builder.Add(fb), (fb));
+  }
 
-UNIT_CLASS_TEST(TestWithClassificator, GenerateDeprecatedTypes)
+private:
+  uint64_t m_lastId = 0;
+};
+
+UNIT_CLASS_TEST(GenerateTest, GenerateDeprecatedTypes)
 {
   auto file = platform::LocalCountryFile::MakeForTesting("testCountry");
 
@@ -49,8 +63,8 @@ UNIT_CLASS_TEST(TestWithClassificator, GenerateDeprecatedTypes)
     MakeFeature(builder, {"shop", "estate_agent"}, {2, 2});
   }
 
-  Index index;
-  TEST_EQUAL(index.Register(file).second, MwmSet::RegResult::Success, ());
+  FrozenDataSource dataSource;
+  TEST_EQUAL(dataSource.Register(file).second, MwmSet::RegResult::Success, ());
 
   // New types.
   StringIL arr[] = {{"shop"}, {"office"}};
@@ -61,15 +75,11 @@ UNIT_CLASS_TEST(TestWithClassificator, GenerateDeprecatedTypes)
     types.insert(cl.GetTypeByPath(s));
 
   int count = 0;
-  auto const fn = [&](FeatureType & ft)
-  {
+  auto const fn = [&](FeatureType & ft) {
     ++count;
-    ft.ForEachType([&](uint32_t t)
-    {
-      TEST(types.count(t) > 0, (cl.GetReadableObjectName(t)));
-    });
+    ft.ForEachType([&](uint32_t t) { TEST(types.count(t) > 0, (cl.GetReadableObjectName(t))); });
   };
-  index.ForEachInScale(fn, scales::GetUpperScale());
+  dataSource.ForEachInScale(fn, scales::GetUpperScale());
 
   TEST_EQUAL(count, 3, ());
 

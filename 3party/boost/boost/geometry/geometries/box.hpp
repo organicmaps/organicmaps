@@ -53,7 +53,7 @@ The box can also take a latlong point type as template parameter.
 template<typename Point>
 class box
 {
-    BOOST_CONCEPT_ASSERT( (concept::Point<Point>) );
+    BOOST_CONCEPT_ASSERT( (concepts::Point<Point>) );
 
 public:
 

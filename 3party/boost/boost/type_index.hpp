@@ -234,7 +234,7 @@ inline type_index type_id_with_cvr() BOOST_NOEXCEPT {
 
 /// Function that works exactly like C++ typeid(rtti_val) call, but returns boost::type_index.
 ///
-/// Retunrs runtime information about specified type.
+/// Returns runtime information about specified type.
 ///
 /// \b Requirements: RTTI available or Base and Derived classes must be marked with BOOST_TYPE_INDEX_REGISTER_CLASS.
 ///
@@ -249,7 +249,7 @@ inline type_index type_id_with_cvr() BOOST_NOEXCEPT {
 /// std::cout << ti.pretty_name();  // Outputs 'Derived'
 /// \endcode
 ///
-/// \param runtime_val Varaible which runtime type must be returned.
+/// \param runtime_val Variable which runtime type must be returned.
 /// \throw Nothing.
 /// \return boost::typeindex::type_index with information about the specified variable.
 template <class T>

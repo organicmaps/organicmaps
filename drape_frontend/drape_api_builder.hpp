@@ -1,8 +1,8 @@
 #pragma once
 
 #include "drape_frontend/drape_api.hpp"
+#include "drape_frontend/render_state.hpp"
 
-#include "drape/glstate.hpp"
 #include "drape/render_bucket.hpp"
 #include "drape/texture_manager.hpp"
 

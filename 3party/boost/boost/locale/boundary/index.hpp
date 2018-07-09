@@ -1036,37 +1036,37 @@ namespace boost {
           
             typedef segment_index<std::string::const_iterator> ssegment_index;      ///< convenience typedef
             typedef segment_index<std::wstring::const_iterator> wssegment_index;    ///< convenience typedef
-            #ifdef BOOST_HAS_CHAR16_T
+            #ifdef BOOST_LOCALE_ENABLE_CHAR16_T
             typedef segment_index<std::u16string::const_iterator> u16ssegment_index;///< convenience typedef
             #endif
-            #ifdef BOOST_HAS_CHAR32_T
+            #ifdef BOOST_LOCALE_ENABLE_CHAR32_T
             typedef segment_index<std::u32string::const_iterator> u32ssegment_index;///< convenience typedef
             #endif
            
             typedef segment_index<char const *> csegment_index;                     ///< convenience typedef
             typedef segment_index<wchar_t const *> wcsegment_index;                 ///< convenience typedef
-            #ifdef BOOST_HAS_CHAR16_T
+            #ifdef BOOST_LOCALE_ENABLE_CHAR16_T
             typedef segment_index<char16_t const *> u16csegment_index;              ///< convenience typedef
             #endif
-            #ifdef BOOST_HAS_CHAR32_T
+            #ifdef BOOST_LOCALE_ENABLE_CHAR32_T
             typedef segment_index<char32_t const *> u32csegment_index;              ///< convenience typedef
             #endif
 
             typedef boundary_point_index<std::string::const_iterator> sboundary_point_index;///< convenience typedef
             typedef boundary_point_index<std::wstring::const_iterator> wsboundary_point_index;///< convenience typedef
-            #ifdef BOOST_HAS_CHAR16_T
+            #ifdef BOOST_LOCALE_ENABLE_CHAR16_T
             typedef boundary_point_index<std::u16string::const_iterator> u16sboundary_point_index;///< convenience typedef
             #endif
-            #ifdef BOOST_HAS_CHAR32_T
+            #ifdef BOOST_LOCALE_ENABLE_CHAR32_T
             typedef boundary_point_index<std::u32string::const_iterator> u32sboundary_point_index;///< convenience typedef
             #endif
            
             typedef boundary_point_index<char const *> cboundary_point_index;       ///< convenience typedef
             typedef boundary_point_index<wchar_t const *> wcboundary_point_index;   ///< convenience typedef
-            #ifdef BOOST_HAS_CHAR16_T
+            #ifdef BOOST_LOCALE_ENABLE_CHAR16_T
             typedef boundary_point_index<char16_t const *> u16cboundary_point_index;///< convenience typedef
             #endif
-            #ifdef BOOST_HAS_CHAR32_T
+            #ifdef BOOST_LOCALE_ENABLE_CHAR32_T
             typedef boundary_point_index<char32_t const *> u32cboundary_point_index;///< convenience typedef
             #endif
 

@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2011-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -48,7 +48,7 @@ namespace tt_detail {
 /*!@brief Bitwise comparison of two operands
  *
  * This class constructs an @ref assertion_result that contains precise bit comparison information.
- * In particular the location of the mismatches (if any) are printed in the assertion result.
+ * In particular the location of the mismatches (if any) are printed in the assertion result. 
  */
 template<typename Lhs, typename Rhs, typename E>
 inline assertion_result
@@ -94,9 +94,9 @@ bitwise_compare(Lhs const& lhs, Rhs const& rhs, E const& expr )
 //! Returns an assertion_result using the bitwise comparison out of an expression
 //!
 //! This is used as a modifer of the normal operator<< on expressions to use the
-//! bitwise comparison.
+//! bitwise comparison. 
 //!
-//! @note Available only for compilers supporting the @c auto declaration.
+//! @note Available only for compilers supporting the @c auto declaration. 
 template<typename T1, typename T2, typename T3, typename T4>
 inline assertion_result
 operator<<(assertion_evaluate_t<assertion::binary_expr<T1,T2,assertion::op::EQ<T3,T4> > > const& ae, bitwise )

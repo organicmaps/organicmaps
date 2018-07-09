@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ll__place_sponsored_gallery"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:clipToPadding="false"
+  android:minHeight="@dimen/placepage_hotel_gallery_height"
+  android:visibility="gone"
+  tools:background="#20FF0000"
+  tools:visibility="visible">
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_block_base"
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingRight="@dimen/margin_base">
+    <TextView
+      android:id="@+id/tv__sponsored_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentStart="true"
+      android:layout_marginRight="@dimen/margin_half"
+      android:layout_marginEnd="@dimen/margin_half"
+      android:textAppearance="@style/MwmTextAppearance.Body3"
+      android:fontFamily="@string/robotoMedium"
+      android:layout_toLeftOf="@+id/btn__sponsored_logo"
+      android:layout_toStartOf="@+id/btn__sponsored_logo"
+      android:ellipsize="end"
+      android:maxLines="2"
+      tools:text="@string/place_page_viator_title"
+      tools:targetApi="jelly_bean"/>
+    <ImageView
+      android:id="@id/btn__sponsored_logo"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_half"
+      android:layout_marginBottom="@dimen/margin_half"
+      android:layout_centerVertical="true"
+      android:layout_alignParentRight="true"
+      android:layout_alignParentEnd="true"
+      android:textAllCaps="true"
+      android:text="@string/placepage_more_button"
+      android:background="?clickableBackground"
+      tools:src="@drawable/ic_logo_viator_light"
+      tools:targetApi="jelly_bean"/>
+  </RelativeLayout>
+
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/rv__sponsored_products"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_base_plus"
+    tools:listitem="@layout/item_viator_product"/>
+</LinearLayout>

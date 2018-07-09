@@ -1,5 +1,8 @@
 #include "editor/xml_feature.hpp"
 
+#include "indexer/classificator.hpp"
+#include "indexer/feature.hpp"
+
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
@@ -15,8 +18,10 @@ constexpr char const * kUploadStatus = "upload_status";
 constexpr char const * kUploadError = "upload_error";
 constexpr char const * kHouseNumber = "addr:housenumber";
 
+constexpr char const * kUnknownType = "unknown";
 constexpr char const * kNodeType = "node";
 constexpr char const * kWayType = "way";
+constexpr char const * kRelationType = "relation";
 
 pugi::xml_node FindTag(pugi::xml_document const & document, string const & key)
 {
@@ -45,14 +50,18 @@ m2::PointD GetMercatorPointFromNode(pugi::xml_node const & node)
 
 void ValidateElement(pugi::xml_node const & nodeOrWay)
 {
+  using editor::XMLFeature;
+
   if (!nodeOrWay)
     MYTHROW(editor::InvalidXML, ("Document has no valid root element."));
 
-  string const type = nodeOrWay.name();
-  if (type == kNodeType)
+  auto const type = XMLFeature::StringToType(nodeOrWay.name());
+
+  if (type == XMLFeature::Type::Unknown)
+    MYTHROW(editor::InvalidXML, ("XMLFeature does not support root tag", nodeOrWay.name()));
+
+  if (type == XMLFeature::Type::Node)
     UNUSED_VALUE(GetLatLonFromNode(nodeOrWay));
-  else if (type != kWayType)
-    MYTHROW(editor::InvalidXML, ("XMLFeature does not support root tag", type));
 
   if (!nodeOrWay.attribute(kTimestamp))
     MYTHROW(editor::NoTimestamp, ("Node has no timestamp attribute"));
@@ -69,7 +78,9 @@ char const * const XMLFeature::kIntlLang =
 
 XMLFeature::XMLFeature(Type const type)
 {
-  m_document.append_child(type == Type::Node ? kNodeType : kWayType);
+  ASSERT_NOT_EQUAL(type, Type::Unknown, ());
+
+  m_document.append_child(TypeToString(type).c_str());
 }
 
 XMLFeature::XMLFeature(string const & xml)
@@ -109,39 +120,22 @@ vector<XMLFeature> XMLFeature::FromOSM(string const & osmXml)
     MYTHROW(editor::InvalidXML, ("Not valid XML:", osmXml));
 
   vector<XMLFeature> features;
-  for (auto const n : doc.child("osm").children())
+  for (auto const & n : doc.child("osm").children())
   {
-    string const name(n.name());
-    // TODO(AlexZ): Add relation support.
-    if (name == kNodeType || name == kWayType)
-      features.push_back(XMLFeature(n));  // TODO(AlexZ): Use emplace_back when pugi supports it.
+    if (StringToType(n.name()) != Type::Unknown)
+      features.emplace_back(n);
   }
   return features;
 }
 
 XMLFeature::Type XMLFeature::GetType() const
 {
-  return strcmp(GetRootNode().name(), "node") == 0 ? Type::Node : Type::Way;
+  return StringToType(GetRootNode().name());
 }
 
 string XMLFeature::GetTypeString() const
 {
   return GetRootNode().name();
-}
-
-bool XMLFeature::IsArea() const
-{
-  if (strcmp(GetRootNode().name(), kWayType) != 0)
-    return false;
-
-  vector<string> ndIds;
-  for (auto const & nd : GetRootNode().select_nodes("nd"))
-    ndIds.push_back(nd.node().attribute("ref").value());
-
-  if (ndIds.size() < 4)
-    return false;
-
-  return ndIds.front() == ndIds.back();
 }
 
 void XMLFeature::Save(ostream & ost) const
@@ -201,12 +195,13 @@ m2::PointD XMLFeature::GetMercatorCenter() const
 
 ms::LatLon XMLFeature::GetCenter() const
 {
+  ASSERT_EQUAL(GetType(), Type::Node, ());
   return GetLatLonFromNode(GetRootNode());
 }
 
 void XMLFeature::SetCenter(ms::LatLon const & ll)
 {
-  ASSERT_EQUAL(GetRootNode().name(), string(kNodeType), ());
+  ASSERT_EQUAL(GetType(), Type::Node, ());
   SetAttribute("lat", strings::to_string_dac(ll.lat, kLatLonTolerance));
   SetAttribute("lon", strings::to_string_dac(ll.lon, kLatLonTolerance));
 }
@@ -216,11 +211,12 @@ void XMLFeature::SetCenter(m2::PointD const & mercatorCenter)
   SetCenter(MercatorBounds::ToLatLon(mercatorCenter));
 }
 
-XMLFeature::TMercatorGeometry XMLFeature::GetGeometry() const
+vector<m2::PointD> XMLFeature::GetGeometry() const
 {
-  ASSERT_EQUAL(GetType(), Type::Way, ("Only ways have geometry"));
-  TMercatorGeometry geometry;
-  for (auto const xCenter : GetRootNode().select_nodes("nd"))
+  ASSERT_NOT_EQUAL(GetType(), Type::Unknown, ());
+  ASSERT_NOT_EQUAL(GetType(), Type::Node, ());
+  vector<m2::PointD> geometry;
+  for (auto const & xCenter : GetRootNode().select_nodes("nd"))
   {
     ASSERT(xCenter.node(), ("no nd attribute."));
     geometry.emplace_back(GetMercatorPointFromNode(xCenter.node()));
@@ -394,6 +390,157 @@ bool XMLFeature::AttachToParentNode(pugi::xml_node parent) const
   return !parent.append_copy(GetRootNode()).empty();
 }
 
+// static
+string XMLFeature::TypeToString(Type type)
+{
+  switch (type)
+  {
+  case Type::Unknown: return kUnknownType;
+  case Type::Node: return kNodeType;
+  case Type::Way: return kWayType;
+  case Type::Relation: return kRelationType;
+  }
+  CHECK_SWITCH();
+}
+
+// static
+XMLFeature::Type XMLFeature::StringToType(string const & type)
+{
+  if (type == kNodeType)
+    return Type::Node;
+  if (type == kWayType)
+    return Type::Way;
+  if (type == kRelationType)
+    return Type::Relation;
+
+  return Type::Unknown;
+}
+
+void ApplyPatch(XMLFeature const & xml, FeatureType & feature)
+{
+  xml.ForEachName([&feature](string const & lang, string const & name) {
+    feature.GetParams().name.AddString(lang, name);
+  });
+
+  string const house = xml.GetHouse();
+  if (!house.empty())
+    feature.GetParams().house.Set(house);
+
+  xml.ForEachTag([&feature](string const & k, string const & v) {
+    if (!feature.UpdateMetadataValue(k, v))
+      LOG(LWARNING, ("Patch feature has unknown tags", k, v));
+  });
+
+  // If types count are changed here, in ApplyPatch, new number of types should be passed
+  // instead of GetTypesCount().
+  // So we call UpdateHeader for recalc header and update parsed parts.
+  feature.UpdateHeader(true /* commonParsed */, true /* metadataParsed */);
+}
+
+XMLFeature ToXML(FeatureType const & fromFeature, bool serializeType)
+{
+  bool const isPoint = fromFeature.GetFeatureType() == feature::GEOM_POINT;
+  XMLFeature toFeature(isPoint ? XMLFeature::Type::Node : XMLFeature::Type::Way);
+
+  if (isPoint)
+  {
+    toFeature.SetCenter(fromFeature.GetCenter());
+  }
+  else
+  {
+    auto const & triangles = fromFeature.GetTriangesAsPoints(FeatureType::BEST_GEOMETRY);
+    toFeature.SetGeometry(begin(triangles), end(triangles));
+  }
+
+  fromFeature.ForEachName(
+      [&toFeature](uint8_t const & lang, string const & name) { toFeature.SetName(lang, name); });
+
+  string const house = fromFeature.GetHouseNumber();
+  if (!house.empty())
+    toFeature.SetHouse(house);
+
+  if (serializeType)
+  {
+    feature::TypesHolder th(fromFeature);
+    // TODO(mgsergio): Use correct sorting instead of SortBySpec based on the config.
+    th.SortBySpec();
+    // TODO(mgsergio): Either improve "OSM"-compatible serialization for more complex types,
+    // or save all our types directly, to restore and reuse them in migration of modified features.
+    for (uint32_t const type : th)
+    {
+      string const strType = classif().GetReadableObjectName(type);
+      strings::SimpleTokenizer iter(strType, "-");
+      string const k = *iter;
+      if (++iter)
+      {
+        // First (main) type is always stored as "k=amenity v=restaurant".
+        // Any other "k=amenity v=atm" is replaced by "k=atm v=yes".
+        if (toFeature.GetTagValue(k).empty())
+          toFeature.SetTagValue(k, *iter);
+        else
+          toFeature.SetTagValue(*iter, "yes");
+      }
+      else
+      {
+        // We're editing building, generic craft, shop, office, amenity etc.
+        // Skip it's serialization.
+        // TODO(mgsergio): Correcly serialize all types back and forth.
+        LOG(LDEBUG, ("Skipping type serialization:", k));
+      }
+    }
+  }
+
+  fromFeature.ForEachMetadataItem(true /* skipSponsored */,
+                                  [&toFeature](string const & tag, string const & value) {
+                                    toFeature.SetTagValue(tag, value);
+                                  });
+
+  return toFeature;
+}
+
+bool FromXML(XMLFeature const & xml, FeatureType & feature)
+{
+  ASSERT_EQUAL(XMLFeature::Type::Node, xml.GetType(),
+               ("At the moment only new nodes (points) can can be created."));
+  feature.SetCenter(xml.GetMercatorCenter());
+  xml.ForEachName([&feature](string const & lang, string const & name) {
+    feature.GetParams().name.AddString(lang, name);
+  });
+
+  string const house = xml.GetHouse();
+  if (!house.empty())
+    feature.GetParams().house.Set(house);
+
+  uint32_t typesCount = 0;
+  uint32_t types[feature::kMaxTypesCount];
+  xml.ForEachTag([&feature, &types, &typesCount](string const & k, string const & v) {
+    if (feature.UpdateMetadataValue(k, v))
+      return;
+
+    // Simple heuristics. It works if all our supported types for
+    // new features at data/editor.config
+    // are of one or two levels nesting (currently it's true).
+    Classificator & cl = classif();
+    uint32_t type = cl.GetTypeByPathSafe({k, v});
+    if (type == 0)
+      type = cl.GetTypeByPathSafe({k});  // building etc.
+    if (type == 0)
+      type = cl.GetTypeByPathSafe({"amenity", k});  // atm=yes, toilet=yes etc.
+
+    if (type && typesCount >= feature::kMaxTypesCount)
+      LOG(LERROR, ("Can't add type:", k, v, ". Types limit exceeded."));
+    else if (type)
+      types[typesCount++] = type;
+    else
+      LOG(LWARNING, ("Can't load/parse type:", k, v));
+  });
+
+  feature.SetTypes(types, typesCount);
+  feature.UpdateHeader(true /* commonParsed */, true /* metadataParsed */);
+
+  return typesCount > 0;
+}
+
 string DebugPrint(XMLFeature const & feature)
 {
   ostringstream ost;
@@ -403,10 +550,6 @@ string DebugPrint(XMLFeature const & feature)
 
 string DebugPrint(XMLFeature::Type const type)
 {
-  switch (type)
-  {
-  case XMLFeature::Type::Node: return "Node";
-  case XMLFeature::Type::Way: return "Way";
-  }
+  return XMLFeature::TypeToString(type);
 }
 } // namespace editor

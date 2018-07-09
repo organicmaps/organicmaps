@@ -142,6 +142,7 @@ public:
   void SetFlats(string const & flats);
 
   void SetBuildingLevels(string const & buildingLevels);
+  void SetLevel(string const & level);
   /// @param[in] cuisine is a vector of osm cuisine ids.
   void SetCuisines(vector<string> const & cuisine);
   void SetOpeningHours(string const & openingHours);
@@ -151,8 +152,8 @@ public:
   /// Enables advanced mode with direct access to default name and disables any recalculations.
   void EnableNamesAdvancedMode() { m_namesAdvancedMode = true; }
   bool IsNamesAdvancedModeEnabled() const { return m_namesAdvancedMode; }
-  /// Remove blank names for advanced mode.
-  void RemoveBlankNames();
+  /// Remove blank names and default name duplications.
+  void RemoveBlankAndDuplicationsForDefault();
   /// Calls RemoveBlankNames or RemoveFakeNames depending on mode.
   void RemoveNeedlessNames();
 
@@ -160,9 +161,11 @@ public:
   static bool ValidateHouseNumber(string const & houseNumber);
   static bool ValidateFlats(string const & flats);
   static bool ValidatePostCode(string const & postCode);
-  static bool ValidatePhone(string const & phone);
+  static bool ValidatePhoneList(string const & phone);
   static bool ValidateWebsite(string const & site);
   static bool ValidateEmail(string const & email);
+  static bool ValidateLevel(string const & level);
+  static bool ValidateName(string const & name);
 
   /// Check whether langCode can be used as default name.
   static bool CanUseAsDefaultName(int8_t const langCode, vector<int8_t> const & nativeMwmLanguages);

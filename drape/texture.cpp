@@ -1,34 +1,20 @@
 #include "drape/texture.hpp"
 
-#include "drape/glfunctions.hpp"
 #include "drape/glextensions_list.hpp"
+#include "drape/glfunctions.hpp"
 #include "drape/utils/gpu_mem_tracker.hpp"
 
 #include "base/math.hpp"
 
-#define ASSERT_ID ASSERT(GetID() != -1, ())
-
 namespace dp
 {
+Texture::ResourceInfo::ResourceInfo(m2::RectF const & texRect) : m_texRect(texRect) {}
 
-Texture::ResourceInfo::ResourceInfo(m2::RectF const & texRect)
-  : m_texRect(texRect) {}
+m2::RectF const & Texture::ResourceInfo::GetTexRect() const { return m_texRect; }
 
-m2::RectF const & Texture::ResourceInfo::GetTexRect() const
-{
-  return m_texRect;
-}
+Texture::Texture() {}
 
-//////////////////////////////////////////////////////////////////
-
-Texture::Texture()
-{
-}
-
-Texture::~Texture()
-{
-  Destroy();
-}
+Texture::~Texture() { Destroy(); }
 
 void Texture::Create(Params const & params)
 {
@@ -42,7 +28,8 @@ void Texture::Create(Params const & params, ref_ptr<void> data)
     m_hwTexture->Create(params, data);
 }
 
-void Texture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height, ref_ptr<void> data)
+void Texture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height,
+                         ref_ptr<void> data)
 {
   ASSERT(m_hwTexture != nullptr, ());
   m_hwTexture->UploadData(x, y, width, height, data);
@@ -78,6 +65,12 @@ float Texture::GetT(uint32_t y) const
   return m_hwTexture->GetT(y);
 }
 
+uint32_t Texture::GetID() const
+{
+  ASSERT(m_hwTexture != nullptr, ());
+  return m_hwTexture->GetID();
+}
+
 void Texture::Bind() const
 {
   ASSERT(m_hwTexture != nullptr, ());
@@ -92,13 +85,10 @@ void Texture::SetFilter(glConst filter)
 
 uint32_t Texture::GetMaxTextureSize()
 {
-  return GLFunctions::glGetInteger(gl_const::GLMaxTextureSize);
+  return static_cast<uint32_t>(GLFunctions::glGetInteger(gl_const::GLMaxTextureSize));
 }
 
-void Texture::Destroy()
-{
-  m_hwTexture.reset();
-}
+void Texture::Destroy() { m_hwTexture.reset(); }
 
 bool Texture::AllocateTexture(ref_ptr<HWTextureAllocator> allocator)
 {
@@ -110,5 +100,4 @@ bool Texture::AllocateTexture(ref_ptr<HWTextureAllocator> allocator)
 
   return false;
 }
-
-} // namespace dp
+}  // namespace dp

@@ -30,120 +30,55 @@ CGFloat const kWidthForiPad = 320.0;
   searchBarView.translatesAutoresizingMaskIntoConstraints = NO;
   actionBarView.translatesAutoresizingMaskIntoConstraints = NO;
   contentView.translatesAutoresizingMaskIntoConstraints = NO;
-  NSLayoutConstraint * searchBarViewTop =
-      [NSLayoutConstraint constraintWithItem:searchBarView
-                                   attribute:NSLayoutAttributeTop
-                                   relatedBy:NSLayoutRelationEqual
-                                      toItem:parentView
-                                   attribute:NSLayoutAttributeTop
-                                  multiplier:1
-                                    constant:statusBarHeight()];
-  NSLayoutConstraint * searchBarViewLeft =
-      [NSLayoutConstraint constraintWithItem:searchBarView
-                                   attribute:NSLayoutAttributeLeft
-                                   relatedBy:NSLayoutRelationEqual
-                                      toItem:parentView
-                                   attribute:NSLayoutAttributeLeft
-                                  multiplier:1
-                                    constant:0];
-  NSLayoutConstraint * actionBarViewTop =
-      [NSLayoutConstraint constraintWithItem:actionBarView
-                                   attribute:NSLayoutAttributeTop
-                                   relatedBy:NSLayoutRelationEqual
-                                      toItem:searchBarView
-                                   attribute:NSLayoutAttributeBottom
-                                  multiplier:1
-                                    constant:0];
-  actionBarViewTop.priority = UILayoutPriorityDefaultLow + 10;
-  NSLayoutConstraint * actionBarViewLeft =
-      [NSLayoutConstraint constraintWithItem:actionBarView
-                                   attribute:NSLayoutAttributeLeft
-                                   relatedBy:NSLayoutRelationEqual
-                                      toItem:parentView
-                                   attribute:NSLayoutAttributeLeft
-                                  multiplier:1
-                                    constant:0];
-  NSLayoutConstraint * actionBarViewWidth =
-      [NSLayoutConstraint constraintWithItem:actionBarView
-                                   attribute:NSLayoutAttributeWidth
-                                   relatedBy:NSLayoutRelationEqual
-                                      toItem:searchBarView
-                                   attribute:NSLayoutAttributeWidth
-                                  multiplier:1
-                                    constant:0];
-  self.actionBarViewBottom = [NSLayoutConstraint constraintWithItem:actionBarView
-                                                          attribute:NSLayoutAttributeBottom
-                                                          relatedBy:NSLayoutRelationEqual
-                                                             toItem:parentView
-                                                          attribute:NSLayoutAttributeBottom
-                                                         multiplier:1
-                                                           constant:0];
-  self.actionBarViewBottom.priority = UILayoutPriorityDefaultLow;
 
-  NSLayoutConstraint * contentViewTop =
-      [NSLayoutConstraint constraintWithItem:contentView
-                                   attribute:NSLayoutAttributeTop
-                                   relatedBy:NSLayoutRelationEqual
-                                      toItem:actionBarView
-                                   attribute:NSLayoutAttributeBottom
-                                  multiplier:1
-                                    constant:0];
-  contentViewTop.priority = UILayoutPriorityDefaultLow;
-  NSLayoutConstraint * contentViewBottom =
-      [NSLayoutConstraint constraintWithItem:contentView
-                                   attribute:NSLayoutAttributeBottom
-                                   relatedBy:NSLayoutRelationEqual
-                                      toItem:parentView
-                                   attribute:NSLayoutAttributeBottom
-                                  multiplier:1
-                                    constant:0];
-  contentViewBottom.priority = UILayoutPriorityDefaultLow + 10;
-  NSLayoutConstraint * contentViewLeft =
-      [NSLayoutConstraint constraintWithItem:contentView
-                                   attribute:NSLayoutAttributeLeft
-                                   relatedBy:NSLayoutRelationEqual
-                                      toItem:parentView
-                                   attribute:NSLayoutAttributeLeft
-                                  multiplier:1
-                                    constant:0];
-  NSLayoutConstraint * contentViewWidth =
-      [NSLayoutConstraint constraintWithItem:contentView
-                                   attribute:NSLayoutAttributeWidth
-                                   relatedBy:NSLayoutRelationEqual
-                                      toItem:searchBarView
-                                   attribute:NSLayoutAttributeWidth
-                                  multiplier:1
-                                    constant:0];
-
-  [parentView addConstraints:@[
-    searchBarViewTop, searchBarViewLeft, actionBarViewTop, actionBarViewLeft, actionBarViewWidth,
-    self.actionBarViewBottom, contentViewTop, contentViewLeft, contentViewWidth, contentViewBottom
-  ]];
-
-  if (IPAD)
+  NSLayoutXAxisAnchor * leadingAnchor = parentView.leadingAnchor;
+  NSLayoutXAxisAnchor * trailingAnchor = parentView.trailingAnchor;
+  NSLayoutYAxisAnchor * topAnchor = parentView.topAnchor;
+  NSLayoutYAxisAnchor * bottomAnchor = parentView.bottomAnchor;
+  CGFloat topOffset = 0;
+  if (@available(iOS 11.0, *))
   {
-    NSLayoutConstraint * searchBarViewWidth =
-        [NSLayoutConstraint constraintWithItem:searchBarView
-                                     attribute:NSLayoutAttributeWidth
-                                     relatedBy:NSLayoutRelationEqual
-                                        toItem:nil
-                                     attribute:NSLayoutAttributeNotAnAttribute
-                                    multiplier:1
-                                      constant:kWidthForiPad];
-    [parentView addConstraint:searchBarViewWidth];
+    UILayoutGuide * safeAreaLayoutGuide = parentView.safeAreaLayoutGuide;
+    leadingAnchor = safeAreaLayoutGuide.leadingAnchor;
+    trailingAnchor = safeAreaLayoutGuide.trailingAnchor;
+    topAnchor = safeAreaLayoutGuide.topAnchor;
+    bottomAnchor = safeAreaLayoutGuide.bottomAnchor;
   }
   else
   {
-    NSLayoutConstraint * searchBarViewRight =
-        [NSLayoutConstraint constraintWithItem:searchBarView
-                                     attribute:NSLayoutAttributeRight
-                                     relatedBy:NSLayoutRelationEqual
-                                        toItem:parentView
-                                     attribute:NSLayoutAttributeRight
-                                    multiplier:1
-                                      constant:0];
-    [parentView addConstraint:searchBarViewRight];
+    topOffset = statusBarHeight();
   }
+
+  [searchBarView.topAnchor constraintEqualToAnchor:topAnchor constant:topOffset].active = YES;
+  [searchBarView.leadingAnchor constraintEqualToAnchor:leadingAnchor].active = YES;
+  if (IPAD)
+    [searchBarView.widthAnchor constraintEqualToConstant:kWidthForiPad].active = YES;
+  else
+    [searchBarView.trailingAnchor constraintEqualToAnchor:trailingAnchor].active = YES;
+
+  NSLayoutConstraint * actionBarViewTop =
+      [actionBarView.topAnchor constraintEqualToAnchor:searchBarView.bottomAnchor];
+  actionBarViewTop.priority = UILayoutPriorityDefaultLow + 10;
+  actionBarViewTop.active = YES;
+
+  [actionBarView.leadingAnchor constraintEqualToAnchor:searchBarView.leadingAnchor].active = YES;
+  [actionBarView.trailingAnchor constraintEqualToAnchor:searchBarView.trailingAnchor].active = YES;
+  self.actionBarViewBottom = [actionBarView.bottomAnchor constraintEqualToAnchor:bottomAnchor];
+  self.actionBarViewBottom.priority = UILayoutPriorityDefaultLow;
+  self.actionBarViewBottom.active = YES;
+
+  NSLayoutConstraint * contentViewTop =
+      [contentView.topAnchor constraintEqualToAnchor:actionBarView.bottomAnchor];
+  contentViewTop.priority = UILayoutPriorityDefaultLow;
+  contentViewTop.active = YES;
+
+  NSLayoutConstraint * contentViewBottom =
+      [contentView.bottomAnchor constraintEqualToAnchor:bottomAnchor];
+  contentViewBottom.priority = UILayoutPriorityDefaultLow + 10;
+  contentViewBottom.active = YES;
+
+  [contentView.leadingAnchor constraintEqualToAnchor:searchBarView.leadingAnchor].active = YES;
+  [contentView.trailingAnchor constraintEqualToAnchor:searchBarView.trailingAnchor].active = YES;
 }
 
 @end

@@ -3,7 +3,7 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
 // Copyright (c) 2005 Voipster / Indrek dot Juhani at voipster dot com
-// Copyright (c) 2005-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2005-2017 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -85,6 +85,13 @@ public:
       impl = ::SSL_CTX_new(::SSLv2_server_method());
       break;
 #endif // defined(OPENSSL_NO_SSL2)
+#if defined(OPENSSL_NO_SSL3)
+    case context_base::sslv3:
+    case context_base::sslv3_client:
+    case context_base::sslv3_server:
+      boost::asio::detail::throw_error(boost::asio::error::invalid_argument);
+      break;
+#else // defined(OPENSSL_NO_SSL3)
     case context_base::sslv3:
       impl = ::SSL_CTX_new(::SSLv3_method());
       break;
@@ -94,6 +101,7 @@ public:
     case context_base::sslv3_server:
       impl = ::SSL_CTX_new(::SSLv3_server_method());
       break;
+#endif // defined(OPENSSL_NO_SSL3)
     case context_base::tlsv1:
       impl = ::SSL_CTX_new(::TLSv1_method());
       break;

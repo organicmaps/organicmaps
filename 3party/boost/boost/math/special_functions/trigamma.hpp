@@ -69,22 +69,22 @@ T trigamma_prec(T x, const mpl::int_<53>*, const Policy&)
    // Expected Error Term :                       -6.895e-018
    // Maximum Relative Change in Control Points :  8.497e-004
    static const T P_4_inf[] = {
-      0.68947581948701249e-17L,
-      0.49999999999998975L,
-      1.0177274392923795L,
-      2.498208511343429L,
-      2.1921221359427595L,
-      1.5897035272532764L,
-      0.40154388356961734L,
+      static_cast<T>(0.68947581948701249e-17L),
+      static_cast<T>(0.49999999999998975L),
+      static_cast<T>(1.0177274392923795L),
+      static_cast<T>(2.498208511343429L),
+      static_cast<T>(2.1921221359427595L),
+      static_cast<T>(1.5897035272532764L),
+      static_cast<T>(0.40154388356961734L),
    };
    static const T Q_4_inf[] = {
-      1.0L,
-      1.7021215452463932L,
-      4.4290431747556469L,
-      2.9745631894384922L,
-      2.3013614809773616L,
-      0.28360399799075752L,
-      0.022892987908906897L,
+      static_cast<T>(1.0L),
+      static_cast<T>(1.7021215452463932L),
+      static_cast<T>(4.4290431747556469L),
+      static_cast<T>(2.9745631894384922L),
+      static_cast<T>(2.3013614809773616L),
+      static_cast<T>(0.28360399799075752L),
+      static_cast<T>(0.022892987908906897L),
    };
 
    if(x <= 2)
@@ -99,7 +99,7 @@ T trigamma_prec(T x, const mpl::int_<53>*, const Policy&)
    T y = 1 / x;
    return (1 + tools::evaluate_polynomial(P_4_inf, y) / tools::evaluate_polynomial(Q_4_inf, y)) / x;
 }
-
+   
 template <class T, class Policy>
 T trigamma_prec(T x, const mpl::int_<64>*, const Policy&)
 {
@@ -418,7 +418,7 @@ const typename trigamma_initializer<T, Policy>::init trigamma_initializer<T, Pol
 } // namespace detail
 
 template <class T, class Policy>
-inline typename tools::promote_args<T>::type
+inline typename tools::promote_args<T>::type 
    trigamma(T x, const Policy&)
 {
    typedef typename tools::promote_args<T>::type result_type;
@@ -457,7 +457,7 @@ inline typename tools::promote_args<T>::type
 }
 
 template <class T>
-inline typename tools::promote_args<T>::type
+inline typename tools::promote_args<T>::type 
    trigamma(T x)
 {
    return trigamma(x, policies::policy<>());
@@ -466,3 +466,4 @@ inline typename tools::promote_args<T>::type
 } // namespace math
 } // namespace boost
 #endif
+

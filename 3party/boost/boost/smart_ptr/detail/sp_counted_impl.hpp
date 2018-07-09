@@ -236,15 +236,7 @@ public:
 
         A2 a2( a_ );
 
-#if !defined( BOOST_NO_CXX11_ALLOCATOR )
-
-        std::allocator_traits<A2>::destroy( a2, this );
-
-#else
-
         this->~this_type();
-
-#endif
 
         a2.deallocate( this, 1 );
     }

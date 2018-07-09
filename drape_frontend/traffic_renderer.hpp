@@ -1,31 +1,30 @@
 #pragma once
 
+#include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/traffic_generator.hpp"
 #include "drape_frontend/tile_utils.hpp"
 
-#include "drape/gpu_program_manager.hpp"
+#include "shaders/program_manager.hpp"
+
 #include "drape/pointers.hpp"
-#include "drape/uniform_values_storage.hpp"
 
 #include "geometry/screenbase.hpp"
 #include "geometry/spline.hpp"
 
-#include "std/vector.hpp"
+#include <vector>
 
 namespace df
 {
-
 class TrafficRenderer final
 {
 public:
   TrafficRenderer() = default;
 
-  void AddRenderData(ref_ptr<dp::GpuProgramManager> mng,
+  void AddRenderData(ref_ptr<gpu::ProgramManager> mng,
                      TrafficRenderData && renderData);
 
   void RenderTraffic(ScreenBase const & screen, int zoomLevel, float opacity,
-                     ref_ptr<dp::GpuProgramManager> mng,
-                     dp::UniformValuesStorage const & commonUniforms);
+                     ref_ptr<gpu::ProgramManager> mng, FrameValues const & frameValues);
 
   bool HasRenderData() const { return !m_renderData.empty(); }
 
@@ -37,13 +36,12 @@ public:
   void OnGeometryReady(int currentZoomLevel);
 
   static float GetTwoWayOffset(RoadClass const & roadClass, int zoomLevel);
-  static bool CanBeRendereredAsLine(RoadClass const & roadClass, int zoomLevel, int & width);
+  static bool CanBeRenderedAsLine(RoadClass const & roadClass, int zoomLevel, int & width);
 
 private:
   static float GetPixelWidth(RoadClass const & roadClass, int zoomLevel);
   static float GetPixelWidthInternal(RoadClass const & roadClass, int zoomLevel);
 
-  vector<TrafficRenderData> m_renderData;
+  std::vector<TrafficRenderData> m_renderData;
 };
-
-} // namespace df
+}  // namespace df

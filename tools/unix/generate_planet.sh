@@ -144,7 +144,6 @@ PLANET="${PLANET:-$HOME/planet}"
 OMIM_PATH="${OMIM_PATH:-$(cd "$(dirname "$0")/../.."; pwd)}"
 DATA_PATH="${DATA_PATH:-$OMIM_PATH/data}"
 [ ! -r "${DATA_PATH}/types.txt" ] && fail "Cannot find classificators in $DATA_PATH, please set correct OMIM_PATH"
-[ -n "$OPT_ROUTING" -a ! -f "$HOME/.stxxl" ] && fail "For routing, you need ~/.stxxl file. Run this: echo 'disk=$HOME/stxxl_disk1,400G,syscall' > $HOME/.stxxl"
 if [ -n "$OPT_ROUTING" -a -n "${OSRM_URL-}" ]; then
   curl -s "http://$OSRM_URL/way_id" | grep -q position || fail "Cannot access $OSRM_URL"
 fi
@@ -167,7 +166,6 @@ fi
 NUM_PROCESSES=${NUM_PROCESSES:-$(($CPUS - 1))}
 
 STATUS_FILE="$INTDIR/status"
-OSRM_FLAG="$INTDIR/osrm_done"
 SCRIPTS_PATH="$(dirname "$0")"
 if [ -e "$SCRIPTS_PATH/hierarchy_to_countries.py" ]; then
   # In a compact packaging python scripts may be placed along with shell scripts.
@@ -175,13 +173,18 @@ if [ -e "$SCRIPTS_PATH/hierarchy_to_countries.py" ]; then
 else
   PYTHON_SCRIPTS_PATH="$OMIM_PATH/tools/python"
 fi
-ROUTING_SCRIPT="$SCRIPTS_PATH/generate_planet_routing.sh"
 ROADS_SCRIPT="$PYTHON_SCRIPTS_PATH/road_runner.py"
 HIERARCHY_SCRIPT="$PYTHON_SCRIPTS_PATH/hierarchy_to_countries.py"
+LOCALADS_SCRIPT="$PYTHON_SCRIPTS_PATH/local_ads/mwm_to_csv_4localads.py"
+UGC_FILE="${UGC_FILE:-$INTDIR/ugc_db.sqlite3}"
+POPULAR_PLACES_FILE="${POPULAR_PLACES_FILE:-$INTDIR/popular_places.csv}"
 BOOKING_SCRIPT="$PYTHON_SCRIPTS_PATH/booking_hotels.py"
 BOOKING_FILE="${BOOKING_FILE:-$INTDIR/hotels.csv}"
 OPENTABLE_SCRIPT="$PYTHON_SCRIPTS_PATH/opentable_restaurants.py"
 OPENTABLE_FILE="${OPENTABLE_FILE:-$INTDIR/restaurants.csv}"
+VIATOR_SCRIPT="$PYTHON_SCRIPTS_PATH/viator_cities.py"
+VIATOR_FILE="${VIATOR_FILE:-$INTDIR/viator.csv}"
+CITIES_BOUNDARIES_DATA="${CITIES_BOUNDARIES_DATA:-$INTDIR/cities_boundaries.bin}"
 TESTING_SCRIPT="$SCRIPTS_PATH/test_planet.sh"
 PYTHON="$(which python2.7)"
 MWM_VERSION_FORMAT="%s"
@@ -189,6 +192,7 @@ COUNTRIES_VERSION_FORMAT="%y%m%d"
 LOG_PATH="${LOG_PATH:-$TARGET/logs}"
 mkdir -p "$LOG_PATH"
 PLANET_LOG="$LOG_PATH/generate_planet.log"
+TEST_LOG="$LOG_PATH/test_planet.log"
 [ -n "${MAIL-}" ] && trap "grep STATUS \"$PLANET_LOG\" | mailx -s \"Generate_planet: build failed at $(hostname)\" \"$MAIL\"; exit 1" SIGTERM ERR
 echo -e "\n\n----------------------------------------\n\n" >> "$PLANET_LOG"
 log "STATUS" "Start ${DESC-}"
@@ -198,23 +202,22 @@ source "$SCRIPTS_PATH/find_generator_tool.sh"
 
 # Prepare borders
 mkdir -p "$TARGET/borders"
+if [ -n "$(ls "$TARGET/borders" | grep '\.poly')" ]; then
+  # Backup old borders
+  BORDERS_BACKUP_PATH="$TARGET/borders.$(date +%Y%m%d%H%M%S)"
+  mkdir -p "$BORDERS_BACKUP_PATH"
+  log "BORDERS" "Note: old borders from $TARGET/borders were moved to $BORDERS_BACKUP_PATH"
+  mv "$TARGET/borders"/*.poly "$BORDERS_BACKUP_PATH"
+fi
 NO_REGIONS=
 if [ -n "${REGIONS:-}" ]; then
-  # If region files are specified, backup old borders and copy new
-  if [ -n "$(ls "$TARGET/borders" | grep '\.poly')" ]; then
-    BORDERS_BACKUP_PATH="$TARGET/borders.$(date +%Y%m%d%H%M%S)"
-    mkdir -p "$BORDERS_BACKUP_PATH"
-    log "BORDERS" "Note: old borders from $TARGET/borders were moved to $BORDERS_BACKUP_PATH"
-    mv "$TARGET/borders"/*.poly "$BORDERS_BACKUP_PATH"
-  fi
   echo "$REGIONS" | xargs -I % cp "%" "$TARGET/borders/"
 elif [ -z "${REGIONS-1}" ]; then
   # A user asked specifically for no regions
   NO_REGIONS=1
-elif [ -z "$(ls "$TARGET/borders" | grep '\.poly')" ]; then
-  # If there are no borders, copy them from $BORDERS_PATH
-  BORDERS_PATH="${BORDERS_PATH:-$DATA_PATH/borders}"
-  cp "$BORDERS_PATH"/*.poly "$TARGET/borders/"
+else
+  # Copy borders from $BORDERS_PATH or omim/data/borders
+  cp "${BORDERS_PATH:-$DATA_PATH/borders}"/*.poly "$TARGET/borders/"
 fi
 [ -z "$NO_REGIONS" -a -z "$(ls "$TARGET/borders" | grep '\.poly')" ] && fail "No border polygons found, please use REGIONS or BORDER_PATH variables"
 ULIMIT_REQ=$((3 * $(ls "$TARGET/borders" | { grep '\.poly' || true; } | wc -l)))
@@ -257,46 +260,84 @@ fi
 
 # The building process starts here
 
+# Download booking.com hotels. This takes around 3 hours, just like coastline processing.
+if [ ! -f "$BOOKING_FILE" -a -n "${BOOKING_USER-}" -a -n "${BOOKING_PASS-}" ]; then
+  log "STATUS" "Step S1: Starting background hotels downloading"
+  (
+      $PYTHON $BOOKING_SCRIPT --user $BOOKING_USER --password $BOOKING_PASS --path "$INTDIR" --download --translate --output "$BOOKING_FILE" 2>"$LOG_PATH"/booking.log || true
+      if [ -f "$BOOKING_FILE" -a "$(wc -l < "$BOOKING_FILE" || echo 0)" -gt 100 ]; then
+        echo "Hotels have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
+      else
+        if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/$(basename "$BOOKING_FILE")" ]; then
+          cp "$OLD_INTDIR/$(basename "$BOOKING_FILE")" "$INTDIR"
+          warn "Failed to download hotels! Using older hotels list."
+        else
+          warn "Failed to download hotels!"
+        fi
+        [ -n "${MAIL-}" ] && tail "$LOG_PATH/booking.log" | mailx -s "Failed to download hotels at $(hostname), please hurry to fix" "$MAIL"
+      fi
+  ) &
+fi
+
+# Download opentable.com restaurants. This takes around 30 minutes.
+if [ ! -f "$OPENTABLE_FILE" -a -n "${OPENTABLE_USER-}" -a -n "${OPENTABLE_PASS-}" ]; then
+  log "STATUS" "Step S2: Starting background restaurants downloading"
+  (
+      $PYTHON $OPENTABLE_SCRIPT --client $OPENTABLE_USER --secret $OPENTABLE_PASS --opentable_data "$INTDIR"/opentable.json --download --tsv "$OPENTABLE_FILE" 2>"$LOG_PATH"/opentable.log || true
+      if [ -f "$OPENTABLE_FILE" -a "$(wc -l < "$OPENTABLE_FILE" || echo 0)" -gt 100 ]; then
+        echo "Restaurants have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
+      else
+        if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/$(basename "$OPENTABLE_FILE")" ]; then
+          cp "$OLD_INTDIR/$(basename "$OPENTABLE_FILE")" "$INTDIR"
+          warn "Failed to download restaurants! Using older restaurants list."
+        else
+          warn "Failed to download restaurants!"
+        fi
+        [ -n "${MAIL-}" ] && tail "$LOG_PATH/opentable.log" | mailx -s "Failed to download restaurants at $(hostname), please hurry to fix" "$MAIL"
+      fi
+  ) &
+fi
+
+# Download viator.com cities. This takes around 3 seconds.
+if [ ! -f "$VIATOR_FILE" -a -n "${VIATOR_KEY-}" ]; then
+  log "STATUS" "Step S3: Starting background viator cities downloading"
+  (
+    $PYTHON $VIATOR_SCRIPT --apikey $VIATOR_KEY --output "$VIATOR_FILE" 2>"$LOG_PATH"/viator.log || true
+    if [ -f "$VIATOR_FILE" -a "$(wc -l < "$VIATOR_FILE" || echo 0)" -gt 100 ]; then
+      echo "Viator cities have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
+    else
+      if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/$(basename "$VIATOR_FILE")" ]; then
+        cp "$OLD_INTDIR/$(basename "$VIATOR_FILE")" "$INTDIR"
+        warn "Failed to download viator cities! Using older viator cities list."
+      else
+        warn "Failed to download viator cities!"
+      fi
+      [ -n "${MAIL-}" ] && tail "$LOG_PATH/viator.log" | mailx -s "Failed to download viator cities at $(hostname), please hurry to fix" "$MAIL"
+    fi
+  ) &
+fi
+
+# Download UGC (user generated content) database.
+if [ ! -f "$UGC_FILE" -a -n "${UGC_DATABASE_URL-}" ]; then
+  putmode "Step UGC: Dowloading UGC database"
+  (
+    curl "$UGC_DATABASE_URL" --output "$UGC_FILE" --silent || true
+    if [ -f "$UGC_FILE" -a "$(wc -l < "$UGC_FILE" || echo 0)" -gt 100 ]; then
+      echo "UGC database have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
+    else
+      if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/$(basename "$UGC_FILE")" ]; then
+        cp "$OLD_INTDIR/$(basename "$UGC_FILE")" "$INTDIR"
+        warn "Failed to download UGC database! Using older UGC database."
+      else
+        warn "Failed to download UGC database!"
+      fi
+      [ -n "${MAIL-}" ] && tail "$LOG_PATH/ugc.log" | mailx -s "Failed to download UGC database at $(hostname), please hurry to fix" "$MAIL"
+    fi
+  ) &
+fi
+
 if [ "$MODE" == "coast" ]; then
   putmode
-
-  # Download booking.com hotels. This takes around 3 hours, just like coastline processing.
-  if [ ! -f "$BOOKING_FILE" -a -n "${BOOKING_USER-}" -a -n "${BOOKING_PASS-}" ]; then
-    log "STATUS" "Step S1: Starting background hotels downloading"
-    (
-        $PYTHON $BOOKING_SCRIPT --user $BOOKING_USER --password $BOOKING_PASS --path "$INTDIR" --download --translate --output "$BOOKING_FILE" 2>"$LOG_PATH"/booking.log || true
-        if [ -f "$BOOKING_FILE" -a "$(wc -l < "$BOOKING_FILE" || echo 0)" -gt 100 ]; then
-          echo "Hotels have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
-        else
-          if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/$(basename "$BOOKING_FILE")" ]; then
-            cp "$OLD_INTDIR/$(basename "$BOOKING_FILE")" "$INTDIR"
-            warn "Failed to download hotels! Using older hotels list."
-          else
-            warn "Failed to download hotels!"
-          fi
-          [ -n "${MAIL-}" ] && tail "$LOG_PATH/booking.log" | mailx -s "Failed to download hotels at $(hostname), please hurry to fix" "$MAIL"
-        fi
-    ) &
-  fi
-
-  # Download opentable.com restaurants. This takes around 30 minutes.
-  if [ ! -f "$OPENTABLE_FILE" -a -n "${OPENTABLE_USER-}" -a -n "${OPENTABLE_PASS-}" ]; then
-    log "STATUS" "Step S2: Starting background restaurants downloading"
-    (
-        $PYTHON $OPENTABLE_SCRIPT --client $OPENTABLE_USER --secret $OPENTABLE_PASS --opentable_data "$INTDIR"/opentable.json --download --tsv "$OPENTABLE_FILE" 2>"$LOG_PATH"/opentable.log || true
-        if [ -f "$OPENTABLE_FILE" -a "$(wc -l < "$OPENTABLE_FILE" || echo 0)" -gt 100 ]; then
-          echo "Restaurants have been downloaded. Please ensure this line is before Step 4." >> "$PLANET_LOG"
-        else
-          if [ -n "${OLD_INTDIR-}" -a -f "${OLD_INTDIR-}/$(basename "$OPENTABLE_FILE")" ]; then
-            cp "$OLD_INTDIR/$(basename "$OPENTABLE_FILE")" "$INTDIR"
-            warn "Failed to download restaurants! Using older restaurants list."
-          else
-            warn "Failed to download restaurants!"
-          fi
-          [ -n "${MAIL-}" ] && tail "$LOG_PATH/opentable.log" | mailx -s "Failed to download restaurants at $(hostname), please hurry to fix" "$MAIL"
-        fi
-    ) &
-  fi
 
   [ ! -x "$OSMCTOOLS/osmupdate"  ] && cc -x c     "$OMIM_PATH/tools/osmctools/osmupdate.c"  -o "$OSMCTOOLS/osmupdate"
   [ ! -x "$OSMCTOOLS/osmfilter"  ] && cc -x c -O3 "$OMIM_PATH/tools/osmctools/osmfilter.c"  -o "$OSMCTOOLS/osmfilter"
@@ -304,7 +345,7 @@ if [ "$MODE" == "coast" ]; then
     # Planet download is requested
     log "STATUS" "Step 0: Downloading and converting the planet"
     PLANET_PBF="$(dirname "$PLANET")/planet-latest.osm.pbf"
-    curl -s -o "$PLANET_PBF" http://planet.openstreetmap.org/pbf/planet-latest.osm.pbf
+    curl -s -o "$PLANET_PBF" https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf
     "$OSMCTOOLS/osmconvert" "$PLANET_PBF" --drop-author --drop-version --out-o5m "-o=$PLANET"
     rm "$PLANET_PBF"
   fi
@@ -318,11 +359,15 @@ if [ "$MODE" == "coast" ]; then
     if [ -n "$OPT_UPDATE" ]; then
       log "STATUS" "Step 1: Updating the planet file $PLANET"
       PLANET_ABS="$(cd "$(dirname "$PLANET")"; pwd)/$(basename "$PLANET")"
+      [ -n "${OSC-}" ] && OSC_ABS="$(cd "$(dirname "${OSC-}")"; pwd)/$(basename "${OSC-}")"
       (
         cd "$OSMCTOOLS" # osmupdate requires osmconvert in a current directory
         ./osmupdate --drop-author --drop-version --out-o5m -v "$PLANET_ABS" "$PLANET_ABS.new.o5m"
-        if [ -f "${OSC-}" ]; then
-          ./osmconvert "$PLANET_ABS.new.o5m" "$OSC" -o="$PLANET_ABS.merged.o5m"
+        if [ -f "${OSC_ABS-}" ]; then
+          # Backup the planet first
+          mv "$PLANET_ABS" "$PLANET_ABS.backup"
+          log "WARNING" "Altering the planet file with $OSC, restore it from $PLANET_ABS.backup"
+          ./osmconvert "$PLANET_ABS.new.o5m" "$OSC_ABS" -o="$PLANET_ABS.merged.o5m"
           mv -f "$PLANET_ABS.merged.o5m" "$PLANET_ABS.new.o5m"
         fi
       ) >> "$PLANET_LOG" 2>&1
@@ -383,43 +428,6 @@ if [ "$MODE" == "roads" ]; then
   MODE=inter
 fi
 
-# Starting routing generation as early as we can, since it's done in parallel
-if [ -n "$OPT_ROUTING" -a -z "$NO_REGIONS" ]; then
-  if [ -e "$OSRM_FLAG" ]; then
-    log "start_routing(): OSRM files have been already created, no need to repeat"
-  else
-    putmode "Step R: Starting OSRM files generation"
-    PBF_FLAG="${OSRM_FLAG}_pbf"
-    if [ -n "$ASYNC_PBF" -a ! -e "$PBF_FLAG" ]; then
-      (
-        bash "$ROUTING_SCRIPT" pbf >> "$PLANET_LOG" 2>&1
-        touch "$PBF_FLAG"
-        bash "$ROUTING_SCRIPT" prepare >> "$PLANET_LOG" 2>&1
-        touch "$OSRM_FLAG"
-        rm "$PBF_FLAG"
-      ) &
-    else
-      # Osmconvert takes too much memory: it makes sense to not extract pbfs asyncronously
-      if [ -e "$PBF_FLAG" ]; then
-        log "start_routing(): PBF files have been already created, skipping that step"
-      else
-        bash "$ROUTING_SCRIPT" pbf >> "$PLANET_LOG" 2>&1
-        touch "$PBF_FLAG"
-      fi
-      (
-        bash "$ROUTING_SCRIPT" prepare >> "$PLANET_LOG" 2>&1
-        touch "$OSRM_FLAG"
-        rm "$PBF_FLAG"
-      ) &
-    fi
-  fi
-fi
-
-if [ -n "$OPT_ONLINE_ROUTING" -a -z "$NO_REGIONS" ]; then
-  putmode "Step RO: Generating OSRM files for osrm-routed server."
-  bash "$ROUTING_SCRIPT" online >> "$PLANET_LOG" 2>&1
-fi
-
 if [ "$MODE" == "inter" ]; then
   putmode "Step 3: Generating intermediate data for all MWMs"
   # 1st pass, run in parallel - preprocess whole planet to speed up generation if all coastlines are correct
@@ -427,6 +435,9 @@ if [ "$MODE" == "inter" ]; then
     -preprocess 2>> "$PLANET_LOG"
   MODE=features
 fi
+
+# Wait until booking and restaurants lists are downloaded.
+wait
 
 if [ "$MODE" == "features" ]; then
   putmode "Step 4: Generating features of everything into $TARGET"
@@ -453,8 +464,16 @@ if [ "$MODE" == "features" ]; then
   [ -n "$OPT_WORLD" -a "$NODE_STORAGE" == "map" ] && warn "generating world files with NODE_STORAGE=map may lead to an out of memory error. Try NODE_STORAGE=mem if it fails."
   [ -f "$BOOKING_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --booking_data=$BOOKING_FILE"
   [ -f "$OPENTABLE_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --opentable_data=$OPENTABLE_FILE"
-  "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" --node_storage=$NODE_STORAGE --osm_file_type=o5m --osm_file_name="$PLANET" \
-    --data_path="$TARGET" --user_resource_path="$DATA_PATH/" $PARAMS_SPLIT 2>> "$PLANET_LOG"
+  [ -f "$VIATOR_FILE" ] && PARAMS_SPLIT="$PARAMS_SPLIT --viator_data=$VIATOR_FILE"
+  "$GENERATOR_TOOL" --intermediate_data_path="$INTDIR/" \
+                    --node_storage=$NODE_STORAGE \
+                    --osm_file_type=o5m \
+                    --osm_file_name="$PLANET" \
+                    --data_path="$TARGET" \
+                    --user_resource_path="$DATA_PATH/" \
+                    --dump_cities_boundaries \
+                    --cities_boundaries_data="$CITIES_BOUNDARIES_DATA" \
+                    $PARAMS_SPLIT 2>> "$PLANET_LOG"
   MODE=mwm
 fi
 
@@ -480,7 +499,12 @@ if [ "$MODE" == "mwm" ]; then
   if [ -n "$OPT_WORLD" ]; then
     (
       "$GENERATOR_TOOL" $PARAMS --output=World 2>> "$LOG_PATH/World.log"
-      "$GENERATOR_TOOL" --data_path="$TARGET" --user_resource_path="$DATA_PATH/" -generate_search_index --output=World 2>> "$LOG_PATH/World.log"
+      "$GENERATOR_TOOL" --data_path="$TARGET" \
+                        --user_resource_path="$DATA_PATH/" \
+                        --generate_search_index \
+                        --generate_cities_boundaries \
+                        --cities_boundaries_data="$CITIES_BOUNDARIES_DATA" \
+                        --output=World 2>> "$LOG_PATH/World.log"
     ) &
     "$GENERATOR_TOOL" $PARAMS --output=WorldCoasts 2>> "$LOG_PATH/WorldCoasts.log" &
   fi
@@ -488,6 +512,8 @@ if [ "$MODE" == "mwm" ]; then
   if [ -z "$NO_REGIONS" ]; then
     PARAMS_WITH_SEARCH="$PARAMS -generate_search_index"
     [ -n "${SRTM_PATH-}" -a -d "${SRTM_PATH-}" ] && PARAMS_WITH_SEARCH="$PARAMS_WITH_SEARCH --srtm_path=$SRTM_PATH"
+    [ -f "$UGC_FILE" ] && PARAMS_WITH_SEARCH="$PARAMS_WITH_SEARCH --ugc_data=$UGC_FILE"
+    [ -f "$POPULAR_PLACES_FILE" ] && PARAMS_WITH_SEARCH="$PARAMS_WITH_SEARCH --popular_places_data=$POPULAR_PLACES_FILE"
     for file in "$INTDIR"/tmp/*.mwm.tmp; do
       if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
         BASENAME="$(basename "$file" .mwm.tmp)"
@@ -495,6 +521,7 @@ if [ "$MODE" == "mwm" ]; then
         forky
       fi
     done
+    wait
   fi
 
   if [ -n "$OPT_ROUTING" -a -z "$NO_REGIONS" ]; then
@@ -504,25 +531,29 @@ if [ "$MODE" == "mwm" ]; then
   fi
 fi
 
-# The following steps require *.mwm and *.osrm files complete
-wait
-
 if [ "$MODE" == "routing" ]; then
-  putmode "Step 6: Using freshly generated *.mwm and *.osrm to create routing files"
-  if [ ! -e "$OSRM_FLAG" ]; then
-    warn "OSRM files are missing, skipping routing step."
-  else
-    # If *.mwm.osm2ft were moved to INTDIR, let's put them back
-    [ -z "$(ls "$TARGET" | grep '\.mwm\.osm2ft')" -a -n "$(ls "$INTDIR" | grep '\.mwm\.osm2ft')" ] && mv "$INTDIR"/*.mwm.osm2ft "$TARGET"
-    bash "$ROUTING_SCRIPT" mwm >> "$PLANET_LOG" 2>&1
-  fi
+  putmode "Step 6: Using freshly generated *.mwm to create routing files"
+  # If *.mwm.osm2ft were moved to INTDIR, let's put them back
+  [ -z "$(ls "$TARGET" | grep '\.mwm\.osm2ft')" -a -n "$(ls "$INTDIR" | grep '\.mwm\.osm2ft')" ] && mv "$INTDIR"/*.mwm.osm2ft "$TARGET"
+
+  for file in "$TARGET"/*.mwm; do
+    if [[ "$file" != *minsk-pass* && "$file" != *World* ]]; then
+      BASENAME="$(basename "$file" .mwm)"
+      (
+        "$GENERATOR_TOOL" --data_path="$TARGET" --intermediate_data_path="$INTDIR/" --user_resource_path="$DATA_PATH/" \
+        --make_cross_mwm --disable_cross_mwm_progress --make_routing_index --generate_traffic_keys --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log"
+        "$GENERATOR_TOOL" --data_path="$TARGET" --intermediate_data_path="$INTDIR/" --user_resource_path="$DATA_PATH/" \
+        --make_transit_cross_mwm --transit_path="$DATA_PATH" --output="$BASENAME" 2>> "$LOG_PATH/$BASENAME.log"
+        ) &
+      forky
+    fi
+  done
+  wait
   MODE=resources
 fi
 
 # Clean up temporary routing files
-[ -f "$OSRM_FLAG" ] && rm "$OSRM_FLAG"
 [ -n "$(ls "$TARGET" | grep '\.mwm\.osm2ft')" ] && mv "$TARGET"/*.mwm.osm2ft "$INTDIR"
-[ -n "$(ls "$TARGET" | grep '\.mwm\.norouting')" ] && mkdir -p "$INTDIR/norouting" && mv "$TARGET"/*.mwm.norouting "$INTDIR/norouting"
 
 if [ "$MODE" == "resources" ]; then
   putmode "Step 7: Updating resource lists"
@@ -560,14 +591,33 @@ if [ "$MODE" == "resources" ]; then
   MODE=test
 fi
 
-if [ "$MODE" == "test" ]; then
+if [ -n "${LOCALADS-}" ]; then
+  putmode "Step AD: Generating CSV for local ads database"
+  (
+    LOCALADS_LOG="$LOG_PATH/localads.log"
+    LOCALADS_PATH="$INTDIR/localads"
+    mkdir -p "$LOCALADS_PATH"
+    $PYTHON "$LOCALADS_SCRIPT" "$TARGET" --osm2ft "$INTDIR" --version "$COUNTRIES_VERSION" --types "$DATA_PATH/types.txt" --output "$LOCALADS_PATH" >> "$LOCALADS_LOG" 2>&1
+    LOCALADS_ARCHIVE="localads_$COUNTRIES_VERSION.tgz"
+    cd "$LOCALADS_PATH"
+    tar -czf "$LOCALADS_ARCHIVE" *.csv >> "$LOCALADS_LOG" 2>&1
+    AD_URL="$(curl -s --upload-file "$LOCALADS_ARCHIVE" "https://t.bk.ru/$(basename "$LOCALADS_ARCHIVE")")" >> "$LOCALADS_LOG" 2>&1
+    log STATUS "Uploaded localads file: $AD_URL"
+  ) &
+fi
+
+if [ "$MODE" == "test" -a -z "${SKIP_TESTS-}" ]; then
   putmode "Step 8: Testing data"
-  TEST_LOG="$LOG_PATH/test_planet.log"
   bash "$TESTING_SCRIPT" "$TARGET" "${DELTA_WITH-}" > "$TEST_LOG"
-  # Send both log files via e-mail
-  if [ -n "${MAIL-}" ]; then
-    cat <(grep STATUS "$PLANET_LOG") <(echo ---------------) "$TEST_LOG" | mailx -s "Generate_planet: build completed at $(hostname)" "$MAIL"
-  fi
+else
+  echo "Tests were skipped" > "$TEST_LOG"
+fi
+
+wait
+
+# Send both log files via e-mail
+if [ -n "${MAIL-}" ]; then
+  cat <(grep STATUS "$PLANET_LOG") <(echo ---------------) "$TEST_LOG" | mailx -s "Generate_planet: build completed at $(hostname)" "$MAIL"
 fi
 
 # Clean temporary indices

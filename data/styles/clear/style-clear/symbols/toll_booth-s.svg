@@ -1,22 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-    <title>toll_booth-s</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <path d="M12.723,4.37064609 C12.652,4.10364609 12.377,3.94664609 12.111,4.01664609 L7.48,5.25764609 L7.48,5.17664609 C7.038,4.92064609 6.627,4.77164609 6.08,4.77164609 C5.533,4.77164609 5.021,4.92064609 4.58,5.17664609 L4.58,6.06164609 L4,6.21764609 L4.259,7.18264609 L4.58,7.09664609 L4.58,11.5686461 L7.48,11.5686461 L7.48,6.29364609 L12.37,4.98364609 C12.636,4.91164609 12.794,4.63764609 12.723,4.37064609 L12.723,4.37064609 Z M6.539,7.65564609 L5.539,7.65564609 L5.539,6.65564609 L6.539,6.65564609 L6.539,7.65564609 L6.539,7.65564609 Z" id="path-1"></path>
-    </defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard-1" transform="translate(-747.000000, -253.000000)">
-            <g id="toll_booth-s" transform="translate(747.000000, 253.000000)">
-                <path d="M8.5,17 C3.813,17 0,13.188 0,8.5 C0,3.812 3.813,0 8.5,0 C13.187,0 17,3.812 17,8.5 C17,13.188 13.187,17 8.5,17 L8.5,17 Z" id="Shape" fill-opacity="0.6" fill="#FFFFFF"></path>
-                <ellipse id="Oval" fill="#717065" cx="8.5" cy="8.5" rx="7.5" ry="7.5"></ellipse>
-                <path d="M9,8 L12,8 L11,9 L9,9 L9,8 Z M11,11 L12,11 L12,12 L11,12 L11,11 Z M10,12 L12,12 L12,13 L10.6033325,13 L9,13 L10,12 Z M10,13 L11,13 L11,14 L10,13 Z M10,7 L11,8 L10,8 L10,7 Z M9,9 L10,9 L10,11 L9,11 L9,9 Z M10,10 L12,10 L12,11 L10,11 L10,10 Z" id="Combined-Shape" fill="#FFFFFF"></path>
-                <g id="Shape" fill="#FFFFFF">
-                    <use xlink:href="#path-1"></use>
-                    <use xlink:href="#path-1"></use>
-                </g>
-            </g>
-        </g>
-    </g>
+<svg width="16" height="16" viewBox="0 0 16 16">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="8" cy="8" r="8" fill="#FFF" opacity=".6"/>
+    <circle cx="8" cy="8" r="7" fill="#717065"/>
+    <polygon fill="#FFF" fill-rule="nonzero" points="6.501 4 5.001 5.036 5.001 11 4 11 4 12 9 12 9 11.036 8 11 8 10.096 13 7 13 6 8 9 8.089 5.036"/>
+  </g>
 </svg>

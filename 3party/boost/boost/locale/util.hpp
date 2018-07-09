@@ -201,6 +201,21 @@ namespace util {
     BOOST_LOCALE_DECL
     std::locale create_codecvt(std::locale const &in,std::auto_ptr<base_converter> cvt,character_facet_type type);
 
+    /// 
+    /// Install utf8 codecvt to UTF-16 or UTF-32 into locale \a in and return
+    /// new locale that is based on \a in and uses new facet. 
+    /// 
+    BOOST_LOCALE_DECL
+    std::locale create_utf8_codecvt(std::locale const &in,character_facet_type type);
+
+    ///
+    /// This function installs codecvt that can be used for conversion between single byte
+    /// character encodings like ISO-8859-1, koi8-r, windows-1255 and Unicode code points,
+    /// 
+    /// Throws boost::locale::conv::invalid_charset_error if the chacater set is not supported or isn't single byte character
+    /// set
+    BOOST_LOCALE_DECL
+    std::locale create_simple_codecvt(std::locale const &in,std::string const &encoding,character_facet_type type);
 } // util
 } // locale 
 } // boost

@@ -23,7 +23,6 @@ namespace boost
 {
 namespace endian
 {
-#ifndef BOOST_ENDIAN_ORDER_ENUM_DEFINED
   BOOST_SCOPED_ENUM_START(order)
   {
     big, little,
@@ -33,8 +32,6 @@ namespace endian
       native = little
 # endif
   }; BOOST_SCOPED_ENUM_END
-# define BOOST_ENDIAN_ORDER_ENUM_DEFINED
-#endif
 
 //--------------------------------------------------------------------------------------//
 //                                                                                      //
@@ -51,8 +48,12 @@ namespace endian
 //  by argument dependent lookup (ADL).                                                 //
 //                                                                                      //
 //--------------------------------------------------------------------------------------//
-
-  //  customization for exact-length arithmetic types. See doc/conversion.html/#FAQ
+  
+  //  customization for exact-length arithmetic types. See doc/conversion.html/#FAQ.
+  //  Note: The omission of a overloads for the arithmetic type (typically long, or
+  //  long long) not assigned to one of the exact length typedefs is a deliberate
+  //  design decision. Such overloads would be non-portable and thus error prone.
+     
   inline int8_t   endian_reverse(int8_t x) BOOST_NOEXCEPT;
   inline int16_t  endian_reverse(int16_t x) BOOST_NOEXCEPT;
   inline int32_t  endian_reverse(int32_t x) BOOST_NOEXCEPT;
@@ -97,7 +98,7 @@ namespace endian
   //------------------------------------------------------------------------------------//
 
 
-  //  Q: What happended to bswap, htobe, and the other synonym functions based on names
+  //  Q: What happened to bswap, htobe, and the other synonym functions based on names
   //     popularized by BSD, OS X, and Linux?
   //  A: Turned out these may be implemented as macros on some systems. Ditto POSIX names
   //     for such functionality. Since macros would cause endless problems with functions
@@ -111,7 +112,7 @@ namespace endian
   //                                                                                    //
   //                             user-defined types (UDTs)                              //
   //                                                                                    //
-  //  All reverse in place function templates are required to be implemented in terms   //
+  //  All reverse in place function templates are required to be implemented in terms   // 
   //  of an unqualified call to "endian_reverse_inplace(x)", a function reversing       //
   //  the endianness of x, which is a non-const reference. This provides a              //
   //  customization point for any UDT that provides a "reverse_inplace" free-function   //
@@ -145,7 +146,7 @@ namespace endian
   //  generic conditional reverse in place
   template <BOOST_SCOPED_ENUM(order) From, BOOST_SCOPED_ENUM(order) To,
     class EndianReversibleInplace>
-  inline void conditional_reverse_inplace(EndianReversibleInplace& x) BOOST_NOEXCEPT;
+  inline void conditional_reverse_inplace(EndianReversibleInplace& x) BOOST_NOEXCEPT; 
 
   //  runtime reverse in place
   template <class EndianReversibleInplace>
@@ -198,10 +199,10 @@ namespace endian
   {
     return x;
   }
-
+                                                
   inline int16_t endian_reverse(int16_t x) BOOST_NOEXCEPT
   {
-# ifdef BOOST_ENDIAN_NO_INTRINSICS
+# ifdef BOOST_ENDIAN_NO_INTRINSICS  
     return (static_cast<uint16_t>(x) << 8)
       | (static_cast<uint16_t>(x) >> 8);
 # else
@@ -211,7 +212,7 @@ namespace endian
 
   inline int32_t endian_reverse(int32_t x) BOOST_NOEXCEPT
   {
-# ifdef BOOST_ENDIAN_NO_INTRINSICS
+# ifdef BOOST_ENDIAN_NO_INTRINSICS  
     uint32_t step16;
     step16 = static_cast<uint32_t>(x) << 16 | static_cast<uint32_t>(x) >> 16;
     return
@@ -224,7 +225,7 @@ namespace endian
 
   inline int64_t endian_reverse(int64_t x) BOOST_NOEXCEPT
   {
-# ifdef BOOST_ENDIAN_NO_INTRINSICS
+# ifdef BOOST_ENDIAN_NO_INTRINSICS  
     uint64_t step32, step16;
     step32 = static_cast<uint64_t>(x) << 32 | static_cast<uint64_t>(x) >> 32;
     step16 = (step32 & 0x0000FFFF0000FFFFULL) << 16
@@ -235,7 +236,7 @@ namespace endian
     return BOOST_ENDIAN_INTRINSIC_BYTE_SWAP_8(static_cast<uint64_t>(x));
 # endif
   }
-
+  
   inline uint8_t endian_reverse(uint8_t x) BOOST_NOEXCEPT
   {
     return x;
@@ -243,7 +244,7 @@ namespace endian
 
   inline uint16_t endian_reverse(uint16_t x) BOOST_NOEXCEPT
   {
-# ifdef BOOST_ENDIAN_NO_INTRINSICS
+# ifdef BOOST_ENDIAN_NO_INTRINSICS  
     return (x << 8)
       | (x >> 8);
 # else
@@ -251,9 +252,9 @@ namespace endian
 # endif
   }
 
-  inline uint32_t endian_reverse(uint32_t x) BOOST_NOEXCEPT
+  inline uint32_t endian_reverse(uint32_t x) BOOST_NOEXCEPT                           
   {
-# ifdef BOOST_ENDIAN_NO_INTRINSICS
+# ifdef BOOST_ENDIAN_NO_INTRINSICS  
     uint32_t step16;
     step16 = x << 16 | x >> 16;
     return
@@ -266,7 +267,7 @@ namespace endian
 
   inline uint64_t endian_reverse(uint64_t x) BOOST_NOEXCEPT
   {
-# ifdef BOOST_ENDIAN_NO_INTRINSICS
+# ifdef BOOST_ENDIAN_NO_INTRINSICS  
     uint64_t step32, step16;
     step32 = x << 32 | x >> 32;
     step16 = (step32 & 0x0000FFFF0000FFFFULL) << 16
@@ -401,7 +402,7 @@ namespace endian
 
   namespace detail
   {
-    //  Primary template and specializations support generic
+    //  Primary template and specializations support generic 
     //  endian_reverse_inplace().
     //  See rationale in endian_reverse_inplace() below.
     template <BOOST_SCOPED_ENUM(order) From, BOOST_SCOPED_ENUM(order) To,

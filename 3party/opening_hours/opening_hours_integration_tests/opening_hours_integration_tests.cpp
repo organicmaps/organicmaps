@@ -4,6 +4,7 @@
 #define BOOST_TEST_MODULE OpeningHoursIntegration
 
 #include <algorithm>
+#include <array>
 #include <ctime>
 #include <map>
 
@@ -90,7 +91,7 @@ using TRuleFeatures = std::array<bool, Count_>;
 
 std::ostream & operator<<(std::ostream & ost, TRuleFeatures const & f)
 {
- std::copy(begin(f), end(f), std::ostream_iterator<bool>(ost, "\t"));
+ std::copy(std::begin(f), std::end(f), std::ostream_iterator<bool>(ost, "\t"));
  return ost;
 }
 

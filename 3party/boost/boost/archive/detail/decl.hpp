@@ -29,13 +29,11 @@
     #else
         #define BOOST_ARCHIVE_DECL BOOST_SYMBOL_IMPORT
     #endif
+
     #if defined(BOOST_WARCHIVE_SOURCE)
         #define BOOST_WARCHIVE_DECL BOOST_SYMBOL_EXPORT
     #else
         #define BOOST_WARCHIVE_DECL BOOST_SYMBOL_IMPORT
-    #endif
-    #if !defined(BOOST_WARCHIVE_SOURCE) && !defined(BOOST_ARCHIVE_SOURCE)
-        #define BOOST_ARCHIVE_OR_WARCHIVE_DECL BOOST_SYMBOL_IMPORT
     #endif
 
     #if defined(BOOST_WARCHIVE_SOURCE) || defined(BOOST_ARCHIVE_SOURCE)

@@ -20,7 +20,7 @@ namespace location
 
     void OnHttpPostFinished(downloader::HttpRequest & response)
     {
-      if (response.Status() == downloader::HttpRequest::ECompleted)
+      if (response.GetStatus() == downloader::HttpRequest::Status::Completed)
       {
         // stop requesting wifi updates if reply from server is received
         m_wifiInfo.Stop();
@@ -28,7 +28,7 @@ namespace location
         try
         {
           bool success = false;
-          my::Json root(response.Data().c_str());
+          my::Json root(response.GetData().c_str());
           if (json_is_object(root.get()))
           {
             json_t * location = json_object_get(root.get(), "location");
@@ -55,11 +55,11 @@ namespace location
             }
           }
           if (!success)
-            LOG(LWARNING, ("Invalid reply from location server:", response.Data()));
+            LOG(LWARNING, ("Invalid reply from location server:", response.GetData()));
         }
         catch (my::Json::Exception const & e)
         {
-          LOG(LWARNING, ("Invalid reply from location server:", e.what(), response.Data()));
+          LOG(LWARNING, ("Invalid reply from location server:", e.what(), response.GetData()));
         }
       }
       else

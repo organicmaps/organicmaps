@@ -8,22 +8,33 @@ set(
   angles.hpp
   any_rect2d.hpp
   avg_vector.hpp
+  bounding_box.cpp
+  bounding_box.hpp
+  calipers_box.cpp
+  calipers_box.hpp
   cellid.hpp
   clipping.cpp
   clipping.hpp
+  convex_hull.cpp
+  convex_hull.hpp
   covering.hpp
   covering_utils.hpp
+  diamond_box.cpp
+  diamond_box.hpp
   distance.hpp
   distance_on_sphere.cpp
   distance_on_sphere.hpp
   latlon.cpp
   latlon.hpp
+  line2d.cpp
+  line2d.hpp
   mercator.cpp
   mercator.hpp
+  nearby_points_sweeper.cpp
+  nearby_points_sweeper.hpp
   packer.cpp
   packer.hpp
   point2d.hpp
-  pointu_to_uint64.hpp
   polygon.hpp
   polyline2d.hpp
   rect2d.hpp
@@ -48,6 +59,6 @@ set(
   region2d/boost_concept.hpp
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})
 
 omim_add_test_subdirectory(geometry_tests)

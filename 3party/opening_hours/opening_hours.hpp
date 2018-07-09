@@ -30,9 +30,11 @@
 #include <type_traits>
 #include <vector>
 
+// Implemented in accordance with the specification
+// https://wiki.openstreetmap.org/wiki/Key:opening_hours/specification
+
 namespace osmoh
 {
-
 class HourMinutes
 {
 public:
@@ -170,6 +172,7 @@ inline constexpr Time::TMinutes operator ""_min(unsigned long long int m)
 }
 
 std::ostream & operator<<(std::ostream & ost, Time const & time);
+bool operator==(Time const & lhs, Time const & rhs);
 
 class TimespanPeriod
 {
@@ -189,6 +192,8 @@ public:
   bool IsHoursMinutes() const { return m_type == Type::HourMinutes; }
   bool IsMinutes() const { return m_type == Type::Minutes; }
 
+  Type GetType() const { return m_type; }
+
   HourMinutes const & GetHourMinutes() const { return m_hourMinutes; }
   HourMinutes::TMinutes GetMinutes() const { return m_minutes; }
   HourMinutes::TMinutes::rep GetMinutesCount() const { return GetMinutes().count(); }
@@ -201,6 +206,7 @@ private:
 };
 
 std::ostream & operator<<(std::ostream & ost, TimespanPeriod const p);
+bool operator==(TimespanPeriod const & lhs, TimespanPeriod const & rhs);
 
 class Timespan
 {
@@ -244,6 +250,7 @@ using TTimespans = std::vector<Timespan>;
 
 std::ostream & operator<<(std::ostream & ost, Timespan const & span);
 std::ostream & operator<<(std::ostream & ost, osmoh::TTimespans const & timespans);
+bool operator==(Timespan const & lhs, Timespan const & rhs);
 
 class NthWeekdayOfTheMonthEntry
 {

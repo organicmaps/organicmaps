@@ -5,7 +5,7 @@ set(
   bindings.cpp
 )
 
-add_library(${PROJECT_NAME} MODULE ${SRC})
+omim_add_library(${PROJECT_NAME} MODULE ${SRC})
 
 if (PLATFORM_MAC)
   omim_link_libraries(
@@ -39,6 +39,7 @@ omim_link_libraries(
   protobuf
   pugixml
   opening_hours
+  icu
   ${PYTHON_LIBRARIES}
   ${Boost_LIBRARIES}
   ${LIBZ}

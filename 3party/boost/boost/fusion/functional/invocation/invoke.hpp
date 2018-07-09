@@ -39,9 +39,9 @@
 #include <boost/function_types/parameter_types.hpp>
 
 #include <boost/utility/result_of.hpp>
+#include <boost/core/enable_if.hpp>
 
 #include <boost/fusion/support/category_of.hpp>
-#include <boost/fusion/support/detail/enabler.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/fusion/sequence/intrinsic/size.hpp>
 #include <boost/fusion/sequence/intrinsic/front.hpp>
@@ -148,7 +148,7 @@ namespace boost { namespace fusion
 
         template <typename Function, class Sequence>
         struct invoke<Function, Sequence,
-                      typename detail::enabler<
+                      typename enable_if_has_type<
                           typename detail::invoke_impl<
                               typename boost::remove_reference<Function>::type, Sequence
                           >::result_type
@@ -195,7 +195,7 @@ namespace boost { namespace fusion
 
         template <typename Function, class Sequence>
         struct invoke_impl<Function,Sequence,N,false,true,
-            typename enabler<
+            typename enable_if_has_type<
                 typename boost::result_of<Function(BOOST_PP_ENUM(N,M,~)) >::type
               >::type>
         {
@@ -289,7 +289,7 @@ namespace boost { namespace fusion
 
         template <typename Function, class Sequence>
         struct invoke_impl<Function,Sequence,N,false,false,
-            typename enabler<
+            typename enable_if_has_type<
 #define L(z,j,data) typename invoke_param_types<Sequence,N>::BOOST_PP_CAT(T, j)
                 typename boost::result_of<Function(BOOST_PP_ENUM(N,L,~))>::type
               >::type>

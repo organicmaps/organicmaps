@@ -3,50 +3,63 @@
 #include "base/internal/message.hpp"
 #include "base/src_point.hpp"
 
+#include <cassert>
+#include <cstdlib>
 #include <string>
 
 
 namespace my
 {
   // Called when ASSERT, CHECK or VERIFY failed.
-  typedef void (*AssertFailedFn)(SrcPoint const &, std::string const &);
+  // If returns true then crash application.
+  typedef bool (*AssertFailedFn)(SrcPoint const &, std::string const &);
   extern AssertFailedFn OnAssertFailed;
 
   /// @return Pointer to previous message function.
   AssertFailedFn SetAssertFunction(AssertFailedFn fn);
 }
 
+#ifdef DEBUG
+#define ASSERT_CRASH() assert(false)
+#else
+#define ASSERT_CRASH() std::abort()
+#endif
+
+#define ASSERT_FAIL(msg)                \
+  if (::my::OnAssertFailed(SRC(), msg)) \
+    ASSERT_CRASH();
+
 // TODO: Evaluate X only once in CHECK().
 #define CHECK(X, msg) do { if (X) {} else { \
-    ::my::OnAssertFailed(SRC(), ::my::impl::Message("CHECK("#X")", ::my::impl::Message msg));} } while(false)
+  ASSERT_FAIL(::my::impl::Message("CHECK("#X")", ::my::impl::Message msg));} } while(false)
 #define CHECK_EQUAL(X, Y, msg) do { if ((X) == (Y)) {} else { \
-  ::my::OnAssertFailed(SRC(), ::my::impl::Message("CHECK("#X" == "#Y")", \
-                                                   ::my::impl::Message(X, Y), \
-                                                   ::my::impl::Message msg));} } while (false)
+  ASSERT_FAIL(::my::impl::Message("CHECK("#X" == "#Y")", \
+                                   ::my::impl::Message(X, Y), \
+                                   ::my::impl::Message msg));} } while (false)
 #define CHECK_NOT_EQUAL(X, Y, msg) do { if ((X) != (Y)) {} else { \
-  ::my::OnAssertFailed(SRC(), ::my::impl::Message("CHECK("#X" != "#Y")", \
-                                                   ::my::impl::Message(X, Y), \
-                                                   ::my::impl::Message msg));} } while (false)
+  ASSERT_FAIL(::my::impl::Message("CHECK("#X" != "#Y")", \
+                                   ::my::impl::Message(X, Y), \
+                                   ::my::impl::Message msg));} } while (false)
 #define CHECK_LESS(X, Y, msg) do { if ((X) < (Y)) {} else { \
-  ::my::OnAssertFailed(SRC(), ::my::impl::Message("CHECK("#X" < "#Y")", \
-                                                   ::my::impl::Message(X, Y), \
-                                                   ::my::impl::Message msg));} } while (false)
+  ASSERT_FAIL(::my::impl::Message("CHECK("#X" < "#Y")", \
+                                   ::my::impl::Message(X, Y), \
+                                   ::my::impl::Message msg));} } while (false)
 #define CHECK_LESS_OR_EQUAL(X, Y, msg) do { if ((X) <= (Y)) {} else { \
-  ::my::OnAssertFailed(SRC(), ::my::impl::Message("CHECK("#X" <= "#Y")", \
-                                                   ::my::impl::Message(X, Y), \
-                                                   ::my::impl::Message msg));} } while (false)
+  ASSERT_FAIL(::my::impl::Message("CHECK("#X" <= "#Y")", \
+                                   ::my::impl::Message(X, Y), \
+                                   ::my::impl::Message msg));} } while (false)
 #define CHECK_GREATER(X, Y, msg) do { if ((X) > (Y)) {} else { \
-  ::my::OnAssertFailed(SRC(), ::my::impl::Message("CHECK("#X" > "#Y")", \
-                                                   ::my::impl::Message(X, Y), \
-                                                   ::my::impl::Message msg));} } while (false)
+  ASSERT_FAIL(::my::impl::Message("CHECK("#X" > "#Y")", \
+                                   ::my::impl::Message(X, Y), \
+                                   ::my::impl::Message msg));} } while (false)
 #define CHECK_GREATER_OR_EQUAL(X, Y, msg) do { if ((X) >= (Y)) {} else { \
-  ::my::OnAssertFailed(SRC(), ::my::impl::Message("CHECK("#X" >= "#Y")", \
-                                                   ::my::impl::Message(X, Y), \
-                                                   ::my::impl::Message msg));} } while (false)
+  ASSERT_FAIL(::my::impl::Message("CHECK("#X" >= "#Y")", \
+                                   ::my::impl::Message(X, Y), \
+                                   ::my::impl::Message msg));} } while (false)
 #define CHECK_OR_CALL(fail, call, X, msg) do { if (X) {} else { \
   if (fail) {\
-    ::my::OnAssertFailed(SRC(), ::my::impl::Message(::my::impl::Message("CHECK("#X")"), \
-                                                     ::my::impl::Message msg)); \
+    ASSERT_FAIL(::my::impl::Message(::my::impl::Message("CHECK("#X")"), \
+                                    ::my::impl::Message msg)); \
   } else { \
     call(); \
   } } } while (false)
@@ -78,3 +91,10 @@ namespace my
 #define ASSERT_GREATER(X, Y, msg)
 #define ASSERT_GREATER_OR_EQUAL(X, Y, msg)
 #endif
+
+// The macro that causes the warning to be ignored: control reaches end of
+// non-void function.
+#define CHECK_SWITCH() do { \
+  CHECK(false, ("Incorrect value in the switch statment")); \
+  std::abort(); \
+} while(false)

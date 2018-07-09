@@ -56,6 +56,11 @@ struct ring_identifier
             ;
     }
 
+    inline bool operator!=(ring_identifier const& other) const
+    {
+        return ! operator==(other);
+    }
+
 #if defined(BOOST_GEOMETRY_DEBUG_IDENTIFIER)
     friend std::ostream& operator<<(std::ostream &os, ring_identifier const& ring_id)
     {

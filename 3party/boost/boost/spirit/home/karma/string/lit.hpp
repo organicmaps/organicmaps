@@ -175,9 +175,6 @@ namespace boost { namespace spirit { namespace karma
             // fail if attribute isn't matched by immediate literal
             typedef typename attribute<Context>::type attribute_type;
 
-            typedef typename spirit::result_of::extract_from<attribute_type, Attribute>::type
-                extracted_string_type;
-
             using spirit::traits::get_c_string;
             if (!detail::string_compare(
                     get_c_string(

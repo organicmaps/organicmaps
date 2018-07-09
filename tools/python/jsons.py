@@ -1,3 +1,5 @@
+# coding=utf-8
+
 PARTNERS_PRICE = """
 {
     "prices": [
@@ -184,27 +186,330 @@ PARTNERS_TIME = """
 }
 """
 
-PARTNERS_MINPRICE = """
-[
+HOTEL_AVAILABILITY = """
+{
+  "result": [
     {
-        "hotel_id":"0000000",
-        "currency_code":"USD",
-        "max_price":"5000.00",
-        "ranking":1,
-        "min_price":"250.00",
-        "available_rooms":37,
-        "other_currency": [
-            {
-                "currency_code":"RUB",
-                "max_price":"250000.00",
-                "min_price":"15000.00"
-            },
-            {
-                "currency_code":"ISK",
-                "max_price":"500000.00",
-                "min_price":"30000.00"
-            }
-        ]
+      "hotel_currency_code": "EUR",
+      "hotel_id": 10623,
+      "price": 801
+    },
+    {
+      "hotel_currency_code": "USD",
+      "hotel_id": 10624,
+      "price": 802
+    },
+    {
+      "hotel_currency_code": "RUR",
+      "hotel_id": 10625,
+      "price": 803
     }
-]
+  ]
+}
+"""
+
+HOTELS_WITH_DEALS = """
+{
+  "result": [
+    {
+      "hotel_currency_code": "EUR",
+      "hotel_id": 10622,
+      "price": 801
+    },
+    {
+      "hotel_currency_code": "USD",
+      "hotel_id": 10624,
+      "price": 802
+    },
+    {
+      "hotel_currency_code": "RUR",
+      "hotel_id": 10626,
+      "price": 803
+    }
+  ]
+}
+"""
+
+BLOCK_AVAILABILITY = """
+{
+  "result": [
+    {
+      "direct_payment": true,
+      "checkin": "2018-06-16",
+      "hotel_id": 61394,
+      "block": [
+        {
+          "room_description": "Более просторные апартаменты-студио с кухней открытой планировки, телевизором с плоским экраном и бесплатным Wi-Fi.По запросу предоставляется DVD-плеер.",
+          "taxes": "НДС в размере 7 % , городской налог в размере 5 % ",
+          "rack_rate": {
+            "currency": "EUR",
+            "price": 0,
+            "other_currency": {
+              "currency": "RUB",
+              "price": 0
+            }
+          },
+          "block_id": "6139409_116589412_2_1_0",
+          "max_occupancy": 2,
+          "refundable": false,
+          "breakfast_included": true,
+          "is_smart_deal": false,
+          "incremental_price": [
+            {
+              "other_currency": {
+                "currency": "RUB",
+                "price": 8405.46
+              },
+              "price": 116,
+              "currency": "EUR"
+            }
+          ],
+          "photos": [
+            {
+              "url_original": "https://q-xx.bstatic.com/images/hotel/max500/437/43793388.jpg",
+              "photo_id": 43793388,
+              "url_max300": "https://q-xx.bstatic.com/images/hotel/max300/437/43793388.jpg",
+              "url_square60": "https://q-xx.bstatic.com/images/hotel/square60/437/43793388.jpg"
+            }
+          ],
+          "deposit_required": false,
+          "name": "Синьо Студио 1 - Стоимость не возвращается",
+          "is_last_minute_deal": false,
+          "min_price": {
+            "other_currency": {
+              "currency": "RUB",
+              "price": 8405.46
+            },
+            "price": 116,
+            "currency": "EUR"
+          },
+          "refundable_until": "",
+          "room_id": 6139409
+        }
+      ],
+      "checkout": "2018-06-17"
+    }
+  ]
+}
+"""
+
+PARTNERS_TAXI_INFO = """
+{
+  "currency": "RUB",
+  "distance": 6888.846981748964,
+  "options": [
+    {
+      "class_name": "econom",
+      "min_price": 129,
+      "price": 344,
+      "waiting_time": 527.8793726078095
+    },
+    {
+      "class_name": "business",
+      "min_price": 239,
+      "price": 504,
+      "waiting_time": 76.37023611385494
+    },
+    {
+      "class_name": "comfortplus",
+      "min_price": 239,
+      "price": 557,
+      "waiting_time": 99.0058955445591
+    },
+    {
+      "class_name": "minivan",
+      "min_price": 239,
+      "price": 532,
+      "waiting_time": 322.77413167989687
+    },
+    {
+      "class_name": "vip",
+      "min_price": 359,
+      "price": 799,
+      "waiting_time": 223.34814145904883
+    }
+  ],
+  "time": 1057.7440430297368
+}
+"""
+
+PARTNERS_RENT_NEARBY = """
+{
+  "clusters": [
+    {
+      "lat": 55.80529,
+      "lng": 37.508274,
+      "offers": [
+        {
+          "flatType": "rooms",
+          "roomsCount": 2,
+          "priceRur": 50000.0,
+          "floorNumber": 8,
+          "floorsCount": 9,
+          "photosCount": 11,
+          "url": "https://cian.ru/rent/flat/159026341",
+          "address": "Ленинградский просп., 77К2"
+        },
+        {
+          "flatType": "rooms",
+          "roomsCount": 1,
+          "priceRur": 39999.0,
+          "floorNumber": 1,
+          "floorsCount": 12,
+          "photosCount": 13,
+          "url": "https://cian.ru/rent/flat/157827964",
+          "address": "Ленинградский просп., 77К2"
+        },
+        {
+          "flatType": "rooms",
+          "roomsCount": 2,
+          "priceRur": 58000.0,
+          "floorNumber": 6,
+          "floorsCount": 9,
+          "photosCount": 9,
+          "url": "https://cian.ru/rent/flat/159523671",
+          "address": "Ленинградский просп., 77К2"
+        }
+      ],
+      "count": 3,
+      "url": "https://cian.ru/cat.php?deal_type=rent&offer_type=flat&engine_version=2&house%5B0%5D=26696"
+    },
+    {
+      "lat": 55.805776,
+      "lng": 37.50946,
+      "offers": [
+        {
+          "flatType": "rooms",
+          "roomsCount": 1,
+          "priceRur": 39000.0,
+          "floorNumber": 2,
+          "floorsCount": 9,
+          "photosCount": 9,
+          "url": "https://cian.ru/rent/flat/158786442",
+          "address": "Ленинградский просп., 77А"
+        }
+      ],
+      "count": 1,
+      "url": "https://cian.ru/cat.php?deal_type=rent&offer_type=flat&engine_version=2&house%5B0%5D=2009028"
+    },
+    {
+      "lat": 55.808306,
+      "lng": 37.5008,
+      "offers": [
+        {
+          "flatType": "rooms",
+          "roomsCount": 2,
+          "priceRur": 50000.0,
+          "floorNumber": 6,
+          "floorsCount": 10,
+          "photosCount": 9,
+          "url": "https://cian.ru/rent/flat/155419837",
+          "address": "Волоколамское ш., 6"
+        }
+      ],
+      "count": 1,
+      "url": "https://cian.ru/cat.php?deal_type=rent&offer_type=flat&engine_version=2&house%5B0%5D=1692086"
+    },
+    {
+      "lat": 55.805999,
+      "lng": 37.503738,
+      "offers": [
+        {
+          "flatType": "rooms",
+          "roomsCount": 2,
+          "priceRur": 70000.0,
+          "floorNumber": 4,
+          "floorsCount": 9,
+          "photosCount": 0,
+          "url": "https://cian.ru/rent/flat/159765700",
+          "address": "Волоколамское ш., 1кА"
+        }
+      ],
+      "count": 1,
+      "url": "https://cian.ru/cat.php?deal_type=rent&offer_type=flat&engine_version=2&house%5B0%5D=1009214"
+    },
+    {
+      "lat": 55.805361,
+      "lng": 37.507124,
+      "offers": [
+        {
+          "flatType": "rooms",
+          "roomsCount": 1,
+          "priceRur": 45000.0,
+          "floorNumber": 1,
+          "floorsCount": 9,
+          "photosCount": 6,
+          "url": "https://cian.ru/rent/flat/158673214",
+          "address": "Ленинградский просп., 77К3"
+        },
+        {
+          "flatType": "rooms",
+          "roomsCount": 2,
+          "priceRur": 48000.0,
+          "floorNumber": 5,
+          "floorsCount": 9,
+          "photosCount": 15,
+          "url": "https://cian.ru/rent/flat/158613232",
+          "address": "Ленинградский просп., 77К3"
+        },
+        {
+          "flatType": "rooms",
+          "roomsCount": 1,
+          "priceRur": 45000.0,
+          "floorNumber": 1,
+          "floorsCount": 9,
+          "photosCount": 7,
+          "url": "https://cian.ru/rent/flat/159035369",
+          "address": "Ленинградский просп., 77К3"
+        }
+      ],
+      "count": 3,
+      "url": "https://cian.ru/cat.php?deal_type=rent&offer_type=flat&engine_version=2&house%5B0%5D=26698"
+    },
+    {
+      "lat": 55.809226,
+      "lng": 37.504978,
+      "offers": [
+        {
+          "flatType": "rooms",
+          "roomsCount": 2,
+          "priceRur": 60000.0,
+          "floorNumber": 5,
+          "floorsCount": 8,
+          "photosCount": 37,
+          "url": "https://cian.ru/rent/flat/157212858",
+          "address": "Ленинградское ш., 3С1"
+        },
+        {
+          "flatType": "rooms",
+          "roomsCount": 2,
+          "priceRur": 35000.0,
+          "floorNumber": 6,
+          "floorsCount": 8,
+          "photosCount": 5,
+          "url": "https://cian.ru/rent/flat/158689565",
+          "address": "Ленинградское ш., 3С1"
+        }
+      ],
+      "count": 2,
+      "url": "https://cian.ru/cat.php?deal_type=rent&offer_type=flat&engine_version=2&house%5B0%5D=583624"
+    }
+  ]
+}
+"""
+
+PARTNERS_CALCULATE_BY_COORDS = """
+{
+  "ButtonText": null,
+  "Message": null,
+  "PaymentMethods": null,
+  "Prices": null,
+  "ShowFrom": false,
+  "Success": true,
+  "TypeId": 2,
+  "CurrencyCode": "RUB",
+  "FeedTime": 9,
+  "Price": 244,
+  "PriceString": "244.00 ₽"
+}
 """

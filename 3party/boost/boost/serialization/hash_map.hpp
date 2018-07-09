@@ -25,6 +25,7 @@
 #include <boost/serialization/hash_collections_save_imp.hpp>
 #include <boost/serialization/hash_collections_load_imp.hpp>
 #include <boost/serialization/split_free.hpp>
+#include <boost/move/utility_core.hpp>
 
 namespace boost { 
 namespace serialization {
@@ -45,7 +46,7 @@ struct archive_input_hash_map
         // borland fails silently w/o full namespace
         ar >> boost::serialization::make_nvp("item", t.reference());
         std::pair<typename Container::const_iterator, bool> result = 
-            s.insert(t.reference());
+            s.insert(boost::move(t.reference()));
         // note: the following presumes that the map::value_type was NOT tracked
         // in the archive.  This is the usual case, but here there is no way
         // to determine that.  
@@ -72,7 +73,7 @@ struct archive_input_hash_multimap
         // borland fails silently w/o full namespace
         ar >> boost::serialization::make_nvp("item", t.reference());
         typename Container::const_iterator result 
-            = s.insert(t.reference());
+            = s.insert(boost::move(t.reference()));
         // note: the following presumes that the map::value_type was NOT tracked
         // in the archive.  This is the usual case, but here there is no way
         // to determine that.  

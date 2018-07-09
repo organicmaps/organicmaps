@@ -2,10 +2,10 @@
 
 #include "base/collection_cast.hpp"
 
-#include "std/list.hpp"
-#include "std/vector.hpp"
+#include <list>
+#include <vector>
 
 UNIT_TEST(collection_cast)
 {
-  TEST_EQUAL((list<int>{1, 2, 3, 4, }),  my::collection_cast<list>(vector<int> {1, 2, 3, 4}), ());
+  TEST_EQUAL((std::list<int>{1, 2, 3, 4, }),  my::collection_cast<std::list>(std::vector<int> {1, 2, 3, 4}), ());
 }

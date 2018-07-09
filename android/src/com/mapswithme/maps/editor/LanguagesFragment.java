@@ -1,13 +1,13 @@
 package com.mapswithme.maps.editor;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
 import com.mapswithme.maps.editor.data.Language;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 
-public class LanguagesFragment extends BaseMwmRecyclerFragment
+public class LanguagesFragment extends BaseMwmRecyclerFragment<LanguagesAdapter>
 {
   final static String EXISTING_LOCALIZED_NAMES = "ExistingLocalizedNames";
 
@@ -24,8 +24,9 @@ public class LanguagesFragment extends BaseMwmRecyclerFragment
     void onLanguageSelected(Language language);
   }
 
+  @NonNull
   @Override
-  protected RecyclerView.Adapter createAdapter()
+  protected LanguagesAdapter createAdapter()
   {
     Bundle args = getArguments();
     Set<String> existingLanguages = new HashSet<>(args.getStringArrayList(EXISTING_LOCALIZED_NAMES));

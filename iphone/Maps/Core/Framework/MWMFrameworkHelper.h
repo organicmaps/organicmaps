@@ -1,13 +1,13 @@
-#import "MWMTypes.h"
-
 @interface MWMFrameworkHelper : NSObject
 
-+ (void)zoomToCurrentPosition;
++ (void)processFirstLaunch;
 
 + (void)setVisibleViewport:(CGRect)rect;
 
 + (void)setTheme:(MWMTheme)theme;
 
 + (MWMDayTime)daytime;
+
++ (void)createFramework;
 
 @end

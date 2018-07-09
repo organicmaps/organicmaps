@@ -1,34 +1,29 @@
 #include "drape/gpu_program.hpp"
 #include "drape/glfunctions.hpp"
 #include "drape/glstate.hpp"
-#include "drape/shader_def.hpp"
 #include "drape/support_manager.hpp"
 
-#include "base/assert.hpp"
 #include "base/logging.hpp"
 
-#ifdef DEBUG
-  #include "std/map.hpp"
-#endif
+#include <set>
 
 namespace dp
 {
-
-GpuProgram::GpuProgram(int programIndex, ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader)
-  : m_vertexShader(vertexShader)
+GpuProgram::GpuProgram(std::string const & programName,
+                       ref_ptr<Shader> vertexShader, ref_ptr<Shader> fragmentShader)
+  : m_programName(programName)
+  , m_vertexShader(vertexShader)
   , m_fragmentShader(fragmentShader)
-  , m_textureSlotsCount(gpu::GetTextureSlotsCount(programIndex))
 {
   m_programID = GLFunctions::glCreateProgram();
   GLFunctions::glAttachShader(m_programID, m_vertexShader->GetID());
   GLFunctions::glAttachShader(m_programID, m_fragmentShader->GetID());
 
-  string errorLog;
+  std::string errorLog;
   if (!GLFunctions::glLinkProgram(m_programID, errorLog))
-    LOG(LERROR, ("Program ", m_programID, " link error = ", errorLog));
+    LOG(LERROR, ("Program ", programName, " link error = ", errorLog));
 
-  // originaly i detached shaders there, but then i try it on Tegra3 device.
-  // on Tegra3, glGetActiveUniform will not work if you detach shaders after linking
+  // On Tegra3 glGetActiveUniform isn't work if you detach shaders after linking.
   LoadUniformLocations();
 
   // On Tegra2 we cannot detach shaders at all.
@@ -71,31 +66,66 @@ void GpuProgram::Unbind()
   GLFunctions::glUseProgram(0);
 }
 
-int8_t GpuProgram::GetAttributeLocation(string const & attributeName) const
+int8_t GpuProgram::GetAttributeLocation(std::string const & attributeName) const
 {
   return GLFunctions::glGetAttribLocation(m_programID, attributeName);
 }
 
-int8_t GpuProgram::GetUniformLocation(string const & uniformName) const
+int8_t GpuProgram::GetUniformLocation(std::string const & uniformName) const
 {
   auto const it = m_uniforms.find(uniformName);
   if (it == m_uniforms.end())
     return -1;
 
-  return it->second;
+  return it->second.m_location;
+}
+
+glConst GpuProgram::GetUniformType(std::string const & uniformName) const
+{
+  auto const it = m_uniforms.find(uniformName);
+  if (it == m_uniforms.end())
+    return -1;
+
+  return it->second.m_type;
+}
+
+GpuProgram::UniformsInfo const & GpuProgram::GetUniformsInfo() const
+{
+  return m_uniforms;
 }
 
 void GpuProgram::LoadUniformLocations()
 {
-  int32_t uniformsCount = GLFunctions::glGetProgramiv(m_programID, gl_const::GLActiveUniforms);
-  for (int32_t i = 0; i < uniformsCount; ++i)
+  static std::set<glConst> const kSupportedTypes = {
+      gl_const::GLFloatType, gl_const::GLFloatVec2, gl_const::GLFloatVec3, gl_const::GLFloatVec4,
+      gl_const::GLIntType,   gl_const::GLIntVec2,   gl_const::GLIntVec3,   gl_const::GLIntVec4,
+      gl_const::GLFloatMat4, gl_const::GLSampler2D};
+
+  auto const uniformsCount = GLFunctions::glGetProgramiv(m_programID, gl_const::GLActiveUniforms);
+  for (int i = 0; i < uniformsCount; ++i)
   {
     int32_t size = 0;
-    glConst type = gl_const::GLFloatVec4;
-    string name;
-    GLFunctions::glGetActiveUniform(m_programID, i, &size, &type, name);
-    m_uniforms[name] = GLFunctions::glGetUniformLocation(m_programID, name);
+    UniformInfo info;
+    std::string name;
+    GLFunctions::glGetActiveUniform(m_programID, static_cast<uint32_t>(i), &size, &info.m_type, name);
+    CHECK(kSupportedTypes.find(info.m_type) != kSupportedTypes.cend(),
+          ("Used uniform has unsupported type. Program =", m_programName, "Type =", info.m_type));
+
+    info.m_location = GLFunctions::glGetUniformLocation(m_programID, name);
+    m_uniforms[name] = std::move(info);
   }
+  m_numericUniformsCount = CalculateNumericUniformsCount();
+  m_textureSlotsCount = static_cast<uint8_t>(m_uniforms.size() - m_numericUniformsCount);
 }
 
-} // namespace dp
+uint32_t GpuProgram::CalculateNumericUniformsCount() const
+{
+  uint32_t counter = 0;
+  for (auto const & u : m_uniforms)
+  {
+    if (u.second.m_type != gl_const::GLSampler2D)
+      counter++;
+  }
+  return counter;
+}
+}  // namespace dp

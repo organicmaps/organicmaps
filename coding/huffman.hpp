@@ -4,18 +4,74 @@
 #include "coding/varint.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/map.hpp"
-#include "std/queue.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <iterator>
+#include <map>
+#include <memory>
+#include <queue>
+#include <type_traits>
+#include <vector>
 
 namespace coding
 {
 class HuffmanCoder
 {
 public:
+  class Freqs
+  {
+  public:
+    using Table = std::map<uint32_t, uint32_t>;
+
+    Freqs() = default;
+
+    template <typename... Args>
+    Freqs(Args const &... args)
+    {
+      Add(args...);
+    }
+
+    void Add(strings::UniString const & s) { Add(s.begin(), s.end()); }
+
+    void Add(std::string const & s) { Add(s.begin(), s.end()); }
+
+    template <typename T>
+    void Add(T const * begin, T const * const end)
+    {
+      static_assert(is_integral<T>::value, "");
+      AddImpl(begin, end);
+    }
+
+    template <typename It>
+    void Add(It begin, It const end)
+    {
+      static_assert(std::is_integral<typename It::value_type>::value, "");
+      AddImpl(begin, end);
+    }
+
+    template <typename T>
+    void Add(std::vector<T> const & v)
+    {
+      for (auto const & e : v)
+        Add(std::begin(e), std::end(e));
+    }
+
+    Table const & GetTable() const { return m_table; }
+
+  private:
+    template <typename It>
+    void AddImpl(It begin, It const end)
+    {
+      static_assert(sizeof(*begin) <= 4, "");
+      for (; begin != end; ++begin)
+        ++m_table[static_cast<uint32_t>(*begin)];
+    }
+
+    Table m_table;
+  };
+
   // A Code encodes a path to a leaf. It is read starting from
   // the least significant bit.
   struct Code
@@ -39,7 +95,15 @@ public:
 
   // Internally builds a Huffman tree and makes
   // the EncodeAndWrite and ReadAndDecode methods available.
-  void Init(vector<strings::UniString> const & data);
+  template <typename... Args>
+  void Init(Args const &... args)
+  {
+    Clear();
+    BuildHuffmanTree(Freqs(args...));
+    BuildTables(m_root, 0);
+  }
+
+  void Clear();
 
   // One way to store the encoding would be
   // -- the succinct representation of the topology of Huffman tree;
@@ -103,32 +167,54 @@ public:
   bool Encode(uint32_t symbol, Code & code) const;
   bool Decode(Code const & code, uint32_t & symbol) const;
 
+  template <typename TWriter, typename T>
+  uint32_t EncodeAndWrite(TWriter & writer, T const * begin, T const * end) const
+  {
+    static_assert(is_integral<T>::value, "");
+    return EncodeAndWriteImpl(writer, begin, end);
+  }
+
+  template <typename TWriter, typename It>
+  uint32_t EncodeAndWrite(TWriter & writer, It begin, It end) const
+  {
+    static_assert(is_integral<typename It::value_type>::value, "");
+    return EncodeAndWriteImpl(writer, begin, end);
+  }
+
+  template <typename TWriter>
+  uint32_t EncodeAndWrite(TWriter & writer, std::string const & s) const
+  {
+    return EncodeAndWrite(writer, s.begin(), s.end());
+  }
+
   // Returns the number of bits written AFTER the size, i.e. the number
   // of bits that the encoded string consists of.
   template <typename TWriter>
   uint32_t EncodeAndWrite(TWriter & writer, strings::UniString const & s) const
   {
-    BitWriter<TWriter> bitWriter(writer);
-    WriteVarUint(writer, s.size());
-    uint32_t sz = 0;
-    for (size_t i = 0; i < s.size(); ++i)
-      sz += EncodeAndWrite(bitWriter, static_cast<uint32_t>(s[i]));
-    return sz;
+    return EncodeAndWrite(writer, s.begin(), s.end());
+  }
+
+  template <typename TSource, typename OutIt>
+  OutIt ReadAndDecode(TSource & src, OutIt out) const
+  {
+    BitReader<TSource> bitReader(src);
+    size_t sz = static_cast<size_t>(ReadVarUint<uint32_t, TSource>(src));
+    std::vector<strings::UniChar> v(sz);
+    for (size_t i = 0; i < sz; ++i)
+      *out++ = ReadAndDecode(bitReader);
+    return out;
   }
 
   template <typename TSource>
   strings::UniString ReadAndDecode(TSource & src) const
   {
-    BitReader<TSource> bitReader(src);
-    size_t sz = static_cast<size_t>(ReadVarUint<uint32_t, TSource>(src));
-    vector<strings::UniChar> v(sz);
-    for (size_t i = 0; i < sz; ++i)
-      v[i] = static_cast<strings::UniChar>(ReadAndDecode(bitReader));
-    return strings::UniString(v.begin(), v.end());
+    strings::UniString result;
+    ReadAndDecode(src, std::back_inserter(result));
+    return result;
   }
 
 private:
-
   struct Node
   {
     Node *l, *r;
@@ -171,6 +257,20 @@ private:
     return code.len;
   }
 
+  template <typename TWriter, typename It>
+  uint32_t EncodeAndWriteImpl(TWriter & writer, It begin, It end) const
+  {
+    static_assert(sizeof(*begin) <= 4, "");
+
+    size_t const d = base::asserted_cast<size_t>(distance(begin, end));
+    BitWriter<TWriter> bitWriter(writer);
+    WriteVarUint(writer, d);
+    uint32_t sz = 0;
+    for (; begin != end; ++begin)
+      sz += EncodeAndWrite(bitWriter, static_cast<uint32_t>(*begin));
+    return sz;
+  }
+
   template <typename TSource>
   uint32_t ReadAndDecode(BitReader<TSource> & bitReader) const
   {
@@ -195,72 +295,14 @@ private:
 
   void DeleteHuffmanTree(Node * root);
 
-  // Builds a fixed Huffman tree for a collection of strings::UniStrings.
-  // UniString is always UTF-32. Every code point is treated as a symbol for the encoder.
-  template <typename TIter>
-  void BuildHuffmanTree(TIter const & beg, TIter const & end)
-  {
-    if (beg == end)
-    {
-      m_root = nullptr;
-      return;
-    }
-
-    // One would need more than 2^32 symbols to build a code that long.
-    // On the other hand, 32 is short enough for our purposes, so do not
-    // try to shrink the trees beyond this threshold.
-    uint32_t const kMaxDepth = 32;
-
-    map<uint32_t, uint32_t> freqs;
-    for (auto it = beg; it != end; ++it)
-    {
-      auto const & e = *it;
-      for (size_t i = 0; i < e.size(); ++i)
-      {
-        ++freqs[static_cast<uint32_t>(e[i])];
-      }
-    }
-
-    priority_queue<Node *, vector<Node *>, NodeComparator> pq;
-    for (auto const & e : freqs)
-      pq.push(new Node(e.first, e.second, true /* isLeaf */));
-
-    if (pq.empty())
-    {
-      m_root = nullptr;
-      return;
-    }
-
-    while (pq.size() > 1)
-    {
-      auto a = pq.top();
-      pq.pop();
-      auto b = pq.top();
-      pq.pop();
-      if (a->symbol > b->symbol)
-        swap(a, b);
-      // Give it the smaller symbol to make the resulting encoding more predictable.
-      auto ab = new Node(a->symbol, a->freq + b->freq, false /* isLeaf */);
-      ab->l = a;
-      ab->r = b;
-      CHECK_LESS_OR_EQUAL(a->depth, kMaxDepth, ());
-      CHECK_LESS_OR_EQUAL(b->depth, kMaxDepth, ());
-      pq.push(ab);
-    }
-
-    m_root = pq.top();
-    pq.pop();
-
-    SetDepths(m_root, 0);
-  }
+  void BuildHuffmanTree(Freqs const & freqs);
 
   // Properly sets the depth field in the subtree rooted at root.
   // It is easier to do it after the tree is built.
   void SetDepths(Node * root, uint32_t depth);
 
-  Node * m_root;  // m_pRoot?
-  map<Code, uint32_t> m_decoderTable;
-  map<uint32_t, Code> m_encoderTable;
+  Node * m_root;
+  std::map<Code, uint32_t> m_decoderTable;
+  std::map<uint32_t, Code> m_encoderTable;
 };
-
 }  // namespace coding

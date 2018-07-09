@@ -81,6 +81,8 @@ public:
   {
   }
 
+  bool HasPrefixToken() const { return !m_prefix.empty(); }
+
   // QuerySlice overrides:
   QueryParams::String const & Get(size_t i) const override
   {

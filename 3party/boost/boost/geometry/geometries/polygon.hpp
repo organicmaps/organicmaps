@@ -75,7 +75,7 @@ template
 >
 class polygon
 {
-    BOOST_CONCEPT_ASSERT( (concept::Point<Point>) );
+    BOOST_CONCEPT_ASSERT( (concepts::Point<Point>) );
 
 public:
 

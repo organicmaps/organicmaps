@@ -12,7 +12,6 @@
 #ifndef BOOST_ALGORITHM_NONE_OF_HPP
 #define BOOST_ALGORITHM_NONE_OF_HPP
 
-#include <algorithm>    // for std::none_of, if available
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 
@@ -29,9 +28,9 @@ namespace boost { namespace algorithm {
 template<typename InputIterator, typename Predicate> 
 bool none_of ( InputIterator first, InputIterator last, Predicate p )
 {
-for ( ; first != last; ++first )
-    if ( p(*first)) 
-        return false;
+    for ( ; first != last; ++first )
+        if ( p(*first)) 
+            return false;
     return true;
 } 
 

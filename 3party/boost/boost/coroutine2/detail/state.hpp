@@ -23,10 +23,60 @@ namespace coroutines2 {
 namespace detail {
 
 enum class state_t : unsigned int {
+    none       = 0,
     complete   = 1 << 1,
     unwind     = 1 << 2,
-    early_exit = 1 << 3
+    destroy    = 1 << 3
 };
+
+
+inline
+constexpr state_t
+operator&( state_t l, state_t r) {
+    return static_cast< state_t >(
+            static_cast< unsigned int >( l) & static_cast< unsigned int >( r) );
+}
+
+inline
+constexpr state_t
+operator|( state_t l, state_t r) {
+    return static_cast< state_t >(
+            static_cast< unsigned int >( l) | static_cast< unsigned int >( r) );
+}
+
+inline
+constexpr state_t
+operator^( state_t l, state_t r) {
+    return static_cast< state_t >(
+            static_cast< unsigned int >( l) ^ static_cast< unsigned int >( r) );
+}
+
+inline
+constexpr state_t
+operator~( state_t l) {
+    return static_cast< state_t >( ~static_cast< unsigned int >( l) );
+}
+
+inline
+state_t &
+operator&=( state_t & l, state_t r) {
+    l = l & r;
+    return l;
+}
+
+inline
+state_t &
+operator|=( state_t & l, state_t r) {
+    l = l | r;
+    return l;
+}
+
+inline
+state_t &
+operator^=( state_t & l, state_t r) {
+    l = l ^ r;
+    return l;
+}
 
 }}}
 

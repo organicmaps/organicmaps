@@ -1,13 +1,11 @@
 project(pysearch)
 
-add_definitions(-DBOOST_BIND_NO_PLACEHOLDERS)
-
 set(
   SRC
   bindings.cpp
 )
 
-add_library(${PROJECT_NAME} MODULE ${SRC})
+omim_add_library(${PROJECT_NAME} MODULE ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
@@ -18,17 +16,21 @@ omim_link_libraries(
   editor
   geometry
   platform
+  mwm_diff
   coding
   base
-  opening_hours
-  succinct
-  pugixml
-  protobuf
+  bsdiff
+  icu
   jansson
   oauthcpp
+  opening_hours
+  protobuf
+  pugixml
   stats_client
+  succinct
   ${PYTHON_LIBRARIES}
   ${Boost_LIBRARIES}
+  ${LIBZ}
 )
 
 link_qt5_core(${PROJECT_NAME})

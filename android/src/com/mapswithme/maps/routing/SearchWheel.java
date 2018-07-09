@@ -2,7 +2,6 @@ package com.mapswithme.maps.routing;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
@@ -21,6 +20,9 @@ import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.util.statistics.Statistics;
+
+import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_SEARCH_CLICK;
 
 class SearchWheel implements View.OnClickListener
 {
@@ -133,7 +135,7 @@ class SearchWheel implements View.OnClickListener
   {
     mIsExpanded = false;
     mCurrentOption = null;
-    SearchEngine.cancelSearch();
+    SearchEngine.INSTANCE.cancelInteractiveSearch();
     resetSearchButtonImage();
   }
 
@@ -145,7 +147,7 @@ class SearchWheel implements View.OnClickListener
       return;
     }
 
-    final String query = SearchEngine.getQuery();
+    final String query = SearchEngine.INSTANCE.getQuery();
     if (TextUtils.isEmpty(query))
     {
       resetSearchButtonImage();
@@ -212,15 +214,35 @@ class SearchWheel implements View.OnClickListener
                                                  R.attr.colorAccent));
   }
 
+  public boolean performClick()
+  {
+    return mSearchButton.performClick();
+  }
+
   @Override
   public void onClick(View v)
   {
     switch (v.getId())
     {
     case R.id.btn_search:
-      if (mCurrentOption != null || !TextUtils.isEmpty(SearchEngine.getQuery()))
+      if (RoutingController.get().isPlanning())
       {
-        SearchEngine.cancelSearch();
+        if (TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
+        {
+          showSearchInParent();
+          Statistics.INSTANCE.trackRoutingEvent(ROUTING_SEARCH_CLICK, true);
+        }
+        else
+        {
+          reset();
+        }
+        return;
+      }
+
+      Statistics.INSTANCE.trackRoutingEvent(ROUTING_SEARCH_CLICK, false);
+      if (mCurrentOption != null || !TextUtils.isEmpty(SearchEngine.INSTANCE.getQuery()))
+      {
+        SearchEngine.INSTANCE.cancelInteractiveSearch();
         mCurrentOption = null;
         mIsExpanded = false;
         resetSearchButtonImage();
@@ -266,7 +288,8 @@ class SearchWheel implements View.OnClickListener
   private void startSearch(SearchOption searchOption)
   {
     mCurrentOption = searchOption;
-    SearchEngine.searchInteractive(searchOption.mSearchQuery, System.nanoTime(), false /* isMapAndTable */, null /* hotelsFilter */);
+    SearchEngine.INSTANCE.searchInteractive(searchOption.mSearchQuery, System.nanoTime(), false /* isMapAndTable */,
+                                   null /* hotelsFilter */, null /* bookingParams */);
     refreshSearchButtonImage();
 
     toggleSearchLayout();

@@ -1,19 +1,18 @@
 #import "MWMMapDownloaderDefaultDataSource.h"
 #import "MWMCommon.h"
-#import "MWMMapDownloaderButtonTableViewCell.h"
 #import "MWMMapDownloaderLargeCountryTableViewCell.h"
 #import "MWMMapDownloaderPlaceTableViewCell.h"
-#import "MWMStorage.h"
-#import "Statistics.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"
 
 namespace
 {
-auto compareStrings = ^NSComparisonResult(NSString * s1, NSString * s2)
-{
-  return [s1 compare:s2 options:NSCaseInsensitiveSearch range:{0, s1.length} locale:[NSLocale currentLocale]];
+auto compareStrings = ^NSComparisonResult(NSString * s1, NSString * s2) {
+  return [s1 compare:s2
+             options:NSCaseInsensitiveSearch
+               range:{ 0, s1.length }
+              locale:NSLocale.currentLocale];
 };
 
 auto compareLocalNames = ^NSComparisonResult(NSString * s1, NSString * s2)
@@ -26,7 +25,6 @@ auto compareLocalNames = ^NSComparisonResult(NSString * s1, NSString * s2)
 } // namespace
 
 using namespace storage;
-using namespace mwm;
 
 @interface MWMMapDownloaderDefaultDataSource ()
 
@@ -43,7 +41,11 @@ using namespace mwm;
 
 @synthesize isParentRoot = _isParentRoot;
 
-- (instancetype)initForRootCountryId:(NSString *)countryId delegate:(id<MWMMapDownloaderProtocol, MWMMapDownloaderButtonTableViewCellProtocol>)delegate mode:(DownloaderMode)mode
+- (instancetype)
+initForRootCountryId:(NSString *)countryId
+            delegate:
+                (id<MWMMapDownloaderProtocol, MWMMapDownloaderButtonTableViewCellProtocol>)delegate
+                mode:(MWMMapDownloaderMode)mode
 {
   self = [super initWithDelegate:delegate mode:mode];
   if (self)
@@ -61,7 +63,7 @@ using namespace mwm;
   TCountriesVec downloadedChildren;
   TCountriesVec availableChildren;
   s.GetChildrenInGroups(m_parentId, downloadedChildren, availableChildren, true /* keepAvailableChildren */);
-  if (self.mode == DownloaderMode::Available)
+  if (self.mode == MWMMapDownloaderModeAvailable)
   {
     self.downloadedCountries = nil;
     [self configAvailableSections:availableChildren];

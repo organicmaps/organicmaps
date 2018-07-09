@@ -127,6 +127,7 @@ public:
     FMD_PRICE_RATE = 25,
     FMD_RATING = 26,
     FMD_BANNER_URL = 27,
+    FMD_LEVEL = 28,
     FMD_COUNT
   };
 
@@ -225,4 +226,5 @@ public:
 }  // namespace feature
 
 // Prints types in osm-friendly format.
-string DebugPrint(feature::Metadata::EType type);
+string ToString(feature::Metadata::EType type);
+inline string DebugPrint(feature::Metadata::EType type) { return ToString(type); }

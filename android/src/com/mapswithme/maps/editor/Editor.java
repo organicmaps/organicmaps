@@ -100,6 +100,7 @@ public final class Editor
 
   public static native boolean nativeIsAddressEditable();
   public static native boolean nativeIsNameEditable();
+  public static native boolean nativeIsPointType();
   public static native boolean nativeIsBuilding();
 
   public static native NamesDataSource nativeGetNamesDataSource(boolean needFakes);
@@ -123,6 +124,7 @@ public final class Editor
   public static native boolean nativeIsPhoneValid(String phone);
   public static native boolean nativeIsWebsiteValid(String site);
   public static native boolean nativeIsEmailValid(String email);
+  public static native boolean nativeIsNameValid(String name);
 
 
   public static native boolean nativeHasSomethingToUpload();
@@ -162,7 +164,7 @@ public final class Editor
   }
   public static native void nativeCreateMapObject(int categoryId);
   public static native void nativeCreateNote(String text);
-  public static native void nativePlaceDoesNotExist(String comment);
+  public static native void nativePlaceDoesNotExist(@NonNull String comment);
   public static native void nativeRollbackMapObject();
 
   /**

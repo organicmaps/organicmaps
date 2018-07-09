@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 public final class NetworkPolicy
 {
+  public static final int NONE = -1;
   public static final int ASK = 0;
   public static final int ALWAYS = 1;
   public static final int NEVER = 2;
@@ -21,7 +22,7 @@ public final class NetworkPolicy
   private static final String TAG_NETWORK_POLICY = "network_policy";
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ ASK, ALWAYS, NEVER, NOT_TODAY, TODAY })
+  @IntDef({ NONE, ASK, ALWAYS, NEVER, NOT_TODAY, TODAY })
   @interface NetworkPolicyDef
   {
   }
@@ -41,13 +42,13 @@ public final class NetworkPolicy
       return;
     }
 
-
     boolean nowInRoaming = ConnectionState.isInRoaming();
     boolean acceptedInRoaming = Config.getMobileDataRoaming();
     int type = Config.getUseMobileDataSettings();
     switch (type)
     {
       case ASK:
+      case NONE:
         showDialog(fragmentManager, listener);
         break;
       case ALWAYS:
@@ -71,13 +72,34 @@ public final class NetworkPolicy
     }
   }
 
+  public static boolean getCurrentNetworkUsageStatus()
+  {
+    if (ConnectionState.isWifiConnected())
+      return true;
+
+    if (!ConnectionState.isMobileConnected())
+      return false;
+
+    boolean nowInRoaming = ConnectionState.isInRoaming();
+    boolean acceptedInRoaming = Config.getMobileDataRoaming();
+    if (nowInRoaming && !acceptedInRoaming)
+      return false;
+
+    int type = Config.getUseMobileDataSettings();
+    return type == ALWAYS || (type == TODAY && isToday());
+  }
+
+  private static boolean isToday()
+  {
+    long timestamp = Config.getMobileDataTimeStamp();
+    return TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - timestamp) < 1;
+  }
+
   private static void showDialogIfNeeded(@NonNull FragmentManager fragmentManager,
                                          @NonNull NetworkPolicyListener listener,
                                          @NonNull NetworkPolicy policy)
   {
-    long timestamp = Config.getMobileDataTimeStamp();
-    boolean showDialog = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - timestamp) >= 1;
-    if (!showDialog)
+    if (isToday())
     {
       listener.onResult(policy);
       return;

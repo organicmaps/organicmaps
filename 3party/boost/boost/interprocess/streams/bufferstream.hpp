@@ -70,14 +70,14 @@ class basic_bufferbuf
    typedef typename CharTraits::pos_type                 pos_type;
    typedef typename CharTraits::off_type                 off_type;
    typedef CharTraits                                    traits_type;
-   typedef std::basic_streambuf<char_type, traits_type>  base_t;
+   typedef std::basic_streambuf<char_type, traits_type>  basic_streambuf_t;
 
    public:
    //!Constructor.
    //!Does not throw.
    explicit basic_bufferbuf(std::ios_base::openmode mode
                             = std::ios_base::in | std::ios_base::out)
-      :  base_t(), m_mode(mode), m_buffer(0), m_length(0)
+      :  basic_streambuf_t(), m_mode(mode), m_buffer(0), m_length(0)
       {}
 
    //!Constructor. Assigns formatting buffer.
@@ -85,7 +85,7 @@ class basic_bufferbuf
    explicit basic_bufferbuf(CharT *buf, std::size_t length,
                             std::ios_base::openmode mode
                               = std::ios_base::in | std::ios_base::out)
-      :  base_t(), m_mode(mode), m_buffer(buf), m_length(length)
+      :  basic_streambuf_t(), m_mode(mode), m_buffer(buf), m_length(length)
       {  this->set_pointers();   }
 
    virtual ~basic_bufferbuf(){}
@@ -277,7 +277,7 @@ class basic_ibufferstream :
    private:
    typedef basic_bufferbuf<CharT, CharTraits>         bufferbuf_t;
    typedef std::basic_ios<char_type, CharTraits>      basic_ios_t;
-   typedef std::basic_istream<char_type, CharTraits>  base_t;
+   typedef std::basic_istream<char_type, CharTraits>  basic_streambuf_t;
    bufferbuf_t &       get_buf()      {  return *this;  }
    const bufferbuf_t & get_buf() const{  return *this;  }
    #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
@@ -292,7 +292,7 @@ class basic_ibufferstream :
          //As bufferbuf_t's constructor does not throw there is no risk of
          //calling the basic_ios_t's destructor without calling basic_ios_t::init()
         bufferbuf_t(mode | std::ios_base::in)
-      , base_t(&get_buf())
+      , basic_streambuf_t(this)
       {}
 
    //!Constructor. Assigns formatting buffer.
@@ -305,7 +305,7 @@ class basic_ibufferstream :
          //As bufferbuf_t's constructor does not throw there is no risk of
          //calling the basic_ios_t's destructor without calling basic_ios_t::init()
         bufferbuf_t(const_cast<CharT*>(buf), length, mode | std::ios_base::in)
-      , base_t(&get_buf())
+      , basic_streambuf_t(this)
       {}
 
    ~basic_ibufferstream(){};
@@ -348,7 +348,7 @@ class basic_obufferstream :
    private:
    typedef basic_bufferbuf<CharT, CharTraits>         bufferbuf_t;
    typedef std::basic_ios<char_type, CharTraits>      basic_ios_t;
-   typedef std::basic_ostream<char_type, CharTraits>  base_t;
+   typedef std::basic_ostream<char_type, CharTraits>  basic_ostream_t;
    bufferbuf_t &       get_buf()      {  return *this;  }
    const bufferbuf_t & get_buf() const{  return *this;  }
    #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
@@ -363,7 +363,7 @@ class basic_obufferstream :
          //As bufferbuf_t's constructor does not throw there is no risk of
          //calling the basic_ios_t's destructor without calling basic_ios_t::init()
          bufferbuf_t(mode | std::ios_base::out)
-      ,  base_t(&get_buf())
+      ,  basic_ostream_t(this)
       {}
 
    //!Constructor. Assigns formatting buffer.
@@ -376,7 +376,7 @@ class basic_obufferstream :
          //As bufferbuf_t's constructor does not throw there is no risk of
          //calling the basic_ios_t's destructor without calling basic_ios_t::init()
          bufferbuf_t(buf, length, mode | std::ios_base::out)
-      ,  base_t(&get_buf())
+      ,  basic_ostream_t(this)
       {}
 
    ~basic_obufferstream(){}
@@ -420,7 +420,7 @@ class basic_bufferstream :
    private:
    typedef basic_bufferbuf<CharT, CharTraits>         bufferbuf_t;
    typedef std::basic_ios<char_type, CharTraits>      basic_ios_t;
-   typedef std::basic_iostream<char_type, CharTraits> base_t;
+   typedef std::basic_iostream<char_type, CharTraits> basic_iostream_t;
    bufferbuf_t &       get_buf()      {  return *this;  }
    const bufferbuf_t & get_buf() const{  return *this;  }
    #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
@@ -436,7 +436,7 @@ class basic_bufferstream :
          //As bufferbuf_t's constructor does not throw there is no risk of
          //calling the basic_ios_t's destructor without calling basic_ios_t::init()
          bufferbuf_t(mode)
-      ,  base_t(&get_buf())
+      ,  basic_iostream_t(this)
       {}
 
    //!Constructor. Assigns formatting buffer.
@@ -450,7 +450,7 @@ class basic_bufferstream :
          //As bufferbuf_t's constructor does not throw there is no risk of
          //calling the basic_ios_t's destructor without calling basic_ios_t::init()
          bufferbuf_t(buf, length, mode)
-      ,  base_t(&get_buf())
+      ,  basic_iostream_t(this)
       {}
 
    ~basic_bufferstream(){}

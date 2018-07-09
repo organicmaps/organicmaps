@@ -12,6 +12,8 @@
 #pragma warning(push,1)
 #endif
 
+#include <boost/config.hpp>
+#include <utility>
 #include <string>
 
 namespace
@@ -46,6 +48,11 @@ boost
         typedef T value_type;
 
         error_info( value_type const & value );
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
+        error_info( error_info const & );
+        error_info( value_type && value ) BOOST_NOEXCEPT_IF(BOOST_NOEXCEPT_EXPR(value_type(std::move(value))));
+        error_info( error_info && x ) BOOST_NOEXCEPT_IF(BOOST_NOEXCEPT_EXPR(value_type(std::move(x.value_))));
+#endif
         ~error_info() throw();
 
         value_type const &
@@ -61,6 +68,10 @@ boost
             }
 
         private:
+        error_info & operator=( error_info const & );
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
+        error_info & operator=( error_info && x );
+#endif
 
         std::string name_value_string() const;
 

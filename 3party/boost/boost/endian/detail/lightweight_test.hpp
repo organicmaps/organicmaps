@@ -45,7 +45,7 @@ struct report_errors_reminder
 
     ~report_errors_reminder()
     {
-        BOOST_ASSERT(called_report_errors_function);  // verify report_errors() was called
+        BOOST_ASSERT(called_report_errors_function);  // verify report_errors() was called  
     }
 };
 

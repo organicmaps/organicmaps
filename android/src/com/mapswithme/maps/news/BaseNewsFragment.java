@@ -5,7 +5,10 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.ArrayRes;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -18,7 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,9 +30,15 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 
-abstract class BaseNewsFragment extends BaseMwmDialogFragment
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class BaseNewsFragment extends BaseMwmDialogFragment
 {
+  @ArrayRes
+  static final int TITLE_KEYS = R.array.news_title_keys;
   private ViewPager mPager;
   private View mPrevButton;
   private View mNextButton;
@@ -39,19 +47,29 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
 
   private int mPageCount;
 
+  @Nullable
+  private NewsDialogListener mListener;
+
   abstract class Adapter extends PagerAdapter
   {
+    @NonNull
     private final int[] mImages;
+    @NonNull
     private final String[] mTitles;
+    @NonNull
     private final String[] mSubtitles;
+    @NonNull
+    private final List<PromoButton> mPromoButtons;
+    @NonNull
     private final String[] mSwitchTitles;
+    @NonNull
     private final String[] mSwitchSubtitles;
 
     Adapter()
     {
       Resources res = MwmApplication.get().getResources();
 
-      mTitles = res.getStringArray(getTitles());
+      mTitles = getTitles(res);
       mSubtitles = res.getStringArray(getSubtitles1());
 
       int subtitles2 = getSubtitles2();
@@ -66,6 +84,7 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
         }
       }
 
+      mPromoButtons = getPromoButtons(res);
       mSwitchTitles = res.getStringArray(getSwitchTitles());
       mSwitchSubtitles = res.getStringArray(getSwitchSubtitles());
 
@@ -77,12 +96,37 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
       images.recycle();
     }
 
-    abstract @ArrayRes int getTitles();
-    abstract @ArrayRes int getSubtitles1();
-    abstract @ArrayRes int getSubtitles2();
-    abstract @ArrayRes int getSwitchTitles();
-    abstract @ArrayRes int getSwitchSubtitles();
-    abstract @ArrayRes int getImages();
+    @NonNull
+    private String[] getTitles(@NonNull Resources res)
+    {
+      String[] keys = res.getStringArray(getTitleKeys());
+      final int length = keys.length;
+      if (length == 0)
+        throw new AssertionError("Title keys must me non-empty!");
+
+      String[] titles = new String[length];
+      for (int i = 0; i < length; i++)
+        titles[i] = Utils.getStringValueByKey(getContext(), keys[i]);
+
+      return titles;
+    }
+
+    @ArrayRes
+    abstract int getTitleKeys();
+    @ArrayRes
+    abstract int getSubtitles1();
+    @ArrayRes
+    abstract int getSubtitles2();
+    @ArrayRes
+    abstract int getButtonLabels();
+    @ArrayRes
+    abstract int getButtonLinks();
+    @ArrayRes
+    abstract int getSwitchTitles();
+    @ArrayRes
+    abstract int getSwitchSubtitles();
+    @ArrayRes
+    abstract int getImages();
 
     @Override
     public int getCount()
@@ -110,6 +154,31 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
       ((TextView)res.findViewById(R.id.subtitle))
         .setText(mSubtitles[position]);
 
+      processSwitchBlock(position, res);
+      processButton(position, res);
+
+      container.addView(res);
+      return res;
+    }
+
+    @NonNull
+    private List<PromoButton> getPromoButtons(@NonNull Resources res)
+    {
+      String[] labels = res.getStringArray(getButtonLabels());
+      String[] links = res.getStringArray(getButtonLinks());
+
+      if (labels.length != links.length)
+        throw new AssertionError("Button labels count must be equal to links count!");
+
+      List<PromoButton> result = new ArrayList<>();
+      for (int i = 0; i < labels.length; i++)
+        result.add(new PromoButton(labels[i], links[i]));
+
+      return result;
+    }
+
+    private void processSwitchBlock(int position, @NonNull View res)
+    {
       View switchBlock = res.findViewById(R.id.switch_block);
       String text = mSwitchTitles[position];
       if (TextUtils.isEmpty(text))
@@ -119,34 +188,31 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
         ((TextView)switchBlock.findViewById(R.id.switch_title))
           .setText(text);
 
-        TextView subtitle = (TextView)switchBlock.findViewById(R.id.switch_subtitle);
+        TextView subtitle = switchBlock.findViewById(R.id.switch_subtitle);
         if (TextUtils.isEmpty(mSwitchSubtitles[position]))
           UiUtils.hide(subtitle);
         else
           subtitle.setText(mSwitchSubtitles[position]);
 
-        final SwitchCompat checkBox = (SwitchCompat)switchBlock.findViewById(R.id.switch_box);
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
-          @Override
-          public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-          {
-            onSwitchChanged(position, isChecked);
-          }
-        });
+        final SwitchCompat checkBox = switchBlock.findViewById(R.id.switch_box);
+        checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> onSwitchChanged(position, isChecked));
 
-        switchBlock.setOnClickListener(new View.OnClickListener()
-        {
-          @Override
-          public void onClick(View v)
-          {
-            checkBox.performClick();
-          }
-        });
+        switchBlock.setOnClickListener(v -> checkBox.performClick());
+      }
+    }
+
+    private void processButton(int position, @NonNull View res)
+    {
+      TextView button = res.findViewById(R.id.button);
+      PromoButton promo = mPromoButtons.get(position);
+      if (promo == null || TextUtils.isEmpty(promo.getLabel()))
+      {
+        UiUtils.hide(button);
+        return;
       }
 
-      container.addView(res);
-      return res;
+      button.setText(promo.getLabel());
+      button.setOnClickListener(v -> Utils.openUrl(getContext(), promo.getLink()));
     }
 
     @Override
@@ -206,6 +272,20 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
   {
     return (UiUtils.isTablet() ? super.getCustomTheme()
                                : getFullscreenTheme());
+  }
+
+  @StyleRes
+  @Override
+  protected int getFullscreenLightTheme()
+  {
+    return R.style.MwmTheme_DialogFragment_NoFullscreen;
+  }
+
+  @StyleRes
+  @Override
+  protected int getFullscreenDarkTheme()
+  {
+    return R.style.MwmTheme_DialogFragment_NoFullscreen_Night;
   }
 
   @Override
@@ -285,18 +365,27 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
     return res;
   }
 
+  @CallSuper
   protected void onDoneClick()
   {
     dismissAllowingStateLoss();
+    if (mListener != null)
+      mListener.onDialogDone();
   }
 
   @SuppressWarnings("TryWithIdenticalCatches")
-  static void create(FragmentActivity activity, Class<? extends BaseNewsFragment> clazz)
+  static void create(@NonNull FragmentActivity activity,
+                     @NonNull Class<? extends BaseNewsFragment> clazz,
+                     @Nullable NewsDialogListener listener)
   {
     try
     {
       final BaseNewsFragment fragment = clazz.newInstance();
-      fragment.show(activity.getSupportFragmentManager(), clazz.getName());
+      fragment.mListener = listener;
+      activity.getSupportFragmentManager()
+          .beginTransaction()
+          .add(fragment, clazz.getName())
+          .commitAllowingStateLoss();
     } catch (java.lang.InstantiationException ignored)
     {}
     catch (IllegalAccessException ignored)
@@ -316,5 +405,16 @@ abstract class BaseNewsFragment extends BaseMwmDialogFragment
     fm.beginTransaction().remove(f).commitAllowingStateLoss();
     fm.executePendingTransactions();
     return true;
+  }
+
+  @Nullable
+  protected NewsDialogListener getListener()
+  {
+    return mListener;
+  }
+
+  public interface NewsDialogListener
+  {
+    void onDialogDone();
   }
 }

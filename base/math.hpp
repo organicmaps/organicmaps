@@ -1,9 +1,8 @@
 #pragma once
 #include "base/assert.hpp"
 
-#include "std/cmath.hpp"
-
 #include <algorithm>
+#include <climits>
 #include <cmath>
 #include <functional>
 #include <limits>
@@ -11,10 +10,16 @@
 
 #include <boost/integer.hpp>
 
+namespace math
+{
+  double constexpr pi = 3.14159265358979323846;
+  double constexpr pi2 = pi / 2.;
+  double constexpr pi4 = pi / 4.;
+  double constexpr twicePi = 2. * pi;
+}  // namespace math
 
 namespace my
 {
-
 template <typename T> inline T Abs(T x)
 {
   return (x < 0 ? -x : x);
@@ -95,11 +100,6 @@ template <typename TFloat> inline TFloat RadToDeg(TFloat rad)
 template <typename T> inline T id(T const & x)
 {
   return x;
-}
-
-template <typename T> inline T sq(T const & x)
-{
-  return x * x;
 }
 
 template <typename T>
@@ -208,4 +208,4 @@ int constexpr Sign(Number const number) noexcept
 {
   return number == 0 ? 0 : number > 0 ? 1 : -1;
 }
-}
+}  // namespace my

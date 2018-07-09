@@ -152,7 +152,7 @@ namespace boost {
                 #endif
             };
             
-            #ifdef BOOST_HAS_CHAR16_T
+            #ifdef BOOST_LOCALE_ENABLE_CHAR16_T
             template<>
             class BOOST_LOCALE_DECL boundary_indexing<char16_t> : public std::locale::facet {
             public:
@@ -167,7 +167,7 @@ namespace boost {
             };
             #endif
             
-            #ifdef BOOST_HAS_CHAR32_T
+            #ifdef BOOST_LOCALE_ENABLE_CHAR32_T
             template<>
             class BOOST_LOCALE_DECL boundary_indexing<char32_t> : public std::locale::facet {
             public:

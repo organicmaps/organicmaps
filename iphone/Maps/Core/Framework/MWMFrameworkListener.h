@@ -1,7 +1,5 @@
 #import "MWMFrameworkObservers.h"
 
-#include "platform/location.hpp"
-
 @interface MWMFrameworkListener : NSObject
 
 + (MWMFrameworkListener *)listener;

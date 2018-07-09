@@ -20,8 +20,9 @@
 
 #include <cstddef>
 
-#include <boost/type_traits.hpp>
 #include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 #include <boost/geometry/core/assert.hpp>
 #include <boost/geometry/core/tag_cast.hpp>
@@ -252,9 +253,15 @@ struct rescale_policy_type
         false
 #else
         boost::is_floating_point
-        <
-            typename geometry::coordinate_type<Point>::type
-        >::type::value
+            <
+                typename geometry::coordinate_type<Point>::type
+            >::type::value
+        &&
+        boost::is_same
+            <
+                typename geometry::coordinate_system<Point>::type,
+                geometry::cs::cartesian
+            >::value
 #endif
     >
 {

@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2002-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  (C) Copyright Daryle Walker 2000-2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at

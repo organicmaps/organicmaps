@@ -153,7 +153,7 @@ namespace executors
     }
 
     template <typename Closure>
-    void submit(BOOST_THREAD_RV_REF(Closure) closure)
+    void submit(BOOST_THREAD_FWD_REF(Closure) closure)
     {
       lock_guard<mutex> lk(mtx_);
       if (closed(lk))       BOOST_THROW_EXCEPTION( sync_queue_is_closed() );

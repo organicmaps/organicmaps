@@ -34,7 +34,7 @@ way|z16-::*
 
 *::int_name
 {
-  text-offset: 20;
+  text-offset: 1;
 }
 
 node::* {
@@ -59,7 +59,7 @@ area::* {
 *[craft],
 *[internet_access],
 {
-  text-position: center
+  text-position: center;
 }
 area[aeroway],
 area[tourism]

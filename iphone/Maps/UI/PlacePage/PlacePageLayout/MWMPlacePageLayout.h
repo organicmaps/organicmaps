@@ -1,10 +1,16 @@
-#include "storage/storage_defines.hpp"
+namespace storage
+{
+enum class NodeStatus;
+}  // namespace storage
 
 @protocol MWMPlacePageLayoutDelegate<NSObject>
 
 - (void)onPlacePageTopBoundChanged:(CGFloat)bound;
-- (void)shouldDestroyLayout;
-- (void)shouldClose;
+- (void)destroyLayout;
+- (void)closePlacePage;
+
+- (BOOL)isExpandedOnShow;
+- (void)onExpanded;
 
 @end
 
@@ -12,8 +18,6 @@
 
 - (NSString *)distanceToObject;
 - (void)downloadSelectedArea;
-- (CGFloat)leftBound;
-- (CGFloat)topBound;
 
 @end
 
@@ -28,7 +32,6 @@
                                       MWMActionBarProtocol>)delegate
                        dataSource:(id<MWMPlacePageLayoutDataSource>)dataSource;
 
-- (void)layoutWithSize:(CGSize const &)size;
 - (void)showWithData:(MWMPlacePageData *)data;
 - (void)close;
 
@@ -40,13 +43,13 @@
 
 - (void)rotateDirectionArrowToAngle:(CGFloat)angle;
 - (void)setDistanceToObject:(NSString *)distance;
+- (void)setSpeedAndAltitude:(NSString *)speedAndAltitude;
 
 - (void)processDownloaderEventWithStatus:(storage::NodeStatus)status progress:(CGFloat)progress;
 
-#pragma mark - iPad only
+- (void)checkCellsVisible;
 
-- (void)updateTopBound;
-- (void)updateLeftBound;
+- (void)updateAvailableArea:(CGRect)frame;
 
 @end
 

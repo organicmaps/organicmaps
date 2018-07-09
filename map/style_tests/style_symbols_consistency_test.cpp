@@ -6,6 +6,8 @@
 #include "indexer/drules_include.hpp"
 #include "indexer/map_style_reader.hpp"
 
+#include "platform/platform.hpp"
+
 #include "base/logging.hpp"
 
 #include "coding/parse_xml.hpp"
@@ -15,6 +17,19 @@
 #include "std/set.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
+
+namespace
+{
+void UnitTestInitPlatform()
+{
+  Platform & pl = GetPlatform();
+  CommandLineOptions const & options = GetTestingOptions();
+  if (options.m_dataPath)
+    pl.SetWritableDirForTests(options.m_dataPath);
+  if (options.m_resourcePath)
+    pl.SetResourceDir(options.m_resourcePath);
+}
+}
 
 namespace
 {
@@ -45,7 +60,7 @@ set<string> GetSymbolsSetFromDrawingRule()
   drule::rules().ForEachRule([&symbols](int, int, int, drule::BaseRule const * rule)
   {
     SymbolRuleProto const * const symbol = rule->GetSymbol();
-    if (nullptr != symbol && symbol->has_name())
+    if (nullptr != symbol && !symbol->name().empty())
       symbols.insert(symbol->name());
   });
   return symbols;
@@ -65,11 +80,13 @@ set<string> GetSymbolsSetFromResourcesFile(string const & density)
 
 UNIT_TEST(Test_SymbolsConsistency)
 {
+  UnitTestInitPlatform();
+
   // Tests that all symbols specified in drawing rules have corresponding symbols in resources
 
   bool res = true;
 
-  string const densities[] = { "mdpi", "hdpi", "xhdpi", "xxhdpi", "6plus" };
+  string const densities[] = { "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi", "6plus" };
 
   styles::RunForEveryMapStyle([&](MapStyle mapStyle)
   {

@@ -36,6 +36,9 @@
 namespace boost {
 namespace type_erasure {
 
+template<class P>
+class dynamic_binding;
+
 namespace detail {
 
 template<class Source, class Dest, class Map>
@@ -167,6 +170,24 @@ public:
     {}
 
     /**
+     * Converts from another set of bindings.
+     *
+     * \pre Map must be an MPL map with an entry for each placeholder
+     *      referred to by @c Concept.  The mapped type should be the
+     *      corresponding placeholder in Concept2.
+     *
+     * \throws std::bad_alloc
+     * \throws std::bad_any_cast
+     */
+    template<class Placeholders, class Map>
+    binding(const dynamic_binding<Placeholders>& other, const static_binding<Map>&)
+      : impl(
+            other,
+            static_binding<Map>()
+        )
+    {}
+
+    /**
      * \return true iff the sets of types that the placeholders
      *         bind to are the same for both arguments.
      *
@@ -190,6 +211,8 @@ public:
 private:
     template<class C2>
     friend class binding;
+    template<class P>
+    friend class dynamic_binding;
     /** INTERNAL ONLY */
     struct impl_type
     {
@@ -232,6 +255,19 @@ private:
                     typename binding<Concept2>::placeholder_subs
                 >::type
             >(*other.impl.table);
+            table = manager.get();
+        }
+        template<class PlaceholderList, class Map>
+        impl_type(const dynamic_binding<PlaceholderList>& other, const static_binding<Map>&)
+          : manager(new table_type)
+        {
+            manager->template convert_from<
+                // FIXME: What do we need to do with deduced placeholder in other
+                typename ::boost::type_erasure::detail::add_deductions<
+                    Map,
+                    placeholder_subs
+                >::type
+            >(other.impl);
             table = manager.get();
         }
         template<class Concept2, class Map>

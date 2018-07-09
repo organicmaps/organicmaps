@@ -32,6 +32,8 @@
     <item name="android:layout_width">@dimen/button_width</item>
     <item name="android:layout_height">@dimen/height_block_base</item>
     <item name="android:background">?buttonBackground</item>
+    <item name="android:stateListAnimator" tools:targetApi="lollipop">@null</item>
+    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoMedium</item>
     <item name="android:textAllCaps">true</item>
   </style>
 
@@ -68,10 +70,38 @@
     <item name="android:textAppearance">@style/MwmTextAppearance.Body3</item>
   </style>
 
-  <style name="MwmWidget.Button.Start">
-    <item name="android:background">?startButtonBackground</item>
+  <style name="MwmWidget.Button.Primary">
+    <item name="android:background">?primaryButtonBackground</item>
+    <item name="android:minWidth">@dimen/primary_button_min_width</item>
+    <item name="android:minHeight">@dimen/primary_button_min_height</item>
     <item name="android:textColor">?accentButtonTextColor</item>
-    <item name="android:textSize">14sp</item>
+    <item name="android:textSize">@dimen/text_size_body_3</item>
+    <item name="android:paddingLeft">@dimen/margin_base</item>
+    <item name="android:paddingStart" tools:targetApi="jelly_bean_mr1">@dimen/margin_base</item>
+    <item name="android:paddingRight">@dimen/margin_base</item>
+    <item name="android:paddingEnd" tools:targetApi="jelly_bean_mr1">@dimen/margin_base</item>
+    <item name="android:paddingTop">@dimen/margin_half_plus</item>
+    <item name="android:paddingBottom">@dimen/margin_half_plus</item>
+    <item name="textAllCaps">true</item>
+    <item name="android:gravity">center</item>
+  </style>
+
+  <style name="MwmWidget.Button.Ghost">
+    <item name="android:background">@android:color/transparent</item>
+    <item name="android:foreground">?clickableBackground</item>
+    <item name="android:minHeight">@dimen/primary_button_min_height</item>
+    <item name="android:textColor">?colorAccent</item>
+    <item name="android:textSize">@dimen/text_size_body_3</item>
+    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoMedium</item>
+    <item name="textAllCaps">true</item>
+  </style>
+
+  <style name="MwmWidget.Button.LeaveReview">
+    <item name="android:background">?reviewButtonBackground</item>
+    <item name="android:minWidth">0dp</item>
+    <item name="android:minHeight">0dp</item>
+    <item name="android:textColor">?accentButtonTextColor</item>
+    <item name="android:textSize">@dimen/text_size_body_4</item>
   </style>
 
   <style name="MwmWidget.ProgressWheel.RoutingPlan">
@@ -90,7 +120,7 @@
   </style>
 
   <style name="MwmWidget.Floating.Panel">
-    <item name="android:background">?panel</item>
+    <item name="android:background">?ppBackground</item>
   </style>
 
   <style name="MwmWidget.PlacePage.EditText" parent="Widget.AppCompat.EditText">
@@ -230,9 +260,33 @@
     <item name="android:foreground">@drawable/shadow_top</item>
   </style>
 
+  <style name="MwmWidget.FrameLayout.BookmarkCategories">
+    <item name="android:background">?windowBackgroundForced</item>
+  </style>
+
   <style name="MwmWidget.RatingBar" parent="android:Widget.RatingBar">
     <item name="android:progressDrawable">@drawable/rating_bar</item>
     <item name="android:indeterminateDrawable">@drawable/rating_bar</item>
+  </style>
+
+  <style name="MwmWidget.RatingBarSmall" parent="android:Widget.RatingBar">
+    <item name="android:progressDrawable">@drawable/rating_bar_small</item>
+    <item name="android:indeterminateDrawable">@drawable/rating_bar_small</item>
+    <item name="android:minHeight">12dp</item>
+    <item name="android:maxHeight">12dp</item>
+    <item name="android:isIndicator">true</item>
+  </style>
+
+  <style name="MwmWidget.RatingBar.Ugc">
+    <item name="android:progressDrawable">@drawable/rating_bar_ugc</item>
+    <item name="android:indeterminateDrawable">@drawable/rating_bar_ugc</item>
+    <item name="android:stepSize">1</item>
+  </style>
+
+  <style name="MwmWidget.RatingBarSmall.Ugc">
+    <item name="android:progressDrawable">@drawable/rating_bar_small_ugc</item>
+    <item name="android:indeterminateDrawable">@drawable/rating_bar_small_ugc</item>
+    <item name="android:stepSize">0.01</item>
   </style>
 
   <style name="MwmWidget.Counter">
@@ -258,10 +312,12 @@
 
   <style name="MwmWidget.TabLayout" parent="Widget.Design.TabLayout">
     <item name="tabMaxWidth">0dp</item>
-    <item name="tabIndicatorColor">?colorAccent</item>
     <item name="tabTextAppearance">@style/MwmTextAppearance.Tab</item>
     <item name="tabMode">fixed</item>
     <item name="tabGravity">fill</item>
+    <item name="tabBackground">?colorPrimary</item>
+    <item name="tabIndicatorColor">@color/white_primary</item>
+    <item name="tabSelectedTextColor">@color/white_primary</item>
   </style>
 
   <style name="MwmWidget.Downloader.ToolbarButton">
@@ -280,5 +336,35 @@
     <item name="android:layout_width">44dp</item>
     <item name="android:background">?selectableItemBackgroundBorderless</item>
     <item name="android:tint">?iconTint</item>
+  </style>
+
+  <style name="MwmWidget.Discovery.Item.Button" parent="android:Widget.TextView">
+    <item name="android:minHeight">@dimen/discovery_button_min_height</item>
+    <item name="android:gravity">center</item>
+    <item name="android:paddingLeft">@dimen/margin_base</item>
+    <item name="android:paddingStart" tools:ignore="NewApi">@dimen/margin_base</item>
+    <item name="android:paddingEnd" tools:targetApi="jelly_bean_mr1">@dimen/margin_base</item>
+    <item name="android:paddingRight">@dimen/margin_base</item>
+    <item name="android:paddingTop">@dimen/margin_half_plus</item>
+    <item name="android:paddingBottom">@dimen/margin_half_plus</item>
+    <item name="android:background">?windowBackgroundForced</item>
+    <item name="android:minLines">1</item>
+    <item name="android:ellipsize">end</item>
+  </style>
+
+  <style name="MwmWidget.Discovery.Item.Title" parent="android:Widget.TextView">
+    <item name="android:maxLines">2</item>
+    <item name="android:minLines">2</item>
+    <item name="android:ellipsize">end</item>
+  </style>
+
+  <style name="MwmWidget.Discovery.Item.Subtitle" parent="android:Widget.TextView">
+    <item name="android:maxLines">1</item>
+    <item name="android:ellipsize">end</item>
+  </style>
+
+  <style name="MwmWidget.Discovery.Subtitle" parent="android:Widget.TextView">
+    <item name="android:ellipsize">end</item>
+    <item name="android:maxLines">2</item>
   </style>
 </resources>

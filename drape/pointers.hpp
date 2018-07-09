@@ -3,14 +3,13 @@
 #include "base/assert.hpp"
 #include "base/mutex.hpp"
 
-#include "std/map.hpp"
-#include "std/mutex.hpp"
-#include "std/string.hpp"
-#include "std/type_traits.hpp"
-#include "std/typeinfo.hpp"
-#include "std/utility.hpp"
-#include "std/unique_ptr.hpp"
-
+#include <map>
+#include <memory>
+#include <mutex>
+#include <string>
+#include <type_traits>
+#include <typeinfo>
+#include <utility>
 
 //#define TRACK_POINTERS
 
@@ -18,7 +17,7 @@
 class DpPointerTracker
 {
 public:
-  typedef map<void *, pair<int, string> > TAlivePointers;
+  typedef std::map<void *, std::pair<int, std::string>> TAlivePointers;
 
   static DpPointerTracker & Instance();
 
@@ -38,10 +37,10 @@ private:
   DpPointerTracker() = default;
   ~DpPointerTracker();
 
-  void RefPtrNamed(void * refPtr, string const & name);
+  void RefPtrNamed(void * refPtr, std::string const & name);
 
   TAlivePointers m_alivePointers;
-  mutex m_mutex;
+  std::mutex m_mutex;
 };
 
 // Custom deleter for unique_ptr
@@ -59,7 +58,8 @@ public:
 #if defined(TRACK_POINTERS)
 template<typename T> using drape_ptr = unique_ptr<T, DpPointerDeleter>;
 #else
-template<typename T> using drape_ptr = unique_ptr<T>;
+template <typename T>
+using drape_ptr = std::unique_ptr<T>;
 #endif
 
 template <typename T, typename... Args>
@@ -117,8 +117,9 @@ public:
   template<typename TResult>
   operator ref_ptr<TResult>() const
   {
-    static_assert(is_base_of<TResult, T>::value || is_base_of<T, TResult>::value ||
-                  is_void<T>::value || is_void<TResult>::value, "");
+    static_assert(std::is_base_of<TResult, T>::value || std::is_base_of<T, TResult>::value ||
+                  std::is_void<T>::value || std::is_void<TResult>::value, "");
+
     return ref_ptr<TResult>(static_cast<TResult *>(m_ptr), m_isOwnerUnique);
   }
 
@@ -141,7 +142,7 @@ public:
 
   bool operator<(ref_ptr const & rhs) const { return m_ptr < rhs.m_ptr; }
 
-  template<typename TResult, class = typename enable_if<!is_void<TResult>::value>::type>
+  template <typename TResult, typename = std::enable_if_t<!std::is_void<TResult>::value>>
   TResult & operator*() const
   {
     return *m_ptr;
@@ -194,11 +195,11 @@ private:
   bool m_isOwnerUnique;
 
   template <typename TResult>
-  friend inline string DebugPrint(ref_ptr<TResult> const & v);
+  friend inline std::string DebugPrint(ref_ptr<TResult> const & v);
 };
 
 template <typename T>
-inline string DebugPrint(ref_ptr<T> const & v)
+inline std::string DebugPrint(ref_ptr<T> const & v)
 {
   return DebugPrint(v.m_ptr);
 }

@@ -1,18 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>airport-s</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <rect id="path-1" x="0" y="0" width="15" height="15" rx="1"></rect>
-    </defs>
-    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="airport-s" transform="translate(1.000000, 1.000000)">
-            <g id="Rectangle-211">
-                <use fill="#3C3E38" xlink:href="#path-1"></use>
-                <use fill="#032C4D" xlink:href="#path-1"></use>
-            </g>
-            <path d="M12,7.62344009 L12,8.17459045 L9,8.17459024 L9,9.62143248 L10,10.6396234 L10,11.0682745 L6,11.0682745 L6,10.6396234 L7,9.62143248 L7,8.17459024 L4,8.17459045 L4,7.62344009 L7,6.24546774 L7,4.31634503 C7,3.88769397 7.55369837,3.06827451 7.99809837,3.06827451 C8.44253837,3.06827451 9,3.88769397 9,4.31634503 L9,6.24546774 L12,7.62344009 Z" id="path7712-0-5" fill-opacity="0.7" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg width="16" height="16" viewBox="0 0 16 16">
+  <g fill="none" fill-rule="evenodd">
+    <rect width="16" height="16" fill="#FFF" opacity=".4" rx="1.5"/>
+    <rect width="14" height="14" x="1" y="1" fill="#1F4366" rx="1"/>
+    <path fill="#FFF" d="M12,8.55516558 L12,9.10631594 L9,9.10631574 L9,10.553158 L10,11.5713489 L10,12 L6,12 L6,11.5713489 L7,10.553158 L7,9.10631574 L4,9.10631594 L4,8.55516558 L7,7.17719323 L7,5.24807053 C7,4.81941946 7.55369837,4 7.99809837,4 C8.44253837,4 9,4.81941946 9,5.24807053 L9,7.17719323 L12,8.55516558 Z" opacity=".6"/>
+  </g>
 </svg>

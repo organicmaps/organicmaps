@@ -23,6 +23,7 @@
 
 #include <cstddef>
 #include <climits>
+#include <boost/intrusive/detail/mpl.hpp>
 
 namespace boost {
 namespace intrusive {
@@ -227,9 +228,28 @@ inline float fast_log2 (float val)
    return val + static_cast<float>(log_2);
 }
 
+inline bool is_pow2(std::size_t x)
+{  return (x & (x-1)) == 0;  }
+
+template<std::size_t N>
+struct static_is_pow2
+{
+   static const bool value = (N & (N-1)) == 0;
+};
+
 inline std::size_t ceil_log2 (std::size_t x)
 {
-   return static_cast<std::size_t>((x & (x-1)) != 0) + floor_log2(x);
+   return static_cast<std::size_t>(!(is_pow2)(x)) + floor_log2(x);
+}
+
+inline std::size_t ceil_pow2 (std::size_t x)
+{
+   return std::size_t(1u) << (ceil_log2)(x);
+}
+
+inline std::size_t previous_or_equal_pow2(std::size_t x)
+{
+   return std::size_t(1u) << floor_log2(x);
 }
 
 template<class SizeType, std::size_t N>

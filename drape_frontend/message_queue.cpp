@@ -3,8 +3,6 @@
 #include "base/assert.hpp"
 #include "base/stl_add.hpp"
 
-#include "std/chrono.hpp"
-
 namespace df
 {
 
@@ -21,7 +19,7 @@ MessageQueue::~MessageQueue()
 
 drape_ptr<Message> MessageQueue::PopMessage(bool waitForMessage)
 {
-  unique_lock<mutex> lock(m_mutex);
+  std::unique_lock<std::mutex> lock(m_mutex);
   if (waitForMessage && m_messages.empty() && m_lowPriorityMessages.empty())
   {
     m_isWaiting = true;
@@ -34,32 +32,32 @@ drape_ptr<Message> MessageQueue::PopMessage(bool waitForMessage)
 
   if (!m_messages.empty())
   {
-    drape_ptr<Message> msg = move(m_messages.front().first);
+    drape_ptr<Message> msg = std::move(m_messages.front().first);
     m_messages.pop_front();
     return msg;
   }
 
-  drape_ptr<Message> msg = move(m_lowPriorityMessages.front());
+  drape_ptr<Message> msg = std::move(m_lowPriorityMessages.front());
   m_lowPriorityMessages.pop_front();
   return msg;
 }
 
 void MessageQueue::PushMessage(drape_ptr<Message> && message, MessagePriority priority)
 {
-  lock_guard<mutex> lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
 
   switch (priority)
   {
   case MessagePriority::Normal:
     {
-      m_messages.emplace_back(move(message), priority);
+      m_messages.emplace_back(std::move(message), priority);
       break;
     }
   case MessagePriority::High:
     {
       auto iter = m_messages.begin();
       while (iter != m_messages.end() && iter->second > MessagePriority::High) { iter++; }
-      m_messages.emplace(iter, move(message), priority);
+      m_messages.emplace(iter, std::move(message), priority);
       break;
     }
   case MessagePriority::UberHighSingleton:
@@ -77,12 +75,12 @@ void MessageQueue::PushMessage(drape_ptr<Message> && message, MessagePriority pr
       }
 
       if (!found)
-        m_messages.emplace_front(move(message), priority);
+        m_messages.emplace_front(std::move(message), priority);
       break;
     }
   case MessagePriority::Low:
     {
-      m_lowPriorityMessages.emplace_back(move(message));
+      m_lowPriorityMessages.emplace_back(std::move(message));
       break;
     }
   default:
@@ -96,7 +94,7 @@ void MessageQueue::FilterMessages(TFilterMessageFn needFilterMessageFn)
 {
   ASSERT(needFilterMessageFn != nullptr, ());
 
-  lock_guard<mutex> lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
   for (auto it = m_messages.begin(); it != m_messages.end(); )
   {
     if (needFilterMessageFn(make_ref(it->first)))
@@ -132,7 +130,7 @@ size_t MessageQueue::GetSize() const
 
 void MessageQueue::CancelWait()
 {
-  lock_guard<mutex> lock(m_mutex);
+  std::lock_guard<std::mutex> lock(m_mutex);
   CancelWaitImpl();
 }
 

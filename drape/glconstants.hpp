@@ -12,6 +12,11 @@ extern const glConst GLRenderer;
 extern const glConst GLVendor;
 extern const glConst GLVersion;
 
+/// Clear bits
+extern const glConst GLColorBit;
+extern const glConst GLDepthBit;
+extern const glConst GLStencilBit;
+
 /// Hardware specific params
 extern const glConst GLMaxFragmentTextures;
 extern const glConst GLMaxVertexTextures;
@@ -20,6 +25,7 @@ extern const glConst GLMaxTextureSize;
 /// Buffer targets
 extern const glConst GLArrayBuffer;
 extern const glConst GLElementArrayBuffer;
+extern const glConst GLPixelBufferWrite;
 
 /// Buffer params
 extern const glConst GLBufferSize;
@@ -54,6 +60,7 @@ extern const glConst GLAlpha;
 extern const glConst GLLuminance;
 extern const glConst GLAlphaLuminance;
 extern const glConst GLDepthComponent;
+extern const glConst GLDepthStencil;
 
 /// Texture layout size
 extern const glConst GLRGBA8;
@@ -62,6 +69,8 @@ extern const glConst GLAlpha8;
 extern const glConst GLLuminance8;
 extern const glConst GLAlphaLuminance8;
 extern const glConst GLAlphaLuminance4;
+extern const glConst GLRed;
+extern const glConst GLRedGreen;
 
 /// Pixel type for texture upload
 extern const glConst GL8BitOnChannel;
@@ -96,6 +105,7 @@ extern const glConst GLUnsignedShortType;
 extern const glConst GLIntType;
 extern const glConst GLUnsignedIntType;
 extern const glConst GLFloatType;
+extern const glConst GLUnsignedInt24_8Type;
 
 extern const glConst GLFloatVec2;
 extern const glConst GLFloatVec3;
@@ -106,6 +116,8 @@ extern const glConst GLIntVec3;
 extern const glConst GLIntVec4;
 
 extern const glConst GLFloatMat4;
+
+extern const glConst GLSampler2D;
 
 /// Blend Functions
 extern const glConst GLAddBlend;
@@ -129,6 +141,7 @@ extern const glConst GLDepthTest;
 extern const glConst GLBlending;
 extern const glConst GLCullFace;
 extern const glConst GLScissorTest;
+extern const glConst GLStencilTest;
 
 /// Triangle faces order
 extern const glConst GLClockwise;
@@ -149,6 +162,15 @@ extern const glConst GLNotEqual;
 extern const glConst GLGreatOrEqual;
 extern const glConst GLAlways;
 
+/// OpenGL stencil functions
+extern const glConst GLKeep;
+extern const glConst GLIncr;
+extern const glConst GLDecr;
+extern const glConst GLInvert;
+extern const glConst GLReplace;
+extern const glConst GLIncrWrap;
+extern const glConst GLDecrWrap;
+
 /// Program object parameter names
 extern const glConst GLActiveUniforms;
 
@@ -162,6 +184,7 @@ extern const glConst GLTriangleStrip;
 extern const glConst GLColorAttachment;
 extern const glConst GLDepthAttachment;
 extern const glConst GLStencilAttachment;
+extern const glConst GLDepthStencilAttachment;
 
 /// Framebuffer status
 extern const glConst GLFramebufferComplete;

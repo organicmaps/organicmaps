@@ -2,8 +2,12 @@
 <resources>
   <string name="shared_user_label" translatable="false">Maps With Me</string>
 
-  <!-- FB -->
-  <string name="fb_app_id" translatable="false">185237551520383</string>
+  <!-- Dev facebook credentials
+  <string name="facebook_app_id" translatable="false">462405334160274</string>
+  <string name="fb_login_protocol_scheme">fb462405334160274</string> -->
+
+  <string name="facebook_app_id" translatable="false">185237551520383</string>
+  <string name="fb_login_protocol_scheme">fb185237551520383</string>
 
   <!-- App names -->
   <string name="facebook" translatable="false">Facebook</string>
@@ -18,7 +22,7 @@
   <!-- roboto thin (android 4.2)-->
   <string name="robotoThin" translatable="false">sans-serif-thin</string>
   <!--  roboto medium (android 5.0)-->
-  <string name="robotoMedium" translatable="false">sans-serif-medium</string>
+  <string name="robotoMedium" translatable="false">sans-serif</string>
 
   <!--  Prefs -->
   <string name="pref_send_statistics" translatable="false">AllowStat</string>
@@ -27,6 +31,7 @@
   <string name="pref_show_zoom_buttons" translatable="false">ZoomButtonsEnabled</string>
   <string name="pref_play_services" translatable="false">PlayServicesEnabled</string>
   <string name="pref_enable_logging" translatable="false">EnableLogging</string>
+  <string name="pref_emulate_bad_external_storage" translatable="false">EmulateBadExternalStorage</string>
   <string name="pref_about" translatable="false">AboutMapsWithMe</string>
   <string name="pref_rate_app" translatable="false">RateApp</string>
   <string name="pref_help" translatable="false">Help</string>
@@ -40,18 +45,29 @@
   <string name="pref_settings" translatable="false">Settings</string>
   <string name="pref_file_name" translatable="false">MapsMePrefs</string>
   <string name="pref_map_style" translatable="false">MapStyle</string>
+  <string name="pref_tts_screen" translatable="false">TtsScreen</string>
   <string name="pref_tts_enabled" translatable="false">TtsEnabled</string>
   <string name="pref_tts_language" translatable="false">TtsLanguage</string>
+  <string name="pref_tts_info" translatable="false">TtsInfo</string>
+  <string name="pref_tts_info_link" translatable="false">TtsInfoLink</string>
+  <string name="tts_info_link" translatable="false">https://support.maps.me/hc/en-us/articles/208628985-How-can-I-check-TTS-settings-on-my-Android-device-</string>
   <string name="pref_autodownload" translatable="false">AutoDownloadMap</string>
+  <string name="pref_backupbookmarks" translatable="false">BackupBookmarks</string>
   <string name="pref_3d" translatable="false">3D</string>
   <string name="pref_3d_buildings" translatable="false">3DBuildings</string>
+  <string name="pref_track_screen" translatable="false">TrackScreen</string>
   <string name="pref_track_record" translatable="false">TrackRecord</string>
+  <string name="pref_track_record_time" translatable="false">TrackRecordTime</string>
   <string name="pref_showcase_switched_on" translatable="false">DisplayShowcase</string>
   <string name="pref_osm_profile" translatable="false">Osm profile</string>
   <string name="pref_auto_zoom" translatable="false">AutoZoom</string>
   <string name="pref_large_fonts_size" translatable="false">LargeFontSize</string>
   <string name="pref_use_mobile_data" translatable="false">UseMobileData</string>
   <string name="pref_traffic_simplified_colors" translatable="false">TrafficSimplifiedColors</string>
+  <string name="pref_settings_general" translatable="false">GeneralSettings</string>
+  <string name="pref_navigation" translatable="false">Navigation</string>
+  <string name="pref_information" translatable="false">Information</string>
+  <string name="pref_transliteration" translatable="false">Transliteration</string>
 
   <string name="notification_ticker_ltr" translatable="false">%1$s: %2$s</string>
   <string name="notification_ticker_rtl" translatable="false">%2$s :%1$s</string>
@@ -67,4 +83,13 @@
   <!-- Tags -->
   <string name="tag_menu_collapse" translatable="false">collapse</string>
   <string name="tag_height_limited" translatable="false">height limited</string>
+
+  <string name="search_hotel_filter" translatable="false">search_hotel_filter_%s</string>
+
+  <string name="pref_subtittle_opt_out" translatable="false">pref_subtittle_opt_out</string>
+  <string name="pref_opt_out_fabric" translatable="false">pref_opt_out_fabric</string>
+  <string name="pref_opt_out_fabric_activated" translatable="false">pref_opt_out_fabric_activated</string>
+  <string name="pref_opt_out_mopub" translatable="false">pref_opt_out_mopub</string>
+  <string name="pref_opt_out_flurry" translatable="false">pref_opt_out_flurry</string>
+
 </resources>

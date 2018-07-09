@@ -1,16 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-    <title>garden-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard-1" transform="translate(-174.000000, -139.000000)">
-            <g id="garden-m" transform="translate(174.000000, 139.000000)">
-                <ellipse id="Oval-1-Copy-41" fill-opacity="0.6" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-                <ellipse id="Oval-1-Copy-40" fill="#507F34" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-                <path d="M8,5 L8,7.5 C8,9.15038 9.375,10.05078 11,10 L11,16.5 C10.1875,14.875 8.5,13 6,14 C6,14 7.5,18 11.5,18 C15.5,18 17,14 17,14 C14.5,13 12.8125,14.875 12,16.5 L12,10 C13.625,10.0508 15,9.15038 15,7.5 L15,5.00001 L13,7 L11.5,5 L10,7 L8,5 Z" id="path6080-4-1" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg height="24" viewBox="0 0 24 24" width="24"><g fill="none" fill-rule="evenodd"><circle cx="12" cy="12" fill="#fff" opacity=".6" r="12"/><circle cx="12" cy="12" fill="#507f34" r="11"/><path d="m8.18181818 5v2.69230769c0 1.77733231 1.54545455 2.74699381 3.31818182 2.69230771v7c-.8863636-1.75-2.77272727-3.7692308-5.5-2.6923077 0 0 1.63636364 4.3076923 6 4.3076923 4.3636364 0 6-4.3076923 6-4.3076923-2.7272727-1.0769231-4.6136364.9423077-5.5 2.6923077v-7c1.7727273.0547077 3.3181818-.9149754 3.3181818-2.69230771v-2.69229692l-2.1818182 2.15383538-1.6363636-2.15384615-1.6363636 2.15384615z" fill="#fff"/></g></svg>

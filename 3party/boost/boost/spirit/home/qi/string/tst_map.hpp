@@ -11,14 +11,13 @@
 #pragma once
 #endif
 
+#include <boost/spirit/home/qi/string/tst.hpp>
 #include <boost/spirit/home/qi/string/detail/tst.hpp>
 #include <boost/unordered_map.hpp>
 #include <boost/pool/object_pool.hpp>
 
 namespace boost { namespace spirit { namespace qi
 {
-    struct tst_pass_through; // declared in tst.hpp
-
     template <typename Char, typename T>
     struct tst_map
     {

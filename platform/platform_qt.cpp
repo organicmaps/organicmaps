@@ -60,7 +60,8 @@ int Platform::VideoMemoryLimit() const
   return 20 * 1024 * 1024;
 }
 
-Platform::EError Platform::MkDir(string const & dirName) const
+// static
+Platform::EError Platform::MkDir(string const & dirName)
 {
   if (QDir().exists(dirName.c_str()))
     return Platform::ERR_FILE_ALREADY_EXISTS;
@@ -83,19 +84,17 @@ void Platform::SetupMeasurementSystem() const
 }
 
 #if defined(OMIM_OS_LINUX)
-void Platform::RunOnGuiThread(TFunctor const & fn)
+void Platform::RunOnGuiThread(base::TaskLoop::Task && task)
 {
-  // Following hack is used to post on main message loop |fn| when
-  // |source| is destroyed (at the exit of the code block).
-  QObject source;
-  QObject::connect(&source, &QObject::destroyed, QCoreApplication::instance(), fn);
+  ASSERT(m_guiThread, ());
+  m_guiThread->Push(std::move(task));
 }
 
-void Platform::RunAsync(TFunctor const & fn, Priority p)
+void Platform::RunOnGuiThread(base::TaskLoop::Task const & task)
 {
-  async(fn);
+  ASSERT(m_guiThread, ());
+  m_guiThread->Push(task);
 }
-
 #endif  // defined(OMIM_OS_LINUX)
 
 extern Platform & GetPlatform()

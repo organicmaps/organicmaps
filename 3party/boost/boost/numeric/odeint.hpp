@@ -71,6 +71,7 @@
 #include <boost/numeric/odeint/integrate/integrate_times.hpp>
 
 #include <boost/numeric/odeint/integrate/observer_collection.hpp>
+#include <boost/numeric/odeint/integrate/max_step_checker.hpp>
 
 #include <boost/numeric/odeint/stepper/generation.hpp>
 

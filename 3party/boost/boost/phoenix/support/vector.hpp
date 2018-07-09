@@ -70,6 +70,18 @@ namespace boost { namespace phoenix
         typedef mpl::int_<0> size_type;
         static const int size_value = 0;
     };
+
+    template <int> struct vector_chooser;
+
+    template <>
+    struct vector_chooser<0>
+    {
+        template <typename Dummy = void>
+        struct apply
+        {
+            typedef vector0<> type;
+        };
+    };
 }}
 
 
@@ -110,6 +122,16 @@ namespace boost { namespace phoenix
             args_type r = {BOOST_PP_ENUM_SHIFTED_PARAMS(BOOST_PHOENIX_ITERATION, a)};
             return r;
         }
+    };
+
+    template <>
+    struct vector_chooser<BOOST_PHOENIX_ITERATION>
+    {
+        template <BOOST_PHOENIX_typename_A>
+        struct apply
+        {
+            typedef BOOST_PP_CAT(vector, BOOST_PHOENIX_ITERATION)<BOOST_PHOENIX_A> type;
+        };
     };
 }}
 

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="TransportTransitIntermediatePoint" customModule="maps_me" customModuleProvider="target" propertyAccessControl="all">
+            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_route_manager_stop_a" translatesAutoresizingMaskIntoConstraints="NO" id="kZf-7J-OZ5">
+                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                        <color key="tintColor" red="0.1215686275" green="0.59999999999999998" blue="0.32156862749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="OkK-UD-TWr"/>
+                            <constraint firstAttribute="height" constant="20" id="n8x-xG-gUb"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="kZf-7J-OZ5" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="5rb-Q4-qua"/>
+                <constraint firstAttribute="bottom" secondItem="kZf-7J-OZ5" secondAttribute="bottom" id="5uG-SP-l0m"/>
+                <constraint firstItem="kZf-7J-OZ5" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="KiE-6N-4Jp"/>
+                <constraint firstAttribute="trailing" secondItem="kZf-7J-OZ5" secondAttribute="trailing" id="mJI-lD-bsw"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Aa6-gi-Bkw"/>
+            <size key="customSize" width="490" height="20"/>
+            <connections>
+                <outlet property="image" destination="kZf-7J-OZ5" id="b9M-uB-XoA"/>
+            </connections>
+            <point key="canvasLocation" x="270" y="54"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_route_manager_stop_a" width="24" height="24"/>
+    </resources>
+</document>

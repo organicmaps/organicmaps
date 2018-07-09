@@ -1,68 +1,121 @@
 #pragma once
 
+#include "drape_frontend/circles_pack_shape.hpp"
+#include "drape_frontend/frame_values.hpp"
 #include "drape_frontend/route_builder.hpp"
 
-#include "drape/gpu_program_manager.hpp"
+#include "shaders/program_manager.hpp"
+
+#include "drape/drape_global.hpp"
 #include "drape/pointers.hpp"
 
 #include "geometry/screenbase.hpp"
 
+#include <chrono>
+#include <functional>
 #include <string>
+#include <vector>
+#include <unordered_map>
+#include <unordered_set>
 
 namespace df
 {
-
 extern std::string const kRouteColor;
 extern std::string const kRouteOutlineColor;
 extern std::string const kRoutePedestrian;
 extern std::string const kRouteBicycle;
+extern std::string const kTransitStopInnerMarkerColor;
 
 class RouteRenderer final
 {
 public:
-  using TCacheRouteArrowsCallback = function<void(int, vector<ArrowBorders> const &)>;
+  using CacheRouteArrowsCallback = std::function<void(dp::DrapeID, std::vector<ArrowBorders> const &)>;
+  using PreviewPointsRequestCallback = std::function<void(uint32_t)>;
 
-  RouteRenderer();
+  struct PreviewInfo
+  {
+    m2::PointD m_startPoint;
+    m2::PointD m_finishPoint;
+  };
 
-  void UpdateRoute(ScreenBase const & screen, TCacheRouteArrowsCallback const & callback);
+  struct SubrouteInfo
+  {
+    dp::DrapeID m_subrouteId = 0;
+    SubrouteConstPtr m_subroute;
+    double m_length = 0.0;
+    std::vector<drape_ptr<SubrouteData>> m_subrouteData;
 
-  void RenderRoute(ScreenBase const & screen, bool trafficShown,
-                   ref_ptr<dp::GpuProgramManager> mng,
-                   dp::UniformValuesStorage const & commonUniforms);
+    drape_ptr<SubrouteArrowsData> m_arrowsData;
+    std::vector<ArrowBorders> m_arrowBorders;
+    float m_baseHalfWidth = 0.0f;
 
-  void RenderRouteSigns(ScreenBase const & screen, ref_ptr<dp::GpuProgramManager> mng,
-                        dp::UniformValuesStorage const & commonUniforms);
+    drape_ptr<SubrouteMarkersData> m_markersData;
+  };
+  using Subroutes = std::vector<SubrouteInfo>;
 
-  void SetRouteData(drape_ptr<RouteData> && routeData, ref_ptr<dp::GpuProgramManager> mng);
-  drape_ptr<RouteData> const & GetRouteData() const;
+  explicit RouteRenderer(PreviewPointsRequestCallback && previewPointsRequest);
 
-  void SetRouteSign(drape_ptr<RouteSignData> && routeSignData, ref_ptr<dp::GpuProgramManager> mng);
-  drape_ptr<RouteSignData> const & GetStartPoint() const;
-  drape_ptr<RouteSignData> const & GetFinishPoint() const;
+  void UpdateRoute(ScreenBase const & screen, CacheRouteArrowsCallback const & callback);
 
-  void SetRouteArrows(drape_ptr<RouteArrowsData> && routeArrowsData, ref_ptr<dp::GpuProgramManager> mng);
+  void RenderRoute(ScreenBase const & screen, bool trafficShown, ref_ptr<gpu::ProgramManager> mng,
+                   FrameValues const & frameValues);
+
+  void AddSubrouteData(drape_ptr<SubrouteData> && subrouteData, ref_ptr<gpu::ProgramManager> mng);
+  Subroutes const & GetSubroutes() const;
+
+  void RemoveSubrouteData(dp::DrapeID subrouteId);
+
+  void AddSubrouteArrowsData(drape_ptr<SubrouteArrowsData> && subrouteArrowsData,
+                             ref_ptr<gpu::ProgramManager> mng);
+
+  void AddSubrouteMarkersData(drape_ptr<SubrouteMarkersData> && subrouteMarkersData,
+                              ref_ptr<gpu::ProgramManager> mng);
+
+  void AddPreviewRenderData(drape_ptr<CirclesPackRenderData> && renderData,
+                            ref_ptr<gpu::ProgramManager> mng);
+
+  void UpdatePreview(ScreenBase const & screen);
 
   void Clear();
+  void ClearObsoleteData(int currentRecacheId);
   void ClearGLDependentResources();
 
   void UpdateDistanceFromBegin(double distanceFromBegin);
+  void SetFollowingEnabled(bool enabled);
+
+  void AddPreviewSegment(dp::DrapeID id, PreviewInfo && info);
+  void RemovePreviewSegment(dp::DrapeID id);
+  void RemoveAllPreviewSegments();
+
+  void SetSubrouteVisibility(dp::DrapeID id, bool isVisible);
+
+  bool HasTransitData() const;
 
 private:
-  void InterpolateByZoom(ScreenBase const & screen, ColorConstant color,
-                         float & halfWidth, double & zoom) const;
-  void RenderRouteSign(drape_ptr<RouteSignData> const & sign, ScreenBase const & screen,
-                       ref_ptr<dp::GpuProgramManager> mng, dp::UniformValuesStorage const & commonUniforms);
+  void RenderSubroute(SubrouteInfo const & subrouteInfo, size_t subrouteDataIndex,
+                      ScreenBase const & screen, bool trafficShown, ref_ptr<gpu::ProgramManager> mng,
+                      FrameValues const & frameValues);
+  void RenderSubrouteArrows(SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
+                            ref_ptr<gpu::ProgramManager> mng,
+                            FrameValues const & frameValues);
+  void RenderSubrouteMarkers(SubrouteInfo const & subrouteInfo, ScreenBase const & screen,
+                             ref_ptr<gpu::ProgramManager> mng, FrameValues const & frameValues);
+  void RenderPreviewData(ScreenBase const & screen, ref_ptr<gpu::ProgramManager> mng,
+                         FrameValues const & frameValues);
+  void ClearPreviewHandles();
+  CirclesPackHandle * GetPreviewHandle(size_t & index);
+  dp::Color GetMaskColor(RouteType routeType, double baseDistance, bool arrows) const;
 
   double m_distanceFromBegin;
-  drape_ptr<RouteData> m_routeData;
+  bool m_followingEnabled;
+  Subroutes m_subroutes;
+  std::unordered_set<dp::DrapeID> m_hiddenSubroutes;
 
-  vector<ArrowBorders> m_arrowBorders;
-  drape_ptr<RouteArrowsData> m_routeArrows;
-
-  drape_ptr<RouteSignData> m_startRouteSign;
-  drape_ptr<RouteSignData> m_finishRouteSign;
-
-  float m_currentHalfWidth = 0.0f;
+  PreviewPointsRequestCallback m_previewPointsRequest;
+  std::vector<drape_ptr<CirclesPackRenderData>> m_previewRenderData;
+  std::vector<std::pair<CirclesPackHandle *, size_t>> m_previewHandlesCache;
+  bool m_waitForPreviewRenderData;
+  std::unordered_map<dp::DrapeID, PreviewInfo> m_previewSegments;
+  m2::PointD m_previewPivot = m2::PointD::Zero();
 };
-
-} // namespace df
+}  // namespace df

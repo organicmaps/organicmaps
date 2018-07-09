@@ -8,11 +8,12 @@
 #include "base/small_set.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/cstdint.hpp"
-#include "std/type_traits.hpp"
-#include "std/unordered_set.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <cstdint>
+#include <string>
+#include <type_traits>
+#include <utility>
+#include <vector>
 
 namespace search
 {
@@ -22,29 +23,29 @@ class QueryParams
 {
 public:
   using String = strings::UniString;
-  using TypeIndices = vector<uint32_t>;
-  using Langs = base::SafeSmallSet<StringUtf8Multilang::kMaxSupportedLanguages>;
+  using TypeIndices = std::vector<uint32_t>;
+  using Langs = ::base::SafeSmallSet<StringUtf8Multilang::kMaxSupportedLanguages>;
 
   struct Token
   {
     Token() = default;
     Token(String const & original) : m_original(original) {}
 
-    void AddSynonym(String const & s) { m_synonyms.push_back(s); }
-    void AddSynonym(string const & s) { m_synonyms.push_back(strings::MakeUniString(s)); }
+    void AddSynonym(std::string const & s);
+    void AddSynonym(String const & s);
 
     // Calls |fn| on the original token and on synonyms.
     template <typename Fn>
-    typename enable_if<is_same<typename result_of<Fn(String)>::type, void>::value>::type ForEach(
+    std::enable_if_t<std::is_same<std::result_of_t<Fn(String)>, void>::value> ForEach(
         Fn && fn) const
     {
       fn(m_original);
-      for_each(m_synonyms.begin(), m_synonyms.end(), forward<Fn>(fn));
+      std::for_each(m_synonyms.begin(), m_synonyms.end(), std::forward<Fn>(fn));
     }
 
     // Calls |fn| on the original token and on synonyms until |fn| return false.
     template <typename Fn>
-    typename enable_if<is_same<typename result_of<Fn(String)>::type, bool>::value>::type ForEach(
+    std::enable_if_t<std::is_same<std::result_of_t<Fn(String)>, bool>::value> ForEach(
         Fn && fn) const
     {
       if (!fn(m_original))
@@ -63,7 +64,7 @@ public:
     }
 
     String m_original;
-    vector<String> m_synonyms;
+    std::vector<String> m_synonyms;
   };
 
   QueryParams() = default;
@@ -82,20 +83,17 @@ public:
   {
     Clear();
     for (; tokenBegin != tokenEnd; ++tokenBegin)
-      m_tokens.push_back(*tokenBegin);
+      m_tokens.emplace_back(*tokenBegin);
     m_prefixToken.m_original = prefix;
     m_hasPrefix = true;
     m_typeIndices.resize(GetNumTokens());
   }
 
-  inline size_t GetNumTokens() const
-  {
-    return m_hasPrefix ? m_tokens.size() + 1: m_tokens.size();
-  }
+  size_t GetNumTokens() const { return m_hasPrefix ? m_tokens.size() + 1 : m_tokens.size(); }
 
-  inline bool LastTokenIsPrefix() const { return m_hasPrefix; }
+  bool LastTokenIsPrefix() const { return m_hasPrefix; }
 
-  inline bool IsEmpty() const { return GetNumTokens() == 0; }
+  bool IsEmpty() const { return GetNumTokens() == 0; }
   void Clear();
 
   bool IsCategorySynonym(size_t i) const;
@@ -111,24 +109,28 @@ public:
 
   void RemoveToken(size_t i);
 
-  inline Langs & GetLangs() { return m_langs; }
-  inline Langs const & GetLangs() const { return m_langs; }
-  inline bool LangExists(int8_t lang) const { return m_langs.Contains(lang); }
+  Langs & GetLangs() { return m_langs; }
+  Langs const & GetLangs() const { return m_langs; }
+  bool LangExists(int8_t lang) const { return m_langs.Contains(lang); }
 
-  inline int GetScale() const { return m_scale; }
+  void SetCategorialRequest(bool isCategorial) { m_isCategorialRequest = isCategorial; }
+  bool IsCategorialRequest() const { return m_isCategorialRequest; }
+
+  int GetScale() const { return m_scale; }
 
 private:
-  friend string DebugPrint(QueryParams const & params);
+  friend std::string DebugPrint(QueryParams const & params);
 
-  vector<Token> m_tokens;
+  std::vector<Token> m_tokens;
   Token m_prefixToken;
   bool m_hasPrefix = false;
+  bool m_isCategorialRequest = false;
 
-  vector<TypeIndices> m_typeIndices;
+  std::vector<TypeIndices> m_typeIndices;
 
   Langs m_langs;
   int m_scale = scales::GetUpperScale();
 };
 
-string DebugPrint(QueryParams::Token const & token);
+std::string DebugPrint(QueryParams::Token const & token);
 }  // namespace search

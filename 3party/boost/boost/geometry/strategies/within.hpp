@@ -4,6 +4,11 @@
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
+// This file was modified by Oracle on 2017.
+// Modifications copyright (c) 2017, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
 
@@ -15,6 +20,12 @@
 #define BOOST_GEOMETRY_STRATEGIES_WITHIN_HPP
 
 #include <boost/mpl/assert.hpp>
+
+#include <boost/geometry/core/cs.hpp>
+#include <boost/geometry/core/point_type.hpp>
+#include <boost/geometry/core/tag.hpp>
+#include <boost/geometry/core/tags.hpp>
+#include <boost/geometry/core/tag_cast.hpp>
 
 
 namespace boost { namespace geometry
@@ -30,23 +41,39 @@ namespace services
 /*!
 \brief Traits class binding a within determination strategy to a coordinate system
 \ingroup within
-\tparam TagContained tag (possibly casted) of point-type
-\tparam TagContained tag (possibly casted) of (possibly) containing type
-\tparam CsTagContained tag of coordinate system of point-type
-\tparam CsTagContaining tag of coordinate system of (possibly) containing type
-\tparam Geometry geometry-type of input (often point, or box)
+\tparam GeometryContained geometry-type of input (possibly) contained type
 \tparam GeometryContaining geometry-type of input (possibly) containing type
+\tparam TagContained casted tag of (possibly) contained type
+\tparam TagContaining casted tag of (possibly) containing type
+\tparam CsTagContained tag of coordinate system of (possibly) contained type
+\tparam CsTagContaining tag of coordinate system of (possibly) containing type
 */
 template
 <
-    typename TagContained,
-    typename TagContaining,
-    typename CastedTagContained,
-    typename CastedTagContaining,
-    typename CsTagContained,
-    typename CsTagContaining,
     typename GeometryContained,
-    typename GeometryContaining
+    typename GeometryContaining,
+    typename TagContained = typename tag<GeometryContained>::type,
+    typename TagContaining = typename tag<GeometryContaining>::type,
+    typename CastedTagContained = typename tag_cast
+                                    <
+                                        typename tag<GeometryContained>::type,
+                                        pointlike_tag, linear_tag, polygonal_tag, areal_tag
+                                    >::type,
+    typename CastedTagContaining = typename tag_cast
+                                    <
+                                        typename tag<GeometryContaining>::type,
+                                        pointlike_tag, linear_tag, polygonal_tag, areal_tag
+                                    >::type,
+    typename CsTagContained = typename tag_cast
+                                <
+                                    typename cs_tag<typename point_type<GeometryContained>::type>::type,
+                                    spherical_tag
+                                >::type,
+    typename CsTagContaining = typename tag_cast
+                                <
+                                    typename cs_tag<typename point_type<GeometryContaining>::type>::type,
+                                    spherical_tag
+                                >::type
 >
 struct default_strategy
 {

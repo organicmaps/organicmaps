@@ -6,7 +6,7 @@
  [end_description]
 
  Copyright 2010-2013 Karsten Ahnert
- Copyright 2010-2013 Mario Mulansky
+ Copyright 2010-2015 Mario Mulansky
  Copyright 2012 Christoph Koke
 
  Distributed under the Boost Software License, Version 1.0.
@@ -33,6 +33,7 @@
 #include <boost/numeric/odeint/util/state_wrapper.hpp>
 #include <boost/numeric/odeint/util/is_resizeable.hpp>
 #include <boost/numeric/odeint/util/resizer.hpp>
+#include <boost/numeric/odeint/util/detail/less_with_sign.hpp>
 
 #include <boost/numeric/odeint/algebra/range_algebra.hpp>
 #include <boost/numeric/odeint/algebra/default_operations.hpp>
@@ -64,23 +65,24 @@ public:
             value_type eps_abs = static_cast< value_type >( 1.0e-6 ) ,
             value_type eps_rel = static_cast< value_type >( 1.0e-6 ) ,
             value_type a_x = static_cast< value_type >( 1 ) ,
-            value_type a_dxdt = static_cast< value_type >( 1 ) )
-    : m_eps_abs( eps_abs ) , m_eps_rel( eps_rel ) , m_a_x( a_x ) , m_a_dxdt( a_dxdt )
+            value_type a_dxdt = static_cast< value_type >( 1 ))
+        : m_eps_abs( eps_abs ) , m_eps_rel( eps_rel ) , m_a_x( a_x ) , m_a_dxdt( a_dxdt )
     { }
 
 
-    template< class State , class Deriv , class Err , class Time >
+    template< class State , class Deriv , class Err, class Time >
     value_type error( const State &x_old , const Deriv &dxdt_old , Err &x_err , Time dt ) const
     {
         return error( algebra_type() , x_old , dxdt_old , x_err , dt );
     }
 
-    template< class State , class Deriv , class Err , class Time >
+    template< class State , class Deriv , class Err, class Time >
     value_type error( algebra_type &algebra , const State &x_old , const Deriv &dxdt_old , Err &x_err , Time dt ) const
     {
+        using std::abs;
         // this overwrites x_err !
         algebra.for_each3( x_err , x_old , dxdt_old ,
-                typename operations_type::template rel_error< value_type >( m_eps_abs , m_eps_rel , m_a_x , m_a_dxdt * get_unit_value( dt ) ) );
+                typename operations_type::template rel_error< value_type >( m_eps_abs , m_eps_rel , m_a_x , m_a_dxdt * abs(get_unit_value( dt )) ) );
 
         // value_type res = algebra.reduce( x_err ,
         //        typename operations_type::template maximum< value_type >() , static_cast< value_type >( 0 ) );
@@ -97,9 +99,73 @@ private:
 };
 
 
+template< typename Value, typename Time >
+class default_step_adjuster
+{
+public:
+    typedef Time time_type;
+    typedef Value value_type;
+
+    default_step_adjuster(const time_type max_dt=static_cast<time_type>(0))
+            : m_max_dt(max_dt)
+    {}
 
 
+    time_type decrease_step(time_type dt, const value_type error, const int error_order) const
+    {
+        // returns the decreased time step
+        BOOST_USING_STD_MIN();
+        BOOST_USING_STD_MAX();
+        using std::pow;
 
+        dt *= max
+        BOOST_PREVENT_MACRO_SUBSTITUTION(
+                static_cast<value_type>( static_cast<value_type>(9) / static_cast<value_type>(10) *
+                                         pow(error, static_cast<value_type>(-1) / (error_order - 1))),
+                static_cast<value_type>( static_cast<value_type>(1) / static_cast<value_type> (5)));
+        if(m_max_dt != static_cast<time_type >(0))
+            // limit to maximal stepsize even when decreasing
+            dt = detail::min_abs(dt, m_max_dt);
+        return dt;
+    }
+
+    time_type increase_step(time_type dt, value_type error, const int stepper_order) const
+    {
+        // returns the increased time step
+        BOOST_USING_STD_MIN();
+        BOOST_USING_STD_MAX();
+        using std::pow;
+
+        // adjust the size if dt is smaller than max_dt (providede max_dt is not zero)
+        if(error < 0.5)
+        {
+            // error should be > 0
+            error = max BOOST_PREVENT_MACRO_SUBSTITUTION (
+                    static_cast<value_type>( pow( static_cast<value_type>(5.0) , -static_cast<value_type>(stepper_order) ) ) ,
+                    error);
+            time_type dt_old = dt;
+            //error too small - increase dt and keep the evolution and limit scaling factor to 5.0
+            dt *= static_cast<value_type>(9)/static_cast<value_type>(10) *
+                  pow(error, static_cast<value_type>(-1) / stepper_order);
+            if(m_max_dt != static_cast<time_type >(0))
+                // limit to maximal stepsize
+                dt = detail::min_abs(dt, m_max_dt);
+        }
+        return dt;
+    }
+
+    bool check_step_size_limit(const time_type dt)
+    {
+        if(m_max_dt != static_cast<time_type >(0))
+            return detail::less_eq_with_sign(dt, m_max_dt, dt);
+        return true;
+    }
+
+    time_type get_max_dt() { return m_max_dt; }
+
+private:
+    time_type m_max_dt;
+};
 
 
 
@@ -109,8 +175,10 @@ private:
 template<
 class ErrorStepper ,
 class ErrorChecker = default_error_checker< typename ErrorStepper::value_type ,
-typename ErrorStepper::algebra_type ,
-typename ErrorStepper::operations_type > ,
+    typename ErrorStepper::algebra_type ,
+    typename ErrorStepper::operations_type > ,
+class StepAdjuster = default_step_adjuster< typename ErrorStepper::value_type ,
+    typename ErrorStepper::time_type > ,
 class Resizer = typename ErrorStepper::resizer_type ,
 class ErrorStepperCategory = typename ErrorStepper::stepper_category
 >
@@ -139,11 +207,13 @@ class controlled_runge_kutta ;
  * \tparam Resizer The resizer policy type.
  */
 template<
-class ErrorStepper ,
-class ErrorChecker ,
+class ErrorStepper,
+class ErrorChecker,
+class StepAdjuster,
 class Resizer
 >
-class controlled_runge_kutta< ErrorStepper , ErrorChecker , Resizer , explicit_error_stepper_tag >
+class controlled_runge_kutta< ErrorStepper , ErrorChecker , StepAdjuster, Resizer ,
+        explicit_error_stepper_tag >
 {
 
 public:
@@ -157,13 +227,15 @@ public:
     typedef typename stepper_type::operations_type operations_type;
     typedef Resizer resizer_type;
     typedef ErrorChecker error_checker_type;
+    typedef StepAdjuster step_adjuster_type;
     typedef explicit_controlled_stepper_tag stepper_category;
 
 #ifndef DOXYGEN_SKIP
     typedef typename stepper_type::wrapped_state_type wrapped_state_type;
     typedef typename stepper_type::wrapped_deriv_type wrapped_deriv_type;
 
-    typedef controlled_runge_kutta< ErrorStepper , ErrorChecker , Resizer , explicit_error_stepper_tag > controlled_stepper_type;
+    typedef controlled_runge_kutta< ErrorStepper , ErrorChecker , StepAdjuster ,
+            Resizer , explicit_error_stepper_tag > controlled_stepper_type;
 #endif //DOXYGEN_SKIP
 
 
@@ -174,9 +246,10 @@ public:
      */
     controlled_runge_kutta(
             const error_checker_type &error_checker = error_checker_type( ) ,
+            const step_adjuster_type &step_adjuster = step_adjuster_type() ,
             const stepper_type &stepper = stepper_type( )
     )
-    : m_stepper( stepper ) , m_error_checker( error_checker )
+        : m_stepper(stepper), m_error_checker(error_checker) , m_step_adjuster(step_adjuster)
     { }
 
 
@@ -338,57 +411,33 @@ public:
     template< class System , class StateIn , class DerivIn , class StateOut >
     controlled_step_result try_step( System system , const StateIn &in , const DerivIn &dxdt , time_type &t , StateOut &out , time_type &dt )
     {
-        BOOST_USING_STD_MIN();
-        BOOST_USING_STD_MAX();
-        using std::pow;
+        if( !m_step_adjuster.check_step_size_limit(dt) )
+        {
+            // given dt was above step size limit - adjust and return fail;
+            dt = m_step_adjuster.get_max_dt();
+            return fail;
+        }
 
         m_xerr_resizer.adjust_size( in , detail::bind( &controlled_runge_kutta::template resize_m_xerr_impl< StateIn > , detail::ref( *this ) , detail::_1 ) );
 
         // do one step with error calculation
         m_stepper.do_step( system , in , dxdt , t , out , dt , m_xerr.m_v );
 
-        m_max_rel_error = m_error_checker.error( m_stepper.algebra() , in , dxdt , m_xerr.m_v , dt );
+        value_type max_rel_err = m_error_checker.error( m_stepper.algebra() , in , dxdt , m_xerr.m_v , dt );
 
-        if( m_max_rel_error > 1.0 )
+        if( max_rel_err > 1.0 )
         {
-            // error too large - decrease dt ,limit scaling factor to 0.2 and reset state
-            dt *= max BOOST_PREVENT_MACRO_SUBSTITUTION ( static_cast<value_type>( static_cast<value_type>(9)/static_cast<value_type>(10) *
-                                                         pow( m_max_rel_error , static_cast<value_type>(-1) / ( m_stepper.error_order() - 1 ) ) ) ,
-                                                         static_cast<value_type>( static_cast<value_type>(1)/static_cast<value_type> (5) ) );
+            // error too big, decrease step size and reject this step
+            dt = m_step_adjuster.decrease_step(dt, max_rel_err, m_stepper.error_order());
             return fail;
-        }
-        else
+        } else
         {
-            if( m_max_rel_error < 0.5 )
-            {
-                // error should be > 0
-                m_max_rel_error = max BOOST_PREVENT_MACRO_SUBSTITUTION (
-                            static_cast<value_type>( pow( static_cast<value_type>(5.0) , -static_cast<value_type>(m_stepper.stepper_order()) ) ) ,
-                            m_max_rel_error );
-                //error too small - increase dt and keep the evolution and limit scaling factor to 5.0
-                t += dt;
-                dt *= static_cast<value_type>(9)/static_cast<value_type>(10) * pow( m_max_rel_error ,
-                                                                                    static_cast<value_type>(-1) / m_stepper.stepper_order() );
-                return success;
-            }
-            else
-            {
-                t += dt;
-                return success;
-            }
+            // otherwise, increase step size and accept
+            t += dt;
+            dt = m_step_adjuster.increase_step(dt, max_rel_err, m_stepper.stepper_order());
+            return success;
         }
     }
-
-    /**
-     * \brief Returns the error of the last step.
-     *
-     * returns The last error of the step.
-     */
-    value_type last_error( void ) const
-    {
-        return m_max_rel_error;
-    }
-
 
     /**
      * \brief Adjust the size of all temporaries in the stepper manually.
@@ -455,6 +504,7 @@ private:
 
     stepper_type m_stepper;
     error_checker_type m_error_checker;
+    step_adjuster_type m_step_adjuster;
 
     resizer_type m_dxdt_resizer;
     resizer_type m_xerr_resizer;
@@ -463,7 +513,6 @@ private:
     wrapped_deriv_type m_dxdt;
     wrapped_state_type m_xerr;
     wrapped_state_type m_xnew;
-    value_type m_max_rel_error;
 };
 
 
@@ -498,9 +547,10 @@ private:
 template<
 class ErrorStepper ,
 class ErrorChecker ,
+class StepAdjuster ,
 class Resizer
 >
-class controlled_runge_kutta< ErrorStepper , ErrorChecker , Resizer , explicit_error_stepper_fsal_tag >
+class controlled_runge_kutta< ErrorStepper , ErrorChecker , StepAdjuster , Resizer , explicit_error_stepper_fsal_tag >
 {
 
 public:
@@ -514,13 +564,14 @@ public:
     typedef typename stepper_type::operations_type operations_type;
     typedef Resizer resizer_type;
     typedef ErrorChecker error_checker_type;
+    typedef StepAdjuster step_adjuster_type;
     typedef explicit_controlled_stepper_fsal_tag stepper_category;
 
 #ifndef DOXYGEN_SKIP
     typedef typename stepper_type::wrapped_state_type wrapped_state_type;
     typedef typename stepper_type::wrapped_deriv_type wrapped_deriv_type;
 
-    typedef controlled_runge_kutta< ErrorStepper , ErrorChecker , Resizer , explicit_error_stepper_tag > controlled_stepper_type;
+    typedef controlled_runge_kutta< ErrorStepper , ErrorChecker , StepAdjuster , Resizer , explicit_error_stepper_tag > controlled_stepper_type;
 #endif // DOXYGEN_SKIP
 
     /**
@@ -530,9 +581,10 @@ public:
      */
     controlled_runge_kutta(
             const error_checker_type &error_checker = error_checker_type() ,
+            const step_adjuster_type &step_adjuster = step_adjuster_type() ,
             const stepper_type &stepper = stepper_type()
     )
-    : m_stepper( stepper ) , m_error_checker( error_checker ) ,
+    : m_stepper( stepper ) , m_error_checker( error_checker ) , m_step_adjuster(step_adjuster) ,
       m_first_call( true )
     { }
 
@@ -699,10 +751,12 @@ public:
     controlled_step_result try_step( System system , const StateIn &in , const DerivIn &dxdt_in , time_type &t ,
             StateOut &out , DerivOut &dxdt_out , time_type &dt )
     {
-        BOOST_USING_STD_MIN();
-        BOOST_USING_STD_MAX();
-
-        using std::pow;
+        if( !m_step_adjuster.check_step_size_limit(dt) )
+        {
+            // given dt was above step size limit - adjust and return fail;
+            dt = m_step_adjuster.get_max_dt();
+            return fail;
+        }
 
         m_xerr_resizer.adjust_size( in , detail::bind( &controlled_runge_kutta::template resize_m_xerr_impl< StateIn > , detail::ref( *this ) , detail::_1 ) );
 
@@ -715,29 +769,14 @@ public:
 
         if( max_rel_err > 1.0 )
         {
-            // error too large - decrease dt ,limit scaling factor to 0.2 and reset state
-            dt *= max BOOST_PREVENT_MACRO_SUBSTITUTION ( static_cast<value_type>( static_cast<value_type>(9)/static_cast<value_type>(10) *
-                                                                 pow( max_rel_err , static_cast<value_type>(-1) / ( m_stepper.error_order() - 1 ) ) ) ,
-                                                         static_cast<value_type>( static_cast<value_type>(1)/static_cast<value_type> (5)) );
+            // error too big, decrease step size and reject this step
+            dt = m_step_adjuster.decrease_step(dt, max_rel_err, m_stepper.error_order());
             return fail;
         }
-        else
-        {
-            if( max_rel_err < 0.5 )
-            {                //error too small - increase dt and keep the evolution and limit scaling factor to 5.0
-                // error should be > 0
-                max_rel_err = max BOOST_PREVENT_MACRO_SUBSTITUTION ( static_cast<value_type>( pow( static_cast<value_type>(5.0) , -static_cast<value_type>(m_stepper.stepper_order()) ) ) ,
-                                                                     max_rel_err );
-                t += dt;
-                dt *= static_cast<value_type>( static_cast<value_type>(9)/static_cast<value_type>(10) * pow( max_rel_err , static_cast<value_type>(-1) / m_stepper.stepper_order() ) );
-                return success;
-            }
-            else
-            {
-                t += dt;
-                return success;
-            }
-        }
+        // otherwise, increase step size and accept
+        t += dt;
+        dt = m_step_adjuster.increase_step(dt, max_rel_err, m_stepper.stepper_order());
+        return success;
     }
 
 
@@ -863,6 +902,7 @@ private:
 
     stepper_type m_stepper;
     error_checker_type m_error_checker;
+    step_adjuster_type m_step_adjuster;
 
     resizer_type m_dxdt_resizer;
     resizer_type m_xerr_resizer;
@@ -890,12 +930,14 @@ private:
  * It is used by the controlled_runge_kutta steppers.
  *
  * \tparam Value The value type.
+ * \tparam Time The time type.
  * \tparam Algebra The algebra type.
  * \tparam Operations The operations type.
  */
 
     /**
-     * \fn default_error_checker( value_type eps_abs , value_type eps_rel , value_type a_x , value_type a_dxdt )
+     * \fn default_error_checker( value_type eps_abs , value_type eps_rel , value_type a_x , value_type a_dxdt ,
+     * time_type max_dt)
      * \brief Constructs the error checker.
      *
      * The error is calculated as follows: ???? 
@@ -904,10 +946,11 @@ private:
      * \param eps_rel Relative tolerance level.
      * \param a_x Factor for the weight of the state.
      * \param a_dxdt Factor for the weight of the derivative.
+     * \param max_dt Maximum allowed step size.
      */
     
     /**
-     * \fn error( const State &x_old , const Deriv &dxdt_old , Err &x_err , Time dt ) const
+     * \fn error( const State &x_old , const Deriv &dxdt_old , Err &x_err , time_type dt ) const
      * \brief Calculates the error level.
      *
      * If the returned error level is greater than 1, the estimated error was
@@ -922,7 +965,7 @@ private:
      */
 
     /**
-     * \fn error( algebra_type &algebra , const State &x_old , const Deriv &dxdt_old , Err &x_err , Time dt ) const
+     * \fn error( algebra_type &algebra , const State &x_old , const Deriv &dxdt_old , Err &x_err , time_type dt ) const
      * \brief Calculates the error level using a given algebra.
      *
      * If the returned error level is greater than 1, the estimated error was
@@ -935,6 +978,31 @@ private:
      * \param x_err Error estimate.
      * \param dt Time step.
      * \return error
+     */
+
+    /**
+     * \fn time_type decrease_step(const time_type dt, const value_type error, const int error_order)
+     * \brief Returns a decreased step size based on the given error and order
+     *
+     * Calculates a new smaller step size based on the given error and its order.
+     *
+     * \param dt The old step size.
+     * \param error The computed error estimate.
+     * \param error_order The error order of the stepper.
+     * \return dt_new The new, reduced step size.
+     */
+
+    /**
+     * \fn time_type increase_step(const time_type dt, const value_type error, const int error_order)
+     * \brief Returns an increased step size based on the given error and order.
+     *
+     * Calculates a new bigger step size based on the given error and its order. If max_dt != 0, the
+     * new step size is limited to max_dt.
+     *
+     * \param dt The old step size.
+     * \param error The computed error estimate.
+     * \param error_order The order of the stepper.
+     * \return dt_new The new, increased step size.
      */
 
 

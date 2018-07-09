@@ -50,7 +50,7 @@ namespace detail {
 /////////////////////////////////////////////////////////////////////////
 // class basic_binary_iarchive - read serialized objects from a input binary stream
 template<class Archive>
-class BOOST_SYMBOL_VISIBLE basic_binary_iarchive :
+class BOOST_SYMBOL_VISIBLE basic_binary_iarchive : 
     public detail::common_iarchive<Archive>
 {
 #ifdef BOOST_NO_MEMBER_TEMPLATE_FRIENDS

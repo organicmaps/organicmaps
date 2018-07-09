@@ -2,6 +2,8 @@
 
 #include "generator/feature_builder.hpp"
 
+#include "editor/osm_editor.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/editable_map_object.hpp"
 #include "indexer/feature.hpp"
@@ -10,15 +12,17 @@
 #include "indexer/feature_meta.hpp"
 #include "indexer/ftypes_matcher.hpp"
 #include "indexer/mwm_set.hpp"
-#include "indexer/osm_editor.hpp"
 
 #include "coding/multilang_utf8_string.hpp"
 
 #include "base/assert.hpp"
+#include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/atomic.hpp"
-#include "std/sstream.hpp"
+#include <atomic>
+#include <sstream>
+
+using namespace std;
 
 namespace generator
 {
@@ -35,13 +39,28 @@ uint64_t GenUniqueId()
 
 // TestFeature -------------------------------------------------------------------------------------
 TestFeature::TestFeature(string const & name, string const & lang)
-  : m_id(GenUniqueId()), m_center(0, 0), m_hasCenter(false), m_name(name), m_lang(lang)
+  : m_id(GenUniqueId()), m_center(0, 0), m_type(Type::Unknown), m_name(name), m_lang(lang)
 {
+  Init();
 }
 
 TestFeature::TestFeature(m2::PointD const & center, string const & name, string const & lang)
-  : m_id(GenUniqueId()), m_center(center), m_hasCenter(true), m_name(name), m_lang(lang)
+  : m_id(GenUniqueId()), m_center(center), m_type(Type::Point), m_name(name), m_lang(lang)
 {
+  Init();
+}
+
+TestFeature::TestFeature(vector<m2::PointD> const & boundary, string const & name,
+                         string const & lang)
+  : m_id(GenUniqueId()), m_boundary(boundary), m_type(Type::Area), m_name(name), m_lang(lang)
+{
+  ASSERT(!m_boundary.empty(), ());
+  Init();
+}
+
+void TestFeature::Init()
+{
+  m_metadata.Set(feature::Metadata::FMD_TEST_ID, strings::to_string(m_id));
 }
 
 bool TestFeature::Matches(FeatureType const & feature) const
@@ -54,11 +73,38 @@ bool TestFeature::Matches(FeatureType const & feature) const
 
 void TestFeature::Serialize(FeatureBuilder1 & fb) const
 {
-  auto & metadata = fb.GetMetadataForTesting();
-  metadata.Set(feature::Metadata::FMD_TEST_ID, strings::to_string(m_id));
+  using feature::Metadata;
+  // Metadata::EType::FMD_CUISINE is the first enum value.
+  size_t i = static_cast<size_t>(Metadata::EType::FMD_CUISINE);
+  size_t const count = static_cast<size_t>(Metadata::EType::FMD_COUNT);
+  for (; i < count; ++i)
+  {
+    auto const type = static_cast<Metadata::EType>(i);
+    if (m_metadata.Has(type))
+    {
+      auto const value = m_metadata.Get(type);
+      fb.GetMetadataForTesting().Set(type, value);
+    }
+  }
 
-  if (m_hasCenter)
+  switch (m_type)
+  {
+  case Type::Point:
+  {
     fb.SetCenter(m_center);
+    break;
+  }
+  case Type::Area:
+  {
+    ASSERT(!m_boundary.empty(), ());
+    for (auto const & p : m_boundary)
+      fb.AddPoint(p);
+    fb.SetArea();
+    break;
+  }
+  case Type::Unknown: break;
+  }
+
   if (!m_name.empty())
   {
     CHECK(fb.AddName(m_lang, m_name), ("Can't set feature name:", m_name, "(", m_lang, ")"));
@@ -96,6 +142,12 @@ string TestCountry::ToString() const
 TestCity::TestCity(m2::PointD const & center, string const & name, string const & lang,
                    uint8_t rank)
   : TestFeature(center, name, lang), m_rank(rank)
+{
+}
+
+TestCity::TestCity(vector<m2::PointD> const & boundary, string const & name, string const & lang,
+                   uint8_t rank)
+  : TestFeature(boundary, name, lang), m_rank(rank)
 {
 }
 
@@ -213,6 +265,39 @@ string TestPOI::ToString() const
   return os.str();
 }
 
+// TestMultilingualPOI -----------------------------------------------------------------------------
+TestMultilingualPOI::TestMultilingualPOI(m2::PointD const & center, string const & defaultName,
+                                         map<string, string> const & multilingualNames)
+  : TestPOI(center, defaultName, "default"), m_multilingualNames(multilingualNames)
+{
+}
+
+void TestMultilingualPOI::Serialize(FeatureBuilder1 & fb) const
+{
+  TestPOI::Serialize(fb);
+
+  for (auto const & kv : m_multilingualNames)
+  {
+    CHECK(fb.AddName(kv.first, kv.second),
+          ("Can't set feature name:", kv.second, "(", kv.first, ")"));
+  }
+}
+
+string TestMultilingualPOI::ToString() const
+{
+  ostringstream os;
+  os << "TestPOI [(" << m_name << ", " << m_lang << "), ";
+  for (auto const & kv : m_multilingualNames)
+    os << "( " << kv.second << ", " << kv.first << "), ";
+  os << DebugPrint(m_center);
+  if (!m_houseNumber.empty())
+    os << ", " << m_houseNumber;
+  if (!m_streetName.empty())
+    os << ", " << m_streetName;
+  os << "]";
+  return os.str();
+}
+
 // TestBuilding ------------------------------------------------------------------------------------
 TestBuilding::TestBuilding(m2::PointD const & center, string const & name,
                            string const & houseNumber, string const & lang)
@@ -232,29 +317,25 @@ TestBuilding::TestBuilding(m2::PointD const & center, string const & name,
 TestBuilding::TestBuilding(vector<m2::PointD> const & boundary, string const & name,
                            string const & houseNumber, TestStreet const & street,
                            string const & lang)
-  : TestFeature(name, lang)
+  : TestFeature(boundary, name, lang)
   , m_boundary(boundary)
   , m_houseNumber(houseNumber)
   , m_streetName(street.GetName())
 {
-  ASSERT(!m_boundary.empty(), ());
 }
 
 void TestBuilding::Serialize(FeatureBuilder1 & fb) const
 {
   TestFeature::Serialize(fb);
-  if (!m_hasCenter)
-  {
-    for (auto const & point : m_boundary)
-      fb.AddPoint(point);
-    fb.SetArea();
-  }
+
   fb.AddHouseNumber(m_houseNumber);
   if (!m_streetName.empty())
     fb.AddStreet(m_streetName);
 
   auto const & classificator = classif();
   fb.AddType(classificator.GetTypeByPath({"building"}));
+  for (auto const & type : m_types)
+    fb.AddType(classificator.GetTypeByPath(type));
 }
 
 string TestBuilding::ToString() const
@@ -289,6 +370,32 @@ string TestPark::ToString() const
   return os.str();
 }
 
+// TestRoad ----------------------------------------------------------------------------------------
+TestRoad::TestRoad(vector<m2::PointD> const & points, string const & name, string const & lang)
+  : TestFeature(name, lang), m_points(points)
+{
+}
+
+void TestRoad::Serialize(FeatureBuilder1 & fb) const
+{
+  TestFeature::Serialize(fb);
+
+  auto const & classificator = classif();
+  fb.AddType(classificator.GetTypeByPath({"highway", "road"}));
+
+  for (auto const & point : m_points)
+    fb.AddPoint(point);
+  fb.SetLinear(false /* reverseGeometry */);
+}
+
+string TestRoad::ToString() const
+{
+  ostringstream os;
+  os << "TestRoad [" << m_name << ", " << m_lang << "]";
+  return os.str();
+}
+
+// Functions ---------------------------------------------------------------------------------------
 string DebugPrint(TestFeature const & feature) { return feature.ToString(); }
 }  // namespace tests_support
 }  // namespace generator

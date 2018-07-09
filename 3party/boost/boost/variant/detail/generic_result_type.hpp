@@ -13,7 +13,7 @@
 #ifndef BOOST_VARIANT_DETAIL_GENERIC_RESULT_TYPE_HPP
 #define BOOST_VARIANT_DETAIL_GENERIC_RESULT_TYPE_HPP
 
-#include "boost/config.hpp"
+#include <boost/config.hpp>
 
 //////////////////////////////////////////////////////////////////////////
 // (workaround) macro BOOST_VARIANT_AUX_GENERIC_RESULT_TYPE

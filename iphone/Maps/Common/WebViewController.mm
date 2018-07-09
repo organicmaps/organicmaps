@@ -1,62 +1,149 @@
 #import "WebViewController.h"
 
+#include "base/assert.hpp"
+
+@interface WebViewController()
+
+@property(copy, nonatomic) MWMVoidBlock onFailure;
+@property(copy, nonatomic) MWMStringBlock onSuccess;
+
+@end
+
 @implementation WebViewController
 
-- (id)initWithUrl:(NSURL *)url andTitleOrNil:(NSString *)title
+- (id)initWithUrl:(NSURL *)url title:(NSString *)title
 {
   self = [super initWithNibName:nil bundle:nil];
   if (self)
   {
-    self.m_url = url;
+    _m_url = url;
     if (title)
       self.navigationItem.title = title;
   }
   return self;
 }
 
-- (id)initWithHtml:(NSString *)htmlText baseUrl:(NSURL *)url andTitleOrNil:(NSString *)title
+- (id)initWithHtml:(NSString *)htmlText baseUrl:(NSURL *)url title:(NSString *)title
 {
   self = [super initWithNibName:nil bundle:nil];
   if (self)
   {
-    htmlText = [htmlText stringByReplacingOccurrencesOfString:@"<body>" withString:@"<body><font face=\"helvetica\">"];
-    htmlText = [htmlText stringByReplacingOccurrencesOfString:@"</body>" withString:@"</font></body>"];
-    self.m_htmlText = htmlText;
-    self.m_url = url;
+    auto html = [htmlText stringByReplacingOccurrencesOfString:@"<body>"
+                                                    withString:@"<body><font face=\"helvetica\">"];
+    html = [html stringByReplacingOccurrencesOfString:@"</body>" withString:@"</font></body>"];
+    _m_htmlText = html;
+    _m_url = url;
     if (title)
       self.navigationItem.title = title;
   }
   return self;
 }
 
-- (void)loadView
+- (instancetype)initWithAuthURL:(NSURL *)url onSuccessAuth:(MWMStringBlock)success
+                      onFailure:(MWMVoidBlock)failure
 {
-  CGRect frame = [UIScreen mainScreen].applicationFrame;
-  UIWebView * webView = [[UIWebView alloc] initWithFrame:frame];
+  self = [super init];
+  if (self)
+  {
+    _m_url = url;
+    _onFailure = failure;
+    _onSuccess = success;
+  }
+  return self;
+}
+
+- (void)viewDidLoad
+{
+  [super viewDidLoad];
+  UIView * view = self.view;
+  view.backgroundColor = UIColor.whiteColor;
+
+  WKWebView * webView = [[WKWebView alloc] initWithFrame:{}];
+  webView.navigationDelegate = self;
+  [view addSubview:webView];
+
+  webView.translatesAutoresizingMaskIntoConstraints = NO;
   webView.autoresizesSubviews = YES;
-  webView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
-  webView.backgroundColor = [UIColor whiteColor];
-  webView.delegate = self;
+  NSLayoutYAxisAnchor * topAnchor = view.topAnchor;
+  NSLayoutYAxisAnchor * bottomAnchor = view.bottomAnchor;
+  NSLayoutXAxisAnchor * leadingAnchor = view.leadingAnchor;
+  NSLayoutXAxisAnchor * trailingAnchor = view.trailingAnchor;
+  if (@available(iOS 11.0, *))
+  {
+    UILayoutGuide * safeAreaLayoutGuide = view.safeAreaLayoutGuide;
+    topAnchor = safeAreaLayoutGuide.topAnchor;
+    bottomAnchor = safeAreaLayoutGuide.bottomAnchor;
+    leadingAnchor = safeAreaLayoutGuide.leadingAnchor;
+    trailingAnchor = safeAreaLayoutGuide.trailingAnchor;
+  }
+
+  [webView.topAnchor constraintEqualToAnchor:topAnchor].active = YES;
+  [webView.bottomAnchor constraintEqualToAnchor:bottomAnchor].active = YES;
+  [webView.leadingAnchor constraintEqualToAnchor:leadingAnchor].active = YES;
+  [webView.trailingAnchor constraintEqualToAnchor:trailingAnchor].active = YES;
+
+  webView.backgroundColor = UIColor.whiteColor;
 
   if (self.m_htmlText)
     [webView loadHTMLString:self.m_htmlText baseURL:self.m_url];
   else
     [webView loadRequest:[NSURLRequest requestWithURL:self.m_url]];
-
-  self.view = webView;
 }
 
-- (BOOL)webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType
+- (void)backTap
 {
-  if (self.openInSafari && inType == UIWebViewNavigationTypeLinkClicked
+  [self pop];
+
+  if (self.onFailure)
+    self.onFailure();
+}
+
+- (void)pop
+{
+  [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+  NSURLRequest * inRequest = navigationAction.request;
+  if ([inRequest.URL.host isEqualToString:@"localhost"])
+  {
+    auto query = inRequest.URL.query;
+    NSArray<NSString *> * components = [query componentsSeparatedByString:@"="];
+    if (components.count != 2)
+    {
+      ASSERT(false, ("Incorrect query:", query.UTF8String));
+      [self pop];
+      self.onFailure();
+      decisionHandler(WKNavigationActionPolicyCancel);
+      return;
+    }
+
+    [self pop];
+    self.onSuccess(components[1]);
+    decisionHandler(WKNavigationActionPolicyCancel);
+    return;
+  }
+
+  if (self.openInSafari && navigationAction.navigationType == WKNavigationTypeLinkActivated
       && ![inRequest.URL.scheme isEqualToString:@"applewebdata"]) // do not try to open local links in Safari
   {
     NSURL * url = [inRequest URL];
-    [[UIApplication sharedApplication] openURL:url];
-    return NO;
+    [UIApplication.sharedApplication openURL:url];
+    decisionHandler(WKNavigationActionPolicyCancel);
+    return;
   }
 
-  return YES;
+  decisionHandler(WKNavigationActionPolicyAllow);
 }
+
+#if DEBUG
+- (void)webView:(WKWebView *)webView
+didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
+completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition,
+                            NSURLCredential * _Nullable credential))completionHandler {
+  NSURLCredential * credential = [[NSURLCredential alloc] initWithTrust:[challenge protectionSpace].serverTrust];
+  completionHandler(NSURLSessionAuthChallengeUseCredential, credential);
+}
+#endif
 
 @end

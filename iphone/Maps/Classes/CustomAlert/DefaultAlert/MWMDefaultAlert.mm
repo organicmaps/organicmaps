@@ -1,11 +1,5 @@
 #import "MWMDefaultAlert.h"
-#import "MWMAlertViewController.h"
-#import "MWMDefaultAlert_Protected.h"
-#import "MapViewController.h"
-#import "MapsAppDelegate.h"
 #import "Statistics.h"
-#import "UIButton+RuntimeAttributes.h"
-#import "UILabel+RuntimeAttributes.h"
 
 #include "Framework.h"
 
@@ -49,6 +43,26 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                      leftButtonTitle:nil
                    rightButtonAction:nil
                      statisticsEvent:@"Route File Not Exist Alert"];
+}
+
++ (instancetype)routeNotFoundNoPublicTransportAlert
+{
+  return [self defaultAlertWithTitle:L(@"transit_not_found")
+                             message:nil
+                    rightButtonTitle:L(@"ok")
+                     leftButtonTitle:nil
+                   rightButtonAction:nil
+                     statisticsEvent:@"transit_not_found"];
+}
+
++ (instancetype)routeNotFoundTooLongPedestrianAlert
+{
+  return [self defaultAlertWithTitle:L(@"dialog_pedestrian_route_is_long")
+                             message:nil
+                    rightButtonTitle:L(@"ok")
+                     leftButtonTitle:nil
+                   rightButtonAction:nil
+                     statisticsEvent:@"Long Pedestrian Route Alert"];
 }
 
 + (instancetype)locationServiceNotSupportedAlert
@@ -147,6 +161,16 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                      statisticsEvent:@"Start Point Not Found Alert"];
 }
 
++ (instancetype)intermediatePointNotFoundAlert
+{
+  return [self defaultAlertWithTitle:L(@"dialog_routing_change_intermediate")
+                             message:L(@"dialog_routing_intermediate_not_determined")
+                    rightButtonTitle:L(@"ok")
+                     leftButtonTitle:nil
+                   rightButtonAction:nil
+                     statisticsEvent:@"Intermediate Point Not Found Alert"];
+}
+
 + (instancetype)internalRoutingErrorAlert
 {
   NSString * message =
@@ -160,7 +184,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
                      statisticsEvent:@"Internal Routing Error Alert"];
 }
 
-+ (instancetype)incorrectFeauturePositionAlert
++ (instancetype)incorrectFeaturePositionAlert
 {
   return [self defaultAlertWithTitle:L(@"dialog_incorrect_feature_position")
                              message:L(@"message_invalid_feature_position")
@@ -173,7 +197,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 + (instancetype)internalErrorAlert
 {
   return [self defaultAlertWithTitle:L(@"dialog_routing_system_error")
-                             message:nil
+                             message:L(@"error_system_message")
                     rightButtonTitle:L(@"ok")
                      leftButtonTitle:nil
                    rightButtonAction:nil
@@ -182,7 +206,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 
 + (instancetype)notEnoughSpaceAlert
 {
-  MWMDefaultAlert * alert = [self defaultAlertWithTitle:L(@"migration_download_error_dialog")
+  MWMDefaultAlert * alert = [self defaultAlertWithTitle:L(@"downloader_no_space_title")
                                                 message:L(@"migration_no_space_message")
                                        rightButtonTitle:L(@"ok")
                                         leftButtonTitle:nil
@@ -205,7 +229,7 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 + (instancetype)noCurrentPositionAlert
 {
   NSString * message =
-      [NSString stringWithFormat:@"%@\n\n%@", L(@"common_current_location_unknown_dialog"),
+      [NSString stringWithFormat:@"%@\n\n%@", L(@"dialog_routing_error_location_not_found"),
                                  L(@"dialog_routing_location_turn_wifi")];
   return [self defaultAlertWithTitle:L(@"dialog_routing_check_gps")
                              message:message
@@ -381,16 +405,62 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
   return alert;
 }
 
-+ (instancetype)defaultAlertWithTitle:(nonnull NSString *)title
-                              message:(nullable NSString *)message
-                     rightButtonTitle:(nonnull NSString *)rightButtonTitle
-                      leftButtonTitle:(nullable NSString *)leftButtonTitle
-                    rightButtonAction:(nullable MWMVoidBlock)action
-                      statisticsEvent:(nonnull NSString *)statisticsEvent
++ (instancetype)infoAlert:(NSString *)title text:(NSString *)text
 {
-  [Statistics logEvent:statisticsEvent withParameters:@{kStatAction : kStatOpen}];
-  MWMDefaultAlert * alert = [
-      [[NSBundle mainBundle] loadNibNamed:kDefaultAlertNibName owner:self options:nil] firstObject];
+  return [self defaultAlertWithTitle:title
+                             message:text
+                    rightButtonTitle:L(@"ok")
+                     leftButtonTitle:nil
+                   rightButtonAction:nil
+                     statisticsEvent:@"Info Alert"];
+}
+
++ (instancetype)convertBookmarksWithCount:(NSUInteger)count okBlock:(MWMVoidBlock)okBlock
+{
+  return [self defaultAlertWithTitle:L(@"bookmarks_detect_title")
+                             message:[NSString stringWithFormat:L(@"bookmarks_detect_message"), count]
+                    rightButtonTitle:L(@"button_convert")
+                     leftButtonTitle:L(@"cancel")
+                   rightButtonAction:okBlock
+                     statisticsEvent:nil];
+}
+
++ (instancetype)restoreBookmarkAlertWithMessage:(NSString *)message
+                              rightButtonAction:(MWMVoidBlock)rightButton
+                               leftButtonAction:(MWMVoidBlock)leftButton
+{
+  MWMDefaultAlert * alert =
+  [NSBundle.mainBundle loadNibNamed:kDefaultAlertNibName owner:self options:nil].firstObject;
+  alert.titleLabel.text = L(@"bookmarks_restore_title");
+  alert.messageLabel.text = message;
+  [alert.rightButton setTitle:L(@"restore") forState:UIControlStateNormal];
+  [alert.leftButton setTitle:L(@"cancel") forState:UIControlStateNormal];
+  alert.leftButtonAction = leftButton;
+  alert.rightButtonAction = rightButton;
+  return alert;
+}
+
++ (instancetype)bookmarkConversionErrorAlert
+{
+  return [self defaultAlertWithTitle:L(@"bookmarks_convert_error_title")
+                             message:L(@"bookmarks_convert_error_message")
+                    rightButtonTitle:L(@"ok")
+                     leftButtonTitle:nil
+                   rightButtonAction:nil
+                     statisticsEvent:nil];
+}
+
++ (instancetype)defaultAlertWithTitle:(NSString *)title
+                              message:(NSString *)message
+                     rightButtonTitle:(NSString *)rightButtonTitle
+                      leftButtonTitle:(NSString *)leftButtonTitle
+                    rightButtonAction:(MWMVoidBlock)action
+                      statisticsEvent:(NSString *)statisticsEvent
+{
+  if (statisticsEvent)
+    [Statistics logEvent:statisticsEvent withParameters:@{kStatAction : kStatOpen}];
+  MWMDefaultAlert * alert =
+      [NSBundle.mainBundle loadNibNamed:kDefaultAlertNibName owner:self options:nil].firstObject;
   alert.titleLabel.text = title;
   alert.messageLabel.text = message;
   if (!message)
@@ -422,13 +492,17 @@ static NSString * const kDefaultAlertNibName = @"MWMDefaultAlert";
 
 - (IBAction)rightButtonTap
 {
-  [Statistics logEvent:self.statisticsEvent withParameters:@{kStatAction : kStatApply}];
+  if (self.statisticsEvent)
+    [Statistics logEvent:self.statisticsEvent withParameters:@{kStatAction : kStatApply}];
+
   [self close:self.rightButtonAction];
 }
 
 - (IBAction)leftButtonTap
 {
-  [Statistics logEvent:self.statisticsEvent withParameters:@{kStatAction : kStatClose}];
+  if (self.statisticsEvent)
+    [Statistics logEvent:self.statisticsEvent withParameters:@{kStatAction : kStatClose}];
+
   [self close:self.leftButtonAction];
 }
 

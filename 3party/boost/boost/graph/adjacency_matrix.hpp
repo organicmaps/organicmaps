@@ -443,7 +443,7 @@ namespace boost {
     // graph type. Instead, use directedS, which also provides the
     // functionality required for a Bidirectional Graph (in_edges,
     // in_degree, etc.).
-    BOOST_STATIC_ASSERT(type_traits::ice_not<(is_same<Directed, bidirectionalS>::value)>::value);
+    BOOST_STATIC_ASSERT(!(is_same<Directed, bidirectionalS>::value));
 
     typedef typename mpl::if_<is_directed,
                                     bidirectional_tag, undirected_tag>::type

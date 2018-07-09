@@ -16,7 +16,7 @@ namespace
 {
 
 using search::KeywordMatcher;
-using search::MAX_TOKENS;
+using search::kMaxNumTokens;
 
 enum ExpectedMatchResult
 {
@@ -55,12 +55,12 @@ void InitMatcher(char const * query, KeywordMatcher & matcher)
 
 class TestScore
 {
-  typedef KeywordMatcher::ScoreT ScoreT;
-  ScoreT m_score;
+  typedef KeywordMatcher::Score Score;
+  Score m_score;
 
 public:
   TestScore() {}
-  TestScore(ScoreT const & score) : m_score(score) {}
+  TestScore(Score const & score) : m_score(score) {}
 
   bool operator<(TestScore const & s) const
   {
@@ -90,14 +90,14 @@ void TestKeywordMatcher(char const * const query, KeywordMatcherTestCase const (
   {
     char const * const name = testCases[i].m_name;
     char const * const prevName = (i == 0 ? "N/A" : testCases[i-1].m_name);
-    TestScore const testScore = matcher.Score(name);
+    TestScore const testScore = matcher.CalcScore(name);
 
     // Test that a newly created matcher returns the same result
     {
       KeywordMatcher freshMatcher;
       InitMatcher(query, freshMatcher);
 
-      TestScore const freshScore = freshMatcher.Score(name);
+      TestScore const freshScore = freshMatcher.CalcScore(name);
       // TEST_EQUAL(testScore, freshScore, (query, name));
       TEST(!(testScore < freshScore), (query, name));
       TEST(!(freshScore < testScore), (query, name));
@@ -259,7 +259,10 @@ string GetManyTokens(string tokenPrefix, int tokenCount, bool countForward = tru
 
 UNIT_TEST(KeywordMatcher_QueryTooLong)
 {
-  for (int queryLength = MAX_TOKENS - 2; queryLength <= MAX_TOKENS + 2; ++queryLength)
+  static_assert(kMaxNumTokens >= 2, "");
+  int const minLength = kMaxNumTokens - 2;
+  int const maxLength = kMaxNumTokens + 2;
+  for (int queryLength = minLength; queryLength <= maxLength; ++queryLength)
   {
     string const query = GetManyTokens("Q", queryLength);
     string const queryWithPrefix = query + " Prefix";
@@ -292,11 +295,10 @@ UNIT_TEST(KeywordMatcher_QueryTooLong)
 
 UNIT_TEST(KeywordMatcher_NameTooLong)
 {
-  string const name[] =
-  {
-    "Aa Bb " + GetManyTokens("T", MAX_TOKENS + 1),
-    "Aa Bb " + GetManyTokens("T", MAX_TOKENS),
-    "Aa Bb " + GetManyTokens("T", MAX_TOKENS - 1),
+  string const name[] = {
+      "Aa Bb " + GetManyTokens("T", kMaxNumTokens + 1),
+      "Aa Bb " + GetManyTokens("T", kMaxNumTokens),
+      "Aa Bb " + GetManyTokens("T", kMaxNumTokens - 1),
   };
 
   KeywordMatcherTestCase const testCases[] =
@@ -315,9 +317,9 @@ UNIT_TEST(KeywordMatcher_NameTooLong)
 
 UNIT_TEST(KeywordMatcher_ManyTokensInReverseOrder)
 {
-  string const query = GetManyTokens("Q", MAX_TOKENS);
-  string const name = GetManyTokens("Q", MAX_TOKENS);
-  string const reversedName = GetManyTokens("Q", MAX_TOKENS, false);
+  string const query = GetManyTokens("Q", kMaxNumTokens);
+  string const name = GetManyTokens("Q", kMaxNumTokens);
+  string const reversedName = GetManyTokens("Q", kMaxNumTokens, false);
 
   KeywordMatcherTestCase const testCases[] =
   {
@@ -337,6 +339,6 @@ UNIT_TEST(KeywordMatcher_DifferentLangs)
   InitMatcher("не", matcher);
 
   char const * arr[] = { "Невский переулок", "Неўскі завулак" };
-  TEST(!(matcher.Score(arr[0]) < matcher.Score(arr[1])), ());
-  TEST(!(matcher.Score(arr[1]) < matcher.Score(arr[0])), ());
+  TEST(!(matcher.CalcScore(arr[0]) < matcher.CalcScore(arr[1])), ());
+  TEST(!(matcher.CalcScore(arr[1]) < matcher.CalcScore(arr[0])), ());
 }

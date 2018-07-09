@@ -1,15 +1,12 @@
-//  (C) Copyright Gennadiy Rozental 2001-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
 //
-//  File        : $RCSfile$
-//
-//  Version     : $Revision: -1 $
-//
-//  Description : defines template_test_case_gen
+///@ file
+/// Defines template_test_case_gen
 // ***************************************************************************
 
 #ifndef BOOST_TEST_TREE_TEST_CASE_TEMPLATE_HPP_091911GER
@@ -34,10 +31,10 @@
 #include <boost/type_traits/is_const.hpp>
 #include <boost/function/function0.hpp>
 
-#ifndef BOOST_NO_RTTI
-#include <typeinfo> // for typeid
+#if defined(BOOST_NO_TYPEID) || defined(BOOST_NO_RTTI)
+#  include <boost/current_function.hpp>
 #else
-#include <boost/current_function.hpp>
+#  include <boost/core/demangle.hpp>
 #endif
 
 // STL
@@ -82,8 +79,8 @@ struct generate_test_case_4_type {
         std::string full_name;
         assign_op( full_name, m_test_case_name, 0 );
         full_name += '<';
-#ifndef BOOST_NO_RTTI
-         full_name += typeid(TestType).name();
+#if !defined(BOOST_NO_TYPEID) && !defined(BOOST_NO_RTTI)
+        full_name += boost::core::demangle(typeid(TestType).name()); // same as execution_monitor.ipp
 #else
         full_name += BOOST_CURRENT_FUNCTION;
 #endif

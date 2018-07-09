@@ -12,7 +12,7 @@
 
 #include <emmintrin.h>
 
-#if defined(__GNUC__) || defined(__PGI)
+#if defined(__GNUC__) || defined(__PGI) || defined(__SUNPRO_CC)
 #define ALIGN16 __attribute__((__aligned__(16)))
 #else
 #define ALIGN16 __declspec(align(16))
@@ -189,6 +189,22 @@ inline double lanczos13m53::lanczos_sum_expG_scaled<double>(const double& x)
    
    return t[0] / t[1];
 }
+
+#ifdef _MSC_VER
+
+BOOST_STATIC_ASSERT(sizeof(double) == sizeof(long double));
+
+template <>
+inline long double lanczos13m53::lanczos_sum<long double>(const long double& x)
+{
+   return lanczos_sum<double>(static_cast<double>(x));
+}
+template <>
+inline long double lanczos13m53::lanczos_sum_expG_scaled<long double>(const long double& x)
+{
+   return lanczos_sum_expG_scaled<double>(static_cast<double>(x));
+}
+#endif
 
 } // namespace lanczos
 } // namespace math

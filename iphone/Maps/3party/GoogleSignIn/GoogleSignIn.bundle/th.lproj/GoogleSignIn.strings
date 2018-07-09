@@ -1,0 +1,17 @@
+/* Sign-in button text */
+"Sign in" = "ลงชื่อเข้าใช้";
+
+/* Long form sign-in button text */
+"Sign in with Google" = "ลงชื่อเข้าใช้ด้วย Google";
+
+/* The title of the promotional prompt to install the Google app. */
+"PromoTitle" = "ลงชื่อเข้าใช้ด้วย Google";
+
+/* The body message of the promotional prompt to install the Google app. */
+"PromoMessage" = "ติดตั้งแอป Google ฟรีและลงชื่อเข้าใช้แอปต่างๆ ด้วยบัญชี Google คุณไม่ต้องจำรหัสผ่านอีกแล้ว";
+
+/* The cancel button on the promotional prompt to install the Google app. */
+"PromoActionCancel" = "ยกเลิก";
+
+/* The install button on the promotional prompt to install the Google app. */
+"PromoActionInstall" = "ติดตั้ง";

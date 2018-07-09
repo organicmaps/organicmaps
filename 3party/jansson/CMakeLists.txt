@@ -2,9 +2,6 @@ project(jansson)
 
 include_directories(src ../../)
 
-append(CMAKE_CXX_FLAGS "-std=c++11")
-
-
 set(
   SRC
   jansson_handle.cpp

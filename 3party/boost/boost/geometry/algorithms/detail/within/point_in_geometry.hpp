@@ -5,8 +5,10 @@
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 // Copyright (c) 2014 Adam Wulkiewicz, Lodz, Poland.
 
-// This file was modified by Oracle on 2013, 2014, 2015.
-// Modifications copyright (c) 2013-2015, Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013, 2014, 2015, 2017.
+// Modifications copyright (c) 2013-2017, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -14,8 +16,6 @@
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
-
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_WITHIN_POINT_IN_GEOMETRY_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_WITHIN_POINT_IN_GEOMETRY_HPP
@@ -35,8 +35,7 @@
 #include <boost/geometry/geometries/concepts/check.hpp>
 #include <boost/geometry/strategies/concepts/within_concept.hpp>
 #include <boost/geometry/strategies/default_strategy.hpp>
-#include <boost/geometry/strategies/within.hpp>
-#include <boost/geometry/strategies/covered_by.hpp>
+#include <boost/geometry/strategies/relate.hpp>
 
 #include <boost/geometry/util/range.hpp>
 #include <boost/geometry/views/detail/normalized_view.hpp>
@@ -45,6 +44,7 @@ namespace boost { namespace geometry {
 
 #ifndef DOXYGEN_NO_DETAIL
 namespace detail { namespace within {
+
 
 // TODO: is this needed?
 inline int check_result_type(int result)
@@ -83,49 +83,10 @@ int point_in_range(Point const& point, Range const& range, Strategy const& strat
 template <typename Geometry, typename Point, typename Range>
 inline int point_in_range(Point const& point, Range const& range)
 {
-    typedef typename point_type<Point>::type point_type1;
-    typedef typename point_type<Geometry>::type point_type2;
-
-    typedef typename strategy::within::services::default_strategy
+    typedef typename strategy::point_in_geometry::services::default_strategy
         <
-            typename tag<Point>::type,
-            typename tag<Geometry>::type,
-            typename tag<Point>::type,
-            typename tag_cast<typename tag<Geometry>::type, areal_tag>::type,
-            typename tag_cast
-                <
-                    typename cs_tag<point_type1>::type, spherical_tag
-                >::type,
-            typename tag_cast
-                <
-                    typename cs_tag<point_type2>::type, spherical_tag
-                >::type,
-            Point,
-            Geometry
+            Point, Geometry
         >::type strategy_type;
-
-    typedef typename strategy::covered_by::services::default_strategy
-        <
-            typename tag<Point>::type,
-            typename tag<Geometry>::type,
-            typename tag<Point>::type,
-            typename tag_cast<typename tag<Geometry>::type, areal_tag>::type,
-            typename tag_cast
-                <
-                    typename cs_tag<point_type1>::type, spherical_tag
-                >::type,
-            typename tag_cast
-                <
-                    typename cs_tag<point_type2>::type, spherical_tag
-                >::type,
-            Point,
-            Geometry
-        >::type strategy_type2;
-
-    static const bool same_strategies = boost::is_same<strategy_type, strategy_type2>::value;
-    BOOST_MPL_ASSERT_MSG((same_strategies),
-                         DEFAULT_WITHIN_AND_COVERED_BY_STRATEGIES_NOT_COMPATIBLE,
-                         (strategy_type, strategy_type2));
 
     return point_in_range(point, range, strategy_type());
 }
@@ -400,7 +361,7 @@ namespace detail { namespace within {
 template <typename Point, typename Geometry, typename Strategy>
 inline int point_in_geometry(Point const& point, Geometry const& geometry, Strategy const& strategy)
 {
-    concept::within::check
+    concepts::within::check
         <
             typename tag<Point>::type,
             typename tag<Geometry>::type,
@@ -414,49 +375,10 @@ inline int point_in_geometry(Point const& point, Geometry const& geometry, Strat
 template <typename Point, typename Geometry>
 inline int point_in_geometry(Point const& point, Geometry const& geometry)
 {
-    typedef typename point_type<Point>::type point_type1;
-    typedef typename point_type<Geometry>::type point_type2;
-
-    typedef typename strategy::within::services::default_strategy
+    typedef typename strategy::point_in_geometry::services::default_strategy
         <
-            typename tag<Point>::type,
-            typename tag<Geometry>::type,
-            typename tag<Point>::type,
-            typename tag_cast<typename tag<Geometry>::type, areal_tag>::type,
-            typename tag_cast
-                <
-                    typename cs_tag<point_type1>::type, spherical_tag
-                >::type,
-            typename tag_cast
-                <
-                    typename cs_tag<point_type2>::type, spherical_tag
-                >::type,
-            Point,
-            Geometry
+            Point, Geometry
         >::type strategy_type;
-
-    typedef typename strategy::covered_by::services::default_strategy
-        <
-            typename tag<Point>::type,
-            typename tag<Geometry>::type,
-            typename tag<Point>::type,
-            typename tag_cast<typename tag<Geometry>::type, areal_tag>::type,
-            typename tag_cast
-                <
-                    typename cs_tag<point_type1>::type, spherical_tag
-                >::type,
-            typename tag_cast
-                <
-                    typename cs_tag<point_type2>::type, spherical_tag
-                >::type,
-            Point,
-            Geometry
-        >::type strategy_type2;
-
-    static const bool same_strategies = boost::is_same<strategy_type, strategy_type2>::value;
-    BOOST_MPL_ASSERT_MSG((same_strategies),
-                         DEFAULT_WITHIN_AND_COVERED_BY_STRATEGIES_NOT_COMPATIBLE,
-                         (strategy_type, strategy_type2));
 
     return point_in_geometry(point, geometry, strategy_type());
 }

@@ -219,14 +219,12 @@ namespace
       {
         m_line.set_color(r.color());
         m_line.set_width(r.width());
+        m_line.set_join(r.join());
+        m_line.set_cap(r.cap());
         if (r.has_dashdot())
           *(m_line.mutable_dashdot()) = r.dashdot();
         if (r.has_pathsym())
           *(m_line.mutable_pathsym()) = r.pathsym();
-        if (r.has_join())
-          m_line.set_join(r.join());
-        if (r.has_cap())
-          m_line.set_cap(r.cap());
       }
 
       virtual LineDefProto const * GetLine() const { return &m_line; }
@@ -247,8 +245,7 @@ namespace
     public:
       Symbol(SymbolRuleProto const & r) : m_symbol(r)
       {
-        if (r.has_apply_for_type())
-          SetType(r.apply_for_type());
+        SetType(r.apply_for_type());
       }
 
       virtual SymbolRuleProto const * GetSymbol() const { return &m_symbol; }
@@ -266,10 +263,10 @@ namespace
         , m_textTypePrimary(text_type_name)
         , m_textTypeSecondary(text_type_name)
       {
-        if (m_caption.primary().has_text())
+        if (!m_caption.primary().text().empty())
           m_textTypePrimary = GetTextType(m_caption.primary().text());
 
-        if (m_caption.has_secondary() && m_caption.secondary().has_text())
+        if (m_caption.has_secondary() && !m_caption.secondary().text().empty())
           m_textTypeSecondary = GetTextType(m_caption.secondary().text());
       }
 
@@ -484,13 +481,10 @@ void RulesHolder::InitBackgroundColors(ContainerProto const & cont)
         {
           // Take the color of the draw element
           AreaRuleProto const & rule = de.area();
-          if (rule.has_color())
-          {
-            bgColorDefault = rule.color();
+          bgColorDefault = rule.color();
 
-            if (de.has_scale())
-              bgColorForScale.insert(make_pair(de.scale(), rule.color()));
-          }
+          if (de.scale() != 0)
+            bgColorForScale.insert(make_pair(de.scale(), rule.color()));
         }
       }
       break;

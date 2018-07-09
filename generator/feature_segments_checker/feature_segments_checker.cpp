@@ -19,15 +19,17 @@
 #include "base/logging.hpp"
 #include "base/math.hpp"
 
-#include "std/cmath.hpp"
-#include "std/fstream.hpp"
-#include "std/iostream.hpp"
-#include "std/map.hpp"
-#include "std/numeric.hpp"
-#include "std/set.hpp"
-#include "std/string.hpp"
+#include <cmath>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <numeric>
+#include <set>
+#include <string>
 
 #include "3party/gflags/src/gflags/gflags.h"
+
+using namespace std;
 
 DEFINE_string(srtm_dir_path, "", "Path to directory with SRTM files");
 DEFINE_string(mwm_file_path, "", "Path to an mwm file.");
@@ -93,7 +95,7 @@ bool LinearLeastSquaresFactors(vector<double> const & xs, vector<double> const &
   double constexpr kEpsilon = 1e-6;
   size_t const n = xs.size();
   double mx = 0, my = 0, mxy = 0, mx2 = 0;
-  for (int i = 0; i < n; ++i)
+  for (size_t i = 0; i < n; ++i)
   {
     mx += xs[i] / n;
     my += ys[i] / n;
@@ -269,7 +271,7 @@ public:
       return;
 
     double const k = (endAltitude - startAltitude) / realFeatureLengthMeters;
-    for (TAltitude i = 1; i + 1 < numPoints; ++i)
+    for (uint32_t i = 1; i + 1 < numPoints; ++i)
     {
       int32_t const deviation =
           static_cast<TAltitude>(GetY(k, startAltitude, pointDists[i])) - pointAltitudes[i];

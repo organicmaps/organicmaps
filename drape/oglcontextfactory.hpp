@@ -9,7 +9,6 @@
 
 namespace dp
 {
-
 class OGLContextFactory
 {
 public:
@@ -18,7 +17,8 @@ public:
   virtual OGLContext * getResourcesUploadContext() = 0;
   virtual bool isDrawContextCreated() const { return false; }
   virtual bool isUploadContextCreated() const { return false; }
-  virtual void waitForInitialization() {}
+  virtual void waitForInitialization(dp::OGLContext * context) {}
+  virtual void setPresentAvailable(bool available) {}
 };
 
 class ThreadSafeFactory : public OGLContextFactory
@@ -36,7 +36,8 @@ public:
     return static_cast<T *>(m_factory);
   }
 
-  void waitForInitialization() override;
+  void waitForInitialization(dp::OGLContext * context) override;
+  void setPresentAvailable(bool available) override;
 
 protected:
   typedef function<OGLContext * ()> TCreateCtxFn;
@@ -48,5 +49,4 @@ private:
   threads::Condition m_contidion;
   bool m_enableSharing;
 };
-
-} // namespace dp
+}  // namespace dp

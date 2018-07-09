@@ -469,7 +469,19 @@ inline typename enable_if<
          is_integral<V>
       >
    >,
-   detail::expression<detail::function, default_ops::powm_func, T, U, V> >::type 
+   typename mpl::if_<
+      is_no_et_number<T>, 
+      T,
+      typename mpl::if_<
+         is_no_et_number<U>,
+         U,
+         typename mpl::if_<
+            is_no_et_number<V>,
+            V,
+            detail::expression<detail::function, default_ops::powm_func, T, U, V> >::type
+         >::type
+      >::type
+   >::type
    powm(const T& b, const U& p, const V& mod)
 {
    return detail::expression<detail::function, default_ops::powm_func, T, U, V>(

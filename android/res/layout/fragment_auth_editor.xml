@@ -115,27 +115,6 @@
           tools:ignore="ButtonStyle">
 
           <Button
-            android:id="@+id/login_google"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/editor_auth_btn_height"
-            android:layout_marginBottom="@dimen/margin_half_plus"
-            android:layout_marginEnd="@dimen/margin_half_plus"
-            android:layout_marginRight="@dimen/margin_half_plus"
-            android:layout_weight="1"
-            android:background="@drawable/button_editor_light"
-            android:drawableLeft="@drawable/ic_login_google"
-            android:drawableStart="@drawable/ic_login_google"
-            android:fontFamily="@string/robotoMedium"
-            android:paddingLeft="@dimen/margin_half"
-            android:paddingStart="@dimen/margin_half"
-            android:paddingRight="@dimen/margin_half"
-            android:paddingEnd="@dimen/margin_half"
-            android:text="@string/google"
-            android:textAppearance="@style/MwmTextAppearance.Body1"
-            android:textColor="@color/text_dark"
-            tools:targetApi="jelly_bean"/>
-
-          <Button
             android:id="@+id/login_facebook"
             android:layout_width="0dp"
             android:layout_height="@dimen/editor_auth_btn_height"
@@ -147,8 +126,8 @@
             android:fontFamily="@string/robotoMedium"
             android:paddingLeft="@dimen/margin_half"
             android:paddingStart="@dimen/margin_half"
-            android:paddingRight="@dimen/margin_half"
-            android:paddingEnd="@dimen/margin_half"
+            android:paddingRight="@dimen/margin_double"
+            android:paddingEnd="@dimen/margin_double"
             android:text="@string/facebook"
             android:textAppearance="@style/MwmTextAppearance.Body1.Light"
             android:textColor="@color/text_light"

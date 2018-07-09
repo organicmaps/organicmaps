@@ -2,6 +2,7 @@
 #import "MWMSearchFilterTransitioningManager.h"
 #import "MWMSearchFilterViewController.h"
 #import "MWMSearchManager+Filter.h"
+#import "Statistics.h"
 
 @interface MWMSearchManager ()<UIPopoverPresentationControllerDelegate>
 
@@ -14,11 +15,11 @@
 
 @implementation MWMSearchManager (Filter)
 
-- (IBAction)updateFilter
+- (void)updateFilter:(MWMVoidBlock)completion
 {
   MWMSearchFilterViewController * filter = [MWMSearch getFilter];
   UINavigationController * navController =
-      [[UINavigationController alloc] initWithRootViewController:filter];
+  [[UINavigationController alloc] initWithRootViewController:filter];
   UIViewController * ownerController = self.ownerController;
 
   if (IPAD)
@@ -30,94 +31,95 @@
     popover.permittedArrowDirections = UIPopoverArrowDirectionLeft;
     popover.delegate = self;
   }
-  else
-  {
-    navController.modalPresentationStyle = UIModalPresentationCustom;
-    self.filterTransitioningManager = [[MWMSearchFilterTransitioningManager alloc] init];
-    ownerController.transitioningDelegate = self.filterTransitioningManager;
-    navController.transitioningDelegate = self.filterTransitioningManager;
-  }
 
   [self configNavigationBar:navController.navigationBar];
   [self configNavigationItem:navController.topViewController.navigationItem];
 
-  [ownerController presentViewController:navController animated:YES completion:nil];
+  [ownerController presentViewController:navController animated:YES completion:completion];
+}
+
+- (IBAction)updateTap
+{
+  [self updateFilter:nil /* completion */];
 }
 
 - (IBAction)clearFilter { [MWMSearch clearFilter]; }
 - (void)configNavigationBar:(UINavigationBar *)navBar
 {
-  UIColor * white = [UIColor white];
-  navBar.tintColor = white;
-  navBar.barTintColor = white;
-  [navBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-  navBar.shadowImage = [UIImage imageWithColor:[UIColor fadeBackground]];
+  if (IPAD)
+  {
+    UIColor * white = [UIColor white];
+    navBar.tintColor = white;
+    navBar.barTintColor = white;
+    navBar.translucent = NO;
+  }
   navBar.titleTextAttributes = @{
-    NSForegroundColorAttributeName : [UIColor blackPrimaryText],
-    NSFontAttributeName : [UIFont regular17]
+    NSForegroundColorAttributeName: IPAD ? [UIColor blackPrimaryText] : [UIColor whiteColor],
+    NSFontAttributeName: [UIFont bold17]
   };
-  navBar.translucent = NO;
 }
 
 - (void)configNavigationItem:(UINavigationItem *)navItem
 {
-  UIFont * regular17 = [UIFont regular17];
+  UIFont * textFont = [UIFont regular17];
 
-  UIColor * linkBlue = [UIColor linkBlue];
-  UIColor * linkBlueHighlighted = [UIColor linkBlueHighlighted];
-  UIColor * lightGrayColor = [UIColor lightGrayColor];
+  UIColor * normalStateColor = IPAD ? [UIColor linkBlue] : [UIColor whiteColor];
+  UIColor * highlightedStateColor = IPAD ? [UIColor linkBlueHighlighted] : [UIColor whiteColor];
+  UIColor * disabledStateColor = [UIColor lightGrayColor];
 
   navItem.title = L(@"booking_filters");
-  navItem.rightBarButtonItem =
-      [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                    target:self
-                                                    action:@selector(doneAction)];
+  navItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:L(@"booking_filters_reset")
+                                                                style:UIBarButtonItemStylePlain
+                                                               target:self
+                                                               action:@selector(resetAction)];
   [navItem.rightBarButtonItem setTitleTextAttributes:@{
-    NSForegroundColorAttributeName : linkBlue,
-    NSFontAttributeName : regular17
+    NSForegroundColorAttributeName: normalStateColor,
+    NSFontAttributeName: textFont
   }
                                             forState:UIControlStateNormal];
   [navItem.rightBarButtonItem setTitleTextAttributes:@{
-    NSForegroundColorAttributeName : linkBlueHighlighted,
+    NSForegroundColorAttributeName: highlightedStateColor,
   }
                                             forState:UIControlStateHighlighted];
   [navItem.rightBarButtonItem setTitleTextAttributes:@{
-    NSForegroundColorAttributeName : lightGrayColor,
+    NSForegroundColorAttributeName: disabledStateColor,
   }
                                             forState:UIControlStateDisabled];
 
-  navItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:L(@"booking_filters_reset")
-                                                               style:UIBarButtonItemStylePlain
-                                                              target:self
-                                                              action:@selector(resetAction)];
+  navItem.leftBarButtonItem =
+      [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                    target:self
+                                                    action:@selector(closeAction)];
+
   [navItem.leftBarButtonItem setTitleTextAttributes:@{
-    NSForegroundColorAttributeName : linkBlue,
-    NSFontAttributeName : regular17
+    NSForegroundColorAttributeName: normalStateColor,
+    NSFontAttributeName: textFont
   }
                                            forState:UIControlStateNormal];
   [navItem.leftBarButtonItem setTitleTextAttributes:@{
-    NSForegroundColorAttributeName : linkBlueHighlighted,
+    NSForegroundColorAttributeName: highlightedStateColor,
   }
                                            forState:UIControlStateHighlighted];
 
   [navItem.leftBarButtonItem setTitleTextAttributes:@{
-    NSForegroundColorAttributeName : lightGrayColor,
+    NSForegroundColorAttributeName: disabledStateColor,
   }
                                            forState:UIControlStateDisabled];
 }
 
 #pragma mark - Actions
 
-- (void)doneAction
+- (void)closeAction
 {
-  [MWMSearch update];
+  [Statistics logEvent:kStatSearchFilterCancel withParameters:@{kStatCategory: kStatHotel}];
   [self.ownerController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)resetAction
 {
-  [self clearFilter];
-  [self.ownerController dismissViewControllerAnimated:YES completion:nil];
+  [Statistics logEvent:kStatSearchFilterReset withParameters:@{kStatCategory: kStatHotel}];
+  MWMSearchFilterViewController * filter = [MWMSearch getFilter];
+  [filter reset];
 }
 
 #pragma mark - UIPopoverPresentationControllerDelegate

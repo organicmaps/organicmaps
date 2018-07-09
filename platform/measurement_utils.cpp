@@ -7,6 +7,7 @@
 #include "base/math.hpp"
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
+#include "base/logging.hpp"
 
 #include "std/cstring.hpp"
 #include "std/iomanip.hpp"
@@ -55,7 +56,7 @@ bool FormatDistanceImpl(double m, string & res,
 bool FormatDistance(double m, string & res)
 {
   auto units = Units::Metric;
-  UNUSED_VALUE(Get(settings::kMeasurementUnits, units));
+  TryGet(settings::kMeasurementUnits, units);
 
   /// @todo Put string units resources.
   switch (units)
@@ -63,6 +64,7 @@ bool FormatDistance(double m, string & res)
   case Units::Imperial: return FormatDistanceImpl(m, res, " mi", " ft", 1609.344, 0.3048);
   case Units::Metric: return FormatDistanceImpl(m, res, " km", " m", 1000.0, 1.0);
   }
+  CHECK_SWITCH();
 }
 
 
@@ -163,7 +165,7 @@ void FormatMercator(m2::PointD const & mercator, string & lat, string & lon, int
 string FormatAltitude(double altitudeInMeters)
 {
   Units units = Units::Metric;
-  UNUSED_VALUE(Get(settings::kMeasurementUnits, units));
+  TryGet(settings::kMeasurementUnits, units);
 
   ostringstream ss;
   ss << fixed << setprecision(0);
@@ -180,7 +182,7 @@ string FormatAltitude(double altitudeInMeters)
 string FormatSpeedWithDeviceUnits(double metersPerSecond)
 {
   auto units = Units::Metric;
-  UNUSED_VALUE(Get(settings::kMeasurementUnits, units));
+  TryGet(settings::kMeasurementUnits, units);
   return FormatSpeedWithUnits(metersPerSecond, units);
 }
 
@@ -209,6 +211,7 @@ string FormatSpeedUnits(Units units)
   case Units::Imperial: return "mph";
   case Units::Metric: return "km/h";
   }
+  CHECK_SWITCH();
 }
 
 bool OSMDistanceToMeters(string const & osmRawValue, double & outMeters)

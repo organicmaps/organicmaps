@@ -1,28 +1,25 @@
 #pragma once
 
+#include "drape/drape_global.hpp"
 #include "drape/glconstants.hpp"
 
 #include "base/src_point.hpp"
 
-#include "std/string.hpp"
-#include "std/thread.hpp"
+#include <string>
+#include <thread>
 
 class GLFunctions
 {
   friend class GLFunctionsCache;
 
 public:
-  static void Init();
+  static dp::ApiVersion CurrentApiVersion;
 
-  /// Attaches cache of gl-functions to specified thread. The only cache
-  /// is available, so invoking of this method on other thread leads to
-  /// disabling of current cache and enabling another
-  static void AttachCache(thread::id const & threadId);
+  static void Init(dp::ApiVersion apiVersion);
 
-  static bool glHasExtension(string const & name);
+  static bool glHasExtension(std::string const & name);
   static void glClearColor(float r, float g, float b, float a);
-  static void glClear();
-  static void glClearDepth();
+  static void glClear(uint32_t clearBits);
   static void glViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h);
   static void glScissor(uint32_t x, uint32_t y, uint32_t w, uint32_t h);
   static void glFlush();
@@ -31,6 +28,9 @@ public:
   static void glFrontFace(glConst mode);
   static void glCullFace(glConst face);
 
+  static void glStencilOpSeparate(glConst face, glConst sfail, glConst dpfail, glConst dppass);
+  static void glStencilFuncSeparate(glConst face, glConst func, int ref, uint32_t mask);
+  
   static void glPixelStore(glConst name, uint32_t value);
 
   static int32_t glGetInteger(glConst pname);
@@ -38,7 +38,7 @@ public:
   /// name = { gl_const::GLBufferSize, gl_const::GLBufferUsage }
   static int32_t glGetBufferParameter(glConst target, glConst name);
 
-  static string glGetString(glConst pname);
+  static std::string glGetString(glConst pname);
 
   static int32_t glGetMaxLineWidth();
 
@@ -74,41 +74,40 @@ public:
 
   /// Shaders support
   static uint32_t glCreateShader(glConst type);
-  static void glShaderSource(uint32_t shaderID, string const & src, string const & defines);
-  static bool glCompileShader(uint32_t shaderID, string & errorLog);
+  static void glShaderSource(uint32_t shaderID, std::string const & src,
+                             std::string const & defines);
+  static bool glCompileShader(uint32_t shaderID, std::string & errorLog);
   static void glDeleteShader(uint32_t shaderID);
 
   static uint32_t glCreateProgram();
   static void glAttachShader(uint32_t programID, uint32_t shaderID);
   static void glDetachShader(uint32_t programID, uint32_t shaderID);
-  static bool glLinkProgram(uint32_t programID, string & errorLog);
+  static bool glLinkProgram(uint32_t programID, std::string & errorLog);
   static void glDeleteProgram(uint32_t programID);
 
   static void glUseProgram(uint32_t programID);
-  static int8_t glGetAttribLocation(uint32_t programID, string const & name);
-  static void glBindAttribLocation(uint32_t programID, uint8_t index, string const & name);
+  static int8_t glGetAttribLocation(uint32_t programID, std::string const & name);
+  static void glBindAttribLocation(uint32_t programID, uint8_t index, std::string const & name);
 
   /// enable vertex attribute binding. To get attributeLocation need to call glGetAttributeLocation
   static void glEnableVertexAttribute(int32_t attributeLocation);
   /// Configure vertex attribute binding.
   /// attrLocation - attribute location in shader program
   /// count - specify number of components with "type" for generic attribute
-  /// needNormalize - if "true" then OGL will map integer value on [-1 : 1] for signed of on [0 : 1] for unsigned
+  /// needNormalize - if "true" then OGL will map integer value on [-1 : 1] for signed of on [0 : 1]
+  /// for unsigned
   ///                 if "false" it will direct convert to float type
   ///                 if "type" == GLFloat this parameter have no sense
   /// stride - how much bytes need to seek from current attribute value to get the second value
-  /// offset - how much bytes need to seek from begin of currenct buffer to get first attribute value
-  static void glVertexAttributePointer(int32_t attrLocation,
-                                       uint32_t count,
-                                       glConst type,
-                                       bool needNormalize,
-                                       uint32_t stride,
-                                       uint32_t offset);
+  /// offset - how much bytes need to seek from begin of currenct buffer to get first attribute
+  /// value
+  static void glVertexAttributePointer(int32_t attrLocation, uint32_t count, glConst type,
+                                       bool needNormalize, uint32_t stride, uint32_t offset);
 
-  static void glGetActiveUniform(uint32_t programID, uint32_t uniformIndex,
-                                 int32_t * uniformSize, glConst * type, string & name);
+  static void glGetActiveUniform(uint32_t programID, uint32_t uniformIndex, int32_t * uniformSize,
+                                 glConst * type, std::string & name);
 
-  static int8_t glGetUniformLocation(uint32_t programID, string const & name);
+  static int8_t glGetUniformLocation(uint32_t programID, std::string const & name);
   static void glUniformValuei(int8_t location, int32_t v);
   static void glUniformValuei(int8_t location, int32_t v1, int32_t v2);
   static void glUniformValuei(int8_t location, int32_t v1, int32_t v2, int32_t v3);
@@ -121,7 +120,7 @@ public:
   static void glUniformValuef(int8_t location, float v1, float v2, float v3, float v4);
   static void glUniformValuefv(int8_t location, float * v, uint32_t size);
 
-  static void glUniformMatrix4x4Value(int8_t location, float const *values);
+  static void glUniformMatrix4x4Value(int8_t location, float const * values);
 
   static uint32_t glGetCurrentProgram();
 
@@ -132,12 +131,15 @@ public:
   static uint32_t glGenTexture();
   static void glDeleteTexture(uint32_t id);
   static void glBindTexture(uint32_t textureID);
-  static void glTexImage2D(int width, int height, glConst layout, glConst pixelType, void const * data);
-  static void glTexSubImage2D(int x, int y, int width, int height, glConst layout, glConst pixelType, void const * data);
+  static void glTexImage2D(int width, int height, glConst layout, glConst pixelType,
+                           void const * data);
+  static void glTexSubImage2D(int x, int y, int width, int height, glConst layout,
+                              glConst pixelType, void const * data);
   static void glTexParameter(glConst param, glConst value);
 
   // Draw support
-  static void glDrawElements(glConst primitive, uint32_t sizeOfIndex, uint32_t indexCount, uint32_t startIndex = 0);
+  static void glDrawElements(glConst primitive, uint32_t sizeOfIndex, uint32_t indexCount,
+                             uint32_t startIndex = 0);
   static void glDrawArrays(glConst mode, int32_t first, uint32_t count);
 
   // FBO support
@@ -148,12 +150,12 @@ public:
   static uint32_t glCheckFramebufferStatus();
 };
 
-void CheckGLError(my::SrcPoint const &src);
+void CheckGLError(my::SrcPoint const & src);
 
 #ifdef DEBUG
-  #define GLCHECK(x) do { (x); CheckGLError(SRC()); } while (false)
-  #define GLCHECKCALL() do { CheckGLError(SRC()); } while (false)
+#define GLCHECK(x) do { (x); CheckGLError(SRC()); } while (false)
+#define GLCHECKCALL() do { CheckGLError(SRC()); } while (false)
 #else
-  #define GLCHECK(x) (x)
-  #define GLCHECKCALL()
+#define GLCHECK(x) (x)
+#define GLCHECKCALL()
 #endif

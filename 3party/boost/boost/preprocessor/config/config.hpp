@@ -32,7 +32,7 @@
 #    elif defined(__MWERKS__) && __MWERKS__ >= 0x3200
 #        define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_STRICT())
 #    elif defined(__EDG__) || defined(__EDG_VERSION__)
-#        if defined(_MSC_VER) && (defined(__INTELLISENSE__) || __EDG_VERSION__ >= 308)
+#        if defined(_MSC_VER) && (defined(__clang__) || defined(__INTELLISENSE__) || __EDG_VERSION__ >= 308)
 #            define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_MSVC())
 #        else
 #            define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_EDG() | BOOST_PP_CONFIG_STRICT())
@@ -45,7 +45,7 @@
 #        define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_STRICT())
 #    elif defined(__BORLANDC__) || defined(__IBMC__) || defined(__IBMCPP__) || defined(__SUNPRO_CC)
 #        define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_BCC())
-#    elif defined(_MSC_VER) && !defined(__clang__)
+#    elif defined(_MSC_VER)
 #        define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_MSVC())
 #    else
 #        define BOOST_PP_CONFIG_FLAGS() (BOOST_PP_CONFIG_STRICT())
@@ -73,10 +73,10 @@
 # define BOOST_PP_VARIADICS_MSVC 0
 # if !defined BOOST_PP_VARIADICS
 #    /* variadic support explicitly disabled for all untested compilers */
-#    if defined __GCCXML__ || defined __CUDACC__ || defined __PATHSCALE__ || defined __DMC__ || defined __CODEGEARC__ || defined __BORLANDC__ || defined __MWERKS__ || ( defined __SUNPRO_CC && __SUNPRO_CC < 0x5130 ) || defined __HP_aCC && !defined __EDG__ || defined __MRC__ || defined __SC__ || defined __IBMCPP__ || defined __PGI
+#    if defined __GCCXML__ || defined __CUDACC__ || defined __PATHSCALE__ || defined __DMC__ || defined __CODEGEARC__ || defined __BORLANDC__ || defined __MWERKS__ || ( defined __SUNPRO_CC && __SUNPRO_CC < 0x5120 ) || defined __HP_aCC && !defined __EDG__ || defined __MRC__ || defined __SC__ || defined __IBMCPP__ || defined __PGI
 #        define BOOST_PP_VARIADICS 0
-#    /* VC++ (C/C++) */
-#    elif defined _MSC_VER && _MSC_VER >= 1400 && (!defined __EDG__ || defined(__INTELLISENSE__)) && !defined __clang__
+#    /* VC++ (C/C++) and Intel C++ Compiler >= 17.0 with MSVC */
+#    elif defined _MSC_VER && _MSC_VER >= 1400 && (defined(__clang__) || !defined __EDG__ || defined(__INTELLISENSE__) || defined(__INTEL_COMPILER) && __INTEL_COMPILER >= 1700)
 #        define BOOST_PP_VARIADICS 1
 #        undef BOOST_PP_VARIADICS_MSVC
 #        define BOOST_PP_VARIADICS_MSVC 1
@@ -92,7 +92,7 @@
 # elif !BOOST_PP_VARIADICS + 1 < 2
 #    undef BOOST_PP_VARIADICS
 #    define BOOST_PP_VARIADICS 1
-#    if defined _MSC_VER && _MSC_VER >= 1400 && (defined(__INTELLISENSE__) || !(defined __EDG__ || defined __GCCXML__ || defined __CUDACC__ || defined __PATHSCALE__ || defined __clang__ || defined __DMC__ || defined __CODEGEARC__ || defined __BORLANDC__ || defined __MWERKS__ || defined __SUNPRO_CC || defined __HP_aCC || defined __MRC__ || defined __SC__ || defined __IBMCPP__ || defined __PGI))
+#    if defined _MSC_VER && _MSC_VER >= 1400 && (defined(__clang__) || defined(__INTELLISENSE__) || (defined(__INTEL_COMPILER) && __INTEL_COMPILER >= 1700) || !(defined __EDG__ || defined __GCCXML__ || defined __CUDACC__ || defined __PATHSCALE__ || defined __DMC__ || defined __CODEGEARC__ || defined __BORLANDC__ || defined __MWERKS__ || defined __SUNPRO_CC || defined __HP_aCC || defined __MRC__ || defined __SC__ || defined __IBMCPP__ || defined __PGI))
 #        undef BOOST_PP_VARIADICS_MSVC
 #        define BOOST_PP_VARIADICS_MSVC 1
 #    endif

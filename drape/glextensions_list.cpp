@@ -3,121 +3,93 @@
 
 #include "base/assert.hpp"
 
-#include "std/string.hpp"
+#include "std/target_os.hpp"
 
 namespace dp
 {
-
-#ifdef DEBUG
-  #include "std/map.hpp"
-
-  class GLExtensionsList::Impl
-  {
-  public:
-    void CheckExtension(GLExtensionsList::ExtensionName const & enumName, const string & extName)
-    {
-#ifdef OMIM_OS_ANDROID
-      if (enumName == GLExtensionsList::VertexArrayObject)
-        m_supportedMap[enumName] = false;
-      else
-#endif
-        m_supportedMap[enumName] = GLFunctions::glHasExtension(extName);
-    }
-
-    void SetExtension(GLExtensionsList::ExtensionName const & enumName, bool isSupported)
-    {
-      m_supportedMap[enumName] = isSupported;
-    }
-
-    bool IsSupported(GLExtensionsList::ExtensionName const & enumName) const
-    {
-      map<GLExtensionsList::ExtensionName, bool>::const_iterator it = m_supportedMap.find(enumName);
-      if (it != m_supportedMap.end())
-        return it->second;
-
-      ASSERT(false, ("Not all used extensions is checked"));
-      return false;
-    }
-
-  private:
-    map<GLExtensionsList::ExtensionName, bool> m_supportedMap;
-  };
-#else
-  #include "std/set.hpp"
-
-  class GLExtensionsList::Impl
-  {
-  public:
-    void CheckExtension(GLExtensionsList::ExtensionName const & enumName, const string & extName)
-    {
-#ifdef OMIM_OS_ANDROID
-      if (enumName == GLExtensionsList::VertexArrayObject)
-        return;
-#endif
-      if (GLFunctions::glHasExtension(extName))
-        m_supported.insert(enumName);
-    }
-
-    void SetExtension(GLExtensionsList::ExtensionName const & enumName, bool isSupported)
-    {
-      if (isSupported)
-        m_supported.insert(enumName);
-    }
-
-    bool IsSupported(GLExtensionsList::ExtensionName const & enumName) const
-    {
-      if (m_supported.find(enumName) != m_supported.end())
-        return true;
-
-      return false;
-    }
-
-  private:
-    set<GLExtensionsList::ExtensionName> m_supported;
-  };
-#endif
-
-GLExtensionsList::GLExtensionsList()
-  : m_impl(new Impl())
+GLExtensionsList::GLExtensionsList(dp::ApiVersion apiVersion)
 {
 #if defined(OMIM_OS_MOBILE)
-  m_impl->CheckExtension(VertexArrayObject, "GL_OES_vertex_array_object");
-  m_impl->CheckExtension(RequiredInternalFormat, "GL_OES_required_internalformat");
-  m_impl->CheckExtension(TextureNPOT, "GL_OES_texture_npot");
-  m_impl->CheckExtension(MapBuffer, "GL_OES_mapbuffer");
-  m_impl->CheckExtension(UintIndices, "GL_OES_element_index_uint");
-  m_impl->CheckExtension(MapBufferRange, "GL_EXT_map_buffer_range");
-#elif defined(OMIM_OS_WINDOWS)
-  m_impl->CheckExtension(TextureNPOT, "GL_ARB_texture_non_power_of_two");
-  m_impl->SetExtension(VertexArrayObject, false);
-  m_impl->SetExtension(RequiredInternalFormat, false);
-  m_impl->SetExtension(MapBuffer, true);
-  m_impl->SetExtension(MapBufferRange, false);
-  m_impl->SetExtension(UintIndices, true);
+  if (apiVersion == dp::ApiVersion::OpenGLES2)
+  {
+#ifdef OMIM_OS_ANDROID
+    SetExtension(VertexArrayObject, false);
+    // On some Android devices glMapBufferRange/glMapBuffer works very slow.
+    // We have to substitute these functions to glBufferData/glBufferSubData.
+    SetExtension(MapBuffer, false);
+    SetExtension(MapBufferRange, false);
 #else
-  m_impl->CheckExtension(VertexArrayObject, "GL_APPLE_vertex_array_object");
-  m_impl->CheckExtension(TextureNPOT, "GL_ARB_texture_non_power_of_two");
-  m_impl->SetExtension(RequiredInternalFormat, false);
-  m_impl->SetExtension(MapBuffer, true);
-  m_impl->SetExtension(MapBufferRange, false);
-  m_impl->SetExtension(UintIndices, true);
+    CheckExtension(VertexArrayObject, "GL_OES_vertex_array_object");
+    CheckExtension(MapBuffer, "GL_OES_mapbuffer");
+    CheckExtension(MapBufferRange, "GL_EXT_map_buffer_range");
+#endif
+    CheckExtension(UintIndices, "GL_OES_element_index_uint");
+  }
+  else
+  {
+#ifdef OMIM_OS_ANDROID
+    SetExtension(MapBuffer, false);
+    SetExtension(MapBufferRange, false);
+#else
+    SetExtension(MapBuffer, true);
+    SetExtension(MapBufferRange, true);
+#endif
+    SetExtension(VertexArrayObject, true);
+    SetExtension(UintIndices, true);
+  }
+#elif defined(OMIM_OS_WINDOWS)
+  SetExtension(MapBuffer, true);
+  SetExtension(UintIndices, true);
+  if (apiVersion == dp::ApiVersion::OpenGLES2)
+  {
+    SetExtension(VertexArrayObject, false);
+    SetExtension(MapBufferRange, false);
+  }
+  else
+  {
+    SetExtension(VertexArrayObject, true);
+    SetExtension(MapBufferRange, true);
+  }
+#else
+  SetExtension(MapBuffer, true);
+  SetExtension(UintIndices, true);
+  if (apiVersion == dp::ApiVersion::OpenGLES2)
+  {
+    CheckExtension(VertexArrayObject, "GL_APPLE_vertex_array_object");
+    SetExtension(MapBufferRange, false);
+  }
+  else
+  {
+    SetExtension(VertexArrayObject, true);
+    SetExtension(MapBufferRange, true);
+  }
 #endif
 }
 
-GLExtensionsList::~GLExtensionsList()
-{
-  delete m_impl;
-}
-
+// static
 GLExtensionsList & GLExtensionsList::Instance()
 {
-  static GLExtensionsList extList;
+  static GLExtensionsList extList(GLFunctions::CurrentApiVersion);
   return extList;
 }
 
-bool GLExtensionsList::IsSupported(ExtensionName const & extName) const
+bool GLExtensionsList::IsSupported(ExtensionName extName) const
 {
-  return m_impl->IsSupported(extName);
+  auto const it = m_supportedMap.find(extName);
+  if (it != m_supportedMap.end())
+    return it->second;
+
+  ASSERT(false, ("Not all used extensions are checked"));
+  return false;
 }
 
-} // namespace dp
+void GLExtensionsList::CheckExtension(ExtensionName enumName, std::string const & extName)
+{
+  m_supportedMap[enumName] = GLFunctions::glHasExtension(extName);
+}
+
+void GLExtensionsList::SetExtension(ExtensionName enumName, bool isSupported)
+{
+  m_supportedMap[enumName] = isSupported;
+}
+}  // namespace dp

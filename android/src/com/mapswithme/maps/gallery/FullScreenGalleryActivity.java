@@ -55,12 +55,12 @@ public class FullScreenGalleryActivity extends BaseMwmFragmentActivity
   }
 
   @Override
-  protected void onCreate(Bundle savedInstanceState)
+  protected void safeOnCreate(Bundle savedInstanceState)
   {
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-    super.onCreate(savedInstanceState);
+    super.safeOnCreate(savedInstanceState);
     Toolbar toolbar = getToolbar();
     toolbar.setTitle("");
     UiUtils.showHomeUpButton(toolbar);

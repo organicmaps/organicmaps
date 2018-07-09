@@ -17,7 +17,7 @@
 
 #include <string>
 #include <boost/move/core.hpp>
-#include <boost/move/utility.hpp>
+#include <boost/move/utility_core.hpp>
 #include <boost/phoenix/core/actor.hpp>
 #include <boost/phoenix/core/terminal_fwd.hpp>
 #include <boost/phoenix/core/is_nullary.hpp>
@@ -54,8 +54,10 @@ template< typename T, typename FallbackPolicyT, typename CharT >
 class format_date_time_terminal
 {
 public:
+#ifndef BOOST_LOG_DOXYGEN_PASS
     //! Internal typedef for type categorization
     typedef void _is_boost_log_terminal;
+#endif
 
     //! Attribute value type
     typedef T value_type;
@@ -126,7 +128,7 @@ public:
         stream_type strm(str);
         m_visitor_invoker(m_name, fusion::at_c< 0 >(phoenix::env(ctx).args()), binder1st< formatter_function_type&, stream_type& >(m_formatter, strm));
         strm.flush();
-        return boost::move(str);
+        return BOOST_LOG_NRVO_RESULT(str);
     }
 
     //! Invokation operator
@@ -137,7 +139,7 @@ public:
         stream_type strm(str);
         m_visitor_invoker(m_name, fusion::at_c< 0 >(phoenix::env(ctx).args()), binder1st< formatter_function_type const&, stream_type& >(m_formatter, strm));
         strm.flush();
-        return boost::move(str);
+        return BOOST_LOG_NRVO_RESULT(str);
     }
 
     BOOST_DELETED_FUNCTION(format_date_time_terminal())

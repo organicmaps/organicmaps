@@ -1,21 +1,12 @@
 #import "MWMTaxiPreviewDataSource.h"
-#import "MWMCommon.h"
 #import "MWMNetworkPolicy.h"
-#import "MWMRoutePoint.h"
-#import "MWMTaxiPreviewCell.h"
 #import "SwiftBridge.h"
 
 #include "Framework.h"
 
+#include "partners_api/taxi_provider.hpp"
+
 #include "geometry/mercator.hpp"
-
-#include "partners_api/uber_api.hpp"
-
-namespace
-{
-CGFloat const kPageControlHeight = 6;
-
-}  // namespace
 
 @interface MWMTaxiCollectionView ()
 
@@ -39,10 +30,9 @@ CGFloat const kPageControlHeight = 6;
 - (void)layoutSubviews
 {
   [super layoutSubviews];
-  self.pageControl.height = kPageControlHeight;
-  self.pageControl.width = self.width;
-  self.pageControl.maxY = self.height - kPageControlHeight;
-  self.pageControl.midX = self.center.x;
+  self.pageControl.height = 8;
+  self.pageControl.minY = 4;
+  self.pageControl.midX = self.superview.superview.center.x;
 }
 
 - (UIPageControl *)pageControl
@@ -50,6 +40,7 @@ CGFloat const kPageControlHeight = 6;
   if (!_pageControl)
   {
     _pageControl = [[UIPageControl alloc] init];
+    _pageControl.backgroundColor = UIColor.clearColor;
     [self.superview addSubview:_pageControl];
   }
   return _pageControl;
@@ -57,11 +48,11 @@ CGFloat const kPageControlHeight = 6;
 
 @end
 
-using namespace uber;
+using namespace taxi;
 
 @interface MWMTaxiPreviewDataSource() <UICollectionViewDataSource, UICollectionViewDelegate>
 {
-  vector<Product> m_products;
+  std::vector<Product> m_products;
   ms::LatLon m_from;
   ms::LatLon m_to;
   uint64_t m_requestId;
@@ -69,6 +60,7 @@ using namespace uber;
 
 @property(weak, nonatomic) MWMTaxiCollectionView * collectionView;
 @property(nonatomic) BOOL isNeedToConstructURLs;
+@property(nonatomic, readwrite) MWMRoutePreviewTaxiCellType type;
 
 @end
 
@@ -84,17 +76,9 @@ using namespace uber;
     collectionView.delegate = self;
     collectionView.showsVerticalScrollIndicator = NO;
     collectionView.showsHorizontalScrollIndicator = NO;
-    [collectionView registerWithCellClass:[MWMTaxiPreviewCell class]];
+    [collectionView registerWithCellClass:[MWMRoutePreviewTaxiCell class]];
   }
   return self;
-}
-
-- (void)dealloc
-{
-  MWMTaxiCollectionView * cv = self.collectionView;
-  cv.dataSource = nil;
-  cv.delegate = nil;
-  self.collectionView = nil;
 }
 
 - (void)requestTaxiFrom:(MWMRoutePoint *)from
@@ -104,74 +88,146 @@ using namespace uber;
 {
   NSAssert(completion && failure, @"Completion and failure blocks must be not nil!");
   m_products.clear();
-  m_from = routePointLatLon(from);
-  m_to = routePointLatLon(to);
+  m_from = ms::LatLon(from.latitude, from.longitude);
+  m_to = ms::LatLon(to.latitude, to.longitude);
   auto cv = self.collectionView;
   cv.hidden = YES;
   cv.pageControl.hidden = YES;
 
-  network_policy::CallPartnersApi(
-      [self, completion, failure](platform::NetworkPolicy const & canUseNetwork) {
-        auto const api = GetFramework().GetUberApi(canUseNetwork);
-        if (!api)
+  network_policy::CallPartnersApi([self, completion, failure](auto const & canUseNetwork) {
+    auto const engine = GetFramework().GetTaxiEngine(canUseNetwork);
+    if (!engine)
+    {
+      failure(L(@"dialog_taxi_error"));
+      return;
+    }
+
+    auto success = [self, completion, failure](taxi::ProvidersContainer const & providers,
+                                               uint64_t const requestId) {
+      dispatch_async(dispatch_get_main_queue(), [self, completion, failure, providers, requestId] {
+        if (self->m_requestId != requestId)
+          return;
+        if (providers.empty())
         {
-          failure(L(@"dialog_taxi_error"));
+          failure(L(@"taxi_no_providers"));
+          [Statistics logEvent:kStatRoutingBuildTaxi
+                withParameters:@{@"error": @"No providers (Taxi isn't in the city)"}];
           return;
         }
+        auto const & provider = providers.front();
+        auto const & products = provider.GetProducts();
+        auto const type = provider.GetType();
+        self->m_products = products;
+        NSString * providerName = nil;
+        switch (type)
+        {
+        case taxi::Provider::Type::Uber:
+          self.type = MWMRoutePreviewTaxiCellTypeUber;
+          providerName = kStatUber;
+          break;
+        case taxi::Provider::Type::Yandex:
+          self.type = MWMRoutePreviewTaxiCellTypeYandex;
+          providerName = kStatYandex;
+          break;
+        case taxi::Provider::Type::Maxim:
+          self.type = MWMRoutePreviewTaxiCellTypeMaxim;
+          providerName = kStatMaxim;
+          break;
+        case taxi::Provider::Type::Count:
+          LOG(LERROR, ("Incorrect taxi provider"));
+          break;
+        }
+        [Statistics logEvent:kStatRoutingBuildTaxi withParameters:@{@"provider": providerName}];
+        auto cv = self.collectionView;
+        cv.hidden = NO;
+        cv.pageControl.hidden = products.size() == 1;
+        cv.numberOfPages = products.size();
+        cv.contentOffset = {};
+        cv.currentPage = 0;
+        [cv reloadData];
+        completion();
+      });
+    };
 
-        auto success = [self, completion](vector<Product> const & products,
-                                          uint64_t const requestId) {
-          if (self->m_requestId != requestId)
-            return;
-          runAsyncOnMainQueue([self, completion, products] {
+    auto error = [self, failure](taxi::ErrorsContainer const & errors, uint64_t const requestId) {
+      dispatch_async(dispatch_get_main_queue(), [self, failure, errors, requestId] {
+        if (self->m_requestId != requestId)
+          return;
+        if (errors.empty())
+        {
+          NSCAssert(false, @"Errors container is empty");
+          return;
+        }
+        auto const & error = errors.front();
+        auto const errorCode = error.m_code;
+        auto const type = error.m_type;
+        NSString * provider = nil;
+        switch (type)
+        {
+        case taxi::Provider::Type::Uber: provider = kStatUber; break;
+        case taxi::Provider::Type::Yandex: provider = kStatYandex; break;
+        case taxi::Provider::Type::Maxim: provider = kStatMaxim; break;
+        case taxi::Provider::Count: LOG(LERROR, ("Incorrect taxi provider")); break;
+        }
+        NSString * errorValue = nil;
+        switch (errorCode)
+        {
+        case taxi::ErrorCode::NoProducts:
+          errorValue = @"No products (Taxi is in the city, but no offers)";
+          failure(L(@"taxi_not_found"));
+          break;
+        case taxi::ErrorCode::RemoteError:
+          errorValue = @"Server error (The taxi server responded with an error)";
+          failure(L(@"dialog_taxi_error"));
+          break;
+        }
+        [Statistics logEvent:kStatRoutingBuildTaxi
+              withParameters:@{@"provider": provider, @"error": errorValue}];
+      });
+    };
 
-            self->m_products = products;
-            auto cv = self.collectionView;
-            cv.hidden = NO;
-            cv.pageControl.hidden = NO;
-            cv.numberOfPages = self->m_products.size();
-            [cv reloadData];
-            cv.contentOffset = {};
-            cv.currentPage = 0;
-            completion();
-          });
-
-        };
-        auto error = [self, failure](uber::ErrorCode const code, uint64_t const requestId) {
-          if (self->m_requestId != requestId)
-            return;
-          runAsyncOnMainQueue(^{
-            switch (code)
-            {
-            case uber::ErrorCode::NoProducts: failure(L(@"taxi_not_found")); break;
-            case uber::ErrorCode::RemoteError: failure(L(@"dialog_taxi_error")); break;
-            }
-          });
-        };
-        m_requestId = api->GetAvailableProducts(m_from, m_to, success, error);
-      },
-      true /* force */);
+    m_requestId = engine->GetAvailableProducts(m_from, m_to, success, error);
+  });
 }
 
 - (BOOL)isTaxiInstalled
 {
-  // TODO(Vlad): Not the best solution, need to store url's scheme of product in the uber::Product
-  // instead of just "uber://".
-  NSURL * url = [NSURL URLWithString:@"uber://"];
-  return [[UIApplication sharedApplication] canOpenURL:url];
+  NSURL * url;
+  switch (self.type)
+  {
+  case MWMRoutePreviewTaxiCellTypeTaxi: return NO;
+  case MWMRoutePreviewTaxiCellTypeUber: url = [NSURL URLWithString:@"uber://"]; break;
+  case MWMRoutePreviewTaxiCellTypeYandex: url = [NSURL URLWithString:@"yandextaxi://"]; break;
+  case MWMRoutePreviewTaxiCellTypeMaxim: url = [NSURL URLWithString:@"maximzakaz://"]; break;
+  }
+  return [UIApplication.sharedApplication canOpenURL:url];
 }
 
-- (NSURL *)taxiURL;
+- (void)taxiURL:(MWMURLBlock)block
 {
   if (m_products.empty())
-    return nil;
+    return;
 
   auto const index = [self.collectionView indexPathsForVisibleItems].firstObject.row;
   auto const productId = m_products[index].m_productId;
-  auto const links = Api::GetRideRequestLinks(productId, m_from, m_to);
+  network_policy::CallPartnersApi([self, productId, block](auto const & canUseNetwork) {
+    auto const engine = GetFramework().GetTaxiEngine(canUseNetwork);
+    if (!engine)
+      return;
+    Provider::Type type;
+    switch (self.type)
+    {
+    case MWMRoutePreviewTaxiCellTypeTaxi: return;
+    case MWMRoutePreviewTaxiCellTypeUber: type = Provider::Type::Uber; break;
+    case MWMRoutePreviewTaxiCellTypeYandex: type = Provider::Type::Yandex; break;
+    case MWMRoutePreviewTaxiCellTypeMaxim: type = Provider::Type::Maxim; break;
+    }
 
-  return [NSURL URLWithString:self.isTaxiInstalled ? @(links.m_deepLink.c_str()) :
-                                                     @(links.m_universalLink.c_str())];
+    auto links = engine->GetRideRequestLinks(type, productId, m_from, m_to);
+    auto url = [NSURL URLWithString:self.isTaxiInstalled ? @(links.m_deepLink.c_str())
+                                                         : @(links.m_universalLink.c_str())];
+    block(url);
+  });
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -183,10 +239,15 @@ using namespace uber;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-  Class cls = [MWMTaxiPreviewCell class];
-  auto cell = static_cast<MWMTaxiPreviewCell *>(
+  Class cls = [MWMRoutePreviewTaxiCell class];
+  auto cell = static_cast<MWMRoutePreviewTaxiCell *>(
       [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-  [cell configWithProduct:m_products[indexPath.row]];
+  auto const & product = m_products[indexPath.row];
+  [cell configWithType:self.type
+                 title:@(product.m_name.c_str())
+                   eta:@(product.m_time.c_str())
+                 price:@(product.m_price.c_str())
+              currency:@(product.m_currency.c_str())];
 
   return cell;
 }

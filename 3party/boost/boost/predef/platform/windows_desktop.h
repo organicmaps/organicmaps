@@ -33,7 +33,7 @@ http://www.boost.org/LICENSE_1_0.txt)
 #endif
  
 #if BOOST_PLAT_WINDOWS_DESKTOP
-#   define BOOST_PLAT_WINDOWS_DESKTOP_AVALIABLE
+#   define BOOST_PLAT_WINDOWS_DESKTOP_AVAILABLE
 #   include <boost/predef/detail/platform_detected.h>
 #endif
 

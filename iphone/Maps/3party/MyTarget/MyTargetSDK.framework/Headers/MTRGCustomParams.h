@@ -1,12 +1,17 @@
 //
 //  MTRGCustomParams.h
-//  myTargetSDK 4.5.10
+//  myTargetSDK 4.6.15
 //
 //  Created by Anton Bulankin on 22.12.14.
 //  Copyright (c) 2014 Mail.ru Group. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+
+extern NSString *const kMTRGCustomParamsMediationKey;
+extern NSString *const kMTRGCustomParamsMediationAdmob;
+extern NSString *const kMTRGCustomParamsMediationMopub;
+extern NSString *const kMTRGCustomParamsHtmlSupportKey;
 
 typedef enum
 {

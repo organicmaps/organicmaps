@@ -18,4 +18,7 @@
 
 - (void)mwm_refreshUI { [self.view mwm_refreshUI]; }
 - (shared_ptr<search::hotels_filter::Rule>)rules { return nullptr; }
+- (booking::filter::Params)availabilityParams { return {}; }
+- (void)reset {}
+
 @end

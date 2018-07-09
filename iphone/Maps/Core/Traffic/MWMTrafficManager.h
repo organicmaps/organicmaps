@@ -1,13 +1,12 @@
 #import "MWMTrafficManagerObserver.h"
-
-#include "map/traffic_manager.hpp"
+#import "MWMTrafficManagerState.h"
 
 @interface MWMTrafficManager : NSObject
 
 + (void)addObserver:(id<MWMTrafficManagerObserver>)observer;
 + (void)removeObserver:(id<MWMTrafficManagerObserver>)observer;
 
-+ (TrafficManager::TrafficState)state;
++ (MWMTrafficManagerState)state;
 
 + (void)enableTraffic:(BOOL)enable;
 

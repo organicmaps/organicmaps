@@ -35,6 +35,12 @@ void LocalCountryFile::SyncWithDisk()
   m_routingSize = 0;
   Platform & platform = GetPlatform();
 
+  if (platform.GetFileSizeByFullPath(GetPath(MapOptions::Diff), m_mapSize))
+  {
+    m_files = SetOptions(m_files, MapOptions::Diff);
+    return;
+  }
+
   if (platform.GetFileSizeByFullPath(GetPath(MapOptions::Map), m_mapSize))
     m_files = SetOptions(m_files, MapOptions::Map);
 
@@ -53,7 +59,7 @@ void LocalCountryFile::SyncWithDisk()
 void LocalCountryFile::DeleteFromDisk(MapOptions files) const
 {
   vector<MapOptions> const mapOptions =
-      version::IsSingleMwm(GetVersion()) ? vector<MapOptions>({MapOptions::Map})
+      version::IsSingleMwm(GetVersion()) ? vector<MapOptions>({MapOptions::Map, MapOptions::Diff})
                                          : vector<MapOptions>({MapOptions::Map, MapOptions::CarRouting});
   for (MapOptions file : mapOptions)
   {

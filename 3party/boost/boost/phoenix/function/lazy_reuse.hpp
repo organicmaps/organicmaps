@@ -7,9 +7,10 @@
 //
 // Implemented so far:
 //
-// reuser1 (not yet tested)
-// reuser2 (not yet tested)
+// reuser1
+// reuser2
 // reuser3
+// reuser4 (not yet tested)
 //
 // NOTE: It has been possible to simplify the operation of this code.
 //       It now makes no use of boost::function or old FC++ code.
@@ -233,6 +234,59 @@ struct reuser3 {
       if( ref )    ref->init(f,x,y,z);
    }
 };
+//////////////////////////////////////////////////////////////////////
+// reuser4
+//////////////////////////////////////////////////////////////////////
+
+      template <class V1, class V2, class V3, class V4, class V5,
+                class F, class W, class X, class Y, class Z>
+struct reuser4;
+
+      template <class V1, class V2, class V3, class V4, class V5,
+                class F, class W, class X, class Y, class Z, class R>
+struct Thunk4 : public ThunkImpl<R> {
+      mutable F f;
+      mutable W w;
+      mutable X x;
+      mutable Y y;
+      mutable Z z;
+      Thunk4( const F& ff, const W& ww, const X& xx, const Y& yy, const Z& zz )
+            : f(ff), w(ww), x(xx), y(yy), z(zz) {}
+   void init( const F& ff, const W& ww, const X& xx, const Y& yy, const Z& zz ) const {
+      Maybe_Var_Inv<V1,F>::remake( f, ff );
+      Maybe_Var_Inv<V2,W>::remake( w, ww );
+      Maybe_Var_Inv<V3,X>::remake( x, xx );
+      Maybe_Var_Inv<V4,Y>::remake( y, yy );
+      Maybe_Var_Inv<V5,Z>::remake( z, zz );
+   }
+   R operator()() const {
+      return Maybe_Var_Inv<V1,F>::clone(f)(
+         Maybe_Var_Inv<V2,W>::clone(w),
+         Maybe_Var_Inv<V3,X>::clone(x),
+         Maybe_Var_Inv<V4,Y>::clone(y),
+         Maybe_Var_Inv<V5,Z>::clone(z),
+         reuser4<V1,V2,V3,V4,V5,F,W,X,Y,Z>(this) );
+   }
+};
+
+      template <class V1, class V2, class V3, class V4, class V5,
+                class F, class W, class X, class Y, class Z>
+      struct reuser4 {
+        typedef typename F::template result<F(W,X,Y,Z)>::type R;
+        typedef Thunk4<V1,V2,V3,V4,V5,F,W,X,Y,Z,R> M;
+        typedef M result_type;
+        boost::intrusive_ptr<const M> ref;
+        reuser4(a_unique_type_for_nil) {}
+        reuser4(const M* m) : ref(m) {}
+   M operator()( const F& f, const W& w, const X& x, const Y& y, const Z& z ) {
+      if( !ref )   ref = boost::intrusive_ptr<const M>( new M(f,w,x,y,z) );
+      else         ref->init(f,w,x,y,z);
+      return *ref;
+   }
+   void iter( const F& f, const W& w, const X& x, const Y& y, const Z& z ) {
+      if( ref )    ref->init(f,w,x,y,z);
+   }
+      };
 
     }
 

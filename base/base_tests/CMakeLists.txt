@@ -7,15 +7,20 @@ set(
   assert_test.cpp
   bits_test.cpp
   buffer_vector_test.cpp
+  bwt_tests.cpp
   cache_test.cpp
+  clustering_map_tests.cpp
   collection_cast_test.cpp
   condition_test.cpp
   containers_test.cpp
+  control_flow_tests.cpp
+  fifo_cache_test.cpp
   levenshtein_dfa_test.cpp
   logging_test.cpp
   math_test.cpp
   matrix_test.cpp
   mem_trie_test.cpp
+  move_to_front_tests.cpp
   newtype_test.cpp
   observer_list_test.cpp
   range_iterator_test.cpp
@@ -28,6 +33,7 @@ set(
   stl_helpers_test.cpp
   string_format_test.cpp
   string_utils_test.cpp
+  suffix_array_tests.cpp
   sunrise_sunset_test.cpp
   thread_pool_tests.cpp
   threaded_list_test.cpp
@@ -35,6 +41,8 @@ set(
   timegm_test.cpp
   timer_test.cpp
   uni_string_dfa_test.cpp
+  visitor_tests.cpp
+  worker_thread_tests.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})

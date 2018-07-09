@@ -473,14 +473,14 @@ namespace boost {
         ///
         typedef basic_format<wchar_t> wformat;
 
-        #ifdef BOOST_HAS_CHAR16_T
+        #ifdef BOOST_LOCALE_ENABLE_CHAR16_T
         ///
         /// Definition of char16_t based format
         ///
         typedef basic_format<char16_t> u16format;
         #endif
 
-        #ifdef BOOST_HAS_CHAR32_T
+        #ifdef BOOST_LOCALE_ENABLE_CHAR32_T
         ///
         /// Definition of char32_t based format
         ///

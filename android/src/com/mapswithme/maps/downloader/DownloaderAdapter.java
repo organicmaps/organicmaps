@@ -16,7 +16,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +23,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.maps.R;
@@ -37,9 +35,9 @@ import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.statistics.MytargetHelper;
 import com.mapswithme.util.statistics.Statistics;
+import com.my.target.nativeads.banners.NativeAppwallBanner;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
-import ru.mail.android.mytarget.nativeads.banners.NativeAppwallBanner;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -182,7 +180,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       {
         Intent intent = new Intent(adapter.mActivity, MwmActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        intent.putExtra(MwmActivity.EXTRA_TASK, new MwmActivity.ShowCountryTask(item.id, false));
+        intent.putExtra(MwmActivity.EXTRA_TASK, new MwmActivity.ShowCountryTask(item.id));
         adapter.mActivity.startActivity(intent);
 
         if (!(adapter.mActivity instanceof MwmActivity))
@@ -380,6 +378,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       {
       case CountryItem.STATUS_DONE:
       case CountryItem.STATUS_PROGRESS:
+      case CountryItem.STATUS_APPLYING:
       case CountryItem.STATUS_ENQUEUED:
         processLongClick();
         break;
@@ -398,7 +397,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
           @Override
           public void run()
           {
-            Notifier.cancelDownloadFailed();
+            Notifier.cancelNotification(Notifier.ID_DOWNLOAD_FAILED);
           }
         });
         break;
@@ -458,6 +457,7 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
         break;
 
       case CountryItem.STATUS_PROGRESS:
+      case CountryItem.STATUS_APPLYING:
       case CountryItem.STATUS_ENQUEUED:
         items.add(MenuItem.CANCEL);
 
@@ -599,10 +599,16 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       UiUtils.showIf(mSearchResultsMode, mFoundName);
 
       long size;
-      if (mItem.status == CountryItem.STATUS_ENQUEUED || mItem.status == CountryItem.STATUS_PROGRESS)
+      if (mItem.status == CountryItem.STATUS_ENQUEUED ||
+          mItem.status == CountryItem.STATUS_PROGRESS ||
+          mItem.status == CountryItem.STATUS_APPLYING)
+      {
         size = mItem.enqueuedSize;
+      }
       else
+      {
         size = ((!mSearchResultsMode && mMyMapsMode) ? mItem.size : mItem.totalSize);
+      }
 
       mSize.setText(StringUtils.getFileSizeString(size));
       mStatusIcon.update(mItem);
@@ -628,35 +634,11 @@ class DownloaderAdapter extends RecyclerView.Adapter<DownloaderAdapter.ViewHolde
       }
       else
       {
-        // TODO: remove this debug 'if' if the crash is gone in next (6.5.3) release
-        // - https://www.fabric.io/mapsme/android/apps/com.mapswithme.maps.pro/issues/58249a350aeb16625bb4d0a7,
-        // otherwise the logged information should help to pinpoint the 'IndexOutOfBounds' bug.
-        if (position >= mItems.size())
-          logIndexOutOfBoundsErrorInfoToCrashlytics(position);
-
+        if (position > mNearMeCount)
+          position -= getAdsCount();
         CountryItem ci = mItems.get(position);
         mTitle.setText(mHeaders.get(ci.headerId));
       }
-    }
-  }
-
-  private void logIndexOutOfBoundsErrorInfoToCrashlytics(int position)
-  {
-    String tag = DownloaderAdapter.class.getSimpleName();
-    int itemSize = mItems.size();
-    Crashlytics.log(Log.ERROR, tag, "Index " + position + " is out of bounds, mItem.size = "
-                                    + itemSize + ", current thread = " + Thread.currentThread() +
-                                    " mNearMeCount = " + mNearMeCount + ", ads count = " + mAds.size()
-                                    + ", showAds = " + mShowAds + ", mAdsLoaded = " + mAdsLoaded
-                                    + ", mAdsLoading = " + mAdsLoading +
-                                    " mSearchResultsMode = " + mSearchResultsMode
-                                    + ", mSearchQuery = " + mSearchQuery +
-                                    " mHeaders.size = " + mHeaders.size()
-                                    + " mHeaders = " + mHeaders);
-    if (itemSize > 0)
-    {
-      CountryItem lastCi = mItems.get(--itemSize);
-      Crashlytics.log(Log.INFO, tag, "last county item in position = " + itemSize + " = " + lastCi);
     }
   }
 

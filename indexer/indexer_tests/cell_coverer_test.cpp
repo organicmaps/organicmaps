@@ -1,13 +1,16 @@
-#include "indexer/cell_coverer.hpp"
 #include "testing/testing.hpp"
 
+#include "indexer/cell_coverer.hpp"
+#include "indexer/indexer_tests/bounds.hpp"
+
 #include "geometry/covering_utils.hpp"
+
 #include "coding/hex.hpp"
+
 #include "base/logging.hpp"
 
 // Unit test uses m2::CellId<30> for historical reasons, the actual production code uses RectId.
 typedef m2::CellId<30> CellIdT;
-typedef Bounds<-180, -90, 180, 90> OrthoBounds;
 
 UNIT_TEST(CellIdToStringRecode)
 {

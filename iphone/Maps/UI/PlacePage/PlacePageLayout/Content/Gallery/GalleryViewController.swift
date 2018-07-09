@@ -3,7 +3,7 @@ final class GalleryViewController: MWMCollectionViewController {
   typealias Cell = GalleryCell
   typealias Model = GalleryModel
 
-  static func instance(model: Model) -> GalleryViewController {
+  @objc static func instance(model: Model) -> GalleryViewController {
     let vc = GalleryViewController(nibName: toString(self), bundle: nil)
     vc.model = model
     return vc
@@ -41,6 +41,9 @@ final class GalleryViewController: MWMCollectionViewController {
     layout.minimumLineSpacing = spacing
     layout.minimumInteritemSpacing = spacing
     layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+    if #available(iOS 11.0, *) {
+      layout.sectionInsetReference = .fromSafeArea
+    }
   }
 
   override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -50,7 +53,7 @@ final class GalleryViewController: MWMCollectionViewController {
   }
 
   // MARK: UICollectionViewDataSource
-  override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  override func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
     return model.items.count
   }
 
@@ -63,6 +66,17 @@ final class GalleryViewController: MWMCollectionViewController {
 
   // MARK: UICollectionViewDelegate
   override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    show(GalleryItemViewController.instance(model: model.items[indexPath.item]), sender: nil)
+    let currentPhoto = model.items[indexPath.item]
+    let cell = collectionView.cellForItem(at: indexPath)
+    let photoVC = PhotosViewController(photos: model, initialPhoto: currentPhoto, referenceView: cell)
+
+    photoVC.referenceViewForPhotoWhenDismissingHandler = { [weak self] photo in
+      if let index = self?.model.items.index(where: { $0 === photo }) {
+        let indexPath = IndexPath(item: index, section: 0)
+        return collectionView.cellForItem(at: indexPath)
+      }
+      return nil
+    }
+    present(photoVC, animated: true, completion: nil)
   }
 }

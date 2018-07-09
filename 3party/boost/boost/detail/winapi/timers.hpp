@@ -1,6 +1,7 @@
 //  timers.hpp  --------------------------------------------------------------//
 
 //  Copyright 2010 Vicente J. Botet Escriba
+//  Copyright 2015 Andrey Semashev
 
 //  Distributed under the Boost Software License, Version 1.0.
 //  See http://www.boost.org/LICENSE_1_0.txt
@@ -15,28 +16,31 @@
 #pragma once
 #endif
 
-namespace boost
-{
-namespace detail
-{
-namespace winapi
-{
-#if defined( BOOST_USE_WINDOWS_H )
-    using ::QueryPerformanceCounter;
-    using ::QueryPerformanceFrequency;
-#else
-extern "C" { 
-    __declspec(dllimport) BOOL_ WINAPI
-        QueryPerformanceCounter(
-            LARGE_INTEGER_ *lpPerformanceCount
-        );
+#if !defined( BOOST_USE_WINDOWS_H )
+extern "C" {
+BOOST_SYMBOL_IMPORT boost::detail::winapi::BOOL_ WINAPI
+QueryPerformanceCounter(::_LARGE_INTEGER* lpPerformanceCount);
 
-    __declspec(dllimport) BOOL_ WINAPI
-        QueryPerformanceFrequency(
-            LARGE_INTEGER_ *lpFrequency
-        );
+BOOST_SYMBOL_IMPORT boost::detail::winapi::BOOL_ WINAPI
+QueryPerformanceFrequency(::_LARGE_INTEGER* lpFrequency);
 }
 #endif
+
+
+namespace boost {
+namespace detail {
+namespace winapi {
+
+BOOST_FORCEINLINE BOOL_ QueryPerformanceCounter(LARGE_INTEGER_* lpPerformanceCount)
+{
+    return ::QueryPerformanceCounter(reinterpret_cast< ::_LARGE_INTEGER* >(lpPerformanceCount));
+}
+
+BOOST_FORCEINLINE BOOL_ QueryPerformanceFrequency(LARGE_INTEGER_* lpFrequency)
+{
+    return ::QueryPerformanceFrequency(reinterpret_cast< ::_LARGE_INTEGER* >(lpFrequency));
+}
+
 }
 }
 }

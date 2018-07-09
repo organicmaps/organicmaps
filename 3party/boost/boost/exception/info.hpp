@@ -15,7 +15,7 @@
 #include <boost/exception/exception.hpp>
 #include <boost/exception/to_string_stub.hpp>
 #include <boost/exception/detail/error_info_impl.hpp>
-#include <boost/shared_ptr.hpp>
+#include <boost/exception/detail/shared_ptr.hpp>
 #include <boost/config.hpp>
 #include <map>
 
@@ -45,6 +45,30 @@ boost
         value_(value)
         {
         }
+
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
+    template <class Tag,class T>
+    inline
+    error_info<Tag,T>::
+    error_info( error_info const & x ):
+        value_(x.value_)
+        {
+        }
+    template <class Tag,class T>
+    inline
+    error_info<Tag,T>::
+    error_info( value_type && value ) BOOST_NOEXCEPT_IF(BOOST_NOEXCEPT_EXPR(value_type(std::move(value)))):
+        value_(std::move(value))
+        {
+        }
+    template <class Tag,class T>
+    inline
+    error_info<Tag,T>::
+    error_info( error_info && x ) BOOST_NOEXCEPT_IF(BOOST_NOEXCEPT_EXPR(value_type(std::move(x.value_)))):
+        value_(std::move(x.value_))
+        {
+        }
+#endif
 
     template <class Tag,class T>
     inline
@@ -175,6 +199,85 @@ boost
             return x;
             }
 
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
+        template <class E,class Tag,class T>
+        E const & set_info( E const &, error_info<Tag,T> && );
+        template <class T>
+        struct set_info_rv;
+        template <class Tag,class T>
+        struct
+        set_info_rv<error_info<Tag,T> >
+            {
+            template <class E,class Tag1,class T1>
+            friend E const & set_info( E const &, error_info<Tag1,T1> && );
+            template <class E>
+            static
+            E const &
+            set( E const & x, error_info<Tag,T> && v )
+                {
+                typedef error_info<Tag,T> error_info_tag_t;
+                shared_ptr<error_info_tag_t> p( new error_info_tag_t(std::move(v)) );
+                exception_detail::error_info_container * c=x.data_.get();
+                if( !c )
+                    x.data_.adopt(c=new exception_detail::error_info_container_impl);
+                c->set(p,BOOST_EXCEPTION_STATIC_TYPEID(error_info_tag_t));
+                return x;
+                }
+            };
+        template <>
+        struct
+        set_info_rv<throw_function>
+            {
+            template <class E,class Tag1,class T1>
+            friend E const & set_info( E const &, error_info<Tag1,T1> && );
+            template <class E>
+            static
+            E const &
+            set( E const & x, throw_function && y )
+                {
+                x.throw_function_=y.v_;
+                return x;
+                }
+            };
+        template <>
+        struct
+        set_info_rv<throw_file>
+            {
+            template <class E,class Tag1,class T1>
+            friend E const & set_info( E const &, error_info<Tag1,T1> && );
+            template <class E>
+            static
+            E const &
+            set( E const & x, throw_file && y )
+                {
+                x.throw_file_=y.v_;
+                return x;
+                }
+            };
+        template <>
+        struct
+        set_info_rv<throw_line>
+            {
+            template <class E,class Tag1,class T1>
+            friend E const & set_info( E const &, error_info<Tag1,T1> && );
+            template <class E>
+            static
+            E const &
+            set( E const & x, throw_line && y )
+                {
+                x.throw_line_=y.v_;
+                return x;
+                }
+            };
+        template <class E,class Tag,class T>
+        inline
+        E const &
+        set_info( E const & x, error_info<Tag,T> && v )
+            {
+            return set_info_rv<error_info<Tag,T> >::template set<E>(x,std::move(v));
+            }
+#endif
+
         template <class T>
         struct
         derives_boost_exception
@@ -190,6 +293,16 @@ boost
         {
         return exception_detail::set_info(x,v);
         }
+
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
+    template <class E,class Tag,class T>
+    inline
+    typename enable_if<exception_detail::derives_boost_exception<E>,E const &>::type
+    operator<<( E const & x, error_info<Tag,T> && v )
+        {
+        return exception_detail::set_info(x,std::move(v));
+        }
+#endif
     }
 
 #if defined(_MSC_VER) && !defined(BOOST_EXCEPTION_ENABLE_WARNINGS)

@@ -13,14 +13,14 @@
 #ifndef BOOST_VARIANT_DETAIL_APPLY_VISITOR_DELAYED_HPP
 #define BOOST_VARIANT_DETAIL_APPLY_VISITOR_DELAYED_HPP
 
-#include "boost/variant/detail/generic_result_type.hpp"
+#include <boost/variant/detail/generic_result_type.hpp>
 
-#include "boost/variant/detail/apply_visitor_unary.hpp"
-#include "boost/variant/detail/apply_visitor_binary.hpp"
-#include "boost/variant/variant_fwd.hpp" // for BOOST_VARIANT_DO_NOT_USE_VARIADIC_TEMPLATES
+#include <boost/variant/detail/apply_visitor_unary.hpp>
+#include <boost/variant/detail/apply_visitor_binary.hpp>
+#include <boost/variant/variant_fwd.hpp> // for BOOST_VARIANT_DO_NOT_USE_VARIADIC_TEMPLATES
 
 
-#include "boost/variant/detail/has_result_type.hpp"
+#include <boost/variant/detail/has_result_type.hpp>
 #include <boost/core/enable_if.hpp>
 
 namespace boost {

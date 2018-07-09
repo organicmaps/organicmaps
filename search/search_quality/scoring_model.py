@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
 from math import exp, log
-from scipy.stats import pearsonr
-from sklearn import cross_validation, grid_search, svm
+from scipy.stats import pearsonr, t
+from sklearn import svm
+from sklearn.model_selection import GridSearchCV, KFold
+from sklearn.utils import resample
 import argparse
 import collections
 import itertools
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import random
@@ -16,17 +17,16 @@ import sys
 MAX_DISTANCE_METERS = 2e6
 MAX_RANK = 255
 RELEVANCES = {'Irrelevant': 0, 'Relevant': 1, 'Vital': 3}
-NAME_SCORES = ['Zero', 'Substring Prefix', 'Substring', 'Full Match Prefix', 'Full Match']
+NAME_SCORES = ['Zero', 'Substring', 'Prefix', 'Full Match']
 SEARCH_TYPES = ['POI', 'Building', 'Street', 'Unclassified', 'Village', 'City', 'State', 'Country']
+FEATURES = ['DistanceToPivot', 'Rank', 'FalseCats', 'ErrorsMade', 'AllTokensUsed'] + NAME_SCORES + SEARCH_TYPES
 
-FEATURES = ['DistanceToPivot', 'Rank', 'FalseCats'] + NAME_SCORES + SEARCH_TYPES
+BOOTSTRAP_ITERATIONS = 10000
 
 
 def transform_name_score(value, categories_match):
     if categories_match == 1:
         return 'Zero'
-    elif value == 'Full Match Prefix':
-        return 'Full Match'
     else:
         return value
 
@@ -40,10 +40,6 @@ def normalize_data(data):
 
     cats = data['PureCats'].combine(data['FalseCats'], max)
 
-    # Full prefix match is unified with a full match as these features
-    # are collinear. But we need both of them as they're also used in
-    # locality sorting.
-    #
     # TODO (@y, @m): do forward/backward/subset selection of features
     # instead of this merging.  It would be great to conduct PCA on
     # the features too.
@@ -163,29 +159,6 @@ def transform_data(data):
     return xs, ys
 
 
-def plot_diagrams(xs, ys, features):
-    """
-    For each feature, plots histagrams of x * sign(y), where x is a
-    slice on the feature of a list of pairwise differences between
-    input feature-vectors and y is a list of pairwise differences
-    between relevances of the input feature-vectors.  Stong bias
-    toward positive or negative values in histograms indicates that
-    the current feature is important for ranking, as there is a
-    correlation between difference between features values and
-    relevancy.
-    """
-    for i, f in enumerate(features):
-        x = [x[i] * np.sign(y) for x, y in zip(xs, ys)]
-
-        l, r = min(x), max(x)
-        d = max(abs(l), abs(r))
-
-        plt.subplot(4, 4, i + 1)
-        plt.hist(x, bins=8, range=(-d, d))
-        plt.title(f)
-    plt.show()
-
-
 def show_pearson_statistics(xs, ys, features):
     """
     Shows info about Pearson coefficient between features and
@@ -219,8 +192,10 @@ def raw_output(features, ws):
     Prints feature-coeff pairs to the standard output.
     """
 
+    print('{:<20}{}'.format('Feature', 'Value'))
+    print()
     for f, w in zip(features, ws):
-        print('{}: {}'.format(f, w))
+        print('{:<20}{:.5f}'.format(f, w))
 
 
 def print_const(name, value):
@@ -247,7 +222,49 @@ def cpp_output(features, ws):
         else:
             print_const(f, w)
     print_array('kNameScore', 'NameScore::NAME_SCORE_COUNT', ns)
-    print_array('kSearchType', 'SearchModel::SEARCH_TYPE_COUNT', st)
+    print_array('kType', 'Model::TYPE_COUNT', st)
+
+
+def show_bootstrap_statistics(clf, X, y, features):
+    num_features = len(features)
+
+    coefs = []
+    for i in range(num_features):
+        coefs.append([])
+
+    for _ in range(BOOTSTRAP_ITERATIONS):
+        X_sample, y_sample = resample(X, y)
+        clf.fit(X_sample, y_sample)
+        for i, c in enumerate(get_normalized_coefs(clf)):
+            coefs[i].append(c)
+
+    poi_index = features.index('POI')
+    building_index = features.index('Building')
+    coefs[building_index] = coefs[poi_index]
+
+    intervals = []
+
+    print()
+    print('***** Bootstrap statistics *****')
+    print('{:<20}{:<20}{:<10}{:<10}'.format('Feature', '95% interval', 't-value', 'Pr(>|t|)'))
+    print()
+    for i, cs in enumerate(coefs):
+        values = np.array(cs)
+        lo = np.percentile(values, 2.5)
+        hi = np.percentile(values, 97.5)
+        interval = '({:.3f}, {:.3f})'.format(lo, hi)
+        tv = np.mean(values) / np.std(values)
+        pr = (1.0 - t.cdf(x=abs(tv), df=len(values))) * 0.5
+
+        stv = '{:.3f}'.format(tv)
+        spr = '{:.3f}'.format(pr)
+        print('{:<20}{:<20}{:<10}{:<10}'.format(features[i], interval, stv, spr))
+
+
+def get_normalized_coefs(clf):
+    ws = clf.coef_[0]
+    max_w = max(abs(w) for w in ws)
+    return np.divide(ws, max_w)
 
 
 def main(args):
@@ -255,34 +272,30 @@ def main(args):
     normalize_data(data)
 
     ndcgs = compute_ndcgs_without_ws(data);
-    print('Current NDCG: {}, std: {}'.format(np.mean(ndcgs), np.std(ndcgs)))
+    print('Current NDCG: {:.3f}, std: {:.3f}'.format(np.mean(ndcgs), np.std(ndcgs)))
     print()
 
     xs, ys = transform_data(data)
 
-    if args.plot:
-        plot_diagrams(xs, ys, FEATURES)
-
     clf = svm.LinearSVC(random_state=args.seed)
-    cv = cross_validation.KFold(len(ys), n_folds=5, shuffle=True, random_state=args.seed)
+    cv = KFold(n_splits=5, shuffle=True, random_state=args.seed)
 
     # "C" stands for the regularizer constant.
     grid = {'C': np.power(10.0, np.arange(-5, 6))}
-    gs = grid_search.GridSearchCV(clf, grid, scoring='accuracy', cv=cv)
+    gs = GridSearchCV(clf, grid, scoring='roc_auc', cv=cv)
     gs.fit(xs, ys)
 
-    ws = gs.best_estimator_.coef_[0]
-    max_w = max(abs(w) for w in ws)
-    ws = np.divide(ws, max_w)
+    print('Best params: {}'.format(gs.best_params_))
+
+    ws = get_normalized_coefs(gs.best_estimator_)
 
     # Following code restores coeffs for merged features.
     ws[FEATURES.index('Building')] = ws[FEATURES.index('POI')]
-    ws[FEATURES.index('Full Match Prefix')] = ws[FEATURES.index('Full Match')]
 
     ndcgs = compute_ndcgs_for_ws(data, ws)
 
-    print('NDCG mean: {}, std: {}'.format(np.mean(ndcgs), np.std(ndcgs)))
-    print('Accuracy: {}'.format(gs.best_score_))
+    print('NDCG mean: {:.3f}, std: {:.3f}'.format(np.mean(ndcgs), np.std(ndcgs)))
+    print('ROC AUC: {:.3f}'.format(gs.best_score_))
 
     if args.pearson:
         print()
@@ -295,12 +308,15 @@ def main(args):
     else:
         raw_output(FEATURES, ws)
 
+    if args.bootstrap:
+        show_bootstrap_statistics(clf, xs, ys, FEATURES)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--seed', help='random seed', type=int)
-    parser.add_argument('--plot', help='plot diagrams', action='store_true')
     parser.add_argument('--pearson', help='show pearson statistics', action='store_true')
     parser.add_argument('--cpp', help='generate output in the C++ format', action='store_true')
+    parser.add_argument('--bootstrap', help='show bootstrap confidence intervals', action='store_true')
     args = parser.parse_args()
     main(args)

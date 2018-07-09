@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Pushwoosh_APPID</key>
-	<string>84E00-0F767</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -72,6 +70,14 @@
 				<string>mapswithmepro</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.1033279251462-k2pp753lp1f39dacjn0pkurcc8pbbvsi</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>0</string>
@@ -100,6 +106,9 @@
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
 		<string>uber</string>
+		<string>yandextaxi</string>
+		<string>tel</string>
+		<string>booking</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -152,6 +161,8 @@
 	<string>Unused by an application</string>
 	<key>PW_USE_GPS</key>
 	<false/>
+	<key>Pushwoosh_APPID</key>
+	<string>84E00-0F767</string>
 	<key>Pushwoosh_LOG_LEVEL</key>
 	<string>WARNING</string>
 	<key>UIApplicationShortcutItems</key>

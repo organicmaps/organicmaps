@@ -529,7 +529,7 @@ struct default_operations
         { }
 
         template< class Res , class T1 , class T2 , class T3 , class T4 >
-        Res operator()( Res r , const T1 &x_old , const T2 &x , const T3 &dxdt_old , const T4 &x_err )
+        Res operator()( Res r , const T1 &x_old , const T2 &/*x*/ , const T3 &dxdt_old , const T4 &x_err )
         {
             BOOST_USING_STD_MAX();
             using std::abs;
@@ -574,7 +574,7 @@ struct default_operations
         { }
 
         template< class Res , class T1 , class T2 , class T3 , class T4 >
-        Res operator()( Res r , const T1 &x_old , const T2 &x , const T3 &dxdt_old , const T4 &x_err )
+        Res operator()( Res r , const T1 &x_old , const T2 &/*x*/ , const T3 &dxdt_old , const T4 &x_err )
         {
             using std::abs;
             Res tmp = abs( get_unit_value( x_err ) ) /

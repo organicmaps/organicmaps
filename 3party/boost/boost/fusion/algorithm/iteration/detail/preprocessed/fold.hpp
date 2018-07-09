@@ -8,345 +8,138 @@
 
     This is an auto-generated file. Do not edit!
 ==============================================================================*/
+# if BOOST_WORKAROUND (BOOST_MSVC, < 1500)
+# define BOOST_FUSION_FOLD_IMPL_ENABLER(T) void
+# else
+# define BOOST_FUSION_FOLD_IMPL_ENABLER(T) typename T::type
+# endif
 namespace boost { namespace fusion
 {
     namespace detail
     {
-        template<typename State, typename It, typename F>
-        struct fold_lvalue_state
-          : fusion::detail::result_of_with_decltype<
-                F(
-                typename add_reference<typename add_const<State>::type>::type,
-                typename fusion::result_of::deref<It>::type)
-            >
+        template<int SeqSize, typename It, typename State, typename F, typename = void
+# if BOOST_WORKAROUND (BOOST_MSVC, < 1500)
+          
+          , bool = SeqSize == 0
+# endif
+        >
+        struct result_of_it_fold
         {};
-        template<typename Result,int N>
-        struct unrolled_fold
+        template<typename It, typename State, typename F>
+        struct result_of_it_fold<0,It,State,F
+          , typename boost::enable_if_has_type<BOOST_FUSION_FOLD_IMPL_ENABLER(State)>::type
+# if BOOST_WORKAROUND (BOOST_MSVC, < 1500)
+          , true
+# endif
+          >
         {
-            template<typename State3, typename It3, typename F>
-            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
-            static Result
-            call_3(State3 const& state3,It3 const& it3,F& f)
-            {
-                return unrolled_fold<
-                    Result
-                  , N-4
-                >::call(
-                    f(state3,fusion::deref(it3)),
-                    fusion::next(it3),
-                    f);
-            }
-            template<typename State2, typename It2, typename F>
-            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
-            static Result
-            call_2(State2 const& state2,It2 const& it2,F& f)
-            {
-                return call_3(
-                    f(state2,fusion::deref(it2)),
-                    fusion::next(it2),
-                    f);
-            }
-            template<typename State1, typename It1, typename F>
-            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
-            static Result
-            call_1(State1 const& state1,It1 const& it1,F& f)
-            {
-                return call_2(
-                    f(state1,fusion::deref(it1)),
-                    fusion::next(it1),
-                    f);
-            }
-            template<typename State, typename It0, typename F>
-            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
-            static Result
-            call(State const& state,It0 const& it0,F f)
-            {
-                return call_1(
-                    f(state,fusion::deref(it0)),
-                    fusion::next(it0),
-                    f);
-            }
+            typedef typename State::type type;
         };
-        template<typename Result>
-        struct unrolled_fold<Result,3>
-        {
-            template<typename State2, typename It2, typename F>
-            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
-            static Result
-            call_2(State2 const& state2,It2 const& it2,F& f)
-            {
-                return f(state2,fusion::deref(it2));
-            }
-            template<typename State1, typename It1, typename F>
-            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
-            static Result
-            call_1(State1 const& state1,It1 const& it1,F& f)
-            {
-                return call_2(
-                    f(state1,fusion::deref(it1)),
-                    fusion::next(it1),
-                    f);
-            }
-            template<typename State, typename It0, typename F>
-            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
-            static Result
-            call(State const& state,It0 const& it0,F f)
-            {
-                return call_1(
-                    f(state,fusion::deref(it0)),
-                    fusion::next(it0),
-                    f);
-            }
-        };
-        template<typename Result>
-        struct unrolled_fold<Result,2>
-        {
-            template<typename State1, typename It1, typename F>
-            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
-            static Result
-            call_1(State1 const& state1,It1 const& it1,F& f)
-            {
-                return f(state1,fusion::deref(it1));
-            }
-            template<typename State, typename It0, typename F>
-            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
-            static Result
-            call(State const& state,It0 const& it0,F f)
-            {
-                return call_1(
-                    f(state,fusion::deref(it0)),
-                    fusion::next(it0),
-                    f);
-            }
-        };
-        template<typename Result>
-        struct unrolled_fold<Result,1>
-        {
-            template<typename State, typename It0, typename F>
-            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
-            static Result
-            call(State const& state,It0 const& it0,F f)
-            {
-                return f(state,
-                    fusion::deref(it0));
-            }
-        };
-        template<typename Result>
-        struct unrolled_fold<Result,0>
-        {
-            template<typename State, typename It0, typename F>
-            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
-            static Result
-            call(State const& state,It0 const&, F)
-            {
-                return static_cast<Result>(state);
-            }
-        };
-        template<typename StateRef, typename It0, typename F, int N>
-        struct result_of_unrolled_fold
-        {
-            typedef typename
-                fold_lvalue_state<
-                    StateRef
-                  , It0 const
-                  , F
-                >::type
-            rest1;
-            typedef typename
-                result_of::next<
-                    It0 const
-                >::type
-            it1;
-            typedef typename
-                fold_lvalue_state<
-                    rest1
-                  , it1
-                  , F
-                >::type
-            rest2;
-            typedef typename
-                result_of::next<it1>::type
-            it2;
-            typedef typename
-                fold_lvalue_state<
-                    rest2
-                  , it2
-                  , F
-                >::type
-            rest3;
-            typedef typename
-                result_of::next<it2>::type
-            it3;
-            typedef typename
-                result_of_unrolled_fold<
-                    typename fold_lvalue_state<
-                        rest3
-                      , it3
-                      , F
-                    >::type
-                  , typename result_of::next<
-                        it3
-                    >::type
-                  , F
-                  , N-4
-                >::type
-            type;
-        };
-        template<typename StateRef, typename It0, typename F>
-        struct result_of_unrolled_fold<
-            StateRef
-          , It0
-          , F
-          , 3
-        >
-        {
-            typedef typename
-                fold_lvalue_state<
-                    StateRef
-                  , It0 const
-                  , F
-                >::type
-            rest1;
-            typedef typename
-                result_of::next<
-                    It0 const
-                >::type
-            it1;
-            typedef typename
-                fold_lvalue_state<
-                    typename fold_lvalue_state<
-                        rest1
-                      , it1
-                      , F
-                    >::type
-                  , typename result_of::next<
-                        it1 const
-                    >::type const
-                  , F
-                >::type
-            type;
-        };
-        template<typename StateRef, typename It0, typename F>
-        struct result_of_unrolled_fold<
-            StateRef
-          , It0
-          , F
-          , 2
-        >
-          : fold_lvalue_state<
-                typename fold_lvalue_state<
-                    StateRef
-                  , It0 const
-                  , F
-                >::type
-              , typename result_of::next<
-                    It0 const
-                >::type const
+        template<int SeqSize, typename It, typename State, typename F>
+        struct result_of_it_fold<SeqSize,It,State,F
+          , typename boost::enable_if_has_type<
+# if BOOST_WORKAROUND (BOOST_MSVC, >= 1500)
+                
+                
+                
+                typename boost::disable_if_c<SeqSize == 0, State>::type::type
+# else
+                BOOST_FUSION_FOLD_IMPL_ENABLER(State)
+# endif
+            >::type
+# if BOOST_WORKAROUND (BOOST_MSVC, < 1500)
+          , false
+# endif
+          >
+          : result_of_it_fold<
+                SeqSize-1
+              , typename result_of::next<It>::type
+              , boost::result_of<
+                    F(
+                        typename add_reference<typename State::type>::type,
+                        typename fusion::result_of::deref<It const>::type
+                    )
+                >
               , F
             >
         {};
-        template<typename StateRef, typename It0, typename F>
-        struct result_of_unrolled_fold<
-            StateRef
-          , It0
+        template<typename It, typename State, typename F>
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        inline typename result_of_it_fold<
+            0
+          , It
+          , State
           , F
-          , 1
-        >
-          : fold_lvalue_state<
-                StateRef
-              , It0 const
+        >::type
+        it_fold(mpl::int_<0>, It const&, typename State::type state, F&)
+        {
+            return state;
+        }
+        template<typename It, typename State, typename F, int SeqSize>
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        inline typename lazy_enable_if_c<
+            SeqSize != 0
+          , result_of_it_fold<
+                SeqSize
+              , It
+              , State
               , F
             >
-        {};
-        template<typename StateRef, typename It0, typename F>
-        struct result_of_unrolled_fold<
-            StateRef
-          , It0
-          , F
-          , 0
-        >
+        >::type
+        it_fold(mpl::int_<SeqSize>, It const& it, typename State::type state, F& f)
         {
-            typedef StateRef type;
-        };
-        template<typename StateRef, typename It0, typename F, int SeqSize>
-        struct result_of_first_unrolledfold
-        {
-            typedef typename
-                result_of_unrolled_fold<
-                    typename fusion::detail::result_of_with_decltype<
-                        F(
-                            StateRef,
-                            typename fusion::result_of::deref< It0 const>::type
-                        )
-                    >::type
-                  , typename result_of::next<
-                        It0 const
-                    >::type
-                  , F
-                  , SeqSize-1
-                >::type
-            type;
-        };
-        template<int SeqSize, typename StateRef, typename Seq, typename F>
-        struct fold_impl
-        {
-            typedef typename
-                result_of_first_unrolledfold<
-                    StateRef
-                  , typename result_of::begin<Seq>::type
-                  , F
-                  , SeqSize
-                >::type
-            type;
-            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
-            static type
-            call(StateRef state, Seq& seq, F f)
-            {
-                typedef
-                    unrolled_fold<
-                        type
-                      , SeqSize
-                    >
-                unrolled_impl;
-                return unrolled_impl::call(
-                    state,
-                    fusion::begin(seq),
-                    f);
-            }
-        };
-        template<typename StateRef, typename Seq, typename F>
-        struct fold_impl<0,StateRef,Seq,F>
-        {
-            typedef StateRef type;
-            BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
-            static StateRef
-            call(StateRef state, Seq&, F)
-            {
-                return static_cast<StateRef>(state);
-            }
-        };
-        template<typename Seq, typename State, typename F, bool IsSegmented>
+            return it_fold<
+                typename result_of::next<It>::type
+              , boost::result_of<
+                    F(
+                        typename add_reference<typename State::type>::type,
+                        typename fusion::result_of::deref<It const>::type
+                    )
+                >
+              , F
+            >(
+                mpl::int_<SeqSize-1>()
+              , fusion::next(it)
+              , f(state, fusion::deref(it))
+              , f
+            );
+        }
+        template<typename Seq, typename State, typename F
+          , bool = traits::is_sequence<Seq>::value
+          , bool = traits::is_segmented<Seq>::value>
         struct result_of_fold
-          : fold_impl<
+        {};
+        template<typename Seq, typename State, typename F>
+        struct result_of_fold<Seq, State, F, true, false>
+          : result_of_it_fold<
                 result_of::size<Seq>::value
-              , typename add_reference<
-                    typename add_const<State>::type
-                >::type
-              , Seq
+              , typename result_of::begin<Seq>::type
+              , add_reference<State>
               , F
             >
         {};
+        template<typename Seq, typename State, typename F>
+        BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
+        inline typename result_of_fold<Seq, State, F>::type
+        fold(Seq& seq, State& state, F& f)
+        {
+            return it_fold<
+                typename result_of::begin<Seq>::type
+              , add_reference<State>
+              , F
+            >(
+                typename result_of::size<Seq>::type()
+              , fusion::begin(seq)
+              , state
+              , f
+            );
+        }
     }
     namespace result_of
     {
         template<typename Seq, typename State, typename F>
         struct fold
-          : detail::result_of_fold<
-                Seq
-              , State
-              , F
-              , traits::is_segmented<Seq>::type::value
-            >
+          : detail::result_of_fold<Seq, State, F>
         {};
     }
     template<typename Seq, typename State, typename F>
@@ -358,10 +151,7 @@ namespace boost { namespace fusion
     >::type
     fold(Seq& seq, State const& state, F f)
     {
-        return result_of::fold<Seq,State const,F>::call(
-            state,
-            seq,
-            f);
+        return detail::fold<Seq, State const, F>(seq, state, f);
     }
     template<typename Seq, typename State, typename F>
     BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
@@ -372,37 +162,28 @@ namespace boost { namespace fusion
     >::type
     fold(Seq const& seq, State const& state, F f)
     {
-        return result_of::fold<Seq const,State const,F>::call(
-            state,
-            seq,
-            f);
+        return detail::fold<Seq const, State const, F>(seq, state, f);
     }
     template<typename Seq, typename State, typename F>
     BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::fold<
         Seq
-      , State const
+      , State
       , F
     >::type
     fold(Seq& seq, State& state, F f)
     {
-        return result_of::fold<Seq,State,F>::call(
-            state,
-            seq,
-            f);
+        return detail::fold<Seq, State, F>(seq, state, f);
     }
     template<typename Seq, typename State, typename F>
     BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED
     inline typename result_of::fold<
         Seq const
-      , State const
+      , State
       , F
     >::type
     fold(Seq const& seq, State& state, F f)
     {
-        return result_of::fold<Seq const,State,F>::call(
-            state,
-            seq,
-            f);
+        return detail::fold<Seq const, State, F>(seq, state, f);
     }
 }}

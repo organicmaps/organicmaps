@@ -20,7 +20,6 @@
 
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/mpl/bool.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/plus.hpp>
 #include <boost/mpl/int.hpp>

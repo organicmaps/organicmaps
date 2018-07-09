@@ -16,7 +16,9 @@
 #include <boost/assert.hpp>
 #include <boost/thread/exceptions.hpp>
 #include <boost/detail/interlocked.hpp>
+#include <boost/detail/winapi/config.hpp>
 //#include <boost/detail/winapi/synchronization.hpp>
+#include <boost/thread/win32/interlocked_read.hpp>
 #include <algorithm>
 
 #if BOOST_PLAT_WINDOWS_RUNTIME
@@ -59,7 +61,7 @@ namespace boost
             using ::CreateSemaphoreExW;
 # endif
             using ::OpenEventW;
-            using ::GetModuleGandleW;
+            using ::GetModuleHandleW;
 # else
             using ::CreateMutexA;
             using ::CreateEventA;
@@ -243,19 +245,19 @@ namespace boost
             // Borrowed from https://stackoverflow.com/questions/8211820/userland-interrupt-timer-access-such-as-via-kequeryinterrupttime-or-similar
             inline ticks_type __stdcall GetTickCount64emulation()
             {
-                static volatile long count = 0xFFFFFFFF;
+                static long count = -1l;
                 unsigned long previous_count, current_tick32, previous_count_zone, current_tick32_zone;
                 ticks_type current_tick64;
 
-                previous_count = (unsigned long) _InterlockedCompareExchange(&count, 0, 0);
+                previous_count = (unsigned long) boost::detail::interlocked_read_acquire(&count);
                 current_tick32 = GetTickCount();
 
-                if(previous_count == 0xFFFFFFFF)
+                if(previous_count == (unsigned long)-1l)
                 {
                     // count has never been written
                     unsigned long initial_count;
                     initial_count = current_tick32 >> 28;
-                    previous_count = (unsigned long) _InterlockedCompareExchange(&count, initial_count, 0xFFFFFFFF);
+                    previous_count = (unsigned long) _InterlockedCompareExchange(&count, (long)initial_count, -1l);
 
                     current_tick64 = initial_count;
                     current_tick64 <<= 28;
@@ -278,15 +280,16 @@ namespace boost
                 if(current_tick32_zone == previous_count_zone + 1 || (current_tick32_zone == 0 && previous_count_zone == 15))
                 {
                     // The top four bits of the 32-bit tick count have been incremented since count was last written.
-                    _InterlockedCompareExchange(&count, previous_count + 1, previous_count);
-                    current_tick64 = previous_count + 1;
+                    unsigned long new_count = previous_count + 1;
+                    _InterlockedCompareExchange(&count, (long)new_count, (long)previous_count);
+                    current_tick64 = new_count;
                     current_tick64 <<= 28;
                     current_tick64 += current_tick32 & 0x0FFFFFFF;
                     return current_tick64;
                 }
 
                 // Oops, we weren't called often enough, we're stuck
-                return 0xFFFFFFFF;     
+                return 0xFFFFFFFF;
             }
 #else
 #endif
@@ -639,7 +642,7 @@ namespace boost
                     }
                     old=current;
                 }
-                while(true);
+                while(true) ;
                 return (old&value)!=0;
             }
 
@@ -656,7 +659,7 @@ namespace boost
                     }
                     old=current;
                 }
-                while(true);
+                while(true) ;
                 return (old&value)!=0;
             }
         }

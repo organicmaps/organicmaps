@@ -1,6 +1,6 @@
 #ifndef DATE_DURATION_OPERATORS_HPP___
 #define DATE_DURATION_OPERATORS_HPP___
-                                                                                
+
 /* Copyright (c) 2004 CrystalClear Software, Inc.
  * Subject to the Boost Software License, Version 1.0. 
  * (See accompanying file LICENSE_1_0.txt or 

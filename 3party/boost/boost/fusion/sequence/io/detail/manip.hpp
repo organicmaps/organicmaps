@@ -110,8 +110,7 @@ namespace boost { namespace fusion
             {
                 // read a delimiter
                 string_type const* p = stream_data_t::get(stream);
-                using namespace std;
-                ws(stream);
+                std::ws(stream);
 
                 if (p)
                 {

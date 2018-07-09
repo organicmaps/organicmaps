@@ -126,6 +126,7 @@ public class MainMenu extends BaseMenu
     ADD_PLACE(R.id.add_place),
     SEARCH(R.id.search),
     P2P(R.id.p2p),
+    DISCOVERY(R.id.discovery),
     BOOKMARKS(R.id.bookmarks),
     SHARE(R.id.share),
     DOWNLOADER(R.id.download_maps),
@@ -217,6 +218,7 @@ public class MainMenu extends BaseMenu
     mapItem(Item.ADD_PLACE);
     mapItem(Item.SEARCH);
     mapItem(Item.P2P);
+    mapItem(Item.DISCOVERY);
     mapItem(Item.BOOKMARKS);
     mapItem(Item.SHARE);
     mapItem(Item.DOWNLOADER);

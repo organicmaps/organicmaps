@@ -97,7 +97,7 @@ text_wiarchive_impl<Archive>::load(std::wstring &ws)
 #endif
 
 template<class Archive>
-BOOST_WARCHIVE_DECL
+BOOST_WARCHIVE_DECL 
 text_wiarchive_impl<Archive>::text_wiarchive_impl(
     std::wistream & is, 
     unsigned int flags

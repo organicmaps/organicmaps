@@ -546,6 +546,9 @@
 "Taiwan": {
  "languages": ["zh"]
 },
+"Panama": {
+ "languages": ["es"]
+},
 "Peru": {
  "languages": ["es"]
 },
@@ -753,7 +756,7 @@
  "languages": ["en", "sw"]
 },
 "Ukraine": {
- "languages": ["uk", "ru"]
+ "languages": ["uk"]
 },
 "United Arab Emirates": {
  "languages": ["ar"]

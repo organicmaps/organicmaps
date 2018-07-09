@@ -113,16 +113,13 @@ namespace boost {
                  IndexMapThis index_map_this, IndexMapOther index_map_other)
         : graph_this_(graph_this), graph_other_(graph_other), 
           index_map_this_(index_map_this), index_map_other_(index_map_other), 
+          core_vec_(num_vertices(graph_this_), graph_traits<GraphOther>::null_vertex()),
+          core_(core_vec_.begin(), index_map_this_),
+          in_vec_(num_vertices(graph_this_), 0),
+          out_vec_(num_vertices(graph_this_), 0),
+          in_(in_vec_.begin(), index_map_this_),
+          out_(out_vec_.begin(), index_map_this_),
           term_in_count_(0), term_out_count_(0), term_both_count_(0), core_count_(0) {
-
-        core_vec_.resize(num_vertices(graph_this_), graph_traits<GraphOther>::null_vertex());
-        core_ = make_iterator_property_map(core_vec_.begin(), index_map_this_);
-
-        in_vec_.resize(num_vertices(graph_this_), 0);
-        in_ = make_iterator_property_map(in_vec_.begin(), index_map_this_);
-
-        out_vec_.resize(num_vertices(graph_this_), 0);
-        out_ = make_iterator_property_map(out_vec_.begin(), index_map_this_);
       }
 
       // Adds a vertex pair to the state of graph graph_this

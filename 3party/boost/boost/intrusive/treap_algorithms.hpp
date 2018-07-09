@@ -569,6 +569,34 @@ class treap_algorithms
       rotate_up_n(header, new_node, commit_data.rotations);
    }
 
+   //! @copydoc ::boost::intrusive::bstree_algorithms::transfer_unique
+   template<class NodePtrCompare, class KeyNodePtrPrioCompare>
+   static bool transfer_unique
+      (const node_ptr & header1, NodePtrCompare comp, KeyNodePtrPrioCompare pcomp, const node_ptr &header2, const node_ptr & z)
+   {
+      insert_commit_data commit_data;
+      bool const transferable = insert_unique_check(header1, z, comp, pcomp, commit_data).second;
+      if(transferable){
+         erase(header2, z, pcomp);
+         insert_unique_commit(header1, z, commit_data);         
+      }
+      return transferable;
+   }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::transfer_equal
+   template<class NodePtrCompare, class KeyNodePtrPrioCompare>
+   static void transfer_equal
+      (const node_ptr & header1, NodePtrCompare comp, KeyNodePtrPrioCompare pcomp, const node_ptr &header2, const node_ptr & z)
+   {
+      insert_commit_data commit_data;
+      bstree_algo::insert_equal_upper_bound_check(header1, z, comp, commit_data);
+      rebalance_after_insertion_check(header1, commit_data.node, z, pcomp, commit_data.rotations);
+      rebalance_for_erasure(header2, z, pcomp);
+      bstree_algo::erase(header2, z);
+      bstree_algo::insert_unique_commit(header1, z, commit_data);
+      rotate_up_n(header1, z, commit_data.rotations);
+   }
+
    #ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
 
    //! @copydoc ::boost::intrusive::bstree_algorithms::is_header

@@ -18,8 +18,15 @@
 -dontwarn com.pushwoosh.**
 -dontwarn com.arellomobile.**
 
+# appsFlyer
+-keep class com.appsflyer.** { *; }
+-dontwarn com.appsflyer.**
+
 # myTarget
--dontwarn ru.mail.android.mytarget.**
+# Remove this dontwarn when MyTarget is updated to 4.6.15
+-dontwarn com.my.target.nativeads.mediation.**
+# Remove this dontwarn when MyTarget is updated to 4.6.16
+-dontwarn com.my.target.core.net.cookie.**
 -dontwarn com.mopub.**
 
 -dontoptimize

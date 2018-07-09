@@ -2,7 +2,6 @@
 #define BOOST_SERIALIZATION_EPHEMERAL_HPP
 
 // MS compatible compilers support 
-#pragma once
 #if defined(_MSC_VER)
 # pragma once
 #endif

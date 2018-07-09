@@ -1,11 +1,12 @@
-#import "MWMCommon.h"
 #import "MWMStorage.h"
+#import "MWMAlertViewController.h"
+#import "MWMRouter.h"
 
 #include "Framework.h"
 
-#include "platform/platform.hpp"
-
 #include "storage/storage_helpers.hpp"
+
+#include <numeric>
 
 using namespace storage;
 
@@ -50,13 +51,13 @@ using namespace storage;
 
 + (void)deleteNode:(TCountryId const &)countryId
 {
-  auto & f = GetFramework();
-  if (f.IsRoutingActive())
+  if ([MWMRouter isRoutingActive])
   {
     [[MWMAlertViewController activeAlertController] presentDeleteMapProhibitedAlert];
     return;
   }
 
+  auto & f = GetFramework();
   if (f.HasUnsavedEdits(countryId))
   {
     [[MWMAlertViewController activeAlertController]
@@ -81,17 +82,17 @@ using namespace storage;
 }
 + (void)downloadNodes:(TCountriesVec const &)countryIds onSuccess:(MWMVoidBlock)onSuccess
 {
-  TMwmSize requiredSize = accumulate(countryIds.begin(), countryIds.end(), kMaxMwmSizeBytes,
+  auto & s = GetFramework().GetStorage();
+  TMwmSize requiredSize = std::accumulate(countryIds.begin(), countryIds.end(), s.GetMaxMwmSizeBytes(),
                                      [](size_t const & size, TCountryId const & countryId)
                                      {
                                        NodeAttrs nodeAttrs;
                                        GetFramework().GetStorage().GetNodeAttrs(countryId, nodeAttrs);
-                                       return size + nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize;
+                                       return size + nodeAttrs.m_mwmSize;
                                      });
-  if (GetPlatform().GetWritableStorageStatus(requiredSize) == Platform::TStorageStatus::STORAGE_OK)
+  if (storage::IsEnoughSpaceForDownload(requiredSize))
   {
-    [self checkConnectionAndPerformAction:[countryIds, onSuccess] {
-      auto & s = GetFramework().GetStorage();
+    [self checkConnectionAndPerformAction:[countryIds, onSuccess, &s] {
       for (auto const & countryId : countryIds)
         s.DownloadNode(countryId);
       if (onSuccess)

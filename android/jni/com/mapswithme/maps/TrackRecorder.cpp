@@ -2,7 +2,7 @@
 
 #include "map/gps_tracker.hpp"
 
-#include "std/chrono.hpp"
+#include <chrono>
 
 namespace
 {
@@ -38,7 +38,7 @@ extern "C"
   JNIEXPORT void JNICALL
   Java_com_mapswithme_maps_location_TrackRecorder_nativeSetDuration(JNIEnv * env, jclass clazz, jint durationHours)
   {
-    GpsTracker::Instance().SetDuration(hours(durationHours));
+    GpsTracker::Instance().SetDuration(std::chrono::hours(durationHours));
   }
 
   JNIEXPORT jint JNICALL

@@ -72,7 +72,7 @@ namespace boost { namespace spirit { namespace x3
     template <typename ID, typename T>
     struct with_context<ID, T, unused_type>
     {
-        typedef context<ID, T> const type;
+        typedef context<ID, T> type;
     };
 
     template <typename ID, typename T>

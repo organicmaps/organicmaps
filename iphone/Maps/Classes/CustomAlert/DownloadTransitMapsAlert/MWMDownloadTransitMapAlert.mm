@@ -1,5 +1,4 @@
 #import "MWMDownloadTransitMapAlert.h"
-#import "MWMAlertViewController.h"
 #import "MWMCircularProgress.h"
 #import "MWMCommon.h"
 #import "MWMDownloaderDialogCell.h"
@@ -58,7 +57,7 @@ CGFloat const kAnimationDuration = .05;
 }
 
 + (instancetype)downloaderAlertWithMaps:(storage::TCountriesVec const &)countries
-                                   code:(routing::IRouter::ResultCode)code
+                                   code:(routing::RouterResultCode)code
                             cancelBlock:(MWMVoidBlock)cancelBlock
                           downloadBlock:(MWMDownloadBlock)downloadBlock
                   downloadCompleteBlock:(MWMVoidBlock)downloadCompleteBlock
@@ -67,17 +66,17 @@ CGFloat const kAnimationDuration = .05;
   MWMDownloadTransitMapAlert * alert = [self alertWithCountries:countries];
   switch (code)
   {
-    case routing::IRouter::InconsistentMWMandRoute:
-    case routing::IRouter::RouteNotFound:
-    case routing::IRouter::RouteFileNotExist:
+    case routing::RouterResultCode::InconsistentMWMandRoute:
+    case routing::RouterResultCode::RouteNotFound:
+    case routing::RouterResultCode::RouteFileNotExist:
       alert.titleLabel.localizedText = @"dialog_routing_download_files";
       alert.messageLabel.localizedText = @"dialog_routing_download_and_update_all";
       break;
-    case routing::IRouter::FileTooOld:
+    case routing::RouterResultCode::FileTooOld:
       alert.titleLabel.localizedText = @"dialog_routing_download_files";
       alert.messageLabel.localizedText = @"dialog_routing_download_and_update_maps";
       break;
-    case routing::IRouter::NeedMoreMaps:
+    case routing::RouterResultCode::NeedMoreMaps:
       alert.titleLabel.localizedText = @"dialog_routing_download_and_build_cross_route";
       alert.messageLabel.localizedText = @"dialog_routing_download_cross_route";
       break;
@@ -94,7 +93,9 @@ CGFloat const kAnimationDuration = .05;
 + (instancetype)alertWithCountries:(storage::TCountriesVec const &)countries
 {
   NSAssert(!countries.empty(), @"countries can not be empty.");
-  MWMDownloadTransitMapAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kDownloadTransitMapAlertNibName owner:nil options:nil] firstObject];
+  MWMDownloadTransitMapAlert * alert =
+      [NSBundle.mainBundle loadNibNamed:kDownloadTransitMapAlertNibName owner:nil options:nil]
+          .firstObject;
 
   alert->m_countries = countries;
   [alert configure];
@@ -118,7 +119,7 @@ CGFloat const kAnimationDuration = .05;
   auto const & s = GetFramework().GetStorage();
   m_countries.erase(
       remove_if(m_countries.begin(), m_countries.end(),
-                [&s](TCountryId const & countryId) { return s.IsNodeDownloaded(countryId); }),
+                [&s](TCountryId const & countryId) { return s.HasLatestVersion(countryId); }),
       m_countries.end());
   NSMutableArray<NSString *> * titles = [@[] mutableCopy];
   TMwmSize totalSize = 0;

@@ -562,11 +562,12 @@ private:
 
         // assert that the segment has non-negative slope
         BOOST_GEOMETRY_ASSERT( ( math::equals(geometry::get<0>(p0), geometry::get<0>(p1))
-                        && geometry::get<1>(p0) < geometry::get<1>(p1))
-                      ||
-                      ( geometry::get<0>(p0) < geometry::get<0>(p1)
-                        && geometry::get<1>(p0) <= geometry::get<1>(p1) )
-                      );
+                              && geometry::get<1>(p0) < geometry::get<1>(p1))
+                            ||
+                               ( geometry::get<0>(p0) < geometry::get<0>(p1)
+                              && geometry::get<1>(p0) <= geometry::get<1>(p1) )
+                            || geometry::has_nan_coordinate(p0)
+                            || geometry::has_nan_coordinate(p1));
 
         ReturnType result(0);
 
@@ -617,8 +618,10 @@ private:
         typedef compare_less_equal<ReturnType, false> greater_equal;
 
         // assert that the segment has negative slope
-        BOOST_GEOMETRY_ASSERT( geometry::get<0>(p0) < geometry::get<0>(p1)
-                      && geometry::get<1>(p0) > geometry::get<1>(p1) );
+        BOOST_GEOMETRY_ASSERT( ( geometry::get<0>(p0) < geometry::get<0>(p1)
+                              && geometry::get<1>(p0) > geometry::get<1>(p1) )
+                            || geometry::has_nan_coordinate(p0)
+                            || geometry::has_nan_coordinate(p1) );
 
         ReturnType result(0);
 
@@ -665,7 +668,9 @@ public:
                                    PPStrategy const& pp_strategy,
                                    PSStrategy const& ps_strategy)
     {
-        BOOST_GEOMETRY_ASSERT( geometry::less<SegmentPoint>()(p0, p1) );
+        BOOST_GEOMETRY_ASSERT( geometry::less<SegmentPoint>()(p0, p1)
+                            || geometry::has_nan_coordinate(p0)
+                            || geometry::has_nan_coordinate(p1) );
 
         if (geometry::get<0>(p0) < geometry::get<0>(p1)
             && geometry::get<1>(p0) > geometry::get<1>(p1))

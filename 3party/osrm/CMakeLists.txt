@@ -6,6 +6,11 @@ include_directories(
   ${OMIM_ROOT}/3party/osrm/osrm-backend/third_party
 )
 
+add_clang_compile_options(
+  "-Wno-unused-local-typedef"
+  "-Wno-overloaded-virtual"
+)
+
 set(
   SRC
   boost_stub.cpp

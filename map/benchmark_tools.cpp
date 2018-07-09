@@ -62,7 +62,7 @@ void RunScenario(Framework * framework, std::shared_ptr<BenchmarkHandle> handle)
     auto const drapeStatistic = df::DrapeMeasurer::Instance().GetDrapeStatistic();
     handle->m_drapeStatistic.push_back(make_pair(name, drapeStatistic));
 #endif
-    GetPlatform().RunOnGuiThread([framework, handle]()
+    GetPlatform().RunTask(Platform::Thread::Gui, [framework, handle]()
     {
       handle->m_currentScenario++;
       RunScenario(framework, handle);
@@ -101,7 +101,7 @@ void RunGraphicsBenchmark(Framework * framework)
       auto scenarioElem = json_array_get(scenariosNode, i);
       if (scenarioElem == nullptr)
         return;
-      my::FromJSONObject(scenarioElem, "name", handle->m_scenariosToRun[i].m_name);
+      FromJSONObject(scenarioElem, "name", handle->m_scenariosToRun[i].m_name);
       json_t * stepsNode = json_object_get(scenarioElem, "steps");
       if (stepsNode != nullptr && json_is_array(stepsNode))
       {
@@ -114,11 +114,11 @@ void RunGraphicsBenchmark(Framework * framework)
           if (stepElem == nullptr)
             return;
           string actionType;
-          my::FromJSONObject(stepElem, "actionType", actionType);
+          FromJSONObject(stepElem, "actionType", actionType);
           if (actionType == "waitForTime")
           {
             json_int_t timeInSeconds = 0;
-            my::FromJSONObject(stepElem, "time", timeInSeconds);
+            FromJSONObject(stepElem, "time", timeInSeconds);
             scenario.push_back(std::unique_ptr<ScenarioManager::Action>(
                                  new ScenarioManager::WaitForTimeAction(seconds(timeInSeconds))));
           }
@@ -128,10 +128,10 @@ void RunGraphicsBenchmark(Framework * framework)
             if (centerNode == nullptr)
               return;
             double x = 0.0, y = 0.0;
-            my::FromJSONObject(centerNode, "x", x);
-            my::FromJSONObject(centerNode, "y", y);
+            FromJSONObject(centerNode, "x", x);
+            FromJSONObject(centerNode, "y", y);
             json_int_t zoomLevel = -1;
-            my::FromJSONObject(stepElem, "zoomLevel", zoomLevel);
+            FromJSONObject(stepElem, "zoomLevel", zoomLevel);
             m2::PointD const pt(x, y);
             points.push_back(pt);
             scenario.push_back(std::unique_ptr<ScenarioManager::Action>(

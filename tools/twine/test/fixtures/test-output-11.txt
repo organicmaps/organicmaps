@@ -1,9 +1,0 @@
-[[Uncategorized]]
-	[string_with_spaces]
-		en = ` string with spaces  `
-
-[[My Strings]]
-	[key with space ]
-		en = `string with space `
-		tags = tag1
-		comment = String ends with space

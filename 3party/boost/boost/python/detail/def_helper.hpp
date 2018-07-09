@@ -6,7 +6,6 @@
 # define DEF_HELPER_DWA200287_HPP
 
 # include <boost/python/args.hpp>
-# include <boost/type_traits/ice.hpp>
 # include <boost/type_traits/same_traits.hpp>
 # include <boost/python/detail/indirect_traits.hpp>
 # include <boost/mpl/not.hpp>

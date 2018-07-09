@@ -73,7 +73,6 @@
 {
   UITableView * tv = self.tableView;
   [tv registerWithCellClass:[MWMStreetEditorEditTableViewCell class]];
-  [tv registerWithCellClass:[MWMTableViewSubtitleCell class]];
 }
 
 #pragma mark - Actions

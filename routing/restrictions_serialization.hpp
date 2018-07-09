@@ -194,7 +194,7 @@ private:
           return false;
         }
 
-        uint32_t const delta = biasedDelta - 1;
+        uint32_t const delta = base::asserted_cast<uint32_t>(biasedDelta - 1);
         restriction.m_featureIds[i] =
             static_cast<uint32_t>(bits::ZigZagDecode(delta) + restriction.m_featureIds[i - 1]);
       }

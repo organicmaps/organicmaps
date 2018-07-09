@@ -1,13 +1,13 @@
 #include "Framework.hpp"
 
-#include "../core/jni_helper.hpp"
+#include "com/mapswithme/core/jni_helper.hpp"
 
-#include "../platform/Platform.hpp"
+#include "com/mapswithme/platform/Platform.hpp"
 
 extern "C"
 {
 
-static void LocationStateModeChanged(location::EMyPositionMode mode, shared_ptr<jobject> const & listener)
+static void LocationStateModeChanged(location::EMyPositionMode mode, std::shared_ptr<jobject> const & listener)
 {
   g_framework->OnMyPositionModeChanged(mode);
 
@@ -33,7 +33,8 @@ Java_com_mapswithme_maps_location_LocationState_nativeGetMode(JNIEnv * env, jcla
 JNIEXPORT void JNICALL
 Java_com_mapswithme_maps_location_LocationState_nativeSetListener(JNIEnv * env, jclass clazz, jobject listener)
 {
-  g_framework->SetMyPositionModeListener(bind(&LocationStateModeChanged, _1, jni::make_global_ref(listener)));
+  g_framework->SetMyPositionModeListener(std::bind(&LocationStateModeChanged, std::placeholders::_1,
+                                                   jni::make_global_ref(listener)));
 }
 
 //  public static void nativeRemoveListener();

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="" id="gTV-IL-0wX" customClass="MWMRoutePreviewTaxiCell" propertyAccessControl="all">
+            <rect key="frame" x="0.0" y="0.0" width="270" height="64"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="270" height="64"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_logo_uber" translatesAutoresizingMaskIntoConstraints="NO" id="fMe-7t-K8o">
+                        <rect key="frame" x="10" y="16" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="RdA-cX-VRi"/>
+                            <constraint firstAttribute="height" constant="40" id="uri-90-2qt"/>
+                        </constraints>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yW-tR-hvX">
+                        <rect key="frame" x="60" y="19" width="210" height="34"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UberX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="til-vK-WGY">
+                                <rect key="frame" x="0.0" y="0.0" width="210" height="17"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ожидание 9 мин" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TWl-RV-DGe">
+                                <rect key="frame" x="0.0" y="17" width="210" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="TWl-RV-DGe" firstAttribute="top" secondItem="til-vK-WGY" secondAttribute="bottom" id="BfN-qi-3av"/>
+                            <constraint firstAttribute="trailing" secondItem="til-vK-WGY" secondAttribute="trailing" id="Ehl-JM-Ucv"/>
+                            <constraint firstItem="TWl-RV-DGe" firstAttribute="leading" secondItem="2yW-tR-hvX" secondAttribute="leading" id="FXa-5k-wcC"/>
+                            <constraint firstAttribute="bottom" secondItem="TWl-RV-DGe" secondAttribute="bottom" id="GOJ-oY-jzQ"/>
+                            <constraint firstItem="til-vK-WGY" firstAttribute="leading" secondItem="2yW-tR-hvX" secondAttribute="leading" id="WI9-sI-8MN"/>
+                            <constraint firstAttribute="trailing" secondItem="TWl-RV-DGe" secondAttribute="trailing" id="X6R-tz-8h2"/>
+                            <constraint firstItem="til-vK-WGY" firstAttribute="top" secondItem="2yW-tR-hvX" secondAttribute="top" id="fCY-QV-vWn"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="fMe-7t-K8o" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="16" id="5bX-nv-qAH"/>
+                <constraint firstAttribute="trailing" secondItem="2yW-tR-hvX" secondAttribute="trailing" id="I2S-wY-mil"/>
+                <constraint firstItem="fMe-7t-K8o" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="Mkd-eB-WZt"/>
+                <constraint firstItem="2yW-tR-hvX" firstAttribute="leading" secondItem="fMe-7t-K8o" secondAttribute="trailing" constant="10" id="jN3-D6-ys1"/>
+                <constraint firstItem="2yW-tR-hvX" firstAttribute="centerY" secondItem="fMe-7t-K8o" secondAttribute="centerY" id="rLh-XX-3BM"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="7f1-jQ-gbO"/>
+            <size key="customSize" width="251" height="44"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="icon" destination="fMe-7t-K8o" id="qnl-i9-6sf"/>
+                <outlet property="info" destination="TWl-RV-DGe" id="CtG-PC-6kF"/>
+                <outlet property="title" destination="til-vK-WGY" id="pDz-kV-Ors"/>
+            </connections>
+            <point key="canvasLocation" x="-46" y="75"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_logo_uber" width="24" height="24"/>
+    </resources>
+</document>

@@ -61,9 +61,9 @@ namespace boost
          inline unsigned short owens_t_compute_code(const RealType h, const RealType a)
          {
             static const RealType hrange[] =
-            {0.02, 0.06, 0.09, 0.125, 0.26, 0.4,  0.6,  1.6,  1.7,  2.33,  2.4,  3.36, 3.4,  4.8};
+            { 0.02f, 0.06f, 0.09f, 0.125f, 0.26f, 0.4f,  0.6f,  1.6f,  1.7f,  2.33f,  2.4f,  3.36f, 3.4f,  4.8f };
 
-            static const RealType arange[] = {0.025, 0.09, 0.15, 0.36, 0.5, 0.9, 0.99999};
+            static const RealType arange[] = { 0.025f, 0.09f, 0.15f, 0.36f, 0.5f, 0.9f, 0.99999f };
             /*
             original select array from paper:
             1, 1, 2,13,13,13,13,13,13,13,13,16,16,16, 9
@@ -229,17 +229,17 @@ namespace boost
 
             static const RealType c2[] =
             {
-               0.99999999999999987510,
-               -0.99999999999988796462,      0.99999999998290743652,
-               -0.99999999896282500134,      0.99999996660459362918,
-               -0.99999933986272476760,      0.99999125611136965852,
-               -0.99991777624463387686,      0.99942835555870132569,
-               -0.99697311720723000295,      0.98751448037275303682,
-               -0.95915857980572882813,      0.89246305511006708555,
-               -0.76893425990463999675,      0.58893528468484693250,
-               -0.38380345160440256652,      0.20317601701045299653,
-               -0.82813631607004984866E-01,  0.24167984735759576523E-01,
-               -0.44676566663971825242E-02,  0.39141169402373836468E-03
+               static_cast<RealType>(0.99999999999999987510),
+               static_cast<RealType>(-0.99999999999988796462),      static_cast<RealType>(0.99999999998290743652),
+               static_cast<RealType>(-0.99999999896282500134),      static_cast<RealType>(0.99999996660459362918),
+               static_cast<RealType>(-0.99999933986272476760),      static_cast<RealType>(0.99999125611136965852),
+               static_cast<RealType>(-0.99991777624463387686),      static_cast<RealType>(0.99942835555870132569),
+               static_cast<RealType>(-0.99697311720723000295),      static_cast<RealType>(0.98751448037275303682),
+               static_cast<RealType>(-0.95915857980572882813),      static_cast<RealType>(0.89246305511006708555),
+               static_cast<RealType>(-0.76893425990463999675),      static_cast<RealType>(0.58893528468484693250),
+               static_cast<RealType>(-0.38380345160440256652),      static_cast<RealType>(0.20317601701045299653),
+               static_cast<RealType>(-0.82813631607004984866E-01),  static_cast<RealType>(0.24167984735759576523E-01),
+               static_cast<RealType>(-0.44676566663971825242E-02),  static_cast<RealType>(0.39141169402373836468E-03)
             };
 
             const RealType as = a*a;
@@ -402,20 +402,22 @@ namespace boost
              */
 
             const unsigned short m = 13;
-            static const RealType pts[] = {0.35082039676451715489E-02,
-               0.31279042338030753740E-01,  0.85266826283219451090E-01,
-               0.16245071730812277011,      0.25851196049125434828,
-               0.36807553840697533536,      0.48501092905604697475,
-               0.60277514152618576821,      0.71477884217753226516,
-               0.81475510988760098605,      0.89711029755948965867,
-               0.95723808085944261843,      0.99178832974629703586};
-            static const RealType wts[] = { 0.18831438115323502887E-01,
-               0.18567086243977649478E-01,  0.18042093461223385584E-01,
-               0.17263829606398753364E-01,  0.16243219975989856730E-01,
-               0.14994592034116704829E-01,  0.13535474469662088392E-01,
-               0.11886351605820165233E-01,  0.10070377242777431897E-01,
-               0.81130545742299586629E-02,  0.60419009528470238773E-02,
-               0.38862217010742057883E-02,  0.16793031084546090448E-02};
+            static const RealType pts[] = {
+               static_cast<RealType>(0.35082039676451715489E-02),
+               static_cast<RealType>(0.31279042338030753740E-01),  static_cast<RealType>(0.85266826283219451090E-01),
+               static_cast<RealType>(0.16245071730812277011),      static_cast<RealType>(0.25851196049125434828),
+               static_cast<RealType>(0.36807553840697533536),      static_cast<RealType>(0.48501092905604697475),
+               static_cast<RealType>(0.60277514152618576821),      static_cast<RealType>(0.71477884217753226516),
+               static_cast<RealType>(0.81475510988760098605),      static_cast<RealType>(0.89711029755948965867),
+               static_cast<RealType>(0.95723808085944261843),      static_cast<RealType>(0.99178832974629703586) };
+            static const RealType wts[] = { 
+               static_cast<RealType>(0.18831438115323502887E-01),
+               static_cast<RealType>(0.18567086243977649478E-01),  static_cast<RealType>(0.18042093461223385584E-01),
+               static_cast<RealType>(0.17263829606398753364E-01),  static_cast<RealType>(0.16243219975989856730E-01),
+               static_cast<RealType>(0.14994592034116704829E-01),  static_cast<RealType>(0.13535474469662088392E-01),
+               static_cast<RealType>(0.11886351605820165233E-01),  static_cast<RealType>(0.10070377242777431897E-01),
+               static_cast<RealType>(0.81130545742299586629E-02),  static_cast<RealType>(0.60419009528470238773E-02),
+               static_cast<RealType>(0.38862217010742057883E-02),  static_cast<RealType>(0.16793031084546090448E-02) };
 
             const RealType as = a*a;
             const RealType hs = -h*h*boost::math::constants::half<RealType>();
@@ -575,14 +577,18 @@ namespace boost
             // when the last accelerated term was small enough...
             //
             int n;
+#ifndef BOOST_NO_EXCEPTIONS
             try
             {
+#endif
                n = itrunc(T(tools::log_max_value<T>() / 6));
+#ifndef BOOST_NO_EXCEPTIONS
             }
             catch(...)
             {
                n = (std::numeric_limits<int>::max)();
             }
+#endif
             n = (std::min)(n, 1500);
             T d = pow(3 + sqrt(T(8)), n);
             d = (d + 1 / d) / 2;
@@ -689,14 +695,18 @@ namespace boost
             // when the last accelerated term was small enough...
             //
             int n;
+#ifndef BOOST_NO_EXCEPTIONS
             try
             {
+#endif
                n = itrunc(RealType(tools::log_max_value<RealType>() / 6));
+#ifndef BOOST_NO_EXCEPTIONS
             }
             catch(...)
             {
                n = (std::numeric_limits<int>::max)();
             }
+#endif
             n = (std::min)(n, 1500);
             RealType d = pow(3 + sqrt(RealType(8)), n);
             d = (d + 1 / d) / 2;
@@ -858,25 +868,33 @@ namespace boost
             bool have_t1(false), have_t2(false);
             if(ah < 3)
             {
+#ifndef BOOST_NO_EXCEPTIONS
                try
                {
+#endif
                   have_t1 = true;
                   p1 = owens_t_T1_accelerated(h, a, forwarding_policy());
                   if(p1.second < target_precision)
                      return p1.first;
+#ifndef BOOST_NO_EXCEPTIONS
                }
                catch(const boost::math::evaluation_error&){}  // T1 may fail and throw, that's OK
+#endif
             }
             if(ah > 1)
             {
+#ifndef BOOST_NO_EXCEPTIONS
                try
                {
+#endif
                   have_t2 = true;
                   p2 = owens_t_T2_accelerated(h, a, ah, forwarding_policy());
                   if(p2.second < target_precision)
                      return p2.first;
+#ifndef BOOST_NO_EXCEPTIONS
                }
                catch(const boost::math::evaluation_error&){}  // T2 may fail and throw, that's OK
+#endif
             }
             //
             // If we haven't tried T1 yet, do it now - sometimes it succeeds and the number of iterations
@@ -884,14 +902,18 @@ namespace boost
             //
             if(!have_t1)
             {
+#ifndef BOOST_NO_EXCEPTIONS
                try
                {
+#endif
                   have_t1 = true;
                   p1 = owens_t_T1_accelerated(h, a, forwarding_policy());
                   if(p1.second < target_precision)
                      return p1.first;
+#ifndef BOOST_NO_EXCEPTIONS
                }
                catch(const boost::math::evaluation_error&){}  // T1 may fail and throw, that's OK
+#endif
             }
             //
             // If we haven't tried T2 yet, do it now - sometimes it succeeds and the number of iterations
@@ -899,24 +921,32 @@ namespace boost
             //
             if(!have_t2)
             {
+#ifndef BOOST_NO_EXCEPTIONS
                try
                {
+#endif
                   have_t2 = true;
                   p2 = owens_t_T2_accelerated(h, a, ah, forwarding_policy());
                   if(p2.second < target_precision)
                      return p2.first;
+#ifndef BOOST_NO_EXCEPTIONS
                }
                catch(const boost::math::evaluation_error&){}  // T2 may fail and throw, that's OK
+#endif
             }
             //
             // OK, nothing left to do but try the most expensive option which is T4,
             // this is often slow to converge, but when it does converge it tends to
             // be accurate:
+#ifndef BOOST_NO_EXCEPTIONS
             try
             {
+#endif
                return T4_mp(h, a, pol);
+#ifndef BOOST_NO_EXCEPTIONS
             }
             catch(const boost::math::evaluation_error&){}  // T4 may fail and throw, that's OK
+#endif
             //
             // Now look back at the results from T1 and T2 and see if either gave better
             // results than we could get from the 64-bit precision versions.

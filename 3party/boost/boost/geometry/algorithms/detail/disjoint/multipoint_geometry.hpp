@@ -1,8 +1,9 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014-2015, Oracle and/or its affiliates.
+// Copyright (c) 2014-2017, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Licensed under the Boost Software License version 1.0.
 // http://www.boost.org/users/license.html
@@ -14,8 +15,10 @@
 #include <vector>
 
 #include <boost/range.hpp>
+#include <boost/mpl/assert.hpp>
 
 #include <boost/geometry/core/assert.hpp>
+#include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tags.hpp>
 
 #include <boost/geometry/geometries/box.hpp>
@@ -105,36 +108,74 @@ template <typename MultiPoint, typename Linear>
 class multipoint_linear
 {
 private:
-    // structs for partition -- start
-    struct expand_box
+    struct expand_box_point
     {
-        template <typename Box, typename Geometry>
-        static inline void apply(Box& total, Geometry const& geometry)
+        template <typename Box, typename Point>
+        static inline void apply(Box& total, Point const& point)
         {
-            geometry::expand(total, geometry::return_envelope<Box>(geometry));
-        }
-
-    };
-
-    struct overlaps_box
-    {
-        template <typename Box, typename Geometry>
-        static inline bool apply(Box const& box, Geometry const& geometry)
-        {
-            return ! dispatch::disjoint<Geometry, Box>::apply(geometry, box);
+            geometry::expand(total, point);
         }
     };
 
+    // TODO: After adding non-cartesian Segment envelope to the library
+    // this policy should be modified to take envelope strategy.
+    struct expand_box_segment
+    {
+        template <typename Box, typename Segment>
+        static inline void apply(Box& total, Segment const& segment)
+        {
+            geometry::expand(total, geometry::return_envelope<Box>(segment));
+        }
+    };
+
+    struct overlaps_box_point
+    {
+        template <typename Box, typename Point>
+        static inline bool apply(Box const& box, Point const& point)
+        {
+            // The default strategy is enough in this case
+            typedef typename strategy::disjoint::services::default_strategy
+                <
+                    Point, Box
+                >::type strategy_type;
+            return ! dispatch::disjoint<Point, Box>::apply(point, box, strategy_type());
+        }
+    };
+
+    // TODO: After implementing disjoint Segment/Box for non-cartesian geometries
+    // this strategy should be passed here.
+    // TODO: This Segment/Box strategy should somehow be derived from Point/Segment strategy
+    // which by default is winding containing CS-specific side strategy
+    // TODO: disjoint Segment/Box will be called in this case which may take
+    // quite long in non-cartesian CS. So we should consider passing range of bounding boxes
+    // of segments after calculating them once.
+    struct overlaps_box_segment
+    {
+        template <typename Box, typename Segment>
+        static inline bool apply(Box const& box, Segment const& segment)
+        {
+            typedef typename strategy::disjoint::services::default_strategy
+                <
+                    Segment, Box
+                >::type strategy_type;
+            return ! dispatch::disjoint<Segment, Box>::apply(segment, box, strategy_type());
+        }
+    };
+
+    template <typename PtSegStrategy>
     class item_visitor_type
     {
     public:
-        item_visitor_type() : m_intersection_found(false) {}
+        item_visitor_type(PtSegStrategy const& strategy)
+            : m_intersection_found(false)
+            , m_strategy(strategy)
+        {}
 
         template <typename Item1, typename Item2>
         inline void apply(Item1 const& item1, Item2 const& item2)
         {
             if (! m_intersection_found
-                && ! dispatch::disjoint<Item1, Item2>::apply(item1, item2))
+                && ! dispatch::disjoint<Item1, Item2>::apply(item1, item2, m_strategy))
             {
                 m_intersection_found = true;
             }
@@ -144,6 +185,7 @@ private:
 
     private:
         bool m_intersection_found;
+        PtSegStrategy const& m_strategy;
     };
     // structs for partition -- end
 
@@ -172,23 +214,25 @@ private:
     };
 
 public:
-    static inline bool apply(MultiPoint const& multipoint, Linear const& linear)
+    template <typename Strategy>
+    static inline bool apply(MultiPoint const& multipoint, Linear const& linear, Strategy const& strategy)
     {
-        item_visitor_type visitor;
+        item_visitor_type<Strategy> visitor(strategy);
 
         geometry::partition
             <
-                geometry::model::box<typename point_type<MultiPoint>::type>,
-                expand_box,
-                overlaps_box
-            >::apply(multipoint, segment_range(linear), visitor);
+                geometry::model::box<typename point_type<MultiPoint>::type>
+            >::apply(multipoint, segment_range(linear), visitor,
+                     expand_box_point(), overlaps_box_point(),
+                     expand_box_segment(), overlaps_box_segment());
 
         return ! visitor.intersection_found();
     }
 
-    static inline bool apply(Linear const& linear, MultiPoint const& multipoint)
+    template <typename Strategy>
+    static inline bool apply(Linear const& linear, MultiPoint const& multipoint, Strategy const& strategy)
     {
-        return apply(multipoint, linear);
+        return apply(multipoint, linear, strategy);
     }
 };
 
@@ -240,8 +284,10 @@ struct disjoint
         multi_point_tag, multi_point_tag, false
     >
 {
+    template <typename Strategy>
     static inline bool apply(MultiPoint1 const& multipoint1,
-                             MultiPoint2 const& multipoint2)
+                             MultiPoint2 const& multipoint2,
+                             Strategy const& )
     {
         if ( boost::size(multipoint2) < boost::size(multipoint1) )
         {

@@ -10,9 +10,10 @@
 #endif
 #if defined(_MSC_VER) && !defined(BOOST_EXCEPTION_ENABLE_WARNINGS)
 #pragma warning(push,1)
+#pragma warning(disable:4996)
 #endif
 
-#include "boost/exception/info.hpp"
+#include <boost/exception/info.hpp>
 #include <errno.h>
 #include <string.h>
 
@@ -33,7 +34,7 @@ boost
         {
         std::ostringstream tmp;
         int v=e.value();
-        tmp << v << ", \"" << strerror(v) << "\"";
+        tmp  << '[' << error_info_name(e) << "] = " << v << ", \"" << strerror(v) << "\"\n";
         return tmp.str();
         }
     }

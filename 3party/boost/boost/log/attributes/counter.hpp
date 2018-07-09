@@ -22,7 +22,8 @@
 #include <boost/log/attributes/attribute_cast.hpp>
 #include <boost/log/attributes/attribute_value_impl.hpp>
 #ifndef BOOST_LOG_NO_THREADS
-#include <boost/detail/atomic_count.hpp>
+#include <boost/memory_order.hpp>
+#include <boost/atomic/atomic.hpp>
 #endif // BOOST_LOG_NO_THREADS
 #include <boost/log/detail/header.hpp>
 
@@ -39,37 +40,50 @@ namespace attributes {
 /*!
  * \brief A class of an attribute that counts an integral value
  *
- * This type of attribute acts as a counter, that is, it returns a monotonously
+ * This attribute acts as a counter - it returns a monotonously
  * changing value each time requested. The attribute value type can be specified
- * as a template parameter. However, the type must be an integral type of size no
- * more than <tt>sizeof(long)</tt>.
+ * as a template parameter. The type must be an integral type.
  */
 template< typename T >
 class counter :
     public attribute
 {
-    //  For now only integral types up to long are supported
-    BOOST_STATIC_ASSERT_MSG(is_integral< T >::value && sizeof(T) <= sizeof(long), "Boost.Log: Only integral types up to long are supported by counter attribute");
+    BOOST_STATIC_ASSERT_MSG(is_integral< T >::value, "Boost.Log: Only integral types are supported by the counter attribute");
 
 public:
     //! A counter value type
     typedef T value_type;
 
 protected:
-    //! Base class for factory implementation
-    class BOOST_LOG_NO_VTABLE BOOST_SYMBOL_VISIBLE impl :
+    //! Factory implementation
+    class BOOST_SYMBOL_VISIBLE impl :
         public attribute::impl
     {
-    };
-
-    //! Generic factory implementation
-    class impl_generic;
+    private:
 #ifndef BOOST_LOG_NO_THREADS
-    //! Increment-by-one factory implementation
-    class impl_inc;
-    //! Decrement-by-one factory implementation
-    class impl_dec;
+        boost::atomic< value_type > m_counter;
+#else
+        value_type m_counter;
 #endif
+        const value_type m_step;
+
+    public:
+        impl(value_type initial, value_type step) BOOST_NOEXCEPT :
+            m_counter(initial), m_step(step)
+        {
+        }
+
+        attribute_value get_value()
+        {
+#ifndef BOOST_LOG_NO_THREADS
+            value_type value = m_counter.fetch_add(m_step, boost::memory_order_relaxed);
+#else
+            value_type value = m_counter;
+            m_counter += m_step;
+#endif
+            return make_attribute_value(value);
+        }
+    };
 
 public:
     /*!
@@ -77,24 +91,13 @@ public:
      *
      * \param initial Initial value of the counter
      * \param step Changing step of the counter. Each value acquired from the attribute
-     *        will be greater than the previous one to this amount.
+     *        will be greater than the previous one by this amount.
      */
-    explicit counter(value_type initial = (value_type)0, long step = 1) :
-#ifndef BOOST_LOG_NO_THREADS
-        attribute()
-    {
-        if (step == 1)
-            this->set_impl(new impl_inc(initial));
-        else if (step == -1)
-            this->set_impl(new impl_dec(initial));
-        else
-            this->set_impl(new impl_generic(initial, step));
-    }
-#else
-        attribute(new impl_generic(initial, step))
+    explicit counter(value_type initial = (value_type)0, value_type step = (value_type)1) :
+        attribute(new impl(initial, step))
     {
     }
-#endif
+
     /*!
      * Constructor for casting support
      */
@@ -103,109 +106,6 @@ public:
     {
     }
 };
-
-#ifndef BOOST_LOG_NO_THREADS
-
-template< typename T >
-class counter< T >::impl_generic :
-    public impl
-{
-private:
-    //! Initial value
-    const value_type m_Initial;
-    //! Step value
-    const long m_Step;
-    //! The counter
-    boost::detail::atomic_count m_Counter;
-
-public:
-    /*!
-     * Initializing constructor
-     */
-    impl_generic(value_type initial, long step) : m_Initial(initial), m_Step(step), m_Counter(-1)
-    {
-    }
-
-    attribute_value get_value()
-    {
-        const unsigned long next_counter = static_cast< unsigned long >(++m_Counter);
-        value_type next = static_cast< value_type >(m_Initial + (next_counter * m_Step));
-        return make_attribute_value(next);
-    }
-};
-
-template< typename T >
-class counter< T >::impl_inc :
-    public impl
-{
-private:
-    //! The counter
-    boost::detail::atomic_count m_Counter;
-
-public:
-    /*!
-     * Initializing constructor
-     */
-    explicit impl_inc(value_type initial) : m_Counter(initial - 1)
-    {
-    }
-
-    attribute_value get_value()
-    {
-        return make_attribute_value(static_cast< value_type >(++m_Counter));
-    }
-};
-
-template< typename T >
-class counter< T >::impl_dec :
-    public impl
-{
-private:
-    //! The counter
-    boost::detail::atomic_count m_Counter;
-
-public:
-    /*!
-     * Initializing constructor
-     */
-    explicit impl_dec(value_type initial) : m_Counter(initial + 1)
-    {
-    }
-
-    attribute_value get_value()
-    {
-        return make_attribute_value(static_cast< value_type >(--m_Counter));
-    }
-};
-
-#else // BOOST_LOG_NO_THREADS
-
-template< typename T >
-class counter< T >::impl_generic :
-    public impl
-{
-private:
-    //! Step value
-    const long m_Step;
-    //! The counter
-    value_type m_Counter;
-
-public:
-    /*!
-     * Initializing constructor
-     */
-    impl_generic(value_type initial, long step) : m_Step(step), m_Counter(initial - step)
-    {
-    }
-
-    attribute_value get_value()
-    {
-        m_Counter += m_Step;
-        return make_attribute_value(m_Counter);
-    }
-};
-
-#endif // BOOST_LOG_NO_THREADS
 
 } // namespace attributes
 

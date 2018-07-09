@@ -1,9 +1,11 @@
 #pragma once
 
-#include "../../../../../base/src_point.hpp"
+#include "drape/glIncludes.hpp"
 
-#include <EGL/egl.h>
-#include <GLES2/gl2.h>
+namespace my
+{
+class SrcPoint;
+}
 
 namespace android
 {
@@ -23,8 +25,7 @@ private:
 
 void CheckEGL(my::SrcPoint const & src);
 
-#define CHECK_EGL(x) do { (x); CheckEGL(SRC());} while(false);
-#define CHECK_EGL_CALL() do { CheckEGL(SRC());} while (false);
-
 }  // namespace android
 
+#define CHECK_EGL(x) do { (x); android::CheckEGL(SRC());} while(false);
+#define CHECK_EGL_CALL() do { android::CheckEGL(SRC());} while (false);

@@ -1,12 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>lift_gate-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="lift_gate-m" transform="translate(5.000000, 7.000000)" fill="#252522">
-            <path d="M14.273,0.758 C14.158,0.33 13.719,0.078 13.293,0.193 L5.883,2.178 L5.883,2.047 C5.176,1.638 4.359,1.4 3.483,1.4 C2.608,1.4 1.79,1.638 1.084,2.047 L1.084,3.465 L0.157,3.713 L0.571,5.258 L1.084,5.121 L1.084,11 L5.884,11 L5.884,3.834 L13.708,1.738 C14.134,1.623 14.387,1.186 14.273,0.758 L14.273,0.758 Z M4,6 L2,6 L2,4 L4,4 L4,6 L4,6 Z" id="Shape"></path>
-        </g>
-    </g>
-</svg>
+<svg height="24" viewBox="0 0 24 24" width="24"><g fill="#fff" fill-rule="evenodd"><circle cx="12" cy="12" opacity=".1" r="12"/><path d="m19.3 8.375h-8.5295276c-.28937-.79847441-1.05826768-1.375-1.9704724-1.375-1.16023622 0-2.1.92298228-2.1 2.0625v7.5625h-.7v1.375h5.6v-1.375h-.7v-6.875h8.4c.3858268 0 .7-.30856299.7-.6875 0-.3816437-.3141732-.6875-.7-.6875zm-10.5 0c.38582677 0 .7.30856299.7.6875s-.31417323.6875-.7.6875-.7-.30856299-.7-.6875.31417323-.6875.7-.6875z" fill-rule="nonzero" opacity=".6"/></g></svg>

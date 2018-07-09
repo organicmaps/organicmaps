@@ -110,16 +110,18 @@ namespace bits
     return (x << 1) | (x >> (sizeof(T) * 8 - 1));
   }
 
-  template <typename T> inline typename std::make_unsigned<T>::type ZigZagEncode(T x)
+  template <typename T>
+  inline std::make_unsigned_t<T> ZigZagEncode(T x)
   {
     static_assert(std::is_signed<T>::value, "Type should be signed");
     return (x << 1) ^ (x >> (sizeof(x) * 8 - 1));
   }
 
-  template <typename T> inline typename std::make_signed<T>::type ZigZagDecode(T x)
+  template <typename T>
+  inline std::make_signed_t<T> ZigZagDecode(T x)
   {
     static_assert(std::is_unsigned<T>::value, "Type should be unsigned.");
-    return (x >> 1) ^ -static_cast<typename std::make_signed<T>::type>(x & 1);
+    return (x >> 1) ^ -static_cast<std::make_signed_t<T>>(x & 1);
   }
 
   inline uint32_t PerfectShuffle(uint32_t x)
@@ -140,6 +142,12 @@ namespace bits
     return x;
   }
 
+  // Returns the integer that has the bits of |x| at even-numbered positions
+  // and the bits of |y| at odd-numbered positions without changing the
+  // relative order of bits coming from |x| and |y|.
+  // That is, if the bits of |x| are {x31, x30, ..., x0},
+  //         and the bits of |y| are {y31, y30, ..., y0},
+  // then the bits of the result are {y31, x31, y30, x30, ..., y0, x0}.
   inline uint64_t BitwiseMerge(uint32_t x, uint32_t y)
   {
     uint32_t const hi = PerfectShuffle((y & 0xFFFF0000) | (x >> 16));
@@ -206,4 +214,6 @@ namespace bits
     return numBits == 64 ? std::numeric_limits<uint64_t>::max()
                          : (static_cast<uint64_t>(1) << numBits) - 1;
   }
+
+  inline bool IsPow2Minus1(uint64_t n) { return (n & (n + 1)) == 0; }
 }  // namespace bits

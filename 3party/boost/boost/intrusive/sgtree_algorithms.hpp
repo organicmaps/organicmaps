@@ -138,7 +138,6 @@ class sgtree_algorithms
    template<class AlphaByMaxSize>
    static node_ptr erase(const node_ptr & header, const node_ptr & z, std::size_t tree_size, std::size_t &max_tree_size, AlphaByMaxSize alpha_by_maxsize)
    {
-      //typename bstree_algo::data_for_rebalance info;
       bstree_algo::erase(header, z);
       --tree_size;
       if (tree_size > 0 &&
@@ -288,12 +287,38 @@ class sgtree_algorithms
 
    //! @copydoc ::boost::intrusive::bstree_algorithms::insert_unique_commit(const node_ptr&,const node_ptr&,const insert_commit_data&)
    template<class H_Alpha>
-   static void insert_unique_commit
+   BOOST_INTRUSIVE_FORCEINLINE static void insert_unique_commit
       (const node_ptr & header, const node_ptr & new_value, const insert_commit_data &commit_data
       ,std::size_t tree_size, H_Alpha h_alpha, std::size_t &max_tree_size)
+   {  return insert_commit(header, new_value, commit_data, tree_size, h_alpha, max_tree_size);  }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::transfer_unique
+   template<class NodePtrCompare, class H_Alpha, class AlphaByMaxSize>
+   static bool transfer_unique
+      ( const node_ptr & header1, NodePtrCompare comp, std::size_t tree1_size, std::size_t &max_tree1_size
+      , const node_ptr &header2, const node_ptr & z,   std::size_t tree2_size, std::size_t &max_tree2_size
+      ,H_Alpha h_alpha, AlphaByMaxSize alpha_by_maxsize)
    {
-      bstree_algo::insert_unique_commit(header, new_value, commit_data);
-      rebalance_after_insertion(new_value, commit_data.depth, tree_size+1, h_alpha, max_tree_size);
+      insert_commit_data commit_data;
+      bool const transferable = insert_unique_check(header1, z, comp, commit_data).second;
+      if(transferable){
+         erase(header2, z, tree2_size, max_tree2_size, alpha_by_maxsize);
+         insert_commit(header1, z, commit_data, tree1_size, h_alpha, max_tree1_size);
+      }
+      return transferable;
+   }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::transfer_equal
+   template<class NodePtrCompare, class H_Alpha, class AlphaByMaxSize>
+   static void transfer_equal
+      ( const node_ptr & header1, NodePtrCompare comp, std::size_t tree1_size, std::size_t &max_tree1_size
+      , const node_ptr &header2, const node_ptr & z,   std::size_t tree2_size, std::size_t &max_tree2_size
+      ,H_Alpha h_alpha, AlphaByMaxSize alpha_by_maxsize)
+   {
+      insert_commit_data commit_data;
+      insert_equal_upper_bound_check(header1, z, comp, commit_data);
+      erase(header2, z, tree2_size, max_tree2_size, alpha_by_maxsize);
+      insert_commit(header1, z, commit_data, tree1_size, h_alpha, max_tree1_size);
    }
 
    #ifdef BOOST_INTRUSIVE_DOXYGEN_INVOKED
@@ -309,6 +334,25 @@ class sgtree_algorithms
 
    /// @cond
    private:
+
+   template<class KeyType, class KeyNodePtrCompare>
+   static void insert_equal_upper_bound_check
+      (const node_ptr & header,  const KeyType &key
+      ,KeyNodePtrCompare comp, insert_commit_data &commit_data)
+   {
+      std::size_t depth;
+      bstree_algo::insert_equal_upper_bound_check(header, key, comp, commit_data, &depth);
+      commit_data.depth = depth;
+   }
+
+   template<class H_Alpha>
+   static void insert_commit
+      (const node_ptr & header, const node_ptr & new_value, const insert_commit_data &commit_data
+      ,std::size_t tree_size, H_Alpha h_alpha, std::size_t &max_tree_size)
+   {
+      bstree_algo::insert_unique_commit(header, new_value, commit_data);
+      rebalance_after_insertion(new_value, commit_data.depth, tree_size+1, h_alpha, max_tree_size);
+   }
 
    template<class H_Alpha>
    static void rebalance_after_insertion

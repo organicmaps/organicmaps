@@ -1,21 +1,32 @@
 #include "routing/index_road_graph.hpp"
 
 #include "routing/routing_exceptions.hpp"
+#include "routing/transit_graph.hpp"
+
+#include "editor/editable_data_source.hpp"
+
+#include <cstdint>
+
+using namespace std;
 
 namespace routing
 {
 IndexRoadGraph::IndexRoadGraph(shared_ptr<NumMwmIds> numMwmIds, IndexGraphStarter & starter,
                                vector<Segment> const & segments, vector<Junction> const & junctions,
-                               Index & index)
-  : m_index(index), m_numMwmIds(numMwmIds), m_starter(starter)
+                               DataSource & dataSource)
+  : m_dataSource(dataSource), m_numMwmIds(numMwmIds), m_starter(starter), m_segments(segments)
 {
-  CHECK_EQUAL(segments.size(), junctions.size() + 1, ());
+  //    j0     j1     j2     j3
+  //    *--s0--*--s1--*--s2--*
+  CHECK_EQUAL(segments.size() + 1, junctions.size(), ());
 
   for (size_t i = 0; i < junctions.size(); ++i)
   {
     Junction const & junction = junctions[i];
-    m_endToSegment[junction].push_back(segments[i]);
-    m_beginToSegment[junction].push_back(segments[i + 1]);
+    if (i > 0)
+      m_endToSegment[junction].push_back(segments[i - 1]);
+    if (i < segments.size())
+      m_beginToSegment[junction].push_back(segments[i]);
   }
 }
 
@@ -32,8 +43,8 @@ void IndexRoadGraph::GetIngoingEdges(Junction const & junction, TEdgeVector & ed
 double IndexRoadGraph::GetMaxSpeedKMPH() const
 {
   // Value doesn't matter.
-  // It used in IDirectionsEngine::CalculateTimes only.
-  // But SingleMwmRouter::RedressRoute overwrites time values.
+  // It is used in CalculateMaxSpeedTimes only.
+  // Then SingleMwmRouter::RedressRoute overwrites time values.
   //
   // TODO: remove this stub after transfering Bicycle and Pedestrian to index routing.
   return 0.0;
@@ -49,7 +60,7 @@ void IndexRoadGraph::GetEdgeTypes(Edge const & edge, feature::TypesHolder & type
 
   FeatureID const featureId = edge.GetFeatureId();
   FeatureType ft;
-  Index::FeaturesLoaderGuard loader(m_index, featureId.m_mwmId);
+  FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId);
   if (!loader.GetFeatureByIndex(featureId.m_index, ft))
   {
     LOG(LERROR, ("Can't load types for feature", featureId));
@@ -64,6 +75,46 @@ void IndexRoadGraph::GetJunctionTypes(Junction const & junction, feature::TypesH
 {
   // TODO: implement method to support PedestrianDirection::LiftGate, PedestrianDirection::Gate
   types = feature::TypesHolder();
+}
+
+void IndexRoadGraph::GetRouteEdges(TEdgeVector & edges) const
+{
+  edges.clear();
+  edges.reserve(m_segments.size());
+
+  for (Segment const & segment : m_segments)
+  {
+    auto const & junctionFrom = m_starter.GetJunction(segment, false /* front */);
+    auto const & junctionTo = m_starter.GetJunction(segment, true /* front */);
+    if (IndexGraphStarter::IsFakeSegment(segment) || TransitGraph::IsTransitSegment(segment))
+    {
+      Segment real = segment;
+      if (m_starter.ConvertToReal(real))
+      {
+        platform::CountryFile const & file = m_numMwmIds->GetFile(real.GetMwmId());
+        MwmSet::MwmId const mwmId = m_dataSource.GetMwmIdByCountryFile(file);
+        edges.push_back(Edge::MakeFakeWithRealPart(FeatureID(mwmId, real.GetFeatureId()),
+                                                   real.IsForward(), real.GetSegmentIdx(),
+                                                   junctionFrom, junctionTo));
+      }
+      else
+      {
+        edges.push_back(Edge::MakeFake(junctionFrom, junctionTo));
+      }
+    }
+    else
+    {
+      platform::CountryFile const & file = m_numMwmIds->GetFile(segment.GetMwmId());
+      MwmSet::MwmId const mwmId = m_dataSource.GetMwmIdByCountryFile(file);
+      edges.push_back(Edge::MakeReal(FeatureID(mwmId, segment.GetFeatureId()), segment.IsForward(),
+                                     segment.GetSegmentIdx(), junctionFrom, junctionTo));
+    }
+  }
+}
+
+void IndexRoadGraph::GetRouteSegments(std::vector<Segment> & segments) const
+{
+  segments = m_segments;
 }
 
 void IndexRoadGraph::GetEdges(Junction const & junction, bool isOutgoing, TEdgeVector & edges) const
@@ -86,21 +137,13 @@ void IndexRoadGraph::GetEdges(Junction const & junction, bool isOutgoing, TEdgeV
       continue;
 
     platform::CountryFile const & file = m_numMwmIds->GetFile(segment.GetMwmId());
-    MwmSet::MwmHandle const handle = m_index.GetMwmHandleByCountryFile(file);
-    if (!handle.IsAlive())
-      MYTHROW(RoutingException, ("Can't get mwm handle for", file));
+    MwmSet::MwmId const mwmId = m_dataSource.GetMwmIdByCountryFile(file);
 
-    edges.emplace_back(FeatureID(MwmSet::MwmId(handle.GetInfo()), segment.GetFeatureId()),
-                       segment.IsForward(), segment.GetSegmentIdx(),
-                       GetJunction(segment, false /* front */),
-                       GetJunction(segment, true /* front */));
+    edges.push_back(Edge::MakeReal(FeatureID(mwmId, segment.GetFeatureId()), segment.IsForward(),
+                                   segment.GetSegmentIdx(),
+                                   m_starter.GetJunction(segment, false /* front */),
+                                   m_starter.GetJunction(segment, true /* front */)));
   }
-}
-
-Junction IndexRoadGraph::GetJunction(Segment const & segment, bool front) const
-{
-  // TODO: Use real altitudes for pedestrian and bicycle routing.
-  return Junction(m_starter.GetPoint(segment, front), feature::kDefaultAltitudeMeters);
 }
 
 vector<Segment> const & IndexRoadGraph::GetSegments(Junction const & junction,

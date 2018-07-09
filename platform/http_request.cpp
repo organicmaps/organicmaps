@@ -20,57 +20,33 @@
 
 #include "3party/Alohalytics/src/alohalytics.h"
 
-#ifdef OMIM_OS_IPHONE
-
-#include <sys/xattr.h>
-#include <CoreFoundation/CoreFoundation.h>
-#include <CoreFoundation/CFURL.h>
-// declaration is taken from NSObjCRuntime.h to avoid including of ObjC code
-extern "C" double NSFoundationVersionNumber;
-
-#endif
-
-void DisableBackupForFile(string const & filePath)
-{
-#ifdef OMIM_OS_IPHONE
-  // We need to disable iCloud backup for downloaded files.
-  // This is the reason for rejecting from the AppStore
-  // https://developer.apple.com/library/iOS/qa/qa1719/_index.html
-
-  // value is taken from NSObjCRuntime.h to avoid including of ObjC code
-  #define NSFoundationVersionNumber_iOS_5_1  890.10
-  if (NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_5_1)
-  {
-    CFURLRef url = CFURLCreateFromFileSystemRepresentation(kCFAllocatorDefault,
-                                                           reinterpret_cast<unsigned char const *>(filePath.c_str()),
-                                                           filePath.size(),
-                                                           0);
-    CFErrorRef err;
-    signed char valueRaw = 1; // BOOL YES
-    CFNumberRef value = CFNumberCreate(kCFAllocatorDefault, kCFNumberCharType, &valueRaw);
-    if (!CFURLSetResourcePropertyForKey(url, kCFURLIsExcludedFromBackupKey, value, &err))
-    {
-      LOG(LWARNING, ("Error while disabling iCloud backup for file", filePath));
-    }
-    CFRelease(value);
-    CFRelease(url);
-  }
-  else
-  {
-    static char const * attrName = "com.apple.MobileBackup";
-    u_int8_t attrValue = 1;
-    const int result = setxattr(filePath.c_str(), attrName, &attrValue, sizeof(attrValue), 0, 0);
-    if (result != 0)
-      LOG(LWARNING, ("Error while disabling iCloud backup for file", filePath));
-  }
-#endif
-}
-
-
 class HttpThread;
 
 namespace downloader
 {
+namespace non_http_error_code
+{
+string DebugPrint(long errorCode)
+{
+  switch (errorCode)
+  {
+  case kIOException:
+    return "IO exception";
+  case kWriteException:
+    return "Write exception";
+  case kInconsistentFileSize:
+    return "Inconsistent file size";
+  case kNonHttpResponse:
+    return "Non-http response";
+  case kInvalidURL:
+    return "Invalid URL";
+  case kCancelled:
+    return "Cancelled";
+  default:
+    return to_string(errorCode);
+  }
+}
+}  // namespace non_http_error_code
 
 /// @return 0 if creation failed
 HttpThread * CreateNativeHttpThread(string const & url,
@@ -100,24 +76,28 @@ class MemoryHttpRequest : public HttpRequest, public IHttpThreadCallback
     return true;
   }
 
-  virtual void OnFinish(long httpCode, int64_t, int64_t)
+  virtual void OnFinish(long httpOrErrorCode, int64_t, int64_t)
   {
-    if (httpCode == 200)
-      m_status = ECompleted;
+    if (httpOrErrorCode == 200)
+      m_status = Status::Completed;
     else
     {
-      LOG(LWARNING, ("HttpRequest error:", httpCode));
+      auto const message = non_http_error_code::DebugPrint(httpOrErrorCode);
+      LOG(LWARNING, ("HttpRequest error:", message));
       alohalytics::LogEvent(
           "$httpRequestError",
-          {{"url", m_requestUrl}, {"code", strings::to_string(httpCode)}, {"servers", "1"}});
-      m_status = EFailed;
+          {{"url", m_requestUrl}, {"code", message}, {"servers", "1"}});
+      if (httpOrErrorCode == 404)
+        m_status = Status::FileNotFound;
+      else
+        m_status = Status::Failed;
     }
 
     m_onFinish(*this);
   }
 
 public:
-  MemoryHttpRequest(string const & url, CallbackT const & onFinish, CallbackT const & onProgress)
+  MemoryHttpRequest(string const & url, Callback const & onFinish, Callback const & onProgress)
     : HttpRequest(onFinish, onProgress), m_requestUrl(url), m_writer(m_downloadedData)
   {
     m_thread = CreateNativeHttpThread(url, *this);
@@ -125,7 +105,7 @@ public:
   }
 
   MemoryHttpRequest(string const & url, string const & postData,
-                    CallbackT onFinish, CallbackT onProgress)
+                    Callback onFinish, Callback onProgress)
     : HttpRequest(onFinish, onProgress), m_writer(m_downloadedData)
   {
     m_thread = CreateNativeHttpThread(url, *this, 0, -1, -1, postData);
@@ -137,7 +117,7 @@ public:
     DeleteNativeHttpThread(m_thread);
   }
 
-  virtual string const & Data() const
+  virtual string const & GetData() const
   {
     return m_downloadedData;
   }
@@ -232,14 +212,14 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
   }
 
   /// Called for each chunk by one main (GUI) thread.
-  virtual void OnFinish(long httpCode, int64_t begRange, int64_t endRange)
+  virtual void OnFinish(long httpOrErrorCode, int64_t begRange, int64_t endRange)
   {
 #ifdef DEBUG
     static threads::ThreadID const id = threads::GetCurrentThreadID();
     ASSERT_EQUAL(id, threads::GetCurrentThreadID(), ("OnFinish called from different threads"));
 #endif
 
-    bool const isChunkOk = (httpCode == 200);
+    bool const isChunkOk = (httpOrErrorCode == 200);
     string const urlError = m_strategy.ChunkFinished(isChunkOk, make_pair(begRange, endRange));
 
     // remove completed chunk from the list, beg is the key
@@ -254,54 +234,54 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     }
     else
     {
-      LOG(LWARNING, (m_filePath, "HttpRequest error:", httpCode));
+      auto const message = non_http_error_code::DebugPrint(httpOrErrorCode);
+      LOG(LWARNING, (m_filePath, "HttpRequest error:", message));
       alohalytics::LogEvent("$httpRequestError",
                             {{"url", urlError},
-                             {"code", strings::to_string(httpCode)},
+                             {"code", message},
                              {"servers", strings::to_string(m_strategy.ActiveServersCount())}});
     }
 
     ChunksDownloadStrategy::ResultT const result = StartThreads();
-
     if (result == ChunksDownloadStrategy::EDownloadFailed)
-      m_status = EFailed;
+      m_status = httpOrErrorCode == 404 ? Status::FileNotFound : Status::Failed;
     else if (result == ChunksDownloadStrategy::EDownloadSucceeded)
-      m_status = ECompleted;
+      m_status = Status::Completed;
 
     if (isChunkOk)
     {
       // save information for download resume
       ++m_goodChunksCount;
-      if (m_status != ECompleted && m_goodChunksCount % 10 == 0)
+      if (m_status != Status::Completed && m_goodChunksCount % 10 == 0)
         SaveResumeChunks();
     }
 
-    if (m_status != EInProgress)
+    if (m_status == Status::InProgress)
+      return;
+
+    // 1. Save downloaded chunks if some error occured.
+    if (m_status == Status::Failed || m_status == Status::FileNotFound)
+      SaveResumeChunks();
+
+    // 2. Free file handle.
+    CloseWriter();
+
+    // 3. Clean up resume file with chunks range on success
+    if (m_status == Status::Completed)
     {
-      // 1. Save downloaded chunks if some error occured.
-      if (m_status != ECompleted)
-        SaveResumeChunks();
+      my::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
 
-      // 2. Free file handle.
-      CloseWriter();
+      // Rename finished file to it's original name.
+      if (Platform::IsFileExistsByFullPath(m_filePath))
+        my::DeleteFileX(m_filePath);
+      CHECK(my::RenameFileX(m_filePath + DOWNLOADING_FILE_EXTENSION, m_filePath),
+            (m_filePath, strerror(errno)));
 
-      // 3. Clean up resume file with chunks range on success
-      if (m_status == ECompleted)
-      {
-        (void)my::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
-
-        // Rename finished file to it's original name.
-        if (Platform::IsFileExistsByFullPath(m_filePath))
-          (void)my::DeleteFileX(m_filePath);
-        CHECK(my::RenameFileX(m_filePath + DOWNLOADING_FILE_EXTENSION, m_filePath),
-              (m_filePath, strerror(errno)));
-
-        DisableBackupForFile(m_filePath);
-      }
-
-      // 4. Finish downloading.
-      m_onFinish(*this);
+      Platform::DisableBackupForFile(m_filePath);
     }
+
+    // 4. Finish downloading.
+    m_onFinish(*this);
   }
 
   void CloseWriter()
@@ -314,13 +294,13 @@ class FileHttpRequest : public HttpRequest, public IHttpThreadCallback
     {
       LOG(LWARNING, ("Can't close file correctly", e.Msg()));
 
-      m_status = EFailed;
+      m_status = Status::Failed;
     }
   }
 
 public:
   FileHttpRequest(vector<string> const & urls, string const & filePath, int64_t fileSize,
-                  CallbackT const & onFinish, CallbackT const & onProgress,
+                  Callback const & onFinish, Callback const & onProgress,
                   int64_t chunkSize, bool doCleanProgressFiles)
     : HttpRequest(onFinish, onProgress), m_strategy(urls), m_filePath(filePath),
       m_goodChunksCount(0), m_doCleanProgressFiles(doCleanProgressFiles)
@@ -337,7 +317,8 @@ public:
     {
       // Check that resume information is correct with existing file.
       uint64_t size;
-      if (my::GetFileSize(filePath + DOWNLOADING_FILE_EXTENSION, size) && size <= fileSize)
+      if (my::GetFileSize(filePath + DOWNLOADING_FILE_EXTENSION, size) &&
+              size <= static_cast<uint64_t>(fileSize))
         openMode = FileWriter::OP_WRITE_EXISTING;
       else
         m_strategy.InitChunks(fileSize, chunkSize);
@@ -350,12 +331,8 @@ public:
 
     // Assign here, because previous functions can throw an exception.
     m_writer.swap(writer);
-
-#ifdef OMIM_OS_IPHONE
-    DisableBackupForFile(filePath + DOWNLOADING_FILE_EXTENSION);
-#endif
-
-    (void)StartThreads();
+    Platform::DisableBackupForFile(filePath + DOWNLOADING_FILE_EXTENSION);
+    StartThreads();
   }
 
   virtual ~FileHttpRequest()
@@ -369,28 +346,28 @@ public:
       DeleteNativeHttpThread(p);
     }
 
-    if (m_status == EInProgress)
+    if (m_status == Status::InProgress)
     {
       // means that client canceled download process, so delete all temporary files
       CloseWriter();
 
       if (m_doCleanProgressFiles)
       {
-        (void)my::DeleteFileX(m_filePath + DOWNLOADING_FILE_EXTENSION);
-        (void)my::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
+        my::DeleteFileX(m_filePath + DOWNLOADING_FILE_EXTENSION);
+        my::DeleteFileX(m_filePath + RESUME_FILE_EXTENSION);
       }
     }
   }
 
-  virtual string const & Data() const
+  virtual string const & GetData() const
   {
     return m_filePath;
   }
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-HttpRequest::HttpRequest(CallbackT const & onFinish, CallbackT const & onProgress)
-  : m_status(EInProgress), m_progress(make_pair(0, -1)),
+HttpRequest::HttpRequest(Callback const & onFinish, Callback const & onProgress)
+  : m_status(Status::InProgress), m_progress(make_pair(0, -1)),
     m_onFinish(onFinish), m_onProgress(onProgress)
 {
 }
@@ -399,20 +376,20 @@ HttpRequest::~HttpRequest()
 {
 }
 
-HttpRequest * HttpRequest::Get(string const & url, CallbackT const & onFinish, CallbackT const & onProgress)
+HttpRequest * HttpRequest::Get(string const & url, Callback const & onFinish, Callback const & onProgress)
 {
   return new MemoryHttpRequest(url, onFinish, onProgress);
 }
 
 HttpRequest * HttpRequest::PostJson(string const & url, string const & postData,
-                                    CallbackT const & onFinish, CallbackT const & onProgress)
+                                    Callback const & onFinish, Callback const & onProgress)
 {
   return new MemoryHttpRequest(url, postData, onFinish, onProgress);
 }
 
 HttpRequest * HttpRequest::GetFile(vector<string> const & urls,
                                    string const & filePath, int64_t fileSize,
-                                   CallbackT const & onFinish, CallbackT const & onProgress,
+                                   Callback const & onFinish, Callback const & onProgress,
                                    int64_t chunkSize, bool doCleanOnCancel)
 {
   try
@@ -427,4 +404,18 @@ HttpRequest * HttpRequest::GetFile(vector<string> const & urls,
   return nullptr;
 }
 
+string DebugPrint(HttpRequest::Status status)
+{
+  switch (status)
+  {
+  case HttpRequest::Status::InProgress:
+    return "In progress";
+  case HttpRequest::Status::Completed:
+    return "Completed";
+  case HttpRequest::Status::Failed:
+    return "Failed";
+  case HttpRequest::Status::FileNotFound:
+    return "File not found";
+  }
+}
 } // namespace downloader

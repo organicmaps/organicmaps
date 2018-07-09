@@ -38,6 +38,7 @@ double const VisualParams::kHdpiScale = 1.5;
 double const VisualParams::kXhdpiScale = 2.0;
 double const VisualParams::k6plusScale = 2.4;
 double const VisualParams::kXxhdpiScale = 3.0;
+double const VisualParams::kXxxhdpiScale = 3.5;
 
 void VisualParams::Init(double vs, uint32_t tileSize)
 {
@@ -56,6 +57,11 @@ void VisualParams::Init(double vs, uint32_t tileSize)
 uint32_t VisualParams::GetGlyphSdfScale() const
 {
   return (m_visualScale <= 1.0) ? 3 : 4;
+}
+
+bool VisualParams::IsSdfPrefered() const
+{
+  return m_visualScale >= kHdpiScale;
 }
 
 uint32_t VisualParams::GetGlyphBaseSize() const
@@ -86,8 +92,9 @@ string const & VisualParams::GetResourcePostfix(double visualScale)
     make_pair("mdpi", kMdpiScale),
     make_pair("hdpi", kHdpiScale),
     make_pair("xhdpi", kXhdpiScale),
-    make_pair("xxhdpi", kXxhdpiScale),
     make_pair("6plus", k6plusScale),
+    make_pair("xxhdpi", kXxhdpiScale),
+    make_pair("xxxhdpi", kXxxhdpiScale),
   };
 
   // Looking for the nearest available scale.
@@ -226,9 +233,9 @@ m2::RectD GetRectForDrawScale(double drawScale, m2::PointD const & center)
   return GetRectForDrawScale(my::rounds(drawScale), center);
 }
 
-int CalculateTileSize(int screenWidth, int screenHeight)
+uint32_t CalculateTileSize(uint32_t screenWidth, uint32_t screenHeight)
 {
-  int const maxSz = max(screenWidth, screenHeight);
+  uint32_t const maxSz = max(screenWidth, screenHeight);
 
   // we're calculating the tileSize based on (maxSz > 1024 ? rounded : ceiled)
   // to the nearest power of two value of the maxSz
@@ -237,7 +244,9 @@ int CalculateTileSize(int screenWidth, int screenHeight)
   int res = 0;
 
   if (maxSz < 1024)
+  {
     res = ceiledSz;
+  }
   else
   {
     int const flooredSz = ceiledSz / 2;
@@ -249,9 +258,9 @@ int CalculateTileSize(int screenWidth, int screenHeight)
   }
 
 #ifndef OMIM_OS_DESKTOP
-  return my::clamp(res / 2, 256, 1024);
+  return static_cast<uint32_t>(my::clamp(res / 2, 256, 1024));
 #else
-  return my::clamp(res / 2, 512, 1024);
+  return static_cast<uint32_t>(my::clamp(res / 2, 512, 1024));
 #endif
 }
 
@@ -292,6 +301,32 @@ double GetZoomLevel(double scale)
 {
   static double const kLog2 = log(2.0);
   return my::clamp(fabs(log(scale) / kLog2), 1.0, scales::GetUpperStyleScale() + 1.0);
+}
+
+void ExtractZoomFactors(ScreenBase const & s, double & zoom, int & index, float & lerpCoef)
+{
+  double const zoomLevel = GetZoomLevel(s.GetScale());
+  zoom = trunc(zoomLevel);
+  index = static_cast<int>(zoom - 1.0);
+  lerpCoef = static_cast<float>(zoomLevel - zoom);
+}
+
+float InterpolateByZoomLevels(int index, float lerpCoef, std::vector<float> const & values)
+{
+  ASSERT_GREATER_OR_EQUAL(index, 0, ());
+  ASSERT_GREATER(values.size(), scales::UPPER_STYLE_SCALE, ());
+  if (index < scales::UPPER_STYLE_SCALE)
+    return values[index] + lerpCoef * (values[index + 1] - values[index]);
+  return values[scales::UPPER_STYLE_SCALE];
+}
+
+m2::PointF InterpolateByZoomLevels(int index, float lerpCoef, std::vector<m2::PointF> const & values)
+{
+  ASSERT_GREATER_OR_EQUAL(index, 0, ());
+  ASSERT_GREATER(values.size(), scales::UPPER_STYLE_SCALE, ());
+  if (index < scales::UPPER_STYLE_SCALE)
+    return values[index] + (values[index + 1] - values[index]) * lerpCoef;
+  return values[scales::UPPER_STYLE_SCALE];
 }
 
 double GetNormalizedZoomLevel(double scale, int minZoom)

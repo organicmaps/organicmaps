@@ -21,7 +21,7 @@
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/move/core.hpp>
-#include <boost/move/utility.hpp>
+#include <boost/move/utility_core.hpp>
 #include <boost/parameter/binding.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -257,8 +257,10 @@ template< typename FallbackPolicyT, typename CharT >
 class format_named_scope_terminal
 {
 public:
+#ifndef BOOST_LOG_DOXYGEN_PASS
     //! Internal typedef for type categorization
     typedef void _is_boost_log_terminal;
+#endif
 
     //! Attribute value type
     typedef attributes::named_scope::value_type value_type;
@@ -337,7 +339,7 @@ public:
         stream_type strm(str);
         m_visitor_invoker(m_name, fusion::at_c< 0 >(phoenix::env(ctx).args()), binder1st< formatter_function_type&, stream_type& >(m_formatter, strm));
         strm.flush();
-        return boost::move(str);
+        return BOOST_LOG_NRVO_RESULT(str);
     }
 
     //! Invokation operator
@@ -348,7 +350,7 @@ public:
         stream_type strm(str);
         m_visitor_invoker(m_name, fusion::at_c< 0 >(phoenix::env(ctx).args()), binder1st< formatter_function_type const&, stream_type& >(m_formatter, strm));
         strm.flush();
-        return boost::move(str);
+        return BOOST_LOG_NRVO_RESULT(str);
     }
 
     BOOST_DELETED_FUNCTION(format_named_scope_terminal())

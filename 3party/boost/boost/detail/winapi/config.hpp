@@ -9,10 +9,18 @@
 #ifndef BOOST_DETAIL_WINAPI_CONFIG_HPP_INCLUDED_
 #define BOOST_DETAIL_WINAPI_CONFIG_HPP_INCLUDED_
 
-#include <boost/config.hpp>
+#if defined __MINGW32__
+#include <_mingw.h>
+#endif
 
-#ifdef BOOST_HAS_PRAGMA_ONCE
-#pragma once
+// BOOST_WINAPI_IS_MINGW indicates that the target Windows SDK is provided by MinGW (http://mingw.org/).
+// BOOST_WINAPI_IS_MINGW_W64 indicates that the target Windows SDK is provided by MinGW-w64 (http://mingw-w64.org).
+#if defined __MINGW32__
+#if defined __MINGW64_VERSION_MAJOR
+#define BOOST_WINAPI_IS_MINGW_W64
+#else
+#define BOOST_WINAPI_IS_MINGW
+#endif
 #endif
 
 // These constants reflect _WIN32_WINNT_* macros from sdkddkver.h
@@ -28,6 +36,8 @@
 #define BOOST_WINAPI_VERSION_WIN7 0x0601
 #define BOOST_WINAPI_VERSION_WIN8 0x0602
 #define BOOST_WINAPI_VERSION_WINBLUE 0x0603
+#define BOOST_WINAPI_VERSION_WINTHRESHOLD 0x0A00
+#define BOOST_WINAPI_VERSION_WIN10 0x0A00
 
 #if !defined(BOOST_USE_WINAPI_VERSION)
 #if defined(_WIN32_WINNT)
@@ -35,12 +45,19 @@
 #elif defined(WINVER)
 #define BOOST_USE_WINAPI_VERSION WINVER
 #else
-// By default use Windows XP API
+// By default use Windows Vista API on compilers that support it and XP on the others
+#if (defined(_MSC_VER) && _MSC_VER < 1500) || defined(BOOST_WINAPI_IS_MINGW)
 #define BOOST_USE_WINAPI_VERSION BOOST_WINAPI_VERSION_WINXP
+#else
+#define BOOST_USE_WINAPI_VERSION BOOST_WINAPI_VERSION_WIN6
+#endif
 #endif
 #endif
 
-#if defined(BOOST_USE_WINDOWS_H)
+#define BOOST_DETAIL_WINAPI_MAKE_NTDDI_VERSION2(x) x##0000
+#define BOOST_DETAIL_WINAPI_MAKE_NTDDI_VERSION(x) BOOST_DETAIL_WINAPI_MAKE_NTDDI_VERSION2(x)
+
+#if defined(BOOST_USE_WINDOWS_H) || defined(BOOST_WINAPI_DEFINE_VERSION_MACROS)
 // We have to define the version macros so that windows.h provides the necessary symbols
 #if !defined(_WIN32_WINNT)
 #define _WIN32_WINNT BOOST_USE_WINAPI_VERSION
@@ -48,6 +65,15 @@
 #if !defined(WINVER)
 #define WINVER BOOST_USE_WINAPI_VERSION
 #endif
+#if !defined(NTDDI_VERSION)
+#define NTDDI_VERSION BOOST_DETAIL_WINAPI_MAKE_NTDDI_VERSION(BOOST_USE_WINAPI_VERSION)
+#endif
+#endif
+
+#include <boost/config.hpp>
+
+#ifdef BOOST_HAS_PRAGMA_ONCE
+#pragma once
 #endif
 
 #endif // BOOST_DETAIL_WINAPI_CONFIG_HPP_INCLUDED_

@@ -1,19 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>subway-rome-s</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <rect id="path-1" x="1" y="1" width="11" height="11"></rect>
-    </defs>
-    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="subway-rome-s">
-            <rect id="rect2438-copy-4" fill-opacity="0.1" fill="#FFFFFF" x="0" y="0" width="13" height="13"></rect>
-            <g id="rect2438-copy-3">
-                <use fill="#ED1B2D" xlink:href="#path-1"></use>
-                <use fill-opacity="0.4" fill="#000000" xlink:href="#path-1"></use>
-            </g>
-            <polyline id="Shape-Copy-3" fill-opacity="0.7" fill="#FFFFFF" points="4.05440806 4 5.5884131 4 6.49588581 7.66502659 7.40335852 4 8.94324097 4 10 9.40909091 8.94794291 9.40909091 8.14861461 5.31053976 7.03190596 9.40909091 5.96809404 9.40909091 4.85138539 5.31053976 4.05205709 9.40909091 3 9.40909091"></polyline>
-        </g>
-    </g>
+<svg width="13" height="13" viewBox="0 0 13 13">
+  <g fill="none">
+    <rect width="13" height="13" fill="#FFF" opacity=".4"/>
+    <rect width="11" height="11" x="1" y="1" fill="#99111C"/>
+    <polyline fill="#FFF" points="4.054 4 5.588 4 6.496 7.665 7.403 4 8.943 4 10 9.409 8.948 9.409 8.149 5.311 7.032 9.409 5.968 9.409 4.851 5.311 4.052 9.409 3 9.409" opacity=".6"/>
+  </g>
 </svg>

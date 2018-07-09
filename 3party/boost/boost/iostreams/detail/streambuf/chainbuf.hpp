@@ -8,7 +8,7 @@
 #ifndef BOOST_IOSTREAMS_DETAIL_CHAINBUF_HPP_INCLUDED
 #define BOOST_IOSTREAMS_DETAIL_CHAINBUF_HPP_INCLUDED
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif      
 
@@ -75,9 +75,6 @@ protected:
                  typename Chain::char_type,
                  typename Chain::traits_type
              )                                               base_type;
-//#if !BOOST_WORKAROUND(__GNUC__, == 2)                                 
-//    BOOST_IOSTREAMS_USING_PROTECTED_STREAMBUF_MEMBERS(base_type)
-//#endif
 private:
 
     // Translate from std int_type to chain's int_type.

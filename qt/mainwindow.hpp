@@ -1,110 +1,126 @@
 #pragma once
 
+#include "qt/draw_widget.hpp"
+
 #include "storage/index.hpp"
 
 #include "platform/location.hpp"
 #include "platform/location_service.hpp"
 
-#include "std/array.hpp"
-#include "std/unique_ptr.hpp"
-
 #include <QtWidgets/QApplication>
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-  #include <QtGui/QMainWindow>
-#else
-  #include <QtWidgets/QMainWindow>
-#endif
+#include <QtWidgets/QMainWindow>
 
+#include <array>
+#include <memory>
+
+class Framework;
 class QDockWidget;
-class QPushButton;
 class QLabel;
-class TrafficMode;
+class QPushButton;
+class QToolButton;
 
 namespace search { class Result; }
 
 namespace qt
 {
-  class DrawWidget;
+class DrawWidget;
 
-  class MainWindow : public QMainWindow, location::LocationObserver
-  {
-    QAction * m_pMyPositionAction;
-    QAction * m_pCreateFeatureAction;
-    QAction * m_selectionMode;
-    QAction * m_clearSelection;
-    QAction * m_pSearchAction;
-    QAction * m_trafficEnableAction;
-    QAction * m_saveTrafficSampleAction;
-    QAction * m_quitTrafficModeAction;
-    DrawWidget * m_pDrawWidget;
+class MainWindow : public QMainWindow, location::LocationObserver
+{
+  DrawWidget * m_pDrawWidget = nullptr;
+  // TODO(mgsergio): Make indexing more informative.
+  std::array<QDockWidget *, 1> m_Docks;
 
-    // TODO(mgsergio): Make indexing more informative.
-    array<QDockWidget *, 2> m_Docks;
+  QPushButton * m_downloadButton = nullptr;
+  QPushButton * m_retryButton = nullptr;
+  QLabel * m_downloadingStatusLabel = nullptr;
 
-    QPushButton * m_downloadButton;
-    QPushButton * m_retryButton;
-    QLabel * m_downloadingStatusLabel;
-    storage::TCountryId m_lastCountry;
+  storage::TCountryId m_lastCountry;
 
-    unique_ptr<location::LocationService> const m_locationService;
+  std::unique_ptr<location::LocationService> const m_locationService;
 
-    // This object is managed by Qt memory system.
-    TrafficMode * m_trafficMode = nullptr;
+  QAction * m_pMyPositionAction = nullptr;
+  QAction * m_pCreateFeatureAction = nullptr;
+  QAction * m_selectionMode = nullptr;
+  QAction * m_clearSelection = nullptr;
+  QAction * m_pSearchAction = nullptr;
+  QAction * m_trafficEnableAction = nullptr;
+  QToolButton * m_routePointsToolButton = nullptr;
+  QAction * m_selectStartRoutePoint = nullptr;
+  QAction * m_selectFinishRoutePoint = nullptr;
+  QAction * m_selectIntermediateRoutePoint = nullptr;
+#ifdef BUILD_DESIGNER
+  QString const m_mapcssFilePath = nullptr;
+  QAction * m_pBuildStyleAction = nullptr;
+  QAction * m_pRecalculateGeomIndex = nullptr;
+  QAction * m_pDrawDebugRectAction = nullptr;
+  QAction * m_pGetStatisticsAction = nullptr;
+  QAction * m_pRunTestsAction = nullptr;
+  QAction * m_pBuildPhonePackAction = nullptr;
+#endif // BUILD_DESIGNER
 
-    Q_OBJECT
+  Q_OBJECT
 
-  public:
-    MainWindow();
+public:
+  MainWindow(Framework & framework, bool apiOpenGLES3, QString const & mapcssFilePath = QString());
 
-    virtual void OnLocationError(location::TLocationError errorCode);
-    virtual void OnLocationUpdated(location::GpsInfo const & info);
+  static void SetDefaultSurfaceFormat(bool apiOpenGLES3);
 
-  protected:
-    string GetIniFile();
+protected:
+  string GetIniFile();
 
-    void LocationStateModeChanged(location::EMyPositionMode mode);
+  void OnLocationError(location::TLocationError errorCode) override;
+  void OnLocationUpdated(location::GpsInfo const & info) override;
+  void LocationStateModeChanged(location::EMyPositionMode mode);
 
-  protected:
-    void CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name,
-                         QKeySequence const & hotkey, char const * slot);
-    void CreateNavigationBar();
-    void CreateSearchBarAndPanel();
-    void CreateCountryStatusControls();
-
-    void CreateTrafficPanel(string const & dataFilePath, string const & sampleFilePath);
-    void DestroyTrafficPanel();
+  void CreatePanelImpl(size_t i, Qt::DockWidgetArea area, QString const & name,
+                       QKeySequence const & hotkey, char const * slot);
+  void CreateNavigationBar();
+  void CreateSearchBarAndPanel();
+  void CreateCountryStatusControls();
 
 #if defined(Q_WS_WIN)
-    /// to handle menu messages
-    virtual bool winEvent(MSG * msg, long * result);
+  /// to handle menu messages
+  bool winEvent(MSG * msg, long * result) override;
 #endif
 
-    virtual void closeEvent(QCloseEvent * e);
+  void closeEvent(QCloseEvent * e) override;
 
-  protected Q_SLOTS:
+protected Q_SLOTS:
 #ifndef NO_DOWNLOADER
-    void ShowUpdateDialog();
+  void ShowUpdateDialog();
 #endif // NO_DOWNLOADER
 
-    void OnPreferences();
-    void OnAbout();
-    void OnMyPosition();
-    void OnCreateFeatureClicked();
-    void OnSearchButtonClicked();
-    void OnLoginMenuItem();
-    void OnUploadEditsMenuItem();
+  void OnPreferences();
+  void OnAbout();
+  void OnMyPosition();
+  void OnCreateFeatureClicked();
+  void OnSearchButtonClicked();
+  void OnLoginMenuItem();
+  void OnUploadEditsMenuItem();
 
-    void OnBeforeEngineCreation();
+  void OnBeforeEngineCreation();
 
-    void OnDownloadClicked();
-    void OnRetryDownloadClicked();
+  void OnDownloadClicked();
+  void OnRetryDownloadClicked();
 
-    void OnSwitchSelectionMode();
-    void OnClearSelection();
+  void OnSwitchSelectionMode();
+  void OnClearSelection();
 
-    void OnTrafficEnabled();
-    void OnOpenTrafficSample();
-    void OnSaveTrafficSample();
-    void OnQuitTrafficMode();
-  };
-}
+  void OnTrafficEnabled();
+  void OnStartPointSelected();
+  void OnFinishPointSelected();
+  void OnIntermediatePointSelected();
+  void OnFollowRoute();
+  void OnClearRoute();
+
+#ifdef BUILD_DESIGNER
+  void OnBuildStyle();
+  void OnRecalculateGeomIndex();
+  void OnDebugStyle();
+  void OnGetStatistics();
+  void OnRunTests();
+  void OnBuildPhonePackage();
+#endif // BUILD_DESIGNER
+};
+}  // namespace qt

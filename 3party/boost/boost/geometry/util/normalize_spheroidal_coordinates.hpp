@@ -1,8 +1,9 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2015, Oracle and/or its affiliates.
+// Copyright (c) 2015-2016, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Licensed under the Boost Software License version 1.0.
 // http://www.boost.org/users/license.html
@@ -119,6 +120,27 @@ protected:
     }
 
 public:
+    static inline void apply(CoordinateType& longitude)
+    {
+        // normalize longitude
+        if (math::equals(math::abs(longitude), constants::half_period()))
+        {
+            longitude = constants::half_period();
+        }
+        else if (longitude > constants::half_period())
+        {
+            longitude = normalize_up(longitude);
+            if (math::equals(longitude, -constants::half_period()))
+            {
+                longitude = constants::half_period();
+            }
+        }
+        else if (longitude < -constants::half_period())
+        {
+            longitude = normalize_down(longitude);
+        }
+    }
+
     static inline void apply(CoordinateType& longitude,
                              CoordinateType& latitude,
                              bool normalize_poles = true)
@@ -148,22 +170,7 @@ public:
 #endif // BOOST_GEOMETRY_NORMALIZE_LATITUDE
 
         // normalize longitude
-        if (math::equals(math::abs(longitude), constants::half_period()))
-        {
-            longitude = constants::half_period();
-        }
-        else if (longitude > constants::half_period())
-        {
-            longitude = normalize_up(longitude);
-            if (math::equals(longitude, -constants::half_period()))
-            {
-                longitude = constants::half_period();
-            }
-        }
-        else if (longitude < -constants::half_period())
-        {
-            longitude = normalize_down(longitude);
-        }
+        apply(longitude);
 
         // finally normalize poles
         if (normalize_poles)
@@ -209,6 +216,105 @@ inline void normalize_spheroidal_coordinates(CoordinateType& longitude,
         >::apply(longitude, latitude);
 }
 
+
+/*!
+\brief Short utility to normalize the longitude on a spheroid.
+       Note that in general both coordinates should be normalized at once.
+       This utility is suitable e.g. for normalization of the difference of longitudes.
+\tparam Units The units of the coordindate system in the spheroid
+\tparam CoordinateType The type of the coordinates
+\param longitude Longitude
+\ingroup utility
+*/
+template <typename Units, typename CoordinateType>
+inline void normalize_longitude(CoordinateType& longitude)
+{
+    detail::normalize_spheroidal_coordinates
+        <
+            Units, CoordinateType
+        >::apply(longitude);
+}
+
+
+/*!
+\brief Short utility to calculate difference between two longitudes
+       normalized in range (-180, 180].
+\tparam Units The units of the coordindate system in the spheroid
+\tparam CoordinateType The type of the coordinates
+\param longitude1 Longitude 1
+\param longitude2 Longitude 2
+\ingroup utility
+*/
+template <typename Units, typename CoordinateType>
+inline CoordinateType longitude_distance_signed(CoordinateType const& longitude1,
+                                                CoordinateType const& longitude2)
+{
+    CoordinateType diff = longitude2 - longitude1;
+    math::normalize_longitude<Units, CoordinateType>(diff);
+    return diff;
+}
+
+
+/*!
+\brief Short utility to calculate difference between two longitudes
+       normalized in range [0, 360).
+\tparam Units The units of the coordindate system in the spheroid
+\tparam CoordinateType The type of the coordinates
+\param longitude1 Longitude 1
+\param longitude2 Longitude 2
+\ingroup utility
+*/
+template <typename Units, typename CoordinateType>
+inline CoordinateType longitude_distance_unsigned(CoordinateType const& longitude1,
+                                                  CoordinateType const& longitude2)
+{
+    typedef math::detail::constants_on_spheroid
+        <
+            CoordinateType, Units
+        > constants;
+
+    CoordinateType const c0 = 0;
+    CoordinateType diff = longitude_distance_signed<Units>(longitude1, longitude2);
+    if (diff < c0) // (-180, 180] -> [0, 360)
+    {
+        diff += constants::period();
+    }
+    return diff;
+}
+
+/*!
+\brief The abs difference between longitudes in range [0, 180].
+\tparam Units The units of the coordindate system in the spheroid
+\tparam CoordinateType The type of the coordinates
+\param longitude1 Longitude 1
+\param longitude2 Longitude 2
+\ingroup utility
+*/
+template <typename Units, typename CoordinateType>
+inline CoordinateType longitude_difference(CoordinateType const& longitude1,
+                                           CoordinateType const& longitude2)
+{
+    return math::abs(math::longitude_distance_signed<Units>(longitude1, longitude2));
+}
+
+template <typename Units, typename CoordinateType>
+inline CoordinateType longitude_interval_distance_signed(CoordinateType const& longitude_a1,
+                                                         CoordinateType const& longitude_a2,
+                                                         CoordinateType const& longitude_b)
+{
+    CoordinateType const c0 = 0;
+    CoordinateType dist_a12 = longitude_distance_signed<Units>(longitude_a1, longitude_a2);
+    CoordinateType dist_a1b = longitude_distance_signed<Units>(longitude_a1, longitude_b);
+    if (dist_a12 < c0)
+    {
+        dist_a12 = -dist_a12;
+        dist_a1b = -dist_a1b;
+    }
+    
+    return dist_a1b < c0 ? dist_a1b
+         : dist_a1b > dist_a12 ? dist_a1b - dist_a12
+         : c0;
+}
 
 } // namespace math
 

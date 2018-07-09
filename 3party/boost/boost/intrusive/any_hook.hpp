@@ -48,7 +48,8 @@ struct make_any_base_hook
       >::type packed_options;
 
    typedef generic_hook
-   < any_algorithms<typename packed_options::void_pointer>
+   < AnyAlgorithm
+   , any_node_traits<typename packed_options::void_pointer>
    , typename packed_options::tag
    , packed_options::link_mode
    , AnyBaseHookId
@@ -153,7 +154,8 @@ struct make_any_member_hook
       >::type packed_options;
 
    typedef generic_hook
-   < any_algorithms<typename packed_options::void_pointer>
+   < AnyAlgorithm
+   , any_node_traits<typename packed_options::void_pointer>
    , member_tag
    , packed_options::link_mode
    , NoBaseHookId

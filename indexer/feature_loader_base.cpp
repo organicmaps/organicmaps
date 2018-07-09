@@ -2,8 +2,6 @@
 #include "indexer/feature_loader.hpp"
 #include "indexer/feature_impl.hpp"
 
-#include "indexer/old/feature_loader_101.hpp"
-
 #include "defines.hpp"
 
 #include "coding/byte_stream.hpp"
@@ -24,7 +22,7 @@ SharedLoadInfo::SharedLoadInfo(FilesContainerR const & cont, DataHeader const & 
 
 SharedLoadInfo::~SharedLoadInfo()
 {
-  delete m_pLoader;
+  delete m_loader;
 }
 
 SharedLoadInfo::TReader SharedLoadInfo::GetDataReader() const
@@ -59,10 +57,8 @@ SharedLoadInfo::TReader SharedLoadInfo::GetTrianglesReader(int ind) const
 
 void SharedLoadInfo::CreateLoader()
 {
-  if (m_header.GetFormat() == version::Format::v1)
-    m_pLoader = new old_101::feature::LoaderImpl(*this);
-  else
-    m_pLoader = new LoaderCurrent(*this);
+  CHECK_NOT_EQUAL(m_header.GetFormat(), version::Format::v1, ("Old maps format is not supported"));
+  m_loader = new LoaderCurrent(*this);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////

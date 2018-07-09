@@ -29,7 +29,7 @@
 #include <cstddef>
 
 namespace boost{
-   namespace re_detail{
+   namespace BOOST_REGEX_DETAIL_NS{
 
 #ifdef BOOST_MSVC
 #pragma warning(push)
@@ -198,7 +198,7 @@ inline raw_storage::raw_storage(size_type n)
 #pragma warning(pop)
 #endif
 
-} // namespace re_detail
+} // namespace BOOST_REGEX_DETAIL_NS
 } // namespace boost
 
 #endif

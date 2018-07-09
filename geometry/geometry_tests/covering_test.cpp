@@ -90,7 +90,7 @@ UNIT_TEST(Covering_Append_Simple)
 
 UNIT_TEST(IntersectCellWithTriangle_EmptyTriangle)
 {
-  m2::PointU pt(27, 31);
+  m2::PointD pt(27.0, 31.0);
   TEST_EQUAL(covering::CELL_OBJECT_NO_INTERSECTION,
              covering::IntersectCellWithTriangle(CellId("0"), pt, pt, pt), ());
   TEST_EQUAL(covering::CELL_OBJECT_NO_INTERSECTION,
@@ -104,9 +104,10 @@ UNIT_TEST(IntersectCellWithTriangle_EmptyTriangle)
 UNIT_TEST(Covering_EmptyTriangle)
 {
   m2::PointU pt(27, 31);
+  m2::PointD ptd(pt);
   CellId const expectedCellId = CellId::FromXY(pt.x, pt.y, CellId::DEPTH_LEVELS - 1);
   TEST_GREATER(expectedCellId.ToInt64(CellId::DEPTH_LEVELS), 5, ());
-  covering::Covering<CellId> covering(pt, pt, pt);
+  covering::Covering<CellId> covering(ptd, ptd, ptd);
   vector<CellId> ids;
   covering.OutputToVector(ids);
   TEST_EQUAL(ids, vector<CellId>(1, expectedCellId), ());

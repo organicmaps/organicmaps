@@ -1,14 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>parking-s</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="parking-s">
-            <rect id="Rectangle-346-Copy-5" fill-opacity="0.6" fill="#FFFFFF" x="0" y="0" width="13" height="13" rx="2"></rect>
-            <rect id="Rectangle-346-Copy-2" fill="#2E89B0" x="1" y="1" width="11" height="11" rx="2"></rect>
-            <path d="M6.0776,6.1354 C6.51206,6.1354 6.83715,6.0504 7.05286,5.8802 C7.26857,5.707 7.37642,5.4564 7.37643,5.1283 C7.37642,4.7971 7.28533,4.5525 7.10299,4.3945 C6.92373,4.2365 6.64118,4.1576 6.25533,4.1575 L5.41276,4.1575 L5.41276,6.1354 L6.0776,6.1354 Z M8.02838,6.7233 C7.58176,7.1031 6.94526,7.293 6.11888,7.293 L5.41276,7.293 L5.41276,10 L4,10 L4,3 L6.22825,3 C7.03641,3 7.65012,3.1747 8.0694,3.5241 C8.4917,3.8704 8.70285,4.3885 8.70286,5.0781 C8.70285,5.7951 8.47803,6.3435 8.02838,6.7233 Z" id="path5034-copy-2" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg width="12" height="12" viewBox="0 0 12 12">
+  <g fill="none" fill-rule="evenodd">
+    <rect width="12" height="12" fill="#FFF" opacity=".6" rx="1.5"/>
+    <rect width="10" height="10" x="1" y="1" fill="#2E89B0" rx="1"/>
+    <path fill="#FFF" d="M6.0776,6.1354 C6.51206,6.1354 6.83715,6.0504 7.05286,5.8802 C7.26857,5.707 7.37642,5.4564 7.37643,5.1283 C7.37642,4.7971 7.28533,4.5525 7.10299,4.3945 C6.92373,4.2365 6.64118,4.1576 6.25533,4.1575 L5.41276,4.1575 L5.41276,6.1354 L6.0776,6.1354 Z M8.02838,6.7233 C7.58176,7.1031 6.94526,7.293 6.11888,7.293 L5.41276,7.293 L5.41276,10 L4,10 L4,3 L6.22825,3 C7.03641,3 7.65012,3.1747 8.0694,3.5241 C8.4917,3.8704 8.70285,4.3885 8.70286,5.0781 C8.70285,5.7951 8.47803,6.3435 8.02838,6.7233 Z"/>
+  </g>
 </svg>

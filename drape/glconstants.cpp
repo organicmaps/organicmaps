@@ -25,6 +25,14 @@
   #define GL_LUMINANCE8_ALPHA4_OES 0x8043
 #endif
 
+#if !defined(GL_LUMINANCE)
+  #define GL_LUMINANCE 0x1909
+#endif
+
+#if !defined(GL_LUMINANCE_ALPHA)
+  #define GL_LUMINANCE_ALPHA 0x190A
+#endif
+
 #if defined(GL_WRITE_ONLY)
   #define WRITE_ONLY_DEF GL_WRITE_ONLY
 #elif defined(GL_WRITE_ONLY_OES)
@@ -75,6 +83,18 @@
   #define UNSYNCHRONIZED_BIT_DEF 0x0020
 #endif
 
+#if !defined(GL_FUNC_ADD)
+  #define GL_FUNC_ADD 0x8006
+#endif
+
+#if !defined(GL_FUNC_SUBTRACT)
+  #define GL_FUNC_SUBTRACT 0x800A
+#endif
+
+#if !defined(GL_FUNC_REVERSE_SUBTRACT)
+  #define GL_FUNC_REVERSE_SUBTRACT 0x800B
+#endif
+
 namespace gl_const
 {
 
@@ -84,12 +104,17 @@ const glConst GLRenderer            = GL_RENDERER;
 const glConst GLVendor              = GL_VENDOR;
 const glConst GLVersion             = GL_VERSION;
 
+const glConst GLColorBit            = GL_COLOR_BUFFER_BIT;
+const glConst GLDepthBit            = GL_DEPTH_BUFFER_BIT;
+const glConst GLStencilBit          = GL_STENCIL_BUFFER_BIT;
+
 const glConst GLMaxFragmentTextures = GL_MAX_TEXTURE_IMAGE_UNITS;
 const glConst GLMaxVertexTextures   = GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS;
 const glConst GLMaxTextureSize      = GL_MAX_TEXTURE_SIZE;
 
 const glConst GLArrayBuffer         = GL_ARRAY_BUFFER;
 const glConst GLElementArrayBuffer  = GL_ELEMENT_ARRAY_BUFFER;
+const glConst GLPixelBufferWrite    = GL_PIXEL_UNPACK_BUFFER;
 
 const glConst GLBufferSize          = GL_BUFFER_SIZE;
 const glConst GLBufferUsage         = GL_BUFFER_USAGE;
@@ -118,6 +143,7 @@ const glConst GLAlpha               = GL_ALPHA;
 const glConst GLLuminance           = GL_LUMINANCE;
 const glConst GLAlphaLuminance      = GL_LUMINANCE_ALPHA;
 const glConst GLDepthComponent      = GL_DEPTH_COMPONENT;
+const glConst GLDepthStencil        = GL_DEPTH_STENCIL;
 
 const glConst GLRGBA8               = GL_RGBA8_OES;
 const glConst GLRGBA4               = GL_RGBA4_OES;
@@ -125,6 +151,8 @@ const glConst GLAlpha8              = GL_ALPHA8_OES;
 const glConst GLLuminance8          = GL_LUMINANCE8_OES;
 const glConst GLAlphaLuminance8     = GL_LUMINANCE8_ALPHA8_OES;
 const glConst GLAlphaLuminance4     = GL_LUMINANCE8_ALPHA4_OES;
+const glConst GLRed                 = GL_RED;
+const glConst GLRedGreen            = GL_RG;
 
 const glConst GL8BitOnChannel       = GL_UNSIGNED_BYTE;
 const glConst GL4BitOnChannel       = GL_UNSIGNED_SHORT_4_4_4_4;
@@ -152,6 +180,7 @@ const glConst GLUnsignedShortType   = GL_UNSIGNED_SHORT;
 const glConst GLIntType             = GL_INT;
 const glConst GLUnsignedIntType     = GL_UNSIGNED_INT;
 const glConst GLFloatType           = GL_FLOAT;
+const glConst GLUnsignedInt24_8Type = GL_UNSIGNED_INT_24_8;
 
 const glConst GLFloatVec2           = GL_FLOAT_VEC2;
 const glConst GLFloatVec3           = GL_FLOAT_VEC3;
@@ -162,6 +191,8 @@ const glConst GLIntVec3             = GL_INT_VEC3;
 const glConst GLIntVec4             = GL_INT_VEC4;
 
 const glConst GLFloatMat4           = GL_FLOAT_MAT4;
+
+const glConst GLSampler2D           = GL_SAMPLER_2D;
 
 const glConst GLAddBlend            = GL_FUNC_ADD;
 const glConst GLSubstractBlend      = GL_FUNC_SUBTRACT;
@@ -182,6 +213,7 @@ const glConst GLDepthTest           = GL_DEPTH_TEST;
 const glConst GLBlending            = GL_BLEND;
 const glConst GLCullFace            = GL_CULL_FACE;
 const glConst GLScissorTest         = GL_SCISSOR_TEST;
+const glConst GLStencilTest         = GL_STENCIL_TEST;
 
 const glConst GLClockwise           = GL_CW;
 const glConst GLCounterClockwise    = GL_CCW;
@@ -199,6 +231,14 @@ const glConst GLNotEqual            = GL_NOTEQUAL;
 const glConst GLGreatOrEqual        = GL_GEQUAL;
 const glConst GLAlways              = GL_ALWAYS;
 
+const glConst GLKeep                = GL_KEEP;
+const glConst GLIncr                = GL_INCR;
+const glConst GLDecr                = GL_DECR;
+const glConst GLInvert              = GL_INVERT;
+const glConst GLReplace             = GL_REPLACE;
+const glConst GLIncrWrap            = GL_INCR_WRAP;
+const glConst GLDecrWrap            = GL_DECR_WRAP;
+
 const glConst GLActiveUniforms      = GL_ACTIVE_UNIFORMS;
 
 const glConst GLLines               = GL_LINES;
@@ -209,6 +249,7 @@ const glConst GLTriangleStrip       = GL_TRIANGLE_STRIP;
 const glConst GLColorAttachment     = GL_COLOR_ATTACHMENT0;
 const glConst GLDepthAttachment     = GL_DEPTH_ATTACHMENT;
 const glConst GLStencilAttachment   = GL_STENCIL_ATTACHMENT;
+const glConst GLDepthStencilAttachment = GL_DEPTH_STENCIL_ATTACHMENT;
 
 const glConst GLFramebufferComplete = GL_FRAMEBUFFER_COMPLETE;
 

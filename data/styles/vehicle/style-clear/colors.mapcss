@@ -27,11 +27,11 @@
 
 @trunk: #FF8800;
 @trunk_orange: #FF5919;
-@trunk_orange_medium: #FF7F33;
-@trunk_orange_light: #FF7A26;
+@trunk_orange_medium: #FF9140;
+@trunk_orange_light: #FF8742;
 @primary_orange:  #FF8726;
-@primary_orange_medium: #FF9440;
-@primary_orange_light: #FFA14C;
+@primary_orange_medium: #FFAD57;
+@primary_orange_light: #FFAD57;
 @secondary: #FFFFFF;
 @residential: #FCFCFC;
 @unclassified: #FCFCFC;
@@ -79,12 +79,12 @@
 @ferry: #4499Bb;
 
 /*aerodrome*/
-@aerodrome0: #D4BFF2;
-@aerodrome1: #D4BFF2;
-@aerodrome2: #D1C0EB;
-@aerodrome3: #CFC1E8;
-@aerodrome4: #CDC0E3;
-@aerodrome5: #C8BCDE;
+@aerodrome0: #D8D1E8;
+@aerodrome1: #D8D1E8;
+@aerodrome2: #D8D1E8;
+@aerodrome3: #D8D1E8;
+@aerodrome4: #D8D1E8;
+@aerodrome5: #D8D1E8;
 
 /* NATURAL */
 @glacier: #FFFFFF;
@@ -104,14 +104,15 @@
 @green3: #C6D9AB;
 @green4: #C6D9AB;
 @green5: #C6D9AB;
+@green6: #9EB360;
 
 /* BUILDINGS */
 @housename: #65655E;
 @building_label: #61615A;
 @building: #D4D3CA;/*#C9C8BB;*/
 @building_dark: #C7C6BF;/*#C2C0B3;*/
-@building_border: #A1A096;
-@building_dark_border: #9B9A8F;
+@building_border: #D4D3CA;
+@building_dark_border: #D4D3CA;
 
 /* LANDUSE */
 
@@ -120,9 +121,11 @@
 
 @unversity: #F8E4BA;
 @hospital: #F8D9D9;/*FADCDB*/
-@industrial: #DED8E0;/*#D5D5DE; #E4E2EB;*/
+@industrial: #E1DCE3;/*#D5D5DE; #E4E2EB;*/
 @sport: #C8DBAD;
-@parking: #F2F2CE;/*#F0EBC5;DCDCB9; #F2F2CE;*/
+@parking: #F2F2CE;
+@parking_l: #FCFCC2;/*#F0EBC5;DCDCB9; #F2F2CE;*/
+@military: #E53935;
 
 /* BARRIERS */
 @fence: #999999;

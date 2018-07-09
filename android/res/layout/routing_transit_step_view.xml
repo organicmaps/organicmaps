@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mapswithme.maps.routing.TransitStepView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:minHeight="@dimen/routing_transit_step_min_height"
+  android:textSize="@dimen/text_size_body_1"
+  android:textColor="@android:color/white"
+  android:paddingStart="@dimen/margin_quarter"
+  android:paddingLeft="@dimen/margin_quarter"
+  android:paddingEnd="@dimen/margin_quarter"
+  android:paddingRight="@dimen/margin_quarter"/>

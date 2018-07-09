@@ -17,7 +17,7 @@
 
 #include <boost/mpl/if.hpp>
 #include <boost/move/core.hpp>
-#include <boost/move/utility.hpp>
+#include <boost/move/utility_core.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/log/detail/light_function.hpp>

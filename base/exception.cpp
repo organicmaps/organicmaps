@@ -1,21 +1,14 @@
 #include "base/exception.hpp"
 
-char const * RootException::what() const throw()
+RootException::RootException(char const * what, std::string const & msg) : m_msg(msg)
 {
-  size_t const count = m_Msg.size();
+  std::string asciiMsg(m_msg.size(), '?');
 
-  std::string asciiMsg;
-  asciiMsg.resize(count);
-
-  for (size_t i = 0; i < count; ++i)
+  for (size_t i = 0; i < m_msg.size(); ++i)
   {
-    if (static_cast<unsigned char>(m_Msg[i]) < 128)
-      asciiMsg[i] = char(m_Msg[i]);
-    else
-      asciiMsg[i] = '?';
+    if (static_cast<unsigned char>(m_msg[i]) < 128)
+      asciiMsg[i] = static_cast<char>(m_msg[i]);
   }
 
-  static std::string msg;
-  msg = std::string(m_What) + ", \"" + asciiMsg + "\"";
-  return msg.c_str();
+  m_whatWithAscii = std::string(what) + ", \"" + asciiMsg + "\"";
 }

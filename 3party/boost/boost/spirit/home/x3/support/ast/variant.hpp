@@ -214,6 +214,11 @@ namespace boost { namespace spirit { namespace x3
             return var;
         }
 
+        void swap(variant& rhs) BOOST_NOEXCEPT
+        {
+            var.swap(rhs.var);
+        }
+
         variant_type var;
     };
 }}}

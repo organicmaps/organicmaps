@@ -52,6 +52,7 @@
 @green3: #090F0A;
 @green4: #090F0A;
 @green5: #090F0A;
+@green6: #1C2600;
 
 /* 4.LANDUSE */
 /*4.1 Main landuse*/
@@ -60,18 +61,20 @@
 @pedestrian_area_light: #262222;
 @university: #261F13;
 @hospital: #261916;
-@industrial: #141014;
+@industrial: #0D0A0D;
 @sport: #070F0A;
-@parking: #1F1A10;
+@military: #B71C1C;
+@parking: #191509;
+@parking_l: #1F190A;
 
 /*4.2 Aerodrome*/
 
-@aerodrome0: #41334F;
-@aerodrome1: #4C3C5C;
-@aerodrome2: #392D45;
-@aerodrome3: #392D45;
-@aerodrome4: #342A40;
-@aerodrome5: #292133;
+@aerodrome0: #1B1821;
+@aerodrome1: #1B1821;
+@aerodrome2: #1B1821;
+@aerodrome3: #1B1821;
+@aerodrome4: #1B1821;
+@aerodrome5: #1B1821;
 
 /* 4.3 Barriers */
 @fence: #444444;
@@ -80,8 +83,8 @@
 
 @building: #191919;
 @building_dark: #191919;
-@building_border: #303030;
-@building_dark_border: #474747;
+@building_border: #1C1C1C;
+@building_dark_border: #191919;
 
 /* 5.ROADS */
 /* 5.1 All roads */
@@ -173,7 +176,7 @@
 /* 6.4 Road labels */
 
 @road_label_halo: #000000;
-@shield_text: #b2b2b2;
+@shield_text: #303030;
 @shield_text_halo: #000000;
-@shield: #000000;
-@shield_outline: #b2b2b2;
+@shield: #999999;
+@shield_outline: #303030;

@@ -1,10 +1,7 @@
 #import "MWMNightModeController.h"
 #import "MWMSettings.h"
-#import "MapsAppDelegate.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
-
-#include "Framework.h"
 
 @interface MWMNightModeController ()
 
@@ -24,7 +21,9 @@
   SettingsTableViewSelectableCell * selectedCell = nil;
   switch ([MWMSettings theme])
   {
+  case MWMThemeVehicleDay: NSAssert(false, @"Invalid case");
   case MWMThemeDay: selectedCell = self.off; break;
+  case MWMThemeVehicleNight: NSAssert(false, @"Invalid case");
   case MWMThemeNight: selectedCell = self.on; break;
   case MWMThemeAuto: selectedCell = self.autoSwitch; break;
   }
@@ -38,7 +37,7 @@
     return;
 
   _selectedCell = cell;
-  NSString * statValue = nil;
+  NSString * statValue = @"";
   if ([cell isEqual:self.on])
   {
     [MWMSettings setTheme:MWMThemeNight];

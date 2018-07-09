@@ -3,6 +3,8 @@
 #include "routing/restrictions_serialization.hpp"
 #include "routing/road_index.hpp"
 
+#include "indexer/mwm_set.hpp"
+
 #include "base/stl_helpers.hpp"
 
 namespace

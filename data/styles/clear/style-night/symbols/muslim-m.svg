@@ -1,18 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-    <title>muslim-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard-1" transform="translate(-354.000000, -991.000000)">
-            <g id="muslim-m" transform="translate(354.000000, 991.000000)">
-                <ellipse id="Oval-1-Copy-41" fill-opacity="0.1" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-                <ellipse id="Oval-1-Copy-40" fill="#26160D" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-                <path d="M14.4931146,6.37302001 C13.3912557,5.51303837 12.0053911,5 10.5,5 C6.91745375,5 4,7.91014913 4,11.5 C4,15.0825462 6.91014913,18 10.5,18 C12.0037889,18 13.3903927,17.4872504 14.4932313,16.6267105 C13.8748641,16.8677391 13.2025457,17 12.5,17 C9.46243388,17 7,14.5313853 7,11.5 C7,8.46243388 9.46861471,6 12.5,6 C13.202972,6 13.8751411,6.13221414 14.4931146,6.37302001 Z" id="Combined-Shape" fill-opacity="0.7" fill="#FFFFFF"></path>
-                <polygon id="Path-3244" fill-opacity="0.7" fill="#FFFFFF" points="14 13 15.5 9.5 17 13 15.5041504 12"></polygon>
-                <polygon id="Path-3244" fill-opacity="0.7" fill="#FFFFFF" transform="translate(15.500000, 11.350006) scale(1, -1) translate(-15.500000, -11.350006) " points="13.5 12 15.5 10.7000122 17.5 12"></polygon>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg height="24" viewBox="0 0 24 24" width="24"><g fill="none" fill-rule="evenodd"><circle cx="12" cy="12" fill="#fff" opacity=".4" r="12"/><circle cx="12" cy="12" fill="#4d361f" r="11"/><path d="m15.4773417 11.9587489-1.0328973-.6971992h1.3206303l.4571475-1.1077035.4571475 1.1077035h1.3206303l-1.0328973.6971992.5884529 1.4258665-1.3296441-.9230769-1.3370226.9230769zm-.0598296-4.66821124c-.5738928-.23685233-1.2026853-.36746074-1.8619565-.36746074-2.6945647 0-4.88888893 2.19311981-4.88888893 4.89847018v.3569058c0 2.7077377 2.18883013 4.8984702 4.88888893 4.8984702.6594595 0 1.2889565-.1313595 1.8636578-.3694386-.9946396.8080915-2.262622 1.2925155-3.6414356 1.2925155-3.19097858 0-5.7777778-2.5890474-5.7777778-5.7715335v-.456933c0-3.18752994 2.59329222-5.7715335 5.7777778-5.7715335 1.3795815 0 2.6462321.48393493 3.6397343 1.29053766z" fill="#fff" opacity=".6"/></g></svg>

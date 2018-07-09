@@ -284,20 +284,33 @@ class rbtree_algorithms
    {
       typename bstree_algo::data_for_rebalance info;
       bstree_algo::erase(header, z, info);
-
-      color new_z_color;
-      if(info.y != z){
-         new_z_color = NodeTraits::get_color(info.y);
-         NodeTraits::set_color(info.y, NodeTraits::get_color(z));
-      }
-      else{
-         new_z_color = NodeTraits::get_color(z);
-      }
-      //Rebalance rbtree if needed
-      if(new_z_color != NodeTraits::red()){
-         rebalance_after_erasure(header, info.x, info.x_parent);
-      }
+      rebalance_after_erasure(header, z, info);
       return z;
+   }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::transfer_unique
+   template<class NodePtrCompare>
+   static bool transfer_unique
+      (const node_ptr & header1, NodePtrCompare comp, const node_ptr &header2, const node_ptr & z)
+   {
+      typename bstree_algo::data_for_rebalance info;
+      bool const transferred = bstree_algo::transfer_unique(header1, comp, header2, z, info);
+      if(transferred){
+         rebalance_after_erasure(header2, z, info);
+         rebalance_after_insertion(header1, z);
+      }
+      return transferred;
+   }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::transfer_equal
+   template<class NodePtrCompare>
+   static void transfer_equal
+      (const node_ptr & header1, NodePtrCompare comp, const node_ptr &header2, const node_ptr & z)
+   {
+      typename bstree_algo::data_for_rebalance info;
+      bstree_algo::transfer_equal(header1, comp, header2, z, info);
+      rebalance_after_erasure(header2, z, info);
+      rebalance_after_insertion(header1, z);
    }
 
    //! @copydoc ::boost::intrusive::bstree_algorithms::clone(const const_node_ptr&,const node_ptr&,Cloner,Disposer)
@@ -431,7 +444,24 @@ class rbtree_algorithms
    /// @cond
    private:
 
-   static void rebalance_after_erasure(const node_ptr & header, node_ptr x, node_ptr x_parent)
+   static void rebalance_after_erasure
+      ( const node_ptr & header, const node_ptr &z, const typename bstree_algo::data_for_rebalance &info)
+   {
+      color new_z_color;
+      if(info.y != z){
+         new_z_color = NodeTraits::get_color(info.y);
+         NodeTraits::set_color(info.y, NodeTraits::get_color(z));
+      }
+      else{
+         new_z_color = NodeTraits::get_color(z);
+      }
+      //Rebalance rbtree if needed
+      if(new_z_color != NodeTraits::red()){
+         rebalance_after_erasure_restore_invariants(header, info.x, info.x_parent);
+      }
+   }
+
+   static void rebalance_after_erasure_restore_invariants(const node_ptr & header, node_ptr x, node_ptr x_parent)
    {
       while(1){
          if(x_parent == header || (x && NodeTraits::get_color(x) != NodeTraits::black())){
@@ -448,6 +478,7 @@ class rbtree_algorithms
                NodeTraits::set_color(x_parent, NodeTraits::red());
                bstree_algo::rotate_left(x_parent, w, NodeTraits::get_parent(x_parent), header);
                w = NodeTraits::get_right(x_parent);
+               BOOST_INTRUSIVE_INVARIANT_ASSERT(w);
             }
             node_ptr const w_left (NodeTraits::get_left(w));
             node_ptr const w_right(NodeTraits::get_right(w));
@@ -463,6 +494,7 @@ class rbtree_algorithms
                   NodeTraits::set_color(w, NodeTraits::red());
                   bstree_algo::rotate_right(w, w_left, NodeTraits::get_parent(w), header);
                   w = NodeTraits::get_right(x_parent);
+                  BOOST_INTRUSIVE_INVARIANT_ASSERT(w);
                }
                NodeTraits::set_color(w, NodeTraits::get_color(x_parent));
                NodeTraits::set_color(x_parent, NodeTraits::black());
@@ -481,6 +513,7 @@ class rbtree_algorithms
                NodeTraits::set_color(x_parent, NodeTraits::red());
                bstree_algo::rotate_right(x_parent, w, NodeTraits::get_parent(x_parent), header);
                w = NodeTraits::get_left(x_parent);
+               BOOST_INTRUSIVE_INVARIANT_ASSERT(w);
             }
             node_ptr const w_left (NodeTraits::get_left(w));
             node_ptr const w_right(NodeTraits::get_right(w));
@@ -496,6 +529,7 @@ class rbtree_algorithms
                   NodeTraits::set_color(w, NodeTraits::red());
                   bstree_algo::rotate_left(w, w_right, NodeTraits::get_parent(w), header);
                   w = NodeTraits::get_left(x_parent);
+                  BOOST_INTRUSIVE_INVARIANT_ASSERT(w);
                }
                NodeTraits::set_color(w, NodeTraits::get_color(x_parent));
                NodeTraits::set_color(x_parent, NodeTraits::black());

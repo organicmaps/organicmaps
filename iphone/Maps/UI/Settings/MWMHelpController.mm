@@ -14,8 +14,8 @@ extern NSString * const kLocaleUsedInSupportEmails = @"en_gb";
 
 namespace
 {
-NSString * const kCommonReportActionTitle = L(@"leave_a_review");
-NSString * const kBugReportActionTitle = L(@"something_is_not_working");
+NSString * const kCommonReportActionTitle = L(@"feedback_general");
+NSString * const kBugReportActionTitle = L(@"report_a_bug");
 NSString * const kCancelActionTitle = L(@"cancel");
 NSString * const kiOSEmail = @"ios@maps.me";
 }
@@ -39,15 +39,15 @@ NSString * const kiOSEmail = @"ios@maps.me";
   NSString * html;
   if (GetPlatform().ConnectionStatus() == Platform::EConnectionType::CONNECTION_NONE)
   {
-    NSString * path = [[NSBundle mainBundle] pathForResource:@"faq" ofType:@"html"];
+    NSString * path = [NSBundle.mainBundle pathForResource:@"faq" ofType:@"html"];
     html = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     self.aboutViewController =
-        [[WebViewController alloc] initWithHtml:html baseUrl:nil andTitleOrNil:nil];
+        [[WebViewController alloc] initWithHtml:html baseUrl:nil title:nil];
   }
   else
   {
     NSURL * url = [NSURL URLWithString:@"https://support.maps.me"];
-    self.aboutViewController = [[WebViewController alloc] initWithUrl:url andTitleOrNil:nil];
+    self.aboutViewController = [[WebViewController alloc] initWithUrl:url title:nil];
   }
 
   self.aboutViewController.openInSafari = NO;
@@ -112,8 +112,7 @@ NSString * const kiOSEmail = @"ios@maps.me";
   UIAlertAction * cancel =
       [UIAlertAction actionWithTitle:kCancelActionTitle style:UIAlertActionStyleCancel handler:nil];
   [alert addAction:cancel];
-  if (!isIOS8)
-    alert.preferredAction = cancel;
+  alert.preferredAction = cancel;
 
   [self presentViewController:alert animated:YES completion:nil];
 }
@@ -142,19 +141,19 @@ NSString * const kiOSEmail = @"ios@maps.me";
 {
   if ([MWMMailViewController canSendMail])
   {
-    NSString * device = [AppInfo sharedInfo].deviceName;
-    NSString * languageCode = [[NSLocale preferredLanguages] firstObject];
+    NSString * deviceModel = [AppInfo sharedInfo].deviceModel;
+    NSString * languageCode = NSLocale.preferredLanguages.firstObject;
     NSString * language = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails]
         displayNameForKey:NSLocaleLanguageCode
                     value:languageCode];
-    NSString * locale = [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
+    NSString * locale = [NSLocale.currentLocale objectForKey:NSLocaleCountryCode];
     NSString * country = [[NSLocale localeWithLocaleIdentifier:kLocaleUsedInSupportEmails]
         displayNameForKey:NSLocaleCountryCode
                     value:locale];
     NSString * bundleVersion = [AppInfo sharedInfo].bundleVersion;
     NSString * buildNumber = [AppInfo sharedInfo].buildNumber;
     NSString * text = [NSString stringWithFormat:@"\n\n\n\n- %@ (%@)\n- MAPS.ME %@ (%@)\n- %@/%@",
-                                                 device, [UIDevice currentDevice].systemVersion,
+                                                 deviceModel, UIDevice.currentDevice.systemVersion,
                                                  bundleVersion, buildNumber, language, country];
     NSString * alohalyticsId = [Alohalytics installationId];
     if (alohalyticsId)

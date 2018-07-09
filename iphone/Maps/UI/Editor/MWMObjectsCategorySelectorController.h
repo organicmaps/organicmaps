@@ -1,8 +1,11 @@
 #import "MWMViewController.h"
 
-#include "indexer/editable_map_object.hpp"
-
 #include "std/string.hpp"
+
+namespace osm
+{
+class EditableMapObject;
+}  // namespace osm
 
 @protocol MWMObjectsCategorySelectorDelegate <NSObject>
 

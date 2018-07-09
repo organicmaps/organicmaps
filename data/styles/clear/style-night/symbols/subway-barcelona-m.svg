@@ -1,19 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="27px" height="19px" viewBox="0 0 27 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>subway-barcelona-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <polygon id="path-1" points="5 5 19.469302 7.53069795 22 22 7.53069795 19.469302"></polygon>
-    </defs>
-    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="metro-barcelona-m" transform="translate(0.000000, -4.000000)">
-            <polygon id="Rectangle-339-Copy-2" fill-opacity="0.1" fill="#FFFFFF" transform="translate(13.500000, 13.500000) rotate(-45.000000) translate(-13.500000, -13.500000) " points="4.29289322 4.29289322 20.1764088 6.82359117 22.7071068 22.7071068 6.82359117 20.1764088"></polygon>
-            <g id="Rectangle-339" transform="translate(13.500000, 13.500000) rotate(-45.000000) translate(-13.500000, -13.500000) ">
-                <use fill="#ED1B2D" xlink:href="#path-1"></use>
-                <use fill-opacity="0.4" fill="#000000" xlink:href="#path-1"></use>
-            </g>
-            <polygon id="path4854" fill-opacity="0.7" fill="#FFFFFF" transform="translate(13.500000, 13.500000) rotate(-90.000000) translate(-13.500000, -13.500000) " points="17 17 17 15 12.6347826 13.498913 17 12 17 10 10 10 10 11.5554348 14.0147367 11.525 10 13 10 14 14.0147367 15.4445653 12.3717391 15.4445652 10 15.4445652 10 17"></polygon>
-        </g>
-    </g>
+<svg width="27" height="19" viewBox="0 0 27 19">
+  <g fill="none" transform="translate(0 -4)">
+    <polygon fill="#FFF" points="4.293 4.293 20.176 6.824 22.707 22.707 6.824 20.176" opacity=".4" transform="rotate(-45 13.5 13.5)"/>
+    <polygon fill="maroon" points="5 5 19.469 7.531 22 22 7.531 19.469" transform="rotate(-45 13.5 13.5)"/>
+    <polygon fill="#FFF" points="17 17 17 15 12.635 13.499 17 12 17 10 10 10 10 11.555 14.015 11.525 10 13 10 14 14.015 15.445 12.372 15.445 10 15.445 10 17" opacity=".6" transform="rotate(-90 13.5 13.5)"/>
+  </g>
 </svg>

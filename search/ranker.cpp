@@ -1,48 +1,68 @@
 #include "search/ranker.hpp"
 
 #include "search/emitter.hpp"
-#include "search/string_intersection.hpp"
+#include "search/geometry_utils.hpp"
+#include "search/highlighting.hpp"
+#include "search/model.hpp"
+#include "search/pre_ranking_info.hpp"
+#include "search/ranking_utils.hpp"
 #include "search/token_slice.hpp"
 #include "search/utils.hpp"
 
+#include "editor/editable_data_source.hpp"
+
+#include "indexer/data_source.hpp"
 #include "indexer/feature_algo.hpp"
+#include "indexer/search_string_utils.hpp"
+
+#include "platform/preferred_languages.hpp"
+
+#include "coding/multilang_utf8_string.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/iterator.hpp"
-#include "std/unique_ptr.hpp"
+#include <algorithm>
+#include <memory>
+
+#include <boost/optional.hpp>
+
+using namespace std;
 
 namespace search
 {
 namespace
 {
-template <typename TSlice>
-void UpdateNameScore(string const & name, TSlice const & slice, NameScore & bestScore)
+struct NameScores
 {
-  auto const score = GetNameScore(name, slice);
-  if (score > bestScore)
-    bestScore = score;
+  NameScore m_nameScore = NAME_SCORE_ZERO;
+  ErrorsMade m_errorsMade;
+};
+
+template <typename TSlice>
+void UpdateNameScores(string const & name, TSlice const & slice, NameScores & bestScores)
+{
+  bestScores.m_nameScore = max(bestScores.m_nameScore, GetNameScore(name, slice));
+  bestScores.m_errorsMade = ErrorsMade::Min(bestScores.m_errorsMade, GetErrorsMade(name, slice));
 }
 
 template <typename TSlice>
-void UpdateNameScore(vector<strings::UniString> const & tokens, TSlice const & slice,
-                     NameScore & bestScore)
+void UpdateNameScores(vector<strings::UniString> const & tokens, TSlice const & slice,
+                      NameScores & bestScores)
 {
-  auto const score = GetNameScore(tokens, slice);
-  if (score > bestScore)
-    bestScore = score;
+  bestScores.m_nameScore = max(bestScores.m_nameScore, GetNameScore(tokens, slice));
+  bestScores.m_errorsMade = ErrorsMade::Min(bestScores.m_errorsMade, GetErrorsMade(tokens, slice));
 }
 
-NameScore GetNameScore(FeatureType const & ft, Geocoder::Params const & params,
-                       TokenRange const & range, SearchModel::SearchType type)
+NameScores GetNameScores(FeatureType const & ft, Geocoder::Params const & params,
+                         TokenRange const & range, Model::Type type)
 {
-  NameScore bestScore = NAME_SCORE_ZERO;
+  NameScores bestScores;
+
   TokenSlice slice(params, range);
   TokenSliceNoCategories sliceNoCategories(params, range);
 
-  for (auto const & lang : params.GetLangs())
+  for (auto const lang : params.GetLangs())
   {
     string name;
     if (!ft.GetName(lang, name))
@@ -50,54 +70,64 @@ NameScore GetNameScore(FeatureType const & ft, Geocoder::Params const & params,
     vector<strings::UniString> tokens;
     PrepareStringForMatching(name, tokens);
 
-    UpdateNameScore(tokens, slice, bestScore);
-    UpdateNameScore(tokens, sliceNoCategories, bestScore);
+    UpdateNameScores(tokens, slice, bestScores);
+    UpdateNameScores(tokens, sliceNoCategories, bestScores);
   }
 
-  if (type == SearchModel::SEARCH_TYPE_BUILDING)
-    UpdateNameScore(ft.GetHouseNumber(), sliceNoCategories, bestScore);
+  if (type == Model::TYPE_BUILDING)
+    UpdateNameScores(ft.GetHouseNumber(), sliceNoCategories, bestScores);
 
-  return bestScore;
+  return bestScores;
 }
 
-void RemoveDuplicatingLinear(vector<IndexedValue> & values)
+ErrorsMade GetErrorsMade(FeatureType const & ft, Geocoder::Params const & params,
+                         TokenRange const & range, Model::Type type)
 {
-  PreResult2::LessLinearTypesF lessCmp;
-  PreResult2::EqualLinearTypesF equalCmp;
+  auto errorsMade = GetNameScores(ft, params, range, type).m_errorsMade;
+  if (errorsMade.IsValid())
+    return errorsMade;
 
-  sort(values.begin(), values.end(), [&lessCmp](IndexedValue const & lhs, IndexedValue const & rhs)
-       {
-         return lessCmp(*lhs, *rhs);
-       });
-
-  values.erase(unique(values.begin(), values.end(),
-                      [&equalCmp](IndexedValue const & lhs, IndexedValue const & rhs)
-                      {
-                        return equalCmp(*lhs, *rhs);
-                      }),
-               values.end());
-}
-
-// Chops off the last query token (the "prefix" one) from |str| and stores the result in |res|.
-void GetStringPrefix(string const & str, string & res)
-{
-  search::Delimiters delims;
-  // Find start iterator of prefix in input query.
-  using TIter = utf8::unchecked::iterator<string::const_iterator>;
-  TIter iter(str.end());
-  while (iter.base() != str.begin())
+  for (auto const token : range)
   {
-    TIter prev = iter;
-    --prev;
-
-    if (delims(*prev))
-      break;
-
-    iter = prev;
+    ErrorsMade tokenErrors;
+    params.GetToken(token).ForEach([&](strings::UniString const & s) {
+      tokenErrors = ErrorsMade::Max(tokenErrors, ErrorsMade{GetMaxErrorsForToken(s)});
+    });
+    errorsMade += tokenErrors;
   }
 
-  // Assign result with input string without prefix.
-  res.assign(str.begin(), iter.base());
+  return errorsMade;
+}
+
+void RemoveDuplicatingLinear(vector<RankerResult> & results)
+{
+  double constexpr kDistSameStreetMeters = 5000.0;
+
+  auto lessCmp = [](RankerResult const & r1, RankerResult const & r2) -> bool {
+    if (r1.GetGeomType() != r2.GetGeomType())
+      return r1.GetGeomType() < r2.GetGeomType();
+
+    if (r1.GetName() != r2.GetName())
+      return r1.GetName() < r2.GetName();
+
+    uint32_t const t1 = r1.GetBestType();
+    uint32_t const t2 = r2.GetBestType();
+    if (t1 != t2)
+      return t1 < t2;
+
+    // After unique, the better feature should be kept.
+    return r1.GetDistance() < r2.GetDistance();
+  };
+
+  auto equalCmp = [](RankerResult const & r1, RankerResult const & r2) -> bool {
+    // Note! Do compare for distance when filtering linear objects.
+    // Otherwise we will skip the results for different parts of the map.
+    return r1.GetGeomType() == feature::GEOM_LINE && r1.IsEqualCommon(r2) &&
+           PointDistance(r1.GetCenter(), r2.GetCenter()) < kDistSameStreetMeters;
+  };
+
+  sort(results.begin(), results.end(), lessCmp);
+  results.erase(unique(results.begin(), results.end(), equalCmp), results.end());
 }
 
 ftypes::Type GetLocalityIndex(feature::TypesHolder const & types)
@@ -116,62 +146,82 @@ ftypes::Type GetLocalityIndex(feature::TypesHolder const & types)
   case VILLAGE: return NONE;
   case LOCALITY_COUNT: return type;
   }
+  CHECK_SWITCH();
 }
 
-/// Makes continuous range for tokens and prefix.
-template <class TIter, class TValue>
-class CombinedIter
+// TODO: Format street and house number according to local country's rules.
+string FormatStreetAndHouse(ReverseGeocoder::Address const & addr)
 {
-  TIter m_cur;
-  TIter m_end;
-  TValue const * m_val;
+  return addr.GetStreetName() + ", " + addr.GetHouseNumber();
+}
 
+// TODO: Share common formatting code for search results and place page.
+string FormatFullAddress(ReverseGeocoder::Address const & addr, string const & region)
+{
+  // TODO: Print "near" for not exact addresses.
+  if (addr.GetDistance() != 0)
+    return region;
+
+  return FormatStreetAndHouse(addr) + (region.empty() ? "" : ", ") + region;
+}
+
+bool ResultExists(RankerResult const & p, vector<RankerResult> const & results,
+                  double minDistanceOnMapBetweenResults)
+{
+  // Filter equal features in different mwms.
+  auto equalCmp = [&p, &minDistanceOnMapBetweenResults](RankerResult const & r) -> bool {
+    if (p.GetResultType() == r.GetResultType() &&
+        p.GetResultType() == RankerResult::Type::TYPE_FEATURE)
+    {
+      if (p.IsEqualCommon(r))
+        return PointDistance(p.GetCenter(), r.GetCenter()) < minDistanceOnMapBetweenResults;
+    }
+
+    return false;
+  };
+
+  // Do not insert duplicating results.
+  return find_if(results.begin(), results.end(), equalCmp) != results.cend();
+}
+
+class LazyAddressGetter
+{
 public:
-  CombinedIter(TIter cur, TIter end, TValue const * val) : m_cur(cur), m_end(end), m_val(val) {}
-
-  TValue const & operator*() const
+  LazyAddressGetter(ReverseGeocoder const & reverseGeocoder, m2::PointD const & center)
+    : m_reverseGeocoder(reverseGeocoder), m_center(center)
   {
-    ASSERT(m_val != 0 || m_cur != m_end, ("dereferencing of empty iterator"));
-    if (m_cur != m_end)
-      return *m_cur;
-
-    return *m_val;
   }
 
-  CombinedIter & operator++()
+  ReverseGeocoder::Address const & GetAddress()
   {
-    if (m_cur != m_end)
-      ++m_cur;
-    else
-      m_val = 0;
-    return *this;
+    if (m_computed)
+      return m_address;
+    m_reverseGeocoder.GetNearbyAddress(m_center, m_address);
+    m_computed = true;
+    return m_address;
   }
 
-  bool operator==(CombinedIter const & other) const
-  {
-    return m_val == other.m_val && m_cur == other.m_cur;
-  }
-
-  bool operator!=(CombinedIter const & other) const
-  {
-    return m_val != other.m_val || m_cur != other.m_cur;
-  }
+private:
+  ReverseGeocoder const & m_reverseGeocoder;
+  m2::PointD const m_center;
+  ReverseGeocoder::Address m_address;
+  bool m_computed = false;
 };
 }  // namespace
 
-class PreResult2Maker
+class RankerResultMaker
 {
   Ranker & m_ranker;
-  Index const & m_index;
+  DataSource const & m_dataSource;
   Geocoder::Params const & m_params;
   storage::CountryInfoGetter const & m_infoGetter;
 
-  unique_ptr<Index::FeaturesLoaderGuard> m_loader;
+  unique_ptr<FeaturesLoaderGuard> m_loader;
 
   bool LoadFeature(FeatureID const & id, FeatureType & ft)
   {
     if (!m_loader || m_loader->GetId() != id.m_mwmId)
-      m_loader = make_unique<Index::FeaturesLoaderGuard>(m_index, id.m_mwmId);
+      m_loader = make_unique<FeaturesLoaderGuard>(m_dataSource, id.m_mwmId);
     if (!m_loader->GetFeatureByIndex(id.m_index, ft))
       return false;
 
@@ -200,8 +250,8 @@ class PreResult2Maker
     return true;
   }
 
-  void InitRankingInfo(FeatureType const & ft, m2::PointD const & center, PreResult1 const & res,
-                       search::RankingInfo & info)
+  void InitRankingInfo(FeatureType const & ft, m2::PointD const & center,
+                       PreRankerResult const & res, search::RankingInfo & info)
   {
     auto const & preInfo = res.GetInfo();
 
@@ -209,51 +259,60 @@ class PreResult2Maker
 
     info.m_distanceToPivot = MercatorBounds::DistanceOnEarth(center, pivot);
     info.m_rank = preInfo.m_rank;
-    info.m_searchType = preInfo.m_searchType;
-    info.m_nameScore = GetNameScore(ft, m_params, preInfo.InnermostTokenRange(), info.m_searchType);
+    info.m_popularity = preInfo.m_popularity;
+    info.m_type = preInfo.m_type;
+    info.m_allTokensUsed = preInfo.m_allTokensUsed;
 
-    if (info.m_searchType != SearchModel::SEARCH_TYPE_STREET &&
+    auto const nameScores = GetNameScores(ft, m_params, preInfo.InnermostTokenRange(), info.m_type);
+
+    auto nameScore = nameScores.m_nameScore;
+    auto errorsMade = nameScores.m_errorsMade;
+
+    if (info.m_type != Model::TYPE_STREET &&
         preInfo.m_geoParts.m_street != IntersectionResult::kInvalidId)
     {
       auto const & mwmId = ft.GetID().m_mwmId;
       FeatureType street;
       if (LoadFeature(FeatureID(mwmId, preInfo.m_geoParts.m_street), street))
       {
-        NameScore const nameScore =
-            GetNameScore(street, m_params, preInfo.m_tokenRange[SearchModel::SEARCH_TYPE_STREET],
-                         SearchModel::SEARCH_TYPE_STREET);
-        info.m_nameScore = min(info.m_nameScore, nameScore);
+        auto const type = Model::TYPE_STREET;
+        auto const & range = preInfo.m_tokenRange[type];
+        auto const nameScores = GetNameScores(street, m_params, range, type);
+
+        nameScore = min(nameScore, nameScores.m_nameScore);
+        errorsMade += nameScores.m_errorsMade;
       }
     }
 
-    TokenSlice slice(m_params, preInfo.InnermostTokenRange());
-    feature::TypesHolder holder(ft);
-    vector<pair<size_t, size_t>> matched(slice.Size());
-    ForEachCategoryType(QuerySlice(slice), m_ranker.m_params.m_categoryLocales,
-                        m_ranker.m_categories, [&](size_t i, uint32_t t)
-                        {
-                          ++matched[i].second;
-                          if (holder.Has(t))
-                            ++matched[i].first;
-                        });
+    if (!Model::IsLocalityType(info.m_type) && preInfo.m_cityId.IsValid())
+    {
+      FeatureType city;
+      if (LoadFeature(preInfo.m_cityId, city))
+      {
+        auto const type = Model::TYPE_CITY;
+        auto const & range = preInfo.m_tokenRange[type];
+        errorsMade += GetErrorsMade(city, m_params, range, type);
+      }
+    }
 
-    info.m_pureCats = all_of(matched.begin(), matched.end(), [](pair<size_t, size_t> const & m)
-                             {
-                               return m.first != 0;
-                             });
-    info.m_falseCats = all_of(matched.begin(), matched.end(), [](pair<size_t, size_t> const & m)
-                              {
-                                return m.first == 0 && m.second != 0;
-                              });
+    info.m_nameScore = nameScore;
+    info.m_errorsMade = errorsMade;
+
+    CategoriesInfo const categoriesInfo(feature::TypesHolder(ft),
+                                        TokenSlice(m_params, preInfo.InnermostTokenRange()),
+                                        m_ranker.m_params.m_categoryLocales, m_ranker.m_categories);
+
+    info.m_pureCats = categoriesInfo.IsPureCategories();
+    info.m_falseCats = categoriesInfo.IsFalseCategories();
   }
 
-  uint8_t NormalizeRank(uint8_t rank, SearchModel::SearchType type, m2::PointD const & center,
+  uint8_t NormalizeRank(uint8_t rank, Model::Type type, m2::PointD const & center,
                         string const & country)
   {
     switch (type)
     {
-    case SearchModel::SEARCH_TYPE_VILLAGE: return rank /= 1.5;
-    case SearchModel::SEARCH_TYPE_CITY:
+    case Model::TYPE_VILLAGE: return rank /= 1.5;
+    case Model::TYPE_CITY:
     {
       if (m_ranker.m_params.m_viewport.IsPointInside(center))
         return rank * 2;
@@ -266,85 +325,228 @@ class PreResult2Maker
       if (info.IsNotEmpty() && info.m_name == m_ranker.m_params.m_pivotRegion)
         return rank *= 1.7;
     }
-    case SearchModel::SEARCH_TYPE_COUNTRY:
+    case Model::TYPE_COUNTRY:
       return rank /= 1.5;
 
-    // For all other search types, rank should be zero for now.
-    default: return 0;
+    default: return rank;
     }
   }
 
 public:
-  explicit PreResult2Maker(Ranker & ranker, Index const & index,
-                           storage::CountryInfoGetter const & infoGetter,
-                           Geocoder::Params const & params)
-    : m_ranker(ranker), m_index(index), m_params(params), m_infoGetter(infoGetter)
+  RankerResultMaker(Ranker & ranker, DataSource const & dataSource,
+                    storage::CountryInfoGetter const & infoGetter, Geocoder::Params const & params)
+    : m_ranker(ranker), m_dataSource(dataSource), m_params(params), m_infoGetter(infoGetter)
   {
   }
 
-  unique_ptr<PreResult2> operator()(PreResult1 const & res1)
+  boost::optional<RankerResult> operator()(PreRankerResult const & preRankerResult)
   {
     FeatureType ft;
     m2::PointD center;
     string name;
     string country;
 
-    if (!LoadFeature(res1.GetId(), ft, center, name, country))
-      return unique_ptr<PreResult2>();
+    if (!LoadFeature(preRankerResult.GetId(), ft, center, name, country))
+      return {};
 
-    auto res2 = make_unique<PreResult2>(ft, center, m_ranker.m_params.m_position /* pivot */, name,
-                                        country);
+    RankerResult r(ft, center, m_ranker.m_params.m_position /* pivot */, name, country);
 
     search::RankingInfo info;
-    InitRankingInfo(ft, center, res1, info);
-    info.m_rank = NormalizeRank(info.m_rank, info.m_searchType, center, country);
-    res2->SetRankingInfo(move(info));
+    InitRankingInfo(ft, center, preRankerResult, info);
+    info.m_rank = NormalizeRank(info.m_rank, info.m_type, center, country);
+    r.SetRankingInfo(move(info));
 
-    return res2;
+    return r;
   }
 };
 
-// static
-size_t const Ranker::kBatchSize = 10;
-
-Ranker::Ranker(Index const & index, storage::CountryInfoGetter const & infoGetter,
+Ranker::Ranker(DataSource const & dataSource, CitiesBoundariesTable const & boundariesTable,
+               storage::CountryInfoGetter const & infoGetter, KeywordLangMatcher & keywordsScorer,
                Emitter & emitter, CategoriesHolder const & categories,
                vector<Suggest> const & suggests, VillagesCache & villagesCache,
-               my::Cancellable const & cancellable)
-  : m_reverseGeocoder(index)
+               ::base::Cancellable const & cancellable)
+  : m_reverseGeocoder(dataSource)
   , m_cancellable(cancellable)
-  , m_localities(index, villagesCache)
-  , m_index(index)
+  , m_keywordsScorer(keywordsScorer)
+  , m_localities(dataSource, boundariesTable, villagesCache)
+  , m_dataSource(dataSource)
   , m_infoGetter(infoGetter)
   , m_emitter(emitter)
   , m_categories(categories)
   , m_suggests(suggests)
 {
+  SetLocale("default");
 }
 
 void Ranker::Init(Params const & params, Geocoder::Params const & geocoderParams)
 {
   m_params = params;
   m_geocoderParams = geocoderParams;
-  m_preResults1.clear();
+  m_preRankerResults.clear();
   m_tentativeResults.clear();
 }
 
-bool Ranker::IsResultExists(PreResult2 const & p, vector<IndexedValue> const & values)
+void Ranker::Finish(bool cancelled)
 {
-  PreResult2::StrictEqualF equalCmp(p, m_params.m_minDistanceOnMapBetweenResults);
-
-  // Do not insert duplicating results.
-  return values.end() != find_if(values.begin(), values.end(), [&equalCmp](IndexedValue const & iv)
-                                 {
-                                   return equalCmp(*iv);
-                                 });
+  // The results have been updated by PreRanker.
+  m_emitter.Finish(cancelled);
 }
 
-void Ranker::MakePreResult2(Geocoder::Params const & geocoderParams, vector<IndexedValue> & cont)
+Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
+                          bool needHighlighting) const
 {
-  PreResult2Maker maker(*this, m_index, m_infoGetter, geocoderParams);
-  for (auto const & r : m_preResults1)
+  string name = rankerResult.GetName();
+
+  string address;
+  if (needAddress)
+  {
+    LazyAddressGetter addressGetter(m_reverseGeocoder, rankerResult.GetCenter());
+
+    // Insert exact address (street and house number) instead of empty result name.
+    if (name.empty())
+    {
+      auto const & addr = addressGetter.GetAddress();
+      if (addr.GetDistance() == 0)
+        name = FormatStreetAndHouse(addr);
+    }
+
+    address = GetLocalizedRegionInfoForResult(rankerResult);
+
+    // Format full address only for suitable results.
+    if (ftypes::IsAddressObjectChecker::Instance()(rankerResult.GetTypes()))
+      address = FormatFullAddress(addressGetter.GetAddress(), address);
+  }
+
+  // todo(@m) Used because Result does not have a default constructor. Factor out?
+  auto mk = [&](RankerResult const & r) -> Result {
+    switch (r.GetResultType())
+    {
+    case RankerResult::Type::TYPE_FEATURE:
+    case RankerResult::Type::TYPE_BUILDING:
+    {
+      auto const type = rankerResult.GetBestType(&m_params.m_preferredTypes);
+      return Result(r.GetID(), r.GetCenter(), name, address,
+                    m_categories.GetReadableFeatureType(type, m_params.m_currentLocaleCode), type,
+                    r.GetMetadata());
+    }
+    case RankerResult::Type::TYPE_LATLON: return Result(r.GetCenter(), name, address);
+    }
+    ASSERT(false, ("Bad RankerResult type:", static_cast<size_t>(r.GetResultType())));
+    CHECK_SWITCH();
+  };
+
+  auto res = mk(rankerResult);
+
+  if (needAddress &&
+      ftypes::IsLocalityChecker::Instance().GetType(rankerResult.GetTypes()) == ftypes::NONE)
+  {
+    m_localities.GetLocality(res.GetFeatureCenter(), [&](LocalityItem const & item) {
+      string city;
+      if (item.GetSpecifiedOrDefaultName(m_localeCode, city))
+        res.PrependCity(city);
+    });
+  }
+
+  if (needHighlighting)
+    HighlightResult(m_params.m_tokens, m_params.m_prefix, res);
+
+  res.SetRankingInfo(rankerResult.GetRankingInfo());
+  return res;
+}
+
+void Ranker::SuggestStrings()
+{
+  if (m_params.m_prefix.empty() || !m_params.m_suggestsEnabled)
+    return;
+
+  string prologue = DropLastToken(m_params.m_query);
+
+  for (auto const locale : m_params.m_categoryLocales)
+    MatchForSuggestions(m_params.m_prefix, locale, prologue);
+}
+
+void Ranker::UpdateResults(bool lastUpdate)
+{
+  if (!lastUpdate)
+    BailIfCancelled();
+
+  MakeRankerResults(m_geocoderParams, m_tentativeResults);
+  RemoveDuplicatingLinear(m_tentativeResults);
+  if (m_tentativeResults.empty())
+    return;
+
+  if (m_params.m_viewportSearch)
+  {
+    sort(m_tentativeResults.begin(), m_tentativeResults.end(),
+         my::LessBy(&RankerResult::GetDistanceToPivot));
+  }
+  else
+  {
+    // *NOTE* GetLinearModelRank is calculated on the fly
+    // but the model is lightweight enough and the slowdown
+    // is negligible.
+    sort(m_tentativeResults.rbegin(), m_tentativeResults.rend(),
+         my::LessBy(&RankerResult::GetLinearModelRank));
+    ProcessSuggestions(m_tentativeResults);
+  }
+
+  // Emit feature results.
+  size_t count = m_emitter.GetResults().GetCount();
+  size_t i = 0;
+  for (; i < m_tentativeResults.size(); ++i)
+  {
+    if (!lastUpdate && i >= m_params.m_batchSize && !m_params.m_viewportSearch)
+      break;
+
+    if (!lastUpdate)
+      BailIfCancelled();
+
+    auto const & rankerResult = m_tentativeResults[i];
+
+    if (count >= m_params.m_limit)
+      break;
+
+    Result result = MakeResult(rankerResult, m_params.m_needAddress, m_params.m_needHighlighting);
+
+    if (m_params.m_viewportSearch)
+    {
+      m_emitter.AddResultNoChecks(move(result));
+      ++count;
+    }
+    else
+    {
+      LOG(LDEBUG, (rankerResult));
+      if (m_emitter.AddResult(move(result)))
+        ++count;
+    }
+  }
+  m_tentativeResults.erase(m_tentativeResults.begin(), m_tentativeResults.begin() + i);
+
+  m_preRankerResults.clear();
+
+  // The last update must be handled by a call to Finish().
+  if (!lastUpdate)
+  {
+    BailIfCancelled();
+    m_emitter.Emit();
+  }
+}
+
+void Ranker::ClearCaches() { m_localities.ClearCache(); }
+
+void Ranker::SetLocale(string const & locale)
+{
+  m_localeCode = StringUtf8Multilang::GetLangIndex(languages::Normalize(locale));
+  m_regionInfoGetter.SetLocale(locale);
+}
+
+void Ranker::LoadCountriesTree() { m_regionInfoGetter.LoadCountriesTree(); }
+
+void Ranker::MakeRankerResults(Geocoder::Params const & geocoderParams,
+                               vector<RankerResult> & results)
+{
+  RankerResultMaker maker(*this, m_dataSource, m_infoGetter, geocoderParams);
+  for (auto const & r : m_preRankerResults)
   {
     auto p = maker(r);
     if (!p)
@@ -356,98 +558,36 @@ void Ranker::MakePreResult2(Geocoder::Params const & geocoderParams, vector<Inde
       continue;
     }
 
-    if (!IsResultExists(*p, cont))
-      cont.push_back(IndexedValue(move(p)));
+    if (!ResultExists(*p, results, m_params.m_minDistanceBetweenResultsM))
+      results.push_back(move(*p));
   };
 }
 
-Result Ranker::MakeResult(PreResult2 const & r) const
+void Ranker::GetBestMatchName(FeatureType const & f, string & name) const
 {
-  Result res = r.GenerateFinalResult(m_infoGetter, &m_categories, &m_params.m_preferredTypes,
-                                     m_params.m_currentLocaleCode, &m_reverseGeocoder);
-  MakeResultHighlight(res);
-  if (ftypes::IsLocalityChecker::Instance().GetType(r.GetTypes()) == ftypes::NONE)
-  {
-    string city;
-    m_localities.GetLocality(res.GetFeatureCenter(), city);
-    res.AppendCity(city);
-  }
-
-  res.SetRankingInfo(r.GetRankingInfo());
-  return res;
-}
-
-void Ranker::MakeResultHighlight(Result & res) const
-{
-  using TIter = buffer_vector<strings::UniString, 32>::const_iterator;
-  using TCombinedIter = CombinedIter<TIter, strings::UniString>;
-
-  TCombinedIter beg(m_params.m_tokens.begin(), m_params.m_tokens.end(),
-                    m_params.m_prefix.empty() ? 0 : &m_params.m_prefix);
-  TCombinedIter end(m_params.m_tokens.end(), m_params.m_tokens.end(), 0);
-  auto assignHighlightRange = [&](pair<uint16_t, uint16_t> const & range)
-  {
-    res.AddHighlightRange(range);
+  KeywordLangMatcher::Score bestScore;
+  auto updateScore = [&](int8_t lang, string const & s, bool force) {
+    auto const score = m_keywordsScorer.CalcScore(lang, s);
+    if (force ? bestScore <= score : bestScore < score)
+    {
+      bestScore = score;
+      name = s;
+    }
   };
 
-  SearchStringTokensIntersectionRanges(res.GetString(), beg, end, assignHighlightRange);
-}
-
-void Ranker::GetSuggestion(string const & name, string & suggest) const
-{
-  // Splits result's name.
-  search::Delimiters delims;
-  vector<strings::UniString> tokens;
-  SplitUniString(NormalizeAndSimplifyString(name), MakeBackInsertFunctor(tokens), delims);
-
-  // Finds tokens that are already present in the input query.
-  vector<bool> tokensMatched(tokens.size());
-  bool prefixMatched = false;
-  bool fullPrefixMatched = false;
-
-  for (size_t i = 0; i < tokens.size(); ++i)
-  {
-    auto const & token = tokens[i];
-
-    if (find(m_params.m_tokens.begin(), m_params.m_tokens.end(), token) != m_params.m_tokens.end())
+  auto bestNameFinder = [&](int8_t lang, string const & s) {
+    updateScore(lang, s, true /* force */);
+    // Default name should be written in the regional language.
+    if (lang == StringUtf8Multilang::kDefaultCode)
     {
-      tokensMatched[i] = true;
+      auto const mwmInfo = f.GetID().m_mwmId.GetInfo();
+      vector<int8_t> mwmLangCodes;
+      mwmInfo->GetRegionData().GetLanguages(mwmLangCodes);
+      for (auto const l : mwmLangCodes)
+        updateScore(l, s, false /* force */);
     }
-    else if (StartsWith(token, m_params.m_prefix))
-    {
-      prefixMatched = true;
-      fullPrefixMatched = token.size() == m_params.m_prefix.size();
-    }
-  }
-
-  // When |name| does not match prefix or when prefix equals to some
-  // token of the |name| (for example, when user entered "Moscow"
-  // without space at the end), we should not suggest anything.
-  if (!prefixMatched || fullPrefixMatched)
-    return;
-
-  GetStringPrefix(m_params.m_query, suggest);
-
-  // Appends unmatched result's tokens to the suggestion.
-  for (size_t i = 0; i < tokens.size(); ++i)
-  {
-    if (tokensMatched[i])
-      continue;
-    suggest.append(strings::ToUtf8(tokens[i]));
-    suggest.push_back(' ');
-  }
-}
-
-void Ranker::SuggestStrings()
-{
-  if (m_params.m_prefix.empty() || !m_params.m_suggestsEnabled)
-    return;
-
-  string prologue;
-  GetStringPrefix(m_params.m_query, prologue);
-
-  for (auto const & locale : m_params.m_categoryLocales)
-    MatchForSuggestions(m_params.m_prefix, locale, prologue);
+  };
+  UNUSED_VALUE(f.ForEachName(bestNameFinder));
 }
 
 void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale,
@@ -456,54 +596,42 @@ void Ranker::MatchForSuggestions(strings::UniString const & token, int8_t locale
   for (auto const & suggest : m_suggests)
   {
     strings::UniString const & s = suggest.m_name;
-    if ((suggest.m_prefixLength <= token.size()) &&
-        (token != s) &&                  // do not push suggestion if it already equals to token
-        (suggest.m_locale == locale) &&  // push suggestions only for needed language
-        strings::StartsWith(s.begin(), s.end(), token.begin(), token.end()))
+    if (suggest.m_prefixLength <= token.size()
+        && token != s                  // do not push suggestion if it already equals to token
+        && suggest.m_locale == locale  // push suggestions only for needed language
+        && strings::StartsWith(s, token))
     {
       string const utf8Str = strings::ToUtf8(s);
       Result r(utf8Str, prologue + utf8Str + " ");
-      MakeResultHighlight(r);
+      HighlightResult(m_params.m_tokens, m_params.m_prefix, r);
       m_emitter.AddResult(move(r));
     }
   }
 }
 
-void Ranker::GetBestMatchName(FeatureType const & f, string & name) const
-{
-  KeywordLangMatcher::ScoreT bestScore;
-  auto bestNameFinder = [&](int8_t lang, string const & s) -> bool
-  {
-    auto const score = m_keywordsScorer.Score(lang, s);
-    if (bestScore < score)
-    {
-      bestScore = score;
-      name = s;
-    }
-    return true;
-  };
-  UNUSED_VALUE(f.ForEachName(bestNameFinder));
-}
-
-void Ranker::ProcessSuggestions(vector<IndexedValue> & vec) const
+void Ranker::ProcessSuggestions(vector<RankerResult> & vec) const
 {
   if (m_params.m_prefix.empty() || !m_params.m_suggestsEnabled)
     return;
 
-  int added = 0;
+  size_t added = 0;
   for (auto i = vec.begin(); i != vec.end();)
   {
-    PreResult2 const & r = **i;
+    RankerResult const & r = *i;
 
     ftypes::Type const type = GetLocalityIndex(r.GetTypes());
-    if ((type == ftypes::COUNTRY || type == ftypes::CITY) || r.IsStreet())
+    if (type == ftypes::COUNTRY || type == ftypes::CITY || r.IsStreet())
     {
-      string suggest;
-      GetSuggestion(r.GetName(), suggest);
-      if (!suggest.empty() && added < MAX_SUGGESTS_COUNT)
+      string suggestion;
+      GetSuggestion(r, m_params.m_query, m_params.m_tokens, m_params.m_prefix, suggestion);
+      if (!suggestion.empty() && added < kMaxNumSuggests)
       {
-        if (m_emitter.AddResult(Result(MakeResult(r), suggest)))
+        // todo(@m) RankingInfo is lost here. Should it be?
+        if (m_emitter.AddResult(Result(
+                MakeResult(r, false /* needAddress */, true /* needHighlighting */), suggestion)))
+        {
           ++added;
+        }
 
         i = vec.erase(i);
         continue;
@@ -513,66 +641,14 @@ void Ranker::ProcessSuggestions(vector<IndexedValue> & vec) const
   }
 }
 
-void Ranker::UpdateResults(bool lastUpdate)
+string Ranker::GetLocalizedRegionInfoForResult(RankerResult const & result) const
 {
-  BailIfCancelled();
+  auto const type = result.GetBestType(&m_params.m_preferredTypes);
 
-  MakePreResult2(m_geocoderParams, m_tentativeResults);
-  RemoveDuplicatingLinear(m_tentativeResults);
-  if (m_tentativeResults.empty())
-    return;
+  storage::TCountryId id;
+  if (!result.GetCountryId(m_infoGetter, type, id))
+    return {};
 
-  if (m_params.m_viewportSearch)
-  {
-    sort(m_tentativeResults.begin(), m_tentativeResults.end(),
-         my::LessBy(&IndexedValue::GetDistanceToPivot));
-  }
-  else
-  {
-    sort(m_tentativeResults.rbegin(), m_tentativeResults.rend(),
-         my::LessBy(&IndexedValue::GetRank));
-    ProcessSuggestions(m_tentativeResults);
-  }
-
-  // Emit feature results.
-  size_t count = m_emitter.GetResults().GetCount();
-  size_t i = 0;
-  for (; i < m_tentativeResults.size(); ++i)
-  {
-    if (!lastUpdate && i >= kBatchSize && !m_params.m_viewportSearch)
-      break;
-    BailIfCancelled();
-
-    if (m_params.m_viewportSearch)
-    {
-      m_emitter.AddResultNoChecks(
-          (*m_tentativeResults[i])
-              .GenerateFinalResult(m_infoGetter, &m_categories, &m_params.m_preferredTypes,
-                                   m_params.m_currentLocaleCode,
-                                   nullptr /* Viewport results don't need calculated address */));
-    }
-    else
-    {
-      if (count >= m_params.m_limit)
-        break;
-
-      LOG(LDEBUG, (m_tentativeResults[i]));
-
-      auto const & preResult2 = *m_tentativeResults[i];
-      if (m_emitter.AddResult(MakeResult(preResult2)))
-        ++count;
-    }
-  }
-  m_tentativeResults.erase(m_tentativeResults.begin(), m_tentativeResults.begin() + i);
-
-  m_preResults1.clear();
-
-  BailIfCancelled();
-  m_emitter.Emit();
-}
-
-void Ranker::ClearCaches()
-{
-  m_localities.ClearCache();
+  return m_regionInfoGetter.GetLocalizedFullName(id);
 }
 }  // namespace search

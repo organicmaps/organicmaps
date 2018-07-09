@@ -4,8 +4,8 @@
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
-// This file was modified by Oracle on 2014.
-// Modifications copyright (c) 2014 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2014, 2016, 2017.
+// Modifications copyright (c) 2014-2017 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
@@ -51,7 +51,7 @@ public:
 
     spheroid()
         : m_a(RadiusType(6378137.0))
-        , m_b(RadiusType(6356752.314245))
+        , m_b(RadiusType(6356752.3142451793))
     {}
 
     template <std::size_t I>
@@ -126,8 +126,9 @@ public:
     explicit sphere(RadiusType const& r)
         : m_r(r)
     {}
+
     sphere()
-        : m_r(RadiusType((2.0 * 6378137.0 + 6356752.314245) / 3.0))
+        : m_r(RadiusType((2.0 * 6378137.0 + 6356752.3142451793) / 3.0))
     {}
 
     template <std::size_t I>

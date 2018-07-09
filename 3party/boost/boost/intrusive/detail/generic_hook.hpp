@@ -26,6 +26,7 @@
 #include <boost/intrusive/detail/mpl.hpp>
 #include <boost/intrusive/detail/assert.hpp>
 #include <boost/intrusive/detail/node_holder.hpp>
+#include <boost/intrusive/detail/algo_type.hpp>
 #include <boost/static_assert.hpp>
 
 namespace boost {
@@ -120,7 +121,8 @@ struct hooktags_impl
 /// @endcond
 
 template
-   < class NodeAlgorithms
+   < boost::intrusive::algo_types Algo
+   , class NodeTraits
    , class Tag
    , link_mode_type LinkMode
    , base_hook_type BaseHookType
@@ -135,20 +137,20 @@ class generic_hook
    //from the hook.
    : public detail::if_c
       < detail::is_same<Tag, member_tag>::value
-      , typename NodeAlgorithms::node
-      , node_holder<typename NodeAlgorithms::node, Tag, BaseHookType>
+      , typename NodeTraits::node
+      , node_holder<typename NodeTraits::node, Tag, BaseHookType>
       >::type
    //If this is the a default-tagged base hook derive from a class that
    //will define an special internal typedef. Containers will be able to detect this
    //special typedef and obtain generic_hook's internal types in order to deduce
    //value_traits for this hook.
    , public hook_tags_definer
-      < generic_hook<NodeAlgorithms, Tag, LinkMode, BaseHookType>
-      , detail::is_same<Tag, dft_tag>::value*BaseHookType>
+      < generic_hook<Algo, NodeTraits, Tag, LinkMode, BaseHookType>
+      , detail::is_same<Tag, dft_tag>::value ? BaseHookType : NoBaseHookId>
    /// @endcond
 {
    /// @cond
-   typedef          NodeAlgorithms                    node_algorithms;
+   typedef typename get_algo<Algo, NodeTraits>::type  node_algorithms;
    typedef typename node_algorithms::node             node;
    typedef typename node_algorithms::node_ptr         node_ptr;
    typedef typename node_algorithms::const_node_ptr   const_node_ptr;
@@ -156,7 +158,7 @@ class generic_hook
    public:
 
    typedef hooktags_impl
-      < typename NodeAlgorithms::node_traits
+      < NodeTraits
       , Tag, LinkMode, BaseHookType>                  hooktags;
 
    node_ptr this_ptr()

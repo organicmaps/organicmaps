@@ -10,6 +10,4 @@
     didReceiveRemoteNotification:(NSDictionary *)userInfo
           fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler;
 
-+ (NSString *)pushToken;
-
 @end

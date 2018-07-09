@@ -6,11 +6,11 @@
 
 #include "base/buffer_vector.hpp"
 
-#include "std/mutex.hpp"
+#include <map>
+#include <mutex>
 
 namespace dp
 {
-
 class ColorKey : public Texture::Key
 {
 public:
@@ -39,7 +39,7 @@ public:
   void SetIsDebug(bool isDebug) { m_isDebug = isDebug; }
 
 private:
-  typedef map<Color, ColorResourceInfo> TPalette;
+  typedef std::map<Color, ColorResourceInfo> TPalette;
 
   struct PendingColor
   {
@@ -53,8 +53,8 @@ private:
   m2::PointU m_textureSize;
   m2::PointU m_cursor;
   bool m_isDebug = false;
-  mutex m_lock;
-  mutex m_mappingLock;
+  std::mutex m_lock;
+  std::mutex m_mappingLock;
 };
 
 class ColorTexture : public DynamicTexture<ColorPalette, ColorKey, Texture::Color>
@@ -62,14 +62,10 @@ class ColorTexture : public DynamicTexture<ColorPalette, ColorKey, Texture::Colo
   typedef DynamicTexture<ColorPalette, ColorKey, Texture::Color> TBase;
 public:
   ColorTexture(m2::PointU const & size, ref_ptr<HWTextureAllocator> allocator)
-    : m_pallete(size)
+    : m_palette(size)
   {
-    TBase::TextureParams params;
-    params.m_size = size;
-    params.m_format = TextureFormat::RGBA8;
-    params.m_filter = gl_const::GLNearest;
-
-    TBase::Init(allocator, make_ref(&m_pallete), params);
+    TBase::TextureParams params{size, TextureFormat::RGBA8, gl_const::GLNearest, false /* m_usePixelBuffer */};
+    TBase::Init(allocator, make_ref(&m_palette), params);
   }
 
   void ReserveColor(dp::Color const & color);
@@ -79,7 +75,6 @@ public:
   static int GetColorSizeInPixels();
 
 private:
-  ColorPalette m_pallete;
+  ColorPalette m_palette;
 };
-
-}
+}  // namespace dp

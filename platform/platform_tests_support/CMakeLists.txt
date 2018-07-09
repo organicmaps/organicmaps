@@ -2,6 +2,7 @@ project(platform_tests_support)
 
 set(
   SRC
+  async_gui_thread.hpp
   scoped_dir.cpp
   scoped_dir.hpp
   scoped_file.cpp
@@ -14,4 +15,4 @@ set(
   writable_dir_changer.hpp
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})

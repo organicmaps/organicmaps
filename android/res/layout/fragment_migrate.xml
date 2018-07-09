@@ -63,7 +63,7 @@
       <Button
         android:id="@+id/button_primary"
         android:text="@string/migration_update_all_button"
-        style="@style/MwmWidget.Button.Accent"/>
+        style="@style/MwmWidget.Button.Primary"/>
 
       <com.mapswithme.maps.widget.WheelProgressView
         android:id="@+id/wheel_progress"

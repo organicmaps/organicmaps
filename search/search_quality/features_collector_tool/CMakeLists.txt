@@ -4,7 +4,7 @@ include_directories(${OMIM_ROOT}/3party/gflags/src)
 
 set(SRC features_collector_tool.cpp)
 
-add_executable(${PROJECT_NAME} ${SRC})
+omim_add_executable(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
@@ -12,11 +12,13 @@ omim_link_libraries(
   search
   search_quality
   storage
-  indexer
   editor
+  indexer
   platform
-  coding
+  mwm_diff
+  bsdiff
   geometry
+  coding
   base
   oauthcpp
   gflags
@@ -27,6 +29,7 @@ omim_link_libraries(
   succinct
   opening_hours
   pugixml
+  icu
   ${Qt5Core_LIBRARIES}
   ${Qt5Network_LIBRARIES}
   ${LIBZ}

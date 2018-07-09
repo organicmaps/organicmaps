@@ -1,9 +1,6 @@
 #include "generator/restriction_collector.hpp"
 
-#include "generator/gen_mwm_info.hpp"
-
-#include "coding/file_reader.hpp"
-#include "coding/reader.hpp"
+#include "generator/routing_helpers.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
@@ -11,8 +8,8 @@
 #include "base/stl_helpers.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/fstream.hpp"
+#include <algorithm>
+#include <fstream>
 
 namespace
 {
@@ -20,14 +17,14 @@ char const kNo[] = "No";
 char const kOnly[] = "Only";
 char const kDelim[] = ", \t\r\n";
 
-bool ParseLineOfNumbers(strings::SimpleTokenizer & iter, vector<uint64_t> & numbers)
+bool ParseLineOfWayIds(strings::SimpleTokenizer & iter, std::vector<osm::Id> & numbers)
 {
   uint64_t number = 0;
   for (; iter; ++iter)
   {
     if (!strings::to_uint64(*iter, number))
       return false;
-    numbers.push_back(number);
+    numbers.push_back(osm::Id::Way(number));
   }
   return true;
 }
@@ -35,15 +32,15 @@ bool ParseLineOfNumbers(strings::SimpleTokenizer & iter, vector<uint64_t> & numb
 
 namespace routing
 {
-RestrictionCollector::RestrictionCollector(string const & restrictionPath,
-                                           string const & osmIdsToFeatureIdPath)
+RestrictionCollector::RestrictionCollector(std::string const & restrictionPath,
+                                           std::string const & osmIdsToFeatureIdPath)
 {
   MY_SCOPE_GUARD(clean, [this](){
     m_osmIdToFeatureId.clear();
     m_restrictions.clear();
   });
 
-  if (!ParseOsmIdToFeatureIdMapping(osmIdsToFeatureIdPath))
+  if (!ParseOsmIdToFeatureIdMapping(osmIdsToFeatureIdPath, m_osmIdToFeatureId))
   {
     LOG(LWARNING, ("An error happened while parsing feature id to osm ids mapping from file:",
                    osmIdsToFeatureIdPath));
@@ -66,40 +63,18 @@ RestrictionCollector::RestrictionCollector(string const & restrictionPath,
 
 bool RestrictionCollector::IsValid() const
 {
-  return find_if(begin(m_restrictions), end(m_restrictions),
+  return std::find_if(begin(m_restrictions), end(m_restrictions),
                  [](Restriction const & r) { return !r.IsValid(); }) == end(m_restrictions);
 }
 
-bool RestrictionCollector::ParseOsmIdToFeatureIdMapping(string const & osmIdsToFeatureIdPath)
+bool RestrictionCollector::ParseRestrictions(std::string const & path)
 {
-  gen::OsmID2FeatureID osmIdsToFeatureIds;
-  try
-  {
-    FileReader reader(osmIdsToFeatureIdPath);
-    ReaderSource<FileReader> src(reader);
-    osmIdsToFeatureIds.Read(src);
-  }
-  catch (FileReader::Exception const & e)
-  {
-    LOG(LWARNING, ("Exception while reading file:", osmIdsToFeatureIdPath, ". Msg:", e.Msg()));
-    return false;
-  }
-
-  osmIdsToFeatureIds.ForEach([this](gen::OsmID2FeatureID::ValueT const & p) {
-    AddFeatureId(p.second /* feature id */, p.first /* osm id */);
-  });
-
-  return true;
-}
-
-bool RestrictionCollector::ParseRestrictions(string const & path)
-{
-  ifstream stream(path);
+  std::ifstream stream(path);
   if (stream.fail())
     return false;
 
-  string line;
-  while (getline(stream, line))
+  std::string line;
+  while (std::getline(stream, line))
   {
     strings::SimpleTokenizer iter(line, kDelim);
     if (!iter)  // the line is empty
@@ -113,8 +88,8 @@ bool RestrictionCollector::ParseRestrictions(string const & path)
     }
 
     ++iter;
-    vector<uint64_t> osmIds;
-    if (!ParseLineOfNumbers(iter, osmIds))
+    std::vector<osm::Id> osmIds;
+    if (!ParseLineOfWayIds(iter, osmIds))
     {
       LOG(LWARNING, ("Cannot parse osm ids from", path));
       return false;
@@ -125,9 +100,9 @@ bool RestrictionCollector::ParseRestrictions(string const & path)
   return true;
 }
 
-bool RestrictionCollector::AddRestriction(Restriction::Type type, vector<uint64_t> const & osmIds)
+bool RestrictionCollector::AddRestriction(Restriction::Type type, std::vector<osm::Id> const & osmIds)
 {
-  vector<uint32_t> featureIds(osmIds.size());
+  std::vector<uint32_t> featureIds(osmIds.size());
   for (size_t i = 0; i < osmIds.size(); ++i)
   {
     auto const result = m_osmIdToFeatureId.find(osmIds[i]);
@@ -146,19 +121,12 @@ bool RestrictionCollector::AddRestriction(Restriction::Type type, vector<uint64_
   return true;
 }
 
-void RestrictionCollector::AddFeatureId(uint32_t featureId, uint64_t osmId)
+void RestrictionCollector::AddFeatureId(uint32_t featureId, osm::Id osmId)
 {
-  // Note. One |featureId| could correspond to several osm ids.
-  // But for road feature |featureId| corresponds to exactly one osm id.
-  auto const result = m_osmIdToFeatureId.insert(make_pair(osmId, featureId));
-  if (result.second == false)
-  {
-    LOG(LERROR, ("Osm id", osmId, "is included in two feature ids: ", featureId,
-                 m_osmIdToFeatureId.find(osmId)->second));
-  }
+  ::routing::AddFeatureId(osmId, featureId, m_osmIdToFeatureId);
 }
 
-bool FromString(string str, Restriction::Type & type)
+bool FromString(std::string str, Restriction::Type & type)
 {
   if (str == kNo)
   {

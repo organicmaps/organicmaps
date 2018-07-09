@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2014 Vladimir Batov.
+// Copyright (c) 2009-2016 Vladimir Batov.
 // Use, modification and distribution are subject to the Boost Software License,
 // Version 1.0. See http://www.boost.org/LICENSE_1_0.txt.
 
@@ -50,37 +50,41 @@ namespace boost { namespace cnv
         typedef typename cnv::iterator<T>::const_type const_iterator;
         typedef const_iterator                           sentry_type;
 
-        range_base (iterator b, iterator e) : begin_(b), end_(e) {}
-
         iterator       begin () { return begin_; }
-        iterator         end () { return   end_; }
         const_iterator begin () const { return begin_; }
-        const_iterator   end () const { return   end_; }
-        sentry_type   sentry () const { return   end_; }
         void      operator++ () { ++begin_; }
-        void      operator-- () { --end_; }
+//      void      operator-- () { --end_; }
 
         protected:
 
+        range_base (iterator b, iterator e) : begin_(b), end_(e) {}
+
         iterator       begin_;
-        mutable iterator end_;
+        iterator mutable end_;
     };
 
     template<typename T>
     struct range<T, typename enable_if<is_range<T> >::type> : public range_base<T>
     {
-        typedef range         this_type;
-        typedef range_base<T> base_type;
+        typedef range                                   this_type;
+        typedef range_base<T>                           base_type;
+        typedef typename base_type::iterator             iterator;
+        typedef typename base_type::const_iterator const_iterator;
+        typedef const_iterator                        sentry_type;
 
         range (T& r) : base_type(r.begin(), r.end()) {}
+
+        iterator         end () { return base_type::end_; }
+        const_iterator   end () const { return base_type::end_; }
+        sentry_type   sentry () const { return base_type::end_; }
+        bool           empty () const { return base_type::begin_ == base_type::end_; }
     };
 
     template<typename T>
     struct range<T*, typename enable_if<cnv::is_char<T> >::type> : public range_base<T*>
     {
-        typedef range          this_type;
-        typedef range_base<T*> base_type;
-
+        typedef range                           this_type;
+        typedef range_base<T*>                  base_type;
         typedef typename remove_const<T>::type value_type;
         typedef T*                               iterator;
         typedef value_type const*          const_iterator;
@@ -96,6 +100,7 @@ namespace boost { namespace cnv
         const_iterator end () const { return base_type::end_ ? base_type::end_ : (base_type::end_ = base_type::begin_ + size()); }
         sentry_type sentry () const { return sentry_type(); }
         std::size_t   size () const { return std::char_traits<value_type>::length(base_type::begin_); }
+        bool         empty () const { return !*base_type::begin_; }
     };
     template<typename T>
     struct range<T* const, void> : public range<T*>

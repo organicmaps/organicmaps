@@ -8,9 +8,8 @@
 #include "base/exception.hpp"
 #include "base/stl_add.hpp"
 
-#include "std/string.hpp"
-#include "std/type_traits.hpp"
-
+#include <cstddef>
+#include <type_traits>
 
 /// This function writes, using optimal bytes count.
 /// Pass any integral type and it will write platform-independent.
@@ -176,7 +175,7 @@ template <typename T, typename TSink> void WriteVarInt(TSink & dst, T value)
 template <typename T, typename TSource> T ReadVarInt(TSource & src)
 {
   static_assert(is_signed<T>::value, "");
-  return bits::ZigZagDecode(ReadVarUint<typename make_unsigned<T>::type>(src));
+  return bits::ZigZagDecode(ReadVarUint<std::make_unsigned_t<T>>(src));
 }
 
 DECLARE_EXCEPTION(ReadVarIntException, RootException);
@@ -274,3 +273,9 @@ void const * ReadVarUint64Array(void const * pBeg, size_t count, F f)
   return impl::ReadVarInt64Array(pBeg, impl::ReadVarInt64ArrayGivenSize(count), f, IdFunctor());
 }
 
+template <class Cont, class Sink>
+inline void WriteVarUintArray(Cont const & v, Sink & sink)
+{
+  for (size_t i = 0; i != v.size(); ++i)
+    WriteVarUint(sink, v[i]);
+}

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "qt/qtoglcontextfactory.hpp"
+#include "qtoglcontextfactory.hpp"
 
 #include "map/framework.hpp"
 #include "drape_frontend/drape_engine.hpp"

@@ -30,6 +30,7 @@ namespace boost { namespace spirit { namespace x3
       : parser<binary_lit_parser<V, T, endian, bits> >
     {
         static bool const has_attribute = false;
+        typedef unused_type attribute_type;
 
         binary_lit_parser(V n_)
           : n(n_) {}

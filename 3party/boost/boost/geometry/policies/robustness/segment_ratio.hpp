@@ -2,6 +2,10 @@
 
 // Copyright (c) 2013 Barend Gehrels, Amsterdam, the Netherlands.
 
+// This file was modified by Oracle on 2016.
+// Modifications copyright (c) 2016 Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -141,11 +145,10 @@ public :
 
         m_approximation =
             m_denominator == 0 ? 0
-            : boost::numeric_cast<double>
-                (
-                    boost::numeric_cast<fp_type>(m_numerator) * scale()
-                  / boost::numeric_cast<fp_type>(m_denominator)
-                );
+            : (
+                boost::numeric_cast<fp_type>(m_numerator) * scale()
+                / boost::numeric_cast<fp_type>(m_denominator)
+            );
     }
 
     inline bool is_zero() const { return math::equals(m_numerator, 0); }
@@ -183,14 +186,14 @@ public :
             return false;
         }
 
-        static fp_type const small_part_of_scale = scale() / 100.0;
+        static fp_type const small_part_of_scale = scale() / 100;
         return m_approximation < small_part_of_scale
             || m_approximation > scale() - small_part_of_scale;
     }
 
     inline bool close_to(thistype const& other) const
     {
-        return geometry::math::abs(m_approximation - other.m_approximation) < 2;
+        return geometry::math::abs(m_approximation - other.m_approximation) < 50;
     }
 
     inline bool operator< (thistype const& other) const
@@ -232,7 +235,14 @@ public :
 
 
 private :
-    typedef typename promote_floating_point<Type>::type fp_type;
+    // NOTE: if this typedef is used then fp_type is non-fundamental type
+    // if Type is non-fundamental type
+    //typedef typename promote_floating_point<Type>::type fp_type;
+
+    typedef typename boost::mpl::if_c
+        <
+            boost::is_float<Type>::value, Type, double
+        >::type fp_type;
 
     Type m_numerator;
     Type m_denominator;

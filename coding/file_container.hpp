@@ -1,17 +1,22 @@
 #pragma once
+
 #include "coding/file_reader.hpp"
 #include "coding/file_writer.hpp"
 
-#include "std/vector.hpp"
-#include "std/string.hpp"
-#include "std/noncopyable.hpp"
-#include "std/utility.hpp"
+#include "base/assert.hpp"
+#include "base/macros.hpp"
 
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <string>
+#include <utility>
+#include <vector>
 
 class FilesContainerBase
 {
 public:
-  typedef string Tag;
+  using Tag = std::string;
 
   /// Alignment of each new section that will be added to a file
   /// container, i.e. section's offset in bytes will be a multiple of
@@ -25,6 +30,12 @@ public:
     return GetInfo(tag) != 0;
   }
 
+  template <typename ToDo>
+  void ForEachTag(ToDo && toDo) const
+  {
+    std::for_each(m_info.begin(), m_info.end(), std::forward<ToDo>(toDo));
+  }
+
 protected:
   struct Info
   {
@@ -35,10 +46,6 @@ protected:
     Info() {}
     Info(Tag const & tag, uint64_t offset) : m_tag(tag), m_offset(offset) {}
   };
-
-  friend string DebugPrint(Info const & info);
-
-  Info const * GetInfo(Tag const & tag) const;
 
   struct LessInfo
   {
@@ -81,26 +88,26 @@ protected:
 
   class EqualTag
   {
-    Tag const & m_tag;
   public:
     EqualTag(Tag const & tag) : m_tag(tag) {}
     bool operator() (Info const & t) const
     {
       return (t.m_tag == m_tag);
     }
+
+  private:
+    Tag const & m_tag;
   };
 
-  typedef vector<Info> InfoContainer;
+  friend std::string DebugPrint(Info const & info);
+
+  Info const * GetInfo(Tag const & tag) const;
+
+  template <typename Reader>
+  void ReadInfo(Reader & reader);
+
+  using InfoContainer = std::vector<Info>;
   InfoContainer m_info;
-
-  template <class ReaderT>
-  void ReadInfo(ReaderT & reader);
-
-public:
-  template <class ToDo> void ForEachTag(ToDo toDo) const
-  {
-    for_each(m_info.begin(), m_info.end(), toDo);
-  }
 };
 
 class FilesContainerR : public FilesContainerBase
@@ -108,23 +115,24 @@ class FilesContainerR : public FilesContainerBase
 public:
   using TReader = ModelReaderPtr;
 
-  explicit FilesContainerR(string const & filePath,
+  explicit FilesContainerR(std::string const & filePath,
                            uint32_t logPageSize = 10,
                            uint32_t logPageCount = 10);
   explicit FilesContainerR(TReader const & file);
 
   TReader GetReader(Tag const & tag) const;
 
-  template <typename F> void ForEachTag(F f) const
+  template <typename F>
+  void ForEachTag(F && f) const
   {
     for (size_t i = 0; i < m_info.size(); ++i)
       f(m_info[i].m_tag);
   }
 
-  inline uint64_t GetFileSize() const { return m_source.Size(); }
-  inline string const & GetFileName() const { return m_source.GetName(); }
+  uint64_t GetFileSize() const { return m_source.Size(); }
+  std::string const & GetFileName() const { return m_source.GetName(); }
 
-  pair<uint64_t, uint64_t> GetAbsoluteOffsetAndSize(Tag const & tag) const;
+  std::pair<uint64_t, uint64_t> GetAbsoluteOffsetAndSize(Tag const & tag) const;
 
 private:
   TReader m_source;
@@ -134,34 +142,25 @@ namespace detail
 {
 class MappedFile
 {
-  DISALLOW_COPY(MappedFile);
-
 public:
   MappedFile() = default;
   ~MappedFile() { Close(); }
 
-  void Open(string const & fName);
+  void Open(std::string const & fName);
   void Close();
 
   class Handle
   {
-    DISALLOW_COPY(Handle);
-
-    void Reset();
-
   public:
-    Handle()
-      : m_base(0), m_origBase(0), m_size(0), m_origSize(0)
-    {
-    }
+    Handle() = default;
+
     Handle(char const * base, char const * alignBase, uint64_t size, uint64_t origSize)
       : m_base(base), m_origBase(alignBase), m_size(size), m_origSize(origSize)
     {
     }
-    Handle(Handle && h) : Handle()
-    {
-      Assign(move(h));
-    }
+
+    Handle(Handle && h) { Assign(std::move(h)); }
+
     ~Handle();
 
     void Assign(Handle && h);
@@ -171,25 +170,32 @@ public:
     bool IsValid() const { return (m_base != 0); }
     uint64_t GetSize() const { return m_size; }
 
-    template <class T> T const * GetData() const
+    template <typename T>
+    T const * GetData() const
     {
       ASSERT_EQUAL(m_size % sizeof(T), 0, ());
       return reinterpret_cast<T const *>(m_base);
     }
-    template <class T> size_t GetDataCount() const
+
+    template <typename T>
+    size_t GetDataCount() const
     {
       ASSERT_EQUAL(m_size % sizeof(T), 0, ());
       return (m_size / sizeof(T));
     }
 
   private:
-    char const * m_base;
-    char const * m_origBase;
-    uint64_t m_size;
-    uint64_t m_origSize;
+    void Reset();
+
+    char const * m_base = nullptr;
+    char const * m_origBase = nullptr;
+    uint64_t m_size = 0;
+    uint64_t m_origSize = 0;
+
+    DISALLOW_COPY(Handle);
   };
 
-  Handle Map(uint64_t offset, uint64_t size, string const & tag) const;
+  Handle Map(uint64_t offset, uint64_t size, std::string const & tag) const;
 
 private:
 #ifdef OMIM_OS_WINDOWS
@@ -198,46 +204,48 @@ private:
 #else
   int m_fd = -1;
 #endif
-};
 
+  DISALLOW_COPY(MappedFile);
+};
 } // namespace detail
 
 class FilesMappingContainer : public FilesContainerBase
 {
 public:
-  typedef detail::MappedFile::Handle Handle;
+  using Handle = detail::MappedFile::Handle;
 
   /// Do nothing by default, call Open to attach to file.
   FilesMappingContainer() = default;
-  explicit FilesMappingContainer(string const & fName);
+  explicit FilesMappingContainer(std::string const & fName);
 
   ~FilesMappingContainer();
 
-  void Open(string const & fName);
+  void Open(std::string const & fName);
   void Close();
 
   Handle Map(Tag const & tag) const;
   FileReader GetReader(Tag const & tag) const;
 
-  string const & GetName() const { return m_name; }
+  std::string const & GetName() const { return m_name; }
 
 private:
-  string m_name;
+  std::string m_name;
   detail::MappedFile m_file;
 };
 
 class FilesContainerW : public FilesContainerBase
 {
 public:
-  FilesContainerW(string const & fName,
+  FilesContainerW(std::string const & fName,
                   FileWriter::Op op = FileWriter::OP_WRITE_TRUNCATE);
   ~FilesContainerW();
 
   FileWriter GetWriter(Tag const & tag);
 
-  void Write(string const & fPath, Tag const & tag);
+  void Write(std::string const & fPath, Tag const & tag);
   void Write(ModelReaderPtr reader, Tag const & tag);
-  void Write(vector<char> const & buffer, Tag const & tag);
+  void Write(std::vector<char> const & buffer, Tag const & tag);
+  void Write(std::vector<uint8_t> const & buffer, Tag const & tag);
 
   void Finish();
 
@@ -245,7 +253,7 @@ public:
   /// @precondition Container should be opened with FileWriter::OP_WRITE_EXISTING.
   void DeleteSection(Tag const & tag);
 
-  inline string const & GetFileName() const { return m_name; }
+  std::string const & GetFileName() const { return m_name; }
 
 private:
   uint64_t SaveCurrentSize();
@@ -253,7 +261,7 @@ private:
   void Open(FileWriter::Op op);
   void StartNew();
 
-  string m_name;
-  bool m_bNeedRewrite;
-  bool m_bFinished;
+  std::string m_name;
+  bool m_needRewrite;
+  bool m_finished;
 };

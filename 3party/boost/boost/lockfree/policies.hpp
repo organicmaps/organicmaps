@@ -9,10 +9,9 @@
 #ifndef BOOST_LOCKFREE_POLICIES_HPP_INCLUDED
 #define BOOST_LOCKFREE_POLICIES_HPP_INCLUDED
 
-#include <boost/parameter.hpp>
+#include <boost/parameter/aux_/template_keyword.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/size_t.hpp>
-#include <boost/mpl/void.hpp>
 
 namespace boost {
 namespace lockfree {
@@ -56,4 +55,3 @@ struct allocator:
 }
 
 #endif /* BOOST_LOCKFREE_POLICIES_HPP_INCLUDED */
-

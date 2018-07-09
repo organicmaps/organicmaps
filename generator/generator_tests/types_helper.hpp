@@ -5,8 +5,10 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature_data.hpp"
 
-#include "std/string.hpp"
-#include "std/vector.hpp"
+#include "base/stl_add.hpp"
+
+#include <string>
+#include <vector>
 
 
 namespace tests
@@ -18,7 +20,7 @@ inline void AddTypes(FeatureParams & params, char const * (&arr)[N][M])
   Classificator const & c = classif();
 
   for (size_t i = 0; i < N; ++i)
-    params.AddType(c.GetTypeByPath(vector<string>(arr[i], arr[i] + M)));
+    params.AddType(c.GetTypeByPath(std::vector<std::string>(arr[i], arr[i] + M)));
 }
 
 inline void FillXmlElement(char const * arr[][2], size_t count, OsmElement * p)
@@ -30,11 +32,11 @@ inline void FillXmlElement(char const * arr[][2], size_t count, OsmElement * p)
 template <size_t N>
 inline uint32_t GetType(char const * (&arr)[N])
 {
-  vector<string> path(arr, arr + N);
+  std::vector<std::string> path(arr, arr + N);
   return classif().GetTypeByPath(path);
 }
 
-inline uint32_t GetType(StringIL const & lst)
+inline uint32_t GetType(my::StringIL const & lst)
 {
   return classif().GetTypeByPath(lst);
 }

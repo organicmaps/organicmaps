@@ -17,6 +17,7 @@
 
 
 #include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/remove_const.hpp>
 
 

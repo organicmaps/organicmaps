@@ -1,7 +1,0 @@
-#!/usr/bin/env ruby
-require 'twine'
-begin
-  Twine::Runner.run(ARGV)
-rescue Twine::Error => e
-  abort e.message
-end

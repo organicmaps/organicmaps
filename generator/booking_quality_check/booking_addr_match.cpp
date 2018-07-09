@@ -3,7 +3,6 @@
 
 #include "map/framework.hpp"
 
-#include "search/processor_factory.hpp"
 #include "search/ranking_info.hpp"
 #include "search/result.hpp"
 #include "search/search_quality/helpers.hpp"
@@ -12,7 +11,6 @@
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_header.hpp"
-#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "storage/country_info_getter.hpp"
@@ -28,10 +26,10 @@
 #include "platform/local_country_file_utils.hpp"
 #include "platform/platform.hpp"
 
-#include "std/fstream.hpp"
-#include "std/iostream.hpp"
-#include "std/numeric.hpp"
-#include "std/shared_ptr.hpp"
+#include <fstream>
+#include <iostream>
+#include <memory>
+#include <numeric>
 
 #include "3party/gflags/src/gflags/gflags.h"
 
@@ -55,7 +53,7 @@ int main(int argc, char * argv[])
 
   Platform & platform = GetPlatform();
 
-  string countriesFile = COUNTRIES_FILE;
+  std::string countriesFile = COUNTRIES_FILE;
   if (!FLAGS_user_resource_path.empty())
   {
     platform.SetResourceDir(FLAGS_user_resource_path);
@@ -90,14 +88,14 @@ int main(int argc, char * argv[])
     if (hotel.HasAddresParts())
     {
       ++matchedNum;
-      cout << "[" << i << "/" << bookingDataset.Size() << "] Hotel: " << hotel.address
+      std::cout << "[" << i << "/" << bookingDataset.Size() << "] Hotel: " << hotel.address
            << " AddLoc: " << hotel.translations << " --> " << hotel.street << " "
-           << hotel.houseNumber << endl;
+           << hotel.houseNumber << std::endl;
     }
   }
 
-  cout << "Num of hotels: " << bookingDataset.Size() << " matched: " << matchedNum
-       << " Empty addresses: " << emptyAddr << endl;
+  std::cout << "Num of hotels: " << bookingDataset.Size() << " matched: " << matchedNum
+       << " Empty addresses: " << emptyAddr << std::endl;
 
   return 0;
 }

@@ -23,14 +23,13 @@ FileWriter::~FileWriter()
   }
 }
 
-int64_t FileWriter::Pos() const
+uint64_t FileWriter::Pos() const
 {
   return m_pFileData->Pos();
 }
 
-void FileWriter::Seek(int64_t pos)
+void FileWriter::Seek(uint64_t pos)
 {
-  ASSERT_GREATER_OR_EQUAL(pos, 0, ());
   m_pFileData->Seek(pos);
 }
 

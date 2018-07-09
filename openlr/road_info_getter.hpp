@@ -8,7 +8,7 @@
 #include "std/map.hpp"
 
 class Classificator;
-class Index;
+class DataSource;
 
 namespace feature
 {
@@ -28,7 +28,7 @@ public:
     FormOfWay m_fow = FormOfWay::NotAValue;
   };
 
-  RoadInfoGetter(Index const & index);
+  RoadInfoGetter(DataSource const & dataSource);
 
   RoadInfo Get(FeatureID const & fid);
 
@@ -36,7 +36,7 @@ public:
   FunctionalRoadClass GetFunctionalRoadClass(feature::TypesHolder const & types) const;
   FormOfWay GetFormOfWay(feature::TypesHolder const & types) const;
 
-  Index const & m_index;
+  DataSource const & m_dataSource;
   Classificator const & m_c;
 
   TrunkChecker const m_trunkChecker;

@@ -23,8 +23,8 @@ namespace coroutines2 {
 
 template< typename T >
 struct coroutine {
-    typedef detail::pull_coroutine< T >     pull_type;
-    typedef detail::push_coroutine< T >     push_type;
+    using pull_type = detail::pull_coroutine< T >;
+    using push_type = detail::push_coroutine< T >;
 };
 
 template< typename T >

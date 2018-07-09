@@ -3,7 +3,7 @@
 // See http://www.boost.org for updates, documentation, and revision history.
 //-----------------------------------------------------------------------------
 //
-// Copyright (c) 2013-2015 Antony Polukhin
+// Copyright (c) 2013-2017 Antony Polukhin
 //
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
@@ -14,17 +14,17 @@
 
 #include <exception>
 
-#include "boost/config.hpp"
-#include "boost/detail/workaround.hpp"
-#include "boost/static_assert.hpp"
-#include "boost/throw_exception.hpp"
-#include "boost/utility/addressof.hpp"
-#include "boost/variant/variant_fwd.hpp"
-#include "boost/variant/get.hpp"
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
+#include <boost/static_assert.hpp>
+#include <boost/throw_exception.hpp>
+#include <boost/utility/addressof.hpp>
+#include <boost/variant/variant_fwd.hpp>
+#include <boost/variant/get.hpp>
 
-#include "boost/type_traits/add_reference.hpp"
-#include "boost/type_traits/add_pointer.hpp"
-#include "boost/type_traits/is_base_of.hpp"
+#include <boost/type_traits/add_reference.hpp>
+#include <boost/type_traits/add_pointer.hpp>
+#include <boost/type_traits/is_base_of.hpp>
 
 namespace boost {
 
@@ -113,13 +113,15 @@ public: // visitor interfaces
     template <typename U>
     pointer operator()(U& operand) const BOOST_NOEXCEPT
     {
+        typedef typename boost::remove_reference<Base>::type base_t;
         typedef boost::integral_constant<
             bool,
-            boost::mpl::or_<
-                boost::is_base_of<Base, U>,
-                boost::is_same<Base, U>,
-                boost::is_same<typename boost::remove_cv<Base>::type, U >
-            >::value
+            (
+                boost::is_base_of<base_t, U>::value &&
+                (boost::is_const<base_t>::value || !boost::is_const<U>::value)
+            )
+            || boost::is_same<base_t, U>::value
+            || boost::is_same<typename boost::remove_cv<base_t>::type, U >::value
         > tag_t;
 
         return this_type::get(operand, tag_t());

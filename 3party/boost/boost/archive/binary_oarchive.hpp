@@ -32,7 +32,7 @@ namespace archive {
 // do not derive from this class.  If you want to extend this functionality
 // via inhertance, derived from binary_oarchive_impl instead.  This will
 // preserve correct static polymorphism.
-class BOOST_SYMBOL_VISIBLE binary_oarchive :
+class BOOST_SYMBOL_VISIBLE binary_oarchive : 
     public binary_oarchive_impl<
         binary_oarchive, std::ostream::char_type, std::ostream::traits_type
     >

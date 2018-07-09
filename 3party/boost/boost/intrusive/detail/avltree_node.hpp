@@ -22,6 +22,7 @@
 #endif
 
 #include <boost/intrusive/detail/config_begin.hpp>
+#include <boost/intrusive/detail/workaround.hpp>
 #include <boost/intrusive/pointer_rebind.hpp>
 #include <boost/intrusive/avltree_algorithms.hpp>
 #include <boost/intrusive/pointer_plus_bits.hpp>
@@ -68,49 +69,49 @@ struct default_avltree_node_traits_impl
 
    typedef typename node::balance balance;
 
-   static node_ptr get_parent(const const_node_ptr & n)
+   BOOST_INTRUSIVE_FORCEINLINE static node_ptr get_parent(const const_node_ptr & n)
    {  return n->parent_;  }
 
-   static node_ptr get_parent(const node_ptr & n)
+   BOOST_INTRUSIVE_FORCEINLINE static node_ptr get_parent(const node_ptr & n)
    {  return n->parent_;  }
 
-   static void set_parent(const node_ptr & n, const node_ptr & p)
+   BOOST_INTRUSIVE_FORCEINLINE static void set_parent(const node_ptr & n, const node_ptr & p)
    {  n->parent_ = p;  }
 
-   static node_ptr get_left(const const_node_ptr & n)
+   BOOST_INTRUSIVE_FORCEINLINE static node_ptr get_left(const const_node_ptr & n)
    {  return n->left_;  }
 
-   static node_ptr get_left(const node_ptr & n)
+   BOOST_INTRUSIVE_FORCEINLINE static node_ptr get_left(const node_ptr & n)
    {  return n->left_;  }
 
-   static void set_left(const node_ptr & n, const node_ptr & l)
+   BOOST_INTRUSIVE_FORCEINLINE static void set_left(const node_ptr & n, const node_ptr & l)
    {  n->left_ = l;  }
 
-   static node_ptr get_right(const const_node_ptr & n)
+   BOOST_INTRUSIVE_FORCEINLINE static node_ptr get_right(const const_node_ptr & n)
    {  return n->right_;  }
 
-   static node_ptr get_right(const node_ptr & n)
+   BOOST_INTRUSIVE_FORCEINLINE static node_ptr get_right(const node_ptr & n)
    {  return n->right_;  }
 
-   static void set_right(const node_ptr & n, const node_ptr & r)
+   BOOST_INTRUSIVE_FORCEINLINE static void set_right(const node_ptr & n, const node_ptr & r)
    {  n->right_ = r;  }
 
-   static balance get_balance(const const_node_ptr & n)
+   BOOST_INTRUSIVE_FORCEINLINE static balance get_balance(const const_node_ptr & n)
    {  return n->balance_;  }
 
-   static balance get_balance(const node_ptr & n)
+   BOOST_INTRUSIVE_FORCEINLINE static balance get_balance(const node_ptr & n)
    {  return n->balance_;  }
 
-   static void set_balance(const node_ptr & n, balance b)
+   BOOST_INTRUSIVE_FORCEINLINE static void set_balance(const node_ptr & n, balance b)
    {  n->balance_ = b;  }
 
-   static balance negative()
+   BOOST_INTRUSIVE_FORCEINLINE static balance negative()
    {  return node::negative_t;  }
 
-   static balance zero()
+   BOOST_INTRUSIVE_FORCEINLINE static balance zero()
    {  return node::zero_t;  }
 
-   static balance positive()
+   BOOST_INTRUSIVE_FORCEINLINE static balance positive()
    {  return node::positive_t;  }
 };
 
@@ -126,37 +127,37 @@ struct compact_avltree_node_traits_impl
 
    typedef pointer_plus_bits<node_ptr, 2> ptr_bit;
 
-   static node_ptr get_parent(const const_node_ptr & n)
+   BOOST_INTRUSIVE_FORCEINLINE static node_ptr get_parent(const const_node_ptr & n)
    {  return ptr_bit::get_pointer(n->parent_);  }
 
-   static void set_parent(const node_ptr & n, const node_ptr & p)
+   BOOST_INTRUSIVE_FORCEINLINE static void set_parent(const node_ptr & n, const node_ptr & p)
    {  ptr_bit::set_pointer(n->parent_, p);  }
 
-   static node_ptr get_left(const const_node_ptr & n)
+   BOOST_INTRUSIVE_FORCEINLINE static node_ptr get_left(const const_node_ptr & n)
    {  return n->left_;  }
 
-   static void set_left(const node_ptr & n, const node_ptr & l)
+   BOOST_INTRUSIVE_FORCEINLINE static void set_left(const node_ptr & n, const node_ptr & l)
    {  n->left_ = l;  }
 
-   static node_ptr get_right(const const_node_ptr & n)
+   BOOST_INTRUSIVE_FORCEINLINE static node_ptr get_right(const const_node_ptr & n)
    {  return n->right_;  }
 
-   static void set_right(const node_ptr & n, const node_ptr & r)
+   BOOST_INTRUSIVE_FORCEINLINE static void set_right(const node_ptr & n, const node_ptr & r)
    {  n->right_ = r;  }
 
-   static balance get_balance(const const_node_ptr & n)
+   BOOST_INTRUSIVE_FORCEINLINE static balance get_balance(const const_node_ptr & n)
    {  return (balance)ptr_bit::get_bits(n->parent_);  }
 
-   static void set_balance(const node_ptr & n, balance b)
+   BOOST_INTRUSIVE_FORCEINLINE static void set_balance(const node_ptr & n, balance b)
    {  ptr_bit::set_bits(n->parent_, (std::size_t)b);  }
 
-   static balance negative()
+   BOOST_INTRUSIVE_FORCEINLINE static balance negative()
    {  return node::negative_t;  }
 
-   static balance zero()
+   BOOST_INTRUSIVE_FORCEINLINE static balance zero()
    {  return node::zero_t;  }
 
-   static balance positive()
+   BOOST_INTRUSIVE_FORCEINLINE static balance positive()
    {  return node::positive_t;  }
 };
 

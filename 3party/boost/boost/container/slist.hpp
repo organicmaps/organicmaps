@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2013. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2015. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -216,7 +216,7 @@ class slist
    //! <b>Throws</b>: If allocator_type's copy constructor throws.
    //!
    //! <b>Complexity</b>: Constant.
-   slist()
+   slist() BOOST_NOEXCEPT_IF(container_detail::is_nothrow_default_constructible<Allocator>::value)
       :  AllocHolder()
    {}
 
@@ -303,7 +303,7 @@ class slist
    //! <b>Throws</b>: If allocator_type's copy constructor throws.
    //!
    //! <b>Complexity</b>: Constant.
-   slist(BOOST_RV_REF(slist) x)
+   slist(BOOST_RV_REF(slist) x) BOOST_NOEXCEPT_OR_NOTHROW
       : AllocHolder(BOOST_MOVE_BASE(AllocHolder, x))
    {}
 
@@ -379,7 +379,7 @@ class slist
    //! <b>Complexity</b>: Constant if allocator_traits_type::
    //!   propagate_on_container_move_assignment is true or
    //!   this->get>allocator() == x.get_allocator(). Linear otherwise.
-   slist& operator= (BOOST_RV_REF(slist) x)
+   slist& operator=(BOOST_RV_REF(slist) x)
       BOOST_NOEXCEPT_IF(allocator_traits_type::propagate_on_container_move_assignment::value
                                   || allocator_traits_type::is_always_equal::value)
    {
@@ -684,7 +684,10 @@ class slist
    //!
    //! <b>Complexity</b>: Constant.
    reference front()
-   {  return *this->begin();  }
+   {
+      BOOST_ASSERT(!this->empty());
+      return *this->begin();
+   }
 
    //! <b>Requires</b>: !empty()
    //!
@@ -695,7 +698,10 @@ class slist
    //!
    //! <b>Complexity</b>: Constant.
    const_reference front() const
-   {  return *this->begin();  }
+   {
+      BOOST_ASSERT(!this->empty());
+      return *this->begin();
+   }
 
    //////////////////////////////////////////////
    //
@@ -708,13 +714,15 @@ class slist
    //! <b>Effects</b>: Inserts an object of type T constructed with
    //!   std::forward<Args>(args)... in the front of the list
    //!
+   //! <b>Returns</b>: A reference to the created object.
+   //!
    //! <b>Throws</b>: If memory allocation throws or
    //!   T's copy constructor throws.
    //!
    //! <b>Complexity</b>: Amortized constant time.
    template <class... Args>
-   void emplace_front(BOOST_FWD_REF(Args)... args)
-   {  this->emplace_after(this->cbefore_begin(), boost::forward<Args>(args)...); }
+   reference emplace_front(BOOST_FWD_REF(Args)... args)
+   {  return *this->emplace_after(this->cbefore_begin(), boost::forward<Args>(args)...); }
 
    //! <b>Effects</b>: Inserts an object of type T constructed with
    //!   std::forward<Args>(args)... after prev
@@ -734,8 +742,8 @@ class slist
 
    #define BOOST_CONTAINER_SLIST_EMPLACE_CODE(N) \
    BOOST_MOVE_TMPL_LT##N BOOST_MOVE_CLASS##N BOOST_MOVE_GT##N \
-   void emplace_front(BOOST_MOVE_UREF##N)\
-   {  this->emplace_after(this->cbefore_begin() BOOST_MOVE_I##N BOOST_MOVE_FWD##N);}\
+   reference emplace_front(BOOST_MOVE_UREF##N)\
+   {  return *this->emplace_after(this->cbefore_begin() BOOST_MOVE_I##N BOOST_MOVE_FWD##N);}\
    \
    BOOST_MOVE_TMPL_LT##N BOOST_MOVE_CLASS##N BOOST_MOVE_GT##N \
    iterator emplace_after(const_iterator p BOOST_MOVE_I##N BOOST_MOVE_UREF##N)\
@@ -788,7 +796,7 @@ class slist
    //! <b>Requires</b>: prev_p must be a valid iterator of *this.
    //!
    //! <b>Effects</b>: Inserts a move constructed copy object from the value after the
-   //!    p pointed by prev_p.
+   //!    element pointed by prev_p.
    //!
    //! <b>Returns</b>: An iterator to the inserted element.
    //!
@@ -897,7 +905,10 @@ class slist
    //!
    //! <b>Complexity</b>: Amortized constant time.
    void pop_front()
-   {  this->icont().pop_front_and_dispose(Destroyer(this->node_alloc()));      }
+   {
+      BOOST_ASSERT(!this->empty());
+      this->icont().pop_front_and_dispose(Destroyer(this->node_alloc()));
+   }
 
    //! <b>Effects</b>: Erases the element after the element pointed by prev_p
    //!    of the list.
@@ -939,7 +950,12 @@ class slist
    void swap(slist& x)
       BOOST_NOEXCEPT_IF( allocator_traits_type::propagate_on_container_swap::value
                                 || allocator_traits_type::is_always_equal::value)
-   {  AllocHolder::swap(x);   }
+   {
+      BOOST_ASSERT(allocator_traits_type::propagate_on_container_swap::value ||
+                   allocator_traits_type::is_always_equal::value ||
+                   this->get_stored_allocator() == x.get_stored_allocator());
+      AllocHolder::swap(x);
+   }
 
    //! <b>Effects</b>: Erases all the elements of the list.
    //!
@@ -1390,7 +1406,7 @@ class slist
 
    //! <b>Requires</b>: p must be a valid iterator of *this.
    //!
-   //! <b>Effects</b>: Erases the element at p p.
+   //! <b>Effects</b>: Erases the element at p.
    //!
    //! <b>Throws</b>: Nothing.
    //!
@@ -1444,7 +1460,7 @@ class slist
    //!   this' allocator and x's allocator shall compare equal
    //!
    //! <b>Effects</b>: Transfers the value pointed by i, from list x to this list,
-   //!   before the the element pointed by p. No destructors or copy constructors are called.
+   //!   before the element pointed by p. No destructors or copy constructors are called.
    //!   If p == i or p == ++i, this function is a null operation.
    //!
    //! <b>Throws</b>: Nothing
@@ -1461,7 +1477,7 @@ class slist
    //!   this' allocator and x's allocator shall compare equal.
    //!
    //! <b>Effects</b>: Transfers the value pointed by i, from list x to this list,
-   //!   before the the element pointed by p. No destructors or copy constructors are called.
+   //!   before the element pointed by p. No destructors or copy constructors are called.
    //!   If p == i or p == ++i, this function is a null operation.
    //!
    //! <b>Throws</b>: Nothing
@@ -1477,7 +1493,7 @@ class slist
    //!   by this list. first and last must point to elements contained in list x.
    //!
    //! <b>Effects</b>: Transfers the range pointed by first and last from list x to this list,
-   //!   before the the element pointed by p. No destructors or copy constructors are called.
+   //!   before the element pointed by p. No destructors or copy constructors are called.
    //!   this' allocator and x's allocator shall compare equal.
    //!
    //! <b>Throws</b>: Nothing
@@ -1495,7 +1511,7 @@ class slist
    //!   this' allocator and x's allocator shall compare equal
    //!
    //! <b>Effects</b>: Transfers the range pointed by first and last from list x to this list,
-   //!   before the the element pointed by p. No destructors or copy constructors are called.
+   //!   before the element pointed by p. No destructors or copy constructors are called.
    //!
    //! <b>Throws</b>: Nothing
    //!
@@ -1652,30 +1668,26 @@ struct has_trivial_destructor_after_move<boost::container::slist<T, Allocator> >
 
 namespace container {
 
-#endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
-
 }} //namespace boost{  namespace container {
+
+#endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 
 // Specialization of insert_iterator so that insertions will be constant
 // time rather than linear time.
 
-#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
+#include <boost/move/detail/std_ns_begin.hpp>
+BOOST_CONTAINER_DOC1ST(namespace std {, BOOST_MOVE_STD_NS_BEG)
 
-#if defined(__clang__) && defined(_LIBCPP_VERSION)
-   #define BOOST_CONTAINER_CLANG_INLINE_STD_NS
-   #pragma GCC diagnostic push
-   #pragma GCC diagnostic ignored "-Wc++11-extensions"
-#endif
-
-BOOST_CONTAINER_STD_NS_BEG
-
+//! A specialization of insert_iterator
+//! that works with slist
 template <class T, class Allocator>
 class insert_iterator<boost::container::slist<T, Allocator> >
 {
- protected:
+   private:
    typedef boost::container::slist<T, Allocator> Container;
    Container* container;
    typename Container::iterator iter;
+
    public:
    typedef Container           container_type;
    typedef output_iterator_tag iterator_category;
@@ -1700,14 +1712,8 @@ class insert_iterator<boost::container::slist<T, Allocator> >
    insert_iterator<Container>& operator++(int){ return *this; }
 };
 
-BOOST_CONTAINER_STD_NS_END
-
-#ifdef BOOST_CONTAINER_CLANG_INLINE_STD_NS
-   #pragma GCC diagnostic pop
-   #undef BOOST_CONTAINER_CLANG_INLINE_STD_NS
-#endif   //BOOST_CONTAINER_CLANG_INLINE_STD_NS
-
-#endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
+BOOST_CONTAINER_DOC1ST( }, BOOST_MOVE_STD_NS_END)
+#include <boost/move/detail/std_ns_end.hpp>
 
 #include <boost/container/detail/config_end.hpp>
 

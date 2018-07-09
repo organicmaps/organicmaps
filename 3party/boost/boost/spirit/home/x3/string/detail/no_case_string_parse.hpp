@@ -35,7 +35,7 @@ namespace boost { namespace spirit { namespace x3 { namespace detail
         }
         string_type lower;
         string_type upper;
-
+        
     };
 
     template <typename String, typename Iterator, typename Attribute>

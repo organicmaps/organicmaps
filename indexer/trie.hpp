@@ -3,8 +3,12 @@
 #include "base/assert.hpp"
 #include "base/base.hpp"
 #include "base/buffer_vector.hpp"
+#include "base/mem_trie.hpp"
+#include "base/stl_add.hpp"
 
-#include "std/unique_ptr.hpp"
+#include <cstddef>
+#include <memory>
+#include <vector>
 
 namespace trie
 {
@@ -15,41 +19,81 @@ using TrieChar = uint32_t;
 // However 0 is used because the first byte is actually language id.
 uint32_t constexpr kDefaultChar = 0;
 
-template <typename TValueList>
-class Iterator
+template <typename ValueList>
+struct Iterator
 {
-
-public:
-  using TValue = typename TValueList::TValue;
+  using List = ValueList;
+  using Value = typename List::Value;
 
   struct Edge
   {
-    using TEdgeLabel = buffer_vector<TrieChar, 8>;
-    TEdgeLabel m_label;
-  };
+    using EdgeLabel = buffer_vector<TrieChar, 8>;
 
-  buffer_vector<Edge, 8> m_edge;
-  TValueList m_valueList;
+    Edge() = default;
+
+    template <typename It>
+    Edge(It begin, It end): m_label(begin, end) {}
+
+    EdgeLabel m_label;
+  };
 
   virtual ~Iterator() = default;
 
-  virtual unique_ptr<Iterator<TValueList>> Clone() const = 0;
-  virtual unique_ptr<Iterator<TValueList>> GoToEdge(size_t i) const = 0;
+  virtual std::unique_ptr<Iterator<ValueList>> Clone() const = 0;
+  virtual std::unique_ptr<Iterator<ValueList>> GoToEdge(size_t i) const = 0;
+
+  buffer_vector<Edge, 8> m_edges;
+  List m_values;
 };
 
-template <typename TValueList, typename TF, typename TString>
-void ForEachRef(Iterator<TValueList> const & it, TF && f, TString const & s)
+template <typename String, typename ValueList>
+class MemTrieIterator final : public trie::Iterator<ValueList>
 {
-  it.m_valueList.ForEach([&f, &s](typename TValueList::TValue const & value)
-                         {
-                           f(s, value);
-                         });
-  for (size_t i = 0; i < it.m_edge.size(); ++i)
+public:
+  using Base = trie::Iterator<ValueList>;
+
+  using Char = typename String::value_type;
+  using InnerIterator = typename base::MemTrie<String, ValueList>::Iterator;
+
+  explicit MemTrieIterator(InnerIterator const & innerIt)
   {
-    TString s1(s);
-    s1.insert(s1.end(), it.m_edge[i].m_label.begin(), it.m_edge[i].m_label.end());
+    Base::m_values = innerIt.GetValues();
+    innerIt.ForEachMove([&](Char c, InnerIterator it) {
+      auto const label = it.GetLabel();
+      Base::m_edges.emplace_back();
+      auto & edge = Base::m_edges.back().m_label;
+      edge.push_back(c);
+      edge.append(label);
+      m_moves.push_back(it);
+    });
+  }
+
+  ~MemTrieIterator() override = default;
+
+  // Iterator<ValueList> overrides:
+  std::unique_ptr<Base> Clone() const override { return my::make_unique<MemTrieIterator>(*this); }
+
+  std::unique_ptr<Base> GoToEdge(size_t i) const override
+  {
+    ASSERT_LESS(i, m_moves.size(), ());
+    return my::make_unique<MemTrieIterator>(m_moves[i]);
+  }
+
+private:
+  std::vector<InnerIterator> m_moves;
+};
+
+template <typename ValueList, typename ToDo, typename String>
+void ForEachRef(Iterator<ValueList> const & it, ToDo && toDo, String const & s)
+{
+  it.m_values.ForEach([&toDo, &s](typename ValueList::Value const & value) { toDo(s, value); });
+
+  for (size_t i = 0; i < it.m_edges.size(); ++i)
+  {
+    String s1(s);
+    s1.insert(s1.end(), it.m_edges[i].m_label.begin(), it.m_edges[i].m_label.end());
     auto nextIt = it.GoToEdge(i);
-    ForEachRef(*nextIt, f, s1);
+    ForEachRef(*nextIt, toDo, s1);
   }
 }
 }  // namespace trie

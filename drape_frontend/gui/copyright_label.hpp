@@ -1,16 +1,15 @@
 #pragma once
 
-#include "shape.hpp"
+#include "drape_frontend/gui/shape.hpp"
 
 namespace gui
 {
-
 class CopyrightLabel : public Shape
 {
   using TBase = Shape;
+
 public:
-  CopyrightLabel(gui::Position const & position);
+  explicit CopyrightLabel(gui::Position const & position);
   drape_ptr<ShapeRenderer> Draw(m2::PointF & size, ref_ptr<dp::TextureManager> tex) const;
 };
-
-}
+}  // namespace gui

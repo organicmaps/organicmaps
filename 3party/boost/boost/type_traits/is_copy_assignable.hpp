@@ -18,7 +18,7 @@
    && !defined(BOOST_INTEL_CXX_VERSION) && \
       !(defined(BOOST_MSVC) && _MSC_VER == 1800)
 #define BOOST_TT_CXX11_IS_COPY_ASSIGNABLE
-#include <boost/utility/declval.hpp>
+#include <boost/type_traits/declval.hpp>
 #else
    //For compilers without decltype
    #include <boost/type_traits/is_const.hpp>
@@ -26,10 +26,6 @@
    #include <boost/type_traits/add_reference.hpp>
    #include <boost/type_traits/remove_reference.hpp>
 #endif
-
-
-// should be the last #include
-#include <boost/type_traits/detail/bool_trait_def.hpp>
 
 namespace boost {
 
@@ -42,7 +38,7 @@ struct is_copy_assignable_impl2 {
 //
 // error: function *function_name* cannot be referenced -- it is a deleted function
 // static boost::type_traits::yes_type test(T1&, decltype(T1(boost::declval<T1&>()))* = 0);
-//                                                        ^
+//                                                        ^ 
 //
 // MSVC 12.0 (Visual 2013) has problems when the copy constructor has been deleted. See:
 // https://connect.microsoft.com/VisualStudio/feedback/details/800328/std-is-copy-constructible-is-broken
@@ -132,16 +128,14 @@ struct is_copy_assignable_impl {
 
 } // namespace detail
 
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_copy_assignable,T,::boost::detail::is_copy_assignable_impl<T>::value)
-BOOST_TT_AUX_BOOL_TRAIT_SPEC1(is_copy_assignable,void,false)
+template <class T> struct is_copy_assignable : public integral_constant<bool, ::boost::detail::is_copy_assignable_impl<T>::value>{};
+template <> struct is_copy_assignable<void> : public false_type{};
 #ifndef BOOST_NO_CV_VOID_SPECIALIZATIONS
-BOOST_TT_AUX_BOOL_TRAIT_SPEC1(is_copy_assignable,void const,false)
-BOOST_TT_AUX_BOOL_TRAIT_SPEC1(is_copy_assignable,void const volatile,false)
-BOOST_TT_AUX_BOOL_TRAIT_SPEC1(is_copy_assignable,void volatile,false)
+template <> struct is_copy_assignable<void const> : public false_type{};
+template <> struct is_copy_assignable<void const volatile> : public false_type{};
+template <> struct is_copy_assignable<void volatile> : public false_type{};
 #endif
 
 } // namespace boost
-
-#include <boost/type_traits/detail/bool_trait_undef.hpp>
 
 #endif // BOOST_TT_IS_COPY_ASSIGNABLE_HPP_INCLUDED

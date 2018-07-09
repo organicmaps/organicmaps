@@ -23,7 +23,7 @@
 #include <boost/geometry/geometries/concepts/polygon_concept.hpp>
 
 
-namespace boost { namespace geometry { namespace concept
+namespace boost { namespace geometry { namespace concepts
 {
 
 
@@ -44,7 +44,7 @@ class MultiPolygon
 #ifndef DOXYGEN_NO_CONCEPT_MEMBERS
     typedef typename boost::range_value<Geometry>::type polygon_type;
 
-    BOOST_CONCEPT_ASSERT( (concept::Polygon<polygon_type>) );
+    BOOST_CONCEPT_ASSERT( (concepts::Polygon<polygon_type>) );
     BOOST_CONCEPT_ASSERT( (boost::RandomAccessRangeConcept<Geometry>) );
 
 
@@ -72,7 +72,7 @@ class ConstMultiPolygon
 #ifndef DOXYGEN_NO_CONCEPT_MEMBERS
     typedef typename boost::range_value<Geometry>::type polygon_type;
 
-    BOOST_CONCEPT_ASSERT( (concept::ConstPolygon<polygon_type>) );
+    BOOST_CONCEPT_ASSERT( (concepts::ConstPolygon<polygon_type>) );
     BOOST_CONCEPT_ASSERT( (boost::RandomAccessRangeConcept<Geometry>) );
 
 
@@ -85,7 +85,7 @@ public :
 };
 
 
-}}} // namespace boost::geometry::concept
+}}} // namespace boost::geometry::concepts
 
 
 #endif // BOOST_GEOMETRY_GEOMETRIES_CONCEPTS_MULTI_POLYGON_CONCEPT_HPP

@@ -13,14 +13,15 @@
 #include <boost/iostreams/detail/config/wide_streams.hpp>
 #include <cstddef>
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif       
 
 //------------------Support for codecvt with user-defined state types---------//
 
 #if defined(__MSL_CPP__) || defined(__LIBCOMO__) || \
-    BOOST_WORKAROUND(_STLPORT_VERSION, <= 0x450) \
+    BOOST_WORKAROUND(_STLPORT_VERSION, <= 0x450) || \
+    defined(_LIBCPP_VERSION) \
     /**/
 # define BOOST_IOSTREAMS_NO_PRIMARY_CODECVT_DEFINITION
 #endif

@@ -59,7 +59,7 @@ void StreetsMatcher::FindStreets(BaseContext const & ctx, FeaturesFilter const &
 {
   for (size_t startToken = 0; startToken < ctx.m_numTokens; ++startToken)
   {
-    if (ctx.m_usedTokens[startToken])
+    if (ctx.IsTokenUsed(startToken))
       continue;
 
     // Here we try to match as many tokens as possible while
@@ -150,7 +150,7 @@ void StreetsMatcher::FindStreets(BaseContext const & ctx, FeaturesFilter const &
                                 incomplete = false;
                               });
 
-    for (; curToken < ctx.m_numTokens && !ctx.m_usedTokens[curToken] && !streets.IsEmpty();
+    for (; curToken < ctx.m_numTokens && !ctx.IsTokenUsed(curToken) && !streets.IsEmpty();
          ++curToken)
     {
       auto const & token = params.GetToken(curToken).m_original;

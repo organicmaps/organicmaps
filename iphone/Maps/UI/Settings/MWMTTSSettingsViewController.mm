@@ -1,6 +1,6 @@
 #import "MWMTTSSettingsViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import "MWMTextToSpeech.h"
+#import "MWMTextToSpeech+CPP.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 #import "WebViewController.h"
@@ -13,8 +13,8 @@ using namespace locale_translator;
 
 @interface MWMTTSSettingsViewController ()
 {
-  pair<string, string> _additionalTTSLanguage;
-  vector<pair<string, string>> _languages;
+  std::pair<std::string, std::string> _additionalTTSLanguage;
+  std::vector<std::pair<std::string, std::string>> _languages;
 }
 
 @property(nonatomic) BOOL isLocaleLanguageAbsent;
@@ -38,7 +38,7 @@ using namespace locale_translator;
 
   using namespace tts;
   NSString * currentBcp47 = [AVSpeechSynthesisVoice currentLanguageCode];
-  string const currentBcp47Str = [currentBcp47 UTF8String];
+  string const currentBcp47Str = currentBcp47.UTF8String;
   string const currentTwineStr = bcp47ToTwineLanguage(currentBcp47);
   if (currentBcp47Str != standart.first && !currentBcp47Str.empty())
   {
@@ -190,14 +190,14 @@ using namespace locale_translator;
   {
     [Statistics logEvent:kStatEventName(kStatTTSSettings, kStatHelp)];
     NSString * path =
-        [[NSBundle mainBundle] pathForResource:@"tts-how-to-set-up-voice" ofType:@"html"];
+        [NSBundle.mainBundle pathForResource:@"tts-how-to-set-up-voice" ofType:@"html"];
     NSString * html =
         [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     NSURL * baseURL = [NSURL fileURLWithPath:path];
     WebViewController * vc =
         [[WebViewController alloc] initWithHtml:html
                                         baseUrl:baseURL
-                                  andTitleOrNil:L(@"pref_tts_how_to_set_up_voice")];
+                                          title:L(@"pref_tts_how_to_set_up_voice")];
     [self.navigationController pushViewController:vc animated:YES];
   }
 }

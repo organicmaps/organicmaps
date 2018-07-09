@@ -1,16 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="23px" viewBox="0 0 24 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-    <title>cafe-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard-1" transform="translate(-174.000000, -547.000000)">
-            <g id="cafe-m" transform="translate(174.500000, 547.000000)">
-                <ellipse id="Oval-1" fill-opacity="0.1" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-                <ellipse id="Oval-1" fill="#332714" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-                <path d="M14.9976807,7 L14.9976807,6 L5.99768066,6 L5.99768066,12.0657288 C5.99768066,13.4679565 7.00598147,14.5 8.49768066,14.5 L12.4976807,14.5 C14.0151369,14.5 14.9976807,13.3682861 14.9976807,13 L16.7441423,13 C17.4377333,13 18,12.4462891 18,11.7567961 L18,8.24320388 C18,7.55660134 17.4493284,7 16.7441423,7 L14.9976807,7 Z M14.9976807,11.75 L14.9976807,8.25 L16.7476807,8.25 L16.7476807,11.75 L14.9976807,11.75 Z M6.49768066,17 L14.4976807,17 L16,15.5 L5,15.5 L6.49768066,17 Z" id="Shape" fill-opacity="0.7" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg height="24" viewBox="0 0 24 24" width="24"><g fill="none" fill-rule="evenodd"><circle cx="12" cy="12" fill="#fff" opacity=".4" r="12"/><circle cx="12" cy="12" fill="#6e5626" r="11"/><path d="m11.4 5c0 .76666668-.13125.76875-.43125 1.06875s-.76875.89791668-.76875 1.93125h1.2c0-.76666668.13125-.76875.43125-1.06875s.76875-.89791668.76875-1.93125zm2.2125.6c0 1.44-1.0125 1.44-1.0125 2.4h1.2c0-.9 1.0125-.78 1.0125-2.4zm-5.8125 3v3.6c0 1.32 1.08 2.4 2.4 2.4h3.6c1.14048 0 2.0846148-.8043456 2.325-1.875 1.0732542-.2392848 1.875-1.1794374 1.875-2.325v-.6c0-.31333332-.1112814-.6362817-.3375-.8625s-.5491668-.3375-.8625-.3375h-.6-4.2zm8.4 1.2h.6v.6c0 .4860648-.2310408.8566566-.6 1.05zm-10.2 5.4c0 1.02.78 1.8 1.8 1.8h8.4c1.02 0 1.8-.78 1.8-1.8z" fill="#fff" fill-rule="nonzero" opacity=".6"/></g></svg>

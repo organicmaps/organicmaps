@@ -122,27 +122,27 @@
 //
 // This section allows dependency scanners to find all the headers we *might* include:
 //
-#include "boost/config/compiler/gcc_xml.hpp"
-#include "boost/config/compiler/cray.hpp"
-#include "boost/config/compiler/comeau.hpp"
-#include "boost/config/compiler/pathscale.hpp"
-#include "boost/config/compiler/intel.hpp"
-#include "boost/config/compiler/clang.hpp"
-#include "boost/config/compiler/digitalmars.hpp"
-#include "boost/config/compiler/gcc.hpp"
-#include "boost/config/compiler/kai.hpp"
-#include "boost/config/compiler/sgi_mipspro.hpp"
-#include "boost/config/compiler/compaq_cxx.hpp"
-#include "boost/config/compiler/greenhills.hpp"
-#include "boost/config/compiler/codegear.hpp"
-#include "boost/config/compiler/borland.hpp"
-#include "boost/config/compiler/metrowerks.hpp"
-#include "boost/config/compiler/sunpro_cc.hpp"
-#include "boost/config/compiler/hp_acc.hpp"
-#include "boost/config/compiler/mpw.hpp"
-#include "boost/config/compiler/vacpp.hpp"
-#include "boost/config/compiler/pgi.hpp"
-#include "boost/config/compiler/visualc.hpp"
+#include <boost/config/compiler/gcc_xml.hpp>
+#include <boost/config/compiler/cray.hpp>
+#include <boost/config/compiler/comeau.hpp>
+#include <boost/config/compiler/pathscale.hpp>
+#include <boost/config/compiler/intel.hpp>
+#include <boost/config/compiler/clang.hpp>
+#include <boost/config/compiler/digitalmars.hpp>
+#include <boost/config/compiler/gcc.hpp>
+#include <boost/config/compiler/kai.hpp>
+#include <boost/config/compiler/sgi_mipspro.hpp>
+#include <boost/config/compiler/compaq_cxx.hpp>
+#include <boost/config/compiler/greenhills.hpp>
+#include <boost/config/compiler/codegear.hpp>
+#include <boost/config/compiler/borland.hpp>
+#include <boost/config/compiler/metrowerks.hpp>
+#include <boost/config/compiler/sunpro_cc.hpp>
+#include <boost/config/compiler/hp_acc.hpp>
+#include <boost/config/compiler/mpw.hpp>
+#include <boost/config/compiler/vacpp.hpp>
+#include <boost/config/compiler/pgi.hpp>
+#include <boost/config/compiler/visualc.hpp>
 
 #endif
 

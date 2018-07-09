@@ -14,7 +14,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/classificator_loader.hpp"
 
-#include "std/iostream.hpp"
+#include <iostream>
 
 using namespace tests;
 
@@ -42,11 +42,11 @@ UNIT_TEST(OsmType_SkipDummy)
 
 namespace
 {
-  void DumpTypes(vector<uint32_t> const & v)
+  void DumpTypes(std::vector<uint32_t> const & v)
   {
     Classificator const & c = classif();
     for (size_t i = 0; i < v.size(); ++i)
-      cout << c.GetFullObjectName(v[i]) << endl;
+      std::cout << c.GetFullObjectName(v[i]) << std::endl;
   }
 
   void DumpParsedTypes(char const * arr[][2], size_t count)
@@ -60,7 +60,8 @@ namespace
     DumpTypes(params.m_Types);
   }
 
-  void TestSurfaceTypes(string const & surface, string const & smoothness, string const & grade, char const * value)
+  void TestSurfaceTypes(std::string const & surface, std::string const & smoothness,
+                        std::string const & grade, char const * value)
   {
     OsmElement e;
     e.AddTag("highway", "unclassified");
@@ -73,10 +74,10 @@ namespace
 
     TEST_EQUAL(params.m_Types.size(), 2, (params));
     TEST(params.IsTypeExist(GetType({"highway", "unclassified"})), ());
-    string psurface;
+    std::string psurface;
     for (auto type : params.m_Types)
     {
-      string const rtype = classif().GetReadableObjectName(type);
+      std::string const rtype = classif().GetReadableObjectName(type);
       if (rtype.substr(0, 9) == "psurface-")
         psurface = rtype.substr(9);
     }
@@ -141,7 +142,7 @@ UNIT_TEST(OsmType_Combined)
   TEST(params.IsTypeExist(GetType(arr[3])), ());
   TEST(params.IsTypeExist(GetType({"building"})), ());
 
-  string s;
+  std::string s;
   params.name.GetString(0, s);
   TEST_EQUAL(s, arr[5][1], ());
 
@@ -195,7 +196,7 @@ UNIT_TEST(OsmType_PlaceState)
   TEST_EQUAL(params.m_Types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"place", "state", "USA"})), ());
 
-  string s;
+  std::string s;
   TEST(params.name.GetString(0, s), ());
   TEST_EQUAL(s, "California", ());
   TEST_GREATER(params.rank, 1, ());
@@ -254,6 +255,7 @@ UNIT_TEST(OsmType_Synonyms)
       { "building", "yes" },
       { "shop", "yes" },
       { "atm", "yes" },
+      { "toilets", "yes" },
       { "restaurant", "yes" },
       { "hotel", "yes" },
     };
@@ -272,13 +274,15 @@ UNIT_TEST(OsmType_Synonyms)
     char const * arrT3[] = { "shop" };
     char const * arrT4[] = { "amenity", "restaurant" };
     char const * arrT5[] = { "tourism", "hotel" };
-    TEST_EQUAL(params.m_Types.size(), 5, (params));
+    char const * arrT6[] = { "amenity", "toilets" };
+    TEST_EQUAL(params.m_Types.size(), 6, (params));
 
     TEST(params.IsTypeExist(GetType(arrT1)), ());
     TEST(params.IsTypeExist(GetType(arrT2)), ());
     TEST(params.IsTypeExist(GetType(arrT3)), ());
     TEST(params.IsTypeExist(GetType(arrT4)), ());
     TEST(params.IsTypeExist(GetType(arrT5)), ());
+    TEST(params.IsTypeExist(GetType(arrT6)), ());
   }
 
   // Duplicating test.
@@ -619,7 +623,7 @@ UNIT_TEST(OsmType_Ferry)
 
   type = GetType({"route", "ferry"});
   TEST(!params.IsTypeExist(type), ());
-  TEST(!carModel.IsRoadType(type), ());
+  TEST(carModel.IsRoadType(type), ());
 
   type = GetType({"hwtag", "yescar"});
   TEST(params.IsTypeExist(type), ());
@@ -667,7 +671,7 @@ UNIT_TEST(OsmType_Dibrugarh)
 
   TEST_EQUAL(params.m_Types.size(), 1, (params));
   TEST(params.IsTypeExist(GetType({"place", "city"})), (params));
-  string name;
+  std::string name;
   TEST(params.name.GetString(StringUtf8Multilang::kDefaultCode, name), (params));
   TEST_EQUAL(name, "Dibrugarh", (params));
 }
@@ -867,4 +871,35 @@ UNIT_TEST(OsmType_Moscow)
     TEST(170 <= params.rank && params.rank <= 180, (params));
     TEST(!params.name.IsEmpty(), (params));
   }
+}
+
+UNIT_TEST(OsmType_Translations)
+{
+  char const * arr[][2] = {
+    { "name", "Paris" },
+    { "name:ru", "Париж" },
+    { "name:en", "Paris" },
+    { "name:en:pronunciation", "ˈpæɹ.ɪs" },
+    { "name:fr:pronunciation", "paʁi" },
+    { "place", "city" },
+    { "population", "2243833" }
+  };
+
+  OsmElement e;
+  FillXmlElement(arr, ARRAY_SIZE(arr), &e);
+
+  FeatureParams params;
+  ftype::GetNameAndType(&e, params);
+
+  TEST_EQUAL(params.m_Types.size(), 1, (params));
+  TEST(params.IsTypeExist(GetType({"place", "city"})), ());
+
+  std::string name;
+  TEST(params.name.GetString(StringUtf8Multilang::kDefaultCode, name), (params));
+  TEST_EQUAL(name, "Paris", (params));
+  TEST(params.name.GetString(StringUtf8Multilang::kEnglishCode, name), (params));
+  TEST_EQUAL(name, "Paris", (params));
+  TEST(!params.name.GetString("fr", name), (params));
+  TEST(params.name.GetString("ru", name), (params));
+  TEST_EQUAL(name, "Париж", (params));
 }

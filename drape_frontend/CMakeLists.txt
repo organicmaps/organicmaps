@@ -2,16 +2,15 @@ project(drape_frontend)
 
 include_directories(
   .
-  watch
-  ${OMIM_ROOT}/3party/protobuf/src
+  ${OMIM_ROOT}/3party/protobuf/protobuf/src
   ${OMIM_ROOT}/3party/expat/lib
   ${OMIM_ROOT}/3party/freetype/include
+  ${OMIM_ROOT}/3party/jansson/src
   ${OMIM_ROOT}/3party/glm
 )
 
 set(
   SRC
-  ${OMIM_ROOT}/3party/agg/agg_curves.cpp
   animation/animation.cpp
   animation/animation.hpp
   animation/arrow_animation.cpp
@@ -57,10 +56,13 @@ set(
   batch_merge_helper.cpp
   batch_merge_helper.hpp
   batchers_pool.hpp
+  circles_pack_shape.cpp
+  circles_pack_shape.hpp
   color_constants.cpp
   color_constants.hpp
   colored_symbol_shape.cpp
   colored_symbol_shape.hpp
+  custom_features_context.hpp
   drape_api.cpp
   drape_api.hpp
   drape_api_builder.cpp
@@ -69,19 +71,18 @@ set(
   drape_api_renderer.hpp
   drape_engine.cpp
   drape_engine.hpp
+  drape_engine_safe_ptr.hpp
+  drape_hints.hpp
   drape_measurer.cpp
   drape_measurer.hpp
   engine_context.cpp
   engine_context.hpp
-  framebuffer.cpp
-  framebuffer.hpp
+  frame_values.hpp
   frontend_renderer.cpp
   frontend_renderer.hpp
   gps_track_point.hpp
   gps_track_renderer.cpp
   gps_track_renderer.hpp
-  gps_track_shape.cpp
-  gps_track_shape.hpp
   gui/choose_position_mark.cpp
   gui/choose_position_mark.hpp
   gui/compass.cpp
@@ -104,7 +105,8 @@ set(
   gui/shape.hpp
   gui/skin.cpp
   gui/skin.hpp
-  intrusive_vector.hpp
+  gui/watermark.cpp
+  gui/watermark.hpp
   kinetic_scroller.cpp
   kinetic_scroller.hpp
   line_shape.cpp
@@ -120,6 +122,8 @@ set(
   message_queue.cpp
   message_queue.hpp
   message_subclasses.hpp
+  metaline_manager.cpp
+  metaline_manager.hpp
   my_position.cpp
   my_position.hpp
   my_position_controller.cpp
@@ -128,20 +132,29 @@ set(
   navigator.hpp
   overlay_batcher.cpp
   overlay_batcher.hpp
+  overlays_tracker.cpp
+  overlays_tracker.hpp
   path_symbol_shape.cpp
   path_symbol_shape.hpp
+  path_text_handle.cpp
+  path_text_handle.hpp
   path_text_shape.cpp
   path_text_shape.hpp
   poi_symbol_shape.cpp
   poi_symbol_shape.hpp
+  postprocess_renderer.cpp
+  postprocess_renderer.hpp
   read_manager.cpp
   read_manager.hpp
+  read_metaline_task.cpp
+  read_metaline_task.hpp
   read_mwm_task.cpp
   read_mwm_task.hpp
   render_group.cpp
   render_group.hpp
-  render_node.cpp
   render_node.hpp
+  render_state.cpp
+  render_state.hpp
   requested_tiles.cpp
   requested_tiles.hpp
   route_builder.cpp
@@ -158,6 +171,8 @@ set(
   screen_animations.hpp
   screen_operations.cpp
   screen_operations.hpp
+  screen_quad_renderer.cpp
+  screen_quad_renderer.hpp
   selection_shape.cpp
   selection_shape.hpp
   shape_view_params.hpp
@@ -181,48 +196,22 @@ set(
   traffic_generator.hpp
   traffic_renderer.cpp
   traffic_renderer.hpp
-  transparent_layer.cpp
-  transparent_layer.hpp
+  transit_scheme_builder.cpp
+  transit_scheme_builder.hpp
+  transit_scheme_renderer.cpp
+  transit_scheme_renderer.hpp
   user_event_stream.cpp
   user_event_stream.hpp
+  user_mark_generator.cpp
+  user_mark_generator.hpp
   user_mark_shapes.cpp
   user_mark_shapes.hpp
   user_marks_provider.cpp
   user_marks_provider.hpp
-  viewport.cpp
-  viewport.hpp
   visual_params.cpp
   visual_params.hpp
-  watch/area_info.hpp
-  watch/brush_info.hpp
-  watch/circle_info.hpp
-  watch/cpu_drawer.cpp
-  watch/cpu_drawer.hpp
-  watch/default_font.cpp
-  watch/feature_processor.cpp
-  watch/feature_processor.hpp
-  watch/feature_styler.cpp
-  watch/feature_styler.hpp
-  watch/frame_image.hpp
-  watch/geometry_processors.cpp
-  watch/geometry_processors.hpp
-  watch/glyph_cache.cpp
-  watch/glyph_cache.hpp
-  watch/glyph_cache_impl.cpp
-  watch/glyph_cache_impl.hpp
-  watch/icon_info.hpp
-  watch/path_info.hpp
-  watch/pen_info.hpp
-  watch/point.h
-  watch/proto_to_styles.cpp
-  watch/proto_to_styles.hpp
-  watch/rect.h
-  watch/software_renderer.cpp
-  watch/software_renderer.hpp
-  watch/text_engine.cpp
-  watch/text_engine.h
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})
 
 omim_add_test_subdirectory(drape_frontend_tests)

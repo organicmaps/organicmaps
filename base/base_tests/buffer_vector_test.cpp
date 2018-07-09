@@ -1,9 +1,11 @@
 #include "testing/testing.hpp"
 
 #include "base/buffer_vector.hpp"
+#include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/unique_ptr.hpp"
+#include <memory>
+#include <numeric>
 
 namespace
 {
@@ -18,7 +20,7 @@ namespace
 
 UNIT_TEST(BufferVectorBounds)
 {
-  buffer_vector<int, 2> v;
+  buffer_vector<size_t, 2> v;
 
   for (size_t i = 0; i < 5; ++i)
   {
@@ -46,7 +48,7 @@ UNIT_TEST(BufferVectorBounds)
 
 UNIT_TEST(BufferVectorSwap)
 {
-  typedef buffer_vector<int, 2> value_t;
+  typedef buffer_vector<size_t, 2> value_t;
   buffer_vector<value_t, 2> v1, v2;
 
   for (size_t i = 0; i < 5; ++i)
@@ -67,7 +69,7 @@ UNIT_TEST(BufferVectorSwap)
   {
     v1[0].push_back(666);
 
-    int const * dd1 = v1[0].data();
+    auto const * dd1 = v1[0].data();
 
     // resize from 5 to 1 => v[0] will stay at the same place
     v1.resize(1);
@@ -86,7 +88,7 @@ UNIT_TEST(BufferVectorSwap)
 
     // inner dynamic buffer should be swapped during resizing
     // (??? but it's not specified by standart of std::vector ???)
-    int const * dd2 = v2[0].data();
+    auto const * dd2 = v2[0].data();
 
     v2.resize(1);
     TEST_EQUAL ( v2[0].size(), 5, () );
@@ -105,7 +107,7 @@ UNIT_TEST(BufferVectorSwap)
     for (size_t i = 0; i < 5; ++i)
       v3[0].push_back(i);
 
-    int const * dd3 = v3[0].data();
+    auto const * dd3 = v3[0].data();
 
     // resize from static to dynamic buffer => v3[0] will stay at the same place
     v1.resize(7);
@@ -152,8 +154,7 @@ UNIT_TEST(BufferVectorInsert)
         }
 
         std::vector<int> dataToInsert(insertLength);
-        for (size_t i = 0; i < insertLength; ++i)
-          dataToInsert[i] = 'a' + i;
+        std::iota(dataToInsert.begin(), dataToInsert.end(), 'a');
 
         b.insert(b.begin() + insertPos, dataToInsert.begin(), dataToInsert.end());
         v.insert(v.begin() + insertPos, dataToInsert.begin(), dataToInsert.end());
@@ -210,8 +211,7 @@ UNIT_TEST(BufferVectorAppend)
       }
 
       std::vector<int> dataToInsert(insertLength);
-      for (size_t i = 0; i < insertLength; ++i)
-        dataToInsert[i] = 'a' + i;
+      std::iota(dataToInsert.begin(), dataToInsert.end(), 'a');
 
       b.append(dataToInsert.begin(), dataToInsert.end());
       v.insert(v.end(), dataToInsert.begin(), dataToInsert.end());
@@ -226,7 +226,7 @@ UNIT_TEST(BufferVectorPopBack)
 {
   for (size_t len = 1; len < 6; ++len)
   {
-    buffer_vector<int, 3> v;
+    buffer_vector<size_t, 3> v;
     for (size_t i = 0; i < len; ++i)
       v.push_back(i);
     for (size_t i = len; i > 0; --i)
@@ -277,7 +277,7 @@ namespace
 
 struct CopyCtorChecker
 {
-  string m_s;
+  std::string m_s;
 
   CopyCtorChecker() = default;
   CopyCtorChecker(char const * s) : m_s(s) {}
@@ -355,10 +355,10 @@ UNIT_TEST(BufferVector_EraseIf)
 
 UNIT_TEST(BufferVector_OnlyMoveableItems)
 {
-  buffer_vector<unique_ptr<size_t>, 4> v;
+  buffer_vector<std::unique_ptr<size_t>, 4> v;
 
   for (size_t i = 0; i < 10; ++i)
-    v.emplace_back(make_unique<size_t>(i));
+    v.emplace_back(my::make_unique<size_t>(i));
 
   TEST_EQUAL(v.size(), 10, ());
   for (size_t i = 0; i < 10; ++i)

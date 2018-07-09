@@ -8,8 +8,8 @@
 #define FUSION_DEREF_IMPL_05042005_1037
 
 #include <boost/fusion/support/config.hpp>
-#include <boost/mpl/at.hpp>
 #include <boost/fusion/support/detail/access.hpp>
+#include <boost/fusion/container/vector/detail/value_at_impl.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/mpl/if.hpp>
 
@@ -30,9 +30,7 @@ namespace boost { namespace fusion
             {
                 typedef typename Iterator::vector vector;
                 typedef typename Iterator::index index;
-                typedef typename mpl::at<
-                    typename vector::types, index>::type
-                element;
+                typedef typename value_at_impl<vector_tag>::template apply<vector, index>::type element;
 
                 typedef typename
                     mpl::if_<

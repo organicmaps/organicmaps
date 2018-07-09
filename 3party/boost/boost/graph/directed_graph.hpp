@@ -92,7 +92,7 @@ public:
     { }
 
     directed_graph(directed_graph const& x)
-        : m_graph(x), m_num_vertices(x.m_num_vertices), m_num_edges(x.m_num_edges)
+        : m_graph(x.m_graph), m_num_vertices(x.m_num_vertices), m_num_edges(x.m_num_edges)
         , m_max_vertex_index(x.m_max_vertex_index), m_max_edge_index(x.m_max_edge_index)
     { }
 
@@ -172,7 +172,7 @@ public:
     { return m_num_edges; }
 
 private:
-    // A helper fucntion for managing edge index attributes.
+    // A helper function for managing edge index attributes.
     std::pair<edge_descriptor, bool> const&
     make_index(std::pair<edge_descriptor, bool> const& x)
     {

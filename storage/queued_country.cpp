@@ -27,7 +27,7 @@ void QueuedCountry::AddOptions(MapOptions opt)
 
 void QueuedCountry::RemoveOptions(MapOptions opt)
 {
-  for (MapOptions file : {MapOptions::Map, MapOptions::CarRouting})
+  for (MapOptions file : {MapOptions::Map, MapOptions::CarRouting, MapOptions::Diff})
   {
     if (HasOptions(opt, file) && HasOptions(m_init, file))
     {
@@ -37,6 +37,13 @@ void QueuedCountry::RemoveOptions(MapOptions opt)
   }
   if (HasOptions(opt, m_current))
     m_current = LeastSignificantOption(m_left);
+}
+
+void QueuedCountry::ResetToDefaultOptions()
+{
+  m_init = MapOptions::MapWithCarRouting;
+  m_left = MapOptions::MapWithCarRouting;
+  m_current = LeastSignificantOption(m_left);
 }
 
 bool QueuedCountry::SwitchToNextFile()

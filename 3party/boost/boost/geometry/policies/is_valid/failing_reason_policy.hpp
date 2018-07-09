@@ -54,6 +54,8 @@ inline char const* validity_failure_type_message(validity_failure_type failure)
         return "Geometry has duplicate (consecutive) points";
     case failure_wrong_corner_order:
         return "Box has corners in wrong order";
+    case failure_invalid_coordinate:
+        return "Geometry has point(s) with invalid coordinate(s)";
     default: // to avoid -Wreturn-type warning
         return "";
     }

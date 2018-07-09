@@ -11,7 +11,7 @@ QImage CreateImage(uint32_t w, uint32_t h, uint8_t const * mem)
   int byteCount = pitch * h;
   unsigned char * buf = (unsigned char *)malloc(byteCount);
   memset(buf, 0, byteCount);
-  for (int i = 0; i < h; ++i)
+  for (uint32_t i = 0; i < h; ++i)
     memcpy(buf + pitch * i, mem + w * i, w);
 
   QImage img = QImage(buf, pitch, h, QImage::Format_Indexed8, &cleanUpQImageMemory, buf);

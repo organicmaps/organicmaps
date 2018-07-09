@@ -62,7 +62,7 @@ public:
         helper_collection & hc = this->This()->get_helper_collection();
         return hc.template find_helper<Helper>(id);
     }
-
+    
     template<class T>
     Archive & operator>>(T & t){
         this->This()->load_override(t);

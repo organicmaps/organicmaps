@@ -1,0 +1,17 @@
+/* Sign-in button text */
+"Sign in" = "Oturum aç";
+
+/* Long form sign-in button text */
+"Sign in with Google" = "Google ile oturum aç";
+
+/* The title of the promotional prompt to install the Google app. */
+"PromoTitle" = "Google ile oturum aç";
+
+/* The body message of the promotional prompt to install the Google app. */
+"PromoMessage" = "Ücretsiz Google uygulamasını edinin ve uygulamalarda Google Hesabınızla oturum açın. Şifrelerinizi hatırlamanız gerekmez.";
+
+/* The cancel button on the promotional prompt to install the Google app. */
+"PromoActionCancel" = "İptal";
+
+/* The install button on the promotional prompt to install the Google app. */
+"PromoActionInstall" = "Al";

@@ -1,8 +1,8 @@
 #include "Framework.hpp"
 
-#include "../core/jni_helper.hpp"
+#include "com/mapswithme/core/jni_helper.hpp"
 
-#include "../platform/Platform.hpp"
+#include "com/mapswithme/platform/Platform.hpp"
 
 #include "storage/index.hpp"
 
@@ -58,9 +58,12 @@ Java_com_mapswithme_maps_MapFragment_nativeShowMapForUrl(JNIEnv * env, jclass cl
 }
 
 JNIEXPORT jboolean JNICALL
-Java_com_mapswithme_maps_MapFragment_nativeCreateEngine(JNIEnv * env, jclass clazz, jobject surface, jint density, jboolean firstLaunch)
+Java_com_mapswithme_maps_MapFragment_nativeCreateEngine(JNIEnv * env, jclass clazz,
+                                                        jobject surface, jint density,
+                                                        jboolean firstLaunch,
+                                                        jboolean isLaunchByDeepLink)
 {
-  return g_framework->CreateDrapeEngine(env, surface, density, firstLaunch);
+  return g_framework->CreateDrapeEngine(env, surface, density, firstLaunch, isLaunchByDeepLink);
 }
 
 JNIEXPORT jboolean JNICALL

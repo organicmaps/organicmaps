@@ -5,6 +5,7 @@
 #include "indexer/ftypes_matcher.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 
 #include "std/algorithm.hpp"
 
@@ -111,7 +112,8 @@ HotelsFilter::Descriptions const & HotelsFilter::GetDescriptions(MwmContext cons
 
   auto const hotels = m_hotels.Get(context);
   auto & descriptions = m_descriptions[mwmId];
-  hotels.ForEach([&descriptions, &context](uint32_t id) {
+  hotels.ForEach([&descriptions, &context](uint64_t bit) {
+    auto const id = base::asserted_cast<uint32_t>(bit);
     FeatureType ft;
 
     Description description;

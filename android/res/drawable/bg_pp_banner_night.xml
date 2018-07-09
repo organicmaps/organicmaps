@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape="rectangle">
+  <solid android:color="@color/bg_banner_color_night"/>
+  <corners android:radius="@dimen/cardview_default_radius"/>
+  <stroke
+    android:width="@dimen/divider_width"
+    android:color="@color/white_8"/>
+</shape>

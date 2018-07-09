@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <View
+    android:id="@+id/anchor_center"
+    android:layout_width="1dp"
+    android:layout_height="1dp"
+    android:layout_centerInParent="true"/>
+
+  <ImageView
+    android:id="@+id/iv__logo"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/img_logo"
+    android:layout_above="@id/anchor_center"
+    android:layout_centerHorizontal="true"/>
+
+  <TextView
+    android:id="@+id/tv__app_name"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="@dimen/margin_double_plus"
+    android:textAppearance="@style/MwmTextAppearance.Title"
+    android:textAllCaps="true"
+    android:textColor="?android:textColorSecondary"
+    android:text="@string/app_name"/>
+</RelativeLayout>

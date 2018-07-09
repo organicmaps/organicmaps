@@ -1,11 +1,12 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2015, Oracle and/or its affiliates.
+// Copyright (c) 2015-2017, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Licensed under the Boost Software License version 1.0.
 // http://www.boost.org/users/license.html
-
-// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
 
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_POINTLIKE_LINEAR_HPP
@@ -69,12 +70,12 @@ struct point_linear_point
                                        Linear const& linear,
                                        RobustPolicy const&,
                                        OutputIterator oit,
-                                       Strategy const&)
+                                       Strategy const& strategy)
     {
         action_selector_pl_l
             <
                 PointOut, OverlayType
-            >::apply(point, Policy::apply(point, linear), oit);
+            >::apply(point, Policy::apply(point, linear, strategy), oit);
         return oit;
     }
 };
@@ -95,7 +96,7 @@ struct multipoint_segment_point
                                        Segment const& segment,
                                        RobustPolicy const&,
                                        OutputIterator oit,
-                                       Strategy const&)
+                                       Strategy const& strategy)
     {
         for (typename boost::range_iterator<MultiPoint const>::type
                  it = boost::begin(multipoint);
@@ -105,7 +106,7 @@ struct multipoint_segment_point
             action_selector_pl_l
                 <
                     PointOut, OverlayType
-                >::apply(*it, Policy::apply(*it, segment), oit);
+                >::apply(*it, Policy::apply(*it, segment, strategy), oit);
         }
 
         return oit;
@@ -145,11 +146,14 @@ private:
         }
     };
 
-    template <typename OutputIterator>
+    template <typename OutputIterator, typename Strategy>
     class item_visitor_type
     {
     public:
-        item_visitor_type(OutputIterator& oit) : m_oit(oit) {}
+        item_visitor_type(OutputIterator& oit, Strategy const& strategy)
+            : m_oit(oit)
+            , m_strategy(strategy)
+        {}
 
         template <typename Item1, typename Item2>
         inline void apply(Item1 const& item1, Item2 const& item2)
@@ -157,11 +161,12 @@ private:
             action_selector_pl_l
                 <
                     PointOut, overlay_intersection
-                >::apply(item1, Policy::apply(item1, item2), m_oit);
+                >::apply(item1, Policy::apply(item1, item2, m_strategy), m_oit);
         }
 
     private:
         OutputIterator& m_oit;
+        Strategy const& m_strategy;
     };
     // structs for partition -- end
 
@@ -189,12 +194,13 @@ private:
         Linear const& m_linear;
     };
 
-    template <typename OutputIterator>
+    template <typename OutputIterator, typename Strategy>
     static inline OutputIterator get_common_points(MultiPoint const& multipoint,
                                                    Linear const& linear,
-                                                   OutputIterator oit)
+                                                   OutputIterator oit,
+                                                   Strategy const& strategy)
     {
-        item_visitor_type<OutputIterator> item_visitor(oit);
+        item_visitor_type<OutputIterator, Strategy> item_visitor(oit, strategy);
 
         segment_range rng(linear);
 
@@ -203,10 +209,9 @@ private:
                 geometry::model::box
                     <
                         typename boost::range_value<MultiPoint>::type
-                    >,
-                expand_box,
-                overlaps_box
-            >::apply(multipoint, rng, item_visitor);
+                    >
+            >::apply(multipoint, rng, item_visitor,
+                     expand_box(), overlaps_box());
 
         return oit;
     }
@@ -228,7 +233,8 @@ public:
 
         // compute the common points
         get_common_points(multipoint, linear,
-                          std::back_inserter(common_points));
+                          std::back_inserter(common_points),
+                          strategy);
 
         return multipoint_multipoint_point
             <

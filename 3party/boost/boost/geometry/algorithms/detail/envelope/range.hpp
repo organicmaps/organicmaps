@@ -4,9 +4,10 @@
 // Copyright (c) 2008-2015 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2015 Mateusz Loskot, London, UK.
 
-// This file was modified by Oracle on 2015.
-// Modifications copyright (c) 2015, Oracle and/or its affiliates.
+// This file was modified by Oracle on 2015, 2016.
+// Modifications copyright (c) 2015-2016, Oracle and/or its affiliates.
 
+// Contributed and/or modified by Vissarion Fysikopoulos, on behalf of Oracle
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
@@ -51,8 +52,11 @@ namespace detail { namespace envelope
 // implementation for simple ranges
 struct envelope_range
 {
-    template <typename Iterator, typename Box>
-    static inline void apply(Iterator first, Iterator last, Box& mbr)
+    template <typename Iterator, typename Box, typename Strategy>
+    static inline void apply(Iterator first,
+                             Iterator last,
+                             Box& mbr,
+                             Strategy const& strategy)
     {
         typedef typename std::iterator_traits<Iterator>::value_type value_type;
 
@@ -63,20 +67,20 @@ struct envelope_range
         if (it != last)
         {
             // initialize box with first element in range
-            dispatch::envelope<value_type>::apply(*it, mbr);
+            dispatch::envelope<value_type>::apply(*it, mbr, strategy);
 
             // consider now the remaining elements in the range (if any)
             for (++it; it != last; ++it)
             {
-                dispatch::expand<Box, value_type>::apply(mbr, *it);
+                dispatch::expand<Box, value_type>::apply(mbr, *it, strategy);
             }
         }
     }
 
-    template <typename Range, typename Box>
-    static inline void apply(Range const& range, Box& mbr)
+    template <typename Range, typename Box, typename Strategy>
+    static inline void apply(Range const& range, Box& mbr, Strategy const& strategy)
     {
-        return apply(boost::begin(range), boost::end(range), mbr);
+        return apply(boost::begin(range), boost::end(range), mbr, strategy);
     }
 };
 
@@ -85,8 +89,10 @@ struct envelope_range
 template <typename EnvelopePolicy>
 struct envelope_multi_range
 {
-    template <typename MultiRange, typename Box>
-    static inline void apply(MultiRange const& multirange, Box& mbr)
+    template <typename MultiRange, typename Box, typename Strategy>
+    static inline void apply(MultiRange const& multirange,
+                             Box& mbr,
+                             Strategy const& strategy)
     {
         typedef typename boost::range_iterator
             <
@@ -103,14 +109,14 @@ struct envelope_multi_range
                 if (initialized)
                 {
                     Box helper_mbr;
-                    EnvelopePolicy::apply(*it, helper_mbr);
+                    EnvelopePolicy::apply(*it, helper_mbr, strategy);
 
-                    dispatch::expand<Box, Box>::apply(mbr, helper_mbr);
+                    dispatch::expand<Box, Box>::apply(mbr, helper_mbr, strategy);
                 }
                 else
                 {
                     // compute the initial envelope
-                    EnvelopePolicy::apply(*it, mbr);
+                    EnvelopePolicy::apply(*it, mbr, strategy);
                     initialized = true;
                 }
             }
@@ -129,8 +135,10 @@ struct envelope_multi_range
 template <typename EnvelopePolicy>
 struct envelope_multi_range_on_spheroid
 {
-    template <typename MultiRange, typename Box>
-    static inline void apply(MultiRange const& multirange, Box& mbr)
+    template <typename MultiRange, typename Box, typename Strategy>
+    static inline void apply(MultiRange const& multirange,
+                             Box& mbr,
+                             Strategy const& strategy)
     {
         typedef typename boost::range_iterator
             <
@@ -147,7 +155,7 @@ struct envelope_multi_range_on_spheroid
             if (! geometry::is_empty(*it))
             {
                 Box helper_box;
-                EnvelopePolicy::apply(*it, helper_box);
+                EnvelopePolicy::apply(*it, helper_box, strategy);
                 boxes.push_back(helper_box);
             }
         }
@@ -159,7 +167,7 @@ struct envelope_multi_range_on_spheroid
         // and the MBR is simply initialized
         if (! boxes.empty())
         {
-            envelope_range_of_boxes::apply(boxes, mbr);
+            envelope_range_of_boxes::apply(boxes, mbr, strategy);
         }
         else
         {

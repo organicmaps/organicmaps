@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2001-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  (C) Copyright Beman Dawes 1995-2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
@@ -68,7 +68,7 @@ prg_exec_monitor_main( int (*cpp_main)( int argc, char* argv[] ), int argc, char
 {
     int result = 0;
 
-    BOOST_TEST_IMPL_TRY {
+    BOOST_TEST_I_TRY {
         boost::unit_test::const_string p( std::getenv( "BOOST_TEST_CATCH_SYSTEM_ERRORS" ) );
         ::boost::execution_monitor ex_mon;
 
@@ -83,11 +83,11 @@ prg_exec_monitor_main( int (*cpp_main)( int argc, char* argv[] ), int argc, char
             result = ::boost::exit_failure;
         }
     }
-    BOOST_TEST_IMPL_CATCH( ::boost::execution_exception, exex ) {
+    BOOST_TEST_I_CATCH( ::boost::execution_exception, exex ) {
         std::cout << "\n**** exception(" << exex.code() << "): " << exex.what() << std::endl;
         result = ::boost::exit_exception_failure;
     }
-    BOOST_TEST_IMPL_CATCH( ::boost::system_error, ex ) {
+    BOOST_TEST_I_CATCH( ::boost::system_error, ex ) {
         std::cout << "\n**** failed to initialize execution monitor."
                   << "\n**** expression at fault: " << ex.p_failed_exp
                   << "\n**** error(" << ex.p_errno << "): " << std::strerror( ex.p_errno ) << std::endl;

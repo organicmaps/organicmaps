@@ -20,20 +20,27 @@ bool IsDownloadFailed(Status status)
          status == Status::EUnknown;
 }
 
-bool IsEnoughSpaceForDownload(TMwmSize size)
+bool IsEnoughSpaceForDownload(TMwmSize mwmSize)
 {
-  // Mwm size is less than kMaxMwmSizeBytes. In case of map update at first we download updated map
-  // and only after that we do delete the obsolete map. So in such a case we might need up to
-  // kMaxMwmSizeBytes of extra space.
-  return GetPlatform().GetWritableStorageStatus(size + kMaxMwmSizeBytes) ==
+  // Additional size which is necessary to have on flash card to download file of mwmSize bytes.
+  TMwmSize constexpr kExtraSizeBytes = 10 * 1024 * 1024;
+  return GetPlatform().GetWritableStorageStatus(mwmSize + kExtraSizeBytes) ==
          Platform::TStorageStatus::STORAGE_OK;
+}
+
+bool IsEnoughSpaceForDownload(TMwmSize mwmSizeDiff, TMwmSize maxMwmSize)
+{
+  // Mwm size is less than |maxMwmSize|. In case of map update at first we download updated map
+  // and only after that we do delete the obsolete map. So in such a case we might need up to
+  // |maxMwmSize| of extra space.
+  return IsEnoughSpaceForDownload(mwmSizeDiff + maxMwmSize);
 }
 
 bool IsEnoughSpaceForDownload(TCountryId const & countryId, Storage const & storage)
 {
   NodeAttrs nodeAttrs;
   storage.GetNodeAttrs(countryId, nodeAttrs);
-  return IsEnoughSpaceForDownload(nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize);
+  return IsEnoughSpaceForDownload(nodeAttrs.m_mwmSize);
 }
 
 bool IsEnoughSpaceForUpdate(TCountryId const & countryId, Storage const & storage)
@@ -42,7 +49,7 @@ bool IsEnoughSpaceForUpdate(TCountryId const & countryId, Storage const & storag
   
   storage.GetUpdateInfo(countryId, updateInfo);
   TMwmSize spaceNeedForUpdate = updateInfo.m_sizeDifference > 0 ? updateInfo.m_sizeDifference : 0;
-  return IsEnoughSpaceForDownload(spaceNeedForUpdate);
+  return IsEnoughSpaceForDownload(spaceNeedForUpdate, storage.GetMaxMwmSizeBytes());
 }
 
 m2::RectD CalcLimitRect(TCountryId const & countryId,

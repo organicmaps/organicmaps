@@ -11,6 +11,7 @@
 #include <boost/fusion/support/config.hpp>
 #include <boost/fusion/adapted/struct/adapt_assoc_struct.hpp>
 #include <boost/fusion/adapted/struct/detail/define_struct.hpp>
+#include <boost/preprocessor/cat.hpp>
 
 #define BOOST_FUSION_DEFINE_ASSOC_STRUCT_FILLER_0(X, Y, Z)                      \
     ((X, Y, Z)) BOOST_FUSION_DEFINE_ASSOC_STRUCT_FILLER_1

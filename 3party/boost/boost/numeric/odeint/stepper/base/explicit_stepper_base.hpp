@@ -141,7 +141,7 @@ public:
     /*
      * named Version 2: do_step_dxdt_impl( sys , in , dxdt , t , dt )
      *
-     * this version is needed when this stepper is used for initializing
+     * this version is needed when this stepper is used for initializing 
      * multistep stepper like adams-bashforth. Hence we provide an explicitely
      * named version that is not disabled. Meant for internal use only.
      */
@@ -183,7 +183,7 @@ public:
     /*
      * named Version 4: do_step_dxdt_impl( sys , in , dxdt , t , out, dt )
      *
-     * this version is needed when this stepper is used for initializing
+     * this version is needed when this stepper is used for initializing 
      * multistep stepper like adams-bashforth. Hence we provide an explicitely
      * named version. Meant for internal use only.
      */

@@ -1159,12 +1159,12 @@ namespace boost { namespace numeric {
         // Serialization
         template<class Archive>
         void serialize(Archive & ar, const unsigned int /* file_version */){
-
+        
             // we need to copy to a collection_size_type to get a portable
             // and efficient serialization
             serialization::collection_size_type s1 (size1_);
             serialization::collection_size_type s2 (size2_);
-
+          
             // serialize the sizes
             ar & serialization::make_nvp("size1",s1)
                & serialization::make_nvp("size2",s2);

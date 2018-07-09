@@ -31,7 +31,7 @@ namespace date_time {
       @param rep_type The time resolution traits for this duration type.
   */
   template<class T, typename rep_type>
-  class time_duration : private
+  class BOOST_SYMBOL_VISIBLE time_duration : private
       boost::less_than_comparable<T
     , boost::equality_comparable<T
     > >
@@ -265,7 +265,7 @@ namespace date_time {
    * 10 for frac_of_second and resoultion adjustment
    */
   template<class base_duration, boost::int64_t frac_of_second>
-  class subsecond_duration : public base_duration
+  class BOOST_SYMBOL_VISIBLE subsecond_duration : public base_duration
   {
   public:
     typedef typename base_duration::impl_type impl_type;

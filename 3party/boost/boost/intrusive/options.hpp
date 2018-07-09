@@ -61,12 +61,12 @@ BOOST_INTRUSIVE_OPTION_TYPE(size_type, SizeType, SizeType, size_type)
 //!comparison functor for the value type
 BOOST_INTRUSIVE_OPTION_TYPE(compare, Compare, Compare, compare)
 
-//!This option setter specifies the a function object
+//!This option setter specifies a function object
 //!that specifies the type of the key of an associative
 //!container and an operator to obtain it from a value type.
 //!
-//!This function object must the define a `key_type` and
-//!a member with signature `const key_type & operator()(const value_type &) const`
+//!This function object must the define a `type` member typedef and
+//!a member with signature `type [const&] operator()(const value_type &) const`
 //!that will return the key from a value_type of an associative container
 BOOST_INTRUSIVE_OPTION_TYPE(key_of_value, KeyOfValue, KeyOfValue, key_of_value)
 
@@ -88,7 +88,7 @@ BOOST_INTRUSIVE_OPTION_CONSTANT(floating_point, bool, Enabled, floating_point)
 //!functor for the value type
 BOOST_INTRUSIVE_OPTION_TYPE(equal, Equal, Equal, equal)
 
-//!This option setter specifies the equality
+//!This option setter specifies the priority comparison
 //!functor for the value type
 BOOST_INTRUSIVE_OPTION_TYPE(priority, Priority, Priority, priority)
 

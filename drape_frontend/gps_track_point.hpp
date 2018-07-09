@@ -4,7 +4,6 @@
 
 namespace df
 {
-
 struct GpsTrackPoint
 {
   // Timestamp of the point, seconds from 1st Jan 1970
@@ -19,5 +18,4 @@ struct GpsTrackPoint
   // Unique identifier of the point
   uint32_t m_id;
 };
-
-} // namespace df
+}  // namespace df

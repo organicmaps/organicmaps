@@ -21,15 +21,29 @@ namespace boost
 
   struct detach
   {
-    void operator()(thread& t)
+    template <class Thread>
+    void operator()(Thread& t)
     {
       t.detach();
     }
   };
 
+  struct detach_if_joinable
+  {
+    template <class Thread>
+    void operator()(Thread& t)
+    {
+      if (t.joinable())
+      {
+        t.detach();
+      }
+    }
+  };
+
   struct join_if_joinable
   {
-    void operator()(thread& t)
+    template <class Thread>
+    void operator()(Thread& t)
     {
       if (t.joinable())
       {
@@ -41,11 +55,12 @@ namespace boost
 #if defined BOOST_THREAD_PROVIDES_INTERRUPTIONS
   struct interrupt_and_join_if_joinable
   {
-    void operator()(thread& t)
+    template <class Thread>
+    void operator()(Thread& t)
     {
-      t.interrupt();
       if (t.joinable())
       {
+        t.interrupt();
         t.join();
       }
     }

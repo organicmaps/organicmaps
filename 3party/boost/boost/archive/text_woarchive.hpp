@@ -129,7 +129,7 @@ public:
 // do not derive from this class.  If you want to extend this functionality
 // via inhertance, derived from text_oarchive_impl instead.  This will
 // preserve correct static polymorphism.
-class BOOST_SYMBOL_VISIBLE text_woarchive :
+class BOOST_SYMBOL_VISIBLE text_woarchive : 
     public text_woarchive_impl<text_woarchive>
 {
 public:

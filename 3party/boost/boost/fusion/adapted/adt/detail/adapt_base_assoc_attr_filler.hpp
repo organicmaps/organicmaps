@@ -10,12 +10,15 @@
 
 #include <boost/config.hpp>
 
+#include <boost/fusion/adapted/struct/detail/adapt_auto.hpp>
 #include <boost/fusion/adapted/adt/detail/adapt_base_attr_filler.hpp>
 
-#include <boost/preprocessor/control/if.hpp>
+#include <boost/mpl/aux_/preprocessor/token_equal.hpp>
+
+#include <boost/preprocessor/config/config.hpp>
+#include <boost/preprocessor/control/iif.hpp>
 #include <boost/preprocessor/variadic/size.hpp>
-#include <boost/preprocessor/empty.hpp>
-#include <boost/preprocessor/facilities/is_empty.hpp>
+#include <boost/preprocessor/arithmetic/dec.hpp>
 
 #if BOOST_PP_VARIADICS
 
@@ -41,7 +44,7 @@
     BOOST_FUSION_ADAPT_ASSOC_ADT_FILLER_0
 
 #define BOOST_FUSION_ADAPT_ASSOC_ADT_WRAP_ATTR(A, B, C, D, E)                   \
-    BOOST_PP_IF(BOOST_PP_IS_EMPTY(A),                                           \
+    BOOST_PP_IIF(BOOST_MPL_PP_TOKEN_EQUAL(auto, A),                             \
         ((3, (C,D,E))),                                                         \
         ((5, (A,B,C,D,E)))                                                      \
     )
@@ -55,7 +58,7 @@
 #define BOOST_FUSION_ADAPT_ASSOC_ADT_WRAPPEDATTR_GET_KEY(ATTRIBUTE)             \
     BOOST_PP_TUPLE_ELEM(                                                        \
         BOOST_FUSION_ADAPT_ADT_WRAPPEDATTR_SIZE(ATTRIBUTE),                     \
-        BOOST_PP_SUB(BOOST_FUSION_ADAPT_ADT_WRAPPEDATTR_SIZE(ATTRIBUTE), 1),    \
+        BOOST_PP_DEC(BOOST_FUSION_ADAPT_ADT_WRAPPEDATTR_SIZE(ATTRIBUTE)),       \
         BOOST_FUSION_ADAPT_ADT_WRAPPEDATTR(ATTRIBUTE))
 
 #endif

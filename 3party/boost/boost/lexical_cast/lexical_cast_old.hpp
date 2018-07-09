@@ -34,7 +34,6 @@
 #include <cstdio>
 #include <boost/limits.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/type_traits/ice.hpp>
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/detail/lcast_precision.hpp>
@@ -155,10 +154,10 @@ namespace boost {
     template<typename Target, typename Source>
     Target lexical_cast(Source arg)
     {
-        typedef typename detail::widest_char<
-            BOOST_DEDUCED_TYPENAME detail::stream_char<Target>::type
-          , BOOST_DEDUCED_TYPENAME detail::stream_char<Source>::type
-        >::type char_type;
+        typedef typename detail::widest_char< 
+            BOOST_DEDUCED_TYPENAME detail::stream_char<Target>::type 
+          , BOOST_DEDUCED_TYPENAME detail::stream_char<Source>::type 
+        >::type char_type; 
 
         typedef std::char_traits<char_type> traits;
         detail::lexical_stream<Target, Source, traits> interpreter;
@@ -174,3 +173,4 @@ namespace boost {
 #undef BOOST_LCAST_NO_WCHAR_T
 
 #endif // BOOST_LEXICAL_CAST_LEXICAL_CAST_OLD_HPP
+

@@ -1,9 +1,10 @@
 #include "drape_frontend/area_shape.hpp"
+#include "drape_frontend/render_state.hpp"
 
-#include "drape/shader_def.hpp"
-#include "drape/glstate.hpp"
-#include "drape/batcher.hpp"
+#include "shaders/programs.hpp"
+
 #include "drape/attribute_provider.hpp"
+#include "drape/batcher.hpp"
 #include "drape/texture_manager.hpp"
 #include "drape/utils/vertex_decl.hpp"
 
@@ -12,15 +13,14 @@
 #include "base/buffer_vector.hpp"
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
 
 namespace df
 {
-
 AreaShape::AreaShape(vector<m2::PointD> && triangleList, BuildingOutline && buildingOutline,
                      AreaViewParams const & params)
-  : m_vertexes(move(triangleList))
-  , m_buildingOutline(move(buildingOutline))
+  : m_vertexes(std::move(triangleList))
+  , m_buildingOutline(std::move(buildingOutline))
   , m_params(params)
 {}
 
@@ -28,7 +28,7 @@ void AreaShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
 {
   dp::TextureManager::ColorRegion region;
   textures->GetColorRegion(m_params.m_color, region);
-  m2::PointD const colorUv = region.GetTexRect().Center();
+  m2::PointD const colorUv(region.GetTexRect().Center());
   m2::PointD outlineUv(0.0, 0.0);
   if (m_buildingOutline.m_generateOutline)
   {
@@ -40,6 +40,8 @@ void AreaShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> t
 
   if (m_params.m_is3D)
     DrawArea3D(batcher, colorUv, outlineUv, region.GetTexture());
+  else if (m_params.m_hatching)
+    DrawHatchingArea(batcher, colorUv, region.GetTexture(), textures->GetHatchingTexture());
   else
     DrawArea(batcher, colorUv, outlineUv, region.GetTexture());
 }
@@ -51,16 +53,17 @@ void AreaShape::DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorU
 
   buffer_vector<gpu::AreaVertex, 128> vertexes;
   vertexes.resize(m_vertexes.size());
-  transform(m_vertexes.begin(), m_vertexes.end(), vertexes.begin(), [&uv, this](m2::PointF const & vertex)
+  transform(m_vertexes.begin(), m_vertexes.end(), vertexes.begin(), [&uv, this](m2::PointD const & vertex)
   {
-    return gpu::AreaVertex(glsl::vec3(glsl::ToVec2(ConvertToLocal(vertex, m_params.m_tileCenter, kShapeCoordScalar)),
-                                      m_params.m_depth), uv);
+    return gpu::AreaVertex(
+      glsl::vec3(glsl::ToVec2(ConvertToLocal(m2::PointD(vertex), m_params.m_tileCenter, kShapeCoordScalar)),
+                 m_params.m_depth), uv);
   });
 
-  dp::GLState state(gpu::AREA_PROGRAM, dp::GLState::GeometryLayer);
+  auto state = CreateGLState(gpu::Program::Area, RenderState::GeometryLayer);
   state.SetColorTexture(texture);
 
-  dp::AttributeProvider provider(1, static_cast<uint32_t>(m_vertexes.size()));
+  dp::AttributeProvider provider(1, static_cast<uint32_t>(vertexes.size()));
   provider.InitStream(0, gpu::AreaVertex::GetBindingInfo(), make_ref(vertexes.data()));
   batcher->InsertTriangleList(state, make_ref(&provider));
 
@@ -69,7 +72,7 @@ void AreaShape::DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorU
   {
     glsl::vec2 const ouv = glsl::ToVec2(outlineUv);
 
-    vector<gpu::AreaVertex> vertices;
+    std::vector<gpu::AreaVertex> vertices;
     vertices.reserve(m_buildingOutline.m_vertices.size());
     for (size_t i = 0; i < m_buildingOutline.m_vertices.size(); i++)
     {
@@ -78,14 +81,47 @@ void AreaShape::DrawArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorU
       vertices.emplace_back(gpu::AreaVertex(glsl::vec3(pos, m_params.m_depth), ouv));
     }
 
-    dp::GLState state(gpu::AREA_OUTLINE_PROGRAM, dp::GLState::GeometryLayer);
-    state.SetColorTexture(texture);
-    state.SetDrawAsLine(true);
+    auto outlineState = CreateGLState(gpu::Program::AreaOutline, RenderState::GeometryLayer);
+    outlineState.SetColorTexture(texture);
+    outlineState.SetDrawAsLine(true);
 
     dp::AttributeProvider outlineProvider(1, static_cast<uint32_t>(vertices.size()));
     outlineProvider.InitStream(0, gpu::AreaVertex::GetBindingInfo(), make_ref(vertices.data()));
-    batcher->InsertLineRaw(state, make_ref(&outlineProvider), m_buildingOutline.m_indices);
+    batcher->InsertLineRaw(outlineState, make_ref(&outlineProvider), m_buildingOutline.m_indices);
   }
+}
+
+void AreaShape::DrawHatchingArea(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv,
+                                 ref_ptr<dp::Texture> texture, ref_ptr<dp::Texture> hatchingTexture) const
+{
+  glsl::vec2 const uv = glsl::ToVec2(colorUv);
+
+  m2::RectD bbox;
+  for (auto const & v : m_vertexes)
+    bbox.Add(v);
+
+  double const maxU = bbox.SizeX() * m_params.m_baseGtoPScale / hatchingTexture->GetWidth();
+  double const maxV = bbox.SizeY() * m_params.m_baseGtoPScale / hatchingTexture->GetHeight();
+
+  buffer_vector<gpu::HatchingAreaVertex, 128> vertexes;
+  vertexes.resize(m_vertexes.size());
+  for (size_t i = 0; i < m_vertexes.size(); ++i)
+  {
+    vertexes[i].m_position = glsl::vec3(glsl::ToVec2(ConvertToLocal(m_vertexes[i], m_params.m_tileCenter,
+                                                                    kShapeCoordScalar)), m_params.m_depth);
+    vertexes[i].m_colorTexCoord = uv;
+    vertexes[i].m_maskTexCoord.x = static_cast<float>(maxU * (m_vertexes[i].x - bbox.minX()) / bbox.SizeX());
+    vertexes[i].m_maskTexCoord.y = static_cast<float>(maxV * (m_vertexes[i].y - bbox.minY()) / bbox.SizeY());
+  }
+
+  auto state = CreateGLState(gpu::Program::HatchingArea, RenderState::GeometryLayer);
+  state.SetColorTexture(texture);
+  state.SetMaskTexture(hatchingTexture);
+  state.SetTextureFilter(gl_const::GLLinear);
+
+  dp::AttributeProvider provider(1, static_cast<uint32_t>(vertexes.size()));
+  provider.InitStream(0, gpu::HatchingAreaVertex::GetBindingInfo(), make_ref(vertexes.data()));
+  batcher->InsertTriangleList(state, make_ref(&provider));
 }
 
 void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colorUv, m2::PointD const & outlineUv,
@@ -96,13 +132,13 @@ void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colo
 
   glsl::vec2 const uv = glsl::ToVec2(colorUv);
 
-  vector<gpu::Area3dVertex> vertexes;
+  std::vector<gpu::Area3dVertex> vertexes;
   vertexes.reserve(m_vertexes.size() + m_buildingOutline.m_normals.size() * 6);
 
   for (size_t i = 0; i < m_buildingOutline.m_normals.size(); i++)
   {
-    size_t const startIndex = m_buildingOutline.m_indices[i * 2];
-    size_t const endIndex = m_buildingOutline.m_indices[i * 2 + 1];
+    int const startIndex = m_buildingOutline.m_indices[i * 2];
+    int const endIndex = m_buildingOutline.m_indices[i * 2 + 1];
 
     glsl::vec2 const startPt = glsl::ToVec2(ConvertToLocal(m_buildingOutline.m_vertices[startIndex],
                                                            m_params.m_tileCenter, kShapeCoordScalar));
@@ -126,7 +162,7 @@ void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colo
     vertexes.emplace_back(gpu::Area3dVertex(glsl::vec3(pt, -m_params.m_posZ), normal, uv));
   }
 
-  dp::GLState state(gpu::AREA_3D_PROGRAM, dp::GLState::GeometryLayer);
+  auto state = CreateGLState(gpu::Program::Area3d, RenderState::Geometry3dLayer);
   state.SetColorTexture(texture);
   state.SetBlending(dp::Blending(false /* isEnabled */));
 
@@ -139,12 +175,12 @@ void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colo
   {
     glsl::vec2 const ouv = glsl::ToVec2(outlineUv);
 
-    dp::GLState outlineState(gpu::AREA_3D_OUTLINE_PROGRAM, dp::GLState::GeometryLayer);
+    auto outlineState = CreateGLState(gpu::Program::Area3dOutline, RenderState::Geometry3dLayer);
     outlineState.SetColorTexture(texture);
     outlineState.SetBlending(dp::Blending(false /* isEnabled */));
     outlineState.SetDrawAsLine(true);
 
-    vector<gpu::AreaVertex> vertices;
+    std::vector<gpu::AreaVertex> vertices;
     vertices.reserve(m_buildingOutline.m_vertices.size());
     for (size_t i = 0; i < m_buildingOutline.m_vertices.size(); i++)
     {
@@ -158,5 +194,4 @@ void AreaShape::DrawArea3D(ref_ptr<dp::Batcher> batcher, m2::PointD const & colo
     batcher->InsertLineRaw(outlineState, make_ref(&outlineProvider), m_buildingOutline.m_indices);
   }
 }
-
-} // namespace df
+}  // namespace df

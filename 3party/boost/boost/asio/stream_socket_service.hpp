@@ -2,7 +2,7 @@
 // stream_socket_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2017 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -118,17 +118,21 @@ public:
     service_impl_.move_assign(impl, other_service.service_impl_, other_impl);
   }
 
+  // All socket services have access to each other's implementations.
+  template <typename Protocol1> friend class stream_socket_service;
+
   /// Move-construct a new stream socket implementation from another protocol
   /// type.
   template <typename Protocol1>
   void converting_move_construct(implementation_type& impl,
+      stream_socket_service<Protocol1>& other_service,
       typename stream_socket_service<
         Protocol1>::implementation_type& other_impl,
       typename enable_if<is_convertible<
         Protocol1, Protocol>::value>::type* = 0)
   {
     service_impl_.template converting_move_construct<Protocol1>(
-        impl, other_impl);
+        impl, other_service.service_impl_, other_impl);
   }
 #endif // defined(BOOST_ASIO_HAS_MOVE) || defined(GENERATING_DOCUMENTATION)
 

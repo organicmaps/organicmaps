@@ -14,7 +14,7 @@ struct IntersectionResult
 {
   static uint32_t constexpr kInvalidId = std::numeric_limits<uint32_t>::max();
 
-  void Set(SearchModel::SearchType type, uint32_t id);
+  void Set(Model::Type type, uint32_t id);
 
   // Returns the first valid feature among the [POI, BUILDING,
   // STREET].

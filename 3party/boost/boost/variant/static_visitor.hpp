@@ -13,11 +13,11 @@
 #ifndef BOOST_VARIANT_STATIC_VISITOR_HPP
 #define BOOST_VARIANT_STATIC_VISITOR_HPP
 
-#include "boost/config.hpp"
-#include "boost/detail/workaround.hpp"
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 
-#include "boost/mpl/if.hpp"
-#include "boost/type_traits/is_base_and_derived.hpp"
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_base_and_derived.hpp>
 
 #include <boost/type_traits/integral_constant.hpp>
 #include <boost/mpl/aux_/lambda_support.hpp>

@@ -19,15 +19,15 @@
 - (void)awakeFromNib
 {
   [super awakeFromNib];
-  self.calendar = [NSCalendar currentCalendar];
-  self.calendar.locale = [NSLocale currentLocale];
+  self.calendar = NSCalendar.currentCalendar;
+  self.calendar.locale = NSLocale.currentLocale;
 }
 
 - (void)refresh
 {
   [super refresh];
   NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
-  dateFormatter.locale = [NSLocale currentLocale];
+  dateFormatter.locale = NSLocale.currentLocale;
   dateFormatter.timeStyle = NSDateFormatterShortStyle;
   dateFormatter.dateStyle = NSDateFormatterNoStyle;
 

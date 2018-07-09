@@ -49,7 +49,7 @@ final class GalleryItemViewController: MWMViewController {
 }
 
 extension GalleryItemViewController: UIScrollViewDelegate {
-  func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+  func viewForZooming(in _: UIScrollView) -> UIView? {
     return imageView
   }
 }

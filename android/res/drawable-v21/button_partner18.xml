@@ -1,0 +1,13 @@
+<ripple
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:color="?attr/colorControlHighlight">
+  <item>
+    <selector>
+      <item android:drawable="@color/bg_brand_partner18_pressed"
+            android:state_pressed="true"/>
+
+      <item android:drawable="@color/bg_brand_partner18"/>
+    </selector>
+  </item>
+</ripple>
+

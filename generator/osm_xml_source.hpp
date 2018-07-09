@@ -16,9 +16,9 @@ class XMLSource
 public:
   XMLSource(TEmmiterFn fn) : m_EmmiterFn(fn) {}
 
-  void CharData(string const &) {}
+  void CharData(std::string const &) {}
 
-  void AddAttr(string const & key, string const & value)
+  void AddAttr(std::string const & key, std::string const & value)
   {
     if (!m_current)
       return;
@@ -41,7 +41,7 @@ public:
       m_current->role = value;
   }
 
-  bool Push(string const & tagName)
+  bool Push(std::string const & tagName)
   {
     ASSERT_GREATER_OR_EQUAL(tagName.size(), 2, ());
 
@@ -64,7 +64,7 @@ public:
     return true;
   }
 
-  void Pop(string const & v)
+  void Pop(std::string const & v)
   {
     switch (--m_depth)
     {

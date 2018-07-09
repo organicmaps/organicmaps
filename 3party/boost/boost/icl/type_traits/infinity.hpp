@@ -10,7 +10,6 @@ Copyright (c) 2010-2011: Joachim Faulhaber
 
 #include <string>
 #include <boost/static_assert.hpp>
-#include <boost/type_traits/ice.hpp>
 #include <boost/icl/type_traits/is_numeric.hpp>
 #include <boost/icl/type_traits/rep_type_of.hpp>
 #include <boost/icl/type_traits/size_type_of.hpp>
@@ -24,10 +23,9 @@ template<class Type> struct has_std_infinity
 {
     typedef has_std_infinity type;
     BOOST_STATIC_CONSTANT(bool, 
-        value = (type_traits::ice_and
-                      < is_numeric<Type>::value
-                      , std::numeric_limits<Type>::has_infinity
-                      >::value)
+        value = (     is_numeric<Type>::value
+                   && std::numeric_limits<Type>::has_infinity
+                )
        );
 };
 
@@ -35,10 +33,9 @@ template<class Type> struct has_max_infinity
 {
     typedef has_max_infinity type;
     BOOST_STATIC_CONSTANT(bool, 
-        value = (type_traits::ice_and
-                      < is_numeric<Type>::value
-                      , type_traits::ice_not<std::numeric_limits<Type>::has_infinity>::value
-                      >::value)
+        value = (     is_numeric<Type>::value
+                   && ! std::numeric_limits<Type>::has_infinity
+                )
        );
 };
 

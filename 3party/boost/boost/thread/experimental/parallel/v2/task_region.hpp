@@ -53,7 +53,7 @@ BOOST_THREAD_INLINE_NAMESPACE(v2)
         throw;
       }
 #if defined BOOST_THREAD_TASK_REGION_HAS_SHARED_CANCELED
-      catch (task_canceled_exception& ex)
+      catch (task_canceled_exception&)
       {
       }
 #endif

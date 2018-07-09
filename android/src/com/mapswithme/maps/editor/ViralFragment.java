@@ -1,6 +1,7 @@
 package com.mapswithme.maps.editor;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -25,6 +26,9 @@ public class ViralFragment extends BaseMwmDialogFragment
 
   private final String viralChangesMsg = MwmApplication.get().getString(R.string.editor_done_dialog_1);
   private final String viralRatingMsg = MwmApplication.get().getString(R.string.editor_done_dialog_2, getUserEditorRank());
+
+  @Nullable
+  private Runnable mDismissListener;
 
   public static boolean shouldDisplay()
   {
@@ -57,6 +61,8 @@ public class ViralFragment extends BaseMwmDialogFragment
       {
         share();
         dismiss();
+        if (mDismissListener != null)
+          mDismissListener.run();
         Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_SHARE_CLICK);
       }
     });
@@ -66,11 +72,26 @@ public class ViralFragment extends BaseMwmDialogFragment
       public void onClick(View v)
       {
         dismiss();
+        if (mDismissListener != null)
+          mDismissListener.run();
       }
     });
     Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_SHARE_SHOW,
                                    Statistics.params().add("showed", mViralText.equals(viralChangesMsg) ? "change" : "rating"));
     return root;
+  }
+
+  @Override
+  public void onCancel(DialogInterface dialog)
+  {
+    super.onCancel(dialog);
+    if (mDismissListener != null)
+      mDismissListener.run();
+  }
+
+  public void onDismissListener(@Nullable Runnable onDismissListener)
+  {
+    mDismissListener = onDismissListener;
   }
 
   private void share()

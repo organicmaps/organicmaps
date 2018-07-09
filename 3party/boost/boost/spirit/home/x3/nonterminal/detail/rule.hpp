@@ -318,17 +318,18 @@ namespace boost { namespace spirit { namespace x3 { namespace detail
               //called inside the following scope.
               ;
             {
-             //Create a scope to cause the dbg variable below (within
-             //the #if...#endif) to call it's DTOR before any
-             //modifications are made to the attribute, attr_ passed
-             //to parse_rhs (such as might be done in
-             //traits::post_transform when, for example,
-             //ActualAttribute is a recursive variant).
+             // Create a scope to cause the dbg variable below (within
+             // the #if...#endif) to call it's DTOR before any
+             // modifications are made to the attribute, attr_ passed
+             // to parse_rhs (such as might be done in
+             // traits::post_transform when, for example,
+             // ActualAttribute is a recursive variant).
 #if defined(BOOST_SPIRIT_X3_DEBUG)
-                  context_debug<Iterator, typename make_attribute::value_type>
-                dbg(rule_name, first, last, attr_, ok_parse);
+                typedef typename make_attribute::type dbg_attribute_type;
+                context_debug<Iterator, dbg_attribute_type>
+                dbg(rule_name, first, last, dbg_attribute_type(attr_), ok_parse);
 #endif
-                ok_parse=parse_rhs(rhs, first, last, context, attr_, attr_
+                ok_parse = parse_rhs(rhs, first, last, context, attr_, attr_
                    , mpl::bool_
                      < (  RHS::has_action
                        && !ExplicitAttrPropagation::value
@@ -336,11 +337,11 @@ namespace boost { namespace spirit { namespace x3 { namespace detail
                      >()
                   );
             }
-            if(ok_parse)
+            if (ok_parse)
             {
                 // do up-stream transformation, this integrates the results
                 // back into the original attribute value, if appropriate
-                traits::post_transform(attr, attr_);
+                traits::post_transform(attr, std::forward<transform_attr>(attr_));
             }
             return ok_parse;
         }

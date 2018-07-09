@@ -1,7 +1,6 @@
 #pragma once
 
 #include "drape_frontend/shape_view_params.hpp"
-#include "drape_frontend/intrusive_vector.hpp"
 
 #include "drape/utils/vertex_decl.hpp"
 #include "drape/glsl_types.hpp"
@@ -14,39 +13,34 @@
 #include "base/string_utils.hpp"
 #include "base/buffer_vector.hpp"
 
-#include "std/vector.hpp"
-#include "std/shared_ptr.hpp"
+#include <memory>
+#include <vector>
 
 namespace dp
 {
-  class OverlayHandle;
-}
+class OverlayHandle;
+}  // namespace dp
 
 namespace df
 {
-
 class TextLayout
 {
-
 public:
   virtual ~TextLayout() {}
 
+  void Init(strings::UniString const & text,
+            float fontSize, bool isSdf,
+            ref_ptr<dp::TextureManager> textures);
+
   ref_ptr<dp::Texture> GetMaskTexture() const;
-
   uint32_t GetGlyphCount() const;
-
   float GetPixelLength() const;
   float GetPixelHeight() const;
-
   int GetFixedHeight() const { return m_fixedHeight; }
-
   strings::UniString const & GetText() const;
 
 protected:
-  void Init(strings::UniString const & text, float fontSize, bool isSdf, ref_ptr<dp::TextureManager> textures);
-
-protected:
-  typedef dp::TextureManager::GlyphRegion GlyphRegion;
+  using GlyphRegion = dp::TextureManager::GlyphRegion;
 
   dp::TextureManager::TGlyphsBuffer m_metrics;
   strings::UniString m_text;
@@ -63,22 +57,41 @@ public:
                      ref_ptr<dp::TextureManager> textures,
                      dp::Anchor anchor);
 
-  void Cache(const glm::vec4 & pivot, glsl::vec2 const & pixelOffset,
-             dp::TextureManager::ColorRegion const & colorRegion,
-             dp::TextureManager::ColorRegion const & outlineRegion,
-             gpu::TTextOutlinedStaticVertexBuffer & staticBuffer,
-             gpu::TTextDynamicVertexBuffer & dynamicBuffer) const;
+  void CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
+                           gpu::TTextStaticVertexBuffer & staticBuffer) const;
 
-  void Cache(const glm::vec4 & pivot, glsl::vec2 const & pixelOffset,
-             dp::TextureManager::ColorRegion const & color,
-             gpu::TTextStaticVertexBuffer & staticBuffer,
-             gpu::TTextDynamicVertexBuffer & dynamicBuffer) const;
+  void CacheStaticGeometry(dp::TextureManager::ColorRegion const & colorRegion,
+                           dp::TextureManager::ColorRegion const & outlineRegion,
+                           gpu::TTextOutlinedStaticVertexBuffer & staticBuffer) const;
+
+  void SetBasePosition(glm::vec4 const & pivot, glm::vec2 const & baseOffset);
+  void CacheDynamicGeometry(glsl::vec2 const & pixelOffset, gpu::TTextDynamicVertexBuffer & dynamicBuffer) const;
 
   m2::PointF const & GetPixelSize() const { return m_pixelSize; }
+  size_t GetRowsCount() const { return m_rowsCount; }
 
+  void AdjustTextOffset(m2::PointF const & symbolSize, dp::Anchor textAnchor, dp::Anchor symbolAnchor,
+                        glsl::vec2 & offset) const;
 private:
+  template <typename TGenerator>
+  void Cache(TGenerator & generator) const
+  {
+    size_t beginOffset = 0;
+    for (pair<size_t, glsl::vec2> const & node : m_offsets)
+    {
+      size_t const endOffset = node.first;
+      generator.SetPenPosition(node.second);
+      for (size_t index = beginOffset; index < endOffset && index < m_metrics.size(); ++index)
+        generator(m_metrics[index]);
+      beginOffset = endOffset;
+    }
+  }
+
+  glm::vec2 m_baseOffset;
+  glm::vec4 m_pivot;
   buffer_vector<pair<size_t, glsl::vec2>, 2> m_offsets;
   m2::PointF m_pixelSize;
+  size_t m_rowsCount = 0;
 };
 
 class PathTextLayout : public TextLayout
@@ -100,32 +113,12 @@ public:
                             m2::PointD const & globalPivot,
                             gpu::TTextDynamicVertexBuffer & buffer) const;
 
-  static bool CalculatePerspectivePosition(float splineLength, float textPixelLength,
-                                           float & offset);
-
-  static void CalculatePositions(vector<float> & offsets, float splineLength,
-                                 float splineScaleToPixel, float textPixelLength);
-
+  static void CalculatePositions(double splineLength, double splineScaleToPixel,
+                                 double textPixelLength, std::vector<double> & offsets);
 private:
-  static float CalculateTextLength(float textPixelLength);
+  static double CalculateTextLength(double textPixelLength);
 
   m2::PointD m_tileCenter;
 };
 
-class SharedTextLayout
-{
-public:
-  SharedTextLayout(PathTextLayout * layout);
-
-  bool IsNull() const;
-  void Reset(PathTextLayout * layout);
-  PathTextLayout * GetRaw();
-
-  PathTextLayout * operator->();
-  PathTextLayout const * operator->() const;
-
-private:
-  shared_ptr<PathTextLayout> m_layout;
-};
-
-}
+}  // namespace df

@@ -1,41 +1,60 @@
 #pragma once
 
+#include "coding/reader.hpp"
 #include "coding/varint.hpp"
+#include "coding/writer.hpp"
 
 #include "base/assert.hpp"
+#include "base/control_flow.hpp"
 
-#include "std/array.hpp"
-#include "std/string.hpp"
-
+#include <array>
+#include <cstddef>
+#include <cstdint>
+#include <string>
+#include <utility>
 
 namespace utils
 {
-template <class TSink> void WriteString(TSink & sink, string const & s)
+template <class TSink, bool EnableExceptions = false>
+void WriteString(TSink & sink, std::string const & s)
 {
-  CHECK(!s.empty(), ());
+  if (EnableExceptions && s.empty())
+    MYTHROW(Writer::WriteException, ("String is empty"));
+  else
+    CHECK(!s.empty(), ());
 
   size_t const sz = s.size();
   WriteVarUint(sink, static_cast<uint32_t>(sz - 1));
   sink.Write(s.c_str(), sz);
 }
 
-template <class TSource> void ReadString(TSource & src, string & s)
+template <class TSource, bool EnableExceptions = false>
+void ReadString(TSource & src, std::string & s)
 {
   uint32_t const sz = ReadVarUint<uint32_t>(src) + 1;
   s.resize(sz);
   src.Read(&s[0], sz);
 
-  CHECK(!s.empty(), ());
+  if (EnableExceptions && s.empty())
+    MYTHROW(Reader::ReadException, ("String is empty"));
+  else
+    CHECK(!s.empty(), ());
 }
 }  // namespace utils
 
 class StringUtf8Multilang
 {
-  string m_s;
-
-  size_t GetNextIndex(size_t i) const;
-
 public:
+  struct Lang
+  {
+    /// OSM language code (e.g. for name:en it's "en" part).
+    char const * m_code;
+    /// Native language name.
+    char const * m_name;
+    /// Transliterator to latin id.
+    char const * m_transliteratorId;
+  };
+
   static int8_t constexpr kUnsupportedLanguageCode = -1;
   static int8_t constexpr kDefaultCode = 0;
   static int8_t constexpr kEnglishCode = 1;
@@ -44,14 +63,7 @@ public:
   /// TODO(AlexZ): Review and replace invalid languages by valid ones.
   static int8_t constexpr kMaxSupportedLanguages = 64;
 
-  struct Lang
-  {
-    /// OSM language code (e.g. for name:en it's "en" part).
-    char const * m_code;
-    /// Native language name.
-    char const * m_name;
-  };
-  using Languages = array<Lang, kMaxSupportedLanguages>;
+  using Languages = std::array<Lang, kMaxSupportedLanguages>;
 
   static Languages const & GetSupportedLanguages();
 
@@ -61,16 +73,11 @@ public:
   static char const * GetLangByCode(int8_t langCode);
   /// @returns empty string if langCode is invalid.
   static char const * GetLangNameByCode(int8_t langCode);
+  /// @returns empty string if langCode is invalid.
+  static char const * GetTransliteratorIdByCode(int8_t langCode);
 
-  inline bool operator== (StringUtf8Multilang const & rhs) const
-  {
-    return (m_s == rhs.m_s);
-  }
-
-  inline bool operator!= (StringUtf8Multilang const & rhs) const
-  {
-    return !(*this == rhs);
-  }
+  inline bool operator==(StringUtf8Multilang const & rhs) const { return m_s == rhs.m_s; }
+  inline bool operator!=(StringUtf8Multilang const & rhs) const { return !(*this == rhs); }
 
   inline void Clear() { m_s.clear(); }
   inline bool IsEmpty() const { return m_s.empty(); }
@@ -83,15 +90,17 @@ public:
       AddString(l, utf8s);
   }
 
-  template <class T>
-  void ForEach(T && fn) const
+  // Calls |fn| for each pair of |lang| and |utf8s| stored in this multilang string.
+  template <typename Fn>
+  void ForEach(Fn && fn) const
   {
     size_t i = 0;
     size_t const sz = m_s.size();
+    base::ControlFlowWrapper<Fn> wrapper(std::forward<Fn>(fn));
     while (i < sz)
     {
       size_t const next = GetNextIndex(i);
-      if (!fn((m_s[i] & 0x3F), m_s.substr(i + 1, next - i - 1)))
+      if (wrapper((m_s[i] & 0x3F), m_s.substr(i + 1, next - i - 1)) == base::ControlFlow::Break)
         return;
       i = next;
     }
@@ -111,15 +120,22 @@ public:
 
   int8_t FindString(string const & utf8s) const;
 
-  template <class TSink> void Write(TSink & sink) const
+  template <class TSink>
+  void Write(TSink & sink) const
   {
     utils::WriteString(sink, m_s);
   }
 
-  template <class TSource> void Read(TSource & src)
+  template <class TSource>
+  void Read(TSource & src)
   {
     utils::ReadString(src, m_s);
   }
+
+private:
+  size_t GetNextIndex(size_t i) const;
+
+  std::string m_s;
 };
 
-string DebugPrint(StringUtf8Multilang const & s);
+std::string DebugPrint(StringUtf8Multilang const & s);

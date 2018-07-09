@@ -162,15 +162,19 @@ namespace boost { namespace phoenix
     struct default_actions::when<rule::dynamic_member, Dummy>
         : call<dynamic_member_eval>
     {};
-    
+
+//#if defined(BOOST_PHOENIX_NO_VARIADIC_SCOPE)
     template <
         BOOST_PHOENIX_typename_A_void(BOOST_PHOENIX_DYNAMIC_LIMIT)
       , typename Dummy = void
     >
     struct dynamic;
-    
+
     // Bring in the rest ...
-    #include <boost/phoenix/scope/detail/dynamic.hpp>
+    #include <boost/phoenix/scope/detail/cpp03/dynamic.hpp>
+//#else
+//    // TODO:
+//#endif
 }}
 
 #endif

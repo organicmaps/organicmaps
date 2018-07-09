@@ -11,6 +11,8 @@ build
 3rd_party/api-android/
 RELEASE
 .idea
+.externalNativeBuild
+nativeOutputs
 
 # For now, ignore Android Studio projects
 *.iml

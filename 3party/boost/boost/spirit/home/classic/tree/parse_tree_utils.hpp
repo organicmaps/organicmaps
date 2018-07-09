@@ -59,6 +59,6 @@ BOOST_SPIRIT_CLASSIC_NAMESPACE_END
 }   // namespace spirit
 }   // namespace boost
 
-#include "boost/spirit/home/classic/tree/impl/parse_tree_utils.ipp"
+#include <boost/spirit/home/classic/tree/impl/parse_tree_utils.ipp>
 
 #endif // !defined(PARSE_TREE_UTILS_HPP)

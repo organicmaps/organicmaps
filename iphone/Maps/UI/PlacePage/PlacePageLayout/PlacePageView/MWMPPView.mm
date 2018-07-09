@@ -23,6 +23,7 @@ CGFloat const kTableViewTopInset = -36;
   {
     self.decelerationRate = UIScrollViewDecelerationRateFast;
     self.showsVerticalScrollIndicator = NO;
+    self.clipsToBounds = NO;
     _inactiveView = inactiveView;
   }
   return self;
@@ -54,7 +55,7 @@ CGFloat const kTableViewTopInset = -36;
       self.currentContentHeight = height;
       self.height = height + self.top.height;
       [self setNeedsLayout];
-      [self.delegate updateWithHeight:self.height];
+      [self.delegate updateLayout];
     }
     return;
   }
@@ -82,26 +83,18 @@ CGFloat const kTableViewTopInset = -36;
   [self.tableView removeObserver:self forKeyPath:kTableViewContentSizeKeyPath context:kContext];
 }
 
-- (void)layoutSubviews
-{
-  [super layoutSubviews];
-  if (!IPAD)
-    return;
-
-  for (UIView * sv in self.subviews)
-  {
-    if (![sv isKindOfClass:[MWMPlacePageActionBar class]])
-      continue;
-    sv.maxY = self.height;
-    break;
-  }
-}
-
 #pragma mark - VisibleArea
 
-- (MWMVisibleAreaAffectDirection)visibleAreaAffectDirection
+- (MWMAvailableAreaAffectDirections)visibleAreaAffectDirections
 {
-  return IPAD ? MWMVisibleAreaAffectDirectionLeft : MWMVisibleAreaAffectDirectionNone;
+  return IPAD ? MWMAvailableAreaAffectDirectionsLeft : MWMAvailableAreaAffectDirectionsNone;
+}
+
+#pragma mark - AvailableArea / SideButtonsArea
+
+- (MWMAvailableAreaAffectDirections)sideButtonsAreaAffectDirections
+{
+  return IPAD ? MWMAvailableAreaAffectDirectionsNone : MWMAvailableAreaAffectDirectionsBottom;
 }
 
 @end

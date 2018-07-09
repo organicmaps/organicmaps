@@ -24,7 +24,7 @@ struct FeaturesLayer
   strings::UniString m_subQuery;
 
   TokenRange m_tokenRange;
-  SearchModel::SearchType m_type;
+  Model::Type m_type;
 
   // *NOTE* This field is meaningful only when m_type equals to
   // SEARCH_TYPE_BUILDING.
@@ -39,5 +39,4 @@ struct FeaturesLayer
 };
 
 string DebugPrint(FeaturesLayer const & layer);
-
 }  // namespace search

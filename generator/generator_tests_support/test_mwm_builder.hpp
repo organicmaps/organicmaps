@@ -1,8 +1,12 @@
 #pragma once
 
+#include "generator/cities_boundaries_builder.hpp"
+
 #include "indexer/data_header.hpp"
 
-#include "std/unique_ptr.hpp"
+#include <memory>
+#include <string>
+#include <vector>
 
 namespace feature
 {
@@ -29,13 +33,16 @@ public:
 
   void Add(TestFeature const & feature);
   bool Add(FeatureBuilder1 & fb);
+  void SetMwmLanguages(std::vector<std::string> const & languages);
 
   void Finish();
 
 private:
   platform::LocalCountryFile & m_file;
   feature::DataHeader::MapType m_type;
-  unique_ptr<feature::FeaturesCollector> m_collector;
+  std::vector<std::string> m_languages;
+  std::unique_ptr<feature::FeaturesCollector> m_collector;
+  TestIdToBoundariesTable m_boundariesTable;
 };
 }  // namespace tests_support
 }  // namespace generator

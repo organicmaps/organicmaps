@@ -90,17 +90,6 @@ template < static_gcd_type Value1, static_gcd_type Value2 >
 template < static_gcd_type Value1, static_gcd_type Value2 >
     struct static_lcm;
 
-
-//  From <boost/math/common_factor_rt.hpp>  ----------------------------------//
-
-template < typename IntegerType >
-    class gcd_evaluator;
-template < typename IntegerType >
-    class lcm_evaluator;
-
-// Also has a couple of function templates
-
-
 }  // namespace math
 }  // namespace boost
 

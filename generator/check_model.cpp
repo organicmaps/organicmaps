@@ -13,7 +13,7 @@ using namespace feature;
 
 namespace check_model
 {
-  void ReadFeatures(string const & fName)
+  void ReadFeatures(std::string const & fName)
   {
     Classificator const & c = classif();
 

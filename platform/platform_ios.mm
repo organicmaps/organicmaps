@@ -1,10 +1,13 @@
+#include "platform/platform_ios.h"
 #include "platform/constants.hpp"
+#include "platform/gui_thread.hpp"
 #include "platform/measurement_utils.hpp"
-#include "platform/platform.hpp"
 #include "platform/platform_unix_impl.hpp"
 #include "platform/settings.hpp"
 
 #include "coding/file_reader.hpp"
+
+#include <utility>
 
 #include <ifaddrs.h>
 
@@ -16,54 +19,77 @@
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/utsname.h>
+#include <sys/xattr.h>
 
 #import "iphone/Maps/Common/MWMCommon.h"
 
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
-#import <Foundation/NSAutoreleasePool.h>
-#import <Foundation/NSBundle.h>
-#import <Foundation/NSPathUtilities.h>
-#import <Foundation/NSProcessInfo.h>
-
-#import <UIKit/UIDevice.h>
-#import <UIKit/UIScreen.h>
-#import <UIKit/UIScreenMode.h>
-
+#import <CoreFoundation/CFURL.h>
 #import <SystemConfiguration/SystemConfiguration.h>
+#import <UIKit/UIKit.h>
 #import <netinet/in.h>
 
 Platform::Platform()
 {
   m_isTablet = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
 
-  NSBundle * bundle = [NSBundle mainBundle];
+  NSBundle * bundle = NSBundle.mainBundle;
   NSString * path = [bundle resourcePath];
-  m_resourcesDir = [path UTF8String];
+  m_resourcesDir = path.UTF8String;
   m_resourcesDir += "/";
 
   NSArray * dirPaths =
       NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString * docsDir = [dirPaths firstObject];
-  m_writableDir = [docsDir UTF8String];
+  NSString * docsDir = dirPaths.firstObject;
+  m_writableDir = docsDir.UTF8String;
   m_writableDir += "/";
   m_settingsDir = m_writableDir;
 
+  auto privatePaths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory,
+                                                          NSUserDomainMask, YES);
+  m_privateDir = privatePaths.firstObject.UTF8String;
+  m_privateDir +=  "/";
+
   NSString * tmpDir = NSTemporaryDirectory();
   if (tmpDir)
-    m_tmpDir = [tmpDir UTF8String];
+    m_tmpDir = tmpDir.UTF8String;
   else
   {
-    m_tmpDir = [NSHomeDirectory() UTF8String];
+    m_tmpDir = NSHomeDirectory().UTF8String;
     m_tmpDir += "/tmp/";
   }
 
-  UIDevice * device = [UIDevice currentDevice];
+  m_guiThread = make_unique<platform::GuiThread>();
+
+  UIDevice * device = UIDevice.currentDevice;
   NSLog(@"Device: %@, SystemName: %@, SystemVersion: %@", device.model, device.systemName,
         device.systemVersion);
 }
 
-Platform::EError Platform::MkDir(string const & dirName) const
+//static
+void Platform::DisableBackupForFile(string const & filePath)
+{
+  // We need to disable iCloud backup for downloaded files.
+  // This is the reason for rejecting from the AppStore
+  // https://developer.apple.com/library/iOS/qa/qa1719/_index.html
+  CFURLRef url = CFURLCreateFromFileSystemRepresentation(kCFAllocatorDefault,
+                                                         reinterpret_cast<unsigned char const *>(filePath.c_str()),
+                                                         filePath.size(),
+                                                         0);
+  CFErrorRef err;
+  BOOL valueRaw = YES;
+  CFNumberRef value = CFNumberCreate(kCFAllocatorDefault, kCFNumberCharType, &valueRaw);
+  if (!CFURLSetResourcePropertyForKey(url, kCFURLIsExcludedFromBackupKey, value, &err))
+    NSLog(@"Error while disabling iCloud backup for file: %s", filePath.c_str());
+
+  CFRelease(value);
+  CFRelease(url);
+}
+
+// static
+Platform::EError Platform::MkDir(string const & dirName)
 {
   if (::mkdir(dirName.c_str(), 0755))
     return ErrnoToError();
@@ -97,11 +123,12 @@ int Platform::VideoMemoryLimit() const { return 8 * 1024 * 1024; }
 int Platform::PreCachingDepth() const { return 2; }
 
 string Platform::UniqueClientId() const { return [Alohalytics installationId].UTF8String; }
-static void PerformImpl(void * obj)
+
+string Platform::MacAddress(bool md5Decoded) const
 {
-  Platform::TFunctor * f = reinterpret_cast<Platform::TFunctor *>(obj);
-  (*f)();
-  delete f;
+  // Not implemented.
+  UNUSED_VALUE(md5Decoded);
+  return {};
 }
 
 string Platform::GetMemoryInfo() const
@@ -124,22 +151,32 @@ string Platform::GetMemoryInfo() const
   return ss.str();
 }
 
-void Platform::RunOnGuiThread(TFunctor const & fn)
+string Platform::DeviceName() const { return UIDevice.currentDevice.name.UTF8String; }
+
+string Platform::DeviceModel() const
 {
-  dispatch_async_f(dispatch_get_main_queue(), new TFunctor(fn), &PerformImpl);
+  utsname systemInfo;
+  uname(&systemInfo);
+  NSString * deviceModel = @(systemInfo.machine);
+  if (auto m = platform::kDeviceModelsBeforeMetalDriver[deviceModel])
+    deviceModel = m;
+  else if (auto m = platform::kDeviceModelsWithiOS10MetalDriver[deviceModel])
+    deviceModel = m;
+  else if (auto m = platform::kDeviceModelsWithMetalDriver[deviceModel])
+    deviceModel = m;
+  return deviceModel.UTF8String;
 }
 
-void Platform::RunAsync(TFunctor const & fn, Priority p)
+void Platform::RunOnGuiThread(base::TaskLoop::Task && task)
 {
-  int priority = DISPATCH_QUEUE_PRIORITY_DEFAULT;
-  switch (p)
-  {
-  case EPriorityBackground: priority = DISPATCH_QUEUE_PRIORITY_BACKGROUND; break;
-  case EPriorityDefault: priority = DISPATCH_QUEUE_PRIORITY_DEFAULT; break;
-  case EPriorityHigh: priority = DISPATCH_QUEUE_PRIORITY_HIGH; break;
-  case EPriorityLow: priority = DISPATCH_QUEUE_PRIORITY_LOW; break;
-  }
-  dispatch_async_f(dispatch_get_global_queue(priority, 0), new TFunctor(fn), &PerformImpl);
+  ASSERT(m_guiThread, ());
+  m_guiThread->Push(std::move(task));
+}
+
+void Platform::RunOnGuiThread(base::TaskLoop::Task const & task)
+{
+  ASSERT(m_guiThread, ());
+  m_guiThread->Push(task);
 }
 
 Platform::EConnectionType Platform::ConnectionStatus()
@@ -167,6 +204,17 @@ Platform::EConnectionType Platform::ConnectionStatus()
     return EConnectionType::CONNECTION_WIFI;
 }
 
+Platform::ChargingStatus Platform::GetChargingStatus()
+{
+  switch (UIDevice.currentDevice.batteryState)
+  {
+  case UIDeviceBatteryStateUnknown: return Platform::ChargingStatus::Unknown;
+  case UIDeviceBatteryStateUnplugged: return Platform::ChargingStatus::Unplugged;
+  case UIDeviceBatteryStateCharging:
+  case UIDeviceBatteryStateFull: return Platform::ChargingStatus::Plugged;
+  }
+}
+
 void Platform::SetupMeasurementSystem() const
 {
   auto units = measurement_utils::Units::Metric;
@@ -176,6 +224,11 @@ void Platform::SetupMeasurementSystem() const
       [[[NSLocale autoupdatingCurrentLocale] objectForKey:NSLocaleUsesMetricSystem] boolValue];
   units = isMetric ? measurement_utils::Units::Metric : measurement_utils::Units::Imperial;
   settings::Set(settings::kMeasurementUnits, units);
+}
+
+void Platform::SetGuiThread(unique_ptr<base::TaskLoop> guiThread)
+{
+  m_guiThread = std::move(guiThread);
 }
 
 ////////////////////////////////////////////////////////////////////////

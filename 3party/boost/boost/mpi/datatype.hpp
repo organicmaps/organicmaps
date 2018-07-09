@@ -30,6 +30,10 @@
 #include <boost/serialization/item_version_type.hpp>
 #include <utility> // for std::pair
 
+#if defined(__cplusplus) && (201103L <= __cplusplus) 
+#include <array>
+#endif
+
 namespace boost { namespace mpi {
 
 /**
@@ -264,6 +268,15 @@ struct is_mpi_datatype<std::pair<T,U> >
  : public mpl::and_<is_mpi_datatype<T>,is_mpi_datatype<U> >
 {
 };
+
+/// specialization of is_mpi_datatype for arrays
+#if defined(__cplusplus) && (201103L <= __cplusplus)
+template<class T, std::size_t N>
+struct is_mpi_datatype<std::array<T, N> >
+ : public is_mpi_datatype<T>
+{
+};
+#endif
 
 // Define wchar_t specialization of is_mpi_datatype, if possible.
 #if !defined(BOOST_NO_INTRINSIC_WCHAR_T) && \

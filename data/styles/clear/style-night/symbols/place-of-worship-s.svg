@@ -1,16 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-    <title>place-of-worship-s</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard-1" transform="translate(-387.000000, -920.000000)">
-            <g id="place-of-worship-s" transform="translate(387.000000, 920.000000)">
-                <circle id="Oval-1-Copy-43" fill-opacity="0.1" fill="#FFFFFF" cx="8.5" cy="8.5" r="8.5"></circle>
-                <circle id="Oval-1-Copy-42" fill="#26160D" cx="8.5" cy="8.5" r="7.5"></circle>
-                <path d="M8.5,4 L7,4.9411 L7,6 L6,7 L6,12 L11,12 L11,7 L10,6 L10,5.0404 L8.5,4 Z M4,8 L4,12 L5,12 L5,8 L4,8 Z M12,8 L12,12 L13,12 L13,8 L12,8 Z" id="path8846-6-copy" fill-opacity="0.7" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
+<svg width="16" height="16" viewBox="0 0 16 16">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="8" cy="8" r="8" fill="#FFF" opacity=".4"/>
+    <circle cx="8" cy="8" r="7" fill="#4C351E"/>
+    <path fill="#FFF" d="M8,3 L6.66666667,3.9411 L6.66666667,5 L5.77777778,6 L5.77777778,11 L10.2222222,11 L10.2222222,6 L9.33333333,5 L9.33333333,4.0404 L8,3 Z M4,7 L4,11 L4.88888889,11 L4.88888889,7 L4,7 Z M11.1111111,7 L11.1111111,11 L12,11 L12,7 L11.1111111,7 Z" opacity=".6"/>
+  </g>
 </svg>

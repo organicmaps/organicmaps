@@ -51,7 +51,7 @@ class NotificationManager
     , m_nextTurnNotificationProgress(PronouncedNotification::Nothing)
     , m_turnNotificationWithThen(false)
     , m_nextTurnIndex(0)
-    , m_secondTurnNotification(TurnDirection::NoTurn)
+    , m_secondTurnNotification(CarDirection::None)
   {
   }
 
@@ -90,7 +90,7 @@ class NotificationManager
   /// m_secondTurnNotification is a direction of the turn after the closest one
   /// if an end user shall be informed about it. If not, m_secondTurnNotification ==
   /// TurnDirection::NoTurn
-  TurnDirection m_secondTurnNotification;
+  CarDirection m_secondTurnNotification;
   /// m_secondTurnNotificationIndex is an index of the closest turn on the route polyline
   /// where m_secondTurnNotification was set to true last time for a turn.
   /// If the closest turn is changed m_secondTurnNotification is set to 0.
@@ -101,7 +101,7 @@ class NotificationManager
   uint32_t m_secondTurnNotificationIndex;
 
   string GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum, bool useThenInsteadOfDistance,
-                          TurnDirection turnDir, measurement_utils::Units lengthUnits) const;
+                          CarDirection turnDir, measurement_utils::Units lengthUnits) const;
   /// Generates turn sound notification for the nearest to the current position turn.
   string GenerateFirstTurnSound(TurnItem const & turn, double distanceToTurnMeters);
   /// Changes the state of the class to emulate that first turn notification is pronouned
@@ -114,7 +114,7 @@ class NotificationManager
   /// for a turn once it will return the same value until the turn is changed.
   /// \note This method works independent from m_enabled value.
   /// So it works when the class enable and disable.
-  TurnDirection GenerateSecondTurnNotification(vector<TurnItemDist> const & turns);
+  CarDirection GenerateSecondTurnNotification(vector<TurnItemDist> const & turns);
 
 public:
   NotificationManager()
@@ -125,7 +125,7 @@ public:
     , m_nextTurnNotificationProgress(PronouncedNotification::Nothing)
     , m_turnNotificationWithThen(false)
     , m_nextTurnIndex(0)
-    , m_secondTurnNotification(TurnDirection::NoTurn)
+    , m_secondTurnNotification(CarDirection::None)
   {
   }
 
@@ -168,7 +168,7 @@ public:
   /// for a turn once it continues returning the same value until the turn is changed.
   /// \note This method works independent from m_enabled value.
   /// So it works when the class enable and disable.
-  TurnDirection GetSecondTurnNotification() const { return m_secondTurnNotification; }
+  CarDirection GetSecondTurnNotification() const { return m_secondTurnNotification; }
 };
 }  // namespace sound
 }  // namespace turns

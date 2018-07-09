@@ -20,7 +20,8 @@
 #define BOOST_GEOMETRY_STRATEGIES_CARTESIAN_SIDE_BY_TRIANGLE_HPP
 
 #include <boost/mpl/if.hpp>
-#include <boost/type_traits.hpp>
+#include <boost/type_traits/is_integral.hpp>
+#include <boost/type_traits/is_void.hpp>
 
 #include <boost/geometry/arithmetic/determinant.hpp>
 #include <boost/geometry/core/access.hpp>

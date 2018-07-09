@@ -5,8 +5,8 @@
 // Copyright (c) 2009-2014 Mateusz Loskot, London, UK.
 // Copyright (c) 2013-2014 Adam Wulkiewicz, Lodz, Poland.
 
-// This file was modified by Oracle on 2013-2014.
-// Modifications copyright (c) 2013-2014, Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013-2017.
+// Modifications copyright (c) 2013-2017, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
@@ -53,7 +53,9 @@ namespace detail { namespace disjoint
 template <typename Segment1, typename Segment2>
 struct disjoint_segment
 {
-    static inline bool apply(Segment1 const& segment1, Segment2 const& segment2)
+    template <typename Strategy>
+    static inline bool apply(Segment1 const& segment1, Segment2 const& segment2,
+                             Strategy const& strategy)
     {
         typedef typename point_type<Segment1>::type point_type;
 
@@ -62,23 +64,23 @@ struct disjoint_segment
         rescale_policy_type robust_policy;
 
         typedef segment_intersection_points
-                <
-                    point_type,
-                    typename segment_ratio_type
+            <
+                point_type,
+                typename segment_ratio_type
                     <
                         point_type,
                         rescale_policy_type
                     >::type
-                > intersection_return_type;
+            > intersection_return_type;
 
-        intersection_return_type is
-            = strategy::intersection::relate_cartesian_segments
+        typedef policies::relate::segments_intersection_points
             <
-                policies::relate::segments_intersection_points
-                    <
-                        intersection_return_type
-                    >
-            >::apply(segment1, segment2, robust_policy);
+                intersection_return_type
+            > intersection_policy;
+
+        intersection_return_type is = strategy.apply(segment1, segment2,
+                                                     intersection_policy(),
+                                                     robust_policy);
 
         return is.count == 0;
     }
@@ -109,8 +111,10 @@ struct assign_disjoint_policy
 template <typename Geometry1, typename Geometry2>
 struct disjoint_linear
 {
-    static inline
-    bool apply(Geometry1 const& geometry1, Geometry2 const& geometry2)
+    template <typename Strategy>
+    static inline bool apply(Geometry1 const& geometry1,
+                             Geometry2 const& geometry2,
+                             Strategy const& strategy)
     {
         typedef typename geometry::point_type<Geometry1>::type point_type;
         typedef detail::no_rescale_policy rescale_policy_type;
@@ -147,7 +151,7 @@ struct disjoint_linear
                         Geometry1, Geometry2, assign_disjoint_policy
                     >
             >::apply(0, geometry1, 1, geometry2,
-                     rescale_policy_type(), turns, interrupt_policy);
+                     strategy, rescale_policy_type(), turns, interrupt_policy);
 
         return !interrupt_policy.has_intersections;
     }

@@ -9,8 +9,8 @@
 
 #include "indexer/altitude_loader.hpp"
 #include "indexer/classificator_loader.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/feature_processor.hpp"
-#include "indexer/index.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -25,11 +25,14 @@
 #include "base/logging.hpp"
 #include "base/scope_guard.hpp"
 
-#include "std/string.hpp"
+#include "defines.hpp"
+
+#include <string>
 
 using namespace feature;
 using namespace generator;
 using namespace platform;
+using namespace platform::tests_support;
 using namespace routing;
 
 namespace
@@ -45,9 +48,9 @@ namespace
 // @TODO(bykoianko) Add ability to add to the tests not road features without altitude information.
 
 // Directory name for creating test mwm and temporary files.
-string const kTestDir = "altitude_generation_test";
+std::string const kTestDir = "altitude_generation_test";
 // Temporary mwm name for testing.
-string const kTestMwm = "test";
+std::string const kTestMwm = "test";
 
 struct Point3D
 {
@@ -125,13 +128,14 @@ void BuildMwmWithoutAltitudes(vector<TPoint3DList> const & roads, LocalCountryFi
   generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::country);
 
   for (TPoint3DList const & geom3D : roads)
-    builder.Add(generator::tests_support::TestStreet(ExtractPoints(geom3D), string(), string()));
+    builder.Add(generator::tests_support::TestStreet(ExtractPoints(geom3D), std::string(), std::string()));
 }
 
-void TestAltitudes(MwmValue const & mwmValue, string const & mwmPath,
-                   bool hasAltitudeExpected, AltitudeGetter & expectedAltitudes)
+void TestAltitudes(DataSource const & dataSource, MwmSet::MwmId const & mwmId,
+                   std::string const & mwmPath, bool hasAltitudeExpected,
+                   AltitudeGetter & expectedAltitudes)
 {
-  AltitudeLoader loader(mwmValue);
+  AltitudeLoader loader(dataSource, mwmId);
   TEST_EQUAL(loader.HasAltitudes(), hasAltitudeExpected, ());
 
   auto processor = [&expectedAltitudes, &loader](FeatureType const & f, uint32_t const & id)
@@ -163,27 +167,26 @@ void TestAltitudesBuilding(vector<TPoint3DList> const & roads, bool hasAltitudeE
 {
   classificator::Load();
   Platform & platform = GetPlatform();
-  string const testDirFullPath = my::JoinFoldersToPath(platform.WritableDir(), kTestDir);
+  std::string const testDirFullPath = my::JoinPath(platform.WritableDir(), kTestDir);
 
   // Building mwm without altitude section.
   LocalCountryFile country(testDirFullPath, CountryFile(kTestMwm), 1);
-  platform::tests_support::ScopedDir testScopedDir(kTestDir);
-  platform::tests_support::ScopedFile testScopedMwm(country.GetPath(MapOptions::Map));
+  ScopedDir testScopedDir(kTestDir);
+  ScopedFile testScopedMwm(my::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION),
+                           ScopedFile::Mode::Create);
+
   BuildMwmWithoutAltitudes(roads, country);
 
   // Adding altitude section to mwm.
-  string const mwmPath = my::JoinFoldersToPath(testDirFullPath, kTestMwm + DATA_FILE_EXTENSION);
+  auto const mwmPath = testScopedMwm.GetFullPath();
   BuildRoadAltitudes(mwmPath, altitudeGetter);
 
   // Reading from mwm and testing altitude information.
-  Index index;
-  auto const regResult = index.RegisterMap(country);
+  FrozenDataSource dataSource;
+  auto const regResult = dataSource.RegisterMap(country);
   TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
 
-  MwmSet::MwmHandle mwmHandle = index.GetMwmHandleById(regResult.first);
-  TEST(mwmHandle.IsAlive(), ());
-
-  TestAltitudes(*mwmHandle.GetValue<MwmValue>(), mwmPath, hasAltitudeExpected, altitudeGetter);
+  TestAltitudes(dataSource, regResult.first /* mwmId */, mwmPath, hasAltitudeExpected, altitudeGetter);
 }
 
 void TestBuildingAllFeaturesHaveAltitude(vector<TPoint3DList> const & roads, bool hasAltitudeExpected)

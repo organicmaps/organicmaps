@@ -9,15 +9,14 @@ import android.support.annotation.UiThread;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
-import java.lang.ref.WeakReference;
-import java.util.List;
-
-import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.background.Notifier;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.Utils;
 import com.mapswithme.util.statistics.Statistics;
+
+import java.lang.ref.WeakReference;
+import java.util.List;
 
 @UiThread
 public final class MapManager
@@ -84,7 +83,17 @@ public final class MapManager
     Statistics.INSTANCE.trackEvent(event, Statistics.params().add(Statistics.EventParam.TYPE, text));
   }
 
-  public static void showError(final Activity activity, final StorageCallbackData errorData, @Nullable final Utils.Proc<Boolean> dialogClickListener)
+  public static void showError(final Activity activity, final StorageCallbackData errorData,
+                               @Nullable final Utils.Proc<Boolean> dialogClickListener)
+  {
+    if (!nativeIsAutoretryFailed())
+      return;
+
+    showErrorDialog(activity, errorData, dialogClickListener);
+  }
+
+  public static void showErrorDialog(final Activity activity, final StorageCallbackData errorData,
+                                     @Nullable final Utils.Proc<Boolean> dialogClickListener)
   {
     if (sCurrentErrorDialog != null)
     {
@@ -92,9 +101,6 @@ public final class MapManager
       if (dlg != null && dlg.isShowing())
         return;
     }
-
-    if (!nativeIsAutoretryFailed())
-      return;
 
     @StringRes int text;
     switch (errorData.errorCode)
@@ -114,7 +120,16 @@ public final class MapManager
     AlertDialog dlg = new AlertDialog.Builder(activity)
                                      .setTitle(R.string.country_status_download_failed)
                                      .setMessage(text)
-                                     .setNegativeButton(android.R.string.cancel, null)
+                                     .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener()
+                                     {
+                                       @Override
+                                       public void onClick(DialogInterface dialog, int which)
+                                       {
+                                         sCurrentErrorDialog = null;
+                                         if (dialogClickListener != null)
+                                           dialogClickListener.invoke(false);
+                                       }
+                                     })
                                      .setPositiveButton(R.string.downloader_retry, new DialogInterface.OnClickListener()
                                      {
                                        @Override
@@ -125,37 +140,17 @@ public final class MapManager
                                            @Override
                                            public void run()
                                            {
-                                             Notifier.cancelDownloadFailed();
+                                             Notifier.cancelNotification(Notifier.ID_DOWNLOAD_FAILED);
 
                                              if (dialogClickListener != null)
                                                dialogClickListener.invoke(true);
                                            }
                                          });
                                        }
-                                     }).setOnDismissListener(new DialogInterface.OnDismissListener()
-                                     {
-                                       @Override
-                                       public void onDismiss(DialogInterface dialog)
-                                       {
-                                         sCurrentErrorDialog = null;
-                                         if (dialogClickListener != null)
-                                           dialogClickListener.invoke(false);
-                                       }
                                      }).create();
+    dlg.setCanceledOnTouchOutside(false);
     dlg.show();
     sCurrentErrorDialog = new WeakReference<>(dlg);
-  }
-
-  public static void checkUpdates()
-  {
-    if (!Framework.nativeIsDataVersionChanged())
-      return;
-
-    String countriesToUpdate = Framework.nativeGetOutdatedCountriesString();
-    if (!TextUtils.isEmpty(countriesToUpdate))
-      Notifier.notifyUpdateAvailable(countriesToUpdate);
-
-    Framework.nativeUpdateSavedDataVersion();
   }
 
   private static void notifyNoSpaceInternal(Activity activity)
@@ -396,6 +391,9 @@ public final class MapManager
    * Determines whether something is downloading now.
    */
   public static native boolean nativeIsDownloading();
+
+  @Nullable
+  public static native String nativeGetCurrentDownloadingCountryId();
 
   /**
    * Enqueues given {@code root} node and its children in downloader.

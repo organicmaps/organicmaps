@@ -36,7 +36,7 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
   }
   {
     grid->addWidget(new QLabel("CountryId"), row, 0);
-    QLabel * label = new QLabel(QString::fromStdString(info.m_countryId));
+    QLabel * label = new QLabel(QString::fromStdString(info.GetCountryId()));
     label->setTextInteractionFlags(Qt::TextSelectableByMouse);
     grid->addWidget(label, row++, 1);
   }
@@ -145,6 +145,10 @@ PlacePageDialog::PlacePageDialog(QWidget * parent, place_page::Info const & info
     case osm::Props::BuildingLevels:
       k = "Building Levels";
       v = info.GetBuildingLevels();
+      break;
+    case osm::Props::Level:
+      k = "Level";
+      v = info.GetLevel();
       break;
     }
     grid->addWidget(new QLabel(k), row, 0);

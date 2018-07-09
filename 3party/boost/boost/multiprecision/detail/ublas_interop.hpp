@@ -32,6 +32,18 @@ struct promote_traits<boost::multiprecision::number<Backend1, ExpressionTemplate
    >::type promote_type;
 };
 
+template <class Backend1, boost::multiprecision::expression_template_option ExpressionTemplates1, class Arithmetic>
+struct promote_traits<boost::multiprecision::number<Backend1, ExpressionTemplates1>, Arithmetic>
+{
+   typedef boost::multiprecision::number<Backend1, ExpressionTemplates1> promote_type;
+};
+
+template <class Arithmetic, class Backend1, boost::multiprecision::expression_template_option ExpressionTemplates1>
+struct promote_traits<Arithmetic, boost::multiprecision::number<Backend1, ExpressionTemplates1> >
+{
+   typedef boost::multiprecision::number<Backend1, ExpressionTemplates1> promote_type;
+};
+
 template <class Backend1, boost::multiprecision::expression_template_option ExpressionTemplates1, class tag, class Arg1, class Arg2, class Arg3, class Arg4>
 struct promote_traits<boost::multiprecision::number<Backend1, ExpressionTemplates1>, boost::multiprecision::detail::expression<tag, Arg1, Arg2, Arg3, Arg4> >
 {

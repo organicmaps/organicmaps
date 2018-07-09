@@ -1,6 +1,6 @@
 // boost lockfree
 //
-// Copyright (C) 2011 Tim Blechmann
+// Copyright (C) 2011, 2016 Tim Blechmann
 //
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
@@ -10,6 +10,11 @@
 #define BOOST_LOCKFREE_DETAIL_PARAMETER_HPP
 
 #include <boost/lockfree/policies.hpp>
+#include <boost/parameter/parameters.hpp>
+#include <boost/parameter/binding.hpp>
+
+#include <boost/mpl/void.hpp>
+
 
 namespace boost {
 namespace lockfree {

@@ -1,6 +1,9 @@
 package com.mapswithme.maps.editor;
 
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +16,7 @@ import com.mapswithme.maps.widget.SearchToolbarController;
 import com.mapswithme.maps.widget.ToolbarController;
 import com.mapswithme.util.Language;
 
-public class FeatureCategoryFragment extends BaseMwmRecyclerFragment
+public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCategoryAdapter>
 {
   private FeatureCategory mSelectedCategory;
   protected ToolbarController mToolbarController;
@@ -29,8 +32,9 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment
     return inflater.inflate(R.layout.fragment_categories, container, false);
   }
 
+  @CallSuper
   @Override
-  public void onViewCreated(View view, Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
 
@@ -48,12 +52,13 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment
 
   private void setFilter(String query)
   {
-    ((FeatureCategoryAdapter) getAdapter()).setCategories(query.isEmpty() ? Editor.nativeGetAllFeatureCategories(Language.getKeyboardLocale())
-                                                                          : Editor.nativeSearchFeatureCategories(query, Language.getKeyboardLocale()));
+    getAdapter().setCategories(query.isEmpty() ? Editor.nativeGetAllFeatureCategories(Language.getKeyboardLocale())
+                                               : Editor.nativeSearchFeatureCategories(query, Language.getKeyboardLocale()));
   }
 
+  @NonNull
   @Override
-  protected RecyclerView.Adapter createAdapter()
+  protected FeatureCategoryAdapter createAdapter()
   {
     return new FeatureCategoryAdapter(this, Editor.nativeGetAllFeatureCategories(Language.getKeyboardLocale()), mSelectedCategory);
   }

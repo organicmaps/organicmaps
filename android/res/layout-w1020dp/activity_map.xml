@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/coordinator"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:placePage="http://schemas.android.com/apk/res-auto"
@@ -13,6 +18,9 @@
 
   <include
     android:id="@+id/onmap_downloader"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
     layout="@layout/onmap_downloader"/>
 
   <include
@@ -92,10 +100,5 @@
     android:elevation="@dimen/panel_elevation"
     android:visibility="gone"
     tools:visibility="visible"/>
-
-  <com.mapswithme.maps.search.HotelsFilterView
-    android:id="@+id/hotels_filter"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:visibility="gone"/>
 </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

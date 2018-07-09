@@ -34,10 +34,15 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  if (@available(iOS 11.0, *))
+    self.tableView.insetsContentViewsToSafeArea = YES;
   self.tableView.backgroundColor = [UIColor pressBackground];
   self.tableView.separatorColor = [UIColor blackDividers];
   [self.navigationController.navigationBar setTranslucent:NO];
-  [self.tableView registerClass:[MWMTableViewCell class] forCellReuseIdentifier:[UITableViewCell className]];
+  [self.tableView registerClass:[MWMTableViewCell class]
+         forCellReuseIdentifier:[UITableViewCell className]];
+  [self.tableView registerClass:[MWMTableViewSubtitleCell class]
+         forCellReuseIdentifier:[MWMTableViewSubtitleCell className]];
 }
 
 - (void)viewWillAppear:(BOOL)animated

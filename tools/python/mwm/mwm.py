@@ -13,6 +13,39 @@ from datetime import datetime
 # - Find feature ids in the 'dat' section, or find a way to read the 'offs' section
 
 
+class OsmIdCode:
+    NODE = 0x4000000000000000
+    WAY = 0x8000000000000000
+    RELATION = 0xC000000000000000
+    RESET = ~(NODE | WAY | RELATION)
+
+    @staticmethod
+    def is_node(code):
+        return code & OsmIdCode.NODE == OsmIdCode.NODE
+
+    @staticmethod
+    def is_way(code):
+        return code & OsmIdCode.WAY == OsmIdCode.WAY
+
+    @staticmethod
+    def is_relation(code):
+        return code & OsmIdCode.RELATION == OsmIdCode.RELATION
+
+    @staticmethod
+    def get_type(code):
+        if OsmIdCode.is_relation(code):
+            return 'r'
+        elif OsmIdCode.is_node(code):
+            return 'n'
+        elif OsmIdCode.is_way(code):
+            return 'w'
+        return None
+
+    @staticmethod
+    def get_id(code):
+        return code & OsmIdCode.RESET
+
+
 class MWM:
     # coding/multilang_utf8_string.cpp
     languages = ["default",
@@ -44,7 +77,7 @@ class MWM:
         with open(filename, 'r') as ft:
             for line in ft:
                 if len(line.strip()) > 0:
-                    self.type_mapping.append(line.strip())
+                    self.type_mapping.append(line.strip().replace('|', '-'))
 
     def read_info(self):
         self.f.seek(0)
@@ -77,10 +110,11 @@ class MWM:
         fmt = self.read_varuint() + 1
         version = self.read_varuint()
         if version < 161231:
-            version = datetime(2000 + int(version / 10000), int(version / 100) % 100, version % 100)
+            vdate = datetime(2000 + int(version / 10000), int(version / 100) % 100, version % 100)
         else:
-            version = datetime.fromtimestamp(version)
-        return { 'fmt': fmt, 'version': version }
+            vdate = datetime.fromtimestamp(version)
+            version = int(vdate.strftime('%y%m%d'))
+        return {'fmt': fmt, 'version': version, 'date': vdate}
 
     def read_header(self):
         """Reads 'header' section."""
@@ -92,7 +126,7 @@ class MWM:
         result = {}
         coord_bits = self.read_varuint()
         self.coord_size = (1 << coord_bits) - 1
-        self.base_point = self.mwm_bitwise_split(self.read_varuint())
+        self.base_point = mwm_bitwise_split(self.read_varuint())
         result['basePoint'] = self.to_4326(self.base_point)
         result['bounds'] = self.read_bounds()
         result['scales'] = self.read_uint_array()
@@ -221,12 +255,6 @@ class MWM:
         AREA = 1 << 6
         POINT_EX = 3 << 5
 
-    class OsmIdCode:
-        NODE = 0x4000000000000000
-        WAY = 0x8000000000000000
-        RELATION = 0xC000000000000000
-        RESET = ~(NODE | WAY | RELATION)
-
     def iter_features(self, metadata=False):
         """Reads 'dat' section."""
         if not self.has_tag('dat'):
@@ -239,7 +267,7 @@ class MWM:
         ftid = -1
         while self.inside_tag('dat'):
             ftid += 1
-            feature = {}
+            feature = {'id': ftid}
             feature_size = self.read_varuint()
             next_feature = self.f.tell() + feature_size
             feature['size'] = feature_size
@@ -306,15 +334,10 @@ class MWM:
                 osmids = []
                 for i in range(count):
                     encid = self.read_uint(8)
-                    if encid & MWM.OsmIdCode.NODE == MWM.OsmIdCode.NODE:
-                        typ = 'n'
-                    elif encid & MWM.OsmIdCode.WAY == MWM.OsmIdCode.WAY:
-                        typ = 'w'
-                    elif encid & MWM.OsmIdCode.RELATION == MWM.OsmIdCode.RELATION:
-                        typ = 'r'
-                    else:
-                        typ = ''
-                    osmids.append('{0}{1}'.format(typ, encid & MWM.OsmIdCode.RESET))
+                    osmids.append('{0}{1}'.format(
+                        OsmIdCode.get_type(encid) or '',
+                        OsmIdCode.get_id(encid)
+                    ))
                 feature['osmIds'] = osmids
 
             if self.f.tell() > next_feature:
@@ -325,60 +348,13 @@ class MWM:
     # BITWISE READERS
 
     def read_uint(self, bytelen=1):
-        if bytelen == 1:
-            fmt = 'B'
-        elif bytelen == 2:
-            fmt = 'H'
-        elif bytelen == 4:
-            fmt = 'I'
-        elif bytelen == 8:
-            fmt = 'Q'
-        else:
-            raise Exception('Bytelen {0} is not supported'.format(bytelen))
-        res = struct.unpack(fmt, self.f.read(bytelen))
-        return res[0]
+        return read_uint(self.f, bytelen)
 
     def read_varuint(self):
-        res = 0
-        shift = 0
-        more = True
-        while more:
-            b = self.f.read(1)
-            if not b:
-                return res
-            try:
-                bc = ord(b)
-            except TypeError:
-                bc = b
-            res |= (bc & 0x7F) << shift
-            shift += 7
-            more = bc >= 0x80
-        return res
-
-    def zigzag_decode(self, uint):
-        res = uint >> 1
-        return res if uint & 1 == 0 else -res
+        return read_varuint(self.f)
 
     def read_varint(self):
-        return self.zigzag_decode(self.read_varuint())
-
-    def mwm_unshuffle(self, x):
-        x = ((x & 0x22222222) << 1) | ((x >> 1) & 0x22222222) | (x & 0x99999999)
-        x = ((x & 0x0C0C0C0C) << 2) | ((x >> 2) & 0x0C0C0C0C) | (x & 0xC3C3C3C3)
-        x = ((x & 0x00F000F0) << 4) | ((x >> 4) & 0x00F000F0) | (x & 0xF00FF00F)
-        x = ((x & 0x0000FF00) << 8) | ((x >> 8) & 0x0000FF00) | (x & 0xFF0000FF)
-        return x
-
-    def mwm_bitwise_split(self, v):
-        hi = self.mwm_unshuffle(v >> 32)
-        lo = self.mwm_unshuffle(v & 0xFFFFFFFF)
-        x = ((hi & 0xFFFF) << 16) | (lo & 0xFFFF)
-        y =     (hi & 0xFFFF0000) | (lo >> 16)
-        return (x, y)
-
-    def mwm_decode_delta(self, v, ref):
-        x, y = self.mwm_bitwise_split(v)
-        return ref[0] + self.zigzag_decode(x), ref[1] + self.zigzag_decode(y)
+        return read_varint(self.f)
 
     def read_point(self, ref, packed=True):
         """Reads an unsigned point, returns (x, y)."""
@@ -386,7 +362,7 @@ class MWM:
             u = self.read_varuint()
         else:
             u = self.read_uint(8)
-        return self.mwm_decode_delta(u, ref)
+        return mwm_decode_delta(u, ref)
 
     def to_4326(self, point):
         """Convert a point in maps.me-mercator CS to WGS-84 (EPSG:4326)."""
@@ -405,8 +381,8 @@ class MWM:
 
     def read_bounds(self):
         """Reads mercator bounds, returns (min_lon, min_lat, max_lon, max_lat)."""
-        rmin = self.mwm_bitwise_split(self.read_varint())
-        rmax = self.mwm_bitwise_split(self.read_varint())
+        rmin = mwm_bitwise_split(self.read_varint())
+        rmax = mwm_bitwise_split(self.read_varint())
         pmin = self.to_4326(rmin)
         pmax = self.to_4326(rmax)
         return (pmin[0], pmin[1], pmax[0], pmax[1])
@@ -470,3 +446,93 @@ class MWM:
                 langs[self.languages[lng]] = s[i+1:n].decode('utf-8')
             i = n
         return langs
+
+
+def mwm_unshuffle(x):
+    x = ((x & 0x22222222) << 1) | ((x >> 1) & 0x22222222) | (x & 0x99999999)
+    x = ((x & 0x0C0C0C0C) << 2) | ((x >> 2) & 0x0C0C0C0C) | (x & 0xC3C3C3C3)
+    x = ((x & 0x00F000F0) << 4) | ((x >> 4) & 0x00F000F0) | (x & 0xF00FF00F)
+    x = ((x & 0x0000FF00) << 8) | ((x >> 8) & 0x0000FF00) | (x & 0xFF0000FF)
+    return x
+
+
+def mwm_bitwise_split(v):
+    hi = mwm_unshuffle(v >> 32)
+    lo = mwm_unshuffle(v & 0xFFFFFFFF)
+    x = ((hi & 0xFFFF) << 16) | (lo & 0xFFFF)
+    y =     (hi & 0xFFFF0000) | (lo >> 16)
+    return (x, y)
+
+
+def mwm_decode_delta(v, ref):
+    x, y = mwm_bitwise_split(v)
+    return ref[0] + zigzag_decode(x), ref[1] + zigzag_decode(y)
+
+
+def read_uint(f, bytelen=1):
+    if bytelen == 1:
+        fmt = 'B'
+    elif bytelen == 2:
+        fmt = 'H'
+    elif bytelen == 4:
+        fmt = 'I'
+    elif bytelen == 8:
+        fmt = 'Q'
+    else:
+        raise Exception('Bytelen {0} is not supported'.format(bytelen))
+    res = struct.unpack(fmt, f.read(bytelen))
+    return res[0]
+
+
+def read_varuint(f):
+    res = 0
+    shift = 0
+    more = True
+    while more:
+        b = f.read(1)
+        if not b:
+            return res
+        try:
+            bc = ord(b)
+        except TypeError:
+            bc = b
+        res |= (bc & 0x7F) << shift
+        shift += 7
+        more = bc >= 0x80
+    return res
+
+
+def zigzag_decode(uint):
+    res = uint >> 1
+    return res if uint & 1 == 0 else -res
+
+
+def read_varint(f):
+    return zigzag_decode(read_varuint(f))
+
+
+def unpack_osmid(num):
+    typ = OsmIdCode.get_type(num)
+    if typ is None:
+        return None
+    return typ, OsmIdCode.get_id(num)
+
+
+# TODO(zverik, mgsergio): Move this to a separate module, cause it has nothing
+# to do with mwm.
+def read_osm2ft(f, ft2osm=False, tuples=True):
+    """Reads mwm.osm2ft file, returning a dict of feature id <-> osm id."""
+    count = read_varuint(f)
+    result = {}
+    for i in range(count):
+        osmid = read_uint(f, 8)
+        if tuples:
+            osmid = unpack_osmid(osmid)
+        fid = read_uint(f, 4)
+        read_uint(f, 4)  # filler
+        if osmid is not None:
+            if ft2osm:
+                result[fid] = osmid
+            else:
+                result[osmid] = fid
+    return result

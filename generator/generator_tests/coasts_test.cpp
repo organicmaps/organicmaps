@@ -1,23 +1,26 @@
 #include "testing/testing.hpp"
 
 #include "generator/feature_builder.hpp"
-#include "generator/feature_sorter.hpp"
 #include "generator/feature_generator.hpp"
+#include "generator/feature_helpers.hpp"
 
+#include "coding/pointd_to_pointu.hpp"
+
+#include "geometry/cellid.hpp"
 #include "geometry/mercator.hpp"
+
 #include "indexer/cell_id.hpp"
 #include "indexer/scales.hpp"
 
-#include "geometry/cellid.hpp"
-
 #include "base/logging.hpp"
 
+using namespace std;
 
 namespace
 {
   inline m2::PointU D2I(double x, double y)
   {
-    return PointD2PointU(m2::PointD(x, y), POINT_COORD_BITS);
+    return PointDToPointU(m2::PointD(x, y), POINT_COORD_BITS);
   }
 }
 
@@ -147,7 +150,7 @@ namespace
           for (PolygonsT::const_iterator i = poly.begin(); i != poly.end(); ++i)
           {
             PointsT pts;
-            feature::SimplifyPoints(dist, *i, pts, level);
+            feature::SimplifyPoints(dist, level, *i, pts);
 
             LOG(LINFO, ("Simplified. Level = ", level, "Points = ", pts));
 

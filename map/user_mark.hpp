@@ -13,95 +13,103 @@
 #include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
 
-
-class UserMarkContainer;
-class UserMarkCopy;
-
 class UserMark : public df::UserPointMark
 {
-  DISALLOW_COPY_AND_MOVE(UserMark);
 public:
-  enum class Type
+  enum class Priority: uint16_t
   {
-    API,
-    SEARCH,
-    POI,
-    BOOKMARK,
-    MY_POSITION,
-    DEBUG_MARK
+    Default = 0,
+    RouteStart,
+    RouteFinish,
+    RouteIntermediateC,
+    RouteIntermediateB,
+    RouteIntermediateA,
+    TransitStop,
+    TransitGate,
+    TransitTransfer,
+    TransitKeyStop
   };
 
-  UserMark(m2::PointD const & ptOrg, UserMarkContainer * container);
-  virtual ~UserMark() {}
+  enum Type: uint32_t
+  {
+    BOOKMARK, // Should always be the first one
+    API,
+    SEARCH,
+    STATIC,
+    ROUTING,
+    TRANSIT,
+    LOCAL_ADS,
+    DEBUG_MARK,
+    USER_MARK_TYPES_COUNT,
+    USER_MARK_TYPES_COUNT_MAX = 1000,
+  };
+
+  UserMark(kml::MarkId id, m2::PointD const & ptOrg, UserMark::Type type);
+  UserMark(m2::PointD const & ptOrg, UserMark::Type type);
+
+  static Type GetMarkType(kml::MarkId id);
+
+  Type GetMarkType() const { return GetMarkType(GetId()); }
+  kml::MarkGroupId GetGroupId() const override { return GetMarkType(); }
 
   // df::UserPointMark overrides.
+  bool IsDirty() const override { return m_isDirty; }
+  void ResetChanges() const override { m_isDirty = false; }
+  bool IsVisible() const override { return true; }
   m2::PointD const & GetPivot() const override;
   m2::PointD GetPixelOffset() const override;
   dp::Anchor GetAnchor() const override;
-  float GetDepth() const override;
-  bool RunCreationAnim() const override;
+  float GetDepth() const override { return 0.0f; }
+  df::RenderState::DepthLayer GetDepthLayer() const override;
+  drape_ptr<TitlesInfo> GetTitleDecl() const override { return nullptr; }
+  drape_ptr<ColoredSymbolZoomInfo> GetColoredSymbols() const override { return nullptr; }
+  drape_ptr<SymbolNameZoomInfo> GetBadgeNames() const override { return nullptr; }
+  drape_ptr<SymbolSizes> GetSymbolSizes() const override { return nullptr; }
+  drape_ptr<SymbolOffsets> GetSymbolOffsets() const override { return nullptr; }
+  uint16_t GetPriority() const override { return static_cast<uint16_t >(Priority::Default); }
+  uint32_t GetIndex() const override { return 0; }
+  bool HasSymbolPriority() const override { return false; }
+  bool HasTitlePriority() const override { return false; }
+  int GetMinZoom() const override { return 1; }
+  int GetMinTitleZoom() const override { return GetMinZoom(); }
+  FeatureID GetFeatureID() const override { return FeatureID(); }
+  bool HasCreationAnimation() const override { return false; }
+  df::ColorConstant GetColorConstant() const override { return {}; }
 
-  UserMarkContainer const * GetContainer() const;
   ms::LatLon GetLatLon() const;
-  virtual Type GetMarkType() const = 0;
+
+  virtual bool IsAvailableForSearch() const { return true; }
 
 protected:
+  void SetDirty() { m_isDirty = true; }
+
   m2::PointD m_ptOrg;
-  mutable UserMarkContainer * m_container;
+
+private:
+  mutable bool m_isDirty = true;
+
+  DISALLOW_COPY_AND_MOVE(UserMark);
 };
 
-enum SearchMarkType
-{
-  DefaultSearchMark = 0,
-  BookingSearchMark,
-
-  SearchMarkTypesCount
-};
-
-class SearchMarkPoint : public UserMark
+class StaticMarkPoint : public UserMark
 {
 public:
-  SearchMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container);
+  explicit StaticMarkPoint(m2::PointD const & ptOrg);
 
-  string GetSymbolName() const override;
-  UserMark::Type GetMarkType() const override;
-
-  FeatureID const & GetFoundFeature() const { return m_foundFeatureID; }
-  void SetFoundFeature(FeatureID const & feature) { m_foundFeatureID = feature; }
-
-  string const & GetMatchedName() const { return m_matchedName; }
-  void SetMatchedName(string const & name) { m_matchedName = name; }
-
-  string const & GetCustomSymbol() const { return m_customSymbol; }
-  void SetCustomSymbol(string const & symbol) { m_customSymbol = symbol; }
-
-protected:
-  FeatureID m_foundFeatureID;
-  // Used to pass exact search result matched string into a place page.
-  string m_matchedName;
-  string m_customSymbol;
-};
-
-class PoiMarkPoint : public SearchMarkPoint
-{
-public:
-  PoiMarkPoint(UserMarkContainer * container);
-  UserMark::Type GetMarkType() const override;
+  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override { return nullptr; }
 
   void SetPtOrg(m2::PointD const & ptOrg);
 };
 
-class MyPositionMarkPoint : public PoiMarkPoint
+class MyPositionMarkPoint : public StaticMarkPoint
 {
 public:
-  MyPositionMarkPoint(UserMarkContainer * container);
+  explicit MyPositionMarkPoint(m2::PointD const & ptOrg);
 
-  UserMark::Type GetMarkType() const override;
-
-  void SetUserPosition(m2::PointD const & pt)
+  void SetUserPosition(m2::PointD const & pt, bool hasPosition)
   {
     SetPtOrg(pt);
-    m_hasPosition = true;
+    m_hasPosition = hasPosition;
   }
   bool HasPosition() const { return m_hasPosition; }
 
@@ -112,11 +120,9 @@ private:
 class DebugMarkPoint : public UserMark
 {
 public:
-  DebugMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container);
+  DebugMarkPoint(m2::PointD const & ptOrg);
 
-  string GetSymbolName() const override;
-
-  Type GetMarkType() const override { return UserMark::Type::DEBUG_MARK; }
+  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
 };
 
 string DebugPrint(UserMark::Type type);

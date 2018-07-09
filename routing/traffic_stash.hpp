@@ -1,13 +1,19 @@
 #pragma once
 
-#include "routing/num_mwm_id.hpp"
+#include "routing/segment.hpp"
 
 #include "traffic/traffic_cache.hpp"
 #include "traffic/traffic_info.hpp"
 
+#include "routing_common/num_mwm_id.hpp"
+
 #include "indexer/mwm_set.hpp"
 
+#include "base/assert.hpp"
+
+#include <memory>
 #include <unordered_map>
+#include <utility>
 
 namespace routing
 {
@@ -17,53 +23,35 @@ public:
   class Guard final
   {
   public:
-    Guard(TrafficStash & stash) : m_stash(stash) { m_stash.CopyTraffic(); }
-    ~Guard() { m_stash.Clear(); }
+    explicit Guard(std::shared_ptr<TrafficStash> stash) : m_stash(std::move(stash))
+    {
+      if (m_stash)
+        m_stash->CopyTraffic();
+    }
+
+    ~Guard()
+    {
+      if (m_stash)
+        m_stash->Clear();
+    }
 
   private:
-    TrafficStash & m_stash;
+    std::shared_ptr<TrafficStash> m_stash;
   };
 
-  TrafficStash(traffic::TrafficCache const & source, shared_ptr<NumMwmIds> numMwmIds)
-    : m_source(source), m_numMwmIds(numMwmIds)
-  {
-  }
+  TrafficStash(traffic::TrafficCache const & source, std::shared_ptr<NumMwmIds> numMwmIds);
 
-  traffic::TrafficInfo::Coloring const * Get(NumMwmId numMwmId) const
-  {
-    auto it = m_mwmToTraffic.find(numMwmId);
-    if (it == m_mwmToTraffic.cend())
-      return nullptr;
-
-    return it->second.get();
-  }
-
-  void SetColoring(NumMwmId numMwmId, std::shared_ptr<traffic::TrafficInfo::Coloring> coloring)
-  {
-    m_mwmToTraffic[numMwmId] = coloring;
-  }
-
-  bool Has(NumMwmId numMwmId) const
-  {
-    return m_mwmToTraffic.find(numMwmId) != m_mwmToTraffic.cend();
-  }
+  traffic::SpeedGroup GetSpeedGroup(Segment const & segment) const;
+  void SetColoring(NumMwmId numMwmId, std::shared_ptr<const traffic::TrafficInfo::Coloring> coloring);
+  bool Has(NumMwmId numMwmId) const;
 
 private:
-  void CopyTraffic()
-  {
-    std::map<MwmSet::MwmId, std::shared_ptr<traffic::TrafficInfo::Coloring>> copy;
-    m_source.CopyTraffic(copy);
-    for (auto it : copy)
-    {
-      auto const numMwmId = m_numMwmIds->GetId(it.first.GetInfo()->GetLocalFile().GetCountryFile());
-      SetColoring(numMwmId, it.second);
-    }
-  }
+  void CopyTraffic();
 
   void Clear() { m_mwmToTraffic.clear(); }
 
   traffic::TrafficCache const & m_source;
-  shared_ptr<NumMwmIds> m_numMwmIds;
-  std::unordered_map<NumMwmId, shared_ptr<traffic::TrafficInfo::Coloring>> m_mwmToTraffic;
+  std::shared_ptr<NumMwmIds> m_numMwmIds;
+  std::unordered_map<NumMwmId, std::shared_ptr<const traffic::TrafficInfo::Coloring>> m_mwmToTraffic;
 };
 }  // namespace routing

@@ -1,5 +1,8 @@
 package com.mapswithme.maps.widget.placepage;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,32 +13,37 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.ads.Ad;
-import com.facebook.ads.AdError;
-import com.facebook.ads.AdListener;
-import com.facebook.ads.AdSettings;
-import com.facebook.ads.NativeAd;
-import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.bookmarks.data.Banner;
+import com.mapswithme.maps.ads.AdTracker;
+import com.mapswithme.maps.ads.Banner;
+import com.mapswithme.maps.ads.CompoundNativeAdLoader;
+import com.mapswithme.maps.ads.MwmNativeAd;
+import com.mapswithme.maps.ads.NativeAdError;
+import com.mapswithme.maps.ads.NativeAdListener;
 import com.mapswithme.util.Config;
+import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static com.mapswithme.util.SharedPropertiesUtils.isShowcaseSwitchedOnLocal;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_CLICK;
+import static com.mapswithme.util.statistics.Statistics.EventName.PP_BANNER_SHOW;
+import static com.mapswithme.util.statistics.Statistics.PP_BANNER_STATE_DETAILS;
+import static com.mapswithme.util.statistics.Statistics.PP_BANNER_STATE_PREVIEW;
 
-final class BannerController implements AdListener
+
+final class BannerController
 {
   private static final Logger LOGGER = LoggerFactory.INSTANCE
       .getLogger(LoggerFactory.Type.MISC);
   private static final String TAG = BannerController.class.getName();
+
   private static final int MAX_MESSAGE_LINES = 100;
   private static final int MIN_MESSAGE_LINES = 3;
   private static final int MAX_TITLE_LINES = 2;
@@ -47,8 +55,7 @@ final class BannerController implements AdListener
   }
 
   @Nullable
-  private Banner mBanner;
-
+  private List<Banner> mBanners;
   @NonNull
   private final View mFrame;
   @NonNull
@@ -62,71 +69,86 @@ final class BannerController implements AdListener
   @NonNull
   private final TextView mActionLarge;
   @NonNull
-  private final View mAds;
+  private final ImageView mAdChoices;
+  @NonNull
+  private final ImageView mAdChoicesLabel;
 
   private final float mCloseFrameHeight;
 
   @Nullable
   private final BannerListener mListener;
 
-  @Nullable
-  private NativeAd mNativeAd;
-
   private boolean mOpened = false;
-  private boolean mProgress = false;
   private boolean mError = false;
+  @Nullable
+  private MwmNativeAd mCurrentAd;
+  @NonNull
+  private CompoundNativeAdLoader mAdsLoader;
+  @Nullable
+  private AdTracker mAdTracker;
+  @NonNull
+  private MyNativeAdsListener mAdsListener = new MyNativeAdsListener();
 
-  BannerController(@NonNull View bannerView, @Nullable BannerListener listener)
+  BannerController(@NonNull View bannerView, @Nullable BannerListener listener,
+                   @NonNull CompoundNativeAdLoader loader, @Nullable AdTracker tracker)
   {
+    LOGGER.d(TAG, "Constructor()");
     mFrame = bannerView;
     mListener = listener;
     Resources resources = mFrame.getResources();
     mCloseFrameHeight = resources.getDimension(R.dimen.placepage_banner_height);
-    mIcon = (ImageView) bannerView.findViewById(R.id.iv__banner_icon);
-    mTitle = (TextView) bannerView.findViewById(R.id.tv__banner_title);
-    mMessage = (TextView) bannerView.findViewById(R.id.tv__banner_message);
-    mActionSmall = (TextView) bannerView.findViewById(R.id.tv__action_small);
-    mActionLarge = (TextView) bannerView.findViewById(R.id.tv__action_large);
-    mAds = bannerView.findViewById(R.id.tv__ads);
+    mIcon = bannerView.findViewById(R.id.iv__banner_icon);
+    mTitle = bannerView.findViewById(R.id.tv__banner_title);
+    mMessage = bannerView.findViewById(R.id.tv__banner_message);
+    mActionSmall = bannerView.findViewById(R.id.tv__action_small);
+    mActionLarge = bannerView.findViewById(R.id.tv__action_large);
+    mAdChoices = bannerView.findViewById(R.id.ad_choices_icon);
+    mAdChoices.setOnClickListener(v -> handlePrivacyInfoUrl());
+    mAdChoicesLabel = bannerView.findViewById(R.id.ad_choices_label);
+    Resources res = mFrame.getResources();
+    UiUtils.expandTouchAreaForView(mAdChoices, (int) res.getDimension(R.dimen.margin_quarter_plus));
+    mAdsLoader = loader;
+    mAdTracker = tracker;
+    mFrame.setOnClickListener(v -> animateActionButton());
   }
 
-  private void showProgress()
+  private void handlePrivacyInfoUrl()
   {
-    mProgress = true;
-    updateVisibility();
+    if (mCurrentAd == null)
+      return;
+
+    String privacyUrl = mCurrentAd.getPrivacyInfoUrl();
+    if (TextUtils.isEmpty(privacyUrl))
+      return;
+
+    Utils.openUrl(mFrame.getContext(), privacyUrl);
   }
 
-  private void hideProgress()
-  {
-    mProgress = false;
-    updateVisibility();
-  }
-
-  private boolean isDownloading()
-  {
-    return mProgress;
-  }
-
-  private void showError(boolean value)
+  private void setErrorStatus(boolean value)
   {
     mError = value;
   }
 
-  private boolean hasErrorOccurred()
+  boolean hasErrorOccurred()
   {
     return mError;
   }
 
   private void updateVisibility()
   {
+    if (mBanners == null)
+      return;
+
     UiUtils.showIf(!hasErrorOccurred(), mFrame);
-    if (isDownloading() || hasErrorOccurred())
+    if ((mAdsLoader.isAdLoading() || hasErrorOccurred())
+        && mCurrentAd == null)
     {
-      UiUtils.hide(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAds);
+      UiUtils.hide(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAdChoices, mAdChoicesLabel);
     }
-    else
+    else if (mCurrentAd != null)
     {
-      UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAds);
+      UiUtils.showIf(mCurrentAd.getNetworkType() == MwmNativeAd.NetworkType.MOPUB, mAdChoices);
+      UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAdChoicesLabel);
       if (mOpened)
         UiUtils.hide(mActionSmall);
       else
@@ -134,32 +156,37 @@ final class BannerController implements AdListener
     }
   }
 
-  void updateData(@Nullable Banner banner)
+  void updateData(@Nullable List<Banner> banners)
   {
-    UiUtils.hide(mFrame);
-    showError(false);
-
-    mBanner = banner;
-    if (mBanner == null || TextUtils.isEmpty(mBanner.getId()) || !isShowcaseSwitchedOnLocal()
-        || Config.getAdForbidden())
-      return;
-
-    if (BuildConfig.DEBUG || BuildConfig.BUILD_TYPE.equals("beta"))
+    if (mBanners != null && !mBanners.equals(banners))
     {
-      AdSettings.addTestDevice("cbbc8cd2b6564ea727b5ca56bcf22622");
-      AdSettings.addTestDevice("c36b141fff9e11866d8cf9c601d2b7e0");
-      AdSettings.addTestDevice("189055740336d9d2687f41a775eaf867");
-      AdSettings.addTestDevice("36dd04f33c4cf92e3b7d21e9a5a9d985");
-      AdSettings.addTestDevice("b39d3c00580d17b291ff4e161a423525");
-      AdSettings.addTestDevice("51bae0d8b2ba8290659840f9098e3026");
-      AdSettings.addTestDevice("583a068aa7293c6743855343251e1fad");
-      AdSettings.addTestDevice("c1c9f7f1c06b8c2c4e15607e5c766cb3");
+      onChangedVisibility(false);
+      unregisterCurrentAd();
     }
-    mNativeAd = new NativeAd(mFrame.getContext(), mBanner.getId());
-    mNativeAd.setAdListener(BannerController.this);
-    mNativeAd.loadAd(EnumSet.of(NativeAd.MediaCacheFlag.ICON));
+
+    UiUtils.hide(mFrame);
+    setErrorStatus(false);
+
+    mBanners = banners;
+    if (mBanners == null || !isShowcaseSwitchedOnLocal()
+        || Config.getAdForbidden())
+    {
+      return;
+    }
+
     UiUtils.show(mFrame);
-    showProgress();
+    mAdsLoader.loadAd(mFrame.getContext(), mBanners);
+    updateVisibility();
+  }
+
+  private void unregisterCurrentAd()
+  {
+    if (mCurrentAd != null)
+    {
+      LOGGER.d(TAG, "Unregister view for the ad: " + mCurrentAd.getTitle());
+      mCurrentAd.unregisterView(mFrame);
+      mCurrentAd = null;
+    }
   }
 
   boolean isBannerVisible()
@@ -169,25 +196,26 @@ final class BannerController implements AdListener
 
   void open()
   {
-    if (!isBannerVisible() || mNativeAd == null || mBanner == null || mOpened)
+    if (!isBannerVisible() || mBanners == null || mOpened)
       return;
 
     mOpened = true;
     setFrameHeight(WRAP_CONTENT);
-    loadIcon(mNativeAd);
     mMessage.setMaxLines(MAX_MESSAGE_LINES);
     mTitle.setMaxLines(MAX_TITLE_LINES);
     updateVisibility();
+    if (mCurrentAd != null)
+    {
+      loadIcon(mCurrentAd);
+      Statistics.INSTANCE.trackPPBanner(PP_BANNER_SHOW, mCurrentAd, 1);
+      mCurrentAd.registerView(mFrame);
+    }
 
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_BANNER_SHOW,
-                                   Statistics.params()
-                                             .add("banner:", mBanner.getId())
-                                             .add("state:", "1"));
   }
 
   boolean close()
   {
-    if (!isBannerVisible() || mNativeAd == null || mBanner == null || !mOpened)
+    if (!isBannerVisible() || mBanners == null || !mOpened)
       return false;
 
     mOpened = false;
@@ -196,7 +224,8 @@ final class BannerController implements AdListener
     mMessage.setMaxLines(MIN_MESSAGE_LINES);
     mTitle.setMaxLines(MIN_TITLE_LINES);
     updateVisibility();
-
+    if (mCurrentAd != null)
+      mCurrentAd.registerView(mFrame);
     return true;
   }
 
@@ -212,87 +241,159 @@ final class BannerController implements AdListener
     mFrame.setLayoutParams(lp);
   }
 
-  private void loadIcon(@NonNull NativeAd nativeAd)
+  private void loadIcon(@NonNull MwmNativeAd ad)
   {
     UiUtils.show(mIcon);
-    NativeAd.Image icon = nativeAd.getAdIcon();
-    NativeAd.downloadAndDisplayImage(icon, mIcon);
+    ad.loadIcon(mIcon);
   }
 
-  @Override
-  public void onError(Ad ad, AdError adError)
+  void onChangedVisibility(boolean isVisible)
   {
-    showError(true);
-    updateVisibility();
-    if (mListener != null)
-      mListener.onSizeChanged();
-    LOGGER.e(TAG, adError.getErrorMessage());
-  }
-
-  @Override
-  public void onAdLoaded(Ad ad)
-  {
-    if (mNativeAd == null || mBanner == null)
+    if (mAdTracker == null || mCurrentAd == null)
       return;
 
-    hideProgress();
-    updateVisibility();
+    if (isVisible)
+    {
+      mAdTracker.onViewShown(mCurrentAd.getProvider(), mCurrentAd.getBannerId());
+      mCurrentAd.registerView(mFrame);
+    }
+    else
+    {
+      mAdTracker.onViewHidden(mCurrentAd.getProvider(), mCurrentAd.getBannerId());
+      mCurrentAd.unregisterView(mFrame);
+    }
+  }
 
-    mTitle.setText(mNativeAd.getAdTitle());
-    mMessage.setText(mNativeAd.getAdBody());
-    mActionSmall.setText(mNativeAd.getAdCallToAction());
-    mActionLarge.setText(mNativeAd.getAdCallToAction());
+  void detach()
+  {
+    mAdsLoader.detach();
+    mAdsLoader.setAdListener(null);
+  }
 
-    List<View> clickableViews = new ArrayList<>();
-    clickableViews.add(mTitle);
-    clickableViews.add(mActionSmall);
-    clickableViews.add(mActionLarge);
-    mNativeAd.registerViewForInteraction(mFrame, clickableViews);
+  void attach()
+  {
+    mAdsLoader.setAdListener(mAdsListener);
+  }
 
+  private void fillViews(@NonNull MwmNativeAd data)
+  {
+    mTitle.setText(data.getTitle());
+    mMessage.setText(data.getDescription());
+    mActionSmall.setText(data.getAction());
+    mActionLarge.setText(data.getAction());
+  }
+
+  private void loadIconAndOpenIfNeeded(@NonNull MwmNativeAd data)
+  {
     if (UiUtils.isLandscape(mFrame.getContext()))
     {
       if (!mOpened)
         open();
       else
-        loadIcon(mNativeAd);
+        loadIcon(data);
     }
     else if (!mOpened)
     {
       close();
-      Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_BANNER_SHOW,
-                                     Statistics.params()
-                                               .add("banner:", mBanner.getId())
-                                               .add("state:", "0"));
+      Statistics.INSTANCE.trackPPBanner(PP_BANNER_SHOW, data, PP_BANNER_STATE_PREVIEW);
     }
     else
     {
-      loadIcon(mNativeAd);
+      loadIcon(data);
     }
-
-    if (mListener != null && mOpened)
-      mListener.onSizeChanged();
-  }
-
-  @Override
-  public void onAdClicked(Ad ad)
-  {
-    if (mBanner == null)
-      return;
-
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.PP_BANNER_CLICK,
-                                   Statistics.params()
-                                             .add("banner:", mBanner.getId())
-                                             .add("state:", mOpened ? "1" : "0"));
   }
 
   boolean isActionButtonTouched(@NonNull MotionEvent event)
   {
-    return isTouched(mActionSmall, event) || isTouched(mActionLarge, event)
-           || isTouched(mTitle, event);
+    return isTouched(mFrame, event);
+  }
+
+  private void animateActionButton()
+  {
+    View view = mOpened ? mFrame.findViewById(R.id.tv__action_large)
+                        : mFrame.findViewById(R.id.tv__action_small);
+    ObjectAnimator animator;
+    if (mOpened)
+    {
+      Context context = mFrame.getContext();
+      Resources res = context.getResources();
+      int colorFrom = ThemeUtils.isNightTheme() ? res.getColor(R.color.banner_action_btn_start_anim_night)
+                                                : res.getColor(R.color.bg_banner_button);
+      int colorTo = ThemeUtils.isNightTheme() ? res.getColor(R.color.banner_action_btn_end_anim_night)
+                                              : res.getColor(R.color.banner_action_btn_end_anim);
+      animator = ObjectAnimator.ofObject(view, "backgroundColor", new ArgbEvaluator(),
+                                         colorFrom, colorTo, colorFrom);
+    }
+    else
+    {
+      animator = ObjectAnimator.ofFloat(view, "alpha", 0.3f, 1f);
+    }
+    animator.setDuration(300);
+    animator.start();
+  }
+
+  boolean isOpened()
+  {
+    return mOpened;
   }
 
   interface BannerListener
   {
     void onSizeChanged();
+  }
+
+  private class MyNativeAdsListener implements NativeAdListener
+  {
+    @Override
+    public void onAdLoaded(@NonNull MwmNativeAd ad)
+    {
+      LOGGER.d(TAG, "onAdLoaded, title = " + ad.getTitle() + " provider = " + ad.getProvider());
+      if (mBanners == null)
+        return;
+
+      unregisterCurrentAd();
+
+      mCurrentAd = ad;
+
+      updateVisibility();
+
+      fillViews(ad);
+
+      ad.registerView(mFrame);
+
+      loadIconAndOpenIfNeeded(ad);
+
+      if (mAdTracker != null)
+      {
+        onChangedVisibility(isBannerVisible());
+        mAdTracker.onContentObtained(ad.getProvider(), ad.getBannerId());
+      }
+
+      if (mListener != null && mOpened)
+        mListener.onSizeChanged();
+    }
+
+    @Override
+    public void onError(@NonNull String bannerId, @NonNull String provider, @NonNull NativeAdError error)
+    {
+      if (mBanners == null)
+        return;
+
+      boolean isNotCached = mCurrentAd == null;
+      setErrorStatus(isNotCached);
+      updateVisibility();
+
+      if (mListener != null && isNotCached)
+        mListener.onSizeChanged();
+
+      Statistics.INSTANCE.trackPPBannerError(bannerId, provider, error, mOpened ? 1 : 0);
+    }
+
+    @Override
+    public void onClick(@NonNull MwmNativeAd ad)
+    {
+      Statistics.INSTANCE.trackPPBanner(PP_BANNER_CLICK, ad,
+                                        mOpened ? PP_BANNER_STATE_DETAILS : PP_BANNER_STATE_PREVIEW);
+    }
   }
 }

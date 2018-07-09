@@ -13,27 +13,27 @@
 #ifndef BOOST_VARIANT_DETAIL_VISITATION_IMPL_HPP
 #define BOOST_VARIANT_DETAIL_VISITATION_IMPL_HPP
 
-#include "boost/config.hpp"
+#include <boost/config.hpp>
 
-#include "boost/variant/detail/backup_holder.hpp"
-#include "boost/variant/detail/cast_storage.hpp"
-#include "boost/variant/detail/forced_return.hpp"
-#include "boost/variant/detail/generic_result_type.hpp"
-#include "boost/variant/variant_fwd.hpp" // for BOOST_VARIANT_DO_NOT_USE_VARIADIC_TEMPLATES
+#include <boost/variant/detail/backup_holder.hpp>
+#include <boost/variant/detail/cast_storage.hpp>
+#include <boost/variant/detail/forced_return.hpp>
+#include <boost/variant/detail/generic_result_type.hpp>
+#include <boost/variant/variant_fwd.hpp> // for BOOST_VARIANT_DO_NOT_USE_VARIADIC_TEMPLATES
 
-#include "boost/mpl/eval_if.hpp"
-#include "boost/mpl/bool.hpp"
-#include "boost/mpl/identity.hpp"
-#include "boost/mpl/int.hpp"
-#include "boost/mpl/next.hpp"
-#include "boost/mpl/deref.hpp"
-#include "boost/mpl/or.hpp"
-#include "boost/preprocessor/cat.hpp"
-#include "boost/preprocessor/inc.hpp"
-#include "boost/preprocessor/repeat.hpp"
-#include "boost/type_traits/is_same.hpp"
-#include "boost/type_traits/has_nothrow_copy.hpp"
-#include "boost/type_traits/is_nothrow_move_constructible.hpp"
+#include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/mpl/identity.hpp>
+#include <boost/mpl/int.hpp>
+#include <boost/mpl/next.hpp>
+#include <boost/mpl/deref.hpp>
+#include <boost/mpl/or.hpp>
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/inc.hpp>
+#include <boost/preprocessor/repeat.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/has_nothrow_copy.hpp>
+#include <boost/type_traits/is_nothrow_move_constructible.hpp>
 
 #if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) 
 # pragma warning (push) 
@@ -49,7 +49,7 @@
 #if !defined(BOOST_VARIANT_VISITATION_UNROLLING_LIMIT)
 
 #ifndef BOOST_VARIANT_DO_NOT_USE_VARIADIC_TEMPLATES
-#   include "boost/mpl/limits/list.hpp"
+#   include <boost/mpl/limits/list.hpp>
 #   define BOOST_VARIANT_VISITATION_UNROLLING_LIMIT   \
         BOOST_MPL_LIMIT_LIST_SIZE
 #else
@@ -258,7 +258,7 @@ visitation_impl(
     typedef typename is_same< next_type,apply_visitor_unrolled >::type
         is_apply_visitor_unrolled;
 
-    return visitation_impl(
+    return detail::variant::visitation_impl(
           internal_which, logical_which
         , visitor, storage
         , is_apply_visitor_unrolled()

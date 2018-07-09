@@ -66,7 +66,7 @@ class named_creation_functor
       }
    }
 
-   std::size_t get_min_size() const
+   static std::size_t get_min_size()
    {  return sizeof(T);  }
 
    private:

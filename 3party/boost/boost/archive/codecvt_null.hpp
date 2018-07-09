@@ -56,10 +56,11 @@ public:
     explicit codecvt_null(std::size_t no_locale_manage = 0) :
         std::codecvt<char, char, std::mbstate_t>(no_locale_manage)
     {}
+    virtual ~codecvt_null(){};
 };
 
 template<>
-class codecvt_null<wchar_t> : public std::codecvt<wchar_t, char, std::mbstate_t>
+class BOOST_SYMBOL_VISIBLE codecvt_null<wchar_t> : public std::codecvt<wchar_t, char, std::mbstate_t>
 {
     virtual BOOST_WARCHIVE_DECL std::codecvt_base::result
     do_out(
@@ -91,6 +92,7 @@ public:
     explicit codecvt_null(std::size_t no_locale_manage = 0) :
         std::codecvt<wchar_t, char, std::mbstate_t>(no_locale_manage)
     {}
+    virtual ~codecvt_null(){};
 };
 
 } // namespace archive

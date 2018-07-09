@@ -71,7 +71,7 @@ namespace boost { namespace phoenix
 
 #if !defined(BOOST_PHOENIX_DONT_USE_PREPROCESSED_FILES)
 
-#include <boost/phoenix/core/preprocessed/argument.hpp>
+#include <boost/phoenix/core/detail/cpp03/preprocessed/argument.hpp>
 
 #else
 
@@ -80,7 +80,7 @@ namespace boost { namespace phoenix
 #else
 
 #if defined(__WAVE__) && defined(BOOST_PHOENIX_CREATE_PREPROCESSED_FILES)
-#pragma wave option(preserve: 2, line: 0, output: "preprocessed/argument_predefined_" BOOST_PHOENIX_LIMIT_STR ".hpp")
+#pragma wave option(preserve: 2, line: 0, output: "detail/cpp03/preprocessed/argument_predefined_" BOOST_PHOENIX_LIMIT_STR ".hpp")
 #endif
 /*==============================================================================
     Copyright (c) 2001-2010 Joel de Guzman
@@ -111,7 +111,7 @@ namespace boost { namespace phoenix
 #endif
 
 #if defined(__WAVE__) && defined(BOOST_PHOENIX_CREATE_PREPROCESSED_FILES)
-#pragma wave option(preserve: 2, line: 0, output: "preprocessed/argument_no_predefined_" BOOST_PHOENIX_LIMIT_STR ".hpp")
+#pragma wave option(preserve: 2, line: 0, output: "detail/cpp03/preprocessed/argument_no_predefined_" BOOST_PHOENIX_LIMIT_STR ".hpp")
 #endif
 /*==============================================================================
     Copyright (c) 2001-2010 Joel de Guzman

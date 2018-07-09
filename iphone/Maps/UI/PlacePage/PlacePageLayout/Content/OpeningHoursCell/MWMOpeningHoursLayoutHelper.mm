@@ -137,7 +137,7 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
 {
   self.data = data;
   self.rawString = [data stringForRow:place_page::MetainfoRows::OpeningHours];
-  self.isClosed = data.schedule == place_page::OpeningHours::Closed;
+  self.isClosed = [data schedule] == place_page::OpeningHours::Closed;
   m_days = [MWMOpeningHours processRawString:self.rawString];
 }
 
@@ -145,8 +145,9 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
 {
   auto tableView = self.tableView;
   auto const & day = m_days[indexPath.row];
+  auto data = self.data;
 
-  if (self.data.metainfoRows[indexPath.row] == place_page::MetainfoRows::OpeningHours)
+  if ([data metainfoRows][indexPath.row] == place_page::MetainfoRows::OpeningHours)
   {
     Class cls = [_MWMOHHeaderCell class];
     auto cell = static_cast<_MWMOHHeaderCell *>(
@@ -163,8 +164,15 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
 
         NSMutableArray<NSIndexPath *> * ip = [@[] mutableCopy];
 
+        auto const  metainfoSection = [self indexOfMetainfoSection];
+        if (metainfoSection == NSNotFound)
+        {
+          LOG(LERROR, ("Incorrect indexOfMetainfoSection!"));
+          return;
+        }
+
         for (auto i = 1; i < self->m_days.size(); i++)
-          [ip addObject:[NSIndexPath indexPathForRow:i inSection:1]];
+          [ip addObject:[NSIndexPath indexPathForRow:i inSection:metainfoSection]];
 
         if (self.isExtended)
         {
@@ -213,6 +221,18 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
   }
 }
 
+- (NSInteger)indexOfMetainfoSection
+{
+  auto data = self.data;
+  if (!data)
+    return 0;
+  auto & sections = [data sections];
+  auto it = find(sections.begin(), sections.end(), place_page::Sections::Metainfo);
+  if (it == sections.end())
+    return NSNotFound;
+  return distance(sections.begin(), it);
+}
+
 - (BOOL)extendMetainfoRowsWithSize:(NSUInteger)size
 {
   if (size == 0)
@@ -220,8 +240,11 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
     LOG(LWARNING, ("Incorrect number of days!"));
     return NO;
   }
+  auto data = self.data;
+  if (!data)
+    return NO;
 
-  auto & metainfoRows = self.data.mutableMetainfoRows;
+  auto & metainfoRows = [data mutableMetainfoRows];
   using place_page::MetainfoRows;
 
   auto it = find(metainfoRows.begin(), metainfoRows.end(), MetainfoRows::OpeningHours);
@@ -237,7 +260,11 @@ NSAttributedString * richStringFromDay(osmoh::Day const & day, BOOL isClosedNow)
 
 - (void)reduceMetainfoRows
 {
-  auto & metainfoRows = self.data.mutableMetainfoRows;
+  auto data = self.data;
+  if (!data)
+    return;
+
+  auto & metainfoRows = data.mutableMetainfoRows;
   metainfoRows.erase(remove(metainfoRows.begin(), metainfoRows.end(), place_page::MetainfoRows::ExtendedOpeningHours), metainfoRows.end());
 }
 

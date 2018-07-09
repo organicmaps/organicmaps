@@ -32,7 +32,7 @@
 namespace boost { namespace spirit { namespace traits
 {
     using spirit::traits::pow10;
-
+    
     namespace detail
     {
         template <typename T, typename AccT>
@@ -44,14 +44,14 @@ namespace boost { namespace spirit { namespace traits
             n = T((acc_n / comp) * comp);
             n += T(acc_n % comp);
         }
-
+        
         template <typename T, typename AccT>
         void compensate_roundoff(T& n, AccT acc_n, mpl::false_)
         {
             // no need to compensate
             n = acc_n;
         }
-
+        
         template <typename T, typename AccT>
         void compensate_roundoff(T& n, AccT acc_n)
         {
@@ -65,8 +65,8 @@ namespace boost { namespace spirit { namespace traits
     {
         if (exp >= 0)
         {
-            std::size_t max_exp = std::numeric_limits<T>::max_exponent10;
-
+            int max_exp = std::numeric_limits<T>::max_exponent10;
+            
             // return false if exp exceeds the max_exp
             // do this check only for primitive types!
             if (is_floating_point<T>() && exp > max_exp)
@@ -80,7 +80,7 @@ namespace boost { namespace spirit { namespace traits
                 int min_exp = std::numeric_limits<T>::min_exponent10;
                 detail::compensate_roundoff(n, acc_n);
                 n /= pow10<T>(-min_exp);
-
+                
                 // return false if (-exp + min_exp) exceeds the -min_exp
                 // do this check only for primitive types!
                 if (is_floating_point<T>() && (-exp + min_exp) > -min_exp)
@@ -284,7 +284,7 @@ namespace boost { namespace spirit { namespace qi  { namespace detail
                     // If there is no number, disregard the exponent altogether.
                     // by resetting 'first' prior to the exponent prefix (e|E)
                     first = e_pos;
-                    n = acc_n;
+                    n = static_cast<T>(acc_n);
                 }
             }
             else if (frac_digits)
@@ -306,11 +306,11 @@ namespace boost { namespace spirit { namespace qi  { namespace detail
                     return true;    // got a NaN or Inf, return immediately
                 }
 
-                n = acc_n;
+                n = static_cast<T>(acc_n);
             }
             else
             {
-                n = acc_n;
+                n = static_cast<T>(acc_n);
             }
 
             // If we got a negative sign, negate the number

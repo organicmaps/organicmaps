@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/drawing_rule_def.hpp"
+#include "indexer/feature.hpp"
 #include "indexer/feature_decl.hpp"
 
 #include "base/base.hpp"
@@ -27,10 +28,6 @@ namespace feature
   bool IsDrawableForIndexClassifOnly(FeatureBase const & f, int level);
   bool IsDrawableForIndexGeometryOnly(FeatureBase const & f, int level);
 
-  // Exception features which have no styles, but must be present in index for some reasons.
-  // For example routing edges with render=no tag (Le mans tunnel).
-  bool RequireGeometryInIndex(FeatureBase const & f);
-
   /// For FEATURE_TYPE_AREA need to have at least one area-filling type.
   bool IsDrawableLike(vector<uint32_t> const & types, EGeomType geomType);
   /// For FEATURE_TYPE_AREA removes line-drawing only types.
@@ -45,6 +42,7 @@ namespace feature
   /// @name Get scale range when feature is visible.
   pair<int, int> GetDrawableScaleRange(uint32_t type);
   pair<int, int> GetDrawableScaleRange(TypesHolder const & types);
+  bool IsVisibleInRange(uint32_t type, pair<int, int> const & scaleRange);
 
   /// @name Get scale range when feature's text or symbol is visible.
   enum
@@ -64,6 +62,7 @@ namespace feature
                               drule::KeysT & keys);
   void GetDrawRule(vector<uint32_t> const & types, int level, int geoType,
                    drule::KeysT & keys);
+  void FilterRulesByRuntimeSelector(FeatureType const & f, int zoomLevel, drule::KeysT & keys);
 
   /// Used to check whether user types belong to particular classificator set.
   class TypeSetChecker

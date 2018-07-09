@@ -11,12 +11,13 @@
 #include "base/math.hpp"
 
 using namespace editor;
+using platform::tests_support::ScopedFile;
 
 UNIT_TEST(Notes_Smoke)
 {
   auto const fileName = "notes.xml";
   auto const fullFileName = my::JoinFoldersToPath({GetPlatform().WritableDir()}, fileName);
-  platform::tests_support::ScopedFile sf(fileName);
+  ScopedFile sf(fileName, ScopedFile::Mode::DoNotCreate);
   {
     auto const notes = Notes::MakeNotes(fullFileName, true);
     notes->CreateNote(MercatorBounds::ToLatLon({1, 2}), "Some note1");

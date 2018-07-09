@@ -33,17 +33,30 @@ UNIT_TEST(Protocol_CreateDataPacket)
 {
   using Container = Protocol::DataElementsCirc;
   Container buffer(5);
-  buffer.push_back(Container::value_type(1, ms::LatLon(10, 10)));
-  buffer.push_back(Container::value_type(2, ms::LatLon(15, 15)));
-  auto packet = Protocol::CreateDataPacket(buffer);
-  TEST_EQUAL(packet.size(), 26, ());
-  TEST_EQUAL(Protocol::PacketType(packet[0]), Protocol::PacketType::CurrentData, ());
-  TEST_EQUAL(packet[1], 0x00, ());
-  TEST_EQUAL(packet[2], 0x00, ());
-  TEST_EQUAL(packet[3], 22, ());
-  TEST_EQUAL(packet[4], 1, ());
-  TEST_EQUAL(packet[5], 227, ());
-  TEST_EQUAL(packet[6], 241, ());
+  buffer.push_back(Container::value_type(1, ms::LatLon(10, 10), 1));
+  buffer.push_back(Container::value_type(2, ms::LatLon(15, 15), 2));
+
+  auto packetV0 = Protocol::CreateDataPacket(buffer, Protocol::PacketType::DataV0);
+  TEST_EQUAL(packetV0.size(), 26, ());
+  TEST_EQUAL(Protocol::PacketType(packetV0[0]), Protocol::PacketType::DataV0, ());
+  TEST_EQUAL(packetV0[1], 0x00, ());
+  TEST_EQUAL(packetV0[2], 0x00, ());
+  TEST_EQUAL(packetV0[3], 22, ());
+
+  TEST_EQUAL(packetV0[4], 1, ());
+  TEST_EQUAL(packetV0[5], 227, ());
+  TEST_EQUAL(packetV0[6], 241, ());
+
+  auto packetV1 = Protocol::CreateDataPacket(buffer, Protocol::PacketType::DataV1);
+  TEST_EQUAL(packetV1.size(), 28, ());
+  TEST_EQUAL(Protocol::PacketType(packetV1[0]), Protocol::PacketType::DataV1, ());
+  TEST_EQUAL(packetV1[1], 0x00, ());
+  TEST_EQUAL(packetV1[2], 0x00, ());
+  TEST_EQUAL(packetV1[3], 24, ());
+
+  TEST_EQUAL(packetV1[4], 1, ());
+  TEST_EQUAL(packetV1[5], 227, ());
+  TEST_EQUAL(packetV1[6], 241, ());
 }
 
 UNIT_TEST(Protocol_DecodeAuthPacket)
@@ -57,21 +70,17 @@ UNIT_TEST(Protocol_DecodeAuthPacket)
   TEST_EQUAL(result, "ABC", ());
 }
 
-UNIT_TEST(Protocol_DecodeDataPacket)
+template <typename Container>
+void DecodeDataPacketVersionTest(Container const & points, Protocol::PacketType version)
 {
   double const kEps = 1e-5;
 
-  using Container = Protocol::DataElementsVec;
-
-  Container points;
-  points.push_back(Container::value_type(1, ms::LatLon(10, 10)));
-  points.push_back(Container::value_type(2, ms::LatLon(15, 15)));
-  auto packet = Protocol::CreateDataPacket(points);
-  TEST_EQUAL(packet.size(), 26, ());
-  TEST_EQUAL(Protocol::PacketType(packet[0]), Protocol::PacketType::CurrentData, ());
+  auto packet = Protocol::CreateDataPacket(points, version);
+  TEST_GREATER(packet.size(), 0, ());
+  TEST_EQUAL(Protocol::PacketType(packet[0]), version, ());
 
   auto payload = vector<uint8_t>(begin(packet) + sizeof(uint32_t /* header */), end(packet));
-  Container result = Protocol::DecodeDataPacket(Protocol::PacketType::CurrentData, payload);
+  Container result = Protocol::DecodeDataPacket(version, payload);
 
   TEST_EQUAL(points.size(), result.size(), ());
   for (size_t i = 0; i < points.size(); ++i)
@@ -83,4 +92,16 @@ UNIT_TEST(Protocol_DecodeDataPacket)
     TEST(my::AlmostEqualAbsOrRel(points[i].m_latLon.lon, result[i].m_latLon.lon, kEps),
          (points[i].m_latLon.lon, result[i].m_latLon.lon));
   }
+}
+
+UNIT_TEST(Protocol_DecodeDataPacket)
+{
+  using Container = Protocol::DataElementsVec;
+
+  Container points;
+  points.push_back(Container::value_type(1, ms::LatLon(10, 10), 1));
+  points.push_back(Container::value_type(2, ms::LatLon(15, 15), 2));
+
+  DecodeDataPacketVersionTest(points, Protocol::PacketType::DataV0);
+  DecodeDataPacketVersionTest(points, Protocol::PacketType::DataV1);
 }

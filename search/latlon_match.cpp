@@ -2,37 +2,41 @@
 
 #include "base/macros.hpp"
 
-#include "std/array.hpp"
-#include "std/cmath.hpp"
-#include "std/cstdlib.hpp"
-#include "std/cstring.hpp"
-#include "std/algorithm.hpp"
-#include "std/utility.hpp"
+#include <algorithm>
+#include <array>
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
+#include <iterator>
+#include <string>
+#include <utility>
 
-
-namespace search
-{
-
-namespace
-{
-
-template <typename CharT> void SkipSpaces(CharT * & s)
-{
-  while (*s && (*s == ' ' || *s == '\t'))
-    ++s;
-}
-
-template <typename CharT> void Skip(CharT * & s)
-{
-  while (*s && (*s == ' ' || *s == '\t' || *s == ',' || *s == ';' ||
-                *s == ':' || *s == '.' || *s == '(' || *s == ')'))
-    ++s;
-}
-
-}  // unnamed namespace
+using namespace std;
 
 namespace
 {
+string const kSpaces = " \t";
+string const kCharsToSkip = " \t,;:.()";
+string const kDecimalMarks = ".,";
+
+bool IsDecimalMark(char c)
+{
+  return kDecimalMarks.find(c) != string::npos;
+}
+
+template <typename Char>
+void SkipSpaces(Char *& s)
+{
+  while (kSpaces.find(*s) != string::npos)
+    ++s;
+}
+
+template <typename Char>
+void Skip(Char *& s)
+{
+  while (kCharsToSkip.find(*s) != string::npos)
+    ++s;
+}
 
 bool MatchDMSArray(char const * & s, char const * arr[], size_t count)
 {
@@ -83,8 +87,58 @@ void SkipNSEW(char const * & s, char const * (&arrPos) [4])
   Skip(s);
 }
 
-}
+// Attempts to read a double from the start of |str|
+// in one of what we assume are two most common forms
+// for lat/lon: decimal digits separated either
+// by a dot or by a comma, with digits on both sides
+// of the separator.
+// If the attempt fails, falls back to std::strtod.
+double EatDouble(char const * str, char ** strEnd)
+{
+  bool gotDigitBeforeMark = false;
+  bool gotMark = false;
+  bool gotDigitAfterMark = false;
+  char const * markPos = nullptr;
+  char const * p = str;
+  while (true)
+  {
+    if (IsDecimalMark(*p))
+    {
+      if (gotMark)
+        break;
+      gotMark = true;
+      markPos = p;
+    }
+    else if (isdigit(*p))
+    {
+      if (gotMark)
+        gotDigitAfterMark = true;
+      else
+        gotDigitBeforeMark = true;
+    }
+    else
+    {
+      break;
+    }
+    ++p;
+  }
 
+  if (gotDigitBeforeMark && gotMark && gotDigitAfterMark)
+  {
+    string const part1(str, markPos);
+    string const part2(markPos + 1, p);
+    *strEnd = const_cast<char *>(p);
+    auto const x1 = atof(part1.c_str());
+    auto const x2 = atof(part2.c_str());
+    return x1 + x2 * pow(10.0, -static_cast<double>(part2.size()));
+  }
+
+  return strtod(str, strEnd);
+}
+}  // namespace
+
+namespace search
+{
 bool MatchLatLonDegree(string const & query, double & lat, double & lon)
 {
   // should be default initialization (0, false)
@@ -93,7 +147,7 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
   int base = 0;
 
   // Positions of N, S, E, W symbols
-  char const * arrPos[] = { 0, 0, 0, 0 };
+  char const * arrPos[] = {nullptr, nullptr, nullptr, nullptr};
   bool arrDegreeSymbol[] = { false, false };
 
   char const * s = query.c_str();
@@ -107,8 +161,9 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
       break;
     }
 
+    SkipSpaces(s);
     char * s2;
-    double const x = strtod(s, &s2);
+    double const x = EatDouble(s, &s2);
     if (s == s2)
     {
       // invalid token
@@ -151,7 +206,9 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
       if (v[base].second)
       {
         if (base == 0)
+        {
           base += 3;
+        }
         else
         {
           // too many degree values
@@ -197,21 +254,19 @@ bool MatchLatLonDegree(string const & query, double & lat, double & lon)
   if (max(arrPos[0], arrPos[1]) > max(arrPos[2], arrPos[3]))
     swap(lat, lon);
 
-  if (arrPos[1]) lat = -lat;
-  if (arrPos[3]) lon = -lon;
+  if (arrPos[1] != nullptr)
+    lat = -lat;
+  if (arrPos[3] != nullptr)
+    lon = -lon;
 
   // Valid input ranges for longitude are: [0, 360] or [-180, 180].
-  // We do normilize it to [-180, 180].
-  if (lon > 180.0)
-  {
-    if (lon > 360.0)
-      return false;
-    lon -= 360.0;
-  }
-  else if (lon < -180.0)
+  // We normalize it to [-180, 180].
+  if (lon < -180.0 || lon > 360.0)
     return false;
 
-  return (fabs(lat) <= 90.0);
-}
+  if (lon > 180.0)
+    lon -= 360.0;
 
-} // search
+  return fabs(lat) <= 90.0;
+}
+}  // namespace search

@@ -1,12 +1,13 @@
 #pragma once
 
-#include "../core/jni_helper.hpp"
+#include "com/mapswithme/core/jni_helper.hpp"
 #include "androidoglcontext.hpp"
 #include "drape/oglcontextfactory.hpp"
 
+#include "base/src_point.hpp"
+
 namespace android
 {
-
 class AndroidOGLContextFactory : public dp::OGLContextFactory
 {
 public:
@@ -15,17 +16,20 @@ public:
 
   bool IsValid() const;
 
-  virtual dp::OGLContext * getDrawContext();
-  virtual dp::OGLContext * getResourcesUploadContext();
-  virtual bool isDrawContextCreated() const;
-  virtual bool isUploadContextCreated() const;
+  dp::OGLContext * getDrawContext() override;
+  dp::OGLContext * getResourcesUploadContext() override;
+  bool isDrawContextCreated() const override;
+  bool isUploadContextCreated() const override;
+  void setPresentAvailable(bool available) override;
 
   void SetSurface(JNIEnv * env, jobject jsurface);
   void ResetSurface();
 
   int GetWidth() const;
   int GetHeight() const;
-  void UpdateSurfaceSize();
+  void UpdateSurfaceSize(int w, int h);
+
+  bool IsSupportedOpenGLES3() const { return m_supportedES3; }
 
 private:
   bool QuerySurfaceSize();
@@ -48,6 +52,6 @@ private:
   int m_surfaceHeight;
 
   bool m_windowSurfaceValid;
+  bool m_supportedES3;
 };
-
 }  // namespace android

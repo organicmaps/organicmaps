@@ -13,6 +13,7 @@
 #include <string>
 #include <algorithm> // std::copy
 #include <locale>
+#include <exception>
 
 #include <cstring> // strlen
 #include <cstdlib> // mbtowc
@@ -30,14 +31,14 @@ namespace std{
 #endif
 
 #include <boost/archive/xml_woarchive.hpp>
+#include <boost/archive/detail/utf8_codecvt_facet.hpp>
+
 #include <boost/serialization/throw_exception.hpp>
 
 #include <boost/archive/iterators/xml_escape.hpp>
 #include <boost/archive/iterators/wchar_from_mb.hpp>
 #include <boost/archive/iterators/ostream_iterator.hpp>
 #include <boost/archive/iterators/dataflow_exception.hpp>
-
-#include <boost/archive/add_facet.hpp>
 
 namespace boost {
 namespace archive {
@@ -122,19 +123,13 @@ xml_woarchive_impl<Archive>::xml_woarchive_impl(
     ),
     basic_xml_oarchive<Archive>(flags)
 {
-    // Standard behavior is that imbue can be called
-    // a) before output is invoked or
-    // b) after flush has been called.  This prevents one-to-many
-    // transforms (such as one to many transforms from getting
-    // mixed up.
     if(0 == (flags & no_codecvt)){
-        archive_locale.reset(
-            add_facet(
-                os_.getloc(),
-                new boost::archive::detail::utf8_codecvt_facet
-            )
+        std::locale l = std::locale(
+            os_.getloc(),
+            new boost::archive::detail::utf8_codecvt_facet
         );
-        //os.imbue(* archive_locale);
+        os_.flush();
+        os_.imbue(l);
     }
     if(0 == (flags & no_header))
         this->init();
@@ -143,6 +138,29 @@ xml_woarchive_impl<Archive>::xml_woarchive_impl(
 template<class Archive>
 BOOST_WARCHIVE_DECL
 xml_woarchive_impl<Archive>::~xml_woarchive_impl(){
+    if(std::uncaught_exception())
+        return;
+    if(0 == (this->get_flags() & no_header)){
+        save(L"</boost_serialization>\n");
+    }
+}
+
+template<class Archive>
+BOOST_WARCHIVE_DECL void
+xml_woarchive_impl<Archive>::save_binary(
+    const void *address,
+    std::size_t count
+){
+    this->end_preamble();
+    #if ! defined(__MWERKS__)
+    this->basic_text_oprimitive<std::wostream>::save_binary(
+    #else
+    this->basic_text_oprimitive::save_binary(
+    #endif
+        address, 
+        count
+    );
+    this->indent_next = true;
 }
 
 } // namespace archive

@@ -8,7 +8,7 @@
 #ifndef BOOST_IOSTREAMS_LINE_FILTER_HPP_INCLUDED
 #define BOOST_IOSTREAMS_LINE_FILTER_HPP_INCLUDED
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -37,13 +37,7 @@ namespace boost { namespace iostreams {
 // Description: Filter which processes data one line at a time.
 //
 template< typename Ch,
-          typename Alloc =
-          #if BOOST_WORKAROUND(__GNUC__, < 3)
-              typename std::basic_string<Ch>::allocator_type
-          #else
-              std::allocator<Ch>
-          #endif
-          >
+          typename Alloc = std::allocator<Ch> >
 class basic_line_filter {
 private:
     typedef typename std::basic_string<Ch>::traits_type  string_traits;

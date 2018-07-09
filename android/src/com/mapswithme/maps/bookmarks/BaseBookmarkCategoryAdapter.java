@@ -1,33 +1,50 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 
-public abstract class BaseBookmarkCategoryAdapter<V extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<V>
+import java.util.List;
+
+public abstract class BaseBookmarkCategoryAdapter<V extends RecyclerView.ViewHolder>
+    extends RecyclerView.Adapter<V>
 {
+  @NonNull
   private final Context mContext;
 
-  public BaseBookmarkCategoryAdapter(Context context)
+  BaseBookmarkCategoryAdapter(@NonNull Context context)
   {
     mContext = context;
   }
 
+  @NonNull
   protected Context getContext()
   {
     return mContext;
   }
 
+  @NonNull
+  public List<BookmarkCategory> getBookmarkCategories()
+  {
+    return BookmarkManager.INSTANCE.getOwnedCategoriesSnapshot().getItems();
+  }
+
   @Override
   public int getItemCount()
   {
-    return BookmarkManager.INSTANCE.nativeGetCategoriesCount();
+    return getBookmarkCategories().size();
   }
 
-  public BookmarkCategory getItem(int position)
+  @NonNull
+  public BookmarkCategory getCategoryByPosition(int position)
   {
-    return BookmarkManager.INSTANCE.getCategory(position);
+    List<BookmarkCategory> categories = getBookmarkCategories();
+    if (position < 0 || position > categories.size() - 1)
+      throw new ArrayIndexOutOfBoundsException(position);
+    return categories.get(position);
+
   }
 }

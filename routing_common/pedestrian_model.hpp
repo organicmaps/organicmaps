@@ -2,9 +2,6 @@
 
 #include "routing_common/vehicle_model.hpp"
 
-#include "std/shared_ptr.hpp"
-#include "std/unordered_map.hpp"
-
 namespace routing
 {
 
@@ -12,10 +9,12 @@ class PedestrianModel : public VehicleModel
 {
 public:
   PedestrianModel();
-  PedestrianModel(VehicleModel::InitListT const & speedLimits);
+  PedestrianModel(VehicleModel::LimitsInitList const & speedLimits);
 
-  /// VehicleModel overrides:
+  /// VehicleModelInterface overrides:
   bool IsOneWay(FeatureType const &) const override { return false; }
+  double GetOffroadSpeed() const override;
+
   static PedestrianModel const & AllLimitsInstance();
 
 protected:
@@ -31,15 +30,8 @@ private:
 class PedestrianModelFactory : public VehicleModelFactory
 {
 public:
-  PedestrianModelFactory();
-
-  /// @name Overrides from VehicleModelFactory.
-  //@{
-  shared_ptr<IVehicleModel> GetVehicleModel() const override;
-  shared_ptr<IVehicleModel> GetVehicleModelForCountry(string const & country) const override;
-  //@}
-
-private:
-  unordered_map<string, shared_ptr<IVehicleModel>> m_models;
+  // TODO: remove countryParentNameGetterFn default value after removing unused pedestrian routing
+  // from road_graph_router
+  PedestrianModelFactory(CountryParentNameGetterFn const & countryParentNameGetterFn = {});
 };
 }  // namespace routing

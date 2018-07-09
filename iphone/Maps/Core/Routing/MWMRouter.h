@@ -1,36 +1,66 @@
-@class MWMRoutePoint;
+#import "MWMRoutePoint.h"
+#import "MWMRouterType.h"
 
 typedef void (^MWMImageHeightBlock)(UIImage *, NSString *);
 
 @interface MWMRouter : NSObject
 
-+ (MWMRouter *)router;
-
-+ (BOOL)hasRouteAltitude;
 + (BOOL)isTaxi;
++ (BOOL)isRoutingActive;
++ (BOOL)isRouteBuilt;
++ (BOOL)isRouteFinished;
++ (BOOL)isRouteRebuildingOnly;
++ (BOOL)isOnRoute;
+
++ (BOOL)canAddIntermediatePoint;
+
 + (void)startRouting;
 + (void)stopRouting;
-+ (BOOL)isRoutingActive;
 
-@property(nonatomic, readonly) MWMRoutePoint * startPoint;
-@property(nonatomic, readonly) MWMRoutePoint * finishPoint;
-@property(nonatomic) MWMRouterType type;
++ (NSArray<MWMRoutePoint *> *)points;
++ (NSInteger)pointsCount;
++ (MWMRoutePoint *)startPoint;
++ (MWMRoutePoint *)finishPoint;
 
-- (void)swapPointsAndRebuild;
-- (void)buildFromPoint:(MWMRoutePoint *)start bestRouter:(BOOL)bestRouter;
-- (void)buildToPoint:(MWMRoutePoint *)finish bestRouter:(BOOL)bestRouter;
-- (void)buildFromPoint:(MWMRoutePoint *)start
-               toPoint:(MWMRoutePoint *)finish
-            bestRouter:(BOOL)bestRouter;
-- (void)rebuildWithBestRouter:(BOOL)bestRouter;
-- (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageHeightBlock)block;
++ (void)enableAutoAddLastLocation:(BOOL)enable;
 
-- (instancetype)init __attribute__((unavailable("call +router instead")));
-- (instancetype)copy __attribute__((unavailable("call +router instead")));
-- (instancetype)copyWithZone:(NSZone *)zone __attribute__((unavailable("call +router instead")));
-+ (instancetype)alloc __attribute__((unavailable("call +router instead")));
-+ (instancetype)allocWithZone:(struct _NSZone *)zone
-    __attribute__((unavailable("call +router instead")));
-+ (instancetype) new __attribute__((unavailable("call +router instead")));
++ (void)setType:(MWMRouterType)type;
++ (MWMRouterType)type;
+
++ (void)disableFollowMode;
+
++ (void)enableTurnNotifications:(BOOL)active;
++ (BOOL)areTurnNotificationsEnabled;
++ (void)setTurnNotificationsLocale:(NSString *)locale;
++ (NSArray<NSString *> *)turnNotifications;
+
++ (void)addPoint:(MWMRoutePoint *)point;
++ (void)removePoint:(MWMRoutePoint *)point;
++ (void)addPointAndRebuild:(MWMRoutePoint *)point;
++ (void)removePointAndRebuild:(MWMRoutePoint *)point;
++ (void)removePoints;
+
++ (void)buildFromPoint:(MWMRoutePoint *)start bestRouter:(BOOL)bestRouter;
++ (void)buildToPoint:(MWMRoutePoint *)finish bestRouter:(BOOL)bestRouter;
++ (void)buildApiRouteWithType:(MWMRouterType)type
+                   startPoint:(MWMRoutePoint *)startPoint
+                  finishPoint:(MWMRoutePoint *)finishPoint;
++ (void)rebuildWithBestRouter:(BOOL)bestRouter;
+
++ (BOOL)hasRouteAltitude;
++ (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageHeightBlock)block;
+
++ (void)saveRouteIfNeeded;
++ (void)restoreRouteIfNeeded;
+
+@end
+
+@interface MWMRouter (RouteManager)
+
++ (void)openRouteManagerTransaction;
++ (void)applyRouteManagerTransaction;
++ (void)cancelRouteManagerTransaction;
++ (void)movePointAtIndex:(NSInteger)index toIndex:(NSInteger)newIndex;
++ (void)updatePreviewMode;
 
 @end

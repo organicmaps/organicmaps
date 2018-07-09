@@ -20,7 +20,7 @@ struct GeneratorThread : public threads::IRoutine
   {
     for (size_t i = 0; i < MAX_COUNT; ++i)
     {
-      m_vec.push_back(i);
+      m_vec.push_back(static_cast<int>(i));
       summ += i;
     }
   }

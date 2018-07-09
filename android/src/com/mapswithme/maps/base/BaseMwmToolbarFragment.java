@@ -12,9 +12,8 @@ public class BaseMwmToolbarFragment extends BaseMwmFragment
   protected ToolbarController mToolbarController;
 
   @Override
-  public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
-    super.onViewCreated(view, savedInstanceState);
     mToolbarController = onCreateToolbarController(view);
   }
 

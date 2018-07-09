@@ -77,6 +77,7 @@ namespace feature
     //@{
     inline EGeomType GetGeoType() const { return m_geoType; }
 
+    inline size_t Size() const { return m_size; }
     inline bool Empty() const { return (m_size == 0); }
     inline uint32_t const * begin() const { return m_types; }
     inline uint32_t const * end() const { return m_types + m_size; }

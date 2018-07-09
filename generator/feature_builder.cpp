@@ -8,21 +8,22 @@
 
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_visibility.hpp"
-#include "indexer/geometry_serialization.hpp"
-#include "indexer/coding_params.hpp"
-
-#include "geometry/region2d.hpp"
 
 #include "coding/bit_streams.hpp"
 #include "coding/byte_stream.hpp"
+#include "coding/geometry_coding.hpp"
+
+#include "geometry/region2d.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/cstring.hpp"
-#include "std/algorithm.hpp"
+#include <algorithm>
+#include <cstring>
+#include <vector>
 
 using namespace feature;
+using namespace std;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // FeatureBuilder1 implementation
@@ -362,7 +363,8 @@ bool FeatureBuilder1::CheckValid() const
   return true;
 }
 
-void FeatureBuilder1::SerializeBase(TBuffer & data, serial::CodingParams const & params, bool saveAddInfo) const
+void FeatureBuilder1::SerializeBase(TBuffer & data, serial::GeometryCodingParams const & params,
+                                    bool saveAddInfo) const
 {
   PushBackByteSink<TBuffer> sink(data);
 
@@ -378,7 +380,7 @@ void FeatureBuilder1::Serialize(TBuffer & data) const
 
   data.clear();
 
-  serial::CodingParams cp;
+  serial::GeometryCodingParams cp;
 
   SerializeBase(data, cp, true /* store additional info from FeatureParams */);
 
@@ -406,9 +408,35 @@ void FeatureBuilder1::Serialize(TBuffer & data) const
 #endif
 }
 
+void FeatureBuilder1::SerializeBorder(serial::GeometryCodingParams const & params,
+                                      TBuffer & data) const
+{
+  data.clear();
+
+  PushBackByteSink<TBuffer> sink(data);
+  WriteToSink(sink, GetMostGenericOsmId().EncodedId());
+
+  CHECK_GREATER(m_polygons.size(), 0, ());
+
+  WriteToSink(sink, m_polygons.size() - 1);
+
+  auto toU = [&params](m2::PointD const & p) { return PointDToPointU(p, params.GetCoordBits()); };
+  for (auto const & polygon : m_polygons)
+  {
+    WriteToSink(sink, polygon.size());
+    m2::PointU last = params.GetBasePoint();
+    for (auto const & p : polygon)
+    {
+      auto const curr = toU(p);
+      coding::EncodePointDelta(sink, last, curr);
+      last = curr;
+    }
+  }
+}
+
 void FeatureBuilder1::Deserialize(TBuffer & data)
 {
-  serial::CodingParams cp;
+  serial::GeometryCodingParams cp;
 
   ArrayByteSource source(&data[0]);
   m_params.Read(source);
@@ -553,10 +581,10 @@ bool FeatureBuilder1::IsDrawableInRange(int lowScale, int highScale) const
     FeatureBase const fb = GetFeatureBase();
 
     while (lowScale <= highScale)
+    {
       if (feature::IsDrawableForIndex(fb, lowScale++))
         return true;
-
-    return RequireGeometryInIndex(fb);
+    }
   }
 
   return false;
@@ -593,7 +621,41 @@ bool FeatureBuilder2::PreSerialize(SupportingData const & data)
   return TBase::PreSerialize();
 }
 
-void FeatureBuilder2::Serialize(SupportingData & data, serial::CodingParams const & params)
+bool FeatureBuilder2::IsLocalityObject() const
+{
+  return (m_params.GetGeomType() == GEOM_POINT || m_params.GetGeomType() == GEOM_AREA) &&
+         !m_params.house.IsEmpty();
+}
+
+void FeatureBuilder2::SerializeLocalityObject(serial::GeometryCodingParams const & params,
+                                              SupportingData & data) const
+{
+  data.m_buffer.clear();
+
+  PushBackByteSink<TBuffer> sink(data.m_buffer);
+  WriteToSink(sink, GetMostGenericOsmId().EncodedId());
+
+  auto const type = m_params.GetGeomType();
+  WriteToSink(sink, static_cast<uint8_t>(type));
+
+  if (type == GEOM_POINT)
+  {
+    serial::SavePoint(sink, m_center, params);
+    return;
+  }
+
+  CHECK_EQUAL(type, GEOM_AREA, ("Supported types are GEOM_POINT and GEOM_AREA"));
+
+  uint32_t trgCount = base::asserted_cast<uint32_t>(data.m_innerTrg.size());
+  CHECK_GREATER(trgCount, 2, ());
+  trgCount -= 2;
+
+  WriteToSink(sink, trgCount);
+  serial::SaveInnerTriangles(data.m_innerTrg, params, sink);
+}
+
+void FeatureBuilder2::Serialize(SupportingData & data,
+                                serial::GeometryCodingParams const & params) const
 {
   data.m_buffer.clear();
 
@@ -602,8 +664,8 @@ void FeatureBuilder2::Serialize(SupportingData & data, serial::CodingParams cons
 
   PushBackByteSink<TBuffer> sink(data.m_buffer);
 
-  uint8_t const ptsCount = static_cast<uint8_t>(data.m_innerPts.size());
-  uint8_t trgCount = static_cast<uint8_t>(data.m_innerTrg.size());
+  uint8_t const ptsCount = base::asserted_cast<uint8_t>(data.m_innerPts.size());
+  uint8_t trgCount = base::asserted_cast<uint8_t>(data.m_innerTrg.size());
   if (trgCount > 0)
   {
     ASSERT_GREATER ( trgCount, 2, () );
@@ -655,7 +717,7 @@ void FeatureBuilder2::Serialize(SupportingData & data, serial::CodingParams cons
 
       // offsets was pushed from high scale index to low
       reverse(data.m_ptsOffset.begin(), data.m_ptsOffset.end());
-      serial::WriteVarUintArray(data.m_ptsOffset, sink);
+      WriteVarUintArray(data.m_ptsOffset, sink);
     }
   }
   else if (type == GEOM_AREA)
@@ -666,7 +728,7 @@ void FeatureBuilder2::Serialize(SupportingData & data, serial::CodingParams cons
     {
       // offsets was pushed from high scale index to low
       reverse(data.m_trgOffset.begin(), data.m_trgOffset.end());
-      serial::WriteVarUintArray(data.m_trgOffset, sink);
+      WriteVarUintArray(data.m_trgOffset, sink);
     }
   }
 }

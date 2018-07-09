@@ -8,6 +8,7 @@
 #define BOOST_COROUTINES2_DETAIL_COROUTINE_HPP
 
 #include <boost/config.hpp>
+#include <boost/context/detail/config.hpp>
 
 #ifdef BOOST_HAS_ABI_HEADERS
 #  include BOOST_ABI_PREFIX
@@ -28,14 +29,26 @@ class push_coroutine;
 #include <boost/coroutine2/detail/pull_coroutine.hpp>
 #include <boost/coroutine2/detail/push_coroutine.hpp>
 
-#include <boost/coroutine2/detail/pull_control_block.hpp>
-#include <boost/coroutine2/detail/push_control_block.hpp>
+#if defined(BOOST_EXECUTION_CONTEXT)
+# if (BOOST_EXECUTION_CONTEXT==1)
+#  include <boost/coroutine2/detail/pull_control_block_ecv1.hpp>
+#  include <boost/coroutine2/detail/push_control_block_ecv1.hpp>
+# else
+#  include <boost/coroutine2/detail/pull_control_block_cc.hpp>
+#  include <boost/coroutine2/detail/push_control_block_cc.hpp>
+# endif
 
-#include <boost/coroutine2/detail/pull_coroutine.ipp>
-#include <boost/coroutine2/detail/push_coroutine.ipp>
+# include <boost/coroutine2/detail/pull_coroutine.ipp>
+# include <boost/coroutine2/detail/push_coroutine.ipp>
 
-#include <boost/coroutine2/detail/pull_control_block.ipp>
-#include <boost/coroutine2/detail/push_control_block.ipp>
+# if (BOOST_EXECUTION_CONTEXT==1)
+#  include <boost/coroutine2/detail/pull_control_block_ecv1.ipp>
+#  include <boost/coroutine2/detail/push_control_block_ecv1.ipp>
+# else
+#  include <boost/coroutine2/detail/pull_control_block_cc.ipp>
+#  include <boost/coroutine2/detail/push_control_block_cc.ipp>
+# endif
+#endif
 
 #ifdef BOOST_HAS_ABI_HEADERS
 #  include BOOST_ABI_SUFFIX

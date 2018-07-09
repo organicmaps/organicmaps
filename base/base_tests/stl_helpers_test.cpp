@@ -2,10 +2,10 @@
 
 #include "base/stl_helpers.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/deque.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <deque>
+#include <utility>
+#include <vector>
 
 namespace
 {
@@ -31,7 +31,7 @@ void TestSortUnique()
   }
   {
     using Value = int;
-    using Pair = pair<Value, int>;
+    using Pair = std::pair<Value, int>;
     Cont<Pair> d =
         {{1, 22}, {2, 33}, {1, 23}, {4, 54}, {3, 34}, {5, 23}, {2, 23}, {7, 32}, {1, 12}};
 
@@ -44,7 +44,7 @@ void TestSortUnique()
   }
   {
     using Value = double;
-    using Pair = pair<Value, int>;
+    using Pair = std::pair<Value, int>;
     Cont<Pair> d =
         {{0.5, 11}, {1000.99, 234}, {0.5, 23}, {1234.56789, 54}, {1000.99, 34}};
 
@@ -61,9 +61,9 @@ template <template <typename...> class Cont>
 void TestEqualsBy()
 {
   {
-    using Value = pair<int, int>;
+    using Value = std::pair<int, int>;
     Cont<Value> actual = {{1, 2}, {1, 3}, {2, 100}, {3, 7}, {3, 8}, {2, 500}};
-    actual.erase(unique(actual.begin(), actual.end(), my::EqualsBy(&Value::first)), actual.end());
+    actual.erase(std::unique(actual.begin(), actual.end(), my::EqualsBy(&Value::first)), actual.end());
 
     Cont<int> const expected = {{1, 2, 3, 2}};
     TEST_EQUAL(expected.size(), actual.size(), ());
@@ -75,7 +75,7 @@ void TestEqualsBy()
     Cont<Int> actual;
     for (auto const v : {0, 0, 1, 2, 2, 0})
       actual.emplace_back(v);
-    actual.erase(unique(actual.begin(), actual.end(), my::EqualsBy(&Int::Get)), actual.end());
+    actual.erase(std::unique(actual.begin(), actual.end(), my::EqualsBy(&Int::Get)), actual.end());
 
     Cont<int> const expected = {{0, 1, 2, 0}};
     TEST_EQUAL(expected.size(), actual.size(), ());
@@ -87,28 +87,28 @@ void TestEqualsBy()
 UNIT_TEST(LessBy)
 {
   {
-    using Value = pair<int, int>;
+    using Value = std::pair<int, int>;
 
-    vector<Value> v = {{2, 2}, {0, 4}, {3, 1}, {4, 0}, {1, 3}};
-    sort(v.begin(), v.end(), my::LessBy(&Value::first));
+    std::vector<Value> v = {{2, 2}, {0, 4}, {3, 1}, {4, 0}, {1, 3}};
+    std::sort(v.begin(), v.end(), my::LessBy(&Value::first));
     for (size_t i = 0; i < v.size(); ++i)
-      TEST_EQUAL(i, v[i].first, ());
+      TEST_EQUAL(i, static_cast<size_t>(v[i].first), ());
 
-    vector<Value const *> pv;
+    std::vector<Value const *> pv;
     for (auto const & p : v)
       pv.push_back(&p);
 
-    sort(pv.begin(), pv.end(), my::LessBy(&Value::second));
+    std::sort(pv.begin(), pv.end(), my::LessBy(&Value::second));
     for (size_t i = 0; i < pv.size(); ++i)
-      TEST_EQUAL(i, pv[i]->second, ());
+      TEST_EQUAL(i, static_cast<size_t>(pv[i]->second), ());
   }
 
   {
-    vector<Int> v;
+    std::vector<Int> v;
     for (int i = 9; i >= 0; --i)
       v.emplace_back(i);
 
-    sort(v.begin(), v.end(), my::LessBy(&Int::Get));
+    std::sort(v.begin(), v.end(), my::LessBy(&Int::Get));
     for (size_t i = 0; i < v.size(); ++i)
       TEST_EQUAL(v[i].Get(), static_cast<int>(i), ());
   }
@@ -116,14 +116,14 @@ UNIT_TEST(LessBy)
 
 UNIT_TEST(EqualsBy_VectorTest)
 {
-  TestEqualsBy<vector>();
-  TestEqualsBy<deque>();
+  TestEqualsBy<std::vector>();
+  TestEqualsBy<std::deque>();
 }
 
 UNIT_TEST(SortUnique_VectorTest)
 {
-  TestSortUnique<vector>();
-  TestSortUnique<deque>();
+  TestSortUnique<std::vector>();
+  TestSortUnique<std::deque>();
 }
 
 UNIT_TEST(IgnoreFirstArgument)

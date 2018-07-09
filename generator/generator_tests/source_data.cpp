@@ -23,7 +23,7 @@ static_assert(sizeof(node_o5m_data) == 92, "Size check failed");
 
 char const node2_xml_data[] = "<?xml version='1.0' encoding='UTF-8'?>\
 <osm version='0.6' generator='CGImap 0.3.3 (31790 thorn-03.openstreetmap.org)' \
-copyright='OpenStreetMap and contributors' attribution='http://www.openstreetmap.org/copyright' \
+copyright='OpenStreetMap and contributors' attribution='https://www.openstreetmap.org/copyright' \
 license='http://opendatacommons.org/licenses/odbl/1-0/'>\
 <node id='513709898' visible='true' version='8' changeset='12059128' \
 timestamp='2012-06-29T18:09:47Z' user='Xmypblu' uid='395071' lat='55.0927062' lon='38.7666704'>\

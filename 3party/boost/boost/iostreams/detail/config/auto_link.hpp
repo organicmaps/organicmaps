@@ -11,7 +11,7 @@
 #ifndef BOOST_IOSTREAMS_DETAIL_AUTO_LINK_HPP_INCLUDED
 #define BOOST_IOSTREAMS_DETAIL_AUTO_LINK_HPP_INCLUDED
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif              
 
@@ -19,7 +19,7 @@
 # if defined(BOOST_MSVC) \
      || defined(__BORLANDC__) \
      || (defined(__MWERKS__) && defined(_WIN32) && (__MWERKS__ >= 0x3000)) \
-     || (defined(__ICL) && defined(_MSC_EXTENSIONS) && (_MSC_VER >= 1200)) \
+     || (defined(__ICL) && defined(_MSC_EXTENSIONS)) \
      /**/
 #  pragma comment(lib, BOOST_EXTERNAL_LIB_NAME)
 # endif

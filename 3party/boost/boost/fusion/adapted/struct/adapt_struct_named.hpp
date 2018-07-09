@@ -13,7 +13,7 @@
 #include <boost/fusion/support/config.hpp>
 #include <boost/fusion/adapted/struct/adapt_struct.hpp>
 #include <boost/fusion/adapted/struct/detail/proxy_type.hpp>
-#include <boost/preprocessor/empty.hpp>
+#include <boost/preprocessor/config/config.hpp>
 
 #ifdef BOOST_PP_VARIADICS
 

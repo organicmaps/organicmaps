@@ -1,11 +1,13 @@
 #pragma once
 
-#include "indexer/index.hpp"
+#include "indexer/mwm_set.hpp"
 
 #include "base/macros.hpp"
 
 #include "std/map.hpp"
 #include "std/unique_ptr.hpp"
+
+class DataSource;
 
 namespace search
 {
@@ -27,7 +29,7 @@ class RankTableCache
 public:
   RankTableCache() = default;
 
-  RankTable const & Get(Index & index, TId const & mwmId);
+  RankTable const & Get(DataSource & dataSource, TId const & mwmId);
 
   void Remove(TId const & id);
   void Clear();

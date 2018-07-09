@@ -69,8 +69,8 @@ class bstree_algorithms_base
    static node_ptr prev_node(const node_ptr & node)
    {
       if(is_header(node)){
-         return NodeTraits::get_right(node);
-         //return maximum(NodeTraits::get_parent(node));
+         //return NodeTraits::get_right(node);
+         return maximum(NodeTraits::get_parent(node));
       }
       else if(NodeTraits::get_left(node)){
          return maximum(NodeTraits::get_left(node));

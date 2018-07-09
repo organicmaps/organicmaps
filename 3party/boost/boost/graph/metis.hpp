@@ -161,7 +161,6 @@ class metis_distribution
   iterator end()   { return vertices.end(); }
 
  private:
-  std::istream& in;
   process_id_type my_id;
   std::vector<process_id_type> vertices;
 };
@@ -300,7 +299,7 @@ void metis_reader::start()
 }
 
 metis_distribution::metis_distribution(std::istream& in, process_id_type my_id)
-  : in(in), my_id(my_id), 
+  : my_id(my_id), 
     vertices(std::istream_iterator<process_id_type>(in),
              std::istream_iterator<process_id_type>())
 {

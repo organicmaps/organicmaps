@@ -2,10 +2,12 @@
 
 #include "search/result.hpp"
 
+#include "editor/editable_data_source.hpp"
+
+#include "indexer/data_source.hpp"
+
 #include "storage/country_info_getter.hpp"
 #include "storage/storage.hpp"
-
-#include "indexer/index.hpp"
 
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
@@ -35,12 +37,13 @@ bool GetGroupCountryIdFromFeature(storage::Storage const & storage, FeatureType 
 
 namespace search
 {
-DownloaderSearchCallback::DownloaderSearchCallback(Delegate & delegate, Index const & index,
+DownloaderSearchCallback::DownloaderSearchCallback(Delegate & delegate,
+                                                   DataSource const & dataSource,
                                                    storage::CountryInfoGetter const & infoGetter,
                                                    storage::Storage const & storage,
                                                    storage::DownloaderSearchParams params)
   : m_delegate(delegate)
-  , m_index(index)
+  , m_dataSource(dataSource)
   , m_infoGetter(infoGetter)
   , m_storage(storage)
   , m_params(move(params))
@@ -57,10 +60,10 @@ void DownloaderSearchCallback::operator()(search::Results const & results)
     if (!result.HasPoint())
       continue;
 
-    if (result.GetResultType() != search::Result::RESULT_LATLON)
+    if (result.GetResultType() != search::Result::Type::LatLon)
     {
       FeatureID const & fid = result.GetFeatureID();
-      Index::FeaturesLoaderGuard loader(m_index, fid.m_mwmId);
+      FeaturesLoaderGuard loader(m_dataSource, fid.m_mwmId);
       FeatureType ft;
       if (!loader.GetFeatureByIndex(fid.m_index, ft))
       {

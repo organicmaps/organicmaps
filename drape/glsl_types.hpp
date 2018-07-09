@@ -4,8 +4,6 @@
 
 #include "drape/color.hpp"
 
-#include "std/type_traits.hpp"
-
 #include <glm_config.hpp>
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
@@ -17,9 +15,12 @@
 #include <glm/mat4x2.hpp>
 #include <glm/mat4x3.hpp>
 
+#include <glm/gtc/type_ptr.hpp>
+
+#include <type_traits>
+
 namespace glsl
 {
-
 using glm::vec2;
 using glm::vec3;
 using glm::vec4;
@@ -27,6 +28,10 @@ using glm::vec4;
 using glm::dvec2;
 using glm::dvec3;
 using glm::dvec4;
+
+using glm::ivec2;
+using glm::ivec3;
+using glm::ivec4;
 
 using glm::mat3;
 using glm::mat4;
@@ -38,10 +43,12 @@ using glm::dmat4;
 using glm::dmat4x2;
 using glm::dmat4x3;
 
-typedef vec4   Quad1;
-typedef mat4x2 Quad2;
-typedef mat4x3 Quad3;
-typedef mat4   Quad4;
+using glm::value_ptr;
+
+using glm::make_mat4;
+using glm::make_vec2;
+using glm::make_vec3;
+using glm::make_vec4;
 
 inline m2::PointF ToPoint(vec2 const & v)
 {
@@ -63,15 +70,28 @@ inline m2::PointD FromVec2(glsl::vec2 const & pt)
   return m2::PointD(pt.x, pt.y);
 }
 
-inline vec4 ToVec4(dp::Color const & color)
+inline vec3 ToVec3(dp::Color const & color)
 {
-  return glsl::vec4(double(color.GetRed()) / 255,
-                    double(color.GetGreen()) / 255,
-                    double(color.GetBlue()) / 255,
-                    double(color.GetAlfa()) / 255);
+  return glsl::vec3(static_cast<float>(color.GetRed()) / 255,
+                    static_cast<float>(color.GetGreen()) / 255,
+                    static_cast<float>(color.GetBlue()) / 255);
 }
 
-template<typename T, class = typename enable_if<is_integral<T>::value || is_floating_point<T>::value>::type>
+inline vec4 ToVec4(dp::Color const & color)
+{
+  return glsl::vec4(static_cast<float>(color.GetRed()) / 255,
+                    static_cast<float>(color.GetGreen()) / 255,
+                    static_cast<float>(color.GetBlue()) / 255,
+                    static_cast<float>(color.GetAlpha()) / 255);
+}
+
+inline vec4 ToVec4(m2::PointD const & pt1, m2::PointD const & pt2)
+{
+  return glsl::vec4(pt1.x, pt1.y, pt2.x, pt2.y);
+}
+
+template <typename T, typename = std::enable_if_t<std::is_integral<T>::value ||
+                                                  std::is_floating_point<T>::value>>
 inline uint8_t GetArithmeticComponentCount()
 {
   return 1;
@@ -100,5 +120,4 @@ inline uint8_t GetComponentCount<vec4>()
 {
   return 4;
 }
-
-} // namespace glsl
+}  // namespace glsl

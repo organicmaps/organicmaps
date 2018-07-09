@@ -10,7 +10,7 @@
 #ifndef BOOST_IOSTREAMS_CODE_CONVERTER_HPP_INCLUDED
 #define BOOST_IOSTREAMS_CODE_CONVERTER_HPP_INCLUDED
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -37,7 +37,7 @@
 #include <boost/iostreams/detail/execute.hpp>
 #include <boost/iostreams/detail/forward.hpp>
 #include <boost/iostreams/detail/functional.hpp>
-#include <boost/iostreams/detail/ios.hpp> // failure, openmode, int types.
+#include <boost/iostreams/detail/ios.hpp> // failure, openmode, int types, streamsize.
 #include <boost/iostreams/detail/optional.hpp>
 #include <boost/iostreams/detail/select.hpp>
 #include <boost/iostreams/traits.hpp>
@@ -154,13 +154,13 @@ struct code_converter_impl {
     }
 
     template <class T>
-    void open(const T& dev, int buffer_size)
+    void open(const T& dev, std::streamsize buffer_size)
     {
         if (flags_ & f_open)
             boost::throw_exception(BOOST_IOSTREAMS_FAILURE("already open"));
         if (buffer_size == -1)
             buffer_size = default_filter_buffer_size;
-        int max_length = cvt_.get().max_length();
+        std::streamsize max_length = cvt_.get().max_length();
         buffer_size = (std::max)(buffer_size, 2 * max_length);
         if (can_read::value) {
             buf_.first().resize(buffer_size);
@@ -223,7 +223,7 @@ struct code_converter_impl {
 
 //--------------Definition of converter---------------------------------------//
 
-#define BOOST_IOSTREAMS_CONVERTER_PARAMS() , int buffer_size = -1
+#define BOOST_IOSTREAMS_CONVERTER_PARAMS() , std::streamsize buffer_size = -1
 #define BOOST_IOSTREAMS_CONVERTER_ARGS() , buffer_size
 
 template<typename Device, typename Codecvt, typename Alloc>
@@ -264,14 +264,6 @@ public:
     ));
 public:
     code_converter() { }
-#if BOOST_WORKAROUND(__GNUC__, < 3)
-    code_converter(code_converter& rhs) 
-        : code_converter_base<Device, Codecvt, Alloc>(rhs)
-        { }
-    code_converter(const code_converter& rhs) 
-        : code_converter_base<Device, Codecvt, Alloc>(rhs)
-        { }
-#endif
     BOOST_IOSTREAMS_FORWARD( code_converter, open_impl, Device,
                              BOOST_IOSTREAMS_CONVERTER_PARAMS, 
                              BOOST_IOSTREAMS_CONVERTER_ARGS )

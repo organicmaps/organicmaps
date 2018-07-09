@@ -1,19 +1,27 @@
 #include "androidoglcontextfactory.hpp"
 #include "android_gl_utils.hpp"
 
+#include "com/mapswithme/platform/Platform.hpp"
+
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/src_point.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
 
 #include <EGL/egl.h>
-#include <android/native_window_jni.h>
 #include <android/native_window.h>
+#include <android/native_window_jni.h>
+
+#define EGL_OPENGL_ES3_BIT 0x00000040
+
+int constexpr kMinSdkVersionForES3 = 21;
 
 namespace android
 {
-
-static EGLint * getConfigAttributesListRGB8()
+namespace
+{
+static EGLint * getConfigAttributesListRGB8(bool supportedES3)
 {
   static EGLint attr_list[] = {
     EGL_RED_SIZE, 8,
@@ -26,11 +34,26 @@ static EGLint * getConfigAttributesListRGB8()
     EGL_SURFACE_TYPE, EGL_PBUFFER_BIT | EGL_WINDOW_BIT,
     EGL_NONE
   };
-  return attr_list;
+  static EGLint attr_list_es3[] = {
+    EGL_RED_SIZE, 8,
+    EGL_GREEN_SIZE, 8,
+    EGL_BLUE_SIZE, 8,
+    EGL_ALPHA_SIZE, 0,
+    EGL_STENCIL_SIZE, 0,
+    EGL_DEPTH_SIZE, 16,
+    EGL_RENDERABLE_TYPE, EGL_OPENGL_ES3_BIT,
+    EGL_SURFACE_TYPE, EGL_PBUFFER_BIT | EGL_WINDOW_BIT,
+    EGL_NONE
+  };
+  return supportedES3 ? attr_list_es3 : attr_list;
 }
+
+int const kMaxConfigCount = 40;
 
 static EGLint * getConfigAttributesListR5G6B5()
 {
+  // We do not support OpenGL ES3 for R5G6B5, because some Android devices
+  // are not able to create OpenGL context in such mode.
   static EGLint attr_list[] = {
     EGL_RED_SIZE, 5,
     EGL_GREEN_SIZE, 6,
@@ -44,6 +67,15 @@ static EGLint * getConfigAttributesListR5G6B5()
   return attr_list;
 }
 
+bool IsSupportedRGB8(EGLDisplay display, bool es3)
+{
+  EGLConfig configs[kMaxConfigCount];
+  int count = 0;
+  return eglChooseConfig(display, getConfigAttributesListRGB8(es3), configs,
+                         kMaxConfigCount, &count) == EGL_TRUE && count != 0;
+}
+}  // namespace
+
 AndroidOGLContextFactory::AndroidOGLContextFactory(JNIEnv * env, jobject jsurface)
   : m_drawContext(NULL)
   , m_uploadContext(NULL)
@@ -55,6 +87,7 @@ AndroidOGLContextFactory::AndroidOGLContextFactory(JNIEnv * env, jobject jsurfac
   , m_surfaceWidth(0)
   , m_surfaceHeight(0)
   , m_windowSurfaceValid(false)
+  , m_supportedES3(false)
 {
   m_display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
   if (m_display == EGL_NO_DISPLAY)
@@ -69,6 +102,16 @@ AndroidOGLContextFactory::AndroidOGLContextFactory(JNIEnv * env, jobject jsurfac
     CHECK_EGL_CALL();
     return;
   }
+
+  // Check ES3 availability.
+  bool availableES3 = IsSupportedRGB8(m_display, true /* es3 */);
+  if (availableES3)
+  {
+    int const sdkVersion = GetAndroidSdkVersion();
+    if (sdkVersion != 0)
+      availableES3 = (sdkVersion >= kMinSdkVersionForES3);
+  }
+  m_supportedES3 = availableES3 && gl3stubInit();
 
   SetSurface(env, jsurface);
 
@@ -171,10 +214,24 @@ int AndroidOGLContextFactory::GetHeight() const
   return m_surfaceHeight;
 }
 
-void AndroidOGLContextFactory::UpdateSurfaceSize()
+void AndroidOGLContextFactory::UpdateSurfaceSize(int w, int h)
 {
   ASSERT(IsValid(), ());
-  QuerySurfaceSize();
+  if ((m_surfaceWidth != w && m_surfaceWidth != h) ||
+      (m_surfaceHeight != w && m_surfaceHeight != h))
+  {
+    LOG(LINFO, ("Surface size changed and must be re-queried."));
+    if (!QuerySurfaceSize())
+    {
+      m_surfaceWidth = w;
+      m_surfaceHeight = h;
+    }
+  }
+  else
+  {
+    m_surfaceWidth = w;
+    m_surfaceHeight = h;
+  }
 }
 
 bool AndroidOGLContextFactory::QuerySurfaceSize()
@@ -202,7 +259,10 @@ dp::OGLContext * AndroidOGLContextFactory::getDrawContext()
   ASSERT(IsValid(), ());
   ASSERT(m_windowSurface != EGL_NO_SURFACE, ());
   if (m_drawContext == nullptr)
-    m_drawContext = new AndroidOGLContext(m_display, m_windowSurface, m_config, m_uploadContext);
+  {
+    m_drawContext = new AndroidOGLContext(m_supportedES3, m_display, m_windowSurface,
+                                          m_config, m_uploadContext);
+  }
   return m_drawContext;
 }
 
@@ -211,7 +271,10 @@ dp::OGLContext * AndroidOGLContextFactory::getResourcesUploadContext()
   ASSERT(IsValid(), ());
   ASSERT(m_pixelbufferSurface != EGL_NO_SURFACE, ());
   if (m_uploadContext == nullptr)
-    m_uploadContext = new AndroidOGLContext(m_display, m_pixelbufferSurface, m_config, m_drawContext);
+  {
+    m_uploadContext = new AndroidOGLContext(m_supportedES3, m_display, m_pixelbufferSurface,
+                                            m_config, m_drawContext);
+  }
   return m_uploadContext;
 }
 
@@ -225,14 +288,22 @@ bool AndroidOGLContextFactory::isUploadContextCreated() const
   return m_uploadContext != nullptr;
 }
 
+void AndroidOGLContextFactory::setPresentAvailable(bool available)
+{
+  if (m_drawContext != nullptr)
+    m_drawContext->setPresentAvailable(available);
+}
+
 bool AndroidOGLContextFactory::createWindowSurface()
 {
-  int const kMaxConfigCount = 40;
   EGLConfig configs[kMaxConfigCount];
   int count = 0;
-  if (eglChooseConfig(m_display, getConfigAttributesListRGB8(), configs, kMaxConfigCount, &count) != EGL_TRUE)
+  if (eglChooseConfig(m_display, getConfigAttributesListRGB8(m_supportedES3), configs,
+                      kMaxConfigCount, &count) != EGL_TRUE)
   {
-    VERIFY(eglChooseConfig(m_display, getConfigAttributesListR5G6B5(), configs, kMaxConfigCount, &count) == EGL_TRUE, ());
+    ASSERT(!m_supportedES3, ());
+    VERIFY(eglChooseConfig(m_display, getConfigAttributesListR5G6B5(), configs,
+                                      kMaxConfigCount, &count) == EGL_TRUE, ());
     LOG(LDEBUG, ("Backbuffer format: R5G6B5"));
   }
   else
@@ -241,7 +312,7 @@ bool AndroidOGLContextFactory::createWindowSurface()
   }
   ASSERT(count > 0, ("Didn't find any configs."));
 
-  sort(&configs[0], &configs[count], ConfigComparator(m_display));
+  std::sort(&configs[0], &configs[count], ConfigComparator(m_display));
   for (int i = 0; i < count; ++i)
   {
     EGLConfig currentConfig = configs[i];
@@ -290,5 +361,4 @@ bool AndroidOGLContextFactory::createPixelbufferSurface()
 
   return true;
 }
-
 }  // namespace android

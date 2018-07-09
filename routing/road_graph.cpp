@@ -1,20 +1,21 @@
 #include "routing/road_graph.hpp"
-#include "routing/road_graph_router.hpp"
 
 #include "routing/route.hpp"
 
-#include "geometry/mercator.hpp"
-
 #include "geometry/distance_on_sphere.hpp"
+#include "geometry/mercator.hpp"
 #include "geometry/segment2d.hpp"
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/math.hpp"
 #include "base/stl_helpers.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/limits.hpp"
-#include "std/sstream.hpp"
+#include <algorithm>
+#include <limits>
+#include <sstream>
+
+using namespace std;
 
 namespace routing
 {
@@ -31,9 +32,13 @@ void SplitEdge(Edge const & ab, Junction const & p, vector<Edge> & edges)
 {
   auto const & a = ab.GetStartJunction();
   auto const & b = ab.GetEndJunction();
-  bool const partOfReal = ab.IsPartOfReal();
-  edges.push_back(Edge::MakeFake(a, p, partOfReal));
-  edges.push_back(Edge::MakeFake(p, b, partOfReal));
+
+  // No need to split the edge by its endpoints.
+  if (a.GetPoint() == p.GetPoint() || b.GetPoint() == p.GetPoint())
+    return;
+
+  edges.push_back(Edge::MakeFake(a, p, ab));
+  edges.push_back(Edge::MakeFake(p, b, ab));
 }
 }  // namespace
 
@@ -52,26 +57,50 @@ string DebugPrint(Junction const & r)
 }
 
 // Edge ------------------------------------------------------------------------
-
-Edge Edge::MakeFake(Junction const & startJunction, Junction const & endJunction, bool partOfReal)
+// static
+Edge Edge::MakeReal(FeatureID const & featureId, bool forward, uint32_t segId,
+                    Junction const & startJunction, Junction const & endJunction)
 {
-  Edge edge(FeatureID(), true /* forward */, 0 /* segId */, startJunction, endJunction);
-  edge.m_partOfReal = partOfReal;
-  return edge;
+  return {Type::Real, featureId, forward, segId, startJunction, endJunction};
 }
 
-Edge::Edge() : m_forward(true), m_segId(0) { m_partOfReal = !IsFake(); }
+// static
+Edge Edge::MakeFakeWithRealPart(FeatureID const & featureId, bool forward, uint32_t segId,
+                                Junction const & startJunction, Junction const & endJunction)
+{
+  return {Type::FakeWithRealPart, featureId, forward, segId, startJunction, endJunction};
+}
 
-Edge::Edge(FeatureID const & featureId, bool forward, uint32_t segId,
+// static
+Edge Edge::MakeFake(Junction const & startJunction, Junction const & endJunction)
+{
+  return {Type::FakeWithoutRealPart, FeatureID(), true /* forward */, 0 /* segmentId */,
+          startJunction, endJunction};
+}
+
+// static
+Edge Edge::MakeFake(Junction const & startJunction, Junction const & endJunction,
+                    Edge const & prototype)
+{
+  auto e = prototype;
+  e.m_startJunction = startJunction;
+  e.m_endJunction = endJunction;
+  e.m_type = e.HasRealPart() ? Type::FakeWithRealPart : Type::FakeWithoutRealPart;
+  return e;
+}
+
+Edge::Edge(Type type, FeatureID const & featureId, bool forward, uint32_t segId,
            Junction const & startJunction, Junction const & endJunction)
-  : m_featureId(featureId)
+  : m_type(type)
+  , m_featureId(featureId)
   , m_forward(forward)
   , m_segId(segId)
   , m_startJunction(startJunction)
   , m_endJunction(endJunction)
 {
   ASSERT_LESS(segId, numeric_limits<uint32_t>::max(), ());
-  m_partOfReal = !IsFake();
+  ASSERT((m_featureId.IsValid() && HasRealPart()) || (!m_featureId.IsValid() && !HasRealPart()),
+         ());
 }
 
 Edge Edge::GetReverseEdge() const
@@ -91,19 +120,19 @@ bool Edge::SameRoadSegmentAndDirection(Edge const & r) const
 
 bool Edge::operator==(Edge const & r) const
 {
-  return m_featureId == r.m_featureId && m_forward == r.m_forward &&
-         m_partOfReal == r.m_partOfReal && m_segId == r.m_segId &&
-         m_startJunction == r.m_startJunction && m_endJunction == r.m_endJunction;
+  return m_type == r.m_type && m_featureId == r.m_featureId && m_forward == r.m_forward &&
+         m_segId == r.m_segId && m_startJunction == r.m_startJunction &&
+         m_endJunction == r.m_endJunction;
 }
 
 bool Edge::operator<(Edge const & r) const
 {
+  if (m_type != r.m_type)
+    return m_type < r.m_type;
   if (m_featureId != r.m_featureId)
     return m_featureId < r.m_featureId;
   if (m_forward != r.m_forward)
     return (m_forward == false);
-  if (m_partOfReal != r.m_partOfReal)
-    return (m_partOfReal == false);
   if (m_segId != r.m_segId)
     return m_segId < r.m_segId;
   if (!(m_startJunction == r.m_startJunction))
@@ -117,7 +146,7 @@ string DebugPrint(Edge const & r)
 {
   ostringstream ss;
   ss << "Edge{featureId: " << DebugPrint(r.GetFeatureId()) << ", isForward:" << r.IsForward()
-     << ", partOfReal:" << r.IsPartOfReal() << ", segId:" << r.m_segId
+     << ", partOfReal:" << r.HasRealPart() << ", segId:" << r.m_segId
      << ", startJunction:" << DebugPrint(r.m_startJunction)
      << ", endJunction:" << DebugPrint(r.m_endJunction) << "}";
   return ss.str();
@@ -145,7 +174,10 @@ void IRoadGraph::CrossOutgoingLoader::LoadEdges(FeatureID const & featureId, Roa
   ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, Junction const & endJunction,
                                                       bool forward) {
     if (forward || roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
-      m_edges.emplace_back(featureId, forward, segId, m_cross, endJunction);
+    {
+      m_edges.push_back(Edge::MakeReal(featureId, forward, base::asserted_cast<uint32_t>(segId),
+                                       m_cross, endJunction));
+    }
   });
 }
 
@@ -155,7 +187,10 @@ void IRoadGraph::CrossIngoingLoader::LoadEdges(FeatureID const & featureId, Road
   ForEachEdge(roadInfo, [&featureId, &roadInfo, this](size_t segId, Junction const & endJunction,
                                                       bool forward) {
     if (!forward || roadInfo.m_bidirectional || m_mode == IRoadGraph::Mode::IgnoreOnewayTag)
-      m_edges.emplace_back(featureId, !forward, segId, endJunction, m_cross);
+    {
+      m_edges.push_back(Edge::MakeReal(featureId, !forward, base::asserted_cast<uint32_t>(segId),
+                                       endJunction, m_cross));
+    }
   });
 }
 
@@ -204,6 +239,17 @@ void IRoadGraph::ResetFakes()
   m_fakeIngoingEdges.clear();
 }
 
+void IRoadGraph::AddEdge(Junction const & j, Edge const & e, map<Junction, TEdgeVector> & edges)
+{
+  auto & cont = edges[j];
+  ASSERT(is_sorted(cont.cbegin(), cont.cend()), ());
+  auto const range = equal_range(cont.cbegin(), cont.cend(), e);
+  // Note. The "if" condition below is necessary to prevent duplicates which may be added when
+  // edges from |j| to "projection of |j|" and an edge in the opposite direction are added.
+  if (range.first == range.second)
+    cont.insert(range.second, e);
+}
+
 void IRoadGraph::AddFakeEdges(Junction const & junction,
                               vector<pair<Edge, Junction>> const & vicinity)
 {
@@ -215,8 +261,8 @@ void IRoadGraph::AddFakeEdges(Junction const & junction,
     vector<Edge> edges;
     SplitEdge(ab, p, edges);
 
-    edges.push_back(Edge::MakeFake(junction, p, false /* partOfReal */));
-    edges.push_back(Edge::MakeFake(p, junction, false /* partOfReal */));
+    edges.push_back(Edge::MakeFake(junction, p));
+    edges.push_back(Edge::MakeFake(p, junction));
 
     ForEachFakeEdge([&](Edge const & uv)
                     {
@@ -226,17 +272,20 @@ void IRoadGraph::AddFakeEdges(Junction const & junction,
 
     for (auto const & uv : edges)
     {
-      auto const & u = uv.GetStartJunction();
-      auto const & v = uv.GetEndJunction();
-      m_fakeOutgoingEdges[u].push_back(uv);
-      m_fakeIngoingEdges[v].push_back(uv);
+      AddOutgoingFakeEdge(uv);
+      AddIngoingFakeEdge(uv);
     }
   }
+}
 
-  for (auto & m : m_fakeIngoingEdges)
-    my::SortUnique(m.second);
-  for (auto & m : m_fakeOutgoingEdges)
-    my::SortUnique(m.second);
+void IRoadGraph::AddOutgoingFakeEdge(Edge const & e)
+{
+  AddEdge(e.GetStartJunction(), e, m_fakeOutgoingEdges);
+}
+
+void IRoadGraph::AddIngoingFakeEdge(Edge const & e)
+{
+  AddEdge(e.GetEndJunction(), e, m_fakeIngoingEdges);
 }
 
 double IRoadGraph::GetSpeedKMPH(Edge const & edge) const
@@ -261,6 +310,7 @@ string DebugPrint(IRoadGraph::Mode mode)
     case IRoadGraph::Mode::ObeyOnewayTag: return "ObeyOnewayTag";
     case IRoadGraph::Mode::IgnoreOnewayTag: return "IgnoreOnewayTag";
   }
+  CHECK_SWITCH();
 }
 
 IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH,
@@ -271,5 +321,15 @@ IRoadGraph::RoadInfo MakeRoadInfoForTesting(bool bidirectional, double speedKMPH
     ri.m_junctions.emplace_back(MakeJunctionForTesting(p));
 
   return ri;
+}
+// RoadGraphBase ------------------------------------------------------------------
+void RoadGraphBase::GetRouteEdges(TEdgeVector & routeEdges) const
+{
+  NOTIMPLEMENTED()
+}
+
+void RoadGraphBase::GetRouteSegments(std::vector<Segment> &) const
+{
+  NOTIMPLEMENTED()
 }
 }  // namespace routing

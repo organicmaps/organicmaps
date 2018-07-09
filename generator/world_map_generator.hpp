@@ -3,11 +3,13 @@
 #include "generator/feature_merger.hpp"
 #include "generator/generate_info.hpp"
 
+#include "indexer/scales.hpp"
+
+#include "coding/pointd_to_pointu.hpp"
+
 #include "geometry/polygon.hpp"
 #include "geometry/region2d.hpp"
 #include "geometry/tree4d.hpp"
-
-#include "indexer/scales.hpp"
 
 #include "base/logging.hpp"
 
@@ -44,7 +46,7 @@ public:
                 "borders skipped:", m_skippedBorders, "selected polygons:", m_selectedPolygons));
   }
 
-  void LoadWaterGeometry(string const & rawGeometryFileName)
+  void LoadWaterGeometry(std::string const & rawGeometryFileName)
   {
     LOG_SHORT(LINFO, ("Loading water geometry:", rawGeometryFileName));
     FileReader reader(rawGeometryFileName);

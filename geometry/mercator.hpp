@@ -5,7 +5,6 @@
 
 #include "base/math.hpp"
 
-
 struct MercatorBounds
 {
   static double minX;
@@ -121,6 +120,12 @@ struct MercatorBounds
   {
     return m2::RectD(FromLatLon(latLonRect.minY(), latLonRect.minX()),
                      FromLatLon(latLonRect.maxY(), latLonRect.maxX()));
+  }
+
+  inline static m2::RectD ToLatLonRect(m2::RectD const & mercatorRect)
+  {
+    return m2::RectD(YToLat(mercatorRect.minY()), XToLon(mercatorRect.minX()),
+                     YToLat(mercatorRect.maxY()), XToLon(mercatorRect.maxX()));
   }
 
   /// Calculates distance on Earth by two points in mercator

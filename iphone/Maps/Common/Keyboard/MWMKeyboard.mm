@@ -2,13 +2,13 @@
 
 namespace
 {
-using TObserver = id<MWMKeyboardObserver>;
-using TObservers = NSHashTable<__kindof TObserver>;
+using Observer = id<MWMKeyboardObserver>;
+using Observers = NSHashTable<Observer>;
 }  // namespace
 
 @interface MWMKeyboard ()
 
-@property(nonatomic) TObservers * observers;
+@property(nonatomic) Observers * observers;
 @property(nonatomic) CGFloat keyboardHeight;
 
 @end
@@ -31,8 +31,8 @@ using TObservers = NSHashTable<__kindof TObserver>;
   self = [super init];
   if (self)
   {
-    _observers = [TObservers weakObjectsHashTable];
-    NSNotificationCenter * nc = [NSNotificationCenter defaultCenter];
+    _observers = [Observers weakObjectsHashTable];
+    NSNotificationCenter * nc = NSNotificationCenter.defaultCenter;
     [nc addObserver:self
            selector:@selector(keyboardWillShow:)
                name:UIKeyboardWillShowNotification
@@ -46,7 +46,7 @@ using TObservers = NSHashTable<__kindof TObserver>;
   return self;
 }
 
-- (void)dealloc { [[NSNotificationCenter defaultCenter] removeObserver:self]; }
+- (void)dealloc { [NSNotificationCenter.defaultCenter removeObserver:self]; }
 + (CGFloat)keyboardHeight { return [self manager].keyboardHeight; }
 #pragma mark - Add/Remove Observers
 
@@ -62,37 +62,44 @@ using TObservers = NSHashTable<__kindof TObserver>;
 
 #pragma mark - Notifications
 
-- (void)keyboardWillShow:(NSNotification *)notification
+- (void)onKeyboardWillAnimate
 {
-  for (TObserver observer in self.observers)
+  Observers * observers = self.observers.copy;
+  for (Observer observer in observers)
   {
     if ([observer respondsToSelector:@selector(onKeyboardWillAnimate)])
       [observer onKeyboardWillAnimate];
   }
+}
+
+- (void)onKeyboardAnimation
+{
+  Observers * observers = self.observers.copy;
+  for (Observer observer in observers)
+    [observer onKeyboardAnimation];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+  [self onKeyboardWillAnimate];
   CGSize const keyboardSize =
       [notification.userInfo[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
   self.keyboardHeight = MIN(keyboardSize.height, keyboardSize.width);
   NSNumber * rate = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
   [UIView animateWithDuration:rate.floatValue
                    animations:^{
-                     for (TObserver observer in self.observers)
-                       [observer onKeyboardAnimation];
+                     [self onKeyboardAnimation];
                    }];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
-  for (TObserver observer in self.observers)
-  {
-    if ([observer respondsToSelector:@selector(onKeyboardWillAnimate)])
-      [observer onKeyboardWillAnimate];
-  }
+  [self onKeyboardWillAnimate];
   self.keyboardHeight = 0;
   NSNumber * rate = notification.userInfo[UIKeyboardAnimationDurationUserInfoKey];
   [UIView animateWithDuration:rate.floatValue
                    animations:^{
-                     for (TObserver observer in self.observers)
-                       [observer onKeyboardAnimation];
+                     [self onKeyboardAnimation];
                    }];
 }
 

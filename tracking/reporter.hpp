@@ -39,7 +39,7 @@ public:
            milliseconds pushDelay);
   ~Reporter();
 
-  void AddLocation(location::GpsInfo const & info, traffic::SpeedGroup speedGroup);
+  void AddLocation(location::GpsInfo const & info, traffic::SpeedGroup traffic);
 
   void SetAllowSendingPoints(bool allow) { m_allowSendingPoints = allow; }
 
@@ -54,6 +54,7 @@ private:
   milliseconds m_pushDelay;
   bool m_wasConnected = false;
   double m_lastConnectionAttempt = 0.0;
+  double m_lastNotChargingEvent = 0.0;
   // Function to be called every |kPushDelayMs| in
   // case no points were sent.
   function<void()> m_idleFn;

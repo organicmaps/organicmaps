@@ -25,7 +25,7 @@ bool IsTag(string const & str)
 
 bool ParseSelector(string const & str, SelectorExpression & e)
 {
-  // See http://wiki.openstreetmap.org/wiki/MapCSS/0.2
+  // See https://wiki.openstreetmap.org/wiki/MapCSS/0.2
   // Now we support following expressions
   // [tag!=value]
   // [tag>=value]

@@ -6,10 +6,10 @@
 
 namespace routing
 {
-// RoadPoint in unique identifier for any road point in mwm file.
+// RoadPoint is a unique identifier for any road point in mwm file.
 //
 // Contains feature id and point id.
-// Point id is the ordinal number of point in the road.
+// Point id is the ordinal number of the point in the road.
 class RoadPoint final
 {
 public:
@@ -20,6 +20,13 @@ public:
   uint32_t GetFeatureId() const { return m_featureId; }
 
   uint32_t GetPointId() const { return m_pointId; }
+
+  bool operator<(RoadPoint const & rp) const
+  {
+    if (m_featureId != rp.m_featureId)
+      return m_featureId < rp.m_featureId;
+    return m_pointId < rp.m_pointId;
+  }
 
   bool operator==(RoadPoint const & rp) const
   {
@@ -39,8 +46,7 @@ private:
 inline string DebugPrint(RoadPoint const & rp)
 {
   ostringstream out;
-  out << "rp("
-      << "(" << rp.GetFeatureId() << ", " << rp.GetPointId() << ")";
+  out << "RoadPoint [" << rp.GetFeatureId() << ", " << rp.GetPointId() << "]";
   return out.str();
 }
 }  // namespace routing

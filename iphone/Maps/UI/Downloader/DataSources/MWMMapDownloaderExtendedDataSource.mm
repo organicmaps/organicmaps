@@ -1,9 +1,10 @@
 #import "MWMMapDownloaderExtendedDataSource.h"
 #import "CLLocation+Mercator.h"
 #import "MWMLocationManager.h"
-#import "MapsAppDelegate.h"
 
 #include "Framework.h"
+
+#include "storage/country_info_getter.hpp"
 
 using namespace storage;
 
@@ -34,7 +35,7 @@ auto constexpr extraSection = MWMMapDownloaderDataSourceExtraSection::NearMe;
 - (void)load
 {
   [super load];
-  if (self.mode == mwm::DownloaderMode::Available)
+  if (self.mode == MWMMapDownloaderModeAvailable)
     [self configNearMeSection];
 }
 
@@ -44,12 +45,19 @@ auto constexpr extraSection = MWMMapDownloaderDataSourceExtraSection::NearMe;
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   if (!lastLocation)
     return;
-  auto & countryInfoGetter = GetFramework().GetCountryInfoGetter();
+  auto & f = GetFramework();
+  auto & countryInfoGetter = f.GetCountryInfoGetter();
   TCountriesVec closestCoutryIds;
   countryInfoGetter.GetRegionsCountryId(lastLocation.mercator, closestCoutryIds);
   NSMutableArray<NSString *> * nearmeCountries = [@[] mutableCopy];
   for (auto const & countryId : closestCoutryIds)
-    [nearmeCountries addObject:@(countryId.c_str())];
+  {
+    storage::NodeStatuses nodeStatuses;
+    f.GetStorage().GetNodeStatuses(countryId, nodeStatuses);
+    if (nodeStatuses.m_status != NodeStatus::OnDisk)
+      [nearmeCountries addObject:@(countryId.c_str())];
+  }
+
   self.nearmeCountries = nearmeCountries;
   if (nearmeCountries.count != 0)
     [self addExtraSection:extraSection];

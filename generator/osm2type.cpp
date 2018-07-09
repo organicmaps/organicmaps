@@ -9,14 +9,16 @@
 #include "geometry/mercator.hpp"
 
 #include "base/assert.hpp"
+#include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/bind.hpp"
-#include "std/cstdint.hpp"
-#include "std/function.hpp"
-#include "std/initializer_list.hpp"
-#include "std/set.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <functional>
+#include <initializer_list>
+#include <set>
+#include <vector>
+
+using namespace std;
 
 namespace ftype
 {
@@ -136,6 +138,10 @@ namespace ftype
         ++token;
         lang = (token ? *token : "default");
 
+        // Do not consider languages with suffixes, like "en:pronunciation".
+        if (++token)
+          return false;
+
         // Replace dummy arabian tag with correct tag.
         if (lang == "ar1")
           lang = "ar";
@@ -219,32 +225,29 @@ namespace ftype
   public:
     enum EType { ENTRANCE, HIGHWAY, ADDRESS, ONEWAY, PRIVATE, LIT, NOFOOT, YESFOOT,
                  NOBICYCLE, YESBICYCLE, BICYCLE_BIDIR, SURFPGOOD, SURFPBAD, SURFUGOOD, SURFUBAD,
-                 HASPARTS, NOCAR, YESCAR, WLAN,
-                 RW_STATION, RW_STATION_SUBWAY, WHEELCHAIR_YES };
+                 HASPARTS, NOCAR, YESCAR, WLAN, RW_STATION, RW_STATION_SUBWAY, WHEELCHAIR_YES,
+                 BARRIER_GATE, TOLL
+               };
 
     CachedTypes()
     {
       Classificator const & c = classif();
 
-      for (auto const & e : (StringIL[]) { {"entrance"}, {"highway"} })
-        m_types.push_back(c.GetTypeByPath(e));
-
-      StringIL arr[] =
+      my::StringIL arr[] =
       {
+        {"entrance"}, {"highway"},
         {"building", "address"}, {"hwtag", "oneway"}, {"hwtag", "private"},
         {"hwtag", "lit"}, {"hwtag", "nofoot"}, {"hwtag", "yesfoot"},
         {"hwtag", "nobicycle"}, {"hwtag", "yesbicycle"}, {"hwtag", "bidir_bicycle"},
         {"psurface", "paved_good"}, {"psurface", "paved_bad"},
         {"psurface", "unpaved_good"}, {"psurface", "unpaved_bad"},
         {"building", "has_parts"}, {"hwtag", "nocar"}, {"hwtag", "yescar"},
-        {"internet_access", "wlan"}
+        {"internet_access", "wlan"}, {"railway", "station"}, {"railway", "station", "subway"},
+        {"wheelchair", "yes"}, {"barrier", "gate"}, {"hwtag", "toll"}
       };
+
       for (auto const & e : arr)
         m_types.push_back(c.GetTypeByPath(e));
-
-      m_types.push_back(c.GetTypeByPath({ "railway", "station" }));
-      m_types.push_back(c.GetTypeByPath({ "railway", "station", "subway" }));
-      m_types.push_back(c.GetTypeByPath({ "wheelchair", "yes" }));
     }
 
     uint32_t Get(EType t) const { return m_types[t]; }
@@ -254,10 +257,12 @@ namespace ftype
       ftype::TruncValue(t, 1);
       return t == Get(HIGHWAY);
     }
+
     bool IsRwStation(uint32_t t) const
     {
       return t == Get(RW_STATION);
     }
+
     bool IsRwSubway(uint32_t t) const
     {
       ftype::TruncValue(t, 3);
@@ -306,13 +311,15 @@ namespace ftype
         current = path.back().get();
 
         // Next objects trying to find by value first.
-        ClassifObjectPtr pObj =
-            ForEachTagEx<ClassifObjectPtr>(p, skipRows, [&current](string const & k, string const & v)
-            {
-              if (!NeedMatchValue(k, v))
-                return ClassifObjectPtr();
-              return current->BinaryFind(v);
-            });
+        // Prevent merging different tags (e.g. shop=pet from shop=abandoned, was:shop=pet).
+       ClassifObjectPtr pObj =
+           path.size() == 1 ? ClassifObjectPtr()
+                            : ForEachTagEx<ClassifObjectPtr>(
+                                  p, skipRows, [&current](string const & k, string const & v) {
+                                    if (!NeedMatchValue(k, v))
+                                      return ClassifObjectPtr();
+                                    return current->BinaryFind(v);
+                                  });
 
         if (pObj)
         {
@@ -432,13 +439,13 @@ namespace ftype
     if (!isHighway || (surface.empty() && smoothness.empty()))
       return string();
 
-    static StringIL pavedSurfaces = {"paved", "asphalt", "cobblestone", "cobblestone:flattened",
-                                     "sett", "concrete", "concrete:lanes", "concrete:plates",
-                                     "paving_stones", "metal", "wood"};
-    static StringIL badSurfaces = {"cobblestone", "sett", "metal", "wood", "grass", "gravel",
-                                   "mud", "sand", "snow", "woodchips"};
-    static StringIL badSmoothness = {"bad", "very_bad", "horrible", "very_horrible", "impassable",
-                                     "robust_wheels", "high_clearance", "off_road_wheels", "rough"};
+    static my::StringIL pavedSurfaces = {"paved", "asphalt", "cobblestone", "cobblestone:flattened",
+                                         "sett", "concrete", "concrete:lanes", "concrete:plates",
+                                         "paving_stones", "metal", "wood"};
+    static my::StringIL badSurfaces = {"cobblestone", "sett", "metal", "wood", "grass", "gravel",
+                                       "mud", "sand", "snow", "woodchips"};
+    static my::StringIL badSmoothness = {"bad", "very_bad", "horrible", "very_horrible", "impassable",
+                                         "robust_wheels", "high_clearance", "off_road_wheels", "rough"};
 
     bool isPaved = false;
     bool isGood = true;
@@ -530,6 +537,53 @@ namespace ftype
         break;
       }
     }
+
+    // Merge attraction and memorial types to predefined set of values
+    p->UpdateTag("artwork_type", [](string & value) {
+      if (value.empty())
+        return;
+      if (value == "mural" || value == "graffiti" || value == "azulejo" || value == "tilework")
+        value = "painting";
+      else if (value == "stone" || value == "installation")
+        value = "sculpture";
+      else if (value == "bust")
+        value = "statue";
+    });
+
+    string const & memorialType = p->GetTag("memorial:type");
+    p->UpdateTag("memorial", [&memorialType](string & value) {
+      if (value.empty()) {
+        if (memorialType.empty())
+          return;
+        else
+          value = memorialType;
+      }
+
+      if (value == "blue_plaque" || value == "stolperstein")
+        value = "plaque";
+      else if (value == "war_memorial" || value == "stele" || value == "obelisk" ||
+               value == "stone" || value == "cross")
+        value = "sculpture";
+      else if (value == "bust" || value == "person")
+        value = "statue";
+    });
+
+    p->UpdateTag("castle_type", [](string & value) {
+      if (value.empty())
+        return;
+      if (value == "fortress" || value == "kremlin" || value == "castrum" ||
+          value == "shiro" || value == "citadel")
+        value = "defensive";
+      else if (value == "manor" || value == "palace")
+        value = "stately";
+    });
+
+    p->UpdateTag("attraction", [](string & value) {
+      // "specified" is a special value which means we have the "attraction" tag,
+      // but its value is not "animal".
+      if (!value.empty() && value != "animal")
+        value = "specified";
+    });
   }
 
   void PostprocessElement(OsmElement * p, FeatureParams & params)
@@ -582,9 +636,13 @@ namespace ftype
           { "access", "private", [&params] { params.AddType(types.Get(CachedTypes::PRIVATE)); }},
           { "access", "!", [&params] { params.AddType(types.Get(CachedTypes::PRIVATE)); }},
 
+          { "barrier", "gate", [&params] { params.AddType(types.Get(CachedTypes::BARRIER_GATE)); }},
+
           { "lit", "~", [&params] { params.AddType(types.Get(CachedTypes::LIT)); }},
+          { "toll", "~", [&params] { params.AddType(types.Get(CachedTypes::TOLL)); }},
 
           { "foot", "!", [&params] { params.AddType(types.Get(CachedTypes::NOFOOT)); }},
+          { "foot", "use_sidepath", [&params] { params.AddType(types.Get(CachedTypes::NOFOOT)); }},
           { "foot", "~", [&params] { params.AddType(types.Get(CachedTypes::YESFOOT)); }},
           { "sidewalk", "~", [&params] { params.AddType(types.Get(CachedTypes::YESFOOT)); }},
 

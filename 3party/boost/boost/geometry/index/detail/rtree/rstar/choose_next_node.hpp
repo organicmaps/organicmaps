@@ -2,7 +2,7 @@
 //
 // R-tree R*-tree next node choosing algorithm implementation
 //
-// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2017 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -17,6 +17,7 @@
 
 #include <boost/geometry/index/detail/algorithms/content.hpp>
 #include <boost/geometry/index/detail/algorithms/intersection_content.hpp>
+#include <boost/geometry/index/detail/algorithms/nth_element.hpp>
 #include <boost/geometry/index/detail/algorithms/union_content.hpp>
 
 #include <boost/geometry/index/detail/rtree/node/node.hpp>
@@ -112,7 +113,7 @@ private:
                 first_n_children_count = overlap_cost_threshold;
                 // rearrange by content_diff
                 // in order to calculate nearly minimum overlap cost
-                std::nth_element(children_contents.begin(), children_contents.begin() + first_n_children_count, children_contents.end(), content_diff_less);
+                index::detail::nth_element(children_contents.begin(), children_contents.begin() + first_n_children_count, children_contents.end(), content_diff_less);
             }
 
             // calculate minimum or nearly minimum overlap cost

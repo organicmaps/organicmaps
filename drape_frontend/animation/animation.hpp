@@ -7,7 +7,11 @@
 #include "geometry/point2d.hpp"
 #include "geometry/screenbase.hpp"
 
-#include "std/unordered_set.hpp"
+#include <functional>
+#include <map>
+#include <set>
+#include <string>
+#include <utility>
 
 namespace df
 {
@@ -71,8 +75,8 @@ public:
 
   using TAnimObjects = std::set<Object>;
   using TObjectProperties = std::set<ObjectProperty>;
-  using TAction = function<void(ref_ptr<Animation>)>;
-  using TPropertyCache = map<pair<Object, ObjectProperty>, Animation::PropertyValue>;
+  using TAction = std::function<void(ref_ptr<Animation>)>;
+  using TPropertyCache = std::map<std::pair<Object, ObjectProperty>, Animation::PropertyValue>;
 
   Animation(bool couldBeInterrupted, bool couldBeBlended)
     : m_couldBeInterrupted(couldBeInterrupted)
@@ -89,7 +93,7 @@ public:
   virtual void Interrupt() { if (m_onInterruptAction != nullptr) m_onInterruptAction(this); }
 
   virtual Type GetType() const = 0;
-  virtual string GetCustomType() const { return string(); }
+  virtual std::string GetCustomType() const { return std::string(); }
 
   virtual TAnimObjects const & GetObjects() const = 0;
   virtual bool HasObject(Object object) const = 0;
@@ -119,6 +123,7 @@ public:
   bool CouldBeBlended() const { return m_couldBeBlended; }
   bool CouldBeInterrupted() const { return m_couldBeInterrupted; }
   bool CouldBeBlendedWith(Animation const & animation) const;
+  bool HasSameObjects(Animation const & animation) const;
 
   void SetInterruptedOnCombine(bool enable) { m_interruptedOnCombine = enable; }
   bool GetInterruptedOnCombine() const { return m_interruptedOnCombine; }
@@ -149,6 +154,10 @@ protected:
   // Animation could be rewinded in case of finishing.
   bool m_couldBeRewinded;
 };
+
+std::string DebugPrint(Animation::Type const & type);
+std::string DebugPrint(Animation::Object const & object);
+std::string DebugPrint(Animation::ObjectProperty const & property);
 
 } // namespace df
 

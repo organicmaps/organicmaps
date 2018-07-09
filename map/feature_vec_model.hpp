@@ -1,7 +1,8 @@
 #pragma once
 
+#include "editor/editable_data_source.hpp"
+
 #include "indexer/data_header.hpp"
-#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "geometry/rect2d.hpp"
@@ -30,7 +31,7 @@ class FeaturesFetcher : public MwmSet::Observer
   private:
     m2::RectD m_rect;
 
-    Index m_multiIndex;
+    EditableDataSource m_dataSource;
 
     TMapDeregisteredCallback m_onMapDeregistered;
 
@@ -59,7 +60,7 @@ class FeaturesFetcher : public MwmSet::Observer
 
     inline bool IsLoaded(string const & countryFileName) const
     {
-      return m_multiIndex.IsLoaded(platform::CountryFile(countryFileName));
+      return m_dataSource.IsLoaded(platform::CountryFile(countryFileName));
     }
 
     // MwmSet::Observer overrides:
@@ -71,27 +72,27 @@ class FeaturesFetcher : public MwmSet::Observer
 
     /// @name Features enumeration.
     //@{
-    template <class ToDo>
-    void ForEachFeature(m2::RectD const & rect, ToDo && toDo, int scale) const
+    void ForEachFeature(m2::RectD const & rect, std::function<void(FeatureType &)> const & fn,
+                        int scale) const
     {
-      m_multiIndex.ForEachInRect(toDo, rect, scale);
+      m_dataSource.ForEachInRect(fn, rect, scale);
     }
 
-    template <class ToDo>
-    void ForEachFeatureID(m2::RectD const & rect, ToDo & toDo, int scale) const
+    void ForEachFeatureID(m2::RectD const & rect, std::function<void(FeatureID const &)> const & fn,
+                          int scale) const
     {
-      m_multiIndex.ForEachFeatureIDInRect(toDo, rect, scale);
+      m_dataSource.ForEachFeatureIDInRect(fn, rect, scale);
     }
 
     template <class ToDo>
     void ReadFeatures(ToDo & toDo, vector<FeatureID> const & features) const
     {
-      m_multiIndex.ReadFeatures(toDo, features);
+      m_dataSource.ReadFeatures(toDo, features);
     }
     //@}
 
-    Index const & GetIndex() const { return m_multiIndex; }
-    Index & GetIndex() { return m_multiIndex; }
+    DataSource const & GetDataSource() const { return m_dataSource; }
+    DataSource & GetDataSource() { return m_dataSource; }
     m2::RectD GetWorldRect() const;
   };
 }

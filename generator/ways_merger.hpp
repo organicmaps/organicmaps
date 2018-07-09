@@ -3,15 +3,15 @@
 
 #include "geometry/point2d.hpp"
 
-#include "std/map.hpp"
-#include "std/vector.hpp"
-#include "std/shared_ptr.hpp"
+#include <map>
+#include <memory>
+#include <vector>
 
 template <class THolder>
 class AreaWayMerger
 {
-  using TPointSeq = vector<m2::PointD>;
-  using TWayMap = multimap<uint64_t, shared_ptr<WayElement>>;
+  using TPointSeq = std::vector<m2::PointD>;
+  using TWayMap = std::multimap<uint64_t, std::shared_ptr<WayElement>>;
   using TWayMapIterator = TWayMap::iterator;
 
   THolder & m_holder;
@@ -22,7 +22,7 @@ public:
 
   void AddWay(uint64_t id)
   {
-    shared_ptr<WayElement> e(new WayElement(id));
+    std::shared_ptr<WayElement> e(new WayElement(id));
     if (m_holder.GetWay(id, *e) && e->IsValid())
     {
       m_map.insert(make_pair(e->nodes.front(), e));
@@ -39,13 +39,13 @@ public:
       TWayMapIterator i = m_map.begin();
       uint64_t id = i->first;
 
-      vector<uint64_t> ids;
+      std::vector<uint64_t> ids;
       TPointSeq points;
 
       do
       {
         // process way points
-        shared_ptr<WayElement> e = i->second;
+        std::shared_ptr<WayElement> e = i->second;
         if (collectID)
           ids.push_back(e->m_wayOsmId);
 

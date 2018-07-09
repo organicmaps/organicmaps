@@ -79,6 +79,11 @@ struct thread_access_mode_of< lock_guard< MutexT > > : mpl::integral_c< lock_acc
 };
 
 template< typename MutexT >
+struct thread_access_mode_of< shared_lock_guard< MutexT > > : mpl::integral_c< lock_access_mode, shared_access >
+{
+};
+
+template< typename MutexT >
 struct thread_access_mode_of< unique_lock< MutexT > > : mpl::integral_c< lock_access_mode, exclusive_access >
 {
 };

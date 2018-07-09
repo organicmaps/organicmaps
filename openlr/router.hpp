@@ -7,6 +7,7 @@
 #include "geometry/point2d.hpp"
 
 #include "std/map.hpp"
+#include "std/sstream.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
@@ -38,12 +39,27 @@ private:
     bool operator==(Vertex const & rhs) const;
     bool operator!=(Vertex const & rhs) const { return !(*this == rhs); }
 
+    m2::PointD GetPoint() const { return m_junction.GetPoint(); }
+
     routing::Junction m_junction;
     routing::Junction m_stageStart;
     double m_stageStartDistance = 0.0;
     size_t m_stage = 0;
     bool m_bearingChecked = false;
   };
+
+  friend string DebugPrint(Vertex const & u)
+  {
+    ostringstream os;
+    os << "Vertex [ ";
+    os << "junction: " << DebugPrint(u.m_junction) << ", ";
+    os << "stageStart: " << DebugPrint(u.m_stageStart) << ", ";
+    os << "stageStartDistance: " << u.m_stageStartDistance << ", ";
+    os << "stage: " << u.m_stage << ", ";
+    os << "bearingChecked: " << u.m_bearingChecked;
+    os << " ]";
+    return os.str();
+  }
 
   struct Edge final
   {
@@ -64,6 +80,18 @@ private:
     routing::Edge m_raw;
     bool m_isSpecial = false;
   };
+
+  friend string DebugPrint(Edge const & edge)
+  {
+    ostringstream os;
+    os << "Edge [ ";
+    os << "u: " << DebugPrint(edge.m_u) << ", ";
+    os << "v: " << DebugPrint(edge.m_v) << ", ";
+    os << "raw: " << DebugPrint(edge.m_raw) << ", ";
+    os << "isSpecial: " << edge.m_isSpecial;
+    os << " ]";
+    return os.str();
+  }
 
   using Links = map<Vertex, pair<Vertex, Edge>>;
 
@@ -97,8 +125,6 @@ private:
   }
 
   double GetWeight(Edge const & e) const { return GetWeight(e.m_raw); }
-
-  bool PassesRestriction(routing::Edge const & edge, FunctionalRoadClass const restriction) const;
 
   uint32_t GetReverseBearing(Vertex const & u, Links const & links) const;
 

@@ -73,7 +73,7 @@ namespace boost
             //
             int k = iround(lambda, pol);
             // Forwards and backwards Poisson weights:
-            T poisf = boost::math::gamma_p_derivative(1 + k, lambda, pol);
+            T poisf = boost::math::gamma_p_derivative(static_cast<T>(1 + k), lambda, pol);
             T poisb = poisf * k / lambda;
             // Initial forwards central chi squared term:
             T gamf = boost::math::gamma_q(del + k, y, pol);
@@ -225,7 +225,7 @@ namespace boost
             // Central chi squared term for backward iteration:
             T gamkb = gamkf;
             // Forwards Poisson weight:
-            T poiskf = gamma_p_derivative(k+1, del, pol);
+            T poiskf = gamma_p_derivative(static_cast<T>(k+1), del, pol);
             // Backwards Poisson weight:
             T poiskb = poiskf;
             // Forwards gamma function recursion term:
@@ -295,7 +295,7 @@ namespace boost
             T l2 = lambda / 2;
             T sum = 0;
             int k = itrunc(l2);
-            T pois = gamma_p_derivative(k + 1, l2, pol) * gamma_p_derivative(n2 + k, x2);
+            T pois = gamma_p_derivative(static_cast<T>(k + 1), l2, pol) * gamma_p_derivative(static_cast<T>(n2 + k), x2);
             if(pois == 0)
                return 0;
             T poisb = pois;
@@ -334,7 +334,7 @@ namespace boost
             BOOST_MATH_STD_USING
             value_type result;
             if(l == 0)
-               result = cdf(boost::math::chi_squared_distribution<RealType, Policy>(k), x);
+              return invert == false ? cdf(boost::math::chi_squared_distribution<RealType, Policy>(k), x) : cdf(complement(boost::math::chi_squared_distribution<RealType, Policy>(k), x));
             else if(x > k + l)
             {
                // Complement is the smaller of the two:
@@ -438,11 +438,11 @@ namespace boost
                return comp ? 0 : policies::raise_overflow_error<RealType>(function, 0, Policy());
             //
             // This is Pearson's approximation to the quantile, see
-            // Pearson, E. S. (1959) "Note on an approximation to the distribution of 
+            // Pearson, E. S. (1959) "Note on an approximation to the distribution of
             // noncentral chi squared", Biometrika 46: 364.
             // See also:
             // "A comparison of approximations to percentiles of the noncentral chi2-distribution",
-            // Hardeo Sahai and Mario Miguel Ojeda, Revista de Matematica: Teoria y Aplicaciones 2003 10(1–2) : 57–76.
+            // Hardeo Sahai and Mario Miguel Ojeda, Revista de Matematica: Teoria y Aplicaciones 2003 10(1-2) : 57-76.
             // Note that the latter reference refers to an approximation of the CDF, when they really mean the quantile.
             //
             value_type b = -(l * l) / (k + 3 * l);
@@ -460,10 +460,13 @@ namespace boost
             //
             // Sometimes guess goes very small or negative, in that case we have
             // to do something else for the initial guess, this approximation
-            // was provided in a private communication from Thomas Luu, PhD candidate, 
+            // was provided in a private communication from Thomas Luu, PhD candidate,
             // University College London.  It's an asymptotic expansion for the
             // quantile which usually gets us within an order of magnitude of the
             // correct answer.
+            // Fast and accurate parallel computation of quantile functions for random number generation,
+            // Thomas LuuDoctorial Thesis 2016
+            // http://discovery.ucl.ac.uk/1482128/
             //
             if(guess < 0.005)
             {
@@ -693,18 +696,18 @@ namespace boost
          static RealType find_degrees_of_freedom(RealType lam, RealType x, RealType p)
          {
             const char* function = "non_central_chi_squared<%1%>::find_degrees_of_freedom";
-            typedef typename policies::evaluation<RealType, Policy>::type value_type;
+            typedef typename policies::evaluation<RealType, Policy>::type eval_type;
             typedef typename policies::normalise<
                Policy,
                policies::promote_float<false>,
                policies::promote_double<false>,
                policies::discrete_quantile<>,
                policies::assert_undefined<> >::type forwarding_policy;
-            value_type result = detail::find_degrees_of_freedom(
-               static_cast<value_type>(lam),
-               static_cast<value_type>(x),
-               static_cast<value_type>(p),
-               static_cast<value_type>(1-p),
+            eval_type result = detail::find_degrees_of_freedom(
+               static_cast<eval_type>(lam),
+               static_cast<eval_type>(x),
+               static_cast<eval_type>(p),
+               static_cast<eval_type>(1-p),
                forwarding_policy());
             return policies::checked_narrowing_cast<RealType, forwarding_policy>(
                result,
@@ -714,18 +717,18 @@ namespace boost
          static RealType find_degrees_of_freedom(const complemented3_type<A,B,C>& c)
          {
             const char* function = "non_central_chi_squared<%1%>::find_degrees_of_freedom";
-            typedef typename policies::evaluation<RealType, Policy>::type value_type;
+            typedef typename policies::evaluation<RealType, Policy>::type eval_type;
             typedef typename policies::normalise<
                Policy,
                policies::promote_float<false>,
                policies::promote_double<false>,
                policies::discrete_quantile<>,
                policies::assert_undefined<> >::type forwarding_policy;
-            value_type result = detail::find_degrees_of_freedom(
-               static_cast<value_type>(c.dist),
-               static_cast<value_type>(c.param1),
-               static_cast<value_type>(1-c.param2),
-               static_cast<value_type>(c.param2),
+            eval_type result = detail::find_degrees_of_freedom(
+               static_cast<eval_type>(c.dist),
+               static_cast<eval_type>(c.param1),
+               static_cast<eval_type>(1-c.param2),
+               static_cast<eval_type>(c.param2),
                forwarding_policy());
             return policies::checked_narrowing_cast<RealType, forwarding_policy>(
                result,
@@ -734,18 +737,18 @@ namespace boost
          static RealType find_non_centrality(RealType v, RealType x, RealType p)
          {
             const char* function = "non_central_chi_squared<%1%>::find_non_centrality";
-            typedef typename policies::evaluation<RealType, Policy>::type value_type;
+            typedef typename policies::evaluation<RealType, Policy>::type eval_type;
             typedef typename policies::normalise<
                Policy,
                policies::promote_float<false>,
                policies::promote_double<false>,
                policies::discrete_quantile<>,
                policies::assert_undefined<> >::type forwarding_policy;
-            value_type result = detail::find_non_centrality(
-               static_cast<value_type>(v),
-               static_cast<value_type>(x),
-               static_cast<value_type>(p),
-               static_cast<value_type>(1-p),
+            eval_type result = detail::find_non_centrality(
+               static_cast<eval_type>(v),
+               static_cast<eval_type>(x),
+               static_cast<eval_type>(p),
+               static_cast<eval_type>(1-p),
                forwarding_policy());
             return policies::checked_narrowing_cast<RealType, forwarding_policy>(
                result,
@@ -755,18 +758,18 @@ namespace boost
          static RealType find_non_centrality(const complemented3_type<A,B,C>& c)
          {
             const char* function = "non_central_chi_squared<%1%>::find_non_centrality";
-            typedef typename policies::evaluation<RealType, Policy>::type value_type;
+            typedef typename policies::evaluation<RealType, Policy>::type eval_type;
             typedef typename policies::normalise<
                Policy,
                policies::promote_float<false>,
                policies::promote_double<false>,
                policies::discrete_quantile<>,
                policies::assert_undefined<> >::type forwarding_policy;
-            value_type result = detail::find_non_centrality(
-               static_cast<value_type>(c.dist),
-               static_cast<value_type>(c.param1),
-               static_cast<value_type>(1-c.param2),
-               static_cast<value_type>(c.param2),
+            eval_type result = detail::find_non_centrality(
+               static_cast<eval_type>(c.dist),
+               static_cast<eval_type>(c.param1),
+               static_cast<eval_type>(1-c.param2),
+               static_cast<eval_type>(c.param2),
                forwarding_policy());
             return policies::checked_narrowing_cast<RealType, forwarding_policy>(
                result,

@@ -39,7 +39,7 @@ namespace boost{
 #  endif
 #endif
 
-namespace re_detail{
+namespace BOOST_REGEX_DETAIL_NS{
 
 class named_subexpressions;
 
@@ -64,14 +64,14 @@ public:
    typedef          const_reference                                         reference;
    typedef typename vector_type::const_iterator                             const_iterator;
    typedef          const_iterator                                          iterator;
-   typedef typename re_detail::regex_iterator_traits<
+   typedef typename BOOST_REGEX_DETAIL_NS::regex_iterator_traits<
                                     BidiIterator>::difference_type          difference_type;
    typedef typename Allocator::size_type                                    size_type;
    typedef          Allocator                                               allocator_type;
-   typedef typename re_detail::regex_iterator_traits<
+   typedef typename BOOST_REGEX_DETAIL_NS::regex_iterator_traits<
                                     BidiIterator>::value_type               char_type;
    typedef          std::basic_string<char_type>                            string_type;
-   typedef          re_detail::named_subexpressions                         named_sub_type;
+   typedef          BOOST_REGEX_DETAIL_NS::named_subexpressions                         named_sub_type;
 
    // construct/copy/destroy:
    explicit match_results(const Allocator& a = Allocator())
@@ -158,7 +158,7 @@ public:
          const sub_match<BidiIterator>& s = m_subs[sub];
          if(s.matched || (sub == 2))
          {
-            return ::boost::re_detail::distance((BidiIterator)(m_base), (BidiIterator)(s.first));
+            return ::boost::BOOST_REGEX_DETAIL_NS::distance((BidiIterator)(m_base), (BidiIterator)(s.first));
          }
       }
       return ~static_cast<difference_type>(0);
@@ -237,7 +237,7 @@ public:
       //
       if(m_is_singular)
          raise_logic_error();
-      re_detail::named_subexpressions::range_type r = m_named_subs->equal_range(i, j);
+      BOOST_REGEX_DETAIL_NS::named_subexpressions::range_type r = m_named_subs->equal_range(i, j);
       while((r.first != r.second) && ((*this)[r.first->index].matched == false))
          ++r.first;
       return r.first != r.second ? (*this)[r.first->index] : m_null;
@@ -262,7 +262,7 @@ public:
       //
       if(m_is_singular)
          raise_logic_error();
-      re_detail::named_subexpressions::range_type s, r;
+      BOOST_REGEX_DETAIL_NS::named_subexpressions::range_type s, r;
       s = r = m_named_subs->equal_range(i, j);
       while((r.first != r.second) && ((*this)[r.first->index].matched == false))
          ++r.first;
@@ -345,7 +345,7 @@ public:
    {
       if(m_is_singular)
          raise_logic_error();
-      typedef typename re_detail::compute_functor_type<Functor, match_results<BidiIterator, Allocator>, OutputIterator>::type F;
+      typedef typename BOOST_REGEX_DETAIL_NS::compute_functor_type<Functor, match_results<BidiIterator, Allocator>, OutputIterator>::type F;
       F func(fmt);
       return func(*this, out, flags);
    }
@@ -355,9 +355,9 @@ public:
       if(m_is_singular)
          raise_logic_error();
       std::basic_string<char_type> result;
-      re_detail::string_out_iterator<std::basic_string<char_type> > i(result);
+      BOOST_REGEX_DETAIL_NS::string_out_iterator<std::basic_string<char_type> > i(result);
 
-      typedef typename re_detail::compute_functor_type<Functor, match_results<BidiIterator, Allocator>, re_detail::string_out_iterator<std::basic_string<char_type> > >::type F;
+      typedef typename BOOST_REGEX_DETAIL_NS::compute_functor_type<Functor, match_results<BidiIterator, Allocator>, BOOST_REGEX_DETAIL_NS::string_out_iterator<std::basic_string<char_type> > >::type F;
       F func(fmt);
 
       func(*this, i, flags);
@@ -373,7 +373,7 @@ public:
       if(m_is_singular)
          raise_logic_error();
       typedef ::boost::regex_traits_wrapper<typename RegexT::traits_type> traits_type;
-      typedef typename re_detail::compute_functor_type<Functor, match_results<BidiIterator, Allocator>, OutputIterator, traits_type>::type F;
+      typedef typename BOOST_REGEX_DETAIL_NS::compute_functor_type<Functor, match_results<BidiIterator, Allocator>, OutputIterator, traits_type>::type F;
       F func(fmt);
       return func(*this, out, flags, re.get_traits());
    }
@@ -386,9 +386,9 @@ public:
          raise_logic_error();
       typedef ::boost::regex_traits_wrapper<typename RegexT::traits_type> traits_type;
       std::basic_string<char_type> result;
-      re_detail::string_out_iterator<std::basic_string<char_type> > i(result);
+      BOOST_REGEX_DETAIL_NS::string_out_iterator<std::basic_string<char_type> > i(result);
 
-      typedef typename re_detail::compute_functor_type<Functor, match_results<BidiIterator, Allocator>, re_detail::string_out_iterator<std::basic_string<char_type> >, traits_type >::type F;
+      typedef typename BOOST_REGEX_DETAIL_NS::compute_functor_type<Functor, match_results<BidiIterator, Allocator>, BOOST_REGEX_DETAIL_NS::string_out_iterator<std::basic_string<char_type> >, traits_type >::type F;
       F func(fmt);
 
       func(*this, i, flags, re.get_traits());
@@ -639,15 +639,15 @@ void BOOST_REGEX_CALL match_results<BidiIterator, Allocator>::maybe_assign(const
          // p1 better than p2, and no need to calculate distances:
          return;
       }
-      base1 = ::boost::re_detail::distance(l_base, p1->first);
-      base2 = ::boost::re_detail::distance(l_base, p2->first);
+      base1 = ::boost::BOOST_REGEX_DETAIL_NS::distance(l_base, p1->first);
+      base2 = ::boost::BOOST_REGEX_DETAIL_NS::distance(l_base, p2->first);
       BOOST_ASSERT(base1 >= 0);
       BOOST_ASSERT(base2 >= 0);
       if(base1 < base2) return;
       if(base2 < base1) break;
 
-      len1 = ::boost::re_detail::distance((BidiIterator)p1->first, (BidiIterator)p1->second);
-      len2 = ::boost::re_detail::distance((BidiIterator)p2->first, (BidiIterator)p2->second);
+      len1 = ::boost::BOOST_REGEX_DETAIL_NS::distance((BidiIterator)p1->first, (BidiIterator)p1->second);
+      len2 = ::boost::BOOST_REGEX_DETAIL_NS::distance((BidiIterator)p2->first, (BidiIterator)p2->second);
       BOOST_ASSERT(len1 >= 0);
       BOOST_ASSERT(len2 >= 0);
       if((len1 != len2) || ((p1->matched == false) && (p2->matched == true)))

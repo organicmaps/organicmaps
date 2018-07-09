@@ -43,6 +43,7 @@ Platform::Platform()
   m_flags[HAS_ROUTING] = true;
 }
 
+// static
 void Platform::MkDir(string const & dirName) const
 {
   Tizen::Io::Directory::Create(dirName.c_str(), true);
@@ -54,13 +55,17 @@ string Platform::UniqueClientId() const
   return FromTizenString(pApp->GetAppId());
 }
 
-void Platform::RunOnGuiThread(TFunctor const & fn)
+string Platform::DeviceName() const
 {
-  /// @todo
-  fn();
+  return OMIM_OS_NAME;
 }
 
-void Platform::RunAsync(TFunctor const & fn, Priority p)
+string Platform::DeviceModel() const
+{
+  return {};
+}
+
+void Platform::RunOnGuiThread(TFunctor const & fn)
 {
   /// @todo
   fn();
@@ -68,8 +73,8 @@ void Platform::RunAsync(TFunctor const & fn, Priority p)
 
 ModelReader * Platform::GetReader(string const & file, string const & searchScope) const
 {
-  return new FileReader(ReadPathForFile(file, searchScope),
-                        READER_CHUNK_LOG_SIZE, READER_CHUNK_LOG_COUNT);
+  return new FileReader(ReadPathForFile(file, searchScope), READER_CHUNK_LOG_SIZE,
+                        READER_CHUNK_LOG_COUNT);
 }
 
 void Platform::GetFilesByRegExp(string const & directory, string const & regexp, FilesList & res)
@@ -103,6 +108,11 @@ Platform::EConnectionType Platform::ConnectionStatus()
 {
   // @TODO Add implementation
   return EConnectionType::CONNECTION_NONE;
+}
+
+Platform::ChargingStatus Platform::GetChargingStatus()
+{
+  return Platform::ChargingStatus::Unknown;
 }
 
 void Platform::GetSystemFontNames(FilesList & res) const

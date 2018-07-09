@@ -1,19 +1,21 @@
 enum class EButton  // Required button's order
 {
-  Api,
-  Download,
   Booking,
-  Opentable,
-  Call,
+  BookingSearch,
   Bookmark,
-  RouteFrom,
-  RouteTo,
-  Share,
+  Call,
+  Download,
   More,
-  Spacer
+  Opentable,
+  Partner,
+  RouteAddStop,
+  RouteFrom,
+  RouteRemoveStop,
+  RouteTo,
+  Share
 };
 
-NSString * titleForButton(EButton type, BOOL isSelected);
+NSString * titleForButton(EButton type, int partnerIndex, BOOL isSelected);
 
 @class MWMActionBarButton;
 @class MWMCircularProgress;
@@ -26,15 +28,14 @@ NSString * titleForButton(EButton type, BOOL isSelected);
 
 @interface MWMActionBarButton : UIView
 
-- (void)configButtonWithDelegate:(id<MWMActionBarButtonDelegate>)delegate type:(EButton)type isSelected:(BOOL)isSelected;
-
-+ (void)addButtonToSuperview:(UIView *)view
-                    delegate:(id<MWMActionBarButtonDelegate>)delegate
-                  buttonType:(EButton)type
-                  isSelected:(BOOL)isSelected;
++ (MWMActionBarButton *)buttonWithDelegate:(id<MWMActionBarButtonDelegate>)delegate
+                                buttonType:(EButton)type
+                              partnerIndex:(int)partnerIndex
+                                isSelected:(BOOL)isSelected
+                                isDisabled:(BOOL)isDisabled;
 
 - (EButton)type;
 - (MWMCircularProgress *)mapDownloadProgress;
-
+- (int)partnerIndex;
 
 @end

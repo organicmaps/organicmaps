@@ -318,8 +318,8 @@ inline typename comparable_distance_result<Geometry1, Geometry2, Strategy>::type
 comparable_distance(Geometry1 const& geometry1, Geometry2 const& geometry2,
                     Strategy const& strategy)
 {
-    concept::check<Geometry1 const>();
-    concept::check<Geometry2 const>();
+    concepts::check<Geometry1 const>();
+    concepts::check<Geometry2 const>();
 
     return resolve_variant::comparable_distance
         <
@@ -350,8 +350,8 @@ template <typename Geometry1, typename Geometry2>
 inline typename default_comparable_distance_result<Geometry1, Geometry2>::type
 comparable_distance(Geometry1 const& geometry1, Geometry2 const& geometry2)
 {
-    concept::check<Geometry1 const>();
-    concept::check<Geometry2 const>();
+    concepts::check<Geometry1 const>();
+    concepts::check<Geometry2 const>();
 
     return geometry::comparable_distance(geometry1, geometry2, default_strategy());
 }

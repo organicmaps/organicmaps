@@ -16,7 +16,7 @@
 #define BOOST_LOG_ATTRIBUTES_CONSTANT_HPP_INCLUDED_
 
 #include <boost/move/core.hpp>
-#include <boost/move/utility.hpp>
+#include <boost/move/utility_core.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/log/detail/embedded_string_type.hpp>

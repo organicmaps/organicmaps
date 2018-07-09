@@ -9,6 +9,8 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_ENRICHMENT_INFO_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_ENRICHMENT_INFO_HPP
 
+#include <boost/geometry/algorithms/detail/signed_size_type.hpp>
+
 
 namespace boost { namespace geometry
 {
@@ -25,13 +27,18 @@ namespace detail { namespace overlay
     of the overlay process). The information is gathered during the
     enrichment phase
  */
-template<typename P>
+template<typename Point>
 struct enrichment_info
 {
     inline enrichment_info()
         : travels_to_vertex_index(-1)
         , travels_to_ip_index(-1)
         , next_ip_index(-1)
+        , startable(true)
+        , count_left(0)
+        , count_right(0)
+        , zone(-1)
+        , only_turn_on_ring(false)
     {}
 
     // vertex to which is free travel after this IP,
@@ -44,6 +51,14 @@ struct enrichment_info
 
     // index of next IP on this segment, -1 if there is no one
     signed_size_type next_ip_index;
+
+    bool startable; // Can be used to start in traverse
+
+    // Counts if polygons left/right of this operation
+    std::size_t count_left;
+    std::size_t count_right;
+    signed_size_type zone; // open zone, in cluster
+    bool only_turn_on_ring; // True if it is the only turn on a ring (for clusters)
 };
 
 

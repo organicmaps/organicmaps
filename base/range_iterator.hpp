@@ -47,10 +47,9 @@ namespace my
 template <typename TCounter, bool forward>
 struct RangeWrapper
 {
-  using value_type = typename std::remove_cv<TCounter>::type;
+  using value_type = std::remove_cv_t<TCounter>;
   using iterator_base = RangeIterator<value_type>;
-  using iterator =
-      typename std::conditional<forward, iterator_base, std::reverse_iterator<iterator_base>>::type;
+  using iterator = std::conditional_t<forward, iterator_base, std::reverse_iterator<iterator_base>>;
 
   RangeWrapper(TCounter const from, TCounter const to):
       m_begin(from),

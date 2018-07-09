@@ -42,7 +42,7 @@ namespace spreadsort {
     {
       const int char_size = sizeof(Unsigned_char_type);
       size_t nextOffset = char_offset;
-      int step_size = max_step_size;
+      int step_size = max_step_size / char_size;
       while (true) {
         RandomAccessIter curr = first;
         do {
@@ -58,7 +58,7 @@ namespace spreadsort {
               }
             }
             const int step_byte_size = step_size * char_size;
-            if (memcmp(curr->data() + nextOffset, first->data() + nextOffset,
+            if (memcmp(curr->data() + nextOffset, first->data() + nextOffset, 
                        step_byte_size) != 0) {
               if (step_size == 1) {
                 char_offset = nextOffset;
@@ -108,7 +108,7 @@ namespace spreadsort {
           BOOST_STATIC_ASSERT(sizeof(x[u]) == sizeof(Unsigned_char_type));
           if (static_cast<Unsigned_char_type>(x[u]) !=
               static_cast<Unsigned_char_type>(y[u])) {
-            return static_cast<Unsigned_char_type>(x[u]) <
+            return static_cast<Unsigned_char_type>(x[u]) < 
               static_cast<Unsigned_char_type>(y[u]);
           }
         }
@@ -128,7 +128,7 @@ namespace spreadsort {
           BOOST_STATIC_ASSERT(sizeof(x[u]) == sizeof(Unsigned_char_type));
           if (static_cast<Unsigned_char_type>(x[u]) !=
               static_cast<Unsigned_char_type>(y[u])) {
-            return static_cast<Unsigned_char_type>(x[u]) >
+            return static_cast<Unsigned_char_type>(x[u]) > 
               static_cast<Unsigned_char_type>(y[u]);
           }
         }
@@ -181,7 +181,7 @@ namespace spreadsort {
       //a few characters at a time for optimal worst-case performance.
       update_offset<RandomAccessIter, Unsigned_char_type>(first, finish,
                                                           char_offset);
-
+      
       const unsigned bin_count = (1 << (sizeof(Unsigned_char_type)*8));
       //Equal worst-case of radix and comparison is when bin_count = n*log(n).
       const unsigned max_size = bin_count;
@@ -285,7 +285,7 @@ namespace spreadsort {
       ++last;
       //Offsetting on identical characters.  This section works
       //a few characters at a time for optimal worst-case performance.
-      update_offset<RandomAccessIter, Unsigned_char_type>(first, last,
+      update_offset<RandomAccessIter, Unsigned_char_type>(curr, last,
                                                           char_offset);
       RandomAccessIter * target_bin;
 

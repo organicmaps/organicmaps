@@ -122,6 +122,11 @@ public:
     m_p->ReadAsString(s);
   }
 
+  ReaderPtr<Reader> SubReader(uint64_t pos, uint64_t size) const
+  {
+    return {m_p->CreateSubReader(pos, size)};
+  }
+
   TReader * GetPtr() const { return m_p.get(); }
 };
 
@@ -255,7 +260,7 @@ template <typename TPrimitive, class TReader>
 inline TPrimitive ReadPrimitiveFromPos(TReader const & reader, uint64_t pos)
 {
 #ifndef OMIM_OS_LINUX
-  static_assert(is_trivially_copyable<TPrimitive>::value, "");
+  static_assert(std::is_trivially_copyable<TPrimitive>::value, "");
 #endif
   TPrimitive primitive;
   ReadFromPos(reader, pos, &primitive, sizeof(primitive));
@@ -266,9 +271,15 @@ template <typename TPrimitive, class TSource>
 TPrimitive ReadPrimitiveFromSource(TSource & source)
 {
 #ifndef OMIM_OS_LINUX
-  static_assert(is_trivially_copyable<TPrimitive>::value, "");
+  static_assert(std::is_trivially_copyable<TPrimitive>::value, "");
 #endif
   TPrimitive primitive;
   source.Read(&primitive, sizeof(primitive));
   return SwapIfBigEndian(primitive);
+}
+
+template <typename TPrimitive, typename TSource>
+void ReadPrimitiveFromSource(TSource & source, TPrimitive & primitive)
+{
+  primitive = ReadPrimitiveFromSource<TPrimitive, TSource>(source);
 }

@@ -2,8 +2,8 @@
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2013, 2014, 2015.
-// Modifications copyright (c) 2013-2015 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013, 2014, 2015, 2017.
+// Modifications copyright (c) 2013-2017 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
@@ -37,10 +37,10 @@ struct point_geometry
 
     static const bool interruption_enabled = true;
 
-    template <typename Result>
-    static inline void apply(Point const& point, Geometry const& geometry, Result & result)
+    template <typename Result, typename Strategy>
+    static inline void apply(Point const& point, Geometry const& geometry, Result & result, Strategy const& strategy)
     {
-        int pig = detail::within::point_in_geometry(point, geometry);
+        int pig = detail::within::point_in_geometry(point, geometry, strategy);
 
         if ( pig > 0 ) // within
         {
@@ -95,10 +95,10 @@ struct geometry_point
 
     static const bool interruption_enabled = true;
 
-    template <typename Result>
-    static inline void apply(Geometry const& geometry, Point const& point, Result & result)
+    template <typename Result, typename Strategy>
+    static inline void apply(Geometry const& geometry, Point const& point, Result & result, Strategy const& strategy)
     {
-        point_geometry<Point, Geometry, true>::apply(point, geometry, result);
+        point_geometry<Point, Geometry, true>::apply(point, geometry, result, strategy);
     }
 };
 

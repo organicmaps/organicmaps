@@ -108,13 +108,12 @@ UNIT_TEST(GetFilesInDir_Smoke)
 
 UNIT_TEST(DirsRoutines)
 {
-  Platform & platform = GetPlatform();
-  string const baseDir = platform.WritableDir();
+  string const baseDir = GetPlatform().WritableDir();
   string const testDir = my::JoinFoldersToPath(baseDir, "test-dir");
   string const testFile = my::JoinFoldersToPath(testDir, "test-file");
 
   TEST(!Platform::IsFileExistsByFullPath(testDir), ());
-  TEST_EQUAL(platform.MkDir(testDir), Platform::ERR_OK, ());
+  TEST_EQUAL(Platform::MkDir(testDir), Platform::ERR_OK, ());
 
   TEST(Platform::IsFileExistsByFullPath(testDir), ());
   TEST(Platform::IsDirectoryEmpty(testDir), ());
@@ -135,11 +134,10 @@ UNIT_TEST(GetFilesByType)
   string const kTestDirBaseName = "test-dir";
   string const kTestFileBaseName = "test-file";
 
-  Platform & platform = GetPlatform();
-  string const baseDir = platform.WritableDir();
+  string const baseDir = GetPlatform().WritableDir();
 
   string const testDir = my::JoinFoldersToPath(baseDir, kTestDirBaseName);
-  TEST_EQUAL(platform.MkDir(testDir), Platform::ERR_OK, ());
+  TEST_EQUAL(Platform::MkDir(testDir), Platform::ERR_OK, ());
   MY_SCOPE_GUARD(removeTestDir, bind(&Platform::RmDir, testDir));
 
   string const testFile = my::JoinFoldersToPath(baseDir, kTestFileBaseName);
@@ -217,14 +215,12 @@ UNIT_TEST(GetWritableStorageStatus)
 
 UNIT_TEST(RmDirRecursively)
 {
-  Platform & platform = GetPlatform();
-
-  string const testDir1 = my::JoinFoldersToPath(platform.WritableDir(), "test_dir1");
-  TEST_EQUAL(platform.MkDir(testDir1), Platform::ERR_OK, ());
+  string const testDir1 = my::JoinFoldersToPath(GetPlatform().WritableDir(), "test_dir1");
+  TEST_EQUAL(Platform::MkDir(testDir1), Platform::ERR_OK, ());
   MY_SCOPE_GUARD(removeTestDir1, bind(&Platform::RmDir, testDir1));
 
   string const testDir2 = my::JoinFoldersToPath(testDir1, "test_dir2");
-  TEST_EQUAL(platform.MkDir(testDir2), Platform::ERR_OK, ());
+  TEST_EQUAL(Platform::MkDir(testDir2), Platform::ERR_OK, ());
   MY_SCOPE_GUARD(removeTestDir2, bind(&Platform::RmDir, testDir2));
 
   string const filePath = my::JoinFoldersToPath(testDir2, "test_file");

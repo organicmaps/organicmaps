@@ -149,8 +149,31 @@ namespace boost
             : boost::result_of< BOOST_DEDUCED_TYPENAME c<Self>::t() >
         { };
 
-        template< class MD, class F, class FC >
-        struct lightweight_forward_adapter_impl<MD,F,FC,0,0>
+        // When operator() doesn't have any parameters, it can't
+        // be templatized and can't use SFINAE, so intead use class
+        // template parameter SFINAE to decide whether to instantiate it.
+
+        template <typename T, typename R = void>
+        struct lightweight_forward_adapter_sfinae
+        {
+            typedef T type;
+        };
+
+        // This is the fallback for when there isn't an operator()(),
+        // need to create an operator() that will never instantiate
+        // so that using parent::operator() will work okay.
+        template< class MD, class F, class FC, class Enable = void>
+        struct lightweight_forward_adapter_impl_zero
+            : lightweight_forward_adapter_result
+        {
+            template <typename T> struct never_instantiate {};
+            template <typename T>
+            typename never_instantiate<T>::type operator()(T) const {}
+        };
+
+        template< class MD, class F, class FC>
+        struct lightweight_forward_adapter_impl_zero<MD, F, FC,
+            typename lightweight_forward_adapter_sfinae<typename boost::result_of< FC() >::type>::type>
             : lightweight_forward_adapter_result
         {
             inline typename boost::result_of< FC() >::type
@@ -164,6 +187,12 @@ namespace boost
             {
                 return static_cast<MD*>(this)->target_function()();
             }
+        };
+
+        template< class MD, class F, class FC >
+        struct lightweight_forward_adapter_impl<MD,F,FC,0,0>
+            : lightweight_forward_adapter_impl_zero<MD,F,FC>
+        {
         };
 
 #       define  BOOST_PP_FILENAME_1 \

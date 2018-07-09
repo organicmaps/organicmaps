@@ -1,12 +1,11 @@
-set(OPENING_HOURS_INCLUDE ../opening_hours)
+project(opening_hours_tests)
 
-include_directories(${PROJECT_SOURCE_DIR})
-
+include_directories(${PROJECT_SOURCE_DIR} ${OMIM_ROOT}/3party/opening_hours)
 
 set(
   SRC
   opening_hours_tests.cpp
 )
 
-add_executable(opening_hours_tests ${SRC})
-omim_link_libraries(opening_hours_tests base opening_hours)
+add_executable(${PROJECT_NAME} ${SRC})
+omim_link_libraries(${PROJECT_NAME} base opening_hours)

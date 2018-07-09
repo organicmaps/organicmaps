@@ -1,0 +1,17 @@
+/* Sign-in button text */
+"Sign in" = "ログイン";
+
+/* Long form sign-in button text */
+"Sign in with Google" = "Googleでログイン";
+
+/* The title of the promotional prompt to install the Google app. */
+"PromoTitle" = "Googleでログイン";
+
+/* The body message of the promotional prompt to install the Google app. */
+"PromoMessage" = "無料のGoogleアプリをインストールして、Googleアカウントでアプリにログインしよう。パスワードを覚えておく必要はありません。";
+
+/* The cancel button on the promotional prompt to install the Google app. */
+"PromoActionCancel" = "キャンセル";
+
+/* The install button on the promotional prompt to install the Google app. */
+"PromoActionInstall" = "インストール";

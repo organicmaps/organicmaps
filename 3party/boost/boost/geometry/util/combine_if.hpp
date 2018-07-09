@@ -24,8 +24,6 @@
 #include <boost/mpl/insert.hpp>
 #include <boost/mpl/placeholders.hpp>
 
-#include <boost/type_traits.hpp>
-
 
 namespace boost { namespace geometry
 {

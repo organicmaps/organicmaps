@@ -6,6 +6,7 @@
 
 #include "base/assert.hpp"
 #include "base/bits.hpp"
+#include "base/checked_cast.hpp"
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 
@@ -101,10 +102,10 @@ private:
       // ids and offsets are delta-encoded
       id += ReadVarUint<uint32_t, ReaderSource<TReader>>(src);
       offset += ReadVarUint<uint32_t, ReaderSource<TReader>>(src);
-      m_finalNodeIndex[id] = i;
+      m_finalNodeIndex[id] = base::asserted_cast<int>(i);
       m_offsetTable[i] = offset;
     }
-    m_offsetTable[numFinalNodes] = src.Size();
+    m_offsetTable[numFinalNodes] = base::checked_cast<uint32_t>(src.Size());
     m_reader = m_reader.SubReader(src.Pos(), src.Size());
   }
 
@@ -148,7 +149,8 @@ public:
     ASSERT_EQUAL(m_common->GetTopology()[m_nodeBitPosition - 1], 1, (m_nodeBitPosition));
 
     // rank(x) returns the number of ones in [0, x) but we count bit positions from 1
-    uint32_t childBitPosition = 2 * m_common->GetTopology().rank(m_nodeBitPosition);
+    uint32_t childBitPosition =
+        base::asserted_cast<uint32_t>(2 * m_common->GetTopology().rank(m_nodeBitPosition));
     if (i == 1)
       ++childBitPosition;
     if (childBitPosition > 2 * m_common->NumNodes() ||
@@ -194,7 +196,7 @@ public:
     return GoToString(reader, numBits);
   }
 
-  uint32_t NumValues()
+  size_t NumValues()
   {
     if (!m_valuesRead)
       ReadValues();
@@ -216,7 +218,8 @@ private:
       return;
     m_valuesRead = true;
     // Back to 0-based indices.
-    uint32_t m_nodeId = m_common->GetTopology().rank(m_nodeBitPosition) - 1;
+    uint32_t m_nodeId =
+        base::checked_cast<uint32_t>(m_common->GetTopology().rank(m_nodeBitPosition) - 1);
     if (!m_common->NodeIsFinal(m_nodeId))
       return;
     uint32_t offset = m_common->Offset(m_nodeId);

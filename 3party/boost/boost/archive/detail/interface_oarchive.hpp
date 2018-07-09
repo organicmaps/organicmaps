@@ -29,7 +29,7 @@ namespace boost {
 namespace archive {
 namespace detail {
 
-class BOOST_ARCHIVE_OR_WARCHIVE_DECL basic_pointer_oserializer;
+class basic_pointer_oserializer;
 
 template<class Archive>
 class interface_oarchive 
@@ -57,7 +57,7 @@ public:
         this->This()->register_basic_serializer(bpos.get_basic_serializer());
         return & bpos;
     }
-
+    
     template<class Helper>
     Helper &
     get_helper(void * const id = 0){
@@ -75,7 +75,7 @@ public:
     template<class T>
     Archive & operator&(const T & t){
         return * this ->This() << t;
-    };
+    }
 };
 
 } // namespace detail

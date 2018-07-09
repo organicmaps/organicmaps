@@ -5,15 +5,14 @@
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 
-#include "base/stl_add.hpp"
+#include <vector>
 
-#include "std/vector.hpp"
+using namespace std;
 
 namespace
 {
-
 using search::KeywordLangMatcher;
-typedef search::KeywordLangMatcher::ScoreT ScoreT;
+using Score = search::KeywordLangMatcher::Score;
 
 enum
 {
@@ -25,15 +24,20 @@ enum
 
 KeywordLangMatcher CreateMatcher(string const & query)
 {
-  KeywordLangMatcher matcher;
+  size_t const kNumTestTiers = 4;
+  KeywordLangMatcher matcher(kNumTestTiers);
 
-  vector<vector<int8_t> > langPriorities(4, vector<int8_t>());
-  langPriorities[0].push_back(LANG_HIGH_PRIORITY);
-  // langPriorities[1] is intentionally left empty.
-  langPriorities[2].push_back(LANG_SOME);
-  langPriorities[2].push_back(LANG_SOME_OTHER);
-  // langPriorities[3] is intentionally left empty.
-  matcher.SetLanguages(langPriorities);
+  {
+    vector<vector<int8_t>> langPriorities(kNumTestTiers);
+    langPriorities[0].push_back(LANG_HIGH_PRIORITY);
+    // langPriorities[1] is intentionally left empty.
+    langPriorities[2].push_back(LANG_SOME);
+    langPriorities[2].push_back(LANG_SOME_OTHER);
+    // langPriorities[3] is intentionally left empty.
+
+    for (size_t i = 0; i < langPriorities.size(); ++i)
+      matcher.SetLanguages(i /* tier */, move(langPriorities[i]));
+  }
 
   vector<strings::UniString> keywords;
   strings::UniString prefix;
@@ -46,9 +50,7 @@ KeywordLangMatcher CreateMatcher(string const & query)
 
   return matcher;
 }
-
-}  // unnamed namespace
-
+}  // namespace
 
 UNIT_TEST(KeywordMatcher_TokensMatchHasPriority)
 {
@@ -60,13 +62,13 @@ UNIT_TEST(KeywordMatcher_LanguageMatchIsUsedWhenTokenMatchIsTheSame)
   char const * name = "test";
   KeywordLangMatcher matcher = CreateMatcher(query);
 
-  TEST(matcher.Score(LANG_UNKNOWN, name) < matcher.Score(LANG_SOME, name), ());
-  TEST(matcher.Score(LANG_UNKNOWN, name) < matcher.Score(LANG_SOME_OTHER, name), ());
-  TEST(matcher.Score(LANG_UNKNOWN, name) < matcher.Score(LANG_HIGH_PRIORITY, name), ());
+  TEST(matcher.CalcScore(LANG_UNKNOWN, name) < matcher.CalcScore(LANG_SOME, name), ());
+  TEST(matcher.CalcScore(LANG_UNKNOWN, name) < matcher.CalcScore(LANG_SOME_OTHER, name), ());
+  TEST(matcher.CalcScore(LANG_UNKNOWN, name) < matcher.CalcScore(LANG_HIGH_PRIORITY, name), ());
 
-  TEST(!(matcher.Score(LANG_SOME, name) < matcher.Score(LANG_SOME_OTHER, name)), ());
-  TEST(!(matcher.Score(LANG_SOME_OTHER, name) < matcher.Score(LANG_SOME, name)), ());
+  TEST(!(matcher.CalcScore(LANG_SOME, name) < matcher.CalcScore(LANG_SOME_OTHER, name)), ());
+  TEST(!(matcher.CalcScore(LANG_SOME_OTHER, name) < matcher.CalcScore(LANG_SOME, name)), ());
 
-  TEST(matcher.Score(LANG_SOME, name) < matcher.Score(LANG_HIGH_PRIORITY, name), ());
-  TEST(matcher.Score(LANG_SOME_OTHER, name) < matcher.Score(LANG_HIGH_PRIORITY, name), ());
+  TEST(matcher.CalcScore(LANG_SOME, name) < matcher.CalcScore(LANG_HIGH_PRIORITY, name), ());
+  TEST(matcher.CalcScore(LANG_SOME_OTHER, name) < matcher.CalcScore(LANG_HIGH_PRIORITY, name), ());
 }

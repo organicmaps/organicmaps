@@ -82,14 +82,13 @@ class BottomPanel
       @Override
       public void onClick(View v)
       {
-        mFragment.getAdapter().setAvailableMapsMode();
+        if (mFragment.getAdapter() != null )
+          mFragment.getAdapter().setAvailableMapsMode();
         update();
       }
     });
 
     mButton = (Button) frame.findViewById(R.id.action);
-
-    UiUtils.updateAccentButton(mButton);
   }
 
   private void setUpdateAllState(UpdateInfo info)
@@ -114,15 +113,15 @@ class BottomPanel
   public void update()
   {
     DownloaderAdapter adapter = mFragment.getAdapter();
-    boolean search = adapter.isSearchResultsMode();
+    boolean search = adapter != null && adapter.isSearchResultsMode();
 
     boolean show = !search;
-    UiUtils.showIf(show && adapter.isMyMapsMode(), mFab);
+    UiUtils.showIf(show && adapter != null && adapter.isMyMapsMode(), mFab);
 
     if (show)
     {
-      String root = adapter.getCurrentRootId();
-      if (adapter.isMyMapsMode())
+      String root = adapter != null ? adapter.getCurrentRootId() : "";
+      if (adapter != null && adapter.isMyMapsMode())
       {
         int status = MapManager.nativeGetStatus(root);
         switch (status)
@@ -139,6 +138,7 @@ class BottomPanel
           break;
 
         case CountryItem.STATUS_PROGRESS:
+        case CountryItem.STATUS_APPLYING:
         case CountryItem.STATUS_ENQUEUED:
           setCancelState();
           break;
@@ -169,6 +169,7 @@ class BottomPanel
             break;
 
           case CountryItem.STATUS_PROGRESS:
+          case CountryItem.STATUS_APPLYING:
           case CountryItem.STATUS_ENQUEUED:
             setCancelState();
             break;

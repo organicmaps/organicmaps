@@ -2,9 +2,6 @@
 
 #include "routing_common/vehicle_model.hpp"
 
-#include "std/shared_ptr.hpp"
-#include "std/unordered_map.hpp"
-
 namespace routing
 {
 
@@ -12,10 +9,11 @@ class BicycleModel : public VehicleModel
 {
 public:
   BicycleModel();
-  BicycleModel(VehicleModel::InitListT const & speedLimits);
+  BicycleModel(VehicleModel::LimitsInitList const & speedLimits);
 
-  /// VehicleModel overrides:
+  /// VehicleModelInterface overrides:
   bool IsOneWay(FeatureType const & f) const override;
+  double GetOffroadSpeed() const override;
 
   static BicycleModel const & AllLimitsInstance();
 
@@ -36,15 +34,8 @@ private:
 class BicycleModelFactory : public VehicleModelFactory
 {
 public:
-  BicycleModelFactory();
-
-  /// @name Overrides from VehicleModelFactory.
-  //@{
-  shared_ptr<IVehicleModel> GetVehicleModel() const override;
-  shared_ptr<IVehicleModel> GetVehicleModelForCountry(string const & country) const override;
-  //@}
-
-private:
-  unordered_map<string, shared_ptr<IVehicleModel>> m_models;
+  // TODO: remove countryParentNameGetterFn default value after removing unused bicycle routing
+  // from road_graph_router
+  BicycleModelFactory(CountryParentNameGetterFn const & countryParentNameGetterFn = {});
 };
 }  // namespace routing

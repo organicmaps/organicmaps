@@ -1,12 +1,15 @@
 #import "MWMPPPreviewLayoutHelper.h"
+#import <Crashlytics/Crashlytics.h>
 #import "MWMCommon.h"
 #import "MWMDirectionView.h"
 #import "MWMPlacePageData.h"
+#import "MWMPlacePageManagerHelper.h"
 #import "MWMTableViewCell.h"
+#import "MWMUGCViewModel.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 
-#include "std/array.hpp"
+#include <array>
 
 #pragma mark - Base
 // Base class for avoiding copy-paste in inheriting cells.
@@ -81,27 +84,6 @@
 @implementation _MWMPPPSchedule
 @end
 
-#pragma mark - Booking
-
-@interface _MWMPPPBooking : MWMTableViewCell
-
-@property(weak, nonatomic) IBOutlet UILabel * rating;
-@property(weak, nonatomic) IBOutlet UILabel * pricing;
-
-- (void)configWithRating:(NSString *)rating pricing:(NSString *)pricing;
-
-@end
-
-@implementation _MWMPPPBooking
-
-- (void)configWithRating:(NSString *)rating pricing:(NSString *)pricing
-{
-  self.rating.text = rating;
-  self.pricing.text = pricing;
-}
-
-@end
-
 #pragma mark - Address
 
 @interface _MWMPPPAddress : _MWMPPPCellBase
@@ -121,28 +103,31 @@
 
 namespace
 {
-array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTitle class],
-                                        [_MWMPPPSubtitle class], [_MWMPPPSchedule class],
-                                        [_MWMPPPBooking class], [_MWMPPPAddress class],
-                                        [_MWMPPPSpace class], [MWMFBAdsBanner class]}};
+std::array<Class, 9> const kPreviewCells = {{[_MWMPPPTitle class],
+                                        [_MWMPPPExternalTitle class],
+                                        [_MWMPPPSubtitle class],
+                                        [_MWMPPPSchedule class],
+                                        [MWMPPPReview class],
+                                        [MWMPPPSearchSimilarButton class],
+                                        [_MWMPPPAddress class],
+                                        [_MWMPPPSpace class],
+                                        [MWMAdBanner class]}};
 }  // namespace
 
 @interface MWMPPPreviewLayoutHelper ()
 
-@property(weak, nonatomic) UITableView * tableView;
-
-@property(weak, nonatomic) NSLayoutConstraint * distanceCellTrailing;
-@property(weak, nonatomic) UIView * distanceView;
-
-@property(nonatomic) CGFloat leading;
-@property(nonatomic) MWMDirectionView * directionView;
 @property(copy, nonatomic) NSString * distance;
-@property(weak, nonatomic) UIImageView * compass;
-@property(nonatomic) NSIndexPath * lastCellIndexPath;
-@property(nonatomic) BOOL lastCellIsBanner;
+@property(copy, nonatomic) NSString * speedAndAltitude;
+@property(nonatomic) MWMDirectionView * directionView;
 @property(nonatomic) NSUInteger distanceRow;
-
-@property(weak, nonatomic) MWMFBAdsBanner * cachedBannerCell;
+@property(weak, nonatomic) MWMAdBanner * cachedBannerCell;
+@property(weak, nonatomic) MWMPlacePageData * data;
+@property(weak, nonatomic) NSLayoutConstraint * distanceCellTrailing;
+@property(weak, nonatomic) UIImageView * compass;
+@property(weak, nonatomic) UITableView * tableView;
+@property(weak, nonatomic) UIView * distanceView;
+@property(weak, nonatomic) _MWMPPPSubtitle * cachedSubtitle;
+@property(weak, nonatomic) id<MWMPPPreviewLayoutHelperDelegate> delegate;
 
 @end
 
@@ -168,13 +153,22 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
 
 - (void)configWithData:(MWMPlacePageData *)data
 {
+  self.data = data;
   auto const & previewRows = data.previewRows;
   using place_page::PreviewRows;
-  self.lastCellIsBanner = previewRows.back() == PreviewRows::Banner;
-  self.lastCellIndexPath = [NSIndexPath indexPathForRow:previewRows.size() - 1 inSection:0];
-  auto it = find(previewRows.begin(), previewRows.end(), PreviewRows::Space);
-  if (it != previewRows.end())
-    self.distanceRow = distance(previewRows.begin(), it) - 1;
+
+  if (data.isMyPosition || previewRows.size() == 1)
+  {
+    self.distanceRow = 0;
+  }
+  else
+  {
+    auto it = find(previewRows.begin(), previewRows.end(), PreviewRows::Address);
+    if (it == previewRows.end())
+      it = find(previewRows.begin(), previewRows.end(), PreviewRows::Subtitle);
+    if (it != previewRows.end())
+      self.distanceRow = distance(previewRows.begin(), it);
+  }
 }
 
 - (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath withData:(MWMPlacePageData *)data
@@ -182,7 +176,7 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
   using namespace place_page;
   auto tableView = self.tableView;
   auto const row = data.previewRows[indexPath.row];
-  Class cls = kPreviewCells[static_cast<size_t>(row)];
+  Class cls = kPreviewCells[my::Key(row)];
 
   auto * c = [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath];
   switch(row)
@@ -194,8 +188,16 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
     static_cast<_MWMPPPExternalTitle *>(c).externalTitle.text = data.externalTitle;
     break;
   case PreviewRows::Subtitle:
-    static_cast<_MWMPPPSubtitle *>(c).subtitle.text = data.subtitle;
+  {
+    auto subtitleCell = static_cast<_MWMPPPSubtitle *>(c);
+    if (data.isMyPosition)
+      subtitleCell.subtitle.text = self.speedAndAltitude;
+    else
+      subtitleCell.subtitle.text = data.subtitle;
+
+    self.cachedSubtitle = subtitleCell;
     break;
+  }
   case PreviewRows::Schedule:
   {
     auto scheduleCell = static_cast<_MWMPPPSchedule *>(c);
@@ -217,12 +219,44 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
     }
     break;
   }
-  case PreviewRows::Booking:
+  case PreviewRows::Review:
   {
-    auto bookingCell = static_cast<_MWMPPPBooking *>(c);
-    [bookingCell configWithRating:data.bookingRating pricing:data.bookingApproximatePricing];
-    [data assignOnlinePriceToLabel:bookingCell.pricing];
-    return bookingCell;
+    auto reviewCell = static_cast<MWMPPPReview *>(c);
+    if (data.isBooking)
+    {
+      [reviewCell configWithRating:data.bookingRating
+                      canAddReview:NO
+                      reviewsCount:0
+                       priceSetter:^(UILabel * pricingLabel) {
+                         pricingLabel.text = data.bookingApproximatePricing;
+                         [data assignOnlinePriceToLabel:pricingLabel];
+                       }
+                       onAddReview:^{
+                       }];
+    }
+    else
+    {
+      NSAssert(data.ugc, @"");
+      [reviewCell configWithRating:data.ugc.summaryRating
+          canAddReview:data.ugc.isUGCUpdateEmpty
+          reviewsCount:data.ugc.totalReviewsCount
+          priceSetter:^(UILabel * _Nonnull pricingLabel) {
+            pricingLabel.text = @"";
+          }
+          onAddReview:^{
+            [MWMPlacePageManagerHelper showUGCAddReview:MWMRatingSummaryViewValueTypeNoValue
+                                            fromPreview:YES];
+          }];
+    }
+    return reviewCell;
+  }
+  case PreviewRows::SearchSimilar:
+  {
+    auto searchCell = static_cast<MWMPPPSearchSimilarButton *>(c);
+    [searchCell configWithTap:^{
+      [MWMPlacePageManagerHelper searchSimilar];
+    }];
+    return searchCell;
   }
   case PreviewRows::Address:
     static_cast<_MWMPPPAddress *>(c).address.text = data.address;
@@ -230,22 +264,8 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
   case PreviewRows::Space:
     return c;
   case PreviewRows::Banner:
-    auto banner = [data banner];
-    NSString * bannerId = @(banner.m_bannerId.c_str());
-    [Statistics logEvent:kStatPlacePageBannerShow
-          withParameters:@{
-            kStatTags : data.statisticsTags,
-            kStatBanner : bannerId,
-            kStatState : IPAD ? @1 : @0
-          }];
-    auto bannerCell = static_cast<MWMFBAdsBanner *>(c);
-    using namespace banners;
-    [FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
-    switch (banner.m_type)
-    {
-    case Banner::Type::None: NSAssert(false, @"Invalid banner type"); break;
-    case Banner::Type::Facebook: [bannerCell configWithPlacementID:bannerId]; break;
-    }
+    auto bannerCell = static_cast<MWMAdBanner *>(c);
+    [bannerCell configWithAd:data.nativeAd containerType:MWMAdBannerContainerTypePlacePage];
     self.cachedBannerCell = bannerCell;
     return bannerCell;
   }
@@ -303,17 +323,58 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
   self.directionView.distanceLabel.text = distance;
 }
 
+- (void)setSpeedAndAltitude:(NSString *)speedAndAltitude
+{
+  auto data = self.data;
+  if (!data)
+    return;
+  if ([speedAndAltitude isEqualToString:_speedAndAltitude] || !data.isMyPosition)
+    return;
+
+  _speedAndAltitude = speedAndAltitude;
+  self.cachedSubtitle.subtitle.text = speedAndAltitude;
+}
+
+- (void)insertRowAtTheEnd
+{
+  auto data = self.data;
+  if (!data)
+    return;
+  [self.tableView insertRowsAtIndexPaths:@[ self.lastCellIndexPath ]
+                        withRowAnimation:UITableViewRowAnimationLeft];
+  [self.delegate heightWasChanged];
+}
+
+- (void)notifyHeightWashChanded { [self.delegate heightWasChanged]; }
+
 - (CGFloat)height
 {
   auto const rect = [self.tableView rectForRowAtIndexPath:self.lastCellIndexPath];
-  return rect.origin.y + rect.size.height + (self.lastCellIsBanner ? 4 : 0);
+  auto const height = rect.origin.y + rect.size.height;
+  if (!self.lastCellIndexPath)
+    return height;
+
+  auto constexpr gapBannerHeight = 4.0;
+  CGFloat const excessHeight = self.cachedBannerCell.state == MWMAdBannerStateDetailed
+                                   ? [MWMAdBanner detailedBannerExcessHeight]
+                                   : 0;
+
+  return height + gapBannerHeight - excessHeight;
 }
 
 - (void)layoutInOpenState:(BOOL)isOpen
 {
-  [self.tableView update:^{
-    self.cachedBannerCell.state = isOpen ? MWMFBAdsBannerStateDetailed : MWMFBAdsBannerStateCompact;
-  }];
+  if (IPAD)
+    return;
+  dispatch_async(dispatch_get_main_queue(), ^{
+    auto data = self.data;
+    if (!data)
+      return;
+
+    [self.tableView update:^{
+      self.cachedBannerCell.state = isOpen ? MWMAdBannerStateDetailed : MWMAdBannerStateCompact;
+    }];
+  });
 }
 
 - (MWMDirectionView *)directionView
@@ -321,6 +382,23 @@ array<Class, 8> const kPreviewCells = {{[_MWMPPPTitle class], [_MWMPPPExternalTi
   if (!_directionView)
     _directionView = [[MWMDirectionView alloc] init];
   return _directionView;
+}
+
+- (NSIndexPath *)lastCellIndexPath
+{
+  auto data = self.data;
+  if (!data)
+    return nil;
+  return [NSIndexPath indexPathForRow:data.previewRows.size() - 1
+                            inSection:static_cast<NSUInteger>(place_page::Sections::Preview)];
+}
+
+- (BOOL)lastCellIsBanner
+{
+  auto data = self.data;
+  if (!data)
+    return NO;
+  return data.previewRows.back() == place_page::PreviewRows::Banner;
 }
 
 @end

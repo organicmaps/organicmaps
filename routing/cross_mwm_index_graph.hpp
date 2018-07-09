@@ -1,14 +1,20 @@
 #pragma once
 
-#include "routing/num_mwm_id.hpp"
-#include "routing/routing_mapping.hpp"
+#include "routing/cross_mwm_connector.hpp"
+#include "routing/cross_mwm_connector_serialization.hpp"
+#include "routing/fake_feature_ids.hpp"
+#include "routing/routing_exceptions.hpp"
 #include "routing/segment.hpp"
+#include "routing/transition_points.hpp"
+#include "routing/vehicle_mask.hpp"
 
-#include "geometry/latlon.hpp"
+#include "routing_common/num_mwm_id.hpp"
+#include "routing_common/vehicle_model.hpp"
 
-#include "platform/country_file.hpp"
+#include "coding/file_container.hpp"
+#include "coding/reader.hpp"
 
-#include "base/math.hpp"
+#include "indexer/data_source.hpp"
 
 #include <map>
 #include <memory>
@@ -16,96 +22,189 @@
 
 namespace routing
 {
-/// \brief Getting information for cross mwm routing.
+namespace connector
+{
+template <typename CrossMwmId>
+inline FilesContainerR::TReader GetReader(FilesContainerR const & cont)
+{
+  return cont.GetReader(CROSS_MWM_FILE_TAG);
+}
+
+template <>
+inline FilesContainerR::TReader GetReader<TransitId>(FilesContainerR const & cont)
+{
+  return cont.GetReader(TRANSIT_CROSS_MWM_FILE_TAG);
+}
+
+template <typename CrossMwmId>
+uint32_t constexpr GetFeaturesOffset() noexcept
+{
+  return 0;
+}
+
+template <>
+uint32_t constexpr GetFeaturesOffset<TransitId>() noexcept
+{
+  return FakeFeatureIds::kTransitGraphFeaturesStart;
+}
+
+template <typename CrossMwmId>
+void AssertConnectorIsFound(NumMwmId neighbor, bool isConnectorFound)
+{
+  CHECK(isConnectorFound, ("Connector for mwm with number mwm id", neighbor, "was not deserialized."));
+}
+
+template <>
+inline void AssertConnectorIsFound<TransitId>(NumMwmId /* neighbor */, bool /* isConnectorFound */)
+{
+}
+}  // namespace connector
+
+template <typename CrossMwmId>
 class CrossMwmIndexGraph final
 {
 public:
-  CrossMwmIndexGraph(std::shared_ptr<NumMwmIds> numMwmIds, RoutingIndexManager & indexManager)
-    : m_indexManager(indexManager), m_numMwmIds(numMwmIds)
+  using ReaderSourceFile = ReaderSource<FilesContainerR::TReader>;
+
+  CrossMwmIndexGraph(DataSource & dataSource, std::shared_ptr<NumMwmIds> numMwmIds,
+                     VehicleType vehicleType)
+    : m_dataSource(dataSource), m_numMwmIds(numMwmIds), m_vehicleType(vehicleType)
   {
   }
 
-  /// \brief Transition segment is a segment which is crossed by mwm border. That means
-  /// start and finsh of such segment have to lie in different mwms. If a segment is
-  /// crossed by mwm border but its start and finish lie in the same mwm it's not
-  /// a transition segment.
-  /// For most cases there is only one transition segment for a transition feature.
-  /// Transition segment at the picture below is marked as *===>*.
-  /// Transition feature is a feature which contains one or more transition segments.
-  /// Transition features at the picture below is marked as *===>*------>*.
-  /// Every transition feature is duplicated in two neighbouring mwms.
-  /// The duplicate is called "twin" at the picture below.
-  /// For most cases a transition feature contains only one transition segment.
-  /// -------MWM0---------------MWM1----------------MWM2-------------
-  /// |                   |                 |                       |
-  /// | F0 in MWM0   *===>*------>*    *===>*------>*  F2 of MWM1   |
-  /// | Twin in MWM1 *===>*------>*    *===>*------>*  Twin in MWM2 |
-  /// |                   |                 |                       |
-  /// | F1 in MWM0      *===>*---->*      *===>*--->*  F3 of MWM1   |
-  /// | Twin in MWM1    *===>*---->*      *===>*--->*  Twin in MWM2 |
-  /// |                   |                 |                       |
-  /// ---------------------------------------------------------------
-  /// There are two kinds of transition segments:
-  /// * enter transition segments are enters to their mwms;
-  /// * exit transition segments are exits from their mwms;
-  /// \returns true if |s| is an exit (|isOutgoing| == true) or an enter (|isOutgoing| == false)
-  /// transition segment.
-  bool IsTransition(Segment const & s, bool isOutgoing);
+  bool IsTransition(Segment const & s, bool isOutgoing)
+  {
+    CrossMwmConnector<CrossMwmId> const & c = GetCrossMwmConnectorWithTransitions(s.GetMwmId());
+    return c.IsTransition(s, isOutgoing);
+  }
 
-  /// \brief Fills |twins| with duplicates of |s| transition segment in neighbouring mwm.
-  /// For most cases there is only one twin for |s|.
-  /// If |isOutgoing| == true |s| should be an exit transition segment and
-  /// the mehtod fills |twins| with appropriate enter transition segments.
-  /// If |isOutgoing| == false |s| should be an enter transition segment and
-  /// the method fills |twins| with appropriate exit transition segments.
-  /// \note GetTwins(s, isOutgoing, ...) shall be called only if IsTransition(s, isOutgoing) returns true.
-  /// \note GetTwins(s, isOutgoing, twins) fills |twins| only if mwm contained |twins| has been downloaded.
-  /// If not, |twins| could be emply after a GetTwins(...) call.
-  void GetTwins(Segment const & s, bool isOutgoing, std::vector<Segment> & twins);
+  /// \brief Fills |twins| based on transitions defined in cross_mwm section.
+  /// \note In cross_mwm section transitions are defined by osm ids of theirs features.
+  /// \note This method fills |twins| with all available twins iff all neighboring of mwm of |s|
+  //        have cross_mwm section.
+  void GetTwinsByCrossMwmId(Segment const & s, bool isOutgoing, std::vector<NumMwmId> const & neighbors,
+                            std::vector<Segment> & twins)
+  {
+    auto const & crossMwmId = GetCrossMwmConnectorWithTransitions(s.GetMwmId()).GetCrossMwmId(s);
 
-  /// \brief Fills |edges| with edges outgoing from |s| (ingoing to |s|).
-  /// If |isOutgoing| == true then |s| should be an enter transition segment.
-  /// In that case |edges| is filled with all edges starting from |s| and ending at all reachable
-  /// exit transition segments of the mwm of |s|.
-  /// If |isOutgoing| == false then |s| should be an exit transition segment.
-  /// In that case |edges| is filled with all edges starting from all reachable
-  /// enter transition segments of the mwm of |s| and ending at |s|.
-  /// Weight of each edge is equal to weight of the route form |s| to |SegmentEdge::m_target|
-  /// if |isOutgoing| == true and from |SegmentEdge::m_target| to |s| otherwise.
-  void GetEdgeList(Segment const & s, bool isOutgoing, std::vector<SegmentEdge> & edges) const;
+    for (NumMwmId const neighbor : neighbors)
+    {
+      auto const it = m_connectors.find(neighbor);
+      // In case of TransitId, a connector for a mwm with number id |neighbor| may not be found
+      // if mwm with such id does not contain corresponding transit_cross_mwm section.
+      // It may happen in case of obsolete mwms.
+      // Note. Actually it is assumed that connectors always must be found for car routing case.
+      // That means mwm without cross_mwm section is not supported.
+      connector::AssertConnectorIsFound<CrossMwmId>(neighbor, it != m_connectors.cend());
+      if (it == m_connectors.cend())
+        continue;
 
-  void Clear();
+      CrossMwmConnector<CrossMwmId> const & connector = it->second;
+      // Note. Last parameter in the method below (isEnter) should be set to |isOutgoing|.
+      // If |isOutgoing| == true |s| should be an exit transition segment and the method below searches enters
+      // and the last parameter (|isEnter|) should be set to true.
+      // If |isOutgoing| == false |s| should be an enter transition segment and the method below searches exits
+      // and the last parameter (|isEnter|) should be set to false.
+      Segment const * twinSeg = connector.GetTransition(crossMwmId, s.GetSegmentIdx(), isOutgoing);
+      if (twinSeg == nullptr)
+        continue;
+
+      CHECK_NOT_EQUAL(twinSeg->GetMwmId(), s.GetMwmId(), ());
+      twins.push_back(*twinSeg);
+    }
+  }
+
+  void GetOutgoingEdgeList(Segment const & s, std::vector<SegmentEdge> & edges)
+  {
+    CrossMwmConnector<CrossMwmId> const & c = GetCrossMwmConnectorWithWeights(s.GetMwmId());
+    c.GetOutgoingEdgeList(s, edges);
+  }
+
+  void Clear() { m_connectors.clear(); }
+
+  TransitionPoints GetTransitionPoints(Segment const & s, bool isOutgoing)
+  {
+    auto const & connector = GetCrossMwmConnectorWithTransitions(s.GetMwmId());
+    // In case of transition segments of index graph cross-mwm section the front point of segment
+    // is used as a point which corresponds to the segment.
+    return TransitionPoints({connector.GetPoint(s, true /* front */)});
+  }
+
+  bool InCache(NumMwmId numMwmId) const { return m_connectors.count(numMwmId) != 0; }
+
+  CrossMwmConnector<CrossMwmId> const & GetCrossMwmConnectorWithTransitions(NumMwmId numMwmId)
+  {
+    auto const it = m_connectors.find(numMwmId);
+    if (it != m_connectors.cend())
+      return it->second;
+
+    return Deserialize(
+        numMwmId,
+        CrossMwmConnectorSerializer::DeserializeTransitions<ReaderSourceFile, CrossMwmId>);
+  }
+
+  void LoadCrossMwmConnectorWithTransitions(NumMwmId numMwmId)
+  {
+    GetCrossMwmConnectorWithTransitions(numMwmId);
+  }
+
+  std::vector<Segment> const & GetTransitions(NumMwmId numMwmId, bool isEnter)
+  {
+    auto const & connector = GetCrossMwmConnectorWithTransitions(numMwmId);
+    return isEnter ? connector.GetEnters() : connector.GetExits();
+  }
 
 private:
-  struct TransitionSegments
+  CrossMwmConnector<CrossMwmId> const & GetCrossMwmConnectorWithWeights(NumMwmId numMwmId)
   {
-    std::map<Segment, ms::LatLon> m_ingoing;
-    std::map<Segment, ms::LatLon> m_outgoing;
-  };
+    auto const & c = GetCrossMwmConnectorWithTransitions(numMwmId);
+    if (c.WeightsWereLoaded())
+      return c;
 
-  /// \brief Inserts all ingoing and outgoing transition segments of mwm with |numMwmId|
-  /// to |m_transitionCache|.
-  void InsertWholeMwmTransitionSegments(NumMwmId numMwmId);
-
-  template <class Fn>
-  bool LoadWith(NumMwmId numMwmId, Fn && fn)
-  {
-    platform::CountryFile const & countryFile = m_numMwmIds->GetFile(numMwmId);
-    TRoutingMappingPtr mapping = m_indexManager.GetMappingByName(countryFile.GetName());
-    CHECK(mapping, ("No routing mapping file for countryFile:", countryFile));
-
-    if (!mapping->IsValid())
-      return false; // mwm was not loaded.
-
-    MappingGuard mappingGuard(mapping);
-    mapping->LoadCrossContext();
-    fn(numMwmId, mapping);
-    return true;
+    return Deserialize(
+        numMwmId, CrossMwmConnectorSerializer::DeserializeWeights<ReaderSourceFile, CrossMwmId>);
   }
 
-  RoutingIndexManager & m_indexManager;
-  std::shared_ptr<NumMwmIds> m_numMwmIds;
+  /// \brief Deserializes connectors for an mwm with |numMwmId|.
+  /// \param fn is a function implementing deserialization.
+  /// \note Each CrossMwmConnector contained in |m_connectors| may be deserizalize in two stages.
+  /// The first one is transition deserialization and the second is weight deserialization.
+  /// Transition deserialization is much faster and used more often.
+  template <typename Fn>
+  CrossMwmConnector<CrossMwmId> const & Deserialize(NumMwmId numMwmId, Fn && fn)
+  {
+    MwmSet::MwmHandle handle = m_dataSource.GetMwmHandleByCountryFile(m_numMwmIds->GetFile(numMwmId));
+    if (!handle.IsAlive())
+      MYTHROW(RoutingException, ("Mwm", m_numMwmIds->GetFile(numMwmId), "cannot be loaded."));
 
-  std::map<NumMwmId, TransitionSegments> m_transitionCache;
+    MwmValue * value = handle.GetValue<MwmValue>();
+    CHECK(value != nullptr, ("Country file:", m_numMwmIds->GetFile(numMwmId)));
+
+    FilesContainerR::TReader const reader =
+        FilesContainerR::TReader(connector::GetReader<CrossMwmId>(value->m_cont));
+    ReaderSourceFile src(reader);
+    auto it = m_connectors.find(numMwmId);
+    if (it == m_connectors.end())
+      it = m_connectors
+               .emplace(numMwmId, CrossMwmConnector<CrossMwmId>(
+                                      numMwmId, connector::GetFeaturesOffset<CrossMwmId>()))
+               .first;
+
+    fn(m_vehicleType, it->second, src);
+    return it->second;
+  }
+
+  DataSource & m_dataSource;
+  std::shared_ptr<NumMwmIds> m_numMwmIds;
+  VehicleType m_vehicleType;
+
+  /// \note |m_connectors| contains cache with transition segments and leap edges.
+  /// Each mwm in |m_connectors| may be in two conditions:
+  /// * with loaded transition segments (after a call to
+  /// CrossMwmConnectorSerializer::DeserializeTransitions())
+  /// * with loaded transition segments and with loaded weights
+  ///   (after a call to CrossMwmConnectorSerializer::DeserializeTransitions()
+  ///   and CrossMwmConnectorSerializer::DeserializeWeights())
+  std::map<NumMwmId, CrossMwmConnector<CrossMwmId>> m_connectors;
 };
-}  // routing
+}  // namespace routing

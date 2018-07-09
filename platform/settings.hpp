@@ -1,8 +1,10 @@
 #pragma once
 
+#include "platform/string_storage_base.hpp"
+
+#include "base/macros.hpp"
+
 #include "std/string.hpp"
-#include "std/map.hpp"
-#include "std/mutex.hpp"
 
 namespace settings
 {
@@ -16,36 +18,34 @@ bool FromString(string const & str, T & outValue);
 template <class T>
 string ToString(T const & value);
 
-class StringStorage
+class StringStorage : public platform::StringStorageBase
 {
-  typedef map<string, string> ContainerT;
-  ContainerT m_values;
-
-  mutable mutex m_mutex;
-
-  StringStorage();
-  void Save() const;
-
 public:
   static StringStorage & Instance();
 
-  void Clear();
-  bool GetValue(string const & key, string & outValue) const;
-  void SetValue(string const & key, string && value);
-  void DeleteKeyAndValue(string const & key);
+private:
+  StringStorage();
 };
 
 /// Retrieve setting
 /// @return false if setting is absent
-template <class ValueT>
-bool Get(string const & key, ValueT & outValue)
+template <class Value>
+WARN_UNUSED_RESULT bool Get(string const & key, Value & outValue)
 {
   string strVal;
   return StringStorage::Instance().GetValue(key, strVal) && FromString(strVal, outValue);
 }
+
+template <class Value>
+void TryGet(string const & key, Value & outValue)
+{
+    bool unused = Get(key, outValue);
+    UNUSED_VALUE(unused);
+}
+
 /// Automatically saves setting to external file
-template <class ValueT>
-void Set(string const & key, ValueT const & value)
+template <class Value>
+void Set(string const & key, Value const & value)
 {
   StringStorage::Instance().SetValue(key, ToString(value));
 }
@@ -57,3 +57,27 @@ inline void Clear() { StringStorage::Instance().Clear(); }
 /// @param[in]  date  Current date in format yymmdd.
 bool IsFirstLaunchForDate(int date);
 }
+
+namespace marketing
+{
+class Settings : public platform::StringStorageBase
+{
+public:
+  template <class Value>
+  static void Set(string const & key, Value const & value)
+  {
+    Instance().SetValue(key, settings::ToString(value));
+  }
+
+  template <class Value>
+  WARN_UNUSED_RESULT static bool Get(string const & key, Value & outValue)
+  {
+    string strVal;
+    return Instance().GetValue(key, strVal) && settings::FromString(strVal, outValue);
+  }
+
+private:
+  static Settings & Instance();
+  Settings();
+};
+}  // namespace marketing

@@ -37,3 +37,4 @@ namespace boost { namespace detail {
 }} // namespace boost::detail
 
 #endif // BOOST_LEXICAL_CAST_DETAIL_WIDEST_CHAR_HPP
+

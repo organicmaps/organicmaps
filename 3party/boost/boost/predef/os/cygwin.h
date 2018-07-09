@@ -29,7 +29,7 @@ http://www.boost.org/LICENSE_1_0.txt)
     defined(__CYGWIN__) \
     )
 #   undef BOOST_OS_CYGWIN
-#   define BOOST_OS_CGYWIN BOOST_VERSION_NUMBER_AVAILABLE
+#   define BOOST_OS_CYGWIN BOOST_VERSION_NUMBER_AVAILABLE
 #endif
 
 #if BOOST_OS_CYGWIN

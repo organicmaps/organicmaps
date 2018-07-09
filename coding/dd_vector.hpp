@@ -4,8 +4,9 @@
 #include "base/assert.hpp"
 #include "base/exception.hpp"
 
-#include "std/type_traits.hpp"
 #include "std/iterator_facade.hpp"
+
+#include <type_traits>
 
 // Disk-driven vector.
 template <typename T, class TReader, typename TSize = uint32_t>
@@ -14,7 +15,7 @@ class DDVector
 public:
   typedef T value_type;
   typedef TSize size_type;
-  typedef typename make_signed<size_type>::type difference_type;
+  typedef std::make_signed_t<size_type> difference_type;
   typedef TReader ReaderType;
 
   DECLARE_EXCEPTION(OpenException, RootException);

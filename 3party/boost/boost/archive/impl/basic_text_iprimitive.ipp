@@ -8,8 +8,8 @@
 
 //  See http://www.boost.org for updates, documentation, and revision history.
 
-#include <cstddef> // size_t
-#include <cstddef> // NULL
+#include <cstddef> // size_t, NULL
+#include <limits> // NULL
 
 #include <boost/config.hpp>
 #if defined(BOOST_NO_STDC_NAMESPACE)
@@ -21,8 +21,6 @@ namespace std{
 #include <boost/serialization/throw_exception.hpp>
 
 #include <boost/archive/basic_text_iprimitive.hpp>
-#include <boost/archive/codecvt_null.hpp>
-#include <boost/archive/add_facet.hpp>
 
 #include <boost/archive/iterators/remove_whitespace.hpp>
 #include <boost/archive/iterators/istream_iterator.hpp>
@@ -78,7 +76,7 @@ basic_text_iprimitive<IStream>::load_binary(
                 iterators::remove_whitespace<
                     iterators::istream_iterator<CharType>
                 >
-                ,CharType
+                ,typename IStream::int_type
             >
             ,8
             ,6
@@ -112,34 +110,27 @@ basic_text_iprimitive<IStream>::basic_text_iprimitive(
     IStream  &is_,
     bool no_codecvt
 ) :
-#ifndef BOOST_NO_STD_LOCALE
     is(is_),
     flags_saver(is_),
     precision_saver(is_),
-    locale_saver(* is_.rdbuf())
+#ifndef BOOST_NO_STD_LOCALE
+    codecvt_null_facet(1),
+    archive_locale(is.getloc(), & codecvt_null_facet),
+    locale_saver(is)
 {
     if(! no_codecvt){
-        archive_locale.reset(
-            add_facet(
-                std::locale::classic(),
-                new boost::archive::codecvt_null<typename IStream::char_type>
-            )
-        );
-        //is.imbue(* archive_locale);
+        is_.sync();
+        is_.imbue(archive_locale);
     }
-    is >> std::noboolalpha;
+    is_ >> std::noboolalpha;
 }
 #else
-    is(is_),
-    flags_saver(is_),
-    precision_saver(is_)
 {}
 #endif
 
 template<class IStream>
 BOOST_ARCHIVE_OR_WARCHIVE_DECL
 basic_text_iprimitive<IStream>::~basic_text_iprimitive(){
-    is.sync();
 }
 
 } // namespace archive

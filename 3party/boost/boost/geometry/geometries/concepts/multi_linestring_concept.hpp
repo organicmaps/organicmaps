@@ -24,7 +24,7 @@
 #include <boost/geometry/geometries/concepts/linestring_concept.hpp>
 
 
-namespace boost { namespace geometry { namespace concept
+namespace boost { namespace geometry { namespace concepts
 {
 
 
@@ -45,7 +45,7 @@ class MultiLinestring
 #ifndef DOXYGEN_NO_CONCEPT_MEMBERS
     typedef typename boost::range_value<Geometry>::type linestring_type;
 
-    BOOST_CONCEPT_ASSERT( (concept::Linestring<linestring_type>) );
+    BOOST_CONCEPT_ASSERT( (concepts::Linestring<linestring_type>) );
     BOOST_CONCEPT_ASSERT( (boost::RandomAccessRangeConcept<Geometry>) );
 
 
@@ -73,7 +73,7 @@ class ConstMultiLinestring
 #ifndef DOXYGEN_NO_CONCEPT_MEMBERS
     typedef typename boost::range_value<Geometry>::type linestring_type;
 
-    BOOST_CONCEPT_ASSERT( (concept::ConstLinestring<linestring_type>) );
+    BOOST_CONCEPT_ASSERT( (concepts::ConstLinestring<linestring_type>) );
     BOOST_CONCEPT_ASSERT( (boost::RandomAccessRangeConcept<Geometry>) );
 
 
@@ -85,7 +85,7 @@ public :
 #endif
 };
 
-}}} // namespace boost::geometry::concept
+}}} // namespace boost::geometry::concepts
 
 
 #endif // BOOST_GEOMETRY_GEOMETRIES_CONCEPTS_MULTI_LINESTRING_CONCEPT_HPP

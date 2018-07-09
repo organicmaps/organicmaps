@@ -78,7 +78,10 @@ enum validity_failure_type
     /// The top-right corner of the box is lexicographically smaller
     /// than its bottom-left corner
     /// (applies to boxes only)
-    failure_wrong_corner_order = 50 // for boxes
+    failure_wrong_corner_order = 50, // for boxes
+    /// The geometry has at least one point with an invalid coordinate
+    /// (for example, the coordinate is a NaN)
+    failure_invalid_coordinate = 60
 };
 
 

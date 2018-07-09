@@ -1,454 +1,422 @@
-//  Boost common_factor_rt.hpp header file  ----------------------------------//
+//  (C) Copyright Jeremy William Murphy 2016.
 
-//  (C) Copyright Daryle Walker and Paul Moore 2001-2002.  Permission to copy,
-//  use, modify, sell and distribute this software is granted provided this
-//  copyright notice appears in all copies.  This software is provided "as is"
-//  without express or implied warranty, and with no claim as to its suitability
-//  for any purpose. 
-
-// boostinspect:nolicense (don't complain about the lack of a Boost license)
-// (Paul Moore hasn't been in contact for years, so there's no way to change the
-// license.)
-
-//  See http://www.boost.org for updates, documentation, and revision history. 
+//  Use, modification and distribution are subject to the
+//  Boost Software License, Version 1.0. (See accompanying file
+//  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #ifndef BOOST_MATH_COMMON_FACTOR_RT_HPP
 #define BOOST_MATH_COMMON_FACTOR_RT_HPP
 
-#include <boost/math_fwd.hpp>  // self include
+#include <boost/assert.hpp>
+#include <boost/core/enable_if.hpp>
+#include <boost/mpl/and.hpp>
+#include <boost/type_traits.hpp>
 
 #include <boost/config.hpp>  // for BOOST_NESTED_TEMPLATE, etc.
 #include <boost/limits.hpp>  // for std::numeric_limits
 #include <climits>           // for CHAR_MIN
 #include <boost/detail/workaround.hpp>
+#include <iterator>
+#include <algorithm>
+#include <limits>
+
+#if (defined(BOOST_MSVC) || (defined(__clang__) && defined(__c2__)) || (defined(BOOST_INTEL) && defined(_MSC_VER))) && (defined(_M_IX86) || defined(_M_X64))
+#include <intrin.h>
+#endif
 
 #ifdef BOOST_MSVC
 #pragma warning(push)
 #pragma warning(disable:4127 4244)  // Conditional expression is constant
 #endif
 
-namespace boost
-{
-namespace math
-{
+namespace boost {
+   namespace math {
 
+      template <class T, bool a = is_unsigned<T>::value || (std::numeric_limits<T>::is_specialized && !std::numeric_limits<T>::is_signed)>
+      struct gcd_traits_abs_defaults
+      {
+         inline static const T& abs(const T& val) { return val; }
+      };
+      template <class T>
+      struct gcd_traits_abs_defaults<T, false>
+      {
+         inline static T abs(const T& val)
+         {
+            using std::abs;
+            return abs(val);
+         }
+      };
 
-//  Forward declarations for function templates  -----------------------------//
+      template <class T>
+      struct gcd_traits_defaults : public gcd_traits_abs_defaults<T>
+      {
+         BOOST_FORCEINLINE static unsigned make_odd(T& val)
+         {
+            unsigned r = 0;
+            while(!(val & 1u))
+            {
+               val >>= 1;
+               ++r;
+            }
+            return r;
+         }
+         inline static bool less(const T& a, const T& b)
+         {
+            return a < b;
+         }
 
-template < typename IntegerType >
-    IntegerType  gcd( IntegerType const &a, IntegerType const &b );
+         enum method_type
+         {
+            method_euclid = 0,
+            method_binary = 1,
+            method_mixed = 2,
+         };
 
-template < typename IntegerType >
-    IntegerType  lcm( IntegerType const &a, IntegerType const &b );
+         static const method_type method =
+            boost::has_right_shift_assign<T>::value && boost::has_left_shift_assign<T>::value && boost::has_less<T>::value && boost::has_modulus<T>::value
+            ? method_mixed :
+            boost::has_right_shift_assign<T>::value && boost::has_left_shift_assign<T>::value && boost::has_less<T>::value
+            ? method_binary : method_euclid;
+      };
+      //
+      // Default gcd_traits just inherits from defaults:
+      //
+      template <class T>
+      struct gcd_traits : public gcd_traits_defaults<T> {};
+      //
+      // Special handling for polynomials:
+      //
+      namespace tools {
+         template <class T>
+         class polynomial;
+      }
 
+      template <class T>
+      struct gcd_traits<boost::math::tools::polynomial<T> > : public gcd_traits_defaults<T>
+      {
+         static const boost::math::tools::polynomial<T>& abs(const boost::math::tools::polynomial<T>& val) { return val; }
+      };
+      //
+      // Some platforms have fast bitscan operations, that allow us to implement
+      // make_odd much more efficiently:
+      //
+#if (defined(BOOST_MSVC) || (defined(__clang__) && defined(__c2__)) || (defined(BOOST_INTEL) && defined(_MSC_VER))) && (defined(_M_IX86) || defined(_M_X64))
+#pragma intrinsic(_BitScanForward,)
+      template <>
+      struct gcd_traits<unsigned long> : public gcd_traits_defaults<unsigned long>
+      {
+         BOOST_FORCEINLINE static unsigned find_lsb(unsigned long val)
+         {
+            unsigned long result;
+            _BitScanForward(&result, val);
+            return result;
+         }
+         BOOST_FORCEINLINE static unsigned make_odd(unsigned long& val)
+         {
+            unsigned result = find_lsb(val);
+            val >>= result;
+            return result;
+         }
+      };
 
-//  Greatest common divisor evaluator class declaration  ---------------------//
+#ifdef _M_X64
+#pragma intrinsic(_BitScanForward64)
+      template <>
+      struct gcd_traits<unsigned __int64> : public gcd_traits_defaults<unsigned __int64>
+      {
+         BOOST_FORCEINLINE static unsigned find_lsb(unsigned __int64 mask)
+         {
+            unsigned long result;
+            _BitScanForward64(&result, mask);
+            return result;
+         }
+         BOOST_FORCEINLINE static unsigned make_odd(unsigned __int64& val)
+         {
+            unsigned result = find_lsb(val);
+            val >>= result;
+            return result;
+         }
+      };
+#endif
+      //
+      // Other integer type are trivial adaptations of the above,
+      // this works for signed types too, as by the time these functions
+      // are called, all values are > 0.
+      //
+      template <> struct gcd_traits<long> : public gcd_traits_defaults<long> 
+      { BOOST_FORCEINLINE static unsigned make_odd(long& val){ unsigned result = gcd_traits<unsigned long>::find_lsb(val); val >>= result; return result; } };
+      template <> struct gcd_traits<unsigned int> : public gcd_traits_defaults<unsigned int> 
+      { BOOST_FORCEINLINE static unsigned make_odd(unsigned int& val){ unsigned result = gcd_traits<unsigned long>::find_lsb(val); val >>= result; return result; } };
+      template <> struct gcd_traits<int> : public gcd_traits_defaults<int> 
+      { BOOST_FORCEINLINE static unsigned make_odd(int& val){ unsigned result = gcd_traits<unsigned long>::find_lsb(val); val >>= result; return result; } };
+      template <> struct gcd_traits<unsigned short> : public gcd_traits_defaults<unsigned short> 
+      { BOOST_FORCEINLINE static unsigned make_odd(unsigned short& val){ unsigned result = gcd_traits<unsigned long>::find_lsb(val); val >>= result; return result; } };
+      template <> struct gcd_traits<short> : public gcd_traits_defaults<short> 
+      { BOOST_FORCEINLINE static unsigned make_odd(short& val){ unsigned result = gcd_traits<unsigned long>::find_lsb(val); val >>= result; return result; } };
+      template <> struct gcd_traits<unsigned char> : public gcd_traits_defaults<unsigned char> 
+      { BOOST_FORCEINLINE static unsigned make_odd(unsigned char& val){ unsigned result = gcd_traits<unsigned long>::find_lsb(val); val >>= result; return result; } };
+      template <> struct gcd_traits<signed char> : public gcd_traits_defaults<signed char> 
+      { BOOST_FORCEINLINE static signed make_odd(signed char& val){ signed result = gcd_traits<unsigned long>::find_lsb(val); val >>= result; return result; } };
+      template <> struct gcd_traits<char> : public gcd_traits_defaults<char> 
+      { BOOST_FORCEINLINE static unsigned make_odd(char& val){ unsigned result = gcd_traits<unsigned long>::find_lsb(val); val >>= result; return result; } };
+      template <> struct gcd_traits<wchar_t> : public gcd_traits_defaults<wchar_t> 
+      { BOOST_FORCEINLINE static unsigned make_odd(wchar_t& val){ unsigned result = gcd_traits<unsigned long>::find_lsb(val); val >>= result; return result; } };
+#ifdef _M_X64
+      template <> struct gcd_traits<__int64> : public gcd_traits_defaults<__int64> 
+      { BOOST_FORCEINLINE static unsigned make_odd(__int64& val){ unsigned result = gcd_traits<unsigned __int64>::find_lsb(val); val >>= result; return result; } };
+#endif
 
-template < typename IntegerType >
-class gcd_evaluator
-{
-public:
-    // Types
-    typedef IntegerType  result_type, first_argument_type, second_argument_type;
+#elif defined(BOOST_GCC) || defined(__clang__) || (defined(BOOST_INTEL) && defined(__GNUC__))
 
-    // Function object interface
-    result_type  operator ()( first_argument_type const &a,
-     second_argument_type const &b ) const;
-
-};  // boost::math::gcd_evaluator
-
-
-//  Least common multiple evaluator class declaration  -----------------------//
-
-template < typename IntegerType >
-class lcm_evaluator
-{
-public:
-    // Types
-    typedef IntegerType  result_type, first_argument_type, second_argument_type;
-
-    // Function object interface
-    result_type  operator ()( first_argument_type const &a,
-     second_argument_type const &b ) const;
-
-};  // boost::math::lcm_evaluator
-
-
-//  Implementation details  --------------------------------------------------//
+      template <>
+      struct gcd_traits<unsigned> : public gcd_traits_defaults<unsigned>
+      {
+         BOOST_FORCEINLINE static unsigned find_lsb(unsigned mask)
+         {
+            return __builtin_ctz(mask);
+         }
+         BOOST_FORCEINLINE static unsigned make_odd(unsigned& val)
+         {
+            unsigned result = find_lsb(val);
+            val >>= result;
+            return result;
+         }
+      };
+      template <>
+      struct gcd_traits<unsigned long> : public gcd_traits_defaults<unsigned long>
+      {
+         BOOST_FORCEINLINE static unsigned find_lsb(unsigned long mask)
+         {
+            return __builtin_ctzl(mask);
+         }
+         BOOST_FORCEINLINE static unsigned make_odd(unsigned long& val)
+         {
+            unsigned result = find_lsb(val);
+            val >>= result;
+            return result;
+         }
+      };
+      template <>
+      struct gcd_traits<boost::ulong_long_type> : public gcd_traits_defaults<boost::ulong_long_type>
+      {
+         BOOST_FORCEINLINE static unsigned find_lsb(boost::ulong_long_type mask)
+         {
+            return __builtin_ctzll(mask);
+         }
+         BOOST_FORCEINLINE static unsigned make_odd(boost::ulong_long_type& val)
+         {
+            unsigned result = find_lsb(val);
+            val >>= result;
+            return result;
+         }
+      };
+      //
+      // Other integer type are trivial adaptations of the above,
+      // this works for signed types too, as by the time these functions
+      // are called, all values are > 0.
+      //
+      template <> struct gcd_traits<boost::long_long_type> : public gcd_traits_defaults<boost::long_long_type>
+      {
+         BOOST_FORCEINLINE static unsigned make_odd(boost::long_long_type& val) { unsigned result = gcd_traits<boost::ulong_long_type>::find_lsb(val); val >>= result; return result; }
+      };
+      template <> struct gcd_traits<long> : public gcd_traits_defaults<long>
+      {
+         BOOST_FORCEINLINE static unsigned make_odd(long& val) { unsigned result = gcd_traits<unsigned long>::find_lsb(val); val >>= result; return result; }
+      };
+      template <> struct gcd_traits<int> : public gcd_traits_defaults<int>
+      {
+         BOOST_FORCEINLINE static unsigned make_odd(int& val) { unsigned result = gcd_traits<unsigned long>::find_lsb(val); val >>= result; return result; }
+      };
+      template <> struct gcd_traits<unsigned short> : public gcd_traits_defaults<unsigned short>
+      {
+         BOOST_FORCEINLINE static unsigned make_odd(unsigned short& val) { unsigned result = gcd_traits<unsigned>::find_lsb(val); val >>= result; return result; }
+      };
+      template <> struct gcd_traits<short> : public gcd_traits_defaults<short>
+      {
+         BOOST_FORCEINLINE static unsigned make_odd(short& val) { unsigned result = gcd_traits<unsigned>::find_lsb(val); val >>= result; return result; }
+      };
+      template <> struct gcd_traits<unsigned char> : public gcd_traits_defaults<unsigned char>
+      {
+         BOOST_FORCEINLINE static unsigned make_odd(unsigned char& val) { unsigned result = gcd_traits<unsigned>::find_lsb(val); val >>= result; return result; }
+      };
+      template <> struct gcd_traits<signed char> : public gcd_traits_defaults<signed char>
+      {
+         BOOST_FORCEINLINE static signed make_odd(signed char& val) { signed result = gcd_traits<unsigned>::find_lsb(val); val >>= result; return result; }
+      };
+      template <> struct gcd_traits<char> : public gcd_traits_defaults<char>
+      {
+         BOOST_FORCEINLINE static unsigned make_odd(char& val) { unsigned result = gcd_traits<unsigned>::find_lsb(val); val >>= result; return result; }
+      };
+      template <> struct gcd_traits<wchar_t> : public gcd_traits_defaults<wchar_t>
+      {
+         BOOST_FORCEINLINE static unsigned make_odd(wchar_t& val) { unsigned result = gcd_traits<unsigned>::find_lsb(val); val >>= result; return result; }
+      };
+#endif
 
 namespace detail
 {
-    // Greatest common divisor for rings (including unsigned integers)
-    template < typename RingType >
-    RingType
-    gcd_euclidean
-    (
-        RingType a,
-        RingType b
-    )
+    
+   //
+   // The Mixed Binary Euclid Algorithm
+   // Sidi Mohamed Sedjelmaci
+   // Electronic Notes in Discrete Mathematics 35 (2009) 169-176
+   //
+   template <class T>
+   T mixed_binary_gcd(T u, T v)
+   {
+      using std::swap;
+      if(gcd_traits<T>::less(u, v))
+         swap(u, v);
+
+      unsigned shifts = 0;
+
+      if(!u)
+         return v;
+      if(!v)
+         return u;
+
+      shifts = (std::min)(gcd_traits<T>::make_odd(u), gcd_traits<T>::make_odd(v));
+
+      while(gcd_traits<T>::less(1, v))
+      {
+         u %= v;
+         v -= u;
+         if(!u)
+            return v << shifts;
+         if(!v)
+            return u << shifts;
+         gcd_traits<T>::make_odd(u);
+         gcd_traits<T>::make_odd(v);
+         if(gcd_traits<T>::less(u, v))
+            swap(u, v);
+      }
+      return (v == 1 ? v : u) << shifts;
+   }
+
+    /** Stein gcd (aka 'binary gcd')
+     * 
+     * From Mathematics to Generic Programming, Alexander Stepanov, Daniel Rose
+     */
+    template <typename SteinDomain>
+    SteinDomain Stein_gcd(SteinDomain m, SteinDomain n)
     {
-        // Avoid repeated construction
-        #ifndef __BORLANDC__
-        RingType const  zero = static_cast<RingType>( 0 );
-        #else
-        RingType  zero = static_cast<RingType>( 0 );
-        #endif
-
-        // Reduce by GCD-remainder property [GCD(a,b) == GCD(b,a MOD b)]
-        while ( true )
+        using std::swap;
+        BOOST_ASSERT(m >= 0);
+        BOOST_ASSERT(n >= 0);
+        if (m == SteinDomain(0))
+            return n;
+        if (n == SteinDomain(0))
+            return m;
+        // m > 0 && n > 0
+        int d_m = gcd_traits<SteinDomain>::make_odd(m);
+        int d_n = gcd_traits<SteinDomain>::make_odd(n);
+        // odd(m) && odd(n)
+        while (m != n)
         {
-            if ( a == zero )
-                return b;
-            b %= a;
+            if (n > m)
+                swap(n, m);
+            m -= n;
+            gcd_traits<SteinDomain>::make_odd(m);
+        }
+        // m == n
+        m <<= (std::min)(d_m, d_n);
+        return m;
+    }
 
-            if ( b == zero )
-                return a;
+    
+    /** Euclidean algorithm
+     * 
+     * From Mathematics to Generic Programming, Alexander Stepanov, Daniel Rose
+     * 
+     */
+    template <typename EuclideanDomain>
+    inline EuclideanDomain Euclid_gcd(EuclideanDomain a, EuclideanDomain b)
+    {
+        using std::swap;
+        while (b != EuclideanDomain(0))
+        {
             a %= b;
+            swap(a, b);
         }
+        return a;
     }
 
-    // Greatest common divisor for (signed) integers
-    template < typename IntegerType >
-    inline
-    IntegerType
-    gcd_integer
-    (
-        IntegerType const &  a,
-        IntegerType const &  b
-    )
-    {
-        // Avoid repeated construction
-        IntegerType const  zero = static_cast<IntegerType>( 0 );
-        IntegerType const  result = gcd_euclidean( a, b );
 
-        return ( result < zero ) ? static_cast<IntegerType>(-result) : result;
+    template <typename T>
+    inline BOOST_DEDUCED_TYPENAME enable_if_c<gcd_traits<T>::method == gcd_traits<T>::method_mixed, T>::type
+       optimal_gcd_select(T const &a, T const &b)
+    {
+       return detail::mixed_binary_gcd(a, b);
     }
 
-    // Greatest common divisor for unsigned binary integers
-    template < typename BuiltInUnsigned >
-    BuiltInUnsigned
-    gcd_binary
-    (
-        BuiltInUnsigned  u,
-        BuiltInUnsigned  v
-    )
+    template <typename T>
+    inline BOOST_DEDUCED_TYPENAME enable_if_c<gcd_traits<T>::method == gcd_traits<T>::method_binary, T>::type
+       optimal_gcd_select(T const &a, T const &b)
     {
-        if ( u && v )
-        {
-            // Shift out common factors of 2
-            unsigned  shifts = 0;
+       return detail::Stein_gcd(a, b);
+    }
 
-            while ( !(u & 1u) && !(v & 1u) )
-            {
-                ++shifts;
-                u >>= 1;
-                v >>= 1;
-            }
+    template <typename T>
+    inline BOOST_DEDUCED_TYPENAME enable_if_c<gcd_traits<T>::method == gcd_traits<T>::method_euclid, T>::type
+       optimal_gcd_select(T const &a, T const &b)
+    {
+       return detail::Euclid_gcd(a, b);
+    }
 
-            // Start with the still-even one, if any
-            BuiltInUnsigned  r[] = { u, v };
-            unsigned         which = static_cast<bool>( u & 1u );
-
-            // Whittle down the values via their differences
-            do
-            {
-#if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x582))
-                while ( !(r[ which ] & 1u) )
-                {
-                    r[ which ] = (r[which] >> 1);
-                }
+    template <class T>
+    inline T lcm_imp(const T& a, const T& b)
+    {
+       T temp = boost::math::detail::optimal_gcd_select(a, b);
+#if BOOST_WORKAROUND(BOOST_GCC_VERSION, < 40500)
+       return (temp != T(0)) ? T(a / temp * b) : T(0);
 #else
-                // Remove factors of two from the even one
-                while ( !(r[ which ] & 1u) )
-                {
-                    r[ which ] >>= 1;
-                }
+       return temp ? T(a / temp * b) : T(0);
 #endif
-
-                // Replace the larger of the two with their difference
-                if ( r[!which] > r[which] )
-                {
-                    which ^= 1u;
-                }
-
-                r[ which ] -= r[ !which ];
-            }
-            while ( r[which] );
-
-            // Shift-in the common factor of 2 to the residues' GCD
-            return r[ !which ] << shifts;
-        }
-        else
-        {
-            // At least one input is zero, return the other
-            // (adding since zero is the additive identity)
-            // or zero if both are zero.
-            return u + v;
-        }
     }
 
-    // Least common multiple for rings (including unsigned integers)
-    template < typename RingType >
-    inline
-    RingType
-    lcm_euclidean
-    (
-        RingType const &  a,
-        RingType const &  b
-    )
-    {
-        RingType const  zero = static_cast<RingType>( 0 );
-        RingType const  temp = gcd_euclidean( a, b );
-
-        return ( temp != zero ) ? ( a / temp * b ) : zero;
-    }
-
-    // Least common multiple for (signed) integers
-    template < typename IntegerType >
-    inline
-    IntegerType
-    lcm_integer
-    (
-        IntegerType const &  a,
-        IntegerType const &  b
-    )
-    {
-        // Avoid repeated construction
-        IntegerType const  zero = static_cast<IntegerType>( 0 );
-        IntegerType const  result = lcm_euclidean( a, b );
-
-        return ( result < zero ) ? static_cast<IntegerType>(-result) : result;
-    }
-
-    // Function objects to find the best way of computing GCD or LCM
-#ifndef BOOST_NO_LIMITS_COMPILE_TIME_CONSTANTS
-    template < typename T, bool IsSpecialized, bool IsSigned >
-    struct gcd_optimal_evaluator_helper_t
-    {
-        T  operator ()( T const &a, T const &b )
-        {
-            return gcd_euclidean( a, b );
-        }
-    };
-
-    template < typename T >
-    struct gcd_optimal_evaluator_helper_t< T, true, true >
-    {
-        T  operator ()( T const &a, T const &b )
-        {
-            return gcd_integer( a, b );
-        }
-    };
-
-    template < typename T >
-    struct gcd_optimal_evaluator
-    {
-        T  operator ()( T const &a, T const &b )
-        {
-            typedef ::std::numeric_limits<T>  limits_type;
-
-            typedef gcd_optimal_evaluator_helper_t<T,
-             limits_type::is_specialized, limits_type::is_signed>  helper_type;
-
-            helper_type  solver;
-
-            return solver( a, b );
-        }
-    };
-#else // BOOST_NO_LIMITS_COMPILE_TIME_CONSTANTS
-    template < typename T >
-    struct gcd_optimal_evaluator
-    {
-        T  operator ()( T const &a, T const &b )
-        {
-            return gcd_integer( a, b );
-        }
-    };
-#endif
-
-    // Specialize for the built-in integers
-#define BOOST_PRIVATE_GCD_UF( Ut )                  \
-    template < >  struct gcd_optimal_evaluator<Ut>  \
-    {  Ut  operator ()( Ut a, Ut b ) const  { return gcd_binary( a, b ); }  }
-
-    BOOST_PRIVATE_GCD_UF( unsigned char );
-    BOOST_PRIVATE_GCD_UF( unsigned short );
-    BOOST_PRIVATE_GCD_UF( unsigned );
-    BOOST_PRIVATE_GCD_UF( unsigned long );
-
-#ifdef BOOST_HAS_LONG_LONG
-    BOOST_PRIVATE_GCD_UF( boost::ulong_long_type );
-#elif defined(BOOST_HAS_MS_INT64)
-    BOOST_PRIVATE_GCD_UF( unsigned __int64 );
-#endif
-
-#if CHAR_MIN == 0
-    BOOST_PRIVATE_GCD_UF( char ); // char is unsigned
-#endif
-
-#undef BOOST_PRIVATE_GCD_UF
-
-#define BOOST_PRIVATE_GCD_SF( St, Ut )                            \
-    template < >  struct gcd_optimal_evaluator<St>                \
-    {  St  operator ()( St a, St b ) const  { Ut const  a_abs =   \
-    static_cast<Ut>( a < 0 ? -a : +a ), b_abs = static_cast<Ut>(  \
-    b < 0 ? -b : +b ); return static_cast<St>(                    \
-    gcd_optimal_evaluator<Ut>()(a_abs, b_abs) ); }  }
-
-    BOOST_PRIVATE_GCD_SF( signed char, unsigned char );
-    BOOST_PRIVATE_GCD_SF( short, unsigned short );
-    BOOST_PRIVATE_GCD_SF( int, unsigned );
-    BOOST_PRIVATE_GCD_SF( long, unsigned long );
-
-#if CHAR_MIN < 0
-    BOOST_PRIVATE_GCD_SF( char, unsigned char ); // char is signed
-#endif
-
-#ifdef BOOST_HAS_LONG_LONG
-    BOOST_PRIVATE_GCD_SF( boost::long_long_type, boost::ulong_long_type );
-#elif defined(BOOST_HAS_MS_INT64)
-    BOOST_PRIVATE_GCD_SF( __int64, unsigned __int64 );
-#endif
-
-#undef BOOST_PRIVATE_GCD_SF
-
-#ifndef BOOST_NO_LIMITS_COMPILE_TIME_CONSTANTS
-    template < typename T, bool IsSpecialized, bool IsSigned >
-    struct lcm_optimal_evaluator_helper_t
-    {
-        T  operator ()( T const &a, T const &b )
-        {
-            return lcm_euclidean( a, b );
-        }
-    };
-
-    template < typename T >
-    struct lcm_optimal_evaluator_helper_t< T, true, true >
-    {
-        T  operator ()( T const &a, T const &b )
-        {
-            return lcm_integer( a, b );
-        }
-    };
-
-    template < typename T >
-    struct lcm_optimal_evaluator
-    {
-        T  operator ()( T const &a, T const &b )
-        {
-            typedef ::std::numeric_limits<T>  limits_type;
-
-            typedef lcm_optimal_evaluator_helper_t<T,
-             limits_type::is_specialized, limits_type::is_signed>  helper_type;
-
-            helper_type  solver;
-
-            return solver( a, b );
-        }
-    };
-#else // BOOST_NO_LIMITS_COMPILE_TIME_CONSTANTS
-    template < typename T >
-    struct lcm_optimal_evaluator
-    {
-        T  operator ()( T const &a, T const &b )
-        {
-            return lcm_integer( a, b );
-        }
-    };
-#endif
-
-    // Functions to find the GCD or LCM in the best way
-    template < typename T >
-    inline
-    T
-    gcd_optimal
-    (
-        T const &  a,
-        T const &  b
-    )
-    {
-        gcd_optimal_evaluator<T>  solver;
-
-        return solver( a, b );
-    }
-
-    template < typename T >
-    inline
-    T
-    lcm_optimal
-    (
-        T const &  a,
-        T const &  b
-    )
-    {
-        lcm_optimal_evaluator<T>  solver;
-
-        return solver( a, b );
-    }
-
-}  // namespace detail
+} // namespace detail
 
 
-//  Greatest common divisor evaluator member function definition  ------------//
-
-template < typename IntegerType >
-inline
-typename gcd_evaluator<IntegerType>::result_type
-gcd_evaluator<IntegerType>::operator ()
-(
-    first_argument_type const &   a,
-    second_argument_type const &  b
-) const
+template <typename Integer>
+inline Integer gcd(Integer const &a, Integer const &b)
 {
-    return detail::gcd_optimal( a, b );
+    return detail::optimal_gcd_select(static_cast<Integer>(gcd_traits<Integer>::abs(a)), static_cast<Integer>(gcd_traits<Integer>::abs(b)));
 }
 
-
-//  Least common multiple evaluator member function definition  --------------//
-
-template < typename IntegerType >
-inline
-typename lcm_evaluator<IntegerType>::result_type
-lcm_evaluator<IntegerType>::operator ()
-(
-    first_argument_type const &   a,
-    second_argument_type const &  b
-) const
+template <typename Integer>
+inline Integer lcm(Integer const &a, Integer const &b)
 {
-    return detail::lcm_optimal( a, b );
+   return detail::lcm_imp(static_cast<Integer>(gcd_traits<Integer>::abs(a)), static_cast<Integer>(gcd_traits<Integer>::abs(b)));
 }
 
-
-//  Greatest common divisor and least common multiple function definitions  --//
-
-template < typename IntegerType >
-inline
-IntegerType
-gcd
-(
-    IntegerType const &  a,
-    IntegerType const &  b
-)
+/**
+ * Knuth, The Art of Computer Programming: Volume 2, Third edition, 1998
+ * Chapter 4.5.2, Algorithm C: Greatest common divisor of n integers.
+ *
+ * Knuth counts down from n to zero but we naturally go from first to last.
+ * We also return the termination position because it might be useful to know.
+ * 
+ * Partly by quirk, partly by design, this algorithm is defined for n = 1, 
+ * because the gcd of {x} is x. It is not defined for n = 0.
+ * 
+ * @tparam  I   Input iterator.
+ * @return  The gcd of the range and the iterator position at termination.
+ */
+template <typename I>
+std::pair<typename std::iterator_traits<I>::value_type, I>
+gcd_range(I first, I last)
 {
-    gcd_evaluator<IntegerType>  solver;
-
-    return solver( a, b );
+    BOOST_ASSERT(first != last);
+    typedef typename std::iterator_traits<I>::value_type T;
+    
+    T d = *first++;
+    while (d != T(1) && first != last)
+    {
+        d = gcd(d, *first);
+        first++;
+    }
+    return std::make_pair(d, first);
 }
-
-template < typename IntegerType >
-inline
-IntegerType
-lcm
-(
-    IntegerType const &  a,
-    IntegerType const &  b
-)
-{
-    lcm_evaluator<IntegerType>  solver;
-
-    return solver( a, b );
-}
-
 
 }  // namespace math
 }  // namespace boost

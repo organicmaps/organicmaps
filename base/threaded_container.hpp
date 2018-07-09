@@ -4,7 +4,7 @@
 #include "base/condition.hpp"
 #include "base/timer.hpp"
 
-struct ThreadedContainer : public my::Cancellable
+struct ThreadedContainer : public base::Cancellable
 {
 protected:
 

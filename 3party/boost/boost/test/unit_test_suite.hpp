@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2001-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -18,7 +18,13 @@
 #include <boost/test/tree/test_case_template.hpp>
 #include <boost/test/tree/global_fixture.hpp>
 
+
+#include <boost/test/detail/suppress_warnings.hpp>
+
+
 #include <boost/test/detail/pp_variadic.hpp>
+
+
 
 //____________________________________________________________________________//
 
@@ -114,9 +120,9 @@ typedef F BOOST_AUTO_TEST_CASE_FIXTURE;                                 \
 // **************           BOOST_AUTO_TEST_SUITE_END          ************** //
 // ************************************************************************** //
 
-#define BOOST_AUTO_TEST_SUITE_END()                                     \
-BOOST_AUTO_TU_REGISTRAR( BOOST_JOIN( end_suite, __LINE__ ) )( 1 );      \
-}                                                                       \
+#define BOOST_AUTO_TEST_SUITE_END()             \
+BOOST_AUTO_TU_REGISTRAR( end_suite )( 1 );      \
+}                                               \
 /**/
 
 // ************************************************************************** //
@@ -293,7 +299,7 @@ static boost::unit_test::ut_detail::global_fixture_impl<F> BOOST_JOIN( gf_, F ) 
 
 #define BOOST_TEST_DECORATOR( D )                                       \
 static boost::unit_test::decorator::collector const&                    \
-BOOST_JOIN(decorator_collector,__LINE__) = D;                           \
+BOOST_TEST_APPEND_UNIQUE_ID(decorator_collector) = D;                   \
 /**/
 
 // ************************************************************************** //
@@ -315,9 +321,25 @@ typedef ::boost::unit_test::ut_detail::nil_t BOOST_AUTO_TEST_CASE_FIXTURE;
 // **************   Auto registration facility helper macros   ************** //
 // ************************************************************************** //
 
-#define BOOST_AUTO_TU_REGISTRAR( test_name )                    \
-static boost::unit_test::ut_detail::auto_test_unit_registrar    \
-BOOST_JOIN( BOOST_JOIN( test_name, _registrar ), __LINE__ )     \
+// Facility for having a unique name based on __LINE__ and __COUNTER__ (later if available)
+#if defined(__COUNTER__) 
+  #define BOOST_TEST_INTERNAL_HAS_COUNTER
+#endif
+
+#if defined(BOOST_TEST_INTERNAL_HAS_COUNTER)
+  #define BOOST_TEST_APPEND_UNIQUE_ID( name ) \
+  BOOST_JOIN( BOOST_JOIN( name, __LINE__ ), __COUNTER__)
+  /**/
+#else
+  #define BOOST_TEST_APPEND_UNIQUE_ID( name ) \
+  BOOST_JOIN( name, __LINE__ )
+  /**/
+#endif
+/**/
+
+#define BOOST_AUTO_TU_REGISTRAR( test_name )                       \
+static boost::unit_test::ut_detail::auto_test_unit_registrar       \
+BOOST_TEST_APPEND_UNIQUE_ID( BOOST_JOIN( test_name, _registrar ) ) \
 /**/
 #define BOOST_AUTO_TC_INVOKER( test_name )      BOOST_JOIN( test_name, _invoker )
 #define BOOST_AUTO_TC_UNIQUE_ID( test_name )    BOOST_JOIN( test_name, _id )
@@ -352,6 +374,9 @@ init_unit_test_suite( int, char* [] )   {
 #endif
 
 //____________________________________________________________________________//
+
+#include <boost/test/detail/enable_warnings.hpp>
+
 
 #endif // BOOST_TEST_UNIT_TEST_SUITE_HPP_071894GER
 

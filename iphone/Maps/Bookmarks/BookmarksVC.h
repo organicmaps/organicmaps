@@ -1,10 +1,11 @@
 #import "MWMTableViewController.h"
+#import "MWMTypes.h"
 
 @interface BookmarksVC : MWMTableViewController <UITextFieldDelegate>
 {
-  NSUInteger m_categoryIndex;
+  MWMMarkGroupID m_categoryId;
 }
 
-- (instancetype)initWithCategory:(NSUInteger)index;
+- (instancetype)initWithCategory:(MWMMarkGroupID)index;
 
 @end

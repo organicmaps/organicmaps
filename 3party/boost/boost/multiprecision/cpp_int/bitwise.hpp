@@ -8,6 +8,11 @@
 #ifndef BOOST_MP_CPP_INT_BIT_HPP
 #define BOOST_MP_CPP_INT_BIT_HPP
 
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable:4319)
+#endif
+
 namespace boost{ namespace multiprecision{ namespace backends{
 
 template <unsigned MinBits1, unsigned MaxBits1, cpp_integer_type SignType1, cpp_int_check_type Checked1, class Allocator1, unsigned MinBits2, unsigned MaxBits2, cpp_integer_type SignType2, cpp_int_check_type Checked2, class Allocator2>
@@ -301,6 +306,125 @@ BOOST_MP_FORCEINLINE typename enable_if_c<is_unsigned_number<cpp_int_backend<Min
    result.normalize();
 }
 
+template <class Int>
+inline void left_shift_byte(Int& result, double_limb_type s)
+{
+   limb_type offset = static_cast<limb_type>(s / Int::limb_bits);
+   limb_type shift = static_cast<limb_type>(s % Int::limb_bits);
+   unsigned ors = result.size();
+   if((ors == 1) && (!*result.limbs()))
+      return; // shifting zero yields zero.
+   unsigned rs = ors;
+   if(shift && (result.limbs()[ors - 1] >> (Int::limb_bits - shift)))
+      ++rs; // Most significant limb will overflow when shifted
+   rs += offset;
+   result.resize(rs, rs);
+   rs = result.size();
+
+   typename Int::limb_pointer pr = result.limbs();
+
+   if(rs != ors)
+      pr[rs - 1] = 0u;
+   std::size_t bytes = static_cast<std::size_t>(s / CHAR_BIT);
+   std::size_t len = (std::min)(ors * sizeof(limb_type), rs * sizeof(limb_type) - bytes);
+   if(bytes >= rs * sizeof(limb_type))
+      result = static_cast<limb_type>(0u);
+   else
+   {
+      unsigned char* pc = reinterpret_cast<unsigned char*>(pr);
+      std::memmove(pc + bytes, pc, len);
+      std::memset(pc, 0, bytes);
+   }
+}
+
+template <class Int>
+inline void left_shift_limb(Int& result, double_limb_type s)
+{
+   limb_type offset = static_cast<limb_type>(s / Int::limb_bits);
+   limb_type shift = static_cast<limb_type>(s % Int::limb_bits);
+
+   unsigned ors = result.size();
+   if((ors == 1) && (!*result.limbs()))
+      return; // shifting zero yields zero.
+   unsigned rs = ors;
+   if(shift && (result.limbs()[ors - 1] >> (Int::limb_bits - shift)))
+      ++rs; // Most significant limb will overflow when shifted
+   rs += offset;
+   result.resize(rs, rs);
+
+   typename Int::limb_pointer pr = result.limbs();
+
+   if(offset > rs)
+   {
+      // The result is shifted past the end of the result:
+      result = static_cast<limb_type>(0);
+      return;
+   }
+
+   unsigned i = rs - result.size();
+   for(; i < ors; ++i)
+      pr[rs - 1 - i] = pr[ors - 1 - i];
+   for(; i < rs; ++i)
+      pr[rs - 1 - i] = 0;
+}
+
+template <class Int>
+inline void left_shift_generic(Int& result, double_limb_type s)
+{
+   limb_type offset = static_cast<limb_type>(s / Int::limb_bits);
+   limb_type shift = static_cast<limb_type>(s % Int::limb_bits);
+
+   unsigned ors = result.size();
+   if((ors == 1) && (!*result.limbs()))
+      return; // shifting zero yields zero.
+   unsigned rs = ors;
+   if(shift && (result.limbs()[ors - 1] >> (Int::limb_bits - shift)))
+      ++rs; // Most significant limb will overflow when shifted
+   rs += offset;
+   result.resize(rs, rs);
+   bool truncated = result.size() != rs;
+
+   typename Int::limb_pointer pr = result.limbs();
+
+   if(offset > rs)
+   {
+      // The result is shifted past the end of the result:
+      result = static_cast<limb_type>(0);
+      return;
+   }
+
+   unsigned i = rs - result.size();
+   // This code only works when shift is non-zero, otherwise we invoke undefined behaviour!
+   BOOST_ASSERT(shift);
+   if(!truncated)
+   {
+      if(rs > ors + offset)
+      {
+         pr[rs - 1 - i] = pr[ors - 1 - i] >> (Int::limb_bits - shift);
+         --rs;
+      }
+      else
+      {
+         pr[rs - 1 - i] = pr[ors - 1 - i] << shift;
+         if(ors > 1)
+            pr[rs - 1 - i] |= pr[ors - 2 - i] >> (Int::limb_bits - shift);
+         ++i;
+      }
+   }
+   for(; rs - i >= 2 + offset; ++i)
+   {
+      pr[rs - 1 - i] = pr[rs - 1 - i - offset] << shift;
+      pr[rs - 1 - i] |= pr[rs - 2 - i - offset] >> (Int::limb_bits - shift);
+   }
+   if(rs - i >= 1 + offset)
+   {
+      pr[rs - 1 - i] = pr[rs - 1 - i - offset] << shift;
+      ++i;
+   }
+   for(; i < rs; ++i)
+      pr[rs - 1 - i] = 0;
+}
+
 template <unsigned MinBits1, unsigned MaxBits1, cpp_integer_type SignType1, cpp_int_check_type Checked1, class Allocator1>
 inline typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value>::type
    eval_left_shift(
@@ -311,66 +435,33 @@ inline typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<MinBits1, MaxBit
    if(!s)
       return;
 
-   limb_type offset = static_cast<limb_type>(s / cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::limb_bits);
-   limb_type shift  = static_cast<limb_type>(s % cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::limb_bits);
-
-   unsigned ors = result.size();
-   if((ors == 1) && (!*result.limbs()))
-      return; // shifting zero yields zero.
-   unsigned rs = ors;
-   if(shift && (result.limbs()[ors - 1] >> (cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::limb_bits - shift)))
-      ++rs; // Most significant limb will overflow when shifted
-   rs += offset;
-   result.resize(rs, rs);
-   bool truncated = result.size() != rs;
-
-   typename cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::limb_pointer pr = result.limbs();
-
-   if(offset > rs)
+#if defined(BOOST_LITTLE_ENDIAN) && defined(BOOST_MP_USE_LIMB_SHIFT)
+   static const limb_type limb_shift_mask = cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::limb_bits - 1;
+   static const limb_type byte_shift_mask = CHAR_BIT - 1;
+   if((s & limb_shift_mask) == 0)
    {
-      // The result is shifted past the end of the result:
-      result = static_cast<limb_type>(0);
-      return;
+      left_shift_limb(result, s);
    }
-
-   unsigned i = rs - result.size();
-   if(shift)
+   else if((s & byte_shift_mask) == 0)
    {
-      // This code only works when shift is non-zero, otherwise we invoke undefined behaviour!
-      if(!truncated)
-      {
-         if(rs > ors + offset)
-         {
-            pr[rs - 1 - i] = pr[ors - 1 - i] >> (cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::limb_bits - shift);
-            --rs;
-         }
-         else
-         {
-            pr[rs - 1 - i] = pr[ors - 1 - i] << shift;
-            if(ors > 1)
-               pr[rs - 1 - i] |= pr[ors - 2 - i] >> (cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::limb_bits - shift);
-            ++i;
-         }
-      }
-      for(; ors > 1 + i; ++i)
-      {
-         pr[rs - 1 - i] = pr[ors - 1 - i] << shift;
-         pr[rs - 1 - i] |= pr[ors - 2 - i] >> (cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::limb_bits - shift);
-      }
-      if(ors >= 1 + i)
-      {
-         pr[rs - 1 - i] = pr[ors - 1 - i] << shift;
-         ++i;
-      }
-      for(; i < rs; ++i)
-         pr[rs - 1 - i] = 0;
+      left_shift_byte(result, s);
    }
+#elif defined(BOOST_LITTLE_ENDIAN)
+   static const limb_type byte_shift_mask = CHAR_BIT - 1;
+   if((s & byte_shift_mask) == 0)
+   {
+      left_shift_byte(result, s);
+   }
+#else
+   static const limb_type limb_shift_mask = cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::limb_bits - 1;
+   if((s & limb_shift_mask) == 0)
+   {
+      left_shift_limb(result, s);
+   }
+#endif
    else
    {
-      for(; i < ors; ++i)
-         pr[rs - 1 - i] = pr[ors - 1 - i];
-      for(; i < rs; ++i)
-         pr[rs - 1 - i] = 0;
+      left_shift_generic(result, s);
    }
    //
    // We may have shifted off the end and have leading zeros:
@@ -378,13 +469,125 @@ inline typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<MinBits1, MaxBit
    result.normalize();
 }
 
-template <unsigned MinBits1, unsigned MaxBits1, cpp_integer_type SignType1, cpp_int_check_type Checked1, class Allocator1>
-inline typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value>::type
-   eval_right_shift(
-      cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>& result,
-      double_limb_type s) BOOST_MP_NOEXCEPT_IF((is_non_throwing_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value))
+template <class Int>
+inline void right_shift_byte(Int& result, double_limb_type s)
 {
-   is_valid_bitwise_op(result, typename cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::checked_type());
+   limb_type offset = static_cast<limb_type>(s / Int::limb_bits);
+   limb_type shift;
+   BOOST_ASSERT((s % CHAR_BIT) == 0);
+   unsigned ors = result.size();
+   unsigned rs = ors;
+   if(offset >= rs)
+   {
+      result = limb_type(0);
+      return;
+   }
+   rs -= offset;
+   typename Int::limb_pointer pr = result.limbs();
+   unsigned char* pc = reinterpret_cast<unsigned char*>(pr);
+   shift = static_cast<limb_type>(s / CHAR_BIT);
+   std::memmove(pc, pc + shift, ors * sizeof(pr[0]) - shift);
+   shift = (sizeof(limb_type) - shift % sizeof(limb_type)) * CHAR_BIT;
+   if(shift < Int::limb_bits)
+   {
+      pr[ors - offset - 1] &= (static_cast<limb_type>(1u) << shift) - 1;
+      if(!pr[ors - offset - 1] && (rs > 1))
+         --rs;
+   }
+   result.resize(rs, rs);
+}
+
+template <class Int>
+inline void right_shift_limb(Int& result, double_limb_type s)
+{
+   limb_type offset = static_cast<limb_type>(s / Int::limb_bits);
+   BOOST_ASSERT((s % Int::limb_bits) == 0);
+   unsigned ors = result.size();
+   unsigned rs = ors;
+   if(offset >= rs)
+   {
+      result = limb_type(0);
+      return;
+   }
+   rs -= offset;
+   typename Int::limb_pointer pr = result.limbs();
+   unsigned i = 0;
+   for(; i < rs; ++i)
+      pr[i] = pr[i + offset];
+   result.resize(rs, rs);
+}
+
+template <class Int>
+inline void right_shift_generic(Int& result, double_limb_type s)
+{
+   limb_type offset = static_cast<limb_type>(s / Int::limb_bits);
+   limb_type shift = static_cast<limb_type>(s % Int::limb_bits);
+   unsigned ors = result.size();
+   unsigned rs = ors;
+   if(offset >= rs)
+   {
+      result = limb_type(0);
+      return;
+   }
+   rs -= offset;
+   typename Int::limb_pointer pr = result.limbs();
+   if((pr[ors - 1] >> shift) == 0)
+   {
+      if(--rs == 0)
+      {
+         result = limb_type(0);
+         return;
+      }
+   }
+   unsigned i = 0;
+
+   // This code only works for non-zero shift, otherwise we invoke undefined behaviour!
+   BOOST_ASSERT(shift);
+   for(; i + offset + 1 < ors; ++i)
+   {
+      pr[i] = pr[i + offset] >> shift;
+      pr[i] |= pr[i + offset + 1] << (Int::limb_bits - shift);
+   }
+   pr[i] = pr[i + offset] >> shift;
+   result.resize(rs, rs);
+}
+
+template <unsigned MinBits1, unsigned MaxBits1, cpp_int_check_type Checked1, class Allocator1>
+inline typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<MinBits1, MaxBits1, unsigned_magnitude, Checked1, Allocator1> >::value>::type
+   eval_right_shift(
+      cpp_int_backend<MinBits1, MaxBits1, unsigned_magnitude, Checked1, Allocator1>& result,
+      double_limb_type s) BOOST_MP_NOEXCEPT_IF((is_non_throwing_cpp_int<cpp_int_backend<MinBits1, MaxBits1, unsigned_magnitude, Checked1, Allocator1> >::value))
+{
+   is_valid_bitwise_op(result, typename cpp_int_backend<MinBits1, MaxBits1, unsigned_magnitude, Checked1, Allocator1>::checked_type());
+   if(!s)
+      return;
+
+#if defined(BOOST_LITTLE_ENDIAN) && defined(BOOST_MP_USE_LIMB_SHIFT)
+   static const limb_type limb_shift_mask = cpp_int_backend<MinBits1, MaxBits1, signed_magnitude, Checked1, Allocator1>::limb_bits - 1;
+   static const limb_type byte_shift_mask = CHAR_BIT - 1;
+   if((s & limb_shift_mask) == 0)
+      right_shift_limb(result, s);
+   else if((s & byte_shift_mask) == 0)
+      right_shift_byte(result, s);
+#elif defined(BOOST_LITTLE_ENDIAN)
+   static const limb_type byte_shift_mask = CHAR_BIT - 1;
+   if((s & byte_shift_mask) == 0)
+      right_shift_byte(result, s);
+#else
+   static const limb_type limb_shift_mask = cpp_int_backend<MinBits1, MaxBits1, signed_magnitude, Checked1, Allocator1>::limb_bits - 1;
+   if((s & limb_shift_mask) == 0)
+      right_shift_limb(result, s);
+#endif
+   else
+      right_shift_generic(result, s);
+}
+template <unsigned MinBits1, unsigned MaxBits1, cpp_int_check_type Checked1, class Allocator1>
+inline typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<MinBits1, MaxBits1, signed_magnitude, Checked1, Allocator1> >::value>::type
+   eval_right_shift(
+      cpp_int_backend<MinBits1, MaxBits1, signed_magnitude, Checked1, Allocator1>& result,
+      double_limb_type s) BOOST_MP_NOEXCEPT_IF((is_non_throwing_cpp_int<cpp_int_backend<MinBits1, MaxBits1, signed_magnitude, Checked1, Allocator1> >::value))
+{
+   is_valid_bitwise_op(result, typename cpp_int_backend<MinBits1, MaxBits1, signed_magnitude, Checked1, Allocator1>::checked_type());
    if(!s)
       return;
 
@@ -392,47 +595,24 @@ inline typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<MinBits1, MaxBit
    if(is_neg)
       eval_increment(result);
 
-   limb_type offset = static_cast<limb_type>(s / cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::limb_bits);
-   limb_type shift  = static_cast<limb_type>(s % cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::limb_bits);
-   unsigned ors = result.size();
-   unsigned rs = ors;
-   if(offset >= rs)
-   {
-      if(is_neg)
-         result = signed_limb_type(-1);
-      else
-         result = limb_type(0);
-      return;
-   }
-   rs -= offset;
-   typename cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::limb_pointer pr = result.limbs();
-   if((pr[ors - 1] >> shift) == 0)
-      --rs;
-   if(rs == 0)
-   {
-      if(is_neg)
-         result = signed_limb_type(-1);
-      else
-         result = limb_type(0);
-      return;
-   }
-   unsigned i = 0;
-   if(shift)
-   {
-      // This code only works for non-zero shift, otherwise we invoke undefined behaviour!
-      for(; i + offset + 1 < ors; ++i)
-      {
-         pr[i] = pr[i + offset] >> shift;
-         pr[i] |= pr[i + offset + 1] << (cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::limb_bits - shift);
-      }
-      pr[i] = pr[i + offset] >> shift;
-   }
+#if defined(BOOST_LITTLE_ENDIAN) && defined(BOOST_MP_USE_LIMB_SHIFT)
+   static const limb_type limb_shift_mask = cpp_int_backend<MinBits1, MaxBits1, signed_magnitude, Checked1, Allocator1>::limb_bits - 1;
+   static const limb_type byte_shift_mask = CHAR_BIT - 1;
+   if((s & limb_shift_mask) == 0)
+      right_shift_limb(result, s);
+   else if((s & byte_shift_mask) == 0)
+      right_shift_byte(result, s);
+#elif defined(BOOST_LITTLE_ENDIAN)
+   static const limb_type byte_shift_mask = CHAR_BIT - 1;
+   if((s & byte_shift_mask) == 0)
+      right_shift_byte(result, s);
+#else
+   static const limb_type limb_shift_mask = cpp_int_backend<MinBits1, MaxBits1, signed_magnitude, Checked1, Allocator1>::limb_bits - 1;
+   if((s & limb_shift_mask) == 0)
+      right_shift_limb(result, s);
+#endif
    else
-   {
-      for(; i < rs; ++i)
-         pr[i] = pr[i + offset];
-   }
-   result.resize(rs, rs);
+      right_shift_generic(result, s);
    if(is_neg)
       eval_decrement(result);
 }
@@ -455,7 +635,65 @@ BOOST_MP_FORCEINLINE typename enable_if<is_trivial_cpp_int<cpp_int_backend<MinBi
 {
    // Nothing to check here... just make sure we don't invoke undefined behavior:
    is_valid_bitwise_op(result, typename cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::checked_type());
-   *result.limbs() = (static_cast<unsigned>(s) >= sizeof(*result.limbs()) * CHAR_BIT) ? 0 : *result.limbs() >> s;
+   *result.limbs() = (static_cast<unsigned>(s) >= sizeof(*result.limbs()) * CHAR_BIT) ? 0 : (result.sign() ? ((--*result.limbs()) >> s) + 1 : *result.limbs() >> s);
+   if(result.sign() && (*result.limbs() == 0))
+      result = static_cast<signed_limb_type>(-1);
+}
+
+template <unsigned MinBits1, unsigned MaxBits1, cpp_integer_type SignType1, cpp_int_check_type Checked1, class Allocator1, unsigned MinBits2, unsigned MaxBits2, cpp_integer_type SignType2, cpp_int_check_type Checked2, class Allocator2>
+inline typename enable_if_c<
+         is_trivial_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value
+         && is_trivial_cpp_int<cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2> >::value
+         && (is_signed_number<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value || is_signed_number<cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2> >::value)
+         >::type
+   eval_complement(
+      cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>& result,
+      const cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2>& o) BOOST_MP_NOEXCEPT_IF((is_non_throwing_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value))
+{
+   BOOST_STATIC_ASSERT_MSG(((Checked1 != checked) || (Checked2 != checked)), "Attempt to take the complement of a signed type results in undefined behavior.");
+   //
+   // If we're not checked then emulate 2's complement behavior:
+   //
+   if(o.sign())
+   {
+      *result.limbs() = *o.limbs() - 1;
+      result.sign(false);
+   }
+   else
+   {
+      *result.limbs() = 1 + *o.limbs();
+      result.sign(true);
+   }
+   result.normalize();
+}
+
+template <unsigned MinBits1, unsigned MaxBits1, cpp_integer_type SignType1, cpp_int_check_type Checked1, class Allocator1, unsigned MinBits2, unsigned MaxBits2, cpp_integer_type SignType2, cpp_int_check_type Checked2, class Allocator2>
+inline typename enable_if_c<
+         is_trivial_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value
+         && is_trivial_cpp_int<cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2> >::value
+         && is_unsigned_number<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value
+         && is_unsigned_number<cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2> >::value
+         >::type
+   eval_complement(
+      cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>& result,
+      const cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2>& o) BOOST_MP_NOEXCEPT_IF((is_non_throwing_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value))
+{
+   *result.limbs() = ~*o.limbs();
+   result.normalize();
+}
+
+template <unsigned MinBits1, unsigned MaxBits1, cpp_integer_type SignType1, cpp_int_check_type Checked1, class Allocator1, unsigned MinBits2, unsigned MaxBits2, cpp_integer_type SignType2, cpp_int_check_type Checked2, class Allocator2>
+inline typename enable_if_c<
+         is_trivial_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value
+         && is_trivial_cpp_int<cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2> >::value
+         && is_unsigned_number<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value
+         && is_unsigned_number<cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2> >::value
+         >::type
+   eval_bitwise_and(
+      cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>& result,
+      const cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2>& o) BOOST_MP_NOEXCEPT_IF((is_non_throwing_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value))
+{
+   *result.limbs() &= *o.limbs();
 }
 
 template <unsigned MinBits1, unsigned MaxBits1, cpp_integer_type SignType1, cpp_int_check_type Checked1, class Allocator1, unsigned MinBits2, unsigned MaxBits2, cpp_integer_type SignType2, cpp_int_check_type Checked2, class Allocator2>
@@ -501,11 +739,11 @@ inline typename enable_if_c<
          && is_unsigned_number<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value
          && is_unsigned_number<cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2> >::value
          >::type
-   eval_bitwise_and(
+   eval_bitwise_or(
       cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>& result,
       const cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2>& o) BOOST_MP_NOEXCEPT_IF((is_non_throwing_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value))
 {
-   *result.limbs() &= *o.limbs();
+   *result.limbs() |= *o.limbs();
 }
 
 template <unsigned MinBits1, unsigned MaxBits1, cpp_integer_type SignType1, cpp_int_check_type Checked1, class Allocator1, unsigned MinBits2, unsigned MaxBits2, cpp_integer_type SignType2, cpp_int_check_type Checked2, class Allocator2>
@@ -552,11 +790,11 @@ inline typename enable_if_c<
          && is_unsigned_number<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value
          && is_unsigned_number<cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2> >::value
          >::type
-   eval_bitwise_or(
+   eval_bitwise_xor(
       cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>& result,
       const cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2>& o) BOOST_MP_NOEXCEPT_IF((is_non_throwing_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value))
 {
-   *result.limbs() |= *o.limbs();
+   *result.limbs() ^= *o.limbs();
 }
 
 template <unsigned MinBits1, unsigned MaxBits1, cpp_integer_type SignType1, cpp_int_check_type Checked1, class Allocator1, unsigned MinBits2, unsigned MaxBits2, cpp_integer_type SignType2, cpp_int_check_type Checked2, class Allocator2>
@@ -595,62 +833,10 @@ inline typename enable_if_c<
    }
 }
 
-template <unsigned MinBits1, unsigned MaxBits1, cpp_integer_type SignType1, cpp_int_check_type Checked1, class Allocator1, unsigned MinBits2, unsigned MaxBits2, cpp_integer_type SignType2, cpp_int_check_type Checked2, class Allocator2>
-inline typename enable_if_c<
-         is_trivial_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value
-         && is_trivial_cpp_int<cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2> >::value
-         && is_unsigned_number<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value
-         && is_unsigned_number<cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2> >::value
-         >::type
-   eval_bitwise_xor(
-      cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>& result,
-      const cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2>& o) BOOST_MP_NOEXCEPT_IF((is_non_throwing_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value))
-{
-   *result.limbs() ^= *o.limbs();
-}
-
-template <unsigned MinBits1, unsigned MaxBits1, cpp_integer_type SignType1, cpp_int_check_type Checked1, class Allocator1, unsigned MinBits2, unsigned MaxBits2, cpp_integer_type SignType2, cpp_int_check_type Checked2, class Allocator2>
-inline typename enable_if_c<
-         is_trivial_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value
-         && is_trivial_cpp_int<cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2> >::value
-         && (is_signed_number<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value || is_signed_number<cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2> >::value)
-         >::type
-   eval_complement(
-      cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>& result,
-      const cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2>& o) BOOST_MP_NOEXCEPT_IF((is_non_throwing_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value))
-{
-   BOOST_STATIC_ASSERT_MSG(((Checked1 != checked) || (Checked2 != checked)), "Attempt to take the complement of a signed type results in undefined behavior.");
-   //
-   // If we're not checked then emulate 2's complement behavior:
-   //
-   if(o.sign())
-   {
-      *result.limbs() = *o.limbs() - 1;
-      result.sign(false);
-   }
-   else
-   {
-      *result.limbs() = 1 + *o.limbs();
-      result.sign(true);
-   }
-   result.normalize();
-}
-
-template <unsigned MinBits1, unsigned MaxBits1, cpp_integer_type SignType1, cpp_int_check_type Checked1, class Allocator1, unsigned MinBits2, unsigned MaxBits2, cpp_integer_type SignType2, cpp_int_check_type Checked2, class Allocator2>
-inline typename enable_if_c<
-         is_trivial_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value
-         && is_trivial_cpp_int<cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2> >::value
-         && is_unsigned_number<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value
-         && is_unsigned_number<cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2> >::value
-         >::type
-   eval_complement(
-      cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>& result,
-      const cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2>& o) BOOST_MP_NOEXCEPT_IF((is_non_throwing_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value))
-{
-   *result.limbs() = ~*o.limbs();
-   result.normalize();
-}
-
 }}} // namespaces
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #endif

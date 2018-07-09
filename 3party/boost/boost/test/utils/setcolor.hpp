@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2009-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -28,6 +28,7 @@
 
 namespace boost {
 namespace unit_test {
+namespace utils {
 
 // ************************************************************************** //
 // **************                    term_attr                 ************** //
@@ -102,13 +103,21 @@ struct scope_setcolor {
     ~scope_setcolor()
     {
         if( m_os )
-        *m_os << setcolor();
+            *m_os << setcolor();
     }
 private:
     // Data members
     std::ostream* m_os;
 };
 
+#define BOOST_TEST_SCOPE_SETCOLOR( is_color_output, os, attr, color )   \
+    utils::scope_setcolor const& sc = is_color_output                   \
+           ? utils::scope_setcolor( os, utils::attr, utils::color )     \
+           : utils::scope_setcolor();                                   \
+    ut_detail::ignore_unused_variable_warning( sc )                     \
+/**/
+
+} // namespace utils
 } // namespace unit_test
 } // namespace boost
 

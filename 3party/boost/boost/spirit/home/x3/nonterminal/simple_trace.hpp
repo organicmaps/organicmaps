@@ -14,7 +14,7 @@
 #include <boost/spirit/home/x3/nonterminal/debug_handler_state.hpp>
 #include <boost/fusion/include/out.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <ostream>
+#include <iostream>
 
 //  The stream to use for debug output
 #if !defined(BOOST_SPIRIT_X3_DEBUG_OUT)

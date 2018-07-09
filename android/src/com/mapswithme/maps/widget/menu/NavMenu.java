@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.sound.TtsPlayer;
-import com.mapswithme.maps.traffic.TrafficManager;
+import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.widget.RotateDrawable;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.UiUtils;

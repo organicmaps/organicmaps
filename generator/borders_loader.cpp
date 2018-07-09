@@ -7,25 +7,25 @@
 
 #include "storage/country_polygon.hpp"
 
-#include "indexer/geometry_serialization.hpp"
 #include "indexer/scales.hpp"
-#include "geometry/mercator.hpp"
-
-#include "geometry/simplification.hpp"
-#include "geometry/distance.hpp"
 
 #include "coding/file_container.hpp"
-#include "coding/read_write_utils.hpp"
 #include "coding/file_name_utils.hpp"
+#include "coding/read_write_utils.hpp"
 
+#include "geometry/distance.hpp"
+#include "geometry/mercator.hpp"
+#include "geometry/simplification.hpp"
+
+#include "base/exception.hpp"
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/iomanip.hpp"
-#include "std/fstream.hpp"
-#include "std/vector.hpp"
-#include "std/bind.hpp"
-
+#include <cmath>
+#include <fstream>
+#include <functional>
+#include <iomanip>
+#include <vector>
 
 namespace borders
 {
@@ -41,7 +41,7 @@ public:
   PolygonLoader(CountriesContainerT & countries)
     : m_countries(countries) {}
 
-  void operator() (string const & name, vector<m2::RegionD> const & borders)
+  void operator() (std::string const & name, std::vector<m2::RegionD> const & borders)
   {
     if (m_polygons.m_name.empty())
       m_polygons.m_name = name;
@@ -68,16 +68,16 @@ public:
 };
 
 template <class ToDo>
-void ForEachCountry(string const & baseDir, ToDo & toDo)
+void ForEachCountry(std::string const & baseDir, ToDo & toDo)
 {
-  string const bordersDir = baseDir + BORDERS_DIR;
+  std::string const bordersDir = baseDir + BORDERS_DIR;
   CHECK(Platform::IsFileExistsByFullPath(bordersDir), ("Cannot read borders directory", bordersDir));
 
   Platform::FilesList files;
   Platform::GetFilesByExt(bordersDir, BORDERS_EXTENSION, files);
-  for (string file : files)
+  for (std::string file : files)
   {
-    vector<m2::RegionD> borders;
+    std::vector<m2::RegionD> borders;
     if (osm::LoadBorders(bordersDir + file, borders))
     {
       my::GetNameWithoutExt(file);
@@ -87,7 +87,7 @@ void ForEachCountry(string const & baseDir, ToDo & toDo)
   }
 }
 
-bool LoadCountriesList(string const & baseDir, CountriesContainerT & countries)
+bool LoadCountriesList(std::string const & baseDir, CountriesContainerT & countries)
 {
   countries.Clear();
 
@@ -105,19 +105,19 @@ class PackedBordersGenerator
 {
   FilesContainerW m_writer;
 
-  vector<storage::CountryDef> m_polys;
+  std::vector<storage::CountryDef> m_polys;
 
 public:
-  PackedBordersGenerator(string const & baseDir)
+  PackedBordersGenerator(std::string const & baseDir)
     : m_writer(baseDir + PACKED_POLYGONS_FILE)
   {
   }
 
-  void operator() (string const & name, vector<m2::RegionD> const & borders)
+  void operator() (std::string const & name, std::vector<m2::RegionD> const & borders)
   {
     // use index in vector as tag
     FileWriter w = m_writer.GetWriter(strings::to_string(m_polys.size()));
-    serial::CodingParams cp;
+    serial::GeometryCodingParams cp;
 
     // calc rect
     m2::RectD rect;
@@ -131,14 +131,14 @@ public:
     WriteVarUint(w, borders.size());
     for (m2::RegionD const & border : borders)
     {
-      typedef vector<m2::PointD> VectorT;
+      typedef std::vector<m2::PointD> VectorT;
       typedef m2::DistanceToLineSquare<m2::PointD> DistanceT;
 
       VectorT const & in = border.Data();
       VectorT out;
 
       /// @todo Choose scale level for simplification.
-      double const eps = my::sq(scales::GetEpsilonForSimplify(10));
+      double const eps = std::pow(scales::GetEpsilonForSimplify(10), 2);
       DistanceT dist;
       SimplifyNearOptimal(20, in.begin(), in.end(), eps, dist,
                           AccumulateSkipSmallTrg<DistanceT, m2::PointD>(dist, out, eps));
@@ -156,35 +156,34 @@ public:
   }
 };
 
-void GeneratePackedBorders(string const & baseDir)
+void GeneratePackedBorders(std::string const & baseDir)
 {
   PackedBordersGenerator generator(baseDir);
   ForEachCountry(baseDir, generator);
   generator.WritePolygonsInfo();
 }
 
-void UnpackBorders(string const & baseDir, string const & targetDir)
+void UnpackBorders(std::string const & baseDir, std::string const & targetDir)
 {
-  Platform & platform = GetPlatform();
-  if (!Platform::IsFileExistsByFullPath(targetDir))
-    platform.MkDir(targetDir);
+  if (!Platform::IsFileExistsByFullPath(targetDir) && !Platform::MkDirChecked(targetDir))
+    MYTHROW(FileSystemException, ("Unable to find or create directory", targetDir));
 
-  vector<storage::CountryDef> countries;
+  std::vector<storage::CountryDef> countries;
   FilesContainerR reader(my::JoinFoldersToPath(baseDir, PACKED_POLYGONS_FILE));
   ReaderSource<ModelReaderPtr> src(reader.GetReader(PACKED_POLYGONS_INFO_TAG));
   rw::Read(src, countries);
 
   for (size_t id = 0; id < countries.size(); id++)
   {
-    ofstream poly(my::JoinFoldersToPath(targetDir, countries[id].m_countryId + ".poly"));
+    std::ofstream poly(my::JoinFoldersToPath(targetDir, countries[id].m_countryId + ".poly"));
     poly << countries[id].m_countryId << endl;
     src = reader.GetReader(strings::to_string(id));
     uint32_t const count = ReadVarUint<uint32_t>(src);
     for (size_t i = 0; i < count; ++i)
     {
       poly << i + 1 << endl;
-      vector<m2::PointD> points;
-      serial::LoadOuterPath(src, serial::CodingParams(), points);
+      std::vector<m2::PointD> points;
+      serial::LoadOuterPath(src, serial::GeometryCodingParams(), points);
       for (auto p : points)
       {
         ms::LatLon const ll = MercatorBounds::ToLatLon(p);

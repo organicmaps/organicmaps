@@ -18,12 +18,12 @@ namespace model
 {
 FeaturesFetcher::FeaturesFetcher()
 {
-  m_multiIndex.AddObserver(*this);
+  m_dataSource.AddObserver(*this);
 }
 
 FeaturesFetcher::~FeaturesFetcher()
 {
-  m_multiIndex.RemoveObserver(*this);
+  m_dataSource.RemoveObserver(*this);
 }
 
 // While reading any files (classificator or mwm), there are 2 types of possible exceptions:
@@ -47,7 +47,7 @@ pair<MwmSet::MwmId, MwmSet::RegResult> FeaturesFetcher::RegisterMap(
 {
   try
   {
-    auto result = m_multiIndex.RegisterMap(localFile);
+    auto result = m_dataSource.RegisterMap(localFile);
     if (result.second != MwmSet::RegResult::Success)
     {
       LOG(LWARNING, ("Can't add map", localFile.GetCountryName(), "(", result.second, ").",
@@ -71,14 +71,14 @@ pair<MwmSet::MwmId, MwmSet::RegResult> FeaturesFetcher::RegisterMap(
 
 bool FeaturesFetcher::DeregisterMap(CountryFile const & countryFile)
 {
-  return m_multiIndex.Deregister(countryFile);
+  return m_dataSource.Deregister(countryFile);
 }
 
-void FeaturesFetcher::Clear() { m_multiIndex.Clear(); }
+void FeaturesFetcher::Clear() { m_dataSource.Clear(); }
 
 void FeaturesFetcher::ClearCaches()
 {
-  m_multiIndex.ClearCache();
+  m_dataSource.ClearCache();
 }
 
 void FeaturesFetcher::OnMapUpdated(platform::LocalCountryFile const & newFile,

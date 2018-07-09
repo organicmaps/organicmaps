@@ -20,9 +20,8 @@ static NSString * const kStatisticsEvent = @"Facebook Alert";
 + (MWMFacebookAlert *)alert
 {
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatOpen}];
-  MWMFacebookAlert * alert = [[[NSBundle mainBundle] loadNibNamed:kFacebookAlertNibName
-                                                            owner:self
-                                                          options:nil] firstObject];
+  MWMFacebookAlert * alert =
+      [NSBundle.mainBundle loadNibNamed:kFacebookAlertNibName owner:self options:nil].firstObject;
   return alert;
 }
 
@@ -33,8 +32,8 @@ static NSString * const kStatisticsEvent = @"Facebook Alert";
   [Statistics logEvent:kStatisticsEvent withParameters:@{kStatAction : kStatApply}];
   [Alohalytics logEvent:kFacebookInviteEventName withValue:@"shareTap"];
   [self close:nil];
-  [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kUDAlreadySharedKey];
-  [[NSUserDefaults standardUserDefaults] synchronize];
+  [NSUserDefaults.standardUserDefaults setBool:YES forKey:kUDAlreadySharedKey];
+  [NSUserDefaults.standardUserDefaults synchronize];
 
   FBSDKAppInviteContent * const content = [[FBSDKAppInviteContent alloc] init];
   content.appLinkURL = [NSURL URLWithString:kFacebookAppName];

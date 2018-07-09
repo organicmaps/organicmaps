@@ -1,9 +1,9 @@
 #import "MWMRoutePreview.h"
 #import "MWMCircularProgress.h"
 #import "MWMCommon.h"
+#import "MWMLocationManager.h"
+#import "MWMNavigationDashboardEntity.h"
 #import "MWMNavigationDashboardManager.h"
-#import "MWMRoutePointCell.h"
-#import "MWMRoutePointLayout.h"
 #import "MWMRouter.h"
 #import "MWMTaxiPreviewDataSource.h"
 #import "Statistics.h"
@@ -11,46 +11,18 @@
 #import "UIButton+Orientation.h"
 #import "UIImageView+Coloring.h"
 
-namespace
-{
-CGFloat constexpr kAdditionalHeight = 20.;
-}  // namespace
+#include "platform/platform.hpp"
 
-@interface MWMRoutePreview ()<MWMRoutePointCellDelegate, MWMCircularProgressProtocol>
+@interface MWMRoutePreview ()<MWMCircularProgressProtocol>
 
+@property(nonatomic) BOOL isVisible;
 @property(weak, nonatomic) IBOutlet UIButton * backButton;
-@property(weak, nonatomic) IBOutlet UIView * pedestrian;
-@property(weak, nonatomic) IBOutlet UIView * vehicle;
 @property(weak, nonatomic) IBOutlet UIView * bicycle;
+@property(weak, nonatomic) IBOutlet UIView * contentView;
+@property(weak, nonatomic) IBOutlet UIView * pedestrian;
+@property(weak, nonatomic) IBOutlet UIView * publicTransport;
 @property(weak, nonatomic) IBOutlet UIView * taxi;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * planningRouteViewHeight;
-@property(weak, nonatomic) IBOutlet UIButton * extendButton;
-@property(weak, nonatomic) IBOutlet UIButton * goButton;
-@property(weak, nonatomic) IBOutlet UICollectionView * collectionView;
-@property(weak, nonatomic) IBOutlet MWMRoutePointLayout * layout;
-@property(weak, nonatomic) IBOutlet UIImageView * arrowImageView;
-@property(weak, nonatomic) IBOutlet UIView * statusBox;
-@property(weak, nonatomic) IBOutlet UIView * planningBox;
-@property(weak, nonatomic) IBOutlet UIView * resultsBox;
-@property(weak, nonatomic) IBOutlet UIView * heightBox;
-@property(weak, nonatomic) IBOutlet UIView * taxiBox;
-@property(weak, nonatomic) IBOutlet UIView * errorBox;
-@property(weak, nonatomic) IBOutlet UILabel * errorLabel;
-@property(weak, nonatomic) IBOutlet UILabel * resultLabel;
-@property(weak, nonatomic) IBOutlet UILabel * arriveLabel;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * statusBoxHeight;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * resultsBoxHeight;
-@property(weak, nonatomic) IBOutlet NSLayoutConstraint * heightBoxHeight;
-@property(weak, nonatomic) IBOutlet UIImageView * heightProfileImage;
-@property(weak, nonatomic) IBOutlet UIView * heightProfileElevation;
-@property(weak, nonatomic) IBOutlet UIImageView * elevationImage;
-@property(weak, nonatomic) IBOutlet UILabel * elevationHeight;
-@property(weak, nonatomic) IBOutlet MWMTaxiCollectionView * taxiCollectionView;
-
-@property(nonatomic) UIImageView * movingCellImage;
-
-@property(nonatomic) BOOL isNeedToMove;
-@property(nonatomic) NSIndexPath * indexPathOfMovingCell;
+@property(weak, nonatomic) IBOutlet UIView * vehicle;
 
 @end
 
@@ -62,21 +34,18 @@ CGFloat constexpr kAdditionalHeight = 20.;
 - (void)awakeFromNib
 {
   [super awakeFromNib];
-  self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-  self.layer.shouldRasterize = YES;
-  self.layer.rasterizationScale = UIScreen.mainScreen.scale;
-  [self.collectionView registerWithCellClass:[MWMRoutePointCell class]];
+  self.translatesAutoresizingMaskIntoConstraints = NO;
   [self setupProgresses];
-
   [self.backButton matchInterfaceOrientation];
-
-  self.elevationImage.mwm_coloring = MWMImageColoringBlue;
 }
 
 - (void)setupProgresses
 {
   [self addProgress:self.vehicle imageName:@"ic_car" routerType:MWMRouterTypeVehicle];
   [self addProgress:self.pedestrian imageName:@"ic_pedestrian" routerType:MWMRouterTypePedestrian];
+  [self addProgress:self.publicTransport
+          imageName:@"ic_train"
+         routerType:MWMRouterTypePublicTransport];
   [self addProgress:self.bicycle imageName:@"ic_bike" routerType:MWMRouterTypeBicycle];
   [self addProgress:self.taxi imageName:@"ic_taxi" routerType:MWMRouterTypeTaxi];
 }
@@ -98,140 +67,28 @@ CGFloat constexpr kAdditionalHeight = 20.;
                          MWMCircularProgressStateProgress, MWMCircularProgressStateSpinner,
                          MWMCircularProgressStateCompleted}];
 
-  [progress setSpinnerBackgroundColor:[UIColor clearColor]];
-  [progress setColor:[UIColor whiteColor]
+  [progress setSpinnerBackgroundColor:UIColor.clearColor];
+  [progress setColor:UIColor.whiteColor
            forStates:{MWMCircularProgressStateProgress, MWMCircularProgressStateSpinner}];
 
   progress.delegate = self;
   m_progresses[routerType] = progress;
 }
 
-- (void)didMoveToSuperview { [self setupActualHeight]; }
 - (void)statePrepare
 {
-  [[MWMNavigationDashboardManager manager] updateStartButtonTitle:self.goButton];
   for (auto const & progress : m_progresses)
     progress.second.state = MWMCircularProgressStateNormal;
 
-  self.arrowImageView.transform = CGAffineTransformMakeRotation(M_PI);
-  self.goButton.hidden = NO;
-  self.goButton.enabled = NO;
-  self.extendButton.selected = YES;
-  [self setupActualHeight];
-  [self reloadData];
-  [self.layout invalidateLayout];
-  self.statusBox.hidden = YES;
-  self.resultsBox.hidden = YES;
-  self.heightBox.hidden = YES;
-  self.heightProfileElevation.hidden = YES;
-  self.planningBox.hidden = YES;
-  self.errorBox.hidden = YES;
-  self.taxiBox.hidden = YES;
+  if (!MWMLocationManager.lastLocation || !Platform::IsConnected())
+    [self.taxi removeFromSuperview];
 }
 
-- (void)stateError
-{
-  [[MWMNavigationDashboardManager manager] updateStartButtonTitle:self.goButton];
-  self.goButton.hidden = NO;
-  self.goButton.enabled = NO;
-  self.statusBox.hidden = NO;
-  self.planningBox.hidden = YES;
-  self.resultsBox.hidden = YES;
-  self.heightBox.hidden = YES;
-  self.taxiBox.hidden = YES;
-  self.heightProfileElevation.hidden = YES;
-  self.errorBox.hidden = NO;
-  if (IPAD)
-    [self iPadNotReady];
-}
-
-- (void)stateReady
-{
-  [[MWMNavigationDashboardManager manager] updateStartButtonTitle:self.goButton];
-  self.goButton.hidden = NO;
-  self.goButton.enabled = YES;
-  self.statusBox.hidden = NO;
-  self.planningBox.hidden = YES;
-  self.errorBox.hidden = YES;
-  self.resultsBox.hidden = NO;
-  BOOL const hasAltitude = [MWMRouter hasRouteAltitude];
-  self.heightBox.hidden = !hasAltitude;
-  self.heightProfileElevation.hidden = !hasAltitude;
-  if (IPAD)
-    [self iPadReady];
-}
-
-- (void)iPadReady
-{
-  [self layoutIfNeeded];
-  if ([MWMRouter isTaxi])
-  {
-    self.statusBoxHeight.constant = self.taxiBox.height;
-    self.taxiBox.hidden = NO;
-  }
-  else
-  {
-    self.statusBoxHeight.constant =
-        self.resultsBoxHeight.constant +
-        ([MWMRouter hasRouteAltitude] ? self.heightBoxHeight.constant : 0);
-    [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-    {
-      [self layoutIfNeeded];
-    }
-    completion:^(BOOL finished)
-    {
-      [UIView animateWithDuration:kDefaultAnimationDuration animations:^
-      {
-        self.arriveLabel.alpha = 1.;
-      }
-      completion:^(BOOL finished)
-      {
-        [self updateHeightProfile];
-      }];
-    }];
-  }
-}
-
-- (void)updateHeightProfile
-{
-  if (![MWMRouter hasRouteAltitude])
-    return;
-  dispatch_async(dispatch_get_main_queue(), ^{
-    [[MWMRouter router] routeAltitudeImageForSize:self.heightProfileImage.frame.size
-                                       completion:^(UIImage * image, NSString * altitudeElevation) {
-                                         self.heightProfileImage.image = image;
-                                         self.elevationHeight.text = altitudeElevation;
-                                       }];
-  });
-}
-
-- (void)iPadNotReady
-{
-  self.taxiBox.hidden = YES;
-  self.errorLabel.text = [MWMRouter isTaxi] ? L(@"taxi_not_found") : L(@"routing_planning_error");
-  self.arriveLabel.alpha = 0.;
-  [self layoutIfNeeded];
-  self.statusBoxHeight.constant = self.resultsBoxHeight.constant;
-  [UIView animateWithDuration:kDefaultAnimationDuration
-                   animations:^{
-                     [self layoutIfNeeded];
-                   }];
-}
-
-- (void)reloadData { [self.collectionView reloadData]; }
 - (void)selectRouter:(MWMRouterType)routerType
 {
   for (auto const & progress : m_progresses)
     progress.second.state = MWMCircularProgressStateNormal;
   m_progresses[routerType].state = MWMCircularProgressStateSelected;
-}
-
-- (void)layoutSubviews
-{
-  [super layoutSubviews];
-  [self setupActualHeight];
-  [self.delegate routePreviewDidChangeFrame:self.frame];
-  [super layoutSubviews];
 }
 
 - (void)router:(MWMRouterType)routerType setState:(MWMCircularProgressState)state
@@ -260,231 +117,59 @@ CGFloat constexpr kAdditionalHeight = 20.;
       continue;
     auto const routerType = prg.first;
     [self selectRouter:routerType];
-    MWMRouter * router = [MWMRouter router];
-    router.type = routerType;
-    [router rebuildWithBestRouter:NO];
+    [MWMRouter setType:routerType];
+    [MWMRouter rebuildWithBestRouter:NO];
+    NSString * routerTypeString = nil;
     switch (routerType)
     {
-    case MWMRouterTypeVehicle:
-      [Statistics logEvent:kStatPointToPoint
-            withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatVehicle}];
-      break;
-    case MWMRouterTypePedestrian:
-      [Statistics logEvent:kStatPointToPoint
-            withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatPedestrian}];
-      break;
-    case MWMRouterTypeBicycle:
-      [Statistics logEvent:kStatPointToPoint
-            withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatBicycle}];
-      break;
-    case MWMRouterTypeTaxi:
-      [Statistics logEvent:kStatPointToPoint
-            withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : kStatUber}];
-        break;
+    case MWMRouterTypeVehicle: routerTypeString = kStatVehicle; break;
+    case MWMRouterTypePedestrian: routerTypeString = kStatPedestrian; break;
+    case MWMRouterTypePublicTransport: routerTypeString = kStatPublicTransport; break;
+    case MWMRouterTypeBicycle: routerTypeString = kStatBicycle; break;
+    case MWMRouterTypeTaxi: routerTypeString = kStatTaxi; break;
     }
+    [Statistics logEvent:kStatPointToPoint
+          withParameters:@{kStatAction : kStatChangeRoutingMode, kStatValue : routerTypeString}];
   }
+}
+
+- (void)addToView:(UIView *)superview
+{
+  NSAssert(superview != nil, @"Superview can't be nil");
+  if ([superview.subviews containsObject:self])
+    return;
+  [superview addSubview:self];
+  [self setupConstraints];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    self.isVisible = YES;
+  });
+}
+
+- (void)remove { self.isVisible = NO; }
+
+- (void)setupConstraints {}
+
+- (void)layoutSubviews
+{
+  [super layoutSubviews];
+  [self.vehicle setNeedsLayout];
 }
 
 #pragma mark - Properties
 
-- (CGRect)defaultFrame
+- (void)setIsVisible:(BOOL)isVisible
 {
-  if (!IPAD)
-    return super.defaultFrame;
-  CGFloat const width = 320.;
-  CGFloat const origin = self.isVisible ? 0. : -width;
-  return {{origin, self.topBound}, {width, self.superview.height - kAdditionalHeight}};
-}
-
-- (CGFloat)visibleHeight { return self.planningRouteViewHeight.constant + kAdditionalHeight; }
-- (IBAction)extendTap
-{
-  BOOL const isExtended = !self.extendButton.selected;
-  [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatExpand)
-        withParameters:@{kStatValue : (isExtended ? kStatYes : kStatNo)}];
-  self.extendButton.selected = isExtended;
-  [self layoutIfNeeded];
-  [self setupActualHeight];
+  _isVisible = isVisible;
+  auto sv = self.superview;
+  [sv setNeedsLayout];
   [UIView animateWithDuration:kDefaultAnimationDuration
-                   animations:^{
-                     self.arrowImageView.transform = isExtended
-                                                         ? CGAffineTransformMakeRotation(M_PI)
-                                                         : CGAffineTransformIdentity;
-                     [self layoutIfNeeded];
-                   }];
-}
-
-- (void)setupActualHeight
-{
-  if (!self.superview)
-    return;
-  if (IPAD)
-  {
-    CGFloat const selfHeight = self.superview.height - kAdditionalHeight;
-    self.defaultHeight = selfHeight;
-    self.height = selfHeight;
-    return;
-  }
-  BOOL const isPortrait = self.superview.height > self.superview.width;
-  CGFloat const height = isPortrait ? 140. : 96.;
-  CGFloat const selfHeight = self.extendButton.selected ? height : 44.;
-  self.planningRouteViewHeight.constant = selfHeight;
-  self.defaultHeight = selfHeight;
-  self.height = selfHeight;
-}
-
-- (void)snapshotCell:(MWMRoutePointCell *)cell
-{
-  UIGraphicsBeginImageContextWithOptions(cell.bounds.size, NO, 0.);
-  [cell drawViewHierarchyInRect:cell.bounds afterScreenUpdates:YES];
-  UIImage * image = UIGraphicsGetImageFromCurrentImageContext();
-  UIGraphicsEndImageContext();
-  self.movingCellImage = [[UIImageView alloc] initWithImage:image];
-  self.movingCellImage.alpha = 0.8;
-  [self.collectionView addSubview:self.movingCellImage];
-  CALayer * l = self.movingCellImage.layer;
-  l.masksToBounds = NO;
-  l.shadowColor = UIColor.blackColor.CGColor;
-  l.shadowRadius = 4.;
-  l.shadowOpacity = 0.4;
-  l.shadowOffset = {0., 0.};
-  l.shouldRasterize = YES;
-  l.rasterizationScale = [[UIScreen mainScreen] scale];
-}
-
-#pragma mark - MWMNavigationDashboardInfoProtocol
-
-- (void)updateNavigationInfo:(MWMNavigationDashboardEntity *)info
-{
-  self.resultLabel.attributedText = info.estimate;
-  if (!IPAD)
-    return;
-
-  NSString * arriveStr = [NSDateFormatter
-      localizedStringFromDate:[[NSDate date] dateByAddingTimeInterval:info.timeToTarget]
-                    dateStyle:NSDateFormatterNoStyle
-                    timeStyle:NSDateFormatterShortStyle];
-  self.arriveLabel.text = [NSString stringWithFormat:L(@"routing_arrive"), arriveStr.UTF8String];
-}
-
-#pragma mark - MWMRoutePointCellDelegate
-
-- (void)startEditingCell:(MWMRoutePointCell *)cell
-{
-  NSUInteger const index = [self.collectionView indexPathForCell:cell].row;
-  [self.dashboardManager.delegate didStartEditingRoutePoint:index == 0];
-}
-
-#pragma mark - PanGestureRecognizer
-
-- (void)didPan:(UIPanGestureRecognizer *)pan cell:(MWMRoutePointCell *)cell
-{
-  CGPoint const locationPoint = [pan locationInView:self.collectionView];
-  if (pan.state == UIGestureRecognizerStateBegan)
-  {
-    self.layout.isNeedToInitialLayout = NO;
-    self.isNeedToMove = NO;
-    self.indexPathOfMovingCell = [self.collectionView indexPathForCell:cell];
-    [self snapshotCell:cell];
-    [UIView animateWithDuration:kDefaultAnimationDuration
-                     animations:^{
-                       cell.contentView.alpha = 0.;
-                       CGFloat const scaleY = 1.05;
-                       self.movingCellImage.transform = CGAffineTransformMakeScale(1., scaleY);
-                     }];
-  }
-
-  if (pan.state == UIGestureRecognizerStateChanged)
-  {
-    self.movingCellImage.center = {locationPoint.x - cell.width / 2 + 30, locationPoint.y};
-    NSIndexPath * finalIndexPath = [self.collectionView indexPathForItemAtPoint:locationPoint];
-    if (finalIndexPath && ![finalIndexPath isEqual:self.indexPathOfMovingCell])
-    {
-      if (self.isNeedToMove)
-        return;
-      self.isNeedToMove = YES;
-      [self.collectionView performBatchUpdates:^{
-        [self.collectionView moveItemAtIndexPath:finalIndexPath
-                                     toIndexPath:self.indexPathOfMovingCell];
-        self.indexPathOfMovingCell = finalIndexPath;
+      animations:^{
+        [sv layoutIfNeeded];
       }
-                                    completion:nil];
-    }
-    else
-    {
-      self.isNeedToMove = NO;
-    }
-  }
-
-  if (pan.state == UIGestureRecognizerStateEnded)
-  {
-    self.layout.isNeedToInitialLayout = YES;
-    NSIndexPath * finalIndexPath = [self.collectionView indexPathForItemAtPoint:locationPoint];
-    self.isNeedToMove = finalIndexPath && ![finalIndexPath isEqual:self.indexPathOfMovingCell];
-    if (self.isNeedToMove)
-    {
-      cell.contentView.alpha = 1.;
-      [self.collectionView performBatchUpdates:^{
-        [self.collectionView moveItemAtIndexPath:self.indexPathOfMovingCell
-                                     toIndexPath:finalIndexPath];
-      }
-          completion:^(BOOL finished) {
-            [self.movingCellImage removeFromSuperview];
-            self.movingCellImage.transform = CGAffineTransformIdentity;
-          }];
-    }
-    else
-    {
-      cell.contentView.alpha = 1.;
-      [self.movingCellImage removeFromSuperview];
-      [[MWMRouter router] swapPointsAndRebuild];
-      [self reloadData];
-    }
-  }
-}
-
-@end
-
-#pragma mark - UICollectionView
-
-@interface MWMRoutePreview (UICollectionView)<UICollectionViewDataSource, UICollectionViewDelegate>
-
-@end
-
-@implementation MWMRoutePreview (UICollectionView)
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView
-     numberOfItemsInSection:(NSInteger)section
-{
-  return 2;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
-                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-  Class cls = [MWMRoutePointCell class];
-  auto cell = static_cast<MWMRoutePointCell *>(
-      [collectionView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
-  cell.number.text = @(indexPath.row + 1).stringValue;
-  if (indexPath.row == 0)
-  {
-    cell.title.text = [MWMRouter router].startPoint.name;
-    cell.title.placeholder = L(@"p2p_from");
-  }
-  else
-  {
-    cell.title.text = [MWMRouter router].finishPoint.name;
-    cell.title.placeholder = L(@"p2p_to");
-  }
-  cell.delegate = self;
-  return cell;
-}
-
-#pragma mark - VisibleArea
-
-- (MWMVisibleAreaAffectDirection)visibleAreaAffectDirection
-{
-  return IPAD ? MWMVisibleAreaAffectDirectionLeft : MWMVisibleAreaAffectDirectionTop;
+      completion:^(BOOL finished) {
+        if (!self.isVisible)
+          [self removeFromSuperview];
+      }];
 }
 
 @end

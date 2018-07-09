@@ -1,15 +1,16 @@
 /*
-(c) 2014-2015 Glen Joseph Fernandes
-glenjofe at gmail dot com
+Copyright 2014-2015 Glen Joseph Fernandes
+(glenjofe@gmail.com)
 
-Distributed under the Boost Software
-License, Version 1.0.
-http://boost.org/LICENSE_1_0.txt
+Distributed under the Boost Software License, Version 1.0.
+(http://www.boost.org/LICENSE_1_0.txt)
 */
 #ifndef BOOST_ALIGN_HPP
 #define BOOST_ALIGN_HPP
 
 #include <boost/align/align.hpp>
+#include <boost/align/align_down.hpp>
+#include <boost/align/align_up.hpp>
 #include <boost/align/aligned_alloc.hpp>
 #include <boost/align/aligned_allocator.hpp>
 #include <boost/align/aligned_allocator_adaptor.hpp>

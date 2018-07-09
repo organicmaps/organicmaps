@@ -25,10 +25,17 @@ public:
   {
     ASSERT_GREATER(m_points.size(), 1, ());
   }
+
   explicit Polyline(vector<Point<T>> const & points) : m_points(points)
   {
     ASSERT_GREATER(m_points.size(), 1, ());
   }
+
+  explicit Polyline(vector<Point<T>> && points) : m_points(move(points))
+  {
+    ASSERT_GREATER(m_points.size(), 1, ());
+  }
+
   template <class Iter>
   Polyline(Iter beg, Iter end) : m_points(beg, end)
   {
@@ -44,10 +51,18 @@ public:
     return dist;
   }
 
-  double GetShortestSquareDistance(m2::Point<T> const & point) const
+  double GetLength(size_t pointIndex) const
+  {
+    double dist = 0;
+    for (size_t i = 0; i < min(pointIndex, m_points.size() - 1); ++i)
+      dist += m_points[i].Length(m_points[i + 1]);
+    return dist;
+  }
+
+  double CalcMinSquaredDistance(m2::Point<T> const & point) const
   {
     double res = numeric_limits<double>::max();
-    m2::DistanceToLineSquare<m2::Point<T> > d;
+    m2::DistanceToLineSquare<m2::Point<T>> d;
 
     Iter i = Begin();
     for (Iter j = i + 1; j != End(); ++i, ++j)
@@ -73,6 +88,12 @@ public:
   void Append(Polyline const & poly)
   {
     m_points.insert(m_points.end(), poly.m_points.cbegin(), poly.m_points.cend());
+  }
+
+  template <class Iter>
+  void Append(Iter beg, Iter end)
+  {
+    m_points.insert(m_points.end(), beg, end);
   }
 
   void PopBack()
@@ -121,7 +142,21 @@ public:
       return vector<Point<T>>();
 
     return reversed ? vector<Point<T>>{m_points[segmentIndex + 1], m_points[segmentIndex]} :
-                      vector<Point<T>>{m_points[segmentIndex], m_points[segmentIndex + 1]};
+           vector<Point<T>>{m_points[segmentIndex], m_points[segmentIndex + 1]};
+  }
+
+  vector<Point<T>> ExtractSegment(size_t startPointIndex, size_t endPointIndex) const
+  {
+    if (startPointIndex > endPointIndex || startPointIndex >= m_points.size() ||
+        endPointIndex >= m_points.size())
+    {
+      return vector<Point<T>>();
+    }
+
+    vector<Point<T>> result(endPointIndex - startPointIndex + 1);
+    for (size_t i = startPointIndex, j = 0; i <= endPointIndex; ++i, ++j)
+      result[j] = m_points[i];
+    return result;
   }
 
   vector<Point<T> > const & GetPoints() const { return m_points; }

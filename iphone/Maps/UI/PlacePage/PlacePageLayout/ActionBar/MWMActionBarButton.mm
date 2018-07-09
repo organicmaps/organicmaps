@@ -3,128 +3,176 @@
 #import "MWMButton.h"
 #import "MWMCircularProgress.h"
 
-NSString * titleForButton(EButton type, BOOL isSelected)
+NSString * titleForPartner(int partnerIndex)
+{
+  NSString * str = [NSString stringWithFormat:@"sponsored_partner%d_action", partnerIndex];
+  NSString * localizedStr = L(str);
+  NSCAssert(![str isEqualToString:localizedStr], @"Localization is absent.");
+  return localizedStr;
+}
+
+NSString * titleForButton(EButton type, int partnerIndex, BOOL isSelected)
 {
   switch (type)
   {
-  case EButton::Api:
-    return L(@"back");
-  case EButton::Download:
-    return L(@"download");
+  case EButton::Download: return L(@"download");
   case EButton::Booking:
-  case EButton::Opentable:
-    return L(@"book_button");
-  case EButton::Call:
-    return L(@"placepage_call_button");
-  case EButton::Bookmark:
-    return L(isSelected ? @"delete" : @"save");
-  case EButton::RouteFrom:
-    return L(@"p2p_from_here");
-  case EButton::RouteTo:
-    return L(@"p2p_to_here");
-  case EButton::Share:
-    return L(@"share");
-  case EButton::More:
-    return L(@"placepage_more_button");
-  case EButton::Spacer:
-    return nil;
+  case EButton::Opentable: return L(@"book_button");
+  case EButton::BookingSearch: return L(@"booking_search");
+  case EButton::Call: return L(@"placepage_call_button");
+  case EButton::Bookmark: return L(isSelected ? @"delete" : @"save");
+  case EButton::RouteFrom: return L(@"p2p_from_here");
+  case EButton::RouteTo: return L(@"p2p_to_here");
+  case EButton::Share: return L(@"share");
+  case EButton::More: return L(@"placepage_more_button");
+  case EButton::RouteAddStop: return L(@"placepage_add_stop");
+  case EButton::RouteRemoveStop: return L(@"placepage_remove_stop");
+  case EButton::Partner: return titleForPartner(partnerIndex);
   }
+}
+
+NSString * imageNameForPartner(int partnerIndex)
+{
+  return [NSString stringWithFormat:@"ic_28px_logo_partner%d", partnerIndex];
+}
+
+UIImage * imageForPartner(int partnerIndex)
+{
+  UIImage * img = [UIImage imageNamed:imageNameForPartner(partnerIndex)];
+  NSCAssert(img != nil, @"Partner image is absent.");
+  return img;
+}
+
+UIColor * textColorForPartner(int partnerIndex)
+{
+  NSString * textColor = [NSString stringWithFormat:@"partner%dTextColor", partnerIndex];
+  UIColor * color = [UIColor colorWithName:textColor];
+  NSCAssert(color != nil, @"Partner text color is absent.");
+  return color;
+}
+
+UIColor * backgroundColorForPartner(int partnerIndex)
+{
+  NSString * colorName = [NSString stringWithFormat:@"partner%dBackground", partnerIndex];
+  UIColor * color = [UIColor colorWithName:colorName];
+  NSCAssert(color != nil, @"Partner background color is absent.");
+  return color;
 }
 
 @interface MWMActionBarButton () <MWMCircularProgressProtocol>
 
-@property (weak, nonatomic) IBOutlet MWMButton * button;
-@property (weak, nonatomic) IBOutlet UILabel * label;
-
-@property (weak, nonatomic) id<MWMActionBarButtonDelegate> delegate;
-@property (nonatomic) EButton type;
+@property(nonatomic) EButton type;
 @property(nonatomic) MWMCircularProgress * mapDownloadProgress;
-@property(nonatomic) UIView * progressWrapper;
+@property(nonatomic) int partnerIndex;
+@property(weak, nonatomic) IBOutlet MWMButton * button;
+@property(weak, nonatomic) IBOutlet UILabel * label;
+@property(weak, nonatomic) IBOutlet UIView * extraBackground;
+@property(weak, nonatomic) id<MWMActionBarButtonDelegate> delegate;
 
 @end
 
 @implementation MWMActionBarButton
 
-- (void)configButtonWithDelegate:(id<MWMActionBarButtonDelegate>)delegate type:(EButton)type isSelected:(BOOL)isSelected
+- (void)configButton:(BOOL)isSelected disabled:(BOOL)isDisabled
 {
-  self.delegate = delegate;
-  self.type = type;
-  [self configButton:isSelected];
-}
-
-- (void)configButton:(BOOL)isSelected
-{
-  self.label.text = titleForButton(self.type, isSelected);
+  self.label.text = titleForButton(self.type, self.partnerIndex, isSelected);
+  self.extraBackground.hidden = YES;
   switch (self.type)
   {
-  case EButton::Api:
-    [self.button setImage:[UIImage imageNamed:@"ic_back_api"] forState:UIControlStateNormal];
-    break;
   case EButton::Download:
   {
     if (self.mapDownloadProgress)
       return;
 
-    self.progressWrapper = [[UIView alloc] init];
-    [self.button addSubview:self.progressWrapper];
-
-    self.mapDownloadProgress = [MWMCircularProgress downloaderProgressForParentView:self.progressWrapper];
-      self.mapDownloadProgress.delegate = self;
+    self.mapDownloadProgress = [MWMCircularProgress downloaderProgressForParentView:self.button];
+    self.mapDownloadProgress.delegate = self;
 
     MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
-      MWMCircularProgressStateSelected};
+                                                        MWMCircularProgressStateSelected};
 
     [self.mapDownloadProgress setImageName:@"ic_download" forStates:affectedStates];
     [self.mapDownloadProgress setColoring:MWMButtonColoringBlue forStates:affectedStates];
     break;
+    }
+    case EButton::Booking:
+      [self.button setImage:[UIImage imageNamed:@"ic_booking_logo"] forState:UIControlStateNormal];
+      self.label.textColor = UIColor.whiteColor;
+      self.backgroundColor = [UIColor bookingBackground];
+      if (!IPAD)
+      {
+        self.extraBackground.backgroundColor = [UIColor bookingBackground];
+        self.extraBackground.hidden = NO;
+      }
+      break;
+    case EButton::BookingSearch:
+      [self.button setImage:[UIImage imageNamed:@"ic_booking_search"]
+                   forState:UIControlStateNormal];
+      self.label.textColor = UIColor.whiteColor;
+      self.backgroundColor = [UIColor bookingBackground];
+      if (!IPAD)
+      {
+        self.extraBackground.backgroundColor = [UIColor bookingBackground];
+        self.extraBackground.hidden = NO;
+      }
+      break;
+    case EButton::Opentable:
+      [self.button setImage:[UIImage imageNamed:@"ic_opentable"] forState:UIControlStateNormal];
+      self.label.textColor = UIColor.whiteColor;
+      self.backgroundColor = [UIColor opentableBackground];
+      if (!IPAD)
+      {
+        self.extraBackground.backgroundColor = [UIColor opentableBackground];
+        self.extraBackground.hidden = NO;
+      }
+      break;
+    case EButton::Call:
+      [self.button setImage:[UIImage imageNamed:@"ic_placepage_phone_number"]
+                   forState:UIControlStateNormal];
+      break;
+    case EButton::Bookmark: [self setupBookmarkButton:isSelected]; break;
+    case EButton::RouteFrom:
+      [self.button setImage:[UIImage imageNamed:@"ic_route_from"] forState:UIControlStateNormal];
+      break;
+    case EButton::RouteTo:
+      [self.button setImage:[UIImage imageNamed:@"ic_route_to"] forState:UIControlStateNormal];
+      break;
+    case EButton::Share:
+      [self.button setImage:[UIImage imageNamed:@"ic_menu_share"] forState:UIControlStateNormal];
+      break;
+    case EButton::More:
+      [self.button setImage:[UIImage imageNamed:@"ic_placepage_more"]
+                   forState:UIControlStateNormal];
+      break;
+    case EButton::RouteAddStop:
+      [self.button setImage:[UIImage imageNamed:@"ic_add_route_point"]
+                   forState:UIControlStateNormal];
+      break;
+    case EButton::RouteRemoveStop:
+      [self.button setImage:[UIImage imageNamed:@"ic_remove_route_point"]
+                   forState:UIControlStateNormal];
+      break;
+    case EButton::Partner:
+      [self.button setImage:imageForPartner(self.partnerIndex) forState:UIControlStateNormal];
+      self.label.textColor = textColorForPartner(self.partnerIndex);
+      self.backgroundColor = backgroundColorForPartner(self.partnerIndex);
+      break;
   }
-  case EButton::Booking:
-    [self.button setImage:[UIImage imageNamed:@"ic_booking_logo"] forState:UIControlStateNormal];
-    self.label.textColor = [UIColor whiteColor];
-    self.backgroundColor = [UIColor bookingBackground];
-    break;
-  case EButton::Opentable:
-    [self.button setImage:[UIImage imageNamed:@"ic_opentable"] forState:UIControlStateNormal];
-    self.label.textColor = [UIColor whiteColor];
-    self.backgroundColor = [UIColor opentableBackground];
-    break;
-  case EButton::Call:
-    [self.button setImage:[UIImage imageNamed:@"ic_placepage_phone_number"] forState:UIControlStateNormal];
-    break;
-  case EButton::Bookmark:
-    [self setupBookmarkButton:isSelected];
-    break;
-  case EButton::RouteFrom:
-    [self.button setImage:[UIImage imageNamed:@"ic_route_from"] forState:UIControlStateNormal];
-    break;
-  case EButton::RouteTo:
-    [self.button setImage:[UIImage imageNamed:@"ic_route_to"] forState:UIControlStateNormal];
-    break;
-  case EButton::Share:
-    [self.button setImage:[UIImage imageNamed:@"ic_menu_share"] forState:UIControlStateNormal];
-    break;
-  case EButton::More:
-    [self.button setImage:[UIImage imageNamed:@"ic_placepage_more"] forState:UIControlStateNormal];
-    break;
-  case EButton::Spacer:
-    [self.button removeFromSuperview];
-    [self.label removeFromSuperview];
-    break;
-  }
+  self.button.enabled = !isDisabled;
 }
 
-+ (void)addButtonToSuperview:(UIView *)view
-                    delegate:(id<MWMActionBarButtonDelegate>)delegate
-                  buttonType:(EButton)type
-                  isSelected:(BOOL)isSelected
++ (MWMActionBarButton *)buttonWithDelegate:(id<MWMActionBarButtonDelegate>)delegate
+                                buttonType:(EButton)type
+                              partnerIndex:(int)partnerIndex
+                                isSelected:(BOOL)isSelected
+                                isDisabled:(BOOL)isDisabled
 {
-  if (view.subviews.count)
-    return;
-  MWMActionBarButton * button = [[[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil] firstObject];
+  MWMActionBarButton * button =
+      [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   button.delegate = delegate;
   button.type = type;
-  [view addSubview:button];
-  [button configButton:isSelected];
+  button.partnerIndex = partnerIndex;
+  [button configButton:isSelected disabled:isDisabled];
+  return button;
 }
 
 - (void)progressButtonPressed:(MWMCircularProgress *)progress
@@ -155,6 +203,7 @@ NSString * titleForButton(EButton type, BOOL isSelected)
   [btn setImage:[UIImage imageNamed:@"ic_bookmarks_off"] forState:UIControlStateNormal];
   [btn setImage:[UIImage imageNamed:@"ic_bookmarks_on"] forState:UIControlStateSelected];
   [btn setImage:[UIImage imageNamed:@"ic_bookmarks_on"] forState:UIControlStateHighlighted];
+  [btn setImage:[UIImage imageNamed:@"ic_bookmarks_on"] forState:UIControlStateDisabled];
 
   [self setBookmarkSelected:isSelected];
 
@@ -168,15 +217,6 @@ NSString * titleForButton(EButton type, BOOL isSelected)
   UIImageView * animationIV = btn.imageView;
   animationIV.animationImages = animationImages;
   animationIV.animationRepeatCount = 1;
-}
-
-- (void)layoutSubviews
-{
-  [super layoutSubviews];
-  self.frame = self.superview.bounds;
-  CGFloat constexpr designOffset = 4;
-  self.progressWrapper.size = {self.button.height - designOffset, self.button.height - designOffset};
-  self.progressWrapper.center = self.button.center;
 }
 
 @end

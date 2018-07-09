@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment version="2048" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
             <string>HelveticaNeue-Medium</string>
         </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MWMDefaultAlert">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MWMDefaultAlert" propertyAccessControl="all">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -63,6 +65,7 @@
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jAg-cp-4Ms" userLabel="left">
                             <rect key="frame" x="0.0" y="95" width="140" height="44"/>
+                            <accessibility key="accessibilityConfiguration" identifier="cancelButton"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="140" id="4bW-b0-naB"/>
                                 <constraint firstAttribute="height" constant="44" id="RRQ-jI-El3"/>
@@ -95,6 +98,7 @@
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RSB-i6-pEP" userLabel="right">
                             <rect key="frame" x="140" y="95" width="140" height="44"/>
+                            <accessibility key="accessibilityConfiguration" identifier="OKButton"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="140" id="C3i-gd-pxv"/>
                                 <constraint firstAttribute="height" constant="44" id="dta-cI-rDi"/>
@@ -159,6 +163,7 @@
                 <constraint firstAttribute="centerY" secondItem="zso-DD-6SG" secondAttribute="centerY" id="2Yk-mx-NtS"/>
                 <constraint firstAttribute="centerX" secondItem="zso-DD-6SG" secondAttribute="centerX" id="rvU-lH-fCc"/>
             </constraints>
+            <viewLayoutGuide key="safeArea" id="4wG-7A-b6h"/>
             <connections>
                 <outlet property="dividerTop" destination="XWN-lh-LsI" id="Ken-WZ-bMm"/>
                 <outlet property="leftButton" destination="jAg-cp-4Ms" id="UpD-3H-PmN"/>
@@ -174,9 +179,4 @@
     <resources>
         <image name="dialog_btn_press" width="280" height="44"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
-    </simulatedMetricsContainer>
 </document>

@@ -4,7 +4,8 @@
 #import "MapsAppDelegate.h"
 
 #ifdef OMIM_PRODUCTION
-# include "fabric_logging.hpp"
+#import <AppsFlyerTracker/AppsFlyerTracker.h>
+#include "fabric_logging.hpp"
 #endif
 
 #include "platform/file_logging.hpp"
@@ -48,6 +49,10 @@ void setMarketingSender()
       [myTrackerEvent appendString:[NSString stringWithFormat:@"_%@_%@", key, value]];
     }
     [MRMyTracker trackEventWithName:myTrackerEvent];
+    
+  #ifdef OMIM_PRODUCTION
+    [[AppsFlyerTracker sharedTracker] trackEvent:@(tag.c_str()) withValues:eventParams];
+  #endif
   });
 }
 
@@ -56,7 +61,8 @@ int main(int argc, char * argv[])
 #ifdef MWM_LOG_TO_FILE
   my::SetLogMessageFn(LogMessageFile);
 #elif OMIM_PRODUCTION
-  my::SetLogMessageFn(platform::LogMessageFabric);
+  my::SetLogMessageFn(platform::IosLogMessage);
+  my::SetAssertFunction(platform::IosAssertMessage);
 #endif
   auto & p = GetPlatform();
   LOG(LINFO, ("maps.me started, detected CPU cores:", p.CpuCores()));

@@ -10,6 +10,7 @@
 
 #include <boost/spirit/home/x3/support/traits/transform_attribute.hpp>
 #include <boost/spirit/home/x3/support/traits/move_to.hpp>
+#include <utility>
 
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace spirit { namespace x3
@@ -23,9 +24,9 @@ namespace boost { namespace spirit { namespace x3
 
         static Transformed pre(Exposed&) { return Transformed(); }
 
-        static void post(Exposed& val, Transformed& attr)
+        static void post(Exposed& val, Transformed&& attr)
         {
-            traits::move_to(attr, val);
+            traits::move_to(std::forward<Transformed>(attr), val);
         }
     };
 
@@ -101,7 +102,8 @@ namespace boost { namespace spirit { namespace x3 { namespace traits
     template <typename Exposed, typename Transformed>
     void post_transform(Exposed& dest, Transformed&& attr)
     {
-        return transform_attribute<Exposed, Transformed, x3::parser_id>::post(dest, attr);
+        return transform_attribute<Exposed, Transformed, x3::parser_id>
+            ::post(dest, std::forward<Transformed>(attr));
     }
 }}}}
 

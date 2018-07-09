@@ -1,6 +1,4 @@
-#include "platform/location.hpp"
-
-@class MWMSideButtonsView;
+#import "MWMMyPositionMode.h"
 
 @interface MWMSideButtons : NSObject
 
@@ -11,10 +9,10 @@
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
 - (instancetype)initWithParentView:(UIView *)view;
-- (void)setTopBound:(CGFloat)bound;
-- (void)setBottomBound:(CGFloat)bound;
 - (void)mwm_refreshUI;
 
-- (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode;
+- (void)processMyPositionStateModeEvent:(MWMMyPositionMode)mode;
+
++ (void)updateAvailableArea:(CGRect)frame;
 
 @end

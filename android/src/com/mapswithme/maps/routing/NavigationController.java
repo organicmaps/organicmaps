@@ -1,6 +1,7 @@
 package com.mapswithme.maps.routing;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Build;
@@ -10,19 +11,23 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.sound.TtsPlayer;
-import com.mapswithme.maps.traffic.TrafficManager;
+import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.widget.FlatProgressView;
 import com.mapswithme.maps.widget.menu.NavMenu;
+import com.mapswithme.util.Animations;
+import com.mapswithme.util.Graphics;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
@@ -30,10 +35,14 @@ import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class NavigationController implements TrafficManager.TrafficCallback
+import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_BOOKMARKS_CLICK;
+
+public class NavigationController implements TrafficManager.TrafficCallback, View.OnClickListener
 {
   private static final String STATE_SHOW_TIME_LEFT = "ShowTimeLeft";
 
@@ -119,12 +128,22 @@ public class NavigationController implements TrafficManager.TrafficCallback
 
     mSearchButtonFrame = activity.findViewById(R.id.search_button_frame);
     mSearchWheel = new SearchWheel(mSearchButtonFrame);
+
+    ImageView bookmarkButton = (ImageView) mSearchButtonFrame.findViewById(R.id.btn_bookmarks);
+    bookmarkButton.setImageDrawable(Graphics.tint(bookmarkButton.getContext(),
+                                                  R.drawable.ic_menu_bookmarks));
+    bookmarkButton.setOnClickListener(this);
   }
 
   public void onResume()
   {
     mNavMenu.onResume(null);
     mSearchWheel.onResume();
+  }
+
+  public boolean performSearchClick()
+  {
+    return mSearchWheel.performClick();
   }
 
   private NavMenu createNavMenu()
@@ -138,6 +157,7 @@ public class NavigationController implements TrafficManager.TrafficCallback
         switch (item)
         {
         case STOP:
+          mNavMenu.close(false /* animate */);
           RoutingController.get().cancel();
           break;
         case SETTINGS:
@@ -184,15 +204,15 @@ public class NavigationController implements TrafficManager.TrafficCallback
                                                     R.dimen.text_size_nav_dimension,
                                                     info.distToTurn,
                                                     info.turnUnits));
-    info.vehicleTurnDirection.setTurnDrawable(mNextTurnImage);
-    if (RoutingInfo.VehicleTurnDirection.isRoundAbout(info.vehicleTurnDirection))
+    info.carDirection.setTurnDrawable(mNextTurnImage);
+    if (RoutingInfo.CarDirection.isRoundAbout(info.carDirection))
       UiUtils.setTextAndShow(mCircleExit, String.valueOf(info.exitNum));
     else
       UiUtils.hide(mCircleExit);
 
-    UiUtils.showIf(info.vehicleNextTurnDirection.containsNextTurn(), mNextNextTurnFrame);
-    if (info.vehicleNextTurnDirection.containsNextTurn())
-      info.vehicleNextTurnDirection.setNextTurnDrawable(mNextNextTurnImage);
+    UiUtils.showIf(info.nextCarDirection.containsNextTurn(), mNextNextTurnFrame);
+    if (info.nextCarDirection.containsNextTurn())
+      info.nextCarDirection.setNextTurnDrawable(mNextNextTurnImage);
   }
 
   private void updatePedestrian(RoutingInfo info)
@@ -281,8 +301,11 @@ public class NavigationController implements TrafficManager.TrafficCallback
   {
     final Calendar currentTime = Calendar.getInstance();
     currentTime.add(Calendar.SECOND, seconds);
-    UiUtils.setTextAndShow(mTimeMinuteValue, DateFormat.getTimeInstance(DateFormat.SHORT)
-                                                       .format(currentTime.getTime()));
+    final DateFormat timeFormat12 = new SimpleDateFormat("h:mm aa", Locale.getDefault());
+    final DateFormat timeFormat24 = new SimpleDateFormat("HH:mm", Locale.getDefault());
+    boolean is24Format = android.text.format.DateFormat.is24HourFormat(mTimeMinuteValue.getContext());
+    UiUtils.setTextAndShow(mTimeMinuteValue, is24Format ? timeFormat24.format(currentTime.getTime())
+                          : timeFormat12.format(currentTime.getTime()));
     UiUtils.hide(mTimeHourUnits, mTimeHourValue, mTimeMinuteUnits);
   }
 
@@ -292,11 +315,51 @@ public class NavigationController implements TrafficManager.TrafficCallback
     update(Framework.nativeGetRouteFollowingInfo());
   }
 
+  public void showSearchButtons(boolean show)
+  {
+    UiUtils.showIf(show, mSearchButtonFrame);
+  }
+
+  public void adjustSearchButtons(int width)
+  {
+    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mSearchButtonFrame.getLayoutParams();
+    params.setMargins(width, params.topMargin, params.rightMargin, params.bottomMargin);
+    mSearchButtonFrame.requestLayout();
+  }
+
+  public void updateSearchButtonsTranslation(float translation)
+  {
+    mSearchButtonFrame.setTranslationY(translation);
+  }
+
+  public void fadeInSearchButtons()
+  {
+    UiUtils.show(mSearchButtonFrame);
+    Animations.fadeInView(mSearchButtonFrame, null);
+  }
+
+  public void fadeOutSearchButtons()
+  {
+    Animations.fadeOutView(mSearchButtonFrame, new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        mSearchButtonFrame.setVisibility(View.INVISIBLE);
+      }
+    });
+  }
+
   public void show(boolean show)
   {
     UiUtils.showIf(show, mFrame);
     UiUtils.showIf(show, mSearchButtonFrame);
     mNavMenu.show(show);
+  }
+
+  public void resetSearchWheel()
+  {
+    mSearchWheel.reset();
   }
 
   public NavMenu getNavMenu()
@@ -362,5 +425,19 @@ public class NavigationController implements TrafficManager.TrafficCallback
   public void onExpiredApp(boolean notify)
   {
     // no op
+  }
+
+  @Override
+  public void onClick(View v)
+  {
+    switch (v.getId())
+    {
+      case R.id.btn_bookmarks:
+        Context context = mFrame.getContext();
+        context.startActivity(new Intent(context, BookmarkCategoriesActivity.class));
+        Statistics.INSTANCE.trackRoutingEvent(ROUTING_BOOKMARKS_CLICK,
+                                              RoutingController.get().isPlanning());
+        break;
+    }
   }
 }

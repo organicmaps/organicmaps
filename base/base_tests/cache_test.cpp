@@ -3,7 +3,7 @@
 #include "base/macros.hpp"
 #include "base/stl_add.hpp"
 
-#include "std/bind.hpp"
+#include <functional>
 
 namespace
 {
@@ -102,7 +102,7 @@ UNIT_TEST(CacheSmoke_2)
 {
   my::Cache<uint32_t, char> cache(3); // it contains 2^3=8 elements
   SimpleFunctor f;
-  cache.ForEachValue(ref(f)); // f passed by reference
+  cache.ForEachValue(std::ref(f)); // f passed by reference
   TEST_EQUAL(f.m_v, std::vector<char>(8, 0), ());
 }
 
@@ -149,7 +149,7 @@ UNIT_TEST(CacheSmoke_5)
 {
   my::CacheWithStat<uint32_t, char> cache(3); // it contains 2^3=8 elements
   SimpleFunctor f;
-  cache.ForEachValue(ref(f)); // f passed by reference
+  cache.ForEachValue(std::ref(f)); // f passed by reference
   TEST_EQUAL(f.m_v, std::vector<char>(8, 0), ());
 }
 

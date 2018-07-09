@@ -18,6 +18,8 @@
 
 #include <stack>
 #include <boost/config.hpp>
+#include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/identity.hpp>
 
 // function specializations must be defined in the appropriate
 // namespace - boost::serialization

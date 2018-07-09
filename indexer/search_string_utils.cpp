@@ -5,12 +5,43 @@
 #include "base/macros.hpp"
 #include "base/mem_trie.hpp"
 
-#include "std/algorithm.hpp"
+#include "3party/utfcpp/source/utf8/unchecked.h"
 
+#include <algorithm>
+
+using namespace std;
 using namespace strings;
 
 namespace search
 {
+namespace
+{
+// Replaces '#' followed by an end-of-string or a digit with space.
+void RemoveNumeroSigns(UniString & s)
+{
+  size_t const n = s.size();
+
+  size_t i = 0;
+  while (i < n)
+  {
+    if (s[i] != '#')
+    {
+      ++i;
+      continue;
+    }
+
+    size_t j = i + 1;
+    while (j < n && IsASCIISpace(s[j]))
+      ++j;
+
+    if (j == n || IsASCIIDigit(s[j]))
+      s[i] = ' ';
+
+    i = j;
+  }
+}
+}  // namespace
+
 UniString NormalizeAndSimplifyString(string const & s)
 {
   UniString uniString = MakeUniString(s);
@@ -22,26 +53,38 @@ UniString NormalizeAndSimplifyString(string const & s)
     // Replace "d with stroke" to simple d letter. Used in Vietnamese.
     // (unicode-compliant implementation leaves it unchanged)
     case 0x0110:
-    case 0x0111: c = 'd'; break;
-    // Replace small turkish dotless 'ı' with dotted 'i'.
-    // Our own invented hack to avoid well-known Turkish I-letter bug.
-    case 0x0131: c = 'i'; break;
+    case 0x0111:
+      c = 'd';
+      break;
+    // Replace small turkish dotless 'ı' with dotted 'i'.  Our own
+    // invented hack to avoid well-known Turkish I-letter bug.
+    case 0x0131:
+      c = 'i';
+      break;
     // Replace capital turkish dotted 'İ' with dotted lowercased 'i'.
-    // Here we need to handle this case manually too, because default unicode-compliant implementation
-    // of MakeLowerCase converts 'İ' to 'i' + 0x0307.
-    case 0x0130: c = 'i'; break;
+    // Here we need to handle this case manually too, because default
+    // unicode-compliant implementation of MakeLowerCase converts 'İ'
+    // to 'i' + 0x0307.
+    case 0x0130:
+      c = 'i';
+      break;
     // Some Danish-specific hacks.
-    case 0x00d8:                    // Ø
-    case 0x00f8: c = 'o'; break;    // ø
-    case 0x0152:                    // Œ
-    case 0x0153:                    // œ
+    case 0x00d8:  // Ø
+    case 0x00f8:  // ø
+      c = 'o';
+      break;
+    case 0x0152:  // Œ
+    case 0x0153:  // œ
       c = 'o';
       uniString.insert(uniString.begin() + (i++) + 1, 'e');
       break;
-    case 0x00c6:                    // Æ
-    case 0x00e6:                    // æ
+    case 0x00c6:  // Æ
+    case 0x00e6:  // æ
       c = 'a';
       uniString.insert(uniString.begin() + (i++) + 1, 'e');
+      break;
+    case 0x2116:  // №
+      c = '#';
       break;
     }
   }
@@ -50,12 +93,13 @@ UniString NormalizeAndSimplifyString(string const & s)
   NormalizeInplace(uniString);
 
   // Remove accents that can appear after NFKD normalization.
-  uniString.erase_if([](UniChar const & c)
-  {
+  uniString.erase_if([](UniChar const & c) {
     // ̀  COMBINING GRAVE ACCENT
     // ́  COMBINING ACUTE ACCENT
     return (c == 0x0300 || c == 0x0301);
   });
+
+  RemoveNumeroSigns(uniString);
 
   return uniString;
 
@@ -101,7 +145,15 @@ class StreetsSynonymsHolder
 public:
   struct BooleanSum
   {
-    void Add(bool value) { m_value = m_value || value; }
+    using value_type = bool;
+
+    BooleanSum() { Clear(); }
+
+    void Add(bool value)
+    {
+      m_value = m_value || value;
+      m_empty = false;
+    }
 
     template <typename ToDo>
     void ForEach(ToDo && toDo) const
@@ -109,52 +161,22 @@ public:
       toDo(m_value);
     }
 
-    void Clear() { m_value = false; }
-
-    bool m_value = false;
-  };
-
-  template <typename Char, typename Subtree>
-  class Moves
-  {
-  public:
-    template <typename ToDo>
-    void ForEach(ToDo && toDo) const
+    void Clear()
     {
-      for (auto const & subtree : m_subtrees)
-        toDo(subtree.first, *subtree.second);
+      m_value = false;
+      m_empty = true;
     }
 
-    Subtree * GetSubtree(Char const & c) const
+    bool Empty() const { return m_empty; }
+
+    void Swap(BooleanSum & rhs)
     {
-      for (auto const & subtree : m_subtrees)
-      {
-        if (subtree.first == c)
-          return subtree.second.get();
-      }
-      return nullptr;
+      swap(m_value, rhs.m_value);
+      swap(m_empty, rhs.m_empty);
     }
 
-    Subtree & GetOrCreateSubtree(Char const & c, bool & created)
-    {
-      for (size_t i = 0; i < m_subtrees.size(); ++i)
-      {
-        if (m_subtrees[i].first == c)
-        {
-          created = false;
-          return *m_subtrees[i].second;
-        }
-      }
-
-      created = true;
-      m_subtrees.emplace_back(c, make_unique<Subtree>());
-      return *m_subtrees.back().second;
-    }
-
-    void Clear() { m_subtrees.clear(); }
-
-  private:
-    buffer_vector<pair<Char, std::unique_ptr<Subtree>>, 8> m_subtrees;
+    bool m_value;
+    bool m_empty;
   };
 
   StreetsSynonymsHolder()
@@ -229,32 +251,36 @@ public:
     }
   }
 
-  bool MatchPrefix(UniString const & s) const
-  {
-    bool found = false;
-    m_strings.ForEachInNode(s, [&](UniString const & prefix, bool /* value */) {
-      ASSERT_EQUAL(s, prefix, ());
-      found = true;
-    });
-    return found;
-  }
-
-  bool FullMatch(UniString const & s) const
-  {
-    bool found = false;
-    m_strings.ForEachInNode(s, [&](UniString const & prefix, bool value) {
-      ASSERT_EQUAL(s, prefix, ());
-      found = value;
-    });
-    return found;
-  }
+  bool MatchPrefix(UniString const & s) const { return m_strings.HasPrefix(s); }
+  bool FullMatch(UniString const & s) const { return m_strings.HasKey(s); }
 
 private:
-  my::MemTrie<UniString, BooleanSum, Moves> m_strings;
+  base::MemTrie<UniString, BooleanSum, base::VectorMoves> m_strings;
 };
 
 StreetsSynonymsHolder g_streets;
 }  // namespace
+
+string DropLastToken(string const & str)
+{
+  search::Delimiters delims;
+  using Iter = utf8::unchecked::iterator<string::const_iterator>;
+
+  // Find start iterator of prefix in input query.
+  Iter iter(str.end());
+  while (iter.base() != str.begin())
+  {
+    Iter prev = iter;
+    --prev;
+
+    if (delims(*prev))
+      break;
+
+    iter = prev;
+  }
+
+  return string(str.begin(), iter.base());
+}
 
 UniString GetStreetNameAsKey(string const & name)
 {

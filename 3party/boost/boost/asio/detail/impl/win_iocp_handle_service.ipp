@@ -2,7 +2,7 @@
 // detail/impl/win_iocp_handle_service.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2017 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 // Copyright (c) 2008 Rep Invariant Systems, Inc. (info@repinvariant.com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -40,7 +40,7 @@ public:
     OffsetHigh = 0;
 
     // Create a non-signalled manual-reset event, for GetOverlappedResult.
-    hEvent = ::CreateEvent(0, TRUE, FALSE, 0);
+    hEvent = ::CreateEventW(0, TRUE, FALSE, 0);
     if (hEvent)
     {
       // As documented in GetQueuedCompletionStatus, setting the low order

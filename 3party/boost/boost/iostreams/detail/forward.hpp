@@ -8,7 +8,7 @@
 #ifndef BOOST_IOSTREAMS_DETAIL_FORWARD_HPP_INCLUDED
 #define BOOST_IOSTREAMS_DETAIL_FORWARD_HPP_INCLUDED   
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif                  
  
@@ -62,8 +62,14 @@
         BOOST_IOSTREAMS_FORWARDING_FN, (class, impl, device) \
     ) \
     /**/
-#if !BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-# define BOOST_IOSTREAMS_FORWARDING_CTOR_I(z, n, tuple) \
+#define BOOST_IOSTREAMS_FORWARDING_CTOR(z, n, tuple) \
+    template<BOOST_PP_ENUM_PARAMS_Z(z, n, typename U)> \
+    BOOST_PP_TUPLE_ELEM(3, 0, tuple) \
+    (BOOST_PP_ENUM_BINARY_PARAMS_Z(z, n, const U, &u) \
+      BOOST_IOSTREAMS_DISABLE_IF_SAME(U0, BOOST_PP_TUPLE_ELEM(3, 2, tuple))) \
+    { this->BOOST_PP_TUPLE_ELEM(3, 1, tuple) \
+      ( BOOST_PP_TUPLE_ELEM(3, 2, tuple) \
+        (BOOST_PP_ENUM_PARAMS_Z(z, n, u)) ); } \
     template< typename U100 BOOST_PP_COMMA_IF(BOOST_PP_DEC(n)) \
               BOOST_PP_ENUM_PARAMS_Z(z, BOOST_PP_DEC(n), typename U) > \
     BOOST_PP_TUPLE_ELEM(3, 0, tuple) \
@@ -75,7 +81,13 @@
         ( u100 BOOST_PP_COMMA_IF(BOOST_PP_DEC(n)) \
           BOOST_PP_ENUM_PARAMS_Z(z, BOOST_PP_DEC(n), u)) ); } \
     /**/
-# define BOOST_IOSTREAMS_FORWARDING_FN_I(z, n, tuple) \
+#define BOOST_IOSTREAMS_FORWARDING_FN(z, n, tuple) \
+    template<BOOST_PP_ENUM_PARAMS_Z(z, n, typename U)> \
+    void open(BOOST_PP_ENUM_BINARY_PARAMS_Z(z, n, const U, &u) \
+      BOOST_IOSTREAMS_DISABLE_IF_SAME(U0, BOOST_PP_TUPLE_ELEM(3, 2, tuple))) \
+    { this->BOOST_PP_TUPLE_ELEM(3, 1, tuple) \
+      ( BOOST_PP_TUPLE_ELEM(3, 2, tuple) \
+        (BOOST_PP_ENUM_PARAMS_Z(z, n, u)) ); } \
     template< typename U100 BOOST_PP_COMMA_IF(BOOST_PP_DEC(n)) \
               BOOST_PP_ENUM_PARAMS_Z(z, BOOST_PP_DEC(n), typename U) > \
     void open \
@@ -85,29 +97,6 @@
     { this->BOOST_PP_TUPLE_ELEM(3, 1, tuple) \
       ( u100 BOOST_PP_COMMA_IF(BOOST_PP_DEC(n)) \
         BOOST_PP_ENUM_PARAMS_Z(z, BOOST_PP_DEC(n), u) ); } \
-    /**/
-#else
-# define BOOST_IOSTREAMS_FORWARDING_CTOR_I(z, n, tuple)
-# define BOOST_IOSTREAMS_FORWARDING_FN_I(z, n, tuple)
-#endif
-#define BOOST_IOSTREAMS_FORWARDING_CTOR(z, n, tuple) \
-    template<BOOST_PP_ENUM_PARAMS_Z(z, n, typename U)> \
-    BOOST_PP_TUPLE_ELEM(3, 0, tuple) \
-    (BOOST_PP_ENUM_BINARY_PARAMS_Z(z, n, const U, &u) \
-      BOOST_IOSTREAMS_DISABLE_IF_SAME(U0, BOOST_PP_TUPLE_ELEM(3, 2, tuple))) \
-    { this->BOOST_PP_TUPLE_ELEM(3, 1, tuple) \
-      ( BOOST_PP_TUPLE_ELEM(3, 2, tuple) \
-        (BOOST_PP_ENUM_PARAMS_Z(z, n, u)) ); } \
-    BOOST_IOSTREAMS_FORWARDING_CTOR_I(z, n, tuple) \
-    /**/
-#define BOOST_IOSTREAMS_FORWARDING_FN(z, n, tuple) \
-    template<BOOST_PP_ENUM_PARAMS_Z(z, n, typename U)> \
-    void open(BOOST_PP_ENUM_BINARY_PARAMS_Z(z, n, const U, &u) \
-      BOOST_IOSTREAMS_DISABLE_IF_SAME(U0, BOOST_PP_TUPLE_ELEM(3, 2, tuple))) \
-    { this->BOOST_PP_TUPLE_ELEM(3, 1, tuple) \
-      ( BOOST_PP_TUPLE_ELEM(3, 2, tuple) \
-        (BOOST_PP_ENUM_PARAMS_Z(z, n, u)) ); } \
-    BOOST_IOSTREAMS_FORWARDING_FN_I(z, n, tuple) \
     /**/
 
 // Disable forwarding constructors if first parameter type is the same

@@ -26,7 +26,7 @@ BOOST_FUSION_BARRIER_BEGIN
         {
             typedef apply<Iterator> gen;
             typedef typename gen::type result;
-
+            
             return result(*i0);
         }
     };

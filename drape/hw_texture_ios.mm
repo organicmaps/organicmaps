@@ -3,6 +3,7 @@
 #include "base/logging.hpp"
 
 #include "drape/glfunctions.hpp"
+#include "drape/glIncludes.hpp"
 
 #import <QuartzCore/CAEAGLLayer.h>
 
@@ -10,8 +11,17 @@
 #import <Foundation/NSValue.h>
 
 #include <boost/integer_traits.hpp>
+
+/// @todo(greshilov): delete this hack for next boost version (>1.65.0)
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wc++11-narrowing"
+#endif
 #include <boost/gil/algorithm.hpp>
 #include <boost/gil/typedefs.hpp>
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
 
 using boost::gil::gray8c_pixel_t;
 using boost::gil::gray8_pixel_t;
@@ -52,8 +62,8 @@ CVPixelBufferRef HWTextureAllocatorApple::CVCreatePixelBuffer(uint32_t width, ui
 
   CFDictionaryRef attrsRef = (__bridge CFDictionaryRef)attrs;
 
-  CVPixelBufferRef result;
-  CVReturn cvRetval;
+  CVPixelBufferRef result = nullptr;
+  CVReturn cvRetval = 0;
   switch (format)
   {
   case dp::RGBA8:

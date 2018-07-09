@@ -149,8 +149,8 @@ class ZipLogsTask implements Runnable
     }
     finally
     {
-      Utils.closeStream(writer);
-      Utils.closeStream(reader);
+      Utils.closeSafely(writer);
+      Utils.closeSafely(reader);
     }
   }
 }

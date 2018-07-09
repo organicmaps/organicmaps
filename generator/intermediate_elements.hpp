@@ -1,24 +1,23 @@
 #pragma once
 
 #include "base/assert.hpp"
-#include "base/std_serialization.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/varint.hpp"
 #include "coding/writer.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-#include "std/limits.hpp"
-#include "std/map.hpp"
-#include "std/string.hpp"
-#include "std/sstream.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <functional>
+#include <limits>
+#include <map>
+#include <sstream>
+#include <string>
+#include <utility>
+#include <vector>
 
 struct WayElement
 {
-  vector<uint64_t> nodes;
+  std::vector<uint64_t> nodes;
   uint64_t m_wayOsmId;
 
   explicit WayElement(uint64_t osmId) : m_wayOsmId(osmId) {}
@@ -37,7 +36,7 @@ struct WayElement
   template <class ToDo>
   void ForEachPoint(ToDo & toDo) const
   {
-    for_each(nodes.begin(), nodes.end(), ref(toDo));
+    std::for_each(nodes.begin(), nodes.end(), std::ref(toDo));
   }
 
   template <class ToDo>
@@ -45,9 +44,9 @@ struct WayElement
   {
     ASSERT(!nodes.empty(), ());
     if (start == nodes.front())
-      for_each(nodes.begin(), nodes.end(), ref(toDo));
+      std::for_each(nodes.begin(), nodes.end(), std::ref(toDo));
     else
-      for_each(nodes.rbegin(), nodes.rend(), ref(toDo));
+      std::for_each(nodes.rbegin(), nodes.rend(), std::ref(toDo));
   }
 
   template <class TWriter>
@@ -69,16 +68,16 @@ struct WayElement
       e = ReadVarUint<uint64_t>(r);
   }
 
-  string ToString() const
+  std::string ToString() const
   {
-    stringstream ss;
+    std::stringstream ss;
     ss << nodes.size() << " " << m_wayOsmId;
     return ss.str();
   }
 
-  string Dump() const
+  std::string Dump() const
   {
-    stringstream ss;
+    std::stringstream ss;
     for (auto const & e : nodes)
       ss << e << ";";
     return ss.str();
@@ -88,22 +87,23 @@ struct WayElement
 class RelationElement
 {
 public:
-  using TMembers = vector<pair<uint64_t, string>>;
+  using TMembers = std::vector<std::pair<uint64_t, std::string>>;
 
   TMembers nodes;
   TMembers ways;
-  map<string, string> tags;
+  std::map<std::string, std::string> tags;
 
   bool IsValid() const { return !(nodes.empty() && ways.empty()); }
 
-  string GetType() const
+  std::string GetTagValue(std::string const & key) const
   {
-    auto it = tags.find("type");
-    return ((it != tags.end()) ? it->second : string());
+    auto it = tags.find(key);
+    return ((it != tags.end()) ? it->second : std::string());
   }
 
-  bool FindWay(uint64_t id, string & role) const { return FindRoleImpl(ways, id, role); }
-  bool FindNode(uint64_t id, string & role) const { return FindRoleImpl(nodes, id, role); }
+  std::string GetType() const { return GetTagValue("type"); }
+  bool FindWay(uint64_t id, std::string & role) const { return FindRoleImpl(ways, id, role); }
+  bool FindNode(uint64_t id, std::string & role) const { return FindRoleImpl(nodes, id, role); }
 
   template <class ToDo>
   void ForEachWay(ToDo & toDo) const
@@ -112,20 +112,20 @@ public:
       toDo(ways[i].first, ways[i].second);
   }
 
-  string GetNodeRole(uint64_t const id) const
+  std::string GetNodeRole(uint64_t const id) const
   {
     for (size_t i = 0; i < nodes.size(); ++i)
       if (nodes[i].first == id)
         return nodes[i].second;
-    return string();
+    return std::string();
   }
 
-  string GetWayRole(uint64_t const id) const
+  std::string GetWayRole(uint64_t const id) const
   {
     for (size_t i = 0; i < ways.size(); ++i)
       if (ways[i].first == id)
         return ways[i].second;
-    return string();
+    return std::string();
   }
 
   void Swap(RelationElement & rhs)
@@ -138,10 +138,10 @@ public:
   template <class TWriter>
   void Write(TWriter & writer) const
   {
-    auto StringWriter = [&writer, this](string const & str)
+    auto StringWriter = [&writer, this](std::string const & str)
     {
-      CHECK_LESS(str.size(), numeric_limits<uint16_t>::max(),
-                 ("Can't store string greater then 65535 bytes", Dump()));
+      CHECK_LESS(str.size(), std::numeric_limits<uint16_t>::max(),
+                 ("Can't store std::string greater then 65535 bytes", Dump()));
       uint16_t sz = static_cast<uint16_t>(str.size());
       writer.Write(&sz, sizeof(sz));
       writer.Write(str.data(), sz);
@@ -179,7 +179,7 @@ public:
   {
     ReaderSource<TReader> r(reader);
 
-    auto StringReader = [&r](string & str)
+    auto StringReader = [&r](std::string & str)
     {
       uint16_t sz = 0;
       r.Read(&sz, sizeof(sz));
@@ -208,7 +208,7 @@ public:
     uint64_t count = ReadVarUint<uint64_t>(r);
     for (uint64_t i = 0; i < count; ++i)
     {
-      pair<string, string> kv;
+      std::pair<std::string, std::string> kv;
       // decode key
       StringReader(kv.first);
       // decode value
@@ -217,16 +217,16 @@ public:
     }
   }
 
-  string ToString() const
+  std::string ToString() const
   {
-    stringstream ss;
+    std::stringstream ss;
     ss << nodes.size() << " " << ways.size() << " " << tags.size();
     return ss.str();
   }
 
-  string Dump() const
+  std::string Dump() const
   {
-    stringstream ss;
+    std::stringstream ss;
     for (auto const & e : nodes)
       ss << "n{" << e.first << "," << e.second << "};";
     for (auto const & e : ways)
@@ -237,7 +237,7 @@ public:
   }
 
 protected:
-  bool FindRoleImpl(TMembers const & container, uint64_t id, string & role) const
+  bool FindRoleImpl(TMembers const & container, uint64_t id, std::string & role) const
   {
     for (auto const & e : container)
     {

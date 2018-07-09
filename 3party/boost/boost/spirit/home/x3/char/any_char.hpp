@@ -54,7 +54,7 @@ namespace boost { namespace spirit { namespace x3
         template <typename Char>
         char_range<Encoding> operator()(Char (&from)[2], Char (&to)[2]) const
         {
-            return { from[0], to[0] };
+            return { static_cast<char_type>(from[0]), static_cast<char_type>(to[0]) };
         }
 
         template <typename Char>

@@ -16,12 +16,17 @@ public:
 
   void AddOptions(MapOptions opt);
   void RemoveOptions(MapOptions opt);
+  /// In case we can't update file using diff scheme.
+  void ResetToDefaultOptions();
   bool SwitchToNextFile();
+
+  void SetFrozen() { m_isFrozen = true; }
+  bool IsFrozen() const { return m_isFrozen; }
 
   inline TCountryId const & GetCountryId() const { return m_countryId; }
   inline MapOptions GetInitOptions() const { return m_init; }
-  inline MapOptions GetCurrentFile() const { return m_current; }
-  inline MapOptions GetDownloadedFiles() const { return UnsetOptions(m_init, m_left); }
+  inline MapOptions GetCurrentFileOptions() const { return m_current; }
+  inline MapOptions GetDownloadedFilesOptions() const { return UnsetOptions(m_init, m_left); }
 
   inline bool operator==(TCountryId const & countryId) const { return m_countryId == countryId; }
 
@@ -30,5 +35,6 @@ private:
   MapOptions m_init;
   MapOptions m_left;
   MapOptions m_current;
+  bool m_isFrozen = false;
 };
 }  // namespace storage

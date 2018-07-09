@@ -12,15 +12,23 @@
 namespace
 {
 template <typename Container>
-vector<uint8_t> CreateDataPacketImpl(Container const & points)
+vector<uint8_t> CreateDataPacketImpl(Container const & points,
+                                     tracking::Protocol::PacketType const type)
 {
   vector<uint8_t> buffer;
   MemWriter<decltype(buffer)> writer(buffer);
-  tracking::Protocol::Encoder::SerializeDataPoints(tracking::Protocol::Encoder::kLatestVersion,
-                                                   writer, points);
 
-  auto packet = tracking::Protocol::CreateHeader(tracking::Protocol::PacketType::CurrentData,
-                                                 static_cast<uint32_t>(buffer.size()));
+  uint32_t version = tracking::Protocol::Encoder::kLatestVersion;
+  switch (type)
+  {
+  case tracking::Protocol::PacketType::DataV0: version = 0; break;
+  case tracking::Protocol::PacketType::DataV1: version = 1; break;
+  case tracking::Protocol::PacketType::AuthV0: ASSERT(false, ("Not a DATA packet.")); break;
+  }
+
+  tracking::Protocol::Encoder::SerializeDataPoints(version, writer, points);
+
+  auto packet = tracking::Protocol::CreateHeader(type, static_cast<uint32_t>(buffer.size()));
   packet.insert(packet.end(), begin(buffer), end(buffer));
 
   return packet;
@@ -54,15 +62,15 @@ vector<uint8_t> Protocol::CreateAuthPacket(string const & clientId)
 }
 
 //  static
-vector<uint8_t> Protocol::CreateDataPacket(DataElementsCirc const & points)
+vector<uint8_t> Protocol::CreateDataPacket(DataElementsCirc const & points, PacketType type)
 {
-  return CreateDataPacketImpl(points);
+  return CreateDataPacketImpl(points, type);
 }
 
 //  static
-vector<uint8_t> Protocol::CreateDataPacket(DataElementsVec const & points)
+vector<uint8_t> Protocol::CreateDataPacket(DataElementsVec const & points, PacketType type)
 {
-  return CreateDataPacketImpl(points);
+  return CreateDataPacketImpl(points, type);
 }
 
 //  static
@@ -82,9 +90,9 @@ string Protocol::DecodeAuthPacket(Protocol::PacketType type, vector<uint8_t> con
 {
   switch (type)
   {
-  case Protocol::PacketType::AuthV0:
-    return string(begin(data), end(data));
-  case Protocol::PacketType::DataV0: break;
+  case Protocol::PacketType::AuthV0: return string(begin(data), end(data));
+  case Protocol::PacketType::DataV0:
+  case Protocol::PacketType::DataV1: ASSERT(false, ("Not an AUTH packet.")); break;
   }
   return string();
 }
@@ -98,9 +106,12 @@ Protocol::DataElementsVec Protocol::DecodeDataPacket(PacketType type, vector<uin
   switch (type)
   {
   case Protocol::PacketType::DataV0:
-    Encoder::DeserializeDataPoints(Encoder::kLatestVersion, src, points);
+    Encoder::DeserializeDataPoints(0 /* version */, src, points);
     break;
-  case Protocol::PacketType::AuthV0: break;
+  case Protocol::PacketType::DataV1:
+    Encoder::DeserializeDataPoints(1 /* version */, src, points);
+    break;
+  case Protocol::PacketType::AuthV0: ASSERT(false, ("Not a DATA packet.")); break;
   }
   return points;
 }
@@ -126,6 +137,7 @@ string DebugPrint(Protocol::PacketType type)
   {
   case Protocol::PacketType::AuthV0: return "AuthV0";
   case Protocol::PacketType::DataV0: return "DataV0";
+  case Protocol::PacketType::DataV1: return "DataV1";
   }
   stringstream ss;
   ss << "Unknown(" << static_cast<uint32_t>(type) << ")";

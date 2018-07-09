@@ -94,7 +94,7 @@ namespace boost { namespace phoenix
               , typename C
               , typename Arg1
             >
-            struct result<This(C&, Arg1 const &)>
+            struct result<This(C&, Arg1&)>
             {
                 typedef typename add_reference<C>::type type;
             };
@@ -349,39 +349,19 @@ namespace boost { namespace phoenix
             {};
 
             template <typename C, typename Arg1>
-            typename stl_impl::disable_if_is_void<
-                typename result_of::erase<C, Arg1>::type
-            >::type
+            typename result_of::erase<C, Arg1>::type
             operator()(C& c, Arg1 arg1) const
             {
-                return c.erase(arg1);
-            }
-
-            template <typename C, typename Arg1>
-            typename stl_impl::enable_if_is_void<
-                typename result_of::erase<C, Arg1>::type
-            >::type
-            operator()(C& c, Arg1 arg1) const
-            {
-                c.erase(arg1);
+                typedef typename result_of::erase<C, Arg1>::type result_type;
+                return static_cast<result_type>(c.erase(arg1));
             }
 
             template <typename C, typename Arg1, typename Arg2>
-            typename stl_impl::disable_if_is_void<
-                typename result_of::erase<C, Arg1, Arg2>::type
-            >::type
+            typename result_of::erase<C, Arg1, Arg2>::type
             operator()(C& c, Arg1 arg1, Arg2 arg2) const
             {
-                return c.erase(arg1, arg2);
-            }
-
-            template <typename C, typename Arg1, typename Arg2>
-            typename stl_impl::enable_if_is_void<
-                typename result_of::erase<C, Arg1, Arg2>::type
-            >::type
-            operator()(C& c, Arg1 arg1, Arg2 arg2) const
-            {
-                c.erase(arg1, arg2);
+                typedef typename result_of::erase<C, Arg1, Arg2>::type result_type;
+                return static_cast<result_type>(c.erase(arg1, arg2));
             }
         };
 
@@ -534,41 +514,19 @@ namespace boost { namespace phoenix
             }
 
             template <typename C, typename Arg1, typename Arg2>
-            typename stl_impl::disable_if_is_void<
-                typename result<insert(C&, Arg1, Arg2)>::type
-            >::type
+            typename result<insert(C&, Arg1, Arg2)>::type
             operator()(C& c, Arg1 arg1, Arg2 arg2) const
             {
-                return c.insert(arg1, arg2);
-            }
-
-            template <typename C, typename Arg1, typename Arg2>
-            typename stl_impl::enable_if_is_void<
-                typename result<insert(C&, Arg1, Arg2)>::type
-            >::type
-            operator()(C& c, Arg1 arg1, Arg2 arg2) const
-            {
-                c.insert(arg1, arg2);
+                typedef typename result<insert(C&, Arg1, Arg2)>::type result_type;
+                return static_cast<result_type>(c.insert(arg1, arg2));
             }
 
             template <typename C, typename Arg1, typename Arg2, typename Arg3>
-            typename stl_impl::disable_if_is_void<
-                typename result<insert(C&, Arg1, Arg2, Arg3)>::type
-            >::type
-            operator()(
-                C& c, Arg1 arg1, Arg2 arg2, Arg3 arg3) const
+            typename result<insert(C&, Arg1, Arg2, Arg3)>::type
+            operator()(C& c, Arg1 arg1, Arg2 arg2, Arg3 arg3) const
             {
-                return c.insert(arg1, arg2, arg3);
-            }
-
-            template <typename C, typename Arg1, typename Arg2, typename Arg3>
-            typename stl_impl::enable_if_is_void<
-                typename result<insert(C&, Arg1, Arg2, Arg3)>::type
-            >::type
-            operator()(
-                C& c, Arg1 arg1, Arg2 arg2, Arg3 arg3) const
-            {
-                c.insert(arg1, arg2, arg3);
+                typedef typename result<insert(C&, Arg1, Arg2, Arg3)>::type result_type;
+                return static_cast<result_type>(c.insert(arg1, arg2, arg3));
             }
         };
 

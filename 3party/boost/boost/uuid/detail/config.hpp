@@ -36,15 +36,23 @@
 #define BOOST_UUID_USE_SSE41
 #endif
 
-#elif defined(_MSC_VER) && (defined(_M_X64) || (defined(_M_IX86) && defined(_M_IX86_FP) && _M_IX86_FP >= 2))
+#elif defined(_MSC_VER)
 
-#ifndef BOOST_UUID_USE_SSE2
+#if (defined(_M_X64) || (defined(_M_IX86) && defined(_M_IX86_FP) && _M_IX86_FP >= 2)) && !defined(BOOST_UUID_USE_SSE2)
 #define BOOST_UUID_USE_SSE2
 #endif
 
-#elif !defined(BOOST_UUID_USE_SSE41) && !defined(BOOST_UUID_USE_SSE3) && !defined(BOOST_UUID_USE_SSE2)
-
-#define BOOST_UUID_NO_SIMD
+#if defined(__AVX__)
+#if !defined(BOOST_UUID_USE_SSE41)
+#define BOOST_UUID_USE_SSE41
+#endif
+#if !defined(BOOST_UUID_USE_SSE3)
+#define BOOST_UUID_USE_SSE3
+#endif
+#if !defined(BOOST_UUID_USE_SSE2)
+#define BOOST_UUID_USE_SSE2
+#endif
+#endif
 
 #endif
 
@@ -55,6 +63,10 @@
 
 #if !defined(BOOST_UUID_USE_SSE2) && defined(BOOST_UUID_USE_SSE3)
 #define BOOST_UUID_USE_SSE2
+#endif
+
+#if !defined(BOOST_UUID_NO_SIMD) && !defined(BOOST_UUID_USE_SSE41) && !defined(BOOST_UUID_USE_SSE3) && !defined(BOOST_UUID_USE_SSE2)
+#define BOOST_UUID_NO_SIMD
 #endif
 
 #endif // !defined(BOOST_UUID_NO_SIMD)

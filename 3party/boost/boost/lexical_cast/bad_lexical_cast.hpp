@@ -31,12 +31,12 @@ namespace boost
 {
     // exception used to indicate runtime lexical_cast failure
     class BOOST_SYMBOL_VISIBLE bad_lexical_cast :
-    // workaround MSVC bug with std::bad_cast when _HAS_EXCEPTIONS == 0
-#if defined(BOOST_MSVC) && defined(_HAS_EXCEPTIONS) && !_HAS_EXCEPTIONS
-        public std::exception
-#else
-        public std::bad_cast
-#endif
+    // workaround MSVC bug with std::bad_cast when _HAS_EXCEPTIONS == 0 
+#if defined(BOOST_MSVC) && defined(_HAS_EXCEPTIONS) && !_HAS_EXCEPTIONS 
+        public std::exception 
+#else 
+        public std::bad_cast 
+#endif 
 
 #if defined(__BORLANDC__) && BOOST_WORKAROUND( __BORLANDC__, < 0x560 )
         // under bcc32 5.5.1 bad_cast doesn't derive from exception
@@ -98,3 +98,4 @@ namespace boost
 } // namespace boost
 
 #endif // BOOST_LEXICAL_CAST_BAD_LEXICAL_CAST_HPP
+

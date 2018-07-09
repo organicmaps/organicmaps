@@ -20,6 +20,9 @@
 
 #include <boost/config/compiler/visualc.hpp>
 
+#undef BOOST_MSVC
+#undef BOOST_MSVC_FULL_VER
+
 #if (__INTEL_COMPILER >= 1500) && (_MSC_VER >= 1900)
 //
 // These appear to be supported, even though VC++ may not support them:
@@ -32,11 +35,23 @@
 
 #endif
 
-#else
+#if (__INTEL_COMPILER <= 1600) && !defined(BOOST_NO_CXX14_VARIABLE_TEMPLATES)
+#  define BOOST_NO_CXX14_VARIABLE_TEMPLATES
+#endif
+
+#else // defined(_MSC_VER)
 
 #include <boost/config/compiler/gcc.hpp>
 
+#undef BOOST_GCC_VERSION
+#undef BOOST_GCC_CXX11
+
+// Broken in all versions up to 17 (newer versions not tested)
+#if (__INTEL_COMPILER <= 1700) && !defined(BOOST_NO_CXX14_CONSTEXPR)
+#  define BOOST_NO_CXX14_CONSTEXPR
 #endif
+
+#endif // defined(_MSC_VER)
 
 #undef BOOST_COMPILER
 
@@ -82,9 +97,9 @@
 #  define BOOST_INTEL_LINUX BOOST_INTEL
 #endif
 
-#else
+#else // defined(__INTEL_COMPILER) && (__INTEL_COMPILER >= 1500) && (defined(_MSC_VER) || defined(__GNUC__))
 
-#include "boost/config/compiler/common_edg.hpp"
+#include <boost/config/compiler/common_edg.hpp>
 
 #if defined(__INTEL_COMPILER)
 #if __INTEL_COMPILER == 9999
@@ -298,7 +313,7 @@ template<> struct assert_intrinsic_wchar_t<unsigned short> {};
 #endif
 //
 // C++0x features
-// For each feature we need to check both the Intel compiler version,
+// For each feature we need to check both the Intel compiler version, 
 // and the version of MSVC or GCC that we are emulating.
 // See http://software.intel.com/en-us/articles/c0x-features-supported-by-intel-c-compiler/
 // for a list of which features were implemented in which Intel releases.
@@ -400,6 +415,11 @@ template<> struct assert_intrinsic_wchar_t<unsigned short> {};
 #  undef BOOST_NO_SFINAE_EXPR
 #endif
 
+// BOOST_NO_CXX11_SFINAE_EXPR
+#if (BOOST_INTEL_CXX_VERSION >= 1500) && (!defined(BOOST_INTEL_GCC_VERSION) || (BOOST_INTEL_GCC_VERSION >= 40800)) && !defined(_MSC_VER)
+#  undef BOOST_NO_CXX11_SFINAE_EXPR
+#endif
+
 // BOOST_NO_CXX11_EXPLICIT_CONVERSION_OPERATORS
 #if (BOOST_INTEL_CXX_VERSION >= 1500) && (!defined(BOOST_INTEL_GCC_VERSION) || (BOOST_INTEL_GCC_VERSION >= 40500)) && (!defined(_MSC_VER) || (_MSC_FULL_VER >= 180020827))
 // This is available in earlier Intel releases, but breaks Multiprecision:
@@ -433,7 +453,7 @@ template<> struct assert_intrinsic_wchar_t<unsigned short> {};
 
 // BOOST_NO_CXX11_NOEXCEPT
 #if (BOOST_INTEL_CXX_VERSION >= 1500) && (!defined(BOOST_INTEL_GCC_VERSION) || (BOOST_INTEL_GCC_VERSION >= 40600)) && (!defined(_MSC_VER) || (_MSC_VER >= 9999))
-// Available in earlier Intel release, but generates errors when used with
+// Available in earlier Intel release, but generates errors when used with 
 // conditional exception specifications, for example in multiprecision:
 #  undef BOOST_NO_CXX11_NOEXCEPT
 #endif
@@ -473,7 +493,7 @@ template<> struct assert_intrinsic_wchar_t<unsigned short> {};
 #  undef BOOST_NO_CXX11_FINAL
 #endif
 
-#endif
+#endif // defined(BOOST_INTEL_STDCXX0X)
 
 //
 // Broken in all versions up to 15:
@@ -508,14 +528,22 @@ template<> struct assert_intrinsic_wchar_t<unsigned short> {};
 #  define BOOST_HAS_STDINT_H
 #endif
 
-#if defined(__LP64__) && defined(__GNUC__) && (BOOST_INTEL_CXX_VERSION >= 1310) && !defined(__CUDACC__)
+#if defined(__CUDACC__)
+#  if defined(BOOST_GCC_CXX11)
+#    define BOOST_NVCC_CXX11
+#  else
+#    define BOOST_NVCC_CXX03
+#  endif
+#endif
+
+#if defined(__LP64__) && defined(__GNUC__) && (BOOST_INTEL_CXX_VERSION >= 1310) && !defined(BOOST_NVCC_CXX03)
 #  define BOOST_HAS_INT128
 #endif
 
-#endif
+#endif // defined(__INTEL_COMPILER) && (__INTEL_COMPILER >= 1500) && (defined(_MSC_VER) || defined(__GNUC__))
 //
 // last known and checked version:
-#if (BOOST_INTEL_CXX_VERSION > 1500)
+#if (BOOST_INTEL_CXX_VERSION > 1700)
 #  if defined(BOOST_ASSERT_CONFIG)
 #     error "Unknown compiler version - please run the configure tests and report the results"
 #  elif defined(_MSC_VER)

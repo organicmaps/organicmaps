@@ -19,10 +19,6 @@
 
 namespace boost { namespace phoenix
 {
-    namespace detail
-    {
-    }
-    
     namespace expression
     {
         template <typename Key>
@@ -165,32 +161,32 @@ namespace boost { namespace phoenix
         typedef expression::local_variable<struct _z_key>::type _z_type;
 
 #ifndef BOOST_PHOENIX_NO_PREDEFINED_TERMINALS
-        _a_type const _a = {{{}}};
-        _b_type const _b = {{{}}};
-        _c_type const _c = {{{}}};
-        _d_type const _d = {{{}}};
-        _e_type const _e = {{{}}};
-        _f_type const _f = {{{}}};
-        _g_type const _g = {{{}}};
-        _h_type const _h = {{{}}};
-        _i_type const _i = {{{}}};
-        _j_type const _j = {{{}}};
-        _k_type const _k = {{{}}};
-        _l_type const _l = {{{}}};
-        _m_type const _m = {{{}}};
-        _n_type const _n = {{{}}};
-        _o_type const _o = {{{}}};
-        _p_type const _p = {{{}}};
-        _q_type const _q = {{{}}};
-        _r_type const _r = {{{}}};
-        _s_type const _s = {{{}}};
-        _t_type const _t = {{{}}};
-        _u_type const _u = {{{}}};
-        _v_type const _v = {{{}}};
-        _w_type const _w = {{{}}};
-        _x_type const _x = {{{}}};
-        _y_type const _y = {{{}}};
-        _z_type const _z = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _a_type const _a = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _b_type const _b = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _c_type const _c = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _d_type const _d = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _e_type const _e = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _f_type const _f = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _g_type const _g = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _h_type const _h = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _i_type const _i = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _j_type const _j = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _k_type const _k = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _l_type const _l = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _m_type const _m = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _n_type const _n = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _o_type const _o = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _p_type const _p = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _q_type const _q = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _r_type const _r = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _s_type const _s = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _t_type const _t = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _u_type const _u = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _v_type const _v = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _w_type const _w = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _x_type const _x = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _y_type const _y = {{{}}};
+        BOOST_ATTRIBUTE_UNUSED _z_type const _z = {{{}}};
 #endif
     }
 }}

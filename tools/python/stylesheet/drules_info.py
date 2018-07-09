@@ -2,6 +2,17 @@
 #  - zooms range, for classes with a style
 #  - classes without a style
 
+# If path to the protobuf EGG is specified then apply it before import drules_struct_pb2
+import os
+import sys
+PROTOBUF_EGG_PATH = os.environ.get("PROTOBUF_EGG_PATH")
+if PROTOBUF_EGG_PATH:
+    # another version of protobuf may be installed, override it
+    for i in range(len(sys.path)):
+        if -1 != sys.path[i].find("protobuf-"):
+            sys.path[i] = PROTOBUF_EGG_PATH
+    sys.path.append(PROTOBUF_EGG_PATH)
+
 import sys
 import csv
 import drules_struct_pb2
@@ -30,10 +41,10 @@ def GetClassesZoomRange(drules_path):
                     zooms[1] = elem.scale
         if zooms[0] != -1:
             if name in result:
-                if result[name][0].scale < zooms[0]:
-                    zooms[0] = result[name][0].scale
-                if result[name][1].scale > zooms[1]:
-                    zooms[1] = result[name][1].scale
+                if result[name][0] < zooms[0]:
+                    zooms[0] = result[name][0]
+                if result[name][1] > zooms[1]:
+                    zooms[1] = result[name][1]
             result[name] = zooms
     return result
 
@@ -55,11 +66,12 @@ def ShowZoomInfo(mapping_path, drules_path):
 
     print "Classes with a style: (%s)" % (str(len(classes_with_style)))
     for c in classes_with_style:
-        print "  %s - [%s, %s]" % (c, str(classes_zooms[c][0]), str(classes_zooms[c][1]))
+        print "    %s - [%s, %s]" % (c, str(classes_zooms[c][0]), str(classes_zooms[c][1]))
 
+    print ""
     print "Classes without a style (%s):" % (len(classes_without_style))
     for c in classes_without_style:
-        print "  %s" % c
+        print "    %s" % c
 
 if __name__ == "__main__":
 

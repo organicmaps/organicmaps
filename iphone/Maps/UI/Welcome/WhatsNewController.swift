@@ -1,58 +1,67 @@
-import UIKit
+final class WhatsNewController: WelcomeViewController {
 
-final class WhatsNewController: MWMViewController, WelcomeProtocol {
+  private struct WhatsNewConfig: WelcomeConfig {
+    let image: UIImage
+    let title: String
+    let text: String
+    let buttonTitle: String
+    let ctaButtonTitle: String?
+    let ctaButtonUrl: String?
+  }
+  
+  static let ctaUrl = "https://b2b.maps.me/whatsnew/us"
+  static var welcomeConfigs: [WelcomeConfig] {
+  return [
+    WhatsNewConfig(image: #imageLiteral(resourceName: "img_wn_business"),
+                   title: "whats_new_localbiz_title",
+                   text: "whats_new_localbiz_message",
+                   buttonTitle: "done",
+                   ctaButtonTitle: "whats_new_order_button",
+                   ctaButtonUrl: ctaUrl)
+    ]
+  }
 
-  static var welcomeConfigs: [WelcomeConfig] = [
-    WelcomeConfig(image:  #imageLiteral(resourceName: "wn_img_1"),
-                  title: "whatsnew_improved_search",
-                  text: "whatsnew_improved_search_text",
-                  buttonTitle: "whats_new_next_button",
-                  buttonAction: #selector(nextPage)),
-    WelcomeConfig(image:  #imageLiteral(resourceName: "wn_img_2"),
-                  title: "whatsnew_filters_in_search",
-                  text: "whatsnew_filters_in_search_text",
-                  buttonTitle: "whats_new_next_button",
-                  buttonAction: #selector(nextPage)),
-    WelcomeConfig(image:  #imageLiteral(resourceName: "wn_img_3"),
-                  title: "whatsnew_font_size",
-                  text: "whatsnew_font_size_text",
-                  buttonTitle: "done",
-                  buttonAction: #selector(close))
-  ]
+  override class var key: String { return welcomeConfigs.reduce("\(self)", { return "\($0)_\($1.title)" }) }
+  
+  static var shouldShowWhatsNew: Bool {
+    get {
+      return !UserDefaults.standard.bool(forKey: key)
+    }
+    set {
+      UserDefaults.standard.set(!newValue, forKey: key)
+    }
+  }
 
-  var pageIndex: Int!
-  weak var pageController: WelcomePageController!
-
-  @IBOutlet weak var image: UIImageView!
-  @IBOutlet weak var alertTitle: UILabel!
-  @IBOutlet weak var alertText: UILabel!
-  @IBOutlet weak var nextPageButton: UIButton!
-  @IBOutlet weak var containerWidth: NSLayoutConstraint!
-  @IBOutlet weak var containerHeight: NSLayoutConstraint!
-
-  @IBOutlet weak var imageMinHeight: NSLayoutConstraint!
-  @IBOutlet weak var imageHeight: NSLayoutConstraint!
-
-  @IBOutlet weak var titleTopOffset: NSLayoutConstraint!
-  @IBOutlet weak var titleImageOffset: NSLayoutConstraint!
-
+  static func controllers() -> [WelcomeViewController] {
+    var result = [WelcomeViewController]()
+    let sb = UIStoryboard.instance(.welcome)
+    WhatsNewController.welcomeConfigs.forEach { (config) in
+      let vc = sb.instantiateViewController(withIdentifier: toString(self)) as! WelcomeViewController
+      vc.pageConfig = config
+      result.append(vc)
+    }
+    return result
+  }
+  
+  @IBOutlet weak var ctaButton: UIButton!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    config()
+    let config = pageConfig as! WhatsNewConfig
+    if let ctaTitleKey = config.ctaButtonTitle {
+      ctaButton.setTitle(L(ctaTitleKey), for: .normal)
+    } else {
+      ctaButton.isHidden = true
+    }
   }
-
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    updateSize()
-  }
-
-  @objc
-  private func nextPage() {
-    pageController.nextPage()
-  }
-
-  @IBAction
-  private func close() {
-    pageController.close()
+  
+  @IBAction func onCta() {
+    let config = pageConfig as! WhatsNewConfig
+    if let url = URL(string: config.ctaButtonUrl!) {
+      UIApplication.shared.openURL(url)
+    } else {
+      assertionFailure()
+    }
+    close()
   }
 }

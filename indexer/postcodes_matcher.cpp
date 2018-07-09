@@ -8,6 +8,7 @@
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
+#include "std/algorithm.hpp"
 #include "std/transform_iterator.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
@@ -63,6 +64,7 @@ public:
     case TStringSet::Status::Prefix: return isPrefix;
     case TStringSet::Status::Full: return true;
     }
+    CHECK_SWITCH();
   }
 
   inline size_t GetMaxNumTokensInPostcode() const { return m_maxNumTokensInPostcode; }

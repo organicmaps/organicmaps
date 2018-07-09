@@ -9,6 +9,7 @@
 
 #include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/detail/pp_round.hpp>
+#include <boost/preprocessor/stringize.hpp>
 
 #if !defined(FUSION_MAX_VECTOR_SIZE)
 # define FUSION_MAX_VECTOR_SIZE 10

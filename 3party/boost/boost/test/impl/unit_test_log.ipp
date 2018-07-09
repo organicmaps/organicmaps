@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2005-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -20,16 +20,17 @@
 #include <boost/test/unit_test_log_formatter.hpp>
 #include <boost/test/execution_monitor.hpp>
 #include <boost/test/framework.hpp>
-
 #include <boost/test/unit_test_parameters.hpp>
 
 #include <boost/test/utils/basic_cstring/compare.hpp>
+#include <boost/test/utils/foreach.hpp>
 
 #include <boost/test/output/compiler_log_formatter.hpp>
 #include <boost/test/output/xml_log_formatter.hpp>
+#include <boost/test/output/junit_log_formatter.hpp>
 
 // Boost
-#include <boost/scoped_ptr.hpp>
+#include <boost/shared_ptr.hpp>
 #include <boost/io/ios_state.hpp>
 typedef ::boost::io::ios_base_all_saver io_saver_type;
 
@@ -82,39 +83,72 @@ entry_value_collector::~entry_value_collector()
 
 namespace {
 
+// log data
+struct unit_test_log_data_helper_impl {
+  typedef boost::shared_ptr<unit_test_log_formatter> formatter_ptr;
+  typedef boost::shared_ptr<io_saver_type>           saver_ptr;
+
+  bool                m_enabled;
+  output_format       m_format;
+  std::ostream*       m_stream;
+  saver_ptr           m_stream_state_saver;
+  formatter_ptr       m_log_formatter;
+  bool                m_entry_in_progress;
+
+  unit_test_log_data_helper_impl(unit_test_log_formatter* p_log_formatter, output_format format, bool enabled = false)
+    : m_enabled( enabled )
+    , m_format( format )
+    , m_stream( &std::cout )
+    , m_stream_state_saver( new io_saver_type( std::cout ) )
+    , m_log_formatter()
+    , m_entry_in_progress( false )
+  {
+    m_log_formatter.reset(p_log_formatter);
+    m_log_formatter->set_log_level(log_all_errors);
+  }
+
+  // helper functions
+  std::ostream&       stream()
+  {
+      return *m_stream;
+  }
+
+  log_level get_log_level() const
+  {
+      return m_log_formatter->get_log_level();
+  }
+};
+
 struct unit_test_log_impl {
     // Constructor
     unit_test_log_impl()
-    : m_stream( runtime_config::log_sink() )
-    , m_stream_state_saver( new io_saver_type( *m_stream ) )
-    , m_threshold_level( log_all_errors )
-    , m_log_formatter( new output::compiler_log_formatter )
     {
+      m_log_formatter_data.push_back( unit_test_log_data_helper_impl(new output::compiler_log_formatter, OF_CLF, true) ); // only this one is active by default,
+      m_log_formatter_data.push_back( unit_test_log_data_helper_impl(new output::xml_log_formatter, OF_XML, false) );
+      m_log_formatter_data.push_back( unit_test_log_data_helper_impl(new output::junit_log_formatter, OF_JUNIT, false) );
     }
 
-    // log data
-    typedef scoped_ptr<unit_test_log_formatter> formatter_ptr;
-    typedef scoped_ptr<io_saver_type>           saver_ptr;
-
-    std::ostream*       m_stream;
-    saver_ptr           m_stream_state_saver;
-    log_level           m_threshold_level;
-    formatter_ptr       m_log_formatter;
+    typedef std::vector<unit_test_log_data_helper_impl> v_formatter_data_t;
+    v_formatter_data_t m_log_formatter_data;
 
     // entry data
-    bool                m_entry_in_progress;
-    bool                m_entry_started;
     log_entry_data      m_entry_data;
+
+    bool has_entry_in_progress() const {
+        BOOST_TEST_FOREACH( unit_test_log_data_helper_impl const&, current_logger_data, m_log_formatter_data ) {
+            if( current_logger_data.m_entry_in_progress )
+                return true;
+        }
+        return false;
+    }
 
     // check point data
     log_checkpoint_data m_checkpoint_data;
 
-    // helper functions
-    std::ostream&       stream()            { return *m_stream; }
     void                set_checkpoint( const_string file, std::size_t line_num, const_string msg )
     {
         assign_op( m_checkpoint_data.m_message, msg, 0 );
-        m_checkpoint_data.m_file_name    = file;
+        m_checkpoint_data.m_file_name   = file;
         m_checkpoint_data.m_line_num    = line_num;
     }
 };
@@ -128,15 +162,17 @@ unit_test_log_impl& s_log_impl() { static unit_test_log_impl the_inst; return th
 void
 unit_test_log_t::test_start( counter_t test_cases_amount )
 {
-    if( s_log_impl().m_threshold_level == log_nothing )
-        return;
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+      if( !current_logger_data.m_enabled || current_logger_data.get_log_level() == log_nothing )
+          continue;
 
-    s_log_impl().m_log_formatter->log_start( s_log_impl().stream(), test_cases_amount );
+      current_logger_data.m_log_formatter->log_start( current_logger_data.stream(), test_cases_amount );
 
-    if( runtime_config::show_build_info() )
-        s_log_impl().m_log_formatter->log_build_info( s_log_impl().stream() );
+      if( runtime_config::get<bool>( runtime_config::btrt_build_info ) )
+          current_logger_data.m_log_formatter->log_build_info( current_logger_data.stream() );
 
-    s_log_impl().m_entry_in_progress = false;
+      current_logger_data.m_entry_in_progress = false;
+    }
 }
 
 //____________________________________________________________________________//
@@ -144,12 +180,14 @@ unit_test_log_t::test_start( counter_t test_cases_amount )
 void
 unit_test_log_t::test_finish()
 {
-    if( s_log_impl().m_threshold_level == log_nothing )
-        return;
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+      if( !current_logger_data.m_enabled || current_logger_data.get_log_level() == log_nothing )
+          continue;
 
-    s_log_impl().m_log_formatter->log_finish( s_log_impl().stream() );
+      current_logger_data.m_log_formatter->log_finish( current_logger_data.stream() );
 
-    s_log_impl().stream().flush();
+      current_logger_data.stream().flush();
+    }
 }
 
 //____________________________________________________________________________//
@@ -165,13 +203,13 @@ unit_test_log_t::test_aborted()
 void
 unit_test_log_t::test_unit_start( test_unit const& tu )
 {
-    if( s_log_impl().m_threshold_level > log_test_units )
-        return;
-
-    if( s_log_impl().m_entry_in_progress )
+    if( s_log_impl().has_entry_in_progress() )
         *this << log::end();
-
-    s_log_impl().m_log_formatter->test_unit_start( s_log_impl().stream(), tu );
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+        if( !current_logger_data.m_enabled || current_logger_data.get_log_level() > log_test_units )
+            continue;
+        current_logger_data.m_log_formatter->test_unit_start( current_logger_data.stream(), tu );
+    }
 }
 
 //____________________________________________________________________________//
@@ -179,15 +217,18 @@ unit_test_log_t::test_unit_start( test_unit const& tu )
 void
 unit_test_log_t::test_unit_finish( test_unit const& tu, unsigned long elapsed )
 {
-    if( s_log_impl().m_threshold_level > log_test_units )
-        return;
-
     s_log_impl().m_checkpoint_data.clear();
 
-    if( s_log_impl().m_entry_in_progress )
+    if( s_log_impl().has_entry_in_progress() )
         *this << log::end();
 
-    s_log_impl().m_log_formatter->test_unit_finish( s_log_impl().stream(), tu, elapsed );
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+
+        if( !current_logger_data.m_enabled || current_logger_data.get_log_level() > log_test_units )
+            continue;
+
+        current_logger_data.m_log_formatter->test_unit_finish( current_logger_data.stream(), tu, elapsed );
+    }
 }
 
 //____________________________________________________________________________//
@@ -195,13 +236,29 @@ unit_test_log_t::test_unit_finish( test_unit const& tu, unsigned long elapsed )
 void
 unit_test_log_t::test_unit_skipped( test_unit const& tu, const_string reason )
 {
-    if( s_log_impl().m_threshold_level > log_test_units )
-        return;
-
-    if( s_log_impl().m_entry_in_progress )
+    if( s_log_impl().has_entry_in_progress() )
         *this << log::end();
 
-    s_log_impl().m_log_formatter->test_unit_skipped( s_log_impl().stream(), tu, reason );
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+        if( !current_logger_data.m_enabled || current_logger_data.get_log_level() > log_test_units )
+            continue;
+
+        current_logger_data.m_log_formatter->test_unit_skipped( current_logger_data.stream(), tu, reason );
+    }
+}
+
+void
+unit_test_log_t::test_unit_aborted( test_unit const& tu )
+{
+    if( s_log_impl().has_entry_in_progress() )
+        *this << log::end();
+
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+        if( !current_logger_data.m_enabled || current_logger_data.get_log_level() > log_test_units )
+            continue;
+
+        current_logger_data.m_log_formatter->test_unit_aborted(current_logger_data.stream(), tu );
+    }
 }
 
 //____________________________________________________________________________//
@@ -214,17 +271,20 @@ unit_test_log_t::exception_caught( execution_exception const& ex )
         (ex.code() <= execution_exception::timeout_error        ? log_system_errors
                                                                 : log_fatal_errors );
 
-    if( l >= s_log_impl().m_threshold_level ) {
-        if( s_log_impl().m_entry_in_progress )
-            *this << log::end();
+    if( s_log_impl().has_entry_in_progress() )
+        *this << log::end();
 
-        s_log_impl().m_log_formatter->log_exception_start( s_log_impl().stream(), s_log_impl().m_checkpoint_data, ex );
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
 
-        log_entry_context( l );
+      if( current_logger_data.m_enabled && l >= current_logger_data.get_log_level() ) {
 
-        s_log_impl().m_log_formatter->log_exception_finish( s_log_impl().stream() );
+          current_logger_data.m_log_formatter->log_exception_start( current_logger_data.stream(), s_log_impl().m_checkpoint_data, ex );
+
+          log_entry_context( l );
+
+          current_logger_data.m_log_formatter->log_exception_finish( current_logger_data.stream() );
+      }
     }
-
     clear_entry_context();
 }
 
@@ -247,10 +307,14 @@ set_unix_slash( char in )
 unit_test_log_t&
 unit_test_log_t::operator<<( log::begin const& b )
 {
-    if( s_log_impl().m_entry_in_progress )
+    if( s_log_impl().has_entry_in_progress() )
         *this << log::end();
 
-    s_log_impl().m_stream_state_saver->restore();
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+        if( current_logger_data.m_enabled ) {
+            current_logger_data.m_stream_state_saver->restore();
+        }
+    }
 
     s_log_impl().m_entry_data.clear();
 
@@ -271,12 +335,15 @@ unit_test_log_t::operator<<( log::begin const& b )
 unit_test_log_t&
 unit_test_log_t::operator<<( log::end const& )
 {
-    if( s_log_impl().m_entry_in_progress ) {
+    if( s_log_impl().has_entry_in_progress() ) {
         log_entry_context( s_log_impl().m_entry_data.m_level );
 
-        s_log_impl().m_log_formatter->log_entry_finish( s_log_impl().stream() );
-
-        s_log_impl().m_entry_in_progress = false;
+        BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+            if( current_logger_data.m_enabled && current_logger_data.m_entry_in_progress ) {
+                current_logger_data.m_log_formatter->log_entry_finish( current_logger_data.stream() );
+            }
+            current_logger_data.m_entry_in_progress = false;
+        }
     }
 
     clear_entry_context();
@@ -307,43 +374,53 @@ unit_test_log_t::operator()( log_level l )
 //____________________________________________________________________________//
 
 bool
-unit_test_log_t::log_entry_start()
+unit_test_log_t::log_entry_start(output_format log_format)
 {
-    if( s_log_impl().m_entry_in_progress )
-        return true;
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
 
-    switch( s_log_impl().m_entry_data.m_level ) {
-    case log_successful_tests:
-        s_log_impl().m_log_formatter->log_entry_start( s_log_impl().stream(), s_log_impl().m_entry_data,
-                                                       unit_test_log_formatter::BOOST_UTL_ET_INFO );
-        break;
-    case log_messages:
-        s_log_impl().m_log_formatter->log_entry_start( s_log_impl().stream(), s_log_impl().m_entry_data,
-                                                       unit_test_log_formatter::BOOST_UTL_ET_MESSAGE );
-        break;
-    case log_warnings:
-        s_log_impl().m_log_formatter->log_entry_start( s_log_impl().stream(), s_log_impl().m_entry_data,
-                                                       unit_test_log_formatter::BOOST_UTL_ET_WARNING );
-        break;
-    case log_all_errors:
-    case log_cpp_exception_errors:
-    case log_system_errors:
-        s_log_impl().m_log_formatter->log_entry_start( s_log_impl().stream(), s_log_impl().m_entry_data,
-                                                       unit_test_log_formatter::BOOST_UTL_ET_ERROR );
-        break;
-    case log_fatal_errors:
-        s_log_impl().m_log_formatter->log_entry_start( s_log_impl().stream(), s_log_impl().m_entry_data,
-                                                       unit_test_log_formatter::BOOST_UTL_ET_FATAL_ERROR );
-        break;
-    case log_nothing:
-    case log_test_units:
-    case invalid_log_level:
-        return false;
+        if( current_logger_data.m_format != log_format )
+            continue;
+
+        if( current_logger_data.m_entry_in_progress )
+            return true;
+
+        if( !current_logger_data.m_enabled )
+            return false;
+
+        switch( s_log_impl().m_entry_data.m_level ) {
+        case log_successful_tests:
+            current_logger_data.m_log_formatter->log_entry_start( current_logger_data.stream(), s_log_impl().m_entry_data,
+                                                  unit_test_log_formatter::BOOST_UTL_ET_INFO );
+            break;
+        case log_messages:
+            current_logger_data.m_log_formatter->log_entry_start( current_logger_data.stream(), s_log_impl().m_entry_data,
+                                                  unit_test_log_formatter::BOOST_UTL_ET_MESSAGE );
+            break;
+        case log_warnings:
+            current_logger_data.m_log_formatter->log_entry_start( current_logger_data.stream(), s_log_impl().m_entry_data,
+                                                  unit_test_log_formatter::BOOST_UTL_ET_WARNING );
+            break;
+        case log_all_errors:
+        case log_cpp_exception_errors:
+        case log_system_errors:
+            current_logger_data.m_log_formatter->log_entry_start( current_logger_data.stream(), s_log_impl().m_entry_data,
+                                                  unit_test_log_formatter::BOOST_UTL_ET_ERROR );
+            break;
+        case log_fatal_errors:
+            current_logger_data.m_log_formatter->log_entry_start( current_logger_data.stream(), s_log_impl().m_entry_data,
+                                                  unit_test_log_formatter::BOOST_UTL_ET_FATAL_ERROR );
+            break;
+        case log_nothing:
+        case log_test_units:
+        case invalid_log_level:
+            return false;
+        }
+
+        current_logger_data.m_entry_in_progress = true;
+        return true;
     }
 
-    s_log_impl().m_entry_in_progress = true;
-
-    return true;
+    return false;
 }
 
 //____________________________________________________________________________//
@@ -351,9 +428,11 @@ unit_test_log_t::log_entry_start()
 unit_test_log_t&
 unit_test_log_t::operator<<( const_string value )
 {
-    if( s_log_impl().m_entry_data.m_level >= s_log_impl().m_threshold_level && !value.empty() && log_entry_start() )
-        s_log_impl().m_log_formatter->log_entry_value( s_log_impl().stream(), value );
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+        if( current_logger_data.m_enabled && s_log_impl().m_entry_data.m_level >= current_logger_data.get_log_level() && !value.empty() && log_entry_start(current_logger_data.m_format) )
+            current_logger_data.m_log_formatter->log_entry_value( current_logger_data.stream(), value );
 
+    }
     return *this;
 }
 
@@ -362,9 +441,13 @@ unit_test_log_t::operator<<( const_string value )
 unit_test_log_t&
 unit_test_log_t::operator<<( lazy_ostream const& value )
 {
-    if( s_log_impl().m_entry_data.m_level >= s_log_impl().m_threshold_level && !value.empty() && log_entry_start() )
-        s_log_impl().m_log_formatter->log_entry_value( s_log_impl().stream(), value );
-
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+        if( current_logger_data.m_enabled && s_log_impl().m_entry_data.m_level >= current_logger_data.get_log_level() && !value.empty() ) {
+            if( log_entry_start(current_logger_data.m_format) ) {
+                current_logger_data.m_log_formatter->log_entry_value( current_logger_data.stream(), value );
+            }
+        }
+    }
     return *this;
 }
 
@@ -379,12 +462,26 @@ unit_test_log_t::log_entry_context( log_level l )
 
     const_string frame;
 
-    s_log_impl().m_log_formatter->entry_context_start( s_log_impl().stream(), l );
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+        if( current_logger_data.m_enabled ) {
+            current_logger_data.m_log_formatter->entry_context_start( current_logger_data.stream(), l );
+        }
+    }
 
     while( !(frame=context.next()).is_empty() )
-        s_log_impl().m_log_formatter->log_entry_context( s_log_impl().stream(), frame );
+    {
+        BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+            if( current_logger_data.m_enabled ) {
+                current_logger_data.m_log_formatter->log_entry_context( current_logger_data.stream(), frame );
+            }
+        }
+    }
 
-    s_log_impl().m_log_formatter->entry_context_finish( s_log_impl().stream() );
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+        if( current_logger_data.m_enabled ) {
+            current_logger_data.m_log_formatter->entry_context_finish( current_logger_data.stream() );
+        }
+    }
 }
 
 //____________________________________________________________________________//
@@ -400,11 +497,30 @@ unit_test_log_t::clear_entry_context()
 void
 unit_test_log_t::set_stream( std::ostream& str )
 {
-    if( s_log_impl().m_entry_in_progress )
+    if( s_log_impl().has_entry_in_progress() )
         return;
 
-    s_log_impl().m_stream = &str;
-    s_log_impl().m_stream_state_saver.reset( new io_saver_type( str ) );
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+        current_logger_data.m_stream = &str;
+        current_logger_data.m_stream_state_saver.reset( new io_saver_type( str ) );
+    }
+}
+
+//____________________________________________________________________________//
+
+void
+unit_test_log_t::set_stream( output_format log_format, std::ostream& str )
+{
+    if( s_log_impl().has_entry_in_progress() )
+        return;
+
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+        if( current_logger_data.m_format == log_format) {
+            current_logger_data.m_stream = &str;
+            current_logger_data.m_stream_state_saver.reset( new io_saver_type( str ) );
+            break;
+        }
+    }
 }
 
 //____________________________________________________________________________//
@@ -412,10 +528,28 @@ unit_test_log_t::set_stream( std::ostream& str )
 void
 unit_test_log_t::set_threshold_level( log_level lev )
 {
-    if( s_log_impl().m_entry_in_progress || lev == invalid_log_level )
+    if( s_log_impl().has_entry_in_progress() || lev == invalid_log_level )
         return;
 
-    s_log_impl().m_threshold_level = lev;
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+        current_logger_data.m_log_formatter->set_log_level( lev );
+    }
+}
+
+//____________________________________________________________________________//
+
+void
+unit_test_log_t::set_threshold_level( output_format log_format, log_level lev )
+{
+    if( s_log_impl().has_entry_in_progress() || lev == invalid_log_level )
+        return;
+
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+        if( current_logger_data.m_format == log_format) {
+            current_logger_data.m_log_formatter->set_log_level( lev );
+            break;
+        }
+    }
 }
 
 //____________________________________________________________________________//
@@ -423,26 +557,90 @@ unit_test_log_t::set_threshold_level( log_level lev )
 void
 unit_test_log_t::set_format( output_format log_format )
 {
-    if( s_log_impl().m_entry_in_progress )
+    if( s_log_impl().has_entry_in_progress() )
         return;
 
-    switch( log_format ) {
-    default:
-    case OF_CLF:
-        set_formatter( new output::compiler_log_formatter );
-        break;
-    case OF_XML:
-        set_formatter( new output::xml_log_formatter );
-        break;
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+        current_logger_data.m_enabled = current_logger_data.m_format == log_format;
     }
 }
 
 //____________________________________________________________________________//
 
 void
+unit_test_log_t::add_format( output_format log_format )
+{
+    if( s_log_impl().has_entry_in_progress() )
+        return;
+
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+        if( current_logger_data.m_format == log_format) {
+            current_logger_data.m_enabled = true;
+            break;
+        }
+    }
+}
+
+//____________________________________________________________________________//
+
+unit_test_log_formatter*
+unit_test_log_t::get_formatter( output_format log_format ) {
+    BOOST_TEST_FOREACH( unit_test_log_data_helper_impl&, current_logger_data, s_log_impl().m_log_formatter_data ) {
+        if( current_logger_data.m_format == log_format) {
+            return current_logger_data.m_log_formatter.get();
+        }
+    }
+    return 0;
+}
+
+
+void
+unit_test_log_t::add_formatter( unit_test_log_formatter* the_formatter )
+{
+    // remove only user defined logger
+    for(unit_test_log_impl::v_formatter_data_t::iterator it(s_log_impl().m_log_formatter_data.begin()),
+            ite(s_log_impl().m_log_formatter_data.end());
+        it != ite;
+        ++it)
+    {
+        if( it->m_format == OF_CUSTOM_LOGGER) {
+            s_log_impl().m_log_formatter_data.erase(it);
+            break;
+        }
+    }
+
+    if( the_formatter ) {
+        s_log_impl().m_log_formatter_data.push_back( unit_test_log_data_helper_impl(the_formatter, OF_CUSTOM_LOGGER, true) );
+    }
+}
+
+void
 unit_test_log_t::set_formatter( unit_test_log_formatter* the_formatter )
 {
-    s_log_impl().m_log_formatter.reset( the_formatter );
+    // remove only user defined logger
+    log_level current_level = invalid_log_level;
+    std::ostream *current_stream = 0;
+    output_format previous_format = OF_INVALID;
+    for(unit_test_log_impl::v_formatter_data_t::iterator it(s_log_impl().m_log_formatter_data.begin()),
+            ite(s_log_impl().m_log_formatter_data.end());
+        it != ite;
+        ++it)
+    {
+        if( it->m_enabled ) {
+            if( current_level == invalid_log_level || it->m_format < previous_format || it->m_format == OF_CUSTOM_LOGGER) {
+                current_level = it->get_log_level();
+                current_stream = &(it->stream());
+                previous_format = it->m_format;
+            }
+        }
+    }
+
+    if( the_formatter ) {
+        add_formatter(the_formatter);
+        set_format(OF_CUSTOM_LOGGER);
+        set_threshold_level(OF_CUSTOM_LOGGER, current_level);
+        set_stream(OF_CUSTOM_LOGGER, *current_stream);
+    }
 }
 
 //____________________________________________________________________________//
@@ -457,6 +655,18 @@ unit_test_log_formatter::log_entry_value( std::ostream& ostr, lazy_ostream const
     log_entry_value( ostr, (wrap_stringstream().ref() << value).str() );
 }
 
+void
+unit_test_log_formatter::set_log_level(log_level new_log_level)
+{
+    m_log_level = new_log_level;
+}
+
+log_level
+unit_test_log_formatter::get_log_level() const
+{
+    return m_log_level;
+}
+
 //____________________________________________________________________________//
 
 } // namespace unit_test
@@ -465,3 +675,4 @@ unit_test_log_formatter::log_entry_value( std::ostream& ostr, lazy_ostream const
 #include <boost/test/detail/enable_warnings.hpp>
 
 #endif // BOOST_TEST_UNIT_TEST_LOG_IPP_012205GER
+

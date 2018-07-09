@@ -2,7 +2,7 @@
 
 #include "base/observer_list.hpp"
 
-#include "std/string.hpp"
+#include <string>
 
 namespace
 {
@@ -10,13 +10,13 @@ struct Observer
 {
   Observer() : status(0) {}
 
-  void OnOperationCompleted(string const & message, int status)
+  void OnOperationCompleted(std::string const & message, int status)
   {
     this->message = message;
     this->status = status;
   }
 
-  string message;
+  std::string message;
   int status;
 };
 }  // namespace
@@ -27,7 +27,7 @@ UNIT_TEST(ObserverList_Basic)
   Observer observer1;
   Observer observer2;
 
-  my::ObserverList<Observer> observers;
+  base::ObserverListSafe<Observer> observers;
 
   // Register all observers in a list. Also check that it's not
   // possible to add the same observer twice.
@@ -43,7 +43,7 @@ UNIT_TEST(ObserverList_Basic)
   TEST(!observers.Add(observer1), ());
   TEST(!observers.Add(observer2), ());
 
-  string const message = "HTTP OK";
+  std::string const message = "HTTP OK";
   observers.ForEach(&Observer::OnOperationCompleted, message, 204);
 
   // Check observers internal state.

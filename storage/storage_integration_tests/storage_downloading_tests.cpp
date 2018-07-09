@@ -25,11 +25,13 @@ using namespace storage;
 
 namespace
 {
+using Runner = Platform::ThreadRunner;
+
 string const kCountryId = "Angola";
 
 class InterruptException : public exception {};
 
-void Update(TCountryId const &, storage::Storage::TLocalFilePtr const localCountryFile)
+void Update(TCountryId const &, storage::TLocalFilePtr const localCountryFile)
 {
   TEST_EQUAL(localCountryFile->GetCountryName(), kCountryId, ());
 }
@@ -44,8 +46,8 @@ void ChangeCountry(Storage & storage, TCountryId const & countryId)
 
 void InitStorage(Storage & storage, Storage::TProgressFunction const & onProgressFn)
 {
-  storage.Init(Update, [](TCountryId const &, storage::Storage::TLocalFilePtr const){return false;});
-  storage.RegisterAllLocalMaps();
+  storage.Init(Update, [](TCountryId const &, storage::TLocalFilePtr const){return false;});
+  storage.RegisterAllLocalMaps(false /* enableDiffs */);
   storage.Subscribe(bind(&ChangeCountry, ref(storage), _1), onProgressFn);
   storage.SetDownloadingUrlsForTesting({kTestWebServer});
 }
@@ -70,12 +72,11 @@ UNIT_TEST(SmallMwms_ReDownloadExistedMWMIgnored_Test)
   TEST(!storage.IsDownloadInProgress(), ());
 }
 
-UNIT_TEST(SmallMwms_InterruptDownloadResumeDownload_Test)
+UNIT_CLASS_TEST(Runner, SmallMwms_InterruptDownloadResumeDownload_Test)
 {
   WritableDirChanger writableDirChanger(kMapTestDir);
 
   // Start download but interrupt it
-
   {
     Storage storage(COUNTRIES_FILE);
     TEST(version::IsSingleMwm(storage.GetCurrentDataVersion()), ());
@@ -98,7 +99,6 @@ UNIT_TEST(SmallMwms_InterruptDownloadResumeDownload_Test)
   }
 
   // Continue download
-
   {
     Storage storage(COUNTRIES_FILE);
 

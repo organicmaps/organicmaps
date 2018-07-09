@@ -1,5 +1,5 @@
 #pragma once
-#include "trie.hpp"
+#include "indexer/trie.hpp"
 
 #include "coding/byte_stream.hpp"
 #include "coding/varint.hpp"
@@ -8,9 +8,11 @@
 #include "base/checked_cast.hpp"
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/vector.hpp"
-#include "std/utility.hpp"
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <utility>
+#include <vector>
 
 // Trie format:
 // [1: header]
@@ -44,9 +46,9 @@
 
 namespace trie
 {
-template <typename TSink, typename TChildIter, typename TValueList, typename TSerializer>
-void WriteNode(TSink & sink, TSerializer const & serializer, TrieChar baseChar,
-               TValueList const & valueList, TChildIter const begChild, TChildIter const endChild,
+template <typename Sink, typename ChildIter, typename ValueList, typename Serializer>
+void WriteNode(Sink & sink, Serializer const & serializer, TrieChar baseChar,
+               ValueList const & valueList, ChildIter const begChild, ChildIter const endChild,
                bool isRoot = false)
 {
   uint32_t const valueCount = base::asserted_cast<uint32_t>(valueList.Size());
@@ -67,14 +69,15 @@ void WriteNode(TSink & sink, TSerializer const & serializer, TrieChar baseChar,
     return;
   }
   uint32_t const childCount = base::asserted_cast<uint32_t>(endChild - begChild);
-  uint8_t const header = static_cast<uint32_t>((min(valueCount, 3U) << 6) + min(childCount, 63U));
+  uint8_t const header =
+      static_cast<uint32_t>((std::min(valueCount, 3U) << 6) + std::min(childCount, 63U));
   sink.Write(&header, 1);
   if (valueCount >= 3)
     WriteVarUint(sink, valueCount);
   if (childCount >= 63)
     WriteVarUint(sink, childCount);
   valueList.Serialize(sink, serializer);
-  for (TChildIter it = begChild; it != endChild; /*++it*/)
+  for (ChildIter it = begChild; it != endChild;)
   {
     uint8_t header = (it->IsLeaf() ? 128 : 0);
     TrieChar const * const edge = it->GetEdge();
@@ -117,10 +120,6 @@ void WriteNode(TSink & sink, TSerializer const & serializer, TrieChar baseChar,
 
 struct ChildInfo
 {
-  bool m_isLeaf;
-  uint32_t m_size;
-  vector<TrieChar> m_edge;
-
   ChildInfo(bool isLeaf, uint32_t size, TrieChar c) : m_isLeaf(isLeaf), m_size(size), m_edge(1, c)
   {
   }
@@ -129,14 +128,29 @@ struct ChildInfo
   bool IsLeaf() const { return m_isLeaf; }
   TrieChar const * GetEdge() const { return m_edge.data(); }
   size_t GetEdgeSize() const { return m_edge.size(); }
+
+  bool m_isLeaf;
+  uint32_t m_size;
+  std::vector<TrieChar> m_edge;
 };
 
-template <typename TValueList>
+template <typename ValueList>
 struct NodeInfo
 {
-  uint64_t m_begPos;
-  TrieChar m_char;
-  vector<ChildInfo> m_children;
+  NodeInfo() = default;
+  NodeInfo(uint64_t pos, TrieChar trieChar) : m_begPos(pos), m_char(trieChar) {}
+
+  // It is finalized in the sense that no more appends are possible
+  // so it is a fine moment to initialize the underlying ValueList.
+  void FinalizeValueList()
+  {
+    m_valueList.Init(m_temporaryValueList);
+    m_mayAppend = false;
+  }
+
+  uint64_t m_begPos = 0;
+  TrieChar m_char = 0;
+  std::vector<ChildInfo> m_children;
 
   // This is ugly but will do until we rename ValueList.
   // Here is the rationale. ValueList<> is the entity that
@@ -151,53 +165,38 @@ struct NodeInfo
   // need to update a node's ValueList until the node is finalized
   // this vector is needed here. It is better to leave it here
   // than to expose it in ValueList.
-  vector<typename TValueList::TValue> m_temporaryValueList;
-  TValueList m_valueList;
-  bool m_mayAppend;
-
-  NodeInfo() : m_begPos(0), m_char(0), m_valueList(TValueList()), m_mayAppend(true) {}
-  NodeInfo(uint64_t pos, TrieChar trieChar)
-    : m_begPos(pos), m_char(trieChar), m_valueList(TValueList()), m_mayAppend(true)
-  {
-  }
-
-  // It is finalized in the sense that no more appends are possible
-  // so it is a fine moment to initialize the underlying ValueList.
-  void FinalizeValueList()
-  {
-    m_valueList.Init(m_temporaryValueList);
-    m_mayAppend = false;
-  }
+  std::vector<typename ValueList::Value> m_temporaryValueList;
+  ValueList m_valueList = {};
+  bool m_mayAppend = true;
 };
 
-template <typename TSink, typename TValueList, typename TSerializer>
-void WriteNodeReverse(TSink & sink, TSerializer const & serializer, TrieChar baseChar,
-                      NodeInfo<TValueList> & node, bool isRoot = false)
+template <typename Sink, typename ValueList, typename Serializer>
+void WriteNodeReverse(Sink & sink, Serializer const & serializer, TrieChar baseChar,
+                      NodeInfo<ValueList> & node, bool isRoot = false)
 {
-  using TOutStorage = buffer_vector<uint8_t, 64>;
-  TOutStorage out;
-  PushBackByteSink<TOutStorage> outSink(out);
+  using OutStorage = buffer_vector<uint8_t, 64>;
+  OutStorage out;
+  PushBackByteSink<OutStorage> outSink(out);
   node.FinalizeValueList();
   WriteNode(outSink, serializer, baseChar, node.m_valueList, node.m_children.rbegin(),
             node.m_children.rend(), isRoot);
-  reverse(out.begin(), out.end());
+  std::reverse(out.begin(), out.end());
   sink.Write(out.data(), out.size());
 }
 
-template <typename TSink, typename TNodes, typename TSerializer>
-void PopNodes(TSink & sink, TSerializer const & serializer, TNodes & nodes, size_t nodesToPop)
+template <typename Sink, typename Nodes, typename Serializer>
+void PopNodes(Sink & sink, Serializer const & serializer, Nodes & nodes, size_t nodesToPop)
 {
-  using TNodeInfo = typename TNodes::value_type;
   ASSERT_GREATER(nodes.size(), nodesToPop, ());
   for (; nodesToPop > 0; --nodesToPop)
   {
-    TNodeInfo & node = nodes.back();
-    TNodeInfo & prevNode = nodes[nodes.size() - 2];
+    auto & node = nodes.back();
+    auto & prevNode = nodes[nodes.size() - 2];
 
     if (node.m_temporaryValueList.empty() && node.m_children.size() <= 1)
     {
       ASSERT_EQUAL(node.m_children.size(), 1, ());
-      ChildInfo & child = node.m_children[0];
+      auto & child = node.m_children[0];
       prevNode.m_children.emplace_back(child.m_isLeaf, child.m_size, node.m_char);
       auto & prevChild = prevNode.m_children.back();
       prevChild.m_edge.insert(prevChild.m_edge.end(), child.m_edge.begin(), child.m_edge.end());
@@ -213,8 +212,8 @@ void PopNodes(TSink & sink, TSerializer const & serializer, TNodes & nodes, size
   }
 }
 
-template <typename TNodeInfo, typename TValue>
-void AppendValue(TNodeInfo & node, TValue const & value)
+template <typename NodeInfo, typename Value>
+void AppendValue(NodeInfo & node, Value const & value)
 {
   // External-memory trie adds <string, value> pairs in a sorted
   // order so the values are supposed to be accumulated in the
@@ -231,18 +230,18 @@ void AppendValue(TNodeInfo & node, TValue const & value)
     LOG(LERROR, ("Cannot append to a finalized value list."));
 }
 
-template <typename TSink, typename TKey, typename TValueList, typename TSerializer>
-void Build(TSink & sink, TSerializer const & serializer,
-           vector<pair<TKey, typename TValueList::TValue>> const & data)
+template <typename Sink, typename Key, typename ValueList, typename Serializer>
+void Build(Sink & sink, Serializer const & serializer,
+           std::vector<std::pair<Key, typename ValueList::Value>> const & data)
 {
-  using TValue = typename TValueList::TValue;
-  using TNodeInfo = NodeInfo<TValueList>;
+  using Value = typename ValueList::Value;
+  using NodeInfo = NodeInfo<ValueList>;
 
-  vector<TNodeInfo> nodes;
+  std::vector<NodeInfo> nodes;
   nodes.emplace_back(sink.Pos(), kDefaultChar);
 
-  TKey prevKey;
-  pair<TKey, TValue> prevE;  // e for "element".
+  Key prevKey;
+  std::pair<Key, Value> prevE;  // e for "element".
 
   for (auto it = data.begin(); it != data.end(); ++it)
   {
@@ -253,7 +252,7 @@ void Build(TSink & sink, TSerializer const & serializer,
     auto const & key = e.first;
     CHECK(!(key < prevKey), (key, prevKey));
     size_t nCommon = 0;
-    while (nCommon < min(key.size(), prevKey.size()) && prevKey[nCommon] == key[nCommon])
+    while (nCommon < std::min(key.size(), prevKey.size()) && prevKey[nCommon] == key[nCommon])
       ++nCommon;
 
     // Root is also a common node.
@@ -264,7 +263,7 @@ void Build(TSink & sink, TSerializer const & serializer,
     AppendValue(nodes.back(), e.second);
 
     prevKey = key;
-    swap(e, prevE);
+    std::swap(e, prevE);
   }
 
   // Pop all the nodes from the stack.
@@ -273,5 +272,4 @@ void Build(TSink & sink, TSerializer const & serializer,
   // Write the root.
   WriteNodeReverse(sink, serializer, kDefaultChar /* baseChar */, nodes.back(), true /* isRoot */);
 }
-
 }  // namespace trie

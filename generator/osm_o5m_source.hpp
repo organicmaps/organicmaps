@@ -1,25 +1,27 @@
-// See O5M Format definition at http://wiki.openstreetmap.org/wiki/O5m
+// See O5M Format definition at https://wiki.openstreetmap.org/wiki/O5m
 #pragma once
 
-#include "std/algorithm.hpp"
-#include "std/cstring.hpp"
-#include "std/exception.hpp"
-#include "std/function.hpp"
-#include "std/iomanip.hpp"
-#include "std/iostream.hpp"
-#include "std/iterator.hpp"
-#include "std/sstream.hpp"
-#include "std/type_traits.hpp"
-#include "std/vector.hpp"
+#include "base/assert.hpp"
+#include "base/stl_helpers.hpp"
 
-using TReadFunc = function<size_t(uint8_t *, size_t)>;
+#include <algorithm>
+#include <cstring>
+#include <exception>
+#include <functional>
+#include <iomanip>
+#include <iostream>
+#include <iterator>
+#include <sstream>
+#include <type_traits>
+#include <vector>
 
-namespace
+namespace osm
 {
+using TReadFunc = std::function<size_t(uint8_t *, size_t)>;
 
 class StreamBuffer
 {
-  using TBuffer = vector<uint8_t>;
+  using TBuffer = std::vector<uint8_t>;
 
   TReadFunc m_reader;
   TBuffer m_buffer;
@@ -59,7 +61,7 @@ public:
 
   void Skip(size_t size = 1)
   {
-    size_t const bytesLeft = distance(m_position, m_buffer.cend());
+    size_t const bytesLeft = std::distance(m_position, m_buffer.cend());
     if (size >= bytesLeft)
     {
       size -= bytesLeft;
@@ -72,10 +74,10 @@ public:
 
   void Read(TBuffer::value_type * dest, size_t size)
   {
-    size_t const bytesLeft = distance(m_position, m_buffer.cend());
+    size_t const bytesLeft = std::distance(m_position, m_buffer.cend());
     if (size >= bytesLeft)
     {
-      size_t const index = distance(m_buffer.cbegin(), m_position);
+      size_t const index = std::distance(m_buffer.cbegin(), m_position);
       memmove(dest, &m_buffer[index], bytesLeft);
       size -= bytesLeft;
       dest += bytesLeft;
@@ -86,7 +88,7 @@ public:
         Refill();
       }
     }
-    size_t const index = distance(m_buffer.cbegin(), m_position);
+    size_t const index = std::distance(m_buffer.cbegin(), m_position);
     memmove(dest, &m_buffer[index], size);
     m_position += size;
   }
@@ -98,7 +100,7 @@ private:
       m_buffer.resize(m_maxBufferSize);
 
     size_t const readBytes = m_reader(m_buffer.data(), m_buffer.size());
-    CHECK_NOT_EQUAL(readBytes, 0, ("Unexpected end input stream."));
+    CHECK_NOT_EQUAL(readBytes, 0, ("Unexpected std::end input stream."));
 
     if (readBytes != m_buffer.size())
       m_buffer.resize(readBytes);
@@ -106,10 +108,7 @@ private:
     m_position = m_buffer.begin();
   }
 };
-}  // anonymous namespace
 
-namespace osm
-{
 
 class O5MSource
 {
@@ -128,7 +127,7 @@ public:
     Reset = 0xff
   };
 
-  friend ostream & operator << (ostream & s, EntityType const & type)
+  friend std::ostream & operator << (std::ostream & s, EntityType const & type)
   {
     switch (type)
     {
@@ -142,8 +141,7 @@ public:
       case EntityType::Sync:      s << "O5M_CMD_SYNC";
       case EntityType::Jump:      s << "O5M_CMD_JUMP";
       case EntityType::Reset:     s << "O5M_CMD_RESET";
-      default:
-        return s << "Unknown command: " << hex << static_cast<typename underlying_type<EntityType>::type>(type);
+      default: return s << "Unknown command: " << std::hex << my::Key(type);
     }
     return s;
   }
@@ -153,7 +151,7 @@ protected:
   struct StringTableRecord
   {
     // This important value got from
-    // documentation ( http://wiki.openstreetmap.org/wiki/O5m#Strings ) on O5M format.
+    // documentation ( https://wiki.openstreetmap.org/wiki/O5m#Strings ) on O5M format.
     // If change it all will be broken.
     enum { MaxEntrySize = 252 };
 
@@ -177,8 +175,8 @@ protected:
     char const * role = nullptr;
   };
 
-  vector<StringTableRecord> m_stringTable;
-  vector<char> m_stringBuffer;
+  std::vector<StringTableRecord> m_stringTable;
+  std::vector<char> m_stringBuffer;
   size_t m_stringCurrentIndex;
   StreamBuffer m_buffer;
   size_t m_remainder;
@@ -197,7 +195,7 @@ public:
   template <typename TValue>
   class SubElements
   {
-    using TSubElementGetter = function<O5MSource *(TValue *)>;
+    using TSubElementGetter = std::function<O5MSource *(TValue *)>;
 
     O5MSource * m_reader;
     TSubElementGetter m_func;
@@ -584,7 +582,7 @@ public:
   {
     if (EntityType::Reset != EntityType(m_buffer.Get()))
     {
-      throw runtime_error("Incorrect o5m start");
+      throw std::runtime_error("Incorrect o5m start");
     }
     CheckHeader();
     InitStringTable();
@@ -595,7 +593,7 @@ public:
     size_t const len = 4;
     if (EntityType::Header == EntityType(m_buffer.Get()) && ReadVarUInt() == len)
     {
-      string sign(len, ' ');
+      std::string sign(len, ' ');
       m_buffer.Read(reinterpret_cast<uint8_t *>(&sign[0]), len);
       if (sign == "o5m2" || sign == "o5c2")
         return true;
@@ -603,7 +601,7 @@ public:
     return false;
   }
 
-  friend ostream & operator<<(ostream & s, O5MSource::Entity const & em)
+  friend std::ostream & operator<<(std::ostream & s, O5MSource::Entity const & em)
   {
     s << EntityType(em.type) << " ID: " << em.id;
     if (em.version)
@@ -617,7 +615,7 @@ public:
     }
     if (em.type == EntityType::Node)
     {
-      s << endl << " lon: " << em.lon << " lat: " << em.lat;
+      s << std::endl << " lon: " << em.lon << " lat: " << em.lat;
     }
     return s;
   }

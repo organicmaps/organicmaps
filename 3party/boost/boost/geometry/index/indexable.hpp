@@ -1,6 +1,6 @@
 // Boost.Geometry Index
 //
-// Copyright (c) 2011-2014 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2015 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -11,30 +11,9 @@
 
 #include <boost/mpl/assert.hpp>
 
+#include <boost/geometry/index/detail/is_indexable.hpp>
+
 namespace boost { namespace geometry { namespace index { namespace detail {
-
-template <typename Geometry, typename GeometryTag>
-struct is_indexable_impl { static const bool value = false; };
-
-template <typename Point>
-struct is_indexable_impl<Point, geometry::point_tag> { static const bool value = true; };
-
-template <typename Box>
-struct is_indexable_impl<Box, geometry::box_tag> { static const bool value = true; };
-
-template <typename Segment>
-struct is_indexable_impl<Segment, geometry::segment_tag> { static const bool value = true; };
-
-template <typename Indexable>
-struct is_indexable
-{
-    static const bool value =
-        is_indexable_impl
-            <
-                Indexable,
-                typename geometry::tag<Indexable>::type
-            >::value;
-};
 
 /*!
 \brief The function object extracting Indexable from Value.

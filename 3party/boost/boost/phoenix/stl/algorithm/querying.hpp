@@ -1,9 +1,10 @@
-// Copyright 2005 Daniel Wallin. 
+// Copyright 2005 Daniel Wallin.
 // Copyright 2005 Joel de Guzman.
-// Copyright 2005 Dan Marsden. 
-// Copyright 2008 Hartmut Kaiser. 
+// Copyright 2005 Dan Marsden.
+// Copyright 2008 Hartmut Kaiser.
+// Copyright 2015 John Fletcher.
 //
-// Use, modification and distribution is subject to the Boost Software 
+// Use, modification and distribution is subject to the Boost Software
 // License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -26,7 +27,8 @@
 
 #include <boost/phoenix/function/adapt_callable.hpp>
 
-#include <boost/range/result_iterator.hpp>
+//#include <boost/range/result_iterator.hpp> is deprecated
+#include <boost/range/iterator.hpp>
 #include <boost/range/difference_type.hpp>
 
 namespace boost { namespace phoenix {
@@ -38,26 +40,26 @@ namespace boost { namespace phoenix {
             struct result;
 
             template <typename This, class R, class T>
-            struct result<This(R&, T const&)>
-                : range_result_iterator<R>
+            struct result<This(R&, T&)>
+                : range_iterator<R>
             {};
 
             template<class R, class T>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             execute(R& r, T const& x, mpl::true_) const
             {
                 return r.find(x);
             }
 
             template<class R, class T>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             execute(R& r, T const& x, mpl::false_) const
             {
                 return std::find(detail::begin_(r), detail::end_(r), x);
             }
 
             template<class R, class T>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             operator()(R& r, T const& x) const
             {
                 return execute(r, x, has_find<R>());
@@ -71,11 +73,11 @@ namespace boost { namespace phoenix {
 
             template <typename This, class R, class P>
             struct result<This(R&, P)>
-                : range_result_iterator<R>
+                : range_iterator<R>
             {};
 
             template<class R, class P>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             operator()(R& r, P p) const
             {
                 return std::find_if(detail::begin_(r), detail::end_(r), p);
@@ -89,16 +91,16 @@ namespace boost { namespace phoenix {
 
             template<typename This, class R, class R2>
             struct result<This(R&, R2&)>
-                : range_result_iterator<R>
+                : range_iterator<R>
             {};
 
             template<typename This, class R, class R2, class P>
             struct result<This(R&, R2&, P)>
-                : range_result_iterator<R>
+                : range_iterator<R>
             {};
 
             template<class R, class R2>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             operator()(R& r, R2& r2) const
             {
                 return std::find_end(
@@ -110,7 +112,7 @@ namespace boost { namespace phoenix {
             }
 
             template<class R, class R2, class P>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             operator()(R& r, R2& r2, P p) const
             {
                 return std::find_end(
@@ -130,16 +132,16 @@ namespace boost { namespace phoenix {
 
             template<typename This, class R, class R2>
             struct result<This(R&, R2&)>
-                : range_result_iterator<R>
+                : range_iterator<R>
             {};
 
             template<typename This, class R, class R2, class P>
             struct result<This(R&, R2&, P)>
-                : range_result_iterator<R>
+                : range_iterator<R>
             {};
 
             template<class R, class R2>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             operator()(R& r, R2& r2) const
             {
                 return std::find_first_of(
@@ -151,7 +153,7 @@ namespace boost { namespace phoenix {
             }
 
             template<class R, class R2, class P>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             operator()(R& r, R2& r2, P p) const
             {
                 return std::find_first_of(
@@ -171,23 +173,23 @@ namespace boost { namespace phoenix {
 
             template <typename This, class R>
             struct result<This(R&)>
-                : range_result_iterator<R>
+                : range_iterator<R>
             {};
 
             template <typename This, class R, class P>
             struct result<This(R&, P)>
-                : range_result_iterator<R>
+                : range_iterator<R>
             {};
 
             template<class R>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             operator()(R& r) const
             {
                 return std::adjacent_find(detail::begin_(r), detail::end_(r));
             }
 
             template<class R, class P>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             operator()(R& r, P p) const
             {
                 return std::adjacent_find(detail::begin_(r), detail::end_(r), p);
@@ -200,7 +202,7 @@ namespace boost { namespace phoenix {
             struct result;
 
             template <typename This, class R, class T>
-            struct result<This(R&, T const&)>
+            struct result<This(R&, T&)>
                 : range_difference<R>
             {};
 
@@ -272,16 +274,16 @@ namespace boost { namespace phoenix {
 
             template <typename This, class R, typename R2>
             struct result<This(R&, R2&)>
-                : range_result_iterator<R>
+                : range_iterator<R>
             {};
 
             template <typename This, class R, typename R2, class P>
             struct result<This(R&, R2&, P)>
-                : range_result_iterator<R>
+                : range_iterator<R>
             {};
 
             template<class R, class R2>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             operator()(R& r, R2& r2) const
             {
                 return std::search(
@@ -293,7 +295,7 @@ namespace boost { namespace phoenix {
             }
 
             template<class R, class R2, class P>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             operator()(R& r, R2& r2, P p) const
             {
                 return std::search(
@@ -312,38 +314,38 @@ namespace boost { namespace phoenix {
             struct result;
 
             template <typename This, class R, class T>
-            struct result<This(R&, T const&)>
-                : range_result_iterator<R>
+            struct result<This(R&, T&)>
+                : range_iterator<R>
             {};
 
             template <typename This, class R, class T, class C>
-            struct result<This(R&, T const&, C)>
-                : range_result_iterator<R>
+            struct result<This(R&, T&, C)>
+                : range_iterator<R>
             {};
 
             template<class R, class T>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             execute(R& r, T const& val, mpl::true_) const
             {
                 return r.lower_bound(val);
             }
 
             template<class R, class T>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             execute(R& r, T const& val, mpl::false_) const
             {
                 return std::lower_bound(detail::begin_(r), detail::end_(r), val);
             }
 
             template<class R, class T>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             operator()(R& r, T const& val) const
             {
                 return execute(r, val, has_lower_bound<R>());
             }
 
             template<class R, class T, class C>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             operator()(R& r, T const& val, C c) const
             {
                 return std::lower_bound(detail::begin_(r), detail::end_(r), val, c);
@@ -356,38 +358,38 @@ namespace boost { namespace phoenix {
             struct result;
 
             template <typename This, class R, class T>
-            struct result<This(R&, T const&)>
-                : range_result_iterator<R>
+            struct result<This(R&, T&)>
+                : range_iterator<R>
             {};
 
             template <typename This, class R, class T, class C>
-            struct result<This(R&, T const&, C)>
-                : range_result_iterator<R>
+            struct result<This(R&, T&, C)>
+                : range_iterator<R>
             {};
 
             template<class R, class T>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             execute(R& r, T const& val, mpl::true_) const
             {
                 return r.upper_bound(val);
             }
 
             template<class R, class T>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             execute(R& r, T const& val, mpl::false_) const
             {
                 return std::upper_bound(detail::begin_(r), detail::end_(r), val);
             }
 
             template<class R, class T>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             operator()(R& r, T const& val) const
             {
                 return execute(r, val, has_upper_bound<R>());
             }
 
             template<class R, class T, class C>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             operator()(R& r, T const& val, C c) const
             {
                 return std::upper_bound(detail::begin_(r), detail::end_(r), val, c);
@@ -400,8 +402,8 @@ namespace boost { namespace phoenix {
             struct equal_range
             {
                 typedef std::pair<
-                    typename range_result_iterator<R>::type
-                    , typename range_result_iterator<R>::type
+                    typename range_iterator<R>::type
+                    , typename range_iterator<R>::type
                 > type;
             };
         }
@@ -412,12 +414,12 @@ namespace boost { namespace phoenix {
             struct result;
 
             template <typename This, class R, class T>
-            struct result<This(R&, T const&)>
+            struct result<This(R&, T&)>
                 : result_of::equal_range<R,T>
             {};
 
             template <typename This, class R, class T, class C>
-            struct result<This(R&, T const&, C)>
+            struct result<This(R&, T&, C)>
                 : result_of::equal_range<R,T, C>
             {};
 
@@ -456,7 +458,7 @@ namespace boost { namespace phoenix {
             struct mismatch
             {
                 typedef std::pair<
-                    typename range_result_iterator<R>::type
+                    typename range_iterator<R>::type
                     , typename detail::decay_array<I>::type
                 > type;
             };
@@ -540,23 +542,23 @@ namespace boost { namespace phoenix {
             
             template <typename This, class R>
             struct result<This(R&)>
-                : range_result_iterator<R>
+                : range_iterator<R>
             {};
 
             template <typename This, class R, class P>
             struct result<This(R&, P)>
-                : range_result_iterator<R>
+                : range_iterator<R>
             {};
 
             template<class R>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             operator()(R& r) const
             {
                 return std::min_element(detail::begin_(r), detail::end_(r));
             }
         
             template<class R, class P>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             operator()(R& r, P p) const
             {
                 return std::min_element(detail::begin_(r), detail::end_(r), p);
@@ -570,23 +572,23 @@ namespace boost { namespace phoenix {
 
             template <typename This, class R>
             struct result<This(R&)>
-                : range_result_iterator<R>
+                : range_iterator<R>
             {};
 
             template <typename This, class R, class P>
             struct result<This(R&, P)>
-                : range_result_iterator<R>
+                : range_iterator<R>
             {};
 
             template<class R>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             operator()(R& r) const
             {
                 return std::max_element(detail::begin_(r), detail::end_(r));
             }
         
             template<class R, class P>
-            typename range_result_iterator<R>::type
+            typename range_iterator<R>::type
             operator()(R& r, P p) const
             {
                 return std::max_element(detail::begin_(r), detail::end_(r), p);

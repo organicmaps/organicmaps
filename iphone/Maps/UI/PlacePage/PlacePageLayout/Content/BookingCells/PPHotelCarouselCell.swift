@@ -1,4 +1,4 @@
-final class CarouselElement : UICollectionViewCell {
+final class CarouselElement: UICollectionViewCell {
   @IBOutlet private weak var image: UIImageView!
   @IBOutlet private var dimMask: [UIView]!
 
@@ -14,9 +14,9 @@ final class PPHotelCarouselCell: MWMTableViewCell {
   @IBOutlet private weak var collectionView: UICollectionView!
   fileprivate var dataSource: [GalleryItemModel] = []
   fileprivate let kMaximumNumberOfPhotos = 5
-  fileprivate var delegate: MWMPlacePageButtonsProtocol?
+  fileprivate weak var delegate: MWMPlacePageButtonsProtocol?
 
-  func config(with ds: [GalleryItemModel], delegate d: MWMPlacePageButtonsProtocol?) {
+  @objc func config(with ds: [GalleryItemModel], delegate d: MWMPlacePageButtonsProtocol?) {
     dataSource = ds
     delegate = d
     collectionView.contentOffset = .zero
@@ -44,7 +44,7 @@ extension PPHotelCarouselCell: UICollectionViewDelegate, UICollectionViewDataSou
     return cell
   }
 
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
     return isFullPhotosCarousel ? dataSource.count : kMaximumNumberOfPhotos
   }
 
@@ -52,9 +52,15 @@ extension PPHotelCarouselCell: UICollectionViewDelegate, UICollectionViewDataSou
     guard let d = delegate else { return }
 
     if isLastCell(indexPath) {
-      d.showGalery()
+      d.showGallery()
     } else {
-      d.showPhoto(at: UInt(indexPath.row))
+      let section = indexPath.section
+      d.showPhoto(at: indexPath.item,
+                  referenceView: collectionView.cellForItem(at: indexPath),
+                  referenceViewWhenDismissingHandler: { index -> UIView? in
+                    let indexPath = IndexPath(item: index, section: section)
+                    return collectionView.cellForItem(at: indexPath)
+      })
     }
   }
 }

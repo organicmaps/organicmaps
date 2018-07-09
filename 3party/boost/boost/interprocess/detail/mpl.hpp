@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2012.
+// (C) Copyright Ion Gaztanaga 2005-2016.
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
@@ -66,18 +66,6 @@ struct enable_if : public enable_if_c<Cond::value, T> {};
 template <class Cond, class T = void>
 struct disable_if : public enable_if_c<!Cond::value, T> {};
 
-template <class T, class U>
-class is_convertible
-{
-   typedef char true_t;
-   class false_t { char dummy[2]; };
-   static true_t dispatch(U);
-   static false_t dispatch(...);
-   static T trigger();
-   public:
-   static const bool value = sizeof(dispatch(trigger())) == sizeof(true_t);
-};
-
 template<
       bool C
     , typename T1
@@ -107,28 +95,6 @@ struct if_
    typedef typename if_c<0 != T1::value, T2, T3>::type type;
 };
 
-
-template <class Pair>
-struct select1st
-//   : public std::unary_function<Pair, typename Pair::first_type>
-{
-   template<class OtherPair>
-   const typename Pair::first_type& operator()(const OtherPair& x) const
-   {  return x.first;   }
-
-   const typename Pair::first_type& operator()(const typename Pair::first_type& x) const
-   {  return x;   }
-};
-
-// identity is an extension: it is not part of the standard.
-template <class T>
-struct identity
-//   : public std::unary_function<T,T>
-{
-   typedef T type;
-   const T& operator()(const T& x) const
-   { return x; }
-};
 
 template<std::size_t S>
 struct ls_zeros

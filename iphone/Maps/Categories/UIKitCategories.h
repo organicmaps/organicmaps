@@ -66,7 +66,7 @@ static inline CGFloat LengthCGPoint(CGPoint point)
 
 @interface UIApplication (URLs)
 
-- (void)rateVersionFrom:(NSString *)launchPlaceName;
+- (void)rateApp;
 
 @end
 
@@ -93,13 +93,6 @@ typedef void (^MWMAlertViewCompletionBlock) (UIAlertView * alertView, NSInteger 
 @property (copy, nonatomic) MWMAlertViewBlock cancelBlock;
 
 @property (copy, nonatomic) BOOL(^shouldEnableFirstOtherButtonBlock)(UIAlertView * alertView);
-
-@end
-
-@interface UINavigationController (Autorotate)
-
-- (BOOL)shouldAutorotate;
-- (NSUInteger)supportedInterfaceOrientations;
 
 @end
 

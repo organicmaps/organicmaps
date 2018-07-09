@@ -1,6 +1,11 @@
 #include "storage/storage_defines.hpp"
 
-#include "std/sstream.hpp"
+#include "base/assert.hpp"
+
+#include <sstream>
+
+using namespace std;
+using namespace string_literals;
 
 namespace storage
 {
@@ -9,24 +14,27 @@ string DebugPrint(Status status)
   switch (status)
   {
   case Status::EUndefined:
-    return string("EUndefined");
+    return "EUndefined"s;
   case Status::EOnDisk:
-    return string("OnDisk");
+    return "OnDisk"s;
   case Status::ENotDownloaded:
-    return string("NotDownloaded");
+    return "NotDownloaded"s;
   case Status::EDownloadFailed:
-    return string("DownloadFailed");
+    return "DownloadFailed"s;
   case Status::EDownloading:
-    return string("Downloading");
+    return "Downloading"s;
+  case Status::EApplying:
+    return "Applying"s;
   case Status::EInQueue:
-    return string("InQueue");
+    return "InQueue"s;
   case Status::EUnknown:
-    return string("Unknown");
+    return "Unknown"s;
   case Status::EOnDiskOutOfDate:
-    return string("OnDiskOutOfDate");
+    return "OnDiskOutOfDate"s;
   case Status::EOutOfMemFailed:
-    return string("OutOfMemFailed");
+    return "OutOfMemFailed"s;
   }
+  CHECK_SWITCH();
 }
 
 string DebugPrint(NodeStatus status)
@@ -34,22 +42,25 @@ string DebugPrint(NodeStatus status)
   switch (status)
   {
   case NodeStatus::Undefined:
-    return string("Undefined");
+    return "Undefined"s;
   case NodeStatus::Error:
-    return string("Error");
+    return "Error"s;
   case NodeStatus::OnDisk:
-    return string("OnDisk");
+    return "OnDisk"s;
   case NodeStatus::NotDownloaded:
-    return string("NotDownloaded");
+    return "NotDownloaded"s;
   case NodeStatus::Downloading:
-    return string("Downloading");
+    return "Downloading"s;
+  case NodeStatus::Applying:
+    return "Applying"s;
   case NodeStatus::InQueue:
-    return string("InQueue");
+    return "InQueue"s;
   case NodeStatus::OnDiskOutOfDate:
-    return string("OnDiskOutOfDate");
+    return "OnDiskOutOfDate"s;
   case NodeStatus::Partly:
-    return string("Partly");
+    return "Partly"s;
   }
+  CHECK_SWITCH();
 }
 
 string DebugPrint(NodeErrorCode status)
@@ -57,14 +68,15 @@ string DebugPrint(NodeErrorCode status)
   switch (status)
   {
   case NodeErrorCode::NoError:
-    return string("NoError");
+    return "NoError"s;
   case NodeErrorCode::UnknownError:
-    return string("UnknownError");
+    return "UnknownError"s;
   case NodeErrorCode::OutOfMemFailed:
-    return string("OutOfMemFailed");
+    return "OutOfMemFailed"s;
   case NodeErrorCode::NoInetConnection:
-    return string("NoInetConnection");
+    return "NoInetConnection"s;
   }
+  CHECK_SWITCH();
 }
 
 StatusAndError ParseStatus(Status innerStatus)
@@ -81,6 +93,8 @@ StatusAndError ParseStatus(Status innerStatus)
     return StatusAndError(NodeStatus::Error, NodeErrorCode::NoInetConnection);
   case Status::EDownloading:
     return StatusAndError(NodeStatus::Downloading, NodeErrorCode::NoError);
+  case Status::EApplying:
+    return StatusAndError(NodeStatus::Applying, NodeErrorCode::NoError);
   case Status::EInQueue:
     return StatusAndError(NodeStatus::InQueue, NodeErrorCode::NoError);
   case Status::EUnknown:
@@ -90,6 +104,7 @@ StatusAndError ParseStatus(Status innerStatus)
   case Status::EOutOfMemFailed:
     return StatusAndError(NodeStatus::Error, NodeErrorCode::OutOfMemFailed);
   }
+  CHECK_SWITCH();
 }
 
 string DebugPrint(StatusAndError statusAndError)

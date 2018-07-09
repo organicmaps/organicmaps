@@ -120,6 +120,24 @@ inline T asymptotic_bessel_j_large_x_2(T v, T x)
 }
 
 template <class T>
+inline bool asymptotic_bessel_large_x_limit(int v, const T& x)
+{
+   BOOST_MATH_STD_USING
+      //
+      // Determines if x is large enough compared to v to take the asymptotic
+      // forms above.  From A&S 9.2.28 we require: 
+      //    v < x * eps^1/8
+      // and from A&S 9.2.29 we require:
+      //    v^12/10 < 1.5 * x * eps^1/10
+      // using the former seems to work OK in practice with broadly similar 
+      // error rates either side of the divide for v < 10000.
+      // At double precision eps^1/8 ~= 0.01.
+      //
+      BOOST_ASSERT(v >= 0);
+      return (v ? v : 1) < x * 0.004f;
+}
+
+template <class T>
 inline bool asymptotic_bessel_large_x_limit(const T& v, const T& x)
 {
    BOOST_MATH_STD_USING

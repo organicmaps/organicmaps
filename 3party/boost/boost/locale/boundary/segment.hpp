@@ -27,7 +27,6 @@ namespace boundary {
         int compare_text(LeftIterator l_begin,LeftIterator l_end,RightIterator r_begin,RightIterator r_end)
         {
             typedef LeftIterator left_iterator;
-            typedef RightIterator right_iterator;
             typedef typename std::iterator_traits<left_iterator>::value_type char_type;
             typedef std::char_traits<char_type> traits;
             while(l_begin!=l_end && r_begin!=r_end) {
@@ -436,19 +435,19 @@ namespace boundary {
 
     typedef segment<std::string::const_iterator> ssegment;      ///< convenience typedef
     typedef segment<std::wstring::const_iterator> wssegment;    ///< convenience typedef
-    #ifdef BOOST_HAS_CHAR16_T
+    #ifdef BOOST_LOCALE_ENABLE_CHAR16_T
     typedef segment<std::u16string::const_iterator> u16ssegment;///< convenience typedef
     #endif
-    #ifdef BOOST_HAS_CHAR32_T
+    #ifdef BOOST_LOCALE_ENABLE_CHAR32_T
     typedef segment<std::u32string::const_iterator> u32ssegment;///< convenience typedef
     #endif
    
     typedef segment<char const *> csegment;                     ///< convenience typedef
     typedef segment<wchar_t const *> wcsegment;                 ///< convenience typedef
-    #ifdef BOOST_HAS_CHAR16_T
+    #ifdef BOOST_LOCALE_ENABLE_CHAR16_T
     typedef segment<char16_t const *> u16csegment;              ///< convenience typedef
     #endif
-    #ifdef BOOST_HAS_CHAR32_T
+    #ifdef BOOST_LOCALE_ENABLE_CHAR32_T
     typedef segment<char32_t const *> u32csegment;              ///< convenience typedef
     #endif
 

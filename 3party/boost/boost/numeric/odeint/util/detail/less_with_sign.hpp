@@ -6,7 +6,7 @@
  Helper function to compare times taking into account the sign of dt
  [end_description]
 
- Copyright 2012-2013 Mario Mulansky
+ Copyright 2012-2015 Mario Mulansky
  Copyright 2012 Karsten Ahnert
 
  Distributed under the Boost Software License, Version 1.0.
@@ -57,7 +57,7 @@ T min_abs( T t1 , T t2 )
 {
     BOOST_USING_STD_MIN();
     BOOST_USING_STD_MAX();
-    if( t1>0 )
+    if( get_unit_value(t1)>0 )
         return min BOOST_PREVENT_MACRO_SUBSTITUTION ( t1 , t2 );
     else
         return max BOOST_PREVENT_MACRO_SUBSTITUTION ( t1 , t2 );
@@ -68,7 +68,7 @@ T max_abs( T t1 , T t2 )
 {
     BOOST_USING_STD_MIN();
     BOOST_USING_STD_MAX();
-    if( t1>0 )
+    if( get_unit_value(t1)>0 )
         return max BOOST_PREVENT_MACRO_SUBSTITUTION ( t1 , t2 );
     else
         return min BOOST_PREVENT_MACRO_SUBSTITUTION ( t1 , t2 );

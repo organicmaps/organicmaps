@@ -136,10 +136,10 @@ void HttpThread::OnChunkDownloaded()
 
 void HttpThread::OnDownloadFinished()
 {
-  if (m_reply->error())
+  if (m_reply->error() != QNetworkReply::NetworkError::NoError)
   {
     LOG(LWARNING, ("Download has finished with error:", m_reply->errorString().toUtf8().constData()));
-    m_callback.OnFinish(-100, m_begRange, m_endRange);
+    m_callback.OnFinish(m_reply->error(), m_begRange, m_endRange);
   }
   else
   {

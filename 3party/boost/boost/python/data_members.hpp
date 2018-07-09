@@ -305,7 +305,7 @@ inline object make_setter(D& x)
     return detail::make_setter(x, default_call_policies(), is_member_pointer<D>(), 0);
 }
 
-# if BOOST_WORKAROUND(__EDG_VERSION__, <= 238)
+# if !BOOST_WORKAROUND(__EDG_VERSION__, <= 238)
 template <class D>
 inline object make_setter(D const& x)
 {

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +16,6 @@ import android.widget.TextView;
 import com.mapswithme.maps.BuildConfig;
 import com.mapswithme.maps.Framework;
 import com.mapswithme.maps.R;
-import com.mapswithme.maps.widget.BaseShadowController;
-import com.mapswithme.maps.widget.ObservableScrollView;
-import com.mapswithme.maps.widget.ScrollViewShadowController;
 import com.mapswithme.util.Constants;
 import com.mapswithme.util.Graphics;
 import com.mapswithme.util.Utils;
@@ -28,9 +26,9 @@ import com.mapswithme.util.statistics.Statistics;
 public class AboutFragment extends BaseSettingsFragment
                         implements View.OnClickListener
 {
-  private void setupItem(@IdRes int id, boolean tint)
+  private void setupItem(@IdRes int id, boolean tint, @NonNull View frame)
   {
-    TextView view = (TextView)mFrame.findViewById(id);
+    TextView view = frame.findViewById(id);
     view.setOnClickListener(this);
     if (tint)
       Graphics.tint(view);
@@ -43,33 +41,45 @@ public class AboutFragment extends BaseSettingsFragment
   }
 
   @Override
-  protected BaseShadowController createShadowController()
-  {
-    clearPaddings();
-    return new ScrollViewShadowController((ObservableScrollView) mFrame.findViewById(R.id.content_frame));
-  }
-
-  @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
   {
-    super.onCreateView(inflater, container, savedInstanceState);
+    View root = super.onCreateView(inflater, container, savedInstanceState);
 
-    ((TextView) mFrame.findViewById(R.id.version))
+    ((TextView) root.findViewById(R.id.version))
         .setText(getString(R.string.version, BuildConfig.VERSION_NAME));
 
-    ((TextView) mFrame.findViewById(R.id.data_version))
+    ((TextView) root.findViewById(R.id.data_version))
         .setText(getString(R.string.data_version, Framework.nativeGetDataVersion()));
 
-    setupItem(R.id.web, true);
-    setupItem(R.id.blog, true);
-    setupItem(R.id.facebook, false);
-    setupItem(R.id.twitter, false);
-    setupItem(R.id.subscribe, true);
-    setupItem(R.id.rate, true);
-    setupItem(R.id.share, true);
-    setupItem(R.id.copyright, false);
+    setupItem(R.id.web, true, root);
+    setupItem(R.id.blog, true, root);
+    setupItem(R.id.facebook, false, root);
+    setupItem(R.id.twitter, false, root);
+    setupItem(R.id.subscribe, true, root);
+    setupItem(R.id.rate, true, root);
+    setupItem(R.id.share, true, root);
+    setupItem(R.id.copyright, false, root);
+    View termOfUseView = root.findViewById(R.id.term_of_use_link);
+    View privacyPolicyView = root.findViewById(R.id.privacy_policy);
+    termOfUseView.setOnClickListener(v -> onTermOfUseClick());
+    privacyPolicyView.setOnClickListener(v -> onPrivacyPolicyClick());
 
-    return mFrame;
+    return root;
+  }
+
+  private void openLink(@NonNull String link)
+  {
+    Utils.openUrl(getActivity(), link);
+  }
+
+  private void onPrivacyPolicyClick()
+  {
+    openLink(Framework.nativeGetPrivacyPolicyLink());
+  }
+
+  private void onTermOfUseClick()
+  {
+    openLink(Framework.nativeGetTermsOfUseLink());
   }
 
   @Override
@@ -127,7 +137,8 @@ public class AboutFragment extends BaseSettingsFragment
       case R.id.copyright:
         Statistics.INSTANCE.trackEvent(Statistics.EventName.Settings.COPYRIGHT);
         AlohaHelper.logClick(AlohaHelper.Settings.COPYRIGHT);
-        getSettingsActivity().switchToFragment(CopyrightFragment.class, R.string.copyright);
+        getSettingsActivity().replaceFragment(CopyrightFragment.class,
+                                              getString(R.string.copyright), null);
         break;
       }
     } catch (ActivityNotFoundException e)

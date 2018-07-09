@@ -18,7 +18,7 @@ import com.mapswithme.util.UiUtils;
 
 public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
 {
-  private static final String EXTRA_RESULT_CODE = "ResultCode";
+  private static final String EXTRA_RESULT_CODE = "RouterResultCode";
 
   private int mResultCode;
   private String mMessage;
@@ -79,8 +79,11 @@ public class RoutingErrorDialogFragment extends BaseRoutingErrorDialogFragment
     long size = 0;
     for (CountryItem country : mMissingMaps)
     {
-      if (country.status != CountryItem.STATUS_PROGRESS)
-        size += (country.totalSize - country.size);
+      if (country.status != CountryItem.STATUS_PROGRESS &&
+          country.status != CountryItem.STATUS_APPLYING)
+      {
+        size += country.totalSize;
+      }
     }
 
     MapManager.warnOn3g(getActivity(), size, new Runnable()

@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSDictionary *customKeys;
 @property (nonatomic, copy, readonly) NSString *bundleVersion;
 @property (nonatomic, copy, readonly) NSString *bundleShortVersionString;
-@property (nonatomic, copy, readonly) NSDate *crashedOnDate;
+@property (nonatomic, readonly, nullable) NSDate *crashedOnDate;
 @property (nonatomic, copy, readonly) NSString *OSVersion;
 @property (nonatomic, copy, readonly) NSString *OSBuildVersion;
 
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * The CLSReport exposes an interface to the phsyical report that Crashlytics has created. You can
  * use this class to get information about the event, and can also set some values after the
- * event has occured.
+ * event has occurred.
  **/
 @interface CLSReport : NSObject <CLSCrashReport>
 

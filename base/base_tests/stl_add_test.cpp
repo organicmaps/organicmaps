@@ -4,7 +4,7 @@
 
 #include "base/stl_add.hpp"
 
-#include "std/deque.hpp"
+#include <deque>
 
 
 UNIT_TEST(STLAdd_IsSorted)
@@ -73,7 +73,7 @@ UNIT_TEST(STLAdd_RemoveIfKeepValid)
   }
 
   {
-    deque<int> v;
+    std::deque<int> v;
     v.push_back(1);
     v.push_back(0);
     v.push_back(1);

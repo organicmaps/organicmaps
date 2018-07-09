@@ -1,15 +1,24 @@
 #include "map/user_mark.hpp"
-#include "map/user_mark_container.hpp"
-
-#include "indexer/classificator.hpp"
+#include "map/user_mark_id_storage.hpp"
 
 #include "geometry/mercator.hpp"
 
-#include "base/string_utils.hpp"
-
-UserMark::UserMark(m2::PointD const & ptOrg, UserMarkContainer * container)
-  : m_ptOrg(ptOrg), m_container(container)
+UserMark::UserMark(kml::MarkId id, m2::PointD const & ptOrg, UserMark::Type type)
+  : df::UserPointMark(id == kml::kInvalidMarkId ? UserMarkIdStorage::Instance().GetNextUserMarkId(type) : id)
+  , m_ptOrg(ptOrg)
 {
+  ASSERT_EQUAL(GetMarkType(), type, ());
+}
+
+UserMark::UserMark(m2::PointD const & ptOrg, UserMark::Type type)
+  : df::UserPointMark(UserMarkIdStorage::Instance().GetNextUserMarkId(type))
+  , m_ptOrg(ptOrg)
+{}
+
+// static
+UserMark::Type UserMark::GetMarkType(kml::MarkId id)
+{
+  return UserMarkIdStorage::GetMarkType(id);
 }
 
 m2::PointD const & UserMark::GetPivot() const
@@ -19,7 +28,7 @@ m2::PointD const & UserMark::GetPivot() const
 
 m2::PointD UserMark::GetPixelOffset() const
 {
-  return m2::PointD(0.0, 0.0);
+  return {};
 }
 
 dp::Anchor UserMark::GetAnchor() const
@@ -27,20 +36,9 @@ dp::Anchor UserMark::GetAnchor() const
   return dp::Center;
 }
 
-float UserMark::GetDepth() const
+df::RenderState::DepthLayer UserMark::GetDepthLayer() const
 {
-  return GetContainer()->GetPointDepth();
-}
-
-bool UserMark::RunCreationAnim() const
-{
-  return false;
-}
-
-UserMarkContainer const * UserMark::GetContainer() const
-{
-  ASSERT(m_container != nullptr, ());
-  return m_container;
+  return df::RenderState::UserMarkLayer;
 }
 
 ms::LatLon UserMark::GetLatLon() const
@@ -48,52 +46,29 @@ ms::LatLon UserMark::GetLatLon() const
   return MercatorBounds::ToLatLon(m_ptOrg);
 }
 
-SearchMarkPoint::SearchMarkPoint(m2::PointD const & ptOrg, UserMarkContainer * container)
-: UserMark(ptOrg, container)
-{
-}
+StaticMarkPoint::StaticMarkPoint(m2::PointD const & ptOrg)
+  : UserMark(ptOrg, UserMark::Type::STATIC)
+{}
 
-string SearchMarkPoint::GetSymbolName() const
+void StaticMarkPoint::SetPtOrg(m2::PointD const & ptOrg)
 {
-  return m_customSymbol.empty() ? "search-result" : m_customSymbol;
-}
-
-UserMark::Type SearchMarkPoint::GetMarkType() const
-{
-  return UserMark::Type::SEARCH;
-}
-
-PoiMarkPoint::PoiMarkPoint(UserMarkContainer * container)
-  : SearchMarkPoint(m2::PointD::Zero(), container) {}
-
-UserMark::Type PoiMarkPoint::GetMarkType() const
-{
-  return UserMark::Type::POI;
-}
-
-void PoiMarkPoint::SetPtOrg(m2::PointD const & ptOrg)
-{
+  SetDirty();
   m_ptOrg = ptOrg;
 }
 
-MyPositionMarkPoint::MyPositionMarkPoint(UserMarkContainer * container)
-  : PoiMarkPoint(container)
-{
-}
+MyPositionMarkPoint::MyPositionMarkPoint(m2::PointD const & ptOrg)
+  : StaticMarkPoint(ptOrg)
+{}
 
-UserMark::Type MyPositionMarkPoint::GetMarkType() const
-{
-  return UserMark::Type::MY_POSITION;
-}
+DebugMarkPoint::DebugMarkPoint(const m2::PointD & ptOrg)
+  : UserMark(ptOrg, UserMark::Type::DEBUG_MARK)
+{}
 
-DebugMarkPoint::DebugMarkPoint(const m2::PointD & ptOrg, UserMarkContainer * container)
-  : UserMark(ptOrg, container)
+drape_ptr<df::UserPointMark::SymbolNameZoomInfo> DebugMarkPoint::GetSymbolNames() const
 {
-}
-
-string DebugMarkPoint::GetSymbolName() const
-{
-  return "api-result";
+  auto symbol = make_unique_dp<SymbolNameZoomInfo>();
+  symbol->insert(std::make_pair(1 /* zoomLevel */, "non-found-search-result"));
+  return symbol;
 }
 
 string DebugPrint(UserMark::Type type)
@@ -102,9 +77,14 @@ string DebugPrint(UserMark::Type type)
   {
   case UserMark::Type::API: return "API";
   case UserMark::Type::SEARCH: return "SEARCH";
-  case UserMark::Type::POI: return "POI";
+  case UserMark::Type::STATIC: return "STATIC";
   case UserMark::Type::BOOKMARK: return "BOOKMARK";
-  case UserMark::Type::MY_POSITION: return "MY_POSITION";
   case UserMark::Type::DEBUG_MARK: return "DEBUG_MARK";
+  case UserMark::Type::ROUTING: return "ROUTING";
+  case UserMark::Type::LOCAL_ADS: return "LOCAL_ADS";
+  case UserMark::Type::TRANSIT: return "TRANSIT";
+  case UserMark::Type::USER_MARK_TYPES_COUNT: return "USER_MARK_TYPES_COUNT";
+  case UserMark::Type::USER_MARK_TYPES_COUNT_MAX: return "USER_MARK_TYPES_COUNT_MAX";
   }
+  CHECK_SWITCH();
 }

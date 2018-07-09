@@ -14,7 +14,7 @@ MANY_DOTS = re.compile(r"\.{4,}")
 SPACE_PUNCTUATION = re.compile(r"\s[.,?!:;]")
 PLACEHOLDERS = re.compile(r"(%\d*\$@|%[@dqus]|\^)")
 
-ITUNES_LANGS = ["en", "en-GB", "ru", "ar", "cs", "da", "nl", "fi", "fr", "de", "hu", "id", "it", "ja", "ko", "nb", "pl", "pt", "ro", "sl", "es", "sv", "th", "tr", "uk", "vi", "zh-Hans", "zh-Hant"]
+ITUNES_LANGS = ["en", "en-GB", "ru", "ar", "cs", "da", "nl", "fi", "fr", "de", "hu", "id", "it", "ja", "ko", "nb", "pl", "pt", "pt-BR", "ro", "sl", "es", "sv", "th", "tr", "uk", "vi", "zh-Hans", "zh-Hant"]
 
 SIMILARITY_THRESHOLD = 20.0 #%
 
@@ -292,7 +292,15 @@ class StringsTxt:
 
     def _check_placeholders_in_block(self, block_key):
         wrong_placeholders_strings = []
-        en_placeholders = sorted(PLACEHOLDERS.findall(self.translations[block_key]["en"]))
+        key = self.translations[block_key].get("en")
+        if not key:
+            print("No english for key: {}".format(block_key))
+            print("Existing keys are: {}".format(",".join(self.translations[block_key].keys())))
+            raise KeyError
+
+        en_placeholders = sorted(PLACEHOLDERS.findall(key))
+
+        
         for lang, translation in self.translations[block_key].items():
             if lang == "en":
                 continue

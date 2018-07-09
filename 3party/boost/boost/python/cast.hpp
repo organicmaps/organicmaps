@@ -70,7 +70,7 @@ namespace detail
   template <class T>
   inline void assert_castable(boost::type<T>* = 0)
   {
-      typedef char must_be_a_complete_type[sizeof(T)];
+      typedef char must_be_a_complete_type[sizeof(T)] BOOST_ATTRIBUTE_UNUSED;
   }
 
   template <class Source, class Target>

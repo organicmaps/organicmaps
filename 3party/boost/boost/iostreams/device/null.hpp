@@ -10,7 +10,7 @@
 #ifndef BOOST_IOSTREAMS_NULL_HPP_INCLUDED
 #define BOOST_IOSTREAMS_NULL_HPP_INCLUDED
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -29,7 +29,7 @@ public:
           public device_tag,
           public closable_tag
         { };
-    std::streamsize read(Ch*, std::streamsize) { return 0; }
+    std::streamsize read(Ch*, std::streamsize) { return -1; }
     std::streamsize write(const Ch*, std::streamsize n) { return n; }
     std::streampos seek( stream_offset, BOOST_IOS::seekdir,
                          BOOST_IOS::openmode = 

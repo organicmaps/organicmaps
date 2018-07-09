@@ -1,18 +1,25 @@
 // Copyright David Abrahams 2002.
+// Copyright Stefan Seefeld 2016.
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
-#ifndef REGISTERED_DWA2002710_HPP
-# define REGISTERED_DWA2002710_HPP
-# include <boost/python/type_id.hpp>
-# include <boost/python/converter/registry.hpp>
-# include <boost/python/converter/registrations.hpp>
-# include <boost/type_traits/transform_traits.hpp>
-# include <boost/type_traits/cv_traits.hpp>
-# include <boost/type_traits/is_void.hpp>
-# include <boost/detail/workaround.hpp>
-# include <boost/python/type_id.hpp>
-# include <boost/type.hpp>
+
+#ifndef boost_python_converter_registered_hpp_
+#define boost_python_converter_registered_hpp_
+
+#include <boost/python/type_id.hpp>
+#include <boost/python/converter/registry.hpp>
+#include <boost/python/converter/registrations.hpp>
+#include <boost/type_traits/transform_traits.hpp>
+#include <boost/type_traits/cv_traits.hpp>
+#include <boost/type_traits/is_void.hpp>
+#include <boost/detail/workaround.hpp>
+#include <boost/type.hpp>
+#include <memory>
+#if defined(BOOST_PYTHON_TRACE_REGISTRY) \
+ || defined(BOOST_PYTHON_CONVERTER_REGISTRY_APPLE_MACH_WORKAROUND)
+# include <iostream>
+#endif
 
 namespace boost {
 
@@ -70,7 +77,16 @@ namespace detail
   {
       registry::lookup_shared_ptr(type_id<shared_ptr<T> >());
   }
-  
+
+#if __cplusplus >= 201103L
+  template <class T>
+  inline void
+  register_shared_ptr0(std::shared_ptr<T>*)
+  {
+      registry::lookup_shared_ptr(type_id<std::shared_ptr<T> >());
+  }
+#endif
+
   template <class T>
   inline void
   register_shared_ptr1(T const volatile*)
@@ -107,4 +123,4 @@ namespace detail
 
 }}} // namespace boost::python::converter
 
-#endif // REGISTERED_DWA2002710_HPP
+#endif

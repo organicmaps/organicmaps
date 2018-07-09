@@ -8,7 +8,7 @@
 
 namespace
 {
-int8_t ParseHolidayReference(string const & ref)
+int8_t ParseHolidayReference(std::string const & ref)
 {
   if (ref == "easter")
     return feature::RegionData::PHReference::PH_EASTER;
@@ -24,44 +24,44 @@ int8_t ParseHolidayReference(string const & ref)
 
 namespace feature
 {
-bool ReadRegionDataImpl(string const & countryName, RegionData & data)
+bool ReadRegionDataImpl(std::string const & countryName, RegionData & data)
 {
   try
   {
     auto reader = GetPlatform().GetReader(COUNTRIES_META_FILE);
-    string buffer;
+    std::string buffer;
     reader->ReadAsString(buffer);
     my::Json root(buffer.data());
 
     json_t * jsonData = nullptr;
-    my::FromJSONObjectOptionalField(root.get(), countryName, jsonData);
+    FromJSONObjectOptionalField(root.get(), countryName, jsonData);
     if (!jsonData)
       return false;
 
-    vector<string> languages;
-    my::FromJSONObjectOptionalField(jsonData, "languages", languages);
+    vector<std::string> languages;
+    FromJSONObjectOptionalField(jsonData, "languages", languages);
     if (!languages.empty())
       data.SetLanguages(languages);
 
-    string driving;
-    my::FromJSONObjectOptionalField(jsonData, "driving", driving);
+    std::string driving;
+    FromJSONObjectOptionalField(jsonData, "driving", driving);
     if (driving == "l" || driving == "r")
       data.Set(RegionData::Type::RD_DRIVING, driving);
 
-    string timezone;
-    my::FromJSONObjectOptionalField(jsonData, "timezone", timezone);
+    std::string timezone;
+    FromJSONObjectOptionalField(jsonData, "timezone", timezone);
     if (!timezone.empty())
       data.Set(RegionData::Type::RD_TIMEZONE, timezone);
 
     bool allow_housenames;
-    my::FromJSONObjectOptionalField(jsonData, "housenames", allow_housenames, false);
+    FromJSONObjectOptionalField(jsonData, "housenames", allow_housenames);
     if (allow_housenames)
       data.Set(RegionData::Type::RD_ALLOW_HOUSENAMES, "y");
 
     // Public holidays: an array of arrays of [string/number, number].
     // See https://github.com/opening-hours/opening_hours.js/blob/master/docs/holidays.md
     vector<json_t *> holidays;
-    my::FromJSONObjectOptionalField(jsonData, "holidays", holidays);
+    FromJSONObjectOptionalField(jsonData, "holidays", holidays);
     for (json_t * holiday : holidays)
     {
       if (!json_is_array(holiday) || json_array_size(holiday) != 2)
@@ -74,12 +74,12 @@ bool ReadRegionDataImpl(string const & countryName, RegionData & data)
       }
       else if (json_is_string(reference))
       {
-        refId = ParseHolidayReference(string(json_string_value(reference)));
+        refId = ParseHolidayReference(std::string(json_string_value(reference)));
       }
       else
       {
         MYTHROW(my::Json::Exception,
-                ("Holiday month reference should be either a string or a number in", countryName));
+                ("Holiday month reference should be either a std::string or a number in", countryName));
       }
 
       if (refId <= 0)
@@ -104,7 +104,7 @@ bool ReadRegionDataImpl(string const & countryName, RegionData & data)
   return false;
 }
 
-bool ReadRegionData(string const & countryName, RegionData & data)
+bool ReadRegionData(std::string const & countryName, RegionData & data)
 {
   // When there is a match for a complete countryName, simply relay the call.
   if (ReadRegionDataImpl(countryName, data))
@@ -112,11 +112,11 @@ bool ReadRegionData(string const & countryName, RegionData & data)
 
   // If not, cut parts of a country name from the tail. E.g. "Russia_Moscow" -> "Russia".
   auto p = countryName.find_last_of('_');
-  while (p != string::npos)
+  while (p != std::string::npos)
   {
     if (ReadRegionDataImpl(countryName.substr(0, p), data))
       return true;
-    p = p > 0 ? countryName.find_last_of('_', p - 1) : string::npos;
+    p = p > 0 ? countryName.find_last_of('_', p - 1) : std::string::npos;
   }
   return false;
 }

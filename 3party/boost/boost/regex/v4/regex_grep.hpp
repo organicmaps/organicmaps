@@ -50,7 +50,7 @@ inline unsigned int regex_grep(Predicate foo,
    typedef typename match_results<BidiIterator>::allocator_type match_allocator_type;
 
    match_results<BidiIterator> m;
-   re_detail::perl_matcher<BidiIterator, match_allocator_type, traits> matcher(first, last, m, e, flags, first);
+   BOOST_REGEX_DETAIL_NS::perl_matcher<BidiIterator, match_allocator_type, traits> matcher(first, last, m, e, flags, first);
    unsigned int count = 0;
    while(matcher.find())
    {

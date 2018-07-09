@@ -13,12 +13,15 @@
 
 #include "base/logging.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
-#include "std/functional.hpp"
-#include "std/iostream.hpp"
-#include "std/map.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <functional>
+#include <iostream>
+#include <map>
+#include <vector>
+
+#include "defines.hpp"
+
+using namespace std;
 
 namespace
 {
@@ -122,7 +125,7 @@ namespace feature
   public:
     TokensContainerT m_stats;
 
-    bool operator()(int8_t langCode, string const & name)
+    void operator()(int8_t langCode, string const & name)
     {
       CHECK(!name.empty(), ("Feature name is empty"));
 
@@ -131,7 +134,7 @@ namespace feature
                              MakeBackInsertFunctor(tokens), search::Delimiters());
 
       if (tokens.empty())
-        return true;
+        return;
 
       for (size_t i = 1; i < tokens.size(); ++i)
       {
@@ -146,7 +149,6 @@ namespace feature
         if (!found.second)
           found.first->second.first++;
       }
-      return true;
     }
 
     void operator()(FeatureType & f, uint32_t)
@@ -197,7 +199,8 @@ namespace feature
 
     FilesContainerR container(make_unique<FileReader>(fPath));
     feature::DataHeader header(container);
-    serial::CodingParams codingParams(trie::GetCodingParams(header.GetDefCodingParams()));
+    serial::GeometryCodingParams codingParams(
+        trie::GetGeometryCodingParams(header.GetDefGeometryCodingParams()));
 
     auto const trieRoot = trie::ReadTrie<ModelReaderPtr, ValueList<TValue>>(
         container.GetReader(SEARCH_INDEX_FILE_TAG), SingleValueSerializer<TValue>(codingParams));
@@ -216,14 +219,12 @@ namespace feature
   void DumpFeatureNames(string const & fPath, string const & lang)
   {
     int8_t const langIndex = StringUtf8Multilang::GetLangIndex(lang);
-    auto printName = [&](int8_t langCode, string const & name) -> bool
-    {
+    auto printName = [&](int8_t langCode, string const & name) {
       CHECK(!name.empty(), ("Feature name is empty"));
       if (langIndex == StringUtf8Multilang::kUnsupportedLanguageCode)
         cout << StringUtf8Multilang::GetLangByCode(langCode) << ' ' << name << endl;
       else if (langCode == langIndex)
         cout << name << endl;
-      return true;
     };
 
     feature::ForEachFromDat(fPath, [&](FeatureType & f, uint32_t)
@@ -231,5 +232,4 @@ namespace feature
                               f.ForEachName(printName);
                             });
   }
-
 }  // namespace feature

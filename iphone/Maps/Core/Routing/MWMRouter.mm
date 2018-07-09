@@ -1,20 +1,16 @@
 #import "MWMRouter.h"
-#import <Pushwoosh/PushNotificationManager.h>
-#import "CLLocation+Mercator.h"
-#import "MWMAlertViewController.h"
+#import <Crashlytics/Crashlytics.h>
+#import "MWMAlertViewController+CPP.h"
 #import "MWMCoreRouterType.h"
 #import "MWMFrameworkListener.h"
 #import "MWMLocationHelpers.h"
 #import "MWMLocationManager.h"
 #import "MWMLocationObserver.h"
 #import "MWMMapViewControlsManager.h"
-#import "MWMNavigationDashboardManager.h"
-#import "MWMRoutePoint.h"
-#import "MWMRouterSavedState.h"
-#import "MWMSearch.h"
-#import "MWMSettings.h"
+#import "MWMNavigationDashboardManager+Entity.h"
+#import "MWMRoutePoint+CPP.h"
+#import "MWMRouterRecommendation.h"
 #import "MWMStorage.h"
-#import "MWMTextToSpeech.h"
 #import "MapViewController.h"
 #import "MapsAppDelegate.h"
 #import "Statistics.h"
@@ -23,34 +19,63 @@
 
 #include "Framework.h"
 
+#include "indexer/feature_altitude.hpp"
+
 #include "platform/local_country_file_utils.hpp"
-#include "platform/measurement_utils.hpp"
+
+#include <cstdint>
+#include <memory>
+#include <vector>
 
 using namespace routing;
+
+@interface MWMRouter ()<MWMLocationObserver, MWMFrameworkRouteBuilderObserver>
+
+@property(nonatomic) NSMutableDictionary<NSValue *, NSData *> * altitudeImagesData;
+@property(nonatomic) NSString * altitudeElevation;
+@property(nonatomic) dispatch_queue_t renderAltitudeImagesQueue;
+@property(nonatomic) uint32_t taxiRoutePointTransactionId;
+@property(nonatomic) uint32_t routeManagerTransactionId;
+@property(nonatomic) BOOL canAutoAddLastLocation;
+@property(nonatomic) BOOL isAPICall;
+
++ (MWMRouter *)router;
+
+@end
 
 namespace
 {
 char const * kRenderAltitudeImagesQueueLabel = "mapsme.mwmrouter.renderAltitudeImagesQueue";
 
-MWMRoutePoint * lastLocationPoint()
+void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 {
-  CLLocation * lastLocation = [MWMLocationManager lastLocation];
-  return lastLocation ? routePoint(lastLocation.mercator) : zeroRoutePoint();
+  if (point == nullptr)
+    return;
+
+  NSString * pointTypeStr = nil;
+  switch (point.type)
+  {
+  case MWMRoutePointTypeStart: pointTypeStr = kStatRoutingPointTypeStart; break;
+  case MWMRoutePointTypeIntermediate: pointTypeStr = kStatRoutingPointTypeIntermediate; break;
+  case MWMRoutePointTypeFinish: pointTypeStr = kStatRoutingPointTypeFinish; break;
+  }
+  NSString * method = nil;
+  if ([MWMRouter router].isAPICall)
+    method = kStatRoutingPointMethodApi;
+  else if ([MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStateHidden)
+    method = kStatRoutingPointMethodPlanning;
+  else
+    method = kStatRoutingPointMethodNoPlanning;
+  [Statistics logEvent:eventType
+        withParameters:@{
+          kStatRoutingPointType: pointTypeStr,
+          kStatRoutingPointValue:
+              (point.isMyPosition ? kStatRoutingPointValueMyPosition : kStatRoutingPointValuePoint),
+          kStatRoutingPointMethod: method,
+          kStatMode: ([MWMRouter isOnRoute] ? kStatRoutingModeOnRoute : kStatRoutingModePlanning)
+        }];
 }
-
-bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyPosition; }
 }  // namespace
-
-@interface MWMRouter ()<MWMLocationObserver, MWMFrameworkRouteBuilderObserver>
-
-@property(nonatomic, readwrite) MWMRoutePoint * startPoint;
-@property(nonatomic, readwrite) MWMRoutePoint * finishPoint;
-
-@property(nonatomic) NSMutableDictionary<NSValue *, NSData *> * altitudeImagesData;
-@property(nonatomic) NSString * altitudeElevation;
-@property(nonatomic) dispatch_queue_t renderAltitudeImagesQueue;
-
-@end
 
 @implementation MWMRouter
 
@@ -64,40 +89,125 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
   return router;
 }
 
-+ (BOOL)hasRouteAltitude { return GetFramework().HasRouteAltitude(); }
-+ (BOOL)isTaxi { return GetFramework().GetRouter() == routing::RouterType::Taxi; }
++ (BOOL)hasRouteAltitude
+{
+  switch ([self type])
+  {
+  case MWMRouterTypeVehicle:
+  case MWMRouterTypePublicTransport:
+  case MWMRouterTypeTaxi: return NO;
+  case MWMRouterTypePedestrian:
+  case MWMRouterTypeBicycle: return GetFramework().GetRoutingManager().HasRouteAltitude();
+  }
+}
+
++ (BOOL)isTaxi
+{
+  return GetFramework().GetRoutingManager().GetRouter() == routing::RouterType::Taxi;
+}
 + (void)startRouting
 {
-  auto router = [self router];
   if (![self isTaxi])
   {
-    [router start];
+    [self start];
     return;
   }
 
   auto taxiDataSource = [MWMNavigationDashboardManager manager].taxiDataSource;
-  auto eventName = taxiDataSource.isTaxiInstalled ? kStatRoutingTaxiOrder : kStatRoutingTaxiInstall;
-  auto const sLatLon = routePointLatLon(router.startPoint);
-  auto const fLatLon = routePointLatLon(router.finishPoint);
+  auto & rm = GetFramework().GetRoutingManager();
+  auto const routePoints = rm.GetRoutePoints();
+  if (routePoints.size() >= 2)
+  {
+    auto eventName =
+        taxiDataSource.isTaxiInstalled ? kStatRoutingTaxiOrder : kStatRoutingTaxiInstall;
+    auto p1 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.front()];
+    auto p2 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.back()];
 
-  [Statistics logEvent:eventName
-        withParameters:@{
-          kStatProvider : kStatUber,
-          kStatFromLocation : makeLocationEventValue(sLatLon.lat, sLatLon.lon),
-          kStatToLocation : makeLocationEventValue(fLatLon.lat, fLatLon.lon)
-        }
-            atLocation:[MWMLocationManager lastLocation]];
+    NSString * provider = nil;
+    switch (taxiDataSource.type)
+    {
+    case MWMRoutePreviewTaxiCellTypeTaxi: provider = kStatUnknown; break;
+    case MWMRoutePreviewTaxiCellTypeUber: provider = kStatUber; break;
+    case MWMRoutePreviewTaxiCellTypeYandex: provider = kStatYandex; break;
+    case MWMRoutePreviewTaxiCellTypeMaxim: provider = kStatMaxim; break;
+    }
 
-  [[UIApplication sharedApplication] openURL:taxiDataSource.taxiURL];
+    [Statistics logEvent:eventName
+          withParameters:@{
+            kStatProvider : provider,
+            kStatFromLocation : makeLocationEventValue(p1.latitude, p1.longitude),
+            kStatToLocation : makeLocationEventValue(p2.latitude, p2.longitude)
+          }
+              atLocation:[MWMLocationManager lastLocation]];
+  }
+  else
+  {
+    auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
+                                          code:5
+                                      userInfo:@{
+                                        @"Description" : @"Invalid number of taxi route points",
+                                        @"Count" : @(routePoints.size())
+                                      }];
+    [[Crashlytics sharedInstance] recordError:err];
+  }
+
+  [taxiDataSource taxiURL:^(NSURL * url) {
+    [UIApplication.sharedApplication openURL:url];
+  }];
 }
 
 + (void)stopRouting
 {
-  [[self router] stop];
-  [MWMNavigationDashboardManager manager].taxiDataSource = nil;
+  [self stop:YES];
 }
 
-+ (BOOL)isRoutingActive { return GetFramework().IsRoutingActive(); }
++ (BOOL)isRoutingActive { return GetFramework().GetRoutingManager().IsRoutingActive(); }
++ (BOOL)isRouteBuilt { return GetFramework().GetRoutingManager().IsRouteBuilt(); }
++ (BOOL)isRouteFinished { return GetFramework().GetRoutingManager().IsRouteFinished(); }
++ (BOOL)isRouteRebuildingOnly { return GetFramework().GetRoutingManager().IsRouteRebuildingOnly(); }
++ (BOOL)isOnRoute { return GetFramework().GetRoutingManager().IsRoutingFollowing(); }
++ (NSArray<MWMRoutePoint *> *)points
+{
+  NSMutableArray<MWMRoutePoint *> * points = [@[] mutableCopy];
+  auto const routePoints = GetFramework().GetRoutingManager().GetRoutePoints();
+  for (auto const & routePoint : routePoints)
+    [points addObject:[[MWMRoutePoint alloc] initWithRouteMarkData:routePoint]];
+  return [points copy];
+}
+
++ (NSInteger)pointsCount { return GetFramework().GetRoutingManager().GetRoutePointsCount(); }
++ (MWMRoutePoint *)startPoint
+{
+  auto const routePoints = GetFramework().GetRoutingManager().GetRoutePoints();
+  if (routePoints.empty())
+    return nil;
+  auto const & routePoint = routePoints.front();
+  if (routePoint.m_pointType == RouteMarkType::Start)
+    return [[MWMRoutePoint alloc] initWithRouteMarkData:routePoint];
+  return nil;
+}
+
++ (MWMRoutePoint *)finishPoint
+{
+  auto const routePoints = GetFramework().GetRoutingManager().GetRoutePoints();
+  if (routePoints.empty())
+    return nil;
+  auto const & routePoint = routePoints.back();
+  if (routePoint.m_pointType == RouteMarkType::Finish)
+    return [[MWMRoutePoint alloc] initWithRouteMarkData:routePoint];
+  return nil;
+}
+
++ (void)enableAutoAddLastLocation:(BOOL)enable
+{
+  [MWMRouter router].canAutoAddLastLocation = enable;
+}
+
++ (BOOL)canAddIntermediatePoint
+{
+  return GetFramework().GetRoutingManager().CouldAddIntermediatePoint() && ![MWMRouter isTaxi];
+}
+
 - (instancetype)initRouter
 {
   self = [super init];
@@ -106,136 +216,258 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
     self.altitudeImagesData = [@{} mutableCopy];
     self.renderAltitudeImagesQueue =
         dispatch_queue_create(kRenderAltitudeImagesQueueLabel, DISPATCH_QUEUE_SERIAL);
-    [self resetPoints];
+    self.taxiRoutePointTransactionId = RoutingManager::InvalidRoutePointsTransactionId();
+    self.routeManagerTransactionId = RoutingManager::InvalidRoutePointsTransactionId();
     [MWMLocationManager addObserver:self];
     [MWMFrameworkListener addObserver:self];
+    _canAutoAddLastLocation = YES;
   }
   return self;
 }
 
-- (void)resetPoints
-{
-  self.startPoint = lastLocationPoint();
-  self.finishPoint = zeroRoutePoint();
-}
-
-- (void)setType:(MWMRouterType)type
++ (void)setType:(MWMRouterType)type
 {
   if (type == self.type)
     return;
-  [self doStop];
-  GetFramework().SetRouter(coreRouterType(type));
+  
+  if (type == MWMRouterTypeTaxi)
+    [self openTaxiTransaction];
+  else
+    [self cancelTaxiTransaction];
+
+  [self doStop:NO];
+  GetFramework().GetRoutingManager().SetRouter(coreRouterType(type));
 }
 
-- (MWMRouterType)type { return routerType(GetFramework().GetRouter()); }
-- (BOOL)arePointsValidForRouting
++ (void)openTaxiTransaction
 {
-  return self.startPoint.isValid && self.finishPoint.isValid && self.startPoint != self.finishPoint;
+  auto & rm = GetFramework().GetRoutingManager();
+  auto router = [MWMRouter router];
+  router.taxiRoutePointTransactionId = rm.OpenRoutePointsTransaction();
+  rm.RemoveIntermediateRoutePoints();
 }
 
-- (void)swapPointsAndRebuild
++ (void)cancelTaxiTransaction
 {
-  [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatSwapRoutingPoints)];
-  swap(_startPoint, _finishPoint);
+  auto router = [MWMRouter router];
+  if (router.taxiRoutePointTransactionId != RoutingManager::InvalidRoutePointsTransactionId())
+  {
+    GetFramework().GetRoutingManager().CancelRoutePointsTransaction(router.taxiRoutePointTransactionId);
+    router.taxiRoutePointTransactionId = RoutingManager::InvalidRoutePointsTransactionId();
+  }
+}
+
++ (void)applyTaxiTransaction
+{
+  // We have to apply taxi transaction each time we add/remove points after switch to taxi mode.
+  auto router = [MWMRouter router];
+  if (router.taxiRoutePointTransactionId != RoutingManager::InvalidRoutePointsTransactionId())
+  {
+    GetFramework().GetRoutingManager().ApplyRoutePointsTransaction(router.taxiRoutePointTransactionId);
+    router.taxiRoutePointTransactionId = RoutingManager::InvalidRoutePointsTransactionId();
+  }
+}
+
++ (MWMRouterType)type { return routerType(GetFramework().GetRoutingManager().GetRouter()); }
++ (void)disableFollowMode { GetFramework().GetRoutingManager().DisableFollowMode(); }
++ (void)enableTurnNotifications:(BOOL)active
+{
+  GetFramework().GetRoutingManager().EnableTurnNotifications(active);
+}
+
++ (BOOL)areTurnNotificationsEnabled
+{
+  return GetFramework().GetRoutingManager().AreTurnNotificationsEnabled();
+}
+
++ (void)setTurnNotificationsLocale:(NSString *)locale
+{
+  GetFramework().GetRoutingManager().SetTurnNotificationsLocale(locale.UTF8String);
+}
+
++ (NSArray<NSString *> *)turnNotifications
+{
+  NSMutableArray<NSString *> * turnNotifications = [@[] mutableCopy];
+  vector<string> notifications;
+  GetFramework().GetRoutingManager().GenerateTurnNotifications(notifications);
+  for (auto const & text : notifications)
+    [turnNotifications addObject:@(text.c_str())];
+  return [turnNotifications copy];
+}
+
++ (void)removePoint:(MWMRoutePoint *)point
+{
+  logPointEvent(point, kStatRoutingRemovePoint);
+  [self applyTaxiTransaction];
+  RouteMarkData pt = point.routeMarkData;
+  GetFramework().GetRoutingManager().RemoveRoutePoint(pt.m_pointType, pt.m_intermediateIndex);
+  [[MWMNavigationDashboardManager manager] onRoutePointsUpdated];
+}
+
++ (void)removePointAndRebuild:(MWMRoutePoint *)point
+{
+  if (!point)
+    return;
+  [self removePoint:point];
   [self rebuildWithBestRouter:NO];
 }
 
-- (void)buildFromPoint:(MWMRoutePoint *)startPoint bestRouter:(BOOL)bestRouter
++ (void)removePoints { GetFramework().GetRoutingManager().RemoveRoutePoints(); }
++ (void)addPoint:(MWMRoutePoint *)point
 {
-  self.startPoint = startPoint;
+  if (!point)
+  {
+    NSAssert(NO, @"Point can not be nil");
+    return;
+  }
+  logPointEvent(point, kStatRoutingAddPoint);
+  [self applyTaxiTransaction];
+  RouteMarkData pt = point.routeMarkData;
+  GetFramework().GetRoutingManager().AddRoutePoint(std::move(pt));
+  [[MWMNavigationDashboardManager manager] onRoutePointsUpdated];
+}
+
++ (void)addPointAndRebuild:(MWMRoutePoint *)point
+{
+  if (!point)
+    return;
+  [self addPoint:point];
+  [self rebuildWithBestRouter:NO];
+}
+
++ (void)buildFromPoint:(MWMRoutePoint *)startPoint bestRouter:(BOOL)bestRouter
+{
+  if (!startPoint)
+    return;
+  [self addPoint:startPoint];
   [self rebuildWithBestRouter:bestRouter];
 }
 
-- (void)buildToPoint:(MWMRoutePoint *)finishPoint bestRouter:(BOOL)bestRouter
++ (void)buildToPoint:(MWMRoutePoint *)finishPoint bestRouter:(BOOL)bestRouter
 {
-  if (!self.startPoint.isValid && !finishPoint.isMyPosition)
-    self.startPoint = lastLocationPoint();
-  self.finishPoint = finishPoint;
-  [self rebuildWithBestRouter:bestRouter];
+  if (!finishPoint)
+    return;
+  [self addPoint:finishPoint];
+  if (![self startPoint] && [MWMLocationManager lastLocation] &&
+      [MWMRouter router].canAutoAddLastLocation)
+  {
+    [self addPoint:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
+                                                    intermediateIndex:0]];
+  }
+  if ([self startPoint] && [self finishPoint])
+    [self rebuildWithBestRouter:bestRouter];
 }
 
-- (void)buildFromPoint:(MWMRoutePoint *)start
-               toPoint:(MWMRoutePoint *)finish
-            bestRouter:(BOOL)bestRouter
++ (void)buildApiRouteWithType:(MWMRouterType)type
+                   startPoint:(MWMRoutePoint *)startPoint
+                  finishPoint:(MWMRoutePoint *)finishPoint
 {
-  self.startPoint = start;
-  self.finishPoint = finish;
-  [self rebuildWithBestRouter:bestRouter];
+  if (!startPoint || !finishPoint)
+    return;
+
+  [MWMRouter setType:type];
+
+  auto router = [MWMRouter router];
+  router.isAPICall = YES;
+  [self addPoint:startPoint];
+  [self addPoint:finishPoint];
+  router.isAPICall = NO;
+
+  [self rebuildWithBestRouter:NO];
 }
 
-- (void)rebuildWithBestRouter:(BOOL)bestRouter
++ (void)rebuildWithBestRouter:(BOOL)bestRouter
 {
   [self clearAltitudeImagesData];
 
-  bool isP2P = false;
-  if (self.startPoint.isMyPosition)
+  auto & rm = GetFramework().GetRoutingManager();
+  auto const & points = rm.GetRoutePoints();
+  auto const pointsCount = points.size();
+  if (pointsCount < 2)
   {
-    [Statistics logEvent:kStatPointToPoint
-          withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatFromMyPosition}];
-    self.startPoint = lastLocationPoint();
-  }
-  else if (self.finishPoint.isMyPosition)
-  {
-    [Statistics logEvent:kStatPointToPoint
-          withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatToMyPosition}];
-    self.finishPoint = lastLocationPoint();
-  }
-  else
-  {
-    [Statistics logEvent:kStatPointToPoint
-          withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatPointToPoint}];
-    isP2P = true;
-  }
-
-  MWMMapViewControlsManager * mapViewControlsManager = [MWMMapViewControlsManager manager];
-  [mapViewControlsManager onRoutePrepare];
-  if (![self arePointsValidForRouting])
+    [self doStop:NO];
+    [[MWMMapViewControlsManager manager] onRoutePrepare];
     return;
-  auto & f = GetFramework();
-  auto startPoint = mercatorMWMRoutePoint(self.startPoint);
-  auto finishPoint = mercatorMWMRoutePoint(self.finishPoint);
-  // Taxi can't be used as best router.
-  if (bestRouter && ![[self class] isTaxi])
-    self.type = routerType(GetFramework().GetBestRouter(startPoint, finishPoint));
-  f.BuildRoute(startPoint, finishPoint, isP2P, 0 /* timeoutSec */);
-  f.SetRouteStartPoint(startPoint, isMarkerPoint(self.startPoint));
-  f.SetRouteFinishPoint(finishPoint, isMarkerPoint(self.finishPoint));
-  [mapViewControlsManager onRouteRebuild];
-}
-
-- (void)start
-{
-  auto const doStart = ^{
-    if (self.startPoint.isMyPosition)
-      [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
-            withParameters:@{kStatValue : kStatFromMyPosition}];
-    else if (self.finishPoint.isMyPosition)
-      [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
-            withParameters:@{kStatValue : kStatToMyPosition}];
-    else
-      [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
-            withParameters:@{kStatValue : kStatPointToPoint}];
-
-    if (self.startPoint.isMyPosition)
+  }
+  if (pointsCount == 2)
+  {
+    if (points.front().m_isMyPosition)
     {
-      GetFramework().FollowRoute();
-      [[MWMMapViewControlsManager manager] onRouteStart];
-      MapsAppDelegate * app = [MapsAppDelegate theApp];
-      app.routingPlaneMode = MWMRoutingPlaneModeNone;
-      [MWMRouterSavedState store];
-      [MWMThemeManager setAutoUpdates:YES];
+      [Statistics logEvent:kStatPointToPoint
+            withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatFromMyPosition}];
+    }
+    else if (points.back().m_isMyPosition)
+    {
+      [Statistics logEvent:kStatPointToPoint
+            withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatToMyPosition}];
     }
     else
     {
-      MWMAlertViewController * alertController = [MWMAlertViewController activeAlertController];
-      CLLocation * lastLocation = [MWMLocationManager lastLocation];
-      BOOL const needToRebuild = lastLocation &&
-                                 !location_helpers::isMyPositionPendingOrNoPosition() &&
-                                 !self.finishPoint.isMyPosition;
-      [alertController presentPoint2PointAlertWithOkBlock:^{
-        [self buildFromPoint:lastLocationPoint() bestRouter:NO];
+      [Statistics logEvent:kStatPointToPoint
+            withParameters:@{kStatAction : kStatBuildRoute, kStatValue : kStatPointToPoint}];
+    }
+  }
+
+  // Taxi can't be used as best router.
+  if (bestRouter && ![[self class] isTaxi])
+    self.type = routerType(rm.GetBestRouter(points.front().m_position, points.back().m_position));
+
+  [[MWMMapViewControlsManager manager] onRouteRebuild];
+  rm.BuildRoute(0 /* timeoutSec */);
+}
+
++ (void)start
+{
+  [self saveRoute];
+  auto const doStart = ^{
+    auto & rm = GetFramework().GetRoutingManager();
+    auto const routePoints = rm.GetRoutePoints();
+    if (routePoints.size() >= 2)
+    {
+      auto p1 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.front()];
+      auto p2 = [[MWMRoutePoint alloc] initWithRouteMarkData:routePoints.back()];
+
+      if (p1.isMyPosition)
+        [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
+              withParameters:@{kStatValue : kStatFromMyPosition}];
+      else if (p2.isMyPosition)
+        [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
+              withParameters:@{kStatValue : kStatToMyPosition}];
+      else
+        [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
+              withParameters:@{kStatValue : kStatPointToPoint}];
+      
+      if (p1.isMyPosition && [MWMLocationManager lastLocation])
+      {
+        rm.FollowRoute();
+        [[MWMMapViewControlsManager manager] onRouteStart];
+        [MWMThemeManager setAutoUpdates:YES];
       }
-                                            needToRebuild:needToRebuild];
+      else
+      {
+        MWMAlertViewController * alertController = [MWMAlertViewController activeAlertController];
+        CLLocation * lastLocation = [MWMLocationManager lastLocation];
+        BOOL const needToRebuild = lastLocation &&
+                                   !location_helpers::isMyPositionPendingOrNoPosition() &&
+                                   !p2.isMyPosition;
+        [alertController presentPoint2PointAlertWithOkBlock:^{
+          [self buildFromPoint:[[MWMRoutePoint alloc]
+                                   initWithLastLocationAndType:MWMRoutePointTypeStart
+                                             intermediateIndex:0]
+                    bestRouter:NO];
+        }
+                                              needToRebuild:needToRebuild];
+      }
+    }
+    else
+    {
+      auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
+                                            code:5
+                                        userInfo:@{
+                                          @"Description" : @"Invalid number of route points",
+                                          @"Count" : @(routePoints.size())
+                                        }];
+      [[Crashlytics sharedInstance] recordError:err];
     }
   };
 
@@ -252,90 +484,108 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
   }
 }
 
-- (void)stop
++ (void)stop:(BOOL)removeRoutePoints
 {
   [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatClose)];
-  [MWMSearch clear];
-  [self resetPoints];
-  [self doStop];
+  [self doStop:removeRoutePoints];
+  // Don't save taxi routing type as default.
+  if ([MWMRouter isTaxi])
+    GetFramework().GetRoutingManager().SetRouter(routing::RouterType::Vehicle);
   [[MWMMapViewControlsManager manager] onRouteStop];
+  [MWMRouter router].canAutoAddLastLocation = YES;
 }
 
-- (void)doStop
++ (void)doStop:(BOOL)removeRoutePoints
 {
-  // Don't save taxi routing type as default.
-  if ([[self class] isTaxi])
-    GetFramework().SetRouter(routing::RouterType::Vehicle);
-
   [self clearAltitudeImagesData];
-  GetFramework().CloseRouting();
-  MapsAppDelegate * app = [MapsAppDelegate theApp];
-  app.routingPlaneMode = MWMRoutingPlaneModeNone;
-  [MWMRouterSavedState remove];
+  GetFramework().GetRoutingManager().CloseRouting(removeRoutePoints);
+  if (removeRoutePoints)
+    GetFramework().GetRoutingManager().DeleteSavedRoutePoints();
   [MWMThemeManager setAutoUpdates:NO];
-  [app showAlertIfRequired];
+  [[MapsAppDelegate theApp] showAlertIfRequired];
 }
 
 - (void)updateFollowingInfo
 {
-  auto & f = GetFramework();
-  if (!f.IsRoutingActive())
+  if (![MWMRouter isRoutingActive])
     return;
+  auto const & rm = GetFramework().GetRoutingManager();
   location::FollowingInfo info;
-  f.GetRouteFollowingInfo(info);
-  if (info.IsValid())
-    [[MWMNavigationDashboardManager manager] updateFollowingInfo:info];
+  rm.GetRouteFollowingInfo(info);
+  auto navManager = [MWMNavigationDashboardManager manager];
+  if (!info.IsValid())
+    return;
+  if ([MWMRouter type] == MWMRouterTypePublicTransport)
+    [navManager updateTransitInfo:rm.GetTransitRouteInfo()];
+  else
+    [navManager updateFollowingInfo:info];
 }
 
-- (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageHeightBlock)block
++ (void)routeAltitudeImageForSize:(CGSize)size completion:(MWMImageHeightBlock)block
 {
-  dispatch_async(self.renderAltitudeImagesQueue, ^{
-    if (![[self class] hasRouteAltitude])
-      return;
+  if (![self hasRouteAltitude])
+    return;
+
+  auto routePointDistanceM = std::make_shared<std::vector<double>>(std::vector<double>());
+  auto altitudes = std::make_shared<feature::TAltitudes>(feature::TAltitudes());
+  if (!GetFramework().GetRoutingManager().GetRouteAltitudesAndDistancesM(*routePointDistanceM, *altitudes))
+    return;
+
+  // Note. |routePointDistanceM| and |altitudes| should not be used in the method after line below.
+  dispatch_async(self.router.renderAltitudeImagesQueue, [=] () {
+    auto router = self.router;
     CGFloat const screenScale = [UIScreen mainScreen].scale;
-    CGSize const scaledSize = {.width = size.width * screenScale,
-                               .height = size.height * screenScale};
+    CGSize const scaledSize = {size.width * screenScale, size.height * screenScale};
+    CHECK_GREATER_OR_EQUAL(scaledSize.width, 0.0, ());
+    CHECK_GREATER_OR_EQUAL(scaledSize.height, 0.0, ());
     uint32_t const width = static_cast<uint32_t>(scaledSize.width);
     uint32_t const height = static_cast<uint32_t>(scaledSize.height);
     if (width == 0 || height == 0)
       return;
 
     NSValue * sizeValue = [NSValue valueWithCGSize:scaledSize];
-    NSData * imageData = self.altitudeImagesData[sizeValue];
+    NSData * imageData = router.altitudeImagesData[sizeValue];
     if (!imageData)
     {
       vector<uint8_t> imageRGBAData;
       int32_t minRouteAltitude = 0;
       int32_t maxRouteAltitude = 0;
       measurement_utils::Units units = measurement_utils::Units::Metric;
-      if (!GetFramework().GenerateRouteAltitudeChart(width, height, imageRGBAData,
-                                                     minRouteAltitude, maxRouteAltitude, units))
+ 
+      if(!GetFramework().GetRoutingManager().GenerateRouteAltitudeChart(width, height,
+                                                                        *altitudes,
+                                                                        *routePointDistanceM,
+                                                                        imageRGBAData,
+                                                                        minRouteAltitude,
+                                                                        maxRouteAltitude, units))
       {
         return;
       }
+
       if (imageRGBAData.empty())
         return;
       imageData = [NSData dataWithBytes:imageRGBAData.data() length:imageRGBAData.size()];
-      self.altitudeImagesData[sizeValue] = imageData;
+      router.altitudeImagesData[sizeValue] = imageData;
 
       string heightString;
       measurement_utils::FormatDistance(maxRouteAltitude - minRouteAltitude, heightString);
-      self.altitudeElevation = @(heightString.c_str());
+      router.altitudeElevation = @(heightString.c_str());
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
       UIImage * altitudeImage = [UIImage imageWithRGBAData:imageData width:width height:height];
       if (altitudeImage)
-        block(altitudeImage, self.altitudeElevation);
+        block(altitudeImage, router.altitudeElevation);
     });
   });
 }
 
-- (void)clearAltitudeImagesData
++ (void)clearAltitudeImagesData
 {
-  dispatch_async(self.renderAltitudeImagesQueue, ^{
-    [self.altitudeImagesData removeAllObjects];
-    self.altitudeElevation = nil;
+  auto router = self.router;
+  dispatch_async(router.renderAltitudeImagesQueue, ^{
+    [router.altitudeImagesData removeAllObjects];
+    router.altitudeElevation = nil;
   });
 }
 
@@ -343,81 +593,90 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
 
 - (void)onLocationUpdate:(location::GpsInfo const &)info
 {
-  auto & f = GetFramework();
-  if (f.IsRoutingActive())
-  {
-    MWMTextToSpeech * tts = [MWMTextToSpeech tts];
-    if (f.IsOnRoute() && tts.active)
-      [tts playTurnNotifications];
+  if (![MWMRouter isRoutingActive])
+    return;
+  auto tts = [MWMTextToSpeech tts];
+  if ([MWMRouter isOnRoute] && tts.active)
+    [tts playTurnNotifications];
 
-    [self updateFollowingInfo];
-  }
-  else
-  {
-    MWMRouterSavedState * state = [MWMRouterSavedState state];
-    if (state.forceStateChange == MWMRouterForceStateChange::Rebuild)
-    {
-      state.forceStateChange = MWMRouterForceStateChange::Start;
-      self.type = routerType(GetFramework().GetLastUsedRouter());
-      [self buildToPoint:state.restorePoint bestRouter:NO];
-    }
-  }
+  [self updateFollowingInfo];
 }
 
 #pragma mark - MWMFrameworkRouteBuilderObserver
 
-- (void)processRouteBuilderEvent:(routing::IRouter::ResultCode)code
+- (void)processRouteBuilderEvent:(routing::RouterResultCode)code
                        countries:(storage::TCountriesVec const &)absentCountries
 {
-  MWMRouterSavedState * state = [MWMRouterSavedState state];
   MWMMapViewControlsManager * mapViewControlsManager = [MWMMapViewControlsManager manager];
   switch (code)
   {
-  case routing::IRouter::ResultCode::NoError:
+  case routing::RouterResultCode::NoError:
   {
-    auto & f = GetFramework();
-    f.DeactivateMapSelection(true);
-    if (state.forceStateChange == MWMRouterForceStateChange::Start)
-      [self start];
-    else
-      [mapViewControlsManager onRouteReady];
-    [self updateFollowingInfo];
-    if (![[self class] isTaxi])
-      [[MWMNavigationDashboardManager manager] setRouteBuilderProgress:100];
+    GetFramework().DeactivateMapSelection(true);
 
-    mapViewControlsManager.searchHidden = YES;
+    auto startPoint = [MWMRouter startPoint];
+    if (!startPoint || !startPoint.isMyPosition)
+    {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [MWMRouter disableFollowMode];
+      });
+    }
+
+    [mapViewControlsManager onRouteReady];
+    [self updateFollowingInfo];
     break;
   }
-  case routing::IRouter::RouteFileNotExist:
-  case routing::IRouter::InconsistentMWMandRoute:
-  case routing::IRouter::NeedMoreMaps:
-  case routing::IRouter::FileTooOld:
-  case routing::IRouter::RouteNotFound:
+  case routing::RouterResultCode::RouteFileNotExist:
+  case routing::RouterResultCode::InconsistentMWMandRoute:
+  case routing::RouterResultCode::NeedMoreMaps:
+  case routing::RouterResultCode::FileTooOld:
+  case routing::RouterResultCode::RouteNotFound:
+    if ([MWMRouter isTaxi])
+      return;
     [self presentDownloaderAlert:code countries:absentCountries];
-    [mapViewControlsManager onRouteError];
+    [[MWMNavigationDashboardManager manager] onRouteError:L(@"routing_planning_error")];
     break;
-  case routing::IRouter::Cancelled: break;
-  case routing::IRouter::StartPointNotFound:
-  case routing::IRouter::EndPointNotFound:
-  case routing::IRouter::NoCurrentPosition:
-  case routing::IRouter::PointsInDifferentMWM:
-  case routing::IRouter::InternalError:
+  case routing::RouterResultCode::Cancelled:
+    [mapViewControlsManager onRoutePrepare];
+    break;
+  case routing::RouterResultCode::StartPointNotFound:
+  case routing::RouterResultCode::EndPointNotFound:
+  case routing::RouterResultCode::NoCurrentPosition:
+  case routing::RouterResultCode::PointsInDifferentMWM:
+  case routing::RouterResultCode::InternalError:
+  case routing::RouterResultCode::IntermediatePointNotFound:
+  case routing::RouterResultCode::TransitRouteNotFoundNoNetwork:
+  case routing::RouterResultCode::TransitRouteNotFoundTooLongPedestrian:
+  case routing::RouterResultCode::RouteNotFoundRedressRouteError:
+    if ([MWMRouter isTaxi])
+      return;
     [[MWMAlertViewController activeAlertController] presentAlert:code];
-    [mapViewControlsManager onRouteError];
+    [[MWMNavigationDashboardManager manager] onRouteError:L(@"routing_planning_error")];
     break;
   }
-  state.forceStateChange = MWMRouterForceStateChange::None;
 }
 
 - (void)processRouteBuilderProgress:(CGFloat)progress
 {
-  if (![[self class] isTaxi])
+  if (![MWMRouter isTaxi])
     [[MWMNavigationDashboardManager manager] setRouteBuilderProgress:progress];
+}
+
+- (void)processRouteRecommendation:(MWMRouterRecommendation)recommendation
+{
+  switch (recommendation)
+  {
+  case MWMRouterRecommendationRebuildAfterPointsLoading:
+    [MWMRouter
+        addPointAndRebuild:[[MWMRoutePoint alloc] initWithLastLocationAndType:MWMRoutePointTypeStart
+                                                            intermediateIndex:0]];
+    break;
+  }
 }
 
 #pragma mark - Alerts
 
-- (void)presentDownloaderAlert:(routing::IRouter::ResultCode)code
+- (void)presentDownloaderAlert:(routing::RouterResultCode)code
                      countries:(storage::TCountriesVec const &)countries
 {
   MWMAlertViewController * activeAlertController = [MWMAlertViewController activeAlertController];
@@ -434,15 +693,15 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
     [activeAlertController presentDownloaderAlertWithCountries:countries
         code:code
         cancelBlock:^{
-          if (code != routing::IRouter::NeedMoreMaps)
-            [[[self class] router] stop];
+          if (code != routing::RouterResultCode::NeedMoreMaps)
+            [MWMRouter stopRouting];
         }
         downloadBlock:^(storage::TCountriesVec const & downloadCountries, MWMVoidBlock onSuccess) {
           [MWMStorage downloadNodes:downloadCountries
                           onSuccess:onSuccess];
         }
         downloadCompleteBlock:^{
-          [[[self class] router] rebuildWithBestRouter:NO];
+          [MWMRouter rebuildWithBestRouter:NO];
         }];
   }
   else
@@ -451,26 +710,35 @@ bool isMarkerPoint(MWMRoutePoint * point) { return point.isValid && !point.isMyP
   }
 }
 
-#pragma mark - Properties
+#pragma mark - Save / Load route points
 
-- (void)setStartPoint:(MWMRoutePoint *)startPoint
++ (void)saveRoute { GetFramework().GetRoutingManager().SaveRoutePoints(); }
+
++ (void)saveRouteIfNeeded
 {
-  if (_startPoint == startPoint)
-    return;
-  _startPoint = startPoint;
-  if (startPoint == self.finishPoint)
-    self.finishPoint = zeroRoutePoint();
-  [[MWMNavigationDashboardManager manager].routePreview reloadData];
+  if ([self isOnRoute])
+    [self saveRoute];
 }
 
-- (void)setFinishPoint:(MWMRoutePoint *)finishPoint
++ (void)restoreRouteIfNeeded
 {
-  if (_finishPoint == finishPoint)
-    return;
-  _finishPoint = finishPoint;
-  if (finishPoint == self.startPoint)
-    self.startPoint = zeroRoutePoint();
-  [[MWMNavigationDashboardManager manager].routePreview reloadData];
+  if ([MapsAppDelegate theApp].isDrapeEngineCreated)
+  {
+    auto & rm = GetFramework().GetRoutingManager();
+    if ([self isRoutingActive] || !rm.HasSavedRoutePoints())
+      return;
+    rm.LoadRoutePoints([self](bool success)
+    {
+      if (success)
+        [self rebuildWithBestRouter:YES];
+    });
+  }
+  else
+  {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self restoreRouteIfNeeded];
+    });
+  }
 }
 
 @end

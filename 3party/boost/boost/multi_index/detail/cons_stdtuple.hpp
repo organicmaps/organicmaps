@@ -68,12 +68,12 @@ struct cons_stdtuple
   typedef typename std::tuple_element<N,StdTuple>::type head_type;
   typedef cons_stdtuple_ctor<StdTuple,N+1>              tail_ctor;
   typedef typename tail_ctor::result_type               tail_type;
-
+  
   cons_stdtuple(const StdTuple& t_):t(t_){}
 
   const head_type& get_head()const{return std::get<N>(t);}
   tail_type get_tail()const{return tail_ctor::create(t);}
-
+    
   const StdTuple& t;
 };
 

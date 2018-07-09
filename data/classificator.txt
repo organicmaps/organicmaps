@@ -19,6 +19,7 @@ world  +
         terminal  -
         {}
     amenity  +
+        arts_centre  -
         atm  -
         bank  -
         bar  -
@@ -26,6 +27,7 @@ world  +
         bench  -
         bicycle_parking  -
         bicycle_rental  -
+        biergarten  -
         brothel  -
         bureau_de_change  -
         bus_station  -
@@ -44,10 +46,12 @@ world  +
         dentist  -
         doctors  -
         drinking_water  -
+        driving_school  -
         embassy  -
         fast_food  -
         ferry_terminal  -
         fire_station  -
+        food_court  -
         fountain  -
         fuel  -
         grave_yard  +
@@ -55,10 +59,14 @@ world  +
             {}
         hospital  -
         hunting_stand  -
+        ice_cream  -
+        internet_cafe  -
         kindergarten  -
         library  -
         marketplace  -
+        motorcycle_parking  -
         nightclub  -
+        nursing_home  -
         parking  +
             fee  -
             multi-storey  +
@@ -74,6 +82,7 @@ world  +
                 fee  -
                 {}
             {}
+        payment_terminal  -
         pharmacy  -
         place_of_worship  +
             buddhist  -
@@ -87,12 +96,14 @@ world  +
         police  -
         post_box  -
         post_office  -
+        prison  -
         pub  -
         public_bookcase  -
         recycling  -
         restaurant  -
         school  -
         shelter  -
+        shower  -
         speed_trap  -
         taxi  -
         telephone  -
@@ -109,6 +120,7 @@ world  +
         veterinary  -
         waste_basket  -
         waste_disposal  -
+        water_point  -
         {}
     area:highway  +
         cycleway  -
@@ -197,9 +209,15 @@ world  +
         spontaneous_camp  -
         {}
     emergency  +
+        defibrillator  -
+        fire_hydrant  -
         phone  -
         {}
     entrance  -
+    event  +
+        fc2018  -
+        fc2018_city  -
+        {}
     highway  +
         bridleway  +
             bridge  -
@@ -297,6 +315,7 @@ world  +
             parking_aisle  -
             tunnel  -
             {}
+        services  -
         speed_camera  -
         steps  +
             bridge  -
@@ -352,10 +371,17 @@ world  +
         archaeological_site  -
         battlefield  -
         boundary_stone  -
-        castle  -
+        castle  +
+            defensive  -
+            stately  -
+            {}
         citywalls  -
         fort  -
-        memorial  -
+        memorial  +
+            plaque  -
+            sculpture  -
+            statue  -
+            {}
         monument  -
         museum  -
         ruins  -
@@ -372,6 +398,7 @@ world  +
         nofoot  -
         oneway  -
         private  -
+        toll  -
         yesbicycle  -
         yescar  -
         yesfoot  -
@@ -428,9 +455,12 @@ world  +
             tennis  -
             {}
         fitness_centre  -
+        fitness_station  -
         garden  -
         golf_course  -
+        ice_rink  -
         landscape_reserve  -
+        marina  -
         nature_reserve  -
         park  +
             no-access  -
@@ -470,11 +500,14 @@ world  +
         pipeline  +
             overground  -
             {}
+        surveillance  -
         tower  -
         wastewater_plant  -
+        water_tap  -
         water_tower  -
         water_well  -
         windmill  -
+        works  -
         {}
     mapswithme  +
         grid  -
@@ -533,7 +566,9 @@ world  +
         company  -
         estate_agent  -
         government  -
+        insurance  -
         lawyer  -
+        ngo  -
         telecommunication  -
         {}
     olympics  +
@@ -599,6 +634,7 @@ world  +
         ocean  -
         region  -
         sea  -
+        square  -
         state  +
             USA  -
             {}
@@ -772,7 +808,9 @@ world  +
             tyres  -
             {}
         chemist  -
+        chocolate  -
         clothes  -
+        coffee  -
         computer  -
         confectionery  -
         convenience  -
@@ -782,7 +820,10 @@ world  +
         doityourself  -
         dry_cleaning  -
         electronics  -
+        erotic  -
+        fabric  -
         florist  -
+        funeral_directors  -
         furniture  -
         garden_centre  -
         gift  -
@@ -793,19 +834,31 @@ world  +
         kiosk  -
         laundry  -
         mall  -
+        massage  -
         mobile_phone  -
+        money_lender  -
+        motorcycle  -
+        music  -
+        musical_instrument  -
+        newsagent  -
         optician  -
         outdoor  -
+        pawnbroker  -
         pet  -
         photo  -
         seafood  -
         shoes  -
         sports  -
+        stationery  -
         supermarket  -
+        tattoo  -
+        tea  -
         ticket  -
         toys  -
         travel_agency  -
         tyres  -
+        variety_store  -
+        video  -
         wine  -
         {}
     sponsored  +
@@ -822,7 +875,29 @@ world  +
             viator  -
             {}
         booking  -
+        holiday  -
         opentable  -
+        partner1  -
+        partner10  -
+        partner11  -
+        partner12  -
+        partner13  -
+        partner14  -
+        partner15  -
+        partner16  -
+        partner17  -
+        partner18  -
+        partner19  -
+        partner2  -
+        partner20  -
+        partner3  -
+        partner4  -
+        partner5  -
+        partner6  -
+        partner7  -
+        partner8  -
+        partner9  -
+        viator  -
         {}
     sport  +
         american_football  -
@@ -851,8 +926,16 @@ world  +
     tourism  +
         alpine_hut  -
         apartment  -
-        artwork  -
-        attraction  -
+        artwork  +
+            architecture  -
+            painting  -
+            sculpture  -
+            statue  -
+            {}
+        attraction  +
+            animal  -
+            specified  -
+            {}
         camp_site  -
         caravan_site  -
         chalet  -
@@ -870,7 +953,9 @@ world  +
         museum  -
         picnic_site  -
         resort  -
+        theme_park  -
         viewpoint  -
+        wilderness_hut  -
         zoo  -
         {}
     traffic_calming  +

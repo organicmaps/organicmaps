@@ -20,7 +20,9 @@ static NSString * const kDownloaderDialogHeaderNibName = @"MWMDownloaderDialogHe
 
 + (instancetype)headerForOwnerAlert:(MWMDownloadTransitMapAlert *)alert
 {
-  MWMDownloaderDialogHeader * header = [[[NSBundle mainBundle] loadNibNamed:kDownloaderDialogHeaderNibName owner:nil options:nil] firstObject];
+  MWMDownloaderDialogHeader * header =
+      [NSBundle.mainBundle loadNibNamed:kDownloaderDialogHeaderNibName owner:nil options:nil]
+          .firstObject;
   header.ownerAlert = alert;
   return header;
 }

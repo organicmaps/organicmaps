@@ -1,6 +1,6 @@
-#import "MWMAlert.h"
-#import "MWMCommon.h"
+#import "MWMAlert+CPP.h"
 #import "MWMAlertViewController.h"
+#import "MWMCommon.h"
 #import "MWMDefaultAlert.h"
 #import "MWMDownloadTransitMapAlert.h"
 #import "MWMEditorViralAlert.h"
@@ -10,6 +10,8 @@
 #import "MWMPlaceDoesntExistAlert.h"
 #import "MWMRateAlert.h"
 #import "MWMRoutingDisclaimerAlert.h"
+
+#import "SwiftBridge.h"
 
 @implementation MWMAlert
 
@@ -51,7 +53,7 @@
 }
 
 + (MWMAlert *)downloaderAlertWithAbsentCountries:(storage::TCountriesVec const &)countries
-                                            code:(routing::IRouter::ResultCode)code
+                                            code:(routing::RouterResultCode)code
                                      cancelBlock:(MWMVoidBlock)cancelBlock
                                    downloadBlock:(MWMDownloadBlock)downloadBlock
                            downloadCompleteBlock:(MWMVoidBlock)downloadCompleteBlock
@@ -63,28 +65,32 @@
                                        downloadCompleteBlock:downloadCompleteBlock];
 }
 
-+ (MWMAlert *)alert:(routing::IRouter::ResultCode)type
++ (MWMAlert *)alert:(routing::RouterResultCode)type
 {
   switch (type)
   {
-  case routing::IRouter::NoCurrentPosition: return [MWMDefaultAlert noCurrentPositionAlert];
-  case routing::IRouter::StartPointNotFound: return [MWMDefaultAlert startPointNotFoundAlert];
-  case routing::IRouter::EndPointNotFound: return [MWMDefaultAlert endPointNotFoundAlert];
-  case routing::IRouter::PointsInDifferentMWM: return [MWMDefaultAlert pointsInDifferentMWMAlert];
-  case routing::IRouter::RouteNotFound:
-  case routing::IRouter::InconsistentMWMandRoute: return [MWMDefaultAlert routeNotFoundAlert];
-  case routing::IRouter::RouteFileNotExist:
-  case routing::IRouter::FileTooOld: return [MWMDefaultAlert routeFileNotExistAlert];
-  case routing::IRouter::InternalError: return [MWMDefaultAlert internalRoutingErrorAlert];
-  case routing::IRouter::Cancelled:
-  case routing::IRouter::NoError:
-  case routing::IRouter::NeedMoreMaps: return nil;
+  case routing::RouterResultCode::NoCurrentPosition: return [MWMDefaultAlert noCurrentPositionAlert];
+  case routing::RouterResultCode::StartPointNotFound: return [MWMDefaultAlert startPointNotFoundAlert];
+  case routing::RouterResultCode::EndPointNotFound: return [MWMDefaultAlert endPointNotFoundAlert];
+  case routing::RouterResultCode::PointsInDifferentMWM: return [MWMDefaultAlert pointsInDifferentMWMAlert];
+  case routing::RouterResultCode::TransitRouteNotFoundNoNetwork: return [MWMDefaultAlert routeNotFoundNoPublicTransportAlert];
+  case routing::RouterResultCode::TransitRouteNotFoundTooLongPedestrian: return [MWMDefaultAlert routeNotFoundTooLongPedestrianAlert];
+  case routing::RouterResultCode::RouteNotFoundRedressRouteError:
+  case routing::RouterResultCode::RouteNotFound:
+  case routing::RouterResultCode::InconsistentMWMandRoute: return [MWMDefaultAlert routeNotFoundAlert];
+  case routing::RouterResultCode::RouteFileNotExist:
+  case routing::RouterResultCode::FileTooOld: return [MWMDefaultAlert routeFileNotExistAlert];
+  case routing::RouterResultCode::InternalError: return [MWMDefaultAlert internalRoutingErrorAlert];
+  case routing::RouterResultCode::Cancelled:
+  case routing::RouterResultCode::NoError:
+  case routing::RouterResultCode::NeedMoreMaps: return nil;
+  case routing::RouterResultCode::IntermediatePointNotFound: return [MWMDefaultAlert intermediatePointNotFoundAlert];
   }
 }
 
-+ (MWMAlert *)incorrectFeauturePositionAlert
++ (MWMAlert *)incorrectFeaturePositionAlert
 {
-  return [MWMDefaultAlert incorrectFeauturePositionAlert];
+  return [MWMDefaultAlert incorrectFeaturePositionAlert];
 }
 
 + (MWMAlert *)internalErrorAlert { return [MWMDefaultAlert internalErrorAlert]; }
@@ -148,6 +154,60 @@
   return [MWMDefaultAlert trackWarningAlertWithCancelBlock:block];
 }
 
++ (MWMAlert *)infoAlert:(NSString *)title text:(NSString *)text
+{
+  return [MWMDefaultAlert infoAlert:title text:text];
+}
+
++ (MWMAlert *)createBookmarkCategoryAlertWithMaxCharacterNum:(NSUInteger)max
+                                             minCharacterNum:(NSUInteger)min
+                                                       isNewCategory:(BOOL)isNewCategory
+                                                    callback:(MWMCheckStringBlock)callback
+{
+  return [MWMBCCreateCategoryAlert alertWithMaxCharachersNum:max
+                                            minCharactersNum:min
+                                               isNewCategory:isNewCategory
+                                                    callback:callback];
+}
+
++ (MWMAlert *)convertBookmarksAlertWithCount:(NSUInteger)count block:(MWMVoidBlock)block
+{
+  return [MWMDefaultAlert convertBookmarksWithCount:count okBlock:block];
+}
+
++ (MWMAlert *)spinnerAlertWithTitle:(NSString *)title cancel:(MWMVoidBlock)cancel
+{
+  return [MWMSpinnerAlert alertWithTitle:title cancel:cancel];
+}
+
++ (MWMAlert *)bookmarkConversionErrorAlert
+{
+  return [MWMDefaultAlert bookmarkConversionErrorAlert];
+}
+
++ (MWMAlert *)restoreBookmarkAlertWithMessage:(NSString *)message
+                            rightButtonAction:(MWMVoidBlock)rightButton
+                             leftButtonAction:(MWMVoidBlock)leftButton
+{
+  return [MWMDefaultAlert restoreBookmarkAlertWithMessage:message
+                                        rightButtonAction:rightButton
+                                         leftButtonAction:leftButton];
+}
+
++ (MWMAlert *)defaultAlertWithTitle:(NSString *)title
+                            message:(NSString *)message
+                   rightButtonTitle:(NSString *)rightButtonTitle
+                    leftButtonTitle:(NSString *)leftButtonTitle
+                  rightButtonAction:(MWMVoidBlock)action
+{
+  return [MWMDefaultAlert defaultAlertWithTitle:title
+                                        message:message
+                               rightButtonTitle:rightButtonTitle
+                                leftButtonTitle:leftButtonTitle
+                              rightButtonAction:action
+                                statisticsEvent:nil];
+}
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation
 {
   // Should override this method if you want custom relayout after rotation.
@@ -156,13 +216,13 @@
 - (void)close:(MWMVoidBlock)completion { [self.alertController closeAlert:completion]; }
 - (void)setNeedsCloseAlertAfterEnterBackground
 {
-  [[NSNotificationCenter defaultCenter] addObserver:self
-                                           selector:@selector(applicationDidEnterBackground)
-                                               name:UIApplicationDidEnterBackgroundNotification
-                                             object:nil];
+  [NSNotificationCenter.defaultCenter addObserver:self
+                                         selector:@selector(applicationDidEnterBackground)
+                                             name:UIApplicationDidEnterBackgroundNotification
+                                           object:nil];
 }
 
-- (void)dealloc { [[NSNotificationCenter defaultCenter] removeObserver:self]; }
+- (void)dealloc { [NSNotificationCenter.defaultCenter removeObserver:self]; }
 - (void)applicationDidEnterBackground
 {
   // Should close alert when application entered background.
@@ -191,7 +251,7 @@
   view.frame = ownerViewController.view.bounds;
   [ownerViewController.view addSubview:view];
   [self addControllerViewToWindow];
-  auto const orientation = [[UIApplication sharedApplication] statusBarOrientation];
+  auto const orientation = UIApplication.sharedApplication.statusBarOrientation;
   [self rotate:orientation duration:0.0];
   [view addSubview:self];
   self.frame = view.bounds;

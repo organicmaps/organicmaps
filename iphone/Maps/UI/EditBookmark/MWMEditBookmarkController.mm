@@ -2,7 +2,6 @@
 #import "MWMBookmarkColorViewController.h"
 #import "MWMBookmarkTitleCell.h"
 #import "MWMButtonCell.h"
-#import "MWMCommon.h"
 #import "MWMNoteCell.h"
 #import "MWMPlacePageData.h"
 #import "SelectSetVC.h"
@@ -29,20 +28,21 @@ enum RowInMetaInfo
   Category,
   RowsInMetaInfoCount
 };
-
 }  // namespace
 
 @interface MWMEditBookmarkController () <MWMButtonCellDelegate, MWMNoteCelLDelegate, MWMBookmarkColorDelegate,
                                          MWMSelectSetDelegate, MWMBookmarkTitleDelegate>
 {
-  BookmarkAndCategory m_cachedBac;
+  kml::MarkId m_cachedBookmarkId;
+  kml::MarkGroupId m_cachedBookmarkCatId;
 }
 
 @property (nonatomic) MWMNoteCell * cachedNote;
 @property (copy, nonatomic) NSString * cachedDescription;
 @property (copy, nonatomic) NSString * cachedTitle;
-@property (copy, nonatomic) NSString * cachedColor;
+@property (nonatomic) kml::PredefinedColor cachedColor;
 @property (copy, nonatomic) NSString * cachedCategory;
+@property(nonatomic) kml::MarkGroupId cachedNewBookmarkCatId;
 
 @end
 
@@ -51,13 +51,15 @@ enum RowInMetaInfo
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  self.cachedNewBookmarkCatId = kml::kInvalidMarkGroupId;
   auto data = self.data;
   NSAssert(data, @"Data can't be nil!");
   self.cachedDescription = data.bookmarkDescription;
-  self.cachedTitle = data.externalTitle ?: data.title;
+  self.cachedTitle = data.title;
   self.cachedCategory = data.bookmarkCategory;
   self.cachedColor = data.bookmarkColor;
-  m_cachedBac = data.bac;
+  m_cachedBookmarkId = data.bookmarkId;
+  m_cachedBookmarkCatId = data.bookmarkCategoryId;
   [self configNavBar];
   [self registerCells];
 }
@@ -90,22 +92,26 @@ enum RowInMetaInfo
 {
   [self.view endEditing:YES];
   auto & f = GetFramework();
-  BookmarkCategory * category = f.GetBmCategory(m_cachedBac.m_categoryIndex);
-  if (!category)
-    return;
-
+  BookmarkManager & bmManager = f.GetBookmarkManager();
+  auto editSession = bmManager.GetEditSession();
+  if (self.cachedNewBookmarkCatId != kml::kInvalidMarkGroupId)
   {
-    BookmarkCategory::Guard guard(*category);
-    auto bookmark = static_cast<Bookmark *>(guard.m_controller.GetUserMarkForEdit(m_cachedBac.m_bookmarkIndex));
-    if (!bookmark)
-      return;
-
-    bookmark->SetType(self.cachedColor.UTF8String);
-    bookmark->SetDescription(self.cachedDescription.UTF8String);
-    bookmark->SetName(self.cachedTitle.UTF8String);
+    editSession.MoveBookmark(m_cachedBookmarkId, m_cachedBookmarkCatId, self.cachedNewBookmarkCatId);
+    m_cachedBookmarkCatId = self.cachedNewBookmarkCatId;
   }
 
-  category->SaveToKMLFile();
+  auto bookmark = editSession.GetBookmarkForEdit(m_cachedBookmarkId);
+  if (!bookmark)
+    return;
+
+  if (self.cachedColor != bookmark->GetColor())
+    bmManager.SetLastEditedBmColor(self.cachedColor);
+  
+  bookmark->SetColor(self.cachedColor);
+  bookmark->SetDescription(self.cachedDescription.UTF8String);
+  if (self.cachedTitle.UTF8String != bookmark->GetPreferredName())
+    bookmark->SetCustomName(self.cachedTitle.UTF8String);
+  
   f.UpdatePlacePageInfoForCurrentSelection();
   [self backTap];
 }
@@ -227,8 +233,11 @@ enum RowInMetaInfo
   }
   case Category:
   {
+    kml::MarkGroupId categoryId = self.cachedNewBookmarkCatId;
+    if (categoryId == kml::kInvalidMarkGroupId)
+      categoryId = m_cachedBookmarkCatId;
     SelectSetVC * svc = [[SelectSetVC alloc] initWithCategory:self.cachedCategory
-                                                          bac:m_cachedBac
+                                                   categoryId:categoryId
                                                      delegate:self];
     [self.navigationController pushViewController:svc animated:YES];
     break;
@@ -266,7 +275,7 @@ enum RowInMetaInfo
 
 #pragma mark - MWMBookmarkColorDelegate
 
-- (void)didSelectColor:(NSString *)color
+- (void)didSelectColor:(kml::PredefinedColor)color
 {
   self.cachedColor = color;
   [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:Color inSection:MetaInfo]] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -274,10 +283,10 @@ enum RowInMetaInfo
 
 #pragma mark - MWMSelectSetDelegate
 
-- (void)didSelectCategory:(NSString *)category withBac:(BookmarkAndCategory const &)bac
+- (void)didSelectCategory:(NSString *)category withCategoryId:(kml::MarkGroupId)categoryId
 {
   self.cachedCategory = category;
-  m_cachedBac = bac;
+  self.cachedNewBookmarkCatId = categoryId;
   [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:Category inSection:MetaInfo]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 

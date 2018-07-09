@@ -1,6 +1,6 @@
 //
 //  MTRGMediaData.h
-//  myTargetSDK 4.5.10
+//  myTargetSDK 4.6.15
 //
 //  Created by Timur Voloshin on 05.19.16.
 //  Copyright © 2016 Mail.ru. All rights reserved.

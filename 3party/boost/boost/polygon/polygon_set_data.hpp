@@ -399,7 +399,7 @@ namespace boost { namespace polygon {
     }
 
     template <typename scaling_type>
-    inline polygon_set_data& scale(polygon_set_data& polygon_set,
+    inline polygon_set_data& scale(polygon_set_data&,
                                    const scaling_type& scaling) {
       for(typename value_type::iterator itr = begin(); itr != end(); ++itr) {
         bool vb = (*itr).first.first.x() == (*itr).first.second.x();
@@ -574,7 +574,7 @@ namespace boost { namespace polygon {
     template <typename geometry_type>
     inline polygon_set_data&
     insert_with_resize_dispatch(const geometry_type& poly, coordinate_type resizing, bool corner_fill_arc, unsigned int num_circle_segments, bool hole,
-                               polygon_with_holes_concept tag) {
+                               polygon_with_holes_concept) {
       insert_with_resize_dispatch(poly, resizing, corner_fill_arc, num_circle_segments, hole, polygon_concept());
       for(typename polygon_with_holes_traits<geometry_type>::iterator_holes_type itr =
             begin_holes(poly); itr != end_holes(poly);
@@ -587,7 +587,7 @@ namespace boost { namespace polygon {
     template <typename geometry_type>
     inline polygon_set_data&
     insert_with_resize_dispatch(const geometry_type& poly, coordinate_type resizing, bool corner_fill_arc, unsigned int num_circle_segments, bool hole,
-                          polygon_concept tag) {
+                          polygon_concept) {
 
       if (resizing==0)
          return *this;

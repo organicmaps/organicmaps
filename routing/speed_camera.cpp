@@ -1,8 +1,8 @@
 #include "routing/speed_camera.hpp"
 
 #include "indexer/classificator.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/index.hpp"
 #include "indexer/scales.hpp"
 
 #include "coding/read_write_utils.hpp"
@@ -37,12 +37,11 @@ uint8_t ReadCameraRestriction(FeatureType & ft)
   return 0;
 }
 
-uint8_t CheckCameraInPoint(m2::PointD const & point, Index const & index)
+uint8_t CheckCameraInPoint(m2::PointD const & point, DataSource const & dataSource)
 {
   uint32_t speedLimit = kNoSpeedCamera;
 
-  auto const f = [&point, &speedLimit](FeatureType & ft)
-  {
+  auto const f = [&point, &speedLimit](FeatureType & ft) {
     if (ft.GetFeatureType() != feature::GEOM_POINT)
       return;
 
@@ -55,10 +54,9 @@ uint8_t CheckCameraInPoint(m2::PointD const & point, Index const & index)
       speedLimit = ReadCameraRestriction(ft);
   };
 
-  index.ForEachInRect(f,
-                      MercatorBounds::RectByCenterXYAndSizeInMeters(point,
-                                                                    kCameraCheckRadiusMeters),
-                      scales::GetUpperScale());
+  dataSource.ForEachInRect(
+      f, MercatorBounds::RectByCenterXYAndSizeInMeters(point, kCameraCheckRadiusMeters),
+      scales::GetUpperScale());
   return speedLimit;
 }
 }  // namespace routing

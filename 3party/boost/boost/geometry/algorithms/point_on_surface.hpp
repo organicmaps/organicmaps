@@ -295,8 +295,8 @@ inline bool calculate_point_on_surface(Geometry const& geometry, Point& point)
 template <typename Geometry, typename Point>
 inline void point_on_surface(Geometry const& geometry, Point & point)
 {
-    concept::check<Point>();
-    concept::check<Geometry const>();
+    concepts::check<Point>();
+    concepts::check<Geometry const>();
 
     // First try in Y-direction (which should always succeed for valid polygons)
     if (! detail::point_on_surface::calculate_point_on_surface<1>(geometry, point))

@@ -1,19 +1,24 @@
-#include "reporter.hpp"
+#include "tracking/reporter.hpp"
 
 #include "platform/location.hpp"
+#include "platform/platform.hpp"
 #include "platform/socket.hpp"
+
+#include "3party/Alohalytics/src/alohalytics.h"
 
 #include "base/logging.hpp"
 #include "base/timer.hpp"
 
 #include "std/target_os.hpp"
 
+#include <cmath>
+
 namespace
 {
 double constexpr kRequiredHorizontalAccuracy = 10.0;
 double constexpr kMinDelaySeconds = 1.0;
-double constexpr kReconnectDelaySeconds = 60.0;
-size_t constexpr kRealTimeBufferSize = 60;
+double constexpr kReconnectDelaySeconds = 40.0;
+double constexpr kNotChargingEventPeriod = 5 * 60.0;
 } // namespace
 
 namespace tracking
@@ -28,9 +33,13 @@ Reporter::Reporter(unique_ptr<platform::Socket> socket, string const & host, uin
   : m_allowSendingPoints(true)
   , m_realtimeSender(move(socket), host, port, false)
   , m_pushDelay(pushDelay)
-  , m_points(kRealTimeBufferSize)
   , m_thread([this] { Run(); })
 {
+  CHECK_NOT_EQUAL(kMinDelaySeconds, 0.0, ());
+  // Set buffer size to be enough to keep all points even if one reconnect attempt failed.
+  auto const realTimeBufferSize =
+      (duration_cast<seconds>(m_pushDelay).count() + kReconnectDelaySeconds) / kMinDelaySeconds;
+  m_points.set_capacity(ceil(realTimeBufferSize));
 }
 
 Reporter::~Reporter()
@@ -43,7 +52,7 @@ Reporter::~Reporter()
   m_thread.join();
 }
 
-void Reporter::AddLocation(location::GpsInfo const & info, traffic::SpeedGroup /* speedGroup */)
+void Reporter::AddLocation(location::GpsInfo const & info, traffic::SpeedGroup traffic)
 {
   lock_guard<mutex> lg(m_mutex);
 
@@ -53,8 +62,23 @@ void Reporter::AddLocation(location::GpsInfo const & info, traffic::SpeedGroup /
   if (info.m_timestamp < m_lastGpsTime + kMinDelaySeconds)
     return;
 
+  if (Platform::GetChargingStatus() != Platform::ChargingStatus::Plugged)
+  {
+    double const currentTime = my::Timer::LocalTime();
+    if (currentTime < m_lastNotChargingEvent + kNotChargingEventPeriod)
+      return;
+
+    alohalytics::Stats::Instance().LogEvent(
+        "Routing_DataSending_restricted",
+        {{"reason", "Device is not charging"}, {"mode", "vehicle"}});
+    m_lastNotChargingEvent = currentTime;
+    return;
+  }
+
   m_lastGpsTime = info.m_timestamp;
-  m_input.push_back(DataPoint(info.m_timestamp, ms::LatLon(info.m_latitude, info.m_longitude)));
+  m_input.push_back(
+      DataPoint(info.m_timestamp, ms::LatLon(info.m_latitude, info.m_longitude),
+                static_cast<std::underlying_type<traffic::SpeedGroup>::type>(traffic)));
 }
 
 void Reporter::Run()

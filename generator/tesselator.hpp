@@ -1,20 +1,20 @@
 #pragma once
-#include "indexer/tesselator_decl.hpp"
+
+#include "coding/tesselator_decl.hpp"
 
 #include "geometry/point2d.hpp"
 
-#include "std/function.hpp"
-#include "std/iterator.hpp"
-#include "std/list.hpp"
-#include "std/vector.hpp"
-#include "std/unordered_map.hpp"
-#include "std/utility.hpp"
-
+#include <functional>
+#include <iterator>
+#include <list>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
 namespace tesselator
 {
-  typedef vector<m2::PointD> PointsT;
-  typedef list<PointsT> PolygonsT;
+  typedef std::vector<m2::PointD> PointsT;
+  typedef std::list<PointsT> PolygonsT;
 
   struct Triangle
   {
@@ -33,7 +33,7 @@ namespace tesselator
         m_p[i] = p[i];
     }
 
-    int GetPoint3(pair<int, int> const & p) const
+    int GetPoint3(std::pair<int, int> const & p) const
     {
       for (int i = 0; i < 3; ++i)
         if (m_p[i] != p.first && m_p[i] != p.second)
@@ -48,7 +48,7 @@ namespace tesselator
   struct PointsInfo
   {
     typedef m2::PointU PointT;
-    vector<PointT> m_points;
+    std::vector<PointT> m_points;
     PointT m_base, m_max;
   };
 
@@ -60,20 +60,20 @@ namespace tesselator
     {
       static int empty_key;
 
-      vector<Triangle> m_triangles;
+      std::vector<Triangle> m_triangles;
 
-      mutable vector<bool> m_visited;
+      mutable std::vector<bool> m_visited;
 
       // directed edge -> triangle
       template <typename T1, typename T2> struct HashPair
       {
-        size_t operator()(pair<T1, T2> const & p) const
+        size_t operator()(std::pair<T1, T2> const & p) const
         {
           return my::Hash(p.first, p.second);
         }
       };
 
-      using TNeighbours = unordered_map<pair<int, int>, int, HashPair<int, int>>;
+      using TNeighbours = std::unordered_map<std::pair<int, int>, int, HashPair<int, int>>;
       TNeighbours m_neighbors;
 
       void AddNeighbour(int p1, int p2, int trg);
@@ -101,7 +101,7 @@ namespace tesselator
 
       bool HasUnvisited() const
       {
-        vector<bool> test;
+        std::vector<bool> test;
         test.assign(m_triangles.size(), true);
         return (m_visited != test);
       }
@@ -110,15 +110,15 @@ namespace tesselator
 
     private:
       template <class TPopOrder>
-      void MakeTrianglesChainImpl(PointsInfo const & points, TIterator start, vector<Edge> & chain) const;
+      void MakeTrianglesChainImpl(PointsInfo const & points, TIterator start, std::vector<Edge> & chain) const;
     public:
-      void MakeTrianglesChain(PointsInfo const & points, TIterator start, vector<Edge> & chain, bool goodOrder) const;
+      void MakeTrianglesChain(PointsInfo const & points, TIterator start, std::vector<Edge> & chain, bool goodOrder) const;
 
       size_t GetCount() const { return m_triangles.size(); }
       Triangle GetTriangle(size_t i) const { return m_triangles[i]; }
     };
 
-    list<ListInfo> m_triangles;
+    std::list<ListInfo> m_triangles;
 
 //    int m_isCCW;  // 0 - uninitialized; -1 - false; 1 - true
 
@@ -141,7 +141,7 @@ namespace tesselator
 
     template <class ToDo> void ForEachTriangle(ToDo toDo) const
     {
-      for (list<ListInfo>::const_iterator i = m_triangles.begin(); i != m_triangles.end(); ++i)
+      for (std::list<ListInfo>::const_iterator i = m_triangles.begin(); i != m_triangles.end(); ++i)
       {
         size_t const count = i->GetCount();
         for (size_t j = 0; j < count; ++j)
@@ -154,15 +154,15 @@ namespace tesselator
 
     // Convert points from double to uint.
     void GetPointsInfo(m2::PointU const & baseP, m2::PointU const & maxP,
-                       function<m2::PointU (m2::PointD)> const & convert, PointsInfo & info) const;
+                       std::function<m2::PointU (m2::PointD)> const & convert, PointsInfo & info) const;
 
     /// Triangles chains processing function.
     template <class EmitterT>
     void ProcessPortions(PointsInfo const & points, EmitterT & emitter, bool goodOrder = true) const
     {
       // process portions and push out result chains
-      vector<Edge> chain;
-      for (list<ListInfo>::const_iterator i = m_triangles.begin(); i != m_triangles.end(); ++i)
+      std::vector<Edge> chain;
+      for (std::list<ListInfo>::const_iterator i = m_triangles.begin(); i != m_triangles.end(); ++i)
       {
         i->Start();
 

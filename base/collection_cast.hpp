@@ -9,7 +9,7 @@ namespace details
 template <typename T>
 struct ValueType
 {
-  using TType = typename std::remove_reference<T>::type::value_type;
+  using TType = typename std::remove_reference_t<T>::value_type;
 };
 
 template <typename T>

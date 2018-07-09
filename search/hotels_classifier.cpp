@@ -1,5 +1,7 @@
 #include "search/hotels_classifier.hpp"
 
+#include "search/result.hpp"
+
 #include "std/cstdint.hpp"
 
 namespace search
@@ -8,17 +10,24 @@ namespace search
 bool HotelsClassifier::IsHotelResults(Results const & results)
 {
   HotelsClassifier classifier;
-  classifier.Add(results.begin(), results.end());
+  for (auto const & r : results)
+    classifier.Add(r);
+
   return classifier.IsHotelResults();
 }
 
-void HotelsClassifier::Add(Results::Iter begin, Results::Iter end)
+void HotelsClassifier::Add(Result const & result)
 {
-  for (; begin != end; ++begin)
-  {
-    m_numHotels += (*begin).m_metadata.m_isHotel;
-    ++m_numResults;
-  }
+  if (result.m_metadata.m_isHotel)
+   ++m_numHotels;
+
+  ++m_numResults;
+}
+
+void HotelsClassifier::Clear()
+{
+  m_numHotels = 0;
+  m_numResults = 0;
 }
 
 bool HotelsClassifier::IsHotelResults() const

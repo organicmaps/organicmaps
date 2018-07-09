@@ -14,9 +14,32 @@
     android:layout_height="wrap_content"/>
 
   <include
-    layout="@layout/uber_panel"
+    layout="@layout/routing_bottom_panel_transit"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"/>
+
+  <include
+    layout="@layout/taxi_panel"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+
+  <include
+    android:id="@+id/routing_action_frame"
+    layout="@layout/routing_action_panel"
+    android:visibility="gone"/>
+
+  <TextView
+    android:id="@+id/error"
+    android:paddingLeft="@dimen/margin_base"
+    android:paddingStart="@dimen/margin_base"
+    android:paddingRight="@dimen/margin_base"
+    android:paddingEnd="@dimen/margin_base"
+    android:paddingTop="@dimen/margin_half_plus"
+    android:paddingBottom="@dimen/margin_half_plus"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="gone"/>
 
   <Space
     android:layout_width="match_parent"

@@ -65,8 +65,7 @@ area[amenity=parking]
 {z-index: 6;}
 
 area[natural=wood],
-area[landuse=forest],
-area[leisure=nature_reserve]
+area[landuse=forest]
 {z-index: 30;}
 
 area[leisure=park],
@@ -82,6 +81,11 @@ area[landuse=meadow],
 area[landuse=recreation_ground],
 area[landuse=village_green],
 area[landuse=field],
+{z-index: 41;}
+
+area[natural=wetland],
+area[leisure=marina],
+line[waterway=stream][intermittent=yes]
 {z-index: 42;}
 
 area[landuse=cemetery],
@@ -102,10 +106,6 @@ area[natural=grassland],
 area[leisure=golf_course],
 area[natural=heath]
 {z-index: 45;}
-
-area[natural=wetland],
-line[waterway=stream][intermittent=yes]
-{z-index: 49;}
 
 line[waterway=river],
 line[waterway=riverbank],
@@ -146,6 +146,11 @@ line[man_made=cutline]
 line[boundary=administrative]
 {z-index: 130;}
 
+area[leisure=nature_reserve],
+area[boundary=national_park],
+area[landuse=military]
+{z-index: 140;}
+
 area[building],
 area[building:part],
 area[landuse=garages],
@@ -176,8 +181,8 @@ area|z10-[place=islet]
 area|z0-[natural=coastline]
 {fill-color: @water;}
 
-area|z0-[natural=land]
-area|z10-[place=islet],
+area|z0-[natural=land],
+area|z10-[place=islet]
 {fill-color: @background;}
 
 /* 3.BOUNDARIES */
@@ -246,12 +251,8 @@ area|z12-[landuse=village_green],
 area|z12-[landuse=field],
 {fill-position: background; fill-opacity: 1;}
 
-area|z10-[leisure=nature_reserve]
-{fill-position: background; fill-opacity: 0.2;}
-
 area|z10[natural=wood],
 area|z10[landuse=forest],
-area|z10[leisure=nature_reserve],
 area|z14-[landuse=grass],
 area|z14-[natural=grassland],
 area|z14-[leisure=golf_course],
@@ -269,14 +270,12 @@ area|z14-[landuse=field],
 
 area|z11-12[natural=wood],
 area|z11-12[landuse=forest],
-area|z11-12[leisure=nature_reserve],
 area|z10-12[leisure=park],
 area|z12[leisure=garden],
 {fill-color: @green2;}
 
 area|z13[natural=wood],
 area|z13[landuse=forest],
-area|z13[leisure=nature_reserve],
 area|z13[leisure=park],
 area|z13[leisure=garden]
 {fill-color: @green3;}
@@ -296,23 +295,27 @@ area|z12-13[landuse=village_green],
 area|z12-13[landuse=field],
 {fill-color: @green0;}
 
+area|z14-[leisure=nature_reserve],
+area|z14-[boundary=national_park],
+{fill-position: background; fill-opacity: 1; fill-color: @green6;}
+
+area|z14-[landuse=military]
+{fill-position: background; fill-opacity: 1; fill-color: @military;}
+
 area|z14[natural=wood],
 area|z14[landuse=forest],
-area|z14[leisure=nature_reserve],
 area|z14[leisure=park],
 area|z14[leisure=garden]
 {fill-color: @green4;}
 
 area|z15[natural=wood],
 area|z15[landuse=forest],
-area|z15[leisure=nature_reserve],
 area|z15[leisure=park],
 area|z15[leisure=garden]
 {fill-color: @green5;}
 
 area|z16-[natural=wood],
 area|z16-[landuse=forest],
-area|z16-[leisure=nature_reserve],
 area|z16-[leisure=park],
 area|z16-[leisure=garden]
 {fill-color: @forest;}
@@ -342,6 +345,7 @@ area|z0-[waterway=dock],
 area|z0-[waterway=riverbank],
 area|z10-[natural=bay],
 area|z11-[natural=wetland],
+area|z11-[leisure=marina],
 area|z12-[landuse=basin],
 area|z12-[landuse=reservoir],
 area|z13-[leisure=swimming_pool],
@@ -372,7 +376,7 @@ area|z13-[leisure=swimming_pool],
 area|z16-[amenity=fountain],
 {fill-color: @water;}
 
-area|z11-[natural=wetland],
+area|z11-[natural=wetland]
 {fill-color: @wetland;}
 
 /* 6.2 Line water(river,canal etc.) */
@@ -453,7 +457,7 @@ area|z15-[landuse=railway],
 area|z15-[landuse=quarry],
 area|z15-[leisure=pitch],
 area|z15-[leisure=stadium],
-area|z15-[amenity=parking]
+area|z15-[amenity=parking],
 area|z16-[public_transport=platform],
 area|z16-[amenity=place_of_worship],
 area|z16-[railway=platform],
@@ -562,22 +566,15 @@ area|z15-[amenity=parking]
 
 /* 8.BUILDINGS */
 
-area|z12-[man_made=pier],
-area|z12-[man_made=breakwater],
-line|z14-[man_made=pier],
-line|z14-[man_made=breakwater],
-line|z14-[man_made=cutline]
-{fill-position: background;	fill-opacity: 1;}
-
 /* 8.1 Pier */
 area|z12-[man_made=pier],
 area|z12-[man_made=breakwater],
- {fill-color: @background;casing-color: @background;}
+{fill-position: background; fill-opacity: 1; fill-color: @background;casing-color: @background;}
 
 line|z14-[man_made=pier],
 line|z14-[man_made=breakwater],
 line|z14-[man_made=cutline]
-{casing-width: 2;casing-color: @background;fill-color: @background;}
+{width: 2;color: @background;opacity: 1;}
 
 /* 8.2 Building */
 
@@ -605,7 +602,7 @@ area|z17[landuse=garages],
 area|z17[building=train_station],
 {fill-color: @building_dark;opacity: 0.9;casing-width: 1;casing-color: @building_dark_border;}
 
-area|z17-[aeroway=terminal]
+area|z17-[aeroway=terminal],
 area|z18-[building],
 area|z18-[building:part],
 area|z18-[landuse=garages],

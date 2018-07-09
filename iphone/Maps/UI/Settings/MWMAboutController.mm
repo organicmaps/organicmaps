@@ -1,29 +1,28 @@
 #import "MWMAboutController.h"
 #import "AppInfo.h"
-#import "MWMMailViewController.h"
 #import "Statistics.h"
 #import "SwiftBridge.h"
 #import "WebViewController.h"
-
 #import "3party/Alohalytics/src/alohalytics_objc.h"
 
 #include "Framework.h"
 
-#include "platform/platform.hpp"
-
 extern NSString * const kAlohalyticsTapEventKey;
 
-@interface MWMAboutController ()<MFMailComposeViewControllerDelegate>
+@interface MWMAboutController () <SettingsTableViewSwitchCellDelegate>
 
 @property(weak, nonatomic) IBOutlet UILabel * versionLabel;
 @property(weak, nonatomic) IBOutlet UILabel * dateLabel;
 
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * websiteCell;
-@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * blogCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * facebookCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * twitterCell;
-@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * subscribeCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * osmCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * rateCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * adsCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * crashlyticsCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * privacyPolicyCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * termsOfUseCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * copyrightCell;
 
 @property(nonatomic) IBOutlet UIView * headerView;
@@ -37,7 +36,7 @@ extern NSString * const kAlohalyticsTapEventKey;
   [super viewDidLoad];
   self.title = L(@"about_menu_title");
 
-  [[NSBundle mainBundle] loadNibNamed:@"MWMAboutControllerHeader" owner:self options:nil];
+  [NSBundle.mainBundle loadNibNamed:@"MWMAboutControllerHeader" owner:self options:nil];
   self.tableView.tableHeaderView = self.headerView;
 
   AppInfo * appInfo = [AppInfo sharedInfo];
@@ -46,11 +45,10 @@ extern NSString * const kAlohalyticsTapEventKey;
     version = [NSString stringWithFormat:@"%@.%@", version, appInfo.buildNumber];
   self.versionLabel.text = [NSString stringWithFormat:L(@"version"), version];
 
-  NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
-  dateFormatter.dateStyle = NSDateFormatterShortStyle;
-  dateFormatter.timeStyle = NSDateFormatterNoStyle;
   auto const dataVersion = GetFramework().GetCurrentDataVersion();
   self.dateLabel.text = [NSString stringWithFormat:L(@"date"), dataVersion];
+
+  [self.crashlyticsCell configWithDelegate:self title:L(@"opt_out_fabric") isOn:![MWMSettings crashReportingDisabled]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -62,11 +60,6 @@ extern NSString * const kAlohalyticsTapEventKey;
     [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"website"];
     [self openUrl:[NSURL URLWithString:@"https://maps.me"]];
   }
-  else if (cell == self.blogCell)
-  {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"blog"];
-    [self openUrl:[NSURL URLWithString:@"http://blog.maps.me"]];
-  }
   else if (cell == self.facebookCell)
   {
     [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"likeOnFb"];
@@ -77,60 +70,68 @@ extern NSString * const kAlohalyticsTapEventKey;
     [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"followOnTwitter"];
     [self openUrl:[NSURL URLWithString:@"https://twitter.com/MAPS_ME"]];
   }
-  else if (cell == self.subscribeCell)
+  else if (cell == self.osmCell)
   {
-    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"subscribeToNews"];
-    [self sendEmailWithText:L(@"subscribe_me_body")
-                    subject:L(@"subscribe_me_subject")
-                toRecipient:@"subscribe@maps.me"];
+    [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"osm"];
+    [self openUrl:[NSURL URLWithString:@"https://www.openstreetmap.org"]];
   }
   else if (cell == self.rateCell)
   {
     [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatRate}];
     [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"rate"];
-    [[UIApplication sharedApplication] rateVersionFrom:@"rate_menu_item"];
+    [UIApplication.sharedApplication rateApp];
+  }
+  else if (cell == self.privacyPolicyCell)
+  {
+    [self openUrl:[NSURL URLWithString:@"https://legal.my.com/us/maps/privacy/"]];
+  }
+  else if (cell == self.termsOfUseCell)
+  {
+    [self openUrl:[NSURL URLWithString:@"https://legal.my.com/us/maps/tou/"]];
   }
   else if (cell == self.copyrightCell)
   {
     [Statistics logEvent:kStatSettingsOpenSection withParameters:@{kStatName : kStatCopyright}];
     [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"copyright"];
-    string s;
-    GetPlatform().GetReader("copyright.html")->ReadAsString(s);
-    NSString * text = [NSString stringWithFormat:@"%@\n%@", self.versionLabel.text, @(s.c_str())];
+    NSError * error;
+    NSString * filePath = [[NSBundle mainBundle] pathForResource:@"copyright" ofType:@"html"];
+    NSString * s = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
+    NSString * text = [NSString stringWithFormat:@"%@\n%@", self.versionLabel.text, s];
     WebViewController * aboutViewController =
-        [[WebViewController alloc] initWithHtml:text baseUrl:nil andTitleOrNil:L(@"copyright")];
+        [[WebViewController alloc] initWithHtml:text baseUrl:nil title:L(@"copyright")];
     aboutViewController.openInSafari = YES;
     [self.navigationController pushViewController:aboutViewController animated:YES];
   }
-}
-
-- (void)sendEmailWithText:(NSString *)text subject:(NSString *)subject toRecipient:(NSString *)email
-{
-  if ([MWMMailViewController canSendMail])
+  else if (cell == self.adsCell)
   {
-    MWMMailViewController * vc = [[MWMMailViewController alloc] init];
-    vc.mailComposeDelegate = self;
-    [vc setSubject:subject];
-    [vc setMessageBody:text isHTML:NO];
-    [vc setToRecipients:@[ email ]];
-    [self presentViewController:vc animated:YES completion:nil];
-  }
-  else
-  {
-    NSString * text = [NSString stringWithFormat:L(@"email_error_body"), email];
-    [[[UIAlertView alloc] initWithTitle:L(@"email_error_title")
-                                message:text
-                               delegate:nil
-                      cancelButtonTitle:L(@"ok")
-                      otherButtonTitles:nil] show];
+    [Statistics logEvent:@"Settings_Tracking_details"
+          withParameters:@{kStatType: @"personal_ads"}];
   }
 }
 
-- (void)mailComposeController:(MFMailComposeViewController *)controller
-          didFinishWithResult:(MFMailComposeResult)result
-                        error:(NSError *)error
+#pragma mark - Table view data source
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-  [self dismissViewControllerAnimated:YES completion:nil];
+  return section == 2 ? L(@"subtittle_opt_out") : nil;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+  return section == 2 ? L(@"opt_out_fabric_description") : nil;
+}
+
+#pragma mark - SettingsTableViewSwitchCellDelegate
+
+- (void)switchCell:(SettingsTableViewSwitchCell *)cell didChangeValue:(BOOL)value
+{
+  if (cell == self.crashlyticsCell)
+  {
+    [Statistics logEvent:@"Settings_Tracking_toggle"
+          withParameters:@{kStatType: @"crash_reports",
+                           kStatValue: value ? @"on" : @"off"}];
+    [MWMSettings setCrashReportingDisabled:!value];
+  }
 }
 
 @end

@@ -1,5 +1,5 @@
 //
-// Copyright (c) Antony Polukhin, 2013-2014.
+// Copyright (c) Antony Polukhin, 2013-2017.
 //
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -174,7 +174,7 @@ inline std::string stl_type_index::pretty_name() const {
 
 
 inline std::size_t stl_type_index::hash_code() const BOOST_NOEXCEPT {
-#if _MSC_VER > 1600 || (__GNUC__ == 4 && __GNUC_MINOR__ > 5 && defined(__GXX_EXPERIMENTAL_CXX0X__))
+#if (defined(_MSC_VER) && _MSC_VER > 1600) || (__GNUC__ == 4 && __GNUC_MINOR__ > 5 && defined(__GXX_EXPERIMENTAL_CXX0X__))
     return data_->hash_code();
 #else
     return boost::hash_range(raw_name(), raw_name() + std::strlen(raw_name()));
@@ -200,7 +200,7 @@ inline bool stl_type_index::equal(const stl_type_index& rhs) const BOOST_NOEXCEP
 #ifdef BOOST_CLASSINFO_COMPARE_BY_NAMES
     return raw_name() == rhs.raw_name() || !std::strcmp(raw_name(), rhs.raw_name());
 #else
-    return *data_ == *rhs.data_;
+    return !!(*data_ == *rhs.data_);
 #endif
 }
 

@@ -1641,7 +1641,7 @@ namespace boost { namespace polygon{
 
     template <typename polygon_with_holes_type>
     void insert(const polygon_with_holes_type& polygon_with_holes_object, const property_type& property_value, bool is_hole,
-                polygon_with_holes_concept tag) {
+                polygon_with_holes_concept) {
       insert(polygon_with_holes_object, property_value, is_hole, polygon_concept());
       for(typename polygon_with_holes_traits<polygon_with_holes_type>::iterator_holes_type itr =
             begin_holes(polygon_with_holes_object);

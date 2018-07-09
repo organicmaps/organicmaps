@@ -2,14 +2,14 @@
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2013, 2014.
-// Modifications copyright (c) 2013-2014 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013, 2014, 2017.
+// Modifications copyright (c) 2013-2017 Oracle and/or its affiliates.
+
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
-
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_GET_TURN_INFO_FOR_ENDPOINT_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_GET_TURN_INFO_FOR_ENDPOINT_HPP
@@ -400,6 +400,8 @@ struct get_turn_info_for_endpoint
                                        IntersectionInfo const& inters, unsigned int ip_index,
                                        operation_type & op1, operation_type & op2)
     {
+        typedef typename cs_tag<typename TurnInfo::point_type>::type cs_tag;
+
         boost::ignore_unused_variable_warning(i2);
         boost::ignore_unused_variable_warning(j2);
         boost::ignore_unused_variable_warning(ip_index);
@@ -425,8 +427,11 @@ struct get_turn_info_for_endpoint
                 }
                 else if ( ip_j2 )
                 {
-                    side_calculator<RobustPoint1, RobustPoint2, RobustPoint2>
-                        side_calc(ri2, ri1, rj1, ri2, rj2, rk2);
+                    side_calculator<cs_tag,
+                                    RobustPoint1, RobustPoint2,
+                                    typename IntersectionInfo::side_strategy_type,
+                                    RobustPoint2>
+                        side_calc(ri2, ri1, rj1, ri2, rj2, rk2, inters.get_side_strategy());
 
                     std::pair<operation_type, operation_type>
                         operations = operations_of_equal(side_calc);
@@ -476,8 +481,10 @@ struct get_turn_info_for_endpoint
                 }
                 else if ( ip_j2 )
                 {
-                    side_calculator<RobustPoint1, RobustPoint2, RobustPoint2>
-                        side_calc(ri2, rj1, ri1, ri2, rj2, rk2);
+                    side_calculator<cs_tag, RobustPoint1, RobustPoint2,
+                                    typename IntersectionInfo::side_strategy_type,
+                                    RobustPoint2>
+                        side_calc(ri2, rj1, ri1, ri2, rj2, rk2, inters.get_side_strategy());
                     
                     std::pair<operation_type, operation_type>
                         operations = operations_of_equal(side_calc);

@@ -1,0 +1,17 @@
+/* Sign-in button text */
+"Sign in" = "登入";
+
+/* Long form sign-in button text */
+"Sign in with Google" = "登入 Google 帳戶";
+
+/* The title of the promotional prompt to install the Google app. */
+"PromoTitle" = "登入 Google 帳戶";
+
+/* The body message of the promotional prompt to install the Google app. */
+"PromoMessage" = "只要安裝免費的 Google app，即可使用 Google 帳戶登入應用程式，而不必費心記住密碼。";
+
+/* The cancel button on the promotional prompt to install the Google app. */
+"PromoActionCancel" = "取消";
+
+/* The install button on the promotional prompt to install the Google app. */
+"PromoActionInstall" = "安裝";

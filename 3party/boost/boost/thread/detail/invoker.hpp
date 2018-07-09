@@ -72,13 +72,21 @@ namespace boost
       BOOST_SYMBOL_VISIBLE
       invoker& operator=(BOOST_THREAD_RV_REF(invoker) f)
       {
-        f_ = boost::move(BOOST_THREAD_RV(f).f_);
+        if (this != &f)
+        {
+          f_ = boost::move(BOOST_THREAD_RV(f).f_);
+        }
+        return *this;
       }
 
       BOOST_SYMBOL_VISIBLE
       invoker& operator=( BOOST_THREAD_COPY_ASSIGN_REF(invoker) f)
       {
-        f_ = f.f_;
+        if (this != &f)
+        {
+          f_ = f.f_;
+        }
+        return *this;
       }
 
       result_type operator()()
@@ -91,7 +99,7 @@ namespace boost
       result_type
       execute(tuple_indices<Indices...>)
       {
-        return invoke(boost::move(csbl::get<0>(f_)), boost::move(csbl::get<Indices>(f_))...);
+        return detail::invoke(boost::move(csbl::get<0>(f_)), boost::move(csbl::get<Indices>(f_))...);
       }
     };
 
@@ -128,7 +136,7 @@ namespace boost
       result_type
       execute(tuple_indices<Indices...>)
       {
-        return invoke<R>(boost::move(csbl::get<0>(f_)), boost::move(csbl::get<Indices>(f_))...);
+        return detail::invoke<R>(boost::move(csbl::get<0>(f_)), boost::move(csbl::get<Indices>(f_))...);
       }
     };
   //BOOST_THREAD_DCL_MOVABLE_BEG(X) invoker<Fp> BOOST_THREAD_DCL_MOVABLE_END
@@ -182,7 +190,7 @@ namespace boost
       {} \
       \
       result_type operator()() { \
-        return invoke(boost::move(fp_) \
+        return detail::invoke(boost::move(fp_) \
             BOOST_PP_REPEAT(n, BOOST_THREAD_MOVE_DCL, ~) \
         ); \
       } \
@@ -307,7 +315,7 @@ namespace boost
 
       result_type operator()()
       {
-        return invoke(boost::move(fp_)
+        return detail::invoke(boost::move(fp_)
             , boost::move(v0_)
             , boost::move(v1_)
             , boost::move(v2_)
@@ -373,7 +381,7 @@ namespace boost
 
       result_type operator()()
       {
-        return invoke(boost::move(fp_)
+        return detail::invoke(boost::move(fp_)
             , boost::move(v0_)
             , boost::move(v1_)
             , boost::move(v2_)
@@ -434,7 +442,7 @@ namespace boost
 
       result_type operator()()
       {
-        return invoke(boost::move(fp_)
+        return detail::invoke(boost::move(fp_)
             , boost::move(v0_)
             , boost::move(v1_)
             , boost::move(v2_)
@@ -490,7 +498,7 @@ namespace boost
 
       result_type operator()()
       {
-        return invoke(boost::move(fp_)
+        return detail::invoke(boost::move(fp_)
             , boost::move(v0_)
             , boost::move(v1_)
             , boost::move(v2_)
@@ -541,7 +549,7 @@ namespace boost
 
       result_type operator()()
       {
-        return invoke(boost::move(fp_)
+        return detail::invoke(boost::move(fp_)
             , boost::move(v0_)
             , boost::move(v1_)
             , boost::move(v2_)
@@ -587,7 +595,7 @@ namespace boost
 
       result_type operator()()
       {
-        return invoke(boost::move(fp_)
+        return detail::invoke(boost::move(fp_)
             , boost::move(v0_)
             , boost::move(v1_)
             , boost::move(v2_)
@@ -628,7 +636,7 @@ namespace boost
 
       result_type operator()()
       {
-        return invoke(boost::move(fp_)
+        return detail::invoke(boost::move(fp_)
             , boost::move(v0_)
             , boost::move(v1_)
             , boost::move(v2_)
@@ -664,7 +672,7 @@ namespace boost
 
       result_type operator()()
       {
-        return invoke(boost::move(fp_)
+        return detail::invoke(boost::move(fp_)
             , boost::move(v0_)
             , boost::move(v1_)
         );
@@ -695,7 +703,7 @@ namespace boost
 
       result_type operator()()
       {
-        return invoke(boost::move(fp_)
+        return detail::invoke(boost::move(fp_)
             , boost::move(v0_)
         );
       }

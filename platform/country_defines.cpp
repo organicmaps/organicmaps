@@ -8,11 +8,6 @@ bool HasOptions(MapOptions mask, MapOptions options)
          static_cast<uint8_t>(options);
 }
 
-MapOptions IntersectOptions(MapOptions lhs, MapOptions rhs)
-{
-  return static_cast<MapOptions>(static_cast<uint8_t>(lhs) & static_cast<uint8_t>(rhs));
-}
-
 MapOptions SetOptions(MapOptions mask, MapOptions options)
 {
   return static_cast<MapOptions>(static_cast<uint8_t>(mask) | static_cast<uint8_t>(options));
@@ -40,5 +35,8 @@ string DebugPrint(MapOptions options)
       return "CarRouting";
     case MapOptions::MapWithCarRouting:
       return "MapWithCarRouting";
+    case MapOptions::Diff:
+      return "Diff";
   }
+  CHECK_SWITCH();
 }

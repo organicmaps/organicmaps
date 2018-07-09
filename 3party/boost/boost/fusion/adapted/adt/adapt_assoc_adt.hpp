@@ -14,7 +14,7 @@
 #include <boost/fusion/support/config.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/empty.hpp>
-#include <boost/preprocessor/tuple/elem.hpp>
+#include <boost/preprocessor/control/if.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/remove_const.hpp>
@@ -46,13 +46,11 @@
             TEMPLATE_PARAMS_SEQ,                                                \
             NAME_SEQ,                                                           \
             I,                                                                  \
-            BOOST_PP_IF(IS_VIEW, BOOST_FUSION_PROXY_PREFIX, BOOST_PP_EMPTY),    \
+            BOOST_PP_IIF(IS_VIEW, BOOST_FUSION_PROXY_PREFIX, BOOST_PP_EMPTY),   \
             BOOST_FUSION_ADAPT_ADT_WRAPPEDATTR(ATTRIBUTE),                      \
             BOOST_FUSION_ADAPT_ADT_WRAPPEDATTR_SIZE(ATTRIBUTE),                 \
-            BOOST_PP_IF(                                                        \
-                BOOST_PP_LESS(                                                  \
-                    BOOST_FUSION_ADAPT_ADT_WRAPPEDATTR_SIZE(ATTRIBUTE), 5)      \
-                , 1, 0))                                                        \
+            BOOST_PP_LESS(                                                      \
+                BOOST_FUSION_ADAPT_ADT_WRAPPEDATTR_SIZE(ATTRIBUTE), 5))         \
                                                                                 \
     template<                                                                   \
         BOOST_FUSION_ADAPT_STRUCT_UNPACK_TEMPLATE_PARAMS(TEMPLATE_PARAMS_SEQ)   \

@@ -1,15 +1,13 @@
+#include "testing/testing.hpp"
+
 #include "generator/tesselator.hpp"
 
-#include "indexer/geometry_serialization.hpp"
-#include "geometry/mercator.hpp"
-#include "indexer/point_to_int64.hpp"
-#include "indexer/coding_params.hpp"
-
+#include "coding/geometry_coding.hpp"
+#include "coding/pointd_to_pointu.hpp"
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
-#include "testing/testing.hpp"
-
+#include "geometry/mercator.hpp"
 
 namespace
 {
@@ -58,18 +56,19 @@ namespace
     for (size_t i = 0; i < countT; ++i)
       info.Add(arrT[i][0], arrT[i][1], arrT[i][2]);
 
-    serial::CodingParams cp;
+    serial::GeometryCodingParams cp;
 
     serial::TrianglesChainSaver saver(cp);
     tesselator::PointsInfo points;
-    m2::PointU (* D2U)(m2::PointD const &, uint32_t) = &PointD2PointU;
+
+    m2::PointU (*D2U)(m2::PointD const &, uint32_t) = &PointDToPointU;
     info.GetPointsInfo(saver.GetBasePoint(), saver.GetMaxPoint(),
-                       bind(D2U, _1, cp.GetCoordBits()), points);
+                       std::bind(D2U, std::placeholders::_1, cp.GetCoordBits()), points);
 
     info.ProcessPortions(points, saver);
 
-    vector<char> buffer;
-    MemWriter<vector<char> > writer(buffer);
+    std::vector<char> buffer;
+    MemWriter<std::vector<char> > writer(buffer);
     saver.Save(writer);
 
     TEST ( !buffer.empty(), () );

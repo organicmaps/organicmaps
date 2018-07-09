@@ -1,12 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>cave-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="cave-m" fill="#262622">
-            <path d="M10.006198,20 L3,20 L6,9 L8,13 L12,3 L20,20 L14.993802,20 C14.9542054,15.9949154 14.6616416,13 12.5,13 C10.3383584,13 10.0457946,15.9949154 10.006198,20 Z" id="Combined-Shape"></path>
-        </g>
-    </g>
+<svg width="23" height="23" viewBox="0 0 23 23">
+  <path fill="#262622" fill-rule="evenodd" d="M14.993802,20 L20,20 L12,3 L8,13 L6,9 L3,20 L10.006198,20 C10.0457946,15.9949154 10.3383584,13 12.5,13 C14.6616416,13 14.9542054,15.9949154 14.993802,20 Z"/>
 </svg>

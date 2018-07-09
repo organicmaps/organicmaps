@@ -36,7 +36,7 @@ namespace boost { namespace property_tree { namespace xml_parser
                            const xml_writer_settings<Str> & settings
                            )
     {
-	typedef typename Str::value_type Ch;
+        typedef typename Str::value_type Ch;
         if (separate_line)
             write_xml_indent(stream,indent,settings);
         stream << Ch('<') << Ch('!') << Ch('-') << Ch('-');
@@ -45,7 +45,7 @@ namespace boost { namespace property_tree { namespace xml_parser
         if (separate_line)
             stream << Ch('\n');
     }
-    
+
     template<class Str>
     void write_xml_text(std::basic_ostream<typename Str::value_type> &stream,
                         const Str &s,
@@ -54,8 +54,8 @@ namespace boost { namespace property_tree { namespace xml_parser
                         const xml_writer_settings<Str> & settings
                         )
     {
-	typedef typename Str::value_type Ch;
-        if (separate_line)    
+        typedef typename Str::value_type Ch;
+        if (separate_line)
             write_xml_indent(stream,indent,settings);
         stream << encode_char_entities(s);
         if (separate_line)
@@ -63,9 +63,9 @@ namespace boost { namespace property_tree { namespace xml_parser
     }
 
     template<class Ptree>
-    void write_xml_element(std::basic_ostream<typename Ptree::key_type::value_type> &stream, 
+    void write_xml_element(std::basic_ostream<typename Ptree::key_type::value_type> &stream,
                            const typename Ptree::key_type &key,
-                           const Ptree &pt, 
+                           const Ptree &pt,
                            int indent,
                            const xml_writer_settings<typename Ptree::key_type> & settings)
     {
@@ -89,7 +89,7 @@ namespace boost { namespace property_tree { namespace xml_parser
                 }
             }
         }
-        
+
         // Write element
         if (pt.data().empty() && pt.empty())    // Empty key
         {
@@ -104,11 +104,9 @@ namespace boost { namespace property_tree { namespace xml_parser
         }
         else    // Nonempty key
         {
-        
             // Write opening tag, attributes and data
             if (indent >= 0)
             {
-            
                 // Write opening brace and key
                 write_xml_indent(stream,indent,settings);
                 stream << Ch('<') << key;
@@ -163,7 +161,7 @@ namespace boost { namespace property_tree { namespace xml_parser
                     write_xml_element(stream, it->first, it->second,
                         indent + 1, settings);
             }
-            
+
             // Write closing tag
             if (indent >= 0 && !has_attrs_only)
             {

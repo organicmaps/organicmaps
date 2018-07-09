@@ -12,7 +12,7 @@ set(
 )
 
 # Not using omim_add_test because we don't need testingmain.cpp
-add_executable(${PROJECT_NAME} ${SRC})
+omim_add_executable(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
@@ -20,26 +20,32 @@ omim_link_libraries(
   routing
   traffic
   routing_common
+  transit
   search
   storage
+  mwm_diff
+  kml
+  editor
   indexer
   platform
-  editor
   geometry
   oauthcpp
   opening_hours
   coding
   base
-  osrm
   jansson
   protobuf
+  bsdiff
   succinct
   stats_client
   generator
   gflags
   pugixml
+  icu
+  agg
   ${Qt5Widgets_LIBRARIES}
   ${LIBZ}
 )
 
 link_qt5_core(${PROJECT_NAME})
+link_qt5_network(${PROJECT_NAME})

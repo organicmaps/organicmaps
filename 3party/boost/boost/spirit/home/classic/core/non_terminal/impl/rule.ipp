@@ -24,6 +24,7 @@
 #include <boost/spirit/home/classic/core/non_terminal/parser_context.hpp>
 #include <boost/spirit/home/classic/core/non_terminal/parser_id.hpp>
 #include <boost/type_traits/is_base_and_derived.hpp>
+#include <boost/mpl/if.hpp>
 
 ///////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace spirit {

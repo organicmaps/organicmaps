@@ -46,7 +46,7 @@ namespace boost { namespace polygon{
 
     // constructor from an iterator pair over vertex data
     template <typename iT>
-    inline polygon_90_set_data(orientation_2d orient, iT input_begin, iT input_end) :
+    inline polygon_90_set_data(orientation_2d, iT input_begin, iT input_end) :
       orient_(HORIZONTAL), data_(), dirty_(false), unsorted_(false) {
       dirty_ = true;
       unsorted_ = true;
@@ -119,7 +119,7 @@ namespace boost { namespace polygon{
     }
 
     inline void insert(const std::pair<std::pair<point_data<coordinate_type>, point_data<coordinate_type> >, int>& edge, bool is_hole = false,
-                       orientation_2d orient = HORIZONTAL) {
+                       orientation_2d = HORIZONTAL) {
       std::pair<coordinate_type, std::pair<coordinate_type, int> > vertex;
       vertex.first = edge.first.first.x();
       vertex.second.first = edge.first.first.y();
@@ -837,7 +837,7 @@ namespace boost { namespace polygon{
     }
 
     template <typename output_container>
-    void get_dispatch(output_container& output, polygon_90_concept tag, 
+    void get_dispatch(output_container& output, polygon_90_concept tag,
       size_t vthreshold) const {
       get_fracture(output, true, tag, vthreshold);
     }

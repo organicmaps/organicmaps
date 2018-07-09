@@ -18,6 +18,6 @@ string bcp47ToTwineLanguage(NSString const * bcp47LangName)
     return "zh-Hant"; // Chinese traditional
 
   // Taking two first symbols of a language name. For example ru-RU -> ru
-  return [[bcp47LangName substringToIndex:2] UTF8String];
+  return [bcp47LangName substringToIndex:2].UTF8String;
 }
 } // namespace locale_translator

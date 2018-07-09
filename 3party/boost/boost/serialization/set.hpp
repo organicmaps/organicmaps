@@ -9,7 +9,7 @@
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
 // set.hpp: serialization for stl set templates
 
-// (C) Copyright 2002-2014 Robert Ramey - http://www.rrsd.com .
+// (C) Copyright 2002-2014 Robert Ramey - http://www.rrsd.com . 
 // Use, modification and distribution is subject to the Boost Software
 // License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -29,6 +29,7 @@
 
 #include <boost/serialization/collections_save_imp.hpp>
 #include <boost/serialization/split_free.hpp>
+#include <boost/move/utility_core.hpp>
 
 namespace boost { 
 namespace serialization {
@@ -54,7 +55,8 @@ inline void load_set_collection(Archive & ar, Container &s)
         detail::stack_construct<Archive, type> t(ar, item_version);
         // borland fails silently w/o full namespace
         ar >> boost::serialization::make_nvp("item", t.reference());
-        typename Container::iterator result = s.insert(hint, t.reference());
+        typename Container::iterator result =
+            s.insert(hint, boost::move(t.reference()));
         ar.reset_object_address(& (* result), & t.reference());
         hint = result;
     }

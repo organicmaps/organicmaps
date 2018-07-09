@@ -83,8 +83,8 @@ void ChunksDownloadStrategy::SaveChunks(int64_t fileSize, string const & fName)
   (void)FileWriter::DeleteFileX(fName);
 }
 
-int64_t ChunksDownloadStrategy::LoadOrInitChunks( string const & fName,
-                                                  int64_t fileSize, int64_t chunkSize)
+int64_t ChunksDownloadStrategy::LoadOrInitChunks(string const & fName, int64_t fileSize,
+                                                 int64_t chunkSize)
 {
   ASSERT ( fileSize > 0, () );
   ASSERT ( chunkSize > 0, () );
@@ -94,8 +94,8 @@ int64_t ChunksDownloadStrategy::LoadOrInitChunks( string const & fName,
     FileReader r(fName);
     ReaderSource<FileReader> src(r);
 
-    int64_t const readedSize = ReadVarInt<int64_t>(src);
-    if (readedSize == fileSize)
+    int64_t const readSize = ReadVarInt<int64_t>(src);
+    if (readSize == fileSize)
     {
       // Load chunks.
       uint64_t const size = src.Size();
@@ -119,9 +119,8 @@ int64_t ChunksDownloadStrategy::LoadOrInitChunks( string const & fName,
       return downloadedSize;
     }
   }
-  catch (RootException const & e)
+  catch (FileReader::Exception const & e)
   {
-    // Usually - file not exists or Reader::Exception.
     LOG(LDEBUG, (e.Msg()));
   }
 

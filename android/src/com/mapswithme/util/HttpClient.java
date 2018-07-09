@@ -24,12 +24,15 @@
 
 package com.mapswithme.util;
 
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSocketFactory;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -53,8 +56,6 @@ public final class HttpClient
   private final static String TAG = HttpClient.class.getSimpleName();
   // TODO(AlexZ): tune for larger files
   private final static int STREAM_BUFFER_SIZE = 1024 * 64;
-  // Globally accessible for faster unit-testing
-  private static int TIMEOUT_IN_MILLISECONDS = 30000;
   private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.NETWORK);
 
   public static Params run(@NonNull final Params p) throws IOException, NullPointerException
@@ -64,11 +65,14 @@ public final class HttpClient
 
     HttpURLConnection connection = null;
 
-    logUrlSafely(p.url);
+    LOGGER.d(TAG, "Connecting to " + Utils.makeUrlSafe(p.url));
 
     try
     {
-      connection = (HttpURLConnection) new URL(p.url).openConnection(); // NullPointerException, MalformedUrlException, IOException
+      connection = (HttpURLConnection) new URL(p.url).openConnection();
+      setupTLSForPreLollipop(connection);
+
+      // NullPointerException, MalformedUrlException, IOException
       // Redirects from http to https or vice versa are not supported by Android implementation.
       // There is also a nasty bug on Androids before 4.4:
       // if you send any request with Content-Length set, and it is redirected, and your instance is set to automatically follow redirects,
@@ -85,17 +89,17 @@ public final class HttpClient
       // Looks like this bug was fixed by switching to OkHttp implementation in this commit:
       // https://android.googlesource.com/platform/libcore/+/2503556d17b28c7b4e6e514540a77df1627857d0
       connection.setInstanceFollowRedirects(p.followRedirects);
-      connection.setConnectTimeout(TIMEOUT_IN_MILLISECONDS);
-      connection.setReadTimeout(TIMEOUT_IN_MILLISECONDS);
+      connection.setConnectTimeout(p.timeoutMillisec);
+      connection.setReadTimeout(p.timeoutMillisec);
       connection.setUseCaches(false);
       connection.setRequestMethod(p.httpMethod);
 
       if (!TextUtils.isEmpty(p.cookies))
         connection.setRequestProperty("Cookie", p.cookies);
 
-      for (HttpHeader header : p.headers)
+      for (KeyValue header : p.headers)
       {
-        connection.setRequestProperty(header.key, header.value);
+        connection.setRequestProperty(header.mKey, header.mValue);
       }
 
       if (!TextUtils.isEmpty(p.inputFilePath) || p.data != null)
@@ -143,7 +147,7 @@ public final class HttpClient
       // GET data from the server or receive response body
       p.httpResponseCode = connection.getResponseCode();
       LOGGER.d(TAG, "Received HTTP " + p.httpResponseCode + " from server, content encoding = "
-                    + connection.getContentEncoding() + ", for request = " + p.url);
+                    + connection.getContentEncoding() + ", for request = " + Utils.makeUrlSafe(p.url));
 
       if (p.httpResponseCode >= 300 && p.httpResponseCode < 400)
         p.receivedUrl = connection.getHeaderField("Location");
@@ -159,14 +163,14 @@ public final class HttpClient
           if (header.getKey() == null || header.getValue() == null)
             continue;
 
-          p.headers.add(new HttpHeader(header.getKey().toLowerCase(), TextUtils.join(", ", header.getValue())));
+          p.headers.add(new KeyValue(header.getKey().toLowerCase(), TextUtils.join(", ", header.getValue())));
         }
       }
       else
       {
         List<String> cookies = connection.getHeaderFields().get("Set-Cookie");
         if (cookies != null)
-          p.headers.add(new HttpHeader("Set-Cookie", TextUtils.join(", ", cookies)));
+          p.headers.add(new KeyValue("Set-Cookie", TextUtils.join(", ", cookies)));
       }
 
       OutputStream ostream;
@@ -198,6 +202,21 @@ public final class HttpClient
     return p;
   }
 
+  private static void setupTLSForPreLollipop(@NonNull HttpURLConnection connection)
+  {
+    // On PreLollipop devices we use the custom ssl factory which enables TLSv1.2 forcibly, because
+    // TLS of the mentioned version is not enabled by default on PreLollipop devices, but some of
+    // used by us APIs (as Viator) requires TLSv1.2. For more info see
+    // https://developer.android.com/reference/javax/net/ssl/SSLEngine.html.
+    if ((connection instanceof HttpsURLConnection)
+        && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+    {
+      HttpsURLConnection sslConnection = (HttpsURLConnection) connection;
+      SSLSocketFactory factory = sslConnection.getSSLSocketFactory();
+      sslConnection.setSSLSocketFactory(new PreLollipopSSLSocketFactory(factory));
+    }
+  }
+
   @NonNull
   private static InputStream getInputStream(@NonNull HttpURLConnection connection) throws IOException
   {
@@ -220,27 +239,9 @@ public final class HttpClient
     return in;
   }
 
-  private static void logUrlSafely(@NonNull final String url)
-  {
-    String safeUrl = url.replaceAll("(token|password|key)=([^&]+)", "***");
-    LOGGER.d(TAG, "Connecting to " + safeUrl);
-  }
-
-  private static class HttpHeader
-  {
-    HttpHeader(@NonNull String key, @NonNull String value)
-    {
-      this.key = key;
-      this.value = value;
-    }
-
-    public String key;
-    public String value;
-  }
-
   private static class Params
   {
-    public void setHeaders(@NonNull HttpHeader[] array)
+    public void setHeaders(@NonNull KeyValue[] array)
     {
       headers = new ArrayList<>(Arrays.asList(array));
     }
@@ -264,10 +265,11 @@ public final class HttpClient
     // Received data is stored here if not null or in data otherwise.
     String outputFilePath;
     String cookies;
-    ArrayList<HttpHeader> headers = new ArrayList<>();
+    ArrayList<KeyValue> headers = new ArrayList<>();
     int httpResponseCode = -1;
     boolean followRedirects = true;
     boolean loadHeaders;
+    int timeoutMillisec = Constants.READ_TIMEOUT_MS;
 
     // Simple GET request constructor.
     public Params(String url)

@@ -53,8 +53,10 @@ template
 >
 struct disjoint_range_segment_or_box
 {
-    static inline
-    bool apply(Range const& range, SegmentOrBox const& segment_or_box)
+    template <typename Strategy>
+    static inline bool apply(Range const& range,
+                             SegmentOrBox const& segment_or_box,
+                             Strategy const& strategy)
     {
         typedef typename closeable_view<Range const, Closure>::type view_type;
 
@@ -85,7 +87,8 @@ struct disjoint_range_segment_or_box
                 <
                     point_type, SegmentOrBox
                 >::apply(geometry::range::front<view_type const>(view),
-                         segment_or_box);
+                         segment_or_box,
+                         strategy.template get_point_in_geometry_strategy<Range, SegmentOrBox>());
         }
         else
         {
@@ -99,7 +102,7 @@ struct disjoint_range_segment_or_box
                 if ( !dispatch::disjoint
                          <
                              range_segment, SegmentOrBox
-                         >::apply(rng_segment, segment_or_box) )
+                         >::apply(rng_segment, segment_or_box, strategy) )
                 {
                     return false;
                 }

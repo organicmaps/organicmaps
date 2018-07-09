@@ -1,28 +1,25 @@
-#include "platform/location.hpp"
-
-#include "geometry/latlon.hpp"
+@class MWMRouterTransitStepInfo;
 
 @interface MWMNavigationDashboardEntity : NSObject
 
-@property(nonatomic, readonly) ms::LatLon pedestrianDirectionPosition;
+@property(copy, nonatomic, readonly) NSArray<MWMRouterTransitStepInfo *> * transitSteps;
+@property(copy, nonatomic, readonly) NSAttributedString * estimate;
+@property(copy, nonatomic, readonly) NSAttributedString * estimateDot;
+@property(copy, nonatomic, readonly) NSString * distanceToTurn;
+@property(copy, nonatomic, readonly) NSString * streetName;
+@property(copy, nonatomic, readonly) NSString * targetDistance;
+@property(copy, nonatomic, readonly) NSString * targetUnits;
+@property(copy, nonatomic, readonly) NSString * turnUnits;
 @property(nonatomic, readonly) BOOL isValid;
+@property(nonatomic, readonly) CGFloat progress;
+@property(nonatomic, readonly) CLLocation * pedestrianDirectionPosition;
+@property(nonatomic, readonly) NSString * arrival;
+@property(nonatomic, readonly) NSString * eta;
 @property(nonatomic, readonly) NSString * speed;
 @property(nonatomic, readonly) NSString * speedUnits;
-@property(nonatomic, readonly) NSString * targetDistance;
-@property(nonatomic, readonly) NSString * targetUnits;
-@property(nonatomic, readonly) NSString * distanceToTurn;
-@property(nonatomic, readonly) NSString * turnUnits;
-@property(nonatomic, readonly) NSString * streetName;
-@property(nonatomic, readonly) UIImage * turnImage;
-@property(nonatomic, readonly) UIImage * nextTurnImage;
 @property(nonatomic, readonly) NSUInteger roundExitNumber;
-@property(nonatomic, readonly) NSUInteger timeToTarget;
-@property(nonatomic, readonly) CGFloat progress;
-//@property (nonatomic, readonly) vector<location::FollowingInfo::SingleLaneInfoClient> lanes;
-@property(nonatomic, readonly) BOOL isPedestrian;
-@property(nonatomic, readonly) NSAttributedString * estimate;
-
-- (void)updateFollowingInfo:(location::FollowingInfo const &)info;
+@property(nonatomic, readonly) UIImage * nextTurnImage;
+@property(nonatomic, readonly) UIImage * turnImage;
 
 + (instancetype) new __attribute__((unavailable("init is not available")));
 

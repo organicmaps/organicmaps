@@ -34,7 +34,7 @@ bool ParseServerList(string const & jsonStr, vector<string> & outUrls)
 
 void GetServerListFromRequest(HttpRequest const & request, vector<string> & urls)
 {
-  if (request.Status() == HttpRequest::ECompleted && ParseServerList(request.Data(), urls))
+  if (request.GetStatus() == HttpRequest::Status::Completed && ParseServerList(request.GetData(), urls))
     return;
 
   VERIFY(ParseServerList(GetPlatform().DefaultUrlsJSON(), urls), ());

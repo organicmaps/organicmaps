@@ -1,12 +1,15 @@
-#include "debug_label.hpp"
+#include "drape_frontend/gui/debug_label.hpp"
 
-#include "drape_gui.hpp"
+#include "drape_frontend/gui/drape_gui.hpp"
 
-#include "std/bind.hpp"
+#include <functional>
+#include <set>
+#include <utility>
+
+using namespace std::placeholders;
 
 namespace gui
 {
-
 class DebugLabelHandle : public MutableLabelHandle
 {
   using TBase = MutableLabelHandle;
@@ -22,7 +25,7 @@ public:
 
   bool Update(ScreenBase const & screen) override
   {
-    string content;
+    std::string content;
     bool const isVisible = m_onUpdateFn(screen, content);
 
     SetIsVisible(isVisible);
@@ -35,16 +38,17 @@ private:
   TUpdateDebugLabelFn m_onUpdateFn;
 };
 
-void AddSymbols(string const & str, set<char> & symbols)
+void AddSymbols(std::string const & str, std::set<char> & symbols)
 {
   for (size_t i = 0, sz = str.length(); i < sz; ++i)
     symbols.insert(str[i]);
 }
 
-void DebugInfoLabels::AddLabel(ref_ptr<dp::TextureManager> tex, string const & caption, TUpdateDebugLabelFn const & onUpdateFn)
+void DebugInfoLabels::AddLabel(ref_ptr<dp::TextureManager> tex, std::string const & caption,
+                               TUpdateDebugLabelFn const & onUpdateFn)
 {
-  string alphabet;
-  set<char> symbols;
+  std::string alphabet;
+  std::set<char> symbols;
   AddSymbols(caption, symbols);
   AddSymbols("0123456789.-e", symbols);
 
@@ -61,11 +65,10 @@ void DebugInfoLabels::AddLabel(ref_ptr<dp::TextureManager> tex, string const & c
   params.m_font.m_size *= 1.2;
   params.m_pivot = m_position.m_pixelPivot;
 
-#ifdef RENRER_DEBUG_INFO_LABELS
+#ifdef RENDER_DEBUG_INFO_LABELS
   uint32_t const id = GuiHandleDebugLabel + m_labelsCount;
 
-  params.m_handleCreator = [id, onUpdateFn, tex](dp::Anchor anchor, m2::PointF const & pivot)
-  {
+  params.m_handleCreator = [id, onUpdateFn, tex](dp::Anchor anchor, m2::PointF const & pivot) {
     return make_unique_dp<DebugLabelHandle>(id, anchor, pivot, tex, onUpdateFn);
   };
 #endif
@@ -82,7 +85,8 @@ drape_ptr<ShapeRenderer> DebugInfoLabels::Draw(ref_ptr<dp::TextureManager> tex)
   for (auto & params : m_labelsParams)
   {
     params.m_pivot.y = pos.y;
-    m2::PointF textSize = MutableLabelDrawer::Draw(params, tex, bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
+    m2::PointF textSize = MutableLabelDrawer::Draw(
+      params, tex, std::bind(&ShapeRenderer::AddShape, renderer.get(), _1, _2));
     pos.y += 2 * textSize.y;
   }
 
@@ -90,5 +94,4 @@ drape_ptr<ShapeRenderer> DebugInfoLabels::Draw(ref_ptr<dp::TextureManager> tex)
 
   return renderer;
 }
-
-} // namespace gui
+}  // namespace gui

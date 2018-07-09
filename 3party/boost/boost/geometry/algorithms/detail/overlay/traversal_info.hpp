@@ -25,7 +25,7 @@ namespace detail { namespace overlay
 
 
 template <typename Point, typename SegmentRatio>
-struct traversal_turn_operation : public turn_operation<SegmentRatio>
+struct traversal_turn_operation : public turn_operation<Point, SegmentRatio>
 {
     enrichment_info<Point> enriched;
     visit_info visited;

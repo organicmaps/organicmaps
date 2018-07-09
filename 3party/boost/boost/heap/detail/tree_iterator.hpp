@@ -23,10 +23,10 @@ namespace detail {
 template<typename type>
 struct identity
 {
-    type& operator()(type& x) const
+    type& operator()(type& x) const BOOST_NOEXCEPT
     { return x; }
 
-    const type& operator()(const type& x) const
+    const type& operator()(const type& x) const BOOST_NOEXCEPT
     { return x; }
 };
 
@@ -127,7 +127,7 @@ struct ordered_tree_iterator_storage:
         return data_.top();
     }
 
-    bool empty(void) const
+    bool empty(void) const BOOST_NOEXCEPT
     {
         return data_.empty();
     }

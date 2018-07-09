@@ -7,24 +7,30 @@ set(
   openlr_stat.cpp
 )
 
-add_executable(${PROJECT_NAME} ${SRC})
+omim_add_executable(${PROJECT_NAME} ${SRC})
 omim_link_libraries(${PROJECT_NAME}
   openlr
   routing
   routing_common
-  indexer
+  storage
   editor
+  indexer
   platform
   geometry
   coding
   base
   gflags
+  icu
   jansson
   oauthcpp
   opening_hours
   protobuf
+  mwm_diff
+  bsdiff
   pugixml
   stats_client
   ${Qt5Core_LIBRARIES}
   ${LIBZ}
 )
+
+link_qt5_network(${PROJECT_NAME})

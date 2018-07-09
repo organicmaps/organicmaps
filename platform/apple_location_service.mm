@@ -98,7 +98,7 @@ public:
        didFailWithError:(NSError *)error
 {
   UNUSED_VALUE(manager);
-  LOG(LWARNING, ("locationManager failed with error", error.code, [error.description UTF8String]));
+  LOG(LWARNING, ("locationManager failed with error", error.code, error.description.UTF8String));
 
   if (error.code == kCLErrorDenied)
     m_service->OnDeniedError();

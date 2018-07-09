@@ -31,6 +31,7 @@
 //! Describes the default deleter (destruction policy) of <tt>unique_ptr</tt>: <tt>default_delete</tt>.
 
 namespace boost{
+// @cond
 namespace move_upd {
 
 namespace bmupmu = ::boost::move_upmu;
@@ -61,8 +62,8 @@ struct enable_def_del
 ////        enable_defdel_call
 ////////////////////////////////////////
 
-//When 2nd is T[N], 1st(*)[N] shall be convertible to T(*)[N];
-//When 2nd is T[],  1st(*)[] shall be convertible to T(*)[];
+//When 2nd is T[N], 1st(*)[N] shall be convertible to T(*)[N]; 
+//When 2nd is T[],  1st(*)[] shall be convertible to T(*)[]; 
 //Otherwise, 1st* shall be convertible to 2nd*.
 
 template<class U, class T, class Type = bmupmu::nat>
@@ -95,7 +96,24 @@ typedef int bool_conversion::* explicit_bool_arg;
    typedef int (bool_conversion::*nullptr_type)();
 #endif
 
+template<bool B>
+struct is_array_del
+{};
+
+template<class T>
+void call_delete(T *p, is_array_del<true>)
+{
+   delete [] p;
+}
+
+template<class T>
+void call_delete(T *p, is_array_del<false>)
+{
+   delete p;
+}
+
 }  //namespace move_upd {
+// @endcond
 
 namespace movelib {
 
@@ -123,7 +141,11 @@ struct default_delete
    #endif
 
    #if defined(BOOST_MOVE_DOXYGEN_INVOKED)
+   //! Trivial copy constructor
+   //!
    default_delete(const default_delete&) BOOST_NOEXCEPT = default;
+   //! Trivial assignment
+   //!
    default_delete &operator=(const default_delete&) BOOST_NOEXCEPT = default;
    #else
    typedef typename bmupmu::remove_extent<T>::type element_type;
@@ -150,7 +172,7 @@ struct default_delete
    //!   - If T is not an array type and U* is implicitly convertible to T*.
    //!   - If T is an array type and U* is a more CV qualified pointer to remove_extent<T>::type.
    template <class U>
-   BOOST_MOVE_DOC1ST(default_delete&,
+   BOOST_MOVE_DOC1ST(default_delete&, 
       typename bmupd::enable_def_del<U BOOST_MOVE_I T BOOST_MOVE_I default_delete &>::type)
       operator=(const default_delete<U>&) BOOST_NOEXCEPT
    {
@@ -178,7 +200,7 @@ struct default_delete
       //and T has no virtual destructor, then you have a problem
       BOOST_STATIC_ASSERT(( !::boost::move_upmu::missing_virtual_destructor<default_delete, U>::value ));
       element_type * const p = static_cast<element_type*>(ptr);
-      bmupmu::is_array<T>::value ? delete [] p : delete p;
+      move_upd::call_delete(p, move_upd::is_array_del<bmupmu::is_array<T>::value>());
    }
 
    //! <b>Effects</b>: Same as <tt>(*this)(static_cast<element_type*>(nullptr))</tt>.

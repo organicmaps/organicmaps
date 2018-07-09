@@ -48,21 +48,20 @@
 //              to degrade gracefully, rather than trash the compiler (John Maddock).
 //
 
+#include <cstddef> // size_t
 #include <boost/type_traits/intrinsics.hpp>
+#include <boost/type_traits/integral_constant.hpp>
 #ifndef BOOST_IS_ABSTRACT
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/detail/yes_no_type.hpp>
 #include <boost/type_traits/is_class.hpp>
-#include <boost/type_traits/detail/ice_and.hpp>
 #ifdef BOOST_NO_IS_ABSTRACT
 #include <boost/type_traits/is_polymorphic.hpp>
 #endif
 #endif
-// should be the last #include
-#include <boost/type_traits/detail/bool_trait_def.hpp>
-
 
 namespace boost {
+
 namespace detail{
 
 #ifdef BOOST_IS_ABSTRACT
@@ -141,13 +140,11 @@ struct is_abstract_imp
 }
 
 #ifndef BOOST_NO_IS_ABSTRACT
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_abstract,T,::boost::detail::is_abstract_imp<T>::value)
+template <class T> struct is_abstract : public integral_constant<bool, ::boost::detail::is_abstract_imp<T>::value> {};
 #else
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_abstract,T,::boost::detail::is_polymorphic_imp<T>::value)
+template <class T> struct is_abstract : public integral_constant<bool, ::boost::detail::is_polymorphic_imp<T>::value> {};
 #endif
 
 } // namespace boost
-
-#include <boost/type_traits/detail/bool_trait_undef.hpp>
 
 #endif //BOOST_TT_IS_ABSTRACT_CLASS_HPP

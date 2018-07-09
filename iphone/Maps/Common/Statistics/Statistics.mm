@@ -9,6 +9,7 @@
 #import <MyTrackerSDK/MRMyTrackerParams.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
+#include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
 #include "base/macros.hpp"
@@ -38,7 +39,9 @@ void checkFlurryLogStatus(FlurryEventRecordStatus status)
   // _enabled should be already correctly set up in init method.
   if ([MWMSettings statisticsEnabled])
   {
-    [Flurry startSession:@(FLURRY_KEY)];
+    auto sessionBuilder = [[[FlurrySessionBuilder alloc] init]
+                           withAppVersion:[AppInfo sharedInfo].bundleVersion];
+    [Flurry startSession:@(FLURRY_KEY) withSessionBuilder:sessionBuilder];
     [Flurry logAllPageViewsForTarget:application.windows.firstObject.rootViewController];
 
     [MRMyTracker createTracker:@(MY_TRACKER_KEY)];
@@ -54,25 +57,15 @@ void checkFlurryLogStatus(FlurryEventRecordStatus status)
   return [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
-- (void)logLocation:(CLLocation *)location
-{
-  if (![MWMSettings statisticsEnabled])
-    return;
-  if (!_lastLocationLogTimestamp || [[NSDate date] timeIntervalSinceDate:_lastLocationLogTimestamp] > (60 * 60 * 3))
-  {
-    _lastLocationLogTimestamp = [NSDate date];
-    CLLocationCoordinate2D const coord = location.coordinate;
-    [Flurry setLatitude:coord.latitude longitude:coord.longitude horizontalAccuracy:location.horizontalAccuracy verticalAccuracy:location.verticalAccuracy];
-  }
-}
-
 - (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters
 {
   if (![MWMSettings statisticsEnabled])
     return;
   NSMutableDictionary * params = [self addDefaultAttributesToParameters:parameters];
   [Alohalytics logEvent:eventName withDictionary:params];
-  checkFlurryLogStatus([Flurry logEvent:eventName withParameters:params]);
+  dispatch_async(dispatch_get_main_queue(), ^{
+    checkFlurryLogStatus([Flurry logEvent:eventName withParameters:params]);
+  });
 }
 
 - (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters atLocation:(CLLocation *)location
@@ -83,13 +76,15 @@ void checkFlurryLogStatus(FlurryEventRecordStatus status)
   [Alohalytics logEvent:eventName withDictionary:params atLocation:location];
   auto const & coordinate = location ? location.coordinate : kCLLocationCoordinate2DInvalid;
   params[kStatLocation] = makeLocationEventValue(coordinate.latitude, coordinate.longitude);
-  checkFlurryLogStatus([Flurry logEvent:eventName withParameters:params]);
+  dispatch_async(dispatch_get_main_queue(), ^{
+    checkFlurryLogStatus([Flurry logEvent:eventName withParameters:params]);
+  });
 }
 
 - (NSMutableDictionary *)addDefaultAttributesToParameters:(NSDictionary *)parameters
 {
   NSMutableDictionary * params = [parameters mutableCopy];
-  BOOL isLandscape = UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation);
+  BOOL isLandscape = UIDeviceOrientationIsLandscape(UIDevice.currentDevice.orientation);
   params[kStatOrientation] = isLandscape ? kStatLandscape : kStatPortrait;
   AppInfo * info = [AppInfo sharedInfo];
   params[kStatCountry] = info.countryCode;
@@ -146,6 +141,19 @@ void checkFlurryLogStatus(FlurryEventRecordStatus status)
 + (void)logEvent:(NSString *)eventName withParameters:(NSDictionary *)parameters atLocation:(CLLocation *)location
 {
   [[self instance] logEvent:eventName withParameters:parameters atLocation:location];
+}
+
++ (NSString *)connectionTypeString
+{
+  switch (Platform::ConnectionStatus())
+  {
+  case Platform::EConnectionType::CONNECTION_WWAN:
+    return kStatOffline;
+  case Platform::EConnectionType::CONNECTION_WIFI:
+    return kStatWifi;
+  case Platform::EConnectionType::CONNECTION_NONE:
+    return kStatNone;
+  }
 }
 
 @end

@@ -1,19 +1,19 @@
-#include "testing/testing.hpp"
-#include "drape/drape_tests/img.hpp"
 #include "drape/drape_tests/dummy_texture.hpp"
-
-#include "drape/font_texture.hpp"
-#include "drape/glyph_manager.hpp"
+#include "drape/drape_tests/glmock_functions.hpp"
+#include "drape/drape_tests/img.hpp"
 
 #include "platform/platform.hpp"
 #include "qt_tstfrm/test_main_loop.hpp"
+#include "testing/testing.hpp"
 
-#include "std/bind.hpp"
+#include "drape/drape_routine.hpp"
+#include "drape/font_texture.hpp"
+#include "drape/glyph_manager.hpp"
 
-#include <QtGui/QPainter>
+#include <functional>
+
 #include <QtCore/QPoint>
-
-#include "drape/drape_tests/glmock_functions.hpp"
+#include <QtGui/QPainter>
 
 #include <gmock/gmock.h>
 
@@ -23,63 +23,60 @@ using ::testing::InSequence;
 using ::testing::AnyNumber;
 using ::testing::Invoke;
 using namespace dp;
+using namespace std::placeholders;
 
 namespace
 {
-  class UploadedRender
+class UploadedRender
+{
+public:
+  UploadedRender(QPoint const & pen) : m_pen(pen) {}
+
+  void glMemoryToQImage(int x, int y, int w, int h, glConst f, glConst t, void const * memory)
   {
-  public:
-    UploadedRender(QPoint const & pen)
-      : m_pen(pen)
-    {
-    }
+    TEST(f == gl_const::GLAlpha || f == gl_const::GLAlpha8 || f == gl_const::GLRed, ());
+    TEST(t == gl_const::GLUnsignedByteType, ());
 
-    void glMemoryToQImage(int x, int y, int w, int h, glConst f, glConst t, void const * memory)
-    {
-      TEST(f == gl_const::GLAlpha || f == gl_const::GLAlpha8, ());
-      TEST(t == gl_const::GLUnsignedByteType, ());
+    uint8_t const * image = reinterpret_cast<uint8_t const *>(memory);
 
-      uint8_t const * image = reinterpret_cast<uint8_t const *>(memory);
+    QPoint p(m_pen);
+    p.rx() += x;
+    m_images.push_back(qMakePair(p, CreateImage(w, h, image)));
+    m_pen.ry() += h;
+  }
 
-      QPoint p(m_pen);
-      p.rx() += x;
-      m_images.push_back(qMakePair(p, CreateImage(w, h, image)));
-      m_pen.ry() += h;
-    }
-
-    void Render(QPaintDevice * device)
-    {
-      QPainter p(device);
-      for (auto d : m_images)
-        p.drawImage(d.first, d.second);
-    }
-
-  private:
-    QPoint m_pen;
-    QVector<QPair<QPoint, QImage> > m_images;
-  };
-
-  class DummyGlyphIndex : public GlyphIndex
+  void Render(QPaintDevice * device)
   {
-    typedef GlyphIndex TBase;
-  public:
-    DummyGlyphIndex(m2::PointU size, ref_ptr<GlyphManager> mng)
-      : TBase(size, mng)
-    {
-    }
+    QPainter p(device);
+    for (auto d : m_images)
+      p.drawImage(d.first, d.second);
+  }
 
-    ref_ptr<Texture::ResourceInfo> MapResource(GlyphKey const & key)
-    {
-      bool dummy = false;
-      return TBase::MapResource(key, dummy);
-    }
-  };
-}
+private:
+  QPoint m_pen;
+  QVector<QPair<QPoint, QImage>> m_images;
+};
+
+class DummyGlyphIndex : public GlyphIndex
+{
+public:
+  DummyGlyphIndex(m2::PointU size, ref_ptr<GlyphManager> mng,
+                  ref_ptr<GlyphGenerator> glyphGenerator)
+    : GlyphIndex(size, mng, glyphGenerator)
+  {}
+  ref_ptr<Texture::ResourceInfo> MapResource(GlyphKey const & key)
+  {
+    bool dummy = false;
+    return GlyphIndex::MapResource(key, dummy);
+  }
+};
+}  // namespace
 
 UNIT_TEST(UploadingGlyphs)
 {
-  // This unit test creates window so can't be run in GUI-less Linux machine.
+// This unit test creates window so can't be run in GUI-less Linux machine.
 #ifndef OMIM_OS_LINUX
+  DrapeRoutine::Init();
   EXPECTGL(glHasExtension(_)).Times(AnyNumber());
   EXPECTGL(glBindTexture(_)).Times(AnyNumber());
   EXPECTGL(glDeleteTexture(_)).Times(AnyNumber());
@@ -94,13 +91,15 @@ UNIT_TEST(UploadingGlyphs)
   args.m_blacklist = "fonts_blacklist.txt";
   GetPlatform().GetFontNames(args.m_fonts);
 
+  GlyphGenerator glyphGenerator(4);
   GlyphManager mng(args);
-  DummyGlyphIndex index(m2::PointU(128, 128), make_ref(&mng));
-  size_t count = 1; // invalid symbol glyph has mapped internally.
+  DummyGlyphIndex index(m2::PointU(128, 128), make_ref(&mng), make_ref(&glyphGenerator));
+  size_t count = 1;  // invalid symbol glyph has mapped internally.
   count += (index.MapResource(GlyphKey(0x58, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
   count += (index.MapResource(GlyphKey(0x59, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
   count += (index.MapResource(GlyphKey(0x61, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  while (index.GetPendingNodesCount() < count);
+  while (index.GetPendingNodesCount() < count)
+    ;
 
   Texture::Params p;
   p.m_allocator = GetDefaultAllocator();
@@ -109,7 +108,8 @@ UNIT_TEST(UploadingGlyphs)
 
   DummyTexture tex;
   tex.Create(p);
-  EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillRepeatedly(Invoke(&r, &UploadedRender::glMemoryToQImage));
+  EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _))
+      .WillRepeatedly(Invoke(&r, &UploadedRender::glMemoryToQImage));
   index.UploadResources(make_ref(&tex));
 
   count = 0;
@@ -119,11 +119,14 @@ UNIT_TEST(UploadingGlyphs)
   count += (index.MapResource(GlyphKey(0x65, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
   count += (index.MapResource(GlyphKey(0x400, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
   count += (index.MapResource(GlyphKey(0x401, GlyphManager::kDynamicGlyphSize)) != nullptr) ? 1 : 0;
-  while (index.GetPendingNodesCount() < count);
+  while (index.GetPendingNodesCount() < count)
+    ;
 
-  EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _)).WillRepeatedly(Invoke(&r, &UploadedRender::glMemoryToQImage));
+  EXPECTGL(glTexSubImage2D(_, _, _, _, _, _, _))
+      .WillRepeatedly(Invoke(&r, &UploadedRender::glMemoryToQImage));
   index.UploadResources(make_ref(&tex));
 
-  RunTestLoop("UploadingGlyphs", bind(&UploadedRender::Render, &r, _1));
+  RunTestLoop("UploadingGlyphs", std::bind(&UploadedRender::Render, &r, _1));
+  DrapeRoutine::Shutdown();
 #endif
 }

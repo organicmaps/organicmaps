@@ -16,7 +16,7 @@
 
 #include <algorithm>
 
-#include "boost/config.hpp"
+#include <boost/config.hpp>
 #include <boost/type_index.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/type_traits/decay.hpp>
@@ -27,6 +27,7 @@
 #include <boost/throw_exception.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <boost/core/addressof.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/mpl/if.hpp>
@@ -244,7 +245,9 @@ namespace boost
     ValueType * any_cast(any * operand) BOOST_NOEXCEPT
     {
         return operand && operand->type() == boost::typeindex::type_id<ValueType>()
-            ? &static_cast<any::holder<BOOST_DEDUCED_TYPENAME remove_cv<ValueType>::type> *>(operand->content)->held
+            ? boost::addressof(
+                static_cast<any::holder<BOOST_DEDUCED_TYPENAME remove_cv<ValueType>::type> *>(operand->content)->held
+              )
             : 0;
     }
 
@@ -260,7 +263,7 @@ namespace boost
         typedef BOOST_DEDUCED_TYPENAME remove_reference<ValueType>::type nonref;
 
 
-        nonref * result = any_cast<nonref>(&operand);
+        nonref * result = any_cast<nonref>(boost::addressof(operand));
         if(!result)
             boost::throw_exception(bad_any_cast());
 
@@ -274,7 +277,14 @@ namespace boost
             BOOST_DEDUCED_TYPENAME boost::add_reference<ValueType>::type
         >::type ref_type;
 
+#ifdef BOOST_MSVC
+#   pragma warning(push)
+#   pragma warning(disable: 4172) // "returning address of local variable or temporary" but *result is not local!
+#endif
         return static_cast<ref_type>(*result);
+#ifdef BOOST_MSVC
+#   pragma warning(pop)
+#endif
     }
 
     template<typename ValueType>
@@ -306,7 +316,9 @@ namespace boost
     template<typename ValueType>
     inline ValueType * unsafe_any_cast(any * operand) BOOST_NOEXCEPT
     {
-        return &static_cast<any::holder<ValueType> *>(operand->content)->held;
+        return boost::addressof(
+            static_cast<any::holder<ValueType> *>(operand->content)->held
+        );
     }
 
     template<typename ValueType>

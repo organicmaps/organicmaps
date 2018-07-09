@@ -1,0 +1,230 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D5F8ABC207616F000CAADFC /* codearea.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F8AB8207616F000CAADFC /* codearea.cc */; };
+		1D5F8ABD207616F000CAADFC /* openlocationcode.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F8AB9207616F000CAADFC /* openlocationcode.cc */; };
+		1D5F8AC1207617F200CAADFC /* codearea.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D5F8ABA207616F000CAADFC /* codearea.h */; };
+		1D5F8AC2207617F200CAADFC /* openlocationcode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D5F8ABB207616F000CAADFC /* openlocationcode.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1D5F8AAA207616D300CAADFC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1D5F8AAC207616D300CAADFC /* libopen_location_code.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libopen_location_code.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D5F8AB8207616F000CAADFC /* codearea.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = codearea.cc; path = "../../../3party/open-location-code/codearea.cc"; sourceTree = "<group>"; };
+		1D5F8AB9207616F000CAADFC /* openlocationcode.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = openlocationcode.cc; path = "../../../3party/open-location-code/openlocationcode.cc"; sourceTree = "<group>"; };
+		1D5F8ABA207616F000CAADFC /* codearea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = codearea.h; path = "../../../3party/open-location-code/codearea.h"; sourceTree = "<group>"; };
+		1D5F8ABB207616F000CAADFC /* openlocationcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = openlocationcode.h; path = "../../../3party/open-location-code/openlocationcode.h"; sourceTree = "<group>"; };
+		1D5F8AC32076182E00CAADFC /* common-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-debug.xcconfig"; path = "../common-debug.xcconfig"; sourceTree = "<group>"; };
+		1D5F8AC42076182E00CAADFC /* common-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "common-release.xcconfig"; path = "../common-release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D5F8AA9207616D300CAADFC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1D5F8AA3207616D300CAADFC = {
+			isa = PBXGroup;
+			children = (
+				1D5F8AC32076182E00CAADFC /* common-debug.xcconfig */,
+				1D5F8AC42076182E00CAADFC /* common-release.xcconfig */,
+				1D5F8AAE207616D300CAADFC /* open_location_code */,
+				1D5F8AAD207616D300CAADFC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1D5F8AAD207616D300CAADFC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D5F8AAC207616D300CAADFC /* libopen_location_code.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1D5F8AAE207616D300CAADFC /* open_location_code */ = {
+			isa = PBXGroup;
+			children = (
+				1D5F8AB8207616F000CAADFC /* codearea.cc */,
+				1D5F8ABA207616F000CAADFC /* codearea.h */,
+				1D5F8AB9207616F000CAADFC /* openlocationcode.cc */,
+				1D5F8ABB207616F000CAADFC /* openlocationcode.h */,
+			);
+			path = open_location_code;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		1D5F8AC0207617E900CAADFC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D5F8AC1207617F200CAADFC /* codearea.h in Headers */,
+				1D5F8AC2207617F200CAADFC /* openlocationcode.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		1D5F8AAB207616D300CAADFC /* open_location_code */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D5F8AB5207616D300CAADFC /* Build configuration list for PBXNativeTarget "open_location_code" */;
+			buildPhases = (
+				1D5F8AA8207616D300CAADFC /* Sources */,
+				1D5F8AA9207616D300CAADFC /* Frameworks */,
+				1D5F8AAA207616D300CAADFC /* CopyFiles */,
+				1D5F8AC0207617E900CAADFC /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = open_location_code;
+			productName = open_location_code;
+			productReference = 1D5F8AAC207616D300CAADFC /* libopen_location_code.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1D5F8AA4207616D300CAADFC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = Maps.Me;
+				TargetAttributes = {
+					1D5F8AAB207616D300CAADFC = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 1D5F8AA7207616D300CAADFC /* Build configuration list for PBXProject "open_location_code" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1D5F8AA3207616D300CAADFC;
+			productRefGroup = 1D5F8AAD207616D300CAADFC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D5F8AAB207616D300CAADFC /* open_location_code */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D5F8AA8207616D300CAADFC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D5F8ABD207616F000CAADFC /* openlocationcode.cc in Sources */,
+				1D5F8ABC207616F000CAADFC /* codearea.cc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1D5C088120764D3900EFC411 /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				SKIP_INSTALL = YES;
+			};
+			name = "Production Full";
+		};
+		1D5C088220764D3900EFC411 /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D5F8AC42076182E00CAADFC /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
+		1D5F8AB3207616D300CAADFC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		1D5F8AB4207616D300CAADFC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		1D5F8AB6207616D300CAADFC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D5F8AC32076182E00CAADFC /* common-debug.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1D5F8AB7207616D300CAADFC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D5F8AC42076182E00CAADFC /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D5F8AA7207616D300CAADFC /* Build configuration list for PBXProject "open_location_code" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D5F8AB3207616D300CAADFC /* Debug */,
+				1D5F8AB4207616D300CAADFC /* Release */,
+				1D5C088120764D3900EFC411 /* Production Full */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1D5F8AB5207616D300CAADFC /* Build configuration list for PBXNativeTarget "open_location_code" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D5F8AB6207616D300CAADFC /* Debug */,
+				1D5F8AB7207616D300CAADFC /* Release */,
+				1D5C088220764D3900EFC411 /* Production Full */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1D5F8AA4207616D300CAADFC /* Project object */;
+}

@@ -1,6 +1,7 @@
 #pragma once
 
-#include "routing/routing_mapping.hpp"
+#include "routing/checkpoints.hpp"
+#include "routing/router.hpp"
 
 #include "geometry/point2d.hpp"
 
@@ -8,7 +9,7 @@
 
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
-
+#include "std/vector.hpp"
 
 namespace routing
 {
@@ -18,7 +19,7 @@ class IOnlineFetcher
 {
 public:
   virtual ~IOnlineFetcher() = default;
-  virtual void GenerateRequest(m2::PointD const & startPoint, m2::PointD const & finalPoint) = 0;
+  virtual void GenerateRequest(Checkpoints const &) = 0;
   virtual void GetAbsentCountries(vector<string> & countries) = 0;
 };
 
@@ -29,17 +30,15 @@ public:
 class OnlineAbsentCountriesFetcher : public IOnlineFetcher
 {
 public:
-  OnlineAbsentCountriesFetcher(TCountryFileFn const & countryFileFn,
-                               TCountryLocalFileFn const & countryLocalFileFn)
-    : m_countryFileFn(countryFileFn), m_countryLocalFileFn(countryLocalFileFn)
-  {
-  }
+  OnlineAbsentCountriesFetcher(TCountryFileFn const &, TCountryLocalFileFn const &);
 
   // IOnlineFetcher overrides:
-  void GenerateRequest(m2::PointD const & startPoint, m2::PointD const & finalPoint) override;
+  void GenerateRequest(Checkpoints const &) override;
   void GetAbsentCountries(vector<string> & countries) override;
 
 private:
+  bool AllPointsInSameMwm(Checkpoints const &) const;
+
   TCountryFileFn const m_countryFileFn;
   TCountryLocalFileFn const m_countryLocalFileFn;
   unique_ptr<threads::Thread> m_fetcherThread;

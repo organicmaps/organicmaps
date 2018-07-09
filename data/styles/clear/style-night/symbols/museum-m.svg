@@ -1,14 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>museum-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="museum-m">
-            <ellipse id="Oval-1-Copy-41" fill-opacity="0.1" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#26160D" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-            <path d="M11,4 C11,4 4.005,6.86921429 4.00318182,7.23654762 L4,8 L18,8 L18,7.24107143 C17.995,6.86921429 11,4 11,4 Z M15.5365553,16 L14.5112953,9 L13.4175005,9 L12.9600668,16 L12.0553169,16 L11.5,9 L10.5,9 L9.98708868,16 L9.05106163,16 L8.5292325,9 L7.41749907,9 L6.54839683,16 L5.50019572,16 C4.94780288,16 4.5,16.4438648 4.5,17 L4.5,18 L17.5,18 L17.5,17 C17.5,16.4477153 17.0446112,16 16.4952704,16 L15.5365553,16 Z" id="Imported-Layers-Copy" fill-opacity="0.7" fill="#FFFFFF"></path>
-        </g>
-    </g>
-</svg>
+<svg height="24" viewBox="0 0 24 24" width="24"><g fill="none" fill-rule="evenodd"><circle cx="12" cy="12" fill="#fff" opacity=".4" r="12"/><circle cx="12" cy="12" fill="#4d361f" r="11"/><path d="m6 8.76923077 6-2.76923077 6 2.76923077v.92307692h-1.3846154v6.92307691h1.3846154v1.3846154h-12v-1.3846154h1.38461538v-6.92307691h-1.38461538zm3.23076923.92307692v6.92307691h1.84615387v-6.92307691zm3.69230767 0v6.92307691h1.8461539v-6.92307691z" fill="#fff" opacity=".6"/></g></svg>

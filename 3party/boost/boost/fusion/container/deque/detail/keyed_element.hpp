@@ -59,7 +59,7 @@ namespace boost { namespace fusion { namespace detail
 #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
         BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         keyed_element(keyed_element&& rhs)
-          : Rest(BOOST_FUSION_FWD_ELEM(Rest, rhs.forward_base()))
+          : Rest(rhs.forward_base())
           , value_(BOOST_FUSION_FWD_ELEM(Value, rhs.value_))
         {}
 #endif
@@ -90,7 +90,7 @@ namespace boost { namespace fusion { namespace detail
         BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         Rest&& forward_base() BOOST_NOEXCEPT
         {
-            return BOOST_FUSION_FWD_ELEM(Rest, *static_cast<Rest*>(this));
+            return std::move(*static_cast<Rest*>(this));
         }
 #endif
 
@@ -116,7 +116,7 @@ namespace boost { namespace fusion { namespace detail
 #if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
         BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         keyed_element(Value&& value, Rest&& rest)
-            : Rest(BOOST_FUSION_FWD_ELEM(Rest, rest))
+            : Rest(std::move(rest))
             , value_(BOOST_FUSION_FWD_ELEM(Value, value))
         {}
 #endif
@@ -147,8 +147,8 @@ namespace boost { namespace fusion { namespace detail
         BOOST_CXX14_CONSTEXPR BOOST_FUSION_GPU_ENABLED
         keyed_element& operator=(keyed_element&& rhs)
         {
-            base::operator=(std::forward<keyed_element>(rhs));
-            value_ = BOOST_FUSION_FWD_ELEM(Value, rhs.value_);
+            base::operator=(rhs.forward_base());
+            value_ = std::move(rhs.value_);
             return *this;
         }
 #endif

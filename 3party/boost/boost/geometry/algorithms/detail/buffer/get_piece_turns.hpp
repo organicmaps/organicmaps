@@ -2,6 +2,10 @@
 
 // Copyright (c) 2012-2014 Barend Gehrels, Amsterdam, the Netherlands.
 
+// This file was modified by Oracle on 2017.
+// Modifications copyright (c) 2017 Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -62,6 +66,7 @@ template
     typename Pieces,
     typename Rings,
     typename Turns,
+    typename IntersectionStrategy,
     typename RobustPolicy
 >
 class piece_turn_visitor
@@ -69,6 +74,7 @@ class piece_turn_visitor
     Pieces const& m_pieces;
     Rings const& m_rings;
     Turns& m_turns;
+    IntersectionStrategy const& m_intersection_strategy;
     RobustPolicy const& m_robust_policy;
 
     template <typename Piece>
@@ -243,7 +249,9 @@ class piece_turn_visitor
                 turn_policy::apply(*prev1, *it1, *next1,
                                     *prev2, *it2, *next2,
                                     false, false, false, false,
-                                    the_model, m_robust_policy,
+                                    the_model,
+                                    m_intersection_strategy,
+                                    m_robust_policy,
                                     std::back_inserter(m_turns));
             }
         }
@@ -254,10 +262,12 @@ public:
     piece_turn_visitor(Pieces const& pieces,
             Rings const& ring_collection,
             Turns& turns,
+            IntersectionStrategy const& intersection_strategy,
             RobustPolicy const& robust_policy)
         : m_pieces(pieces)
         , m_rings(ring_collection)
         , m_turns(turns)
+        , m_intersection_strategy(intersection_strategy)
         , m_robust_policy(robust_policy)
     {}
 

@@ -14,7 +14,7 @@ double constexpr kCellEps = MercatorBounds::GetCellID2PointAbsEpsilon();
 }  // namespace
 
 // GeometryCache -----------------------------------------------------------------------------------
-GeometryCache::GeometryCache(size_t maxNumEntries, my::Cancellable const & cancellable)
+GeometryCache::GeometryCache(size_t maxNumEntries, ::base::Cancellable const & cancellable)
   : m_maxNumEntries(maxNumEntries), m_cancellable(cancellable)
 {
   CHECK_GREATER(m_maxNumEntries, 0, ());
@@ -23,13 +23,15 @@ GeometryCache::GeometryCache(size_t maxNumEntries, my::Cancellable const & cance
 void GeometryCache::InitEntry(MwmContext const & context, m2::RectD const & rect, int scale,
                               Entry & entry)
 {
+  Retrieval retrieval(context, m_cancellable);
+
   entry.m_rect = rect;
-  entry.m_cbv = RetrieveGeometryFeatures(context, m_cancellable, rect, scale);
+  entry.m_cbv = retrieval.RetrieveGeometryFeatures(rect, scale);
   entry.m_scale = scale;
 }
 
 // PivotRectsCache ---------------------------------------------------------------------------------
-PivotRectsCache::PivotRectsCache(size_t maxNumEntries, my::Cancellable const & cancellable,
+PivotRectsCache::PivotRectsCache(size_t maxNumEntries, ::base::Cancellable const & cancellable,
                                  double maxRadiusMeters)
   : GeometryCache(maxNumEntries, cancellable), m_maxRadiusMeters(maxRadiusMeters)
 {
@@ -56,7 +58,8 @@ CBV PivotRectsCache::Get(MwmContext const & context, m2::RectD const & rect, int
 }
 
 // LocalityRectsCache ------------------------------------------------------------------------------
-LocalityRectsCache::LocalityRectsCache(size_t maxNumEntries, my::Cancellable const & cancellable)
+LocalityRectsCache::LocalityRectsCache(size_t maxNumEntries,
+                                       ::base::Cancellable const & cancellable)
   : GeometryCache(maxNumEntries, cancellable)
 {
 }

@@ -111,6 +111,17 @@ extern "C" long __cdecl _InterlockedCompareExchange( long volatile *, long, long
 extern "C" long __cdecl _InterlockedExchange( long volatile *, long );
 extern "C" long __cdecl _InterlockedExchangeAdd( long volatile *, long );
 
+# if defined( BOOST_MSVC ) && BOOST_MSVC == 1310
+//From MSDN, Visual Studio .NET 2003 spedific: To declare one of the interlocked functions
+//for use as an intrinsic, the function must be declared with the leading underscore and
+//the new function must appear in a #pragma intrinsic statement.
+#  pragma intrinsic( _InterlockedIncrement )
+#  pragma intrinsic( _InterlockedDecrement )
+#  pragma intrinsic( _InterlockedCompareExchange )
+#  pragma intrinsic( _InterlockedExchange )
+#  pragma intrinsic( _InterlockedExchangeAdd )
+# endif
+
 #endif
 
 # define BOOST_SP_INTERLOCKED_INCREMENT _InterlockedIncrement

@@ -1,12 +1,13 @@
 #include "testing/testing.hpp"
 
 #include "search/categories_cache.hpp"
+#include "search/cities_boundaries_table.hpp"
 #include "search/emitter.hpp"
 #include "search/intermediate_result.hpp"
 #include "search/model.hpp"
 #include "search/pre_ranker.hpp"
 #include "search/ranker.hpp"
-#include "search/search_integration_tests/helpers.hpp"
+#include "search/search_tests_support/helpers.hpp"
 #include "search/search_tests_support/test_search_engine.hpp"
 #include "search/suggest.hpp"
 
@@ -37,6 +38,13 @@
 using namespace generator::tests_support;
 using namespace search::tests_support;
 
+class DataSource;
+
+namespace storage
+{
+class CountryInfoGetter;
+}
+
 namespace search
 {
 namespace
@@ -44,10 +52,11 @@ namespace
 class TestRanker : public Ranker
 {
 public:
-  TestRanker(TestSearchEngine & engine, Emitter & emitter, vector<Suggest> const & suggests,
-             VillagesCache & villagesCache, my::Cancellable const & cancellable,
-             vector<PreResult1> & results)
-    : Ranker(static_cast<Index const &>(engine), engine.GetCountryInfoGetter(), emitter,
+  TestRanker(DataSource & dataSource, storage::CountryInfoGetter & infoGetter,
+             CitiesBoundariesTable const & boundariesTable, KeywordLangMatcher & keywordsScorer,
+             Emitter & emitter, vector<Suggest> const & suggests, VillagesCache & villagesCache,
+             ::base::Cancellable const & cancellable, vector<PreRankerResult> & results)
+    : Ranker(dataSource, boundariesTable, infoGetter, keywordsScorer, emitter,
              GetDefaultCategories(), suggests, villagesCache, cancellable)
     , m_results(results)
   {
@@ -56,11 +65,11 @@ public:
   inline bool Finished() const { return m_finished; }
 
   // Ranker overrides:
-  void SetPreResults1(vector<PreResult1> && preResults1) override
+  void SetPreRankerResults(vector<PreRankerResult> && preRankerResults) override
   {
     CHECK(!Finished(), ());
-    move(preResults1.begin(), preResults1.end(), back_inserter(m_results));
-    preResults1.clear();
+    move(preRankerResults.begin(), preRankerResults.end(), back_inserter(m_results));
+    preRankerResults.clear();
   }
 
   void UpdateResults(bool lastUpdate) override
@@ -71,7 +80,7 @@ public:
   }
 
 private:
-  vector<PreResult1> & m_results;
+  vector<PreRankerResult> & m_results;
   bool m_finished = false;
 };
 
@@ -79,7 +88,7 @@ class PreRankerTest : public SearchTest
 {
 public:
   vector<Suggest> m_suggests;
-  my::Cancellable m_cancellable;
+  ::base::Cancellable m_cancellable;
 };
 
 UNIT_CLASS_TEST(PreRankerTest, Smoke)
@@ -111,19 +120,23 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
       builder.Add(poi);
   });
 
-  vector<PreResult1> results;
+  vector<PreRankerResult> results;
   Emitter emitter;
+  CitiesBoundariesTable boundariesTable(m_dataSource);
   VillagesCache villagesCache(m_cancellable);
-  TestRanker ranker(m_engine, emitter, m_suggests, villagesCache, m_cancellable, results);
+  KeywordLangMatcher keywordsScorer(0 /* maxLanguageTiers */);
+  TestRanker ranker(m_dataSource, m_engine.GetCountryInfoGetter(), boundariesTable, keywordsScorer,
+                    emitter, m_suggests, villagesCache, m_cancellable, results);
 
-  PreRanker preRanker(m_engine, ranker, pois.size());
+  PreRanker preRanker(m_dataSource, ranker);
   PreRanker::Params params;
   params.m_viewport = kViewport;
   params.m_accuratePivotCenter = kPivot;
   params.m_scale = scales::GetUpperScale();
   params.m_batchSize = kBatchSize;
+  params.m_limit = pois.size();
+  params.m_viewportSearch = true;
   preRanker.Init(params);
-  preRanker.SetViewportSearch(true);
 
   vector<double> distances(pois.size());
   vector<bool> emit(pois.size());
@@ -131,7 +144,7 @@ UNIT_CLASS_TEST(PreRankerTest, Smoke)
   FeaturesVectorTest fv(mwmId.GetInfo()->GetLocalFile().GetPath(MapOptions::Map));
   fv.GetVector().ForEach([&](FeatureType & ft, uint32_t index) {
     FeatureID id(mwmId, index);
-    preRanker.Emplace(id, PreRankingInfo(SearchModel::SEARCH_TYPE_POI, TokenRange(0, 1)));
+    preRanker.Emplace(id, PreRankingInfo(Model::TYPE_POI, TokenRange(0, 1)));
 
     TEST_LESS(index, pois.size(), ());
     distances[index] = MercatorBounds::DistanceOnEarth(feature::GetCenter(ft), kPivot);

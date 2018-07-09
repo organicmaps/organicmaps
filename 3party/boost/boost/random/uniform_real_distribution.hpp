@@ -67,7 +67,7 @@ template<class Engine, class T>
 inline T generate_uniform_real(Engine& eng, T min_value, T max_value)
 {
     if(max_value / 2 - min_value / 2 > (std::numeric_limits<T>::max)() / 2)
-        return 2 * generate_uniform_real(eng, min_value / 2, max_value / 2);
+        return 2 * generate_uniform_real(eng, T(min_value / 2), T(max_value / 2));
     typedef typename Engine::result_type base_result;
     return generate_uniform_real(eng, min_value, max_value,
         boost::is_integral<base_result>());

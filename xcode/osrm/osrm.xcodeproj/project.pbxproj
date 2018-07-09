@@ -450,6 +450,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558721DBF4B3400A4FC11 /* common-debug.xcconfig */;
 			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/osrm/osrm-backend/third_party",
@@ -462,6 +463,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 34F558731DBF4B3400A4FC11 /* common-release.xcconfig */;
 			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(OMIM_ROOT)/3party/osrm/osrm-backend/third_party",
@@ -486,6 +488,27 @@
 			};
 			name = Release;
 		};
+		A8E5412C1F9FBD1900A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F558731DBF4B3400A4FC11 /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/osrm/osrm-backend/third_party",
+					"$(OMIM_ROOT)/3party/osrm/osrm-backend/include",
+				);
+			};
+			name = "Production Full";
+		};
+		A8E5412D1F9FBD1900A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -494,6 +517,7 @@
 			buildConfigurations = (
 				67534D4A1A40B7ED00A0A8C3 /* Debug */,
 				67534D4B1A40B7ED00A0A8C3 /* Release */,
+				A8E5412C1F9FBD1900A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -503,6 +527,7 @@
 			buildConfigurations = (
 				67534D4D1A40B7ED00A0A8C3 /* Debug */,
 				67534D4E1A40B7ED00A0A8C3 /* Release */,
+				A8E5412D1F9FBD1900A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

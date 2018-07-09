@@ -8,13 +8,13 @@
 
 #include "indexer/categories_holder.hpp"
 #include "indexer/classificator.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/feature_algo.hpp"
 #include "indexer/feature_impl.hpp"
 #include "indexer/feature_utils.hpp"
 #include "indexer/feature_visibility.hpp"
 #include "indexer/features_vector.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/index.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 #include "indexer/trie_builder.hpp"
@@ -35,12 +35,14 @@
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/fstream.hpp"
-#include "std/initializer_list.hpp"
-#include "std/limits.hpp"
-#include "std/unordered_map.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <fstream>
+#include <initializer_list>
+#include <limits>
+#include <unordered_map>
+#include <vector>
+
+using namespace std;
 
 #define SYNONYMS_FILE "synonyms.txt"
 
@@ -61,7 +63,7 @@ public:
 
     while (stream.good())
     {
-      std::getline(stream, line);
+      getline(stream, line);
       if (line.empty())
         continue;
 
@@ -99,37 +101,31 @@ public:
 void GetCategoryTypes(CategoriesHolder const & categories, pair<int, int> const & scaleRange,
                       feature::TypesHolder const & types, vector<uint32_t> & result)
 {
-  Classificator const & c = classif();
-  auto const & invisibleChecker = ftypes::IsInvisibleIndexedChecker::Instance();
-
   for (uint32_t t : types)
   {
-    // Leave only 2 levels of types - for example, do not distinguish:
-    // highway-primary-bridge and highway-primary-tunnel
-    // or amenity-parking-fee and amenity-parking-underground-fee.
-    ftype::TruncValue(t, 2);
+    // Truncate |t| up to 2 levels and choose the best category match to find explicit category if
+    // any and not distinguish types like highway-primary-bridge and highway-primary-tunnel or
+    // amenity-parking-fee and amenity-parking-underground-fee if we do not have such explicit
+    // categories.
+
+    for (uint8_t level = ftype::GetLevel(t); level >= 2; --level)
+    {
+      ftype::TruncValue(t, level);
+      if (categories.IsTypeExist(t))
+        break;
+    }
 
     // Only categorized types will be added to index.
     if (!categories.IsTypeExist(t))
       continue;
 
-    // There are some special non-drawable types we plan to search on.
-    if (invisibleChecker.IsMatched(t))
-    {
-      result.push_back(t);
-      continue;
-    }
+    // Drawable scale must be normalized to indexer scales.
+    auto indexedRange = scaleRange;
+    if (scaleRange.second == scales::GetUpperScale())
+      indexedRange.second = scales::GetUpperStyleScale();
 
     // Index only those types that are visible.
-    pair<int, int> r = feature::GetDrawableScaleRange(t);
-    CHECK_LESS_OR_EQUAL(r.first, r.second, (c.GetReadableObjectName(t)));
-
-    // Drawable scale must be normalized to indexer scales.
-    r.second = min(r.second, scales::GetUpperScale());
-    r.first = min(r.first, r.second);
-    CHECK(r.first != -1, (c.GetReadableObjectName(t)));
-
-    if (r.second >= scaleRange.first && r.first <= scaleRange.second)
+    if (feature::IsVisibleInRange(t, indexedRange))
       result.push_back(t);
   }
 }
@@ -159,12 +155,12 @@ struct FeatureNameInserter
     m_keyValuePairs.emplace_back(key, m_val);
   }
 
-  bool operator()(signed char lang, string const & name) const
+  void operator()(signed char lang, string const & name) const
   {
     strings::UniString const uniName = search::NormalizeAndSimplifyString(name);
 
     // split input string on tokens
-    buffer_vector<strings::UniString, 32> tokens;
+    search::QueryTokens tokens;
     SplitUniString(uniName, MakeBackInsertFunctor(tokens), search::Delimiters());
 
     // add synonyms for input native string
@@ -176,7 +172,8 @@ struct FeatureNameInserter
                           });
     }
 
-    int const maxTokensCount = search::MAX_TOKENS - 1;
+    static_assert(search::kMaxNumTokens > 0, "");
+    size_t const maxTokensCount = search::kMaxNumTokens - 1;
     if (tokens.size() > maxTokensCount)
     {
       LOG(LWARNING, ("Name has too many tokens:", name));
@@ -197,8 +194,6 @@ struct FeatureNameInserter
       for (auto const & token : tokens)
         AddToken(lang, token);
     }
-
-    return true;
   }
 };
 
@@ -328,11 +323,11 @@ void BuildAddressTable(FilesContainerR & container, Writer & writer)
   uint32_t address = 0, missing = 0;
   map<size_t, size_t> bounds;
 
-  Index mwmIndex;
+  FrozenDataSource dataSource;
   /// @ todo Make some better solution, or legalize MakeTemporary.
-  auto const res = mwmIndex.RegisterMap(platform::LocalCountryFile::MakeTemporary(container.GetFileName()));
+  auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(container.GetFileName()));
   ASSERT_EQUAL(res.second, MwmSet::RegResult::Success, ());
-  search::ReverseGeocoder rgc(mwmIndex);
+  search::ReverseGeocoder rgc(dataSource);
 
   {
     FixedBitsDDVector<3, FileReader>::Builder<Writer> building2Street(writer);
@@ -395,16 +390,9 @@ bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild)
   if (readContainer.IsExist(SEARCH_INDEX_FILE_TAG) && !forceRebuild)
     return true;
 
-  string mwmName = filename;
-  my::GetNameFromFullPath(mwmName);
-  my::GetNameWithoutExt(mwmName);
-
-  string const indexFilePath = platform.WritablePathForFile(
-        mwmName + "." SEARCH_INDEX_FILE_TAG EXTENSION_TMP);
+  string const indexFilePath = filename + "." + SEARCH_INDEX_FILE_TAG EXTENSION_TMP;
+  string const addrFilePath = filename + "." + SEARCH_ADDRESS_FILE_TAG EXTENSION_TMP;
   MY_SCOPE_GUARD(indexFileGuard, bind(&FileWriter::DeleteFileX, indexFilePath));
-
-  string const addrFilePath = platform.WritablePathForFile(
-        mwmName + "." SEARCH_ADDRESS_FILE_TAG EXTENSION_TMP);
   MY_SCOPE_GUARD(addrFileGuard, bind(&FileWriter::DeleteFileX, addrFilePath));
 
   try
@@ -464,8 +452,8 @@ bool BuildSearchIndexFromDataFile(string const & filename, bool forceRebuild)
 
 void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter)
 {
-  using TKey = strings::UniString;
-  using TValue = FeatureIndexValue;
+  using Key = strings::UniString;
+  using Value = FeatureIndexValue;
 
   Platform & platform = GetPlatform();
 
@@ -475,16 +463,17 @@ void BuildSearchIndex(FilesContainerR & container, Writer & indexWriter)
   CategoriesHolder categoriesHolder(platform.GetReader(SEARCH_CATEGORIES_FILE_NAME));
 
   FeaturesVectorTest features(container);
-  auto codingParams = trie::GetCodingParams(features.GetHeader().GetDefCodingParams());
-  SingleValueSerializer<TValue> serializer(codingParams);
+  auto codingParams =
+      trie::GetGeometryCodingParams(features.GetHeader().GetDefGeometryCodingParams());
+  SingleValueSerializer<Value> serializer(codingParams);
 
-  vector<pair<TKey, TValue>> searchIndexKeyValuePairs;
+  vector<pair<Key, Value>> searchIndexKeyValuePairs;
   AddFeatureNameIndexPairs(features, categoriesHolder, searchIndexKeyValuePairs);
 
   sort(searchIndexKeyValuePairs.begin(), searchIndexKeyValuePairs.end());
   LOG(LINFO, ("End sorting strings:", timer.ElapsedSeconds()));
 
-  trie::Build<Writer, TKey, ValueList<TValue>, SingleValueSerializer<TValue>>(
+  trie::Build<Writer, Key, ValueList<Value>, SingleValueSerializer<Value>>(
       indexWriter, serializer, searchIndexKeyValuePairs);
 
   LOG(LINFO, ("End building search index, elapsed seconds:", timer.ElapsedSeconds()));

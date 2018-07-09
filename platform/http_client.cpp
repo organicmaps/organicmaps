@@ -10,7 +10,30 @@ namespace platform
 {
 HttpClient::HttpClient(string const & url) : m_urlRequested(url)
 {
-  m_headers.emplace("Accept-Encoding", "deflate");
+// Http client for linux supports only "deflate" encoding, but osrm server cannot
+// correctly process "Accept-Encoding: deflate" header, so do not encode data on linux.
+#if !defined(OMIM_OS_LINUX)
+  m_headers.emplace("Accept-Encoding", "gzip, deflate");
+#endif
+}
+
+bool HttpClient::RunHttpRequest(string & response, SuccessChecker checker /* = nullptr */)
+{
+  static auto const simpleChecker = [](HttpClient const & request)
+  {
+    return request.ErrorCode() == 200;
+  };
+
+  if (checker == nullptr)
+    checker = simpleChecker;
+
+  if (RunHttpRequest() && checker(*this))
+  {
+    response = ServerResponse();
+    return true;
+  }
+
+  return false;
 }
 
 HttpClient & HttpClient::SetUrlRequested(string const & url)
@@ -65,6 +88,11 @@ HttpClient & HttpClient::SetRawHeader(string const & key, string const & value)
 {
   m_headers.emplace(key, value);
   return *this;
+}
+
+void HttpClient::SetTimeout(double timeoutSec)
+{
+  m_timeoutSec = timeoutSec;
 }
 
 string const & HttpClient::UrlRequested() const

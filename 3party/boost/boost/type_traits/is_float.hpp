@@ -1,4 +1,3 @@
-
 //  (C) Copyright Steve Cleary, Beman Dawes, Howard Hinnant & John Maddock 2000.
 //  Use, modification and distribution are subject to the Boost Software License,
 //  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -10,18 +9,12 @@
 #define BOOST_TYPE_TRAITS_IS_FLOAT_HPP_INCLUDED
 
 // should be the last #include
-#include <boost/type_traits/detail/bool_trait_def.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
 
 namespace boost {
 
 //* is a type T a floating-point type described in the standard (3.9.1p8)
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_float,T,false)
-BOOST_TT_AUX_BOOL_TRAIT_CV_SPEC1(is_float,float,true)
-BOOST_TT_AUX_BOOL_TRAIT_CV_SPEC1(is_float,double,true)
-BOOST_TT_AUX_BOOL_TRAIT_CV_SPEC1(is_float,long double,true)
-
+   template <class T> struct is_float : public is_floating_point<T> {};
 } // namespace boost
-
-#include <boost/type_traits/detail/bool_trait_undef.hpp>
 
 #endif // BOOST_TYPE_TRAITS_IS_FLOAT_HPP_INCLUDED

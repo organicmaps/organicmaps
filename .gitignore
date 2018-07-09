@@ -16,6 +16,15 @@ data/*.mwm.osm2ft
 data/*.mwm.routing
 data/*.mwmmeta
 data/[!W]*.mwm
+data/local_ads*.dat
+data/local_ads_*/*.*
+data/shaders_compiler/*
+data/styles/*/*/out/*
+data/resources-*_design/*
+data/drules_proto_design.bin
+data/colors_design.txt
+data/patterns_design.txt
+data/route_points.dat
 
 # Compiled Python
 *.pyc
@@ -50,7 +59,6 @@ out/*
 qt/mapswithme.log
 
 # XCode
-iphone/*/*.xcodeproj/*.mode1v3
 iphone/*/*.xcodeproj/*.pbxuser
 iphone/*/*.xcodeproj/*.perspectivev3
 iphone/*/*.xcodeproj/project.xcworkspace/*
@@ -59,6 +67,22 @@ tools/emacsmode/build
 **/DerivedData/*
 **/xcshareddata
 **/xcuserdata
+**/xcschemes
+iphone/**/*.moved-aside
+iphone/**/*.swp
+iphone/**/*.mode1v3
+iphone/**/*.mode2v3
+iphone/**/*.perspectivev3
+
+# Carthage
+iphone/Maps/3party/Carthage/Checkouts
+iphone/Maps/3party/Carthage/Build/Mac/*.bcsymbolmap
+iphone/Maps/3party/Carthage/Build/Mac/*.dSYM
+iphone/Maps/3party/Carthage/Build/tvOS
+iphone/Maps/3party/Carthage/Build/watchOS
+iphone/Maps/3party/Carthage/Build/iOS/*.bcsymbolmap
+iphone/Maps/3party/Carthage/Build/iOS/*.dSYM
+iphone/Maps/3party/Carthage/Build/*.version
 
 # GeneratedFiles
 version/version.hpp
@@ -108,7 +132,10 @@ tools/twine/.git
 # shader preprocessing moc files
 drape/shader_def.hpp
 drape/shader_def.cpp
-drape/drape_tests/enum_shaders.hpp
+drape_frontend/shader_def.hpp
+drape_frontend/shader_def.cpp
+drape_frontend/drape_frontend_tests/shader_def_for_tests.hpp
+drape_frontend/drape_frontend_tests/shader_def_for_tests.cpp
 
 tizen/*/Debug/*
 tizen/*/.*
@@ -131,9 +158,19 @@ tools/android/yota.keystore
 android/secure.properties
 android/fabric.properties
 android/pushwoosh.properties
+android/libnotify.properties
 android/res/values/google-service.xml
 server
 
 *.li
 
 *.autosave
+
+cmake-build-*
+
+qt/res/Info.plist
+
+designer_version.h
+
+# Vim files
+tags

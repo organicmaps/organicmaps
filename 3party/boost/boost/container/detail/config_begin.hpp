@@ -25,6 +25,7 @@
    #pragma warning (disable : 4267) // conversion from "X" to "Y", possible loss of data
    #pragma warning (disable : 4275) // non DLL-interface classkey "identifier" used as base for DLL-interface classkey "identifier"
    #pragma warning (disable : 4284) // odd return type for operator->
+   #pragma warning (disable : 4290) // C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
    #pragma warning (disable : 4324) // structure was padded due to __declspec(align(
    #pragma warning (disable : 4345) // behavior change: an object of POD type constructed with an initializer of the form () will be default-initialized
    #pragma warning (disable : 4355) // "this" : used in base member initializer list
@@ -44,7 +45,9 @@
    #pragma warning (disable : 4702) // unreachable code
    #pragma warning (disable : 4706) // assignment within conditional expression
    #pragma warning (disable : 4710) // function not inlined
+   #pragma warning (disable : 4714) // "function": marked as __forceinline not inlined
    #pragma warning (disable : 4711) // function selected for automatic inline expansion
    #pragma warning (disable : 4786) // identifier truncated in debug info
    #pragma warning (disable : 4996) // "function": was declared deprecated
+ 
 #endif   //BOOST_MSVC

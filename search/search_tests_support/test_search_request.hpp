@@ -26,7 +26,7 @@ class TestSearchRequest
 public:
   TestSearchRequest(TestSearchEngine & engine, string const & query, string const & locale,
                     Mode mode, m2::RectD const & viewport);
-  TestSearchRequest(TestSearchEngine & engine, SearchParams params, m2::RectD const & viewport);
+  TestSearchRequest(TestSearchEngine & engine, SearchParams const & params);
 
   // Initiates the search and waits for it to finish.
   void Run();
@@ -37,8 +37,9 @@ public:
 
 protected:
   TestSearchRequest(TestSearchEngine & engine, string const & query, string const & locale,
-                    Mode mode, m2::RectD const & viewport, SearchParams::TOnStarted onStarted,
-                    SearchParams::TOnResults onResults);
+                    Mode mode, m2::RectD const & viewport,
+                    SearchParams::OnStarted const & onStarted,
+                    SearchParams::OnResults const & onResults);
 
   // Initiates the search.
   void Start();
@@ -47,12 +48,13 @@ protected:
   void Wait();
 
   void SetUpCallbacks();
+  void SetUpResultParams();
 
   void OnStarted();
   void OnResults(search::Results const & results);
 
   // Overrides the default onResults callback.
-  void SetCustomOnResults(SearchParams::TOnResults const & onResults);
+  void SetCustomOnResults(SearchParams::OnResults const & onResults);
 
   condition_variable m_cv;
   mutable mutex m_mu;
@@ -66,7 +68,6 @@ protected:
 
   TestSearchEngine & m_engine;
   SearchParams m_params;
-  m2::RectD m_viewport;
 };
 }  // namespace tests_support
 }  // namespace search

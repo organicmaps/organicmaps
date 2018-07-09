@@ -34,6 +34,8 @@
 #endif   //#ifdef BOOST_INTERPROCESS_PERFECT_FORWARDING
 #include <boost/container/detail/placement_new.hpp>
 
+#include <cstddef>
+
 //!\file
 //!Describes a proxy class that implements named allocation syntax.
 
@@ -74,15 +76,15 @@ struct CtorArgN : public placement_destroy<T>
    }
 
    private:
-   template<int ...IdxPack>
+   template<std::size_t ...IdxPack>
    void construct(void *mem, true_, const index_tuple<IdxPack...>&)
    {  ::new((void*)mem, boost_container_new_t())T(*boost::forward<Args>(get<IdxPack>(args_))...); }
 
-   template<int ...IdxPack>
+   template<std::size_t ...IdxPack>
    void construct(void *mem, false_, const index_tuple<IdxPack...>&)
    {  ::new((void*)mem, boost_container_new_t())T(boost::forward<Args>(get<IdxPack>(args_))...); }
 
-   template<int ...IdxPack>
+   template<std::size_t ...IdxPack>
    void do_increment(true_, const index_tuple<IdxPack...>&)
    {
       this->expansion_helper(++get<IdxPack>(args_)...);
@@ -92,7 +94,7 @@ struct CtorArgN : public placement_destroy<T>
    void expansion_helper(ExpansionArgs &&...)
    {}
 
-   template<int ...IdxPack>
+   template<std::size_t ...IdxPack>
    void do_increment(false_, const index_tuple<IdxPack...>&)
    {}
 

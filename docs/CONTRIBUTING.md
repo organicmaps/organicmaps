@@ -50,8 +50,9 @@ you'll need to create a "data" symlink in the shadow-dir path to the /repo/data 
 ### XCode
 
 * Install [Homebrew](http://brew.sh/) and run `brew install qt5`.
+* Install Carthage: `brew install carthage`.
 * Run XCode, open `xcode/omim.xcworkspace`.
-* Select "MapsMe" scheme and run the product.
+* Select "xcMAPS.ME" scheme and run the product.
 
 ## Coding Style
 

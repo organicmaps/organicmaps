@@ -1,4 +1,5 @@
 #pragma once
+
 #include "base/internal/message.hpp"
 #include "base/macros.hpp"
 
@@ -8,24 +9,18 @@
 class RootException : public std::exception
 {
 public:
-  RootException(char const * what, std::string const & msg) : m_What(what), m_Msg(msg)
-  {
-  }
+  RootException(char const * what, std::string const & msg);
 
-  virtual ~RootException() throw()
-  {
-  }
+  virtual ~RootException() noexcept = default;
 
-  virtual char const * what() const throw();
+  std::string const & Msg() const { return m_msg; }
 
-  std::string const & Msg() const throw()
-  {
-    return m_Msg;
-  }
+  // std::exception overrides:
+  char const * what() const noexcept override { return m_whatWithAscii.c_str(); }
 
 private:
-  char const * m_What;
-  std::string m_Msg;
+  std::string m_whatWithAscii;
+  std::string m_msg;
 };
 
 #define DECLARE_EXCEPTION(exception_name, base_exception) \

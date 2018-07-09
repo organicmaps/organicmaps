@@ -31,6 +31,7 @@ public:
   // Creates an instance holding a path to countryFile's in a
   // directory. Note that no disk operations are not performed until
   // SyncWithDisk() is called.
+  // The directory must containt a full path to the country file.
   LocalCountryFile(string const & directory, CountryFile const & countryFile, int64_t version);
 
   // Syncs internal state like availability of map and routing files,
@@ -55,23 +56,25 @@ public:
 
   // Returns a mask of all known country files. Return value may be
   // empty until SyncWithDisk() is called.
-  inline MapOptions GetFiles() const { return m_files; }
+  MapOptions GetFiles() const { return m_files; }
 
   // Checks whether files specified in filesMask are on disk. Return
   // value will be false until SyncWithDisk() is called.
-  inline bool OnDisk(MapOptions filesMask) const
+  bool OnDisk(MapOptions filesMask) const
   {
     return (static_cast<unsigned>(m_files) & static_cast<unsigned>(filesMask)) ==
            static_cast<unsigned>(filesMask);
   }
 
-  inline string const & GetDirectory() const { return m_directory; }
-  inline string const & GetCountryName() const { return m_countryFile.GetName(); }
-  inline int64_t GetVersion() const { return m_version; }
-  inline CountryFile const & GetCountryFile() const { return m_countryFile; }
+  string const & GetDirectory() const { return m_directory; }
+  string const & GetCountryName() const { return m_countryFile.GetName(); }
+  int64_t GetVersion() const { return m_version; }
+  CountryFile const & GetCountryFile() const { return m_countryFile; }
+  CountryFile & GetCountryFile() { return m_countryFile; }
 
   bool operator<(LocalCountryFile const & rhs) const;
   bool operator==(LocalCountryFile const & rhs) const;
+  bool operator!=(LocalCountryFile const & rhs) const { return !(*this == rhs); }
 
   // Creates LocalCountryFile for test purposes, for a country region
   // with countryFileName (without any extensions). Automatically

@@ -1,26 +1,22 @@
-#import "SwiftBridge.h"
+typedef NS_ENUM(NSUInteger, MWMRoutePointType) {
+  MWMRoutePointTypeStart,
+  MWMRoutePointTypeIntermediate,
+  MWMRoutePointTypeFinish
+};
 
-#include "geometry/latlon.hpp"
-#include "geometry/mercator.hpp"
-#include "geometry/point2d.hpp"
+@interface MWMRoutePoint : NSObject
 
-static inline MWMRoutePoint * routePoint(m2::PointD const & point, NSString * name)
-{
-  return [[MWMRoutePoint alloc] initWithX:point.x y:point.y name:name isMyPosition:false];
-}
+- (instancetype)initWithLastLocationAndType:(MWMRoutePointType)type
+                          intermediateIndex:(size_t)intermediateIndex;
 
-static inline MWMRoutePoint * routePoint(m2::PointD const & point)
-{
-  return [[MWMRoutePoint alloc] initWithX:point.x y:point.y];
-}
+@property(copy, nonatomic, readonly) NSString * title;
+@property(copy, nonatomic, readonly) NSString * subtitle;
+@property(copy, nonatomic, readonly) NSString * latLonString;
+@property(nonatomic, readonly) BOOL isMyPosition;
+@property(nonatomic) MWMRoutePointType type;
+@property(nonatomic) size_t intermediateIndex;
 
-static inline MWMRoutePoint * zeroRoutePoint() { return [[MWMRoutePoint alloc] init]; }
-static inline m2::PointD mercatorMWMRoutePoint(MWMRoutePoint * point)
-{
-  return m2::PointD(point.x, point.y);
-}
+@property(nonatomic, readonly) double latitude;
+@property(nonatomic, readonly) double longitude;
 
-static inline ms::LatLon routePointLatLon(MWMRoutePoint * point)
-{
-  return MercatorBounds::ToLatLon(mercatorMWMRoutePoint(point));
-}
+@end

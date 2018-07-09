@@ -7,19 +7,19 @@ namespace search
 // static
 uint32_t const IntersectionResult::kInvalidId;
 
-void IntersectionResult::Set(SearchModel::SearchType type, uint32_t id)
+void IntersectionResult::Set(Model::Type type, uint32_t id)
 {
   switch (type)
   {
-  case SearchModel::SEARCH_TYPE_POI: m_poi = id; break;
-  case SearchModel::SEARCH_TYPE_BUILDING: m_building = id; break;
-  case SearchModel::SEARCH_TYPE_STREET: m_street = id; break;
-  case SearchModel::SEARCH_TYPE_CITY:
-  case SearchModel::SEARCH_TYPE_VILLAGE:
-  case SearchModel::SEARCH_TYPE_STATE:
-  case SearchModel::SEARCH_TYPE_COUNTRY:
-  case SearchModel::SEARCH_TYPE_UNCLASSIFIED:
-  case SearchModel::SEARCH_TYPE_COUNT: ASSERT(false, ("Unsupported type.")); break;
+  case Model::TYPE_POI: m_poi = id; break;
+  case Model::TYPE_BUILDING: m_building = id; break;
+  case Model::TYPE_STREET: m_street = id; break;
+  case Model::TYPE_CITY:
+  case Model::TYPE_VILLAGE:
+  case Model::TYPE_STATE:
+  case Model::TYPE_COUNTRY:
+  case Model::TYPE_UNCLASSIFIED:
+  case Model::TYPE_COUNT: ASSERT(false, ("Unsupported type.")); break;
   }
 }
 

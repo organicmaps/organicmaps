@@ -40,13 +40,11 @@ struct is_character_type< char >
     static BOOST_CONSTEXPR_OR_CONST bool value = true;
 };
 
-#if !defined(BOOST_NO_INTRINSIC_WCHAR_T)
 template< >
 struct is_character_type< wchar_t >
 {
     static BOOST_CONSTEXPR_OR_CONST bool value = true;
 };
-#endif
 
 #if !defined(BOOST_NO_CXX11_CHAR16_T)
 template< >

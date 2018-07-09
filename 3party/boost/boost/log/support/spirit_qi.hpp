@@ -15,7 +15,7 @@
 #ifndef BOOST_LOG_SUPPORT_SPIRIT_QI_HPP_INCLUDED_
 #define BOOST_LOG_SUPPORT_SPIRIT_QI_HPP_INCLUDED_
 
-#include <boost/utility/enable_if.hpp>
+#include <boost/core/enable_if.hpp>
 #include <boost/spirit/include/qi_parse.hpp>
 #include <boost/spirit/include/qi_domain.hpp>
 #include <boost/spirit/include/support_unused.hpp>
@@ -40,7 +40,7 @@ struct boost_spirit_qi_expression_tag;
 
 //! The metafunction detects the matching expression kind and returns a tag that is used to specialize \c match_traits
 template< typename ExpressionT >
-struct matching_expression_kind< ExpressionT, typename boost::enable_if< spirit::traits::matches< spirit::qi::domain, ExpressionT > >::type >
+struct matching_expression_kind< ExpressionT, typename boost::enable_if_c< spirit::traits::matches< spirit::qi::domain, ExpressionT >::value >::type >
 {
     typedef boost_spirit_qi_expression_tag type;
 };

@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmFragment;
 import com.mapswithme.maps.bookmarks.data.Metadata.MetadataType;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
+import com.mapswithme.maps.editor.data.LocalizedName;
 import com.mapswithme.maps.editor.data.LocalizedStreet;
 import com.mapswithme.maps.editor.data.TimeFormatUtils;
 import com.mapswithme.maps.editor.data.Timetable;
@@ -37,7 +40,8 @@ import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import org.solovyev.android.views.llm.LinearLayoutManager;
 
-public class EditorFragment extends BaseMwmFragment implements View.OnClickListener, EditTextDialogFragment.OnTextSaveListener
+public class EditorFragment extends BaseMwmFragment implements View.OnClickListener,
+                                                               EditTextDialogFragment.EditTextDialogInterface
 {
   final static String LAST_INDEX_OF_NAMES_ARRAY = "LastIndexOfNamesArray";
 
@@ -121,11 +125,10 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
     return inflater.inflate(R.layout.fragment_editor, container, false);
   }
 
+  @CallSuper
   @Override
-  public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
-    super.onViewCreated(view, savedInstanceState);
-
     mParent = (EditorHostFragment) getParentFragment();
 
     initViews(view);
@@ -280,6 +283,25 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       return false;
     }
 
+    return validateNames();
+  }
+
+  private boolean validateNames()
+  {
+    for (int pos = 0; pos < mNamesAdapter.getItemCount(); pos++)
+    {
+      LocalizedName localizedName = mNamesAdapter.getNameAtPos(pos);
+      if (Editor.nativeIsNameValid(localizedName.name))
+        continue;
+
+      View nameView = mNamesView.getChildAt(pos);
+      nameView.requestFocus();
+
+      InputUtils.showKeyboard(nameView);
+
+      return false;
+    }
+
     return true;
   }
 
@@ -287,7 +309,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
   {
     UiUtils.showIf(Editor.nativeIsNameEditable(), mCardName);
     UiUtils.showIf(Editor.nativeIsAddressEditable(), mCardAddress);
-    UiUtils.showIf(Editor.nativeIsBuilding(), mBlockLevels);
+    UiUtils.showIf(Editor.nativeIsBuilding() && !Editor.nativeIsPointType(), mBlockLevels);
 
     final int[] editableMeta = Editor.nativeGetEditableFields();
     if (editableMeta.length == 0)
@@ -488,6 +510,8 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
       break;
     case R.id.more_names:
     case R.id.show_additional_names:
+      if (mNamesAdapter.areAdditionalLanguagesShown() && !validateNames())
+        break;
       showAdditionalNames(!mNamesAdapter.areAdditionalLanguagesShown());
       break;
     case R.id.add_langs:
@@ -621,7 +645,7 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
                                             public void onClick(DialogInterface dialog, int which)
                                             {
                                               Editor.nativeRollbackMapObject();
-                                              Framework.nativeUpdateUserViewportChanged();
+                                              Framework.nativePokeSearchInViewport();
                                               mParent.onBackPressed();
                                             }
                                           })
@@ -635,10 +659,20 @@ public class EditorFragment extends BaseMwmFragment implements View.OnClickListe
                                 getString(R.string.editor_report_problem_send_button), getString(R.string.cancel), this);
   }
 
+  @NonNull
   @Override
-  public void onSaveText(String text)
+  public EditTextDialogFragment.OnTextSaveListener getSaveTextListener()
   {
-    Editor.nativePlaceDoesNotExist(text);
-    mParent.onBackPressed();
+    return text -> {
+      Editor.nativePlaceDoesNotExist(text);
+      mParent.onBackPressed();
+    };
+  }
+
+  @NonNull
+  @Override
+  public EditTextDialogFragment.Validator getValidator()
+  {
+    return (activity, text) -> !TextUtils.isEmpty(text);
   }
 }

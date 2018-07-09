@@ -304,7 +304,7 @@ private:
             RealType u;
             RealType v = uniform_01<RealType>()(urng);
             if(v <= btrd.u_rv_r) {
-                RealType u = v/btrd.v_r - 0.43;
+                u = v/btrd.v_r - 0.43;
                 return static_cast<IntType>(floor(
                     (2*btrd.a/(0.5 - abs(u)) + btrd.b)*u + btrd.c));
             }

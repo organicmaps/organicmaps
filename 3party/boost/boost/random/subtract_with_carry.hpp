@@ -402,7 +402,7 @@ public:
                                       SeedSeq, seq)
     {
         detail::seed_array_real<w>(seq, x);
-        carry = (x[long_lag-1] ? 0 : 1 / _modulus);
+        carry = (x[long_lag-1] ? result_type(0) : result_type(1 / _modulus));
         k = 0;
     }
 
@@ -416,7 +416,7 @@ public:
     void seed(It& first, It last)
     {
         detail::fill_array_real<w>(first, last, x);
-        carry = (x[long_lag-1] ? 0 : 1 / _modulus);
+        carry = (x[long_lag-1] ? result_type(0) : result_type(1 / _modulus));
         k = 0;
     }
 

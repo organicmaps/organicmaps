@@ -1,25 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>star-l</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="star-l">
-            <g id="Page-1">
-                <g id="tstar-l">
-                    <g id="Page-1">
-                        <g id="star-l">
-                            <g id="Page-1">
-                                <g id="cities">
-                                    <polygon id="Star-1-Copy" fill-opacity="0.65" fill="#EEEEDD" points="6 9.48581467 2.29179604 12 3.42000002 7.51487 0 4.58359208 4.4054723 4.32581474 6 0 7.5945277 4.32581474 12 4.58359208 8.57999998 7.51487 9.70820396 12"></polygon>
-                                    <polygon id="Star-1" fill-opacity="0.8" fill="#000003" points="6 8.90484556 2.90983003 11 3.85000002 7.26239167 1 4.81966007 4.67122692 4.60484562 6 1 7.32877308 4.60484562 11 4.81966007 8.14999998 7.26239167 9.09016997 11"></polygon>
-                                </g>
-                            </g>
-                        </g>
-                    </g>
-                </g>
-            </g>
-        </g>
-    </g>
+<svg width="12" height="12" viewBox="0 0 12 12">
+  <g fill="#FFF" fill-rule="evenodd">
+    <polygon points="6 9.486 2.292 12 3.42 7.515 0 4.584 4.405 4.326 6 0 7.595 4.326 12 4.584 8.58 7.515 9.708 12" opacity=".4"/>
+    <polygon points="6 8.905 2.91 11 3.85 7.262 1 4.82 4.671 4.605 6 1 7.329 4.605 11 4.82 8.15 7.262 9.09 11" opacity=".6"/>
+  </g>
 </svg>

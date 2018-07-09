@@ -55,7 +55,7 @@ template <>
 struct modify<false>
 {
     template <typename Ring, typename Point>
-    static inline void push_back(Ring& ring, Point const& point)
+    static inline void push_back(Ring& /*ring*/, Point const& /*point*/)
     {
     }
 

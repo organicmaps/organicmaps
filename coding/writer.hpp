@@ -1,6 +1,7 @@
 #pragma once
 #include "base/assert.hpp"
 #include "base/base.hpp"
+#include "base/checked_cast.hpp"
 #include "base/exception.hpp"
 #include "std/algorithm.hpp"
 #include "std/shared_ptr.hpp"
@@ -9,7 +10,6 @@
 #include "std/vector.hpp"
 
 // Generic Writer. Not thread-safe.
-// When SubWriter is used, pos can negative, so int64_t is used to store pos.
 class Writer
 {
 public:
@@ -21,8 +21,8 @@ public:
   DECLARE_EXCEPTION(CreateDirException, Exception);
 
   virtual ~Writer() {}
-  virtual void Seek(int64_t pos) = 0;
-  virtual int64_t Pos() const = 0;
+  virtual void Seek(uint64_t pos) = 0;
+  virtual uint64_t Pos() const = 0;
   virtual void Write(void const * p, size_t size) = 0;
 };
 
@@ -30,24 +30,22 @@ template <typename ContainerT>
 class MemWriter : public Writer
 {
 public:
-  inline MemWriter(ContainerT & data) : m_Data(data), m_Pos(0)
+  inline explicit MemWriter(ContainerT & data) : m_Data(data), m_Pos(0)
   {
     static_assert(sizeof(typename ContainerT::value_type) == 1, "");
   }
 
-  inline void Seek(int64_t pos)
+  inline void Seek(uint64_t pos) override
   {
-    ASSERT_EQUAL(pos, static_cast<intptr_t>(pos), ());
-    ASSERT_GREATER_OR_EQUAL(pos, 0, ());
-    m_Pos = static_cast<intptr_t>(pos);
+    m_Pos = base::asserted_cast<uintptr_t>(pos);
   }
 
-  inline int64_t Pos() const
+  inline uint64_t Pos() const override
   {
     return m_Pos;
   }
 
-  inline void Write(void const * p, size_t size)
+  inline void Write(void const * p, size_t size) override
   {
     intptr_t freeSize = m_Data.size() - m_Pos;
     if (freeSize < 0)
@@ -69,13 +67,13 @@ public:
 
 private:
   ContainerT & m_Data;
-  size_t m_Pos;
+  uint64_t m_Pos;
 };
 
 // Original writer should not be used when SubWriter is active!
 // In destructor, SubWriter calls Seek() of original writer to the end of what has been written.
 template <typename WriterT>
-class SubWriter
+class SubWriter : public Writer
 {
 public:
   inline explicit SubWriter(WriterT & writer)
@@ -86,14 +84,14 @@ public:
   {
   }
 
-  ~SubWriter()
+  ~SubWriter() override
   {
     ASSERT_EQUAL(m_offset, GetOffset(), ());
     if (m_pos != m_maxPos)
       Seek(m_maxPos);
   }
 
-  inline void Seek(int64_t pos)
+  inline void Seek(uint64_t pos) override
   {
     ASSERT_EQUAL(m_offset, GetOffset(), ());
     m_writer.Seek(GetOffset() + pos);
@@ -102,13 +100,13 @@ public:
     m_maxPos = max(m_maxPos, m_pos);
   }
 
-  inline int64_t Pos() const
+  inline uint64_t Pos() const override
   {
     ASSERT_EQUAL(m_offset, GetOffset(), ());
     return m_pos;
   }
 
-  inline void Write(void const * p, size_t size)
+  inline void Write(void const * p, size_t size) override
   {
     ASSERT_EQUAL(m_offset, GetOffset(), ());
     m_writer.Write(p, size);
@@ -120,34 +118,34 @@ public:
   inline uint64_t Size() const { return m_maxPos; }
 
 private:
-  inline int64_t GetOffset() const { return m_writer.Pos() - m_pos; }
+  inline uint64_t GetOffset() const { return m_writer.Pos() - m_pos; }
 
 private:
   WriterT & m_writer;
-  int64_t m_pos;
-  int64_t m_maxPos;
+  uint64_t m_pos;
+  uint64_t m_maxPos;
 #ifdef DEBUG
-  int64_t const m_offset;
+  uint64_t const m_offset;
 #endif
 };
 
 template<typename WriterT>
-class WriterPtr
+class WriterPtr : public Writer
 {
 public:
-  WriterPtr(WriterT * p = 0) : m_p(p) {}
+  explicit WriterPtr(WriterT * p = 0) : m_p(p) {}
 
-  void Seek(int64_t pos)
+  void Seek(uint64_t pos) override
   {
     m_p->Seek(pos);
   }
 
-  int64_t Pos() const
+  uint64_t Pos() const override
   {
     return m_p->Pos();
   }
 
-  void Write(void const * p, size_t size)
+  void Write(void const * p, size_t size) override
   {
     m_p->Write(p, size);
   }
@@ -162,7 +160,7 @@ template <typename WriterT>
 class WriterSink
 {
 public:
-  inline WriterSink(WriterT & writer) : m_writer(writer), m_pos(0) {}
+  inline explicit WriterSink(WriterT & writer) : m_writer(writer), m_pos(0) {}
 
   inline void Write(void const * p, size_t size)
   {
@@ -172,5 +170,5 @@ public:
 
 private:
   WriterT & m_writer;
-  int64_t m_pos;
+  uint64_t m_pos;
 };

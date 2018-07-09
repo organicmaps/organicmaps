@@ -1,0 +1,6 @@
+framework module AppsFlyerTracker {
+  umbrella header "AppsFlyerTracker.h"
+
+  export *
+  module * { export * }
+}

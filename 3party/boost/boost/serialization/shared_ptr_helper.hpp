@@ -31,9 +31,6 @@
 #include <boost/serialization/throw_exception.hpp>
 #include <boost/serialization/type_info_implementation.hpp>
 #include <boost/archive/archive_exception.hpp>
-#include <boost/archive/detail/decl.hpp>
-
-#include <boost/archive/detail/abi_prefix.hpp> // must be the last headern
 
 namespace boost_132 {
     template<class T> class shared_ptr;
@@ -94,7 +91,7 @@ public:
     // by a change in load_construct_data below.  It makes this file suitable
     // only for loading pointers into a 1.33 or later boost system.
     std::list<boost_132::shared_ptr<const void> > * m_pointers_132;
-    BOOST_ARCHIVE_DECL void
+    void
     append(const boost_132::shared_ptr<const void> & t){
         if(NULL == m_pointers_132)
             m_pointers_132 = new std::list<boost_132::shared_ptr<const void> >;
@@ -208,7 +205,5 @@ public:
 
 } // namespace serialization
 } // namespace boost
-
-#include <boost/archive/detail/abi_suffix.hpp> // pops abi_suffix.hpp pragmas
 
 #endif // BOOST_SERIALIZATION_SHARED_PTR_HELPER_HPP

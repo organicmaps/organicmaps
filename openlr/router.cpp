@@ -1,5 +1,6 @@
 #include "openlr/router.hpp"
 
+#include "openlr/helpers.hpp"
 #include "openlr/road_info_getter.hpp"
 
 #include "routing/features_road_graph.hpp"
@@ -22,7 +23,8 @@ namespace openlr
 {
 namespace
 {
-size_t const kMaxRoadCandidates = 10;
+int const kFRCThreshold = 2;
+size_t const kMaxRoadCandidates = 20;
 double const kDistanceAccuracyM = 1000;
 double const kEps = 1e-9;
 double const kBearingDist = 25;
@@ -42,7 +44,7 @@ class Score final
 {
 public:
   // A weight for total length of true fake edges.
-  static const int kTrueFakeCoeff = 3;
+  static const int kTrueFakeCoeff = 10;
 
   // A weight for total length of fake edges that are parts of some
   // real edges.
@@ -167,8 +169,7 @@ Router::Edge Router::Edge::MakeNormal(Vertex const & u, Vertex const & v,
 // static
 Router::Edge Router::Edge::MakeSpecial(Vertex const & u, Vertex const & v)
 {
-  return Edge(u, v, routing::Edge::MakeFake(u.m_junction, v.m_junction, false /* partOfReal */),
-              true /* isSpecial */);
+  return Edge(u, v, routing::Edge::MakeFake(u.m_junction, v.m_junction), true /* isSpecial */);
 }
 
 pair<m2::PointD, m2::PointD> Router::Edge::ToPair() const
@@ -381,7 +382,7 @@ bool Router::FindPath(std::vector<routing::Edge> & path)
         sv.AddDistanceErrorPenalty(std::min(vd - v.m_stageStartDistance - distanceToNextPointM, w));
 
       if (edge.IsFake())
-        sv.AddFakePenalty(w, edge.IsPartOfReal());
+        sv.AddFakePenalty(w, edge.HasRealPart());
 
       pushVertex(u, v, sv, Edge::MakeNormal(u, v, edge));
     });
@@ -423,16 +424,6 @@ bool Router::NearNextStage(Vertex const & u, double pi) const
 bool Router::MayMoveToNextStage(Vertex const & u, double pi) const
 {
   return NearNextStage(u, pi) && u.m_bearingChecked;
-}
-
-bool Router::PassesRestriction(routing::Edge const & edge,
-                               FunctionalRoadClass const restriction) const
-{
-  if (edge.IsFake())
-    return true;
-
-  auto const frc = m_roadInfoGetter.Get(edge.GetFeatureId()).m_frc;
-  return frc <= restriction;
 }
 
 uint32_t Router::GetReverseBearing(Vertex const & u, Links const & links) const
@@ -485,7 +476,7 @@ void Router::ForEachEdge(Vertex const & u, bool outgoing, FunctionalRoadClass re
     GetIngoingEdges(u.m_junction, edges);
   for (auto const & edge : edges)
   {
-    if (!PassesRestriction(edge, restriction))
+    if (!PassesRestriction(edge, restriction, kFRCThreshold, m_roadInfoGetter))
       continue;
     fn(edge);
   }
@@ -545,7 +536,7 @@ void Router::ForEachNonFakeClosestEdge(Vertex const & u, FunctionalRoadClass con
     auto const & edge = p.first;
     if (edge.IsFake())
       continue;
-    if (!PassesRestriction(edge, restriction))
+    if (!PassesRestriction(edge, restriction, kFRCThreshold, m_roadInfoGetter))
       continue;
     fn(edge);
   }
@@ -557,8 +548,12 @@ size_t Router::FindPrefixLengthToConsume(It b, It const e, double lengthM)
   size_t n = 0;
   while (b != e && lengthM > 0.0)
   {
-    auto const & u = b->first;
-    auto const & v = b->second;
+    // Need p here to prolongate lifetime of (*b) if iterator
+    // dereferencing returns a temprorary object instead of a
+    // reference.
+    auto const & p = *b;
+    auto const & u = p.first;
+    auto const & v = p.second;
     double const len = MercatorBounds::DistanceOnEarth(u, v);
     if (2 * lengthM < len)
       break;
@@ -574,11 +569,12 @@ template <typename It>
 double Router::GetCoverage(m2::PointD const & u, m2::PointD const & v, It b, It e)
 {
   double const kEps = 1e-5;
+  double const kLengthThresholdM = 1;
 
   m2::PointD const uv = v - u;
   double const sqlen = u.SquareLength(v);
 
-  if (sqlen < kEps)
+  if (MercatorBounds::DistanceOnEarth(u, v) < kLengthThresholdM)
     return 0;
 
   std::vector<std::pair<double, double>> covs;
@@ -638,8 +634,12 @@ double Router::GetMatchingScore(m2::PointD const & u, m2::PointD const & v, It b
   double cov = 0;
   for (; b != e; ++b)
   {
-    auto const & s = b->first;
-    auto const & t = b->second;
+    // Need p here to prolongate lifetime of (*b) if iterator
+    // dereferencing returns a temprorary object instead of a
+    // reference.
+    auto const & p = *b;
+    auto const & s = p.first;
+    auto const & t = p.second;
     if (!m2::IsPointOnSegmentEps(s, u, v, kEps) || !m2::IsPointOnSegmentEps(t, u, v, kEps))
       break;
 
@@ -701,7 +701,7 @@ bool Router::ReconstructPath(std::vector<Edge> & edges, vector<routing::Edge> & 
           if (score > frontEdgeScore)
           {
             frontEdgeScore = score;
-            frontEdge = edge;
+            frontEdge = edge.GetReverseEdge();
           }
         });
   });
@@ -730,10 +730,10 @@ bool Router::ReconstructPath(std::vector<Edge> & edges, vector<routing::Edge> & 
       path.push_back(e.m_raw);
   }
 
-  if (frontEdgeScore >= kFakeCoverageThreshold)
+  if (frontEdgeScore >= kFakeCoverageThreshold && !path.empty() && path.front() != frontEdge)
     path.insert(path.begin(), frontEdge);
 
-  if (backEdgeScore >= kFakeCoverageThreshold)
+  if (backEdgeScore >= kFakeCoverageThreshold && !path.empty() && path.back() != backEdge)
     path.insert(path.end(), backEdge);
 
   if (path.empty())
@@ -745,9 +745,10 @@ bool Router::ReconstructPath(std::vector<Edge> & edges, vector<routing::Edge> & 
   return !path.empty();
 }
 
-void Router::FindSingleEdgeApproximation(std::vector<Edge> const & edges, std::vector<routing::Edge> & path)
+void Router::FindSingleEdgeApproximation(std::vector<Edge> const & edges,
+                                         std::vector<routing::Edge> & path)
 {
-  double const kThreshold = 0.95;
+  double const kCoverageThreshold = 0.5;
 
   CHECK(all_of(edges.begin(), edges.end(), mem_fn(&Edge::IsFake)), ());
 
@@ -767,7 +768,7 @@ void Router::FindSingleEdgeApproximation(std::vector<Edge> const & edges, std::v
         GetCoverage(edge.GetStartJunction().GetPoint(), edge.GetEndJunction().GetPoint(),
                     edges.begin(), edges.end());
     double const coverage = weight * fraction;
-    if (fraction >= kThreshold && coverage >= bestCoverage)
+    if (coverage >= bestCoverage)
     {
       bestCoverage = coverage;
       bestEdge = edge;
@@ -785,7 +786,7 @@ void Router::FindSingleEdgeApproximation(std::vector<Edge> const & edges, std::v
     ForEachNonFakeClosestEdge(v, m_points[stage].m_lfrcnp, checkEdge);
   }
 
-  if (bestCoverage >= expectedLength * kThreshold)
+  if (bestCoverage >= expectedLength * kCoverageThreshold)
     path = {bestEdge};
 }
 }  // namespace openlr

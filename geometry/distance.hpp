@@ -3,8 +3,8 @@
 
 #include "base/math.hpp"
 
-#include "std/limits.hpp"
-
+#include <cmath>
+#include <limits>
 
 namespace m2
 {
@@ -15,7 +15,8 @@ namespace impl
 template <typename PointT> class CalculatedSection
 {
 private:
-  static_assert(numeric_limits<typename PointT::value_type>::is_signed, "We do not support unsigned points!!!");
+  static_assert(std::numeric_limits<typename PointT::value_type>::is_signed,
+                "We do not support unsigned points!!!");
 
 public:
   void SetBounds(PointT const & p0, PointT const & p1)
@@ -67,7 +68,8 @@ template <typename PointT> class DistanceToLineSquare : public impl::CalculatedS
 public:
   double operator() (PointT const & Y) const
   {
-    m2::PointD const YmP0 = Y - this->m_P0;
+    PointT const diff = Y - this->m_P0;
+    m2::PointD const YmP0(diff);
     double const t = DotProduct(this->m_D, YmP0);
 
     if (t <= 0)
@@ -82,7 +84,7 @@ public:
     }
 
     // Closest point is interior to segment.
-    return my::sq(this->Distance(YmP0));
+    return std::pow(this->Distance(YmP0), 2);
   }
 };
 

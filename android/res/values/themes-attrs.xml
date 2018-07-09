@@ -13,6 +13,7 @@
     <attr name="panel" format="color"/>
     <attr name="sidePanel" format="color"/>
     <attr name="iconTint" format="color"/>
+    <attr name="iconTintDisabled" format="color"/>
     <attr name="iconTintLight" format="color"/>
     <attr name="counterTextColor" format="color"/>
 
@@ -28,9 +29,6 @@
     <attr name="ppPositive" format="reference"/>
     <attr name="ppNegative" format="reference"/>
 
-    <attr name="routingSlot" format="reference"/>
-    <attr name="routingSlotPressed" format="reference"/>
-    <attr name="routingSlotMarker" format="reference"/>
     <attr name="navNextTurnFrame" format="reference"/>
     <attr name="navNextNextTurnFrame" format="reference"/>
 
@@ -40,14 +38,18 @@
     <attr name="buttonDialogTextColor" format="color"/>
 
     <attr name="accentButtonBackground" format="reference"/>
+    <attr name="accentButtonRoundBackground" format="reference"/>
     <attr name="accentButtonTextColor" format="color"/>
     <attr name="accentButtonTextColorDisabled" format="color"/>
+    <attr name="ghostButtonBackground" format="reference"/>
+    <attr name="ghostButtonTextColor" format="color"/>
+    <attr name="facebookButtonBackground" format="reference"/>
 
     <attr name="redButtonBackground" format="reference"/>
     <attr name="redButtonTextColor" format="color"/>
     <attr name="redButtonTextColorDisabled" format="color"/>
 
-    <attr name="startButtonBackground" format="reference"/>
+    <attr name="primaryButtonBackground" format="reference"/>
 
     <attr name="circleAccent" format="reference"/>
 
@@ -69,8 +71,8 @@
     <attr name="routingButtonActivatedHint" format="color"/>
 
     <attr name="bannerText" format="color"/>
-    <attr name="bannerBackground" format="color"/>
-    <attr name="bannerButtonBackground" format="color"/>
+    <attr name="bannerBackground" format="reference"/>
+    <attr name="bannerButtonBackground" format="reference"/>
     <attr name="adsBackground" format="reference"/>
     <attr name="adsText" format="color"/>
     <attr name="adsActionBackground" format="reference"/>
@@ -82,10 +84,29 @@
     <attr name="activeIconBackground" format="reference"/>
 
     <attr name="warmGray" format="color"/>
+
+    <attr name="localAdSearchResBackground" format="color"/>
+
+    <attr name="tagBackground" format="reference"/>
+
+    <attr name="sponsoredGalleryMore" format="reference"/>
+
+    <attr name="luggageLogo" format="reference"/>
+    <attr name="viatorLogo" format="reference" />
+
+    <attr name="ratingButtonBackground" format="reference"/>
+    <attr name="reviewButtonBackground" format="reference"/>
+    <attr name="transitPedestrianBackground" format="color"/>
+    <attr name="transitStepDivider" format="reference"/>
+    <attr name="filterPropertyBackground" format="reference"/>
+    <attr name="adChoicesIcon" format="reference"/>
+    <attr name="saleIcon" format="reference"/>
+    <attr name="toggleMapLayerBtnBg" format="reference"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.NavButtons">
     <attr name="nav_background" format="reference"/>
+    <attr name="nav_bg_subway" format="reference"/>
   </declare-styleable>
 
   <declare-styleable name="ThemeAttrs.Downloader">

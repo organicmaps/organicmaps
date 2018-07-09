@@ -21,7 +21,7 @@
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/plus.hpp>
-#include <boost/type_traits.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 
 
 namespace boost { namespace geometry

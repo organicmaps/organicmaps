@@ -35,7 +35,7 @@ namespace boost { namespace iostreams {
 namespace detail {
 
 // Class containing the platform-sepecific implementation
-// Invariant: The members params_, data_, size_, handle_ (and mapped_handle_
+// Invariant: The members params_, data_, size_, handle_ (and mapped_handle_ 
 // on Windows) either
 //    - all have default values (or INVALID_HANDLE_VALUE for
 //      Windows handles), or
@@ -56,7 +56,7 @@ public:
     void close();
     bool error() const { return error_; }
     mapmode flags() const { return params_.flags; }
-    std::size_t size() const { return size_; }
+    std::size_t size() const { return static_cast<std::size_t>(size_); }
     char* data() const { return data_; }
     void resize(stream_offset new_size);
     static int alignment();
@@ -79,7 +79,7 @@ private:
 
 mapped_file_impl::mapped_file_impl() { clear(false); }
 
-mapped_file_impl::~mapped_file_impl()
+mapped_file_impl::~mapped_file_impl() 
 { try { close(); } catch (...) { } }
 
 void mapped_file_impl::open(param_type p)
@@ -98,11 +98,11 @@ void mapped_file_impl::close()
         return;
     bool error = false;
     error = !unmap_file() || error;
-    error =
+    error = 
         #ifdef BOOST_IOSTREAMS_WINDOWS
-            !::CloseHandle(handle_)
+            !::CloseHandle(handle_) 
         #else
-            ::close(handle_) != 0
+            ::close(handle_) != 0 
         #endif
             || error;
     clear(error);
@@ -172,15 +172,15 @@ void mapped_file_impl::open_file(param_type p)
         readonly ?
             GENERIC_READ :
             (GENERIC_READ | GENERIC_WRITE);
-    DWORD dwCreationDisposition = (p.new_file_size != 0 && !readonly) ?
-        CREATE_ALWAYS :
+    DWORD dwCreationDisposition = (p.new_file_size != 0 && !readonly) ? 
+        CREATE_ALWAYS : 
         OPEN_EXISTING;
     DWORD dwFlagsandAttributes =
         readonly ?
             FILE_ATTRIBUTE_READONLY :
             FILE_ATTRIBUTE_TEMPORARY;
     handle_ = p.path.is_wide() ?
-        ::CreateFileW(
+        ::CreateFileW( 
             p.path.c_wstr(),
             dwDesiredAccess,
             FILE_SHARE_READ,
@@ -188,7 +188,7 @@ void mapped_file_impl::open_file(param_type p)
             dwCreationDisposition,
             dwFlagsandAttributes,
             NULL ) :
-        ::CreateFileA(
+        ::CreateFileA( 
             p.path.c_str(),
             dwDesiredAccess,
             FILE_SHARE_READ,
@@ -293,46 +293,46 @@ void mapped_file_impl::try_map_file(param_type p)
 #ifdef BOOST_IOSTREAMS_WINDOWS
 
     // Create mapping
-    DWORD protect = priv ?
-        PAGE_WRITECOPY :
-        readonly ?
-            PAGE_READONLY :
+    DWORD protect = priv ? 
+        PAGE_WRITECOPY : 
+        readonly ? 
+            PAGE_READONLY : 
             PAGE_READWRITE;
-    mapped_handle_ =
-        ::CreateFileMappingA(
-            handle_,
+    mapped_handle_ = 
+        ::CreateFileMappingA( 
+            handle_, 
             NULL,
             protect,
-            0,
-            0,
+            0, 
+            0, 
             NULL );
     if (mapped_handle_ == NULL)
         cleanup_and_throw("failed create mapping");
 
     // Access data
-    DWORD access = priv ?
-        FILE_MAP_COPY :
-        readonly ?
-            FILE_MAP_READ :
+    DWORD access = priv ? 
+        FILE_MAP_COPY : 
+        readonly ? 
+            FILE_MAP_READ : 
             FILE_MAP_WRITE;
     void* data =
-        ::MapViewOfFileEx(
+        ::MapViewOfFileEx( 
             mapped_handle_,
             access,
             (DWORD) (p.offset >> 32),
             (DWORD) (p.offset & 0xffffffff),
-            size_ != max_length ? size_ : 0,
+            (SIZE_T) (size_ != max_length ? size_ : 0), 
             (LPVOID) p.hint );
     if (!data)
         cleanup_and_throw("failed mapping view");
 #else
-    void* data =
-        ::BOOST_IOSTREAMS_FD_MMAP(
-            const_cast<char*>(p.hint),
+    void* data = 
+        ::BOOST_IOSTREAMS_FD_MMAP( 
+            const_cast<char*>(p.hint), 
             size_,
             readonly ? PROT_READ : (PROT_READ | PROT_WRITE),
             priv ? MAP_PRIVATE : MAP_SHARED,
-            handle_,
+            handle_, 
             p.offset );
     if (data == MAP_FAILED)
         cleanup_and_throw("failed mapping file");
@@ -420,7 +420,7 @@ void mapped_file_params_base::normalize()
             boost::throw_exception(BOOST_IOSTREAMS_FAILURE("invalid flags"));
         }
     } else {
-        flags = (mode & BOOST_IOS::out) ?
+        flags = (mode & BOOST_IOS::out) ? 
             mapped_file::readwrite :
             mapped_file::readonly;
         mode = BOOST_IOS::openmode();
@@ -437,7 +437,7 @@ void mapped_file_params_base::normalize()
 
 //------------------Implementation of mapped_file_source----------------------//
 
-mapped_file_source::mapped_file_source()
+mapped_file_source::mapped_file_source() 
     : pimpl_(new impl_type)
     { }
 
@@ -457,7 +457,7 @@ mapped_file_source::operator mapped_file_source::safe_bool() const
 bool mapped_file_source::operator!() const
 { return pimpl_->error(); }
 
-mapped_file_source::mapmode mapped_file_source::flags() const
+mapped_file_source::mapmode mapped_file_source::flags() const 
 { return pimpl_->flags(); }
 
 mapped_file_source::size_type mapped_file_source::size() const

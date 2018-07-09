@@ -33,7 +33,7 @@ bool LoadFromXml(pugi::xml_document const & xml, std::list<editor::Note> & notes
     uploadedNotesCount = static_cast<uint32_t>(notesCount);
   }
 
-  for (auto const xNode : root.select_nodes("note"))
+  for (auto const & xNode : root.select_nodes("note"))
   {
     ms::LatLon latLon;
 

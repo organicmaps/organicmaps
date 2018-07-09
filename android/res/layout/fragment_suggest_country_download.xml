@@ -55,10 +55,9 @@
 
       <Button
         android:id="@+id/btn__download_map"
-        style="@style/MwmWidget.Button.Accent"
+        style="@style/MwmWidget.Button.Primary"
         android:layout_marginTop="@dimen/margin_half"
-        android:text="@string/downloader_download_map"
-        android:textAppearance="@style/MwmTextAppearance.Body1"/>
+        android:text="@string/downloader_download_map"/>
     </LinearLayout>
 
     <LinearLayout
@@ -81,10 +80,9 @@
 
       <Button
         android:id="@+id/btn__select_map"
-        style="@style/MwmWidget.Button.Accent"
+        style="@style/MwmWidget.Button.Primary"
         android:layout_marginTop="@dimen/margin_half"
-        android:text="@string/search_select_map"
-        android:textAppearance="@style/MwmTextAppearance.Body1"/>
+        android:text="@string/search_select_map"/>
     </LinearLayout>
   </LinearLayout>
 

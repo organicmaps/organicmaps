@@ -29,6 +29,7 @@
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/comparison/less.hpp>
+#include <boost/preprocessor/logical/not.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/tag.hpp>
 #include <boost/mpl/eval_if.hpp>
@@ -64,7 +65,7 @@
 
 #ifdef BOOST_MSVC
 #   define BOOST_FUSION_ATTRIBUTE_TYPEOF(                                       \
-        NAME_SEQ, ATTRIBUTE, ATTRIBUTE_TUPEL_SIZE, PREFIX, TEMPLATE_PARAMS_SEQ) \
+        NAME_SEQ, ATTRIBUTE, ATTRIBUTE_TUPLE_SIZE, PREFIX, TEMPLATE_PARAMS_SEQ) \
                                                                                 \
     BOOST_FUSION_ADAPT_STRUCT_MSVC_REDEFINE_TEMPLATE_PARAMS(                    \
         TEMPLATE_PARAMS_SEQ)                                                    \
@@ -73,7 +74,7 @@
       static const BOOST_FUSION_ADAPT_STRUCT_UNPACK_NAME(NAME_SEQ)& obj;        \
       typedef                                                                   \
       BOOST_PP_IF(BOOST_FUSION_ADAPT_IS_TPL(TEMPLATE_PARAMS_SEQ), typename, )   \
-      BOOST_TYPEOF( PREFIX() obj.BOOST_PP_TUPLE_ELEM(ATTRIBUTE_TUPEL_SIZE,      \
+      BOOST_TYPEOF( PREFIX() obj.BOOST_PP_TUPLE_ELEM(ATTRIBUTE_TUPLE_SIZE,      \
             0, ATTRIBUTE))                                                      \
       type;                                                                     \
     };                                                                          \
@@ -82,14 +83,14 @@
         BOOST_PP_IF(BOOST_FUSION_ADAPT_IS_TPL(TEMPLATE_PARAMS_SEQ), typename, ) \
         deduced_attr_type::type attribute_type;
 
-#else
+#else 
 #   define BOOST_FUSION_ATTRIBUTE_TYPEOF(                                       \
-        NAME_SEQ, ATTRIBUTE, ATTRIBUTE_TUPEL_SIZE, PREFIX, TEMPLATE_PARAMS_SEQ) \
+        NAME_SEQ, ATTRIBUTE, ATTRIBUTE_TUPLE_SIZE, PREFIX, TEMPLATE_PARAMS_SEQ) \
                                                                                 \
     struct deduced_attr_type {                                                  \
       static const BOOST_FUSION_ADAPT_STRUCT_UNPACK_NAME(NAME_SEQ)& obj;        \
       typedef BOOST_TYPEOF(                                                     \
-          PREFIX() obj.BOOST_PP_TUPLE_ELEM(ATTRIBUTE_TUPEL_SIZE, 0, ATTRIBUTE)) \
+          PREFIX() obj.BOOST_PP_TUPLE_ELEM(ATTRIBUTE_TUPLE_SIZE, 0, ATTRIBUTE)) \
       type;                                                                     \
     };                                                                          \
                                                                                 \
@@ -100,10 +101,10 @@
 #endif
 
 #define BOOST_FUSION_ATTRIBUTE_GIVENTYPE(                                       \
-    NAME_SEQ, ATTRIBUTE, ATTRIBUTE_TUPEL_SIZE, PREFIX, TEMPLATE_PARAMS_SEQ)     \
+    NAME_SEQ, ATTRIBUTE, ATTRIBUTE_TUPLE_SIZE, PREFIX, TEMPLATE_PARAMS_SEQ)     \
     typedef                                                                     \
-        BOOST_PP_TUPLE_ELEM(ATTRIBUTE_TUPEL_SIZE, 0, ATTRIBUTE) attribute_type;
-
+        BOOST_PP_TUPLE_ELEM(ATTRIBUTE_TUPLE_SIZE, 0, ATTRIBUTE) attribute_type;
+   
 
 #ifdef BOOST_NO_PARTIAL_SPECIALIZATION_IMPLICIT_DEFAULT_ARGS
 #   define BOOST_FUSION_ADAPT_STRUCT_TAG_OF_SPECIALIZATION(                     \
@@ -159,7 +160,7 @@
 
 #define BOOST_FUSION_ADAPT_STRUCT_C_BASE(                                       \
     TEMPLATE_PARAMS_SEQ,NAME_SEQ,IS_VIEW,                                       \
-    I,PREFIX,ATTRIBUTE,ATTRIBUTE_TUPEL_SIZE,                                    \
+    I,PREFIX,ATTRIBUTE,ATTRIBUTE_TUPLE_SIZE,                                    \
     DEDUCE_TYPE)                                                                \
                                                                                 \
     template<                                                                   \
@@ -174,7 +175,7 @@
             BOOST_FUSION_ATTRIBUTE_TYPEOF, BOOST_FUSION_ATTRIBUTE_GIVENTYPE)(   \
                 NAME_SEQ,                                                       \
                 ATTRIBUTE,                                                      \
-                ATTRIBUTE_TUPEL_SIZE,                                           \
+                ATTRIBUTE_TUPLE_SIZE,                                           \
                 PREFIX,                                                         \
                 TEMPLATE_PARAMS_SEQ)                                            \
                                                                                 \
@@ -201,8 +202,8 @@
             call(Seq& seq)                                                      \
             {                                                                   \
                 return seq.PREFIX()                                             \
-                    BOOST_PP_TUPLE_ELEM(ATTRIBUTE_TUPEL_SIZE,                   \
-                        BOOST_PP_IF(DEDUCE_TYPE, 0, 1), ATTRIBUTE);             \
+                    BOOST_PP_TUPLE_ELEM(ATTRIBUTE_TUPLE_SIZE,                   \
+                        BOOST_PP_NOT(DEDUCE_TYPE), ATTRIBUTE);                  \
             }                                                                   \
         };                                                                      \
     };                                                                          \
@@ -222,9 +223,8 @@
         call()                                                                  \
         {                                                                       \
             return BOOST_PP_STRINGIZE(                                          \
-               BOOST_PP_TUPLE_ELEM(ATTRIBUTE_TUPEL_SIZE,                        \
-                        BOOST_PP_IF(DEDUCE_TYPE, 0, 1),                         \
-                          ATTRIBUTE));                                          \
+               BOOST_PP_TUPLE_ELEM(ATTRIBUTE_TUPLE_SIZE,                        \
+                   BOOST_PP_NOT(DEDUCE_TYPE), ATTRIBUTE));                      \
         }                                                                       \
     };
 
@@ -274,7 +274,7 @@ namespace boost                                                                 
             struct struct_is_view<                                              \
                 BOOST_FUSION_ADAPT_STRUCT_UNPACK_NAME(NAME_SEQ)                 \
             >                                                                   \
-              : mpl::BOOST_PP_IF(IS_VIEW,true_,false_)                          \
+              : mpl::BOOST_PP_IIF(IS_VIEW,true_,false_)                         \
             {};                                                                 \
         }                                                                       \
     }                                                                           \

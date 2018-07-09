@@ -1,10 +1,10 @@
 #pragma once
 
 #include "drape_frontend/map_shape.hpp"
+#include "drape_frontend/render_state.hpp"
 #include "drape_frontend/shape_view_params.hpp"
 
 #include "drape/binding_info.hpp"
-#include "drape/glstate.hpp"
 
 #include "geometry/spline.hpp"
 

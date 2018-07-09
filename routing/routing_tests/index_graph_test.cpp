@@ -2,51 +2,76 @@
 
 #include "routing/base/astar_algorithm.hpp"
 #include "routing/edge_estimator.hpp"
+#include "routing/fake_ending.hpp"
 #include "routing/index_graph.hpp"
 #include "routing/index_graph_serialization.hpp"
 #include "routing/index_graph_starter.hpp"
+#include "routing/index_router.hpp"
+#include "routing/routing_helpers.hpp"
 #include "routing/vehicle_mask.hpp"
 
 #include "routing/routing_tests/index_graph_tools.hpp"
 
 #include "routing_common/car_model.hpp"
 
+#include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
 #include "coding/reader.hpp"
 #include "coding/writer.hpp"
 
 #include "base/assert.hpp"
+#include "base/math.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/cstdint.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/unordered_map.hpp"
 #include "std/vector.hpp"
+
+using namespace std;
 
 namespace
 {
 using namespace routing;
 using namespace routing_test;
 
-void TestRoute(IndexGraphStarter::FakeVertex const & start,
-               IndexGraphStarter::FakeVertex const & finish, size_t expectedLength,
-               vector<Segment> const * expectedRoute, WorldGraph & graph)
+using TestEdge = TestIndexGraphTopology::Edge;
+
+double constexpr kUnknownWeight = -1.0;
+
+void TestRoute(FakeEnding const & start, FakeEnding const & finish, size_t expectedLength,
+               vector<Segment> const * expectedRoute, double expectedWeight, WorldGraph & graph)
 {
-  IndexGraphStarter starter(start, finish, graph);
+  auto starter = MakeStarter(start, finish, graph);
   vector<Segment> route;
   double timeSec;
-  auto const resultCode = CalculateRoute(starter, route, timeSec);
+  auto const resultCode = CalculateRoute(*starter, route, timeSec);
   TEST_EQUAL(resultCode, AStarAlgorithm<IndexGraphStarter>::Result::OK, ());
 
   TEST_GREATER(route.size(), 2, ());
-  // Erase fake points.
-  route.erase(route.begin());
-  route.pop_back();
 
-  TEST_EQUAL(route.size(), expectedLength, ("route =", route));
+  vector<Segment> noFakeRoute;
+  for (auto const & s : route)
+  {
+    auto real = s;
+    if (!starter->ConvertToReal(real))
+      continue;
+    noFakeRoute.push_back(real);
+  }
+
+  TEST_EQUAL(noFakeRoute.size(), expectedLength, ("route =", noFakeRoute));
+
+  if (expectedWeight != kUnknownWeight)
+  {
+    double constexpr kEpsilon = 0.01;
+    TEST(my::AlmostEqualRel(timeSec, expectedWeight, kEpsilon),
+         ("Expected weight:", expectedWeight, "got:", timeSec));
+  }
 
   if (expectedRoute)
-    TEST_EQUAL(route, *expectedRoute, ());
+    TEST_EQUAL(noFakeRoute, *expectedRoute, ());
 }
 
 void TestEdges(IndexGraph & graph, Segment const & segment, vector<Segment> const & expectedTargets,
@@ -117,7 +142,7 @@ UNIT_TEST(EdgesTest)
                   RoadGeometry::Points({{3.0, -1.0}, {3.0, 0.0}, {3.0, 1.0}}));
 
   traffic::TrafficCache const trafficCache;
-  IndexGraph graph(move(loader), CreateEstimator(trafficCache));
+  IndexGraph graph(make_shared<Geometry>(move(loader)), CreateEstimatorForCar(trafficCache));
 
   vector<Joint> joints;
   joints.emplace_back(MakeJoint({{0, 1}, {3, 1}}));  // J0
@@ -176,15 +201,16 @@ UNIT_TEST(FindPathCross)
       RoadGeometry::Points({{0.0, -2.0}, {0.0, -1.0}, {0.0, 0.0}, {0.0, 1.0}, {0.0, 2.0}}));
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
   unique_ptr<WorldGraph> worldGraph =
       BuildWorldGraph(move(loader), estimator, {MakeJoint({{0, 2}, {1, 2}})});
 
-  vector<IndexGraphStarter::FakeVertex> endPoints;
+  vector<FakeEnding> endPoints;
   for (uint32_t i = 0; i < 4; ++i)
   {
-    endPoints.emplace_back(kTestNumMwmId, 0, i, m2::PointD(-1.5 + i, 0.0));
-    endPoints.emplace_back(kTestNumMwmId, 1, i, m2::PointD(0.0, -1.5 + i));
+    endPoints.push_back(MakeFakeEnding(0 /* featureId */, i /* segmentIdx */,
+                                       m2::PointD(-1.5 + i, 0.0), *worldGraph));
+    endPoints.push_back(MakeFakeEnding(1, i, m2::PointD(0.0, -1.5 + i), *worldGraph));
   }
 
   for (auto const & start : endPoints)
@@ -192,23 +218,27 @@ UNIT_TEST(FindPathCross)
     for (auto const & finish : endPoints)
     {
       uint32_t expectedLength = 0;
-      if (start.GetFeatureId() == finish.GetFeatureId())
+      if (start.m_projections[0].m_segment.GetFeatureId() ==
+          finish.m_projections[0].m_segment.GetFeatureId())
       {
-        expectedLength = AbsDelta(start.GetSegmentIdx(), finish.GetSegmentIdx()) + 1;
+        expectedLength = AbsDelta(start.m_projections[0].m_segment.GetSegmentIdx(),
+                                  finish.m_projections[0].m_segment.GetSegmentIdx()) +
+                         1;
       }
       else
       {
-        if (start.GetSegmentIdx() < 2)
-          expectedLength += 2 - start.GetSegmentIdx();
+        if (start.m_projections[0].m_segment.GetSegmentIdx() < 2)
+          expectedLength += 2 - start.m_projections[0].m_segment.GetSegmentIdx();
         else
-          expectedLength += start.GetSegmentIdx() - 1;
+          expectedLength += start.m_projections[0].m_segment.GetSegmentIdx() - 1;
 
-        if (finish.GetSegmentIdx() < 2)
-          expectedLength += 2 - finish.GetSegmentIdx();
+        if (finish.m_projections[0].m_segment.GetSegmentIdx() < 2)
+          expectedLength += 2 - finish.m_projections[0].m_segment.GetSegmentIdx();
         else
-          expectedLength += finish.GetSegmentIdx() - 1;
+          expectedLength += finish.m_projections[0].m_segment.GetSegmentIdx() - 1;
       }
-      TestRoute(start, finish, expectedLength, nullptr, *worldGraph);
+      TestRoute(start, finish, expectedLength, nullptr /* expectedRoute */, kUnknownWeight,
+                *worldGraph);
     }
   }
 }
@@ -241,7 +271,7 @@ UNIT_TEST(FindPathManhattan)
   }
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
 
   vector<Joint> joints;
   for (uint32_t i = 0; i < kCitySize; ++i)
@@ -252,15 +282,15 @@ UNIT_TEST(FindPathManhattan)
 
   unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, joints);
 
-  vector<IndexGraphStarter::FakeVertex> endPoints;
+  vector<FakeEnding> endPoints;
   for (uint32_t featureId = 0; featureId < kCitySize; ++featureId)
   {
     for (uint32_t segmentId = 0; segmentId < kCitySize - 1; ++segmentId)
     {
-      endPoints.emplace_back(kTestNumMwmId, featureId, segmentId,
-                             m2::PointD(0.5 + segmentId, featureId));
-      endPoints.emplace_back(kTestNumMwmId, featureId + kCitySize, segmentId,
-                             m2::PointD(featureId, 0.5 + segmentId));
+      endPoints.push_back(MakeFakeEnding(featureId, segmentId,
+                                         m2::PointD(0.5 + segmentId, featureId), *worldGraph));
+      endPoints.push_back(MakeFakeEnding(featureId + kCitySize, segmentId,
+                                         m2::PointD(featureId, 0.5 + segmentId), *worldGraph));
     }
   }
 
@@ -270,35 +300,51 @@ UNIT_TEST(FindPathManhattan)
     {
       uint32_t expectedLength = 0;
 
-      auto const startFeatureOffset = start.GetFeatureId() < kCitySize
-                                          ? start.GetFeatureId()
-                                          : start.GetFeatureId() - kCitySize;
-      auto const finishFeatureOffset = finish.GetFeatureId() < kCitySize
-                                           ? finish.GetFeatureId()
-                                           : finish.GetFeatureId() - kCitySize;
+      auto const startFeatureOffset =
+          start.m_projections[0].m_segment.GetFeatureId() < kCitySize
+              ? start.m_projections[0].m_segment.GetFeatureId()
+              : start.m_projections[0].m_segment.GetFeatureId() - kCitySize;
+      auto const finishFeatureOffset =
+          finish.m_projections[0].m_segment.GetFeatureId() < kCitySize
+              ? finish.m_projections[0].m_segment.GetFeatureId()
+              : finish.m_projections[0].m_segment.GetFeatureId() - kCitySize;
 
-      if (start.GetFeatureId() < kCitySize == finish.GetFeatureId() < kCitySize)
+      if ((start.m_projections[0].m_segment.GetFeatureId() < kCitySize) ==
+          (finish.m_projections[0].m_segment.GetFeatureId() < kCitySize))
       {
-        uint32_t segDelta = AbsDelta(start.GetSegmentIdx(), finish.GetSegmentIdx());
-        if (segDelta == 0 && start.GetFeatureId() != finish.GetFeatureId())
+        uint32_t segDelta = AbsDelta(start.m_projections[0].m_segment.GetSegmentIdx(),
+                                     finish.m_projections[0].m_segment.GetSegmentIdx());
+        if (segDelta == 0 && start.m_projections[0].m_segment.GetFeatureId() !=
+                                 finish.m_projections[0].m_segment.GetFeatureId())
           segDelta = 1;
         expectedLength += segDelta;
         expectedLength += AbsDelta(startFeatureOffset, finishFeatureOffset) + 1;
       }
       else
       {
-        if (start.GetSegmentIdx() < finishFeatureOffset)
-          expectedLength += finishFeatureOffset - start.GetSegmentIdx();
+        if (start.m_projections[0].m_segment.GetSegmentIdx() < finishFeatureOffset)
+        {
+          expectedLength += finishFeatureOffset - start.m_projections[0].m_segment.GetSegmentIdx();
+        }
         else
-          expectedLength += start.GetSegmentIdx() - finishFeatureOffset + 1;
+        {
+          expectedLength +=
+              start.m_projections[0].m_segment.GetSegmentIdx() - finishFeatureOffset + 1;
+        }
 
-        if (finish.GetSegmentIdx() < startFeatureOffset)
-          expectedLength += startFeatureOffset - finish.GetSegmentIdx();
+        if (finish.m_projections[0].m_segment.GetSegmentIdx() < startFeatureOffset)
+        {
+          expectedLength += startFeatureOffset - finish.m_projections[0].m_segment.GetSegmentIdx();
+        }
         else
-          expectedLength += finish.GetSegmentIdx() - startFeatureOffset + 1;
+        {
+          expectedLength +=
+              finish.m_projections[0].m_segment.GetSegmentIdx() - startFeatureOffset + 1;
+        }
       }
 
-      TestRoute(start, finish, expectedLength, nullptr, *worldGraph);
+      TestRoute(start, finish, expectedLength, nullptr /* expectedRoute */, kUnknownWeight,
+                *worldGraph);
     }
   }
 }
@@ -306,7 +352,7 @@ UNIT_TEST(FindPathManhattan)
 // Roads                                          y:
 //
 //  fast road R0              * - * - *           -1
-//                          /           \
+//                          ╱           ╲
 //  slow road R1    * - -  *  - - * - -  * - - *   0
 //                        J0            J1
 //
@@ -325,7 +371,7 @@ UNIT_TEST(RoadSpeed)
       RoadGeometry::Points({{0.0, 0.0}, {1.0, 0.0}, {3.0, 0.0}, {5.0, 0.0}, {6.0, 0.0}}));
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
 
   vector<Joint> joints;
   joints.emplace_back(MakeJoint({{0, 0}, {1, 1}}));  // J0
@@ -333,8 +379,9 @@ UNIT_TEST(RoadSpeed)
 
   unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, joints);
 
-  IndexGraphStarter::FakeVertex const start(kTestNumMwmId, 1, 0, m2::PointD(0.5, 0));
-  IndexGraphStarter::FakeVertex const finish(kTestNumMwmId, 1, 3, m2::PointD(5.5, 0));
+  auto const start =
+      MakeFakeEnding(1 /* featureId */, 0 /* segmentIdx */, m2::PointD(0.5, 0), *worldGraph);
+  auto const finish = MakeFakeEnding(1, 3, m2::PointD(5.5, 0), *worldGraph);
 
   vector<Segment> const expectedRoute({{kTestNumMwmId, 1, 0, true},
                                        {kTestNumMwmId, 0, 0, true},
@@ -342,7 +389,13 @@ UNIT_TEST(RoadSpeed)
                                        {kTestNumMwmId, 0, 2, true},
                                        {kTestNumMwmId, 0, 3, true},
                                        {kTestNumMwmId, 1, 3, true}});
-  TestRoute(start, finish, 6, &expectedRoute, *worldGraph);
+  double const expectedWeight =
+      MercatorBounds::DistanceOnEarth({0.5, 0.0}, {1.0, 0.0}) / KMPH2MPS(1.0) +
+      MercatorBounds::DistanceOnEarth({1.0, 0.0}, {2.0, -1.0}) / KMPH2MPS(10.0) +
+      MercatorBounds::DistanceOnEarth({2.0, -1.0}, {4.0, -1.0}) / KMPH2MPS(10.0) +
+      MercatorBounds::DistanceOnEarth({4.0, -1.0}, {5.0, 0.0}) / KMPH2MPS(10.0) +
+      MercatorBounds::DistanceOnEarth({5.0, 0.0}, {5.5, 0.0}) / KMPH2MPS(1.0);
+  TestRoute(start, finish, expectedRoute.size(), &expectedRoute, expectedWeight, *worldGraph);
 }
 
 // Roads                             y:
@@ -361,14 +414,138 @@ UNIT_TEST(OneSegmentWay)
                   RoadGeometry::Points({{0.0, 0.0}, {3.0, 0.0}}));
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
+  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, vector<Joint>());
+  vector<Segment> const expectedRoute(
+      {{kTestNumMwmId, 0 /* featureId */, 0 /* seg id */, true /* forward */}});
+
+  // Starter must match any combination of start and finish directions.
+  vector<bool> const tf = {{true, false}};
+  for (auto const startIsForward : tf)
+  {
+    for (auto const finishIsForward : tf)
+    {
+      auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 0, 0, startIsForward),
+                                        m2::PointD(1.0, 0.0), *worldGraph);
+      auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 0, 0, finishIsForward),
+                                         m2::PointD(2.0, 0.0), *worldGraph);
+
+      auto const expectedWeight =
+          MercatorBounds::DistanceOnEarth({1.0, 0.0}, {2.0, 0.0}) / KMPH2MPS(1.0);
+      TestRoute(start, finish, expectedRoute.size(), &expectedRoute, expectedWeight, *worldGraph);
+    }
+  }
+}
+
+//
+// Roads                             y:
+//
+//    R0    * - - - - - - - ->*      0
+//                ^     ^
+//            finish  start
+//
+//    x:    0     1     2     3
+//
+UNIT_TEST(OneSegmentWayBackward)
+{
+  unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
+
+  loader->AddRoad(0 /* featureId */, true /* one way */, 1.0 /* speed */,
+                  RoadGeometry::Points({{0.0, 0.0}, {3.0, 0.0}}));
+
+  traffic::TrafficCache const trafficCache;
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
   unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, vector<Joint>());
 
-  IndexGraphStarter::FakeVertex const start(kTestNumMwmId, 0, 0, m2::PointD(1, 0));
-  IndexGraphStarter::FakeVertex const finish(kTestNumMwmId, 0, 0, m2::PointD(2, 0));
+  auto const start =
+      MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(2, 0), *worldGraph);
+  auto const finish = MakeFakeEnding(0, 0, m2::PointD(1, 0), *worldGraph);
 
-  vector<Segment> const expectedRoute({{kTestNumMwmId, 0, 0, true}});
-  TestRoute(start, finish, 1 /* expectedLength */, &expectedRoute, *worldGraph);
+  auto starter = MakeStarter(start, finish, *worldGraph);
+  vector<Segment> route;
+  double timeSec;
+  auto const resultCode = CalculateRoute(*starter, route, timeSec);
+  TEST_EQUAL(resultCode, AStarAlgorithm<IndexGraphStarter>::Result::NoPath, ());
+}
+
+// Roads                             y:
+//
+//    R0  * - - - - - * - - - - - * R1      0
+//              ^           ^
+//           start        finish
+//
+//    x:  0     1     2     3     4
+//
+UNIT_TEST(FakeSegmentCoordinates)
+{
+  unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
+
+  loader->AddRoad(0 /* featureId */, false, 1.0 /* speed */,
+                  RoadGeometry::Points({{0.0, 0.0}, {2.0, 0.0}}));
+  loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */,
+                  RoadGeometry::Points({{2.0, 0.0}, {4.0, 0.0}}));
+
+  vector<Joint> joints;
+  joints.emplace_back(MakeJoint({{0 /* featureId */, 1 /* pointId */}, {1, 0}}));
+
+  traffic::TrafficCache const trafficCache;
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
+  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, joints);
+  vector<m2::PointD> const expectedGeom = {{1.0 /* x */, 0.0 /* y */}, {2.0, 0.0}, {3.0, 0.0}};
+
+  // Test fake segments have valid coordinates for any combination of start and finish directions
+  vector<bool> const tf = {{true, false}};
+  for (auto const startIsForward : tf)
+  {
+    for (auto const finishIsForward : tf)
+    {
+      auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 0, 0, startIsForward),
+                                        m2::PointD(1, 0), *worldGraph);
+      auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 1, 0, finishIsForward),
+                                         m2::PointD(3, 0), *worldGraph);
+
+      auto starter = MakeStarter(start, finish, *worldGraph);
+      TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
+    }
+  }
+}
+
+//       start  finish
+//          *     *
+//          |     |                                   R1
+//          |     |                                   *
+//    * - - - - - - - - - - - - - - - - - - - - - - - *
+//                         R0
+//
+// x: 0     1     2     3     4     5     6     7     8
+//
+UNIT_TEST(FakeEndingAStarInvariant)
+{
+  unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
+
+  loader->AddRoad(0 /* featureId */, false, 1.0 /* speed */,
+                  RoadGeometry::Points({{0.0, 0.0}, {8.0, 0.0}}));
+  loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */,
+                  RoadGeometry::Points({{8.0, 0.0}, {8.0, 1.0 / 1000.0}}));
+
+  vector<Joint> joints;
+  joints.emplace_back(MakeJoint({{0 /* featureId */, 1 /* pointId */}, {1, 0}}));
+
+  traffic::TrafficCache const trafficCache;
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
+  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, joints);
+  vector<Segment> const expectedRoute(
+      {{kTestNumMwmId, 0 /* featureId */, 0 /* seg id */, true /* forward */}});
+
+  auto const start =
+      MakeFakeEnding(0 /* featureId */, 0 /* segmentIdx */, m2::PointD(1.0, 1.0), *worldGraph);
+  auto const finish = MakeFakeEnding(0, 0, m2::PointD(2.0, 1.0), *worldGraph);
+
+  auto const expectedWeight =
+      estimator->CalcOffroadWeight({1.0, 1.0}, {1.0, 0.0}) +
+      MercatorBounds::DistanceOnEarth({1.0, 0.0}, {2.0, 0.0}) / KMPH2MPS(1.0) +
+      estimator->CalcOffroadWeight({2.0, 0.0}, {2.0, 1.0});
+  TestRoute(start, finish, expectedRoute.size(), &expectedRoute, expectedWeight, *worldGraph);
 }
 
 //
@@ -438,20 +615,20 @@ UNIT_TEST(SerializeSimpleGraph)
 //           F2
 //           |
 //           |
-// 0.0003    *---------*
+// 0.0003   6*---------*5
 //           |         |
 //           |         |
 //           |         |
 //           |         |
 //           |         |
-// 0.0002    *         *
+// 0.0002   7*         *4
 //           |         |
 //           |         |
-// 0.00015   *    F0   *
+// 0.00015  8*    F0   *3
 //            \       /
-//              \   /
-// 0.0001         *---F0-*----*
-//                            ^
+//              \   /    1    0
+// 0.0001        9*---F0-*----*
+//                2           ^
 //                            |
 //                            F1
 //                            |
@@ -459,7 +636,7 @@ UNIT_TEST(SerializeSimpleGraph)
 // 0                          * Start
 //   0         0.0001       0.0002
 // F0 is a two-way feature with a loop and F1 and F2 are an one-way one-segment features.
-unique_ptr<WorldGraph> BuildLoopGraph()
+unique_ptr<SingleVehicleWorldGraph> BuildLoopGraph()
 {
   unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
   loader->AddRoad(0 /* feature id */, false /* one way */, 100.0 /* speed */,
@@ -486,7 +663,7 @@ unique_ptr<WorldGraph> BuildLoopGraph()
   };
 
   traffic::TrafficCache const trafficCache;
-  shared_ptr<EdgeEstimator> estimator = CreateEstimator(trafficCache);
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
   return BuildWorldGraph(move(loader), estimator, joints);
 }
 
@@ -495,12 +672,182 @@ unique_ptr<WorldGraph> BuildLoopGraph()
 UNIT_CLASS_TEST(RestrictionTest, LoopGraph)
 {
   Init(BuildLoopGraph());
-  SetStarter(routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 1, 0 /* seg id */,
-                                                    m2::PointD(0.0002, 0)) /* start */,
-             routing::IndexGraphStarter::FakeVertex(kTestNumMwmId, 2, 0 /* seg id */,
-                                                    m2::PointD(0.00005, 0.0004)) /* finish */);
+  auto start =
+      MakeFakeEnding(1 /* featureId */, 0 /* segmentIdx */, m2::PointD(0.0002, 0), *m_graph);
+  auto finish = MakeFakeEnding(2, 0, m2::PointD(0.00005, 0.0004), *m_graph);
 
-  double constexpr kExpectedRouteTimeSec = 3.48;
-  TestRouteTime(*m_starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, kExpectedRouteTimeSec);
+  vector<Segment> const expectedRoute = {{kTestNumMwmId, 1, 0, true},  {kTestNumMwmId, 0, 0, true},
+                                         {kTestNumMwmId, 0, 1, true},  {kTestNumMwmId, 0, 8, false},
+                                         {kTestNumMwmId, 0, 7, false}, {kTestNumMwmId, 0, 6, false},
+                                         {kTestNumMwmId, 2, 0, true}};
+
+  auto const expectedWeight =
+      MercatorBounds::DistanceOnEarth({0.0002, 0.0}, {0.0002, 0.0001}) / KMPH2MPS(100.0) +
+      MercatorBounds::DistanceOnEarth({0.0002, 0.0001}, {0.00015, 0.0001}) / KMPH2MPS(100.0) +
+      MercatorBounds::DistanceOnEarth({0.00015, 0.0001}, {0.0001, 0.0001}) / KMPH2MPS(100.0) +
+      MercatorBounds::DistanceOnEarth({0.0001, 0.0001}, {0.00005, 0.00015}) / KMPH2MPS(100.0) +
+      MercatorBounds::DistanceOnEarth({0.00005, 0.00015}, {0.00005, 0.0002}) / KMPH2MPS(100.0) +
+      MercatorBounds::DistanceOnEarth({0.00005, 0.0002}, {0.00005, 0.0003}) / KMPH2MPS(100.0) +
+      MercatorBounds::DistanceOnEarth({0.00005, 0.0003}, {0.00005, 0.0004}) / KMPH2MPS(100.0);
+  TestRoute(start, finish, expectedRoute.size(), &expectedRoute, expectedWeight, *m_graph);
+}
+
+UNIT_TEST(IndexGraph_OnlyTopology_1)
+{
+  // Add edges to the graph in the following format: (from, to, weight).
+
+  uint32_t const numVertices = 5;
+  TestIndexGraphTopology graph(numVertices);
+  graph.AddDirectedEdge(0, 1, 1.0);
+  graph.AddDirectedEdge(0, 2, 2.0);
+  graph.AddDirectedEdge(1, 3, 1.0);
+  graph.AddDirectedEdge(2, 3, 2.0);
+
+  double const expectedWeight = 2.0;
+  vector<TestEdge> const expectedEdges = {{0, 1}, {1, 3}};
+
+  TestTopologyGraph(graph, 0, 3, true /* pathFound */, expectedWeight, expectedEdges);
+  TestTopologyGraph(graph, 0, 4, false /* pathFound */, 0.0, {});
+}
+
+UNIT_TEST(IndexGraph_OnlyTopology_2)
+{
+  uint32_t const numVertices = 1;
+  TestIndexGraphTopology graph(numVertices);
+  graph.AddDirectedEdge(0, 0, 100.0);
+
+  double const expectedWeight = 0.0;
+  vector<TestEdge> const expectedEdges = {};
+
+  TestTopologyGraph(graph, 0, 0, true /* pathFound */, expectedWeight, expectedEdges);
+}
+
+UNIT_TEST(IndexGraph_OnlyTopology_3)
+{
+  uint32_t const numVertices = 2;
+  TestIndexGraphTopology graph(numVertices);
+
+  graph.AddDirectedEdge(0, 1, 1.0);
+  graph.AddDirectedEdge(1, 0, 1.0);
+  double const expectedWeight = 1.0;
+  vector<TestEdge> const expectedEdges = {{0, 1}};
+
+  TestTopologyGraph(graph, 0, 1, true /* pathFound */, expectedWeight, expectedEdges);
+}
+
+//      ^ edge1 (-0.002, 0) - (-0.002, 0.002)
+//      |
+//      |       ^ direction vector (0, 0.001)
+//      |       |
+//      *-------*------->  edge2 (-0.002, 0) - (0.002, 0)
+//          point (0, 0)
+//
+// Test that a codirectional edge is always better than others.
+UNIT_TEST(BestEdgeComparator_OneCodirectionalEdge)
+{
+  Edge const edge1 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}),
+                                    MakeJunctionForTesting({-0.002, 0.002}));
+  Edge const edge2 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}),
+                                    MakeJunctionForTesting({0.002, 0.0}));
+  IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001));
+
+  TEST_EQUAL(bestEdgeComparator.Compare(edge1, edge2), -1, ());
+}
+
+//
+//      ^ edge1 (-0.002, 0) - (-0.002, 0.004)
+//      |
+//      |
+//      |
+//      ^       ^ edge2 (0, 0) - (0, 0.002)
+//      |       |
+//      |       ^ direction vector (0, 0.001)
+//      |       |
+//      *-------*
+//          point (0, 0)
+//
+// Test that if there are two codirectional edges the closest one to |point| is better.
+UNIT_TEST(BestEdgeComparator_TwoCodirectionalEdges)
+{
+  Edge const edge1 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}),
+                                    MakeJunctionForTesting({-0.002, 0.004}));
+  Edge const edge2 = Edge::MakeFake(MakeJunctionForTesting({0.0, 0.0}),
+                                    MakeJunctionForTesting({0.0, 0.002}));
+  IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001));
+
+  TEST_EQUAL(bestEdgeComparator.Compare(edge1, edge2), 1, ());
+}
+
+//      *--------------->  edge1 (-0.002, 0.002) - (0.002, 0.002)
+//
+//              ^ direction vector (0, 0.001)
+//              |
+//      *-------*------->  edge2 (-0.002, 0) - (0.002, 0)
+//          point (0, 0)
+//
+// Test that if two edges are not codirectional the closet one to |point| is better.
+UNIT_TEST(BestEdgeComparator_TwoNotCodirectionalEdges)
+{
+  Edge const edge1 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.002}),
+                                    MakeJunctionForTesting({0.002, 0.002}));
+  Edge const edge2 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}),
+                                    MakeJunctionForTesting({0.002, 0.0}));
+  IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.0), m2::PointD(0.0, 0.001));
+
+  TEST_EQUAL(bestEdgeComparator.Compare(edge1, edge2), 1, ());
+}
+
+//                                     point(0, 0.001)
+//                                         *-->  direction vector (0.001, 0)
+//
+//  edge1 (-0.002, 0) - (0.002, 0)  <------------->  edge2 (0.002, 0) - (-0.002, 0)
+//                                       (0, 0)
+//
+// Test that if two edges are made by one bidirectional feature the one which have almost the same direction is better.
+UNIT_TEST(BestEdgeComparator_TwoEdgesOfOneFeature)
+{
+  // Please see a note in class Edge definition about start and end point of Edge.
+  Edge const edge1 = Edge::MakeFake(MakeJunctionForTesting({-0.002, 0.0}),
+                                    MakeJunctionForTesting({0.002, 0.0}));
+  Edge const edge2 = edge1.GetReverseEdge();
+
+  IndexRouter::BestEdgeComparator bestEdgeComparator(m2::PointD(0.0, 0.001), m2::PointD(0.001, 0.0));
+
+  TEST_EQUAL(bestEdgeComparator.Compare(edge1, edge2), -1, ());
+  TEST_EQUAL(bestEdgeComparator.Compare(edge2, edge1), 1, ());
+}
+
+// Roads
+//
+//                 R0 *  - - - - -** R1
+//              ^                       ^
+//           start                    finish
+//
+//    x:  0     1     2     3     4     5
+//
+UNIT_TEST(FinishNearZeroEdge)
+{
+  unique_ptr<TestGeometryLoader> loader = make_unique<TestGeometryLoader>();
+
+  loader->AddRoad(0 /* featureId */, false, 1.0 /* speed */,
+                  RoadGeometry::Points({{2.0, 0.0}, {4.0, 0.0}}));
+  loader->AddRoad(1 /* featureId */, false, 1.0 /* speed */,
+                  RoadGeometry::Points({{4.0, 0.0}, {4.0, 0.0}}));
+
+  vector<Joint> joints;
+  joints.emplace_back(MakeJoint({{0 /* featureId */, 1 /* pointId */}, {1, 0}}));
+
+  traffic::TrafficCache const trafficCache;
+  shared_ptr<EdgeEstimator> estimator = CreateEstimatorForCar(trafficCache);
+  unique_ptr<WorldGraph> worldGraph = BuildWorldGraph(move(loader), estimator, joints);
+  auto const start = MakeFakeEnding(Segment(kTestNumMwmId, 0, 0, true /* forward */),
+                                    m2::PointD(1.0, 0.0), *worldGraph);
+  auto const finish = MakeFakeEnding(Segment(kTestNumMwmId, 1, 0, false /* forward */),
+                                     m2::PointD(5.0, 0.0), *worldGraph);
+  auto starter = MakeStarter(start, finish, *worldGraph);
+
+  vector<m2::PointD> const expectedGeom = {
+      {1.0 /* x */, 0.0 /* y */}, {2.0, 0.0}, {4.0, 0.0}, {5.0, 0.0}};
+  TestRouteGeometry(*starter, AStarAlgorithm<IndexGraphStarter>::Result::OK, expectedGeom);
 }
 }  // namespace routing_test

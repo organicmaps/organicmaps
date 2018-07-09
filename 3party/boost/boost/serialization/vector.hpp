@@ -31,10 +31,8 @@
 #include <boost/serialization/collections_save_imp.hpp>
 #include <boost/serialization/collections_load_imp.hpp>
 #include <boost/serialization/split_free.hpp>
-#include <boost/serialization/array.hpp>
-#include <boost/serialization/detail/get_data.hpp>
-#include <boost/serialization/detail/stack_constructor.hpp>
-#include <boost/mpl/bool.hpp>
+#include <boost/serialization/array_wrapper.hpp>
+#include <boost/mpl/bool_fwd.hpp>
 #include <boost/mpl/if.hpp>
 
 // default is being compatible with version 1.34.1 files, not 1.35 files
@@ -103,7 +101,11 @@ inline void save(
     const collection_size_type count(t.size());
     ar << BOOST_SERIALIZATION_NVP(count);
     if (!t.empty())
-        ar << make_array(detail::get_data(t),t.size());
+        // explict template arguments to pass intel C++ compiler
+        ar << serialization::make_array<const U, collection_size_type>(
+            static_cast<const U *>(&t[0]),
+            count
+        );
 }
 
 template<class Archive, class U, class Allocator>
@@ -121,7 +123,11 @@ inline void load(
         ar >> BOOST_SERIALIZATION_NVP(item_version);
     }
     if (!t.empty())
-        ar >> make_array(detail::get_data(t),t.size());
+        // explict template arguments to pass intel C++ compiler
+        ar >> serialization::make_array<U, collection_size_type>(
+            static_cast<U *>(&t[0]),
+            count
+        );
   }
 
 // dispatch to either default or optimized versions

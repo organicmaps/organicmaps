@@ -30,16 +30,16 @@ namespace services
 /*!
 \brief Traits class binding a side determination strategy to a coordinate system
 \ingroup util
-\tparam Tag tag of coordinate system of point-type
+\tparam CSTag tag of coordinate system of point-type
 \tparam CalculationType \tparam_calculation
 */
-template <typename Tag, typename CalculationType = void>
+template <typename CSTag, typename CalculationType = void>
 struct default_strategy
 {
     BOOST_MPL_ASSERT_MSG
         (
             false, NOT_IMPLEMENTED_FOR_THIS_TYPE
-            , (types<Tag>)
+            , (types<CSTag>)
         );
 };
 

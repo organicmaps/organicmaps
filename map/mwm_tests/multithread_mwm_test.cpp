@@ -46,15 +46,12 @@ namespace
         m2::RectD const r = GetRandomRect();
         m_scale = scales::GetScaleLevel(r);
 
-        m_src.ForEachFeature(r, *this, m_scale);
+        m_src.ForEachFeature(r, [&](FeatureType & ft) {
+            // Force load feature.
+            // We check asserts here. There is no any other constrains here.
+            (void)ft.IsEmptyGeometry(m_scale);
+          }, m_scale);
       }
-    }
-
-    void operator() (FeatureType const & f)
-    {
-      // Force load feature.
-      // We check asserts here. There is no any other constrains here.
-      (void)f.IsEmptyGeometry(m_scale);
     }
   };
 

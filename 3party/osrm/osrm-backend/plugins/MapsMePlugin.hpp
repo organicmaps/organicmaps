@@ -1,15 +1,14 @@
 #pragma once
 
-#include "plugin_base.hpp"
 #include "../../../../base/string_utils.hpp"
 #include "../../../../coding/file_container.hpp"
 #include "../../../../coding/read_write_utils.hpp"
 #include "../../../../defines.hpp"
-#include "../../../../geometry/region2d.hpp"
-#include "../../../../indexer/geometry_serialization.hpp"
 #include "../../../../geometry/mercator.hpp"
+#include "../../../../geometry/region2d.hpp"
 #include "../../../../storage/country_decl.hpp"
 #include "../../../../storage/country_polygon.hpp"
+#include "plugin_base.hpp"
 
 #include "../algorithms/object_encoder.hpp"
 #include "../data_structures/search_engine.hpp"
@@ -135,7 +134,7 @@ public:
             for (size_t j = 0; j < count; ++j)
             {
                 vector<m2::PointD> points;
-                serial::LoadOuterPath(src, serial::CodingParams(), points);
+                serial::LoadOuterPath(src, serial::GeometryCodingParams(), points);
 
                 m_regions[i].emplace_back(move(m2::RegionD(points.begin(), points.end())));
             }

@@ -1,21 +1,57 @@
+#import "MWMPlacePageActionBar.h"
+#import "MWMRatingSummaryViewValueType.h"
+
+#include "partners_api/taxi_provider.hpp"
+
+#include "storage/index.hpp"
+
 #include "map/place_page_info.hpp"
+#include "map/routing_mark.hpp"
 
-#include "std/vector.hpp"
+#include <vector>
 
-#include "partners_api/booking_api.hpp"
+#include <boost/optional.hpp>
+
+@class MWMPlacePageData;
+@class MWMUGCReviewVM;
+
+struct FeatureID;
+
+namespace ugc
+{
+struct Review;
+}  // ugc
+
+namespace local_ads
+{
+enum class EventType;
+}  // local_ads
+
+namespace booking
+{
+struct HotelReview;
+struct HotelFacility;
+}  // namespace booking
 
 namespace place_page
 {
+class Info;
+
 enum class Sections
 {
   Preview,
   Bookmark,
-  Metainfo,
-  Buttons,
   HotelPhotos,
   HotelDescription,
   HotelFacilities,
-  HotelReviews
+  HotelReviews,
+  SpecialProjects,
+  Metainfo,
+  Ad,
+  Buttons,
+  UGCRating,
+  UGCAddReview,
+  UGCReviews
 };
 
 enum class PreviewRows
@@ -24,7 +60,8 @@ enum class PreviewRows
   ExternalTitle,
   Subtitle,
   Schedule,
-  Booking,
+  Review,
+  SearchSimilar,
   Address,
   Space,
   Banner
@@ -54,6 +91,11 @@ enum class HotelReviewsRow
   ShowMore
 };
 
+enum class SpecialProject
+{
+  Viator
+};
+
 enum class MetainfoRows
 {
   OpeningHours,
@@ -66,6 +108,12 @@ enum class MetainfoRows
   Operator,
   Internet,
   Coordinate,
+  LocalAdsCandidate,
+  LocalAdsCustomer
+};
+
+enum class AdRows
+{
   Taxi
 };
 
@@ -75,9 +123,7 @@ enum class ButtonsRows
   EditPlace,
   AddPlace,
   HotelDescription,
-  BookingShowMoreFacilities,
-  BookingShowMoreOnSite,
-  BookingShowMoreReviews,
+  Other
 };
 
 enum class OpeningHours
@@ -88,20 +134,28 @@ enum class OpeningHours
   Unknown
 };
 
-using NewSectionsReady = void(^)(NSRange const & range);
-
+using NewSectionsAreReady = void (^)(NSRange const & range, MWMPlacePageData * data, BOOL isSection);
 }  // namespace place_page
 
-
 @class MWMGalleryItemModel;
+@class MWMViatorItemModel;
+@class MWMUGCViewModel;
+@class MWMUGCReviewModel;
+@class MWMUGCRatingValueType;
+@protocol MWMBanner;
 
 /// ViewModel for place page.
-@interface MWMPlacePageData : NSObject
+@interface MWMPlacePageData : NSObject<MWMActionBarSharedData>
 
-@property (copy, nonatomic) place_page::NewSectionsReady sectionsReadyCallback;
+@property(copy, nonatomic) MWMVoidBlock refreshPreviewCallback;
+@property(copy, nonatomic) place_page::NewSectionsAreReady sectionsAreReadyCallback;
+@property(copy, nonatomic) MWMVoidBlock bannerIsReadyCallback;
+@property(nonatomic, readonly) MWMUGCViewModel * ugc;
 
 // ready callback will be called from main queue.
 - (instancetype)initWithPlacePageInfo:(place_page::Info const &)info;
+
+- (void)fillSections;
 
 - (void)updateBookmarkStatus:(BOOL)isBookmark;
 
@@ -115,43 +169,77 @@ using NewSectionsReady = void(^)(NSRange const & range);
 - (place_page::OpeningHours)schedule;
 - (NSString *)address;
 
+- (float)ratingRawValue;
+
 // Booking
 - (void)fillOnlineBookingSections;
-- (NSString *)bookingRating;
+- (MWMUGCRatingValueType *)bookingRating;
 - (NSString *)bookingApproximatePricing;
 - (NSURL *)sponsoredURL;
+- (NSURL *)deepLink;
 - (NSURL *)sponsoredDescriptionURL;
+- (NSURL *)bookingSearchURL;
 - (NSString *)sponsoredId;
 - (void)assignOnlinePriceToLabel:(UILabel *)label;
 - (NSString *)hotelDescription;
 - (vector<booking::HotelFacility> const &)facilities;
-- (vector<booking::HotelReview> const &)reviews;
-- (NSUInteger)numberOfReviews;
+- (vector<booking::HotelReview> const &)hotelReviews;
+- (NSUInteger)numberOfHotelReviews;
 - (NSURL *)URLToAllReviews;
 - (NSArray<MWMGalleryItemModel *> *)photos;
 
+- (boost::optional<int>)hotelRawApproximatePricing;
+- (boost::optional<ftypes::IsHotelChecker::Type>)hotelType;
+
+// Partners
+- (NSString *)partnerName;
+- (int)partnerIndex;
+
+// UGC
+- (ftraits::UGCRatingCategories)ugcRatingCategories;
+- (void)setUGCUpdateFrom:(MWMUGCReviewModel *)reviewModel;
+
+// Viator
+- (void)fillOnlineViatorSection;
+- (NSArray<MWMViatorItemModel *> *)viatorItems;
+
+// Route points
+- (RouteMarkType)routeMarkType;
+- (size_t)intermediateIndex;
+
+// Taxi
+- (std::vector<taxi::Provider::Type> const &)taxiProviders;
+
 // Banner
-- (banners::Banner)banner;
+- (id<MWMBanner>)nativeAd;
 
 // API
 - (NSString *)apiURL;
 
 // Bookmark
 - (NSString *)externalTitle;
-- (NSString *)bookmarkColor;
+- (kml::PredefinedColor)bookmarkColor;
 - (NSString *)bookmarkDescription;
 - (NSString *)bookmarkCategory;
-- (BookmarkAndCategory)bac;
+- (kml::MarkId)bookmarkId;
+- (kml::MarkGroupId)bookmarkCategoryId;
+- (BOOL)isBookmarkFromCatalog;
+
+// Local Ads
+- (NSString *)localAdsURL;
+- (void)logLocalAdsEvent:(local_ads::EventType)type;
 
 // Table view's data
-- (vector<place_page::Sections> const &)sections;
-- (vector<place_page::PreviewRows> const &)previewRows;
-- (vector<place_page::HotelPhotosRow> const &)photosRows;
-- (vector<place_page::HotelDescriptionRow> const &)descriptionRows;
-- (vector<place_page::HotelFacilitiesRow> const &)hotelFacilitiesRows;
-- (vector<place_page::HotelReviewsRow> const &)hotelReviewsRows;
-- (vector<place_page::MetainfoRows> const &)metainfoRows;
-- (vector<place_page::ButtonsRows> const &)buttonsRows;
+- (std::vector<place_page::Sections> const &)sections;
+- (std::vector<place_page::PreviewRows> const &)previewRows;
+- (std::vector<place_page::HotelPhotosRow> const &)photosRows;
+- (std::vector<place_page::HotelDescriptionRow> const &)descriptionRows;
+- (std::vector<place_page::HotelFacilitiesRow> const &)hotelFacilitiesRows;
+- (std::vector<place_page::HotelReviewsRow> const &)hotelReviewsRows;
+- (std::vector<place_page::MetainfoRows> const &)metainfoRows;
+- (std::vector<place_page::SpecialProject> const &)specialProjectRows;
+- (std::vector<place_page::AdRows> const &)adRows;
+- (std::vector<place_page::ButtonsRows> const &)buttonsRows;
 
 // Table view metainfo rows
 - (NSString *)stringForRow:(place_page::MetainfoRows)row;
@@ -162,8 +250,17 @@ using NewSectionsReady = void(^)(NSRange const & range);
 - (BOOL)isApi;
 - (BOOL)isBooking;
 - (BOOL)isOpentable;
+- (BOOL)isViator;
+- (BOOL)isPartner;
+- (BOOL)isHolidayObject;
+- (BOOL)isBookingSearch;
 - (BOOL)isHTMLDescription;
 - (BOOL)isMyPosition;
+- (BOOL)isRoutePoint;
+- (BOOL)isPreviewExtended;
+- (BOOL)isPartnerAppInstalled;
+
++ (MWMRatingSummaryViewValueType)ratingValueType:(place_page::rating::Impress)impress;
 
 // Coordinates
 - (m2::PointD const &)mercator;

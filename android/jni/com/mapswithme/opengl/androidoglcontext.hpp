@@ -1,17 +1,17 @@
 #pragma once
 
+#include "drape/glIncludes.hpp"
 #include "drape/oglcontext.hpp"
 
-#include <GLES2/gl2.h>
-#include <EGL/egl.h>
+#include <atomic>
 
 namespace android
 {
-
 class AndroidOGLContext : public dp::OGLContext
 {
 public:
-  AndroidOGLContext(EGLDisplay display, EGLSurface surface, EGLConfig config, AndroidOGLContext * contextToShareWith);
+  AndroidOGLContext(bool supportedES3, EGLDisplay display, EGLSurface surface,
+                    EGLConfig config, AndroidOGLContext * contextToShareWith);
   ~AndroidOGLContext();
 
   void makeCurrent() override;
@@ -19,6 +19,8 @@ public:
   void present() override;
   void setDefaultFramebuffer() override;
   void setRenderingEnabled(bool enabled) override;
+  void setPresentAvailable(bool available) override;
+  bool validate() override;
 
   void setSurface(EGLSurface surface);
   void resetSurface();
@@ -34,6 +36,7 @@ private:
   EGLSurface m_surface;
   EGLDisplay m_display;
   // @}
-};
 
+  std::atomic<bool> m_presentAvailable;
+};
 }  // namespace android

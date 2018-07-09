@@ -269,12 +269,33 @@ class avltree_algorithms
    {
       typename bstree_algo::data_for_rebalance info;
       bstree_algo::erase(header, z, info);
-      if(info.y != z){
-         NodeTraits::set_balance(info.y, NodeTraits::get_balance(z));
-      }
-      //Rebalance avltree
-      rebalance_after_erasure(header, info.x, info.x_parent);
+      rebalance_after_erasure(header, z, info);
       return z;
+   }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::transfer_unique
+   template<class NodePtrCompare>
+   static bool transfer_unique
+      (const node_ptr & header1, NodePtrCompare comp, const node_ptr &header2, const node_ptr & z)
+   {
+      typename bstree_algo::data_for_rebalance info;
+      bool const transferred = bstree_algo::transfer_unique(header1, comp, header2, z, info);
+      if(transferred){
+         rebalance_after_erasure(header2, z, info);
+         rebalance_after_insertion(header1, z);
+      }
+      return transferred;
+   }
+
+   //! @copydoc ::boost::intrusive::bstree_algorithms::transfer_equal
+   template<class NodePtrCompare>
+   static void transfer_equal
+      (const node_ptr & header1, NodePtrCompare comp, const node_ptr &header2, const node_ptr & z)
+   {
+      typename bstree_algo::data_for_rebalance info;
+      bstree_algo::transfer_equal(header1, comp, header2, z, info);
+      rebalance_after_erasure(header2, z, info);
+      rebalance_after_insertion(header1, z);
    }
 
    //! @copydoc ::boost::intrusive::bstree_algorithms::clone(const const_node_ptr&,const node_ptr&,Cloner,Disposer)
@@ -461,7 +482,17 @@ class avltree_algorithms
       return true;
    }
 
-   static void rebalance_after_erasure(const node_ptr & header, node_ptr x, node_ptr x_parent)
+   static void rebalance_after_erasure
+      ( const node_ptr & header, const node_ptr &z, const typename bstree_algo::data_for_rebalance &info)
+   {
+      if(info.y != z){
+         NodeTraits::set_balance(info.y, NodeTraits::get_balance(z));
+      }
+      //Rebalance avltree
+      rebalance_after_erasure_restore_invariants(header, info.x, info.x_parent);
+   }
+
+   static void rebalance_after_erasure_restore_invariants(const node_ptr & header, node_ptr x, node_ptr x_parent)
    {
       for ( node_ptr root = NodeTraits::get_parent(header)
           ; x != root

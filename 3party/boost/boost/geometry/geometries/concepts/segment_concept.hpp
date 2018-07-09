@@ -23,7 +23,7 @@
 #include <boost/geometry/core/point_type.hpp>
 
 
-namespace boost { namespace geometry { namespace concept
+namespace boost { namespace geometry { namespace concepts
 {
 
 
@@ -51,7 +51,7 @@ class Segment
 #ifndef DOXYGEN_NO_CONCEPT_MEMBERS
     typedef typename point_type<Geometry>::type point_type;
 
-    BOOST_CONCEPT_ASSERT( (concept::Point<point_type>) );
+    BOOST_CONCEPT_ASSERT( (concepts::Point<point_type>) );
 
 
     template <size_t Index, size_t Dimension, size_t DimensionCount>
@@ -96,7 +96,7 @@ class ConstSegment
     typedef typename point_type<Geometry>::type point_type;
     typedef typename coordinate_type<Geometry>::type coordinate_type;
 
-    BOOST_CONCEPT_ASSERT( (concept::ConstPoint<point_type>) );
+    BOOST_CONCEPT_ASSERT( (concepts::ConstPoint<point_type>) );
 
 
     template <size_t Index, size_t Dimension, size_t DimensionCount>
@@ -129,7 +129,7 @@ public :
 };
 
 
-}}} // namespace boost::geometry::concept
+}}} // namespace boost::geometry::concepts
 
 
 #endif // BOOST_GEOMETRY_GEOMETRIES_CONCEPTS_SEGMENT_CONCEPT_HPP

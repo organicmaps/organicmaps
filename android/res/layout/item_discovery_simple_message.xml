@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/message"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:layout_marginTop="@dimen/margin_base"
+  android:layout_marginLeft="@dimen/margin_half_plus"
+  android:layout_marginStart="@dimen/margin_half_plus"
+  android:layout_marginRight="@dimen/margin_half_plus"
+  android:layout_marginEnd="@dimen/margin_half_plus"
+  android:layout_marginBottom="@dimen/margin_double_and_half"
+  android:textAppearance="@style/MwmTextAppearance.Body3"
+  android:fontFamily="@string/robotoMedium"
+  android:maxLines="1"
+  android:ellipsize="end"
+  tools:targetApi="jelly_bean"
+  tools:showIn="@layout/item_discovery_simple_loading"/>

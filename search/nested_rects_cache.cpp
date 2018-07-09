@@ -2,7 +2,7 @@
 
 #include "search/ranking_info.hpp"
 
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/rect2d.hpp"
@@ -19,8 +19,8 @@ namespace
 double const kPositionToleranceMeters = 15.0;
 }  // namespace
 
-NestedRectsCache::NestedRectsCache(Index const & index)
-  : m_index(index), m_scale(0), m_position(0, 0), m_valid(false)
+NestedRectsCache::NestedRectsCache(DataSource const & dataSource)
+  : m_dataSource(dataSource), m_scale(0), m_position(0, 0), m_valid(false)
 {
 }
 
@@ -82,6 +82,7 @@ double NestedRectsCache::GetRadiusMeters(RectScale scale)
   case RECT_SCALE_LARGE: return 2500.0;
   case RECT_SCALE_COUNT: return 5000.0;
   }
+  CHECK_SWITCH();
 }
 
 void NestedRectsCache::Update()
@@ -107,7 +108,7 @@ void NestedRectsCache::Update()
       }
       lastFeatures->push_back(id.m_index);
     };
-    m_index.ForEachFeatureIDInRect(addId, rect, m_scale);
+    m_dataSource.ForEachFeatureIDInRect(addId, rect, m_scale);
     for (auto & kv : bucket)
       sort(kv.second.begin(), kv.second.end());
   }

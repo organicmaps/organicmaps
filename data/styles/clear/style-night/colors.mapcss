@@ -52,6 +52,7 @@
 @green3: #141C00;
 @green4: #141C00;
 @green5: #141C00;
+@green6: #1C2600;
 
 /* 4.LANDUSE */
 /*4.1 Main landuse*/
@@ -63,6 +64,7 @@
 @industrial: #191419;
 @sport: #21211B;
 @parking: #1F1B1B;
+@military: #B71C1C;
 
 /*4.2 Aerodrome*/
 

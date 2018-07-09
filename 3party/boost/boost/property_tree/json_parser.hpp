@@ -12,9 +12,9 @@
 #define BOOST_PROPERTY_TREE_JSON_PARSER_HPP_INCLUDED
 
 #include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/detail/json_parser_error.hpp>
-#include <boost/property_tree/detail/json_parser/read.hpp>
-#include <boost/property_tree/detail/json_parser_write.hpp>
+#include <boost/property_tree/json_parser/error.hpp>
+#include <boost/property_tree/json_parser/detail/read.hpp>
+#include <boost/property_tree/json_parser/detail/write.hpp>
 
 #include <fstream>
 #include <string>

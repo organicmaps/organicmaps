@@ -827,7 +827,7 @@ namespace boost
      * @effects loads the value type from the input stream @c is.
      */
     template <typename IStream>
-    void load(IStream& is) const
+    void load(IStream& is)
     {
       strict_lock<mutex_type> lk(mtx_);
       is >> value_;
@@ -971,22 +971,22 @@ namespace boost
   template <typename T, typename L>
   bool operator<(T const& lhs, synchronized_value<T,L> const&rhs)
   {
-    return rhs>=lhs;
+    return rhs>lhs;
   }
   template <typename T, typename L>
   bool operator<=(T const& lhs, synchronized_value<T,L> const&rhs)
   {
-    return rhs>lhs;
+    return rhs>=lhs;
   }
   template <typename T, typename L>
   bool operator>(T const& lhs, synchronized_value<T,L> const&rhs)
   {
-    return rhs<=lhs;
+    return rhs<lhs;
   }
   template <typename T, typename L>
   bool operator>=(T const& lhs, synchronized_value<T,L> const&rhs)
   {
-    return rhs<lhs;
+    return rhs<=lhs;
   }
 
   /**
@@ -999,7 +999,7 @@ namespace boost
     return os;
   }
   template <typename IStream, typename T, typename L>
-  inline IStream& operator>>(IStream& is, synchronized_value<T,L> const& rhs)
+  inline IStream& operator>>(IStream& is, synchronized_value<T,L>& rhs)
   {
     rhs.load(is);
     return is;

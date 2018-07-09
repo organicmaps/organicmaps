@@ -117,8 +117,8 @@
 #include <wchar.h>
 #include <boost/cstdint.hpp>
 
-#if defined(_MSC_VER) && _MSC_VER <= 1310
-// MSVC 7.1 defines WCHAR_MAX to a value not suitable for constant expressions
+ #if defined(_MSC_VER) && ( _MSC_VER <= 1310 || defined(UNDER_CE) && _MSC_VER <= 1500 )
+// MSVC 7.1 and MSVC 8 (arm) define WCHAR_MAX to a value not suitable for constant expressions
 #define BOOST_ATOMIC_DETAIL_SIZEOF_WCHAR_T 2
 #elif (WCHAR_MAX + 0) == 0xff || (WCHAR_MAX + 0) == 0x7f
 #define BOOST_ATOMIC_DETAIL_SIZEOF_WCHAR_T 1

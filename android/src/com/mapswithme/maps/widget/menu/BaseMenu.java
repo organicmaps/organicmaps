@@ -228,7 +228,9 @@ public abstract class BaseMenu
 
   public void show(boolean show)
   {
-    close(false);
+    if (show && mFrame.isShown())
+      return;
+
     UiUtils.showIf(show, mFrame);
   }
 

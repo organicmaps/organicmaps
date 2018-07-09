@@ -228,7 +228,7 @@ namespace boost
 
     };
   }
-  //BOOST_THREAD_DCL_MOVABLE_BEG(F) detail::nullary_function<F> BOOST_THREAD_DCL_MOVABLE_END
+  BOOST_THREAD_DCL_MOVABLE_BEG(F) detail::nullary_function<F> BOOST_THREAD_DCL_MOVABLE_END
 }
 
 #endif // header

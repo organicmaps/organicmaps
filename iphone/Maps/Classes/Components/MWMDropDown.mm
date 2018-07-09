@@ -50,8 +50,8 @@ CGFloat const kTopOffset = 25.;
   self = [super init];
   if (self)
   {
-    [[NSBundle mainBundle] loadNibNamed:[[self class] className] owner:self options:nil];
-    self.superview = view;
+    [NSBundle.mainBundle loadNibNamed:[[self class] className] owner:self options:nil];
+    _superview = view;
   }
   return self;
 }

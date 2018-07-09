@@ -1,11 +1,14 @@
 #include "search/mwm_context.hpp"
 
+#include "indexer/cell_id.hpp"
+#include "indexer/feature_source.hpp"
+
 namespace search
 {
-void CoverRect(m2::RectD const & rect, int scale, covering::IntervalsT & result)
+void CoverRect(m2::RectD const & rect, int scale, covering::Intervals & result)
 {
   covering::CoveringGetter covering(rect, covering::ViewportWithLowLevels);
-  auto const & intervals = covering.Get(scale);
+  auto const & intervals = covering.Get<RectId::DEPTH_LEVELS>(scale);
   result.insert(result.end(), intervals.begin(), intervals.end());
 }
 
@@ -22,18 +25,19 @@ bool MwmContext::GetFeature(uint32_t index, FeatureType & ft) const
 {
   switch (GetEditedStatus(index))
   {
-  case osm::Editor::FeatureStatus::Deleted:
-  case osm::Editor::FeatureStatus::Obsolete:
+  case FeatureStatus::Deleted:
+  case FeatureStatus::Obsolete:
     return false;
-  case osm::Editor::FeatureStatus::Modified:
-  case osm::Editor::FeatureStatus::Created:
+  case FeatureStatus::Modified:
+  case FeatureStatus::Created:
     VERIFY(osm::Editor::Instance().GetEditedFeature(GetId(), index, ft), ());
     return true;
-  case osm::Editor::FeatureStatus::Untouched:
+  case FeatureStatus::Untouched:
     m_vector.GetByIndex(index, ft);
     ft.SetID(FeatureID(GetId(), index));
     return true;
   }
+  CHECK_SWITCH();
 }
 
 bool MwmContext::GetStreetIndex(uint32_t houseId, uint32_t & streetId)

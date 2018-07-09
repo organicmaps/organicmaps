@@ -3,7 +3,7 @@
 #include "search/features_layer.hpp"
 #include "search/intersection_result.hpp"
 
-#include "std/vector.hpp"
+#include <vector>
 
 #if defined(DEBUG)
 #include "base/logging.hpp"
@@ -13,7 +13,7 @@
 class FeaturesVector;
 class MwmValue;
 
-namespace my
+namespace base
 {
 class Cancellable;
 }
@@ -34,11 +34,22 @@ class FeaturesLayerMatcher;
 class FeaturesLayerPathFinder
 {
 public:
-  FeaturesLayerPathFinder(my::Cancellable const & cancellable);
+  // An internal mode. The modes should produce similar results
+  // and differ only in efficiency: a mode that is faster
+  // for a search query may be slower for another.
+  // Modes other than MODE_AUTO should be used only by the testing code.
+  enum Mode
+  {
+    MODE_AUTO,
+    MODE_TOP_DOWN,
+    MODE_BOTTOM_UP
+  };
+
+  FeaturesLayerPathFinder(::base::Cancellable const & cancellable);
 
   template <typename TFn>
   void ForEachReachableVertex(FeaturesLayerMatcher & matcher,
-                              vector<FeaturesLayer const *> const & layers, TFn && fn)
+                              std::vector<FeaturesLayer const *> const & layers, TFn && fn)
   {
     if (layers.empty())
       return;
@@ -52,7 +63,7 @@ public:
     my::Timer timer;
 #endif  // defined(DEBUG)
 
-    vector<IntersectionResult> results;
+    std::vector<IntersectionResult> results;
     FindReachableVertices(matcher, layers, results);
 
 #if defined(DEBUG)
@@ -62,24 +73,27 @@ public:
     for_each(results.begin(), results.end(), forward<TFn>(fn));
   }
 
+  static void SetModeForTesting(Mode mode) { m_mode = mode; }
+
 private:
   void FindReachableVertices(FeaturesLayerMatcher & matcher,
-                             vector<FeaturesLayer const *> const & layers,
-                             vector<IntersectionResult> & results);
+                             std::vector<FeaturesLayer const *> const & layers,
+                             std::vector<IntersectionResult> & results);
 
   // Tries to find all |reachable| features from the lowest layer in a
   // high level -> low level pass.
   void FindReachableVerticesTopDown(FeaturesLayerMatcher & matcher,
-                                    vector<FeaturesLayer const *> const & layers,
-                                    vector<IntersectionResult> & results);
+                                    std::vector<FeaturesLayer const *> const & layers,
+                                    std::vector<IntersectionResult> & results);
 
   // Tries to find all |reachable| features from the lowest layer in a
   // low level -> high level pass.
   void FindReachableVerticesBottomUp(FeaturesLayerMatcher & matcher,
-                                     vector<FeaturesLayer const *> const & layers,
-                                     vector<IntersectionResult> & results);
+                                     std::vector<FeaturesLayer const *> const & layers,
+                                     std::vector<IntersectionResult> & results);
 
-  my::Cancellable const & m_cancellable;
+  ::base::Cancellable const & m_cancellable;
+
+  static Mode m_mode;
 };
-
 }  // namespace search

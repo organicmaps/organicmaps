@@ -25,7 +25,6 @@
 // a static error.
 /*===========================================================================*/
 #define BOOST_BIMAP_STATIC_ERROR(MESSAGE,VARIABLES)                           \
-        struct BOOST_PP_CAT(BIMAP_STATIC_ERROR__,MESSAGE) {};                 \
         BOOST_MPL_ASSERT_MSG(false,                                           \
                              BOOST_PP_CAT(BIMAP_STATIC_ERROR__,MESSAGE),      \
                              VARIABLES)

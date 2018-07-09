@@ -126,7 +126,7 @@ namespace boost { namespace fusion {
         zip_view(
             const Sequences& seqs)
             : sequences_(seqs)
-        {};
+        {}
 
         sequences sequences_;
     };

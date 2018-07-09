@@ -193,7 +193,11 @@ namespace boost { namespace phoenix
 #define BOOST_PHOENIX_SCOPE_ACTOR_GEN_NAME let_actor_gen
 #define BOOST_PHOENIX_SCOPE_ACTOR_GEN_FUNCTION let
 #define BOOST_PHOENIX_SCOPE_ACTOR_GEN_CONST
+#if defined(BOOST_PHOENIX_NO_VARIADIC_SCOPE)
+    #include <boost/phoenix/scope/detail/cpp03/local_gen.hpp>
+#else
     #include <boost/phoenix/scope/detail/local_gen.hpp>
+#endif
 #undef BOOST_PHOENIX_SCOPE_ACTOR_GEN_NAME
 #undef BOOST_PHOENIX_SCOPE_ACTOR_GEN_FUNCTION
 #undef BOOST_PHOENIX_SCOPE_ACTOR_GEN_CONST

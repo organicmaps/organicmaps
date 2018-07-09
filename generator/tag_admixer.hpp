@@ -6,26 +6,26 @@
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/fstream.hpp"
-#include "std/map.hpp"
-#include "std/set.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
+#include <fstream>
+#include <map>
+#include <set>
+#include <string>
+#include <utility>
 
 
 class WaysParserHelper
 {
 public:
-  WaysParserHelper(map<uint64_t, string> & ways) : m_ways(ways) {}
+  WaysParserHelper(std::map<uint64_t, std::string> & ways) : m_ways(ways) {}
 
   void ParseStream(istream & input)
   {
-    string oneLine;
-    while (getline(input, oneLine, '\n'))
+    std::string oneLine;
+    while (std::getline(input, oneLine, '\n'))
     {
       // String format: <<id;tag>>.
       auto pos = oneLine.find(';');
-      if (pos != string::npos)
+      if (pos != std::string::npos)
       {
         uint64_t wayId;
         CHECK(strings::to_uint64(oneLine.substr(0, pos), wayId),());
@@ -35,32 +35,32 @@ public:
   }
 
 private:
-  map<uint64_t, string> & m_ways;
+  std::map<uint64_t, std::string> & m_ways;
 };
 
 class CapitalsParserHelper
 {
 public:
-  CapitalsParserHelper(set<uint64_t> & capitals) : m_capitals(capitals) {}
+  CapitalsParserHelper(std::set<uint64_t> & capitals) : m_capitals(capitals) {}
 
   void ParseStream(istream & input)
   {
-    string oneLine;
-    while (getline(input, oneLine, '\n'))
+    std::string oneLine;
+    while (std::getline(input, oneLine, '\n'))
     {
       // String format: <<lat;lon;id;is_capital>>.
       // First ';'.
       auto pos = oneLine.find(";");
-      if (pos != string::npos)
+      if (pos != std::string::npos)
       {
         // Second ';'.
         pos = oneLine.find(";", pos + 1);
-        if (pos != string::npos)
+        if (pos != std::string::npos)
         {
           uint64_t nodeId;
           // Third ';'.
           auto endPos = oneLine.find(";", pos + 1);
-          if (endPos != string::npos)
+          if (endPos != std::string::npos)
           {
             if (strings::to_uint64(oneLine.substr(pos + 1, endPos - pos - 1), nodeId))
               m_capitals.insert(nodeId);
@@ -71,21 +71,21 @@ public:
   }
 
 private:
-  set<uint64_t> & m_capitals;
+  std::set<uint64_t> & m_capitals;
 };
 
 class TagAdmixer
 {
 public:
-  TagAdmixer(string const & waysFile, string const & capitalsFile) : m_ferryTag("route", "ferry")
+  TagAdmixer(std::string const & waysFile, std::string const & capitalsFile) : m_ferryTag("route", "ferry")
   {
     try
     {
-      ifstream reader(waysFile);
+      std::ifstream reader(waysFile);
       WaysParserHelper parser(m_ways);
       parser.ParseStream(reader);
     }
-    catch (ifstream::failure const &)
+    catch (std::ifstream::failure const &)
     {
       LOG(LWARNING, ("Can't read the world level ways file! Generating world without roads. Path:", waysFile));
       return;
@@ -93,11 +93,11 @@ public:
 
     try
     {
-      ifstream reader(capitalsFile);
+      std::ifstream reader(capitalsFile);
       CapitalsParserHelper parser(m_capitals);
       parser.ParseStream(reader);
     }
-    catch (ifstream::failure const &)
+    catch (std::ifstream::failure const &)
     {
       LOG(LWARNING, ("Can't read the world level capitals file! Generating world without towns admixing. Path:", capitalsFile));
       return;
@@ -117,7 +117,7 @@ public:
       // Our goal here - to make some capitals visible in World map.
       // The simplest way is to upgrade population to 45000,
       // according to our visibility rules in mapcss files.
-      e->UpdateTag("population", [] (string & v)
+      e->UpdateTag("population", [] (std::string & v)
       {
         uint64_t n;
         if (!strings::to_uint64(v, n) || n < 45000)
@@ -127,22 +127,22 @@ public:
   }
 
 private:
-  map<uint64_t, string> m_ways;
-  set<uint64_t> m_capitals;
+  std::map<uint64_t, std::string> m_ways;
+  std::set<uint64_t> m_capitals;
   OsmElement::Tag const m_ferryTag;
 };
 
 class TagReplacer
 {
-  map<OsmElement::Tag, vector<string>> m_entries;
+  std::map<OsmElement::Tag, std::vector<std::string>> m_entries;
 public:
-  TagReplacer(string const & filePath)
+  TagReplacer(std::string const & filePath)
   {
-    ifstream stream(filePath);
+    std::ifstream stream(filePath);
 
     OsmElement::Tag tag;
-    vector<string> values;
-    string line;
+    std::vector<std::string> values;
+    std::string line;
     while (std::getline(stream, line))
     {
       if (line.empty())
@@ -185,15 +185,15 @@ public:
 
 class OsmTagMixer
 {
-  map<pair<OsmElement::EntityType, uint64_t>, vector<OsmElement::Tag>> m_elements;
+  std::map<std::pair<OsmElement::EntityType, uint64_t>, std::vector<OsmElement::Tag>> m_elements;
 
 public:
-  OsmTagMixer(string const & filePath)
+  OsmTagMixer(std::string const & filePath)
   {
-    ifstream stream(filePath);
-    vector<string> values;
-    vector<OsmElement::Tag> tags;
-    string line;
+    std::ifstream stream(filePath);
+    std::vector<std::string> values;
+    std::vector<OsmElement::Tag> tags;
+    std::string line;
     while (std::getline(stream, line))
     {
       if (line.empty() || line.front() == '#')
@@ -211,13 +211,13 @@ public:
       for (size_t i = 2; i < values.size(); ++i)
       {
         auto p = values[i].find('=');
-        if (p != string::npos)
+        if (p != std::string::npos)
           tags.push_back(OsmElement::Tag(values[i].substr(0, p), values[i].substr(p + 1)));
       }
 
       if (!tags.empty())
       {
-        pair<OsmElement::EntityType, uint64_t> elementPair = {entityType, id};
+        std::pair<OsmElement::EntityType, uint64_t> elementPair = {entityType, id};
         m_elements[elementPair].swap(tags);
       }
     }
@@ -225,12 +225,12 @@ public:
 
   void operator()(OsmElement * p)
   {
-    pair<OsmElement::EntityType, uint64_t> elementId = {p->type, p->id};
+    std::pair<OsmElement::EntityType, uint64_t> elementId = {p->type, p->id};
     auto elements = m_elements.find(elementId);
     if (elements != m_elements.end())
     {
       for (OsmElement::Tag tag : elements->second)
-        p->AddTag(tag.key, tag.value);
+        p->UpdateTag(tag.key, [&tag](std::string & v) { v = tag.value; });
     }
   }
 };

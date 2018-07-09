@@ -1,7 +1,7 @@
 /*=============================================================================
     Copyright (c) 2001-2011 Joel de Guzman
 
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
+    Distributed under the Boost Software License, Version 1.0. (See accompanying 
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
 #ifndef BOOST_PP_IS_ITERATING
@@ -37,3 +37,4 @@
 
 #undef N
 #endif // defined(BOOST_PP_IS_ITERATING)
+

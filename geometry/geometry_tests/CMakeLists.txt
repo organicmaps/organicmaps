@@ -7,20 +7,25 @@ set(
   algorithm_test.cpp
   angle_test.cpp
   anyrect_test.cpp
+  bounding_box_tests.cpp
+  calipers_box_tests.cpp
   cellid_test.cpp
   clipping_test.cpp
   common_test.cpp
+  convex_hull_tests.cpp
   covering_test.cpp
+  diamond_box_tests.cpp
   distance_on_sphere_test.cpp
   distance_test.cpp
   equality.hpp
   intersect_test.cpp
   large_polygon.hpp
   latlon_test.cpp
+  line2d_tests.cpp
+  nearby_points_sweeper_test.cpp
   mercator_test.cpp
   packer_test.cpp
   point_test.cpp
-  pointu_to_uint64_test.cpp
   polygon_test.cpp
   rect_test.cpp
   region2d_binary_op_test.cpp

@@ -6,6 +6,7 @@ NSString * const kLightFontName = @"HelveticaNeue-Light";
 @implementation UIFont (MapsMeFonts)
 
 + (UIFont *)regular10 { return [UIFont systemFontOfSize:10]; }
++ (UIFont *)regular11 { return [UIFont systemFontOfSize:11]; }
 + (UIFont *)regular12 { return [UIFont systemFontOfSize:12]; }
 + (UIFont *)regular13 { return [UIFont systemFontOfSize:13]; }
 + (UIFont *)regular14 { return [UIFont systemFontOfSize:14]; }
@@ -16,7 +17,9 @@ NSString * const kLightFontName = @"HelveticaNeue-Light";
 + (UIFont *)regular24 { return [UIFont systemFontOfSize:24]; }
 + (UIFont *)regular32 { return [UIFont systemFontOfSize:32]; }
 + (UIFont *)regular52 { return [UIFont systemFontOfSize:52]; }
++ (UIFont *)medium9 { return [UIFont systemFontOfSize:9 weight:UIFontWeightMedium]; }
 + (UIFont *)medium10 { return [UIFont systemFontOfSize:10 weight:UIFontWeightMedium]; }
++ (UIFont *)medium12 { return [UIFont systemFontOfSize:12 weight:UIFontWeightMedium]; }
 + (UIFont *)medium14 { return [UIFont systemFontOfSize:14 weight:UIFontWeightMedium]; }
 + (UIFont *)medium16 { return [UIFont systemFontOfSize:16 weight:UIFontWeightMedium]; }
 + (UIFont *)medium17 { return [UIFont systemFontOfSize:17 weight:UIFontWeightMedium]; }

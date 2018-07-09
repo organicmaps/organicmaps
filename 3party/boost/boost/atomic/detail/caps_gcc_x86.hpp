@@ -22,6 +22,8 @@
 #pragma once
 #endif
 
+#if defined(__GNUC__)
+
 #if defined(__i386__) &&\
     (\
         defined(__GCC_HAVE_SYNC_COMPARE_AND_SWAP_8) ||\
@@ -34,6 +36,27 @@
 #if defined(__x86_64__) && defined(__GCC_HAVE_SYNC_COMPARE_AND_SWAP_16)
 #define BOOST_ATOMIC_DETAIL_X86_HAS_CMPXCHG16B 1
 #endif
+
+#if defined(__x86_64__) || defined(__SSE2__)
+// Use mfence only if SSE2 is available
+#define BOOST_ATOMIC_DETAIL_X86_HAS_MFENCE 1
+#endif
+
+#else // defined(__GNUC__)
+
+#if defined(__i386__) && !defined(BOOST_ATOMIC_NO_CMPXCHG8B)
+#define BOOST_ATOMIC_DETAIL_X86_HAS_CMPXCHG8B 1
+#endif
+
+#if defined(__x86_64__) && !defined(BOOST_ATOMIC_NO_CMPXCHG16B)
+#define BOOST_ATOMIC_DETAIL_X86_HAS_CMPXCHG16B 1
+#endif
+
+#if !defined(BOOST_ATOMIC_NO_MFENCE)
+#define BOOST_ATOMIC_DETAIL_X86_HAS_MFENCE 1
+#endif
+
+#endif // defined(__GNUC__)
 
 #define BOOST_ATOMIC_INT8_LOCK_FREE 2
 #define BOOST_ATOMIC_INT16_LOCK_FREE 2

@@ -4,8 +4,8 @@
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_header.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/index.hpp"
 #include "indexer/scales.hpp"
 #include "indexer/search_string_utils.hpp"
 
@@ -187,80 +187,83 @@ UNIT_TEST(HS_StreetsMerge)
 {
   classificator::Load();
 
-  Index index;
+  FrozenDataSource dataSource;
   LocalCountryFile localFile(LocalCountryFile::MakeForTesting("minsk-pass"));
   // Clean indexes to avoid jenkins errors.
   platform::CountryIndexes::DeleteFromDisk(localFile);
 
-  auto const p = index.Register(localFile);
+  auto const p = dataSource.Register(localFile);
   TEST(p.first.IsAlive(), ());
   TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
 
   {
-    search::HouseDetector houser(index);
+    search::HouseDetector houser(dataSource);
     StreetIDsByName toDo;
     toDo.streetNames.push_back("улица Володарского");
-    index.ForEachInScale(toDo, scales::GetUpperScale());
+    dataSource.ForEachInScale([&toDo](FeatureType & ft) { toDo(ft); }, scales::GetUpperScale());
     houser.LoadStreets(toDo.GetFeatureIDs());
     TEST_EQUAL(houser.MergeStreets(), 1, ());
   }
 
   {
-    search::HouseDetector houser(index);
+    search::HouseDetector houser(dataSource);
     StreetIDsByName toDo;
     toDo.streetNames.push_back("Московская улица");
-    index.ForEachInScale(toDo, scales::GetUpperScale());
+    dataSource.ForEachInScale([&toDo](FeatureType & ft) { toDo(ft); }, scales::GetUpperScale());
     houser.LoadStreets(toDo.GetFeatureIDs());
+    TEST_GREATER_OR_EQUAL(houser.MergeStreets(), 1, ());
     TEST_LESS_OR_EQUAL(houser.MergeStreets(), 3, ());
   }
 
   {
-    search::HouseDetector houser(index);
+    search::HouseDetector houser(dataSource);
     StreetIDsByName toDo;
     toDo.streetNames.push_back("проспект Независимости");
     toDo.streetNames.push_back("Московская улица");
-    index.ForEachInScale(toDo, scales::GetUpperScale());
+    dataSource.ForEachInScale([&toDo](FeatureType & ft) { toDo(ft); }, scales::GetUpperScale());
     houser.LoadStreets(toDo.GetFeatureIDs());
+    TEST_GREATER_OR_EQUAL(houser.MergeStreets(), 1, ());
     TEST_LESS_OR_EQUAL(houser.MergeStreets(), 5, ());
   }
 
   {
-    search::HouseDetector houser(index);
+    search::HouseDetector houser(dataSource);
     StreetIDsByName toDo;
     toDo.streetNames.push_back("проспект Независимости");
     toDo.streetNames.push_back("Московская улица");
     toDo.streetNames.push_back("Вишнёвый переулок");
     toDo.streetNames.push_back("Студенческий переулок");
     toDo.streetNames.push_back("Полоцкий переулок");
-    index.ForEachInScale(toDo, scales::GetUpperScale());
+    dataSource.ForEachInScale([&toDo](FeatureType & ft) { toDo(ft); }, scales::GetUpperScale());
     houser.LoadStreets(toDo.GetFeatureIDs());
+    TEST_GREATER_OR_EQUAL(houser.MergeStreets(), 1, ());
     TEST_LESS_OR_EQUAL(houser.MergeStreets(), 8, ());
   }
 
   {
-    search::HouseDetector houser(index);
+    search::HouseDetector houser(dataSource);
     StreetIDsByName toDo;
     toDo.streetNames.push_back("проспект Независимости");
     toDo.streetNames.push_back("Московская улица");
     toDo.streetNames.push_back("улица Кирова");
     toDo.streetNames.push_back("улица Городской Вал");
-    index.ForEachInScale(toDo, scales::GetUpperScale());
+    dataSource.ForEachInScale([&toDo](FeatureType & ft) { toDo(ft); }, scales::GetUpperScale());
     houser.LoadStreets(toDo.GetFeatureIDs());
+    TEST_GREATER_OR_EQUAL(houser.MergeStreets(), 1, ());
     TEST_LESS_OR_EQUAL(houser.MergeStreets(), 10, ());
   }
 }
 
 namespace
 {
-
-m2::PointD FindHouse(Index & index, vector<string> const & streets,
+m2::PointD FindHouse(DataSource & dataSource, vector<string> const & streets,
                      string const & houseName, double offset)
 {
-  search::HouseDetector houser(index);
+  search::HouseDetector houser(dataSource);
 
   StreetIDsByName toDo;
   toDo.streetNames = streets;
-  index.ForEachInScale(toDo, scales::GetUpperScale());
+  dataSource.ForEachInScale([&toDo](FeatureType & ft) { toDo(ft); }, scales::GetUpperScale());
 
   if (houser.LoadStreets(toDo.GetFeatureIDs()) > 0)
     TEST_GREATER(houser.MergeStreets(), 0, ());
@@ -280,29 +283,29 @@ UNIT_TEST(HS_FindHouseSmoke)
 {
   classificator::Load();
 
-  Index index;
-  auto const p = index.Register(LocalCountryFile::MakeForTesting("minsk-pass"));
+  FrozenDataSource dataSource;
+  auto const p = dataSource.Register(LocalCountryFile::MakeForTesting("minsk-pass"));
   TEST(p.first.IsAlive(), ());
   TEST_EQUAL(MwmSet::RegResult::Success, p.second, ());
 
   {
     vector<string> streetName(1, "Московская улица");
-    TEST_ALMOST_EQUAL_ULPS(FindHouse(index, streetName, "7", 100),
+    TEST_ALMOST_EQUAL_ULPS(FindHouse(dataSource, streetName, "7", 100),
                       m2::PointD(27.539850827603416406, 64.222406776416349317), ());
   }
   {
     vector<string> streetName(1, "проспект Независимости");
-    TEST_ALMOST_EQUAL_ULPS(FindHouse(index, streetName, "10", 40),
+    TEST_ALMOST_EQUAL_ULPS(FindHouse(dataSource, streetName, "10", 40),
                       m2::PointD(27.551428582902474318, 64.234707387050306693), ());
   }
   {
     vector<string> streetName(1, "улица Ленина");
 
     /// @todo This cases doesn't work, but should in new search algorithms.
-    //m2::PointD pt = FindHouse(index, streetName, "28", 50);
-    //m2::PointD pt = FindHouse(index, streetName, "30", 50);
+    //m2::PointD pt = FindHouse(dataSource, streetName, "28", 50);
+    //m2::PointD pt = FindHouse(dataSource, streetName, "30", 50);
 
-    m2::PointD pt = FindHouse(index, streetName, "21", 50);
+    m2::PointD pt = FindHouse(dataSource, streetName, "21", 50);
     TEST_ALMOST_EQUAL_ULPS(pt, m2::PointD(27.56477391395549148, 64.234502198059132638), ());
   }
 }
@@ -381,8 +384,8 @@ UNIT_TEST(HS_MWMSearch)
     return;
   }
 
-  Index index;
-  auto p = index.Register(LocalCountryFile::MakeForTesting(country));
+  FrozenDataSource dataSource;
+  auto p = dataSource.Register(LocalCountryFile::MakeForTesting(country));
   if (p.second != MwmSet::RegResult::Success)
   {
     LOG(LWARNING, ("MWM file not found"));
@@ -391,7 +394,7 @@ UNIT_TEST(HS_MWMSearch)
   TEST(p.first.IsAlive(), ());
 
   CollectStreetIDs streetIDs;
-  index.ForEachInScale(streetIDs, scales::GetUpperScale());
+  dataSource.ForEachInScale(streetIDs, scales::GetUpperScale());
   streetIDs.Finish();
 
   string line;
@@ -426,7 +429,7 @@ UNIT_TEST(HS_MWMSearch)
 
   sort(addresses.begin(), addresses.end());
 
-  search::HouseDetector detector(index);
+  search::HouseDetector detector(dataSource);
   size_t all = 0, matched = 0, notMatched = 0;
 
   size_t const percent = max(size_t(1), addresses.size() / 100);

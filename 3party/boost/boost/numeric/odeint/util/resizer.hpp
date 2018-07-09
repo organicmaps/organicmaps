@@ -79,7 +79,7 @@ struct initially_resizer
 struct never_resizer
 {
     template< class State , class ResizeFunction >
-    bool adjust_size( const State &x , ResizeFunction f )
+    bool adjust_size( const State &/*x*/ , ResizeFunction /*f*/ )
     {
         return false;
     }

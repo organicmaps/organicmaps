@@ -24,8 +24,8 @@ void InitStorage(Storage & storage, Storage::TUpdateCallback const & didDownload
     }
   };
   
-  storage.Init(didDownload, [](TCountryId const &, Storage::TLocalFilePtr const){return false;});
-  storage.RegisterAllLocalMaps();
+  storage.Init(didDownload, [](TCountryId const &, TLocalFilePtr const){return false;});
+  storage.RegisterAllLocalMaps(false /* enableDiffs */);
   storage.Subscribe(changeCountryFunction, progress);
   storage.SetDownloadingUrlsForTesting({kTestWebServer});
 }
@@ -66,7 +66,7 @@ UNIT_TEST(DownloadingTests_CalcOverallProgress)
     TEST_EQUAL(currentProgress.second, baseProgress.second, ());
   };
   
-  InitStorage(s, [](storage::TCountryId const &, storage::Storage::TLocalFilePtr const){}, progressChanged);
+  InitStorage(s, [](storage::TCountryId const &, TLocalFilePtr const){}, progressChanged);
 
   for (auto const & countryId : kTestCountries)
     s.DownloadNode(countryId);

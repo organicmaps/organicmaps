@@ -1,5 +1,5 @@
 /*
- *          Copyright Andrey Semashev 2007 - 2015.
+ *          Copyright Andrey Semashev 2007 - 2016.
  * Distributed under the Boost Software License, Version 1.0.
  *    (See accompanying file LICENSE_1_0.txt or copy at
  *          http://www.boost.org/LICENSE_1_0.txt)
@@ -21,12 +21,11 @@
 #include <ios> // std::streamsize
 #include <string>
 #include <iterator>
-#include <boost/operators.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/log/utility/string_literal_fwd.hpp>
+#include <boost/log/detail/sfinae_tools.hpp>
 #include <boost/log/detail/header.hpp>
 
 #ifdef BOOST_HAS_PRAGMA_ONCE
@@ -50,16 +49,6 @@ BOOST_LOG_OPEN_NAMESPACE
  */
 template< typename CharT, typename TraitsT >
 class basic_string_literal
-    //! \cond
-    : public totally_ordered1< basic_string_literal< CharT, TraitsT >,
-        totally_ordered2< basic_string_literal< CharT, TraitsT >, const CharT*,
-            totally_ordered2<
-                basic_string_literal< CharT, TraitsT >,
-                std::basic_string< CharT, TraitsT >
-            >
-        >
-    >
-    //! \endcond
 {
     //! Self type
     typedef basic_string_literal< CharT, TraitsT > this_type;
@@ -84,8 +73,12 @@ private:
     //! Length
     size_type m_Len;
 
-    //! Empty string literal to support clear
+    //! Empty string literal to support \c clear
+#if !defined(BOOST_LOG_NO_CXX11_CONSTEXPR_DATA_MEMBER_BRACE_INITIALIZERS)
+    static constexpr value_type g_EmptyString[1] = { 0 };
+#else
     static const value_type g_EmptyString[1];
+#endif
 
 public:
     /*!
@@ -93,7 +86,7 @@ public:
      *
      * \post <tt>empty() == true</tt>
      */
-    basic_string_literal() BOOST_NOEXCEPT { clear(); }
+    BOOST_CONSTEXPR basic_string_literal() BOOST_NOEXCEPT : m_pStart(g_EmptyString), m_Len(0) { }
 
     /*!
      * Constructor from a string literal
@@ -102,9 +95,9 @@ public:
      * \param p A zero-terminated constant sequence of characters
      */
     template< typename T, size_type LenV >
-    basic_string_literal(T(&p)[LenV]
+    BOOST_CONSTEXPR basic_string_literal(T(&p)[LenV]
         //! \cond
-        , typename enable_if< is_same< T, const value_type >, int >::type = 0
+        , typename boost::enable_if_c< is_same< T, const value_type >::value, boost::log::aux::sfinae_dummy >::type = boost::log::aux::sfinae_dummy()
         //! \endcond
         ) BOOST_NOEXCEPT
         : m_pStart(p), m_Len(LenV - 1)
@@ -117,7 +110,7 @@ public:
      * \post <tt>*this == that</tt>
      * \param that Source literal to copy string from
      */
-    basic_string_literal(basic_string_literal const& that) BOOST_NOEXCEPT : m_pStart(that.m_pStart), m_Len(that.m_Len) {}
+    BOOST_CONSTEXPR basic_string_literal(basic_string_literal const& that) BOOST_NOEXCEPT : m_pStart(that.m_pStart), m_Len(that.m_Len) {}
 
     /*!
      * Assignment operator
@@ -125,7 +118,7 @@ public:
      * \post <tt>*this == that</tt>
      * \param that Source literal to copy string from
      */
-    this_type& operator= (this_type const& that) BOOST_NOEXCEPT
+    BOOST_CXX14_CONSTEXPR this_type& operator= (this_type const& that) BOOST_NOEXCEPT
     {
         return assign(that);
     }
@@ -136,9 +129,10 @@ public:
      * \param p A zero-terminated constant sequence of characters
      */
     template< typename T, size_type LenV >
+    BOOST_CXX14_CONSTEXPR
 #ifndef BOOST_LOG_DOXYGEN_PASS
-    typename enable_if<
-        is_same< T, const value_type >,
+    typename boost::enable_if_c<
+        is_same< T, const value_type >::value,
         this_type&
     >::type
 #else
@@ -175,9 +169,40 @@ public:
      * \param that Comparand
      * \return \c true if the comparand string equals to this string, \c false otherwise
      */
-    bool operator== (string_type const& that) const
+    bool operator== (string_type const& that) const BOOST_NOEXCEPT
     {
         return (compare_internal(m_pStart, m_Len, that.c_str(), that.size()) == 0);
+    }
+
+    /*!
+     * Lexicographical comparison (inequality)
+     *
+     * \param that Comparand
+     * \return \c true if the comparand string is not equal to this string, \c false otherwise
+     */
+    bool operator!= (this_type const& that) const BOOST_NOEXCEPT
+    {
+        return (compare_internal(m_pStart, m_Len, that.m_pStart, that.m_Len) != 0);
+    }
+    /*!
+     * Lexicographical comparison (inequality)
+     *
+     * \param str Comparand. Must point to a zero-terminated sequence of characters, must not be NULL.
+     * \return \c true if the comparand string is not equal to this string, \c false otherwise
+     */
+    bool operator!= (const_pointer str) const BOOST_NOEXCEPT
+    {
+        return (compare_internal(m_pStart, m_Len, str, traits_type::length(str)) != 0);
+    }
+    /*!
+     * Lexicographical comparison (inequality)
+     *
+     * \param that Comparand
+     * \return \c true if the comparand string is not equal to this string, \c false otherwise
+     */
+    bool operator!= (string_type const& that) const BOOST_NOEXCEPT
+    {
+        return (compare_internal(m_pStart, m_Len, that.c_str(), that.size()) != 0);
     }
 
     /*!
@@ -206,9 +231,40 @@ public:
      * \param that Comparand
      * \return \c true if this string is less than the comparand, \c false otherwise
      */
-    bool operator< (string_type const& that) const
+    bool operator< (string_type const& that) const BOOST_NOEXCEPT
     {
         return (compare_internal(m_pStart, m_Len, that.c_str(), that.size()) < 0);
+    }
+
+    /*!
+     * Lexicographical comparison (less or equal ordering)
+     *
+     * \param that Comparand
+     * \return \c true if this string is less or equal to the comparand, \c false otherwise
+     */
+    bool operator<= (this_type const& that) const BOOST_NOEXCEPT
+    {
+        return (compare_internal(m_pStart, m_Len, that.m_pStart, that.m_Len) <= 0);
+    }
+    /*!
+     * Lexicographical comparison (less or equal ordering)
+     *
+     * \param str Comparand. Must point to a zero-terminated sequence of characters, must not be NULL.
+     * \return \c true if this string is less or equal to the comparand, \c false otherwise
+     */
+    bool operator<= (const_pointer str) const BOOST_NOEXCEPT
+    {
+        return (compare_internal(m_pStart, m_Len, str, traits_type::length(str)) <= 0);
+    }
+    /*!
+     * Lexicographical comparison (less or equal ordering)
+     *
+     * \param that Comparand
+     * \return \c true if this string is less or equal to the comparand, \c false otherwise
+     */
+    bool operator<= (string_type const& that) const BOOST_NOEXCEPT
+    {
+        return (compare_internal(m_pStart, m_Len, that.c_str(), that.size()) <= 0);
     }
 
     /*!
@@ -237,9 +293,40 @@ public:
      * \param that Comparand
      * \return \c true if this string is greater than the comparand, \c false otherwise
      */
-    bool operator> (string_type const& that) const
+    bool operator> (string_type const& that) const BOOST_NOEXCEPT
     {
         return (compare_internal(m_pStart, m_Len, that.c_str(), that.size()) > 0);
+    }
+
+    /*!
+     * Lexicographical comparison (greater or equal ordering)
+     *
+     * \param that Comparand
+     * \return \c true if this string is greater or equal to the comparand, \c false otherwise
+     */
+    bool operator>= (this_type const& that) const BOOST_NOEXCEPT
+    {
+        return (compare_internal(m_pStart, m_Len, that.m_pStart, that.m_Len) >= 0);
+    }
+    /*!
+     * Lexicographical comparison (greater or qual ordering)
+     *
+     * \param str Comparand. Must point to a zero-terminated sequence of characters, must not be NULL.
+     * \return \c true if this string is greater or equal to the comparand, \c false otherwise
+     */
+    bool operator>= (const_pointer str) const BOOST_NOEXCEPT
+    {
+        return (compare_internal(m_pStart, m_Len, str, traits_type::length(str)) >= 0);
+    }
+    /*!
+     * Lexicographical comparison (greater or equal ordering)
+     *
+     * \param that Comparand
+     * \return \c true if this string is greater or equal to the comparand, \c false otherwise
+     */
+    bool operator>= (string_type const& that) const BOOST_NOEXCEPT
+    {
+        return (compare_internal(m_pStart, m_Len, that.c_str(), that.size()) >= 0);
     }
 
     /*!
@@ -249,7 +336,7 @@ public:
      * \param i Requested character index
      * \return Constant reference to the requested character
      */
-    const_reference operator[] (size_type i) const BOOST_NOEXCEPT
+    BOOST_CONSTEXPR const_reference operator[] (size_type i) const BOOST_NOEXCEPT
     {
         return m_pStart[i];
     }
@@ -263,7 +350,7 @@ public:
      */
     const_reference at(size_type i) const
     {
-        if (i >= m_Len)
+        if (BOOST_UNLIKELY(i >= m_Len))
             BOOST_THROW_EXCEPTION(std::out_of_range("basic_string_literal::at: the index value is out of range"));
         return m_pStart[i];
     }
@@ -271,24 +358,24 @@ public:
     /*!
      * \return Pointer to the beginning of the literal
      */
-    const_pointer c_str() const BOOST_NOEXCEPT { return m_pStart; }
+    BOOST_CONSTEXPR const_pointer c_str() const BOOST_NOEXCEPT { return m_pStart; }
     /*!
      * \return Pointer to the beginning of the literal
      */
-    const_pointer data() const BOOST_NOEXCEPT { return m_pStart; }
+    BOOST_CONSTEXPR const_pointer data() const BOOST_NOEXCEPT { return m_pStart; }
     /*!
      * \return Length of the literal
      */
-    size_type size() const BOOST_NOEXCEPT { return m_Len; }
+    BOOST_CONSTEXPR size_type size() const BOOST_NOEXCEPT { return m_Len; }
     /*!
      * \return Length of the literal
      */
-    size_type length() const BOOST_NOEXCEPT { return m_Len; }
+    BOOST_CONSTEXPR size_type length() const BOOST_NOEXCEPT { return m_Len; }
 
     /*!
      * \return \c true if the literal is an empty string, \c false otherwise
      */
-    bool empty() const BOOST_NOEXCEPT
+    BOOST_CONSTEXPR bool empty() const BOOST_NOEXCEPT
     {
         return (m_Len == 0);
     }
@@ -296,11 +383,11 @@ public:
     /*!
      * \return Iterator that points to the first character of the literal
      */
-    const_iterator begin() const BOOST_NOEXCEPT { return m_pStart; }
+    BOOST_CONSTEXPR const_iterator begin() const BOOST_NOEXCEPT { return m_pStart; }
     /*!
      * \return Iterator that points after the last character of the literal
      */
-    const_iterator end() const BOOST_NOEXCEPT { return m_pStart + m_Len; }
+    BOOST_CONSTEXPR const_iterator end() const BOOST_NOEXCEPT { return m_pStart + m_Len; }
     /*!
      * \return Reverse iterator that points to the last character of the literal
      */
@@ -323,7 +410,7 @@ public:
      *
      * \post <tt>empty() == true</tt>
      */
-    void clear() BOOST_NOEXCEPT
+    BOOST_CXX14_CONSTEXPR void clear() BOOST_NOEXCEPT
     {
         m_pStart = g_EmptyString;
         m_Len = 0;
@@ -331,7 +418,7 @@ public:
     /*!
      * The method swaps two literals
      */
-    void swap(this_type& that) BOOST_NOEXCEPT
+    BOOST_CXX14_CONSTEXPR void swap(this_type& that) BOOST_NOEXCEPT
     {
         const_pointer p = m_pStart;
         m_pStart = that.m_pStart;
@@ -348,7 +435,7 @@ public:
      * \post <tt>*this == that</tt>
      * \param that Source literal to copy string from
      */
-    this_type& assign(this_type const& that) BOOST_NOEXCEPT
+    BOOST_CXX14_CONSTEXPR this_type& assign(this_type const& that) BOOST_NOEXCEPT
     {
         m_pStart = that.m_pStart;
         m_Len = that.m_Len;
@@ -361,9 +448,10 @@ public:
      * \param p A zero-terminated constant sequence of characters
      */
     template< typename T, size_type LenV >
+    BOOST_CXX14_CONSTEXPR
 #ifndef BOOST_LOG_DOXYGEN_PASS
-    typename enable_if<
-        is_same< T, const value_type >,
+    typename boost::enable_if_c<
+        is_same< T, const value_type >::value,
         this_type&
     >::type
 #else
@@ -390,7 +478,7 @@ public:
      */
     size_type copy(value_type* str, size_type n, size_type pos = 0) const
     {
-        if (pos > m_Len)
+        if (BOOST_UNLIKELY(pos > m_Len))
             BOOST_THROW_EXCEPTION(std::out_of_range("basic_string_literal::copy: the position is out of range"));
 
         size_type len = m_Len - pos;
@@ -415,7 +503,7 @@ public:
      */
     int compare(size_type pos, size_type n, const_pointer str, size_type len) const
     {
-        if (pos > m_Len)
+        if (BOOST_UNLIKELY(pos > m_Len))
             BOOST_THROW_EXCEPTION(std::out_of_range("basic_string_literal::compare: the position is out of range"));
 
         size_type compare_size = m_Len - pos;
@@ -508,9 +596,15 @@ private:
 #endif // BOOST_LOG_DOXYGEN_PASS
 };
 
+#if !defined(BOOST_LOG_NO_CXX11_CONSTEXPR_DATA_MEMBER_BRACE_INITIALIZERS)
 template< typename CharT, typename TraitsT >
-typename basic_string_literal< CharT, TraitsT >::value_type const
+constexpr typename basic_string_literal< CharT, TraitsT >::value_type
+basic_string_literal< CharT, TraitsT >::g_EmptyString[1];
+#else
+template< typename CharT, typename TraitsT >
+const typename basic_string_literal< CharT, TraitsT >::value_type
 basic_string_literal< CharT, TraitsT >::g_EmptyString[1] = { 0 };
+#endif
 
 namespace aux {
 
@@ -569,7 +663,7 @@ inline std::basic_ostream< CharT, StrmTraitsT >& operator<< (
 
 //! External swap
 template< typename CharT, typename TraitsT >
-inline void swap(basic_string_literal< CharT, TraitsT >& left, basic_string_literal< CharT, TraitsT >& right) BOOST_NOEXCEPT
+inline BOOST_CXX14_CONSTEXPR void swap(basic_string_literal< CharT, TraitsT >& left, basic_string_literal< CharT, TraitsT >& right) BOOST_NOEXCEPT
 {
     left.swap(right);
 }
@@ -577,16 +671,16 @@ inline void swap(basic_string_literal< CharT, TraitsT >& left, basic_string_lite
 //! Creates a string literal wrapper from a constant string literal
 #ifdef BOOST_LOG_USE_CHAR
 template< typename T, std::size_t LenV >
-inline
+inline BOOST_CONSTEXPR
 #ifndef BOOST_LOG_DOXYGEN_PASS
-typename enable_if<
-    is_same< T, const char >,
+typename boost::enable_if_c<
+    is_same< T, const char >::value,
     string_literal
 >::type
 #else
 basic_string_literal< T >
 #endif // BOOST_LOG_DOXYGEN_PASS
-str_literal(T(&p)[LenV])
+str_literal(T(&p)[LenV]) BOOST_NOEXCEPT
 {
     return string_literal(p);
 }
@@ -596,11 +690,11 @@ str_literal(T(&p)[LenV])
 
 #ifdef BOOST_LOG_USE_WCHAR_T
 template< typename T, std::size_t LenV >
-inline typename enable_if<
-    is_same< T, const wchar_t >,
+inline BOOST_CONSTEXPR typename boost::enable_if_c<
+    is_same< T, const wchar_t >::value,
     wstring_literal
 >::type
-str_literal(T(&p)[LenV])
+str_literal(T(&p)[LenV]) BOOST_NOEXCEPT
 {
     return wstring_literal(p);
 }

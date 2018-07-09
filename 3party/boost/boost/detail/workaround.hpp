@@ -85,6 +85,11 @@
 #else
 #define __GNUC_PATCHLEVEL___WORKAROUND_GUARD 0
 #endif
+#ifndef BOOST_GCC
+#define BOOST_GCC_WORKAROUND_GUARD 1
+#else
+#define BOOST_GCC_WORKAROUND_GUARD 0
+#endif
 #ifndef __IBMCPP__
 #define __IBMCPP___WORKAROUND_GUARD 1
 #else

@@ -5,14 +5,15 @@
 namespace search
 {
 // static
-SearchModel::SearchType Region::ToSearchType(Type type)
+Model::Type Region::ToModelType(Type type)
 {
   switch (type)
   {
-  case Region::TYPE_STATE: return SearchModel::SEARCH_TYPE_STATE;
-  case Region::TYPE_COUNTRY: return SearchModel::SEARCH_TYPE_COUNTRY;
-  case Region::TYPE_COUNT: return SearchModel::SEARCH_TYPE_COUNT;
+  case Region::TYPE_STATE: return Model::TYPE_STATE;
+  case Region::TYPE_COUNTRY: return Model::TYPE_COUNTRY;
+  case Region::TYPE_COUNT: return Model::TYPE_COUNT;
   }
+  CHECK_SWITCH();
 }
 
 std::string DebugPrint(Locality const & locality)
@@ -22,7 +23,6 @@ std::string DebugPrint(Locality const & locality)
   os << "m_countryId=" << DebugPrint(locality.m_countryId) << ", ";
   os << "m_featureId=" << locality.m_featureId << ", ";
   os << "m_tokenRange=" << DebugPrint(locality.m_tokenRange) << ", ";
-  os << "m_prob=" << locality.m_prob;
   os << " ]";
   return os.str();
 }

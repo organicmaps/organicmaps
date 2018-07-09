@@ -29,7 +29,6 @@
 #include <boost/serialization/collection_size_type.hpp>
 #include <boost/serialization/item_version_type.hpp>
 #include <boost/serialization/split_free.hpp>
-#include <boost/serialization/detail/stack_constructor.hpp>
 
 namespace boost { 
 namespace serialization {

@@ -3,9 +3,14 @@
 #include "search/house_to_street_table.hpp"
 #include "search/lazy_centers_table.hpp"
 
+#include "editor/osm_editor.hpp"
+
+#include "indexer/feature_covering.hpp"
+#include "indexer/feature_source.hpp"
 #include "indexer/features_vector.hpp"
-#include "indexer/index.hpp"
+#include "indexer/mwm_set.hpp"
 #include "indexer/scale_index.hpp"
+#include "indexer/unique_index.hpp"
 
 #include "base/macros.hpp"
 
@@ -17,10 +22,10 @@ class MwmValue;
 
 namespace search
 {
-void CoverRect(m2::RectD const & rect, int scale, covering::IntervalsT & result);
+void CoverRect(m2::RectD const & rect, int scale, covering::Intervals & result);
 
 /// @todo Move this class into "index" library and make it more generic.
-/// Now it duplicates "Index" functionality.
+/// Now it duplicates "DataSource" functionality.
 class MwmContext
 {
 public:
@@ -31,13 +36,13 @@ public:
   inline shared_ptr<MwmInfo> const & GetInfo() const { return GetId().GetInfo(); }
 
   template <typename TFn>
-  void ForEachIndex(covering::IntervalsT const & intervals, uint32_t scale, TFn && fn) const
+  void ForEachIndex(covering::Intervals const & intervals, uint32_t scale, TFn && fn) const
   {
     ForEachIndexImpl(intervals, scale, [&](uint32_t index)
                      {
                        // TODO: Optimize deleted checks by getting vector of deleted indexes from
                        // the Editor.
-                       if (GetEditedStatus(index) != osm::Editor::FeatureStatus::Deleted)
+                       if (GetEditedStatus(index) != FeatureStatus::Deleted)
                          fn(index);
                      });
   }
@@ -46,7 +51,7 @@ public:
   void ForEachIndex(m2::RectD const & rect, TFn && fn) const
   {
     uint32_t const scale = m_value.GetHeader().GetLastScale();
-    covering::IntervalsT intervals;
+    covering::Intervals intervals;
     CoverRect(rect, scale, intervals);
     ForEachIndex(intervals, scale, forward<TFn>(fn));
   }
@@ -55,7 +60,7 @@ public:
   void ForEachFeature(m2::RectD const & rect, TFn && fn) const
   {
     uint32_t const scale = m_value.GetHeader().GetLastScale();
-    covering::IntervalsT intervals;
+    covering::Intervals intervals;
     CoverRect(rect, scale, intervals);
 
     ForEachIndexImpl(intervals, scale, [&](uint32_t index)
@@ -80,23 +85,22 @@ public:
   MwmValue & m_value;
 
 private:
-  osm::Editor::FeatureStatus GetEditedStatus(uint32_t index) const
+  FeatureStatus GetEditedStatus(uint32_t index) const
   {
     return osm::Editor::Instance().GetFeatureStatus(GetId(), index);
   }
 
   template <class TFn>
-  void ForEachIndexImpl(covering::IntervalsT const & intervals, uint32_t scale, TFn && fn) const
+  void ForEachIndexImpl(covering::Intervals const & intervals, uint32_t scale, TFn && fn) const
   {
     CheckUniqueIndexes checkUnique(m_value.GetHeader().GetFormat() >= version::Format::v5);
     for (auto const & i : intervals)
-      m_index.ForEachInIntervalAndScale(
+      m_index.ForEachInIntervalAndScale(i.first, i.second, scale,
           [&](uint32_t index)
           {
             if (checkUnique(index))
               fn(index);
-          },
-          i.first, i.second, scale);
+          });
   }
 
   FeaturesVector m_vector;

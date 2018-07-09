@@ -26,6 +26,8 @@
 #error Boost.Log: This header content is only supported in multithreaded environment
 #endif
 
+#include <boost/memory_order.hpp>
+#include <boost/atomic/atomic.hpp>
 #include <boost/log/detail/event.hpp>
 #include <boost/log/detail/threadsafe_queue.hpp>
 #include <boost/log/core/record_view.hpp>
@@ -62,7 +64,7 @@ private:
     //! Event object to block on
     boost::log::aux::event m_event;
     //! Interruption flag
-    volatile bool m_interruption_requested; // TODO: make it atomic
+    boost::atomic< bool > m_interruption_requested;
 
 protected:
     //! Default constructor
@@ -113,11 +115,8 @@ protected:
         while (true)
         {
             m_event.wait();
-            if (m_interruption_requested)
-            {
-                m_interruption_requested = false;
+            if (m_interruption_requested.exchange(false, boost::memory_order_acquire))
                 return false;
-            }
             if (m_queue.try_pop(rec))
                 return true;
         }
@@ -126,7 +125,7 @@ protected:
     //! Wakes a thread possibly blocked in the \c dequeue method
     void interrupt_dequeue()
     {
-        m_interruption_requested = true;
+        m_interruption_requested.store(true, boost::memory_order_release);
         m_event.set_signalled();
     }
 };

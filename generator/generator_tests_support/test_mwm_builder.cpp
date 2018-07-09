@@ -7,8 +7,12 @@
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/search_index_builder.hpp"
 
+#include "indexer/city_boundary.hpp"
 #include "indexer/data_header.hpp"
+#include "indexer/feature_data.hpp"
+#include "indexer/feature_meta.hpp"
 #include "indexer/features_offsets_table.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/index_builder.hpp"
 #include "indexer/rank_table.hpp"
 
@@ -16,19 +20,42 @@
 
 #include "coding/internal/file_data.hpp"
 
-#include "base/logging.hpp"
+#include "base/string_utils.hpp"
 
 #include "defines.hpp"
+
+using namespace std;
+
+namespace
+{
+bool WriteRegionDataForTests(string const & path, vector<string> const & languages)
+{
+  try
+  {
+    FilesContainerW writer(path, FileWriter::OP_WRITE_EXISTING);
+    feature::RegionData regionData;
+    regionData.SetLanguages(languages);
+    FileWriter w = writer.GetWriter(REGION_INFO_FILE_TAG);
+    regionData.Serialize(w);
+  }
+  catch (Writer::Exception const & e)
+  {
+    LOG(LERROR, ("Error writing file:", e.Msg()));
+    return false;
+  }
+  return true;
+}
+}  // namespace
 
 namespace generator
 {
 namespace tests_support
 {
 TestMwmBuilder::TestMwmBuilder(platform::LocalCountryFile & file, feature::DataHeader::MapType type)
-    : m_file(file),
-      m_type(type),
-      m_collector(
-          make_unique<feature::FeaturesCollector>(m_file.GetPath(MapOptions::Map) + EXTENSION_TMP))
+  : m_file(file)
+  , m_type(type)
+  , m_collector(my::make_unique<feature::FeaturesCollector>(m_file.GetPath(MapOptions::Map) +
+                                                            EXTENSION_TMP))
 {
 }
 
@@ -49,6 +76,18 @@ bool TestMwmBuilder::Add(FeatureBuilder1 & fb)
 {
   CHECK(m_collector, ("It's not possible to add features after call to Finish()."));
 
+  if (ftypes::IsTownOrCity(fb.GetTypes()) && fb.GetGeomType() == feature::GEOM_AREA)
+  {
+    auto const & metadata = fb.GetMetadataForTesting();
+    uint64_t testId;
+    CHECK(strings::to_uint64(metadata.Get(feature::Metadata::FMD_TEST_ID), testId), ());
+    m_boundariesTable.Append(testId, indexer::CityBoundary(fb.GetOuterGeometry()));
+
+    auto const center = fb.GetGeometryCenter();
+    fb.ResetGeometry();
+    fb.SetCenter(center);
+  }
+
   if (!fb.PreSerialize())
   {
     LOG(LWARNING, ("Can't pre-serialize feature."));
@@ -63,6 +102,11 @@ bool TestMwmBuilder::Add(FeatureBuilder1 & fb)
 
   (*m_collector)(fb);
   return true;
+}
+
+void TestMwmBuilder::SetMwmLanguages(vector<string> const & languages)
+{
+  m_languages = languages;
 }
 
 void TestMwmBuilder::Finish()
@@ -90,10 +134,16 @@ void TestMwmBuilder::Finish()
   CHECK(indexer::BuildSearchIndexFromDataFile(path, true /* forceRebuild */),
         ("Can't build search index."));
 
+  if (m_type == feature::DataHeader::world)
+    CHECK(generator::BuildCitiesBoundariesForTesting(path, m_boundariesTable), ());
+
   CHECK(indexer::BuildCentersTableFromDataFile(path, true /* forceRebuild */),
         ("Can't build centers table."));
 
-  CHECK(search::RankTableBuilder::CreateIfNotExists(path), ());
+  CHECK(search::SearchRankTableBuilder::CreateIfNotExists(path), ());
+
+  if (!m_languages.empty())
+    CHECK(WriteRegionDataForTests(path, m_languages), ());
 
   m_file.SyncWithDisk();
 }

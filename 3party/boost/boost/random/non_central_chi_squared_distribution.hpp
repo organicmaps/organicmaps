@@ -1,7 +1,7 @@
 /* boost random/non_central_chi_squared_distribution.hpp header file
  *
  * Copyright Thijs van den Berg 2014
- *
+ * 
  * Distributed under the Boost Software License, Version 1.0. (See
  * accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -54,11 +54,11 @@ class non_central_chi_squared_distribution {
 public:
     typedef RealType result_type;
     typedef RealType input_type;
-
+    
     class param_type {
     public:
         typedef non_central_chi_squared_distribution distribution_type;
-
+        
         /**
          * Constructs the parameters of a non_central_chi_squared_distribution.
          * @c k and @c lambda are the parameter of the distribution.
@@ -72,10 +72,10 @@ public:
             BOOST_ASSERT(k_arg > RealType(0));
             BOOST_ASSERT(lambda_arg > RealType(0));
         }
-
+        
         /** Returns the @c k parameter of the distribution */
         RealType k() const { return _k; }
-
+        
         /** Returns the @c lambda parameter of the distribution */
         RealType lambda() const { return _lambda; }
 
@@ -85,7 +85,7 @@ public:
             os << parm._k << ' ' << parm._lambda;
             return os;
         }
-
+        
         /** Reads the parameters of the distribution from a @c std::istream. */
         BOOST_RANDOM_DETAIL_ISTREAM_OPERATOR(is, param_type, parm)
         {
@@ -96,10 +96,10 @@ public:
         /** Returns true if the parameters have the same values. */
         BOOST_RANDOM_DETAIL_EQUALITY_OPERATOR(param_type, lhs, rhs)
         { return lhs._k == rhs._k && lhs._lambda == rhs._lambda; }
-
+        
         /** Returns true if the parameters have different values. */
         BOOST_RANDOM_DETAIL_INEQUALITY_OPERATOR(param_type)
-
+        
     private:
         RealType _k;
         RealType _lambda;
@@ -126,7 +126,7 @@ public:
     non_central_chi_squared_distribution(const param_type& parm)
       : _param( parm )
     { }
-
+    
     /**
      * Returns a random variate distributed according to the
      * non central chi squared distribution specified by @c param.
@@ -134,13 +134,13 @@ public:
     template<typename URNG>
     RealType operator()(URNG& eng, const param_type& parm) const
     { return non_central_chi_squared_distribution(parm)(eng); }
-
+    
     /**
      * Returns a random variate distributed according to the
      * non central chi squared distribution.
      */
-    template<typename URNG>
-    RealType operator()(URNG& eng)
+    template<typename URNG> 
+    RealType operator()(URNG& eng) 
     {
         using std::sqrt;
         if (_param.k() > 1) {
@@ -161,23 +161,23 @@ public:
 
     /** Returns the @c k parameter of the distribution. */
     RealType k() const { return _param.k(); }
-
+    
     /** Returns the @c lambda parameter of the distribution. */
     RealType lambda() const { return _param.lambda(); }
-
+    
     /** Returns the parameters of the distribution. */
     param_type param() const { return _param; }
-
+    
     /** Sets parameters of the distribution. */
     void param(const param_type& parm) { _param = parm; }
-
+    
     /** Resets the distribution, so that subsequent uses does not depend on values already produced by it.*/
     void reset() {}
-
+    
     /** Returns the smallest value that the distribution can produce. */
     RealType min BOOST_PREVENT_MACRO_SUBSTITUTION() const
     { return RealType(0); }
-
+    
     /** Returns the largest value that the distribution can produce. */
     RealType max BOOST_PREVENT_MACRO_SUBSTITUTION() const
     { return (std::numeric_limits<RealType>::infinity)(); }
@@ -188,7 +188,7 @@ public:
         os << dist.param();
         return os;
     }
-
+    
     /** reads the parameters of the distribution from a @c std::istream. */
     BOOST_RANDOM_DETAIL_ISTREAM_OPERATOR(is, non_central_chi_squared_distribution, dist)
     {
@@ -199,15 +199,15 @@ public:
         return is;
     }
 
-    /** Returns true if two distributions have the same parameters and produce
+    /** Returns true if two distributions have the same parameters and produce 
         the same sequence of random numbers given equal generators.*/
     BOOST_RANDOM_DETAIL_EQUALITY_OPERATOR(non_central_chi_squared_distribution, lhs, rhs)
     { return lhs.param() == rhs.param(); }
-
-    /** Returns true if two distributions have different parameters and/or can produce
+    
+    /** Returns true if two distributions have different parameters and/or can produce 
        different sequences of random numbers given equal generators.*/
     BOOST_RANDOM_DETAIL_INEQUALITY_OPERATOR(non_central_chi_squared_distribution)
-
+    
 private:
 
     /// @cond show_private

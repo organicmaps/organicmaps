@@ -1,5 +1,8 @@
 #pragma once
 
+#include "routing/checkpoints.hpp"
+#include "routing/router.hpp"
+
 #include "platform/http_client.hpp"
 
 #include "geometry/point2d.hpp"
@@ -33,11 +36,8 @@ class OnlineCrossFetcher : public threads::IRoutine
 public:
   /// \brief OnlineCrossFetcher helper class to make request to online OSRM server
   ///        and get mwm names list
-  /// \param serverURL Server URL
-  /// \param startPoint Start point coordinates
-  /// \param finalPoint Finish point coordinates
-  OnlineCrossFetcher(string const & serverURL, ms::LatLon const & startPoint,
-                     ms::LatLon const & finalPoint);
+  OnlineCrossFetcher(TCountryFileFn const & countryFileFn, string const & serverURL,
+                     Checkpoints const & checkpoints);
 
   /// Overrides threads::IRoutine processing procedure. Calls online OSRM server and parses response.
   void Do() override;
@@ -47,7 +47,9 @@ public:
   vector<m2::PointD> const & GetMwmPoints() { return m_mwmPoints; }
 
 private:
-  platform::HttpClient m_request;
+  TCountryFileFn const m_countryFileFn;
+  string const m_serverURL;
+  Checkpoints const m_checkpoints;
   vector<m2::PointD> m_mwmPoints;
 };
 }

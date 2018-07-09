@@ -161,7 +161,7 @@ public:
     result_type operator()(Engine& eng)
     {
         using std::sqrt;
-        result_type u = uniform_01<>()(eng);
+        result_type u = uniform_01<result_type>()(eng);
         if( u <= q1 )
             return _a + p1*sqrt(u);
         else

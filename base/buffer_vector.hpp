@@ -1,5 +1,6 @@
 #pragma once
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/stl_iterator.hpp"
 
 #include <algorithm>
@@ -30,28 +31,25 @@ private:
   /// @todo clang on linux doesn't have is_trivially_copyable.
 #ifndef OMIM_OS_LINUX
   template <class U = T>
-  typename std::enable_if<std::is_trivially_copyable<U>::value, void>::type
-  MoveStatic(buffer_vector<T, N> & rhs)
+  std::enable_if_t<std::is_trivially_copyable<U>::value, void> MoveStatic(buffer_vector<T, N> & rhs)
   {
     memcpy(m_static, rhs.m_static, rhs.m_size*sizeof(T));
   }
   template <class U = T>
-  typename std::enable_if<!std::is_trivially_copyable<U>::value, void>::type
-  MoveStatic(buffer_vector<T, N> & rhs)
+  std::enable_if_t<!std::is_trivially_copyable<U>::value, void> MoveStatic(
+      buffer_vector<T, N> & rhs)
   {
     for (size_t i = 0; i < rhs.m_size; ++i)
       Swap(m_static[i], rhs.m_static[i]);
   }
 #else
   template <class U = T>
-  typename std::enable_if<std::is_pod<U>::value, void>::type
-  MoveStatic(buffer_vector<T, N> & rhs)
+  std::enable_if_t<std::is_pod<U>::value, void> MoveStatic(buffer_vector<T, N> & rhs)
   {
     memcpy(m_static, rhs.m_static, rhs.m_size*sizeof(T));
   }
   template <class U = T>
-  typename std::enable_if<!std::is_pod<U>::value, void>::type
-  MoveStatic(buffer_vector<T, N> & rhs)
+  std::enable_if_t<!std::is_pod<U>::value, void> MoveStatic(buffer_vector<T, N> & rhs)
   {
     for (size_t i = 0; i < rhs.m_size; ++i)
       Swap(m_static[i], rhs.m_static[i]);
@@ -223,10 +221,7 @@ public:
   T const * data() const
   {
     if (IsDynamic())
-    {
-      ASSERT(!m_dynamic.empty(), ());
-      return &m_dynamic[0];
-    }
+      return m_dynamic.data();
 
     return &m_static[0];
   }
@@ -234,10 +229,7 @@ public:
   T * data()
   {
     if (IsDynamic())
-    {
-      ASSERT(!m_dynamic.empty(), ());
-      return &m_dynamic[0];
-    }
+      return m_dynamic.data();
 
     return &m_static[0];
   }
@@ -371,9 +363,8 @@ public:
 
   template <typename TIt> void insert(const_iterator where, TIt beg, TIt end)
   {
-    ptrdiff_t const pos = where - data();
-    ASSERT_GREATER_OR_EQUAL(pos, 0, ());
-    ASSERT_LESS_OR_EQUAL(pos, static_cast<ptrdiff_t>(size()), ());
+    size_t const pos = base::asserted_cast<size_t>(where - data());
+    ASSERT_LESS_OR_EQUAL(pos, size(), ());
 
     if (IsDynamic())
     {
@@ -385,8 +376,10 @@ public:
     if (m_size + n <= N)
     {
       if (pos != m_size)
-        for (ptrdiff_t i = m_size - 1; i >= pos; --i)
+      {
+        for (size_t i = m_size - 1; i >= pos && i < m_size; --i)
           Swap(m_static[i], m_static[i + n]);
+      }
 
       m_size += n;
       T * writableWhere = &m_static[0] + pos;
@@ -407,12 +400,12 @@ public:
     insert(where, &value, &value + 1);
   }
 
-  template <class TFn>
-  void erase_if(TFn fn)
+  template <class Fn>
+  void erase_if(Fn && fn)
   {
     iterator b = begin();
     iterator e = end();
-    iterator i = std::remove_if(b, e, fn);
+    iterator i = std::remove_if(b, e, std::forward<Fn>(fn));
     if (i != e)
       resize(std::distance(b, i));
   }
@@ -460,4 +453,10 @@ template <typename T, size_t N1, size_t N2>
 inline bool operator<(buffer_vector<T, N1> const & v1, buffer_vector<T, N2> const & v2)
 {
   return std::lexicographical_compare(v1.begin(), v1.end(), v2.begin(), v2.end());
+}
+
+template <typename T, size_t N1, size_t N2>
+inline bool operator>(buffer_vector<T, N1> const & v1, buffer_vector<T, N2> const & v2)
+{
+  return v2 < v1;
 }

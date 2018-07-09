@@ -2,9 +2,10 @@
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2014.
-// Modifications copyright (c) 2014, Oracle and/or its affiliates.
+// This file was modified by Oracle on 2014, 2016, 2017.
+// Modifications copyright (c) 2014-2017, Oracle and/or its affiliates.
 
+// Contributed and/or modified by Vissarion Fysikopoulos, on behalf of Oracle
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
@@ -22,7 +23,9 @@
 #include <boost/geometry/util/math.hpp>
 
 #include <boost/geometry/algorithms/not_implemented.hpp>
-#include <boost/geometry/algorithms/detail/vincenty_inverse.hpp>
+
+#include <boost/geometry/formulas/spherical.hpp>
+#include <boost/geometry/formulas/vincenty_inverse.hpp>
 
 namespace boost { namespace geometry
 {
@@ -49,7 +52,7 @@ struct azimuth<ReturnType, geographic_tag>
     template <typename P1, typename P2, typename Spheroid>
     static inline ReturnType apply(P1 const& p1, P2 const& p2, Spheroid const& spheroid)
     {
-        return geometry::detail::vincenty_inverse<ReturnType, false, true>
+        return geometry::formula::vincenty_inverse<ReturnType, false, true>().apply
                     ( get_as_radian<0>(p1), get_as_radian<1>(p1),
                       get_as_radian<0>(p2), get_as_radian<1>(p2),
                       spheroid ).azimuth;
@@ -68,22 +71,9 @@ struct azimuth<ReturnType, spherical_equatorial_tag>
     template <typename P1, typename P2, typename Sphere>
     static inline ReturnType apply(P1 const& p1, P2 const& p2, Sphere const& /*unused*/)
     {
-        // http://williams.best.vwh.net/avform.htm#Crs
-        ReturnType dlon = get_as_radian<0>(p2) - get_as_radian<0>(p1);
-        ReturnType cos_p2lat = cos(get_as_radian<1>(p2));
-
-        // An optimization which should kick in often for Boxes
-        //if ( math::equals(dlon, ReturnType(0)) )
-        //if ( get<0>(p1) == get<0>(p2) )
-        //{
-        //    return - sin(get_as_radian<1>(p1)) * cos_p2lat);
-        //}
-
-        // "An alternative formula, not requiring the pre-computation of d"
-        // In the formula below dlon is used as "d"
-        return atan2(sin(dlon) * cos_p2lat,
-            cos(get_as_radian<1>(p1)) * sin(get_as_radian<1>(p2))
-            - sin(get_as_radian<1>(p1)) * cos_p2lat * cos(dlon));
+        return geometry::formula::spherical_azimuth<ReturnType, false>
+                    ( get_as_radian<0>(p1), get_as_radian<1>(p1),
+                      get_as_radian<0>(p2), get_as_radian<1>(p2)).azimuth;
     }
 
     template <typename P1, typename P2>

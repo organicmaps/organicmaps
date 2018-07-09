@@ -1,27 +1,30 @@
 #pragma once
 
-#include "generator/osm_id.hpp"
-
 #include "indexer/feature.hpp"
 
 #include "coding/file_reader.hpp"
 #include "coding/read_write_utils.hpp"
 
-#include "std/bind.hpp"
-#include "std/list.hpp"
+#include "base/osm_id.hpp"
 
+#include <functional>
+#include <list>
+#include <string>
 
-namespace serial { class CodingParams; }
+namespace serial
+{
+class GeometryCodingParams;
+}  // namespace serial
 
 /// Used for serialization\deserialization of features during --generate_features.
 class FeatureBuilder1
 {
   /// For debugging
-  friend string DebugPrint(FeatureBuilder1 const & f);
+  friend std::string DebugPrint(FeatureBuilder1 const & f);
 
 public:
   using TPointSeq = vector<m2::PointD>;
-  using TGeometry = list<TPointSeq>;
+  using TGeometry = std::list<TPointSeq>;
 
   using TBuffer = vector<char>;
 
@@ -34,11 +37,11 @@ public:
 
   void SetRank(uint8_t rank);
 
-  void AddHouseNumber(string const & houseNumber);
+  void AddHouseNumber(std::string const & houseNumber);
 
-  void AddStreet(string const & streetName);
+  void AddStreet(std::string const & streetName);
 
-  void AddPostcode(string const & postcode);
+  void AddPostcode(std::string const & postcode);
 
   /// Add point to geometry.
   void AddPoint(m2::PointD const & p);
@@ -91,7 +94,9 @@ public:
   /// @name Serialization.
   //@{
   void Serialize(TBuffer & data) const;
-  void SerializeBase(TBuffer & data, serial::CodingParams const & params, bool saveAddInfo) const;
+  void SerializeBase(TBuffer & data, serial::GeometryCodingParams const & params,
+                     bool saveAddInfo) const;
+  void SerializeBorder(serial::GeometryCodingParams const & params, TBuffer & data) const;
 
   void Deserialize(TBuffer & data);
   //@}
@@ -100,7 +105,7 @@ public:
   //@{
   inline m2::RectD GetLimitRect() const { return m_limitRect; }
 
-  bool FormatFullAddress(string & res) const;
+  bool FormatFullAddress(std::string & res) const;
 
   /// Get common parameters of feature.
   FeatureBase GetFeatureBase() const;
@@ -171,7 +176,7 @@ public:
   /// area's one if there is no relation, and relation id otherwise.
   osm::Id GetMostGenericOsmId() const;
   bool HasOsmId(osm::Id const & id) const;
-  string GetOsmIdsString() const;
+  std::string GetOsmIdsString() const;
   vector<osm::Id> const & GetOsmIds() const { return m_osmIds; }
   //@}
 
@@ -183,8 +188,8 @@ public:
   void SetCoastCell(int64_t iCell) { m_coastCell = iCell; }
   inline bool IsCoastCell() const { return (m_coastCell != -1); }
 
-  bool AddName(string const & lang, string const & name);
-  string GetName(int8_t lang = StringUtf8Multilang::kDefaultCode) const;
+  bool AddName(std::string const & lang, std::string const & name);
+  std::string GetName(int8_t lang = StringUtf8Multilang::kDefaultCode) const;
 
   uint8_t GetRank() const { return m_params.rank; }
 
@@ -227,7 +232,7 @@ class FeatureBuilder2 : public FeatureBuilder1
   static void SerializeOffsets(uint32_t mask, TOffsets const & offsets, TBuffer & buffer);
 
   /// For debugging
-  friend string DebugPrint(FeatureBuilder2 const & f);
+  friend std::string DebugPrint(FeatureBuilder2 const & f);
 
 public:
   struct SupportingData
@@ -254,7 +259,10 @@ public:
   /// @name Overwrite from base_type.
   //@{
   bool PreSerialize(SupportingData const & data);
-  void Serialize(SupportingData & data, serial::CodingParams const & params);
+  bool IsLocalityObject() const;
+  void SerializeLocalityObject(serial::GeometryCodingParams const & params,
+                               SupportingData & data) const;
+  void Serialize(SupportingData & data, serial::GeometryCodingParams const & params) const;
   //@}
 
   feature::AddressData const & GetAddressData() const { return m_params.GetAddressData(); }
@@ -274,7 +282,7 @@ namespace feature
 
   /// Process features in .dat file.
   template <class ToDo>
-  void ForEachFromDatRawFormat(string const & fName, ToDo && toDo)
+  void ForEachFromDatRawFormat(std::string const & fName, ToDo && toDo)
   {
     FileReader reader(fName);
     ReaderSource<FileReader> src(reader);

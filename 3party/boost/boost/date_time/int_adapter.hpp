@@ -230,7 +230,7 @@ public:
         return int_adapter::neg_infinity();
       }
     }
-    return int_adapter<int_type>(value_ + rhs.as_number());
+    return int_adapter<int_type>(value_ + static_cast<int_type>(rhs.as_number()));
   }
 
   int_adapter operator+(const int_type rhs) const
@@ -279,7 +279,7 @@ public:
         return int_adapter::pos_infinity();
       }
     }
-    return int_adapter<int_type>(value_ - rhs.as_number());
+    return int_adapter<int_type>(value_ - static_cast<int_type>(rhs.as_number()));
   }
   int_adapter operator-(const int_type rhs) const
   {

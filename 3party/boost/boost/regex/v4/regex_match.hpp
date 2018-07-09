@@ -46,7 +46,7 @@ bool regex_match(BidiIterator first, BidiIterator last,
                  const basic_regex<charT, traits>& e, 
                  match_flag_type flags = match_default)
 {
-   re_detail::perl_matcher<BidiIterator, Allocator, traits> matcher(first, last, m, e, flags, first);
+   BOOST_REGEX_DETAIL_NS::perl_matcher<BidiIterator, Allocator, traits> matcher(first, last, m, e, flags, first);
    return matcher.match();
 }
 template <class iterator, class charT, class traits>

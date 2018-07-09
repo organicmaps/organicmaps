@@ -103,6 +103,7 @@ namespace boost {
       }
     }
     BOOST_ASSERT (false); // Should not get here
+    return typename graph_traits<Graph>::edge_descriptor();
   }
 
   namespace detail {

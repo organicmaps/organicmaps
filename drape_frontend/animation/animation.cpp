@@ -6,7 +6,7 @@ namespace df
 // static
 bool Animation::GetCachedProperty(TPropertyCache const & properties, Object object, ObjectProperty property, PropertyValue & value)
 {
-  auto const it = properties.find(make_pair(object, property));
+  auto const it = properties.find(std::make_pair(object, property));
   if (it != properties.end())
   {
     value = it->second;
@@ -40,21 +40,21 @@ void Animation::GetCurrentScreen(TPropertyCache const & properties, ScreenBase c
   }
 }
 
-bool Animation::CouldBeBlendedWith(Animation const & animation) const
+bool Animation::HasSameObjects(Animation const & animation) const
 {
-  bool hasSameObject = false;
   TAnimObjects const & objects = animation.GetObjects();
   for (auto const & object : objects)
   {
     if (HasObject(object))
-    {
-      hasSameObject = true;
-      break;
-    }
+      return true;
   }
+  return false;
+}
 
-  return !hasSameObject || ((GetType() != animation.GetType()) &&
-      m_couldBeBlended && animation.m_couldBeBlended);
+bool Animation::CouldBeBlendedWith(Animation const & animation) const
+{
+  return !HasSameObjects(animation) ||
+         ((GetType() != animation.GetType()) && m_couldBeBlended && animation.m_couldBeBlended);
 }
 
 bool Animation::HasTargetProperty(Object object, ObjectProperty property) const
@@ -88,6 +88,43 @@ bool Animation::GetMaxDuration(Interpolator const & interpolator, double & maxDu
       return false;
   }
   return true;
+}
+
+std::string DebugPrint(Animation::Type const & type)
+{
+  switch (type)
+  {
+  case Animation::Type::Sequence: return "Sequence";
+  case Animation::Type::Parallel: return "Parallel";
+  case Animation::Type::MapLinear: return "MapLinear";
+  case Animation::Type::MapScale: return "MapScale";
+  case Animation::Type::MapFollow: return "MapFollow";
+  case Animation::Type::Arrow: return "Arrow";
+  case Animation::Type::KineticScroll: return "KineticScroll";
+  }
+  return "Unknown type";
+}
+
+std::string DebugPrint(Animation::Object const & object)
+{
+  switch (object)
+  {
+  case Animation::Object::MyPositionArrow: return "MyPositionArrow";
+  case Animation::Object::MapPlane: return "MapPlane";
+  case Animation::Object::Selection: return "Selection";
+  }
+  return "Unknown object";
+}
+
+std::string DebugPrint(Animation::ObjectProperty const & property)
+{
+  switch (property)
+  {
+  case Animation::ObjectProperty::Position: return "Position";
+  case Animation::ObjectProperty::Scale: return "Scale";
+  case Animation::ObjectProperty::Angle: return "Angle";
+  }
+  return "Unknown property";
 }
 
 } // namespace df

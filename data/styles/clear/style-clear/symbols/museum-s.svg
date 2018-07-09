@@ -1,20 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>museum-s</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <path d="M8.5,4 C8.5,4 4.0045,5.86921429 4.00286364,6.23654762 L4,7 L13,7 L13,6.24107143 C12.9955,5.86921429 8.5,4 8.5,4 Z M11.5365553,11.5 L9.9600668,11.5 L9.05531693,11.5 L7.98708868,11.5 L7.05106163,11.5 L5.54839683,11.5 L5.25077269,11.5 C4.83613238,11.5 4.5,11.8328986 4.5,12.25 L4.5,13 L12.5,13 L12.5,12.25 C12.5,11.8357864 12.1738216,11.5 11.7408771,11.5 L11.5365553,11.5 Z M6,7.5 L7,7.5 L7,11 L6,11 L6,7.5 Z M8,7.5 L9,7.5 L9,11 L8,11 L8,7.5 Z M10,7.5 L11,7.5 L11,11 L10,11 L10,7.5 Z" id="path-1"></path>
-    </defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="museum-s">
-            <circle id="Oval-1-Copy-43" fill-opacity="0.6" fill="#FFFFFF" cx="8.5" cy="8.5" r="8.5"></circle>
-            <circle id="Oval-1-Copy-42" fill="#8C4D16" cx="8.5" cy="8.5" r="7.5"></circle>
-            <g id="Imported-Layers-Copy-2" fill="#FFFFFF">
-                <use xlink:href="#path-1"></use>
-                <use xlink:href="#path-1"></use>
-            </g>
-            <g id="museum-12-copy" transform="translate(4.000000, 3.000000)"></g>
-        </g>
-    </g>
+<svg width="16" height="16" viewBox="0 0 16 16">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="8" cy="8" r="8" fill="#FFF" opacity=".6"/>
+    <circle cx="8" cy="8" r="7" fill="#7F5933"/>
+    <path fill="#FFF" d="M4,5.77777778 L8,4 L12,5.77777778 L12,6.66666667 L11.1111111,6.66666667 L11.1111111,11.1111111 L12,11.1111111 L12,12 L4,12 L4,11.1111111 L4.88888889,11.1111111 L4.88888889,6.66666667 L4,6.66666667 L4,5.77777778 Z M6.13332791,6.66666667 L6.13332791,11.1111111 L7.37777233,11.1111111 L7.37777233,6.66666667 L6.13332791,6.66666667 Z M8.71110026,6.66666667 L8.71110026,11.1111111 L9.95554468,11.1111111 L9.95554468,6.66666667 L8.71110026,6.66666667 Z"/>
+  </g>
 </svg>

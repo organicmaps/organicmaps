@@ -14,7 +14,7 @@ namespace boost { namespace spirit { namespace x3 { namespace detail
     template <typename Char, typename Iterator, typename Attribute, typename CaseCompareFunc>
     inline bool string_parse(
         Char const* str
-      , Iterator& first, Iterator const& last, Attribute& attr, CaseCompareFunc const& compare)
+      , Iterator& first, Iterator const& last, Attribute& attr, CaseCompareFunc const& compare) 
     {
         Iterator i = first;
         Char ch = *str;

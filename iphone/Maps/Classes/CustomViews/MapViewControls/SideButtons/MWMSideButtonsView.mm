@@ -10,7 +10,7 @@ namespace
 {
 CGFloat const kLocationButtonSpacingMax = 52;
 CGFloat const kLocationButtonSpacingMin = 8;
-CGFloat const kButtonsTopOffset = 82;
+CGFloat const kButtonsTopOffset = 6;
 CGFloat const kButtonsBottomOffset = 6;
 }  // namespace
 
@@ -19,6 +19,8 @@ CGFloat const kButtonsBottomOffset = 6;
 @property(weak, nonatomic) IBOutlet MWMButton * zoomIn;
 @property(weak, nonatomic) IBOutlet MWMButton * zoomOut;
 @property(weak, nonatomic) IBOutlet MWMButton * location;
+
+@property(nonatomic) CGRect availableArea;
 
 @end
 
@@ -32,7 +34,7 @@ CGFloat const kButtonsBottomOffset = 6;
 
 - (void)layoutSubviews
 {
-  CGFloat spacing = self.bottomBound - self.topBound - self.zoomOut.maxY - self.location.height;
+  CGFloat spacing = self.availableHeight - self.zoomOut.maxY - self.location.height;
   spacing = my::clamp(spacing, kLocationButtonSpacingMin, kLocationButtonSpacingMax);
 
   self.location.minY = self.zoomOut.maxY + spacing;
@@ -42,25 +44,27 @@ CGFloat const kButtonsBottomOffset = 6;
   self.location.maxY = self.height;
 
   [self layoutXPosition:self.hidden];
-  [self layoutYPosition];
+  [self animate];
   [super layoutSubviews];
 }
 
 - (void)layoutXPosition:(BOOL)hidden
 {
-  if ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft)
+  if (UIApplication.sharedApplication.userInterfaceLayoutDirection ==
+      UIUserInterfaceLayoutDirectionRightToLeft)
   {
     if (hidden)
       self.maxX = 0;
     else
-      self.minX = kViewControlsOffsetToBounds;
+      self.minX = self.availableArea.origin.x + kViewControlsOffsetToBounds;
   }
   else
   {
     if (hidden)
       self.minX = self.superview.width;
     else
-      self.maxX = self.superview.width - kViewControlsOffsetToBounds;
+      self.maxX =
+          self.availableArea.origin.x + self.availableArea.size.width - kViewControlsOffsetToBounds;
   }
 }
 
@@ -71,6 +75,7 @@ CGFloat const kButtonsBottomOffset = 6;
   if (self.maxY > self.bottomBound)
     self.maxY = self.bottomBound;
 }
+
 - (void)fadeZoomButtonsShow:(BOOL)show
 {
   CGFloat const alpha = show ? 1.0 : 0.0;
@@ -91,11 +96,10 @@ CGFloat const kButtonsBottomOffset = 6;
 
 - (void)animate
 {
-  runAsyncOnMainQueue(^{
+  dispatch_async(dispatch_get_main_queue(), ^{
     [self layoutYPosition];
 
-    CGFloat const spaceLeft = self.bottomBound - self.topBound -
-                              (equalScreenDimensions(self.topBound, 0.0) ? statusBarHeight() : 0.0);
+    auto const spaceLeft = self.availableHeight;
     BOOL const isZoomHidden = self.zoomIn.alpha == 0.0;
     BOOL const willZoomHide = (self.location.maxY > spaceLeft);
     if (willZoomHide)
@@ -120,6 +124,7 @@ CGFloat const kButtonsBottomOffset = 6;
       if (isLocationHidden)
         [self fadeLocationButtonShow:YES];
     }
+    [self layoutIfNeeded];
   });
 }
 
@@ -157,34 +162,24 @@ CGFloat const kButtonsBottomOffset = 6;
   }
 }
 
-@synthesize topBound = _topBound;
-
-- (void)setTopBound:(CGFloat)topBound
+- (void)updateAvailableArea:(CGRect)frame
 {
-  if (equalScreenDimensions(_topBound, topBound))
+  if (CGRectEqualToRect(self.availableArea, frame))
     return;
-  _topBound = topBound;
-  [self animate];
+  self.availableArea = frame;
+  [self setNeedsLayout];
 }
 
-- (CGFloat)topBound { return MAX(kButtonsTopOffset, _topBound); }
-@synthesize bottomBound = _bottomBound;
-
-- (void)setBottomBound:(CGFloat)bottomBound
+- (CGFloat)availableHeight
 {
-  if (equalScreenDimensions(_bottomBound, bottomBound))
-    return;
-  _bottomBound = bottomBound;
-  [self animate];
+  return self.availableArea.size.height - kButtonsTopOffset - kButtonsBottomOffset;
 }
 
+- (CGFloat)topBound { return self.availableArea.origin.y + kButtonsTopOffset; }
 - (CGFloat)bottomBound
 {
-  if (!self.superview)
-    return _bottomBound;
-  CGFloat const spaceOccupiedByMenu =
-      self.superview.height - [MWMBottomMenuViewController controller].mainStateHeight;
-  return MIN(spaceOccupiedByMenu, _bottomBound) - kButtonsBottomOffset;
+  auto const area = self.availableArea;
+  return area.origin.y + area.size.height - kButtonsBottomOffset;
 }
 
 @end

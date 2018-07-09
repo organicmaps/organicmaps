@@ -17,8 +17,8 @@
 - (void)refresh
 {
   [super refresh];
-  NSLocale * locale = [NSLocale currentLocale];
-  NSCalendar * calendar = [NSCalendar currentCalendar];
+  NSLocale * locale = NSLocale.currentLocale;
+  NSCalendar * calendar = NSCalendar.currentCalendar;
   calendar.locale = locale;
 
   NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];

@@ -20,7 +20,6 @@
 #ifdef BOOST_NO_STD_WSTREAMBUF
 #error "wide char i/o not supported on this platform"
 #else
-
 #include <cstddef> // size_t
 #if defined(BOOST_NO_STDC_NAMESPACE)
 namespace std{ 
@@ -30,21 +29,13 @@ namespace std{
 
 #include <ostream>
 
-#include <boost/smart_ptr/scoped_ptr.hpp>
+//#include <boost/smart_ptr/scoped_ptr.hpp>
 #include <boost/archive/detail/auto_link_warchive.hpp>
 #include <boost/archive/basic_text_oprimitive.hpp>
 #include <boost/archive/basic_xml_oarchive.hpp>
 #include <boost/archive/detail/register_archive.hpp>
 #include <boost/serialization/item_version_type.hpp>
-
-#ifdef BOOST_NO_CXX11_HDR_CODECVT
-    #include <boost/archive/detail/utf8_codecvt_facet.hpp>
-#else
-    #include <codecvt>
-    namespace boost { namespace archive { namespace detail {
-        typedef std::codecvt_utf8<wchar_t> utf8_codecvt_facet;
-    } } }
-#endif
+//#include <boost/archive/detail/utf8_codecvt_facet.hpp>
 
 #include <boost/archive/detail/abi_prefix.hpp> // must be the last header
 
@@ -69,27 +60,19 @@ class BOOST_SYMBOL_VISIBLE xml_woarchive_impl :
 public:
 #else
 protected:
-    #if BOOST_WORKAROUND(BOOST_MSVC, < 1500)
-        // for some inexplicable reason insertion of "class" generates compile erro
-        // on msvc 7.1
-        friend detail::interface_oarchive<Archive>;
-        friend basic_xml_oarchive<Archive>;
-        friend save_access;
-    #else
-        friend class detail::interface_oarchive<Archive>;
-        friend class basic_xml_oarchive<Archive>;
-        friend class save_access;
-    #endif
+    friend class detail::interface_oarchive<Archive>;
+    friend class basic_xml_oarchive<Archive>;
+    friend class save_access;
 #endif
     //void end_preamble(){
     //    basic_xml_oarchive<Archive>::end_preamble();
     //}
     template<class T>
-    void 
+    void
     save(const T & t){
         basic_text_oprimitive<std::wostream>::save(t);
     }
-    void 
+    void
     save(const version_type & t){
         save(static_cast<const unsigned int>(t));
     }
@@ -100,33 +83,23 @@ protected:
     BOOST_WARCHIVE_DECL void
     save(const char * t);
     #ifndef BOOST_NO_INTRINSIC_WCHAR_T
-    BOOST_WARCHIVE_DECL void
+    BOOST_WARCHIVE_DECL void 
     save(const wchar_t * t);
     #endif
-    BOOST_WARCHIVE_DECL void
+    BOOST_WARCHIVE_DECL void 
     save(const std::string &s);
     #ifndef BOOST_NO_STD_WSTRING
     BOOST_WARCHIVE_DECL void
     save(const std::wstring &ws);
     #endif
-    BOOST_WARCHIVE_DECL
+    BOOST_WARCHIVE_DECL 
     xml_woarchive_impl(std::wostream & os, unsigned int flags);
     BOOST_WARCHIVE_DECL
     ~xml_woarchive_impl();
 public:
-    void 
-    save_binary(const void *address, std::size_t count){
-        this->end_preamble();
-        #if ! defined(__MWERKS__)
-        this->basic_text_oprimitive<std::wostream>::save_binary(
-        #else
-        this->basic_text_oprimitive::save_binary(
-        #endif
-            address, 
-            count
-        );
-        this->indent_next = true;
-    }
+    BOOST_WARCHIVE_DECL void
+    save_binary(const void *address, std::size_t count);
+
 };
 
 // we use the following because we can't use

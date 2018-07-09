@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/button"
+  android:foreground="?clickableBackground"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:textAppearance="@style/MwmTextAppearance.Discovery.Item.Button"
+  style="@style/MwmWidget.Discovery.Item.Button"
+  android:layout_gravity="bottom"
+  tools:text="ROUTE TO"
+  tools:showIn="@layout/item_discovery_search"/>

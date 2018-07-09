@@ -14,7 +14,6 @@ using url_scheme::ApiPoint;
 
 namespace
 {
-
 class Ge0ParserForTest : public Ge0Parser
 {
 public:
@@ -23,14 +22,14 @@ public:
   using Ge0Parser::DecodeLatLon;
 };
 
-double GetLatEpsilon(int coordBytes)
+double GetLatEpsilon(size_t coordBytes)
 {
   // Should be / 2.0 but probably because of accumulates loss of precision, 1.77 works but 2.0 doesn't.
   double infelicity = 1 << ((MAPSWITHME_MAX_POINT_BYTES - coordBytes) * 3);
   return infelicity / ((1 << MAPSWITHME_MAX_COORD_BITS) - 1) * 180 / 1.77;
 }
 
-double GetLonEpsilon(int coordBytes)
+double GetLonEpsilon(size_t coordBytes)
 {
   // Should be / 2.0 but probably because of accumulates loss of precision, 1.77 works but 2.0 doesn't.
   double infelicity = 1 << ((MAPSWITHME_MAX_POINT_BYTES - coordBytes) * 3);
@@ -81,13 +80,12 @@ bool ConvergenceTest(double lat, double lon, double latEps, double lonEps)
     return true;
   return false;
 }
-
-}  // unnamed namespace
+}  // namespace
 
 UNIT_TEST(Base64DecodingWorksForAValidChar)
 {
   Ge0ParserForTest parser;
-  for (size_t i = 0; i < 64; ++i)
+  for (int i = 0; i < 64; ++i)
   {
     char c = MapsWithMe_Base64Char(i);
     int i1 = parser.DecodeBase64Char(c);
@@ -207,7 +205,7 @@ UNIT_TEST(LatLonFullAndClippedCoordinates)
       for (int i = 9; i >= 1; --i)
       {
         string const str = string(buf).substr(7, i);
-        int const coordSize = str.size();
+        size_t const coordSize = str.size();
         Ge0ParserForTest parser;
         double latTmp, lonTmp;
         parser.DecodeLatLon(str, latTmp, lonTmp);
@@ -223,7 +221,7 @@ UNIT_TEST(LatLonFullAndClippedCoordinates)
     }
   }
 
-  for (int coordSize = 1; coordSize <= 8; ++coordSize)
+  for (size_t coordSize = 1; coordSize <= 8; ++coordSize)
   {
     TEST(maxLatDiffForCoordSize[coordSize] > maxLatDiffForCoordSize[coordSize + 1], (coordSize));
     TEST(maxLonDiffForCoordSize[coordSize] > maxLonDiffForCoordSize[coordSize + 1], (coordSize));

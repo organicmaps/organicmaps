@@ -1,24 +1,24 @@
 #pragma once
 
-#include "indexer/osm_editor.hpp"
+#include "editor/osm_editor.hpp"
 
-class Index;
+class DataSource;
 
 namespace search
 {
 class EditorDelegate : public osm::Editor::Delegate
 {
 public:
-  EditorDelegate(Index const & index);
+  EditorDelegate(DataSource const & dataSource);
 
   // osm::Editor::Delegate overrides:
   MwmSet::MwmId GetMwmIdByMapName(string const & name) const override;
   unique_ptr<FeatureType> GetOriginalFeature(FeatureID const & fid) const override;
   string GetOriginalFeatureStreet(FeatureType & ft) const override;
-  void ForEachFeatureAtPoint(osm::Editor::TFeatureTypeFn && fn,
+  void ForEachFeatureAtPoint(osm::Editor::FeatureTypeFn && fn,
                              m2::PointD const & point) const override;
 
 private:
-  Index const & m_index;
+  DataSource const & m_dataSource;
 };
 }  // namespace search

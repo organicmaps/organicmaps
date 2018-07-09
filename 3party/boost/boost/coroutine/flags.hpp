@@ -16,12 +16,6 @@ enum flag_unwind_t
     no_stack_unwind
 };
 
-enum flag_fpu_t
-{
-    fpu_preserved = 0,
-    fpu_not_preserved
-};
-
 }}
 
 #endif // BOOST_COROUTINES_FLAGS_H

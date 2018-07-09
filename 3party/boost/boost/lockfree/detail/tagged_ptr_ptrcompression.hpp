@@ -1,6 +1,6 @@
 //  tagged pointer, for aba prevention
 //
-//  Copyright (C) 2008, 2009 Tim Blechmann, based on code by Cory Nelson
+//  Copyright (C) 2008, 2009, 2016 Tim Blechmann, based on code by Cory Nelson
 //
 //  Distributed under the Boost Software License, Version 1.0. (See
 //  accompanying file LICENSE_1_0.txt or copy at
@@ -13,14 +13,13 @@
 #include <limits>
 
 #include <boost/cstdint.hpp>
-
-#include <boost/lockfree/detail/branch_hints.hpp>
+#include <boost/predef.h>
 
 namespace boost {
 namespace lockfree {
 namespace detail {
 
-#if defined (__x86_64__) || defined (_M_X64)
+#ifdef BOOST_ARCH_X86_64
 
 template <class T>
 class tagged_ptr
@@ -52,7 +51,7 @@ private:
         return cu.tag[tag_index];
     }
 
-    static compressed_ptr_t pack_ptr(T * ptr, int tag)
+    static compressed_ptr_t pack_ptr(T * ptr, tag_t tag)
     {
         cast_unit ret;
         ret.value = compressed_ptr_t(ptr);
@@ -132,7 +131,7 @@ public:
 
     tag_t get_next_tag() const
     {
-        tag_t next = (get_tag() + 1) & (std::numeric_limits<tag_t>::max)();
+        tag_t next = (get_tag() + 1u) & (std::numeric_limits<tag_t>::max)();
         return next;
     }
 

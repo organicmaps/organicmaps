@@ -129,4 +129,4 @@ exec /usr/bin/env sbcl --noinform --quit --load "$0" --end-toplevel-options "$@"
         (loop for sample in *samples*
              summing (length (slot-value sample 'results))))
 
-(format t "~a~%" (json:encode-json-to-string (reverse *samples*)))
+(format t "~{~a~%~}" (mapcar #'json:encode-json-to-string (reverse *samples*)))

@@ -5,12 +5,19 @@
 #include "map/framework.hpp"
 #include "map/place_page_info.hpp"
 
+#include "ugc/api.hpp"
+
 #include "search/result.hpp"
 
 #include "drape_frontend/gui/skin.hpp"
 
 #include "drape/pointers.hpp"
 #include "drape/oglcontextfactory.hpp"
+
+#include "local_ads/event.hpp"
+
+#include "partners_api/booking_api.hpp"
+#include "partners_api/locals_api.hpp"
 
 #include "platform/country_defines.hpp"
 #include "platform/location.hpp"
@@ -21,15 +28,22 @@
 
 #include "indexer/map_style.hpp"
 
-#include "std/map.hpp"
-#include "std/mutex.hpp"
-#include "std/shared_ptr.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/cstdint.hpp"
+#include <cstdint>
+#include <map>
+#include <memory>
+#include <mutex>
+
+class DataSource;
+struct FeatureID;
 
 namespace search
 {
 struct EverywhereSearchParams;
+}
+
+namespace booking
+{
+struct BlockParams;
 }
 
 namespace android
@@ -43,13 +57,14 @@ namespace android
     math::LowPassVector<float, 3> m_sensors[2];
     double m_lastCompass;
 
-    string m_searchQuery;
+    std::string m_searchQuery;
 
     bool m_isContextDestroyed;
 
-    map<gui::EWidget, gui::Position> m_guiPositions;
+    std::map<gui::EWidget, gui::Position> m_guiPositions;
 
     void TrafficStateChanged(TrafficManager::TrafficState state);
+    void TransitSchemeStateChanged(TransitReadManager::TransitSchemeState state);
 
     void MyPositionModeChanged(location::EMyPositionMode mode, bool routingActive);
 
@@ -58,6 +73,7 @@ namespace android
     bool m_isCurrentModeInitialized;
 
     TrafficManager::TrafficStateChangedFn m_onTrafficStateChangedFn;
+    TransitReadManager::TransitStateChangedFn m_onTransitStateChangedFn;
 
     bool m_isChoosePositionMode;
 
@@ -67,6 +83,7 @@ namespace android
     Framework();
 
     storage::Storage & GetStorage();
+    DataSource const & GetDataSource();
 
     void ShowNode(storage::TCountryId const & countryId, bool zoomToDownloadButton);
 
@@ -77,7 +94,8 @@ namespace android
 
     void Invalidate();
 
-    bool CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch);
+    bool CreateDrapeEngine(JNIEnv * env, jobject jSurface, int densityDpi, bool firstLaunch,
+                           bool launchByDeepLink);
     bool IsDrapeEngineCreated();
 
     void DetachSurface(bool destroyContext);
@@ -89,9 +107,13 @@ namespace android
 
     void SetupMeasurementSystem();
 
-    void SetRouter(routing::RouterType type) { m_work.SetRouter(type); }
-    routing::RouterType GetRouter() const { return m_work.GetRouter(); }
-    routing::RouterType GetLastUsedRouter() const { return m_work.GetLastUsedRouter(); }
+    RoutingManager & GetRoutingManager() { return m_work.GetRoutingManager(); }
+    void SetRouter(routing::RouterType type) { m_work.GetRoutingManager().SetRouter(type); }
+    routing::RouterType GetRouter() const { return m_work.GetRoutingManager().GetRouter(); }
+    routing::RouterType GetLastUsedRouter() const
+    {
+      return m_work.GetRoutingManager().GetLastUsedRouter();
+    }
 
     void Resize(int w, int h);
 
@@ -111,7 +133,7 @@ namespace android
     void Touch(int action, Finger const & f1, Finger const & f2, uint8_t maskedPointer);
 
     bool Search(search::EverywhereSearchParams const & params);
-    string GetLastSearchQuery() { return m_searchQuery; }
+    std::string GetLastSearchQuery() { return m_searchQuery; }
     void ClearLastSearchQuery() { m_searchQuery.clear(); }
 
     void AddLocalMaps();
@@ -119,25 +141,25 @@ namespace android
 
     m2::PointD GetViewportCenter() const;
 
-    void AddString(string const & name, string const & value);
+    void AddString(std::string const & name, std::string const & value);
 
     void Scale(::Framework::EScaleMode mode);
     void Scale(m2::PointD const & centerPt, int targetZoom, bool animate);
 
-    void ReplaceBookmark(BookmarkAndCategory const & ind, BookmarkData & bm);
-    size_t ChangeBookmarkCategory(BookmarkAndCategory const & ind, size_t newCat);
+    void ReplaceBookmark(kml::MarkId markId, kml::BookmarkData & bm);
+    void MoveBookmark(kml::MarkId markId, kml::MarkGroupId curCat, kml::MarkGroupId newCat);
 
     ::Framework * NativeFramework();
 
     bool IsDownloadingActive();
 
-    bool ShowMapForURL(string const & url);
+    bool ShowMapForURL(std::string const & url);
 
     void DeactivatePopup();
 
-    string GetOutdatedCountriesString();
+    std::string GetOutdatedCountriesString();
 
-    void ShowTrack(int category, int track);
+    void ShowTrack(kml::TrackId track);
 
     void SetMyPositionModeListener(location::TMyPositionModeChanged const & fn);
     location::EMyPositionMode GetMyPositionMode();
@@ -145,6 +167,8 @@ namespace android
     void SwitchMyPositionNextMode();
 
     void SetTrafficStateListener(TrafficManager::TrafficStateChangedFn const & fn);
+    void SetTransitSchemeListener(TransitReadManager::TransitStateChangedFn const & fn);
+    bool IsTrafficEnabled();
     void EnableTraffic();
     void DisableTraffic();
 
@@ -161,11 +185,10 @@ namespace android
 
     void SetPlacePageInfo(place_page::Info const & info);
     place_page::Info & GetPlacePageInfo();
-    void RequestBookingMinPrice(JNIEnv * env, jobject policy, 
-                                string const & hotelId, string const & currency,
-                                booking::GetMinPriceCallback const & callback);
+    void RequestBookingMinPrice(JNIEnv * env, jobject policy, booking::BlockParams && params,
+                                booking::BlockAvailabilityCallback const & callback);
     void RequestBookingInfo(JNIEnv * env, jobject policy, 
-                            string const & hotelId, string const & lang,
+                            std::string const & hotelId, std::string const & lang,
                             booking::GetHotelInfoCallback const & callback);
 
     bool HasSpaceForMigration();
@@ -177,11 +200,29 @@ namespace android
     bool IsDownloadOn3gEnabled();
     void EnableDownloadOn3g();
 
-    uint64_t RequestUberProducts(JNIEnv * env, jobject policy, ms::LatLon const & from,
-                                 ms::LatLon const & to, uber::ProductsCallback const & callback,
-                                 uber::ErrorCallback const & errorCallback);
-    static uber::RideRequestLinks GetUberLinks(string const & productId, ms::LatLon const & from, ms::LatLon const & to);
+    uint64_t RequestTaxiProducts(JNIEnv * env, jobject policy, ms::LatLon const & from,
+                                 ms::LatLon const & to, taxi::SuccessCallback const & onSuccess,
+                                 taxi::ErrorCallback const & onError);
+    taxi::RideRequestLinks GetTaxiLinks(JNIEnv * env, jobject policy, taxi::Provider::Type type,
+                                        std::string const & productId, ms::LatLon const & from,
+                                        ms::LatLon const & to);
+
+    void RequestViatorProducts(JNIEnv * env, jobject policy, std::string const & destId,
+                               std::string const & currency,
+                               viator::GetTop5ProductsCallback const & callback);
+
+    void RequestUGC(FeatureID const & fid, ugc::Api::UGCCallback const & ugcCallback);
+    void SetUGCUpdate(FeatureID const & fid, ugc::UGCUpdate const & ugc);
+    void UploadUGC();
+
+    int ToDoAfterUpdate() const;
+
+    uint64_t GetLocals(JNIEnv * env, jobject policy, double lat, double lon,
+                       locals::LocalsSuccessCallback const & successFn,
+                       locals::LocalsErrorCallback const & errorFn);
+
+    void LogLocalAdsEvent(local_ads::EventType event, double lat, double lon, uint16_t accuracy);
   };
 }
 
-extern android::Framework * g_framework;
+extern unique_ptr<android::Framework> g_framework;

@@ -10,8 +10,8 @@
 #ifndef BOOST_TT_RANK_HPP_INCLUDED
 #define BOOST_TT_RANK_HPP_INCLUDED
 
-// should be the last #include
-#include <boost/type_traits/detail/size_t_trait_def.hpp>
+#include <cstddef> // size_t
+#include <boost/type_traits/integral_constant.hpp>
 
 namespace boost {
 
@@ -77,13 +77,11 @@ struct rank_imp<T const volatile[], N>
 #endif // !defined( __CODEGEARC__ )
 
 #if defined( __CODEGEARC__ )
-BOOST_TT_AUX_SIZE_T_TRAIT_DEF1(rank,T,__array_rank(T))
+template <class T> struct rank : public integral_constant<std::size_t, __array_rank(T)>{};
 #else
-BOOST_TT_AUX_SIZE_T_TRAIT_DEF1(rank,T,(::boost::detail::rank_imp<T,0>::value))
+template <class T> struct rank : public integral_constant<std::size_t, (::boost::detail::rank_imp<T, 0>::value)>{};
 #endif
 
 } // namespace boost
-
-#include <boost/type_traits/detail/size_t_trait_undef.hpp>
 
 #endif // BOOST_TT_IS_MEMBER_FUNCTION_POINTER_HPP_INCLUDED

@@ -16,9 +16,10 @@ namespace
 
 #if defined(TRACK_POINTERS)
   bool g_assertRaised = false;
-  void OnAssertRaised(my::SrcPoint const & /*srcPoint*/, string const & /*msg*/)
+  bool OnAssertRaised(my::SrcPoint const & /*srcPoint*/, string const & /*msg*/)
   {
     g_assertRaised = true;
+    return false;
   }
 #endif
 }

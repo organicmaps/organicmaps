@@ -57,7 +57,8 @@ struct relate_impl
             implemented_tag
         >::type
 {
-    static inline bool apply(Geometry1 const& g1, Geometry2 const& g2)
+    template <typename Strategy>
+    static inline bool apply(Geometry1 const& g1, Geometry2 const& g2, Strategy const& strategy)
     {
         typename detail::relate::result_handler_type
             <
@@ -66,7 +67,7 @@ struct relate_impl
                 typename StaticMaskTrait<Geometry1, Geometry2>::type
             >::type handler;
 
-        dispatch::relate<Geometry1, Geometry2>::apply(g1, g2, handler);
+        dispatch::relate<Geometry1, Geometry2>::apply(g1, g2, handler, strategy);
 
         return handler.result();
     }

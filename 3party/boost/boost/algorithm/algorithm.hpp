@@ -1,4 +1,4 @@
-/*
+/* 
    Copyright (c) Marshall Clow 2014.
 
    Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -6,7 +6,7 @@
 
  Revision history:
     2 Dec 2014 mtc First version; power
-
+   
 */
 
 /// \file algorithm.hpp
@@ -16,6 +16,8 @@
 
 #ifndef BOOST_ALGORITHM_HPP
 #define BOOST_ALGORITHM_HPP
+
+#include <functional> // for plus and multiplies
 
 #include <boost/utility/enable_if.hpp> // for boost::disable_if
 #include <boost/type_traits/is_integral.hpp>
@@ -31,7 +33,7 @@ T identity_operation ( std::plus<T> ) { return T(0); }
 
 /// \fn power ( T x, Integer n )
 /// \return the value "x" raised to the power "n"
-///
+/// 
 /// \param x     The value to be exponentiated
 /// \param n     The exponent (must be >= 0)
 ///
@@ -40,7 +42,7 @@ T identity_operation ( std::plus<T> ) { return T(0); }
 template <typename T, typename Integer>
 typename boost::enable_if<boost::is_integral<Integer>, T>::type
 power (T x, Integer n) {
-    T y = 1; // Should be "T y{1};"
+    T y = 1; // Should be "T y{1};" 
     if (n == 0) return y;
     while (true) {
         if (n % 2 == 1) {
@@ -56,8 +58,8 @@ power (T x, Integer n) {
 
 /// \fn power ( T x, Integer n, Operation op )
 /// \return the value "x" raised to the power "n"
-/// using the operaton "op".
-///
+/// using the operation "op".
+/// 
 /// \param x     The value to be exponentiated
 /// \param n     The exponent (must be >= 0)
 /// \param op    The operation used

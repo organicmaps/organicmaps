@@ -22,15 +22,15 @@
 
 #ifndef BOOST_SP_NO_SYNC
 
-#if defined( __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 )
+#if !defined( __c2__ ) && defined( __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 )
 
 # define BOOST_SP_HAS_SYNC
 
-#elif defined( __IBMCPP__ ) && ( __IBMCPP__ >= 1210 )
+#elif defined( __IBMCPP__ ) && ( __IBMCPP__ >= 1210 ) && !defined( __COMPILER_VER__ )
 
 # define BOOST_SP_HAS_SYNC
 
-#elif defined( __GNUC__ ) && ( __GNUC__ * 100 + __GNUC_MINOR__ >= 401 )
+#elif !defined( __c2__ ) && defined( __GNUC__ ) && ( __GNUC__ * 100 + __GNUC_MINOR__ >= 401 )
 
 #define BOOST_SP_HAS_SYNC
 

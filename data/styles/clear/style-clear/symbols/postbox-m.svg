@@ -1,12 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>postbox-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="postbox-m" fill="#717065">
-            <path d="M17,10.469 L17,18 L6,18 L6,10.25 L8,12.25 L8,14 L15,14 L15,12.469 L17,10.469 L17,10.469 Z M17.606,7.449 L13.056,12 L10.165,12 L8.124,10 L12.827,10 L13.999,8.619 L13.999,3.963 L17.606,7.449 L17.606,7.449 Z M12.403,9 L8.125,9 L10.623,6.461 L13,3.963 L13,8.215 L12.403,9 L12.403,9 Z" id="Shape"></path>
-        </g>
-    </g>
-</svg>
+<svg height="24" viewBox="0 0 24 24" width="24"><g fill="none" fill-rule="evenodd"><circle cx="12" cy="12" fill="#fff" opacity=".2" r="12"/><path d="m17.3212132 10.4888509v7.5111491h-12.3212132v-7.7295718l2.24022058 1.9947282v1.7453872h7.84077202v-1.5269645zm.6787868-3.01203962-5.0965018 4.53900402h-3.23823885l-2.2861451-1.9947282h5.26787865l1.3127693-1.37735981v-4.64372729zm-5.8279338 1.54691174h-4.79183184l2.79803554-2.53230748 2.6625021-2.49141554v4.24079219z" fill="#717065"/></g></svg>

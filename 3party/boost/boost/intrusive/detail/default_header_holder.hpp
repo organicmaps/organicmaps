@@ -21,6 +21,7 @@
 #  pragma once
 #endif
 
+#include <boost/intrusive/detail/workaround.hpp>
 #include <boost/intrusive/pointer_traits.hpp>
 #include <boost/intrusive/detail/to_raw_pointer.hpp>
 
@@ -39,14 +40,14 @@ struct default_header_holder : public NodeTraits::node
 
    default_header_holder() : node() {}
 
-   const_node_ptr get_node() const
+   BOOST_INTRUSIVE_FORCEINLINE const_node_ptr get_node() const
    { return pointer_traits< const_node_ptr >::pointer_to(*static_cast< const node* >(this)); }
 
-   node_ptr get_node()
+   BOOST_INTRUSIVE_FORCEINLINE node_ptr get_node()
    { return pointer_traits< node_ptr >::pointer_to(*static_cast< node* >(this)); }
 
    // (unsafe) downcast used to implement container-from-iterator
-   static default_header_holder* get_holder(const node_ptr &p)
+   BOOST_INTRUSIVE_FORCEINLINE static default_header_holder* get_holder(const node_ptr &p)
    { return static_cast< default_header_holder* >(boost::intrusive::detail::to_raw_pointer(p)); }
 };
 

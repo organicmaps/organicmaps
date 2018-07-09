@@ -13,14 +13,14 @@
 #ifndef BOOST_VARIANT_DETAIL_APPLY_VISITOR_UNARY_HPP
 #define BOOST_VARIANT_DETAIL_APPLY_VISITOR_UNARY_HPP
 
-#include "boost/config.hpp"
-#include "boost/detail/workaround.hpp"
-#include "boost/variant/detail/generic_result_type.hpp"
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
+#include <boost/variant/detail/generic_result_type.hpp>
 
 #if BOOST_WORKAROUND(__EDG__, BOOST_TESTED_AT(302))
-#include "boost/core/enable_if.hpp"
-#include "boost/mpl/not.hpp"
-#include "boost/type_traits/is_const.hpp"
+#include <boost/core/enable_if.hpp>
+#include <boost/mpl/not.hpp>
+#include <boost/type_traits/is_const.hpp>
 #endif
 
 #if !defined(BOOST_NO_CXX14_DECLTYPE_AUTO) && !defined(BOOST_NO_CXX11_DECLTYPE_N3276)
@@ -30,7 +30,7 @@
 #   include <boost/mpl/size.hpp>
 #   include <boost/utility/declval.hpp>
 #   include <boost/core/enable_if.hpp>
-#   include "boost/variant/detail/has_result_type.hpp"
+#   include <boost/variant/detail/has_result_type.hpp>
 #endif
 
 namespace boost {

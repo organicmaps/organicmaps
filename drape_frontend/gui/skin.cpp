@@ -1,18 +1,18 @@
-#include "skin.hpp"
+#include "drape_frontend/gui/skin.hpp"
 
 #include "platform/platform.hpp"
+
 #include "coding/parse_xml.hpp"
+
 #include "base/string_utils.hpp"
-#include "std/function.hpp"
+
+#include <memory>
 
 namespace gui
 {
-
 namespace
 {
-
 #ifdef DEBUG
-
 bool IsSimple(dp::Anchor anchor)
 {
   return anchor >= 0 && anchor <= 8;
@@ -22,20 +22,19 @@ bool IsAnchor(dp::Anchor anchor)
 {
   return anchor >= 0 && anchor <= 10;
 }
-
 #endif
 
-dp::Anchor ParseValueAnchor(string const & value)
+dp::Anchor ParseValueAnchor(std::string const & value)
 {
   if (value == "center")
     return dp::Center;
-  else if (value == "left")
+  if (value == "left")
     return dp::Left;
-  else if (value == "right")
+  if (value == "right")
     return dp::Right;
-  else if (value == "top")
+  if (value == "top")
     return dp::Top;
-  else if (value == "bottom")
+  if (value == "bottom")
     return dp::Bottom;
   else
     ASSERT(false, ());
@@ -52,11 +51,11 @@ dp::Anchor MergeAnchors(dp::Anchor src, dp::Anchor dst)
   return result;
 }
 
-float ParseFloat(string const & v)
+float ParseFloat(std::string const & v)
 {
-  double d = 0.0f;
+  double d = 0.0;
   VERIFY(strings::to_double(v, d), ());
-  return d;
+  return static_cast<float>(d);
 }
 
 class ResolverParser
@@ -71,9 +70,10 @@ public:
   };
 
   ResolverParser()
-    : m_element(Element::Empty) {}
+    : m_element(Element::Empty)
+  {}
 
-  void Parse(string const & attr, string const & value)
+  void Parse(std::string const & attr, std::string const & value)
   {
     ASSERT(m_element != Element::Empty, ());
 
@@ -121,12 +121,13 @@ private:
 class SkinLoader
 {
 public:
-  explicit SkinLoader(map<EWidget, pair<PositionResolver, PositionResolver> > & skin)
-    : m_skin(skin) {}
+  explicit SkinLoader(std::map<EWidget, std::pair<PositionResolver, PositionResolver>> & skin)
+    : m_skin(skin)
+  {}
 
-  bool Push(string const & element)
+  bool Push(std::string const & element)
   {
-    if (m_inElement == false)
+    if (!m_inElement)
     {
       if (element == "root")
         return true;
@@ -138,10 +139,12 @@ public:
         m_currentElement = WIDGET_COMPASS;
       else if (element == "copyright")
         m_currentElement = WIDGET_COPYRIGHT;
+      else if (element == "watermark")
+        m_currentElement = WIDGET_WATERMARK;
       else
         ASSERT(false, ());
     }
-    else if (m_inConfiguration == false)
+    else if (!m_inConfiguration)
     {
       if (element == "portrait" || element == "landscape")
         m_inConfiguration = true;
@@ -163,7 +166,7 @@ public:
     return true;
   }
 
-  void Pop(string const & element)
+  void Pop(std::string const & element)
   {
     if (element == "anchor" || element == "relative" || element == "offset")
       m_parser.SetElement(ResolverParser::Element::Empty);
@@ -179,19 +182,19 @@ public:
       m_parser.Reset();
       m_inConfiguration = false;
     }
-    else if (element == "ruler" || element == "compass" ||
-             element == "copyright" || element == "country_status")
+    else if (element == "ruler" || element == "compass" || element == "copyright" ||
+             element == "country_status" || element == "watermark")
     {
       m_inElement = false;
     }
   }
 
-  void AddAttr(string const & attribute, string const & value)
+  void AddAttr(std::string const & attribute, std::string const & value)
   {
     m_parser.Parse(attribute, value);
   }
 
-  void CharData(string const &) {}
+  void CharData(std::string const &) {}
 
 private:
   bool m_inConfiguration = false;
@@ -202,7 +205,6 @@ private:
 
   map<EWidget, pair<PositionResolver, PositionResolver> > & m_skin;
 };
-
 }
 
 Position PositionResolver::Resolve(int w, int h, double vs) const
@@ -272,10 +274,10 @@ void Skin::Resize(int w, int h)
   m_displayHeight = h;
 }
 
-ReaderPtr<Reader> ResolveGuiSkinFile(string const & deviceType)
+ReaderPtr<Reader> ResolveGuiSkinFile(std::string const & deviceType)
 {
   Platform & pl = GetPlatform();
-  unique_ptr<Reader> reader;
+  std::unique_ptr<Reader> reader;
   try
   {
     reader = pl.GetReader("resources-default/" + deviceType + ".ui");
@@ -298,6 +300,6 @@ ReaderPtr<Reader> ResolveGuiSkinFile(string const & deviceType)
     }
   }
 
-  return move(reader);
+  return ReaderPtr<Reader>(std::move(reader));
 }
-}
+}  // namespace gui

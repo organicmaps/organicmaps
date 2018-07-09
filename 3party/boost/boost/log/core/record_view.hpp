@@ -17,6 +17,7 @@
 
 #include <boost/smart_ptr/intrusive_ptr.hpp>
 #include <boost/move/core.hpp>
+#include <boost/move/utility_core.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/utility/explicit_operator_bool.hpp>
 #include <boost/log/attributes/attribute_value_set.hpp>
@@ -72,10 +73,10 @@ private:
         //! Attribute values view
         attribute_value_set m_attribute_values;
 
-        //! Constructor from the attribute sets
-        explicit public_data(BOOST_RV_REF(attribute_value_set) values) :
+        //! Constructor from the attribute value set
+        explicit public_data(BOOST_RV_REF(attribute_value_set) values) BOOST_NOEXCEPT :
             m_ref_counter(1),
-            m_attribute_values(values)
+            m_attribute_values(boost::move(values))
         {
         }
 
@@ -98,7 +99,7 @@ private:
 
 private:
     //  A private constructor, accessible from record
-    explicit record_view(public_data* impl) : m_impl(impl, false) {}
+    explicit record_view(public_data* impl) BOOST_NOEXCEPT : m_impl(impl, false) {}
 
 #endif // BOOST_LOG_DOXYGEN_PASS
 
@@ -108,7 +109,12 @@ public:
      *
      * \post <tt>!*this == true</tt>
      */
-    BOOST_DEFAULTED_FUNCTION(record_view(), {})
+    BOOST_CONSTEXPR record_view() BOOST_NOEXCEPT
+#if !defined(BOOST_LOG_NO_CXX11_DEFAULTED_NOEXCEPT_FUNCTIONS)
+        = default;
+#else
+    {}
+#endif
 
     /*!
      * Copy constructor

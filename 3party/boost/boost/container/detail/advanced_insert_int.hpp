@@ -107,8 +107,8 @@ struct insert_n_copies_proxy
 
    void copy_n_and_update(Allocator &, Iterator p, size_type n) const
    {
-	   for (; 0 < n; --n, ++p){
-		   *p = v_;
+      for (; 0 < n; --n, ++p){
+         *p = v_;
       }
    }
 
@@ -236,7 +236,7 @@ struct insert_nonmovable_emplace_proxy
    {  this->priv_uninitialized_copy_some_and_update(a, index_tuple_t(), p, n);  }
 
    private:
-   template<int ...IdxPack>
+   template<std::size_t ...IdxPack>
    void priv_uninitialized_copy_some_and_update(Allocator &a, const index_tuple<IdxPack...>&, Iterator p, size_type n)
    {
       BOOST_ASSERT(n == 1); (void)n;
@@ -266,7 +266,7 @@ struct insert_emplace_proxy
 
    private:
 
-   template<int ...IdxPack>
+   template<std::size_t ...IdxPack>
    void priv_copy_some_and_update(Allocator &a, const index_tuple<IdxPack...>&, Iterator p, size_type n)
    {
       BOOST_ASSERT(n ==1); (void)n;

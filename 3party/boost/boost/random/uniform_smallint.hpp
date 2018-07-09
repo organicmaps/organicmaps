@@ -30,6 +30,10 @@
 #include <boost/detail/workaround.hpp>
 #include <boost/mpl/bool.hpp>
 
+#ifdef BOOST_NO_CXX11_EXPLICIT_CONVERSION_OPERATORS
+#include <boost/mpl/if.hpp>
+#endif
+
 namespace boost {
 namespace random {
 
@@ -194,7 +198,7 @@ public:
     result_type operator()(Engine& eng) const
     {
         typedef typename Engine::result_type base_result;
-        return generate(eng, boost::is_integral<base_result>());
+        return generate(eng, boost::random::traits::is_integral<base_result>());
     }
 
     /** Returns a value uniformly distributed in the range [param.a(), param.b()]. */
@@ -238,20 +242,34 @@ private:
         // equivalent to (eng() - eng.min()) % (_max - _min + 1) + _min,
         // but guarantees no overflow.
         typedef typename Engine::result_type base_result;
-        typedef typename boost::make_unsigned<base_result>::type base_unsigned;
-        typedef typename boost::make_unsigned<result_type>::type range_type;
+        typedef typename boost::random::traits::make_unsigned<base_result>::type base_unsigned;
+        typedef typename boost::random::traits::make_unsigned_or_unbounded<result_type>::type range_type;
+#ifdef BOOST_NO_CXX11_EXPLICIT_CONVERSION_OPERATORS
+        typedef typename mpl::if_c<
+           std::numeric_limits<range_type>::is_specialized && std::numeric_limits<base_unsigned>::is_specialized
+           && (std::numeric_limits<range_type>::digits >= std::numeric_limits<base_unsigned>::digits),
+           range_type, base_unsigned>::type mixed_range_type;
+#else
+        typedef base_unsigned mixed_range_type;
+#endif
         range_type range = random::detail::subtract<result_type>()(_max, _min);
         base_unsigned base_range =
-            random::detail::subtract<result_type>()((eng.max)(), (eng.min)());
+            random::detail::subtract<base_result>()((eng.max)(), (eng.min)());
         base_unsigned val =
             random::detail::subtract<base_result>()(eng(), (eng.min)());
         if(range >= base_range) {
             return boost::random::detail::add<range_type, result_type>()(
                 static_cast<range_type>(val), _min);
         } else {
-            base_unsigned modulus = static_cast<base_unsigned>(range) + 1;
+            // This involves mixed arithmetic between the base generators range
+            // type, and the result_type's range type.  mixed_range_type is
+            // normally the same as base_unsigned which is the most efficient
+            // option, but requires a narrowing explcit cast if result_type
+            // is a multiprecision type.  If no such casts are available then use
+            // multiprecision arithmetic throughout instead.
+            mixed_range_type modulus = static_cast<mixed_range_type>(range)+1;
             return boost::random::detail::add<range_type, result_type>()(
-                static_cast<range_type>(val % modulus), _min);
+                static_cast<mixed_range_type>(val) % modulus, _min);
         }
     }
     
@@ -259,7 +277,7 @@ private:
     result_type generate(Engine& eng, boost::mpl::false_) const
     {
         typedef typename Engine::result_type base_result;
-        typedef typename boost::make_unsigned<result_type>::type range_type;
+        typedef typename boost::random::traits::make_unsigned<result_type>::type range_type;
         range_type range = random::detail::subtract<result_type>()(_max, _min);
         base_result val = boost::uniform_01<base_result>()(eng);
         // what is the worst that can possibly happen here?

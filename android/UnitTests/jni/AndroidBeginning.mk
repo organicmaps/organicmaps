@@ -23,7 +23,7 @@ define add_prebuild_static_lib
   include $(PREBUILT_STATIC_LIBRARY)
 endef
 
-prebuild_static_libs := minizip osrm protobuf jansson fribidi freetype expat base coding geometry platform indexer storage search routing map opening_hours stats_client succinct
+prebuild_static_libs := minizip osrm protobuf jansson freetype expat base coding geometry platform indexer storage search routing map opening_hours stats_client succinct
 
 $(foreach item,$(prebuild_static_libs),$(eval $(call add_prebuild_static_lib,$(item))))
 

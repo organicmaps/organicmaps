@@ -55,17 +55,9 @@ class BOOST_SYMBOL_VISIBLE text_oarchive_impl :
 public:
 #else
 protected:
-    #if BOOST_WORKAROUND(BOOST_MSVC, < 1500)
-        // for some inexplicable reason insertion of "class" generates compile erro
-        // on msvc 7.1
-        friend detail::interface_oarchive<Archive>;
-        friend basic_text_oarchive<Archive>;
-        friend save_access;
-    #else
-        friend class detail::interface_oarchive<Archive>;
-        friend class basic_text_oarchive<Archive>;
-        friend class save_access;
-    #endif
+    friend class detail::interface_oarchive<Archive>;
+    friend class basic_text_oarchive<Archive>;
+    friend class save_access;
 #endif
     template<class T>
     void save(const T & t){
@@ -78,32 +70,32 @@ protected:
     void save(const boost::serialization::item_version_type & t){
         save(static_cast<const unsigned int>(t));
     }
-    BOOST_ARCHIVE_DECL void
+    BOOST_ARCHIVE_DECL void 
     save(const char * t);
     #ifndef BOOST_NO_INTRINSIC_WCHAR_T
-    BOOST_ARCHIVE_DECL void
+    BOOST_ARCHIVE_DECL void 
     save(const wchar_t * t);
     #endif
-    BOOST_ARCHIVE_DECL void
+    BOOST_ARCHIVE_DECL void 
     save(const std::string &s);
     #ifndef BOOST_NO_STD_WSTRING
-    BOOST_ARCHIVE_DECL void
+    BOOST_ARCHIVE_DECL void 
     save(const std::wstring &ws);
     #endif
-    BOOST_ARCHIVE_DECL
+    BOOST_ARCHIVE_DECL 
     text_oarchive_impl(std::ostream & os, unsigned int flags);
     // don't import inline definitions! leave this as a reminder.
-    //BOOST_ARCHIVE_DECL
+    //BOOST_ARCHIVE_DECL 
     ~text_oarchive_impl(){};
 public:
-    BOOST_ARCHIVE_DECL void
+    BOOST_ARCHIVE_DECL void 
     save_binary(const void *address, std::size_t count);
 };
 
 // do not derive from this class.  If you want to extend this functionality
 // via inhertance, derived from text_oarchive_impl instead.  This will
 // preserve correct static polymorphism.
-class BOOST_SYMBOL_VISIBLE text_oarchive :
+class BOOST_SYMBOL_VISIBLE text_oarchive : 
     public text_oarchive_impl<text_oarchive>
 {
 public:

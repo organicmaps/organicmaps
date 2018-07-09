@@ -12,7 +12,7 @@
 #ifndef BOOST_ALGORITHM_PARTITION_POINT_HPP
 #define BOOST_ALGORITHM_PARTITION_POINT_HPP
 
-#include <algorithm>    // for std::partition_point, if available
+#include <iterator>    // for std::distance, advance
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
@@ -27,8 +27,6 @@ namespace boost { namespace algorithm {
 /// \param last     One past the end of the input sequence
 /// \param p        The predicate to test the values with
 /// \note           This function is part of the C++2011 standard library.
-///  We will use the standard one if it is available, 
-///  otherwise we have our own implementation.
 template <typename ForwardIterator, typename Predicate>
 ForwardIterator partition_point ( ForwardIterator first, ForwardIterator last, Predicate p )
 {

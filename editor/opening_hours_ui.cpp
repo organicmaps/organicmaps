@@ -62,7 +62,7 @@ bool FixTimeSpans(osmoh::Timespan openingTime, osmoh::TTimespans & spans)
        });
 
   osmoh::TTimespans result{spans.front()};
-  for (auto i = 1, j = 0; i < spans.size(); ++i)
+  for (size_t i = 1, j = 0; i < spans.size(); ++i)
   {
     auto const start2 = spans[i].GetStart().GetHourMinutes().GetDuration();
     auto const end1 = spans[j].GetEnd().GetHourMinutes().GetDuration();
@@ -110,7 +110,7 @@ osmoh::Timespan GetLongetsOpenSpan(osmoh::Timespan const & openingTime,
     return openingTime;
 
   osmoh::Timespan longestSpan{openingTime.GetStart(), excludeTime.front().GetStart()};
-  for (auto i = 0; i < excludeTime.size() - 1; ++i)
+  for (size_t i = 0; i + 1 < excludeTime.size(); ++i)
   {
     osmoh::Timespan nextOpenSpan{excludeTime[i].GetEnd(), excludeTime[i + 1].GetStart()};
     longestSpan = SpanLength(longestSpan) > SpanLength(nextOpenSpan) ? longestSpan : nextOpenSpan;
@@ -307,7 +307,7 @@ TOpeningDays TimeTableSet::GetUnhandledDays() const
     osmoh::Weekday::Saturday
   };
 
-  for (auto const tt : *this)
+  for (auto const & tt : *this)
     for (auto const day : tt.GetOpeningDays())
       days.erase(day);
 
@@ -379,7 +379,7 @@ bool TimeTableSet::UpdateByIndex(TimeTableSet & ttSet, size_t const index)
   if (index >= ttSet.Size() || !updated.IsValid())
     return false;
 
-  for (auto i = 0; i < ttSet.Size(); ++i)
+  for (size_t i = 0; i < ttSet.Size(); ++i)
   {
     if (i == index)
       continue;

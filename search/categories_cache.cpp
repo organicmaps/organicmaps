@@ -18,49 +18,52 @@ namespace search
 // CategoriesCache ---------------------------------------------------------------------------------
 CBV CategoriesCache::Get(MwmContext const & context)
 {
-  if (!context.m_handle.IsAlive() || !context.m_value.HasSearchIndex())
-    return CBV();
+  CHECK(context.m_handle.IsAlive(), ());
+  ASSERT(context.m_value.HasSearchIndex(), ());
 
-  auto id = context.m_handle.GetId();
+  auto const id = context.m_handle.GetId();
   auto const it = m_cache.find(id);
   if (it != m_cache.cend())
     return it->second;
 
-  auto cbv = Load(context);
+  auto const cbv = Load(context);
   m_cache[id] = cbv;
   return cbv;
 }
 
-CBV CategoriesCache::Load(MwmContext const & context)
+CBV CategoriesCache::Load(MwmContext const & context) const
 {
   ASSERT(context.m_handle.IsAlive(), ());
   ASSERT(context.m_value.HasSearchIndex(), ());
 
   auto const & c = classif();
 
-  SearchTrieRequest<strings::LevenshteinDFA> request;
+  // Any DFA will do, since we only use requests's m_categories,
+  // but the interface of Retrieval forces us to make a choice.
+  SearchTrieRequest<strings::UniStringDFA> request;
 
   m_categories.ForEach([&request, &c](uint32_t const type) {
     request.m_categories.emplace_back(FeatureTypeToString(c.GetIndexForType(type)));
   });
 
-  return CBV(RetrieveAddressFeatures(context, m_cancellable, request));
+  Retrieval retrieval(context, m_cancellable);
+  return CBV(retrieval.RetrieveAddressFeatures(request));
 }
 
 // StreetsCache ------------------------------------------------------------------------------------
-StreetsCache::StreetsCache(my::Cancellable const & cancellable)
+StreetsCache::StreetsCache(::base::Cancellable const & cancellable)
   : CategoriesCache(ftypes::IsStreetChecker::Instance(), cancellable)
 {
 }
 
 // VillagesCache -----------------------------------------------------------------------------------
-VillagesCache::VillagesCache(my::Cancellable const & cancellable)
+VillagesCache::VillagesCache(::base::Cancellable const & cancellable)
   : CategoriesCache(ftypes::IsVillageChecker::Instance(), cancellable)
 {
 }
 
 // HotelsCache -------------------------------------------------------------------------------------
-HotelsCache::HotelsCache(my::Cancellable const & cancellable)
+HotelsCache::HotelsCache(::base::Cancellable const & cancellable)
   : CategoriesCache(ftypes::IsHotelChecker::Instance(), cancellable)
 {
 }

@@ -83,7 +83,7 @@ namespace detail {
         }
 
         template< class StateOut , class StateIn >
-        void resize_op( StateOut &x1 , const StateIn &x2 , boost::false_type ) const
+        void resize_op( StateOut &/*x1*/ , const StateIn &/*x2*/ , boost::false_type ) const
         {
         }
 

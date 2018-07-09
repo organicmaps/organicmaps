@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2004-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -20,8 +20,8 @@
 //____________________________________________________________________________//
 
 namespace boost {
-
 namespace unit_test {
+namespace utils {
 
 // ************************************************************************** //
 // **************          input_iterator_core_access          ************** //
@@ -94,8 +94,8 @@ private:
     }
 };
 
+} // namespace utils
 } // namespace unit_test
-
 } // namespace boost
 
 //____________________________________________________________________________//
@@ -103,4 +103,3 @@ private:
 #include <boost/test/detail/enable_warnings.hpp>
 
 #endif // BOOST_TEST_UTILS_INPUT_ITERATOR_FACADE_HPP
-

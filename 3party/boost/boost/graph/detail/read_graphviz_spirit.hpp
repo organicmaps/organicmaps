@@ -14,7 +14,7 @@
 //   http://www.graphviz.org/cvs/doc/info/lang.html
 //
 //   See documentation for this code at: 
-//     http://www.boost.org/libs/graph/doc/read-graphviz.html
+//     http://www.boost.org/libs/graph/doc/read_graphviz.html
 //
 
 // Author: Ronald Garcia

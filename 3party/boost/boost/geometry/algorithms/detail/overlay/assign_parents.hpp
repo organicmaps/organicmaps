@@ -2,6 +2,10 @@
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
+// This file was modified by Oracle on 2017.
+// Modifications copyright (c) 2017 Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -258,8 +262,9 @@ inline void assign_parents(Geometry1 const& geometry1,
 
         geometry::partition
             <
-                box_type, ring_info_helper_get_box, ring_info_helper_ovelaps_box
-            >::apply(vector, visitor);
+                box_type
+            >::apply(vector, visitor, ring_info_helper_get_box(),
+                     ring_info_helper_ovelaps_box());
     }
 
     if (check_for_orientation)

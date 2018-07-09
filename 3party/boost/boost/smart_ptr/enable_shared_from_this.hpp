@@ -15,6 +15,7 @@
 
 #include <boost/smart_ptr/weak_ptr.hpp>
 #include <boost/smart_ptr/shared_ptr.hpp>
+#include <boost/smart_ptr/detail/sp_noexcept.hpp>
 #include <boost/assert.hpp>
 #include <boost/config.hpp>
 
@@ -25,20 +26,20 @@ template<class T> class enable_shared_from_this
 {
 protected:
 
-    enable_shared_from_this() BOOST_NOEXCEPT
+    enable_shared_from_this() BOOST_SP_NOEXCEPT
     {
     }
 
-    enable_shared_from_this(enable_shared_from_this const &) BOOST_NOEXCEPT
+    enable_shared_from_this(enable_shared_from_this const &) BOOST_SP_NOEXCEPT
     {
     }
 
-    enable_shared_from_this & operator=(enable_shared_from_this const &) BOOST_NOEXCEPT
+    enable_shared_from_this & operator=(enable_shared_from_this const &) BOOST_SP_NOEXCEPT
     {
         return *this;
     }
 
-    ~enable_shared_from_this() BOOST_NOEXCEPT // ~weak_ptr<T> newer throws, so this call also must not throw
+    ~enable_shared_from_this() BOOST_SP_NOEXCEPT // ~weak_ptr<T> newer throws, so this call also must not throw
     {
     }
 

@@ -59,22 +59,22 @@ namespace container {
 //! \tparam Key is the type to be inserted in the set, which is also the key_type
 //! \tparam Compare is the comparison functor used to order keys
 //! \tparam Allocator is the allocator to be used to allocate memory for this container
-//! \tparam SetOptions is an packed option type generated using using boost::container::tree_assoc_options.
-template <class Key, class Compare = std::less<Key>, class Allocator = new_allocator<Key>, class SetOptions = tree_assoc_defaults >
+//! \tparam Options is an packed option type generated using using boost::container::tree_assoc_options.
+template <class Key, class Compare = std::less<Key>, class Allocator = new_allocator<Key>, class Options = tree_assoc_defaults >
 #else
-template <class Key, class Compare, class Allocator, class SetOptions>
+template <class Key, class Compare, class Allocator, class Options>
 #endif
 class set
    ///@cond
    : public container_detail::tree
-      < Key, Key, container_detail::identity<Key>, Compare, Allocator, SetOptions>
+      < Key, container_detail::identity<Key>, Compare, Allocator, Options>
    ///@endcond
 {
    #ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
    private:
    BOOST_COPYABLE_AND_MOVABLE(set)
    typedef container_detail::tree
-      < Key, Key, container_detail::identity<Key>, Compare, Allocator, SetOptions> base_t;
+      < Key, container_detail::identity<Key>, Compare, Allocator, Options> base_t;
    #endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 
    public:
@@ -100,6 +100,8 @@ class set
    typedef typename BOOST_CONTAINER_IMPDEF(base_t::const_iterator)                     const_iterator;
    typedef typename BOOST_CONTAINER_IMPDEF(base_t::reverse_iterator)                   reverse_iterator;
    typedef typename BOOST_CONTAINER_IMPDEF(base_t::const_reverse_iterator)             const_reverse_iterator;
+   typedef typename BOOST_CONTAINER_IMPDEF(base_t::node_type)                          node_type;
+   typedef typename BOOST_CONTAINER_IMPDEF(base_t::insert_return_type)                 insert_return_type;
 
    //////////////////////////////////////////////
    //
@@ -110,7 +112,8 @@ class set
    //! <b>Effects</b>: Default constructs an empty set.
    //!
    //! <b>Complexity</b>: Constant.
-   set()
+   set() BOOST_NOEXCEPT_IF(container_detail::is_nothrow_default_constructible<Allocator>::value &&
+                           container_detail::is_nothrow_default_constructible<Compare>::value)
       : base_t()
    {}
 
@@ -215,6 +218,7 @@ class set
    //!
    //! <b>Postcondition</b>: x is emptied.
    set(BOOST_RV_REF(set) x)
+      BOOST_NOEXCEPT_IF(boost::container::container_detail::is_nothrow_move_constructible<Compare>::value)
       : base_t(BOOST_MOVE_BASE(base_t, x))
    {}
 
@@ -248,11 +252,15 @@ class set
    //!   propagate_on_container_move_assignment is true or
    //!   this->get>allocator() == x.get_allocator(). Linear otherwise.
    set& operator=(BOOST_RV_REF(set) x)
-      BOOST_NOEXCEPT_IF(  allocator_traits_type::is_always_equal::value
-                                 && boost::container::container_detail::is_nothrow_move_assignable<Compare>::value )
+      BOOST_NOEXCEPT_IF( (allocator_traits_type::propagate_on_container_move_assignment::value ||
+                          allocator_traits_type::is_always_equal::value) &&
+                           boost::container::container_detail::is_nothrow_move_assignable<Compare>::value)
    {  return static_cast<set&>(this->base_t::operator=(BOOST_MOVE_BASE(base_t, x)));  }
 
 #if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
+   //! <b>Effects</b>: Copy all elements from il to *this.
+   //!
+   //! <b>Complexity</b>: Linear in il.size().
    set& operator=(std::initializer_list<value_type> il)
    {
       this->clear();
@@ -517,6 +525,42 @@ class set
    {  this->base_t::insert_unique(il.begin(), il.end()); }
 #endif
 
+   //! @copydoc ::boost::container::map::insert(node_type&&)
+   insert_return_type insert(BOOST_RV_REF_BEG_IF_CXX11 node_type BOOST_RV_REF_END_IF_CXX11 nh)
+   {  return this->base_t::insert_unique_node(boost::move(nh));  }
+
+   //! @copydoc ::boost::container::map::insert(const_iterator, node_type&&)
+   insert_return_type insert(const_iterator hint, BOOST_RV_REF_BEG_IF_CXX11 node_type BOOST_RV_REF_END_IF_CXX11 nh)
+   {  return this->base_t::insert_unique_node(hint, boost::move(nh));  }
+
+   //! @copydoc ::boost::container::map::merge(map<Key, T, C2, Allocator, Options>&)
+   template<class C2>
+   BOOST_CONTAINER_FORCEINLINE void merge(set<Key, C2, Allocator, Options>& source)
+   {
+      typedef container_detail::tree
+         <Key, container_detail::identity<Key>, C2, Allocator, Options> base2_t;
+      this->base_t::merge_unique(static_cast<base2_t&>(source));
+   }
+
+   //! @copydoc ::boost::container::set::merge(set<Key, C2, Allocator, Options>&)
+   template<class C2>
+   BOOST_CONTAINER_FORCEINLINE void merge(BOOST_RV_REF_BEG set<Key, C2, Allocator, Options> BOOST_RV_REF_END source)
+   {  return this->merge(static_cast<set<Key, C2, Allocator, Options>&>(source));   }
+
+   //! @copydoc ::boost::container::map::merge(multimap<Key, T, C2, Allocator, Options>&)
+   template<class C2>
+   BOOST_CONTAINER_FORCEINLINE void merge(multiset<Key, C2, Allocator, Options>& source)
+   {
+      typedef container_detail::tree
+         <Key, container_detail::identity<Key>, C2, Allocator, Options> base2_t;
+      this->base_t::merge_unique(static_cast<base2_t&>(source));
+   }
+
+   //! @copydoc ::boost::container::set::merge(multiset<Key, C2, Allocator, Options>&)
+   template<class C2>
+   BOOST_CONTAINER_FORCEINLINE void merge(BOOST_RV_REF_BEG multiset<Key, C2, Allocator, Options> BOOST_RV_REF_END source)
+   {  return this->merge(static_cast<multiset<Key, C2, Allocator, Options>&>(source));   }
+
    #if defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
 
    //! <b>Effects</b>: Erases the element pointed to by p.
@@ -708,8 +752,8 @@ class set
 
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
-template <class Key, class Compare, class SetOptions, class Allocator>
-struct has_trivial_destructor_after_move<boost::container::set<Key, Compare, Allocator, SetOptions> >
+template <class Key, class Compare, class Options, class Allocator>
+struct has_trivial_destructor_after_move<boost::container::set<Key, Compare, Allocator, Options> >
 {
    typedef typename ::boost::container::allocator_traits<Allocator>::pointer pointer;
    static const bool value = ::boost::has_trivial_destructor_after_move<Allocator>::value &&
@@ -734,22 +778,22 @@ namespace container {
 //! \tparam Key is the type to be inserted in the set, which is also the key_type
 //! \tparam Compare is the comparison functor used to order keys
 //! \tparam Allocator is the allocator to be used to allocate memory for this container
-//! \tparam MultiSetOptions is an packed option type generated using using boost::container::tree_assoc_options.
-template <class Key, class Compare = std::less<Key>, class Allocator = new_allocator<Key>, class MultiSetOptions = tree_assoc_defaults >
+//! \tparam Options is an packed option type generated using using boost::container::tree_assoc_options.
+template <class Key, class Compare = std::less<Key>, class Allocator = new_allocator<Key>, class Options = tree_assoc_defaults >
 #else
-template <class Key, class Compare, class Allocator, class MultiSetOptions>
+template <class Key, class Compare, class Allocator, class Options>
 #endif
 class multiset
    /// @cond
    : public container_detail::tree
-      <Key, Key,container_detail::identity<Key>, Compare, Allocator, MultiSetOptions>
+      <Key,container_detail::identity<Key>, Compare, Allocator, Options>
    /// @endcond
 {
    #ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
    private:
    BOOST_COPYABLE_AND_MOVABLE(multiset)
    typedef container_detail::tree
-      <Key, Key,container_detail::identity<Key>, Compare, Allocator, MultiSetOptions> base_t;
+      <Key,container_detail::identity<Key>, Compare, Allocator, Options> base_t;
    #endif   //#ifndef BOOST_CONTAINER_DOXYGEN_INVOKED
 
    public:
@@ -776,6 +820,7 @@ class multiset
    typedef typename BOOST_CONTAINER_IMPDEF(base_t::const_iterator)                     const_iterator;
    typedef typename BOOST_CONTAINER_IMPDEF(base_t::reverse_iterator)                   reverse_iterator;
    typedef typename BOOST_CONTAINER_IMPDEF(base_t::const_reverse_iterator)             const_reverse_iterator;
+   typedef typename BOOST_CONTAINER_IMPDEF(base_t::node_type)                          node_type;
 
    //////////////////////////////////////////////
    //
@@ -784,7 +829,8 @@ class multiset
    //////////////////////////////////////////////
 
    //! @copydoc ::boost::container::set::set()
-   multiset()
+   multiset() BOOST_NOEXCEPT_IF(container_detail::is_nothrow_default_constructible<Allocator>::value &&
+                                container_detail::is_nothrow_default_constructible<Compare>::value)
       : base_t()
    {}
 
@@ -851,17 +897,18 @@ class multiset
       : base_t(static_cast<const base_t&>(x))
    {}
 
-   //! @copydoc ::boost::container::set(set &&)
+   //! @copydoc ::boost::container::set::set(set &&)
    multiset(BOOST_RV_REF(multiset) x)
+      BOOST_NOEXCEPT_IF(boost::container::container_detail::is_nothrow_move_constructible<Compare>::value)
       : base_t(BOOST_MOVE_BASE(base_t, x))
    {}
 
-   //! @copydoc ::boost::container::set(const set &, const allocator_type &)
+   //! @copydoc ::boost::container::set::set(const set &, const allocator_type &)
    multiset(const multiset& x, const allocator_type &a)
       : base_t(static_cast<const base_t&>(x), a)
    {}
 
-   //! @copydoc ::boost::container::set(set &&, const allocator_type &)
+   //! @copydoc ::boost::container::set::set(set &&, const allocator_type &)
    multiset(BOOST_RV_REF(multiset) x, const allocator_type &a)
       : base_t(BOOST_MOVE_BASE(base_t, x), a)
    {}
@@ -872,8 +919,9 @@ class multiset
 
    //! @copydoc ::boost::container::set::operator=(set &&)
    multiset& operator=(BOOST_RV_REF(multiset) x)
-      BOOST_NOEXCEPT_IF(  allocator_traits_type::is_always_equal::value
-                                 && boost::container::container_detail::is_nothrow_move_assignable<Compare>::value )
+      BOOST_NOEXCEPT_IF( (allocator_traits_type::propagate_on_container_move_assignment::value ||
+                          allocator_traits_type::is_always_equal::value) &&
+                           boost::container::container_detail::is_nothrow_move_assignable<Compare>::value)
    {  return static_cast<multiset&>(this->base_t::operator=(BOOST_MOVE_BASE(base_t, x)));  }
 
 #if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)
@@ -1040,6 +1088,42 @@ class multiset
    {  this->base_t::insert_equal(il.begin(), il.end());  }
 #endif
 
+   //! @copydoc ::boost::container::multimap::insert(node_type&&)
+   iterator insert(BOOST_RV_REF_BEG_IF_CXX11 node_type BOOST_RV_REF_END_IF_CXX11 nh)
+   {  return this->base_t::insert_equal_node(boost::move(nh));  }
+
+   //! @copydoc ::boost::container::multimap::insert(const_iterator, node_type&&)
+   iterator insert(const_iterator hint, BOOST_RV_REF_BEG_IF_CXX11 node_type BOOST_RV_REF_END_IF_CXX11 nh)
+   {  return this->base_t::insert_equal_node(hint, boost::move(nh));  }
+
+   //! @copydoc ::boost::container::multimap::merge(multimap<Key, T, C2, Allocator, Options>&)
+   template<class C2>
+   BOOST_CONTAINER_FORCEINLINE void merge(multiset<Key, C2, Allocator, Options>& source)
+   {
+      typedef container_detail::tree
+         <Key, container_detail::identity<Key>, C2, Allocator, Options> base2_t;
+      this->base_t::merge_equal(static_cast<base2_t&>(source));
+   }
+
+   //! @copydoc ::boost::container::multiset::merge(multiset<Key, C2, Allocator, Options>&)
+   template<class C2>
+   BOOST_CONTAINER_FORCEINLINE void merge(BOOST_RV_REF_BEG multiset<Key, C2, Allocator, Options> BOOST_RV_REF_END source)
+   {  return this->merge(static_cast<multiset<Key, C2, Allocator, Options>&>(source));   }
+
+   //! @copydoc ::boost::container::multimap::merge(map<Key, T, C2, Allocator, Options>&)
+   template<class C2>
+   BOOST_CONTAINER_FORCEINLINE void merge(set<Key, C2, Allocator, Options>& source)
+   {
+      typedef container_detail::tree
+         <Key, container_detail::identity<Key>, C2, Allocator, Options> base2_t;
+      this->base_t::merge_equal(static_cast<base2_t&>(source));
+   }
+
+   //! @copydoc ::boost::container::multiset::merge(set<Key, C2, Allocator, Options>&)
+   template<class C2>
+   BOOST_CONTAINER_FORCEINLINE void merge(BOOST_RV_REF_BEG set<Key, C2, Allocator, Options> BOOST_RV_REF_END source)
+   {  return this->merge(static_cast<set<Key, C2, Allocator, Options>&>(source));   }
+
    #if defined(BOOST_CONTAINER_DOXYGEN_INVOKED)
 
    //! @copydoc ::boost::container::set::erase(const_iterator)
@@ -1151,8 +1235,8 @@ class multiset
 
 //!has_trivial_destructor_after_move<> == true_type
 //!specialization for optimizations
-template <class Key, class Compare, class Allocator, class MultiSetOptions>
-struct has_trivial_destructor_after_move<boost::container::multiset<Key, Compare, Allocator, MultiSetOptions> >
+template <class Key, class Compare, class Allocator, class Options>
+struct has_trivial_destructor_after_move<boost::container::multiset<Key, Compare, Allocator, Options> >
 {
    typedef typename ::boost::container::allocator_traits<Allocator>::pointer pointer;
    static const bool value = ::boost::has_trivial_destructor_after_move<Allocator>::value &&

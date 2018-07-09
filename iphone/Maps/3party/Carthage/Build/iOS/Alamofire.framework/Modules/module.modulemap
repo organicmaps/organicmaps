@@ -1,0 +1,11 @@
+framework module Alamofire {
+  umbrella header "Alamofire.h"
+
+  export *
+  module * { export * }
+}
+
+module Alamofire.Swift {
+    header "Alamofire-Swift.h"
+    requires objc
+}

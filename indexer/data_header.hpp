@@ -1,15 +1,14 @@
 #pragma once
 
-#include "indexer/coding_params.hpp"
-
 #include "platform/mwm_version.hpp"
+
+#include "coding/geometry_coding.hpp"
 
 #include "geometry/rect2d.hpp"
 
 #include "base/buffer_vector.hpp"
 
 #include "std/utility.hpp"
-
 
 class FilesContainerR;
 class FileWriter;
@@ -24,7 +23,7 @@ namespace feature
     static const size_t MAX_SCALES_COUNT = 4;
 
   private:
-    serial::CodingParams m_codingParams;
+    serial::GeometryCodingParams m_codingParams;
 
     pair<int64_t, int64_t> m_bounds;
 
@@ -36,15 +35,15 @@ namespace feature
     explicit DataHeader(string const & fileName);
     explicit DataHeader(FilesContainerR const & cont);
 
-    inline void SetCodingParams(serial::CodingParams const & cp)
+    inline void SetGeometryCodingParams(serial::GeometryCodingParams const & cp)
     {
       m_codingParams = cp;
     }
-    inline serial::CodingParams const & GetDefCodingParams() const
+    inline serial::GeometryCodingParams const & GetDefGeometryCodingParams() const
     {
       return m_codingParams;
     }
-    serial::CodingParams GetCodingParams(int scaleIndex) const;
+    serial::GeometryCodingParams GetGeometryCodingParams(int scaleIndex) const;
 
     m2::RectD const GetBounds() const;
     void SetBounds(m2::RectD const & r);

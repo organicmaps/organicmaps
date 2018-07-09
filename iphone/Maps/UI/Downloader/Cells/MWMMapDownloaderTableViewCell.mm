@@ -62,8 +62,8 @@
                                     selectedAttrs:selectedTitleAttrs
                                   unselectedAttrs:unselectedTitleAttrs];
 
-  TMwmSize size = nodeAttrs.m_mwmSize;
-  bool const isModeDownloaded = self.mode == mwm::DownloaderMode::Downloaded;
+  TMwmSize size;
+  bool const isModeDownloaded = self.mode == MWMMapDownloaderModeDownloaded;
 
   switch (nodeAttrs.m_status)
   {
@@ -77,10 +77,10 @@
     size = isModeDownloaded ? nodeAttrs.m_downloadingMwmSize
                             : nodeAttrs.m_mwmSize - nodeAttrs.m_downloadingMwmSize;
     break;
+  case storage::NodeStatus::Applying:
   case storage::NodeStatus::InQueue:
   case storage::NodeStatus::Partly:
-    size = isModeDownloaded ? nodeAttrs.m_localMwmSize
-                            : nodeAttrs.m_mwmSize - nodeAttrs.m_localMwmSize;
+    size = isModeDownloaded ? nodeAttrs.m_localMwmSize : nodeAttrs.m_mwmSize;
     break;
   case storage::NodeStatus::OnDisk: size = isModeDownloaded ? nodeAttrs.m_mwmSize : 0; break;
   }
@@ -93,7 +93,7 @@
 {
   MWMCircularProgress * progress = self.progress;
   MWMButtonColoring const coloring =
-      self.mode == mwm::DownloaderMode::Downloaded ? MWMButtonColoringBlack : MWMButtonColoringBlue;
+      self.mode == MWMMapDownloaderModeDownloaded ? MWMButtonColoringBlack : MWMButtonColoringBlue;
   switch (nodeAttrs.m_status)
   {
   case NodeStatus::NotDownloaded:
@@ -102,7 +102,8 @@
     MWMCircularProgressStateVec const affectedStates = {MWMCircularProgressStateNormal,
                                                         MWMCircularProgressStateSelected};
     NSString * imageName = [self isKindOfClass:[MWMMapDownloaderLargeCountryTableViewCell class]]
-                          ? @"ic_folder" : @"ic_download";
+                               ? @"ic_folder"
+                               : @"ic_download";
     [progress setImageName:imageName forStates:affectedStates];
     [progress setColoring:coloring forStates:affectedStates];
     progress.state = MWMCircularProgressStateNormal;
@@ -111,9 +112,10 @@
   case NodeStatus::Downloading:
   {
     auto const & prg = nodeAttrs.m_downloadingProgress;
-    progress.progress = static_cast<CGFloat>(prg.first) / prg.second;
+    progress.progress = kMaxProgress * static_cast<CGFloat>(prg.first) / prg.second;
     break;
   }
+  case NodeStatus::Applying:
   case NodeStatus::InQueue: progress.state = MWMCircularProgressStateSpinner; break;
   case NodeStatus::Undefined:
   case NodeStatus::Error: progress.state = MWMCircularProgressStateFailed; break;
@@ -146,7 +148,7 @@
 {
   if (countryId != m_countryId)
     return;
-  self.progress.progress = static_cast<CGFloat>(progress.first) / progress.second;
+  self.progress.progress = kMaxProgress * static_cast<CGFloat>(progress.first) / progress.second;
 }
 
 #pragma mark - MWMCircularProgressProtocol
@@ -169,6 +171,7 @@
   case NodeStatus::Error: [delegate retryDownloadNode:m_countryId]; break;
   case NodeStatus::OnDiskOutOfDate: [delegate updateNode:m_countryId]; break;
   case NodeStatus::Downloading:
+  case NodeStatus::Applying:
   case NodeStatus::InQueue: [delegate cancelNode:m_countryId]; break;
   case NodeStatus::OnDisk: break;
   }

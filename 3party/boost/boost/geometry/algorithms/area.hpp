@@ -4,6 +4,10 @@
 // Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
+// This file was modified by Oracle on 2017.
+// Modifications copyright (c) 2017 Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
 
@@ -82,7 +86,7 @@ struct ring_area
     static inline typename Strategy::return_type
     apply(Ring const& ring, Strategy const& strategy)
     {
-        BOOST_CONCEPT_ASSERT( (geometry::concept::AreaStrategy<Strategy>) );
+        BOOST_CONCEPT_ASSERT( (geometry::concepts::AreaStrategy<Strategy>) );
         assert_dimension<Ring, 2>();
 
         // Ignore warning (because using static method sometimes) on strategy
@@ -266,7 +270,7 @@ and Geographic as well.
 template <typename Geometry>
 inline typename default_area_result<Geometry>::type area(Geometry const& geometry)
 {
-    concept::check<Geometry const>();
+    concepts::check<Geometry const>();
 
     // TODO put this into a resolve_strategy stage
     //      (and take the return type from resolve_variant)
@@ -303,14 +307,15 @@ inline typename default_area_result<Geometry>::type area(Geometry const& geometr
 
 [heading Available Strategies]
 \* [link geometry.reference.strategies.strategy_area_surveyor Surveyor (cartesian)]
-\* [link geometry.reference.strategies.strategy_area_huiller Huiller (spherical)]
+\* [link geometry.reference.strategies.strategy_area_spherical Spherical]
+[/link geometry.reference.strategies.strategy_area_geographic Geographic]
 }
  */
 template <typename Geometry, typename Strategy>
 inline typename Strategy::return_type area(
         Geometry const& geometry, Strategy const& strategy)
 {
-    concept::check<Geometry const>();
+    concepts::check<Geometry const>();
 
     // detail::throw_on_empty_input(geometry);
 

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13528" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina3_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13526"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MPAdBrowserController">
+            <connections>
+                <outlet property="backButton" destination="8" id="17"/>
+                <outlet property="browserControlToolbar" destination="5" id="K2j-U0-ZFa"/>
+                <outlet property="browserControlToolbarBottomConstraint" destination="Sny-Vh-INp" id="ZmT-wG-KYK"/>
+                <outlet property="doneButton" destination="6" id="18"/>
+                <outlet property="forwardButton" destination="9" id="19"/>
+                <outlet property="navigationBar" destination="4XW-fj-Oyl" id="oxx-Y5-NCm"/>
+                <outlet property="navigationBarYConstraint" destination="Fqe-Oc-jVO" id="jxz-eh-ONa"/>
+                <outlet property="refreshButton" destination="11" id="20"/>
+                <outlet property="safariButton" destination="13" id="31"/>
+                <outlet property="spinnerItem" destination="15" id="21"/>
+                <outlet property="view" destination="1" id="3"/>
+                <outlet property="webView" destination="UGP-YN-zIO" id="Vc0-UI-9RP"/>
+                <outlet property="webViewLeadingConstraint" destination="SXG-tP-bmi" id="lcX-PL-FM4"/>
+                <outlet property="webViewTopConstraint" destination="4ZE-ez-bSu" id="0Sx-rE-Wnb"/>
+                <outlet property="webViewTrailingConstraint" destination="Vfx-V2-bsa" id="rCO-B1-yBB"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <navigationBar contentMode="scaleToFill" barStyle="blackTranslucent" translatesAutoresizingMaskIntoConstraints="NO" id="4XW-fj-Oyl">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                </navigationBar>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UGP-YN-zIO" customClass="MPWebView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackTranslucent" translatesAutoresizingMaskIntoConstraints="NO" id="5">
+                    <rect key="frame" x="0.0" y="416" width="320" height="44"/>
+                    <items>
+                        <barButtonItem title="B" style="plain" id="8">
+                            <connections>
+                                <action selector="back" destination="-1" id="24"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="10"/>
+                        <barButtonItem title="F" style="plain" id="9">
+                            <connections>
+                                <action selector="forward" destination="-1" id="25"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="12"/>
+                        <barButtonItem style="plain" systemItem="refresh" id="11">
+                            <connections>
+                                <action selector="refresh" destination="-1" id="26"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="14"/>
+                        <barButtonItem style="plain" systemItem="action" id="13">
+                            <connections>
+                                <action selector="safari" destination="-1" id="28"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="16"/>
+                        <barButtonItem title="S" style="plain" id="15"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="7"/>
+                        <barButtonItem style="done" systemItem="done" id="6">
+                            <connections>
+                                <action selector="done" destination="-1" id="29"/>
+                            </connections>
+                        </barButtonItem>
+                    </items>
+                </toolbar>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="4XW-fj-Oyl" secondAttribute="trailing" id="43a-P8-pNp"/>
+                <constraint firstItem="UGP-YN-zIO" firstAttribute="top" secondItem="1" secondAttribute="top" id="4ZE-ez-bSu"/>
+                <constraint firstItem="5" firstAttribute="top" secondItem="UGP-YN-zIO" secondAttribute="bottom" id="CVu-bs-DxZ"/>
+                <constraint firstItem="4XW-fj-Oyl" firstAttribute="top" secondItem="1" secondAttribute="top" id="Fqe-Oc-jVO"/>
+                <constraint firstItem="UGP-YN-zIO" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="SXG-tP-bmi"/>
+                <constraint firstAttribute="bottom" secondItem="5" secondAttribute="bottom" id="Sny-Vh-INp"/>
+                <constraint firstAttribute="trailing" secondItem="UGP-YN-zIO" secondAttribute="trailing" id="Vfx-V2-bsa"/>
+                <constraint firstItem="4XW-fj-Oyl" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="ZMd-xu-AMu"/>
+                <constraint firstAttribute="trailing" secondItem="5" secondAttribute="trailing" id="g7P-9K-6K4"/>
+                <constraint firstItem="5" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="nKl-Xt-tgS"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>

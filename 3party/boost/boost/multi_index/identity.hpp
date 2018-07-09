@@ -14,6 +14,7 @@
 #endif
 
 #include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/multi_index/identity_fwd.hpp>
 #include <boost/type_traits/is_const.hpp>
@@ -71,7 +72,14 @@ struct const_identity_base
   }
 
   Type& operator()(
-    const reference_wrapper<typename remove_const<Type>::type>& x)const
+    const reference_wrapper<typename remove_const<Type>::type>& x
+
+#if BOOST_WORKAROUND(BOOST_MSVC,==1310)
+/* http://lists.boost.org/Archives/boost/2015/10/226135.php */
+    ,int=0
+#endif
+
+  )const
   { 
     return x.get();
   }

@@ -1,14 +1,14 @@
 #import "MWMMapViewControlsManager.h"
 #import "MWMPlacePageButtonsProtocol.h"
 
-#include "Framework.h"
-
 @class MWMViewController;
 
 @protocol MWMActionBarProtocol<NSObject>
 
 - (void)routeFrom;
 - (void)routeTo;
+- (void)routeAddStop;
+- (void)routeRemoveStop;
 
 - (void)share;
 
@@ -17,6 +17,9 @@
 
 - (void)call;
 - (void)book:(BOOL)isDecription;
+- (void)searchBookingHotels;
+
+- (void)openPartner;
 
 - (void)apiBack;
 - (void)downloadSelectedArea;
@@ -45,15 +48,8 @@ struct HotelFacility;
 
 @protocol MWMPlacePageProtocol<MWMActionBarProtocol, MWMPlacePageButtonsProtocol, MWMFeatureHolder, MWMBookingInfoHolder>
 
-@property(nonatomic) CGFloat topBound;
-@property(nonatomic) CGFloat leftBound;
-
 - (void)show:(place_page::Info const &)info;
-- (void)close;
+- (void)dismiss;
 - (void)mwm_refreshUI;
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation;
-- (void)viewWillTransitionToSize:(CGSize)size
-       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator;
-- (void)addSubviews:(NSArray *)views withNavigationController:(UINavigationController *)controller;
 
 @end

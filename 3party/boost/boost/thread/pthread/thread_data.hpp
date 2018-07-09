@@ -228,7 +228,7 @@ namespace boost
 
     namespace this_thread
     {
-        namespace hiden
+        namespace hidden
         {
           void BOOST_THREAD_DECL sleep_for(const timespec& ts);
           void BOOST_THREAD_DECL sleep_until(const timespec& ts);
@@ -240,14 +240,14 @@ namespace boost
         inline
         void BOOST_SYMBOL_VISIBLE sleep_for(const chrono::nanoseconds& ns)
         {
-            return boost::this_thread::hiden::sleep_for(boost::detail::to_timespec(ns));
+            return boost::this_thread::hidden::sleep_for(boost::detail::to_timespec(ns));
         }
 #endif
 #endif // BOOST_THREAD_USES_CHRONO
 
         namespace no_interruption_point
         {
-          namespace hiden
+          namespace hidden
           {
             void BOOST_THREAD_DECL sleep_for(const timespec& ts);
             void BOOST_THREAD_DECL sleep_until(const timespec& ts);
@@ -259,7 +259,7 @@ namespace boost
           inline
           void BOOST_SYMBOL_VISIBLE sleep_for(const chrono::nanoseconds& ns)
           {
-              return boost::this_thread::no_interruption_point::hiden::sleep_for(boost::detail::to_timespec(ns));
+              return boost::this_thread::no_interruption_point::hidden::sleep_for(boost::detail::to_timespec(ns));
           }
     #endif
     #endif // BOOST_THREAD_USES_CHRONO
@@ -275,7 +275,7 @@ namespace boost
 #endif
         inline void sleep(system_time const& abs_time)
         {
-          return boost::this_thread::hiden::sleep_until(boost::detail::to_timespec(abs_time));
+          return boost::this_thread::hidden::sleep_until(boost::detail::to_timespec(abs_time));
         }
 
         template<typename TimeDuration>

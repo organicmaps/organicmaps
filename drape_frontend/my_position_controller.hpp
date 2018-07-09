@@ -1,9 +1,11 @@
 #pragma once
 
+#include "drape_frontend/animation/animation.hpp"
+#include "drape_frontend/frame_values.hpp"
+#include "drape_frontend/drape_hints.hpp"
 #include "drape_frontend/my_position.hpp"
 
-#include "drape/gpu_program_manager.hpp"
-#include "drape/uniform_values_storage.hpp"
+#include "shaders/program_manager.hpp"
 
 #include "platform/location.hpp"
 
@@ -11,13 +13,11 @@
 
 #include "base/timer.hpp"
 
-#include "std/function.hpp"
+#include <functional>
 
 namespace df
 {
-
-class Animation;
-using TAnimationCreator = function<drape_ptr<Animation>(ref_ptr<Animation>)>;
+using TAnimationCreator = std::function<drape_ptr<Animation>(ref_ptr<Animation>)>;
 
 class MyPositionController
 {
@@ -25,25 +25,48 @@ public:
   class Listener
   {
   public:
-    virtual ~Listener() {}
-    virtual void PositionChanged(m2::PointD const & position) = 0;
-    /// Show map with center in "center" point and current zoom
-    virtual void ChangeModelView(m2::PointD const & center, int zoomLevel, TAnimationCreator const & parallelAnimCreator) = 0;
-    /// Change azimuth of current ModelView
-    virtual void ChangeModelView(double azimuth, TAnimationCreator const & parallelAnimCreator) = 0;
-    /// Somehow show map that "rect" will see
-    virtual void ChangeModelView(m2::RectD const & rect, TAnimationCreator const & parallelAnimCreator) = 0;
-    /// Show map where "usePos" (mercator) placed in "pxZero" on screen and map rotated around "userPos"
-    virtual void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
-                                 int zoomLevel, TAnimationCreator const & parallelAnimCreator) = 0;
-    virtual void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
+    virtual ~Listener() = default;
+    virtual void PositionChanged(m2::PointD const & position, bool hasPosition) = 0;
+    // Show map with center in "center" point and current zoom.
+    virtual void ChangeModelView(m2::PointD const & center, int zoomLevel,
                                  TAnimationCreator const & parallelAnimCreator) = 0;
+    // Change azimuth of current ModelView.
+    virtual void ChangeModelView(double azimuth, TAnimationCreator const & parallelAnimCreator) = 0;
+    // Somehow show map that "rect" will see.
+    virtual void ChangeModelView(m2::RectD const & rect, TAnimationCreator const & parallelAnimCreator) = 0;
+    // Show map where "usePos" (mercator) placed in "pxZero" on screen and map rotated around "userPos".
+    virtual void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero,
+                                 int zoomLevel, Animation::TAction const & onFinishAction,
+                                 TAnimationCreator const & parallelAnimCreator) = 0;
+    virtual void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth,
+                                 m2::PointD const & pxZero, TAnimationCreator const & parallelAnimCreator) = 0;
   };
 
-  MyPositionController(location::EMyPositionMode initMode, double timeInBackground,
-                       bool isFirstLaunch, bool isRoutingActive, bool isAutozoomEnabled,
-                       location::TMyPositionModeChanged const & fn);
-  ~MyPositionController();
+  struct Params
+  {
+    Params(location::EMyPositionMode initMode,
+           double timeInBackground,
+           Hints const & hints,
+           bool isRoutingActive,
+           bool isAutozoomEnabled,
+           location::TMyPositionModeChanged && fn)
+      : m_initMode(initMode)
+      , m_timeInBackground(timeInBackground)
+      , m_hints(hints)
+      , m_isRoutingActive(isRoutingActive)
+      , m_isAutozoomEnabled(isAutozoomEnabled)
+      , m_myPositionModeCallback(std::move(fn))
+    {}
+
+    location::EMyPositionMode m_initMode;
+    double m_timeInBackground;
+    Hints m_hints;
+    bool m_isRoutingActive;
+    bool m_isAutozoomEnabled;
+    location::TMyPositionModeChanged m_myPositionModeCallback;
+  };
+
+  explicit MyPositionController(Params && params);
 
   void UpdatePosition();
   void OnUpdateScreen(ScreenBase const & screen);
@@ -53,6 +76,7 @@ public:
 
   m2::PointD const & Position() const;
   double GetErrorRadius() const;
+  double GetHorizontalAccuracy() const;
 
   bool IsModeHasPosition() const;
 
@@ -91,8 +115,8 @@ public:
   void OnLocationUpdate(location::GpsInfo const & info, bool isNavigable, ScreenBase const & screen);
   void OnCompassUpdate(location::CompassInfo const & info, ScreenBase const & screen);
 
-  void Render(ScreenBase const & screen, int zoomLevel, ref_ptr<dp::GpuProgramManager> mng,
-              dp::UniformValuesStorage const & commonUniforms);
+  void Render(ScreenBase const & screen, int zoomLevel, ref_ptr<gpu::ProgramManager> mng,
+              FrameValues const & frameValues);
 
   bool IsRotationAvailable() const { return m_isDirectionAssigned; }
   bool IsInRouting() const { return m_isInRouting; }
@@ -115,7 +139,8 @@ private:
   void ChangeModelView(m2::PointD const & center, int zoomLevel);
   void ChangeModelView(double azimuth);
   void ChangeModelView(m2::RectD const & rect);
-  void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero, int zoomLevel);
+  void ChangeModelView(m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero, int zoomLevel,
+                       Animation::TAction const & onFinishAction = nullptr);
   void ChangeModelView(double autoScale, m2::PointD const & userPos, double azimuth, m2::PointD const & pxZero);
 
   void UpdateViewport(int zoomLevel);
@@ -133,7 +158,7 @@ private:
   location::EMyPositionMode m_mode;
   location::EMyPositionMode m_desiredInitMode;
   location::TMyPositionModeChanged m_modeChangeCallback;
-  bool m_isFirstLaunch;
+  Hints m_hints;
 
   bool m_isInRouting;
 
@@ -143,10 +168,11 @@ private:
   drape_ptr<MyPosition> m_shape;
   ref_ptr<Listener> m_listener;
 
-  double m_errorRadius;  // error radius in mercator
-  m2::PointD m_position; // position in mercator
+  double m_errorRadius;  // error radius in mercator.
+  double m_horizontalAccuracy;
+  m2::PointD m_position; // position in mercator.
   double m_drawDirection;
-  m2::PointD m_oldPosition; // position in mercator
+  m2::PointD m_oldPosition; // position in mercator.
   double m_oldDrawDirection;
 
   bool m_enablePerspectiveInRouting;
@@ -181,5 +207,4 @@ private:
 
   bool m_notFollowAfterPending;
 };
-
-}
+}  // namespace df

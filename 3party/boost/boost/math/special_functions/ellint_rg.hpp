@@ -45,7 +45,7 @@ namespace boost { namespace math { namespace detail{
          swap(x, z);
       if(y > z)
          swap(y, z);
-
+      
       BOOST_ASSERT(x >= z);
       BOOST_ASSERT(z >= y);
       //
@@ -111,7 +111,7 @@ namespace boost { namespace math { namespace detail{
 } // namespace detail
 
 template <class T1, class T2, class T3, class Policy>
-inline typename tools::promote_args<T1, T2, T3>::type
+inline typename tools::promote_args<T1, T2, T3>::type 
    ellint_rg(T1 x, T2 y, T3 z, const Policy& pol)
 {
    typedef typename tools::promote_args<T1, T2, T3>::type result_type;
@@ -124,7 +124,7 @@ inline typename tools::promote_args<T1, T2, T3>::type
 }
 
 template <class T1, class T2, class T3>
-inline typename tools::promote_args<T1, T2, T3>::type
+inline typename tools::promote_args<T1, T2, T3>::type 
    ellint_rg(T1 x, T2 y, T3 z)
 {
    return ellint_rg(x, y, z, policies::policy<>());
@@ -133,3 +133,4 @@ inline typename tools::promote_args<T1, T2, T3>::type
 }} // namespaces
 
 #endif // BOOST_MATH_ELLINT_RG_HPP
+

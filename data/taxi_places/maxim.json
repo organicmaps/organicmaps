@@ -1,0 +1,39 @@
+{
+  "enabled": {
+    "countries": [
+      {
+        "id": "Azerbaijan Region",
+        "cities": [ "Baku" ]
+      },
+      {
+        "id": "Belarus",
+        "cities": [ "Baranovichi", "Mahilyow" ]
+      },
+      {
+        "id": "Bulgaria",
+        "cities": [ "Varna", "Plovdiv", "Sofia" ]
+      },
+      {
+        "id": "Georgia Region",
+        "cities": [ "Batumi", "Gori", "Zugdidi", "Kutaisi", "Poti" ]
+      },
+      {
+        "id": "Kazakhstan",
+        "cities": [ "Kokshetau", "Semey", "Temirtau", "Oskemen" ]
+      }
+    ],
+    "mwms": [
+      "Belarus_Brest Region",
+      "Belarus_Vitebsk Region",
+      "Ukraine_Poltava Oblast",
+      "Ukraine_Donetsk Oblast",
+      "Ukraine_Sumy Oblast",
+      "Ukraine_Cherkasy Oblast",
+      "Ukraine_Chernihiv Oblast"
+    ]
+  },
+  "disabled": {
+    "countries": [],
+    "mwms": []
+  }
+}

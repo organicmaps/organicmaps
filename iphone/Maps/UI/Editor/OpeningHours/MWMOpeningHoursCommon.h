@@ -7,3 +7,5 @@ NSDate * dateFromTime(osmoh::Time const & time);
 NSString * stringFromTime(osmoh::Time const & time);
 
 NSString * stringFromOpeningDays(editor::ui::TOpeningDays const & openingDays);
+
+BOOL isEveryDay(editor::ui::TimeTable const & timeTable);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "indexer/feature_data.hpp"
+#include "indexer/ftypes_matcher.hpp"
 #include "indexer/drawing_rule_def.hpp"
 
 #include "base/buffer_vector.hpp"
@@ -14,10 +15,31 @@ namespace drule { class BaseRule; }
 
 namespace df
 {
+class IsBuildingHasPartsChecker : public ftypes::BaseChecker
+{
+  IsBuildingHasPartsChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsBuildingHasPartsChecker);
+};
+
+class IsBuildingPartChecker : public ftypes::BaseChecker
+{
+  IsBuildingPartChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsBuildingPartChecker);
+};
+
+class IsHatchingTerritoryChecker : public ftypes::BaseChecker
+{
+  IsHatchingTerritoryChecker();
+public:
+  DECLARE_CHECKER_INSTANCE(IsHatchingTerritoryChecker);
+};
 
 struct CaptionDescription
 {
   void Init(FeatureType const & f,
+            int8_t deviceLang,
             int const zoomLevel,
             feature::EGeomType const type,
             drule::text_type_t const mainTextType,
@@ -26,8 +48,8 @@ struct CaptionDescription
   string const & GetMainText() const;
   string const & GetAuxText() const;
   string const & GetRoadNumber() const;
-  string GetPathName() const;
   bool IsNameExists() const;
+  bool IsHouseNumberInMainText() const { return m_isHouseNumberInMainText; }
 
 private:
   /// Clear aux name on high zoom and clear long main name on low zoom.
@@ -39,6 +61,7 @@ private:
   string m_auxText;
   string m_roadNumber;
   string m_houseNumber;
+  bool m_isHouseNumberInMainText = false;
 };
 
 class Stylist
@@ -60,10 +83,11 @@ public:
   bool IsEmpty() const;
 
 private:
-  friend bool InitStylist(FeatureType const &,
-                          int const,
+  friend bool InitStylist(FeatureType const & f,
+                          int8_t deviceLang,
+                          int const zoomLevel,
                           bool buildings3d,
-                          Stylist &);
+                          Stylist & s);
 
   void RaiseCoastlineFlag();
   void RaiseAreaStyleFlag();
@@ -81,6 +105,7 @@ private:
 };
 
 bool InitStylist(FeatureType const & f,
+                 int8_t deviceLang,
                  int const zoomLevel,
                  bool buildings3d,
                  Stylist & s);

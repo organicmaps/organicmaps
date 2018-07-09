@@ -2,6 +2,7 @@
 
 #include "traffic/traffic_info.hpp"
 
+#include "drape_frontend/drape_engine_safe_ptr.hpp"
 #include "drape_frontend/traffic_generator.hpp"
 
 #include "drape/pointers.hpp"
@@ -10,7 +11,6 @@
 #include "geometry/polyline2d.hpp"
 #include "geometry/screenbase.hpp"
 
-#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "base/thread.hpp"
@@ -18,16 +18,12 @@
 #include "std/algorithm.hpp"
 #include "std/atomic.hpp"
 #include "std/chrono.hpp"
+#include "std/condition_variable.hpp"
 #include "std/map.hpp"
 #include "std/mutex.hpp"
 #include "std/set.hpp"
 #include "std/string.hpp"
 #include "std/vector.hpp"
-
-namespace df
-{
-class DrapeEngine;
-}  // namespace df
 
 class TrafficManager final
 {
@@ -71,6 +67,7 @@ public:
   void SetCurrentDataVersion(int64_t dataVersion);
 
   void SetEnabled(bool enabled);
+  bool IsEnabled() const;
 
   void UpdateViewport(ScreenBase const & screen);
   void UpdateMyPosition(MyPosition const & myPosition);
@@ -79,12 +76,13 @@ public:
 
   void OnDestroyGLContext();
   void OnRecoverGLContext();
-  void OnMwmDelete(MwmSet::MwmId const & mwmId);
+  void OnMwmDeregistered(MwmSet::MwmId const & mwmId);
 
   void OnEnterForeground();
   void OnEnterBackground();
 
   void SetSimplifiedColorScheme(bool simplified);
+  bool HasSimplifiedColorScheme() const { return m_hasSimplifiedColorScheme; }
 
 private:
   struct CacheEntry
@@ -131,7 +129,6 @@ private:
   void ChangeState(TrafficState newState);
 
   bool IsInvalidState() const;
-  bool IsEnabled() const;
 
   void UniteActiveMwms(set<MwmSet::MwmId> & activeMwms) const;
 
@@ -149,7 +146,7 @@ private:
   GetMwmsByRectFn m_getMwmsByRectFn;
   traffic::TrafficObserver & m_observer;
 
-  ref_ptr<df::DrapeEngine> m_drapeEngine;
+  df::DrapeEngineSafePtr m_drapeEngine;
   atomic<int64_t> m_currentDataVersion;
 
   // These fields have a flag of their initialization.
@@ -158,6 +155,8 @@ private:
 
   atomic<TrafficState> m_state;
   TrafficStateChangedFn m_onStateChangedFn;
+
+  bool m_hasSimplifiedColorScheme = true;
 
   size_t m_maxCacheSizeBytes;
   size_t m_currentCacheSizeBytes = 0;

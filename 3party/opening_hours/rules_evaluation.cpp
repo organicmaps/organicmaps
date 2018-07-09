@@ -144,12 +144,24 @@ osmoh::TTimespans SplitExtendedHours(osmoh::Timespan span)
   return result;
 }
 
+// Spans can be of three different types:
+//   1. Normal span - start time is less then end time and end time is less then 24h. Spans of this
+//      type will be added into |originalNormalizedSpans| as is, |additionalSpan| will be empty.
+//   2. Extended span - start time is greater or equal to end time and end time is not equal to
+//      00:00 (for ex. 08:00-08:00 or 08:00-03:00), this span will be split into two normal spans
+//      first will be added into |originalNormalizedSpans| and second will be saved into
+//      |additionalSpan|. We don't handle more than one occurence of extended span since it is an
+//      invalid situation.
+//   3. Special case - end time is equal to 00:00 (for ex. 08:00-00:00), span of this type will be
+//      normalized and added into |originalNormalizedSpans|, |additionalSpan| will be empty.
+//
+// TODO(mgsergio): interpret 00:00 at the end of the span as normal, not extended hours.
 void SplitExtendedHours(osmoh::TTimespans const & spans,
                         osmoh::TTimespans & originalNormalizedSpans,
                         osmoh::Timespan & additionalSpan)
 {
-  // We don't handle more than one occurence of extended span
-  // since it is an invalid situation.
+  originalNormalizedSpans.clear();
+  additionalSpan = {};
 
   auto it = begin(spans);
   for (; it != end(spans) && !it->HasExtendedHours(); ++it)
@@ -160,7 +172,9 @@ void SplitExtendedHours(osmoh::TTimespans const & spans,
 
   auto const splittedSpans = SplitExtendedHours(*it);
   originalNormalizedSpans.push_back(splittedSpans[0]);
-  additionalSpan = splittedSpans[1];
+  // if a span remains extended after normalization, then it will be split into two different spans.
+  if (splittedSpans.size() > 1)
+    additionalSpan = splittedSpans[1];
 
   ++it;
   std::copy(it, end(spans), back_inserter(originalNormalizedSpans));

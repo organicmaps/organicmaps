@@ -1,15 +1,11 @@
 #import "MWMPlacePageActionBar.h"
-#import "MWMCommon.h"
+#import "AppInfo.h"
 #import "MWMActionBarButton.h"
+#import "MWMCircularProgress.h"
+#import "MWMNavigationDashboardManager.h"
 #import "MWMPlacePageProtocol.h"
+#import "MWMRouter.h"
 #import "MapViewController.h"
-#import "MapsAppDelegate.h"
-
-#include "Framework.h"
-
-#include "std/vector.hpp"
-
-extern NSString * const kAlohalyticsTapEventKey;
 
 @interface MWMPlacePageActionBar ()<MWMActionBarButtonDelegate>
 {
@@ -17,12 +13,10 @@ extern NSString * const kAlohalyticsTapEventKey;
   vector<EButton> m_additionalButtons;
 }
 
-@property(copy, nonatomic) IBOutletCollection(UIView) NSArray<UIView *> * buttons;
-@property(weak, nonatomic) IBOutlet UIImageView * separator;
-@property(nonatomic) BOOL isPrepareRouteMode;
-
-@property(weak, nonatomic) id<MWMActionBarSharedData> data;
+@property(nonatomic) NSLayoutConstraint * visibleConstraint;
+@property(weak, nonatomic) IBOutlet UIStackView * barButtons;
 @property(weak, nonatomic) id<MWMActionBarProtocol> delegate;
+@property(weak, nonatomic) id<MWMActionBarSharedData> data;
 
 @end
 
@@ -31,132 +25,146 @@ extern NSString * const kAlohalyticsTapEventKey;
 + (MWMPlacePageActionBar *)actionBarWithDelegate:(id<MWMActionBarProtocol>)delegate
 {
   MWMPlacePageActionBar * bar =
-      [[NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil] firstObject];
+      [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
   bar.delegate = delegate;
+  bar.translatesAutoresizingMaskIntoConstraints = NO;
   return bar;
 }
 
 - (void)configureWithData:(id<MWMActionBarSharedData>)data
 {
   self.data = data;
-  self.isPrepareRouteMode = MapsAppDelegate.theApp.routingPlaneMode != MWMRoutingPlaneModeNone;
-  self.isBookmark = data.isBookmark;
   [self configureButtons];
   self.autoresizingMask = UIViewAutoresizingNone;
+  [self setNeedsLayout];
+}
+
+- (void)clearButtons
+{
+  m_visibleButtons.clear();
+  m_additionalButtons.clear();
+  [self.barButtons.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+}
+
+- (void)setFirstButton:(id<MWMActionBarSharedData>)data
+{
+  vector<EButton> buttons;
+
+  if (self.isAreaNotDownloaded)
+  {
+    buttons.push_back(EButton::Download);
+  }
+  else
+  {
+    BOOL const isRoutePlanning =
+        [MWMNavigationDashboardManager manager].state != MWMNavigationDashboardStateHidden;
+    if (isRoutePlanning)
+      buttons.push_back(EButton::RouteFrom);
+
+    BOOL const isBooking = [data isBooking];
+    if (isBooking)
+      buttons.push_back(EButton::Booking);
+    BOOL const isOpentable = [data isOpentable];
+    if (isOpentable)
+      buttons.push_back(EButton::Opentable);
+    BOOL const isPartner = [data isPartner] && [data sponsoredURL] != nil;
+    if (isPartner)
+      buttons.push_back(EButton::Partner);
+    BOOL const isBookingSearch = [data isBookingSearch];
+    if (isBookingSearch)
+      buttons.push_back(EButton::BookingSearch);
+
+    BOOL const isPhoneCallAvailable =
+        [AppInfo sharedInfo].canMakeCalls && [data phoneNumber].length > 0;
+    if (isPhoneCallAvailable)
+      buttons.push_back(EButton::Call);
+
+    if (!isRoutePlanning)
+      buttons.push_back(EButton::RouteFrom);
+  }
+
+  NSAssert(!buttons.empty(), @"Missing first action bar button");
+  auto begin = buttons.begin();
+  m_visibleButtons.push_back(*begin);
+  begin++;
+  std::copy(begin, buttons.end(), std::back_inserter(m_additionalButtons));
+}
+
+- (void)setSecondButton:(id<MWMActionBarSharedData>)data
+{
+  vector<EButton> buttons;
+  BOOL const isCanAddIntermediatePoint = [MWMRouter canAddIntermediatePoint];
+  BOOL const isNavigationReady =
+      [MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateReady;
+  if (isCanAddIntermediatePoint && isNavigationReady)
+    buttons.push_back(EButton::RouteAddStop);
+
+  buttons.push_back(EButton::Bookmark);
+
+  auto begin = buttons.begin();
+  m_visibleButtons.push_back(*begin);
+  begin++;
+  std::copy(begin, buttons.end(), std::back_inserter(m_additionalButtons));
+}
+
+- (void)setThirdButton { m_visibleButtons.push_back(EButton::RouteTo); }
+
+- (void)setFourthButton
+{
+  if (m_additionalButtons.empty())
+  {
+    m_visibleButtons.push_back(EButton::Share);
+  }
+  else
+  {
+    m_visibleButtons.push_back(EButton::More);
+    m_additionalButtons.push_back(EButton::Share);
+  }
+}
+
+- (void)addButtons2UI:(id<MWMActionBarSharedData>)data
+{
+  BOOL const isPartner = [data isPartner] && [data sponsoredURL] != nil;
+  int const partnerIndex = isPartner ? [data partnerIndex] : -1;
+
+  for (auto const buttonType : m_visibleButtons)
+  {
+    auto const isSelected = (buttonType == EButton::Bookmark ? [data isBookmark] : NO);
+    auto const isDisabled = (buttonType == EButton::Bookmark && data.isBookmarkFromCatalog);
+    auto button = [MWMActionBarButton buttonWithDelegate:self
+                                              buttonType:buttonType
+                                            partnerIndex:partnerIndex
+                                              isSelected:isSelected
+                                              isDisabled:isDisabled];
+    [self.barButtons addArrangedSubview:button];
+  }
+}
+
+- (void)setSingleButton { m_visibleButtons.push_back(EButton::RouteRemoveStop); }
+
+- (void)setButtons:(id<MWMActionBarSharedData>)data
+{
+  BOOL const isRoutePoint = [data isRoutePoint];
+  if (isRoutePoint)
+  {
+    [self setSingleButton];
+  }
+  else
+  {
+    [self setFirstButton:data];
+    [self setSecondButton:data];
+    [self setThirdButton];
+    [self setFourthButton];
+  }
 }
 
 - (void)configureButtons
 {
-  m_visibleButtons.clear();
-  m_additionalButtons.clear();
   auto data = self.data;
-  NSString * phone = data.phoneNumber;
+  [self clearButtons];
 
-  BOOL const isIphone = [[UIDevice currentDevice].model isEqualToString:@"iPhone"];
-  BOOL const isPhoneNotEmpty = phone.length > 0;
-  BOOL const isBooking = data.isBooking;
-  BOOL const isOpentable = data.isOpentable;
-  BOOL const isSponsored = isBooking || isOpentable;
-  BOOL const itHasPhoneNumber = isIphone && isPhoneNotEmpty;
-  BOOL const isApi = data.isApi;
-  BOOL const isP2P = self.isPrepareRouteMode;
-  BOOL const isMyPosition = data.isMyPosition;
-
-  EButton const sponsoredButton = isBooking ? EButton::Booking : EButton::Opentable;
-
-  if (self.isAreaNotDownloaded)
-  {
-    m_visibleButtons.push_back(EButton::Download);
-    m_visibleButtons.push_back(EButton::Bookmark);
-    m_visibleButtons.push_back(EButton::RouteTo);
-    m_visibleButtons.push_back(EButton::Share);
-  }
-  else if (isMyPosition)
-  {
-    m_visibleButtons.push_back(EButton::Spacer);
-    m_visibleButtons.push_back(EButton::Bookmark);
-    m_visibleButtons.push_back(EButton::Share);
-    m_visibleButtons.push_back(EButton::Spacer);
-  }
-  else if (isApi && isSponsored)
-  {
-    m_visibleButtons.push_back(EButton::Api);
-    m_visibleButtons.push_back(sponsoredButton);
-    m_additionalButtons.push_back(EButton::Bookmark);
-    m_additionalButtons.push_back(EButton::RouteFrom);
-    m_additionalButtons.push_back(EButton::Share);
-  }
-  else if (isApi && itHasPhoneNumber)
-  {
-    m_visibleButtons.push_back(EButton::Api);
-    m_visibleButtons.push_back(EButton::Call);
-    m_additionalButtons.push_back(EButton::Bookmark);
-    m_additionalButtons.push_back(EButton::RouteFrom);
-    m_additionalButtons.push_back(EButton::Share);
-  }
-  else if (isApi && isP2P)
-  {
-    m_visibleButtons.push_back(EButton::Api);
-    m_visibleButtons.push_back(EButton::RouteFrom);
-    m_additionalButtons.push_back(EButton::Bookmark);
-    m_additionalButtons.push_back(EButton::Share);
-  }
-  else if (isApi)
-  {
-    m_visibleButtons.push_back(EButton::Api);
-    m_visibleButtons.push_back(EButton::Bookmark);
-    m_additionalButtons.push_back(EButton::RouteFrom);
-    m_additionalButtons.push_back(EButton::Share);
-  }
-  else if (isSponsored && isP2P)
-  {
-    m_visibleButtons.push_back(EButton::Bookmark);
-    m_visibleButtons.push_back(EButton::RouteFrom);
-    m_additionalButtons.push_back(sponsoredButton);
-    m_additionalButtons.push_back(EButton::Share);
-  }
-  else if (itHasPhoneNumber && isP2P)
-  {
-    m_visibleButtons.push_back(EButton::Bookmark);
-    m_visibleButtons.push_back(EButton::RouteFrom);
-    m_additionalButtons.push_back(EButton::Call);
-    m_additionalButtons.push_back(EButton::Share);
-  }
-  else if (isSponsored)
-  {
-    m_visibleButtons.push_back(sponsoredButton);
-    m_visibleButtons.push_back(EButton::Bookmark);
-    m_additionalButtons.push_back(EButton::RouteFrom);
-    m_additionalButtons.push_back(EButton::Share);
-  }
-  else if (itHasPhoneNumber)
-  {
-    m_visibleButtons.push_back(EButton::Call);
-    m_visibleButtons.push_back(EButton::Bookmark);
-    m_additionalButtons.push_back(EButton::RouteFrom);
-    m_additionalButtons.push_back(EButton::Share);
-  }
-  else
-  {
-    m_visibleButtons.push_back(EButton::Bookmark);
-    m_visibleButtons.push_back(EButton::RouteFrom);
-  }
-
-  if (!isMyPosition || !self.isAreaNotDownloaded)
-  {
-    m_visibleButtons.push_back(EButton::RouteTo);
-    m_visibleButtons.push_back(m_additionalButtons.empty() ? EButton::Share : EButton::More);
-  }
-
-  for (UIView * v in self.buttons)
-  {
-    [v.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    auto const type = m_visibleButtons[v.tag - 1];
-    [MWMActionBarButton addButtonToSuperview:v
-                                    delegate:self
-                                  buttonType:type
-                                  isSelected:type == EButton::Bookmark ? self.isBookmark : NO];
-  }
+  [self setButtons:data];
+  [self addButtons2UI:data];
 }
 
 - (void)setDownloadingState:(MWMCircularProgressState)state
@@ -171,17 +179,13 @@ extern NSString * const kAlohalyticsTapEventKey;
 
 - (MWMCircularProgress *)progressFromActiveButton
 {
-  if (!self.isAreaNotDownloaded)
-    return nil;
-
-  for (UIView * view in self.buttons)
+  if (self.isAreaNotDownloaded)
   {
-    NSAssert(view.subviews.count, @"Subviews can't be empty!");
-    MWMActionBarButton * button = view.subviews[0];
-    if (button.type != EButton::Download)
-      continue;
-
-    return button.mapDownloadProgress;
+    for (MWMActionBarButton * button in self.barButtons.subviews)
+    {
+      if ([button type] == EButton::Download)
+        return button.mapDownloadProgress;
+    }
   }
   return nil;
 }
@@ -195,44 +199,35 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self configureButtons];
 }
 
-- (UIView *)shareAnchor
-{
-  UIView * last = nil;
-  auto const size = self.buttons.count;
-  for (UIView * v in self.buttons)
-  {
-    if (v.tag == size)
-      last = v;
-  }
-  return last;
-}
+- (UIView *)shareAnchor { return self.barButtons.subviews.lastObject; }
 
 #pragma mark - MWMActionBarButtonDelegate
 
 - (void)tapOnButtonWithType:(EButton)type
 {
   id<MWMActionBarProtocol> delegate = self.delegate;
+  auto data = self.data;
 
   switch (type)
   {
-  case EButton::Api: [delegate apiBack]; break;
   case EButton::Download: [delegate downloadSelectedArea]; break;
   case EButton::Opentable:
   case EButton::Booking: [delegate book:NO]; break;
+  case EButton::BookingSearch: [delegate searchBookingHotels]; break;
   case EButton::Call: [delegate call]; break;
   case EButton::Bookmark:
-    if (self.isBookmark)
+    if ([data isBookmark])
       [delegate removeBookmark];
     else
       [delegate addBookmark];
-
-    self.isBookmark = !self.isBookmark;
     break;
   case EButton::RouteFrom: [delegate routeFrom]; break;
   case EButton::RouteTo: [delegate routeTo]; break;
   case EButton::Share: [delegate share]; break;
   case EButton::More: [self showActionSheet]; break;
-  case EButton::Spacer: break;
+  case EButton::RouteAddStop: [delegate routeAddStop]; break;
+  case EButton::RouteRemoveStop: [delegate routeRemoveStop]; break;
+  case EButton::Partner: [delegate openPartner]; break;
   }
 }
 
@@ -242,16 +237,16 @@ extern NSString * const kAlohalyticsTapEventKey;
 {
   NSString * cancel = L(@"cancel");
   auto data = self.data;
-  BOOL const isTitleNotEmpty = data.title.length > 0;
-  NSString * title = isTitleNotEmpty ? data.title : data.subtitle;
-  NSString * subtitle = isTitleNotEmpty ? data.subtitle : nil;
+  BOOL const isTitleNotEmpty = [data title].length > 0;
+  NSString * title = isTitleNotEmpty ? [data title] : [data subtitle];
+  NSString * subtitle = isTitleNotEmpty ? [data subtitle] : nil;
 
   UIViewController * vc = static_cast<UIViewController *>([MapViewController controller]);
   NSMutableArray<NSString *> * titles = [@[] mutableCopy];
   for (auto const buttonType : m_additionalButtons)
   {
-    BOOL const isSelected = buttonType == EButton::Bookmark ? data.isBookmark : NO;
-    if (NSString * title = titleForButton(buttonType, isSelected))
+    BOOL const isSelected = buttonType == EButton::Bookmark ? [data isBookmark] : NO;
+    if (NSString * title = titleForButton(buttonType, [data partnerIndex], isSelected))
       [titles addObject:title];
     else
       NSAssert(false, @"Title can't be nil!");
@@ -261,6 +256,9 @@ extern NSString * const kAlohalyticsTapEventKey;
       [UIAlertController alertControllerWithTitle:title
                                           message:subtitle
                                    preferredStyle:UIAlertControllerStyleActionSheet];
+  alertController.popoverPresentationController.sourceView = self.shareAnchor;
+  alertController.popoverPresentationController.sourceRect = self.shareAnchor.bounds;
+
   UIAlertAction * cancelAction =
       [UIAlertAction actionWithTitle:cancel style:UIAlertActionStyleCancel handler:nil];
 
@@ -276,32 +274,19 @@ extern NSString * const kAlohalyticsTapEventKey;
   }
   [alertController addAction:cancelAction];
 
-  if (IPAD)
-  {
-    UIPopoverPresentationController * popPresenter =
-        [alertController popoverPresentationController];
-    popPresenter.sourceView = self.shareAnchor;
-    popPresenter.sourceRect = self.shareAnchor.bounds;
-  }
   [vc presentViewController:alertController animated:YES completion:nil];
 }
 
-#pragma mark - Layout
-
-- (void)layoutSubviews
+- (void)setVisible:(BOOL)visible
 {
-  [super layoutSubviews];
-  self.width = self.superview.width;
-  if (IPAD)
-    self.maxY = self.superview.height;
-
-  self.separator.width = self.width;
-  CGFloat const buttonWidth = self.width / self.buttons.count;
-  for (UIView * button in self.buttons)
-  {
-    button.minX = buttonWidth * (button.tag - 1);
-    button.width = buttonWidth;
-  }
+  self.visibleConstraint.active = NO;
+  NSLayoutYAxisAnchor * bottomAnchor = self.superview.bottomAnchor;
+  if (@available(iOS 11.0, *))
+    bottomAnchor = self.superview.safeAreaLayoutGuide.bottomAnchor;
+  self.alpha = visible ? 1 : 0;
+  self.visibleConstraint =
+      [bottomAnchor constraintEqualToAnchor:visible ? self.bottomAnchor : self.topAnchor];
+  self.visibleConstraint.active = YES;
 }
 
 @end

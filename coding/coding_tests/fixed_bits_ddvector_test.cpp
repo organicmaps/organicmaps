@@ -39,7 +39,7 @@ template <size_t Bits> void TestWithData(vector<uint32_t> const & lst)
   MemReader reader(buf.data(), buf.size());
   auto const vec = TVector::Create(reader);
 
-  size_t i = 0;
+  uint32_t i = 0;
   for (uint32_t actual : lst)
   {
     uint32_t expected;

@@ -9,49 +9,44 @@
 #ifndef BOOST_TT_HAS_TRIVIAL_ASSIGN_HPP_INCLUDED
 #define BOOST_TT_HAS_TRIVIAL_ASSIGN_HPP_INCLUDED
 
-#include <boost/type_traits/config.hpp>
+#include <cstddef> // size_t
+#include <boost/type_traits/detail/config.hpp>
 #include <boost/type_traits/intrinsics.hpp>
+#include <boost/type_traits/integral_constant.hpp>
+
+#if !defined(BOOST_HAS_TRIVIAL_ASSIGN) || defined(BOOST_MSVC) || defined(__GNUC__) || defined(BOOST_INTEL) || defined(__SUNPRO_CC) || defined(__clang__)
 #include <boost/type_traits/is_pod.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_volatile.hpp>
-#include <boost/type_traits/detail/ice_and.hpp>
-#include <boost/type_traits/detail/ice_or.hpp>
-#include <boost/type_traits/detail/ice_not.hpp>
-
-// should be the last #include
-#include <boost/type_traits/detail/bool_trait_def.hpp>
+#include <boost/type_traits/is_assignable.hpp>
+#endif
 
 namespace boost {
 
-namespace detail {
-
-template <typename T>
-struct has_trivial_assign_impl
-{
+   template <typename T>
+   struct has_trivial_assign : public integral_constant < bool,
 #ifdef BOOST_HAS_TRIVIAL_ASSIGN
-   BOOST_STATIC_CONSTANT(bool, value = BOOST_HAS_TRIVIAL_ASSIGN(T));
+      BOOST_HAS_TRIVIAL_ASSIGN(T)
 #else
-   BOOST_STATIC_CONSTANT(bool, value =
-      (::boost::type_traits::ice_and<
-        ::boost::is_pod<T>::value,
-        ::boost::type_traits::ice_not< ::boost::is_const<T>::value >::value,
-      ::boost::type_traits::ice_not< ::boost::is_volatile<T>::value >::value
-      >::value));
+      ::boost::is_pod<T>::value && !::boost::is_const<T>::value && !::boost::is_volatile<T>::value
 #endif
-};
+   > {};
 
-} // namespace detail
-
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(has_trivial_assign,T,::boost::detail::has_trivial_assign_impl<T>::value)
-BOOST_TT_AUX_BOOL_TRAIT_SPEC1(has_trivial_assign,void,false)
+   template<> struct has_trivial_assign<void> : public false_type{};
 #ifndef BOOST_NO_CV_VOID_SPECIALIZATIONS
-BOOST_TT_AUX_BOOL_TRAIT_SPEC1(has_trivial_assign,void const,false)
-BOOST_TT_AUX_BOOL_TRAIT_SPEC1(has_trivial_assign,void const volatile,false)
-BOOST_TT_AUX_BOOL_TRAIT_SPEC1(has_trivial_assign,void volatile,false)
+   template<> struct has_trivial_assign<void const> : public false_type{};
+   template<> struct has_trivial_assign<void const volatile> : public false_type{};
+   template<> struct has_trivial_assign<void volatile> : public false_type{};
 #endif
+   template <class T> struct has_trivial_assign<T volatile> : public false_type{};
+   template <class T> struct has_trivial_assign<T&> : public false_type{};
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
+   template <class T> struct has_trivial_assign<T&&> : public false_type{};
+#endif
+   // Arrays are not explictly assignable:
+   template <typename T, std::size_t N> struct has_trivial_assign<T[N]> : public false_type{};
+   template <typename T> struct has_trivial_assign<T[]> : public false_type{};
 
 } // namespace boost
-
-#include <boost/type_traits/detail/bool_trait_undef.hpp>
 
 #endif // BOOST_TT_HAS_TRIVIAL_ASSIGN_HPP_INCLUDED

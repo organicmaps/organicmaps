@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "search/search_integration_tests/helpers.hpp"
+#include "search/search_tests_support/helpers.hpp"
 #include "search/search_tests_support/test_results_matching.hpp"
 #include "search/search_tests_support/test_search_request.hpp"
 
@@ -16,11 +16,11 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/shared_ptr.hpp"
-#include "std/vector.hpp"
+#include <string>
 
 using namespace generator::tests_support;
 using namespace search::tests_support;
+using namespace std;
 
 namespace search
 {
@@ -52,14 +52,50 @@ class SmokeTest : public SearchTest
 {
 };
 
+class AlcoShop : public TestPOI
+{
+public:
+  AlcoShop(m2::PointD const & center, string const & name, string const & lang)
+    : TestPOI(center, name, lang)
+  {
+    SetTypes({{"shop", "alcohol"}});
+  }
+
+  ~AlcoShop() override = default;
+};
+
+class SubwayStation : public TestPOI
+{
+public:
+  SubwayStation(m2::PointD const & center, string const & name, string const & lang)
+    : TestPOI(center, name, lang)
+  {
+    SetTypes({{"railway", "station", "subway"}});
+  }
+
+  ~SubwayStation() override = default;
+};
+
+class SubwayStationMoscow : public TestPOI
+{
+public:
+  SubwayStationMoscow(m2::PointD const & center, string const & name, string const & lang)
+    : TestPOI(center, name, lang)
+  {
+    SetTypes({{"railway", "station", "subway", "moscow"}});
+  }
+
+  ~SubwayStationMoscow() override = default;
+};
+
 UNIT_CLASS_TEST(SmokeTest, Smoke)
 {
   char const kCountryName[] = "BuzzTown";
 
-  TestPOI wineShop(m2::PointD(0, 0), "Wine shop", "en");
-  TestPOI tequilaShop(m2::PointD(1, 0), "Tequila shop", "en");
-  TestPOI brandyShop(m2::PointD(0, 1), "Brandy shop", "en");
-  TestPOI vodkaShop(m2::PointD(1, 1), "Russian vodka shop", "en");
+  AlcoShop wineShop(m2::PointD(0, 0), "Wine shop", "en");
+  AlcoShop tequilaShop(m2::PointD(1, 0), "Tequila shop", "en");
+  AlcoShop brandyShop(m2::PointD(0, 1), "Brandy shop", "en");
+  AlcoShop vodkaShop(m2::PointD(1, 1), "Russian vodka shop", "en");
 
   auto id = BuildMwm(kCountryName, feature::DataHeader::country, [&](TestMwmBuilder & builder) {
     builder.Add(wineShop);
@@ -82,6 +118,118 @@ UNIT_CLASS_TEST(SmokeTest, Smoke)
                     ExactMatch(id, brandyShop), ExactMatch(id, vodkaShop)};
     TEST(ResultsMatch("shop ", rules), ());
   }
+}
+
+UNIT_CLASS_TEST(SmokeTest, DeepCategoryTest)
+{
+  char const kCountryName[] = "Wonderland";
+
+  SubwayStation redStation(m2::PointD(0, 0), "red", "en");
+  SubwayStationMoscow blueStation(m2::PointD(1, 1), "blue", "en");
+
+  auto id = BuildMwm(kCountryName, feature::DataHeader::country, [&](TestMwmBuilder & builder) {
+    builder.Add(redStation);
+    builder.Add(blueStation);
+  });
+
+  SetViewport(m2::RectD(m2::PointD(0, 0), m2::PointD(1, 1)));
+  {
+    TRules rules = {ExactMatch(id, redStation), ExactMatch(id, blueStation)};
+    TEST(ResultsMatch("Subway ", rules), ());
+  }
+}
+
+UNIT_CLASS_TEST(SmokeTest, CategoriesTest)
+{
+  // todo(@t.yan): fix some or delete category.
+  vector<vector<string>> const invisibleTags = {{"amenity", "driving_school"},
+                                                {"military", "bunker"},
+                                                {"waterway", "canal"},
+                                                {"waterway", "river"},
+                                                {"waterway", "riverbank"},
+                                                {"waterway", "stream"},
+                                                {"landuse", "basin"},
+                                                {"place", "county"},
+                                                {"place", "islet"},
+                                                {"power", "pole"},
+                                                {"highway", "footway"},
+                                                {"highway", "living_street"},
+                                                {"highway", "motorway"},
+                                                {"highway", "motorway_link"},
+                                                {"highway", "path"},
+                                                {"highway", "pedestrian"},
+                                                {"highway", "primary"},
+                                                {"highway", "primary_link"},
+                                                {"highway", "raceway"},
+                                                {"highway", "residential"},
+                                                {"highway", "road"},
+                                                {"highway", "secondary"},
+                                                {"highway", "secondary_link"},
+                                                {"highway", "service"},
+                                                {"highway", "steps"},
+                                                {"area:highway", "steps"},
+                                                {"highway", "tertiary"},
+                                                {"highway", "tertiary_link"},
+                                                {"highway", "track"},
+                                                {"highway", "traffic_signals"},
+                                                {"highway", "trunk"},
+                                                {"highway", "trunk_link"},
+                                                {"highway", "unclassified"},
+                                                {"man_made", "surveillance"},
+                                                {"man_made", "tower"},
+                                                {"man_made", "water_tower"},
+                                                {"man_made", "water_well"},
+                                                {"natural", "pond"},
+                                                {"natural", "tree"},
+                                                {"natural", "wood"}};
+  set<uint32_t> invisibleTypes;
+  for (auto const & tags : invisibleTags)
+    invisibleTypes.insert(classif().GetTypeByPath(tags));
+
+  vector<vector<string>> const notSupportedTags = {// Not visible because excluded by TypesSkipper.
+                                                   {"barrier", "block"},
+                                                   {"barrier", "bollard"},
+                                                   {"barrier", "entrance"},
+                                                   {"barrier", "gate"},
+                                                   {"barrier", "lift_gate"},
+                                                   {"barrier", "stile"},
+                                                   {"barrier", "toll_booth"},
+                                                   {"building", "address"},
+                                                   {"entrance"},
+                                                   // Not visible for country scale range.
+                                                   {"place", "continent"},
+                                                   {"place", "region"}};
+  set<uint32_t> notSupportedTypes;
+  for (auto const & tags : notSupportedTags)
+    notSupportedTypes.insert(classif().GetTypeByPath(tags));
+
+  auto const & holder = GetDefaultCategories();
+  auto testCategory = [&](uint32_t type, CategoriesHolder::Category const &) {
+    if (invisibleTypes.find(type) != invisibleTypes.end())
+      return;
+
+    bool categoryIsSearchable = true;
+    if (notSupportedTypes.find(type) != notSupportedTypes.end())
+      categoryIsSearchable = false;
+
+    string const countryName = "Wonderland";
+
+    TestPOI poi(m2::PointD(1.0, 1.0), "poi", "en");
+    poi.SetTypes({strings::Tokenize(classif().GetFullObjectName(type), "|")});
+
+    auto id = BuildMwm(countryName, feature::DataHeader::country,
+                       [&](TestMwmBuilder & builder) { builder.Add(poi); });
+
+    SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(2.0, 2.0)));
+    {
+      TRules rules = {ExactMatch(id, poi)};
+      auto const query = holder.GetReadableFeatureType(type, CategoriesHolder::kEnglishCode) + " ";
+      TEST(ResultsMatch(query, categoryIsSearchable ? rules : TRules{}), ());
+    }
+    DeregisterMap(countryName);
+  };
+
+  holder.ForEachTypeAndCategory(testCategory);
 }
 
 UNIT_CLASS_TEST(SmokeTest, NotPrefixFreeNames)
@@ -126,6 +274,30 @@ UNIT_CLASS_TEST(SmokeTest, NoDefaultNameTest)
 
   SetViewport(m2::RectD(m2::PointD(-0.5, -0.5), m2::PointD(0.5, 0.5)));
   TEST(ResultsMatch("Wonderland", {ExactMatch(worldId, wonderland)}), ());
+}
+
+UNIT_CLASS_TEST(SmokeTest, PoiWithAddress)
+{
+  char const kCountryName[] = "Wonderland";
+  TestStreet mainStreet({m2::PointD(0.0, 0.0), m2::PointD(1.0, 1.0), m2::PointD(2.0, 2.0)},
+                        "Main Street", "en");
+  TestCafe cafe(m2::PointD(1.0, 1.0), "Starbucks", "en");
+  cafe.SetStreet(mainStreet);
+  cafe.SetHouseNumber("27");
+
+  auto id = BuildMwm(kCountryName, feature::DataHeader::country, [&](TestMwmBuilder & builder) {
+    builder.Add(mainStreet);
+    builder.Add(cafe);
+  });
+
+  SetViewport(m2::RectD(m2::PointD(0.0, 0.0), m2::PointD(2.0, 2.0)));
+  {
+    TRules rules = {ExactMatch(id, cafe)};
+    TEST(ResultsMatch("Starbucks ", rules), ());
+    TEST(ResultsMatch("Main street 27 ", rules), ());
+    TEST(ResultsMatch("Main street 27 Starbucks ", rules), ());
+    TEST(ResultsMatch("Starbucks Main street 27 ", rules), ());
+  }
 }
 }  // namespace
 }  // namespace search

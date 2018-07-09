@@ -46,7 +46,7 @@ struct basic_protected_stack_allocator
                     static_cast< float >( size) / traits_type::page_size() ) ) );
         BOOST_ASSERT_MSG( 2 <= pages, "at least two pages must fit into stack (one page is guard-page)");
         const std::size_t size_ = pages * traits_type::page_size();
-        BOOST_ASSERT( 0 < size && 0 < size_);
+        BOOST_ASSERT( 0 != size && 0 != size_);
 
         void * limit = ::VirtualAlloc( 0, size_, MEM_COMMIT, PAGE_READWRITE);
         if ( ! limit) throw std::bad_alloc();

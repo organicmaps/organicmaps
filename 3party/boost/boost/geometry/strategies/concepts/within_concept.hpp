@@ -22,7 +22,7 @@
 #include <boost/geometry/util/parameter_type_of.hpp>
 
 
-namespace boost { namespace geometry { namespace concept
+namespace boost { namespace geometry { namespace concepts
 {
 
 
@@ -55,12 +55,12 @@ class WithinStrategyPolygonal
             // CHECK: apply-arguments should both fulfill point concept
             BOOST_CONCEPT_ASSERT
                 (
-                    (concept::ConstPoint<point_type>)
+                    (concepts::ConstPoint<point_type>)
                 );
 
             BOOST_CONCEPT_ASSERT
                 (
-                    (concept::ConstPoint<segment_point_type>)
+                    (concepts::ConstPoint<segment_point_type>)
                 );
 
             // CHECK: return types (result: int, apply: bool)
@@ -130,12 +130,12 @@ class WithinStrategyPointBox
             // CHECK: apply-arguments should fulfill point/box concept
             BOOST_CONCEPT_ASSERT
                 (
-                    (concept::ConstPoint<point_type>)
+                    (concepts::ConstPoint<point_type>)
                 );
 
             BOOST_CONCEPT_ASSERT
                 (
-                    (concept::ConstBox<box_type>)
+                    (concepts::ConstBox<box_type>)
                 );
 
             // CHECK: return types (apply: bool)
@@ -194,12 +194,12 @@ class WithinStrategyBoxBox
             // CHECK: apply-arguments should both fulfill box concept
             BOOST_CONCEPT_ASSERT
                 (
-                    (concept::ConstBox<box_type1>)
+                    (concepts::ConstBox<box_type1>)
                 );
 
             BOOST_CONCEPT_ASSERT
                 (
-                    (concept::ConstBox<box_type2>)
+                    (concepts::ConstBox<box_type2>)
                 );
 
             // CHECK: return types (apply: bool)
@@ -236,7 +236,7 @@ public :
 #endif
 };
 
-// So now: boost::geometry::concept::within
+// So now: boost::geometry::concepts::within
 namespace within
 {
 
@@ -285,7 +285,7 @@ inline void check()
 }
 
 
-}}}} // namespace boost::geometry::concept::within
+}}}} // namespace boost::geometry::concepts::within
 
 
 #endif // BOOST_GEOMETRY_STRATEGIES_CONCEPTS_WITHIN_CONCEPT_HPP

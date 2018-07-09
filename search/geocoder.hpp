@@ -20,7 +20,6 @@
 #include "search/streets_matcher.hpp"
 #include "search/token_range.hpp"
 
-#include "indexer/index.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "storage/country_info_getter.hpp"
@@ -29,7 +28,6 @@
 
 #include "geometry/rect2d.hpp"
 
-#include "base/buffer_vector.hpp"
 #include "base/cancellable.hpp"
 #include "base/dfa_helpers.hpp"
 #include "base/levenshtein_dfa.hpp"
@@ -38,12 +36,14 @@
 
 #include "std/limits.hpp"
 #include "std/set.hpp"
+#include "std/shared_ptr.hpp"
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
 #include "std/unordered_map.hpp"
 #include "std/vector.hpp"
 
-class MwmInfo;
+class CategoriesHolder;
+class DataSource;
 class MwmValue;
 
 namespace storage
@@ -53,12 +53,11 @@ class CountryInfoGetter;
 
 namespace search
 {
-class PreRanker;
-
 class FeaturesFilter;
 class FeaturesLayerMatcher;
-class SearchModel;
+class PreRanker;
 class TokenSlice;
+class Tracer;
 
 // This class is used to retrieve all features corresponding to a
 // search query.  Search query is represented as a sequence of tokens
@@ -80,17 +79,17 @@ class Geocoder
 public:
   struct Params : public QueryParams
   {
-    Params();
-
-    Mode m_mode;
+    Mode m_mode = Mode::Everywhere;
     m2::RectD m_pivot;
+    Locales m_categoryLocales;
     shared_ptr<hotels_filter::Rule> m_hotelsFilter;
+    set<uint32_t> m_preferredTypes;
+    shared_ptr<Tracer> m_tracer;
   };
 
-  Geocoder(Index const & index, storage::CountryInfoGetter const & infoGetter,
-           PreRanker & preRanker, VillagesCache & villagesCache,
-           my::Cancellable const & cancellable);
-
+  Geocoder(DataSource const & dataSource, storage::CountryInfoGetter const & infoGetter,
+           CategoriesHolder const & categories, PreRanker & preRanker,
+           VillagesCache & villagesCache, ::base::Cancellable const & cancellable);
   ~Geocoder();
 
   // Sets search query params.
@@ -100,6 +99,19 @@ public:
   // |results|.
   void GoEverywhere();
   void GoInViewport();
+
+  // Ends geocoding and informs the following stages
+  // of the pipeline (PreRanker).
+  // This method must be called from the previous stage
+  // of the pipeline (the Processor).
+  // If |cancelled| is true, the reason for calling Finish must
+  // be the cancellation of processing the search request, otherwise
+  // the reason must be the normal exit from GoEverywhere of GoInViewport.
+  //
+  // *NOTE* The caller assumes that a call to this method will never
+  // result in search::CancelException even if the shutdown takes
+  // noticeable time.
+  void Finish(bool cancelled);
 
   void ClearCaches();
 
@@ -123,6 +135,9 @@ private:
     CBV m_features;
   };
 
+  // Sets search query params for categorial search.
+  void SetParamsForCategorialSearch(Params const & params);
+
   void GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport);
 
   template <typename Locality>
@@ -134,8 +149,7 @@ private:
   // for each token and saves it to m_addressFeatures.
   void InitBaseContext(BaseContext & ctx);
 
-  void InitLayer(SearchModel::SearchType type, TokenRange const & tokenRange,
-                 FeaturesLayer & layer);
+  void InitLayer(Model::Type type, TokenRange const & tokenRange, FeaturesLayer & layer);
 
   void FillLocalityCandidates(BaseContext const & ctx,
                               CBV const & filter, size_t const maxNumLocalities,
@@ -150,6 +164,9 @@ private:
 
   // Throws CancelException if cancelled.
   inline void BailIfCancelled() { ::search::BailIfCancelled(m_cancellable); }
+
+  // A fast-path branch for categorial requests.
+  void MatchCategories(BaseContext & ctx, bool aroundPivot);
 
   // Tries to find all countries and states in a search query and then
   // performs matching of cities in found maps.
@@ -192,14 +209,19 @@ private:
 
   // Finds all paths through layers and emits reachable features from
   // the lowest layer.
-  void FindPaths(BaseContext const & ctx);
+  void FindPaths(BaseContext & ctx);
+
+  void TraceResult(Tracer & tracer, BaseContext const & ctx, MwmSet::MwmId const & mwmId,
+                   uint32_t ftId, Model::Type type, TokenRange const & tokenRange);
 
   // Forms result and feeds it to |m_preRanker|.
-  void EmitResult(BaseContext const & ctx, MwmSet::MwmId const & mwmId, uint32_t ftId,
-                  SearchModel::SearchType type, TokenRange const & tokenRange,
-                  IntersectionResult const * geoParts);
-  void EmitResult(BaseContext const & ctx, Region const & region, TokenRange const & tokenRange);
-  void EmitResult(BaseContext const & ctx, City const & city, TokenRange const & tokenRange);
+  void EmitResult(BaseContext & ctx, MwmSet::MwmId const & mwmId, uint32_t ftId, Model::Type type,
+                  TokenRange const & tokenRange, IntersectionResult const * geoParts,
+                  bool allTokensUsed);
+  void EmitResult(BaseContext & ctx, Region const & region, TokenRange const & tokenRange,
+                  bool allTokensUsed);
+  void EmitResult(BaseContext & ctx, City const & city, TokenRange const & tokenRange,
+                  bool allTokensUsed);
 
   // Tries to match unclassified objects from lower layers, like
   // parks, forests, lakes, rivers, etc. This method finds all
@@ -214,26 +236,26 @@ private:
 
   // This is a faster wrapper around SearchModel::GetSearchType(), as
   // it uses pre-loaded lists of streets and villages.
-  WARN_UNUSED_RESULT bool GetSearchTypeInGeocoding(BaseContext const & ctx, uint32_t featureId,
-                                                   SearchModel::SearchType & searchType);
+  WARN_UNUSED_RESULT bool GetTypeInGeocoding(BaseContext const & ctx, uint32_t featureId,
+                                             Model::Type & type);
 
-  Index const & m_index;
-
+  DataSource const & m_dataSource;
   storage::CountryInfoGetter const & m_infoGetter;
+  CategoriesHolder const & m_categories;
 
   StreetsCache m_streetsCache;
   VillagesCache & m_villagesCache;
   HotelsCache m_hotelsCache;
   hotels_filter::HotelsFilter m_hotelsFilter;
 
-  my::Cancellable const & m_cancellable;
+  ::base::Cancellable const & m_cancellable;
 
   // Geocoder params.
   Params m_params;
 
   // This field is used to map features to a limited number of search
   // classes.
-  SearchModel const & m_model;
+  Model m_model;
 
   // Following fields are set up by Search() method and can be
   // modified and used only from Search() or its callees.

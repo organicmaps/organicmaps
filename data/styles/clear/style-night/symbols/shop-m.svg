@@ -1,20 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>shop-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <ellipse id="path-1" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-    </defs>
-    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="shop-m">
-            <ellipse id="Oval-1-Copy-41" fill-opacity="0.1" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <g id="Oval-1-Copy-40">
-                <use fill="#2D7970" xlink:href="#path-1"></use>
-                <use fill="#825089" xlink:href="#path-1"></use>
-                <use fill-opacity="0.65" fill="#000000" xlink:href="#path-1"></use>
-            </g>
-            <path d="M10.26471,4 C9.5,4 8.64996,4.7502 8.5,5.5 L8,8 L7,8 C6.61765,8 6,8.6177 6,9 L5,17.2353 C5,17.6176 5.5,18 6,18 L17,18 C17.5,18 18,17.6176 18,17.2353 L17,9 C17,8.6177 16.38235,8 16,8 L15,8 L14.5,5.5 C14.35004,4.7502 13.50001,4 12.7353,4 L10.26471,4 Z M10.26471,4.7647 L12.7353,4.7647 C13.11766,4.7647 13.66033,5.1251 13.7353,5.5 L14.2353,8 L8.7647,8 L9.26471,5.5 C9.33971,5.1251 9.88235,4.7647 10.26471,4.7647 L10.26471,4.7647 Z" id="rect13131-6-2-copy" fill-opacity="0.7" fill="#FFFFFF"></path>
-        </g>
-    </g>
+<svg width="24" height="24" viewBox="0 0 24 24">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="12" cy="12" r="12" fill="#FFF" opacity=".4"/>
+    <circle cx="12" cy="12" r="11" fill="#4E3551"/>
+    <path fill="#FFF" d="M10.8597323,5 C10.1538462,5 9.36919385,5.7502 9.23076923,6.5 L8.76923077,9 L7.84615385,9 C7.49321538,9 6.92307692,9.6177 6.92307692,10 L6,18.2353 C6,18.6176 6.46153846,19 6.92307692,19 L17.0769231,19 C17.5384615,19 18,18.6176 18,18.2353 L17.0769231,10 C17.0769231,9.6177 16.5067846,9 16.1538462,9 L15.2307692,9 L14.7692308,6.5 C14.6308062,5.7502 13.8461631,5 13.1402769,5 L10.8597323,5 Z M10.8597323,5.7647 L13.1402769,5.7647 C13.4932246,5.7647 13.9941508,6.1251 14.0633538,6.5 L14.5248923,9 L9.47510769,9 L9.93665538,6.5 C10.0058862,6.1251 10.5067846,5.7647 10.8597323,5.7647 L10.8597323,5.7647 Z" opacity=".6"/>
+  </g>
 </svg>

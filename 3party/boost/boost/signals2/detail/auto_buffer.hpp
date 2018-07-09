@@ -98,7 +98,7 @@ namespace detail
         }
 
         template< class SizeType >
-        static bool should_shrink( SizeType size, SizeType capacity )
+        static bool should_shrink( SizeType, SizeType )
         {
             //
             // @remark: when defining a new grow policy, one might
@@ -257,7 +257,7 @@ namespace detail
                 auto_buffer_destroy( buffer );
         }
 
-        void destroy_back_n( size_type n, const boost::true_type& )
+        void destroy_back_n( size_type, const boost::true_type& )
         { }
 
         void destroy_back_n( size_type n )
@@ -971,7 +971,7 @@ namespace detail
 
         pointer uninitialized_grow( size_type n ) // strong
         {
-            if( size_ + n <= members_.capacity_ )
+            if( size_ + n > members_.capacity_ )
                 reserve( size_ + n );
 
             pointer res = end();
@@ -1116,7 +1116,7 @@ namespace detail
     inline bool operator<=( const auto_buffer<T,SBP,GP,A>& l,
                             const auto_buffer<T,SBP,GP,A>& r )
     {
-        return !(r > l);
+        return !(l > r);
     }
 
     template< class T, class SBP, class GP, class A >

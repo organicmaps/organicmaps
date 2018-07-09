@@ -19,7 +19,7 @@
 
 # include <boost/concept/assert.hpp>
 
-# include <boost/iterator.hpp>
+# include <iterator>
 # include <boost/type_traits/conversion_traits.hpp>
 # include <utility>
 # include <boost/type_traits/is_same.hpp>
@@ -27,7 +27,6 @@
 # include <boost/mpl/assert.hpp>
 # include <boost/mpl/bool.hpp>
 # include <boost/detail/workaround.hpp>
-# include <boost/detail/iterator.hpp>
 
 # include <boost/concept/usage.hpp>
 # include <boost/concept/detail/concept_def.hpp>
@@ -504,11 +503,11 @@ namespace boost
     : Assignable<TT>
     , EqualityComparable<TT>
   {
-      typedef typename boost::detail::iterator_traits<TT>::value_type value_type;
-      typedef typename boost::detail::iterator_traits<TT>::difference_type difference_type;
-      typedef typename boost::detail::iterator_traits<TT>::reference reference;
-      typedef typename boost::detail::iterator_traits<TT>::pointer pointer;
-      typedef typename boost::detail::iterator_traits<TT>::iterator_category iterator_category;
+      typedef typename std::iterator_traits<TT>::value_type value_type;
+      typedef typename std::iterator_traits<TT>::difference_type difference_type;
+      typedef typename std::iterator_traits<TT>::reference reference;
+      typedef typename std::iterator_traits<TT>::pointer pointer;
+      typedef typename std::iterator_traits<TT>::iterator_category iterator_category;
 
       BOOST_CONCEPT_USAGE(InputIterator)
       {
@@ -617,7 +616,7 @@ namespace boost
    private:
     TT a, b;
     TT i, j;
-      typename boost::detail::iterator_traits<TT>::difference_type n;
+      typename std::iterator_traits<TT>::difference_type n;
   };
 
   BOOST_concept(Mutable_RandomAccessIterator,(TT))
@@ -630,7 +629,7 @@ namespace boost
       }
    private:
     TT i;
-    typename boost::detail::iterator_traits<TT>::difference_type n;
+    typename std::iterator_traits<TT>::difference_type n;
   };
 
   //===========================================================================

@@ -141,8 +141,9 @@ void ProcessCategory(string const & line, vector<string> & groups, vector<uint32
 }  // namespace
 
 // static
-int8_t const CategoriesHolder::kEnglishCode = 1;
-int8_t const CategoriesHolder::kUnsupportedLocaleCode = -1;
+int8_t constexpr CategoriesHolder::kEnglishCode;
+int8_t constexpr CategoriesHolder::kUnsupportedLocaleCode;
+uint8_t constexpr CategoriesHolder::kMaxSupportedLocaleIndex;
 
 // *NOTE* These constants should be updated when adding new
 // translation to categories.txt. When editing, keep in mind to check
@@ -178,7 +179,8 @@ vector<CategoriesHolder::Mapping> const CategoriesHolder::kLocaleMapping = {{"en
                                                                             {"fi", 27},
                                                                             {"el", 28},
                                                                             {"he", 29},
-                                                                            {"sw", 30}};
+                                                                            {"sw", 30},
+                                                                            {"fa", 31}};
 vector<string> CategoriesHolder::kDisabledLanguages = {"el", "he", "sw"};
 
 CategoriesHolder::CategoriesHolder(unique_ptr<Reader> && reader)
@@ -186,6 +188,11 @@ CategoriesHolder::CategoriesHolder(unique_ptr<Reader> && reader)
   ReaderStreamBuf buffer(move(reader));
   istream s(&buffer);
   LoadFromStream(s);
+
+#if defined(DEBUG)
+  for (auto const & entry : kLocaleMapping)
+    ASSERT_LESS_OR_EQUAL(entry.m_code, kMaxSupportedLocaleIndex, ());
+#endif
 }
 
 void CategoriesHolder::AddCategory(Category & cat, vector<uint32_t> & types)

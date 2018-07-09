@@ -37,7 +37,7 @@ public:
 
         /// don't do anything when loading arrays
     template<class T>
-    void load_array(serialization::array<T> &, unsigned int )
+    void load_array(serialization::array_wrapper<T> &, unsigned int )
     {}
 
     typedef is_mpi_datatype<mpl::_1> use_array_optimization;

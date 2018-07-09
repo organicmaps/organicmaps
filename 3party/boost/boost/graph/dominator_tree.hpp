@@ -70,29 +70,31 @@ namespace boost {
       /**
        * @param g [in] the target graph of the dominator tree
        * @param entry [in] the entry node of g
+       * @param indexMap [in] the vertex index map for g
        * @param domTreePredMap [out] the immediate dominator map
        *                             (parent map in dominator tree)
        */
       dominator_visitor(const Graph& g, const Vertex& entry,
+                        const IndexMap& indexMap,
                         DomTreePredMap domTreePredMap)
         : semi_(num_vertices(g)),
           ancestor_(num_vertices(g), graph_traits<Graph>::null_vertex()),
           samedom_(ancestor_),
           best_(semi_),
           semiMap_(make_iterator_property_map(semi_.begin(),
-                                              get(vertex_index, g))),
+                                              indexMap)),
           ancestorMap_(make_iterator_property_map(ancestor_.begin(),
-                                                  get(vertex_index, g))),
+                                                  indexMap)),
           bestMap_(make_iterator_property_map(best_.begin(),
-                                              get(vertex_index, g))),
+                                              indexMap)),
           buckets_(num_vertices(g)),
           bucketMap_(make_iterator_property_map(buckets_.begin(),
-                                                get(vertex_index, g))),
+                                                indexMap)),
           entry_(entry),
           domTreePredMap_(domTreePredMap),
           numOfVertices_(num_vertices(g)),
           samedomMap(make_iterator_property_map(samedom_.begin(),
-                                                get(vertex_index, g)))
+                                                indexMap))
       {
       }
 
@@ -237,7 +239,7 @@ namespace boost {
   lengauer_tarjan_dominator_tree_without_dfs
     (const Graph& g,
      const typename graph_traits<Graph>::vertex_descriptor& entry,
-     const IndexMap& /*indexMap*/,
+     const IndexMap& indexMap,
      TimeMap dfnumMap, PredMap parentMap, VertexVector& verticesByDFNum,
      DomTreePredMap domTreePredMap)
   {
@@ -252,7 +254,7 @@ namespace boost {
 
     // 1. Visit each vertex in reverse post order and calculate sdom.
     detail::dominator_visitor<Graph, IndexMap, TimeMap, PredMap, DomTreePredMap>
-      visitor(g, entry, domTreePredMap);
+      visitor(g, entry, indexMap, domTreePredMap);
 
     VerticesSizeType i;
     for (i = 0; i < numOfVertices; ++i)

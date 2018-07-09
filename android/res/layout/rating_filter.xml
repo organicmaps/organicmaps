@@ -9,7 +9,9 @@
     android:id="@+id/any"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:background="?clickableBackground"
+    android:layout_marginRight="@dimen/margin_half"
+    android:layout_marginEnd="@dimen/margin_half"
+    android:background="?filterPropertyBackground"
     android:layout_weight="1"
     tools:background="?colorAccent">
     <TextView
@@ -23,17 +25,14 @@
       android:fontFamily="@string/robotoMedium"
       tools:textColor="?accentButtonTextColor"
       tools:targetApi="jelly_bean"/>
-    <View
-      android:layout_width="1dp"
-      android:layout_height="match_parent"
-      android:layout_gravity="end"
-      android:background="?dividerHorizontal"/>
   </FrameLayout>
   <FrameLayout
     android:id="@+id/good"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:background="?clickableBackground"
+    android:layout_marginRight="@dimen/margin_half"
+    android:layout_marginEnd="@dimen/margin_half"
+    android:background="?filterPropertyBackground"
     android:layout_weight="1">
     <LinearLayout
       android:layout_width="wrap_content"
@@ -59,17 +58,14 @@
         android:text="@string/booking_filters_ragting_good"
         android:gravity="center"/>
     </LinearLayout>
-    <View
-      android:layout_width="1dp"
-      android:layout_height="match_parent"
-      android:layout_gravity="end"
-      android:background="?dividerHorizontal"/>
   </FrameLayout>
   <FrameLayout
     android:id="@+id/very_good"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:background="?clickableBackground"
+    android:layout_marginRight="@dimen/margin_half"
+    android:layout_marginEnd="@dimen/margin_half"
+    android:background="?filterPropertyBackground"
     android:layout_weight="1">
     <LinearLayout
       android:layout_width="wrap_content"
@@ -95,17 +91,12 @@
         android:text="@string/booking_filters_rating_very_good"
         android:gravity="center"/>
     </LinearLayout>
-    <View
-      android:layout_width="1dp"
-      android:layout_height="match_parent"
-      android:layout_gravity="end"
-      android:background="?dividerHorizontal"/>
   </FrameLayout>
   <FrameLayout
     android:id="@+id/excellent"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:background="?clickableBackground"
+    android:background="?filterPropertyBackground"
     android:layout_weight="1">
     <LinearLayout
       android:layout_width="wrap_content"

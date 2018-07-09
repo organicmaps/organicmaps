@@ -2,7 +2,7 @@
 // detail/impl/win_thread.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2017 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -17,7 +17,9 @@
 
 #include <boost/asio/detail/config.hpp>
 
-#if defined(BOOST_ASIO_WINDOWS) && !defined(UNDER_CE)
+#if defined(BOOST_ASIO_WINDOWS) \
+  && !defined(BOOST_ASIO_WINDOWS_APP) \
+  && !defined(UNDER_CE)
 
 #include <process.h>
 #include <boost/asio/detail/throw_error.hpp>
@@ -57,7 +59,7 @@ void win_thread::join()
 void win_thread::start_thread(func_base* arg, unsigned int stack_size)
 {
   ::HANDLE entry_event = 0;
-  arg->entry_event_ = entry_event = ::CreateEvent(0, true, false, 0);
+  arg->entry_event_ = entry_event = ::CreateEventW(0, true, false, 0);
   if (!entry_event)
   {
     DWORD last_error = ::GetLastError();
@@ -67,7 +69,7 @@ void win_thread::start_thread(func_base* arg, unsigned int stack_size)
     boost::asio::detail::throw_error(ec, "thread.entry_event");
   }
 
-  arg->exit_event_ = exit_event_ = ::CreateEvent(0, true, false, 0);
+  arg->exit_event_ = exit_event_ = ::CreateEventW(0, true, false, 0);
   if (!exit_event_)
   {
     DWORD last_error = ::GetLastError();
@@ -136,6 +138,8 @@ void __stdcall apc_function(ULONG_PTR) {}
 
 #include <boost/asio/detail/pop_options.hpp>
 
-#endif // defined(BOOST_ASIO_WINDOWS) && !defined(UNDER_CE)
+#endif // defined(BOOST_ASIO_WINDOWS)
+       // && !defined(BOOST_ASIO_WINDOWS_APP)
+       // && !defined(UNDER_CE)
 
 #endif // BOOST_ASIO_DETAIL_IMPL_WIN_THREAD_IPP

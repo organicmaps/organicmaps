@@ -1,40 +1,27 @@
 package com.mapswithme.maps.background;
 
 import android.app.IntentService;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Location;
-import android.location.LocationManager;
 import android.text.TextUtils;
-
-import java.util.concurrent.CountDownLatch;
+import android.util.Log;
 
 import com.mapswithme.maps.MwmApplication;
-import com.mapswithme.maps.R;
-import com.mapswithme.maps.downloader.CountryItem;
-import com.mapswithme.maps.downloader.MapManager;
 import com.mapswithme.maps.editor.Editor;
-import com.mapswithme.util.LocationUtils;
-import com.mapswithme.util.concurrency.UiThread;
+import com.mapswithme.maps.ugc.UGC;
+import com.mapswithme.util.CrashlyticsUtils;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 
 public class WorkerService extends IntentService
 {
-  private static final String ACTION_CHECK_LOCATIION = "com.mapswithme.maps.action.check_location";
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final String TAG = WorkerService.class.getSimpleName();
   private static final String ACTION_UPLOAD_OSM_CHANGES = "com.mapswithme.maps.action.upload_osm_changes";
+  private static final String ACTION_UPLOAD_UGC = "com.mapswithme.maps.action.upload_ugc";
 
-  private static final SharedPreferences PREFS = MwmApplication.prefs();
-
-  /**
-   * Starts this service to check if map download for current location is available. If the
-   * service is already performing a task this action will be queued.
-   */
-  static void startActionCheckLocation(Context context)
-  {
-    final Intent intent = new Intent(context, WorkerService.class);
-    intent.setAction(WorkerService.ACTION_CHECK_LOCATIION);
-    context.startService(intent);
-  }
+  private final boolean mArePlatformAndCoreInitialized =
+      MwmApplication.get().arePlatformAndCoreInitialized();
 
   /**
    * Starts this service to upload map edits to osm servers.
@@ -46,74 +33,49 @@ public class WorkerService extends IntentService
     MwmApplication.get().startService(intent);
   }
 
+  /**
+   * Starts this service to upload UGC to our servers.
+   */
+  public static void startActionUploadUGC()
+  {
+    final Intent intent = new Intent(MwmApplication.get(), WorkerService.class);
+    intent.setAction(WorkerService.ACTION_UPLOAD_UGC);
+    MwmApplication.get().startService(intent);
+  }
+
   public WorkerService()
   {
     super("WorkerService");
   }
 
   @Override
-  public void onCreate()
-  {
-    super.onCreate();
-    MwmApplication.get().initNativeCore();
-  }
-
-  @Override
   protected void onHandleIntent(Intent intent)
   {
-    if (intent != null)
+    if (intent == null)
+      return;
+
+    String msg = "onHandleIntent: " + intent + " app in background = "
+                 + !MwmApplication.backgroundTracker().isForeground();
+    LOGGER.i(TAG, msg);
+    CrashlyticsUtils.log(Log.INFO, TAG, msg);
+    final String action = intent.getAction();
+
+    if (TextUtils.isEmpty(action))
+      return;
+
+    if (!mArePlatformAndCoreInitialized)
+      return;
+
+    switch (action)
     {
-      final String action = intent.getAction();
+    case ACTION_UPLOAD_OSM_CHANGES:
+      handleActionUploadOsmChanges();
+      break;
 
-      switch (action)
-      {
-      case ACTION_CHECK_LOCATIION:
-        handleActionCheckLocation();
-        break;
-
-      case ACTION_UPLOAD_OSM_CHANGES:
-        handleActionUploadOsmChanges();
-        break;
-      }
+    case ACTION_UPLOAD_UGC:
+      handleUploadUGC();
+      break;
     }
-  }
-
-  private static void handleActionCheckLocation()
-  {
-    if (!checkLocationDelayed(0))
-      checkLocationDelayed(60000);  // 1 minute delay
-  }
-
-  private static boolean checkLocationDelayed(long delay)
-  {
-    class Holder
-    {
-      final CountDownLatch hook = new CountDownLatch(1);
-      boolean result;
-    }
-
-    final Holder holder = new Holder();
-
-    UiThread.runLater(new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        holder.result = processLocation();
-
-        // Release awaiting caller
-        holder.hook.countDown();
-      }
-    }, delay);
-
-    try
-    {
-      holder.hook.await();
-    }
-    catch (InterruptedException ignored) {}
-
-
-    return holder.result;
   }
 
   private static void handleActionUploadOsmChanges()
@@ -121,34 +83,8 @@ public class WorkerService extends IntentService
     Editor.uploadChanges();
   }
 
-  @android.support.annotation.UiThread
-  private static boolean processLocation()
+  private static void handleUploadUGC()
   {
-    final LocationManager manager = (LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
-    final Location l = manager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-    if (l == null || LocationUtils.isExpired(l, l.getTime(), LocationUtils.LOCATION_EXPIRATION_TIME_MILLIS_LONG))
-      return false;
-
-    String country = MapManager.nativeFindCountry(l.getLatitude(), l.getLongitude());
-    if (TextUtils.isEmpty(country))
-      return false;
-
-    final String lastNotification = PREFS.getString(country, null);
-    if (lastNotification != null)
-    {
-      // Do not place notification if it was displayed less than 180 days ago.
-      final long timeStamp = Long.valueOf(lastNotification);
-      final long outdatedMillis = 180L * 24 * 60 * 60 * 1000;
-      if (System.currentTimeMillis() - timeStamp < outdatedMillis)
-        return true;
-    }
-
-    if (MapManager.nativeGetStatus(country) != CountryItem.STATUS_DOWNLOADABLE)
-      return true;
-
-    String name = MapManager.nativeGetName(country);
-    Notifier.notifyDownloadSuggest(name, MwmApplication.get().getString(R.string.download_location_country, name), country);
-    PREFS.edit().putString(country, String.valueOf(System.currentTimeMillis())).apply();
-    return true;
+    UGC.nativeUploadUGC();
   }
 }

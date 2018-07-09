@@ -1,5 +1,6 @@
 buildscript {
   repositories {
+    google()
     jcenter()
     maven {
       url 'https://maven.fabric.io/public'
@@ -7,21 +8,28 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:2.2.3'
+    classpath 'com.android.tools.build:gradle:3.1.3'
     classpath 'io.fabric.tools:gradle:1.+'
   }
 }
 
 allprojects {
   repositories {
-    jcenter()
+    google()
     mavenCentral()
+    jcenter()
   }
 }
 
 repositories {
   maven {
     url 'https://maven.fabric.io/public'
+  }
+  maven {
+    url 'https://dl.bintray.com/libverify/android'
+  }
+  maven {
+    url 'https://s3.amazonaws.com/moat-sdk-builds'
   }
 }
 
@@ -31,40 +39,74 @@ apply plugin: 'io.fabric'
 
 dependencies {
   // android support libs
-  compile 'com.android.support:support-v4:23.2.1'
-  compile 'com.android.support:appcompat-v7:23.2.1'
-  compile 'com.android.support:recyclerview-v7:23.2.1'
-  compile 'com.android.support:design:23.2.1'
-  compile 'com.android.support:cardview-v7:23.2.1'
-  // google play services
-  compile 'com.google.android.gms:play-services-location:8.4.0'
-  compile 'com.google.android.gms:play-services-analytics:8.4.0'
-  compile 'com.google.android.gms:play-services-plus:8.4.0'
-  compile 'com.google.android.gms:play-services-gcm:8.4.0'
-  // statistics
-  compile 'com.flurry.android:analytics:6.7.0'
-  // crash reporting
-  compile('com.crashlytics.sdk.android:crashlytics:2.5.5@aar') { transitive = true }
-  compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.2@aar') { transitive = true }
-  // 3-party
-  compile 'com.facebook.android:facebook-android-sdk:4.8.0'
-  compile('com.facebook.android:audience-network-sdk:4.8.0') {
-    exclude group: 'com.google.android.gms'
+  implementation ('com.android.support:support-v4:25.1.0') {
+    force = true;
   }
-  compile 'com.google.code.gson:gson:2.6.1'
-  compile 'com.pushwoosh:pushwoosh:4.10.7'
-  compile 'com.my.tracker:mytracker-sdk:1.3.5'
-  compile fileTree(dir: '3rd_party', include: '*.jar')
+  implementation 'com.android.support:appcompat-v7:25.0.0'
+  implementation 'com.android.support:recyclerview-v7:25.0.0'
+  implementation 'com.android.support:design:25.0.0'
+  implementation 'com.android.support:cardview-v7:25.0.0'
+  implementation 'com.android.support:preference-v7:25.0.0'
+  implementation 'com.android.support:preference-v14:25.0.0'
+  implementation 'com.android.support:customtabs:25.0.0'
+
+  // google play services
+  implementation 'com.google.android.gms:play-services-location:11.8.0'
+  implementation 'com.google.android.gms:play-services-analytics:11.8.0'
+  implementation 'com.google.android.gms:play-services-plus:11.8.0'
+  implementation 'com.google.android.gms:play-services-gcm:11.8.0'
+  implementation 'com.google.android.gms:play-services-ads:11.8.0'
+  implementation 'com.google.android.gms:play-services-auth:11.8.0'
+  // statistics
+  implementation 'com.flurry.android:analytics:11.0.0@aar'
+  // crash reporting
+  implementation('com.crashlytics.sdk.android:crashlytics:2.9.2@aar') { transitive = true }
+  implementation('com.crashlytics.sdk.android:crashlytics-ndk:2.0.0@aar') { transitive = true }
+  // 3-party
+  implementation ('com.facebook.android:facebook-android-sdk:4.26.0') {
+    exclude group: 'com.google.android.gms'
+    exclude group: 'com.android.support'
+  }
+  implementation('com.facebook.android:audience-network-sdk:4.27.0') {
+    exclude group: 'com.google.android.gms'
+    exclude group: 'com.android.support'
+  }
+  implementation 'com.google.code.gson:gson:2.6.1'
+  implementation 'com.pushwoosh:pushwoosh:4.12.2'
+  implementation 'com.my.tracker:mytracker-sdk:1.5.3'
+  implementation ('com.my.target:mytarget-sdk:4.6.14') {
+    exclude group: 'com.android.support'
+  }
+  implementation('com.mopub:mopub-sdk-native-static:5.0.0@aar') {
+    exclude group: 'com.android.support'
+    transitive = true
+  }
+  implementation fileTree(dir: '3rd_party', include: '*.jar')
   // BottomSheet
-  compile project(":3rd_party:BottomSheet")
+  implementation project(":3rd_party:BottomSheet")
   // LinearLayoutManager allowing wrap_content of RecyclerView-s
   // TODO remove this library when default LinearLayoutManager will be fixed.
-  compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
-  compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
+  implementation 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
+  implementation 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
   // Glide
-  compile 'com.github.bumptech.glide:glide:3.7.0'
+  implementation 'com.github.bumptech.glide:glide:3.7.0'
   // Java concurrency annotations
-  compile 'net.jcip:jcip-annotations:1.0'
+  implementation 'net.jcip:jcip-annotations:1.0'
+  implementation 'com.android.support:multidex:1.0.3'
+  implementation 'com.appsflyer:af-android-sdk:4.8.7'
+  implementation ("ru.mail:libnotify:0.1.163-notify-support-v100@aar") {
+    transitive = true;
+    changing = true;
+    exclude group: 'com.android.support'
+    exclude group: 'com.google.android.gms'
+  }
+  implementation ("ru.mail:libnotify-debug:0.1.163-notify-support-v100@aar") {
+    transitive = true;
+    changing = true;
+    exclude group: 'com.android.support'
+    exclude group: 'com.google.android.gms'
+  }
+  implementation 'com.android.support.constraint:constraint-layout:1.1.0'
 }
 
 def getDate() {
@@ -73,19 +115,18 @@ def getDate() {
   return formattedDate
 }
 
+def osName = System.properties['os.name'].toLowerCase()
+
 project.ext.versionCodes = ['armeabi-v7a': 1, 'x86': 2]
 project.ext.appId = 'com.mapswithme.maps.pro'
 
 crashlytics {
   enableNdk true
-  androidNdkOut 'obj/local'
-  androidNdkLibsOut 'libs'
 }
 
 android {
   // All properties are read from gradle.properties file
   compileSdkVersion propCompileSdkVersion.toInteger()
-  buildToolsVersion propBuildToolsVersion
 
   defaultConfig {
     // Default package name is taken from the manifest and should be com.mapswithme.maps
@@ -110,6 +151,45 @@ android {
     manifestPlaceholders += ['PW_APPID': pwProps['pwAppId']]
     buildConfigField 'String', 'PW_APPID', /"${pwProps['pwAppId']}"/
     manifestPlaceholders += ['PW_PROJECT_ID': pwProps['pwProjectId']]
+
+    // Libnotify keys
+    Properties lnProps = new Properties()
+    lnProps.load(new FileInputStream("${projectDir}/libnotify.properties"));
+    manifestPlaceholders += ['LIBNOTIFY_APP_ID': lnProps['appId']]
+    manifestPlaceholders += ['LIBNOTIFY_PROJECT_ID': lnProps['projectId']]
+
+    multiDexEnabled true
+    multiDexKeepFile file('multidex-config.txt')
+
+    externalNativeBuild {
+      def pchFlag = 'OFF'
+      if (project.hasProperty('pch')) pchFlag = 'ON'
+
+      cmake {
+        cppFlags '-fexceptions', '-frtti', '-m32'
+        cFlags '-ffunction-sections', '-fdata-sections',
+               '-Wno-extern-c-compat', '-m32'
+        arguments '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=c++_static',
+                  "-DOS=$osName", '-DSKIP_TESTS=ON', "-DUSE_PCH=$pchFlag"
+      }
+    }
+
+    ndk {
+      abiFilters = new HashSet<>()
+      if (project.hasProperty('arm')) {
+        println("Building for the ARM architecture")
+        abiFilters.add("armeabi-v7a")
+      } else if (project.hasProperty('x86')) {
+        println("Building for the x86 architecture")
+        abiFilters.add("x86")
+      } else {
+        if (!project.hasProperty('splitApk')) {
+          println("Building for the ARM and x86 architectures")
+          abiFilters.add("armeabi-v7a")
+          abiFilters.add("x86")
+        }
+      }
+    }
   }
 
   sourceSets.main {
@@ -118,16 +198,19 @@ android {
     java.srcDirs = ['src', '../3party/Alohalytics/src/android/java']
     // assets folder is auto-generated by tools/android/update_assets.sh, so we keep all static resources in separate folders.
     assets.srcDirs = ['assets']
-    jniLibs.srcDirs = ['libs']
   }
+
+  flavorDimensions "default"
 
   productFlavors {
     google {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Google'
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
     }
 
     samsung {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Samsung'
       buildConfigField 'String', 'REVIEW_URL', '"samsungapps://ProductDetail/com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"samsung@maps.me"'
@@ -135,6 +218,7 @@ android {
     }
 
     amazon {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Amazon'
       buildConfigField 'String', 'REVIEW_URL', '"amzn://apps/android?p=com.mapswithme.maps.pro"'
       buildConfigField 'String', 'SUPPORT_MAIL', '"amazon@maps.me"'
@@ -143,69 +227,81 @@ android {
     }
 
     yandex {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Yandex'
       buildConfigField 'String', 'REVIEW_URL', '"yastore://details?id=com.mapswithme.maps.pro"'
       android.sourceSets.yandex.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     preinstall {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Preinstall'
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
     }
 
     cipherlab {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-CipherLab'
       android.sourceSets.cipherlab.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     xiaomi {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Xiaomi'
       buildConfigField 'String', 'REVIEW_URL', '"http://app.mi.com/detail/85835?ref=search"'
       android.sourceSets.xiaomi.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     lenovo {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Lenovo'
       android.sourceSets.lenovo.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     web {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Web'
       buildConfigField 'String', 'SUPPORT_MAIL', '"googleplay@maps.me"'
       android.sourceSets.web.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     nineApp {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-9app'
       buildConfigField 'String', 'REVIEW_URL', '"http://www.9apps.com/android-apps/mapswithme-maps-pro/"'
       android.sourceSets.nineApp.assets.srcDirs = ['flavors/mwm-ttf-assets']
     }
 
     mobogenie {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Mobogenie'
       android.sourceSets.mobogenie.assets.srcDirs = ['flavors/mwm-ttf-assets']
       buildConfigField 'String', 'REVIEW_URL', '"http://www.mobogenie.com/download-maps-me-4240212.html"'
     }
 
     tencent {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Tencent'
       android.sourceSets.tencent.assets.srcDirs = ['flavors/mwm-ttf-assets']
       buildConfigField 'String', 'REVIEW_URL', '"http://android.myapp.com/myapp/detail.htm?apkName=com.mapswithme.maps.pro"'
     }
 
     baidu {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Baidu'
       android.sourceSets.baidu.assets.srcDirs = ['flavors/mwm-ttf-assets']
       buildConfigField 'String', 'REVIEW_URL', '"http://shouji.baidu.com/software/item?docid=7999892&f=sug@software"'
     }
 
     appChina {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-AppChina'
       android.sourceSets.appChina.assets.srcDirs = ['flavors/mwm-ttf-assets']
       buildConfigField 'String', 'REVIEW_URL', '"http://www.appchina.com/app/com.mapswithme.maps.pro"'
     }
 
     moboMarket {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-MoboMarket'
       android.sourceSets.moboMarket.assets.srcDirs = ['flavors/mwm-ttf-assets']
       // TODO While store url is unknown, force all rating reviews to be sent to our email.
@@ -214,17 +310,26 @@ android {
     }
 
     blackberry {
+      dimension "default"
       versionName = android.defaultConfig.versionName + '-Blackberry'
       android.sourceSets.blackberry.assets.srcDirs = ['flavors/mwm-ttf-assets']
       buildConfigField 'String', 'REVIEW_URL', '"https://appworld.blackberry.com/webstore/content/51013892"'
     }
   }
 
-  // Currently (as of 1.2.3 gradle plugin) ABI filters aren't supported inside of product flavors, so we cannot generate splitted builds only for Google build.
-  // TODO check that feature when new gradle plugins will appear
-  // connected bugreport https://code.google.com/p/android/issues/detail?id=178606
+  variantFilter { variant ->
+    if (!variant.getFlavors().get(0).name.equals("web")
+            && !variant.getFlavors().get(0).name.equals("google")) {
+      println("Variant '" + variant.name + "' is ignored. If you want to build it please " +
+              "add variant's flavor to the variantFilter condition")
+      variant.setIgnore(true)
+    }
+  }
+
   splits.abi {
-    enable true
+    boolean enabled = project.hasProperty('splitApk');
+    println ("Create separate apks: " + enabled)
+    enable enabled
     reset()
     include 'x86', 'armeabi-v7a'
     universalApk true
@@ -239,14 +344,14 @@ android {
     android.applicationVariants.all { variant ->
       def task = variant.name.capitalize()
       project.task(type: Exec, "run${task}", dependsOn: "install${task}") {
-        commandLine android.getAdbExe(), 'shell', 'am', 'start', '-n', "${applicationId}/com.mapswithme.maps.DownloadResourcesActivity"
+        commandLine android.getAdbExe(), 'shell', 'am', 'start', '-n', "${applicationId}/com.mapswithme.maps.SplashActivity"
       }
 
-      variant.outputs.each { output ->
+      variant.outputs.all { output ->
         if (output.outputFile != null && output.outputFile.name.endsWith('.apk')) {
           def file = output.outputFile
           // version at the end of each built apk
-          output.outputFile = new File(file.parent, file.name.replace(".apk", "-" + android.defaultConfig.versionName + "-" + getDate() + ".apk"))
+          outputFileName = "../../" + file.name.replace(".apk", "-" + android.defaultConfig.versionName + "-" + getDate() + ".apk")
           // set different versionCodes for different ABIs
           int abiVersionCode = project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI)) ?: 0
           output.versionCodeOverride = (abiVersionCode * 1000) + android.defaultConfig.versionCode
@@ -279,6 +384,8 @@ android {
       zipAlignEnabled true
       signingConfig signingConfigs.mapswithmeDebug
       android.sourceSets.debug.setRoot('flavors/debug')
+      manifestPlaceholders += ['LIBNOTIFY_APP_ID': 'MapsMeDebug']
+      resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
     }
 
     release {
@@ -286,6 +393,7 @@ android {
       minifyEnabled true
       shrinkResources true
       proguardFile('proguard-mwm.txt')
+      resValue 'string', 'app_id', android.defaultConfig.applicationId
     }
 
     beta {
@@ -293,20 +401,30 @@ android {
       versionNameSuffix '-beta'
       signingConfig signingConfigs.mapswithme
       android.sourceSets.beta.setRoot('flavors/beta')
+      matchingFallbacks = ['debug', 'release']
+      manifestPlaceholders += ['LIBNOTIFY_APP_ID': 'MapsMeBeta']
+      resValue 'string', 'app_id', android.defaultConfig.applicationId + applicationIdSuffix
+    }
+  }
+
+  externalNativeBuild {
+    cmake {
+      buildStagingDirectory "./nativeOutputs"
+      path "../CMakeLists.txt"
     }
   }
 
   // We don't compress these extensions in assets/ because our random FileReader can't read zip-compressed files from apk.
   // TODO: Load all minor files via separate call to ReadAsString which can correctly handle compressed files in zip containers.
   aaptOptions {
-    noCompress 'txt', 'bin', 'html', 'png', 'json', 'mwm', 'ttf', 'sdf', 'ui', 'config'
+    noCompress 'txt', 'bin', 'html', 'png', 'json', 'mwm', 'ttf', 'sdf', 'ui', 'config', 'csv'
     ignoreAssetsPattern "!.svn:!.git:!.DS_Store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"
   }
 
   // Enables new Java features in KitKat+ but needs Java 1.7 installed
   compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_7
-    targetCompatibility JavaVersion.VERSION_1_7
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
   }
 
   packagingOptions {
@@ -334,67 +452,15 @@ if (System.properties['os.name'].toLowerCase().contains('windows'))
 def archs = ['x86', 'armeabi-v7a']
 def buildTypes = [[ndkType: 'release', cppType: "production", flags: propReleaseNdkFlags], [ndkType: 'debug', cppType: "debug", flags: propDebugNdkFlags]]
 
-buildTypes.each { type ->
-  def suffix = type.ndkType.capitalize()
-  createCppBuildTask(type.cppType, '', suffix)
-  createNdkBuildTask(type.ndkType, '', suffix, type.flags)
-
-  archs.each { arch ->
-    suffix = type.ndkType.capitalize() + arch.capitalize()
-    createCppBuildTask(type.cppType, arch, suffix)
-    createNdkBuildTask(type.ndkType, arch, suffix, type.flags)
-  }
-}
-
-def createCppBuildTask(buildType, arch, suffix) {
-  return tasks.create(name: "cppBuild${suffix}", type: Exec, description: "Building ${buildType} version of static C++ libraries. Arch : ${arch}") {
-    def args = ['bash', '../tools/autobuild/android.sh', buildType]
-    if (!arch.isEmpty())
-      args += arch
-    commandLine args
-  }
-}
-
-def createNdkBuildTask(buildType, arch, suffix, flags) {
-  return tasks.create(name: "ndkBuild${suffix}", dependsOn: "cppBuild${suffix}", type: Exec, description: "Building ${buildType} version of jni. Arch : ${arch}") {
-    def ndkParams = ([project.ext.NDK_BUILD, project.ext.PARAM_PARALLEL_TASK_COUNT] + flags.split(' ')).flatten()
-    if (!arch.isEmpty())
-      ndkParams += "NDK_ABI_TO_BUILD=${arch}"
-    commandLine ndkParams
-  }
-}
-
-task ndkBuildClean(type: Exec, description: 'Clean native jni libraries') {
-  commandLine project.ext.NDK_BUILD, 'clean'
-}
-
-tasks.withType(JavaCompile) { compileTask ->
-  if (compileTask.name.contains('Release') || compileTask.name.contains('Beta')) {
-    compileTask.dependsOn ndkBuildRelease
-  } else {
-    compileTask.dependsOn ndkBuildDebug
-  }
-}
-
-// NOTE : it does NOT clean built cpp static libs. cppClean does.
-clean.dependsOn ndkBuildClean
-
-// Cleans built native static libs.
-task cppClean(type: Delete) << {
-  buildTypes.each { type ->
-    archs.each { arch ->
-      delete "../../omim-android-${type.cppType}-${arch}"
-    }
-  }
-}
-
 // Tasks for generating obb files for Google Play
 def unalignedFonts = "${propObbFontsOutput}.unaligned"
 def unalignedWorlds = "${propObbWorldsOutput}.unaligned"
 
-task obbClean(type: Delete) << {
-  [propObbFontsOutput, propObbWorldsOutput, unalignedFonts, unalignedWorlds].each { file ->
-    delete file
+task obbClean(type: Delete) {
+  doLast {
+    [propObbFontsOutput, propObbWorldsOutput, unalignedFonts, unalignedWorlds].each { file ->
+      delete file
+    }
   }
 }
 

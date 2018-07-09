@@ -204,6 +204,26 @@
 			};
 			name = Release;
 		};
+		A8E541231F9FBD0600A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34F558711DBF4AB300A4FC11 /* common-release.xcconfig */;
+			buildSettings = {
+				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(OMIM_ROOT)/3party/liboauthcpp/include",
+				);
+			};
+			name = "Production Full";
+		};
+		A8E541241F9FBD0600A1B8FA /* Production Full */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = "Production Full";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -212,6 +232,7 @@
 			buildConfigurations = (
 				340C20F11C3E5E5000111D22 /* Debug */,
 				340C20F21C3E5E5000111D22 /* Release */,
+				A8E541231F9FBD0600A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -221,6 +242,7 @@
 			buildConfigurations = (
 				340C20F41C3E5E5000111D22 /* Debug */,
 				340C20F51C3E5E5000111D22 /* Release */,
+				A8E541241F9FBD0600A1B8FA /* Production Full */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

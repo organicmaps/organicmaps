@@ -2,11 +2,12 @@
 
 #include "generator/generator_tests_support/test_feature.hpp"
 
+#include "indexer/data_source.hpp"
 #include "indexer/feature_decl.hpp"
-#include "indexer/index.hpp"
 
-#include "std/sstream.hpp"
+#include <sstream>
 
+using namespace std;
 using namespace generator::tests_support;
 
 namespace search
@@ -61,7 +62,7 @@ string AlternativesMatchingRule::ToString() const
   return os.str();
 }
 
-bool MatchResults(Index const & index, vector<shared_ptr<MatchingRule>> rules,
+bool MatchResults(DataSource const & dataSource, vector<shared_ptr<MatchingRule>> rules,
                   vector<search::Result> const & actual)
 {
   vector<FeatureID> resultIds;
@@ -82,7 +83,7 @@ bool MatchResults(Index const & index, vector<shared_ptr<MatchingRule>> rules,
     }
     unexpected.push_back(DebugPrint(feature) + " from " + DebugPrint(feature.GetID().m_mwmId));
   };
-  index.ReadFeatures(removeMatched, resultIds);
+  dataSource.ReadFeatures(removeMatched, resultIds);
 
   if (rules.empty() && unexpected.empty())
     return true;
@@ -97,6 +98,21 @@ bool MatchResults(Index const & index, vector<shared_ptr<MatchingRule>> rules,
 
   LOG(LWARNING, (os.str()));
   return false;
+}
+
+bool MatchResults(DataSource const & dataSource, vector<shared_ptr<MatchingRule>> rules,
+                  search::Results const & actual)
+{
+  vector<search::Result> const results(actual.begin(), actual.end());
+  return MatchResults(dataSource, rules, results);
+}
+
+bool ResultMatches(DataSource const & dataSource, shared_ptr<MatchingRule> rule,
+                   search::Result const & result)
+{
+  bool matches = false;
+  dataSource.ReadFeature([&](FeatureType const & ft) { matches = rule->Matches(ft); }, result.GetFeatureID());
+  return matches;
 }
 
 string DebugPrint(MatchingRule const & rule) { return rule.ToString(); }

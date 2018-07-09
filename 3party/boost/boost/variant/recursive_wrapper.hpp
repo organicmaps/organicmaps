@@ -13,9 +13,9 @@
 #ifndef BOOST_VARIANT_RECURSIVE_WRAPPER_HPP
 #define BOOST_VARIANT_RECURSIVE_WRAPPER_HPP
 
-#include "boost/variant/recursive_wrapper_fwd.hpp"
-#include "boost/variant/detail/move.hpp"
-#include "boost/checked_delete.hpp"
+#include <boost/variant/recursive_wrapper_fwd.hpp>
+#include <boost/variant/detail/move.hpp>
+#include <boost/checked_delete.hpp>
 
 namespace boost {
 

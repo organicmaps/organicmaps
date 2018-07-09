@@ -2,11 +2,8 @@
 
 #include "drape_frontend/animation/base_interpolator.hpp"
 
-#include "drape/uniform_values_storage.hpp"
-
 namespace df
 {
-
 class OpacityAnimation : public BaseInterpolator
 {
   using TBase = BaseInterpolator;
@@ -23,5 +20,4 @@ private:
   double m_endOpacity;
   double m_opacity;
 };
-
-}
+}  // namespace df

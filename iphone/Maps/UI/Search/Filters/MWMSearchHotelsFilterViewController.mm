@@ -1,8 +1,49 @@
 #import "MWMSearchHotelsFilterViewController.h"
+#import <CoreActionSheetPicker/ActionSheetPicker.h>
+#import "MWMSearch.h"
 #import "MWMSearchFilterViewController_Protected.h"
+#import "Statistics.h"
+#import "SwiftBridge.h"
+
+#include "search/hotels_filter.hpp"
+
+#include "base/stl_helpers.hpp"
+
+#include <unordered_set>
 
 namespace
 {
+static NSTimeInterval kDayInterval = 24 * 60 * 60;
+static NSTimeInterval k30DaysInterval = 30 * kDayInterval;
+static NSTimeInterval k360DaysInterval = 360 * kDayInterval;
+static uint8_t kAdultsCount = 2;
+static int8_t kAgeOfChild = 5;
+static NSString * const kHotelTypePattern = @"search_hotel_filter_%@";
+
+std::array<ftypes::IsHotelChecker::Type, my::Key(ftypes::IsHotelChecker::Type::Count)> const
+    kTypes = {{ftypes::IsHotelChecker::Type::Hotel, ftypes::IsHotelChecker::Type::Apartment,
+               ftypes::IsHotelChecker::Type::CampSite, ftypes::IsHotelChecker::Type::Chalet,
+               ftypes::IsHotelChecker::Type::GuestHouse, ftypes::IsHotelChecker::Type::Hostel,
+               ftypes::IsHotelChecker::Type::Motel, ftypes::IsHotelChecker::Type::Resort}};
+
+unsigned makeMask(std::unordered_set<ftypes::IsHotelChecker::Type> const & items)
+{
+  unsigned mask = 0;
+  for (auto const i : items)
+    mask = mask | 1U << static_cast<unsigned>(i);
+
+  return mask;
+}
+
+enum class Section
+{
+  Check,
+  Rating,
+  PriceCategory,
+  Type,
+  Count
+};
+
 NSAttributedString * makeString(NSString * primaryText, NSDictionary * primaryAttrs,
                                 NSString * secondaryText, NSDictionary * secondaryAttrs)
 {
@@ -18,35 +59,38 @@ NSAttributedString * makeString(NSString * primaryText, NSDictionary * primaryAt
 
 void configButton(UIButton * button, NSString * primaryText, NSString * secondaryText)
 {
-  UIFont * regular17 = [UIFont regular17];
-  UIFont * regular10 = [UIFont regular10];
+  UIFont * primaryFont = [UIFont regular14];
+  UIFont * secondaryFont = [UIFont medium10];
 
   UIColor * white = [UIColor white];
 
   UIImage * linkBlueImage = [UIImage imageWithColor:[UIColor linkBlue]];
+  UIImage * linkBlueHighlightedImage = [UIImage imageWithColor:[UIColor linkBlueHighlighted]];
 
   [button setBackgroundImage:[UIImage imageWithColor:white] forState:UIControlStateNormal];
   [button setBackgroundImage:linkBlueImage forState:UIControlStateSelected];
-  [button setBackgroundImage:linkBlueImage
+  [button setBackgroundImage:linkBlueHighlightedImage forState:UIControlStateHighlighted];
+  [button setBackgroundImage:linkBlueHighlightedImage
                     forState:UIControlStateSelected | UIControlStateHighlighted];
 
   NSDictionary * primarySelected =
-      @{NSFontAttributeName : regular17, NSForegroundColorAttributeName : white};
+      @{NSFontAttributeName: primaryFont, NSForegroundColorAttributeName: white};
   NSDictionary * secondarySelected =
-      @{NSFontAttributeName : regular10, NSForegroundColorAttributeName : white};
+      @{NSFontAttributeName: secondaryFont, NSForegroundColorAttributeName: white};
   NSAttributedString * titleSelected =
       makeString(primaryText, primarySelected, secondaryText, secondarySelected);
   [button setAttributedTitle:titleSelected forState:UIControlStateSelected];
+  [button setAttributedTitle:titleSelected forState:UIControlStateHighlighted];
   [button setAttributedTitle:titleSelected
                     forState:UIControlStateSelected | UIControlStateHighlighted];
 
   NSDictionary * primaryNormal = @{
-    NSFontAttributeName : regular17,
-    NSForegroundColorAttributeName : [UIColor blackPrimaryText]
+    NSFontAttributeName: primaryFont,
+    NSForegroundColorAttributeName: [UIColor blackPrimaryText]
   };
   NSDictionary * secondaryNormal = @{
-    NSFontAttributeName : regular10,
-    NSForegroundColorAttributeName : [UIColor blackSecondaryText]
+    NSFontAttributeName: secondaryFont,
+    NSForegroundColorAttributeName: [UIColor blackSecondaryText]
   };
   NSAttributedString * titleNormal =
       makeString(primaryText, primaryNormal, secondaryText, secondaryNormal);
@@ -56,18 +100,24 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
 }
 }  // namespace
 
-@interface MWMSearchHotelsFilterViewController ()
+@interface MWMSearchHotelsFilterViewController ()<UICollectionViewDelegate,
+                                                  UICollectionViewDataSource,
+                                                  MWMFilterCheckCellDelegate, UITableViewDataSource>
+{
+  std::unordered_set<ftypes::IsHotelChecker::Type> m_selectedTypes;
+}
 
-@property(nonatomic) IBOutletCollection(UIButton) NSArray * ratings;
+@property(nonatomic) MWMFilterCheckCell * check;
+@property(nonatomic) MWMFilterRatingCell * rating;
+@property(nonatomic) MWMFilterPriceCategoryCell * price;
+@property(nonatomic) MWMFilterCollectionHolderCell * type;
+@property(weak, nonatomic) IBOutlet UITableView * tableView;
+@property(weak, nonatomic) IBOutlet UIButton * doneButton;
 
-@property(weak, nonatomic) IBOutlet UIButton * ratingAny;
-@property(weak, nonatomic) IBOutlet UIButton * rating7;
-@property(weak, nonatomic) IBOutlet UIButton * rating8;
-@property(weak, nonatomic) IBOutlet UIButton * rating9;
+@property(nonatomic) NSDate * checkInDate;
+@property(nonatomic) NSDate * checkOutDate;
 
-@property(weak, nonatomic) IBOutlet UIButton * price1;
-@property(weak, nonatomic) IBOutlet UIButton * price2;
-@property(weak, nonatomic) IBOutlet UIButton * price3;
+@property(nonatomic, copy) MWMVoidBlock onFinishCallback;
 
 @end
 
@@ -80,69 +130,419 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
       [self controllerWithIdentifier:identifier]);
 }
 
-- (void)viewDidLoad
+- (void)applyParams:(search_filter::HotelParams &&)params onFinishCallback:(MWMVoidBlock)callback
 {
-  [super viewDidLoad];
-  configButton(self.ratingAny, L(@"booking_filters_rating_any"), nil);
-  configButton(self.rating7, L(@"7.0+"), L(@"booking_filters_ragting_good"));
-  configButton(self.rating8, L(@"8.0+"), L(@"booking_filters_rating_very_good"));
-  configButton(self.rating9, L(@"9.0+"), L(@"booking_filters_rating_excellent"));
+  using namespace search_filter;
+  using namespace place_page::rating;
 
-  configButton(self.price1, L(@"$"), nil);
-  configButton(self.price2, L(@"$$"), nil);
-  configButton(self.price3, L(@"$$$"), nil);
+  self.onFinishCallback = callback;
 
-  [self changeRating:self.ratingAny];
+  if (params.m_type != ftypes::IsHotelChecker::Type::Count)
+  {
+    m_selectedTypes.emplace(params.m_type);
+    [self.type.collectionView
+                       selectItemAtIndexPath:[NSIndexPath indexPathForItem:my::Key(params.m_type)
+                                   inSection:0]
+                                    animated:NO
+                              scrollPosition:UICollectionViewScrollPositionNone];
+  }
 
-  self.price1.selected = NO;
-  self.price2.selected = NO;
-  self.price3.selected = NO;
+  auto ratingCell = self.rating;
+
+  ratingCell.any.selected = NO;
+
+  switch (params.m_rating)
+  {
+  case FilterRating::Any:
+    ratingCell.any.selected = YES;
+    break;
+  case FilterRating::Good:
+    ratingCell.good.selected = YES;
+    break;
+  case FilterRating::VeryGood:
+    ratingCell.veryGood.selected = YES;
+    break;
+  case FilterRating::Excellent:
+    ratingCell.excellent.selected = YES;
+    break;
+  }
+
+  auto priceCell = self.price;
+  switch (params.m_price)
+  {
+  case Price::Any:
+    break;
+  case Price::One:
+    priceCell.one.selected = YES;
+    break;
+  case Price::Two:
+    priceCell.two.selected = YES;
+    break;
+  case Price::Three:
+    priceCell.three.selected = YES;
+    break;
+  }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  [Statistics logEvent:kStatSearchFilterOpen withParameters:@{kStatCategory: kStatHotel}];
+  [self.tableView reloadData];
+  [self refreshAppearance];
+  [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (void)reset
+{
+  self.check = nil;
+  self.rating = nil;
+  self.price = nil;
+  self.type = nil;
+  [self.tableView reloadData];
+}
+
+- (void)refreshStatusBarAppearance
+{
+  self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+}
+
+- (void)refreshViewAppearance
+{
+  self.view.backgroundColor = [UIColor pressBackground];
+  self.tableView.backgroundColor = [UIColor clearColor];
+  self.tableView.contentInset = {-20, 0, 80, 0};
+}
+
+- (void)refreshDoneButtonAppearance
+{
+  UIButton * doneButton = self.doneButton;
+  doneButton.backgroundColor = [UIColor linkBlue];
+  doneButton.titleLabel.font = [UIFont bold16];
+  [doneButton setTitle:L(@"search") forState:UIControlStateNormal];
+  [doneButton setTitleColor:[UIColor white] forState:UIControlStateNormal];
+}
+
+- (void)refreshAppearance
+{
+  [self refreshStatusBarAppearance];
+  [self refreshViewAppearance];
+  [self refreshDoneButtonAppearance];
+}
+
+- (IBAction)applyAction
+{
+  [Statistics logEvent:kStatSearchFilterApply withParameters:@{kStatCategory: kStatHotel}];
+  [MWMSearch update];
+  [self dismissViewControllerAnimated:YES completion:self.onFinishCallback];
+}
+
+- (void)initialCheckConfig
+{
+  MWMFilterCheckCell * check = self.check;
+  [check refreshButtonsAppearance];
+  check.isOffline = !Platform::IsConnected();
+  check.delegate = self;
+}
+
+- (void)initialRatingConfig
+{
+  MWMFilterRatingCell * rating = self.rating;
+  configButton(rating.any, L(@"booking_filters_rating_any"), nil);
+  configButton(rating.good, L(@"7.0+"), L(@"booking_filters_ragting_good"));
+  configButton(rating.veryGood, L(@"8.0+"), L(@"booking_filters_rating_very_good"));
+  configButton(rating.excellent, L(@"9.0+"), L(@"booking_filters_rating_excellent"));
+}
+
+- (void)initialPriceCategoryConfig
+{
+  MWMFilterPriceCategoryCell * price = self.price;
+  configButton(price.one, L(@"$"), nil);
+  configButton(price.two, L(@"$$"), nil);
+  configButton(price.three, L(@"$$$"), nil);
+}
+
+- (void)initialTypeConfig
+{
+  [self.type configWithTableView:self.tableView];
+}
+
+- (void)resetCheck
+{
+  self.checkInDate = [NSDate date];
+  self.checkOutDate = [[NSDate date] dateByAddingTimeInterval:kDayInterval];
+}
+
+- (void)resetRating
+{
+  MWMFilterRatingCell * rating = self.rating;  
+  rating.any.selected = YES;
+  rating.good.selected = NO;
+  rating.veryGood.selected = NO;
+  rating.excellent.selected = NO;
+}
+
+- (void)resetPriceCategory
+{
+  MWMFilterPriceCategoryCell * price = self.price;
+  price.one.selected = NO;
+  price.two.selected = NO;
+  price.three.selected = NO;
+}
+
+- (void)resetTypes
+{
+  m_selectedTypes.clear();
 }
 
 - (shared_ptr<search::hotels_filter::Rule>)rules
 {
   using namespace search::hotels_filter;
+  MWMFilterRatingCell * rating = self.rating;
   shared_ptr<Rule> ratingRule;
-  if (self.rating7.selected)
+  if (rating.good.selected)
     ratingRule = Ge<Rating>(7.0);
-  else if (self.rating8.selected)
+  else if (rating.veryGood.selected)
     ratingRule = Ge<Rating>(8.0);
-  else if (self.rating9.selected)
+  else if (rating.excellent.selected)
     ratingRule = Ge<Rating>(9.0);
 
+  MWMFilterPriceCategoryCell * price = self.price;
   shared_ptr<Rule> priceRule;
-  if (self.price1.selected)
+  if (price.one.selected)
     priceRule = Or(priceRule, Eq<PriceRate>(1));
-  if (self.price2.selected)
+  if (price.two.selected)
     priceRule = Or(priceRule, Eq<PriceRate>(2));
-  if (self.price3.selected)
+  if (price.three.selected)
     priceRule = Or(priceRule, Eq<PriceRate>(3));
 
-  if (!ratingRule && !priceRule)
+  shared_ptr<Rule> typeRule;
+  if (!m_selectedTypes.empty())
+    typeRule = OneOf(makeMask(m_selectedTypes));
+
+  if (!ratingRule && !priceRule && !typeRule)
     return nullptr;
 
-  return And(ratingRule, priceRule);
+  return And(And(ratingRule, priceRule), typeRule);
 }
 
-#pragma mark - Actions
-
-- (IBAction)changeRating:(UIButton *)sender
+- (booking::filter::Params)availabilityParams
 {
-  for (UIButton * button in self.ratings)
-    button.selected = NO;
-  sender.selected = YES;
+  using Clock = booking::AvailabilityParams::Clock;
+  booking::AvailabilityParams params;
+  params.m_rooms = {{kAdultsCount, kAgeOfChild}};
+  params.m_checkin = Clock::from_time_t(self.checkInDate.timeIntervalSince1970);
+  params.m_checkout = Clock::from_time_t(self.checkOutDate.timeIntervalSince1970);
+  return { make_shared<booking::AvailabilityParams>(params), {} };
 }
 
-- (IBAction)priceChange:(UIButton *)sender { sender.selected = !sender.selected; }
+#pragma mark - MWMFilterCheckCellDelegate
+
+- (void)checkCellButtonTap:(UIButton * _Nonnull)button
+{
+  NSString * title;
+  NSDate * selectedDate;
+  NSDate * minimumDate;
+  NSDate * maximumDate;
+  if (button == self.check.checkIn)
+  {
+    [Statistics logEvent:kStatSearchFilterClick
+          withParameters:@{kStatCategory: kStatHotel, kStatDate: kStatCheckIn}];
+    title = L(@"booking_filters_check_in");
+    selectedDate = self.checkInDate;
+    minimumDate = [[NSDate date] earlierDate:self.checkOutDate];
+    maximumDate = [minimumDate dateByAddingTimeInterval:k360DaysInterval];
+  }
+  else
+  {
+    [Statistics logEvent:kStatSearchFilterClick
+          withParameters:@{kStatCategory: kStatHotel, kStatDate: kStatCheckOut}];
+    title = L(@"booking_filters_check_out");
+    selectedDate = self.checkOutDate;
+    minimumDate =
+        [[[NSDate date] laterDate:self.checkInDate] dateByAddingTimeInterval:kDayInterval];
+    maximumDate = [self.checkInDate dateByAddingTimeInterval:k30DaysInterval];
+  }
+
+  auto picker = [[ActionSheetDatePicker alloc] initWithTitle:title
+                                              datePickerMode:UIDatePickerModeDate
+                                                selectedDate:selectedDate
+                                                 minimumDate:minimumDate
+                                                 maximumDate:maximumDate
+                                                      target:self
+                                                      action:@selector(datePickerDate:origin:)
+                                                      origin:button];
+  picker.tapDismissAction = TapActionCancel;
+  picker.hideCancel = YES;
+  auto doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                                  target:nil
+                                                                  action:nil];
+  [doneButton setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor linkBlue]}
+                            forState:UIControlStateNormal];
+  [picker setDoneButton:doneButton];
+  [picker showActionSheetPicker];
+}
+
+- (void)datePickerDate:(NSDate *)date origin:(id)origin
+{
+  if (origin == self.check.checkIn)
+    self.checkInDate = date;
+  else
+    self.checkOutDate = date;
+}
+
 #pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+  return my::Key(Section::Count);
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+  return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  UITableViewCell * cell = nil;
+  switch (static_cast<Section>(indexPath.section))
+  {
+  case Section::Check:
+    cell = [tableView dequeueReusableCellWithIdentifier:[MWMFilterCheckCell className]
+                                           forIndexPath:indexPath];
+    if (!self.check)
+    {
+      self.check = static_cast<MWMFilterCheckCell *>(cell);
+      [self resetCheck];
+    }
+    [self initialCheckConfig];
+    break;
+  case Section::Rating:
+    cell = [tableView dequeueReusableCellWithIdentifier:[MWMFilterRatingCell className] forIndexPath:indexPath];
+    if (self.rating != cell)
+    {
+      self.rating = static_cast<MWMFilterRatingCell *>(cell);
+      [self resetRating];
+    }
+    [self initialRatingConfig];
+    break;
+  case Section::PriceCategory:
+    cell = [tableView dequeueReusableCellWithIdentifier:[MWMFilterPriceCategoryCell className] forIndexPath:indexPath];
+    if (self.price != cell)
+    {
+      self.price = static_cast<MWMFilterPriceCategoryCell *>(cell);
+      [self resetPriceCategory];
+    }
+    [self initialPriceCategoryConfig];
+    break;
+  case Section::Type:
+    cell = [tableView dequeueReusableCellWithIdentifier:[MWMFilterCollectionHolderCell className] forIndexPath:indexPath];
+    if (self.type != cell)
+    {
+      self.type = static_cast<MWMFilterCollectionHolderCell *>(cell);
+      [self resetTypes];
+    }
+    [self initialTypeConfig];
+    break;
+  case Section::Count:
+    NSAssert(false, @"Incorrect section!");
+    break;
+  }
+  return cell;
+}
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-  switch (section)
+  switch (static_cast<Section>(section))
   {
-  case 0: return L(@"booking_filters_rating");
-  case 1: return L(@"booking_filters_price_category");
+  case Section::Rating: return L(@"booking_filters_rating");
+  case Section::PriceCategory: return L(@"booking_filters_price_category");
+  case Section::Type: return L(@"search_hotel_filters_type");
   default: return nil;
+  }
+}
+
+#pragma mark - UICollectionViewDelegate & UICollectionViewDataSource
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+  MWMFilterTypeCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:[MWMFilterTypeCell className]
+                                                                       forIndexPath:indexPath];
+  auto const type = kTypes[indexPath.row];
+  auto str = [NSString stringWithFormat:kHotelTypePattern, @(ftypes::IsHotelChecker::GetHotelTypeTag(type))];
+  cell.tagName.text = L(str);
+  auto const selected = m_selectedTypes.find(type) != m_selectedTypes.end();
+  cell.selected = selected;
+  if (selected)
+  {
+    [collectionView selectItemAtIndexPath:indexPath
+                                 animated:NO
+                           scrollPosition:UICollectionViewScrollPositionNone];
+  }
+
+  return cell;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+  return kTypes.size();
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+  auto const type = kTypes[indexPath.row];
+
+  auto typeString = @"";
+  switch (type)
+  {
+  case ftypes::IsHotelChecker::Type::Hotel: typeString = kStatHotel; break;
+  case ftypes::IsHotelChecker::Type::Apartment: typeString = kStatApartment; break;
+  case ftypes::IsHotelChecker::Type::CampSite: typeString = kStatCampSite; break;
+  case ftypes::IsHotelChecker::Type::Chalet: typeString = kStatChalet; break;
+  case ftypes::IsHotelChecker::Type::GuestHouse: typeString = kStatGuestHouse; break;
+  case ftypes::IsHotelChecker::Type::Hostel: typeString = kStatHostel; break;
+  case ftypes::IsHotelChecker::Type::Motel: typeString = kStatMotel; break;
+  case ftypes::IsHotelChecker::Type::Resort: typeString = kStatResort; break;
+  case ftypes::IsHotelChecker::Type::Count: break;
+  }
+  [Statistics logEvent:kStatSearchFilterClick
+        withParameters:@{kStatCategory: kStatHotel, kStatType: typeString}];
+  m_selectedTypes.emplace(type);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+  auto const type = kTypes[indexPath.row];
+  m_selectedTypes.erase(type);
+}
+
+#pragma mark - Properties
+
+- (void)setCheckInDate:(NSDate *)checkInDate
+{
+  _checkInDate = checkInDate;
+  if (auto check = self.check)
+  {
+    [check.checkIn setTitle:[NSDateFormatter localizedStringFromDate:checkInDate
+                                                           dateStyle:NSDateFormatterMediumStyle
+                                                           timeStyle:NSDateFormatterNoStyle]
+                   forState:UIControlStateNormal];
+  }
+  self.checkOutDate = [[checkInDate dateByAddingTimeInterval:k30DaysInterval]
+      earlierDate:[[checkInDate dateByAddingTimeInterval:kDayInterval]
+                      laterDate:self.checkOutDate]];
+}
+
+- (void)setCheckOutDate:(NSDate *)checkOutDate
+{
+  _checkOutDate = checkOutDate;
+  if (auto check = self.check)
+  {
+    [check.checkOut setTitle:[NSDateFormatter localizedStringFromDate:checkOutDate
+                                                            dateStyle:NSDateFormatterMediumStyle
+                                                            timeStyle:NSDateFormatterNoStyle]
+                    forState:UIControlStateNormal];
   }
 }
 

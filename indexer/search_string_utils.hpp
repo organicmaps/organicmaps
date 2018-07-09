@@ -1,55 +1,70 @@
 #pragma once
+
+#include "indexer/search_delimiters.hpp"
+
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/functional.hpp"
-#include "std/string.hpp"
-#include "std/utility.hpp"
+#include <cstdint>
+#include <functional>
+#include <string>
+#include <utility>
 
 namespace search
 {
 
 // This function should be used for all search strings normalization.
 // It does some magic text transformation which greatly helps us to improve our search.
-strings::UniString NormalizeAndSimplifyString(string const & s);
+strings::UniString NormalizeAndSimplifyString(std::string const & s);
 
-template <class DelimsT, typename F>
-void SplitUniString(strings::UniString const & uniS, F f, DelimsT const & delims)
+template <class Delims, typename Fn>
+void SplitUniString(strings::UniString const & uniS, Fn && f, Delims const & delims)
 {
-  for (strings::TokenizeIterator<DelimsT> iter(uniS, delims); iter; ++iter)
+  for (strings::TokenizeIterator<Delims> iter(uniS, delims); iter; ++iter)
     f(iter.GetUniString());
 }
 
-template <typename TCont, typename TDelims>
-void NormalizeAndTokenizeString(string const & s, TCont & tokens, TDelims const & delims)
+template <typename Tokens, typename Delims>
+void NormalizeAndTokenizeString(std::string const & s, Tokens & tokens, Delims const & delims)
 {
   SplitUniString(NormalizeAndSimplifyString(s), MakeBackInsertFunctor(tokens), delims);
 }
 
+template <typename Tokens>
+void NormalizeAndTokenizeString(std::string const & s, Tokens & tokens)
+{
+  SplitUniString(NormalizeAndSimplifyString(s), MakeBackInsertFunctor(tokens),
+                 search::Delimiters());
+}
+
+template <typename Fn>
+void ForEachNormalizedToken(std::string const & s, Fn && fn)
+{
+  SplitUniString(NormalizeAndSimplifyString(s), std::forward<Fn>(fn), search::Delimiters());
+}
+
 strings::UniString FeatureTypeToString(uint32_t type);
 
-template <class ContainerT, class DelimsT>
+template <class Tokens, class Delims>
 bool TokenizeStringAndCheckIfLastTokenIsPrefix(strings::UniString const & s,
-                                               ContainerT & tokens,
-                                               DelimsT const & delimiter)
+                                               Tokens & tokens,
+                                               Delims const & delims)
 {
-  SplitUniString(s, MakeBackInsertFunctor(tokens), delimiter);
-  return !s.empty() && !delimiter(s.back());
+  SplitUniString(s, MakeBackInsertFunctor(tokens), delims);
+  return !s.empty() && !delims(s.back());
 }
 
-
-template <class ContainerT, class DelimsT>
-bool TokenizeStringAndCheckIfLastTokenIsPrefix(string const & s,
-                                               ContainerT & tokens,
-                                               DelimsT const & delimiter)
+template <class Tokens, class Delims>
+bool TokenizeStringAndCheckIfLastTokenIsPrefix(std::string const & s, Tokens & tokens,
+                                               Delims const & delims)
 {
-  return TokenizeStringAndCheckIfLastTokenIsPrefix(NormalizeAndSimplifyString(s),
-                                                   tokens,
-                                                   delimiter);
+  return TokenizeStringAndCheckIfLastTokenIsPrefix(NormalizeAndSimplifyString(s), tokens, delims);
 }
 
-strings::UniString GetStreetNameAsKey(string const & name);
+// Chops off the last query token (the "prefix" one) from |str|.
+std::string DropLastToken(std::string const & str);
+
+strings::UniString GetStreetNameAsKey(std::string const & name);
 
 // *NOTE* The argument string must be normalized and simplified.
 bool IsStreetSynonym(strings::UniString const & s);
@@ -57,7 +72,7 @@ bool IsStreetSynonymPrefix(strings::UniString const & s);
 
 /// Normalizes both str and substr, and then returns true if substr is found in str.
 /// Used in native platform code for search in localized strings (cuisines, categories, strings etc.).
-bool ContainsNormalized(string const & str, string const & substr);
+bool ContainsNormalized(std::string const & str, std::string const & substr);
 
 // This class can be used as a filter for street tokens.  As there can
 // be street synonyms in the street name, single street synonym is
@@ -68,11 +83,10 @@ bool ContainsNormalized(string const & str, string const & substr);
 class StreetTokensFilter
 {
 public:
-  using TCallback = function<void(strings::UniString const & token, size_t tag)>;
+  using Callback = std::function<void(strings::UniString const & token, size_t tag)>;
 
   template <typename TC>
-  StreetTokensFilter(TC && callback)
-    : m_callback(forward<TC>(callback))
+  StreetTokensFilter(TC && callback) : m_callback(std::forward<TC>(callback))
   {
   }
 
@@ -84,7 +98,7 @@ public:
   void Put(strings::UniString const & token, bool isPrefix, size_t tag);
 
 private:
-  using TCell = pair<strings::UniString, size_t>;
+  using Cell = std::pair<strings::UniString, size_t>;
 
   inline void EmitToken(strings::UniString const & token, size_t tag) { m_callback(token, tag); }
 
@@ -92,6 +106,6 @@ private:
   size_t m_delayedTag = 0;
   size_t m_numSynonyms = 0;
 
-  TCallback m_callback;
+  Callback m_callback;
 };
 }  // namespace search

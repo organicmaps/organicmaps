@@ -1,13 +1,14 @@
 #include "indexer/data_header.hpp"
-#include "indexer/point_to_int64.hpp"
 #include "indexer/scales.hpp"
 
 #include "platform/platform.hpp"
 
 #include "coding/file_container.hpp"
 #include "coding/file_writer.hpp"
-#include "coding/write_to_sink.hpp"
+#include "coding/point_to_integer.hpp"
+#include "coding/pointd_to_pointu.hpp"
 #include "coding/varint.hpp"
+#include "coding/write_to_sink.hpp"
 
 #include "defines.hpp"
 
@@ -24,21 +25,21 @@ namespace feature
     Load(cont);
   }
 
-  serial::CodingParams DataHeader::GetCodingParams(int scaleIndex) const
+  serial::GeometryCodingParams DataHeader::GetGeometryCodingParams(int scaleIndex) const
   {
-    return serial::CodingParams(m_codingParams.GetCoordBits() -
-                                (m_scales.back() - m_scales[scaleIndex]) / 2,
-                                m_codingParams.GetBasePointUint64());
+    return serial::GeometryCodingParams(
+        m_codingParams.GetCoordBits() - (m_scales.back() - m_scales[scaleIndex]) / 2,
+        m_codingParams.GetBasePointUint64());
   }
 
   m2::RectD const DataHeader::GetBounds() const
   {
-    return Int64ToRect(m_bounds, m_codingParams.GetCoordBits());
+    return Int64ToRectObsolete(m_bounds, m_codingParams.GetCoordBits());
   }
 
   void DataHeader::SetBounds(m2::RectD const & r)
   {
-    m_bounds = RectToInt64(r, m_codingParams.GetCoordBits());
+    m_bounds = RectToInt64Obsolete(r, m_codingParams.GetCoordBits());
   }
 
   pair<int, int> DataHeader::GetScaleRange() const
@@ -143,7 +144,7 @@ namespace feature
   {
     ReaderSource<ModelReaderPtr> src(r);
     int64_t const base = ReadPrimitiveFromSource<int64_t>(src);
-    m_codingParams = serial::CodingParams(POINT_COORD_BITS, base);
+    m_codingParams = serial::GeometryCodingParams(POINT_COORD_BITS, base);
 
     m_bounds.first = ReadVarInt<int64_t>(src) + base;
     m_bounds.second = ReadVarInt<int64_t>(src) + base;

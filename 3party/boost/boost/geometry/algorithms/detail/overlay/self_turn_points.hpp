@@ -2,6 +2,11 @@
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
+// This file was modified by Oracle on 2017.
+// Modifications copyright (c) 2017 Oracle and/or its affiliates.
+
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -61,20 +66,25 @@ template
     typename Geometry,
     typename Turns,
     typename TurnPolicy,
+    typename IntersectionStrategy,
     typename RobustPolicy,
     typename InterruptPolicy
 >
 struct self_section_visitor
 {
     Geometry const& m_geometry;
+    IntersectionStrategy const& m_intersection_strategy;
     RobustPolicy const& m_rescale_policy;
     Turns& m_turns;
     InterruptPolicy& m_interrupt_policy;
 
     inline self_section_visitor(Geometry const& g,
-            RobustPolicy const& rp,
-            Turns& turns, InterruptPolicy& ip)
+                                IntersectionStrategy const& is,
+                                RobustPolicy const& rp,
+                                Turns& turns,
+                                InterruptPolicy& ip)
         : m_geometry(g)
+        , m_intersection_strategy(is)
         , m_rescale_policy(rp)
         , m_turns(turns)
         , m_interrupt_policy(ip)
@@ -97,6 +107,7 @@ struct self_section_visitor
                             0, m_geometry, sec1,
                             0, m_geometry, sec2,
                             false,
+                            m_intersection_strategy,
                             m_rescale_policy,
                             m_turns, m_interrupt_policy);
         }
@@ -116,9 +127,10 @@ struct self_section_visitor
 template<typename TurnPolicy>
 struct get_turns
 {
-    template <typename Geometry, typename RobustPolicy, typename Turns, typename InterruptPolicy>
+    template <typename Geometry, typename IntersectionStrategy, typename RobustPolicy, typename Turns, typename InterruptPolicy>
     static inline bool apply(
             Geometry const& geometry,
+            IntersectionStrategy const& intersection_strategy,
             RobustPolicy const& robust_policy,
             Turns& turns,
             InterruptPolicy& interrupt_policy)
@@ -142,17 +154,17 @@ struct get_turns
         self_section_visitor
             <
                 Geometry,
-                Turns, TurnPolicy, RobustPolicy, InterruptPolicy
-            > visitor(geometry, robust_policy, turns, interrupt_policy);
+                Turns, TurnPolicy, IntersectionStrategy, RobustPolicy, InterruptPolicy
+            > visitor(geometry, intersection_strategy, robust_policy, turns, interrupt_policy);
 
         try
         {
             geometry::partition
                 <
-                    box_type,
-                    detail::section::get_section_box,
-                    detail::section::overlaps_section_box
-                >::apply(sec, visitor);
+                    box_type
+                >::apply(sec, visitor,
+                         detail::section::get_section_box(),
+                         detail::section::overlaps_section_box());
         }
         catch(self_ip_exception const& )
         {
@@ -208,9 +220,10 @@ struct self_get_turn_points
         TurnPolicy
     >
 {
-    template <typename RobustPolicy, typename Turns, typename InterruptPolicy>
+    template <typename Strategy, typename RobustPolicy, typename Turns, typename InterruptPolicy>
     static inline bool apply(
             Box const& ,
+            Strategy const& ,
             RobustPolicy const& ,
             Turns& ,
             InterruptPolicy& )
@@ -259,6 +272,7 @@ struct self_get_turn_points
     \tparam Turns type of intersection container
                 (e.g. vector of "intersection/turn point"'s)
     \param geometry geometry
+    \param strategy strategy to be used
     \param robust_policy policy to handle robustness issues
     \param turns container which will contain intersection points
     \param interrupt_policy policy determining if process is stopped
@@ -268,15 +282,17 @@ template
 <
     typename AssignPolicy,
     typename Geometry,
+    typename IntersectionStrategy,
     typename RobustPolicy,
     typename Turns,
     typename InterruptPolicy
 >
 inline void self_turns(Geometry const& geometry,
-            RobustPolicy const& robust_policy,
-            Turns& turns, InterruptPolicy& interrupt_policy)
+                       IntersectionStrategy const& strategy,
+                       RobustPolicy const& robust_policy,
+                       Turns& turns, InterruptPolicy& interrupt_policy)
 {
-    concept::check<Geometry const>();
+    concepts::check<Geometry const>();
 
     typedef detail::overlay::get_turn_info<detail::overlay::assign_null_policy> turn_policy;
 
@@ -285,7 +301,7 @@ inline void self_turns(Geometry const& geometry,
                 typename tag<Geometry>::type,
                 Geometry,
                 turn_policy
-            >::apply(geometry, robust_policy, turns, interrupt_policy);
+            >::apply(geometry, strategy, robust_policy, turns, interrupt_policy);
 }
 
 

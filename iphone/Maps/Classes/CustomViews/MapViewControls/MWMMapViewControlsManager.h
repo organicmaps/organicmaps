@@ -1,13 +1,18 @@
 #import "MWMBottomMenuViewController.h"
+#import "MWMMapDownloaderMode.h"
 #import "MWMNavigationDashboardManager.h"
 #import "MWMSearchManager.h"
 
-#include "map/user_mark.hpp"
-#include "platform/location.hpp"
+#include "geometry/point2d.hpp"
 
 @class MapViewController;
 @protocol MWMFeatureHolder;
 @protocol MWMBookingInfoHolder;
+
+namespace place_page
+{
+class Info;
+}  // namespace place_page
 
 @interface MWMMapViewControlsManager : NSObject
 
@@ -19,8 +24,6 @@
 @property(nonatomic) BOOL trafficButtonHidden;
 @property(nonatomic) MWMBottomMenuState menuState;
 @property(nonatomic) MWMBottomMenuState menuRestoreState;
-@property(nonatomic, readonly) MWMNavigationDashboardState navigationState;
-@property(nonatomic) BOOL searchHidden;
 @property(nonatomic) BOOL isDirectionViewHidden;
 
 - (instancetype)init __attribute__((unavailable("init is not available")));
@@ -29,6 +32,8 @@
 - (UIStatusBarStyle)preferredStatusBarStyle;
 
 #pragma mark - Layout
+
+- (UIView *)anchorView;
 
 - (void)mwm_refreshUI;
 
@@ -45,21 +50,15 @@
 
 - (void)onRoutePrepare;
 - (void)onRouteRebuild;
-- (void)onRouteError;
 - (void)onRouteReady;
 - (void)onRouteStart;
 - (void)onRouteStop;
 
-- (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode;
-
-- (void)navigationDashBoardDidUpdate;
-
 #pragma mark - MWMSearchManager
 
-- (void)searchViewDidEnterState:(MWMSearchManagerState)state;
-- (void)actionDownloadMaps:(mwm::DownloaderMode)mode;
-- (void)searchFrameUpdated:(CGRect)frame;
-- (void)searchText:(NSString *)text forInputLocale:(NSString *)locale;
+- (void)actionDownloadMaps:(MWMMapDownloaderMode)mode;
+- (BOOL)searchText:(NSString *)text forInputLocale:(NSString *)locale;
+- (void)searchTextOnMap:(NSString *)text forInputLocale:(NSString *)locale;
 
 #pragma mark - MWMFeatureHolder
 

@@ -91,7 +91,19 @@ namespace boost
         cv.wait_until(lk, t);
     }
 
-#ifdef BOOST_THREAD_SLEEP_FOR_IS_STEADY
+#if defined BOOST_THREAD_HAS_CONDATTR_SET_CLOCK_MONOTONIC && defined BOOST_CHRONO_HAS_CLOCK_STEADY
+    template <class Rep, class Period>
+    void sleep_for(const chrono::duration<Rep, Period>& d)
+    {
+      using namespace chrono;
+      if (d > duration<Rep, Period>::zero())
+      {
+        steady_clock::time_point c_timeout = steady_clock::now() + ceil<nanoseconds>(d);
+        sleep_until(c_timeout);
+      }
+    }
+
+#elif defined BOOST_THREAD_SLEEP_FOR_IS_STEADY
 
     template <class Rep, class Period>
     void sleep_for(const chrono::duration<Rep, Period>& d)
@@ -127,7 +139,8 @@ namespace boost
       using namespace chrono;
       if (d > duration<Rep, Period>::zero())
       {
-        steady_clock::time_point c_timeout = steady_clock::now() + ceil<nanoseconds>(d);
+        //system_clock::time_point c_timeout = time_point_cast<system_clock::duration>(system_clock::now() + ceil<nanoseconds>(d));
+        system_clock::time_point c_timeout = system_clock::now() + ceil<system_clock::duration>(d);
         sleep_until(c_timeout);
       }
     }

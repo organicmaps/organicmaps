@@ -238,6 +238,10 @@
 #  define BOOST_NO_CXX14_VARIABLE_TEMPLATES
 #endif
 
+#if !__has_feature(cxx_thread_local)
+#  define BOOST_NO_CXX11_THREAD_LOCAL
+#endif
+
 #if __cplusplus < 201400
 // All versions with __cplusplus above this value seem to support this:
 #  define BOOST_NO_CXX14_DIGIT_SEPARATORS
@@ -255,3 +259,4 @@
 
 // Macro used to identify the Clang compiler.
 #define BOOST_CLANG 1
+

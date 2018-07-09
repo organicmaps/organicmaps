@@ -157,7 +157,8 @@ inline T bessel_y_derivative_small_z_series(T v, T x, const Policy& pol)
          gam = 1;
          if (boost::math::tools::max_value<T>() * p < gam)
          {
-            return -boost::math::policies::raise_overflow_error<T>(function, 0, pol);
+            // This term will overflow to -INF, when combined with the series below it becomes +INF:
+            return boost::math::policies::raise_overflow_error<T>(function, 0, pol);
          }
       }
       prefix = -gam / (boost::math::constants::pi<T>() * p);
@@ -173,7 +174,7 @@ inline T bessel_y_derivative_small_z_series(T v, T x, const Policy& pol)
          scale /= (boost::math::tools::max_value<T>() / 4);
          if (boost::math::tools::log_max_value<T>() < prefix)
          {
-            return -boost::math::policies::raise_overflow_error<T>(function, 0, pol);
+            return boost::math::policies::raise_overflow_error<T>(function, 0, pol);
          }
       }
       prefix = -exp(prefix);

@@ -1,9 +1,11 @@
 #pragma once
 
 #include "generator/feature_builder.hpp"
+#include "generator/metalines_builder.hpp"
 #include "generator/osm2type.hpp"
 #include "generator/osm_element.hpp"
 #include "generator/restriction_writer.hpp"
+#include "generator/routing_helpers.hpp"
 #include "generator/ways_merger.hpp"
 
 #include "indexer/classificator.hpp"
@@ -12,15 +14,17 @@
 
 #include "coding/file_writer.hpp"
 
+#include "base/assert.hpp"
 #include "base/cache.hpp"
 #include "base/logging.hpp"
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
+#include "base/osm_id.hpp"
 
-#include "std/list.hpp"
-#include "std/type_traits.hpp"
-#include "std/unordered_set.hpp"
-#include "std/vector.hpp"
+#include <list>
+#include <type_traits>
+#include <unordered_set>
+#include <vector>
 
 namespace
 {
@@ -29,8 +33,8 @@ namespace
 class RelationTagsBase
 {
 public:
-  RelationTagsBase(routing::RestrictionWriter & restrictionWriter)
-    : m_restrictionWriter(restrictionWriter), m_cache(14)
+  RelationTagsBase(routing::TagsProcessor & tagsProcessor)
+    : m_routingTagsProcessor(tagsProcessor), m_cache(14)
   {
   }
 
@@ -53,13 +57,13 @@ public:
   }
 
 protected:
-  static bool IsSkipRelation(string const & type)
+  static bool IsSkipRelation(std::string const & type)
   {
     /// @todo Skip special relation types.
     return (type == "multipolygon" || type == "bridge");
   }
 
-  bool IsKeyTagExists(string const & key) const
+  bool IsKeyTagExists(std::string const & key) const
   {
     for (auto const & p : m_current->m_tags)
       if (p.key == key)
@@ -67,7 +71,7 @@ protected:
     return false;
   }
 
-  void AddCustomTag(pair<string, string> const & p)
+  void AddCustomTag(pair<std::string, std::string> const & p)
   {
     m_current->AddTag(p.first, p.second);
   }
@@ -77,7 +81,7 @@ protected:
 protected:
   uint64_t m_featureID;
   OsmElement * m_current;
-  routing::RestrictionWriter & m_restrictionWriter;
+  routing::TagsProcessor & m_routingTagsProcessor;
 
 private:
   my::Cache<uint64_t, RelationElement> m_cache;
@@ -88,21 +92,18 @@ class RelationTagsNode : public RelationTagsBase
   using TBase = RelationTagsBase;
 
 public:
-  RelationTagsNode(routing::RestrictionWriter & restrictionWriter)
-    : RelationTagsBase(restrictionWriter)
-  {
-  }
+  RelationTagsNode(routing::TagsProcessor & tagsProcessor) : RelationTagsBase(tagsProcessor) {}
 
 protected:
   void Process(RelationElement const & e) override
   {
-    string const & type = e.GetType();
+    std::string const & type = e.GetType();
     if (TBase::IsSkipRelation(type))
       return;
 
     if (type == "restriction")
     {
-      m_restrictionWriter.Write(e);
+      m_routingTagsProcessor.m_restrictionWriter.Write(e);
       return;
     }
 
@@ -131,18 +132,18 @@ protected:
 class RelationTagsWay : public RelationTagsBase
 {
 public:
-  RelationTagsWay(routing::RestrictionWriter & restrictionWriter)
-    : RelationTagsBase(restrictionWriter)
+  RelationTagsWay(routing::TagsProcessor & routingTagsProcessor)
+    : RelationTagsBase(routingTagsProcessor)
   {
   }
 
 private:
   using TBase = RelationTagsBase;
-  using TNameKeys = unordered_set<string>;
+  using TNameKeys = std::unordered_set<std::string>;
 
   bool IsAcceptBoundary(RelationElement const & e) const
   {
-    string role;
+    std::string role;
     CHECK(e.FindWay(TBase::m_featureID, role), (TBase::m_featureID));
 
     // Do not accumulate boundary types (boundary=administrative) for inner polygons.
@@ -155,13 +156,34 @@ protected:
   {
     /// @todo Review route relations in future.
     /// Actually, now they give a lot of dummy tags.
-    string const & type = e.GetType();
-    if (TBase::IsSkipRelation(type) || type == "route")
+    std::string const & type = e.GetType();
+    if (TBase::IsSkipRelation(type))
       return;
+
+    if (type == "route")
+    {
+      if (e.GetTagValue("route") == "road")
+      {
+        // Append "network/ref" to the feature ref tag.
+        std::string ref = e.GetTagValue("ref");
+        if (!ref.empty())
+        {
+          std::string const & network = e.GetTagValue("network");
+          // Not processing networks with more than 15 chars (see road_shields_parser.cpp).
+          if (!network.empty() && network.find('/') == std::string::npos && network.size() < 15)
+            ref = network + '/' + ref;
+          std::string const & refBase = m_current->GetTag("ref");
+          if (!refBase.empty())
+            ref = refBase + ';' + ref;
+          TBase::AddCustomTag({"ref", std::move(ref)});
+        }
+      }
+      return;
+    }
 
     if (type == "restriction")
     {
-      m_restrictionWriter.Write(e);
+      m_routingTagsProcessor.m_restrictionWriter.Write(e);
       return;
     }
 
@@ -176,6 +198,7 @@ protected:
     bool const isBoundary = (type == "boundary") && IsAcceptBoundary(e);
     bool const processAssociatedStreet = type == "associatedStreet" &&
         TBase::IsKeyTagExists("addr:housenumber") && !TBase::IsKeyTagExists("addr:street");
+    bool const isHighway = TBase::IsKeyTagExists("highway");
 
     for (auto const & p : e.tags)
     {
@@ -197,6 +220,10 @@ protected:
       if (p.first == "place")
         continue;
 
+      // Do not pass "ref" tags from boundaries and other, non-route relations to highways.
+      if (p.first == "ref" && isHighway)
+        continue;
+
       TBase::AddCustomTag(p);
     }
   }
@@ -213,10 +240,11 @@ class OsmToFeatureTranslator
   uint32_t m_coastType;
   unique_ptr<FileWriter> m_addrWriter;
 
-  routing::RestrictionWriter m_restrictionWriter;
+  routing::TagsProcessor m_routingTagsProcessor;
 
   RelationTagsNode m_nodeRelations;
   RelationTagsWay m_wayRelations;
+  feature::MetalinesBuilder m_metalinesBuilder;
 
   class HolesAccumulator
   {
@@ -231,7 +259,7 @@ class OsmToFeatureTranslator
     FeatureBuilder1::TGeometry & GetHoles()
     {
       ASSERT(m_holes.empty(), ("Can call only once"));
-      m_merger.ForEachArea(false, [this](FeatureBuilder1::TPointSeq & v, vector<uint64_t> const &)
+      m_merger.ForEachArea(false, [this](FeatureBuilder1::TPointSeq & v, std::vector<uint64_t> const &)
       {
         m_holes.push_back(FeatureBuilder1::TPointSeq());
         m_holes.back().swap(v);
@@ -254,7 +282,7 @@ class OsmToFeatureTranslator
     {
       if (e.GetType() != "multipolygon")
         return false;
-      string role;
+      std::string role;
       if (e.FindWay(m_id, role) && (role == "outer"))
       {
         e.ForEachWay(*this);
@@ -265,7 +293,7 @@ class OsmToFeatureTranslator
     }
 
     /// 2. "ways in relation" process function
-    void operator() (uint64_t id, string const & role)
+    void operator() (uint64_t id, std::string const & role)
     {
       if (id != m_id && role == "inner")
         m_holes(id);
@@ -290,7 +318,11 @@ class OsmToFeatureTranslator
 
     // Get params from element tags.
     ftype::GetNameAndType(p, params);
-    return params.IsValid();
+    if (!params.IsValid())
+      return false;
+
+    m_routingTagsProcessor.m_roadAccessWriter.Process(*p);
+    return true;
   }
 
   void EmitFeatureBase(FeatureBuilder1 & ft, FeatureParams const & params) const
@@ -298,7 +330,7 @@ class OsmToFeatureTranslator
     ft.SetParams(params);
     if (ft.PreSerialize())
     {
-      string addr;
+      std::string addr;
       if (m_addrWriter && ftypes::IsBuildingChecker::Instance()(params.m_Types) &&
           ft.FormatFullAddress(addr))
       {
@@ -332,7 +364,7 @@ class OsmToFeatureTranslator
   }
 
   template <class MakeFnT>
-  void EmitArea(FeatureBuilder1 & ft, FeatureParams params, MakeFnT makeFn) const
+  void EmitArea(FeatureBuilder1 & ft, FeatureParams params, MakeFnT makeFn)
   {
     using namespace feature;
 
@@ -340,9 +372,15 @@ class OsmToFeatureTranslator
     if (!ft.IsGeometryClosed())
       return;
 
+    if (ftypes::IsTownOrCity(params.m_Types))
+    {
+      auto fb = ft;
+      makeFn(fb);
+      m_emitter.EmitCityBoundary(fb, params);
+    }
+
     // Key point here is that IsDrawableLike and RemoveNoDrawableTypes
     // work a bit different for GEOM_AREA.
-
     if (IsDrawableLike(params.m_Types, GEOM_AREA))
     {
       // Make the area feature if it has unique area styles.
@@ -365,6 +403,8 @@ public:
   void EmitElement(OsmElement * p)
   {
     enum class FeatureState {Unknown, Ok, EmptyTags, HasNoTypes, BrokenRef, ShortGeom, InvalidType};
+
+    CHECK(p, ("Tried to emit a null OsmElement"));
 
     FeatureParams params;
     FeatureState state = FeatureState::Unknown;
@@ -433,6 +473,7 @@ public:
           ft.SetAreaAddHoles(processor.GetHoles());
         });
 
+        m_metalinesBuilder(*p, params);
         EmitLine(ft, params, isCoastLine);
         state = FeatureState::Ok;
         break;
@@ -478,7 +519,7 @@ public:
         }
 
         auto const & holesGeometry = holes.GetHoles();
-        outer.ForEachArea(true, [&] (FeatureBuilder1::TPointSeq const & pts, vector<uint64_t> const & ids)
+        outer.ForEachArea(true, [&] (FeatureBuilder1::TPointSeq const & pts, std::vector<uint64_t> const & ids)
         {
           FeatureBuilder1 ft;
 
@@ -517,17 +558,24 @@ public:
 
 public:
   OsmToFeatureTranslator(TEmitter & emitter, TCache & holder, uint32_t coastType,
-                         string const & addrFilePath = {}, string const & restrictionsFilePath = {})
+                         std::string const & addrFilePath = {},
+                         std::string const & restrictionsFilePath = {},
+                         std::string const & roadAccessFilePath = {},
+                         std::string const & metalinesFilePath = {})
     : m_emitter(emitter)
     , m_holder(holder)
     , m_coastType(coastType)
-    , m_nodeRelations(m_restrictionWriter)
-    , m_wayRelations(m_restrictionWriter)
+    , m_nodeRelations(m_routingTagsProcessor)
+    , m_wayRelations(m_routingTagsProcessor)
+    , m_metalinesBuilder(metalinesFilePath)
   {
     if (!addrFilePath.empty())
       m_addrWriter.reset(new FileWriter(addrFilePath));
 
     if (!restrictionsFilePath.empty())
-      m_restrictionWriter.Open(restrictionsFilePath);
+      m_routingTagsProcessor.m_restrictionWriter.Open(restrictionsFilePath);
+
+    if (!roadAccessFilePath.empty())
+      m_routingTagsProcessor.m_roadAccessWriter.Open(roadAccessFilePath);
   }
 };

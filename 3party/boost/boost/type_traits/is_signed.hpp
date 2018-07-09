@@ -13,18 +13,17 @@
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/is_enum.hpp>
-#include <boost/type_traits/detail/ice_or.hpp>
-
-// should be the last #include
-#include <boost/type_traits/detail/bool_trait_def.hpp>
+#include <climits>
 
 namespace boost {
 
 #if !defined( __CODEGEARC__ )
 
-namespace detail{
+#if !(defined(BOOST_MSVC) && BOOST_MSVC <= 1310) && \
+    !(defined(__EDG_VERSION__) && __EDG_VERSION__ <= 238) &&\
+    !defined(BOOST_NO_INCLASS_MEMBER_INITIALIZATION)
 
-#if !(defined(__EDG_VERSION__) && __EDG_VERSION__ <= 238) && !defined(BOOST_NO_INCLASS_MEMBER_INITIALIZATION)
+namespace detail{
 
 template <class T>
 struct is_signed_values
@@ -67,70 +66,98 @@ struct is_signed_select_helper<false>
 };
 
 template <class T>
-struct is_signed_imp
+struct is_signed_impl
 {
-   typedef is_signed_select_helper< 
-      ::boost::type_traits::ice_or<
-         ::boost::is_integral<T>::value,
-         ::boost::is_enum<T>::value>::value 
-   > selector;
+   typedef ::boost::detail::is_signed_select_helper< ::boost::is_integral<T>::value || ::boost::is_enum<T>::value> selector;
    typedef typename selector::template rebind<T> binder;
    typedef typename binder::type type;
    BOOST_STATIC_CONSTANT(bool, value = type::value);
 };
 
-#else
-
-template <class T> struct is_signed_imp : public false_type{};
-template <> struct is_signed_imp<signed char> : public true_type{};
-template <> struct is_signed_imp<const signed char> : public true_type{};
-template <> struct is_signed_imp<volatile signed char> : public true_type{};
-template <> struct is_signed_imp<const volatile signed char> : public true_type{};
-template <> struct is_signed_imp<short> : public true_type{};
-template <> struct is_signed_imp<const short> : public true_type{};
-template <> struct is_signed_imp<volatile short> : public true_type{};
-template <> struct is_signed_imp<const volatile short> : public true_type{};
-template <> struct is_signed_imp<int> : public true_type{};
-template <> struct is_signed_imp<const int> : public true_type{};
-template <> struct is_signed_imp<volatile int> : public true_type{};
-template <> struct is_signed_imp<const volatile int> : public true_type{};
-template <> struct is_signed_imp<long> : public true_type{};
-template <> struct is_signed_imp<const long> : public true_type{};
-template <> struct is_signed_imp<volatile long> : public true_type{};
-template <> struct is_signed_imp<const volatile long> : public true_type{};
-#ifdef BOOST_HAS_LONG_LONG
-template <> struct is_signed_imp<long long> : public true_type{};
-template <> struct is_signed_imp<const long long> : public true_type{};
-template <> struct is_signed_imp<volatile long long> : public true_type{};
-template <> struct is_signed_imp<const volatile long long> : public true_type{};
-#endif
-#if defined(CHAR_MIN) && (CHAR_MIN != 0)
-template <> struct is_signed_imp<char> : public true_type{};
-template <> struct is_signed_imp<const char> : public true_type{};
-template <> struct is_signed_imp<volatile char> : public true_type{};
-template <> struct is_signed_imp<const volatile char> : public true_type{};
-#endif
-#if defined(WCHAR_MIN) && (WCHAR_MIN != 0)
-template <> struct is_signed_imp<wchar_t> : public true_type{};
-template <> struct is_signed_imp<const wchar_t> : public true_type{};
-template <> struct is_signed_imp<volatile wchar_t> : public true_type{};
-template <> struct is_signed_imp<const volatile wchar_t> : public true_type{};
-#endif
-
-#endif
-
 }
 
-#endif // !defined( __CODEGEARC__ )
+template <class T> struct is_signed : public integral_constant<bool, boost::detail::is_signed_impl<T>::value> {};
 
-#if defined( __CODEGEARC__ )
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_signed,T,__is_signed(T))
 #else
-BOOST_TT_AUX_BOOL_TRAIT_DEF1(is_signed,T,::boost::detail::is_signed_imp<T>::value)
+
+template <class T> struct is_signed : public false_type{};
+
 #endif
 
-} // namespace boost
+#else //defined( __CODEGEARC__ )
+   template <class T> struct is_signed : public integral_constant<bool, __is_signed(T)>{};
+#endif
 
-#include <boost/type_traits/detail/bool_trait_undef.hpp>
+template <> struct is_signed<signed char> : public true_type{};
+template <> struct is_signed<const signed char> : public true_type{};
+template <> struct is_signed<volatile signed char> : public true_type{};
+template <> struct is_signed<const volatile signed char> : public true_type{};
+template <> struct is_signed<short> : public true_type{};
+template <> struct is_signed<const short> : public true_type{};
+template <> struct is_signed<volatile short> : public true_type{};
+template <> struct is_signed<const volatile short> : public true_type{};
+template <> struct is_signed<int> : public true_type{};
+template <> struct is_signed<const int> : public true_type{};
+template <> struct is_signed<volatile int> : public true_type{};
+template <> struct is_signed<const volatile int> : public true_type{};
+template <> struct is_signed<long> : public true_type{};
+template <> struct is_signed<const long> : public true_type{};
+template <> struct is_signed<volatile long> : public true_type{};
+template <> struct is_signed<const volatile long> : public true_type{};
+
+template <> struct is_signed<unsigned char> : public false_type{};
+template <> struct is_signed<const unsigned char> : public false_type{};
+template <> struct is_signed<volatile unsigned char> : public false_type{};
+template <> struct is_signed<const volatile unsigned char> : public false_type{};
+template <> struct is_signed<unsigned short> : public false_type{};
+template <> struct is_signed<const unsigned short> : public false_type{};
+template <> struct is_signed<volatile unsigned short> : public false_type{};
+template <> struct is_signed<const volatile unsigned short> : public false_type{};
+template <> struct is_signed<unsigned int> : public false_type{};
+template <> struct is_signed<const unsigned int> : public false_type{};
+template <> struct is_signed<volatile unsigned int> : public false_type{};
+template <> struct is_signed<const volatile unsigned int> : public false_type{};
+template <> struct is_signed<unsigned long> : public false_type{};
+template <> struct is_signed<const unsigned long> : public false_type{};
+template <> struct is_signed<volatile unsigned long> : public false_type{};
+template <> struct is_signed<const volatile unsigned long> : public false_type{};
+#ifdef BOOST_HAS_LONG_LONG
+template <> struct is_signed< ::boost::long_long_type> : public true_type{};
+template <> struct is_signed<const ::boost::long_long_type> : public true_type{};
+template <> struct is_signed<volatile ::boost::long_long_type> : public true_type{};
+template <> struct is_signed<const volatile ::boost::long_long_type> : public true_type{};
+
+template <> struct is_signed< ::boost::ulong_long_type> : public false_type{};
+template <> struct is_signed<const ::boost::ulong_long_type> : public false_type{};
+template <> struct is_signed<volatile ::boost::ulong_long_type> : public false_type{};
+template <> struct is_signed<const volatile ::boost::ulong_long_type> : public false_type{};
+#endif
+#if defined(CHAR_MIN) 
+#if CHAR_MIN != 0
+template <> struct is_signed<char> : public true_type{};
+template <> struct is_signed<const char> : public true_type{};
+template <> struct is_signed<volatile char> : public true_type{};
+template <> struct is_signed<const volatile char> : public true_type{};
+#else
+template <> struct is_signed<char> : public false_type{};
+template <> struct is_signed<const char> : public false_type{};
+template <> struct is_signed<volatile char> : public false_type{};
+template <> struct is_signed<const volatile char> : public false_type{};
+#endif
+#endif
+#if defined(WCHAR_MIN) && !defined(BOOST_NO_INTRINSIC_WCHAR_T)
+#if WCHAR_MIN != 0
+template <> struct is_signed<wchar_t> : public true_type{};
+template <> struct is_signed<const wchar_t> : public true_type{};
+template <> struct is_signed<volatile wchar_t> : public true_type{};
+template <> struct is_signed<const volatile wchar_t> : public true_type{};
+#else
+template <> struct is_signed<wchar_t> : public false_type{};
+template <> struct is_signed<const wchar_t> : public false_type{};
+template <> struct is_signed<volatile wchar_t> : public false_type{};
+template <> struct is_signed<const volatile wchar_t> : public false_type{};
+#endif
+#endif
+} // namespace boost
 
 #endif // BOOST_TT_IS_MEMBER_FUNCTION_POINTER_HPP_INCLUDED

@@ -18,6 +18,8 @@
 #include <boost/geometry/geometries/concepts/point_concept.hpp>
 #include <boost/geometry/util/select_coordinate_type.hpp>
 
+#include <boost/numeric/conversion/cast.hpp>
+
 namespace boost { namespace geometry
 {
 
@@ -57,8 +59,8 @@ inline ReturnType determinant(U const& ux, U const& uy
 template <typename ReturnType, typename U, typename V>
 inline ReturnType determinant(U const& u, V const& v)
 {
-    BOOST_CONCEPT_ASSERT( (concept::ConstPoint<U>) );
-    BOOST_CONCEPT_ASSERT( (concept::ConstPoint<V>) );
+    BOOST_CONCEPT_ASSERT( (concepts::ConstPoint<U>) );
+    BOOST_CONCEPT_ASSERT( (concepts::ConstPoint<V>) );
 
     return calculate_determinant
         <

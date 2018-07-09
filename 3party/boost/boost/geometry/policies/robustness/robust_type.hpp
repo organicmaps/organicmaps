@@ -13,8 +13,8 @@
 #define BOOST_GEOMETRY_POLICIES_ROBUSTNESS_ROBUST_TYPE_HPP
 
 
-#include <boost/type_traits.hpp>
 #include <boost/config.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
 
 
 namespace boost { namespace geometry

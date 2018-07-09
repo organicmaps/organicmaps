@@ -20,6 +20,7 @@
 #include <boost/preprocessor/repetition/enum_shifted_params.hpp>
 
 #include <boost/type_traits/remove_reference.hpp>
+#include <boost/core/enable_if.hpp>
 
 #include <boost/mpl/front.hpp>
 
@@ -28,7 +29,6 @@
 #include <boost/function_types/parameter_types.hpp>
 
 #include <boost/fusion/support/category_of.hpp>
-#include <boost/fusion/support/detail/enabler.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/fusion/sequence/intrinsic/size.hpp>
 #include <boost/fusion/sequence/intrinsic/begin.hpp>
@@ -66,7 +66,7 @@ namespace boost { namespace fusion
 
         template <typename Function, class Sequence>
         struct invoke_procedure<Function, Sequence,
-            typename detail::enabler<
+            typename enable_if_has_type<
                 typename detail::invoke_procedure_impl<
                     typename boost::remove_reference<Function>::type,Sequence
                 >::result_type

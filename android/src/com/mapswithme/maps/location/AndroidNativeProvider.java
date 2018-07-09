@@ -19,6 +19,7 @@ class AndroidNativeProvider extends BaseLocationProvider
   private final static String TAG = AndroidNativeProvider.class.getSimpleName();
   private final static String[] TRUSTED_PROVIDERS = { LocationManager.NETWORK_PROVIDER,
                                                       LocationManager.GPS_PROVIDER };
+
   @NonNull
   private final LocationManager mLocationManager;
   @NonNull
@@ -30,6 +31,8 @@ class AndroidNativeProvider extends BaseLocationProvider
     mLocationManager = (LocationManager) MwmApplication.get().getSystemService(Context.LOCATION_SERVICE);
   }
 
+  @SuppressWarnings("MissingPermission")
+  // A permission is checked externally
   @Override
   protected void start()
   {
@@ -110,14 +113,22 @@ class AndroidNativeProvider extends BaseLocationProvider
   private static Location findBestNotExpiredLocation(LocationManager manager, List<String> providers, long expirationMillis)
   {
     Location res = null;
-    for (final String pr : providers)
+    try
     {
-      final Location last = manager.getLastKnownLocation(pr);
-      if (last == null || LocationUtils.isExpired(last, last.getTime(), expirationMillis))
-        continue;
+      for (final String pr : providers)
+      {
+        final Location last = manager.getLastKnownLocation(pr);
+        if (last == null || LocationUtils.isExpired(last, last.getTime(), expirationMillis))
+          continue;
 
-      if (res == null || res.getAccuracy() > last.getAccuracy())
-        res = last;
+        if (res == null || res.getAccuracy() > last.getAccuracy())
+          res = last;
+      }
+    }
+    catch (SecurityException e)
+    {
+      LOGGER.e(TAG, "Dynamic permission ACCESS_COARSE_LOCATION/ACCESS_FINE_LOCATION is not granted",
+               e);
     }
     return res;
   }

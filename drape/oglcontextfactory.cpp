@@ -2,12 +2,10 @@
 
 namespace dp
 {
-
 ThreadSafeFactory::ThreadSafeFactory(OGLContextFactory * factory, bool enableSharing)
   : m_factory(factory)
   , m_enableSharing(enableSharing)
-{
-}
+{}
 
 ThreadSafeFactory::~ThreadSafeFactory()
 {
@@ -41,9 +39,13 @@ OGLContext * ThreadSafeFactory::CreateContext(TCreateCtxFn const & createFn, TIs
   return ctx;
 }
 
-void ThreadSafeFactory::waitForInitialization()
+void ThreadSafeFactory::waitForInitialization(dp::OGLContext * context)
 {
-  m_factory->waitForInitialization();
+  m_factory->waitForInitialization(context);
 }
-
-} // namespace dp
+  
+void ThreadSafeFactory::setPresentAvailable(bool available)
+{
+  m_factory->setPresentAvailable(available);
+}
+}  // namespace dp

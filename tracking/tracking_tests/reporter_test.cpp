@@ -46,7 +46,8 @@ void TransferLocation(Reporter & reporter, TestSocket & testSocket, double times
       testSocket.WriteServer(tracking::Protocol::kOk);
       break;
     }
-    case Packet::CurrentData:
+    case Packet::DataV0:
+    case Packet::DataV1:
     {
       readSize = 0;
       break;

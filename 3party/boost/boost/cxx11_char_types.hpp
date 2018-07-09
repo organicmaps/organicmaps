@@ -49,7 +49,7 @@
 namespace boost
 {
 
-# if defined(BOOST_NO_CHAR16_T) && (!defined(_MSC_VER) || _MSC_VER < 1600)  // 1600 == VC++10
+# if defined(BOOST_NO_CHAR16_T) && (!defined(_MSC_VER) || _MSC_VER < 1600)  // 1600 == VC++10 
     typedef boost::uint_least16_t             char16;
     typedef std::basic_string<boost::char16>  u16string;
 # else
@@ -57,7 +57,7 @@ namespace boost
     typedef std::u16string                    u16string;
 # endif
 
-# if defined(BOOST_NO_CHAR32_T) && (!defined(_MSC_VER) || _MSC_VER < 1600)  // 1600 == VC++10
+# if defined(BOOST_NO_CHAR32_T) && (!defined(_MSC_VER) || _MSC_VER < 1600)  // 1600 == VC++10 
     typedef  boost::uint_least32_t            char32;
     typedef std::basic_string<boost::char32>  u32string;
 # else

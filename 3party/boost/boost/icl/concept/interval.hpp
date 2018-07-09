@@ -455,7 +455,7 @@ enable_if< mpl::and_< mpl::or_<is_static_right_open<Type>, is_static_open<Type> 
          , typename interval_traits<Type>::domain_type>::type
 last_next(const Type& object)
 { 
-    typedef typename interval_traits<Type>::domain_type domain_type;
+    //CL typedef typename interval_traits<Type>::domain_type domain_type;
     return upper(object); // NOTE: last_next is implemented to avoid calling pred(object)
 }                         // For unsigned integral types this may cause underflow.
 
@@ -1148,6 +1148,8 @@ left_subtract(Type right, const Type& left_minuend)
 {
     if(exclusive_less(left_minuend, right))
         return right; 
+    else if(upper_less_equal(right, left_minuend))
+        return identity_element<Type>::value();
 
     return construct<Type>(domain_next<Type>(upper(left_minuend)), upper(right));
 }
@@ -1175,7 +1177,7 @@ left_subtract(Type right, const Type& left_minuend)
 
 //- right_subtract -------------------------------------------------------------
 /** subtract \c right_minuend from the \c left interval on it's right side. 
-    Return the difference: The part of \c left right of \c right_minuend.
+    Return the difference: The part of \c left left of \c right_minuend.
 \code
 left_over = left - right_minuend; //on the right side.
 [a      ...  : left

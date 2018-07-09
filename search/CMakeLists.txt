@@ -5,15 +5,37 @@ set(
   algos.hpp
   approximate_string_match.cpp
   approximate_string_match.hpp
+  base/inverted_list.hpp
+  base/mem_search_index.hpp
+  base/text_index/dictionary.hpp
+  base/text_index/header.cpp
+  base/text_index/header.hpp
+  base/text_index/mem.cpp
+  base/text_index/mem.hpp
+  base/text_index/reader.hpp
+  base/text_index/text_index.cpp
+  base/text_index/text_index.hpp
+  bookmarks/data.cpp
+  bookmarks/data.hpp
+  bookmarks/processor.cpp
+  bookmarks/processor.hpp
+  bookmarks/results.hpp
+  bookmarks/types.hpp
   cancel_exception.hpp
   categories_cache.cpp
   categories_cache.hpp
   categories_set.hpp
   cbv.cpp
   cbv.hpp
+  cities_boundaries_table.cpp
+  cities_boundaries_table.hpp
+  city_finder.cpp
+  city_finder.hpp
   common.hpp
   displayed_categories.cpp
   displayed_categories.hpp
+  doc_vec.cpp
+  doc_vec.hpp
   downloader_search_callback.cpp
   downloader_search_callback.hpp
   dummy_rank_table.cpp
@@ -23,7 +45,8 @@ set(
   emitter.hpp
   engine.cpp
   engine.hpp
-  everywhere_search_params.hpp
+  feature_loader.cpp
+  feature_loader.hpp
   feature_offset_match.hpp
   features_filter.cpp
   features_filter.hpp
@@ -43,6 +66,8 @@ set(
   geometry_cache.hpp
   geometry_utils.cpp
   geometry_utils.hpp
+  highlighting.cpp
+  highlighting.hpp
   hotels_classifier.cpp
   hotels_classifier.hpp
   hotels_filter.cpp
@@ -53,6 +78,8 @@ set(
   house_numbers_matcher.hpp
   house_to_street_table.cpp
   house_to_street_table.hpp
+  idf_map.cpp
+  idf_map.hpp
   intermediate_result.cpp
   intermediate_result.hpp
   intersection_result.cpp
@@ -66,6 +93,8 @@ set(
   latlon_match.hpp
   lazy_centers_table.cpp
   lazy_centers_table.hpp
+  localities_source.cpp
+  localities_source.hpp
   locality_finder.cpp
   locality_finder.hpp
   locality_scorer.cpp
@@ -76,17 +105,15 @@ set(
   model.hpp
   mwm_context.cpp
   mwm_context.hpp
-  nearby_points_sweeper.cpp
-  nearby_points_sweeper.hpp
   nested_rects_cache.cpp
   nested_rects_cache.hpp
+  point_rect_matcher.hpp
   pre_ranker.cpp
   pre_ranker.hpp
   pre_ranking_info.cpp
   pre_ranking_info.hpp
   processor.cpp
   processor.hpp
-  processor_factory.hpp
   projection_on_street.cpp
   projection_on_street.hpp
   query_params.cpp
@@ -101,6 +128,8 @@ set(
   ranking_info.hpp
   ranking_utils.cpp
   ranking_utils.hpp
+  region_info_getter.cpp
+  region_info_getter.hpp
   result.cpp
   result.hpp
   retrieval.cpp
@@ -111,26 +140,27 @@ set(
   search_params.cpp
   search_params.hpp
   search_trie.hpp
+  segment_tree.cpp
+  segment_tree.hpp
   stats_cache.hpp
   street_vicinity_loader.cpp
   street_vicinity_loader.hpp
   streets_matcher.cpp
   streets_matcher.hpp
-  string_intersection.hpp
+  suggest.cpp
   suggest.hpp
   token_range.hpp
   token_slice.cpp
   token_slice.hpp
+  tracer.cpp
+  tracer.hpp
   types_skipper.cpp
   types_skipper.hpp
   utils.cpp
   utils.hpp
-  viewport_search_callback.cpp
-  viewport_search_callback.hpp
-  viewport_search_params.hpp
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})
 
 if (PLATFORM_DESKTOP)
   add_subdirectory(search_quality)
@@ -139,3 +169,8 @@ endif()
 omim_add_pybindings_subdirectory(pysearch)
 omim_add_test_subdirectory(search_tests)
 omim_add_test_subdirectory(search_integration_tests)
+
+target_link_libraries(
+  ${PROJECT_NAME}
+  openlocationcode
+)

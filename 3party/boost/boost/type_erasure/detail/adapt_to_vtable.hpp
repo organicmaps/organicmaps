@@ -35,6 +35,9 @@ namespace boost {
 namespace type_erasure {
 
 namespace detail {
+    
+template<class T, class Out>
+struct get_placeholders;
 
 template<class T, class Bindings>
 struct rebind_placeholders;
@@ -52,6 +55,12 @@ struct rebind_placeholders<vtable_adapter<PrimitiveConcept, Sig>, Bindings>
         typename rebind_placeholders<PrimitiveConcept, Bindings>::type,
         typename rebind_placeholders_in_argument<Sig, Bindings>::type
     > type;
+};
+
+template<class PrimitiveConcept, class Sig, class Out>
+struct get_placeholders<vtable_adapter<PrimitiveConcept, Sig>, Out>
+{
+    typedef typename get_placeholders<PrimitiveConcept, Out>::type type;
 };
 
 template<class T>
@@ -194,6 +203,17 @@ struct vtable_adapter_impl<PrimitiveConcept, R(T...), R2(U...)>
 };
 
 template<class PrimitiveConcept, class... T, class R2, class... U>
+struct vtable_adapter_impl<PrimitiveConcept, ::boost::type_erasure::detail::storage(T...), R2(U...)>
+{
+    typedef ::boost::type_erasure::detail::storage (*type)(T...);
+    static ::boost::type_erasure::detail::storage value(T... arg)
+    {
+        return ::boost::type_erasure::detail::storage(
+            PrimitiveConcept::apply(::boost::type_erasure::detail::extract<U>(std::forward<T>(arg))...));
+    }
+};
+
+template<class PrimitiveConcept, class... T, class R2, class... U>
 struct vtable_adapter_impl<PrimitiveConcept, ::boost::type_erasure::detail::storage&(T...), R2(U...)>
 {
     typedef ::boost::type_erasure::detail::storage (*type)(T...);
@@ -295,6 +315,24 @@ struct vtable_adapter<PrimitiveConcept, R(BOOST_PP_ENUM_PARAMS(N, T))>
         > traits;
         return PrimitiveConcept::apply(
             BOOST_PP_ENUM(N, BOOST_TYPE_ERASURE_EXTRACT, ~));
+    }
+};
+
+template<class PrimitiveConcept
+    BOOST_PP_ENUM_TRAILING_PARAMS(N, class T)>
+struct vtable_adapter<PrimitiveConcept, ::boost::type_erasure::detail::storage(BOOST_PP_ENUM_PARAMS(N, T))>
+{
+    typedef ::boost::type_erasure::detail::storage (*type)(BOOST_PP_ENUM_PARAMS(N, T));
+    static ::boost::type_erasure::detail::storage value(BOOST_PP_ENUM_BINARY_PARAMS(N, T, arg))
+    {
+        typedef typename ::boost::function_traits<
+            typename ::boost::type_erasure::detail::get_signature<
+                PrimitiveConcept
+            >::type
+        > traits;
+        return ::boost::type_erasure::detail::storage(
+            PrimitiveConcept::apply(
+                BOOST_PP_ENUM(N, BOOST_TYPE_ERASURE_EXTRACT, ~)));
     }
 };
 

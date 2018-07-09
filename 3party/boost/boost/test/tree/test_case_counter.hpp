@@ -1,15 +1,12 @@
-//  (C) Copyright Gennadiy Rozental 2001-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/test for the library home page.
 //
-//  File        : $RCSfile$
-//
-//  Version     : $Revision: 74640 $
-//
-//  Description : defines test_case_counter
+/// @file
+/// Defines @ref test_case_counter
 // ***************************************************************************
 
 #ifndef BOOST_TEST_TREE_TEST_CASE_COUNTER_HPP_100211GER
@@ -33,6 +30,7 @@ namespace unit_test {
 // **************                test_case_counter             ************** //
 // ************************************************************************** //
 
+///! Counts the number of enabled test cases
 class test_case_counter : public test_tree_visitor {
 public:
     // Constructor
@@ -51,3 +49,4 @@ private:
 #include <boost/test/detail/enable_warnings.hpp>
 
 #endif // BOOST_TEST_TREE_TEST_CASE_COUNTER_HPP_100211GER
+

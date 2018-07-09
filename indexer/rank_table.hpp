@@ -1,9 +1,9 @@
 #pragma once
 
-#include "std/cstdint.hpp"
-#include "std/string.hpp"
-#include "std/unique_ptr.hpp"
-#include "std/vector.hpp"
+#include <cstdint>
+#include <memory>
+#include <string>
+#include <vector>
 
 class FilesContainerR;
 class FilesContainerW;
@@ -70,7 +70,8 @@ public:
   // *NOTE* Return value can outlive |rcont|. Also note that there is
   // undefined behaviour if ranks section exists but internally
   // damaged.
-  static unique_ptr<RankTable> Load(FilesContainerR const & rcont);
+  static std::unique_ptr<RankTable> Load(FilesContainerR const & rcont,
+                                         std::string const & sectionName);
 
   // Maps whole section corresponding to a rank table and deserializes
   // it. Returns nullptr if there're no ranks section, rank table's
@@ -81,15 +82,26 @@ public:
   // destructed before |mcont| is closed. Also note that there're
   // undefined behaviour if ranks section exists but internally
   // damaged.
-  static unique_ptr<RankTable> Load(FilesMappingContainer const & mcont);
+  static std::unique_ptr<RankTable> Load(FilesMappingContainer const & mcont,
+                                         std::string const & sectionName);
 };
 
 // A builder class for rank tables.
 class RankTableBuilder
 {
 public:
+  // Force creation of a rank table from array of ranks. Existing rank
+  // table is removed (if any). Note that |wcont| must be instantiated
+  // as FileWriter::OP_WRITE_EXISTING.
+  static void Create(std::vector<uint8_t> const & ranks, FilesContainerW & wcont,
+                     std::string const & sectionName);
+};
+
+class SearchRankTableBuilder
+{
+public:
   // Calculates search ranks for all features in an mwm.
-  static void CalcSearchRanks(FilesContainerR & rcont, vector<uint8_t> & ranks);
+  static void CalcSearchRanks(FilesContainerR & rcont, std::vector<uint8_t> & ranks);
 
   // Following methods create rank table for an mwm.
   // * When rank table already exists and has proper endianness, does nothing.
@@ -101,11 +113,6 @@ public:
   // Return true if rank table was successfully generated and written
   // or already exists and has correct format.
   static bool CreateIfNotExists(platform::LocalCountryFile const & localFile) noexcept;
-  static bool CreateIfNotExists(string const & mapPath) noexcept;
-
-  // Force creation of a rank table from array of ranks. Existing rank
-  // table is removed (if any). Note that |wcont| must be instantiated
-  // as FileWriter::OP_WRITE_EXISTING.
-  static void Create(vector<uint8_t> const & ranks, FilesContainerW & wcont);
+  static bool CreateIfNotExists(std::string const & mapPath) noexcept;
 };
 }  // namespace search

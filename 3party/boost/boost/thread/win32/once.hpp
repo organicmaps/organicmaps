@@ -152,9 +152,9 @@ namespace boost
             {
                 name_once_mutex(mutex_name,flag_address);
             }
-
+            
             return ::boost::detail::win32::create_event(
-                mutex_name,
+                mutex_name, 
                 ::boost::detail::win32::manual_reset_event,
                 ::boost::detail::win32::event_initially_reset);
         }

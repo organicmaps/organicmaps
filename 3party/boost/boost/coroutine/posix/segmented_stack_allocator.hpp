@@ -23,14 +23,14 @@
 // forward declaration for splitstack-functions defined in libgcc
 extern "C" {
 void *__splitstack_makecontext( std::size_t,
-                                void * [BOOST_COROUTINES_SEGMENTS],
+                                void * [BOOST_CONTEXT_SEGMENTS],
                                 std::size_t *);
 
-void __splitstack_releasecontext( void * [BOOST_COROUTINES_SEGMENTS]);
+void __splitstack_releasecontext( void * [BOOST_CONTEXT_SEGMENTS]);
 
-void __splitstack_resetcontext( void * [BOOST_COROUTINES_SEGMENTS]);
+void __splitstack_resetcontext( void * [BOOST_CONTEXT_SEGMENTS]);
 
-void __splitstack_block_signals_context( void * [BOOST_COROUTINES_SEGMENTS],
+void __splitstack_block_signals_context( void * [BOOST_CONTEXT_SEGMENTS],
                                          int * new_value, int * old_value);
 }
 

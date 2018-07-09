@@ -100,6 +100,8 @@ namespace detail {
 
 struct gcc_arm_operations_base
 {
+    static BOOST_CONSTEXPR_OR_CONST bool is_always_lock_free = true;
+
     static BOOST_FORCEINLINE void fence_before(memory_order order) BOOST_NOEXCEPT
     {
         if ((order & memory_order_release) != 0)
@@ -156,6 +158,7 @@ struct operations< 4u, Signed > :
     public gcc_arm_operations_base
 {
     typedef typename make_storage_type< 4u, Signed >::type storage_type;
+    typedef typename make_storage_type< 4u, Signed >::aligned aligned_storage_type;
 
     static BOOST_FORCEINLINE void store(storage_type volatile& storage, storage_type v, memory_order order) BOOST_NOEXCEPT
     {
@@ -677,6 +680,7 @@ struct operations< 8u, Signed > :
     public gcc_arm_operations_base
 {
     typedef typename make_storage_type< 8u, Signed >::type storage_type;
+    typedef typename make_storage_type< 8u, Signed >::aligned aligned_storage_type;
 
     static BOOST_FORCEINLINE void store(storage_type volatile& storage, storage_type v, memory_order order) BOOST_NOEXCEPT
     {

@@ -69,6 +69,7 @@ public class WheelProgressView extends ImageView
     typedArray.recycle();
 
     mPendingDrawable = (AnimationDrawable) getResources().getDrawable(ThemeUtils.getResource(getContext(), R.attr.wheelPendingAnimation));
+    Graphics.tint(mPendingDrawable, progressColor);
 
     mBgPaint = new Paint();
     mBgPaint.setColor(secondaryColor);
@@ -155,5 +156,10 @@ public class WheelProgressView extends ImageView
     }
 
     invalidate();
+  }
+
+  public boolean isPending()
+  {
+    return mIsPending;
   }
 }

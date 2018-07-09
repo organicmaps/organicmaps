@@ -7,16 +7,22 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/cctype.hpp"
-#include "std/cmath.hpp"
-#include "std/cstdlib.hpp"
-#include "std/unordered_set.hpp"
+#include <algorithm>
+#include <cctype>
+#include <cmath>
+#include <cstdlib>
+#include <unordered_set>
+
+using namespace std;
 
 namespace
 {
 
 constexpr char const * kOSMMultivalueDelimiter = ";";
+
+// https://en.wikipedia.org/wiki/List_of_tallest_buildings_in_the_world
+auto constexpr kMaxBuildingLevelsInTheWorld = 167;
+auto constexpr kMinBuildingLevel = -6;
 
 template <class T>
 void RemoveDuplicatesAndKeepOrder(vector<T> & vec)
@@ -29,7 +35,7 @@ void RemoveDuplicatesAndKeepOrder(vector<T> & vec)
     seen.insert(value);
     return false;
   };
-  vec.erase(std::remove_if(vec.begin(), vec.end(), predicate), vec.end());
+  vec.erase(remove_if(vec.begin(), vec.end(), predicate), vec.end());
 }
 
 // Also filters out duplicates.
@@ -177,8 +183,6 @@ string MetadataTagProcessorImpl::ValidateAndFormat_height(string const & v) cons
 
 string MetadataTagProcessorImpl::ValidateAndFormat_building_levels(string v) const
 {
-  // https://en.wikipedia.org/wiki/List_of_tallest_buildings_in_the_world
-  auto constexpr kMaxBuildingLevelsInTheWorld = 167;
   // Some mappers use full width unicode digits. We can handle that.
   strings::NormalizeDigits(v);
   char * stop;
@@ -186,6 +190,22 @@ string MetadataTagProcessorImpl::ValidateAndFormat_building_levels(string v) con
   double const levels = strtod(s, &stop);
   if (s != stop && isfinite(levels) && levels >= 0 && levels <= kMaxBuildingLevelsInTheWorld)
     return strings::to_string_dac(levels, 1);
+
+  return {};
+}
+
+string MetadataTagProcessorImpl::ValidateAndFormat_level(string v) const
+{
+  // Some mappers use full width unicode digits. We can handle that.
+  strings::NormalizeDigits(v);
+  char * stop;
+  char const * s = v.c_str();
+  double const levels = strtod(s, &stop);
+  if (s != stop && isfinite(levels) && levels >= kMinBuildingLevel &&
+      levels <= kMaxBuildingLevelsInTheWorld)
+  {
+    return strings::to_string(levels);
+  }
 
   return {};
 }

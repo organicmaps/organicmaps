@@ -29,11 +29,11 @@ public:
 
   explicit FileWriter(string const & fileName,
                       Op operation = OP_WRITE_TRUNCATE, bool bTruncOnClose = false);
-  ~FileWriter();
+  ~FileWriter() override;
 
-  void Seek(int64_t pos);
-  int64_t Pos() const;
-  void Write(void const * p, size_t size);
+  void Seek(uint64_t pos) override;
+  uint64_t Pos() const override;
+  void Write(void const * p, size_t size) override;
 
   void WritePaddingByEnd(size_t factor);
   void WritePaddingByPos(size_t factor);

@@ -19,14 +19,14 @@ namespace boost{ namespace math{ namespace tools{
 // std::fmod(1185.0L, 1.5L);
 //
 template <class T>
-inline T fmod_workaround(T a, T b)
+inline T fmod_workaround(T a, T b) BOOST_MATH_NOEXCEPT(T)
 {
    BOOST_MATH_STD_USING
    return fmod(a, b);
 }
 #if (defined(macintosh) || defined(__APPLE__) || defined(__APPLE_CC__)) && ((LDBL_MANT_DIG == 106) || (__LDBL_MANT_DIG__ == 106))
 template <>
-inline long double fmod_workaround(long double a, long double b)
+inline long double fmod_workaround(long double a, long double b) BOOST_NOEXCEPT
 {
    return ::fmodl(a, b);
 }

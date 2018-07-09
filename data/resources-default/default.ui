@@ -35,4 +35,16 @@
       <offset x="10" y="10"/>
     </landscape>
   </copyright>
+  <watermark>
+    <portrait>
+      <anchor vertical="bottom" horizontal="right"/>
+      <relative vertical="bottom" horizontal="right"/>
+      <offset x="10" y="10"/>
+    </portrait>
+    <landscape>
+      <anchor vertical="bottom" horizontal="right"/>
+      <relative vertical="bottom" horizontal="right"/>
+      <offset x="10" y="10"/>
+    </landscape>
+  </watermark>
 </root>

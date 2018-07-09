@@ -170,7 +170,7 @@ namespace glm
 	/// @tparam genType Floating-point or integer; scalar or vector types.
 	/// 
 	/// @see <a href="http://www.opengl.org/sdk/docs/manglsl/xhtml/min.xml">GLSL min man page</a>
-	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.3 Common Functions</a><<<<<<< HEAD
+	/// @see <a href="http://www.opengl.org/registry/doc/GLSLangSpec.4.20.8.pdf">GLSL 4.20.8 specification, section 8.3 Common Functions</a>
 	template <typename genType>
 	GLM_FUNC_DECL genType min(
 		genType const & x,

@@ -8,7 +8,7 @@
 #ifndef BOOST_IOSTREAMS_DETAIL_RESOLVE_HPP_INCLUDED
 #define BOOST_IOSTREAMS_DETAIL_RESOLVE_HPP_INCLUDED
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif              
 
@@ -32,9 +32,7 @@
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/bool.hpp> // true_.
 #include <boost/mpl/if.hpp>
-#if !BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
-# include <boost/range/iterator_range.hpp>
-#endif // #if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
+#include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/is_array.hpp>
 
 // Must come last.
@@ -102,12 +100,10 @@ template<typename Mode, typename Ch, std::size_t N>
 array_adapter<Mode, Ch> resolve(Ch (&array)[N])
 { return array_adapter<Mode, Ch>(array); }
 
-#  if !BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
-    template<typename Mode, typename Ch, typename Iter>
-    range_adapter< Mode, boost::iterator_range<Iter> > 
-    resolve(const boost::iterator_range<Iter>& rng)
-    { return range_adapter< Mode, boost::iterator_range<Iter> >(rng); }
-#  endif // #if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
+template<typename Mode, typename Ch, typename Iter>
+range_adapter< Mode, boost::iterator_range<Iter> >
+resolve(const boost::iterator_range<Iter>& rng)
+{ return range_adapter< Mode, boost::iterator_range<Iter> >(rng); }
 
 # else // # ifndef BOOST_IOSTREAMS_NO_STREAM_TEMPLATES //---------------------//
 
@@ -201,7 +197,6 @@ resolve(const T& t BOOST_IOSTREAMS_DISABLE_IF_STREAM(T))
 { return resolve<Mode, Ch>(t, is_std_io<T>()); }
 
 # if !BOOST_WORKAROUND(__BORLANDC__, < 0x600) && \
-     !BOOST_WORKAROUND(BOOST_MSVC, <= 1300) && \
      !defined(__GNUC__) // ---------------------------------------------------//
 
 template<typename Mode, typename Ch, typename T>
@@ -225,7 +220,7 @@ typename resolve_traits<Mode, Ch, T>::type
 resolve(T& t BOOST_IOSTREAMS_ENABLE_IF_STREAM(T))
 { return resolve<Mode, Ch>(t, is_std_io<T>()); }
 
-# endif // Borland 5.x, VC6-7.0 or GCC 2.9x //--------------------------------//
+# endif // Borland 5.x or GCC //--------------------------------//
 #endif // #ifndef BOOST_IOSTREAMS_BROKEN_OVERLOAD_RESOLUTION //---------------//
 
 } } } // End namespaces detail, iostreams, boost.

@@ -53,13 +53,13 @@ namespace boost
             Visitor vis(vis_);  // require copy construction
             Graph g(1);
             Vertex v(*vertices(g).first);
-            vis_.visit_vertex(v, g); // require visit_vertex
+            vis.visit_vertex(v, g); // require visit_vertex
         }
     };
 
     // Tree visitor that keeps track of a preorder traversal of a tree
     // TODO: Consider migrating this to the graph_as_tree header.
-    // TODO: Parameterize the underlying stores o it doesn't have to be a vector.
+    // TODO: Parameterize the underlying stores so it doesn't have to be a vector.
     template<typename Node, typename Tree> class PreorderTraverser
     {
     private:
@@ -266,7 +266,7 @@ namespace boost
         { return graph_traits<Graph>::null_vertex(); }
 
     public:
-        tsp_tour_len_visitor(Graph const&, OutIter iter, Length& l, WeightMap map)
+        tsp_tour_len_visitor(Graph const&, OutIter iter, Length& l, WeightMap& map)
             : iter_(iter), tourlen_(l), wmap_(map), previous_(null())
         { }
 

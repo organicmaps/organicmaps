@@ -23,29 +23,34 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 
 omim_link_libraries(
   ${PROJECT_NAME}
+  platform_tests_support
+  generator_tests_support
   drape_frontend
+  shaders
   map
   traffic
   storage
   drape
-  generator_tests_support
   generator
   search
   routing
   routing_common
-  indexer
-  platform_tests_support
-  osrm
+  ugc
+  kml
   editor
+  indexer
   oauthcpp
   platform
   opening_hours
+  mwm_diff
+  bsdiff
   geometry
   coding
   base
   freetype
   expat
-  fribidi
+  icu
+  agg
   jansson
   tess2
   protobuf

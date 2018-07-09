@@ -2,8 +2,8 @@
 
 #include "base/newtype.hpp"
 
-#include "std/sstream.hpp"
-#include "std/type_traits.hpp"
+#include <sstream>
+#include <type_traits>
 
 namespace
 {
@@ -11,17 +11,17 @@ NEWTYPE(int, Int);
 
 string DebugPrint(Int const & i)
 {
-  stringstream sstr;
+  std::stringstream sstr;
   sstr << "Int(" << i.Get() << ')';
   return sstr.str();
 }
 
 UNIT_TEST(NewType_TypeChecks)
 {
-  TEST((is_constructible<Int, int>::value), ());
-  TEST((is_constructible<Int, char>::value), ());
-  TEST(!(is_convertible<int, Int>::value), ());
-  TEST(!(is_convertible<Int, int>::value), ());
+  TEST((std::is_constructible<Int, int>::value), ());
+  TEST((std::is_constructible<Int, char>::value), ());
+  TEST(!(std::is_convertible<int, Int>::value), ());
+  TEST(!(std::is_convertible<Int, int>::value), ());
 }
 
 UNIT_TEST(NewType_Base)
@@ -107,7 +107,7 @@ UNIT_TEST(NewType_SimpleOutPut)
   using namespace test_output;
   TEST_EQUAL(test_output::DebugPrint(Int(10)), "10", ());
 
-  ostringstream sstr;
+  std::ostringstream sstr;
   sstr << Int(20);
   TEST_EQUAL(sstr.str(), "20", ());
 }

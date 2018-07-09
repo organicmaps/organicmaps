@@ -5,7 +5,7 @@
 //  Distributed under the Boost Software License, Version 1.0.
 //  See http://www.boost.org/LICENSE_1_0.txt
 
-//--------------------------------------------------------------------------------------//
+//--------------------------------------------------------------------------------------// 
 
 #ifndef BOOST_ENDIAN_CONFIG_HPP
 #define BOOST_ENDIAN_CONFIG_HPP
@@ -31,14 +31,14 @@
 #if defined(BOOST_ALL_DYN_LINK) || defined(BOOST_ENDIAN_DYN_LINK)
 # if defined(BOOST_ENDIAN_SOURCE)
 #   define BOOST_ENDIAN_DECL BOOST_SYMBOL_EXPORT
-# else
+# else 
 #   define BOOST_ENDIAN_DECL BOOST_SYMBOL_IMPORT
 # endif
 #else
 # define BOOST_ENDIAN_DECL
 #endif
 
-//  enable automatic library variant selection  ----------------------------------------//
+//  enable automatic library variant selection  ----------------------------------------// 
 
 #if !defined(BOOST_ENDIAN_SOURCE) && !defined(BOOST_ALL_NO_LIB) \
   && !defined(BOOST_ENDIAN_NO_LIB)

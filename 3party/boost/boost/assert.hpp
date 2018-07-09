@@ -3,10 +3,12 @@
 //                     BOOST_ASSERT_MSG(expr, msg)
 //                     BOOST_VERIFY(expr)
 //                     BOOST_VERIFY_MSG(expr, msg)
+//                     BOOST_ASSERT_IS_VOID
 //
 //  Copyright (c) 2001, 2002 Peter Dimov and Multi Media Ltd.
 //  Copyright (c) 2007, 2014 Peter Dimov
 //  Copyright (c) Beman Dawes 2011
+//  Copyright (c) 2015 Ion Gaztanaga
 //
 //  Distributed under the Boost Software License, Version 1.0.
 //  See accompanying file LICENSE_1_0.txt or copy at
@@ -24,16 +26,18 @@
 //
 
 //
-// BOOST_ASSERT, BOOST_ASSERT_MSG
+// BOOST_ASSERT, BOOST_ASSERT_MSG, BOOST_ASSERT_IS_VOID
 //
 
 #undef BOOST_ASSERT
 #undef BOOST_ASSERT_MSG
+#undef BOOST_ASSERT_IS_VOID
 
 #if defined(BOOST_DISABLE_ASSERTS) || ( defined(BOOST_ENABLE_ASSERT_DEBUG_HANDLER) && defined(NDEBUG) )
 
 # define BOOST_ASSERT(expr) ((void)0)
 # define BOOST_ASSERT_MSG(expr, msg) ((void)0)
+# define BOOST_ASSERT_IS_VOID
 
 #elif defined(BOOST_ENABLE_ASSERT_HANDLER) || ( defined(BOOST_ENABLE_ASSERT_DEBUG_HANDLER) && !defined(NDEBUG) )
 
@@ -55,6 +59,9 @@ namespace boost
 
 # define BOOST_ASSERT(expr) assert(expr)
 # define BOOST_ASSERT_MSG(expr, msg) assert((expr)&&(msg))
+#if defined(NDEBUG)
+# define BOOST_ASSERT_IS_VOID
+#endif
 
 #endif
 

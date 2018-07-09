@@ -27,6 +27,7 @@
 #include <boost/log/expressions/formatters/xml_decorator.hpp>
 #include <boost/log/expressions/formatters/csv_decorator.hpp>
 #include <boost/log/expressions/formatters/c_decorator.hpp>
+#include <boost/log/expressions/formatters/max_size_decorator.hpp>
 
 #include <boost/log/expressions/formatters/if.hpp>
 #include <boost/log/expressions/formatters/wrap_formatter.hpp>

@@ -15,17 +15,12 @@
 #define BOOST_GEOMETRY_STRATEGIES_CARTESIAN_DISTANCE_PYTHAGORAS_HPP
 
 
-#include <boost/mpl/if.hpp>
-#include <boost/type_traits.hpp>
-
 #include <boost/geometry/core/access.hpp>
 
 #include <boost/geometry/strategies/distance.hpp>
 
 #include <boost/geometry/util/math.hpp>
 #include <boost/geometry/util/calculation_type.hpp>
-
-
 
 
 namespace boost { namespace geometry
@@ -96,8 +91,8 @@ public :
     static inline typename calculation_type<Point1, Point2>::type
     apply(Point1 const& p1, Point2 const& p2)
     {
-        BOOST_CONCEPT_ASSERT( (concept::ConstPoint<Point1>) );
-        BOOST_CONCEPT_ASSERT( (concept::ConstPoint<Point2>) );
+        BOOST_CONCEPT_ASSERT( (concepts::ConstPoint<Point1>) );
+        BOOST_CONCEPT_ASSERT( (concepts::ConstPoint<Point2>) );
 
         // Calculate distance using Pythagoras
         // (Leave comment above for Doxygen)

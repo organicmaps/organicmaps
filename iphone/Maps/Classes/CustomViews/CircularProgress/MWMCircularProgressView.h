@@ -14,12 +14,14 @@
 
 - (void)setSpinnerColoring:(MWMImageColoring)coloring;
 - (void)setSpinnerBackgroundColor:(nonnull UIColor *)backgroundColor;
-- (void)setImageName:(nonnull NSString *)imageName forState:(MWMCircularProgressState)state;
+- (void)setImageName:(nullable NSString *)imageName forState:(MWMCircularProgressState)state;
 - (void)setColor:(nonnull UIColor *)color forState:(MWMCircularProgressState)state;
 - (void)setColoring:(MWMButtonColoring)coloring forState:(MWMCircularProgressState)state;
 
 - (void)animateFromValue:(CGFloat)fromValue toValue:(CGFloat)toValue;
 
 - (void)updatePath:(CGFloat)progress;
+
+- (UIView * _Nullable)buttonView;
 
 @end

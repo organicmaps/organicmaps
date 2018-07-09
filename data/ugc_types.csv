@@ -1,0 +1,164 @@
+OSM tag,Rating,Reviews,Details,Rating keys
+aerialway-station,1,1,0,rating
+aeroway-aerodrome,1,1,1,rating
+aeroway-helipad,1,1,0,rating
+amenity-atm,1,1,1,rating
+amenity-bank,1,1,0,quality service value_for_money
+amenity-bar,1,1,1,value_for_money service atmosphere
+amenity-bicycle_rental,1,1,0,experience service value_for_money
+amenity-bus_station,1,1,0,rating
+amenity-cafe,1,1,1,cuisine service atmosphere
+amenity-car_rental,1,1,0,quality service value_for_money
+amenity-car_wash,1,1,0,quality service value_for_money
+amenity-cinema,1,1,0,experience service value_for_money
+amenity-clinic,1,1,0,expertise equipment value_for_money
+amenity-college,1,1,0,rating
+amenity-dentist,1,1,0,expertise equipment value_for_money
+amenity-doctors,1,1,0,expertise equipment value_for_money
+amenity-embassy,1,1,0,quality service value_for_money
+amenity-fast_food,1,1,1,cuisine service atmosphere
+amenity-ferry_terminal,1,1,0,rating
+amenity-fountain,1,1,0,experience value_for_money
+amenity-fuel,1,1,0,assortment service value_for_money
+amenity-hospital,1,1,0,expertise equipment value_for_money
+amenity-kindergarten,1,1,0,rating
+amenity-library,1,1,0,quality service value_for_money
+amenity-marketplace,1,1,1,assortment service value_for_money
+amenity-nightclub,1,1,1,value_for_money service atmosphere
+amenity-parking,1,1,0,rating
+amenity-parking-fee,1,1,0,rating
+amenity-pharmacy,1,1,1,assortment service value_for_money
+amenity-police,1,1,0,rating
+amenity-post_office,1,1,0,quality service value_for_money
+amenity-pub,1,1,1,value_for_money service atmosphere
+amenity-restaurant,1,1,1,cuisine service atmosphere
+amenity-school,1,1,0,rating
+amenity-shelter,1,1,0,rating
+amenity-taxi,1,1,0,rating
+amenity-theatre,1,1,0,experience service value_for_money
+amenity-toilets,1,1,0,rating
+amenity-townhall,1,1,0,rating
+amenity-university,1,1,0,rating
+amenity-biergarten,1,1,1,value_for_money service atmosphere
+amenity-driving_school,1,1,0,rating
+amenity-ice_cream,1,1,1,cuisine service atmosphere
+amenity-internet_cafe,1,1,0,quality service value_for_money
+amenity-motorcycle_parking,1,1,1,rating
+amenity-nursing_home,1,1,0,rating
+amenity-shower,1,1,0,rating
+building,1,1,0,rating
+building-train_station,1,1,0,rating
+historic-archaeological_site,1,1,0,experience value_for_money
+historic-castle,1,1,0,experience value_for_money
+historic-memorial,1,1,0,experience value_for_money
+historic-monument,1,1,0,experience value_for_money
+historic-museum,1,1,0,experience value_for_money
+historic-ruins,1,1,0,experience value_for_money
+internet_access,1,1,0,rating
+internet_access-wlan,1,1,0,rating
+leisure-garden,1,1,0,experience cleanliness crowdedness
+leisure-golf_course,1,1,0,experience service value_for_money
+leisure-nature_reserve,1,1,0,experience cleanliness crowdedness
+leisure-park,1,1,0,experience cleanliness crowdedness
+leisure-pitch,1,1,0,equipment service value_for_money
+leisure-playground,1,1,0,experience equipment crowdedness
+leisure-sports_centre,1,1,0,equipment service value_for_money
+leisure-stadium,1,1,0,experience service value_for_money
+leisure-swimming_pool,1,1,0,equipment service value_for_money
+leisure-fitness_station,1,1,0,equipment service value_for_money
+leisure-water_park,1,1,0,experience service value_for_money
+man_made-lighthouse,1,1,0,experience value_for_money
+natural-beach,1,1,0,experience cleanliness crowdedness
+natural-cave_entrance,1,1,0,experience cleanliness crowdedness
+natural-peak,1,1,0,rating
+natural-spring,1,1,0,rating
+natural-volcano,1,1,0,rating
+natural-water,1,1,0,rating
+natural-wood,1,1,0,rating
+office,1,1,0,rating
+office-company,1,1,0,rating
+office-government,1,1,0,rating
+office-insurance,1,1,0,quality service value_for_money
+office-ngo,1,1,0,rating
+place-island,1,1,0,rating
+place-ocean,1,1,0,rating
+place-sea,1,1,0,rating
+railway-halt,1,1,0,rating
+railway-station,1,1,0,rating
+railway-station-subway,1,1,0,rating
+railway-tram_stop,1,1,0,rating
+shop,1,1,1,assortment service value_for_money
+shop-alcohol,1,1,1,assortment service value_for_money
+shop-bakery,1,1,1,cuisine service atmosphere
+shop-beauty,1,1,1,assortment service value_for_money
+shop-bicycle,1,1,1,assortment service value_for_money
+shop-books,1,1,1,assortment service value_for_money
+shop-butcher,1,1,1,assortment service value_for_money
+shop-car,1,1,1,assortment service value_for_money
+shop-car_repair,1,1,0,quality service value_for_money
+shop-clothes,1,1,1,assortment service value_for_money
+shop-convenience,1,1,0,assortment service value_for_money
+shop-department_store,1,1,1,assortment service value_for_money
+shop-doityourself,1,1,1,assortment service value_for_money
+shop-electronics,1,1,1,assortment service value_for_money
+shop-florist,1,1,1,assortment service value_for_money
+shop-furniture,1,1,1,assortment service value_for_money
+shop-gift,1,1,1,assortment service value_for_money
+shop-hairdresser,1,1,0,quality service value_for_money
+shop-hardware,1,1,1,assortment service value_for_money
+shop-jewelry,1,1,1,assortment service value_for_money
+shop-kiosk,1,1,0,assortment service value_for_money
+shop-mall,1,1,0,assortment service value_for_money
+shop-mobile_phone,1,1,1,assortment service value_for_money
+shop-shoes,1,1,1,assortment service value_for_money
+shop-sports,1,1,0,assortment service value_for_money
+shop-supermarket,1,1,1,assortment service value_for_money
+shop-beverages,1,1,1,assortment service value_for_money
+shop-bookmaker,1,1,1,quality service value_for_money
+shop-car_parts,1,1,1,assortment service value_for_money
+shop-chemist,1,1,1,assortment service value_for_money
+shop-chocolate,1,1,1,assortment service value_for_money
+shop-computer,1,1,1,assortment service value_for_money
+shop-cosmetics,1,1,1,assortment service value_for_money
+shop-erotic,1,1,1,assortment service value_for_money
+shop-laundry,1,1,0,quality service value_for_money
+shop-massage,1,1,0,experience service value_for_money
+shop-motorcycle,1,1,1,assortment service value_for_money
+shop-newsagent,1,1,1,assortment service value_for_money
+shop-pawnbroker,1,1,1,quality service value_for_money
+shop-stationery,1,1,1,assortment service value_for_money
+shop-tattoo,1,1,0,quality service value_for_money
+shop-tyres,1,1,1,assortment service value_for_money
+shop-variety_store,1,1,1,assortment service value_for_money
+shop-wine,1,1,1,assortment service value_for_money
+sponsored-booking,0,0,0, 
+sport-basketball,1,1,0,equipment service value_for_money
+sport-multi,1,1,0,equipment service value_for_money
+sport-soccer,1,1,0,equipment service value_for_money
+sport-swimming,1,1,0,equipment service value_for_money
+sport-tennis,1,1,0,equipment service value_for_money
+tourism-artwork,1,1,0,experience value_for_money
+tourism-attraction,1,1,0,experience value_for_money
+tourism-camp_site,1,1,0,rating
+tourism-guest_house,1,1,1,booking_hotel_room service placepage_hotel_facilities
+tourism-hostel,1,1,1,booking_hotel_room service placepage_hotel_facilities
+tourism-hotel,1,1,1,booking_hotel_room service placepage_hotel_facilities
+tourism-information,1,1,0,rating
+tourism-information-guidepost,1,1,0,rating
+tourism-information-office,1,1,0,quality service value_for_money
+tourism-motel,1,1,1,booking_hotel_room service placepage_hotel_facilities
+tourism-museum,1,1,0,experience service value_for_money
+tourism-picnic_site,1,1,0,rating
+tourism-viewpoint,1,1,0,experience value_for_money
+tourism-zoo,1,1,0,experience service value_for_money
+tourism-alpine_hut,1,1,0,booking_hotel_room service placepage_hotel_facilities
+tourism-apartment,1,1,0,booking_hotel_room service placepage_hotel_facilities
+tourism-chalet,1,1,0,booking_hotel_room service placepage_hotel_facilities
+tourism-resort,1,1,0,booking_hotel_room service placepage_hotel_facilities
+tourism-theme_park,1,1,0,experience service value_for_money
+tourism-wilderness_hut,1,1,0,rating
+tourism-wilderness_hut,1,1,0,booking_hotel_room service placepage_hotel_facilities
+waterway-canal,1,1,0,rating
+waterway-river,1,1,0,rating
+waterway-stream,1,1,0,rating
+waterway-waterfall,1,1,0,experience value_for_money

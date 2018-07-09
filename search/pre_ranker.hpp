@@ -4,8 +4,6 @@
 #include "search/nested_rects_cache.hpp"
 #include "search/ranker.hpp"
 
-#include "indexer/index.hpp"
-
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
@@ -18,6 +16,8 @@
 #include "std/utility.hpp"
 #include "std/vector.hpp"
 
+class DataSource;
+
 namespace search
 {
 // Fast and simple pre-ranker for search results.
@@ -28,7 +28,7 @@ public:
   {
     m2::RectD m_viewport;
 
-    // A minimum distance between search results in meters, needed for
+    // Minimal distance between search results in mercators, needed for
     // filtering of viewport search results.
     double m_minDistanceOnMapBetweenResults = 0.0;
 
@@ -43,18 +43,23 @@ public:
     int m_scale = 0;
 
     size_t m_batchSize = 100;
+
+    // The maximum total number of results to be emitted in all batches.
+    size_t m_limit = 0;
+
+    bool m_viewportSearch = false;
   };
 
-  PreRanker(Index const & index, Ranker & ranker, size_t limit);
+  PreRanker(DataSource const & dataSource, Ranker & ranker);
 
   void Init(Params const & params);
 
-  inline void SetViewportSearch(bool viewportSearch) { m_viewportSearch = viewportSearch; }
+  void Finish(bool cancelled);
 
   template <typename... TArgs>
   void Emplace(TArgs &&... args)
   {
-    if (m_numSentResults >= m_limit)
+    if (m_numSentResults >= Limit())
       return;
     m_results.emplace_back(forward<TArgs>(args)...);
   }
@@ -65,14 +70,13 @@ public:
   void Filter(bool viewportSearch);
 
   // Emit a new batch of results up the pipeline (i.e. to ranker).
-  // Use lastUpdate in geocoder to indicate that
-  // no more results will be added.
+  // Use |lastUpdate| to indicate that no more results will be added.
   void UpdateResults(bool lastUpdate);
 
   inline size_t Size() const { return m_results.size(); }
   inline size_t BatchSize() const { return m_params.m_batchSize; }
   inline size_t NumSentResults() const { return m_numSentResults; }
-  inline size_t Limit() const { return m_limit; }
+  inline size_t Limit() const { return m_params.m_limit; }
 
   template <typename TFn>
   void ForEach(TFn && fn)
@@ -85,12 +89,10 @@ public:
 private:
   void FilterForViewportSearch();
 
-  Index const & m_index;
+  DataSource const & m_dataSource;
   Ranker & m_ranker;
-  vector<PreResult1> m_results;
-  size_t const m_limit;
+  vector<PreRankerResult> m_results;
   Params m_params;
-  bool m_viewportSearch = false;
 
   // Amount of results sent up the pipeline.
   size_t m_numSentResults = 0;

@@ -70,7 +70,7 @@ private:
                 trampoline_t as_trampoline;
             }
             caster;
-            caster.as_trampoline = &callback_base::trampoline< VisitorT, T >;
+            caster.as_trampoline = (trampoline_t)&callback_base::trampoline< VisitorT, T >;
             this->m_pTrampoline = caster.as_pvoid;
         }
     };

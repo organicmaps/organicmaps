@@ -144,9 +144,9 @@ T float_next_imp(const T& val, const Policy& pol)
    if(diff == 0)
       diff = detail::get_smallest_value<T>();
    return val + diff;
-}
+} // float_next_imp
 
-}
+} // namespace detail
 
 template <class T, class Policy>
 inline typename tools::promote_args<T>::type float_next(const T& val, const Policy& pol)
@@ -227,9 +227,9 @@ T float_prior_imp(const T& val, const Policy& pol)
    if(diff == 0)
       diff = detail::get_smallest_value<T>();
    return val - diff;
-}
+} // float_prior_imp
 
-}
+} // namespace detail
 
 template <class T, class Policy>
 inline typename tools::promote_args<T>::type float_prior(const T& val, const Policy& pol)
@@ -304,7 +304,7 @@ T float_distance_imp(const T& a, const T& b, const Policy& pol)
    if(a > b)
       return -float_distance(b, a, pol);
    if(a == b)
-      return 0;
+      return T(0);
    if(a == 0)
       return 1 + fabs(float_distance(static_cast<T>((b < 0) ? T(-detail::get_smallest_value<T>()) : detail::get_smallest_value<T>()), b, pol));
    if(b == 0)
@@ -330,7 +330,7 @@ T float_distance_imp(const T& a, const T& b, const Policy& pol)
    //
    frexp(((boost::math::fpclassify)(a) == (int)FP_SUBNORMAL) ? tools::min_value<T>() : a, &expon);
    T upper = ldexp(T(1), expon);
-   T result = 0;
+   T result = T(0);
    expon = tools::digits<T>() - expon;
    //
    // If b is greater than upper, then we *must* split the calculation
@@ -379,9 +379,9 @@ T float_distance_imp(const T& a, const T& b, const Policy& pol)
    //
    BOOST_ASSERT(result == floor(result));
    return result;
-}
+} // float_distance_imp
 
-}
+} // namespace detail
 
 template <class T, class U, class Policy>
 inline typename tools::promote_args<T, U>::type float_distance(const T& a, const U& b, const Policy& pol)
@@ -477,9 +477,9 @@ T float_advance_imp(T val, int distance, const Policy& pol)
    if(diff == 0)
       diff = distance * detail::get_smallest_value<T>();
    return val += diff;
-}
+} // float_advance_imp
 
-}
+} // namespace detail
 
 template <class T, class Policy>
 inline typename tools::promote_args<T>::type float_advance(T val, int distance, const Policy& pol)
@@ -494,7 +494,7 @@ inline typename tools::promote_args<T>::type float_advance(const T& val, int dis
    return boost::math::float_advance(val, distance, policies::policy<>());
 }
 
-}} // namespaces
+}} // boost math namespaces
 
 #endif // BOOST_MATH_SPECIAL_NEXT_HPP
 

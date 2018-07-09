@@ -2,31 +2,15 @@
 #import "MWMMyTarget.h"
 #import "MWMNavigationController.h"
 
-#include "indexer/map_style.hpp"
-
-#include "storage/index.hpp"
-
 @class MapViewController;
-@class LocationManager;
 
-typedef NS_ENUM(NSUInteger, MWMRoutingPlaneMode) {
-  MWMRoutingPlaneModeNone,
-  MWMRoutingPlaneModePlacePage,
-  MWMRoutingPlaneModeSearchSource,
-  MWMRoutingPlaneModeSearchDestination
-};
-
-@interface MapsAppDelegate
-    : UIResponder<UIApplicationDelegate, UIAlertViewDelegate, DownloadIndicatorProtocol>
+@interface MapsAppDelegate : UIResponder<UIApplicationDelegate, DownloadIndicatorProtocol>
 {
   NSInteger m_activeDownloadsCounter;
   UIBackgroundTaskIdentifier m_backgroundTask;
-  UIBackgroundTaskIdentifier m_editorUploadBackgroundTask;
-  UIAlertView * m_loadingAlertView;
 }
 
 @property(nonatomic) UIWindow * window;
-@property(nonatomic) MWMRoutingPlaneMode routingPlaneMode;
 
 @property(nonatomic, readonly) MapViewController * mapViewController;
 @property(nonatomic, readonly) BOOL isDrapeEngineCreated;
@@ -49,6 +33,6 @@ typedef NS_ENUM(NSUInteger, MWMRoutingPlaneMode) {
 - (void)showMap;
 - (void)showAlertIfRequired;
 
-- (void)setMapStyle:(MapStyle)mapStyle;
+- (NSUInteger)badgeNumber;
 
 @end

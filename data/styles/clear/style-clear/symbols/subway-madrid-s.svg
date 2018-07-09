@@ -1,14 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="21px" height="15px" viewBox="0 0 21 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>subway-madrid-s</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="subway-madrid-s" transform="translate(-1.000000, -4.000000)">
-            <polygon id="Rectangle-339-Copy-4" fill-opacity="0.6" fill="#FFFFFF" transform="translate(11.500000, 11.500000) rotate(-45.000000) translate(-11.500000, -11.500000) " points="4.0753788 4.0753788 16.8033009 6.19669914 18.9246212 18.9246212 6.19669914 16.8033009"></polygon>
-            <path d="M2,11.5 L11.5,5 L21,11.5 L11.5,18 L2,11.5 Z M5.96446609,11.5 L11.5,7.96446609 L17.0355339,11.5 L11.5,15.0355339 L5.96446609,11.5 Z" id="Rectangle-339" fill="#ED1B2D"></path>
-            <rect id="Rectangle-399-Copy" fill="#14489E" x="6" y="10" width="11" height="3"></rect>
-        </g>
-    </g>
+<svg width="21" height="15" viewBox="0 0 21 15">
+  <g fill="none" transform="translate(-1 -4)">
+    <polygon fill="#FFF" points="4.075 4.075 16.803 6.197 18.925 18.925 6.197 16.803" opacity=".6" transform="rotate(-45 11.5 11.5)"/>
+    <path fill="#ED1B2D" d="M2,11.5 L11.5,5 L21,11.5 L11.5,18 L2,11.5 Z M5.96446609,11.5 L11.5,15.0355339 L17.0355339,11.5 L11.5,7.96446609 L5.96446609,11.5 Z"/>
+    <rect width="11" height="3" x="6" y="10" fill="#14489E"/>
+  </g>
 </svg>

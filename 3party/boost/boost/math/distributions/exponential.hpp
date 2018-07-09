@@ -117,7 +117,7 @@ inline RealType pdf(const exponential_distribution<RealType, Policy>& dist, cons
       return result;
    // Workaround for VC11/12 bug:
    if ((boost::math::isinf)(x))
-	   return 0;
+      return 0;
    result = lambda * exp(-lambda * x);
    return result;
 } // pdf
@@ -178,7 +178,7 @@ inline RealType cdf(const complemented2_type<exponential_distribution<RealType, 
       return result;
    // Workaround for VC11/12 bug:
    if (c.param >= tools::max_value<RealType>())
-	   return 0;
+      return 0;
    result = exp(-c.param * lambda);
 
    return result;

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="TransportTransitTrain" customModule="maps_me" customModuleProvider="target" propertyAccessControl="all">
+            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kDc-o2-JUp">
+                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9d1-PP-h28">
+                                <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="9d1-PP-h28" secondAttribute="height" multiplier="1:1" id="g45-u1-mQs"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="450" verticalCompressionResistancePriority="450" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Eo-0D-mup">
+                                <rect key="frame" x="20" y="0.0" width="0.0" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="9d1-PP-h28" firstAttribute="top" secondItem="kDc-o2-JUp" secondAttribute="top" id="3Nm-tA-OCb"/>
+                            <constraint firstItem="0Eo-0D-mup" firstAttribute="leading" secondItem="9d1-PP-h28" secondAttribute="trailing" id="3sb-9G-W6c"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0Eo-0D-mup" secondAttribute="trailing" priority="750" id="5NZ-eM-6di"/>
+                            <constraint firstAttribute="bottom" secondItem="0Eo-0D-mup" secondAttribute="bottom" id="Gu9-KZ-D9R"/>
+                            <constraint firstAttribute="trailing" secondItem="0Eo-0D-mup" secondAttribute="trailing" priority="250" constant="4" id="YNn-8w-SmG"/>
+                            <constraint firstItem="0Eo-0D-mup" firstAttribute="top" secondItem="kDc-o2-JUp" secondAttribute="top" id="ZPx-f9-8LV"/>
+                            <constraint firstItem="9d1-PP-h28" firstAttribute="leading" secondItem="kDc-o2-JUp" secondAttribute="leading" id="cQu-Lg-9xy"/>
+                            <constraint firstAttribute="bottom" secondItem="9d1-PP-h28" secondAttribute="bottom" id="m4N-mH-YaE"/>
+                            <constraint firstAttribute="trailing" secondItem="9d1-PP-h28" secondAttribute="trailing" id="mCa-Ah-9Xz"/>
+                            <constraint firstAttribute="height" constant="20" id="nQ0-T1-CvV"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="kDc-o2-JUp" secondAttribute="bottom" id="3wL-hq-d5s"/>
+                <constraint firstItem="kDc-o2-JUp" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="JMg-4a-h4Z"/>
+                <constraint firstItem="kDc-o2-JUp" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="MOo-JD-4vU"/>
+                <constraint firstAttribute="trailing" secondItem="kDc-o2-JUp" secondAttribute="trailing" id="gmg-yt-uVD"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="UN7-Tp-qio"/>
+            <size key="customSize" width="744" height="20"/>
+            <connections>
+                <outlet property="background" destination="kDc-o2-JUp" id="fh8-Ss-FeL"/>
+                <outlet property="emptyNumberTrailingOffset" destination="mCa-Ah-9Xz" id="k8k-Ca-u6s"/>
+                <outlet property="image" destination="9d1-PP-h28" id="Kpo-zR-osU"/>
+                <outlet property="label" destination="0Eo-0D-mup" id="Z15-fa-Wkx"/>
+                <outlet property="labelTrailing" destination="YNn-8w-SmG" id="lL1-5q-mjx"/>
+            </connections>
+            <point key="canvasLocation" x="383" y="54"/>
+        </collectionViewCell>
+    </objects>
+</document>

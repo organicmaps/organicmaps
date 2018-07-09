@@ -1,6 +1,4 @@
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "MWMConsts.h"
 
 static inline BOOL firstVersionIsLessThanSecond(NSString * first, NSString * second)
 {
@@ -22,7 +20,7 @@ static inline BOOL firstVersionIsLessThanSecond(NSString * first, NSString * sec
 
 static inline BOOL isIOSVersionLessThan(NSString * version)
 {
-  return firstVersionIsLessThanSecond([UIDevice currentDevice].systemVersion, version);
+  return firstVersionIsLessThanSecond(UIDevice.currentDevice.systemVersion, version);
 }
 
 static inline BOOL isIOSVersionLessThan(NSUInteger version)
@@ -30,11 +28,9 @@ static inline BOOL isIOSVersionLessThan(NSUInteger version)
   return isIOSVersionLessThan([NSString stringWithFormat:@"%@", @(version)]);
 }
 
-static BOOL const isIOS8 = isIOSVersionLessThan(9);
-
 static inline BOOL isInterfaceRightToLeft()
 {
-  return [UIApplication sharedApplication].userInterfaceLayoutDirection ==
+  return UIApplication.sharedApplication.userInterfaceLayoutDirection ==
          UIUserInterfaceLayoutDirectionRightToLeft;
 }
 
@@ -52,19 +48,14 @@ static inline BOOL equalScreenDimensions(CGFloat left, CGFloat right)
 
 static inline CGFloat statusBarHeight()
 {
-  CGSize const statusBarSize = [UIApplication sharedApplication].statusBarFrame.size;
+  CGSize const statusBarSize = UIApplication.sharedApplication.statusBarFrame.size;
   return MIN(statusBarSize.height, statusBarSize.width);
-}
-
-static inline void runAsyncOnMainQueue(dispatch_block_t block)
-{
-  dispatch_async(dispatch_get_main_queue(), block);
 }
 
 static inline void setStatusBarBackgroundColor(UIColor * color)
 {
   UIView * statusBar =
-      [[UIApplication sharedApplication] valueForKeyPath:@"statusBarWindow.statusBar"];
+      [UIApplication.sharedApplication valueForKeyPath:@"statusBarWindow.statusBar"];
   if ([statusBar respondsToSelector:@selector(setBackgroundColor:)])
     statusBar.backgroundColor = color;
 }

@@ -27,6 +27,8 @@ omim_link_libraries(
   base
   stats_client
   jansson
+  protobuf
+  icu
   ${LIBZ}
 )
 

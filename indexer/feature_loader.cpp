@@ -1,10 +1,8 @@
+#include "indexer/feature_loader.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
-#include "indexer/feature_loader.hpp"
-#include "indexer/geometry_serialization.hpp"
 #include "indexer/scales.hpp"
-
-#include "geometry/pointu_to_uint64.hpp"
 
 #include "coding/byte_stream.hpp"
 #include "coding/dd_vector.hpp"
@@ -13,13 +11,13 @@
 #include "base/logging.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/exception.hpp"
 #include "std/limits.hpp"
 
 #include "defines.hpp"
 
 namespace feature
 {
-
 uint8_t LoaderCurrent::GetHeader()
 {
   return Header();
@@ -32,8 +30,23 @@ void LoaderCurrent::ParseTypes()
   ArrayByteSource source(DataPtr() + m_TypesOffset);
 
   size_t const count = m_pF->GetTypesCount();
-  for (size_t i = 0; i < count; ++i)
-    m_pF->m_types[i] = c.GetTypeForIndex(ReadVarUint<uint32_t>(source));
+  uint32_t index = 0;
+  try
+  {
+    for (size_t i = 0; i < count; ++i)
+    {
+      index = ReadVarUint<uint32_t>(source);
+      m_pF->m_types[i] = c.GetTypeForIndex(index);
+    }
+  }
+  catch (std::out_of_range const & ex)
+  {
+    LOG(LERROR, ("Incorrect type index for feature. FeatureID:", m_pF->m_id,
+                 ". Incorrect index:", index, ". Loaded feature types:", m_pF->m_types,
+                 ". Total count of types:", count, ". Header:", m_pF->m_header,
+                 ". Exception:", ex.what()));
+    throw;
+  }
 
   m_CommonOffset = CalcOffset(source);
 }
@@ -47,7 +60,7 @@ void LoaderCurrent::ParseCommon()
 
   if (m_pF->GetFeatureType() == GEOM_POINT)
   {
-    m_pF->m_center = serial::LoadPoint(source, GetDefCodingParams());
+    m_pF->m_center = serial::LoadPoint(source, GetDefGeometryCodingParams());
     m_pF->m_limitRect.Add(m_pF->m_center);
   }
 
@@ -124,7 +137,7 @@ void LoaderCurrent::ParseHeader2()
 
   ArrayByteSource src(bitSource.RoundPtr());
 
-  serial::CodingParams const & cp = GetDefCodingParams();
+  serial::GeometryCodingParams const & cp = GetDefGeometryCodingParams();
 
   if (typeMask == HEADER_GEOM_LINE)
   {
@@ -159,21 +172,13 @@ void LoaderCurrent::ParseHeader2()
       trgCount += 2;
 
       char const * start = static_cast<char const *>(src.PtrC());
-
-      FeatureType::points_t points;
-      src = ArrayByteSource(serial::LoadInnerTriangles(start, trgCount, cp, points));
-
+      src = ArrayByteSource(serial::LoadInnerTriangles(start, trgCount, cp, m_pF->m_triangles));
       m_pF->m_innerStats.m_strips = static_cast<uint32_t>(src.PtrC() - start);
-
-      for (uint8_t i = 2; i < trgCount; ++i)
-      {
-        m_pF->m_triangles.push_back(points[i-2]);
-        m_pF->m_triangles.push_back(points[i-1]);
-        m_pF->m_triangles.push_back(points[i]);
-      }
     }
     else
+    {
       ReadOffsets(src, trgMask, m_trgOffsets);
+    }
   }
 
   m_pF->m_innerStats.m_size = static_cast<uint32_t>(src.PtrC() - DataPtr());
@@ -196,7 +201,7 @@ uint32_t LoaderCurrent::ParseGeometry(int scale)
         ReaderSource<FilesContainerR::TReader> src(m_Info.GetGeometryReader(ind));
         src.Skip(m_ptsOffsets[ind]);
 
-        serial::CodingParams cp = GetCodingParams(ind);
+        serial::GeometryCodingParams cp = GetGeometryCodingParams(ind);
         cp.SetBasePoint(m_pF->m_points[0]);
         serial::LoadOuterPath(src, cp, m_pF->m_points);
 
@@ -214,10 +219,10 @@ uint32_t LoaderCurrent::ParseGeometry(int scale)
       ASSERT_LESS ( scaleIndex, m_Info.GetScalesCount(), () );
 
       points.push_back(m_pF->m_points.front());
-      for (int i = 1; i < count-1; ++i)
+      for (size_t i = 1; i + 1 < count; ++i)
       {
         // check for point visibility in needed scaleIndex
-        if (((m_ptsSimpMask >> (2*(i-1))) & 0x3) <= scaleIndex)
+        if (static_cast<int>((m_ptsSimpMask >> (2 * (i - 1))) & 0x3) <= scaleIndex)
           points.push_back(m_pF->m_points[i]);
       }
       points.push_back(m_pF->m_points.back());
@@ -238,12 +243,12 @@ uint32_t LoaderCurrent::ParseTriangles(int scale)
   {
     if (m_pF->m_triangles.empty())
     {
-      uint32_t const ind = GetScaleIndex(scale, m_trgOffsets);
+      auto const ind = GetScaleIndex(scale, m_trgOffsets);
       if (ind != -1)
       {
         ReaderSource<FilesContainerR::TReader> src(m_Info.GetTrianglesReader(ind));
         src.Skip(m_trgOffsets[ind]);
-        serial::LoadOuterTriangles(src, GetCodingParams(ind), m_pF->m_triangles);
+        serial::LoadOuterTriangles(src, GetGeometryCodingParams(ind), m_pF->m_triangles);
 
         sz = static_cast<uint32_t>(src.Pos() - m_trgOffsets[ind]);
       }
@@ -354,5 +359,4 @@ int LoaderCurrent::GetScaleIndex(int scale, offsets_t const & offsets) const
     return -1;
   }
 }
-
-}
+}  // namespace feature

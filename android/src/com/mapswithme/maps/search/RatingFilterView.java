@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Pair;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +18,15 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.Statistics;
 
 import static com.mapswithme.maps.search.HotelsFilter.Op.OP_GE;
 
 public class RatingFilterView extends LinearLayout implements View.OnClickListener
 {
-  private static final float GOOD = 7.0f;
-  private static final float VERY_GOOD = 8.0f;
-  private static final float EXCELLENT = 9.0f;
+  static final float GOOD = 7.0f;
+  static final float VERY_GOOD = 8.0f;
+  static final float EXCELLENT = 9.0f;
 
   private static class Item
   {
@@ -45,7 +47,7 @@ public class RatingFilterView extends LinearLayout implements View.OnClickListen
     public void select(boolean select)
     {
       @DrawableRes
-      int background = UiUtils.getStyledResourceId(mFrame.getContext(), R.attr.clickableBackground);
+      int background = UiUtils.getStyledResourceId(mFrame.getContext(), R.attr.filterPropertyBackground);
       @ColorRes
       int titleColor =
           select ? UiUtils.getStyledResourceId(mFrame.getContext(), R.attr.accentButtonTextColor)
@@ -105,19 +107,19 @@ public class RatingFilterView extends LinearLayout implements View.OnClickListen
   {
     View any = findViewById(R.id.any);
     any.setOnClickListener(this);
-    mItems.append(R.id.any, new Item(any, (TextView) findViewById(R.id.any_title), null));
+    mItems.append(R.id.any, new Item(any, findViewById(R.id.any_title), null));
     View good = findViewById(R.id.good);
     good.setOnClickListener(this);
-    mItems.append(R.id.good, new Item(good, (TextView) findViewById(R.id.good_title),
-                                     (TextView) findViewById(R.id.good_subtitle)));
+    mItems.append(R.id.good, new Item(good, findViewById(R.id.good_title),
+                                      findViewById(R.id.good_subtitle)));
     View veryGood = findViewById(R.id.very_good);
     veryGood.setOnClickListener(this);
-    mItems.append(R.id.very_good, new Item(veryGood, (TextView) findViewById(R.id.very_good_title),
-                                      (TextView) findViewById(R.id.very_good_subtitle)));
+    mItems.append(R.id.very_good, new Item(veryGood, findViewById(R.id.very_good_title),
+                                           findViewById(R.id.very_good_subtitle)));
     View excellent = findViewById(R.id.excellent);
     excellent.setOnClickListener(this);
-    mItems.append(R.id.excellent, new Item(excellent, (TextView) findViewById(R.id.excellent_title),
-                                           (TextView) findViewById(R.id.excellent_subtitle)));
+    mItems.append(R.id.excellent, new Item(excellent, findViewById(R.id.excellent_title),
+                                           findViewById(R.id.excellent_subtitle)));
   }
 
   public void update(@Nullable HotelsFilter.RatingFilter filter)
@@ -150,15 +152,27 @@ public class RatingFilterView extends LinearLayout implements View.OnClickListen
     switch (v.getId())
     {
       case R.id.any:
+        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
+                                             new Pair<>(Statistics.EventParam.RATING,
+                                                        Statistics.ParamValue.ANY));
         update(null);
         break;
       case R.id.good:
+        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
+                                             new Pair<>(Statistics.EventParam.RATING,
+                                                        String.valueOf(GOOD)));
         update(new HotelsFilter.RatingFilter(OP_GE, GOOD));
         break;
       case R.id.very_good:
+        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
+                                             new Pair<>(Statistics.EventParam.RATING,
+                                                        String.valueOf(VERY_GOOD)));
         update(new HotelsFilter.RatingFilter(OP_GE, VERY_GOOD));
         break;
       case R.id.excellent:
+        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
+                                             new Pair<>(Statistics.EventParam.RATING,
+                                                        String.valueOf(EXCELLENT)));
         update(new HotelsFilter.RatingFilter(OP_GE, EXCELLENT));
         break;
     }

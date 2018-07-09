@@ -21,7 +21,7 @@
 
 #include <cstddef>
 #include <boost/move/core.hpp>
-#include <boost/move/utility.hpp>
+#include <boost/move/utility_core.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/utility/explicit_operator_bool.hpp>
 #include <boost/type_traits/remove_cv.hpp>
@@ -33,7 +33,7 @@
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 #endif
 #if defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
-#include <boost/utility/enable_if.hpp>
+#include <boost/log/detail/sfinae_tools.hpp>
 #else
 #include <boost/type_traits/remove_reference.hpp>
 #endif
@@ -194,12 +194,12 @@ public:
     }
 #else
     template< typename FunT >
-    light_function(FunT const& fun, typename disable_if_c< is_rv_or_same< FunT, this_type >::value, int >::type = 0) :
+    light_function(FunT const& fun, typename boost::disable_if_c< is_rv_or_same< FunT, this_type >::value, boost::log::aux::sfinae_dummy >::type = boost::log::aux::sfinae_dummy()) :
         m_pImpl(new impl< FunT >(fun))
     {
     }
     template< typename FunT >
-    light_function(BOOST_RV_REF(FunT) fun, typename disable_if_c< is_cv_same< FunT, this_type >::value, int >::type = 0) :
+    light_function(BOOST_RV_REF(FunT) fun, typename boost::disable_if_c< is_cv_same< FunT, this_type >::value, boost::log::aux::sfinae_dummy >::type = boost::log::aux::sfinae_dummy()) :
         m_pImpl(new impl< typename remove_cv< FunT >::type >(fun))
     {
     }
@@ -256,7 +256,7 @@ public:
     }
 #else
     template< typename FunT >
-    typename disable_if_c< is_rv_or_same< FunT, this_type >::value, this_type& >::type
+    typename boost::disable_if_c< is_rv_or_same< FunT, this_type >::value, this_type& >::type
     operator= (FunT const& fun)
     {
         light_function tmp(fun);
@@ -400,12 +400,12 @@ public:
     }
 #else
     template< typename FunT >
-    light_function(FunT const& fun, typename disable_if_c< is_rv_or_same< FunT, this_type >::value, int >::type = 0) :
+    light_function(FunT const& fun, typename boost::disable_if_c< is_rv_or_same< FunT, this_type >::value, boost::log::aux::sfinae_dummy >::type = boost::log::aux::sfinae_dummy()) :
         m_pImpl(new impl< FunT >(fun))
     {
     }
     template< typename FunT >
-    light_function(BOOST_RV_REF(FunT) fun, typename disable_if_c< is_cv_same< FunT, this_type >::value, int >::type = 0) :
+    light_function(BOOST_RV_REF(FunT) fun, typename boost::disable_if_c< is_cv_same< FunT, this_type >::value, boost::log::aux::sfinae_dummy >::type = boost::log::aux::sfinae_dummy()) :
         m_pImpl(new impl< typename remove_cv< FunT >::type >(fun))
     {
     }
@@ -462,7 +462,7 @@ public:
     }
 #else
     template< typename FunT >
-    typename disable_if_c< is_rv_or_same< FunT, this_type >::value, this_type& >::type
+    typename boost::disable_if_c< is_rv_or_same< FunT, this_type >::value, this_type& >::type
     operator= (FunT const& fun)
     {
         light_function tmp(fun);

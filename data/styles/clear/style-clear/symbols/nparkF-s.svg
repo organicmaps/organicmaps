@@ -1,16 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-    <title>nparkF-s</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard-1" transform="translate(-207.000000, -68.000000)">
-            <g id="nparkF-s" transform="translate(207.000000, 68.000000)">
-                <circle id="Oval-1-Copy-43" fill-opacity="0.6" fill="#FFFFFF" cx="8.5" cy="8.5" r="8.5"></circle>
-                <circle id="Oval-1-Copy-42" fill="#507F34" cx="8.5" cy="8.5" r="7.5"></circle>
-                <path d="M8.5,4 L5,7.16404878 L7.04377508,7.16404878 L5,9.13098417 L7.04377508,9.13098417 L5,11.0880935 L5.68400832,11.0880935 L7.99911189,11.0880935 L7.99911189,13.1035326 L8.99568152,13.103533 L8.99568152,11.0880939 L12,11.0880935 L9.9828372,9.13098417 L12,9.13098417 L9.9828372,7.16404878 L12,7.16404878 L8.5,4 Z" id="rect4152-3-3-5-copy" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
+<svg width="16" height="16" viewBox="0 0 16 16">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="8" cy="8" r="8" fill="#FFF" opacity=".6"/>
+    <circle cx="8" cy="8" r="7" fill="#507F34"/>
+    <path fill="#FFF" d="M8,3 L4,6.47562728 L6.33574295,6.47562728 L4,8.6362559 L6.33574295,8.6362559 L4,10.7860908 L4.78172379,10.7860908 L7.42755645,10.7860908 L7.42755645,12.9999996 L8.56649317,13 L8.56649317,10.7860913 L12,10.7860908 L9.69467109,8.6362559 L12,8.6362559 L9.69467109,6.47562728 L12,6.47562728 L8,3 Z"/>
+  </g>
 </svg>

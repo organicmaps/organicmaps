@@ -6,21 +6,26 @@
   style="@style/PlacePageItemFrame"
   android:paddingTop="@dimen/placepage_taxi_padding_vert"
   android:paddingBottom="@dimen/placepage_taxi_padding_vert"
-  android:clickable="false">
+  android:clickable="false"
+  android:background="?ppBackground">
 
   <ImageView
     android:id="@+id/iv__place_page_taxi"
     style="@style/PlacePageMetadataIcon"
+    android:tint="@null"
     android:layout_centerVertical="true"
     android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"
-    android:src="@drawable/ic_placepage_taxi"/>
+    android:layout_alignParentStart="true"/>
 
   <TextView
     android:id="@+id/tv__place_page_taxi"
     style="@style/PlacePageMetadataText"
     android:layout_toRightOf="@id/iv__place_page_taxi"
     android:layout_toEndOf="@id/iv__place_page_taxi"
+    android:layout_toLeftOf="@+id/tv__place_page_order_taxi"
+    android:layout_toStartOf="@id/tv__place_page_order_taxi"
+    android:maxLines="2"
+    android:ellipsize="end"
     android:layout_centerVertical="true"
     android:layout_width="wrap_content"
     android:text="@string/uber"/>

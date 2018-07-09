@@ -367,7 +367,7 @@ public :
 #if !defined(BOOST_MSVC)
         BOOST_CONCEPT_ASSERT
             (
-                (concept::PointDistanceStrategy<Strategy, Point, PointOfSegment>)
+                (concepts::PointDistanceStrategy<Strategy, Point, PointOfSegment>)
             );
 #endif
 
@@ -521,7 +521,7 @@ public :
 #if !defined(BOOST_MSVC)
         BOOST_CONCEPT_ASSERT
             (
-                (concept::PointDistanceStrategy<Strategy, Point, PointOfSegment>)
+                (concepts::PointDistanceStrategy<Strategy, Point, PointOfSegment>)
             );
 #endif
         typedef typename return_type<Point, PointOfSegment>::type return_type;

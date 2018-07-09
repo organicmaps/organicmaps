@@ -22,7 +22,7 @@ namespace boost { namespace fusion
             typedef set<> type;
         };
     }
-
+    
 # if defined(BOOST_CLANG)
     BOOST_CXX14_CONSTEXPR
 # else

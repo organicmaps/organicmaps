@@ -14,7 +14,7 @@
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
 // utf8_codecvt_facet.hpp
 
-// This header defines class utf8_codecvt_facet, derived from
+// This header defines class utf8_codecvt_facet, derived from 
 // std::codecvt<wchar_t, char>, which can be used to convert utf8 data in
 // files into wchar_t strings in the application.
 //
@@ -105,16 +105,18 @@ BOOST_UTF8_BEGIN_NAMESPACE
 //            See utf8_codecvt_facet.ipp for the implementation.              //
 //----------------------------------------------------------------------------//
 
+#ifndef BOOST_UTF8_DECL
+#define BOOST_UTF8_DECL
+#endif
 
-struct BOOST_UTF8_DECL utf8_codecvt_facet :
+struct BOOST_SYMBOL_VISIBLE utf8_codecvt_facet :
     public std::codecvt<wchar_t, char, std::mbstate_t>  
 {
 public:
-    explicit utf8_codecvt_facet(std::size_t no_locale_manage=0)
-        : std::codecvt<wchar_t, char, std::mbstate_t>(no_locale_manage) 
-    {}
+    BOOST_UTF8_DECL explicit utf8_codecvt_facet(std::size_t no_locale_manage=0);
+    virtual  ~utf8_codecvt_facet(){}
 protected:
-    virtual std::codecvt_base::result do_in(
+    BOOST_UTF8_DECL virtual std::codecvt_base::result do_in(
         std::mbstate_t& state, 
         const char * from,
         const char * from_end, 
@@ -124,7 +126,7 @@ protected:
         wchar_t*& to_next
     ) const;
 
-    virtual std::codecvt_base::result do_out(
+    BOOST_UTF8_DECL virtual std::codecvt_base::result do_out(
         std::mbstate_t & state,
         const wchar_t * from,
         const wchar_t * from_end,
@@ -148,11 +150,11 @@ protected:
         return get_octet_count(lead_octet) - 1;
     }
 
-    static unsigned int get_octet_count(unsigned char lead_octet);
+    BOOST_UTF8_DECL static unsigned int get_octet_count(unsigned char lead_octet);
 
     // How many "continuing octets" will be needed for this word
     // ==   total octets - 1.
-    int get_cont_octet_out_count(wchar_t word) const ;
+    BOOST_UTF8_DECL int get_cont_octet_out_count(wchar_t word) const ;
 
     virtual bool do_always_noconv() const BOOST_NOEXCEPT_OR_NOTHROW {
         return false;
@@ -176,7 +178,7 @@ protected:
 
     // How many char objects can I process to get <= max_limit
     // wchar_t objects?
-    virtual int do_length(
+    BOOST_UTF8_DECL virtual int do_length(
         const std::mbstate_t &,
         const char * from,
         const char * from_end, 
@@ -189,7 +191,7 @@ protected:
     virtual int do_length(
         std::mbstate_t & s,
         const char * from,
-        const char * from_end,
+        const char * from_end, 
         std::size_t max_limit
     ) const
 #if BOOST_WORKAROUND(__IBMCPP__, BOOST_TESTED_AT(600))

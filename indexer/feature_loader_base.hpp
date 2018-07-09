@@ -1,11 +1,11 @@
 #pragma once
-#include "indexer/coding_params.hpp"
+
 #include "indexer/data_header.hpp"
 
 #include "coding/file_container.hpp"
+#include "coding/geometry_coding.hpp"
 
 #include "std/noncopyable.hpp"
-
 
 class FeatureType;
 class ArrayByteSource;
@@ -22,7 +22,7 @@ namespace feature
 
     using TReader = FilesContainerR::TReader;
 
-    LoaderBase * m_pLoader;
+    LoaderBase * m_loader;
     void CreateLoader();
 
   public:
@@ -36,17 +36,17 @@ namespace feature
     TReader GetGeometryReader(int ind) const;
     TReader GetTrianglesReader(int ind) const;
 
-    LoaderBase * GetLoader() const { return m_pLoader; }
+    LoaderBase * GetLoader() const { return m_loader; }
 
     inline version::Format GetMWMFormat() const { return m_header.GetFormat(); }
 
-    inline serial::CodingParams const & GetDefCodingParams() const
+    inline serial::GeometryCodingParams const & GetDefGeometryCodingParams() const
     {
-      return m_header.GetDefCodingParams();
+      return m_header.GetDefGeometryCodingParams();
     }
-    inline serial::CodingParams GetCodingParams(int scaleIndex) const
+    inline serial::GeometryCodingParams GetGeometryCodingParams(int scaleIndex) const
     {
-      return m_header.GetCodingParams(scaleIndex);
+      return m_header.GetGeometryCodingParams(scaleIndex);
     }
 
     inline int GetScalesCount() const { return static_cast<int>(m_header.GetScalesCount()); }
@@ -87,13 +87,13 @@ namespace feature
 
     uint32_t CalcOffset(ArrayByteSource const & source) const;
 
-    inline serial::CodingParams const & GetDefCodingParams() const
+    inline serial::GeometryCodingParams const & GetDefGeometryCodingParams() const
     {
-      return m_Info.GetDefCodingParams();
+      return m_Info.GetDefGeometryCodingParams();
     }
-    inline serial::CodingParams GetCodingParams(int scaleIndex) const
+    inline serial::GeometryCodingParams GetGeometryCodingParams(int scaleIndex) const
     {
-      return m_Info.GetCodingParams(scaleIndex);
+      return m_Info.GetGeometryCodingParams(scaleIndex);
     }
 
     uint8_t Header() const { return static_cast<uint8_t>(*DataPtr()); }

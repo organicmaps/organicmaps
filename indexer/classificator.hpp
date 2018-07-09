@@ -178,6 +178,8 @@ public:
 
   void Clear();
 
+  bool HasTypesMapping() const { return m_mapping.IsLoaded(); }
+
   /// Return type by path in classificator tree, for example
   /// path = ["natural", "caostline"].
   //@{
@@ -195,6 +197,7 @@ public:
   //@}
 
   uint32_t GetIndexForType(uint32_t t) const { return m_mapping.GetIndex(t); }
+  // Throws std::out_of_range exception.
   uint32_t GetTypeForIndex(uint32_t i) const { return m_mapping.GetType(i); }
   bool IsTypeValid(uint32_t t) const { return m_mapping.HasIndex(t); }
 

@@ -4,9 +4,11 @@
 
 #include "base/logging.hpp"
 
+#include <ios>
+#include <sstream>
+
 namespace df
 {
-
 TextHandle::TextHandle(dp::OverlayID const & id, strings::UniString const & text,
                        dp::Anchor anchor, uint64_t priority, int fixedHeight,
                        ref_ptr<dp::TextureManager> textureManager,
@@ -80,13 +82,13 @@ void TextHandle::SetForceUpdateNormals(bool forceUpdate) const
 }
 
 #ifdef DEBUG_OVERLAYS_OUTPUT
-string TextHandle::GetOverlayDebugInfo()
+std::string TextHandle::GetOverlayDebugInfo()
 {
-  ostringstream out;
-  out << "Text Priority(" << GetPriority() << ") " << GetOverlayID().m_featureId.m_index
-      << "-" << GetOverlayID().m_index << " " << strings::ToUtf8(m_text);
+  std::ostringstream out;
+  out << "Text Priority(" << std::hex << GetPriority() << ") " << std::dec
+      << GetOverlayID().m_featureId.m_index << "-" << GetOverlayID().m_index << " "
+      << strings::ToUtf8(m_text);
   return out.str();
 }
 #endif
-
-} // namespace df
+}  // namespace df

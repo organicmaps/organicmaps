@@ -90,7 +90,7 @@ namespace boost
                betaf -= xtermf;
                T term = poisf * betaf;
                sum += term;
-               if((fabs(last_term) > fabs(term)) && (fabs(term/sum) < errtol))
+               if((fabs(last_term) >= fabs(term)) && (fabs(term/sum) < errtol))
                   break;
                last_term = term;
                ++count;
@@ -358,7 +358,7 @@ namespace boost
                s = boost::math::sign(pzero - q);
             if(s != boost::math::sign(guess))
             {
-               guess = s;
+               guess = static_cast<T>(s);
             }
 
             value_type result = detail::generic_quantile(

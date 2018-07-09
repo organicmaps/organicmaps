@@ -4,10 +4,11 @@
 // Copyright (c) 2008-2015 Bruno Lalande, Paris, France.
 // Copyright (c) 2009-2015 Mateusz Loskot, London, UK.
 
-// This file was modified by Oracle on 2015.
-// Modifications copyright (c) 2015, Oracle and/or its affiliates.
+// This file was modified by Oracle on 2015, 2017.
+// Modifications copyright (c) 2015-2017, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -45,6 +46,14 @@ struct not_
                              Geometry2 const& geometry2)
     {
         return ! Policy::apply(geometry1, geometry2);
+    }
+
+    template <typename Geometry1, typename Geometry2, typename Strategy>
+    static inline bool apply(Geometry1 const& geometry1,
+                             Geometry2 const& geometry2,
+                             Strategy const& strategy)
+    {
+        return ! Policy::apply(geometry1, geometry2, strategy);
     }
 };
 

@@ -14,7 +14,6 @@
 #ifndef BOOST_ALGORITHM_ANY_OF_HPP
 #define BOOST_ALGORITHM_ANY_OF_HPP
 
-#include <algorithm>    // for std::any_of, if available
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 

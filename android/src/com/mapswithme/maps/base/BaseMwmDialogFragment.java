@@ -10,10 +10,10 @@ import com.mapswithme.util.ThemeUtils;
 
 public class BaseMwmDialogFragment extends DialogFragment
 {
-  protected final @StyleRes int getFullscreenTheme()
+  @StyleRes
+  protected final int getFullscreenTheme()
   {
-    return (ThemeUtils.isNightTheme() ? R.style.MwmTheme_DialogFragment_Fullscreen_Night
-                                      : R.style.MwmTheme_DialogFragment_Fullscreen);
+    return ThemeUtils.isNightTheme() ? getFullscreenDarkTheme() : getFullscreenLightTheme();
   }
 
   protected int getStyle()
@@ -53,8 +53,15 @@ public class BaseMwmDialogFragment extends DialogFragment
     org.alohalytics.Statistics.logEvent("$onPause", getClass().getSimpleName());
   }
 
-  public BaseMwmFragmentActivity getMwmActivity()
+  @StyleRes
+  protected int getFullscreenLightTheme()
   {
-    return (BaseMwmFragmentActivity) getActivity();
+    return R.style.MwmTheme_DialogFragment_Fullscreen;
+  }
+
+  @StyleRes
+  protected int getFullscreenDarkTheme()
+  {
+    return R.style.MwmTheme_DialogFragment_Fullscreen_Night;
   }
 }

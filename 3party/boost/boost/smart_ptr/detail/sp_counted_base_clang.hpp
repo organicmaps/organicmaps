@@ -55,8 +55,13 @@ inline boost::int_least32_t atomic_conditional_increment( atomic_int_least32_t *
         {
             return r;
         }
-    }
+    }    
 }
+
+#if defined(__clang__)
+# pragma clang diagnostic push
+# pragma clang diagnostic ignored "-Wweak-vtables"
+#endif
 
 class sp_counted_base
 {
@@ -132,6 +137,10 @@ public:
         return __c11_atomic_load( const_cast< atomic_int_least32_t* >( &use_count_ ), __ATOMIC_ACQUIRE );
     }
 };
+
+#if defined(__clang__)
+# pragma clang diagnostic pop
+#endif
 
 } // namespace detail
 

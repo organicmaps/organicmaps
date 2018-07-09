@@ -5,6 +5,8 @@
 #include "geometry/point2d.hpp"
 #include "geometry/polyline2d.hpp"
 
+#include <vector>
+
 namespace routing
 {
 class FollowedPolyline
@@ -16,7 +18,11 @@ public:
     : m_poly(begin, end)
   {
     Update();
+    // Initially we do not have intermediate points. Next checkpoint is finish.
+    m_nextCheckpointIndex = m_segProj.size();
   }
+
+  void SetNextCheckpointIndex(size_t index) { m_nextCheckpointIndex = index; }
 
   void Swap(FollowedPolyline & rhs);
 
@@ -33,16 +39,17 @@ public:
   }
 
   bool IsValid() const { return (m_current.IsValid() && m_poly.GetSize() > 1); }
-
   m2::PolylineD const & GetPolyline() const { return m_poly; }
-  vector<double> const & GetSegDistanceM() const { return m_segDistance; }
-  double GetTotalDistanceM() const;
-  double GetDistanceFromBeginM() const;
-  double GetDistanceToEndM() const;
-  double GetMercatorDistanceFromBegin() const;
+
+  std::vector<double> const & GetSegDistanceMeters() const { return m_segDistance; }
+  double GetTotalDistanceMeters() const;
+  double GetDistanceFromStartMeters() const;
+  double GetDistanceToEndMeters() const;
+  double GetDistFromCurPointToRoutePointMerc() const;
+  double GetDistFromCurPointToRoutePointMeters() const;
 
   /*! \brief Return next navigation point for direction widgets.
-   *  Returns first geomety point from the polyline after your location if it is farther then
+   *  Returns first geometry point from the polyline after your location if it is farther then
    *  toleranceM.
    */
   void GetCurrentDirectionPoint(m2::PointD & pt, double toleranceM) const;
@@ -63,27 +70,69 @@ public:
 
   double GetDistanceM(Iter const & it1, Iter const & it2) const;
 
-  Iter UpdateProjectionByPrediction(m2::RectD const & posRect, double predictDistance) const;
-  Iter UpdateProjection(m2::RectD const & posRect) const;
+  Iter UpdateProjectionByPrediction(m2::RectD const & posRect, double predictDistance);
+  Iter UpdateProjection(m2::RectD const & posRect);
 
   Iter Begin() const;
   Iter End() const;
   Iter GetIterToIndex(size_t index) const;
 
-private:
+  /// \brief Calculates projection of center of |posRect| to the polyline.
+  /// \param posRect Only projection inside the rect is considered.
+  /// \param distFn A method which is used to calculate the destination between points.
+  /// \param startIdx Start segment index in |m_segProj|.
+  /// \param endIdx The index after the last one in |m_segProj|.
+  /// \returns iterator which contains projection point and projection segment index.
   template <class DistanceFn>
-  Iter GetClosestProjection(m2::RectD const & posRect, DistanceFn const & distFn) const;
+  Iter GetClosestProjectionInInterval(m2::RectD const & posRect, DistanceFn const & distFn,
+                                      size_t startIdx, size_t endIdx) const
+  {
+    CHECK_LESS_OR_EQUAL(endIdx, m_segProj.size(), ());
+    CHECK_LESS_OR_EQUAL(startIdx, endIdx, ());
+
+    Iter res;
+    double minDist = numeric_limits<double>::max();
+
+    m2::PointD const currPos = posRect.Center();
+
+    for (size_t i = startIdx; i < endIdx; ++i)
+    {
+      m2::PointD const pt = m_segProj[i](currPos);
+
+      if (!posRect.IsPointInside(pt))
+        continue;
+
+      Iter it(pt, i);
+      double const dp = distFn(it);
+      if (dp < minDist)
+      {
+        res = it;
+        minDist = dp;
+      }
+    }
+
+    return res;
+  }
+
+private:
+  /// \returns iterator to the best projection of center of |posRect| to the |m_poly|.
+  /// If there's a good projection of center of |posRect| to two closest segments of |m_poly|
+  /// after |m_current| the iterator corresponding of the projection is returned.
+  /// Otherwise returns a projection to closest point of route.
+  template <class DistanceFn>
+  Iter GetBestProjection(m2::RectD const & posRect, DistanceFn const & distFn) const;
 
   void Update();
 
   m2::PolylineD m_poly;
 
   /// Iterator with the current position. Position sets with UpdateProjection methods.
-  mutable Iter m_current;
+  Iter m_current;
+  size_t m_nextCheckpointIndex;
   /// Precalculated info for fast projection finding.
-  vector<m2::ProjectionToSection<m2::PointD>> m_segProj;
+  std::vector<m2::ProjectionToSection<m2::PointD>> m_segProj;
   /// Accumulated cache of segments length in meters.
-  vector<double> m_segDistance;
+  std::vector<double> m_segDistance;
 };
 
 }  // namespace routing

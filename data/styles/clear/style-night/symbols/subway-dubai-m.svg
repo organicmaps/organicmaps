@@ -1,0 +1,14 @@
+<svg width="24" height="24" viewBox="0 0 24 24">
+  <g fill="none">
+    <rect width="24" height="24" fill="#FFF" opacity=".4"/>
+    <rect width="22" height="22" x="1" y="1" fill="#A3A3A3"/>
+    <path fill="#75678F" d="M13,6.4 L13,2 L14,2 L14,7.3 L15,8.2 L15,15 L12,15 L12,5.5 L13,6.4 Z M19,14 L20,14 L20,9 L21,9 L21,14 L23,14 L23,20 L18,20 L18,16 L17,16 L17,4 L19,4 L19,14 Z M9,7 L11,7 L11,13 L9,13 L9,7 Z"/>
+    <path fill="#0D1033" d="M21,20 L21,16.6 L11.2,11 C10.5,10.6 9.7,10.4 8.9,10.4 C7.4,10.4 6,11.1 5.1,12.3 L3.3,14.8 C2.5,16 2,17.4 2,18.9 C2,20.6 3.4,22 5.1,22 L11.1,22 L21,20 Z"/>
+    <path fill="#FFF" d="M8,18 L2.7,18 C2.7,18 3.6,16.3 3.9,15.7 C4.3,14.9 5.5,12.6 5.5,12.6 C6.2,11.6 7.3,11 8.5,11 L10.6,11 L8,18 Z" opacity=".6"/>
+    <rect width="1" height="1" x="9" y="19" fill="#FFF" opacity=".6"/>
+    <rect width="1" height="1" x="2" y="19" fill="#FFF" opacity=".6"/>
+    <polygon fill="#FFF" points="11 11.8 10 17 14 16.2 14 13.7" opacity=".6"/>
+    <rect width="1" height="1" x="18" y="16" fill="#FFF" opacity=".6"/>
+    <rect width="1" height="1" x="19" y="17" fill="#FFF" opacity=".6"/>
+  </g>
+</svg>

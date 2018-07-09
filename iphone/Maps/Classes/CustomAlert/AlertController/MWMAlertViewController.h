@@ -1,22 +1,14 @@
 #import "MWMAlert.h"
+#import "MWMViewController.h"
 
-#include "routing/router.hpp"
-#include "storage/storage.hpp"
-
-@interface MWMAlertViewController : UIViewController
+@interface MWMAlertViewController : MWMViewController
 
 + (nonnull MWMAlertViewController *)activeAlertController;
 
 @property(weak, nonatomic, readonly) UIViewController * _Null_unspecified ownerViewController;
 
 - (nonnull instancetype)initWithViewController:(nonnull UIViewController *)viewController;
-- (void)presentAlert:(routing::IRouter::ResultCode)type;
 - (void)presentRoutingMigrationAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock;
-- (void)presentDownloaderAlertWithCountries:(storage::TCountriesVec const &)countries
-                                       code:(routing::IRouter::ResultCode)code
-                                cancelBlock:(nonnull MWMVoidBlock)cancelBlock
-                              downloadBlock:(nonnull MWMDownloadBlock)downloadBlock
-                      downloadCompleteBlock:(nonnull MWMVoidBlock)downloadCompleteBlock;
 - (void)presentRateAlert;
 - (void)presentFacebookAlert;
 - (void)presentPoint2PointAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
@@ -51,6 +43,28 @@
 - (void)presentTrackWarningAlertWithCancelBlock:(nonnull MWMVoidBlock)block;
 - (void)presentSearchNoResultsAlert;
 - (void)presentMobileInternetAlertWithBlock:(nonnull MWMVoidBlock)block;
+- (void)presentInfoAlert:(nonnull NSString *)title text:(nonnull NSString *)text;
+- (void)presentCreateBookmarkCategoryAlertWithMaxCharacterNum:(NSUInteger)max
+                                              minCharacterNum:(NSUInteger)min
+                                                isNewCategory:(BOOL)isNewCategory
+                                                     callback:(nonnull MWMCheckStringBlock)callback;
+
+- (void)presentConvertBookmarksAlertWithCount:(NSUInteger)count block:(nonnull MWMVoidBlock)block;
+
+- (void)presentSpinnerAlertWithTitle:(nonnull NSString *)title cancel:(nullable MWMVoidBlock)cancel;
+- (void)presentBookmarkConversionErrorAlert;
+
+- (void)presentRestoreBookmarkAlertWithMessage:(nonnull NSString *)message
+                             rightButtonAction:(nonnull MWMVoidBlock)rightButton
+                              leftButtonAction:(nonnull MWMVoidBlock)leftButton;
+
+- (void)presentDefaultAlertWithTitle:(nonnull NSString *)title
+                             message:(nullable NSString *)message
+                    rightButtonTitle:(nonnull NSString *)rightButtonTitle
+                     leftButtonTitle:(nullable NSString *)leftButtonTitle
+                   rightButtonAction:(nullable MWMVoidBlock)action;
+
+
 - (void)closeAlert:(nullable MWMVoidBlock)completion;
 
 - (nonnull instancetype)init __attribute__((unavailable("call -initWithViewController: instead!")));

@@ -4,7 +4,7 @@
     Copyright (c) 2010 Thomas Heller
     Copyright (c) 2014 John Fletcher
 
-    Distributed under the Boost Software License, Version 1.0. (See accompanying 
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 ==============================================================================*/
 #ifndef BOOST_PHOENIX_CORE_ACTOR_HPP
@@ -26,6 +26,11 @@
 #include <boost/utility/result_of.hpp>
 #include <boost/mpl/void.hpp>
 #include <cstring>
+#ifndef BOOST_PHOENIX_NO_VARIADIC_ACTOR
+#   include <boost/mpl/if.hpp>
+#   include <boost/type_traits/is_reference.hpp>
+#   include <boost/phoenix/core/detail/index_sequence.hpp>
+#endif
 
 #ifdef BOOST_MSVC
 #pragma warning(push)
@@ -46,7 +51,7 @@ namespace boost { namespace phoenix
             template <typename T>
             error_expecting_arguments(T const&) {}
         };
-        
+
         struct error_invalid_lambda_expr
         {
             template <typename T>
@@ -84,93 +89,95 @@ namespace boost { namespace phoenix
             }
         };
 
-    #define BOOST_PHOENIX_ACTOR_ASSIGN_CHILD(N)                                 \
-        assign(                                                                 \
-            proto::_child_c<N>                                                  \
-          , proto::call<                                                        \
-                proto::_child_c<N>(proto::_state)                               \
-            >                                                                   \
-        )                                                                       \
-    /**/
-    #define BOOST_PHOENIX_ACTOR_START_ASSIGN_CHILD(Z, N, D)                     \
-       proto::and_<                                                             \
-            BOOST_PHOENIX_ACTOR_ASSIGN_CHILD(N)                                 \
-    /**/
-    #define BOOST_PHOENIX_ACTOR_END_ASSIGN(Z, N, D)                             \
-        >                                                                       \
-    /**/
-    #define BOOST_PHOENIX_ACTOR_ASSIGN_CALL(N)                                  \
-           proto::when<                                                        \
-                proto::nary_expr<proto::_ ,                                     \
-                  BOOST_PP_ENUM_PARAMS(N, proto::_ BOOST_PP_INTERCEPT)          \
-                >                                                               \
-                , BOOST_PP_ENUM(                                                 \
-                     N                                                          \
-                  , BOOST_PHOENIX_ACTOR_START_ASSIGN_CHILD                     \
-                  , _                                                          \
-                 )                                                              \
-                 BOOST_PP_REPEAT(                                               \
-                     N                                                          \
-                   , BOOST_PHOENIX_ACTOR_END_ASSIGN                             \
-                   , _                                                          \
-                 )                                                              \
-            >                                                                   \
-      /**/
-    #define BOOST_PHOENIX_ACTOR_START_ASSIGN_CALL(Z, N, D)                      \
-        proto::or_<                                                             \
-            BOOST_PHOENIX_ACTOR_ASSIGN_CALL(N)                                  \
-    /**/
- 
-#if !defined(BOOST_PHOENIX_DONT_USE_PREPROCESSED_FILES)
-#include <boost/phoenix/core/preprocessed/actor.hpp>
+#ifdef BOOST_PHOENIX_NO_VARIADIC_ACTOR
+        #include <boost/phoenix/core/detail/cpp03/assign.hpp>
 #else
-#if defined(__WAVE__) && defined(BOOST_PHOENIX_CREATE_PREPROCESSED_FILES)
-#pragma wave option(preserve: 2, line: 0, output: "preprocessed/actor_" BOOST_PHOENIX_LIMIT_STR ".hpp")
-#endif
-/*==============================================================================
-    Copyright (c) 2005-2010 Joel de Guzman
-    Copyright (c) 2010-2011 Thomas Heller
+        struct assign : proto::transform<assign>
+        {
+            typedef assign proto_grammer;
 
-    Distributed under the Boost Software License, Version 1.0. (See accompanying
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
+            template <typename Expr, typename State, typename Data
+                    , typename Indices = typename detail::make_index_sequence<proto::arity_of<Expr>::value>::type >
+            struct impl;
 
-#if defined(__WAVE__) && defined(BOOST_PHOENIX_CREATE_PREPROCESSED_FILES)
-#pragma wave option(preserve: 1)
-#endif
+            template <std::size_t>
+            struct proto_expr { typedef proto::_ type; };
 
-        struct assign
-            : BOOST_PP_ENUM_SHIFTED(
-                  BOOST_PHOENIX_LIMIT
-                , BOOST_PHOENIX_ACTOR_START_ASSIGN_CALL
-                , _
-              )
-              , proto::when<
+            template <std::size_t Index>
+            struct nth_assign
+            {
+                typedef
+                    assign type(
+                        proto::_child_c<Index>
+                      , proto::call<proto::_child_c<Index>(proto::_state)>
+                    )
+                ;
+            };
+
+            template <typename Expr, typename State, typename Data>
+            struct impl<Expr, State, Data, detail::index_sequence<> >
+                : proto::when<
                     proto::terminal<proto::_>
                   , do_assign(proto::_, proto::_state)
-                >
-              BOOST_PP_REPEAT(
-                  BOOST_PP_DEC(BOOST_PHOENIX_LIMIT)
-                , BOOST_PHOENIX_ACTOR_END_ASSIGN
-                , _
-              )
-        {};
+                >::template impl<Expr, State, Data>
+            {
+            };
 
-#if defined(__WAVE__) && defined(BOOST_PHOENIX_CREATE_PREPROCESSED_FILES)
-#pragma wave option(output: null)
+            template <typename Expr, typename State, typename Data
+                    , std::size_t... Indices>
+            struct impl<Expr, State, Data, detail::index_sequence<Indices...> >
+                : proto::when<
+                    proto::nary_expr<typename proto_expr<Indices>::type...>
+                  , proto::and_<typename nth_assign<Indices>::type...>
+                >::template impl<Expr, State, Data>
+            {
+            };
+        };
 #endif
-
-#endif
-    #undef BOOST_PHOENIX_ACTOR_ASSIGN_CALL
-    #undef BOOST_PHOENIX_ACTOR_START_ASSIGN_CALL
-    #undef BOOST_PHOENIX_ACTOR_END_ASSIGN_CALL
-    #undef BOOST_PHOENIX_ACTOR_ASSIGN_CHILD
-    #undef BOOST_PHOENIX_ACTOR_START_ASSIGN_CHILD
-    #undef BOOST_PHOENIX_ACTOR_END_ASSIGN_CHILD
     }
 
-    // Bring in the result_of::actor<>
-    #include <boost/phoenix/core/detail/actor_result_of.hpp>
+    namespace result_of
+    {
+#ifdef BOOST_PHOENIX_NO_VARIADIC_ACTOR
+        // Bring in the result_of::actor<>
+        #include <boost/phoenix/core/detail/cpp03/actor_result_of.hpp>
+#else
+        template <typename Expr, typename... A>
+        struct actor_impl
+        {
+            typedef
+                typename boost::phoenix::evaluator::impl<
+                    Expr const&
+                  , vector2<
+                        typename vector_chooser<sizeof...(A) + 1>::
+                          template apply<const ::boost::phoenix::actor<Expr> *, A...>::type&
+                      , default_actions
+                    > const &
+                  , proto::empty_env
+                >::result_type
+                type;
+        };
+
+        template <typename Expr, typename... A>
+        struct actor : actor_impl<Expr, A...> {};
+
+        template <typename Expr>
+        struct nullary_actor_result : actor_impl<Expr> {};
+#endif
+
+        template <typename Expr>
+        struct actor<Expr>
+        {
+            typedef
+                // avoid calling result_of::actor when this is false
+                typename mpl::eval_if_c<
+                    result_of::is_nullary<Expr>::value
+                  , nullary_actor_result<Expr>
+                  , mpl::identity<detail::error_expecting_arguments>
+                >::type
+            type;
+        };
+    }
 
     ////////////////////////////////////////////////////////////////////////////
     //
@@ -194,7 +201,7 @@ namespace boost { namespace phoenix
               , mpl::identity<Expr>
             >::type
             expr_type;
-        
+
         BOOST_PROTO_BASIC_EXTENDS(expr_type, actor<expr_type>, phoenix_domain)
 
         // providing operator= to be assignable
@@ -232,7 +239,7 @@ namespace boost { namespace phoenix
         {
             return proto::make_expr<proto::tag::assign, phoenix_domain>(this->proto_expr_, a0);
         }
-        
+
         template <typename A0>
         typename proto::result_of::make_expr<
             proto::tag::subscript
@@ -265,7 +272,7 @@ namespace boost { namespace phoenix
         {
             typedef vector1<const actor<Expr> *> env_type;
             env_type env = {this};
-            
+
             return phoenix::eval(*this, phoenix::context(env, default_actions()));
         }
 
@@ -274,7 +281,7 @@ namespace boost { namespace phoenix
         {
             typedef vector1<const actor<Expr> *> env_type;
             env_type env = {this};
-            
+
             return phoenix::eval(*this, phoenix::context(env, default_actions()));
         }
 
@@ -291,11 +298,50 @@ namespace boost { namespace phoenix
         {
             return phoenix::eval(*this, phoenix::context(env, default_actions()));
         }
-        
-        // Bring in the rest
-        #include <boost/phoenix/core/detail/actor_operator.hpp>
-    };
 
+#ifdef BOOST_PHOENIX_NO_VARIADIC_ACTOR
+        // Bring in the rest
+        #include <boost/phoenix/core/detail/cpp03/actor_operator.hpp>
+#else
+        template <typename This, typename... A>
+        struct result<This(A...)>
+            : result_of::actor<
+                proto_base_expr
+              , typename mpl::if_<is_reference<A>, A, A const &>::type...
+            >
+        {};
+
+        template <typename... A>
+        typename result<actor(A...)>::type
+        operator()(A &&... a)
+        {
+            typedef
+                typename vector_chooser<sizeof...(A) + 1>::template apply<
+                    const actor<Expr> *
+                  , typename mpl::if_<is_reference<A>, A, A const &>::type...
+                >::type
+            env_type;
+
+            env_type env = {this, a...};
+            return phoenix::eval(*this, phoenix::context(env, default_actions()));
+        }
+
+        template <typename... A>
+        typename result<actor(A...)>::type
+        operator()(A &&... a) const
+        {
+            typedef
+                typename vector_chooser<sizeof...(A) + 1>::template apply<
+                    const actor<Expr> *
+                  , typename mpl::if_<is_reference<A>, A, A const &>::type...
+                >::type
+            env_type;
+
+            env_type env = {this, a...};
+            return phoenix::eval(*this, phoenix::context(env, default_actions()));
+        }
+#endif
+    };
 }}
 
 namespace boost
@@ -305,7 +351,7 @@ namespace boost
     struct result_of<phoenix::actor<Expr>()>
         : phoenix::result_of::actor<typename phoenix::actor<Expr>::proto_base_expr>
     {};
-    
+
     template <typename Expr>
     struct result_of<phoenix::actor<Expr> const()>
         : phoenix::result_of::actor<typename phoenix::actor<Expr>::proto_base_expr>

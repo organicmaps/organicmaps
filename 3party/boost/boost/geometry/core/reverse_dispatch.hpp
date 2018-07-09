@@ -18,9 +18,8 @@
 
 #include <cstddef>
 
-#include <boost/type_traits.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/mpl/greater.hpp>
+#include <boost/type_traits/integral_constant.hpp>
 
 #include <boost/geometry/core/geometry_id.hpp>
 

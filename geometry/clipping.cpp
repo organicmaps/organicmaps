@@ -168,19 +168,24 @@ vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpli
     p2 = path[i + 1];
     if (m2::Intersect(rect, p1, p2, code1, code2))
     {
-      if ((p1 - p2).IsAlmostZero())
-        continue;
-
       if (s.IsNull())
         s.Reset(new m2::Spline(path.size() - i));
 
       s->AddPoint(p1);
+      s->AddPoint(p2);
+
       if (code2 != 0 || i + 2 == path.size())
       {
-        s->AddPoint(p2);
-        result.push_back(s);
+        if (s->GetSize() > 1)
+          result.push_back(s);
         s.Reset(nullptr);
       }
+    }
+    else if (!s.IsNull() && !s->IsEmpty())
+    {
+      if (s->GetSize() > 1)
+        result.push_back(s);
+      s.Reset(nullptr);
     }
   }
   return result;

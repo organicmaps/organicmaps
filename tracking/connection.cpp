@@ -60,7 +60,7 @@ bool Connection::Send(boost::circular_buffer<DataPoint> const & points)
   if (!m_socket)
     return false;
 
-  auto packet = Protocol::CreateDataPacket(points);
+  auto packet = Protocol::CreateDataPacket(points, tracking::Protocol::PacketType::CurrentData);
   return m_socket->Write(packet.data(), static_cast<uint32_t>(packet.size()));
 }
 }  // namespace tracking

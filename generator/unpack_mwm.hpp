@@ -2,10 +2,10 @@
 
 #include "base/base.hpp"
 
-#include "std/string.hpp"
+#include <string>
 
 
 // Unpack each section of mwm into a separate file with name filePath.sectionName
-void UnpackMwm(string const & filePath);
+void UnpackMwm(std::string const & filePath);
 
-void DeleteSection(string const & filePath, string const & tag);
+void DeleteSection(std::string const & filePath, std::string const & tag);

@@ -16,7 +16,7 @@
 #include "std/unique_ptr.hpp"
 #include "std/vector.hpp"
 
-class Index;
+class DataSource;
 class FeatureType;
 
 namespace routing
@@ -25,26 +25,29 @@ namespace routing
 class FeaturesRoadGraph : public IRoadGraph
 {
 private:
-  class CrossCountryVehicleModel : public IVehicleModel
+  class CrossCountryVehicleModel : public VehicleModelInterface
   {
   public:
-    CrossCountryVehicleModel(shared_ptr<VehicleModelFactory> vehicleModelFactory);
+    CrossCountryVehicleModel(shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory);
 
-    // IVehicleModel overrides:
+    // VehicleModelInterface overrides:
     double GetSpeed(FeatureType const & f) const override;
     double GetMaxSpeed() const override;
+    double GetOffroadSpeed() const override;
     bool IsOneWay(FeatureType const & f) const override;
     bool IsRoad(FeatureType const & f) const override;
+    bool IsPassThroughAllowed(FeatureType const & f) const override;
 
     void Clear();
 
   private:
-    IVehicleModel * GetVehicleModel(FeatureID const & featureId) const;
+    VehicleModelInterface * GetVehicleModel(FeatureID const & featureId) const;
 
-    shared_ptr<VehicleModelFactory> const m_vehicleModelFactory;
+    shared_ptr<VehicleModelFactoryInterface> const m_vehicleModelFactory;
     double const m_maxSpeedKMPH;
+    double const m_offroadSpeedKMPH;
 
-    mutable map<MwmSet::MwmId, shared_ptr<IVehicleModel>> m_cache;
+    mutable map<MwmSet::MwmId, shared_ptr<VehicleModelInterface>> m_cache;
   };
 
   class RoadInfoCache
@@ -60,10 +63,10 @@ private:
   };
 
 public:
-  FeaturesRoadGraph(Index const & index, IRoadGraph::Mode mode,
-                    shared_ptr<VehicleModelFactory> vehicleModelFactory);
+  FeaturesRoadGraph(DataSource const & dataSource, IRoadGraph::Mode mode,
+                    shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory);
 
-  static uint32_t GetStreetReadScale();
+  static int GetStreetReadScale();
 
   // IRoadGraph overrides:
   RoadInfo GetRoadInfo(FeatureID const & featureId) const override;
@@ -86,7 +89,7 @@ private:
   struct Value
   {
     Value() = default;
-    explicit Value(MwmSet::MwmHandle handle);
+    Value(DataSource const & dataSource, MwmSet::MwmHandle handle);
 
     bool IsAlive() const { return m_mwmHandle.IsAlive(); }
 
@@ -109,11 +112,16 @@ private:
 
   Value const & LockMwm(MwmSet::MwmId const & mwmId) const;
 
-  Index const & m_index;
+  DataSource const & m_dataSource;
   IRoadGraph::Mode const m_mode;
   mutable RoadInfoCache m_cache;
   mutable CrossCountryVehicleModel m_vehicleModel;
   mutable map<MwmSet::MwmId, Value> m_mwmLocks;
 };
+
+// @returns a distance d such as that for a given point p any edge
+// with start point s such as that |s - p| < d, and edge is considered outgouing from p.
+// Symmetrically for ingoing edges.
+double GetRoadCrossingRadiusMeters();
 
 }  // namespace routing

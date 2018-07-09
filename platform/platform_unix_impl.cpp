@@ -145,10 +145,24 @@ Platform::EError Platform::GetFileType(string const & path, EFileType & type)
   return ERR_OK;
 }
 
+// static
 bool Platform::IsFileExistsByFullPath(string const & filePath)
 {
   struct stat s;
   return stat(filePath.c_str(), &s) == 0;
+}
+
+//static
+void Platform::DisableBackupForFile(string const & filePath) {}
+
+// static
+string Platform::GetCurrentWorkingDirectory() noexcept
+{
+  char path[PATH_MAX];
+  char const * const dir = getcwd(path, PATH_MAX);
+  if (dir == nullptr)
+    return {};
+  return dir;
 }
 
 bool Platform::IsDirectoryEmpty(string const & directory)

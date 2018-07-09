@@ -122,15 +122,6 @@ namespace boost{ namespace math{
     const RealType shape = dist.shape();
 
     static const char* function = "boost::math::pdf(const skew_normal_distribution<%1%>&, %1%)";
-    if((boost::math::isinf)(x))
-    {
-      return 0; // pdf + and - infinity is zero.
-    }
-    // Below produces MSVC 4127 warnings, so the above used instead.
-    //if(std::numeric_limits<RealType>::has_infinity && abs(x) == std::numeric_limits<RealType>::infinity())
-    //{ // pdf + and - infinity is zero.
-    //  return 0;
-    //}
 
     RealType result = 0;
     if(false == detail::check_scale(function, scale, &result, Policy()))
@@ -145,6 +136,15 @@ namespace boost{ namespace math{
     {
       return result;
     }
+    if((boost::math::isinf)(x))
+    {
+       return 0; // pdf + and - infinity is zero.
+    }
+    // Below produces MSVC 4127 warnings, so the above used instead.
+    //if(std::numeric_limits<RealType>::has_infinity && abs(x) == std::numeric_limits<RealType>::infinity())
+    //{ // pdf + and - infinity is zero.
+    //  return 0;
+    //}
     if(false == detail::check_x(function, x, &result, Policy()))
     {
       return result;

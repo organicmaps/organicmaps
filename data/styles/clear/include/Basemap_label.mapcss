@@ -109,11 +109,11 @@ line[waterway],
 *[place]
 {text-position: center;fill-position: background;}
 
-node|z1-2[place=continent]
-node|z12-[place=archipelago],
-node|z12-[place=island],
-area|z12-[place=archipelago],
-area|z12-[place=island]
+node|z1-2[place=continent],
+node|z10-[place=archipelago],
+node|z10-[place=island],
+area|z10-[place=archipelago],
+area|z10-[place=island],
 node|z14-[natural=cape],
 area|z14-[natural=cape]
 {text: name;}
@@ -121,11 +121,29 @@ area|z14-[natural=cape]
 node|z1-2[place=continent]
 {font-size: 12;text-color: @country_label;max-width: 5;-x-me-text-priority:16000;}
 
+node|z10-[place=archipelago],
+node|z10-[place=island],
+area|z10-[place=archipelago],
+area|z10-[place=island]
+{font-size: 8;text-color: @district_label;}
+
 node|z12-[place=archipelago],
 node|z12-[place=island],
 area|z12-[place=archipelago],
 area|z12-[place=island]
 {font-size: 9;text-color: @district_label;}
+
+node|z14-[place=archipelago],
+node|z14-[place=island],
+area|z14-[place=archipelago],
+area|z14-[place=island]
+{font-size: 10;text-color: @district_label;}
+
+node|z16-[place=archipelago],
+node|z16-[place=island],
+area|z16-[place=archipelago],
+area|z16-[place=island]
+{font-size: 8;text-color: @district_label;}
 
 node|z14-[natural=cape],
 area|z14-[natural=cape]
@@ -191,7 +209,7 @@ node|z8-10[place=state]::int_name
 node|z4[place=city][capital!=2][population>=1000000],
 node|z5[place=city][capital!=2][population>=150000],
 node|z6[place=city][capital!=2][population>=50000],
-node|z7-8[place=city][capital!=2][population>=40000]
+node|z7-8[place=city][capital!=2][population>=40000],
 node|z4-[place=city][capital=2],
 node|z9-[place=city]
 {text: name;text-color: @label_dark;text-halo-radius: 1;text-halo-opacity: 1;text-halo-color: @label_halo_light;}
@@ -207,87 +225,88 @@ node|z4[place=city][capital!=2][population>=1000000],
 {font-size: 9;text-halo-opacity: 0.7;}
 node|z4[place=city][capital!=2][population>=1000000]::int_name
 {font-size: 8;text-halo-opacity: 0.7;}
+
 node|z4[place=city][capital=2],
-{icon-image: star-s.svg;text-offset: 3;font-size: 10;}
+{icon-image: star-s.svg;text-offset: 1;font-size: 10;}
 node|z4[place=city][capital=2]::int_name
-{text-offset: 9;font-size: 9;}
+{text-offset: 1;font-size: 9;}
 
 node|z5[place=city][capital!=2][population>=150000],
 {font-size: 10;text-halo-opacity: 0.6;}
 node|z5[place=city][capital!=2][population>=150000]::int_name
 {font-size: 9;text-halo-opacity: 0.6;}
 node|z5[place=city][capital=2]
-{icon-image: star-m.svg;text-offset: 3;font-size: 10.4;}
+{icon-image: star-m.svg;text-offset: 1;font-size: 10.4;}
 node|z5[place=city][capital=2]::int_name
-{text-offset: 9;font-size: 9.4;}
+{text-offset: 1;font-size: 9.4;}
 
 node|z6[place=city][capital!=2][population>=50000]
 {font-size: 10.4;text-halo-opacity: 0.6;}
 node|z6[place=city][capital!=2][population>=50000]::int_name
 {font-size: 9.4;text-halo-opacity: 0.6;}
 node|z6[place=city][capital=2]
-{icon-image: star-l.svg;text-offset: 4;font-size: 11.6;}
+{icon-image: star-l.svg;text-offset: 1;font-size: 11.6;}
 node|z6[place=city][capital=2]::int_name
-{text-offset: 10;font-size: 10.6;}
+{text-offset: 1;font-size: 10.6;}
 
 node|z7[place=city][capital!=2][population>=40000]
 {font-size: 10;text-halo-opacity: 0.8;}
 node|z7[place=city][capital!=2][population>=40000]::int_name
 {font-size: 9;text-halo-opacity: 0.8;}
 node|z7[place=city][capital=2]
-{icon-image: star-l.svg;text-offset: 5;font-size: 11;}
+{icon-image: star-l.svg;text-offset: 1;font-size: 11;}
 node|z7[place=city][capital=2]::int_name
-{text-offset: 11;font-size: 10;}
+{text-offset: 1;font-size: 10;}
 
 node|z8[place=city][capital!=2][population>=40000]
 {font-size: 10.5;}
 node|z8[place=city][capital!=2][population>=40000]::int_name
 {font-size: 9.5;}
 node|z8[place=city][capital=2]
-{icon-image: star-l.svg;text-offset: 5;font-size: 11.5;}
+{icon-image: star-l.svg;text-offset: 1;font-size: 11.5;}
 node|z8[place=city][capital=2]::int_name
-{text-offset: 11;font-size: 10.5;}
+{text-offset: 1;font-size: 10.5;}
 
 node|z9[place=city][capital=2]
-{icon-image: star-l.svg;text-offset: 5;font-size: 13;  text-halo-radius: 0.5;}
+{icon-image: star-l.svg;text-offset: 1;font-size: 13;  text-halo-radius: 0.5;}
 node|z9[place=city][capital=2]::int_name
-{text-offset: 11;font-size: 12;text-halo-radius: 0.5;}
+{text-offset: 1;font-size: 12;text-halo-radius: 0.5;}
 node|z9[place=city],
 {font-size: 11;text-halo-radius: 0.5;}
 node|z9[place=city]::int_name
 {font-size: 10;text-halo-radius: 0.5;}
 
 node|z10[place=city][capital=2]
-{icon-image: star-l.svg;text-offset: 3;font-size: 13;}
+{icon-image: star-l.svg;text-offset: 1;font-size: 13;}
 node|z10[place=city][capital=2]::int_name
-{text-offset: 9;font-size: 12;}
+{text-offset: 1;font-size: 12;}
 node|z10[place=city],
 {font-size: 11;text-halo-radius: 0.9;}
 node|z10[place=city]::int_name
 {font-size: 10;text-halo-radius: 0.9;}
 
 node|z11[place=city][capital=2]
-{icon-image: star-l.svg;text-offset: 4;font-size: 12;}
+{icon-image: star-l.svg;text-offset: 1;font-size: 12;}
 node|z11[place=city][capital=2]::int_name
-{text-offset: 10;font-size: 11;}
+{text-offset: 1;font-size: 11;}
 node|z11[place=city],
 {font-size: 12;}
 node|z11[place=city]::int_name
 {font-size: 11;}
 
 node|z12[place=city][capital=2]
-{icon-image: star-l.svg;text-offset: 4;font-size: 13;}
+{icon-image: star-l.svg;text-offset: 1;font-size: 13;}
 node|z12[place=city][capital=2]::int_name
-{text-offset: 10;font-size: 11;}
+{text-offset: 1;font-size: 11;}
 node|z12[place=city],
 {font-size: 13;text-color: @label_medium;}
 node|z12[place=city]::int_name
 {font-size: 11;text-color: @label_medium;}
 
 node|z13-[place=city][capital=2]
-{icon-image: star-l.svg;text-offset: 4;font-size: 14;text-color: @label_medium;}
+{icon-image: star-l.svg;text-offset: 1;font-size: 14;text-color: @label_medium;}
 node|z13-[place=city][capital=2]::int_name
-{text-offset: 10;font-size: 11;text-color: @label_medium;}
+{text-offset: 1;font-size: 11;text-color: @label_medium;}
 node|z13-[place=city],
 {font-size: 14;text-color: @label_medium;}
 node|z13-[place=city]::int_name
@@ -304,7 +323,7 @@ node|z9[place=town][population>=20000]::int_name
 node|z10-[place=town],
 {text: name;text-color: @label_medium;text-halo-radius: 1;text-halo-opacity: 0.8;text-halo-color: @label_halo_light;}
 node|z10-[place=town]::int_name
-{text:int_name;text-color: @label_medium;;text-halo-radius: 1;text-halo-opacity: 0.8;text-halo-color: @label_halo_light;}
+{text:int_name;text-color: @label_medium;text-halo-radius: 1;text-halo-opacity: 0.8;text-halo-color: @label_halo_light;}
 
 node|z8[place=town][population>=40000]
 {font-size: 10;}
@@ -371,7 +390,7 @@ node|z13-[place=neighbourhood],
 node|z14-[place=farm],
 node|z14-[place=isolated_dwelling],
 {text: name;text-color: @district_label;}
-node|z12-14[place=suburb]::int_name,
+node|z13-14[place=suburb]::int_name,
 node|z13-[place=locality]::int_name,
 node|z13-[place=neighbourhood]::int_name,
 node|z14-[place=farm]::int_name,
@@ -418,30 +437,30 @@ area|z16-[leisure=garden][name]::int_name
 
 area|z14-[leisure=park][name],
 area|z14-[landuse=forest][name]
-{icon-image: park-s.svg;text-offset: 6;font-size: 10;}
+{icon-image: park-s.svg;text-offset: 1;font-size: 10;}
 area|z14-[leisure=park][name]::int_name,
 area|z14-[landuse=forest][name]::int_name
-{text-offset: 6;}
+{text-offset: 1;}
 area|z14-[leisure=park][!name],
 area|z14-[landuse=forest][!name]
 {}/*check*/
 
 area|z15-[leisure=park][name],
 area|z15-[landuse=forest][name]
-{icon-image: park-m.svg;text-offset: 8;font-size: 11;}
+{icon-image: park-m.svg;text-offset: 1;font-size: 11;}
 area|z15-17[leisure=park][name]::int_name,
 area|z15-17[landuse=forest][name]::int_name,
 area|z16-17[landuse=forest][name]::int_name
-{text-offset: 18;font-size: 10;}
+{text-offset: 1;font-size: 10;}
 area|z15[leisure=park][!name],
 area|z15[landuse=forest][!name]
 {}/*check*/
 
 area|z16[leisure=park][name],
 area|z16[landuse=forest][name]
-{icon-image: park-m.svg;text-offset: 10;font-size: 11;}
+{icon-image: park-m.svg;text-offset: 1;font-size: 11;}
 area|z16[leisure=garden][name]
-{icon-image: garden-m.svg;text-offset: 10;font-size: 11;}
+{icon-image: garden-m.svg;text-offset: 1;font-size: 11;}
 area|z16[leisure=park][!name],
 area|z16[leisure=garden][!name],
 area|z16[landuse=forest][!name],
@@ -452,9 +471,9 @@ area|z16[landuse=forest][!name]::int_name
 
 area|z17[leisure=park][name],
 area|z17[landuse=forest][name]
-{icon-image: park-l.svg;text-offset: 10;font-size: 12;}
+{icon-image: park-m.svg;text-offset: 1;font-size: 12;}
 area|z17[leisure=garden][name]
-{icon-image: garden-l.svg;text-offset: 10;font-size: 12;}
+{icon-image: garden-m.svg;text-offset: 1;font-size: 12;}
 area|z17[leisure=park][!name],
 area|z17[landuse=forest][!name],
 area|z17[leisure=garden][!name],
@@ -465,13 +484,13 @@ area|z17[leisure=forest][!name]::int_name
 
 area|z18-[leisure=park],
 area|z18-[landuse=forest]
-{icon-image: park-l.svg;text-offset: 10;font-size: 13;}
+{icon-image: park-m.svg;text-offset: 1;font-size: 13;}
 area|z18-[leisure=garden]
-{icon-image: garden-l.svg;text-offset: 10;font-size: 13;}
+{icon-image: garden-m.svg;text-offset: 1;font-size: 13;}
 area|z18-[leisure=park]::int_name,
 area|z18-[leisure=garden]::int_name,
 area|z18-[leisure=forest]::int_name
-{text-offset: 18;font-size: 11;}
+{text-offset: 1;font-size: 11;}
 
 area|z15-[landuse=farmland],
 area|z15-[landuse=allotments],
@@ -592,7 +611,7 @@ area|z15-[landuse=cemetery],
 node|z15-[landuse=cemetery],
 area|z17-[amenity=grave_yard],
 node|z17-[amenity=grave_yard],
-{text: name;text-offset: 10;font-size: 10;text-color: @poi_label;}
+{text: name;text-offset: 1;font-size: 10;text-color: @poi_label;}
 
 area|z15-16[landuse=cemetery]
 {icon-image: cemetery-m.svg;}
@@ -600,7 +619,7 @@ area|z17-[landuse=cemetery],
 node|z17-[landuse=cemetery],
 area|z17-[amenity=grave_yard],
 node|z17-[amenity=grave_yard],
-{icon-image: cemetery-l.svg;}
+{icon-image: cemetery-m.svg;}
 
 /* 	7.5 Pedestrian areas */
 
@@ -618,7 +637,7 @@ node|z16[landuse=military]
 
 area|z17-[landuse=military],
 node|z17-[landuse=military]
-{icon-image: military-l.svg;text-offset: 10;text: name;font-size: 10;text-color: @poi_label;}
+{icon-image: military-m.svg;text-offset: 1;text: name;font-size: 10;text-color: @poi_label;}
 
 /* 	7.7 Commercial */
 
@@ -685,7 +704,7 @@ node|z18-[addr:housenumber][addr:street]::int_name
 {font-size: 10;}
 
 node|z18-[entrance]
-{icon-image: entrance-s.svg;font-size: 10;text: ref;text-offset-x: 10;}
+{icon-image: entrance-s.svg;font-size: 10;text: ref;text-offset-x: 1;}
 node|z19-[entrance]::flats
 {text: "addr:flats";font-size: 12;text-offset-y: 10;}
 

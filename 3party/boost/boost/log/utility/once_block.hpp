@@ -82,7 +82,7 @@ public:
 
     ~once_block_sentry() BOOST_NOEXCEPT
     {
-        if (m_flag.status != once_block_flag::initialized)
+        if (BOOST_UNLIKELY(m_flag.status != once_block_flag::initialized))
             rollback();
     }
 

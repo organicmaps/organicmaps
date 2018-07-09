@@ -13,7 +13,9 @@ TypesSkipper::TypesSkipper()
 {
   Classificator const & c = classif();
 
-  for (auto const & e : (StringIL[]){{"entrance"}})
+  for (auto const & e : (StringIL[]){{"barrier", "border_control"}})
+    m_doNotSkip.push_back(c.GetTypeByPath(e));
+  for (auto const & e : (StringIL[]){{"entrance"}, {"barrier"}})
     m_skipAlways[0].push_back(c.GetTypeByPath(e));
   for (auto const & e : (StringIL[]){{"building", "address"}})
     m_skipAlways[1].push_back(c.GetTypeByPath(e));
@@ -41,8 +43,10 @@ TypesSkipper::TypesSkipper()
 
 void TypesSkipper::SkipTypes(feature::TypesHolder & types) const
 {
-  auto shouldBeRemoved = [this](uint32_t type)
-  {
+  auto shouldBeRemoved = [this](uint32_t type) {
+    if (HasType(m_doNotSkip, type))
+      return false;
+
     ftype::TruncValue(type, 2);
     if (HasType(m_skipAlways[1], type))
       return true;
@@ -90,7 +94,7 @@ bool TypesSkipper::IsCountryOrState(feature::TypesHolder const & types) const
 }
 
 // static
-bool TypesSkipper::HasType(TCont const & v, uint32_t t)
+bool TypesSkipper::HasType(Cont const & v, uint32_t t)
 {
   return find(v.begin(), v.end(), t) != v.end();
 }

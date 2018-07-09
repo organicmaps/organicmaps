@@ -12,7 +12,6 @@
 #include "3party/succinct/elias_fano.hpp"
 #include "3party/succinct/mapper.hpp"
 
-
 namespace platform
 {
   class LocalCountryFile;

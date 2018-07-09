@@ -1,16 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-    <title>wayside_shrine-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard-1" transform="translate(-354.000000, -1250.000000)">
-            <g id="wayside_shrine-m" transform="translate(354.000000, 1250.000000)">
-                <path d="M11.5,23 C5.159,23 0,17.841 0,11.5 C0,5.159 5.159,0 11.5,0 C17.841,0 23,5.159 23,11.5 C23,17.841 17.841,23 11.5,23 L11.5,23 Z" id="Shape" fill-opacity="0.1" fill="#FFFFFF"></path>
-                <path d="M22,11.5 C22,17.299 17.299,22 11.5,22 C5.701,22 1,17.299 1,11.5 C1,5.701 5.701,1 11.5,1 C17.299,1 22,5.701 22,11.5 L22,11.5 Z" id="Shape" fill="#26160D"></path>
-                <path d="M11.545,4 L4.979,10.565 L6.111,11.696 L11.546,6.262 L16.98,11.696 L18.112,10.565 L11.545,4 L11.545,4 Z M16,12.735 L16,19 L14,19 L14,15.5 C14,14.119 12.881,13 11.5,13 C10.119,13 9,14.119 9,15.5 L9,19 L7,19 L7,12.807 L11.537,8.371 L16,12.735 L16,12.735 Z" id="Shape" fill-opacity="0.7" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg height="24" viewBox="0 0 24 24" width="24"><g fill="none" fill-rule="evenodd"><circle cx="12" cy="12" fill="#fff" opacity=".4" r="12"/><circle cx="12" cy="12" fill="#4d361f" r="11"/><path d="m11.9995431 4-5.9995431 6.1273333 1.03434097 1.0556 4.96611593-5.0717333 4.9652021 5.0717333 1.034341-1.0556zm4.0706617 8.1526667v5.8473333h-1.8274575v-3.2666667c0-1.2889333-1.0224625-2.3333333-2.284322-2.3333333-1.2618594 0-2.2843219 1.0444-2.2843219 2.3333333v3.2666667h-1.82745755v-5.7801333l4.14558745-4.1402667z" fill="#fff" opacity=".6"/></g></svg>

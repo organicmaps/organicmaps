@@ -27,8 +27,53 @@
 #  include BOOST_ABI_PREFIX
 #endif
 
+#ifndef BOOST_NO_CXX11_HDR_ATOMIC
+  #include <atomic>
+  #if ATOMIC_POINTER_LOCK_FREE == 2
+    #define BOOST_REGEX_MEM_BLOCK_CACHE_LOCK_FREE
+    #define BOOST_REGEX_ATOMIC_POINTER std::atomic
+  #endif
+#endif
+
 namespace boost{
-namespace re_detail{
+namespace BOOST_REGEX_DETAIL_NS{
+
+#ifdef BOOST_REGEX_MEM_BLOCK_CACHE_LOCK_FREE /* lock free implementation */
+struct mem_block_cache
+{
+  std::atomic<void*> cache[BOOST_REGEX_MAX_CACHE_BLOCKS];
+
+   ~mem_block_cache()
+   {
+     for (size_t i = 0;i < BOOST_REGEX_MAX_CACHE_BLOCKS; ++i) {
+       if (cache[i].load()) ::operator delete(cache[i].load());
+     }
+   }
+   void* get()
+   {
+     for (size_t i = 0;i < BOOST_REGEX_MAX_CACHE_BLOCKS; ++i) {
+       void* p = cache[i].load();
+       if (p != NULL) {
+         if (cache[i].compare_exchange_strong(p, NULL)) return p;
+       }
+     }
+     return ::operator new(BOOST_REGEX_BLOCKSIZE);
+   }
+   void put(void* ptr)
+   {
+     for (size_t i = 0;i < BOOST_REGEX_MAX_CACHE_BLOCKS; ++i) {
+       void* p = cache[i].load();
+       if (p == NULL) {
+         if (cache[i].compare_exchange_strong(p, ptr)) return;
+       }
+     }
+     ::operator delete(ptr);
+   }
+};
+
+
+#else /* lock-based implementation */
+
 
 struct mem_block_node
 {
@@ -85,6 +130,7 @@ struct mem_block_cache
       }
    }
 };
+#endif
 
 extern mem_block_cache block_cache;
 

@@ -1,14 +1,10 @@
 #import "MWMSettingsViewController.h"
-#import "LocaleTranslator.h"
 #import "MWMAuthorizationCommon.h"
 #import "MWMNetworkPolicy.h"
-#import "MWMSettings.h"
-#import "MWMTextToSpeech.h"
-#import "Statistics.h"
+#import "MWMTextToSpeech+CPP.h"
 #import "SwiftBridge.h"
-#import "WebViewController.h"
 
-#import "3party/Alohalytics/src/alohalytics_objc.h"
+#include "LocaleTranslator.h"
 
 #include "Framework.h"
 
@@ -24,9 +20,11 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * zoomButtonsCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * is3dCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * autoDownloadCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * backupBookmarksCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * mobileInternetCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * recentTrackCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * fontScaleCell;
+@property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * transliterationCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * compassCalibrationCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * showOffersCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * statisticsCell;
@@ -35,7 +33,6 @@ extern NSString * const kAlohalyticsTapEventKey;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * perspectiveViewCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * autoZoomCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * voiceInstructionsCell;
-@property(weak, nonatomic) IBOutlet SettingsTableViewSwitchCell * simplifiedColorsCell;
 
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * helpCell;
 @property(weak, nonatomic) IBOutlet SettingsTableViewLinkCell * aboutCell;
@@ -89,19 +86,23 @@ extern NSString * const kAlohalyticsTapEventKey;
   [self.is3dCell configWithDelegate:self title:L(@"pref_map_3d_buildings_title") isOn:on];
 
   [self.autoDownloadCell configWithDelegate:self
-                                      title:L(@"autodownload")
+                                      title:L(@"disable_autodownload")
                                        isOn:[MWMSettings autoDownloadEnabled]];
 
+  [self.backupBookmarksCell configWithDelegate:self
+                                         title:L(@"settings_backup_bookmarks")
+                                          isOn:[MWMBookmarksManager isCloudEnabled]];
+
   NSString * mobileInternet = nil;
-  using stage = platform::NetworkPolicy::Stage;
   switch (network_policy::GetStage())
   {
-  case stage::Always: mobileInternet = L(@"mobile_data_option_always"); break;
-  case stage::Session: mobileInternet = L(@"mobile_data_option_today"); break;
-  case stage::Never: mobileInternet = L(@"mobile_data_option_never"); break;
+  case network_policy::Ask:
+  case network_policy::Today:
+  case network_policy::NotToday: mobileInternet = L(@"mobile_data_option_ask"); break;
+  case network_policy::Always: mobileInternet = L(@"mobile_data_option_always"); break;
+  case network_policy::Never: mobileInternet = L(@"mobile_data_option_never"); break;
   }
   [self.mobileInternetCell configWithTitle:L(@"mobile_data") info:mobileInternet];
-
 
   NSString * recentTrack = nil;
   if (!GpsTracker::Instance().IsEnabled())
@@ -126,6 +127,10 @@ extern NSString * const kAlohalyticsTapEventKey;
                                    title:L(@"big_font")
                                     isOn:[MWMSettings largeFontSize]];
 
+  [self.transliterationCell configWithDelegate:self
+                                         title:L(@"whatsnew_transliteration_title")
+                                          isOn:[MWMSettings transliteration]];
+
   [self.compassCalibrationCell configWithDelegate:self
                                             title:L(@"pref_calibration_title")
                                              isOn:[MWMSettings compassCalibrationEnabled]];
@@ -144,7 +149,9 @@ extern NSString * const kAlohalyticsTapEventKey;
   NSString * nightMode = nil;
   switch ([MWMSettings theme])
   {
+  case MWMThemeVehicleDay: NSAssert(false, @"Invalid case");
   case MWMThemeDay: nightMode = L(@"pref_map_style_default"); break;
+  case MWMThemeVehicleNight: NSAssert(false, @"Invalid case");
   case MWMThemeNight: nightMode = L(@"pref_map_style_night"); break;
   case MWMThemeAuto: nightMode = L(@"pref_map_style_auto"); break;
   }
@@ -173,10 +180,6 @@ extern NSString * const kAlohalyticsTapEventKey;
     voiceInstructions = L(@"duration_disabled");
   }
   [self.voiceInstructionsCell configWithTitle:L(@"pref_tts_language_title") info:voiceInstructions];
-
-  [self.simplifiedColorsCell configWithDelegate:self
-                                          title:L(@"pref_traffic_simplified_colors_title")
-                                           isOn:GetFramework().LoadTrafficSimplifiedColors()];
 }
 
 - (void)configInfoSection
@@ -212,11 +215,25 @@ extern NSString * const kAlohalyticsTapEventKey;
           withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
     [MWMSettings setAutoDownloadEnabled:value];
   }
+  else if (cell == self.backupBookmarksCell)
+  {
+    [Statistics logEvent:kStatSettingsBookmarksSyncToggle
+          withParameters:@{
+            kStatState: (value ? @1 : @0)
+          }];
+    [MWMBookmarksManager setCloudEnabled:value];
+  }
   else if (cell == self.fontScaleCell)
   {
     [Statistics logEvent:kStatEventName(kStatSettings, kStatToggleLargeFontSize)
           withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
     [MWMSettings setLargeFontSize:value];
+  }
+  else if (cell == self.transliterationCell)
+  {
+    [Statistics logEvent:kStatEventName(kStatSettings, kStatToggleTransliteration)
+          withParameters:@{kStatValue : (value ? kStatOn : kStatOff)}];
+    [MWMSettings setTransliteration:value];
   }
   else if (cell == self.compassCalibrationCell)
   {
@@ -257,14 +274,6 @@ extern NSString * const kAlohalyticsTapEventKey;
     auto & f = GetFramework();
     f.AllowAutoZoom(value);
     f.SaveAutoZoom(value);
-  }
-  else if (cell == self.simplifiedColorsCell)
-  {
-    [Statistics logEvent:kStatEventName(kStatSettings, kStatSimplifiedColors)
-          withParameters:@{kStatValue : value ? kStatOn : kStatOff}];
-    auto & f = GetFramework();
-    f.GetTrafficManager().SetSimplifiedColorScheme(value);
-    f.SaveTrafficSimplifiedColors(value);
   }
 }
 

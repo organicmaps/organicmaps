@@ -1,4 +1,4 @@
-#import "MWMAlertViewController.h"
+#import "MWMAlertViewController+CPP.h"
 #import "MWMCommon.h"
 #import "MWMController.h"
 #import "MWMDownloadTransitMapAlert.h"
@@ -33,13 +33,14 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 {
   self = [super initWithNibName:kAlertControllerNibIdentifier bundle:nil];
   if (self)
-    self.ownerViewController = viewController;
+    _ownerViewController = viewController;
   return self;
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+  [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   auto const orient = size.width > size.height ? UIInterfaceOrientationLandscapeLeft : UIInterfaceOrientationPortrait;
   [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
     for (MWMAlert * alert in self.view.subviews)
@@ -49,7 +50,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 #pragma mark - Actions
 
-- (void)presentRateAlert { [self displayAlert:MWMAlert.rateAlert]; }
+- (void)presentRateAlert { [self displayAlert:[MWMAlert rateAlert]]; }
 - (void)presentLocationAlert
 {
   if (![MapViewController controller].welcomePageController)
@@ -61,10 +62,10 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert point2PointAlertWithOkBlock:okBlock needToRebuild:needToRebuild]];
 }
 
-- (void)presentFacebookAlert { [self displayAlert:MWMAlert.facebookAlert]; }
+- (void)presentFacebookAlert { [self displayAlert:[MWMAlert facebookAlert]]; }
 - (void)presentLocationServiceNotSupportedAlert
 {
-  [self displayAlert:MWMAlert.locationServiceNotSupportedAlert];
+  [self displayAlert:[MWMAlert locationServiceNotSupportedAlert]];
 }
 
 - (void)presentLocationNotFoundAlertWithOkBlock:(nonnull MWMVoidBlock)okBlock
@@ -87,7 +88,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 
 - (void)presentIncorrectFeauturePositionAlert
 {
-  [self displayAlert:[MWMAlert incorrectFeauturePositionAlert]];
+  [self displayAlert:[MWMAlert incorrectFeaturePositionAlert]];
 }
 
 - (void)presentInternalErrorAlert { [self displayAlert:[MWMAlert internalErrorAlert]]; }
@@ -103,7 +104,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 }
 
 - (void)presentDownloaderAlertWithCountries:(storage::TCountriesVec const &)countries
-                                       code:(routing::IRouter::ResultCode)code
+                                       code:(routing::RouterResultCode)code
                                 cancelBlock:(MWMVoidBlock)cancelBlock
                               downloadBlock:(MWMDownloadBlock)downloadBlock
                       downloadCompleteBlock:(MWMVoidBlock)downloadCompleteBlock
@@ -120,8 +121,8 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
   [self displayAlert:[MWMAlert routingDisclaimerAlertWithOkBlock:block]];
 }
 
-- (void)presentDisabledLocationAlert { [self displayAlert:MWMAlert.disabledLocationAlert]; }
-- (void)presentAlert:(routing::IRouter::ResultCode)type
+- (void)presentDisabledLocationAlert { [self displayAlert:[MWMAlert disabledLocationAlert]]; }
+- (void)presentAlert:(routing::RouterResultCode)type
 {
   [self displayAlert:[MWMAlert alert:type]];
 }
@@ -206,8 +207,69 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
 {
   [self displayAlert:[MWMMobileInternetAlert alertWithBlock:block]];
 }
+
+- (void)presentInfoAlert:(nonnull NSString *)title text:(nonnull NSString *)text
+{
+  [self displayAlert:[MWMAlert infoAlert:title text:text]];
+}
+
 - (void)presentEditorViralAlert { [self displayAlert:[MWMAlert editorViralAlert]]; }
 - (void)presentOsmAuthAlert { [self displayAlert:[MWMAlert osmAuthAlert]]; }
+
+- (void)presentCreateBookmarkCategoryAlertWithMaxCharacterNum:(NSUInteger)max
+                                              minCharacterNum:(NSUInteger)min
+                                                        isNewCategory:(BOOL)isNewCategory
+                                                     callback:(nonnull MWMCheckStringBlock)callback
+{
+  auto alert = static_cast<MWMBCCreateCategoryAlert *>([MWMAlert
+                  createBookmarkCategoryAlertWithMaxCharacterNum:max
+                                                 minCharacterNum:min
+                                                   isNewCategory:isNewCategory
+                                                        callback:callback]);
+  [self displayAlert:alert];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [alert.textField becomeFirstResponder];
+  });
+}
+
+- (void)presentConvertBookmarksAlertWithCount:(NSUInteger)count block:(nonnull MWMVoidBlock)block
+{
+  auto alert = [MWMAlert convertBookmarksAlertWithCount:count block:block];
+  [self displayAlert:alert];
+}
+
+- (void)presentSpinnerAlertWithTitle:(nonnull NSString *)title cancel:(nullable MWMVoidBlock)cancel
+{
+  [self displayAlert:[MWMAlert spinnerAlertWithTitle:title cancel:cancel]];
+}
+
+- (void)presentBookmarkConversionErrorAlert
+{
+  [self displayAlert:[MWMAlert bookmarkConversionErrorAlert]];
+}
+
+- (void)presentRestoreBookmarkAlertWithMessage:(nonnull NSString *)message
+                             rightButtonAction:(nonnull MWMVoidBlock)rightButton
+                              leftButtonAction:(nonnull MWMVoidBlock)leftButton
+{
+  [self displayAlert:[MWMAlert restoreBookmarkAlertWithMessage:message
+                                             rightButtonAction:rightButton
+                                              leftButtonAction:leftButton]];
+}
+
+- (void)presentDefaultAlertWithTitle:(nonnull NSString *)title
+                             message:(nullable NSString *)message
+                    rightButtonTitle:(nonnull NSString *)rightButtonTitle
+                     leftButtonTitle:(nullable NSString *)leftButtonTitle
+                   rightButtonAction:(nullable MWMVoidBlock)action
+{
+  [self displayAlert:[MWMAlert defaultAlertWithTitle:title
+                                             message:message
+                                    rightButtonTitle:rightButtonTitle
+                                     leftButtonTitle:leftButtonTitle
+                                   rightButtonAction:action]];
+}
+
 - (void)displayAlert:(MWMAlert *)alert
 {
   // TODO(igrechuhin): Remove this check on location manager refactoring.
@@ -244,7 +306,7 @@ static NSString * const kAlertControllerNibIdentifier = @"MWMAlertViewController
                      alert.alpha = 1.;
                      alert.transform = CGAffineTransformIdentity;
                    }];
-  [MapsAppDelegate.theApp.window endEditing:YES];
+  [[MapsAppDelegate theApp].window endEditing:YES];
 }
 
 - (void)closeAlert:(nullable MWMVoidBlock)completion

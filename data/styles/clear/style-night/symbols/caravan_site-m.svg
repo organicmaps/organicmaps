@@ -1,14 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>caravan_site-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="caravan_site-m">
-            <path d="M11.5,23 C5.159,23 0,17.841 0,11.5 C0,5.159 5.159,0 11.5,0 C17.841,0 23,5.159 23,11.5 C23,17.841 17.841,23 11.5,23 L11.5,23 Z" id="Shape" fill-opacity="0.1" fill="#FFFFFF"></path>
-            <path d="M22,11.5 C22,17.299 17.299,22 11.5,22 C5.701,22 1,17.299 1,11.5 C1,5.701 5.701,1 11.5,1 C17.299,1 22,5.701 22,11.5 L22,11.5 Z" id="Shape" fill="#26160D"></path>
-            <path d="M10,16.5 C10,17.328 9.328,18 8.5,18 C7.672,18 7,17.328 7,16.5 C7,15.672 7.672,15 8.5,15 C9.328,15 10,15.672 10,16.5 L10,16.5 Z M19,12.6 L19,16 L11.949,16 C11.704,14.309 10.259,13 8.5,13 C6.741,13 5.296,14.309 5.051,16 L4,16 L4,7.601 C4,6.717 4.717,6 5.601,6 L15.201,6 C16.085,6 16.974,6.695 17.189,7.553 L19,12.6 L19,12.6 Z M10,9 C10,8.447 9.553,8 9,8 L7,8 C6.447,8 6,8.447 6,9 L6,10 C6,10.553 6.447,11 7,11 L9,11 C9.553,11 10,10.553 10,10 L10,9 L10,9 Z M16,9.5 C16,8.673 15.327,8 14.5,8 L13.5,8 C12.673,8 12,8.673 12,9.5 L12,14 L16,14 L16,9.5 L16,9.5 Z" id="Shape" fill-opacity="0.7" fill="#FFFFFF"></path>
-        </g>
-    </g>
-</svg>
+<svg height="24" viewBox="0 0 24 24" width="24"><g fill="none" fill-rule="evenodd"><circle cx="12" cy="12" fill="#fff" opacity=".4" r="12"/><circle cx="12" cy="12" fill="#332721" r="11"/><path d="m11 16.5c0 .828-.672 1.5-1.5 1.5s-1.5-.672-1.5-1.5.672-1.5 1.5-1.5 1.5.672 1.5 1.5zm9-3.9v3.4h-7.051c-.245-1.691-1.69-3-3.449-3s-3.204 1.309-3.449 3h-1.051v-8.399c0-.884.717-1.601 1.601-1.601h9.6c.884 0 1.773.695 1.988 1.553zm-9-3.6c0-.553-.447-1-1-1h-2c-.553 0-1 .447-1 1v1c0 .553.447 1 1 1h2c.553 0 1-.447 1-1zm6 .5c0-.827-.673-1.5-1.5-1.5h-1c-.827 0-1.5.673-1.5 1.5v4.5h4z" fill="#fff" opacity=".6"/></g></svg>

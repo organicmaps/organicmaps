@@ -90,7 +90,7 @@ class segment_data {
 
   bool operator<(const segment_data& that) const {
     if (points_[0] != that.points_[0]) {
-      points_[0] < that.points_[0];
+      return points_[0] < that.points_[0];
     }
     return points_[1] < that.points_[1];
   }

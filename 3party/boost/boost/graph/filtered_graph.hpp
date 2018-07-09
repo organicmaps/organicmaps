@@ -410,6 +410,26 @@ namespace boost {
   }
 
   template <typename G, typename EP, typename VP>
+  typename enable_if<typename is_directed_graph<G>::type,
+    typename filtered_graph<G, EP, VP>::degree_size_type
+  >::type
+  degree(typename filtered_graph<G, EP, VP>::vertex_descriptor u,
+          const filtered_graph<G, EP, VP>& g)
+  {
+    return out_degree(u, g) + in_degree(u, g);
+  }
+
+  template <typename G, typename EP, typename VP>
+  typename disable_if<typename is_directed_graph<G>::type,
+    typename filtered_graph<G, EP, VP>::degree_size_type
+  >::type
+  degree(typename filtered_graph<G, EP, VP>::vertex_descriptor u,
+          const filtered_graph<G, EP, VP>& g)
+  {
+    return out_degree(u, g);
+  }
+
+  template <typename G, typename EP, typename VP>
   std::pair<typename filtered_graph<G, EP, VP>::edge_descriptor, bool>
   edge(typename filtered_graph<G, EP, VP>::vertex_descriptor u,
        typename filtered_graph<G, EP, VP>::vertex_descriptor v,

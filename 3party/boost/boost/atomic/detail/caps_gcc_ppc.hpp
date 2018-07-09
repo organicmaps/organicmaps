@@ -25,7 +25,7 @@
 #define BOOST_ATOMIC_INT8_LOCK_FREE 2
 #define BOOST_ATOMIC_INT16_LOCK_FREE 2
 #define BOOST_ATOMIC_INT32_LOCK_FREE 2
-#if defined(__powerpc64__)
+#if defined(__powerpc64__) || defined(__PPC64__)
 #define BOOST_ATOMIC_INT64_LOCK_FREE 2
 #endif
 #define BOOST_ATOMIC_POINTER_LOCK_FREE 2

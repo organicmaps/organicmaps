@@ -3,8 +3,6 @@ project(routing)
 include_directories(
   .
   ${OMIM_ROOT}/3party/jansson/src
-  ${OMIM_ROOT}/3party/osrm/osrm-backend/include
-  ${OMIM_ROOT}/3party/osrm/osrm-backend/third_party
 )
 
 set(
@@ -12,24 +10,35 @@ set(
   async_router.cpp
   async_router.hpp
   base/astar_algorithm.hpp
+  base/astar_weight.hpp
   base/followed_polyline.cpp
   base/followed_polyline.hpp
+  base/routing_result.hpp
   bicycle_directions.cpp
   bicycle_directions.hpp
-  car_router.cpp
-  car_router.hpp
-  cross_mwm_index_graph.cpp
+  checkpoint_predictor.cpp
+  checkpoint_predictor.hpp
+  checkpoints.cpp
+  checkpoints.hpp
+  coding.hpp
+  cross_mwm_connector.cpp
+  cross_mwm_connector.hpp
+  cross_mwm_connector_serialization.cpp
+  cross_mwm_connector_serialization.hpp
+  cross_mwm_graph.cpp
+  cross_mwm_graph.hpp
+  cross_mwm_ids.hpp
   cross_mwm_index_graph.hpp
-  cross_mwm_road_graph.cpp
-  cross_mwm_road_graph.hpp
-  cross_mwm_router.cpp
-  cross_mwm_router.hpp
-  cross_routing_context.cpp
-  cross_routing_context.hpp
-  directions_engine.cpp
   directions_engine.hpp
   edge_estimator.cpp
   edge_estimator.hpp
+  fake_edges_container.hpp
+  fake_ending.cpp
+  fake_ending.hpp
+  fake_feature_ids.cpp
+  fake_feature_ids.hpp
+  fake_graph.hpp
+  fake_vertex.hpp
   features_road_graph.cpp
   features_road_graph.hpp
   geometry.cpp
@@ -53,55 +62,60 @@ set(
   loaded_path_segment.hpp
   nearest_edge_finder.cpp
   nearest_edge_finder.hpp
-  num_mwm_id.hpp
   online_absent_fetcher.cpp
   online_absent_fetcher.hpp
   online_cross_fetcher.cpp
   online_cross_fetcher.hpp
-  osrm2feature_map.cpp
-  osrm2feature_map.hpp
-  osrm_data_facade.hpp
-  osrm_engine.cpp
-  osrm_engine.hpp
-  osrm_helpers.cpp
-  osrm_helpers.hpp
-  osrm_path_segment_factory.cpp
-  osrm_path_segment_factory.hpp
   pedestrian_directions.cpp
   pedestrian_directions.hpp
   restriction_loader.cpp
   restriction_loader.hpp
   restrictions_serialization.cpp
   restrictions_serialization.hpp
+  road_access.cpp
+  road_access.hpp
+  road_access_serialization.cpp
+  road_access_serialization.hpp
   road_graph.cpp
   road_graph.hpp
-  road_graph_router.cpp
-  road_graph_router.hpp
   road_index.cpp
   road_index.hpp
   road_point.hpp
   route.cpp
   route.hpp
   route_point.hpp
+  route_weight.cpp
+  route_weight.hpp
   router.cpp
   router.hpp
   router_delegate.cpp
   router_delegate.hpp
-  routing_algorithm.cpp
-  routing_algorithm.hpp
+  routing_callbacks.hpp
   routing_exceptions.hpp
   routing_helpers.cpp
   routing_helpers.hpp
-  routing_mapping.cpp
-  routing_mapping.hpp
   routing_result_graph.hpp
   routing_session.cpp
   routing_session.hpp
+  routing_settings.cpp
   routing_settings.hpp
   segment.hpp
+  segmented_route.cpp
+  segmented_route.hpp
+  single_vehicle_world_graph.cpp
+  single_vehicle_world_graph.hpp
   speed_camera.cpp
   speed_camera.hpp
+  traffic_stash.cpp
   traffic_stash.hpp
+  transit_graph.cpp
+  transit_graph.hpp
+  transit_graph_loader.cpp
+  transit_graph_loader.hpp
+  transit_info.hpp
+  transit_world_graph.cpp
+  transit_world_graph.hpp
+  transition_points.hpp
   turn_candidate.hpp
   turns.cpp
   turns.hpp
@@ -113,12 +127,14 @@ set(
   turns_sound_settings.hpp
   turns_tts_text.cpp
   turns_tts_text.hpp
+  vehicle_mask.cpp  
   vehicle_mask.hpp
   world_graph.cpp
   world_graph.hpp
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})
 omim_add_test_subdirectory(routing_tests)
 omim_add_test_subdirectory(routing_integration_tests)
 omim_add_test_subdirectory(routing_consistency_tests)
+omim_add_test_subdirectory(routing_benchmarks)

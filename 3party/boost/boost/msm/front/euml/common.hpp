@@ -2527,7 +2527,7 @@ static kleene_ kleene;
         BOOST_PP_CAT(instance,_helper) operator()                                               \
         (BOOST_PP_ENUM(n, MSM_EUML_EVENT_INSTANCE_HELPER_EXECUTE1, ~ ))const{                   \
         return BOOST_PP_CAT(instance,_helper) (BOOST_PP_ENUM(n, MSM_EUML_EVENT_INSTANCE_HELPER_EXECUTE2, ~ ));}
-
+        
 #if defined(FUSION_MAX_MAP_SIZE)
 
 #define BOOST_MSM_EUML_EVENT_WITH_ATTRIBUTES(instance_name, attributes_name)                    \

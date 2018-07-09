@@ -1,12 +1,12 @@
 #include "indexer/centers_table.hpp"
 
 #include "indexer/feature_processor.hpp"
-#include "indexer/geometry_coding.hpp"
-#include "indexer/point_to_int64.hpp"
 
 #include "coding/endianness.hpp"
 #include "coding/file_container.hpp"
+#include "coding/geometry_coding.hpp"
 #include "coding/memory_region.hpp"
+#include "coding/pointd_to_pointu.hpp"
 #include "coding/reader.hpp"
 #include "coding/succinct_mapper.hpp"
 #include "coding/varint.hpp"
@@ -133,7 +133,7 @@ public:
 
   static_assert(sizeof(Header) == 16, "Wrong header size.");
 
-  CentersTableV0(Reader & reader, serial::CodingParams const & codingParams)
+  CentersTableV0(Reader & reader, serial::GeometryCodingParams const & codingParams)
     : m_reader(reader), m_codingParams(codingParams)
   {
   }
@@ -165,16 +165,16 @@ public:
       NonOwningReaderSource msource(mreader);
 
       uint64_t delta = ReadVarUint<uint64_t>(msource);
-      entry[0] = DecodeDelta(delta, m_codingParams.GetBasePoint());
+      entry[0] = coding::DecodePointDeltaFromUint(delta, m_codingParams.GetBasePoint());
 
       for (size_t i = 1; i < kBlockSize && msource.Size() > 0; ++i)
       {
         delta = ReadVarUint<uint64_t>(msource);
-        entry[i] = DecodeDelta(delta, entry[i - 1]);
+        entry[i] = coding::DecodePointDeltaFromUint(delta, entry[i - 1]);
       }
     }
 
-    center = PointU2PointD(entry[offset], m_codingParams.GetCoordBits());
+    center = PointUToPointD(entry[offset], m_codingParams.GetCoordBits());
     return true;
   }
 
@@ -213,7 +213,7 @@ private:
 private:
   Header m_header;
   Reader & m_reader;
-  serial::CodingParams const m_codingParams;
+  serial::GeometryCodingParams const m_codingParams;
 
   unique_ptr<CopiedMemoryRegion> m_idsRegion;
   unique_ptr<CopiedMemoryRegion> m_offsetsRegion;
@@ -248,7 +248,7 @@ bool CentersTable::Header::IsValid() const
 
 // CentersTable ------------------------------------------------------------------------------------
 unique_ptr<CentersTable> CentersTable::Load(Reader & reader,
-                                            serial::CodingParams const & codingParams)
+                                            serial::GeometryCodingParams const & codingParams)
 {
   uint16_t const version = ReadPrimitiveFromPos<uint16_t>(reader, 0 /* pos */);
   if (version != 0)
@@ -269,7 +269,7 @@ void CentersTableBuilder::Put(uint32_t featureId, m2::PointD const & center)
   if (!m_ids.empty())
     CHECK_LESS(m_ids.back(), featureId, ());
 
-  m_centers.push_back(PointD2PointU(center, m_codingParams.GetCoordBits()));
+  m_centers.push_back(PointDToPointU(center, m_codingParams.GetCoordBits()));
   m_ids.push_back(featureId);
 }
 
@@ -277,7 +277,7 @@ void CentersTableBuilder::Freeze(Writer & writer) const
 {
   CentersTableV0::Header header;
 
-  int64_t const startOffset = writer.Pos();
+  auto const startOffset = writer.Pos();
   header.Write(writer);
 
   {
@@ -300,11 +300,11 @@ void CentersTableBuilder::Freeze(Writer & writer) const
     {
       offsets.push_back(static_cast<uint32_t>(deltas.size()));
 
-      uint64_t delta = EncodeDelta(m_centers[i], m_codingParams.GetBasePoint());
+      uint64_t delta = coding::EncodePointDeltaAsUint(m_centers[i], m_codingParams.GetBasePoint());
       WriteVarUint(writer, delta);
       for (size_t j = i + 1; j < i + CentersTableV0::kBlockSize && j < m_centers.size(); ++j)
       {
-        delta = EncodeDelta(m_centers[j], m_centers[j - 1]);
+        delta = coding::EncodePointDeltaAsUint(m_centers[j], m_centers[j - 1]);
         WriteVarUint(writer, delta);
       }
     }
@@ -327,7 +327,7 @@ void CentersTableBuilder::Freeze(Writer & writer) const
     header.m_endOffset = base::checked_cast<uint32_t>(writer.Pos() - startOffset);
   }
 
-  int64_t const endOffset = writer.Pos();
+  auto const endOffset = writer.Pos();
 
   writer.Seek(startOffset);
   header.Write(writer);

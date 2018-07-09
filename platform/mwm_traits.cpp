@@ -1,6 +1,7 @@
 #include "mwm_traits.hpp"
 
 #include "base/logging.hpp"
+#include "base/macros.hpp"
 
 namespace version
 {
@@ -22,6 +23,8 @@ MwmTraits::HouseToStreetTableFormat MwmTraits::GetHouseToStreetTableFormat() con
 
 bool MwmTraits::HasOffsetsTable() const { return GetFormat() >= version::Format::v6; }
 
+bool MwmTraits::HasCrossMwmSection() const { return GetFormat() >= version::Format::v9; }
+
 bool MwmTraits::HasRoutingIndex() const
 {
   uint32_t constexpr kFirstVersionWithRoutingIndex = 161206;
@@ -37,6 +40,7 @@ string DebugPrint(MwmTraits::SearchIndexFormat format)
   case MwmTraits::SearchIndexFormat::CompressedBitVector:
     return "CompressedBitVector";
   }
+  CHECK_SWITCH();
 }
 
 string DebugPrint(MwmTraits::HouseToStreetTableFormat format)
@@ -48,5 +52,6 @@ string DebugPrint(MwmTraits::HouseToStreetTableFormat format)
   case MwmTraits::HouseToStreetTableFormat::Unknown:
     return "Unknown";
   }
+  CHECK_SWITCH();
 }
 }  // namespace version

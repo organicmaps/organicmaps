@@ -12,7 +12,7 @@
 
 namespace
 {
-void AddAllNonemptySubstrings(my::MemTrie<string, my::VectorValues<uint32_t>> & trie,
+void AddAllNonemptySubstrings(base::MemTrie<string, base::VectorValues<uint32_t>> & trie,
                               string const & s, uint32_t value)
 {
   ASSERT(!s.empty(), ());
@@ -37,7 +37,7 @@ void ForEachToken(string const & s, TF && fn)
     fn(strings::ToUtf8(token));
 }
 
-void TokenizeAndAddAllSubstrings(my::MemTrie<string, my::VectorValues<uint32_t>> & trie,
+void TokenizeAndAddAllSubstrings(base::MemTrie<string, base::VectorValues<uint32_t>> & trie,
                                  string const & s, uint32_t value)
 {
   auto fn = [&](string const & token)
@@ -52,7 +52,7 @@ namespace indexer
 {
 void CategoriesIndex::AddCategoryByTypeAndLang(uint32_t type, int8_t lang)
 {
-  ASSERT(lang >= 1 && lang <= CategoriesHolder::kLocaleMapping.size(),
+  ASSERT(lang >= 1 && static_cast<size_t>(lang) <= CategoriesHolder::kLocaleMapping.size(),
          ("Invalid lang code:", lang));
   m_catHolder->ForEachNameByType(type, [&](TCategory::Name const & name)
                                  {
@@ -69,7 +69,7 @@ void CategoriesIndex::AddCategoryByTypeAllLangs(uint32_t type)
 
 void CategoriesIndex::AddAllCategoriesInLang(int8_t lang)
 {
-  ASSERT(lang >= 1 && lang <= CategoriesHolder::kLocaleMapping.size(),
+  ASSERT(lang >= 1 && static_cast<size_t>(lang) <= CategoriesHolder::kLocaleMapping.size(),
          ("Invalid lang code:", lang));
   m_catHolder->ForEachTypeAndCategory([&](uint32_t type, TCategory const & cat)
                                       {

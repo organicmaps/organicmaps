@@ -1,0 +1,17 @@
+/* Sign-in button text */
+"Sign in" = "تسجيل الدخول";
+
+/* Long form sign-in button text */
+"Sign in with Google" = "تسجيل الدخول باستخدام Google";
+
+/* The title of the promotional prompt to install the Google app. */
+"PromoTitle" = "تسجيل الدخول باستخدام Google";
+
+/* The body message of the promotional prompt to install the Google app. */
+"PromoMessage" = "احصل على تطبيق Google المجاني وسجل الدخول إلى التطبيقات من خلال حساب Google. لا توجد حاجة لتذكر كلمات المرور.";
+
+/* The cancel button on the promotional prompt to install the Google app. */
+"PromoActionCancel" = "إلغاء";
+
+/* The install button on the promotional prompt to install the Google app. */
+"PromoActionInstall" = "جلب";

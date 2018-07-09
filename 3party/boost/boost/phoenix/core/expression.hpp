@@ -1,6 +1,9 @@
+/*=============================================================================
+    Copyright (c) 2016 Kohei Takahashi
 
-#if !BOOST_PHOENIX_IS_ITERATING
-
+    Distributed under the Boost Software License, Version 1.0. (See accompanying 
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+==============================================================================*/
 #ifndef BOOST_PHOENIX_CORE_EXPRESSION_HPP
 #define BOOST_PHOENIX_CORE_EXPRESSION_HPP
 
@@ -10,122 +13,71 @@
 #include <boost/phoenix/core/as_actor.hpp>
 #include <boost/phoenix/core/detail/expression.hpp>
 #include <boost/phoenix/core/domain.hpp>
-#include <boost/phoenix/support/iterate.hpp>
-#include <boost/preprocessor/comparison/equal.hpp>
 #include <boost/proto/domain.hpp>
 #include <boost/proto/make_expr.hpp>
 #include <boost/proto/transform/pass_through.hpp>
 
-#if !defined(BOOST_PHOENIX_DONT_USE_PREPROCESSED_FILES)
-
-#include <boost/phoenix/core/preprocessed/expression.hpp>
-
-#else
-
-#if defined(__WAVE__) && defined(BOOST_PHOENIX_CREATE_PREPROCESSED_FILES)
-#pragma wave option(preserve: 2, line: 0, output: "preprocessed/expression_" BOOST_PHOENIX_LIMIT_STR ".hpp")
-#endif
-
-/*=============================================================================
-    Copyright (c) 2005-2010 Joel de Guzman
-    Copyright (c) 2010 Eric Niebler
-    Copyright (c) 2010 Thomas Heller
-
-    Distributed under the Boost Software License, Version 1.0. (See accompanying 
-    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-==============================================================================*/
-
-#if defined(__WAVE__) && defined(BOOST_PHOENIX_CREATE_PREPROCESSED_FILES)
-#pragma wave option(preserve: 1)
-#endif
-
 namespace boost { namespace phoenix
 {
     template <typename Expr> struct actor;
-    
-    template <
-        template <typename> class Actor
-      , typename Tag
-      , BOOST_PHOENIX_typename_A_void(BOOST_PHOENIX_COMPOSITE_LIMIT)
-      , typename Dummy = void>
+
+#ifdef BOOST_PHOENIX_NO_VARIADIC_EXPRESSION
+    #include <boost/phoenix/core/detail/cpp03/expression.hpp>
+#else
+    template <template <typename> class Actor, typename Tag, typename... A>
     struct expr_ext;
 
-    template <
-        typename Tag
-      , BOOST_PHOENIX_typename_A_void(BOOST_PHOENIX_COMPOSITE_LIMIT)
-      , typename Dummy = void
-    >
-    struct expr : expr_ext<actor, Tag, BOOST_PHOENIX_A(BOOST_PHOENIX_COMPOSITE_LIMIT)> {};
+    // This void filter is necessary to avoid forming reference to void
+    // because most of other expressions are not based on variadics.
+    template <typename Tag, typename F, typename... T>
+    struct expr_impl;
 
-#define M0(Z, N, D)                                                             \
-    BOOST_PP_COMMA_IF(N)                                                        \
-    typename proto::detail::uncvref<typename call_traits<BOOST_PP_CAT(A, N)>::value_type>::type
+    template <typename Tag, typename... A>
+    struct expr_impl<Tag, void(A...)> : expr_ext<actor, Tag, A...> {};
 
-#define M1(Z, N, D)                                                             \
-    BOOST_PP_COMMA_IF(N) typename call_traits<BOOST_PP_CAT(A, N)>::param_type BOOST_PP_CAT(a, N)
+    template <typename Tag, typename... A, typename... T>
+    struct expr_impl<Tag, void(A...), void, T...> : expr_impl<Tag, void(A...)> {};
 
-#define BOOST_PHOENIX_ITERATION_PARAMS                                          \
-    (3, (1, BOOST_PHOENIX_COMPOSITE_LIMIT,                                      \
-    <boost/phoenix/core/expression.hpp>))                                       \
-/**/
-    #include BOOST_PHOENIX_ITERATE()
+    template <typename Tag, typename... A, typename H, typename... T>
+    struct expr_impl<Tag, void(A...), H, T...> : expr_impl<Tag, void(A..., H), T...> {};
 
-#undef M0
-#undef M1
+    template <typename Tag, typename... A>
+    struct expr : expr_impl<Tag, void(), A...> {};
 
-}}
-
-#if defined(__WAVE__) && defined(BOOST_PHOENIX_CREATE_PREPROCESSED_FILES)
-#pragma wave option(output: null)
-#endif
-
-#endif // PHOENIX_DONT_USE_PREPROCESSED_FILES
-
-#endif
-
-#else
-    template <template <typename> class Actor, typename Tag, BOOST_PHOENIX_typename_A>
-    struct expr_ext<Actor, Tag, BOOST_PHOENIX_A>
-        : proto::transform<expr_ext<Actor, Tag, BOOST_PHOENIX_A>, int>
+    template <template <typename> class Actor, typename Tag, typename... A>
+    struct expr_ext
+        : proto::transform<expr_ext<Actor, Tag, A...>, int>
     {
         typedef
             typename proto::result_of::make_expr<
                 Tag
               , phoenix_default_domain //proto::basic_default_domain
-              , BOOST_PP_REPEAT(BOOST_PHOENIX_ITERATION, M0, _)
+              , typename proto::detail::uncvref<typename call_traits<A>::value_type>::type...
             >::type
-            base_type;
+        base_type;
 
         typedef Actor<base_type> type;
 
-        typedef
-            typename proto::nary_expr<Tag, BOOST_PHOENIX_A>::proto_grammar
-            proto_grammar;
-        
-        static type make(BOOST_PP_REPEAT(BOOST_PHOENIX_ITERATION, M1, _))
-      { //?? actor or Actor??
-        //Actor<base_type> const e =
-                actor<base_type> const e =
-                {
-                    proto::make_expr<
-                        Tag
-                      , phoenix_default_domain // proto::basic_default_domain
-                    >(BOOST_PHOENIX_a)
-                };
+        typedef typename proto::nary_expr<Tag, A...>::proto_grammar proto_grammar;
+
+        static type make(typename call_traits<A>::param_type... a)
+        { //?? actor or Actor??
+            //Actor<base_type> const e =
+            actor<base_type> const e =
+            {
+                proto::make_expr<Tag, phoenix_default_domain>(a...)
+            };
             return e;
         }
 
         template<typename Expr, typename State, typename Data>
         struct impl
-          : proto::pass_through<expr_ext>::template impl<Expr, State, Data>
+            : proto::pass_through<expr_ext>::template impl<Expr, State, Data>
         {};
-        
+
         typedef Tag proto_tag;
-    #define BOOST_PHOENIX_ENUM_CHILDREN(_, N, __)                               \
-        typedef BOOST_PP_CAT(A, N) BOOST_PP_CAT(proto_child, N);                \
-    /**/
-        BOOST_PP_REPEAT(BOOST_PHOENIX_ITERATION, BOOST_PHOENIX_ENUM_CHILDREN, _)
-    #undef BOOST_PHOENIX_ENUM_CHILDREN
     };
+#endif
+}}
 
 #endif

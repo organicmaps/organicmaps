@@ -10,7 +10,12 @@
 
 namespace boost{ namespace multiprecision{ namespace backends{
 
-template <unsigned MinBits1, unsigned MaxBits1, cpp_integer_type SignType1, cpp_int_check_type Checked1, class Allocator1, unsigned MinBits2, unsigned MaxBits2, cpp_integer_type SignType2, cpp_int_check_type Checked2, class Allocator2>
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable:4127) // conditional expression is constant
+#endif
+   
+   template <unsigned MinBits1, unsigned MaxBits1, cpp_integer_type SignType1, cpp_int_check_type Checked1, class Allocator1, unsigned MinBits2, unsigned MaxBits2, cpp_integer_type SignType2, cpp_int_check_type Checked2, class Allocator2>
 inline typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> >::value && !is_trivial_cpp_int<cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2> >::value >::type 
    eval_multiply(
       cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>& result, 
@@ -31,7 +36,11 @@ inline typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<MinBits1, MaxBit
    while(p != pe)
    {
       carry += static_cast<double_limb_type>(*pa) * static_cast<double_limb_type>(val);
+#ifdef __MSVC_RUNTIME_CHECKS
+      *p = static_cast<limb_type>(carry & ~static_cast<limb_type>(0));
+#else
       *p = static_cast<limb_type>(carry);
+#endif
       carry >>= cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::limb_bits;
       ++p, ++pa;
    }
@@ -39,7 +48,7 @@ inline typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<MinBits1, MaxBit
    {
       unsigned i = result.size();
       result.resize(i + 1, i + 1);
-      if(cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::variable || (result.size() > i))
+      if(result.size() > i)
          result.limbs()[i] = static_cast<limb_type>(carry);
    }
    result.sign(a.sign());
@@ -139,12 +148,16 @@ inline typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<MinBits1, MaxBit
          carry += static_cast<double_limb_type>(pa[i]) * static_cast<double_limb_type>(pb[j]);
          BOOST_ASSERT(!std::numeric_limits<double_limb_type>::is_specialized || ((std::numeric_limits<double_limb_type>::max)() - carry >= pr[i+j]));
          carry += pr[i + j];
+#ifdef __MSVC_RUNTIME_CHECKS
+         pr[i + j] = static_cast<limb_type>(carry & ~static_cast<limb_type>(0));
+#else
          pr[i + j] = static_cast<limb_type>(carry);
+#endif
          carry >>= cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::limb_bits;
          BOOST_ASSERT(carry <= (cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::max_limb_value));
       }
       resize_for_carry(result, as + bs);  // May throw if checking is enabled
-      if(cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1>::variable || (i + bs < result.size()))
+      if(i + bs < result.size())
          pr[i + bs] = static_cast<limb_type>(carry);
       carry = 0;
    }
@@ -184,7 +197,12 @@ BOOST_MP_FORCEINLINE typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<Mi
    }
    else
    {
+#if defined(BOOST_LITTLE_ENDIAN) && !defined(BOOST_MP_TEST_NO_LE)
       cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> t(val);
+#else
+      cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> t;
+      t = val;
+#endif
       eval_multiply(result, a, t);
    }
 }
@@ -240,7 +258,12 @@ inline typename enable_if_c<!is_trivial_cpp_int<cpp_int_backend<MinBits1, MaxBit
       result.negate();
       return;
    }
+#if defined(BOOST_LITTLE_ENDIAN) && !defined(BOOST_MP_TEST_NO_LE)
    cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> t(val);
+#else
+   cpp_int_backend<MinBits1, MaxBits1, SignType1, Checked1, Allocator1> t;
+   t = val;
+#endif
    eval_multiply(result, a, t);
 }
 
@@ -348,6 +371,16 @@ BOOST_MP_FORCEINLINE typename enable_if_c<
    limb_type* pr = result.limbs();
 
    double_limb_type carry = w * y;
+#ifdef __MSVC_RUNTIME_CHECKS
+   pr[0] = static_cast<limb_type>(carry & ~static_cast<limb_type>(0));
+   carry >>= limb_bits;
+   carry += w * z + x * y;
+   pr[1] = static_cast<limb_type>(carry & ~static_cast<limb_type>(0));
+   carry >>= limb_bits;
+   carry += x * z;
+   pr[2] = static_cast<limb_type>(carry & ~static_cast<limb_type>(0));
+   pr[3] = static_cast<limb_type>(carry >> limb_bits);
+#else
    pr[0] = static_cast<limb_type>(carry);
    carry >>= limb_bits;
    carry += w * z + x * y;
@@ -356,7 +389,7 @@ BOOST_MP_FORCEINLINE typename enable_if_c<
    carry += x * z;
    pr[2] = static_cast<limb_type>(carry);
    pr[3] = static_cast<limb_type>(carry >> limb_bits);
-
+#endif
    result.sign(s);
    result.normalize();
 }
@@ -382,6 +415,20 @@ BOOST_MP_FORCEINLINE typename enable_if_c<
    limb_type* pr = result.limbs();
 
    double_limb_type carry = w * y;
+#ifdef __MSVC_RUNTIME_CHECKS
+   pr[0] = static_cast<limb_type>(carry & ~static_cast<limb_type>(0));
+   carry >>= limb_bits;
+   carry += w * z;
+   pr[1] = static_cast<limb_type>(carry & ~static_cast<limb_type>(0));
+   carry >>= limb_bits;
+   pr[2] = static_cast<limb_type>(carry & ~static_cast<limb_type>(0));
+   carry = x * y + pr[1];
+   pr[1] = static_cast<limb_type>(carry & ~static_cast<limb_type>(0));
+   carry >>= limb_bits;
+   carry += pr[2] + x * z;
+   pr[2] = static_cast<limb_type>(carry & ~static_cast<limb_type>(0));
+   pr[3] = static_cast<limb_type>(carry >> limb_bits);
+#else
    pr[0] = static_cast<limb_type>(carry);
    carry >>= limb_bits;
    carry += w * z;
@@ -394,7 +441,7 @@ BOOST_MP_FORCEINLINE typename enable_if_c<
    carry += pr[2] + x * z;
    pr[2] = static_cast<limb_type>(carry);
    pr[3] = static_cast<limb_type>(carry >> limb_bits);
-
+#endif
    result.sign(false);
    result.normalize();
 }
@@ -433,6 +480,10 @@ BOOST_MP_FORCEINLINE typename enable_if_c<is_unsigned<UI>::value && (sizeof(UI) 
 {
    result = static_cast<double_limb_type>(a) * static_cast<double_limb_type>(b);
 }
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 }}} // namespaces
 

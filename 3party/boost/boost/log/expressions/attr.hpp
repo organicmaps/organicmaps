@@ -56,8 +56,10 @@ private:
     typedef attribute_terminal< T, FallbackPolicyT, TagT > this_type;
 
 public:
+#ifndef BOOST_LOG_DOXYGEN_PASS
     //! Internal typedef for type categorization
     typedef void _is_boost_log_terminal;
+#endif
 
     //! Attribute tag type
     typedef TagT tag_type;

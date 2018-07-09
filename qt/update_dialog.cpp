@@ -59,17 +59,6 @@ bool DeleteNotUploadedEditsConfirmation()
 
 namespace qt
 {
-  /// adds custom sorting for "Size" column
-  class QTreeWidgetItemWithCustomSorting : public QTreeWidgetItem
-  {
-  public:
-    virtual bool operator<(QTreeWidgetItem const & other) const
-    {
-      return data(KColumnIndexSize, Qt::UserRole).toULongLong() < other.data(KColumnIndexSize, Qt::UserRole).toULongLong();
-    }
-  };
-
-
   UpdateDialog::UpdateDialog(QWidget * parent, Framework & framework)
     : QDialog(parent, Qt::WindowTitleHint | Qt::WindowSystemMenuHint),
       m_framework(framework),
@@ -150,7 +139,7 @@ namespace qt
         QAbstractButton * const res = ask.clickedButton();
 
         if (res == btnUpdate)
-          st.DownloadNode(countryId);
+          st.UpdateNode(countryId);
         else if (res == btnDelete)
         {
           if (!m_framework.HasUnsavedEdits(countryId) || DeleteNotUploadedEditsConfirmation())
@@ -411,13 +400,8 @@ namespace qt
 
     m_tree->sortByColumn(KColumnIndexCountry, Qt::AscendingOrder);
     m_tree->setSortingEnabled(true);
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-    m_tree->header()->setResizeMode(KColumnIndexCountry, QHeaderView::ResizeToContents);
-    m_tree->header()->setResizeMode(KColumnIndexStatus, QHeaderView::ResizeToContents);
-#else
     m_tree->header()->setSectionResizeMode(KColumnIndexCountry, QHeaderView::ResizeToContents);
     m_tree->header()->setSectionResizeMode(KColumnIndexStatus, QHeaderView::ResizeToContents);
-#endif
   }
 
   void UpdateDialog::OnCountryChanged(TCountryId const & countryId)

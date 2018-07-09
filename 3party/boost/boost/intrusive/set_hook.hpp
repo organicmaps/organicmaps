@@ -49,7 +49,8 @@ struct make_set_base_hook
       >::type packed_options;
 
    typedef generic_hook
-   < rbtree_algorithms<rbtree_node_traits<typename packed_options::void_pointer, packed_options::optimize_size> >
+   < RbTreeAlgorithms
+   , rbtree_node_traits<typename packed_options::void_pointer, packed_options::optimize_size>
    , typename packed_options::tag
    , packed_options::link_mode
    , RbTreeBaseHookId
@@ -180,7 +181,8 @@ struct make_set_member_hook
       >::type packed_options;
 
    typedef generic_hook
-   < rbtree_algorithms<rbtree_node_traits<typename packed_options::void_pointer, packed_options::optimize_size> >
+   < RbTreeAlgorithms
+   , rbtree_node_traits<typename packed_options::void_pointer, packed_options::optimize_size>
    , member_tag
    , packed_options::link_mode
    , NoBaseHookId

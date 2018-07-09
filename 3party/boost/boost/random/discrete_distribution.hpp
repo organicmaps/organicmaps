@@ -434,10 +434,10 @@ public:
             result = uniform_int_distribution<IntType>((min)(), (max)())(urng);
             test = _impl.test(urng);
         } while(!_impl.accept(result, test));
-        if(test < _impl._alias_table[result].first) {
+        if(test < _impl._alias_table[static_cast<std::size_t>(result)].first) {
             return result;
         } else {
-            return(_impl._alias_table[result].second);
+            return(_impl._alias_table[static_cast<std::size_t>(result)].second);
         }
     }
     
@@ -495,7 +495,7 @@ public:
      */
     std::vector<WeightType> probabilities() const
     {
-        std::vector<WeightType> result(_impl._alias_table.size());
+        std::vector<WeightType> result(_impl._alias_table.size(), static_cast<WeightType>(0));
         std::size_t i = 0;
         for(typename impl_type::alias_table_t::const_iterator
                 iter = _impl._alias_table.begin(),
@@ -504,7 +504,7 @@ public:
         {
             WeightType val = iter->first;
             result[i] += val;
-            result[iter->second] += _impl.get_weight(i) - val;
+            result[static_cast<std::size_t>(iter->second)] += _impl.get_weight(i) - val;
         }
         impl_type::normalize(result);
         return(result);
@@ -593,7 +593,7 @@ private:
             a_end = above_average.end()
             ;
         while(b_iter != b_end && a_iter != a_end) {
-            _impl._alias_table[b_iter->second] =
+            _impl._alias_table[static_cast<std::size_t>(b_iter->second)] =
                 std::make_pair(b_iter->first, a_iter->second);
             a_iter->first -= (_impl.get_weight(b_iter->second) - b_iter->first);
             if(a_iter->first < normalized_average) {
@@ -603,11 +603,11 @@ private:
             }
         }
         for(; b_iter != b_end; ++b_iter) {
-            _impl._alias_table[b_iter->second].first =
+            _impl._alias_table[static_cast<std::size_t>(b_iter->second)].first =
                 _impl.get_weight(b_iter->second);
         }
         for(; a_iter != a_end; ++a_iter) {
-            _impl._alias_table[a_iter->second].first =
+            _impl._alias_table[static_cast<std::size_t>(a_iter->second)].first =
                 _impl.get_weight(a_iter->second);
         }
     }

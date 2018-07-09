@@ -16,12 +16,12 @@
 
 namespace boost { namespace property_tree { namespace xml_parser
 {
-    
+
     // Naively convert narrow string to another character type
     template<class Str>
     Str widen(const char *text)
     {
-	typedef typename Str::value_type Ch;
+        typedef typename Str::value_type Ch;
         Str result;
         while (*text)
         {
@@ -35,7 +35,7 @@ namespace boost { namespace property_tree { namespace xml_parser
     template<class Str>
     class xml_writer_settings
     {
-	typedef typename Str::value_type Ch;
+        typedef typename Str::value_type Ch;
     public:
         xml_writer_settings(Ch inchar = Ch(' '),
                 typename Str::size_type incount = 0,

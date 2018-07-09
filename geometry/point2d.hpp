@@ -18,13 +18,16 @@ namespace m2
   class Point
   {
   public:
-    typedef T value_type;
+    using value_type = T;
 
     T x, y;
 
-    Point() {}
+    Point() : x(T()), y(T()) {}
+
     Point(T x_, T y_) : x(x_), y(y_) {}
-    template <typename U> Point(Point<U> const & u) : x(u.x), y(u.y) {}
+
+    template <typename U>
+    explicit Point(Point<U> const & u) : x(u.x), y(u.y) {}
 
     static Point<T> Zero() { return Point<T>(0, 0); }
 
@@ -34,10 +37,9 @@ namespace m2
     }
 
     // TODO (@y, @m): rename to SquaredLength.
-    T SquareLength(Point<T> const & p) const
-    {
-      return math::sqr(x - p.x) + math::sqr(y - p.y);
-    }
+    T SquareLength(Point<T> const & p) const { return pow(x - p.x, 2) + pow(y - p.y, 2); }
+
+    T SquaredLength() const { return x * x + y * y; }
 
     double Length(Point<T> const & p) const
     {
@@ -89,33 +91,37 @@ namespace m2
       return *this;
     }
 
-    bool operator == (m2::Point<T> const & p) const
+    bool operator==(m2::Point<T> const & p) const
     {
       return x == p.x && y == p.y;
     }
-    bool operator != (m2::Point<T> const & p) const
+
+    bool operator!=(m2::Point<T> const & p) const
     {
       return !(*this == p);
     }
-    m2::Point<T> operator + (m2::Point<T> const & pt) const
+
+    m2::Point<T> operator+(m2::Point<T> const & pt) const
     {
       return m2::Point<T>(x + pt.x, y + pt.y);
     }
-    m2::Point<T> operator - (m2::Point<T> const & pt) const
+
+    m2::Point<T> operator-(m2::Point<T> const & pt) const
     {
       return m2::Point<T>(x - pt.x, y - pt.y);
     }
-    m2::Point<T> operator -() const
+
+    m2::Point<T> operator-() const
     {
       return m2::Point<T>(-x, -y);
     }
 
-    m2::Point<T> operator * (T scale) const
+    m2::Point<T> operator*(T scale) const
     {
       return m2::Point<T>(x * scale, y * scale);
     }
 
-    m2::Point<T> const operator * (math::Matrix<T, 3, 3> const & m) const
+    m2::Point<T> const operator*(math::Matrix<T, 3, 3> const & m) const
     {
       m2::Point<T> res;
       res.x = x * m(0, 0) + y * m(1, 0) + m(2, 0);
@@ -123,7 +129,7 @@ namespace m2
       return res;
     }
 
-    m2::Point<T> operator / (T scale) const
+    m2::Point<T> operator/(T scale) const
     {
       return m2::Point<T>(x / scale, y / scale);
     }
@@ -134,10 +140,9 @@ namespace m2
     }
 
     /// @name VectorOperationsOnPoint
-    // @{
     double Length() const
     {
-      return sqrt(x*x + y*y);
+      return sqrt(SquaredLength());
     }
 
     Point<T> Normalize() const
@@ -154,7 +159,6 @@ namespace m2
       return std::pair<Point<T>, Point<T> >(Point<T>(static_cast<T>(-prolongatedY), static_cast<T>(prolongatedX)),
                                        Point<T>(static_cast<T>(prolongatedY), static_cast<T>(-prolongatedX)));
     }
-    // @}
 
     m2::Point<T> const & operator *= (math::Matrix<T, 3, 3> const & m)
     {
@@ -172,6 +176,9 @@ namespace m2
       x = cosAngle * oldX - sinAngle * y;
       y = sinAngle * oldX + cosAngle * y;
     }
+
+    // Returns vector rotated 90 degrees counterclockwise.
+    Point Ort() const { return Point(-y, x); }
 
     void Transform(m2::Point<T> const & org,
                    m2::Point<T> const & dx, m2::Point<T> const & dy)
@@ -303,7 +310,7 @@ namespace m2
   }
 
   template <class TArchive, class PointT>
-  TArchive & operator << (TArchive & ar, m2::Point<PointT> const & pt)
+  TArchive & operator<<(TArchive & ar, m2::Point<PointT> const & pt)
   {
     ar << pt.x;
     ar << pt.y;
@@ -311,24 +318,23 @@ namespace m2
   }
 
   template <typename T>
-  bool operator< (Point<T> const & l, Point<T> const & r)
+  bool operator<(Point<T> const & l, Point<T> const & r)
   {
     if (l.x != r.x)
       return l.x < r.x;
     return l.y < r.y;
   }
 
-  typedef Point<float> PointF;
-  typedef Point<double> PointD;
-  typedef Point<uint32_t> PointU;
-  typedef Point<uint64_t> PointU64;
-  typedef Point<int32_t> PointI;
-  typedef Point<int64_t> PointI64;
+  using PointF = Point<float>;
+  using PointD = Point<double>;
+  using PointU = Point<uint32_t>;
+  using PointU64 = Point<uint64_t>;
+  using PointI = Point<int32_t>;
+  using PointI64 = Point<int64_t>;
 }  // namespace m2
 
 namespace my
 {
-
 template <typename T>
 bool AlmostEqualULPs(m2::Point<T> const & p1, m2::Point<T> const & p2, unsigned int maxULPs = 256)
 {
@@ -340,5 +346,4 @@ bool AlmostEqualAbs(m2::Point<T> const & p1, m2::Point<T> const & p2, double con
 {
   return m2::AlmostEqualAbs(p1, p2, eps);
 }
-
 }  // namespace my

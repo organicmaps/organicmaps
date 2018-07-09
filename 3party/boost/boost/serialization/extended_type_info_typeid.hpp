@@ -84,7 +84,9 @@ class extended_type_info_typeid :
 {
 public:
     extended_type_info_typeid() :
-        typeid_system::extended_type_info_typeid_0(get_key())
+        typeid_system::extended_type_info_typeid_0(
+            boost::serialization::guid< T >()
+        )
     {
         type_register(typeid(T));
         key_register();

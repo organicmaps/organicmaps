@@ -11,6 +11,8 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/fusion/support/config.hpp>
+#include <boost/fusion/support/void.hpp>
+#include <boost/fusion/support/detail/enabler.hpp>
 #include <boost/fusion/support/is_sequence.hpp>
 #include <boost/fusion/container/vector/vector_fwd.hpp>
 #include <boost/fusion/container/vector/detail/cpp03/vector_n_chooser.hpp>
@@ -118,7 +120,7 @@ namespace boost { namespace fusion
         template <typename Sequence>
         BOOST_FUSION_GPU_ENABLED
         vector(Sequence const& rhs,
-            typename boost::enable_if<traits::is_sequence<Sequence> >::type* = 0)
+            typename enable_if<traits::is_sequence<Sequence>, detail::enabler_>::type = detail::enabler)
             : vec(BOOST_FUSION_VECTOR_COPY_INIT()) {}
 
         //  Expand a couple of forwarding constructors for arguments

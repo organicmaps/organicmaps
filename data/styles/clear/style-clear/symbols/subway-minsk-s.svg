@@ -1,13 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="17px" height="9px" viewBox="0 0 17 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>subway-minsk-s</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="subway-minsk-s">
-            <polygon id="Shape" fill="#FFFFFF" points="1 0 6 0 6.41421356 0 6.70710678 0.292893219 8.49509557 2.09069086 10.2928932 0.292893219 10.5857864 0 11 0 16 0 17 0 17 1 17 7 17 8 16 8 11 8 10 8 8.5 9 7 8 6 8 1 8 0 8 0 7 0 1 0 0"></polygon>
-            <polygon id="Rectangle-400-Copy-2" fill="#C81D17" points="1 1 6 1 8.5 3.5 11 1 16 1 16 7 11 7 11 5 8.5 8 6 5 6 7 1 7"></polygon>
-        </g>
-    </g>
+<svg width="17" height="9" viewBox="0 0 17 9">
+  <g fill="none">
+    <polygon fill="#FFF" points="1 0 6 0 6.414 0 6.707 .293 8.495 2.091 10.293 .293 10.586 0 11 0 16 0 17 0 17 1 17 7 17 8 16 8 11 8 10 8 8.5 9 7 8 6 8 1 8 0 8 0 7 0 1 0 0" opacity=".6"/>
+    <polygon fill="#C81D17" points="1 1 6 1 8.5 3.5 11 1 16 1 16 7 11 7 11 5 8.5 8 6 5 6 7 1 7"/>
+  </g>
 </svg>

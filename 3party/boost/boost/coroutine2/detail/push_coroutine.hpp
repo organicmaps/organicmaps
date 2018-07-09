@@ -12,9 +12,9 @@
 
 #include <boost/assert.hpp>
 #include <boost/config.hpp>
-#include <boost/context/execution_context.hpp>
 
 #include <boost/coroutine2/detail/config.hpp>
+#include <boost/coroutine2/detail/disable_overload.hpp>
 
 #ifdef BOOST_HAS_ABI_HEADERS
 #  include BOOST_ABI_PREFIX
@@ -34,27 +34,28 @@ private:
 
     control_block   *   cb_;
 
-    explicit push_coroutine( control_block *);
+    explicit push_coroutine( control_block *) noexcept;
 
 public:
-    template< typename Fn >
-    explicit push_coroutine( Fn &&, bool = false);
+    template< typename Fn,
+              typename = detail::disable_overload< push_coroutine, Fn >
+    >
+    explicit push_coroutine( Fn &&);
 
     template< typename StackAllocator, typename Fn >
-    explicit push_coroutine( StackAllocator, Fn &&, bool = false);
+    push_coroutine( StackAllocator, Fn &&);
 
     ~push_coroutine();
 
     push_coroutine( push_coroutine const&) = delete;
     push_coroutine & operator=( push_coroutine const&) = delete;
 
-    push_coroutine( push_coroutine &&);
+    push_coroutine( push_coroutine &&) noexcept;
 
-    push_coroutine & operator=( push_coroutine && other) {
-        if ( this != & other) {
-            cb_ = other.cb_;
-            other.cb_ = nullptr;
-        }
+    push_coroutine & operator=( push_coroutine && other) noexcept {
+        if ( this == & other) return * this;
+        cb_ = other.cb_;
+        other.cb_ = nullptr;
         return * this;
     }
 
@@ -68,36 +69,36 @@ public:
 
     class iterator : public std::iterator< std::output_iterator_tag, void, void, void, void > {
     private:
-        push_coroutine< T > *   c_;
+        push_coroutine< T > *   c_{ nullptr };
 
     public:
-        iterator() :
-            c_( nullptr) {
-        }
+        iterator() noexcept = default;
 
-        explicit iterator( push_coroutine< T > * c) :
-            c_( c) {
+        explicit iterator( push_coroutine< T > * c) noexcept :
+            c_{ c } {
         }
 
         iterator & operator=( T t) {
-            BOOST_ASSERT( c_);
-            if ( ! ( * c_)( t) ) c_ = 0;
+            BOOST_ASSERT( nullptr != c_);
+            if ( ! ( * c_)( t) ) {
+                c_ = nullptr;
+            }
             return * this;
         }
 
-        bool operator==( iterator const& other) const {
+        bool operator==( iterator const& other) const noexcept {
             return other.c_ == c_;
         }
 
-        bool operator!=( iterator const& other) const {
+        bool operator!=( iterator const& other) const noexcept {
             return other.c_ != c_;
         }
 
-        iterator & operator*() {
+        iterator & operator*() noexcept {
             return * this;
         }
 
-        iterator & operator++() {
+        iterator & operator++() noexcept {
             return * this;
         }
     };
@@ -113,27 +114,28 @@ private:
 
     control_block   *   cb_;
 
-    explicit push_coroutine( control_block *);
+    explicit push_coroutine( control_block *) noexcept;
 
 public:
-    template< typename Fn >
-    explicit push_coroutine( Fn &&, bool = false);
+    template< typename Fn,
+              typename = detail::disable_overload< push_coroutine, Fn >
+    >
+    explicit push_coroutine( Fn &&);
 
     template< typename StackAllocator, typename Fn >
-    explicit push_coroutine( StackAllocator, Fn &&, bool = false);
+    push_coroutine( StackAllocator, Fn &&);
 
     ~push_coroutine();
 
     push_coroutine( push_coroutine const&) = delete;
     push_coroutine & operator=( push_coroutine const&) = delete;
 
-    push_coroutine( push_coroutine &&);
+    push_coroutine( push_coroutine &&) noexcept;
 
-    push_coroutine & operator=( push_coroutine && other) {
-        if ( this != & other) {
-            cb_ = other.cb_;
-            other.cb_ = nullptr;
-        }
+    push_coroutine & operator=( push_coroutine && other) noexcept {
+        if ( this == & other) return * this;
+        cb_ = other.cb_;
+        other.cb_ = nullptr;
         return * this;
     }
 
@@ -145,36 +147,36 @@ public:
 
     class iterator : public std::iterator< std::output_iterator_tag, void, void, void, void > {
     private:
-        push_coroutine< T & >   *   c_;
+        push_coroutine< T & >   *   c_{ nullptr };
 
     public:
-        iterator() :
-            c_( nullptr) {
-        }
+        iterator() noexcept = default;
 
-        explicit iterator( push_coroutine< T & > * c) :
-            c_( c) {
+        explicit iterator( push_coroutine< T & > * c) noexcept :
+            c_{ c } {
         }
 
         iterator & operator=( T & t) {
-            BOOST_ASSERT( c_);
-            if ( ! ( * c_)( t) ) c_ = 0;
+            BOOST_ASSERT( nullptr != c_);
+            if ( ! ( * c_)( t) ) {
+                c_ = nullptr;
+            }
             return * this;
         }
 
-        bool operator==( iterator const& other) const {
+        bool operator==( iterator const& other) const noexcept {
             return other.c_ == c_;
         }
 
-        bool operator!=( iterator const& other) const {
+        bool operator!=( iterator const& other) const noexcept {
             return other.c_ != c_;
         }
 
-        iterator & operator*() {
+        iterator & operator*() noexcept {
             return * this;
         }
 
-        iterator & operator++() {
+        iterator & operator++() noexcept {
             return * this;
         }
     };
@@ -190,27 +192,28 @@ private:
 
     control_block   *   cb_;
 
-    explicit push_coroutine( control_block *);
+    explicit push_coroutine( control_block *) noexcept;
 
 public:
-    template< typename Fn >
-    explicit push_coroutine( Fn &&, bool = false);
+    template< typename Fn,
+              typename = detail::disable_overload< push_coroutine, Fn >
+    >
+    explicit push_coroutine( Fn &&);
 
     template< typename StackAllocator, typename Fn >
-    explicit push_coroutine( StackAllocator, Fn &&, bool = false);
+    push_coroutine( StackAllocator, Fn &&);
 
     ~push_coroutine();
 
     push_coroutine( push_coroutine const&) = delete;
     push_coroutine & operator=( push_coroutine const&) = delete;
 
-    push_coroutine( push_coroutine &&);
+    push_coroutine( push_coroutine &&) noexcept;
 
-    push_coroutine & operator=( push_coroutine && other) {
-        if ( this != & other) {
-            cb_ = other.cb_;
-            other.cb_ = nullptr;
-        }
+    push_coroutine & operator=( push_coroutine && other) noexcept {
+        if ( this == & other) return * this;
+        cb_ = other.cb_;
+        other.cb_ = nullptr;
         return * this;
     }
 

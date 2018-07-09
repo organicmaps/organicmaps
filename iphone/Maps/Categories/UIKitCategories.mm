@@ -102,12 +102,9 @@
 
 @implementation UIApplication (URLs)
 
-- (void)rateVersionFrom:(NSString *)launchPlaceName
+- (void)rateApp
 {
-  NSString * urlString =
-      @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/"
-      @"viewContentsUserReviews?id=510623322&onlyLatestVersion=true&pageNumber=0&"
-      @"sortOrdering=1&type=Purple+Software";
+  NSString * urlString = @"https://itunes.apple.com/app/id510623322?action=write-review";
   NSURL * url = [NSURL URLWithString:urlString];
   [self openURL:url];
 }
@@ -279,7 +276,11 @@
 
 @implementation UINavigationController (Autorotate)
 
-- (BOOL)shouldAutorotate { return [[self.viewControllers lastObject] shouldAutorotate]; }
+- (BOOL)shouldAutorotate { return [self.viewControllers.lastObject shouldAutorotate]; }
+@end
+
+@implementation UIViewController (Autorotate)
+
 - (NSUInteger)supportedInterfaceOrientations { return UIInterfaceOrientationMaskAll; }
 @end
 
@@ -300,25 +301,28 @@
 
 - (void)openUrl:(NSURL *)url
 {
+  if (!url)
+  {
+    NSAssert(false, @"URL is nil!");
+    auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
+                                          code:0
+                                      userInfo:@{
+                                        @"Trying to open nil url" : @YES
+                                      }];
+    [[Crashlytics sharedInstance] recordError:err];
+    return;
+  }
   NSString * scheme = url.scheme;
   if (!([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]))
   {
     NSAssert(false, @"Incorrect url's scheme!");
-    NSString * urlString = url.absoluteString;
-    NSError * err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
-                                               code:0
-                                           userInfo:@{
-                                             @"Trying to open incorrect url" : urlString
-                                           }];
+    auto urlString = url.absoluteString;
+    auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain
+                                          code:0
+                                      userInfo:@{
+                                        @"Trying to open incorrect url" : urlString
+                                      }];
     [[Crashlytics sharedInstance] recordError:err];
-    return;
-  }
-
-  if (isIOS8)
-  {
-    UIApplication * app = [UIApplication sharedApplication];
-    if ([app canOpenURL:url])
-      [app openURL:url];
     return;
   }
 

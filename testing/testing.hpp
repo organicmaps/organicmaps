@@ -35,7 +35,7 @@ namespace my
   inline void OnTestFailed(SrcPoint const & srcPoint, string const & msg)
   {
     LOG(LINFO, ("FAILED"));
-    LOG(LINFO, (DebugPrint(srcPoint.FileName()) + ":" + DebugPrint(srcPoint.Line()), msg));
+    LOG(LINFO, (::DebugPrint(srcPoint.FileName()) + ":" + ::DebugPrint(srcPoint.Line()), msg));
     MYTHROW(TestFailureException, (srcPoint.FileName(), srcPoint.Line(), msg));
   }
 }
@@ -44,6 +44,9 @@ namespace testing
 {
 void RunEventLoop();
 void StopEventLoop();
+
+void Wait();
+void Notify();
 }  // namespace testing
 
 // This struct contains parsed command line options. It may contain pointers to argc contents.

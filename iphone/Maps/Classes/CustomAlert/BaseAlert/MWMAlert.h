@@ -1,20 +1,9 @@
-#include "routing/router.hpp"
-#include "storage/storage.hpp"
-
-using MWMDownloadBlock = void (^)(storage::TCountriesVec const &, MWMVoidBlock);
-
 @class MWMAlertViewController;
 @interface MWMAlert : UIView
 
 @property(weak, nonatomic) MWMAlertViewController * alertController;
 
-+ (MWMAlert *)alert:(routing::IRouter::ResultCode)type;
 + (MWMAlert *)routingMigrationAlertWithOkBlock:(MWMVoidBlock)okBlock;
-+ (MWMAlert *)downloaderAlertWithAbsentCountries:(storage::TCountriesVec const &)countries
-                                            code:(routing::IRouter::ResultCode)code
-                                     cancelBlock:(MWMVoidBlock)cancelBlock
-                                   downloadBlock:(MWMDownloadBlock)downloadBlock
-                           downloadCompleteBlock:(MWMVoidBlock)downloadCompleteBlock;
 + (MWMAlert *)rateAlert;
 + (MWMAlert *)facebookAlert;
 + (MWMAlert *)locationAlert;
@@ -26,7 +15,7 @@ using MWMDownloadBlock = void (^)(storage::TCountriesVec const &, MWMVoidBlock);
 + (MWMAlert *)deleteMapProhibitedAlert;
 + (MWMAlert *)unsavedEditsAlertWithOkBlock:(MWMVoidBlock)okBlock;
 + (MWMAlert *)locationServiceNotSupportedAlert;
-+ (MWMAlert *)incorrectFeauturePositionAlert;
++ (MWMAlert *)incorrectFeaturePositionAlert;
 + (MWMAlert *)internalErrorAlert;
 + (MWMAlert *)notEnoughSpaceAlert;
 + (MWMAlert *)invalidUserNameOrPasswordAlert;
@@ -45,6 +34,24 @@ using MWMDownloadBlock = void (^)(storage::TCountriesVec const &, MWMVoidBlock);
 + (MWMAlert *)osmAuthAlert;
 + (MWMAlert *)personalInfoWarningAlertWithBlock:(MWMVoidBlock)block;
 + (MWMAlert *)trackWarningAlertWithCancelBlock:(MWMVoidBlock)block;
++ (MWMAlert *)infoAlert:(NSString *)title text:(NSString *)text;
++ (MWMAlert *)createBookmarkCategoryAlertWithMaxCharacterNum:(NSUInteger)max
+                                             minCharacterNum:(NSUInteger)min
+                                               isNewCategory:(BOOL)isNewCategory
+                                                    callback:(MWMCheckStringBlock)callback;
++ (MWMAlert *)convertBookmarksAlertWithCount:(NSUInteger)count block:(MWMVoidBlock)block;
++ (MWMAlert *)spinnerAlertWithTitle:(NSString *)title cancel:(MWMVoidBlock)cancel;
++ (MWMAlert *)bookmarkConversionErrorAlert;
++ (MWMAlert *)restoreBookmarkAlertWithMessage:(NSString *)message
+                            rightButtonAction:(MWMVoidBlock)rightButton
+                             leftButtonAction:(MWMVoidBlock)leftButton;
+
++ (MWMAlert *)defaultAlertWithTitle:(NSString *)title
+                            message:(NSString *)message
+                   rightButtonTitle:(NSString *)rightButtonTitle
+                    leftButtonTitle:(NSString *)leftButtonTitle
+                  rightButtonAction:(MWMVoidBlock)action;
+
 - (void)close:(MWMVoidBlock)completion;
 
 - (void)setNeedsCloseAlertAfterEnterBackground;

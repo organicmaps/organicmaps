@@ -18,7 +18,7 @@
 #define BOOST_LOG_DETAIL_ENQUEUED_RECORD_HPP_INCLUDED_
 
 #include <boost/move/core.hpp>
-#include <boost/move/utility.hpp>
+#include <boost/move/utility_core.hpp>
 #include <boost/log/detail/config.hpp>
 #include <boost/log/detail/timestamp.hpp>
 #include <boost/log/core/record_view.hpp>

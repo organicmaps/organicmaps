@@ -16,11 +16,11 @@
 #define BOOST_LOG_EXPRESSIONS_FILTER_HPP_INCLUDED_
 
 #include <boost/move/core.hpp>
-#include <boost/move/utility.hpp>
+#include <boost/move/utility_core.hpp>
 #if defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
-#include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_cv.hpp>
+#include <boost/log/detail/sfinae_tools.hpp>
 #endif
 #include <boost/log/detail/config.hpp>
 #include <boost/log/attributes/attribute_value_set.hpp>
@@ -89,13 +89,13 @@ public:
     filter(FunT&& fun) : m_Filter(boost::forward< FunT >(fun))
     {
     }
-#elif !defined(BOOST_MSVC) || BOOST_MSVC > 1400
+#elif !defined(BOOST_MSVC) || BOOST_MSVC >= 1600
     template< typename FunT >
-    filter(FunT const& fun, typename disable_if_c< move_detail::is_rv< FunT >::value, int >::type = 0) : m_Filter(fun)
+    filter(FunT const& fun, typename boost::disable_if_c< move_detail::is_rv< FunT >::value, boost::log::aux::sfinae_dummy >::type = boost::log::aux::sfinae_dummy()) : m_Filter(fun)
     {
     }
 #else
-    // MSVC 8 blows up in unexpected ways if we use SFINAE to disable constructor instantiation
+    // MSVC 9 and older blows up in unexpected ways if we use SFINAE to disable constructor instantiation
     template< typename FunT >
     filter(FunT const& fun) : m_Filter(fun)
     {
@@ -137,7 +137,7 @@ public:
     filter& operator= (FunT const& fun)
 #else
     template< typename FunT >
-    typename disable_if< is_same< typename remove_cv< FunT >::type, filter >, filter& >::type
+    typename boost::disable_if_c< is_same< typename remove_cv< FunT >::type, filter >::value, filter& >::type
     operator= (FunT const& fun)
 #endif
     {

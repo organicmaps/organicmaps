@@ -1,0 +1,8 @@
+<svg width="24" height="24" viewBox="0 0 24 24">
+  <g fill="none">
+    <rect width="24" height="24" fill="#FFF" opacity=".6"/>
+    <rect width="22" height="22" x="1" y="1" fill="#FFF"/>
+    <polygon fill="#212121" points="18 12 2 21 2 2 18 2"/>
+    <path fill="#1565C0" d="M19,22 L13,22 L19,15.1428571 L19,2 L22,2 L22,22 L19,22 Z"/>
+  </g>
+</svg>

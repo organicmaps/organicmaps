@@ -9,12 +9,14 @@
  * $Date$
  */
 
+#include <boost/date_time/compiler_config.hpp>
+
 namespace boost {
 namespace date_time {
 
   //! Allow rapid creation of ymd triples of different types
   template<typename YearType, typename MonthType, typename DayType>
-  struct year_month_day_base {
+  struct BOOST_SYMBOL_VISIBLE year_month_day_base {
     year_month_day_base(YearType  year, 
                         MonthType month,
                         DayType   day);

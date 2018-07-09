@@ -3,15 +3,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
+    android:background="?cardBackground"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
   <include layout="@layout/altitude_chart_panel"
            tools:visibility="gone"/>
 
-  <include layout="@layout/uber_panel"/>
+  <include layout="@layout/routing_bottom_panel_transit"/>
 
-  <include layout="@layout/start_button"/>
+  <include layout="@layout/taxi_panel"/>
+
+  <include
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="@dimen/margin_base"
+    android:layout_marginEnd="@dimen/margin_base"
+    android:layout_gravity="center_vertical"
+    layout="@layout/start_button"/>
 
   <TextView
     android:id="@+id/error"

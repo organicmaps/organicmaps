@@ -29,7 +29,7 @@
 namespace boost {
 namespace intrusive {
 namespace detail {
-
+   
 using boost::move_detail::is_same;
 using boost::move_detail::add_const;
 using boost::move_detail::remove_const;

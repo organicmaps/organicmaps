@@ -97,8 +97,8 @@ class mutate_graph_impl : public mutate_graph
         bool type_found = false;
         try
         {
-            mpl::for_each<value_types>(put_property<MutableGraph,value_types>
-                                       (name, m_dp, m_g, value, value_type, m_type_names, type_found));
+            mpl::for_each<value_types>(put_property<MutableGraph *,value_types>
+                                       (name, m_dp, &m_g, value, value_type, m_type_names, type_found));
         }
         catch (bad_lexical_cast)
         {

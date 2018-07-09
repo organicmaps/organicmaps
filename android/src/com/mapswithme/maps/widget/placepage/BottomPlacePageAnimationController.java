@@ -18,15 +18,17 @@ import android.widget.LinearLayout;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.MapObject;
+import com.mapswithme.maps.widget.ObservableLinearLayout;
 import com.mapswithme.maps.widget.placepage.PlacePageView.State;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.concurrency.UiThread;
 
 class BottomPlacePageAnimationController extends BasePlacePageAnimationController
+    implements ObservableLinearLayout.SizeChangedListener
 {
   @SuppressWarnings("unused")
   private static final String TAG = BottomPlacePageAnimationController.class.getSimpleName();
-  private static final float DETAIL_RATIO = 0.7f;
+  private static final float DETAIL_RATIO = 0.5f;
   private static final float SCROLL_DELTA = 50.0f;
   private final ViewGroup mLayoutToolbar;
 
@@ -34,9 +36,12 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
 
   private boolean mIsGestureStartedInsideView;
   private boolean mIsGestureFinished;
+  private boolean mIsHiding;
 
+  private float mScreenHeight;
   private float mDetailMaxHeight;
   private float mScrollDelta;
+  private int mContentHeight;
 
   @Nullable
   private OnBannerOpenListener mBannerOpenListener;
@@ -48,6 +53,9 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     mLayoutToolbar = (LinearLayout) mPlacePage.findViewById(R.id.toolbar_layout);
     if (mLayoutToolbar == null)
       return;
+
+    ((ObservableLinearLayout) mDetailsContent).setSizeChangedListener(this);
+    mContentHeight = mDetailsContent.getHeight();
 
     final Toolbar toolbar = (Toolbar) mLayoutToolbar.findViewById(R.id.toolbar);
     if (toolbar != null)
@@ -65,14 +73,17 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     }
 
     DisplayMetrics dm = placePage.getResources().getDisplayMetrics();
-    float screenHeight = dm.heightPixels;
-    mDetailMaxHeight = screenHeight * DETAIL_RATIO;
+    mScreenHeight = dm.heightPixels;
+    mDetailMaxHeight = mScreenHeight * DETAIL_RATIO;
     mScrollDelta = SCROLL_DELTA * dm.density;
   }
 
   @Override
   protected boolean onInterceptTouchEvent(MotionEvent event)
   {
+    if (mIsHiding)
+      return false;
+
     switch (event.getAction())
     {
       case MotionEvent.ACTION_DOWN:
@@ -99,9 +110,15 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
         break;
       case MotionEvent.ACTION_UP:
         final boolean isInside = UiUtils.isViewTouched(event, mDetailsScroll);
-        final boolean isBannerTouch = mPlacePage.isBannerTouched(event);
-        if (isInside && !isBannerTouch && mIsGestureStartedInsideView)
+        if (isInside && !mPlacePage.isBannerTouched(event)
+            && !mPlacePage.isLeaveReviewButtonTouched(event)
+            && !mPlacePage.isSearchSimilarHotelsButtonTouched(event)
+            && mIsGestureStartedInsideView)
           mGestureDetector.onTouchEvent(event);
+        mIsDragging = false;
+        break;
+      case MotionEvent.ACTION_CANCEL:
+        mIsDragging = false;
         break;
     }
 
@@ -111,7 +128,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   @Override
   protected boolean onTouchEvent(@NonNull MotionEvent event)
   {
-    if (mIsGestureFinished)
+    if (mIsGestureFinished || mIsHiding)
       return false;
 
     final boolean finishedDrag = (mIsDragging &&
@@ -133,12 +150,17 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   public void onScroll(int left, int top)
   {
     super.onScroll(left, top);
+    resetDetailsScrollIfNeeded();
+    refreshToolbarVisibility();
+    notifyProgress();
+  }
 
+  private void resetDetailsScrollIfNeeded()
+  {
     if (mCurrentScrollY > 0 && mDetailsScroll.getTranslationY() > 0)
     {
-      mPlacePage.setState(State.HIDDEN);
+      mDetailsScroll.scrollTo(0, 0);
     }
-    refreshToolbarVisibility();
   }
 
   /**
@@ -156,7 +178,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
 
   private boolean isDetailContentScrollable()
   {
-    return mDetailsScroll.getHeight() < mDetailsContent.getHeight();
+    return mDetailsScroll.getHeight() < mContentHeight;
   }
 
   private boolean canScroll(float delta)
@@ -174,6 +196,9 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       @Override
       public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
       {
+        if (mIsHiding)
+          return true;
+
         final boolean isVertical = Math.abs(distanceY) > X_TO_Y_SCROLL_RATIO * Math.abs(distanceX);
 
         if (isVertical)
@@ -182,7 +207,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
           if (!translateBy(-distanceY))
           {
             boolean scrollable = isDetailContentScrollable();
-            int maxTranslationY = mDetailsScroll.getHeight() - mDetailsContent.getHeight();
+            int maxTranslationY = mDetailsScroll.getHeight() - mContentHeight;
             if ((scrollable && mDetailsScroll.getTranslationY() == 0)
                 || (!scrollable && mDetailsScroll.getTranslationY() <= maxTranslationY))
             {
@@ -198,6 +223,9 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       @Override
       public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
       {
+        if (mIsHiding)
+          return true;
+
         finishDrag(-velocityY);
         return true;
       }
@@ -205,6 +233,9 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       @Override
       public boolean onSingleTapConfirmed(MotionEvent e)
       {
+        if (mIsHiding)
+          return true;
+
         MotionEvent evt = MotionEvent.obtain(e.getDownTime(),
                                              e.getEventTime(),
                                              e.getAction(),
@@ -237,6 +268,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
 
   private void finishDrag(float distance)
   {
+    mIsDragging = false;
     final float currentTranslation = mDetailsScroll.getTranslationY();
     if (currentTranslation > mDetailsScroll.getHeight())
     {
@@ -244,7 +276,12 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       return;
     }
 
-    if (distance >= 0.0f) // drag up
+    boolean isDragUp = distance >= 0.0f;
+
+    if (isDragUp && mPlacePage.getState() == State.FULLSCREEN)
+      return;
+
+    if (isDragUp) // drag up
     {
       if (mPlacePage.getState() == State.PREVIEW)
       {
@@ -300,7 +337,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     float detailsTranslation = mDetailsScroll.getTranslationY() + distanceY;
     final boolean isScrollable = isDetailContentScrollable();
     boolean consumeEvent = true;
-    final float maxTranslationY = mDetailsScroll.getHeight() - mDetailsContent.getHeight();
+    final float maxTranslationY = mDetailsScroll.getHeight() - mContentHeight;
     if ((isScrollable && detailsTranslation < 0.0f) || detailsTranslation < maxTranslationY)
     {
       if (isScrollable)
@@ -332,6 +369,9 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   @Override
   protected void onStateChanged(final State currentState, final State newState, @MapObject.MapObjectType int type)
   {
+    if (newState == State.HIDDEN && currentState == newState)
+      return;
+
     prepareYTranslations(newState, type);
 
     mDetailsScroll.setGestureDetector(mGestureDetector);
@@ -347,17 +387,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
             hidePlacePage();
             break;
           case PREVIEW:
-            mPreview.addOnLayoutChangeListener(new View.OnLayoutChangeListener()
-            {
-              @Override
-              public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                         int oldLeft, int oldTop, int oldRight, int oldBottom)
-              {
-                mPreview.removeOnLayoutChangeListener(this);
-                showPreview(currentState);
-              }
-            });
-            mPreview.requestLayout();
+            showPreview(currentState);
             break;
           case DETAILS:
             showDetails();
@@ -365,17 +395,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
           case FULLSCREEN:
             if (isDetailContentScrollable())
               mDetailsScroll.setGestureDetector(null);
-            mDetailsScroll.addOnLayoutChangeListener(new View.OnLayoutChangeListener()
-            {
-              @Override
-              public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                         int oldLeft, int oldTop, int oldRight, int oldBottom)
-              {
-                mDetailsScroll.removeOnLayoutChangeListener(this);
-                showFullscreen();
-              }
-            });
-            mDetailsScroll.requestLayout();
+            showFullscreen();
             break;
         }
       }
@@ -453,17 +473,14 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
 
   private void showDetails()
   {
+    final float translation;
     if (isDetailContentScrollable())
-    {
-      mCurrentAnimator = ValueAnimator.ofFloat(mDetailsScroll.getTranslationY(),
-                                               mDetailsScroll.getHeight() - mDetailMaxHeight + mButtons
-                                                   .getHeight());
-    }
+      translation = mDetailMaxHeight - mButtons.getHeight();
     else
-    {
-      mCurrentAnimator = ValueAnimator.ofFloat(mDetailsScroll.getTranslationY(),
-                                               mDetailsScroll.getHeight() - mDetailsContent.getHeight());
-    }
+      translation = mContentHeight > mDetailMaxHeight ? mDetailMaxHeight - mButtons.getHeight()
+                                                      : mContentHeight;
+    mCurrentAnimator = ValueAnimator.ofFloat(mDetailsScroll.getTranslationY(),
+                                             mDetailsScroll.getHeight() - translation);
     mCurrentAnimator.addUpdateListener(new UpdateListener());
     mCurrentAnimator.addListener(new AnimationListener());
 
@@ -479,7 +496,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     else
     {
       mCurrentAnimator = ValueAnimator.ofFloat(mDetailsScroll.getTranslationY(),
-                                               mDetailsScroll.getHeight() - mDetailsContent.getHeight());
+                                               mDetailsScroll.getHeight() - mContentHeight);
     }
     mCurrentAnimator.addUpdateListener(new UpdateListener());
     mCurrentAnimator.addListener(new AnimationListener());
@@ -490,6 +507,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
   @SuppressLint("NewApi")
   private void hidePlacePage()
   {
+    mIsHiding = true;
     if (mLayoutToolbar != null)
       UiUtils.hide(mLayoutToolbar);
 
@@ -510,6 +528,7 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
       @Override
       public void onAnimationEnd(Animator animation)
       {
+        mIsHiding = false;
         initialVisibility();
         mPlacePage.setTranslationY(0);
         mDetailsScroll.setTranslationY(mDetailsScroll.getHeight());
@@ -560,12 +579,21 @@ class BottomPlacePageAnimationController extends BasePlacePageAnimationControlle
     mBannerOpenListener = bannerOpenListener;
   }
 
-  @Override
-  protected void onContentSizeChanged()
+  private void onContentSizeChanged()
   {
+    if (mIsDragging || mCurrentScrollY > 0)
+      return;
+
     MapObject object = mPlacePage.getMapObject();
     if (object != null)
       onStateChanged(getState(), getState(), object.getMapObjectType());
+  }
+
+  @Override
+  public void onSizeChanged(int width, int height, int oldWidth, int oldHeight)
+  {
+    mContentHeight = height;
+    onContentSizeChanged();
   }
 
   private class UpdateListener implements ValueAnimator.AnimatorUpdateListener

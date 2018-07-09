@@ -1,14 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>cemetery-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-NIght" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="cemetery-m">
-            <ellipse id="Oval-1-Copy-41" fill-opacity="0.1" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-            <ellipse id="Oval-1-Copy-40" fill="#252522" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-            <path d="M11.5,5 C8.98519873,5 7.81818182,6.5 7.81818182,8.75 L7.81818182,12.5 L7.81818182,15.5 C7.40909091,15.5 7,15.875 7,16.25 L7,17 L16,17 L16,16.25 C16,15.875 15.5909091,15.5 15.1818182,15.5 L15.1818182,8.75 C15.1818182,6.5 13.9545455,5 11.5,5 L11.5,5 Z" id="rect12479-9-copy-2" fill-opacity="0.7" fill="#FFFFFF"></path>
-        </g>
-    </g>
-</svg>
+<svg height="24" viewBox="0 0 24 24" width="24"><g fill="none" fill-rule="evenodd"><circle cx="12" cy="12" fill="#fff" opacity=".4" r="12"/><circle cx="12" cy="12" fill="#3d3d36" r="11"/><path d="m12 6c-2.79422364 0-4.09090909 1.5-4.09090909 3.75v3.75 3c-.45454546 0-.90909091.375-.90909091.75v.75h10v-.75c0-.375-.4545455-.75-.9090909-.75v-6.75c0-2.25-1.3636364-3.75-4.0909091-3.75z" fill="#fff" opacity=".6"/></g></svg>

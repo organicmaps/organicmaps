@@ -174,8 +174,9 @@ unique_ptr<ModelReader> Platform::GetReader(string const & file, string const & 
       {
         return make_unique<ZipFileReader>(m_resourcesDir, "assets/" + file, logPageSize, logPageCount);
       }
-      catch (Reader::OpenException const &)
+      catch (Reader::OpenException const & e)
       {
+        LOG(LWARNING, ("Can't get reader:", e.what()));
       }
       break;
 
@@ -243,7 +244,8 @@ bool Platform::GetFileSizeByName(string const & fileName, uint64_t & size) const
   }
 }
 
-Platform::EError Platform::MkDir(string const & dirName) const
+// static
+Platform::EError Platform::MkDir(string const & dirName)
 {
   if (0 != mkdir(dirName.c_str(), 0755))
     return ErrnoToError();
@@ -261,27 +263,5 @@ void Platform::SetupMeasurementSystem() const
 }
 
 /// @see implementation of methods below in android/jni/com/.../Platform.cpp
-// void Platform::RunOnGuiThread(TFunctor const & fn){}
-
-namespace
-{
-class FunctorWrapper : public threads::IRoutine
-{
-  Platform::TFunctor m_fn;
-
-public:
-  FunctorWrapper(Platform::TFunctor const & fn) : m_fn(fn) {}
-
-  void Do() override { m_fn(); }
-};
-}
-
-void Platform::RunAsync(TFunctor const & fn, Priority p)
-{
-  UNUSED_VALUE(p);
-
-  // We don't need to store thread handler in POSIX, just create and
-  // run.  Unfortunately we can't use std::async() here since it
-  // doesn't attach to JVM threads.
-  threads::Thread().Create(make_unique<FunctorWrapper>(fn));
-}
+//  void RunOnGuiThread(base::TaskLoop::Task && task);
+//  void RunOnGuiThread(base::TaskLoop::Task const & task);

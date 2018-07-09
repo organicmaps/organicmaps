@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2005-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -120,7 +120,7 @@ BOOST_TEST_DECL void                deregister_test_unit( test_unit* tu );
 
 // This function clears up the framework mono-state.
 
-/// Afer this call the framework can be reinitialized to perform a second test run during the same program lifetime.
+/// After this call the framework can be reinitialized to perform a second test run during the same program lifetime.
 BOOST_TEST_DECL void                clear();
 /// @}
 
@@ -236,6 +236,7 @@ BOOST_TEST_DECL void                test_unit_aborted( test_unit const& );
 namespace impl {
 // exclusively for self test
 BOOST_TEST_DECL void                setup_for_execution( test_unit const& );
+BOOST_TEST_DECL void                setup_loggers( );
 } // namespace impl
 
 // ************************************************************************** //
@@ -254,13 +255,15 @@ struct BOOST_TEST_DECL setup_error : public std::runtime_error {
     setup_error( const_string m ) : std::runtime_error( std::string( m.begin(), m.size() ) ) {}
 };
 
-#define BOOST_TEST_SETUP_ASSERT( cond, msg ) \
-    if( cond ) {} \
-    else BOOST_TEST_IMPL_THROW( unit_test::framework::setup_error( msg ) )
+#define BOOST_TEST_SETUP_ASSERT( cond, msg ) BOOST_TEST_I_ASSRT( cond, unit_test::framework::setup_error( msg ) )
 
 //____________________________________________________________________________//
 
-struct nothing_to_test {}; // not really an error
+struct nothing_to_test {
+    explicit    nothing_to_test( int rc ) : m_result_code( rc ) {}
+
+    int         m_result_code;
+};
 
 //____________________________________________________________________________//
 
@@ -271,4 +274,3 @@ struct nothing_to_test {}; // not really an error
 #include <boost/test/detail/enable_warnings.hpp>
 
 #endif // BOOST_TEST_FRAMEWORK_HPP_020805GER
-

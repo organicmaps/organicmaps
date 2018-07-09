@@ -4,7 +4,7 @@
 
 #include "geometry/latlon.hpp"
 
-#include "base/scope_guard.hpp"
+#include "platform/platform.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/atomic.hpp"
@@ -12,9 +12,13 @@
 
 #include "3party/jansson/myjansson.hpp"
 
+using namespace taxi;
+
 namespace
 {
-bool IsComplete(uber::Product const & product)
+using Runner = Platform::ThreadRunner;
+
+bool IsComplete(Product const & product)
 {
   return !product.m_productId.empty() && !product.m_name.empty() && !product.m_time.empty() &&
          !product.m_price.empty();
@@ -47,13 +51,13 @@ UNIT_TEST(Uber_GetTimes)
   for (size_t i = 0; i < timeSize; ++i)
   {
     string name;
-    json_int_t estimatedTime = 0;
+    int64_t estimatedTime = 0;
     auto const item = json_array_get(timesArray, i);
 
     try
     {
-      my::FromJSONObject(item, "display_name", name);
-      my::FromJSONObject(item, "estimate", estimatedTime);
+      FromJSONObject(item, "display_name", name);
+      FromJSONObject(item, "estimate", estimatedTime);
     }
     catch (my::Json::Exception const & e)
     {
@@ -93,8 +97,8 @@ UNIT_TEST(Uber_GetPrices)
 
     try
     {
-      my::FromJSONObject(item, "product_id", productId);
-      my::FromJSONObject(item, "estimate", price);
+      FromJSONObject(item, "product_id", productId);
+      FromJSONObject(item, "estimate", price);
 
       auto const val = json_object_get(item, "currency_code");
       if (val != nullptr)
@@ -122,18 +126,14 @@ UNIT_TEST(Uber_ProductMaker)
   ms::LatLon const from(38.897724, -77.036531);
   ms::LatLon const to(38.862416, -76.883316);
 
-  size_t returnedId = 0;
-  vector<uber::Product> returnedProducts;
+  vector<Product> returnedProducts;
 
   uber::ProductMaker maker;
 
   string times;
   string prices;
 
-  auto const errorCallback = [](uber::ErrorCode const code, uint64_t const requestId)
-  {
-    TEST(false, ());
-  };
+  auto const errorCallback = [](ErrorCode const code) { TEST(false, ()); };
 
   TEST(uber::RawApi::GetEstimatedTime(from, times), ());
   TEST(uber::RawApi::GetEstimatedPrice(from, to, prices), ());
@@ -142,15 +142,12 @@ UNIT_TEST(Uber_ProductMaker)
   maker.SetTimes(reqId, times);
   maker.SetPrices(reqId, prices);
   maker.MakeProducts(reqId,
-                     [&returnedId, &returnedProducts](vector<uber::Product> const & products,
-                                                      size_t const requestId) {
-                       returnedId = requestId;
+                     [&returnedProducts](vector<Product> const & products) {
                        returnedProducts = products;
                      },
                      errorCallback);
 
   TEST(!returnedProducts.empty(), ());
-  TEST_EQUAL(returnedId, reqId, ());
 
   for (auto const & product : returnedProducts)
     TEST(IsComplete(product), ());
@@ -164,104 +161,65 @@ UNIT_TEST(Uber_ProductMaker)
   maker.SetTimes(reqId, times);
   maker.SetPrices(reqId, prices);
 
-  maker.MakeProducts(reqId + 1, [](vector<uber::Product> const & products, size_t const requestId)
+  maker.MakeProducts(reqId + 1, [](vector<Product> const & products)
   {
     TEST(false, ());
   }, errorCallback);
 }
 
-UNIT_TEST(Uber_Smoke)
+UNIT_CLASS_TEST(Runner, Uber_GetAvailableProducts)
 {
-  // Used to synchronize access into GetAvailableProducts callback method.
-  mutex resultsMutex;
-  size_t reqId = 1;
-  vector<uber::Product> productsContainer;
-  ms::LatLon const from(38.897724, -77.036531);
-  ms::LatLon const to(38.862416, -76.883316);
+  taxi::uber::Api api("http://localhost:34568/partners");
+  ms::LatLon const from(55.796918, 37.537859);
+  ms::LatLon const to(55.758213, 37.616093);
 
-  uber::SetUberUrlForTesting("http://localhost:34568/partners");
-  MY_SCOPE_GUARD(cleanup, []() { uber::SetUberUrlForTesting(""); });
+  std::vector<taxi::Product> resultProducts;
+  std::atomic<int> counter(0);
 
-  auto const errorCallback = [](uber::ErrorCode const code, uint64_t const requestId)
-  {
-    TEST(false, ());
-  };
+  api.GetAvailableProducts(from, to,
+                           [&resultProducts, &counter](std::vector<taxi::Product> const & products) {
+                             resultProducts = products;
+                             ++counter;
+                             testing::Notify();
+                           },
+                           [](taxi::ErrorCode const code) {
+                             TEST(false, (code));
+                             testing::Notify();
+                           });
 
-  auto const errorPossibleCallback = [](uber::ErrorCode const code, uint64_t const requestId)
-  {
-    TEST(code == uber::ErrorCode::NoProducts, ());
-  };
+  testing::Wait();
 
-  auto const standardCallback =
-      [&reqId, &productsContainer, &resultsMutex](vector<uber::Product> const & products, size_t const requestId)
-  {
-    lock_guard<mutex> lock(resultsMutex);
+  TEST(!resultProducts.empty(), ());
+  TEST_EQUAL(counter, 1, ());
 
-    if (reqId == requestId)
-      productsContainer = products;
-  };
+  counter = 0;
+  taxi::ErrorCode errorCode = taxi::ErrorCode::RemoteError;
+  ms::LatLon const farPos(56.838197, 35.908507);
+  api.GetAvailableProducts(from, farPos,
+                           [](std::vector<taxi::Product> const & products) {
+                             TEST(false, ());
+                             testing::Notify();
+                           },
+                           [&errorCode, &counter](taxi::ErrorCode const code) {
+                             errorCode = code;
+                             ++counter;
+                             testing::Notify();
+                           });
 
-  auto const lastCallback =
-      [&standardCallback](vector<uber::Product> const & products, size_t const requestId)
-  {
-    standardCallback(products, requestId);
-    testing::StopEventLoop();
-  };
+  testing::Wait();
 
-  string times;
-  string prices;
+  TEST_EQUAL(errorCode, taxi::ErrorCode::NoProducts, ());
+  TEST_EQUAL(counter, 1, ());
+}
 
-  TEST(uber::RawApi::GetEstimatedTime(from, times), ());
-  TEST(uber::RawApi::GetEstimatedPrice(from, to, prices), ());
+UNIT_TEST(Uber_GetRideRequestLinks)
+{
+  taxi::uber::Api api;
+  ms::LatLon const from(55.796918, 37.537859);
+  ms::LatLon const to(55.758213, 37.616093);
 
-  uber::ProductMaker maker;
+  auto const links = api.GetRideRequestLinks("" /* productId */, from, to);
 
-  maker.Reset(reqId);
-  maker.SetTimes(reqId, times);
-  maker.SetPrices(reqId, prices);
-  maker.MakeProducts(reqId, standardCallback, errorCallback);
-
-  reqId = 0;
-
-  auto const synchronousProducts = productsContainer;
-  productsContainer.clear();
-
-  {
-    uber::Api uberApi;
-
-    {
-      lock_guard<mutex> lock(resultsMutex);
-      reqId = uberApi.GetAvailableProducts(ms::LatLon(55.753960, 37.624513),
-                                           ms::LatLon(55.765866, 37.661270), standardCallback,
-                                           errorPossibleCallback);
-    }
-    {
-      lock_guard<mutex> lock(resultsMutex);
-      reqId = uberApi.GetAvailableProducts(ms::LatLon(59.922445, 30.367201),
-                                           ms::LatLon(59.943675, 30.361123), standardCallback,
-                                           errorPossibleCallback);
-    }
-    {
-      lock_guard<mutex> lock(resultsMutex);
-      reqId = uberApi.GetAvailableProducts(ms::LatLon(52.509621, 13.450067),
-                                           ms::LatLon(52.510811, 13.409490), standardCallback,
-                                           errorPossibleCallback);
-    }
-    {
-      lock_guard<mutex> lock(resultsMutex);
-      reqId = uberApi.GetAvailableProducts(from, to, lastCallback, errorCallback);
-    }
-  }
-
-  testing::RunEventLoop();
-
-  TEST_EQUAL(synchronousProducts.size(), productsContainer.size(), ());
-
-  auto const isEqual =
-      equal(synchronousProducts.begin(), synchronousProducts.end(), productsContainer.begin(),
-            [](uber::Product const & lhs, uber::Product const & rhs) {
-              return lhs.m_productId == rhs.m_productId && lhs.m_name == rhs.m_name &&
-                     lhs.m_price == rhs.m_price;
-            });
-  TEST(isEqual, ());
+  TEST(!links.m_deepLink.empty(), ());
+  TEST(!links.m_universalLink.empty(), ());
 }

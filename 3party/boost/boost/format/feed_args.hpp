@@ -172,6 +172,10 @@ namespace detail {
         typedef typename string_type::size_type size_type;
 
         basic_oaltstringstream<Ch, Tr, Alloc>  oss( &buf);
+
+        if(loc_p != NULL)
+            oss.imbue(*loc_p);
+        
         specs.fmtstate_.apply_on(oss, loc_p);
 
         // the stream format state can be modified by manipulators in the argument :

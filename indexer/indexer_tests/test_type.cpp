@@ -37,19 +37,19 @@ namespace
 
 UNIT_TEST(SetGetTypes)
 {
-  uint8_t v1[] = { 6, 30, 50, 0, 1 };
-  check_values_array(v1, 5);
+  uint8_t v1[] = { 6, 30, 0, 1 };
   check_values_array(v1, 4);
+  check_values_array(v1, 3);
 
-  uint8_t v2[] = { 0, 0, 0, 0, 0 };
-  check_values_array(v2, 5);
+  uint8_t v2[] = { 0, 0, 0, 0 };
   check_values_array(v2, 4);
+  check_values_array(v2, 3);
 
-  uint8_t v3[] = { 1, 1, 1, 1, 1 };
-  check_values_array(v3, 5);
+  uint8_t v3[] = { 1, 1, 1, 1 };
   check_values_array(v3, 4);
+  check_values_array(v3, 3);
 
-  uint8_t v4[] = { 63, 63, 63, 63, 63 };
-  check_values_array(v4, 5);
+  uint8_t v4[] = { 63, 63, 63, 63 };
   check_values_array(v4, 4);
+  check_values_array(v4, 3);
 }

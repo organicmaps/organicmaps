@@ -1,4 +1,4 @@
-// Boost.Units - A C++ library for zero-overhead dimensional analysis and
+// Boost.Units - A C++ library for zero-overhead dimensional analysis and 
 // unit/quantity manipulation and conversion
 //
 // Copyright (C) 2014 Erik Erlandson
@@ -16,7 +16,7 @@
 BOOST_UNITS_DEFINE_BASE_UNIT_WITH_CONVERSIONS(information, nat,
                                               "nat", "nat",
                                               1.442695040888964,
-                                              boost::units::information::bit_base_unit,
+                                              boost::units::information::bit_base_unit, 
                                               -702);
 
 #if BOOST_UNITS_HAS_BOOST_TYPEOF

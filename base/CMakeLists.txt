@@ -8,19 +8,27 @@ set(
   base.hpp
   bits.hpp
   buffer_vector.hpp
+  bwt.cpp
+  bwt.hpp
   cache.hpp
   cancellable.hpp
   checked_cast.hpp
+  clustering_map.hpp
   collection_cast.hpp
   condition.cpp
   condition.hpp
+  control_flow.hpp
   deferred_task.cpp
   deferred_task.hpp
   dfa_helpers.hpp
   exception.cpp
   exception.hpp
+  fifo_cache.hpp
+  get_time.hpp
   gmtime.cpp
   gmtime.hpp
+  internal/message.cpp
+  internal/message.hpp
   levenshtein_dfa.cpp
   levenshtein_dfa.hpp
   limited_priority_queue.hpp
@@ -31,10 +39,16 @@ set(
   math.hpp
   matrix.hpp
   mem_trie.hpp
+  move_to_front.cpp
+  move_to_front.hpp
   mutex.hpp
   newtype.hpp
   normalize_unicode.cpp
   observer_list.hpp
+  osm_id.cpp
+  osm_id.hpp
+  pprof.cpp
+  pprof.hpp
   random.cpp
   random.hpp
   range_iterator.hpp
@@ -48,7 +62,6 @@ set(
   src_point.cpp
   src_point.hpp
   stats.hpp
-  std_serialization.hpp
   stl_add.hpp
   stl_helpers.hpp
   stl_iterator.hpp
@@ -58,8 +71,11 @@ set(
   string_utils.hpp
   strings_bundle.cpp
   strings_bundle.hpp
+  suffix_array.cpp
+  suffix_array.hpp
   sunrise_sunset.cpp
   sunrise_sunset.hpp
+  task_loop.hpp
   thread.cpp
   thread.hpp
   thread_checker.cpp
@@ -69,16 +85,19 @@ set(
   threaded_container.cpp
   threaded_container.hpp
   threaded_list.hpp
-  internal/message.cpp
-  internal/message.hpp
   timegm.cpp
   timegm.hpp
   timer.cpp
   timer.hpp
   uni_string_dfa.cpp
   uni_string_dfa.hpp
+  url_helpers.cpp
+  url_helpers.hpp
+  visitor.hpp
+  worker_thread.cpp
+  worker_thread.hpp
 )
 
-add_library(${PROJECT_NAME} ${SRC})
+omim_add_library(${PROJECT_NAME} ${SRC})
 
 omim_add_test_subdirectory(base_tests)

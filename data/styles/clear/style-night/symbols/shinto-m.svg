@@ -1,16 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-    <title>shinto-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Night" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard-1" transform="translate(-354.000000, -1102.000000)">
-            <g id="shinto-m" transform="translate(354.000000, 1102.000000)">
-                <ellipse id="Oval-1-Copy-41" fill-opacity="0.1" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-                <ellipse id="Oval-1-Copy-40" fill="#26160D" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-                <path d="M6.23279572,6.5 L6,6.5 L6,7.5 L7.97727273,7.5 L7.90909091,9 L5,9 L5,10 L7.86363636,10 L7.5,18 L9,18 L9,10 L14,10 L14,18 L15.5,18 L15.1363636,10 L18,10 L18,9 L15.0909091,9 L15.0227273,7.5 L17,7.5 L17,6.5 L16.803093,6.5 C17.7407379,6.25 18,6 18,6 L18,5 C18,5 16.0443115,5.5 11.5283813,5.5 C7.01245117,5.5 5,5 5,5 L5,6 C5,6 5.27720642,6.25 6.23279572,6.5 Z M14,7.5 L14,9 L9,9 L9,7.5 L11,7.5 L11,9 L12,9 L12,7.5 L14,7.5 Z" id="Combined-Shape" fill-opacity="0.7" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg height="24" viewBox="0 0 24 24" width="24"><g fill="none" fill-rule="evenodd"><circle cx="12" cy="12" fill="#fff" opacity=".4" r="12"/><circle cx="12" cy="12" fill="#4d361f" r="11"/><path d="m16.8951627 7.38461538h.1817604v.92307693h-1.8251748l.062937 1.38461538h2.6853147v.92307691h-2.6433566l.3356643 7.3846154h-1.3846154v-7.3846154h-4.61538461v7.3846154h-1.38461538l.33566433-7.3846154h-2.64335664v-.92307691h2.68531469l.06293706-1.38461538h-1.82517483v-.92307693h.21488836c-.88208243-.23076923-1.13796528-.46153846-1.13796528-.46153846v-.92307692s1.85764724.46153846 6.0261982.46153846c4.1685509 0 5.9738018-.46153846 5.9738018-.46153846v.92307692s-.2393188.23076923-1.1048373.46153846zm-7.20285501.92307693v1.38461538h1.84615381v-1.38461538zm4.61538461 0h-1.8461538v1.38461538h1.8461538z" fill="#fff" opacity=".6"/></g></svg>

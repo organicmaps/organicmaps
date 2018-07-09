@@ -125,9 +125,9 @@ void GpsTrack::ScheduleTask()
 {
   lock_guard<mutex> lg(m_threadGuard);
 
-  if (m_thread.get_id() == thread::id())
+  if (m_thread.get_id() == std::thread::id())
   {
-    m_thread = thread([this]()
+    m_thread = threads::SimpleThread([this]()
     {
       unique_lock<mutex> ul(m_threadGuard);
       while (true)

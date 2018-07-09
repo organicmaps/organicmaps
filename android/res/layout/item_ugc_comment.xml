@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:background="?cardBackground"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:padding="@dimen/margin_base">
+  <TextView
+    android:id="@+id/name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:layout_toLeftOf="@+id/rating"
+    android:layout_toStartOf="@id/rating"
+    android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
+    android:textStyle="bold"
+    tools:text="Аleksey"/>
+
+  <TextView
+    android:id="@+id/date"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/name"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_marginTop="@dimen/margin_quarter"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    tools:text="March 29, 2016"/>
+
+  <com.mapswithme.maps.widget.RatingView
+    android:id="@id/rating"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentTop="true"
+    android:text="2.0"
+    android:textSize="@dimen/text_size_body_1"
+    app:drawSmile="false"
+    android:textAppearance="@style/MwmTextAppearance.Body2"/>
+
+  <TextView
+    android:id="@+id/review"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_half"
+    android:layout_below="@id/date"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:textAppearance="@style/MwmTextAppearance.Body3.Primary"
+    android:visibility="visible"
+    tools:visibility="visible"
+    tools:text="Interesting place among SoHo, Little Italy and China town. Modern design. Great view from roof. Near subway. Free refreshment every afternoon. The staff was very friendly."/>
+</RelativeLayout>

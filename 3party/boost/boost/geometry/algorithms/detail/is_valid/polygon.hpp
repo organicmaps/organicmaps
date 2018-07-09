@@ -1,8 +1,9 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2014-2015, Oracle and/or its affiliates.
+// Copyright (c) 2014-2017, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Licensed under the Boost Software License version 1.0.
 // http://www.boost.org/users/license.html
@@ -11,6 +12,9 @@
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_IS_VALID_POLYGON_HPP
 
 #include <cstddef>
+#ifdef BOOST_GEOMETRY_TEST_DEBUG
+#include <iostream>
+#endif // BOOST_GEOMETRY_TEST_DEBUG
 
 #include <algorithm>
 #include <deque>
@@ -71,10 +75,13 @@ class is_valid_polygon
 protected:
     typedef debug_validity_phase<Polygon> debug_phase;
 
-    template <typename VisitPolicy>
+    template <typename VisitPolicy, typename Strategy>
     struct per_ring
     {
-        per_ring(VisitPolicy& policy) : m_policy(policy) {}
+        per_ring(VisitPolicy& policy, Strategy const& strategy)
+            : m_policy(policy)
+            , m_strategy(strategy)
+        {}
 
         template <typename Ring>
         inline bool apply(Ring const& ring) const
@@ -82,30 +89,34 @@ protected:
             return detail::is_valid::is_valid_ring
                 <
                     Ring, false, true
-                >::apply(ring, m_policy);
+                >::apply(ring, m_policy, m_strategy);
         }
 
         VisitPolicy& m_policy;
+        Strategy const& m_strategy;
     };
 
-    template <typename InteriorRings, typename VisitPolicy>
+    template <typename InteriorRings, typename VisitPolicy, typename Strategy>
     static bool has_valid_interior_rings(InteriorRings const& interior_rings,
-                                         VisitPolicy& visitor)
+                                         VisitPolicy& visitor,
+                                         Strategy const& strategy)
     {
         return
             detail::check_iterator_range
                 <
-                    per_ring<VisitPolicy>,
+                    per_ring<VisitPolicy, Strategy>,
                     true // allow for empty interior ring range
                 >::apply(boost::begin(interior_rings),
                          boost::end(interior_rings),
-                         per_ring<VisitPolicy>(visitor));
+                         per_ring<VisitPolicy, Strategy>(visitor, strategy));
     }
 
     struct has_valid_rings
     {
-        template <typename VisitPolicy>
-        static inline bool apply(Polygon const& polygon, VisitPolicy& visitor)
+        template <typename VisitPolicy, typename Strategy>
+        static inline bool apply(Polygon const& polygon,
+                                 VisitPolicy& visitor,
+                                 Strategy const& strategy)
         {
             typedef typename ring_type<Polygon>::type ring_type;
 
@@ -116,7 +127,7 @@ protected:
                      <
                          ring_type,
                          false // do not check self intersections
-                     >::apply(exterior_ring(polygon), visitor))
+                     >::apply(exterior_ring(polygon), visitor, strategy))
             {
                 return false;
             }
@@ -125,7 +136,8 @@ protected:
             debug_phase::apply(2);
 
             return has_valid_interior_rings(geometry::interior_rings(polygon),
-                                            visitor);
+                                            visitor,
+                                            strategy);
         }
     };
 
@@ -243,10 +255,8 @@ protected:
 
         geometry::partition
             <
-                geometry::model::box<typename point_type<Polygon>::type>,
-                expand_box,
-                overlaps_box
-            >::apply(ring_iterators, item_visitor);
+                geometry::model::box<typename point_type<Polygon>::type>
+            >::apply(ring_iterators, item_visitor, expand_box(), overlaps_box());
 
         if (item_visitor.items_overlap)
         {
@@ -327,7 +337,9 @@ protected:
                 g.add_edge(v2, vip);
             }
 
+#ifdef BOOST_GEOMETRY_TEST_DEBUG
             debug_print_complement_graph(std::cout, g);
+#endif // BOOST_GEOMETRY_TEST_DEBUG
 
             if (g.has_cycles())
             {
@@ -341,10 +353,12 @@ protected:
     };
 
 public:
-    template <typename VisitPolicy>
-    static inline bool apply(Polygon const& polygon, VisitPolicy& visitor)
+    template <typename VisitPolicy, typename Strategy>
+    static inline bool apply(Polygon const& polygon,
+                             VisitPolicy& visitor,
+                             Strategy const& strategy)
     {
-        if (! has_valid_rings::apply(polygon, visitor))
+        if (! has_valid_rings::apply(polygon, visitor, strategy))
         {
             return false;
         }
@@ -361,7 +375,7 @@ public:
 
         std::deque<typename has_valid_turns::turn_type> turns;
         bool has_invalid_turns
-            = ! has_valid_turns::apply(polygon, turns, visitor);
+            = ! has_valid_turns::apply(polygon, turns, visitor, strategy);
         debug_print_turns(turns.begin(), turns.end());
 
         if (has_invalid_turns)

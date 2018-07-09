@@ -10,6 +10,7 @@
 #include <iomanip>
 #include <algorithm> // std::copy
 #include <string>
+#include <exception>
 
 #include <cstring> // strlen
 #include <boost/config.hpp> // msvc 6.0 needs this to suppress warnings
@@ -111,6 +112,30 @@ xml_oarchive_impl<Archive>::xml_oarchive_impl(
 {
     if(0 == (flags & no_header))
         this->init();
+}
+
+template<class Archive>
+BOOST_ARCHIVE_DECL void
+xml_oarchive_impl<Archive>::save_binary(const void *address, std::size_t count){
+    this->end_preamble();
+    #if ! defined(__MWERKS__)
+    this->basic_text_oprimitive<std::ostream>::save_binary(
+    #else
+    this->basic_text_oprimitive::save_binary(
+    #endif
+        address, 
+        count
+    );
+    this->indent_next = true;
+}
+
+template<class Archive>
+BOOST_ARCHIVE_DECL
+xml_oarchive_impl<Archive>::~xml_oarchive_impl(){
+    if(std::uncaught_exception())
+        return;
+    if(0 == (this->get_flags() & no_header))
+        this->windup();
 }
 
 } // namespace archive

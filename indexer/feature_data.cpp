@@ -31,7 +31,6 @@ string DebugPrint(TypesHolder const & holder)
     s.pop_back();
   return s;
 }
-}  // namespace feature
 
 TypesHolder::TypesHolder(FeatureBase const & f)
 : m_size(0), m_geoType(f.GetFeatureType())
@@ -57,10 +56,10 @@ bool TypesHolder::Equals(TypesHolder const & other) const
 
   return my == his;
 }
+}  // namespace feature
 
 namespace
 {
-
 class UselessTypesChecker
 {
   vector<uint32_t> m_types;
@@ -90,6 +89,7 @@ public:
       { "internet_access" },
       { "wheelchair" },
       { "sponsored" },
+      { "entrance" },
     };
 
     AddTypes(arr1);
@@ -100,6 +100,7 @@ public:
       { "amenity", "atm" },
       { "amenity", "bench" },
       { "amenity", "shelter" },
+      { "amenity", "toilets" },
       { "building", "address" },
       { "building", "has_parts" },
     };
@@ -124,7 +125,6 @@ public:
     return false;
   }
 };
-
 }  // namespace
 
 namespace feature
@@ -163,7 +163,6 @@ uint8_t CalculateHeader(size_t const typesCount, uint8_t const headerGeomType,
 
   return header;
 }
-}  // namespace feature
 
 void TypesHolder::SortBySpec()
 {
@@ -182,6 +181,7 @@ vector<string> TypesHolder::ToObjectNames() const
     result.push_back(classif().GetReadableObjectName(type));
   return result;
 }
+}  // namespace feature
 
 ////////////////////////////////////////////////////////////////////////////////////
 // FeatureParamsBase implementation
@@ -226,7 +226,7 @@ namespace
 {
 
 // Most used dummy values are taken from
-// http://taginfo.openstreetmap.org/keys/addr%3Ahousename#values
+// https://taginfo.openstreetmap.org/keys/addr%3Ahousename#values
 bool IsDummyName(string const & s)
 {
   return (s.empty() ||
@@ -306,7 +306,7 @@ bool FeatureParams::AddHouseNumber(string houseNumber)
   // Remove leading zeroes from house numbers.
   // It's important for debug checks of serialized-deserialized feature.
   size_t i = 0;
-  while (i < houseNumber.size() && houseNumber[i] == '0')
+  while (i + 1 < houseNumber.size() && houseNumber[i] == '0')
     ++i;
   houseNumber.erase(0, i);
 
@@ -502,7 +502,7 @@ bool FeatureParams::FinishAddingTypes()
   // Patch fix that removes house number from localities.
   if (!house.IsEmpty() && ftypes::IsLocalityChecker::Instance()(m_Types))
   {
-    LOG(LWARNING, ("Locality with house number", *this));
+    LOG(LINFO, ("Locality with house number", *this));
     house.Clear();
   }
 

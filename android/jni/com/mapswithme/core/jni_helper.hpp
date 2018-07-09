@@ -4,21 +4,30 @@
 
 #include "ScopedLocalRef.hpp"
 
+#include "base/logging.hpp"
+
 #include "geometry/point2d.hpp"
 
-#include "std/string.hpp"
-#include "std/shared_ptr.hpp"
+#include <memory>
+#include <string>
+#include <utility>
 
 extern jclass g_mapObjectClazz;
+extern jclass g_featureIdClazz;
 extern jclass g_bookmarkClazz;
 extern jclass g_myTrackerClazz;
 extern jclass g_httpClientClazz;
 extern jclass g_httpParamsClazz;
-extern jclass g_httpHeaderClazz;
 extern jclass g_platformSocketClazz;
 extern jclass g_utilsClazz;
 extern jclass g_bannerClazz;
+extern jclass g_ratingClazz;
 extern jclass g_loggerFactoryClazz;
+extern jclass g_keyValueClazz;
+extern jclass g_httpUploaderClazz;
+extern jclass g_httpUploaderResultClazz;
+extern jclass g_networkPolicyClazz;
+extern jclass g_storageUtilsClazz;
 
 namespace jni
 {
@@ -28,16 +37,17 @@ JavaVM * GetJVM();
 jmethodID GetMethodID(JNIEnv * env, jobject obj, char const * name, char const * signature);
 jmethodID GetStaticMethodID(JNIEnv * env, jclass clazz, char const * name, char const * signature);
 jmethodID GetConstructorID(JNIEnv * env, jclass clazz, char const * signature);
+jfieldID GetStaticFieldID(JNIEnv * env, jclass clazz, char const * name, char const * signature);
 
 // Result value should be DeleteGlobalRef`ed by caller
 jclass GetGlobalClassRef(JNIEnv * env, char const * s);
 
-string ToNativeString(JNIEnv * env, jstring str);
+std::string ToNativeString(JNIEnv * env, jstring str);
 // Converts UTF-8 array to native UTF-8 string. Result differs from simple GetStringUTFChars call for characters greater than U+10000,
 // since jni uses modified UTF (MUTF-8) for strings.
-string ToNativeString(JNIEnv * env, jbyteArray const & utfBytes);
+std::string ToNativeString(JNIEnv * env, jbyteArray const & utfBytes);
 jstring ToJavaString(JNIEnv * env, char const * s);
-inline jstring ToJavaString(JNIEnv * env, string const & s)
+inline jstring ToJavaString(JNIEnv * env, std::string const & s)
 {
   return ToJavaString(env, s.c_str());
 }
@@ -45,10 +55,11 @@ inline jstring ToJavaString(JNIEnv * env, string const & s)
 jclass GetStringClass(JNIEnv * env);
 char const * GetStringClassName();
 
-string DescribeException();
+std::string DescribeException();
 bool HandleJavaException(JNIEnv * env);
+my::LogLevel GetLogLevelForException(JNIEnv * env, const jthrowable & e);
 
-shared_ptr<jobject> make_global_ref(jobject obj);
+std::shared_ptr<jobject> make_global_ref(jobject obj);
 using TScopedLocalRef = ScopedLocalRef<jobject>;
 using TScopedLocalClassRef = ScopedLocalRef<jclass>;
 using TScopedLocalObjectArrayRef = ScopedLocalRef<jobjectArray>;
@@ -84,4 +95,28 @@ jobjectArray ToJavaArray(JNIEnv * env, jclass clazz, TContainer const & src, TTo
 jobjectArray ToJavaStringArray(JNIEnv * env, std::vector<std::string> const & src);
 
 void DumpDalvikReferenceTables();
+
+jobject ToKeyValue(JNIEnv * env, std::pair<std::string, std::string> src);
+
+template <typename Container>
+jobjectArray ToKeyValueArray(JNIEnv * env, Container const & src)
+{
+  return jni::ToJavaArray(env, g_keyValueClazz, src,
+                          std::bind(&ToKeyValue, std::placeholders::_1, std::placeholders::_2));
+}
+
+std::pair<std::string, std::string> ToNativeKeyValue(JNIEnv * env, jobject pairOfStrings);
+
+template <typename OutputIt>
+void ToNativekeyValueContainer(JNIEnv * env, jobjectArray src, OutputIt it)
+{
+  int const length = env->GetArrayLength(src);
+  for (size_t i = 0; i < length; ++i)
+  {
+    jni::ScopedLocalRef<jobject> const arrayItem(env, env->GetObjectArrayElement(src, i));
+
+    *it = ToNativeKeyValue(env, arrayItem.get());
+    ++it;
+  }
+}
 }  // namespace jni

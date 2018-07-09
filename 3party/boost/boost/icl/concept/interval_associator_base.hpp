@@ -28,7 +28,7 @@ typename enable_if<mpl::and_< is_interval_container<Type>
                    , typename Type::const_iterator>::type
 find(const Type& object, const typename domain_type_of<Type>::type& key_val)
 {
-    typedef typename Type::const_iterator const_iterator;
+    //CL typedef typename Type::const_iterator const_iterator;
     typedef typename Type::interval_type  interval_type;
     return object.find(icl::detail::unit_trail<interval_type>(key_val));
 }
@@ -41,7 +41,7 @@ typename enable_if<mpl::and_< is_interval_container<Type>
                    , typename Type::const_iterator>::type
 find(const Type& object, const typename domain_type_of<Type>::type& key_val)
 {
-    typedef typename Type::const_iterator const_iterator;
+    //CL typedef typename Type::const_iterator const_iterator;
     typedef typename Type::interval_type  interval_type;
     return object.find(icl::singleton<interval_type>(key_val));
 }

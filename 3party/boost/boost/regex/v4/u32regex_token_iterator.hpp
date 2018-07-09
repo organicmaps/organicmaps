@@ -159,7 +159,7 @@ class u32regex_token_iterator
    : public std::iterator<
          std::forward_iterator_tag, 
          sub_match<BidirectionalIterator>,
-         typename re_detail::regex_iterator_traits<BidirectionalIterator>::difference_type,
+         typename BOOST_REGEX_DETAIL_NS::regex_iterator_traits<BidirectionalIterator>::difference_type,
          const sub_match<BidirectionalIterator>*,
          const sub_match<BidirectionalIterator>& >         
 #endif
@@ -170,7 +170,7 @@ private:
 public:
    typedef          u32regex                                                regex_type;
    typedef          sub_match<BidirectionalIterator>                        value_type;
-   typedef typename re_detail::regex_iterator_traits<BidirectionalIterator>::difference_type 
+   typedef typename BOOST_REGEX_DETAIL_NS::regex_iterator_traits<BidirectionalIterator>::difference_type 
                                                                             difference_type;
    typedef          const value_type*                                       pointer;
    typedef          const value_type&                                       reference; 

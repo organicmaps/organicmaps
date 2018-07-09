@@ -1,15 +1,15 @@
 #pragma once
 
+#include "geometry/distance.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
-#include "geometry/distance.hpp"
 
 #include "base/math.hpp"
 
-#include "std/vector.hpp"
 #include "std/algorithm.hpp"
 #include "std/type_traits.hpp"
-
+#include "std/utility.hpp"
+#include "std/vector.hpp"
 
 namespace m2
 {
@@ -103,7 +103,8 @@ namespace m2
   public:
     Region() = default;
 
-    explicit Region(vector<PointD> && points) : m_points(move(points))
+    template <class Points>
+    explicit Region(Points && points) : m_points(std::forward<Points>(points))
     {
       CalcLimitRect();
     }
@@ -154,12 +155,12 @@ namespace m2
       std::swap(m_rect, rhs.m_rect);
     }
 
-    ContainerT Data() const { return m_points; }
+    ContainerT const & Data() const { return m_points; }
 
     template <class TEqualF>
-    inline bool IsIntersect(CoordT const & x11, CoordT const & y11, CoordT const & x12, CoordT const & y12,
+    static inline bool IsIntersect(CoordT const & x11, CoordT const & y11, CoordT const & x12, CoordT const & y12,
                             CoordT const & x21, CoordT const & y21, CoordT const & x22, CoordT const & y22,
-                            TEqualF equalF, PointT & pt) const
+                            TEqualF equalF, PointT & pt)
     {
       double const divider = ((y12 - y11) * (x22 - x21) - (x12 - x11) * (y22-y21));
       if (equalF.EqualZeroSquarePrecision(divider))
@@ -180,7 +181,7 @@ namespace m2
       return true;
     }
 
-    inline bool IsIntersect(PointT const & p1, PointT const & p2, PointT const & p3, PointT const & p4 , PointT & pt) const
+    static inline bool IsIntersect(PointT const & p1, PointT const & p2, PointT const & p3, PointT const & p4 , PointT & pt)
     {
       return IsIntersect(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y, typename TraitsT::EqualType(), pt);
     }
@@ -342,6 +343,18 @@ namespace m2
   inline string DebugPrint(Region<PointT> const & r)
   {
     return (DebugPrint(r.m_rect) + ::DebugPrint(r.m_points));
+  }
+
+  template <class Point>
+  bool RegionsContain(vector<Region<Point>> const & regions, Point const & point)
+  {
+    for (auto const & region : regions)
+    {
+      if (region.Contains(point))
+        return true;
+    }
+
+    return false;
   }
 
   typedef Region<m2::PointD> RegionD;

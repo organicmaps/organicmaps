@@ -1,15 +1,11 @@
 #import "MWMMapWidgets.h"
-#import "MWMCommon.h"
 #import "EAGLView.h"
-#import "MWMNavigationDashboardManager.h"
 #import "MapViewController.h"
-
-#include "drape_frontend/gui/skin.hpp"
-#include "std/unique_ptr.hpp"
 
 @interface MWMMapWidgets ()
 
 @property(nonatomic) float visualScale;
+@property(nonatomic) CGRect availableArea;
 
 @end
 
@@ -38,63 +34,40 @@
 - (void)resize:(CGSize)size
 {
   m_skin->Resize(size.width, size.height);
-  [self layoutWidgets];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [self updateAvailableArea:self.availableArea];
+  });
 }
 
-- (void)layoutWidgets
+- (void)updateAvailableArea:(CGRect)frame
 {
+  if (CGRectEqualToRect(self.availableArea, frame))
+    return;
+  self.availableArea = frame;
   if (m_skin == nullptr)
     return;
   gui::TWidgetsLayoutInfo layout;
-  if (self.fullScreen)
-  {
-    layout[gui::WIDGET_RULER] = m_skin->ResolvePosition(gui::WIDGET_RULER).m_pixelPivot;
-    layout[gui::WIDGET_COMPASS] = m_skin->ResolvePosition(gui::WIDGET_COMPASS).m_pixelPivot;
-  }
-  else
-  {
-    m_skin->ForEach([&layout, &self](gui::EWidget w, gui::Position const & pos) {
-      m2::PointF pivot = pos.m_pixelPivot;
-      switch (w)
-      {
-      case gui::WIDGET_RULER:
-      case gui::WIDGET_COPYRIGHT:
-        pivot -= m2::PointF(0.0, ([MapViewController controller].view.height - self.bottomBound) *
-                                     self.visualScale);
-        break;
-      case gui::WIDGET_COMPASS:
-      case gui::WIDGET_SCALE_LABEL:
-      case gui::WIDGET_CHOOSE_POSITION_MARK: break;
-      }
-      layout[w] = pivot;
-    });
-  }
+  auto const vs = self.visualScale;
+  auto const viewHeight = [MapViewController controller].view.height;
+  auto const viewWidth = [MapViewController controller].view.width;
+  auto const rulerOffset =
+      m2::PointF(frame.origin.x * vs, (frame.origin.y + frame.size.height - viewHeight) * vs);
+  auto const compassOffset =
+      m2::PointF((frame.origin.x + frame.size.width - viewWidth) * vs, frame.origin.y * vs);
+  m_skin->ForEach([&](gui::EWidget w, gui::Position const & pos) {
+    m2::PointF pivot = pos.m_pixelPivot;
+    switch (w)
+    {
+    case gui::WIDGET_RULER:
+    case gui::WIDGET_WATERMARK:
+    case gui::WIDGET_COPYRIGHT: pivot += rulerOffset; break;
+    case gui::WIDGET_COMPASS: pivot += compassOffset; break;
+    case gui::WIDGET_SCALE_LABEL:
+    case gui::WIDGET_CHOOSE_POSITION_MARK: break;
+    }
+    layout[w] = pivot;
+  });
   GetFramework().SetWidgetLayout(move(layout));
-}
-
-#pragma mark - Properties
-
-- (void)setFullScreen:(BOOL)fullScreen
-{
-  _fullScreen = fullScreen;
-  [self layoutWidgets];
-}
-
-- (void)setLeftBound:(CGFloat)leftBound
-{
-  CGFloat const newLeftBound = MAX(leftBound, 0.0);
-  if (equalScreenDimensions(_leftBound, newLeftBound))
-    return;
-  _leftBound = newLeftBound;
-  [self layoutWidgets];
-}
-
-- (void)setBottomBound:(CGFloat)bottomBound
-{
-  if (equalScreenDimensions(_bottomBound, bottomBound))
-    return;
-  _bottomBound = bottomBound;
-  [self layoutWidgets];
 }
 
 @end

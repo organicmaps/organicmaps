@@ -10,6 +10,7 @@
 
 #include <boost/fusion/support/config.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
+#include <boost/fusion/sequence/intrinsic/value_at.hpp>
 
 namespace boost { namespace fusion
 {
@@ -29,7 +30,7 @@ namespace boost { namespace fusion
                 typedef typename Sequence::sequence_type sequence_type;
                 typedef typename Sequence::index_type index_type;
 
-                typedef typename result_of::at<index_type, N>::type index;
+                typedef typename result_of::value_at<index_type, N>::type index;
                 typedef typename result_of::at<sequence_type, index>::type type;
 
                 BOOST_CONSTEXPR BOOST_FUSION_GPU_ENABLED

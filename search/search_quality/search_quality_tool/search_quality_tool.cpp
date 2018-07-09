@@ -2,13 +2,12 @@
 
 #include "indexer/classificator_loader.hpp"
 #include "indexer/data_header.hpp"
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/mwm_set.hpp"
 
 #include "geometry/mercator.hpp"
 #include "geometry/point2d.hpp"
 
-#include "search/processor_factory.hpp"
 #include "search/ranking_info.hpp"
 #include "search/result.hpp"
 #include "search/search_quality/helpers.hpp"
@@ -39,6 +38,7 @@
 #include "std/fstream.hpp"
 #include "std/iomanip.hpp"
 #include "std/iostream.hpp"
+#include "std/limits.hpp"
 #include "std/map.hpp"
 #include "std/numeric.hpp"
 #include "std/sstream.hpp"
@@ -79,7 +79,7 @@ struct CompletenessQuery
   string m_query;
   unique_ptr<TestSearchRequest> m_request;
   string m_mwmName;
-  uint64_t m_featureId = 0;
+  uint32_t m_featureId = 0;
   double m_lat = 0;
   double m_lon = 0;
 };
@@ -180,7 +180,7 @@ void CalcStatistics(vector<double> const & a, double & avg, double & maximum, do
     avg /= n;
 
   for (auto const x : a)
-    var += math::sqr(static_cast<double>(x) - avg);
+    var += pow(static_cast<double>(x) - avg, 2);
   if (a.size() > 1)
     var /= n - 1;
   stdDev = sqrt(var);
@@ -197,17 +197,17 @@ void Split(string const & s, char delim, vector<string> & parts)
 
 // Returns the position of the result that is expected to be found by geocoder completeness
 // tests in the |result| vector or -1 if it does not occur there.
-int FindResult(TestSearchEngine & engine, string const & mwmName, uint64_t const featureId,
+int FindResult(DataSource & dataSource, string const & mwmName, uint32_t const featureId,
                double const lat, double const lon, vector<Result> const & results)
 {
-  auto const mwmId = engine.GetMwmIdByCountryFile(platform::CountryFile(mwmName));
+  CHECK_LESS_OR_EQUAL(results.size(), numeric_limits<int>::max(), ());
+  auto const mwmId = dataSource.GetMwmIdByCountryFile(platform::CountryFile(mwmName));
   FeatureID const expectedFeatureId(mwmId, featureId);
   for (size_t i = 0; i < results.size(); ++i)
   {
     auto const & r = results[i];
-    auto const featureId = r.GetFeatureID();
-    if (featureId == expectedFeatureId)
-      return i;
+    if (r.GetFeatureID() == expectedFeatureId)
+      return static_cast<int>(i);
   }
 
   // Another attempt. If the queries are stale, feature id is useless.
@@ -222,7 +222,7 @@ int FindResult(TestSearchEngine & engine, string const & mwmName, uint64_t const
       double const dist = MercatorBounds::DistanceOnEarth(r.GetFeatureCenter(),
                                                           MercatorBounds::FromLatLon(lat, lon));
       LOG(LDEBUG, ("dist =", dist));
-      return i;
+      return static_cast<int>(i);
     }
   }
   return -1;
@@ -269,7 +269,7 @@ void ParseCompletenessQuery(string & s, CompletenessQuery & q)
 
   q.m_query = country + " " + city + " " + street + " " + house + " ";
   q.m_mwmName = mwmName;
-  q.m_featureId = featureId;
+  q.m_featureId = static_cast<uint32_t>(featureId);
   q.m_lat = lat;
   q.m_lon = lon;
 }
@@ -279,7 +279,8 @@ void ParseCompletenessQuery(string & s, CompletenessQuery & q)
 // from |path|, executes them against the |engine| with viewport set to |viewport|
 // and reports the number of queries whose expected result is among the returned results.
 // Exact feature id is expected, but a close enough (lat, lon) is good too.
-void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSearchEngine & engine)
+void CheckCompleteness(string const & path, m2::RectD const & viewport, DataSource & dataSource,
+                       TestSearchEngine & engine)
 {
   my::ScopedLogAbortLevelChanger const logAbortLevel(LCRITICAL);
 
@@ -321,7 +322,7 @@ void CheckCompleteness(string const & path, m2::RectD const & viewport, TestSear
 
     LOG(LDEBUG, (q.m_query, q.m_request->Results()));
     int pos =
-        FindResult(engine, q.m_mwmName, q.m_featureId, q.m_lat, q.m_lon, q.m_request->Results());
+        FindResult(dataSource, q.m_mwmName, q.m_featureId, q.m_lat, q.m_lon, q.m_request->Results());
     if (pos >= 0)
       ++expectedResultsFound;
     if (pos == 0)
@@ -367,7 +368,7 @@ int main(int argc, char * argv[])
   LOG(LINFO, ("writable dir =", platform.WritableDir()));
   LOG(LINFO, ("resources dir =", platform.ResourcesDir()));
 
-  Storage storage(countriesFile, FLAGS_mwm_path);
+  Storage storage(countriesFile);
   storage.Init(&DidDownload, &WillDelete);
   auto infoGetter = CountryInfoReader::CreateCountryInfoReader(platform);
   infoGetter->InitAffiliationsInfo(&storage.GetAffiliations());
@@ -377,7 +378,8 @@ int main(int argc, char * argv[])
   Engine::Params params;
   params.m_locale = FLAGS_locale;
   params.m_numThreads = FLAGS_num_threads;
-  TestSearchEngine engine(move(infoGetter), make_unique<ProcessorFactory>(), Engine::Params{});
+
+  FrozenDataSource dataSource;
 
   vector<platform::LocalCountryFile> mwms;
   if (!FLAGS_mwm_list_path.empty())
@@ -399,9 +401,11 @@ int main(int argc, char * argv[])
   {
     mwm.SyncWithDisk();
     cout << mwm.GetCountryName() << " " << ReadVersionFromHeader(mwm) << endl;
-    engine.RegisterMap(mwm);
+    dataSource.RegisterMap(mwm);
   }
   cout << endl;
+
+  TestSearchEngine engine(dataSource, move(infoGetter), params);
 
   m2::RectD viewport;
   {
@@ -421,7 +425,7 @@ int main(int argc, char * argv[])
 
   if (!FLAGS_check_completeness.empty())
   {
-    CheckCompleteness(FLAGS_check_completeness, viewport, engine);
+    CheckCompleteness(FLAGS_check_completeness, viewport, dataSource, engine);
     return 0;
   }
 

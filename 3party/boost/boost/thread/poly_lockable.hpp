@@ -31,7 +31,7 @@ namespace boost
   //]
 
   //[poly_lockable
-  class poly_lockable : public basic_poly_lockable<Lockable>
+  class poly_lockable : public basic_poly_lockable
   {
   public:
 
@@ -41,7 +41,7 @@ namespace boost
   //]
 
   //[timed_poly_lockable
-  class timed_poly_lockable: public poly_lockable<TimedLock>
+  class timed_poly_lockable: public poly_lockable
   {
   public:
     virtual ~timed_poly_lockable()=0;

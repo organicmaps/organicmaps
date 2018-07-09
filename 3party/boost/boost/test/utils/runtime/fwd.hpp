@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2005-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -9,33 +9,37 @@
 //
 //  Version     : $Revision$
 //
-//  Description : global framework level forward declaration
+//  Description : runtime parameters forward declaration
 // ***************************************************************************
 
 #ifndef BOOST_TEST_UTILS_RUNTIME_FWD_HPP
 #define BOOST_TEST_UTILS_RUNTIME_FWD_HPP
 
-// Boost.Runtime.Parameter
-#include <boost/test/utils/runtime/config.hpp>
+// Boost.Test
+#include <boost/test/detail/config.hpp>
+#include <boost/test/utils/basic_cstring/basic_cstring.hpp>
+#include <boost/test/utils/basic_cstring/io.hpp> // operator<<(boost::runtime::cstring)
 
 // Boost
 #include <boost/shared_ptr.hpp>
 
+// STL
+#include <map>
+
 namespace boost {
+namespace runtime {
 
-namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE {
-
-class parameter;
+typedef unit_test::const_string     cstring;
 
 class argument;
 typedef shared_ptr<argument> argument_ptr;
-typedef shared_ptr<argument const> const_argument_ptr;
 
-template<typename T> class value_interpreter;
 template<typename T> class typed_argument;
 
-} // namespace BOOST_TEST_UTILS_RUNTIME_PARAM_NAMESPACE
+class basic_param;
+typedef shared_ptr<basic_param> basic_param_ptr;
 
+} // namespace runtime
 } // namespace boost
 
 #endif // BOOST_TEST_UTILS_RUNTIME_FWD_HPP

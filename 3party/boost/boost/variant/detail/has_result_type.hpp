@@ -12,8 +12,8 @@
 #ifndef BOOST_VARIANT_DETAIL_HAS_RESULT_TYPE_HPP
 #define BOOST_VARIANT_DETAIL_HAS_RESULT_TYPE_HPP
 
-#include "boost/config.hpp"
-#include "boost/type_traits/remove_reference.hpp"
+#include <boost/config.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 
 
 namespace boost { namespace detail { namespace variant {
@@ -34,3 +34,4 @@ public:
 }}} // namespace boost::detail::variant
 
 #endif // BOOST_VARIANT_DETAIL_HAS_RESULT_TYPE_HPP
+

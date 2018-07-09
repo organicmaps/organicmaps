@@ -13,10 +13,11 @@ namespace search
 /// even if there is no exact street written for this house.
 int constexpr kMaxApproxStreetDistanceM = 100;
 
-FeaturesLayerMatcher::FeaturesLayerMatcher(Index const & index, my::Cancellable const & cancellable)
+FeaturesLayerMatcher::FeaturesLayerMatcher(DataSource const & dataSource,
+                                           ::base::Cancellable const & cancellable)
   : m_context(nullptr)
   , m_postcodes(nullptr)
-  , m_reverseGeocoder(index)
+  , m_reverseGeocoder(dataSource)
   , m_nearbyStreetsCache("FeatureToNearbyStreets")
   , m_matchingStreetsCache("BuildingToStreet")
   , m_loader(scales::GetUpperScale(), ReverseGeocoder::kLookupRadiusM)
@@ -139,5 +140,4 @@ uint32_t FeaturesLayerMatcher::GetMatchingStreetImpl(uint32_t houseId, FeatureTy
 
   return result;
 }
-
 }  // namespace search

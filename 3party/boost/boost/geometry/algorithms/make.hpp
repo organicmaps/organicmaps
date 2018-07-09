@@ -45,7 +45,7 @@ namespace detail { namespace make
 template <typename Geometry, typename Range>
 inline Geometry make_points(Range const& range)
 {
-    concept::check<Geometry>();
+    concepts::check<Geometry>();
 
     Geometry geometry;
     geometry::append(geometry, range);
@@ -78,7 +78,7 @@ inline Geometry make_points(Range const& range)
 template <typename Geometry, typename Type>
 inline Geometry make(Type const& c1, Type const& c2)
 {
-    concept::check<Geometry>();
+    concepts::check<Geometry>();
 
     Geometry geometry;
     dispatch::assign
@@ -112,7 +112,7 @@ inline Geometry make(Type const& c1, Type const& c2)
 template <typename Geometry, typename Type>
 inline Geometry make(Type const& c1, Type const& c2, Type const& c3)
 {
-    concept::check<Geometry>();
+    concepts::check<Geometry>();
 
     Geometry geometry;
     dispatch::assign
@@ -127,7 +127,7 @@ inline Geometry make(Type const& c1, Type const& c2, Type const& c3)
 template <typename Geometry, typename Type>
 inline Geometry make(Type const& c1, Type const& c2, Type const& c3, Type const& c4)
 {
-    concept::check<Geometry>();
+    concepts::check<Geometry>();
 
     Geometry geometry;
     dispatch::assign
@@ -163,7 +163,7 @@ inline Geometry make(Type const& c1, Type const& c2, Type const& c3, Type const&
 template <typename Geometry>
 inline Geometry make_inverse()
 {
-    concept::check<Geometry>();
+    concepts::check<Geometry>();
 
     Geometry geometry;
     dispatch::assign_inverse
@@ -184,7 +184,7 @@ inline Geometry make_inverse()
 template <typename Geometry>
 inline Geometry make_zero()
 {
-    concept::check<Geometry>();
+    concepts::check<Geometry>();
 
     Geometry geometry;
     dispatch::assign_zero

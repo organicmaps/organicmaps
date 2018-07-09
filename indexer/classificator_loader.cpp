@@ -5,17 +5,19 @@
 
 #include "platform/platform.hpp"
 
+#include "coding/reader.hpp"
 #include "coding/reader_streambuf.hpp"
 
 #include "base/logging.hpp"
 
-#include "std/iostream.hpp"
-
+#include <iostream>
+#include <memory>
+#include <string>
 
 namespace
 {
-void ReadCommon(unique_ptr<Reader> classificator,
-                unique_ptr<Reader> types)
+void ReadCommon(std::unique_ptr<Reader> classificator,
+                std::unique_ptr<Reader> types)
 {
   Classificator & c = classif();
   c.Clear();
@@ -24,7 +26,7 @@ void ReadCommon(unique_ptr<Reader> classificator,
     //LOG(LINFO, ("Reading classificator"));
     ReaderStreamBuf buffer(move(classificator));
 
-    istream s(&buffer);
+    std::istream s(&buffer);
     c.ReadClassificator(s);
   }
 
@@ -32,7 +34,7 @@ void ReadCommon(unique_ptr<Reader> classificator,
     //LOG(LINFO, ("Reading types mapping"));
     ReaderStreamBuf buffer(move(types));
 
-    istream s(&buffer);
+    std::istream s(&buffer);
     c.ReadTypesMapping(s);
   }
 }
@@ -50,7 +52,7 @@ void Load()
 
   for (size_t i = 0; i < MapStyleCount; ++i)
   {
-    MapStyle const mapStyle = static_cast<MapStyle>(i);
+    auto const mapStyle = static_cast<MapStyle>(i);
     // Read the merged style only if it was requested.
     if (mapStyle != MapStyleMerged || originMapStyle == MapStyleMerged)
     {
@@ -65,5 +67,14 @@ void Load()
   GetStyleReader().SetCurrentStyle(originMapStyle);
 
   LOG(LDEBUG, ("Reading of classificator finished"));
+}
+
+void LoadTypes(std::string const & classificatorFileStr,
+               std::string const & typesFileStr)
+{
+  ReadCommon(std::make_unique<MemReaderWithExceptions>(classificatorFileStr.data(),
+                                                       classificatorFileStr.size()),
+             std::make_unique<MemReaderWithExceptions>(typesFileStr.data(),
+                                                       typesFileStr.size()));
 }
 }  // namespace classificator

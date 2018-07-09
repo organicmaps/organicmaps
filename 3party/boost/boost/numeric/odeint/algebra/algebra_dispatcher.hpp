@@ -94,7 +94,7 @@ struct algebra_dispatcher< boost::numeric::ublas::matrix< T , L , A > >
 namespace boost {
 namespace numeric {
 namespace odeint {
-
+    
 // specialize for std::array
 template< class T , size_t N >
 struct algebra_dispatcher< std::array< T , N > >

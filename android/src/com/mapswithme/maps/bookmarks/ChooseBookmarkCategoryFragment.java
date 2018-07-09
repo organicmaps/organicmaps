@@ -2,6 +2,7 @@ package com.mapswithme.maps.bookmarks;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -11,22 +12,25 @@ import android.view.ViewGroup;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmDialogFragment;
+import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.dialog.EditTextDialogFragment;
 import com.mapswithme.util.statistics.Statistics;
 
+import java.util.List;
+
 public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
-                                         implements EditTextDialogFragment.OnTextSaveListener,
+                                         implements EditTextDialogFragment.EditTextDialogInterface,
                                                     ChooseBookmarkCategoryAdapter.CategoryListener
 {
-  public static final String CATEGORY_ID = "ExtraCategoryId";
+  public static final String CATEGORY_POSITION = "ExtraCategoryPosition";
 
   private ChooseBookmarkCategoryAdapter mAdapter;
   private RecyclerView mRecycler;
 
   public interface Listener
   {
-    void onCategoryChanged(int newCategoryId);
+    void onCategoryChanged(@NonNull BookmarkCategory newCategory);
   }
   private Listener mListener;
 
@@ -52,8 +56,8 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
     super.onViewCreated(view, savedInstanceState);
 
     final Bundle args = getArguments();
-    final int catId = args.getInt(CATEGORY_ID, 0);
-    mAdapter = new ChooseBookmarkCategoryAdapter(getActivity(), catId);
+    final int catPosition = args.getInt(CATEGORY_POSITION, 0);
+    mAdapter = new ChooseBookmarkCategoryAdapter(getActivity(), catPosition);
     mAdapter.setListener(this);
     mRecycler.setAdapter(mAdapter);
   }
@@ -73,31 +77,53 @@ public class ChooseBookmarkCategoryFragment extends BaseMwmDialogFragment
     super.onAttach(activity);
   }
 
+  @NonNull
   @Override
-  public void onSaveText(String text)
+  public EditTextDialogFragment.OnTextSaveListener getSaveTextListener()
   {
-    createCategory(text);
+    return this::createCategory;
   }
 
-  private void createCategory(String name)
+  @NonNull
+  @Override
+  public EditTextDialogFragment.Validator getValidator()
   {
-    final int category = BookmarkManager.INSTANCE.nativeCreateCategory(name);
-    mAdapter.chooseItem(category);
+    return new CategoryValidator();
+  }
+
+
+  private void createCategory(@NonNull String name)
+  {
+    BookmarkManager.INSTANCE.createCategory(name);
+
+    List<BookmarkCategory> bookmarkCategories = mAdapter.getBookmarkCategories();
+
+    if (bookmarkCategories.size() == 0)
+      throw new AssertionError("BookmarkCategories are empty");
+
+    final int categoryPosition = bookmarkCategories.size() - 1;
+    mAdapter.chooseItem(categoryPosition);
 
     if (mListener != null)
+    {
+      BookmarkCategory newCategory = bookmarkCategories.get(categoryPosition);
+      mListener.onCategoryChanged(newCategory);
+    }
+    dismiss();
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_GROUP_CREATED);
+  }
+
+  @Override
+  public void onCategorySet(int categoryPosition)
+  {
+    mAdapter.chooseItem(categoryPosition);
+    if (mListener != null)
+    {
+      final BookmarkCategory category = mAdapter.getBookmarkCategories().get(categoryPosition);
       mListener.onCategoryChanged(category);
+    }
     dismiss();
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.BMK_GROUP_CREATED);
-  }
-
-  @Override
-  public void onCategorySet(int categoryId)
-  {
-    mAdapter.chooseItem(categoryId);
-    if (mListener != null)
-      mListener.onCategoryChanged(categoryId);
-    dismiss();
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.BMK_GROUP_CHANGED);
+    Statistics.INSTANCE.trackEvent(Statistics.EventName.BM_GROUP_CHANGED);
   }
 
   @Override

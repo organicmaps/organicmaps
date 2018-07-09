@@ -10,43 +10,40 @@
 
 #include "geometry/polyline2d.hpp"
 
-#include "std/function.hpp"
-#include "std/unordered_map.hpp"
+#include <functional>
+#include <unordered_map>
+#include <vector>
 
 namespace df
 {
-
 class RouteBuilder
 {
 public:
-  using TFlushRouteFn = function<void(drape_ptr<RouteData> &&)>;
-  using TFlushRouteSignFn = function<void(drape_ptr<RouteSignData> &&)>;
-  using TFlushRouteArrowsFn = function<void(drape_ptr<RouteArrowsData> &&)>;
+  using FlushFn = std::function<void(drape_ptr<SubrouteData> &&)>;
+  using FlushArrowsFn = std::function<void(drape_ptr<SubrouteArrowsData> &&)>;
+  using FlushMarkersFn = std::function<void(drape_ptr<SubrouteMarkersData> &&)>;
 
-  RouteBuilder(TFlushRouteFn const & flushRouteFn,
-               TFlushRouteSignFn const & flushRouteSignFn,
-               TFlushRouteArrowsFn const & flushRouteArrowsFn);
+  RouteBuilder(FlushFn && flushFn, FlushArrowsFn && flushArrowsFn,
+               FlushMarkersFn && flushMarkersFn);
 
-  void Build(m2::PolylineD const & routePolyline, vector<double> const & turns,
-             df::ColorConstant color, vector<traffic::SpeedGroup> const & traffic,
-             df::RoutePattern const & pattern, ref_ptr<dp::TextureManager> textures,
-             int recacheId);
+  void Build(dp::DrapeID subrouteId, SubrouteConstPtr subroute,
+             ref_ptr<dp::TextureManager> textures, int recacheId);
 
-  void BuildArrows(int routeIndex, vector<ArrowBorders> const & borders,
+  void BuildArrows(dp::DrapeID subrouteId, std::vector<ArrowBorders> const & borders,
                    ref_ptr<dp::TextureManager> textures, int recacheId);
-
-  void BuildSign(m2::PointD const & pos, bool isStart, bool isValid,
-                 ref_ptr<dp::TextureManager> textures, int recacheId);
 
   void ClearRouteCache();
 
 private:
-  TFlushRouteFn m_flushRouteFn;
-  TFlushRouteSignFn m_flushRouteSignFn;
-  TFlushRouteArrowsFn m_flushRouteArrowsFn;
+  FlushFn m_flushFn;
+  FlushArrowsFn m_flushArrowsFn;
+  FlushMarkersFn m_flushMarkersFn;
 
-  int m_routeIndex = 0;
-  unordered_map<int, m2::PolylineD> m_routeCache;
+  struct RouteCacheData
+  {
+    m2::PolylineD m_polyline;
+    double m_baseDepthIndex = 0.0;
+  };
+  std::unordered_map<dp::DrapeID, RouteCacheData> m_routeCache;
 };
-
-} // namespace df
+}  // namespace df

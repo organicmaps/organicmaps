@@ -12,6 +12,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.StorageUtils;
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
+import ru.mail.notify.core.utils.LogReceiver;
 
 import java.io.File;
 import java.util.EnumMap;
@@ -24,7 +25,7 @@ public class LoggerFactory
   public enum Type
   {
     MISC, LOCATION, TRAFFIC, GPS_TRACKING, TRACK_RECORDER, ROUTING, NETWORK, STORAGE, DOWNLOADER,
-    CORE
+    CORE, THIRD_PARTY
   }
 
   public interface OnZipCompletedListener
@@ -43,7 +44,7 @@ public class LoggerFactory
   @NonNull
   @GuardedBy("this")
   private final EnumMap<Type, BaseLogger> mLoggers = new EnumMap<>(Type.class);
-  private final static String CORE_TAG = "Core";
+  private final static String CORE_TAG = "MapsmeCore";
   @Nullable
   @GuardedBy("this")
   private ExecutorService mFileLoggerExecutor;
@@ -135,6 +136,11 @@ public class LoggerFactory
     return mFileLoggerExecutor;
   }
 
+  @NonNull
+  public LogReceiver createLibnotifyLogger()
+  {
+    return new LibnotifyLogReceiver();
+  }
   // Called from JNI.
   @SuppressWarnings("unused")
   private static void logCoreMessage(int level, String msg)

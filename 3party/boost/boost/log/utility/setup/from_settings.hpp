@@ -18,7 +18,7 @@
 
 #include <string>
 #include <boost/smart_ptr/shared_ptr.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <boost/core/enable_if.hpp>
 #include <boost/type_traits/is_base_and_derived.hpp>
 #include <boost/log/detail/setup_config.hpp>
 #include <boost/log/sinks/sink.hpp>
@@ -126,8 +126,8 @@ inline void register_sink_factory(std::string const& sink_name, shared_ptr< sink
  * \param factory Pointer to the custom sink factory. Must not be NULL.
  */
 template< typename FactoryT >
-inline typename enable_if<
-    is_base_and_derived< sink_factory< typename FactoryT::char_type >, FactoryT >
+inline typename boost::enable_if_c<
+    is_base_and_derived< sink_factory< typename FactoryT::char_type >, FactoryT >::value
 >::type register_sink_factory(const char* sink_name, shared_ptr< FactoryT > const& factory)
 {
     typedef sink_factory< typename FactoryT::char_type > factory_base;
@@ -147,8 +147,8 @@ inline typename enable_if<
  * \param factory Pointer to the custom sink factory. Must not be NULL.
  */
 template< typename FactoryT >
-inline typename enable_if<
-    is_base_and_derived< sink_factory< typename FactoryT::char_type >, FactoryT >
+inline typename boost::enable_if_c<
+    is_base_and_derived< sink_factory< typename FactoryT::char_type >, FactoryT >::value
 >::type register_sink_factory(std::string const& sink_name, shared_ptr< FactoryT > const& factory)
 {
     typedef sink_factory< typename FactoryT::char_type > factory_base;

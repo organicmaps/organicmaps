@@ -1,19 +1,22 @@
 #pragma once
 
+#include "coding/file_reader.hpp"
 #include "coding/read_write_utils.hpp"
 
 #include "base/assert.hpp"
+#include "base/logging.hpp"
+#include "base/osm_id.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/utility.hpp"
-#include "std/vector.hpp"
+#include <algorithm>
+#include <utility>
+#include <vector>
 
 namespace gen
 {
 template <class T> class Accumulator
 {
 protected:
-  vector<T> m_data;
+  std::vector<T> m_data;
 
 public:
   typedef T ValueT;
@@ -31,35 +34,33 @@ public:
   }
 };
 
-class OsmID2FeatureID : public Accumulator<pair<uint64_t /* osm id */, uint32_t /* feature id */>>
+class OsmID2FeatureID : public Accumulator<std::pair<osm::Id, uint32_t /* feature id */>>
 {
   typedef Accumulator<ValueT> BaseT;
 
   struct LessID
   {
     bool operator() (ValueT const & r1, ValueT const & r2) const { return r1.first < r2.first; }
-    bool operator() (uint64_t const & r1, ValueT const & r2) const { return r1 < r2.first; }
-    bool operator() (ValueT const & r1, uint64_t const & r2) const { return r1.first < r2; }
+    bool operator() (osm::Id const & r1, ValueT const & r2) const { return r1 < r2.first; }
+    bool operator() (ValueT const & r1, osm::Id const & r2) const { return r1.first < r2; }
   };
 
 public:
   template <class TSink> void Flush(TSink & sink)
   {
-    sort(m_data.begin(), m_data.end());
-
-    for (size_t i = 1; i < m_data.size(); ++i)
-      CHECK_NOT_EQUAL(m_data[i-1].first, m_data[i].first, ());
-
+    std::sort(m_data.begin(), m_data.end());
     BaseT::Flush(sink);
   }
 
-  uint32_t GetFeatureID(uint64_t osmID) const
+  /// Find a feature id for an OSM id.
+  bool GetFeatureID(osm::Id const & id, uint32_t & result) const
   {
-    vector<ValueT>::const_iterator i = lower_bound(m_data.begin(), m_data.end(), osmID, LessID());
-    if (i != m_data.end() && i->first == osmID)
-      return i->second;
-    else
-      return 0;
+    auto const it = std::lower_bound(m_data.begin(), m_data.end(), id, LessID());
+    if (it == m_data.end() || it->first != id)
+        return false;
+
+    result = it->second;
+    return true;
   }
 
   template <class Fn>
@@ -67,6 +68,24 @@ public:
   {
     for (auto const & v : m_data)
       fn(v);
+  }
+
+  bool ReadFromFile(std::string const & filename)
+  {
+    try
+    {
+      FileReader reader(filename);
+      NonOwningReaderSource src(reader);
+      Read(src);
+    }
+    catch (FileReader::Exception const & e)
+    {
+      LOG(LERROR, ("Exception while reading osm id to feature id mapping from file", filename,
+                   ". Msg:", e.Msg()));
+      return false;
+    }
+
+    return true;
   }
 };
 }  // namespace gen

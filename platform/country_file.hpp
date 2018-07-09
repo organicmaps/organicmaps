@@ -32,8 +32,8 @@ private:
 
   /// Base name (without any extensions) of the file. Same as id of country/region.
   string m_name;
-  TMwmSize m_mapSize;
-  TMwmSize m_routingSize;
+  TMwmSize m_mapSize = 0;
+  TMwmSize m_routingSize = 0;
 };
 
 /// \returns This method returns file name with extension. For example Abkhazia.mwm or

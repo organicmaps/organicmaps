@@ -13,6 +13,8 @@
 
 #include "3party/pugixml/src/pugixml.hpp"
 
+class FeatureType;
+
 namespace editor
 {
 DECLARE_EXCEPTION(XMLFeatureError, RootException);
@@ -36,11 +38,11 @@ public:
 
   enum class Type
   {
+    Unknown,
     Node,
-    Way
+    Way,
+    Relation
   };
-
-  using TMercatorGeometry = vector<m2::PointD>;
 
   /// Creates empty node or way.
   XMLFeature(Type const type);
@@ -51,7 +53,7 @@ public:
   // TODO: It should make "deep" compare instead of converting to strings.
   // Strings comparison does not work if tags order is different but tags are equal.
   bool operator==(XMLFeature const & other) const;
-  /// @returns nodes and ways from osmXml. Vector can be empty.
+  /// @returns nodes, ways and relations from osmXml. Vector can be empty.
   static vector<XMLFeature> FromOSM(string const & osmXml);
 
   void Save(ostream & ost) const;
@@ -63,15 +65,12 @@ public:
   Type GetType() const;
   string GetTypeString() const;
 
-  /// @returns true only if it is a way and it is closed (area).
-  bool IsArea() const;
-
   m2::PointD GetMercatorCenter() const;
   ms::LatLon GetCenter() const;
   void SetCenter(ms::LatLon const & ll);
   void SetCenter(m2::PointD const & mercatorCenter);
 
-  TMercatorGeometry GetGeometry() const;
+  vector<m2::PointD> GetGeometry() const;
 
   /// Sets geometry in mercator to match against FeatureType's geometry in mwm
   /// when megrating to a new mwm build.
@@ -81,7 +80,9 @@ public:
   template <typename TIterator>
   void SetGeometry(TIterator begin, TIterator end)
   {
-    ASSERT_EQUAL(GetType(), Type::Way, ("Only ways have geometry"));
+    ASSERT_NOT_EQUAL(GetType(), Type::Unknown, ());
+    ASSERT_NOT_EQUAL(GetType(), Type::Node, ());
+
     for (; begin != end; ++begin)
     {
       auto nd = GetRootNode().append_child("nd");
@@ -162,12 +163,28 @@ public:
 
   bool AttachToParentNode(pugi::xml_node parent) const;
 
+  static string TypeToString(Type type);
+  static Type StringToType(string const & type);
+
 private:
   pugi::xml_node const GetRootNode() const;
   pugi::xml_node GetRootNode();
 
   pugi::xml_document m_document;
 };
+
+/// Rewrites all but geometry and types.
+/// Should be applied to existing features only (in mwm files).
+void ApplyPatch(XMLFeature const & xml, FeatureType & feature);
+
+/// @param serializeType if false, types are not serialized.
+/// Useful for applying modifications to existing OSM features, to avoid issues when someone
+/// has changed a type in OSM, but our users uploaded invalid outdated type after modifying feature.
+XMLFeature ToXML(FeatureType const & feature, bool serializeType);
+
+/// Creates new feature, including geometry and types.
+/// @Note: only nodes (points) are supported at the moment.
+bool FromXML(XMLFeature const & xml, FeatureType & feature);
 
 string DebugPrint(XMLFeature const & feature);
 string DebugPrint(XMLFeature::Type const type);

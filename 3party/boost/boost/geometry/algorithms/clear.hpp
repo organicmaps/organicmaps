@@ -185,7 +185,7 @@ struct clear<variant<BOOST_VARIANT_ENUM_PARAMS(T)> >
 template <typename Geometry>
 inline void clear(Geometry& geometry)
 {
-    concept::check<Geometry>();
+    concepts::check<Geometry>();
 
     resolve_variant::clear<Geometry>::apply(geometry);
 }

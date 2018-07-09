@@ -13,27 +13,27 @@
 #ifndef BOOST_VARIANT_RECURSIVE_VARIANT_HPP
 #define BOOST_VARIANT_RECURSIVE_VARIANT_HPP
 
-#include "boost/variant/variant_fwd.hpp"
-#include "boost/variant/detail/enable_recursive.hpp"
-#include "boost/variant/detail/substitute_fwd.hpp"
-#include "boost/variant/detail/make_variant_list.hpp"
-#include "boost/variant/detail/over_sequence.hpp"
+#include <boost/variant/variant_fwd.hpp>
+#include <boost/variant/detail/enable_recursive.hpp>
+#include <boost/variant/detail/substitute_fwd.hpp>
+#include <boost/variant/detail/make_variant_list.hpp>
+#include <boost/variant/detail/over_sequence.hpp>
 
-#include "boost/mpl/aux_/lambda_arity_param.hpp"
+#include <boost/mpl/aux_/lambda_arity_param.hpp>
 
-#include "boost/mpl/equal.hpp"
-#include "boost/mpl/eval_if.hpp"
-#include "boost/mpl/identity.hpp"
-#include "boost/mpl/if.hpp"
-#include "boost/mpl/protect.hpp"
-#include "boost/mpl/transform.hpp"
-#include "boost/type_traits/is_same.hpp"
-#include "boost/preprocessor/cat.hpp"
-#include "boost/preprocessor/repeat.hpp"
+#include <boost/mpl/equal.hpp>
+#include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/identity.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/mpl/protect.hpp>
+#include <boost/mpl/transform.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/repeat.hpp>
 
-#include "boost/mpl/bool.hpp"
-#include "boost/mpl/is_sequence.hpp"
-#include "boost/variant/variant.hpp"
+#include <boost/mpl/bool.hpp>
+#include <boost/mpl/is_sequence.hpp>
+#include <boost/variant/variant.hpp>
 
 namespace boost {
 

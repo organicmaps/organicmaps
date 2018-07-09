@@ -114,8 +114,6 @@ betweenness_centrality_clustering(MutableGraph& g, Done done,
     centrality_type;
   typedef typename graph_traits<MutableGraph>::edge_iterator edge_iterator;
   typedef typename graph_traits<MutableGraph>::edge_descriptor edge_descriptor;
-  typedef typename graph_traits<MutableGraph>::vertices_size_type
-    vertices_size_type;
 
   if (has_no_edges(g)) return;
 

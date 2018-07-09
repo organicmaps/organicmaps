@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:paddingLeft="@dimen/margin_double"
+  android:paddingRight="@dimen/margin_double"
+  android:paddingTop="@dimen/permissions_items_margin"
+  android:paddingBottom="@dimen/permissions_items_margin">
+  <ImageView
+    android:id="@+id/iv__permission_icon"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:src="@drawable/ic_storage_permission"/>
+  <TextView
+    android:id="@+id/tv__permission_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_toEndOf="@id/iv__permission_icon"
+    android:layout_toRightOf="@id/iv__permission_icon"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
+    android:textAppearance="@style/MwmTextAppearance.Body1"
+    tools:text="@string/onboarding_detail_permissions_storage_title"/>
+  <TextView
+    android:id="@+id/tv__permission_message"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_toEndOf="@id/iv__permission_icon"
+    android:layout_toRightOf="@id/iv__permission_icon"
+    android:layout_below="@id/tv__permission_title"
+    android:layout_marginLeft="@dimen/margin_base"
+    android:layout_marginStart="@dimen/margin_base"
+    android:textAppearance="@style/MwmTextAppearance.Body3"
+    tools:text="@string/onboarding_detail_permissions_storage_message"/>
+</RelativeLayout>

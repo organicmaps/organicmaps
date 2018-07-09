@@ -15,12 +15,22 @@
 #define BOOST_TT_DETAIL_IS_MEM_FUN_POINTER_TESTER_HPP_INCLUDED
 
 #include <boost/type_traits/detail/yes_no_type.hpp>
-#include <boost/type_traits/config.hpp>
+#include <boost/type_traits/detail/config.hpp>
 
 #if defined(BOOST_TT_PREPROCESSING_MODE)
-#   include <boost/preprocessor/iterate.hpp>
-#   include <boost/preprocessor/enum_params.hpp>
-#   include <boost/preprocessor/comma_if.hpp>
+//
+// Maintentance mode, hide include dependencies
+// from dependency trackers:
+//
+#define PPI <boost/preprocessor/iterate.hpp>
+#include PPI
+#undef PPI
+#define PPI <boost/preprocessor/enum_params.hpp>
+#include PPI
+#undef PPI
+#define <boost/preprocessor/comma_if.hpp>
+#include PPI
+#undef
 #endif
 
 namespace boost {

@@ -97,7 +97,7 @@ public:
         // Finally, add the inner result
         add((size - cutoff) * 2, output + cutoff, &local3[0], output + cutoff);
     }
-
+    
     static void multiply_add_karatsuba(std::size_t size,
                                        const digit_t * lhs, const digit_t * rhs,
                                        digit_t * output)
@@ -126,9 +126,9 @@ public:
                 std::swap(lhs, rhs);
                 std::swap(lhs_size, rhs_size);
             }
-
+            
             multiply_add_karatsuba(rhs_size, lhs, rhs, output);
-
+            
             lhs += rhs_size;
             lhs_size -= rhs_size;
             output += rhs_size;
@@ -218,7 +218,7 @@ public:
                 _block_bits = divisor_bits - _bit_indices.back() - 1;
                 _lower_bits = _bit_indices.back() + 1;
             }
-
+            
             _partial_quotient.resize((_block_bits + bits - 1)/bits);
         }
         void operator()(digit_t * dividend, std::size_t dividend_bits)

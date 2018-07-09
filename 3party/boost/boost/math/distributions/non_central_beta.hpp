@@ -515,7 +515,11 @@ namespace boost
          T non_central_beta_pdf(T a, T b, T lam, T x, T y, const Policy& pol)
          {
             BOOST_MATH_STD_USING
-               using namespace boost::math;
+            //
+            // Special cases:
+            //
+            if((x == 0) || (y == 0))
+               return 0;
             //
             // Variables come first:
             //

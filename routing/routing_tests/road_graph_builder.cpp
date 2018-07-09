@@ -4,8 +4,9 @@
 
 #include "indexer/mwm_set.hpp"
 
-#include "base/macros.hpp"
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
+#include "base/macros.hpp"
 
 #include "std/algorithm.hpp"
 #include "std/shared_ptr.hpp"
@@ -89,7 +90,7 @@ void RoadGraphMockSource::ForEachFeatureClosestToCross(m2::PointD const & /* cro
                                                        ICrossEdgesLoader & edgesLoader) const
 {
   for (size_t roadId = 0; roadId < m_roads.size(); ++roadId)
-    edgesLoader(MakeTestFeatureID(roadId), m_roads[roadId]);
+    edgesLoader(MakeTestFeatureID(base::checked_cast<uint32_t>(roadId)), m_roads[roadId]);
 }
 
 void RoadGraphMockSource::FindClosestEdges(m2::PointD const & point, uint32_t count,

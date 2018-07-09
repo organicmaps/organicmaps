@@ -12,7 +12,6 @@ Copyright (c) 2010-2010: Joachim Faulhaber
 #include <complex>
 #include <functional>
 #include <boost/type_traits/is_floating_point.hpp>
-#include <boost/type_traits/ice.hpp>
 #include <boost/type_traits/is_integral.hpp>
 
 namespace boost{ namespace icl

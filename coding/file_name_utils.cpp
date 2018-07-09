@@ -31,6 +31,14 @@ void GetNameFromFullPath(string & name)
     name = name.substr(i+1);
 }
 
+string GetNameFromFullPathWithoutExt(string const & path)
+{
+  string name = path;
+  GetNameFromFullPath(name);
+  GetNameWithoutExt(name);
+  return name;
+}
+
 string GetDirectory(string const & name)
 {
   string const sep = GetNativeSeparator();

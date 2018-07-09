@@ -287,7 +287,7 @@ void TrafficInfo::SerializeTrafficKeys(vector<RoadSegmentId> const & keys, vecto
       UNUSED_VALUE(ok);
     }
 
-    for (auto const & val : oneWay)
+    for (auto const val : oneWay)
       bitWriter.Write(val ? 1 : 0, 1 /* numBits */);
   }
 }
@@ -360,16 +360,22 @@ void TrafficInfo::SerializeTrafficValues(vector<SpeedGroup> const & values,
     }
   }
 
-  coding::ZLib::Deflate(buf.data(), buf.size(), coding::ZLib::Level::BestCompression,
-                        back_inserter(result));
+  using Deflate = coding::ZLib::Deflate;
+  Deflate deflate(Deflate::Format::ZLib, Deflate::Level::BestCompression);
+
+  deflate(buf.data(), buf.size(), back_inserter(result));
 }
 
 // static
 void TrafficInfo::DeserializeTrafficValues(vector<uint8_t> const & data,
                                            vector<SpeedGroup> & result)
 {
+  using Inflate = coding::ZLib::Inflate;
+
   vector<uint8_t> decompressedData;
-  coding::ZLib::Inflate(data.data(), data.size(), back_inserter(decompressedData));
+
+  Inflate inflate(Inflate::Format::ZLib);
+  inflate(data.data(), data.size(), back_inserter(decompressedData));
 
   MemReaderWithExceptions memReader(decompressedData.data(), decompressedData.size());
   ReaderSource<decltype(memReader)> src(memReader);
@@ -437,7 +443,7 @@ TrafficInfo::ServerDataStatus TrafficInfo::ReceiveTrafficValues(string & etag, v
   if (!info)
     return ServerDataStatus::Error;
 
-  uint64_t const version = info->GetVersion();
+  auto const version = info->GetVersion();
   string const url = MakeRemoteURL(info->GetCountryName(), version);
 
   if (url.empty())
@@ -504,14 +510,14 @@ bool TrafficInfo::UpdateTrafficData(vector<SpeedGroup> const & values)
   return true;
 }
 
-TrafficInfo::ServerDataStatus TrafficInfo::ProcessFailure(platform::HttpClient const & request, uint64_t const mwmVersion)
+TrafficInfo::ServerDataStatus TrafficInfo::ProcessFailure(platform::HttpClient const & request, int64_t const mwmVersion)
 {
   switch (request.ErrorCode())
   {
   case 404: /* Not Found */
   {
-    uint64_t version = 0;
-    strings::to_uint64(request.ServerResponse().c_str(), version);
+    int64_t version = 0;
+    VERIFY(strings::to_int64(request.ServerResponse().c_str(), version), ());
 
     if (version > mwmVersion && version <= m_currentDataVersion)
       m_availability = Availability::ExpiredData;

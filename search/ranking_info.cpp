@@ -1,9 +1,10 @@
 #include "search/ranking_info.hpp"
 
-#include "std/cmath.hpp"
-#include "std/iomanip.hpp"
-#include "std/limits.hpp"
-#include "std/sstream.hpp"
+#include <iomanip>
+#include <limits>
+#include <sstream>
+
+using namespace std;
 
 namespace search
 {
@@ -12,18 +13,25 @@ namespace
 // See search/search_quality/scoring_model.py for details.  In short,
 // these coeffs correspond to coeffs in a linear model.
 double const kDistanceToPivot = -1.0000000;
-double const kRank = 0.7165246;
-double const kFalseCats = -0.3833900;
+double const kRank = 1.0000000;
+double const kFalseCats = -0.0839847;
+double const kErrorsMade = 0.0066984;
+double const kAllTokensUsed = 0.0000000;
 double const kNameScore[NameScore::NAME_SCORE_COUNT] = {
-    -0.1069757 /* Zero */, -0.0250079 /* Substring Prefix */, 0.0447104 /* Substring */,
-    0.0872732 /* Full Match Prefix */, 0.0872732 /* Full Match */
+  -0.4027035 /* Zero */,
+  0.1063430 /* Substring */,
+  0.0661467 /* Prefix */,
+  0.2302138 /* Full Match */
 };
-
-double const kSearchType[SearchModel::SEARCH_TYPE_COUNT] = {
-    -0.3884116 /* POI */,     -0.3884116 /* Building */,
-    -0.3214653 /* Street */,  -0.3357469 /* Unclassified */,
-    -0.4341714 /* Village */, 0.2721947 /* City */,
-    0.4708555 /* State */,    0.7367450 /* Country */
+double const kType[Model::TYPE_COUNT] = {
+  -0.3210718 /* POI */,
+  -0.3210718 /* Building */,
+  -0.2660116 /* Street */,
+  -0.3135561 /* Unclassified */,
+  -0.3071279 /* Village */,
+  0.1013253 /* City */,
+  0.3336005 /* State */,
+  0.7728417 /* Country */
 };
 
 double TransformDistance(double distance)
@@ -40,10 +48,13 @@ void RankingInfo::PrintCSVHeader(ostream & os)
 {
   os << "DistanceToPivot"
      << ",Rank"
+     << ",Popularity"
      << ",NameScore"
+     << ",ErrorsMade"
      << ",SearchType"
      << ",PureCats"
-     << ",FalseCats";
+     << ",FalseCats"
+     << ",AllTokensUsed";
 }
 
 string DebugPrint(RankingInfo const & info)
@@ -52,10 +63,13 @@ string DebugPrint(RankingInfo const & info)
   os << "RankingInfo [";
   os << "m_distanceToPivot:" << info.m_distanceToPivot << ",";
   os << "m_rank:" << static_cast<int>(info.m_rank) << ",";
+  os << "m_popularity:" << static_cast<int>(info.m_popularity) << ",";
   os << "m_nameScore:" << DebugPrint(info.m_nameScore) << ",";
-  os << "m_searchType:" << DebugPrint(info.m_searchType) << ",";
+  os << "m_errorsMade:" << DebugPrint(info.m_errorsMade) << ",";
+  os << "m_type:" << DebugPrint(info.m_type) << ",";
   os << "m_pureCats:" << info.m_pureCats << ",";
-  os << "m_falseCats:" << info.m_falseCats;
+  os << "m_falseCats:" << info.m_falseCats << ",";
+  os << "m_allTokensUsed:" << boolalpha << info.m_allTokensUsed;
   os << "]";
   return os.str();
 }
@@ -63,8 +77,15 @@ string DebugPrint(RankingInfo const & info)
 void RankingInfo::ToCSV(ostream & os) const
 {
   os << fixed;
-  os << m_distanceToPivot << "," << static_cast<int>(m_rank) << "," << DebugPrint(m_nameScore)
-     << "," << DebugPrint(m_searchType) << "," << m_pureCats << "," << m_falseCats;
+  os << m_distanceToPivot << ",";
+  os << static_cast<int>(m_rank) << ",";
+  os << static_cast<int>(m_popularity) << ",";
+  os << DebugPrint(m_nameScore) << ",";
+  os << GetErrorsMade() << ",";
+  os << DebugPrint(m_type) << ",";
+  os << m_pureCats << ",";
+  os << m_falseCats << ",";
+  os << (m_allTokensUsed ? 1 : 0);
 }
 
 double RankingInfo::GetLinearModelRank() const
@@ -88,8 +109,19 @@ double RankingInfo::GetLinearModelRank() const
     nameScore = NAME_SCORE_ZERO;
   }
 
-  return kDistanceToPivot * distanceToPivot + kRank * rank + kNameScore[nameScore] +
-         kSearchType[m_searchType] + m_falseCats * kFalseCats;
+  double result = 0.0;
+  result += kDistanceToPivot * distanceToPivot;
+  result += kRank * rank;
+  result += kNameScore[nameScore];
+  result += kErrorsMade * GetErrorsMade();
+  result += kType[m_type];
+  result += m_falseCats * kFalseCats;
+  result += (m_allTokensUsed ? 1 : 0) * kAllTokensUsed;
+  return result;
 }
 
+size_t RankingInfo::GetErrorsMade() const
+{
+  return m_errorsMade.IsValid() ? m_errorsMade.m_errorsMade : 0;
+}
 }  // namespace search

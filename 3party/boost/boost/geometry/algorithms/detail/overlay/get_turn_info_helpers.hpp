@@ -2,14 +2,14 @@
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2013, 2014, 2015.
-// Modifications copyright (c) 2013-2015 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2013, 2014, 2015, 2017.
+// Modifications copyright (c) 2013-2017 Oracle and/or its affiliates.
+
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
-
-// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_GET_TURN_INFO_HELPERS_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_GET_TURN_INFO_HELPERS_HPP
@@ -23,9 +23,9 @@ namespace detail { namespace overlay {
 
 enum turn_position { position_middle, position_front, position_back };
 
-template <typename SegmentRatio>
+template <typename Point, typename SegmentRatio>
 struct turn_operation_linear
-    : public turn_operation<SegmentRatio>
+    : public turn_operation<Point, SegmentRatio>
 {
     turn_operation_linear()
         : position(position_middle)
@@ -36,28 +36,28 @@ struct turn_operation_linear
     bool is_collinear; // valid only for Linear geometry
 };
 
-template <typename PointP, typename PointQ,
+template <typename TurnPointCSTag, typename PointP, typename PointQ,
+          typename SideStrategy,
           typename Pi = PointP, typename Pj = PointP, typename Pk = PointP,
           typename Qi = PointQ, typename Qj = PointQ, typename Qk = PointQ
 >
 struct side_calculator
 {
-    // todo: get from coordinate system
-    typedef boost::geometry::strategy::side::side_by_triangle<> side;
-
     inline side_calculator(Pi const& pi, Pj const& pj, Pk const& pk,
-                           Qi const& qi, Qj const& qj, Qk const& qk)
+                           Qi const& qi, Qj const& qj, Qk const& qk,
+                           SideStrategy const& side_strategy)
         : m_pi(pi), m_pj(pj), m_pk(pk)
         , m_qi(qi), m_qj(qj), m_qk(qk)
+        , m_side_strategy(side_strategy)
     {}
 
-    inline int pk_wrt_p1() const { return side::apply(m_pi, m_pj, m_pk); }
-    inline int pk_wrt_q1() const { return side::apply(m_qi, m_qj, m_pk); }
-    inline int qk_wrt_p1() const { return side::apply(m_pi, m_pj, m_qk); }
-    inline int qk_wrt_q1() const { return side::apply(m_qi, m_qj, m_qk); }
+    inline int pk_wrt_p1() const { return m_side_strategy.apply(m_pi, m_pj, m_pk); }
+    inline int pk_wrt_q1() const { return m_side_strategy.apply(m_qi, m_qj, m_pk); }
+    inline int qk_wrt_p1() const { return m_side_strategy.apply(m_pi, m_pj, m_qk); }
+    inline int qk_wrt_q1() const { return m_side_strategy.apply(m_qi, m_qj, m_qk); }
 
-    inline int pk_wrt_q2() const { return side::apply(m_qj, m_qk, m_pk); }
-    inline int qk_wrt_p2() const { return side::apply(m_pj, m_pk, m_qk); }
+    inline int pk_wrt_q2() const { return m_side_strategy.apply(m_qj, m_qk, m_pk); }
+    inline int qk_wrt_p2() const { return m_side_strategy.apply(m_pj, m_pk, m_qk); }
 
     Pi const& m_pi;
     Pj const& m_pj;
@@ -65,6 +65,8 @@ struct side_calculator
     Qi const& m_qi;
     Qj const& m_qj;
     Qk const& m_qk;
+
+    SideStrategy const& m_side_strategy;
 };
 
 template <typename Point1, typename Point2, typename RobustPolicy>
@@ -94,7 +96,7 @@ struct robust_points
     robust_point2_type m_rqi, m_rqj, m_rqk;
 };
 
-template <typename Point1, typename Point2, typename RobustPolicy>
+template <typename Point1, typename Point2, typename TurnPoint, typename IntersectionStrategy, typename RobustPolicy>
 class intersection_info_base
     : private robust_points<Point1, Point2, RobustPolicy>
 {
@@ -107,14 +109,19 @@ public:
     typedef typename base::robust_point1_type robust_point1_type;
     typedef typename base::robust_point2_type robust_point2_type;
 
-    typedef side_calculator<robust_point1_type, robust_point2_type> side_calculator_type;
+    typedef typename cs_tag<TurnPoint>::type cs_tag;
+
+    typedef typename IntersectionStrategy::side_strategy_type side_strategy_type;
+    typedef side_calculator<cs_tag, robust_point1_type, robust_point2_type, side_strategy_type> side_calculator_type;
     
     intersection_info_base(Point1 const& pi, Point1 const& pj, Point1 const& pk,
                            Point2 const& qi, Point2 const& qj, Point2 const& qk,
+                           IntersectionStrategy const& intersection_strategy,
                            RobustPolicy const& robust_policy)
         : base(pi, pj, pk, qi, qj, qk, robust_policy)
         , m_side_calc(base::m_rpi, base::m_rpj, base::m_rpk,
-                      base::m_rqi, base::m_rqj, base::m_rqk)
+                      base::m_rqi, base::m_rqj, base::m_rqk,
+                      intersection_strategy.get_side_strategy())
         , m_pi(pi), m_pj(pj), m_pk(pk)
         , m_qi(qi), m_qj(qj), m_qk(qk)
     {}
@@ -148,8 +155,8 @@ private:
     point2_type const& m_qk;
 };
 
-template <typename Point1, typename Point2>
-class intersection_info_base<Point1, Point2, detail::no_rescale_policy>
+template <typename Point1, typename Point2, typename TurnPoint, typename IntersectionStrategy>
+class intersection_info_base<Point1, Point2, TurnPoint, IntersectionStrategy, detail::no_rescale_policy>
 {
 public:
     typedef Point1 point1_type;
@@ -158,12 +165,17 @@ public:
     typedef Point1 robust_point1_type;
     typedef Point2 robust_point2_type;
 
-    typedef side_calculator<Point1, Point2> side_calculator_type;
+    typedef typename cs_tag<TurnPoint>::type cs_tag;
+
+    typedef typename IntersectionStrategy::side_strategy_type side_strategy_type;
+    typedef side_calculator<cs_tag, Point1, Point2, side_strategy_type> side_calculator_type;
     
     intersection_info_base(Point1 const& pi, Point1 const& pj, Point1 const& pk,
                            Point2 const& qi, Point2 const& qj, Point2 const& qk,
+                           IntersectionStrategy const& intersection_strategy,
                            no_rescale_policy const& /*robust_policy*/)
-        : m_side_calc(pi, pj, pk, qi, qj, qk)
+        : m_side_calc(pi, pj, pk, qi, qj, qk,
+                      intersection_strategy.get_side_strategy())
     {}
 
     inline Point1 const& pi() const { return m_side_calc.m_pi; }
@@ -194,46 +206,74 @@ template
     typename Point1,
     typename Point2,
     typename TurnPoint,
+    typename IntersectionStrategy,
     typename RobustPolicy
 >
 class intersection_info
-    : public intersection_info_base<Point1, Point2, RobustPolicy>
+    : public intersection_info_base<Point1, Point2, TurnPoint, IntersectionStrategy, RobustPolicy>
 {
-    typedef intersection_info_base<Point1, Point2, RobustPolicy> base;
-
-    typedef typename strategy_intersection
-        <
-            typename cs_tag<TurnPoint>::type,
-            Point1,
-            Point2,
-            TurnPoint,
-            RobustPolicy
-        >::segment_intersection_strategy_type strategy;
+    typedef intersection_info_base<Point1, Point2, TurnPoint, IntersectionStrategy, RobustPolicy> base;
 
 public:
+    typedef segment_intersection_points
+    <
+        TurnPoint,
+        typename geometry::segment_ratio_type
+            <
+                TurnPoint, RobustPolicy
+            >::type
+    > intersection_point_type;
+
+    // NOTE: formerly defined in intersection_strategies
+    typedef policies::relate::segments_tupled
+        <
+            policies::relate::segments_intersection_points
+                <
+                    intersection_point_type
+                >,
+            policies::relate::segments_direction
+        > intersection_policy_type;
+
+    typedef IntersectionStrategy intersection_strategy_type;
+    typedef typename IntersectionStrategy::side_strategy_type side_strategy_type;
+
     typedef model::referring_segment<Point1 const> segment_type1;
     typedef model::referring_segment<Point2 const> segment_type2;
     typedef typename base::side_calculator_type side_calculator_type;
     
-    typedef typename strategy::return_type result_type;
+    typedef typename intersection_policy_type::return_type result_type;
     typedef typename boost::tuples::element<0, result_type>::type i_info_type; // intersection_info
     typedef typename boost::tuples::element<1, result_type>::type d_info_type; // dir_info
 
     intersection_info(Point1 const& pi, Point1 const& pj, Point1 const& pk,
                       Point2 const& qi, Point2 const& qj, Point2 const& qk,
+                      IntersectionStrategy const& intersection_strategy,
                       RobustPolicy const& robust_policy)
-        : base(pi, pj, pk, qi, qj, qk, robust_policy)
-        , m_result(strategy::apply(segment_type1(pi, pj),
-                                   segment_type2(qi, qj),
-                                   robust_policy,
-                                   base::rpi(), base::rpj(),
-                                   base::rqi(), base::rqj()))
+        : base(pi, pj, pk, qi, qj, qk, intersection_strategy, robust_policy)
+        , m_result(intersection_strategy.apply(
+                        segment_type1(pi, pj),
+                        segment_type2(qi, qj),
+                        intersection_policy_type(),
+                        robust_policy,
+                        base::rpi(), base::rpj(),
+                        base::rqi(), base::rqj()))
+        , m_intersection_strategy(intersection_strategy)
         , m_robust_policy(robust_policy)
     {}
 
     inline result_type const& result() const { return m_result; }
     inline i_info_type const& i_info() const { return m_result.template get<0>(); }
     inline d_info_type const& d_info() const { return m_result.template get<1>(); }
+
+    inline intersection_strategy_type const& get_intersection_strategy() const
+    {
+        return m_intersection_strategy;
+    }
+
+    inline side_strategy_type get_side_strategy() const
+    {
+        return m_intersection_strategy.get_side_strategy();
+    }
 
     // TODO: it's more like is_spike_ip_p
     inline bool is_spike_p() const
@@ -298,17 +338,18 @@ private:
     {
         typedef model::referring_segment<Point const> seg;
 
-        typedef strategy_intersection
-            <
-                typename cs_tag<Point>::type, Point, Point, Point, RobustPolicy
-            > si;
+        // no need to calcualte direction info
+        typedef policies::relate::segments_intersection_points
+                <
+                    intersection_point_type
+                > policy_type;
+
+        typename policy_type::return_type const result
+            = m_intersection_strategy.apply(seg(i, j), seg(j, k),
+                                            policy_type(),
+                                            m_robust_policy);
         
-        typedef typename si::segment_intersection_strategy_type strategy;
-        
-        typename strategy::return_type result
-            = strategy::apply(seg(i, j), seg(j, k), m_robust_policy);
-        
-        return result.template get<0>().count == 2;
+        return result.count == 2;
     }
 
     template <std::size_t OpId>
@@ -335,6 +376,7 @@ private:
     }
 
     result_type m_result;
+    IntersectionStrategy const& m_intersection_strategy;
     RobustPolicy const& m_robust_policy;
 };
 

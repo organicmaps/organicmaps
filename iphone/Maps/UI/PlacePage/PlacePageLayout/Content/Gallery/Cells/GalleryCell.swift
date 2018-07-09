@@ -7,7 +7,7 @@ final class GalleryCell: UICollectionViewCell {
 
   var model: Model! {
     didSet {
-      imageView.af_setImage(withURL: model.previewURL, imageTransition: .crossDissolve(kDefaultAnimationDuration))
+      imageView.af_setImage(withURL: model.imageURL, imageTransition: .crossDissolve(kDefaultAnimationDuration))
     }
   }
 

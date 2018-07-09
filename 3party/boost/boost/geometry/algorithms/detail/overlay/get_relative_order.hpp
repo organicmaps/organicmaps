@@ -10,7 +10,7 @@
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_GET_RELATIVE_ORDER_HPP
 
 
-#include <boost/geometry/strategies/intersection.hpp>
+#include <boost/geometry/strategies/intersection_strategies.hpp>
 
 
 namespace boost { namespace geometry

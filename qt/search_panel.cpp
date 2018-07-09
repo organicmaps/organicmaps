@@ -2,40 +2,35 @@
 #include "qt/draw_widget.hpp"
 
 #include "map/bookmark_manager.hpp"
-#include "map/user_mark_container.hpp"
+#include "map/framework.hpp"
+#include "map/user_mark_layer.hpp"
 
 #include "drape/constants.hpp"
 
 #include "platform/measurement_utils.hpp"
+#include "platform/platform.hpp"
 
-#include "std/bind.hpp"
+#include "base/assert.hpp"
+
+#include <functional>
 
 #include <QtCore/QTimer>
-
 #include <QtGui/QBitmap>
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-  #include <QtGui/QHeaderView>
-  #include <QtGui/QTableWidget>
-  #include <QtGui/QLineEdit>
-  #include <QtGui/QVBoxLayout>
-  #include <QtGui/QHBoxLayout>
-  #include <QtGui/QPushButton>
-  #include <QtGui/QLabel>
-#else
-  #include <QtWidgets/QHeaderView>
-  #include <QtWidgets/QTableWidget>
-  #include <QtWidgets/QLineEdit>
-  #include <QtWidgets/QVBoxLayout>
-  #include <QtWidgets/QHBoxLayout>
-  #include <QtWidgets/QPushButton>
-  #include <QtWidgets/QLabel>
-#endif
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QTableWidget>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QLabel>
 
 namespace qt
 {
 SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
-  : QWidget(parent), m_pDrawWidget(drawWidget), m_busyIcon(":/ui/busy.png")
+  : QWidget(parent)
+  , m_pDrawWidget(drawWidget)
+  , m_busyIcon(":/ui/busy.png")
+  , m_timestamp(0)
 {
   m_pEditor = new QLineEdit(this);
   connect(m_pEditor, SIGNAL(textChanged(QString const &)),
@@ -48,11 +43,7 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   m_pTable->setSelectionBehavior(QAbstractItemView::SelectRows);
   m_pTable->verticalHeader()->setVisible(false);
   m_pTable->horizontalHeader()->setVisible(false);
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-  m_pTable->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents);
-#else
   m_pTable->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-#endif
 
   connect(m_pTable, SIGNAL(cellClicked(int, int)), this, SLOT(OnSearchPanelItemClicked(int,int)));
 
@@ -70,17 +61,6 @@ SearchPanel::SearchPanel(DrawWidget * drawWidget, QWidget * parent)
   verticalLayout->addLayout(horizontalLayout);
   verticalLayout->addWidget(m_pTable);
   setLayout(verticalLayout);
-
-  // for multithreading support
-  CHECK(connect(this, SIGNAL(SearchResultSignal(ResultsT *)),
-                this, SLOT(OnSearchResult(ResultsT *)), Qt::QueuedConnection), ());
-
-  m_params.m_onResults = bind(&SearchPanel::SearchResultThreadFunc, this, _1);
-}
-
-void SearchPanel::SearchResultThreadFunc(ResultsT const & result)
-{
-  emit SearchResultSignal(new ResultsT(result));
 }
 
 namespace
@@ -100,80 +80,54 @@ void SearchPanel::ClearResults()
   m_results.clear();
 }
 
-void SearchPanel::OnSearchResult(ResultsT * results)
+void SearchPanel::OnSearchResults(uint64_t timestamp, search::Results const & results)
 {
-  unique_ptr<ResultsT> const guard(results);
+  CHECK(m_threadChecker.CalledOnOriginalThread(), ());
+  CHECK_LESS_OR_EQUAL(timestamp, m_timestamp, ());
 
-  if (results->IsEndMarker())
+  if (timestamp != m_timestamp)
+    return;
+
+  CHECK_LESS_OR_EQUAL(m_results.size(), results.GetCount(), ());
+
+  for (size_t i = m_results.size(); i < results.GetCount(); ++i)
   {
-    if (results->IsEndedNormal())
+    auto const & res = results[i];
+    QString const name = QString::fromStdString(res.GetString());
+    QString strHigh;
+    int pos = 0;
+    for (size_t r = 0; r < res.GetHighlightRangesCount(); ++r)
     {
-      // stop search busy indicator
-      m_pAnimationTimer->stop();
-      m_pClearButton->setIcon(QIcon(":/ui/x.png"));
+      pair<uint16_t, uint16_t> const & range = res.GetHighlightRange(r);
+      strHigh.append(name.mid(pos, range.first - pos));
+      strHigh.append("<font color=\"green\">");
+      strHigh.append(name.mid(range.first, range.second));
+      strHigh.append("</font>");
+
+      pos = range.first + range.second;
     }
+    strHigh.append(name.mid(pos));
+
+    int const rowCount = m_pTable->rowCount();
+    m_pTable->insertRow(rowCount);
+    m_pTable->setCellWidget(rowCount, 1, new QLabel(strHigh));
+    m_pTable->setItem(rowCount, 2, CreateItem(QString::fromStdString(res.GetAddress())));
+
+    if (res.GetResultType() == search::Result::Type::Feature)
+    {
+      m_pTable->setItem(rowCount, 0, CreateItem(QString::fromStdString(res.GetFeatureTypeName())));
+      m_pTable->setItem(rowCount, 3, CreateItem(m_pDrawWidget->GetDistance(res).c_str()));
+    }
+
+    m_results.push_back(res);
   }
-  else
+
+  if (results.IsEndMarker())
   {
-    ClearResults();
-
-    for (auto const & res : *results)
-    {
-      QString const name = QString::fromStdString(res.GetString());
-      QString strHigh;
-      int pos = 0;
-      for (size_t r = 0; r < res.GetHighlightRangesCount(); ++r)
-      {
-        pair<uint16_t, uint16_t> const & range = res.GetHighlightRange(r);
-        strHigh.append(name.mid(pos, range.first - pos));
-        strHigh.append("<font color=\"green\">");
-        strHigh.append(name.mid(range.first, range.second));
-        strHigh.append("</font>");
-
-        pos = range.first + range.second;
-      }
-      strHigh.append(name.mid(pos));
-
-      int const rowCount = m_pTable->rowCount();
-      m_pTable->insertRow(rowCount);
-      m_pTable->setCellWidget(rowCount, 1, new QLabel(strHigh));
-      m_pTable->setItem(rowCount, 2, CreateItem(QString::fromStdString(res.GetAddress())));
-
-      if (res.GetResultType() == ResultT::RESULT_FEATURE)
-      {
-        m_pTable->setItem(rowCount, 0, CreateItem(QString::fromStdString(res.GetFeatureType())));
-        m_pTable->setItem(rowCount, 3, CreateItem(m_pDrawWidget->GetDistance(res).c_str()));
-      }
-
-      m_results.push_back(res);
-    }
+    // stop search busy indicator
+    m_pAnimationTimer->stop();
+    m_pClearButton->setIcon(QIcon(":/ui/x.png"));
   }
-}
-
-// TODO: This code only for demonstration purposes and will be removed soon
-bool SearchPanel::TryChangeMapStyleCmd(QString const & str)
-{
-  // Hook for shell command on change map style
-  MapStyle desiredStyle = MapStyleCount;
-  if (str == "mapstyle:dark" || str == "?dark")
-    desiredStyle = MapStyleDark;
-  else if (str == "mapstyle:light" || str == "?light")
-    desiredStyle = MapStyleClear;
-  else if (str == "mapstyle:vehicle_dark" || str == "?vdark")
-    desiredStyle = MapStyleVehicleDark;
-  else if (str == "mapstyle:vehicle_light" || str == "?vlight")
-    desiredStyle = MapStyleVehicleClear;
-  else
-    return false;
-
-  // close Search panel
-  m_pEditor->setText("");
-  parentWidget()->hide();
-
-  // change color scheme for the Map activity
-  m_pDrawWidget->SetMapStyle(desiredStyle);
-
-  return true;
 }
 
 // TODO: This code only for demonstration purposes and will be removed soon
@@ -186,6 +140,8 @@ bool SearchPanel::TryChangeRouterCmd(QString const & str)
     routerType = routing::RouterType::Vehicle;
   else if (str == "?bicycle")
     routerType = routing::RouterType::Bicycle;
+  else if (str == "?transit")
+    routerType = routing::RouterType::Transit;
   else
     return false;
 
@@ -286,8 +242,6 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   QString const normalized = str.normalized(QString::NormalizationForm_KC);
 
   // TODO: This code only for demonstration purposes and will be removed soon
-  if (TryChangeMapStyleCmd(normalized))
-    return;
   if (TryChangeRouterCmd(normalized))
     return;
   if (Try3dModeCmd(normalized))
@@ -299,10 +253,19 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   if (TryTrafficSimplifiedColorsCmd(normalized))
     return;
 
+  ClearResults();
+
   // search even with empty query
   if (!normalized.isEmpty())
   {
     m_params.m_query = normalized.toUtf8().constData();
+    auto const timestamp = ++m_timestamp;
+    m_params.m_onResults = [this, timestamp](search::Results const & results,
+                                             std::vector<search::ProductInfo> const & productInfo) {
+      GetPlatform().RunTask(Platform::Thread::Gui,
+                            std::bind(&SearchPanel::OnSearchResults, this, timestamp, results));
+    };
+
     if (m_pDrawWidget->Search(m_params))
     {
       // show busy indicator
@@ -315,8 +278,6 @@ void SearchPanel::OnSearchTextChanged(QString const & str)
   }
   else
   {
-    ClearResults();
-
     m_pDrawWidget->GetFramework().CancelSearch(search::Mode::Everywhere);
 
     // hide X button

@@ -4,9 +4,10 @@
 #include "map/gps_track_filter.hpp"
 #include "map/gps_track_storage.hpp"
 
+#include "base/thread.hpp"
+
 #include "std/condition_variable.hpp"
 #include "std/mutex.hpp"
-#include "std/thread.hpp"
 #include "std/unique_ptr.hpp"
 
 class GpsTrack final
@@ -87,7 +88,7 @@ private:
   unique_ptr<IGpsTrackFilter> m_filter; // used in the worker thread
 
   mutex m_threadGuard;
-  thread m_thread;
+  threads::SimpleThread m_thread;
   bool m_threadExit; // need exit thread
   bool m_threadWakeup; // need wakeup thread
   condition_variable m_cv;

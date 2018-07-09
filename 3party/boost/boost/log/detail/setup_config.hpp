@@ -30,11 +30,12 @@
 #        define BOOST_LOG_SETUP_DLL
 #   endif
 
-#   if defined(BOOST_HAS_DECLSPEC) && defined(BOOST_LOG_SETUP_DLL)
-#       define BOOST_LOG_SETUP_API __declspec(dllimport)
+#   if defined(BOOST_LOG_SETUP_DLL)
+#       define BOOST_LOG_SETUP_API BOOST_SYMBOL_IMPORT
 #   else
 #       define BOOST_LOG_SETUP_API
-#   endif // defined(BOOST_HAS_DECLSPEC)
+#   endif
+
 //
 // Automatically link to the correct build variant where possible.
 //
@@ -48,12 +49,10 @@
 
 #else // !defined(BOOST_LOG_SETUP_BUILDING_THE_LIB)
 
-#   if defined(BOOST_HAS_DECLSPEC) && defined(BOOST_LOG_SETUP_DLL)
-#       define BOOST_LOG_SETUP_API __declspec(dllexport)
-#   elif defined(__GNUC__) && __GNUC__ >= 4 && (defined(linux) || defined(__linux) || defined(__linux__))
-#       define BOOST_LOG_SETUP_API __attribute__((visibility("default")))
+#   if defined(BOOST_LOG_SETUP_DLL)
+#       define BOOST_LOG_SETUP_API BOOST_SYMBOL_EXPORT
 #   else
-#       define BOOST_LOG_SETUP_API
+#       define BOOST_LOG_SETUP_API BOOST_SYMBOL_VISIBLE
 #   endif
 
 #endif // !defined(BOOST_LOG_SETUP_BUILDING_THE_LIB)

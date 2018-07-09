@@ -15,12 +15,15 @@
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/has_trivial_assign.hpp>
 #include <boost/type_traits/has_trivial_destructor.hpp>
+#include <boost/config.hpp> // for BOOST_LIKELY & BOOST_ALIGNMENT
 
 #include <boost/lockfree/detail/atomic.hpp>
 #include <boost/lockfree/detail/copy_payload.hpp>
 #include <boost/lockfree/detail/freelist.hpp>
 #include <boost/lockfree/detail/parameter.hpp>
 #include <boost/lockfree/detail/tagged_ptr.hpp>
+
+#include <boost/lockfree/lockfree_forward.hpp>
 
 #ifdef BOOST_HAS_PRAGMA_ONCE
 #pragma once
@@ -58,7 +61,7 @@ typedef parameter::parameters<boost::parameter::optional<tag::allocator>,
  *
  *  - \ref boost::lockfree::capacity, optional \n
  *    If this template argument is passed to the options, the size of the queue is set at compile-time.\n
- *    It this option implies \c fixed_sized<true>
+ *    This option implies \c fixed_sized<true>
  *
  *  - \ref boost::lockfree::allocator, defaults to \c boost::lockfree::allocator<std::allocator<void>> \n
  *    Specifies the allocator that is used for the internal freelist
@@ -69,13 +72,10 @@ typedef parameter::parameters<boost::parameter::optional<tag::allocator>,
  *   - T must have a trivial destructor
  *
  * */
-#ifndef BOOST_DOXYGEN_INVOKED
-template <typename T,
-          class A0 = boost::parameter::void_,
-          class A1 = boost::parameter::void_,
-          class A2 = boost::parameter::void_>
+#ifdef BOOST_NO_CXX11_VARIADIC_TEMPLATES
+template <typename T, class A0, class A1, class A2>
 #else
-template <typename T, ...Options>
+template <typename T, typename ...Options>
 #endif
 class queue
 {
@@ -90,7 +90,11 @@ private:
     BOOST_STATIC_ASSERT((boost::has_trivial_assign<T>::value));
 #endif
 
+#ifdef BOOST_NO_CXX11_VARIADIC_TEMPLATES
     typedef typename detail::queue_signature::bind<A0, A1, A2>::type bound_args;
+#else
+    typedef typename detail::queue_signature::bind<Options...>::type bound_args;
+#endif
 
     static const bool has_capacity = detail::extract_capacity<bound_args>::has_capacity;
     static const size_t capacity = detail::extract_capacity<bound_args>::capacity + 1; // the queue uses one dummy node
@@ -98,7 +102,7 @@ private:
     static const bool node_based = !(has_capacity || fixed_sized);
     static const bool compile_time_sized = has_capacity;
 
-    struct BOOST_LOCKFREE_CACHELINE_ALIGNMENT node
+    struct BOOST_ALIGNMENT(BOOST_LOCKFREE_CACHELINE_BYTES) node
     {
         typedef typename detail::select_tagged_handle<node, node_based>::tagged_handle_type tagged_node_handle;
         typedef typename detail::select_tagged_handle<node, node_based>::handle_type handle_type;
@@ -286,8 +290,6 @@ private:
     template <bool Bounded>
     bool do_push(T const & t)
     {
-        using detail::likely;
-
         node * n = pool.template construct<true, Bounded>(t, pool.null_handle());
         handle_type node_handle = pool.get_handle(n);
 
@@ -301,7 +303,7 @@ private:
             node * next_ptr = pool.get_pointer(next);
 
             tagged_node_handle tail2 = tail_.load(memory_order_acquire);
-            if (likely(tail == tail2)) {
+            if (BOOST_LIKELY(tail == tail2)) {
                 if (next_ptr == 0) {
                     tagged_node_handle new_tail_next(node_handle, next.get_next_tag());
                     if ( tail_node->next.compare_exchange_weak(next, new_tail_next) ) {
@@ -375,7 +377,6 @@ public:
     template <typename U>
     bool pop (U & ret)
     {
-        using detail::likely;
         for (;;) {
             tagged_node_handle head = head_.load(memory_order_acquire);
             node * head_ptr = pool.get_pointer(head);
@@ -385,7 +386,7 @@ public:
             node * next_ptr = pool.get_pointer(next);
 
             tagged_node_handle head2 = head_.load(memory_order_acquire);
-            if (likely(head == head2)) {
+            if (BOOST_LIKELY(head == head2)) {
                 if (pool.get_handle(head) == pool.get_handle(tail)) {
                     if (next_ptr == 0)
                         return false;

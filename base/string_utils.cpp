@@ -8,7 +8,16 @@
 #include <iomanip>
 #include <iterator>
 
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-local-typedef"
+#endif
+
 #include <boost/algorithm/string/trim.hpp>
+
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
 
 namespace strings
 {
@@ -236,6 +245,12 @@ bool IsASCIIString(std::string const & str)
 }
 
 bool IsASCIIDigit(UniChar c) { return c >= '0' && c <= '9'; }
+
+bool IsASCIISpace(UniChar c)
+{
+  return c == ' ' || c == '\f' || c == '\n' || c == '\r' || c == '\t' || c == '\v';
+}
+
 bool IsASCIILatin(UniChar c) { return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'); }
 
 bool StartsWith(UniString const & s, UniString const & p)
@@ -244,6 +259,8 @@ bool StartsWith(UniString const & s, UniString const & p)
 }
 
 bool StartsWith(std::string const & s1, char const * s2) { return (s1.compare(0, strlen(s2), s2) == 0); }
+
+bool StartsWith(std::string const & s1, std::string const & s2) { return (s1.compare(0, s2.length(), s2) == 0); }
 
 bool EndsWith(std::string const & s1, char const * s2)
 {

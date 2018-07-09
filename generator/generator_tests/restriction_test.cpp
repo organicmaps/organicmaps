@@ -1,6 +1,6 @@
 #include "testing/testing.hpp"
 
-#include "generator/generator_tests_support/restriction_helpers.hpp"
+#include "generator/generator_tests_support/routing_helpers.hpp"
 #include "generator/generator_tests_support/test_feature.hpp"
 #include "generator/generator_tests_support/test_mwm_builder.hpp"
 
@@ -9,21 +9,19 @@
 
 #include "routing/restriction_loader.hpp"
 
-#include "indexer/index.hpp"
-#include "indexer/mwm_set.hpp"
-
-#include "coding/file_name_utils.hpp"
-
+#include "platform/country_file.hpp"
+#include "platform/platform.hpp"
 #include "platform/platform_tests_support/scoped_dir.hpp"
 #include "platform/platform_tests_support/scoped_file.hpp"
 
-#include "platform/country_file.hpp"
-#include "platform/platform.hpp"
+#include "coding/file_container.hpp"
+#include "coding/file_name_utils.hpp"
 
 #include "base/logging.hpp"
-#include "base/scope_guard.hpp"
 
-#include "std/string.hpp"
+#include <string>
+
+using namespace std;
 
 using namespace feature;
 using namespace generator;
@@ -45,14 +43,15 @@ void BuildEmptyMwm(LocalCountryFile & country)
   generator::tests_support::TestMwmBuilder builder(country, feature::DataHeader::country);
 }
 
-void LoadRestrictions(MwmValue const & mwmValue, RestrictionVec & restrictions)
+void LoadRestrictions(string const & mwmFilePath, RestrictionVec & restrictions)
 {
-  if (!mwmValue.m_cont.IsExist(RESTRICTIONS_FILE_TAG))
+  FilesContainerR const cont(mwmFilePath);
+  if (!cont.IsExist(RESTRICTIONS_FILE_TAG))
     return;
 
   try
   {
-    FilesContainerR::TReader const reader = mwmValue.m_cont.GetReader(RESTRICTIONS_FILE_TAG);
+    FilesContainerR::TReader const reader = cont.GetReader(RESTRICTIONS_FILE_TAG);
     ReaderSource<FilesContainerR::TReader> src(reader);
     RestrictionHeader header;
     header.Deserialize(src);
@@ -63,7 +62,7 @@ void LoadRestrictions(MwmValue const & mwmValue, RestrictionVec & restrictions)
   }
   catch (Reader::OpenException const & e)
   {
-    LOG(LERROR, ("Error while reading", RESTRICTIONS_FILE_TAG, "section.", e.Msg()));
+    TEST(false, ("Error while reading", ROAD_ACCESS_FILE_TAG, "section.", e.Msg()));
   }
 }
 
@@ -77,37 +76,31 @@ void TestRestrictionBuilding(string const & restrictionContent, string const & m
   string const writableDir = platform.WritableDir();
 
   // Building empty mwm.
-  LocalCountryFile country(my::JoinFoldersToPath(writableDir, kTestDir), CountryFile(kTestMwm), 1);
+  LocalCountryFile country(my::JoinPath(writableDir, kTestDir), CountryFile(kTestMwm),
+                           0 /* version */);
   ScopedDir const scopedDir(kTestDir);
-  string const mwmRelativePath = my::JoinFoldersToPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
-  ScopedFile const scopedMwm(mwmRelativePath);
+  string const mwmRelativePath = my::JoinPath(kTestDir, kTestMwm + DATA_FILE_EXTENSION);
+  ScopedFile const scopedMwm(mwmRelativePath, ScopedFile::Mode::Create);
   BuildEmptyMwm(country);
 
   // Creating a file with restrictions.
-  string const restrictionRelativePath = my::JoinFoldersToPath(kTestDir, kRestrictionFileName);
+  string const restrictionRelativePath = my::JoinPath(kTestDir, kRestrictionFileName);
   ScopedFile const restrictionScopedFile(restrictionRelativePath, restrictionContent);
 
   // Creating osm ids to feature ids mapping.
-  string const mappingRelativePath = my::JoinFoldersToPath(kTestDir, kOsmIdsToFeatureIdsName);
-  ScopedFile const mappingScopedFile(mappingRelativePath);
-  string const mappingFullPath = my::JoinFoldersToPath(writableDir, mappingRelativePath);
+  string const mappingRelativePath = my::JoinPath(kTestDir, kOsmIdsToFeatureIdsName);
+  ScopedFile const mappingFile(mappingRelativePath, ScopedFile::Mode::Create);
+  string const mappingFullPath = mappingFile.GetFullPath();
   ReEncodeOsmIdsToFeatureIdsMapping(mappingContent, mappingFullPath);
 
   // Adding restriction section to mwm.
-  string const restrictionFullPath = my::JoinFoldersToPath(writableDir, restrictionRelativePath);
-  string const mwmFullPath = my::JoinFoldersToPath(writableDir, mwmRelativePath);
+  string const restrictionFullPath = my::JoinPath(writableDir, restrictionRelativePath);
+  string const mwmFullPath = my::JoinPath(writableDir, mwmRelativePath);
   BuildRoadRestrictions(mwmFullPath, restrictionFullPath, mappingFullPath);
 
   // Reading from mwm section and testing restrictions.
-  Index index;
-  auto const regResult = index.RegisterMap(country);
-  TEST_EQUAL(regResult.second, MwmSet::RegResult::Success, ());
-
-  MwmSet::MwmHandle mwmHandle = index.GetMwmHandleById(regResult.first);
-  TEST(mwmHandle.IsAlive(), ());
-
   RestrictionVec restrictionsFromMwm;
-  LoadRestrictions(*mwmHandle.GetValue<MwmValue>(), restrictionsFromMwm);
+  LoadRestrictions(mwmFullPath, restrictionsFromMwm);
   RestrictionCollector const restrictionCollector(restrictionFullPath, mappingFullPath);
 
   TEST_EQUAL(restrictionsFromMwm, restrictionCollector.GetRestrictions(), ());

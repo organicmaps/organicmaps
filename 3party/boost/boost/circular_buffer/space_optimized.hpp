@@ -740,7 +740,7 @@ public:
         \par Iterator Invalidation
              Invalidates all iterators of both <code>circular_buffer_space_optimized</code> containers. (On the other
              hand the iterators still point to the same elements but within another container. If you want to rely on
-             this feature you have to turn the __debug_support off by defining macro BOOST_CB_DISABLE_DEBUG,
+             this feature you have to turn the __debug_support off,
              otherwise an assertion will report an error if such invalidated iterator is used.)
         \par Complexity
              Constant (in the size of the <code>circular_buffer_space_optimized</code>).

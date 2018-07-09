@@ -1,48 +1,29 @@
 #import "MapViewController.h"
-#import "BookmarksRootVC.h"
 #import "BookmarksVC.h"
 #import "EAGLView.h"
 #import "MWMAPIBar.h"
-#import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
-#import "MWMAuthorizationLoginViewController.h"
 #import "MWMAuthorizationWebViewLoginViewController.h"
+#import "MWMAutoupdateController.h"
+#import "MWMBookmarksManager.h"
 #import "MWMCommon.h"
 #import "MWMEditBookmarkController.h"
 #import "MWMEditorViewController.h"
 #import "MWMFacilitiesController.h"
 #import "MWMFrameworkListener.h"
-#import "MWMKeyboard.h"
 #import "MWMLocationHelpers.h"
-#import "MWMLocationManager.h"
 #import "MWMMapDownloadDialog.h"
 #import "MWMMapDownloaderViewController.h"
 #import "MWMMapViewControlsManager.h"
-#import "MWMPlacePageData.h"
 #import "MWMPlacePageProtocol.h"
-#import "MWMRouter.h"
-#import "MWMRouterSavedState.h"
-#import "MWMSettings.h"
-#import "MWMStorage.h"
-#import "MWMTableViewController.h"
 #import "MapsAppDelegate.h"
-#import "Statistics.h"
-#import "UIViewController+Navigation.h"
-
-#import "3party/Alohalytics/src/alohalytics_objc.h"
-
-#include "indexer/osm_editor.hpp"
+#import "SwiftBridge.h"
 
 #include "Framework.h"
 
-#include "map/user_mark.hpp"
-
 #include "drape_frontend/user_event_stream.hpp"
 
-#include "platform/file_logging.hpp"
-#include "platform/local_country_file_utils.hpp"
-#include "platform/platform.hpp"
-#include "platform/settings.hpp"
+#import <Crashlytics/Crashlytics.h>
 
 // If you have a "missing header error" here, then please run configure.sh script in the root repo
 // folder.
@@ -111,6 +92,9 @@ BOOL gIsFirstMyPositionMode = YES;
 
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * visibleAreaBottom;
 @property(weak, nonatomic) IBOutlet NSLayoutConstraint * visibleAreaKeyboard;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * placePageAreaKeyboard;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * sideButtonsAreaBottom;
+@property(weak, nonatomic) IBOutlet NSLayoutConstraint * sideButtonsAreaKeyboard;
 
 @end
 
@@ -130,8 +114,10 @@ BOOL gIsFirstMyPositionMode = YES;
   if ([MapsAppDelegate theApp].hasApiURL)
     return;
 
-  MWMMapViewControlsManager * cm = self.controlsManager;
-  if (cm.searchHidden && cm.navigationState == MWMNavigationDashboardStateHidden)
+  BOOL const isSearchHidden = ([MWMSearchManager manager].state == MWMSearchManagerStateHidden);
+  BOOL const isNavigationDashboardHidden =
+      ([MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateHidden);
+  if (isSearchHidden && isNavigationDashboardHidden)
     self.controlsManager.hidden = !self.controlsManager.hidden;
 }
 
@@ -206,8 +192,6 @@ BOOL gIsFirstMyPositionMode = YES;
 
 - (BOOL)hasForceTouch
 {
-  if (isIOS8)
-    return NO;
   return self.view.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable;
 }
 
@@ -233,11 +217,10 @@ BOOL gIsFirstMyPositionMode = YES;
 
 #pragma mark - ViewController lifecycle
 
-- (void)dealloc { [[NSNotificationCenter defaultCenter] removeObserver:self]; }
-
 - (void)viewWillTransitionToSize:(CGSize)size
        withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+  [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.alertController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.controlsManager viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
   [self.welcomePageController viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
@@ -254,15 +237,13 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
-  [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                  name:UIDeviceOrientationDidChangeNotification
-                                                object:nil];
 
-  self.controlsManager.menuState = self.controlsManager.menuRestoreState;
+  if ([MWMNavigationDashboardManager manager].state == MWMNavigationDashboardStateHidden)
+    self.controlsManager.menuState = self.controlsManager.menuRestoreState;
 
   [self updateStatusBarStyle];
   GetFramework().InvalidateRendering();
-  [self showWelcomeScreenIfNeeded];
+  [self.welcomePageController show];
   [self showViralAlertIfNeeded];
   [self checkAuthorization];
 }
@@ -271,8 +252,9 @@ BOOL gIsFirstMyPositionMode = YES;
 {
   [super viewDidLoad];
   self.view.clipsToBounds = YES;
-  [self processMyPositionStateModeEvent:location::PendingPosition];
+  [self processMyPositionStateModeEvent:MWMMyPositionModePendingPosition];
   [MWMKeyboard addObserver:self];
+  self.welcomePageController = [MWMWelcomePageController controllerWithParent:self];
 }
 
 - (void)mwm_refreshUI
@@ -283,20 +265,32 @@ BOOL gIsFirstMyPositionMode = YES;
   [self.downloadDialog mwm_refreshUI];
 }
 
-- (void)showWelcomeScreenIfNeeded
-{
-  self.welcomePageController = [MWMWelcomePageController controllerWithParent:self];
-}
-
 - (void)closePageController:(MWMWelcomePageController *)pageController
 {
   if ([pageController isEqual:self.welcomePageController])
     self.welcomePageController = nil;
+
+  auto const todo = GetFramework().ToDoAfterUpdate();
+  
+  switch (todo)
+  {
+  case Framework::DoAfterUpdate::Nothing:
+    break;
+    
+  case Framework::DoAfterUpdate::Migrate:
+    [self openMigration];
+    break;
+
+  case Framework::DoAfterUpdate::AutoupdateMaps:
+  case Framework::DoAfterUpdate::AskForUpdateMaps:
+    [self presentViewController:[MWMAutoupdateController instanceWithPurpose:todo] animated:YES completion:nil];
+    break;
+  }
 }
 
 - (void)showViralAlertIfNeeded
 {
-  NSUserDefaults * ud = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults * ud = NSUserDefaults.standardUserDefaults;
 
   using namespace osm_auth_ios;
   if (!AuthorizationIsNeedCheck() || [ud objectForKey:kUDViralAlertWasShown] ||
@@ -321,7 +315,7 @@ BOOL gIsFirstMyPositionMode = YES;
   self.controlsManager.menuRestoreState = self.controlsManager.menuState;
 }
 
-- (BOOL)prefersStatusBarHidden { return self.apiBar.isVisible; }
+- (BOOL)prefersStatusBarHidden { return NO; }
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
   return [self.controlsManager preferredStatusBarStyle];
@@ -351,11 +345,11 @@ BOOL gIsFirstMyPositionMode = YES;
     // TODO: Two global listeners are subscribed to the same event from the core.
     // Probably it's better to subscribe only wnen needed and usubscribe in other cases.
     // May be better solution would be multiobservers support in the C++ core.
-    [self processMyPositionStateModeEvent:mode];
+    [self processMyPositionStateModeEvent:location_helpers::mwmMyPositionMode(mode)];
   });
 
   self.userTouchesAction = UserTouchesActionNone;
-  GetFramework().LoadBookmarks();
+  [MWMBookmarksManager loadBookmarks];
   [MWMFrameworkListener addObserver:self];
 }
 
@@ -364,30 +358,28 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)openMigration { [self performSegueWithIdentifier:kMigrationSegue sender:self]; }
 - (void)openBookmarks
 {
-  BOOL const oneCategory = (GetFramework().GetBmCategoriesCount() == 1);
-  MWMTableViewController * vc =
-      oneCategory ? [[BookmarksVC alloc] initWithCategory:0] : [[BookmarksRootVC alloc] init];
-  [self.navigationController pushViewController:vc animated:YES];
+  [self.navigationController pushViewController:[[MWMBookmarksTabViewController alloc] init]
+                                       animated:YES];
 }
 
-- (void)openMapsDownloader:(mwm::DownloaderMode)mode
+- (void)openMapsDownloader:(MWMMapDownloaderMode)mode
 {
   [Alohalytics logEvent:kAlohalyticsTapEventKey withValue:@"downloader"];
-  [self performSegueWithIdentifier:kDownloaderSegue sender:@(static_cast<NSInteger>(mode))];
+  [self performSegueWithIdentifier:kDownloaderSegue sender:@(mode)];
 }
 
 - (void)openEditor
 {
   using namespace osm_auth_ios;
 
-  auto const & featureID = self.controlsManager.featureHolder.featureId;
+  auto const & featureID = [self.controlsManager.featureHolder featureId];
 
   [Statistics logEvent:kStatEditorEditStart
         withParameters:@{
-          kStatEditorIsAuthenticated : @(AuthorizationHaveCredentials()),
-          kStatIsOnline : Platform::IsConnected() ? kStatYes : kStatNo,
-          kStatEditorMWMName : @(featureID.GetMwmName().c_str()),
-          kStatEditorMWMVersion : @(featureID.GetMwmVersion())
+          kStatIsAuthenticated: @(AuthorizationHaveCredentials()),
+          kStatIsOnline: Platform::IsConnected() ? kStatYes : kStatNo,
+          kStatEditorMWMName: @(featureID.GetMwmName().c_str()),
+          kStatEditorMWMVersion: @(featureID.GetMwmVersion())
         }];
   [self performSegueWithIdentifier:kEditorSegue sender:self.controlsManager.featureHolder];
 }
@@ -402,10 +394,37 @@ BOOL gIsFirstMyPositionMode = YES;
   [self performSegueWithIdentifier:kPP2BookmarkEditingSegue sender:data];
 }
 
-- (void)processMyPositionStateModeEvent:(location::EMyPositionMode)mode
+- (void)showUGCAuth
 {
-  location_helpers::setMyPositionMode(mode);
-  [self.controlsManager processMyPositionStateModeEvent:mode];
+  [Statistics logEvent:kStatUGCReviewAuthShown];
+  if (IPAD)
+  {
+    auto controller = [[MWMAuthorizationViewController alloc]
+                       initWithPopoverSourceView:self.controlsManager.anchorView
+                       sourceComponent:MWMAuthorizationSourceUGC
+                       permittedArrowDirections:UIPopoverArrowDirectionDown
+                       successHandler:nil
+                       errorHandler:nil
+                       completionHandler:nil];
+
+    [self presentViewController:controller animated:YES completion:nil];
+    return;
+  }
+
+  auto controller = [[MWMAuthorizationViewController alloc]
+                     initWithBarButtonItem:nil
+                           sourceComponent:MWMAuthorizationSourceUGC
+                            successHandler:nil
+                              errorHandler:nil
+                         completionHandler:nil];
+
+  [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)processMyPositionStateModeEvent:(MWMMyPositionMode)mode
+{
+  [MWMLocationManager setMyPositionMode:mode];
+  [[MWMSideButtons buttons] processMyPositionStateModeEvent:mode];
   self.disableStandbyOnLocationStateMode = NO;
   switch (mode)
   {
@@ -452,6 +471,16 @@ BOOL gIsFirstMyPositionMode = YES;
 
 - (void)processCountryEvent:(TCountryId const &)countryId
 {
+  if (countryId.empty())
+  {
+#ifdef OMIM_PRODUCTION
+    auto err = [[NSError alloc] initWithDomain:kMapsmeErrorDomain code:1
+                      userInfo:@{@"Description" : @"attempt to get info from empty countryId"}];
+    [[Crashlytics sharedInstance] recordError:err];
+#endif
+    return;
+  }
+
   NodeStatuses nodeStatuses{};
   GetFramework().GetStorage().GetNodeStatuses(countryId, nodeStatuses);
   if (nodeStatuses.m_status != NodeStatus::Error)
@@ -493,14 +522,24 @@ BOOL gIsFirstMyPositionMode = YES;
 - (void)performAction:(NSString *)action
 {
   [self.navigationController popToRootViewControllerAnimated:NO];
-  self.controlsManager.searchHidden = YES;
-  [MWMRouter stopRouting];
-  if ([action isEqualToString:@"me.maps.3daction.bookmarks"])
-    [self openBookmarks];
-  else if ([action isEqualToString:@"me.maps.3daction.search"])
-    self.controlsManager.searchHidden = NO;
-  else if ([action isEqualToString:@"me.maps.3daction.route"])
-    [self.controlsManager onRoutePrepare];
+  if (self.isViewLoaded)
+  {
+    auto searchState = MWMSearchManagerStateHidden;
+    [MWMRouter stopRouting];
+    if ([action isEqualToString:@"me.maps.3daction.bookmarks"])
+      [self openBookmarks];
+    else if ([action isEqualToString:@"me.maps.3daction.search"])
+      searchState = MWMSearchManagerStateDefault;
+    else if ([action isEqualToString:@"me.maps.3daction.route"])
+      [self.controlsManager onRoutePrepare];
+    [MWMSearchManager manager].state = searchState;
+  }
+  else
+  {
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self performAction:action];
+    });
+  }
 }
 
 #pragma mark - API bar
@@ -512,7 +551,6 @@ BOOL gIsFirstMyPositionMode = YES;
   return _apiBar;
 }
 
-- (void)showAPIBar { self.apiBar.isVisible = YES; }
 #pragma mark - ShowDialog callback
 
 - (void)presentDisabledLocationAlert { [self.alertController presentDisabledLocationAlert]; }
@@ -546,7 +584,7 @@ BOOL gIsFirstMyPositionMode = YES;
     MWMMapDownloaderViewController * dvc = segue.destinationViewController;
     NSNumber * mode = sender;
     [dvc setParentCountryId:@(GetFramework().GetStorage().GetRootId().c_str())
-                       mode:static_cast<mwm::DownloaderMode>(mode.integerValue)];
+                       mode:static_cast<MWMMapDownloaderMode>(mode.integerValue)];
   }
   else if ([segue.identifier isEqualToString:kMap2FBLoginSegue])
   {
@@ -569,7 +607,18 @@ BOOL gIsFirstMyPositionMode = YES;
 
 #pragma mark - MWMKeyboard
 
-- (void)onKeyboardAnimation { self.visibleAreaKeyboard.constant = [MWMKeyboard keyboardHeight]; }
+- (void)onKeyboardWillAnimate { [self.view setNeedsLayout]; }
+- (void)onKeyboardAnimation
+{
+  auto const kbHeight = [MWMKeyboard keyboardHeight];
+  self.sideButtonsAreaKeyboard.constant = kbHeight;
+  if (IPAD)
+  {
+    self.visibleAreaKeyboard.constant = kbHeight;
+    self.placePageAreaKeyboard.constant = kbHeight;
+  }
+  [self.view layoutIfNeeded];
+}
 #pragma mark - Properties
 
 - (MWMMapViewControlsManager *)controlsManager
@@ -589,10 +638,10 @@ BOOL gIsFirstMyPositionMode = YES;
   return _downloadDialog;
 }
 
-- (CGFloat)visibleAreaBottomOffset { return self.visibleAreaBottom.constant; }
-- (void)setVisibleAreaBottomOffset:(CGFloat)visibleAreaBottomOffset
+- (void)setPlacePageTopBound:(CGFloat)bound;
 {
-  self.visibleAreaBottom.constant = visibleAreaBottomOffset;
+  self.visibleAreaBottom.constant = bound;
+  self.sideButtonsAreaBottom.constant = bound;
 }
 
 @end

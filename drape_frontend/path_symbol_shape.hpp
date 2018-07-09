@@ -7,7 +7,6 @@
 
 namespace df
 {
-
 class PathSymbolShape : public MapShape
 {
 public:
@@ -18,5 +17,4 @@ private:
   PathSymbolViewParams m_params;
   m2::SharedSpline m_spline;
 };
-
-}
+}  // namespace df

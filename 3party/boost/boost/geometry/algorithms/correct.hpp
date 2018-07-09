@@ -283,7 +283,7 @@ struct correct
 {
     static inline void apply(Geometry& geometry)
     {
-        concept::check<Geometry const>();
+        concepts::check<Geometry const>();
         dispatch::correct<Geometry>::apply(geometry);
     }
 };

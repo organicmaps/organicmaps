@@ -17,7 +17,8 @@
 
 */
 
-#include "boost/operators.hpp"
+#include <boost/operators.hpp>
+#include <boost/date_time/compiler_config.hpp>
 
 
 namespace boost {
@@ -48,7 +49,7 @@ namespace date_time {
 
    */
   template<class point_rep, class duration_rep>
-  class period : private
+  class BOOST_SYMBOL_VISIBLE period : private
       boost::less_than_comparable<period<point_rep, duration_rep> 
     , boost::equality_comparable< period<point_rep, duration_rep> 
     > >

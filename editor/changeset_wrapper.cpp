@@ -1,5 +1,5 @@
 #include "editor/changeset_wrapper.hpp"
-#include "editor/osm_feature_matcher.hpp"
+#include "editor/feature_matcher.hpp"
 
 #include "indexer/feature.hpp"
 
@@ -157,7 +157,7 @@ XMLFeature ChangesetWrapper::GetMatchingNodeFeatureFromOSM(m2::PointD const & ce
   // Throws!
   LoadXmlFromOSM(ll, doc);
 
-  pugi::xml_node const bestNode = GetBestOsmNode(doc, ll);
+  pugi::xml_node const bestNode = matcher::GetBestOsmNode(doc, ll);
   if (bestNode.empty())
   {
     MYTHROW(OsmObjectWasDeletedException,
@@ -194,7 +194,7 @@ XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(vector<m2::PointD> co
       hasRelation = true;
     }
 
-    pugi::xml_node const bestWayOrRelation = GetBestOsmWayOrRelation(doc, geometry);
+    pugi::xml_node const bestWayOrRelation = matcher::GetBestOsmWayOrRelation(doc, geometry);
     if (!bestWayOrRelation)
     {
       if (hasRelation)
@@ -202,30 +202,15 @@ XMLFeature ChangesetWrapper::GetMatchingAreaFeatureFromOSM(vector<m2::PointD> co
       continue;
     }
 
-    if (strcmp(bestWayOrRelation.name(), "relation") == 0)
-    {
-      stringstream sstr;
-      bestWayOrRelation.print(sstr);
-      LOG(LDEBUG, ("Relation is the best match", sstr.str()));
-      MYTHROW(RelationFeatureAreNotSupportedException, ("Got relation as the best matching"));
-    }
-
     if (!OsmFeatureHasTags(bestWayOrRelation))
     {
       stringstream sstr;
       bestWayOrRelation.print(sstr);
-      LOG(LDEBUG, ("Way or relation has no tags", sstr.str()));
-      MYTHROW(EmptyFeatureException, ("Way or relation has no tags"));
+      LOG(LDEBUG, ("The matched object has no tags", sstr.str()));
+      MYTHROW(EmptyFeatureException, ("The matched object has no tags"));
     }
 
-    // TODO: rename to wayOrRelation when relations are handled.
-    XMLFeature const way(bestWayOrRelation);
-    ASSERT(way.IsArea(), ("Best way must be an area."));
-
-    // AlexZ: TODO: Check that this way is really match our feature.
-    // If we had some way to check it, why not to use it in selecting our feature?
-
-    return way;
+    return XMLFeature(bestWayOrRelation);
   }
   MYTHROW(OsmObjectWasDeletedException, ("OSM does not have any matching way for feature"));
 }

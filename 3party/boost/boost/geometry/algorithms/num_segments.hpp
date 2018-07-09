@@ -150,7 +150,7 @@ struct num_segments
 {
     static inline std::size_t apply(Geometry const& geometry)
     {
-        concept::check<Geometry const>();
+        concepts::check<Geometry const>();
 
         return dispatch::num_segments<Geometry>::apply(geometry);
     }

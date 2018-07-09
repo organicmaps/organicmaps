@@ -1,9 +1,9 @@
-@objc final class SettingsTableViewLinkCell: MWMTableViewCell {
-
+@objc
+final class SettingsTableViewLinkCell: MWMTableViewCell {
   @IBOutlet fileprivate weak var title: UILabel!
   @IBOutlet fileprivate weak var info: UILabel!
 
-  func config(title: String, info: String?) {
+  @objc func config(title: String, info: String?) {
     backgroundColor = UIColor.white()
 
     self.title.text = title

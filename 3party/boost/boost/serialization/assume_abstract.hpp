@@ -19,6 +19,7 @@
 // this is useful for compilers which don't support the boost::is_abstract
 
 #include <boost/type_traits/is_abstract.hpp>
+#include <boost/mpl/bool_fwd.hpp>
 
 #ifndef BOOST_NO_IS_ABSTRACT
 

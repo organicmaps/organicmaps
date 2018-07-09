@@ -8,7 +8,7 @@
 #ifndef BOOST_IOSTREAMS_DETAIL_PUSH_HPP_INCLUDED
 #define BOOST_IOSTREAMS_DETAIL_PUSH_HPP_INCLUDED 
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif                    
  
@@ -53,8 +53,7 @@
                   BOOST_IOSTREAMS_PUSH_ARGS() ); \
     /**/
 
-#if !BOOST_WORKAROUND(BOOST_MSVC, <= 1300) && \
-    !BOOST_WORKAROUND(__BORLANDC__, < 0x600) \
+#if !BOOST_WORKAROUND(__BORLANDC__, < 0x600) \
     /**/
 # ifndef BOOST_IOSTREAMS_NO_STREAM_TEMPLATES
 #  define BOOST_IOSTREAMS_DEFINE_PUSH_IMPL(name, mode, ch, helper, has_return, result) \

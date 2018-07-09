@@ -4,9 +4,10 @@
 
 #include "routing_common/vehicle_model.hpp"
 
+#include "editor/editable_data_source.hpp"
+
 #include "indexer/classificator.hpp"
 #include "indexer/ftypes_matcher.hpp"
-#include "indexer/index.hpp"
 #include "indexer/scales.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
@@ -25,32 +26,24 @@ double constexpr kMwmRoadCrossingRadiusMeters = 2.0;
 
 double constexpr kMwmCrossingNodeEqualityRadiusMeters = 100.0;
 
-string GetFeatureCountryName(FeatureID const featureId)
-{
-  /// @todo Rework this function when storage will provide information about mwm's country
-  // MwmInfo.GetCountryName returns country name as 'Country' or 'Country_Region', but only 'Country' is needed
-  ASSERT(featureId.IsValid(), ());
-
-  string const & countryName = featureId.m_mwmId.GetInfo()->GetCountryName();
-  size_t const pos = countryName.find('_');
-  if (string::npos == pos)
-    return countryName;
-  return countryName.substr(0, pos);
-}
 }  // namespace
 
-FeaturesRoadGraph::Value::Value(MwmSet::MwmHandle handle) : m_mwmHandle(move(handle))
+double GetRoadCrossingRadiusMeters() { return kMwmRoadCrossingRadiusMeters; }
+
+FeaturesRoadGraph::Value::Value(DataSource const & dataSource, MwmSet::MwmHandle handle)
+  : m_mwmHandle(move(handle))
 {
   if (!m_mwmHandle.IsAlive())
     return;
 
-  m_altitudeLoader = make_unique<feature::AltitudeLoader>(*m_mwmHandle.GetValue<MwmValue>());
+  m_altitudeLoader = make_unique<feature::AltitudeLoader>(dataSource, m_mwmHandle.GetId());
 }
 
 FeaturesRoadGraph::CrossCountryVehicleModel::CrossCountryVehicleModel(
-    shared_ptr<VehicleModelFactory> vehicleModelFactory)
+    shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory)
   : m_vehicleModelFactory(vehicleModelFactory)
   , m_maxSpeedKMPH(m_vehicleModelFactory->GetVehicleModel()->GetMaxSpeed())
+  , m_offroadSpeedKMPH(m_vehicleModelFactory->GetVehicleModel()->GetOffroadSpeed())
 {
 }
 
@@ -64,6 +57,11 @@ double FeaturesRoadGraph::CrossCountryVehicleModel::GetMaxSpeed() const
   return m_maxSpeedKMPH;
 }
 
+double FeaturesRoadGraph::CrossCountryVehicleModel::GetOffroadSpeed() const
+{
+  return m_offroadSpeedKMPH;
+}
+
 bool FeaturesRoadGraph::CrossCountryVehicleModel::IsOneWay(FeatureType const & f) const
 {
   return GetVehicleModel(f.GetID())->IsOneWay(f);
@@ -74,14 +72,19 @@ bool FeaturesRoadGraph::CrossCountryVehicleModel::IsRoad(FeatureType const & f) 
   return GetVehicleModel(f.GetID())->IsRoad(f);
 }
 
-IVehicleModel * FeaturesRoadGraph::CrossCountryVehicleModel::GetVehicleModel(FeatureID const & featureId) const
+bool FeaturesRoadGraph::CrossCountryVehicleModel::IsPassThroughAllowed(FeatureType const & f) const
+{
+  return GetVehicleModel(f.GetID())->IsPassThroughAllowed(f);
+}
+
+VehicleModelInterface * FeaturesRoadGraph::CrossCountryVehicleModel::GetVehicleModel(FeatureID const & featureId) const
 {
   auto itr = m_cache.find(featureId.m_mwmId);
   if (itr != m_cache.end())
     return itr->second.get();
 
-  string const country = GetFeatureCountryName(featureId);
-  auto const vehicleModel = m_vehicleModelFactory->GetVehicleModelForCountry(country);
+  auto const vehicleModel = m_vehicleModelFactory->GetVehicleModelForCountry(
+      featureId.m_mwmId.GetInfo()->GetCountryName());
 
   ASSERT(nullptr != vehicleModel, ());
   ASSERT_EQUAL(m_maxSpeedKMPH, vehicleModel->GetMaxSpeed(), ());
@@ -108,13 +111,13 @@ void FeaturesRoadGraph::RoadInfoCache::Clear()
 {
   m_cache.clear();
 }
-FeaturesRoadGraph::FeaturesRoadGraph(Index const & index, IRoadGraph::Mode mode,
-                                     shared_ptr<VehicleModelFactory> vehicleModelFactory)
-  : m_index(index), m_mode(mode), m_vehicleModel(vehicleModelFactory)
+FeaturesRoadGraph::FeaturesRoadGraph(DataSource const & dataSource, IRoadGraph::Mode mode,
+                                     shared_ptr<VehicleModelFactoryInterface> vehicleModelFactory)
+  : m_dataSource(dataSource), m_mode(mode), m_vehicleModel(vehicleModelFactory)
 {
 }
 
-uint32_t FeaturesRoadGraph::GetStreetReadScale() { return scales::GetUpperScale(); }
+int FeaturesRoadGraph::GetStreetReadScale() { return scales::GetUpperScale(); }
 
 class CrossFeaturesLoader
 {
@@ -168,7 +171,7 @@ void FeaturesRoadGraph::ForEachFeatureClosestToCross(m2::PointD const & cross,
 {
   CrossFeaturesLoader featuresLoader(*this, edgesLoader);
   m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(cross, kMwmRoadCrossingRadiusMeters);
-  m_index.ForEachInRect(featuresLoader, rect, GetStreetReadScale());
+  m_dataSource.ForEachInRect(featuresLoader, rect, GetStreetReadScale());
 }
 
 void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t count,
@@ -192,7 +195,7 @@ void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t coun
     finder.AddInformationSource(featureId, roadInfo);
   };
 
-  m_index.ForEachInRect(
+  m_dataSource.ForEachInRect(
       f, MercatorBounds::RectByCenterXYAndSizeInMeters(point, kMwmCrossingNodeEqualityRadiusMeters),
       GetStreetReadScale());
 
@@ -202,7 +205,7 @@ void FeaturesRoadGraph::FindClosestEdges(m2::PointD const & point, uint32_t coun
 void FeaturesRoadGraph::GetFeatureTypes(FeatureID const & featureId, feature::TypesHolder & types) const
 {
   FeatureType ft;
-  Index::FeaturesLoaderGuard loader(m_index, featureId.m_mwmId);
+  FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId);
   if (!loader.GetFeatureByIndex(featureId.m_index, ft))
     return;
 
@@ -233,7 +236,7 @@ void FeaturesRoadGraph::GetJunctionTypes(Junction const & junction, feature::Typ
   };
 
   m2::RectD const rect = MercatorBounds::RectByCenterXYAndSizeInMeters(cross, kMwmRoadCrossingRadiusMeters);
-  m_index.ForEachInRect(f, rect, GetStreetReadScale());
+  m_dataSource.ForEachInRect(f, rect, GetStreetReadScale());
 }
 
 IRoadGraph::Mode FeaturesRoadGraph::GetMode() const
@@ -303,7 +306,7 @@ IRoadGraph::RoadInfo const & FeaturesRoadGraph::GetCachedRoadInfo(FeatureID cons
 
   FeatureType ft;
 
-  Index::FeaturesLoaderGuard loader(m_index, featureId.m_mwmId);
+  FeaturesLoaderGuard loader(m_dataSource, featureId.m_mwmId);
 
   if (!loader.GetFeatureByIndex(featureId.m_index, ft))
     return ri;
@@ -338,7 +341,7 @@ FeaturesRoadGraph::Value const & FeaturesRoadGraph::LockMwm(MwmSet::MwmId const 
   if (itr != m_mwmLocks.end())
     return itr->second;
 
-  return m_mwmLocks.insert(make_pair(move(mwmId), Value(m_index.GetMwmHandleById(mwmId))))
+  return m_mwmLocks.insert(make_pair(move(mwmId), Value(m_dataSource, m_dataSource.GetMwmHandleById(mwmId))))
       .first->second;
 }
 }  // namespace routing

@@ -37,7 +37,7 @@ public:
     , m_scalesIdx(0)
     , m_bucketsCount(header.GetLastScale() + 1)
     , m_displacement(manager)
-    , m_codingDepth(covering::GetCodingDepth(header.GetLastScale()))
+    , m_codingDepth(covering::GetCodingDepth<RectId::DEPTH_LEVELS>(header.GetLastScale()))
     , m_featuresInBucket(featuresInBucket)
     , m_cellsInBucket(cellsInBucket)
   {
@@ -60,7 +60,7 @@ public:
       // This is not immediately obvious and in fact there was an idea to map
       // a bucket to a contiguous range of scales.
       // todo(@pimenov): We probably should remove scale_index.hpp altogether.
-      if (!FeatureShouldBeIndexed(ft, bucket, bucket == minScaleClassif /* needReset */))
+      if (!FeatureShouldBeIndexed(ft, static_cast<int>(bucket), bucket == minScaleClassif /* needReset */))
       {
         continue;
       }
@@ -82,7 +82,7 @@ private:
   //   -- it is allowed by the classificator.
   // If the feature is invisible at all scales, do not index it.
   template <class TFeature>
-  bool FeatureShouldBeIndexed(TFeature const & ft, uint32_t scale, bool needReset) const
+  bool FeatureShouldBeIndexed(TFeature const & ft, int scale, bool needReset) const
   {
     while (m_scalesIdx < m_header.GetScalesCount() && m_header.GetScale(m_scalesIdx) < scale)
     {
@@ -118,23 +118,6 @@ private:
   int m_codingDepth;
   vector<uint32_t> & m_featuresInBucket;
   vector<uint32_t> & m_cellsInBucket;
-};
-
-template <class SinkT>
-class CellFeaturePairSinkAdapter
-{
-public:
-  explicit CellFeaturePairSinkAdapter(SinkT & sink) : m_Sink(sink) {}
-
-  void operator() (int64_t cellId, uint64_t value) const
-  {
-    // uint64_t -> uint32_t : assume that feature dat file not more than 4Gb
-    CellFeaturePair cellFeaturePair(cellId, static_cast<uint32_t>(value));
-    m_Sink.Write(&cellFeaturePair, sizeof(cellFeaturePair));
-  }
-
-private:
-  SinkT & m_Sink;
 };
 
 template <class TFeaturesVector, class TWriter>
@@ -200,7 +183,8 @@ void IndexScales(feature::DataHeader const & header, TFeaturesVector const & fea
 
     {
       FileReader reader(cellsToFeatureFile);
-      DDVector<CellFeaturePair, FileReader, uint64_t> cellsToFeatures(reader);
+      DDVector<CellFeatureBucketTuple::CellFeaturePair, FileReader, uint64_t> cellsToFeatures(
+          reader);
       SubWriter<TWriter> subWriter(writer);
       LOG(LINFO, ("Building interval index for bucket:", bucket));
       BuildIntervalIndex(cellsToFeatures.begin(), cellsToFeatures.end(), subWriter,

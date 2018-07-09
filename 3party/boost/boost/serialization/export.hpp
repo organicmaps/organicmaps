@@ -32,7 +32,7 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
-#include <boost/mpl/bool.hpp>
+#include <boost/mpl/bool_fwd.hpp>
 
 #include <boost/serialization/extended_type_info.hpp> // for guid_defined only
 #include <boost/serialization/static_warning.hpp>

@@ -1,6 +1,6 @@
 /* Flyweight class. 
  *
- * Copyright 2006-2014 Joaquin M Lopez Munoz.
+ * Copyright 2006-2015 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -445,8 +445,10 @@ BOOST_TEMPLATED_STREAM(istream,ElemType,Traits)& operator>>(
 namespace std{
 
 template<typename T,BOOST_FLYWEIGHT_TYPENAME_TEMPL_ARGS(_)>
-struct hash<boost::flyweight<T,BOOST_FLYWEIGHT_TEMPL_ARGS(_)> >
+BOOST_FLYWEIGHT_STD_HASH_STRUCT_KEYWORD
+hash<boost::flyweight<T,BOOST_FLYWEIGHT_TEMPL_ARGS(_)> >
 {
+public:
   typedef std::size_t                result_type;
   typedef boost::flyweight<
     T,BOOST_FLYWEIGHT_TEMPL_ARGS(_)> argument_type;

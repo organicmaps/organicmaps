@@ -3,20 +3,30 @@ package com.mapswithme.util;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
-import com.mapswithme.maps.MwmApplication;
+import com.mapswithme.util.log.Logger;
+import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.AlohaHelper;
 import com.my.tracker.campaign.CampaignReceiver;
+
+import static com.mapswithme.maps.MwmApplication.backgroundTracker;
 
 /**
  * Custom broadcast receiver to send intent to MyTracker & Alohalytics at the same time
  */
 public class MultipleTrackerReferrerReceiver extends BroadcastReceiver
 {
+  private static final Logger LOGGER = LoggerFactory.INSTANCE.getLogger(LoggerFactory.Type.MISC);
+  private static final String TAG = MultipleTrackerReferrerReceiver.class.getSimpleName();
   @Override
   public void onReceive(Context context, Intent intent)
   {
-    MwmApplication.get().initCounters();
+    String msg = "onReceive: " + intent + " app in background = "
+                 + !backgroundTracker().isForeground();
+    LOGGER.i(TAG, msg);
+    CrashlyticsUtils.log(Log.INFO, TAG, msg);
+    Counters.initCounters(context);
     // parse & send referrer to Aloha
     try
     {

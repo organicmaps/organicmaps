@@ -2,7 +2,7 @@
 // detail/impl/socket_ops.ipp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2015 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2017 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -1634,7 +1634,8 @@ int getpeername(socket_type s, socket_addr_type* addr,
     return socket_error_retval;
   }
 
-#if defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
+#if defined(BOOST_ASIO_WINDOWS) && !defined(BOOST_ASIO_WINDOWS_APP) \
+  || defined(__CYGWIN__)
   if (cached)
   {
     // Check if socket is still connected.
@@ -1655,9 +1656,11 @@ int getpeername(socket_type s, socket_addr_type* addr,
     ec = boost::system::error_code();
     return 0;
   }
-#else // defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
+#else // defined(BOOST_ASIO_WINDOWS) && !defined(BOOST_ASIO_WINDOWS_APP)
+      // || defined(__CYGWIN__)
   (void)cached;
-#endif // defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
+#endif // defined(BOOST_ASIO_WINDOWS) && !defined(BOOST_ASIO_WINDOWS_APP)
+       // || defined(__CYGWIN__)
 
   clear_last_error();
   int result = error_wrapper(call_getpeername(
@@ -2581,7 +2584,8 @@ inline void gai_strcpy(char* target, const char* source, std::size_t max_size)
   strcpy_s(target, max_size, source);
 #else // defined(BOOST_ASIO_HAS_SECURE_RTL)
   *target = 0;
-  strncat(target, source, max_size);
+  if (max_size > 0)
+    strncat(target, source, max_size - 1);
 #endif // defined(BOOST_ASIO_HAS_SECURE_RTL)
 }
 
@@ -3234,6 +3238,37 @@ boost::system::error_code getaddrinfo(const char* host,
   return ec = translate_addrinfo_error(error);
 #else
   int error = ::getaddrinfo(host, service, &hints, result);
+#if defined(__MACH__) && defined(__APPLE__)
+  using namespace std; // For isdigit and atoi.
+  if (error == 0 && service && isdigit(static_cast<unsigned char>(service[0])))
+  {
+    u_short_type port = host_to_network_short(atoi(service));
+    for (addrinfo_type* ai = *result; ai; ai = ai->ai_next)
+    {
+      switch (ai->ai_family)
+      {
+      case BOOST_ASIO_OS_DEF(AF_INET):
+        {
+          sockaddr_in4_type* sinptr =
+            reinterpret_cast<sockaddr_in4_type*>(ai->ai_addr);
+          if (sinptr->sin_port == 0)
+            sinptr->sin_port = port;
+          break;
+        }
+      case BOOST_ASIO_OS_DEF(AF_INET6):
+        {
+          sockaddr_in6_type* sin6ptr =
+            reinterpret_cast<sockaddr_in6_type*>(ai->ai_addr);
+          if (sin6ptr->sin6_port == 0)
+            sin6ptr->sin6_port = port;
+          break;
+        }
+      default:
+        break;
+      }
+    }
+  }
+#endif
   return ec = translate_addrinfo_error(error);
 #endif
 }

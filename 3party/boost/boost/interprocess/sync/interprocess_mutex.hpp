@@ -158,7 +158,7 @@ inline void interprocess_mutex::lock()
 {
    #ifdef BOOST_INTERPROCESS_ENABLE_TIMEOUT_WHEN_LOCKING
       boost::posix_time::ptime wait_time
-         = boost::posix_time::microsec_clock::universal_time()
+         = microsec_clock::universal_time()
          + boost::posix_time::milliseconds(BOOST_INTERPROCESS_TIMEOUT_WHEN_LOCKING_DURATION_MS);
       if (!m_mutex.timed_lock(wait_time))
       {

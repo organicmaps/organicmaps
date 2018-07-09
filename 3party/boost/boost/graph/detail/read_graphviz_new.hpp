@@ -18,7 +18,7 @@
 //   and page 34 or http://www.graphviz.org/pdf/dotguide.pdf
 //
 //   See documentation for this code at: 
-//     http://www.boost.org/libs/graph/doc/read-graphviz.html
+//     http://www.boost.org/libs/graph/doc/read_graphviz.html
 //
 
 // Author: Jeremiah Willcock

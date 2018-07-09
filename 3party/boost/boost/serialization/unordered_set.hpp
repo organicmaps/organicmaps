@@ -23,53 +23,11 @@
 
 #include <boost/serialization/unordered_collections_save_imp.hpp>
 #include <boost/serialization/unordered_collections_load_imp.hpp>
+#include <boost/serialization/archive_input_unordered_set.hpp>
 #include <boost/serialization/split_free.hpp>
 
 namespace boost { 
 namespace serialization {
-
-namespace stl {
-
-// unordered_set input
-template<class Archive, class Container>
-struct archive_input_unordered_set
-{
-    inline void operator()(
-        Archive &ar, 
-        Container &s, 
-        const unsigned int v
-    ){
-        typedef typename Container::value_type type;
-        detail::stack_construct<Archive, type> t(ar, v);
-        // borland fails silently w/o full namespace
-        ar >> boost::serialization::make_nvp("item", t.reference());
-        std::pair<typename Container::const_iterator, bool> result = 
-            s.insert(t.reference());
-        if(result.second)
-            ar.reset_object_address(& (* result.first), & t.reference());
-    }
-};
-
-// unordered_multiset input
-template<class Archive, class Container>
-struct archive_input_unordered_multiset
-{
-    inline void operator()(
-        Archive &ar, 
-        Container &s, 
-        const unsigned int v
-    ){
-        typedef typename Container::value_type type;
-        detail::stack_construct<Archive, type> t(ar, v);
-        // borland fails silently w/o full namespace
-        ar >> boost::serialization::make_nvp("item", t.reference());
-        typename Container::const_iterator result 
-            = s.insert(t.reference());
-        ar.reset_object_address(& (* result), & t.reference());
-    }
-};
-
-} // stl
 
 template<
     class Archive, 
@@ -87,9 +45,7 @@ inline void save(
 ){
     boost::serialization::stl::save_unordered_collection<
         Archive, 
-        std::unordered_set<
-            Key, HashFcn, EqualKey, Allocator
-        > 
+        std::unordered_set<Key, HashFcn, EqualKey, Allocator>
     >(ar, t);
 }
 
@@ -109,10 +65,8 @@ inline void load(
 ){
     boost::serialization::stl::load_unordered_collection<
         Archive,
-        std::unordered_set<
-            Key, HashFcn, EqualKey, Allocator
-        >,
-        boost::serialization::stl::archive_input_unordered_set<
+        std::unordered_set<Key, HashFcn, EqualKey, Allocator>,
+        stl::archive_input_unordered_set<
             Archive, 
             std::unordered_set<
                 Key, HashFcn, EqualKey, Allocator
@@ -137,7 +91,7 @@ inline void serialize(
     > &t,
     const unsigned int file_version
 ){
-    boost::serialization::split_free(ar, t, file_version);
+    split_free(ar, t, file_version);
 }
 
 // unordered_multiset
@@ -155,11 +109,9 @@ inline void save(
     > &t,
     const unsigned int /*file_version*/
 ){
-    boost::serialization::stl::save_unordered_collection<
+    stl::save_unordered_collection<
         Archive, 
-        std::unordered_multiset<
-            Key, HashFcn, EqualKey, Allocator
-        > 
+        std::unordered_multiset<Key, HashFcn, EqualKey, Allocator>
     >(ar, t);
 }
 
@@ -179,14 +131,10 @@ inline void load(
 ){
     boost::serialization::stl::load_unordered_collection<
         Archive,
-        std::unordered_multiset<
-            Key, HashFcn, EqualKey, Allocator
-        >,
+        std::unordered_multiset<Key, HashFcn, EqualKey, Allocator>,
         boost::serialization::stl::archive_input_unordered_multiset<
             Archive,
-            std::unordered_multiset<
-                Key, HashFcn, EqualKey, Allocator
-            > 
+            std::unordered_multiset<Key, HashFcn, EqualKey, Allocator>
         >
     >(ar, t);
 }
@@ -202,9 +150,7 @@ template<
 >
 inline void serialize(
     Archive & ar,
-    std::unordered_multiset<
-        Key, HashFcn, EqualKey, Allocator
-    > &t,
+    std::unordered_multiset<Key, HashFcn, EqualKey, Allocator> &t,
     const unsigned int file_version
 ){
     boost::serialization::split_free(ar, t, file_version);

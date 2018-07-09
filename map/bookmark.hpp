@@ -1,197 +1,99 @@
 #pragma once
 
 #include "map/user_mark.hpp"
-#include "map/user_mark_container.hpp"
+#include "map/user_mark_layer.hpp"
 
-#include "coding/reader.hpp"
+#include "kml/types.hpp"
 
-#include "geometry/point2d.hpp"
-#include "geometry/rect2d.hpp"
-
-#include "base/timer.hpp"
-
-#include "std/string.hpp"
-#include "std/noncopyable.hpp"
-#include "std/iostream.hpp"
-#include "std/shared_ptr.hpp"
-
-namespace anim
-{
-  class Task;
-}
-
-class Track;
-
-class BookmarkData
-{
-public:
-  BookmarkData()
-    : m_scale(-1.0)
-    , m_timeStamp(my::INVALID_TIME_STAMP)
-  {
-  }
-
-  BookmarkData(string const & name, string const & type,
-                     string const & description = "", double scale = -1.0,
-                     time_t timeStamp = my::INVALID_TIME_STAMP)
-    : m_name(name)
-    , m_description(description)
-    , m_type(type)
-    , m_scale(scale)
-    , m_timeStamp(timeStamp)
-  {
-  }
-
-  string const & GetName() const { return m_name; }
-  void SetName(const string & name) { m_name = name; }
-
-  string const & GetDescription() const { return m_description; }
-  void SetDescription(const string & description) { m_description = description; }
-
-  string const & GetType() const { return m_type; }
-  void SetType(const string & type) { m_type = type; }
-
-  double const & GetScale() const { return m_scale; }
-  void SetScale(double scale) { m_scale = scale; }
-
-  time_t const & GetTimeStamp() const { return m_timeStamp; }
-  void SetTimeStamp(const time_t & timeStamp) { m_timeStamp = timeStamp; }
-
-private:
-  string m_name;
-  string m_description;
-  string m_type;  ///< Now it stores bookmark color (category style).
-  double m_scale; ///< Viewport scale. -1.0 - is a default value (no scale set).
-  time_t m_timeStamp;
-};
+#include <memory>
+#include <string>
 
 class Bookmark : public UserMark
 {
-  using TBase = UserMark;
+  using Base = UserMark;
 public:
-  Bookmark(m2::PointD const & ptOrg, UserMarkContainer * container);
+  explicit Bookmark(m2::PointD const & ptOrg);
 
-  Bookmark(BookmarkData const & data, m2::PointD const & ptOrg,
-           UserMarkContainer * container);
+  explicit Bookmark(kml::BookmarkData && data);
 
-  void SetData(BookmarkData const & data);
-  BookmarkData const & GetData() const;
+  void SetData(kml::BookmarkData const & data);
+  kml::BookmarkData const & GetData() const;
 
-  dp::Anchor GetAnchor() const override;
-  string GetSymbolName() const override;
+  bool HasCreationAnimation() const override;
 
-  Type GetMarkType() const override;
-  bool RunCreationAnim() const override;
+  std::string GetPreferredName() const;
 
-  string const & GetName() const;
-  void SetName(string const & name);
-  /// @return Now its a bookmark color - name of icon file
-  string const & GetType() const;
-  void SetType(string const & type);
+  kml::LocalizableString GetName() const;
+  void SetName(kml::LocalizableString const & name);
+  void SetName(std::string const & name, int8_t langCode);
+
+  std::string GetCustomName() const;
+  void SetCustomName(std::string const & customName);
+
+  kml::PredefinedColor GetColor() const;
+  void SetColor(kml::PredefinedColor color);
+
   m2::RectD GetViewport() const;
 
-  string const & GetDescription() const;
-  void SetDescription(string const & description);
+  std::string GetDescription() const;
+  void SetDescription(std::string const & description);
 
-  /// @return my::INVALID_TIME_STAMP if bookmark has no timestamp
-  time_t GetTimeStamp() const;
-  void SetTimeStamp(time_t timeStamp);
+  kml::Timestamp GetTimeStamp() const;
+  void SetTimeStamp(kml::Timestamp timeStamp);
 
-  double GetScale() const;
-  void SetScale(double scale);
+  uint8_t GetScale() const;
+  void SetScale(uint8_t scale);
+
+  dp::Anchor GetAnchor() const override;
+  drape_ptr<SymbolNameZoomInfo> GetSymbolNames() const override;
+
+  df::ColorConstant GetColorConstant() const override;
+
+  kml::MarkGroupId GetGroupId() const override;
+
+  void Attach(kml::MarkGroupId groupId);
+  void Detach();
 
 private:
-  BookmarkData m_data;
-  mutable bool m_runCreationAnim;
+  kml::BookmarkData m_data;
+  kml::MarkGroupId m_groupId;
 };
 
-class BookmarkCategory : public UserMarkContainer
+class BookmarkCategory : public UserMarkLayer
 {
-  typedef UserMarkContainer TBase;
-  vector<unique_ptr<Track>> m_tracks;
-
-  string m_name;
-  /// Stores file name from which category was loaded
-  string m_file;
+  using Base = UserMarkLayer;
 
 public:
-  class Guard
-  {
-  public:
-    Guard(BookmarkCategory & cat)
-      : m_controller(cat.RequestController())
-      , m_cat(cat)
-    {
-    }
+  BookmarkCategory(std::string const & name, kml::MarkGroupId groupId, bool autoSave);
+  BookmarkCategory(kml::CategoryData && data, bool autoSave);
 
-    ~Guard()
-    {
-      m_cat.ReleaseController();
-    }
+  static kml::PredefinedColor GetDefaultColor();
 
-    UserMarksController & m_controller;
+  kml::MarkGroupId GetID() const { return m_data.m_id; }
 
-  private:
-    BookmarkCategory & m_cat;
-  };
+  void SetIsVisible(bool isVisible) override;
+  void SetName(std::string const & name);
+  void SetFileName(std::string const & fileName) { m_file = fileName; }
+  std::string GetName() const;
+  std::string const & GetFileName() const { return m_file; }
 
-  BookmarkCategory(string const & name, Framework & framework);
-  ~BookmarkCategory() override;
+  void EnableAutoSave(bool enable) { m_autoSave = enable; }
+  bool IsAutoSaveEnabled() const { return m_autoSave; }
 
-  size_t GetUserLineCount() const override;
-  df::UserLineMark const * GetUserLineMark(size_t index) const override;
+  kml::CategoryData const & GetCategoryData() const { return m_data; }
 
-  static string GetDefaultType();
+  void SetServerId(std::string const & serverId);
+  std::string const & GetServerId() const { return m_serverId; }
 
-  void ClearTracks();
+  bool IsCategoryFromCatalog() const;
+  std::string GetCatalogDeeplink() const;
 
-  /// @name Tracks routine.
-  //@{
-  void AddTrack(unique_ptr<Track> && track);
-  Track const * GetTrack(size_t index) const;
-  inline size_t GetTracksCount() const { return m_tracks.size(); }
-  void DeleteTrack(size_t index);
-  //@}
+private:
+  void SetDirty() override;
 
-  void SetName(string const & name) { m_name = name; }
-  string const & GetName() const { return m_name; }
-  string const & GetFileName() const { return m_file; }
-
-  /// @name Theese fuctions are public for unit tests only.
-  /// You don't need to call them from client code.
-  //@{
-  bool LoadFromKML(ReaderPtr<Reader> const & reader);
-  void SaveToKML(ostream & s);
-
-  /// Uses the same file name from which was loaded, or
-  /// creates unique file name on first save and uses it every time.
-  bool SaveToKMLFile();
-
-  /// @return 0 in the case of error
-  static BookmarkCategory * CreateFromKMLFile(string const & file, Framework & framework);
-
-  /// Get valid file name from input (remove illegal symbols).
-  static string RemoveInvalidSymbols(string const & name);
-  /// Get unique bookmark file name from path and valid file name.
-  static string GenerateUniqueFileName(const string & path, string name);
-  //@}
-
-protected:
-  UserMark * AllocateUserMark(m2::PointD const & ptOrg) override;
-};
-
-struct BookmarkAndCategory
-{
-  BookmarkAndCategory() = default;
-  BookmarkAndCategory(size_t bookmarkIndex, size_t categoryIndex) : m_bookmarkIndex(bookmarkIndex),
-                                                              m_categoryIndex(categoryIndex) {}
-
-  bool IsValid() const
-  {
-    return m_bookmarkIndex != numeric_limits<size_t>::max() &&
-                          m_categoryIndex != numeric_limits<size_t>::max();
-  };
-
-  size_t m_bookmarkIndex = numeric_limits<size_t>::max();
-  size_t m_categoryIndex = numeric_limits<size_t>::max();
+  // Stores file name from which bookmarks were loaded.
+  std::string m_file;
+  bool m_autoSave = true;
+  kml::CategoryData m_data;
+  std::string m_serverId;
 };

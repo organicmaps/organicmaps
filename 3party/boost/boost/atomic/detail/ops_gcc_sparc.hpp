@@ -34,6 +34,8 @@ namespace detail {
 
 struct gcc_sparc_cas_base
 {
+    static BOOST_CONSTEXPR_OR_CONST bool is_always_lock_free = true;
+
     static BOOST_FORCEINLINE void fence_before(memory_order order) BOOST_NOEXCEPT
     {
         if (order == memory_order_seq_cst)
@@ -62,10 +64,11 @@ struct gcc_sparc_cas32 :
     public gcc_sparc_cas_base
 {
     typedef typename make_storage_type< 4u, Signed >::type storage_type;
+    typedef typename make_storage_type< 4u, Signed >::aligned aligned_storage_type;
 
     static BOOST_FORCEINLINE void store(storage_type volatile& storage, storage_type v, memory_order order) BOOST_NOEXCEPT
     {
-        fence_before_store(order);
+        fence_before(order);
         storage = v;
         fence_after_store(order);
     }
@@ -104,6 +107,20 @@ struct gcc_sparc_cas32 :
         return compare_exchange_strong(storage, expected, desired, success_order, failure_order);
     }
 
+    static BOOST_FORCEINLINE storage_type exchange(storage_type volatile& storage, storage_type v, memory_order order) BOOST_NOEXCEPT
+    {
+        fence_before(order);
+        __asm__ __volatile__
+        (
+            "swap [%1], %0"
+            : "+r" (v)
+            : "r" (&storage)
+            : "memory"
+        );
+        fence_after(order);
+        return v;
+    }
+
     static BOOST_FORCEINLINE bool is_lock_free(storage_type const volatile&) BOOST_NOEXCEPT
     {
         return true;
@@ -114,27 +131,6 @@ template< bool Signed >
 struct operations< 4u, Signed > :
     public cas_based_operations< gcc_sparc_cas32< Signed > >
 {
-    typedef cas_based_operations< gcc_sparc_cas32< Signed > > base_type;
-    typedef typename base_type::storage_type storage_type;
-
-    static BOOST_FORCEINLINE storage_type exchange(storage_type volatile& storage, storage_type v, memory_order order) BOOST_NOEXCEPT
-    {
-        base_type::fence_before(order);
-        __asm__ __volatile__
-        (
-            "swap [%1], %0"
-            : "+r" (v)
-            : "r" (&storage)
-            : "memory"
-        );
-        base_type::fence_after(order);
-        return v;
-    }
-
-    static BOOST_FORCEINLINE bool test_and_set(storage_type volatile& storage, memory_order order) BOOST_NOEXCEPT
-    {
-        return !!exchange(storage, (storage_type)1, order);
-    }
 };
 
 template< bool Signed >
@@ -154,10 +150,11 @@ struct gcc_sparc_cas64 :
     public gcc_sparc_cas_base
 {
     typedef typename make_storage_type< 8u, Signed >::type storage_type;
+    typedef typename make_storage_type< 8u, Signed >::aligned aligned_storage_type;
 
     static BOOST_FORCEINLINE void store(storage_type volatile& storage, storage_type v, memory_order order) BOOST_NOEXCEPT
     {
-        fence_before_store(order);
+        fence_before(order);
         storage = v;
         fence_after_store(order);
     }
@@ -204,7 +201,7 @@ struct gcc_sparc_cas64 :
 
 template< bool Signed >
 struct operations< 8u, Signed > :
-    public cas_based_operations< gcc_sparc_cas64< Signed > >
+    public cas_based_operations< cas_based_exchange< gcc_sparc_cas64< Signed > > >
 {
 };
 

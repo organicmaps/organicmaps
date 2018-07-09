@@ -46,11 +46,7 @@ protected:
     explicit BOOST_ARCHIVE_DECL basic_pointer_iserializer(
         const boost::serialization::extended_type_info & type_
     );
-    // account for bogus gcc warning
-    #if defined(__GNUC__)
-    virtual
-    #endif
-    BOOST_ARCHIVE_DECL ~basic_pointer_iserializer();
+    virtual BOOST_ARCHIVE_DECL ~basic_pointer_iserializer();
 public:
     virtual void * heap_allocation() const = 0;
     virtual const basic_iserializer & get_basic_serializer() const = 0;

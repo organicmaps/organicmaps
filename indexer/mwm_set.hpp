@@ -8,7 +8,9 @@
 
 #include "base/macros.hpp"
 
+#include "indexer/data_factory.hpp"
 #include "indexer/feature_meta.hpp"
+#include "indexer/features_offsets_table.hpp"
 
 #include "std/atomic.hpp"
 #include "std/deque.hpp"
@@ -19,6 +21,7 @@
 #include "std/unique_ptr.hpp"
 #include "std/utility.hpp"
 #include "std/vector.hpp"
+#include "std/weak_ptr.hpp"
 
 #include "base/observer_list.hpp"
 
@@ -26,7 +29,7 @@
 class MwmInfo
 {
 public:
-  friend class Index;
+  friend class DataSource;
   friend class MwmSet;
 
   enum MwmTypeT
@@ -51,30 +54,27 @@ public:
   uint8_t m_maxScale;             ///< Max zoom level of mwm.
   version::MwmVersion m_version;  ///< Mwm file version.
 
-  inline Status GetStatus() const { return m_status; }
+  Status GetStatus() const { return m_status; }
 
-  inline bool IsUpToDate() const { return IsRegistered(); }
+  bool IsUpToDate() const { return IsRegistered(); }
 
-  inline bool IsRegistered() const
-  {
-    return m_status == STATUS_REGISTERED;
-  }
+  bool IsRegistered() const { return m_status == STATUS_REGISTERED; }
 
-  inline platform::LocalCountryFile const & GetLocalFile() const { return m_file; }
+  platform::LocalCountryFile const & GetLocalFile() const { return m_file; }
 
-  inline string const & GetCountryName() const { return m_file.GetCountryName(); }
+  string const & GetCountryName() const { return m_file.GetCountryName(); }
 
-  inline int64_t GetVersion() const { return m_file.GetVersion(); }
+  int64_t GetVersion() const { return m_file.GetVersion(); }
 
   MwmTypeT GetType() const;
 
-  inline feature::RegionData const & GetRegionData() const { return m_data; }
+  feature::RegionData const & GetRegionData() const { return m_data; }
 
   /// Returns the lock counter value for test needs.
   uint8_t GetNumRefs() const { return m_numRefs; }
 
 protected:
-  inline Status SetStatus(Status status)
+  Status SetStatus(Status status)
   {
     Status result = m_status;
     m_status = status;
@@ -86,6 +86,23 @@ protected:
   platform::LocalCountryFile m_file;  ///< Path to the mwm file.
   atomic<Status> m_status;            ///< Current country status.
   uint32_t m_numRefs;                 ///< Number of active handles.
+};
+
+class MwmInfoEx : public MwmInfo
+{
+private:
+  friend class DataSource;
+  friend class MwmValue;
+
+  // weak_ptr is needed here to access offsets table in already
+  // instantiated MwmValue-s for the MWM, including MwmValues in the
+  // MwmSet's cache. We can't use shared_ptr because of offsets table
+  // must be removed as soon as the last corresponding MwmValue is
+  // destroyed. Also, note that this value must be used and modified
+  // only in MwmValue::SetTable() method, which, in turn, is called
+  // only in the MwmSet critical section, protected by a lock.  So,
+  // there's an implicit synchronization on this field.
+  weak_ptr<feature::FeaturesOffsetsTable> m_table;
 };
 
 class MwmSet
@@ -100,16 +117,13 @@ public:
     MwmId(shared_ptr<MwmInfo> const & info) : m_info(info) {}
 
     void Reset() { m_info.reset(); }
-    bool IsAlive() const
-    {
-      return (m_info && m_info->GetStatus() != MwmInfo::STATUS_DEREGISTERED);
-    }
+    bool IsAlive() const { return (m_info && m_info->GetStatus() != MwmInfo::STATUS_DEREGISTERED); }
     shared_ptr<MwmInfo> & GetInfo() { return m_info; }
     shared_ptr<MwmInfo> const & GetInfo() const { return m_info; }
 
-    inline bool operator==(MwmId const & rhs) const { return GetInfo() == rhs.GetInfo(); }
-    inline bool operator!=(MwmId const & rhs) const { return !(*this == rhs); }
-    inline bool operator<(MwmId const & rhs) const { return GetInfo() < rhs.GetInfo(); }
+    bool operator==(MwmId const & rhs) const { return GetInfo() == rhs.GetInfo(); }
+    bool operator!=(MwmId const & rhs) const { return !(*this == rhs); }
+    bool operator<(MwmId const & rhs) const { return GetInfo() < rhs.GetInfo(); }
 
     friend string DebugPrint(MwmId const & id);
 
@@ -138,13 +152,13 @@ public:
 
     // Returns a non-owning ptr.
     template <typename T>
-    inline T * GetValue() const
+    T * GetValue() const
     {
       return static_cast<T *>(m_value.get());
     }
 
-    inline bool IsAlive() const { return m_value.get() != nullptr; }
-    inline MwmId const & GetId() const { return m_mwmId; }
+    bool IsAlive() const { return m_value.get() != nullptr; }
+    MwmId const & GetId() const { return m_mwmId; }
     shared_ptr<MwmInfo> const & GetInfo() const;
 
     MwmHandle & operator=(MwmHandle && handle);
@@ -183,12 +197,12 @@ public:
     {
     }
 
-    inline bool operator==(Event const & rhs) const
+    bool operator==(Event const & rhs) const
     {
       return m_type == rhs.m_type && m_file == rhs.m_file && m_oldFile == rhs.m_oldFile;
     }
 
-    inline bool operator!=(Event const & rhs) const { return !(*this == rhs); }
+    bool operator!=(Event const & rhs) const { return !(*this == rhs); }
 
     Type m_type;
     platform::LocalCountryFile m_file;
@@ -200,9 +214,9 @@ public:
   public:
     EventList() = default;
 
-    inline void Add(Event const & event) { m_events.push_back(event); }
+    void Add(Event const & event) { m_events.push_back(event); }
 
-    inline void Append(EventList const & events)
+    void Append(EventList const & events)
     {
       m_events.insert(m_events.end(), events.m_events.begin(), events.m_events.end());
     }
@@ -239,7 +253,7 @@ public:
 
     // Called when a map is updated to a newer version. Feel free to
     // treat it as combined OnMapRegistered(newFile) +
-    // OnMapRegistered(oldFile).
+    // OnMapDeregistered(oldFile).
     virtual void OnMapUpdated(platform::LocalCountryFile const & /*newFile*/,
                               platform::LocalCountryFile const & /*oldFile*/) {}
 
@@ -278,9 +292,9 @@ public:
   bool Deregister(platform::CountryFile const & countryFile);
   //@}
 
-  inline bool AddObserver(Observer & observer) { return m_observers.Add(observer); }
+  bool AddObserver(Observer & observer) { return m_observers.Add(observer); }
 
-  inline bool RemoveObserver(Observer const & observer) { return m_observers.Remove(observer); }
+  bool RemoveObserver(Observer const & observer) { return m_observers.Remove(observer); }
 
   /// Returns true when country is registered and can be used.
   bool IsLoaded(platform::CountryFile const & countryFile) const;
@@ -301,9 +315,9 @@ public:
   MwmHandle GetMwmHandleById(MwmId const & id);
 
   /// Now this function looks like workaround, but it allows to avoid ugly const_cast everywhere..
-  /// Client code usually holds const reference to Index, but implementation is non-const.
+  /// Client code usually holds const reference to DataSource, but implementation is non-const.
   /// @todo Actually, we need to define, is this behaviour (getting Handle) const or non-const.
-  inline MwmHandle GetMwmHandleById(MwmId const & id) const
+  MwmHandle GetMwmHandleById(MwmId const & id) const
   {
     return const_cast<MwmSet *>(this)->GetMwmHandleById(id);
   }
@@ -367,8 +381,30 @@ protected:
   mutable mutex m_lock;
 
 private:
-  my::ObserverList<Observer> m_observers;
-};
+  base::ObserverListSafe<Observer> m_observers;
+}; // class MwmSet
+
+class MwmValue : public MwmSet::MwmValueBase
+{
+public:
+  FilesContainerR const m_cont;
+  IndexFactory m_factory;
+  platform::LocalCountryFile const m_file;
+
+  shared_ptr<feature::FeaturesOffsetsTable> m_table;
+
+  explicit MwmValue(platform::LocalCountryFile const & localFile);
+  void SetTable(MwmInfoEx & info);
+
+  feature::DataHeader const & GetHeader() const  { return m_factory.GetHeader(); }
+  feature::RegionData const & GetRegionData() const { return m_factory.GetRegionData(); }
+  version::MwmVersion const & GetMwmVersion() const { return m_factory.GetMwmVersion(); }
+  string const & GetCountryFileName() const { return m_file.GetCountryFile().GetName(); }
+
+  bool HasSearchIndex() { return m_cont.IsExist(SEARCH_INDEX_FILE_TAG); }
+  bool HasGeometryIndex() { return m_cont.IsExist(INDEX_FILE_TAG); }
+}; // class MwmValue
+
 
 string DebugPrint(MwmSet::RegResult result);
 string DebugPrint(MwmSet::Event::Type type);

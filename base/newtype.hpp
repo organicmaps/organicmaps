@@ -1,6 +1,8 @@
 #pragma once
 
+#include <functional>
 #include <iostream>
+#include <string>
 #include <type_traits>
 
 namespace my
@@ -8,11 +10,11 @@ namespace my
 namespace impl
 {
 template <typename From, typename To>
-using IsConvertibleGuard = typename std::enable_if<std::is_convertible<From, To>::value>::type *;
+using IsConvertibleGuard = std::enable_if_t<std::is_convertible<From, To>::value> *;
 }  // namespace impl
 
 /// Creates a typesafe alias to a given numeric Type.
-template <typename Type, typename Tag>
+template <typename Type, typename Tag, typename Hasher = std::hash<Type>>
 class NewType
 {
   static_assert(std::is_integral<Type>::value || std::is_floating_point<Type>::value,
@@ -137,6 +139,15 @@ public:
   NewType operator|(NewType const & o) const { return NewType(m_value | o.m_value); }
   NewType operator&(NewType const & o) const { return NewType(m_value & o.m_value); }
 
+  struct Hash
+  {
+    size_t operator()(NewType const & v) const
+    {
+      Hasher h;
+      return h(v.Get());
+    }
+  };
+
 private:
   Type m_value;
 };
@@ -144,9 +155,9 @@ private:
 namespace newtype_default_output
 {
 template <typename Type, typename Tag>
-string SimpleDebugPrint(NewType<Type, Tag> const & nt)
+std::string SimpleDebugPrint(NewType<Type, Tag> const & nt)
 {
-  return DebugPrint(nt.Get());
+  return ::DebugPrint(nt.Get());
 }
 }  // namespace newtype_default_output
 }  // namespace my
@@ -155,12 +166,13 @@ string SimpleDebugPrint(NewType<Type, Tag> const & nt)
   struct NAME ## _tag;                          \
   using NAME = my::NewType<REPR, NAME ## _tag>
 
+
 #define NEWTYPE_SIMPLE_OUTPUT(NAME)                                     \
-  inline string DebugPrint(NAME const & nt)                             \
+  inline std::string DebugPrint(NAME const & nt)                        \
   {                                                                     \
     return my::newtype_default_output::SimpleDebugPrint(nt);            \
   }                                                                     \
-  inline ostream & operator<<(ostream & ost, NAME const & nt)           \
+  inline std::ostream & operator<<(std::ostream & ost, NAME const & nt) \
   {                                                                     \
     return ost << my::newtype_default_output::SimpleDebugPrint(nt);     \
   }

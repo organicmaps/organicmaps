@@ -16,7 +16,7 @@
 
 
 #include <boost/mpl/if.hpp>
-#include <boost/type_traits.hpp>
+#include <boost/type_traits/is_base_of.hpp>
 
 namespace boost { namespace geometry
 {

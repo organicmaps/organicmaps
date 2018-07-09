@@ -69,8 +69,8 @@ template <typename Point1, typename Point2>
 inline typename select_coordinate_type<Point1, Point2>::type dot_product(
         Point1 const& p1, Point2 const& p2)
 {
-    BOOST_CONCEPT_ASSERT( (concept::ConstPoint<Point1>) );
-    BOOST_CONCEPT_ASSERT( (concept::ConstPoint<Point2>) );
+    BOOST_CONCEPT_ASSERT( (concepts::ConstPoint<Point1>) );
+    BOOST_CONCEPT_ASSERT( (concepts::ConstPoint<Point2>) );
 
     return detail::dot_product_maker
         <

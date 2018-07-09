@@ -1,6 +1,6 @@
 #include "search/lazy_centers_table.hpp"
 
-#include "indexer/index.hpp"
+#include "indexer/mwm_set.hpp"
 
 #include "defines.hpp"
 
@@ -31,7 +31,8 @@ void LazyCentersTable::EnsureTableLoaded()
     return;
   }
 
-  m_table = CentersTable::Load(*m_reader.GetPtr(), m_value.GetHeader().GetDefCodingParams());
+  m_table =
+      CentersTable::Load(*m_reader.GetPtr(), m_value.GetHeader().GetDefGeometryCodingParams());
   if (m_table)
     m_state = STATE_LOADED;
   else

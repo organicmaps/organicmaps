@@ -30,6 +30,11 @@
 #define BOOST_ATOMIC_DETAIL_X86_HAS_CMPXCHG16B 1
 #endif
 
+#if defined(_MSC_VER) && (defined(_M_AMD64) || (defined(_M_IX86) && defined(_M_IX86_FP) && _M_IX86_FP >= 2))
+// Use mfence only if SSE2 is available
+#define BOOST_ATOMIC_DETAIL_X86_HAS_MFENCE 1
+#endif
+
 #define BOOST_ATOMIC_INT8_LOCK_FREE 2
 #define BOOST_ATOMIC_INT16_LOCK_FREE 2
 #define BOOST_ATOMIC_INT32_LOCK_FREE 2

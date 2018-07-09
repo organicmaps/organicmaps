@@ -11,30 +11,25 @@
 
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
-#include <cstddef>
-
-// should be the last #include
-#include <boost/type_traits/detail/type_trait_def.hpp>
+#include <cstddef> // size_t
 
 namespace boost {
 
-BOOST_TT_AUX_TYPE_TRAIT_DEF1(remove_extent,T,T)
+template <class T> struct remove_extent{ typedef T type; };
 
 #if !defined(BOOST_NO_ARRAY_TYPE_SPECIALIZATIONS)
-BOOST_TT_AUX_TYPE_TRAIT_PARTIAL_SPEC1_2(typename T,std::size_t N,remove_extent,T[N],T type)
-BOOST_TT_AUX_TYPE_TRAIT_PARTIAL_SPEC1_2(typename T,std::size_t N,remove_extent,T const[N],T const type)
-BOOST_TT_AUX_TYPE_TRAIT_PARTIAL_SPEC1_2(typename T,std::size_t N,remove_extent,T volatile[N],T volatile type)
-BOOST_TT_AUX_TYPE_TRAIT_PARTIAL_SPEC1_2(typename T,std::size_t N,remove_extent,T const volatile[N],T const volatile type)
+template <typename T, std::size_t N> struct remove_extent<T[N]> { typedef T type; };
+template <typename T, std::size_t N> struct remove_extent<T const[N]> { typedef T const type; };
+template <typename T, std::size_t N> struct remove_extent<T volatile [N]> { typedef T volatile type; };
+template <typename T, std::size_t N> struct remove_extent<T const volatile [N]> { typedef T const volatile type; };
 #if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x610)) && !defined(__IBMCPP__) &&  !BOOST_WORKAROUND(__DMC__, BOOST_TESTED_AT(0x840))
-BOOST_TT_AUX_TYPE_TRAIT_PARTIAL_SPEC1_1(typename T,remove_extent,T[],T)
-BOOST_TT_AUX_TYPE_TRAIT_PARTIAL_SPEC1_1(typename T,remove_extent,T const[],T const)
-BOOST_TT_AUX_TYPE_TRAIT_PARTIAL_SPEC1_1(typename T,remove_extent,T volatile[],T volatile)
-BOOST_TT_AUX_TYPE_TRAIT_PARTIAL_SPEC1_1(typename T,remove_extent,T const volatile[],T const volatile)
+template <typename T> struct remove_extent<T[]> { typedef T type; };
+template <typename T> struct remove_extent<T const[]> { typedef T const type; };
+template <typename T> struct remove_extent<T volatile[]> { typedef T volatile type; };
+template <typename T> struct remove_extent<T const volatile[]> { typedef T const volatile type; };
 #endif
 #endif
 
 } // namespace boost
-
-#include <boost/type_traits/detail/type_trait_undef.hpp>
 
 #endif // BOOST_TT_REMOVE_BOUNDS_HPP_INCLUDED

@@ -28,9 +28,24 @@ struct RoutePoint
   string m_name;
 };
 
+struct SearchRequest
+{
+  string m_query;
+  string m_locale;
+  double m_centerLat = 0.0;
+  double m_centerLon = 0.0;
+  bool m_isSearchOnMap = false;
+};
+
+
+namespace lead
+{
+struct CampaignDescription;
+}
+
 class Uri;
 
-/// Handles [mapswithme|mwm]://map?params - everything related to displaying info on a map
+/// Handles [mapswithme|mwm|mapsme]://map|route|search?params - everything related to displaying info on a map
 class ParsedMapApi
 {
 public:
@@ -38,7 +53,9 @@ public:
   {
     Incorrect,
     Map,
-    Route
+    Route,
+    Search,
+    Lead
   };
 
   ParsedMapApi() = default;
@@ -58,13 +75,17 @@ public:
   ApiMarkPoint const * GetSinglePoint() const;
   vector<RoutePoint> const & GetRoutePoints() const { return m_routePoints; }
   string const & GetRoutingType() const { return m_routingType; }
+  SearchRequest const & GetSearchRequest() const { return m_request; }
 private:
   ParsingResult Parse(Uri const & uri);
-  bool AddKeyValue(string key, string const & value, vector<ApiPoint> & points);
-  bool RouteKeyValue(string key, string const & value, vector<string> & pattern);
+  bool AddKeyValue(string const & key, string const & value, vector<ApiPoint> & points);
+  bool RouteKeyValue(string const & key, string const & value, vector<string> & pattern);
+  bool SearchKeyValue(string const & key, string const & value, SearchRequest & request) const;
+  bool LeadKeyValue(string const & key, string const & value, lead::CampaignDescription & description) const;
 
   BookmarkManager * m_bmManager = nullptr;
   vector<RoutePoint> m_routePoints;
+  SearchRequest m_request;
   string m_globalBackUrl;
   string m_appTitle;
   string m_routingType;

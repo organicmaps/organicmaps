@@ -10,6 +10,7 @@
 #include <iomanip>
 #include <sstream>
 #include <boost/cstdint.hpp>
+#include <boost/functional/hash_fwd.hpp>
 #include <boost/multiprecision/number.hpp>
 #ifdef BOOST_MSVC
 #  pragma warning(push)
@@ -54,6 +55,7 @@ struct rational_adaptor
    typename enable_if_c<(boost::multiprecision::detail::is_explicitly_convertible<U, IntBackend>::value && !is_arithmetic<U>::value), rational_adaptor&>::type operator = (const U& u) 
    {
       m_value = IntBackend(u);
+      return *this;
    }
 
 #ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
@@ -276,6 +278,15 @@ inline void assign_components(rational_adaptor<IntBackend>& result, const V& v1,
 {
    result.data().assign(v1, v2);
 }
+
+template <class IntBackend>
+inline std::size_t hash_value(const rational_adaptor<IntBackend>& val)
+{
+   std::size_t result = hash_value(val.data().numerator());
+   boost::hash_combine(result, val.data().denominator());
+   return result;
+}
+
 
 } // namespace backends
 

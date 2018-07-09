@@ -1,8 +1,9 @@
-#import "MWMCommon.h"
+#import "MWMEditorViralAlert.h"
 #import "MWMActivityViewController.h"
 #import "MWMAlertViewController.h"
 #import "MWMAuthorizationCommon.h"
-#import "MWMEditorViralAlert.h"
+#import "MWMBottomMenuViewController.h"
+#import "MWMCommon.h"
 #import "Statistics.h"
 
 @interface MWMEditorViralAlert ()
@@ -15,7 +16,7 @@
 
 + (nonnull instancetype)alert
 {
-  return [[[NSBundle mainBundle] loadNibNamed:[self className] owner:nil options:nil] firstObject];
+  return [NSBundle.mainBundle loadNibNamed:[self className] owner:nil options:nil].firstObject;
 }
 
 - (IBAction)shareTap
@@ -24,7 +25,7 @@
   [self close:^{
     MWMActivityViewController * shareVC = [MWMActivityViewController shareControllerForEditorViral];
     [shareVC presentInParentViewController:self.alertController.ownerViewController
-                                anchorView:self.shareButton];
+                                anchorView:[MWMBottomMenuViewController controller].view];
   }];
 }
 

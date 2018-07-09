@@ -1,4 +1,5 @@
 #include "platform/platform.hpp"
+
 #include "platform/local_country_file.hpp"
 
 #include "coding/base64.hpp"
@@ -9,18 +10,32 @@
 #include "base/logging.hpp"
 #include "base/string_utils.hpp"
 
+#include <thread>
+
 #include "std/target_os.hpp"
-#include "std/thread.hpp"
 
 #include "private.h"
 
 #include <errno.h>
+
+using namespace std;
 
 namespace
 {
 bool IsSpecialDirName(string const & dirName)
 {
   return dirName == "." || dirName == "..";
+}
+
+bool GetFileTypeChecked(string const & path, Platform::EFileType & type)
+{
+  Platform::EError const ret = Platform::GetFileType(path, type);
+  if (ret != Platform::ERR_OK)
+  {
+    LOG(LERROR, ("Can't determine file type for", path, ":", ret));
+    return false;
+  }
+  return true;
 }
 } // namespace
 
@@ -86,7 +101,7 @@ bool Platform::RmDirRecursively(string const & dirName)
   return res;
 }
 
-void Platform::SetSettingsDirForTests(string const & path)
+void Platform::SetSettingsDir(string const & path)
 {
   m_settingsDir = my::AddSlashIfNeeded(path);
 }
@@ -178,9 +193,40 @@ void Platform::GetFilesByType(string const & directory, unsigned typeMask,
   }
 }
 
-string Platform::DeviceName() const
+// static
+bool Platform::IsDirectory(string const & path)
 {
-  return OMIM_OS_NAME;
+  EFileType fileType;
+  if (GetFileType(path, fileType) != ERR_OK)
+    return false;
+  return fileType == FILE_TYPE_DIRECTORY;
+}
+
+// static
+void Platform::GetFilesRecursively(string const & directory, FilesList & filesList)
+{
+  TFilesWithType files;
+
+  GetFilesByType(directory, Platform::FILE_TYPE_REGULAR, files);
+  for (auto const & p : files)
+  {
+    auto const & file = p.first;
+    CHECK_EQUAL(p.second, Platform::FILE_TYPE_REGULAR, ("dir:", directory, "file:", file));
+    filesList.push_back(my::JoinPath(directory, file));
+  }
+
+  TFilesWithType subdirs;
+  GetFilesByType(directory, Platform::FILE_TYPE_DIRECTORY, subdirs);
+
+  for (auto const & p : subdirs)
+  {
+    auto const & subdir = p.first;
+    CHECK_EQUAL(p.second, Platform::FILE_TYPE_DIRECTORY, ("dir:", directory, "subdir:", subdir));
+    if (subdir == "." || subdir == "..")
+      continue;
+
+    GetFilesRecursively(my::JoinPath(directory, subdir), filesList);
+  }
 }
 
 void Platform::SetWritableDirForTests(string const & path)
@@ -193,10 +239,53 @@ void Platform::SetResourceDir(string const & path)
   m_resourcesDir = my::AddSlashIfNeeded(path);
 }
 
+// static
+bool Platform::MkDirChecked(string const & dirName)
+{
+  Platform::EError const ret = MkDir(dirName);
+  switch (ret)
+  {
+  case Platform::ERR_OK: return true;
+  case Platform::ERR_FILE_ALREADY_EXISTS:
+  {
+    Platform::EFileType type;
+    if (!GetFileTypeChecked(dirName, type))
+      return false;
+    if (type != Platform::FILE_TYPE_DIRECTORY)
+    {
+      LOG(LERROR, (dirName, "exists, but not a dirName:", type));
+      return false;
+    }
+    return true;
+  }
+  default: LOG(LERROR, (dirName, "can't be created:", ret)); return false;
+  }
+}
+
 unsigned Platform::CpuCores() const
 {
   unsigned const cores = thread::hardware_concurrency();
   return cores > 0 ? cores : 1;
+}
+
+void Platform::ShutdownThreads()
+{
+  ASSERT(m_networkThread && m_fileThread && m_backgroundThread, ());
+  m_networkThread->ShutdownAndJoin();
+  m_fileThread->ShutdownAndJoin();
+  m_backgroundThread->ShutdownAndJoin();
+
+  m_networkThread.reset();
+  m_fileThread.reset();
+  m_backgroundThread.reset();
+}
+
+void Platform::RunThreads()
+{
+  ASSERT(!m_networkThread && !m_fileThread && !m_backgroundThread, ());
+  m_networkThread = make_unique<base::WorkerThread>();
+  m_fileThread = make_unique<base::WorkerThread>();
+  m_backgroundThread = make_unique<base::WorkerThread>();
 }
 
 string DebugPrint(Platform::EError err)
@@ -217,4 +306,16 @@ string DebugPrint(Platform::EError err)
   case Platform::ERR_IO_ERROR: return "An I/O error occurred.";
   case Platform::ERR_UNKNOWN: return "Unknown";
   }
+  CHECK_SWITCH();
+}
+
+string DebugPrint(Platform::ChargingStatus status)
+{
+  switch (status)
+  {
+  case Platform::ChargingStatus::Unknown: return "Unknown";
+  case Platform::ChargingStatus::Plugged: return "Plugged";
+  case Platform::ChargingStatus::Unplugged: return "Unplugged";
+  }
+  CHECK_SWITCH();
 }

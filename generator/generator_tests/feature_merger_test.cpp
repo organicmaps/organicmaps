@@ -4,6 +4,8 @@
 
 #include "indexer/classificator_loader.hpp"
 
+#include "coding/pointd_to_pointu.hpp"
+
 namespace
 {
   typedef m2::PointD P;

@@ -9,12 +9,8 @@
 #ifndef BOOST_TT_ADD_REFERENCE_HPP_INCLUDED
 #define BOOST_TT_ADD_REFERENCE_HPP_INCLUDED
 
-#include <boost/type_traits/is_reference.hpp>
 #include <boost/detail/workaround.hpp>
 #include <boost/config.hpp>
-
-// should be the last #include
-#include <boost/type_traits/detail/type_trait_def.hpp>
 
 namespace boost {
 
@@ -26,47 +22,38 @@ namespace detail {
 //
 
 template <typename T>
-struct add_reference_rvalue_layer
+struct add_reference_impl
 {
     typedef T& type;
 };
 
 #ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 template <typename T>
-struct add_reference_rvalue_layer<T&&>
+struct add_reference_impl<T&&>
 {
     typedef T&& type;
 };
 #endif
 
-template <typename T>
-struct add_reference_impl
-{
-    typedef typename add_reference_rvalue_layer<T>::type type;
-};
-
-BOOST_TT_AUX_TYPE_TRAIT_IMPL_PARTIAL_SPEC1_1(typename T,add_reference,T&,T&)
-
-// these full specialisations are always required:
-BOOST_TT_AUX_TYPE_TRAIT_IMPL_SPEC1(add_reference,void,void)
-#ifndef BOOST_NO_CV_VOID_SPECIALIZATIONS
-BOOST_TT_AUX_TYPE_TRAIT_IMPL_SPEC1(add_reference,void const,void const)
-BOOST_TT_AUX_TYPE_TRAIT_IMPL_SPEC1(add_reference,void volatile,void volatile)
-BOOST_TT_AUX_TYPE_TRAIT_IMPL_SPEC1(add_reference,void const volatile,void const volatile)
-#endif
-
 } // namespace detail
 
-BOOST_TT_AUX_TYPE_TRAIT_DEF1(add_reference,T,typename boost::detail::add_reference_impl<T>::type)
+template <class T> struct add_reference
+{
+   typedef typename boost::detail::add_reference_impl<T>::type type;
+};
+template <class T> struct add_reference<T&>
+{
+   typedef T& type;
+};
 
-// agurt, 07/mar/03: workaround Borland's ill-formed sensitivity to an additional
-// level of indirection, here
-#if BOOST_WORKAROUND(__BORLANDC__, < 0x600)
-BOOST_TT_AUX_TYPE_TRAIT_PARTIAL_SPEC1_1(typename T,add_reference,T&,T&)
+// these full specialisations are always required:
+template <> struct add_reference<void> { typedef void type; };
+#ifndef BOOST_NO_CV_VOID_SPECIALIZATIONS
+template <> struct add_reference<const void> { typedef const void type; };
+template <> struct add_reference<const volatile void> { typedef const volatile void type; };
+template <> struct add_reference<volatile void> { typedef volatile void type; };
 #endif
 
 } // namespace boost
-
-#include <boost/type_traits/detail/type_trait_undef.hpp>
 
 #endif // BOOST_TT_ADD_REFERENCE_HPP_INCLUDED

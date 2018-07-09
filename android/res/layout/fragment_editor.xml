@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<android.support.v4.widget.NestedScrollView
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -297,6 +297,7 @@
           <EditText
             android:id="@+id/input"
             style="@style/MwmWidget.Editor.FieldLayout.EditText"
+            android:inputType="textMultiLine"
             android:hint="@string/editor_detailed_description_hint"/>
 
         </com.mapswithme.maps.widget.CustomTextInputLayout>
@@ -343,4 +344,4 @@
 
   </LinearLayout>
 
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>

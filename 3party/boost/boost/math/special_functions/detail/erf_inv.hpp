@@ -8,6 +8,9 @@
 
 #ifdef _MSC_VER
 #pragma once
+#pragma warning(push)
+#pragma warning(disable:4127) // Conditional expression is constant
+#pragma warning(disable:4702) // Unreachable code: optimization warning
 #endif
 
 namespace boost{ namespace math{ 
@@ -334,31 +337,37 @@ struct erf_inv_initializer
       static bool is_value_non_zero(T);
       static void do_init()
       {
-         boost::math::erf_inv(static_cast<T>(0.25), Policy());
-         boost::math::erf_inv(static_cast<T>(0.55), Policy());
-         boost::math::erf_inv(static_cast<T>(0.95), Policy());
-         boost::math::erfc_inv(static_cast<T>(1e-15), Policy());
-         // These following initializations must not be called if
-         // type T can not hold the relevant values without
-         // underflow to zero.  We check this at runtime because
-         // some tools such as valgrind silently change the precision
-         // of T at runtime, and numeric_limits basically lies!
-         if(is_value_non_zero(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-130))))
-            boost::math::erfc_inv(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-130)), Policy());
+         // If std::numeric_limits<T>::digits is zero, we must not call
+         // our inituialization code here as the precision presumably
+         // varies at runtime, and will not have been set yet.
+         if(std::numeric_limits<T>::digits)
+         {
+            boost::math::erf_inv(static_cast<T>(0.25), Policy());
+            boost::math::erf_inv(static_cast<T>(0.55), Policy());
+            boost::math::erf_inv(static_cast<T>(0.95), Policy());
+            boost::math::erfc_inv(static_cast<T>(1e-15), Policy());
+            // These following initializations must not be called if
+            // type T can not hold the relevant values without
+            // underflow to zero.  We check this at runtime because
+            // some tools such as valgrind silently change the precision
+            // of T at runtime, and numeric_limits basically lies!
+            if(is_value_non_zero(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-130))))
+               boost::math::erfc_inv(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-130)), Policy());
 
-         // Some compilers choke on constants that would underflow, even in code that isn't instantiated
-         // so try and filter these cases out in the preprocessor:
+            // Some compilers choke on constants that would underflow, even in code that isn't instantiated
+            // so try and filter these cases out in the preprocessor:
 #if LDBL_MAX_10_EXP >= 800
-         if(is_value_non_zero(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-800))))
-            boost::math::erfc_inv(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-800)), Policy());
-         if(is_value_non_zero(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-900))))
-            boost::math::erfc_inv(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-900)), Policy());
+            if(is_value_non_zero(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-800))))
+               boost::math::erfc_inv(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-800)), Policy());
+            if(is_value_non_zero(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-900))))
+               boost::math::erfc_inv(static_cast<T>(BOOST_MATH_BIG_CONSTANT(T, 64, 1e-900)), Policy());
 #else
-         if(is_value_non_zero(static_cast<T>(BOOST_MATH_HUGE_CONSTANT(T, 64, 1e-800))))
-            boost::math::erfc_inv(static_cast<T>(BOOST_MATH_HUGE_CONSTANT(T, 64, 1e-800)), Policy());
-         if(is_value_non_zero(static_cast<T>(BOOST_MATH_HUGE_CONSTANT(T, 64, 1e-900))))
-            boost::math::erfc_inv(static_cast<T>(BOOST_MATH_HUGE_CONSTANT(T, 64, 1e-900)), Policy());
+            if(is_value_non_zero(static_cast<T>(BOOST_MATH_HUGE_CONSTANT(T, 64, 1e-800))))
+               boost::math::erfc_inv(static_cast<T>(BOOST_MATH_HUGE_CONSTANT(T, 64, 1e-800)), Policy());
+            if(is_value_non_zero(static_cast<T>(BOOST_MATH_HUGE_CONSTANT(T, 64, 1e-900))))
+               boost::math::erfc_inv(static_cast<T>(BOOST_MATH_HUGE_CONSTANT(T, 64, 1e-900)), Policy());
 #endif
+         }
       }
       void force_instantiate()const{}
    };
@@ -531,6 +540,10 @@ inline typename tools::promote_args<T>::type erf_inv(T z)
 
 } // namespace math
 } // namespace boost
+
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 #endif // BOOST_MATH_SF_ERF_INV_HPP
 

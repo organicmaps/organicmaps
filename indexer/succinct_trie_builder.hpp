@@ -8,6 +8,7 @@
 #include "coding/writer.hpp"
 
 #include "base/buffer_vector.hpp"
+#include "base/checked_cast.hpp"
 #include "base/scope_guard.hpp"
 #include "base/string_utils.hpp"
 
@@ -166,7 +167,7 @@ void BuildSuccinctTrie(TWriter & writer, TIter const beg, TIter const end)
     if (!node->m_isFinal)
       continue;
     finalNodeIds.push_back(static_cast<uint32_t>(i));
-    offsetTable.push_back(valueWriter.Pos());
+    offsetTable.push_back(base::asserted_cast<uint32_t>(valueWriter.Pos()));
     node->m_valueList.Dump(valueWriter);
   }
 

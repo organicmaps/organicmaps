@@ -1,5 +1,4 @@
 #import "MWMFrameworkHelper.h"
-#import "CLLocation+Mercator.h"
 #import "MWMLocationManager.h"
 #import "MapViewController.h"
 
@@ -9,14 +8,14 @@
 
 @implementation MWMFrameworkHelper
 
-+ (void)zoomToCurrentPosition
++ (void)processFirstLaunch
 {
   auto & f = GetFramework();
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   if (!lastLocation)
     f.SwitchMyPositionNextMode();
   else
-    f.SetViewportCenter(lastLocation.mercator, 13 /* zoom */);
+    f.RunFirstLaunchAnimation();
 }
 
 + (void)setVisibleViewport:(CGRect)rect
@@ -38,7 +37,9 @@
     switch (theme)
     {
     case MWMThemeDay: return MapStyleClear;
+    case MWMThemeVehicleDay: return MapStyleVehicleClear;
     case MWMThemeNight: return MapStyleDark;
+    case MWMThemeVehicleNight: return MapStyleVehicleDark;
     case MWMThemeAuto: NSAssert(NO, @"Invalid theme"); return MapStyleClear;
     }
   }(theme);
@@ -51,10 +52,7 @@
 {
   CLLocation * lastLocation = [MWMLocationManager lastLocation];
   if (!lastLocation)
-  {
-    NSAssert(false, @"Last location is not available");
     return MWMDayTimeDay;
-  }
   auto const coord = lastLocation.coordinate;
   auto const timeUtc = static_cast<time_t>(NSDate.date.timeIntervalSince1970);
   auto const dayTime = GetDayTime(timeUtc, coord.latitude, coord.longitude);
@@ -67,4 +65,5 @@
   }
 }
 
++ (void)createFramework { UNUSED_VALUE(GetFramework()); }
 @end

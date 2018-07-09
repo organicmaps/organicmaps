@@ -10,7 +10,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.InputUtils;
@@ -23,11 +22,11 @@ public class SearchToolbarController extends ToolbarController
 {
   private static final int REQUEST_VOICE_RECOGNITION = 0xCA11;
 
-  protected final View mContainer;
-  protected final EditText mQuery;
+  private final View mContainer;
+  private final EditText mQuery;
   protected final View mProgress;
-  protected final View mClear;
-  protected final View mVoiceInput;
+  private final View mClear;
+  private final View mVoiceInput;
 
   private final boolean mVoiceInputSupported = InputUtils.isVoiceInputSupported(mActivity);
 
@@ -52,23 +51,20 @@ public class SearchToolbarController extends ToolbarController
 
     mContainer = mToolbar.findViewById(R.id.frame);
 
-    mQuery = (EditText) mContainer.findViewById(R.id.query);
+    mQuery = mContainer.findViewById(R.id.query);
     mQuery.setOnClickListener(this);
     mQuery.addTextChangedListener(mTextWatcher);
-    mQuery.setOnEditorActionListener(new TextView.OnEditorActionListener()
-    {
-      @Override
-      public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
-      {
-        boolean isSearchDown = (event != null &&
-                                event.getAction() == KeyEvent.ACTION_DOWN &&
-                                event.getKeyCode() == KeyEvent.KEYCODE_SEARCH);
+    mQuery.setOnEditorActionListener(
+        (v, actionId, event) ->
+        {
+          boolean isSearchDown = (event != null &&
+                                  event.getAction() == KeyEvent.ACTION_DOWN &&
+                                  event.getKeyCode() == KeyEvent.KEYCODE_SEARCH);
 
-        boolean isSearchAction = (actionId == EditorInfo.IME_ACTION_SEARCH);
+          boolean isSearchAction = (actionId == EditorInfo.IME_ACTION_SEARCH);
 
-        return (isSearchDown || isSearchAction) && onStartSearchClick();
-      }
-    });
+          return (isSearchDown || isSearchAction) && onStartSearchClick();
+        });
 
     mProgress = mContainer.findViewById(R.id.progress);
 

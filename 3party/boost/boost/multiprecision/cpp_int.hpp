@@ -16,6 +16,7 @@
 #include <boost/type_traits/is_floating_point.hpp>
 #include <boost/multiprecision/cpp_int/cpp_int_config.hpp>
 #include <boost/multiprecision/rational_adaptor.hpp>
+#include <boost/multiprecision/traits/is_byte_container.hpp>
 #include <boost/detail/endian.hpp>
 #include <boost/integer/static_min_max.hpp>
 #include <boost/type_traits/common_type.hpp>
@@ -33,13 +34,25 @@ namespace backends{
 
 
 #ifdef BOOST_MSVC
-// warning C4127: conditional expression is constant
 #pragma warning(push)
-#pragma warning(disable:4127 4351 4293 4996 4307 4702 6285)
+#pragma warning(disable:4307) // integral constant overflow (oveflow is in a branch not taken when it would overflow)
+#pragma warning(disable:4127) // conditional expression is constant
+#pragma warning(disable:4702) // Unreachable code (reachability depends on template params)
 #endif
 
-template <unsigned MinBits = 0, unsigned MaxBits = 0, cpp_integer_type SignType = signed_magnitude, cpp_int_check_type Checked = unchecked, class Allocator = typename mpl::if_c<MinBits && (MinBits == MaxBits), void, std::allocator<limb_type> >::type >
+template <unsigned MinBits = 0, unsigned MaxBits = 0, boost::multiprecision::cpp_integer_type SignType = signed_magnitude, cpp_int_check_type Checked = unchecked, class Allocator = typename mpl::if_c<MinBits && (MinBits == MaxBits), void, std::allocator<limb_type> >::type >
 struct cpp_int_backend;
+
+} // namespace backends
+
+namespace detail {
+
+   template <unsigned MinBits, unsigned MaxBits, boost::multiprecision::cpp_integer_type SignType, cpp_int_check_type Checked, class Allocator>
+   struct is_byte_container<backends::cpp_int_backend<MinBits, MaxBits, SignType, Checked, Allocator> > : public boost::false_type {};
+
+} // namespace detail
+
+namespace backends{
 
 template <unsigned MinBits, unsigned MaxBits, cpp_integer_type SignType, cpp_int_check_type Checked, class Allocator, bool trivial = false>
 struct cpp_int_base;
@@ -178,7 +191,7 @@ private:
 public:
    BOOST_STATIC_CONSTANT(unsigned, limb_bits = sizeof(limb_type) * CHAR_BIT);
    BOOST_STATIC_CONSTANT(limb_type, max_limb_value = ~static_cast<limb_type>(0u));
-   BOOST_STATIC_CONSTANT(limb_type, sign_bit_mask = 1u << (limb_bits - 1));
+   BOOST_STATIC_CONSTANT(limb_type, sign_bit_mask = static_cast<limb_type>(1u) << (limb_bits - 1));
    BOOST_STATIC_CONSTANT(unsigned, internal_limb_count =
       MinBits
          ? (MinBits / limb_bits + ((MinBits % limb_bits) ? 1 : 0))
@@ -214,7 +227,7 @@ public:
       : m_data(i), m_limbs(1), m_sign(false), m_internal(true) { }
    BOOST_MP_FORCEINLINE BOOST_CONSTEXPR cpp_int_base(signed_limb_type i)BOOST_NOEXCEPT
       : m_data(i), m_limbs(1), m_sign(i < 0), m_internal(true) { }
-#if defined(BOOST_LITTLE_ENDIAN)
+#if defined(BOOST_LITTLE_ENDIAN) && !defined(BOOST_MP_TEST_NO_LE)
    BOOST_MP_FORCEINLINE BOOST_CONSTEXPR cpp_int_base(double_limb_type i)BOOST_NOEXCEPT
       : m_data(i), m_limbs(i > max_limb_value ? 2 : 1), m_sign(false), m_internal(true) { }
    BOOST_MP_FORCEINLINE BOOST_CONSTEXPR cpp_int_base(signed_double_limb_type i)BOOST_NOEXCEPT
@@ -401,7 +414,7 @@ struct cpp_int_base<MinBits, MinBits, signed_magnitude, Checked, void, false>
 public:
    BOOST_STATIC_CONSTANT(unsigned, limb_bits = sizeof(limb_type) * CHAR_BIT);
    BOOST_STATIC_CONSTANT(limb_type, max_limb_value = ~static_cast<limb_type>(0u));
-   BOOST_STATIC_CONSTANT(limb_type, sign_bit_mask = 1u << (limb_bits - 1));
+   BOOST_STATIC_CONSTANT(limb_type, sign_bit_mask = static_cast<limb_type>(1u) << (limb_bits - 1));
    BOOST_STATIC_CONSTANT(unsigned, internal_limb_count = MinBits / limb_bits + ((MinBits % limb_bits) ? 1 : 0));
    BOOST_STATIC_CONSTANT(bool, variable = false);
    BOOST_STATIC_CONSTANT(limb_type, upper_limb_mask = (MinBits % limb_bits) ? (limb_type(1) << (MinBits % limb_bits)) -1 : (~limb_type(0)));
@@ -432,7 +445,7 @@ public:
       : m_wrapper(i), m_limbs(1), m_sign(false) {}
    BOOST_MP_FORCEINLINE BOOST_CONSTEXPR cpp_int_base(signed_limb_type i)BOOST_NOEXCEPT
       : m_wrapper(limb_type(i < 0 ? static_cast<limb_type>(-static_cast<signed_double_limb_type>(i)) : i)), m_limbs(1), m_sign(i < 0) {}
-#if defined(BOOST_LITTLE_ENDIAN)
+#if defined(BOOST_LITTLE_ENDIAN) && !defined(BOOST_MP_TEST_NO_LE)
    BOOST_MP_FORCEINLINE BOOST_CONSTEXPR cpp_int_base(double_limb_type i)BOOST_NOEXCEPT
       : m_wrapper(i), m_limbs(i > max_limb_value ? 2 : 1), m_sign(false) {}
    BOOST_MP_FORCEINLINE BOOST_CONSTEXPR cpp_int_base(signed_double_limb_type i)BOOST_NOEXCEPT
@@ -553,7 +566,7 @@ struct cpp_int_base<MinBits, MinBits, unsigned_magnitude, Checked, void, false>
 public:
    BOOST_STATIC_CONSTANT(unsigned, limb_bits = sizeof(limb_type) * CHAR_BIT);
    BOOST_STATIC_CONSTANT(limb_type, max_limb_value = ~static_cast<limb_type>(0u));
-   BOOST_STATIC_CONSTANT(limb_type, sign_bit_mask = 1u << (limb_bits - 1));
+   BOOST_STATIC_CONSTANT(limb_type, sign_bit_mask = static_cast<limb_type>(1u) << (limb_bits - 1));
    BOOST_STATIC_CONSTANT(unsigned, internal_limb_count = MinBits / limb_bits + ((MinBits % limb_bits) ? 1 : 0));
    BOOST_STATIC_CONSTANT(bool, variable = false);
    BOOST_STATIC_CONSTANT(limb_type, upper_limb_mask = (MinBits % limb_bits) ? (limb_type(1) << (MinBits % limb_bits)) -1 : (~limb_type(0)));
@@ -583,7 +596,7 @@ public:
       : m_wrapper(i), m_limbs(1) {}
    BOOST_MP_FORCEINLINE cpp_int_base(signed_limb_type i)BOOST_MP_NOEXCEPT_IF((Checked == unchecked))
       : m_wrapper(limb_type(i < 0 ? static_cast<limb_type>(-static_cast<signed_double_limb_type>(i)) : i)), m_limbs(1) { if(i < 0) negate(); }
-#ifdef BOOST_LITTLE_ENDIAN
+#if defined(BOOST_LITTLE_ENDIAN) && !defined(BOOST_MP_TEST_NO_LE)
    BOOST_MP_FORCEINLINE BOOST_CONSTEXPR cpp_int_base(double_limb_type i)BOOST_NOEXCEPT
       : m_wrapper(i), m_limbs(i > max_limb_value ? 2 : 1) {}
    BOOST_MP_FORCEINLINE cpp_int_base(signed_double_limb_type i)BOOST_MP_NOEXCEPT_IF((Checked == unchecked))
@@ -761,10 +774,10 @@ public:
    //
    template <class SI>
    BOOST_MP_FORCEINLINE BOOST_CONSTEXPR cpp_int_base(SI i, typename boost::enable_if_c<is_signed<SI>::value && (Checked == unchecked) >::type const* = 0) BOOST_MP_NOEXCEPT_IF(noexcept(std::declval<cpp_int_base>().check_in_range(std::declval<SI>())))
-      : m_data(i < 0 ? static_cast<local_limb_type>(static_cast<typename make_unsigned<SI>::type>(boost::multiprecision::detail::unsigned_abs(i)) & limb_mask) : static_cast<local_limb_type>(i)& limb_mask), m_sign(i < 0) {}
+      : m_data(i < 0 ? static_cast<local_limb_type>(static_cast<typename make_unsigned<SI>::type>(boost::multiprecision::detail::unsigned_abs(i)) & limb_mask) : static_cast<local_limb_type>(i & limb_mask)), m_sign(i < 0) {}
    template <class SI>
    BOOST_MP_FORCEINLINE cpp_int_base(SI i, typename boost::enable_if_c<is_signed<SI>::value && (Checked == checked) >::type const* = 0) BOOST_MP_NOEXCEPT_IF(noexcept(std::declval<cpp_int_base>().check_in_range(std::declval<SI>())))
-      : m_data(i < 0 ? (static_cast<local_limb_type>(static_cast<typename make_unsigned<SI>::type>(boost::multiprecision::detail::unsigned_abs(i)) & limb_mask)) : static_cast<local_limb_type>(i)& limb_mask), m_sign(i < 0) 
+      : m_data(i < 0 ? (static_cast<local_limb_type>(static_cast<typename make_unsigned<SI>::type>(boost::multiprecision::detail::unsigned_abs(i)) & limb_mask)) : static_cast<local_limb_type>(i & limb_mask)), m_sign(i < 0)
    { check_in_range(i); }
    template <class UI>
    BOOST_MP_FORCEINLINE BOOST_CONSTEXPR cpp_int_base(UI i, typename boost::enable_if_c<is_unsigned<UI>::value && (Checked == unchecked)>::type const* = 0) BOOST_NOEXCEPT
@@ -902,6 +915,20 @@ public:
    //
    // Direct construction:
    //
+#ifdef __MSVC_RUNTIME_CHECKS
+   template <class SI>
+   BOOST_MP_FORCEINLINE BOOST_CONSTEXPR cpp_int_base(SI i, typename boost::enable_if_c<is_signed<SI>::value && (Checked == unchecked) >::type const* = 0) BOOST_NOEXCEPT
+      : m_data(i < 0 ? (1 + ~static_cast<local_limb_type>(-i & limb_mask)) & limb_mask : static_cast<local_limb_type>(i & limb_mask)) {}
+   template <class SI>
+   BOOST_MP_FORCEINLINE cpp_int_base(SI i, typename boost::enable_if_c<is_signed<SI>::value && (Checked == checked) >::type const* = 0) BOOST_MP_NOEXCEPT_IF(noexcept(std::declval<cpp_int_base>().check_in_range(std::declval<SI>())))
+      : m_data(i < 0 ? 1 + ~static_cast<local_limb_type>(-i & limb_mask) : static_cast<local_limb_type>(i & limb_mask)) { check_in_range(i); }
+   template <class UI>
+   BOOST_MP_FORCEINLINE BOOST_CONSTEXPR cpp_int_base(UI i, typename boost::enable_if_c<is_unsigned<UI>::value && (Checked == unchecked) >::type const* = 0) BOOST_NOEXCEPT
+      : m_data(static_cast<local_limb_type>(i & limb_mask)) {}
+   template <class UI>
+   BOOST_MP_FORCEINLINE cpp_int_base(UI i, typename boost::enable_if_c<is_unsigned<UI>::value && (Checked == checked) >::type const* = 0) BOOST_MP_NOEXCEPT_IF(noexcept(std::declval<cpp_int_base>().check_in_range(std::declval<UI>())))
+      : m_data(static_cast<local_limb_type>(i & limb_mask)) { check_in_range(i); }
+#else
    template <class SI>
    BOOST_MP_FORCEINLINE BOOST_CONSTEXPR cpp_int_base(SI i, typename boost::enable_if_c<is_signed<SI>::value && (Checked == unchecked) >::type const* = 0) BOOST_NOEXCEPT
       : m_data(i < 0 ? (1 + ~static_cast<local_limb_type>(-i)) & limb_mask : static_cast<local_limb_type>(i) & limb_mask) {}
@@ -914,6 +941,7 @@ public:
    template <class UI>
    BOOST_MP_FORCEINLINE cpp_int_base(UI i, typename boost::enable_if_c<is_unsigned<UI>::value && (Checked == checked) >::type const* = 0) BOOST_MP_NOEXCEPT_IF(noexcept(std::declval<cpp_int_base>().check_in_range(std::declval<UI>())))
       : m_data(static_cast<local_limb_type>(i)) { check_in_range(i); }
+#endif
    template <class F>
    BOOST_MP_FORCEINLINE cpp_int_base(F i, typename boost::enable_if<is_floating_point<F> >::type const* = 0) BOOST_MP_NOEXCEPT_IF((Checked == unchecked))
       : m_data(static_cast<local_limb_type>(std::fabs(i)) & limb_mask)
@@ -944,7 +972,7 @@ public:
       if(b)
          negate();
    }
-   BOOST_MP_FORCEINLINE void resize(unsigned new_size, unsigned min_size)
+   BOOST_MP_FORCEINLINE void resize(unsigned, unsigned min_size)
    {
       detail::verify_new_size(2, min_size, checked_type());
    }
@@ -987,7 +1015,7 @@ public:
 template <class Arg, class Base>
 struct is_allowed_cpp_int_base_conversion : public mpl::if_c<
       is_same<Arg, limb_type>::value || is_same<Arg, signed_limb_type>::value
-#ifdef BOOST_LITTLE_ENDIAN
+#if defined(BOOST_LITTLE_ENDIAN) && !defined(BOOST_MP_TEST_NO_LE)
       || is_same<Arg, double_limb_type>::value || is_same<Arg, signed_double_limb_type>::value
 #endif
 #if defined(BOOST_MP_USER_DEFINED_LITERALS)
@@ -1154,7 +1182,7 @@ public:
 #endif
 private:
    template <class A>
-   typename boost::enable_if<is_unsigned<A> >::type do_assign_arithmetic(A val, const mpl::true_&)
+   typename boost::enable_if<is_unsigned<A> >::type do_assign_arithmetic(A val, const mpl::true_&) 
          BOOST_MP_NOEXCEPT_IF(noexcept(std::declval<cpp_int_backend>().check_in_range(std::declval<A>())))
    {
       this->check_in_range(val);
@@ -1162,7 +1190,7 @@ private:
       this->normalize();
    }
    template <class A>
-   typename boost::disable_if_c<is_unsigned<A>::value || !is_integral<A>::value >::type do_assign_arithmetic(A val, const mpl::true_&)
+   typename boost::disable_if_c<is_unsigned<A>::value || !is_integral<A>::value >::type do_assign_arithmetic(A val, const mpl::true_&) 
          BOOST_MP_NOEXCEPT_IF(noexcept(std::declval<cpp_int_backend>().check_in_range(std::declval<A>())) && noexcept(std::declval<cpp_int_backend>().sign(true)))
    {
       this->check_in_range(val);
@@ -1195,7 +1223,11 @@ private:
       BOOST_STATIC_ASSERT(sizeof(i) == 2 * sizeof(limb_type));
       BOOST_STATIC_ASSERT(base_type::internal_limb_count >= 2);
       typename base_type::limb_pointer p = this->limbs();
+#ifdef __MSVC_RUNTIME_CHECKS
+      *p = static_cast<limb_type>(i & ~static_cast<limb_type>(0));
+#else
       *p = static_cast<limb_type>(i);
+#endif
       p[1] = static_cast<limb_type>(i >> base_type::limb_bits);
       this->resize(p[1] ? 2 : 1, p[1] ? 2 : 1);
       this->sign(false);
@@ -1210,7 +1242,11 @@ private:
          s = true;
       ui = static_cast<double_limb_type>(boost::multiprecision::detail::unsigned_abs(i));
       typename base_type::limb_pointer p = this->limbs();
+#ifdef __MSVC_RUNTIME_CHECKS
+      *p = static_cast<limb_type>(ui & ~static_cast<limb_type>(0));
+#else
       *p = static_cast<limb_type>(ui);
+#endif
       p[1] = static_cast<limb_type>(ui >> base_type::limb_bits);
       this->resize(p[1] ? 2 : 1, p[1] ? 2 : 1);
       this->sign(s);
@@ -1270,7 +1306,7 @@ private:
    }
 public:
    template <class Arithmetic>
-   BOOST_MP_FORCEINLINE cpp_int_backend& operator = (Arithmetic val) BOOST_MP_NOEXCEPT_IF(noexcept(std::declval<cpp_int_backend>().do_assign_arithmetic(std::declval<Arithmetic>(), trivial_tag())))
+   BOOST_MP_FORCEINLINE typename boost::enable_if_c<!boost::multiprecision::detail::is_byte_container<Arithmetic>::value, cpp_int_backend&>::type operator = (Arithmetic val) BOOST_MP_NOEXCEPT_IF(noexcept(std::declval<cpp_int_backend>().do_assign_arithmetic(std::declval<Arithmetic>(), trivial_tag())))
    {
       do_assign_arithmetic(val, trivial_tag());
       return *this;
@@ -1355,43 +1391,97 @@ private:
             n -= 1;
          }
       }
+      //
+      // Exception guarantee: create the result in stack variable "result"
+      // then do a swap at the end.  In the event of a throw, *this will
+      // be left unchanged.
+      //
+      cpp_int_backend result;
       if(n)
       {
-         if(radix == 8 || radix == 16)
+         if(radix == 16)
          {
-            unsigned shift = radix == 8 ? 3 : 4;
-            unsigned block_count = base_type::limb_bits / shift;
-            unsigned block_shift = shift * block_count;
-            limb_type val, block;
+            while(*s == '0') ++s;
+            std::size_t bitcount = 4 * std::strlen(s);
+            limb_type val;
+            std::size_t limb, shift;
+            if(bitcount > 4)
+               bitcount -= 4;
+            else
+               bitcount = 0;
+            std::size_t newsize = bitcount / (sizeof(limb_type) * CHAR_BIT) + 1;
+            result.resize(static_cast<unsigned>(newsize), static_cast<unsigned>(newsize));  // will throw if this is a checked integer that cannot be resized
+            std::memset(result.limbs(), 0, result.size() * sizeof(limb_type));
             while(*s)
             {
-               block = 0;
-               for(unsigned i = 0; (i < block_count); ++i)
+               if(*s >= '0' && *s <= '9')
+                  val = *s - '0';
+               else if(*s >= 'a' && *s <= 'f')
+                  val = 10 + *s - 'a';
+               else if(*s >= 'A' && *s <= 'F')
+                  val = 10 + *s - 'A';
+               else
                {
-                  if(*s >= '0' && *s <= '9')
-                     val = *s - '0';
-                  else if(*s >= 'a' && *s <= 'f')
-                     val = 10 + *s - 'a';
-                  else if(*s >= 'A' && *s <= 'F')
-                     val = 10 + *s - 'A';
-                  else
-                     val = base_type::max_limb_value;
-                  if(val >= radix)
+                  BOOST_THROW_EXCEPTION(std::runtime_error("Unexpected content found while parsing character string."));
+               }
+               limb = bitcount / (sizeof(limb_type) * CHAR_BIT);
+               shift = bitcount % (sizeof(limb_type) * CHAR_BIT);
+               val <<= shift;
+               if(result.size() > limb)
+               {
+                  result.limbs()[limb] |= val;
+               }
+               ++s;
+               bitcount -= 4;
+            }
+            result.normalize();
+         }
+         else if(radix == 8)
+         {
+            while(*s == '0') ++s;
+            std::size_t bitcount = 3 * std::strlen(s);
+            limb_type val;
+            std::size_t limb, shift;
+            if(bitcount > 3)
+               bitcount -= 3;
+            else
+               bitcount = 0;
+            std::size_t newsize = bitcount / (sizeof(limb_type) * CHAR_BIT) + 1;
+            result.resize(static_cast<unsigned>(newsize), static_cast<unsigned>(newsize));  // will throw if this is a checked integer that cannot be resized
+            std::memset(result.limbs(), 0, result.size() * sizeof(limb_type));
+            while(*s)
+            {
+               if(*s >= '0' && *s <= '7')
+                  val = *s - '0';
+               else
+               {
+                  BOOST_THROW_EXCEPTION(std::runtime_error("Unexpected content found while parsing character string."));
+               }
+               limb = bitcount / (sizeof(limb_type) * CHAR_BIT);
+               shift = bitcount % (sizeof(limb_type) * CHAR_BIT);
+               if(result.size() > limb)
+               {
+                  result.limbs()[limb] |= (val << shift);
+                  if(shift > sizeof(limb_type) * CHAR_BIT - 3)
                   {
-                     BOOST_THROW_EXCEPTION(std::runtime_error("Unexpected content found while parsing character string."));
-                  }
-                  block <<= shift;
-                  block |= val;
-                  if(!*++s)
-                  {
-                     // final shift is different:
-                     block_shift = (i + 1) * shift;
-                     break;
+                     // Deal with the bits in val that overflow into the next limb:
+                     val >>= (sizeof(limb_type) * CHAR_BIT - shift);
+                     if(val)
+                     {
+                        // If this is the most-significant-limb, we may need to allocate an extra one for the overflow:
+                        if(limb + 1 == newsize)
+                           result.resize(static_cast<unsigned>(newsize + 1), static_cast<unsigned>(newsize + 1));
+                        if(result.size() > limb + 1)
+                        {
+                           result.limbs()[limb + 1] |= val;
+                        }
+                     }
                   }
                }
-               eval_left_shift(*this, block_shift);
-               this->limbs()[0] |= block;
+               ++s;
+               bitcount -= 3;
             }
+            result.normalize();
          }
          else
          {
@@ -1416,13 +1506,14 @@ private:
                      break;
                   }
                }
-               eval_multiply(*this, block_mult);
-               eval_add(*this, block);
+               eval_multiply(result, block_mult);
+               eval_add(result, block);
             }
          }
       }
       if(isneg)
-         this->negate();
+         result.negate();
+      result.swap(*this);
    }
 public:
    cpp_int_backend& operator = (const char* s)
@@ -1638,6 +1729,67 @@ public:
    {
       return do_get_string(f, trivial_tag());
    }
+private:
+   template <class Container>
+   void construct_from_container(const Container& c, const mpl::false_&)
+   {
+      //
+      // We assume that c is a sequence of (unsigned) bytes with the most significant byte first:
+      //
+      unsigned newsize = static_cast<unsigned>(c.size() / sizeof(limb_type));
+      if(c.size() % sizeof(limb_type))
+      {
+         ++newsize;
+      }
+      if(newsize)
+      {
+         this->resize(newsize, newsize);   // May throw
+         std::memset(this->limbs(), 0, this->size());
+         typename Container::const_iterator i(c.begin()), j(c.end());
+         unsigned byte_location = static_cast<unsigned>(c.size() - 1);
+         while(i != j)
+         {
+            unsigned limb = byte_location / sizeof(limb_type);
+            unsigned shift = (byte_location % sizeof(limb_type))  * CHAR_BIT;
+            if(this->size() > limb)
+               this->limbs()[limb] |= static_cast<limb_type>(static_cast<unsigned char>(*i)) << shift;
+            ++i;
+            --byte_location;
+         }
+      }
+   }
+   template <class Container>
+   void construct_from_container(const Container& c, const mpl::true_&)
+   {
+      //
+      // We assume that c is a sequence of (unsigned) bytes with the most significant byte first:
+      //
+      typedef typename base_type::local_limb_type local_limb_type;
+      *this->limbs() = 0;
+      if(c.size())
+      {
+         typename Container::const_iterator i(c.begin()), j(c.end());
+         unsigned byte_location = static_cast<unsigned>(c.size() - 1);
+         while(i != j)
+         {
+            unsigned limb = byte_location / sizeof(local_limb_type);
+            unsigned shift = (byte_location % sizeof(local_limb_type)) * CHAR_BIT;
+            if(limb == 0)
+               this->limbs()[0] |= static_cast<limb_type>(static_cast<unsigned char>(*i)) << shift;
+            ++i;
+            --byte_location;
+         }
+      }
+   }
+public:
+   template <class Container>
+   cpp_int_backend(const Container& c, typename boost::enable_if_c<boost::multiprecision::detail::is_byte_container<Container>::value>::type const* = 0)
+   {
+      //
+      // We assume that c is a sequence of (unsigned) bytes with the most significant byte first:
+      //
+      construct_from_container(c, trivial_tag());
+   }
    template <unsigned MinBits2, unsigned MaxBits2, cpp_integer_type SignType2, cpp_int_check_type Checked2, class Allocator2>
    int compare_imp(const cpp_int_backend<MinBits2, MaxBits2, SignType2, Checked2, Allocator2>& o, const mpl::false_&, const mpl::false_&)const BOOST_NOEXCEPT
    {
@@ -1795,6 +1947,10 @@ struct is_explicitly_convertible<cpp_int_backend<MinBits, MaxBits, SignType, Che
 }
 #endif
 
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
 }} // namespaces
 
 //
@@ -1811,5 +1967,6 @@ struct is_explicitly_convertible<cpp_int_backend<MinBits, MaxBits, SignType, Che
 #include <boost/multiprecision/cpp_int/literals.hpp>
 #endif
 #include <boost/multiprecision/cpp_int/serialize.hpp>
+#include <boost/multiprecision/cpp_int/import_export.hpp>
 
 #endif

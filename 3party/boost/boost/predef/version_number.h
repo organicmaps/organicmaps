@@ -1,5 +1,5 @@
 /*
-Copyright Rene Rivera 2005, 2008-2013
+Copyright Rene Rivera 2005-2016
 Distributed under the Boost Software License, Version 1.0.
 (See accompanying file LICENSE_1_0.txt or copy at
 http://www.boost.org/LICENSE_1_0.txt)
@@ -49,5 +49,24 @@ Defines standard version numbers, with these properties:
 
 #define BOOST_VERSION_NUMBER_NOT_AVAILABLE \
     BOOST_VERSION_NUMBER_ZERO
+
+/*`
+``
+BOOST_VERSION_NUMBER_MAJOR(N), BOOST_VERSION_NUMBER_MINOR(N), BOOST_VERSION_NUMBER_PATCH(N)
+``
+
+The macros extract the major, minor, and patch portion from a well formed
+version number resulting in a preprocessor expression in the range of
+\[0,99\] or \[0,99999\] for the major and minor, or patch numbers
+respectively.
+*/
+#define BOOST_VERSION_NUMBER_MAJOR(N) \
+    ( ((N)/10000000)%100 )
+
+#define BOOST_VERSION_NUMBER_MINOR(N) \
+    ( ((N)/100000)%100 )
+
+#define BOOST_VERSION_NUMBER_PATCH(N) \
+    ( (N)%100000 )
 
 #endif

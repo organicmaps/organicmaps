@@ -31,7 +31,7 @@
  *
  * BOOST_FLYWEIGHT_PERFECT_FWD_WITH_ARGS(name,body) is a variation omitting the
  * overloads with zero args --when perfect forwarding is available, this second
- * macro is exactly the same as the original.
+ * macro is exactly the same as the original. 
  */
 
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */

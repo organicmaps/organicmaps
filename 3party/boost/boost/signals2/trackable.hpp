@@ -25,8 +25,8 @@ namespace boost {
     namespace detail
     {
         class tracked_objects_visitor;
-
-        // trackable_pointee is used to identify the tracked shared_ptr
+        
+        // trackable_pointee is used to identify the tracked shared_ptr 
         // originating from the signals2::trackable class.  These tracked
         // shared_ptr are special in that we shouldn't bother to
         // increment their use count during signal invocation, since

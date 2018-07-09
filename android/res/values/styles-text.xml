@@ -44,6 +44,10 @@
     <item name="android:textColor">?android:textColorSecondary</item>
   </style>
 
+  <style name="MwmTextAppearance.Body2.Primary">
+    <item name="android:textColor">?android:textColorPrimary</item>
+  </style>
+
   <style name="MwmTextAppearance.Body2.Light">
     <item name="android:textColor">?android:textColorPrimaryInverse</item>
   </style>
@@ -74,6 +78,11 @@
 
   <style name="MwmTextAppearance.Body4.Light">
     <item name="android:textColor">?android:textColorPrimaryInverse</item>
+  </style>
+
+  <style name="MwmTextAppearance.Body5">
+    <item name="android:textSize">@dimen/text_size_body_5</item>
+    <item name="android:textColor">?android:textColorSecondary</item>
   </style>
 
   <style name="MwmTextAppearance.Button">
@@ -183,7 +192,47 @@
     <item name="android:textColor">?bannerText</item>
   </style>
 
-  <style name="MwmTextAppearance.Tab" parent="MwmTextAppearance.Body4">
+  <style name="MwmTextAppearance.Tab" parent="MwmTextAppearance.Body3">
     <item name="android:textAllCaps">true</item>
+    <item name="android:textColor">@color/white_secondary</item>
+  </style>
+
+  <style name="MwmTextAppearance.Discovery.Subtitle" parent="MwmTextAppearance.Body3">
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
+    <item name="android:gravity">start</item>
+  </style>
+
+  <style name="MwmTextAppearance.Discovery.Item.Title" parent="MwmTextAppearance.Body3.Primary">
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="MwmTextAppearance.Discovery.Item.Button" parent="MwmTextAppearance.Body3.Primary">
+    <item name="android:textStyle">bold</item>
+    <item name="android:textColor">?colorAccent</item>
+    <item name="android:textAllCaps">true</item>
+  </style>
+
+  <style name="MwmTextAppearance.Discovery.Item.Distance" parent="MwmTextAppearance.Body3.Primary">
+    <item name="android:textColor">?colorAccent</item>
+  </style>
+
+  <style name="MwmTextAppearance.BookingFilter.Title" parent="MwmTextAppearance.Body3">
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">@string/robotoMedium</item>
+  </style>
+
+  <style name="MwmTextAppearance.BookingFilter.Warning" parent="MwmTextAppearance.Body3">
+    <item name="android:fontFamily" tools:ignore="NewApi">@string/robotoMedium</item>
+    <item name="android:textColor">@color/button_red</item>
+  </style>
+
+  <style name="MwmTextAppearance.BookingFilter.DateTextView" parent="MwmTextAppearance.Body3">
+    <item name="android:singleLine">true</item>
+    <item name="android:ellipsize">end</item>
+    <item name="android:paddingLeft">@dimen/margin_half</item>
+    <item name="android:paddingRight">@dimen/margin_half</item>
+    <item name="android:paddingTop">@dimen/margin_half_plus_eight</item>
+    <item name="android:paddingBottom">@dimen/margin_half_plus_eight</item>
+    <item name="android:gravity">start|center_vertical</item>
+    <item name="android:background">?filterPropertyBackground</item>
   </style>
 </resources>

@@ -7,6 +7,8 @@
 
 using namespace emul;
 
+dp::ApiVersion GLFunctions::CurrentApiVersion = dp::ApiVersion::OpenGLES2;
+
 #define MOCK_CALL(f) GLMockFunctions::Instance().f;
 
 void GLFunctions::glFlush()
@@ -109,8 +111,7 @@ int8_t GLFunctions::glGetAttribLocation(uint32_t programID, string const & name)
 }
 
 void GLFunctions::glBindAttribLocation(uint32_t programID, uint8_t index, string const & name)
-{
-}
+{}
 
 /// enable vertex attribute binding. To get attributeLocation need to call glGetAttributeLocation
 void GLFunctions::glEnableVertexAttribute(int32_t attributeLocation)
@@ -206,7 +207,8 @@ void GLFunctions::glActiveTexture(glConst texBlock)
 
 uint32_t GLFunctions::glGenTexture()
 {
-  return MOCK_CALL(glGenTexture());
+  MOCK_CALL(glGenTexture());
+  return 1;
 }
 
 void GLFunctions::glDeleteTexture(uint32_t id)
@@ -254,6 +256,41 @@ void GLFunctions::glLineWidth(uint32_t value)
   return MOCK_CALL(glLineWidth(value));
 }
 
+void GLFunctions::glViewport(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
+{
+  return MOCK_CALL(glViewport(x, y, w, h));
+}
+
+void GLFunctions::glScissor(uint32_t x, uint32_t y, uint32_t w, uint32_t h)
+{
+  return MOCK_CALL(glScissor(x, y, w, h));
+}
+
+void GLFunctions::glGenFramebuffer(uint32_t * fbo)
+{
+  return MOCK_CALL(glGenFramebuffer(fbo));
+}
+
+void GLFunctions::glBindFramebuffer(uint32_t fbo)
+{
+  return MOCK_CALL(glBindFramebuffer(fbo));
+}
+
+void GLFunctions::glDeleteFramebuffer(uint32_t * fbo)
+{
+  return MOCK_CALL(glDeleteFramebuffer(fbo));
+}
+
+void GLFunctions::glFramebufferTexture2D(glConst attachment, glConst texture)
+{
+  return MOCK_CALL(glFramebufferTexture2D(attachment, texture));
+}
+
+uint32_t GLFunctions::glCheckFramebufferStatus()
+{
+  return MOCK_CALL(glCheckFramebufferStatus());
+}
+
 void CheckGLError(my::SrcPoint const & /*srcPt*/) {}
 
 void GLFunctions::glEnable(glConst mode) {}
@@ -270,6 +307,8 @@ void GLFunctions::glUniformValueiv(int8_t location, int32_t * v, uint32_t size) 
 
 void * GLFunctions::glMapBuffer(glConst, glConst) { return 0; }
 
+void * GLFunctions::glMapBufferRange(glConst, uint32_t, uint32_t, glConst) { return 0; }
+
 void GLFunctions::glUnmapBuffer(glConst target) {}
 
 void GLFunctions::glDrawElements(glConst primitive, uint32_t sizeOfIndex,
@@ -278,6 +317,10 @@ void GLFunctions::glDrawElements(glConst primitive, uint32_t sizeOfIndex,
 void GLFunctions::glDrawArrays(glConst mode, int32_t first, uint32_t count) {}
 
 void GLFunctions::glPixelStore(glConst name, uint32_t value) {}
+
+void GLFunctions::glStencilOpSeparate(glConst face, glConst sfail, glConst dpfail, glConst dppass) {}
+
+void GLFunctions::glStencilFuncSeparate(glConst face, glConst func, int ref, uint32_t mask) {}
 
 int32_t GLFunctions::glGetBufferParameter(glConst target, glConst name)
 {

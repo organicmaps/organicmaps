@@ -44,6 +44,11 @@ public:
   // @note Implementations should transparently support all needed HTTP redirects.
   // Implemented for each platform.
   bool RunHttpRequest();
+  using SuccessChecker = std::function<bool(HttpClient const & request)>;
+  // Returns true and copy of server response into [response] in case when RunHttpRequest() and
+  // [checker] return true. When [checker] is equal to nullptr then default checker will be used.
+  // Check by default: ErrorCode() == 200
+  bool RunHttpRequest(string & response, SuccessChecker checker = nullptr);
 
   // Shared methods for all platforms, implemented at http_client.cpp
   HttpClient & SetDebugMode(bool debug_mode);
@@ -59,13 +64,14 @@ public:
   template <typename StringT>
   HttpClient & SetBodyData(StringT && body_data, string const & content_type,
                            string const & http_method  = "POST",
-                           string const & content_encoding = "")
+                           string const & content_encoding = {})
   {
     m_bodyData = forward<StringT>(body_data);
     m_inputFile.clear();
     m_headers.emplace("Content-Type", content_type);
     m_httpMethod = http_method;
-    m_headers.emplace("Content-Encoding", content_encoding);
+    if (!content_encoding.empty())
+      m_headers.emplace("Content-Encoding", content_encoding);
     return *this;
   }
   // HTTP Basic Auth.
@@ -76,6 +82,7 @@ public:
   // TODO: "false" is now supported on Android only.
   HttpClient & SetHandleRedirects(bool handle_redirects);
   HttpClient & SetRawHeader(string const & key, string const & value);
+  void SetTimeout(double timeoutSec);
 
   string const & UrlRequested() const;
   // @returns empty string in the case of error
@@ -116,6 +123,8 @@ private:
   unordered_map<string, string> m_headers;
   bool m_handleRedirects = true;
   bool m_loadHeaders = false;
+  // Use 30 seconds timeout by default.
+  double m_timeoutSec = 30.0;
 
   DISALLOW_COPY_AND_MOVE(HttpClient);
 };

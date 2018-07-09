@@ -7,38 +7,45 @@
 
 #include "base/logging.hpp"
 
+#include <functional>
+
+using namespace std;
+
 namespace search
 {
 namespace tests_support
 {
 TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query,
                                      string const & locale, Mode mode, m2::RectD const & viewport)
-  : m_engine(engine), m_viewport(viewport)
+  : m_engine(engine)
 {
   m_params.m_query = query;
   m_params.m_inputLocale = locale;
+  m_params.m_viewport = viewport;
   m_params.m_mode = mode;
   SetUpCallbacks();
+  SetUpResultParams();
 }
 
-TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, SearchParams params,
-                                     m2::RectD const & viewport)
-  : m_engine(engine), m_params(params), m_viewport(viewport)
+TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, SearchParams const & params)
+  : m_engine(engine), m_params(params)
 {
   SetUpCallbacks();
 }
 
 TestSearchRequest::TestSearchRequest(TestSearchEngine & engine, string const & query,
                                      string const & locale, Mode mode, m2::RectD const & viewport,
-                                     SearchParams::TOnStarted onStarted,
-                                     SearchParams::TOnResults onResults)
-  : m_engine(engine), m_viewport(viewport)
+                                     SearchParams::OnStarted const & onStarted,
+                                     SearchParams::OnResults const & onResults)
+  : m_engine(engine)
 {
   m_params.m_query = query;
   m_params.m_inputLocale = locale;
+  m_params.m_viewport = viewport;
   m_params.m_mode = mode;
-  m_params.m_onStarted = move(onStarted);
-  m_params.m_onResults = move(onResults);
+  m_params.m_onStarted = onStarted;
+  m_params.m_onResults = onResults;
+  SetUpResultParams();
 }
 
 void TestSearchRequest::Run()
@@ -63,7 +70,7 @@ vector<search::Result> const & TestSearchRequest::Results() const
 
 void TestSearchRequest::Start()
 {
-  m_engine.Search(m_params, m_viewport);
+  m_engine.Search(m_params);
 }
 
 void TestSearchRequest::Wait()
@@ -75,7 +82,27 @@ void TestSearchRequest::Wait()
 void TestSearchRequest::SetUpCallbacks()
 {
   m_params.m_onStarted = bind(&TestSearchRequest::OnStarted, this);
-  m_params.m_onResults = bind(&TestSearchRequest::OnResults, this, _1);
+  m_params.m_onResults = bind(&TestSearchRequest::OnResults, this, placeholders::_1);
+}
+
+void TestSearchRequest::SetUpResultParams()
+{
+  switch (m_params.m_mode)
+  {
+  case Mode::Everywhere:
+    m_params.m_needAddress = true;
+    m_params.m_suggestsEnabled = false;
+    m_params.m_needHighlighting = true;
+    break;
+  case Mode::Viewport:    // fallthrough
+  case Mode::Downloader:  // fallthrough
+  case Mode::Bookmarks:
+    m_params.m_needAddress = false;
+    m_params.m_suggestsEnabled = false;
+    m_params.m_needHighlighting = false;
+    break;
+  case Mode::Count: CHECK(false, ()); break;
+  }
 }
 
 void TestSearchRequest::OnStarted()
@@ -99,7 +126,7 @@ void TestSearchRequest::OnResults(search::Results const & results)
   }
 }
 
-void TestSearchRequest::SetCustomOnResults(SearchParams::TOnResults const & onResults)
+void TestSearchRequest::SetCustomOnResults(SearchParams::OnResults const & onResults)
 {
   m_params.m_onResults = onResults;
 }

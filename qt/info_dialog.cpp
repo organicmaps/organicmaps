@@ -3,20 +3,11 @@
 #include "base/assert.hpp"
 
 #include <QtGui/QIcon>
-
-#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
-  #include <QtGui/QTextBrowser>
-  #include <QtGui/QPushButton>
-  #include <QtGui/QHBoxLayout>
-  #include <QtGui/QVBoxLayout>
-  #include <QtGui/QLabel>
-#else
-  #include <QtWidgets/QTextBrowser>
-  #include <QtWidgets/QPushButton>
-  #include <QtWidgets/QHBoxLayout>
-  #include <QtWidgets/QVBoxLayout>
-  #include <QtWidgets/QLabel>
-#endif
+#include <QtWidgets/QTextBrowser>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QLabel>
 
 namespace qt
 {

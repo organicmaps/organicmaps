@@ -18,7 +18,8 @@ UNIT_TEST(EditorConfig_TypeDescription)
     feature::Metadata::FMD_OPEN_HOURS,
     feature::Metadata::FMD_PHONE_NUMBER,
     feature::Metadata::FMD_WEBSITE,
-    feature::Metadata::FMD_EMAIL
+    feature::Metadata::FMD_EMAIL,
+    feature::Metadata::FMD_LEVEL
   };
 
   pugi::xml_document doc;
@@ -58,6 +59,20 @@ UNIT_TEST(EditorConfig_TypeDescription)
     fields.push_back(EType::FMD_OPERATOR);
     my::SortUnique(fields);
     TEST_EQUAL(desc.GetEditableFields(), fields, ());
+  }
+  {
+    // Testing type inheritance
+    editor::TypeAggregatedDescription desc;
+    TEST(config.GetTypeDescription({"amenity-place_of_worship-christian"}, desc), ());
+    TEST(desc.IsNameEditable(), ());
+    TEST_EQUAL(desc.GetEditableFields(), poi, ());
+  }
+  {
+    // Testing long type inheritance on a fake object
+    editor::TypeAggregatedDescription desc;
+    TEST(config.GetTypeDescription({"tourism-artwork-impresionism-monet"}, desc), ());
+    TEST(desc.IsNameEditable(), ());
+    TEST_EQUAL(desc.GetEditableFields(), TFields {}, ());
   }
   // TODO(mgsergio): Test case with priority="high" when there is one on editor.config.
 }

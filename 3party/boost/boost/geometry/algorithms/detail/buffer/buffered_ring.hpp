@@ -16,6 +16,8 @@
 
 #include <boost/geometry/core/assert.hpp>
 #include <boost/geometry/core/coordinate_type.hpp>
+#include <boost/geometry/core/closure.hpp>
+#include <boost/geometry/core/point_order.hpp>
 #include <boost/geometry/core/point_type.hpp>
 
 #include <boost/geometry/strategies/buffer.hpp>
@@ -96,36 +98,36 @@ namespace traits
 
 
 template <typename Ring>
-struct tag<detail::buffer::buffered_ring<Ring> >
+struct tag<geometry::detail::buffer::buffered_ring<Ring> >
 {
     typedef ring_tag type;
 };
 
 
 template <typename Ring>
-struct point_order<detail::buffer::buffered_ring<Ring> >
+struct point_order<geometry::detail::buffer::buffered_ring<Ring> >
 {
     static const order_selector value = geometry::point_order<Ring>::value;
 };
 
 
 template <typename Ring>
-struct closure<detail::buffer::buffered_ring<Ring> >
+struct closure<geometry::detail::buffer::buffered_ring<Ring> >
 {
     static const closure_selector value = geometry::closure<Ring>::value;
 };
 
 
 template <typename Ring>
-struct point_type<detail::buffer::buffered_ring_collection<Ring> >
+struct point_type<geometry::detail::buffer::buffered_ring_collection<Ring> >
 {
     typedef typename geometry::point_type<Ring>::type type;
 };
 
 template <typename Ring>
-struct tag<detail::buffer::buffered_ring_collection<Ring> >
+struct tag<geometry::detail::buffer::buffered_ring_collection<Ring> >
 {
-    typedef detail::buffer::buffered_ring_collection_tag type;
+    typedef geometry::detail::buffer::buffered_ring_collection_tag type;
 };
 
 
@@ -147,7 +149,29 @@ struct ring_type
     typedef Ring type;
 };
 
+
+// There is a specific tag, so this specialization cannot be placed in traits
+template <typename Ring>
+struct point_order<detail::buffer::buffered_ring_collection_tag,
+        geometry::detail::buffer::buffered_ring_collection
+        <
+            geometry::detail::buffer::buffered_ring<Ring>
+        > >
+{
+    static const order_selector value
+        = core_dispatch::point_order<ring_tag, Ring>::value;
+};
+
+
 }
+
+
+template <>
+struct single_tag_of<detail::buffer::buffered_ring_collection_tag>
+{
+    typedef ring_tag type;
+};
+
 
 namespace dispatch
 {
@@ -211,6 +235,21 @@ struct within
         return detail::within::point_in_geometry(point, multi, strategy) == 1;
     }
 };
+
+
+template <typename Geometry>
+struct is_empty<Geometry, detail::buffer::buffered_ring_collection_tag>
+    : detail::is_empty::multi_is_empty<detail::is_empty::range_is_empty>
+{};
+
+
+template <typename Geometry>
+struct envelope<Geometry, detail::buffer::buffered_ring_collection_tag>
+    : detail::envelope::envelope_multi_range
+        <
+            detail::envelope::envelope_range
+        >
+{};
 
 
 } // namespace dispatch

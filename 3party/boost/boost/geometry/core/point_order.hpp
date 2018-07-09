@@ -22,11 +22,11 @@
 
 #include <boost/mpl/assert.hpp>
 #include <boost/range/value_type.hpp>
-#include <boost/type_traits/remove_const.hpp>
 
 #include <boost/geometry/core/ring_type.hpp>
 #include <boost/geometry/core/tag.hpp>
 #include <boost/geometry/core/tags.hpp>
+#include <boost/geometry/util/bare_type.hpp>
 
 namespace boost { namespace geometry
 {

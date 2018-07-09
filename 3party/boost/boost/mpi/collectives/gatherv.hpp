@@ -25,7 +25,7 @@ namespace detail {
   // datatype, so we'll use MPI_Gatherv to do all of the work.
   template<typename T>
   void
-  gatherv_impl(const communicator& comm, const T* in_values, int in_size,
+  gatherv_impl(const communicator& comm, const T* in_values, int in_size, 
                T* out_values, const int* sizes, const int* displs, int root, mpl::true_)
   {
     MPI_Datatype type = get_mpi_datatype<T>(*in_values);
@@ -39,7 +39,7 @@ namespace detail {
   // datatype, so we'll use MPI_Gatherv to do all of the work.
   template<typename T>
   void
-  gatherv_impl(const communicator& comm, const T* in_values, int in_size, int root,
+  gatherv_impl(const communicator& comm, const T* in_values, int in_size, int root, 
               mpl::true_)
   {
     MPI_Datatype type = get_mpi_datatype<T>(*in_values);
@@ -55,7 +55,7 @@ namespace detail {
   // messages to the root.
   template<typename T>
   void
-  gatherv_impl(const communicator& comm, const T* in_values, int in_size,
+  gatherv_impl(const communicator& comm, const T* in_values, int in_size, 
                T* out_values, const int* sizes, const int* displs, int root, mpl::false_)
   {
     int tag = environment::collectives_tag();
@@ -84,7 +84,7 @@ namespace detail {
   // messages to the root.
   template<typename T>
   void
-  gatherv_impl(const communicator& comm, const T* in_values, int in_size, int root,
+  gatherv_impl(const communicator& comm, const T* in_values, int in_size, int root, 
               mpl::false_)
   {
     int tag = environment::collectives_tag();

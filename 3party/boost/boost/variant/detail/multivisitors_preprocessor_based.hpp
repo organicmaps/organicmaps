@@ -28,7 +28,7 @@
 #   define BOOST_VARAINT_MAX_MULTIVIZITOR_PARAMS 4
 #endif
 
-namespace boost {
+namespace boost { 
 
 namespace detail { namespace variant {
 
@@ -46,7 +46,7 @@ namespace detail { namespace variant {
     public:
         typedef BOOST_DEDUCED_TYPENAME VisitorT::result_type result_type;
 
-        explicit two_variables_holder(VisitorT& visitor, Visitable1T& visitable1, Visitable2T& visitable2) BOOST_NOEXCEPT
+        explicit two_variables_holder(VisitorT& visitor, Visitable1T& visitable1, Visitable2T& visitable2) BOOST_NOEXCEPT 
             : visitor_(visitor)
             , visitable1_(visitable1)
             , visitable2_(visitable2)
@@ -136,7 +136,8 @@ BOOST_PP_REPEAT( BOOST_PP_SUB(BOOST_VARAINT_MAX_MULTIVIZITOR_PARAMS, 2), BOOST_V
 #undef BOOST_VARIANT_APPLY_VISITOR_END
 #undef BOOST_VARANT_VISITORS_VARIABLES_PRINTER
 #undef BOOST_VARIANT_VISIT
-
+    
 } // namespace boost
 
 #endif // BOOST_VARIANT_DETAIL_MULTIVISITORS_PREPROCESSOR_BASED_HPP
+

@@ -3,6 +3,7 @@
 #import "iosOGLContext.h"
 
 #include "drape/oglcontextfactory.hpp"
+#include "drape/drape_global.hpp"
 
 #include "std/condition_variable.hpp"
 #include "std/mutex.hpp"
@@ -10,7 +11,7 @@
 class iosOGLContextFactory: public dp::OGLContextFactory
 {
 public:
-  iosOGLContextFactory(CAEAGLLayer * layer);
+  iosOGLContextFactory(CAEAGLLayer * layer, dp::ApiVersion apiVersion);
   ~iosOGLContextFactory();
 
   dp::OGLContext * getDrawContext() override;
@@ -19,16 +20,19 @@ public:
   bool isDrawContextCreated() const override;
   bool isUploadContextCreated() const override;
   
-  void waitForInitialization() override;
+  void waitForInitialization(dp::OGLContext * context) override;
   
-  void setPresentAvailable(bool available);
+  void setPresentAvailable(bool available) override;
 
 private:
   CAEAGLLayer * m_layer;
+  dp::ApiVersion m_apiVersion;
   iosOGLContext * m_drawContext;
   iosOGLContext * m_uploadContext;
   
   bool m_isInitialized;
+  size_t m_initializationCounter;
+  bool m_presentAvailable;
   condition_variable m_initializationCondition;
   mutex m_initializationMutex;
 };

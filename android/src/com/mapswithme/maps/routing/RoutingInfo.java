@@ -23,8 +23,8 @@ public class RoutingInfo
   public final String nextStreet;
   public final double completionPercent;
   // For vehicle routing.
-  public final VehicleTurnDirection vehicleTurnDirection;
-  public final VehicleTurnDirection vehicleNextTurnDirection;
+  public final CarDirection carDirection;
+  public final CarDirection nextCarDirection;
   public final int exitNum;
   public final SingleLaneInfo[] lanes;
   // For pedestrian routing.
@@ -32,9 +32,9 @@ public class RoutingInfo
   public final Location pedestrianNextDirection;
 
   /**
-   * IMPORTANT : Order of enum values MUST BE the same as native TurnDirection enum.
+   * IMPORTANT : Order of enum values MUST BE the same as native CarDirection enum.
    */
-  public enum VehicleTurnDirection
+  public enum CarDirection
   {
     NO_TURN(R.drawable.ic_turn_straight, 0),
     GO_STRAIGHT(R.drawable.ic_turn_straight, 0),
@@ -49,19 +49,21 @@ public class RoutingInfo
 
     U_TURN_LEFT(R.drawable.ic_turn_uleft, R.drawable.ic_then_uleft),
     U_TURN_RIGHT(R.drawable.ic_turn_uright, R.drawable.ic_then_uright),
-    TAKE_THE_EXIT(R.drawable.ic_turn_finish, R.drawable.ic_then_finish),
 
     ENTER_ROUND_ABOUT(R.drawable.ic_turn_round, R.drawable.ic_then_round),
     LEAVE_ROUND_ABOUT(R.drawable.ic_turn_round, R.drawable.ic_then_round),
     STAY_ON_ROUND_ABOUT(R.drawable.ic_turn_round, R.drawable.ic_then_round),
 
     START_AT_THE_END_OF_STREET(0, 0),
-    REACHED_YOUR_DESTINATION(R.drawable.ic_turn_finish, R.drawable.ic_then_finish);
+    REACHED_YOUR_DESTINATION(R.drawable.ic_turn_finish, R.drawable.ic_then_finish),
+
+    EXIT_HIGHWAY_TO_LEFT(R.drawable.ic_exit_highway_to_left, R.drawable.ic_then_exit_highway_to_left),
+    EXIT_HIGHWAY_TO_RIGHT(R.drawable.ic_exit_highway_to_right, R.drawable.ic_then_exit_highway_to_right);
 
     private final int mTurnRes;
     private final int mNextTurnRes;
 
-    VehicleTurnDirection(@DrawableRes int mainResId, @DrawableRes int nextResId)
+    CarDirection(@DrawableRes int mainResId, @DrawableRes int nextResId)
     {
       mTurnRes = mainResId;
       mNextTurnRes = nextResId;
@@ -83,7 +85,7 @@ public class RoutingInfo
       return mNextTurnRes != 0;
     }
 
-    public static boolean isRoundAbout(VehicleTurnDirection turn)
+    public static boolean isRoundAbout(CarDirection turn)
     {
       return turn == ENTER_ROUND_ABOUT || turn == LEAVE_ROUND_ABOUT || turn == STAY_ON_ROUND_ABOUT;
     }
@@ -138,8 +140,8 @@ public class RoutingInfo
     this.nextStreet = nextStreet;
     this.totalTimeInSeconds = totalTime;
     this.completionPercent = completionPercent;
-    this.vehicleTurnDirection = VehicleTurnDirection.values()[vehicleTurnOrdinal];
-    this.vehicleNextTurnDirection = VehicleTurnDirection.values()[vehicleNextTurnOrdinal];
+    this.carDirection = CarDirection.values()[vehicleTurnOrdinal];
+    this.nextCarDirection = CarDirection.values()[vehicleNextTurnOrdinal];
     this.lanes = lanes;
     this.exitNum = exitNum;
     this.pedestrianTurnDirection = PedestrianTurnDirection.values()[pedestrianTurnOrdinal];

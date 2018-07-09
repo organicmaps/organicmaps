@@ -10,6 +10,14 @@
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 
+#ifndef BOOST_COROUTINES_NO_DEPRECATION_WARNING
+# if defined(_MSC_VER) || defined(__BORLANDC__) || defined(__DMC__)
+#  pragma message ("Warning: Boost.Coroutine is now deprecated. Please switch to Boost.Coroutine2. To disable this warning message, define BOOST_COROUTINES_NO_DEPRECATION_WARNING.")
+# elif defined(__GNUC__) || defined(__HP_aCC) || defined(__SUNPRO_CC) || defined(__IBMCPP__)
+#  warning                  "Boost.Coroutine is now deprecated. Please switch to Boost.Coroutine2. To disable this warning message, define BOOST_COROUTINES_NO_DEPRECATION_WARNING."
+# endif
+#endif
+
 #ifdef BOOST_COROUTINES_DECL
 # undef BOOST_COROUTINES_DECL
 #endif
@@ -33,14 +41,6 @@
 #  define BOOST_DYN_LINK
 # endif
 # include <boost/config/auto_link.hpp>
-#endif
-
-#if defined(BOOST_USE_SEGMENTED_STACKS)
-# if ! ( (defined(__GNUC__) && __GNUC__ > 3 && __GNUC_MINOR__ > 6) || \
-         (defined(__clang__) && __clang_major__ > 2 && __clang_minor__ > 3) )
-#  error "compiler does not support segmented stacks"
-# endif
-# define BOOST_COROUTINES_SEGMENTS 10
 #endif
 
 #define BOOST_COROUTINES_UNIDIRECT

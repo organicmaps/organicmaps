@@ -614,6 +614,7 @@ Japan;Q17;jp;ja
   Japan_Kanto_Tochigi;Q44843
   Japan_Kanto_Tokyo;Q1490
  Japan_Kinki Region;Q164256
+  Japan_Shikoku Region_Kyoto;Q120730
   Japan_Kinki Region_Mie;Q128196
   Japan_Kinki Region_Nara;Q131287
   Japan_Kinki Region_Osaka_Osaka;Q35765
@@ -632,7 +633,6 @@ Japan;Q17;jp;ja
   Japan_Shikoku Region_Ehime;Q123376
   Japan_Shikoku Region_Kagawa;Q161454
   Japan_Shikoku Region_Kochi;Q134093
-  Japan_Shikoku Region_Kyoto;Q120730
   Japan_Shikoku Region_Tokushima;Q160734
  Japan_Tohoku;Q129465
   Japan_Tohoku_Akita;Q81863

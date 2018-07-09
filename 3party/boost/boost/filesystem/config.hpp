@@ -27,12 +27,13 @@
 
 #include <boost/config.hpp>
 #include <boost/system/api_config.hpp>  // for BOOST_POSIX_API or BOOST_WINDOWS_API
-#include <boost/detail/workaround.hpp> 
+#include <boost/detail/workaround.hpp>
 
 //  BOOST_FILESYSTEM_DEPRECATED needed for source compiles -----------------------------//
 
 # ifdef BOOST_FILESYSTEM_SOURCE
 #   define BOOST_FILESYSTEM_DEPRECATED
+#   undef BOOST_FILESYSTEM_NO_DEPRECATED   // fixes #9454, src bld fails if NO_DEP defined
 # endif
 
 //  throw an exception  ----------------------------------------------------------------//

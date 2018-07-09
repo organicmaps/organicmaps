@@ -1,25 +1,25 @@
 #include "drape_frontend/text_shape.hpp"
+#include "drape_frontend/render_state.hpp"
 #include "drape_frontend/text_handle.hpp"
 #include "drape_frontend/text_layout.hpp"
+#include "drape_frontend/visual_params.hpp"
+
+#include "shaders/programs.hpp"
 
 #include "drape/utils/vertex_decl.hpp"
-#include "drape/shader_def.hpp"
 #include "drape/attribute_provider.hpp"
 #include "drape/batcher.hpp"
-#include "drape/glstate.hpp"
 #include "drape/overlay_handle.hpp"
 #include "drape/texture_manager.hpp"
 
 #include "base/string_utils.hpp"
 
-#include "std/vector.hpp"
+#include <utility>
 
 namespace df
 {
-
 namespace
 {
-
 class StraightTextHandle : public TextHandle
 {
   using TBase = TextHandle;
@@ -29,22 +29,56 @@ public:
                      dp::Anchor anchor, glsl::vec2 const & pivot,
                      glsl::vec2 const & pxSize, glsl::vec2 const & offset,
                      uint64_t priority, int fixedHeight,
-                     ref_ptr<dp::TextureManager> textureManager,
-                     bool isOptional, bool affectedByZoomPriority,
+                     ref_ptr<dp::TextureManager> textureManager, bool isOptional,
                      gpu::TTextDynamicVertexBuffer && normals, bool isBillboard = false)
-    : TextHandle(id, text, anchor, priority, fixedHeight, textureManager, move(normals), isBillboard)
+    : TextHandle(id, text, anchor, priority, fixedHeight, textureManager, std::move(normals), isBillboard)
     , m_pivot(glsl::ToPoint(pivot))
     , m_offset(glsl::ToPoint(offset))
     , m_size(glsl::ToPoint(pxSize))
     , m_isOptional(isOptional)
-    , m_affectedByZoomPriority(affectedByZoomPriority)
   {}
+
+  void SetDynamicSymbolSizes(StraightTextLayout const & layout,
+                             std::vector<m2::PointF> const & symbolSizes,
+                             dp::Anchor symbolAnchor)
+  {
+    m_layout = make_unique_dp<StraightTextLayout>(layout);
+    m_symbolSizes = symbolSizes;
+    m_symbolAnchor = symbolAnchor;
+  }
+
+  void GetAttributeMutation(ref_ptr<dp::AttributeBufferMutator> mutator) const override
+  {
+    SetForceUpdateNormals(IsVisible() && m_layout != nullptr);
+    TextHandle::GetAttributeMutation(mutator);
+  }
+
+  bool Update(ScreenBase const & screen) override
+  {
+    if (!TBase::Update(screen))
+      return false;
+
+    if (m_layout != nullptr)
+    {
+      double zoom = 0.0;
+      int index = 0;
+      float lerpCoef = 0.0f;
+      ExtractZoomFactors(screen, zoom, index, lerpCoef);
+      m2::PointF symbolSize = InterpolateByZoomLevels(index, lerpCoef, m_symbolSizes);
+      glsl::vec2 offset;
+      m_layout->AdjustTextOffset(symbolSize, m_anchor, m_symbolAnchor, offset);
+      m_buffer.clear();
+      m_layout->CacheDynamicGeometry(offset, m_buffer);
+      m_offset = glsl::ToPoint(offset);
+    }
+    return true;
+  }
 
   m2::PointD GetPivot(ScreenBase const & screen, bool perspective) const override
   {
     m2::PointD pivot = TBase::GetPivot(screen, false);
     if (perspective)
-      pivot = screen.PtoP3d(pivot - m_offset, -m_pivotZ) + m_offset;
+      pivot = screen.PtoP3d(pivot - m2::PointD(m_offset), -m_pivotZ) + m2::PointD(m_offset);
     return pivot;
   }
 
@@ -54,8 +88,8 @@ public:
     {
       if (IsBillboard())
       {
-        m2::PointD const pxPivot = screen.GtoP(m_pivot);
-        m2::PointD const pxPivotPerspective = screen.PtoP3d(pxPivot, -m_pivotZ);
+        m2::PointD const pxPivot(screen.GtoP(m2::PointD(m_pivot)));
+        m2::PointD const pxPivotPerspective(screen.PtoP3d(pxPivot, -m_pivotZ));
 
         m2::RectD pxRectPerspective = GetPixelRect(screen, false);
         pxRectPerspective.Offset(-pxPivot);
@@ -66,7 +100,7 @@ public:
       return GetPixelRectPerspective(screen);
     }
 
-    m2::PointD pivot = screen.GtoP(m_pivot) + m_offset;
+    m2::PointD pivot(screen.GtoP(m2::PointD(m_pivot)) + m2::PointD(m_offset));
     double x = pivot.x;
     double y = pivot.y;
     if (m_anchor & dp::Left)
@@ -100,14 +134,6 @@ public:
     rects.emplace_back(GetPixelRect(screen, perspective));
   }
 
-  uint64_t GetPriorityMask() const override
-  {
-    if (!m_affectedByZoomPriority)
-      return dp::kPriorityMaskManual | dp::kPriorityMaskRank;
-
-    return dp::kPriorityMaskAll;
-  }
-
   bool IsBound() const override
   {
     return !m_isOptional;
@@ -118,85 +144,156 @@ private:
   m2::PointF m_offset;
   m2::PointF m_size;
   bool m_isOptional;
-  bool m_affectedByZoomPriority;
+  drape_ptr<StraightTextLayout> m_layout;
+  std::vector<m2::PointF> m_symbolSizes;
+  dp::Anchor m_symbolAnchor;
 };
-
-} // namespace
+}  // namespace
 
 TextShape::TextShape(m2::PointD const & basePoint, TextViewParams const & params,
-                     TileKey const & tileKey, bool hasPOI,
-                     uint32_t textIndex, bool affectedByZoomPriority,
-                     int displacementMode, uint16_t specialModePriority)
+                     TileKey const & tileKey,
+                     m2::PointF const & symbolSize, m2::PointF const & symbolOffset, dp::Anchor symbolAnchor,
+                     uint32_t textIndex)
   : m_basePoint(basePoint)
   , m_params(params)
   , m_tileCoords(tileKey.GetTileCoords())
-  , m_hasPOI(hasPOI)
-  , m_affectedByZoomPriority(affectedByZoomPriority)
+  , m_symbolAnchor(symbolAnchor)
+  , m_symbolOffset(symbolOffset)
   , m_textIndex(textIndex)
-  , m_displacementMode(displacementMode)
-  , m_specialModePriority(specialModePriority)
-{}
+{
+  m_symbolSizes.push_back(symbolSize);
+}
+
+TextShape::TextShape(m2::PointD const & basePoint, TextViewParams const & params,
+                     TileKey const & tileKey, std::vector<m2::PointF> const & symbolSizes,
+                     m2::PointF const & symbolOffset, dp::Anchor symbolAnchor, uint32_t textIndex)
+  : m_basePoint(basePoint)
+  , m_params(params)
+  , m_tileCoords(tileKey.GetTileCoords())
+  , m_symbolSizes(symbolSizes)
+  , m_symbolAnchor(symbolAnchor)
+  , m_symbolOffset(symbolOffset)
+  , m_textIndex(textIndex)
+{
+  ASSERT_GREATER(m_symbolSizes.size(), 0, ());
+}
+
+void CalculateTextOffsets(dp::TitleDecl const titleDecl, m2::PointF const & primaryTextSize,
+                          m2::PointF const & secondaryTextSize, glsl::vec2 & primaryResultOffset,
+                          glsl::vec2 & secondaryResultOffset)
+{
+  primaryResultOffset = glsl::vec2(0.0f, 0.0f);
+  secondaryResultOffset = glsl::vec2(0.0f, 0.0f);
+
+  bool const hasSecondary = !titleDecl.m_secondaryText.empty();
+
+  if (titleDecl.m_anchor & dp::Top)
+  {
+    // In the case when the anchor is dp::Top the value of primary offset y > 0,
+    // the text shape is below the POI.
+    primaryResultOffset.y = titleDecl.m_primaryOffset.y;
+    if (hasSecondary)
+      secondaryResultOffset.y = titleDecl.m_primaryOffset.y + primaryTextSize.y + titleDecl.m_secondaryOffset.y;
+  }
+  else if (titleDecl.m_anchor & dp::Bottom)
+  {
+    // In the case when the anchor is dp::Bottom the value of primary offset y < 0,
+    // the text shape is above the POI.
+    primaryResultOffset.y = titleDecl.m_primaryOffset.y;
+    if (hasSecondary)
+    {
+      primaryResultOffset.y -= secondaryTextSize.y + titleDecl.m_secondaryOffset.y;
+      secondaryResultOffset.y = titleDecl.m_primaryOffset.y;
+    }
+  }
+  else if (hasSecondary)
+  {
+    // In the case when the anchor is dp::Center there isn't primary offset y.
+    primaryResultOffset.y = -(primaryTextSize.y + titleDecl.m_secondaryOffset.y) / 2.0f;
+    secondaryResultOffset.y = (secondaryTextSize.y + titleDecl.m_secondaryOffset.y) / 2.0f;
+  }
+
+  if (titleDecl.m_anchor & dp::Left)
+  {
+    // In the case when the anchor is dp::Left the value of primary offset x > 0,
+    // the text shape is on the right from the POI.
+    primaryResultOffset.x = titleDecl.m_primaryOffset.x;
+    if (hasSecondary)
+      secondaryResultOffset.x = primaryResultOffset.x;
+  }
+  else if (titleDecl.m_anchor & dp::Right)
+  {
+    // In the case when the anchor is dp::Right the value of primary offset x < 0,
+    // the text shape is on the left from the POI.
+    primaryResultOffset.x = titleDecl.m_primaryOffset.x;
+    if (hasSecondary)
+      secondaryResultOffset.x = primaryResultOffset.x;
+  }
+}
 
 void TextShape::Draw(ref_ptr<dp::Batcher> batcher, ref_ptr<dp::TextureManager> textures) const
 {
-  ASSERT(!m_params.m_primaryText.empty(), ());
-  StraightTextLayout primaryLayout(strings::MakeUniString(m_params.m_primaryText),
-                                   m_params.m_primaryTextFont.m_size, m_params.m_primaryTextFont.m_isSdf,
-                                   textures, m_params.m_anchor);
+  auto const & titleDecl = m_params.m_titleDecl;
+  ASSERT(!titleDecl.m_primaryText.empty(), ());
+  StraightTextLayout primaryLayout(strings::MakeUniString(titleDecl.m_primaryText),
+                                   titleDecl.m_primaryTextFont.m_size,
+                                   titleDecl.m_primaryTextFont.m_isSdf,
+                                   textures,
+                                   titleDecl.m_anchor);
 
   if (m_params.m_limitedText && primaryLayout.GetPixelSize().y >= m_params.m_limits.y)
   {
-    float const newFontSize = m_params.m_primaryTextFont.m_size * m_params.m_limits.y / primaryLayout.GetPixelSize().y;
-    primaryLayout = StraightTextLayout(strings::MakeUniString(m_params.m_primaryText), newFontSize,
-                                       m_params.m_primaryTextFont.m_isSdf, textures, m_params.m_anchor);
+    float const newFontSize = titleDecl.m_primaryTextFont.m_size * m_params.m_limits.y / primaryLayout.GetPixelSize().y;
+    primaryLayout = StraightTextLayout(strings::MakeUniString(titleDecl.m_primaryText), newFontSize,
+                                       titleDecl.m_primaryTextFont.m_isSdf, textures, titleDecl.m_anchor);
   }
 
-  glsl::vec2 primaryOffset = glsl::ToVec2(m_params.m_primaryOffset);
-
-  if (!m_params.m_secondaryText.empty())
+  drape_ptr<StraightTextLayout> secondaryLayout;
+  if (!titleDecl.m_secondaryText.empty())
   {
-    StraightTextLayout secondaryLayout(strings::MakeUniString(m_params.m_secondaryText),
-                                       m_params.m_secondaryTextFont.m_size, m_params.m_secondaryTextFont.m_isSdf,
-                                       textures, m_params.m_anchor);
-
-    glsl::vec2 secondaryOffset = primaryOffset + glsl::ToVec2(m_params.m_secondaryOffset);
-
-    if (m_params.m_anchor & dp::Top)
-      secondaryOffset += glsl::vec2(0.0, primaryLayout.GetPixelSize().y);
-    else if (m_params.m_anchor & dp::Bottom)
-      primaryOffset -= glsl::vec2(0.0, secondaryLayout.GetPixelSize().y);
-    else
-    {
-      primaryOffset -= glsl::vec2(0.0, primaryLayout.GetPixelSize().y / 2.0f);
-      secondaryOffset += glsl::vec2(0.0, secondaryLayout.GetPixelSize().y / 2.0f);
-    }
-
-    if (secondaryLayout.GetGlyphCount() > 0)
-      DrawSubString(secondaryLayout, m_params.m_secondaryTextFont, secondaryOffset, batcher,
-                    textures, false /* isPrimary */, m_params.m_secondaryOptional);
+    secondaryLayout = make_unique_dp<StraightTextLayout>(strings::MakeUniString(titleDecl.m_secondaryText),
+                                                         titleDecl.m_secondaryTextFont.m_size,
+                                                         titleDecl.m_secondaryTextFont.m_isSdf,
+                                                         textures,
+                                                         titleDecl.m_anchor);
   }
+
+  glsl::vec2 primaryOffset;
+  glsl::vec2 secondaryOffset;
+  CalculateTextOffsets(titleDecl, primaryLayout.GetPixelSize(),
+                       secondaryLayout != nullptr ? secondaryLayout->GetPixelSize() : m2::PointF(0.0f, 0.0f),
+                       primaryOffset, secondaryOffset);
+  primaryOffset += glsl::vec2(m_symbolOffset.x, m_symbolOffset.y);
+  secondaryOffset += glsl::vec2(m_symbolOffset.x, m_symbolOffset.y);
 
   if (primaryLayout.GetGlyphCount() > 0)
-    DrawSubString(primaryLayout, m_params.m_primaryTextFont, primaryOffset, batcher,
-                  textures, true /* isPrimary */, m_params.m_primaryOptional);
+  {
+    DrawSubString(primaryLayout, titleDecl.m_primaryTextFont, primaryOffset, batcher,
+                  textures, true /* isPrimary */, titleDecl.m_primaryOptional);
+  }
+
+  if (secondaryLayout != nullptr && secondaryLayout->GetGlyphCount() > 0)
+  {
+    DrawSubString(*secondaryLayout.get(), titleDecl.m_secondaryTextFont, secondaryOffset, batcher,
+                  textures, false /* isPrimary */, titleDecl.m_secondaryOptional);
+  }
 }
 
-void TextShape::DrawSubString(StraightTextLayout const & layout, dp::FontDecl const & font,
+void TextShape::DrawSubString(StraightTextLayout & layout, dp::FontDecl const & font,
                               glm::vec2 const & baseOffset, ref_ptr<dp::Batcher> batcher,
                               ref_ptr<dp::TextureManager> textures,
                               bool isPrimary, bool isOptional) const
 {
-  dp::Color outlineColor = isPrimary ? m_params.m_primaryTextFont.m_outlineColor
-                                     : m_params.m_secondaryTextFont.m_outlineColor;
+  glsl::vec2 const pt = glsl::ToVec2(ConvertToLocal(m_basePoint, m_params.m_tileCenter, kShapeCoordScalar));
+  layout.SetBasePosition(glsl::vec4(pt, m_params.m_depth, -m_params.m_posZ), baseOffset);
+
+  dp::Color outlineColor = isPrimary ? m_params.m_titleDecl.m_primaryTextFont.m_outlineColor
+                                     : m_params.m_titleDecl.m_secondaryTextFont.m_outlineColor;
 
   if (outlineColor == dp::Color::Transparent())
-  {
-    DrawSubStringPlain(layout, font, baseOffset,batcher, textures, isPrimary, isOptional);
-  }
+    DrawSubStringPlain(layout, font, baseOffset, batcher, textures, isPrimary, isOptional);
   else
-  {
     DrawSubStringOutlined(layout, font, baseOffset, batcher, textures, isPrimary, isOptional);
-  }
 }
 
 void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDecl const & font,
@@ -210,13 +307,15 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
   textures->GetColorRegion(font.m_color, color);
   textures->GetColorRegion(font.m_outlineColor, outline);
 
-  glsl::vec2 const pt = glsl::ToVec2(ConvertToLocal(m_basePoint, m_params.m_tileCenter, kShapeCoordScalar));
-  layout.Cache(glsl::vec4(pt, m_params.m_depth, -m_params.m_posZ),
-               baseOffset, color, staticBuffer, dynamicBuffer);
+  glm::vec2 finalOffset = baseOffset;
+  layout.AdjustTextOffset(m_symbolSizes.front(), m_params.m_titleDecl.m_anchor, m_symbolAnchor, finalOffset);
+  layout.CacheDynamicGeometry(finalOffset, dynamicBuffer);
+
+  layout.CacheStaticGeometry(color, staticBuffer);
 
   bool const isNonSdfText = layout.GetFixedHeight() > 0;
-  dp::GLState state(isNonSdfText ? gpu::TEXT_FIXED_PROGRAM : gpu::TEXT_PROGRAM, dp::GLState::OverlayLayer);
-  state.SetProgram3dIndex(isNonSdfText ? gpu::TEXT_FIXED_BILLBOARD_PROGRAM : gpu::TEXT_BILLBOARD_PROGRAM);
+  auto state = CreateGLState(isNonSdfText ? gpu::Program::TextFixed : gpu::Program::Text, m_params.m_depthLayer);
+  state.SetProgram3d(isNonSdfText ? gpu::Program::TextFixedBillboard : gpu::Program::TextBillboard);
 
   ASSERT(color.GetTexture() == outline.GetTexture(), ());
   state.SetColorTexture(color.GetTexture());
@@ -230,28 +329,36 @@ void TextShape::DrawSubStringPlain(StraightTextLayout const & layout, dp::FontDe
   m2::PointF const & pixelSize = layout.GetPixelSize();
 
   auto overlayId = dp::OverlayID(m_params.m_featureID, m_tileCoords, m_textIndex);
-  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<StraightTextHandle>(overlayId,
-                                                                           layout.GetText(),
-                                                                           m_params.m_anchor,
-                                                                           glsl::ToVec2(m_basePoint),
-                                                                           glsl::vec2(pixelSize.x, pixelSize.y),
-                                                                           baseOffset,
-                                                                           GetOverlayPriority(),
-                                                                           layout.GetFixedHeight(),
-                                                                           textures,
-                                                                           isOptional,
-                                                                           m_affectedByZoomPriority,
-                                                                           move(dynamicBuffer),
-                                                                           true);
-  handle->SetDisplacementMode(m_displacementMode);
+  drape_ptr<StraightTextHandle> handle = make_unique_dp<StraightTextHandle>(overlayId,
+                                                                            layout.GetText(),
+                                                                            m_params.m_titleDecl.m_anchor,
+                                                                            glsl::ToVec2(m_basePoint),
+                                                                            glsl::vec2(pixelSize.x, pixelSize.y),
+                                                                            finalOffset,
+                                                                            GetOverlayPriority(),
+                                                                            layout.GetFixedHeight(),
+                                                                            textures,
+                                                                            isOptional,
+                                                                            std::move(dynamicBuffer),
+                                                                            true);
+  if (m_symbolSizes.size() > 1)
+    handle->SetDynamicSymbolSizes(layout, m_symbolSizes, m_symbolAnchor);
   handle->SetPivotZ(m_params.m_posZ);
-  handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2) : dp::OverlayRank0);
+
+  ASSERT_LESS(m_params.m_startOverlayRank + 1, dp::OverlayRanksCount, ());
+  handle->SetOverlayRank(isPrimary ? m_params.m_startOverlayRank : m_params.m_startOverlayRank + 1);
+
   handle->SetExtendingSize(m_params.m_extendingSize);
+  if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark ||
+      m_params.m_specialDisplacement == SpecialDisplacement::TransitScheme)
+  {
+    handle->SetSpecialLayerOverlay(true);
+  }
 
   dp::AttributeProvider provider(2, static_cast<uint32_t>(staticBuffer.size()));
   provider.InitStream(0, gpu::TextStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
   provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(initialDynBuffer.data()));
-  batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
+  batcher->InsertListOfStrip(state, make_ref(&provider), std::move(handle), 4);
 }
 
 void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::FontDecl const & font,
@@ -265,12 +372,14 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
   textures->GetColorRegion(font.m_color, color);
   textures->GetColorRegion(font.m_outlineColor, outline);
 
-  glsl::vec2 const pt = glsl::ToVec2(ConvertToLocal(m_basePoint, m_params.m_tileCenter, kShapeCoordScalar));
-  layout.Cache(glsl::vec4(pt, m_params.m_depth, -m_params.m_posZ),
-               baseOffset, color, outline, staticBuffer, dynamicBuffer);
+  glm::vec2 finalOffset = baseOffset;
+  layout.AdjustTextOffset(m_symbolSizes.front(), m_params.m_titleDecl.m_anchor, m_symbolAnchor, finalOffset);
 
-  dp::GLState state(gpu::TEXT_OUTLINED_PROGRAM, dp::GLState::OverlayLayer);
-  state.SetProgram3dIndex(gpu::TEXT_OUTLINED_BILLBOARD_PROGRAM);
+  layout.CacheDynamicGeometry(finalOffset, dynamicBuffer);
+  layout.CacheStaticGeometry(color, outline, staticBuffer);
+
+  auto state = CreateGLState(gpu::Program::TextOutlined, m_params.m_depthLayer);
+  state.SetProgram3d(gpu::Program::TextOutlinedBillboard);
   ASSERT(color.GetTexture() == outline.GetTexture(), ());
   state.SetColorTexture(color.GetTexture());
   state.SetMaskTexture(layout.GetMaskTexture());
@@ -280,28 +389,36 @@ void TextShape::DrawSubStringOutlined(StraightTextLayout const & layout, dp::Fon
   m2::PointF const & pixelSize = layout.GetPixelSize();
 
   auto overlayId = dp::OverlayID(m_params.m_featureID, m_tileCoords, m_textIndex);
-  drape_ptr<dp::OverlayHandle> handle = make_unique_dp<StraightTextHandle>(overlayId,
-                                                                           layout.GetText(),
-                                                                           m_params.m_anchor,
-                                                                           glsl::ToVec2(m_basePoint),
-                                                                           glsl::vec2(pixelSize.x, pixelSize.y),
-                                                                           baseOffset,
-                                                                           GetOverlayPriority(),
-                                                                           layout.GetFixedHeight(),
-                                                                           textures,
-                                                                           isOptional,
-                                                                           m_affectedByZoomPriority,
-                                                                           move(dynamicBuffer),
-                                                                           true);
-  handle->SetDisplacementMode(m_displacementMode);
+  drape_ptr<StraightTextHandle> handle = make_unique_dp<StraightTextHandle>(overlayId,
+                                                                            layout.GetText(),
+                                                                            m_params.m_titleDecl.m_anchor,
+                                                                            glsl::ToVec2(m_basePoint),
+                                                                            glsl::vec2(pixelSize.x, pixelSize.y),
+                                                                            finalOffset,
+                                                                            GetOverlayPriority(),
+                                                                            layout.GetFixedHeight(),
+                                                                            textures,
+                                                                            isOptional,
+                                                                            std::move(dynamicBuffer),
+                                                                            true);
+  if (m_symbolSizes.size() > 1)
+    handle->SetDynamicSymbolSizes(layout, m_symbolSizes, m_symbolAnchor);
   handle->SetPivotZ(m_params.m_posZ);
-  handle->SetOverlayRank(m_hasPOI ? (isPrimary ? dp::OverlayRank1 : dp::OverlayRank2) : dp::OverlayRank0);
+
+  ASSERT_LESS(m_params.m_startOverlayRank + 1, dp::OverlayRanksCount, ());
+  handle->SetOverlayRank(isPrimary ? m_params.m_startOverlayRank : m_params.m_startOverlayRank + 1);
+
   handle->SetExtendingSize(m_params.m_extendingSize);
+  if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark ||
+      m_params.m_specialDisplacement == SpecialDisplacement::TransitScheme)
+  {
+    handle->SetSpecialLayerOverlay(true);
+  }
 
   dp::AttributeProvider provider(2, static_cast<uint32_t>(staticBuffer.size()));
   provider.InitStream(0, gpu::TextOutlinedStaticVertex::GetBindingInfo(), make_ref(staticBuffer.data()));
   provider.InitStream(1, gpu::TextDynamicVertex::GetBindingInfo(), make_ref(initialDynBuffer.data()));
-  batcher->InsertListOfStrip(state, make_ref(&provider), move(handle), 4);
+  batcher->InsertListOfStrip(state, make_ref(&provider), std::move(handle), 4);
 }
 
 uint64_t TextShape::GetOverlayPriority() const
@@ -312,11 +429,17 @@ uint64_t TextShape::GetOverlayPriority() const
     return dp::kPriorityMaskAll;
 
   // Special displacement mode.
-  if ((m_displacementMode & dp::displacement::kDefaultMode) == 0)
-    return dp::CalculateSpecialModePriority(m_specialModePriority);
+  if (m_params.m_specialDisplacement == SpecialDisplacement::SpecialMode ||
+      m_params.m_specialDisplacement == SpecialDisplacement::TransitScheme)
+  {
+    return dp::CalculateSpecialModePriority(m_params.m_specialPriority);
+  }
 
-  // Set up minimal priority for shapes which belong to areas
-  if (m_params.m_hasArea)
+  if (m_params.m_specialDisplacement == SpecialDisplacement::UserMark)
+    return dp::CalculateUserMarkPriority(m_params.m_minVisibleScale, m_params.m_specialPriority);
+
+  // Set up minimal priority for house numbers.
+  if (m_params.m_specialDisplacement == SpecialDisplacement::HouseNumber)
     return 0;
 
   // Overlay priority for text shapes considers length of the primary text
@@ -325,10 +448,9 @@ uint64_t TextShape::GetOverlayPriority() const
   static uint64_t constexpr kMask = ~static_cast<uint64_t>(0xFFFF);
   uint64_t priority = dp::CalculateOverlayPriority(m_params.m_minVisibleScale, m_params.m_rank, m_params.m_depth);
   priority &= kMask;
-  priority |= (static_cast<uint8_t>(m_params.m_primaryText.size()) << 8);
+  priority |= (static_cast<uint8_t>(m_params.m_titleDecl.m_primaryText.size()) << 8);
   priority |= static_cast<uint8_t>(m_textIndex);
 
   return priority;
 }
-
-} //end of df namespace
+}  // namespace df

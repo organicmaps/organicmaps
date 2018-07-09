@@ -87,7 +87,7 @@ namespace boost { namespace fusion
         typedef vector_data21<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20> base_type;
         typedef mpl::vector21<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20> types;
         typedef vector_tag fusion_tag;
-        typedef fusion_sequence_tag tag;
+        typedef fusion_sequence_tag tag; 
         typedef mpl::false_ is_view;
         typedef random_access_traversal_tag category;
         typedef mpl::int_<21> size;
@@ -268,7 +268,7 @@ namespace boost { namespace fusion
         typedef vector_data22<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21> base_type;
         typedef mpl::vector22<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21> types;
         typedef vector_tag fusion_tag;
-        typedef fusion_sequence_tag tag;
+        typedef fusion_sequence_tag tag; 
         typedef mpl::false_ is_view;
         typedef random_access_traversal_tag category;
         typedef mpl::int_<22> size;
@@ -449,7 +449,7 @@ namespace boost { namespace fusion
         typedef vector_data23<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22> base_type;
         typedef mpl::vector23<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22> types;
         typedef vector_tag fusion_tag;
-        typedef fusion_sequence_tag tag;
+        typedef fusion_sequence_tag tag; 
         typedef mpl::false_ is_view;
         typedef random_access_traversal_tag category;
         typedef mpl::int_<23> size;
@@ -630,7 +630,7 @@ namespace boost { namespace fusion
         typedef vector_data24<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22 , T23> base_type;
         typedef mpl::vector24<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22 , T23> types;
         typedef vector_tag fusion_tag;
-        typedef fusion_sequence_tag tag;
+        typedef fusion_sequence_tag tag; 
         typedef mpl::false_ is_view;
         typedef random_access_traversal_tag category;
         typedef mpl::int_<24> size;
@@ -811,7 +811,7 @@ namespace boost { namespace fusion
         typedef vector_data25<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22 , T23 , T24> base_type;
         typedef mpl::vector25<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22 , T23 , T24> types;
         typedef vector_tag fusion_tag;
-        typedef fusion_sequence_tag tag;
+        typedef fusion_sequence_tag tag; 
         typedef mpl::false_ is_view;
         typedef random_access_traversal_tag category;
         typedef mpl::int_<25> size;
@@ -992,7 +992,7 @@ namespace boost { namespace fusion
         typedef vector_data26<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22 , T23 , T24 , T25> base_type;
         typedef mpl::vector26<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22 , T23 , T24 , T25> types;
         typedef vector_tag fusion_tag;
-        typedef fusion_sequence_tag tag;
+        typedef fusion_sequence_tag tag; 
         typedef mpl::false_ is_view;
         typedef random_access_traversal_tag category;
         typedef mpl::int_<26> size;
@@ -1173,7 +1173,7 @@ namespace boost { namespace fusion
         typedef vector_data27<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22 , T23 , T24 , T25 , T26> base_type;
         typedef mpl::vector27<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22 , T23 , T24 , T25 , T26> types;
         typedef vector_tag fusion_tag;
-        typedef fusion_sequence_tag tag;
+        typedef fusion_sequence_tag tag; 
         typedef mpl::false_ is_view;
         typedef random_access_traversal_tag category;
         typedef mpl::int_<27> size;
@@ -1354,7 +1354,7 @@ namespace boost { namespace fusion
         typedef vector_data28<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22 , T23 , T24 , T25 , T26 , T27> base_type;
         typedef mpl::vector28<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22 , T23 , T24 , T25 , T26 , T27> types;
         typedef vector_tag fusion_tag;
-        typedef fusion_sequence_tag tag;
+        typedef fusion_sequence_tag tag; 
         typedef mpl::false_ is_view;
         typedef random_access_traversal_tag category;
         typedef mpl::int_<28> size;
@@ -1535,7 +1535,7 @@ namespace boost { namespace fusion
         typedef vector_data29<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22 , T23 , T24 , T25 , T26 , T27 , T28> base_type;
         typedef mpl::vector29<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22 , T23 , T24 , T25 , T26 , T27 , T28> types;
         typedef vector_tag fusion_tag;
-        typedef fusion_sequence_tag tag;
+        typedef fusion_sequence_tag tag; 
         typedef mpl::false_ is_view;
         typedef random_access_traversal_tag category;
         typedef mpl::int_<29> size;
@@ -1716,7 +1716,7 @@ namespace boost { namespace fusion
         typedef vector_data30<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22 , T23 , T24 , T25 , T26 , T27 , T28 , T29> base_type;
         typedef mpl::vector30<T0 , T1 , T2 , T3 , T4 , T5 , T6 , T7 , T8 , T9 , T10 , T11 , T12 , T13 , T14 , T15 , T16 , T17 , T18 , T19 , T20 , T21 , T22 , T23 , T24 , T25 , T26 , T27 , T28 , T29> types;
         typedef vector_tag fusion_tag;
-        typedef fusion_sequence_tag tag;
+        typedef fusion_sequence_tag tag; 
         typedef mpl::false_ is_view;
         typedef random_access_traversal_tag category;
         typedef mpl::int_<30> size;

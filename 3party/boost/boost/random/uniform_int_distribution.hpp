@@ -28,9 +28,11 @@
 #include <boost/random/detail/operators.hpp>
 #include <boost/random/detail/uniform_int_float.hpp>
 #include <boost/random/detail/signed_unsigned_tools.hpp>
-#include <boost/type_traits/make_unsigned.hpp>
-#include <boost/type_traits/is_integral.hpp>
+#include <boost/random/traits.hpp>
 #include <boost/mpl/bool.hpp>
+#ifdef BOOST_NO_CXX11_EXPLICIT_CONVERSION_OPERATORS
+#include <boost/mpl/if.hpp>
+#endif
 
 namespace boost {
 namespace random {
@@ -50,10 +52,10 @@ T generate_uniform_int(
     boost::mpl::true_ /** is_integral<Engine::result_type> */)
 {
     typedef T result_type;
-    typedef typename make_unsigned<T>::type range_type;
+    typedef typename boost::random::traits::make_unsigned_or_unbounded<T>::type range_type;
     typedef typename Engine::result_type base_result;
-    // ranges are always unsigned
-    typedef typename make_unsigned<base_result>::type base_unsigned;
+    // ranges are always unsigned or unbounded
+    typedef typename boost::random::traits::make_unsigned_or_unbounded<base_result>::type base_unsigned;
     const range_type range = random::detail::subtract<result_type>()(max_value, min_value);
     const base_result bmin = (eng.min)();
     const base_unsigned brange =
@@ -112,7 +114,7 @@ T generate_uniform_int(
           //           mult+mult*brange                  by (2), (3)         (4)
           // Therefore result+(eng()-bmin)*mult <
           //           mult*(brange+1)                   by (4)
-          result += static_cast<range_type>(random::detail::subtract<base_result>()(eng(), bmin) * mult);
+          result += static_cast<range_type>(static_cast<range_type>(random::detail::subtract<base_result>()(eng(), bmin)) * mult);
 
           // equivalent to (mult * (brange+1)) == range+1, but avoids overflow.
           if(mult * range_type(brange) == range - mult + 1) {
@@ -166,7 +168,7 @@ T generate_uniform_int(
                 static_cast<range_type>(0),
                 static_cast<range_type>(range/mult),
                 boost::mpl::true_());
-        if((std::numeric_limits<range_type>::max)() / mult < result_increment) {
+        if(std::numeric_limits<range_type>::is_bounded && ((std::numeric_limits<range_type>::max)() / mult < result_increment)) {
           // The multiplcation would overflow.  Reject immediately.
           continue;
         }
@@ -184,27 +186,43 @@ T generate_uniform_int(
         return random::detail::add<range_type, result_type>()(result, min_value);
       }
     } else {                   // brange > range
-      base_unsigned bucket_size;
+#ifdef BOOST_NO_CXX11_EXPLICIT_CONVERSION_OPERATORS
+      typedef typename mpl::if_c<
+         std::numeric_limits<range_type>::is_specialized && std::numeric_limits<base_unsigned>::is_specialized
+         && (std::numeric_limits<range_type>::digits >= std::numeric_limits<base_unsigned>::digits),
+         range_type, base_unsigned>::type mixed_range_type;
+#else
+      typedef base_unsigned mixed_range_type;
+#endif
+
+      mixed_range_type bucket_size;
       // it's safe to add 1 to range, as long as we cast it first,
       // because we know that it is less than brange.  However,
       // we do need to be careful not to cause overflow by adding 1
-      // to brange.
+      // to brange.  We use mixed_range_type throughout for mixed
+      // arithmetic between base_unsigned and range_type - in the case
+      // that range_type has more bits than base_unsigned it is always
+      // safe to use range_type for this albeit it may be more effient
+      // to use base_unsigned.  The latter is a narrowing conversion though
+      // which may be disallowed if range_type is a multiprecision type
+      // and there are no explicit converison operators.
+
       if(brange == (std::numeric_limits<base_unsigned>::max)()) {
-        bucket_size = brange / (static_cast<base_unsigned>(range)+1);
-        if(brange % (static_cast<base_unsigned>(range)+1) == static_cast<base_unsigned>(range)) {
+        bucket_size = static_cast<mixed_range_type>(brange) / (static_cast<mixed_range_type>(range)+1);
+        if(static_cast<mixed_range_type>(brange) % (static_cast<mixed_range_type>(range)+1) == static_cast<mixed_range_type>(range)) {
           ++bucket_size;
         }
       } else {
-        bucket_size = (brange+1) / (static_cast<base_unsigned>(range)+1);
+        bucket_size = static_cast<mixed_range_type>(brange + 1) / (static_cast<mixed_range_type>(range)+1);
       }
       for(;;) {
-        base_unsigned result =
+        mixed_range_type result =
           random::detail::subtract<base_result>()(eng(), bmin);
         result /= bucket_size;
         // result and range are non-negative, and result is possibly larger
         // than range, so the cast is safe
-        if(result <= static_cast<base_unsigned>(range))
-          return random::detail::add<base_unsigned, result_type>()(result, min_value);
+        if(result <= static_cast<mixed_range_type>(range))
+          return random::detail::add<mixed_range_type, result_type>()(result, min_value);
       }
     }
 }
@@ -227,7 +245,7 @@ inline T generate_uniform_int(Engine& eng, T min_value, T max_value)
 {
     typedef typename Engine::result_type base_result;
     return generate_uniform_int(eng, min_value, max_value,
-        boost::is_integral<base_result>());
+        boost::random::traits::is_integral<base_result>());
 }
 
 }

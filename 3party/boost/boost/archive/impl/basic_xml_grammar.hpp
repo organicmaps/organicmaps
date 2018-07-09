@@ -163,7 +163,7 @@ public:
     bool parse_end_tag(IStream & is) const;
     bool parse_string(IStream & is, StringType & s) /*const*/;
     void init(IStream & is);
-    void windup(IStream & is);
+    bool windup(IStream & is);
     basic_xml_grammar();
 };
 

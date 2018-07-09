@@ -1,17 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
-    <title>christian-m</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="POI-Clear" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard-1" transform="translate(-354.000000, -954.000000)">
-            <g id="christian-m" transform="translate(354.000000, 954.000000)">
-                <ellipse id="Oval-1-Copy-41" fill-opacity="0.6" fill="#FFFFFF" cx="11.5" cy="11.5" rx="11.5" ry="11.5"></ellipse>
-                <ellipse id="Oval-1-Copy-40" fill="#7F5933" cx="11.5" cy="11.5" rx="10.5" ry="10.5"></ellipse>
-                <rect id="Rectangle-333" fill="#FFFFFF" x="10.5" y="5" width="2" height="13"></rect>
-                <rect id="Rectangle-334" fill="#FFFFFF" x="7" y="8" width="9" height="2"></rect>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg height="24" viewBox="0 0 24 24" width="24"><g fill="none" fill-rule="evenodd"><circle cx="12" cy="12" fill="#fff" opacity=".6" r="12"/><circle cx="12" cy="12" fill="#7f5933" r="11"/><path d="m13.1111111 8.23076923h3.8888889v2.15384617h-3.8888889v8.6153846h-2.2222222v-8.6153846h-3.8888889v-2.15384617h3.8888889v-3.23076923h2.2222222z" fill="#fff"/></g></svg>

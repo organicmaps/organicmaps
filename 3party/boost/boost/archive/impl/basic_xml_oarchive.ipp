@@ -247,25 +247,25 @@ basic_xml_oarchive<Archive>::init(){
 }
 
 template<class Archive>
+BOOST_ARCHIVE_OR_WARCHIVE_DECL void
+basic_xml_oarchive<Archive>::windup(){
+    // xml_trailer
+    this->This()->put("</boost_serialization>\n");
+}
+
+template<class Archive>
 BOOST_ARCHIVE_OR_WARCHIVE_DECL
 basic_xml_oarchive<Archive>::basic_xml_oarchive(unsigned int flags) :
     detail::common_oarchive<Archive>(flags),
     depth(0),
-    indent_next(false),
-    pending_preamble(false)
+    pending_preamble(false),
+    indent_next(false)
 {
 }
 
 template<class Archive>
 BOOST_ARCHIVE_OR_WARCHIVE_DECL
 basic_xml_oarchive<Archive>::~basic_xml_oarchive(){
-    if(0 == (this->get_flags() & no_header)){
-        BOOST_TRY{
-                this->This()->put("</boost_serialization>\n");
-        }
-        BOOST_CATCH(...){}
-        BOOST_CATCH_END
-    }
 }
 
 } // namespace archive

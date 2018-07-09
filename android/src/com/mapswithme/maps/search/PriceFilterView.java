@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Pair;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.statistics.Statistics;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -29,12 +31,13 @@ import static com.mapswithme.maps.search.HotelsFilter.Op.OP_EQ;
 
 public class PriceFilterView extends LinearLayout implements View.OnClickListener
 {
-  private static final int LOW = 1;
-  private static final int MEDIUM = 2;
-  private static final int HIGH = 3;
+  public static final int UNDEFINED = -1;
+  static final int LOW = 1;
+  static final int MEDIUM = 2;
+  static final int HIGH = 3;
 
   @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ LOW, MEDIUM, HIGH })
+  @IntDef({ UNDEFINED, LOW, MEDIUM, HIGH })
   public @interface PriceDef
   {
   }
@@ -62,7 +65,7 @@ public class PriceFilterView extends LinearLayout implements View.OnClickListene
     void update()
     {
       @DrawableRes
-      int background = UiUtils.getStyledResourceId(mFrame.getContext(), R.attr.clickableBackground);
+      int background = UiUtils.getStyledResourceId(mFrame.getContext(), R.attr.filterPropertyBackground);
       @ColorRes
       int titleColor =
           mSelected ? UiUtils.getStyledResourceId(mFrame.getContext(), R.attr.accentButtonTextColor)
@@ -195,6 +198,25 @@ public class PriceFilterView extends LinearLayout implements View.OnClickListene
   @Override
   public void onClick(View v)
   {
+    switch (v.getId())
+    {
+      case R.id.low:
+        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
+                                             new Pair<>(Statistics.EventParam.PRICE_CATEGORY,
+                                                        String.valueOf(LOW)));
+        break;
+      case R.id.medium:
+        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
+                                             new Pair<>(Statistics.EventParam.PRICE_CATEGORY,
+                                                        String.valueOf(MEDIUM)));
+        break;
+      case R.id.high:
+        Statistics.INSTANCE.trackFilterClick(Statistics.EventParam.HOTEL,
+                                             new Pair<>(Statistics.EventParam.PRICE_CATEGORY,
+                                                        String.valueOf(HIGH)));
+        break;
+    }
+
     select(v.getId(), false);
   }
 

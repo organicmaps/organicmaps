@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -38,6 +39,12 @@ public class PlaceholderView extends FrameLayout
   private float mScreenWidth;
 
   private int mOrientation;
+  @DrawableRes
+  private int mImgSrcDefault;
+  @StringRes
+  private int mTitleResIdDefault;
+  @StringRes
+  private int mSubtitleResIdDefault;
 
   public PlaceholderView(Context context)
   {
@@ -53,7 +60,7 @@ public class PlaceholderView extends FrameLayout
   {
     super(context, attrs, defStyleAttr);
 
-    init(context);
+    init(context, attrs);
   }
 
   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -61,11 +68,10 @@ public class PlaceholderView extends FrameLayout
                          int defStyleRes)
   {
     super(context, attrs, defStyleAttr, defStyleRes);
-
-    init(context);
+    init(context, attrs);
   }
 
-  private void init(Context context)
+  private void init(Context context, AttributeSet attrs)
   {
     Resources res = getResources();
     mImageSizeFull = res.getDimension(R.dimen.placeholder_size);
@@ -75,6 +81,32 @@ public class PlaceholderView extends FrameLayout
     mScreenHeight = res.getDisplayMetrics().heightPixels;
     mScreenWidth = res.getDisplayMetrics().widthPixels;
     LayoutInflater.from(context).inflate(R.layout.placeholder, this, true);
+
+    initDefaultValues(context, attrs);
+  }
+
+  private void initDefaultValues(Context context, AttributeSet attrs)
+  {
+    TypedArray attrsArray = null;
+    try
+    {
+      attrsArray =
+          context.getTheme().obtainStyledAttributes(attrs, R.styleable.PlaceholderView, 0, 0);
+      mImgSrcDefault = attrsArray.getResourceId(
+          R.styleable.PlaceholderView_imgSrcDefault,
+          UiUtils.NO_ID);
+      mTitleResIdDefault = attrsArray.getResourceId(
+          R.styleable.PlaceholderView_titleDefault,
+          UiUtils.NO_ID);
+      mSubtitleResIdDefault = attrsArray.getResourceId(
+          R.styleable.PlaceholderView_subTitleDefault,
+          UiUtils.NO_ID);
+    }
+    finally
+    {
+      if (attrsArray != null)
+        attrsArray.recycle();
+    }
   }
 
   @Override
@@ -86,21 +118,29 @@ public class PlaceholderView extends FrameLayout
     mTitle = (TextView) findViewById(R.id.title);
     mSubtitle = (TextView) findViewById(R.id.subtitle);
 
-    ViewCompat.setOnApplyWindowInsetsListener(this, new android.support.v4.view.OnApplyWindowInsetsListener()
+    setupDefaultContent();
+    ViewCompat.setOnApplyWindowInsetsListener(this, new ApplyWindowInsetsListener());
+  }
+
+  private void setupDefaultContent()
+  {
+    if (isDefaultValueValid(mImage, mImgSrcDefault))
     {
-      @Override
-      public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets)
-      {
-        int height = (int) (mOrientation == Configuration.ORIENTATION_LANDSCAPE
-                            ? mScreenWidth : mScreenHeight);
-        int[] location = new int[2];
-        getLocationOnScreen(location);
-        ViewGroup.LayoutParams lp = getLayoutParams();
-        lp.height = height - insets.getSystemWindowInsetBottom() - location[1];
-        setLayoutParams(lp);
-        return insets;
-      }
-    });
+      mImage.setImageResource(mImgSrcDefault);
+    }
+    if (isDefaultValueValid(mTitle, mTitleResIdDefault))
+    {
+      mTitle.setText(mTitleResIdDefault);
+    }
+    if (isDefaultValueValid(mSubtitle, mSubtitleResIdDefault))
+    {
+      mSubtitle.setText(mSubtitleResIdDefault);
+    }
+  }
+
+  private static boolean isDefaultValueValid(View view, int defaultResId)
+  {
+    return view != null && defaultResId != UiUtils.NO_ID;
   }
 
   @Override
@@ -160,5 +200,21 @@ public class PlaceholderView extends FrameLayout
       mTitle.setText(titleRes);
     if (mSubtitle != null)
       mSubtitle.setText(subtitleRes);
+  }
+
+  private class ApplyWindowInsetsListener implements android.support.v4.view.OnApplyWindowInsetsListener
+  {
+    @Override
+    public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets)
+    {
+      int height = (int) (mOrientation == Configuration.ORIENTATION_LANDSCAPE
+                          ? mScreenWidth : mScreenHeight);
+      int[] location = new int[2];
+      getLocationOnScreen(location);
+      ViewGroup.LayoutParams lp = getLayoutParams();
+      lp.height = height - insets.getStableInsetBottom() - location[1];
+      setLayoutParams(lp);
+      return insets;
+    }
   }
 }

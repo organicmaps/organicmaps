@@ -23,16 +23,19 @@
 
 #include <boost/container/allocator_traits.hpp>
 #include <boost/container/detail/iterators.hpp>
+#include <boost/container/detail/value_init.hpp>
 
 namespace boost {
 namespace container {
 
+//In place construction
+
 template<class Allocator, class T, class InpIt>
-inline void construct_in_place(Allocator &a, T* dest, InpIt source)
+BOOST_CONTAINER_FORCEINLINE void construct_in_place(Allocator &a, T* dest, InpIt source)
 {     boost::container::allocator_traits<Allocator>::construct(a, dest, *source);  }
 
 template<class Allocator, class T, class U, class D>
-inline void construct_in_place(Allocator &a, T *dest, value_init_construct_iterator<U, D>)
+BOOST_CONTAINER_FORCEINLINE void construct_in_place(Allocator &a, T *dest, value_init_construct_iterator<U, D>)
 {
    boost::container::allocator_traits<Allocator>::construct(a, dest);
 }
@@ -41,7 +44,7 @@ template <class T, class Difference>
 class default_init_construct_iterator;
 
 template<class Allocator, class T, class U, class D>
-inline void construct_in_place(Allocator &a, T *dest, default_init_construct_iterator<U, D>)
+BOOST_CONTAINER_FORCEINLINE void construct_in_place(Allocator &a, T *dest, default_init_construct_iterator<U, D>)
 {
    boost::container::allocator_traits<Allocator>::construct(a, dest, default_init);
 }
@@ -50,9 +53,41 @@ template <class T, class EmplaceFunctor, class Difference>
 class emplace_iterator;
 
 template<class Allocator, class T, class U, class EF, class D>
-inline void construct_in_place(Allocator &a, T *dest, emplace_iterator<U, EF, D> ei)
+BOOST_CONTAINER_FORCEINLINE void construct_in_place(Allocator &a, T *dest, emplace_iterator<U, EF, D> ei)
 {
    ei.construct_in_place(a, dest);
+}
+
+//Assignment
+
+template<class DstIt, class InpIt>
+BOOST_CONTAINER_FORCEINLINE void assign_in_place(DstIt dest, InpIt source)
+{  *dest = *source;  }
+
+template<class DstIt, class U, class D>
+BOOST_CONTAINER_FORCEINLINE void assign_in_place(DstIt dest, value_init_construct_iterator<U, D>)
+{
+   container_detail::value_init<U> val;
+   *dest = boost::move(val.get());
+}
+
+template <class DstIt, class Difference>
+class default_init_construct_iterator;
+
+template<class DstIt, class U, class D>
+BOOST_CONTAINER_FORCEINLINE void assign_in_place(DstIt dest, default_init_construct_iterator<U, D>)
+{
+   U u;
+   *dest = boost::move(u);
+}
+
+template <class T, class EmplaceFunctor, class Difference>
+class emplace_iterator;
+
+template<class DstIt, class U, class EF, class D>
+BOOST_CONTAINER_FORCEINLINE void assign_in_place(DstIt dest, emplace_iterator<U, EF, D> ei)
+{
+   ei.assign_in_place(dest);
 }
 
 }  //namespace container {

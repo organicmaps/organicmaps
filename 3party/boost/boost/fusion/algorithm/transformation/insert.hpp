@@ -10,7 +10,6 @@
 #include <boost/fusion/support/config.hpp>
 #include <boost/fusion/support/detail/as_fusion_element.hpp>
 #include <boost/fusion/iterator/mpl/convert_iterator.hpp>
-#include <boost/fusion/container/vector/vector10.hpp>
 #include <boost/fusion/view/joint_view/joint_view.hpp>
 #include <boost/fusion/view/single_view/single_view.hpp>
 #include <boost/fusion/view/iterator_range/iterator_range.hpp>

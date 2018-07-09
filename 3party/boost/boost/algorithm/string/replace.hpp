@@ -401,7 +401,6 @@ namespace boost {
             \param Search A substring to be searched for 
             \param Format A substitute string
             \param Loc A locale used for case insensitive comparison
-            \return A reference to the modified input
         */
         template<typename SequenceT, typename Range1T, typename Range2T>
         inline void ireplace_last( 
@@ -643,7 +642,6 @@ namespace boost {
             \param Input An input string
             \param Search A substring to be searched for 
             \param Format A substitute string
-            \return A reference to the modified input
         */
         template<typename SequenceT, typename Range1T, typename Range2T>
         inline void replace_all( 

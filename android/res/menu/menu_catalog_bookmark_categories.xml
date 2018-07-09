@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+    android:id="@+id/show_on_map"
+    android:title="@string/search_show_on_map"/>
+  <item
+    android:id="@+id/share_list"
+    android:title="@string/share"
+    android:icon="@drawable/ic_share"/>
+  <item
+    android:id="@+id/delete_list"
+    android:title="@string/delete"
+    android:icon="@drawable/ic_delete"/>
+</menu>

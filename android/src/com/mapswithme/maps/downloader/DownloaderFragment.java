@@ -2,14 +2,12 @@ package com.mapswithme.maps.downloader;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.WindowManager;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
@@ -17,14 +15,17 @@ import com.mapswithme.maps.base.OnBackPressListener;
 import com.mapswithme.maps.search.NativeMapSearchListener;
 import com.mapswithme.maps.search.SearchEngine;
 import com.mapswithme.maps.widget.PlaceholderView;
-import com.mapswithme.util.UiUtils;
 
-public class DownloaderFragment extends BaseMwmRecyclerFragment
+import java.util.ArrayList;
+import java.util.List;
+
+public class DownloaderFragment extends BaseMwmRecyclerFragment<DownloaderAdapter>
                              implements OnBackPressListener
 {
   private DownloaderToolbarController mToolbarController;
 
   private BottomPanel mBottomPanel;
+  @Nullable
   private DownloaderAdapter mAdapter;
 
   private long mCurrentSearch;
@@ -57,7 +58,8 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
         rs.add(item);
       }
 
-      mAdapter.setSearchResultsMode(rs, mToolbarController.getQuery());
+      if (mAdapter != null)
+        mAdapter.setSearchResultsMode(rs, mToolbarController.getQuery());
 
       if (isLast)
         onSearchEnd();
@@ -75,7 +77,8 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     mCurrentSearch = System.nanoTime();
     SearchEngine.searchMaps(mToolbarController.getQuery(), mCurrentSearch);
     mToolbarController.showProgress(true);
-    mAdapter.clearAdsAndCancelMyTarget();
+    if (mAdapter != null)
+      mAdapter.clearAdsAndCancelMyTarget();
   }
 
   void clearSearchQuery()
@@ -85,7 +88,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
 
   void cancelSearch()
   {
-    if (!mAdapter.isSearchResultsMode())
+    if (mAdapter == null || !mAdapter.isSearchResultsMode())
       return;
 
     mAdapter.resetSearchResultsMode();
@@ -105,6 +108,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     mBottomPanel.update();
   }
 
+  @CallSuper
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
@@ -112,8 +116,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
   }
 
-  @Override
-  public void onViewCreated(View view, Bundle savedInstanceState)
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
     mSubscriberSlot = MapManager.nativeSubscribe(new MapManager.StorageCallback()
@@ -132,8 +135,11 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     SearchEngine.INSTANCE.addMapListener(mSearchListener);
 
     getRecyclerView().addOnScrollListener(mScrollListener);
-    mAdapter.refreshData();
-    mAdapter.attach();
+    if (mAdapter != null)
+    {
+      mAdapter.refreshData();
+      mAdapter.attach();
+    }
 
     mBottomPanel = new BottomPanel(this, view);
     mToolbarController = new DownloaderToolbarController(view, getActivity(), this);
@@ -145,7 +151,8 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
   public void onDestroyView()
   {
     super.onDestroyView();
-    mAdapter.detach();
+    if (mAdapter != null)
+      mAdapter.detach();
     mAdapter = null;
 
     if (mSubscriberSlot != 0)
@@ -174,7 +181,7 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
       return true;
     }
 
-    return mAdapter.goUpwards();
+    return mAdapter != null && mAdapter.goUpwards();
   }
 
   @Override
@@ -183,8 +190,9 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     return R.layout.fragment_downloader;
   }
 
+  @NonNull
   @Override
-  protected RecyclerView.Adapter createAdapter()
+  protected DownloaderAdapter createAdapter()
   {
     if (mAdapter == null)
       mAdapter = new DownloaderAdapter(this);
@@ -199,21 +207,26 @@ public class DownloaderFragment extends BaseMwmRecyclerFragment
     mToolbarController.onActivityResult(requestCode, resultCode, data);
   }
 
+  @NonNull
   @Override
   public DownloaderAdapter getAdapter()
   {
     return mAdapter;
   }
 
-  @NonNull String getCurrentRoot()
+  @NonNull
+  String getCurrentRoot()
   {
-    return mAdapter.getCurrentRootId();
+    return mAdapter != null ? mAdapter.getCurrentRootId() : "";
   }
 
   @Override
-  protected void setupPlaceholder(@NonNull PlaceholderView placeholder)
+  protected void setupPlaceholder(@Nullable PlaceholderView placeholder)
   {
-    if (mAdapter.isSearchResultsMode())
+    if (placeholder == null)
+      return;
+
+    if (mAdapter != null && mAdapter.isSearchResultsMode())
       placeholder.setContent(R.drawable.img_search_nothing_found_light,
                              R.string.search_not_found, R.string.search_not_found_query);
     else

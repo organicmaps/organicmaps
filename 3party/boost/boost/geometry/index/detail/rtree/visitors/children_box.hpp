@@ -2,7 +2,7 @@
 //
 // R-tree node children box calculating visitor implementation
 //
-// Copyright (c) 2011-2013 Adam Wulkiewicz, Lodz, Poland.
+// Copyright (c) 2011-2015 Adam Wulkiewicz, Lodz, Poland.
 //
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -40,7 +40,7 @@ public:
         typedef typename rtree::elements_type<leaf>::type elements_type;
         elements_type const& elements = rtree::elements(n);
 
-        m_result = rtree::elements_box<Box>(elements.begin(), elements.end(), m_tr);
+        m_result = rtree::values_box<Box>(elements.begin(), elements.end(), m_tr);
     }
 
 private:

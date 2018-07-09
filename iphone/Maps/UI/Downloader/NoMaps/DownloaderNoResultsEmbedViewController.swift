@@ -10,7 +10,7 @@ final class DownloaderNoResultsEmbed: UINavigationController {
     case noSearchResults
   }
 
-  var screen = Screen.noMaps {
+  @objc var screen = Screen.noMaps {
     didSet {
       let controller: MWMViewController
       switch screen {

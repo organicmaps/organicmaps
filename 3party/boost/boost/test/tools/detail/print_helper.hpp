@@ -1,4 +1,4 @@
-//  (C) Copyright Gennadiy Rozental 2011-2014.
+//  (C) Copyright Gennadiy Rozental 2001.
 //  Distributed under the Boost Software License, Version 1.0.
 //  (See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
@@ -22,10 +22,17 @@
 
 // Boost
 #include <boost/mpl/or.hpp>
+#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_array.hpp>
 #include <boost/type_traits/is_function.hpp>
 #include <boost/type_traits/is_abstract.hpp>
+#include <boost/type_traits/has_left_shift.hpp>
+
 #include <limits>
+
+#if !defined(BOOST_NO_CXX11_NULLPTR)
+#include <cstddef>
+#endif
 
 #include <boost/test/detail/suppress_warnings.hpp>
 
@@ -34,6 +41,37 @@
 namespace boost {
 namespace test_tools {
 namespace tt_detail {
+
+// ************************************************************************** //
+// **************          boost_test_print_type               ************** //
+// ************************************************************************** //
+
+    namespace impl {
+        template <class T>
+        std::ostream& boost_test_print_type(std::ostream& ostr, T const& t) {
+            BOOST_STATIC_ASSERT_MSG( (boost::has_left_shift<std::ostream,T>::value),
+                                    "Type has to implement operator<< to be printable");
+            ostr << t;
+            return ostr;
+        }
+
+        struct boost_test_print_type_impl {
+            template <class R>
+            std::ostream& operator()(std::ostream& ostr, R const& r) const {
+                return boost_test_print_type(ostr, r);
+            }
+        };
+    }
+
+    // To avoid ODR violations, see N4381
+    template <class T> struct static_const { static const T value; };
+    template <class T> const T static_const<T>::value = T();
+
+    namespace {
+        static const impl::boost_test_print_type_impl& boost_test_print_type =
+            static_const<impl::boost_test_print_type_impl>::value;
+    }
+
 
 // ************************************************************************** //
 // **************                print_log_value               ************** //
@@ -47,7 +85,9 @@ struct print_log_value {
 
         std::streamsize old_precision = set_precision( ostr, cant_use_nl() );
 
-        ostr << t;
+        //ostr << t;
+        using boost::test_tools::tt_detail::boost_test_print_type;
+        boost_test_print_type(ostr, t);
 
         if( old_precision != (std::streamsize)-1 )
             ostr.precision( old_precision );
@@ -93,10 +133,7 @@ struct print_log_value< T[N] > {
 
 template<>
 struct BOOST_TEST_DECL print_log_value<bool> {
-    void    operator()( std::ostream& ostr, bool t )
-    {
-         ostr << std::boolalpha << t;
-    }
+    void    operator()( std::ostream& ostr, bool t );
 };
 
 //____________________________________________________________________________//
@@ -126,6 +163,13 @@ template<>
 struct BOOST_TEST_DECL print_log_value<wchar_t const*> {
     void    operator()( std::ostream& ostr, wchar_t const* t );
 };
+
+#if !defined(BOOST_NO_CXX11_NULLPTR)
+template<>
+struct BOOST_TEST_DECL print_log_value<std::nullptr_t> {
+    void    operator()( std::ostream& ostr, std::nullptr_t t );
+};
+#endif
 
 //____________________________________________________________________________//
 

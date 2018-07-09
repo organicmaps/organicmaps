@@ -52,7 +52,7 @@ public:
 private:
   using String = strings::UniString;
   using Type2CategoryCont = multimap<uint32_t, shared_ptr<Category>>;
-  using Trie = my::MemTrie<String, my::VectorValues<uint32_t>>;
+  using Trie = base::MemTrie<String, base::VectorValues<uint32_t>>;
 
   Type2CategoryCont m_type2cat;
 
@@ -63,8 +63,9 @@ private:
   GroupTranslations m_groupTranslations;
 
 public:
-  static int8_t const kEnglishCode;
-  static int8_t const kUnsupportedLocaleCode;
+  static int8_t constexpr kEnglishCode = 1;
+  static int8_t constexpr kUnsupportedLocaleCode = -1;
+  static uint8_t constexpr kMaxSupportedLocaleIndex = 31;
   static vector<Mapping> const kLocaleMapping;
 
   // List of languages that are currently disabled in the application
@@ -84,7 +85,7 @@ public:
   template <class ToDo>
   void ForEachTypeAndCategory(ToDo && toDo) const
   {
-    for (auto const it : m_type2cat)
+    for (auto const & it : m_type2cat)
       toDo(it.first, *it.second);
   }
 
@@ -95,6 +96,16 @@ public:
     {
       for (auto const & synonym : p.second->m_synonyms)
         toDo(synonym);
+    }
+  }
+
+  template <class ToDo>
+  void ForEachNameAndType(ToDo && toDo) const
+  {
+    for (auto const & p : m_type2cat)
+    {
+      for (auto const & synonym : p.second->m_synonyms)
+        toDo(synonym, p.first);
     }
   }
 
@@ -112,8 +123,7 @@ public:
   void ForEachTypeByName(int8_t locale, String const & name, ToDo && toDo) const
   {
     auto const localePrefix = String(1, static_cast<strings::UniChar>(locale));
-    m_name2type.ForEachInNode(localePrefix + name,
-                               my::MakeIgnoreFirstArgument(forward<ToDo>(toDo)));
+    m_name2type.ForEachInNode(localePrefix + name, forward<ToDo>(toDo));
   }
 
   inline GroupTranslations const & GetGroupTranslations() const { return m_groupTranslations; }

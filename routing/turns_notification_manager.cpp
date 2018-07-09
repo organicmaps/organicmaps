@@ -19,8 +19,8 @@ double constexpr kMaxTurnDistM = 400.;
 bool IsClassicEntranceToRoundabout(routing::turns::TurnItemDist const & firstTurn,
                                    routing::turns::TurnItemDist const & secondTurn)
 {
-  return firstTurn.m_turnItem.m_turn == routing::turns::TurnDirection::EnterRoundAbout &&
-         secondTurn.m_turnItem.m_turn == routing::turns::TurnDirection::LeaveRoundAbout;
+  return firstTurn.m_turnItem.m_turn == routing::turns::CarDirection::EnterRoundAbout &&
+         secondTurn.m_turnItem.m_turn == routing::turns::CarDirection::LeaveRoundAbout;
 }
 }  // namespace
 
@@ -31,7 +31,7 @@ namespace turns
 namespace sound
 {
 string NotificationManager::GenerateTurnText(uint32_t distanceUnits, uint8_t exitNum,
-                                             bool useThenInsteadOfDistance, TurnDirection turnDir,
+                                             bool useThenInsteadOfDistance, CarDirection turnDir,
                                              measurement_utils::Units lengthUnits) const
 {
   Notification const notification(distanceUnits, exitNum, useThenInsteadOfDistance, turnDir,
@@ -186,7 +186,7 @@ void NotificationManager::Reset()
   m_nextTurnNotificationProgress = PronouncedNotification::Nothing;
   m_nextTurnIndex = 0;
   m_turnNotificationWithThen = false;
-  m_secondTurnNotification = TurnDirection::NoTurn;
+  m_secondTurnNotification = CarDirection::None;
   m_secondTurnNotificationIndex = 0;
 }
 
@@ -197,12 +197,12 @@ void NotificationManager::FastForwardFirstTurnNotification()
     m_nextTurnNotificationProgress = PronouncedNotification::First;
 }
 
-TurnDirection NotificationManager::GenerateSecondTurnNotification(vector<TurnItemDist> const & turns)
+CarDirection NotificationManager::GenerateSecondTurnNotification(vector<TurnItemDist> const & turns)
 {
   if (turns.size() < 2)
   {
     m_secondTurnNotificationIndex = 0;
-    return TurnDirection::NoTurn;
+    return CarDirection::None;
   }
 
   TurnItemDist const & firstTurn = turns[0];
@@ -217,7 +217,7 @@ TurnDirection NotificationManager::GenerateSecondTurnNotification(vector<TurnIte
   ASSERT_LESS_OR_EQUAL(0., distBetweenTurnsMeters, ());
 
   if (distBetweenTurnsMeters > kMaxTurnDistM)
-    return TurnDirection::NoTurn;
+    return CarDirection::None;
 
   uint32_t const startPronounceDistMeters =
       m_settings.ComputeTurnDistanceM(m_speedMetersPerSecond) +
@@ -227,7 +227,7 @@ TurnDirection NotificationManager::GenerateSecondTurnNotification(vector<TurnIte
     m_secondTurnNotificationIndex = firstTurn.m_turnItem.m_index;
     return secondTurn.m_turnItem.m_turn;  // It's time to inform about the turn after the next one.
   }
-  return TurnDirection::NoTurn;
+  return CarDirection::None;
 }
 
 string DebugPrint(PronouncedNotification const notificationProgress)

@@ -48,6 +48,8 @@ uint64_t SecondsSinceEpoch();
 /// Returns empty string on error
 std::string TimestampToString(time_t time);
 
+std::string SecondsSinceEpochToString(uint64_t secondsSinceEpoch);
+
 time_t const INVALID_TIME_STAMP = -1;
 
 /// Accepts strings in UTC format: 1997-07-16T07:30:15Z

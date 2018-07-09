@@ -12,8 +12,6 @@
 #ifndef BOOST_ALGORITHM_IOTA_HPP
 #define BOOST_ALGORITHM_IOTA_HPP
 
-#include <numeric>
-
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 
@@ -26,8 +24,6 @@ namespace boost { namespace algorithm {
 /// \param last     One past the end of the input sequence
 /// \param value    The initial value of the sequence to be generated
 /// \note           This function is part of the C++2011 standard library.
-///  We will use the standard one if it is available, 
-///  otherwise we have our own implementation.
 template <typename ForwardIterator, typename T>
 void iota ( ForwardIterator first, ForwardIterator last, T value )
 {

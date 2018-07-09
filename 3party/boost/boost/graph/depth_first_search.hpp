@@ -64,19 +64,27 @@ namespace boost {
 
     template <bool IsCallable> struct do_call_finish_edge {
       template <typename E, typename G, typename Vis>
-      static void call_finish_edge(Vis& vis, const E& e, const G& g) {
+      static void call_finish_edge(Vis& vis, E e, const G& g) {
         vis.finish_edge(e, g);
       }
     };
 
     template <> struct do_call_finish_edge<false> {
       template <typename E, typename G, typename Vis>
-      static void call_finish_edge(Vis&, const E&, const G&) {}
+      static void call_finish_edge(Vis&, E, const G&) {}
     };
 
     template <typename E, typename G, typename Vis>
-    void call_finish_edge(Vis& vis, const E& e, const G& g) { // Only call if method exists
+    void call_finish_edge(Vis& vis, E e, const G& g) { // Only call if method exists
+#if ((defined(__GNUC__) && (__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 9))) || \
+      defined(__clang__) || \
+     (defined(__INTEL_COMPILER) && (__INTEL_COMPILER >= 1200)))
+      do_call_finish_edge<
+        has_member_function_finish_edge<Vis, void,
+          boost::mpl::vector<E, const G&> >::value>::call_finish_edge(vis, e, g);
+#else
       do_call_finish_edge<has_member_function_finish_edge<Vis, void>::value>::call_finish_edge(vis, e, g);
+#endif
     }
 
 
@@ -137,6 +145,11 @@ namespace boost {
         src_e = back.second.first;
         boost::tie(ei, ei_end) = back.second.second;
         stack.pop_back();
+	// finish_edge has to be called here, not after the
+	// loop. Think of the pop as the return from a recursive call.
+        if (src_e) {
+	  call_finish_edge(vis, src_e.get(), g);
+	}
         while (ei != ei_end) {
           Vertex v = target(*ei, g);
           vis.examine_edge(*ei, g);
@@ -164,7 +177,6 @@ namespace boost {
         }
         put(color, u, Color::black());
         vis.finish_vertex(u, g);
-        if (src_e) call_finish_edge(vis, src_e.get(), g);
       }
     }
 

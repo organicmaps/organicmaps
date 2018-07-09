@@ -5,6 +5,7 @@
 
 #include "com/mapswithme/core/jni_helper.hpp"
 #include "com/mapswithme/core/logging.hpp"
+#include "com/mapswithme/core/ScopedEnv.hpp"
 #include "com/mapswithme/util/crashlytics.h"
 
 #include <android/log.h>
@@ -19,7 +20,7 @@ namespace jni
 
 using namespace my;
 
-void AndroidMessage(LogLevel level, SrcPoint const & src, string const & s)
+void AndroidMessage(LogLevel level, SrcPoint const & src, std::string const & s)
 {
   android_LogPriority pr = ANDROID_LOG_SILENT;
 
@@ -32,31 +33,27 @@ void AndroidMessage(LogLevel level, SrcPoint const & src, string const & s)
     case LCRITICAL: pr = ANDROID_LOG_ERROR; break;
   }
 
-  JNIEnv * env = jni::GetEnv();
-  static jmethodID const logCoreMsgMethod = jni::GetStaticMethodID(env, g_loggerFactoryClazz,
+  ScopedEnv env(jni::GetJVM());
+  static jmethodID const logCoreMsgMethod = jni::GetStaticMethodID(env.get(), g_loggerFactoryClazz,
      "logCoreMessage", "(ILjava/lang/String;)V");
 
-  string const out = DebugPrint(src) + " " + s;
-  jni::TScopedLocalRef msg(env, jni::ToJavaString(env, out));
+  std::string const out = DebugPrint(src) + " " + s;
+  jni::TScopedLocalRef msg(env.get(), jni::ToJavaString(env.get(), out));
   env->CallStaticVoidMethod(g_loggerFactoryClazz, logCoreMsgMethod, pr, msg.get());
   if (g_crashlytics)
     g_crashlytics->log(g_crashlytics, out.c_str());
 }
 
-void AndroidLogMessage(LogLevel level, SrcPoint const & src, string const & s)
+void AndroidLogMessage(LogLevel level, SrcPoint const & src, std::string const & s)
 {
   AndroidMessage(level, src, s);
   CHECK_LESS(level, g_LogAbortLevel, ("Abort. Log level is too serious", level));
 }
 
-void AndroidAssertMessage(SrcPoint const & src, string const & s)
+bool AndroidAssertMessage(SrcPoint const & src, std::string const & s)
 {
   AndroidMessage(LCRITICAL, src, s);
-#ifdef DEBUG
-  assert(false);
-#else
-  std::abort();
-#endif
+  return true;
 }
 
 void InitSystemLog()

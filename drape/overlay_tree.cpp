@@ -1,26 +1,28 @@
 #include "drape/overlay_tree.hpp"
 
 #include "drape/constants.hpp"
+#include "drape/debug_rect_renderer.hpp"
 
-#include "std/algorithm.hpp"
-#include "std/bind.hpp"
+#include <algorithm>
 
 namespace dp
 {
+int const kMinFrameUpdatePeriod = 5;
+int const kAvgFrameUpdatePeriod = 10;
+int const kMaxFrameUpdatePeriod = 15;
+uint32_t const kMinHandlesCount = 100;
+uint32_t const kMaxHandlesCount = 1000;
 
-int const kFrameUpdatePeriod = 10;
-int const kAverageHandlesCount[dp::OverlayRanksCount] = { 300, 200, 50 };
+size_t const kAverageHandlesCount[dp::OverlayRanksCount] = { 300, 200, 50 };
 int const kInvalidFrame = -1;
 
 namespace
 {
-
 class HandleComparator
 {
 public:
-  HandleComparator(bool enableMask, bool followingMode)
-    : m_followingMode(followingMode)
-    , m_enableMask(enableMask)
+  explicit HandleComparator(bool enableMask)
+    : m_enableMask(enableMask)
   {}
 
   bool operator()(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
@@ -30,45 +32,58 @@ public:
 
   bool IsGreater(ref_ptr<OverlayHandle> const & l, ref_ptr<OverlayHandle> const & r) const
   {
-    uint64_t const mask = m_enableMask ? l->GetPriorityMask() & r->GetPriorityMask() :
-                                         dp::kPriorityMaskAll;
-    uint64_t const priorityLeft = (m_followingMode ? l->GetPriorityInFollowingMode() :
-                                                     l->GetPriority()) & mask;
-    uint64_t const priorityRight = (m_followingMode ? r->GetPriorityInFollowingMode() :
-                                                      r->GetPriority()) & mask;
-    if (priorityLeft > priorityRight)
+    bool const displayFlagLeft = ((!m_enableMask || l->IsSpecialLayerOverlay()) ? true : l->GetDisplayFlag());
+    bool const displayFlagRight = ((!m_enableMask || r->IsSpecialLayerOverlay()) ? true : r->GetDisplayFlag());
+    if (displayFlagLeft > displayFlagRight)
       return true;
 
-    if (priorityLeft == priorityRight)
+    if (displayFlagLeft == displayFlagRight)
     {
-      auto const & hashLeft = l->GetOverlayID();
-      auto const & hashRight = r->GetOverlayID();
-
-      if (hashLeft > hashRight)
+      uint64_t const mask = m_enableMask ? l->GetPriorityMask() & r->GetPriorityMask() :
+                            dp::kPriorityMaskAll;
+      uint64_t const priorityLeft = l->GetPriority() & mask;
+      uint64_t const priorityRight = r->GetPriority() & mask;
+      if (priorityLeft > priorityRight)
         return true;
 
-      if (hashLeft == hashRight)
-        return l.get() > r.get();
-    }
+      if (priorityLeft == priorityRight)
+      {
+        auto const & hashLeft = l->GetOverlayID();
+        auto const & hashRight = r->GetOverlayID();
 
+        if (hashLeft > hashRight)
+          return true;
+
+        if (hashLeft == hashRight)
+          return l.get() > r.get();
+      }
+    }
     return false;
   }
 
 private:
-  bool m_followingMode;
   bool m_enableMask;
 };
+}  // namespace
 
-} // namespace
-
-OverlayTree::OverlayTree()
+OverlayTree::OverlayTree(double visualScale)
   : m_frameCounter(kInvalidFrame)
-  , m_followingMode(false)
   , m_isDisplacementEnabled(true)
-  , m_displacementMode(displacement::kDefaultMode)
+  , m_frameUpdatePeriod(kMinFrameUpdatePeriod)
 {
+  m_traits.SetVisualScale(visualScale);
   for (size_t i = 0; i < m_handles.size(); i++)
     m_handles[i].reserve(kAverageHandlesCount[i]);
+}
+
+void OverlayTree::Clear()
+{
+  m_frameCounter = kInvalidFrame;
+  TBase::Clear();
+  m_handlesCache.clear();
+  for (auto & handles : m_handles)
+    handles.clear();
+  m_displacers.clear();
 }
 
 bool OverlayTree::Frame()
@@ -76,8 +91,20 @@ bool OverlayTree::Frame()
   if (IsNeedUpdate())
     return true;
 
+  // Choose optimal frame update period.
+  if (m_frameCounter == 0)
+  {
+    auto const handlesCount = m_handlesCache.size();
+    if (handlesCount > kMaxHandlesCount)
+      m_frameUpdatePeriod = kMaxFrameUpdatePeriod;
+    else if (handlesCount < kMinHandlesCount)
+      m_frameUpdatePeriod = kMinFrameUpdatePeriod;
+    else
+      m_frameUpdatePeriod = kAvgFrameUpdatePeriod;
+  }
+
   m_frameCounter++;
-  if (m_frameCounter >= kFrameUpdatePeriod)
+  if (m_frameCounter >= static_cast<int>(m_frameUpdatePeriod))
     m_frameCounter = kInvalidFrame;
 
   return IsNeedUpdate();
@@ -91,13 +118,10 @@ bool OverlayTree::IsNeedUpdate() const
 void OverlayTree::StartOverlayPlacing(ScreenBase const & screen)
 {
   ASSERT(IsNeedUpdate(), ());
-  Clear();
+  TBase::Clear();
   m_handlesCache.clear();
-  m_traits.m_modelView = screen;
-
-#ifdef COLLECT_DISPLACEMENT_INFO
+  m_traits.SetModelView(screen);
   m_displacementInfo.clear();
-#endif
 }
 
 void OverlayTree::Remove(ref_ptr<OverlayHandle> handle)
@@ -118,40 +142,31 @@ void OverlayTree::Add(ref_ptr<OverlayHandle> handle)
   handle->SetIsVisible(false);
   handle->SetCachingEnable(true);
 
-  // Skip overlays from another displacement mode.
-  if ((handle->GetDisplacementMode() & m_displacementMode) == 0)
-    return;
-
   // Skip duplicates.
   if (m_handlesCache.find(handle) != m_handlesCache.end())
     return;
 
   // Skip not-ready handles.
   if (!handle->Update(modelView))
-    return;
-
-  // Clip handles which are out of screen.
-  double const kScreenRectScale = 1.2;
-  m2::RectD const pixelRect = handle->GetExtendedPixelRect(modelView);
-  if (modelView.isPerspective())
   {
-    m2::RectD screenRect = modelView.PixelRectIn3d();
-    screenRect.Scale(kScreenRectScale);
-    if (!screenRect.IsIntersect(pixelRect) || modelView.IsReverseProjection3d(pixelRect.Center()))
-    {
-      handle->SetIsVisible(false);
-      return;
-    }
+    m_frameCounter = kInvalidFrame;
+    handle->SetReady(false);
+    return;
   }
   else
   {
-    m2::RectD screenRect = modelView.PixelRect();
-    screenRect.Scale(kScreenRectScale);
-    if (!screenRect.IsIntersect(pixelRect))
-    {
-      handle->SetIsVisible(false);
-      return;
-    }
+    handle->SetReady(true);
+  }
+
+  // Clip handles which are out of screen if these handles were not displacers
+  // last time. Also clip all handles in reverse projection.
+  m2::RectD const pixelRect = handle->GetExtendedPixelRect(modelView);
+  if (modelView.IsReverseProjection3d(pixelRect.Center()) ||
+      (m_displacers.find(handle) == m_displacers.end() &&
+       !m_traits.GetExtendedScreenRect().IsIntersect(pixelRect)))
+  {
+    handle->SetIsVisible(false);
+    return;
   }
 
   ASSERT_GREATER_OR_EQUAL(handle->GetOverlayRank(), 0, ());
@@ -181,7 +196,7 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
   }
 
   TOverlayContainer rivals;
-  HandleComparator comparator(true /* enableMask */, m_followingMode);
+  HandleComparator comparator(true /* enableMask */);
 
   // Find elements that already on OverlayTree and it's pixel rect
   // intersect with handle pixel rect ("Intersected elements").
@@ -228,27 +243,9 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
         if (boundToParent)
         {
           DeleteHandleWithParents(parentOverlay, currentRank - 1);
-
-#ifdef DEBUG_OVERLAYS_OUTPUT
-          LOG(LINFO, ("Displace (0):", handle->GetOverlayDebugInfo(), "->", parentOverlay->GetOverlayDebugInfo()));
-#endif
-
-#ifdef COLLECT_DISPLACEMENT_INFO
-          m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
-                                                           parentOverlay->GetExtendedPixelRect(modelView).Center(),
-                                                           dp::Color(0, 255, 0, 255)));
-#endif
+          StoreDisplacementInfo(0 /* case index */, handle, parentOverlay);
         }
-
-#ifdef DEBUG_OVERLAYS_OUTPUT
-        LOG(LINFO, ("Displace (1):", rivalHandle->GetOverlayDebugInfo(), "->", handle->GetOverlayDebugInfo()));
-#endif
-
-#ifdef COLLECT_DISPLACEMENT_INFO
-        m_displacementInfo.emplace_back(DisplacementData(rivalHandle->GetExtendedPixelRect(modelView).Center(),
-                                                         handle->GetExtendedPixelRect(modelView).Center(),
-                                                         dp::Color(0, 0, 255, 255)));
-#endif
+        StoreDisplacementInfo(1 /* case index */, rivalHandle, handle);
         return;
       }
     }
@@ -265,17 +262,7 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
         if ((*it)->GetOverlayID() == rivalHandle->GetOverlayID())
         {
           Erase(*it);
-
-#ifdef DEBUG_OVERLAYS_OUTPUT
-          LOG(LINFO, ("Displace (2):", handle->GetOverlayDebugInfo(), "->", (*it)->GetOverlayDebugInfo()));
-#endif
-
-#ifdef COLLECT_DISPLACEMENT_INFO
-          m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
-                                                           (*it)->GetExtendedPixelRect(modelView).Center(),
-                                                           dp::Color(0, 0, 255, 255)));
-#endif
-
+          StoreDisplacementInfo(2 /* case index */, handle, *it);
           it = m_handlesCache.erase(it);
         }
         else
@@ -287,16 +274,7 @@ void OverlayTree::InsertHandle(ref_ptr<OverlayHandle> handle, int currentRank,
     else
     {
       DeleteHandle(rivalHandle);
-
-#ifdef DEBUG_OVERLAYS_OUTPUT
-      LOG(LINFO, ("Displace (3):", handle->GetOverlayDebugInfo(), "->", rivalHandle->GetOverlayDebugInfo()));
-#endif
-
-#ifdef COLLECT_DISPLACEMENT_INFO
-      m_displacementInfo.emplace_back(DisplacementData(handle->GetExtendedPixelRect(modelView).Center(),
-                                                       rivalHandle->GetExtendedPixelRect(modelView).Center(),
-                                                       dp::Color(0, 0, 255, 255)));
-#endif
+      StoreDisplacementInfo(3 /* case index */, handle, rivalHandle);
     }
   }
 
@@ -308,15 +286,17 @@ void OverlayTree::EndOverlayPlacing()
 {
   ASSERT(IsNeedUpdate(), ());
 
+  m_displacers.clear();
+
 #ifdef DEBUG_OVERLAYS_OUTPUT
   LOG(LINFO, ("- BEGIN OVERLAYS PLACING"));
 #endif
 
-  HandleComparator comparator(false /* enableMask */, m_followingMode);
+  HandleComparator comparator(false /* enableMask */);
 
   for (int rank = 0; rank < dp::OverlayRanksCount; rank++)
   {
-    sort(m_handles[rank].begin(), m_handles[rank].end(), comparator);
+    std::sort(m_handles[rank].begin(), m_handles[rank].end(), comparator);
     for (auto const & handle : m_handles[rank])
     {
       ref_ptr<OverlayHandle> parentOverlay;
@@ -328,10 +308,15 @@ void OverlayTree::EndOverlayPlacing()
   }
   
   for (int rank = 0; rank < dp::OverlayRanksCount; rank++)
+  {
+    for (auto const & handle : m_handles[rank])
+      handle->SetDisplayFlag(false);
     m_handles[rank].clear();
+  }
 
   for (auto const & handle : m_handlesCache)
   {
+    handle->SetDisplayFlag(true);
     handle->SetIsVisible(true);
     handle->SetCachingEnable(false);
   }
@@ -393,6 +378,7 @@ bool OverlayTree::GetSelectedFeatureRect(ScreenBase const & screen, m2::RectD & 
   featureRect.MakeEmpty();
   for (auto const & handle : m_handlesCache)
   {
+    CHECK(handle != nullptr, ());
     if (handle->IsVisible() && handle->GetOverlayID().m_featureId == m_selectedFeatureID)
     {
       m2::RectD rect = handle->GetPixelRect(screen, screen.isPerspective());
@@ -404,7 +390,7 @@ bool OverlayTree::GetSelectedFeatureRect(ScreenBase const & screen, m2::RectD & 
 
 void OverlayTree::Select(m2::PointD const & glbPoint, TOverlayContainer & result) const
 {
-  ScreenBase const & screen = m_traits.m_modelView;
+  ScreenBase const & screen = GetModelView();
   m2::PointD const pxPoint = screen.GtoP(glbPoint);
 
   double const kSearchRectHalfSize = 10.0;
@@ -420,7 +406,7 @@ void OverlayTree::Select(m2::PointD const & glbPoint, TOverlayContainer & result
 
 void OverlayTree::Select(m2::RectD const & rect, TOverlayContainer & result) const
 {
-  ScreenBase screen = m_traits.m_modelView;
+  ScreenBase screen = GetModelView();
   ForEachInRect(rect, [&](ref_ptr<OverlayHandle> const & h)
   {
     if (!h->HasLinearFeatureShape() && h->IsVisible() && h->GetOverlayID().m_featureId.IsValid())
@@ -439,20 +425,11 @@ void OverlayTree::Select(m2::RectD const & rect, TOverlayContainer & result) con
   });
 }
 
-void OverlayTree::SetFollowingMode(bool mode)
-{
-  m_followingMode = mode;
-}
-
 void OverlayTree::SetDisplacementEnabled(bool enabled)
 {
+  if (m_isDisplacementEnabled == enabled)
+    return;
   m_isDisplacementEnabled = enabled;
-  m_frameCounter = kInvalidFrame;
-}
-
-void OverlayTree::SetDisplacementMode(int displacementMode)
-{
-  m_displacementMode = displacementMode;
   m_frameCounter = kInvalidFrame;
 }
 
@@ -461,13 +438,51 @@ void OverlayTree::SetSelectedFeature(FeatureID const & featureID)
   m_selectedFeatureID = featureID;
 }
 
-#ifdef COLLECT_DISPLACEMENT_INFO
-
 OverlayTree::TDisplacementInfo const & OverlayTree::GetDisplacementInfo() const
 {
   return m_displacementInfo;
 }
 
+void OverlayTree::StoreDisplacementInfo(int caseIndex, ref_ptr<OverlayHandle> displacerHandle,
+                                        ref_ptr<OverlayHandle> displacedHandle)
+{
+  ScreenBase const & modelView = GetModelView();
+  m2::RectD const pixelRect = displacerHandle->GetExtendedPixelRect(modelView);
+  if (!m_traits.GetDisplacersFreeRect().IsRectInside(pixelRect))
+    m_displacers.insert(displacerHandle);
+
+#ifdef DEBUG_OVERLAYS_OUTPUT
+    LOG(LINFO, ("Displace (", caseIndex, "):", displacerHandle->GetOverlayDebugInfo(),
+                "->", displacedHandle->GetOverlayDebugInfo()));
+#else
+  UNUSED_VALUE(caseIndex);
 #endif
 
-} // namespace dp
+  if (!dp::DebugRectRenderer::Instance().IsEnabled())
+    return;
+  m_displacementInfo.emplace_back(m2::PointF(displacerHandle->GetExtendedPixelRect(modelView).Center()),
+                                  m2::PointF(displacedHandle->GetExtendedPixelRect(modelView).Center()),
+                                  dp::Color(0, 0, 255, 255));
+}
+
+void detail::OverlayTraits::SetVisualScale(double visualScale)
+{
+  m_visualScale = visualScale;
+}
+
+void detail::OverlayTraits::SetModelView(ScreenBase const & modelView)
+{
+  m_modelView = modelView;
+
+  double const extension = m_visualScale * kScreenPixelRectExtension;
+  double const doubleExtension = 2.0 * extension;
+  m_extendedScreenRect = modelView.PixelRectIn3d();
+  m_extendedScreenRect.Inflate(extension, extension);
+
+  m_displacersFreeRect = modelView.PixelRectIn3d();
+  if (m_displacersFreeRect.SizeX() > doubleExtension && m_displacersFreeRect.SizeY() > doubleExtension)
+    m_displacersFreeRect.Inflate(-extension, -extension);
+  else
+    m_displacersFreeRect.SetSizes(1e-7, 1e-7);
+}
+}  // namespace dp

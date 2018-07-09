@@ -5,8 +5,8 @@
 
 #include "base/logging.hpp"
 
-#include "std/iomanip.hpp"
-#include "std/sstream.hpp"
+#include <iomanip>
+#include <sstream>
 
 namespace generator
 {
@@ -17,7 +17,7 @@ size_t constexpr kSrtmTileSize = (kArcSecondsInDegree + 1) * (kArcSecondsInDegre
 
 struct UnzipMemDelegate : public ZipFileReader::Delegate
 {
-  UnzipMemDelegate(string & buffer) : m_buffer(buffer), m_completed(false) {}
+  UnzipMemDelegate(std::string & buffer) : m_buffer(buffer), m_completed(false) {}
 
   // ZipFileReader::Delegate overrides:
   void OnBlockUnzipped(size_t size, char const * data) override { m_buffer.append(data, size); }
@@ -30,7 +30,7 @@ struct UnzipMemDelegate : public ZipFileReader::Delegate
 
   void OnCompleted() override { m_completed = true; }
 
-  string & m_buffer;
+  std::string & m_buffer;
   bool m_completed;
 };
 }  // namespace
@@ -46,13 +46,13 @@ SrtmTile::SrtmTile(SrtmTile && rhs) : m_data(move(rhs.m_data)), m_valid(rhs.m_va
   rhs.Invalidate();
 }
 
-void SrtmTile::Init(string const & dir, ms::LatLon const & coord)
+void SrtmTile::Init(std::string const & dir, ms::LatLon const & coord)
 {
   Invalidate();
 
-  string const base = GetBase(coord);
-  string const cont = dir + base + ".SRTMGL1.hgt.zip";
-  string file = base + ".hgt";
+  std::string const base = GetBase(coord);
+  std::string const cont = dir + base + ".SRTMGL1.hgt.zip";
+  std::string file = base + ".hgt";
 
   UnzipMemDelegate delegate(m_data);
   try
@@ -107,9 +107,9 @@ feature::TAltitude SrtmTile::GetHeight(ms::LatLon const & coord)
   return ReverseByteOrder(Data()[ix]);
 }
 
-string SrtmTile::GetBase(ms::LatLon coord)
+std::string SrtmTile::GetBase(ms::LatLon coord)
 {
-  ostringstream ss;
+  std::ostringstream ss;
   if (coord.lat < 0)
   {
     ss << "S";
@@ -120,7 +120,7 @@ string SrtmTile::GetBase(ms::LatLon coord)
   {
     ss << "N";
   }
-  ss << setw(2) << setfill('0') << static_cast<int>(coord.lat);
+  ss << std::setw(2) << std::setfill('0') << static_cast<int>(coord.lat);
 
   if (coord.lon < 0)
   {
@@ -132,7 +132,7 @@ string SrtmTile::GetBase(ms::LatLon coord)
   {
     ss << "E";
   }
-  ss << setw(3) << static_cast<int>(coord.lon);
+  ss << std::setw(3) << static_cast<int>(coord.lon);
   return ss.str();
 }
 
@@ -144,10 +144,10 @@ void SrtmTile::Invalidate()
 }
 
 // SrtmTileManager ---------------------------------------------------------------------------------
-SrtmTileManager::SrtmTileManager(string const & dir) : m_dir(dir) {}
+SrtmTileManager::SrtmTileManager(std::string const & dir) : m_dir(dir) {}
 feature::TAltitude SrtmTileManager::GetHeight(ms::LatLon const & coord)
 {
-  string const base = SrtmTile::GetBase(coord);
+  std::string const base = SrtmTile::GetBase(coord);
   auto it = m_tiles.find(base);
   if (it == m_tiles.end())
   {
@@ -163,7 +163,7 @@ feature::TAltitude SrtmTileManager::GetHeight(ms::LatLon const & coord)
 
     // It's OK to store even invalid tiles and return invalid height
     // for them later.
-    it = m_tiles.emplace(base, move(tile)).first;
+    it = m_tiles.emplace(base, std::move(tile)).first;
   }
 
   return it->second.GetHeight(coord);

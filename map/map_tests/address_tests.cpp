@@ -3,7 +3,7 @@
 #include "search/reverse_geocoder.hpp"
 
 #include "indexer/classificator_loader.hpp"
-#include "indexer/index.hpp"
+#include "indexer/data_source.hpp"
 #include "indexer/search_string_utils.hpp"
 
 
@@ -33,10 +33,10 @@ UNIT_TEST(ReverseGeocoder_Smoke)
 
   LocalCountryFile file = LocalCountryFile::MakeForTesting("minsk-pass");
 
-  Index index;
-  TEST_EQUAL(index.RegisterMap(file).second, MwmSet::RegResult::Success, ());
+  FrozenDataSource dataSource;
+  TEST_EQUAL(dataSource.RegisterMap(file).second, MwmSet::RegResult::Success, ());
 
-  ReverseGeocoder coder(index);
+  ReverseGeocoder coder(dataSource);
 
   TestAddress(coder, {53.89815, 27.54265}, "улицамясникова", "32");
   TestAddress(coder, {53.89953, 27.54189}, "улицанемига", "42");
