@@ -40,37 +40,6 @@ namespace feature
 {
 class FeaturesCollector2 : public FeaturesCollector
 {
-  DISALLOW_COPY_AND_MOVE(FeaturesCollector2);
-
-  FilesContainerW m_writer;
-
-  class TmpFile : public FileWriter
-  {
-  public:
-    explicit TmpFile(string const & filePath) : FileWriter(filePath) {}
-    ~TmpFile() { DeleteFileX(GetName()); }
-  };
-
-  using TmpFiles = vector<unique_ptr<TmpFile>>;
-  TmpFiles m_geoFile, m_trgFile;
-
-  enum
-  {
-    METADATA = 0,
-    SEARCH_TOKENS = 1,
-    FILES_COUNT = 2
-  };
-  TmpFiles m_helperFile;
-
-  // Mapping from feature id to offset in file section with the correspondent metadata.
-  vector<pair<uint32_t, uint32_t>> m_metadataOffset;
-
-  DataHeader m_header;
-  RegionData m_regionData;
-  uint32_t m_versionDate;
-
-  gen::OsmID2FeatureID m_osm2ft;
-
 public:
   FeaturesCollector2(string const & fName, DataHeader const & header, RegionData const & regionData,
                      uint32_t versionDate)
@@ -154,51 +123,6 @@ public:
     }
   }
 
-private:
-  typedef vector<m2::PointD> points_t;
-  typedef list<points_t> polygons_t;
-
-  void SimplifyPoints(int level, bool isCoast, m2::RectD const & rect, points_t const & in,
-                      points_t & out)
-  {
-    if (isCoast)
-    {
-      BoundsDistance dist(rect);
-      feature::SimplifyPoints(dist, level, in, out);
-    }
-    else
-    {
-      m2::DistanceToLineSquare<m2::PointD> dist;
-      feature::SimplifyPoints(dist, level, in, out);
-    }
-  }
-
-  static double CalcSquare(points_t const & poly)
-  {
-    ASSERT(poly.front() == poly.back(), ());
-
-    double res = 0.0;
-    for (size_t i = 0; i < poly.size() - 1; ++i)
-      res += (poly[i + 1].x - poly[i].x) * (poly[i + 1].y + poly[i].y) / 2.0;
-    return fabs(res);
-  }
-
-  static bool IsGoodArea(points_t const & poly, int level)
-  {
-    // Area has the same first and last points. That's why minimal number of points for
-    // area is 4.
-    if (poly.size() < 4)
-      return false;
-
-    m2::RectD r;
-    CalcRect(poly, r);
-
-    return scales::IsGoodForLevel(level, r);
-  }
-
-  bool IsCountry() const { return m_header.GetType() == feature::DataHeader::country; }
-
-public:
   void SetBounds(m2::RectD bounds) { m_bounds = bounds; }
 
   uint32_t operator()(FeatureBuilder2 & fb)
@@ -219,7 +143,7 @@ public:
         m2::RectD const rect = fb.GetLimitRect();
 
         // Simplify and serialize geometry.
-        points_t points;
+        Points points;
 
         // Do not change linear geometry for the upper scale.
         if (isLine && i == scalesStart && IsCountry() && fb.IsRoad())
@@ -239,21 +163,21 @@ public:
           CHECK_GREATER(points.size(), 0, ());
           points.pop_back();
 
-          polygons_t const & polys = fb.GetGeometry();
+          Polygons const & polys = fb.GetGeometry();
           if (polys.size() == 1 && good && holder.TryToMakeStrip(points))
             continue;
 
-          polygons_t simplified;
+          Polygons simplified;
           if (good)
           {
-            simplified.push_back(points_t());
+            simplified.push_back({});
             simplified.back().swap(points);
           }
 
           auto iH = polys.begin();
           for (++iH; iH != polys.end(); ++iH)
           {
-            simplified.push_back(points_t());
+            simplified.push_back({});
 
             SimplifyPoints(level, isCoast, rect, *iH, simplified.back());
 
@@ -307,6 +231,71 @@ public:
     };
     return featureId;
   }
+
+private:
+  using Points = vector<m2::PointD>;
+  using Polygons = list<Points>;
+
+  class TmpFile : public FileWriter
+  {
+  public:
+    explicit TmpFile(string const & filePath) : FileWriter(filePath) {}
+    ~TmpFile() { DeleteFileX(GetName()); }
+  };
+
+  using TmpFiles = vector<unique_ptr<TmpFile>>;
+
+  enum
+  {
+    METADATA = 0,
+    SEARCH_TOKENS = 1,
+    FILES_COUNT = 2
+  };
+
+  static bool IsGoodArea(Points const & poly, int level)
+  {
+    // Area has the same first and last points. That's why minimal number of points for
+    // area is 4.
+    if (poly.size() < 4)
+      return false;
+
+    m2::RectD r;
+    CalcRect(poly, r);
+
+    return scales::IsGoodForLevel(level, r);
+  }
+
+  bool IsCountry() const { return m_header.GetType() == feature::DataHeader::country; }
+
+  void SimplifyPoints(int level, bool isCoast, m2::RectD const & rect, Points const & in,
+                      Points & out)
+  {
+    if (isCoast)
+    {
+      BoundsDistance dist(rect);
+      feature::SimplifyPoints(dist, level, in, out);
+    }
+    else
+    {
+      m2::DistanceToLineSquare<m2::PointD> dist;
+      feature::SimplifyPoints(dist, level, in, out);
+    }
+  }
+
+  FilesContainerW m_writer;
+  TmpFiles m_helperFile;
+  TmpFiles m_geoFile, m_trgFile;
+
+  // Mapping from feature id to offset in file section with the correspondent metadata.
+  vector<pair<uint32_t, uint32_t>> m_metadataOffset;
+
+  DataHeader m_header;
+  RegionData m_regionData;
+  uint32_t m_versionDate;
+
+  gen::OsmID2FeatureID m_osm2ft;
+
+  DISALLOW_COPY_AND_MOVE(FeaturesCollector2);
 };
 
 /// Simplify geometry for the upper scale.
