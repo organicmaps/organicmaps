@@ -1,5 +1,6 @@
 #include "generator/feature_sorter.hpp"
 
+#include "generator/borders_loader.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/gen_mwm_info.hpp"
@@ -198,6 +199,8 @@ private:
   bool IsCountry() const { return m_header.GetType() == feature::DataHeader::country; }
 
 public:
+  void SetBounds(m2::RectD bounds) { m_bounds = bounds; }
+
   uint32_t operator()(FeatureBuilder2 & fb)
   {
     GeometryHolder holder([this](int i) -> FileWriter & { return *m_geoFile[i]; },
@@ -371,6 +374,10 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
         collector(GetFeatureBuilder2(f));
       }
 
+      // Update bounds with the limit rect corresponding to region borders.
+      // Bounds before update can be too big because of big invisible features like a
+      // relation that contains an entire country's border.
+      collector.SetBounds(borders::GetLimitRect(info.m_targetDir, name));
       collector.Finish();
     }
     catch (RootException const & ex)

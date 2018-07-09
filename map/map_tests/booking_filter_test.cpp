@@ -46,7 +46,7 @@ protected:
 
   void OnMwmBuilt(MwmInfo const & info) override
   {
-    m_infoGetter.AddCountry(storage::CountryDef(info.GetCountryName(), info.m_limitRect));
+    m_infoGetter.AddCountry(storage::CountryDef(info.GetCountryName(), info.m_bordersRect));
   }
 
 private:

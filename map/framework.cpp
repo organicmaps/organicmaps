@@ -580,7 +580,7 @@ void Framework::OnCountryFileDownloaded(storage::TCountryId const & countryId, s
     auto p = m_model.RegisterMap(*localFile);
     MwmSet::MwmId const & id = p.first;
     if (id.IsAlive())
-      rect = id.GetInfo()->m_limitRect;
+      rect = id.GetInfo()->m_bordersRect;
   }
   m_trafficManager.Invalidate();
   m_transitManager.Invalidate();

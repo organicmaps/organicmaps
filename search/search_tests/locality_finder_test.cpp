@@ -47,7 +47,7 @@ public:
       MwmSet::MwmId const & id = p.first;
       TEST(id.IsAlive(), ());
 
-      m_worldRect = id.GetInfo()->m_limitRect;
+      m_worldRect = id.GetInfo()->m_bordersRect;
       m_boundariesTable.Load();
     }
     catch (RootException const & ex)

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "geometry/rect2d.hpp"
 #include "geometry/region2d.hpp"
 #include "geometry/tree4d.hpp"
 
@@ -36,4 +37,5 @@ namespace borders
 
   void GeneratePackedBorders(std::string const & baseDir);
   void UnpackBorders(std::string const & baseDir, std::string const & targetDir);
+  m2::RectD GetLimitRect(std::string const & baseDir, std::string const & country);
 }

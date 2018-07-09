@@ -69,7 +69,7 @@ private:
 
     auto const & info = id.GetInfo();
     if (info)
-      m_infoGetter.AddCountry(storage::CountryDef(name, info->m_limitRect));
+      m_infoGetter.AddCountry(storage::CountryDef(name, info->m_bordersRect));
 
     CHECK(id.IsAlive(), ());
 

@@ -284,7 +284,7 @@ struct KeyedMwmInfo
 {
   KeyedMwmInfo(shared_ptr<MwmInfo> const & info, m2::RectD const & pivot) : m_info(info)
   {
-    auto const & rect = m_info->m_limitRect;
+    auto const & rect = m_info->m_bordersRect;
     m_similarity = GetSimilarity(pivot, rect);
     m_distance = GetDistanceMeters(pivot.Center(), rect);
   }
@@ -325,9 +325,8 @@ size_t OrderCountries(m2::RectD const & pivot, vector<shared_ptr<MwmInfo>> & inf
   for (auto const & info : keyedInfos)
     infos.emplace_back(info.m_info);
 
-  auto intersects = [&](shared_ptr<MwmInfo> const & info) -> bool
-  {
-    return pivot.IsIntersect(info->m_limitRect);
+  auto intersects = [&](shared_ptr<MwmInfo> const & info) -> bool {
+    return pivot.IsIntersect(info->m_bordersRect);
   };
 
   auto const sep = stable_partition(infos.begin(), infos.end(), intersects);
@@ -427,10 +426,9 @@ void Geocoder::GoInViewport()
   vector<shared_ptr<MwmInfo>> infos;
   m_dataSource.GetMwmsInfo(infos);
 
-  my::EraseIf(infos, [this](shared_ptr<MwmInfo> const & info)
-              {
-                return !m_params.m_pivot.IsIntersect(info->m_limitRect);
-              });
+  my::EraseIf(infos, [this](shared_ptr<MwmInfo> const & info) {
+    return !m_params.m_pivot.IsIntersect(info->m_bordersRect);
+  });
 
   GoImpl(infos, true /* inViewport */);
 }

@@ -25,6 +25,7 @@ namespace feature
   private:
     serial::GeometryCodingParams m_codingParams;
 
+    // Rect around region border. Features which cross region border may cross this rect.
     pair<int64_t, int64_t> m_bounds;
 
     buffer_vector<uint8_t, MAX_SCALES_COUNT> m_scales;

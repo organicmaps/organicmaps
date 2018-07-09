@@ -286,12 +286,8 @@ void LocalityFinder::UpdateMaps()
 
     switch (info->GetType())
     {
-    case MwmInfo::WORLD:
-      m_worldId = id;
-      break;
-    case MwmInfo::COUNTRY:
-      m_maps.Add(id, info->m_limitRect);
-      break;
+    case MwmInfo::WORLD: m_worldId = id; break;
+    case MwmInfo::COUNTRY: m_maps.Add(id, info->m_bordersRect); break;
     case MwmInfo::COASTS: break;
     }
   }

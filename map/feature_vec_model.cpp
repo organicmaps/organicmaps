@@ -57,7 +57,7 @@ pair<MwmSet::MwmId, MwmSet::RegResult> FeaturesFetcher::RegisterMap(
     {
       MwmSet::MwmId const & id = result.first;
       ASSERT(id.IsAlive(), ());
-      m_rect.Add(id.GetInfo()->m_limitRect);
+      m_rect.Add(id.GetInfo()->m_bordersRect);
     }
 
     return result;

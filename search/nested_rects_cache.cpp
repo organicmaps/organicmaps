@@ -56,7 +56,7 @@ double NestedRectsCache::GetDistanceToFeatureMeters(FeatureID const & id) const
 
   if (auto const & info = id.m_mwmId.GetInfo())
   {
-    auto const & rect = info->m_limitRect;
+    auto const & rect = info->m_bordersRect;
     return max(MercatorBounds::DistanceOnEarth(rect.Center(), m_position),
                GetRadiusMeters(static_cast<RectScale>(scale)));
   }

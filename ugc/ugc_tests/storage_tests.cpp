@@ -133,7 +133,7 @@ private:
 
     auto const & info = id.GetInfo();
     if (info)
-      m_infoGetter.AddCountry(storage::CountryDef(kTestMwmName, info->m_limitRect));
+      m_infoGetter.AddCountry(storage::CountryDef(kTestMwmName, info->m_bordersRect));
 
     CHECK(id.IsAlive(), ());
     return id;

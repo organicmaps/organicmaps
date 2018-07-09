@@ -158,7 +158,7 @@ unique_ptr<MwmInfo> DataSource::CreateInfo(platform::LocalCountryFile const & lo
     return nullptr;
 
   auto info = make_unique<MwmInfoEx>();
-  info->m_limitRect = h.GetBounds();
+  info->m_bordersRect = h.GetBounds();
 
   pair<int, int> const scaleR = h.GetScaleRange();
   info->m_minScale = static_cast<uint8_t>(scaleR.first);
@@ -201,7 +201,7 @@ void DataSource::ForEachInIntervals(ReaderCallback const & fn, covering::Coverin
   for (shared_ptr<MwmInfo> const & info : mwms)
   {
     if (info->m_minScale <= scale && scale <= info->m_maxScale &&
-        rect.IsIntersect(info->m_limitRect))
+        rect.IsIntersect(info->m_bordersRect))
     {
       MwmId const mwmId(info);
       switch (info->GetType())

@@ -93,7 +93,7 @@ void SearchTest::OnMwmBuilt(MwmInfo const & info)
 {
   switch (info.GetType())
   {
-  case MwmInfo::COUNTRY: RegisterCountry(info.GetCountryName(), info.m_limitRect); break;
+  case MwmInfo::COUNTRY: RegisterCountry(info.GetCountryName(), info.m_bordersRect); break;
   case MwmInfo::WORLD: m_engine.LoadCitiesBoundaries(); break;
   case MwmInfo::COASTS: break;
   }

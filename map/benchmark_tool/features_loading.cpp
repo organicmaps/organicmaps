@@ -120,7 +120,7 @@ void RunFeaturesLoadingBenchmark(string const & file, pair<int, int> scaleRange,
   if (scaleRange.first > scaleRange.second)
     return;
 
-  RunBenchmark(src, r.first.GetInfo()->m_limitRect, scaleRange, res);
+  RunBenchmark(src, r.first.GetInfo()->m_bordersRect, scaleRange, res);
 }
 
 }

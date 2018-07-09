@@ -49,7 +49,8 @@ public:
   MwmInfo();
   virtual ~MwmInfo() = default;
 
-  m2::RectD m_limitRect;          ///< Limit rect of mwm.
+  m2::RectD m_bordersRect;        ///< Rect around region border. Features which cross region border may
+                                  ///< cross this rect.
   uint8_t m_minScale;             ///< Min zoom level of mwm.
   uint8_t m_maxScale;             ///< Max zoom level of mwm.
   version::MwmVersion m_version;  ///< Mwm file version.
