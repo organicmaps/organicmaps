@@ -1295,4 +1295,59 @@
 	<string name="sign_agree_pp_gdpr">Я згоден з &lt;a href="%s">Політикою конфіденційності&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Я згоден з &lt;a href="%s">Умовами використання&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Я згоден отримувати останні новини про MAPS.ME</string>
+	<string name="whats_new_localbiz_title">Малий бізнес заслуговує на увагу</string>
+	<string name="whats_new_localbiz_message">Саме локальні кав’ярні, хостели та магазинчики роблять мандрівки незабутніми. Ми безкоштовно оптимізуємо вашу бізнес-сторінку в MAPS.ME, для того, щоб його помітили.</string>
+	<string name="whats_new_order_button">Залишити заявку</string>
+	<string name="bookmarks_page_downloaded">Завантажені</string>
+	<string name="bookmarks_page_my">Мої</string>
+	<string name="routes_and_bookmarks">Маршрути та позначки</string>
+	<string name="bookmarks_webview_success_toast">Мітки успішно завантажені</string>
+	<string name="cached_bookmarks_placeholder_title">Завантажте нові місця</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Натисніть кнопку, щоб завантажити тисячі цікавих місць і маршрутів, створених користувачами MAPS.ME. Вам знадобиться підключення до Інтернету.</string>
+	<string name="downloader_download_routers">Завантажити позначки</string>
+	<string name="bookmarks_groups_cached">Завантажені списки</string>
+	<string name="author_name_by_prefix">%s</string>
+	<plurals name="bookmarks_objects">
+	  <item quantity="other">%s об’єкт</item>
+	</plurals>
+	<plurals name="objects">
+	  <item quantity="other">%d місце</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="other">%d місць</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="other">%d треків</item>
+	</plurals>
+	<string name="subtittle_opt_out">Налаштування супроводу</string>
+	<string name="opt_out_flurry">Статистика</string>
+	<string name="opt_out_mopub">Персоналізована реклама</string>
+	<string name="opt_out_fabric">Звіти про помилки</string>
+	<string name="opt_out_fabric_description">Ми можемо використовувати ваші дані, щоб розвивати та покращувати MAPS.ME. Зміни вступлять у силу після перезапуску програми</string>
+	<string name="opt_out_help_ios_1">Ви можете відмовитися від отримання цільової реклами в налаштуваннях пристрою.</string>
+	<string name="opt_out_help_ios_2">iOS 9 або вище</string>
+	<string name="opt_out_help_ios_3">Відкрийте Налаштування → Конфіденційність → Реклама → Увімкніть «Обмеження трекінгу»</string>
+	<string name="opt_out_help_android">Ви можете відмовитися від отримання цільової реклами в налаштуваннях пристрою.\ nAndroid і Google Play Сервіси 4.0 і вище\n\nНалаштування телефону → Google → Реклама → Відключити персоналізацію реклами\ nабо\ nНалаштування телефону → Google → Акаунт Google → Конфіденційність → Налаштування рекламних переваг → персоналізація реклами</string>
+	<string name="privacy_policy">Політика конфіденційності</string>
+	<string name="terms_of_use">Умови використання</string>
+	<string name="backup_notification_failed">Резервне копіювання позначок було призупинено. Увійдіть, щоб увімкнути резервне копіювання.</string>
+	<string name="banner_megafon_banner_message">Скажи міжнародному роумінгу гудбай!</string>
+	<string name="banner_megafon_banner_button">Гудбай!</string>
+	<string name="button_layer_traffic">Затор</string>
+	<string name="button_layer_subway">Метрополітен</string>
+	<string name="layers_title">Зображення карти</string>
+	<string name="layers_message">Включайте зображення на карті для відображення дорожнього стану, схеми метрополітену або іншої корисної інформації</string>
+	<string name="button_layer_got_it">Зрозуміло</string>
+	<string name="subway_data_unavailable">Карта метрополітену недоступна</string>
+	<string name="bookmarks_empty_list_title">Список порожній</string>
+	<string name="bookmarks_empty_list_message">Щоб додати нову позначку, натисніть на значок зірочки в картці об’єкта</string>
+	<string name="category_desc_more">…ще</string>
+	<string name="title_error_downloading_bookmarks">Виникла помилка</string>
+	<string name="subtitle_error_downloading_bookmarks">Позначки не були завантажені</string>
+	<string name="whats_new_bookmarks_catalog_title">У MAPS.ME з’явився каталог маршрутів</string>
+	<string name="whats_new_bookmarks_catalog_message">Десятки докладних маршрутів по всьому світу: куди сходити, що подивитися, де поїсти.</string>
+	<string name="whats_new_popularity_label_title">Популярне поблизу</string>
+	<string name="whats_new_popularity_label_message">Розділ «Чим зайнятися» допоможе знайти найпопулярніші місця в місті.</string>
+	<string name="whats_new_hot_offers_title">Вигідні пропозиції готелів</string>
+	<string name="whats_new_hot_offers_message">Шукайте їх за допомогою категорії «Готелі» в пошуку. Пропозиції будуть позначені значком відсотка на карті й у списку.</string>
 </resources>

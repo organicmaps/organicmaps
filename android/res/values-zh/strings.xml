@@ -1295,4 +1295,58 @@
 	<string name="sign_agree_pp_gdpr">我同意&lt;a href="%s">隐私政策&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">我同意&lt;a href="%s">使用条款&lt;/a></string>
 	<string name="sign_agree_news_gdpr">我同意接收有关MAPS.ME产品的最新消息</string>
+	<string name="whats_new_localbiz_message">当地的咖啡馆、旅馆和小商店让旅行难以忘怀。我们在MAPS.ME中免费优化您的商家页面，让它能够被看见。</string>
+	<string name="whats_new_order_button">留下申请表</string>
+	<string name="bookmarks_page_downloaded">加载</string>
+	<string name="bookmarks_page_my">我的</string>
+	<string name="routes_and_bookmarks">路线和标签</string>
+	<string name="bookmarks_webview_success_toast">标签已成功下载</string>
+	<string name="cached_bookmarks_placeholder_title">上传新地点</string>
+	<string name="cached_bookmarks_placeholder_subtitle">单击按钮下载MAPS.ME用户创建的数千个有趣的地点和路线。您需要连接网络。</string>
+	<string name="downloader_download_routers">下载标签</string>
+	<string name="bookmarks_groups_cached">上传的列表</string>
+	<string name="author_name_by_prefix">%s</string>
+	<plurals name="bookmarks_objects">
+	  <item quantity="other">%s 对象</item>
+	</plurals>
+	<plurals name="objects">
+	  <item quantity="other">%d 地点</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="other">%d 地点</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="other">%d 跟踪</item>
+	</plurals>
+	<string name="subtittle_opt_out">支持设置</string>
+	<string name="opt_out_flurry">统计</string>
+	<string name="opt_out_mopub">个性化广告</string>
+	<string name="opt_out_fabric">错误报告</string>
+	<string name="opt_out_fabric_description">我们可以使用您的数据来开发和改进MAPS.ME.更改将在重新启动应用程序后生效。</string>
+	<string name="opt_out_help_ios_1">您可以选择停止在设备设置中接收定位广告。</string>
+	<string name="opt_out_help_ios_2">iOS 9或更高版本</string>
+	<string name="opt_out_help_ios_3">打开设置→隐私→广告→启用“跟踪限制”</string>
+	<string name="opt_out_help_android">您可以选择不在设备设置中接收定向广告。\ NAndroid和Google Play Services 4.0或更高版本\ n \ n电话设置→Google→广告→停用广告个性化\ n或\ n手机设置→Google→Google帐户→隐私→首选项设置→ 广告的个性化</string>
+	<string name="privacy_policy">隐私政策</string>
+	<string name="terms_of_use">使用条款</string>
+	<string name="backup_notification_failed">标签备份已暂停。登录以启用备份。</string>
+	<string name="banner_megafon_banner_message">请对Goodbye国际漫游说！</string>
+	<string name="banner_megafon_banner_button">Goodbye！</string>
+	<string name="button_layer_traffic">堵塞</string>
+	<string name="button_layer_subway">地铁</string>
+	<string name="layers_title">地图图层</string>
+	<string name="layers_message">打开在地图上的图层以显示交通状况、地铁图或其他有用信息</string>
+	<string name="button_layer_got_it">明白</string>
+	<string name="subway_data_unavailable">地铁地图不可用</string>
+	<string name="bookmarks_empty_list_title">该列表为空</string>
+	<string name="bookmarks_empty_list_message">要添加新标签，请单击对象卡中的星形图标</string>
+	<string name="category_desc_more">…更多</string>
+	<string name="title_error_downloading_bookmarks">发生错误</string>
+	<string name="subtitle_error_downloading_bookmarks">标签尚未上传</string>
+	<string name="whats_new_bookmarks_catalog_title">MAPS.ME有一个路线目录</string>
+	<string name="whats_new_bookmarks_catalog_message">世界各地数十条详细路线：去哪里、看什么、在哪里吃饭。</string>
+	<string name="whats_new_popularity_label_title">附近景点</string>
+	<string name="whats_new_popularity_label_message">“做什么”部分将帮助您找到该市最受欢迎的地方。</string>
+	<string name="whats_new_hot_offers_title">优惠的酒店建议</string>
+	<string name="whats_new_hot_offers_message">使用搜索中的“酒店”类别来搜索它们。将在地图和列表中以百分比图标标出建议。</string>
 </resources>

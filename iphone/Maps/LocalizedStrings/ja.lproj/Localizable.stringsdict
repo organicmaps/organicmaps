@@ -65,7 +65,7 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>other</key>
-      <string>%s objects</string>
+      <string>%sのオブジェクト</string>
     </dict>
   </dict>
 
@@ -80,7 +80,7 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>other</key>
-      <string>%d objects</string>
+      <string>%dの場所</string>
     </dict>
   </dict>
 
@@ -95,7 +95,7 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>other</key>
-      <string>%d places</string>
+      <string>%dの場所</string>
     </dict>
   </dict>
 
@@ -110,7 +110,7 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>other</key>
-      <string>%d tracks</string>
+      <string>%dの追跡</string>
     </dict>
   </dict>
 </dict>

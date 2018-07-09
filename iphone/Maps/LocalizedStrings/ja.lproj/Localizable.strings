@@ -2336,92 +2336,92 @@
 
 "sign_agree_news_gdpr" = "私はMAPS.ME製品に関する最新ニュースを受け取ることに同意します";
 
-"whats_new_localbiz_title" = "Small business deserves attention";
+"whats_new_localbiz_title" = "小企業に注目の価値あり";
 
-"whats_new_localbiz_message" = "It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.";
+"whats_new_localbiz_message" = "旅を忘れがたきものにしてくれる現地のカフェ、居心地の良いホテルと店。MAPS.MEで、お客様のページが際立つように最適化いたします。";
 
-"whats_new_order_button" = "Leave a request";
+"whats_new_order_button" = "リクエストを残す";
 
-"bookmarks_page_downloaded" = "Downloaded";
+"bookmarks_page_downloaded" = "ダウンロード済み";
 
-"bookmarks_page_my" = "My";
+"bookmarks_page_my" = "私の";
 
-"routes_and_bookmarks" = "Routes and bookmarks";
+"routes_and_bookmarks" = "ルートとブックマーク";
 
-"bookmarks_webview_success_toast" = "Bookmarks succesfully downloaded";
+"bookmarks_webview_success_toast" = "ブックマークが正常にダウンロードされました";
 
-"cached_bookmarks_placeholder_title" = "Download new places";
+"cached_bookmarks_placeholder_title" = "新しい場所をダウンロード";
 
-"cached_bookmarks_placeholder_subtitle" = "Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.";
+"cached_bookmarks_placeholder_subtitle" = "MAPS.MEユーザーが作成した数千ものおもしろい場所やルートをダウンロードするには、このボタンを押します。インターネット接続が必要です。";
 
-"downloader_download_routers" = "Download bookmarks";
+"downloader_download_routers" = "ブックマークをダウンロード";
 
-"bookmarks_groups_cached" = "Downloaded lists";
+"bookmarks_groups_cached" = "ダウンロード済みリスト";
 
-"author_name_by_prefix" = "by %s";
+"author_name_by_prefix" = "%s";
 
-"subtittle_opt_out" = "Tracking settings";
+"subtittle_opt_out" = "追跡の設定";
 
-"opt_out_flurry" = "Statistic";
+"opt_out_flurry" = "統計";
 
-"opt_out_mopub" = "Personalised advertising";
+"opt_out_mopub" = "パーソナライズされた広告";
 
-"opt_out_fabric" = "Crash report";
+"opt_out_fabric" = "クラッシュレポート";
 
-"opt_out_fabric_description" = "We may use your data to improve MAPS.ME experience. Changes will take effect after you restart the app.";
+"opt_out_fabric_description" = "MAPS.ME体験を向上させるため、お客様のデータを使用する可能性があります。変更は、アプリを再起動した後に、反映されます。";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
 "opt_out_appsflyer" = "Appsflyer";
 
-"opt_out_help_ios_1" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.";
+"opt_out_help_ios_1" = "お使いの携帯端末には、「追跡型広告を制限」または「関心に基づく広告を非表示」の設定があるかもしれません。";
 
-"opt_out_help_ios_2" = "iOS 9 or Higher";
+"opt_out_help_ios_2" = "iOS 9以降";
 
-"opt_out_help_ios_3" = "Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting";
+"opt_out_help_ios_3" = "設定→プライバシー→広告に進み、「追跡型広告を制限」を有効にします";
 
-"opt_out_help_android" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization";
+"opt_out_help_android" = "お使いの携帯端末には、「追跡型広告を制限」または「関心に基づく広告を非表示」の設定があるかもしれません。\n\nAndroid、Google Play Servicesバージョン4.0以降：\n設定→Google→広告→広告パーソナライゼーションの提供停止\nor\n設定→Google→Googleアカウント→個人情報とプライバシー→広告設定→広告パーソナライゼーション";
 
-"privacy_policy" = "Privacy policy";
+"privacy_policy" = "個人情報保護方針";
 
-"terms_of_use" = "Terms of use";
+"terms_of_use" = "ご利用規約";
 
-"backup_notification_failed" = "Backing up your bookmarks has been suspended. Log in to turn it back on.";
+"backup_notification_failed" = "ブックマークのバックアップが中断されました。ログインして、元に戻します。";
 
-"banner_megafon_banner_message" = "Say goodbye to international roaming!";
+"banner_megafon_banner_message" = "もう国際ローミングにさようなら！";
 
-"banner_megafon_banner_button" = "Goodbye!";
+"banner_megafon_banner_button" = "さようなら！";
 
-"button_layer_traffic" = "Traffic";
+"button_layer_traffic" = "交通状況";
 
-"button_layer_subway" = "Subway";
+"button_layer_subway" = "地下鉄";
 
-"layers_title" = "Map layers";
+"layers_title" = "マップレイヤー";
 
-"layers_message" = "Use map layers to display the traffic, subway map, and other useful information";
+"layers_message" = "マップレイヤーを使用して、交通状況、地下鉄路線図、その他の有益な情報を表示";
 
-"button_layer_got_it" = "Got it";
+"button_layer_got_it" = "了解";
 
-"subway_data_unavailable" = "Subway map is unavailable";
+"subway_data_unavailable" = "地下鉄路線図はご利用いただけません";
 
-"bookmarks_empty_list_title" = "This list is empty";
+"bookmarks_empty_list_title" = "このリストは空です";
 
-"bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";
+"bookmarks_empty_list_message" = "ブックマークを追加するには、地図上の場所をタップし、星のアイコンをタップします。";
 
-"category_desc_more" = "…more";
+"category_desc_more" = "詳細";
 
-"title_error_downloading_bookmarks" = "An error occured";
+"title_error_downloading_bookmarks" = "エラーが発生しました";
 
-"subtitle_error_downloading_bookmarks" = "Bookmarks were not downloaded";
+"subtitle_error_downloading_bookmarks" = "ブックマークはダウンロードされませんでした";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME now has a route library";
+"whats_new_bookmarks_catalog_title" = "MAPS.MEにルートカタログができました";
 
-"whats_new_bookmarks_catalog_message" = "Hundreds of detailed routes all around the world: where to go, what to see, where to eat.";
+"whats_new_bookmarks_catalog_message" = "世界各地の数百もの詳細なルート：どこに行って、何を見て、何を食べようか。";
 
-"whats_new_popularity_label_title" = "Popular locations nearby";
+"whats_new_popularity_label_title" = "最寄りの人気スポット";
 
-"whats_new_popularity_label_message" = "The What to Do section will help you find the most popular places in the city.";
+"whats_new_popularity_label_message" = "「何をする」セクションでは、市内有数の人気の場所がわかります。";
 
-"whats_new_hot_offers_title" = "Attractive offers from hotels";
+"whats_new_hot_offers_title" = "ホテルからの魅力的な提案";
 
-"whats_new_hot_offers_message" = "You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.";
+"whats_new_hot_offers_message" = "これを、検索のホテルカテゴリを使用して、探すことができます。提案は地図上および検索結果の%記号でマークされています。";

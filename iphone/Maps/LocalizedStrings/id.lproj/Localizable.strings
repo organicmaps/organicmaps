@@ -2336,92 +2336,92 @@
 
 "sign_agree_news_gdpr" = "Saya setuju untuk menerima berita terbaru tentang produk MAPS.ME";
 
-"whats_new_localbiz_title" = "Small business deserves attention";
+"whats_new_localbiz_title" = "Bisnis kecil layak mendapatkan perhatian";
 
-"whats_new_localbiz_message" = "It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.";
+"whats_new_localbiz_message" = "Kafe lokal, hostel nyaman, dan pertokoan adalah yang membuat perjalanan kita tak terlupakan. Kami akan mengoptimalkan halaman Anda di MAPS.ME untuk membuatnya menonjol.";
 
-"whats_new_order_button" = "Leave a request";
+"whats_new_order_button" = "Tinggalkan permintaan";
 
-"bookmarks_page_downloaded" = "Downloaded";
+"bookmarks_page_downloaded" = "Diunduh";
 
-"bookmarks_page_my" = "My";
+"bookmarks_page_my" = "Milik saya";
 
-"routes_and_bookmarks" = "Routes and bookmarks";
+"routes_and_bookmarks" = "Rute dan bookmark";
 
-"bookmarks_webview_success_toast" = "Bookmarks succesfully downloaded";
+"bookmarks_webview_success_toast" = "Bookmark berhasil diunduh";
 
-"cached_bookmarks_placeholder_title" = "Download new places";
+"cached_bookmarks_placeholder_title" = "Unduh tempat baru";
 
-"cached_bookmarks_placeholder_subtitle" = "Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.";
+"cached_bookmarks_placeholder_subtitle" = "Tekan tombol untuk mengunduh ribuan tempat dan rute menarik yang dibuat oleh pengguna MAPS.ME. Anda akan memerlukan koneksi internet.";
 
-"downloader_download_routers" = "Download bookmarks";
+"downloader_download_routers" = "Unduh bookmark";
 
-"bookmarks_groups_cached" = "Downloaded lists";
+"bookmarks_groups_cached" = "Daftar yang telah diunduh.";
 
-"author_name_by_prefix" = "by %s";
+"author_name_by_prefix" = "oleh %s";
 
-"subtittle_opt_out" = "Tracking settings";
+"subtittle_opt_out" = "Pengaturan treking";
 
-"opt_out_flurry" = "Statistic";
+"opt_out_flurry" = "Statistik";
 
-"opt_out_mopub" = "Personalised advertising";
+"opt_out_mopub" = "Iklan yang telah dipersonalisasi";
 
-"opt_out_fabric" = "Crash report";
+"opt_out_fabric" = "Laporan tabrakan";
 
-"opt_out_fabric_description" = "We may use your data to improve MAPS.ME experience. Changes will take effect after you restart the app.";
+"opt_out_fabric_description" = "Kami dapat menggunakan data Anda untuk meningkatkan pengalaman MAPS.ME. Perubahan akan berlaku setelah Anda memulai ulang aplikasi.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
 "opt_out_appsflyer" = "Appsflyer";
 
-"opt_out_help_ios_1" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.";
+"opt_out_help_ios_1" = "Perangkat seluler Anda mungkin menyediakan pengaturan \"\"Batasi Treking Iklan\"\" atau \"\"Keluar dari iklan berbasis ketertarikan\"\".";
 
-"opt_out_help_ios_2" = "iOS 9 or Higher";
+"opt_out_help_ios_2" = "iOS 9 atau Lebih Tinggi";
 
-"opt_out_help_ios_3" = "Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting";
+"opt_out_help_ios_3" = "Ke Pengaturan → Privasi → Iklan → Aktifkan pengaturan \"\"Batasi Treking Iklan\"\"";
 
-"opt_out_help_android" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization";
+"opt_out_help_android" = "Perangkat seluler Anda mungkin menyediakan pengaturan \"\"Batasi treking iklan\"\" atau \"\"Keluar dari iklan berbasis ketertarikan\"\".\n\nUntuk Android dan Google Play Services versi 4.0 dan ke atas:\nPengaturan → Google → Iklan → Keluar dari Personalisasi Iklan\nor\nPengaturan → Google → Akun Google → Informasi personal & privasi → Pengaturan Iklan → Personalisasi Iklan";
 
-"privacy_policy" = "Privacy policy";
+"privacy_policy" = "Kebijakan privasi";
 
-"terms_of_use" = "Terms of use";
+"terms_of_use" = "Ketentuan penggunaan";
 
-"backup_notification_failed" = "Backing up your bookmarks has been suspended. Log in to turn it back on.";
+"backup_notification_failed" = "Mencadangkan bookmark Anda telah dihentikan. Masuk untuk kembali mengaktifkannya.";
 
-"banner_megafon_banner_message" = "Say goodbye to international roaming!";
+"banner_megafon_banner_message" = "Katakan selamat tinggal pada roaming internasional!";
 
-"banner_megafon_banner_button" = "Goodbye!";
+"banner_megafon_banner_button" = "Selamat tinggal!";
 
-"button_layer_traffic" = "Traffic";
+"button_layer_traffic" = "Lalu lintas";
 
-"button_layer_subway" = "Subway";
+"button_layer_subway" = "Kereta bawah tanah";
 
-"layers_title" = "Map layers";
+"layers_title" = "Lapisan peta";
 
-"layers_message" = "Use map layers to display the traffic, subway map, and other useful information";
+"layers_message" = "Gunakan lapisan peta untuk menampilkan lalu lintas, peta kereta bawah tanah, dan informasi berguna lainnya";
 
-"button_layer_got_it" = "Got it";
+"button_layer_got_it" = "Mengerti";
 
-"subway_data_unavailable" = "Subway map is unavailable";
+"subway_data_unavailable" = "Peta bawah tanah tidak tersedia";
 
-"bookmarks_empty_list_title" = "This list is empty";
+"bookmarks_empty_list_title" = "Daftar ini kosong";
 
-"bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";
+"bookmarks_empty_list_message" = "Untuk menambahkan bookmark, ketuk satu tempat di peta lalu ketuk ikon bintang";
 
-"category_desc_more" = "…more";
+"category_desc_more" = "…selengkapnya";
 
-"title_error_downloading_bookmarks" = "An error occured";
+"title_error_downloading_bookmarks" = "Terjadi kesalahan";
 
-"subtitle_error_downloading_bookmarks" = "Bookmarks were not downloaded";
+"subtitle_error_downloading_bookmarks" = "Bookmark tidak terunduh";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME now has a route library";
+"whats_new_bookmarks_catalog_title" = "MAPS.ME sekarang memiliki katalog rute";
 
-"whats_new_bookmarks_catalog_message" = "Hundreds of detailed routes all around the world: where to go, what to see, where to eat.";
+"whats_new_bookmarks_catalog_message" = "Ratusan rute yang detail di seluruh dunia: tempat untuk dikunjungi, untuk melihat-lihat, untuk makan.";
 
-"whats_new_popularity_label_title" = "Popular locations nearby";
+"whats_new_popularity_label_title" = "Lokasi populer terdekat";
 
-"whats_new_popularity_label_message" = "The What to Do section will help you find the most popular places in the city.";
+"whats_new_popularity_label_message" = "Bagian Yang Dapat Dilakukan akan membantu Anda menemukan tempat paling populer di suatu kota.";
 
-"whats_new_hot_offers_title" = "Attractive offers from hotels";
+"whats_new_hot_offers_title" = "Penawaran menarik dari hotel";
 
-"whats_new_hot_offers_message" = "You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.";
+"whats_new_hot_offers_message" = "Anda dapat mencarinya menggunakan kategori Hotel di pencarian. Penawaran akan ditandai dengan simbol persentase di peta dan di hasil pencarian.";

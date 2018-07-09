@@ -1288,4 +1288,59 @@
 	<string name="sign_agree_pp_gdpr">&lt;a href="%s">プライバシーポリシー&lt;/a>に同意します</string>
 	<string name="sign_agree_tof_gdpr">&lt;a href="%s">利用規約&lt;/a>に同意します</string>
 	<string name="sign_agree_news_gdpr">私はMAPS.ME製品に関する最新ニュースを受け取ることに同意します</string>
+	<string name="whats_new_localbiz_title">小企業に注目の価値あり</string>
+	<string name="whats_new_localbiz_message">旅を忘れがたきものにしてくれる現地のカフェ、居心地の良いホテルと店。MAPS.MEで、お客様のページが際立つように最適化いたします。</string>
+	<string name="whats_new_order_button">リクエストを残す</string>
+	<string name="bookmarks_page_downloaded">ダウンロード済み</string>
+	<string name="bookmarks_page_my">私の</string>
+	<string name="routes_and_bookmarks">ルートとブックマーク</string>
+	<string name="bookmarks_webview_success_toast">ブックマークが正常にダウンロードされました</string>
+	<string name="cached_bookmarks_placeholder_title">新しい場所をダウンロード</string>
+	<string name="cached_bookmarks_placeholder_subtitle">MAPS.MEユーザーが作成した数千ものおもしろい場所やルートをダウンロードするには、このボタンを押します。インターネット接続が必要です。</string>
+	<string name="downloader_download_routers">ブックマークをダウンロード</string>
+	<string name="bookmarks_groups_cached">ダウンロード済みリスト</string>
+	<string name="author_name_by_prefix">%s</string>
+	<plurals name="bookmarks_objects">
+	  <item quantity="other">%sのオブジェクト</item>
+	</plurals>
+	<plurals name="objects">
+	  <item quantity="other">%dの場所</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="other">%dの場所</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="other">%dの追跡</item>
+	</plurals>
+	<string name="subtittle_opt_out">追跡の設定</string>
+	<string name="opt_out_flurry">統計</string>
+	<string name="opt_out_mopub">パーソナライズされた広告</string>
+	<string name="opt_out_fabric">クラッシュレポート</string>
+	<string name="opt_out_fabric_description">MAPS.ME体験を向上させるため、お客様のデータを使用する可能性があります。変更は、アプリを再起動した後に、反映されます。</string>
+	<string name="opt_out_help_ios_1">お使いの携帯端末には、「追跡型広告を制限」または「関心に基づく広告を非表示」の設定があるかもしれません。</string>
+	<string name="opt_out_help_ios_2">iOS 9以降</string>
+	<string name="opt_out_help_ios_3">設定→プライバシー→広告に進み、「追跡型広告を制限」を有効にします</string>
+	<string name="opt_out_help_android">お使いの携帯端末には、「追跡型広告を制限」または「関心に基づく広告を非表示」の設定があるかもしれません。\n\nAndroid、Google Play Servicesバージョン4.0以降：\n設定→Google→広告→広告パーソナライゼーションの提供停止\nor\n設定→Google→Googleアカウント→個人情報とプライバシー→広告設定→広告パーソナライゼーション</string>
+	<string name="privacy_policy">個人情報保護方針</string>
+	<string name="terms_of_use">ご利用規約</string>
+	<string name="backup_notification_failed">ブックマークのバックアップが中断されました。ログインして、元に戻します。</string>
+	<string name="banner_megafon_banner_message">もう国際ローミングにさようなら！</string>
+	<string name="banner_megafon_banner_button">さようなら！</string>
+	<string name="button_layer_traffic">交通状況</string>
+	<string name="button_layer_subway">地下鉄</string>
+	<string name="layers_title">マップレイヤー</string>
+	<string name="layers_message">マップレイヤーを使用して、交通状況、地下鉄路線図、その他の有益な情報を表示</string>
+	<string name="button_layer_got_it">了解</string>
+	<string name="subway_data_unavailable">地下鉄路線図はご利用いただけません</string>
+	<string name="bookmarks_empty_list_title">このリストは空です</string>
+	<string name="bookmarks_empty_list_message">ブックマークを追加するには、地図上の場所をタップし、星のアイコンをタップします。</string>
+	<string name="category_desc_more">詳細</string>
+	<string name="title_error_downloading_bookmarks">エラーが発生しました</string>
+	<string name="subtitle_error_downloading_bookmarks">ブックマークはダウンロードされませんでした</string>
+	<string name="whats_new_bookmarks_catalog_title">MAPS.MEにルートカタログができました</string>
+	<string name="whats_new_bookmarks_catalog_message">世界各地の数百もの詳細なルート：どこに行って、何を見て、何を食べようか。</string>
+	<string name="whats_new_popularity_label_title">最寄りの人気スポット</string>
+	<string name="whats_new_popularity_label_message">「何をする」セクションでは、市内有数の人気の場所がわかります。</string>
+	<string name="whats_new_hot_offers_title">ホテルからの魅力的な提案</string>
+	<string name="whats_new_hot_offers_message">これを、検索のホテルカテゴリを使用して、探すことができます。提案は地図上および検索結果の%記号でマークされています。</string>
 </resources>

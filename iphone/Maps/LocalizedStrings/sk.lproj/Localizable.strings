@@ -2336,92 +2336,92 @@
 
 "sign_agree_news_gdpr" = "Súhlasím so zasielaním najnovších správ o produktoch MAPS.ME";
 
-"whats_new_localbiz_title" = "Small business deserves attention";
+"whats_new_localbiz_title" = "Malé podniky si zaslúžia pozornosť";
 
-"whats_new_localbiz_message" = "It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.";
+"whats_new_localbiz_message" = "Jedná sa o miestne kaviarne, útulné hostely a obchody, ktoré spravia z vašich ciest nezabudnuteľné. Vašu stránku optimalizujeme v MAPS.ME, aby vynikla.";
 
-"whats_new_order_button" = "Leave a request";
+"whats_new_order_button" = "Zanechať žiadosť";
 
-"bookmarks_page_downloaded" = "Downloaded";
+"bookmarks_page_downloaded" = "Prevzaté";
 
-"bookmarks_page_my" = "My";
+"bookmarks_page_my" = "Moje";
 
-"routes_and_bookmarks" = "Routes and bookmarks";
+"routes_and_bookmarks" = "Trasy a záložky";
 
-"bookmarks_webview_success_toast" = "Bookmarks succesfully downloaded";
+"bookmarks_webview_success_toast" = "Záložky úspešne prevzaté";
 
-"cached_bookmarks_placeholder_title" = "Download new places";
+"cached_bookmarks_placeholder_title" = "Prevziať nové miesta";
 
-"cached_bookmarks_placeholder_subtitle" = "Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.";
+"cached_bookmarks_placeholder_subtitle" = "Stlačením tlačidla stiahnete tisíce zaujímavých miest a trás vytvorených používateľmi MAPS.ME. Budete potrebovať internetové pripojenie.";
 
-"downloader_download_routers" = "Download bookmarks";
+"downloader_download_routers" = "Prevziať záložky";
 
-"bookmarks_groups_cached" = "Downloaded lists";
+"bookmarks_groups_cached" = "Prevziať zoznamy";
 
-"author_name_by_prefix" = "by %s";
+"author_name_by_prefix" = "od %s";
 
-"subtittle_opt_out" = "Tracking settings";
+"subtittle_opt_out" = "Nastavenie sledovania";
 
-"opt_out_flurry" = "Statistic";
+"opt_out_flurry" = "Štatistika";
 
-"opt_out_mopub" = "Personalised advertising";
+"opt_out_mopub" = "Personalizovaná reklama";
 
-"opt_out_fabric" = "Crash report";
+"opt_out_fabric" = "Hlásenie chýb";
 
-"opt_out_fabric_description" = "We may use your data to improve MAPS.ME experience. Changes will take effect after you restart the app.";
+"opt_out_fabric_description" = "Vaše údaje môžeme použiť na zlepšenie skúseností s programom MAPS.ME. Zmeny sa prejavia po reštartovaní aplikácie.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
 "opt_out_appsflyer" = "Appsflyer";
 
-"opt_out_help_ios_1" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.";
+"opt_out_help_ios_1" = "Vaše mobilné zariadenie môže poskytnúť nastavenie „Obmedziť reklamné sledovanie“ alebo „Zrušiť inzerciu založenú na záujmoch“.";
 
-"opt_out_help_ios_2" = "iOS 9 or Higher";
+"opt_out_help_ios_2" = "iOS 9 alebo vyšší";
 
-"opt_out_help_ios_3" = "Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting";
+"opt_out_help_ios_3" = "Prejdite do nastavenia → Ochrana osobných údajov → Reklama → Povolenie nastavenia „Obmedziť reklamné sledovanie“";
 
-"opt_out_help_android" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization";
+"opt_out_help_android" = "Vaše mobilné zariadenie môže obsahovať nastavenie „Obmedziť reklamné sledovanie“ alebo „Zrušiť inzerciu založenú na záujmoch“. \n\nPre Android a služby Google Play verzie 4.0 a vyššie: \nNastavenia → Google → Reklamy → Zrušiť inzerciu založenú na záujmoch \nalebo\nNastavenia → Google → Google Účet → Osobné informácie a ochrana osobných údajov → Nastavenia reklamy → Personalizácia reklám";
 
-"privacy_policy" = "Privacy policy";
+"privacy_policy" = "Zásady ochrany osobných údajov";
 
-"terms_of_use" = "Terms of use";
+"terms_of_use" = "Podmienky používania";
 
-"backup_notification_failed" = "Backing up your bookmarks has been suspended. Log in to turn it back on.";
+"backup_notification_failed" = "Zálohovanie záložiek bolo pozastavené. Pre opätovné zapnutie sa prihláste.";
 
-"banner_megafon_banner_message" = "Say goodbye to international roaming!";
+"banner_megafon_banner_message" = "Rozlúčte sa s medzinárodným roamingom!";
 
-"banner_megafon_banner_button" = "Goodbye!";
+"banner_megafon_banner_button" = "Zbohom!";
 
-"button_layer_traffic" = "Traffic";
+"button_layer_traffic" = "Vyťaženie";
 
-"button_layer_subway" = "Subway";
+"button_layer_subway" = "Metro";
 
-"layers_title" = "Map layers";
+"layers_title" = "Vrstvy mapy";
 
-"layers_message" = "Use map layers to display the traffic, subway map, and other useful information";
+"layers_message" = "Na zobrazenie návštevnosti, mapy metra a ďalších užitočných informácií použite vrstvy mapy";
 
-"button_layer_got_it" = "Got it";
+"button_layer_got_it" = "Mám to";
 
-"subway_data_unavailable" = "Subway map is unavailable";
+"subway_data_unavailable" = "Mapa metra nie je dostupná";
 
-"bookmarks_empty_list_title" = "This list is empty";
+"bookmarks_empty_list_title" = "Tento zoznam je prázdny";
 
-"bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";
+"bookmarks_empty_list_message" = "Pre pridanie záložky kliknite na miesto na mape a potom na ikonu hviezdy";
 
-"category_desc_more" = "…more";
+"category_desc_more" = "…viac";
 
-"title_error_downloading_bookmarks" = "An error occured";
+"title_error_downloading_bookmarks" = "Vyskytla sa chyba";
 
-"subtitle_error_downloading_bookmarks" = "Bookmarks were not downloaded";
+"subtitle_error_downloading_bookmarks" = "Záložky neboli stiahnuté";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME now has a route library";
+"whats_new_bookmarks_catalog_title" = "MAPS.ME má teraz katalóg trás";
 
-"whats_new_bookmarks_catalog_message" = "Hundreds of detailed routes all around the world: where to go, what to see, where to eat.";
+"whats_new_bookmarks_catalog_message" = "Stovky podrobných trás po celom svete: kam ísť, čo vidieť, kde sa ísť najesť.";
 
-"whats_new_popularity_label_title" = "Popular locations nearby";
+"whats_new_popularity_label_title" = "Obľúbené miesta v okolí";
 
-"whats_new_popularity_label_message" = "The What to Do section will help you find the most popular places in the city.";
+"whats_new_popularity_label_message" = "Sekcia Čo robiť vám pomôže nájsť najobľúbenejšie miesta v meste.";
 
-"whats_new_hot_offers_title" = "Attractive offers from hotels";
+"whats_new_hot_offers_title" = "Atraktívne ponuky hotelov";
 
-"whats_new_hot_offers_message" = "You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.";
+"whats_new_hot_offers_message" = "Môžete ich vyhľadávať pomocou kategórie Hotely vo vyhľadávaní. Ponuky budú označené percentuálnym symbolom na mape a vo výsledkoch vyhľadávania.";

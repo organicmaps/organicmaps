@@ -1290,4 +1290,59 @@
 	<string name="sign_agree_pp_gdpr">Elfogadom a &lt;a href="%s">adatvédelmi irányelveket&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Elfogadom a &lt;a href="%s">Általános Szerződési Feltételeket&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Elfogadom, hogy megkapja a MAPS.ME termékekkel kapcsolatos legfrissebb híreke</string>
+	<string name="whats_new_localbiz_title">A kis cégek is figyelmet érdemelnek</string>
+	<string name="whats_new_localbiz_message">Legyenek helyi kávézók, kényelmes szállók és üzletek, amik feledhetetlenné teszik az utazást. A weboldaladat úgy optimalizáljuk a MAPS.ME-ben, hogy igazán kitűnjön.</string>
+	<string name="whats_new_order_button">Kérés küldése</string>
+	<string name="bookmarks_page_downloaded">Letöltött</string>
+	<string name="bookmarks_page_my">Az én</string>
+	<string name="routes_and_bookmarks">Útvonalaim és könyvjelzőim</string>
+	<string name="bookmarks_webview_success_toast">Könyvjelzők sikeresen letöltve</string>
+	<string name="cached_bookmarks_placeholder_title">Új helyek letöltése</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Nyomja meg a gombot, hogy MAPS.ME felhasználók ezrei által gyűjtött érdekes helyet és útvonalat tölthessen le. Ehhez internetkapcsolatra van szükség.</string>
+	<string name="downloader_download_routers">Könyvjelzők letöltése</string>
+	<string name="bookmarks_groups_cached">Letöltött listák</string>
+	<string name="author_name_by_prefix">%s</string>
+	<plurals name="bookmarks_objects">
+	  <item quantity="other">%s tárgy</item>
+	</plurals>
+	<plurals name="objects">
+	  <item quantity="other">%d hely</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="other">%d hely</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="other">%d út</item>
+	</plurals>
+	<string name="subtittle_opt_out">Követési beállítások</string>
+	<string name="opt_out_flurry">Statisztika</string>
+	<string name="opt_out_mopub">Személyre szabott reklámok</string>
+	<string name="opt_out_fabric">Hibajelentés</string>
+	<string name="opt_out_fabric_description">A MAPS.ME fejlesztéséhez felhasználhatjuk az adatait. A változtatások az alkalmazás újraindítása után lépnek életbe.</string>
+	<string name="opt_out_help_ios_1">A mobileszköz „Reklámkövetés korlátozása” vagy „Érdeklődési kör alapú reklámozás” beállítással rendelkezhet.</string>
+	<string name="opt_out_help_ios_2">iOS 9 vagy újabb</string>
+	<string name="opt_out_help_ios_3">Nyissa meg a Beállítások → Adatvédelem→ Reklámok→ és engedélyezze a “Reklámkövetés korlátozása” beállítást</string>
+	<string name="opt_out_help_android">A mobileszköz „Reklámkövetés korlátozása” vagy „Érdeklődési kör alapú reklámozás” beállítással rendelkezhet.\n\nAndroidban és Google Play szolgáltatások 4.0 vagy újabb verzió:\nBeállítások → Google → Google fiók → Személyes és adatvédelem → Reklámok → Reklámok személyre szabása</string>
+	<string name="privacy_policy">Adatvédelmi irányelvek</string>
+	<string name="terms_of_use">Felhasználási feltételek</string>
+	<string name="backup_notification_failed">A könyvjelzői biztonsági mentése felfüggesztésre került. Jelentkezz be a visszakapcsoláshoz.</string>
+	<string name="banner_megafon_banner_message">Köszönjünk el a nemzetközi roamingdíjaktól!</string>
+	<string name="banner_megafon_banner_button">Viszlát!</string>
+	<string name="button_layer_traffic">Forgalom</string>
+	<string name="button_layer_subway">Metró</string>
+	<string name="layers_title">Térképrétegek</string>
+	<string name="layers_message">Használjon térképrétegeket a forgalom, metrótérkép és más hasznos információ megjelenítéséhez</string>
+	<string name="button_layer_got_it">Értem</string>
+	<string name="subway_data_unavailable">A metrótérkép nem elérhető</string>
+	<string name="bookmarks_empty_list_title">A lista üres</string>
+	<string name="bookmarks_empty_list_message">A könyvjelző hozzáadásához, érintsen meg a térképen egy helyet majd érintse meg a csillag ikont</string>
+	<string name="category_desc_more">…tovább</string>
+	<string name="title_error_downloading_bookmarks">Hiba történt</string>
+	<string name="subtitle_error_downloading_bookmarks">Nem került letöltésre könyvjelző</string>
+	<string name="whats_new_bookmarks_catalog_title">A MAPS.ME már útvonal-katalógussal is rendelkezik</string>
+	<string name="whats_new_bookmarks_catalog_message">Több száz részletes útvonal a világszerte: hova érdemes menni, mit érdemes megnézni, hol együnk.</string>
+	<string name="whats_new_popularity_label_title">Népszerű helyek a közelben</string>
+	<string name="whats_new_popularity_label_message">A Mit csináljunk rész segít megtalálni a város legnépszerűbb helyeit.</string>
+	<string name="whats_new_hot_offers_title">Hotelek vonzó ajánlatai</string>
+	<string name="whats_new_hot_offers_message">Kereshetőek a Hotel kategóriában a kereséssel. A kedvezményes ajánlatok a térképen és a keresési eredményekben százalékjellel vannak megjelölve.</string>
 </resources>

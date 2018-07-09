@@ -2336,92 +2336,92 @@
 
 "sign_agree_news_gdpr" = "Elfogadom, hogy megkapja a MAPS.ME termékekkel kapcsolatos legfrissebb híreke";
 
-"whats_new_localbiz_title" = "Small business deserves attention";
+"whats_new_localbiz_title" = "A kis cégek is figyelmet érdemelnek";
 
-"whats_new_localbiz_message" = "It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.";
+"whats_new_localbiz_message" = "Legyenek helyi kávézók, kényelmes szállók és üzletek, amik feledhetetlenné teszik az utazást. A weboldaladat úgy optimalizáljuk a MAPS.ME-ben, hogy igazán kitűnjön.";
 
-"whats_new_order_button" = "Leave a request";
+"whats_new_order_button" = "Kérés küldése";
 
-"bookmarks_page_downloaded" = "Downloaded";
+"bookmarks_page_downloaded" = "Letöltött";
 
-"bookmarks_page_my" = "My";
+"bookmarks_page_my" = "Az én";
 
-"routes_and_bookmarks" = "Routes and bookmarks";
+"routes_and_bookmarks" = "Útvonalaim és könyvjelzőim";
 
-"bookmarks_webview_success_toast" = "Bookmarks succesfully downloaded";
+"bookmarks_webview_success_toast" = "Könyvjelzők sikeresen letöltve";
 
-"cached_bookmarks_placeholder_title" = "Download new places";
+"cached_bookmarks_placeholder_title" = "Új helyek letöltése";
 
-"cached_bookmarks_placeholder_subtitle" = "Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.";
+"cached_bookmarks_placeholder_subtitle" = "Nyomja meg a gombot, hogy MAPS.ME felhasználók ezrei által gyűjtött érdekes helyet és útvonalat tölthessen le. Ehhez internetkapcsolatra van szükség.";
 
-"downloader_download_routers" = "Download bookmarks";
+"downloader_download_routers" = "Könyvjelzők letöltése";
 
-"bookmarks_groups_cached" = "Downloaded lists";
+"bookmarks_groups_cached" = "Letöltött listák";
 
-"author_name_by_prefix" = "by %s";
+"author_name_by_prefix" = "%s";
 
-"subtittle_opt_out" = "Tracking settings";
+"subtittle_opt_out" = "Követési beállítások";
 
-"opt_out_flurry" = "Statistic";
+"opt_out_flurry" = "Statisztika";
 
-"opt_out_mopub" = "Personalised advertising";
+"opt_out_mopub" = "Személyre szabott reklámok";
 
-"opt_out_fabric" = "Crash report";
+"opt_out_fabric" = "Hibajelentés";
 
-"opt_out_fabric_description" = "We may use your data to improve MAPS.ME experience. Changes will take effect after you restart the app.";
+"opt_out_fabric_description" = "A MAPS.ME fejlesztéséhez felhasználhatjuk az adatait. A változtatások az alkalmazás újraindítása után lépnek életbe.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
 "opt_out_appsflyer" = "Appsflyer";
 
-"opt_out_help_ios_1" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.";
+"opt_out_help_ios_1" = "A mobileszköz „Reklámkövetés korlátozása” vagy „Érdeklődési kör alapú reklámozás” beállítással rendelkezhet.";
 
-"opt_out_help_ios_2" = "iOS 9 or Higher";
+"opt_out_help_ios_2" = "iOS 9 vagy újabb";
 
-"opt_out_help_ios_3" = "Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting";
+"opt_out_help_ios_3" = "Nyissa meg a Beállítások → Adatvédelem→ Reklámok→ és engedélyezze a “Reklámkövetés korlátozása” beállítást";
 
-"opt_out_help_android" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization";
+"opt_out_help_android" = "A mobileszköz „Reklámkövetés korlátozása” vagy „Érdeklődési kör alapú reklámozás” beállítással rendelkezhet.\n\nAndroidban és Google Play szolgáltatások 4.0 vagy újabb verzió:\nBeállítások → Google → Google fiók → Személyes és adatvédelem → Reklámok → Reklámok személyre szabása";
 
-"privacy_policy" = "Privacy policy";
+"privacy_policy" = "Adatvédelmi irányelvek";
 
-"terms_of_use" = "Terms of use";
+"terms_of_use" = "Felhasználási feltételek";
 
-"backup_notification_failed" = "Backing up your bookmarks has been suspended. Log in to turn it back on.";
+"backup_notification_failed" = "A könyvjelzői biztonsági mentése felfüggesztésre került. Jelentkezz be a visszakapcsoláshoz.";
 
-"banner_megafon_banner_message" = "Say goodbye to international roaming!";
+"banner_megafon_banner_message" = "Köszönjünk el a nemzetközi roamingdíjaktól!";
 
-"banner_megafon_banner_button" = "Goodbye!";
+"banner_megafon_banner_button" = "Viszlát!";
 
-"button_layer_traffic" = "Traffic";
+"button_layer_traffic" = "Forgalom";
 
-"button_layer_subway" = "Subway";
+"button_layer_subway" = "Metró";
 
-"layers_title" = "Map layers";
+"layers_title" = "Térképrétegek";
 
-"layers_message" = "Use map layers to display the traffic, subway map, and other useful information";
+"layers_message" = "Használjon térképrétegeket a forgalom, metrótérkép és más hasznos információ megjelenítéséhez";
 
-"button_layer_got_it" = "Got it";
+"button_layer_got_it" = "Értem";
 
-"subway_data_unavailable" = "Subway map is unavailable";
+"subway_data_unavailable" = "A metrótérkép nem elérhető";
 
-"bookmarks_empty_list_title" = "This list is empty";
+"bookmarks_empty_list_title" = "A lista üres";
 
-"bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";
+"bookmarks_empty_list_message" = "A könyvjelző hozzáadásához, érintsen meg a térképen egy helyet majd érintse meg a csillag ikont";
 
-"category_desc_more" = "…more";
+"category_desc_more" = "…tovább";
 
-"title_error_downloading_bookmarks" = "An error occured";
+"title_error_downloading_bookmarks" = "Hiba történt";
 
-"subtitle_error_downloading_bookmarks" = "Bookmarks were not downloaded";
+"subtitle_error_downloading_bookmarks" = "Nem került letöltésre könyvjelző";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME now has a route library";
+"whats_new_bookmarks_catalog_title" = "A MAPS.ME már útvonal-katalógussal is rendelkezik";
 
-"whats_new_bookmarks_catalog_message" = "Hundreds of detailed routes all around the world: where to go, what to see, where to eat.";
+"whats_new_bookmarks_catalog_message" = "Több száz részletes útvonal a világszerte: hova érdemes menni, mit érdemes megnézni, hol együnk.";
 
-"whats_new_popularity_label_title" = "Popular locations nearby";
+"whats_new_popularity_label_title" = "Népszerű helyek a közelben";
 
-"whats_new_popularity_label_message" = "The What to Do section will help you find the most popular places in the city.";
+"whats_new_popularity_label_message" = "A Mit csináljunk rész segít megtalálni a város legnépszerűbb helyeit.";
 
-"whats_new_hot_offers_title" = "Attractive offers from hotels";
+"whats_new_hot_offers_title" = "Hotelek vonzó ajánlatai";
 
-"whats_new_hot_offers_message" = "You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.";
+"whats_new_hot_offers_message" = "Kereshetőek a Hotel kategóriában a kereséssel. A kedvezményes ajánlatok a térképen és a keresési eredményekben százalékjellel vannak megjelölve.";

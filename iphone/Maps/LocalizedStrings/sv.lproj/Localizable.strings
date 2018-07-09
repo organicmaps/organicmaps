@@ -2336,92 +2336,92 @@
 
 "sign_agree_news_gdpr" = "Jag håller med om att få de senaste nyheterna om MAPS.ME produkter";
 
-"whats_new_localbiz_title" = "Small business deserves attention";
+"whats_new_localbiz_title" = "Småföretag förtjänar uppmärksamhet";
 
-"whats_new_localbiz_message" = "It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.";
+"whats_new_localbiz_message" = "Det är lokala kaféer, mysiga hotell och affärer som gör din resa oförglömlig. Vi vill optimera din sida på MAPS.Me för att den ska sticka ut.";
 
-"whats_new_order_button" = "Leave a request";
+"whats_new_order_button" = "Lämna en förfrågan";
 
-"bookmarks_page_downloaded" = "Downloaded";
+"bookmarks_page_downloaded" = "Ladda ner";
 
-"bookmarks_page_my" = "My";
+"bookmarks_page_my" = "Min";
 
-"routes_and_bookmarks" = "Routes and bookmarks";
+"routes_and_bookmarks" = "Rutt och bokmärken";
 
-"bookmarks_webview_success_toast" = "Bookmarks succesfully downloaded";
+"bookmarks_webview_success_toast" = "Bokmärkena har laddats ner";
 
-"cached_bookmarks_placeholder_title" = "Download new places";
+"cached_bookmarks_placeholder_title" = "Ladda ner nya platser";
 
-"cached_bookmarks_placeholder_subtitle" = "Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.";
+"cached_bookmarks_placeholder_subtitle" = "Tryck på knappen för att ladda ner tusentals intressanta platser och rutter skapade av MAPS.ME användare. Du behöver internetanslutning.";
 
-"downloader_download_routers" = "Download bookmarks";
+"downloader_download_routers" = "Ladda ner bokmärken";
 
-"bookmarks_groups_cached" = "Downloaded lists";
+"bookmarks_groups_cached" = "Nedladdade listor";
 
-"author_name_by_prefix" = "by %s";
+"author_name_by_prefix" = "av %s";
 
-"subtittle_opt_out" = "Tracking settings";
+"subtittle_opt_out" = "Spårningsinställningar";
 
-"opt_out_flurry" = "Statistic";
+"opt_out_flurry" = "Statistik";
 
-"opt_out_mopub" = "Personalised advertising";
+"opt_out_mopub" = "Personlig annonsering";
 
-"opt_out_fabric" = "Crash report";
+"opt_out_fabric" = "Olycksrapport";
 
-"opt_out_fabric_description" = "We may use your data to improve MAPS.ME experience. Changes will take effect after you restart the app.";
+"opt_out_fabric_description" = "Vi kan komma att använda din data för att förbättra MAPS.ME upplevelsen. Ändringarna kommer träda i kraft när du startar om appen.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
 "opt_out_appsflyer" = "Appsflyer";
 
-"opt_out_help_ios_1" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.";
+"opt_out_help_ios_1" = "Din mobila enhet kan tillhandahålla en ”Begränsad annonsspårning” eller ”Välj bort intressebaserad annonsering” inställning.";
 
-"opt_out_help_ios_2" = "iOS 9 or Higher";
+"opt_out_help_ios_2" = "iOS 9 eller nyare";
 
-"opt_out_help_ios_3" = "Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting";
+"opt_out_help_ios_3" = "Gå till Inställningar → Integritet → Annonsering → Tillåt inställningen ”Begränsad annonsspårning”";
 
-"opt_out_help_android" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization";
+"opt_out_help_android" = "Din mobila enhet kan tillhandahålla en ”Begränsad annonsspårning” eller ”Välj bort intressebaserad annonsering” -inställning.\n\nFör Android och Google Play tjänster version 4.0 och nyare:\nInställningar → Google → Annonsering → Välj bort personlig annonsering\eller\nInställningar→ Google → Google konto → Personlig information och integritet → Annonseringsinställningar → Personlig annonsering";
 
-"privacy_policy" = "Privacy policy";
+"privacy_policy" = "Integritetspolicy";
 
-"terms_of_use" = "Terms of use";
+"terms_of_use" = "Allmänna villkor";
 
-"backup_notification_failed" = "Backing up your bookmarks has been suspended. Log in to turn it back on.";
+"backup_notification_failed" = "Säkerhetskopiering av dina bokmärken har avbrutits. Logga in för att starta det igen.";
 
-"banner_megafon_banner_message" = "Say goodbye to international roaming!";
+"banner_megafon_banner_message" = "Säg farväl till internationell roaming!";
 
-"banner_megafon_banner_button" = "Goodbye!";
+"banner_megafon_banner_button" = "Hej då!";
 
-"button_layer_traffic" = "Traffic";
+"button_layer_traffic" = "Trafik";
 
-"button_layer_subway" = "Subway";
+"button_layer_subway" = "Tunnelbana";
 
-"layers_title" = "Map layers";
+"layers_title" = "Kartlager";
 
-"layers_message" = "Use map layers to display the traffic, subway map, and other useful information";
+"layers_message" = "Använd kartlager för att visa trafik, karta över tunnelbanan och annan användbar information";
 
-"button_layer_got_it" = "Got it";
+"button_layer_got_it" = "Förstått";
 
-"subway_data_unavailable" = "Subway map is unavailable";
+"subway_data_unavailable" = "Kartor över tunnelbana är otillgänglig";
 
-"bookmarks_empty_list_title" = "This list is empty";
+"bookmarks_empty_list_title" = "Listan är tom";
 
-"bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";
+"bookmarks_empty_list_message" = "För att lägga till bokmärken, tryck på kartan och sedan på stjärnikonen";
 
-"category_desc_more" = "…more";
+"category_desc_more" = "…mer";
 
-"title_error_downloading_bookmarks" = "An error occured";
+"title_error_downloading_bookmarks" = "Ett fel har uppstått";
 
-"subtitle_error_downloading_bookmarks" = "Bookmarks were not downloaded";
+"subtitle_error_downloading_bookmarks" = "Bokmärkena laddades inte ner";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME now has a route library";
+"whats_new_bookmarks_catalog_title" = "MAPS.ME har nu en ruttkatalog";
 
-"whats_new_bookmarks_catalog_message" = "Hundreds of detailed routes all around the world: where to go, what to see, where to eat.";
+"whats_new_bookmarks_catalog_message" = "Hundratals av detaljerade rutter, runt om i världen; Var du än är, vad du än vill se, var du än vill äta.";
 
-"whats_new_popularity_label_title" = "Popular locations nearby";
+"whats_new_popularity_label_title" = "Populära lägen i närheten";
 
-"whats_new_popularity_label_message" = "The What to Do section will help you find the most popular places in the city.";
+"whats_new_popularity_label_message" = "”Vad att göra” sektionen kommer att hjälpa dig hitta de populäraste platserna i staden.";
 
-"whats_new_hot_offers_title" = "Attractive offers from hotels";
+"whats_new_hot_offers_title" = "Attraktiva hotellerbjudanden";
 
-"whats_new_hot_offers_message" = "You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.";
+"whats_new_hot_offers_message" = "Du kan söka efter dem via hotellkategorin i sökrutan. Erbjudandena kommer att vara märkta med en procentsymbol (%) på kartan och i sökresultatet.";

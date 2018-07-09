@@ -2336,92 +2336,92 @@
 
 "sign_agree_news_gdpr" = "Я згоден отримувати останні новини про MAPS.ME";
 
-"whats_new_localbiz_title" = "Small business deserves attention";
+"whats_new_localbiz_title" = "Малий бізнес заслуговує на увагу";
 
-"whats_new_localbiz_message" = "It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.";
+"whats_new_localbiz_message" = "Саме локальні кав’ярні, хостели та магазинчики роблять мандрівки незабутніми. Ми безкоштовно оптимізуємо вашу бізнес-сторінку в MAPS.ME, для того, щоб його помітили.";
 
-"whats_new_order_button" = "Leave a request";
+"whats_new_order_button" = "Залишити заявку";
 
-"bookmarks_page_downloaded" = "Downloaded";
+"bookmarks_page_downloaded" = "Завантажені";
 
-"bookmarks_page_my" = "My";
+"bookmarks_page_my" = "Мої";
 
-"routes_and_bookmarks" = "Routes and bookmarks";
+"routes_and_bookmarks" = "Маршрути та позначки";
 
-"bookmarks_webview_success_toast" = "Bookmarks succesfully downloaded";
+"bookmarks_webview_success_toast" = "Мітки успішно завантажені";
 
-"cached_bookmarks_placeholder_title" = "Download new places";
+"cached_bookmarks_placeholder_title" = "Завантажте нові місця";
 
-"cached_bookmarks_placeholder_subtitle" = "Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.";
+"cached_bookmarks_placeholder_subtitle" = "Натисніть кнопку, щоб завантажити тисячі цікавих місць і маршрутів, створених користувачами MAPS.ME. Вам знадобиться підключення до Інтернету.";
 
-"downloader_download_routers" = "Download bookmarks";
+"downloader_download_routers" = "Завантажити позначки";
 
-"bookmarks_groups_cached" = "Downloaded lists";
+"bookmarks_groups_cached" = "Завантажені списки";
 
-"author_name_by_prefix" = "by %s";
+"author_name_by_prefix" = "%s";
 
-"subtittle_opt_out" = "Tracking settings";
+"subtittle_opt_out" = "Налаштування супроводу";
 
-"opt_out_flurry" = "Statistic";
+"opt_out_flurry" = "Статистика";
 
-"opt_out_mopub" = "Personalised advertising";
+"opt_out_mopub" = "Персоналізована реклама";
 
-"opt_out_fabric" = "Crash report";
+"opt_out_fabric" = "Звіти про помилки";
 
-"opt_out_fabric_description" = "We may use your data to improve MAPS.ME experience. Changes will take effect after you restart the app.";
+"opt_out_fabric_description" = "Ми можемо використовувати ваші дані, щоб розвивати та покращувати MAPS.ME. Зміни вступлять у силу після перезапуску програми";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
 "opt_out_appsflyer" = "Appsflyer";
 
-"opt_out_help_ios_1" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.";
+"opt_out_help_ios_1" = "Ви можете відмовитися від отримання цільової реклами в налаштуваннях пристрою.";
 
-"opt_out_help_ios_2" = "iOS 9 or Higher";
+"opt_out_help_ios_2" = "iOS 9 або вище";
 
-"opt_out_help_ios_3" = "Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting";
+"opt_out_help_ios_3" = "Відкрийте Налаштування → Конфіденційність → Реклама → Увімкніть «Обмеження трекінгу»";
 
-"opt_out_help_android" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization";
+"opt_out_help_android" = "Ви можете відмовитися від отримання цільової реклами в налаштуваннях пристрою.\ nAndroid і Google Play Сервіси 4.0 і вище\n\nНалаштування телефону → Google → Реклама → Відключити персоналізацію реклами\ nабо\ nНалаштування телефону → Google → Акаунт Google → Конфіденційність → Налаштування рекламних переваг → персоналізація реклами";
 
-"privacy_policy" = "Privacy policy";
+"privacy_policy" = "Політика конфіденційності";
 
-"terms_of_use" = "Terms of use";
+"terms_of_use" = "Умови використання";
 
-"backup_notification_failed" = "Backing up your bookmarks has been suspended. Log in to turn it back on.";
+"backup_notification_failed" = "Резервне копіювання позначок було призупинено. Увійдіть, щоб увімкнути резервне копіювання.";
 
-"banner_megafon_banner_message" = "Say goodbye to international roaming!";
+"banner_megafon_banner_message" = "Скажи міжнародному роумінгу гудбай!";
 
-"banner_megafon_banner_button" = "Goodbye!";
+"banner_megafon_banner_button" = "Гудбай!";
 
-"button_layer_traffic" = "Traffic";
+"button_layer_traffic" = "Затор";
 
-"button_layer_subway" = "Subway";
+"button_layer_subway" = "Метрополітен";
 
-"layers_title" = "Map layers";
+"layers_title" = "Зображення карти";
 
-"layers_message" = "Use map layers to display the traffic, subway map, and other useful information";
+"layers_message" = "Включайте зображення на карті для відображення дорожнього стану, схеми метрополітену або іншої корисної інформації";
 
-"button_layer_got_it" = "Got it";
+"button_layer_got_it" = "Зрозуміло";
 
-"subway_data_unavailable" = "Subway map is unavailable";
+"subway_data_unavailable" = "Карта метрополітену недоступна";
 
-"bookmarks_empty_list_title" = "This list is empty";
+"bookmarks_empty_list_title" = "Список порожній";
 
-"bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";
+"bookmarks_empty_list_message" = "Щоб додати нову позначку, натисніть на значок зірочки в картці об’єкта";
 
-"category_desc_more" = "…more";
+"category_desc_more" = "…ще";
 
-"title_error_downloading_bookmarks" = "An error occured";
+"title_error_downloading_bookmarks" = "Виникла помилка";
 
-"subtitle_error_downloading_bookmarks" = "Bookmarks were not downloaded";
+"subtitle_error_downloading_bookmarks" = "Позначки не були завантажені";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME now has a route library";
+"whats_new_bookmarks_catalog_title" = "У MAPS.ME з’явився каталог маршрутів";
 
-"whats_new_bookmarks_catalog_message" = "Hundreds of detailed routes all around the world: where to go, what to see, where to eat.";
+"whats_new_bookmarks_catalog_message" = "Десятки докладних маршрутів по всьому світу: куди сходити, що подивитися, де поїсти.";
 
-"whats_new_popularity_label_title" = "Popular locations nearby";
+"whats_new_popularity_label_title" = "Популярне поблизу";
 
-"whats_new_popularity_label_message" = "The What to Do section will help you find the most popular places in the city.";
+"whats_new_popularity_label_message" = "Розділ «Чим зайнятися» допоможе знайти найпопулярніші місця в місті.";
 
-"whats_new_hot_offers_title" = "Attractive offers from hotels";
+"whats_new_hot_offers_title" = "Вигідні пропозиції готелів";
 
-"whats_new_hot_offers_message" = "You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.";
+"whats_new_hot_offers_message" = "Шукайте їх за допомогою категорії «Готелі» в пошуку. Пропозиції будуть позначені значком відсотка на карті й у списку.";

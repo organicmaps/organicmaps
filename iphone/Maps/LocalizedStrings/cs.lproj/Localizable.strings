@@ -2336,92 +2336,92 @@
 
 "sign_agree_news_gdpr" = "Souhlasím s tím, že obdržím nejnovější zprávy o produktech MAPS.ME";
 
-"whats_new_localbiz_title" = "Small business deserves attention";
+"whats_new_localbiz_title" = "Drobné podnikání si zaslouží pozornost";
 
-"whats_new_localbiz_message" = "It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.";
+"whats_new_localbiz_message" = "Zejména místní kavárny, hostely a obchůdky dělají cestování nezapomenutelným. V MAPS.ME zdarma optimalizujeme stránky vašeho podnikání tak, aby neuniklo pozornosti.";
 
-"whats_new_order_button" = "Leave a request";
+"whats_new_order_button" = "Zanechat objednávku";
 
-"bookmarks_page_downloaded" = "Downloaded";
+"bookmarks_page_downloaded" = "Nahrané";
 
-"bookmarks_page_my" = "My";
+"bookmarks_page_my" = "Moje";
 
-"routes_and_bookmarks" = "Routes and bookmarks";
+"routes_and_bookmarks" = "Trasy a značky";
 
-"bookmarks_webview_success_toast" = "Bookmarks succesfully downloaded";
+"bookmarks_webview_success_toast" = "Značky byly úspěšně nahrány";
 
-"cached_bookmarks_placeholder_title" = "Download new places";
+"cached_bookmarks_placeholder_title" = "Nahrajte nová místa";
 
-"cached_bookmarks_placeholder_subtitle" = "Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.";
+"cached_bookmarks_placeholder_subtitle" = "Klikněte pro nahrání tisíce zajímavých míst a tras vytvořených uživateli MAPS.ME. Nutné připojení k internetu.";
 
-"downloader_download_routers" = "Download bookmarks";
+"downloader_download_routers" = "Nahrát značky";
 
-"bookmarks_groups_cached" = "Downloaded lists";
+"bookmarks_groups_cached" = "Nahrané seznamy";
 
-"author_name_by_prefix" = "by %s";
+"author_name_by_prefix" = "%s";
 
-"subtittle_opt_out" = "Tracking settings";
+"subtittle_opt_out" = "Natavení doprovodu";
 
-"opt_out_flurry" = "Statistic";
+"opt_out_flurry" = "Statistika";
 
-"opt_out_mopub" = "Personalised advertising";
+"opt_out_mopub" = "Personalizovaná reklama";
 
-"opt_out_fabric" = "Crash report";
+"opt_out_fabric" = "Zprávy o chybách";
 
-"opt_out_fabric_description" = "We may use your data to improve MAPS.ME experience. Changes will take effect after you restart the app.";
+"opt_out_fabric_description" = "Můžeme používat vaše údaje pro vývoj a zlepšení MAPS.ME. Změny se projeví po restartování aplikace.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
 "opt_out_appsflyer" = "Appsflyer";
 
-"opt_out_help_ios_1" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.";
+"opt_out_help_ios_1" = "Cílovou reklamu můžete vypnout v nastavení vašeho zařízení.";
 
-"opt_out_help_ios_2" = "iOS 9 or Higher";
+"opt_out_help_ios_2" = "iOS 9 nebo vyšší";
 
-"opt_out_help_ios_3" = "Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting";
+"opt_out_help_ios_3" = "Otevřete Nastavení → Důvěrnost → Reklama → Zapněte „Omezení trackingu“";
 
-"opt_out_help_android" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization";
+"opt_out_help_android" = "Cílovou reklamu můžete vypnout v nastavení vašeho zařízení.\nAndroid a Google Play Servisy 4.0 a vyšší\n\nNastavení telefonu → Google → Reklama → Vypnout personalizaci reklamy\n nebo\nNastavení telefonu → Google → Účet Google → Důvěrnost → Nastavení reklamních preferencí → Personalizace reklamy";
 
-"privacy_policy" = "Privacy policy";
+"privacy_policy" = "Politika důvěrnosti";
 
-"terms_of_use" = "Terms of use";
+"terms_of_use" = "Podmínky užívání";
 
-"backup_notification_failed" = "Backing up your bookmarks has been suspended. Log in to turn it back on.";
+"backup_notification_failed" = "Zálohování značek bylo pozastaveno. Pro zapnutí zálohování vejděte.";
 
-"banner_megafon_banner_message" = "Say goodbye to international roaming!";
+"banner_megafon_banner_message" = "Rozluč se s mezinárodním roamingem!";
 
-"banner_megafon_banner_button" = "Goodbye!";
+"banner_megafon_banner_button" = "Good Bye!";
 
-"button_layer_traffic" = "Traffic";
+"button_layer_traffic" = "Zácpy";
 
-"button_layer_subway" = "Subway";
+"button_layer_subway" = "Metro";
 
-"layers_title" = "Map layers";
+"layers_title" = "Úrovně mapy";
 
-"layers_message" = "Use map layers to display the traffic, subway map, and other useful information";
+"layers_message" = "Pro zobrazení situace na silnici, schématu metra či jiné užitečné informace můžete přepínat úrovně mapy.";
 
-"button_layer_got_it" = "Got it";
+"button_layer_got_it" = "Rozumím";
 
-"subway_data_unavailable" = "Subway map is unavailable";
+"subway_data_unavailable" = "Mapa metra není dostupná";
 
-"bookmarks_empty_list_title" = "This list is empty";
+"bookmarks_empty_list_title" = "Seznam je prázdný";
 
-"bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";
+"bookmarks_empty_list_message" = "Pro přidání nové značky klikněte na symbol hvězdičky na obrázku objektu";
 
-"category_desc_more" = "…more";
+"category_desc_more" = "…ještě";
 
-"title_error_downloading_bookmarks" = "An error occured";
+"title_error_downloading_bookmarks" = "Někde se stala chyba";
 
-"subtitle_error_downloading_bookmarks" = "Bookmarks were not downloaded";
+"subtitle_error_downloading_bookmarks" = "Značky se nenahrály";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME now has a route library";
+"whats_new_bookmarks_catalog_title" = "V MAPS.ME se objevil katalog tras";
 
-"whats_new_bookmarks_catalog_message" = "Hundreds of detailed routes all around the world: where to go, what to see, where to eat.";
+"whats_new_bookmarks_catalog_message" = "Desítky podrobných tras po celém světě: kam zajít, na co se podívat, kde se najíst.";
 
-"whats_new_popularity_label_title" = "Popular locations nearby";
+"whats_new_popularity_label_title" = "Oblíbené v okolí";
 
-"whats_new_popularity_label_message" = "The What to Do section will help you find the most popular places in the city.";
+"whats_new_popularity_label_message" = "Sekce „Co dělat“ vám pomůže najít nejoblíbenější místa ve městě.";
 
-"whats_new_hot_offers_title" = "Attractive offers from hotels";
+"whats_new_hot_offers_title" = "Výhodné nabídky hotelů";
 
-"whats_new_hot_offers_message" = "You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.";
+"whats_new_hot_offers_message" = "Hledejte je ve vyhledávání s pomocí kategorie „Hotely“. Nabídky budou označeny symbolem procenta na mapě i v seznamu.";

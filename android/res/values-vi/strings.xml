@@ -1286,4 +1286,59 @@
 	<string name="sign_agree_pp_gdpr">Tôi đồng ý với &lt;a href="%s">Chính sách bảo mật&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Tôi đồng ý với &lt;a href="%s">Điều khoản sử dụng&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Tôi đồng ý nhận tin tức mới nhất về các sản phẩm MAPS.ME</string>
+	<string name="whats_new_localbiz_title">Doanh nghiệp nhỏ xứng đáng để được chú ý</string>
+	<string name="whats_new_localbiz_message">Chính các quán cà phê địa phương, nhà khách nhỏ và các cửa hàng ấm cúng mới làm cho hành trình của chúng ta thật khó quên. Chúng tôi sẽ tối ưu hóa trang của bạn trong MAPS.ME để làm nổi bật nó lên.</string>
+	<string name="whats_new_order_button">Để lại yêu cầu</string>
+	<string name="bookmarks_page_downloaded">Đã tải về</string>
+	<string name="bookmarks_page_my">của tôi</string>
+	<string name="routes_and_bookmarks">Tuyến đường và dấu trang</string>
+	<string name="bookmarks_webview_success_toast">Đã tải xuống thành công dấu trang</string>
+	<string name="cached_bookmarks_placeholder_title">Tải xuống các địa điểm mới</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Nhấn nút để tải xuống hàng ngàn địa điểm và tuyến đường thú vị được tạo bởi người dùng MAPS.ME. Bạn sẽ cần kết nối internet.</string>
+	<string name="downloader_download_routers">Tải dấu trang xuống</string>
+	<string name="bookmarks_groups_cached">Danh sách đã tải xuống</string>
+	<string name="author_name_by_prefix">%s</string>
+	<plurals name="bookmarks_objects">
+	  <item quantity="other">%s mục tiêu</item>
+	</plurals>
+	<plurals name="objects">
+	  <item quantity="other">%d nơi</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="other">%d các nơi</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="other">%d các chặn đường</item>
+	</plurals>
+	<string name="subtittle_opt_out">Thiết lập theo dõi</string>
+	<string name="opt_out_flurry">Thống kê</string>
+	<string name="opt_out_mopub">Quảng cáo được cá nhân hóa</string>
+	<string name="opt_out_fabric">Báo cáo sự cố</string>
+	<string name="opt_out_fabric_description">Chúng tôi có thể sử dụng dữ liệu của bạn để cải thiện trải nghiệm trên MAPS.ME. Thay đổi sẽ có hiệu lực sau khi bạn khởi động lại ứng dụng.</string>
+	<string name="opt_out_help_ios_1">Thiết bị di động của bạn có thể cung cấp cài đặt \"\"Giới hạn theo dõi quảng cáo\"\" hoặc \"\"Chọn không tham gia quảng cáo dựa trên sở thích\"\".</string>
+	<string name="opt_out_help_ios_2">iOS 9 hoặc lớn hơn</string>
+	<string name="opt_out_help_ios_3">Đến Cài đặt → Bảo mật → Quảng cáo → Bật cài đặt \"\"Giới hạn theo dõi quảng cáo\"\"</string>
+	<string name="opt_out_help_android">Thiết bị di động của bạn có thể cung cấp cài đặt \"\"Giới hạn theo dõi quảng cáo\"\" hoặc \"\"Chọn không tham gia quảng cáo dựa trên sở thích\"\".\n\nĐối với Android và Google Play Services phiên bản 4.0 trở lên:\nCài đặt → Google → Quảng cáo → Chọn không tham gia Quảng cáo dựa trên sở thích\ n\nCài đặt → Google → Tài khoản Google → Thông tin cá nhân và bảo mật → Cài đặt quảng cáo → Cá nhân hóa quảng cáo</string>
+	<string name="privacy_policy">Chính sách bảo mật</string>
+	<string name="terms_of_use">Điều khoảng sử dụng</string>
+	<string name="backup_notification_failed">Sao lưu dấu trang của bạn đã bị tạm ngưng. Đăng nhập để bật lại.</string>
+	<string name="banner_megafon_banner_message">Nói lời tạm biệt với chuyển vùng quốc tế!</string>
+	<string name="banner_megafon_banner_button">Tạm biệt!</string>
+	<string name="button_layer_traffic">Giao thông</string>
+	<string name="button_layer_subway">Xe điện ngầm</string>
+	<string name="layers_title">Các lớp bản đồ</string>
+	<string name="layers_message">Sử dụng các lớp bản đồ để hiển thị tình trạng giao thông, bản đồ tàu điện ngầm và các thông tin hữu ích khác</string>
+	<string name="button_layer_got_it">Đã hiểu</string>
+	<string name="subway_data_unavailable">Bản đồ tàu điện ngầm không khả dụng</string>
+	<string name="bookmarks_empty_list_title">Danh sách trống</string>
+	<string name="bookmarks_empty_list_message">Để thêm dấu trang, hãy nhấn vào một địa điểm trên bản đồ và sau đó nhấn vào biểu tượng dấu sao</string>
+	<string name="category_desc_more">…thêm</string>
+	<string name="title_error_downloading_bookmarks">Đã xảy ra lỗi</string>
+	<string name="subtitle_error_downloading_bookmarks">Dấu trang chưa được tải xuống</string>
+	<string name="whats_new_bookmarks_catalog_title">MAPS.ME hiện đã có danh mục tuyến đường</string>
+	<string name="whats_new_bookmarks_catalog_message">Hàng trăm tuyến đường chi tiết trên toàn thế giới: đi đâu, xem gì, ăn ở đâu.</string>
+	<string name="whats_new_popularity_label_title">Vị trí phổ biến lân cận</string>
+	<string name="whats_new_popularity_label_message">Phần Nên Làm Gì sẽ giúp bạn tìm những địa điểm phổ biến nhất trong thành phố.</string>
+	<string name="whats_new_hot_offers_title">Ưu đãi hấp dẫn từ các khách sạn</string>
+	<string name="whats_new_hot_offers_message">Bạn có thể tìm kiếm chúng bằng cách sử dụng danh mục Khách sạn trong tìm kiếm. Phiếu mua hàng sẽ được đánh dấu bằng ký hiệu phần trăm trong bản đồ và trong kết quả tìm kiếm.</string>
 </resources>

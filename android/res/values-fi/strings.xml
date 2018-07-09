@@ -1290,4 +1290,59 @@
 	<string name="sign_agree_pp_gdpr">Hyväksyn &lt;a href="%s">tietosuojakäytännön&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Hyväksyn &lt;a href="%s">käyttöehdot&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Hyväksyn viimeisimmät uutiset MAPS.ME-tuotteista</string>
+	<string name="whats_new_localbiz_title">Pienet yritykset ansaitsevat huomiota</string>
+	<string name="whats_new_localbiz_message">Juuri paikalliset kahvilat, kotoisat hostellit ja kaupat tekevät matkastasi unohtumattoman. Me optimoimme sivusi MAPS.ME:ssä saadaksesi sen erottumaan joukosta.</string>
+	<string name="whats_new_order_button">Jätä pyyntö</string>
+	<string name="bookmarks_page_downloaded">Ladattu</string>
+	<string name="bookmarks_page_my">Minun</string>
+	<string name="routes_and_bookmarks">Reitit ja kirjanmerkit</string>
+	<string name="bookmarks_webview_success_toast">Kirjanmerkit ladattu onnistuneesti</string>
+	<string name="cached_bookmarks_placeholder_title">Lataa uudet paikat</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Paina nappulaa ladataksesi tuhansia kiinnostavia paikkoja ja reittejä joita MAPS.ME käyttäjät ovat luoneet. Tarvitset internet yhteyden.</string>
+	<string name="downloader_download_routers">Lataa kirjanmerkit</string>
+	<string name="bookmarks_groups_cached">Ladatut lista</string>
+	<string name="author_name_by_prefix">%s</string>
+	<plurals name="bookmarks_objects">
+	  <item quantity="other">%s kohde</item>
+	</plurals>
+	<plurals name="objects">
+	  <item quantity="other">%d paikka</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="other">%d paikat</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="other">%d radat</item>
+	</plurals>
+	<string name="subtittle_opt_out">Seuranta-asetukset</string>
+	<string name="opt_out_flurry">Tilasto</string>
+	<string name="opt_out_mopub">Yksilöity mainonta</string>
+	<string name="opt_out_fabric">Kaatumisraportti</string>
+	<string name="opt_out_fabric_description">Me saatamme käyttää tietojasi parantaaksemme MAPS.ME kokemusta. Muutokset alkavat vaikuttamaan kun käynnistät sovelluksen uudestaan.</string>
+	<string name="opt_out_help_ios_1">Mobiililaitteesi saattaa tarjota ”Rajoittettu Mainos Seuranta” tai ”Poistu internet-perusteisesta mainnonnasta” asetuksia.</string>
+	<string name="opt_out_help_ios_2">iOS 9 tai Korkeampi</string>
+	<string name="opt_out_help_ios_3">Mene Asetuksiisi → Yksityisyys → Mainonta → Salli ”Rajoita Mainos Seurantaa” asetus</string>
+	<string name="opt_out_help_android">Mobiililaitteesi saattaa tarjota ”Rajoittettu Mainos Seuranta” tai ”Poistu internet-perusteisesta mainnonnasta” asetuksia.\n\nAndroidille ja Google Play Palvelut versio 4.0 tai myöhemmin:\nAsetukset → Google → Mainokset → Poistu Mainosten Yksilöinti\ntai\nAsetukset → Google → Google Tili → Henkilökohtaiset tiedot ja yksityisyys → Mainos Asetukset → Mainosten Yksilöinti</string>
+	<string name="privacy_policy">Yksityisyyskäytäntö</string>
+	<string name="terms_of_use">Käyttöehdot</string>
+	<string name="backup_notification_failed">Kirjanmerkkiesi varmuuskopionti on keskeytetty. Kirjaudu sisään ja laita se takaisin päälle.</string>
+	<string name="banner_megafon_banner_message">Sano hyvästit roaming-datalle!</string>
+	<string name="banner_megafon_banner_button">Hyvästi!</string>
+	<string name="button_layer_traffic">Liikenne</string>
+	<string name="button_layer_subway">Metro</string>
+	<string name="layers_title">Kartan tasot</string>
+	<string name="layers_message">Käytä kartan tasoja näyttääksesi liikenteen, metrokartan ja muita hyödyllisiä tietoja</string>
+	<string name="button_layer_got_it">Ymmärsin</string>
+	<string name="subway_data_unavailable">Metrokartta ei ole saatavilla</string>
+	<string name="bookmarks_empty_list_title">Lista on tyhjä</string>
+	<string name="bookmarks_empty_list_message">Lisätäksesi kirjanmerkin, paina kartasta ja sitten paina tähden kuvaa</string>
+	<string name="category_desc_more">…lisää</string>
+	<string name="title_error_downloading_bookmarks">Tapahtui virhe</string>
+	<string name="subtitle_error_downloading_bookmarks">Kirjanmerkkejä ei ole ladattu</string>
+	<string name="whats_new_bookmarks_catalog_title">MAPS.ME:ssä on nyt reitti katalogi</string>
+	<string name="whats_new_bookmarks_catalog_message">Satoja yksityiskohtaisia reittejä kaikkialta maailmasta: minne mennä, mitä nähdä, missä syödä.</string>
+	<string name="whats_new_popularity_label_title">Suosittuja kohteita lähellä</string>
+	<string name="whats_new_popularity_label_message">Mitä Tehdä osio auttaa sinua löytämään suosituimmat paikat kaupungissa.</string>
+	<string name="whats_new_hot_offers_title">Houkuttelevia tarjouksia hotelleilta</string>
+	<string name="whats_new_hot_offers_message">Voit etsiä niitä käyttämällä Hotellit kategoriaa haussa. Tulokset näytetään prosentti merkillä kartassa ja hakutuloksissa.</string>
 </resources>

@@ -1285,4 +1285,59 @@
 	<string name="sign_agree_pp_gdpr">&lt;a href="%s">개인 정보 보호 정책&lt;/a>에 동의합니다.</string>
 	<string name="sign_agree_tof_gdpr">&lt;a href="%s">이용 약관&lt;/a>에 동의합니다.</string>
 	<string name="sign_agree_news_gdpr">MAPS.ME 제품에 대한 최신 뉴스를받는 것에 동의합니다.</string>
+	<string name="whats_new_localbiz_title">스몰 비즈니스는 관심을 받을 가치가 있습니다.</string>
+	<string name="whats_new_localbiz_message">이는 우리의 여행을 잊혀지지 않도록 해주는 지역 카페, 아늑한 호스텔 그리고 상점입니다. 당사는 귀사의 페이지를 MAPS.ME에서 최적화하여 두드러지게 할 것입니다.</string>
+	<string name="whats_new_order_button">요청사항을 남겨주세요.</string>
+	<string name="bookmarks_page_downloaded">다운로드 되었습니다.</string>
+	<string name="bookmarks_page_my">나의</string>
+	<string name="routes_and_bookmarks">경로 및 북마크</string>
+	<string name="bookmarks_webview_success_toast">성공적으로 북마크를 다운로드 하였습니다.</string>
+	<string name="cached_bookmarks_placeholder_title">새로운 장소를 다운로드 하세요.</string>
+	<string name="cached_bookmarks_placeholder_subtitle">버튼을 눌러 MAPS.ME 사용자들이 작성한 수천 개의 흥미로운 장소와 경로를 다운로드 하세요. 인터넷 연결이 필요합니다.</string>
+	<string name="downloader_download_routers">북마크를 다운로드 하세요.</string>
+	<string name="bookmarks_groups_cached">목록을 다운로드 하세요.</string>
+	<string name="author_name_by_prefix">%s를 통해</string>
+	<plurals name="bookmarks_objects">
+	  <item quantity="other">%s 대상</item>
+	</plurals>
+	<plurals name="objects">
+	  <item quantity="other">%d 장소</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="other">%d 장소들</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="other">%d 추적</item>
+	</plurals>
+	<string name="subtittle_opt_out">추적 설정</string>
+	<string name="opt_out_flurry">통계</string>
+	<string name="opt_out_mopub">개별 광고</string>
+	<string name="opt_out_fabric">오류 보고서</string>
+	<string name="opt_out_fabric_description">당사는 MAPS.ME 경험을 개선하기 위해 귀하의 데이터를 활용할 수 있습니다. 앱을 다시 시작한 후 변경사항이 적용됩니다.</string>
+	<string name="opt_out_help_ios_1">귀하의 모바일 장치는 \"\"광고 추적 제한\"\" 혹은 \"\"관심 기반의 광고의 옵트아웃\"\" 설정을 제공할 수 있습니다.</string>
+	<string name="opt_out_help_ios_2">iOS 9 혹은 이상</string>
+	<string name="opt_out_help_ios_3">설정 → 개인정보 → 광고 → “광고 추적 제한” 설정을 활성화합니다.</string>
+	<string name="opt_out_help_android">귀하의 모바일 장치는 \"\"광고 추적 제한\"\" 혹은 \"\"관심 기반의 광고의 옵트아웃\"\" 설정을 제공할 수 있습니다.\n\n안드로이드와 구글 플레이 서비스 버전 4.0 혹은 이상은\n설정 → 구글 → 광고 → 광고 개별 맞춤 설정 옵트아웃\nor\n설정 → 구글 → 구글 계정 → 개인 정보 및 보호 → 광고 설정 → 광고 개별 맞춤 설정</string>
+	<string name="privacy_policy">개인정보 보호 방침</string>
+	<string name="terms_of_use">사용 약관</string>
+	<string name="backup_notification_failed">북마크의 백업이 중단되었습니다. 다시 작동시키려면 로그인하세요.</string>
+	<string name="banner_megafon_banner_message">국제 로밍이 더 이상 필요 없습니다!</string>
+	<string name="banner_megafon_banner_button">안녕!</string>
+	<string name="button_layer_traffic">트래픽</string>
+	<string name="button_layer_subway">지하철</string>
+	<string name="layers_title">맵 레이어</string>
+	<string name="layers_message">트래픽, 지하철 지도 그리고 기타 유용한 정보를 표시하려면 맵 레이어를 사용하세요.</string>
+	<string name="button_layer_got_it">알겠습니다.</string>
+	<string name="subway_data_unavailable">지하철 지도가 가용하지 않습니다.</string>
+	<string name="bookmarks_empty_list_title">이 목록은 비어있습니다.</string>
+	<string name="bookmarks_empty_list_message">북마크를 추가하려면 맵에서 장소를 탭하고 별 모양 아이콘을 탭하세요.</string>
+	<string name="category_desc_more">…기타 정보</string>
+	<string name="title_error_downloading_bookmarks">오류가 발생했습니다.</string>
+	<string name="subtitle_error_downloading_bookmarks">북마크가 다운로드 되지 않았습니다.</string>
+	<string name="whats_new_bookmarks_catalog_title">MAPS.ME가 현재 경로 카탈로그를 보유하고 있습니다.</string>
+	<string name="whats_new_bookmarks_catalog_message">전세계 수백 개의 세부 경로: 가볼 장소, 볼거리, 먹거리.</string>
+	<string name="whats_new_popularity_label_title">근처 인기 있는 장소</string>
+	<string name="whats_new_popularity_label_message">무엇을 할지\' 섹션은 도시에서 가장 인기있는 장소를 발견하는데 도움을 줄 것입니다.</string>
+	<string name="whats_new_hot_offers_title">호텔에서의 매혹적인 오퍼</string>
+	<string name="whats_new_hot_offers_message">검색에서 호텔 범주를 사용하여 검색할 수 있습니다. 오퍼는 맵과 검색 결과에서 퍼센트 기호로 표시됩니다.</string>
 </resources>

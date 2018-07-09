@@ -2336,92 +2336,92 @@
 
 "sign_agree_news_gdpr" = "Jeg accepterer at modtage de seneste nyheder om MAPS.ME produkter";
 
-"whats_new_localbiz_title" = "Small business deserves attention";
+"whats_new_localbiz_title" = "Mindre virksomheder fortjener opmærksomhed";
 
-"whats_new_localbiz_message" = "It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.";
+"whats_new_localbiz_message" = "Det være sig de lokale caféer, hyggelige hoteller og de butikker, som gør vores rejser uforglemmelige. Vi kan optimere din side på MAPS.ME, så den skiller sig ud fra mængden.";
 
-"whats_new_order_button" = "Leave a request";
+"whats_new_order_button" = "Send en forespørgsel";
 
-"bookmarks_page_downloaded" = "Downloaded";
+"bookmarks_page_downloaded" = "Downloadet";
 
-"bookmarks_page_my" = "My";
+"bookmarks_page_my" = "Mine";
 
-"routes_and_bookmarks" = "Routes and bookmarks";
+"routes_and_bookmarks" = "Ruter og bogmærker";
 
-"bookmarks_webview_success_toast" = "Bookmarks succesfully downloaded";
+"bookmarks_webview_success_toast" = "Bogmærker er downloadet";
 
-"cached_bookmarks_placeholder_title" = "Download new places";
+"cached_bookmarks_placeholder_title" = "Download nye steder";
 
-"cached_bookmarks_placeholder_subtitle" = "Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.";
+"cached_bookmarks_placeholder_subtitle" = "Tryk på knappen for at downloade tusindvis af interessanter steder og ruter oprettet af brugerne på MAPS.ME. Du skal bruge en internetforbindelse.";
 
-"downloader_download_routers" = "Download bookmarks";
+"downloader_download_routers" = "Download bogmærker";
 
-"bookmarks_groups_cached" = "Downloaded lists";
+"bookmarks_groups_cached" = "Downloadede lister";
 
-"author_name_by_prefix" = "by %s";
+"author_name_by_prefix" = "af %s";
 
-"subtittle_opt_out" = "Tracking settings";
+"subtittle_opt_out" = "Tracking-indstillinger";
 
-"opt_out_flurry" = "Statistic";
+"opt_out_flurry" = "Statistik";
 
-"opt_out_mopub" = "Personalised advertising";
+"opt_out_mopub" = "Personaliserede reklamer";
 
-"opt_out_fabric" = "Crash report";
+"opt_out_fabric" = "Nedbrudsrapport";
 
-"opt_out_fabric_description" = "We may use your data to improve MAPS.ME experience. Changes will take effect after you restart the app.";
+"opt_out_fabric_description" = "Vi kan anvende dine data til at forbedre brugeroplevelsen på MAPS.ME. Ændringerne træder i kraft, når du har genstartet appen.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
 "opt_out_appsflyer" = "Appsflyer";
 
-"opt_out_help_ios_1" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.";
+"opt_out_help_ios_1" = "Din mobilenhed kan indeholde en »Begræns reklamesporing« eller »Afmeld Tilpasset annoncering« indstiling.";
 
-"opt_out_help_ios_2" = "iOS 9 or Higher";
+"opt_out_help_ios_2" = "iOS 9 eller højere";
 
-"opt_out_help_ios_3" = "Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting";
+"opt_out_help_ios_3" = "Gå til Indstillinger → Generelt → Begræsninger → Reklamer → Aktiver »Begræns reklamesporing« funktionen";
 
-"opt_out_help_android" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization";
+"opt_out_help_android" = "Din mobilenhed kan indeholde en »Begræns reklamesporing« eller »Afmeld Tilpasset annoncering« indstilling.\n\nPå Android og Google Play Services version 4.0 og op:\nIndstillinger → Google → Annoncer→ Afmeld Tilpasset annoncering\nor\nIndstillinger → Google → Google Account → Data og tilpasning → Annoncetilpasning → Annoncetilpasning";
 
-"privacy_policy" = "Privacy policy";
+"privacy_policy" = "Privatlivspolitik";
 
-"terms_of_use" = "Terms of use";
+"terms_of_use" = "Vilkår for bruger";
 
-"backup_notification_failed" = "Backing up your bookmarks has been suspended. Log in to turn it back on.";
+"backup_notification_failed" = "Backup af dine bogmærker er blevet suspenderet. Log ind for at slå til igen.";
 
-"banner_megafon_banner_message" = "Say goodbye to international roaming!";
+"banner_megafon_banner_message" = "Sig farvel til international roaming!";
 
-"banner_megafon_banner_button" = "Goodbye!";
+"banner_megafon_banner_button" = "Farvel!";
 
-"button_layer_traffic" = "Traffic";
+"button_layer_traffic" = "Trafik";
 
-"button_layer_subway" = "Subway";
+"button_layer_subway" = "Undergrundsbane";
 
-"layers_title" = "Map layers";
+"layers_title" = "Kortlag";
 
-"layers_message" = "Use map layers to display the traffic, subway map, and other useful information";
+"layers_message" = "Brug kortlag til at vise trafik, kort over undergrundbaner og andre nyttige oplysninger";
 
-"button_layer_got_it" = "Got it";
+"button_layer_got_it" = "Ok";
 
-"subway_data_unavailable" = "Subway map is unavailable";
+"subway_data_unavailable" = "Kort over undergrundsbaner er ikke tilgængeligt";
 
-"bookmarks_empty_list_title" = "This list is empty";
+"bookmarks_empty_list_title" = "Listen er tom";
 
-"bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";
+"bookmarks_empty_list_message" = "For at tilføje et bogmærke, så tryk et sted på kort og så på stjerneikonet";
 
-"category_desc_more" = "…more";
+"category_desc_more" = "…mere";
 
-"title_error_downloading_bookmarks" = "An error occured";
+"title_error_downloading_bookmarks" = "Der er opstået en fejl";
 
-"subtitle_error_downloading_bookmarks" = "Bookmarks were not downloaded";
+"subtitle_error_downloading_bookmarks" = "Bogmærker er ikke blevet downloadet";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME now has a route library";
+"whats_new_bookmarks_catalog_title" = "MAPS.ME har nu et rutekatalog";
 
-"whats_new_bookmarks_catalog_message" = "Hundreds of detailed routes all around the world: where to go, what to see, where to eat.";
+"whats_new_bookmarks_catalog_message" = "Hundreder af detaljerede ruter over hele verden: hvor man kan tage hen, hvad man kan se, hvad man kan spise.";
 
-"whats_new_popularity_label_title" = "Popular locations nearby";
+"whats_new_popularity_label_title" = "Populære steder i nærheden";
 
-"whats_new_popularity_label_message" = "The What to Do section will help you find the most popular places in the city.";
+"whats_new_popularity_label_message" = "Hvad man kan lave-sektionen hjælper dig til at finde de mest populære steder i byen.";
 
-"whats_new_hot_offers_title" = "Attractive offers from hotels";
+"whats_new_hot_offers_title" = "Attraktive hoteltilbud";
 
-"whats_new_hot_offers_message" = "You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.";
+"whats_new_hot_offers_message" = "Du kan søge efter dem ved at bruge hotel-kategorien under søgefunktionen. Tilbuddene er markedet med et procent-tegn på kortet og i søgeresultaterne.";

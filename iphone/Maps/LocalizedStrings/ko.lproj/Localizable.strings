@@ -2336,92 +2336,92 @@
 
 "sign_agree_news_gdpr" = "MAPS.ME 제품에 대한 최신 뉴스를받는 것에 동의합니다.";
 
-"whats_new_localbiz_title" = "Small business deserves attention";
+"whats_new_localbiz_title" = "스몰 비즈니스는 관심을 받을 가치가 있습니다.";
 
-"whats_new_localbiz_message" = "It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.";
+"whats_new_localbiz_message" = "이는 우리의 여행을 잊혀지지 않도록 해주는 지역 카페, 아늑한 호스텔 그리고 상점입니다. 당사는 귀사의 페이지를 MAPS.ME에서 최적화하여 두드러지게 할 것입니다.";
 
-"whats_new_order_button" = "Leave a request";
+"whats_new_order_button" = "요청사항을 남겨주세요.";
 
-"bookmarks_page_downloaded" = "Downloaded";
+"bookmarks_page_downloaded" = "다운로드 되었습니다.";
 
-"bookmarks_page_my" = "My";
+"bookmarks_page_my" = "나의";
 
-"routes_and_bookmarks" = "Routes and bookmarks";
+"routes_and_bookmarks" = "경로 및 북마크";
 
-"bookmarks_webview_success_toast" = "Bookmarks succesfully downloaded";
+"bookmarks_webview_success_toast" = "성공적으로 북마크를 다운로드 하였습니다.";
 
-"cached_bookmarks_placeholder_title" = "Download new places";
+"cached_bookmarks_placeholder_title" = "새로운 장소를 다운로드 하세요.";
 
-"cached_bookmarks_placeholder_subtitle" = "Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.";
+"cached_bookmarks_placeholder_subtitle" = "버튼을 눌러 MAPS.ME 사용자들이 작성한 수천 개의 흥미로운 장소와 경로를 다운로드 하세요. 인터넷 연결이 필요합니다.";
 
-"downloader_download_routers" = "Download bookmarks";
+"downloader_download_routers" = "북마크를 다운로드 하세요.";
 
-"bookmarks_groups_cached" = "Downloaded lists";
+"bookmarks_groups_cached" = "목록을 다운로드 하세요.";
 
-"author_name_by_prefix" = "by %s";
+"author_name_by_prefix" = "%s를 통해";
 
-"subtittle_opt_out" = "Tracking settings";
+"subtittle_opt_out" = "추적 설정";
 
-"opt_out_flurry" = "Statistic";
+"opt_out_flurry" = "통계";
 
-"opt_out_mopub" = "Personalised advertising";
+"opt_out_mopub" = "개별 광고";
 
-"opt_out_fabric" = "Crash report";
+"opt_out_fabric" = "오류 보고서";
 
-"opt_out_fabric_description" = "We may use your data to improve MAPS.ME experience. Changes will take effect after you restart the app.";
+"opt_out_fabric_description" = "당사는 MAPS.ME 경험을 개선하기 위해 귀하의 데이터를 활용할 수 있습니다. 앱을 다시 시작한 후 변경사항이 적용됩니다.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
 "opt_out_appsflyer" = "Appsflyer";
 
-"opt_out_help_ios_1" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.";
+"opt_out_help_ios_1" = "귀하의 모바일 장치는 \"\"광고 추적 제한\"\" 혹은 \"\"관심 기반의 광고의 옵트아웃\"\" 설정을 제공할 수 있습니다.";
 
-"opt_out_help_ios_2" = "iOS 9 or Higher";
+"opt_out_help_ios_2" = "iOS 9 혹은 이상";
 
-"opt_out_help_ios_3" = "Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting";
+"opt_out_help_ios_3" = "설정 → 개인정보 → 광고 → “광고 추적 제한” 설정을 활성화합니다.";
 
-"opt_out_help_android" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization";
+"opt_out_help_android" = "귀하의 모바일 장치는 \"\"광고 추적 제한\"\" 혹은 \"\"관심 기반의 광고의 옵트아웃\"\" 설정을 제공할 수 있습니다.\n\n안드로이드와 구글 플레이 서비스 버전 4.0 혹은 이상은\n설정 → 구글 → 광고 → 광고 개별 맞춤 설정 옵트아웃\nor\n설정 → 구글 → 구글 계정 → 개인 정보 및 보호 → 광고 설정 → 광고 개별 맞춤 설정";
 
-"privacy_policy" = "Privacy policy";
+"privacy_policy" = "개인정보 보호 방침";
 
-"terms_of_use" = "Terms of use";
+"terms_of_use" = "사용 약관";
 
-"backup_notification_failed" = "Backing up your bookmarks has been suspended. Log in to turn it back on.";
+"backup_notification_failed" = "북마크의 백업이 중단되었습니다. 다시 작동시키려면 로그인하세요.";
 
-"banner_megafon_banner_message" = "Say goodbye to international roaming!";
+"banner_megafon_banner_message" = "국제 로밍이 더 이상 필요 없습니다!";
 
-"banner_megafon_banner_button" = "Goodbye!";
+"banner_megafon_banner_button" = "안녕!";
 
-"button_layer_traffic" = "Traffic";
+"button_layer_traffic" = "트래픽";
 
-"button_layer_subway" = "Subway";
+"button_layer_subway" = "지하철";
 
-"layers_title" = "Map layers";
+"layers_title" = "맵 레이어";
 
-"layers_message" = "Use map layers to display the traffic, subway map, and other useful information";
+"layers_message" = "트래픽, 지하철 지도 그리고 기타 유용한 정보를 표시하려면 맵 레이어를 사용하세요.";
 
-"button_layer_got_it" = "Got it";
+"button_layer_got_it" = "알겠습니다.";
 
-"subway_data_unavailable" = "Subway map is unavailable";
+"subway_data_unavailable" = "지하철 지도가 가용하지 않습니다.";
 
-"bookmarks_empty_list_title" = "This list is empty";
+"bookmarks_empty_list_title" = "이 목록은 비어있습니다.";
 
-"bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";
+"bookmarks_empty_list_message" = "북마크를 추가하려면 맵에서 장소를 탭하고 별 모양 아이콘을 탭하세요.";
 
-"category_desc_more" = "…more";
+"category_desc_more" = "…기타 정보";
 
-"title_error_downloading_bookmarks" = "An error occured";
+"title_error_downloading_bookmarks" = "오류가 발생했습니다.";
 
-"subtitle_error_downloading_bookmarks" = "Bookmarks were not downloaded";
+"subtitle_error_downloading_bookmarks" = "북마크가 다운로드 되지 않았습니다.";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME now has a route library";
+"whats_new_bookmarks_catalog_title" = "MAPS.ME가 현재 경로 카탈로그를 보유하고 있습니다.";
 
-"whats_new_bookmarks_catalog_message" = "Hundreds of detailed routes all around the world: where to go, what to see, where to eat.";
+"whats_new_bookmarks_catalog_message" = "전세계 수백 개의 세부 경로: 가볼 장소, 볼거리, 먹거리.";
 
-"whats_new_popularity_label_title" = "Popular locations nearby";
+"whats_new_popularity_label_title" = "근처 인기 있는 장소";
 
-"whats_new_popularity_label_message" = "The What to Do section will help you find the most popular places in the city.";
+"whats_new_popularity_label_message" = "무엇을 할지' 섹션은 도시에서 가장 인기있는 장소를 발견하는데 도움을 줄 것입니다.";
 
-"whats_new_hot_offers_title" = "Attractive offers from hotels";
+"whats_new_hot_offers_title" = "호텔에서의 매혹적인 오퍼";
 
-"whats_new_hot_offers_message" = "You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.";
+"whats_new_hot_offers_message" = "검색에서 호텔 범주를 사용하여 검색할 수 있습니다. 오퍼는 맵과 검색 결과에서 퍼센트 기호로 표시됩니다.";

@@ -1298,4 +1298,59 @@
 	<string name="sign_agree_pp_gdpr">Souhlasím s &lt;a href="%s">Zásadami ochrany osobních údajů&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Souhlasím s &lt;a href="%s">Smluvními podmínkami&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Souhlasím s tím, že obdržím nejnovější zprávy o produktech MAPS.ME</string>
+	<string name="whats_new_localbiz_title">Drobné podnikání si zaslouží pozornost</string>
+	<string name="whats_new_localbiz_message">Zejména místní kavárny, hostely a obchůdky dělají cestování nezapomenutelným. V MAPS.ME zdarma optimalizujeme stránky vašeho podnikání tak, aby neuniklo pozornosti.</string>
+	<string name="whats_new_order_button">Zanechat objednávku</string>
+	<string name="bookmarks_page_downloaded">Nahrané</string>
+	<string name="bookmarks_page_my">Moje</string>
+	<string name="routes_and_bookmarks">Trasy a značky</string>
+	<string name="bookmarks_webview_success_toast">Značky byly úspěšně nahrány</string>
+	<string name="cached_bookmarks_placeholder_title">Nahrajte nová místa</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Klikněte pro nahrání tisíce zajímavých míst a tras vytvořených uživateli MAPS.ME. Nutné připojení k internetu.</string>
+	<string name="downloader_download_routers">Nahrát značky</string>
+	<string name="bookmarks_groups_cached">Nahrané seznamy</string>
+	<string name="author_name_by_prefix">%s</string>
+	<plurals name="bookmarks_objects">
+	  <item quantity="other">%s objekt</item>
+	</plurals>
+	<plurals name="objects">
+	  <item quantity="other">%d místo</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="other">%d míst</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="other">%d cest</item>
+	</plurals>
+	<string name="subtittle_opt_out">Natavení doprovodu</string>
+	<string name="opt_out_flurry">Statistika</string>
+	<string name="opt_out_mopub">Personalizovaná reklama</string>
+	<string name="opt_out_fabric">Zprávy o chybách</string>
+	<string name="opt_out_fabric_description">Můžeme používat vaše údaje pro vývoj a zlepšení MAPS.ME. Změny se projeví po restartování aplikace.</string>
+	<string name="opt_out_help_ios_1">Cílovou reklamu můžete vypnout v nastavení vašeho zařízení.</string>
+	<string name="opt_out_help_ios_2">iOS 9 nebo vyšší</string>
+	<string name="opt_out_help_ios_3">Otevřete Nastavení → Důvěrnost → Reklama → Zapněte „Omezení trackingu“</string>
+	<string name="opt_out_help_android">Cílovou reklamu můžete vypnout v nastavení vašeho zařízení.\nAndroid a Google Play Servisy 4.0 a vyšší\n\nNastavení telefonu → Google → Reklama → Vypnout personalizaci reklamy\n nebo\nNastavení telefonu → Google → Účet Google → Důvěrnost → Nastavení reklamních preferencí → Personalizace reklamy</string>
+	<string name="privacy_policy">Politika důvěrnosti</string>
+	<string name="terms_of_use">Podmínky užívání</string>
+	<string name="backup_notification_failed">Zálohování značek bylo pozastaveno. Pro zapnutí zálohování vejděte.</string>
+	<string name="banner_megafon_banner_message">Rozluč se s mezinárodním roamingem!</string>
+	<string name="banner_megafon_banner_button">Good Bye!</string>
+	<string name="button_layer_traffic">Zácpy</string>
+	<string name="button_layer_subway">Metro</string>
+	<string name="layers_title">Úrovně mapy</string>
+	<string name="layers_message">Pro zobrazení situace na silnici, schématu metra či jiné užitečné informace můžete přepínat úrovně mapy.</string>
+	<string name="button_layer_got_it">Rozumím</string>
+	<string name="subway_data_unavailable">Mapa metra není dostupná</string>
+	<string name="bookmarks_empty_list_title">Seznam je prázdný</string>
+	<string name="bookmarks_empty_list_message">Pro přidání nové značky klikněte na symbol hvězdičky na obrázku objektu</string>
+	<string name="category_desc_more">…ještě</string>
+	<string name="title_error_downloading_bookmarks">Někde se stala chyba</string>
+	<string name="subtitle_error_downloading_bookmarks">Značky se nenahrály</string>
+	<string name="whats_new_bookmarks_catalog_title">V MAPS.ME se objevil katalog tras</string>
+	<string name="whats_new_bookmarks_catalog_message">Desítky podrobných tras po celém světě: kam zajít, na co se podívat, kde se najíst.</string>
+	<string name="whats_new_popularity_label_title">Oblíbené v okolí</string>
+	<string name="whats_new_popularity_label_message">Sekce „Co dělat“ vám pomůže najít nejoblíbenější místa ve městě.</string>
+	<string name="whats_new_hot_offers_title">Výhodné nabídky hotelů</string>
+	<string name="whats_new_hot_offers_message">Hledejte je ve vyhledávání s pomocí kategorie „Hotely“. Nabídky budou označeny symbolem procenta na mapě i v seznamu.</string>
 </resources>

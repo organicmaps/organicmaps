@@ -1299,4 +1299,58 @@
 	<string name="sign_agree_pp_gdpr">我同意&lt;a href="%s">隱私政策&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">我同意&lt;a href="%s">使用條款&lt;/a></string>
 	<string name="sign_agree_news_gdpr">我同意接收有關MAPS.ME產品的最新消息</string>
+	<string name="whats_new_localbiz_message">當地的咖啡館、旅館和小商店令旅行難以忘懷。我們在MAPS.ME中免費優化您的商家頁面，以便它可以被看見。</string>
+	<string name="whats_new_order_button">留下申請表</string>
+	<string name="bookmarks_page_downloaded">加載</string>
+	<string name="bookmarks_page_my">我的</string>
+	<string name="routes_and_bookmarks">路線和標籤</string>
+	<string name="bookmarks_webview_success_toast">標籤已成功加載</string>
+	<string name="cached_bookmarks_placeholder_title">上傳新地點</string>
+	<string name="cached_bookmarks_placeholder_subtitle">單擊按鈕下載MAPS.ME用戶創建的數千個有趣的地點和路線。您需要網絡連接。</string>
+	<string name="downloader_download_routers">加載標籤</string>
+	<string name="bookmarks_groups_cached">加載的列表</string>
+	<string name="author_name_by_prefix">%s</string>
+	<plurals name="bookmarks_objects">
+	  <item quantity="other">%s 對象</item>
+	</plurals>
+	<plurals name="objects">
+	  <item quantity="other">%d 地點</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="other">%d 地點</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="other">%d 軌跡</item>
+	</plurals>
+	<string name="subtittle_opt_out">跟蹤設置</string>
+	<string name="opt_out_flurry">統計</string>
+	<string name="opt_out_mopub">個性化廣告</string>
+	<string name="opt_out_fabric">錯誤報告</string>
+	<string name="opt_out_fabric_description">我們可以使用您的數據來開發和改進MAPS.ME。更改將再重新啟動應用程序后生效。</string>
+	<string name="opt_out_help_ios_1">您可以選擇停止在設備設置中接受定向廣告。</string>
+	<string name="opt_out_help_ios_2">iOS 9或更高版本</string>
+	<string name="opt_out_help_ios_3">請打開設置 → 隱私 → 廣告 → 啟用“跟蹤限制”</string>
+	<string name="opt_out_help_android">您可以選擇停止在設備設置中接受定向廣告。Android и Google Play Services 4.0或更高版本\n\n電話設置 → Google → 廣告 → 停用廣告個性化\n或\n電話設置 → Google → Google賬戶 → 隱私 → 首選項設置 → 廣告個性化</string>
+	<string name="privacy_policy">隱私政策</string>
+	<string name="terms_of_use">使用條款</string>
+	<string name="backup_notification_failed">標籤的備份已暫停。請登錄以啟用設備。</string>
+	<string name="banner_megafon_banner_message">請向國際漫遊說再見！</string>
+	<string name="banner_megafon_banner_button">Goodbye！</string>
+	<string name="button_layer_traffic">堵塞</string>
+	<string name="button_layer_subway">地鐵</string>
+	<string name="layers_title">地圖圖層</string>
+	<string name="layers_message">請打開地圖圖層、地鐵圖及其他有用信息來顯示交通狀況。</string>
+	<string name="button_layer_got_it">明白</string>
+	<string name="subway_data_unavailable">地鐵圖不可用</string>
+	<string name="bookmarks_empty_list_title">列表為空</string>
+	<string name="bookmarks_empty_list_message">要添加新標籤，請單擊對象卡片中的星型圖標</string>
+	<string name="category_desc_more">…更多</string>
+	<string name="title_error_downloading_bookmarks">發生錯誤</string>
+	<string name="subtitle_error_downloading_bookmarks">標籤未加載</string>
+	<string name="whats_new_bookmarks_catalog_title">在MAPS.ME中有路線目錄</string>
+	<string name="whats_new_bookmarks_catalog_message">全球數十條詳細路線去哪裡、看什麼、在哪吃飯。</string>
+	<string name="whats_new_popularity_label_title">附近景點</string>
+	<string name="whats_new_popularity_label_message">“做什麼”部分將幫您找到該城市最受歡迎的地方。</string>
+	<string name="whats_new_hot_offers_title">酒店的優惠報價</string>
+	<string name="whats_new_hot_offers_message">使用搜索中的“酒店”類別來尋找它們報價將在地圖和列表中以百分比圖標來表示。</string>
 </resources>

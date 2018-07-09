@@ -1295,4 +1295,59 @@
 	<string name="sign_agree_pp_gdpr">ฉันยอมรับ &lt;a href="%s">นโยบายข้อมูลส่วนบุคคล&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">ฉันยอมรับ &lt;a href="%s">ข้อกำหนดในการให้บริการ&lt;/a></string>
 	<string name="sign_agree_news_gdpr">ฉันยอมรับที่จะรับข่าวสารล่าสุดเกี่ยวกับผลิตภัณฑ์ MAPS.ME</string>
+	<string name="whats_new_localbiz_title">ธุรกิจขนาดเล็กควรจะได้รับความเอาใจใส่</string>
+	<string name="whats_new_localbiz_message">มันเป็นร้านกาแฟในท้องถิ่น หอพักอันอบอุ่น และร้านค้าที่ทำให้การเดินทางของเราเป็นที่น่าจดจำ เราจะเพิ่มประสิทธิภาพหน้าเว็บไซต์ของคุณใน MAPS.ME เพื่อทำให้เว็บไซต์ของคุณโดดเด่น</string>
+	<string name="whats_new_order_button">ฝากคำร้อง</string>
+	<string name="bookmarks_page_downloaded">ดาวน์โหลด</string>
+	<string name="bookmarks_page_my">ของฉัน</string>
+	<string name="routes_and_bookmarks">เส้นทาง และบุ๊กมาร์ก</string>
+	<string name="bookmarks_webview_success_toast">ดาวน์โหลดบุ๊กมาร์กสำเร็จแล้ว</string>
+	<string name="cached_bookmarks_placeholder_title">ดาวน์โหลดสถานที่ใหม่</string>
+	<string name="cached_bookmarks_placeholder_subtitle">กดปุ่มเพื่อดาวน์โหลดหลายพันสถานที่ และเส้นทางที่น่าสนใจต่าง ๆ ซึ่งสร้างขึ้นโดยผู้ใช้งานของ MAPS.ME คุณจำเป็นต้องเชื่อมต่อกับอินเตอร์เน็ต</string>
+	<string name="downloader_download_routers">ดาวน์โหลดบุ๊กมาร์ก</string>
+	<string name="bookmarks_groups_cached">ดาวน์โหลดรายการต่าง ๆ แล้ว</string>
+	<string name="author_name_by_prefix">โดย %s</string>
+	<plurals name="bookmarks_objects">
+	  <item quantity="other">%s วัตถุประสงค์</item>
+	</plurals>
+	<plurals name="objects">
+	  <item quantity="other">%d สถานที่</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="other">%d สถานที่ต่าง ๆ</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="other">%d ติดตามต่าง ๆ</item>
+	</plurals>
+	<string name="subtittle_opt_out">การตั้งค่าการติดตาม</string>
+	<string name="opt_out_flurry">สถิติ</string>
+	<string name="opt_out_mopub">การโฆษณาในแบบของคุณ</string>
+	<string name="opt_out_fabric">รายงานข้อขัดข้อง</string>
+	<string name="opt_out_fabric_description">เราอาจใช้ข้อมูลของคุณเพื่อพัฒนาประสบการณ์ของ MAPS.ME การเปลี่ยนแปลงจะมีผลหลังจากที่คุณเปิดแอพฯ ขึ้นใหม่</string>
+	<string name="opt_out_help_ios_1">อุปกรณ์มือถือของคุณอาจมีการตั้งค่า \"\"จำกัดการติดตามโฆษณา\"\" หรือ \"\"เลือกไม่ใช้การโฆษณาตามความสนใจ\"\"</string>
+	<string name="opt_out_help_ios_2">iOS 9 หรือสูงกว่า</string>
+	<string name="opt_out_help_ios_3">ไปที่การตั้งค่าของคุณ → ความเป็นส่วนตัว → การโฆษณา → เปิดใช้งานการตั้งค่า “จำกัดการติดตามโฆษณา”</string>
+	<string name="opt_out_help_android">อุปกรณ์มือถือของคุณอาจมีการตั้งค่า \"\"จำกัดการติดตามโฆษณา\"\" หรือ \"\"เลือกไม่ใช้การโฆษณาตามความสนใจ\"\"\n\nสำหรับ Android และบริการ Google Play เวอร์ชั่น 4.0 และสูงกว่า:\nการตั้งค่า → Google → โฆษณา → เลือกไม่ใช้การโฆษณา ในแบบของคุณ\หรือ\nการตั้งค่า → Google → Google Account → ข้อมูลส่วนตัว และส่วนบุคคล → การตั้งค่าโฆษณา → โฆษณาในแบบของคุณ</string>
+	<string name="privacy_policy">นโยบายความเป็นส่วนตัว</string>
+	<string name="terms_of_use">ข้อกำหนดในการใช้งาน</string>
+	<string name="backup_notification_failed">การเก็บสำรองบุ๊กมาร์กของคุณได้ถูกระงับ เข้าสู่ระบบเพื่อเปิดใช้งานอีกครั้ง</string>
+	<string name="banner_megafon_banner_message">บอกลาบริการโรมมิ่งระหว่างประเทศ!</string>
+	<string name="banner_megafon_banner_button">ลาก่อน!</string>
+	<string name="button_layer_traffic">การจราจร</string>
+	<string name="button_layer_subway">รถไฟใต้ดิน</string>
+	<string name="layers_title">ชั้นแผนที่</string>
+	<string name="layers_message">ใช้ชั้นแผนที่เพื่อแสดงแผนที่ข้อมูลด้านการจราจร รถไฟใต้ดิน และข้อมูลอื่น ๆ ที่เป็นประโยชน์</string>
+	<string name="button_layer_got_it">เข้าใจแล้ว</string>
+	<string name="subway_data_unavailable">แผนที่รถไฟใต้ดินไม่พร้อมใช้งาน</string>
+	<string name="bookmarks_empty_list_title">รายการนี้ว่างเปล่า</string>
+	<string name="bookmarks_empty_list_message">เพื่อเพิ่มบุ๊กมาร์ก โปรดแตะที่สถานที่บนแผนที่ แล้วจากนั้นแตะที่ไอคอนรูปดาว</string>
+	<string name="category_desc_more">…เพิ่มเติม</string>
+	<string name="title_error_downloading_bookmarks">มีข้อผิดพลาดเกิดขึ้น</string>
+	<string name="subtitle_error_downloading_bookmarks">ไม่ได้ดาวน์โหลดบุ๊กมาร์ก</string>
+	<string name="whats_new_bookmarks_catalog_title">ขณะนี้ MAPS.ME มีแคตาล็อกเส้นทางแล้ว</string>
+	<string name="whats_new_bookmarks_catalog_message">หลายร้อยเส้นทางโดยรายละเอียดทั่วโลก: ที่ไหนควรจะไป ควรจะไปดูอะไร ควรจะกินที่ไหน</string>
+	<string name="whats_new_popularity_label_title">สถานที่ยอดนิยมในบริเวณใกล้เคียง</string>
+	<string name="whats_new_popularity_label_message">ส่วนของ ควรจะต้องทำอะไร จะช่วยให้คุณได้พบกับสถานที่ที่ได้รับความนิยมมากที่สุดในเมือง</string>
+	<string name="whats_new_hot_offers_title">ข้อเสนอที่น่าสนใจจากโรงแรมต่าง ๆ</string>
+	<string name="whats_new_hot_offers_message">คุณสามารถค้นหาได้โดยใช้หมวดหมู่ โรงแรม ในการค้นหา ข้อเสนอพิเศษจะถูกทำเครื่องหมายด้วยสัญลักษณ์เปอร์เซ็นต์ในแผนที่ และในผลการค้นหา</string>
 </resources>

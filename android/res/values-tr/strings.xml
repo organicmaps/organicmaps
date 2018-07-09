@@ -1295,4 +1295,59 @@
 	<string name="sign_agree_pp_gdpr">&lt;a href="%s">Gizlilik Politikası&lt;/a> bölümünü kabul ediyorum</string>
 	<string name="sign_agree_tof_gdpr">&lt;a href="%s">Kullanım Şartları&lt;/a> bölümünü kabul ediyorum</string>
 	<string name="sign_agree_news_gdpr">MAPS.ME ürünleri hakkında en yeni haberleri almayı kabul ediyorum</string>
+	<string name="whats_new_localbiz_title">Küçük işletmeler de ilgi hak ediyor</string>
+	<string name="whats_new_localbiz_message">Seyahatlerinizi unutulmaz kılan bölgedeki kafeler, konforlu oteller ve alışveriş yapabileceğiniz mağazalardır. Tüm bunların ön plana çıkabilmesi için MAPS.ME sayfanızı optimize edeceğiz.</string>
+	<string name="whats_new_order_button">İsteğinizi iletin</string>
+	<string name="bookmarks_page_downloaded">İndirildi</string>
+	<string name="bookmarks_page_my">Bana ait</string>
+	<string name="routes_and_bookmarks">Rotalar ve yer imleri</string>
+	<string name="bookmarks_webview_success_toast">Yer imleri başarıyla indirildi</string>
+	<string name="cached_bookmarks_placeholder_title">Yeni yerler indirin</string>
+	<string name="cached_bookmarks_placeholder_subtitle">MAPS.ME kullanıcılarının oluşturduğu binlerce ilgi çekici yeri ve rotayı indirmek için düğmeye basın. İnternet bağlantınızın olması gerekir.</string>
+	<string name="downloader_download_routers">İndirilen yer imleri</string>
+	<string name="bookmarks_groups_cached">İndirilen listeler</string>
+	<string name="author_name_by_prefix">- %s</string>
+	<plurals name="bookmarks_objects">
+	  <item quantity="other">%s nesne</item>
+	</plurals>
+	<plurals name="objects">
+	  <item quantity="other">%d yer</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="other">%d yer</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="other">%d izleme</item>
+	</plurals>
+	<string name="subtittle_opt_out">İzleme ayarları</string>
+	<string name="opt_out_flurry">İstatistik</string>
+	<string name="opt_out_mopub">Kişiye özel reklamcılık</string>
+	<string name="opt_out_fabric">Kilitlenme raporu</string>
+	<string name="opt_out_fabric_description">MAPS.ME deneyimini geliştirmek için verilerinizi kullanabiliriz. Değişiklikler, uygulama yeniden başlatıldıktan sonra geçerli olur.</string>
+	<string name="opt_out_help_ios_1">Mobil cihazınız, “Reklam İzlemeyi Sınırla” veya “İlgiye dayalı reklamcılığı devre dışı bırak” ayarı sunar.</string>
+	<string name="opt_out_help_ios_2">iOS 9 veya Üstü</string>
+	<string name="opt_out_help_ios_3">Ayarlar → Gizlilik → Reklamcılık\'a gidin ve “Reklam İzlemeyi Sınırla” ayarını etkinleştirin</string>
+	<string name="opt_out_help_android">Mobil cihazınız, “Reklam İzlemeyi Sınırla” veya “İlgiye dayalı reklamcılığı devre dışı bırak” ayarı sunar.\n\nAndroid ve Google Play Services 4.0 ve üzeri sürümü için:\nAyarlar → Google → Reklamlar → Reklamları Kişiselleştirme\'yi devre dışı bırak\nAyarlar → Google → Google Hesabı → Kişisel bilgiler ve gizlilik → Reklam Ayarları → Reklamları Kişiselleştirme</string>
+	<string name="privacy_policy">Gizlilik politikası</string>
+	<string name="terms_of_use">Kullanım koşulları</string>
+	<string name="backup_notification_failed">Yer imlerinizin yedeklenmesi işlemi askıya alındı. İşlemi devam ettirmek için oturum açın.</string>
+	<string name="banner_megafon_banner_message">Uluslararası dolaşıma güle güle deyin!</string>
+	<string name="banner_megafon_banner_button">Güle güle!</string>
+	<string name="button_layer_traffic">Trafik</string>
+	<string name="button_layer_subway">Metro</string>
+	<string name="layers_title">Harita katmanları</string>
+	<string name="layers_message">Trafik, metro haritası ve diğer kullanışlı bilgileri görüntülemek için harita katmanlarını kullanın</string>
+	<string name="button_layer_got_it">Anladım</string>
+	<string name="subway_data_unavailable">Metro haritası mevcut değil</string>
+	<string name="bookmarks_empty_list_title">Bu liste boş</string>
+	<string name="bookmarks_empty_list_message">Yer imi eklemek için önce haritadaki bir yere sonrasında ise yıldız simgesine dokunun</string>
+	<string name="category_desc_more">…daha fazla</string>
+	<string name="title_error_downloading_bookmarks">Bir hata oluştu</string>
+	<string name="subtitle_error_downloading_bookmarks">Yer imleri indirilmedi</string>
+	<string name="whats_new_bookmarks_catalog_title">MAPS.ME\'de artık yeni bir rota kategorisi var</string>
+	<string name="whats_new_bookmarks_catalog_message">Dünyanın dört bir yanından yüzlerce ayrıntılı rota: Nereye gidilir? Nereleri ziyaret edilir? Ne yenir?</string>
+	<string name="whats_new_popularity_label_title">Yakındaki popüler yerler</string>
+	<string name="whats_new_popularity_label_message">Yapılacaklar bölümü, şehirdeki en popüler yerleri bulmana yardımcı olacak.</string>
+	<string name="whats_new_hot_offers_title">İlgi çekici otel teklifleri</string>
+	<string name="whats_new_hot_offers_message">Arama bölümündeki Oteller kategorisini kullanarak ilgi çekici teklifleri bulabilirsiniz. Otel teklifleri, haritada ve arama sonuçlarında bir yüzdelik sembolü ile işaretlenir.</string>
 </resources>

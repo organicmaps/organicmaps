@@ -1304,4 +1304,59 @@
 	<string name="sign_agree_pp_gdpr">Ich stimme den &lt;a href="%s">Datenschutzbestimmungen&lt;/a> zu</string>
 	<string name="sign_agree_tof_gdpr">Ich stimme den &lt;a href="%s">Nutzungsbedingungen&lt;/a> zu</string>
 	<string name="sign_agree_news_gdpr">Ich bin damit einverstanden, die neuesten Nachrichten über MAPS.ME-Produkte zu erhalten</string>
+	<string name="whats_new_localbiz_title">Kleine Betriebe verdienen Aufmerksamkeit</string>
+	<string name="whats_new_localbiz_message">Genau die lokalen Cafés, Hostels und Geschäfte machen die Reisen unvergesslich. Wir werden die Seite Ihres Geschäfts bei MAPS.ME kostenlos optimieren, damit es bemerkt wird.</string>
+	<string name="whats_new_order_button">Einen Antrag hinterlassen</string>
+	<string name="bookmarks_page_downloaded">Geladene</string>
+	<string name="bookmarks_page_my">Meine</string>
+	<string name="routes_and_bookmarks">Routen und Markierungen</string>
+	<string name="bookmarks_webview_success_toast">Die Markierungen wurden erfolgreich hochgeladen</string>
+	<string name="cached_bookmarks_placeholder_title">Laden Sie neue Plätze hoch</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Klicken Sie auf die Schaltfläche, um Tausende von interessanten Orten und Routen, die von den Anwendern von MAPS.ME erstellt wurden, zu laden. Sie werden eine Internetverbindung benötigen.</string>
+	<string name="downloader_download_routers">Markierungen laden</string>
+	<string name="bookmarks_groups_cached">Heruntergeladene Listen</string>
+	<string name="author_name_by_prefix">%s</string>
+	<plurals name="bookmarks_objects">
+	  <item quantity="other">%s Objekt</item>
+	</plurals>
+	<plurals name="objects">
+	  <item quantity="other">%d Platz</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="other">%d Plätze</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="other">%d Strecken</item>
+	</plurals>
+	<string name="subtittle_opt_out">Einstellungen der Begleitung</string>
+	<string name="opt_out_flurry">Statistiken</string>
+	<string name="opt_out_mopub">Personalisierte Werbung</string>
+	<string name="opt_out_fabric">Berichte über die Fehler</string>
+	<string name="opt_out_fabric_description">Wir können Ihre Daten benutzen, um MAPS.ME zu entwickeln und zu verbessern. Die Änderungen werden nach dem Neustart der App in Kraft treten.</string>
+	<string name="opt_out_help_ios_1">Sie können der Erhalt von gezielter Werbung in den Einstellungen des Geräts verbieten.</string>
+	<string name="opt_out_help_ios_2">iOS 9 oder höher</string>
+	<string name="opt_out_help_ios_3">Öffnen Sie die Einstellungen → Vertraulichkeit → Werbung → Schalten Sie „Tracking einschränken“ ein</string>
+	<string name="opt_out_help_android">Sie können den Erhalt von gezielter Werbung in den Geräteeinstellungen ausschalten. \nAndroid und Google Play Services 4.0 und höher\n\nTelefoneinstellungen → Google → Werbung→ Personalisierung ausschalten\noder\nTelefoneinstellungen → Google → Benutzerkonto von Google → Vertraulichkeit → Einstellungen von Werbevorzügen → Personalisierung der Werbung</string>
+	<string name="privacy_policy">Datenschutzerklärung</string>
+	<string name="terms_of_use">Nutzungsbedingungen</string>
+	<string name="backup_notification_failed">Das Reservekopieren von Markierungen wurde angehalten. Loggen Sie sich ein, um das Reservekopieren einzuschalten.</string>
+	<string name="banner_megafon_banner_message">Sage dem internationalen Roaming goodbye!</string>
+	<string name="banner_megafon_banner_button">Goodbye!</string>
+	<string name="button_layer_traffic">Staus</string>
+	<string name="button_layer_subway">U-Bahn</string>
+	<string name="layers_title">Kartenschichten</string>
+	<string name="layers_message">Schalten Sie die Schichten auf der Karte ein, um die Verkehrssituation, den U-Bahnplan oder sonstige nützlichen Informationen einzublenden</string>
+	<string name="button_layer_got_it">Alles klar</string>
+	<string name="subway_data_unavailable">Die U-Bahnkarte steht nicht zur Verfügung</string>
+	<string name="bookmarks_empty_list_title">Die Liste ist leer</string>
+	<string name="bookmarks_empty_list_message">Um eine neue Markierung hinzuzufügen, drücken Sie auf das Sternzeichen in der Karte des Objekts</string>
+	<string name="category_desc_more">…mehr</string>
+	<string name="title_error_downloading_bookmarks">Es ist ein Fehler aufgetreten</string>
+	<string name="subtitle_error_downloading_bookmarks">Die Markierungen wurden nicht geladen</string>
+	<string name="whats_new_bookmarks_catalog_title">Bei MAPS.ME ist ein Routenkatalog aufgetreten</string>
+	<string name="whats_new_bookmarks_catalog_message">Dutzende ausführliche Routen weltweit: wo man hingehen kann, was man sich anschauen kann, wohin man essen gehen kann.</string>
+	<string name="whats_new_popularity_label_title">Beliebtes in der Nähe</string>
+	<string name="whats_new_popularity_label_message">Der Abschnitte „Womit man sich beschäftigen kann“ wird dabei helfen, die beliebtesten Plätze in der Stadt zu finden.</string>
+	<string name="whats_new_hot_offers_title">Vorteilhafte Hotelangebote</string>
+	<string name="whats_new_hot_offers_message">Suchen Sie nach ihnen mithilfe der Kategorie „Hotels\"\" in der Suche. Die Angebote werden mit einem auf der Karte und in der Liste Prozentzeichen gekennzeichnet sein.</string>
 </resources>

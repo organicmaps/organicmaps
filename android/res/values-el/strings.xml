@@ -1054,4 +1054,59 @@
 	<string name="sign_agree_pp_gdpr">Συμφωνώ με την &lt;a href="%s">Πολιτική Απορρήτου&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Συμφωνώ με τους &lt;a href="%s">Όρους Χρήσης&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Συμφωνώ να λαμβάνω τα τελευταία νέα σχετικά με τα προϊόντα MAPS.ME</string>
+	<string name="whats_new_localbiz_title">Οι μικρές επιχειρήσεις αξίζουν προσοχή</string>
+	<string name="whats_new_localbiz_message">Οι τοπικές καφετέριες, τα άνετα πανδοχεία και τα καταστήματα είναι που κάνουν τα ταξίδι μας αξέχαστα. Θα βελτιστοποιήσουμε τη σελίδα σας στο MAPS.ME για να την κάνουμε να ξεχωρίσει.</string>
+	<string name="whats_new_order_button">Αφήστε μια αίτηση</string>
+	<string name="bookmarks_page_downloaded">Κατέβηκε</string>
+	<string name="bookmarks_page_my">Μου</string>
+	<string name="routes_and_bookmarks">Διαδρομές και σελιδοδείκτες</string>
+	<string name="bookmarks_webview_success_toast">Οι σελιδοδείκτες κατέβηκαν επιτυχώς</string>
+	<string name="cached_bookmarks_placeholder_title">Κατεβάστε νέα μέρη</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Πιέστε το κουμπί για να κατεβάστε χιλιάδες ενδιαφέροντα μέρη και διαδρομές που δημιουργήθηκαν από τους χρήστες του MAPS.ME. Θα χρειαστείτε σύνδεση στο διαδίκτυο.</string>
+	<string name="downloader_download_routers">Κατεβάστε σελιδοδείκτες</string>
+	<string name="bookmarks_groups_cached">Κατεβάστε λίστες</string>
+	<string name="author_name_by_prefix">από %s</string>
+	<plurals name="bookmarks_objects">
+	  <item quantity="other">%s αντικέιμενο</item>
+	</plurals>
+	<plurals name="objects">
+	  <item quantity="other">%d μέρος</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="other">%d μέρη</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="other">%d διαδρομές</item>
+	</plurals>
+	<string name="subtittle_opt_out">Ρυθμίσεις διαδρομών</string>
+	<string name="opt_out_flurry">Στατιστικές</string>
+	<string name="opt_out_mopub">Προσωπικές διαφημίσεις</string>
+	<string name="opt_out_fabric">Αναφορά σφάλματος</string>
+	<string name="opt_out_fabric_description">Μπορεί να χρησιμοποιήσουμε τα δεδομένα σας για να βελτιώσουμε την εμπειρία του MAPS.ME. Οι αλλαγές θα ενεργοποιηθούν μετά την επανεκκίνηση της εφαρμογής.</string>
+	<string name="opt_out_help_ios_1">Η συσκευή σας μπορεί να παρέχει μια ρύθμιση «Περιορισμένη παρακολούθηση διαφημίσεων» ή «Αποκλεισμό διαφημίσεων με βάση το ενδιαφέρον».</string>
+	<string name="opt_out_help_ios_2">iOS 9 ή υψηλότερο</string>
+	<string name="opt_out_help_ios_3">Πηγαίνετε στις ρυθμίσεις → Απόρρητο → Διαφήμιση → Ενεργοποιήστε την επιλογή «Περιορισμένη παρακολούθηση διαφημίσεων»</string>
+	<string name="opt_out_help_android">Η συσκευή σας μπορεί να παρέχει μια ρύθμιση «Περιορισμένη παρακολούθηση διαφημίσεων» ή «Αποκλεισμό διαφημίσεων με βάση το ενδιαφέρον».\n\n Για Android και υπηρεσίες Google Play εκδοχής 4.0 και πάνω:\n Ρυθμίσεις → Google → Διαφημίσεις → Αποκλεισμός προσωποποίησης διαφημίσεων\n ή \n Ρυθμίσεις → Google → Λογαριασμός Google → Προσωπικές πληροφορίες και ασφάλεια → Προσωποποίηση Διαφημίσεων</string>
+	<string name="privacy_policy">Πολιτική απορρήτου</string>
+	<string name="terms_of_use">Όροι χρήσης</string>
+	<string name="backup_notification_failed">Η αποθήκευση των σελιδοδεικτών έχει διακοπεί. Συνδεθείτε για να το ξανανοίξετε.</string>
+	<string name="banner_megafon_banner_message">Πείτε αντίο στη διεθνή περιπλάνηση!</string>
+	<string name="banner_megafon_banner_button">Αντίο!</string>
+	<string name="button_layer_traffic">Κίνηση</string>
+	<string name="button_layer_subway">Μετρό</string>
+	<string name="layers_title">Επίπεδα του χάρτη</string>
+	<string name="layers_message">Χρησιμοποιήστε τα επίπεδα χάρτη για να δείτε την κίνηση, το χάρτη του μετρό και άλλες χρήσιμες πληροφορίες</string>
+	<string name="button_layer_got_it">Κατάλαβα</string>
+	<string name="subway_data_unavailable">Ο χάρτης μετρό δεν είναι διαθέσιμος</string>
+	<string name="bookmarks_empty_list_title">Η λίστα είναι άδεια</string>
+	<string name="bookmarks_empty_list_message">Για να προσθέσετε σελιδοδείκτη, πατήστε ένα μέρος στο χάρτη και μετά πατήστε το αστεράκι</string>
+	<string name="category_desc_more">…περισσότερα</string>
+	<string name="title_error_downloading_bookmarks">Συνέβη σφάλμα</string>
+	<string name="subtitle_error_downloading_bookmarks">Οι σελιδοδείκτες δεν κατέβηκαν</string>
+	<string name="whats_new_bookmarks_catalog_title">Το MAPS.ME έχει τώρα κατάλογο διαδρομών</string>
+	<string name="whats_new_bookmarks_catalog_message">Εκατοντάδες λεπτομερείς διαδρομές από όλο τον κόσμο: πού να πας, τι να δεις, πού να φας.</string>
+	<string name="whats_new_popularity_label_title">Δημοφιλείς τοποθεσίες κοντά σας</string>
+	<string name="whats_new_popularity_label_message">Η ενότητα Τι Να Κάνω θα σας βοηθήσει να βρείτε τα πιο δημοφιλή σημεία της πόλης.</string>
+	<string name="whats_new_hot_offers_title">Ελκυστικές προσφορές από ξενοδοχεία</string>
+	<string name="whats_new_hot_offers_message">Μπορείτε να τα ψάξετε χρησιμοποιώντας την κατηγορία Ξενοδοχεία στην αναζήτηση. Οι προσφορές θα σημειώνονται με το σύμβολο επί τοις εκατό στο χάρτη και στα αποτελέσματα της αναζήτησης.</string>
 </resources>

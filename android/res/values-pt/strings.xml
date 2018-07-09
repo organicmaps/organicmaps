@@ -1293,4 +1293,59 @@
 	<string name="sign_agree_pp_gdpr">Concordo com a &lt;a href="%s">Política de Privacidade&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Eu concordo com os &lt;a href="%s">Termos de Uso&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Concordo em receber as últimas novidades sobre os produtos MAPS.ME</string>
+	<string name="whats_new_localbiz_title">Pequenos negócios necessitam de atenção</string>
+	<string name="whats_new_localbiz_message">São os café locais, hostels acolhedores e lojas que tornam nossas viagens inesquecíveis. Iremos otimizar sua página no MAPS.ME para que ela ganhe destaque.</string>
+	<string name="whats_new_order_button">Deixe seu pedido</string>
+	<string name="bookmarks_page_downloaded">Baixado</string>
+	<string name="bookmarks_page_my">Minhas</string>
+	<string name="routes_and_bookmarks">Rotas e favoritos</string>
+	<string name="bookmarks_webview_success_toast">Favoritos baixados com sucesso</string>
+	<string name="cached_bookmarks_placeholder_title">Baixar novos lugares</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Aperte o botão para baixar milhares de lugares e rotas interessantes criados pelos usuários de MAPS.ME. Você precisará de conexão com a internet.</string>
+	<string name="downloader_download_routers">Baixar favoritos</string>
+	<string name="bookmarks_groups_cached">Listas baixadas</string>
+	<string name="author_name_by_prefix">por %s</string>
+	<plurals name="bookmarks_objects">
+	  <item quantity="other">%s objeto</item>
+	</plurals>
+	<plurals name="objects">
+	  <item quantity="other">%d lugar</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="other">%d lugares</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="other">%d rastreamentos</item>
+	</plurals>
+	<string name="subtittle_opt_out">Configurações de rastreamento</string>
+	<string name="opt_out_flurry">Estatísticas</string>
+	<string name="opt_out_mopub">Propaganda personalizada</string>
+	<string name="opt_out_fabric">Relatório de erros</string>
+	<string name="opt_out_fabric_description">Podemos utilizar seus dados para melhorar a experiência no MAPS.ME. As mudanças entrarão em vigor após você reiniciar o aplicativo.</string>
+	<string name="opt_out_help_ios_1">O seu dispositivo móvel pode fornecer as opções de «Limitar rastreamento de anúncios» ou «Desativar publicidade baseada em interesse».</string>
+	<string name="opt_out_help_ios_2">iOS 9 ou Superior</string>
+	<string name="opt_out_help_ios_3">Vá para: Configurações → Privacidade → Anúncios → Habilitar «Limitar Rastreamento de Anúncios»</string>
+	<string name="opt_out_help_android">O seu dispositivo móvel pode fornecer as opções de «Limitar rastreamento de anúncios» ou «Desativar publicidade baseada em interesse».\n\nPara versões de Android e Google Play Services superiores a 4.0:\nConfigurações → Google → Anúncios → Desativar publicidade baseada em interesse\nor\n nConfigurações → Google → Anúncios → Informações pessoais &amp; privacidade → Configurações de Anúncios → Personalização de Anúncios</string>
+	<string name="privacy_policy">Política de privacidade</string>
+	<string name="terms_of_use">Termos de uso</string>
+	<string name="backup_notification_failed">O back-up dos seus favoritos foi suspenso. É preciso logar para ligá-lo de volta.</string>
+	<string name="banner_megafon_banner_message">Diga adeus ao roaming internacional!</string>
+	<string name="banner_megafon_banner_button">Adeus!</string>
+	<string name="button_layer_traffic">Tráfego</string>
+	<string name="button_layer_subway">Metrô</string>
+	<string name="layers_title">Map Layers</string>
+	<string name="layers_message">Utilize o Map Layers para exibir tráfego, mapa do metrô e outras informações úteis</string>
+	<string name="button_layer_got_it">Entendi</string>
+	<string name="subway_data_unavailable">Mapa de metrô está indisponível</string>
+	<string name="bookmarks_empty_list_title">Esta lista está vazia</string>
+	<string name="bookmarks_empty_list_message">Para adicionar um favorito, toque em algum lugar do mapa e em seguida no ícone da estrela</string>
+	<string name="category_desc_more">…mais</string>
+	<string name="title_error_downloading_bookmarks">Ocorreu um erro</string>
+	<string name="subtitle_error_downloading_bookmarks">Favoritos não foram baixados</string>
+	<string name="whats_new_bookmarks_catalog_title">Agora, o MAPS.ME tem um catálogo de rotas</string>
+	<string name="whats_new_bookmarks_catalog_message">Centenas de rotas detalhadas do mundo inteiro: onde ir, o que ver, onde comer.</string>
+	<string name="whats_new_popularity_label_title">Lugares populares próximos</string>
+	<string name="whats_new_popularity_label_message">A seção O que fazer ajudará você a encontrar os lugares mais populares da cidade.</string>
+	<string name="whats_new_hot_offers_title">Boas ofertas de hotéis</string>
+	<string name="whats_new_hot_offers_message">Você pode procurar por eles utilizando a categoria Hotéis na pesquisa. As ofertas estarão marcadas por um símbolo de porcentagem no mapa e nos resultados de busca.</string>
 </resources>

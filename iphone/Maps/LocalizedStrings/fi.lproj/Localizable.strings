@@ -2336,92 +2336,92 @@
 
 "sign_agree_news_gdpr" = "Hyväksyn viimeisimmät uutiset MAPS.ME-tuotteista";
 
-"whats_new_localbiz_title" = "Small business deserves attention";
+"whats_new_localbiz_title" = "Pienet yritykset ansaitsevat huomiota";
 
-"whats_new_localbiz_message" = "It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.";
+"whats_new_localbiz_message" = "Juuri paikalliset kahvilat, kotoisat hostellit ja kaupat tekevät matkastasi unohtumattoman. Me optimoimme sivusi MAPS.ME:ssä saadaksesi sen erottumaan joukosta.";
 
-"whats_new_order_button" = "Leave a request";
+"whats_new_order_button" = "Jätä pyyntö";
 
-"bookmarks_page_downloaded" = "Downloaded";
+"bookmarks_page_downloaded" = "Ladattu";
 
-"bookmarks_page_my" = "My";
+"bookmarks_page_my" = "Minun";
 
-"routes_and_bookmarks" = "Routes and bookmarks";
+"routes_and_bookmarks" = "Reitit ja kirjanmerkit";
 
-"bookmarks_webview_success_toast" = "Bookmarks succesfully downloaded";
+"bookmarks_webview_success_toast" = "Kirjanmerkit ladattu onnistuneesti";
 
-"cached_bookmarks_placeholder_title" = "Download new places";
+"cached_bookmarks_placeholder_title" = "Lataa uudet paikat";
 
-"cached_bookmarks_placeholder_subtitle" = "Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.";
+"cached_bookmarks_placeholder_subtitle" = "Paina nappulaa ladataksesi tuhansia kiinnostavia paikkoja ja reittejä joita MAPS.ME käyttäjät ovat luoneet. Tarvitset internet yhteyden.";
 
-"downloader_download_routers" = "Download bookmarks";
+"downloader_download_routers" = "Lataa kirjanmerkit";
 
-"bookmarks_groups_cached" = "Downloaded lists";
+"bookmarks_groups_cached" = "Ladatut lista";
 
-"author_name_by_prefix" = "by %s";
+"author_name_by_prefix" = "%s";
 
-"subtittle_opt_out" = "Tracking settings";
+"subtittle_opt_out" = "Seuranta-asetukset";
 
-"opt_out_flurry" = "Statistic";
+"opt_out_flurry" = "Tilasto";
 
-"opt_out_mopub" = "Personalised advertising";
+"opt_out_mopub" = "Yksilöity mainonta";
 
-"opt_out_fabric" = "Crash report";
+"opt_out_fabric" = "Kaatumisraportti";
 
-"opt_out_fabric_description" = "We may use your data to improve MAPS.ME experience. Changes will take effect after you restart the app.";
+"opt_out_fabric_description" = "Me saatamme käyttää tietojasi parantaaksemme MAPS.ME kokemusta. Muutokset alkavat vaikuttamaan kun käynnistät sovelluksen uudestaan.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
 "opt_out_appsflyer" = "Appsflyer";
 
-"opt_out_help_ios_1" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.";
+"opt_out_help_ios_1" = "Mobiililaitteesi saattaa tarjota ”Rajoittettu Mainos Seuranta” tai ”Poistu internet-perusteisesta mainnonnasta” asetuksia.";
 
-"opt_out_help_ios_2" = "iOS 9 or Higher";
+"opt_out_help_ios_2" = "iOS 9 tai Korkeampi";
 
-"opt_out_help_ios_3" = "Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting";
+"opt_out_help_ios_3" = "Mene Asetuksiisi → Yksityisyys → Mainonta → Salli ”Rajoita Mainos Seurantaa” asetus";
 
-"opt_out_help_android" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization";
+"opt_out_help_android" = "Mobiililaitteesi saattaa tarjota ”Rajoittettu Mainos Seuranta” tai ”Poistu internet-perusteisesta mainnonnasta” asetuksia.\n\nAndroidille ja Google Play Palvelut versio 4.0 tai myöhemmin:\nAsetukset → Google → Mainokset → Poistu Mainosten Yksilöinti\ntai\nAsetukset → Google → Google Tili → Henkilökohtaiset tiedot ja yksityisyys → Mainos Asetukset → Mainosten Yksilöinti";
 
-"privacy_policy" = "Privacy policy";
+"privacy_policy" = "Yksityisyyskäytäntö";
 
-"terms_of_use" = "Terms of use";
+"terms_of_use" = "Käyttöehdot";
 
-"backup_notification_failed" = "Backing up your bookmarks has been suspended. Log in to turn it back on.";
+"backup_notification_failed" = "Kirjanmerkkiesi varmuuskopionti on keskeytetty. Kirjaudu sisään ja laita se takaisin päälle.";
 
-"banner_megafon_banner_message" = "Say goodbye to international roaming!";
+"banner_megafon_banner_message" = "Sano hyvästit roaming-datalle!";
 
-"banner_megafon_banner_button" = "Goodbye!";
+"banner_megafon_banner_button" = "Hyvästi!";
 
-"button_layer_traffic" = "Traffic";
+"button_layer_traffic" = "Liikenne";
 
-"button_layer_subway" = "Subway";
+"button_layer_subway" = "Metro";
 
-"layers_title" = "Map layers";
+"layers_title" = "Kartan tasot";
 
-"layers_message" = "Use map layers to display the traffic, subway map, and other useful information";
+"layers_message" = "Käytä kartan tasoja näyttääksesi liikenteen, metrokartan ja muita hyödyllisiä tietoja";
 
-"button_layer_got_it" = "Got it";
+"button_layer_got_it" = "Ymmärsin";
 
-"subway_data_unavailable" = "Subway map is unavailable";
+"subway_data_unavailable" = "Metrokartta ei ole saatavilla";
 
-"bookmarks_empty_list_title" = "This list is empty";
+"bookmarks_empty_list_title" = "Lista on tyhjä";
 
-"bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";
+"bookmarks_empty_list_message" = "Lisätäksesi kirjanmerkin, paina kartasta ja sitten paina tähden kuvaa";
 
-"category_desc_more" = "…more";
+"category_desc_more" = "…lisää";
 
-"title_error_downloading_bookmarks" = "An error occured";
+"title_error_downloading_bookmarks" = "Tapahtui virhe";
 
-"subtitle_error_downloading_bookmarks" = "Bookmarks were not downloaded";
+"subtitle_error_downloading_bookmarks" = "Kirjanmerkkejä ei ole ladattu";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME now has a route library";
+"whats_new_bookmarks_catalog_title" = "MAPS.ME:ssä on nyt reitti katalogi";
 
-"whats_new_bookmarks_catalog_message" = "Hundreds of detailed routes all around the world: where to go, what to see, where to eat.";
+"whats_new_bookmarks_catalog_message" = "Satoja yksityiskohtaisia reittejä kaikkialta maailmasta: minne mennä, mitä nähdä, missä syödä.";
 
-"whats_new_popularity_label_title" = "Popular locations nearby";
+"whats_new_popularity_label_title" = "Suosittuja kohteita lähellä";
 
-"whats_new_popularity_label_message" = "The What to Do section will help you find the most popular places in the city.";
+"whats_new_popularity_label_message" = "Mitä Tehdä osio auttaa sinua löytämään suosituimmat paikat kaupungissa.";
 
-"whats_new_hot_offers_title" = "Attractive offers from hotels";
+"whats_new_hot_offers_title" = "Houkuttelevia tarjouksia hotelleilta";
 
-"whats_new_hot_offers_message" = "You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.";
+"whats_new_hot_offers_message" = "Voit etsiä niitä käyttämällä Hotellit kategoriaa haussa. Tulokset näytetään prosentti merkillä kartassa ja hakutuloksissa.";

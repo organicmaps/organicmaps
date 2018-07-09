@@ -1357,7 +1357,23 @@
 	<string name="author_name_by_prefix">%s</string>
 	<plurals name="bookmarks_objects">
 	  <item quantity="one">%s объект</item>
+	  <item quantity="two">%d объекта</item>
 	  <item quantity="other">%s объектов</item>
+	</plurals>
+	<plurals name="objects">
+	  <item quantity="one">%d объект</item>
+	  <item quantity="two">%d объекта</item>
+	  <item quantity="other">%d объектов</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="one">%d место</item>
+	  <item quantity="two">%d места</item>
+	  <item quantity="other">%d мест</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="one">%d трек</item>
+	  <item quantity="two">%d трека</item>
+	  <item quantity="other">%d треков</item>
 	</plurals>
 	<string name="subtittle_opt_out">Настройки сопровождения</string>
 	<string name="opt_out_flurry">Статистика</string>

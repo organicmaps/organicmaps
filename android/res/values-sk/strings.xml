@@ -1294,4 +1294,59 @@
 	<string name="sign_agree_pp_gdpr">Súhlasím s &lt;a href="%s">Zásadami ochrany osobných údajov&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Súhlasím s &lt;a href="%s">zmluvnými podmienkami&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Súhlasím so zasielaním najnovších správ o produktoch MAPS.ME</string>
+	<string name="whats_new_localbiz_title">Malé podniky si zaslúžia pozornosť</string>
+	<string name="whats_new_localbiz_message">Jedná sa o miestne kaviarne, útulné hostely a obchody, ktoré spravia z vašich ciest nezabudnuteľné. Vašu stránku optimalizujeme v MAPS.ME, aby vynikla.</string>
+	<string name="whats_new_order_button">Zanechať žiadosť</string>
+	<string name="bookmarks_page_downloaded">Prevzaté</string>
+	<string name="bookmarks_page_my">Moje</string>
+	<string name="routes_and_bookmarks">Trasy a záložky</string>
+	<string name="bookmarks_webview_success_toast">Záložky úspešne prevzaté</string>
+	<string name="cached_bookmarks_placeholder_title">Prevziať nové miesta</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Stlačením tlačidla stiahnete tisíce zaujímavých miest a trás vytvorených používateľmi MAPS.ME. Budete potrebovať internetové pripojenie.</string>
+	<string name="downloader_download_routers">Prevziať záložky</string>
+	<string name="bookmarks_groups_cached">Prevziať zoznamy</string>
+	<string name="author_name_by_prefix">od %s</string>
+	<plurals name="bookmarks_objects">
+	  <item quantity="other">%s objekt</item>
+	</plurals>
+	<plurals name="objects">
+	  <item quantity="other">%d miesto</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="other">%d miesta</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="other">%d sledovania</item>
+	</plurals>
+	<string name="subtittle_opt_out">Nastavenie sledovania</string>
+	<string name="opt_out_flurry">Štatistika</string>
+	<string name="opt_out_mopub">Personalizovaná reklama</string>
+	<string name="opt_out_fabric">Hlásenie chýb</string>
+	<string name="opt_out_fabric_description">Vaše údaje môžeme použiť na zlepšenie skúseností s programom MAPS.ME. Zmeny sa prejavia po reštartovaní aplikácie.</string>
+	<string name="opt_out_help_ios_1">Vaše mobilné zariadenie môže poskytnúť nastavenie „Obmedziť reklamné sledovanie“ alebo „Zrušiť inzerciu založenú na záujmoch“.</string>
+	<string name="opt_out_help_ios_2">iOS 9 alebo vyšší</string>
+	<string name="opt_out_help_ios_3">Prejdite do nastavenia → Ochrana osobných údajov → Reklama → Povolenie nastavenia „Obmedziť reklamné sledovanie“</string>
+	<string name="opt_out_help_android">Vaše mobilné zariadenie môže obsahovať nastavenie „Obmedziť reklamné sledovanie“ alebo „Zrušiť inzerciu založenú na záujmoch“. \n\nPre Android a služby Google Play verzie 4.0 a vyššie: \nNastavenia → Google → Reklamy → Zrušiť inzerciu založenú na záujmoch \nalebo\nNastavenia → Google → Google Účet → Osobné informácie a ochrana osobných údajov → Nastavenia reklamy → Personalizácia reklám</string>
+	<string name="privacy_policy">Zásady ochrany osobných údajov</string>
+	<string name="terms_of_use">Podmienky používania</string>
+	<string name="backup_notification_failed">Zálohovanie záložiek bolo pozastavené. Pre opätovné zapnutie sa prihláste.</string>
+	<string name="banner_megafon_banner_message">Rozlúčte sa s medzinárodným roamingom!</string>
+	<string name="banner_megafon_banner_button">Zbohom!</string>
+	<string name="button_layer_traffic">Vyťaženie</string>
+	<string name="button_layer_subway">Metro</string>
+	<string name="layers_title">Vrstvy mapy</string>
+	<string name="layers_message">Na zobrazenie návštevnosti, mapy metra a ďalších užitočných informácií použite vrstvy mapy</string>
+	<string name="button_layer_got_it">Mám to</string>
+	<string name="subway_data_unavailable">Mapa metra nie je dostupná</string>
+	<string name="bookmarks_empty_list_title">Tento zoznam je prázdny</string>
+	<string name="bookmarks_empty_list_message">Pre pridanie záložky kliknite na miesto na mape a potom na ikonu hviezdy</string>
+	<string name="category_desc_more">…viac</string>
+	<string name="title_error_downloading_bookmarks">Vyskytla sa chyba</string>
+	<string name="subtitle_error_downloading_bookmarks">Záložky neboli stiahnuté</string>
+	<string name="whats_new_bookmarks_catalog_title">MAPS.ME má teraz katalóg trás</string>
+	<string name="whats_new_bookmarks_catalog_message">Stovky podrobných trás po celom svete: kam ísť, čo vidieť, kde sa ísť najesť.</string>
+	<string name="whats_new_popularity_label_title">Obľúbené miesta v okolí</string>
+	<string name="whats_new_popularity_label_message">Sekcia Čo robiť vám pomôže nájsť najobľúbenejšie miesta v meste.</string>
+	<string name="whats_new_hot_offers_title">Atraktívne ponuky hotelov</string>
+	<string name="whats_new_hot_offers_message">Môžete ich vyhľadávať pomocou kategórie Hotely vo vyhľadávaní. Ponuky budú označené percentuálnym symbolom na mape a vo výsledkoch vyhľadávania.</string>
 </resources>

@@ -1294,4 +1294,59 @@
 	<string name="sign_agree_pp_gdpr">Jag godkänner &lt;a href="%s">sekretesspolicy&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Jag godkänner &lt;a href="%s">användarvillkoren&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Jag håller med om att få de senaste nyheterna om MAPS.ME produkter</string>
+	<string name="whats_new_localbiz_title">Småföretag förtjänar uppmärksamhet</string>
+	<string name="whats_new_localbiz_message">Det är lokala kaféer, mysiga hotell och affärer som gör din resa oförglömlig. Vi vill optimera din sida på MAPS.Me för att den ska sticka ut.</string>
+	<string name="whats_new_order_button">Lämna en förfrågan</string>
+	<string name="bookmarks_page_downloaded">Ladda ner</string>
+	<string name="bookmarks_page_my">Min</string>
+	<string name="routes_and_bookmarks">Rutt och bokmärken</string>
+	<string name="bookmarks_webview_success_toast">Bokmärkena har laddats ner</string>
+	<string name="cached_bookmarks_placeholder_title">Ladda ner nya platser</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Tryck på knappen för att ladda ner tusentals intressanta platser och rutter skapade av MAPS.ME användare. Du behöver internetanslutning.</string>
+	<string name="downloader_download_routers">Ladda ner bokmärken</string>
+	<string name="bookmarks_groups_cached">Nedladdade listor</string>
+	<string name="author_name_by_prefix">av %s</string>
+	<plurals name="bookmarks_objects">
+	  <item quantity="other">%s objekt</item>
+	</plurals>
+	<plurals name="objects">
+	  <item quantity="other">%d plats</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="other">%d platser</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="other">%d spår</item>
+	</plurals>
+	<string name="subtittle_opt_out">Spårningsinställningar</string>
+	<string name="opt_out_flurry">Statistik</string>
+	<string name="opt_out_mopub">Personlig annonsering</string>
+	<string name="opt_out_fabric">Olycksrapport</string>
+	<string name="opt_out_fabric_description">Vi kan komma att använda din data för att förbättra MAPS.ME upplevelsen. Ändringarna kommer träda i kraft när du startar om appen.</string>
+	<string name="opt_out_help_ios_1">Din mobila enhet kan tillhandahålla en ”Begränsad annonsspårning” eller ”Välj bort intressebaserad annonsering” inställning.</string>
+	<string name="opt_out_help_ios_2">iOS 9 eller nyare</string>
+	<string name="opt_out_help_ios_3">Gå till Inställningar → Integritet → Annonsering → Tillåt inställningen ”Begränsad annonsspårning”</string>
+	<string name="opt_out_help_android">Din mobila enhet kan tillhandahålla en ”Begränsad annonsspårning” eller ”Välj bort intressebaserad annonsering” -inställning.\n\nFör Android och Google Play tjänster version 4.0 och nyare:\nInställningar → Google → Annonsering → Välj bort personlig annonsering\eller\nInställningar→ Google → Google konto → Personlig information och integritet → Annonseringsinställningar → Personlig annonsering</string>
+	<string name="privacy_policy">Integritetspolicy</string>
+	<string name="terms_of_use">Allmänna villkor</string>
+	<string name="backup_notification_failed">Säkerhetskopiering av dina bokmärken har avbrutits. Logga in för att starta det igen.</string>
+	<string name="banner_megafon_banner_message">Säg farväl till internationell roaming!</string>
+	<string name="banner_megafon_banner_button">Hej då!</string>
+	<string name="button_layer_traffic">Trafik</string>
+	<string name="button_layer_subway">Tunnelbana</string>
+	<string name="layers_title">Kartlager</string>
+	<string name="layers_message">Använd kartlager för att visa trafik, karta över tunnelbanan och annan användbar information</string>
+	<string name="button_layer_got_it">Förstått</string>
+	<string name="subway_data_unavailable">Kartor över tunnelbana är otillgänglig</string>
+	<string name="bookmarks_empty_list_title">Listan är tom</string>
+	<string name="bookmarks_empty_list_message">För att lägga till bokmärken, tryck på kartan och sedan på stjärnikonen</string>
+	<string name="category_desc_more">…mer</string>
+	<string name="title_error_downloading_bookmarks">Ett fel har uppstått</string>
+	<string name="subtitle_error_downloading_bookmarks">Bokmärkena laddades inte ner</string>
+	<string name="whats_new_bookmarks_catalog_title">MAPS.ME har nu en ruttkatalog</string>
+	<string name="whats_new_bookmarks_catalog_message">Hundratals av detaljerade rutter, runt om i världen; Var du än är, vad du än vill se, var du än vill äta.</string>
+	<string name="whats_new_popularity_label_title">Populära lägen i närheten</string>
+	<string name="whats_new_popularity_label_message">”Vad att göra” sektionen kommer att hjälpa dig hitta de populäraste platserna i staden.</string>
+	<string name="whats_new_hot_offers_title">Attraktiva hotellerbjudanden</string>
+	<string name="whats_new_hot_offers_message">Du kan söka efter dem via hotellkategorin i sökrutan. Erbjudandena kommer att vara märkta med en procentsymbol (%) på kartan och i sökresultatet.</string>
 </resources>

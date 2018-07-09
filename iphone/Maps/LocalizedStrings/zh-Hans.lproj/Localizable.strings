@@ -2338,90 +2338,90 @@
 
 "whats_new_localbiz_title" = "Small business deserves attention";
 
-"whats_new_localbiz_message" = "It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.";
+"whats_new_localbiz_message" = "当地的咖啡馆、旅馆和小商店让旅行难以忘怀。我们在MAPS.ME中免费优化您的商家页面，让它能够被看见。";
 
-"whats_new_order_button" = "Leave a request";
+"whats_new_order_button" = "留下申请表";
 
-"bookmarks_page_downloaded" = "Downloaded";
+"bookmarks_page_downloaded" = "加载";
 
-"bookmarks_page_my" = "My";
+"bookmarks_page_my" = "我的";
 
-"routes_and_bookmarks" = "Routes and bookmarks";
+"routes_and_bookmarks" = "路线和标签";
 
-"bookmarks_webview_success_toast" = "Bookmarks succesfully downloaded";
+"bookmarks_webview_success_toast" = "标签已成功下载";
 
-"cached_bookmarks_placeholder_title" = "Download new places";
+"cached_bookmarks_placeholder_title" = "上传新地点";
 
-"cached_bookmarks_placeholder_subtitle" = "Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.";
+"cached_bookmarks_placeholder_subtitle" = "单击按钮下载MAPS.ME用户创建的数千个有趣的地点和路线。您需要连接网络。";
 
-"downloader_download_routers" = "Download bookmarks";
+"downloader_download_routers" = "下载标签";
 
-"bookmarks_groups_cached" = "Downloaded lists";
+"bookmarks_groups_cached" = "上传的列表";
 
-"author_name_by_prefix" = "by %s";
+"author_name_by_prefix" = "%s";
 
-"subtittle_opt_out" = "Tracking settings";
+"subtittle_opt_out" = "支持设置";
 
-"opt_out_flurry" = "Statistic";
+"opt_out_flurry" = "统计";
 
-"opt_out_mopub" = "Personalised advertising";
+"opt_out_mopub" = "个性化广告";
 
-"opt_out_fabric" = "Crash report";
+"opt_out_fabric" = "错误报告";
 
-"opt_out_fabric_description" = "We may use your data to improve MAPS.ME experience. Changes will take effect after you restart the app.";
+"opt_out_fabric_description" = "我们可以使用您的数据来开发和改进MAPS.ME.更改将在重新启动应用程序后生效。";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
 "opt_out_appsflyer" = "Appsflyer";
 
-"opt_out_help_ios_1" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.";
+"opt_out_help_ios_1" = "您可以选择停止在设备设置中接收定位广告。";
 
-"opt_out_help_ios_2" = "iOS 9 or Higher";
+"opt_out_help_ios_2" = "iOS 9或更高版本";
 
-"opt_out_help_ios_3" = "Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting";
+"opt_out_help_ios_3" = "打开设置→隐私→广告→启用“跟踪限制”";
 
-"opt_out_help_android" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization";
+"opt_out_help_android" = "您可以选择不在设备设置中接收定向广告。\ NAndroid和Google Play Services 4.0或更高版本\ n \ n电话设置→Google→广告→停用广告个性化\ n或\ n手机设置→Google→Google帐户→隐私→首选项设置→ 广告的个性化";
 
-"privacy_policy" = "Privacy policy";
+"privacy_policy" = "隐私政策";
 
-"terms_of_use" = "Terms of use";
+"terms_of_use" = "使用条款";
 
-"backup_notification_failed" = "Backing up your bookmarks has been suspended. Log in to turn it back on.";
+"backup_notification_failed" = "标签备份已暂停。登录以启用备份。";
 
-"banner_megafon_banner_message" = "Say goodbye to international roaming!";
+"banner_megafon_banner_message" = "请对Goodbye国际漫游说！";
 
-"banner_megafon_banner_button" = "Goodbye!";
+"banner_megafon_banner_button" = "Goodbye！";
 
-"button_layer_traffic" = "Traffic";
+"button_layer_traffic" = "堵塞";
 
-"button_layer_subway" = "Subway";
+"button_layer_subway" = "地铁";
 
-"layers_title" = "Map layers";
+"layers_title" = "地图图层";
 
-"layers_message" = "Use map layers to display the traffic, subway map, and other useful information";
+"layers_message" = "打开在地图上的图层以显示交通状况、地铁图或其他有用信息";
 
-"button_layer_got_it" = "Got it";
+"button_layer_got_it" = "明白";
 
-"subway_data_unavailable" = "Subway map is unavailable";
+"subway_data_unavailable" = "地铁地图不可用";
 
-"bookmarks_empty_list_title" = "This list is empty";
+"bookmarks_empty_list_title" = "该列表为空";
 
-"bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";
+"bookmarks_empty_list_message" = "要添加新标签，请单击对象卡中的星形图标";
 
-"category_desc_more" = "…more";
+"category_desc_more" = "…更多";
 
-"title_error_downloading_bookmarks" = "An error occured";
+"title_error_downloading_bookmarks" = "发生错误";
 
-"subtitle_error_downloading_bookmarks" = "Bookmarks were not downloaded";
+"subtitle_error_downloading_bookmarks" = "标签尚未上传";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME now has a route library";
+"whats_new_bookmarks_catalog_title" = "MAPS.ME有一个路线目录";
 
-"whats_new_bookmarks_catalog_message" = "Hundreds of detailed routes all around the world: where to go, what to see, where to eat.";
+"whats_new_bookmarks_catalog_message" = "世界各地数十条详细路线：去哪里、看什么、在哪里吃饭。";
 
-"whats_new_popularity_label_title" = "Popular locations nearby";
+"whats_new_popularity_label_title" = "附近景点";
 
-"whats_new_popularity_label_message" = "The What to Do section will help you find the most popular places in the city.";
+"whats_new_popularity_label_message" = "“做什么”部分将帮助您找到该市最受欢迎的地方。";
 
-"whats_new_hot_offers_title" = "Attractive offers from hotels";
+"whats_new_hot_offers_title" = "优惠的酒店建议";
 
-"whats_new_hot_offers_message" = "You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.";
+"whats_new_hot_offers_message" = "使用搜索中的“酒店”类别来搜索它们。将在地图和列表中以百分比图标标出建议。";

@@ -1286,4 +1286,59 @@
 	<string name="sign_agree_pp_gdpr">Sunt de acord cu &lt;a href="%s">Politica de confidențialitate&lt;/a></string>
 	<string name="sign_agree_tof_gdpr">Sunt de acord cu &lt;a href="%s">Termenii și condițiile&lt;/a></string>
 	<string name="sign_agree_news_gdpr">Sunt de acord să primesc ultimele știri despre produsele MAPS.ME</string>
+	<string name="whats_new_localbiz_title">Întreprinderile mici merită atenție</string>
+	<string name="whats_new_localbiz_message">Anume cafenelele, hostelele și magazinele locale fac călătoriile de neuitat. Optimizăm gratuit pagina dvs. de afaceri în MAPS.ME, astfel încât să o putem observa.</string>
+	<string name="whats_new_order_button">Solicitați</string>
+	<string name="bookmarks_page_downloaded">Fișierele descărcate</string>
+	<string name="bookmarks_page_my">Al mele</string>
+	<string name="routes_and_bookmarks">Rute și tag-uri</string>
+	<string name="bookmarks_webview_success_toast">Locațiile au fost descărcate cu succes</string>
+	<string name="cached_bookmarks_placeholder_title">Încărcați locuri noi</string>
+	<string name="cached_bookmarks_placeholder_subtitle">Faceți clic pe butonul pentru a descărca mii de locuri interesante și rute create de utilizatori MAPS.ME. Veți avea nevoie de o conexiune la Internet.</string>
+	<string name="downloader_download_routers">Descărcați tag-urile</string>
+	<string name="bookmarks_groups_cached">Listele descărcate</string>
+	<string name="author_name_by_prefix">%s</string>
+	<plurals name="bookmarks_objects">
+	  <item quantity="other">%s obiect</item>
+	</plurals>
+	<plurals name="objects">
+	  <item quantity="other">%d localitate</item>
+	</plurals>
+	<plurals name="places">
+	  <item quantity="other">%d localităti</item>
+	</plurals>
+	<plurals name="tracks">
+	  <item quantity="other">%d bande</item>
+	</plurals>
+	<string name="subtittle_opt_out">Setări de servire</string>
+	<string name="opt_out_flurry">Statisticile</string>
+	<string name="opt_out_mopub">Publicitate personalizată</string>
+	<string name="opt_out_fabric">Rapoarte de eroare</string>
+	<string name="opt_out_fabric_description">Putem folosi datele dvs. pentru a dezvolta și de a îmbunătăți MAPS.ME. Modificările vor intra în vigoare după repornirea aplicației.</string>
+	<string name="opt_out_help_ios_1">Puteți renunța la primirea de publicitate țintă în setările aparatului.</string>
+	<string name="opt_out_help_ios_2">iOS 9 sau mai sus</string>
+	<string name="opt_out_help_ios_3">Deschideți Setări → Confidențialitate → Publicitate → „Activați Limitarea trackking”</string>
+	<string name="opt_out_help_android">Puteți renunța la primirea de publicitate țintă în setările aparatului.\n Android și Google Play Servicii 4.0 și mai sus\n\n Setări de telefon → Google → Publicitate → Dezactivarea personalizării publicității \n sau \n Setări de telefon → Google → un Cont Google → Confidențialitate → Setări pentru anunțuri → Personalizarea publicității</string>
+	<string name="privacy_policy">Politica de confidențialitate</string>
+	<string name="terms_of_use">Termeni de utilizare</string>
+	<string name="backup_notification_failed">Copierea de rezervă a tag-uri lor a fost suspendată. Conectați-vă pentru a activa copierea de rezervă.</string>
+	<string name="banner_megafon_banner_message">Spune roamingului internațional hood bai!</string>
+	<string name="banner_megafon_banner_button">Hood bai!</string>
+	<string name="button_layer_traffic">Dopuri</string>
+	<string name="button_layer_subway">Metrou</string>
+	<string name="layers_title">Straturile hărții</string>
+	<string name="layers_message">Conectați straturile pe hartă pentru a afișa rutierele medii, schema de metrou sau alte informații utile</string>
+	<string name="button_layer_got_it">Clar</string>
+	<string name="subway_data_unavailable">Harta de metrou nu este disponibilă</string>
+	<string name="bookmarks_empty_list_title">Lista este goală</string>
+	<string name="bookmarks_empty_list_message">Pentru a adăuga un nou tag, faceți clic pe pictograma stea în fișa de obiect</string>
+	<string name="category_desc_more">…mai mult</string>
+	<string name="title_error_downloading_bookmarks">A apărut o eroare</string>
+	<string name="subtitle_error_downloading_bookmarks">Tag-urile nu au fost încărcate</string>
+	<string name="whats_new_bookmarks_catalog_title">În MAPS.ME a apărut un director de rute</string>
+	<string name="whats_new_bookmarks_catalog_message">Zeci de trasee detaliate din întreaga lume: unde să mergi, ce să vezi, în unde să mănânci.</string>
+	<string name="whats_new_popularity_label_title">Popular în apropiere</string>
+	<string name="whats_new_popularity_label_message">Secțiunea „Ce să faci” va ajuta să găsi cele mai populare locații din oraș.</string>
+	<string name="whats_new_hot_offers_title">Oferte avantajoase de hoteluri</string>
+	<string name="whats_new_hot_offers_message">Căutați-le cu ajutorul categoriei „Hoteluri” în căutare. Ofertele vor fi marcate cu o pictogramă % pe hartă și în lista.</string>
 </resources>

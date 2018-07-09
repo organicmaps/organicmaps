@@ -2336,92 +2336,92 @@
 
 "sign_agree_news_gdpr" = "Ich bin damit einverstanden, die neuesten Nachrichten über MAPS.ME-Produkte zu erhalten";
 
-"whats_new_localbiz_title" = "Small business deserves attention";
+"whats_new_localbiz_title" = "Kleine Betriebe verdienen Aufmerksamkeit";
 
-"whats_new_localbiz_message" = "It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.";
+"whats_new_localbiz_message" = "Genau die lokalen Cafés, Hostels und Geschäfte machen die Reisen unvergesslich. Wir werden die Seite Ihres Geschäfts bei MAPS.ME kostenlos optimieren, damit es bemerkt wird.";
 
-"whats_new_order_button" = "Leave a request";
+"whats_new_order_button" = "Einen Antrag hinterlassen";
 
-"bookmarks_page_downloaded" = "Downloaded";
+"bookmarks_page_downloaded" = "Geladene";
 
-"bookmarks_page_my" = "My";
+"bookmarks_page_my" = "Meine";
 
-"routes_and_bookmarks" = "Routes and bookmarks";
+"routes_and_bookmarks" = "Routen und Markierungen";
 
-"bookmarks_webview_success_toast" = "Bookmarks succesfully downloaded";
+"bookmarks_webview_success_toast" = "Die Markierungen wurden erfolgreich hochgeladen";
 
-"cached_bookmarks_placeholder_title" = "Download new places";
+"cached_bookmarks_placeholder_title" = "Laden Sie neue Plätze hoch";
 
-"cached_bookmarks_placeholder_subtitle" = "Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.";
+"cached_bookmarks_placeholder_subtitle" = "Klicken Sie auf die Schaltfläche, um Tausende von interessanten Orten und Routen, die von den Anwendern von MAPS.ME erstellt wurden, zu laden. Sie werden eine Internetverbindung benötigen.";
 
-"downloader_download_routers" = "Download bookmarks";
+"downloader_download_routers" = "Markierungen laden";
 
-"bookmarks_groups_cached" = "Downloaded lists";
+"bookmarks_groups_cached" = "Heruntergeladene Listen";
 
-"author_name_by_prefix" = "by %s";
+"author_name_by_prefix" = "%s";
 
-"subtittle_opt_out" = "Tracking settings";
+"subtittle_opt_out" = "Einstellungen der Begleitung";
 
-"opt_out_flurry" = "Statistic";
+"opt_out_flurry" = "Statistiken";
 
-"opt_out_mopub" = "Personalised advertising";
+"opt_out_mopub" = "Personalisierte Werbung";
 
-"opt_out_fabric" = "Crash report";
+"opt_out_fabric" = "Berichte über die Fehler";
 
-"opt_out_fabric_description" = "We may use your data to improve MAPS.ME experience. Changes will take effect after you restart the app.";
+"opt_out_fabric_description" = "Wir können Ihre Daten benutzen, um MAPS.ME zu entwickeln und zu verbessern. Die Änderungen werden nach dem Neustart der App in Kraft treten.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
 "opt_out_appsflyer" = "Appsflyer";
 
-"opt_out_help_ios_1" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.";
+"opt_out_help_ios_1" = "Sie können der Erhalt von gezielter Werbung in den Einstellungen des Geräts verbieten.";
 
-"opt_out_help_ios_2" = "iOS 9 or Higher";
+"opt_out_help_ios_2" = "iOS 9 oder höher";
 
-"opt_out_help_ios_3" = "Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting";
+"opt_out_help_ios_3" = "Öffnen Sie die Einstellungen → Vertraulichkeit → Werbung → Schalten Sie „Tracking einschränken“ ein";
 
-"opt_out_help_android" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization";
+"opt_out_help_android" = "Sie können den Erhalt von gezielter Werbung in den Geräteeinstellungen ausschalten. \nAndroid und Google Play Services 4.0 und höher\n\nTelefoneinstellungen → Google → Werbung→ Personalisierung ausschalten\noder\nTelefoneinstellungen → Google → Benutzerkonto von Google → Vertraulichkeit → Einstellungen von Werbevorzügen → Personalisierung der Werbung";
 
-"privacy_policy" = "Privacy policy";
+"privacy_policy" = "Datenschutzerklärung";
 
-"terms_of_use" = "Terms of use";
+"terms_of_use" = "Nutzungsbedingungen";
 
-"backup_notification_failed" = "Backing up your bookmarks has been suspended. Log in to turn it back on.";
+"backup_notification_failed" = "Das Reservekopieren von Markierungen wurde angehalten. Loggen Sie sich ein, um das Reservekopieren einzuschalten.";
 
-"banner_megafon_banner_message" = "Say goodbye to international roaming!";
+"banner_megafon_banner_message" = "Sage dem internationalen Roaming goodbye!";
 
 "banner_megafon_banner_button" = "Goodbye!";
 
-"button_layer_traffic" = "Traffic";
+"button_layer_traffic" = "Staus";
 
-"button_layer_subway" = "Subway";
+"button_layer_subway" = "U-Bahn";
 
-"layers_title" = "Map layers";
+"layers_title" = "Kartenschichten";
 
-"layers_message" = "Use map layers to display the traffic, subway map, and other useful information";
+"layers_message" = "Schalten Sie die Schichten auf der Karte ein, um die Verkehrssituation, den U-Bahnplan oder sonstige nützlichen Informationen einzublenden";
 
-"button_layer_got_it" = "Got it";
+"button_layer_got_it" = "Alles klar";
 
-"subway_data_unavailable" = "Subway map is unavailable";
+"subway_data_unavailable" = "Die U-Bahnkarte steht nicht zur Verfügung";
 
-"bookmarks_empty_list_title" = "This list is empty";
+"bookmarks_empty_list_title" = "Die Liste ist leer";
 
-"bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";
+"bookmarks_empty_list_message" = "Um eine neue Markierung hinzuzufügen, drücken Sie auf das Sternzeichen in der Karte des Objekts";
 
-"category_desc_more" = "…more";
+"category_desc_more" = "…mehr";
 
-"title_error_downloading_bookmarks" = "An error occured";
+"title_error_downloading_bookmarks" = "Es ist ein Fehler aufgetreten";
 
-"subtitle_error_downloading_bookmarks" = "Bookmarks were not downloaded";
+"subtitle_error_downloading_bookmarks" = "Die Markierungen wurden nicht geladen";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME now has a route library";
+"whats_new_bookmarks_catalog_title" = "Bei MAPS.ME ist ein Routenkatalog aufgetreten";
 
-"whats_new_bookmarks_catalog_message" = "Hundreds of detailed routes all around the world: where to go, what to see, where to eat.";
+"whats_new_bookmarks_catalog_message" = "Dutzende ausführliche Routen weltweit: wo man hingehen kann, was man sich anschauen kann, wohin man essen gehen kann.";
 
-"whats_new_popularity_label_title" = "Popular locations nearby";
+"whats_new_popularity_label_title" = "Beliebtes in der Nähe";
 
-"whats_new_popularity_label_message" = "The What to Do section will help you find the most popular places in the city.";
+"whats_new_popularity_label_message" = "Der Abschnitte „Womit man sich beschäftigen kann“ wird dabei helfen, die beliebtesten Plätze in der Stadt zu finden.";
 
-"whats_new_hot_offers_title" = "Attractive offers from hotels";
+"whats_new_hot_offers_title" = "Vorteilhafte Hotelangebote";
 
-"whats_new_hot_offers_message" = "You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.";
+"whats_new_hot_offers_message" = "Suchen Sie nach ihnen mithilfe der Kategorie „Hotels\"\" in der Suche. Die Angebote werden mit einem auf der Karte und in der Liste Prozentzeichen gekennzeichnet sein.";

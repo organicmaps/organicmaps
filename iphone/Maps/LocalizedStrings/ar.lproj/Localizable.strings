@@ -2336,92 +2336,92 @@
 
 "sign_agree_news_gdpr" = "أوافق على تلقي آخر الأخبار حول منتجات MAPS.ME";
 
-"whats_new_localbiz_title" = "Small business deserves attention";
+"whats_new_localbiz_title" = "تستحق الأعمال الصغيرة العناية";
 
-"whats_new_localbiz_message" = "It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.";
+"whats_new_localbiz_message" = "ومن المقاهي المحلية والفنادق المريحة والمحلات التجارية التي من خلالها لم ننسى رحلاتنا. سنقوم بتحسين صفحتك في MAPS.ME لنجعلها ذات تميز.";
 
-"whats_new_order_button" = "Leave a request";
+"whats_new_order_button" = "اترك طلب";
 
-"bookmarks_page_downloaded" = "Downloaded";
+"bookmarks_page_downloaded" = "تم تحميل";
 
-"bookmarks_page_my" = "My";
+"bookmarks_page_my" = "الخاص بي";
 
-"routes_and_bookmarks" = "Routes and bookmarks";
+"routes_and_bookmarks" = "الطرق والإشارات";
 
-"bookmarks_webview_success_toast" = "Bookmarks succesfully downloaded";
+"bookmarks_webview_success_toast" = "تم تحميل الإشارات بنجاح";
 
-"cached_bookmarks_placeholder_title" = "Download new places";
+"cached_bookmarks_placeholder_title" = "تحميل أماكن جديدة";
 
-"cached_bookmarks_placeholder_subtitle" = "Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.";
+"cached_bookmarks_placeholder_subtitle" = "اضغط على الزر لتحميل الآلاف من الأماكن المثيرة للاهتمام والطرق التي تم إنشاؤها من قبل لمستخدمين MAPS.ME. سوف تحتاج إلى اتصال بالإنترنت.";
 
-"downloader_download_routers" = "Download bookmarks";
+"downloader_download_routers" = "تحميل الإشارات";
 
-"bookmarks_groups_cached" = "Downloaded lists";
+"bookmarks_groups_cached" = "القوائم التي تم تنزيلها";
 
-"author_name_by_prefix" = "by %s";
+"author_name_by_prefix" = "بواسطة٪ s";
 
-"subtittle_opt_out" = "Tracking settings";
+"subtittle_opt_out" = "إعدادات التتبع";
 
-"opt_out_flurry" = "Statistic";
+"opt_out_flurry" = "الإحصاء";
 
-"opt_out_mopub" = "Personalised advertising";
+"opt_out_mopub" = "الإعلان الشخصي";
 
-"opt_out_fabric" = "Crash report";
+"opt_out_fabric" = "تقرير الحادث";
 
-"opt_out_fabric_description" = "We may use your data to improve MAPS.ME experience. Changes will take effect after you restart the app.";
+"opt_out_fabric_description" = "قد نستخدم بياناتك لتحسين تجربة MAPS.ME. سوف تكون التغييرات نافذة المفعول بعد إعادة تشغيل التطبيق.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
 "opt_out_appsflyer" = "Appsflyer";
 
-"opt_out_help_ios_1" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.";
+"opt_out_help_ios_1" = "يمكن أن يوفر جهازك الجوّال إعداد \"\"تقييد الإعلان المخصص\"\" أو \"\"تعطيل الإعلان الذي يستهدف الاهتمامات\"\".";
 
-"opt_out_help_ios_2" = "iOS 9 or Higher";
+"opt_out_help_ios_2" = "نظام تشغيل آي 9 فما فوق";
 
-"opt_out_help_ios_3" = "Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting";
+"opt_out_help_ios_3" = "انتقل إلى إعداداتك ← الخصوصية ← الإعلانات ← تمكين إعداد \"\"تحديد تتبع الإعلانات\"\"";
 
-"opt_out_help_android" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization";
+"opt_out_help_android" = "قد يوفر جهازك الجوّال إعداد \"\"الحد من تتبع الإعلان\"\" أو \"\"إلغاء الاشتراك من الإعلانات التي تستهدف الاهتمامات\"\". \ n \ n للحصول على الإصدار 4.0 من نظام التشغيل Android و Google Play: \ n الإعدادات → Google ← الإعلانات ← إلغاء الاشتراك في تخصيص الإعلانات \ أو \ n الإعدادات → Google → Google Account → المعلومات الشخصية والخصوصية → إعدادات الإعلانات → تخصيص الإعلانات";
 
-"privacy_policy" = "Privacy policy";
+"privacy_policy" = "سياسة الخصوصية";
 
-"terms_of_use" = "Terms of use";
+"terms_of_use" = "شروط الاستخدام";
 
-"backup_notification_failed" = "Backing up your bookmarks has been suspended. Log in to turn it back on.";
+"backup_notification_failed" = "قد تم تعليق احتياطي المواقع المفضلة لديك. سجل الدخول لإعادة تشغيله.";
 
-"banner_megafon_banner_message" = "Say goodbye to international roaming!";
+"banner_megafon_banner_message" = "قل وداعا للتجوال الدولي!";
 
-"banner_megafon_banner_button" = "Goodbye!";
+"banner_megafon_banner_button" = "وداعا!";
 
-"button_layer_traffic" = "Traffic";
+"button_layer_traffic" = "حركة مرور";
 
-"button_layer_subway" = "Subway";
+"button_layer_subway" = "مترو الانفاق";
 
-"layers_title" = "Map layers";
+"layers_title" = "طبقات الخريطة";
 
-"layers_message" = "Use map layers to display the traffic, subway map, and other useful information";
+"layers_message" = "استخدم طبقات الخريطة لعرض حركة المرور ، وخريطة مترو الأنفاق ، وغيرها من المعلومات المفيدة";
 
-"button_layer_got_it" = "Got it";
+"button_layer_got_it" = "حصلت عليه";
 
-"subway_data_unavailable" = "Subway map is unavailable";
+"subway_data_unavailable" = "خريطة مترو الانفاق غير متوفرة";
 
-"bookmarks_empty_list_title" = "This list is empty";
+"bookmarks_empty_list_title" = "هذه اللائحة شاغرة";
 
-"bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";
+"bookmarks_empty_list_message" = "لإضافة إشارة مرجعية ، اضغط على مكان على الخريطة ثم انقر فوق رمز النجمة";
 
-"category_desc_more" = "…more";
+"category_desc_more" = "…المزيد";
 
-"title_error_downloading_bookmarks" = "An error occured";
+"title_error_downloading_bookmarks" = "حدث خطأ";
 
-"subtitle_error_downloading_bookmarks" = "Bookmarks were not downloaded";
+"subtitle_error_downloading_bookmarks" = "لم يتم تنزيل الإشارات";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME now has a route library";
+"whats_new_bookmarks_catalog_title" = "MAPS.ME لديها الآن كتاب الطريق";
 
-"whats_new_bookmarks_catalog_message" = "Hundreds of detailed routes all around the world: where to go, what to see, where to eat.";
+"whats_new_bookmarks_catalog_message" = "تحدد المئات من الطرق التفصيلية في جميع أنحاء العالم: إلى أين نذهب و ماذا نرى و مكان لتناول الطعام.";
 
-"whats_new_popularity_label_title" = "Popular locations nearby";
+"whats_new_popularity_label_title" = "مواقع شعبية قريبة";
 
-"whats_new_popularity_label_message" = "The What to Do section will help you find the most popular places in the city.";
+"whats_new_popularity_label_message" = "سيساعدك قسم \"\"ماذا تفعل\"\" في العثور على الأماكن الأكثر شعبية في المدينة.";
 
-"whats_new_hot_offers_title" = "Attractive offers from hotels";
+"whats_new_hot_offers_title" = "عروض مغرية من الفنادق";
 
-"whats_new_hot_offers_message" = "You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.";
+"whats_new_hot_offers_message" = "يمكنك البحث عن العروض باستخدام فئة الفنادق في البحث. سيتم تمييز العروض بالنسبة المئوية في الخريطة وفي نتائج البحث.";

@@ -76,6 +76,8 @@
       <string>d</string>
       <key>one</key>
       <string>%s объект</string>
+      <key>two</key>
+      <string>%d объекта</string>
       <key>other</key>
       <string>%s объектов</string>
     </dict>
@@ -91,8 +93,12 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>%d объект</string>
+      <key>two</key>
+      <string>%d объекта</string>
       <key>other</key>
-      <string>%d objects</string>
+      <string>%d объектов</string>
     </dict>
   </dict>
 
@@ -106,8 +112,12 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>%d место</string>
+      <key>two</key>
+      <string>%d места</string>
       <key>other</key>
-      <string>%d places</string>
+      <string>%d мест</string>
     </dict>
   </dict>
 
@@ -121,8 +131,12 @@
       <string>NSStringPluralRuleType</string>
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
+      <key>one</key>
+      <string>%d трек</string>
+      <key>two</key>
+      <string>%d трека</string>
       <key>other</key>
-      <string>%d tracks</string>
+      <string>%d треков</string>
     </dict>
   </dict>
 </dict>

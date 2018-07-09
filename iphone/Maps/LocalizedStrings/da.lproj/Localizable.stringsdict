@@ -67,7 +67,7 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>other</key>
-      <string>%s objects</string>
+      <string>%s objekt</string>
     </dict>
   </dict>
 
@@ -82,7 +82,7 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>other</key>
-      <string>%d objects</string>
+      <string>%d sted</string>
     </dict>
   </dict>
 
@@ -97,7 +97,7 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>other</key>
-      <string>%d places</string>
+      <string>%d steder</string>
     </dict>
   </dict>
 
@@ -112,7 +112,7 @@
       <key>NSStringFormatValueTypeKey</key>
       <string>d</string>
       <key>other</key>
-      <string>%d tracks</string>
+      <string>%d ruter</string>
     </dict>
   </dict>
 </dict>

@@ -2336,92 +2336,92 @@
 
 "sign_agree_news_gdpr" = "Tôi đồng ý nhận tin tức mới nhất về các sản phẩm MAPS.ME";
 
-"whats_new_localbiz_title" = "Small business deserves attention";
+"whats_new_localbiz_title" = "Doanh nghiệp nhỏ xứng đáng để được chú ý";
 
-"whats_new_localbiz_message" = "It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.";
+"whats_new_localbiz_message" = "Chính các quán cà phê địa phương, nhà khách nhỏ và các cửa hàng ấm cúng mới làm cho hành trình của chúng ta thật khó quên. Chúng tôi sẽ tối ưu hóa trang của bạn trong MAPS.ME để làm nổi bật nó lên.";
 
-"whats_new_order_button" = "Leave a request";
+"whats_new_order_button" = "Để lại yêu cầu";
 
-"bookmarks_page_downloaded" = "Downloaded";
+"bookmarks_page_downloaded" = "Đã tải về";
 
-"bookmarks_page_my" = "My";
+"bookmarks_page_my" = "của tôi";
 
-"routes_and_bookmarks" = "Routes and bookmarks";
+"routes_and_bookmarks" = "Tuyến đường và dấu trang";
 
-"bookmarks_webview_success_toast" = "Bookmarks succesfully downloaded";
+"bookmarks_webview_success_toast" = "Đã tải xuống thành công dấu trang";
 
-"cached_bookmarks_placeholder_title" = "Download new places";
+"cached_bookmarks_placeholder_title" = "Tải xuống các địa điểm mới";
 
-"cached_bookmarks_placeholder_subtitle" = "Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.";
+"cached_bookmarks_placeholder_subtitle" = "Nhấn nút để tải xuống hàng ngàn địa điểm và tuyến đường thú vị được tạo bởi người dùng MAPS.ME. Bạn sẽ cần kết nối internet.";
 
-"downloader_download_routers" = "Download bookmarks";
+"downloader_download_routers" = "Tải dấu trang xuống";
 
-"bookmarks_groups_cached" = "Downloaded lists";
+"bookmarks_groups_cached" = "Danh sách đã tải xuống";
 
-"author_name_by_prefix" = "by %s";
+"author_name_by_prefix" = "%s";
 
-"subtittle_opt_out" = "Tracking settings";
+"subtittle_opt_out" = "Thiết lập theo dõi";
 
-"opt_out_flurry" = "Statistic";
+"opt_out_flurry" = "Thống kê";
 
-"opt_out_mopub" = "Personalised advertising";
+"opt_out_mopub" = "Quảng cáo được cá nhân hóa";
 
-"opt_out_fabric" = "Crash report";
+"opt_out_fabric" = "Báo cáo sự cố";
 
-"opt_out_fabric_description" = "We may use your data to improve MAPS.ME experience. Changes will take effect after you restart the app.";
+"opt_out_fabric_description" = "Chúng tôi có thể sử dụng dữ liệu của bạn để cải thiện trải nghiệm trên MAPS.ME. Thay đổi sẽ có hiệu lực sau khi bạn khởi động lại ứng dụng.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
 "opt_out_appsflyer" = "Appsflyer";
 
-"opt_out_help_ios_1" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.";
+"opt_out_help_ios_1" = "Thiết bị di động của bạn có thể cung cấp cài đặt \"\"Giới hạn theo dõi quảng cáo\"\" hoặc \"\"Chọn không tham gia quảng cáo dựa trên sở thích\"\".";
 
-"opt_out_help_ios_2" = "iOS 9 or Higher";
+"opt_out_help_ios_2" = "iOS 9 hoặc lớn hơn";
 
-"opt_out_help_ios_3" = "Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting";
+"opt_out_help_ios_3" = "Đến Cài đặt → Bảo mật → Quảng cáo → Bật cài đặt \"\"Giới hạn theo dõi quảng cáo\"\"";
 
-"opt_out_help_android" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization";
+"opt_out_help_android" = "Thiết bị di động của bạn có thể cung cấp cài đặt \"\"Giới hạn theo dõi quảng cáo\"\" hoặc \"\"Chọn không tham gia quảng cáo dựa trên sở thích\"\".\n\nĐối với Android và Google Play Services phiên bản 4.0 trở lên:\nCài đặt → Google → Quảng cáo → Chọn không tham gia Quảng cáo dựa trên sở thích\ n\nCài đặt → Google → Tài khoản Google → Thông tin cá nhân và bảo mật → Cài đặt quảng cáo → Cá nhân hóa quảng cáo";
 
-"privacy_policy" = "Privacy policy";
+"privacy_policy" = "Chính sách bảo mật";
 
-"terms_of_use" = "Terms of use";
+"terms_of_use" = "Điều khoảng sử dụng";
 
-"backup_notification_failed" = "Backing up your bookmarks has been suspended. Log in to turn it back on.";
+"backup_notification_failed" = "Sao lưu dấu trang của bạn đã bị tạm ngưng. Đăng nhập để bật lại.";
 
-"banner_megafon_banner_message" = "Say goodbye to international roaming!";
+"banner_megafon_banner_message" = "Nói lời tạm biệt với chuyển vùng quốc tế!";
 
-"banner_megafon_banner_button" = "Goodbye!";
+"banner_megafon_banner_button" = "Tạm biệt!";
 
-"button_layer_traffic" = "Traffic";
+"button_layer_traffic" = "Giao thông";
 
-"button_layer_subway" = "Subway";
+"button_layer_subway" = "Xe điện ngầm";
 
-"layers_title" = "Map layers";
+"layers_title" = "Các lớp bản đồ";
 
-"layers_message" = "Use map layers to display the traffic, subway map, and other useful information";
+"layers_message" = "Sử dụng các lớp bản đồ để hiển thị tình trạng giao thông, bản đồ tàu điện ngầm và các thông tin hữu ích khác";
 
-"button_layer_got_it" = "Got it";
+"button_layer_got_it" = "Đã hiểu";
 
-"subway_data_unavailable" = "Subway map is unavailable";
+"subway_data_unavailable" = "Bản đồ tàu điện ngầm không khả dụng";
 
-"bookmarks_empty_list_title" = "This list is empty";
+"bookmarks_empty_list_title" = "Danh sách trống";
 
-"bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";
+"bookmarks_empty_list_message" = "Để thêm dấu trang, hãy nhấn vào một địa điểm trên bản đồ và sau đó nhấn vào biểu tượng dấu sao";
 
-"category_desc_more" = "…more";
+"category_desc_more" = "…thêm";
 
-"title_error_downloading_bookmarks" = "An error occured";
+"title_error_downloading_bookmarks" = "Đã xảy ra lỗi";
 
-"subtitle_error_downloading_bookmarks" = "Bookmarks were not downloaded";
+"subtitle_error_downloading_bookmarks" = "Dấu trang chưa được tải xuống";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME now has a route library";
+"whats_new_bookmarks_catalog_title" = "MAPS.ME hiện đã có danh mục tuyến đường";
 
-"whats_new_bookmarks_catalog_message" = "Hundreds of detailed routes all around the world: where to go, what to see, where to eat.";
+"whats_new_bookmarks_catalog_message" = "Hàng trăm tuyến đường chi tiết trên toàn thế giới: đi đâu, xem gì, ăn ở đâu.";
 
-"whats_new_popularity_label_title" = "Popular locations nearby";
+"whats_new_popularity_label_title" = "Vị trí phổ biến lân cận";
 
-"whats_new_popularity_label_message" = "The What to Do section will help you find the most popular places in the city.";
+"whats_new_popularity_label_message" = "Phần Nên Làm Gì sẽ giúp bạn tìm những địa điểm phổ biến nhất trong thành phố.";
 
-"whats_new_hot_offers_title" = "Attractive offers from hotels";
+"whats_new_hot_offers_title" = "Ưu đãi hấp dẫn từ các khách sạn";
 
-"whats_new_hot_offers_message" = "You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.";
+"whats_new_hot_offers_message" = "Bạn có thể tìm kiếm chúng bằng cách sử dụng danh mục Khách sạn trong tìm kiếm. Phiếu mua hàng sẽ được đánh dấu bằng ký hiệu phần trăm trong bản đồ và trong kết quả tìm kiếm.";

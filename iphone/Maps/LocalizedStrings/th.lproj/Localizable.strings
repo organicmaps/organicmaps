@@ -2336,92 +2336,92 @@
 
 "sign_agree_news_gdpr" = "ฉันยอมรับที่จะรับข่าวสารล่าสุดเกี่ยวกับผลิตภัณฑ์ MAPS.ME";
 
-"whats_new_localbiz_title" = "Small business deserves attention";
+"whats_new_localbiz_title" = "ธุรกิจขนาดเล็กควรจะได้รับความเอาใจใส่";
 
-"whats_new_localbiz_message" = "It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.";
+"whats_new_localbiz_message" = "มันเป็นร้านกาแฟในท้องถิ่น หอพักอันอบอุ่น และร้านค้าที่ทำให้การเดินทางของเราเป็นที่น่าจดจำ เราจะเพิ่มประสิทธิภาพหน้าเว็บไซต์ของคุณใน MAPS.ME เพื่อทำให้เว็บไซต์ของคุณโดดเด่น";
 
-"whats_new_order_button" = "Leave a request";
+"whats_new_order_button" = "ฝากคำร้อง";
 
-"bookmarks_page_downloaded" = "Downloaded";
+"bookmarks_page_downloaded" = "ดาวน์โหลด";
 
-"bookmarks_page_my" = "My";
+"bookmarks_page_my" = "ของฉัน";
 
-"routes_and_bookmarks" = "Routes and bookmarks";
+"routes_and_bookmarks" = "เส้นทาง และบุ๊กมาร์ก";
 
-"bookmarks_webview_success_toast" = "Bookmarks succesfully downloaded";
+"bookmarks_webview_success_toast" = "ดาวน์โหลดบุ๊กมาร์กสำเร็จแล้ว";
 
-"cached_bookmarks_placeholder_title" = "Download new places";
+"cached_bookmarks_placeholder_title" = "ดาวน์โหลดสถานที่ใหม่";
 
-"cached_bookmarks_placeholder_subtitle" = "Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.";
+"cached_bookmarks_placeholder_subtitle" = "กดปุ่มเพื่อดาวน์โหลดหลายพันสถานที่ และเส้นทางที่น่าสนใจต่าง ๆ ซึ่งสร้างขึ้นโดยผู้ใช้งานของ MAPS.ME คุณจำเป็นต้องเชื่อมต่อกับอินเตอร์เน็ต";
 
-"downloader_download_routers" = "Download bookmarks";
+"downloader_download_routers" = "ดาวน์โหลดบุ๊กมาร์ก";
 
-"bookmarks_groups_cached" = "Downloaded lists";
+"bookmarks_groups_cached" = "ดาวน์โหลดรายการต่าง ๆ แล้ว";
 
-"author_name_by_prefix" = "by %s";
+"author_name_by_prefix" = "โดย %s";
 
-"subtittle_opt_out" = "Tracking settings";
+"subtittle_opt_out" = "การตั้งค่าการติดตาม";
 
-"opt_out_flurry" = "Statistic";
+"opt_out_flurry" = "สถิติ";
 
-"opt_out_mopub" = "Personalised advertising";
+"opt_out_mopub" = "การโฆษณาในแบบของคุณ";
 
-"opt_out_fabric" = "Crash report";
+"opt_out_fabric" = "รายงานข้อขัดข้อง";
 
-"opt_out_fabric_description" = "We may use your data to improve MAPS.ME experience. Changes will take effect after you restart the app.";
+"opt_out_fabric_description" = "เราอาจใช้ข้อมูลของคุณเพื่อพัฒนาประสบการณ์ของ MAPS.ME การเปลี่ยนแปลงจะมีผลหลังจากที่คุณเปิดแอพฯ ขึ้นใหม่";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
 "opt_out_appsflyer" = "Appsflyer";
 
-"opt_out_help_ios_1" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.";
+"opt_out_help_ios_1" = "อุปกรณ์มือถือของคุณอาจมีการตั้งค่า \"\"จำกัดการติดตามโฆษณา\"\" หรือ \"\"เลือกไม่ใช้การโฆษณาตามความสนใจ\"\"";
 
-"opt_out_help_ios_2" = "iOS 9 or Higher";
+"opt_out_help_ios_2" = "iOS 9 หรือสูงกว่า";
 
-"opt_out_help_ios_3" = "Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting";
+"opt_out_help_ios_3" = "ไปที่การตั้งค่าของคุณ → ความเป็นส่วนตัว → การโฆษณา → เปิดใช้งานการตั้งค่า “จำกัดการติดตามโฆษณา”";
 
-"opt_out_help_android" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization";
+"opt_out_help_android" = "อุปกรณ์มือถือของคุณอาจมีการตั้งค่า \"\"จำกัดการติดตามโฆษณา\"\" หรือ \"\"เลือกไม่ใช้การโฆษณาตามความสนใจ\"\"\n\nสำหรับ Android และบริการ Google Play เวอร์ชั่น 4.0 และสูงกว่า:\nการตั้งค่า → Google → โฆษณา → เลือกไม่ใช้การโฆษณา ในแบบของคุณ\หรือ\nการตั้งค่า → Google → Google Account → ข้อมูลส่วนตัว และส่วนบุคคล → การตั้งค่าโฆษณา → โฆษณาในแบบของคุณ";
 
-"privacy_policy" = "Privacy policy";
+"privacy_policy" = "นโยบายความเป็นส่วนตัว";
 
-"terms_of_use" = "Terms of use";
+"terms_of_use" = "ข้อกำหนดในการใช้งาน";
 
-"backup_notification_failed" = "Backing up your bookmarks has been suspended. Log in to turn it back on.";
+"backup_notification_failed" = "การเก็บสำรองบุ๊กมาร์กของคุณได้ถูกระงับ เข้าสู่ระบบเพื่อเปิดใช้งานอีกครั้ง";
 
-"banner_megafon_banner_message" = "Say goodbye to international roaming!";
+"banner_megafon_banner_message" = "บอกลาบริการโรมมิ่งระหว่างประเทศ!";
 
-"banner_megafon_banner_button" = "Goodbye!";
+"banner_megafon_banner_button" = "ลาก่อน!";
 
-"button_layer_traffic" = "Traffic";
+"button_layer_traffic" = "การจราจร";
 
-"button_layer_subway" = "Subway";
+"button_layer_subway" = "รถไฟใต้ดิน";
 
-"layers_title" = "Map layers";
+"layers_title" = "ชั้นแผนที่";
 
-"layers_message" = "Use map layers to display the traffic, subway map, and other useful information";
+"layers_message" = "ใช้ชั้นแผนที่เพื่อแสดงแผนที่ข้อมูลด้านการจราจร รถไฟใต้ดิน และข้อมูลอื่น ๆ ที่เป็นประโยชน์";
 
-"button_layer_got_it" = "Got it";
+"button_layer_got_it" = "เข้าใจแล้ว";
 
-"subway_data_unavailable" = "Subway map is unavailable";
+"subway_data_unavailable" = "แผนที่รถไฟใต้ดินไม่พร้อมใช้งาน";
 
-"bookmarks_empty_list_title" = "This list is empty";
+"bookmarks_empty_list_title" = "รายการนี้ว่างเปล่า";
 
-"bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";
+"bookmarks_empty_list_message" = "เพื่อเพิ่มบุ๊กมาร์ก โปรดแตะที่สถานที่บนแผนที่ แล้วจากนั้นแตะที่ไอคอนรูปดาว";
 
-"category_desc_more" = "…more";
+"category_desc_more" = "…เพิ่มเติม";
 
-"title_error_downloading_bookmarks" = "An error occured";
+"title_error_downloading_bookmarks" = "มีข้อผิดพลาดเกิดขึ้น";
 
-"subtitle_error_downloading_bookmarks" = "Bookmarks were not downloaded";
+"subtitle_error_downloading_bookmarks" = "ไม่ได้ดาวน์โหลดบุ๊กมาร์ก";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME now has a route library";
+"whats_new_bookmarks_catalog_title" = "ขณะนี้ MAPS.ME มีแคตาล็อกเส้นทางแล้ว";
 
-"whats_new_bookmarks_catalog_message" = "Hundreds of detailed routes all around the world: where to go, what to see, where to eat.";
+"whats_new_bookmarks_catalog_message" = "หลายร้อยเส้นทางโดยรายละเอียดทั่วโลก: ที่ไหนควรจะไป ควรจะไปดูอะไร ควรจะกินที่ไหน";
 
-"whats_new_popularity_label_title" = "Popular locations nearby";
+"whats_new_popularity_label_title" = "สถานที่ยอดนิยมในบริเวณใกล้เคียง";
 
-"whats_new_popularity_label_message" = "The What to Do section will help you find the most popular places in the city.";
+"whats_new_popularity_label_message" = "ส่วนของ ควรจะต้องทำอะไร จะช่วยให้คุณได้พบกับสถานที่ที่ได้รับความนิยมมากที่สุดในเมือง";
 
-"whats_new_hot_offers_title" = "Attractive offers from hotels";
+"whats_new_hot_offers_title" = "ข้อเสนอที่น่าสนใจจากโรงแรมต่าง ๆ";
 
-"whats_new_hot_offers_message" = "You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.";
+"whats_new_hot_offers_message" = "คุณสามารถค้นหาได้โดยใช้หมวดหมู่ โรงแรม ในการค้นหา ข้อเสนอพิเศษจะถูกทำเครื่องหมายด้วยสัญลักษณ์เปอร์เซ็นต์ในแผนที่ และในผลการค้นหา";

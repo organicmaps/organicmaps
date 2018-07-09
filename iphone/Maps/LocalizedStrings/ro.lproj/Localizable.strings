@@ -2336,92 +2336,92 @@
 
 "sign_agree_news_gdpr" = "Sunt de acord să primesc ultimele știri despre produsele MAPS.ME";
 
-"whats_new_localbiz_title" = "Small business deserves attention";
+"whats_new_localbiz_title" = "Întreprinderile mici merită atenție";
 
-"whats_new_localbiz_message" = "It is local cafes, cozy hostels and shops that make our journeys unforgettable. We will optimize your page in MAPS.ME to make it stand out.";
+"whats_new_localbiz_message" = "Anume cafenelele, hostelele și magazinele locale fac călătoriile de neuitat. Optimizăm gratuit pagina dvs. de afaceri în MAPS.ME, astfel încât să o putem observa.";
 
-"whats_new_order_button" = "Leave a request";
+"whats_new_order_button" = "Solicitați";
 
-"bookmarks_page_downloaded" = "Downloaded";
+"bookmarks_page_downloaded" = "Fișierele descărcate";
 
-"bookmarks_page_my" = "My";
+"bookmarks_page_my" = "Al mele";
 
-"routes_and_bookmarks" = "Routes and bookmarks";
+"routes_and_bookmarks" = "Rute și tag-uri";
 
-"bookmarks_webview_success_toast" = "Bookmarks succesfully downloaded";
+"bookmarks_webview_success_toast" = "Locațiile au fost descărcate cu succes";
 
-"cached_bookmarks_placeholder_title" = "Download new places";
+"cached_bookmarks_placeholder_title" = "Încărcați locuri noi";
 
-"cached_bookmarks_placeholder_subtitle" = "Press the button to download thousands of interesting places and routes created by MAPS.ME users. You will need the internet connection.";
+"cached_bookmarks_placeholder_subtitle" = "Faceți clic pe butonul pentru a descărca mii de locuri interesante și rute create de utilizatori MAPS.ME. Veți avea nevoie de o conexiune la Internet.";
 
-"downloader_download_routers" = "Download bookmarks";
+"downloader_download_routers" = "Descărcați tag-urile";
 
-"bookmarks_groups_cached" = "Downloaded lists";
+"bookmarks_groups_cached" = "Listele descărcate";
 
-"author_name_by_prefix" = "by %s";
+"author_name_by_prefix" = "%s";
 
-"subtittle_opt_out" = "Tracking settings";
+"subtittle_opt_out" = "Setări de servire";
 
-"opt_out_flurry" = "Statistic";
+"opt_out_flurry" = "Statisticile";
 
-"opt_out_mopub" = "Personalised advertising";
+"opt_out_mopub" = "Publicitate personalizată";
 
-"opt_out_fabric" = "Crash report";
+"opt_out_fabric" = "Rapoarte de eroare";
 
-"opt_out_fabric_description" = "We may use your data to improve MAPS.ME experience. Changes will take effect after you restart the app.";
+"opt_out_fabric_description" = "Putem folosi datele dvs. pentru a dezvolta și de a îmbunătăți MAPS.ME. Modificările vor intra în vigoare după repornirea aplicației.";
 
 "opt_out_pushwoosh" = "Pushwoosh";
 
 "opt_out_appsflyer" = "Appsflyer";
 
-"opt_out_help_ios_1" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.";
+"opt_out_help_ios_1" = "Puteți renunța la primirea de publicitate țintă în setările aparatului.";
 
-"opt_out_help_ios_2" = "iOS 9 or Higher";
+"opt_out_help_ios_2" = "iOS 9 sau mai sus";
 
-"opt_out_help_ios_3" = "Go to your Settings → Privacy → Advertising → Enable the “Limit Ad Tracking” setting";
+"opt_out_help_ios_3" = "Deschideți Setări → Confidențialitate → Publicitate → „Activați Limitarea trackking”";
 
-"opt_out_help_android" = "Your mobile device may provide a “Limit Ad Tracking” or “Opt out of interest-based advertising” setting.\n\nFor Android and Google Play Services version 4.0 and up:\nSettings → Google → Ads → Opt out of Ads Personalization\nor\nSettings → Google → Google Account → Personal info & privacy → Ads Settings → Ads Personalization";
+"opt_out_help_android" = "Puteți renunța la primirea de publicitate țintă în setările aparatului.\n Android și Google Play Servicii 4.0 și mai sus\n\n Setări de telefon → Google → Publicitate → Dezactivarea personalizării publicității \n sau \n Setări de telefon → Google → un Cont Google → Confidențialitate → Setări pentru anunțuri → Personalizarea publicității";
 
-"privacy_policy" = "Privacy policy";
+"privacy_policy" = "Politica de confidențialitate";
 
-"terms_of_use" = "Terms of use";
+"terms_of_use" = "Termeni de utilizare";
 
-"backup_notification_failed" = "Backing up your bookmarks has been suspended. Log in to turn it back on.";
+"backup_notification_failed" = "Copierea de rezervă a tag-uri lor a fost suspendată. Conectați-vă pentru a activa copierea de rezervă.";
 
-"banner_megafon_banner_message" = "Say goodbye to international roaming!";
+"banner_megafon_banner_message" = "Spune roamingului internațional hood bai!";
 
-"banner_megafon_banner_button" = "Goodbye!";
+"banner_megafon_banner_button" = "Hood bai!";
 
-"button_layer_traffic" = "Traffic";
+"button_layer_traffic" = "Dopuri";
 
-"button_layer_subway" = "Subway";
+"button_layer_subway" = "Metrou";
 
-"layers_title" = "Map layers";
+"layers_title" = "Straturile hărții";
 
-"layers_message" = "Use map layers to display the traffic, subway map, and other useful information";
+"layers_message" = "Conectați straturile pe hartă pentru a afișa rutierele medii, schema de metrou sau alte informații utile";
 
-"button_layer_got_it" = "Got it";
+"button_layer_got_it" = "Clar";
 
-"subway_data_unavailable" = "Subway map is unavailable";
+"subway_data_unavailable" = "Harta de metrou nu este disponibilă";
 
-"bookmarks_empty_list_title" = "This list is empty";
+"bookmarks_empty_list_title" = "Lista este goală";
 
-"bookmarks_empty_list_message" = "To add a bookmark, tap a place on the map and then tap the star icon";
+"bookmarks_empty_list_message" = "Pentru a adăuga un nou tag, faceți clic pe pictograma stea în fișa de obiect";
 
-"category_desc_more" = "…more";
+"category_desc_more" = "…mai mult";
 
-"title_error_downloading_bookmarks" = "An error occured";
+"title_error_downloading_bookmarks" = "A apărut o eroare";
 
-"subtitle_error_downloading_bookmarks" = "Bookmarks were not downloaded";
+"subtitle_error_downloading_bookmarks" = "Tag-urile nu au fost încărcate";
 
-"whats_new_bookmarks_catalog_title" = "MAPS.ME now has a route library";
+"whats_new_bookmarks_catalog_title" = "În MAPS.ME a apărut un director de rute";
 
-"whats_new_bookmarks_catalog_message" = "Hundreds of detailed routes all around the world: where to go, what to see, where to eat.";
+"whats_new_bookmarks_catalog_message" = "Zeci de trasee detaliate din întreaga lume: unde să mergi, ce să vezi, în unde să mănânci.";
 
-"whats_new_popularity_label_title" = "Popular locations nearby";
+"whats_new_popularity_label_title" = "Popular în apropiere";
 
-"whats_new_popularity_label_message" = "The What to Do section will help you find the most popular places in the city.";
+"whats_new_popularity_label_message" = "Secțiunea „Ce să faci” va ajuta să găsi cele mai populare locații din oraș.";
 
-"whats_new_hot_offers_title" = "Attractive offers from hotels";
+"whats_new_hot_offers_title" = "Oferte avantajoase de hoteluri";
 
-"whats_new_hot_offers_message" = "You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.";
+"whats_new_hot_offers_message" = "Căutați-le cu ajutorul categoriei „Hoteluri” în căutare. Ofertele vor fi marcate cu o pictogramă % pe hartă și în lista.";
