@@ -73,6 +73,8 @@ import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_O
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSORED_SHOWN;
 import static com.mapswithme.util.statistics.Statistics.EventName.PP_SPONSOR_ITEM_SELECTED;
 import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_PLAN_TOOLTIP_CLICK;
+import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_ROUTE_FINISH;
+import static com.mapswithme.util.statistics.Statistics.EventName.ROUTING_ROUTE_START;
 import static com.mapswithme.util.statistics.Statistics.EventName.SEARCH_FILTER_CLICK;
 import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_ERROR;
 import static com.mapswithme.util.statistics.Statistics.EventName.UGC_AUTH_EXTERNAL_REQUEST_SUCCESS;
@@ -91,6 +93,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.HAS_AUTH;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LAT;
 import static com.mapswithme.util.statistics.Statistics.EventParam.HOTEL_LON;
+import static com.mapswithme.util.statistics.Statistics.EventParam.INTERRUPTED;
 import static com.mapswithme.util.statistics.Statistics.EventParam.ITEM;
 import static com.mapswithme.util.statistics.Statistics.EventParam.MAP_DATA_SIZE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.METHOD;
@@ -109,6 +112,7 @@ import static com.mapswithme.util.statistics.Statistics.EventParam.STATE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.TYPE;
 import static com.mapswithme.util.statistics.Statistics.EventParam.VALUE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BACKUP;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.BICYCLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.BOOKING_COM;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.DISK_NO_SPACE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.FACEBOOK;
@@ -117,10 +121,15 @@ import static com.mapswithme.util.statistics.Statistics.ParamValue.HOLIDAY;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.MAPSME;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.NO_BACKUP;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.OPENTABLE;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.PEDESTRIAN;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.PHONE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.RESTORE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.SEARCH_BOOKING_COM;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.TAXI;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.TRAFFIC;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.TRANSIT;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.UNKNOWN;
+import static com.mapswithme.util.statistics.Statistics.ParamValue.VEHICLE;
 import static com.mapswithme.util.statistics.Statistics.ParamValue.VIATOR;
 
 public enum Statistics
@@ -259,8 +268,8 @@ public enum Statistics
     // routing
     public static final String ROUTING_BUILD = "Routing. Build";
     public static final String ROUTING_START_SUGGEST_REBUILD = "Routing. Suggest rebuild";
-    public static final String ROUTING_START = "Routing. Start";
-    public static final String ROUTING_CLOSE = "Routing. Close";
+    public static final String ROUTING_ROUTE_START = "Routing_Route_start";
+    public static final String ROUTING_ROUTE_FINISH = "Routing_Route_finish";
     public static final String ROUTING_CANCEL = "Routing. Cancel";
     public static final String ROUTING_VEHICLE_SET = "Routing. Set vehicle";
     public static final String ROUTING_PEDESTRIAN_SET = "Routing. Set pedestrian";
@@ -398,6 +407,7 @@ public enum Statistics
     public static final String DATE = "date";
     static final String HAS_AUTH = "has_auth";
     public static final String STATUS = "status";
+    static final String INTERRUPTED = "interrupted";
 
     private EventParam() {}
   }
@@ -449,6 +459,11 @@ public enum Statistics
     static final String TRAFFIC = "traffic";
     public static final String SUCCESS = "success";
     public static final String UNAVAILABLE = "unavailable";
+    static final String PEDESTRIAN = "pedestrian";
+    static final String VEHICLE = "vehicle";
+    static final String BICYCLE = "bicycle";
+    static final String TAXI = "taxi";
+    static final String TRANSIT = "transit";
   }
 
   // Initialized once in constructor and does not change until the process restarts.
@@ -1011,6 +1026,46 @@ public enum Statistics
                params()
                    .add(MODE, isPlanning ? "planning" : "onroute")
                    .get());
+  }
+
+  public void trackRoutingStart(@Framework.RouterType int type,
+                                boolean trafficEnabled)
+  {
+    trackEvent(ROUTING_ROUTE_START, prepareRouteParams(type, trafficEnabled));
+  }
+
+  public void trackRoutingFinish(boolean interrupted, @Framework.RouterType int type,
+                                 boolean trafficEnabled)
+  {
+    ParameterBuilder params = prepareRouteParams(type, trafficEnabled);
+    trackEvent(ROUTING_ROUTE_FINISH, params.add(INTERRUPTED, interrupted ? 1 : 0));
+  }
+
+  @NonNull
+  private static ParameterBuilder prepareRouteParams(@Framework.RouterType int type,
+                                                     boolean trafficEnabled)
+  {
+    return params().add(MODE, toRouterType(type)).add(TRAFFIC, trafficEnabled ? 1 : 0);
+  }
+
+  @NonNull
+  private static String toRouterType(@Framework.RouterType int type)
+  {
+    switch (type)
+    {
+      case Framework.ROUTER_TYPE_VEHICLE:
+        return VEHICLE;
+      case Framework.ROUTER_TYPE_PEDESTRIAN:
+        return PEDESTRIAN;
+      case Framework.ROUTER_TYPE_BICYCLE:
+        return BICYCLE;
+      case Framework.ROUTER_TYPE_TAXI:
+        return TAXI;
+      case Framework.ROUTER_TYPE_TRANSIT:
+        return TRANSIT;
+      default:
+        throw new AssertionError("Unsupported router type: " + type);
+    }
   }
 
   public void trackRoutingTooltipEvent(@RoutePointInfo.RouteMarkType int type,

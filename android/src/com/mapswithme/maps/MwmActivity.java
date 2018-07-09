@@ -793,11 +793,8 @@ public class MwmActivity extends BaseMwmFragmentActivity
     }
   }
 
-  public void closeMenu(String statEvent, String alohaStatEvent, @Nullable Runnable procAfterClose)
+  public void closeMenu(@Nullable Runnable procAfterClose)
   {
-    Statistics.INSTANCE.trackEvent(statEvent);
-    AlohaHelper.logClick(alohaStatEvent);
-
     mFadeView.fadeOut();
     mMainMenu.close(true, procAfterClose);
   }
@@ -813,20 +810,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
     return false;
   }
 
-  public void startLocationToPoint(String statisticsEvent, String alohaEvent,
-                                   final @Nullable MapObject endPoint,
+  public void startLocationToPoint(String statisticsEvent, final @Nullable MapObject endPoint,
                                    final boolean canUseMyPositionAsStart)
   {
-    closeMenu(statisticsEvent, alohaEvent, new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        RoutingController.get().prepare(canUseMyPositionAsStart, endPoint);
+    Statistics.INSTANCE.trackEvent(statisticsEvent);
+    closeMenu(() -> {
+      RoutingController.get().prepare(canUseMyPositionAsStart, endPoint);
 
-        if (mPlacePage != null && (mPlacePage.isDocked() || !mPlacePage.isFloating()))
-          closePlacePage();
-      }
+      if (mPlacePage != null && (mPlacePage.isDocked() || !mPlacePage.isFloating()))
+        closePlacePage();
     });
   }
 
@@ -846,113 +838,75 @@ public class MwmActivity extends BaseMwmFragmentActivity
 
   private void initMainMenu()
   {
-    mMainMenu = new MainMenu(findViewById(R.id.menu_frame), new BaseMenu.ItemClickListener<MainMenu.Item>()
-    {
-      @Override
-      public void onItemClick(MainMenu.Item item)
+    mMainMenu = new MainMenu(findViewById(R.id.menu_frame), item -> {
+      if (mIsFullscreenAnimating)
+        return;
+
+      switch (item)
       {
-        if (mIsFullscreenAnimating)
-          return;
-
-        switch (item)
+      case TOGGLE:
+        if (!mMainMenu.isOpen())
         {
-        case TOGGLE:
-          if (!mMainMenu.isOpen())
-          {
-            if (mPlacePage == null || (mPlacePage.isDocked() && closePlacePage()))
-              return;
+          if (mPlacePage == null || (mPlacePage.isDocked() && closePlacePage()))
+            return;
 
-            if (closeSidePanel())
-              return;
-          }
-
-          Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_MENU);
-          AlohaHelper.logClick(AlohaHelper.TOOLBAR_MENU);
-          toggleMenu();
-          break;
-
-        case ADD_PLACE:
-          closePlacePage();
-          if (mIsTabletLayout)
-            closeSidePanel();
-          closeMenu(Statistics.EventName.MENU_ADD_PLACE, AlohaHelper.MENU_ADD_PLACE, new Runnable()
-          {
-            @Override
-            public void run()
-            {
-              Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_ADD_CLICK,
-                                             Statistics.params().add(Statistics.EventParam.FROM, "main_menu"));
-              showPositionChooser(false, false);
-            }
-          });
-          break;
-
-        case SEARCH:
-          RoutingController.get().cancel();
-          closeMenu(Statistics.EventName.TOOLBAR_SEARCH, AlohaHelper.TOOLBAR_SEARCH, new Runnable()
-          {
-            @Override
-            public void run()
-            {
-              showSearch(mSearchController.getQuery());
-            }
-          });
-          break;
-
-        case P2P:
-          startLocationToPoint(Statistics.EventName.MENU_P2P, AlohaHelper.MENU_POINT2POINT,
-                               null /* endPoint */, false /* canUseMyPositionAsStart */);
-          break;
-
-        case DISCOVERY:
-          showDiscovery();
-          break;
-
-        case BOOKMARKS:
-          closeMenu(Statistics.EventName.TOOLBAR_BOOKMARKS, AlohaHelper.TOOLBAR_BOOKMARKS, new Runnable()
-          {
-            @Override
-            public void run()
-            {
-              showBookmarks();
-            }
-          });
-          break;
-
-        case SHARE:
-          closeMenu(Statistics.EventName.MENU_SHARE, AlohaHelper.MENU_SHARE, new Runnable()
-          {
-            @Override
-            public void run()
-            {
-              shareMyLocation();
-            }
-          });
-          break;
-
-        case DOWNLOADER:
-          RoutingController.get().cancel();
-          closeMenu(Statistics.EventName.MENU_DOWNLOADER, AlohaHelper.MENU_DOWNLOADER, new Runnable()
-          {
-            @Override
-            public void run()
-            {
-              showDownloader(false);
-            }
-          });
-          break;
-
-        case SETTINGS:
-          closeMenu(Statistics.EventName.MENU_SETTINGS, AlohaHelper.MENU_SETTINGS, new Runnable()
-          {
-            @Override
-            public void run()
-            {
-              startActivity(new Intent(MwmActivity.this, SettingsActivity.class));
-            }
-          });
-          break;
+          if (closeSidePanel())
+            return;
         }
+
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_MENU);
+        AlohaHelper.logClick(AlohaHelper.TOOLBAR_MENU);
+        toggleMenu();
+        break;
+
+      case ADD_PLACE:
+        closePlacePage();
+        if (mIsTabletLayout)
+          closeSidePanel();
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.MENU_ADD_PLACE);
+        closeMenu(() -> {
+          Statistics.INSTANCE.trackEvent(Statistics.EventName.EDITOR_ADD_CLICK,
+                                         Statistics.params()
+                                                   .add(Statistics.EventParam.FROM, "main_menu"));
+          showPositionChooser(false, false);
+        });
+        break;
+
+      case SEARCH:
+        RoutingController.get().cancel();
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_SEARCH);
+        closeMenu(() -> showSearch(mSearchController.getQuery()));
+        break;
+
+      case P2P:
+        startLocationToPoint(Statistics.EventName.MENU_P2P, null, false);
+        break;
+
+      case DISCOVERY:
+        showDiscovery();
+        break;
+
+      case BOOKMARKS:
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.TOOLBAR_BOOKMARKS);
+        closeMenu(this::showBookmarks);
+        break;
+
+      case SHARE:
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.MENU_SHARE);
+        closeMenu(this::shareMyLocation);
+        break;
+
+      case DOWNLOADER:
+        RoutingController.get().cancel();
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.MENU_DOWNLOADER);
+        closeMenu(() -> showDownloader(false));
+        break;
+
+      case SETTINGS:
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.MENU_SETTINGS);
+        Intent intent = new Intent(MwmActivity.this, SettingsActivity.class);
+        closeMenu(() -> startActivity(intent));
+        break;
       }
     });
 
@@ -1417,7 +1371,16 @@ public class MwmActivity extends BaseMwmFragmentActivity
       return;
     }
 
-    if (!closePlacePage() && !closeSidePanel() && !RoutingController.get().cancel()
+    boolean isRoutingCancelled = RoutingController.get().cancel();
+    if (isRoutingCancelled)
+    {
+      @Framework.RouterType
+      int type = RoutingController.get().getLastRouterType();
+      Statistics.INSTANCE.trackRoutingFinish(true, type,
+                                             TrafficManager.INSTANCE.isEnabled());
+    }
+
+    if (!closePlacePage() && !closeSidePanel() && !isRoutingCancelled
         && !closePositionChooser())
     {
       try
@@ -2406,6 +2369,13 @@ public class MwmActivity extends BaseMwmFragmentActivity
     showLocationNotFoundDialog();
   }
 
+  @Override
+  public void onRoutingFinish()
+  {
+    Statistics.INSTANCE.trackRoutingFinish(false, RoutingController.get().getLastRouterType(),
+                                           TrafficManager.INSTANCE.isEnabled());
+  }
+
   private void showLocationNotFoundDialog()
   {
     String message = String.format("%s\n\n%s", getString(R.string.current_location_unknown_message),
@@ -2444,6 +2414,15 @@ public class MwmActivity extends BaseMwmFragmentActivity
       mNavigationController.performSearchClick();
       Statistics.INSTANCE.trackRoutingTooltipEvent(pointType, true);
     }
+  }
+
+  @Override
+  public void onRoutingStart()
+  {
+    @Framework.RouterType
+    int routerType = RoutingController.get().getLastRouterType();
+    Statistics.INSTANCE.trackRoutingStart(routerType, TrafficManager.INSTANCE.isEnabled());
+    closeMenu(() -> RoutingController.get().start());
   }
 
   @Override

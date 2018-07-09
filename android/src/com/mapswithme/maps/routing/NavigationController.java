@@ -21,9 +21,9 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.BookmarkCategoriesActivity;
 import com.mapswithme.maps.bookmarks.data.DistanceAndAzimut;
 import com.mapswithme.maps.location.LocationHelper;
+import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.settings.SettingsActivity;
 import com.mapswithme.maps.sound.TtsPlayer;
-import com.mapswithme.maps.maplayer.traffic.TrafficManager;
 import com.mapswithme.maps.widget.FlatProgressView;
 import com.mapswithme.maps.widget.menu.NavMenu;
 import com.mapswithme.util.Animations;
@@ -31,7 +31,6 @@ import com.mapswithme.util.Graphics;
 import com.mapswithme.util.StringUtils;
 import com.mapswithme.util.UiUtils;
 import com.mapswithme.util.Utils;
-import com.mapswithme.util.statistics.AlohaHelper;
 import com.mapswithme.util.statistics.Statistics;
 
 import java.text.DateFormat;
@@ -148,51 +147,39 @@ public class NavigationController implements TrafficManager.TrafficCallback, Vie
 
   private NavMenu createNavMenu()
   {
-    return new NavMenu(mBottomFrame, new NavMenu.ItemClickListener<NavMenu.Item>()
-    {
-      @Override
-      public void onItemClick(NavMenu.Item item)
+    return new NavMenu(mBottomFrame, item -> {
+      final MwmActivity parent = ((MwmActivity) mFrame.getContext());
+      switch (item)
       {
-        final MwmActivity parent = ((MwmActivity) mFrame.getContext());
-        switch (item)
-        {
-        case STOP:
-          mNavMenu.close(false /* animate */);
-          RoutingController.get().cancel();
-          break;
-        case SETTINGS:
-          parent.closeMenu(Statistics.EventName.ROUTING_SETTINGS, AlohaHelper.MENU_SETTINGS, new Runnable()
-          {
-            @Override
-            public void run()
-            {
-              parent.startActivity(new Intent(parent, SettingsActivity.class));
-            }
-          });
-          break;
-        case TTS_VOLUME:
-          TtsPlayer.setEnabled(!TtsPlayer.isEnabled());
-          mNavMenu.refreshTts();
-          Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_CLOSE);
-          AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
-          break;
-        case TRAFFIC:
-          TrafficManager.INSTANCE.toggle();
-          mNavMenu.refreshTraffic();
-          //TODO: Add statistics reporting (in separate task)
-          break;
-        case TOGGLE:
-          mNavMenu.toggle(true);
-          parent.refreshFade();
-        }
+      case STOP:
+        mNavMenu.close(false /* animate */);
+        Statistics.INSTANCE.trackRoutingFinish(true,
+                                               RoutingController.get().getLastRouterType(),
+                                               TrafficManager.INSTANCE.isEnabled());
+        RoutingController.get().cancel();
+        break;
+      case SETTINGS:
+        Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_SETTINGS);
+        parent.closeMenu(() -> parent.startActivity(new Intent(parent, SettingsActivity.class)));
+        break;
+      case TTS_VOLUME:
+        TtsPlayer.setEnabled(!TtsPlayer.isEnabled());
+        mNavMenu.refreshTts();
+        break;
+      case TRAFFIC:
+        TrafficManager.INSTANCE.toggle();
+        mNavMenu.refreshTraffic();
+        //TODO: Add statistics reporting (in separate task)
+        break;
+      case TOGGLE:
+        mNavMenu.toggle(true);
+        parent.refreshFade();
       }
     });
   }
 
   public void stop(MwmActivity parent)
   {
-    Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_CLOSE);
-    AlohaHelper.logClick(AlohaHelper.ROUTING_CLOSE);
     parent.refreshFade();
     mSearchWheel.reset();
   }

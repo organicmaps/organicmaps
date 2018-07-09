@@ -576,8 +576,8 @@ public class PlacePageView extends RelativeLayout
           }
           else
           {
-            getActivity().startLocationToPoint(Statistics.EventName.PP_ROUTE, AlohaHelper.PP_ROUTE,
-                                               getMapObject(), true /* canUseMyPositionAsStart */);
+            getActivity().startLocationToPoint(Statistics.EventName.PP_ROUTE, getMapObject(), 
+                                               true);
           }
           break;
 

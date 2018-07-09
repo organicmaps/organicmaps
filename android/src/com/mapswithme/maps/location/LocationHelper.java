@@ -283,6 +283,8 @@ public enum LocationHelper
     {
       mLogger.d(TAG, "End point is reached");
       restart();
+      if (mUiCallback != null)
+        mUiCallback.onRoutingFinish();
       RoutingController.get().cancel();
     }
   }
@@ -680,5 +682,6 @@ public enum LocationHelper
     void onCompassUpdated(@NonNull CompassData compass);
     void onLocationError();
     void onLocationNotFound();
+    void onRoutingFinish();
   }
 }
