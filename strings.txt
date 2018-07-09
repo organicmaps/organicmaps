@@ -32925,3 +32925,7 @@ fa = دوباره نپرس
     sw = Unaweza kuzitafuta kwa kutumia kategoria ya hoteli katika utafutaji. Matoleo yatawekwa alama na ishara ya asilimia katika ramani na katika matokeo ya utafutaji.
     zh-Hans = 使用搜索中的“酒店”类别来搜索它们。将在地图和列表中以百分比图标标出建议。
     zh-Hant = 使用搜索中的“酒店”類別來尋找它們報價將在地圖和列表中以百分比圖標來表示。
+
+  [error_already_downloaded]
+    en = This list has already been downloaded
+    ru = Этот список уже был загружен
