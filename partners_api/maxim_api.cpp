@@ -97,20 +97,21 @@ RideRequestLinks Api::GetRideRequestLinks(std::string const & productId, ms::Lat
                                           ms::LatLon const & to) const
 {
   std::ostringstream orderLink;
-  std::ostringstream firebaseLink;
+  std::ostringstream installLink;
 
   orderLink << "order?refOrgId=" << MAXIM_CLIENT_ID << "&startLatitude=" << from.lat
             << "&startLongitude=" << from.lon << "&endLatitude=" << to.lat
             << "&endLongitude=" << to.lon;
 
 #if defined(OMIM_OS_IPHONE)
-  firebaseLink << "https://qau86.app.goo.gl/?link=" << orderLink.str()
-               << "&ibi=com.taxsee.Taxsee&isi=579985456&ius=maximzakaz";
+  installLink << "https://itunes.apple.com/app/apple-store/id579985456?pt=119057982"
+               << "&ct=maps_me&mt=8";
 #elif defined(OMIM_OS_ANDROID)
-  firebaseLink << "https://qau86.app.goo.gl/?link=" << orderLink.str() << "&apn=com.taxsee.taxsee";
+  installLink << "https://play.google.com/store/apps/details?id=com.taxsee.taxsee"
+               << "&referrer=utm_source%3Dmaps_me";
 #endif
 
-  return {"maximzakaz://" + orderLink.str(), firebaseLink.str()};
+  return {"maximzakaz://" + orderLink.str(), installLink.str()};
 }
 
 void MakeFromJson(std::string const & src, std::vector<taxi::Product> & products)
