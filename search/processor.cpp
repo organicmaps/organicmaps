@@ -545,6 +545,7 @@ void Processor::InitGeocoder(Geocoder::Params & geocoderParams, SearchParams con
 
   geocoderParams.m_mode = searchParams.m_mode;
   geocoderParams.m_pivot = GetPivotRect(viewportSearch);
+  geocoderParams.m_position = GetPosition();
   geocoderParams.m_categoryLocales = GetCategoryLocales();
   geocoderParams.m_hotelsFilter = searchParams.m_hotelsFilter;
   geocoderParams.m_preferredTypes = m_preferredTypes;

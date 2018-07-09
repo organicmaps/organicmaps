@@ -27,6 +27,7 @@
 
 #include "coding/compressed_bit_vector.hpp"
 
+#include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
 
 #include "base/cancellable.hpp"
@@ -81,6 +82,7 @@ public:
   {
     Mode m_mode = Mode::Everywhere;
     m2::RectD m_pivot;
+    m2::PointD m_position;
     Locales m_categoryLocales;
     shared_ptr<hotels_filter::Rule> m_hotelsFilter;
     vector<uint32_t> m_preferredTypes;

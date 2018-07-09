@@ -275,11 +275,15 @@ double GetDistanceMeters(m2::PointD const & pivot, m2::RectD const & rect)
 
 struct KeyedMwmInfo
 {
-  KeyedMwmInfo(shared_ptr<MwmInfo> const & info, m2::RectD const & pivot) : m_info(info)
+  KeyedMwmInfo(shared_ptr<MwmInfo> const & info, m2::PointD const & position,
+               m2::RectD const & pivot, bool inViewport)
+    : m_info(info)
   {
     auto const & rect = m_info->m_bordersRect;
     m_similarity = GetSimilarity(pivot, rect);
     m_distance = GetDistanceMeters(pivot.Center(), rect);
+    if (!inViewport && rect.IsPointInside(position))
+      m_distance = 0.0;
   }
 
   bool operator<(KeyedMwmInfo const & rhs) const
@@ -297,7 +301,9 @@ struct KeyedMwmInfo
 // Reorders maps in a way that prefix consists of maps intersecting
 // with pivot, suffix consists of all other maps ordered by minimum
 // distance from pivot. Returns number of maps in prefix.
-size_t OrderCountries(m2::RectD const & pivot, vector<shared_ptr<MwmInfo>> & infos)
+// In viewport search mode, prefers mwms that contain the user's position.
+size_t OrderCountries(m2::PointD const & position, m2::RectD const & pivot, bool inViewport,
+                      vector<shared_ptr<MwmInfo>> & infos)
 {
   // TODO (@y): remove this if crashes in this function
   // disappear. Otherwise, remove null infos and re-check MwmSet
@@ -311,7 +317,7 @@ size_t OrderCountries(m2::RectD const & pivot, vector<shared_ptr<MwmInfo>> & inf
   vector<KeyedMwmInfo> keyedInfos;
   keyedInfos.reserve(infos.size());
   for (auto const & info : infos)
-    keyedInfos.emplace_back(info, pivot);
+    keyedInfos.emplace_back(info, position, pivot, inViewport);
   sort(keyedInfos.begin(), keyedInfos.end());
 
   infos.clear();
@@ -319,9 +325,10 @@ size_t OrderCountries(m2::RectD const & pivot, vector<shared_ptr<MwmInfo>> & inf
     infos.emplace_back(info.m_info);
 
   auto intersects = [&](shared_ptr<MwmInfo> const & info) -> bool {
+    if (!inViewport && info->m_bordersRect.IsPointInside(position))
+      return true;
     return pivot.IsIntersect(info->m_bordersRect);
   };
-
   auto const sep = stable_partition(infos.begin(), infos.end(), intersects);
   return distance(infos.begin(), sep);
 }
@@ -498,7 +505,8 @@ void Geocoder::GoImpl(vector<shared_ptr<MwmInfo>> & infos, bool inViewport)
   // maps are ordered by distance from pivot, and we stop to call
   // MatchAroundPivot() on them as soon as at least one feature is
   // found.
-  size_t const numIntersectingMaps = OrderCountries(m_params.m_pivot, infos);
+  size_t const numIntersectingMaps =
+      OrderCountries(m_params.m_position, m_params.m_pivot, inViewport, infos);
 
   // MatchAroundPivot() should always be matched in mwms
   // intersecting with position and viewport.
