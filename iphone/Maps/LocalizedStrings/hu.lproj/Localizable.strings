@@ -2425,3 +2425,5 @@
 "whats_new_hot_offers_title" = "Hotelek vonzó ajánlatai";
 
 "whats_new_hot_offers_message" = "Kereshetőek a Hotel kategóriában a kereséssel. A kedvezményes ajánlatok a térképen és a keresési eredményekben százalékjellel vannak megjelölve.";
+
+"error_already_downloaded" = "This list has already been downloaded";

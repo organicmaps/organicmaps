@@ -2425,3 +2425,5 @@
 "whats_new_hot_offers_title" = "Oferte avantajoase de hoteluri";
 
 "whats_new_hot_offers_message" = "Căutați-le cu ajutorul categoriei „Hoteluri” în căutare. Ofertele vor fi marcate cu o pictogramă % pe hartă și în lista.";
+
+"error_already_downloaded" = "This list has already been downloaded";

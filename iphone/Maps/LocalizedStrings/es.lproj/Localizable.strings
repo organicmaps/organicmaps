@@ -2425,3 +2425,5 @@
 "whats_new_hot_offers_title" = "Atractivas ofertas de hoteles";
 
 "whats_new_hot_offers_message" = "Puede buscarlas utilizando la categoría «Hoteles» en la búsqueda. Las ofertas estarán marcadas por el símbolo de porcentaje en el mapa y en los resultados de la búsqueda.";
+
+"error_already_downloaded" = "This list has already been downloaded";

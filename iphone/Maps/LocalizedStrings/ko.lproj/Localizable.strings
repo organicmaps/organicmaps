@@ -2425,3 +2425,5 @@
 "whats_new_hot_offers_title" = "호텔에서의 매혹적인 오퍼";
 
 "whats_new_hot_offers_message" = "검색에서 호텔 범주를 사용하여 검색할 수 있습니다. 오퍼는 맵과 검색 결과에서 퍼센트 기호로 표시됩니다.";
+
+"error_already_downloaded" = "This list has already been downloaded";

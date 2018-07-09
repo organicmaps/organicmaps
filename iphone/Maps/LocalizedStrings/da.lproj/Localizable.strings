@@ -2425,3 +2425,5 @@
 "whats_new_hot_offers_title" = "Attraktive hoteltilbud";
 
 "whats_new_hot_offers_message" = "Du kan søge efter dem ved at bruge hotel-kategorien under søgefunktionen. Tilbuddene er markedet med et procent-tegn på kortet og i søgeresultaterne.";
+
+"error_already_downloaded" = "This list has already been downloaded";

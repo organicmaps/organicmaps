@@ -2425,3 +2425,5 @@
 "whats_new_hot_offers_title" = "Houkuttelevia tarjouksia hotelleilta";
 
 "whats_new_hot_offers_message" = "Voit etsiä niitä käyttämällä Hotellit kategoriaa haussa. Tulokset näytetään prosentti merkillä kartassa ja hakutuloksissa.";
+
+"error_already_downloaded" = "This list has already been downloaded";

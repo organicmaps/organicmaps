@@ -2425,3 +2425,5 @@
 "whats_new_hot_offers_title" = "Atrakcyjne oferty hoteli";
 
 "whats_new_hot_offers_message" = "Możesz je odszukać, używając kategorii Hotele podczas wyszukiwania. Oferty będą oznaczone symbolem procentu na mapie i w wynikach wyszukiwania.";
+
+"error_already_downloaded" = "This list has already been downloaded";

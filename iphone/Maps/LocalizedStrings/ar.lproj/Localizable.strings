@@ -2425,3 +2425,5 @@
 "whats_new_hot_offers_title" = "عروض مغرية من الفنادق";
 
 "whats_new_hot_offers_message" = "يمكنك البحث عن العروض باستخدام فئة الفنادق في البحث. سيتم تمييز العروض بالنسبة المئوية في الخريطة وفي نتائج البحث.";
+
+"error_already_downloaded" = "This list has already been downloaded";
