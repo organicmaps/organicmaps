@@ -372,6 +372,7 @@ CGFloat const kPinDiameter = 18.0f;
 
 - (void)calculateSections
 {
+  m_sections.clear();
   auto const & bm = GetFramework().GetBookmarkManager();
   if (bm.IsCategoryFromCatalog(m_categoryId))
     m_sections.emplace_back(Section::Info);
