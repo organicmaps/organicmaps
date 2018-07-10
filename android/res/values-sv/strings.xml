@@ -1264,7 +1264,7 @@
 	<string name="phone_number">Telefonnummer</string>
 	<string name="notification_unsent_reviews_title">Du har flera unsent recensioner</string>
 	<string name="notification_unsent_reviews_message">Vänligen logga in för att dela omdömen med andra resenärer</string>
-	<string name="profile_osm">OSM-profil</string>
+	<string name="profile">OpenStreetMap profil</string>
 	<string name="place_page_search_similar_hotel">Sök liknande hotell</string>
 	<string name="bookmarks_detect_title">Nya filer upptäcktes</string>
 	<plurals name="bookmarks_detect_message">

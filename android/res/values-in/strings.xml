@@ -1259,7 +1259,7 @@
 	<string name="phone_number">Nomor telepon</string>
 	<string name="notification_unsent_reviews_title">Anda memiliki beberapa ulasan yang tidak terkirim</string>
 	<string name="notification_unsent_reviews_message">Harap masuk untuk berbagi ulasan dengan wisatawan lain</string>
-	<string name="profile_osm">Profil OSM</string>
+	<string name="profile">Profil OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">Cari hotel serupa</string>
 	<string name="bookmarks_detect_title">File baru terdeteksi</string>
 	<plurals name="bookmarks_detect_message">

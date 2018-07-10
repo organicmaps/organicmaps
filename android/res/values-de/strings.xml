@@ -1274,7 +1274,7 @@
 	<string name="phone_number">Telefonnummer</string>
 	<string name="notification_unsent_reviews_title">Sie haben mehrere nicht gesendete Bewertungen</string>
 	<string name="notification_unsent_reviews_message">Bitte melde dich an, um Bewertungen mit anderen Reisenden zu teilen</string>
-	<string name="profile_osm">Profil OSM</string>
+	<string name="profile">OpenStreetMap-Profil</string>
 	<string name="place_page_search_similar_hotel">Nach ähnlichen Hotels suchen</string>
 	<string name="bookmarks_detect_title">Neue Dateien erkannt</string>
 	<plurals name="bookmarks_detect_message">

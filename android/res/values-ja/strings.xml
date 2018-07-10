@@ -1259,7 +1259,7 @@
 	<string name="phone_number">電話番号</string>
 	<string name="notification_unsent_reviews_title">あなたはいくつかの未送信のレビューを持っています</string>
 	<string name="notification_unsent_reviews_message">他の旅行者とレビューを共有するにはログインしてください</string>
-	<string name="profile_osm">プロフィールOSM</string>
+	<string name="profile">OpenStreetMap プロフィール</string>
 	<string name="place_page_search_similar_hotel">類似のホテルを検索</string>
 	<string name="bookmarks_detect_title">新しいファイルが検出されました</string>
 	<plurals name="bookmarks_detect_message">

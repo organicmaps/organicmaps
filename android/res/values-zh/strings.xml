@@ -1266,7 +1266,7 @@
 	<string name="phone_number">电话号码</string>
 	<string name="notification_unsent_reviews_title">你有几个未发表的评论</string>
 	<string name="notification_unsent_reviews_message">请登录与其他旅客分享评论</string>
-	<string name="profile_osm">配置文件OSM</string>
+	<string name="profile">OpenStreetMap 资料</string>
 	<string name="place_page_search_similar_hotel">搜索类似的酒店</string>
 	<string name="bookmarks_detect_title">检测到新文件</string>
 	<plurals name="bookmarks_detect_message">

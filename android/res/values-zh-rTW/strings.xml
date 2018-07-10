@@ -1270,7 +1270,7 @@
 	<string name="phone_number">電話號碼</string>
 	<string name="notification_unsent_reviews_title">你有幾個未發表的評論</string>
 	<string name="notification_unsent_reviews_message">請登錄與其他旅客分享評論</string>
-	<string name="profile_osm">配置文件OSM</string>
+	<string name="profile">OpenStreetMap 資料</string>
 	<string name="place_page_search_similar_hotel">搜索類似的酒店</string>
 	<string name="bookmarks_detect_title">檢測到新文件</string>
 	<plurals name="bookmarks_detect_message">

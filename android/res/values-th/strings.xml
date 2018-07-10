@@ -1266,7 +1266,7 @@
 	<string name="phone_number">หมายเลขโทรศัพท์</string>
 	<string name="notification_unsent_reviews_title">คุณมีรีวิวที่ยังไม่ได้อ่านหลายฉบับ</string>
 	<string name="notification_unsent_reviews_message">โปรดลงชื่อเข้าใช้เพื่อแบ่งปันความเห็นกับผู้อื่น</string>
-	<string name="profile_osm">โปรไฟล์ OSM</string>
+	<string name="profile">โปรไฟล์ OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">ค้นหาโรงแรมที่คล้ายกัน</string>
 	<string name="bookmarks_detect_title">พบไฟล์ใหม่แล้ว</string>
 	<plurals name="bookmarks_detect_message">

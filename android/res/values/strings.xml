@@ -1324,7 +1324,7 @@
 	<string name="phone_number">Phone number</string>
 	<string name="notification_unsent_reviews_title"> You have several unsent reviews</string>
 	<string name="notification_unsent_reviews_message"> Please sign in to share reviews with other travelers</string>
-	<string name="profile_osm">Profile OSM</string>
+	<string name="profile">OpenStreetMap profile</string>
 	<string name="place_page_search_similar_hotel">Search similar hotels</string>
 	<string name="bookmarks_detect_title">New files detected</string>
 	<plurals name="bookmarks_detect_message">

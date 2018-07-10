@@ -2284,7 +2284,7 @@
 
 "notification_unsent_reviews_message" = "Diğer gezginlerle yorum paylaşmak için lütfen giriş yapın";
 
-"profile_osm" = "Profil OSM";
+"profile" = "OpenStreetMap profil";
 
 "place_page_search_similar_hotel" = "Benzer otellerde ara";
 

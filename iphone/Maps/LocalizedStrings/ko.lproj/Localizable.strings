@@ -2284,7 +2284,7 @@
 
 "notification_unsent_reviews_message" = "다른 여행자와 리뷰를 공유하려면 로그인하십시오.";
 
-"profile_osm" = "OSM 프로필";
+"profile" = "OpenStreetMap 프로필";
 
 "place_page_search_similar_hotel" = "비슷한 호텔 검색";
 

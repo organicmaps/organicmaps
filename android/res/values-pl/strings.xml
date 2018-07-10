@@ -1263,7 +1263,7 @@
 	<string name="phone_number">Numer telefonu</string>
 	<string name="notification_unsent_reviews_title">Masz kilka niewysłanych recenzji</string>
 	<string name="notification_unsent_reviews_message">Zaloguj się, aby udostępniać recenzje innym podróżnym</string>
-	<string name="profile_osm">Profil OSM</string>
+	<string name="profile">Profil OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">Wyszukaj podobne hotele</string>
 	<string name="bookmarks_detect_title">Wykryto nowe pliki</string>
 	<plurals name="bookmarks_detect_message">

@@ -1267,7 +1267,7 @@
 	<string name="phone_number">Telefonní číslo</string>
 	<string name="notification_unsent_reviews_title">Máte několik recenzí</string>
 	<string name="notification_unsent_reviews_message">Přihlaste se a sdílejte recenze s ostatními cestovateli</string>
-	<string name="profile_osm">Profil OSM</string>
+	<string name="profile">Profil OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">Hledat podobné hotely</string>
 	<string name="bookmarks_detect_title">Byly zjištěny nové soubory</string>
 	<plurals name="bookmarks_detect_message">

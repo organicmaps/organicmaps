@@ -1273,7 +1273,7 @@
 	<string name="phone_number">Numéro de téléphone</string>
 	<string name="notification_unsent_reviews_title">Vous avez plusieurs avis non envoyés</string>
 	<string name="notification_unsent_reviews_message">Veuillez vous connecter pour partager des avis avec d\'autres voyageurs</string>
-	<string name="profile_osm">Profil OSM</string>
+	<string name="profile">Profil OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">Rechercher des hôtels similaires</string>
 	<string name="bookmarks_detect_title">Nouveaux fichiers détectés</string>
 	<plurals name="bookmarks_detect_message">

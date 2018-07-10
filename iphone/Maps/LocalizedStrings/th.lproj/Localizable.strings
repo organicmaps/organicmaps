@@ -2284,7 +2284,7 @@
 
 "notification_unsent_reviews_message" = "โปรดลงชื่อเข้าใช้เพื่อแบ่งปันความเห็นกับผู้อื่น";
 
-"profile_osm" = "โปรไฟล์ OSM";
+"profile" = "โปรไฟล์ OpenStreetMap";
 
 "place_page_search_similar_hotel" = "ค้นหาโรงแรมที่คล้ายกัน";
 

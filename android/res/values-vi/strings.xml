@@ -1260,7 +1260,7 @@
 	<string name="phone_number">Số điện thoại</string>
 	<string name="notification_unsent_reviews_title">Bạn có một số bài đánh giá chưa được đánh giá</string>
 	<string name="notification_unsent_reviews_message">Vui lòng đăng nhập để chia sẻ bài đánh giá với các khách du lịch khác</string>
-	<string name="profile_osm">Hồ sơ OSM</string>
+	<string name="profile">Hồ sơ OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">Tìm kiếm khách sạn</string>
 	<string name="bookmarks_detect_title">Đã phát hiện tệp mới</string>
 	<string name="button_convert">Chuyển đổi</string>

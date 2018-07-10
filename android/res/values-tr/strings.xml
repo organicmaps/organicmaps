@@ -1266,7 +1266,7 @@
 	<string name="phone_number">Telefon numarası</string>
 	<string name="notification_unsent_reviews_title">Birkaç onaylanmamış yorumunuz var</string>
 	<string name="notification_unsent_reviews_message">Diğer gezginlerle yorum paylaşmak için lütfen giriş yapın</string>
-	<string name="profile_osm">Profil OSM</string>
+	<string name="profile">OpenStreetMap profil</string>
 	<string name="place_page_search_similar_hotel">Benzer otellerde ara</string>
 	<string name="bookmarks_detect_title">Yeni dosyalar algılandı</string>
 	<plurals name="bookmarks_detect_message">

@@ -1266,7 +1266,7 @@
 	<string name="phone_number">رقم الهاتف</string>
 	<string name="notification_unsent_reviews_title">لديك عدة تعليقات غير مرغوب فيها</string>
 	<string name="notification_unsent_reviews_message">الرجاء تسجيل الدخول لمشاركة التعليقات مع المسافرين الآخرين</string>
-	<string name="profile_osm">الملف الشخصي OSM</string>
+	<string name="profile">الملف الشخصي OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">ابحث عن فنادق مماثلة</string>
 	<string name="bookmarks_detect_title">تم اكتشاف ملفات جديدة</string>
 	<plurals name="bookmarks_detect_message">

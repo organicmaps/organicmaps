@@ -1260,7 +1260,7 @@
 	<string name="phone_number">Telefoonnummer</string>
 	<string name="notification_unsent_reviews_title">U heeft verschillende niet-verzonden recensies</string>
 	<string name="notification_unsent_reviews_message">Meld u aan om recensies te delen met andere reizigers</string>
-	<string name="profile_osm">Profiel OSM</string>
+	<string name="profile">OpenStreetMap-profiel</string>
 	<string name="place_page_search_similar_hotel">Zoek vergelijkbare hotels</string>
 	<string name="bookmarks_detect_title">Nieuwe bestanden gedetecteerd</string>
 	<plurals name="bookmarks_detect_message">

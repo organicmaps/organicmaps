@@ -1256,7 +1256,7 @@
 	<string name="phone_number">전화 번호</string>
 	<string name="notification_unsent_reviews_title">보내지 않은 리뷰가 여러 개 있습니다.</string>
 	<string name="notification_unsent_reviews_message">다른 여행자와 리뷰를 공유하려면 로그인하십시오.</string>
-	<string name="profile_osm">OSM 프로필</string>
+	<string name="profile">OpenStreetMap 프로필</string>
 	<string name="place_page_search_similar_hotel">비슷한 호텔 검색</string>
 	<string name="bookmarks_detect_title">새 파일이 감지되었습니다.</string>
 	<plurals name="bookmarks_detect_message">

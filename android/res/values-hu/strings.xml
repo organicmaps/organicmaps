@@ -1260,7 +1260,7 @@
 	<string name="phone_number">Telefonszám</string>
 	<string name="notification_unsent_reviews_title">Több elküldött véleménye is van</string>
 	<string name="notification_unsent_reviews_message">Kérjük, jelentkezzen be, hogy megoszthassa véleményét más utazókkal</string>
-	<string name="profile_osm">Profil OSM</string>
+	<string name="profile">OpenStreetMap profil</string>
 	<string name="place_page_search_similar_hotel">Hasonló szálláshelyek keresése</string>
 	<string name="bookmarks_detect_title">Új fájlokat észleltek</string>
 	<plurals name="bookmarks_detect_message">

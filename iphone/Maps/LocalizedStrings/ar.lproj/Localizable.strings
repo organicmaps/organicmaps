@@ -2284,7 +2284,7 @@
 
 "notification_unsent_reviews_message" = "الرجاء تسجيل الدخول لمشاركة التعليقات مع المسافرين الآخرين";
 
-"profile_osm" = "الملف الشخصي OSM";
+"profile" = "الملف الشخصي OpenStreetMap";
 
 "place_page_search_similar_hotel" = "ابحث عن فنادق مماثلة";
 

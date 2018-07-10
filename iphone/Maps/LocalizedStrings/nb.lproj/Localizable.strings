@@ -2284,7 +2284,7 @@
 
 "notification_unsent_reviews_message" = "Vennligst logg inn for å dele anmeldelser med andre reisende";
 
-"profile_osm" = "Profil OSM";
+"profile" = "OpenStreetMap profil";
 
 "place_page_search_similar_hotel" = "Søk lignende hoteller";
 

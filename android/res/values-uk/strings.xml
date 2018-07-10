@@ -1264,7 +1264,7 @@
 	<string name="phone_number">Номер телефону</string>
 	<string name="notification_unsent_reviews_title">У вас є невідправлені відгуки</string>
 	<string name="notification_unsent_reviews_message">Будь ласка, увійдіть, щоб поділитися своїми відгуками з іншими мандрівниками</string>
-	<string name="profile_osm">Профіль OSM</string>
+	<string name="profile">Профіль OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">Шукати схожі готелі</string>
 	<string name="bookmarks_detect_title">Виявлено нові файли</string>
 	<plurals name="bookmarks_detect_message">

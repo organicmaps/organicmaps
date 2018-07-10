@@ -1263,7 +1263,7 @@
 	<string name="phone_number">Telefónne číslo</string>
 	<string name="notification_unsent_reviews_title">Máte niekoľko neoslaných recenzií</string>
 	<string name="notification_unsent_reviews_message">Prihláste sa a zdieľajte recenzie s ostatnými cestujúcimi</string>
-	<string name="profile_osm">Profil OSM</string>
+	<string name="profile">Profil OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">Vyhľadať podobné hotely</string>
 	<string name="bookmarks_detect_title">Zistené nové súbory</string>
 	<plurals name="bookmarks_detect_message">

@@ -1312,7 +1312,7 @@
 	<string name="phone_number">Номер телефона</string>
 	<string name="notification_unsent_reviews_title">У вас есть неотправленные отзывы</string>
 	<string name="notification_unsent_reviews_message">Пожалуйста, авторизуйтесь, чтобы поделиться своими отзывами с другими путешественниками</string>
-	<string name="profile_osm">Профиль OSM</string>
+	<string name="profile">Профиль OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">Найти похожие отели</string>
 	<string name="bookmarks_detect_title">Обнаружены новые файлы</string>
 	<plurals name="bookmarks_detect_message">

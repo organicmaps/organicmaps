@@ -1259,7 +1259,7 @@
 	<string name="phone_number">Numero di telefono</string>
 	<string name="notification_unsent_reviews_title">Hai diverse recensioni non inviate</string>
 	<string name="notification_unsent_reviews_message">Accedi per condividere recensioni con altri viaggiatori</string>
-	<string name="profile_osm">Profilo OSM</string>
+	<string name="profile">Profilo OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">Cerca hotel simili</string>
 	<string name="bookmarks_detect_title">Nuovi file rilevati</string>
 	<plurals name="bookmarks_detect_message">

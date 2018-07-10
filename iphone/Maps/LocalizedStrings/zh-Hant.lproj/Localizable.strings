@@ -2284,7 +2284,7 @@
 
 "notification_unsent_reviews_message" = "請登錄與其他旅客分享評論";
 
-"profile_osm" = "配置文件OSM";
+"profile" = "OpenStreetMap 資料";
 
 "place_page_search_similar_hotel" = "搜索類似的酒店";
 

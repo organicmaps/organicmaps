@@ -2284,7 +2284,7 @@
 
 "notification_unsent_reviews_message" = "Kirjaudu sisään jaa arviot muiden matkustajien kanssa";
 
-"profile_osm" = "Profiili OSM";
+"profile" = "OpenStreetMap-profiili";
 
 "place_page_search_similar_hotel" = "Etsi samanlaisia ​​hotelleja";
 

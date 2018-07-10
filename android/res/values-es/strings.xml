@@ -1253,7 +1253,7 @@
 	<string name="phone_number">Número de teléfono</string>
 	<string name="notification_unsent_reviews_title">Tienes varias reseñas sin enviar</string>
 	<string name="notification_unsent_reviews_message">Inicia sesión para compartir comentarios con otros viajeros</string>
-	<string name="profile_osm">Perfil OSM</string>
+	<string name="profile">Perfil de OpenStreetMap</string>
 	<string name="place_page_search_similar_hotel">Buscar hoteles similares</string>
 	<string name="bookmarks_detect_title">Nuevos archivos detectados</string>
 	<plurals name="bookmarks_detect_message">

@@ -2284,7 +2284,7 @@
 
 "notification_unsent_reviews_message" = " Please sign in to share reviews with other travelers";
 
-"profile_osm" = "Profile OSM";
+"profile" = "OpenStreetMap profile";
 
 "place_page_search_similar_hotel" = "Search similar hotels";
 
