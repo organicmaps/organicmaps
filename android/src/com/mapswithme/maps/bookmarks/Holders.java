@@ -210,18 +210,15 @@ public class Holders
     public @interface Section {}
 
     @NonNull
-    BookmarkCategory mCategory;
-    @NonNull
     private final View mView;
 
-    BaseBookmarkHolder(@NonNull View itemView, @NonNull BookmarkCategory category)
+    BaseBookmarkHolder(@NonNull View itemView)
     {
       super(itemView);
-      mCategory = category;
       mView = itemView;
     }
 
-    abstract void bind(int position);
+    abstract void bind(int position, @NonNull BookmarkCategory category);
 
     static int calculateTrackPosition(@NonNull BookmarkCategory category, int position)
     {
@@ -325,9 +322,9 @@ public class Holders
     @NonNull
     private final TextView mDistance;
 
-    BookmarkViewHolder(@NonNull View itemView, @NonNull BookmarkCategory category)
+    BookmarkViewHolder(@NonNull View itemView)
     {
-      super(itemView, category);
+      super(itemView);
       mIcon = itemView.findViewById(R.id.iv__bookmark_color);
       mName = itemView.findViewById(R.id.tv__bookmark_name);
       mDistance = itemView.findViewById(R.id.tv__bookmark_distance);
@@ -340,11 +337,11 @@ public class Holders
     }
 
     @Override
-    void bind(int position)
+    void bind(int position, @NonNull BookmarkCategory category)
     {
-      int pos = calculateBookmarkPosition(mCategory, position);
-      final long bookmarkId = BookmarkManager.INSTANCE.getBookmarkIdByPosition(mCategory.getId(), pos);
-      BookmarkInfo bookmark = new BookmarkInfo(mCategory.getId(), bookmarkId);
+      int pos = calculateBookmarkPosition(category, position);
+      final long bookmarkId = BookmarkManager.INSTANCE.getBookmarkIdByPosition(category.getId(), pos);
+      BookmarkInfo bookmark = new BookmarkInfo(category.getId(), bookmarkId);
       mName.setText(bookmark.getTitle());
       final Location loc = LocationHelper.INSTANCE.getSavedLocation();
       if (loc != null)
@@ -377,19 +374,19 @@ public class Holders
     @NonNull
     private final TextView mDistance;
 
-    TrackViewHolder(@NonNull View itemView, @NonNull BookmarkCategory category)
+    TrackViewHolder(@NonNull View itemView)
     {
-      super(itemView, category);
+      super(itemView);
       mIcon = itemView.findViewById(R.id.iv__bookmark_color);
       mName = itemView.findViewById(R.id.tv__bookmark_name);
       mDistance = itemView.findViewById(R.id.tv__bookmark_distance);
     }
 
     @Override
-    void bind(int position)
+    void bind(int position, @NonNull BookmarkCategory category)
     {
-      int relativePos = calculateTrackPosition(mCategory, position);
-      final long trackId = BookmarkManager.INSTANCE.getTrackIdByPosition(mCategory.getId(), relativePos);
+      int relativePos = calculateTrackPosition(category, position);
+      final long trackId = BookmarkManager.INSTANCE.getTrackIdByPosition(category.getId(), relativePos);
       Track track = BookmarkManager.INSTANCE.getTrack(trackId);
       mName.setText(track.getName());
       mDistance.setText(new StringBuilder().append(mDistance.getContext()
@@ -408,16 +405,16 @@ public class Holders
     @NonNull
     private final TextView mView;
 
-    SectionViewHolder(@NonNull TextView itemView, @NonNull BookmarkCategory category)
+    SectionViewHolder(@NonNull TextView itemView)
     {
-      super(itemView, category);
+      super(itemView);
       mView = itemView;
     }
 
     @Override
-    void bind(int position)
+    void bind(int position, @NonNull BookmarkCategory category)
     {
-      final int sectionIndex = getSectionForPosition(mCategory, position);
+      final int sectionIndex = getSectionForPosition(category, position);
       mView.setText(getSections().get(sectionIndex));
     }
 
@@ -446,7 +443,7 @@ public class Holders
 
     DescriptionViewHolder(@NonNull View itemView, @NonNull BookmarkCategory category)
     {
-      super(itemView, category);
+      super(itemView);
       mDescText = itemView.findViewById(R.id.text);
       mTitle = itemView.findViewById(R.id.title);
       mAuthor = itemView.findViewById(R.id.author);
@@ -454,39 +451,39 @@ public class Holders
       mMoreBtn = itemView.findViewById(R.id.more_btn);
       boolean isEmptyDesc = TextUtils.isEmpty(category.getDescription());
       UiUtils.hideIf(isEmptyDesc, mMoreBtn);
-      mMoreBtn.setOnClickListener(this::onMoreBtnClicked);
+      mMoreBtn.setOnClickListener(v -> onMoreBtnClicked(v, category));
     }
 
-    private void onMoreBtnClicked(@NonNull View v)
+    private void onMoreBtnClicked(@NonNull View v, @NonNull BookmarkCategory category)
     {
-      int lineCount = calcLineCount(mDescText, mCategory.getDescription());
+      int lineCount = calcLineCount(mDescText, category.getDescription());
       mDescText.setMaxLines(lineCount);
-      mDescText.setText(mCategory.getDescription());
+      mDescText.setText(category.getDescription());
       v.setVisibility(View.GONE);
     }
 
     @Override
-    void bind(int position)
+    void bind(int position, @NonNull BookmarkCategory category)
     {
-      mTitle.setText(mCategory.getName());
-      bindAuthor();
-      bindDescriptionIfEmpty();
+      mTitle.setText(category.getName());
+      bindAuthor(category);
+      bindDescriptionIfEmpty(category);
     }
 
-    private void bindDescriptionIfEmpty()
+    private void bindDescriptionIfEmpty(@NonNull BookmarkCategory category)
     {
       if (TextUtils.isEmpty(mDescText.getText()))
       {
-        String desc = TextUtils.isEmpty(mCategory.getAnnotation())
-                         ? mCategory.getDescription()
-                         : mCategory.getAnnotation();
+        String desc = TextUtils.isEmpty(category.getAnnotation())
+                         ? category.getDescription()
+                         : category.getAnnotation();
         mDescText.setText(desc);
       }
     }
 
-    private void bindAuthor()
+    private void bindAuthor(@NonNull BookmarkCategory category)
     {
-      BookmarkCategory.Author author = mCategory.getAuthor();
+      BookmarkCategory.Author author = category.getAuthor();
       Context c = itemView.getContext();
       CharSequence authorName = author == null
                                 ? null

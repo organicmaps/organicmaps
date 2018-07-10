@@ -19,11 +19,11 @@ import android.view.ViewGroup;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
-import com.mapswithme.maps.bookmarks.data.AbstractCategoriesSnapshot;
 import com.mapswithme.maps.bookmarks.data.Bookmark;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.bookmarks.data.BookmarkSharingResult;
+import com.mapswithme.maps.bookmarks.data.CategoryDataSource;
 import com.mapswithme.maps.bookmarks.data.Track;
 import com.mapswithme.maps.widget.placepage.EditBookmarkFragment;
 import com.mapswithme.maps.widget.placepage.Sponsored;
@@ -45,7 +45,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
   @SuppressWarnings("NullableProblems")
   @NonNull
-  private BookmarkCategory mCategory;
+  private CategoryDataSource mCategoryDataSource;
   private int mSelectedPosition;
 
   @CallSuper
@@ -53,7 +53,8 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    mCategory = getCategoryOrThrow();
+    BookmarkCategory category = getCategoryOrThrow();
+    mCategoryDataSource = new CategoryDataSource(category);
   }
 
   @NonNull
@@ -71,7 +72,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   @Override
   protected BookmarkListAdapter createAdapter()
   {
-    return new BookmarkListAdapter(mCategory);
+    return new BookmarkListAdapter(mCategoryDataSource);
   }
 
   @Override
@@ -92,7 +93,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
     showPlaceholder(isEmpty);
     ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
     if (bar != null)
-      bar.setTitle(mCategory.getName());
+      bar.setTitle(mCategoryDataSource.getData().getName());
     addRecyclerDecor();
   }
 
@@ -139,8 +140,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   private void configureAdapter()
   {
     BookmarkListAdapter adapter = getAdapter();
-
-    adapter.registerAdapterDataObserver(new CategoryDataObserver());
+    adapter.registerAdapterDataObserver(mCategoryDataSource);
     adapter.startLocationUpdate();
     adapter.setOnClickListener(this);
     adapter.setOnLongClickListener(isCatalogCategory() ? null : this);
@@ -265,7 +265,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
 
   private boolean isCatalogCategory()
   {
-    return mCategory.getType() == BookmarkCategory.Type.CATALOG;
+    return mCategoryDataSource.getData().getType() == BookmarkCategory.Type.CATALOG;
   }
 
   @Override
@@ -273,24 +273,11 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   {
     if (item.getItemId() == R.id.set_share)
     {
-      SharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(getActivity(), mCategory.getId());
+      SharingHelper.INSTANCE.prepareBookmarkCategoryForSharing(getActivity(),
+                                                               mCategoryDataSource.getData().getId());
       return true;
     }
 
     return super.onOptionsItemSelected(item);
-  }
-
-  private class CategoryDataObserver extends RecyclerView.AdapterDataObserver
-  {
-    @Override
-    public void onChanged()
-    {
-      super.onChanged();
-      AbstractCategoriesSnapshot.Default snapshot =
-          BookmarkManager.INSTANCE.getCategoriesSnapshot(mCategory.getType().getFilterStrategy());
-
-      int index = snapshot.indexOfOrThrow(mCategory);
-      getAdapter().updateCategory(snapshot.getItems().get(index));
-    }
   }
 }
