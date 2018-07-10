@@ -14326,39 +14326,6 @@ fa = دوباره نپرس
     sk = Upraviť otváracie hodiny
     fa = ویرایش ساعت کاری
 
-  [profile]
-    tags = ios, android
-    en = Profile
-    ru = Профиль
-    ar = الملف الشخصي
-    cs = Profil
-    da = Profil
-    nl = Profiel
-    fi = Profiili
-    fr = Profil
-    de = Profil
-    hu = Profil
-    id = Profil
-    it = Profilo
-    ja = プロフィール
-    ko = 프로필
-    nb = Profil
-    pl = Profil
-    pt = Perfil
-    pt-BR = Perfil
-    ro = Profil
-    es = Perfil
-    sv = Profil
-    th = โปรไฟล์
-    tr = Profil
-    uk = Профіль
-    vi = Hồ sơ
-    zh-Hans = 资料
-    zh-Hant = 資料
-    el = Προφίλ
-    sk = Profil
-    fa = نمایه
-
   [no_osm_account]
     tags = ios, android
     en = Don't have an OpenStreetMap account?
