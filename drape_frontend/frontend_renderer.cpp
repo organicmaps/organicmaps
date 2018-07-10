@@ -510,6 +510,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
         m_routeRenderer->Clear();
         ++m_lastRecacheRouteId;
         m_myPositionController->DeactivateRouting();
+        m_postprocessRenderer->OnChangedRouteFollowingMode(false /* active */);
         if (m_enablePerspectiveInNavigation)
           DisablePerspective();
       }
@@ -541,6 +542,7 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::DeactivateRouteFollowing:
     {
       m_myPositionController->DeactivateRouting();
+      m_postprocessRenderer->OnChangedRouteFollowingMode(false /* active */);
       if (m_enablePerspectiveInNavigation)
         DisablePerspective();
       break;
@@ -947,6 +949,7 @@ void FrontendRenderer::FollowRoute(int preferredZoomLevel, int preferredZoomLeve
     AddUserEvent(make_unique_dp<SetAutoPerspectiveEvent>(true /* isAutoPerspective */));
 
   m_routeRenderer->SetFollowingEnabled(true);
+  m_postprocessRenderer->OnChangedRouteFollowingMode(true /* active */);
 }
 
 bool FrontendRenderer::CheckRouteRecaching(ref_ptr<BaseSubrouteData> subrouteData)
@@ -2006,7 +2009,17 @@ void FrontendRenderer::Routine::Do()
   scaleFpsHelper.SetVisible(true);
 #endif
 
+  uint64_t framesOverall = 0;
+  uint64_t framesFast = 0;
+
   m_renderer.ScheduleOverlayCollecting();
+
+  // Uncomment only for debug purposes!
+//  m_renderer.m_notifier->Notify(ThreadsCommutator::RenderThread, std::chrono::seconds(5),
+//                                true /* repeating */, [&framesOverall, &framesFast](uint64_t)
+//  {
+//    LOG(LINFO, ("framesOverall =", framesOverall, "framesFast =", framesFast));
+//  });
 
   while (!IsCancelled())
   {
@@ -2029,10 +2042,17 @@ void FrontendRenderer::Routine::Do()
       isActiveFrame |= m_renderer.m_userEventStream.IsWaitingForActionCompletion();
       isActiveFrame |= InterpolationHolder::Instance().IsActive();
 
-      bool isActiveFrameForScene = isActiveFrame || !AnimationSystem::Instance().HasOnlyArrowAnimations();
-      isActiveFrame |= AnimationSystem::Instance().HasAnimations();
+      bool isActiveFrameForScene = isActiveFrame;
+      if (AnimationSystem::Instance().HasAnimations())
+      {
+        isActiveFrameForScene |= !AnimationSystem::Instance().HasOnlyArrowAnimations();
+        isActiveFrame = true;
+      }
 
       m_renderer.m_routeRenderer->UpdatePreview(modelView);
+
+      framesOverall += static_cast<uint64_t>(isActiveFrame);
+      framesFast += static_cast<uint64_t>(!isActiveFrameForScene);
 
       m_renderer.RenderScene(modelView, isActiveFrameForScene);
 
@@ -2093,7 +2113,7 @@ void FrontendRenderer::Routine::Do()
       }
 
       frameTime = timer.ElapsedSeconds();
-      scaleFpsHelper.SetFrameTime(frameTime, inactiveFramesCounter == 0);
+      scaleFpsHelper.SetFrameTime(frameTime, inactiveFramesCounter + 1 < kMaxInactiveFrames);
     }
     else
     {
@@ -2186,6 +2206,9 @@ ScreenBase const & FrontendRenderer::ProcessEvents(bool & modelViewChanged, bool
 {
   ScreenBase const & modelView = m_userEventStream.ProcessEvents(modelViewChanged, viewportChanged);
   gui::DrapeGui::Instance().SetInUserAction(m_userEventStream.IsInUserAction());
+
+  // Location- or compass-update could have changed model view on the previous frame.
+  // So we have to check it here.
   if (m_lastReadedModelView != modelView)
     modelViewChanged = true;
 

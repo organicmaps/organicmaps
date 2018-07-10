@@ -48,6 +48,7 @@ public:
   bool IsEffectEnabled(Effect effect) const;
 
   void OnFramebufferFallback();
+  void OnChangedRouteFollowingMode(bool isRouteFollowingActive);
 
   bool BeginFrame(bool activeFrame);
   void EndFrame(ref_ptr<gpu::ProgramManager> gpuProgramManager);
@@ -81,6 +82,7 @@ private:
   drape_ptr<RendererContext> m_defaultScreenQuadContext;
 
   bool m_frameStarted;
+  bool m_isRouteFollowingActive;
 };
 
 class StencilWriterGuard

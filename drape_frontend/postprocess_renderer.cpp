@@ -212,6 +212,7 @@ PostprocessRenderer::PostprocessRenderer()
   , m_smaaFinalRendererContext(make_unique_dp<SMAAFinalRendererContext>())
   , m_defaultScreenQuadContext(make_unique_dp<DefaultScreenQuadContext>())
   , m_frameStarted(false)
+  , m_isRouteFollowingActive(false)
 {}
 
 PostprocessRenderer::~PostprocessRenderer()
@@ -256,6 +257,10 @@ void PostprocessRenderer::SetStaticTextures(drape_ptr<PostprocessStaticTextures>
 
 bool PostprocessRenderer::IsEnabled() const
 {
+  // Do not use post processing in routing following mode by energy-saving reasons.
+  if (m_isRouteFollowingActive)
+    return false;
+
   return IsSupported(m_mainFramebuffer);
 }
 
@@ -444,6 +449,13 @@ void PostprocessRenderer::OnFramebufferFallback()
     m_mainFramebuffer->Enable();
   else
     m_framebufferFallback();
+}
+
+void PostprocessRenderer::OnChangedRouteFollowingMode(bool isRouteFollowingActive)
+{
+  m_isRouteFollowingActive = isRouteFollowingActive;
+  m_isMainFramebufferRendered = false;
+  m_isSmaaFramebufferRendered = false;
 }
 
 StencilWriterGuard::StencilWriterGuard(ref_ptr<PostprocessRenderer> renderer)

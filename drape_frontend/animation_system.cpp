@@ -158,6 +158,9 @@ bool AnimationSystem::HasAnimations() const
 
 bool AnimationSystem::HasOnlyArrowAnimations() const
 {
+  if (!HasAnimations())
+    return false;
+
   if (AnimationExists(Animation::Object::MapPlane))
     return false;
 
