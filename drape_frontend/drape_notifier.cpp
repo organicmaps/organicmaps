@@ -27,7 +27,7 @@ void DrapeNotifier::NotifyImpl(ThreadsCommutator::ThreadName threadName,
     [this, threadName, duration, repeating, notifyId, functor = std::move(functor)]() mutable
   {
     m_commutator->PostMessage(threadName,
-                              make_unique_dp<NotifyRenderThreadMessage>(std::move(functor), notifyId),
+                              make_unique_dp<NotifyRenderThreadMessage>(functor, notifyId),
                               MessagePriority::Normal);
     if (repeating)
       NotifyImpl(threadName, duration, repeating, notifyId, std::move(functor));

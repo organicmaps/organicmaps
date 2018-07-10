@@ -1,5 +1,6 @@
 #pragma once
 
+#include "drape/drape_global.hpp"
 #include "drape/framebuffer.hpp"
 #include "drape/pointers.hpp"
 
@@ -37,19 +38,18 @@ public:
   PostprocessRenderer();
   ~PostprocessRenderer();
 
-  void Init(dp::FramebufferFallback && fallback);
+  void Init(dp::ApiVersion apiVersion, dp::FramebufferFallback && fallback);
   void ClearGLDependentResources();
   void Resize(uint32_t width, uint32_t height);
   void SetStaticTextures(drape_ptr<PostprocessStaticTextures> && textures);
 
-  void SetEnabled(bool enabled);
   bool IsEnabled() const;
   void SetEffectEnabled(Effect effect, bool enabled);
   bool IsEffectEnabled(Effect effect) const;
 
   void OnFramebufferFallback();
 
-  void BeginFrame();
+  bool BeginFrame(bool activeFrame);
   void EndFrame(ref_ptr<gpu::ProgramManager> gpuProgramManager);
 
   void EnableWritingToStencil() const;
@@ -57,8 +57,9 @@ public:
 
 private:
   void UpdateFramebuffers(uint32_t width, uint32_t height);
+  bool CanRenderAntialiasing() const;
 
-  bool m_isEnabled;
+  dp::ApiVersion m_apiVersion;
   uint32_t m_effects;
 
   drape_ptr<ScreenQuadRenderer> m_screenQuadRenderer;
@@ -68,12 +69,16 @@ private:
   uint32_t m_height;
 
   drape_ptr<dp::Framebuffer> m_mainFramebuffer;
+  bool m_isMainFramebufferRendered;
   drape_ptr<dp::Framebuffer> m_edgesFramebuffer;
   drape_ptr<dp::Framebuffer> m_blendingWeightFramebuffer;
+  drape_ptr<dp::Framebuffer> m_smaaFramebuffer;
+  bool m_isSmaaFramebufferRendered;
 
   drape_ptr<RendererContext> m_edgesRendererContext;
   drape_ptr<RendererContext> m_bwRendererContext;
   drape_ptr<RendererContext> m_smaaFinalRendererContext;
+  drape_ptr<RendererContext> m_defaultScreenQuadContext;
 
   bool m_frameStarted;
 };

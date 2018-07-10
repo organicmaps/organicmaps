@@ -156,6 +156,17 @@ bool AnimationSystem::HasAnimations() const
   return !m_animationChain.empty();
 }
 
+bool AnimationSystem::HasOnlyArrowAnimations() const
+{
+  if (AnimationExists(Animation::Object::MapPlane))
+    return false;
+
+  if (AnimationExists(Animation::Object::Selection))
+    return false;
+
+  return true;
+}
+
 AnimationSystem & AnimationSystem::Instance()
 {
   static AnimationSystem animSystem;
@@ -346,10 +357,10 @@ void AnimationSystem::FinishObjectAnimations(Animation::Object object, bool rewi
                    rewind, finishAll);
 }
 
-bool AnimationSystem::Advance(double elapsedSeconds)
+void AnimationSystem::Advance(double elapsedSeconds)
 {
-  if (m_animationChain.empty())
-    return false;
+  if (!HasAnimations())
+    return;
 
   TAnimationList finishedAnimations;
   TAnimationList & frontList = *(m_animationChain.front());
@@ -373,8 +384,6 @@ bool AnimationSystem::Advance(double elapsedSeconds)
   }
   if (frontList.empty())
     StartNextAnimations();
-
-  return true;
 }
 
 #ifdef DEBUG_ANIMATIONS

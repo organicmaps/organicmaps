@@ -33,6 +33,7 @@ public:
 
   bool AnimationExists(Animation::Object object) const;
   bool HasAnimations() const;
+  bool HasOnlyArrowAnimations() const;
 
   void CombineAnimation(drape_ptr<Animation> && animation);
   void PushAnimation(drape_ptr<Animation> && animation);
@@ -60,7 +61,7 @@ public:
     return nullptr;
   }
 
-  bool Advance(double elapsedSeconds);
+  void Advance(double elapsedSeconds);
 
   ScreenBase const & GetLastScreen() { return m_lastScreen; }
   void SaveAnimationResult(Animation const & animation);
