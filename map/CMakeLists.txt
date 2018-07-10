@@ -39,6 +39,8 @@ set(
   discovery/discovery_client_params.hpp
   discovery/discovery_manager.cpp
   discovery/discovery_manager.hpp
+  discovery/discovery_search_callback.cpp
+  discovery/discovery_search_callback.hpp
   discovery/discovery_search_params.hpp
   displacement_mode_manager.cpp
   displacement_mode_manager.hpp
@@ -87,6 +89,7 @@ set(
   search_api.hpp
   search_mark.cpp
   search_mark.hpp
+  search_product_info.hpp
   taxi_delegate.cpp
   taxi_delegate.hpp
   track.cpp

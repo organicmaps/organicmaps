@@ -2,7 +2,9 @@
 
 #include "map/booking_filter_params.hpp"
 #include "map/bookmark.hpp"
+#include "map/discovery/discovery_search_callback.hpp"
 #include "map/everywhere_search_callback.hpp"
+#include "map/search_product_info.hpp"
 #include "map/viewport_search_callback.hpp"
 
 #include "search/downloader_search_callback.hpp"
@@ -44,7 +46,8 @@ struct DownloaderSearchParams;
 
 class SearchAPI : public search::DownloaderSearchCallback::Delegate,
                   public search::EverywhereSearchCallback::Delegate,
-                  public search::ViewportSearchCallback::Delegate
+                  public search::ViewportSearchCallback::Delegate,
+                  public search::ProductInfo::Delegate
 {
 public:
   struct Delegate

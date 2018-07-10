@@ -1,6 +1,7 @@
 #pragma once
 
 #include "map/discovery/discovery_client_params.hpp"
+#include "map/search_product_info.hpp"
 
 #include "search/result.hpp"
 
@@ -10,6 +11,7 @@
 #include <cstddef>
 #include <functional>
 #include <string>
+#include <vector>
 
 namespace search
 {
@@ -42,7 +44,8 @@ struct DiscoverySearchParams
     }
   };
 
-  using OnResults = std::function<void(Results const & results)>;
+  using OnResults =
+      std::function<void(Results const & results, std::vector<ProductInfo> const & productInfo)>;
 
   std::string m_query;
   size_t m_itemsCount = 0;

@@ -5,10 +5,11 @@
 
 namespace search
 {
-EverywhereSearchCallback::EverywhereSearchCallback(Delegate & delegate,
-                                                   booking::filter::Tasks const & bookingFilterTasks,
-                                                   EverywhereSearchParams::OnResults onResults)
-  : m_delegate(delegate)
+EverywhereSearchCallback::EverywhereSearchCallback(
+    Delegate & hotelsDelegate, ProductInfo::Delegate & productInfoDelegate,
+    booking::filter::Tasks const & bookingFilterTasks, EverywhereSearchParams::OnResults onResults)
+  : m_hotelsDelegate(hotelsDelegate)
+  , m_productInfoDelegate(productInfoDelegate)
   , m_onResults(std::move(onResults))
   , m_bookingFilterTasks(bookingFilterTasks)
 {
@@ -21,13 +22,14 @@ void EverywhereSearchCallback::operator()(Results const & results)
 
   for (size_t i = prevSize; i < results.GetCount(); ++i)
   {
-    m_productInfo.push_back(m_delegate.GetProductInfo(results[i]));
+    m_productInfo.push_back(m_productInfoDelegate.GetProductInfo(results[i]));
   }
 
   if (results.IsEndedNormal() && results.GetType() == Results::Type::Hotels &&
       !m_bookingFilterTasks.IsEmpty())
   {
-    m_delegate.FilterResultsForHotelsQuery(m_bookingFilterTasks, results, false /* inViewport */);
+    m_hotelsDelegate.FilterResultsForHotelsQuery(m_bookingFilterTasks, results,
+                                                 false /* inViewport */);
   }
 
   ASSERT_EQUAL(m_productInfo.size(), results.GetCount(), ());

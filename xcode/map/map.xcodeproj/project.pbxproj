@@ -32,6 +32,9 @@
 		3D4E99A21FB4A6410025B48C /* booking_filter_cache.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D4E999E1FB4A6400025B48C /* booking_filter_cache.hpp */; };
 		3D4E99A31FB4A6410025B48C /* booking_filter_cache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4E999F1FB4A6400025B48C /* booking_filter_cache.cpp */; };
 		3D4E99A51FB4A6410025B48C /* booking_filter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D4E99A11FB4A6410025B48C /* booking_filter.hpp */; };
+		3D62CBCC20F4DFD600E7BB6E /* search_product_info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D62CBCB20F4DFD600E7BB6E /* search_product_info.hpp */; };
+		3D62CBCF20F4DFE800E7BB6E /* discovery_search_callback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D62CBCD20F4DFE700E7BB6E /* discovery_search_callback.cpp */; };
+		3D62CBD020F4DFE800E7BB6E /* discovery_search_callback.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3D62CBCE20F4DFE700E7BB6E /* discovery_search_callback.hpp */; };
 		3D74ABBE1EA76F1D0063A898 /* local_ads_supported_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74ABBD1EA76F1D0063A898 /* local_ads_supported_types.cpp */; };
 		3DA5713F20B5CC80007BDE27 /* booking_availability_filter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA5713A20B5CC7F007BDE27 /* booking_availability_filter.hpp */; };
 		3DA5714020B5CC80007BDE27 /* booking_filter_params.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 3DA5713B20B5CC7F007BDE27 /* booking_filter_params.hpp */; };
@@ -247,6 +250,9 @@
 		3D4E999E1FB4A6400025B48C /* booking_filter_cache.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_filter_cache.hpp; sourceTree = "<group>"; };
 		3D4E999F1FB4A6400025B48C /* booking_filter_cache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = booking_filter_cache.cpp; sourceTree = "<group>"; };
 		3D4E99A11FB4A6410025B48C /* booking_filter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_filter.hpp; sourceTree = "<group>"; };
+		3D62CBCB20F4DFD600E7BB6E /* search_product_info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = search_product_info.hpp; sourceTree = "<group>"; };
+		3D62CBCD20F4DFE700E7BB6E /* discovery_search_callback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = discovery_search_callback.cpp; sourceTree = "<group>"; };
+		3D62CBCE20F4DFE700E7BB6E /* discovery_search_callback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = discovery_search_callback.hpp; sourceTree = "<group>"; };
 		3D74ABBD1EA76F1D0063A898 /* local_ads_supported_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = local_ads_supported_types.cpp; sourceTree = "<group>"; };
 		3DA5713A20B5CC7F007BDE27 /* booking_availability_filter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_availability_filter.hpp; sourceTree = "<group>"; };
 		3DA5713B20B5CC7F007BDE27 /* booking_filter_params.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = booking_filter_params.hpp; sourceTree = "<group>"; };
@@ -698,6 +704,7 @@
 		675345BD1A4054AD00A0A8C3 /* map */ = {
 			isa = PBXGroup;
 			children = (
+				3D62CBCB20F4DFD600E7BB6E /* search_product_info.hpp */,
 				56C1165E2090E5670068BBC0 /* extrapolator.cpp */,
 				56C1165F2090E5670068BBC0 /* extrapolator.hpp */,
 				675345CB1A4054E800A0A8C3 /* address_finder.cpp */,
@@ -811,6 +818,8 @@
 		F6FC3CB11FC323420001D929 /* discovery */ = {
 			isa = PBXGroup;
 			children = (
+				3D62CBCD20F4DFE700E7BB6E /* discovery_search_callback.cpp */,
+				3D62CBCE20F4DFE700E7BB6E /* discovery_search_callback.hpp */,
 				F69687C7201B4A3500457650 /* discovery_search_params.hpp */,
 				F6FC3CB21FC323420001D929 /* discovery_client_params.hpp */,
 				F6FC3CB31FC323420001D929 /* discovery_manager.cpp */,
@@ -836,6 +845,7 @@
 				454649F21F2728CE00EF4064 /* local_ads_mark.hpp in Headers */,
 				BBA014AE2073C784007402E4 /* bookmark_helpers.hpp in Headers */,
 				F6B283061C1B03320081957A /* gps_track_filter.hpp in Headers */,
+				3D62CBCC20F4DFD600E7BB6E /* search_product_info.hpp in Headers */,
 				F69687C8201B4A3600457650 /* discovery_search_params.hpp in Headers */,
 				3D4E99831FB462B60025B48C /* viewport_search_params.hpp in Headers */,
 				34583BD01C88556800F94664 /* place_page_info.hpp in Headers */,
@@ -861,6 +871,7 @@
 				F6B2830A1C1B03320081957A /* gps_track.hpp in Headers */,
 				3D4E99A21FB4A6410025B48C /* booking_filter_cache.hpp in Headers */,
 				F6D67CE32063F4980032FD38 /* framework_light.hpp in Headers */,
+				3D62CBD020F4DFE800E7BB6E /* discovery_search_callback.hpp in Headers */,
 				45F6EE9D1FB1C77600019892 /* search_api.hpp in Headers */,
 				3DA5723120C195ED007BDE27 /* everywhere_search_callback.hpp in Headers */,
 				3DA5723020C195ED007BDE27 /* viewport_search_callback.hpp in Headers */,
@@ -1051,6 +1062,7 @@
 				3DA5723320C195ED007BDE27 /* viewport_search_callback.cpp in Sources */,
 				675346641A4054E800A0A8C3 /* framework.cpp in Sources */,
 				BB4E5F281FCC664A00A77250 /* transit_reader.cpp in Sources */,
+				3D62CBCF20F4DFE800E7BB6E /* discovery_search_callback.cpp in Sources */,
 				454649F11F2728CE00EF4064 /* local_ads_mark.cpp in Sources */,
 				F63421F81DF9BF9100A96868 /* reachable_by_taxi_checker.cpp in Sources */,
 				56C116602090E5670068BBC0 /* extrapolator.cpp in Sources */,

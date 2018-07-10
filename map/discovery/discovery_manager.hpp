@@ -5,6 +5,7 @@
 #include "map/discovery/discovery_client_params.hpp"
 #include "map/discovery/discovery_search_params.hpp"
 #include "map/search_api.hpp"
+#include "map/search_product_info.hpp"
 
 #include "partners_api/booking_api.hpp"
 #include "partners_api/locals_api.hpp"
@@ -114,10 +115,12 @@ public:
       {
         auto p = GetSearchParams(params, type);
         auto const viewportCenter = params.m_viewportCenter;
-        p.m_onResults = [requestId, onResult, type, viewportCenter](search::Results const & results) {
+        p.m_onResults =
+          [requestId, onResult, type, viewportCenter](search::Results const & results,
+                                                      std::vector<search::ProductInfo> const & productInfo) {
           GetPlatform().RunTask(Platform::Thread::Gui,
-                                [requestId, onResult, type, results, viewportCenter] {
-            onResult(requestId, results, type, viewportCenter);
+                                [requestId, onResult, type, results, productInfo, viewportCenter] {
+            onResult(requestId, results, productInfo, type, viewportCenter);
           });
         };
         m_searchApi.SearchForDiscovery(p);

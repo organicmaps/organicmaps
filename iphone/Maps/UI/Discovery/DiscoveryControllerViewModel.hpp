@@ -1,6 +1,7 @@
 #pragma once
 
 #include "map/discovery/discovery_client_params.hpp"
+#include "map/search_product_info.hpp"
 
 #include "partners_api/locals_api.hpp"
 #include "partners_api/viator_api.hpp"
@@ -18,8 +19,9 @@ namespace discovery
 class DiscoveryControllerViewModel
 {
 public:
-  void SetSearchResults(search::Results const & res, m2::PointD const & viewportCenter,
-                        ItemType const type)
+  void SetSearchResults(search::Results const & res,
+                        std::vector<search::ProductInfo> const & productInfo,
+                        m2::PointD const & viewportCenter, ItemType const type)
   {
     switch (type)
     {

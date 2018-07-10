@@ -1,6 +1,7 @@
 #include "map/search_api.hpp"
 
 #include "map/bookmarks_search_params.hpp"
+#include "map/discovery/discovery_search_callback.hpp"
 #include "map/discovery/discovery_search_params.hpp"
 #include "map/everywhere_search_params.hpp"
 #include "map/viewport_search_params.hpp"
@@ -178,6 +179,7 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
 
   p.m_onResults = EverywhereSearchCallback(
       static_cast<EverywhereSearchCallback::Delegate &>(*this),
+      static_cast<ProductInfo::Delegate &>(*this),
       params.m_bookingFilterTasks,
       [this, params](Results const & results, std::vector<ProductInfo> const & productInfo) {
         if (params.m_onResults)
@@ -240,31 +242,33 @@ void SearchAPI::SearchForDiscovery(DiscoverySearchParams const & params)
   p.m_position = params.m_position;
   p.m_maxNumResults = resultsCount;
   p.m_mode = search::Mode::Everywhere;
-  p.m_onResults = [params](Results const & results) {
+  p.m_onResults = DiscoverySearchCallback(
+    static_cast<ProductInfo::Delegate &>(*this),
+    [params](Results const & results, std::vector<ProductInfo> const & productInfo) {
     if (!results.IsEndMarker())
       return;
 
     switch (params.m_sortingType)
     {
     case DiscoverySearchParams::SortingType::None:
-      params.m_onResults(results);
+      params.m_onResults(results, productInfo);
       break;
     case DiscoverySearchParams::SortingType::HotelRating:
     {
       Results r(results);
       r.SortBy(DiscoverySearchParams::HotelRatingComparator());
-      params.m_onResults(TrimResults(move(r), params.m_itemsCount));
+      params.m_onResults(TrimResults(move(r), params.m_itemsCount), productInfo);
       break;
     }
     case DiscoverySearchParams::SortingType::Popularity:
     {
       Results r(results);
       r.SortBy(DiscoverySearchParams::PopularityComparator());
-      params.m_onResults(TrimResults(move(r), params.m_itemsCount));
+      params.m_onResults(TrimResults(move(r), params.m_itemsCount), productInfo);
       break;
     }
     }
-  };
+  });
 
   GetEngine().Search(p);
 }

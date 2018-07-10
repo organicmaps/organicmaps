@@ -1,6 +1,7 @@
 #pragma once
 
 #include "map/booking_filter_params.hpp"
+#include "map/search_product_info.hpp"
 
 #include "search/hotels_filter.hpp"
 #include "search/result.hpp"
@@ -12,14 +13,6 @@
 
 namespace search
 {
-struct ProductInfo
-{
-  static auto constexpr kInvalidRating = kInvalidRatingValue;
-
-  bool m_isLocalAdsCustomer = false;
-  float m_ugcRating = kInvalidRating;
-};
-
 struct EverywhereSearchParams
 {
   std::string m_query;
