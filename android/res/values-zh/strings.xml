@@ -694,7 +694,6 @@
 	<string name="sunset_to_sunrise">从日落到日出</string>
 	<string name="add_opening_hours">添加工作时间</string>
 	<string name="edit_opening_hours">编辑工作时间</string>
-	<string name="profile">资料</string>
 	<string name="no_osm_account">OpenStreetMap上没有账户吗？</string>
 	<string name="register_at_openstreetmap">注册</string>
 	<string name="password_8_chars_min">密码（最少8个字符）</string>

@@ -688,7 +688,6 @@
 	<string name="sunset_to_sunrise">Van zonsondergang tot zonsopgang</string>
 	<string name="add_opening_hours">Openingsuren toevoegen</string>
 	<string name="edit_opening_hours">Openingsuren bewerken</string>
-	<string name="profile">Profiel</string>
 	<string name="no_osm_account">Geen account bij OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Registeren</string>
 	<string name="password_8_chars_min">Wachtwoord (minimaal 8 tekens)</string>

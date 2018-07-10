@@ -692,7 +692,6 @@
 	<string name="sunset_to_sunrise">Від заходу до світанку</string>
 	<string name="add_opening_hours">Додати години роботи</string>
 	<string name="edit_opening_hours">Редагувати години роботи</string>
-	<string name="profile">Профіль</string>
 	<string name="no_osm_account">Не зареєстровані в OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Зареєструватися</string>
 	<string name="password_8_chars_min">Пароль (мінімум 8 символів)</string>

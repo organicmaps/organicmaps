@@ -691,7 +691,6 @@
 	<string name="sunset_to_sunrise">Od západu do východu slnka</string>
 	<string name="add_opening_hours">Pridať otváracie hodiny</string>
 	<string name="edit_opening_hours">Upraviť otváracie hodiny</string>
-	<string name="profile">Profil</string>
 	<string name="no_osm_account">Nemáte účet v OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Zaregistrovať sa</string>
 	<string name="password_8_chars_min">Heslo (8 minimálne znakov)</string>

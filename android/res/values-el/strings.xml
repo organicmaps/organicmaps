@@ -525,7 +525,6 @@
 	<string name="today">Σήμερα</string>
 	<string name="add_opening_hours">Προσθέστε ώρες λειτουργίας</string>
 	<string name="edit_opening_hours">Επεξεργαστείτε τις ώρες λειτουργίας</string>
-	<string name="profile">Προφίλ</string>
 	<string name="no_osm_account">Δεν έχετε λογαριασμό OpenStreetMap;</string>
 	<string name="register_at_openstreetmap">Εγγραφείτε στο OpenStreetMap</string>
 	<string name="password_8_chars_min">Κωδικός πρόσβασης (8 χαρακτήρες ελάχιστο)</string>

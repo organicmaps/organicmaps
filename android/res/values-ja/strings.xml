@@ -687,7 +687,6 @@
 	<string name="sunset_to_sunrise">日の出から日没まで</string>
 	<string name="add_opening_hours">営業時間を追加</string>
 	<string name="edit_opening_hours">営業時間を編集</string>
-	<string name="profile">プロフィール</string>
 	<string name="no_osm_account">OpenStreetMapのアカウントがありませんか？</string>
 	<string name="register_at_openstreetmap">登録</string>
 	<string name="password_8_chars_min">パスワード(最低8文字)</string>

@@ -694,7 +694,6 @@
 	<string name="sunset_to_sunrise">Gün doğumundan gün batımına</string>
 	<string name="add_opening_hours">İş saatlerini ekle</string>
 	<string name="edit_opening_hours">İş saatlerini düzenle</string>
-	<string name="profile">Profil</string>
 	<string name="no_osm_account">OpenStreetMap\' hesabın yok mu?</string>
 	<string name="register_at_openstreetmap">Kaydol</string>
 	<string name="password_8_chars_min">Şifre (en az 8 karakter)</string>

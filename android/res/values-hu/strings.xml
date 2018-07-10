@@ -689,7 +689,6 @@
 	<string name="sunset_to_sunrise">Napkeltétől napnyugtáig</string>
 	<string name="add_opening_hours">Nyitvatartás hozzáadása</string>
 	<string name="edit_opening_hours">Nyitvatartás szerkesztése</string>
-	<string name="profile">Profil</string>
 	<string name="no_osm_account">Nem rendelkezel még OpenStreetMap-felhasználói fiókkal?</string>
 	<string name="register_at_openstreetmap">Regisztráció</string>
 	<string name="password_8_chars_min">Jelszó (legalább 8 karakter)</string>

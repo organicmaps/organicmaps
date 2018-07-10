@@ -687,7 +687,6 @@
 	<string name="sunset_to_sunrise">Dal tramonto all\'alba</string>
 	<string name="add_opening_hours">Aggiungi orari di apertura</string>
 	<string name="edit_opening_hours">Modifica orari di apertura</string>
-	<string name="profile">Profilo</string>
 	<string name="no_osm_account">Non hai un account su OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Registrati</string>
 	<string name="password_8_chars_min">Password (minimo 8 caratteri)</string>

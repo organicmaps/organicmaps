@@ -685,7 +685,6 @@
 	<string name="sunset_to_sunrise">De la apus până la răsărit</string>
 	<string name="add_opening_hours">Adăugare ore de funcționare</string>
 	<string name="edit_opening_hours">Editare ore de funcționare</string>
-	<string name="profile">Profil</string>
 	<string name="no_osm_account">Nu aveți un cont în OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Înregistrați-vă</string>
 	<string name="password_8_chars_min">Parolă (minim 8 caractere)</string>

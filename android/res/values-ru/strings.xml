@@ -707,7 +707,6 @@
 	<string name="sunset_to_sunrise">От заката до рассвета</string>
 	<string name="add_opening_hours">Добавить время работы</string>
 	<string name="edit_opening_hours">Редактировать время работы</string>
-	<string name="profile">Профиль</string>
 	<string name="no_osm_account">Не зарегистрированы в OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Зарегистрироваться</string>
 	<string name="password_8_chars_min">Пароль (минимум 8 символов)</string>

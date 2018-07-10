@@ -687,7 +687,6 @@
 	<string name="sunset_to_sunrise">Dari matahari terbenam sampai matahari terbit</string>
 	<string name="add_opening_hours">Tambah jam kerja</string>
 	<string name="edit_opening_hours">Sunting jam kerja</string>
-	<string name="profile">Profil</string>
 	<string name="no_osm_account">Tidak ada akun di OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Mendaftar</string>
 	<string name="password_8_chars_min">Kata Sandi (minimal 8 karakter)</string>

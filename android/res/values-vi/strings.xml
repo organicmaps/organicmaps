@@ -688,7 +688,6 @@
 	<string name="sunset_to_sunrise">Từ hoàng hôn đến bình minh</string>
 	<string name="add_opening_hours">Thêm giờ làm việc</string>
 	<string name="edit_opening_hours">Sửa giờ làm việc</string>
-	<string name="profile">Hồ sơ</string>
 	<string name="no_osm_account">Bạn chưa có tài khoản tại OpenStreetMap ư?</string>
 	<string name="register_at_openstreetmap">Đăng ký</string>
 	<string name="password_8_chars_min">Mật khẩu (tối thiểu 8 ký tự)</string>

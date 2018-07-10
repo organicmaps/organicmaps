@@ -694,7 +694,6 @@
 	<string name="sunset_to_sunrise">من غروب الشمس وحتى الشروق</string>
 	<string name="add_opening_hours">اضف ساعات عمل</string>
 	<string name="edit_opening_hours">حرر ساعات عمل</string>
-	<string name="profile">الملف الشخصي</string>
 	<string name="no_osm_account">ليس لديك حساب في OpenStreetMap؟</string>
 	<string name="register_at_openstreetmap">التسجيل</string>
 	<string name="password_8_chars_min">كلمة المرور (8 أحرف بحد أدنى)</string>

@@ -692,7 +692,6 @@
 	<string name="sunset_to_sunrise">Fra solnedgang til solopgang</string>
 	<string name="add_opening_hours">Tilføj arbejdstid</string>
 	<string name="edit_opening_hours">Rediger arbejdstid</string>
-	<string name="profile">Profil</string>
 	<string name="no_osm_account">Ingen konto på OpenStreetMap?</string>
 	<string name="register_at_openstreetmap">Tilmeld dig</string>
 	<string name="password_8_chars_min">Adgangskode (mindst 8 tegn)</string>
