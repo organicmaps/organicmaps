@@ -110,6 +110,11 @@ public:
     });
   }
 
+  bool IsEmpty() const
+  {
+    return m_tasks.empty();
+  }
+
   void Clear()
   {
     m_tasks.clear();

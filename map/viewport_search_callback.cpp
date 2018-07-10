@@ -91,7 +91,8 @@ void ViewportSearchCallback::operator()(Results const & results)
     });
   }
 
-  if (results.IsEndedNormal() && results.GetType() == Results::Type::Hotels)
+  if (results.IsEndedNormal() && results.GetType() == Results::Type::Hotels &&
+      !m_bookingFilterTasks.IsEmpty())
   {
     m_delegate.FilterResultsForHotelsQuery(m_bookingFilterTasks, results, true /* inViewport */);
   }
