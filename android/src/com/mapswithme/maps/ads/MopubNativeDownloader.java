@@ -13,6 +13,7 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Language;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
+import com.mopub.nativeads.AdData;
 import com.mopub.nativeads.BaseNativeAd;
 import com.mopub.nativeads.MoPubAdRenderer;
 import com.mopub.nativeads.MoPubNative;
@@ -111,7 +112,6 @@ class MopubNativeDownloader extends CachingNativeAdLoader
 
   private static class DummyRenderer implements MoPubAdRenderer<StaticNativeAd>
   {
-
     @NonNull
     @Override
     public View createAdView(@NonNull Context context, @Nullable ViewGroup parent)
@@ -130,7 +130,7 @@ class MopubNativeDownloader extends CachingNativeAdLoader
     @Override
     public boolean supports(@NonNull BaseNativeAd nativeAd)
     {
-      return nativeAd instanceof StaticNativeAd;
+      return AdData.supports(nativeAd);
     }
   }
 }

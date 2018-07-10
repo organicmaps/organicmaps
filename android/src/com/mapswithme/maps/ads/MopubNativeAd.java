@@ -6,22 +6,29 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.mopub.nativeads.AdData;
+import com.mopub.nativeads.AdDelegate;
+import com.mopub.nativeads.GoogleAdDelegate;
 import com.mopub.nativeads.NativeAd;
 import com.mopub.nativeads.NativeImageHelper;
-import com.mopub.nativeads.StaticNativeAd;
 
 class MopubNativeAd extends CachedMwmNativeAd
 {
   @NonNull
   private final NativeAd mNativeAd;
   @NonNull
-  private final StaticNativeAd mAd;
+  private final AdData mAd;
+  @Nullable
+  private AdDelegate mAdDelegate;
 
   MopubNativeAd(@NonNull NativeAd ad, long timestamp)
   {
     super(timestamp);
     mNativeAd = ad;
-    mAd = (StaticNativeAd) mNativeAd.getBaseNativeAd();
+    mAd = AdData.Make(mNativeAd.getBaseNativeAd());
+
+    if (mAd.getAdType() == AdData.TYPE_GOOGLE)
+      mAdDelegate = new GoogleAdDelegate();
   }
 
   @NonNull
@@ -59,9 +66,33 @@ class MopubNativeAd extends CachedMwmNativeAd
   }
 
   @Override
+  void register(@NonNull View view)
+  {
+    mNativeAd.prepare(view);
+  }
+
+  @Override
   public void unregister(@NonNull View view)
   {
     mNativeAd.clear(view);
+  }
+
+  @Override
+  public void registerView(@NonNull View view)
+  {
+    super.registerView(view);
+
+    if (mAdDelegate != null)
+      mAdDelegate.registerView(mNativeAd.getBaseNativeAd(), view);
+  }
+
+  @Override
+  public void unregisterView(@NonNull View view)
+  {
+    super.unregisterView(view);
+
+    if (mAdDelegate != null)
+      mAdDelegate.unregisterView(mNativeAd.getBaseNativeAd(), view);
   }
 
   @NonNull
@@ -71,17 +102,11 @@ class MopubNativeAd extends CachedMwmNativeAd
     return Providers.MOPUB;
   }
 
-  @Override
-  void register(@NonNull View view)
-  {
-    mNativeAd.prepare(view);
-  }
-
   @Nullable
   @Override
   public String getPrivacyInfoUrl()
   {
-    return mAd.getPrivacyInformationIconClickThroughUrl();
+    return mAd.getPrivacyInfoUrl();
   }
 
   @Override
