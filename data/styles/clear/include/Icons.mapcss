@@ -108,6 +108,8 @@ area[sport],
 node[leisure=playground],
 node[historic=ship],
 area[historic=ship],
+node[tourism=artwork][artwork_type=sculpture],
+area[tourism=artwork][artwork_type=sculpture],
 node[tourism=caravan_site],
 area[tourism=caravan_site],
 node[amenity=bicycle_parking],
@@ -280,6 +282,14 @@ node[leisure=nature_reserve],
 area[leisure=nature_reserve]
 {z-index: 2700;}
 
+node[tourism=artwork],
+area[tourism=artwork],
+node[historic=memorial][memorial=plaque],
+area[historic=memorial][memorial=plaque],
+node[tourism=attraction][attraction=animal],
+area[tourism=attraction][attraction=animal],
+{z-index: 2760;}
+
 node[amenity=cafe],
 area[amenity=cafe],
 node[amenity=theatre],
@@ -341,8 +351,12 @@ node[railway=tram_stop],
 area[railway=tram_stop],
 node[historic=monument],
 area[historic=monument],
-node[historic=memorial],
-area[historic=memorial]
+node[historic=memorial][memorial=sculpture],
+area[historic=memorial][memorial=sculpture],
+node[historic=memorial][memorial=statue],
+area[historic=memorial][memorial=statue],
+node|z17-[tourism=artwork][artwork_type=sculpture],
+area|z17-[tourism=artwork][artwork_type=sculpture]
 {z-index: 2800;}
 
 
@@ -569,14 +583,14 @@ node[amenity=place_of_worship],
 area[amenity=place_of_worship]
 {z-index: 2872;}
 
-node[tourism=attraction],
-area[tourism=attraction],
 node[amenity=community_centre],
 area[amenity=community_centre],
-node[tourism=artwork]
 {z-index: 2870;}
-node[tourism=attraction],
-area[tourism=attraction],
+node[tourism=attraction][attraction=specified],
+area[tourism=attraction][attraction=specified],
+area[place=square],
+node|z16-[tourism=attraction][attraction=animal],
+area|z16-[tourism=attraction][attraction=animal],
 node[tourism=theme_park],
 area[tourism=theme_park]
 {z-index: 2872;}
@@ -589,6 +603,14 @@ node[leisure=stadium],
 area[leisure=stadium]
 {z-index: 2878;}
 node[tourism=viewpoint]
+node|z16-[tourism=artwork][artwork_type=architecture],
+area|z16-[tourism=artwork][artwork_type=architecture],
+node|z17-[tourism=artwork][artwork_type=statue],
+area|z17-[tourism=artwork][artwork_type=statue],
+node|z18-[historic=memorial][memorial=plaque],
+area|z18-[historic=memorial][memorial=plaque],
+node|z18-[tourism=artwork][artwork_type=painting],
+area|z18-[tourism=artwork][artwork_type=painting]
 {z-index: 2880;}
 node[tourism=zoo],
 area[tourism=zoo]
@@ -1104,15 +1126,18 @@ node|z13-[tourism=zoo],
 area|z13-[tourism=zoo],
 node|z14-[amenity=theatre],
 area|z14-[amenity=theatre],
-node|z14-[tourism=attraction],
-area|z14-[tourism=attraction],
+node|z14-[tourism=attraction][attraction=specified],
+area|z14-[tourism=attraction][attraction=specified],
+area|z14-[place=square],
 node|z14-[tourism=theme_park],
 area|z14-[tourism=theme_park],
 node|z14-[amenity=community_centre],
 area|z14-[amenity=community_centre],
 node|z14-[tourism=viewpoint],
-node|z15-[historic=memorial],
-area|z15-[historic=memorial],
+node|z15-[historic=memorial][memorial=sculpture],
+area|z15-[historic=memorial][memorial=sculpture],
+node|z15-[historic=memorial][memorial=statue],
+area|z15-[historic=memorial][memorial=statue],
 node|z15-[tourism=gallery],
 area|z15-[tourism=gallery],
 node|z15-[tourism=artwork],
@@ -1167,13 +1192,18 @@ area|z13-14[historic=monument]
 {icon-image: monument-s.svg;text-offset: 1;icon-min-distance: 12;}
 node|z15[historic=monument],
 area|z15[historic=monument],
-node|z15[historic=memorial],
-area|z15[historic=memorial]
+node|z15[historic=memorial][memorial=sculpture],
+area|z15[historic=memorial][memorial=sculpture],
+node|z15[historic=memorial][memorial=statue],
+area|z15[historic=memorial][memorial=statue]
 {icon-image: monument-m.svg;icon-min-distance: 24;}
-node|z16-[historic=monument],
-area|z16-[historic=monument],
-node|z16-[historic=memorial],
-area|z16-[historic=memorial]
+node|z16-[historic=memorial][memorial=sculpture],
+area|z16-[historic=memorial][memorial=sculpture],
+node|z16-[historic=memorial][memorial=statue],
+area|z16-[historic=memorial][memorial=statue]
+{icon-image: monument-m.svg;icon-min-distance: 12;}
+node|z18-[historic=memorial][memorial=plaque],
+area|z18-[historic=memorial][memorial=plaque]
 {icon-image: monument-m.svg;icon-min-distance: 12;}
 
 node|z13-14[tourism=museum],
@@ -1255,25 +1285,37 @@ node|z15[tourism=artwork]
 {icon-image: tourism-m.svg;icon-min-distance: 8;}
 node|z16[tourism=artwork]
 {icon-image: tourism-m.svg;icon-min-distance: 28;}
-node|z14[tourism=attraction],
-area|z14[tourism=attraction]
+node|z14[tourism=attraction][attraction=specified],
+area|z14[tourism=attraction][attraction=specified],
+area|z14[place=square]
 {icon-image: tourism-s.svg;icon-min-distance: 12;}
 node|z14[tourism=theme_park],
 area|z14[tourism=theme_park]
 {icon-image: theme_park-s.svg;icon-min-distance: 12;}
-node|z15[tourism=attraction],
-area|z15[tourism=attraction ]
+node|z15[tourism=attraction][attraction=specified],
+area|z15[tourism=attraction][attraction=specified],
+area|z15[place=square]
 {icon-image: tourism-m.svg;icon-min-distance: 36;}
 node|z15[tourism=theme_park],
 area|z15[tourism=theme_park]
 {icon-image: theme_park-m.svg;icon-min-distance: 36;}
-node|z16-[tourism=attraction],
-area|z16-[tourism=attraction]
+node|z16-[tourism=attraction][attraction=specified],
+area|z16-[tourism=attraction][attraction=specified]
 {icon-image: tourism-m.svg;icon-min-distance: 36;}
 node|z16-[tourism=theme_park],
 area|z16-[tourism=theme_park]
 {icon-image: theme_park-m.svg;icon-min-distance: 24;}
-node|z17-[tourism=artwork]
+node|z17-[tourism=attraction][attraction=animal],
+area|z17-[tourism=attraction][attraction=animal]
+{icon-image: zoo-m.svg;icon-min-distance: 24;}
+node|z16-[tourism=artwork][artwork_type=architecture],
+area|z16-[tourism=artwork][artwork_type=architecture],
+node|z17-[tourism=artwork][artwork_type=sculpture],
+area|z17-[tourism=artwork][artwork_type=sculpture],
+node|z17-[tourism=artwork][artwork_type=statue],
+area|z17-[tourism=artwork][artwork_type=statue],
+node|z18-[tourism=artwork][artwork_type=painting],
+area|z18-[tourism=artwork][artwork_type=painting],
 {icon-image: tourism-m.svg;icon-min-distance: 24;}
 
 node|z14[amenity=community_centre],
