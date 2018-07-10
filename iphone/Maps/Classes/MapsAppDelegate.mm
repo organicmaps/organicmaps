@@ -655,6 +655,7 @@ using namespace osm_auth_ios;
   navigationBar.barTintColor = [UIColor primary];
   navigationBar.titleTextAttributes = [self navigationBarTextAttributes];
   navigationBar.translucent = NO;
+  [navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
   navigationBar.shadowImage = [UIImage new];
   auto backImage = [[UIImage imageNamed:@"ic_nav_bar_back_sys"]
                     imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];

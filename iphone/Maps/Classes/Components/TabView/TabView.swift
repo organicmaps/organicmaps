@@ -1,16 +1,12 @@
 fileprivate class ContentCell: UICollectionViewCell {
   var view: UIView? {
     didSet {
-      oldValue?.removeFromSuperview()
-      if let view = view {
+      if let view = view, view != oldValue {
+        oldValue?.removeFromSuperview()
+        view.frame = contentView.bounds
         contentView.addSubview(view)
       }
     }
-  }
-
-  override func prepareForReuse() {
-    super.prepareForReuse()
-    view?.removeFromSuperview()
   }
 
   override func layoutSubviews() {
@@ -193,14 +189,15 @@ class TabView: UIView {
   }
 
   override func layoutSubviews() {
-    super.layoutSubviews()
-
-    slidingViewWidth.constant = pageCount > 0 ? bounds.width / CGFloat(pageCount) : 0
     tabsLayout.invalidateLayout()
     tabsContentLayout.invalidateLayout()
+    super.layoutSubviews()
+    slidingViewWidth.constant = pageCount > 0 ? bounds.width / CGFloat(pageCount) : 0
     tabsContentCollectionView.layoutIfNeeded()
     if selectedIndex >= 0 {
-      tabsContentCollectionView.scrollToItem(at: IndexPath(item: selectedIndex, section: 0), at: .left, animated: false)
+      tabsContentCollectionView.scrollToItem(at: IndexPath(item: selectedIndex, section: 0),
+                                             at: .left,
+                                             animated: false)
     }
   }
 }
@@ -233,8 +230,10 @@ extension TabView : UICollectionViewDataSource {
 
 extension TabView : UICollectionViewDelegateFlowLayout {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    let scrollOffset = scrollView.contentOffset.x / scrollView.contentSize.width
-    slidingViewLeft.constant = scrollOffset * bounds.width
+    if scrollView.contentSize.width > 0 {
+      let scrollOffset = scrollView.contentOffset.x / scrollView.contentSize.width
+      slidingViewLeft.constant = scrollOffset * bounds.width
+    }
   }
 
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

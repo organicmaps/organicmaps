@@ -39,8 +39,8 @@ class DownloadedBookmarksViewController: MWMViewController {
     tableView.reloadData()
   }
 
-  override func viewWillLayoutSubviews() {
-    super.viewWillLayoutSubviews()
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
     var f = bottomView.frame
     let s = bottomView.systemLayoutSizeFitting(CGSize(width: tableView.width, height: 1),
                                                withHorizontalFittingPriority: .required,
