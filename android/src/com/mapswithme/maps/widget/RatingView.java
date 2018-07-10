@@ -13,6 +13,8 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -32,13 +34,16 @@ public class RatingView extends View
   @NonNull
   private final Paint mBackgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
   @NonNull
-  private final Paint mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+  private final TextPaint mTextPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
   @Nullable
   private String mRating;
   @ColorInt
   private int mRatingColor;
   private boolean mDrawSmile;
   private int mBackgroundCornerRadius;
+  private boolean mForceDrawBg;
+  @NonNull
+  private TextUtils.TruncateAt mTruncate = TextUtils.TruncateAt.END;
 
   public RatingView(Context context, @Nullable AttributeSet attrs)
   {
@@ -63,7 +68,12 @@ public class RatingView extends View
     mTextPaint.setTypeface(Typeface.create("Roboto", Typeface.BOLD));
     mRating = a.getString(R.styleable.RatingView_android_text);
     mDrawSmile = a.getBoolean(R.styleable.RatingView_drawSmile, true);
+    mForceDrawBg = a.getBoolean(R.styleable.RatingView_forceDrawBg, true);
+
     int rating = a.getInteger(R.styleable.RatingView_rating, 0);
+    int index = a.getInteger(R.styleable.RatingView_android_ellipsize,
+                             TextUtils.TruncateAt.END.ordinal());
+    mTruncate = TextUtils.TruncateAt.values()[index];
     a.recycle();
 
     Impress r = Impress.values()[rating];
@@ -100,13 +110,28 @@ public class RatingView extends View
     if (mRating != null)
     {
       mTextPaint.getTextBounds(mRating, 0, mRating.length(), mTextBounds);
-      width += (mDrawable != null ? getPaddingLeft() : 0) +  mTextPaint.measureText(mRating);
+      int paddingLeft = mDrawable != null ? getPaddingLeft() : 0;
+      width += paddingLeft;
+      int defaultWidth = getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec);
+      int availableSpace = defaultWidth - width - getPaddingRight();
+      float textWidth = mTextPaint.measureText(mRating);
+      if (textWidth > availableSpace)
+      {
+        mRating = TextUtils.ellipsize(mRating, mTextPaint, availableSpace, mTruncate)
+                           .toString();
+        mTextPaint.getTextBounds(mRating, 0, mRating.length(), mTextBounds);
+        width += availableSpace;
+      }
+      else
+      {
+        width += textWidth;
+      }
+
       if (height == 0)
         height = getPaddingTop() + mTextBounds.height() + getPaddingBottom();
     }
 
     width += getPaddingRight();
-
     mBackgroundBounds.set(0, 0, width, height);
     setMeasuredDimension(width, height);
   }
@@ -114,7 +139,7 @@ public class RatingView extends View
   @Override
   protected void onDraw(Canvas canvas)
   {
-    if (getBackground() == null && mDrawable != null)
+    if ((getBackground() == null && mDrawable != null) || mForceDrawBg)
     {
       canvas.drawRoundRect(mBackgroundBounds, mBackgroundCornerRadius, mBackgroundCornerRadius,
                            mBackgroundPaint);

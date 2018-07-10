@@ -40,7 +40,16 @@
       <enum name="popular" value="7"/>
     </attr>
     <attr name="drawSmile" format="boolean"/>
+    <attr name="forceDrawBg" format="boolean"/>
+    <attr name="android:ellipsize" format="enum">
+      <enum name="START" value="0" />
+      <enum name="MIDDLE" value="1"/>
+      <enum name="END" value="2"/>
+      <enum name="MARQUEE" value="3"/>
+    </attr>
   </declare-styleable>
+
+
 
   <declare-styleable name="TransitStepView">
     <attr name="android:textSize"/>

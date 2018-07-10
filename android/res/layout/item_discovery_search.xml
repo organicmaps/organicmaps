@@ -75,6 +75,8 @@
             android:layout_marginBottom="@dimen/margin_half"
             android:layout_marginStart="@dimen/margin_half"
             android:layout_marginLeft="@dimen/margin_half"
+            android:layout_marginRight="@dimen/margin_half"
+            android:layout_marginEnd="@dimen/margin_half"
             android:paddingLeft="@dimen/margin_quarter_plus"
             android:paddingStart="@dimen/margin_quarter_plus"
             android:paddingRight="@dimen/margin_quarter_plus"
@@ -84,6 +86,8 @@
             android:layout_gravity="center_horizontal|start"
             android:textSize="@dimen/text_size_body_4"
             android:text="@string/popular_place"
+            app:forceDrawBg="true"
+            app:drawSmile="false"
             app:rating="popular"
             tools:visibility="visible"/>
         </LinearLayout>
