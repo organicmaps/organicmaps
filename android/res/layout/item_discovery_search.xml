@@ -83,7 +83,7 @@
             android:paddingBottom="@dimen/margin_quarter"
             android:layout_gravity="center_horizontal|start"
             android:textSize="@dimen/text_size_body_4"
-            android:text="@string/editor_add_select_category_popular_subtitle"
+            android:text="@string/popular_place"
             app:rating="popular"
             tools:visibility="visible"/>
         </LinearLayout>
