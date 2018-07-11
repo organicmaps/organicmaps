@@ -1349,4 +1349,5 @@
 	<string name="whats_new_popularity_label_message">Yapılacaklar bölümü, şehirdeki en popüler yerleri bulmana yardımcı olacak.</string>
 	<string name="whats_new_hot_offers_title">İlgi çekici otel teklifleri</string>
 	<string name="whats_new_hot_offers_message">Arama bölümündeki Oteller kategorisini kullanarak ilgi çekici teklifleri bulabilirsiniz. Otel teklifleri, haritada ve arama sonuçlarında bir yüzdelik sembolü ile işaretlenir.</string>
+	<string name="error_already_downloaded">Bu liste zaten indirildi</string>
 </resources>

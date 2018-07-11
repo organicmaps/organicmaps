@@ -1342,4 +1342,5 @@
 	<string name="whats_new_popularity_label_message">「何をする」セクションでは、市内有数の人気の場所がわかります。</string>
 	<string name="whats_new_hot_offers_title">ホテルからの魅力的な提案</string>
 	<string name="whats_new_hot_offers_message">これを、検索のホテルカテゴリを使用して、探すことができます。提案は地図上および検索結果の%記号でマークされています。</string>
+	<string name="error_already_downloaded">このリストは既にダウンロード済みです</string>
 </resources>

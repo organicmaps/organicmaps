@@ -1358,4 +1358,5 @@
 	<string name="whats_new_popularity_label_message">Der Abschnitte „Womit man sich beschäftigen kann“ wird dabei helfen, die beliebtesten Plätze in der Stadt zu finden.</string>
 	<string name="whats_new_hot_offers_title">Vorteilhafte Hotelangebote</string>
 	<string name="whats_new_hot_offers_message">Suchen Sie nach ihnen mithilfe der Kategorie „Hotels\"\" in der Suche. Die Angebote werden mit einem auf der Karte und in der Liste Prozentzeichen gekennzeichnet sein.</string>
+	<string name="error_already_downloaded">Diese Liste wurde bereits heruntergeladen</string>
 </resources>

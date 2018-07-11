@@ -1108,4 +1108,5 @@
 	<string name="whats_new_popularity_label_message">Η ενότητα Τι Να Κάνω θα σας βοηθήσει να βρείτε τα πιο δημοφιλή σημεία της πόλης.</string>
 	<string name="whats_new_hot_offers_title">Ελκυστικές προσφορές από ξενοδοχεία</string>
 	<string name="whats_new_hot_offers_message">Μπορείτε να τα ψάξετε χρησιμοποιώντας την κατηγορία Ξενοδοχεία στην αναζήτηση. Οι προσφορές θα σημειώνονται με το σύμβολο επί τοις εκατό στο χάρτη και στα αποτελέσματα της αναζήτησης.</string>
+	<string name="error_already_downloaded">Έχει γίνει ήδη λήψη αυτής της λίστας</string>
 </resources>

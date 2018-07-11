@@ -1348,4 +1348,5 @@
 	<string name="whats_new_popularity_label_message">Hvad man kan lave-sektionen hjælper dig til at finde de mest populære steder i byen.</string>
 	<string name="whats_new_hot_offers_title">Attraktive hoteltilbud</string>
 	<string name="whats_new_hot_offers_message">Du kan søge efter dem ved at bruge hotel-kategorien under søgefunktionen. Tilbuddene er markedet med et procent-tegn på kortet og i søgeresultaterne.</string>
+	<string name="error_already_downloaded">Denne liste er allerede blevet downloadet</string>
 </resources>

@@ -2424,6 +2424,6 @@
 
 "whats_new_hot_offers_message" = "คุณสามารถค้นหาได้โดยใช้หมวดหมู่ โรงแรม ในการค้นหา ข้อเสนอพิเศษจะถูกทำเครื่องหมายด้วยสัญลักษณ์เปอร์เซ็นต์ในแผนที่ และในผลการค้นหา";
 
-"error_already_downloaded" = "This list has already been downloaded";
+"error_already_downloaded" = "มีการดาวน์โหลดรายการนี้แล้ว";
 
 "popular_place" = "Popular";

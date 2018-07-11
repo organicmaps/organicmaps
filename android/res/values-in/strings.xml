@@ -1343,4 +1343,5 @@
 	<string name="whats_new_popularity_label_message">Bagian Yang Dapat Dilakukan akan membantu Anda menemukan tempat paling populer di suatu kota.</string>
 	<string name="whats_new_hot_offers_title">Penawaran menarik dari hotel</string>
 	<string name="whats_new_hot_offers_message">Anda dapat mencarinya menggunakan kategori Hotel di pencarian. Penawaran akan ditandai dengan simbol persentase di peta dan di hasil pencarian.</string>
+	<string name="error_already_downloaded">Daftar ini sudah diunduh</string>
 </resources>

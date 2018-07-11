@@ -1344,4 +1344,5 @@
 	<string name="whats_new_popularity_label_message">Mitä Tehdä osio auttaa sinua löytämään suosituimmat paikat kaupungissa.</string>
 	<string name="whats_new_hot_offers_title">Houkuttelevia tarjouksia hotelleilta</string>
 	<string name="whats_new_hot_offers_message">Voit etsiä niitä käyttämällä Hotellit kategoriaa haussa. Tulokset näytetään prosentti merkillä kartassa ja hakutuloksissa.</string>
+	<string name="error_already_downloaded">Tämä lista on jo ladattu</string>
 </resources>

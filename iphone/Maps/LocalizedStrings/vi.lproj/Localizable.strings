@@ -2424,6 +2424,6 @@
 
 "whats_new_hot_offers_message" = "Bạn có thể tìm kiếm chúng bằng cách sử dụng danh mục Khách sạn trong tìm kiếm. Phiếu mua hàng sẽ được đánh dấu bằng ký hiệu phần trăm trong bản đồ và trong kết quả tìm kiếm.";
 
-"error_already_downloaded" = "This list has already been downloaded";
+"error_already_downloaded" = "Danh sách này đã được tải về";
 
 "popular_place" = "Popular";

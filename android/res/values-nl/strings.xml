@@ -1344,4 +1344,5 @@
 	<string name="whats_new_popularity_label_message">Wat te Doen-sectie zal u de meest populaire plaatsen in de stad helpen vinden.</string>
 	<string name="whats_new_hot_offers_title">Aantrekkelijke aanbiedingen van hotels</string>
 	<string name="whats_new_hot_offers_message">U kunt deze vinden door te zoeken in de categorie Hotels. De aanbiedingen worden aangegeven door het percentage-symbool op de kaart en in de zoekresultaten.</string>
+	<string name="error_already_downloaded">Deze lijst is al gedownload</string>
 </resources>

@@ -1344,4 +1344,5 @@
 	<string name="whats_new_popularity_label_message">A Mit csináljunk rész segít megtalálni a város legnépszerűbb helyeit.</string>
 	<string name="whats_new_hot_offers_title">Hotelek vonzó ajánlatai</string>
 	<string name="whats_new_hot_offers_message">Kereshetőek a Hotel kategóriában a kereséssel. A kedvezményes ajánlatok a térképen és a keresési eredményekben százalékjellel vannak megjelölve.</string>
+	<string name="error_already_downloaded">Ezt a listát már letöltötték</string>
 </resources>

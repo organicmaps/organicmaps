@@ -1348,4 +1348,5 @@
 	<string name="whats_new_popularity_label_message">Sekcia Čo robiť vám pomôže nájsť najobľúbenejšie miesta v meste.</string>
 	<string name="whats_new_hot_offers_title">Atraktívne ponuky hotelov</string>
 	<string name="whats_new_hot_offers_message">Môžete ich vyhľadávať pomocou kategórie Hotely vo vyhľadávaní. Ponuky budú označené percentuálnym symbolom na mape a vo výsledkoch vyhľadávania.</string>
+	<string name="error_already_downloaded">Tento zoznam už bol stiahnutý</string>
 </resources>

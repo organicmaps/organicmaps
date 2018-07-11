@@ -1352,4 +1352,5 @@
 	<string name="whats_new_popularity_label_message">“做什麼”部分將幫您找到該城市最受歡迎的地方。</string>
 	<string name="whats_new_hot_offers_title">酒店的優惠報價</string>
 	<string name="whats_new_hot_offers_message">使用搜索中的“酒店”類別來尋找它們報價將在地圖和列表中以百分比圖標來表示。</string>
+	<string name="error_already_downloaded">這個列表已被下載</string>
 </resources>

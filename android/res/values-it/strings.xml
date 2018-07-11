@@ -1343,4 +1343,5 @@
 	<string name="whats_new_popularity_label_message">La sezione Cosa fare ti aiuterà a trovare i luoghi più popolari della città.</string>
 	<string name="whats_new_hot_offers_title">Offerte interessanti dagli hotel</string>
 	<string name="whats_new_hot_offers_message">Puoi cercarli utilizzando la categoria Alberghi nella ricerca. Le offerte saranno contrassegnate dal simbolo percentuale sulla mappa e nei risultati della ricerca.</string>
+	<string name="error_already_downloaded">Questa lista è già stata scaricata</string>
 </resources>

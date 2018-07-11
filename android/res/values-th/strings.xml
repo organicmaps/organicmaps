@@ -1349,4 +1349,5 @@
 	<string name="whats_new_popularity_label_message">ส่วนของ ควรจะต้องทำอะไร จะช่วยให้คุณได้พบกับสถานที่ที่ได้รับความนิยมมากที่สุดในเมือง</string>
 	<string name="whats_new_hot_offers_title">ข้อเสนอที่น่าสนใจจากโรงแรมต่าง ๆ</string>
 	<string name="whats_new_hot_offers_message">คุณสามารถค้นหาได้โดยใช้หมวดหมู่ โรงแรม ในการค้นหา ข้อเสนอพิเศษจะถูกทำเครื่องหมายด้วยสัญลักษณ์เปอร์เซ็นต์ในแผนที่ และในผลการค้นหา</string>
+	<string name="error_already_downloaded">มีการดาวน์โหลดรายการนี้แล้ว</string>
 </resources>

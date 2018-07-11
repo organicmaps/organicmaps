@@ -1348,4 +1348,5 @@
 	<string name="whats_new_popularity_label_message">”Vad att göra” sektionen kommer att hjälpa dig hitta de populäraste platserna i staden.</string>
 	<string name="whats_new_hot_offers_title">Attraktiva hotellerbjudanden</string>
 	<string name="whats_new_hot_offers_message">Du kan söka efter dem via hotellkategorin i sökrutan. Erbjudandena kommer att vara märkta med en procentsymbol (%) på kartan och i sökresultatet.</string>
+	<string name="error_already_downloaded">Den här listan har redan laddats ned</string>
 </resources>

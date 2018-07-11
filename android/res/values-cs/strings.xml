@@ -1352,4 +1352,5 @@
 	<string name="whats_new_popularity_label_message">Sekce „Co dělat“ vám pomůže najít nejoblíbenější místa ve městě.</string>
 	<string name="whats_new_hot_offers_title">Výhodné nabídky hotelů</string>
 	<string name="whats_new_hot_offers_message">Hledejte je ve vyhledávání s pomocí kategorie „Hotely“. Nabídky budou označeny symbolem procenta na mapě i v seznamu.</string>
+	<string name="error_already_downloaded">Tento seznam byl již stažen</string>
 </resources>
