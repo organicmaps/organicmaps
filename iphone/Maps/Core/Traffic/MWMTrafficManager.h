@@ -35,7 +35,7 @@ typedef NS_ENUM(NSUInteger, MWMTransitManagerState) {
 + (BOOL)trafficEnabled;
 + (BOOL)transitEnabled;
 
-+ (void)enableTraffic:(BOOL)enable;
-+ (void)enableTransit:(BOOL)enable;
++ (void)setTrafficEnabled:(BOOL)enable;
++ (void)setTransitEnabled:(BOOL)enable;
 
 @end

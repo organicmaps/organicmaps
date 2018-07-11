@@ -84,9 +84,7 @@ fileprivate final class PresentationAnimator: NSObject, UIViewControllerAnimated
     UIView.animate(withDuration: transitionDuration(using: transitionContext),
                    animations: {
                     toVC.view.frame = finalFrame
-    }) { finished in
-      transitionContext.completeTransition(finished)
-    }
+    }) { transitionContext.completeTransition($0) }
   }
 }
 

@@ -38,43 +38,42 @@ final class LayersViewController: MWMViewController {
   }
 
   @IBAction func onTrafficButton(_ sender: UIButton) {
-    MWMTrafficManager.enableTraffic(!MWMTrafficManager.trafficEnabled())
+    MWMTrafficManager.setTrafficEnabled(!MWMTrafficManager.trafficEnabled())
   }
 
   @IBAction func onSubwayButton(_ sender: UIButton) {
-    MWMTrafficManager.enableTransit(!MWMTrafficManager.transitEnabled())
+    MWMTrafficManager.setTransitEnabled(!MWMTrafficManager.transitEnabled())
   }
 }
 
 extension LayersViewController: MWMTrafficManagerObserver {
   func onTrafficStateUpdated() {
     updateTrafficButton()
-    var statusString: String = ""
+    let statusString: String
     switch MWMTrafficManager.trafficState() {
-    case .enabled:
-      statusString = "success"
-    case .noData:
-      statusString = "unavailable"
-    case .networkError:
-      statusString = "error"
-    default:
-      statusString = ""
+    case .enabled: statusString = "success"
+    case .noData: statusString = "unavailable"
+    case .networkError: statusString = "error"
+    case .disabled: fallthrough
+    case .waitingData: fallthrough
+    case .outdated: fallthrough
+    case .expiredData: fallthrough
+    case .expiredApp: statusString = ""
     }
+
     Statistics.logEvent("Map_Layers_activate", withParameters: ["name" : "traffic",
                                                                 "status" : statusString])
   }
 
   func onTransitStateUpdated() {
     updateSubwayButton()
-    var statusString: String = ""
+    let statusString: String
     switch MWMTrafficManager.transitState() {
-    case .enabled:
-      statusString = "success"
-    case .noData:
-      statusString = "unavailable"
-    default:
-      statusString = ""
+    case .enabled: statusString = "success"
+    case .noData: statusString = "unavailable"
+    case .disabled: statusString = ""
     }
+    
     Statistics.logEvent("Map_Layers_activate", withParameters: ["name" : "subway",
                                                                 "status" : statusString])
   }

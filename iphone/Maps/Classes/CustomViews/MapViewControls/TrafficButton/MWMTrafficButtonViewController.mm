@@ -37,6 +37,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 @property(nonatomic) NSLayoutConstraint * topOffset;
 @property(nonatomic) NSLayoutConstraint * leftOffset;
 @property(nonatomic) CGRect availableArea;
+
 @end
 
 @implementation MWMTrafficButtonViewController
@@ -109,7 +110,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
   {
     switch ([MWMTrafficManager trafficState])
     {
-    case MWMTrafficManagerStateDisabled: btn.imageName = @"btn_traffic_off"; break;
+      case MWMTrafficManagerStateDisabled: CHECK(false, ("Incorrect traffic manager state.")); break;
       case MWMTrafficManagerStateEnabled: btn.imageName = @"btn_traffic_on"; break;
       case MWMTrafficManagerStateWaitingData:
         iv.animationImages = imagesWithName(@"btn_traffic_update");
@@ -123,7 +124,7 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
         break;
       case MWMTrafficManagerStateNetworkError:
         btn.imageName = @"btn_traffic_off";
-        [MWMTrafficManager enableTraffic:NO];
+        [MWMTrafficManager setTrafficEnabled:NO];
         [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
         break;
       case MWMTrafficManagerStateExpiredData:
@@ -151,9 +152,13 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
 - (IBAction)buttonTouchUpInside
 {
   if ([MWMTrafficManager trafficEnabled])
-    [MWMTrafficManager enableTraffic:NO];
+  {
+    [MWMTrafficManager setTrafficEnabled:NO];
+  }
   else if ([MWMTrafficManager transitEnabled])
-    [MWMTrafficManager enableTransit:NO];
+  {
+    [MWMTrafficManager setTransitEnabled:NO];
+  }
   else
   {
     auto layersVC = [[LayersViewController alloc] init];

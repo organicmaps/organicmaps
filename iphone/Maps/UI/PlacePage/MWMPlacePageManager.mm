@@ -301,6 +301,7 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [MWMRouter stopRouting];
   if ([MWMTrafficManager transitEnabled])
     [MWMRouter setType:MWMRouterTypePublicTransport];
+  
   MWMRoutePoint * point = [self routePointWithType:MWMRoutePointTypeFinish intermediateIndex:0];
   [MWMRouter buildToPoint:point bestRouter:YES];
   [self closePlacePage];

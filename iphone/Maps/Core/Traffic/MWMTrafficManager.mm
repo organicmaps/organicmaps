@@ -102,19 +102,21 @@ using Observers = NSHashTable<Observer>;
   return [MWMTrafficManager manager].transitState != TransitReadManager::TransitSchemeState::Disabled;
 }
 
-+ (void)enableTraffic:(BOOL)enable
++ (void)setTrafficEnabled:(BOOL)enable
 {
   if (enable)
-    [self enableTransit:!enable];
+    [self setTransitEnabled:!enable];
+  
   auto & f = GetFramework();
   f.GetTrafficManager().SetEnabled(enable);
   f.SaveTrafficEnabled(enable);
 }
 
-+ (void)enableTransit:(BOOL)enable
++ (void)setTransitEnabled:(BOOL)enable
 {
   if (enable)
-    [self enableTraffic:!enable];
+    [self setTrafficEnabled:!enable];
+  
   auto & f = GetFramework();
   f.GetTransitManager().EnableTransitSchemeMode(enable);
   f.SaveTransitSchemeEnabled(enable);
