@@ -36,14 +36,13 @@ namespace m2
       return ((fabs(x - p.x) < eps) && (fabs(y - p.y) < eps));
     }
 
-    // TODO (@y, @m): rename to SquaredLength.
-    T SquareLength(Point<T> const & p) const { return pow(x - p.x, 2) + pow(y - p.y, 2); }
+    T SquaredLength(Point<T> const & p) const { return pow(x - p.x, 2) + pow(y - p.y, 2); }
 
     T SquaredLength() const { return x * x + y * y; }
 
     double Length(Point<T> const & p) const
     {
-      return sqrt(SquareLength(p));
+      return sqrt(SquaredLength(p));
     }
 
     bool IsAlmostZero() const

@@ -43,13 +43,13 @@ public:
   inline PointT const & P1() const { return m_P1; }
 
 protected:
-  template <class VectorT> static double SquareLength(VectorT const & v)
+  template <class VectorT> static double SquaredLength(VectorT const & v)
   {
     return DotProduct(v, v);
   }
   template <class VectorT> static double Length(VectorT const & v)
   {
-    return sqrt(SquareLength(v));
+    return sqrt(SquaredLength(v));
   }
   double Distance(PointD const & v) const
   {
@@ -75,12 +75,12 @@ public:
     if (t <= 0)
     {
       // Y is closest to P0.
-      return this->SquareLength(YmP0);
+      return this->SquaredLength(YmP0);
     }
     if (t >= this->m_D2)
     {
       // Y is closest to P1.
-      return this->SquareLength(Y - this->m_P1);
+      return this->SquaredLength(Y - this->m_P1);
     }
 
     // Closest point is interior to segment.

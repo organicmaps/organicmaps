@@ -49,7 +49,7 @@ vector<PointD> BuildConvexHull(vector<PointD> points, double eps)
       return true;
     if (IsCCW(rhs, lhs, pivot, eps))
       return false;
-    return lhs.SquareLength(pivot) < rhs.SquareLength(pivot);
+    return lhs.SquaredLength(pivot) < rhs.SquaredLength(pivot);
   });
 
   vector<PointD> hull;

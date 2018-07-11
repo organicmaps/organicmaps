@@ -876,7 +876,7 @@ void ApplyLineFeatureGeometry::operator() (m2::PointD const & point)
   {
     static double minSegmentLength = pow(4.0 * df::VisualParams::Instance().GetVisualScale(), 2);
     if (m_simplify &&
-        ((m_spline->GetSize() > 1 && point.SquareLength(m_lastAddedPoint) * m_sqrScale < minSegmentLength) ||
+        ((m_spline->GetSize() > 1 && point.SquaredLength(m_lastAddedPoint) * m_sqrScale < minSegmentLength) ||
         m_spline->IsPrelonging(point)))
     {
       m_spline->ReplacePoint(point);

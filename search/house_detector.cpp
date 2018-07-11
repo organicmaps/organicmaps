@@ -136,8 +136,8 @@ pair<double, double> GetConnectionAngleAndDistance(bool & isBeg, Street const * 
   m2::PointD const & p1 = isBeg ? s1->m_points.front() : s1->m_points.back();
   m2::PointD const & p0 = isBeg ? s1->m_points[1] : s1->m_points[s1->m_points.size()-2];
 
-  double const d0 = p1.SquareLength(s2->m_points.front());
-  double const d2 = p1.SquareLength(s2->m_points.back());
+  double const d0 = p1.SquaredLength(s2->m_points.front());
+  double const d2 = p1.SquaredLength(s2->m_points.back());
   isBeg = (d0 < d2);
   m2::PointD const & p2 = isBeg ? s2->m_points[1] : s2->m_points[s2->m_points.size()-2];
 
@@ -784,7 +784,7 @@ HouseDetector::StreetPtr HouseDetector::FindConnection(Street const * st, bool b
 
   for (size_t i = 0; i < m_end2st.size(); ++i)
   {
-    if (pt.SquareLength(m_end2st[i].first) > minSqDistance)
+    if (pt.SquaredLength(m_end2st[i].first) > minSqDistance)
       continue;
 
     Street * current = m_end2st[i].second;

@@ -28,7 +28,7 @@ void NearestEdgeFinder::AddInformationSource(FeatureID const & featureId, IRoadG
     segProj.SetBounds(roadInfo.m_junctions[i - 1].GetPoint(), roadInfo.m_junctions[i].GetPoint());
 
     m2::PointD const pt = segProj(m_point);
-    double const d = m_point.SquareLength(pt);
+    double const d = m_point.SquaredLength(pt);
     if (d < res.m_dist)
     {
       Junction const & segStart = roadInfo.m_junctions[i - 1];

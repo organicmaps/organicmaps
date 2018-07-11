@@ -572,7 +572,7 @@ double Router::GetCoverage(m2::PointD const & u, m2::PointD const & v, It b, It 
   double const kLengthThresholdM = 1;
 
   m2::PointD const uv = v - u;
-  double const sqlen = u.SquareLength(v);
+  double const sqlen = u.SquaredLength(v);
 
   if (MercatorBounds::DistanceOnEarth(u, v) < kLengthThresholdM)
     return 0;

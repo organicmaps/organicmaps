@@ -117,7 +117,7 @@ public:
         acceptedNodes.ForEachInRect(m2::Inflate(displacementRect, {delta, delta}),
             [&isDisplaced, &node, &squaredDelta, &scale](DisplaceableNode const & rhs)
             {
-              if (node.m_center.SquareLength(rhs.m_center) < squaredDelta && rhs.m_maxScale > scale)
+              if (node.m_center.SquaredLength(rhs.m_center) < squaredDelta && rhs.m_maxScale > scale)
                 isDisplaced = true;
             });
         if (isDisplaced)

@@ -256,7 +256,7 @@ m2::SharedSpline SimplifySpline(UserLineRenderParams const & renderInfo, double 
   m2::PointD lastAddedPoint;
   for (auto const & point : renderInfo.m_spline->GetPath())
   {
-    if (spline->GetSize() > 1 && point.SquareLength(lastAddedPoint) * sqrScale < kMinSegmentLength)
+    if (spline->GetSize() > 1 && point.SquaredLength(lastAddedPoint) * sqrScale < kMinSegmentLength)
     {
       spline->ReplacePoint(point);
     }

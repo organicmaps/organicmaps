@@ -62,7 +62,7 @@ void CalculatePointOnSurface::operator()(PointD const & p1, PointD const & p2, P
   triangleCenter += p3;
   triangleCenter = triangleCenter / 3.0;
 
-  double triangleDistance = m_rectCenter.SquareLength(triangleCenter);
+  double triangleDistance = m_rectCenter.SquaredLength(triangleCenter);
   if (triangleDistance <= m_squareDistanceToApproximate)
   {
     m_center = triangleCenter;

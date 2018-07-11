@@ -1128,7 +1128,7 @@ FeatureID FrontendRenderer::GetVisiblePOI(m2::RectD const & pixelRect)
   FeatureID featureID;
   for (ref_ptr<dp::OverlayHandle> handle : selectResult)
   {
-    double const curDist = pt.SquareLength(handle->GetPivot(screen, screen.isPerspective()));
+    double const curDist = pt.SquaredLength(handle->GetPivot(screen, screen.isPerspective()));
     if (curDist < dist)
     {
       dist = curDist;

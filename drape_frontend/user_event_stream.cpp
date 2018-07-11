@@ -765,7 +765,7 @@ bool UserEventStream::TouchDown(array<Touch, 2> const & touches)
 
 bool UserEventStream::CheckDrag(array<Touch, 2> const & touches, double threshold) const
 {
-  return m_startDragOrg.SquareLength(m2::PointD(touches[0].m_location)) > threshold;
+  return m_startDragOrg.SquaredLength(m2::PointD(touches[0].m_location)) > threshold;
 }
 
 bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
@@ -796,8 +796,8 @@ bool UserEventStream::TouchMove(array<Touch, 2> const & touches)
     if (touchCount == 2)
     {
       auto const threshold = static_cast<float>(kDragThreshold);
-      if (m_twoFingersTouches[0].SquareLength(touches[0].m_location) > threshold ||
-          m_twoFingersTouches[1].SquareLength(touches[1].m_location) > threshold)
+      if (m_twoFingersTouches[0].SquaredLength(touches[0].m_location) > threshold ||
+          m_twoFingersTouches[1].SquaredLength(touches[1].m_location) > threshold)
         BeginScale(touches[0], touches[1]);
       else
         isMapTouch = false;

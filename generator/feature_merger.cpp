@@ -110,7 +110,7 @@ double MergedFeatureBuilder1::GetPriority() const
 
   double pr = 0.0;
   for (size_t i = 1; i < poly.size(); ++i)
-    pr += poly[i-1].SquareLength(poly[i]);
+    pr += poly[i-1].SquaredLength(poly[i]);
   return pr;
 }
 
@@ -234,7 +234,7 @@ void FeatureMergeProcessor::DoMerge(FeatureEmitterIFace & emitter)
         {
           bool const toBack = pt.second;
           bool fromBegin = true;
-          if ((pt.first.SquareLength(pp->FirstPoint()) > pt.first.SquareLength(pp->LastPoint())) == toBack)
+          if ((pt.first.SquaredLength(pp->FirstPoint()) > pt.first.SquaredLength(pp->LastPoint())) == toBack)
             fromBegin = false;
 
           curr.AppendFeature(*pp, fromBegin, toBack);

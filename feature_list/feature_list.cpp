@@ -43,7 +43,7 @@ public:
 
   void operator()(m2::PointD const & point)
   {
-    double distance = m_center.SquareLength(point);
+    double distance = m_center.SquaredLength(point);
     if (distance < m_distance)
     {
       m_distance = distance;

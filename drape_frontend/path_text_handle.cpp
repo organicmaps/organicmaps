@@ -228,7 +228,7 @@ m2::Spline::iterator PathTextContext::GetProjectedPoint(std::vector<m2::Spline> 
         nearestStep = step + t;
       }
 
-      double const dist = pt.SquareLength(nearestPt);
+      double const dist = pt.SquaredLength(nearestPt);
       if (dist < minDist)
       {
         minDist = dist;

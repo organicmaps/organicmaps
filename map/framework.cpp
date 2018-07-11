@@ -1540,7 +1540,7 @@ size_t Framework::ShowSearchResults(search::Results const & results)
     Result const & r = results[i];
     if (r.HasPoint())
     {
-      double const dist = center.SquareLength(r.GetFeatureCenter());
+      double const dist = center.SquaredLength(r.GetFeatureCenter());
       if (dist < minDistance)
       {
         minDistance = dist;

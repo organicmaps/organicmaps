@@ -117,7 +117,7 @@ public:
     m2::PointD const & org = mark->GetPivot();
     if (m_rect.IsPointInside(org))
     {
-      double minDCandidate = m_globalCenter.SquareLength(org);
+      double minDCandidate = m_globalCenter.SquaredLength(org);
       if (minDCandidate < m_minD)
       {
         *m_mark = mark;
