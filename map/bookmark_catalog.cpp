@@ -1,5 +1,4 @@
 #include "map/bookmark_catalog.hpp"
-#include "map/bookmark_helpers.hpp"
 
 #include "platform/platform.hpp"
 
@@ -22,10 +21,7 @@ std::string BuildCatalogDownloadUrl(std::string const & serverId)
 {
   if (kCatalogDownloadServer.empty())
     return {};
-
-  std::ostringstream ss;
-  ss << kCatalogDownloadServer << serverId << kKmzExtension;
-  return ss.str();
+  return kCatalogDownloadServer + serverId;
 }
 }  // namespace
 

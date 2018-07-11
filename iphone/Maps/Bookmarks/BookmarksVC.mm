@@ -101,7 +101,7 @@ CGFloat const kPinDiameter = 18.0f;
   case Section::Info:
     return L(@"placepage_place_description");
   case Section::Track:
-    return L(@"tracks");
+    return L(@"tracks_title");
   case Section::Bookmark:
     return L(@"bookmarks");
   }

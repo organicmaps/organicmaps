@@ -421,7 +421,7 @@ public class Holders
     private List<String> getSections()
     {
       final List<String> sections = new ArrayList<>();
-      sections.add(mView.getContext().getString(R.string.tracks));
+      sections.add(mView.getContext().getString(R.string.tracks_title));
       sections.add(mView.getContext().getString(R.string.bookmarks));
       sections.add(mView.getContext().getString(R.string.description));
       return sections;
