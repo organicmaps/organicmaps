@@ -519,17 +519,6 @@ bool FeatureBuilder1::HasOsmId(osm::Id const & id) const
   return false;
 }
 
-string FeatureBuilder1::GetOsmIdsString() const
-{
-  if (m_osmIds.empty())
-    return "(NOT AN OSM FEATURE)";
-
-  ostringstream out;
-  for (auto const & id : m_osmIds)
-    out << DebugPrint(id) << " ";
-  return out.str();
-}
-
 int FeatureBuilder1::GetMinFeatureDrawScale() const
 {
   int const minScale = feature::GetMinDrawableScale(GetFeatureBase());

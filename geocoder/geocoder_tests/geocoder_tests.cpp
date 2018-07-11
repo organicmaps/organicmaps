@@ -2,7 +2,6 @@
 
 #include "geocoder/geocoder.hpp"
 
-#include "base/logging.hpp"
 #include "base/math.hpp"
 
 #include <string>
@@ -33,7 +32,9 @@ UNIT_TEST(Geocoder_Smoke)
 {
   Geocoder geocoder("" /* pathToJsonHierarchy */);
 
-  TestGeocoder(geocoder, "a", {{osm::Id(10), 0.5}, {osm::Id(11), 1.0}});
-  TestGeocoder(geocoder, "b", {{osm::Id(20), 0.8}, {osm::Id(21), 0.1}});
+  TestGeocoder(geocoder, "a",
+               {{osm::Id(0xC00000000026FCFDULL), 0.5}, {osm::Id(0x40000000C4D63818ULL), 1.0}});
+  TestGeocoder(geocoder, "b",
+               {{osm::Id(0x8000000014527125ULL), 0.8}, {osm::Id(0x40000000F26943B9ULL), 0.1}});
 }
 }  // namespace geocoder

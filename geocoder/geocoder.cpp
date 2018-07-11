@@ -14,13 +14,13 @@ void Geocoder::ProcessQuery(string const & query, vector<Result> & results) cons
   results.clear();
   if (query == "a")
   {
-    results.emplace_back(osm::Id(10), 0.5 /* certainty */);
-    results.emplace_back(osm::Id(11), 1.0 /* certainty */);
+    results.emplace_back(osm::Id(0xC00000000026FCFDULL), 0.5 /* certainty */);
+    results.emplace_back(osm::Id(0x40000000C4D63818ULL), 1.0 /* certainty */);
   }
   if (query == "b")
   {
-    results.emplace_back(osm::Id(20), 0.8 /* certainty */);
-    results.emplace_back(osm::Id(21), 0.1 /* certainty */);
+    results.emplace_back(osm::Id(0x8000000014527125ULL), 0.8 /* certainty */);
+    results.emplace_back(osm::Id(0x40000000F26943B9ULL), 0.1 /* certainty */);
   }
 }
 }  // namespace geocoder

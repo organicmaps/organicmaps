@@ -176,7 +176,6 @@ public:
   /// area's one if there is no relation, and relation id otherwise.
   osm::Id GetMostGenericOsmId() const;
   bool HasOsmId(osm::Id const & id) const;
-  std::string GetOsmIdsString() const;
   vector<osm::Id> const & GetOsmIds() const { return m_osmIds; }
   //@}
 
