@@ -21,7 +21,7 @@ namespace routing
 class EdgeEstimator
 {
 public:
-  EdgeEstimator(double maxSpeedKMpH, double offroadSpeedKMpH);
+  EdgeEstimator(double maxWeightSpeedKMpH, double offroadSpeedKMpH);
   virtual ~EdgeEstimator() = default;
 
   double CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const;
@@ -38,13 +38,14 @@ public:
   double CalcOffroadWeight(m2::PointD const & from, m2::PointD const & to) const;
 
   virtual double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const = 0;
+  virtual double CalcSegmentETA(Segment const & segment, RoadGeometry const & road) const = 0;
   virtual double GetUTurnPenalty() const = 0;
   // The leap is the shortcut edge from mwm border enter to exit.
   // Router can't use leaps on some mwms: e.g. mwm with loaded traffic data.
   // Check wherether leap is allowed on specified mwm or not.
   virtual bool LeapIsAllowed(NumMwmId mwmId) const = 0;
 
-  static std::shared_ptr<EdgeEstimator> Create(VehicleType vehicleType, double maxSpeedKMpH,
+  static std::shared_ptr<EdgeEstimator> Create(VehicleType vehicleType, double maxWeighSpeedKMpH,
                                                double offroadSpeedKMpH,
                                                std::shared_ptr<TrafficStash>);
 
@@ -53,7 +54,7 @@ public:
                                                std::shared_ptr<TrafficStash>);
 
 private:
-  double const m_maxSpeedMPS;
-  double const m_offroadSpeedMPS;
+  double const m_maxWeightSpeedMpS;
+  double const m_offroadSpeedMpS;
 };
 }  // namespace routing

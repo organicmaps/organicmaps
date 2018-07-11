@@ -27,14 +27,34 @@ public:
     Unknown,
   };
 
+  /// Speeds which are used for edge weight and ETA estimations.
+  struct SpeedKMpH
+  {
+    double m_weight = 0.0; // KMpH
+    double m_eta = 0.0;    // KMpH
+
+    bool operator==(SpeedKMpH const & rhs) const
+    {
+      return m_weight == rhs.m_weight && m_eta == rhs.m_eta;
+    }
+  };
+
+  /// Factors which reduce weight and ETA speed on feature in case of bad pavement.
+  /// Both should be in range [0.0, 1.0].
+  struct SpeedFactor
+  {
+    double m_weight = 1.0;
+    double m_eta = 1.0;
+  };
+
   virtual ~VehicleModelInterface() = default;
 
-  /// @return Allowed speed in KMpH.
+  /// @return Allowed weight and ETA speed in KMpH.
   /// 0 means that it's forbidden to move on this feature or it's not a road at all.
-  virtual double GetSpeed(FeatureType const & f) const = 0;
+  virtual SpeedKMpH GetSpeed(FeatureType const & f) const = 0;
 
-  /// @returns Max speed in KMpH for this model
-  virtual double GetMaxSpeed() const = 0;
+  /// @returns Max weight and ETA speed in KMpH for this model
+  virtual SpeedKMpH GetMaxSpeed() const = 0;
 
   /// @return Offroad speed in KMpH for vehicle. This speed should be used for non-feature routing
   /// e.g. to connect start point to nearest feature.
@@ -70,10 +90,13 @@ public:
 class VehicleModel : public VehicleModelInterface
 {
 public:
+  using SpeedKMpH = VehicleModelInterface::SpeedKMpH;
+  using SpeedFactor = VehicleModelInterface::SpeedFactor;
+
   struct FeatureTypeLimits final
   {
     char const * m_types[2];      // 2-arity road type
-    double m_speedKMpH;           // max allowed speed on this road type
+    SpeedKMpH m_speed;            // max allowed speed on this road type
     bool m_isPassThroughAllowed;  // pass through this road type is allowed
   };
 
@@ -82,32 +105,31 @@ public:
   struct FeatureTypeSurface
   {
     char const * m_types[2];  // 2-arity road type
-    double m_speedFactor;     // Factor which reduces speed on feature in case of
-                              // bad pavement. It should be from 0.0 to 1.0.
+    SpeedFactor m_factor;
   };
 
   struct AdditionalRoadTags final
   {
     AdditionalRoadTags() = default;
 
-    AdditionalRoadTags(std::initializer_list<char const *> const & hwtag, double speedKMpH)
-      : m_hwtag(hwtag), m_speedKMpH(speedKMpH)
+    AdditionalRoadTags(std::initializer_list<char const *> const & hwtag, SpeedKMpH const & speed)
+      : m_hwtag(hwtag), m_speed(speed)
     {
     }
 
     std::initializer_list<char const *> m_hwtag;
-    double m_speedKMpH = 0.0;
+    SpeedKMpH m_speed;
   };
 
-  typedef std::initializer_list<FeatureTypeLimits> LimitsInitList;
-  typedef std::initializer_list<FeatureTypeSurface> SurfaceInitList;
+  using LimitsInitList = std::initializer_list<FeatureTypeLimits>;
+  using SurfaceInitList = std::initializer_list<FeatureTypeSurface>;
 
   VehicleModel(Classificator const & c, LimitsInitList const & featureTypeLimits,
                SurfaceInitList const & featureTypeSurface);
 
   /// VehicleModelInterface overrides:
-  double GetSpeed(FeatureType const & f) const override;
-  double GetMaxSpeed() const override { return m_maxSpeedKMpH; }
+  SpeedKMpH GetSpeed(FeatureType const & f) const override;
+  SpeedKMpH GetMaxSpeed() const override { return m_maxSpeed; }
   bool IsOneWay(FeatureType const & f) const override;
   bool IsRoad(FeatureType const & f) const override;
   bool IsPassThroughAllowed(FeatureType const & f) const override;
@@ -150,9 +172,9 @@ protected:
 
   bool HasPassThroughType(feature::TypesHolder const & types) const;
 
-  double GetMinTypeSpeed(feature::TypesHolder const & types) const;
+  SpeedKMpH GetMinTypeSpeed(feature::TypesHolder const & types) const;
 
-  double m_maxSpeedKMpH;
+  SpeedKMpH m_maxSpeed;
 
 private:
   struct AdditionalRoadType final
@@ -161,32 +183,30 @@ private:
 
     bool operator==(AdditionalRoadType const & rhs) const { return m_type == rhs.m_type; }
     uint32_t const m_type;
-    double const m_speedKMpH;
+    SpeedKMpH const m_speed;
   };
 
   class RoadLimits final
   {
   public:
-    RoadLimits() = delete;
-    RoadLimits(double speedKMpH, bool isPassThroughAllowed);
+    RoadLimits(SpeedKMpH const & speed, bool isPassThroughAllowed);
 
-    double GetSpeedKMpH() const { return m_speedKMpH; };
+    SpeedKMpH const & GetSpeed() const { return m_speed; };
     bool IsPassThroughAllowed() const { return m_isPassThroughAllowed; };
     bool operator==(RoadLimits const & rhs) const
     {
-      return (m_speedKMpH == rhs.m_speedKMpH) &&
-             (m_isPassThroughAllowed == rhs.m_isPassThroughAllowed);
+      return (m_speed == rhs.m_speed) && (m_isPassThroughAllowed == rhs.m_isPassThroughAllowed);
     }
 
   private:
-    double const m_speedKMpH;
+    SpeedKMpH const m_speed;
     bool const m_isPassThroughAllowed;
   };
 
   struct TypeFactor
   {
     uint32_t m_type = 0;
-    double m_factor = 1.0;
+    SpeedFactor m_factor;
   };
 
   std::vector<AdditionalRoadType>::const_iterator FindRoadType(uint32_t type) const;
@@ -225,4 +245,5 @@ protected:
 };
 
 std::string DebugPrint(VehicleModelInterface::RoadAvailability const l);
+std::string DebugPrint(VehicleModelInterface::SpeedKMpH const & speed);
 }  // namespace routing

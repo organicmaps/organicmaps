@@ -144,6 +144,15 @@ RouteWeight TransitWorldGraph::CalcOffroadWeight(m2::PointD const & from,
   return RouteWeight(m_estimator->CalcOffroadWeight(from, to));
 }
 
+double TransitWorldGraph::CalcSegmentETA(routing::Segment const & segment)
+{
+  // TODO: Separate weight and ETA of transit segments.
+  if (TransitGraph::IsTransitSegment(segment))
+    return CalcSegmentWeight(segment).GetWeight();
+
+  return m_estimator->CalcSegmentETA(segment, GetRealRoadGeometry(segment.GetMwmId(), segment.GetFeatureId()));
+}
+
 bool TransitWorldGraph::LeapIsAllowed(NumMwmId /* mwmId */) const { return false; }
 
 vector<Segment> const & TransitWorldGraph::GetTransitions(NumMwmId numMwmId, bool isEnter)

@@ -40,7 +40,7 @@ void IndexRoadGraph::GetIngoingEdges(Junction const & junction, TEdgeVector & ed
   GetEdges(junction, false, edges);
 }
 
-double IndexRoadGraph::GetMaxSpeedKMPH() const
+double IndexRoadGraph::GetMaxSpeedKMpH() const
 {
   // Value doesn't matter.
   // It is used in CalculateMaxSpeedTimes only.

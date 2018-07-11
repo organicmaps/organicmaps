@@ -14,8 +14,8 @@ public:
 
   // routing::IRoadGraph overrides:
   RoadInfo GetRoadInfo(FeatureID const & featureId) const override;
-  double GetSpeedKMPH(FeatureID const & featureId) const override;
-  double GetMaxSpeedKMPH() const override;
+  double GetSpeedKMpH(FeatureID const & featureId) const override;
+  double GetMaxSpeedKMpH() const override;
   void ForEachFeatureClosestToCross(m2::PointD const & cross,
                                     ICrossEdgesLoader & edgeLoader) const override;
   void FindClosestEdges(m2::PointD const & point, uint32_t count,

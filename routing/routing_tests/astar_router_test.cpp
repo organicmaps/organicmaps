@@ -50,8 +50,8 @@ void AddRoad(RoadGraphMockSource & graph, double speedKMPH, initializer_list<m2:
 
 void AddRoad(RoadGraphMockSource & graph, initializer_list<m2::PointD> const & points)
 {
-  double const speedKMPH = graph.GetMaxSpeedKMPH();
-  graph.AddRoad(routing::MakeRoadInfoForTesting(true /* bidir */, speedKMPH, points));
+  double const speedKMpH = graph.GetMaxSpeedKMpH();
+  graph.AddRoad(routing::MakeRoadInfoForTesting(true /* bidir */, speedKMpH, points));
 }
 
 }  // namespace
@@ -116,20 +116,20 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
 
   RoadGraphMockSource graph;
 
-  double const speedKMPH = graph.GetMaxSpeedKMPH();
+  double const speedKMpH = graph.GetMaxSpeedKMpH();
 
   // Roads in the first connected component.
   vector<IRoadGraph::RoadInfo> const roadInfo_1 = {
-      IRoadGraph::RoadInfo(true /* bidir */, speedKMPH,
+      IRoadGraph::RoadInfo(true /* bidir */, speedKMpH,
                            {MakeJunctionForTesting(m2::PointD(10, 10)),
                             MakeJunctionForTesting(m2::PointD(90, 10))}),  // feature 0
-      IRoadGraph::RoadInfo(true /* bidir */, speedKMPH,
+      IRoadGraph::RoadInfo(true /* bidir */, speedKMpH,
                            {MakeJunctionForTesting(m2::PointD(90, 10)),
                             MakeJunctionForTesting(m2::PointD(90, 90))}),  // feature 1
-      IRoadGraph::RoadInfo(true /* bidir */, speedKMPH,
+      IRoadGraph::RoadInfo(true /* bidir */, speedKMpH,
                            {MakeJunctionForTesting(m2::PointD(90, 90)),
                             MakeJunctionForTesting(m2::PointD(10, 90))}),  // feature 2
-      IRoadGraph::RoadInfo(true /* bidir */, speedKMPH,
+      IRoadGraph::RoadInfo(true /* bidir */, speedKMpH,
                            {MakeJunctionForTesting(m2::PointD(10, 90)),
                             MakeJunctionForTesting(m2::PointD(10, 10))}),  // feature 3
   };
@@ -137,16 +137,16 @@ UNIT_TEST(AStarRouter_SimpleGraph_RoutesInConnectedComponents)
 
   // Roads in the second connected component.
   vector<IRoadGraph::RoadInfo> const roadInfo_2 = {
-      IRoadGraph::RoadInfo(true /* bidir */, speedKMPH,
+      IRoadGraph::RoadInfo(true /* bidir */, speedKMpH,
                            {MakeJunctionForTesting(m2::PointD(30, 30)),
                             MakeJunctionForTesting(m2::PointD(70, 30))}),  // feature 4
-      IRoadGraph::RoadInfo(true /* bidir */, speedKMPH,
+      IRoadGraph::RoadInfo(true /* bidir */, speedKMpH,
                            {MakeJunctionForTesting(m2::PointD(70, 30)),
                             MakeJunctionForTesting(m2::PointD(70, 70))}),  // feature 5
-      IRoadGraph::RoadInfo(true /* bidir */, speedKMPH,
+      IRoadGraph::RoadInfo(true /* bidir */, speedKMpH,
                            {MakeJunctionForTesting(m2::PointD(70, 70)),
                             MakeJunctionForTesting(m2::PointD(30, 70))}),  // feature 6
-      IRoadGraph::RoadInfo(true /* bidir */, speedKMPH,
+      IRoadGraph::RoadInfo(true /* bidir */, speedKMpH,
                            {MakeJunctionForTesting(m2::PointD(30, 70)),
                             MakeJunctionForTesting(m2::PointD(30, 30))}),  // feature 7
   };

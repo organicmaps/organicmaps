@@ -72,7 +72,7 @@ double CalcMaxSpeed(NumMwmIds const & numMwmIds,
   numMwmIds.ForEachId([&](NumMwmId id) {
     string const & country = numMwmIds.GetFile(id).GetName();
     double const mwmMaxSpeed =
-        vehicleModelFactory.GetVehicleModelForCountry(country)->GetMaxSpeed();
+        vehicleModelFactory.GetVehicleModelForCountry(country)->GetMaxSpeed().m_weight;
     maxSpeed = max(maxSpeed, mwmMaxSpeed);
   });
   CHECK_GREATER(maxSpeed, 0.0, ());
@@ -866,7 +866,7 @@ RouterResultCode IndexRouter::RedressRoute(vector<Segment> const & segments,
 
   for (size_t i = 0; i + 1 < numPoints; ++i)
   {
-    time += starter.CalcRouteSegmentWeight(segments, i).GetWeight();
+    time += starter.CalcSegmentETA(segments[i]);
     times.emplace_back(static_cast<uint32_t>(i + 1), time);
   }
 

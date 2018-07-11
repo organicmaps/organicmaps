@@ -52,7 +52,7 @@ public:
   using Weight = double;
 
   RoadGraph(IRoadGraph const & roadGraph)
-    : m_roadGraph(roadGraph), m_maxSpeedMPS(KMPH2MPS(roadGraph.GetMaxSpeedKMPH()))
+    : m_roadGraph(roadGraph), m_maxSpeedMPS(KMPH2MPS(roadGraph.GetMaxSpeedKMpH()))
   {}
 
   void GetOutgoingEdgesList(Junction const & v, vector<WeightedEdge> & adj) const
@@ -67,7 +67,7 @@ public:
     {
       ASSERT_EQUAL(v, e.GetStartJunction(), ());
 
-      double const speedMPS = KMPH2MPS(m_roadGraph.GetSpeedKMPH(e));
+      double const speedMPS = KMPH2MPS(m_roadGraph.GetSpeedKMpH(e));
       adj.emplace_back(e.GetEndJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
     }
   }
@@ -84,7 +84,7 @@ public:
     {
       ASSERT_EQUAL(v, e.GetEndJunction(), ());
 
-      double const speedMPS = KMPH2MPS(m_roadGraph.GetSpeedKMPH(e));
+      double const speedMPS = KMPH2MPS(m_roadGraph.GetSpeedKMpH(e));
       adj.emplace_back(e.GetStartJunction(), TimeBetweenSec(e.GetStartJunction(), e.GetEndJunction(), speedMPS));
     }
   }

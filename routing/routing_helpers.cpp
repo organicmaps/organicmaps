@@ -159,15 +159,15 @@ void CalculateMaxSpeedTimes(RoadGraphBase const & graph, vector<Junction> const 
   if (path.empty())
     return;
 
-  // graph.GetMaxSpeedKMPH() below is used on purpose.
+  // graph.GetMaxSpeedKMpH() below is used on purpose.
   // The idea is while pedestrian (bicycle) routing ways for pedestrians (cyclists) are preferred.
   // At the same time routing along big roads is still possible but if there's
   // a pedestrian (bicycle) alternative it's prefered. To implement it a small speed
   // is set in pedestrian_model (bicycle_model) for big roads. On the other hand
   // the most likely a pedestrian (a cyclist) will go along big roads with average
-  // speed (graph.GetMaxSpeedKMPH()).
-  double const speedMPS = KMPH2MPS(graph.GetMaxSpeedKMPH());
-  CHECK_GREATER(speedMPS, 0.0, ());
+  // speed (graph.GetMaxSpeedKMpH()).
+  double const speedMpS = KMPH2MPS(graph.GetMaxSpeedKMpH());
+  CHECK_GREATER(speedMpS, 0.0, ());
 
   times.reserve(path.size());
 
@@ -178,7 +178,7 @@ void CalculateMaxSpeedTimes(RoadGraphBase const & graph, vector<Junction> const 
   {
     double const lengthM =
         MercatorBounds::DistanceOnEarth(path[i - 1].GetPoint(), path[i].GetPoint());
-    trackTimeSec += lengthM / speedMPS;
+    trackTimeSec += lengthM / speedMpS;
 
     times.emplace_back(i, trackTimeSec);
   }

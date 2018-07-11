@@ -15,13 +15,19 @@ using namespace traffic;
 
 namespace
 {
-double TimeBetweenSec(m2::PointD const & from, m2::PointD const & to, double speedMPS)
+enum class Purpose
 {
-  CHECK_GREATER(speedMPS, 0.0,
+  Weight,
+  ETA
+};
+
+double TimeBetweenSec(m2::PointD const & from, m2::PointD const & to, double speedMpS)
+{
+  CHECK_GREATER(speedMpS, 0.0,
                 ("from:", MercatorBounds::ToLatLon(from), "to:", MercatorBounds::ToLatLon(to)));
 
   double const distanceM = MercatorBounds::DistanceOnEarth(from, to);
-  return distanceM / speedMPS;
+  return distanceM / speedMpS;
 }
 
 double CalcTrafficFactor(SpeedGroup speedGroup)
@@ -55,16 +61,17 @@ double GetBicycleClimbPenalty(double tangent)
 double GetCarClimbPenalty(double /* tangent */) { return 1.0; }
 
 template <typename GetClimbPenalty>
-double CalcClimbSegmentWeight(Segment const & segment, RoadGeometry const & road,
+double CalcClimbSegment(Purpose purpose, Segment const & segment, RoadGeometry const & road,
                               GetClimbPenalty && getClimbPenalty)
 {
   Junction const & from = road.GetJunction(segment.GetPointId(false /* front */));
   Junction const & to = road.GetJunction(segment.GetPointId(true /* front */));
+  VehicleModelInterface::SpeedKMpH const & speed = road.GetSpeed();
 
   double const distance = MercatorBounds::DistanceOnEarth(from.GetPoint(), to.GetPoint());
-  double const speedMPS = KMPH2MPS(road.GetSpeed());
-  CHECK_GREATER(speedMPS, 0.0, ());
-  double const timeSec = distance / speedMPS;
+  double const speedMpS = KMPH2MPS(purpose == Purpose::Weight ? speed.m_weight : speed.m_eta);
+  CHECK_GREATER(speedMpS, 0.0, ());
+  double const timeSec = distance / speedMpS;
 
   if (my::AlmostEqualAbs(distance, 0.0, 0.1))
     return timeSec;
@@ -78,16 +85,16 @@ double CalcClimbSegmentWeight(Segment const & segment, RoadGeometry const & road
 namespace routing
 {
 // EdgeEstimator -----------------------------------------------------------------------------------
-EdgeEstimator::EdgeEstimator(double maxSpeedKMpH, double offroadSpeedKMpH)
-  : m_maxSpeedMPS(KMPH2MPS(maxSpeedKMpH)), m_offroadSpeedMPS(KMPH2MPS(offroadSpeedKMpH))
+EdgeEstimator::EdgeEstimator(double maxWeightSpeedKMpH, double offroadSpeedKMpH)
+  : m_maxWeightSpeedMpS(KMPH2MPS(maxWeightSpeedKMpH)), m_offroadSpeedMpS(KMPH2MPS(offroadSpeedKMpH))
 {
-  CHECK_GREATER(m_offroadSpeedMPS, 0.0, ());
-  CHECK_GREATER_OR_EQUAL(m_maxSpeedMPS, m_offroadSpeedMPS, ());
+  CHECK_GREATER(m_offroadSpeedMpS, 0.0, ());
+  CHECK_GREATER_OR_EQUAL(m_maxWeightSpeedMpS, m_offroadSpeedMpS, ());
 }
 
 double EdgeEstimator::CalcHeuristic(m2::PointD const & from, m2::PointD const & to) const
 {
-  return TimeBetweenSec(from, to, m_maxSpeedMPS);
+  return TimeBetweenSec(from, to, m_maxWeightSpeedMpS);
 }
 
 double EdgeEstimator::CalcLeapWeight(m2::PointD const & from, m2::PointD const & to) const
@@ -96,20 +103,20 @@ double EdgeEstimator::CalcLeapWeight(m2::PointD const & from, m2::PointD const &
   // leap edges will be added with a half of max speed.
   // @TODO(bykoianko) It's necessary to gather statistics to calculate better factor(s) instead of
   // one below.
-  return TimeBetweenSec(from, to, m_maxSpeedMPS / 2.0);
+  return TimeBetweenSec(from, to, m_maxWeightSpeedMpS / 2.0);
 }
 
 double EdgeEstimator::CalcOffroadWeight(m2::PointD const & from, m2::PointD const & to) const
 {
-  return TimeBetweenSec(from, to, m_offroadSpeedMPS);
+  return TimeBetweenSec(from, to, m_offroadSpeedMpS);
 }
 
 // PedestrianEstimator -----------------------------------------------------------------------------
 class PedestrianEstimator final : public EdgeEstimator
 {
 public:
-  PedestrianEstimator(double maxSpeedKMpH, double offroadSpeedKMpH)
-    : EdgeEstimator(maxSpeedKMpH, offroadSpeedKMpH)
+  PedestrianEstimator(double maxWeightSpeedKMpH, double offroadSpeedKMpH)
+    : EdgeEstimator(maxWeightSpeedKMpH, offroadSpeedKMpH)
   {
   }
 
@@ -119,7 +126,12 @@ public:
 
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const override
   {
-    return CalcClimbSegmentWeight(segment, road, GetPedestrianClimbPenalty);
+    return CalcClimbSegment(Purpose::Weight, segment, road, GetPedestrianClimbPenalty);
+  }
+
+  double CalcSegmentETA(Segment const & segment, RoadGeometry const & road) const override
+  {
+    return CalcClimbSegment(Purpose::ETA, segment, road, GetPedestrianClimbPenalty);
   }
 };
 
@@ -127,8 +139,8 @@ public:
 class BicycleEstimator final : public EdgeEstimator
 {
 public:
-  BicycleEstimator(double maxSpeedKMpH, double offroadSpeedKMpH)
-    : EdgeEstimator(maxSpeedKMpH, offroadSpeedKMpH)
+  BicycleEstimator(double maxWeightSpeedKMpH, double offroadSpeedKMpH)
+    : EdgeEstimator(maxWeightSpeedKMpH, offroadSpeedKMpH)
   {
   }
 
@@ -138,7 +150,12 @@ public:
 
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const override
   {
-    return CalcClimbSegmentWeight(segment, road, GetBicycleClimbPenalty);
+    return CalcClimbSegment(Purpose::Weight, segment, road, GetBicycleClimbPenalty);
+  }
+
+  double CalcSegmentETA(Segment const & segment, RoadGeometry const & road) const override
+  {
+    return CalcClimbSegment(Purpose::ETA, segment, road, GetBicycleClimbPenalty);
   }
 };
 
@@ -146,24 +163,47 @@ public:
 class CarEstimator final : public EdgeEstimator
 {
 public:
-  CarEstimator(shared_ptr<TrafficStash> trafficStash, double maxSpeedKMpH, double offroadSpeedKMpH);
+  CarEstimator(shared_ptr<TrafficStash> trafficStash, double maxWeightSpeedKMpH,
+               double offroadSpeedKMpH);
 
   // EdgeEstimator overrides:
   double CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const override;
+  double CalcSegmentETA(Segment const & segment, RoadGeometry const & road) const override;
   double GetUTurnPenalty() const override;
   bool LeapIsAllowed(NumMwmId mwmId) const override;
 
 private:
+  double CalcSegment(Purpose purpose, Segment const & segment, RoadGeometry const & road) const;
   shared_ptr<TrafficStash> m_trafficStash;
 };
 
-CarEstimator::CarEstimator(shared_ptr<TrafficStash> trafficStash, double maxSpeedKMpH,
+CarEstimator::CarEstimator(shared_ptr<TrafficStash> trafficStash, double maxWeightSpeedKMpH,
                            double offroadSpeedKMpH)
-  : EdgeEstimator(maxSpeedKMpH, offroadSpeedKMpH), m_trafficStash(move(trafficStash))
+  : EdgeEstimator(maxWeightSpeedKMpH, offroadSpeedKMpH), m_trafficStash(move(trafficStash))
 {
 }
 
 double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry const & road) const
+{
+  return CalcSegment(Purpose::Weight, segment, road);
+}
+
+double CarEstimator::CalcSegmentETA(Segment const & segment, RoadGeometry const & road) const
+{
+  return CalcSegment(Purpose::ETA, segment, road);
+}
+
+double CarEstimator::GetUTurnPenalty() const
+{
+  // Adds 2 minutes penalty for U-turn. The value is quite arbitrary
+  // and needs to be properly selected after a number of real-world
+  // experiments.
+  return 2 * 60;  // seconds
+}
+
+bool CarEstimator::LeapIsAllowed(NumMwmId mwmId) const { return !m_trafficStash->Has(mwmId); }
+
+double CarEstimator::CalcSegment(Purpose purpose, Segment const & segment, RoadGeometry const & road) const
 {
   // Current time estimation are too optimistic.
   // Need more accurate tuning: traffic lights, traffic jams, road models and so on.
@@ -171,7 +211,7 @@ double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry con
   // TODO: make accurate tuning, remove penalty.
   double constexpr kTimePenalty = 1.8;
 
-  double result = CalcClimbSegmentWeight(segment, road, GetCarClimbPenalty);
+  double result = CalcClimbSegment(purpose, segment, road, GetCarClimbPenalty);
 
   if (m_trafficStash)
   {
@@ -186,19 +226,9 @@ double CarEstimator::CalcSegmentWeight(Segment const & segment, RoadGeometry con
   return result;
 }
 
-double CarEstimator::GetUTurnPenalty() const
-{
-  // Adds 2 minutes penalty for U-turn. The value is quite arbitrary
-  // and needs to be properly selected after a number of real-world
-  // experiments.
-  return 2 * 60;  // seconds
-}
-
-bool CarEstimator::LeapIsAllowed(NumMwmId mwmId) const { return !m_trafficStash->Has(mwmId); }
-
 // EdgeEstimator -----------------------------------------------------------------------------------
 // static
-shared_ptr<EdgeEstimator> EdgeEstimator::Create(VehicleType vehicleType, double maxSpeedKMpH,
+shared_ptr<EdgeEstimator> EdgeEstimator::Create(VehicleType vehicleType, double maxWeighSpeedKMpH,
                                                 double offroadSpeedKMpH,
                                                 shared_ptr<TrafficStash> trafficStash)
 {
@@ -206,10 +236,11 @@ shared_ptr<EdgeEstimator> EdgeEstimator::Create(VehicleType vehicleType, double 
   {
   case VehicleType::Pedestrian:
   case VehicleType::Transit:
-    return make_shared<PedestrianEstimator>(maxSpeedKMpH, offroadSpeedKMpH);
-  case VehicleType::Bicycle: return make_shared<BicycleEstimator>(maxSpeedKMpH, offroadSpeedKMpH);
+    return make_shared<PedestrianEstimator>(maxWeighSpeedKMpH, offroadSpeedKMpH);
+  case VehicleType::Bicycle:
+    return make_shared<BicycleEstimator>(maxWeighSpeedKMpH, offroadSpeedKMpH);
   case VehicleType::Car:
-    return make_shared<CarEstimator>(trafficStash, maxSpeedKMpH, offroadSpeedKMpH);
+    return make_shared<CarEstimator>(trafficStash, maxWeighSpeedKMpH, offroadSpeedKMpH);
   case VehicleType::Count:
     CHECK(false, ("Can't create EdgeEstimator for", vehicleType));
     return nullptr;
@@ -222,7 +253,7 @@ shared_ptr<EdgeEstimator> EdgeEstimator::Create(VehicleType vehicleType,
                                                 VehicleModelInterface const & vehicleModel,
                                                 shared_ptr<TrafficStash> trafficStash)
 {
-  return Create(vehicleType, vehicleModel.GetMaxSpeed(), vehicleModel.GetOffroadSpeed(),
+  return Create(vehicleType, vehicleModel.GetMaxSpeed().m_weight, vehicleModel.GetOffroadSpeed(),
                 trafficStash);
 }
 }  // namespace routing

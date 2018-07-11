@@ -58,7 +58,7 @@ void TestGeometryLoader::AddRoad(uint32_t featureId, bool oneWay, float speed,
 {
   auto it = m_roads.find(featureId);
   CHECK(it == m_roads.end(), ("Already contains feature", featureId));
-  m_roads[featureId] = RoadGeometry(oneWay, speed, points);
+  m_roads[featureId] = RoadGeometry(oneWay, speed, speed, points);
   m_roads[featureId].SetPassThroughAllowedForTests(true);
 }
 
@@ -74,7 +74,7 @@ void ZeroGeometryLoader::Load(uint32_t /* featureId */, routing::RoadGeometry & 
 {
   // Any valid road will do.
   auto const points = routing::RoadGeometry::Points({{0.0, 0.0}, {0.0, 1.0}});
-  road = RoadGeometry(true /* oneWay */, 1.0 /* speed */, points);
+  road = RoadGeometry(true /* oneWay */, 1.0 /* weightSpeedKMpH */, 1.0 /* etaSpeedKMpH */, points);
 }
 
 // TestIndexGraphLoader ----------------------------------------------------------------------------

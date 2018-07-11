@@ -104,10 +104,12 @@ void FileGeometryLoader::Load(uint32_t featureId, RoadGeometry & road)
 namespace routing
 {
 // RoadGeometry ------------------------------------------------------------------------------------
-RoadGeometry::RoadGeometry(bool oneWay, double speed, Points const & points)
-  : m_speed(speed), m_isOneWay(oneWay), m_valid(true)
+RoadGeometry::RoadGeometry(bool oneWay, double weightSpeedKMpH, double etaSpeedKMpH,
+                           Points const & points)
+  : m_speed{weightSpeedKMpH, etaSpeedKMpH}, m_isOneWay{oneWay}, m_valid{true}
 {
-  ASSERT_GREATER(speed, 0.0, ());
+  ASSERT_GREATER(weightSpeedKMpH, 0.0, ());
+  ASSERT_GREATER(etaSpeedKMpH, 0.0, ());
 
   m_junctions.reserve(points.size());
   for (auto const & point : points)
@@ -132,14 +134,14 @@ void RoadGeometry::Load(VehicleModelInterface const & vehicleModel, FeatureType 
                              altitudes ? (*altitudes)[i] : feature::kDefaultAltitudeMeters);
   }
 
-  if (m_valid && m_speed <= 0.0)
+  if (m_valid && m_speed.m_weight <= 0.0)
   {
     auto const & id = feature.GetID();
     CHECK(!m_junctions.empty(), ("mwm:", id.GetMwmName(), ", featureId:", id.m_index));
     auto const begin = MercatorBounds::ToLatLon(m_junctions.front().GetPoint());
     auto const end = MercatorBounds::ToLatLon(m_junctions.back().GetPoint());
-    LOG(LERROR, ("Invalid speed", m_speed, "mwm:", id.GetMwmName(), ", featureId:", id.m_index,
-                 ", begin:", begin, "end:", end));
+    LOG(LERROR, ("Invalid speed", m_speed.m_weight, "mwm:", id.GetMwmName(),
+                 ", featureId:", id.m_index, ", begin:", begin, "end:", end));
     m_valid = false;
   }
 }

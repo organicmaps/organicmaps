@@ -24,7 +24,7 @@ public:
   // IRoadGraphBase overrides:
   virtual void GetOutgoingEdges(Junction const & junction, TEdgeVector & edges) const override;
   virtual void GetIngoingEdges(Junction const & junction, TEdgeVector & edges) const override;
-  virtual double GetMaxSpeedKMPH() const override;
+  virtual double GetMaxSpeedKMpH() const override;
   virtual void GetEdgeTypes(Edge const & edge, feature::TypesHolder & types) const override;
   virtual void GetJunctionTypes(Junction const & junction,
                                 feature::TypesHolder & types) const override;

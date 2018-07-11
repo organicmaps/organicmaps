@@ -17,7 +17,7 @@ using namespace routing;
 namespace
 {
 
-double const MAX_SPEED_KMPH = 5.0;
+auto constexpr kMaxSpeedKMpH = 5.0;
 
 /// Class provides a valid instance of FeatureID for testing purposes
 class TestValidFeatureIDProvider : private MwmSet
@@ -75,16 +75,13 @@ IRoadGraph::RoadInfo RoadGraphMockSource::GetRoadInfo(FeatureID const & featureI
   return m_roads[featureId.m_index];
 }
 
-double RoadGraphMockSource::GetSpeedKMPH(FeatureID const & featureId) const
+double RoadGraphMockSource::GetSpeedKMpH(FeatureID const & featureId) const
 {
   CHECK_LESS(featureId.m_index, m_roads.size(), ("Invalid feature id."));
   return m_roads[featureId.m_index].m_speedKMPH;
 }
 
-double RoadGraphMockSource::GetMaxSpeedKMPH() const
-{
-  return MAX_SPEED_KMPH;
-}
+double RoadGraphMockSource::GetMaxSpeedKMpH() const { return kMaxSpeedKMpH; }
 
 void RoadGraphMockSource::ForEachFeatureClosestToCross(m2::PointD const & /* cross */,
                                                        ICrossEdgesLoader & edgesLoader) const
@@ -126,11 +123,9 @@ FeatureID MakeTestFeatureID(uint32_t offset)
 
 void InitRoadGraphMockSourceWithTest1(RoadGraphMockSource & src)
 {
-  double const speedKMPH = MAX_SPEED_KMPH;
-
   IRoadGraph::RoadInfo ri0;
   ri0.m_bidirectional = true;
-  ri0.m_speedKMPH = speedKMPH;
+  ri0.m_speedKMPH = kMaxSpeedKMpH;
   ri0.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(0, 0)));
   ri0.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(5, 0)));
   ri0.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(10, 0)));
@@ -139,7 +134,7 @@ void InitRoadGraphMockSourceWithTest1(RoadGraphMockSource & src)
 
   IRoadGraph::RoadInfo ri1;
   ri1.m_bidirectional = true;
-  ri1.m_speedKMPH = speedKMPH;
+  ri1.m_speedKMPH = kMaxSpeedKMpH;
   ri1.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(10, -10)));
   ri1.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(10, -5)));
   ri1.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(10, 0)));
@@ -148,13 +143,13 @@ void InitRoadGraphMockSourceWithTest1(RoadGraphMockSource & src)
 
   IRoadGraph::RoadInfo ri2;
   ri2.m_bidirectional = true;
-  ri2.m_speedKMPH = speedKMPH;
+  ri2.m_speedKMPH = kMaxSpeedKMpH;
   ri2.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(15, -5)));
   ri2.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(15, 0)));
 
   IRoadGraph::RoadInfo ri3;
   ri3.m_bidirectional = true;
-  ri3.m_speedKMPH = speedKMPH;
+  ri3.m_speedKMPH = kMaxSpeedKMpH;
   ri3.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(20, 0)));
   ri3.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(25, 5)));
   ri3.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(15, 5)));
@@ -168,11 +163,9 @@ void InitRoadGraphMockSourceWithTest1(RoadGraphMockSource & src)
 
 void InitRoadGraphMockSourceWithTest2(RoadGraphMockSource & graph)
 {
-  double const speedKMPH = MAX_SPEED_KMPH;
-
   IRoadGraph::RoadInfo ri0;
   ri0.m_bidirectional = true;
-  ri0.m_speedKMPH = speedKMPH;
+  ri0.m_speedKMPH = kMaxSpeedKMpH;
   ri0.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(0, 0)));
   ri0.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(10, 0)));
   ri0.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(25, 0)));
@@ -182,21 +175,21 @@ void InitRoadGraphMockSourceWithTest2(RoadGraphMockSource & graph)
 
   IRoadGraph::RoadInfo ri1;
   ri1.m_bidirectional = true;
-  ri1.m_speedKMPH = speedKMPH;
+  ri1.m_speedKMPH = kMaxSpeedKMpH;
   ri1.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(0, 0)));
   ri1.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(5, 10)));
   ri1.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(5, 40)));
 
   IRoadGraph::RoadInfo ri2;
   ri2.m_bidirectional = true;
-  ri2.m_speedKMPH = speedKMPH;
+  ri2.m_speedKMPH = kMaxSpeedKMpH;
   ri2.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(12, 25)));
   ri2.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(10, 10)));
   ri2.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(10, 0)));
 
   IRoadGraph::RoadInfo ri3;
   ri3.m_bidirectional = true;
-  ri3.m_speedKMPH = speedKMPH;
+  ri3.m_speedKMPH = kMaxSpeedKMpH;
   ri3.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(5, 10)));
   ri3.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(10, 10)));
   ri3.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(70, 10)));
@@ -204,13 +197,13 @@ void InitRoadGraphMockSourceWithTest2(RoadGraphMockSource & graph)
 
   IRoadGraph::RoadInfo ri4;
   ri4.m_bidirectional = true;
-  ri4.m_speedKMPH = speedKMPH;
+  ri4.m_speedKMPH = kMaxSpeedKMpH;
   ri4.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(25, 0)));
   ri4.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(27, 25)));
 
   IRoadGraph::RoadInfo ri5;
   ri5.m_bidirectional = true;
-  ri5.m_speedKMPH = speedKMPH;
+  ri5.m_speedKMPH = kMaxSpeedKMpH;
   ri5.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(35, 0)));
   ri5.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(37, 30)));
   ri5.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(70, 30)));
@@ -218,20 +211,20 @@ void InitRoadGraphMockSourceWithTest2(RoadGraphMockSource & graph)
 
   IRoadGraph::RoadInfo ri6;
   ri6.m_bidirectional = true;
-  ri6.m_speedKMPH = speedKMPH;
+  ri6.m_speedKMPH = kMaxSpeedKMpH;
   ri6.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(70, 0)));
   ri6.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(70, 10)));
   ri6.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(70, 30)));
 
   IRoadGraph::RoadInfo ri7;
   ri7.m_bidirectional = true;
-  ri7.m_speedKMPH = speedKMPH;
+  ri7.m_speedKMPH = kMaxSpeedKMpH;
   ri7.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(39, 55)));
   ri7.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(80, 55)));
 
   IRoadGraph::RoadInfo ri8;
   ri8.m_bidirectional = true;
-  ri8.m_speedKMPH = speedKMPH;
+  ri8.m_speedKMPH = kMaxSpeedKMpH;
   ri8.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(5, 40)));
   ri8.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(18, 55)));
   ri8.m_junctions.push_back(MakeJunctionForTesting(m2::PointD(39, 55)));
