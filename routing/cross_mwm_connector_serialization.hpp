@@ -77,7 +77,7 @@ public:
     void WriteCrossMwmId(osm::Id const & id, uint8_t bits, BitWriter<Sink> & w) const
     {
       CHECK_LESS_OR_EQUAL(bits, connector::kOsmIdBits, ());
-      w.WriteAtMost64Bits(id.EncodedId(), bits);
+      w.WriteAtMost64Bits(id.GetEncodedId(), bits);
     }
 
     template <class Sink>
@@ -439,7 +439,7 @@ private:
     for (Transition<osm::Id> const & transition : transitions)
       osmId = std::max(osmId, transition.GetCrossMwmId());
 
-    return bits::NumUsedBits(osmId.OsmId());
+    return bits::NumUsedBits(osmId.GetOsmId());
   }
 
   static uint32_t CalcBitsPerCrossMwmId(

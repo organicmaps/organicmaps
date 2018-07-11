@@ -172,18 +172,18 @@ void DeserializerFromJson::operator()(FeatureIdentifiers & id, char const * name
   auto const it = m_osmIdToFeatureIds.find(osmId);
   if (it != m_osmIdToFeatureIds.cend())
   {
-    CHECK(!it->second.empty(), ("Osm id:", osmId, "(encoded", osmId.EncodedId(),
+    CHECK(!it->second.empty(), ("Osm id:", osmId, "(encoded", osmId.GetEncodedId(),
                                 ") from transit graph does not correspond to any feature."));
     if (it->second.size() != 1)
     {
       // Note. |osmId| corresponds to several feature ids. It may happen in case of stops,
       // if a stop is present as a relation. It's a rare case.
-      LOG(LWARNING, ("Osm id:", osmId, "( encoded", osmId.EncodedId(), ") corresponds to",
+      LOG(LWARNING, ("Osm id:", osmId, "( encoded", osmId.GetEncodedId(), ") corresponds to",
                      it->second.size(), "feature ids."));
     }
     id.SetFeatureId(it->second[0]);
   }
-  id.SetOsmId(osmId.EncodedId());
+  id.SetOsmId(osmId.GetEncodedId());
 }
 
 void DeserializerFromJson::operator()(EdgeFlags & edgeFlags, char const * name)

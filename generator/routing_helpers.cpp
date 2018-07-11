@@ -17,7 +17,7 @@ bool ForEachRoadFromFile(string const & filename, ToDo && toDo)
 {
   return generator::ForEachOsmId2FeatureId(filename,
                                            [&](osm::Id const & osmId, uint32_t const featureId) {
-                                             if (osmId.IsWay())
+                                             if (osmId.GetType() == osm::Id::Type::Way)
                                                toDo(featureId, osmId);
                                            });
 }

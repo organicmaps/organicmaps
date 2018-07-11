@@ -59,7 +59,7 @@ bool UGCDB::Get(osm::Id const & id, std::vector<uint8_t> & blob)
   results.values << "[";
 
   std::ostringstream cmd;
-  cmd << "SELECT value FROM ratings WHERE key=" << id.EncodedId() << ";";
+  cmd << "SELECT value FROM ratings WHERE key=" << id.GetEncodedId() << ";";
 
   char * zErrMsg = nullptr;
   auto rc = sqlite3_exec(m_db, cmd.str().c_str(), callback, &results, &zErrMsg);

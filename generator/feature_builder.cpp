@@ -414,7 +414,7 @@ void FeatureBuilder1::SerializeBorder(serial::GeometryCodingParams const & param
   data.clear();
 
   PushBackByteSink<TBuffer> sink(data);
-  WriteToSink(sink, GetMostGenericOsmId().EncodedId());
+  WriteToSink(sink, GetMostGenericOsmId().GetEncodedId());
 
   CHECK_GREATER(m_polygons.size(), 0, ());
 
@@ -498,12 +498,13 @@ osm::Id FeatureBuilder1::GetMostGenericOsmId() const
   auto result = m_osmIds.front();
   for (auto const & id : m_osmIds)
   {
-    if (id.IsRelation())
+    auto const t = id.GetType();
+    if (t == osm::Id::Type::Relation)
     {
       result = id;
       break;
     }
-    else if (result.IsNode() && id.IsWay())
+    else if (t == osm::Id::Type::Way && result.GetType() == osm::Id::Type::Node)
     {
       result = id;
     }
@@ -514,8 +515,10 @@ osm::Id FeatureBuilder1::GetMostGenericOsmId() const
 bool FeatureBuilder1::HasOsmId(osm::Id const & id) const
 {
   for (auto const & cid : m_osmIds)
+  {
     if (cid == id)
       return true;
+  }
   return false;
 }
 
@@ -581,8 +584,8 @@ bool FeatureBuilder1::IsDrawableInRange(int lowScale, int highScale) const
 
 uint64_t FeatureBuilder1::GetWayIDForRouting() const
 {
-  if (m_osmIds.size() == 1 && m_osmIds[0].IsWay() && IsLine() && IsRoad())
-    return m_osmIds[0].OsmId();
+  if (m_osmIds.size() == 1 && m_osmIds[0].GetType() == osm::Id::Type::Way && IsLine() && IsRoad())
+    return m_osmIds[0].GetOsmId();
   return 0;
 }
 
@@ -622,7 +625,7 @@ void FeatureBuilder2::SerializeLocalityObject(serial::GeometryCodingParams const
   data.m_buffer.clear();
 
   PushBackByteSink<TBuffer> sink(data.m_buffer);
-  WriteToSink(sink, GetMostGenericOsmId().EncodedId());
+  WriteToSink(sink, GetMostGenericOsmId().GetEncodedId());
 
   auto const type = m_params.GetGeomType();
   WriteToSink(sink, static_cast<uint8_t>(type));

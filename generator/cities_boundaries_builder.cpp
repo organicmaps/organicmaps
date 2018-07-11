@@ -162,7 +162,7 @@ bool SerializeBoundariesTable(std::string const & path, OsmIdToBoundariesTable &
     {
       WriteToSink(sink, static_cast<uint64_t>(ids.size()));
       for (auto const & id : ids)
-        WriteToSink(sink, id.EncodedId());
+        WriteToSink(sink, id.GetEncodedId());
     }
 
     return true;

@@ -220,7 +220,7 @@ public:
     f.GetPreferredNames(name, secondary);
     if (name.empty())
       name = operatr;
-    string const & osmId = strings::to_string(osmIt->second.EncodedId());
+    string const & osmId = strings::to_string(osmIt->second.GetEncodedId());
     string const & uid = BuildUniqueId(ll, name);
     string const & lat = strings::to_string_with_digits_after_comma(ll.lat, 6);
     string const & lon = strings::to_string_with_digits_after_comma(ll.lon, 6);

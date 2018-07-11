@@ -135,9 +135,8 @@ public:
           holder.SetInner();
           auto const id = fb2.GetMostGenericOsmId();
           CHECK(holder.TryToMakeStrip(hullPoints),
-                ("Error while building tringles for object with OSM Id:", id.OsmId(),
-                 "Type:", id.IsRelation() ? "Relation" : "Way", "points:", points,
-                 "hull:", hull.Points()));
+                ("Error while building tringles for object with OSM Id:", id.GetOsmId(),
+                 "Type:", id.GetType(), "points:", points, "hull:", hull.Points()));
         }
       }
     }
@@ -248,7 +247,7 @@ bool GenerateGeoObjectsData(string const & featuresDir, string const & nodesFile
   auto const needSerialize = [&nodeIds](FeatureBuilder1 & fb) {
     auto & fb2 = static_cast<FeatureBuilder2 &>(fb);
     return fb2.IsLocalityObject() ||
-           (!fb.GetOsmIds().empty() && nodeIds.count(fb.GetMostGenericOsmId().EncodedId()) != 0);
+           (!fb.GetOsmIds().empty() && nodeIds.count(fb.GetMostGenericOsmId().GetEncodedId()) != 0);
   };
 
   DataHeader header;

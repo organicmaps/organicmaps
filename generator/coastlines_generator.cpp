@@ -114,9 +114,11 @@ namespace
         osm::Id const firstWay = fb.GetFirstOsmId();
         osm::Id const lastWay = fb.GetLastOsmId();
         if (firstWay == lastWay)
-          LOG(LINFO, ("Not merged coastline, way", firstWay.OsmId(), "(", fb.GetPointsCount(), "points)"));
+          LOG(LINFO, ("Not merged coastline, way", firstWay.GetOsmId(), "(", fb.GetPointsCount(),
+                      "points)"));
         else
-          LOG(LINFO, ("Not merged coastline, ways", firstWay.OsmId(), "to", lastWay.OsmId(), "(", fb.GetPointsCount(), "points)"));
+          LOG(LINFO, ("Not merged coastline, ways", firstWay.GetOsmId(), "to", lastWay.GetOsmId(),
+                      "(", fb.GetPointsCount(), "points)"));
         ++m_notMergedCoastsCount;
         m_totalNotMergedCoastsPoints += fb.GetPointsCount();
       }

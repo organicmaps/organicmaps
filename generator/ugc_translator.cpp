@@ -36,7 +36,7 @@ bool UGCTranslator::TranslateUGC(osm::Id const & id, ugc::UGC & ugc)
 
   if (size > 1)
   {
-    LOG(LWARNING, ("Osm id duplication in UGC database", id.EncodedId()));
+    LOG(LWARNING, ("Osm id duplication in UGC database", id.GetEncodedId()));
     return false;
   }
 

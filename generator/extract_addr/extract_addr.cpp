@@ -56,7 +56,7 @@ void PrintFeature(FeatureBuilder1 const & fb, uint64_t)
   ToJSONObject(*geometry, "coordinates", coordinates);
 
   auto properties = my::NewJSONObject();
-  ToJSONObject(*properties, "id", fb.GetMostGenericOsmId().EncodedId());
+  ToJSONObject(*properties, "id", fb.GetMostGenericOsmId().GetEncodedId());
   if (!name.empty() && !category.empty() && category != "building-address")
   {
     ToJSONObject(*properties, "name", name);
