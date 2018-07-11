@@ -2000,6 +2000,7 @@ void FrontendRenderer::Routine::Do()
   bool viewportChanged = true;
   bool invalidContext = false;
   uint32_t inactiveFramesCounter = 0;
+  bool forceFullRedrawNextFrame = false;
   uint32_t constexpr kMaxInactiveFrames = 2;
 
   dp::OGLContext * context = m_renderer.m_contextFactory->getDrawContext();
@@ -2009,17 +2010,18 @@ void FrontendRenderer::Routine::Do()
   scaleFpsHelper.SetVisible(true);
 #endif
 
+  m_renderer.ScheduleOverlayCollecting();
+
+#ifdef SHOW_FRAMES_STATS
   uint64_t framesOverall = 0;
   uint64_t framesFast = 0;
 
-  m_renderer.ScheduleOverlayCollecting();
-
-  // Uncomment only for debug purposes!
-//  m_renderer.m_notifier->Notify(ThreadsCommutator::RenderThread, std::chrono::seconds(5),
-//                                true /* repeating */, [&framesOverall, &framesFast](uint64_t)
-//  {
-//    LOG(LINFO, ("framesOverall =", framesOverall, "framesFast =", framesFast));
-//  });
+  m_renderer.m_notifier->Notify(ThreadsCommutator::RenderThread, std::chrono::seconds(5),
+                                true /* repeating */, [&framesOverall, &framesFast](uint64_t)
+  {
+    LOG(LINFO, ("framesOverall =", framesOverall, "framesFast =", framesFast));
+  });
+#endif
 
   while (!IsCancelled())
   {
@@ -2042,17 +2044,19 @@ void FrontendRenderer::Routine::Do()
       isActiveFrame |= m_renderer.m_userEventStream.IsWaitingForActionCompletion();
       isActiveFrame |= InterpolationHolder::Instance().IsActive();
 
-      bool isActiveFrameForScene = isActiveFrame;
+      bool isActiveFrameForScene = isActiveFrame || forceFullRedrawNextFrame;
       if (AnimationSystem::Instance().HasAnimations())
       {
-        isActiveFrameForScene |= !AnimationSystem::Instance().HasOnlyArrowAnimations();
+        isActiveFrameForScene |= AnimationSystem::Instance().HasMapAnimations();
         isActiveFrame = true;
       }
 
       m_renderer.m_routeRenderer->UpdatePreview(modelView);
 
+#ifdef SHOW_FRAMES_STATS
       framesOverall += static_cast<uint64_t>(isActiveFrame);
       framesFast += static_cast<uint64_t>(!isActiveFrameForScene);
+#endif
 
       m_renderer.RenderScene(modelView, isActiveFrameForScene);
 
@@ -2078,12 +2082,14 @@ void FrontendRenderer::Routine::Do()
       }
 
       bool const canSuspend = inactiveFramesCounter > kMaxInactiveFrames;
+      forceFullRedrawNextFrame = m_renderer.m_overlayTree->IsNeedUpdate();
       if (canSuspend)
       {
         // Process a message or wait for a message.
         // IsRenderingEnabled() can return false in case of rendering disabling and we must prevent
         // possibility of infinity waiting in ProcessSingleMessage.
         m_renderer.ProcessSingleMessage(m_renderer.IsRenderingEnabled());
+        forceFullRedrawNextFrame = true;
         timer.Reset();
         inactiveFramesCounter = 0;
       }
@@ -2094,6 +2100,7 @@ void FrontendRenderer::Routine::Do()
         {
           if (!m_renderer.ProcessSingleMessage(false /* waitForMessage */))
             break;
+          forceFullRedrawNextFrame = true;
           inactiveFramesCounter = 0;
           availableTime = kVSyncInterval - timer.ElapsedSeconds();
         }

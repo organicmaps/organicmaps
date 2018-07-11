@@ -156,18 +156,15 @@ bool AnimationSystem::HasAnimations() const
   return !m_animationChain.empty();
 }
 
-bool AnimationSystem::HasOnlyArrowAnimations() const
+bool AnimationSystem::HasMapAnimations() const
 {
-  if (!HasAnimations())
-    return false;
-
   if (AnimationExists(Animation::Object::MapPlane))
-    return false;
+    return true;
 
   if (AnimationExists(Animation::Object::Selection))
-    return false;
+    return true;
 
-  return true;
+  return false;
 }
 
 AnimationSystem & AnimationSystem::Instance()

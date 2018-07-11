@@ -6,6 +6,7 @@
 
 //#define DRAPE_MEASURER
 //#define SCENARIO_ENABLE
+//#define SHOW_FRAMES_STATS
 
 #ifdef DRAPE_MEASURER
 
