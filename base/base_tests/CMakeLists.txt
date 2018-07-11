@@ -23,6 +23,7 @@ set(
   move_to_front_tests.cpp
   newtype_test.cpp
   observer_list_test.cpp
+  osm_id_test.cpp
   range_iterator_test.cpp
   ref_counted_tests.cpp
   regexp_test.cpp

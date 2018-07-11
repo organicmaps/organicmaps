@@ -526,7 +526,7 @@ string FeatureBuilder1::GetOsmIdsString() const
 
   ostringstream out;
   for (auto const & id : m_osmIds)
-    out << id.Type() << " id=" << id.OsmId() << " ";
+    out << DebugPrint(id) << " ";
   return out.str();
 }
 

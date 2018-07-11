@@ -1,41 +1,43 @@
 #include "base/osm_id.hpp"
 
-#include "base/assert.hpp"
-
 #include <sstream>
 
+namespace
+{
+// Use 2 higher bits to encode type.
+//
+// todo The masks are not disjoint for some reason
+//      since the commit 60414dc86254aed22ac9e66fed49eba554260a2c.
+uint64_t const kNode = 0x4000000000000000ULL;
+uint64_t const kWay = 0x8000000000000000ULL;
+uint64_t const kRelation = 0xC000000000000000ULL;
+uint64_t const kReset = ~(kNode | kWay | kRelation);
+}  // namespace
 
 namespace osm
 {
-
-// Use 3 higher bits to encode type
-static const uint64_t NODE = 0x4000000000000000ULL;
-static const uint64_t WAY = 0x8000000000000000ULL;
-static const uint64_t RELATION = 0xC000000000000000ULL;
-static const uint64_t RESET = ~(NODE | WAY | RELATION);
-
 Id::Id(uint64_t encodedId) : m_encodedId(encodedId)
 {
 }
 
 Id Id::Node(uint64_t id)
 {
-  return Id( id | NODE );
+  return Id(id | kNode);
 }
 
 Id Id::Way(uint64_t id)
 {
-  return Id( id | WAY );
+  return Id(id | kWay);
 }
 
 Id Id::Relation(uint64_t id)
 {
-  return Id( id | RELATION );
+  return Id(id | kRelation);
 }
 
 uint64_t Id::OsmId() const
 {
-  return m_encodedId & RESET;
+  return m_encodedId & kReset;
 }
 
 uint64_t Id::EncodedId() const
@@ -45,35 +47,35 @@ uint64_t Id::EncodedId() const
 
 bool Id::IsNode() const
 {
-  return ((m_encodedId & NODE) == NODE);
+  return (m_encodedId & kNode) == kNode;
 }
 
 bool Id::IsWay() const
 {
-  return ((m_encodedId & WAY) == WAY);
+  return (m_encodedId & kWay) == kWay;
 }
 
 bool Id::IsRelation() const
 {
-  return ((m_encodedId & RELATION) == RELATION);
-}
-
-std::string Id::Type() const
-{
-  if ((m_encodedId & RELATION) == RELATION)
-    return "relation";
-  else if ((m_encodedId & NODE) == NODE)
-    return "node";
-  else if ((m_encodedId & WAY) == WAY)
-    return "way";
-  else
-    return "ERROR: Not initialized Osm ID";
+  return (m_encodedId & kRelation) == kRelation;
 }
 
 std::string DebugPrint(osm::Id const & id)
 {
+  std::string typeStr;
+  // Note that with current encoding all relations are also at the
+  // same time nodes and ways. Therefore, the relation check must go first.
+  if (id.IsRelation())
+    typeStr = "relation";
+  else if (id.IsNode())
+    typeStr = "node";
+  else if (id.IsWay())
+    typeStr = "way";
+  else
+    typeStr = "ERROR: Not initialized Osm ID";
+
   std::ostringstream stream;
-  stream << id.Type() << " " << id.OsmId();
+  stream << typeStr << " " << id.OsmId();
   return stream.str();
 }
 }  // namespace osm
