@@ -32900,6 +32900,36 @@ fa = دوباره نپرس
   [error_already_downloaded]
     en = This list has already been downloaded
     ru = Этот список уже был загружен
+    ar = تم بالفعل تنزيل هذه القائمة
+    cs = Tento seznam byl již stažen
+    da = Denne liste er allerede blevet downloadet
+    nl = Deze lijst is al gedownload
+    fi = Tämä lista on jo ladattu
+    fr = Cette liste a déjà été téléchargée
+    de = Diese Liste wurde bereits heruntergeladen
+    hu = Ezt a listát már letöltötték
+    id = Daftar ini sudah diunduh
+    it = Questa lista è già stata scaricata
+    ja = このリストは既にダウンロード済みです
+    ko = 해당 목록을 이미 다운로드 하였습니다.
+    no = Denne listen har allerede blitt lastet ned
+    pl = Ta lista została już pobrana
+    pt = Esta lista já foi transferida
+    pt-BR = Essa lista já foi baixada
+    ro = Lista aceasta a fost descărcată deja
+    es = Esta lista ya se ha descargado
+    es_MX = Ya se descargó esta lista
+    sv = Den här listan har redan laddats ned
+    th = มีการดาวน์โหลดรายการนี้แล้ว
+    tr = Bu liste zaten indirildi
+    uk = Цей список вже завантажений
+    vi = Danh sách này đã được tải về
+    el = Έχει γίνει ήδη λήψη αυτής της λίστας
+    sk = Tento zoznam už bol stiahnutý
+    sw = Orodha hii imepakuliwa tayari
+    zh-Hans = 这个列表已被下载
+    zh-Hant =  這個列表已被下載
+
 
   [popular_place]
     en = Popular
