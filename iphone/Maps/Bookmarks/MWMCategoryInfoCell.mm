@@ -1,6 +1,8 @@
 #import "MWMCategoryInfoCell.h"
 #import "SwiftBridge.h"
 
+#include "map/bookmark_helpers.hpp"
+
 #include "kml/types.hpp"
 #include "kml/type_utils.hpp"
 
@@ -44,11 +46,11 @@
                       delegate:(id<MWMCategoryInfoCellDelegate>)delegate
 {
   self.delegate = delegate;
-  self.titleLabel.text = @(kml::GetDefaultStr(data.m_name).c_str());
+  self.titleLabel.text = @(GetPreferredBookmarkStr(data.m_name).c_str());
   self.authorLabel.text = [NSString stringWithCoreFormat:L(@"author_name_by_prefix")
                                                arguments:@[@(data.m_authorName.c_str())]];
-  auto info = @(kml::GetDefaultStr(data.m_description).c_str());
-  auto shortInfo = @(kml::GetDefaultStr(data.m_annotation).c_str());
+  auto info = @(GetPreferredBookmarkStr(data.m_description).c_str());
+  auto shortInfo = @(GetPreferredBookmarkStr(data.m_annotation).c_str());
   if (info.length > 0 && shortInfo.length > 0)
   {
     self.info = info;

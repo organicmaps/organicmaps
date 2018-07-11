@@ -1,4 +1,5 @@
 #include "map/track.hpp"
+#include "map/bookmark_helpers.hpp"
 #include "map/user_mark_id_storage.hpp"
 
 #include "geometry/distance_on_sphere.hpp"
@@ -15,7 +16,7 @@ Track::Track(kml::TrackData && data)
 
 string Track::GetName() const
 {
-  return kml::GetDefaultStr(m_data.m_name);
+  return GetPreferredBookmarkStr(m_data.m_name);
 }
 
 m2::RectD Track::GetLimitRect() const
