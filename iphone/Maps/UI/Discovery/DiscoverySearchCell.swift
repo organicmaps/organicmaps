@@ -1,16 +1,38 @@
 @objc(MWMDiscoverySearchCell)
 final class DiscoverySearchCell: UICollectionViewCell {
-  @IBOutlet private weak var title: UILabel!
-  @IBOutlet private weak var subtitle: UILabel!
-  @IBOutlet private weak var distance: UILabel!
+  @IBOutlet private weak var titleLabel: UILabel!
+  @IBOutlet private weak var subtitleLabel: UILabel!
+  @IBOutlet private weak var distanceLabel: UILabel!
+  @IBOutlet private weak var popularView: UIView! {
+    didSet {
+      popularView.tintColor = UIColor.linkBlue()
+    }
+  }
   
+  @IBOutlet private weak var ratingView: RatingSummaryView! {
+    didSet {
+      ratingView.defaultConfig()
+      ratingView.textFont = UIFont.bold12()
+      ratingView.textSize = 12
+    }
+  }
+
   typealias Tap = () -> ()
   private var tap: Tap?
 
-  @objc func config(title: String, subtitle: String, distance: String, tap: @escaping Tap) {
-    self.title.text = title
-    self.subtitle.text = subtitle
-    self.distance.text = distance
+  @objc func config(title: String,
+                    subtitle: String,
+                    distance: String,
+                    popular: Bool,
+                    ratingValue: String,
+                    ratingType: MWMRatingSummaryViewValueType,
+                    tap: @escaping Tap) {
+    titleLabel.text = title
+    subtitleLabel.text = subtitle
+    distanceLabel.text = distance
+    popularView.isHidden = !popular
+    ratingView.value = ratingValue
+    ratingView.type = ratingType
     self.tap = tap
   }
 

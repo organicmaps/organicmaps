@@ -376,9 +376,15 @@ string GetDistance(m2::PointD const & from, m2::PointD const & to)
                                                     : model.GetCafeAt(indexPath.row);
     auto const & pt = type == ItemType::Attractions ? model.GetAttractionReferencePoint()
                                                     : model.GetCafeReferencePoint();
+    auto const & pi = type == ItemType::Attractions ? model.GetAttractionProductInfoAt(indexPath.row)
+                                                    : model.GetCafeProductInfoAt(indexPath.row);
+    tie(ratingValue, ratingType) = FormattedRating(pi.m_ugcRating);
     [cell configWithTitle:@(sr.GetString().c_str())
                  subtitle:@(sr.GetFeatureTypeName().c_str())
                  distance:@(GetDistance(pt, sr.GetFeatureCenter()).c_str())
+                  popular:sr.GetRankingInfo().m_popularity > 0
+              ratingValue:ratingValue
+               ratingType:ratingType
                       tap:^{
                         [self.delegate routeToItem:type atIndex:indexPath.row];
                       }];

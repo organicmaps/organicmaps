@@ -26,16 +26,13 @@ public:
     switch (type)
     {
     case ItemType::Attractions:
-      m_attractions.m_viewportCenter = viewportCenter;
-      m_attractions.m_results = res;
+      m_attractions.SetResults(res, productInfo, viewportCenter);
       break;
     case ItemType::Cafes:
-      m_cafes.m_viewportCenter = viewportCenter;
-      m_cafes.m_results = res;
+      m_cafes.SetResults(res, productInfo, viewportCenter);
       break;
     case ItemType::Hotels:
-      m_hotels.m_viewportCenter = viewportCenter;
-      m_hotels.m_results = res;
+      m_hotels.SetResults(res, productInfo, viewportCenter);
       break;
     default: break;
     }
@@ -64,19 +61,27 @@ public:
 
   search::Result const & GetAttractionAt(size_t const index) const
   {
-    CHECK_LESS(index, m_attractions.m_results.GetCount(), ("Incorrect attractions index:", index));
-    return m_attractions.m_results[index];
+    return m_attractions.GetSearchResultAt(index);
   }
 
   m2::PointD const & GetAttractionReferencePoint() const { return m_attractions.m_viewportCenter; }
 
+  search::ProductInfo const & GetAttractionProductInfoAt(size_t const index) const
+  {
+    return m_attractions.GetProductInfoAt(index);
+  }
+
   search::Result const & GetCafeAt(size_t const index) const
   {
-    CHECK_LESS(index, m_cafes.m_results.GetCount(), ("Incorrect cafes index:", index));
-    return m_cafes.m_results[index];
+    return m_cafes.GetSearchResultAt(index);
   }
 
   m2::PointD const & GetCafeReferencePoint() const { return m_cafes.m_viewportCenter; }
+
+  search::ProductInfo const & GetCafeProductInfoAt(size_t const index) const
+  {
+    return m_cafes.GetProductInfoAt(index);
+  }
 
   locals::LocalExpert const & GetExpertAt(size_t const index) const
   {
@@ -86,8 +91,7 @@ public:
 
   search::Result const & GetHotelAt(size_t const index) const
   {
-    CHECK_LESS(index, m_hotels.m_results.GetCount(), ("Incorrect hotels index:", index));
-    return m_hotels.m_results[index];
+    return m_hotels.GetSearchResultAt(index);
   }
 
   m2::PointD const & GetHotelReferencePoint() const { return m_hotels.m_viewportCenter; }
@@ -97,6 +101,28 @@ private:
   {
     m2::PointD m_viewportCenter;
     search::Results m_results;
+    std::vector<search::ProductInfo> m_productInfos;
+
+    void SetResults(search::Results const & res,
+                    std::vector<search::ProductInfo> const & productInfo,
+                    m2::PointD const & viewportCenter)
+    {
+      m_viewportCenter = viewportCenter;
+      m_results = res;
+      m_productInfos = productInfo;
+    }
+
+    search::Result const & GetSearchResultAt(size_t const index) const
+    {
+      CHECK_LESS(index, m_results.GetCount(), ("Incorrect index:", index));
+      return m_results[index];
+    }
+
+    search::ProductInfo const & GetProductInfoAt(size_t const index) const
+    {
+      CHECK_LESS(index, m_productInfos.size(), ("Incorrect index:", index));
+      return m_productInfos[index];
+    }
   };
 
   UISearchResults m_attractions;
