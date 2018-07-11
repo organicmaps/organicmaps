@@ -330,6 +330,7 @@ private:
   bool m_forceUpdateScene;
   bool m_forceUpdateUserMarks;
 
+  bool m_isAntialiasingEnabled = false;
   drape_ptr<PostprocessRenderer> m_postprocessRenderer;
 
   drape_ptr<ScenarioManager> m_scenarioManager;

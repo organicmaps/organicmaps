@@ -453,9 +453,23 @@ void PostprocessRenderer::OnFramebufferFallback()
 
 void PostprocessRenderer::OnChangedRouteFollowingMode(bool isRouteFollowingActive)
 {
+  if (m_isRouteFollowingActive == isRouteFollowingActive)
+    return;
+
   m_isRouteFollowingActive = isRouteFollowingActive;
-  m_isMainFramebufferRendered = false;
-  m_isSmaaFramebufferRendered = false;
+  if (m_isRouteFollowingActive)
+  {
+    if (m_width != 0 && m_height != 0)
+      UpdateFramebuffers(m_width, m_height);
+  }
+  else
+  {
+    m_isMainFramebufferRendered = false;
+    m_isSmaaFramebufferRendered = false;
+    m_edgesFramebuffer.reset();
+    m_blendingWeightFramebuffer.reset();
+    m_smaaFramebuffer.reset();
+  }
 }
 
 StencilWriterGuard::StencilWriterGuard(ref_ptr<PostprocessRenderer> renderer)

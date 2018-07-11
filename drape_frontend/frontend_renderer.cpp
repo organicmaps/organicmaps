@@ -759,6 +759,10 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       ref_ptr<EnableTransitSchemeMessage > msg = message;
       m_transitSchemeEnabled = msg->IsEnabled();
+#ifndef OMIM_OS_IPHONE_SIMULATOR
+      m_postprocessRenderer->SetEffectEnabled(PostprocessRenderer::Effect::Antialiasing,
+                                              msg->IsEnabled() ? true : m_isAntialiasingEnabled);
+#endif
       if (!msg->IsEnabled())
         m_transitSchemeRenderer->ClearGLDependentResources(make_ref(m_overlayTree));
       break;
@@ -855,6 +859,8 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::SetPosteffectEnabled:
     {
       ref_ptr<SetPosteffectEnabledMessage> msg = message;
+      if (msg->GetEffect() == PostprocessRenderer::Effect::Antialiasing)
+        m_isAntialiasingEnabled = msg->IsEnabled();
 #ifndef OMIM_OS_IPHONE_SIMULATOR
       m_postprocessRenderer->SetEffectEnabled(msg->GetEffect(), msg->IsEnabled());
 #endif
