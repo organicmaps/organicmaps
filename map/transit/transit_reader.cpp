@@ -179,6 +179,12 @@ void TransitReadManager::EnableTransitSchemeMode(bool enable)
   if (m_isSchemeMode == enable)
     return;
   m_isSchemeMode = enable;
+
+  m_drapeEngine.SafeCall(&df::DrapeEngine::EnableTransitScheme, enable);
+
+  if (m_isSchemeModeBlocked)
+    return;
+
   if (!m_isSchemeMode)
   {
     m_lastActiveMwms.clear();
@@ -189,14 +195,37 @@ void TransitReadManager::EnableTransitSchemeMode(bool enable)
   {
     Invalidate();
   }
-  m_drapeEngine.SafeCall(&df::DrapeEngine::EnableTransitScheme, enable);
+}
+
+void TransitReadManager::BlockTransitSchemeMode(bool isBlocked)
+{
+  if (m_isSchemeModeBlocked == isBlocked)
+    return;
+
+  m_isSchemeModeBlocked = isBlocked;
+
+  if (!m_isSchemeMode)
+    return;
+
+  if (m_isSchemeModeBlocked)
+  {
+    m_drapeEngine.SafeCall(&df::DrapeEngine::ClearAllTransitSchemeCache);
+
+    m_lastActiveMwms.clear();
+    m_mwmCache.clear();
+    m_cacheSize = 0;
+  }
+  else
+  {
+    Invalidate();
+  }
 }
 
 void TransitReadManager::UpdateViewport(ScreenBase const & screen)
 {
   m_currentModelView = {screen, true /* initialized */};
 
-  if (!m_isSchemeMode)
+  if (!m_isSchemeMode || m_isSchemeModeBlocked)
     return;
 
   if (df::GetDrawTileScale(screen) < kMinSchemeZoomLevel)

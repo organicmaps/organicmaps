@@ -771,6 +771,12 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::ClearAllTransitSchemeData:
+    {
+      m_transitSchemeRenderer->ClearGLDependentResources(make_ref(m_overlayTree));
+      break;
+  }
+
   case Message::EnableTraffic:
     {
       ref_ptr<EnableTrafficMessage> msg = message;
@@ -1278,7 +1284,7 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
       RenderSearchMarksLayer(modelView);
     }
 
-    if (!HasTransitRouteData())
+    if (!HasRouteData())
       RenderTransitSchemeLayer(modelView);
 
     m_drapeApiRenderer->Render(modelView, make_ref(m_gpuProgramManager), m_frameValues);
@@ -1369,9 +1375,14 @@ void FrontendRenderer::RenderNavigationOverlayLayer(ScreenBase const & modelView
   }
 }
 
-bool FrontendRenderer::HasTransitRouteData()
+bool FrontendRenderer::HasTransitRouteData() const
 {
   return m_routeRenderer->HasTransitData();
+}
+
+bool FrontendRenderer::HasRouteData() const
+{
+  return m_routeRenderer->HasData();
 }
 
 void FrontendRenderer::RenderTransitSchemeLayer(ScreenBase const & modelView)

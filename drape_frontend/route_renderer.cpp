@@ -737,4 +737,9 @@ bool RouteRenderer::HasTransitData() const
   }
   return false;
 }
+
+bool RouteRenderer::HasData() const
+{
+  return !m_subroutes.empty();
+}
 }  // namespace df

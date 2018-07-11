@@ -90,6 +90,7 @@ public:
   void SetSubrouteVisibility(dp::DrapeID id, bool isVisible);
 
   bool HasTransitData() const;
+  bool HasData() const;
 
 private:
   void RenderSubroute(SubrouteInfo const & subrouteInfo, size_t subrouteDataIndex,

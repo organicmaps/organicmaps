@@ -171,7 +171,8 @@ private:
   void RenderSearchMarksLayer(ScreenBase const & modelView);
   void RenderTransitBackground();
 
-  bool HasTransitRouteData();
+  bool HasTransitRouteData() const;
+  bool HasRouteData() const;
 
   ScreenBase const & ProcessEvents(bool & modelViewChanged, bool & viewportChanged);
   void PrepareScene(ScreenBase const & modelView);

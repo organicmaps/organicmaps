@@ -88,6 +88,7 @@ public:
     EnableTransitScheme,
     UpdateTransitScheme,
     ClearTransitSchemeData,
+    ClearAllTransitSchemeData,
     RegenerateTransitScheme,
     FlushTransitScheme,
     ShowDebugInfo,

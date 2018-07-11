@@ -102,6 +102,7 @@ public:
   bool GetTransitDisplayInfo(TransitDisplayInfos & transitDisplayInfos);
 
   void EnableTransitSchemeMode(bool enable);
+  void BlockTransitSchemeMode(bool isBlocked);
   void UpdateViewport(ScreenBase const & screen);
   void OnMwmDeregistered(MwmSet::MwmId const & mwmId);
   void Invalidate();
@@ -145,5 +146,6 @@ private:
   std::map<MwmSet::MwmId, CacheEntry> m_mwmCache;
   size_t m_cacheSize = 0;
   bool m_isSchemeMode = false;
+  bool m_isSchemeModeBlocked = false;
   pair<ScreenBase, bool> m_currentModelView = {ScreenBase(), false /* initialized */};
 };

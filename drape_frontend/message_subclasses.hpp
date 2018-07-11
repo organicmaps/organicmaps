@@ -1050,6 +1050,12 @@ private:
   MwmSet::MwmId m_mwmId;
 };
 
+class ClearAllTransitSchemeDataMessage : public Message
+{
+public:
+  Type GetType() const override { return Message::ClearAllTransitSchemeData; }
+};
+
 class UpdateTransitSchemeMessage : public Message
 {
 public:

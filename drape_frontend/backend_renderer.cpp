@@ -456,6 +456,15 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
       break;
     }
 
+  case Message::ClearAllTransitSchemeData:
+    {
+      m_transitBuilder->Clear();
+      m_commutator->PostMessage(ThreadsCommutator::RenderThread,
+                                make_unique_dp<ClearAllTransitSchemeDataMessage>(),
+                                MessagePriority::Normal);
+      break;
+    }
+
   case Message::EnableTransitScheme:
     {
       ref_ptr<EnableTransitSchemeMessage> msg = message;

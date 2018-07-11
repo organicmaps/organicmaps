@@ -749,6 +749,13 @@ void DrapeEngine::ClearTransitSchemeCache(MwmSet::MwmId const & mwmId)
                                   MessagePriority::Normal);
 }
 
+void DrapeEngine::ClearAllTransitSchemeCache()
+{
+  m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,
+                                  make_unique_dp<ClearAllTransitSchemeDataMessage>(),
+                                  MessagePriority::Normal);
+}
+
 void DrapeEngine::UpdateTransitScheme(TransitDisplayInfos && transitDisplayInfos)
 {
   m_threadCommutator->PostMessage(ThreadsCommutator::ResourceUploadThread,

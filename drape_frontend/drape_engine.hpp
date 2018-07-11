@@ -205,6 +205,7 @@ public:
   void EnableTransitScheme(bool enable);
   void UpdateTransitScheme(TransitDisplayInfos && transitDisplayInfos);
   void ClearTransitSchemeCache(MwmSet::MwmId const & mwmId);
+  void ClearAllTransitSchemeCache();
 
   void SetFontScaleFactor(double scaleFactor);
 
