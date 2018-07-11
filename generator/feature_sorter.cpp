@@ -366,7 +366,11 @@ bool GenerateFinalFeatures(feature::GenerateInfo const & info, string const & na
       // Update bounds with the limit rect corresponding to region borders.
       // Bounds before update can be too big because of big invisible features like a
       // relation that contains an entire country's border.
-      collector.SetBounds(borders::GetLimitRect(info.m_targetDir, name));
+      // Borders file may be unavailable when building test mwms.
+      m2::RectD bordersRect;
+      if (borders::GetBordersRect(info.m_targetDir, name, bordersRect))
+        collector.SetBounds(bordersRect);
+
       collector.Finish();
     }
     catch (RootException const & ex)

@@ -37,5 +37,5 @@ namespace borders
 
   void GeneratePackedBorders(std::string const & baseDir);
   void UnpackBorders(std::string const & baseDir, std::string const & targetDir);
-  m2::RectD GetLimitRect(std::string const & baseDir, std::string const & country);
+  bool GetBordersRect(std::string const & baseDir, std::string const & country, m2::RectD & bordersRect);
 }

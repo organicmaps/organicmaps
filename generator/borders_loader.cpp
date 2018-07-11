@@ -196,15 +196,21 @@ void UnpackBorders(std::string const & baseDir, std::string const & targetDir)
   }
 }
 
-m2::RectD GetLimitRect(std::string const & baseDir, std::string const & country)
+bool GetBordersRect(std::string const & baseDir, std::string const & country, m2::RectD & bordersRect)
 {
   std::string const bordersFile = my::JoinPath(baseDir, BORDERS_DIR, country + BORDERS_EXTENSION);
-  CHECK(Platform::IsFileExistsByFullPath(bordersFile), ("Cannot read borders file", bordersFile));
+  if (!Platform::IsFileExistsByFullPath(bordersFile))
+  {
+    LOG(LWARNING, ("File with borders does not exist:", bordersFile));
+    return false;
+  }
+
   std::vector<m2::RegionD> borders;
   CHECK(osm::LoadBorders(bordersFile, borders), ());
-  m2::RectD rect;
+  bordersRect.MakeEmpty();
   for (auto const & border : borders)
-    rect.Add(border.GetRect());
-  return rect;
+    bordersRect.Add(border.GetRect());
+
+  return true;
 }
 } // namespace borders
