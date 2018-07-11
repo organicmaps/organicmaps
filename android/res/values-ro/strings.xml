@@ -285,7 +285,7 @@
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Sunteți sigur că doriți să continuați?</string>
 	<!-- Title for tracks category in bookmarks manager -->
-	<string name="tracks">Rute</string>
+	<string name="tracks_title">Rute</string>
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Lungime</string>
 	<string name="share_my_location">Partajează-mi poziția</string>

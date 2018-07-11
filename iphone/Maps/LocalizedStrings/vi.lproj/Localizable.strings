@@ -457,7 +457,7 @@
 "are_you_sure" = "Bạn có chắc muốn tiếp tục không?";
 
 /* Title for tracks category in bookmarks manager */
-"tracks" = "Dấu vết";
+"tracks_title" = "Dấu vết";
 
 /* Length of track in cell that describes route */
 "length" = "Độ dài";

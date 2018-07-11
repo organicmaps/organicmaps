@@ -284,7 +284,7 @@
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Naozaj chcete pokračovať?</string>
 	<!-- Title for tracks category in bookmarks manager -->
-	<string name="tracks">Stopy</string>
+	<string name="tracks_title">Stopy</string>
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Diaľka</string>
 	<string name="share_my_location">Zdielať moje umiestnenie</string>

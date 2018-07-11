@@ -457,7 +457,7 @@
 "are_you_sure" = "Apakah Anda yakin ingin melanjutkan?";
 
 /* Title for tracks category in bookmarks manager */
-"tracks" = "Jalur";
+"tracks_title" = "Jalur";
 
 /* Length of track in cell that describes route */
 "length" = "Panjang";

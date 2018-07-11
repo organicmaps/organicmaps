@@ -281,7 +281,7 @@
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">계속하겠습니까?</string>
 	<!-- Title for tracks category in bookmarks manager -->
-	<string name="tracks">트랙</string>
+	<string name="tracks_title">트랙</string>
 	<!-- Length of track in cell that describes route -->
 	<string name="length">길이</string>
 	<string name="share_my_location">내 위치 공유</string>

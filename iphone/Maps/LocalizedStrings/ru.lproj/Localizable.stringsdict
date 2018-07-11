@@ -78,6 +78,8 @@
       <string>%s объект</string>
       <key>two</key>
       <string>%d объекта</string>
+      <key>few</key>
+      <string>%d объекта</string>
       <key>other</key>
       <string>%s объектов</string>
     </dict>
@@ -96,6 +98,8 @@
       <key>one</key>
       <string>%d объект</string>
       <key>two</key>
+      <string>%d объекта</string>
+      <key>few</key>
       <string>%d объекта</string>
       <key>other</key>
       <string>%d объектов</string>
@@ -116,6 +120,8 @@
       <string>%d место</string>
       <key>two</key>
       <string>%d места</string>
+      <key>few</key>
+      <string>%d места</string>
       <key>other</key>
       <string>%d мест</string>
     </dict>
@@ -134,6 +140,8 @@
       <key>one</key>
       <string>%d трек</string>
       <key>two</key>
+      <string>%d трека</string>
+      <key>few</key>
       <string>%d трека</string>
       <key>other</key>
       <string>%d треков</string>

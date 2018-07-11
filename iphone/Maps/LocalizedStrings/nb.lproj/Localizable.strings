@@ -457,7 +457,7 @@
 "are_you_sure" = "Er du sikker på at du ønsker å fortsette?";
 
 /* Title for tracks category in bookmarks manager */
-"tracks" = "Ruter";
+"tracks_title" = "Ruter";
 
 /* Length of track in cell that describes route */
 "length" = "Lengde";

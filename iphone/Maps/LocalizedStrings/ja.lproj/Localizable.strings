@@ -457,7 +457,7 @@
 "are_you_sure" = "本当に続けますか?";
 
 /* Title for tracks category in bookmarks manager */
-"tracks" = "トラック";
+"tracks_title" = "トラック";
 
 /* Length of track in cell that describes route */
 "length" = "距離";

@@ -296,7 +296,7 @@
 	<!-- Confirmation in downloading countries dialog -->
 	<string name="are_you_sure">Are you sure you want to continue?</string>
 	<!-- Title for tracks category in bookmarks manager -->
-	<string name="tracks">Tracks</string>
+	<string name="tracks_title">Tracks</string>
 	<!-- Length of track in cell that describes route -->
 	<string name="length">Length</string>
 	<string name="share_my_location">Share My Location</string>
