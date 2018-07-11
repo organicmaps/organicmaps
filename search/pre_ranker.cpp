@@ -30,8 +30,9 @@ void SweepNearbyResults(double eps, set<FeatureID> const & prevEmit, vector<PreR
   {
     auto const & p = results[i].GetInfo().m_center;
     uint8_t const rank = results[i].GetInfo().m_rank;
+    uint8_t const popularity = results[i].GetInfo().m_popularity;
     uint8_t const prevCount = prevEmit.count(results[i].GetId()) ? 1 : 0;
-    uint8_t const priority = max(rank, prevCount);
+    uint8_t const priority = max({rank, prevCount, popularity});
     sweeper.Add(p.x, p.y, i, priority);
   }
 
@@ -195,7 +196,7 @@ void PreRanker::Filter(bool viewportSearch)
   {
     size_t n = min(m_results.size(), BatchSize());
     nth_element(m_results.begin(), m_results.begin() + n, m_results.end(),
-                &PreRankerResult::LessRank);
+                &PreRankerResult::LessRankAndPopularity);
     filtered.insert(m_results.begin(), m_results.begin() + n);
   }
 

@@ -31,7 +31,7 @@ class PreRankerResult
 public:
   PreRankerResult(FeatureID const & id, PreRankingInfo const & info);
 
-  static bool LessRank(PreRankerResult const & r1, PreRankerResult const & r2);
+  static bool LessRankAndPopularity(PreRankerResult const & r1, PreRankerResult const & r2);
   static bool LessDistance(PreRankerResult const & r1, PreRankerResult const & r2);
 
   FeatureID const & GetId() const { return m_id; }

@@ -14,6 +14,8 @@ namespace
 // these coeffs correspond to coeffs in a linear model.
 double const kDistanceToPivot = -1.0000000;
 double const kRank = 1.0000000;
+// todo: (@t.yan) Adjust.
+double const kPopularity = 1.0000000;
 double const kFalseCats = -0.0839847;
 double const kErrorsMade = 0.0066984;
 double const kAllTokensUsed = 0.0000000;
@@ -96,6 +98,7 @@ double RankingInfo::GetLinearModelRank() const
   // integrated in the build system.
   double const distanceToPivot = TransformDistance(m_distanceToPivot);
   double const rank = static_cast<double>(m_rank) / numeric_limits<uint8_t>::max();
+  double const popularity = static_cast<double>(m_popularity) / numeric_limits<uint8_t>::max();
 
   auto nameScore = m_nameScore;
   if (m_pureCats || m_falseCats)
@@ -112,6 +115,7 @@ double RankingInfo::GetLinearModelRank() const
   double result = 0.0;
   result += kDistanceToPivot * distanceToPivot;
   result += kRank * rank;
+  result += kPopularity * popularity;
   result += kNameScore[nameScore];
   result += kErrorsMade * GetErrorsMade();
   result += kType[m_type];

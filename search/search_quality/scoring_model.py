@@ -16,10 +16,11 @@ import sys
 
 MAX_DISTANCE_METERS = 2e6
 MAX_RANK = 255
+MAX_POPULARITY = 255
 RELEVANCES = {'Irrelevant': 0, 'Relevant': 1, 'Vital': 3}
 NAME_SCORES = ['Zero', 'Substring', 'Prefix', 'Full Match']
 SEARCH_TYPES = ['POI', 'Building', 'Street', 'Unclassified', 'Village', 'City', 'State', 'Country']
-FEATURES = ['DistanceToPivot', 'Rank', 'FalseCats', 'ErrorsMade', 'AllTokensUsed'] + NAME_SCORES + SEARCH_TYPES
+FEATURES = ['DistanceToPivot', 'Rank', 'Popularity', 'FalseCats', 'ErrorsMade', 'AllTokensUsed'] + NAME_SCORES + SEARCH_TYPES
 
 BOOTSTRAP_ITERATIONS = 10000
 
@@ -36,6 +37,7 @@ def normalize_data(data):
 
     data['DistanceToPivot'] = data['DistanceToPivot'].apply(transform_distance)
     data['Rank'] = data['Rank'].apply(lambda v: v / MAX_RANK)
+    data['Popularity'] = data['Popularity'].apply(lambda v: v / MAX_POPULARITY)
     data['Relevance'] = data['Relevance'].apply(lambda v: RELEVANCES[v])
 
     cats = data['PureCats'].combine(data['FalseCats'], max)

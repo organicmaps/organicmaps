@@ -69,10 +69,12 @@ PreRankerResult::PreRankerResult(FeatureID const & id, PreRankingInfo const & in
 }
 
 // static
-bool PreRankerResult::LessRank(PreRankerResult const & r1, PreRankerResult const & r2)
+bool PreRankerResult::LessRankAndPopularity(PreRankerResult const & r1, PreRankerResult const & r2)
 {
   if (r1.m_info.m_rank != r2.m_info.m_rank)
     return r1.m_info.m_rank > r2.m_info.m_rank;
+  if (r1.m_info.m_popularity != r2.m_info.m_popularity)
+    return r1.m_info.m_popularity > r2.m_info.m_popularity;
   return r1.m_info.m_distanceToPivot < r2.m_info.m_distanceToPivot;
 }
 
