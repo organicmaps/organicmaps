@@ -105,4 +105,21 @@ bool CitiesBoundariesTable::Get(uint32_t fid, Boundaries & bs) const
   bs = Boundaries(it->second, m_eps);
   return true;
 }
+
+void GetCityBoundariesInRectForTesting(CitiesBoundariesTable const & table, m2::RectD const & rect,
+                                       vector<uint32_t> & featureIds)
+{
+  featureIds.clear();
+  for (auto const & kv : table.m_table)
+  {
+    for (auto const & cb : kv.second)
+    {
+      if (rect.IsIntersect(m2::RectD(cb.m_bbox.Min(), cb.m_bbox.Max())))
+      {
+        featureIds.push_back(kv.first);
+        break;
+      }
+    }
+  }
+}
 }  // namespace search

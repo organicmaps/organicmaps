@@ -4,6 +4,7 @@
 #include "indexer/feature_decl.hpp"
 
 #include "geometry/point2d.hpp"
+#include "geometry/rect2d.hpp"
 
 #include <cstdint>
 #include <sstream>
@@ -23,6 +24,10 @@ namespace search
 {
 class CitiesBoundariesTable
 {
+  friend void GetCityBoundariesInRectForTesting(CitiesBoundariesTable const &,
+                                                m2::RectD const & rect,
+                                                std::vector<uint32_t> & featureIds);
+
 public:
   class Boundaries
   {
@@ -42,6 +47,8 @@ public:
     // Returns true iff |p| is inside any of the regions bounded by
     // |*this|.
     bool HasPoint(m2::PointD const & p) const;
+
+    std::vector<indexer::CityBoundary> const & GetBoundariesForTesting() const { return m_boundaries; }
 
     friend std::string DebugPrint(Boundaries const & boundaries)
     {
@@ -68,10 +75,18 @@ public:
   bool Get(FeatureID const & fid, Boundaries & bs) const;
   bool Get(uint32_t fid, Boundaries & bs) const;
 
+  size_t GetSize() const { return m_table.size(); }
+
 private:
   DataSource const & m_dataSource;
   MwmSet::MwmId m_mwmId;
   std::unordered_map<uint32_t, std::vector<indexer::CityBoundary>> m_table;
   double m_eps = 0.0;
 };
+
+/// \brief Fills |featureIds| with feature ids of city boundaries if bounding rect of
+/// the city boundary crosses |rect|.
+/// \note This method is inefficient and is written for debug and test purposes only.
+void GetCityBoundariesInRectForTesting(CitiesBoundariesTable const &, m2::RectD const & rect,
+                                       std::vector<uint32_t> & featureIds);
 }  // namespace search

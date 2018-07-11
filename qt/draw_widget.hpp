@@ -73,6 +73,7 @@ public:
   void RetryToDownloadCountry(storage::TCountryId const & countryId);
 
   void SetSelectionMode(bool mode);
+  void SetCityBoundariesSelectionMode(bool mode);
 
   RouteMarkType GetRoutePointAddMode() const { return m_routePointAddMode; }
   void SetRoutePointAddMode(RouteMarkType mode) { m_routePointAddMode = mode; }
@@ -114,6 +115,7 @@ private:
   storage::TCountryId m_countryId;
 
   bool m_selectionMode = false;
+  bool m_cityBoundariesSelectionMode = false;
   RouteMarkType m_routePointAddMode = RouteMarkType::Finish;
 };
 }  // namespace qt

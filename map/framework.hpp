@@ -339,6 +339,7 @@ public:
 
   // Utilities
   void VisualizeRoadsInRect(m2::RectD const & rect);
+  void VisualizeCityBoundariesInRect(m2::RectD const & rect);
 
   ads::Engine const & GetAdsEngine() const;
 

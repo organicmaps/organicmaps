@@ -19,6 +19,8 @@
 #include "platform/platform.hpp"
 #include "platform/settings.hpp"
 
+#include "base/assert.hpp"
+
 #include <QtGui/QMouseEvent>
 #include <QtGui/QGuiApplication>
 
@@ -187,7 +189,7 @@ void DrawWidget::mousePressEvent(QMouseEvent * e)
     {
       SubmitBookmark(pt);
     }
-    else if (!m_selectionMode || IsCommandModifier(e))
+    else if (!(m_selectionMode || m_cityBoundariesSelectionMode) || IsCommandModifier(e))
     {
       ShowInfoPopup(e, pt);
     }
@@ -208,7 +210,8 @@ void DrawWidget::mouseMoveEvent(QMouseEvent * e)
   if (IsLeftButton(e) && !IsAltModifier(e))
     m_framework.TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_MOVE));
 
-  if (m_selectionMode && m_rubberBand != nullptr && m_rubberBand->isVisible())
+  if ((m_selectionMode || m_cityBoundariesSelectionMode) && m_rubberBand != nullptr &&
+      m_rubberBand->isVisible())
   {
     m_rubberBand->setGeometry(QRect(m_rubberBandOrigin, e->pos()).normalized());
   }
@@ -221,15 +224,25 @@ void DrawWidget::mouseReleaseEvent(QMouseEvent * e)
   {
     m_framework.TouchEvent(GetTouchEvent(e, df::TouchEvent::TOUCH_UP));
   }
-  else if (m_selectionMode && IsRightButton(e) && m_rubberBand != nullptr &&
-           m_rubberBand->isVisible())
+  else if ((m_selectionMode || m_cityBoundariesSelectionMode) && IsRightButton(e) &&
+           m_rubberBand != nullptr && m_rubberBand->isVisible())
   {
     QPoint const lt = m_rubberBand->geometry().topLeft();
     QPoint const rb = m_rubberBand->geometry().bottomRight();
     m2::RectD rect;
     rect.Add(m_framework.PtoG(m2::PointD(L2D(lt.x()), L2D(lt.y()))));
     rect.Add(m_framework.PtoG(m2::PointD(L2D(rb.x()), L2D(rb.y()))));
-    m_framework.VisualizeRoadsInRect(rect);
+    if (m_selectionMode)
+    {
+      CHECK(!m_cityBoundariesSelectionMode, ());
+      m_framework.VisualizeRoadsInRect(rect);
+    }
+    else
+    {
+      CHECK(m_cityBoundariesSelectionMode, ());
+      m_framework.VisualizeCityBoundariesInRect(rect);
+    }
+
     m_rubberBand->hide();
   }
 }
@@ -506,6 +519,11 @@ void DrawWidget::SetRouter(routing::RouterType routerType)
 }
 
 void DrawWidget::SetSelectionMode(bool mode) { m_selectionMode = mode; }
+
+void DrawWidget::SetCityBoundariesSelectionMode(bool mode)
+{
+  m_cityBoundariesSelectionMode = mode;
+}
 
 // static
 void DrawWidget::SetDefaultSurfaceFormat(bool apiOpenGLES3)

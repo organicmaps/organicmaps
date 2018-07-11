@@ -20,6 +20,7 @@
 
 #include "routing_common/num_mwm_id.hpp"
 
+#include "search/cities_boundaries_table.hpp"
 #include "search/downloader_search_callback.hpp"
 #include "search/editor_delegate.hpp"
 #include "search/engine.hpp"
@@ -3119,12 +3120,34 @@ storage::TCountriesVec Framework::GetTopmostCountries(ms::LatLon const & latlon)
 
 namespace
 {
-  vector<dp::Color> colorList = { dp::Color(255, 0, 0, 255), dp::Color(0, 255, 0, 255), dp::Color(0, 0, 255, 255),
-                                  dp::Color(255, 255, 0, 255), dp::Color(0, 255, 255, 255), dp::Color(255, 0, 255, 255),
-                                  dp::Color(100, 0, 0, 255), dp::Color(0, 100, 0, 255), dp::Color(0, 0, 100, 255),
-                                  dp::Color(100, 100, 0, 255), dp::Color(0, 100, 100, 255), dp::Color(100, 0, 100, 255)
-                                };
-} // namespace
+vector<dp::Color> colorList = {
+    dp::Color(255, 0, 0, 255),   dp::Color(0, 255, 0, 255),   dp::Color(0, 0, 255, 255),
+    dp::Color(255, 255, 0, 255), dp::Color(0, 255, 255, 255), dp::Color(255, 0, 255, 255),
+    dp::Color(100, 0, 0, 255),   dp::Color(0, 100, 0, 255),   dp::Color(0, 0, 100, 255),
+    dp::Color(100, 100, 0, 255), dp::Color(0, 100, 100, 255), dp::Color(100, 0, 100, 255)};
+
+dp::Color const cityBoundaryBBColor = dp::Color(255, 0, 0, 255);
+dp::Color const cityBoundaryCBColor = dp::Color(0, 255, 0, 255);
+dp::Color const cityBoundaryDBColor = dp::Color(0, 0, 255, 255);
+
+template <class Box>
+void DrawLine(Box const & box, dp::Color const & color, df::DrapeApi & drapeApi, string const & id)
+{
+  auto points = box.Points();
+  CHECK(!points.empty(), ());
+  points.push_back(points.front());
+
+  points.erase(unique(points.begin(), points.end(), [](m2::PointD const & p1, m2::PointD const & p2) {
+    m2::PointD const delta = p2 - p1;
+    return delta.IsAlmostZero();
+  }), points.end());
+
+  if (points.size() <= 1)
+    return;
+
+  drapeApi.AddLine(id, df::DrapeApiLineData(points, color).Width(3.0f).ShowPoints(true).ShowId());
+}
+}  // namespace
 
 void Framework::VisualizeRoadsInRect(m2::RectD const & rect)
 {
@@ -3153,6 +3176,44 @@ void Framework::VisualizeRoadsInRect(m2::RectD const & rect)
       }
     }
   }, kScale);
+}
+
+void Framework::VisualizeCityBoundariesInRect(m2::RectD const & rect)
+{
+  search::CitiesBoundariesTable table(GetDataSource());
+  table.Load();
+
+  vector<uint32_t> featureIds;
+  GetCityBoundariesInRectForTesting(table, rect, featureIds);
+
+  for (auto const fid : featureIds)
+  {
+    search::CitiesBoundariesTable::Boundaries boundaries;
+    table.Get(fid, boundaries);
+
+    string id = "fid:" + strings::to_string(fid);
+    FeaturesLoaderGuard loader(GetDataSource(), GetDataSource().GetMwmIdByCountryFile(CountryFile("World")));
+    FeatureType ft;
+    if (loader.GetFeatureByIndex(fid, ft))
+    {
+      string name;
+      ft.GetName(FeatureType::DEFAULT_LANG, name);
+      id += ", name:" + name;
+    }
+
+    size_t const boundariesSize = boundaries.GetBoundariesForTesting().size();
+    for (size_t i = 0; i < boundariesSize; ++i)
+    {
+      string idWithIndex = id;
+      auto const & cityBoundary = boundaries.GetBoundariesForTesting()[i];
+      if (boundariesSize > 1)
+        idWithIndex = id + " , i:" + strings::to_string(i);
+
+      DrawLine(cityBoundary.m_bbox, cityBoundaryBBColor, m_drapeApi, idWithIndex + ", bb");
+      DrawLine(cityBoundary.m_cbox, cityBoundaryCBColor, m_drapeApi, idWithIndex + ", cb");
+      DrawLine(cityBoundary.m_dbox, cityBoundaryDBColor, m_drapeApi, idWithIndex + ", db");
+    }
+  }
 }
 
 ads::Engine const & Framework::GetAdsEngine() const
