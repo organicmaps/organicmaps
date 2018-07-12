@@ -298,7 +298,9 @@ void logSponsoredEvent(MWMPlacePageData * data, NSString * eventName)
   [Statistics logEvent:kStatEventName(kStatPlacePage, kStatBuildRoute)
         withParameters:@{kStatValue : kStatDestination}];
 
-  [MWMRouter stopRouting];
+  if ([MWMRouter isOnRoute])
+    [MWMRouter stopRouting];
+  
   if ([MWMTrafficManager transitEnabled])
     [MWMRouter setType:MWMRouterTypePublicTransport];
   
