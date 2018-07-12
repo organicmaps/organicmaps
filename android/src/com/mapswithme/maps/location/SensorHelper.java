@@ -8,10 +8,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.mapswithme.maps.MwmApplication;
 import com.mapswithme.util.LocationUtils;
@@ -20,13 +18,13 @@ class SensorHelper implements SensorEventListener
 {
   private static final float DISTANCE_TO_RECREATE_MAGNETIC_FIELD_M = 1000;
   private static final int MARKER = 0x39867;
-  private static final int SENSOR_EVENT_AGGREGATION_TIMEOUT = 10;
+  private static final int AGGREGATION_TIMEOUT_IN_MILLIS = 10;
   private final SensorManager mSensorManager;
   private Sensor mAccelerometer;
   private Sensor mMagnetometer;
   private GeomagneticField mMagneticField;
   @NonNull
-  private final CompassParams mCompassParams;
+  private final SensorData mSensorData;
   private final float[] mR = new float[9];
   private final float[] mI = new float[9];
   private final float[] mOrientation = new float[3];
@@ -39,46 +37,54 @@ class SensorHelper implements SensorEventListener
     if (!MwmApplication.get().arePlatformAndCoreInitialized())
       return;
 
-    if (mCompassParams.isDataAbsent())
-      notifyCompassImmediately(event);
+    if (mSensorData.isAbsent())
+    {
+      notifyImmediately(event);
+      return;
+    }
 
-    else if (!mHandler.hasMessages(MARKER))
-      notifyCompass(event);
+    SensorType type = SensorType.get(event);
+    if (type == SensorType.TYPE_MAGNETIC_FIELD)
+      addRateLimitMessage();
+
+    if (!mHandler.hasMessages(MARKER) || type != SensorType.TYPE_MAGNETIC_FIELD)
+    {
+      notifyImmediately(event);
+    }
   }
 
-  private void notifyCompass(SensorEvent event)
+  private void addRateLimitMessage()
   {
     Message message = Message.obtain();
     message.what = MARKER;
-    message.obj = event;
-    mHandler.sendMessageDelayed(message, SENSOR_EVENT_AGGREGATION_TIMEOUT);
+    mHandler.sendMessageDelayed(message, AGGREGATION_TIMEOUT_IN_MILLIS);
   }
 
-  private void notifyCompassImmediately(SensorEvent event)
+  private void notifyImmediately(@NonNull SensorEvent event)
   {
-    SensorType sensorType = SensorType.get(event.sensor.getType());
-    sensorType.updateCompassParams(mCompassParams, event);
+    SensorType sensorType = SensorType.get(event);
+    sensorType.updateData(mSensorData, event);
 
     boolean hasOrientation = hasOrientation();
 
     if (hasOrientation)
-      notifyCompassInternal(event);
+      notifyInternal(event);
   }
 
   private boolean hasOrientation()
   {
-    if (mCompassParams.isDataAbsent())
+    if (mSensorData.isAbsent())
       return false;
 
-    boolean isSuccess = SensorManager.getRotationMatrix(mR, mI, mCompassParams.mGravity,
-                                                        mCompassParams.mGeomagnetic);
+    boolean isSuccess = SensorManager.getRotationMatrix(mR, mI, mSensorData.getGravity(),
+                                                        mSensorData.getGeomagnetic());
     if (isSuccess)
       SensorManager.getOrientation(mR, mOrientation);
 
     return isSuccess;
   }
 
-  private void notifyCompassInternal(@NonNull SensorEvent event)
+  private void notifyInternal(@NonNull SensorEvent event)
   {
     double trueHeading = -1.0;
     double offset = -1.0;
@@ -105,30 +111,8 @@ class SensorHelper implements SensorEventListener
       mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
       mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
     }
-    mCompassParams = new CompassParams();
-    mHandler = new SensorEventHandler(this);
-  }
-
-  private static class SensorEventHandler extends Handler
-  {
-    @NonNull
-    private final SensorHelper mSensorHelper;
-
-    SensorEventHandler(@NonNull SensorHelper sensorHelper)
-    {
-      super(Looper.getMainLooper());
-      mSensorHelper = sensorHelper;
-    }
-
-    @Override
-    public void handleMessage(Message msg)
-    {
-      if (msg.what == MARKER)
-      {
-        SensorEvent event = (SensorEvent) msg.obj;
-        mSensorHelper.notifyCompassImmediately(event);
-      }
-    }
+    mSensorData = new SensorData();
+    mHandler = new Handler();
   }
 
   void start()
@@ -168,26 +152,32 @@ class SensorHelper implements SensorEventListener
     TYPE_ACCELEROMETER(Sensor.TYPE_ACCELEROMETER)
         {
           @Override
-          public void updateCompassParams(@NonNull CompassParams params,
-                                          @NonNull SensorEvent event)
+          public void updateDataInternal(@NonNull SensorData data, @NonNull float[] params)
           {
-            params.mGravity = getCompassParam(event);
+            data.setGravity(params);
           }
         },
     TYPE_MAGNETIC_FIELD(Sensor.TYPE_MAGNETIC_FIELD)
         {
           @Override
-          public void updateCompassParams(@NonNull CompassParams params, @NonNull SensorEvent event)
+          public void updateDataInternal(@NonNull SensorData data, @NonNull float[] params)
           {
-            params.mGeomagnetic = getCompassParam(event);
+            data.setGeomagnetic(params);
           }
         },
     DEFAULT
         {
           @Override
-          public void updateCompassParams(@NonNull CompassParams params, @NonNull SensorEvent event)
+          public void updateDataInternal(@NonNull SensorData data, @NonNull float[] params)
           {
             /* Do nothing */
+          }
+
+          @NonNull
+          @Override
+          protected float[] getSensorParam(@NonNull SensorEvent event)
+          {
+            return new float[]{};
           }
         };
 
@@ -204,35 +194,28 @@ class SensorHelper implements SensorEventListener
       this(INVALID_ID);
     }
 
-    public static SensorType get(int value)
+    @NonNull
+    public static SensorType get(@NonNull SensorEvent value)
     {
       for (SensorType each : values())
       {
-        if (each.mAccelerometer == value)
+        if (each.mAccelerometer == value.sensor.getType())
           return each;
       }
       return DEFAULT;
     }
 
-    protected float[] getCompassParam(@NonNull SensorEvent event)
+    @NonNull
+    protected float[] getSensorParam(@NonNull SensorEvent event)
     {
       return LocationHelper.nativeUpdateCompassSensor(ordinal(), event.values);
     }
 
-    public abstract void updateCompassParams(@NonNull CompassParams params,
-                                             @NonNull SensorEvent event);
-  }
-
-  private static class CompassParams
-  {
-    @Nullable
-    private float[] mGravity;
-    @Nullable
-    private float[] mGeomagnetic;
-
-    private boolean isDataAbsent()
+    public void updateData(@NonNull SensorData data, @NonNull SensorEvent event)
     {
-      return mGravity == null || mGeomagnetic == null;
+      updateDataInternal(data, getSensorParam(event));
     }
+
+    public abstract void updateDataInternal(@NonNull SensorData data, @NonNull float[] params);
   }
 }
