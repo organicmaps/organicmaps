@@ -29,10 +29,18 @@ final class BookmarksTabViewController: TabViewController {
     tabView.headerTextAttributes = [.foregroundColor: UIColor.whitePrimaryText(),
                                     .font: UIFont.medium14()]
     tabView.selectedIndex = activeTab.rawValue
+    tabView.delegate = self
   }
 
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
-    activeTab = ActiveTab.init(rawValue: tabView.selectedIndex) ?? .user
+    activeTab = ActiveTab.init(rawValue: tabView.selectedIndex ?? 0) ?? .user
+  }
+}
+
+extension BookmarksTabViewController: TabViewDelegate {
+  func tabView(_ tabView: TabView, didSelectTabAt index: Int) {
+    let selectedTab = index == 0 ? "my" : "downloaded"
+    Statistics.logEvent("Bookmarks_Tab_click", withParameters: [kStatValue : selectedTab])
   }
 }

@@ -5,6 +5,7 @@ final class CatalogWebViewController: WebViewController {
   let progressImageView = UIImageView(image: #imageLiteral(resourceName: "ic_24px_spinner"))
   let numberOfTasksLabel = UILabel()
   var deeplink: URL?
+  var statSent = false
 
   @objc init() {
     super.init(url: MWMBookmarksManager.catalogFrontendUrl()!, title: L("routes_and_bookmarks"))!
@@ -92,6 +93,25 @@ final class CatalogWebViewController: WebViewController {
 
     processDeeplink(url)
     decisionHandler(.cancel);
+  }
+
+  override func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    if !statSent {
+      Statistics.logEvent("Bookmarks_Downloaded_Catalogue_open")
+      statSent = true
+    }
+  }
+
+  override func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+    Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
+                        withParameters: [kStatError : kStatUnknown])
+  }
+
+  override func webView(_ webView: WKWebView,
+                        didFailProvisionalNavigation navigation: WKNavigation!,
+                        withError error: Error) {
+    Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
+                        withParameters: [kStatError : kStatUnknown])
   }
 
   func processDeeplink(_ url: URL) {

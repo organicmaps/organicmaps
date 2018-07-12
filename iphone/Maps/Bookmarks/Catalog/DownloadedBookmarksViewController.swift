@@ -52,6 +52,8 @@ class DownloadedBookmarksViewController: MWMViewController {
   @IBAction func onDownloadBookmarks(_ sender: Any) {
     if MWMPlatform.networkConnectionType() == .none {
       MWMAlertViewController.activeAlert().presentNoConnectionAlert();
+      Statistics.logEvent("Bookmarks_Downloaded_Catalogue_error",
+                          withParameters: [kStatError : "no_internet"])
       return
     }
     let webViewController = CatalogWebViewController()

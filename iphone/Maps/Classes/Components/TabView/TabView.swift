@@ -55,6 +55,10 @@ protocol TabViewDataSource: AnyObject {
   func tabView(_ tabView: TabView, titleAt index: Int) -> String?
 }
 
+protocol TabViewDelegate: AnyObject {
+  func tabView(_ tabView: TabView, didSelectTabAt index: Int)
+}
+
 @objcMembers
 @objc(MWMTabView)
 class TabView: UIView {
@@ -72,9 +76,11 @@ class TabView: UIView {
   private var slidingViewLeft: NSLayoutConstraint!
   private var slidingViewWidth: NSLayoutConstraint!
   private lazy var pageCount = { return self.dataSource?.numberOfPages(in: self) ?? 0; }()
-  var selectedIndex = -1
+  var selectedIndex: Int?
+  private var lastSelectedIndex: Int?
 
   weak var dataSource: TabViewDataSource?
+  weak var delegate: TabViewDelegate?
 
   var barTintColor = UIColor.white {
     didSet {
@@ -194,7 +200,7 @@ class TabView: UIView {
     super.layoutSubviews()
     slidingViewWidth.constant = pageCount > 0 ? bounds.width / CGFloat(pageCount) : 0
     tabsContentCollectionView.layoutIfNeeded()
-    if selectedIndex >= 0 {
+    if let selectedIndex = selectedIndex {
       tabsContentCollectionView.scrollToItem(at: IndexPath(item: selectedIndex, section: 0),
                                              at: .left,
                                              animated: false)
@@ -236,14 +242,24 @@ extension TabView : UICollectionViewDelegateFlowLayout {
     }
   }
 
+  func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    lastSelectedIndex = selectedIndex
+  }
+
   func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
     selectedIndex = Int(round(scrollView.contentOffset.x / scrollView.bounds.width))
+    if let selectedIndex = selectedIndex, selectedIndex != lastSelectedIndex {
+      delegate?.tabView(self, didSelectTabAt: selectedIndex)
+    }
   }
 
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     if (collectionView == tabsCollectionView) {
-      selectedIndex = indexPath.item
-      tabsContentCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+      if selectedIndex != indexPath.item {
+        selectedIndex = indexPath.item
+        tabsContentCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+        delegate?.tabView(self, didSelectTabAt: selectedIndex!)
+      }
     }
   }
 
