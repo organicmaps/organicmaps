@@ -61,7 +61,7 @@ std::string LocationModeStatisticsName(location::EMyPositionMode mode)
 
 int GetZoomLevel(ScreenBase const & screen)
 {
-  return static_cast<int>(df::GetTileBasedZoomLevel(screen.GetScale()));
+  return static_cast<int>(df::GetZoomLevel(screen.GetScale()));
 }
 
 int GetZoomLevel(ScreenBase const & screen, m2::PointD const & position, double errorRadius)
@@ -143,7 +143,7 @@ MyPositionController::MyPositionController(Params && params, ref_ptr<DrapeNotifi
   , m_oldDrawDirection(0.0)
   , m_enablePerspectiveInRouting(false)
   , m_enableAutoZoomInRouting(params.m_isAutozoomEnabled)
-  , m_autoScale2d(GetTileBasedScale(kDefaultAutoZoom))
+  , m_autoScale2d(GetScreenScale(kDefaultAutoZoom))
   , m_autoScale3d(m_autoScale2d)
   , m_lastGPSBearing(false)
   , m_lastLocationTimestamp(0.0)
@@ -374,7 +374,7 @@ void MyPositionController::NextMode(ScreenBase const & screen)
   if (m_mode == location::FollowAndRotate)
   {
     if (m_isInRouting && screen.isPerspective())
-      preferredZoomLevel = static_cast<int>(GetTileBasedZoomLevel(ScreenBase::GetStartPerspectiveScale() * 1.1));
+      preferredZoomLevel = static_cast<int>(GetZoomLevel(ScreenBase::GetStartPerspectiveScale() * 1.1));
     ChangeMode(location::Follow);
     ChangeModelView(m_position, 0.0, m_visiblePixelRect.Center(), preferredZoomLevel);
   }

@@ -192,6 +192,11 @@ int GetTileScaleBase(m2::RectD const & r)
   return max(1, my::rounds(log((MercatorBounds::maxX - MercatorBounds::minX) / sz) / log(2.0)));
 }
 
+double GetTileScaleBase(double drawScale)
+{
+  return std::max(1.0, drawScale - GetTileScaleIncrement());
+}
+
 int GetTileScaleIncrement(uint32_t tileSize, double visualScale)
 {
   return log(tileSize / 256.0 / visualScale) / log(2.0);
@@ -284,6 +289,11 @@ int GetDrawTileScale(int baseScale)
   return GetDrawTileScale(baseScale, p.GetTileSize(), p.GetVisualScale());
 }
 
+double GetDrawTileScale(double baseScale)
+{
+  return std::max(1.0, baseScale + GetTileScaleIncrement());
+}
+
 int GetDrawTileScale(ScreenBase const & s)
 {
   VisualParams const & p = VisualParams::Instance();
@@ -298,7 +308,7 @@ int GetDrawTileScale(m2::RectD const & r)
 
 void ExtractZoomFactors(ScreenBase const & s, double & zoom, int & index, float & lerpCoef)
 {
-  double const zoomLevel = GetTileBasedZoomLevel(s.GetScale());
+  double const zoomLevel = GetZoomLevel(s.GetScale());
   zoom = trunc(zoomLevel);
   index = static_cast<int>(zoom - 1.0);
   lerpCoef = static_cast<float>(zoomLevel - zoom);
@@ -322,28 +332,28 @@ m2::PointF InterpolateByZoomLevels(int index, float lerpCoef, std::vector<m2::Po
   return values[scales::UPPER_STYLE_SCALE];
 }
 
-double GetNormalizedZoomLevel(double scale, int minZoom)
+double GetNormalizedZoomLevel(double screenScale, int minZoom)
 {
   double const kMaxZoom = scales::GetUpperStyleScale() + 1.0;
-  return my::clamp((GetTileBasedZoomLevel(scale) - minZoom) / (kMaxZoom - minZoom), 0.0, 1.0);
+  return my::clamp((GetZoomLevel(screenScale) - minZoom) / (kMaxZoom - minZoom), 0.0, 1.0);
 }
 
-double GetTileBasedScale(double zoomLevel)
+double GetScreenScale(double zoomLevel)
 {
   VisualParams const & p = VisualParams::Instance();
-  auto const factor = pow(2.0, zoomLevel);
+  auto const factor = pow(2.0, GetTileScaleBase(zoomLevel));
   auto const len = (MercatorBounds::maxX - MercatorBounds::minX) / factor;
   auto const pxLen = static_cast<double>(p.GetTileSize());
   return len / pxLen;
 }
 
-double GetTileBasedZoomLevel(double scale)
+double GetZoomLevel(double screenScale)
 {
   VisualParams const & p = VisualParams::Instance();
   auto const pxLen = static_cast<double>(p.GetTileSize());
-  auto const len = pxLen * scale;
+  auto const len = pxLen * screenScale;
   auto const factor = (MercatorBounds::maxX - MercatorBounds::minX) / len;
   static double const kLog2 = log(2.0);
-  return my::clamp(fabs(log(factor) / kLog2), 1.0, scales::GetUpperStyleScale() + 1.0);
+  return my::clamp(GetDrawTileScale(fabs(log(factor) / kLog2)), 1.0, scales::GetUpperStyleScale() + 1.0);
 }
 } // namespace df

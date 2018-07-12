@@ -461,7 +461,7 @@ void CacheUserLines(TileKey const & tileKey, ref_ptr<dp::TextureManager> texture
   double sqrScale = 1.0;
   if (simplify)
   {
-    double const currentScaleGtoP = 1.0 / GetTileBasedScale(tileKey.m_zoomLevel);
+    double const currentScaleGtoP = 1.0 / GetScreenScale(tileKey.m_zoomLevel);
     sqrScale = currentScaleGtoP * currentScaleGtoP;
   }
 

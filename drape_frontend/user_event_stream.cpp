@@ -392,7 +392,7 @@ bool UserEventStream::OnSetCenter(ref_ptr<SetCenterEvent> centerEvent)
   }
   else
   {
-    screen.SetFromParams(center, screen.GetAngle(), GetTileBasedScale(zoom));
+    screen.SetFromParams(center, screen.GetAngle(), GetScreenScale(zoom));
     screen.MatchGandP3d(center, m_visibleViewport.Center());
   }
 
@@ -554,7 +554,7 @@ bool UserEventStream::SetFollowAndRotate(m2::PointD const & userPos, m2::PointD 
   }
   else
   {
-    screen.SetFromParams(userPos, -azimuth, isAutoScale ? autoScale : GetTileBasedScale(preferredZoomLevel));
+    screen.SetFromParams(userPos, -azimuth, isAutoScale ? autoScale : GetScreenScale(preferredZoomLevel));
   }
   screen.MatchGandP3d(userPos, pixelPos);
 

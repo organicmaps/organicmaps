@@ -260,7 +260,7 @@ bool ApplyScale(m2::PointD const & pixelScaleCenter, double factor, ScreenBase &
 
   if (!CheckMaxScale(tmp))
   {
-    auto const maxScale = GetTileBasedScale(scales::GetUpperStyleScale() + 0.42);
+    auto const maxScale = GetScreenScale(scales::GetUpperStyleScale() + 0.42);
     if (maxScale > screen.GetScale() && CheckMaxScale(screen))
       return false;
     tmp.SetScale(maxScale);
