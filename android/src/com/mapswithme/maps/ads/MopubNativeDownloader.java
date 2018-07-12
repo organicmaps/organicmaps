@@ -2,7 +2,6 @@ package com.mapswithme.maps.ads;
 
 import android.content.Context;
 import android.location.Location;
-import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -13,10 +12,10 @@ import com.mapswithme.maps.location.LocationHelper;
 import com.mapswithme.util.Language;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
-import com.mopub.nativeads.AdData;
 import com.mopub.nativeads.BaseNativeAd;
 import com.mopub.nativeads.MoPubAdRenderer;
 import com.mopub.nativeads.MoPubNative;
+import com.mopub.nativeads.MopubNativeAdFactory;
 import com.mopub.nativeads.NativeAd;
 import com.mopub.nativeads.NativeErrorCode;
 import com.mopub.nativeads.RequestParameters;
@@ -83,8 +82,10 @@ class MopubNativeDownloader extends CachingNativeAdLoader
   {
     nativeAd.setMoPubNativeEventListener(this);
     LOGGER.d(TAG, "onNativeLoad nativeAd = " + nativeAd);
-    CachedMwmNativeAd ad = new MopubNativeAd(nativeAd, SystemClock.elapsedRealtime());
-    onAdLoaded(nativeAd.getAdUnitId(), ad);
+    CachedMwmNativeAd ad = MopubNativeAdFactory.createNativeAd(nativeAd);
+
+    if (ad != null)
+      onAdLoaded(nativeAd.getAdUnitId(), ad);
   }
 
   @Override
@@ -130,7 +131,7 @@ class MopubNativeDownloader extends CachingNativeAdLoader
     @Override
     public boolean supports(@NonNull BaseNativeAd nativeAd)
     {
-      return AdData.supports(nativeAd);
+      return true;
     }
   }
 }

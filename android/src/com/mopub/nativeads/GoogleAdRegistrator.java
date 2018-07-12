@@ -2,6 +2,8 @@ package com.mopub.nativeads;
 
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.google.android.gms.ads.formats.NativeAppInstallAd;
 import com.google.android.gms.ads.formats.NativeAppInstallAdView;
@@ -11,7 +13,7 @@ import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
 import com.mopub.nativeads.GooglePlayServicesNative.GooglePlayServicesNativeAd;
 
-public class GoogleAdDelegate implements AdDelegate
+public class GoogleAdRegistrator implements AdRegistrator
 {
   @Override
   public void registerView(@NonNull BaseNativeAd ad, @NonNull View view)
@@ -52,15 +54,11 @@ public class GoogleAdDelegate implements AdDelegate
   private void registerContentAdView(@NonNull NativeContentAd contentAd,
                                      @NonNull View view, NativeContentAdView adView)
   {
-    adView.setHeadlineView(view.findViewById(R.id.tv__banner_title));
-    adView.setBodyView(view.findViewById(R.id.tv__banner_message));
-    adView.setLogoView(view.findViewById(R.id.iv__banner_icon));
-
     View largeAction = view.findViewById(R.id.tv__action_large);
-    if (UiUtils.isVisible(largeAction))
-      adView.setCallToActionView(largeAction);
-    else
-      adView.setCallToActionView(view.findViewById(R.id.tv__action_small));
+
+    adView.setCallToActionView(UiUtils.isVisible(largeAction)
+                               ? largeAction
+                               : view.findViewById(R.id.tv__action_small));
 
     adView.setNativeAd(contentAd);
   }
@@ -74,10 +72,6 @@ public class GoogleAdDelegate implements AdDelegate
   private void unregisterContentAdView(@NonNull NativeContentAd contentAd,
                                        @NonNull NativeContentAdView adView)
   {
-    adView.setHeadlineView(null);
-    adView.setBodyView(null);
     adView.setCallToActionView(null);
-    adView.setImageView(null);
-    adView.setLogoView(null);
   }
 }
