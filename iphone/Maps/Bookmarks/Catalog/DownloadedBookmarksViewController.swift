@@ -30,13 +30,13 @@ class DownloadedBookmarksViewController: MWMViewController {
     tableView.tableFooterView = bottomView
     tableView.registerNib(cell: CatalogCategoryCell.self)
     tableView.registerNibForHeaderFooterView(BMCCategoriesHeader.self)
+    if #available(iOS 11, *) { return } // workaround for https://jira.mail.ru/browse/MAPSME-8101
+    reloadData()
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    dataSource.reloadData()
-    noDataView.isHidden = dataSource.categoriesCount > 0
-    tableView.reloadData()
+    reloadData()
   }
 
   override func viewDidLayoutSubviews() {
@@ -59,6 +59,12 @@ class DownloadedBookmarksViewController: MWMViewController {
     let webViewController = CatalogWebViewController()
     MapViewController.topViewController().navigationController?.pushViewController(webViewController,
                                                                                    animated: true)
+  }
+
+  private func reloadData() {
+    dataSource.reloadData()
+    noDataView.isHidden = dataSource.categoriesCount > 0
+    tableView.reloadData()
   }
 
   private func setCategoryVisible(_ visible: Bool, at index: Int) {
