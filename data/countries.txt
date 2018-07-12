@@ -8917,7 +8917,7 @@
     },
     {
      "id": "Norway_Central",
-     "s": 61543695,
+     "s": 61532319,
      "affiliations": [
       "Akershus",
       "Buskerud",
