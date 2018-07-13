@@ -54,4 +54,10 @@ abstract class BaseMwmNativeAd implements MwmNativeAd
   abstract void register(@NonNull View view);
 
   abstract void unregister(@NonNull View view);
+
+  @Override
+  public String toString()
+  {
+    return "Ad title: " + getTitle();
+  }
 }

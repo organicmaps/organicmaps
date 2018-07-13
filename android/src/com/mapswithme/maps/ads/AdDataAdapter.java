@@ -1,14 +1,17 @@
-package com.mopub.nativeads;
+package com.mapswithme.maps.ads;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
+import com.mopub.nativeads.BaseNativeAd;
+import com.mopub.nativeads.StaticNativeAd;
 
 public abstract class AdDataAdapter<T extends BaseNativeAd>
 {
   @NonNull
   private T mAd;
 
-  private AdDataAdapter(@NonNull T ad)
+  protected AdDataAdapter(@NonNull T ad)
   {
     mAd = ad;
   }
@@ -29,6 +32,8 @@ public abstract class AdDataAdapter<T extends BaseNativeAd>
   public abstract String getCallToAction();
   @Nullable
   public abstract String getPrivacyInfoUrl();
+  @NonNull
+  public abstract NetworkType getType();
 
   public static class StaticAd extends AdDataAdapter<StaticNativeAd>
   {
@@ -71,48 +76,12 @@ public abstract class AdDataAdapter<T extends BaseNativeAd>
     {
       return getAd().getPrivacyInformationIconClickThroughUrl();
     }
-  }
 
-  public static class GoogleAd extends AdDataAdapter<GooglePlayServicesNative.GooglePlayServicesNativeAd>
-  {
-    public GoogleAd(@NonNull GooglePlayServicesNative.GooglePlayServicesNativeAd ad)
-    {
-      super(ad);
-    }
-
-    @Nullable
+    @NonNull
     @Override
-    public String getTitle()
+    public NetworkType getType()
     {
-      return getAd().getTitle();
-    }
-
-    @Nullable
-    @Override
-    public String getText()
-    {
-      return getAd().getText();
-    }
-
-    @Nullable
-    @Override
-    public String getIconImageUrl()
-    {
-      return getAd().getIconImageUrl();
-    }
-
-    @Nullable
-    @Override
-    public String getCallToAction()
-    {
-      return getAd().getCallToAction();
-    }
-
-    @Nullable
-    @Override
-    public String getPrivacyInfoUrl()
-    {
-      return null;
+      return NetworkType.MOPUB;
     }
   }
 }

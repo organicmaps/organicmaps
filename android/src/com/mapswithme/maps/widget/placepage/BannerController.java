@@ -20,6 +20,7 @@ import com.mapswithme.maps.ads.CompoundNativeAdLoader;
 import com.mapswithme.maps.ads.MwmNativeAd;
 import com.mapswithme.maps.ads.NativeAdError;
 import com.mapswithme.maps.ads.NativeAdListener;
+import com.mapswithme.maps.ads.NetworkType;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
@@ -147,7 +148,7 @@ final class BannerController
     }
     else if (mCurrentAd != null)
     {
-      UiUtils.showIf(mCurrentAd.getNetworkType() == MwmNativeAd.NetworkType.MOPUB, mAdChoices);
+      UiUtils.showIf(mCurrentAd.getNetworkType() == NetworkType.MOPUB, mAdChoices);
       UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAdChoicesLabel);
       if (mOpened)
         UiUtils.hide(mActionSmall);
@@ -347,7 +348,7 @@ final class BannerController
     @Override
     public void onAdLoaded(@NonNull MwmNativeAd ad)
     {
-      LOGGER.d(TAG, "onAdLoaded, title = " + ad.getTitle() + " provider = " + ad.getProvider());
+      LOGGER.d(TAG, "onAdLoaded, ad = " + ad);
       if (mBanners == null)
         return;
 

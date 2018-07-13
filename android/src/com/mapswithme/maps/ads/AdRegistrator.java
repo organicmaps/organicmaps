@@ -1,7 +1,9 @@
-package com.mopub.nativeads;
+package com.mapswithme.maps.ads;
 
 import android.support.annotation.NonNull;
 import android.view.View;
+
+import com.mopub.nativeads.BaseNativeAd;
 
 public interface AdRegistrator
 {

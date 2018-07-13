@@ -10,9 +10,6 @@ import android.view.View;
  */
 public interface MwmNativeAd
 {
-  enum NetworkType{
-    FACEBOOK, GOOGLE, MOPUB, MYTARGET;
-  }
 
   @NonNull
   String getBannerId();

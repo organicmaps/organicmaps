@@ -2,18 +2,17 @@ package com.mopub.nativeads;
 
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.google.android.gms.ads.formats.NativeAppInstallAd;
 import com.google.android.gms.ads.formats.NativeAppInstallAdView;
 import com.google.android.gms.ads.formats.NativeContentAd;
 import com.google.android.gms.ads.formats.NativeContentAdView;
 import com.mapswithme.maps.R;
+import com.mapswithme.maps.ads.AdRegistrator;
 import com.mapswithme.util.UiUtils;
 import com.mopub.nativeads.GooglePlayServicesNative.GooglePlayServicesNativeAd;
 
-public class GoogleAdRegistrator implements AdRegistrator
+class GoogleAdRegistrator implements AdRegistrator
 {
   @Override
   public void registerView(@NonNull BaseNativeAd ad, @NonNull View view)

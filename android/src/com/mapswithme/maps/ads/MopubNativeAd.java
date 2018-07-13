@@ -6,8 +6,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.mopub.nativeads.AdDataAdapter;
-import com.mopub.nativeads.AdRegistrator;
 import com.mopub.nativeads.NativeAd;
 import com.mopub.nativeads.NativeImageHelper;
 
@@ -16,7 +14,7 @@ public class MopubNativeAd extends CachedMwmNativeAd
   @NonNull
   private final NativeAd mNativeAd;
   @NonNull
-  private final AdDataAdapter mAd;
+  private final AdDataAdapter mDataAdapter;
   @Nullable
   private AdRegistrator mAdRegistrator;
 
@@ -25,7 +23,7 @@ public class MopubNativeAd extends CachedMwmNativeAd
   {
     super(timestamp);
     mNativeAd = ad;
-    mAd = adData;
+    mDataAdapter = adData;
     mAdRegistrator = registrator;
   }
 
@@ -40,27 +38,27 @@ public class MopubNativeAd extends CachedMwmNativeAd
   @Override
   public String getTitle()
   {
-    return TextUtils.isEmpty(mAd.getTitle()) ? "" : mAd.getTitle();
+    return TextUtils.isEmpty(mDataAdapter.getTitle()) ? "" : mDataAdapter.getTitle();
   }
 
   @NonNull
   @Override
   public String getDescription()
   {
-    return TextUtils.isEmpty(mAd.getText()) ? "" : mAd.getText();
+    return TextUtils.isEmpty(mDataAdapter.getText()) ? "" : mDataAdapter.getText();
   }
 
   @NonNull
   @Override
   public String getAction()
   {
-    return TextUtils.isEmpty(mAd.getCallToAction()) ? "" : mAd.getCallToAction();
+    return TextUtils.isEmpty(mDataAdapter.getCallToAction()) ? "" : mDataAdapter.getCallToAction();
   }
 
   @Override
   public void loadIcon(@NonNull View view)
   {
-    NativeImageHelper.loadImageView(mAd.getIconImageUrl(), (ImageView) view);
+    NativeImageHelper.loadImageView(mDataAdapter.getIconImageUrl(), (ImageView) view);
   }
 
   @Override
@@ -104,7 +102,7 @@ public class MopubNativeAd extends CachedMwmNativeAd
   @Override
   public String getPrivacyInfoUrl()
   {
-    return mAd.getPrivacyInfoUrl();
+    return mDataAdapter.getPrivacyInfoUrl();
   }
 
   @Override
@@ -127,6 +125,12 @@ public class MopubNativeAd extends CachedMwmNativeAd
   @Override
   public NetworkType getNetworkType()
   {
-    return NetworkType.MOPUB;
+    return mDataAdapter.getType();
+  }
+
+  @Override
+  public String toString()
+  {
+    return super.toString() + ", mediated ad: " + mNativeAd.getBaseNativeAd();
   }
 }
