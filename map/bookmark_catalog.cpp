@@ -9,7 +9,7 @@
 #include <sstream>
 #include <utility>
 
-#define STAGE_BOOKMARKS_CATALOG_SERVER
+//#define STAGE_BOOKMARKS_CATALOG_SERVER
 #include "private.h"
 
 namespace
