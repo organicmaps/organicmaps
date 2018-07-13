@@ -143,11 +143,7 @@ uint32_t RankerResult::GetBestType(set<uint32_t> const * pPrefferedTypes) const
     }
   }
 
-  // Do type truncate (2-level is enough for search results) only for
-  // non-preffered types (types from categories leave original).
-  uint32_t type = m_types.GetBestType();
-  ftype::TruncValue(type, 2);
-  return type;
+  return m_types.GetBestType();
 }
 
 // RankerResult::RegionInfo ------------------------------------------------------------------------
