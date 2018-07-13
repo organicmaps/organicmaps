@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.gms.ads.formats.NativeContentAdView
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/banner"
   android:layout_width="match_parent"
-  android:layout_height="@dimen/placepage_banner_height">
-
-<RelativeLayout
-  android:layout_height="match_parent"
-  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
   android:minHeight="@dimen/placepage_banner_height"
   android:paddingLeft="@dimen/margin_half_plus"
   android:paddingRight="@dimen/margin_half_plus"
   android:paddingTop="@dimen/margin_half"
   android:background="?bannerBackground"
   android:clipToPadding="false"
-  android:clickable="true"
   tools:layout_height="wrap_content">
 
   <TextView
@@ -128,4 +124,3 @@
     android:fontFamily="@string/robotoMedium"
     tools:targetApi="jelly_bean"/>
 </RelativeLayout>
-</com.google.android.gms.ads.formats.NativeContentAdView>

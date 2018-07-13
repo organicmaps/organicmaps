@@ -442,12 +442,12 @@ public class PlacePageView extends RelativeLayout
 
     mUgcController = new UGCController(this);
 
-    View bannerView = findViewById(R.id.banner);
-    if (bannerView != null)
+    ViewGroup bannerContainer = findViewById(R.id.banner_container);
+    if (bannerContainer != null)
     {
       DefaultAdTracker tracker = new DefaultAdTracker();
       CompoundNativeAdLoader loader = com.mapswithme.maps.ads.Factory.createCompoundLoader(tracker, tracker);
-      mBannerController = new BannerController(bannerView, this, loader, tracker);
+      mBannerController = new BannerController(bannerContainer, this, loader, tracker);
     }
 
     mButtons = new PlacePageButtons(this, ppButtons, new PlacePageButtons.ItemListener()
@@ -1184,7 +1184,7 @@ public class PlacePageView extends RelativeLayout
     if (!mIsDocked && !mIsFloating)
     {
       // After ninepatch background is set from code, all paddings are lost, so we need to restore it later.
-      int bottom = mBannerController != null && mBannerController.isBannerVisible()
+      int bottom = mBannerController != null && mBannerController.isBannerContainerVisible()
                    ? 0 : (int) getResources().getDimension(R.dimen.margin_base);
       int left = mPreview.getPaddingLeft();
       int right = mPreview.getPaddingRight();

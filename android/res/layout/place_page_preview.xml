@@ -196,11 +196,10 @@
     android:text="@string/place_page_search_similar_hotel"
     tools:text="@string/authorization_button_sign_in"/>
 
-  <include
-    android:id="@+id/banner"
-    layout="@layout/place_page_banner"
+  <FrameLayout
+    android:id="@+id/banner_container"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/placepage_banner_height"
+    android:layout_height="wrap_content"
     android:layout_alignWithParentIfMissing="true"
     android:layout_marginLeft="@dimen/margin_quarter"
     android:layout_marginStart="@dimen/margin_quarter"
