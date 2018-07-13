@@ -31166,6 +31166,11 @@ cont {
   }
   element {
     scale: 16
+    symbol {
+      name: "monument-m"
+      priority: 16552
+      min_distance: 12
+    }
     caption {
       primary {
         height: 10
@@ -31178,6 +31183,11 @@ cont {
   }
   element {
     scale: 17
+    symbol {
+      name: "monument-m"
+      priority: 16552
+      min_distance: 12
+    }
     caption {
       primary {
         height: 10
@@ -31190,6 +31200,11 @@ cont {
   }
   element {
     scale: 18
+    symbol {
+      name: "monument-m"
+      priority: 16552
+      min_distance: 12
+    }
     caption {
       primary {
         height: 10
@@ -31202,6 +31217,11 @@ cont {
   }
   element {
     scale: 19
+    symbol {
+      name: "monument-m"
+      priority: 16552
+      min_distance: 12
+    }
     caption {
       primary {
         height: 10
