@@ -844,9 +844,15 @@ using namespace osm_auth_ios;
 - (void)showAlertIfRequired
 {
   if ([self shouldShowRateAlert])
+  {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showRateAlert) object:nil];
     [self performSelector:@selector(showRateAlert) withObject:nil afterDelay:30.0];
+  }
   else if ([self shouldShowFacebookAlert])
+  {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showFacebookAlert) object:nil];
     [self performSelector:@selector(showFacebookAlert) withObject:nil afterDelay:30.0];
+  }
 }
 
 - (void)showAlert:(BOOL)isRate
