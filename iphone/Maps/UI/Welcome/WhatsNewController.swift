@@ -9,15 +9,26 @@ final class WhatsNewController: WelcomeViewController {
     let ctaButtonUrl: String?
   }
   
-  static let ctaUrl = "https://b2b.maps.me/whatsnew/us"
   static var welcomeConfigs: [WelcomeConfig] {
   return [
-    WhatsNewConfig(image: #imageLiteral(resourceName: "img_wn_business"),
-                   title: "whats_new_localbiz_title",
-                   text: "whats_new_localbiz_message",
+    WhatsNewConfig(image: #imageLiteral(resourceName: "img_whats_new_catalog"),
+                   title: "whats_new_bookmarks_catalog_title",
+                   text: "whats_new_bookmarks_catalog_message",
+                   buttonTitle: "whats_new_next_button",
+                   ctaButtonTitle: nil,
+                   ctaButtonUrl: nil),
+    WhatsNewConfig(image: #imageLiteral(resourceName: "img_whats_new_popular"),
+                   title: "whats_new_popularity_label_title",
+                   text: "whats_new_popularity_label_message",
+                   buttonTitle: "whats_new_next_button",
+                   ctaButtonTitle: nil,
+                   ctaButtonUrl: nil),
+    WhatsNewConfig(image: #imageLiteral(resourceName: "img_whats_hot_offers"),
+                   title: "whats_new_hot_offers_title",
+                   text: "whats_new_hot_offers_message",
                    buttonTitle: "done",
-                   ctaButtonTitle: "whats_new_order_button",
-                   ctaButtonUrl: ctaUrl)
+                   ctaButtonTitle: nil,
+                   ctaButtonUrl: nil)
     ]
   }
 

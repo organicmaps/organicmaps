@@ -331,14 +331,14 @@
                                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="linkBlue"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="linkBlueHighlighted"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorName" value="white"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="textColorHighlightedName" value="white"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="fontName" value="regular17"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="8"/>
                                                     </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="white"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="linkBlue"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="backgroundHighlightedColorName" value="linkBlueHighlighted"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="nextPage" destination="1Bf-CK-Osq" eventType="touchUpInside" id="jlv-4f-LM3"/>
