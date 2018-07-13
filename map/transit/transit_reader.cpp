@@ -311,7 +311,6 @@ void TransitReadManager::ClearCache(MwmSet::MwmId const & mwmId)
 void TransitReadManager::OnMwmDeregistered(MwmSet::MwmId const & mwmId)
 {
   ClearCache(mwmId);
-  Invalidate();
 }
 
 void TransitReadManager::Invalidate()

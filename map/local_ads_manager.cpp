@@ -505,9 +505,8 @@ void LocalAdsManager::OnDownloadCountry(std::string const & countryName)
   });
 }
 
-void LocalAdsManager::OnDeleteCountry(std::string const & countryName)
+void LocalAdsManager::OnMwmDeregistered(MwmSet::MwmId const & mwmId)
 {
-  auto const mwmId = m_getMwmIdByNameFn(countryName);
   GetPlatform().RunTask(Platform::Thread::File, [this, mwmId]
   {
     ProcessRequests({std::make_pair(mwmId, RequestType::Delete)});

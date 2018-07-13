@@ -52,7 +52,7 @@ public:
   void UpdateViewport(ScreenBase const & screen);
 
   void OnDownloadCountry(std::string const & countryName);
-  void OnDeleteCountry(std::string const & countryName);
+  void OnMwmDeregistered(MwmSet::MwmId const & mwmId);
 
   void Invalidate();
 
