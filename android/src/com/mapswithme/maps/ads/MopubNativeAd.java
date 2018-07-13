@@ -16,7 +16,7 @@ public class MopubNativeAd extends CachedMwmNativeAd
   @NonNull
   private final AdDataAdapter mDataAdapter;
   @Nullable
-  private AdRegistrator mAdRegistrator;
+  private final AdRegistrator mAdRegistrator;
 
   public MopubNativeAd(@NonNull NativeAd ad, @NonNull AdDataAdapter adData,
                        @Nullable AdRegistrator registrator, long timestamp)

@@ -9,7 +9,7 @@ import com.mopub.nativeads.StaticNativeAd;
 public abstract class AdDataAdapter<T extends BaseNativeAd>
 {
   @NonNull
-  private T mAd;
+  private final T mAd;
 
   protected AdDataAdapter(@NonNull T ad)
   {
