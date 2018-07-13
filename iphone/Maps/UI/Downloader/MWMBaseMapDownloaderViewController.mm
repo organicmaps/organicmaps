@@ -233,8 +233,8 @@ using namespace storage;
   {
     Storage::UpdateInfo updateInfo{};
     s.GetUpdateInfo(parentCountryId, updateInfo);
-    self.showAllMapsButtons = updateInfo.m_numberOfMwmFilesToUpdate != 0;
-    if (self.showAllMapsButtons)
+    self.showAllMapsButtons = YES;
+    if (updateInfo.m_numberOfMwmFilesToUpdate != 0)
     {
       self.allMapsButton.hidden = NO;
       [self.allMapsButton
@@ -242,6 +242,22 @@ using namespace storage;
                                               formattedSize(updateInfo.m_totalUpdateSizeInBytes)]
           forState:UIControlStateNormal];
       self.allMapsCancelButton.hidden = YES;
+    }
+    else
+    {
+      TCountriesVec queuedChildren;
+      s.GetQueuedChildren(parentCountryId, queuedChildren);
+      if (queuedChildren.empty())
+      {
+        self.showAllMapsButtons = NO;
+      }
+      else
+      {
+        self.showAllMapsButtons = YES;
+        self.allMapsButton.hidden = YES;
+        self.allMapsCancelButton.hidden = NO;
+        [self.allMapsCancelButton setTitle:kCancelAllTitle forState:UIControlStateNormal];
+      }
     }
   }
   else if (parentCountryId != s.GetRootId())
