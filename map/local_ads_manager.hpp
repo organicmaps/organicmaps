@@ -86,7 +86,7 @@ private:
   // by some reason.
   bool DownloadCampaign(MwmSet::MwmId const & mwmId, std::vector<uint8_t> & bytes);
   
-  void RequestCampaigns(std::vector<MwmSet::MwmId> && mwmIds);
+  void RequestCampaigns(std::vector<MwmSet::MwmId> const & mwmIds);
 
   GetMwmsByRectFn const m_getMwmsByRectFn;
   GetMwmIdByNameFn const m_getMwmIdByNameFn;

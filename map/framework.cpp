@@ -605,10 +605,10 @@ bool Framework::OnCountryFileDelete(storage::TCountryId const & countryId, stora
   bool deferredDelete = false;
   if (localFile)
   {
+    m_localAdsManager.OnDeleteCountry(countryId);
     rect = m_infoGetter->GetLimitRectForLeaf(countryId);
     m_model.DeregisterMap(platform::CountryFile(countryId));
     deferredDelete = true;
-    m_localAdsManager.OnDeleteCountry(countryId);
   }
   InvalidateRect(rect);
 

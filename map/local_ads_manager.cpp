@@ -327,17 +327,17 @@ void LocalAdsManager::UpdateViewport(ScreenBase const & screen)
     return;
 
   // Request local ads campaigns.
-  GetPlatform().RunTask(Platform::Thread::File, [this, mwms = std::move(mwms)]() mutable
+  GetPlatform().RunTask(Platform::Thread::File, [this, mwms = std::move(mwms)]()
   {
-    RequestCampaigns(std::move(mwms));
+    RequestCampaigns(mwms);
   });
 }
 
-void LocalAdsManager::RequestCampaigns(std::vector<MwmSet::MwmId> && mwmIds)
+void LocalAdsManager::RequestCampaigns(std::vector<MwmSet::MwmId> const & mwmIds)
 {
   auto const connectionStatus = GetPlatform().ConnectionStatus();
   
-  std::vector<std::string> requestedCampaigns;
+  std::vector<MwmSet::MwmId> requestedCampaigns;
   {
     std::lock_guard<std::mutex> lock(m_campaignsMutex);
     for (auto const & mwm : mwmIds)
@@ -360,7 +360,7 @@ void LocalAdsManager::RequestCampaigns(std::vector<MwmSet::MwmId> && mwmIds)
       auto campaignIt = m_campaigns.find(mwmName);
       if (campaignIt == m_campaigns.end())
       {
-        requestedCampaigns.push_back(mwmName);
+        requestedCampaigns.push_back(mwm);
         m_downloadingMwms.insert(mwm);
         continue;
       }
@@ -375,7 +375,7 @@ void LocalAdsManager::RequestCampaigns(std::vector<MwmSet::MwmId> && mwmIds)
         
         if (needUpdateByTimeout || it == m_info.end())
         {
-          requestedCampaigns.push_back(mwmName);
+          requestedCampaigns.push_back(mwm);
           m_downloadingMwms.insert(mwm);
         }
       }
@@ -387,7 +387,7 @@ void LocalAdsManager::RequestCampaigns(std::vector<MwmSet::MwmId> && mwmIds)
   
   std::set<Request> requests;
   for (auto const & campaign : requestedCampaigns)
-    requests.insert(std::make_pair(m_getMwmIdByNameFn(campaign), RequestType::Download));
+    requests.insert(std::make_pair(campaign, RequestType::Download));
   ProcessRequests(std::move(requests));
 }
 
@@ -448,9 +448,9 @@ void LocalAdsManager::ProcessRequests(std::set<Request> && requests)
     for (auto const & request : requests)
     {
       auto const & mwm = request.first;
-      auto const & type =  request.second;
+      auto const & type = request.second;
       
-      if (!mwm.IsAlive())
+      if (!mwm.GetInfo())
         continue;
       
       std::string const & countryName = mwm.GetInfo()->GetCountryName();
@@ -507,9 +507,10 @@ void LocalAdsManager::OnDownloadCountry(std::string const & countryName)
 
 void LocalAdsManager::OnDeleteCountry(std::string const & countryName)
 {
-  GetPlatform().RunTask(Platform::Thread::File, [this, countryName]
+  auto const mwmId = m_getMwmIdByNameFn(countryName);
+  GetPlatform().RunTask(Platform::Thread::File, [this, mwmId]
   {
-    ProcessRequests({std::make_pair(m_getMwmIdByNameFn(countryName), RequestType::Delete)});
+    ProcessRequests({std::make_pair(mwmId, RequestType::Delete)});
   });
 }
 
