@@ -1191,6 +1191,8 @@ area|z15[historic=memorial][memorial=sculpture],
 node|z15[historic=memorial][memorial=statue],
 area|z15[historic=memorial][memorial=statue]
 {icon-image: monument-m.svg;icon-min-distance: 24;}
+node|z16-[historic=monument],
+area|z16-[historic=monument],
 node|z16-[historic=memorial][memorial=sculpture],
 area|z16-[historic=memorial][memorial=sculpture],
 node|z16-[historic=memorial][memorial=statue],
