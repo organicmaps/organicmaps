@@ -47,9 +47,6 @@ public class RoutingPlanController extends ToolbarController
 
   int mFrameHeight;
 
-  @NonNull
-  private final OnSubwayLayerToggleListener mSubwayLayerToggleListener;
-
   private RadioButton setupRouterButton(@IdRes int buttonId, final @DrawableRes int iconRes, View.OnClickListener clickListener)
   {
     CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener()
@@ -91,7 +88,6 @@ public class RoutingPlanController extends ToolbarController
     mProgressTaxi = (WheelProgressView) progressFrame.findViewById(R.id.progress_taxi);
 
     mRoutingBottomMenuController = RoutingBottomMenuController.newInstance(mActivity, mFrame, listener);
-    mSubwayLayerToggleListener = (OnSubwayLayerToggleListener) activity;
   }
 
   private void setupRouterButtons()
@@ -115,7 +111,6 @@ public class RoutingPlanController extends ToolbarController
     AlohaHelper.logClick(AlohaHelper.ROUTING_TAXI_SET);
     Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_TAXI_SET);
     RoutingController.get().setRouterType(Framework.ROUTER_TYPE_TAXI);
-    getSubwayListener().onSubwayLayerDeleted();
   }
 
   private void onBicycleModeSelected(@NonNull View v)
@@ -123,7 +118,6 @@ public class RoutingPlanController extends ToolbarController
     AlohaHelper.logClick(AlohaHelper.ROUTING_BICYCLE_SET);
     Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_BICYCLE_SET);
     RoutingController.get().setRouterType(Framework.ROUTER_TYPE_BICYCLE);
-    getSubwayListener().onSubwayLayerDeleted();
   }
 
   private void onPedestrianModeSelected(@NonNull View v)
@@ -131,7 +125,6 @@ public class RoutingPlanController extends ToolbarController
     AlohaHelper.logClick(AlohaHelper.ROUTING_PEDESTRIAN_SET);
     Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_PEDESTRIAN_SET);
     RoutingController.get().setRouterType(Framework.ROUTER_TYPE_PEDESTRIAN);
-    getSubwayListener().onSubwayLayerDeleted();
   }
 
   private void onVehicleModeSelected(@NonNull View v)
@@ -139,7 +132,6 @@ public class RoutingPlanController extends ToolbarController
     AlohaHelper.logClick(AlohaHelper.ROUTING_VEHICLE_SET);
     Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_VEHICLE_SET);
     RoutingController.get().setRouterType(Framework.ROUTER_TYPE_VEHICLE);
-    getSubwayListener().onSubwayLayerDeleted();
   }
 
   @Override
@@ -148,12 +140,6 @@ public class RoutingPlanController extends ToolbarController
     AlohaHelper.logClick(AlohaHelper.ROUTING_CANCEL);
     Statistics.INSTANCE.trackEvent(Statistics.EventName.ROUTING_CANCEL);
     RoutingController.get().cancel();
-  }
-
-  @NonNull
-  private OnSubwayLayerToggleListener getSubwayListener()
-  {
-    return mSubwayLayerToggleListener;
   }
 
   boolean checkFrameHeight()

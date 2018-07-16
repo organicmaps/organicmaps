@@ -240,12 +240,6 @@ public class MwmActivity extends BaseMwmFragmentActivity
     mToggleMapLayerController.toggleMode(Mode.TRAFFIC);
   }
 
-  @Override
-  public void onSubwayLayerDeleted()
-  {
-    mToggleMapLayerController.turnOff(Mode.SUBWAY);
-  }
-
   public interface LeftAnimationTrackListener
   {
     void onTrackStarted(boolean collapsed);
