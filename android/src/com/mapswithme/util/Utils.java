@@ -62,8 +62,19 @@ public class Utils
 
   public static boolean isLollipopOrLater()
   {
-    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    return isTargetOrLater(Build.VERSION_CODES.LOLLIPOP);
   }
+
+  public static boolean isMarshmallowOrLater()
+  {
+    return isTargetOrLater(Build.VERSION_CODES.M);
+  }
+
+  private static boolean isTargetOrLater(int target)
+  {
+    return Build.VERSION.SDK_INT >= target;
+  }
+
   public static boolean isAmazonDevice()
   {
     return "Amazon".equalsIgnoreCase(Build.MANUFACTURER);

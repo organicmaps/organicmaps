@@ -1,7 +1,9 @@
 package com.mapswithme.maps.bookmarks;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +24,7 @@ import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.util.ConnectionState;
 import com.mapswithme.util.DialogUtils;
 import com.mapswithme.util.UiUtils;
+import com.mapswithme.util.Utils;
 import com.mapswithme.util.log.Logger;
 import com.mapswithme.util.log.LoggerFactory;
 import com.mapswithme.util.statistics.Statistics;
@@ -183,7 +186,15 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
     public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error)
     {
       super.onReceivedError(view, request, error);
-      handleError(error);
+      String description = Utils.isMarshmallowOrLater() ? makeDescription(error) : null;
+      handleError(error, description);
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    @NonNull
+    private static String makeDescription(@NonNull WebResourceError error)
+    {
+      return error.getErrorCode() + "  " + error.getDescription();
     }
 
     @Override
@@ -195,6 +206,11 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
 
     private void handleError(@NonNull Object error)
     {
+      handleError(error, null);
+    }
+
+    private void handleError(@NonNull Object error, @Nullable String description)
+    {
       mError = error;
       BookmarksCatalogFragment frag;
       if ((frag = mReference.get()) == null)
@@ -204,7 +220,7 @@ public class BookmarksCatalogFragment extends BaseWebViewMwmFragment
       UiUtils.hide(frag.mWebView, frag.mProgressView);
       if (ConnectionState.isConnected())
       {
-        LOGGER.e(TAG, "Failed to load catalog: " + mError.toString());
+        LOGGER.e(TAG, "Failed to load catalog: " + mError + ", description: " + description);
         Statistics.INSTANCE.trackDownloadCatalogError(Statistics.ParamValue.UNKNOWN);
         return;
       }
