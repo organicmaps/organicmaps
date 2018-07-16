@@ -171,7 +171,6 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
 
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
-    Statistics.logEvent(kStatRouteManagerClose)
   }
 
   override func viewWillLayoutSubviews() {
@@ -194,11 +193,13 @@ final class RouteManagerViewController: MWMViewController, UITableViewDataSource
 
   @IBAction func onCancel() {
     viewModel.cancelTransaction()
+    Statistics.logEvent(kStatRouteManagerClose, withParameters: [kStatType : kStatCancel])
     dismiss(animated: true, completion: nil)
   }
 
   @IBAction func onPlan() {
     viewModel.finishTransaction()
+    Statistics.logEvent(kStatRouteManagerClose, withParameters: [kStatType : kStatDone])
     dismiss(animated: true, completion: nil)
   }
 

@@ -158,6 +158,11 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 
 + (void)stopRouting
 {
+  auto type = GetFramework().GetRoutingManager().GetRouter();
+  [Statistics logEvent:kStatRoutingRouteFinish withParameters:@{
+                                                                kStatMode : @(routing::ToString(type).c_str()),
+                                                                kStatRoutingInterrupted : @([self isRouteFinished])
+                                                                }];
   [self stop:YES];
 }
 
@@ -436,7 +441,14 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
       else
         [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatGo)
               withParameters:@{kStatValue : kStatPointToPoint}];
-      
+
+      auto type = GetFramework().GetRoutingManager().GetRouter();
+      [Statistics logEvent:kStatRoutingRouteStart
+            withParameters:@{
+                             kStatMode : @(routing::ToString(type).c_str()),
+                             kStatTraffic : @(GetFramework().GetTrafficManager().IsEnabled())
+                             }];
+
       if (p1.isMyPosition && [MWMLocationManager lastLocation])
       {
         rm.FollowRoute();
@@ -486,7 +498,6 @@ void logPointEvent(MWMRoutePoint * point, NSString * eventType)
 
 + (void)stop:(BOOL)removeRoutePoints
 {
-  [Statistics logEvent:kStatEventName(kStatPointToPoint, kStatClose)];
   [self doStop:removeRoutePoints];
   // Don't save taxi routing type as default.
   if ([MWMRouter isTaxi])
