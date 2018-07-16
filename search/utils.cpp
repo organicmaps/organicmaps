@@ -1,8 +1,14 @@
 #include "search/utils.hpp"
 
+#include "search/categories_cache.hpp"
+#include "search/features_filter.hpp"
+#include "search/geometry_cache.hpp"
+#include "search/mwm_context.hpp"
+
 #include "indexer/data_source.hpp"
 
 #include <cctype>
+#include <utility>
 
 using namespace std;
 
@@ -62,5 +68,38 @@ MwmSet::MwmHandle FindWorld(DataSource const & dataSource)
   vector<shared_ptr<MwmInfo>> infos;
   dataSource.GetMwmsInfo(infos);
   return FindWorld(dataSource, infos);
+}
+
+void ForEachOfTypesInRect(DataSource const & dataSource, set<uint32_t> const & types,
+                          m2::RectD const & pivot, FeatureIndexCallback const & fn)
+{
+  vector<shared_ptr<MwmInfo>> infos;
+  dataSource.GetMwmsInfo(infos);
+
+  CategoriesCache cache(types, {} /* cancellable */);
+  auto pivotRectsCache = PivotRectsCache(1 /* maxNumEntries */, {} /* cancellable */,
+                                         max(pivot.SizeX(), pivot.SizeY()) /* maxRadiusMeters */);
+
+  for (auto const & info : infos)
+  {
+    if (!pivot.IsIntersect(info->m_bordersRect))
+      continue;
+
+    auto handle = dataSource.GetMwmHandleById(MwmSet::MwmId(info));
+    auto & value = *handle.GetValue<MwmValue>();
+    if (!value.HasSearchIndex())
+      continue;
+
+    MwmContext const mwmContext(move(handle));
+    auto features = cache.Get(mwmContext);
+
+    auto const pivotFeatures = pivotRectsCache.Get(mwmContext, pivot, scales::GetUpperScale());
+    ViewportFilter const filter(pivotFeatures, 0 /* threshold */);
+    features = filter.Filter(features);
+    MwmSet::MwmId mwmId(info);
+    features.ForEach([&fn, &mwmId](uint64_t bit) {
+      fn(FeatureID(mwmId, ::base::asserted_cast<uint32_t>(bit)));
+    });
+  }
 }
 }  // namespace search

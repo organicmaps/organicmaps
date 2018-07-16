@@ -5,10 +5,13 @@
 #include "search/token_slice.hpp"
 
 #include "indexer/categories_holder.hpp"
+#include "indexer/feature_decl.hpp"
 #include "indexer/mwm_set.hpp"
 #include "indexer/search_delimiters.hpp"
 #include "indexer/search_string_utils.hpp"
 #include "indexer/trie.hpp"
+
+#include "geometry/rect2d.hpp"
 
 #include "base/levenshtein_dfa.hpp"
 #include "base/stl_helpers.hpp"
@@ -18,6 +21,7 @@
 #include <cstdint>
 #include <functional>
 #include <memory>
+#include <set>
 #include <vector>
 
 class DataSource;
@@ -117,4 +121,9 @@ bool FillCategories(QuerySliceOnRawStrings<T> const & slice, Locales const & loc
 MwmSet::MwmHandle FindWorld(DataSource const & dataSource,
                             std::vector<std::shared_ptr<MwmInfo>> const & infos);
 MwmSet::MwmHandle FindWorld(DataSource const & dataSource);
+
+using FeatureIndexCallback = std::function<void(FeatureID const &)>;
+// Applies |fn| to each feature index of type from |types| in |rect|.
+void ForEachOfTypesInRect(DataSource const & dataSource, std::set<uint32_t> const & types,
+                          m2::RectD const & rect, FeatureIndexCallback const & fn);
 }  // namespace search
