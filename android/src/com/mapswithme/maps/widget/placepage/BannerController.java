@@ -21,7 +21,6 @@ import com.mapswithme.maps.ads.CompoundNativeAdLoader;
 import com.mapswithme.maps.ads.MwmNativeAd;
 import com.mapswithme.maps.ads.NativeAdError;
 import com.mapswithme.maps.ads.NativeAdListener;
-import com.mapswithme.maps.ads.NetworkType;
 import com.mapswithme.util.Config;
 import com.mapswithme.util.ThemeUtils;
 import com.mapswithme.util.UiUtils;
@@ -58,7 +57,7 @@ final class BannerController
   }
 
   @NonNull
-  private static View inflateBannerLayout(@NonNull NetworkType type, @NonNull ViewGroup containerView)
+  private static View inflateBannerLayout(@NonNull NativeAdWrapper.UiType type, @NonNull ViewGroup containerView)
   {
     Context context = containerView.getContext();
     LayoutInflater li = LayoutInflater.from(context);
@@ -105,7 +104,7 @@ final class BannerController
   private boolean mOpened = false;
   private boolean mError = false;
   @Nullable
-  private MwmNativeAd mCurrentAd;
+  private NativeAdWrapper mCurrentAd;
   @NonNull
   private CompoundNativeAdLoader mAdsLoader;
   @Nullable
@@ -119,7 +118,7 @@ final class BannerController
     LOGGER.d(TAG, "Constructor()");
     mContainerView = bannerContainer;
     mContainerView.setOnClickListener(v -> animateActionButton());
-    mBannerView = inflateBannerLayout(NetworkType.MOPUB, mContainerView);
+    mBannerView = inflateBannerLayout(NativeAdWrapper.UiType.DEFAULT, mContainerView);
     mListener = listener;
     mAdsLoader = loader;
     mAdTracker = tracker;
@@ -177,7 +176,7 @@ final class BannerController
     }
     else if (mCurrentAd != null)
     {
-      UiUtils.showIf(mCurrentAd.getNetworkType().showCustomAdChoiceIcon(), mAdChoices);
+      UiUtils.showIf(mCurrentAd.getType().showAdChoiceIcon(), mAdChoices);
       UiUtils.show(mIcon, mTitle, mMessage, mActionSmall, mActionLarge, mAdChoicesLabel);
       if (mOpened)
         UiUtils.hide(mActionSmall);
@@ -375,7 +374,7 @@ final class BannerController
   private class MyNativeAdsListener implements NativeAdListener
   {
     @Nullable
-    private NetworkType mLastAdType;
+    private NativeAdWrapper.UiType mLastAdType;
 
     @Override
     public void onAdLoaded(@NonNull MwmNativeAd ad)
@@ -386,15 +385,14 @@ final class BannerController
 
       unregisterCurrentAd();
 
-      if (mLastAdType != ad.getNetworkType())
+      mCurrentAd = new NativeAdWrapper(ad);
+      if (mLastAdType != mCurrentAd.getType())
       {
-        mBannerView = inflateBannerLayout(ad.getNetworkType(), mContainerView);
+        mBannerView = inflateBannerLayout(mCurrentAd.getType(), mContainerView);
         initBannerViews();
       }
 
-      mLastAdType = ad.getNetworkType();
-
-      mCurrentAd = ad;
+      mLastAdType = mCurrentAd.getType();
 
       updateVisibility();
 
