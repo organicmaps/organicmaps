@@ -308,8 +308,17 @@ void TransitReadManager::ClearCache(MwmSet::MwmId const & mwmId)
   m_drapeEngine.SafeCall(&df::DrapeEngine::ClearTransitSchemeCache, mwmId);
 }
 
-void TransitReadManager::OnMwmDeregistered(MwmSet::MwmId const & mwmId)
+void TransitReadManager::OnMwmDeregistered(platform::LocalCountryFile const & countryFile)
 {
+  MwmSet::MwmId mwmId;
+  for (auto const & cacheEntry : m_mwmCache)
+  {
+    if (cacheEntry.first.IsDeregistered(countryFile))
+    {
+      mwmId = cacheEntry.first;
+      break;
+    }
+  }
   ClearCache(mwmId);
 }
 

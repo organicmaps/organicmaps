@@ -140,13 +140,24 @@ void TrafficManager::SetCurrentDataVersion(int64_t dataVersion)
   m_currentDataVersion = dataVersion;
 }
 
-void TrafficManager::OnMwmDeregistered(MwmSet::MwmId const & mwmId)
+void TrafficManager::OnMwmDeregistered(platform::LocalCountryFile const & countryFile)
 {
   if (!IsEnabled())
     return;
 
   {
     lock_guard<mutex> lock(m_mutex);
+
+    MwmSet::MwmId mwmId;
+    for (auto const & cacheEntry : m_mwmCache)
+    {
+      if (cacheEntry.first.IsDeregistered(countryFile))
+      {
+        mwmId = cacheEntry.first;
+        break;
+      }
+    }
+
     ClearCache(mwmId);
   }
 }

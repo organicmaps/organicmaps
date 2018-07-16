@@ -31,6 +31,12 @@ MwmInfo::MwmTypeT MwmInfo::GetType() const
   return COASTS;
 }
 
+bool MwmSet::MwmId::IsDeregistered(platform::LocalCountryFile const & deregisteredCountryFile) const
+{
+  return m_info && m_info->GetStatus() == MwmInfo::STATUS_DEREGISTERED &&
+    m_info->GetLocalFile() == deregisteredCountryFile;
+}
+
 string DebugPrint(MwmSet::MwmId const & id)
 {
   ostringstream ss;

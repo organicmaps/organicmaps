@@ -119,6 +119,8 @@ public:
 
     void Reset() { m_info.reset(); }
     bool IsAlive() const { return (m_info && m_info->GetStatus() != MwmInfo::STATUS_DEREGISTERED); }
+    bool IsDeregistered(platform::LocalCountryFile const & deregisteredCountryFile) const;
+
     shared_ptr<MwmInfo> & GetInfo() { return m_info; }
     shared_ptr<MwmInfo> const & GetInfo() const { return m_info; }
 

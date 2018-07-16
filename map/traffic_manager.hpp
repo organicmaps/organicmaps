@@ -76,7 +76,7 @@ public:
 
   void OnDestroyGLContext();
   void OnRecoverGLContext();
-  void OnMwmDeregistered(MwmSet::MwmId const & mwmId);
+  void OnMwmDeregistered(platform::LocalCountryFile const & countryFile);
 
   void OnEnterForeground();
   void OnEnterBackground();

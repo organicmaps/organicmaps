@@ -104,7 +104,7 @@ public:
   void EnableTransitSchemeMode(bool enable);
   void BlockTransitSchemeMode(bool isBlocked);
   void UpdateViewport(ScreenBase const & screen);
-  void OnMwmDeregistered(MwmSet::MwmId const & mwmId);
+  void OnMwmDeregistered(platform::LocalCountryFile const & countryFile);
   void Invalidate();
 
 private:

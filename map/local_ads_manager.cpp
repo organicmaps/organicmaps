@@ -505,8 +505,22 @@ void LocalAdsManager::OnDownloadCountry(std::string const & countryName)
   });
 }
 
-void LocalAdsManager::OnMwmDeregistered(MwmSet::MwmId const & mwmId)
+void LocalAdsManager::OnMwmDeregistered(platform::LocalCountryFile const & countryFile)
 {
+  MwmSet::MwmId mwmId;
+  {
+    std::lock_guard<std::mutex> lock(m_featuresCacheMutex);
+    for (auto const & cachedMwm : m_featuresCache)
+    {
+      if (cachedMwm.first.m_mwmId.IsDeregistered(countryFile))
+      {
+        mwmId = cachedMwm.first.m_mwmId;
+        break;
+      }
+    }
+  }
+  if (!mwmId.GetInfo())
+    return;
   GetPlatform().RunTask(Platform::Thread::File, [this, mwmId]
   {
     ProcessRequests({std::make_pair(mwmId, RequestType::Delete)});
