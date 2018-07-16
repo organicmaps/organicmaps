@@ -95,16 +95,10 @@ using namespace storage;
 {
   UIView * superview = self.superview;
   self.center = {superview.midX, superview.midY};
-  [UIView animateWithDuration:kDefaultAnimationDuration
-                   animations:^{
-                     CGSize const newSize =
-                         [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-                     if (CGSizeEqualToSize(newSize, self.size))
-                       return;
-                     self.size = newSize;
-                     self.center = {superview.midX, superview.midY};
-                     [self layoutIfNeeded];
-                   }];
+  CGSize const newSize = [self systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+  if (CGSizeEqualToSize(newSize, self.size)) return;
+  self.size = newSize;
+  self.center = {superview.midX, superview.midY};
   [super layoutSubviews];
 }
 
@@ -170,6 +164,7 @@ using namespace storage;
         if (nodeAttrs.m_downloadingProgress.second != 0)
           [self showDownloading:static_cast<CGFloat>(nodeAttrs.m_downloadingProgress.first) /
                                 nodeAttrs.m_downloadingProgress.second];
+        [self showBannerIfNeeded];
         break;
       case NodeStatus::Applying:
       case NodeStatus::InQueue: [self showInQueue]; break;
@@ -260,7 +255,6 @@ using namespace storage;
 
 - (void)showDownloading:(CGFloat)progress
 {
-  [self showBannerIfNeeded];
   self.nodeSize.textColor = [UIColor blackSecondaryText];
   self.nodeSize.text = [NSString stringWithFormat:@"%@ %@%%", L(@"downloader_downloading"),
                                                   @(static_cast<NSUInteger>(progress * 100))];
@@ -292,19 +286,25 @@ using namespace storage;
 
 - (void)showBannerIfNeeded
 {
-  if (shouldShowBanner(m_countryId))
+  if (shouldShowBanner(m_countryId) && self.bannerView.hidden)
   {
-    self.bannerHiddenConstraint.active = NO;
-    self.bannerVisibleConstraint.active = YES;
+    [self layoutIfNeeded];
+    self.bannerVisibleConstraint.priority = UILayoutPriorityDefaultHigh;
     self.bannerView.hidden = NO;
+    [UIView animateWithDuration:kDefaultAnimationDuration animations:^{
+      [self layoutIfNeeded];
+    }];
   }
 }
 
 - (void)hideBanner
 {
-  self.bannerHiddenConstraint.active = YES;
-  self.bannerVisibleConstraint.active = NO;
+  [self layoutIfNeeded];
+  self.bannerVisibleConstraint.priority = UILayoutPriorityDefaultLow;
   self.bannerView.hidden = YES;
+  [UIView animateWithDuration:kDefaultAnimationDuration animations:^{
+    [self layoutIfNeeded];
+  }];
 }
 
 #pragma mark - MWMFrameworkStorageObserver

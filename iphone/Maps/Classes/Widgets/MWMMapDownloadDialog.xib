@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -163,7 +163,7 @@
                 <constraint firstItem="REG-N0-yuL" firstAttribute="trailing" secondItem="Gtz-YD-7lc" secondAttribute="trailing" id="pWS-Cs-9hs"/>
                 <constraint firstItem="usc-Cm-gmg" firstAttribute="centerY" secondItem="iyV-Rb-bea" secondAttribute="centerY" id="pxa-11-yUj"/>
                 <constraint firstItem="Gtz-YD-7lc" firstAttribute="leading" secondItem="REG-N0-yuL" secondAttribute="leading" id="tvu-3d-Mrf"/>
-                <constraint firstItem="Gtz-YD-7lc" firstAttribute="top" secondItem="usc-Cm-gmg" secondAttribute="bottom" priority="500" constant="16" id="zec-WI-uhq"/>
+                <constraint firstItem="Gtz-YD-7lc" firstAttribute="top" secondItem="usc-Cm-gmg" secondAttribute="bottom" priority="250" constant="16" id="zec-WI-uhq"/>
                 <constraint firstAttribute="trailing" secondItem="vU4-G9-kcd" secondAttribute="trailing" constant="10" id="zl8-cq-RDc"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -187,11 +187,6 @@
                 <userDefinedRuntimeAttribute type="string" keyPath="backgroundColorName" value="white"/>
                 <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
             </userDefinedRuntimeAttributes>
-            <variation key="default">
-                <mask key="constraints">
-                    <exclude reference="zec-WI-uhq"/>
-                </mask>
-            </variation>
             <connections>
                 <outlet property="bannerHiddenConstraint" destination="HSh-rd-XIZ" id="k8L-UZ-Wo2"/>
                 <outlet property="bannerView" destination="Gtz-YD-7lc" id="GTa-nc-Gah"/>
