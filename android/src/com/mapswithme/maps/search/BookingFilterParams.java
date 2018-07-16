@@ -5,6 +5,8 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.mapswithme.util.ConnectionState;
+
 public class BookingFilterParams implements Parcelable
 {
   protected BookingFilterParams(Parcel in)
@@ -103,7 +105,7 @@ public class BookingFilterParams implements Parcelable
   @NonNull
   private final Room[] mRooms;
 
-  BookingFilterParams(long checkinMillisec, long checkoutMillisec, @NonNull Room... rooms)
+  private BookingFilterParams(long checkinMillisec, long checkoutMillisec, @NonNull Room... rooms)
   {
     mCheckinMillisec = checkinMillisec;
     mCheckoutMillisec = checkoutMillisec;
@@ -124,5 +126,16 @@ public class BookingFilterParams implements Parcelable
   public Room[] getRooms()
   {
     return mRooms;
+  }
+
+
+  public static class Factory
+  {
+    @Nullable
+    public BookingFilterParams createParams(long checkIn, long checkOut, @NonNull Room... rooms)
+    {
+      return ConnectionState.isConnected() ? new BookingFilterParams(checkIn, checkOut, rooms)
+                                           : null;
+    }
   }
 }

@@ -125,6 +125,10 @@ public class FilterFragment extends BaseMwmToolbarFragment
     }
   };
 
+  @SuppressWarnings("NullableProblems")
+  @NonNull
+  private BookingFilterParams.Factory mFilterParamsFactory;
+
   @Override
   public void onAttach(Context context)
   {
@@ -135,6 +139,8 @@ public class FilterFragment extends BaseMwmToolbarFragment
 
     if (context instanceof Listener)
       mListener = (Listener) context;
+
+    mFilterParamsFactory = new BookingFilterParams.Factory();
   }
 
   @Override
@@ -214,9 +220,10 @@ public class FilterFragment extends BaseMwmToolbarFragment
       return;
 
     HotelsFilter filter = populateFilter();
-    mListener.onFilterApply(filter, new BookingFilterParams(mCheckinDate.getTimeInMillis(),
-                                                            mCheckoutDate.getTimeInMillis(),
-                                                            BookingFilterParams.Room.DEFAULT));
+    BookingFilterParams params = mFilterParamsFactory.createParams(mCheckinDate.getTimeInMillis(),
+                                                                   mCheckoutDate.getTimeInMillis(),
+                                                                   BookingFilterParams.Room.DEFAULT);
+    mListener.onFilterApply(filter, params);
     Statistics.INSTANCE.trackFilterEvent(Statistics.EventName.SEARCH_FILTER_APPLY,
                                          Statistics.EventParam.HOTEL);
   }
