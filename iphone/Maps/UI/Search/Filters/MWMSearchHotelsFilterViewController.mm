@@ -331,8 +331,11 @@ void configButton(UIButton * button, NSString * primaryText, NSString * secondar
   using Clock = booking::AvailabilityParams::Clock;
   booking::AvailabilityParams params;
   params.m_rooms = {{kAdultsCount, kAgeOfChild}};
-  params.m_checkin = Clock::from_time_t(self.checkInDate.timeIntervalSince1970);
-  params.m_checkout = Clock::from_time_t(self.checkOutDate.timeIntervalSince1970);
+  if (Platform::IsConnected())
+  {
+    params.m_checkin = Clock::from_time_t(self.checkInDate.timeIntervalSince1970);
+    params.m_checkout = Clock::from_time_t(self.checkOutDate.timeIntervalSince1970);
+  }
   return { make_shared<booking::AvailabilityParams>(params), {} };
 }
 
