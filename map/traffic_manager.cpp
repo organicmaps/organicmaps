@@ -149,7 +149,6 @@ void TrafficManager::OnMwmDeregistered(MwmSet::MwmId const & mwmId)
     lock_guard<mutex> lock(m_mutex);
     ClearCache(mwmId);
   }
-  Invalidate();
 }
 
 void TrafficManager::OnDestroyGLContext()
@@ -447,6 +446,10 @@ void TrafficManager::ClearCache(MwmSet::MwmId const & mwmId)
   }
   m_mwmCache.erase(it);
   m_trafficETags.erase(mwmId);
+  m_activeDrapeMwms.erase(mwmId);
+  m_activeRoutingMwms.erase(mwmId);
+  m_lastDrapeMwmsByRect.clear();
+  m_lastRoutingMwmsByRect.clear();
 }
 
 bool TrafficManager::IsEnabled() const
