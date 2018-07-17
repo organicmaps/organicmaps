@@ -21,6 +21,7 @@
 
 #include <algorithm>
 #include <iterator>
+#include <map>
 #include <string>
 #include <utility>
 #include <type_traits>
@@ -33,7 +34,7 @@ namespace
 using BookmarkIdDoc = pair<bookmarks::Id, bookmarks::Doc>;
 
 double const kDistEqualQueryMeters = 100.0;
-size_t const kDefaultNumResultsForDiscovery = 100;
+size_t const kDefaultNumResultsForDiscovery = 200;
 
 // Cancels search query by |handle|.
 void CancelQuery(weak_ptr<ProcessorHandle> & handle)
@@ -127,6 +128,58 @@ Results TrimResults(Results && results, size_t const maxCount)
   r.AddResultsNoChecks(results.begin(), results.begin() + maxCount);
   return r;
 }
+
+class DiscoveryResultMaker
+{
+public:
+  DiscoveryResultMaker(DiscoverySearchParams const & params,
+                       Results const & results,
+                       std::vector<ProductInfo> const & productInfo)
+      : m_params(params)
+      , m_results(results)
+      , m_productInfo(productInfo)
+    {
+    }
+
+  template <typename Comparator>
+  void OnResults()
+  {
+    Results r;
+    std::vector<ProductInfo> info;
+    for (auto & item : MakeMap<Comparator>())
+    {
+      auto copy = item.first;
+      r.AddResultNoChecks(move(copy));
+      info.emplace_back(move(item.second));
+    }
+
+    m_params.m_onResults(TrimResults(move(r), m_params.m_itemsCount), info);
+  }
+
+private:
+  template <typename Comparator>
+  std::multimap<Result, ProductInfo, Comparator> MakeMap()
+  {
+    auto const & v = m_params.m_viewport;
+    auto const maxDistance = MercatorBounds::DistanceOnEarth(v.LeftTop(), v.RightTop()) / 2;
+
+    std::multimap<Result, ProductInfo, Comparator> ret;
+
+    for (size_t i = 0; i <  m_results.GetCount(); ++i)
+    {
+      if (m_results[i].GetRankingInfo().m_distanceToPivot > maxDistance)
+        continue;
+
+      ret.emplace(m_results[i], m_productInfo[i]);
+    }
+
+    return ret;
+  };
+
+  DiscoverySearchParams const & m_params;
+  Results const & m_results;
+  std::vector<ProductInfo> const & m_productInfo;
+};
 }  // namespace
 
 SearchAPI::SearchAPI(DataSource & dataSource, storage::Storage const & storage,
@@ -231,16 +284,12 @@ void SearchAPI::SearchForDiscovery(DiscoverySearchParams const & params)
   CHECK(!params.m_query.empty(), ());
   CHECK_GREATER(params.m_itemsCount, 0, ());
 
-  auto const resultsCount = params.m_sortingType == DiscoverySearchParams::SortingType::None
-                            ? params.m_itemsCount
-                            : kDefaultNumResultsForDiscovery;
-
   SearchParams p;
   p.m_query = params.m_query;
   p.m_inputLocale = "en";
   p.m_viewport = params.m_viewport;
   p.m_position = params.m_position;
-  p.m_maxNumResults = resultsCount;
+  p.m_maxNumResults = kDefaultNumResultsForDiscovery;
   p.m_mode = search::Mode::Everywhere;
   p.m_onResults = DiscoverySearchCallback(
     static_cast<ProductInfo::Delegate &>(*this),
@@ -248,23 +297,23 @@ void SearchAPI::SearchForDiscovery(DiscoverySearchParams const & params)
     if (!results.IsEndMarker())
       return;
 
+    DiscoveryResultMaker maker(params, results, productInfo);
+
     switch (params.m_sortingType)
     {
-    case DiscoverySearchParams::SortingType::None:
-      params.m_onResults(results, productInfo);
+    case DiscoverySearchParams::SortingType::ByPosition:
+    {
+      maker.OnResults<DiscoverySearchParams::ByPositionComparator>();
       break;
+    }
     case DiscoverySearchParams::SortingType::HotelRating:
     {
-      Results r(results);
-      r.SortBy(DiscoverySearchParams::HotelRatingComparator());
-      params.m_onResults(TrimResults(move(r), params.m_itemsCount), productInfo);
+      maker.OnResults<DiscoverySearchParams::HotelRatingComparator>();
       break;
     }
     case DiscoverySearchParams::SortingType::Popularity:
     {
-      Results r(results);
-      r.SortBy(DiscoverySearchParams::PopularityComparator());
-      params.m_onResults(TrimResults(move(r), params.m_itemsCount), productInfo);
+      maker.OnResults<DiscoverySearchParams::PopularityComparator>();
       break;
     }
     }

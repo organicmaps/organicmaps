@@ -19,9 +19,17 @@ struct DiscoverySearchParams
 {
   enum class SortingType
   {
-    None,
+    ByPosition,
     HotelRating,
     Popularity
+  };
+
+  struct ByPositionComparator
+  {
+    bool operator()(Result const & lhs, Result const & rhs) const
+    {
+      return lhs.GetPositionInResults() < rhs.GetPositionInResults();
+    }
   };
 
   struct HotelRatingComparator
@@ -51,7 +59,7 @@ struct DiscoverySearchParams
   size_t m_itemsCount = 0;
   m2::PointD m_position;
   m2::RectD m_viewport;
-  SortingType m_sortingType = SortingType::None;
+  SortingType m_sortingType = SortingType::ByPosition;
   OnResults m_onResults = nullptr;
 };
 }  // namespace search
