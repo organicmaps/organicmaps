@@ -28,7 +28,7 @@ public:
     CHECK_NOT_EQUAL(m_timeBetweenMs, 0, ());
   }
 
-  double Extrapolate(double x1, double x2)
+  double Extrapolate(double x1, double x2) const
   {
     return x2 + ((x2 - x1) / m_timeBetweenMs) * m_timeAfterMs;
   }
@@ -47,12 +47,22 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1,
                                       location::GpsInfo const & gpsInfo2,
                                       uint64_t timeAfterPoint2Ms)
 {
-  CHECK_LESS(gpsInfo1.m_timestamp, gpsInfo2.m_timestamp, ());
+  if (gpsInfo2.m_timestamp <= gpsInfo1.m_timestamp)
+  {
+    ASSERT(false, ("Incorrect gps data"));
+    return gpsInfo2;
+  }
+
   auto const timeBetweenPointsMs =
       static_cast<uint64_t>((gpsInfo2.m_timestamp - gpsInfo1.m_timestamp) * 1000);
+  if (timeBetweenPointsMs == 0)
+  {
+    ASSERT(false, ("Incorrect gps data"));
+    return gpsInfo2;
+  }
 
   location::GpsInfo result = gpsInfo2;
-  LinearExtrapolator e(timeBetweenPointsMs, timeAfterPoint2Ms);
+  LinearExtrapolator const e(timeBetweenPointsMs, timeAfterPoint2Ms);
 
   result.m_timestamp += static_cast<double>(timeAfterPoint2Ms) / 1000.0;
   result.m_longitude =
@@ -161,13 +171,9 @@ void Extrapolator::ExtrapolatedLocationUpdate(uint64_t locationUpdateCounter)
     if (extrapolationTimeMs < kMaxExtrapolationTimeMs && m_lastGpsInfo.IsValid())
     {
       if (DoesExtrapolationWork())
-      {
         gpsInfo = LinearExtrapolation(m_beforeLastGpsInfo, m_lastGpsInfo, extrapolationTimeMs);
-      }
-      else if (m_lastGpsInfo.IsValid())
-      {
+      else
         gpsInfo = m_lastGpsInfo;
-      }
     }
   }
 
