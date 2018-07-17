@@ -132,7 +132,7 @@ class DiscoveryResultMaker
 {
 public:
   DiscoveryResultMaker(DiscoverySearchParams const & params, Results const & results,
-                       std::vector<ProductInfo> const & productInfo)
+                       vector<ProductInfo> const & productInfo)
     : m_params(params)
     , m_results(results)
     , m_productInfo(productInfo)
@@ -143,7 +143,7 @@ public:
   void OnResults()
   {
     Results r;
-    std::vector<ProductInfo> info;
+    vector<ProductInfo> info;
     for (auto & item : MakeMap<Comparator>())
     {
       auto copy = item.first;
@@ -156,12 +156,12 @@ public:
 
 private:
   template <typename Comparator>
-  std::multimap<Result, ProductInfo, Comparator> MakeMap()
+  multimap<Result, ProductInfo, Comparator> MakeMap()
   {
     auto const & v = m_params.m_viewport;
     auto const maxDistance = MercatorBounds::DistanceOnEarth(v.LeftTop(), v.RightTop()) / 2;
 
-    std::multimap<Result, ProductInfo, Comparator> ret;
+    multimap<Result, ProductInfo, Comparator> ret;
 
     for (size_t i = 0; i < m_results.GetCount(); ++i)
     {
@@ -176,7 +176,7 @@ private:
 
   DiscoverySearchParams const & m_params;
   Results const & m_results;
-  std::vector<ProductInfo> const & m_productInfo;
+  vector<ProductInfo> const & m_productInfo;
 };
 }  // namespace
 
@@ -232,7 +232,7 @@ bool SearchAPI::SearchEverywhere(EverywhereSearchParams const & params)
       static_cast<EverywhereSearchCallback::Delegate &>(*this),
       static_cast<ProductInfo::Delegate &>(*this),
       params.m_bookingFilterTasks,
-      [this, params](Results const & results, std::vector<ProductInfo> const & productInfo) {
+      [this, params](Results const & results, vector<ProductInfo> const & productInfo) {
         if (params.m_onResults)
           RunUITask([params, results, productInfo] {
             params.m_onResults(results, productInfo);
@@ -291,7 +291,7 @@ void SearchAPI::SearchForDiscovery(DiscoverySearchParams const & params)
   p.m_mode = search::Mode::Everywhere;
   p.m_onResults = DiscoverySearchCallback(
     static_cast<ProductInfo::Delegate &>(*this),
-    [params](Results const & results, std::vector<ProductInfo> const & productInfo) {
+    [params](Results const & results, vector<ProductInfo> const & productInfo) {
     if (!results.IsEndMarker())
       return;
 
