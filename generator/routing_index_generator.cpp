@@ -244,6 +244,7 @@ void CalcCrossMwmTransitions(
     auto const it = featureIdToOsmId.find(featureId);
     CHECK(it != featureIdToOsmId.end(), ("Can't find osm id for feature id", featureId));
     auto const osmId = it->second;
+    CHECK(osmId.GetType() == osm::Id::Type::Way, ());
 
     bool prevPointIn = m2::RegionsContain(borders, f.GetPoint(0));
 

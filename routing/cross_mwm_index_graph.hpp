@@ -167,7 +167,7 @@ private:
 
   /// \brief Deserializes connectors for an mwm with |numMwmId|.
   /// \param fn is a function implementing deserialization.
-  /// \note Each CrossMwmConnector contained in |m_connectors| may be deserizalize in two stages.
+  /// \note Each CrossMwmConnector contained in |m_connectors| may be deserialized in two stages.
   /// The first one is transition deserialization and the second is weight deserialization.
   /// Transition deserialization is much faster and used more often.
   template <typename Fn>
