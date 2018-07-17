@@ -123,16 +123,15 @@ NSArray<UIImage *> * imagesWithName(NSString * name)
         [[MWMToast toastWithText:L(@"traffic_data_unavailable")] show];
         break;
       case MWMTrafficManagerStateNetworkError:
-        btn.imageName = @"btn_traffic_off";
         [MWMTrafficManager setTrafficEnabled:NO];
         [[MWMAlertViewController activeAlertController] presentNoConnectionAlert];
         break;
       case MWMTrafficManagerStateExpiredData:
-        btn.imageName = @"btn_traffic_on";
+        btn.imageName = @"btn_traffic_outdated";
         [[MWMToast toastWithText:L(@"traffic_update_maps_text")] show];
         break;
       case MWMTrafficManagerStateExpiredApp:
-        btn.imageName = @"btn_traffic_on";
+        btn.imageName = @"btn_traffic_outdated";
         [[MWMToast toastWithText:L(@"traffic_update_app_message")] show];
         break;
       }
