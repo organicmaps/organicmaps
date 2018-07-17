@@ -56,10 +56,7 @@ location::GpsInfo LinearExtrapolation(location::GpsInfo const & gpsInfo1,
   auto const timeBetweenPointsMs =
       static_cast<uint64_t>((gpsInfo2.m_timestamp - gpsInfo1.m_timestamp) * 1000);
   if (timeBetweenPointsMs == 0)
-  {
-    ASSERT(false, ("Incorrect gps data"));
     return gpsInfo2;
-  }
 
   location::GpsInfo result = gpsInfo2;
   LinearExtrapolator const e(timeBetweenPointsMs, timeAfterPoint2Ms);
