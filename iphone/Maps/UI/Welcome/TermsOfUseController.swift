@@ -81,6 +81,16 @@ class TermsOfUseController: WelcomeViewController {
     nextPageButton.isEnabled = privacyPolicyCheck.isChecked && termsOfUseCheck.isChecked;
   }
 
+  @IBAction func onPrivacyTap(_ sender: UITapGestureRecognizer) {
+    privacyPolicyCheck.isChecked = !privacyPolicyCheck.isChecked
+    onCheck(privacyPolicyCheck)
+  }
+
+  @IBAction func onTermsTap(_ sender: UITapGestureRecognizer) {
+    termsOfUseCheck.isChecked = !termsOfUseCheck.isChecked
+    onCheck(termsOfUseCheck)
+  }
+
   override func nextPage() {
     TermsOfUseController.needTerms = false
     Statistics.logEvent("OnStart_MapsMeConsent_accepted")

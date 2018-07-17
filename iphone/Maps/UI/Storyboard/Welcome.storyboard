@@ -633,6 +633,7 @@
                                                     </textView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lYD-Z0-hep" secondAttribute="trailing" constant="8" id="3mx-Mc-kX3"/>
                                                     <constraint firstItem="Vs8-33-I2f" firstAttribute="top" secondItem="hyF-Jd-KjJ" secondAttribute="top" id="8O7-1D-cs7"/>
@@ -642,6 +643,9 @@
                                                     <constraint firstItem="lYD-Z0-hep" firstAttribute="top" secondItem="hyF-Jd-KjJ" secondAttribute="top" constant="10" id="hUW-vN-deW"/>
                                                     <constraint firstItem="lYD-Z0-hep" firstAttribute="leading" secondItem="Vs8-33-I2f" secondAttribute="trailing" id="hhR-ok-QVn"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="deU-Ak-9u9" appends="YES" id="PcE-VV-Gbs"/>
+                                                </connections>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qKR-YS-XoV">
                                                 <rect key="frame" x="15" y="197.5" width="305" height="55.5"/>
@@ -675,6 +679,7 @@
                                                     </textView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstItem="7ej-oK-BYG" firstAttribute="leading" secondItem="hvF-tU-e0x" secondAttribute="trailing" id="62d-4M-KLv"/>
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7ej-oK-BYG" secondAttribute="trailing" constant="8" id="Ez6-rb-Pq4"/>
@@ -684,6 +689,9 @@
                                                     <constraint firstAttribute="bottom" secondItem="7ej-oK-BYG" secondAttribute="bottom" constant="10" id="bqG-ht-6Zy"/>
                                                     <constraint firstItem="hvF-tU-e0x" firstAttribute="top" secondItem="qKR-YS-XoV" secondAttribute="top" id="jnH-hZ-Lbn"/>
                                                 </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="5La-Rz-3fy" appends="YES" id="QYb-bx-iav"/>
+                                                </connections>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -865,6 +873,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hOx-LI-KNN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="deU-Ak-9u9">
+                    <connections>
+                        <action selector="onPrivacyTap:" destination="HXf-g6-rLZ" id="jje-nP-Zee"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="5La-Rz-3fy">
+                    <connections>
+                        <action selector="onTermsTap:" destination="HXf-g6-rLZ" id="FFK-qj-KCL"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-6638" y="136"/>
         </scene>
