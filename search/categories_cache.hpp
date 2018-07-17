@@ -7,8 +7,9 @@
 
 #include "base/cancellable.hpp"
 
-#include "std/map.hpp"
-#include "std/set.hpp"
+#include <cstdint>
+#include <map>
+#include <vector>
 
 namespace search
 {
@@ -24,7 +25,7 @@ public:
     source.ForEachType([this](uint32_t type) { m_categories.Add(type); });
   }
 
-  CategoriesCache(set<uint32_t> const & types, ::base::Cancellable const & cancellable)
+  CategoriesCache(std::vector<uint32_t> const & types, ::base::Cancellable const & cancellable)
     : m_cancellable(cancellable)
   {
     for (uint32_t type : types)
@@ -42,7 +43,7 @@ private:
 
   CategoriesSet m_categories;
   ::base::Cancellable const & m_cancellable;
-  map<MwmSet::MwmId, CBV> m_cache;
+  std::map<MwmSet::MwmId, CBV> m_cache;
 };
 
 class StreetsCache : public CategoriesCache

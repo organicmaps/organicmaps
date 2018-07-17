@@ -48,10 +48,10 @@ strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s)
   return strings::LevenshteinDFA(s, 1 /* prefixSize */, kAllowedMisprints, GetMaxErrorsForToken(s));
 }
 
-set<uint32_t> GetCategoryTypes(string const & name, string const & locale,
-                               CategoriesHolder const & categories)
+vector<uint32_t> GetCategoryTypes(string const & name, string const & locale,
+                                  CategoriesHolder const & categories)
 {
-  set<uint32_t> types;
+  vector<uint32_t> types;
 
   int8_t const code = CategoriesHolder::MapLocaleToInteger(locale);
   Locales locales;
@@ -63,6 +63,8 @@ set<uint32_t> GetCategoryTypes(string const & name, string const & locale,
 
   FillCategories(QuerySliceOnRawStrings<vector<strings::UniString>>(tokens, {} /* prefix */),
                  locales, categories, types);
+
+  my::SortUnique(types);
   return types;
 }
 
@@ -88,7 +90,7 @@ MwmSet::MwmHandle FindWorld(DataSource const & dataSource)
   return FindWorld(dataSource, infos);
 }
 
-void ForEachOfTypesInRect(DataSource const & dataSource, set<uint32_t> const & types,
+void ForEachOfTypesInRect(DataSource const & dataSource, vector<uint32_t> const & types,
                           m2::RectD const & pivot, FeatureIndexCallback const & fn)
 {
   vector<shared_ptr<MwmInfo>> infos;

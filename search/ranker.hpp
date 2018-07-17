@@ -23,7 +23,6 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <set>
 #include <string>
 #include <utility>
 #include <vector>
@@ -52,7 +51,7 @@ public:
     m2::RectD m_viewport;
     m2::PointD m_position;
     string m_pivotRegion;
-    std::set<uint32_t> m_preferredTypes;
+    std::vector<uint32_t> m_preferredTypes;
     bool m_suggestsEnabled = false;
     bool m_needAddress = false;
     bool m_needHighlighting = false;

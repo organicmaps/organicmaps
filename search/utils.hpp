@@ -21,7 +21,6 @@
 #include <cstdint>
 #include <functional>
 #include <memory>
-#include <set>
 #include <vector>
 
 class DataSource;
@@ -88,7 +87,7 @@ void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, Locales const & loc
 // and a space after it means that no errors were made.
 template <typename T>
 bool FillCategories(QuerySliceOnRawStrings<T> const & slice, Locales const & locales,
-                    CategoriesHolder const & catHolder, std::set<uint32_t> & types)
+                    CategoriesHolder const & catHolder, std::vector<uint32_t> & types)
 {
   types.clear();
   if (slice.HasPrefixToken())
@@ -112,16 +111,16 @@ bool FillCategories(QuerySliceOnRawStrings<T> const & slice, Locales const & loc
             return;
         }
 
-        types.insert(type);
+        types.push_back(type);
       });
 
   return !types.empty();
 }
 
-// Returns set of classificator types for category with |name| and |locale|. For metacategories
+// Returns classificator types for category with |name| and |locale|. For metacategories
 // like "Hotel" returns all subcategories types.
-std::set<uint32_t> GetCategoryTypes(std::string const & name, std::string const & locale,
-                                    CategoriesHolder const & categories);
+std::vector<uint32_t> GetCategoryTypes(std::string const & name, std::string const & locale,
+                                       CategoriesHolder const & categories);
 
 MwmSet::MwmHandle FindWorld(DataSource const & dataSource,
                             std::vector<std::shared_ptr<MwmInfo>> const & infos);
@@ -129,6 +128,6 @@ MwmSet::MwmHandle FindWorld(DataSource const & dataSource);
 
 using FeatureIndexCallback = std::function<void(FeatureID const &)>;
 // Applies |fn| to each feature index of type from |types| in |rect|.
-void ForEachOfTypesInRect(DataSource const & dataSource, std::set<uint32_t> const & types,
+void ForEachOfTypesInRect(DataSource const & dataSource, std::vector<uint32_t> const & types,
                           m2::RectD const & rect, FeatureIndexCallback const & fn);
 }  // namespace search

@@ -28,7 +28,6 @@
 
 #include <cstddef>
 #include <cstdint>
-#include <set>
 #include <string>
 #include <utility>
 #include <vector>
@@ -123,7 +122,7 @@ protected:
   std::string m_query;
   QueryTokens m_tokens;
   strings::UniString m_prefix;
-  std::set<uint32_t> m_preferredTypes;
+  std::vector<uint32_t> m_preferredTypes;
 
   m2::RectD m_viewport;
   m2::PointD m_position;

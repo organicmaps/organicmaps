@@ -11,7 +11,7 @@
 #include "base/assert.hpp"
 #include "base/levenshtein_dfa.hpp"
 
-#include "std/vector.hpp"
+using namespace std;
 
 namespace search
 {

@@ -276,10 +276,8 @@ void Processor::SetQuery(string const & query)
   // Get preferred types to show in results.
   m_preferredTypes.clear();
   ForEachCategoryType(QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix),
-                      [&](size_t, uint32_t t)
-                      {
-                        m_preferredTypes.insert(t);
-                      });
+                      [&](size_t, uint32_t t) { m_preferredTypes.push_back(t); });
+  my::SortUnique(m_preferredTypes);
 }
 
 m2::PointD Processor::GetPivotPoint(bool viewportSearch) const
@@ -503,7 +501,7 @@ void Processor::InitParams(QueryParams & params) const
     params.GetTypeIndices(i).push_back(index);
   };
   auto const tokenSlice = QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix);
-  set<uint32_t> types;
+  vector<uint32_t> types;
   bool const isCategorialRequest =
       FillCategories(tokenSlice, GetCategoryLocales(), m_categories, types);
   params.SetCategorialRequest(isCategorialRequest);

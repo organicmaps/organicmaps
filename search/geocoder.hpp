@@ -35,7 +35,6 @@
 #include "base/string_utils.hpp"
 
 #include "std/limits.hpp"
-#include "std/set.hpp"
 #include "std/shared_ptr.hpp"
 #include "std/string.hpp"
 #include "std/unique_ptr.hpp"
@@ -83,7 +82,7 @@ public:
     m2::RectD m_pivot;
     Locales m_categoryLocales;
     shared_ptr<hotels_filter::Rule> m_hotelsFilter;
-    set<uint32_t> m_preferredTypes;
+    vector<uint32_t> m_preferredTypes;
     shared_ptr<Tracer> m_tracer;
   };
 

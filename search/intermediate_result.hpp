@@ -9,7 +9,9 @@
 
 #include "indexer/feature_data.hpp"
 
-#include "std/set.hpp"
+#include <cstdint>
+#include <string>
+#include <vector>
 
 class FeatureType;
 class CategoriesHolder;
@@ -62,7 +64,7 @@ public:
 
   /// For RESULT_FEATURE and RESULT_BUILDING.
   RankerResult(FeatureType const & f, m2::PointD const & center, m2::PointD const & pivot,
-               string const & displayName, string const & fileName);
+               std::string const & displayName, std::string const & fileName);
 
   /// For RESULT_LATLON.
   RankerResult(double lat, double lon);
@@ -78,7 +80,7 @@ public:
   }
 
   FeatureID const & GetID() const { return m_id; }
-  string const & GetName() const { return m_str; }
+  std::string const & GetName() const { return m_str; }
   feature::TypesHolder const & GetTypes() const { return m_types; }
   Type const & GetResultType() const { return m_resultType; }
   m2::PointD GetCenter() const { return m_region.m_point; }
@@ -94,7 +96,7 @@ public:
 
   bool IsEqualCommon(RankerResult const & r) const;
 
-  uint32_t GetBestType(set<uint32_t> const * pPrefferedTypes = 0) const;
+  uint32_t GetBestType(std::vector<uint32_t> const & preferredTypes = {}) const;
 
 private:
   friend class RankerResultMaker;
@@ -117,7 +119,7 @@ private:
   RegionInfo m_region;
   FeatureID m_id;
   feature::TypesHolder m_types;
-  string m_str;
+  std::string m_str;
   double m_distance;
   Type m_resultType;
   RankingInfo m_info;
@@ -127,5 +129,5 @@ private:
 
 void ProcessMetadata(FeatureType const & ft, Result::Metadata & meta);
 
-string DebugPrint(RankerResult const & r);
+std::string DebugPrint(RankerResult const & r);
 }  // namespace search

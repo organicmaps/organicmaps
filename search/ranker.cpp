@@ -424,7 +424,7 @@ Result Ranker::MakeResult(RankerResult const & rankerResult, bool needAddress,
     case RankerResult::Type::TYPE_FEATURE:
     case RankerResult::Type::TYPE_BUILDING:
     {
-      auto const type = rankerResult.GetBestType(&m_params.m_preferredTypes);
+      auto const type = rankerResult.GetBestType(m_params.m_preferredTypes);
       return Result(r.GetID(), r.GetCenter(), name, address,
                     m_categories.GetReadableFeatureType(type, m_params.m_currentLocaleCode), type,
                     r.GetMetadata());
@@ -643,7 +643,7 @@ void Ranker::ProcessSuggestions(vector<RankerResult> & vec) const
 
 string Ranker::GetLocalizedRegionInfoForResult(RankerResult const & result) const
 {
-  auto const type = result.GetBestType(&m_params.m_preferredTypes);
+  auto const type = result.GetBestType(m_params.m_preferredTypes);
 
   storage::TCountryId id;
   if (!result.GetCountryId(m_infoGetter, type, id))
