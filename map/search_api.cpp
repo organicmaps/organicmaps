@@ -165,7 +165,10 @@ private:
 
     for (size_t i = 0; i < m_results.GetCount(); ++i)
     {
-      if (m_results[i].GetRankingInfo().m_distanceToPivot > maxDistance)
+      auto distanceToCenter =
+        MercatorBounds::DistanceOnEarth(m_results[i].GetFeatureCenter(), v.Center());
+      
+      if (distanceToCenter > maxDistance)
         continue;
 
       ret.emplace(m_results[i], m_productInfo[i]);
