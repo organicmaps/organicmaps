@@ -48,6 +48,24 @@ strings::LevenshteinDFA BuildLevenshteinDFA(strings::UniString const & s)
   return strings::LevenshteinDFA(s, 1 /* prefixSize */, kAllowedMisprints, GetMaxErrorsForToken(s));
 }
 
+set<uint32_t> GetCategoryTypes(string const & name, string const & locale,
+                               CategoriesHolder const & categories)
+{
+  set<uint32_t> types;
+
+  int8_t const code = CategoriesHolder::MapLocaleToInteger(locale);
+  Locales locales;
+  locales.Insert(static_cast<uint64_t>(code));
+
+  vector<strings::UniString> tokens;
+  SplitUniString(search::NormalizeAndSimplifyString(name), MakeBackInsertFunctor(tokens),
+                 search::Delimiters());
+
+  FillCategories(QuerySliceOnRawStrings<vector<strings::UniString>>(tokens, {} /* prefix */),
+                 locales, categories, types);
+  return types;
+}
+
 MwmSet::MwmHandle FindWorld(DataSource const & dataSource,
                             vector<shared_ptr<MwmInfo>> const & infos)
 {

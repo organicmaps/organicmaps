@@ -503,7 +503,7 @@ void Processor::InitParams(QueryParams & params) const
     params.GetTypeIndices(i).push_back(index);
   };
   auto const tokenSlice = QuerySliceOnRawStrings<decltype(m_tokens)>(m_tokens, m_prefix);
-  vector<uint32_t> types;
+  set<uint32_t> types;
   bool const isCategorialRequest =
       FillCategories(tokenSlice, GetCategoryLocales(), m_categories, types);
   params.SetCategorialRequest(isCategorialRequest);

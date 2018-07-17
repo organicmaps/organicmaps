@@ -88,7 +88,7 @@ void ForEachCategoryTypeFuzzy(StringSliceBase const & slice, Locales const & loc
 // and a space after it means that no errors were made.
 template <typename T>
 bool FillCategories(QuerySliceOnRawStrings<T> const & slice, Locales const & locales,
-                    CategoriesHolder const & catHolder, std::vector<uint32_t> & types)
+                    CategoriesHolder const & catHolder, std::set<uint32_t> & types)
 {
   types.clear();
   if (slice.HasPrefixToken())
@@ -112,11 +112,16 @@ bool FillCategories(QuerySliceOnRawStrings<T> const & slice, Locales const & loc
             return;
         }
 
-        types.push_back(type);
+        types.insert(type);
       });
 
   return !types.empty();
 }
+
+// Returns set of classificator types for category with |name| and |locale|. For metacategories
+// like "Hotel" returns all subcategories types.
+std::set<uint32_t> GetCategoryTypes(std::string const & name, std::string const & locale,
+                                    CategoriesHolder const & categories);
 
 MwmSet::MwmHandle FindWorld(DataSource const & dataSource,
                             std::vector<std::shared_ptr<MwmInfo>> const & infos);
