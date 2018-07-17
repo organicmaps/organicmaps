@@ -23,8 +23,8 @@
 #include <iterator>
 #include <map>
 #include <string>
-#include <utility>
 #include <type_traits>
+#include <utility>
 
 using namespace search;
 using namespace std;
@@ -132,14 +132,13 @@ Results TrimResults(Results && results, size_t const maxCount)
 class DiscoveryResultMaker
 {
 public:
-  DiscoveryResultMaker(DiscoverySearchParams const & params,
-                       Results const & results,
+  DiscoveryResultMaker(DiscoverySearchParams const & params, Results const & results,
                        std::vector<ProductInfo> const & productInfo)
-      : m_params(params)
-      , m_results(results)
-      , m_productInfo(productInfo)
-    {
-    }
+    : m_params(params)
+    , m_results(results)
+    , m_productInfo(productInfo)
+  {
+  }
 
   template <typename Comparator>
   void OnResults()
@@ -165,7 +164,7 @@ private:
 
     std::multimap<Result, ProductInfo, Comparator> ret;
 
-    for (size_t i = 0; i <  m_results.GetCount(); ++i)
+    for (size_t i = 0; i < m_results.GetCount(); ++i)
     {
       if (m_results[i].GetRankingInfo().m_distanceToPivot > maxDistance)
         continue;
