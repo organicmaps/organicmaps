@@ -22,7 +22,11 @@ NSString * const kMoPubSDKNetworkDomain = @"MoPubSDKNetworkDomain";
 
 @interface MPHTTPNetworkSession() <NSURLSessionDataDelegate>
 @property (nonatomic, strong) NSURLSession * sharedSession;
+
+// Access to `NSMutableDictionary` is not thread-safe by default, so we will gate access
+// to it using GCD to allow concurrent reads, but synchronous writes.
 @property (nonatomic, strong) NSMutableDictionary<NSURLSessionTask *, MPHTTPNetworkTaskData *> * sessions;
+@property (nonatomic, strong) dispatch_queue_t sessionsQueue;
 @end
 
 @implementation MPHTTPNetworkSession
@@ -46,9 +50,61 @@ NSString * const kMoPubSDKNetworkDomain = @"MoPubSDKNetworkDomain";
 
         // Dictionary of all sessions currently in flight.
         _sessions = [NSMutableDictionary dictionary];
+        _sessionsQueue = dispatch_queue_create("com.mopub.mopub-ios-sdk.mphttpnetworksession.queue", DISPATCH_QUEUE_CONCURRENT);
     }
 
     return self;
+}
+
+#pragma mark - Session Access
+
+- (void)setSessionData:(MPHTTPNetworkTaskData *)data forTask:(NSURLSessionTask *)task {
+    dispatch_barrier_sync(self.sessionsQueue, ^{
+        self.sessions[task] = data;
+    });
+}
+
+/**
+ Retrieves the task data for the specified task. Accessing the data is thread
+ safe, but mutating the data is not thread safe.
+ @param task Task which needs a data retrieval.
+ @return The task data or @c nil
+ */
+- (MPHTTPNetworkTaskData *)sessionDataForTask:(NSURLSessionTask *)task {
+    __block MPHTTPNetworkTaskData * data = nil;
+    dispatch_sync(self.sessionsQueue, ^{
+        data = self.sessions[task];
+    });
+
+    return data;
+}
+
+/**
+ Appends additional data to the @c responseData field of @c MPHTTPNetworkTaskData in
+ a thread safe manner.
+ @param data New data to append.
+ @param task Task to append the data to.
+ */
+- (void)appendData:(NSData *)data toSessionDataForTask:(NSURLSessionTask *)task {
+    // No data to append or task.
+    if (data == nil || task == nil) {
+        return;
+    }
+
+    dispatch_barrier_sync(self.sessionsQueue, ^{
+        // Do nothing if there is no task data entry.
+        MPHTTPNetworkTaskData * taskData = self.sessions[task];
+        if (taskData == nil) {
+            return;
+        }
+
+        // Append the new data to the task.
+        if (taskData.responseData == nil) {
+            taskData.responseData = [NSMutableData data];
+        }
+
+        [taskData.responseData appendData:data];
+    });
 }
 
 #pragma mark - Manual Start Tasks
@@ -64,7 +120,7 @@ NSString * const kMoPubSDKNetworkDomain = @"MoPubSDKNetworkDomain";
     MPHTTPNetworkTaskData * taskData = [[MPHTTPNetworkTaskData alloc] initWithResponseHandler:responseHandler errorHandler:errorHandler shouldRedirectWithNewRequest:shouldRedirectWithNewRequest];
 
     // Update the sessions.
-    MPHTTPNetworkSession.sharedInstance.sessions[task] = taskData;
+    [MPHTTPNetworkSession.sharedInstance setSessionData:taskData forTask:task];
 
     return task;
 }
@@ -111,18 +167,9 @@ didReceiveResponse:(NSURLResponse *)response
 - (void)URLSession:(NSURLSession *)session
           dataTask:(NSURLSessionDataTask *)dataTask
     didReceiveData:(NSData *)data {
-    // Retrieve the task data.
-    MPHTTPNetworkTaskData * taskData = self.sessions[dataTask];
-    if (taskData == nil) {
-        return;
-    }
 
     // Append the new data to the task.
-    if (taskData.responseData == nil) {
-        taskData.responseData = [NSMutableData data];
-    }
-
-    [taskData.responseData appendData:data];
+    [self appendData:data toSessionDataForTask:dataTask];
 }
 
 - (void)URLSession:(NSURLSession *)session
@@ -131,7 +178,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
         newRequest:(NSURLRequest *)request
  completionHandler:(void (^)(NSURLRequest * _Nullable))completionHandler {
     // Retrieve the task data.
-    MPHTTPNetworkTaskData * taskData = self.sessions[task];
+    MPHTTPNetworkTaskData * taskData = [self sessionDataForTask:task];
     if (taskData == nil) {
         completionHandler(request);
         return;
@@ -152,13 +199,13 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
               task:(NSURLSessionTask *)task
 didCompleteWithError:(nullable NSError *)error {
     // Retrieve the task data.
-    MPHTTPNetworkTaskData * taskData = self.sessions[task];
+    MPHTTPNetworkTaskData * taskData = [self sessionDataForTask:task];
     if (taskData == nil) {
         return;
     }
 
     // Remove the task data from the currently in flight sessions.
-    self.sessions[task] = nil;
+    [self setSessionData:nil forTask:task];
 
     // Validate that response is not an error.
     if (error != nil) {
