@@ -72,9 +72,9 @@ void ReadFeatureType(function<void(FeatureType &)> const & fn, FeatureSource & s
   FeatureType feature;
   switch (src.GetFeatureStatus(index))
   {
-  case FeatureStatus::Created: CHECK(false, ("Created features index should be generated."));
   case FeatureStatus::Deleted:
   case FeatureStatus::Obsolete: return;
+  case FeatureStatus::Created:
   case FeatureStatus::Modified:
   {
     VERIFY(src.GetModifiedFeature(index, feature), ());
