@@ -119,8 +119,8 @@ public:
     void ReadCrossMwmId(uint8_t bits, BitReader<Source> & reader, osm::Id & osmId)
     {
       CHECK_LESS_OR_EQUAL(bits, connector::kOsmIdBits, ());
-      /* We lost data about transition type after compression (look at CalcBitsPerCrossMwmId method),
-       * but we used Way in routing, so suggest, that it is Way */
+      // We lost data about transition type after compression (look at CalcBitsPerCrossMwmId method),
+      // but we used Way in routing, so suggest, that it is Way.
       osmId = osm::Id::Way(reader.ReadAtMost64Bits(bits));
     }
 
@@ -441,8 +441,8 @@ private:
     for (auto const & transition : transitions)
       osmId = std::max(osmId, transition.GetCrossMwmId());
 
-    /* Note, that we lose osm::Id::Type bits here, remember about
-     * it in ReadCrossMwmId method. */
+    // Note, that we lose osm::Id::Type bits here, remember about
+    // it in ReadCrossMwmId method.
     return bits::NumUsedBits(osmId.GetOsmId());
   }
 

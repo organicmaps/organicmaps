@@ -242,7 +242,7 @@ void TestSerialization(vector<CrossMwmConnectorSerializer::Transition<CrossMwmId
                       RouteWeight::FromCrossMwmWeight(kEdgesWeight)}});
 }
 
-void GetCrossMwmId(uint32_t i, osm::Id & id) { id = osm::Id(10 * i); }
+void GetCrossMwmId(uint32_t i, osm::Id & id) { id = osm::Id::Way(10 * i); }
 
 void GetCrossMwmId(uint32_t i, TransitId & id)
 {
@@ -331,25 +331,25 @@ namespace routing_test
 {
 UNIT_TEST(OneWayEnter)
 {
-  TestOneWayEnter(osm::Id(1ULL));
+  TestOneWayEnter(osm::Id::Way(1ULL));
   TestOneWayEnter(TransitId(1 /* stop 1 id */, 2 /* stop 2 id */, 1 /* line id */));
 }
 
 UNIT_TEST(OneWayExit)
 {
-  TestOneWayExit(osm::Id(1ULL));
+  TestOneWayExit(osm::Id::Way(1ULL));
   TestOneWayExit(TransitId(1 /* stop 1 id */, 2 /* stop 2 id */, 1 /* line id */));
 }
 
 UNIT_TEST(TwoWayEnter)
 {
-  TestTwoWayEnter(osm::Id(1ULL));
+  TestTwoWayEnter(osm::Id::Way(1ULL));
   TestTwoWayEnter(TransitId(1 /* stop 1 id */, 2 /* stop 2 id */, 1 /* line id */));
 }
 
 UNIT_TEST(TwoWayExit)
 {
-  TestTwoWayExit(osm::Id(1ULL));
+  TestTwoWayExit(osm::Id::Way(1ULL));
   TestTwoWayExit(TransitId(1 /* stop 1 id */, 2 /* stop 2 id */, 1 /* line id */));
 }
 
@@ -358,10 +358,10 @@ UNIT_TEST(Serialization)
   {
     vector<CrossMwmConnectorSerializer::Transition<osm::Id>> const transitions = {
         /* osmId featureId, segmentIdx, roadMask, oneWayMask, forwardIsEnter, backPoint, frontPoint */
-        {osm::Id(100ULL), 10, 1, kCarMask, kCarMask, true, m2::PointD(1.1, 1.2),
+        {osm::Id::Way(100ULL), 10, 1, kCarMask, kCarMask, true, m2::PointD(1.1, 1.2),
          m2::PointD(1.3, 1.4)},
-        {osm::Id(200ULL), 20, 2, kCarMask, 0, true, m2::PointD(2.1, 2.2), m2::PointD(2.3, 2.4)},
-        {osm::Id(300ULL), 30, 3, kPedestrianMask, kCarMask, true, m2::PointD(3.1, 3.2),
+        {osm::Id::Way(200ULL), 20, 2, kCarMask, 0, true, m2::PointD(2.1, 2.2), m2::PointD(2.3, 2.4)},
+        {osm::Id::Way(300ULL), 30, 3, kPedestrianMask, kCarMask, true, m2::PointD(3.1, 3.2),
          m2::PointD(3.3, 3.4)}};
     TestSerialization(transitions);
   }
