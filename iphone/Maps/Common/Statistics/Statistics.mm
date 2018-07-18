@@ -148,7 +148,7 @@ void checkFlurryLogStatus(FlurryEventRecordStatus status)
   switch (Platform::ConnectionStatus())
   {
   case Platform::EConnectionType::CONNECTION_WWAN:
-    return kStatOffline;
+    return kStatMobile;
   case Platform::EConnectionType::CONNECTION_WIFI:
     return kStatWifi;
   case Platform::EConnectionType::CONNECTION_NONE:
