@@ -256,5 +256,4 @@ private:
   std::atomic_flag m_nothingToUpload;
   std::mutex m_calcGlyphsMutex;
 };
-
-} // namespace dp
+}  // namespace dp

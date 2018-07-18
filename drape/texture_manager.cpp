@@ -23,7 +23,6 @@
 
 namespace dp
 {
-
 uint32_t const kMaxTextureSize = 1024;
 uint32_t const kStippleTextureWidth = 512;
 uint32_t const kMinStippleTextureHeight = 64;
@@ -250,6 +249,9 @@ void TextureManager::Release()
   m_glyphTextures.clear();
 
   m_glyphManager.reset();
+
+  m_glyphGenerator->FinishGeneration();
+  m_nothingToUpload.test_and_set();
 }
 
 bool TextureManager::UpdateDynamicTextures()
@@ -547,6 +549,8 @@ void TextureManager::Init(Params const & params)
     else
       m_glyphGroups.push_back(GlyphGroup(start, end));
   });
+
+  m_nothingToUpload.clear();
 }
 
 void TextureManager::OnSwitchMapStyle()

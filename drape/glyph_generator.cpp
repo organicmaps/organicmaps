@@ -19,17 +19,24 @@ GlyphGenerator::~GlyphGenerator()
 
   // Here we have to wait for active tasks completion,
   // because they capture 'this' pointer.
-  m_activeTasks.FinishAll();
-
-  std::lock_guard<std::mutex> lock(m_mutex);
-  for (auto & data : m_queue)
-    data.DestroyGlyph();
+  FinishGeneration();
 }
 
 bool GlyphGenerator::IsSuspended() const
 {
   std::lock_guard<std::mutex> lock(m_mutex);
   return m_glyphsCounter == 0;
+}
+
+void GlyphGenerator::FinishGeneration()
+{
+  m_activeTasks.FinishAll();
+
+  std::lock_guard<std::mutex> lock(m_mutex);
+  for (auto & data : m_queue)
+    data.DestroyGlyph();
+
+  m_glyphsCounter = 0;
 }
 
 void GlyphGenerator::RegisterListener(ref_ptr<GlyphGenerator::Listener> listener)

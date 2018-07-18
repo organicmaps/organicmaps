@@ -74,6 +74,8 @@ public:
   void GenerateGlyphs(ref_ptr<Listener> listener, GlyphGenerationDataArray && generationData);
   bool IsSuspended() const;
 
+  void FinishGeneration();
+
 private:
   void OnTaskFinished(ref_ptr<Listener> listener, std::shared_ptr<GenerateGlyphTask> const & task);
 

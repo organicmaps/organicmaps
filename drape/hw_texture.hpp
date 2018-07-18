@@ -92,7 +92,7 @@ class OpenGLHWTextureAllocator : public HWTextureAllocator
 {
 public:
   drape_ptr<HWTexture> CreateTexture() override;
-  void Flush() override {}
+  void Flush() override;
 };
 
 ref_ptr<HWTextureAllocator> GetDefaultAllocator();

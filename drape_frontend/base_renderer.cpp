@@ -76,7 +76,7 @@ void BaseRenderer::SetRenderingEnabled(bool const isEnabled)
   };
 
   {
-    lock_guard<mutex> lock(m_completionHandlerMutex);
+    std::lock_guard<mutex> lock(m_completionHandlerMutex);
     m_renderingEnablingCompletionHandler = std::move(handler);
   }
 
@@ -132,6 +132,7 @@ void BaseRenderer::CheckRenderingEnabled()
 
     m_wasNotified = false;
 
+    bool needCreateContext = false;
     if (!m_selfThread.GetRoutine()->IsCancelled())
     {
       // here rendering is enabled again
@@ -140,8 +141,7 @@ void BaseRenderer::CheckRenderingEnabled()
       if (m_wasContextReset)
       {
         m_wasContextReset = false;
-        DisableMessageFiltering();
-        OnContextCreate();
+        needCreateContext = true;
       }
       else
       {
@@ -151,6 +151,12 @@ void BaseRenderer::CheckRenderingEnabled()
     // notify initiator-thread about rendering enabling
     // m_renderingEnablingCompletionHandler will be setup before awakening of this thread
     Notify();
+
+    if (needCreateContext)
+    {
+      DisableMessageFiltering();
+      OnContextCreate();
+    }
   }
 }
 

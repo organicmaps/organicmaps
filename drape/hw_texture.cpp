@@ -176,8 +176,8 @@ void OpenGLHWTexture::Create(Params const & params, ref_ptr<void> data)
     GLFunctions::glBindBuffer(0, gl_const::GLPixelBufferWrite);
   }
 
-  GLFunctions::glFlush();
   GLFunctions::glBindTexture(0);
+  GLFunctions::glFlush();
 }
 
 void OpenGLHWTexture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_t height,
@@ -206,6 +206,11 @@ void OpenGLHWTexture::UploadData(uint32_t x, uint32_t y, uint32_t width, uint32_
 drape_ptr<HWTexture> OpenGLHWTextureAllocator::CreateTexture()
 {
   return make_unique_dp<OpenGLHWTexture>();
+}
+
+void OpenGLHWTextureAllocator::Flush()
+{
+  GLFunctions::glFlush();
 }
 
 drape_ptr<HWTextureAllocator> CreateAllocator()
