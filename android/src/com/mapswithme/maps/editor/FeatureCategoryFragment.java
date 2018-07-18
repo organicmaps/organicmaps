@@ -52,15 +52,15 @@ public class FeatureCategoryFragment extends BaseMwmRecyclerFragment<FeatureCate
 
   private void setFilter(String query)
   {
-    getAdapter().setCategories(query.isEmpty() ? Editor.nativeGetAllFeatureCategories(Language.getKeyboardLocale())
-                                               : Editor.nativeSearchFeatureCategories(query, Language.getKeyboardLocale()));
+    getAdapter().setCategories(query.isEmpty() ? Editor.nativeGetAllFeatureCategories(Language.getDefaultLocale())
+                                               : Editor.nativeSearchFeatureCategories(query, Language.getDefaultLocale()));
   }
 
   @NonNull
   @Override
   protected FeatureCategoryAdapter createAdapter()
   {
-    return new FeatureCategoryAdapter(this, Editor.nativeGetAllFeatureCategories(Language.getKeyboardLocale()), mSelectedCategory);
+    return new FeatureCategoryAdapter(this, Editor.nativeGetAllFeatureCategories(Language.getDefaultLocale()), mSelectedCategory);
   }
 
   public void selectCategory(FeatureCategory category)
