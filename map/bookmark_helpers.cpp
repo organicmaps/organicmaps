@@ -19,6 +19,7 @@
 #include "base/string_utils.hpp"
 
 #include <map>
+#include <sstream>
 
 namespace
 {
@@ -414,6 +415,29 @@ void ResetIds(kml::FileData & kmlData)
     trackData.m_id = kml::kInvalidTrackId;
 }
 
+kml::BookmarkIcon GetBookmarkIconByType(uint32_t type)
+{
+  auto const typeStr = classif().GetReadableObjectName(type);
+  
+  static std::string const kDelim = "-";
+  std::vector<std::string> v;
+  strings::Tokenize(typeStr, kDelim.c_str(), [&v] (std::string const & s) {v.push_back(s);});
+  for (size_t sz = v.size(); sz > 0; sz--)
+  {
+    std::stringstream ss;
+    for (size_t i = 0; i < sz; i++)
+    {
+      ss << v[i];
+      if (i + 1 < sz)
+        ss << kDelim;
+    }
+    auto const itIcon = kBookmarkTypeToIcon.find(ss.str());
+    if (itIcon != kBookmarkTypeToIcon.cend())
+      return itIcon->second;
+  }
+  return kml::BookmarkIcon::None;
+}
+
 void SaveFeatureTypes(feature::TypesHolder const & types, kml::BookmarkData & bmData)
 {
   auto const & c = classif();
@@ -424,12 +448,7 @@ void SaveFeatureTypes(feature::TypesHolder const & types, kml::BookmarkData & bm
   {
     bmData.m_featureTypes.push_back(c.GetIndexForType(*it));
     if (bmData.m_icon == kml::BookmarkIcon::None)
-    {
-      auto const typeStr = c.GetReadableObjectName(*it);
-      auto const itIcon = kBookmarkTypeToIcon.find(typeStr);
-      if (itIcon != kBookmarkTypeToIcon.cend())
-        bmData.m_icon = itIcon->second;
-    }
+      bmData.m_icon = GetBookmarkIconByType(*it);
   }
 }
 
