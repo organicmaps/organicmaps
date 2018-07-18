@@ -3,8 +3,8 @@
 #include "search/intermediate_result.hpp"
 #include "search/utils.hpp"
 
-#include "indexer/feature_algo.hpp"
 #include "indexer/data_source.hpp"
+#include "indexer/feature_algo.hpp"
 
 #include "platform/platform.hpp"
 
@@ -24,9 +24,8 @@ search::Result MakeResultFromFeatureType(FeatureType const & ft)
   feature::TypesHolder holder(ft);
   holder.SortBySpec();
   CategoriesHolder const & categories = GetDefaultCategories();
-  auto const readableType =
-    categories.GetReadableFeatureType(holder.GetBestType(),
-                                      categories.MapLocaleToInteger(languages::GetCurrentOrig()));
+  auto const readableType = categories.GetReadableFeatureType(
+      holder.GetBestType(), categories.MapLocaleToInteger(languages::GetCurrentOrig()));
 
   search::Result::Metadata metadata;
   search::ProcessMetadata(ft, metadata);
@@ -72,7 +71,7 @@ public:
     return lhsRating > rhsRating;
   }
 };
-} // namespace
+}  // namespace
 namespace discovery
 {
 SearchBase::SearchBase(DataSource const & dataSource, DiscoverySearchParams const & params,
@@ -192,8 +191,8 @@ void SearchPopularPlaces::OnMwmChanged(MwmSet::MwmHandle const & handle)
   m_popularityRanks.reset();
   if (handle.IsAlive())
   {
-    m_popularityRanks = search::RankTable::Load(handle.GetValue<MwmValue>()->m_cont,
-                                                POPULARITY_RANKS_FILE_TAG);
+    m_popularityRanks =
+        search::RankTable::Load(handle.GetValue<MwmValue>()->m_cont, POPULARITY_RANKS_FILE_TAG);
   }
 }
 
@@ -203,7 +202,6 @@ void SearchPopularPlaces::ProcessFeatureId(FeatureID const & id)
 
   if (m_popularityRanks)
     popularity = m_popularityRanks->Get(id.m_index);
-
 
   if (popularity != 0 || m_accumulatedResults.size() < GetParams().m_itemsCount)
   {
@@ -277,9 +275,6 @@ void ProcessSearchIntent(std::shared_ptr<SearchBase> intent)
   if (!intent)
     return;
 
-  GetPlatform().RunTask(Platform::Thread::File, [intent]()
-  {
-    intent->Search();
-  });
+  GetPlatform().RunTask(Platform::Thread::File, [intent]() { intent->Search(); });
 }
 }  // namespace discovery

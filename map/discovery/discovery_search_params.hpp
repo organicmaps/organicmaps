@@ -17,9 +17,8 @@ namespace discovery
 {
 struct DiscoverySearchParams
 {
-  using OnResults =
-      std::function<void(search::Results const & results,
-                         std::vector<search::ProductInfo> const & productInfo)>;
+  using OnResults = std::function<void(search::Results const & results,
+                                       std::vector<search::ProductInfo> const & productInfo)>;
 
   std::string m_query;
   size_t m_itemsCount = 0;
