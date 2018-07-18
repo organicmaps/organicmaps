@@ -13,7 +13,6 @@
 
 namespace df
 {
-
 //#define DEBUG_MESSAGE_QUEUE
 
 class MessageQueue
@@ -28,8 +27,9 @@ public:
   void CancelWait();
   void ClearQuery();
 
-  using TFilterMessageFn = std::function<bool(ref_ptr<Message>)>;
-  void FilterMessages(TFilterMessageFn needFilterMessageFn);
+  using FilterMessageFn = std::function<bool(ref_ptr<Message>)>;
+  void EnableMessageFiltering(FilterMessageFn && filter);
+  void DisableMessageFiltering();
 
 #ifdef DEBUG_MESSAGE_QUEUE
   bool IsEmpty() const;
@@ -37,6 +37,7 @@ public:
 #endif
 
 private:
+  void FilterMessagesImpl();
   void CancelWaitImpl();
 
   mutable std::mutex m_mutex;
@@ -45,6 +46,6 @@ private:
   using TMessageNode = std::pair<drape_ptr<Message>, MessagePriority>;
   std::deque<TMessageNode> m_messages;
   std::deque<drape_ptr<Message>> m_lowPriorityMessages;
+  FilterMessageFn m_filter;
 };
-
-} // namespace df
+}  // namespace df

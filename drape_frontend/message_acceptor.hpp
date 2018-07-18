@@ -5,18 +5,18 @@
 #include "drape/pointers.hpp"
 
 #include <atomic>
+#include <mutex>
 #include <functional>
 
 namespace df
 {
-
 class Message;
 
 class MessageAcceptor
 {
 protected:
   MessageAcceptor();
-  virtual ~MessageAcceptor(){}
+  virtual ~MessageAcceptor() = default;
 
   virtual void AcceptMessage(ref_ptr<Message> message) = 0;
 
@@ -34,8 +34,7 @@ protected:
   size_t GetQueueSize() const;
 #endif
 
-  using TFilterMessageFn = std::function<bool(ref_ptr<Message>)>;
-  void EnableMessageFiltering(TFilterMessageFn needFilterMessageFn);
+  void EnableMessageFiltering(MessageQueue::FilterMessageFn && filter);
   void DisableMessageFiltering();
 
 private:
@@ -45,7 +44,5 @@ private:
 
   MessageQueue m_messageQueue;
   std::atomic<bool> m_infinityWaiting;
-  TFilterMessageFn m_needFilterMessageFn;
 };
-
-} // namespace df
+}  // namespace df

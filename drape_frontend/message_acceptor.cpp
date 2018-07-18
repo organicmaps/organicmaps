@@ -4,11 +4,9 @@
 
 namespace df
 {
-
 MessageAcceptor::MessageAcceptor()
   : m_infinityWaiting(false)
-{
-}
+{}
 
 bool MessageAcceptor::ProcessSingleMessage(bool waitForMessage)
 {
@@ -23,25 +21,19 @@ bool MessageAcceptor::ProcessSingleMessage(bool waitForMessage)
   return true;
 }
 
-void MessageAcceptor::EnableMessageFiltering(TFilterMessageFn needFilterMessageFn)
+void MessageAcceptor::EnableMessageFiltering(MessageQueue::FilterMessageFn && filter)
 {
-  ASSERT(needFilterMessageFn != nullptr, ());
-
-  m_needFilterMessageFn = needFilterMessageFn;
-  m_messageQueue.FilterMessages(needFilterMessageFn);
+  m_messageQueue.EnableMessageFiltering(std::move(filter));
 }
 
 void MessageAcceptor::DisableMessageFiltering()
 {
-  m_needFilterMessageFn = nullptr;
+  m_messageQueue.DisableMessageFiltering();
 }
 
 void MessageAcceptor::PostMessage(drape_ptr<Message> && message, MessagePriority priority)
 {
-  if (m_needFilterMessageFn != nullptr && m_needFilterMessageFn(make_ref(message)))
-    return;
-
-  m_messageQueue.PushMessage(move(message), priority);
+  m_messageQueue.PushMessage(std::move(message), priority);
 }
 
 void MessageAcceptor::CloseQueue()
@@ -73,5 +65,4 @@ size_t MessageAcceptor::GetQueueSize() const
 }
 
 #endif
-
-} // namespace df
+}  // namespace df

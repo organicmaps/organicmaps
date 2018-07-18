@@ -5,11 +5,9 @@
 
 namespace df
 {
-
 MessageQueue::MessageQueue()
   : m_isWaiting(false)
-{
-}
+{}
 
 MessageQueue::~MessageQueue()
 {
@@ -45,6 +43,9 @@ drape_ptr<Message> MessageQueue::PopMessage(bool waitForMessage)
 void MessageQueue::PushMessage(drape_ptr<Message> && message, MessagePriority priority)
 {
   std::lock_guard<std::mutex> lock(m_mutex);
+
+  if (m_filter != nullptr && m_filter(make_ref(message)))
+    return;
 
   switch (priority)
   {
@@ -90,14 +91,13 @@ void MessageQueue::PushMessage(drape_ptr<Message> && message, MessagePriority pr
   CancelWaitImpl();
 }
 
-void MessageQueue::FilterMessages(TFilterMessageFn needFilterMessageFn)
+void MessageQueue::FilterMessagesImpl()
 {
-  ASSERT(needFilterMessageFn != nullptr, ());
+  CHECK(m_filter != nullptr, ());
 
-  std::lock_guard<std::mutex> lock(m_mutex);
   for (auto it = m_messages.begin(); it != m_messages.end(); )
   {
-    if (needFilterMessageFn(make_ref(it->first)))
+    if (m_filter(make_ref(it->first)))
       it = m_messages.erase(it);
     else
       ++it;
@@ -105,11 +105,24 @@ void MessageQueue::FilterMessages(TFilterMessageFn needFilterMessageFn)
 
   for (auto it = m_lowPriorityMessages.begin(); it != m_lowPriorityMessages.end(); )
   {
-    if (needFilterMessageFn(make_ref(*it)))
+    if (m_filter(make_ref(*it)))
       it = m_lowPriorityMessages.erase(it);
     else
       ++it;
   }
+}
+
+void MessageQueue::EnableMessageFiltering(FilterMessageFn && filter)
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  m_filter = std::move(filter);
+  FilterMessagesImpl();
+}
+
+void MessageQueue::DisableMessageFiltering()
+{
+  std::lock_guard<std::mutex> lock(m_mutex);
+  m_filter = nullptr;
 }
 
 #ifdef DEBUG_MESSAGE_QUEUE
@@ -148,5 +161,4 @@ void MessageQueue::ClearQuery()
   m_messages.clear();
   m_lowPriorityMessages.clear();
 }
-
-} // namespace df
+}  // namespace df
