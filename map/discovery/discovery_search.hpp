@@ -10,6 +10,7 @@
 #include "search/result.hpp"
 
 #include <cstdint>
+#include <functional>
 #include <map>
 #include <memory>
 #include <vector>
@@ -24,6 +25,8 @@ public:
   SearchBase(DataSource const & dataSource, DiscoverySearchParams const & params,
              search::ProductInfo::Delegate const & productInfoDelegate);
 
+  virtual ~SearchBase() = default;
+
   void Search();
 
   search::Results const & GetResults() const;
@@ -34,11 +37,11 @@ protected:
   DiscoverySearchParams const & GetParams() const;
   void AppendResult(search::Result && result);
 
+private:
   virtual void OnMwmChanged(MwmSet::MwmHandle const & handle);
   virtual void ProcessFeatureId(FeatureID const & id) = 0;
   virtual void ProcessAccumulated() = 0;
 
-private:
   DataSource const & m_dataSource;
   DiscoverySearchParams const m_params;
   search::ProductInfo::Delegate const & m_productInfoDelegate;
@@ -53,12 +56,11 @@ public:
   SearchHotels(DataSource const & dataSource, DiscoverySearchParams const & params,
                search::ProductInfo::Delegate const & productInfoDelegate);
 
-protected:
+private:
   // SearchBase overrides:
   void ProcessFeatureId(FeatureID const & id) override;
   void ProcessAccumulated() override;
 
-private:
   std::vector<FeatureID> m_featureIds;
 };
 
@@ -68,15 +70,14 @@ public:
   SearchPopularPlaces(DataSource const & dataSource, DiscoverySearchParams const & params,
                       search::ProductInfo::Delegate const & productInfoDelegate);
 
-protected:
+private:
   // SearchBase overrides:
   void OnMwmChanged(MwmSet::MwmHandle const & handle) override;
   void ProcessFeatureId(FeatureID const & id) override;
   void ProcessAccumulated() override;
 
-private:
-  unique_ptr<search::RankTable> m_popularityRanks;
-  std::map<uint8_t, FeatureID, std::greater<uint8_t>> m_accumulatedResults;
+  std::unique_ptr<search::RankTable> m_popularityRanks;
+  std::multimap<uint8_t, FeatureID, std::greater<uint8_t>> m_accumulatedResults;
 };
 
 void ProcessSearchIntent(std::shared_ptr<SearchBase> intent);

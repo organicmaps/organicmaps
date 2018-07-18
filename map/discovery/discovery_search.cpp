@@ -9,6 +9,7 @@
 #include "platform/platform.hpp"
 
 #include "base/assert.hpp"
+#include "base/string_utils.cpp"
 
 #include <algorithm>
 #include <set>
@@ -19,7 +20,7 @@ namespace
 search::Result MakeResultFromFeatureType(FeatureType const & ft)
 {
   std::string name;
-  ft.GetName(StringUtf8Multilang::GetLangIndex(languages::GetCurrentNorm()), name);
+  ft.GetReadableName(name);
 
   feature::TypesHolder holder(ft);
   holder.SortBySpec();
@@ -43,6 +44,8 @@ FeatureType MakeFeatureTypeWithCachedGuard(DataSource const & dataSource, MwmSet
     mwmId = id.m_mwmId;
   }
 
+  CHECK_EQUAL(guard->GetId(), mwmId, ());
+
   FeatureType ft;
   if (!guard->GetFeatureByIndex(id.m_index, ft))
   {
@@ -50,6 +53,10 @@ FeatureType MakeFeatureTypeWithCachedGuard(DataSource const & dataSource, MwmSet
     return {};
   }
 
+  // We need to parse data here, because of the problems with feature loader, which works with
+  // last loaded feature from FeatureGuard only.
+  // TODO(a): parse data lazy, when it needed.
+  ft.ParseEverything();
   return ft;
 }
 
@@ -88,11 +95,10 @@ SearchBase::SearchBase(DataSource const & dataSource, DiscoverySearchParams cons
 void SearchBase::Search()
 {
   MwmSet::MwmId currentMwmId;
-  MwmSet::MwmHandle currentMwmHandle;
   search::ForEachOfTypesInRect(m_dataSource,
                                search::GetCategoryTypes(m_params.m_query, "en", GetDefaultCategories()),
                                m_params.m_viewport,
-                               [&](FeatureID const & id)
+                               [this, &currentMwmId](FeatureID const & id)
                                {
                                  if (currentMwmId != id.m_mwmId)
                                  {
@@ -162,20 +168,23 @@ void SearchHotels::ProcessAccumulated()
     return MakeFeatureTypeWithCachedGuard(GetDataSource(), mwmId, guard, id);
   };
 
-  std::multiset<FeatureType, GreaterRating> sortedByRating;
+  std::vector<FeatureType> sortedByRating;
+  sortedByRating.resize(m_featureIds.size());
 
-  for (auto const & id : m_featureIds)
+  for (size_t i = 0; i < m_featureIds.size(); ++i)
   {
-    sortedByRating.emplace(makeFeatureType(id));
+    sortedByRating[i] = makeFeatureType(m_featureIds[i]);
   }
 
-  for (auto const & ft : sortedByRating)
-  {
-    auto result = MakeResultFromFeatureType(ft);
-    AppendResult(std::move(result));
+  auto const size = std::min(sortedByRating.size(), GetParams().m_itemsCount);
 
-    if (GetResults().GetCount() >= GetParams().m_itemsCount)
-      break;
+  std::partial_sort(sortedByRating.begin(), sortedByRating.begin() + size,
+                    sortedByRating.end(), GreaterRating());
+
+  for (size_t i = 0; i < size; ++i)
+  {
+    auto result = MakeResultFromFeatureType(sortedByRating[i]);
+    AppendResult(std::move(result));
   }
 }
 
@@ -203,10 +212,7 @@ void SearchPopularPlaces::ProcessFeatureId(FeatureID const & id)
   if (m_popularityRanks)
     popularity = m_popularityRanks->Get(id.m_index);
 
-  if (popularity != 0 || m_accumulatedResults.size() < GetParams().m_itemsCount)
-  {
-    m_accumulatedResults.emplace(popularity, id);
-  }
+  m_accumulatedResults.emplace(popularity, id);
 }
 
 void SearchPopularPlaces::ProcessAccumulated()

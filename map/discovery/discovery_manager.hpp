@@ -21,6 +21,7 @@
 #include "base/thread_checker.hpp"
 
 #include <functional>
+#include <memory>
 #include <string>
 #include <utility>
 #include <vector>

@@ -13,7 +13,7 @@ std::string GetQuery(discovery::ItemType const type)
   switch (type)
   {
   case discovery::ItemType::Hotels: return "hotel ";
-  case discovery::ItemType::Attractions: return "attraction ";
+  case discovery::ItemType::Attractions: return "attractions ";
   case discovery::ItemType::Cafes: return "cafe ";
   case discovery::ItemType::LocalExperts:
   case discovery::ItemType::Viator: ASSERT(false, ()); return "";
