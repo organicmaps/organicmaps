@@ -1334,7 +1334,7 @@
 	<string name="whats_new_bookmarks_catalog_title">MAPS.ME ahora tiene un catálogo de rutas</string>
 	<string name="whats_new_bookmarks_catalog_message">Cientos de rutas detalladas por todo el mundo: a dónde ir, qué ver, dónde comer.</string>
 	<string name="whats_new_popularity_label_title">Lugares cercanos populares</string>
-	<string name="whats_new_popularity_label_message">La sección \"\"Qué Hacer\"\" os ayudará a encontrar los lugares más populares en la ciudad.</string>
+	<string name="whats_new_popularity_label_message">La sección \"Descubrir los alrededores\" os ayudará a encontrar los lugares más populares en la ciudad.</string>
 	<string name="whats_new_hot_offers_title">Atractivas ofertas de hoteles</string>
 	<string name="whats_new_hot_offers_message">Puede buscarlas utilizando la categoría «Hoteles» en la búsqueda. Las ofertas estarán marcadas por el símbolo de porcentaje en el mapa y en los resultados de la búsqueda.</string>
 	<string name="error_already_downloaded">Esta lista ya se ha descargado</string>

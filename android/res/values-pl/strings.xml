@@ -1345,7 +1345,7 @@
 	<string name="whats_new_bookmarks_catalog_title">W aplikacji MAPS.ME jest teraz dostępny katalog tras</string>
 	<string name="whats_new_bookmarks_catalog_message">Setki szczegółowych map całego świata: dokąd pójść, co zobaczyć, gdzie zjeść.</string>
 	<string name="whats_new_popularity_label_title">Popularne lokalizacje w pobliżu</string>
-	<string name="whats_new_popularity_label_message">Sekcja Co robić pomaga znaleźć najpopularniejsze miejsca w mieście.</string>
+	<string name="whats_new_popularity_label_message">Sekcja Odkryj okolicę pomoże w znalezieniu najpopularniejszych miejsc w mieście.</string>
 	<string name="whats_new_hot_offers_title">Atrakcyjne oferty hoteli</string>
 	<string name="whats_new_hot_offers_message">Możesz je odszukać, używając kategorii Hotele podczas wyszukiwania. Oferty będą oznaczone symbolem procentu na mapie i w wynikach wyszukiwania.</string>
 	<string name="error_already_downloaded">Ta lista została już pobrana</string>

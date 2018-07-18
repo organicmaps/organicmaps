@@ -1341,7 +1341,7 @@
 	<string name="whats_new_bookmarks_catalog_title">MAPS.ME heeft nu een route catalogus</string>
 	<string name="whats_new_bookmarks_catalog_message">Honderden gedetailleerde routes over de hele wereld: waar te gaan, wat te zien, waar te eten.</string>
 	<string name="whats_new_popularity_label_title">Populaire locaties in de buurt</string>
-	<string name="whats_new_popularity_label_message">Wat te Doen-sectie zal u de meest populaire plaatsen in de stad helpen vinden.</string>
+	<string name="whats_new_popularity_label_message">De sectie \"Ontdek in de buurt\" helpt u bij het vinden van de populairste plekken uit de stad.</string>
 	<string name="whats_new_hot_offers_title">Aantrekkelijke aanbiedingen van hotels</string>
 	<string name="whats_new_hot_offers_message">U kunt deze vinden door te zoeken in de categorie Hotels. De aanbiedingen worden aangegeven door het percentage-symbool op de kaart en in de zoekresultaten.</string>
 	<string name="error_already_downloaded">Deze lijst is al gedownload</string>

@@ -1337,7 +1337,7 @@
 	<string name="whats_new_bookmarks_catalog_title">În MAPS.ME a apărut un director de rute</string>
 	<string name="whats_new_bookmarks_catalog_message">Zeci de trasee detaliate din întreaga lume: unde să mergi, ce să vezi, în unde să mănânci.</string>
 	<string name="whats_new_popularity_label_title">Popular în apropiere</string>
-	<string name="whats_new_popularity_label_message">Secțiunea „Ce să faci” va ajuta să găsi cele mai populare locații din oraș.</string>
+	<string name="whats_new_popularity_label_message">Secțiunea „Descoperire în apropiere” va ajuta să găsi cele mai populare locații din oraș.</string>
 	<string name="whats_new_hot_offers_title">Oferte avantajoase de hoteluri</string>
 	<string name="whats_new_hot_offers_message">Căutați-le cu ajutorul categoriei „Hoteluri” în căutare. Ofertele vor fi marcate cu o pictogramă % pe hartă și în lista.</string>
 	<string name="error_already_downloaded">Lista aceasta a fost descărcată deja</string>

@@ -1411,7 +1411,7 @@
 	<string name="whats_new_bookmarks_catalog_title">MAPS.ME now has a route library</string>
 	<string name="whats_new_bookmarks_catalog_message">Hundreds of detailed routes all around the world: where to go, what to see, where to eat.</string>
 	<string name="whats_new_popularity_label_title">Popular locations nearby</string>
-	<string name="whats_new_popularity_label_message">The What to Do section will help you find the most popular places in the city.</string>
+	<string name="whats_new_popularity_label_message">Discover nearby section will help you find the most popular places in the city.</string>
 	<string name="whats_new_hot_offers_title">Attractive offers from hotels</string>
 	<string name="whats_new_hot_offers_message">You can find these from the Hotels category in the search panel. The offers are marked with a percent symbol on the map and in the search results.</string>
 	<string name="error_already_downloaded">This list has already been downloaded</string>

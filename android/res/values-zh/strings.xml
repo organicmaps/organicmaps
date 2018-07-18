@@ -1345,7 +1345,7 @@
 	<string name="whats_new_bookmarks_catalog_title">MAPS.ME有一个路线目录</string>
 	<string name="whats_new_bookmarks_catalog_message">世界各地数十条详细路线：去哪里、看什么、在哪里吃饭。</string>
 	<string name="whats_new_popularity_label_title">附近景点</string>
-	<string name="whats_new_popularity_label_message">“做什么”部分将帮助您找到该市最受欢迎的地方。</string>
+	<string name="whats_new_popularity_label_message">“探索周围”部分将帮助您找到该市最受欢迎的地方。</string>
 	<string name="whats_new_hot_offers_title">优惠的酒店建议</string>
 	<string name="whats_new_hot_offers_message">使用搜索中的“酒店”类别来搜索它们。将在地图和列表中以百分比图标标出建议。</string>
 	<string name="error_already_downloaded">这个列表已被下载</string>

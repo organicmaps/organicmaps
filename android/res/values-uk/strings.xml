@@ -1346,7 +1346,7 @@
 	<string name="whats_new_bookmarks_catalog_title">У MAPS.ME з’явився каталог маршрутів</string>
 	<string name="whats_new_bookmarks_catalog_message">Десятки докладних маршрутів по всьому світу: куди сходити, що подивитися, де поїсти.</string>
 	<string name="whats_new_popularity_label_title">Популярне поблизу</string>
-	<string name="whats_new_popularity_label_message">Розділ «Чим зайнятися» допоможе знайти найпопулярніші місця в місті.</string>
+	<string name="whats_new_popularity_label_message">Розділ «Поблизу» допоможе знайти найпопулярніші місця в місті.</string>
 	<string name="whats_new_hot_offers_title">Вигідні пропозиції готелів</string>
 	<string name="whats_new_hot_offers_message">Шукайте їх за допомогою категорії «Готелі» в пошуку. Пропозиції будуть позначені значком відсотка на карті й у списку.</string>
 	<string name="error_already_downloaded">Цей список вже завантажений</string>

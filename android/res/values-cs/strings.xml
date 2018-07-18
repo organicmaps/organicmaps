@@ -1349,7 +1349,7 @@
 	<string name="whats_new_bookmarks_catalog_title">V MAPS.ME se objevil katalog tras</string>
 	<string name="whats_new_bookmarks_catalog_message">Desítky podrobných tras po celém světě: kam zajít, na co se podívat, kde se najíst.</string>
 	<string name="whats_new_popularity_label_title">Oblíbené v okolí</string>
-	<string name="whats_new_popularity_label_message">Sekce „Co dělat“ vám pomůže najít nejoblíbenější místa ve městě.</string>
+	<string name="whats_new_popularity_label_message">Sekce „Prozkoumat okolí“ vám pomůže najít nejoblíbenější místa ve městě.</string>
 	<string name="whats_new_hot_offers_title">Výhodné nabídky hotelů</string>
 	<string name="whats_new_hot_offers_message">Hledejte je ve vyhledávání s pomocí kategorie „Hotely“. Nabídky budou označeny symbolem procenta na mapě i v seznamu.</string>
 	<string name="error_already_downloaded">Tento seznam byl již stažen</string>

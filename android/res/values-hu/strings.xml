@@ -1341,7 +1341,7 @@
 	<string name="whats_new_bookmarks_catalog_title">A MAPS.ME már útvonal-katalógussal is rendelkezik</string>
 	<string name="whats_new_bookmarks_catalog_message">Több száz részletes útvonal a világszerte: hova érdemes menni, mit érdemes megnézni, hol együnk.</string>
 	<string name="whats_new_popularity_label_title">Népszerű helyek a közelben</string>
-	<string name="whats_new_popularity_label_message">A Mit csináljunk rész segít megtalálni a város legnépszerűbb helyeit.</string>
+	<string name="whats_new_popularity_label_message">A közelben felfedezni rész segít neked megtalálni a legnépszerűbb helyeket a városban.</string>
 	<string name="whats_new_hot_offers_title">Hotelek vonzó ajánlatai</string>
 	<string name="whats_new_hot_offers_message">Kereshetőek a Hotel kategóriában a kereséssel. A kedvezményes ajánlatok a térképen és a keresési eredményekben százalékjellel vannak megjelölve.</string>
 	<string name="error_already_downloaded">Ezt a listát már letöltötték</string>

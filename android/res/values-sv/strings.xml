@@ -1345,7 +1345,7 @@
 	<string name="whats_new_bookmarks_catalog_title">MAPS.ME har nu en ruttkatalog</string>
 	<string name="whats_new_bookmarks_catalog_message">Hundratals av detaljerade rutter, runt om i världen; Var du än är, vad du än vill se, var du än vill äta.</string>
 	<string name="whats_new_popularity_label_title">Populära lägen i närheten</string>
-	<string name="whats_new_popularity_label_message">”Vad att göra” sektionen kommer att hjälpa dig hitta de populäraste platserna i staden.</string>
+	<string name="whats_new_popularity_label_message">”Upptäck i närheten” sektionen kommer att hjälpa dig hitta de populäraste platserna i staden.</string>
 	<string name="whats_new_hot_offers_title">Attraktiva hotellerbjudanden</string>
 	<string name="whats_new_hot_offers_message">Du kan söka efter dem via hotellkategorin i sökrutan. Erbjudandena kommer att vara märkta med en procentsymbol (%) på kartan och i sökresultatet.</string>
 	<string name="error_already_downloaded">Den här listan har redan laddats ned</string>
