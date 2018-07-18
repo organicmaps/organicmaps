@@ -10,6 +10,7 @@ set(
   search_edited_features_test.cpp
   smoke_test.cpp
   tracer_tests.cpp
+  utils_test.cpp
 )
 
 omim_add_test(${PROJECT_NAME} ${SRC})
