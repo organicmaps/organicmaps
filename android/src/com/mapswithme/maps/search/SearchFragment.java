@@ -3,7 +3,6 @@ package com.mapswithme.maps.search;
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
@@ -185,7 +184,6 @@ public class SearchFragment extends BaseMwmFragment
   private RecyclerView mResults;
   private AppBarLayout mAppBarLayout;
   private CollapsingToolbarLayout mToolbarLayout;
-  private View mFilterElevation;
   @Nullable
   private SearchFilterController mFilterController;
 
@@ -244,8 +242,6 @@ public class SearchFragment extends BaseMwmFragment
 
           boolean show = !(Math.abs(verticalOffset) == appBarLayout.getTotalScrollRange());
           mFilterController.showDivider(show);
-          if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            UiUtils.showIf(!show, mFilterElevation);
         }
       };
 
@@ -371,9 +367,6 @@ public class SearchFragment extends BaseMwmFragment
     mResultsPlaceholder = mResultsFrame.findViewById(R.id.placeholder);
     mResultsPlaceholder.setContent(R.drawable.img_search_nothing_found_light,
                                    R.string.search_not_found, R.string.search_not_found_query);
-
-    mFilterElevation = view.findViewById(R.id.filter_elevation);
-
     mFilterController = new SearchFilterController(root.findViewById(R.id.filter_frame),
                                                    new SearchFilterController.DefaultFilterListener()
     {

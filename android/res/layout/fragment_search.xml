@@ -30,13 +30,6 @@
           android:layout_height="?attr/actionBarSize"/>
       </android.support.design.widget.CollapsingToolbarLayout>
       <include layout="@layout/search_filter_panel"/>
-      <FrameLayout
-        android:id="@+id/filter_elevation"
-        style="@style/MwmWidget.FrameLayout.Elevation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?cardBackground"
-        android:visibility="gone"/>
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
