@@ -369,17 +369,9 @@ void DrapeEngine::InvalidateRect(m2::RectD const & rect)
 
 void DrapeEngine::UpdateMapStyle()
 {
-  // Update map style.
-  {
-    UpdateMapStyleMessage::Blocker blocker;
-    m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
-                                    make_unique_dp<UpdateMapStyleMessage>(blocker),
-                                    MessagePriority::High);
-    blocker.Wait();
-  }
-
-  // Recache gui after updating of style.
-  RecacheGui(false);
+  m_threadCommutator->PostMessage(ThreadsCommutator::RenderThread,
+                                  make_unique_dp<UpdateMapStyleMessage>(),
+                                  MessagePriority::High);
 }
 
 void DrapeEngine::RecacheMapShapes()

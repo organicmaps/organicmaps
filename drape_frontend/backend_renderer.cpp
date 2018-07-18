@@ -148,8 +148,8 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
   case Message::GuiRecache:
     {
       ref_ptr<GuiRecacheMessage> msg = message;
-      RecacheGui(msg->GetInitInfo(), msg->NeedResetOldGui());
-
+      m_lastWidgetsInfo = msg->GetInitInfo();
+      RecacheGui(m_lastWidgetsInfo, msg->NeedResetOldGui());
 #ifdef RENDER_DEBUG_INFO_LABELS
       RecacheDebugLabels();
 #endif
@@ -335,6 +335,10 @@ void BackendRenderer::AcceptMessage(ref_ptr<Message> message)
     {
       m_texMng->OnSwitchMapStyle();
       RecacheMapShapes();
+      RecacheGui(m_lastWidgetsInfo, false /* needResetOldGui */);
+#ifdef RENDER_DEBUG_INFO_LABELS
+      RecacheDebugLabels();
+#endif
       m_trafficGenerator->InvalidateTexturesCache();
       m_transitBuilder->RebuildSchemes(m_texMng);
       break;

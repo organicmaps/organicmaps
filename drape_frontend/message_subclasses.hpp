@@ -673,13 +673,9 @@ private:
   bool m_isVisible;
 };
 
-class UpdateMapStyleMessage : public BaseBlockingMessage
+class UpdateMapStyleMessage : public Message
 {
 public:
-  UpdateMapStyleMessage(Blocker & blocker)
-    : BaseBlockingMessage(blocker)
-  {}
-
   Type GetType() const override { return Message::UpdateMapStyle; }
 };
 

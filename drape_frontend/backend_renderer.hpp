@@ -124,6 +124,8 @@ private:
 
   drape_ptr<MetalineManager> m_metalineManager;
 
+  gui::TWidgetsInitInfo m_lastWidgetsInfo;
+
 #ifdef DEBUG
   bool m_isTeardowned;
 #endif
