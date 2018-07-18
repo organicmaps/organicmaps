@@ -7,6 +7,7 @@ import android.view.View;
 import com.mapswithme.maps.maplayer.subway.SubwayMapLayerController;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButton;
 import com.mapswithme.maps.maplayer.traffic.widget.TrafficButtonController;
+import com.mapswithme.util.InputUtils;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -259,6 +260,7 @@ public class MapLayerCompositeController implements MapLayerController
       }
       else
       {
+        InputUtils.hideKeyboard(mActivity.getWindow().getDecorView());
         showDialog();
       }
     }
