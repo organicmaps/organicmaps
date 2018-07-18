@@ -31,8 +31,6 @@ inline JSONPtr NewJSONNull() { return JSONPtr(json_null()); }
 
 class Json
 {
-  JsonHandle m_handle;
-
 public:
   DECLARE_EXCEPTION(Exception, RootException);
 
@@ -51,6 +49,9 @@ public:
 
   json_t * get() const { return m_handle.get(); }
   json_t * get_deep_copy() const { return json_deep_copy(get()); }
+
+private:
+  JsonHandle m_handle;
 };
 
 json_t * GetJSONObligatoryField(json_t * root, std::string const & field);

@@ -3,6 +3,8 @@
 #include "geocoder/hierarchy.hpp"
 #include "geocoder/result.hpp"
 
+#include "base/string_utils.hpp"
+
 #include <string>
 #include <vector>
 
@@ -30,7 +32,9 @@ class Geocoder
 public:
   explicit Geocoder(std::string pathToJsonHierarchy);
 
-  void ProcessQuery(std::string const & query, std::vector<Result> & results) const;
+  void ProcessQuery(std::string const & query, std::vector<Result> & results);
+
+  Hierarchy const & GetHierarchy() const;
 
 private:
   Hierarchy m_hierarchy;
