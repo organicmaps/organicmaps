@@ -20,7 +20,7 @@ public class SearchHistoryFragment extends BaseMwmRecyclerFragment<SearchHistory
 
   private void updatePlaceholder()
   {
-    UiUtils.showIf(getAdapter() != null && getAdapter().getItemCount() == 0, mPlaceHolder);
+    UiUtils.showIf(getAdapter().getItemCount() == 0, mPlaceHolder);
   }
 
   @NonNull
@@ -45,17 +45,14 @@ public class SearchHistoryFragment extends BaseMwmRecyclerFragment<SearchHistory
     mPlaceHolder.setContent(R.drawable.img_search_empty_history_light,
                             R.string.search_history_title, R.string.search_history_text);
 
-    if (getAdapter() != null)
+    getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
     {
-      getAdapter().registerAdapterDataObserver(new RecyclerView.AdapterDataObserver()
+      @Override
+      public void onChanged()
       {
-        @Override
-        public void onChanged()
-        {
-          updatePlaceholder();
-        }
-      });
-    }
+        updatePlaceholder();
+      }
+    });
     updatePlaceholder();
   }
 

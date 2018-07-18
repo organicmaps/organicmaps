@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:mapsme="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:fillViewport="true"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <RelativeLayout
+  <android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/bookmark_recycler_view_bottom_margin"/>
     </LinearLayout>
-
+  </android.support.v4.widget.NestedScrollView>
     <android.support.constraint.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -107,5 +107,5 @@
         android:textAppearance="@style/MwmTextAppearance.Body3"
         android:text="@string/load_kmz_title"/>
     </LinearLayout>
-  </RelativeLayout>
-</android.support.v4.widget.NestedScrollView>
+
+</RelativeLayout>

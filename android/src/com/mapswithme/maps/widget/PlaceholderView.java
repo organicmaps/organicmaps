@@ -9,8 +9,6 @@ import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.WindowInsetsCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -119,7 +117,6 @@ public class PlaceholderView extends FrameLayout
     mSubtitle = (TextView) findViewById(R.id.subtitle);
 
     setupDefaultContent();
-    ViewCompat.setOnApplyWindowInsetsListener(this, new ApplyWindowInsetsListener());
   }
 
   private void setupDefaultContent()
@@ -200,21 +197,5 @@ public class PlaceholderView extends FrameLayout
       mTitle.setText(titleRes);
     if (mSubtitle != null)
       mSubtitle.setText(subtitleRes);
-  }
-
-  private class ApplyWindowInsetsListener implements android.support.v4.view.OnApplyWindowInsetsListener
-  {
-    @Override
-    public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets)
-    {
-      int height = (int) (mOrientation == Configuration.ORIENTATION_LANDSCAPE
-                          ? mScreenWidth : mScreenHeight);
-      int[] location = new int[2];
-      getLocationOnScreen(location);
-      ViewGroup.LayoutParams lp = getLayoutParams();
-      lp.height = height - insets.getStableInsetBottom() - location[1];
-      setLayoutParams(lp);
-      return insets;
-    }
   }
 }
