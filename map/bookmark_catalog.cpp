@@ -1,6 +1,7 @@
 #include "map/bookmark_catalog.hpp"
 
 #include "platform/platform.hpp"
+#include "platform/preferred_languages.hpp"
 
 #include "coding/file_name_utils.hpp"
 
@@ -110,5 +111,5 @@ std::string BookmarkCatalog::GetDownloadUrl(std::string const & serverId) const
 
 std::string BookmarkCatalog::GetFrontendUrl() const
 {
-  return kCatalogFrontendServer;
+  return kCatalogFrontendServer + languages::GetCurrentNorm() + "/mobilefront/";
 }
