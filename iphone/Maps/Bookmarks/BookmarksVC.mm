@@ -38,6 +38,8 @@ CGFloat const kPinDiameter = 18.0f;
   vector<Section> m_sections;
 }
 
+@property(nonatomic) BOOL infoExpanded;
+
 @end
 
 @implementation BookmarksVC
@@ -123,6 +125,7 @@ CGFloat const kPinDiameter = 18.0f;
     auto infoCell = (MWMCategoryInfoCell *)cell;
     auto const & categoryData = bm.GetCategoryData(m_categoryId);
     [infoCell updateWithCategoryData:categoryData delegate:self];
+    infoCell.expanded = self.infoExpanded;
     break;
   }
   case Section::Track:
@@ -284,6 +287,7 @@ CGFloat const kPinDiameter = 18.0f;
   [self.tableView beginUpdates];
   cell.expanded = YES;
   [self.tableView endUpdates];
+  self.infoExpanded = YES;
 }
 
 #pragma mark - MWMLocationObserver
