@@ -344,14 +344,11 @@ public class Holders
       BookmarkInfo bookmark = new BookmarkInfo(category.getId(), bookmarkId);
       mName.setText(bookmark.getTitle());
       final Location loc = LocationHelper.INSTANCE.getSavedLocation();
-      if (loc != null)
-      {
-        final DistanceAndAzimut daa = bookmark.getDistanceAndAzimuth(loc.getLatitude(),
-                                                                     loc.getLongitude(), 0.0);
-        mDistance.setText(daa.getDistance());
-      }
-      else
-        mDistance.setText(null);
+
+      String distanceValue = loc == null ? null : bookmark.getDistance(loc.getLatitude(),
+                                                                       loc.getLongitude(), 0.0);
+      mDistance.setText(distanceValue);
+      UiUtils.hideIf(TextUtils.isEmpty(distanceValue), mDistance);
       mIcon.setImageResource(bookmark.getIcon().getSelectedResId());
     }
 

@@ -53,4 +53,10 @@ public class BookmarkInfo
   {
     return mIcon;
   }
+
+  @NonNull
+  public String getDistance(double latitude, double longitude, double v)
+  {
+    return getDistanceAndAzimuth(latitude, longitude, v).getDistance();
+  }
 }
