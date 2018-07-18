@@ -328,11 +328,14 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
       drape_ptr<gui::LayerRenderer> renderer = std::move(msg->AcceptRenderer());
       renderer->Build(make_ref(m_gpuProgramManager));
       if (msg->NeedResetOldGui())
-        m_guiRenderer.release();
+        m_guiRenderer.reset();
       if (m_guiRenderer == nullptr)
         m_guiRenderer = std::move(renderer);
       else
         m_guiRenderer->Merge(make_ref(renderer));
+
+      CHECK(m_guiRenderer != nullptr, ());
+      m_guiRenderer->SetLayout(m_lastWidgetsLayout);
 
       bool oldMode = m_choosePositionMode;
       m_choosePositionMode = m_guiRenderer->HasWidget(gui::WIDGET_CHOOSE_POSITION_MARK);
@@ -351,8 +354,9 @@ void FrontendRenderer::AcceptMessage(ref_ptr<Message> message)
 
   case Message::GuiLayerLayout:
     {
-      ASSERT(m_guiRenderer != nullptr, ());
-      m_guiRenderer->SetLayout(ref_ptr<GuiLayerLayoutMessage>(message)->GetLayoutInfo());
+      m_lastWidgetsLayout = ref_ptr<GuiLayerLayoutMessage>(message)->GetLayoutInfo();
+      if (m_guiRenderer != nullptr)
+        m_guiRenderer->SetLayout(m_lastWidgetsLayout);
       break;
     }
 

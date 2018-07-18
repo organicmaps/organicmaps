@@ -260,6 +260,7 @@ private:
   std::array<RenderLayer, RenderState::LayersCount> m_layers;
 
   drape_ptr<gui::LayerRenderer> m_guiRenderer;
+  gui::TWidgetsLayoutInfo m_lastWidgetsLayout;
   drape_ptr<MyPositionController> m_myPositionController;
   drape_ptr<SelectionShape> m_selectionShape;
   drape_ptr<RouteRenderer> m_routeRenderer;

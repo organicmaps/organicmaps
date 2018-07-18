@@ -53,7 +53,7 @@ public:
   ref_ptr<dp::Batcher> GetBatcher(TKey const & key)
   {
     auto it = m_batchers.find(key);
-    ASSERT(it != m_batchers.end(), ());
+    CHECK(it != m_batchers.end(), ());
     return make_ref(it->second.first);
   }
 
