@@ -3,6 +3,7 @@
 #include "search/city_finder.hpp"
 
 #include "map/discovery/discovery_client_params.hpp"
+#include "map/discovery/discovery_search.hpp"
 #include "map/discovery/discovery_search_params.hpp"
 #include "map/search_api.hpp"
 #include "map/search_product_info.hpp"
@@ -123,7 +124,12 @@ public:
             onResult(requestId, results, productInfo, type, viewportCenter);
           });
         };
-        m_searchApi.SearchForDiscovery(p);
+
+        if (type == ItemType::Hotels)
+          ProcessSearchIntent(std::make_shared<SearchHotels>(m_dataSource, p, m_searchApi));
+        else
+          ProcessSearchIntent(std::make_shared<SearchPopularPlaces>(m_dataSource, p, m_searchApi));
+
         break;
       }
       case ItemType::LocalExperts:
@@ -153,7 +159,7 @@ public:
   std::string GetLocalExpertsUrl(m2::PointD const & point) const;
 
 private:
-  static search::DiscoverySearchParams GetSearchParams(Manager::Params const & params, ItemType const type);
+  static DiscoverySearchParams GetSearchParams(Manager::Params const & params, ItemType const type);
   std::string GetCityViatorId(m2::PointD const & point) const;
 
   DataSource const & m_dataSource;

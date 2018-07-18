@@ -2,7 +2,6 @@
 
 #include "map/booking_filter_params.hpp"
 #include "map/bookmark.hpp"
-#include "map/discovery/discovery_search_callback.hpp"
 #include "map/everywhere_search_callback.hpp"
 #include "map/search_product_info.hpp"
 #include "map/viewport_search_callback.hpp"
@@ -103,8 +102,6 @@ public:
 
   // Search in the viewport.
   bool SearchInViewport(search::ViewportSearchParams const & params);
-
-  void SearchForDiscovery(search::DiscoverySearchParams const & params);
 
   // Search for maps by countries or cities.
   bool SearchInDownloader(storage::DownloaderSearchParams const & params);

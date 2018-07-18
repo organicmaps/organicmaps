@@ -1,7 +1,6 @@
 #include "map/search_api.hpp"
 
 #include "map/bookmarks_search_params.hpp"
-#include "map/discovery/discovery_search_callback.hpp"
 #include "map/discovery/discovery_search_params.hpp"
 #include "map/everywhere_search_params.hpp"
 #include "map/viewport_search_params.hpp"
@@ -33,7 +32,6 @@ namespace
 using BookmarkIdDoc = pair<bookmarks::Id, bookmarks::Doc>;
 
 double const kDistEqualQueryMeters = 100.0;
-size_t const kDefaultNumResultsForDiscovery = 200;
 
 // Cancels search query by |handle|.
 void CancelQuery(weak_ptr<ProcessorHandle> & handle)
@@ -116,70 +114,6 @@ private:
   BookmarksSearchParams::Results m_results;
   BookmarksSearchParams::Status m_status = BookmarksSearchParams::Status::InProgress;
   OnResults m_onResults;
-};
-
-Results TrimResults(Results && results, size_t const maxCount)
-{
-  if (results.GetCount() <= maxCount)
-    return results;
-
-  Results r;
-  r.AddResultsNoChecks(results.begin(), results.begin() + maxCount);
-  return r;
-}
-
-class DiscoveryResultMaker
-{
-public:
-  DiscoveryResultMaker(DiscoverySearchParams const & params, Results const & results,
-                       vector<ProductInfo> const & productInfo)
-    : m_params(params)
-    , m_results(results)
-    , m_productInfo(productInfo)
-  {
-  }
-
-  template <typename Comparator>
-  void OnResults()
-  {
-    Results r;
-    vector<ProductInfo> info;
-    for (auto & item : MakeMap<Comparator>())
-    {
-      auto copy = item.first;
-      r.AddResultNoChecks(move(copy));
-      info.emplace_back(move(item.second));
-    }
-
-    m_params.m_onResults(TrimResults(move(r), m_params.m_itemsCount), info);
-  }
-
-private:
-  template <typename Comparator>
-  multimap<Result, ProductInfo, Comparator> MakeMap()
-  {
-    auto const & v = m_params.m_viewport;
-    auto const maxDistance = MercatorBounds::DistanceOnEarth(v.LeftTop(), v.RightTop()) / 2;
-
-    multimap<Result, ProductInfo, Comparator> ret;
-
-    for (size_t i = 0; i < m_results.GetCount(); ++i)
-    {
-      auto distanceToCenter =
-        MercatorBounds::DistanceOnEarth(m_results[i].GetFeatureCenter(), v.Center());
-      
-      if (distanceToCenter > maxDistance)
-        continue;
-
-      ret.emplace(m_results[i], m_productInfo[i]);
-    }
-
-    return ret;
-  };
-
-  DiscoverySearchParams const & m_params;
-  Results const & m_results;
-  vector<ProductInfo> const & m_productInfo;
 };
 }  // namespace
 
@@ -277,50 +211,6 @@ bool SearchAPI::SearchInViewport(ViewportSearchParams const & params)
   m_delegate.OnBookingFilterParamsUpdate(params.m_bookingFilterTasks);
 
   return Search(p, false /* forceSearch */);
-}
-
-void SearchAPI::SearchForDiscovery(DiscoverySearchParams const & params)
-{
-  CHECK(params.m_onResults, ());
-  CHECK(!params.m_query.empty(), ());
-  CHECK_GREATER(params.m_itemsCount, 0, ());
-
-  SearchParams p;
-  p.m_query = params.m_query;
-  p.m_inputLocale = "en";
-  p.m_viewport = params.m_viewport;
-  p.m_position = params.m_position;
-  p.m_maxNumResults = kDefaultNumResultsForDiscovery;
-  p.m_mode = search::Mode::Everywhere;
-  p.m_onResults = DiscoverySearchCallback(
-    static_cast<ProductInfo::Delegate &>(*this),
-    [params](Results const & results, vector<ProductInfo> const & productInfo) {
-    if (!results.IsEndMarker())
-      return;
-
-    DiscoveryResultMaker maker(params, results, productInfo);
-
-    switch (params.m_sortingType)
-    {
-    case DiscoverySearchParams::SortingType::ByPosition:
-    {
-      maker.OnResults<DiscoverySearchParams::ByPositionComparator>();
-      break;
-    }
-    case DiscoverySearchParams::SortingType::HotelRating:
-    {
-      maker.OnResults<DiscoverySearchParams::HotelRatingComparator>();
-      break;
-    }
-    case DiscoverySearchParams::SortingType::Popularity:
-    {
-      maker.OnResults<DiscoverySearchParams::PopularityComparator>();
-      break;
-    }
-    }
-  });
-
-  GetEngine().Search(p);
 }
 
 bool SearchAPI::SearchInDownloader(storage::DownloaderSearchParams const & params)
