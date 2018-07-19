@@ -44,7 +44,10 @@ public:
     void DeserializeFromJSONImpl(json_t * root);
 
     osm::Id m_osmId = osm::Id(osm::Id::kInvalid);
+
+    // Original name of the entry. Useful for debugging.
     std::string m_name;
+    // Tokenized and simplified name of the entry.
     std::vector<strings::UniString> m_nameTokens;
 
     EntryType m_type = EntryType::Count;

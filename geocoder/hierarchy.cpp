@@ -95,10 +95,10 @@ void Hierarchy::Entry::DeserializeFromJSONImpl(json_t * root)
 // Hierarchy ---------------------------------------------------------------------------------------
 Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
 {
-  fstream fs(pathToJsonHierarchy);
+  ifstream ifs(pathToJsonHierarchy);
   string line;
 
-  while (getline(fs, line))
+  while (getline(ifs, line))
   {
     if (line.empty())
       continue;
@@ -116,6 +116,8 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
     CHECK(entry.DeserializeFromJSON(line), (line));
     m_entries[entry.m_nameTokens].emplace_back(entry);
   }
+
+  LOG(LINFO, ("Finished reading the hierarchy"));
 }
 
 vector<Hierarchy::Entry> const * const Hierarchy::GetEntries(

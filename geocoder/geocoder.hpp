@@ -3,9 +3,11 @@
 #include "geocoder/hierarchy.hpp"
 #include "geocoder/result.hpp"
 
+#include "base/osm_id.hpp"
 #include "base/string_utils.hpp"
 
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 namespace geocoder
@@ -30,6 +32,57 @@ namespace geocoder
 class Geocoder
 {
 public:
+  // A Layer contains all entries matched by a subquery of consecutive tokens.
+  struct Layer
+  {
+    Hierarchy::EntryType m_type = Hierarchy::EntryType::Count;
+    std::vector<Hierarchy::Entry const *> m_entries;
+  };
+
+  // This class is very similar to the one we use in search/.
+  // See search/geocoder_context.hpp.
+  class Context
+  {
+  public:
+    Context(std::string const & query);
+
+    void Clear();
+
+    std::vector<Hierarchy::EntryType> & GetTokenTypes();
+    size_t GetNumTokens() const;
+    size_t GetNumUsedTokens() const;
+
+    strings::UniString const & GetToken(size_t id) const;
+
+    void MarkToken(size_t id, Hierarchy::EntryType const & type);
+
+    // Returns true if |token| is marked as used.
+    bool IsTokenUsed(size_t id) const;
+
+    // Returns true iff all tokens are used.
+    bool AllTokensUsed() const;
+
+    void AddResult(osm::Id const & osmId, double certainty);
+
+    void FillResults(std::vector<Result> & results) const;
+
+    std::vector<Layer> & GetLayers();
+
+    std::vector<Layer> const & GetLayers() const;
+
+  private:
+    // todo(@m) std::string?
+    std::vector<strings::UniString> m_tokens;
+    std::vector<Hierarchy::EntryType> m_tokenTypes;
+
+    size_t m_numUsedTokens = 0;
+
+    // The highest value of certainty for each retrieved osm id.
+    std::unordered_map<osm::Id, double, osm::HashId> m_results;
+
+    std::vector<Layer> m_layers;
+  };
+
   explicit Geocoder(std::string pathToJsonHierarchy);
 
   void ProcessQuery(std::string const & query, std::vector<Result> & results) const;
@@ -37,6 +90,10 @@ public:
   Hierarchy const & GetHierarchy() const;
 
 private:
+  void Go(Context & ctx, Hierarchy::EntryType const & type) const;
+
+  void EmitResult() const;
+
   Hierarchy m_hierarchy;
 };
 }  // namespace geocoder

@@ -7,7 +7,10 @@
 #include "platform/platform_tests_support/scoped_file.hpp"
 
 #include "base/math.hpp"
+#include "base/osm_id.hpp"
+#include "base/stl_helpers.hpp"
 
+#include <algorithm>
 #include <string>
 #include <vector>
 
@@ -19,6 +22,8 @@ namespace
 double const kCertaintyEps = 1e-6;
 
 string const kRegionsData = R"#(
+-4611686018427080071 {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-80.1142033187951, 21.55511095]}, "properties": {"name": "Cuba", "rank": 2, "address": {"country": "Cuba"}}}
+-4611686018425533273 {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.7260117405499, 21.74300205]}, "properties": {"name": "Ciego de Ávila", "rank": 4, "address": {"region": "Ciego de Ávila", "country": "Cuba"}}}
 -4611686018421500235 {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-78.9263054493181, 22.08185765]}, "properties": {"name": "Florencia", "rank": 6, "address": {"subregion": "Florencia", "region": "Ciego de Ávila", "country": "Cuba"}}}
 )#";
 
@@ -32,26 +37,32 @@ geocoder::Tokens Split(string const & s)
 
 namespace geocoder
 {
-void TestGeocoder(Geocoder const & geocoder, string const & query, vector<Result> const & expected)
+void TestGeocoder(Geocoder & geocoder, string const & query, vector<Result> && expected)
 {
   vector<Result> actual;
   geocoder.ProcessQuery(query, actual);
-  TEST_EQUAL(actual.size(), expected.size(), ());
+  TEST_EQUAL(actual.size(), expected.size(), (actual, expected));
+  sort(actual.begin(), actual.end(), my::LessBy(&Result::m_osmId));
+  sort(expected.begin(), expected.end(), my::LessBy(&Result::m_osmId));
   for (size_t i = 0; i < actual.size(); ++i)
   {
     TEST_EQUAL(actual[i].m_osmId, expected[i].m_osmId, ());
-    TEST(my::AlmostEqualAbs(actual[i].m_certainty, expected[i].m_certainty, kCertaintyEps), ());
+    TEST(my::AlmostEqualAbs(actual[i].m_certainty, expected[i].m_certainty, kCertaintyEps),
+         (query, actual[i].m_certainty, expected[i].m_certainty));
   }
 }
 
 UNIT_TEST(Geocoder_Smoke)
 {
-  Geocoder geocoder("" /* pathToJsonHierarchy */);
+  ScopedFile const regionsJsonFile("regions.jsonl", kRegionsData);
+  Geocoder geocoder(regionsJsonFile.GetFullPath());
 
-  TestGeocoder(geocoder, "a",
-               {{osm::Id(0xC00000000026FCFDULL), 0.5}, {osm::Id(0x40000000C4D63818ULL), 1.0}});
-  TestGeocoder(geocoder, "b",
-               {{osm::Id(0x8000000014527125ULL), 0.8}, {osm::Id(0x40000000F26943B9ULL), 0.1}});
+  osm::Id const florenciaId(13835058055288051381ULL);
+  osm::Id const cubaId(13835058055282471545ULL);
+
+  TestGeocoder(geocoder, "florencia", {{florenciaId, 1.0}});
+  TestGeocoder(geocoder, "cuba florencia", {{florenciaId, 1.0}, {cubaId, 0.5}});
+  TestGeocoder(geocoder, "florencia somewhere in cuba", {{cubaId, 0.25}, {florenciaId, 0.5}});
 }
 
 UNIT_TEST(Geocoder_Hierarchy)
