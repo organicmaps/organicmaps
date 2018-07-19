@@ -443,6 +443,11 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     }
   }
 
+  public long getTotalSizeBytes()
+  {
+    return mTotalSizeBytes;
+  }
+
   private static class DetachableStorageCallback implements MapManager.StorageCallback
   {
     @Nullable
@@ -498,39 +503,47 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
         }
       }
 
-      if (mFragment != null)
+      if (isFragmentAttached())
+      {
+        //noinspection ConstantConditions
         mFragment.setCommonStatus(mwmId, mwmStatusResId);
-
-      if (mFragment != null && mFragment.isAdded() && mFragment.isAllUpdated())
-        mFragment.finish();
+        if (mFragment.isAllUpdated())
+          mFragment.finish();
+      }
     }
 
     private void showErrorDialog(MapManager.StorageCallbackData item)
     {
-      if (mFragment == null || !mFragment.isAdded())
+      if (!isFragmentAttached())
         return;
 
       String text;
       switch (item.errorCode)
       {
         case CountryItem.ERROR_NO_INTERNET:
+          //noinspection ConstantConditions
           text = mFragment.getString(R.string.common_check_internet_connection_dialog);
           break;
 
         case CountryItem.ERROR_OOM:
+          //noinspection ConstantConditions
           text = mFragment.getString(R.string.downloader_no_space_title);
           break;
 
         default:
           text = String.valueOf(item.errorCode);
       }
-      Statistics.INSTANCE.trackDownloaderDialogError(mFragment.mTotalSizeBytes / Constants.MB,
+      //noinspection ConstantConditions
+      Statistics.INSTANCE.trackDownloaderDialogError(mFragment.getTotalSizeBytes() / Constants.MB,
                                                      text);
       MapManager.showErrorDialog(mFragment.getActivity(), item, new Utils.Proc<Boolean>()
       {
         @Override
         public void invoke(@NonNull Boolean result)
         {
+          if (!isFragmentAttached())
+            return;
+
           if (result)
           {
             MapManager.warnOn3gUpdate(mFragment.getActivity(), CountryItem.getRootId(), new Runnable()
@@ -554,13 +567,14 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
     @Override
     public void onProgress(String countryId, long localSizeBytes, long remoteSizeBytes)
     {
-      if (mOutdatedMaps == null || mFragment == null || !mFragment.isAdded())
+      if (mOutdatedMaps == null || !isFragmentAttached())
         return;
 
       int progress = MapManager.nativeGetOverallProgress(mOutdatedMaps);
       CountryItem root = new CountryItem(CountryItem.getRootId());
       MapManager.nativeGetAttributes(root);
 
+      //noinspection ConstantConditions
       mFragment.setProgress(progress, root.downloadedBytes, root.bytesToDownload);
     }
 
@@ -577,6 +591,11 @@ public class UpdaterDialogFragment extends BaseMwmDialogFragment
 
       mFragment = null;
       MapManager.nativeUnsubscribe(mListenerSlot);
+    }
+
+    private boolean isFragmentAttached()
+    {
+      return mFragment != null && mFragment.isAdded();
     }
   }
 }
