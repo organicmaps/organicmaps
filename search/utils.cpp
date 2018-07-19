@@ -7,6 +7,8 @@
 
 #include "indexer/data_source.hpp"
 
+#include "base/cancellable.hpp"
+
 #include <cctype>
 #include <utility>
 
@@ -96,8 +98,9 @@ void ForEachOfTypesInRect(DataSource const & dataSource, vector<uint32_t> const 
   vector<shared_ptr<MwmInfo>> infos;
   dataSource.GetMwmsInfo(infos);
 
-  CategoriesCache cache(types, {} /* cancellable */);
-  auto pivotRectsCache = PivotRectsCache(1 /* maxNumEntries */, {} /* cancellable */,
+  base::Cancellable const cancellable;
+  CategoriesCache cache(types, cancellable);
+  auto pivotRectsCache = PivotRectsCache(1 /* maxNumEntries */, cancellable,
                                          max(pivot.SizeX(), pivot.SizeY()) /* maxRadiusMeters */);
 
   for (auto const & info : infos)
