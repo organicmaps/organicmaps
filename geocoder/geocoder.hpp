@@ -32,7 +32,7 @@ class Geocoder
 public:
   explicit Geocoder(std::string pathToJsonHierarchy);
 
-  void ProcessQuery(std::string const & query, std::vector<Result> & results);
+  void ProcessQuery(std::string const & query, std::vector<Result> & results) const;
 
   Hierarchy const & GetHierarchy() const;
 

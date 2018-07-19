@@ -32,7 +32,7 @@ geocoder::Tokens Split(string const & s)
 
 namespace geocoder
 {
-void TestGeocoder(Geocoder & geocoder, string const & query, vector<Result> const & expected)
+void TestGeocoder(Geocoder const & geocoder, string const & query, vector<Result> const & expected)
 {
   vector<Result> actual;
   geocoder.ProcessQuery(query, actual);
@@ -59,16 +59,15 @@ UNIT_TEST(Geocoder_Hierarchy)
   ScopedFile const regionsJsonFile("regions.jsonl", kRegionsData);
   Geocoder geocoder(regionsJsonFile.GetFullPath());
 
-  vector<shared_ptr<Hierarchy::Entry>> entries;
-  geocoder.GetHierarchy().GetEntries({strings::MakeUniString("florencia")}, entries);
+  auto entries = geocoder.GetHierarchy().GetEntries({strings::MakeUniString("florencia")});
 
-  TEST_EQUAL(entries.size(), 1, ());
-  TEST(entries[0] != nullptr, ());
-  TEST_EQUAL(entries[0]->m_address[static_cast<size_t>(Hierarchy::EntryType::Country)],
+  TEST(entries, ());
+  TEST_EQUAL(entries->size(), 1, ());
+  TEST_EQUAL((*entries)[0].m_address[static_cast<size_t>(Hierarchy::EntryType::Country)],
              Split("cuba"), ());
-  TEST_EQUAL(entries[0]->m_address[static_cast<size_t>(Hierarchy::EntryType::Region)],
+  TEST_EQUAL((*entries)[0].m_address[static_cast<size_t>(Hierarchy::EntryType::Region)],
              Split("ciego de avila"), ());
-  TEST_EQUAL(entries[0]->m_address[static_cast<size_t>(Hierarchy::EntryType::Subregion)],
+  TEST_EQUAL((*entries)[0].m_address[static_cast<size_t>(Hierarchy::EntryType::Subregion)],
              Split("florencia"), ());
 }
 }  // namespace geocoder

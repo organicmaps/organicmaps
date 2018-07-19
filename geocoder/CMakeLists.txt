@@ -1,5 +1,7 @@
 project(geocoder)
 
+include_directories(${OMIM_ROOT}/3party/jansson/src)
+
 set(
   SRC
   geocoder.cpp

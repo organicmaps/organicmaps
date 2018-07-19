@@ -8,7 +8,6 @@
 #include "base/macros.hpp"
 
 #include <fstream>
-#include <map>
 
 using namespace std;
 
@@ -77,6 +76,20 @@ void Hierarchy::Entry::DeserializeFromJSONImpl(json_t * root)
     if (!m_address[i].empty())
       m_type = static_cast<Hierarchy::EntryType>(i);
   }
+
+  // The name of the entry must coincide with the most detailed
+  // field in its address.
+  if (m_type == Hierarchy::EntryType::Count)
+  {
+    LOG(LWARNING,
+        ("No address in an hierarchy entry. Name:", m_name, "Name tokens:", m_nameTokens));
+    return;
+  }
+  if (m_nameTokens != m_address[static_cast<size_t>(m_type)])
+  {
+    LOG(LWARNING, ("Hierarchy entry name is not the most detailed field in its address. Name:",
+                   m_name, "Name tokens:", m_nameTokens, "Address:", m_address));
+  }
 }
 
 // Hierarchy ---------------------------------------------------------------------------------------
@@ -105,17 +118,14 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
   }
 }
 
-void Hierarchy::GetEntries(vector<strings::UniString> const & tokens,
-                           vector<shared_ptr<Entry>> & entries) const
+vector<Hierarchy::Entry> const * const Hierarchy::GetEntries(
+    vector<strings::UniString> const & tokens) const
 {
-  entries.clear();
-
   auto it = m_entries.find(tokens);
   if (it == m_entries.end())
-    return;
+    return {};
 
-  for (auto const & entry : it->second)
-    entries.emplace_back(make_shared<Entry>(entry));
+  return &it->second;
 }
 
 // Functions ---------------------------------------------------------------------------------------

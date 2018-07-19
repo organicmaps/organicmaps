@@ -5,7 +5,7 @@
 
 #include <array>
 #include <cstddef>
-#include <memory>
+#include <map>
 #include <string>
 #include <utility>
 #include <vector>
@@ -55,14 +55,13 @@ public:
 
   explicit Hierarchy(std::string const & pathToJsonHierarchy);
 
-  // Fills |entries| with pointers to entries whose names exactly match |tokens| (the order
-  // matters).
+  // Returns a pointer to entries whose names exactly match |tokens|
+  // (the order matters) or nullptr if there are no such entries.
   //
   // todo This method (and the whole class, in fact) is in the
   //      prototype stage and may be too slow. Proper indexing should
   //      be implemented to perform this type of queries.a
-  void GetEntries(std::vector<strings::UniString> const & tokens,
-                  std::vector<std::shared_ptr<Entry>> & entries) const;
+  std::vector<Entry> const * const GetEntries(std::vector<strings::UniString> const & tokens) const;
 
 private:
   std::map<Tokens, std::vector<Entry>> m_entries;

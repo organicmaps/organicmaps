@@ -12,7 +12,7 @@
 #include <stdlib.h>  /* for size_t */
 #include <stdarg.h>
 
-#include "jansson_config.h"
+#include <jansson_config.h>
 
 #ifdef __cplusplus
 extern "C" {

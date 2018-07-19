@@ -6,7 +6,6 @@
 #include "base/osm_id.hpp"
 
 #include <algorithm>
-#include <memory>
 
 using namespace std;
 
@@ -14,7 +13,7 @@ namespace geocoder
 {
 Geocoder::Geocoder(string pathToJsonHierarchy) : m_hierarchy(pathToJsonHierarchy) {}
 
-void Geocoder::ProcessQuery(string const & query, vector<Result> & results)
+void Geocoder::ProcessQuery(string const & query, vector<Result> & results) const
 {
   // Only here for demonstration purposes and will be removed shortly.
   results.clear();
