@@ -241,6 +241,7 @@ public class PlacePageView extends RelativeLayout
   private DownloaderStatusIcon mDownloaderIcon;
   private TextView mDownloaderInfo;
   private int mStorageCallbackSlot;
+  @Nullable
   private CountryItem mCurrentCountry;
 
   private final int mMarginBase;
@@ -279,6 +280,40 @@ public class PlacePageView extends RelativeLayout
   };
   @NonNull
   private final EditBookmarkClickListener mEditBookmarkClickListener = new EditBookmarkClickListener();
+
+  @NonNull
+  private OnClickListener mDownloadClickListener = new OnClickListener()
+  {
+    @Override
+    public void onClick(View v)
+    {
+      MapManager.warn3gAndDownload(getActivity(), mCurrentCountry.id, this::onDownloadClick);
+    }
+
+    private void onDownloadClick()
+    {
+      String scenario = mCurrentCountry.isExpandable() ? "download_group" : "download";
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
+                                     Statistics.params()
+                                               .add(Statistics.EventParam.ACTION, "download")
+                                               .add(Statistics.EventParam.FROM, "placepage")
+                                               .add("is_auto", "false")
+                                               .add("scenario", scenario));
+    }
+  };
+
+  @NonNull
+  private OnClickListener mCancelDownloadListener = new OnClickListener()
+  {
+    @Override
+    public void onClick(View v)
+    {
+      MapManager.nativeCancel(mCurrentCountry.id);
+      Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
+                                     Statistics.params()
+                                               .add(Statistics.EventParam.FROM, "placepage"));
+    }
+  };
 
   public enum State
   {
@@ -635,38 +670,7 @@ public class PlacePageView extends RelativeLayout
       }
     });
 
-    mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame))
-        .setOnIconClickListener(new OnClickListener()
-        {
-          @Override
-          public void onClick(View v)
-          {
-            MapManager.warn3gAndDownload(getActivity(), mCurrentCountry.id, new Runnable()
-            {
-              @Override
-              public void run()
-              {
-                Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_ACTION,
-                                               Statistics.params()
-                                                         .add(Statistics.EventParam.ACTION, "download")
-                                                         .add(Statistics.EventParam.FROM, "placepage")
-                                                         .add("is_auto", "false")
-                                                         .add("scenario", (mCurrentCountry.isExpandable() ? "download_group"
-                                                                                                          : "download")));
-              }
-            });
-          }
-        }).setOnCancelClickListener(new OnClickListener()
-        {
-          @Override
-          public void onClick(View v)
-          {
-            MapManager.nativeCancel(mCurrentCountry.id);
-            Statistics.INSTANCE.trackEvent(Statistics.EventName.DOWNLOADER_CANCEL,
-                                           Statistics.params()
-                                                     .add(Statistics.EventParam.FROM, "placepage"));
-          }
-        });
+    mDownloaderIcon = new DownloaderStatusIcon(mPreview.findViewById(R.id.downloader_status_frame));
 
     mDownloaderInfo = (TextView) mPreview.findViewById(R.id.tv__downloader_details);
 
@@ -2156,6 +2160,8 @@ public class PlacePageView extends RelativeLayout
     if (mStorageCallbackSlot == 0)
       mStorageCallbackSlot = MapManager.nativeSubscribe(mStorageCallback);
 
+    mDownloaderIcon.setOnIconClickListener(mDownloadClickListener)
+                   .setOnCancelClickListener(mCancelDownloadListener);
     mDownloaderIcon.show(true);
     UiUtils.show(mDownloaderInfo);
     updateDownloader(mCurrentCountry);
@@ -2169,6 +2175,8 @@ public class PlacePageView extends RelativeLayout
     MapManager.nativeUnsubscribe(mStorageCallbackSlot);
     mStorageCallbackSlot = 0;
     mCurrentCountry = null;
+    mDownloaderIcon.setOnIconClickListener(null)
+                   .setOnCancelClickListener(null);
     mDownloaderIcon.show(false);
     UiUtils.hide(mDownloaderInfo);
   }

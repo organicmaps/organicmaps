@@ -114,6 +114,7 @@ public final class CountryItem implements Comparable<CountryItem>
       directParentId = "";
   }
 
+  @NonNull
   public static CountryItem fill(String countryId)
   {
     CountryItem res = new CountryItem(countryId);
