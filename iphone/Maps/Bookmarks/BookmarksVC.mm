@@ -325,6 +325,7 @@ CGFloat const kPinDiameter = 18.0f;
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  self.tableView.estimatedRowHeight = 44;
   [self.tableView registerWithCellClass:MWMCategoryInfoCell.class];
 }
 
