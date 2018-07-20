@@ -81,6 +81,8 @@ void AndroidOGLContext::setPresentAvailable(bool available)
 
 bool AndroidOGLContext::validate()
 {
+  if (!m_presentAvailable)
+    return false;
   return eglGetCurrentDisplay() != EGL_NO_DISPLAY &&
          eglGetCurrentSurface(EGL_DRAW) != EGL_NO_SURFACE &&
          eglGetCurrentContext() != EGL_NO_CONTEXT;

@@ -1302,7 +1302,9 @@ void FrontendRenderer::RenderScene(ScreenBase const & modelView, bool activeFram
     for (auto const & arrow : m_overlayTree->GetDisplacementInfo())
       dp::DebugRectRenderer::Instance().DrawArrow(modelView, arrow);
   }
-  m_postprocessRenderer->EndFrame(make_ref(m_gpuProgramManager));
+
+  if (!m_postprocessRenderer->EndFrame(make_ref(m_gpuProgramManager)))
+    return;
 
   GLFunctions::glDisable(gl_const::GLDepthTest);
   m_myPositionController->Render(modelView, m_currentZoomLevel, make_ref(m_gpuProgramManager),
@@ -1988,7 +1990,13 @@ void FrontendRenderer::OnContextCreate()
   // Resources recovering.
   m_screenQuadRenderer = make_unique_dp<ScreenQuadRenderer>();
 
-  m_postprocessRenderer->Init(m_apiVersion, [context]() { context->setDefaultFramebuffer(); });
+  m_postprocessRenderer->Init(m_apiVersion, [context]()
+  {
+    if (!context->validate())
+      return false;
+    context->setDefaultFramebuffer();
+    return true;
+  });
 #ifndef OMIM_OS_IPHONE_SIMULATOR
   if (dp::SupportManager::Instance().IsAntialiasingEnabledByDefault())
     m_postprocessRenderer->SetEffectEnabled(PostprocessRenderer::Antialiasing, true);
@@ -1997,7 +2005,7 @@ void FrontendRenderer::OnContextCreate()
   m_buildingsFramebuffer = make_unique_dp<dp::Framebuffer>(gl_const::GLRGBA, false /* stencilEnabled */);
   m_buildingsFramebuffer->SetFramebufferFallback([this]()
   {
-    m_postprocessRenderer->OnFramebufferFallback();
+    return m_postprocessRenderer->OnFramebufferFallback();
   });
 
   m_transitBackground = make_unique_dp<ScreenQuadRenderer>();

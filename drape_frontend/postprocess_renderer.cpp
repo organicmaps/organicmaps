@@ -307,8 +307,8 @@ bool PostprocessRenderer::BeginFrame(bool activeFrame)
 {
   if (!IsEnabled())
   {
-    m_framebufferFallback();
-    return true;
+    CHECK(m_framebufferFallback != nullptr, ());
+    return m_framebufferFallback();
   }
 
   m_frameStarted = activeFrame || !m_isMainFramebufferRendered;
@@ -322,10 +322,10 @@ bool PostprocessRenderer::BeginFrame(bool activeFrame)
   return m_frameStarted;
 }
 
-void PostprocessRenderer::EndFrame(ref_ptr<gpu::ProgramManager> gpuProgramManager)
+bool PostprocessRenderer::EndFrame(ref_ptr<gpu::ProgramManager> gpuProgramManager)
 {
   if (!IsEnabled())
-    return;
+    return true;
 
   // Subpixel Morphological Antialiasing (SMAA).
   if (m_frameStarted && CanRenderAntialiasing())
@@ -391,12 +391,18 @@ void PostprocessRenderer::EndFrame(ref_ptr<gpu::ProgramManager> gpuProgramManage
   else
     finalFramebuffer = make_ref(m_mainFramebuffer);
 
-  m_framebufferFallback();
-  ASSERT(dynamic_cast<DefaultScreenQuadContext *>(m_defaultScreenQuadContext.get()) != nullptr, ());
-  auto context = static_cast<DefaultScreenQuadContext *>(m_defaultScreenQuadContext.get());
-  context->SetParams(finalFramebuffer->GetTextureId());
-  m_screenQuadRenderer->Render(gpuProgramManager, make_ref(m_defaultScreenQuadContext));
+  CHECK(m_framebufferFallback != nullptr, ());
+  bool m_wasRendered = false;
+  if (m_framebufferFallback())
+  {
+    ASSERT(dynamic_cast<DefaultScreenQuadContext *>(m_defaultScreenQuadContext.get()) != nullptr, ());
+    auto context = static_cast<DefaultScreenQuadContext *>(m_defaultScreenQuadContext.get());
+    context->SetParams(finalFramebuffer->GetTextureId());
+    m_screenQuadRenderer->Render(gpuProgramManager, make_ref(m_defaultScreenQuadContext));
+    m_wasRendered = true;
+  }
   m_frameStarted = false;
+  return m_wasRendered;
 }
 
 void PostprocessRenderer::EnableWritingToStencil() const
@@ -443,12 +449,15 @@ void PostprocessRenderer::UpdateFramebuffers(uint32_t width, uint32_t height)
   }
 }
 
-void PostprocessRenderer::OnFramebufferFallback()
+bool PostprocessRenderer::OnFramebufferFallback()
 {
   if (m_frameStarted)
+  {
     m_mainFramebuffer->Enable();
-  else
-    m_framebufferFallback();
+    return true;
+  }
+
+  return m_framebufferFallback();
 }
 
 void PostprocessRenderer::OnChangedRouteFollowingMode(bool isRouteFollowingActive)

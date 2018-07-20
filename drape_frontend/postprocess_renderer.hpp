@@ -47,11 +47,11 @@ public:
   void SetEffectEnabled(Effect effect, bool enabled);
   bool IsEffectEnabled(Effect effect) const;
 
-  void OnFramebufferFallback();
+  bool OnFramebufferFallback();
   void OnChangedRouteFollowingMode(bool isRouteFollowingActive);
 
   bool BeginFrame(bool activeFrame);
-  void EndFrame(ref_ptr<gpu::ProgramManager> gpuProgramManager);
+  bool EndFrame(ref_ptr<gpu::ProgramManager> gpuProgramManager);
 
   void EnableWritingToStencil() const;
   void DisableWritingToStencil() const;

@@ -7,7 +7,7 @@
 
 namespace dp
 {
-using FramebufferFallback = std::function<void()>;
+using FramebufferFallback = std::function<bool()>;
 
 class Framebuffer
 {
