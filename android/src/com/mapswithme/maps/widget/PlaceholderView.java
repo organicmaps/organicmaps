@@ -13,10 +13,8 @@ import android.support.annotation.StringRes;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
@@ -43,7 +41,6 @@ public class PlaceholderView extends FrameLayout
   private float mScreenHeight;
   private float mScreenWidth;
 
-  private int mOrientation;
   @DrawableRes
   private int mImgSrcDefault;
   @StringRes
@@ -126,9 +123,9 @@ public class PlaceholderView extends FrameLayout
     mTitle = findViewById(R.id.title);
     mSubtitle = findViewById(R.id.subtitle);
 
-    mTextChildren = new ArrayList<>(getChildren());
-    mTextChildren.remove(mImage);
-    mTextChildren = Collections.unmodifiableList(mTextChildren);
+    List<View> textChildren = new ArrayList<>(getChildren());
+    textChildren.remove(mImage);
+    mTextChildren = Collections.unmodifiableList(textChildren);
     setupDefaultContent();
   }
 
@@ -156,46 +153,69 @@ public class PlaceholderView extends FrameLayout
   @Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
   {
-    int width = getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec);
     UiUtils.show(mImage);
-    if (getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE && !UiUtils.isTablet())
-    {
-      UiUtils.hide(mImage);
-      measureChildren(widthMeasureSpec, heightMeasureSpec);
+    if (isLandscape())
+      measureLandscape(widthMeasureSpec, heightMeasureSpec);
+    else
+      measurePortrait(widthMeasureSpec, heightMeasureSpec);
+  }
 
-      int measuredHeight = 0;
-      for (int index = 0; index < getChildCount(); index++)
-      {
-        measuredHeight += getHeightWithMargins(getChildAt(index));
-      }
-      setMeasuredDimension(width, measuredHeight + getPaddingTop() + getPaddingBottom());
-      return;
-    }
-
+  private void measurePortrait(int widthMeasureSpec, int heightMeasureSpec)
+  {
     measureChildren(widthMeasureSpec, heightMeasureSpec);
+    boolean isImageSpaceAllowed = calcTotalChildrenHeight() > calcTotalTextChildrenHeight() + mImageSizeFull;
+    UiUtils.showIf(isImageSpaceAllowed, mImage);
+
+    if (mImage.getVisibility() == GONE)
+      measureChildren(widthMeasureSpec, heightMeasureSpec);
+    int topPadding = isImageSpaceAllowed ? mPaddingImage : mPaddingNoImage;
+
+    int width = getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec);
+    int measuredWidth = width + getPaddingLeft() + getPaddingRight();
+    int totalChildrenHeight = calcTotalChildrenHeight();
+    int height = isImageSpaceAllowed
+                 ? totalChildrenHeight
+                 : totalChildrenHeight - calcHeightWithMargins(mImage);
+    int measuredHeight = height + topPadding + getPaddingBottom();
+    setMeasuredDimension(measuredWidth, measuredHeight);
+  }
+
+  private void measureLandscape(int widthMeasureSpec, int heightMeasureSpec)
+  {
+    UiUtils.hide(mImage);
+    measureChildren(widthMeasureSpec, heightMeasureSpec);
+    int width = getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec);
+    int height = calcTotalChildrenHeight() + getPaddingTop() + getPaddingBottom();
+    setMeasuredDimension(width, height);
+  }
+
+  private int calcTotalChildrenHeight()
+  {
     int totalChildrenHeight = 0;
     for (int index = 0; index < getChildCount(); index++)
     {
-      totalChildrenHeight += getHeightWithMargins(getChildAt(index));
+      totalChildrenHeight += calcHeightWithMargins(getChildAt(index));
     }
+    return totalChildrenHeight;
+  }
 
+  private int calcTotalTextChildrenHeight()
+  {
     int totalTextChildrenHeight = 0;
     for (View each : mTextChildren)
     {
-      totalTextChildrenHeight += getHeightWithMargins(each);
+      totalTextChildrenHeight += calcHeightWithMargins(each);
     }
-
-    boolean isImageSpaceAllowed = totalChildrenHeight > (totalTextChildrenHeight + mImageSizeFull);
-
-    int topPadding = isImageSpaceAllowed ? mPaddingImage : mPaddingNoImage;
-    int height = isImageSpaceAllowed ? totalChildrenHeight : totalChildrenHeight - getHeightWithMargins(mImage);
-    UiUtils.showIf(isImageSpaceAllowed, mImage);
-
-    setMeasuredDimension(width + getPaddingLeft() + getPaddingRight(),
-                         height + topPadding + getPaddingBottom());
+    return totalTextChildrenHeight;
   }
 
-  private int getHeightWithMargins(@NonNull View view) {
+  private boolean isLandscape()
+  {
+    return getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
+           && !UiUtils.isTablet();
+  }
+
+  private int calcHeightWithMargins(@NonNull View view) {
     MarginLayoutParams params = (MarginLayoutParams) view.getLayoutParams();
     return view.getMeasuredHeight() + params.bottomMargin + params.topMargin;
   }
@@ -204,12 +224,6 @@ public class PlaceholderView extends FrameLayout
   private List<View> getChildren()
   {
     return Collections.unmodifiableList(Arrays.asList(mImage , mTitle, mSubtitle));
-  }
-
-  @Override
-  protected void onConfigurationChanged(Configuration newConfig)
-  {
-    mOrientation = newConfig.orientation;
   }
 
   public void setContent(@DrawableRes int imageRes, @StringRes int titleRes,
