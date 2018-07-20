@@ -5,6 +5,7 @@
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+#include "base/utils.hpp"
 
 #include "defines.hpp"
 
@@ -26,12 +27,8 @@ void ToLatLon(double lat, double lon, generator::cache::LatLon & ll)
   int64_t const lat64 = lat * kValueOrder;
   int64_t const lon64 = lon * kValueOrder;
 
-  CHECK(
-      lat64 >= std::numeric_limits<int32_t>::min() && lat64 <= std::numeric_limits<int32_t>::max(),
-      ("Latitude is out of 32bit boundary:", lat64));
-  CHECK(
-      lon64 >= std::numeric_limits<int32_t>::min() && lon64 <= std::numeric_limits<int32_t>::max(),
-      ("Longitude is out of 32bit boundary:", lon64));
+  CHECK(TestOverflow<int32_t>(lat64), ("Latitude is out of 32bit boundary:", lat64));
+  CHECK(TestOverflow<int32_t>(lon64), ("Longitude is out of 32bit boundary:", lon64));
   ll.m_lat = static_cast<int32_t>(lat64);
   ll.m_lon = static_cast<int32_t>(lon64);
 }
@@ -266,5 +263,94 @@ void MapFilePointStorageWriter::AddPoint(uint64_t id, double lat, double lon)
 
   ++m_numProcessedPoints;
 }
+
+// IntermediateDataReader
+IntermediateDataReader::IntermediateDataReader(shared_ptr<IPointStorageReader> nodes,
+                                               feature::GenerateInfo & info) :
+  m_nodes(nodes),
+  m_ways(info.GetIntermediateFileName(WAYS_FILE, ""), info.m_preloadCache),
+  m_relations(info.GetIntermediateFileName(RELATIONS_FILE, ""), info.m_preloadCache),
+  m_nodeToRelations(info.GetIntermediateFileName(NODES_FILE, ID2REL_EXT)),
+  m_wayToRelations(info.GetIntermediateFileName(WAYS_FILE, ID2REL_EXT))
+{
+}
+
+void IntermediateDataReader::LoadIndex()
+{
+  m_ways.LoadOffsets();
+  m_relations.LoadOffsets();
+
+  m_nodeToRelations.ReadAll();
+  m_wayToRelations.ReadAll();
+}
+
+
+// IntermediateDataWriter
+IntermediateDataWriter::IntermediateDataWriter(std::shared_ptr<IPointStorageWriter> nodes,
+                                               feature::GenerateInfo & info):
+  m_nodes(nodes),
+  m_ways(info.GetIntermediateFileName(WAYS_FILE, ""), info.m_preloadCache),
+  m_relations(info.GetIntermediateFileName(RELATIONS_FILE, ""), info.m_preloadCache),
+  m_nodeToRelations(info.GetIntermediateFileName(NODES_FILE, ID2REL_EXT)),
+  m_wayToRelations(info.GetIntermediateFileName(WAYS_FILE, ID2REL_EXT))
+{
+}
+
+void IntermediateDataWriter::AddRelation(Key id, RelationElement const & e)
+{
+  string const & relationType = e.GetType();
+  if (!(relationType == "multipolygon" || relationType == "route" || relationType == "boundary" ||
+        relationType == "associatedStreet" || relationType == "building" ||
+        relationType == "restriction"))
+  {
+    return;
+  }
+
+  m_relations.Write(id, e);
+  AddToIndex(m_nodeToRelations, id, e.nodes);
+  AddToIndex(m_wayToRelations, id, e.ways);
+}
+
+void IntermediateDataWriter::SaveIndex()
+{
+  m_ways.SaveOffsets();
+  m_relations.SaveOffsets();
+
+  m_nodeToRelations.WriteAll();
+  m_wayToRelations.WriteAll();
+}
+
+
+// Functions
+std::shared_ptr<IPointStorageReader>
+CreatePointStorageReader(feature::GenerateInfo::NodeStorageType type, string const & name)
+{
+  switch (type)
+  {
+  case feature::GenerateInfo::NodeStorageType::File:
+    return std::make_shared<RawFilePointStorageMmapReader>(name);
+  case feature::GenerateInfo::NodeStorageType::Index:
+    return std::make_shared<MapFilePointStorageReader>(name);
+  case feature::GenerateInfo::NodeStorageType::Memory:
+    return std::make_shared<RawMemPointStorageReader>(name);
+  }
+  CHECK_SWITCH();
+}
+
+std::shared_ptr<IPointStorageWriter>
+CreatePointStorageWriter(feature::GenerateInfo::NodeStorageType type, std::string const & name)
+{
+  switch (type)
+  {
+  case feature::GenerateInfo::NodeStorageType::File:
+    return std::make_shared<RawFilePointStorageWriter>(name);
+  case feature::GenerateInfo::NodeStorageType::Index:
+    return std::make_shared<MapFilePointStorageWriter>(name);
+  case feature::GenerateInfo::NodeStorageType::Memory:
+    return std::make_shared<RawMemPointStorageWriter>(name);
+  }
+  CHECK_SWITCH();
+}
+
 }  // namespace cache
 }  // namespace generator

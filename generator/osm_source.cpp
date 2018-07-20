@@ -184,7 +184,7 @@ public:
     Classificator const & c = classif();
 
     char const * arr[][2] = {
-        {"natural", "coastline"}, {"natural", "land"}, {"place", "island"}, {"place", "islet"}};
+      {"natural", "coastline"}, {"natural", "land"}, {"place", "island"}, {"place", "islet"}};
     static_assert(ARRAY_SIZE(arr) == TYPES_COUNT, "");
 
     for (size_t i = 0; i < ARRAY_SIZE(arr); ++i)
@@ -200,14 +200,14 @@ public:
       m_coasts.reset(new CoastlineFeaturesGenerator(Type(NATURAL_COASTLINE)));
 
       m_coastsHolder.reset(new feature::FeaturesAndRawGeometryCollector(
-          m_srcCoastsFile,
-          info.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION)));
+                             m_srcCoastsFile,
+                             info.GetIntermediateFileName(WORLD_COASTS_FILE_NAME, RAW_GEOM_FILE_EXTENSION)));
       return;
     }
 
     if (info.m_emitCoasts)
       m_coastsHolder.reset(
-          new feature::FeaturesCollector(info.GetTmpFileName(WORLD_COASTS_FILE_NAME)));
+            new feature::FeaturesCollector(info.GetTmpFileName(WORLD_COASTS_FILE_NAME)));
 
     if (info.m_splitByPolygons || !info.m_fileName.empty())
       m_countries = my::make_unique<TCountriesGenerator>(info);
@@ -238,8 +238,8 @@ public:
       Place const place(fb, type);
       UnionEqualPlacesIds(place);
       m_places.ReplaceEqualInRect(
-          place, [](Place const & p1, Place const & p2) { return p1.IsEqual(p2); },
-          [](Place const & p1, Place const & p2) { return p1.IsBetterThan(p2); });
+            place, [](Place const & p1, Place const & p2) { return p1.IsEqual(p2); },
+      [](Place const & p1, Place const & p2) { return p1.IsBetterThan(p2); });
       return;
     }
 
@@ -452,10 +452,10 @@ uint64_t SourceReader::Read(char * buffer, uint64_t bufferSize)
 }
 
 // Functions ---------------------------------------------------------------------------------------
-unique_ptr<EmitterBase> MakeMainFeatureEmitter(feature::GenerateInfo const & info)
+shared_ptr<EmitterBase> MakeMainFeatureEmitter(feature::GenerateInfo const & info)
 {
   LOG(LINFO, ("Processing booking data from", info.m_bookingDatafileName, "done."));
-  return my::make_unique<MainFeaturesEmitter>(info);
+  return make_shared<MainFeaturesEmitter>(info);
 }
 
 template <typename TElement, typename TCache>
@@ -463,46 +463,46 @@ void AddElementToCache(TCache & cache, TElement const & em)
 {
   switch (em.type)
   {
-    case TElement::EntityType::Node:
+  case TElement::EntityType::Node:
+  {
+    auto const pt = MercatorBounds::FromLatLon(em.lat, em.lon);
+    cache.AddNode(em.id, pt.y, pt.x);
+    break;
+  }
+  case TElement::EntityType::Way:
+  {
+    // store way
+    WayElement way(em.id);
+    for (uint64_t nd : em.Nodes())
+      way.nodes.push_back(nd);
+
+    if (way.IsValid())
+      cache.AddWay(em.id, way);
+    break;
+  }
+  case TElement::EntityType::Relation:
+  {
+    // store relation
+    RelationElement relation;
+    for (auto const & member : em.Members())
     {
-      auto const pt = MercatorBounds::FromLatLon(em.lat, em.lon);
-      cache.AddNode(em.id, pt.y, pt.x);
-      break;
+      if (member.type == TElement::EntityType::Node)
+        relation.nodes.emplace_back(make_pair(member.ref, string(member.role)));
+      else if (member.type == TElement::EntityType::Way)
+        relation.ways.emplace_back(make_pair(member.ref, string(member.role)));
+      // we just ignore type == "relation"
     }
-    case TElement::EntityType::Way:
-    {
-      // store way
-      WayElement way(em.id);
-      for (uint64_t nd : em.Nodes())
-        way.nodes.push_back(nd);
 
-      if (way.IsValid())
-        cache.AddWay(em.id, way);
-      break;
-    }
-    case TElement::EntityType::Relation:
-    {
-      // store relation
-      RelationElement relation;
-      for (auto const & member : em.Members())
-      {
-        if (member.type == TElement::EntityType::Node)
-          relation.nodes.emplace_back(make_pair(member.ref, string(member.role)));
-        else if (member.type == TElement::EntityType::Way)
-          relation.ways.emplace_back(make_pair(member.ref, string(member.role)));
-        // we just ignore type == "relation"
-      }
+    for (auto const & tag : em.Tags())
+      relation.tags.emplace(make_pair(string(tag.key), string(tag.value)));
 
-      for (auto const & tag : em.Tags())
-        relation.tags.emplace(make_pair(string(tag.key), string(tag.value)));
+    if (relation.IsValid())
+      cache.AddRelation(em.id, relation);
 
-      if (relation.IsValid())
-        cache.AddRelation(em.id, relation);
-
-      break;
-    }
-    default:
-      break;
+    break;
+  }
+  default:
+    break;
   }
 }
 
@@ -510,10 +510,10 @@ template <typename TCache>
 void BuildIntermediateDataFromXML(SourceReader & stream, TCache & cache, TownsDumper & towns)
 {
   XMLSource parser([&](OsmElement * e)
-    {
-      towns.CheckElement(*e);
-      AddElementToCache(cache, *e);
-    });
+  {
+    towns.CheckElement(*e);
+    AddElementToCache(cache, *e);
+  });
   ParseXMLSequence(stream, parser);
 }
 
@@ -564,28 +564,28 @@ void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *
 
     switch (em.type)
     {
-      case Type::Node:
-      {
-        p.type = OsmElement::EntityType::Node;
-        p.lat = em.lat;
-        p.lon = em.lon;
-        break;
-      }
-      case Type::Way:
-      {
-        p.type = OsmElement::EntityType::Way;
-        for (uint64_t nd : em.Nodes())
-          p.AddNd(nd);
-        break;
-      }
-      case Type::Relation:
-      {
-        p.type = OsmElement::EntityType::Relation;
-        for (auto const & member : em.Members())
-          p.AddMember(member.ref, translate(member.type), member.role);
-        break;
-      }
-      default: break;
+    case Type::Node:
+    {
+      p.type = OsmElement::EntityType::Node;
+      p.lat = em.lat;
+      p.lon = em.lon;
+      break;
+    }
+    case Type::Way:
+    {
+      p.type = OsmElement::EntityType::Way;
+      for (uint64_t nd : em.Nodes())
+        p.AddNd(nd);
+      break;
+    }
+    case Type::Relation:
+    {
+      p.type = OsmElement::EntityType::Relation;
+      for (auto const & member : em.Members())
+        p.AddMember(member.ref, translate(member.type), member.role);
+      break;
+    }
+    default: break;
     }
 
     for (auto const & tag : em.Tags())
@@ -601,39 +601,25 @@ void ProcessOsmElementsFromO5M(SourceReader & stream, function<void(OsmElement *
 
 using PreEmit = function<bool(OsmElement *)>;
 
-template <class NodesHolder>
-bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter,
-                          PreEmit const & preEmit)
+static bool GenerateRaw(feature::GenerateInfo & info, std::shared_ptr<EmitterBase> emitter,
+                        PreEmit const & preEmit, std::unique_ptr<IOsmToFeatureTranslator> parser)
 {
   try
   {
-    NodesHolder nodes(info.GetIntermediateFileName(NODES_FILE, ""));
-
-    using TDataCache = cache::IntermediateDataReader<NodesHolder>;
-    TDataCache cache(nodes, info);
-    cache.LoadIndex();
-
-    // TODO(mgsergio): Get rid of EmitterBase template parameter.
-    OsmToFeatureTranslator<EmitterBase, TDataCache> parser(
-        emitter, cache, info.m_makeCoasts ? classif().GetCoastType() : 0,
-        info.GetAddressesFileName(), info.GetIntermediateFileName(RESTRICTIONS_FILENAME, ""),
-        info.GetIntermediateFileName(ROAD_ACCESS_FILENAME, ""),
-        info.GetIntermediateFileName(METALINES_FILENAME, ""));
-
     auto const fn = [&](OsmElement * e) {
       if (preEmit(e))
-        parser.EmitElement(e);
+        parser->EmitElement(e);
     };
 
     SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
     switch (info.m_osmFileType)
     {
-      case feature::GenerateInfo::OsmSourceType::XML:
-        ProcessOsmElementsFromXML(reader, fn);
-        break;
-      case feature::GenerateInfo::OsmSourceType::O5M:
-        ProcessOsmElementsFromO5M(reader, fn);
-        break;
+    case feature::GenerateInfo::OsmSourceType::XML:
+      ProcessOsmElementsFromXML(reader, fn);
+      break;
+    case feature::GenerateInfo::OsmSourceType::O5M:
+      ProcessOsmElementsFromO5M(reader, fn);
+      break;
     }
 
     LOG(LINFO, ("Processing", info.m_osmFileName, "done."));
@@ -641,10 +627,10 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter,
     generator::MixFakeNodes(GetPlatform().ResourcesDir() + MIXED_NODES_FILE, fn);
 
     // Stop if coasts are not merged and FLAG_fail_on_coasts is set
-    if (!emitter.Finish())
+    if (!emitter->Finish())
       return false;
 
-    emitter.GetNames(info.m_bucketNames);
+    emitter->GetNames(info.m_bucketNames);
   }
   catch (Reader::Exception const & ex)
   {
@@ -654,52 +640,13 @@ bool GenerateFeaturesImpl(feature::GenerateInfo & info, EmitterBase & emitter,
   return true;
 }
 
-template <class NodesHolder>
-bool GenerateIntermediateDataImpl(feature::GenerateInfo & info)
+static cache::IntermediateDataReader LoadCache(feature::GenerateInfo & info)
 {
-  try
-  {
-    NodesHolder nodes(info.GetIntermediateFileName(NODES_FILE, ""));
-    cache::IntermediateDataWriter<NodesHolder> cache(nodes, info);
-    TownsDumper towns;
-
-    SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
-
-    LOG(LINFO, ("Data source:", info.m_osmFileName));
-
-    switch (info.m_osmFileType)
-    {
-      case feature::GenerateInfo::OsmSourceType::XML:
-        BuildIntermediateDataFromXML(reader, cache, towns);
-        break;
-      case feature::GenerateInfo::OsmSourceType::O5M:
-        BuildIntermediateDataFromO5M(reader, cache, towns);
-        break;
-    }
-
-    cache.SaveIndex();
-    towns.Dump(info.GetIntermediateFileName(TOWNS_FILE, ""));
-    LOG(LINFO, ("Added points count =", nodes.GetNumProcessedPoints()));
-  }
-  catch (Writer::Exception const & e)
-  {
-    LOG(LCRITICAL, ("Error with file:", e.what()));
-  }
-  return true;
-}
-
-bool GenerateRaw(feature::GenerateInfo & info, std::unique_ptr<EmitterBase> emitter, PreEmit const & preEmit)
-{
-  switch (info.m_nodeStorageType)
-  {
-    case feature::GenerateInfo::NodeStorageType::File:
-      return GenerateFeaturesImpl<cache::RawFilePointStorageMmapReader>(info, *emitter, preEmit);
-    case feature::GenerateInfo::NodeStorageType::Index:
-      return GenerateFeaturesImpl<cache::MapFilePointStorageReader>(info, *emitter, preEmit);
-    case feature::GenerateInfo::NodeStorageType::Memory:
-      return GenerateFeaturesImpl<cache::RawMemPointStorageReader>(info, *emitter, preEmit);
-  }
-  return false;
+  auto nodes = cache::CreatePointStorageReader(info.m_nodeStorageType,
+                                               info.GetIntermediateFileName(NODES_FILE, ""));
+  cache::IntermediateDataReader cache(nodes, info);
+  cache.LoadIndex();
+  return cache;
 }
 
 bool GenerateFeatures(feature::GenerateInfo & info, EmitterFactory factory)
@@ -717,68 +664,53 @@ bool GenerateFeatures(feature::GenerateInfo & info, EmitterFactory factory)
     return true;
   };
 
-  return GenerateRaw(info, factory(info), preEmit);
+  auto cache = LoadCache(info);
+  auto emitter = factory(info);
+  auto parser = std::make_unique<OsmToFeatureTranslator>(emitter, cache, info);
+  return GenerateRaw(info, emitter, preEmit, std::move(parser));
 }
 
 bool GenerateRegionFeatures(feature::GenerateInfo & info, EmitterFactory factory)
 {
-  set<string> const adminLevels = {"2", "4", "5", "6"};
-  set<string> const places = {"city", "town", "village", "hamlet", "suburb"};
-
-  auto isRegion = [&adminLevels, &places](OsmElement const & e) {
-    // We do not make any assumptions about shape of places without explicit border for now.
-    if (e.type != OsmElement::EntityType::Way && e.type != OsmElement::EntityType::Relation)
-      return false;
-
-    bool haveBoundary = false;
-    bool haveAdminLevel = false;
-    for (auto const & t : e.Tags())
-    {
-      if (t.key == "boundary" && t.value == "administrative")
-        haveBoundary = true;
-
-      if (t.key == "admin_level" && adminLevels.find(t.value) != adminLevels.end())
-        haveAdminLevel = true;
-
-      if (haveBoundary && haveAdminLevel)
-        return true;
-
-      if (t.key == "place" && places.find(t.value) != places.end())
-        return true;
-    }
-
-    return false;
-  };
-
-  auto preEmit = [&isRegion](OsmElement * e) {
-    if (isRegion(*e))
-    {
-      // Emit feature with original geometry and visible "natural = land" tag.
-      // Now emitter does not have a single place of decision which elements to emit and which to
-      // ignore. So the only way to make it emit element is to construct "good" element.
-      // This code should be removed in case of emitter refactoring.
-      e->m_tags = {};
-      e->AddTag("natural", "land");
-      e->AddTag("type", "multipolygon");
-      return true;
-    }
-    return false;
-  };
-
-  return GenerateRaw(info, factory(info), preEmit);
+  auto preEmit = [](OsmElement * e) { return true; };
+  auto cache = LoadCache(info);
+  auto emitter = factory(info);
+  auto parser = std::make_unique<OsmToFeatureTranslatorRegion>(emitter, cache);
+  return GenerateRaw(info, emitter, preEmit, std::move(parser));
 }
 
 bool GenerateIntermediateData(feature::GenerateInfo & info)
 {
-  switch (info.m_nodeStorageType)
+  try
   {
-    case feature::GenerateInfo::NodeStorageType::File:
-      return GenerateIntermediateDataImpl<cache::RawFilePointStorageWriter>(info);
-    case feature::GenerateInfo::NodeStorageType::Index:
-      return GenerateIntermediateDataImpl<cache::MapFilePointStorageWriter>(info);
-    case feature::GenerateInfo::NodeStorageType::Memory:
-      return GenerateIntermediateDataImpl<cache::RawMemPointStorageWriter>(info);
+    auto nodes = cache::CreatePointStorageWriter(info.m_nodeStorageType,
+                                                 info.GetIntermediateFileName(NODES_FILE, ""));
+    cache::IntermediateDataWriter cache(nodes, info);
+    TownsDumper towns;
+
+    SourceReader reader = info.m_osmFileName.empty() ? SourceReader() : SourceReader(info.m_osmFileName);
+
+    LOG(LINFO, ("Data source:", info.m_osmFileName));
+
+    switch (info.m_osmFileType)
+    {
+    case feature::GenerateInfo::OsmSourceType::XML:
+      BuildIntermediateDataFromXML(reader, cache, towns);
+      break;
+    case feature::GenerateInfo::OsmSourceType::O5M:
+      BuildIntermediateDataFromO5M(reader, cache, towns);
+      break;
+    }
+
+    cache.SaveIndex();
+    towns.Dump(info.GetIntermediateFileName(TOWNS_FILE, ""));
+    LOG(LINFO, ("Added points count =", nodes->GetNumProcessedPoints()));
   }
-  return false;
+  catch (Writer::Exception const & e)
+  {
+    LOG(LCRITICAL, ("Error with file:", e.what()));
+  }
+  return true;
 }
+
 }  // namespace generator

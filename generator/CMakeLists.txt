@@ -60,6 +60,7 @@ set(SRC
   osm_o5m_source.hpp
   osm_source.cpp
   osm_translator.hpp
+  osm_translator.cpp
   osm_xml_source.hpp
   polygonizer.hpp
   popular_places_section_builder.cpp
@@ -111,6 +112,7 @@ set(SRC
   viator_dataset.cpp
   viator_dataset.hpp
   ways_merger.hpp
+  ways_merger.cpp
   world_map_generator.hpp
 )
 

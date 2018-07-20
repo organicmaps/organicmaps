@@ -181,51 +181,64 @@ protected:
   bool m_preload = false;
 };
 
-class RawFilePointStorageMmapReader
+class IPointStorageWriter
+{
+public:
+  virtual void AddPoint(uint64_t id, double lat, double lon) = 0;
+  virtual uint64_t GetNumProcessedPoints() const = 0;
+};
+
+class IPointStorageReader
+{
+public:
+  virtual bool GetPoint(uint64_t id, double & lat, double & lon) const = 0;
+};
+
+class RawFilePointStorageMmapReader : public IPointStorageReader
 {
 public:
   explicit RawFilePointStorageMmapReader(std::string const & name);
 
-  bool GetPoint(uint64_t id, double & lat, double & lon) const;
+  bool GetPoint(uint64_t id, double & lat, double & lon) const override;
 
 private:
   MmapReader m_mmapReader;
 };
 
-class RawFilePointStorageWriter
+class RawFilePointStorageWriter : public IPointStorageWriter
 {
 public:
   explicit RawFilePointStorageWriter(std::string const & name);
 
-  void AddPoint(uint64_t id, double lat, double lon);
-  uint64_t GetNumProcessedPoints() const { return m_numProcessedPoints; }
+  void AddPoint(uint64_t id, double lat, double lon) override;
+  uint64_t GetNumProcessedPoints() const override { return m_numProcessedPoints; }
 
 private:
   FileWriter m_fileWriter;
   uint64_t m_numProcessedPoints = 0;
 };
 
-class RawMemPointStorageReader
+class RawMemPointStorageReader : public IPointStorageReader
 {
 public:
   explicit RawMemPointStorageReader(std::string const & name);
 
-  bool GetPoint(uint64_t id, double & lat, double & lon) const;
+  bool GetPoint(uint64_t id, double & lat, double & lon) const override;
 
 private:
   FileReader m_fileReader;
   std::vector<LatLon> m_data;
 };
 
-class RawMemPointStorageWriter
+class RawMemPointStorageWriter : public IPointStorageWriter
 {
 public:
   explicit RawMemPointStorageWriter(std::string const & name);
 
   ~RawMemPointStorageWriter();
 
-  void AddPoint(uint64_t id, double lat, double lon);
-  uint64_t GetNumProcessedPoints() const { return m_numProcessedPoints; }
+  void AddPoint(uint64_t id, double lat, double lon) override;
+  uint64_t GetNumProcessedPoints() const override { return m_numProcessedPoints; }
 
 private:
   FileWriter m_fileWriter;
@@ -233,46 +246,39 @@ private:
   uint64_t m_numProcessedPoints = 0;
 };
 
-class MapFilePointStorageReader
+class MapFilePointStorageReader : public IPointStorageReader
 {
 public:
   explicit MapFilePointStorageReader(std::string const & name);
 
-  bool GetPoint(uint64_t id, double & lat, double & lon) const;
+  bool GetPoint(uint64_t id, double & lat, double & lon) const override;
 
 private:
   FileReader m_fileReader;
   std::unordered_map<uint64_t, LatLon> m_map;
 };
 
-class MapFilePointStorageWriter
+class MapFilePointStorageWriter : public IPointStorageWriter
 {
 public:
   explicit MapFilePointStorageWriter(std::string const & name);
 
-  void AddPoint(uint64_t id, double lat, double lon);
-  uint64_t GetNumProcessedPoints() const { return m_numProcessedPoints; }
+  void AddPoint(uint64_t id, double lat, double lon) override;
+  uint64_t GetNumProcessedPoints() const override { return m_numProcessedPoints; }
 
 private:
   FileWriter m_fileWriter;
   uint64_t m_numProcessedPoints = 0;
 };
 
-template <typename NodesHolder>
 class IntermediateDataReader
 {
 public:
-  IntermediateDataReader(NodesHolder & nodes, feature::GenerateInfo & info)
-    : m_nodes(nodes)
-    , m_ways(info.GetIntermediateFileName(WAYS_FILE, ""), info.m_preloadCache)
-    , m_relations(info.GetIntermediateFileName(RELATIONS_FILE, ""), info.m_preloadCache)
-    , m_nodeToRelations(info.GetIntermediateFileName(NODES_FILE, ID2REL_EXT))
-    , m_wayToRelations(info.GetIntermediateFileName(WAYS_FILE, ID2REL_EXT))
-  {
-  }
-
-  bool GetNode(Key id, double & lat, double & lon) { return m_nodes.GetPoint(id, lat, lon); }
+  explicit IntermediateDataReader(shared_ptr<IPointStorageReader> nodes,
+                                  feature::GenerateInfo & info);
+  bool GetNode(Key id, double & lat, double & lon) { return m_nodes->GetPoint(id, lat, lon); }
   bool GetWay(Key id, WayElement & e) { return m_ways.Read(id, e); }
+  void LoadIndex();
 
   template <class ToDo>
   void ForEachRelationByWay(Key id, ToDo && toDo)
@@ -293,15 +299,6 @@ public:
   {
     CachedRelationProcessor<ToDo> processor(m_relations, std::forward<ToDo>(toDo));
     m_nodeToRelations.ForEachByKey(id, processor);
-  }
-
-  void LoadIndex()
-  {
-    m_ways.LoadOffsets();
-    m_relations.LoadOffsets();
-
-    m_nodeToRelations.ReadAll();
-    m_wayToRelations.ReadAll();
   }
 
 private:
@@ -341,7 +338,8 @@ private:
     bool operator()(uint64_t id) { return this->m_toDo(id, this->m_reader); }
   };
 
-  NodesHolder & m_nodes;
+private:
+  shared_ptr<IPointStorageReader> m_nodes;
 
   cache::OSMElementCacheReader m_ways;
   cache::OSMElementCacheReader m_relations;
@@ -350,62 +348,39 @@ private:
   cache::IndexFileReader m_wayToRelations;
 };
 
-template <typename NodesHolder>
 class IntermediateDataWriter
 {
 public:
-  IntermediateDataWriter(NodesHolder & nodes, feature::GenerateInfo & info)
-    : m_nodes(nodes)
-    , m_ways(info.GetIntermediateFileName(WAYS_FILE, ""), info.m_preloadCache)
-    , m_relations(info.GetIntermediateFileName(RELATIONS_FILE, ""), info.m_preloadCache)
-    , m_nodeToRelations(info.GetIntermediateFileName(NODES_FILE, ID2REL_EXT))
-    , m_wayToRelations(info.GetIntermediateFileName(WAYS_FILE, ID2REL_EXT))
-  {
-  }
-
-  void AddNode(Key id, double lat, double lon) { m_nodes.AddPoint(id, lat, lon); }
-
+  explicit IntermediateDataWriter(std::shared_ptr<IPointStorageWriter> nodes,
+                                  feature::GenerateInfo & info);
+  void AddNode(Key id, double lat, double lon) { m_nodes->AddPoint(id, lat, lon); }
   void AddWay(Key id, WayElement const & e) { m_ways.Write(id, e); }
-
-  void AddRelation(Key id, RelationElement const & e)
-  {
-    string const & relationType = e.GetType();
-    if (!(relationType == "multipolygon" || relationType == "route" || relationType == "boundary" ||
-          relationType == "associatedStreet" || relationType == "building" ||
-          relationType == "restriction"))
-    {
-      return;
-    }
-
-    m_relations.Write(id, e);
-    AddToIndex(m_nodeToRelations, id, e.nodes);
-    AddToIndex(m_wayToRelations, id, e.ways);
-  }
-
-  void SaveIndex()
-  {
-    m_ways.SaveOffsets();
-    m_relations.SaveOffsets();
-
-    m_nodeToRelations.WriteAll();
-    m_wayToRelations.WriteAll();
-  }
+  void AddRelation(Key id, RelationElement const & e);
+  void SaveIndex();
 
 private:
-  NodesHolder & m_nodes;
-
-  cache::OSMElementCacheWriter m_ways;
-  cache::OSMElementCacheWriter m_relations;
-
-  cache::IndexFileWriter m_nodeToRelations;
-  cache::IndexFileWriter m_wayToRelations;
-
   template <class Index, class Container>
   static void AddToIndex(Index & index, Key relationId, Container const & values)
   {
     for (auto const & v : values)
       index.Add(v.first, relationId);
   }
+
+private:
+  std::shared_ptr<IPointStorageWriter> m_nodes;
+
+  cache::OSMElementCacheWriter m_ways;
+  cache::OSMElementCacheWriter m_relations;
+
+  cache::IndexFileWriter m_nodeToRelations;
+  cache::IndexFileWriter m_wayToRelations;
 };
+
+std::shared_ptr<IPointStorageReader>
+CreatePointStorageReader(feature::GenerateInfo::NodeStorageType type, std::string const & name);
+
+std::shared_ptr<IPointStorageWriter>
+CreatePointStorageWriter(feature::GenerateInfo::NodeStorageType type, std::string const & name);
+
 }  // namespace cache
 }  // namespace generator

@@ -57,9 +57,9 @@ public:
   virtual void GetNames(std::vector<std::string> & names) const = 0;
 };
 
-std::unique_ptr<EmitterBase> MakeMainFeatureEmitter(feature::GenerateInfo const & info);
+std::shared_ptr<EmitterBase> MakeMainFeatureEmitter(feature::GenerateInfo const & info);
 
-using EmitterFactory = std::function<std::unique_ptr<EmitterBase>(feature::GenerateInfo const &)>;
+using EmitterFactory = std::function<std::shared_ptr<EmitterBase>(feature::GenerateInfo const &)>;
 
 bool GenerateFeatures(feature::GenerateInfo & info,
                       EmitterFactory factory = MakeMainFeatureEmitter);
