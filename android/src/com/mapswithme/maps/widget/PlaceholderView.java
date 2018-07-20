@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.util.AttributeSet;
@@ -15,10 +16,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mapswithme.maps.R;
 import com.mapswithme.util.UiUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class PlaceholderView extends FrameLayout
 {
@@ -29,10 +36,10 @@ public class PlaceholderView extends FrameLayout
   @Nullable
   private TextView mSubtitle;
 
-  private float mImageSizeFull;
-  private float mImageSizeSmall;
-  private float mPaddingImage;
-  private float mPaddingNoImage;
+  private int mImageSizeFull;
+  private int mImageSizeSmall;
+  private int mPaddingImage;
+  private int mPaddingNoImage;
   private float mScreenHeight;
   private float mScreenWidth;
 
@@ -43,6 +50,9 @@ public class PlaceholderView extends FrameLayout
   private int mTitleResIdDefault;
   @StringRes
   private int mSubtitleResIdDefault;
+
+  @NonNull
+  private List<View> mTextChildren = Collections.emptyList();
 
   public PlaceholderView(Context context)
   {
@@ -72,10 +82,10 @@ public class PlaceholderView extends FrameLayout
   private void init(Context context, AttributeSet attrs)
   {
     Resources res = getResources();
-    mImageSizeFull = res.getDimension(R.dimen.placeholder_size);
-    mImageSizeSmall = res.getDimension(R.dimen.placeholder_size_small);
-    mPaddingImage = res.getDimension(R.dimen.placeholder_margin_top);
-    mPaddingNoImage = res.getDimension(R.dimen.placeholder_margin_top_no_image);
+    mImageSizeFull = res.getDimensionPixelSize(R.dimen.placeholder_size);
+    mImageSizeSmall = res.getDimensionPixelSize(R.dimen.placeholder_size_small);
+    mPaddingImage = res.getDimensionPixelSize(R.dimen.placeholder_margin_top);
+    mPaddingNoImage = res.getDimensionPixelSize(R.dimen.placeholder_margin_top_no_image);
     mScreenHeight = res.getDisplayMetrics().heightPixels;
     mScreenWidth = res.getDisplayMetrics().widthPixels;
     LayoutInflater.from(context).inflate(R.layout.placeholder, this, true);
@@ -112,10 +122,13 @@ public class PlaceholderView extends FrameLayout
   {
     super.onFinishInflate();
 
-    mImage = (ImageView) findViewById(R.id.image);
-    mTitle = (TextView) findViewById(R.id.title);
-    mSubtitle = (TextView) findViewById(R.id.subtitle);
+    mImage = findViewById(R.id.image);
+    mTitle = findViewById(R.id.title);
+    mSubtitle = findViewById(R.id.subtitle);
 
+    mTextChildren = new ArrayList<>(getChildren());
+    mTextChildren.remove(mImage);
+    mTextChildren = Collections.unmodifiableList(mTextChildren);
     setupDefaultContent();
   }
 
@@ -143,43 +156,54 @@ public class PlaceholderView extends FrameLayout
   @Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
   {
-    //isInEditMode() need for correct editor visualization
-    if (isInEditMode() || mImage == null)
-    {
-      super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-      return;
-    }
-
-    if (mOrientation == Configuration.ORIENTATION_LANDSCAPE && !UiUtils.isTablet())
+    int width = getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec);
+    UiUtils.show(mImage);
+    if (getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE && !UiUtils.isTablet())
     {
       UiUtils.hide(mImage);
-      setPadding(getPaddingLeft(), (int) mPaddingNoImage, getPaddingRight(), getPaddingBottom());
-      super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+      measureChildren(widthMeasureSpec, heightMeasureSpec);
+
+      int measuredHeight = 0;
+      for (int index = 0; index < getChildCount(); index++)
+      {
+        measuredHeight += getHeightWithMargins(getChildAt(index));
+      }
+      setMeasuredDimension(width, measuredHeight + getPaddingTop() + getPaddingBottom());
       return;
     }
 
-    setPadding(getPaddingLeft(), (int) mPaddingImage, getPaddingRight(), getPaddingBottom());
-    UiUtils.show(mImage);
-    ViewGroup.LayoutParams lp = mImage.getLayoutParams();
-    lp.width = (int) mImageSizeFull;
-    lp.height = (int) mImageSizeFull;
-    mImage.setLayoutParams(lp);
-
-    super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-    if (getMeasuredHeight() > MeasureSpec.getSize(heightMeasureSpec))
+    measureChildren(widthMeasureSpec, heightMeasureSpec);
+    int totalChildrenHeight = 0;
+    for (int index = 0; index < getChildCount(); index++)
     {
-      lp.width = (int) mImageSizeSmall;
-      lp.height = (int) mImageSizeSmall;
-      mImage.setLayoutParams(lp);
-      super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-      if (getMeasuredHeight() > MeasureSpec.getSize(heightMeasureSpec))
-      {
-        UiUtils.hide(mImage);
-        setPadding(getPaddingLeft(), (int) mPaddingNoImage, getPaddingRight(), getPaddingBottom());
-      }
+      totalChildrenHeight += getHeightWithMargins(getChildAt(index));
     }
 
-    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    int totalTextChildrenHeight = 0;
+    for (View each : mTextChildren)
+    {
+      totalTextChildrenHeight += getHeightWithMargins(each);
+    }
+
+    boolean isImageSpaceAllowed = totalChildrenHeight > (totalTextChildrenHeight + mImageSizeFull);
+
+    int topPadding = isImageSpaceAllowed ? mPaddingImage : mPaddingNoImage;
+    int height = isImageSpaceAllowed ? totalChildrenHeight : totalChildrenHeight - getHeightWithMargins(mImage);
+    UiUtils.showIf(isImageSpaceAllowed, mImage);
+
+    setMeasuredDimension(width + getPaddingLeft() + getPaddingRight(),
+                         height + topPadding + getPaddingBottom());
+  }
+
+  private int getHeightWithMargins(@NonNull View view) {
+    MarginLayoutParams params = (MarginLayoutParams) view.getLayoutParams();
+    return view.getMeasuredHeight() + params.bottomMargin + params.topMargin;
+  }
+
+  @NonNull
+  private List<View> getChildren()
+  {
+    return Collections.unmodifiableList(Arrays.asList(mImage , mTitle, mSubtitle));
   }
 
   @Override
