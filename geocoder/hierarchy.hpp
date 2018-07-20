@@ -1,5 +1,7 @@
 #pragma once
 
+#include "geocoder/types.hpp"
+
 #include "base/osm_id.hpp"
 #include "base/string_utils.hpp"
 
@@ -14,26 +16,9 @@
 
 namespace geocoder
 {
-using Tokens = std::vector<strings::UniString>;
-
 class Hierarchy
 {
 public:
-  enum class EntryType
-  {
-    // It is important that the types are ordered from
-    // the more general to the more specific.
-    Country,
-    Region,
-    Subregion,
-    Locality,
-    Sublocality,
-    Suburb,
-    Building,
-
-    Count
-  };
-
   // A single entry in the hierarchy directed acyclic graph.
   // Currently, this is more or less the "properties"-"address"
   // part of the geojson entry.
@@ -41,7 +26,11 @@ public:
   {
     bool DeserializeFromJSON(std::string const & jsonStr);
 
-    void DeserializeFromJSONImpl(json_t * root);
+    void DeserializeFromJSONImpl(json_t * const root, std::string const & jsonStr);
+
+    // Tries to set |m_name| and |m_nameTokens| from
+    // the "name" and "address" fields in the json description.
+    void SetName(json_t * const properties, std::string const & jsonStr);
 
     osm::Id m_osmId = osm::Id(osm::Id::kInvalid);
 
@@ -50,10 +39,10 @@ public:
     // Tokenized and simplified name of the entry.
     std::vector<strings::UniString> m_nameTokens;
 
-    EntryType m_type = EntryType::Count;
+    Type m_type = Type::Count;
 
-    // The address fields of this entry, one per EntryType.
-    std::array<Tokens, static_cast<size_t>(EntryType::Count) + 1> m_address;
+    // The address fields of this entry, one per Type.
+    std::array<Tokens, static_cast<size_t>(Type::Count) + 1> m_address;
   };
 
   explicit Hierarchy(std::string const & pathToJsonHierarchy);
@@ -69,6 +58,4 @@ public:
 private:
   std::map<Tokens, std::vector<Entry>> m_entries;
 };
-
-std::string DebugPrint(Hierarchy::EntryType const & type);
 }  // namespace geocoder

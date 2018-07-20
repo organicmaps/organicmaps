@@ -10,6 +10,8 @@ set(
   hierarchy.hpp
   result.cpp
   result.hpp
+  types.cpp
+  types.hpp
 )
 
 omim_add_library(${PROJECT_NAME} ${SRC})

@@ -2,6 +2,7 @@
 
 #include "geocoder/hierarchy.hpp"
 #include "geocoder/result.hpp"
+#include "geocoder/types.hpp"
 
 #include "base/osm_id.hpp"
 #include "base/string_utils.hpp"
@@ -35,7 +36,7 @@ public:
   // A Layer contains all entries matched by a subquery of consecutive tokens.
   struct Layer
   {
-    Hierarchy::EntryType m_type = Hierarchy::EntryType::Count;
+    Type m_type = Type::Count;
     std::vector<Hierarchy::Entry const *> m_entries;
   };
 
@@ -48,13 +49,13 @@ public:
 
     void Clear();
 
-    std::vector<Hierarchy::EntryType> & GetTokenTypes();
+    std::vector<Type> & GetTokenTypes();
     size_t GetNumTokens() const;
     size_t GetNumUsedTokens() const;
 
     strings::UniString const & GetToken(size_t id) const;
 
-    void MarkToken(size_t id, Hierarchy::EntryType const & type);
+    void MarkToken(size_t id, Type type);
 
     // Returns true if |token| is marked as used.
     bool IsTokenUsed(size_t id) const;
@@ -73,7 +74,7 @@ public:
   private:
     // todo(@m) std::string?
     std::vector<strings::UniString> m_tokens;
-    std::vector<Hierarchy::EntryType> m_tokenTypes;
+    std::vector<Type> m_tokenTypes;
 
     size_t m_numUsedTokens = 0;
 
@@ -90,7 +91,7 @@ public:
   Hierarchy const & GetHierarchy() const;
 
 private:
-  void Go(Context & ctx, Hierarchy::EntryType const & type) const;
+  void Go(Context & ctx, Type type) const;
 
   void EmitResult() const;
 

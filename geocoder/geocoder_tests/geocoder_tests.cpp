@@ -57,8 +57,8 @@ UNIT_TEST(Geocoder_Smoke)
   ScopedFile const regionsJsonFile("regions.jsonl", kRegionsData);
   Geocoder geocoder(regionsJsonFile.GetFullPath());
 
-  osm::Id const florenciaId(13835058055288051381ULL);
-  osm::Id const cubaId(13835058055282471545ULL);
+  osm::Id const florenciaId(0xc00000000059d6b5);
+  osm::Id const cubaId(c00000000004b279);
 
   TestGeocoder(geocoder, "florencia", {{florenciaId, 1.0}});
   TestGeocoder(geocoder, "cuba florencia", {{florenciaId, 1.0}, {cubaId, 0.5}});
@@ -74,11 +74,9 @@ UNIT_TEST(Geocoder_Hierarchy)
 
   TEST(entries, ());
   TEST_EQUAL(entries->size(), 1, ());
-  TEST_EQUAL((*entries)[0].m_address[static_cast<size_t>(Hierarchy::EntryType::Country)],
-             Split("cuba"), ());
-  TEST_EQUAL((*entries)[0].m_address[static_cast<size_t>(Hierarchy::EntryType::Region)],
-             Split("ciego de avila"), ());
-  TEST_EQUAL((*entries)[0].m_address[static_cast<size_t>(Hierarchy::EntryType::Subregion)],
-             Split("florencia"), ());
+  TEST_EQUAL((*entries)[0].m_address[static_cast<size_t>(Type::Country)], Split("cuba"), ());
+  TEST_EQUAL((*entries)[0].m_address[static_cast<size_t>(Type::Region)], Split("ciego de avila"),
+             ());
+  TEST_EQUAL((*entries)[0].m_address[static_cast<size_t>(Type::Subregion)], Split("florencia"), ());
 }
 }  // namespace geocoder
