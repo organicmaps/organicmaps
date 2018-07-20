@@ -996,6 +996,8 @@ void Framework::ShowTrack(Track const & track)
 
 void Framework::ShowFeatureByMercator(m2::PointD const & pt)
 {
+  StopLocationFollow();
+
   if (m_drapeEngine != nullptr)
   {
     m_drapeEngine->SetModelViewCenter(pt, scales::GetUpperComfortScale(), true /* isAnim */,
