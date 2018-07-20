@@ -268,8 +268,8 @@ void MapFilePointStorageWriter::AddPoint(uint64_t id, double lat, double lon)
 IntermediateDataReader::IntermediateDataReader(shared_ptr<IPointStorageReader> nodes,
                                                feature::GenerateInfo & info) :
   m_nodes(nodes),
-  m_ways(info.GetIntermediateFileName(WAYS_FILE, ""), info.m_preloadCache),
-  m_relations(info.GetIntermediateFileName(RELATIONS_FILE, ""), info.m_preloadCache),
+  m_ways(info.GetIntermediateFileName(WAYS_FILE), info.m_preloadCache),
+  m_relations(info.GetIntermediateFileName(RELATIONS_FILE), info.m_preloadCache),
   m_nodeToRelations(info.GetIntermediateFileName(NODES_FILE, ID2REL_EXT)),
   m_wayToRelations(info.GetIntermediateFileName(WAYS_FILE, ID2REL_EXT))
 {
@@ -289,8 +289,8 @@ void IntermediateDataReader::LoadIndex()
 IntermediateDataWriter::IntermediateDataWriter(std::shared_ptr<IPointStorageWriter> nodes,
                                                feature::GenerateInfo & info):
   m_nodes(nodes),
-  m_ways(info.GetIntermediateFileName(WAYS_FILE, ""), info.m_preloadCache),
-  m_relations(info.GetIntermediateFileName(RELATIONS_FILE, ""), info.m_preloadCache),
+  m_ways(info.GetIntermediateFileName(WAYS_FILE), info.m_preloadCache),
+  m_relations(info.GetIntermediateFileName(RELATIONS_FILE), info.m_preloadCache),
   m_nodeToRelations(info.GetIntermediateFileName(NODES_FILE, ID2REL_EXT)),
   m_wayToRelations(info.GetIntermediateFileName(WAYS_FILE, ID2REL_EXT))
 {

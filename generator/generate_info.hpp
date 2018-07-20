@@ -98,7 +98,7 @@ struct GenerateInfo
     return my::JoinFoldersToPath(m_targetDir, fileName + ext);
   }
 
-  std::string GetIntermediateFileName(std::string const & fileName, char const * ext = DATA_FILE_EXTENSION) const
+  std::string GetIntermediateFileName(std::string const & fileName, char const * ext = "") const
   {
     return my::JoinFoldersToPath(m_intermediateDir, fileName + ext);
   }

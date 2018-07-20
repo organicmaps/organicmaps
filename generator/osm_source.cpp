@@ -643,7 +643,7 @@ static bool GenerateRaw(feature::GenerateInfo & info, std::shared_ptr<EmitterBas
 static cache::IntermediateDataReader LoadCache(feature::GenerateInfo & info)
 {
   auto nodes = cache::CreatePointStorageReader(info.m_nodeStorageType,
-                                               info.GetIntermediateFileName(NODES_FILE, ""));
+                                               info.GetIntermediateFileName(NODES_FILE));
   cache::IntermediateDataReader cache(nodes, info);
   cache.LoadIndex();
   return cache;
@@ -684,7 +684,7 @@ bool GenerateIntermediateData(feature::GenerateInfo & info)
   try
   {
     auto nodes = cache::CreatePointStorageWriter(info.m_nodeStorageType,
-                                                 info.GetIntermediateFileName(NODES_FILE, ""));
+                                                 info.GetIntermediateFileName(NODES_FILE));
     cache::IntermediateDataWriter cache(nodes, info);
     TownsDumper towns;
 
@@ -703,7 +703,7 @@ bool GenerateIntermediateData(feature::GenerateInfo & info)
     }
 
     cache.SaveIndex();
-    towns.Dump(info.GetIntermediateFileName(TOWNS_FILE, ""));
+    towns.Dump(info.GetIntermediateFileName(TOWNS_FILE));
     LOG(LINFO, ("Added points count =", nodes->GetNumProcessedPoints()));
   }
   catch (Writer::Exception const & e)

@@ -221,17 +221,17 @@ OsmToFeatureTranslator::OsmToFeatureTranslator(std::shared_ptr<EmitterBase> emit
   m_coastType(info.m_makeCoasts ? classif().GetCoastType() : 0),
   m_nodeRelations(m_routingTagsProcessor),
   m_wayRelations(m_routingTagsProcessor),
-  m_metalinesBuilder(info.GetIntermediateFileName(METALINES_FILENAME, ""))
+  m_metalinesBuilder(info.GetIntermediateFileName(METALINES_FILENAME))
 {
   auto const addrFilePath = info.GetAddressesFileName();
   if (!addrFilePath.empty())
     m_addrWriter.reset(new FileWriter(addrFilePath));
 
-  auto const restrictionsFilePath = info.GetIntermediateFileName(RESTRICTIONS_FILENAME, "");
+  auto const restrictionsFilePath = info.GetIntermediateFileName(RESTRICTIONS_FILENAME);
   if (!restrictionsFilePath.empty())
     m_routingTagsProcessor.m_restrictionWriter.Open(restrictionsFilePath);
 
-  auto const roadAccessFilePath = info.GetIntermediateFileName(ROAD_ACCESS_FILENAME, "");
+  auto const roadAccessFilePath = info.GetIntermediateFileName(ROAD_ACCESS_FILENAME);
   if (!roadAccessFilePath.empty())
     m_routingTagsProcessor.m_roadAccessWriter.Open(roadAccessFilePath);
 }

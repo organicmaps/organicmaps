@@ -362,7 +362,7 @@ int main(int argc, char ** argv)
       if (mapType == feature::DataHeader::country)
       {
         string const metalinesFilename =
-            genInfo.GetIntermediateFileName(METALINES_FILENAME, "" /* extension */);
+            genInfo.GetIntermediateFileName(METALINES_FILENAME);
 
         LOG(LINFO, ("Processing metalines from", metalinesFilename));
         if (!feature::WriteMetalinesSection(datFile, metalinesFilename, osmToFeatureFilename))
@@ -424,9 +424,9 @@ int main(int argc, char ** argv)
       }
 
       string const restrictionsFilename =
-          genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME, "" /* extension */);
+          genInfo.GetIntermediateFileName(RESTRICTIONS_FILENAME);
       string const roadAccessFilename =
-          genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME, "" /* extension */);
+          genInfo.GetIntermediateFileName(ROAD_ACCESS_FILENAME);
 
       routing::BuildRoadRestrictions(datFile, restrictionsFilename, osmToFeatureFilename);
       routing::BuildRoadAccessInfo(datFile, roadAccessFilename, osmToFeatureFilename);
