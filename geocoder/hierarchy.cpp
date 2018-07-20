@@ -14,30 +14,34 @@ using namespace std;
 namespace geocoder
 {
 // Hierarchy::Entry --------------------------------------------------------------------------------
-bool Hierarchy::Entry::DeserializeFromJSON(string const & jsonStr)
+bool Hierarchy::Entry::DeserializeFromJSON(string const & jsonStr, ParsingStats & stats)
 {
   try
   {
     my::Json root(jsonStr.c_str());
-    DeserializeFromJSONImpl(root.get(), jsonStr);
+    DeserializeFromJSONImpl(root.get(), jsonStr, stats);
     return true;
   }
   catch (my::Json::Exception const & e)
   {
-    LOG(LWARNING, ("Can't parse entry:", e.Msg(), jsonStr));
+    LOG(LDEBUG, ("Can't parse entry:", e.Msg(), jsonStr));
   }
   return false;
 }
 
 // todo(@m) Factor out to geojson.hpp? Add geojson to myjansson?
-void Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const & jsonStr)
+void Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const & jsonStr,
+                                               ParsingStats & stats)
 {
   if (!json_is_object(root))
+  {
+    ++stats.m_badJsons;
     MYTHROW(my::Json::Exception, ("Not a json object."));
+  }
 
   json_t * const properties = my::GetJSONObligatoryField(root, "properties");
-
   json_t * const address = my::GetJSONObligatoryField(properties, "address");
+  bool hasDuplicateAddress = false;
 
   for (size_t i = 0; i < static_cast<size_t>(Type::Count); ++i)
   {
@@ -49,44 +53,36 @@ void Hierarchy::Entry::DeserializeFromJSONImpl(json_t * const root, string const
       continue;
 
     if (!m_address[i].empty())
-      LOG(LWARNING, ("Duplicate address field", type, "when parsing", jsonStr));
+    {
+      LOG(LDEBUG, ("Duplicate address field", type, "when parsing", jsonStr));
+      hasDuplicateAddress = true;
+    }
     search::NormalizeAndTokenizeString(levelValue, m_address[i]);
 
     if (!m_address[i].empty())
       m_type = static_cast<Type>(i);
   }
 
-  SetName(properties, jsonStr);
+  m_nameTokens.clear();
+  FromJSONObjectOptionalField(properties, "name", m_name);
+  search::NormalizeAndTokenizeString(m_name, m_nameTokens);
+
+  if (m_name.empty())
+    ++stats.m_emptyNames;
+
+  if (hasDuplicateAddress)
+    ++stats.m_duplicateAddresses;
 
   if (m_type == Type::Count)
   {
-    LOG(LWARNING, ("No address in an hierarchy entry:", jsonStr));
+    LOG(LDEBUG, ("No address in an hierarchy entry:", jsonStr));
+    ++stats.m_emptyAddresses;
   }
-  else
+  else if (m_nameTokens != m_address[static_cast<size_t>(m_type)])
   {
-    if (m_nameTokens != m_address[static_cast<size_t>(m_type)])
-    {
-      LOG(LWARNING, ("Hierarchy entry name is not the most detailed field in its address. Name:",
-                     m_name, "Name tokens:", m_nameTokens, "Address:", m_address));
-    }
+    ++stats.m_mismatchedNames;
+    LOG(LDEBUG, ("Hierarchy entry name is not the most detailed field in its address:", jsonStr));
   }
-}
-
-void Hierarchy::Entry::SetName(json_t * const properties, string const & jsonStr)
-{
-  m_nameTokens.clear();
-  FromJSONObjectOptionalField(properties, "name", m_name);
-  if (!m_name.empty())
-  {
-    search::NormalizeAndTokenizeString(m_name, m_nameTokens);
-    return;
-  }
-
-  LOG(LWARNING, ("Hierarchy entry has no name. Trying to set name from address.", jsonStr));
-  if (m_type != Type::Count)
-    m_nameTokens = m_address[static_cast<size_t>(m_type)];
-  if (m_name.empty())
-    LOG(LWARNING, ("Hierarchy entry has no name and no address:", jsonStr));
 }
 
 // Hierarchy ---------------------------------------------------------------------------------------
@@ -94,6 +90,7 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
 {
   ifstream ifs(pathToJsonHierarchy);
   string line;
+  ParsingStats stats;
 
   while (getline(ifs, line))
   {
@@ -105,6 +102,7 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
     if (i == string::npos || !strings::to_any(line.substr(0, i), encodedId))
     {
       LOG(LWARNING, ("Cannot read osm id. Line:", line));
+      ++stats.m_badOsmIds;
       continue;
     }
     line = line.substr(i + 1);
@@ -113,13 +111,27 @@ Hierarchy::Hierarchy(string const & pathToJsonHierarchy)
     // todo(@m) We should really write uints as uints.
     entry.m_osmId = osm::Id(static_cast<uint64_t>(encodedId));
 
-    if (!entry.DeserializeFromJSON(line))
+    if (!entry.DeserializeFromJSON(line, stats))
       continue;
 
-    m_entries[entry.m_nameTokens].emplace_back(entry);
+    // The entry is indexed only by its address.
+    // todo(@m) Index it by name too.
+    if (entry.m_type != Type::Count)
+    {
+      size_t const t = static_cast<size_t>(entry.m_type);
+      m_entries[entry.m_address[t]].emplace_back(entry);
+    }
   }
 
-  LOG(LINFO, ("Finished reading the hierarchy"));
+  LOG(LINFO, ("Finished reading the hierarchy. Stats:"));
+  LOG(LINFO, ("Corrupted json lines:", stats.m_badJsons));
+  LOG(LINFO, ("Unreadable osm::Ids:", stats.m_badOsmIds));
+  LOG(LINFO, ("Entries with duplicate address parts:", stats.m_duplicateAddresses));
+  LOG(LINFO, ("Entries without address:", stats.m_emptyAddresses));
+  LOG(LINFO, ("Entries without names:", stats.m_emptyNames));
+  LOG(LINFO,
+      ("Entries whose names do not match their most specific addresses:", stats.m_mismatchedNames));
+  LOG(LINFO, ("(End of stats.)"));
 }
 
 vector<Hierarchy::Entry> const * const Hierarchy::GetEntries(

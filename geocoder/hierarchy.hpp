@@ -7,6 +7,7 @@
 
 #include <array>
 #include <cstddef>
+#include <cstdint>
 #include <map>
 #include <string>
 #include <utility>
@@ -19,18 +20,39 @@ namespace geocoder
 class Hierarchy
 {
 public:
+  struct ParsingStats
+  {
+    // Number of corrupted json lines.
+    uint64_t m_badJsons = 0;
+
+    // Number of entries with unreadable osm::Ids.
+    uint64_t m_badOsmIds = 0;
+
+    // Number of entries with duplicate subfields in the address field.
+    uint64_t m_duplicateAddresses = 0;
+
+    // Number of entries whose address field either does
+    // not exist or consists of empty lines.
+    uint64_t m_emptyAddresses = 0;
+
+    // Number of entries without the name field or with an empty one.
+    uint64_t m_emptyNames = 0;
+
+    // Number of entries whose names do not match the most
+    // specific parts of their addresses.
+    // This is expected from POIs but not from regions or streets.
+    uint64_t m_mismatchedNames = 0;
+  };
+
   // A single entry in the hierarchy directed acyclic graph.
   // Currently, this is more or less the "properties"-"address"
   // part of the geojson entry.
   struct Entry
   {
-    bool DeserializeFromJSON(std::string const & jsonStr);
+    bool DeserializeFromJSON(std::string const & jsonStr, ParsingStats & stats);
 
-    void DeserializeFromJSONImpl(json_t * const root, std::string const & jsonStr);
-
-    // Tries to set |m_name| and |m_nameTokens| from
-    // the "name" and "address" fields in the json description.
-    void SetName(json_t * const properties, std::string const & jsonStr);
+    void DeserializeFromJSONImpl(json_t * const root, std::string const & jsonStr,
+                                 ParsingStats & stats);
 
     osm::Id m_osmId = osm::Id(osm::Id::kInvalid);
 

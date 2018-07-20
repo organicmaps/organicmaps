@@ -58,7 +58,7 @@ UNIT_TEST(Geocoder_Smoke)
   Geocoder geocoder(regionsJsonFile.GetFullPath());
 
   osm::Id const florenciaId(0xc00000000059d6b5);
-  osm::Id const cubaId(c00000000004b279);
+  osm::Id const cubaId(0xc00000000004b279);
 
   TestGeocoder(geocoder, "florencia", {{florenciaId, 1.0}});
   TestGeocoder(geocoder, "cuba florencia", {{florenciaId, 1.0}, {cubaId, 0.5}});
