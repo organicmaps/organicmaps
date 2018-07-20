@@ -5,6 +5,7 @@ include_directories(${OMIM_ROOT}/3party/gflags/src)
 set(
   SRC
   cmd_cpp_track.cpp
+  cmd_gpx.cpp
   cmd_match.cpp
   cmd_table.cpp
   cmd_track.cpp
