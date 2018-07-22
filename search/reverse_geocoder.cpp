@@ -26,8 +26,8 @@ size_t constexpr kMaxNumTriesToApproxAddress = 10;
 
 ReverseGeocoder::ReverseGeocoder(DataSource const & dataSource) : m_dataSource(dataSource) {}
 
-void ReverseGeocoder::GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD const & center,
-                                       vector<Street> & streets) const
+void ReverseGeocoder::GetNearbyStreets(search::MwmContext & context, m2::PointD const & center,
+                                       vector<Street> & streets)
 {
   m2::RectD const rect = GetLookupRect(center, kLookupRadiusM);
 
@@ -48,11 +48,18 @@ void ReverseGeocoder::GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD cons
     streets.emplace_back(ft.GetID(), feature::GetMinDistanceMeters(ft, center), name);
   };
 
+  context.ForEachFeature(rect, addStreet);
+  sort(streets.begin(), streets.end(), my::LessBy(&Street::m_distanceMeters));
+}
+
+void ReverseGeocoder::GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD const & center,
+                      vector<Street> & streets) const
+{
   MwmSet::MwmHandle mwmHandle = m_dataSource.GetMwmHandleById(id);
   if (mwmHandle.IsAlive())
   {
-    search::MwmContext(move(mwmHandle)).ForEachFeature(rect, addStreet);
-    sort(streets.begin(), streets.end(), my::LessBy(&Street::m_distanceMeters));
+    search::MwmContext context(move(mwmHandle));
+    GetNearbyStreets(context, center, streets);
   }
 }
 

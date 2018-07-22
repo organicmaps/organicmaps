@@ -1,6 +1,7 @@
 #include "search_index_builder.hpp"
 
 #include "search/common.hpp"
+#include "search/mwm_context.hpp"
 #include "search/reverse_geocoder.hpp"
 #include "search/search_index_values.hpp"
 #include "search/search_trie.hpp"
@@ -319,54 +320,105 @@ void AddFeatureNameIndexPairs(FeaturesVectorTest const & features,
 
 void BuildAddressTable(FilesContainerR & container, Writer & writer)
 {
-  ReaderSource<ModelReaderPtr> src = container.GetReader(SEARCH_TOKENS_FILE_TAG);
+  // Read all street names to memory.
+  ReaderSource<ModelReaderPtr> src(container.GetReader(SEARCH_TOKENS_FILE_TAG));
+  vector<feature::AddressData> addrs;
+  {
+    while (src.Size() > 0)
+    {
+      addrs.push_back({});
+      addrs.back().Deserialize(src);
+    }
+  }
+  uint32_t const featuresCount = static_cast<uint32_t>(addrs.size());
+
+  // Initialize temporary source for the current mwm file.
+  FrozenDataSource dataSource;
+  auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(container.GetFileName()));
+  ASSERT_EQUAL(res.second, MwmSet::RegResult::Success, ());
+
+  uint32_t const threadsCount = 8;
+  vector<unique_ptr<search::MwmContext>> contexts(threadsCount);
+
   uint32_t address = 0, missing = 0;
   map<size_t, size_t> bounds;
 
-  FrozenDataSource dataSource;
-  /// @ todo Make some better solution, or legalize MakeTemporary.
-  auto const res = dataSource.RegisterMap(platform::LocalCountryFile::MakeTemporary(container.GetFileName()));
-  ASSERT_EQUAL(res.second, MwmSet::RegResult::Success, ());
-  search::ReverseGeocoder rgc(dataSource);
+  uint32_t const kEmptyResult = uint32_t(-1);
+  vector<uint32_t> results(featuresCount, kEmptyResult);
 
+  mutex resMutex;
+
+  // Thread working function.
+  auto const fn = [&](uint32_t threadIdx)
   {
-    FixedBitsDDVector<3, FileReader>::Builder<Writer> building2Street(writer);
+    uint32_t const count = (featuresCount + threadsCount - 1) / threadsCount;
+    uint32_t const beg = count * threadIdx;
+    uint32_t const end = std::min(beg + count, featuresCount);
 
-    FeaturesVectorTest features(container);
-    for (uint32_t index = 0; src.Size() > 0; ++index)
+    for (uint32_t i = beg; i < end; ++i)
     {
-      feature::AddressData data;
-      data.Deserialize(src);
-
       size_t streetIndex = 0;
       bool streetMatched = false;
-      strings::UniString const street = search::GetStreetNameAsKey(data.Get(feature::AddressData::STREET));
-      if (!street.empty())
+      strings::UniString const street = search::GetStreetNameAsKey(addrs[i].Get(feature::AddressData::STREET));
+
+      bool const hasStreet = !street.empty();
+      if (hasStreet)
       {
         FeatureType ft;
-        features.GetVector().GetByIndex(index, ft);
-        ft.SetID({res.first, index});
+        VERIFY(contexts[threadIdx]->GetFeature(i, ft), ());
 
         using TStreet = search::ReverseGeocoder::Street;
         vector<TStreet> streets;
-        rgc.GetNearbyStreets(ft, streets);
+        search::ReverseGeocoder::GetNearbyStreets(*(contexts[threadIdx]), feature::GetCenter(ft), streets);
 
-        streetIndex = rgc.GetMatchedStreetIndex(street, streets);
+        streetIndex = search::ReverseGeocoder::GetMatchedStreetIndex(street, streets);
         if (streetIndex < streets.size())
-        {
-          ++bounds[streetIndex];
           streetMatched = true;
-        }
-        else
-        {
-          ++missing;
-        }
+      }
+
+      lock_guard<mutex> guard(resMutex);
+
+      if (streetMatched)
+      {
+        results[i] = static_cast<uint32_t>(streetIndex);
+        ++bounds[streetIndex];
         ++address;
       }
-      if (streetMatched)
-        building2Street.PushBack(base::checked_cast<decltype(building2Street)::ValueType>(streetIndex));
       else
+      {
+        if (hasStreet)
+        {
+          ++missing;
+          ++address;
+        }
+      }
+    }
+
+    LOG(LINFO, ("Thread finished, idx = ", threadIdx));
+  };
+
+  // Prepare threads and mwm contexts for each thread.
+  vector<thread> threads;
+  for (size_t i = 0; i < threadsCount; ++i)
+  {
+    auto handle = dataSource.GetMwmHandleById(res.first);
+    contexts[i] = make_unique<search::MwmContext>(std::move(handle));
+    threads.emplace_back(fn, i);
+  }
+
+  // Wait for thread's finish.
+  for (auto & t : threads)
+    t.join();
+
+  // Flush results to disk.
+  {
+    FixedBitsDDVector<3, FileReader>::Builder<Writer> building2Street(writer);
+    for (auto i : results)
+    {
+      if (i == kEmptyResult)
         building2Street.PushBackUndefined();
+      else
+        building2Street.PushBack(i);
     }
 
     LOG(LINFO, ("Address: Building -> Street (opt, all)", building2Street.GetCount()));
