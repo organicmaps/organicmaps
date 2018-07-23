@@ -260,7 +260,7 @@ public class BookmarkCategory implements Parcelable
     sb.append(", mDescription='").append(mDescription).append('\'');
     sb.append(", mTracksCount=").append(mTracksCount);
     sb.append(", mBookmarksCount=").append(mBookmarksCount);
-    sb.append(", mTypeIndex=").append(mTypeIndex);
+    sb.append(", mType=").append(Type.values()[mTypeIndex]);
     sb.append(", mIsVisible=").append(mIsVisible);
     sb.append('}');
     return sb.toString();

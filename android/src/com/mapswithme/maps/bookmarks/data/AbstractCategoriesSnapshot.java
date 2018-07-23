@@ -42,11 +42,14 @@ public abstract class AbstractCategoriesSnapshot
 
     public int indexOfOrThrow(@NonNull BookmarkCategory category)
     {
-      int indexOf = getItems().indexOf(category);
+      List<BookmarkCategory> items = getItems();
+      int indexOf = items.indexOf(category);
       if (indexOf < 0)
       {
         throw new UnsupportedOperationException(new StringBuilder("This category absent in current snapshot ")
                                                     .append(category)
+                                                    .append("all items : ")
+                                                    .append(Arrays.toString(items.toArray()))
                                                     .toString());
       }
       return indexOf;

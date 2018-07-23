@@ -1,6 +1,5 @@
 package com.mapswithme.maps.bookmarks;
 
-import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -13,8 +12,6 @@ import com.mapswithme.maps.R;
 import com.mapswithme.maps.bookmarks.data.BookmarkCategory;
 import com.mapswithme.maps.bookmarks.data.BookmarkManager;
 import com.mapswithme.maps.content.DataSource;
-import com.mapswithme.maps.location.LocationHelper;
-import com.mapswithme.maps.location.LocationListener;
 import com.mapswithme.maps.widget.recycler.RecyclerClickListener;
 import com.mapswithme.maps.widget.recycler.RecyclerLongClickListener;
 
@@ -40,15 +37,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   static final int TYPE_SECTION = 2;
   static final int TYPE_DESC = 3;
 
-  private final LocationListener mLocationListener = new LocationListener.Simple()
-  {
-    @Override
-    public void onLocationUpdated(Location location)
-    {
-      notifyDataSetChanged();
-    }
-  };
-
   @Nullable
   private RecyclerLongClickListener mLongClickListener;
   @Nullable
@@ -67,16 +55,6 @@ public class BookmarkListAdapter extends RecyclerView.Adapter<Holders.BaseBookma
   void setOnLongClickListener(@Nullable RecyclerLongClickListener listener)
   {
     mLongClickListener = listener;
-  }
-
-  public void startLocationUpdate()
-  {
-    LocationHelper.INSTANCE.addListener(mLocationListener, true);
-  }
-
-  public void stopLocationUpdate()
-  {
-    LocationHelper.INSTANCE.removeListener(mLocationListener);
   }
 
   @Override

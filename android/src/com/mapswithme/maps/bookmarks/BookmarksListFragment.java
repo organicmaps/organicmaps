@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.crashlytics.android.Crashlytics;
 import com.mapswithme.maps.MwmActivity;
 import com.mapswithme.maps.R;
 import com.mapswithme.maps.base.BaseMwmRecyclerFragment;
@@ -53,6 +54,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   public void onCreate(@Nullable Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
+    Crashlytics.log("onCreate");
     BookmarkCategory category = getCategoryOrThrow();
     mCategoryDataSource = new CategoryDataSource(category);
   }
@@ -86,6 +88,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
   {
     super.onViewCreated(view, savedInstanceState);
+    Crashlytics.log("onViewCreated");
     configureAdapter();
     setHasOptionsMenu(true);
     boolean isEmpty = getAdapter().getItemCount() == 0;
@@ -108,6 +111,7 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   public void onStart()
   {
     super.onStart();
+    Crashlytics.log("onStart");
     BookmarkManager.INSTANCE.addSharingListener(this);
   }
 
@@ -115,9 +119,9 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   public void onResume()
   {
     super.onResume();
+    Crashlytics.log("onResume");
     BookmarkListAdapter adapter = getAdapter();
 
-    adapter.startLocationUpdate();
     adapter.notifyDataSetChanged();
   }
 
@@ -125,15 +129,14 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   public void onPause()
   {
     super.onPause();
-
-    BookmarkListAdapter adapter = getAdapter();
-    adapter.stopLocationUpdate();
+    Crashlytics.log("onPause");
   }
 
   @Override
   public void onStop()
   {
     super.onStop();
+    Crashlytics.log("onStop");
     BookmarkManager.INSTANCE.removeSharingListener(this);
   }
 
@@ -141,7 +144,6 @@ public class BookmarksListFragment extends BaseMwmRecyclerFragment<BookmarkListA
   {
     BookmarkListAdapter adapter = getAdapter();
     adapter.registerAdapterDataObserver(mCategoryDataSource);
-    adapter.startLocationUpdate();
     adapter.setOnClickListener(this);
     adapter.setOnLongClickListener(isCatalogCategory() ? null : this);
   }
