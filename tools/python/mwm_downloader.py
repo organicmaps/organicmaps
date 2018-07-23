@@ -1,63 +1,95 @@
 #!/usr/bin/env python3
 
 import argparse
+import itertools
+import json
+import logging
 import os
 import re
-import time
+import random
+import socket
 import sys
+import time
 import urllib.request
 import urllib.parse
 import urllib.error
-import logging
+
 from multiprocessing.pool import ThreadPool
+from pathlib import Path
 
 
-DIRECT_MAP_URL = 'http://direct.mapswithme.com/direct/'
-ROOT = os.path.dirname(os.path.realpath(__file__))
-DEFAULT_DOWNLOAD_DIRECTORY = os.path.join(os.path.dirname(os.path.dirname(ROOT)), 'data')
-MAP_REVISION_REGEXP = re.compile(r'(\d{6})')
+ROOT = Path(__file__).parent.absolute()
+OMIM_ROOT = ROOT / '..' / '..'
+DEFAULT_DOWNLOAD_DIRECTORY = OMIM_ROOT / 'data'
+COUNTRIES_TXT = OMIM_ROOT / 'data' / 'countries.txt'
+TIMEOUT = 3
+
+URL_PATTERN = 'http://{prefix}.mapswithme.com/direct/{version}/{name}.mwm'
+MAP_SERVERS = ('maps-dl-ru1', 'maps-dl-ru2', 'maps-dl-ru3', 'maps-dl-ams1',
+               'maps-dl-eu2', 'maps-dl-us1')
 MWM_NAME_REGEXP = re.compile(r'"(\S+\.mwm)"')
 
 logger = logging.getLogger(__name__)
 
 
-def parse_html_by_regexp(url, regexp):
-    def parse_line(line):
-        return regexp.search(line.decode('utf-8'))
-
-    with urllib.request.urlopen(url) as http_response_lines:
-        filtered_lines = filter(None, map(parse_line, http_response_lines))
-        for line in filtered_lines:
-            yield line.group(1)
-
-
-def get_mwm_versions():
-    return map(int, parse_html_by_regexp(DIRECT_MAP_URL, MAP_REVISION_REGEXP))
-
-
-def get_mwm_names(version_num):
-    version_url = '{base}{version}'.format(base=DIRECT_MAP_URL, version=version_num)
-    return map(urllib.parse.unquote, parse_html_by_regexp(version_url, MWM_NAME_REGEXP))
+def country_names_generator(country_obj):
+    """
+    See more info about 'countries.txt' file format in 'omim/storage/country.cpp'.
+    """
+    if 'g' in country_obj:
+        yield from country_names_generator(country_obj['g'])
+    elif 's' in country_obj:
+        yield country_obj['id']
+    elif type(country_obj) is list:
+        for country in country_obj:
+            yield from country_names_generator(country)
 
 
-def download_file(arg_tuple, attempts=3):
-    url, filename = arg_tuple
+def is_redirected(url):
+    response = urllib.request.urlopen(url)
+    return response.url != url
+
+
+def download_file(url, filename, network_attempts=3):
     try:
-        urllib.request.urlretrieve(url, filename=filename)
+        if is_redirected(url):
+            logging.error('Maps server not found in \'{url}\''.format(url=url))
+            return False
+
+        with urllib.request.urlopen(url, timeout=TIMEOUT) as response:
+            content = response.read()
+            with open(filename, 'wb') as f:
+                f.write(content)
+
     except urllib.error.HTTPError as err:
         if 400 <= err.code < 500:
-            logger.error('URL \'{url}\' is not found'.format(url=url), exc_info=True)
+            logger.error('URL \'{url}\' is not found'.format(url=url))
             return False
-    except PermissionError:
-        logger.error('Can\'t write file {filename}: permission denied'.format(filename=filename), exc_info=True)
+    except (PermissionError, FileNotFoundError) as e:
+        logger.error('Can\'t write file {filename}: {error}'.format(filename=filename, error=e))
         return False
-    except urllib.error.URLError:
-        if attempts:
-            time.sleep(3)
-            return download_file(arg_tuple, attempts - 1)
-        logger.error('File {filename} is not loaded'.format(filename=filename), exc_info=True)
+    except (urllib.error.URLError, socket.timeout):
+        if network_attempts > 0:
+            time.sleep(TIMEOUT)
+            return download_file(url, filename, network_attempts - 1)
+        logger.error('File {filename} is not loaded'.format(filename=filename))
         return False
+
     return True
+
+
+def download_map(arg_tuple):
+    version, mwm_name, filename = arg_tuple
+    mwm_name = urllib.parse.quote(mwm_name)
+    random_prefix_generator = (random.choice(MAP_SERVERS) for _ in range(0, len(MAP_SERVERS)))
+
+    for server_prefix in random_prefix_generator:
+        url = URL_PATTERN.format(prefix=server_prefix, version=version, name=mwm_name)
+        if download_file(url, filename):
+            return True
+        else:
+            logging.error('Failed to load mwm \'{}\' from server \'{}\''.format(mwm_name, server_prefix))
+    return False
 
 
 def progress_bar(total, progress):
@@ -83,46 +115,47 @@ def progress_bar(total, progress):
 
 
 def download_mwm_list(version=None, threads=8, folder=None, mwm_prefix_list=None, quiet=True):
-    versions = list(get_mwm_versions())
+    try:
+        countries = json.load(open(str(COUNTRIES_TXT), 'r'))
+    except (OSError, json.decoder.JSONDecodeError) as e:
+        logging.error('File \'omim/data/countries.txt\' is corrupted.', exc_info=True)
+        exit(1)
 
-    if version is None:
-        # Get latest version by default
-        version = max(versions)
-    elif version not in versions:
-        logger.error('Maps with version {version} is not found in {url}'.format(version=version, url=DIRECT_MAP_URL))
-        return
+    mwm_names = country_names_generator(countries)
 
-    mwm_names = get_mwm_names(version)
     if mwm_prefix_list is not None:
         mwm_regexp = re.compile('|'.join(mwm_prefix_list))
         mwm_to_download = filter(lambda m: mwm_regexp.match(m), mwm_names)
     else:
         mwm_to_download = mwm_names
 
+    if version is None:
+        version = countries['v']
+
     if folder is None:
         folder = '{base}/{version}'.format(base=DEFAULT_DOWNLOAD_DIRECTORY, version=version)
 
     os.makedirs(folder, exist_ok=True)
 
-    def generate_args(mwm_name):
-        unescaped_name = urllib.parse.quote(mwm_name)
-        url = '{base}{version}/{mwm_name}'.format(base=DIRECT_MAP_URL, version=version, mwm_name=unescaped_name)
-        filename = '{folder}/{mwm_name}'.format(folder=folder, mwm_name=mwm_name)
-        return url, filename
+    def filename(mwm_name):
+        return '{folder}/{mwm_name}.mwm'.format(folder=folder, mwm_name=mwm_name)
 
-    mwm_args = list(map(generate_args, mwm_to_download))
+    mwm_args = [(version, mwm_name, filename(mwm_name)) for mwm_name in mwm_to_download]
 
     # No sense to show progress bar for one map
     if len(mwm_args) < 2:
         quiet = True
 
     pool = ThreadPool(processes=threads)
-    for num, _ in enumerate(pool.imap_unordered(download_file, mwm_args)):
+    for num, _ in enumerate(pool.imap_unordered(download_map, mwm_args)):
         if not quiet:
             progress_bar(len(mwm_args), num + 1)
 
 
 if __name__ == '__main__':
+    if sys.version_info < (3, 4):
+        raise RuntimeError('This script requires Python 3.4+')
+
     parser = argparse.ArgumentParser(description='Script to download \'.mwm\' files in multiple threads')
     parser.add_argument('-v', '--version', help='Map version number e.g. 180126', type=int, default=None)
     parser.add_argument('-t', '--threads', help='Threads count', type=int, default=8)
