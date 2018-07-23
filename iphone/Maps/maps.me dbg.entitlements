@@ -4,5 +4,10 @@
 <dict>
 	<key>aps-environment</key>
 	<string>development</string>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:mapsme.onelink.com</string>
+		<string>applinks:dlinks.maps.me</string>
+	</array>
 </dict>
 </plist>
