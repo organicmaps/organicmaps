@@ -6,7 +6,7 @@
 	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:mapsme.onelink.com</string>
+		<string>applinks:mapsme.onelink.me</string>
 		<string>applinks:dlinks.maps.me</string>
 	</array>
 </dict>
