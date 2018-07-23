@@ -18,15 +18,14 @@ omim_add_executable(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   map
-  ugc
-  kml
+  search
+  storage
   editor
   indexer
   geometry
   platform
   coding
   base
-  agg
   gflags
   icu
   jansson

@@ -185,8 +185,8 @@ unique_ptr<storage::CountryInfoGetter> CreateCountryInfoGetter()
 struct Context
 {
   Context() : m_engine(m_dataSource, CreateCountryInfoGetter(), search::Engine::Params{}) {}
-
-  DataSource m_dataSource;
+  // todo(@pimenov) Choose right type for 'm_dataSource'.
+  FrozenDataSource m_dataSource;
   search::tests_support::TestSearchEngine m_engine;
 };
 

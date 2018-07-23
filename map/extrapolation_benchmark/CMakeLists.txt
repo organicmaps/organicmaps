@@ -15,11 +15,22 @@ omim_add_executable(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   map
+  search
+  editor
+  indexer
+  storage
   routing
   geometry
   platform
+  jansson
   coding
   base
+  pugixml
+  opening_hours
+  oauthcpp
+  protobuf
+  icu
+  succinct
   stats_client
   gflags
   ${LIBZ}

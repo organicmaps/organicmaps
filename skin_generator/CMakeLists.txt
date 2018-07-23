@@ -26,7 +26,7 @@ omim_link_libraries(
   base
   freetype
   gflags
-  ${Boost_LIBRARIES}
+  Boost::boost
   ${Qt5Gui_LIBRARIES}
   ${Qt5Widgets_LIBRARIES}
   ${Qt5Xml_LIBRARIES}

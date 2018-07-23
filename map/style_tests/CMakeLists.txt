@@ -20,14 +20,7 @@ omim_add_test(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   expat
-  map
-  traffic
-  kml
   indexer
-  pugixml
-  opening_hours
-  editor
-  oauthcpp
   platform
   jansson
   geometry
@@ -35,7 +28,6 @@ omim_link_libraries(
   base
   protobuf
   icu
-  agg
   stats_client
   ${LIBZ}
 )

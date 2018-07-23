@@ -15,28 +15,19 @@ omim_add_executable(${PROJECT_NAME} ${SRC})
 omim_link_libraries(
   ${PROJECT_NAME}
   generator
-  map
   routing
   routing_common
-  traffic
-  kml
   indexer
-  editor
   platform
   geometry
   coding
   base
-  agg
   gflags
   icu
   jansson
   minizip
-  oauthcpp
-  opening_hours
   protobuf
-  pugixml
   stats_client
-  succinct
   ${LIBZ}
 )
 
