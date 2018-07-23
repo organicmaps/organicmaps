@@ -50,9 +50,8 @@ bool FindLangIndex(trie::Iterator<ValueList> const & trieRoot, uint8_t lang, uin
 }  // namespace
 
 template <typename ValueList, typename DFA, typename ToDo>
-bool MatchInTrie(trie::Iterator<ValueList> const & trieRoot,
-                 strings::UniChar const * rootPrefix, size_t rootPrefixSize, DFA const & dfa,
-                 ToDo && toDo)
+bool MatchInTrie(trie::Iterator<ValueList> const & trieRoot, strings::UniChar const * rootPrefix,
+                 size_t rootPrefixSize, DFA const & dfa, ToDo && toDo)
 {
   using TrieDFAIt = std::shared_ptr<trie::Iterator<ValueList>>;
   using DFAIt = typename DFA::Iterator;
@@ -109,8 +108,10 @@ class OffsetIntersector
   std::unique_ptr<Set> m_set;
 
 public:
-  explicit OffsetIntersector(Filter const &filter)
-      : m_filter(filter), m_set(my::make_unique<Set>()) {}
+  explicit OffsetIntersector(Filter const & filter)
+    : m_filter(filter), m_set(my::make_unique<Set>())
+  {
+  }
 
   void operator()(Value const & v)
   {
@@ -200,7 +201,7 @@ struct SearchTrieRequest
     m_langs.clear();
     for (auto const lang : langs)
     {
-      if (lang >= 0 && lang <= numeric_limits<int8_t>::max())
+      if (lang >= 0 && lang <= std::numeric_limits<int8_t>::max())
         m_langs.insert(static_cast<int8_t>(lang));
     }
   }

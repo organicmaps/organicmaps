@@ -34,8 +34,10 @@
 #include "base/timer.hpp"
 
 #include "std/algorithm.hpp"
+#include "std/array.hpp"
 #include "std/chrono.hpp"
 #include "std/future.hpp"
+#include "std/sstream.hpp"
 #include "std/target_os.hpp"
 #include "std/tuple.hpp"
 #include "std/unordered_map.hpp"
@@ -69,8 +71,7 @@ constexpr char const * kMatchedFeatureIsEmpty = "Matched feature has no tags";
 struct XmlSection
 {
   XmlSection(FeatureStatus status, std::string const & sectionName)
-    : m_status(status)
-    , m_sectionName(sectionName)
+    : m_status(status), m_sectionName(sectionName)
   {
   }
 
@@ -78,13 +79,10 @@ struct XmlSection
   std::string m_sectionName;
 };
 
-array<XmlSection, 4> const kXmlSections =
-{{
-   {FeatureStatus::Deleted, kDeleteSection},
-   {FeatureStatus::Modified, kModifySection},
-   {FeatureStatus::Obsolete, kObsoleteSection},
-   {FeatureStatus::Created, kCreateSection}
-}};
+array<XmlSection, 4> const kXmlSections = {{{FeatureStatus::Deleted, kDeleteSection},
+                                            {FeatureStatus::Modified, kModifySection},
+                                            {FeatureStatus::Obsolete, kObsoleteSection},
+                                            {FeatureStatus::Created, kCreateSection}}};
 
 struct LogHelper
 {
@@ -117,9 +115,8 @@ struct LogHelper
 
 bool NeedsUpload(string const & uploadStatus)
 {
-  return uploadStatus != kUploaded &&
-      uploadStatus != kDeletedFromOSMServer &&
-      uploadStatus != kMatchedFeatureIsEmpty;
+  return uploadStatus != kUploaded && uploadStatus != kDeletedFromOSMServer &&
+         uploadStatus != kMatchedFeatureIsEmpty;
 }
 
 /// Compares editable fields connected with feature ignoring street.
@@ -135,7 +132,7 @@ bool AreFeaturesEqualButStreet(FeatureType const & a, FeatureType const & b)
     return false;
 
   if (!a.GetMetadata().Equals(b.GetMetadata()))
-      return false;
+    return false;
 
   if (a.GetNames() != b.GetNames())
     return false;
@@ -172,7 +169,7 @@ bool IsObsolete(editor::XMLFeature const & xml, FeatureID const & fid)
   return uploadTime != my::INVALID_TIME_STAMP &&
          my::TimeTToSecondsSinceEpoch(uploadTime) < GetMwmCreationTimeByMwmId(fid.m_mwmId);
 }
-} // namespace
+}  // namespace
 
 namespace osm
 {
@@ -190,10 +187,7 @@ Editor & Editor::Instance()
   return instance;
 }
 
-void Editor::SetDefaultStorage()
-{
-  m_storage = make_unique<editor::LocalStorage>();
-}
+void Editor::SetDefaultStorage() { m_storage = make_unique<editor::LocalStorage>(); }
 
 void Editor::LoadEdits()
 {
@@ -232,7 +226,7 @@ void Editor::LoadEdits()
     needRewriteEdits = needRewriteEdits || needMigrateEdits;
 
     LoadMwmEdits(mwm, mwmId, needMigrateEdits);
-  } // for mwms
+  }  // for mwms
 
   // Save edits with new indexes and mwm version to avoid another migration on next startup.
   if (needRewriteEdits)
@@ -267,8 +261,10 @@ bool Editor::Save() const
     for (auto const & index : mwm.second)
     {
       FeatureTypeInfo const & fti = index.second;
-      // TODO: Do we really need to serialize deleted features in full details? Looks like mwm ID and meta fields are enough.
-      XMLFeature xf = editor::ToXML(fti.m_feature, true /*type serializing helps during migration*/);
+      // TODO: Do we really need to serialize deleted features in full details? Looks like mwm ID
+      // and meta fields are enough.
+      XMLFeature xf =
+          editor::ToXML(fti.m_feature, true /*type serializing helps during migration*/);
       xf.SetMWMFeatureIndex(index.first);
       if (!fti.m_street.empty())
         xf.SetTagValue(kAddrStreetTag, fti.m_street);
@@ -391,7 +387,8 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
   FeatureTypeInfo fti;
 
   auto const featureStatus = GetFeatureStatus(fid.m_mwmId, fid.m_index);
-  ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Obsolete, ("Obsolete feature cannot be modified."));
+  ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Obsolete,
+                   ("Obsolete feature cannot be modified."));
   ASSERT_NOT_EQUAL(featureStatus, FeatureStatus::Deleted, ("Unexpected feature status."));
 
   bool const wasCreatedByUser = IsCreatedFeature(fid);
@@ -421,8 +418,8 @@ Editor::SaveResult Editor::SaveEditedFeature(EditableMapObject const & emo)
     }
 
     fti.m_feature = featureStatus == FeatureStatus::Untouched
-        ? *originalFeaturePtr
-        : m_features[fid.m_mwmId][fid.m_index].m_feature;
+                        ? *originalFeaturePtr
+                        : m_features[fid.m_mwmId][fid.m_index].m_feature;
     fti.m_feature.ReplaceBy(emo);
     bool const sameAsInMWM =
         AreFeaturesEqualButStreet(fti.m_feature, *originalFeaturePtr) &&
@@ -530,7 +527,8 @@ bool Editor::GetEditedFeatureStreet(FeatureID const & fid, string & outFeatureSt
   return true;
 }
 
-vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId, FeatureStatus status) const
+vector<uint32_t> Editor::GetFeaturesByStatus(MwmSet::MwmId const & mwmId,
+                                             FeatureStatus status) const
 {
   vector<uint32_t> features;
   auto const matchedMwm = m_features.find(mwmId);
@@ -640,10 +638,11 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
   alohalytics::LogEvent("Editor_DataSync_started");
 
   // TODO(AlexZ): features access should be synchronized.
-  auto const upload = [this](string key, string secret, ChangesetTags tags, FinishUploadCallback callBack)
-  {
-    // This lambda was designed to start after app goes into background. But for cases when user is immediately
-    // coming back to the app we work with a copy, because 'for' loops below can take a significant amount of time.
+  auto const upload = [this](string key, string secret, ChangesetTags tags,
+                             FinishUploadCallback callBack) {
+    // This lambda was designed to start after app goes into background. But for cases when user is
+    // immediately coming back to the app we work with a copy, because 'for' loops below can take a
+    // significant amount of time.
     auto features = m_features;
 
     int uploadedFeaturesCount = 0, errorsCount = 0;
@@ -664,89 +663,95 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
           switch (fti.m_status)
           {
           case FeatureStatus::Untouched: CHECK(false, ("It's impossible.")); continue;
-          case FeatureStatus::Obsolete: continue;  // Obsolete features will be deleted by OSMers.
+          case FeatureStatus::Obsolete:
+            continue;  // Obsolete features will be deleted by OSMers.
           case FeatureStatus::Created:
+          {
+            XMLFeature feature = editor::ToXML(fti.m_feature, true);
+            if (!fti.m_street.empty())
+              feature.SetTagValue(kAddrStreetTag, fti.m_street);
+            ourDebugFeatureString = DebugPrint(feature);
+
+            ASSERT_EQUAL(feature.GetType(), XMLFeature::Type::Node,
+                         ("Linear and area features creation is not supported yet."));
+            try
             {
-              XMLFeature feature = editor::ToXML(fti.m_feature, true);
-              if (!fti.m_street.empty())
-                feature.SetTagValue(kAddrStreetTag, fti.m_street);
-              ourDebugFeatureString = DebugPrint(feature);
-
-              ASSERT_EQUAL(feature.GetType(), XMLFeature::Type::Node,
-                           ("Linear and area features creation is not supported yet."));
-              try
-              {
-                XMLFeature osmFeature = changeset.GetMatchingNodeFeatureFromOSM(fti.m_feature.GetCenter());
-                // If we are here, it means that object already exists at the given point.
-                // To avoid nodes duplication, merge and apply changes to it instead of creating an new one.
-                XMLFeature const osmFeatureCopy = osmFeature;
-                osmFeature.ApplyPatch(feature);
-                // Check to avoid uploading duplicates into OSM.
-                if (osmFeature == osmFeatureCopy)
-                {
-                  LOG(LWARNING, ("Local changes are equal to OSM, feature has not been uploaded.", osmFeatureCopy));
-                  // Don't delete this local change right now for user to see it in profile.
-                  // It will be automatically deleted by migration code on the next maps update.
-                }
-                else
-                {
-                  LOG(LDEBUG, ("Create case: uploading patched feature", osmFeature));
-                  changeset.Modify(osmFeature);
-                }
-              }
-              catch (ChangesetWrapper::OsmObjectWasDeletedException const &)
-              {
-                // Object was never created by anyone else - it's safe to create it.
-                changeset.Create(feature);
-              }
-              catch (ChangesetWrapper::EmptyFeatureException const &)
-              {
-                // There is another node nearby, but it should be safe to create a new one.
-                changeset.Create(feature);
-              }
-              catch (...)
-              {
-                // Pass network or other errors to outside exception handler.
-                throw;
-              }
-            }
-            break;
-
-          case FeatureStatus::Modified:
-            {
-              // Do not serialize feature's type to avoid breaking OSM data.
-              // TODO: Implement correct types matching when we support modifying existing feature types.
-              XMLFeature feature = editor::ToXML(fti.m_feature, false);
-              if (!fti.m_street.empty())
-                feature.SetTagValue(kAddrStreetTag, fti.m_street);
-              ourDebugFeatureString = DebugPrint(feature);
-
-              auto const originalFeaturePtr = GetOriginalFeature(fti.m_feature.GetID());
-              if (!originalFeaturePtr)
-              {
-                LOG(LERROR, ("A feature with id", fti.m_feature.GetID(), "cannot be loaded."));
-                alohalytics::LogEvent("Editor_MissingFeature_Error");
-                RemoveFeatureFromStorageIfExists(fti.m_feature.GetID());
-                continue;
-              }
-
-              XMLFeature osmFeature = GetMatchingFeatureFromOSM(changeset, *originalFeaturePtr);
+              XMLFeature osmFeature =
+                  changeset.GetMatchingNodeFeatureFromOSM(fti.m_feature.GetCenter());
+              // If we are here, it means that object already exists at the given point.
+              // To avoid nodes duplication, merge and apply changes to it instead of creating an
+              // new one.
               XMLFeature const osmFeatureCopy = osmFeature;
               osmFeature.ApplyPatch(feature);
               // Check to avoid uploading duplicates into OSM.
               if (osmFeature == osmFeatureCopy)
               {
-                LOG(LWARNING, ("Local changes are equal to OSM, feature has not been uploaded.", osmFeatureCopy));
+                LOG(LWARNING, ("Local changes are equal to OSM, feature has not been uploaded.",
+                               osmFeatureCopy));
                 // Don't delete this local change right now for user to see it in profile.
                 // It will be automatically deleted by migration code on the next maps update.
               }
               else
               {
-                LOG(LDEBUG, ("Uploading patched feature", osmFeature));
+                LOG(LDEBUG, ("Create case: uploading patched feature", osmFeature));
                 changeset.Modify(osmFeature);
               }
             }
-            break;
+            catch (ChangesetWrapper::OsmObjectWasDeletedException const &)
+            {
+              // Object was never created by anyone else - it's safe to create it.
+              changeset.Create(feature);
+            }
+            catch (ChangesetWrapper::EmptyFeatureException const &)
+            {
+              // There is another node nearby, but it should be safe to create a new one.
+              changeset.Create(feature);
+            }
+            catch (...)
+            {
+              // Pass network or other errors to outside exception handler.
+              throw;
+            }
+          }
+          break;
+
+          case FeatureStatus::Modified:
+          {
+            // Do not serialize feature's type to avoid breaking OSM data.
+            // TODO: Implement correct types matching when we support modifying existing feature
+            // types.
+            XMLFeature feature = editor::ToXML(fti.m_feature, false);
+            if (!fti.m_street.empty())
+              feature.SetTagValue(kAddrStreetTag, fti.m_street);
+            ourDebugFeatureString = DebugPrint(feature);
+
+            auto const originalFeaturePtr = GetOriginalFeature(fti.m_feature.GetID());
+            if (!originalFeaturePtr)
+            {
+              LOG(LERROR, ("A feature with id", fti.m_feature.GetID(), "cannot be loaded."));
+              alohalytics::LogEvent("Editor_MissingFeature_Error");
+              RemoveFeatureFromStorageIfExists(fti.m_feature.GetID());
+              continue;
+            }
+
+            XMLFeature osmFeature = GetMatchingFeatureFromOSM(changeset, *originalFeaturePtr);
+            XMLFeature const osmFeatureCopy = osmFeature;
+            osmFeature.ApplyPatch(feature);
+            // Check to avoid uploading duplicates into OSM.
+            if (osmFeature == osmFeatureCopy)
+            {
+              LOG(LWARNING, ("Local changes are equal to OSM, feature has not been uploaded.",
+                             osmFeatureCopy));
+              // Don't delete this local change right now for user to see it in profile.
+              // It will be automatically deleted by migration code on the next maps update.
+            }
+            else
+            {
+              LOG(LDEBUG, ("Uploading patched feature", osmFeature));
+              changeset.Modify(osmFeature);
+            }
+          }
+          break;
 
           case FeatureStatus::Deleted:
             auto const originalFeaturePtr = GetOriginalFeature(fti.m_feature.GetID());
@@ -757,8 +762,7 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
               RemoveFeatureFromStorageIfExists(fti.m_feature.GetID());
               continue;
             }
-            changeset.Delete(GetMatchingFeatureFromOSM(
-                changeset, *originalFeaturePtr));
+            changeset.Delete(GetMatchingFeatureFromOSM(changeset, *originalFeaturePtr));
             break;
           }
           fti.m_uploadStatus = kUploaded;
@@ -792,20 +796,24 @@ void Editor::UploadChanges(string const & key, string const & secret, ChangesetT
         if (fti.m_uploadStatus != kUploaded)
         {
           ms::LatLon const ll = MercatorBounds::ToLatLon(feature::GetCenter(fti.m_feature));
-          alohalytics::LogEvent("Editor_DataSync_error", {{"type", fti.m_uploadStatus},
-                                {"details", fti.m_uploadError}, {"our", ourDebugFeatureString},
-                                {"mwm", fti.m_feature.GetID().GetMwmName()},
-                                {"mwm_version", strings::to_string(fti.m_feature.GetID().GetMwmVersion())}},
-                                alohalytics::Location::FromLatLon(ll.lat, ll.lon));
+          alohalytics::LogEvent(
+              "Editor_DataSync_error",
+              {{"type", fti.m_uploadStatus},
+               {"details", fti.m_uploadError},
+               {"our", ourDebugFeatureString},
+               {"mwm", fti.m_feature.GetID().GetMwmName()},
+               {"mwm_version", strings::to_string(fti.m_feature.GetID().GetMwmVersion())}},
+              alohalytics::Location::FromLatLon(ll.lat, ll.lon));
         }
         // Call Save every time we modify each feature's information.
         SaveUploadedInformation(fti);
       }
     }
 
-    alohalytics::LogEvent("Editor_DataSync_finished", {{"errors", strings::to_string(errorsCount)},
-                          {"uploaded", strings::to_string(uploadedFeaturesCount)},
-                          {"changeset", strings::to_string(changeset.GetChangesetId())}});
+    alohalytics::LogEvent("Editor_DataSync_finished",
+                          {{"errors", strings::to_string(errorsCount)},
+                           {"uploaded", strings::to_string(uploadedFeaturesCount)},
+                           {"changeset", strings::to_string(changeset.GetChangesetId())}});
     if (callBack)
     {
       UploadResult result = UploadResult::NothingToUpload;
@@ -964,8 +972,10 @@ Editor::Stats Editor::GetStats() const
       stats.m_edits.push_back(make_pair(FeatureID(id.first, index.first),
                                         fti.m_uploadStatus + " " + fti.m_uploadError));
       LOG(LDEBUG, (fti.m_uploadAttemptTimestamp == my::INVALID_TIME_STAMP
-                   ? "NOT_UPLOADED_YET" : my::TimestampToString(fti.m_uploadAttemptTimestamp), fti.m_uploadStatus,
-                   fti.m_uploadError, fti.m_feature.GetFeatureType(), feature::GetCenter(fti.m_feature)));
+                       ? "NOT_UPLOADED_YET"
+                       : my::TimestampToString(fti.m_uploadAttemptTimestamp),
+                   fti.m_uploadStatus, fti.m_uploadError, fti.m_feature.GetFeatureType(),
+                   feature::GetCenter(fti.m_feature)));
       if (fti.m_uploadStatus == kUploaded)
       {
         ++stats.m_uploadedCount;
@@ -985,7 +995,8 @@ NewFeatureCategories Editor::GetNewFeatureCategories() const
 FeatureID Editor::GenerateNewFeatureId(MwmSet::MwmId const & id) const
 {
   DECLARE_AND_CHECK_THREAD_CHECKER("GenerateNewFeatureId is single-threaded.");
-  // TODO(vng): Double-check if new feature indexes should uninterruptedly continue after existing indexes in mwm file.
+  // TODO(vng): Double-check if new feature indexes should uninterruptedly continue after existing
+  // indexes in mwm file.
   uint32_t featureIndex = feature::FakeFeatureIds::kEditorCreatedFeaturesStart;
   auto const found = m_features.find(id);
   if (found != m_features.end())
@@ -1001,9 +1012,11 @@ FeatureID Editor::GenerateNewFeatureId(MwmSet::MwmId const & id) const
   return FeatureID(id, featureIndex);
 }
 
-bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::MwmId const & id, EditableMapObject & outFeature)
+bool Editor::CreatePoint(uint32_t type, m2::PointD const & mercator, MwmSet::MwmId const & id,
+                         EditableMapObject & outFeature)
 {
-  ASSERT(id.IsAlive(), ("Please check that feature is created in valid MWM file before calling this method."));
+  ASSERT(id.IsAlive(),
+         ("Please check that feature is created in valid MWM file before calling this method."));
   if (!id.GetInfo()->m_bordersRect.IsPointInside(mercator))
   {
     LOG(LERROR, ("Attempt to create a feature outside of the MWM's bounding box."));
@@ -1032,21 +1045,21 @@ void Editor::CreateNote(ms::LatLon const & latLon, FeatureID const & fid,
 
   switch (type)
   {
-    case NoteProblemType::PlaceDoesNotExist:
-    {
-      sstr << kPlaceDoesNotExistMessage << endl;
-      auto const isCreated = GetFeatureStatus(fid) == FeatureStatus::Created;
-      auto const createdAndUploaded = (isCreated && IsFeatureUploaded(fid.m_mwmId, fid.m_index));
-      CHECK(!isCreated || createdAndUploaded, ());
+  case NoteProblemType::PlaceDoesNotExist:
+  {
+    sstr << kPlaceDoesNotExistMessage << endl;
+    auto const isCreated = GetFeatureStatus(fid) == FeatureStatus::Created;
+    auto const createdAndUploaded = (isCreated && IsFeatureUploaded(fid.m_mwmId, fid.m_index));
+    CHECK(!isCreated || createdAndUploaded, ());
 
-      if (createdAndUploaded)
-        canCreate = RemoveFeature(fid);
-      else
-        canCreate = MarkFeatureAsObsolete(fid);
+    if (createdAndUploaded)
+      canCreate = RemoveFeature(fid);
+    else
+      canCreate = MarkFeatureAsObsolete(fid);
 
-      break;
-    }
-    case NoteProblemType::General: break;
+    break;
+  }
+  case NoteProblemType::General: break;
   }
 
   if (defaultName.empty())
@@ -1134,8 +1147,7 @@ void Editor::ForEachFeatureAtPoint(FeatureTypeFn && fn, m2::PointD const & point
 FeatureID Editor::GetFeatureIdByXmlFeature(XMLFeature const & xml, MwmSet::MwmId const & mwmId,
                                            FeatureStatus status, bool needMigrate) const
 {
-  ForEachFeaturesNearByFn forEach = [this](FeatureTypeFn && fn, m2::PointD const & point)
-  {
+  ForEachFeaturesNearByFn forEach = [this](FeatureTypeFn && fn, m2::PointD const & point) {
     return ForEachFeatureAtPoint(move(fn), point);
   };
 
@@ -1189,6 +1201,8 @@ void Editor::LoadMwmEdits(xml_node const & mwm, MwmSet::MwmId const & mwmId, boo
   }
 }
 
-
-const char * const Editor::kPlaceDoesNotExistMessage = "The place has gone or never existed. This is an auto-generated note from MAPS.ME application: a user reports a POI that is visible on a map (which can be outdated), but cannot be found on the ground.";
+const char * const Editor::kPlaceDoesNotExistMessage =
+    "The place has gone or never existed. This is an auto-generated note from MAPS.ME application: "
+    "a user reports a POI that is visible on a map (which can be outdated), but cannot be found on "
+    "the ground.";
 }  // namespace osm

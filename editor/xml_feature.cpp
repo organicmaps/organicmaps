@@ -9,6 +9,10 @@
 
 #include "geometry/latlon.hpp"
 
+#include <sstream>
+
+using namespace std;
+
 namespace
 {
 constexpr char const * kTimestamp = "timestamp";
@@ -32,9 +36,11 @@ ms::LatLon GetLatLonFromNode(pugi::xml_node const & node)
 {
   ms::LatLon ll;
   if (!strings::to_double(node.attribute("lat").value(), ll.lat))
-    MYTHROW(editor::NoLatLon, ("Can't parse lat attribute: " + string(node.attribute("lat").value())));
+    MYTHROW(editor::NoLatLon,
+            ("Can't parse lat attribute: " + string(node.attribute("lat").value())));
   if (!strings::to_double(node.attribute("lon").value(), ll.lon))
-    MYTHROW(editor::NoLatLon, ("Can't parse lon attribute: " + string(node.attribute("lon").value())));
+    MYTHROW(editor::NoLatLon,
+            ("Can't parse lon attribute: " + string(node.attribute("lon").value())));
   return ll;
 }
 
@@ -66,11 +72,10 @@ void ValidateElement(pugi::xml_node const & nodeOrWay)
   if (!nodeOrWay.attribute(kTimestamp))
     MYTHROW(editor::NoTimestamp, ("Node has no timestamp attribute"));
 }
-} // namespace
+}  // namespace
 
 namespace editor
 {
-
 char const * const XMLFeature::kDefaultLang =
     StringUtf8Multilang::GetLangByCode(StringUtf8Multilang::kDefaultCode);
 char const * const XMLFeature::kIntlLang =
@@ -128,20 +133,11 @@ vector<XMLFeature> XMLFeature::FromOSM(string const & osmXml)
   return features;
 }
 
-XMLFeature::Type XMLFeature::GetType() const
-{
-  return StringToType(GetRootNode().name());
-}
+XMLFeature::Type XMLFeature::GetType() const { return StringToType(GetRootNode().name()); }
 
-string XMLFeature::GetTypeString() const
-{
-  return GetRootNode().name();
-}
+string XMLFeature::GetTypeString() const { return GetRootNode().name(); }
 
-void XMLFeature::Save(ostream & ost) const
-{
-  m_document.save(ost, "  ");
-}
+void XMLFeature::Save(ostream & ost) const { m_document.save(ost, "  "); }
 
 string XMLFeature::ToOSMString() const
 {
@@ -158,15 +154,11 @@ string XMLFeature::ToOSMString() const
 void XMLFeature::ApplyPatch(XMLFeature const & featureWithChanges)
 {
   // TODO(mgsergio): Get these alt tags from the config.
-  vector<vector<string>> const alternativeTags =
-  {
-    {"phone", "contact:phone"},
-    {"website", "contact:website", "url"},
-    {"fax", "contact:fax"},
-    {"email", "contact:email"}
-  };
-  featureWithChanges.ForEachTag([&alternativeTags, this](string const & k, string const & v)
-  {
+  vector<vector<string>> const alternativeTags = {{"phone", "contact:phone"},
+                                                  {"website", "contact:website", "url"},
+                                                  {"fax", "contact:fax"},
+                                                  {"email", "contact:email"}};
+  featureWithChanges.ForEachTag([&alternativeTags, this](string const & k, string const & v) {
     // Avoid duplication for similar alternative osm tags.
     for (auto const & alt : alternativeTags)
     {
@@ -237,10 +229,7 @@ string XMLFeature::GetName(uint8_t const langCode) const
   return GetName(StringUtf8Multilang::GetLangByCode(langCode));
 }
 
-void XMLFeature::SetName(string const & name)
-{
-  SetName(kDefaultLang, name);
-}
+void XMLFeature::SetName(string const & name) { SetName(kDefaultLang, name); }
 
 void XMLFeature::SetName(string const & lang, string const & name)
 {
@@ -258,15 +247,9 @@ void XMLFeature::SetName(uint8_t const langCode, string const & name)
   SetName(StringUtf8Multilang::GetLangByCode(langCode), name);
 }
 
-string XMLFeature::GetHouse() const
-{
-  return GetTagValue(kHouseNumber);
-}
+string XMLFeature::GetHouse() const { return GetTagValue(kHouseNumber); }
 
-void XMLFeature::SetHouse(string const & house)
-{
-  SetTagValue(kHouseNumber, house);
-}
+void XMLFeature::SetHouse(string const & house) { SetTagValue(kHouseNumber, house); }
 
 time_t XMLFeature::GetModificationTime() const
 {
@@ -304,40 +287,22 @@ string XMLFeature::GetUploadStatus() const
   return GetRootNode().attribute(kUploadStatus).value();
 }
 
-void XMLFeature::SetUploadStatus(string const & status)
-{
-  SetAttribute(kUploadStatus, status);
-}
+void XMLFeature::SetUploadStatus(string const & status) { SetAttribute(kUploadStatus, status); }
 
-string XMLFeature::GetUploadError() const
-{
-  return GetRootNode().attribute(kUploadError).value();
-}
+string XMLFeature::GetUploadError() const { return GetRootNode().attribute(kUploadError).value(); }
 
-void XMLFeature::SetUploadError(string const & error)
-{
-  SetAttribute(kUploadError, error);
-}
+void XMLFeature::SetUploadError(string const & error) { SetAttribute(kUploadError, error); }
 
-bool XMLFeature::HasAnyTags() const
-{
-  return GetRootNode().child("tag");
-}
+bool XMLFeature::HasAnyTags() const { return GetRootNode().child("tag"); }
 
-bool XMLFeature::HasTag(string const & key) const
-{
-  return FindTag(m_document, key);
-}
+bool XMLFeature::HasTag(string const & key) const { return FindTag(m_document, key); }
 
 bool XMLFeature::HasAttribute(string const & key) const
 {
   return GetRootNode().attribute(key.data());
 }
 
-bool XMLFeature::HasKey(string const & key) const
-{
-  return HasTag(key) || HasAttribute(key);
-}
+bool XMLFeature::HasKey(string const & key) const { return HasTag(key) || HasAttribute(key); }
 
 string XMLFeature::GetTagValue(string const & key) const
 {
@@ -368,22 +333,15 @@ string XMLFeature::GetAttribute(string const & key) const
 
 void XMLFeature::SetAttribute(string const & key, string const & value)
 {
-  auto node = HasAttribute(key)
-      ? GetRootNode().attribute(key.data())
-      : GetRootNode().append_attribute(key.data());
+  auto node = HasAttribute(key) ? GetRootNode().attribute(key.data())
+                                : GetRootNode().append_attribute(key.data());
 
   node.set_value(value.data());
 }
 
-pugi::xml_node const XMLFeature::GetRootNode() const
-{
-  return m_document.first_child();
-}
+pugi::xml_node const XMLFeature::GetRootNode() const { return m_document.first_child(); }
 
-pugi::xml_node XMLFeature::GetRootNode()
-{
-  return m_document.first_child();
-}
+pugi::xml_node XMLFeature::GetRootNode() { return m_document.first_child(); }
 
 bool XMLFeature::AttachToParentNode(pugi::xml_node parent) const
 {
@@ -548,8 +506,5 @@ string DebugPrint(XMLFeature const & feature)
   return ost.str();
 }
 
-string DebugPrint(XMLFeature::Type const type)
-{
-  return XMLFeature::TypeToString(type);
-}
-} // namespace editor
+string DebugPrint(XMLFeature::Type const type) { return XMLFeature::TypeToString(type); }
+}  // namespace editor

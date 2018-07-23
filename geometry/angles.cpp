@@ -1,16 +1,14 @@
 #include "geometry/angles.hpp"
 
-
 namespace ang
 {
-
 double AngleIn2PI(double ang)
 {
   double const period = 2.0 * math::pi;
   ang = fmod(ang, period);
   if (ang < 0.0)
     ang += period;
-  
+
   if (my::AlmostEqualULPs(period, ang))
     return 0.0;
 
@@ -29,7 +27,7 @@ double GetShortestDistance(double rad1, double rad2)
     if (res < 0.0)
       res = period + res;
     else
-      res = - period + res;
+      res = -period + res;
   }
   return res;
 }
@@ -44,9 +42,7 @@ double GetMiddleAngle(double a1, double a2)
       ang -= math::pi;
     else
       ang += math::pi;
-
   }
   return ang;
 }
-
-}
+}  // namespace ang

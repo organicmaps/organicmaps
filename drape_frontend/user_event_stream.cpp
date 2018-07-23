@@ -623,7 +623,7 @@ void UserEventStream::ResetAnimations(Animation::Type animType, bool rewind, boo
     ApplyAnimations();
 }
 
-void UserEventStream::ResetAnimations(Animation::Type animType, string const & customType, bool rewind, bool finishAll)
+void UserEventStream::ResetAnimations(Animation::Type animType, std::string const & customType, bool rewind, bool finishAll)
 {
   bool const hasAnimations = m_animationSystem.HasAnimations();
   m_animationSystem.FinishAnimations(animType, customType, rewind, finishAll);

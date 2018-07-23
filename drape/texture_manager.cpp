@@ -12,14 +12,14 @@
 #include "coding/file_name_utils.hpp"
 #include "coding/reader.hpp"
 
+#include "base/buffer_vector.hpp"
 #include "base/logging.hpp"
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
 
-#include "std/vector.hpp"
-#include "std/bind.hpp"
-
 #include <algorithm>
+#include <limits>
+#include <vector>
 
 namespace dp
 {
@@ -27,7 +27,7 @@ uint32_t const kMaxTextureSize = 1024;
 uint32_t const kStippleTextureWidth = 512;
 uint32_t const kMinStippleTextureHeight = 64;
 uint32_t const kMinColorTextureSize = 32;
-size_t const kInvalidGlyphGroup = numeric_limits<size_t>::max();
+size_t const kInvalidGlyphGroup = std::numeric_limits<size_t>::max();
 
 // number of glyphs (since 0) which will be in each texture
 size_t const kDuplicatedGlyphsCount = 128;

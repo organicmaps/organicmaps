@@ -15,16 +15,11 @@ struct Line2D
 
   explicit Line2D(Segment2D const & segment) : m_point(segment.m_u), m_direction(segment.Dir()) {}
 
-  Line2D(PointD const & point, PointD const & direction)
-    : m_point(point), m_direction(direction)
-  {
-  }
+  Line2D(PointD const & point, PointD const & direction) : m_point(point), m_direction(direction) {}
 
   PointD m_point;
   PointD m_direction;
 };
-
-std::string DebugPrint(Line2D const & line);
 
 struct LineIntersector
 {
@@ -47,6 +42,7 @@ struct LineIntersector
   static Result Intersect(Line2D const & lhs, Line2D const & rhs, double eps);
 };
 
+std::string DebugPrint(Line2D const & line);
 std::string DebugPrint(LineIntersector::Result::Type type);
 std::string DebugPrint(LineIntersector::Result const & result);
 }  // namespace m2

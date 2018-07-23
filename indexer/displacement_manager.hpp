@@ -13,6 +13,7 @@
 #include "geometry/screenbase.hpp"
 #include "geometry/tree4d.hpp"
 
+#include "std/functional.hpp"
 #include "std/map.hpp"
 #include "std/queue.hpp"
 #include "std/target_os.hpp"
@@ -48,6 +49,7 @@ public:
 
   CellFeaturePair const & GetCellFeaturePair() const { return m_pair; }
   uint32_t GetBucket() const { return m_bucket; }
+
 private:
   CellFeaturePair m_pair;
   uint32_t m_bucket;
@@ -98,8 +100,9 @@ public:
     {
       auto scale = node.m_minScale;
       // Do not filter high level objects. Including metro and country names.
-      static auto const maximumIgnoredZoom = feature::GetDrawableScaleRange(
-        classif().GetTypeByPath({"railway", "station", "subway"})).first;
+      static auto const maximumIgnoredZoom =
+          feature::GetDrawableScaleRange(classif().GetTypeByPath({"railway", "station", "subway"}))
+              .first;
 
       if (maximumIgnoredZoom < 0 || scale <= maximumIgnoredZoom)
       {
@@ -114,10 +117,11 @@ public:
 
         m2::RectD const displacementRect(node.m_center, node.m_center);
         bool isDisplaced = false;
-        acceptedNodes.ForEachInRect(m2::Inflate(displacementRect, {delta, delta}),
-            [&isDisplaced, &node, &squaredDelta, &scale](DisplaceableNode const & rhs)
-            {
-              if (node.m_center.SquaredLength(rhs.m_center) < squaredDelta && rhs.m_maxScale > scale)
+        acceptedNodes.ForEachInRect(
+            m2::Inflate(displacementRect, {delta, delta}),
+            [&isDisplaced, &node, &squaredDelta, &scale](DisplaceableNode const & rhs) {
+              if (node.m_center.SquaredLength(rhs.m_center) < squaredDelta &&
+                  rhs.m_maxScale > scale)
                 isDisplaced = true;
             });
         if (isDisplaced)
@@ -149,8 +153,12 @@ private:
 
     template <class TFeature>
     DisplaceableNode(vector<int64_t> const & cells, TFeature const & ft, uint32_t index,
-                    int zoomLevel)
-      : m_index(index), m_fID(ft.GetID()), m_center(ft.GetCenter()), m_cells(cells), m_minScale(zoomLevel)
+                     int zoomLevel)
+      : m_index(index)
+      , m_fID(ft.GetID())
+      , m_center(ft.GetCenter())
+      , m_cells(cells)
+      , m_minScale(zoomLevel)
     {
       feature::TypesHolder const types(ft);
       auto scaleRange = feature::GetDrawableScaleRange(types);

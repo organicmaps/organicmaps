@@ -36,7 +36,7 @@ private:
   void SetContents(std::string const & name, std::string const & type,
                    std::string const & address);
 
-  QRadioButton * CreateRatioButton(string const & label, QLayout & layout);
+  QRadioButton * CreateRatioButton(std::string const & label, QLayout & layout);
   void OnRelevanceChanged();
   void UpdateRelevanceRadioButtons();
 

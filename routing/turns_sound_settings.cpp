@@ -4,8 +4,9 @@
 
 #include "base/string_utils.hpp"
 
-#include "std/algorithm.hpp"
+#include <algorithm>
 
+using namespace std;
 using namespace measurement_utils;
 
 namespace routing
@@ -28,8 +29,7 @@ void Settings::SetState(uint32_t notificationTimeSeconds, uint32_t minNotificati
 
 bool Settings::IsValid() const
 {
-  return m_minDistanceUnits <= m_maxDistanceUnits &&
-         !m_soundedDistancesUnits.empty() &&
+  return m_minDistanceUnits <= m_maxDistanceUnits && !m_soundedDistancesUnits.empty() &&
          is_sorted(m_soundedDistancesUnits.cbegin(), m_soundedDistancesUnits.cend());
 }
 

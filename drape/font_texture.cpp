@@ -9,6 +9,7 @@
 #include "base/string_utils.hpp"
 #include "base/stl_add.hpp"
 
+#include <algorithm>
 #include <functional>
 #include <iterator>
 
@@ -42,7 +43,7 @@ bool GlyphPacker::PackGlyph(uint32_t width, uint32_t height, m2::RectU & rect)
                    m_cursor.x + width, m_cursor.y + height);
 
   m_cursor.x += width;
-  m_yStep = max(height, m_yStep);
+  m_yStep = std::max(height, m_yStep);
   return true;
 }
 
@@ -63,7 +64,7 @@ bool GlyphPacker::CanBePacked(uint32_t glyphsCount, uint32_t width, uint32_t hei
       return false;
 
     x += width;
-    step = max(height, step);
+    step = std::max(height, step);
   }
   return true;
 }

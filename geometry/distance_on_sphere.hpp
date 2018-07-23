@@ -1,11 +1,12 @@
 #pragma once
-#include "base/base.hpp"
+
 #include "geometry/latlon.hpp"
+
+#include "base/base.hpp"
 
 // namespace ms - "math on sphere", similar to the namespaces m2 and mn.
 namespace ms
 {
-
 // Earth radius in meters.
 inline double EarthRadiusMeters() { return 6378000; }
 // Length of one degree square at the equator in meters.
@@ -32,7 +33,7 @@ inline double DistanceOnEarth(LatLon const & ll1, LatLon const & ll2)
 
 inline double AreaOnEarth(LatLon const & ll1, LatLon const & ll2, LatLon const & ll3)
 {
-  return OneDegreeEquatorLengthMeters() * OneDegreeEquatorLengthMeters() * AreaOnSphere(ll1, ll2, ll3);
+  return OneDegreeEquatorLengthMeters() * OneDegreeEquatorLengthMeters() *
+         AreaOnSphere(ll1, ll2, ll3);
 }
-
 }  // namespace ms

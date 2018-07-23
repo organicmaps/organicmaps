@@ -38,6 +38,7 @@
 #include <algorithm>
 #include <chrono>
 #include <cmath>
+#include <functional>
 #include <thread>
 #include <utility>
 
@@ -2348,7 +2349,7 @@ void FrontendRenderer::RenderLayer::Sort(ref_ptr<dp::OverlayTree> overlayTree)
     return;
 
   RenderGroupComparator comparator;
-  sort(m_renderGroups.begin(), m_renderGroups.end(), ref(comparator));
+  std::sort(m_renderGroups.begin(), m_renderGroups.end(), std::ref(comparator));
   m_isDirty = comparator.m_pendingOnDeleteFound;
 
   while (!m_renderGroups.empty() && m_renderGroups.back()->CanBeDeleted())

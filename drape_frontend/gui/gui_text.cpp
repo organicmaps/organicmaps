@@ -11,6 +11,7 @@
 #include "drape/glsl_func.hpp"
 
 #include <algorithm>
+#include <array>
 #include <memory>
 #include <type_traits>
 
@@ -19,7 +20,7 @@ namespace gui
 namespace
 {
 glsl::vec2 GetNormalsAndMask(dp::TextureManager::GlyphRegion const & glyph, float textRatio,
-                             array<glsl::vec2, 4> & normals, array<glsl::vec2, 4> & maskTexCoord)
+                             std::array<glsl::vec2, 4> & normals, std::array<glsl::vec2, 4> & maskTexCoord)
 {
   m2::PointF const pixelSize = glyph.GetPixelSize() * textRatio;
   m2::RectF const & r = glyph.GetTexRect();
@@ -180,7 +181,7 @@ void StaticLabel::CacheStaticText(std::string const & text, char const * delim,
     prevLineHeight = 0.0;
     for (size_t j = 0; j < regions.size(); ++j)
     {
-      array<glsl::vec2, 4> normals, maskTex;
+      std::array<glsl::vec2, 4> normals, maskTex;
 
       dp::TextureManager::GlyphRegion const & glyph = regions[j];
       glsl::vec2 offsets = GetNormalsAndMask(glyph, textRatio, normals, maskTex);
@@ -395,7 +396,7 @@ void MutableLabel::SetText(LabelResult & result, std::string text) const
     ASSERT(it != m_alphabet.end(), ());
     if (it != m_alphabet.end())
     {
-      array<glsl::vec2, 4> normals, maskTex;
+      std::array<glsl::vec2, 4> normals, maskTex;
       dp::TextureManager::GlyphRegion const & glyph = it->second;
       glsl::vec2 offsets = GetNormalsAndMask(glyph, m_textRatio, normals, maskTex);
 

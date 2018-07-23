@@ -1,12 +1,14 @@
-#include "clipping.hpp"
-#include "rect_intersect.hpp"
+#include "geometry/clipping.hpp"
 
-#include "std/vector.hpp"
+#include "geometry/rect_intersect.hpp"
+
+#include <algorithm>
+
+using namespace std;
 
 namespace m2
 {
-
-using AddPoligonPoint = function<void(m2::PointD const &)>;
+using AddPolygonPoint = function<void(m2::PointD const &)>;
 
 int GetRectSideIndex(int code)
 {
@@ -19,9 +21,9 @@ int GetRectSideIndex(int code)
   return 3;
 }
 
-void InsertCorners(vector<m2::PointD> const & corners,
-                   m2::PointD const & p1, m2::PointD const & p2, m2::PointD const & p3,
-                   AddPoligonPoint const & addPoligonPoint, int code1, int code2)
+void InsertCorners(vector<m2::PointD> const & corners, m2::PointD const & p1, m2::PointD const & p2,
+                   m2::PointD const & p3, AddPolygonPoint const & addPolygonPoint, int code1,
+                   int code2)
 {
   int cornerInd = GetRectSideIndex(code1);
   int endCornerInd = GetRectSideIndex(code2);
@@ -35,15 +37,15 @@ void InsertCorners(vector<m2::PointD> const & corners,
 
   while (cornerInd != endCornerInd)
   {
-    addPoligonPoint(corners[cornerInd]);
+    addPolygonPoint(corners[cornerInd]);
     cornerInd = (cornerInd + 1) % 4;
   }
 }
 
 bool IntersectEdge(m2::RectD const & rect, vector<m2::PointD> const & corners,
                    m2::PointD const & pp1, m2::PointD const & pp2, m2::PointD const & pp3,
-                   AddPoligonPoint const & addPoligonPoint,
-                   int prevClipCode, int nextClipCode, int & firstClipCode, int & lastClipCode)
+                   AddPolygonPoint const & addPolygonPoint, int prevClipCode, int nextClipCode,
+                   int & firstClipCode, int & lastClipCode)
 {
   m2::PointD p1 = pp1;
   m2::PointD p2 = pp2;
@@ -51,27 +53,26 @@ bool IntersectEdge(m2::RectD const & rect, vector<m2::PointD> const & corners,
   if (m2::Intersect(rect, p1, p2, firstClipCode, lastClipCode))
   {
     if (firstClipCode != 0 && prevClipCode != 0 && ((firstClipCode & prevClipCode) == 0))
-      InsertCorners(corners, pp1, pp2, pp3, addPoligonPoint, prevClipCode, firstClipCode);
+      InsertCorners(corners, pp1, pp2, pp3, addPolygonPoint, prevClipCode, firstClipCode);
 
-    addPoligonPoint(p1);
-    addPoligonPoint(p2);
+    addPolygonPoint(p1);
+    addPolygonPoint(p2);
 
     if (lastClipCode != 0 && nextClipCode != 0 && ((lastClipCode & nextClipCode) == 0) &&
         firstClipCode != lastClipCode && prevClipCode != nextClipCode)
-      InsertCorners(corners, pp1, pp2, pp3, addPoligonPoint, lastClipCode, nextClipCode);
+      InsertCorners(corners, pp1, pp2, pp3, addPolygonPoint, lastClipCode, nextClipCode);
 
     return true;
   }
   else if (prevClipCode != 0 && nextClipCode != 0)
   {
-    InsertCorners(corners, pp1, pp2, pp3, addPoligonPoint, prevClipCode, nextClipCode);
+    InsertCorners(corners, pp1, pp2, pp3, addPolygonPoint, prevClipCode, nextClipCode);
   }
   return false;
 }
 
-void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1,
-                        m2::PointD const & p2, m2::PointD const & p3,
-                        ClipTriangleByRectResultIt const & resultIterator)
+void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1, m2::PointD const & p2,
+                        m2::PointD const & p3, ClipTriangleByRectResultIt const & resultIterator)
 {
   if (resultIterator == nullptr)
     return;
@@ -84,25 +85,25 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1,
 
   const double kEps = 1e-8;
   vector<m2::PointD> poligon;
-  auto const addPoligonPoint = [&poligon, kEps](m2::PointD const & pt)
-  {
+  auto const addPolygonPoint = [&poligon, kEps](m2::PointD const & pt) {
     if (poligon.empty() || !poligon.back().EqualDxDy(pt, kEps))
       poligon.push_back(pt);
   };
 
-  vector<m2::PointD> const corners = { rect.LeftTop(), rect.RightTop(), rect.RightBottom(), rect.LeftBottom() };
+  vector<m2::PointD> const corners = {rect.LeftTop(), rect.RightTop(), rect.RightBottom(),
+                                      rect.LeftBottom()};
 
   int firstClipCode[3];
   int lastClipCode[3];
   bool intersected[3];
 
-  intersected[0] = IntersectEdge(rect, corners, p1, p2, p3, addPoligonPoint,
-                                 0, 0, firstClipCode[0], lastClipCode[0]);
+  intersected[0] = IntersectEdge(rect, corners, p1, p2, p3, addPolygonPoint, 0, 0, firstClipCode[0],
+                                 lastClipCode[0]);
 
-  intersected[1] = IntersectEdge(rect, corners, p2, p3, p1, addPoligonPoint,
-                                 lastClipCode[0], 0, firstClipCode[1], lastClipCode[1]);
+  intersected[1] = IntersectEdge(rect, corners, p2, p3, p1, addPolygonPoint, lastClipCode[0], 0,
+                                 firstClipCode[1], lastClipCode[1]);
 
-  intersected[2] = IntersectEdge(rect, corners, p3, p1, p2, addPoligonPoint,
+  intersected[2] = IntersectEdge(rect, corners, p3, p1, p2, addPolygonPoint,
                                  lastClipCode[1] != 0 ? lastClipCode[1] : lastClipCode[0],
                                  firstClipCode[0] != 0 ? firstClipCode[0] : firstClipCode[1],
                                  firstClipCode[2], lastClipCode[2]);
@@ -119,7 +120,7 @@ void ClipTriangleByRect(m2::RectD const & rect, m2::PointD const & p1,
   }
 
   if (intersectCount == 1 && intersected[2])
-    InsertCorners(corners, p1, p2, p3, addPoligonPoint, lastClipCode[2], firstClipCode[2]);
+    InsertCorners(corners, p1, p2, p3, addPolygonPoint, lastClipCode[2], firstClipCode[2]);
 
   if (!poligon.empty() && poligon.back().EqualDxDy(poligon[0], kEps))
     poligon.pop_back();
@@ -190,5 +191,4 @@ vector<m2::SharedSpline> ClipSplineByRect(m2::RectD const & rect, m2::SharedSpli
   }
   return result;
 }
-
-} // namespace m2;
+}  // namespace m2;

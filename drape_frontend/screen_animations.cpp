@@ -1,19 +1,19 @@
-#include "animation_constants.hpp"
-#include "screen_animations.hpp"
-#include "screen_operations.hpp"
+#include "drape_frontend/screen_animations.hpp"
 
-#include "animation/follow_animation.hpp"
-#include "animation/linear_animation.hpp"
-#include "animation/scale_animation.hpp"
-#include "animation/sequence_animation.hpp"
+#include "drape_frontend/animation/follow_animation.hpp"
+#include "drape_frontend/animation/linear_animation.hpp"
+#include "drape_frontend/animation/scale_animation.hpp"
+#include "drape_frontend/animation/sequence_animation.hpp"
+#include "drape_frontend/animation_constants.hpp"
+#include "drape_frontend/screen_operations.hpp"
 
 namespace df
 {
 
-string const kPrettyMoveAnim = "PrettyMove";
-string const kPrettyFollowAnim = "PrettyFollow";
-string const kParallelFollowAnim = "ParallelFollow";
-string const kParallelLinearAnim = "ParallelLinear";
+std::string const kPrettyMoveAnim = "PrettyMove";
+std::string const kPrettyFollowAnim = "PrettyFollow";
+std::string const kParallelFollowAnim = "ParallelFollow";
+std::string const kParallelLinearAnim = "ParallelLinear";
 
 drape_ptr<SequenceAnimation> GetPrettyMoveAnimation(ScreenBase const & startScreen, ScreenBase const & endScreen)
 {

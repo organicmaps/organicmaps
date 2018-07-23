@@ -3,16 +3,12 @@
 #include "geometry/robust_orientation.hpp"
 
 #include <algorithm>
+#include <string>
 
 using namespace std;
 
 namespace m2
 {
-string DebugPrint(Segment2D const & segment)
-{
-  return "(" + DebugPrint(segment.m_u) + ", " + DebugPrint(segment.m_v) + ")";
-}
-
 bool IsPointOnSegmentEps(PointD const & pt, PointD const & p1, PointD const & p2, double eps)
 {
   double const t = robust::OrientedS(p1, p2, pt);
@@ -42,5 +38,10 @@ bool IsPointOnSegment(PointD const & pt, PointD const & p1, PointD const & p2)
   // request.
   double const kEps = 1e-100;
   return IsPointOnSegmentEps(pt, p1, p2, kEps);
+}
+
+std::string DebugPrint(Segment2D const & segment)
+{
+  return "(" + DebugPrint(segment.m_u) + ", " + DebugPrint(segment.m_v) + ")";
 }
 }  // namespace m2

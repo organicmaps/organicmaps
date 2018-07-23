@@ -5,6 +5,7 @@
 #include "geometry/point2d.hpp"
 #include "geometry/polyline2d.hpp"
 
+#include <limits>
 #include <vector>
 
 namespace routing
@@ -14,8 +15,7 @@ class FollowedPolyline
 public:
   FollowedPolyline() = default;
   template <class TIter>
-  FollowedPolyline(TIter begin, TIter end)
-    : m_poly(begin, end)
+  FollowedPolyline(TIter begin, TIter end) : m_poly(begin, end)
   {
     Update();
     // Initially we do not have intermediate points. Next checkpoint is finish.
@@ -91,7 +91,7 @@ public:
     CHECK_LESS_OR_EQUAL(startIdx, endIdx, ());
 
     Iter res;
-    double minDist = numeric_limits<double>::max();
+    double minDist = std::numeric_limits<double>::max();
 
     m2::PointD const currPos = posRect.Center();
 

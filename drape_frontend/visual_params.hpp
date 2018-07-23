@@ -5,6 +5,7 @@
 
 #include "std/atomic.hpp"
 #include "std/cstdint.hpp"
+#include "std/string.hpp"
 #include "std/noncopyable.hpp"
 
 namespace df

@@ -4,6 +4,9 @@
 #include "geometry/point2d.hpp"
 #include "geometry/triangle2d.hpp"
 
+#include <array>
+
+using namespace std;
 
 UNIT_TEST(Point_Rotate)
 {
@@ -78,9 +81,19 @@ UNIT_TEST(GetArrowPoints)
 
 UNIT_TEST(PointAtSegment)
 {
-  TEST(m2::AlmostEqualULPs(m2::PointAtSegment(m2::PointF(0, 0), m2::PointF(1, 0), 0.5f), m2::PointF(0.5f, 0.f)), ());
-  TEST(m2::AlmostEqualULPs(m2::PointAtSegment(m2::PointF(0, 0), m2::PointF(0, 1), 0.3f), m2::PointF(0.f, 0.3f)), ());
-  TEST(m2::AlmostEqualULPs(m2::PointAtSegment(m2::PointD(0., 0.), m2::PointD(30., 40.), 5.), m2::PointD(3., 4.)), ());
-  TEST(m2::AlmostEqualULPs(m2::PointAtSegment(m2::PointF(-3, -4), m2::PointF(-30, -40), 5.f), m2::PointF(-6.f, -8.f)), ());
-  TEST(m2::AlmostEqualULPs(m2::PointAtSegment(m2::PointD(14., -48.), m2::PointD(70., -240.), 25.), m2::PointD(21., -72.)), ());
+  TEST(m2::AlmostEqualULPs(m2::PointAtSegment(m2::PointF(0, 0), m2::PointF(1, 0), 0.5f),
+                           m2::PointF(0.5f, 0.f)),
+       ());
+  TEST(m2::AlmostEqualULPs(m2::PointAtSegment(m2::PointF(0, 0), m2::PointF(0, 1), 0.3f),
+                           m2::PointF(0.f, 0.3f)),
+       ());
+  TEST(m2::AlmostEqualULPs(m2::PointAtSegment(m2::PointD(0., 0.), m2::PointD(30., 40.), 5.),
+                           m2::PointD(3., 4.)),
+       ());
+  TEST(m2::AlmostEqualULPs(m2::PointAtSegment(m2::PointF(-3, -4), m2::PointF(-30, -40), 5.f),
+                           m2::PointF(-6.f, -8.f)),
+       ());
+  TEST(m2::AlmostEqualULPs(m2::PointAtSegment(m2::PointD(14., -48.), m2::PointD(70., -240.), 25.),
+                           m2::PointD(21., -72.)),
+       ());
 }

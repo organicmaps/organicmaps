@@ -25,11 +25,13 @@
 #include <fstream>
 #include <functional>
 #include <iomanip>
+#include <iostream>
 #include <vector>
+
+using namespace std;
 
 namespace borders
 {
-
 class PolygonLoader
 {
   CountryPolygons m_polygons;
@@ -38,10 +40,9 @@ class PolygonLoader
   CountriesContainerT & m_countries;
 
 public:
-  PolygonLoader(CountriesContainerT & countries)
-    : m_countries(countries) {}
+  PolygonLoader(CountriesContainerT & countries) : m_countries(countries) {}
 
-  void operator() (std::string const & name, std::vector<m2::RegionD> const & borders)
+  void operator()(std::string const & name, std::vector<m2::RegionD> const & borders)
   {
     if (m_polygons.m_name.empty())
       m_polygons.m_name = name;
@@ -58,7 +59,7 @@ public:
   {
     if (!m_polygons.IsEmpty())
     {
-      ASSERT_NOT_EQUAL ( m_rect, m2::RectD::GetEmptyRect(), () );
+      ASSERT_NOT_EQUAL(m_rect, m2::RectD::GetEmptyRect(), ());
       m_countries.Add(m_polygons, m_rect);
     }
 
@@ -71,7 +72,8 @@ template <class ToDo>
 void ForEachCountry(std::string const & baseDir, ToDo & toDo)
 {
   std::string const bordersDir = baseDir + BORDERS_DIR;
-  CHECK(Platform::IsFileExistsByFullPath(bordersDir), ("Cannot read borders directory", bordersDir));
+  CHECK(Platform::IsFileExistsByFullPath(bordersDir),
+        ("Cannot read borders directory", bordersDir));
 
   Platform::FilesList files;
   Platform::GetFilesByExt(bordersDir, BORDERS_EXTENSION, files);
@@ -108,12 +110,9 @@ class PackedBordersGenerator
   std::vector<storage::CountryDef> m_polys;
 
 public:
-  PackedBordersGenerator(std::string const & baseDir)
-    : m_writer(baseDir + PACKED_POLYGONS_FILE)
-  {
-  }
+  PackedBordersGenerator(std::string const & baseDir) : m_writer(baseDir + PACKED_POLYGONS_FILE) {}
 
-  void operator() (std::string const & name, std::vector<m2::RegionD> const & borders)
+  void operator()(std::string const & name, std::vector<m2::RegionD> const & borders)
   {
     // use index in vector as tag
     FileWriter w = m_writer.GetWriter(strings::to_string(m_polys.size()));
@@ -196,7 +195,8 @@ void UnpackBorders(std::string const & baseDir, std::string const & targetDir)
   }
 }
 
-bool GetBordersRect(std::string const & baseDir, std::string const & country, m2::RectD & bordersRect)
+bool GetBordersRect(std::string const & baseDir, std::string const & country,
+                    m2::RectD & bordersRect)
 {
   std::string const bordersFile = my::JoinPath(baseDir, BORDERS_DIR, country + BORDERS_EXTENSION);
   if (!Platform::IsFileExistsByFullPath(bordersFile))
@@ -213,4 +213,4 @@ bool GetBordersRect(std::string const & baseDir, std::string const & country, m2
 
   return true;
 }
-} // namespace borders
+}  // namespace borders

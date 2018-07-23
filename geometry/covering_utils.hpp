@@ -1,7 +1,8 @@
 #pragma once
-#include "point2d.hpp"
-#include "robust_orientation.hpp"
-#include "triangle2d.hpp"
+
+#include "geometry/point2d.hpp"
+#include "geometry/robust_orientation.hpp"
+#include "geometry/triangle2d.hpp"
 
 #include "base/assert.hpp"
 #include "base/base.hpp"
@@ -13,7 +14,6 @@
 
 namespace covering
 {
-
 // Result of an intersection between object and cell.
 enum CellObjectIntersection
 {
@@ -25,19 +25,14 @@ enum CellObjectIntersection
 };
 
 template <class CellIdT>
-inline CellObjectIntersection IntersectCellWithLine(CellIdT const cell,
-                                                    m2::PointD const & a,
-                                                    m2::PointD const & b)
+CellObjectIntersection IntersectCellWithLine(CellIdT const cell, m2::PointD const & a,
+                                             m2::PointD const & b)
 {
   std::pair<uint32_t, uint32_t> const xy = cell.XY();
   uint32_t const r = cell.Radius();
-  m2::PointD const cellCorners[4] =
-  {
-    m2::PointD(xy.first - r, xy.second - r),
-    m2::PointD(xy.first - r, xy.second + r),
-    m2::PointD(xy.first + r, xy.second + r),
-    m2::PointD(xy.first + r, xy.second - r)
-  };
+  m2::PointD const cellCorners[4] = {
+      m2::PointD(xy.first - r, xy.second - r), m2::PointD(xy.first - r, xy.second + r),
+      m2::PointD(xy.first + r, xy.second + r), m2::PointD(xy.first + r, xy.second - r)};
   for (int i = 0; i < 4; ++i)
     if (m2::robust::SegmentsIntersect(a, b, cellCorners[i], cellCorners[i == 0 ? 3 : i - 1]))
       return CELL_OBJECT_INTERSECT;
@@ -47,8 +42,8 @@ inline CellObjectIntersection IntersectCellWithLine(CellIdT const cell,
 }
 
 template <class CellIdT>
-CellObjectIntersection IntersectCellWithTriangle(
-    CellIdT const cell, m2::PointD const & a, m2::PointD const & b, m2::PointD const & c)
+CellObjectIntersection IntersectCellWithTriangle(CellIdT const cell, m2::PointD const & a,
+                                                 m2::PointD const & b, m2::PointD const & c)
 {
   CellObjectIntersection const i1 = IntersectCellWithLine(cell, a, b);
   if (i1 == CELL_OBJECT_INTERSECT)
@@ -117,4 +112,4 @@ void CoverObject(IntersectF const & intersect, uint64_t cellPenaltyArea, CellIdC
   }
 }
 
-} // namespace covering
+}  // namespace covering

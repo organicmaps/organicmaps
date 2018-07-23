@@ -1,11 +1,14 @@
 #pragma once
+
 #include "geometry/covering_utils.hpp"
 #include "geometry/point2d.hpp"
+
 #include "base/assert.hpp"
 #include "base/base.hpp"
 #include "base/logging.hpp"
 #include "base/set_operations.hpp"
 #include "base/stl_add.hpp"
+
 #include "std/algorithm.hpp"
 #include "std/array.hpp"
 #include "std/functional.hpp"
@@ -17,7 +20,6 @@
 
 namespace covering
 {
-
 template <class CellIdT>
 class Covering
 {
@@ -27,10 +29,7 @@ public:
 
   Covering() : m_Size(0) {}
 
-  explicit Covering(CellId cell) : m_Size(1)
-  {
-    m_Covering[cell.Level()].push_back(cell);
-  }
+  explicit Covering(CellId cell) : m_Size(1) { m_Covering[cell.Level()].push_back(cell); }
 
   explicit Covering(vector<CellId> const & v)
   {
@@ -78,7 +77,7 @@ public:
   void OutputToVector(vector<CellId> & result) const
   {
     for (int level = 0; level < CellId::DEPTH_LEVELS; ++level)
-        result.insert(result.end(), m_Covering[level].begin(), m_Covering[level].end());
+      result.insert(result.end(), m_Covering[level].begin(), m_Covering[level].end());
   }
 
   void OutputToVector(vector<int64_t> & result, int cellDepth) const
@@ -110,13 +109,12 @@ public:
   }
 
 private:
-
   void SimplifyLevel(int level)
   {
     map<CellId, uint32_t, LessLevelOrder> parentCellCounts;
     typedef typename vector<CellId>::const_iterator ConstIteartor;
     for (ConstIteartor it = m_Covering[level].begin(); it != m_Covering[level].end(); ++it)
-        ++parentCellCounts[it->Parent()];
+      ++parentCellCounts[it->Parent()];
 
     vector<CellId> parentCells, childCells;
     for (ConstIteartor it = m_Covering[level].begin(); it != m_Covering[level].end(); ++it)
@@ -147,7 +145,7 @@ private:
   {
     explicit CompareCellsAtLevel(int level) : m_Level(level) {}
 
-    bool operator() (CellId id1, CellId id2) const
+    bool operator()(CellId id1, CellId id2) const
     {
       return m_Comp(id1.AncestorAtLevel(m_Level), id2.AncestorAtLevel(m_Level));
     }
@@ -229,9 +227,8 @@ private:
         if (i + 3 < a.size())
         {
           CellId const parent = a[i].Parent();
-          if (parent == a[i+1].Parent() &&
-              parent == a[i+2].Parent() &&
-              parent == a[i+3].Parent())
+          if (parent == a[i + 1].Parent() && parent == a[i + 2].Parent() &&
+              parent == a[i + 3].Parent())
           {
             parents.push_back(parent);
             i += 3;
@@ -280,10 +277,7 @@ private:
       CoverTriangleImpl(info, cell.Child(child));
   }
 
-
-  array<vector<CellId>, CellId::DEPTH_LEVELS> m_Covering; // Covering by level.
+  array<vector<CellId>, CellId::DEPTH_LEVELS> m_Covering;  // Covering by level.
   size_t m_Size;
 };
-
-
 }

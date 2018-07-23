@@ -1,4 +1,5 @@
 #pragma once
+
 #include "geometry/point2d.hpp"
 
 #include "base/math.hpp"
@@ -8,107 +9,92 @@
 
 namespace m2
 {
-
 namespace impl
 {
-
-template <typename PointT> class CalculatedSection
+template <typename Point>
+class CalculatedSection
 {
-private:
-  static_assert(std::numeric_limits<typename PointT::value_type>::is_signed,
-                "We do not support unsigned points!!!");
-
 public:
-  void SetBounds(PointT const & p0, PointT const & p1)
+  void SetBounds(Point const & p0, Point const & p1)
   {
-    m_P0 = p0;
-    m_P1 = p1;
-    m_D = m_P1 - m_P0;
-    m_D2 = Length(m_D);
+    m_p0 = p0;
+    m_p1 = p1;
+    m_d = m_p1 - m_p0;
+    m_length = sqrt(SquaredLength(m_d));
 
-    if (my::AlmostEqualULPs(m_D2, 0.0))
+    if (my::AlmostEqualULPs(m_length, 0.0))
     {
-      // make zero vector - then all DotProduct will be equal to zero
-      m_D = m2::PointD::Zero();
+      // Make zero vector and all DotProduct will be equal to zero.
+      m_d = m2::PointD::Zero();
     }
     else
     {
-      // normalize vector
-      m_D = m_D / m_D2;
+      // Normalize vector.
+      m_d = m_d / m_length;
     }
   }
 
-  inline double GetLength() const { return m_D2; }
-  inline PointT const & P0() const { return m_P0; }
-  inline PointT const & P1() const { return m_P1; }
+  double GetLength() const { return m_length; }
+  Point const & P0() const { return m_p0; }
+  Point const & P1() const { return m_p1; }
 
 protected:
-  template <class VectorT> static double SquaredLength(VectorT const & v)
+  template <typename Vector>
+  static double SquaredLength(Vector const & v)
   {
     return DotProduct(v, v);
   }
-  template <class VectorT> static double Length(VectorT const & v)
-  {
-    return sqrt(SquaredLength(v));
-  }
-  double Distance(PointD const & v) const
-  {
-    return CrossProduct(v, m_D);
-  }
 
-  PointT m_P0, m_P1;
-  m2::PointD m_D;
-  double m_D2;
+  double Distance(PointD const & v) const { return CrossProduct(v, m_d); }
+
+  Point m_p0;
+  Point m_p1;
+  m2::PointD m_d;
+  double m_length;
+
+private:
+  static_assert(std::numeric_limits<typename Point::value_type>::is_signed,
+                "Unsigned points are not supported");
 };
-
 }  // namespace impl
 
-template <typename PointT> class DistanceToLineSquare : public impl::CalculatedSection<PointT>
+template <typename Point>
+class DistanceToLineSquare : public impl::CalculatedSection<Point>
 {
 public:
-  double operator() (PointT const & Y) const
+  double operator()(Point const & p) const
   {
-    PointT const diff = Y - this->m_P0;
-    m2::PointD const YmP0(diff);
-    double const t = DotProduct(this->m_D, YmP0);
+    Point const diff = p - this->m_p0;
+    m2::PointD const diffD(diff);
+    double const t = DotProduct(this->m_d, diffD);
 
     if (t <= 0)
-    {
-      // Y is closest to P0.
-      return this->SquaredLength(YmP0);
-    }
-    if (t >= this->m_D2)
-    {
-      // Y is closest to P1.
-      return this->SquaredLength(Y - this->m_P1);
-    }
+      return this->SquaredLength(diffD);
 
-    // Closest point is interior to segment.
-    return std::pow(this->Distance(YmP0), 2);
+    if (t >= this->m_length)
+      return this->SquaredLength(p - this->m_p1);
+
+    // Closest point is between |m_p0| and |m_p1|.
+    return std::pow(this->Distance(diffD), 2.0);
   }
 };
 
-template <typename PointT> class ProjectionToSection : public impl::CalculatedSection<PointT>
+template <typename Point>
+class ProjectionToSection : public impl::CalculatedSection<Point>
 {
 public:
-  m2::PointD operator() (PointT const & Y) const
+  m2::PointD operator()(Point const & p) const
   {
-    m2::PointD const YmP0 = Y - this->m_P0;
-    double const t = DotProduct(this->m_D, YmP0);
+    m2::PointD const diffD = p - this->m_p0;
+    double const t = DotProduct(this->m_d, diffD);
 
     if (t <= 0)
-    {
-      // Y is closest to P0.
-      return this->m_P0;
-    }
-    if (t >= this->m_D2)
-    {
-      // Y is closest to P1.
-      return this->m_P1;
-    }
+      return this->m_p0;
 
-    return this->m_D*t + this->m_P0;
+    if (t >= this->m_length)
+      return this->m_p1;
+
+    return this->m_p0 + this->m_d * t;
   }
 };
-
-}
+}  // namespace m2

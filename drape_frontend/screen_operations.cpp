@@ -10,6 +10,8 @@
 
 #include "platform/platform.hpp"
 
+#include <algorithm>
+
 namespace
 {
 
@@ -37,7 +39,7 @@ bool IsScaleAllowableIn3d(int scale)
 
 double CalculateScale(m2::RectD const & pixelRect, m2::RectD const & localRect)
 {
-  return max(localRect.SizeX() / pixelRect.SizeX(), localRect.SizeY() / pixelRect.SizeY());
+  return std::max(localRect.SizeX() / pixelRect.SizeX(), localRect.SizeY() / pixelRect.SizeY());
 }
 
 m2::PointD CalculateCenter(double scale, m2::RectD const & pixelRect,

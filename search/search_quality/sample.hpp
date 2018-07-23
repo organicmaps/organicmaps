@@ -65,15 +65,16 @@ struct Sample
   std::vector<strings::UniString> m_relatedQueries;
 };
 
-void FromJSONObject(json_t * root, string const & field, Sample::Result::Relevance & relevance);
-void ToJSONObject(json_t & root, string const & field, Sample::Result::Relevance relevance);
+void FromJSONObject(json_t * root, std::string const & field,
+                    Sample::Result::Relevance & relevance);
+void ToJSONObject(json_t & root, std::string const & field, Sample::Result::Relevance relevance);
 
 void FromJSON(json_t * root, Sample::Result & result);
 my::JSONPtr ToJSON(Sample::Result const & result);
 
-string DebugPrint(Sample::Result::Relevance r);
+std::string DebugPrint(Sample::Result::Relevance r);
 
-string DebugPrint(Sample::Result const & r);
+std::string DebugPrint(Sample::Result const & r);
 
-string DebugPrint(Sample const & s);
+std::string DebugPrint(Sample const & s);
 }  // namespace search

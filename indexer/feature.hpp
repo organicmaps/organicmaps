@@ -1,4 +1,5 @@
 #pragma once
+
 #include "indexer/cell_id.hpp"
 #include "indexer/feature_altitude.hpp"
 #include "indexer/feature_data.hpp"
@@ -8,10 +9,10 @@
 
 #include "base/buffer_vector.hpp"
 
+#include "std/function.hpp"
 #include "std/iterator.hpp"
 #include "std/string.hpp"
 #include "std/utility.hpp"
-
 
 namespace feature
 {
@@ -36,7 +37,6 @@ class EditableMapObject;
 class FeatureBase
 {
 public:
-
   using TBuffer = char const *;
 
   void Deserialize(feature::LoaderBase * pLoader, TBuffer buffer);
@@ -48,12 +48,9 @@ public:
   //@}
 
   feature::EGeomType GetFeatureType() const;
-  FeatureParamsBase & GetParams() {return m_params;}
+  FeatureParamsBase & GetParams() { return m_params; }
 
-  inline uint8_t GetTypesCount() const
-  {
-    return ((Header() & feature::HEADER_TYPE_MASK) + 1);
-  }
+  inline uint8_t GetTypesCount() const { return ((Header() & feature::HEADER_TYPE_MASK) + 1); }
 
   inline int8_t GetLayer() const
   {
@@ -64,10 +61,7 @@ public:
     return m_params.layer;
   }
 
-  inline bool HasName() const
-  {
-    return (Header() & feature::HEADER_HAS_NAME) != 0;
-  }
+  inline bool HasName() const { return (Header() & feature::HEADER_HAS_NAME) != 0; }
 
   // Array with 64 strings ??? Use ForEachName instead!
   /*
@@ -101,13 +95,13 @@ public:
 
   inline m2::RectD GetLimitRect() const
   {
-    ASSERT ( m_limitRect.IsValid(), () );
+    ASSERT(m_limitRect.IsValid(), ());
     return m_limitRect;
   }
 
   inline m2::PointD GetCenter() const
   {
-    ASSERT_EQUAL ( GetFeatureType(), feature::GEOM_POINT, () );
+    ASSERT_EQUAL(GetFeatureType(), feature::GEOM_POINT, ());
     ParseCommon();
     return m_center;
   }
@@ -177,10 +171,11 @@ public:
 
   void UpdateHeader(bool commonParsed, bool metadataParsed);
   bool UpdateMetadataValue(string const & key, string const & value);
-  void ForEachMetadataItem(bool skipSponsored,
-                           function<void(string const & tag, string const & value)> const & fn) const;
+  void ForEachMetadataItem(
+      bool skipSponsored,
+      function<void(string const & tag, string const & value)> const & fn) const;
 
-  void SetCenter(m2::PointD const &pt);
+  void SetCenter(m2::PointD const & pt);
   //@}
 
   inline void SetID(FeatureID const & id) { m_id = id; }
@@ -202,7 +197,11 @@ public:
   /// @name Geometry.
   //@{
   /// This constant values should be equal with feature::LoaderBase implementation.
-  enum { BEST_GEOMETRY = -1, WORST_GEOMETRY = -2 };
+  enum
+  {
+    BEST_GEOMETRY = -1,
+    WORST_GEOMETRY = -2
+  };
 
   m2::RectD GetLimitRect(int scale) const;
 
@@ -246,7 +245,7 @@ public:
 
     for (size_t i = 0; i < m_triangles.size();)
     {
-      f(m_triangles[i], m_triangles[i+1], m_triangles[i+2]);
+      f(m_triangles[i], m_triangles[i + 1], m_triangles[i + 2]);
       i += 3;
     }
   }
@@ -280,7 +279,8 @@ public:
   //@{
   /// Just get feature names.
   void GetPreferredNames(string & defaultName, string & intName) const;
-  void GetPreferredNames(bool allowTranslit, int8_t deviceLang, string & defaultName, string & intName) const;
+  void GetPreferredNames(bool allowTranslit, int8_t deviceLang, string & defaultName,
+                         string & intName) const;
   /// Get one most suitable name for user.
   void GetReadableName(string & name) const;
   void GetReadableName(bool allowTranslit, int8_t deviceLang, string & name) const;
@@ -307,19 +307,13 @@ public:
 
   /// @name Statistic functions.
   //@{
-  inline void ParseBeforeStatistic() const
-  {
-    ParseHeader2();
-  }
+  inline void ParseBeforeStatistic() const { ParseHeader2(); }
 
   struct inner_geom_stat_t
   {
     uint32_t m_points, m_strips, m_size;
 
-    void MakeZero()
-    {
-      m_points = m_strips = m_size = 0;
-    }
+    void MakeZero() { m_points = m_strips = m_size = 0; }
   };
 
   inner_geom_stat_t GetInnerStatistic() const { return m_innerStats; }
@@ -328,10 +322,7 @@ public:
   {
     uint32_t m_size, m_count;
 
-    geom_stat_t(uint32_t sz, size_t count)
-      : m_size(sz), m_count(static_cast<uint32_t>(count))
-    {
-    }
+    geom_stat_t(uint32_t sz, size_t count) : m_size(sz), m_count(static_cast<uint32_t>(count)) {}
 
     geom_stat_t() : m_size(0), m_count(0) {}
   };
@@ -372,16 +363,16 @@ private:
 
 namespace feature
 {
-  template <class IterT>
-  void CalcRect(IterT b, IterT e, m2::RectD & rect)
-  {
-    while (b != e)
-      rect.Add(*b++);
-  }
-
-  template <class TCont>
-  void CalcRect(TCont const & points, m2::RectD & rect)
-  {
-    CalcRect(points.begin(), points.end(), rect);
-  }
+template <class IterT>
+void CalcRect(IterT b, IterT e, m2::RectD & rect)
+{
+  while (b != e)
+    rect.Add(*b++);
 }
+
+template <class TCont>
+void CalcRect(TCont const & points, m2::RectD & rect)
+{
+  CalcRect(points.begin(), points.end(), rect);
+}
+}  // namespace feature

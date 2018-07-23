@@ -1,10 +1,12 @@
-#include "follow_animation.hpp"
+#include "drape_frontend/animation/follow_animation.hpp"
 
 #include "drape_frontend/animation_constants.hpp"
 #include "drape_frontend/animation_system.hpp"
 
 #include "base/assert.hpp"
 #include "base/logging.hpp"
+
+#include <algorithm>
 
 namespace df
 {
@@ -157,9 +159,9 @@ double MapFollowAnimation::GetMinDuration() const
 
 double MapFollowAnimation::CalculateDuration() const
 {
-  double duration = max(m_angleInterpolator.GetDuration(), m_offsetInterpolator.GetDuration());
+  double duration = std::max(m_angleInterpolator.GetDuration(), m_offsetInterpolator.GetDuration());
   if (!m_isAutoZoom)
-    duration = max(duration, m_scaleInterpolator.GetDuration());
+    duration = std::max(duration, m_scaleInterpolator.GetDuration());
   return duration;
 }
 

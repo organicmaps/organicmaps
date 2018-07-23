@@ -10,9 +10,12 @@
 #include "base/math.hpp"
 #include "base/string_utils.hpp"
 
+#include <algorithm>
+
+using namespace std;
+
 namespace url_scheme
 {
-
 Ge0Parser::Ge0Parser()
 {
   for (size_t i = 0; i < 256; ++i)
@@ -54,7 +57,8 @@ bool Ge0Parser::Parse(string const & url, url_scheme::ApiPoint & outPoint, doubl
   ASSERT(MercatorBounds::ValidLat(outPoint.m_lat), (outPoint.m_lat));
 
   if (url.size() >= NAME_POSITON_IN_URL)
-    outPoint.m_name = DecodeName(url.substr(NAME_POSITON_IN_URL, min(url.size() - NAME_POSITON_IN_URL, MAX_NAME_LENGTH)));
+    outPoint.m_name = DecodeName(
+        url.substr(NAME_POSITON_IN_URL, min(url.size() - NAME_POSITON_IN_URL, MAX_NAME_LENGTH)));
   return true;
 }
 
@@ -65,7 +69,7 @@ uint8_t Ge0Parser::DecodeBase64Char(char const c)
 
 double Ge0Parser::DecodeZoom(uint8_t const zoomByte)
 {
-  //Coding zoom -  int newZoom = ((oldZoom - 4) * 4)
+  // Coding zoom -  int newZoom = ((oldZoom - 4) * 4)
   return static_cast<double>(zoomByte) / 4 + 4;
 }
 
@@ -80,15 +84,11 @@ void Ge0Parser::DecodeLatLon(string const & url, double & lat, double & lon)
 void Ge0Parser::DecodeLatLonToInt(string const & url, int & lat, int & lon, size_t const bytes)
 {
   int shift = MAPSWITHME_MAX_COORD_BITS - 3;
-  for(size_t i = 0; i < bytes; ++i, shift -= 3)
+  for (size_t i = 0; i < bytes; ++i, shift -= 3)
   {
     const uint8_t a = DecodeBase64Char(url[i]);
-    const int lat1 =  (((a >> 5) & 1) << 2 |
-                 ((a >> 3) & 1) << 1 |
-                 ((a >> 1) & 1));
-    const int lon1 =  (((a >> 4) & 1) << 2 |
-                 ((a >> 2) & 1) << 1 |
-                        (a & 1));
+    const int lat1 = (((a >> 5) & 1) << 2 | ((a >> 3) & 1) << 1 | ((a >> 1) & 1));
+    const int lon1 = (((a >> 4) & 1) << 2 | ((a >> 2) & 1) << 1 | (a & 1));
     lat |= lat1 << shift;
     lon |= lon1 << shift;
   }
@@ -147,4 +147,4 @@ bool Ge0Parser::IsHexChar(char const a)
   return ((a >= '0' && a <= '9') || (a >= 'A' && a <= 'F') || (a >= 'a' && a <= 'f'));
 }
 
-} // namespace url_scheme
+}  // namespace url_scheme

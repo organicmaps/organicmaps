@@ -1,37 +1,40 @@
 #pragma once
 
+#include "geometry/distance.hpp"
 #include "geometry/point2d.hpp"
 #include "geometry/rect2d.hpp"
-#include "geometry/distance.hpp"
 
 #include "base/internal/message.hpp"
 
-#include "std/initializer_list.hpp"
-#include "std/vector.hpp"
+#include <cstddef>
+#include <initializer_list>
+#include <limits>
+#include <string>
+#include <vector>
 
 namespace m2
 {
 template <typename T>
 class Polyline
 {
-  vector<Point<T> > m_points;
+  std::vector<Point<T>> m_points;
 
 public:
-  using Container = vector<Point<T>>;
+  using Container = std::vector<Point<T>>;
   using Iter = typename Container::const_iterator;
 
   Polyline() {}
-  Polyline(initializer_list<Point<T>> const & points) : m_points(points)
+  Polyline(std::initializer_list<Point<T>> const & points) : m_points(points)
   {
     ASSERT_GREATER(m_points.size(), 1, ());
   }
 
-  explicit Polyline(vector<Point<T>> const & points) : m_points(points)
+  explicit Polyline(std::vector<Point<T>> const & points) : m_points(points)
   {
     ASSERT_GREATER(m_points.size(), 1, ());
   }
 
-  explicit Polyline(vector<Point<T>> && points) : m_points(move(points))
+  explicit Polyline(std::vector<Point<T>> && points) : m_points(move(points))
   {
     ASSERT_GREATER(m_points.size(), 1, ());
   }
@@ -47,7 +50,7 @@ public:
     // @todo add cached value and lazy init
     double dist = 0;
     for (size_t i = 1; i < m_points.size(); ++i)
-      dist += m_points[i-1].Length(m_points[i]);
+      dist += m_points[i - 1].Length(m_points[i]);
     return dist;
   }
 
@@ -61,7 +64,7 @@ public:
 
   double CalcMinSquaredDistance(m2::Point<T> const & point) const
   {
-    double res = numeric_limits<double>::max();
+    double res = std::numeric_limits<double>::max();
     m2::DistanceToLineSquare<m2::Point<T>> d;
 
     Iter i = Begin();
@@ -136,31 +139,31 @@ public:
     return m_points.back();
   }
 
-  vector<Point<T>> ExtractSegment(size_t segmentIndex, bool reversed) const
+  std::vector<Point<T>> ExtractSegment(size_t segmentIndex, bool reversed) const
   {
     if (segmentIndex + 1 >= m_points.size())
-      return vector<Point<T>>();
+      return std::vector<Point<T>>();
 
-    return reversed ? vector<Point<T>>{m_points[segmentIndex + 1], m_points[segmentIndex]} :
-           vector<Point<T>>{m_points[segmentIndex], m_points[segmentIndex + 1]};
+    return reversed ? std::vector<Point<T>>{m_points[segmentIndex + 1], m_points[segmentIndex]}
+                    : std::vector<Point<T>>{m_points[segmentIndex], m_points[segmentIndex + 1]};
   }
 
-  vector<Point<T>> ExtractSegment(size_t startPointIndex, size_t endPointIndex) const
+  std::vector<Point<T>> ExtractSegment(size_t startPointIndex, size_t endPointIndex) const
   {
     if (startPointIndex > endPointIndex || startPointIndex >= m_points.size() ||
         endPointIndex >= m_points.size())
     {
-      return vector<Point<T>>();
+      return std::vector<Point<T>>();
     }
 
-    vector<Point<T>> result(endPointIndex - startPointIndex + 1);
+    std::vector<Point<T>> result(endPointIndex - startPointIndex + 1);
     for (size_t i = startPointIndex, j = 0; i <= endPointIndex; ++i, ++j)
       result[j] = m_points[i];
     return result;
   }
 
-  vector<Point<T> > const & GetPoints() const { return m_points; }
-  friend string DebugPrint(Polyline const & p) { return ::DebugPrint(p.m_points); }
+  std::vector<Point<T>> const & GetPoints() const { return m_points; }
+  friend std::string DebugPrint(Polyline const & p) { return ::DebugPrint(p.m_points); }
 };
 
 using PolylineD = Polyline<double>;

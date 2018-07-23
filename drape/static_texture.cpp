@@ -14,6 +14,7 @@
 #endif
 #include "3party/stb_image/stb_image.h"
 
+#include <limits>
 #include <vector>
 
 namespace dp
@@ -40,7 +41,7 @@ bool LoadData(std::string const & textureName, std::string const & skinPathName,
                                GetStyleReader().GetDefaultResourceReader(fullName) :
                                GetStyleReader().GetResourceReader(fullName, skinPathName);
 
-    CHECK_LESS(reader.Size(), static_cast<uint64_t>(numeric_limits<size_t>::max()), ());
+    CHECK_LESS(reader.Size(), static_cast<uint64_t>(std::numeric_limits<size_t>::max()), ());
     size_t const size = static_cast<size_t>(reader.Size());
     rawData.resize(size);
     reader.Read(0, &rawData[0], size);

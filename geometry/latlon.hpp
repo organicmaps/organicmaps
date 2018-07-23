@@ -2,11 +2,10 @@
 
 #include "base/math.hpp"
 
-#include "std/string.hpp"
+#include <string>
 
 namespace ms
 {
-
 /// \brief Class for representing WGS point.
 class LatLon
 {
@@ -24,19 +23,15 @@ public:
 
   static LatLon Zero() { return LatLon(0., 0.); }
 
-  bool operator == (ms::LatLon const & p) const;
+  bool operator==(ms::LatLon const & p) const;
 
   bool EqualDxDy(LatLon const & p, double eps) const;
 
   struct Hash
   {
-    size_t operator()(ms::LatLon const & p) const
-    {
-      return my::Hash(p.lat, p.lon);
-    }
+    size_t operator()(ms::LatLon const & p) const { return my::Hash(p.lat, p.lon); }
   };
 };
 
-string DebugPrint(LatLon const & t);
-
+std::string DebugPrint(LatLon const & t);
 }  // namespace ms

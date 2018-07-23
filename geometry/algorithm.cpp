@@ -3,9 +3,12 @@
 
 #include "base/logging.hpp"
 
+using namespace std;
+
 namespace m2
 {
-// CalculatePolyLineCenter -----------------------------------------------------------------------------
+// CalculatePolyLineCenter
+// -----------------------------------------------------------------------------
 
 void CalculatePolyLineCenter::operator()(m2::PointD const & pt)
 {

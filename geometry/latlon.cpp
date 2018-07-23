@@ -1,6 +1,8 @@
 #include "latlon.hpp"
 
-#include "std/sstream.hpp"
+#include <sstream>
+
+using namespace std;
 
 namespace ms
 {
@@ -18,10 +20,7 @@ string DebugPrint(LatLon const & t)
   return out.str();
 }
 
-bool LatLon::operator == (ms::LatLon const & p) const
-{
-  return lat == p.lat && lon == p.lon;
-}
+bool LatLon::operator==(ms::LatLon const & p) const { return lat == p.lat && lon == p.lon; }
 
 bool LatLon::EqualDxDy(LatLon const & p, double eps) const
 {

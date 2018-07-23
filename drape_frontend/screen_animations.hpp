@@ -1,16 +1,17 @@
 #pragma once
 
-#include "screen_operations.hpp"
+#include "drape_frontend/animation/animation.hpp"
+#include "drape_frontend/screen_operations.hpp"
 
-#include "animation/animation.hpp"
+#include <string>
 
 namespace df
 {
 
-extern string const kPrettyMoveAnim;
-extern string const kPrettyFollowAnim;
-extern string const kParallelFollowAnim;
-extern string const kParallelLinearAnim;
+extern std::string const kPrettyMoveAnim;
+extern std::string const kPrettyFollowAnim;
+extern std::string const kParallelFollowAnim;
+extern std::string const kParallelLinearAnim;
 
 class SequenceAnimation;
 class MapLinearAnimation;

@@ -1,4 +1,6 @@
-#include "animation.hpp"
+#include "drape_frontend/animation/animation.hpp"
+
+#include <algorithm>
 
 namespace df
 {
@@ -69,7 +71,7 @@ bool Animation::GetMinDuration(Interpolator const & interpolator, double & minDu
   {
     double const duration = interpolator.GetMinDuration();
     if (duration >= 0.0)
-      minDuration = minDuration >= 0.0 ? min(duration, minDuration) : duration;
+      minDuration = minDuration >= 0.0 ? std::min(duration, minDuration) : duration;
     else
       return false;
   }
@@ -83,7 +85,7 @@ bool Animation::GetMaxDuration(Interpolator const & interpolator, double & maxDu
   {
     double const duration = interpolator.GetMaxDuration();
     if (duration >= 0.0)
-      maxDuration = maxDuration >= 0.0 ? max(duration, maxDuration) : duration;
+      maxDuration = maxDuration >= 0.0 ? std::max(duration, maxDuration) : duration;
     else
       return false;
   }

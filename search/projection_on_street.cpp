@@ -4,10 +4,12 @@
 
 #include "geometry/robust_orientation.hpp"
 
+#include <limits>
+
+using namespace std;
 
 namespace search
 {
-
 // ProjectionOnStreet ------------------------------------------------------------------------------
 ProjectionOnStreet::ProjectionOnStreet()
   : m_proj(0, 0), m_distMeters(0), m_segIndex(0), m_projSign(false)
@@ -42,9 +44,8 @@ bool ProjectionOnStreetCalculator::GetProjection(m2::PointD const & point,
       proj.m_proj = ptProj;
       proj.m_distMeters = distMeters;
       proj.m_segIndex = index;
-      proj.m_projSign = m2::robust::OrientedS(m_segProjs[index].P0(),
-                                              m_segProjs[index].P1(),
-                                              point) <= 0.0;
+      proj.m_projSign =
+          m2::robust::OrientedS(m_segProjs[index].P0(), m_segProjs[index].P1(), point) <= 0.0;
     }
   }
 
