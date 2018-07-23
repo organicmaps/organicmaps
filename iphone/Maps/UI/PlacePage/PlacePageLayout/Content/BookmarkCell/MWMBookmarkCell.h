@@ -8,6 +8,7 @@
 - (void)configureWithText:(NSString *)text
        updateCellDelegate:(id<MWMPlacePageCellUpdateProtocol>)updateCellDelegate
      editBookmarkDelegate:(id<MWMPlacePageButtonsProtocol>)editBookmarkDelegate
-                   isHTML:(BOOL)isHTML;
+                   isHTML:(BOOL)isHTML
+               isEditable:(BOOL)isEditable;
 
 @end

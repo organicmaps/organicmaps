@@ -284,7 +284,7 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
     return 0;
   switch (data.sections[section])
   {
-  case Sections::Bookmark: return data.isBookmarkFromCatalog ? 0 : 1;
+  case Sections::Bookmark: return 1;
   case Sections::Preview: return data.previewRows.size();
   case Sections::SpecialProjects: return data.specialProjectRows.size();
   case Sections::Metainfo: return data.metainfoRows.size();
@@ -322,9 +322,10 @@ map<MetainfoRows, Class> const kMetaInfoCells = {
       auto c = static_cast<MWMBookmarkCell *>(
           [tableView dequeueReusableCellWithCellClass:cls indexPath:indexPath]);
       [c configureWithText:data.bookmarkDescription
-            updateCellDelegate:self
-          editBookmarkDelegate:delegate
-                        isHTML:data.isHTMLDescription];
+        updateCellDelegate:self
+      editBookmarkDelegate:delegate
+                    isHTML:data.isHTMLDescription
+                isEditable:!data.isBookmarkFromCatalog];
       return c;
     }
     case Sections::Metainfo:

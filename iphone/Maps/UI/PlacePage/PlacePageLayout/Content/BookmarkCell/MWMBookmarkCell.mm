@@ -80,6 +80,7 @@ NSString * const kTextViewContentSizeKeyPath = @"contentSize";
        updateCellDelegate:(id<MWMPlacePageCellUpdateProtocol>)updateCellDelegate
      editBookmarkDelegate:(id<MWMPlacePageButtonsProtocol>)editBookmarkDelegate
                    isHTML:(BOOL)isHTML
+               isEditable:(BOOL)isEditable
 {
   self.attributedHTML = nil;
   self.isOpen = NO;
@@ -87,6 +88,7 @@ NSString * const kTextViewContentSizeKeyPath = @"contentSize";
   self.textViewZeroHeight.active = NO;
   self.updateCellDelegate = updateCellDelegate;
   self.editBookmarkDelegate = editBookmarkDelegate;
+  self.editButton.enabled = isEditable;
 
   if (!text.length)
     [self configWithEmptyDescription];
