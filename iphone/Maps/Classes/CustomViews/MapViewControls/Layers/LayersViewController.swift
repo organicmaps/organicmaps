@@ -49,32 +49,36 @@ final class LayersViewController: MWMViewController {
 extension LayersViewController: MWMTrafficManagerObserver {
   func onTrafficStateUpdated() {
     updateTrafficButton()
-    let statusString: String
+    let status: String?
     switch MWMTrafficManager.trafficState() {
-    case .enabled: statusString = "success"
-    case .noData: statusString = "unavailable"
-    case .networkError: statusString = "error"
+    case .enabled: status = "success"
+    case .noData: status = "unavailable"
+    case .networkError: status = "error"
     case .disabled: fallthrough
     case .waitingData: fallthrough
     case .outdated: fallthrough
     case .expiredData: fallthrough
-    case .expiredApp: statusString = ""
+    case .expiredApp: status = nil
     }
 
-    Statistics.logEvent("Map_Layers_activate", withParameters: ["name" : "traffic",
-                                                                "status" : statusString])
+    if let status = status {
+      Statistics.logEvent("Map_Layers_activate", withParameters: ["name" : "traffic",
+                                                                  "status" : status])
+    }
   }
 
   func onTransitStateUpdated() {
     updateSubwayButton()
-    let statusString: String
+    let status: String?
     switch MWMTrafficManager.transitState() {
-    case .enabled: statusString = "success"
-    case .noData: statusString = "unavailable"
-    case .disabled: statusString = ""
+    case .enabled: status = "success"
+    case .noData: status = "unavailable"
+    case .disabled: status = nil
     }
-    
-    Statistics.logEvent("Map_Layers_activate", withParameters: ["name" : "subway",
-                                                                "status" : statusString])
+
+    if let status = status {
+      Statistics.logEvent("Map_Layers_activate", withParameters: ["name" : "subway",
+                                                                  "status" : status])
+    }
   }
 }
