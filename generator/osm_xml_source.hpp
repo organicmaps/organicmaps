@@ -89,6 +89,8 @@ public:
       case OsmElement::EntityType::Nd:
         m_parent.AddNd(m_child.ref);
         break;
+      default:
+        break;
       }
       m_current = &m_parent;
       m_child.Clear();

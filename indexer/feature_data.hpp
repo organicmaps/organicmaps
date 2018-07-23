@@ -256,7 +256,6 @@ public:
   }
 
   bool IsValid() const { return !m_types.empty(); }
-
   void SetGeomType(feature::EGeomType t);
   void SetGeomTypePointEx();
   feature::EGeomType GetGeomType() const;

@@ -95,9 +95,13 @@ struct OsmElement
 
   std::string ToString(std::string const & shift = std::string()) const;
 
-  inline std::vector<uint64_t> const & Nodes() const { return m_nds; }
-  inline std::vector<Member> const & Members() const { return m_members; }
-  inline std::vector<Tag> const & Tags() const { return m_tags; }
+  std::vector<uint64_t> const & Nodes() const { return m_nds; }
+  std::vector<Member> const & Members() const { return m_members; }
+  std::vector<Tag> const & Tags() const { return m_tags; }
+
+  bool IsNode() const { return type == EntityType::Node; }
+  bool IsWay() const { return type == EntityType::Way; }
+  bool IsRelation() const { return type == EntityType::Relation; }
 
   static EntityType StringToEntityType(std::string const & t)
   {
@@ -111,10 +115,9 @@ struct OsmElement
     return EntityType::Unknown;
   }
 
-  bool operator == (OsmElement const & e) const
+  bool operator==(OsmElement const & e) const
   {
-    return (
-            type == e.type
+    return type == e.type
             && id == e.id
             && my::AlmostEqualAbs(lon, e.lon, 1e-7)
             && my::AlmostEqualAbs(lat, e.lat, 1e-7)
@@ -125,8 +128,7 @@ struct OsmElement
             && role == e.role
             && m_nds == e.m_nds
             && m_members == e.m_members
-            && m_tags == e.m_tags
-    );
+            && m_tags == e.m_tags;
   }
 
   void AddNd(uint64_t ref) { m_nds.emplace_back(ref); }
@@ -136,7 +138,10 @@ struct OsmElement
   }
 
   void AddTag(std::string const & k, std::string const & v);
-  template <class TFn> void UpdateTag(std::string const & k, TFn && fn)
+  bool HasTagValue(std::string const & k, std::string const & v) const;
+
+  template <class Fn>
+  void UpdateTag(std::string const & k, Fn && fn)
   {
     for (auto & tag : m_tags)
     {

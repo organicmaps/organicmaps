@@ -23,9 +23,12 @@
 #include "base/string_utils.hpp"
 #include "base/osm_id.hpp"
 
+#include <cstring>
 #include <list>
+#include <string>
 #include <type_traits>
 #include <unordered_set>
+#include <utility>
 #include <vector>
 
 namespace generator {
@@ -36,6 +39,9 @@ class RelationTagsBase
 {
 public:
   explicit RelationTagsBase(routing::TagsProcessor & tagsProcessor);
+
+  virtual ~RelationTagsBase() {}
+
   void Reset(uint64_t fID, OsmElement * p);
 
   template <class TReader>
@@ -53,7 +59,7 @@ public:
 protected:
   static bool IsSkipRelation(std::string const & type);
   bool IsKeyTagExists(std::string const & key) const;
-  void AddCustomTag(pair<std::string, std::string> const & p);
+  void AddCustomTag(std::pair<std::string, std::string> const & p);
   virtual void Process(RelationElement const & e) = 0;
 
 protected:
@@ -95,13 +101,15 @@ protected:
 
 class HolesAccumulator
 {
-  AreaWayMerger m_merger;
-  FeatureBuilder1::Geometry m_holes;
-
 public:
   explicit HolesAccumulator(cache::IntermediateDataReader & holder);
+
   void operator() (uint64_t id) { m_merger.AddWay(id); }
   FeatureBuilder1::Geometry & GetHoles();
+
+private:
+  AreaWayMerger m_merger;
+  FeatureBuilder1::Geometry m_holes;
 };
 
 
@@ -109,7 +117,8 @@ public:
 class HolesProcessor
 {
 public:
-  explicit HolesProcessor(uint64_t id, cache::IntermediateDataReader & holder);
+  HolesProcessor(uint64_t id, cache::IntermediateDataReader & holder);
+
   /// 1. relations process function
   bool operator() (uint64_t /*id*/, RelationElement const & e);
   /// 2. "ways in relation" process function
@@ -122,21 +131,21 @@ private:
 };
 
 
-class IOsmToFeatureTranslator
+class OsmToFeatureTranslatorInterface
 {
 public:
-  virtual ~IOsmToFeatureTranslator() {}
-  virtual void EmitElement(OsmElement * p) = 0;
+  virtual ~OsmToFeatureTranslatorInterface() {}
 
+  virtual void EmitElement(OsmElement * p) = 0;
 };
 
 
-class OsmToFeatureTranslator : public IOsmToFeatureTranslator
+class OsmToFeatureTranslator : public OsmToFeatureTranslatorInterface
 {
 public:
-  explicit OsmToFeatureTranslator(std::shared_ptr<EmitterBase> emitter,
-                                  cache::IntermediateDataReader & holder,
-                                  feature::GenerateInfo const & info);
+  OsmToFeatureTranslator(std::shared_ptr<EmitterInterface> emitter,
+                         cache::IntermediateDataReader & holder,
+                         feature::GenerateInfo const & info);
 
   /// The main entry point for parsing process.
   void EmitElement(OsmElement * p) override;
@@ -183,10 +192,10 @@ private:
   }
 
 private:
-  std::shared_ptr<EmitterBase> m_emitter;
+  std::shared_ptr<EmitterInterface> m_emitter;
   cache::IntermediateDataReader & m_holder;
   uint32_t m_coastType;
-  unique_ptr<FileWriter> m_addrWriter;
+  std::unique_ptr<FileWriter> m_addrWriter;
 
   routing::TagsProcessor m_routingTagsProcessor;
 
@@ -195,13 +204,14 @@ private:
   feature::MetalinesBuilder m_metalinesBuilder;
 };
 
-class OsmToFeatureTranslatorRegion : public IOsmToFeatureTranslator
+class OsmToFeatureTranslatorRegion : public OsmToFeatureTranslatorInterface
 {
 public:
-  explicit OsmToFeatureTranslatorRegion(std::shared_ptr<EmitterBase> emitter,
-                                        cache::IntermediateDataReader & holder);
+  OsmToFeatureTranslatorRegion(std::shared_ptr<EmitterInterface> emitter,
+                               cache::IntermediateDataReader & holder);
 
   void EmitElement(OsmElement * p) override;
+
 private:
   bool IsSuitableElement(OsmElement const * p) const;
   void AddInfoAboutRegion(OsmElement const * p, FeatureBuilder1 & ft) const;
@@ -209,8 +219,7 @@ private:
   void BuildFeatureAndEmit(OsmElement const * p, FeatureParams & params);
 
 private:
-  std::shared_ptr<EmitterBase> m_emitter;
+  std::shared_ptr<EmitterInterface> m_emitter;
   cache::IntermediateDataReader & m_holder;
 };
-
 }  // namespace generator

@@ -11,7 +11,7 @@ class FeatureBuilder1;
 
 namespace generator
 {
-template <typename SponsoredObject>
+template<typename SponsoredObject>
 class SponsoredDataset
 {
 public:

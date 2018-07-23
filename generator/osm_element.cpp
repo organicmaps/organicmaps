@@ -70,6 +70,13 @@ void OsmElement::AddTag(std::string const & k, std::string const & v)
   m_tags.emplace_back(k, value);
 }
 
+bool OsmElement::HasTagValue(std::string const & k, std::string const & v) const
+{
+  return std::any_of(m_tags.begin(), m_tags.end(), [&](auto const & t) {
+    return t.key == k && t.value == v;
+  });
+}
+
 std::string OsmElement::ToString(std::string const & shift) const
 {
   std::stringstream ss;

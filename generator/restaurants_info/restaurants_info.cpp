@@ -1,3 +1,4 @@
+#include "generator/emitter_factory.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/osm_source.hpp"
 
@@ -25,62 +26,6 @@ DEFINE_string(out, "", "Output file path");
 
 namespace
 {
-class Emitter : public generator::EmitterBase
-{
-public:
-  Emitter(std::vector<FeatureBuilder1> & features)
-    : m_features(features)
-  {
-    LOG_SHORT(LINFO, ("OSM data:", FLAGS_osm));
-  }
-
-  // EmitterBase overrides:
-  void operator()(FeatureBuilder1 & fb) override
-  {
-    if (!ftypes::IsFoodChecker::Instance()(fb.GetParams().m_types) || fb.GetParams().name.IsEmpty())
-    {
-      ++m_stats.m_unexpectedFeatures;
-      return;
-    }
-
-    switch (fb.GetGeomType())
-    {
-    case feature::GEOM_POINT: ++m_stats.m_restaurantsPoi; break;
-    case feature::GEOM_AREA: ++m_stats.m_restaurantsBuilding; break;
-    default: ++m_stats.m_unexpectedFeatures;
-    }
-    m_features.emplace_back(fb);
-  }
-
-  void GetNames(std::vector<std::string> & names) const override
-  {
-    // We do not need to create any data file. See generator_tool.cpp and osm_source.cpp.
-    names.clear();
-  }
-
-  bool Finish() override
-  {
-    LOG_SHORT(LINFO, ("Number of restaurants: POI:", m_stats.m_restaurantsPoi,
-                      "BUILDING:", m_stats.m_restaurantsBuilding,
-                      "TOTAL:", m_features.size(),
-                      "INVALID:", m_stats.m_unexpectedFeatures));
-    return true;
-  }
-
-private:
-  std::vector<FeatureBuilder1> & m_features;
-
-  struct Stats
-  {
-    // Number of features of any "food type".
-    uint32_t m_restaurantsPoi = 0;
-    uint32_t m_restaurantsBuilding = 0;
-    uint32_t m_unexpectedFeatures = 0;
-  };
-
-  Stats m_stats;
-};
-
 feature::GenerateInfo GetGenerateInfo()
 {
   feature::GenerateInfo info;
@@ -140,10 +85,10 @@ int main(int argc, char * argv[])
   auto info = GetGenerateInfo();
   generator::GenerateIntermediateData(info);
 
+  LOG_SHORT(LINFO, ("OSM data:", FLAGS_osm));
   std::vector<FeatureBuilder1> features;
-  generator::GenerateFeatures(info, [&features](feature::GenerateInfo const & /* info */) {
-    return my::make_unique<Emitter>(features);
-  });
+  auto emitter = generator::CreateEmitter(generator::EmitterType::RESTAURANTS, features);
+  generator::GenerateFeatures(info, emitter);
 
   {
     std::ofstream ost(FLAGS_out);

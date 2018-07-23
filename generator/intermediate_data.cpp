@@ -1,16 +1,21 @@
 #include "generator/intermediate_data.hpp"
 
 #include <new>
+#include <set>
 #include <string>
 
 #include "base/assert.hpp"
+#include "base/checked_cast.hpp"
 #include "base/logging.hpp"
-#include "base/utils.hpp"
 
 #include "defines.hpp"
 
 using namespace std;
 
+namespace generator
+{
+namespace cache
+{
 namespace
 {
 size_t const kFlushCount = 1024;
@@ -22,18 +27,22 @@ string const kShortExtension = ".short";
 // see https://wiki.openstreetmap.org/wiki/Stats
 size_t const kMaxNodesInOSM = size_t{1} << 33;
 
-void ToLatLon(double lat, double lon, generator::cache::LatLon & ll)
+void ToLatLon(double lat, double lon, LatLon & ll)
 {
   int64_t const lat64 = lat * kValueOrder;
   int64_t const lon64 = lon * kValueOrder;
 
-  CHECK(TestOverflow<int32_t>(lat64), ("Latitude is out of 32bit boundary:", lat64));
-  CHECK(TestOverflow<int32_t>(lon64), ("Longitude is out of 32bit boundary:", lon64));
+  CHECK(
+      lat64 >= std::numeric_limits<int32_t>::min() && lat64 <= std::numeric_limits<int32_t>::max(),
+      ("Latitude is out of 32bit boundary:", lat64));
+  CHECK(
+      lon64 >= std::numeric_limits<int32_t>::min() && lon64 <= std::numeric_limits<int32_t>::max(),
+      ("Longitude is out of 32bit boundary:", lon64));
   ll.m_lat = static_cast<int32_t>(lat64);
   ll.m_lon = static_cast<int32_t>(lon64);
 }
 
-bool FromLatLon(generator::cache::LatLon const & ll, double & lat, double & lon)
+bool FromLatLon(LatLon const & ll, double & lat, double & lon)
 {
   // Assume that a valid coordinate is not (0, 0).
   if (ll.m_lat != 0.0 || ll.m_lon != 0.0)
@@ -46,12 +55,213 @@ bool FromLatLon(generator::cache::LatLon const & ll, double & lat, double & lon)
   lon = 0.0;
   return false;
 }
+
+template <class Index, class Container>
+void AddToIndex(Index & index, Key relationId, Container const & values)
+{
+  for (auto const & v : values)
+    index.Add(v.first, relationId);
+}
+
+class PointStorageWriterBase : public PointStorageWriterInterface
+{
+public:
+  // PointStorageWriterInterface overrides:
+  uint64_t GetNumProcessedPoints() const override { return m_numProcessedPoints; }
+
+private:
+  uint64_t m_numProcessedPoints;
+};
+
+// RawFilePointStorageMmapReader -------------------------------------------------------------------
+class RawFilePointStorageMmapReader : public PointStorageReaderInterface
+{
+public:
+  explicit RawFilePointStorageMmapReader(string const & name) :
+    m_mmapReader(name)
+  {
+  }
+
+  // PointStorageReaderInterface overrides:
+  bool GetPoint(uint64_t id, double & lat, double & lon) const override
+  {
+    LatLon ll;
+    m_mmapReader.Read(id * sizeof(ll), &ll, sizeof(ll));
+
+    bool ret = FromLatLon(ll, lat, lon);
+    if (!ret)
+      LOG(LERROR, ("Node with id =", id, "not found!"));
+    return ret;
+  }
+
+private:
+  MmapReader m_mmapReader;
+};
+
+// RawFilePointStorageWriter -----------------------------------------------------------------------
+class RawFilePointStorageWriter : public PointStorageWriterBase
+{
+public:
+  explicit RawFilePointStorageWriter(string const & name) :
+    m_fileWriter(name)
+  {
+  }
+
+  // PointStorageWriterInterface overrides:
+  void AddPoint(uint64_t id, double lat, double lon) override
+  {
+    LatLon ll;
+    ToLatLon(lat, lon, ll);
+
+    m_fileWriter.Seek(id * sizeof(ll));
+    m_fileWriter.Write(&ll, sizeof(ll));
+
+    ++m_numProcessedPoints;
+  }
+
+private:
+  FileWriter m_fileWriter;
+  uint64_t m_numProcessedPoints = 0;
+};
+
+// RawMemPointStorageReader ------------------------------------------------------------------------
+class RawMemPointStorageReader : public PointStorageReaderInterface
+{
+public:
+  explicit RawMemPointStorageReader(string const & name):
+    m_fileReader(name),
+    m_data(kMaxNodesInOSM)
+  {
+    static_assert(sizeof(size_t) == 8, "This code is only for 64-bit architectures");
+    m_fileReader.Read(0, m_data.data(), m_data.size() * sizeof(LatLon));
+  }
+
+  // PointStorageReaderInterface overrides:
+  bool GetPoint(uint64_t id, double & lat, double & lon) const override
+  {
+    LatLon const & ll = m_data[id];
+    bool ret = FromLatLon(ll, lat, lon);
+    if (!ret)
+      LOG(LERROR, ("Node with id =", id, "not found!"));
+    return ret;
+  }
+
+private:
+  FileReader m_fileReader;
+  vector<LatLon> m_data;
+};
+
+// RawMemPointStorageWriter ------------------------------------------------------------------------
+class RawMemPointStorageWriter : public PointStorageWriterBase
+{
+public:
+  explicit RawMemPointStorageWriter(string const & name) :
+    m_fileWriter(name),
+    m_data(kMaxNodesInOSM)
+  {
+  }
+
+  ~RawMemPointStorageWriter()
+  {
+    m_fileWriter.Write(m_data.data(), m_data.size() * sizeof(LatLon));
+  }
+
+  // PointStorageWriterInterface overrides:
+  void AddPoint(uint64_t id, double lat, double lon) override
+  {
+    CHECK_LESS(id, m_data.size(),
+               ("Found node with id", id, "which is bigger than the allocated cache size"));
+
+    LatLon & ll = m_data[id];
+    ToLatLon(lat, lon, ll);
+
+    ++m_numProcessedPoints;
+  }
+
+private:
+  FileWriter m_fileWriter;
+  vector<LatLon> m_data;
+  uint64_t m_numProcessedPoints = 0;
+};
+
+// MapFilePointStorageReader -----------------------------------------------------------------------
+class MapFilePointStorageReader : public PointStorageReaderInterface
+{
+public:
+  explicit MapFilePointStorageReader(string const & name) :
+    m_fileReader(name + kShortExtension)
+  {
+    LOG(LINFO, ("Nodes reading is started"));
+
+    uint64_t const count = m_fileReader.Size();
+
+    uint64_t pos = 0;
+    LatLonPos llp;
+    LatLon ll;
+    while (pos < count)
+    {
+      m_fileReader.Read(pos, &llp, sizeof(llp));
+      pos += sizeof(llp);
+
+      ll.m_lat = llp.m_lat;
+      ll.m_lon = llp.m_lon;
+      m_map.emplace(llp.m_pos, ll);
+    }
+
+    LOG(LINFO, ("Nodes reading is finished"));
+  }
+
+  // PointStorageReaderInterface overrides:
+  bool GetPoint(uint64_t id, double & lat, double & lon) const override
+  {
+    auto const i = m_map.find(id);
+    if (i == m_map.cend())
+      return false;
+    bool ret = FromLatLon(i->second, lat, lon);
+    if (!ret)
+    {
+      LOG(LERROR, ("Inconsistent MapFilePointStorageReader. Node with id =", id,
+                   "must exist but was not found"));
+    }
+    return ret;
+  }
+
+private:
+  FileReader m_fileReader;
+  unordered_map<uint64_t, LatLon> m_map;
+};
+
+// MapFilePointStorageWriter -----------------------------------------------------------------------
+class MapFilePointStorageWriter : public PointStorageWriterBase
+{
+public:
+  explicit MapFilePointStorageWriter(string const & name) :
+    m_fileWriter(name + kShortExtension)
+  {
+  }
+
+  // PointStorageWriterInterface overrides:
+  void AddPoint(uint64_t id, double lat, double lon) override
+  {
+    LatLon ll;
+    ToLatLon(lat, lon, ll);
+
+    LatLonPos llp;
+    llp.m_pos = id;
+    llp.m_lat = ll.m_lat;
+    llp.m_lon = ll.m_lon;
+
+    m_fileWriter.Write(&llp, sizeof(llp));
+
+    ++m_numProcessedPoints;
+  }
+
+private:
+  FileWriter m_fileWriter;
+  uint64_t m_numProcessedPoints = 0;
+};
 }  // namespace
 
-namespace generator
-{
-namespace cache
-{
 // IndexFileReader ---------------------------------------------------------------------------------
 IndexFileReader::IndexFileReader(string const & name) : m_fileReader(name.c_str()) {}
 
@@ -69,7 +279,7 @@ void IndexFileReader::ReadAll()
   {
     m_elements.resize(base::checked_cast<size_t>(fileSize / sizeof(Element)));
   }
-  catch (std::bad_alloc const &)
+  catch (bad_alloc const &)
   {
     LOG(LCRITICAL, ("Insufficient memory for required offset map"));
   }
@@ -93,7 +303,10 @@ bool IndexFileReader::GetValueByKey(Key key, Value & value) const
 }
 
 // IndexFileWriter ---------------------------------------------------------------------------------
-IndexFileWriter::IndexFileWriter(string const & name) : m_fileWriter(name.c_str()) {}
+IndexFileWriter::IndexFileWriter(string const & name) :
+  m_fileWriter(name.c_str())
+{
+}
 
 void IndexFileWriter::WriteAll()
 {
@@ -133,139 +346,8 @@ OSMElementCacheWriter::OSMElementCacheWriter(string const & name, bool preload)
 
 void OSMElementCacheWriter::SaveOffsets() { m_offsets.WriteAll(); }
 
-// RawFilePointStorageMmapReader -------------------------------------------------------------------
-RawFilePointStorageMmapReader::RawFilePointStorageMmapReader(string const & name)
-  : m_mmapReader(name)
-{
-}
-
-bool RawFilePointStorageMmapReader::GetPoint(uint64_t id, double & lat, double & lon) const
-{
-  LatLon ll;
-  m_mmapReader.Read(id * sizeof(ll), &ll, sizeof(ll));
-
-  bool ret = FromLatLon(ll, lat, lon);
-  if (!ret)
-    LOG(LERROR, ("Node with id =", id, "not found!"));
-  return ret;
-}
-
-// RawFilePointStorageWriter -----------------------------------------------------------------------
-RawFilePointStorageWriter::RawFilePointStorageWriter(string const & name) : m_fileWriter(name)
-{
-}
-
-void RawFilePointStorageWriter::AddPoint(uint64_t id, double lat, double lon)
-{
-  LatLon ll;
-  ToLatLon(lat, lon, ll);
-
-  m_fileWriter.Seek(id * sizeof(ll));
-  m_fileWriter.Write(&ll, sizeof(ll));
-
-  ++m_numProcessedPoints;
-}
-
-// RawMemPointStorageReader ------------------------------------------------------------------------
-RawMemPointStorageReader::RawMemPointStorageReader(string const & name)
-  : m_fileReader(name), m_data(kMaxNodesInOSM)
-{
-  static_assert(sizeof(size_t) == 8, "This code is only for 64-bit architectures");
-  m_fileReader.Read(0, m_data.data(), m_data.size() * sizeof(LatLon));
-}
-
-bool RawMemPointStorageReader::GetPoint(uint64_t id, double & lat, double & lon) const
-{
-  LatLon const & ll = m_data[id];
-  bool ret = FromLatLon(ll, lat, lon);
-  if (!ret)
-    LOG(LERROR, ("Node with id =", id, "not found!"));
-  return ret;
-}
-
-// RawMemPointStorageWriter ------------------------------------------------------------------------
-RawMemPointStorageWriter::RawMemPointStorageWriter(string const & name)
-  : m_fileWriter(name), m_data(kMaxNodesInOSM)
-{
-}
-
-RawMemPointStorageWriter::~RawMemPointStorageWriter()
-{
-  m_fileWriter.Write(m_data.data(), m_data.size() * sizeof(LatLon));
-}
-
-void RawMemPointStorageWriter::AddPoint(uint64_t id, double lat, double lon)
-{
-  CHECK_LESS(id, m_data.size(),
-             ("Found node with id", id, "which is bigger than the allocated cache size"));
-
-  LatLon & ll = m_data[id];
-  ToLatLon(lat, lon, ll);
-
-  ++m_numProcessedPoints;
-}
-
-// MapFilePointStorageReader -----------------------------------------------------------------------
-MapFilePointStorageReader::MapFilePointStorageReader(string const & name)
-  : m_fileReader(name + kShortExtension)
-{
-  LOG(LINFO, ("Nodes reading is started"));
-
-  uint64_t const count = m_fileReader.Size();
-
-  uint64_t pos = 0;
-  LatLonPos llp;
-  LatLon ll;
-  while (pos < count)
-  {
-    m_fileReader.Read(pos, &llp, sizeof(llp));
-    pos += sizeof(llp);
-
-    ll.m_lat = llp.m_lat;
-    ll.m_lon = llp.m_lon;
-    m_map.emplace(llp.m_pos, ll);
-  }
-
-  LOG(LINFO, ("Nodes reading is finished"));
-}
-
-bool MapFilePointStorageReader::GetPoint(uint64_t id, double & lat, double & lon) const
-{
-  auto const i = m_map.find(id);
-  if (i == m_map.cend())
-    return false;
-  bool ret = FromLatLon(i->second, lat, lon);
-  if (!ret)
-  {
-    LOG(LERROR, ("Inconsistent MapFilePointStorageReader. Node with id =", id,
-                 "must exist but was not found"));
-  }
-  return ret;
-}
-
-// MapFilePointStorageWriter -----------------------------------------------------------------------
-MapFilePointStorageWriter::MapFilePointStorageWriter(string const & name)
-  : m_fileWriter(name + kShortExtension)
-{
-}
-
-void MapFilePointStorageWriter::AddPoint(uint64_t id, double lat, double lon)
-{
-  LatLon ll;
-  ToLatLon(lat, lon, ll);
-
-  LatLonPos llp;
-  llp.m_pos = id;
-  llp.m_lat = ll.m_lat;
-  llp.m_lon = ll.m_lon;
-
-  m_fileWriter.Write(&llp, sizeof(llp));
-
-  ++m_numProcessedPoints;
-}
-
 // IntermediateDataReader
-IntermediateDataReader::IntermediateDataReader(shared_ptr<IPointStorageReader> nodes,
+IntermediateDataReader::IntermediateDataReader(shared_ptr<PointStorageReaderInterface> nodes,
                                                feature::GenerateInfo & info) :
   m_nodes(nodes),
   m_ways(info.GetIntermediateFileName(WAYS_FILE), info.m_preloadCache),
@@ -284,9 +366,8 @@ void IntermediateDataReader::LoadIndex()
   m_wayToRelations.ReadAll();
 }
 
-
 // IntermediateDataWriter
-IntermediateDataWriter::IntermediateDataWriter(std::shared_ptr<IPointStorageWriter> nodes,
+IntermediateDataWriter::IntermediateDataWriter(shared_ptr<PointStorageWriterInterface> nodes,
                                                feature::GenerateInfo & info):
   m_nodes(nodes),
   m_ways(info.GetIntermediateFileName(WAYS_FILE), info.m_preloadCache),
@@ -298,13 +379,11 @@ IntermediateDataWriter::IntermediateDataWriter(std::shared_ptr<IPointStorageWrit
 
 void IntermediateDataWriter::AddRelation(Key id, RelationElement const & e)
 {
+  static set<string> const types = {"multipolygon", "route", "boundary",
+                                              "associatedStreet", "building", "restriction"};
   string const & relationType = e.GetType();
-  if (!(relationType == "multipolygon" || relationType == "route" || relationType == "boundary" ||
-        relationType == "associatedStreet" || relationType == "building" ||
-        relationType == "restriction"))
-  {
+  if (!types.count(relationType))
     return;
-  }
 
   m_relations.Write(id, e);
   AddToIndex(m_nodeToRelations, id, e.nodes);
@@ -320,37 +399,35 @@ void IntermediateDataWriter::SaveIndex()
   m_wayToRelations.WriteAll();
 }
 
-
 // Functions
-std::shared_ptr<IPointStorageReader>
+shared_ptr<PointStorageReaderInterface>
 CreatePointStorageReader(feature::GenerateInfo::NodeStorageType type, string const & name)
 {
   switch (type)
   {
   case feature::GenerateInfo::NodeStorageType::File:
-    return std::make_shared<RawFilePointStorageMmapReader>(name);
+    return make_shared<RawFilePointStorageMmapReader>(name);
   case feature::GenerateInfo::NodeStorageType::Index:
-    return std::make_shared<MapFilePointStorageReader>(name);
+    return make_shared<MapFilePointStorageReader>(name);
   case feature::GenerateInfo::NodeStorageType::Memory:
-    return std::make_shared<RawMemPointStorageReader>(name);
+    return make_shared<RawMemPointStorageReader>(name);
   }
   CHECK_SWITCH();
 }
 
-std::shared_ptr<IPointStorageWriter>
-CreatePointStorageWriter(feature::GenerateInfo::NodeStorageType type, std::string const & name)
+shared_ptr<PointStorageWriterInterface>
+CreatePointStorageWriter(feature::GenerateInfo::NodeStorageType type, string const & name)
 {
   switch (type)
   {
   case feature::GenerateInfo::NodeStorageType::File:
-    return std::make_shared<RawFilePointStorageWriter>(name);
+    return make_shared<RawFilePointStorageWriter>(name);
   case feature::GenerateInfo::NodeStorageType::Index:
-    return std::make_shared<MapFilePointStorageWriter>(name);
+    return make_shared<MapFilePointStorageWriter>(name);
   case feature::GenerateInfo::NodeStorageType::Memory:
-    return std::make_shared<RawMemPointStorageWriter>(name);
+    return make_shared<RawMemPointStorageWriter>(name);
   }
   CHECK_SWITCH();
 }
-
 }  // namespace cache
 }  // namespace generator

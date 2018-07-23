@@ -43,13 +43,6 @@ BookingHotel::BookingHotel(std::string const & src)
   m_translations = rec[FieldIndex(Fields::Translations)];
 }
 
-std::ostream & operator<<(std::ostream & s, BookingHotel const & h)
-{
-  s << std::fixed << std::setprecision(7);
-  s << "Id: " << h.m_id << "\t Name: " << h.m_name << "\t Address: " << h.m_address
-    << "\t lat: " << h.m_latLon.lat << " lon: " << h.m_latLon.lon;
-  return s;
-}
 
 // BookingDataset ----------------------------------------------------------------------------------
 template <>

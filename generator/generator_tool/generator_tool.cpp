@@ -5,6 +5,7 @@
 #include "generator/check_model.hpp"
 #include "generator/cities_boundaries_builder.hpp"
 #include "generator/dumper.hpp"
+#include "generator/emitter_factory.hpp"
 #include "generator/feature_generator.hpp"
 #include "generator/feature_sorter.hpp"
 #include "generator/generate_info.hpp"
@@ -246,7 +247,8 @@ int main(int argc, char ** argv)
     genInfo.m_fileName = FLAGS_output;
     genInfo.m_genAddresses = FLAGS_generate_addresses_file;
 
-    if (!GenerateFeatures(genInfo))
+    auto emitter = CreateEmitter(EmitterType::PLANET, genInfo);
+    if (!GenerateFeatures(genInfo, emitter))
       return -1;
 
     if (FLAGS_generate_world)
@@ -274,7 +276,9 @@ int main(int argc, char ** argv)
            "not be used with FLAGS_generate_region_features"));
 
     genInfo.m_fileName = FLAGS_output;
-    if (!GenerateRegionFeatures(genInfo))
+
+    auto emitter = CreateEmitter(EmitterType::REGION, genInfo);
+    if (!GenerateRegionFeatures(genInfo, emitter))
       return -1;
   }
 

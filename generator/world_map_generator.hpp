@@ -3,6 +3,7 @@
 #include "generator/feature_merger.hpp"
 #include "generator/generate_info.hpp"
 
+#include "indexer/classificator.hpp"
 #include "indexer/scales.hpp"
 
 #include "coding/pointd_to_pointu.hpp"
@@ -213,7 +214,7 @@ class WorldMapGenerator
       std::stringstream ss;
       ss << std::endl;
       for (auto const & p : m_mapTypes)
-        ss << c.GetReadableObjectName(p.first) << " : " <<  p.second << endl;
+        ss << c.GetReadableObjectName(p.first) << " : " <<  p.second << std::endl;
       LOG_SHORT(LINFO, ("World types:", ss.str()));
     }
 

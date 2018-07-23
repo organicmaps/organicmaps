@@ -1,4 +1,5 @@
 #include "generator/booking_dataset.hpp"
+#include "generator/emitter_booking.hpp"
 #include "generator/feature_builder.hpp"
 #include "generator/opentable_dataset.hpp"
 #include "generator/osm_source.hpp"
@@ -100,39 +101,6 @@ osm::Id ReadDebuggedPrintedOsmId(string const & str)
 
   MYTHROW(ParseError, ("Can't make osmId from string", str));
 }
-
-template <typename Dataset>
-class Emitter : public EmitterBase
-{
-public:
-  Emitter(Dataset const & dataset, map<osm::Id, FeatureBuilder1> & features)
-    : m_dataset(dataset)
-    , m_features(features)
-  {
-    LOG_SHORT(LINFO, ("OSM data:", FLAGS_osm));
-  }
-
-  void operator()(FeatureBuilder1 & fb) override
-  {
-    if (m_dataset.NecessaryMatchingConditionHolds(fb))
-      m_features.emplace(fb.GetMostGenericOsmId(), fb);
-  }
-
-  void GetNames(vector<string> & names) const override
-  {
-    names.clear();
-  }
-
-  bool Finish() override
-  {
-    LOG_SHORT(LINFO, ("Num of tourism elements:", m_features.size()));
-    return true;
-  }
-
-private:
-  Dataset const & m_dataset;
-  map<osm::Id, FeatureBuilder1> & m_features;
-};
 
 feature::GenerateInfo GetGenerateInfo()
 {
@@ -358,10 +326,9 @@ void RunImpl(feature::GenerateInfo & info)
   LOG_SHORT(LINFO, (dataset.GetStorage().Size(), "objects are loaded from a file:", dataSetFilePath));
 
   map<osm::Id, FeatureBuilder1> features;
-  GenerateFeatures(info, [&dataset, &features](feature::GenerateInfo const & /* info */)
-  {
-    return my::make_unique<Emitter<Dataset>>(dataset, features);
-  });
+  LOG_SHORT(LINFO, ("OSM data:", FLAGS_osm));
+  auto emitter = make_shared<EmitterBooking<Dataset>>(dataset, features);
+  GenerateFeatures(info, emitter);
 
   if (FLAGS_generate)
   {

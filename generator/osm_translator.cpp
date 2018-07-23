@@ -1,10 +1,46 @@
 #include "generator/osm_translator.hpp"
 
-namespace generator {
+namespace generator
+{
+namespace
+{
+class RelationBorders
+{
+public:
+  RelationBorders(cache::IntermediateDataReader & holder) :
+    m_holes(holder),
+    m_outer(holder)
+  {
+  }
+
+  void Build(OsmElement const * p)
+  {
+    // Iterate ways to get 'outer' and 'inner' geometries.
+    for (auto const & e : p->Members())
+    {
+      if (e.type != OsmElement::EntityType::Way)
+        continue;
+
+      if (e.role == "outer")
+        m_outer.AddWay(e.ref);
+      else if (e.role == "inner")
+        m_holes(e.ref);
+    }
+  }
+
+  FeatureBuilder1::Geometry & GetHoles() { return m_holes.GetHoles(); }
+  AreaWayMerger & GetOuter() { return m_outer; }
+
+private:
+  HolesAccumulator m_holes;
+  AreaWayMerger m_outer;
+};
+}  // namespace
 
 // RelationTagsBase
 RelationTagsBase::RelationTagsBase(routing::TagsProcessor & tagsProcessor)
-  : m_routingTagsProcessor(tagsProcessor), m_cache(14)
+  : m_routingTagsProcessor(tagsProcessor),
+    m_cache(14 /* logCacheSize */)
 {
 }
 
@@ -22,13 +58,13 @@ bool RelationTagsBase::IsSkipRelation(std::string const & type)
 
 bool RelationTagsBase::IsKeyTagExists(std::string const & key) const
 {
-  for (auto const & p : m_current->m_tags)
-    if (p.key == key)
-      return true;
-  return false;
+  auto const & tags = m_current->m_tags;
+  return std::any_of(std::begin(tags), std::end(tags), [&](OsmElement::Tag const & p) {
+    return p.key == key;
+  });
 }
 
-void RelationTagsBase::AddCustomTag(pair<std::string, std::string> const & p)
+void RelationTagsBase::AddCustomTag(std::pair<std::string, std::string> const & p)
 {
   m_current->AddTag(p.first, p.second);
 }
@@ -72,13 +108,11 @@ void RelationTagsNode::Process(RelationElement const & e)
   }
 }
 
-
 // RelationTagsWay
 RelationTagsWay::RelationTagsWay(routing::TagsProcessor & routingTagsProcessor)
   : RelationTagsBase(routingTagsProcessor)
 {
 }
-
 
 bool RelationTagsWay::IsAcceptBoundary(RelationElement const & e) const
 {
@@ -89,7 +123,6 @@ bool RelationTagsWay::IsAcceptBoundary(RelationElement const & e) const
   // Example: Minsk city border (admin_level=8) is inner for Minsk area border (admin_level=4).
   return (role != "inner");
 }
-
 
 void RelationTagsWay::Process(RelationElement const & e)
 {
@@ -136,7 +169,8 @@ void RelationTagsWay::Process(RelationElement const & e)
 
   bool const isBoundary = (type == "boundary") && IsAcceptBoundary(e);
   bool const processAssociatedStreet = type == "associatedStreet" &&
-                                       TBase::IsKeyTagExists("addr:housenumber") && !TBase::IsKeyTagExists("addr:street");
+                                       TBase::IsKeyTagExists("addr:housenumber") &&
+                                       !TBase::IsKeyTagExists("addr:street");
   bool const isHighway = TBase::IsKeyTagExists("highway");
 
   for (auto const & p : e.tags)
@@ -176,13 +210,13 @@ HolesAccumulator::HolesAccumulator(cache::IntermediateDataReader & holder) :
 FeatureBuilder1::Geometry & HolesAccumulator::GetHoles()
 {
   ASSERT(m_holes.empty(), ("Can call only once"));
-  m_merger.ForEachArea(false, [this](FeatureBuilder1::PointSeq const & v, std::vector<uint64_t> const &)
+  m_merger.ForEachArea(false, [this](FeatureBuilder1::PointSeq const & v,
+                       std::vector<uint64_t> const &)
   {
     m_holes.push_back(std::move(v));
   });
   return m_holes;
 }
-
 
 // HolesProcessor
 HolesProcessor::HolesProcessor(uint64_t id, cache::IntermediateDataReader & holder)
@@ -193,10 +227,12 @@ HolesProcessor::HolesProcessor(uint64_t id, cache::IntermediateDataReader & hold
 
 bool HolesProcessor::operator() (uint64_t /*id*/, RelationElement const & e)
 {
-  if (e.GetType() != "multipolygon")
+  std::string const type = e.GetType();
+  if (!(type == "multipolygon" || type == "boundary"))
     return false;
+
   std::string role;
-  if (e.FindWay(m_id, role) && (role == "outer"))
+  if (e.FindWay(m_id, role) && role == "outer")
   {
     e.ForEachWay(*this);
     // stop processing (??? assume that "outer way" exists in one relation only ???)
@@ -211,11 +247,10 @@ void HolesProcessor::operator() (uint64_t id, std::string const & role)
     m_holes(id);
 }
 
-
 // OsmToFeatureTranslator
-OsmToFeatureTranslator::OsmToFeatureTranslator(std::shared_ptr<EmitterBase> emitter,
+OsmToFeatureTranslator::OsmToFeatureTranslator(std::shared_ptr<EmitterInterface> emitter,
                                                cache::IntermediateDataReader & holder,
-                                               const feature::GenerateInfo & info) :
+                                               feature::GenerateInfo const & info) :
   m_emitter(emitter),
   m_holder(holder),
   m_coastType(info.m_makeCoasts ? classif().GetCoastType() : 0),
@@ -236,68 +271,45 @@ OsmToFeatureTranslator::OsmToFeatureTranslator(std::shared_ptr<EmitterBase> emit
     m_routingTagsProcessor.m_roadAccessWriter.Open(roadAccessFilePath);
 }
 
-
 void OsmToFeatureTranslator::EmitElement(OsmElement * p)
 {
-  enum class FeatureState {Unknown, Ok, EmptyTags, HasNoTypes, BrokenRef, ShortGeom, InvalidType};
-
   CHECK(p, ("Tried to emit a null OsmElement"));
 
   FeatureParams params;
-  FeatureState state = FeatureState::Unknown;
-
   switch(p->type)
   {
   case OsmElement::EntityType::Node:
   {
     if (p->m_tags.empty())
-    {
-      state = FeatureState::EmptyTags;
       break;
-    }
 
     if (!ParseType(p, params))
-    {
-      state = FeatureState::HasNoTypes;
       break;
-    }
 
     m2::PointD const pt = MercatorBounds::FromLatLon(p->lat, p->lon);
     EmitPoint(pt, params, osm::Id::Node(p->id));
-    state = FeatureState::Ok;
     break;
   }
-
   case OsmElement::EntityType::Way:
   {
     FeatureBuilder1 ft;
-
+    m2::PointD pt;
     // Parse geometry.
     for (uint64_t ref : p->Nodes())
     {
-      m2::PointD pt;
       if (!m_holder.GetNode(ref, pt.y, pt.x))
-      {
-        state = FeatureState::BrokenRef;
         break;
-      }
       ft.AddPoint(pt);
     }
 
-    if (state == FeatureState::BrokenRef)
+    if (p->Nodes().size() != ft.GetPointsCount())
       break;
 
     if (ft.GetPointsCount() < 2)
-    {
-      state = FeatureState::ShortGeom;
       break;
-    }
 
     if (!ParseType(p, params))
-    {
-      state = FeatureState::HasNoTypes;
       break;
-    }
 
     ft.SetOsmId(osm::Id::Way(p->id));
     bool isCoastLine = (m_coastType != 0 && params.IsTypeExist(m_coastType));
@@ -312,51 +324,25 @@ void OsmToFeatureTranslator::EmitElement(OsmElement * p)
 
     m_metalinesBuilder(*p, params);
     EmitLine(ft, params, isCoastLine);
-    state = FeatureState::Ok;
     break;
   }
-
   case OsmElement::EntityType::Relation:
   {
-    {
-      // 1. Check, if this is our processable relation. Here we process only polygon relations.
-      size_t i = 0;
-      size_t const count = p->m_tags.size();
-      for (; i < count; ++i)
-      {
-        if (p->m_tags[i].key == "type" && p->m_tags[i].value == "multipolygon")
-          break;
-      }
-      if (i == count)
-      {
-        state = FeatureState::InvalidType;
-        break;
-      }
-    }
+    // 1. Check, if this is our processable relation. Here we process only polygon relations.
+    if (!p->HasTagValue("type", "multipolygon"))
+      break;
 
     if (!ParseType(p, params))
-    {
-      state = FeatureState::HasNoTypes;
       break;
-    }
 
-    HolesAccumulator holes(m_holder);
-    AreaWayMerger outer(m_holder);
+    RelationBorders helper(m_holder);
+    helper.Build(p);
 
-    // 3. Iterate ways to get 'outer' and 'inner' geometries
-    for (auto const & e : p->Members())
-    {
-      if (e.type != OsmElement::EntityType::Way)
-        continue;
+    auto const & holesGeometry = helper.GetHoles();
+    auto & outer = helper.GetOuter();
 
-      if (e.role == "outer")
-        outer.AddWay(e.ref);
-      else if (e.role == "inner")
-        holes(e.ref);
-    }
-
-    auto const & holesGeometry = holes.GetHoles();
-    outer.ForEachArea(true, [&] (FeatureBuilder1::PointSeq const & pts, std::vector<uint64_t> const & ids)
+    outer.ForEachArea(true, [&] (FeatureBuilder1::PointSeq const & pts,
+                      std::vector<uint64_t> const & ids)
     {
       FeatureBuilder1 ft;
 
@@ -367,15 +353,13 @@ void OsmToFeatureTranslator::EmitElement(OsmElement * p)
         ft.AddPoint(pt);
 
       ft.AddOsmId(osm::Id::Relation(p->id));
-      EmitArea(ft, params, [&holesGeometry] (FeatureBuilder1 & ft) {ft.SetAreaAddHoles(holesGeometry);});
+      EmitArea(ft, params, [&holesGeometry] (FeatureBuilder1 & ft) {
+        ft.SetAreaAddHoles(holesGeometry);
+      });
     });
-
-    state = FeatureState::Ok;
     break;
   }
-
   default:
-    state = FeatureState::Unknown;
     break;
   }
 }
@@ -383,12 +367,12 @@ void OsmToFeatureTranslator::EmitElement(OsmElement * p)
 bool OsmToFeatureTranslator::ParseType(OsmElement * p, FeatureParams & params)
 {
   // Get tags from parent relations.
-  if (p->type == OsmElement::EntityType::Node)
+  if (p->IsNode())
   {
     m_nodeRelations.Reset(p->id, p);
     m_holder.ForEachRelationByNodeCached(p->id, m_nodeRelations);
   }
-  else if (p->type == OsmElement::EntityType::Way)
+  else if (p->IsWay())
   {
     m_wayRelations.Reset(p->id, p);
     m_holder.ForEachRelationByWayCached(p->id, m_wayRelations);
@@ -406,7 +390,7 @@ bool OsmToFeatureTranslator::ParseType(OsmElement * p, FeatureParams & params)
 void OsmToFeatureTranslator::EmitPoint(m2::PointD const & pt,
                                        FeatureParams params, osm::Id id) const
 {
-  if (feature::RemoveNoDrawableTypes(params.m_Types, feature::GEOM_POINT))
+  if (feature::RemoveNoDrawableTypes(params.m_types, feature::GEOM_POINT))
   {
     FeatureBuilder1 ft;
     ft.SetCenter(pt);
@@ -418,20 +402,21 @@ void OsmToFeatureTranslator::EmitPoint(m2::PointD const & pt,
 void OsmToFeatureTranslator::EmitLine(FeatureBuilder1 & ft, FeatureParams params,
                                       bool isCoastLine) const
 {
-  if (isCoastLine || feature::RemoveNoDrawableTypes(params.m_Types, feature::GEOM_LINE))
+  if (isCoastLine || feature::RemoveNoDrawableTypes(params.m_types, feature::GEOM_LINE))
   {
     ft.SetLinear(params.m_reverseGeometry);
     EmitFeatureBase(ft, params);
   }
 }
 
-void OsmToFeatureTranslator::EmitFeatureBase(FeatureBuilder1 & ft, FeatureParams const & params) const
+void OsmToFeatureTranslator::EmitFeatureBase(FeatureBuilder1 & ft,
+                                             FeatureParams const & params) const
 {
   ft.SetParams(params);
   if (ft.PreSerialize())
   {
     std::string addr;
-    if (m_addrWriter && ftypes::IsBuildingChecker::Instance()(params.m_Types) &&
+    if (m_addrWriter && ftypes::IsBuildingChecker::Instance()(params.m_types) &&
         ft.FormatFullAddress(addr))
     {
       m_addrWriter->Write(addr.c_str(), addr.size());
@@ -441,9 +426,8 @@ void OsmToFeatureTranslator::EmitFeatureBase(FeatureBuilder1 & ft, FeatureParams
   }
 }
 
-
 // OsmToFeatureTranslatorRegion
-OsmToFeatureTranslatorRegion::OsmToFeatureTranslatorRegion(std::shared_ptr<EmitterBase> emitter,
+OsmToFeatureTranslatorRegion::OsmToFeatureTranslatorRegion(std::shared_ptr<EmitterInterface> emitter,
                                                            cache::IntermediateDataReader & holder)
   : m_emitter(emitter)
   , m_holder(holder)
@@ -472,15 +456,16 @@ void OsmToFeatureTranslatorRegion::EmitElement(OsmElement * p)
 
 bool OsmToFeatureTranslatorRegion::IsSuitableElement(OsmElement const * p) const
 {
-  static std::set<string> const adminLevels = {"2", "4", "5", "6", "7", "8"};
-  static std::set<string> const places = {"city", "town", "village", "suburb", "neighbourhood",
-                                          "hamlet", "locality", "isolated_dwelling"};
+  static std::set<std::string> const adminLevels = {"2", "4", "5", "6", "7", "8"};
+  static std::set<std::string> const places = {"city", "town", "village", "suburb", "neighbourhood",
+                                               "hamlet", "locality", "isolated_dwelling"};
 
   bool haveBoundary = false;
   bool haveAdminLevel = false;
   bool haveName = false;
   for (auto const & t : p->Tags())
-  {    if (t.key == "place" && places.find(t.value) != places.end())
+  {
+    if (t.key == "place" && places.find(t.value) != places.end())
       return true;
 
     if (t.key == "boundary" && t.value == "administrative")
@@ -500,31 +485,22 @@ bool OsmToFeatureTranslatorRegion::IsSuitableElement(OsmElement const * p) const
 void OsmToFeatureTranslatorRegion::AddInfoAboutRegion(OsmElement const * p,
                                                       FeatureBuilder1 & ft) const
 {
-  cout << 1;
 }
 
 bool OsmToFeatureTranslatorRegion::ParseParams(OsmElement * p, FeatureParams & params) const
 {
-  ftype::GetNameAndType(p, params);
+  ftype::GetNameAndType(p, params, [] (uint32_t type) {
+    return classif().IsTypeValid(type);
+  });
   return params.IsValid();
 }
 
 void OsmToFeatureTranslatorRegion::BuildFeatureAndEmit(OsmElement const * p, FeatureParams & params)
 {
-  HolesAccumulator holes(m_holder);
-  AreaWayMerger outer(m_holder);
-  for (auto const & e : p->Members())
-  {
-    if (e.type != OsmElement::EntityType::Way)
-      continue;
-
-    if (e.role == "outer")
-      outer.AddWay(e.ref);
-    else if (e.role == "inner")
-      holes(e.ref);
-  }
-
-  auto const & holesGeometry = holes.GetHoles();
+  RelationBorders helper(m_holder);
+  helper.Build(p);
+  auto const & holesGeometry = helper.GetHoles();
+  auto & outer = helper.GetOuter();
   outer.ForEachArea(true, [&] (FeatureBuilder1::PointSeq const & pts,
                     std::vector<uint64_t> const & ids)
   {
@@ -541,12 +517,8 @@ void OsmToFeatureTranslatorRegion::BuildFeatureAndEmit(OsmElement const * p, Fea
 
     ft.SetAreaAddHoles(holesGeometry);
     ft.SetParams(params);
-    if (!ft.PreSerialize())
-      return;
-
     AddInfoAboutRegion(p, ft);
     (*m_emitter)(ft);
   });
 }
-
 }  // namespace generator

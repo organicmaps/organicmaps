@@ -619,12 +619,12 @@ UNIT_TEST(DownloadResumeChunksWithCancel)
     if (arrCancelChunks[i] > 0)
       observer.CancelDownloadOnGivenChunk(arrCancelChunks[i]);
 
-      unique_ptr<HttpRequest> const request(HttpRequest::GetFile(urls, FILENAME, FILESIZE,
-                              bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
-                              bind(&DownloadObserver::OnDownloadProgress, &observer, _1),
-                              1024, false));
+    unique_ptr<HttpRequest> const request(HttpRequest::GetFile(urls, FILENAME, FILESIZE,
+                            bind(&DownloadObserver::OnDownloadFinish, &observer, _1),
+                            bind(&DownloadObserver::OnDownloadProgress, &observer, _1),
+                            1024, false));
 
-      QCoreApplication::exec();
+    QCoreApplication::exec();
   }
 
   observer.TestOk();

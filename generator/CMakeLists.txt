@@ -25,6 +25,16 @@ set(SRC
   coastlines_generator.hpp
   dumper.cpp
   dumper.hpp
+  emitter_booking.hpp
+  emitter_factory.hpp
+  emitter_interface.hpp
+  emitter_planet.hpp
+  emitter_planet.cpp
+  emitter_region.hpp
+  emitter_region.cpp
+  emitter_restaurants.hpp
+  emitter_restaurants.cpp
+  factory_utils.hpp
   feature_builder.cpp
   feature_builder.hpp
   feature_emitter_iface.hpp
@@ -65,6 +75,8 @@ set(SRC
   polygonizer.hpp
   popular_places_section_builder.cpp
   popular_places_section_builder.hpp
+  place.hpp
+  place.cpp
   region_meta.cpp
   region_meta.hpp
   restriction_collector.cpp
@@ -83,6 +95,7 @@ set(SRC
   search_index_builder.hpp
   sponsored_dataset.hpp
   sponsored_dataset_inl.hpp
+  sponsored_object_base.hpp
   sponsored_object_storage.hpp
   sponsored_scoring.cpp
   sponsored_scoring.hpp

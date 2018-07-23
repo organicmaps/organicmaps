@@ -93,7 +93,6 @@ set(
   uni_string_dfa.hpp
   url_helpers.cpp
   url_helpers.hpp
-  utils.hpp
   visitor.hpp
   worker_thread.cpp
   worker_thread.hpp

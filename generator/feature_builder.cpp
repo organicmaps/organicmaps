@@ -316,7 +316,7 @@ void FeatureBuilder1::RemoveNameIfInvisible(int minS, int maxS)
   }
 }
 
-bool FeatureBuilder1::operator == (FeatureBuilder1 const & fb) const
+bool FeatureBuilder1::operator==(FeatureBuilder1 const & fb) const
 {
   if (!(m_params == fb.m_params))
     return false;

@@ -120,7 +120,9 @@ namespace feature
       {
       case 0:
         break;
-      case 1: EmitFeature(vec[0], fb); break;
+      case 1:
+        EmitFeature(vec[0], fb);
+        break;
       default:
         {
 #if PARALLEL_POLYGONIZER

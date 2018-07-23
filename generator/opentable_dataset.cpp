@@ -33,13 +33,6 @@ OpentableRestaurant::OpentableRestaurant(std::string const & src)
   m_descUrl = rec[FieldIndex(Fields::DescUrl)];
 }
 
-std::ostream & operator<<(std::ostream & s, OpentableRestaurant const & h)
-{
-  s << std::fixed << std::setprecision(7);
-  return s << "Id: " << h.m_id << "\t Name: " << h.m_name << "\t Address: " << h.m_address
-           << "\t lat: " << h.m_latLon.lat << " lon: " << h.m_latLon.lon;
-}
-
 // OpentableDataset ---------------------------------------------------------------------------------
 template <>
 bool OpentableDataset::NecessaryMatchingConditionHolds(FeatureBuilder1 const & fb) const

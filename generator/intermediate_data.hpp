@@ -52,6 +52,21 @@ struct LatLonPos
 static_assert(sizeof(LatLonPos) == 16, "Invalid structure size");
 static_assert(std::is_trivially_copyable<LatLonPos>::value, "");
 
+class PointStorageWriterInterface
+{
+public:
+  virtual ~PointStorageWriterInterface() {}
+  virtual void AddPoint(uint64_t id, double lat, double lon) = 0;
+  virtual uint64_t GetNumProcessedPoints() const = 0;
+};
+
+class PointStorageReaderInterface
+{
+public:
+  virtual ~PointStorageReaderInterface() {}
+  virtual bool GetPoint(uint64_t id, double & lat, double & lon) const = 0;
+};
+
 class IndexFileReader
 {
 public:
@@ -60,7 +75,6 @@ public:
   explicit IndexFileReader(std::string const & name);
 
   void ReadAll();
-
   bool GetValueByKey(Key key, Value & value) const;
 
   template <typename ToDo>
@@ -91,6 +105,7 @@ private:
   FileReader m_fileReader;
 };
 
+
 class IndexFileWriter
 {
 public:
@@ -99,7 +114,6 @@ public:
   explicit IndexFileWriter(std::string const & name);
 
   void WriteAll();
-
   void Add(Key k, Value const & v);
 
 private:
@@ -112,7 +126,7 @@ private:
 class OSMElementCacheReader
 {
 public:
-  OSMElementCacheReader(std::string const & name, bool preload = false);
+  explicit OSMElementCacheReader(std::string const & name, bool preload = false);
 
   template <class Value>
   bool Read(Key id, Value & value)
@@ -181,102 +195,11 @@ protected:
   bool m_preload = false;
 };
 
-class IPointStorageWriter
-{
-public:
-  virtual void AddPoint(uint64_t id, double lat, double lon) = 0;
-  virtual uint64_t GetNumProcessedPoints() const = 0;
-};
-
-class IPointStorageReader
-{
-public:
-  virtual bool GetPoint(uint64_t id, double & lat, double & lon) const = 0;
-};
-
-class RawFilePointStorageMmapReader : public IPointStorageReader
-{
-public:
-  explicit RawFilePointStorageMmapReader(std::string const & name);
-
-  bool GetPoint(uint64_t id, double & lat, double & lon) const override;
-
-private:
-  MmapReader m_mmapReader;
-};
-
-class RawFilePointStorageWriter : public IPointStorageWriter
-{
-public:
-  explicit RawFilePointStorageWriter(std::string const & name);
-
-  void AddPoint(uint64_t id, double lat, double lon) override;
-  uint64_t GetNumProcessedPoints() const override { return m_numProcessedPoints; }
-
-private:
-  FileWriter m_fileWriter;
-  uint64_t m_numProcessedPoints = 0;
-};
-
-class RawMemPointStorageReader : public IPointStorageReader
-{
-public:
-  explicit RawMemPointStorageReader(std::string const & name);
-
-  bool GetPoint(uint64_t id, double & lat, double & lon) const override;
-
-private:
-  FileReader m_fileReader;
-  std::vector<LatLon> m_data;
-};
-
-class RawMemPointStorageWriter : public IPointStorageWriter
-{
-public:
-  explicit RawMemPointStorageWriter(std::string const & name);
-
-  ~RawMemPointStorageWriter();
-
-  void AddPoint(uint64_t id, double lat, double lon) override;
-  uint64_t GetNumProcessedPoints() const override { return m_numProcessedPoints; }
-
-private:
-  FileWriter m_fileWriter;
-  std::vector<LatLon> m_data;
-  uint64_t m_numProcessedPoints = 0;
-};
-
-class MapFilePointStorageReader : public IPointStorageReader
-{
-public:
-  explicit MapFilePointStorageReader(std::string const & name);
-
-  bool GetPoint(uint64_t id, double & lat, double & lon) const override;
-
-private:
-  FileReader m_fileReader;
-  std::unordered_map<uint64_t, LatLon> m_map;
-};
-
-class MapFilePointStorageWriter : public IPointStorageWriter
-{
-public:
-  explicit MapFilePointStorageWriter(std::string const & name);
-
-  void AddPoint(uint64_t id, double lat, double lon) override;
-  uint64_t GetNumProcessedPoints() const override { return m_numProcessedPoints; }
-
-private:
-  FileWriter m_fileWriter;
-  uint64_t m_numProcessedPoints = 0;
-};
-
 class IntermediateDataReader
 {
 public:
-  explicit IntermediateDataReader(shared_ptr<IPointStorageReader> nodes,
-                                  feature::GenerateInfo & info);
-  bool GetNode(Key id, double & lat, double & lon) { return m_nodes->GetPoint(id, lat, lon); }
+  IntermediateDataReader(shared_ptr<PointStorageReaderInterface> nodes, feature::GenerateInfo & info);
+  bool GetNode(Key id, double & lat, double & lon) const { return m_nodes->GetPoint(id, lat, lon); }
   bool GetWay(Key id, WayElement & e) { return m_ways.Read(id, e); }
   void LoadIndex();
 
@@ -305,12 +228,8 @@ private:
   using CacheReader = cache::OSMElementCacheReader;
 
   template <class Element, class ToDo>
-  struct ElementProcessorBase
+  class ElementProcessorBase
   {
-  protected:
-    CacheReader & m_reader;
-    ToDo & m_toDo;
-
   public:
     ElementProcessorBase(CacheReader & reader, ToDo & toDo) : m_reader(reader), m_toDo(toDo) {}
 
@@ -319,6 +238,10 @@ private:
       Element e;
       return m_reader.Read(id, e) ? m_toDo(id, e) : false;
     }
+
+  protected:
+    CacheReader & m_reader;
+    ToDo & m_toDo;
   };
 
   template <class ToDo>
@@ -338,12 +261,9 @@ private:
     bool operator()(uint64_t id) { return this->m_toDo(id, this->m_reader); }
   };
 
-private:
-  shared_ptr<IPointStorageReader> m_nodes;
-
+  std::shared_ptr<PointStorageReaderInterface> m_nodes;
   cache::OSMElementCacheReader m_ways;
   cache::OSMElementCacheReader m_relations;
-
   cache::IndexFileReader m_nodeToRelations;
   cache::IndexFileReader m_wayToRelations;
 };
@@ -351,36 +271,24 @@ private:
 class IntermediateDataWriter
 {
 public:
-  explicit IntermediateDataWriter(std::shared_ptr<IPointStorageWriter> nodes,
-                                  feature::GenerateInfo & info);
+  IntermediateDataWriter(std::shared_ptr<PointStorageWriterInterface> nodes, feature::GenerateInfo & info);
   void AddNode(Key id, double lat, double lon) { m_nodes->AddPoint(id, lat, lon); }
   void AddWay(Key id, WayElement const & e) { m_ways.Write(id, e); }
   void AddRelation(Key id, RelationElement const & e);
   void SaveIndex();
 
 private:
-  template <class Index, class Container>
-  static void AddToIndex(Index & index, Key relationId, Container const & values)
-  {
-    for (auto const & v : values)
-      index.Add(v.first, relationId);
-  }
-
-private:
-  std::shared_ptr<IPointStorageWriter> m_nodes;
-
+  std::shared_ptr<PointStorageWriterInterface> m_nodes;
   cache::OSMElementCacheWriter m_ways;
   cache::OSMElementCacheWriter m_relations;
-
   cache::IndexFileWriter m_nodeToRelations;
   cache::IndexFileWriter m_wayToRelations;
 };
 
-std::shared_ptr<IPointStorageReader>
+std::shared_ptr<PointStorageReaderInterface>
 CreatePointStorageReader(feature::GenerateInfo::NodeStorageType type, std::string const & name);
 
-std::shared_ptr<IPointStorageWriter>
+std::shared_ptr<PointStorageWriterInterface>
 CreatePointStorageWriter(feature::GenerateInfo::NodeStorageType type, std::string const & name);
-
 }  // namespace cache
 }  // namespace generator

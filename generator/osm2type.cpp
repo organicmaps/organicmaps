@@ -270,7 +270,8 @@ namespace ftype
     }
   };
 
-  void MatchTypes(OsmElement * p, FeatureParams & params)
+  void MatchTypes(OsmElement * p, FeatureParams & params,
+                  function<bool(uint32_t)> filterDrawableType)
   {
     set<int> skipRows;
     vector<ClassifObjectPtr> path;
@@ -338,10 +339,8 @@ namespace ftype
       for (auto const & e : path)
         ftype::PushValue(t, e.GetIndex());
 
-      // Use features only with drawing rules.
-      if (feature::IsDrawableAny(t))
+      if (filterDrawableType(t))
         params.AddType(t);
-
     } while (true);
   }
 
@@ -709,7 +708,8 @@ namespace ftype
     }
   }
 
-  void GetNameAndType(OsmElement * p, FeatureParams & params)
+  void GetNameAndType(OsmElement * p, FeatureParams & params,
+                      function<bool(uint32_t)> filterDrawableType)
   {
     // Stage1: Preprocess tags.
     PreprocessElement(p);
@@ -762,7 +762,7 @@ namespace ftype
     });
 
     // Stage4: Match tags in classificator to find feature types.
-    MatchTypes(p, params);
+    MatchTypes(p, params, filterDrawableType);
 
     // Stage5: Postprocess feature types.
     PostprocessElement(p, params);
