@@ -13,6 +13,7 @@
 #include "indexer/data_source.hpp"
 #include "indexer/feature.hpp"
 #include "indexer/feature_processor.hpp"
+#include "indexer/ftypes_sponsored.hpp"
 #include "indexer/map_object.hpp"
 #include "indexer/map_style_reader.hpp"
 
@@ -199,9 +200,12 @@ public:
     // common in C++ projects.
     string const & operatr = f.GetMetadata().Get(feature::Metadata::FMD_OPERATOR);
     auto const & osmIt = ft2osm.find(f.GetID().m_index);
-    if ((!f.HasName() && operatr.empty()) || f.GetFeatureType() == feature::GEOM_LINE ||
-        category.empty() || osmIt == ft2osm.cend())
+    if ((!f.HasName() && operatr.empty()) ||
+        (f.GetFeatureType() == feature::GEOM_LINE && category != "highway-pedestrian") ||
+        category.empty())
+    {
       return;
+    }
     m2::PointD const & center = FindCenter(f);
     ms::LatLon const & ll = MercatorBounds::ToLatLon(center);
     osm::MapObject obj;
@@ -213,11 +217,20 @@ public:
     });
 
     string const & mwmName = f.GetID().GetMwmName();
-    string name, secondary;
-    f.GetPreferredNames(name, secondary);
+    string name, primary, secondary;
+    f.GetPreferredNames(primary, secondary);
+    f.GetName(StringUtf8Multilang::kDefaultCode, name);
+    if (name.empty())
+      name = primary;
     if (name.empty())
       name = operatr;
-    string const & osmId = strings::to_string(osmIt->second.GetEncodedId());
+    string osmId = osmIt != ft2osm.cend() ? strings::to_string(osmIt->second.EncodedId()) : "";
+    if (osmId.empty())
+    {
+      // For sponsored types, adding invented sponsored ids (booking = 00) to the id tail.
+      if (ftypes::IsBookingChecker::Instance()(f))
+        osmId = f.GetMetadata().Get(feature::Metadata::FMD_SPONSORED_ID) + "00";
+    }
     string const & uid = BuildUniqueId(ll, name);
     string const & lat = strings::to_string_with_digits_after_comma(ll.lat, 6);
     string const & lon = strings::to_string_with_digits_after_comma(ll.lon, 6);
