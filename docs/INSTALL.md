@@ -137,7 +137,7 @@ easy to type.
 to SDK and NDK. Or specify these in command line:
 
         --sdk /Users/$(whoami)/Library/Android/sdk \
-        --ndk /Users/$(whoami)/Library/Android/sdk/ndk-bundle
+        --ndk /Users/$(whoami)/Library/Android/ndk
 
 * Go to `omim/android` and run `./gradlew clean assembleWebRelease`.
     * There are `Release`, `Beta` and `Debug` builds.
