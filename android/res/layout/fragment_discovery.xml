@@ -93,7 +93,6 @@
     <com.mapswithme.maps.widget.PlaceholderView
       android:id="@+id/placeholder"
       android:layout_width="match_parent"
-      android:orientation="vertical"
       android:layout_height="match_parent"
       android:layout_gravity="center"
       android:paddingLeft="@dimen/margin_double_and_half"

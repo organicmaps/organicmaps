@@ -38,8 +38,6 @@ public class PlaceholderView extends FrameLayout
   private int mImageSizeSmall;
   private int mPaddingImage;
   private int mPaddingNoImage;
-  private float mScreenHeight;
-  private float mScreenWidth;
 
   @DrawableRes
   private int mImgSrcDefault;
@@ -83,8 +81,6 @@ public class PlaceholderView extends FrameLayout
     mImageSizeSmall = res.getDimensionPixelSize(R.dimen.placeholder_size_small);
     mPaddingImage = res.getDimensionPixelSize(R.dimen.placeholder_margin_top);
     mPaddingNoImage = res.getDimensionPixelSize(R.dimen.placeholder_margin_top_no_image);
-    mScreenHeight = res.getDisplayMetrics().heightPixels;
-    mScreenWidth = res.getDisplayMetrics().widthPixels;
     LayoutInflater.from(context).inflate(R.layout.placeholder, this, true);
 
     initDefaultValues(context, attrs);

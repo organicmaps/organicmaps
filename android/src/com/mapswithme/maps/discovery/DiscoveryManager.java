@@ -86,7 +86,7 @@ enum DiscoveryManager
     if (mCallback == null)
       return;
 
-    if (isAggregateResultsEmpty(results, type) || true)
+    if (isAggregateResultsEmpty(results, type))
     {
       mCallback.onNotFound();
       return;
