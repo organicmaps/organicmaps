@@ -26,6 +26,7 @@ size_t constexpr kMaxNumTriesToApproxAddress = 10;
 
 ReverseGeocoder::ReverseGeocoder(DataSource const & dataSource) : m_dataSource(dataSource) {}
 
+// static
 void ReverseGeocoder::GetNearbyStreets(search::MwmContext & context, m2::PointD const & center,
                                        vector<Street> & streets)
 {
@@ -53,7 +54,7 @@ void ReverseGeocoder::GetNearbyStreets(search::MwmContext & context, m2::PointD 
 }
 
 void ReverseGeocoder::GetNearbyStreets(MwmSet::MwmId const & id, m2::PointD const & center,
-                      vector<Street> & streets) const
+                                       vector<Street> & streets) const
 {
   MwmSet::MwmHandle mwmHandle = m_dataSource.GetMwmHandleById(id);
   if (mwmHandle.IsAlive())

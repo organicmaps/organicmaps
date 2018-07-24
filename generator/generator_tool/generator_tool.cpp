@@ -382,7 +382,8 @@ int main(int argc, char ** argv)
     {
       LOG(LINFO, ("Generating search index for", datFile));
 
-      if (!indexer::BuildSearchIndexFromDataFile(datFile, true))
+      /// @todo Make threads count according to environment (single mwm build or planet build).
+      if (!indexer::BuildSearchIndexFromDataFile(8, datFile, true))
         LOG(LCRITICAL, ("Error generating search index."));
 
       LOG(LINFO, ("Generating rank table for", datFile));

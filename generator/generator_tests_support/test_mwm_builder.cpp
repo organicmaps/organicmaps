@@ -131,7 +131,7 @@ void TestMwmBuilder::Finish()
 
   CHECK(indexer::BuildIndexFromDataFile(path, path), ("Can't build geometry index."));
 
-  CHECK(indexer::BuildSearchIndexFromDataFile(path, true /* forceRebuild */),
+  CHECK(indexer::BuildSearchIndexFromDataFile(1 /* threadsCount */, path, true /* forceRebuild */),
         ("Can't build search index."));
 
   if (m_type == feature::DataHeader::world)
