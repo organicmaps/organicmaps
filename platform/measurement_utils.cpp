@@ -3,23 +3,22 @@
 
 #include "geometry/mercator.hpp"
 
+#include "base/assert.hpp"
 #include "base/macros.hpp"
 #include "base/math.hpp"
 #include "base/stl_add.hpp"
 #include "base/string_utils.hpp"
-#include "base/logging.hpp"
 
-#include "std/cstring.hpp"
-#include "std/iomanip.hpp"
-#include "std/sstream.hpp"
-
+#include <cmath>
+#include <iomanip>
+#include <sstream>
 
 using namespace settings;
+using namespace std;
 using namespace strings;
 
 namespace measurement_utils
 {
-
 string ToStringPrecision(double d, int pr)
 {
   stringstream ss;
@@ -296,5 +295,4 @@ string OSMDistanceToMetersString(string const & osmRawValue,
   }
   return {};
 }
-
 }  // namespace measurement_utils

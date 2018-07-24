@@ -13,7 +13,7 @@ template <typename T>
 class Angle
 {
 public:
-  Angle() : m_val(0), m_sin(0), m_cos(1) {}
+  Angle() = default;
   Angle(T const & val) : m_val(val), m_sin(::sin(val)), m_cos(::cos(val)) {}
   Angle(T const & sin, T const & cos) : m_val(::atan2(sin, cos)), m_sin(sin), m_cos(cos) {}
 
@@ -41,9 +41,9 @@ public:
   friend std::string DebugPrint(Angle<T> const & ang) { return DebugPrint(ang.m_val); }
 
 private:
-  T m_val;
-  T m_sin;
-  T m_cos;
+  T m_val = 0;
+  T m_sin = 0;
+  T m_cos = 1;
 };
 
 using AngleD = Angle<double>;
@@ -102,8 +102,6 @@ T Azimuth(m2::Point<T> const & p1, m2::Point<T> const & p2, T north = 0)
 class AverageCalc
 {
 public:
-  AverageCalc() : m_ang(0.0), m_isEmpty(true) {}
-
   void Add(double a)
   {
     m_ang = (m_isEmpty ? a : GetMiddleAngle(m_ang, a));
@@ -113,7 +111,7 @@ public:
   double GetAverage() const { return m_ang; }
 
 private:
-  double m_ang;
-  bool m_isEmpty;
+  double m_ang = 0.0;
+  bool m_isEmpty = true;
 };
 }  // namespace ang

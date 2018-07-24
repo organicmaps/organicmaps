@@ -11,8 +11,8 @@
 
 namespace borders
 {
-  typedef m2::RegionD Region;
-  typedef m4::Tree<Region> RegionsContainerT;
+  using Region = m2::RegionD;
+  using RegionsContainer = m4::Tree<Region>;
 
   struct CountryPolygons
   {
@@ -26,16 +26,16 @@ namespace borders
       m_index = -1;
     }
 
-    RegionsContainerT m_regions;
+    RegionsContainer m_regions;
     std::string m_name;
     mutable int m_index;
   };
 
-  typedef m4::Tree<CountryPolygons> CountriesContainerT;
+  using CountriesContainer = m4::Tree<CountryPolygons>;
 
-  bool LoadCountriesList(std::string const & baseDir, CountriesContainerT & countries);
+  bool LoadCountriesList(std::string const & baseDir, CountriesContainer & countries);
 
   void GeneratePackedBorders(std::string const & baseDir);
   void UnpackBorders(std::string const & baseDir, std::string const & targetDir);
   bool GetBordersRect(std::string const & baseDir, std::string const & country, m2::RectD & bordersRect);
-}
+} // namespace borders

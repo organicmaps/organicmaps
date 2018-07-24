@@ -39,7 +39,7 @@ namespace feature
 
     vector<FeatureOutT*> m_Buckets;
     vector<std::string> m_Names;
-    borders::CountriesContainerT m_countries;
+    borders::CountriesContainer m_countries;
 
 #if PARALLEL_POLYGONIZER
     QThreadPool m_ThreadPool;
@@ -78,10 +78,10 @@ namespace feature
 
     struct PointChecker
     {
-      borders::RegionsContainerT const & m_regions;
+      borders::RegionsContainer const & m_regions;
       bool m_belongs;
 
-      PointChecker(borders::RegionsContainerT const & regions)
+      PointChecker(borders::RegionsContainer const & regions)
         : m_regions(regions), m_belongs(false) {}
 
       bool operator()(m2::PointD const & pt)
@@ -217,4 +217,4 @@ namespace feature
       FeatureBuilder1 m_fb;
     };
   };
-}
+}  // namespace feature

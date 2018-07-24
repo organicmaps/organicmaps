@@ -37,10 +37,10 @@ class PolygonLoader
   CountryPolygons m_polygons;
   m2::RectD m_rect;
 
-  CountriesContainerT & m_countries;
+  CountriesContainer & m_countries;
 
 public:
-  PolygonLoader(CountriesContainerT & countries) : m_countries(countries) {}
+  PolygonLoader(CountriesContainer & countries) : m_countries(countries) {}
 
   void operator()(std::string const & name, std::vector<m2::RegionD> const & borders)
   {
@@ -89,7 +89,7 @@ void ForEachCountry(std::string const & baseDir, ToDo & toDo)
   }
 }
 
-bool LoadCountriesList(std::string const & baseDir, CountriesContainerT & countries)
+bool LoadCountriesList(std::string const & baseDir, CountriesContainer & countries)
 {
   countries.Clear();
 

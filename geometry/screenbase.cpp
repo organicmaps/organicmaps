@@ -18,7 +18,9 @@ double constexpr kEndPerspectiveScale1 = 0.3e-5;
 double constexpr kEndPerspectiveScale2 = 0.13e-5;
 
 ScreenBase::ScreenBase()
-  : m_ViewportRect(0, 0, 640, 480)
+  : m_GlobalRect(m_Org, ang::AngleD(0), m2::RectD(-320, -240, 320, 240))
+  , m_ClipRect(m2::RectD(0, 0, 640, 480))
+  , m_ViewportRect(0, 0, 640, 480)
   , m_PixelRect(m_ViewportRect)
   , m_Scale(0.1)
   , m_Angle(0.0)
@@ -30,8 +32,6 @@ ScreenBase::ScreenBase()
   , m_3dMaxAngleX(0.0)
   , m_3dScale(1.0)
   , m_isPerspective(false)
-  , m_GlobalRect(m_Org, ang::AngleD(0), m2::RectD(-320, -240, 320, 240))
-  , m_ClipRect(m2::RectD(0, 0, 640, 480))
   , m_isAutoPerspective(false)
 {
   m_GtoP = math::Identity<double, 3>();

@@ -37,16 +37,12 @@ StopId constexpr kInvalidStopId = std::numeric_limits<StopId>::max();
 TransferId constexpr kInvalidTransferId = std::numeric_limits<TransferId>::max();
 Weight constexpr kInvalidWeight = std::numeric_limits<Weight>::max();
 
-#define DECLARE_TRANSIT_TYPE_FRIENDS \
-  template <class Sink>              \
-  friend class Serializer;           \
-  template <class Source>            \
-  friend class Deserializer;         \
-  friend class DeserializerFromJson; \
-  template <typename Sink>           \
-  friend class FixedSizeSerializer;  \
-  template <typename Sink>           \
-  friend class FixedSizeDeserializer;
+#define DECLARE_TRANSIT_TYPE_FRIENDS                                                  \
+  template <class Sink> friend class Serializer;                                      \
+  template <class Source> friend class Deserializer;                                  \
+  friend class DeserializerFromJson;                                                  \
+  template <typename Sink> friend class FixedSizeSerializer;                          \
+  template <typename Sink> friend class FixedSizeDeserializer;                        \
 
 struct TransitHeader
 {

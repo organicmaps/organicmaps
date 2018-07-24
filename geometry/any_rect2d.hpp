@@ -16,7 +16,7 @@ template <typename T>
 class AnyRect
 {
 public:
-  AnyRect() : m_zero(0, 0), m_rect() {}
+  AnyRect() = default;
 
   /// creating from regular rect
   explicit AnyRect(Rect<T> const & r)
@@ -28,7 +28,7 @@ public:
     }
     else
     {
-      m_zero = Point<T>(0, 0);
+      m_zero = Point<T>::Zero();
       m_rect = r;
     }
   }
@@ -211,8 +211,8 @@ private:
 
   ang::Angle<T> m_angle;
 
-  Point<T> m_zero;
-  Rect<T> m_rect;
+  Point<T> m_zero{};
+  Rect<T> m_rect{};
 };
 
 using AnyRectD = AnyRect<double>;

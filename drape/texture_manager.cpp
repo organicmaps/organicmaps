@@ -18,6 +18,7 @@
 #include "base/string_utils.hpp"
 
 #include <algorithm>
+#include <cstdint>
 #include <limits>
 #include <vector>
 

@@ -1,5 +1,4 @@
 #include "drape_frontend/animation/interpolators.hpp"
-
 #include "drape_frontend/animation/interpolations.hpp"
 
 #include "base/assert.hpp"

@@ -3,6 +3,7 @@
 #include "indexer/classificator.hpp"
 #include "indexer/feature.hpp"
 
+#include "base/exception.hpp"
 #include "base/macros.hpp"
 #include "base/string_utils.hpp"
 #include "base/timer.hpp"
@@ -36,11 +37,15 @@ ms::LatLon GetLatLonFromNode(pugi::xml_node const & node)
 {
   ms::LatLon ll;
   if (!strings::to_double(node.attribute("lat").value(), ll.lat))
+  {
     MYTHROW(editor::NoLatLon,
-            ("Can't parse lat attribute: " + string(node.attribute("lat").value())));
+            ("Can't parse lat attribute:", string(node.attribute("lat").value())));
+  }
   if (!strings::to_double(node.attribute("lon").value(), ll.lon))
+  {
     MYTHROW(editor::NoLatLon,
-            ("Can't parse lon attribute: " + string(node.attribute("lon").value())));
+            ("Can't parse lon attribute:", string(node.attribute("lon").value())));
+  }
   return ll;
 }
 
