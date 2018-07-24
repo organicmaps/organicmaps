@@ -9,7 +9,7 @@
 #include "platform/platform.hpp"
 
 #include "base/assert.hpp"
-#include "base/string_utils.cpp"
+#include "base/string_utils.hpp"
 
 #include <algorithm>
 #include <set>
