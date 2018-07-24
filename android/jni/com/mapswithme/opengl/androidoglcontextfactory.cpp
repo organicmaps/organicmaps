@@ -183,6 +183,14 @@ void AndroidOGLContextFactory::SetSurface(JNIEnv * env, jobject jsurface)
 
 void AndroidOGLContextFactory::ResetSurface()
 {
+  {
+    std::unique_lock<std::mutex> lock(m_initializationMutex);
+    if (m_initializationCounter > 0 && m_initializationCounter < kGLThreadsCount)
+      m_initializationCondition.wait(lock, [this] { return m_isInitialized; });
+    m_initializationCounter = 0;
+    m_isInitialized = false;
+  }
+
   if (m_drawContext != nullptr)
     m_drawContext->resetSurface();
 
@@ -197,10 +205,6 @@ void AndroidOGLContextFactory::ResetSurface()
 
     m_windowSurfaceValid = false;
   }
-
-  std::lock_guard<std::mutex> lock(m_initializationMutex);
-  m_initializationCounter = 0;
-  m_isInitialized = false;
 }
 
 bool AndroidOGLContextFactory::IsValid() const
