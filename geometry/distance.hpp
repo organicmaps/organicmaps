@@ -20,7 +20,7 @@ public:
     m_p0 = p0;
     m_p1 = p1;
     m_d = m_p1 - m_p0;
-    m_length = sqrt(SquaredLength(m_d));
+    m_length = std::sqrt(SquaredLength(m_d));
 
     if (my::AlmostEqualULPs(m_length, 0.0))
     {

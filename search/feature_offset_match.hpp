@@ -1,4 +1,5 @@
 #pragma once
+
 #include "search/common.hpp"
 #include "search/query_params.hpp"
 #include "search/search_index_values.hpp"
@@ -109,7 +110,7 @@ class OffsetIntersector
 
 public:
   explicit OffsetIntersector(Filter const & filter)
-    : m_filter(filter), m_set(my::make_unique<Set>())
+    : m_filter(filter), m_set(std::make_unique<Set>())
   {
   }
 
@@ -125,7 +126,7 @@ public:
   void NextStep()
   {
     if (!m_prevSet)
-      m_prevSet = my::make_unique<Set>();
+      m_prevSet = std::make_unique<Set>();
 
     m_prevSet.swap(m_set);
     m_set->clear();

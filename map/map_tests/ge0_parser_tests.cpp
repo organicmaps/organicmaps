@@ -199,10 +199,41 @@ UNIT_TEST(NameDecoding)
       "\xd1\x81\xd1\x82\xd1\x80\xd0\xbe\xd0\xba\xd0\xb0_\xd0\xb2_\xd1\x8e\xd1\x82\xd1\x84-8",
       0, 0, 4, "строка в ютф-8");
 
-  // name is valid, but too long
-  // TestSuccess("ge0://AwAAAAAAAA/%d0%9a%d0%b0%d0%ba_%d0%b2%d1%8b_%d1%81%d1%87%d0%b8%d1%82%d0%b0%d0%b5%d1%82%d0%b5%2C_%d0%bd%d0%b0%d0%b4%d0%be_%d0%bb%d0%b8_%d0%bf%d0%b8%d1%81%d0%b0%d1%82%d1%8c_const_%d0%b4%d0%bb%d1%8f_%d0%bf%d0%b0%d1%80%d0%b0%d0%bc%d0%b5%d1%82%d1%80%d0%be%d0%b2%2C_%d0%ba%d0%be%d1%82%d0%be%d1%80%d1%8b%d0%b5_%d0%bf%d0%b5%d1%80%d0%b5%d0%b4%d0%b0%d1%8e%d1%82%d1%81%d1%8f_%d0%b2_%d1%84%d1%83%d0%bd%d0%ba%d1%86%d0%b8%d1%8e_%d0%bf%d0%be_%d0%b7%d0%bd%d0%b0%d1%87%d0%b5%d0%bd%d0%b8%d1%8e%3F",
-  //            0, 0, 4, "Как вы считаете, надо ли писать const для параметров, которые передаются в
-  //            функцию по значению?");
+  {
+    auto const name =
+        "Как вы считаете, надо ли писать const для параметров, которые передаются в функцию по "
+        "значению?";
+    double lat = 0;
+    double lon = 0;
+    double zoom = 4;
+    string const url =
+        "ge0://AwAAAAAAAA/"
+        "%d0%9a%d0%b0%d0%ba_%d0%b2%d1%8b_%d1%81%d1%87%d0%b8%d1%82%d0%b0%d0%b5%d1%82%d0%b5%2C_%d0%"
+        "bd%d0%b0%d0%b4%d0%be_%d0%bb%d0%b8_%d0%bf%d0%b8%d1%81%d0%b0%d1%82%d1%8c_const_%d0%b4%d0%bb%"
+        "d1%8f_%d0%bf%d0%b0%d1%80%d0%b0%d0%bc%d0%b5%d1%82%d1%80%d0%be%d0%b2%2C_%d0%ba%d0%be%d1%82%"
+        "d0%be%d1%80%d1%8b%d0%b5_%d0%bf%d0%b5%d1%80%d0%b5%d0%b4%d0%b0%d1%8e%d1%82%d1%81%d1%8f_%d0%"
+        "b2_%d1%84%d1%83%d0%bd%d0%ba%d1%86%d0%b8%d1%8e_%d0%bf%d0%be_%d0%b7%d0%bd%d0%b0%d1%87%d0%b5%"
+        "d0%bd%d0%b8%d1%8e%3F";
+
+    Ge0Parser parser;
+    ApiPoint apiPoint;
+    double parsedZoomLevel;
+    bool const result = parser.Parse(url.c_str(), apiPoint, parsedZoomLevel);
+
+    TEST(result, (url, zoom, lat, lon, name));
+
+    // Name would be valid but is too long.
+    TEST_NOT_EQUAL(apiPoint.m_name, string(name), (url));
+    TEST_EQUAL(apiPoint.m_id, string(), (url));
+    double const latEps = GetLatEpsilon(9);
+    double const lonEps = GetLonEpsilon(9);
+    TEST(fabs(apiPoint.m_lat - lat) <= latEps, (url, zoom, lat, lon, name));
+    TEST(fabs(apiPoint.m_lon - lon) <= lonEps, (url, zoom, lat, lon, name));
+
+    TEST(fabs(apiPoint.m_lat - lat) <= latEps, (url, zoom, lat, lon, name));
+    TEST(fabs(apiPoint.m_lon - lon) <= lonEps, (url, zoom, lat, lon, name));
+    TEST_ALMOST_EQUAL_ULPS(parsedZoomLevel, zoom, (url, zoom, lat, lon, name));
+  }
 }
 
 UNIT_TEST(LatLonFullAndClippedCoordinates)

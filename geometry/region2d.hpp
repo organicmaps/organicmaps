@@ -29,10 +29,10 @@ struct DefEqualFloat
            my::AlmostEqualAbs(p1.y, p2.y, static_cast<typename Point::value_type>(kPrecision));
   }
 
-  template <typename TCoord>
-  bool EqualZeroSquarePrecision(TCoord val) const
+  template <typename Coord>
+  bool EqualZeroSquarePrecision(Coord val) const
   {
-    static_assert(std::is_floating_point<TCoord>::value, "");
+    static_assert(std::is_floating_point<Coord>::value, "");
 
     return my::AlmostEqualAbs(val, 0.0, kPrecision * kPrecision);
   }
@@ -52,8 +52,8 @@ struct DefEqualInt
     return p1 == p2;
   }
 
-  template <typename TCoord>
-  bool EqualZeroSquarePrecision(TCoord val) const
+  template <typename Coord>
+  bool EqualZeroSquarePrecision(Coord val) const
   {
     return val == 0;
   }
@@ -65,17 +65,17 @@ struct DefEqualInt
 };
 
 template <int floating>
-struct TraitsType;
+struct Traitsype;
 
 template <>
-struct TraitsType<1>
+struct Traitsype<1>
 {
   typedef DefEqualFloat EqualType;
   typedef double BigType;
 };
 
 template <>
-struct TraitsType<0>
+struct Traitsype<0>
 {
   typedef DefEqualInt EqualType;
   typedef int64_t BigType;
@@ -86,14 +86,14 @@ template <typename Point>
 class Region
 {
 public:
-  using ValueT = Point;
-  using CoordT = typename Point::value_type;
-  using ContainerT = std::vector<Point>;
-  using TraitsT = detail::TraitsType<std::is_floating_point<CoordT>::value>;
+  using Value = Point;
+  using Coord = typename Point::value_type;
+  using Container = std::vector<Point>;
+  using Traits = detail::Traitsype<std::is_floating_point<Coord>::value>;
 
   /// @name Needed for boost region concept.
   //@{
-  using IteratorT = typename ContainerT::const_iterator;
+  using IteratorT = typename Container::const_iterator;
   IteratorT Begin() const { return m_points.begin(); }
   IteratorT End() const { return m_points.end(); }
   size_t Size() const { return m_points.size(); }
@@ -101,27 +101,28 @@ public:
 
   Region() = default;
 
-  template <typename Points>
+  template <typename Points,
+            typename = std::enable_if_t<std::is_constructible<Container, Points>::value>>
   explicit Region(Points && points) : m_points(std::forward<Points>(points))
   {
     CalcLimitRect();
   }
 
-  template <typename IterT>
-  Region(IterT first, IterT last) : m_points(first, last)
+  template <typename Iter>
+  Region(Iter first, Iter last) : m_points(first, last)
   {
     CalcLimitRect();
   }
 
-  template <typename IterT>
-  void Assign(IterT first, IterT last)
+  template <typename Iter>
+  void Assign(Iter first, Iter last)
   {
     m_points.assign(first, last);
     CalcLimitRect();
   }
 
-  template <typename IterT, typename Fn>
-  void AssignEx(IterT first, IterT last, Fn fn)
+  template <typename Iter, typename Fn>
+  void AssignEx(Iter first, Iter last, Fn fn)
   {
     m_points.reserve(distance(first, last));
 
@@ -137,13 +138,13 @@ public:
     m_rect.Add(pt);
   }
 
-  template <typename TFunctor>
-  void ForEachPoint(TFunctor toDo) const
+  template <typename ToDo>
+  void ForEachPoint(ToDo && toDo) const
   {
-    for_each(m_points.begin(), m_points.end(), toDo);
+    for_each(m_points.begin(), m_points.end(), std::forward<ToDo>(toDo));
   }
 
-  m2::Rect<CoordT> const & GetRect() const { return m_rect; }
+  m2::Rect<Coord> const & GetRect() const { return m_rect; }
   size_t GetPointsCount() const { return m_points.size(); }
   bool IsValid() const { return GetPointsCount() > 2; }
 
@@ -153,12 +154,12 @@ public:
     std::swap(m_rect, rhs.m_rect);
   }
 
-  ContainerT const & Data() const { return m_points; }
+  Container const & Data() const { return m_points; }
 
-  template <typename TEqualF>
-  static bool IsIntersect(CoordT const & x11, CoordT const & y11, CoordT const & x12,
-                          CoordT const & y12, CoordT const & x21, CoordT const & y21,
-                          CoordT const & x22, CoordT const & y22, TEqualF equalF, Point & pt)
+  template <typename EqualFn>
+  static bool IsIntersect(Coord const & x11, Coord const & y11, Coord const & x12,
+                          Coord const & y12, Coord const & x21, Coord const & y21,
+                          Coord const & x22, Coord const & y22, EqualFn && equalF, Point & pt)
   {
     double const divider = ((y12 - y11) * (x22 - x21) - (x12 - x11) * (y22 - y21));
     if (equalF.EqualZeroSquarePrecision(divider))
@@ -182,13 +183,13 @@ public:
   static bool IsIntersect(Point const & p1, Point const & p2, Point const & p3, Point const & p4,
                           Point & pt)
   {
-    return IsIntersect(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y,
-                       typename TraitsT::EqualType(), pt);
+    return IsIntersect(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y, typename Traits::EqualType(),
+                       pt);
   }
 
   /// Taken from Computational Geometry in C and modified
-  template <typename TEqualF>
-  bool Contains(Point const & pt, TEqualF equalF) const
+  template <typename EqualFn>
+  bool Contains(Point const & pt, EqualFn equalF) const
   {
     if (!m_rect.IsPointInside(pt))
       return false;
@@ -198,8 +199,8 @@ public:
 
     size_t const numPoints = m_points.size();
 
-    using BigCoordT = typename TraitsT::BigType;
-    using BigPoint = ::m2::Point<BigCoordT>;
+    using BigCoord = typename Traits::BigType;
+    using BigPoint = ::m2::Point<BigCoord>;
 
     BigPoint prev = BigPoint(m_points[numPoints - 1]) - BigPoint(pt);
     for (size_t i = 0; i < numPoints; ++i)
@@ -216,8 +217,8 @@ public:
       {
         ASSERT_NOT_EQUAL(curr.y, prev.y, ());
 
-        BigCoordT const delta = prev.y - curr.y;
-        BigCoordT const cp = CrossProduct(curr, prev);
+        BigCoord const delta = prev.y - curr.y;
+        BigCoord const cp = CrossProduct(curr, prev);
 
         // Squared precision is needed here because of comparison between cross product of two
         // std::vectors and zero. It's impossible to compare them relatively, so they're compared
@@ -248,7 +249,7 @@ public:
       return false;  // outside
   }
 
-  bool Contains(Point const & pt) const { return Contains(pt, typename TraitsT::EqualType()); }
+  bool Contains(Point const & pt) const { return Contains(pt, typename Traits::EqualType()); }
 
   /// Finds point of intersection with the section.
   bool FindIntersection(Point const & point1, Point const & point2, Point & result) const
@@ -266,8 +267,8 @@ public:
   }
 
   /// Slow check that point lies at the border.
-  template <typename TEqualF>
-  bool AtBorder(Point const & pt, double const delta, TEqualF equalF) const
+  template <typename EqualFn>
+  bool AtBorder(Point const & pt, double const delta, EqualFn equalF) const
   {
     if (!m_rect.IsPointInside(pt))
       return false;
@@ -297,7 +298,7 @@ public:
 
   bool AtBorder(Point const & pt, double const delta) const
   {
-    return AtBorder(pt, delta, typename TraitsT::EqualType());
+    return AtBorder(pt, delta, typename Traits::EqualType());
   }
 
 private:
@@ -317,8 +318,8 @@ private:
       m_rect.Add(m_points[i]);
   }
 
-  ContainerT m_points;
-  m2::Rect<CoordT> m_rect;
+  Container m_points;
+  m2::Rect<Coord> m_rect;
 };
 
 template <typename Point>

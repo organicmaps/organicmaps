@@ -11,6 +11,9 @@
 #include "base/math.hpp"
 
 #include <cmath>
+#include <cstddef>
+#include <cstdint>
+#include <utility>
 
 namespace covering
 {
@@ -24,8 +27,8 @@ enum CellObjectIntersection
   OBJECT_INSIDE_CELL = 3
 };
 
-template <class CellIdT>
-CellObjectIntersection IntersectCellWithLine(CellIdT const cell, m2::PointD const & a,
+template <class CellId>
+CellObjectIntersection IntersectCellWithLine(CellId const cell, m2::PointD const & a,
                                              m2::PointD const & b)
 {
   std::pair<uint32_t, uint32_t> const xy = cell.XY();
@@ -34,15 +37,17 @@ CellObjectIntersection IntersectCellWithLine(CellIdT const cell, m2::PointD cons
       m2::PointD(xy.first - r, xy.second - r), m2::PointD(xy.first - r, xy.second + r),
       m2::PointD(xy.first + r, xy.second + r), m2::PointD(xy.first + r, xy.second - r)};
   for (int i = 0; i < 4; ++i)
+  {
     if (m2::robust::SegmentsIntersect(a, b, cellCorners[i], cellCorners[i == 0 ? 3 : i - 1]))
       return CELL_OBJECT_INTERSECT;
+  }
   if (xy.first - r <= a.x && a.x <= xy.first + r && xy.second - r <= a.y && a.y <= xy.second + r)
     return OBJECT_INSIDE_CELL;
   return CELL_OBJECT_NO_INTERSECTION;
 }
 
-template <class CellIdT>
-CellObjectIntersection IntersectCellWithTriangle(CellIdT const cell, m2::PointD const & a,
+template <class CellId>
+CellObjectIntersection IntersectCellWithTriangle(CellId const cell, m2::PointD const & a,
                                                  m2::PointD const & b, m2::PointD const & c)
 {
   CellObjectIntersection const i1 = IntersectCellWithLine(cell, a, b);
@@ -69,9 +74,9 @@ CellObjectIntersection IntersectCellWithTriangle(CellIdT const cell, m2::PointD 
   return CELL_OBJECT_NO_INTERSECTION;
 }
 
-template <class CellIdT, class CellIdContainerT, typename IntersectF>
+template <class CellId, class CellIdContainerT, typename IntersectF>
 void CoverObject(IntersectF const & intersect, uint64_t cellPenaltyArea, CellIdContainerT & out,
-                 int cellDepth, CellIdT cell)
+                 int cellDepth, CellId cell)
 {
   if (cell.Level() == cellDepth - 1)
   {
@@ -90,7 +95,7 @@ void CoverObject(IntersectF const & intersect, uint64_t cellPenaltyArea, CellIdC
     return;
   }
 
-  buffer_vector<CellIdT, 32> subdiv;
+  buffer_vector<CellId, 32> subdiv;
   for (uint8_t i = 0; i < 4; ++i)
     CoverObject(intersect, cellPenaltyArea, subdiv, cellDepth, cell.Child(i));
 
@@ -111,5 +116,4 @@ void CoverObject(IntersectF const & intersect, uint64_t cellPenaltyArea, CellIdC
       out.push_back(subdiv[i]);
   }
 }
-
 }  // namespace covering

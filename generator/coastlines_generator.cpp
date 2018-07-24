@@ -16,9 +16,9 @@
 
 using namespace std;
 
-typedef m2::RegionI RegionT;
-typedef m2::PointI PointT;
-typedef m2::RectI RectT;
+using RegionT = m2::RegionI;
+using PointT = m2::PointI;
+using RectT = m2::RectI;
 
 CoastlineFeaturesGenerator::CoastlineFeaturesGenerator(uint32_t coastType)
   : m_merger(POINT_COORD_BITS), m_coastType(coastType)
@@ -39,16 +39,17 @@ namespace
     return PointT(static_cast<int32_t>(pu.x), static_cast<int32_t>(pu.y));
   }
 
-  template <class TreeT> class DoCreateRegion
+  template <class Tree> class DoCreateRegion
   {
-    TreeT & m_tree;
+    Tree & m_tree;
 
     RegionT m_rgn;
     m2::PointD m_pt;
     bool m_exist;
 
   public:
-    DoCreateRegion(TreeT & tree) : m_tree(tree), m_exist(false) {}
+    template <typename T>
+    DoCreateRegion(T && tree) : m_tree(std::forward<T>(tree)), m_exist(false) {}
 
     bool operator()(m2::PointD const & p)
     {
@@ -75,7 +76,7 @@ namespace
       m_exist = false;
     }
   };
-}
+}  // namespace
 
 void CoastlineFeaturesGenerator::AddRegionToTree(FeatureBuilder1 const & fb)
 {

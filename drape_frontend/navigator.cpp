@@ -311,7 +311,7 @@ m2::AnyRectD ToRotated(Navigator const & navigator, m2::RectD const & rect)
   double const dy = rect.SizeY();
 
   return m2::AnyRectD(rect.Center(),
-                      navigator.Screen().GetAngle(),
+                      ang::Angle<double>(navigator.Screen().GetAngle()),
                       m2::RectD(-dx/2, -dy/2, dx/2, dy/2));
 }
 

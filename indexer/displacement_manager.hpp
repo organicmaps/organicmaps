@@ -61,17 +61,17 @@ static_assert(std::is_trivially_copyable<CellFeatureBucketTuple>::value, "");
 
 /// Displacement manager filters incoming single-point features to simplify runtime
 /// feature visibility displacement.
-template <class TSorter>
+template <typename Sorter>
 class DisplacementManager
 {
 public:
   using CellFeaturePair = CellFeatureBucketTuple::CellFeaturePair;
 
-  DisplacementManager(TSorter & sorter) : m_sorter(sorter) {}
+  DisplacementManager(Sorter & sorter) : m_sorter(sorter) {}
 
   /// Add feature at bucket (zoom) to displaceable queue if possible. Pass to bucket otherwise.
-  template <class TFeature>
-  void Add(vector<int64_t> const & cells, uint32_t bucket, TFeature const & ft, uint32_t index)
+  template <typename Feature>
+  void Add(vector<int64_t> const & cells, uint32_t bucket, Feature const & ft, uint32_t index)
   {
     // Add to displaceable storage if we need to displace POI.
     if (bucket != scales::GetUpperScale() && IsDisplaceable(ft))
@@ -151,8 +151,8 @@ private:
 
     DisplaceableNode() : m_index(0), m_minScale(0), m_maxScale(0), m_priority(0) {}
 
-    template <class TFeature>
-    DisplaceableNode(vector<int64_t> const & cells, TFeature const & ft, uint32_t index,
+    template <typename Feature>
+    DisplaceableNode(vector<int64_t> const & cells, Feature const & ft, uint32_t index,
                      int zoomLevel)
       : m_index(index)
       , m_fID(ft.GetID())
@@ -194,8 +194,8 @@ private:
     m2::RectD const GetLimitRect() const { return m2::RectD(m_center, m_center); }
   };
 
-  template <class TFeature>
-  static bool IsDisplaceable(TFeature const & ft)
+  template <typename Feature>
+  static bool IsDisplaceable(Feature const & ft)
   {
     feature::TypesHolder const types(ft);
     return types.GetGeoType() == feature::GEOM_POINT;
@@ -214,7 +214,7 @@ private:
       m_sorter.Add(CellFeatureBucketTuple(CellFeaturePair(cell, node.m_index), scale));
   }
 
-  TSorter & m_sorter;
+  Sorter & m_sorter;
   vector<DisplaceableNode> m_storage;
 };
 }  // namespace indexer

@@ -57,8 +57,10 @@ bool Ge0Parser::Parse(string const & url, url_scheme::ApiPoint & outPoint, doubl
   ASSERT(MercatorBounds::ValidLat(outPoint.m_lat), (outPoint.m_lat));
 
   if (url.size() >= NAME_POSITON_IN_URL)
+  {
     outPoint.m_name = DecodeName(
         url.substr(NAME_POSITON_IN_URL, min(url.size() - NAME_POSITON_IN_URL, MAX_NAME_LENGTH)));
+  }
   return true;
 }
 
@@ -118,10 +120,12 @@ string Ge0Parser::DecodeName(string name)
 void Ge0Parser::SpacesToUnderscore(string & name)
 {
   for (size_t i = 0; i < name.size(); ++i)
+  {
     if (name[i] == ' ')
       name[i] = '_';
     else if (name[i] == '_')
       name[i] = ' ';
+  }
 }
 
 void Ge0Parser::ValidateName(string & name)

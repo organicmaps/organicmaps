@@ -91,7 +91,7 @@ namespace feature
         return !m_belongs;
       }
 
-      void operator() (borders::Region const & rgn, borders::Region::ValueT const & point)
+      void operator() (borders::Region const & rgn, borders::Region::Value const & point)
       {
         if (!m_belongs)
           m_belongs = rgn.Contains(point);

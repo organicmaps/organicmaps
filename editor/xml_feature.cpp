@@ -11,6 +11,7 @@
 #include "geometry/latlon.hpp"
 
 #include <sstream>
+#include <string>
 
 using namespace std;
 

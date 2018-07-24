@@ -41,7 +41,7 @@ public:
 
   T SquaredLength() const { return x * x + y * y; }
 
-  double Length(Point<T> const & p) const { return sqrt(SquaredLength(p)); }
+  double Length(Point<T> const & p) const { return std::sqrt(SquaredLength(p)); }
 
   bool IsAlmostZero() const { return AlmostEqualULPs(*this, Point<T>(0, 0)); }
 
@@ -110,7 +110,7 @@ public:
   }
 
   /// @name VectorOperationsOnPoint
-  double Length() const { return sqrt(SquaredLength()); }
+  double Length() const { return std::sqrt(SquaredLength()); }
 
   Point<T> Normalize() const
   {

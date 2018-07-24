@@ -3,8 +3,18 @@
 #include "base/math.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 using namespace std;
+
+namespace
+{
+// Earth radius in meters.
+double constexpr kEarthRadiusMeters = 6378000;
+
+// Side of the one-degree square at the equator in meters.
+double constexpr kOneDegreeEquatorLengthMeters = 111319.49079;
+}  // namespace
 
 namespace ms
 {
@@ -25,5 +35,21 @@ double AreaOnSphere(ms::LatLon const & ll1, ms::LatLon const & ll2, ms::LatLon c
   return cos(avgLat) * 0.5 *
          fabs((ll2.lon - ll1.lon) * (ll3.lat - ll1.lat) -
               (ll3.lon - ll1.lon) * (ll2.lat - ll1.lat));
+}
+
+double DistanceOnEarth(double lat1Deg, double lon1Deg, double lat2Deg, double lon2Deg)
+{
+  return kEarthRadiusMeters * DistanceOnSphere(lat1Deg, lon1Deg, lat2Deg, lon2Deg);
+}
+
+double DistanceOnEarth(LatLon const & ll1, LatLon const & ll2)
+{
+  return DistanceOnEarth(ll1.lat, ll1.lon, ll2.lat, ll2.lon);
+}
+
+double AreaOnEarth(LatLon const & ll1, LatLon const & ll2, LatLon const & ll3)
+{
+  return kOneDegreeEquatorLengthMeters * kOneDegreeEquatorLengthMeters *
+         AreaOnSphere(ll1, ll2, ll3);
 }
 }  // namespace ms

@@ -143,7 +143,7 @@ void ScreenBase::SetFromRect(m2::AnyRectD const & glbRect) { SetFromRects(glbRec
 void ScreenBase::SetFromParams(m2::PointD const & org, double angle, double scale)
 {
   m_Scale = scale;
-  m_Angle = angle;
+  m_Angle = ang::Angle<double>(angle);
   m_Org = org;
   UpdateDependentParameters();
 }

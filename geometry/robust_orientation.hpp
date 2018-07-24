@@ -31,28 +31,28 @@ bool Between(T a, T b, T c)
   return std::min(a, b) <= c && c <= std::max(a, b);
 }
 
-template <class PointT>
-bool IsInSection(PointT const & p1, PointT const & p2, PointT const & p)
+template <typename Point>
+bool IsInSection(Point const & p1, Point const & p2, Point const & p)
 {
   return Between(p1.x, p2.x, p.x) && Between(p1.y, p2.y, p.y);
 }
 
-template <typename IterT>
-bool CheckPolygonSelfIntersections(IterT beg, IterT end)
+template <typename Iter>
+bool CheckPolygonSelfIntersections(Iter beg, Iter end)
 {
-  IterT last = end;
+  Iter last = end;
   --last;
 
-  for (IterT i = beg; i != last; ++i)
+  for (Iter i = beg; i != last; ++i)
   {
-    for (IterT j = i; j != end; ++j)
+    for (Iter j = i; j != end; ++j)
     {
       // do not check intersection of neibour segments
       if (std::distance(i, j) <= 1 || (i == beg && j == last))
         continue;
 
-      IterT ii = NextIterInCycle(i, beg, end);
-      IterT jj = NextIterInCycle(j, beg, end);
+      Iter ii = NextIterInCycle(i, beg, end);
+      Iter jj = NextIterInCycle(j, beg, end);
       PointD a = *i, b = *ii, c = *j, d = *jj;
 
       // check for rect intersection
@@ -72,7 +72,7 @@ bool CheckPolygonSelfIntersections(IterT beg, IterT end)
         continue;
 
       // Common principle if any point lay exactly on section, check 2 variants:
-      // - касание (><) - don't return as intersection;
+      // - only touching (><) - don't return as intersection;
       // - 'X'-crossing - return as intersection;
       // 'X'-crossing defines when points lay in different cones.
 

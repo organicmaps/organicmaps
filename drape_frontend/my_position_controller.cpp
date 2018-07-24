@@ -68,7 +68,7 @@ int GetZoomLevel(ScreenBase const & screen, m2::PointD const & position, double 
 {
   ScreenBase s = screen;
   m2::PointD const size(errorRadius, errorRadius);
-  s.SetFromRect(m2::AnyRectD(position, screen.GetAngle(), m2::RectD(position - size, position + size)));
+  s.SetFromRect(m2::AnyRectD(position, ang::Angle<double>(screen.GetAngle()), m2::RectD(position - size, position + size)));
   return GetZoomLevel(s);
 }
 

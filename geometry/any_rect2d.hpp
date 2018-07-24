@@ -7,6 +7,7 @@
 
 #include "base/math.hpp"
 
+#include <algorithm>
 #include <array>
 #include <string>
 
@@ -17,6 +18,8 @@ template <typename T>
 class AnyRect
 {
 public:
+  using Corners = std::array<Point<T>, 4>;
+
   AnyRect() = default;
 
   /// creating from regular rect
@@ -69,15 +72,15 @@ public:
 
   bool EqualDxDy(AnyRect<T> const & r, T eps) const
   {
-    std::array<Point<T>, 4> arr1;
+    Corners arr1;
     GetGlobalPoints(arr1);
-    sort(arr1, arr1 + 4);
+    std::sort(arr1.begin(), arr1.end());
 
-    std::array<Point<T>, 4> arr2;
+    Corners arr2;
     r.GetGlobalPoints(arr2);
-    sort(arr2, arr2 + 4);
+    std::sort(arr2.begin(), arr2.end());
 
-    for (size_t i = 0; i < 4; ++i)
+    for (size_t i = 0; i < arr1.size(); ++i)
     {
       if (!arr1[i].EqualDxDy(arr2[i], eps))
         return false;
@@ -90,7 +93,7 @@ public:
 
   bool IsRectInside(AnyRect<T> const & r) const
   {
-    std::array<Point<T>, 4> pts;
+    Corners pts;
     r.GetGlobalPoints(pts);
     ConvertTo(pts);
     return m_rect.IsPointInside(pts[0]) && m_rect.IsPointInside(pts[1]) &&
@@ -101,7 +104,7 @@ public:
   {
     if (r.GetLocalRect() == Rect<T>())
       return false;
-    std::array<Point<T>, 4> pts;
+    Corners pts;
     r.GetGlobalPoints(pts);
     ConvertTo(pts);
 
@@ -132,7 +135,7 @@ public:
     return Convert(p - Convert(m_zero, i(), j(), i1, j1), i1, j1, i(), j());
   }
 
-  void ConvertTo(std::array<Point<T>, 4> & pts) const
+  void ConvertTo(Corners & pts) const
   {
     for (auto & p : pts)
       p = ConvertTo(p);
@@ -148,7 +151,7 @@ public:
 
   Rect<T> GetGlobalRect() const
   {
-    std::array<Point<T>, 4> pts;
+    Corners pts;
     GetGlobalPoints(pts);
 
     Rect<T> res;
@@ -157,7 +160,7 @@ public:
     return res;
   }
 
-  void GetGlobalPoints(std::array<Point<T>, 4> & pts) const
+  void GetGlobalPoints(Corners & pts) const
   {
     pts[0] = ConvertFrom(Point<T>(m_rect.minX(), m_rect.minY()));
     pts[1] = ConvertFrom(Point<T>(m_rect.minX(), m_rect.maxY()));
@@ -173,7 +176,7 @@ public:
 
   void Add(AnyRect<T> const & r)
   {
-    std::array<Point<T>, 4> pts;
+    Corners pts;
     r.GetGlobalPoints(pts);
     ConvertTo(pts);
     for (auto const & p : pts)
@@ -214,7 +217,7 @@ using AnyRectD = AnyRect<double>;
 using AnyRectF = AnyRect<float>;
 
 template <typename T>
-AnyRect<T> const Offset(AnyRect<T> const & r, Point<T> const & pt)
+AnyRect<T> Offset(AnyRect<T> const & r, Point<T> const & pt)
 {
   AnyRect<T> res(r);
   res.Offset(pt);
@@ -222,7 +225,7 @@ AnyRect<T> const Offset(AnyRect<T> const & r, Point<T> const & pt)
 }
 
 template <typename T, typename U>
-AnyRect<T> const Inflate(AnyRect<T> const & r, U const & dx, U const & dy)
+AnyRect<T> Inflate(AnyRect<T> const & r, U const & dx, U const & dy)
 {
   AnyRect<T> res = r;
   res.Inflate(dx, dy);
@@ -230,7 +233,7 @@ AnyRect<T> const Inflate(AnyRect<T> const & r, U const & dx, U const & dy)
 }
 
 template <typename T, typename U>
-AnyRect<T> const Inflate(AnyRect<T> const & r, Point<U> const & pt)
+AnyRect<T> Inflate(AnyRect<T> const & r, Point<U> const & pt)
 {
   return Inflate(r, pt.x, pt.y);
 }

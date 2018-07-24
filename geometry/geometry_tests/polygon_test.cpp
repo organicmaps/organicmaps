@@ -5,17 +5,63 @@
 #include "geometry/triangle2d.hpp"
 
 #include "base/macros.hpp"
+#include "base/stl_helpers.hpp"
 
 #include <algorithm>
 
 using namespace std;
+using namespace m2::robust;
 
 namespace
 {
 using P = m2::PointD;
-}  // namespace
 
-using namespace m2::robust;
+template <typename Iter>
+void TestDiagonalVisible(Iter beg, Iter end, Iter i0, Iter i1, bool res)
+{
+  TEST_EQUAL(IsDiagonalVisible(beg, end, i0, i1), res, ());
+  TEST_EQUAL(IsDiagonalVisible(beg, end, i1, i0), res, ());
+}
+
+void TestFindStrip(P const * beg, size_t n)
+{
+  size_t const i = FindSingleStrip(n, IsDiagonalVisibleFunctor<P const *>(beg, beg + n));
+  TEST_LESS(i, n, ());
+
+  vector<size_t> test;
+  MakeSingleStripFromIndex(i, n, MakeBackInsertFunctor(test));
+
+  my::SortUnique(test);
+  TEST_EQUAL(test.size(), n, ());
+}
+
+void TestFindStripMulti(P const * beg, size_t n)
+{
+  for (size_t i = 3; i <= n; ++i)
+    TestFindStrip(beg, i);
+}
+
+template <typename Iter>
+void TestPolygonCCW(Iter beg, Iter end)
+{
+  TEST_EQUAL(m2::robust::CheckPolygonSelfIntersections(beg, end), false, ());
+
+  TEST(IsPolygonCCW(beg, end), ());
+  using ReverseIter = reverse_iterator<Iter>;
+  TEST(!IsPolygonCCW(ReverseIter(end), ReverseIter(beg)), ());
+}
+
+template <typename Iter>
+void TestPolygonOrReverseCCW(Iter beg, Iter end)
+{
+  TEST_EQUAL(m2::robust::CheckPolygonSelfIntersections(beg, end), false, ());
+
+  bool const bForwardCCW = IsPolygonCCW(beg, end);
+  using ReverseIter = reverse_iterator<Iter>;
+  bool const bReverseCCW = IsPolygonCCW(ReverseIter(end), ReverseIter(beg));
+  TEST_NOT_EQUAL(bForwardCCW, bReverseCCW, ());
+}
+}  // namespace
 
 UNIT_TEST(IsSegmentInCone)
 {
@@ -38,16 +84,6 @@ UNIT_TEST(IsSegmentInCone)
   TEST(!IsSegmentInCone(P(0, 0), P(-1, -3), P(-1, 1), P(1, 1)), ());
 }
 
-namespace
-{
-template <typename IterT>
-void TestDiagonalVisible(IterT beg, IterT end, IterT i0, IterT i1, bool res)
-{
-  TEST_EQUAL(IsDiagonalVisible(beg, end, i0, i1), res, ());
-  TEST_EQUAL(IsDiagonalVisible(beg, end, i1, i0), res, ());
-}
-}
-
 UNIT_TEST(IsDiagonalVisible)
 {
   P poly[] = {P(0, 0), P(3, 0), P(3, 2), P(2, 2), P(2, 1), P(0, 1)};
@@ -63,29 +99,6 @@ UNIT_TEST(IsDiagonalVisible)
   TestDiagonalVisible(b, e, b + 5, b + 3, false);
   TestDiagonalVisible(b, e, b + 5, b + 2, false);
   TestDiagonalVisible(b, e, b + 5, b + 1, true);
-}
-
-namespace
-{
-void TestFindStrip(P const * beg, size_t n)
-{
-  size_t const i = FindSingleStrip(n, IsDiagonalVisibleFunctor<P const *>(beg, beg + n));
-  TEST_LESS(i, n, ());
-
-  vector<size_t> test;
-  MakeSingleStripFromIndex(i, n, MakeBackInsertFunctor(test));
-
-  sort(test.begin(), test.end());
-  unique(test.begin(), test.end());
-
-  TEST_EQUAL(test.size(), n, ());
-}
-
-void TestFindStripMulti(P const * beg, size_t n)
-{
-  for (size_t i = 3; i <= n; ++i)
-    TestFindStrip(beg, i);
-}
 }
 
 UNIT_TEST(FindSingleStrip)
@@ -108,30 +121,6 @@ UNIT_TEST(FindSingleStrip)
                 P(53.8923762, 27.5465881), P(53.8925229, 27.5458984)};
     TestFindStrip(poly, ARRAY_SIZE(poly));
   }
-}
-
-namespace
-{
-template <typename IterT>
-void TestPolygonCCW(IterT beg, IterT end)
-{
-  TEST_EQUAL(m2::robust::CheckPolygonSelfIntersections(beg, end), false, ());
-
-  TEST(IsPolygonCCW(beg, end), ());
-  typedef std::reverse_iterator<IterT> ReverseIterT;
-  TEST(!IsPolygonCCW(ReverseIterT(end), ReverseIterT(beg)), ());
-}
-
-template <typename IterT>
-void TestPolygonOrReverseCCW(IterT beg, IterT end)
-{
-  TEST_EQUAL(m2::robust::CheckPolygonSelfIntersections(beg, end), false, ());
-
-  bool const bForwardCCW = IsPolygonCCW(beg, end);
-  typedef std::reverse_iterator<IterT> ReverseIterT;
-  bool const bReverseCCW = IsPolygonCCW(ReverseIterT(end), ReverseIterT(beg));
-  TEST_NOT_EQUAL(bForwardCCW, bReverseCCW, ());
-}
 }
 
 UNIT_TEST(IsPolygonCCW_Smoke)

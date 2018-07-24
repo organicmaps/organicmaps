@@ -4,24 +4,26 @@
 
 #include "geometry/region2d.hpp"
 
-
-namespace {
-
-template <class RegionT> struct ContainsChecker
+namespace
 {
-  RegionT const & m_region;
-  ContainsChecker(RegionT const & region) : m_region(region) {}
-  void operator()(typename RegionT::ValueT const & pt)
+template <class Region>
+struct ContainsChecker
+{
+  ContainsChecker(Region const & region) : m_region(region) {}
+
+  void operator()(typename Region::Value const & pt)
   {
-    TEST(m_region.Contains(pt), ("Region should contain all it's points"));
+    TEST(m_region.Contains(pt), ("Region should contain all its points"));
   }
+
+  Region const & m_region;
 };
 
 /// Region should have CCW orientation from left, down corner.
-template <class PointT>
-void TestContainsRectangular(PointT const * arr)
+template <class Point>
+void TestContainsRectangular(Point const * arr)
 {
-  m2::Region<PointT> region;
+  m2::Region<Point> region;
 
   size_t const count = 4;
   region.Assign(arr, arr + count);
@@ -32,8 +34,8 @@ void TestContainsRectangular(PointT const * arr)
     region.Contains((arr[i] + arr[(i + count - 1) % count]) / 2);
   }
 
-  PointT dx(1, 0);
-  PointT dy(0, 1);
+  Point dx(1, 0);
+  Point dy(0, 1);
 
   TEST(!region.Contains(arr[0] - dx), ());
   TEST(!region.Contains(arr[0] - dy), ());
@@ -56,38 +58,38 @@ void TestContainsRectangular(PointT const * arr)
   TEST(region.Contains(arr[3] + dx - dy), ());
 }
 
-template <class TRegion>
+template <class Region>
 void TestContains()
 {
-  TRegion region;
-  ContainsChecker<TRegion> checker(region);
+  Region region;
+  ContainsChecker<Region> checker(region);
 
   // point type
-  using P = typename TRegion::ValueT;
+  using P = typename Region::Value;
 
   // rectangular polygon
   {
-    P const data[] = { P(1, 1), P(10, 1), P(10, 10), P(1, 10) };
+    P const data[] = {P(1, 1), P(10, 1), P(10, 10), P(1, 10)};
     TestContainsRectangular(data);
   }
   {
-    P const data[] = { P(-100, -100), P(-50, -100), P(-50, -50), P(-100, -50) };
+    P const data[] = {P(-100, -100), P(-50, -100), P(-50, -50), P(-100, -50)};
     TestContainsRectangular(data);
   }
   {
-    P const data[] = { P(-2000000000, -2000000000), P(-1000000000, -2000000000),
-                       P(-1000000000, -1000000000), P(-2000000000, -1000000000) };
+    P const data[] = {P(-2000000000, -2000000000), P(-1000000000, -2000000000),
+                      P(-1000000000, -1000000000), P(-2000000000, -1000000000)};
     TestContainsRectangular(data);
   }
   {
-    P const data[] = { P(1000000000, 1000000000), P(2000000000, 1000000000),
-                       P(2000000000, 2000000000), P(1000000000, 2000000000) };
+    P const data[] = {P(1000000000, 1000000000), P(2000000000, 1000000000),
+                      P(2000000000, 2000000000), P(1000000000, 2000000000)};
     TestContainsRectangular(data);
   }
 
   // triangle
   {
-    P const data[] = {P(0, 0), P(2, 0), P(2, 2) };
+    P const data[] = {P(0, 0), P(2, 0), P(2, 2)};
     region.Assign(data, data + ARRAY_SIZE(data));
   }
   TEST_EQUAL(region.GetRect(), m2::Rect<typename P::value_type>(0, 0, 2, 2), ());
@@ -98,10 +100,10 @@ void TestContains()
 
   // complex polygon
   {
-    P const data[] = { P(0, 0), P(2, 0), P(2, 2), P(3, 1), P(4, 2), P(5, 2),
-        P(3, 3), P(3, 2), P(2, 4), P(6, 3), P(7, 4), P(7, 2), P(8, 5), P(8, 7),
-        P(7, 7), P(8, 8), P(5, 9), P(6, 6), P(5, 7), P(4, 6), P(4, 8), P(3, 7),
-        P(2, 7), P(3, 6), P(4, 4), P(0, 7), P(2, 3), P(0, 2) };
+    P const data[] = {P(0, 0), P(2, 0), P(2, 2), P(3, 1), P(4, 2), P(5, 2), P(3, 3),
+                      P(3, 2), P(2, 4), P(6, 3), P(7, 4), P(7, 2), P(8, 5), P(8, 7),
+                      P(7, 7), P(8, 8), P(5, 9), P(6, 6), P(5, 7), P(4, 6), P(4, 8),
+                      P(3, 7), P(2, 7), P(3, 6), P(4, 4), P(0, 7), P(2, 3), P(0, 2)};
     region.Assign(data, data + ARRAY_SIZE(data));
   }
   TEST_EQUAL(region.GetRect(), m2::Rect<typename P::value_type>(0, 0, 8, 9), ());
@@ -115,18 +117,29 @@ void TestContains()
   region.ForEachPoint(checker);
 }
 
-}
+template <class Point>
+class PointsSummator
+{
+public:
+  PointsSummator(Point & res) : m_res(res) {}
+
+  void operator()(Point const & pt) { m_res += pt; }
+
+private:
+  Point & m_res;
+};
+}  // namespace
 
 UNIT_TEST(Region)
 {
   typedef m2::PointD P;
-  P p1[] = { P(0.1, 0.2) };
+  P p1[] = {P(0.1, 0.2)};
 
   m2::Region<P> region(p1, p1 + ARRAY_SIZE(p1));
   TEST(!region.IsValid(), ());
 
   {
-    P p2[] = { P(1.0, 2.0), P(55.0, 33.0) };
+    P p2[] = {P(1.0, 2.0), P(55.0, 33.0)};
     region.Assign(p2, p2 + ARRAY_SIZE(p2));
   }
   TEST(!region.IsValid(), ());
@@ -135,13 +148,14 @@ UNIT_TEST(Region)
   TEST(region.IsValid(), ());
 
   {
-  // equality case
-  {
-    P const data[] = { P(1, 1), P(0, 4.995), P(1, 4.999996), P(1.000003, 5.000001), P(0.5, 10), P(10, 10), P(10, 1) };
-    region.Assign(data, data + ARRAY_SIZE(data));
-  }
-  TEST(!region.Contains(P(0.9999987, 0.9999938)), ());
-  TEST(!region.Contains(P(0.999998, 4.9999987)), ());
+    // equality case
+    {
+      P const data[] = {P(1, 1),    P(0, 4.995), P(1, 4.999996), P(1.000003, 5.000001),
+                        P(0.5, 10), P(10, 10),   P(10, 1)};
+      region.Assign(data, data + ARRAY_SIZE(data));
+    }
+    TEST(!region.Contains(P(0.9999987, 0.9999938)), ());
+    TEST(!region.Contains(P(0.999998, 4.9999987)), ());
   }
 }
 
@@ -153,7 +167,7 @@ UNIT_TEST(Region_Contains_int32)
   {
     using P = m2::PointI;
     m2::Region<P> region;
-    P const data[] = { P(1, -1), P(-2, -2), P(-3, 1) };
+    P const data[] = {P(1, -1), P(-2, -2), P(-3, 1)};
     region.Assign(data, data + ARRAY_SIZE(data));
 
     TEST_EQUAL(region.GetRect(), m2::Rect<P::value_type>(-3, -2, 1, 1), ());
@@ -166,7 +180,7 @@ UNIT_TEST(Region_Contains_int32)
   {
     using P = m2::PointI;
     m2::Region<P> region;
-    P const data[] = { P(1, -1), P(3, 0), P(3, 3), P(0, 3), P(0, 2), P(0, 1), P(2, 2) };
+    P const data[] = {P(1, -1), P(3, 0), P(3, 3), P(0, 3), P(0, 2), P(0, 1), P(2, 2)};
     region.Assign(data, data + ARRAY_SIZE(data));
 
     TEST_EQUAL(region.GetRect(), m2::Rect<P::value_type>(0, -1, 3, 3), ());
@@ -178,43 +192,29 @@ UNIT_TEST(Region_Contains_int32)
   }
 }
 
-UNIT_TEST(Region_Contains_uint32)
-{
-  TestContains<m2::RegionU>();
-}
+UNIT_TEST(Region_Contains_uint32) { TestContains<m2::RegionU>(); }
 
 UNIT_TEST(Region_Contains_double)
 {
-  using TRegion = m2::RegionD;
-  using TPoint = TRegion::ValueT;
+  using Region = m2::RegionD;
+  using Point = Region::Value;
 
-  TestContains<TRegion>();
+  TestContains<Region>();
 
   {
-    TRegion region;
-    TPoint const data[] = {{0, 7}, {4, 4}, {3, 6}, {8, 6}, {8, 5}, {6, 3}, {2, 2}};
+    Region region;
+    Point const data[] = {{0, 7}, {4, 4}, {3, 6}, {8, 6}, {8, 5}, {6, 3}, {2, 2}};
     region.Assign(data, data + ARRAY_SIZE(data));
 
-    TEST_EQUAL(region.GetRect(), m2::Rect<TPoint::value_type>(0, 2, 8, 7), ());
+    TEST_EQUAL(region.GetRect(), m2::Rect<Point::value_type>(0, 2, 8, 7), ());
     TEST(!region.Contains({3, 5}), ());
   }
 }
 
-template <class TPoint> class PointsSummator
-{
-  TPoint & m_res;
-public:
-  PointsSummator(TPoint & res) : m_res(res) {}
-  void operator()(TPoint const & pt)
-  {
-    m_res += pt;
-  }
-};
-
 UNIT_TEST(Region_ForEachPoint)
 {
   typedef m2::PointF P;
-  P const points[] = { P(0.0, 1.0), P(1.0, 2.0), P(10.5, 11.5) };
+  P const points[] = {P(0.0, 1.0), P(1.0, 2.0), P(10.5, 11.5)};
   m2::Region<P> region(points, points + ARRAY_SIZE(points));
 
   P res(0, 0);
@@ -226,7 +226,7 @@ UNIT_TEST(Region_ForEachPoint)
 UNIT_TEST(Region_point_at_border_test)
 {
   typedef m2::PointF P;
-  P const points[] = { P(0.0, 1.0), P(0.0, 10.0), P(10.0, 10.0), P(10.0, 1.0) };
+  P const points[] = {P(0.0, 1.0), P(0.0, 10.0), P(10.0, 10.0), P(10.0, 1.0)};
   m2::Region<P> region(points, points + ARRAY_SIZE(points));
 
   P p1(0, 0);
@@ -245,7 +245,7 @@ UNIT_TEST(Region_point_at_border_test)
 UNIT_TEST(Region_border_intersecion_Test)
 {
   typedef m2::PointF P;
-  P const points[] = { P(0.0, 1.0), P(0.0, 10.0), P(10.0, 10.0), P(10.0, 1.0) };
+  P const points[] = {P(0.0, 1.0), P(0.0, 10.0), P(10.0, 10.0), P(10.0, 1.0)};
   m2::Region<P> region(points, points + ARRAY_SIZE(points));
 
   P intersection;
@@ -259,5 +259,6 @@ UNIT_TEST(Region_border_intersecion_Test)
   TEST(region.FindIntersection(P(7.0, 7.0), P(7.0, 10.0), intersection), ());
   TEST(intersection == P(7.0, 10.0), ());
 
-  TEST(!region.FindIntersection(P(5.0, 5.0), P(2.0, 2.0), intersection), ("This case has no intersection"));
+  TEST(!region.FindIntersection(P(5.0, 5.0), P(2.0, 2.0), intersection),
+       ("This case has no intersection"));
 }

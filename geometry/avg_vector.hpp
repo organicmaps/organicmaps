@@ -5,6 +5,7 @@
 
 #include <array>
 #include <cmath>
+#include <cstddef>
 #include <cstring>
 #include <deque>
 #include <limits>
@@ -15,51 +16,8 @@ namespace math
 template <class T, size_t Dim>
 class AvgVector
 {
-  typedef std::deque<std::array<T, Dim>> ContT;
-  typedef typename ContT::value_type ValueT;
-
-  ContT m_vectors;
-  size_t m_count;
-
-  static T Distance(ValueT const & a1, ValueT const & a2)
-  {
-    T res = 0;
-    for (size_t i = 0; i < Dim; ++i)
-      res += std::pow(a1[i] - a2[i], 2);
-
-    return sqrt(res);
-  }
-
-  static void Average(ValueT const & a1, ValueT const & a2, T * res)
-  {
-    for (size_t i = 0; i < Dim; ++i)
-      res[i] = (a1[i] + a2[i]) / 2.0;
-  }
-
-  void CalcAverage(T * res) const
-  {
-    T minD = std::numeric_limits<T>::max();
-    size_t I = 0, J = 1;
-
-    size_t const count = m_vectors.size();
-    ASSERT_GREATER(count, 1, ());
-    for (size_t i = 0; i < count - 1; ++i)
-      for (size_t j = i + 1; j < count; ++j)
-      {
-        T const d = Distance(m_vectors[i], m_vectors[j]);
-        if (d < minD)
-        {
-          I = i;
-          J = j;
-          minD = d;
-        }
-      }
-
-    Average(m_vectors[I], m_vectors[J], res);
-  }
-
 public:
-  AvgVector(size_t count = 1) : m_count(count)
+  explicit AvgVector(size_t count = 1) : m_count(count)
   {
     static_assert(std::is_floating_point<T>::value, "");
   }
@@ -73,11 +31,57 @@ public:
     if (m_vectors.size() == m_count)
       m_vectors.pop_front();
 
-    m_vectors.push_back(ValueT());
+    m_vectors.push_back({});
     std::memcpy(m_vectors.back().data(), arr, Dim * sizeof(T));
 
     if (m_vectors.size() > 1)
       CalcAverage(arr);
+  }
+
+private:
+  using Cont = std::deque<std::array<T, Dim>>;
+  using Value = typename Cont::value_type;
+
+  Cont m_vectors;
+  size_t m_count;
+
+  static T Distance(Value const & a1, Value const & a2)
+  {
+    T res = 0;
+    for (size_t i = 0; i < Dim; ++i)
+      res += std::pow(a1[i] - a2[i], 2);
+
+    return std::sqrt(res);
+  }
+
+  static void Average(Value const & a1, Value const & a2, T * res)
+  {
+    for (size_t i = 0; i < Dim; ++i)
+      res[i] = (a1[i] + a2[i]) / 2.0;
+  }
+
+  void CalcAverage(T * res) const
+  {
+    T minD = std::numeric_limits<T>::max();
+    size_t I = 0, J = 1;
+
+    size_t const count = m_vectors.size();
+    ASSERT_GREATER(count, 1, ());
+    for (size_t i = 0; i < count - 1; ++i)
+    {
+      for (size_t j = i + 1; j < count; ++j)
+      {
+        T const d = Distance(m_vectors[i], m_vectors[j]);
+        if (d < minD)
+        {
+          I = i;
+          J = j;
+          minD = d;
+        }
+      }
+    }
+
+    Average(m_vectors[I], m_vectors[J], res);
   }
 };
 
@@ -93,12 +97,7 @@ public:
 template <class T, size_t Dim>
 class LowPassVector
 {
-  typedef std::array<T, Dim> ArrayT;
-  ArrayT m_val;
-  T m_factor;
-
 public:
-  LowPassVector() : m_factor(0.15) { m_val.fill(T()); }
   void SetFactor(T t) { m_factor = t; }
 
   /// @param[in]  Next measurement.
@@ -111,5 +110,9 @@ public:
       arr[i] = m_val[i];
     }
   }
+
+private:
+  std::array<T, Dim> m_val{};
+  T m_factor = 0.15;
 };
 }  // namespace math

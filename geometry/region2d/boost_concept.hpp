@@ -14,11 +14,12 @@
 #include "3party/boost/boost/polygon/polygon.hpp"
 #endif
 
-#include "std/vector.hpp"
+#include <vector>
 
-
-namespace boost { namespace polygon {
-
+namespace boost
+{
+namespace polygon
+{
   typedef int32_t my_coord_t;
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -46,9 +47,9 @@ namespace boost { namespace polygon {
   template <>
   struct point_mutable_traits<my_point_t>
   {
-    typedef my_point_t::value_type CoordT;
+    typedef my_point_t::value_type Coord;
 
-    static inline void set(my_point_t & p, orientation_2d o, CoordT v)
+    static inline void set(my_point_t & p, orientation_2d o, Coord v)
     {
       if (o == HORIZONTAL)
         p.x = v;
@@ -56,7 +57,7 @@ namespace boost { namespace polygon {
         p.y = v;
     }
 
-    static inline my_point_t construct(CoordT x, CoordT y)
+    static inline my_point_t construct(Coord x, Coord y)
     {
       return my_point_t(x, y);
     }
@@ -76,9 +77,9 @@ namespace boost { namespace polygon {
   template <>
   struct polygon_traits<my_region_t>
   {
-    typedef my_region_t::CoordT coordinate_type;
+    typedef my_region_t::Coord coordinate_type;
     typedef my_region_t::IteratorT iterator_type;
-    typedef my_region_t::ValueT point_type;
+    typedef my_region_t::Value point_type;
 
     // Get the begin iterator
     static inline iterator_type begin_points(my_region_t const & t)
@@ -128,7 +129,7 @@ namespace boost { namespace polygon {
   ////////////////////////////////////////////////////////////////////////////////
   // Polygon set concept.
   ////////////////////////////////////////////////////////////////////////////////
-  typedef vector<my_region_t> my_region_set_t;
+  typedef std::vector<my_region_t> my_region_set_t;
 
   template <>
   struct geometry_concept<my_region_set_t>
@@ -168,7 +169,7 @@ namespace boost { namespace polygon {
       poly_set.clear();
 
       // this is kind of cheesy. I am copying the unknown input geometry
-      // into my own polygon set and then calling get to populate the vector
+      // into my own polygon set and then calling get to populate the std::vector
       polygon_set_data<my_coord_t> ps;
       ps.insert(b, e);
       ps.get(poly_set);
@@ -177,4 +178,5 @@ namespace boost { namespace polygon {
       // to iterate through each polygon at this point and do something extra
     }
   };
-}}
+}  // namespace polygon
+}  // namespace boost
