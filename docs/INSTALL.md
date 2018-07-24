@@ -136,8 +136,8 @@ easy to type.
 * Go to `omim/tools/android` and run `./set_up_android.py`. It would ask for absolute paths
 to SDK and NDK. Or specify these in command line:
 
-        --sdk /Users/yourusername/Library/Android/sdk \
-        --ndk /Users/yourusername/Library/Android/ndk
+        --sdk /Users/$(whoami)/Library/Android/sdk \
+        --ndk /Users/$(whoami)/Library/Android/ndk
 
 * Go to `omim/android` and run `./gradlew clean assembleWebRelease`.
     * There are `Release`, `Beta` and `Debug` builds.
