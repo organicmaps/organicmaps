@@ -6,6 +6,9 @@
 
 #include "base/src_point.hpp"
 
+#include <condition_variable>
+#include <mutex>
+
 namespace android
 {
 class AndroidOGLContextFactory : public dp::OGLContextFactory
@@ -20,6 +23,7 @@ public:
   dp::OGLContext * getResourcesUploadContext() override;
   bool isDrawContextCreated() const override;
   bool isUploadContextCreated() const override;
+  void waitForInitialization(dp::OGLContext * context) override;
   void setPresentAvailable(bool available) override;
 
   void SetSurface(JNIEnv * env, jobject jsurface);
@@ -53,5 +57,10 @@ private:
 
   bool m_windowSurfaceValid;
   bool m_supportedES3;
+
+  bool m_isInitialized = false;
+  size_t m_initializationCounter = 0;
+  std::condition_variable m_initializationCondition;
+  std::mutex m_initializationMutex;
 };
 }  // namespace android

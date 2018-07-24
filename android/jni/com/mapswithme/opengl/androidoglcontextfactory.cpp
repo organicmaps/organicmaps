@@ -74,6 +74,8 @@ bool IsSupportedRGB8(EGLDisplay display, bool es3)
   return eglChooseConfig(display, getConfigAttributesListRGB8(es3), configs,
                          kMaxConfigCount, &count) == EGL_TRUE && count != 0;
 }
+
+size_t constexpr kGLThreadsCount = 2;
 }  // namespace
 
 AndroidOGLContextFactory::AndroidOGLContextFactory(JNIEnv * env, jobject jsurface)
@@ -195,6 +197,10 @@ void AndroidOGLContextFactory::ResetSurface()
 
     m_windowSurfaceValid = false;
   }
+
+  std::lock_guard<std::mutex> lock(m_initializationMutex);
+  m_initializationCounter = 0;
+  m_isInitialized = false;
 }
 
 bool AndroidOGLContextFactory::IsValid() const
@@ -286,6 +292,24 @@ bool AndroidOGLContextFactory::isDrawContextCreated() const
 bool AndroidOGLContextFactory::isUploadContextCreated() const
 {
   return m_uploadContext != nullptr;
+}
+
+void AndroidOGLContextFactory::waitForInitialization(dp::OGLContext *)
+{
+  std::unique_lock<std::mutex> lock(m_initializationMutex);
+  if (m_isInitialized)
+    return;
+
+  m_initializationCounter++;
+  if (m_initializationCounter >= kGLThreadsCount)
+  {
+    m_isInitialized = true;
+    m_initializationCondition.notify_all();
+  }
+  else
+  {
+    m_initializationCondition.wait(lock, [this] { return m_isInitialized; });
+  }
 }
 
 void AndroidOGLContextFactory::setPresentAvailable(bool available)
